@@ -1,0 +1,124 @@
+#!/usr/bin/env lua
+-- -*- lua -*-
+-- $Id: joinBase64Results 505 2009-07-16 22:51:27Z mclay $ --
+------------------------------------------------------------------------
+-- Extract directory location of this command and add it
+-- to the lua search path
+------------------------------------------------------------------------
+local cmd = arg[0]
+
+local i,j = cmd:find(".*/")
+local cmd_dir = "./"
+if (i) then
+   cmd_dir = cmd:sub(1,j)
+end
+package.path = cmd_dir .. "?.lua;" .. package.path
+
+require("strict")
+require("string_split")
+require("base64")
+
+local decode64  = base64.decode64
+
+local function grab(line, b)
+   local a = {}
+   for v in line:split("'") do
+      a[#a + 1] = v
+   end
+   b[#b+1] = a[2]
+end
+
+
+function joinMT_bash(whole)
+   local a = {}
+   local b = {}
+   local state = "init"
+   local haveMT = false
+   for s in whole:split("\n") do
+      if (s:find("^_ModuleTable.*=")) then
+         if (state == "init") then
+            state = "mt"
+         end
+         grab(s, b)
+         haveMT = true
+      elseif (s:find("^export _ModuleTable") or
+              s:find("^unset _ModuleTable")) then
+         -- do nothing
+      elseif (s:find("export") or s:find("alias") or
+              s:find("^[_a-zA-Z0-9]+=") )then
+         state = "init"
+      elseif (haveMT and s:find("^===========================")) then
+         state = "init"
+         a[#a + 1] = "_ModuleTable_='" .. decode64(table.concat(b,"")) .. "';"
+         a[#a + 1] = "export _ModuleTable_;"
+         b = {}
+         haveMT = false
+      end 
+      if (state == "init") then
+         a[#a + 1] = s
+      end
+   end
+   if (haveMT) then
+      a[#a + 1] = "_ModuleTable_='" .. decode64(table.concat(b,"")) .. "';"
+      a[#a + 1] = "export _ModuleTable_;"
+      b = {}
+   end
+   return a
+end
+
+function joinMT_csh(whole)
+   local a = {}
+   local b
+   local state = "init"
+   for s in whole:split("\n") do
+      if (s:find("^setenv _ModuleTable")) then
+         if (state == "init") then
+            b = {}
+            state = "mt"
+         end
+         grab(s, b)
+      elseif (state == "init") then
+         a[#a + 1] = s
+      else
+         state     = "init"
+         a[#a + 1] = "setenv _ModuleTable_ '" .. decode64(table.concat(b,"")) .. "';"
+         a[#a + 1] = s
+      end
+   end
+   if (state == "mt") then
+      state = "init"
+      a[#a + 1] = "setenv _ModuleTable_ '" .. decode64(table.concat(b,"")) .. "';"
+      b = {}
+   end
+   return a
+end
+
+function main()
+   local resultA
+   local joinMT = joinMT_csh
+   if ( arg[1]:sub(1,1) == "-") then
+      if (arg[1] == "-bash") then
+         joinMT = joinMT_bash
+      end
+      table.remove(arg,1)
+   end
+
+   local fn = arg[1]
+   local f = io.open(fn)
+   if (f) then
+      local whole = f:read("*all")
+      f:close()
+      resultA = joinMT(whole)
+      fn = arg[2]
+      f = io.open(fn,"w")
+      for _,v in ipairs(resultA) do
+         if (v:len() > 0) then
+            f:write(v,"\n")
+         end
+      end
+      f:close()
+   end
+   
+end
+
+main()

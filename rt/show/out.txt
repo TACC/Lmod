@@ -1,0 +1,9 @@
+===========================
+step 1
+===========================
+MODULEPATH='~/w/lmod/mf/Core:~/w/lmod/mf/Compiler/intel/10.1';
+export MODULEPATH;
+MODULEPATH='~/w/lmod/mf/Core:~/w/lmod/mf/Compiler/intel/10.1';
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={active={Dict={},FN={},Loaded={},default={},fullModName={},mType={},},family={},inactive={},mpathA={"~/w/lmod/mf/Core","~/w/lmod/mf/Compiler/intel/10.1",},total={Dict={},FN={},Loaded={},default={},fullModName={},mType={},},["version"]=1,}';
+export _ModuleTable_;

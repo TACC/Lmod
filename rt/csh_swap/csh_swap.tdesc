@@ -1,0 +1,144 @@
+-- -*- lua -*-
+-- $Id: csh_swap.tdesc 684 2011-01-05 18:58:55Z mclay $ --
+inactiveTbl = { Darwin = 1, }
+local function isActive()
+   require("posix")
+   local homeDir = os.getenv("HOME")
+   local osName  = posix.uname("%s")
+   return ((not inactiveTbl[osName]) and (homeDir == "/home/mclay"))
+end
+
+testdescript = {
+   owner   = "rtm",
+   product = "modules",
+   description = [[
+	 Test initial module load
+   ]],
+   keywords = {"csh_swap" },
+
+   active = 1,
+   testName = "csh_swap",
+   job_submit_method = "INTERACTIVE", 
+
+   runScript = [[
+
+     unsetMT ()
+     {
+        unset _ModuleTable_
+        for i in `seq 1 1000`; do
+           num=`printf %03d $i`
+           eval j="\$_ModuleTable${num}_"
+           if [ -z "$j" ]; then
+              break
+           fi
+           unset _ModuleTable${num}_
+        done
+     }
+
+     unsetMT
+     PATH_to_LUA=`findcmd --pathOnly lua`
+     PATH_to_TM=`findcmd --pathOnly tm`
+
+     PATH=$(projectDir)/src:$PATH_to_LUA:$PATH_to_TM:/usr/bin:/bin
+     export PATH
+
+     _histchars="@%"
+
+cat > $(testName).csh << EOF
+#!/bin/tcsh
+     setenv PATH $PATH
+     unsetenv _ModuleTable001_
+     unsetenv INFOPATH
+     unsetenv MANPATH
+     unsetenv LMOD_EXPERT
+     unsetenv LMOD_COMPILER
+     unsetenv LD_LIBRARY_PATH
+     setenv MODULEPATH $(projectDir)/mf/Core
+     setenv MODULEPATH_ROOT $(projectDir)/mf
+     setenv LMOD_DEFAULT_MODULEPATH $MODULEPATH
+
+     echo "==========================="
+     echo "step 1"
+     echo "==========================="
+
+     echo "===========================" >  _stdout.1
+     echo "step 1"                      >> _stdout.1
+     echo "===========================" >> _stdout.1
+
+     lua $(projectDir)/src/lmod.in csh load admin PrgEnv openmpi parmetis > _stdout.2
+     eval \`cat _stdout.2\`
+
+     echo "===========================" >  _stdout.3
+     echo "step 2"                      >> _stdout.3
+     echo "===========================" >> _stdout.3
+
+     echo "==========================="
+     echo "step 2"
+     echo "==========================="
+
+     lua $(projectDir)/src/lmod.in csh unload intel > _stdout.4
+     eval \`cat _stdout.4\`
+
+     echo "===========================" >  _stdout.5
+     echo "step 3"                      >> _stdout.5
+     echo "===========================" >> _stdout.5
+
+     echo "==========================="
+     echo "step 3"
+     echo "==========================="
+
+     lua $(projectDir)/src/lmod.in csh load gcc  > _stdout.6
+     eval \`cat _stdout.6\`
+
+     echo "===========================" >  _stdout.7
+     echo "step 4"                      >> _stdout.7
+     echo "===========================" >> _stdout.7
+
+     echo "==========================="
+     echo "step 4"
+     echo "==========================="
+
+     unset histchars
+     lua $(projectDir)/src/lmod.in csh --localvar histchars="$_histchars" swap gcc  intel > _stdout.8
+     eval \`cat _stdout.8\`
+
+     cat _stdout.[1-8] > _stdout.orig
+EOF
+
+     HOME=`(cd $HOME; /bin/pwd)`
+
+     rm -f _stderr.* _stdout.* err.* out.*
+     unset SHELL_STARTUP_DEBUG
+     chmod +x $(testName).csh
+     ./$(testName).csh > err.txt 2>&1
+
+     cleanUp ()
+     {
+        sed                                        \
+            -e "s|$PATH_to_LUA|PATH_to_LUA|g"      \
+            -e "s|$PATH_to_TM|PATH_to_TM|g"        \
+            -e "s|unsetenv _ModuleTable..._;||g"   \
+            -e "s|$HOME|~|g"                       \
+            -e "/^\s*$/d"                          \
+            < $1 > $2
+     }
+
+     joinBase64Results -csh  _stdout.orig _stdout.new
+     cleanUp _stdout.new out.txt
+
+     rm -f $(cmdResultFn)
+     wrapperDiff -r $(cmdResultFn) $(testDir)/out.txt out.txt
+     wrapperDiff -r $(cmdResultFn) $(testDir)/err.txt err.txt
+     testFinish -c $(cmdResultFn) -r $(resultFn) -t $(runtimeFn)
+   ]],
+
+
+   blessScript = [[
+         # perform what is needed
+   ]],
+
+   tests = {
+      { id='t1'},
+   },
+
+}

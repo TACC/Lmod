@@ -1,0 +1,125 @@
+Exec Summary: 
+------------- 
+
+I have created yet another module system (Lmod) to handle the problem
+where we have a MODULEPATH hierarchy.  We have packages (i.e. PETSc)
+which depend on a particular MPI library which depend on a compiler.  
+Users switching compilers have to unload most modules and reload the
+new modules.  With Lmod, users can swap compilers and Lmod will reload
+any required modules.  Or users can unload a compiler some modules
+will become inactive until the MODULEPATH changes to make it possible
+to reload them.
+
+My new module system is based on Lua but is should be a drop-in-replacement.  
+Modules written in TCL are translated on the fly.
+
+I am sending this announcement to the modules.org list to see if other
+have this problem and would be interested.   The Lmod source can be
+found at http://sourceforge.net/projects/lmod
+
+Lmod has the same MIT licence that lua has.  I'll be happy to answer
+any questions.
+
+
+
+Announcement:
+------------
+
+I am announcing a new module command "Lmod" a lua based module
+system.  The first question anyone reading this would ask why would
+anyone come up with yet another version of modules and written in a
+language that not many have heard of.
+
+Well there are many reasons why but the first is that I'm not fond of
+TCL and the problem I'm trying to solve would probably require a
+complete rewrite of the module system, so starting from scratch was
+much simplier than trying to figure out either of the three current
+versions of modules (Modules 3.+, TCL Modules, C-Modules).
+
+
+The Problem:
+------------
+
+Here at TACC (the Texas Advanced Computing Center) we have large
+Parallel Computer Systems.  On our newest system we support several
+compilers (pgi, intel, ...)  and different MPI Libraries (Mvapich 1,
+2, Openmpi, ...) and libraries that depend on the compiler and Mpi
+library such as PETSc.  So a user chooses a compiler, an MPI library,
+and packages such as PETSc.
+
+To handle this, the compiler module adds to the MODULEPATH which points
+to the possible MPI libraries.  Each MPI module then adds to the
+MODULEPATH for modules that are available for that compiler and mpi
+choice.
+
+We have been using Modules 3.+ and to change compilers a user would
+have to unload say PETSc, the mpi library and the compiler then
+load the compiler, mpi library, etc.
+
+Clearly the current version of the module command makes this more
+complicated than it needs to be. 
+
+
+My Solution:
+------------
+
+The module command knows all the modules loaded and where the module
+file is located.  My new module command (Lmod) watches when the
+environment variable MODULEPATH changes.   If MODULEPATH changes then
+all modules are checked to see if module and module file still match.
+Any that do not have the old module unloaded and the same named module
+in the new location loaded.
+
+If a user has loaded a compiler and mpi library, then unloads the
+compiler, the mpi library module will not be found.  In this case the
+mpi module is marked as inactive.  Any subsequent module commands that
+load a compiler or any module that changes the MODULEPATH will force
+"Lmod" to try an reload any inactive modules.
+
+Why Lua?
+--------
+
+Lua is a language that was originally designed to fill the same niche
+as TCL.  Namely it is designed to use as a library that programs can
+use to use it as a configuration language.  It is from the Pontifical
+Catholic University of Rio de Janeiro in Brazil.  The name Lua is
+Portuguese for Moon.  Lua is small, fast, portable scripting language.
+Its main data structure are hash tables which are extended to support
+many things including Object-Oriented Programming.  It is similar to
+Python but is much smaller and easier to both embed and extend.  It is
+now used in many application.  It is quite popular in the Computer
+Gaming industry where games such as World of Warcraft use lua to drive
+their game engine.  See www.lua.org for more information.
+
+One of the useful features of Lua is that functions are first class
+objects.  That means that function can be handled like variables,
+copied and renamed.   This is a huge advantage when dealing with the
+the "load" function inside a module.  
+
+When loading a module, the "load" function equals the "Load" function
+which evaluate and sets the environment variables.  When unloading, the
+"load" function equals the "UnLoad" function which does the reverse.
+All the other function such as setenv, prepend_path are handled
+similarly. This simplied the design as each the functions only has to
+handle one operation.
+
+
+TCL Modules
+-----------
+
+Obviously, Lmod natively use lua to write each module. However, since
+rewriting all the module we have is a big task, Lmod supports reading
+TCL based modules.  If a module has a .lua extension then it is
+evaluated by Lmod directly.  All others are assumed to be written in
+TCL.  A TCL module is evaluated by a small TCL program which prints
+out lua command replacements for the TCL ones.  This output is
+captured by Lmod and evaluated.  This works so quickly that we are not
+in a rush to replace all TCL modules with lua ones.
+
+
+Current Difference between Lmod and Modules 3+:
+-----------------------------------------------
+
+The output of Lmod is compatible with use under Zsh, Bash and Tcsh,
+and csh. It currently doesn't support all the other choices but these
+could be added if there is interest.

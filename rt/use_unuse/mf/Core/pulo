@@ -1,0 +1,17 @@
+#%Module1.0#####################################################################
+set mproot           "MODULEPATH_ROOT"
+set modulepath_root  $env($mproot)
+set moduleshome     "$modulepath_root/Core"
+set pulo            "$modulepath_root/Pulo"
+
+if [ module-info mode load ] {
+        module use $pulo
+        module unuse $moduleshome
+} elseif [ module-info mode remove ] {
+        module use $moduleshome
+        module unuse $pulo
+}
+
+# ;;; Local Variables: ***
+# ;;; mode:tcl ***
+# ;;; End: ***

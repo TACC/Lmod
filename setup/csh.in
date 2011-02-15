@@ -1,0 +1,36 @@
+#!/bin/csh
+# -- $Id: csh.in 636 2010-12-14 02:52:07Z mclay $ --
+if ($?tcsh) then
+  set modules_shell="tcsh"
+else
+  set modules_shell="csh"
+endif
+
+set LMOD_CMD="@PKG@/libexec/lmod"
+
+set prefix  = ""
+set midfix  = ""
+set postfix = ""
+
+set histchar = \!
+if ( $?histchars) then
+  set histchar   = `echo $histchars | cut -c1`
+  if ( "$histchar" != '\!' ) then
+    set _histchars = $histchars
+    set prefix  = 'set _histchars = $histchars; unset histchars;'
+    set midfix  = '--localvar histchars=$_histchars'
+    set postfix = 'set histchars = $_histchars'
+  endif
+endif
+
+alias module $prefix'eval `'$LMOD_CMD' '$modules_shell $midfix $histchar'*`; '$postfix
+
+unset prefix
+unset midfix
+unset postfix
+unset histchar
+
+# Local Variables:
+# mode: shell-script
+# end:
+

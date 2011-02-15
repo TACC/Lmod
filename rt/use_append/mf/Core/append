@@ -1,0 +1,20 @@
+#%Module#####################################################################
+#  Test of Use --append
+#
+#############################################################################
+global env
+proc ModulesHelp { } {
+puts stderr "Dummy test module"
+}
+
+
+set mproot           "MODULEPATH_ROOT"
+set modulepath_root  $env($mproot)
+set mdir            "$modulepath_root/Append"
+set mdir2           "$modulepath_root/Append2"
+
+module use --append $mdir $mdir2
+
+# ;;; Local Variables: ***
+# ;;; mode:tcl ***
+# ;;; End: ***

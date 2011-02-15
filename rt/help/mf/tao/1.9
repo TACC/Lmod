@@ -1,0 +1,46 @@
+#%Module1.0##################################################################
+#
+# This module file sets up the environment variables and path for the
+# tao distribution.
+#
+#############################################################################
+
+proc ModulesHelp { } {
+puts stderr "The TAO modulefile defines the following environment variables:"
+puts stderr "TACC_TAO_DIR, TACC_TAO_LIB, and TACC_TAO_INC "
+puts stderr "for the location of the TAO 1.9 distribution, "
+puts stderr "libraries, and include files.\n"
+
+puts stderr ""
+puts stderr "Usage:"
+puts stderr "\tinclude \$\(TACC_TAO_DIR\)/bmake/tao_common"
+puts stderr "in your makefile, then compile"
+puts stderr "\t\$(CC) -c yourfile.c \$(TAO_INCLUDE)"
+puts stderr "and link with"
+puts stderr "\t\$(CLINKER) -o yourprog yourfile.o \$\(TAO_LIB\)"
+puts stderr ""
+puts stderr "\nVersion 1.9"
+}
+
+module-whatis "Name: Tao"
+module-whatis "Version: 2.3.3"
+module-whatis "Category: library, mathematics"
+module-whatis "URL: ttp://www-unix.mcs.anl.gov/tao/"
+module-whatis "Description: Package for numerical optimization"
+
+#
+# Create environment variables.
+#
+
+set             tao_dir        /opt/apps/intel10/mvapich1/tao/1.9
+
+setenv          TAO_DIR             $tao_dir
+setenv          TACC_TAO_DIR        $tao_dir
+setenv          TACC_TAO_LIB        $tao_dir/lib/em64t-cxx
+setenv          TACC_TAO_INC        $tao_dir/include
+setenv          TAO_VERSION         1.9
+setenv          TACC_TAO_VERSION    1.9
+
+# required other modules
+module unload petsc
+module load petsc/2.3.3-cxx

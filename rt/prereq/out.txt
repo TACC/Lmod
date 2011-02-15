@@ -1,0 +1,45 @@
+===========================
+step 1
+===========================
+MODULEPATH='~/w/lmod/rt/prereq/mf';
+export MODULEPATH;
+MODULEPATH='~/w/lmod/rt/prereq/mf';
+export MODULEPATH;
+PETSC_DIR='foo';
+export PETSC_DIR;
+_ModuleTable_='_ModuleTable_={active={Dict={["petsc"]=1,},FN={"~/w/lmod/rt/prereq/mf/petsc/3.0.0",},Loaded={"petsc",},default={1,},fullModName={"petsc/3.0.0",},mType={"w",},},family={},inactive={},mpathA={"~/w/lmod/rt/prereq/mf",},total={Dict={["petsc"]=1,},FN={"~/w/lmod/rt/prereq/mf/petsc/3.0.0",},Loaded={"petsc",},default={1,},fullModName={"petsc/3.0.0",},mType={"w",},},["version"]=1,}';
+export _ModuleTable_;
+===========================
+step 2
+===========================
+MODULEPATH='~/w/lmod/rt/prereq/mf';
+export MODULEPATH;
+MODULEPATH='~/w/lmod/rt/prereq/mf';
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={active={Dict={["petsc"]=1,["slepc"]=2,},FN={"~/w/lmod/rt/prereq/mf/petsc/3.0.0","~/w/lmod/rt/prereq/mf/slepc/3.0.0",},Loaded={"petsc","slepc",},default={1,1,},fullModName={"petsc/3.0.0","slepc/3.0.0",},mType={"w","w",},},family={},inactive={},mpathA={"~/w/lmod/rt/prereq/mf",},total={Dict={["petsc"]=1,["slepc"]=2,},FN={"~/w/lmod/rt/prereq/mf/petsc/3.0.0","~/w/lmod/rt/prereq/mf/slepc/3.0.0",},Loaded={"petsc","slepc",},default={1,1,},fullModName={"petsc/3.0.0","slepc/3.0.0",},mType={"w","w",},},["version"]=1,}';
+export _ModuleTable_;
+===========================
+step 3
+===========================
+MODULEPATH='~/w/lmod/rt/prereq/mf';
+export MODULEPATH;
+MODULEPATH='~/w/lmod/rt/prereq/mf';
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={active={Dict={["petsc"]=1,},FN={"~/w/lmod/rt/prereq/mf/petsc/3.0.0",},Loaded={"petsc",},default={1,},fullModName={"petsc/3.0.0",},mType={"w",},},family={},inactive={},mpathA={"~/w/lmod/rt/prereq/mf",},total={Dict={["petsc"]=1,},FN={"~/w/lmod/rt/prereq/mf/petsc/3.0.0",},Loaded={"petsc",},default={1,},fullModName={"petsc/3.0.0",},mType={"w",},},["version"]=1,}';
+export _ModuleTable_;
+===========================
+step 4
+===========================
+MODULEPATH='~/w/lmod/rt/prereq/mf';
+export MODULEPATH;
+MODULEPATH='~/w/lmod/rt/prereq/mf';
+export MODULEPATH;
+unset 'PETSC_DIR';
+_ModuleTable_='_ModuleTable_={active={Dict={},FN={},Loaded={},default={},fullModName={},mType={},},family={},inactive={},mpathA={"~/w/lmod/rt/prereq/mf",},total={Dict={},FN={},Loaded={},default={},fullModName={},mType={},},["version"]=1,}';
+export _ModuleTable_;
+===========================
+step 5
+===========================
+MODULEPATH='~/w/lmod/rt/prereq/mf';
+export MODULEPATH;
+false

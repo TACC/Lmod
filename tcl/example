@@ -1,0 +1,12 @@
+prepend-path PATH /usr/local/bin
+setenv       XYZ  foo
+module       load a b c
+
+proc ModulesHelp { } {
+        puts stderr "\tGCC Compilers\n"
+        puts stderr "\tThis module loads GCC Compiler variables."
+        puts stderr "\t{ The command directory is added to PATH.             }"
+        puts stderr "\t{ The library directory is added to LD_LIBRARY_PATH.  }"
+        puts stderr "\t{ The include directory is added to INCLUDE.          }"
+        puts stderr "\t{ The man     directory is added to MANPATH.          }"
+}

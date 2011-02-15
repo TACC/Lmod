@@ -1,0 +1,39 @@
+#!/bin/csh
+# -*- shell-script -*-
+########################################################################
+#  This is the system wide source file for setting up
+#  modules:
+#
+#  $Id: cshrc.in 690 2011-01-19 20:36:14Z mclay $
+#  $Date: 2011-01-19 14:36:14 -0600 (Wed, 19 Jan 2011) $
+########################################################################
+
+########################################################################
+# The PATH variable must include the "lua" program
+########################################################################
+
+set MY_NAME="@PKG@/init/cshrc"
+
+
+if ( -f  @PKG@/init/csh  ) then
+  source @PKG@/init/csh
+endif
+
+if ( ! $?MODULEPATH_ROOT ) then
+    if ( $?USER) then
+        setenv USER $LOGNAME
+    endif
+    
+    set UNAME = `uname`
+    setenv LMOD_sys    $UNAME
+
+    setenv LMOD_arch   `uname -m`
+    if ( "x$UNAME" == xAIX ) then
+        setenv LMOD_arch   rs6k
+    endif
+
+    setenv PATH @path_to_lua@:$PATH
+    setenv MODULEPATH_ROOT "@PREFIX@/modulefiles"
+    setenv MODULEPATH `@PKG@/libexec/addto --append MODULEPATH $MODULEPATH_ROOT/$LMOD_sys $MODULEPATH_ROOT/Core`
+    setenv LMOD_DEFAULT_MODULEPATH $MODULEPATH
+endif

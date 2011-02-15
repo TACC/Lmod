@@ -1,0 +1,56 @@
+===========================
+step 1
+===========================
+MODULEPATH='~/w/lmod/mf/TACC';
+export MODULEPATH;
+APPS='/opt/apps';
+export APPS;
+GLOBUS_HOSTNAME='ranger.tacc.utexas.edu';
+export GLOBUS_HOSTNAME;
+GLOBUS_LOCATION='/share/apps/teragrid/globus-4.0.7-r1';
+export GLOBUS_LOCATION;
+GLOBUS_PATH='/share/apps/teragrid/globus-4.0.7-r1';
+export GLOBUS_PATH;
+GLOBUS_TCP_PORT_RANGE='50000,51000';
+export GLOBUS_TCP_PORT_RANGE;
+GPT_LOCATION='/share/apps/teragrid/globus-4.0.7-r1';
+export GPT_LOCATION;
+INFOPATH='/opt/apps/pgi7_1/mvapich/1.0/doc';
+export INFOPATH;
+LD_LIBRARY_PATH='/share/apps/teragrid/globus-4.0.7-r1/myproxy-3.4/lib:/share/apps/teragrid/globus-4.0.7-r1/lib:/opt/apps/pgi7_1/mvapich/1.0/lib:/opt/apps/pgi7_1/mvapich/1.0/lib/shared:/opt/apps/pgi/7.1/linux86-64/7.1-2/libso';
+export LD_LIBRARY_PATH;
+LIBPATH='/share/apps/teragrid/globus-4.0.7-r1/myproxy-3.4/lib:/share/apps/teragrid/globus-4.0.7-r1/lib';
+export LIBPATH;
+LMOD_FAMILY_COMPILER='pgi';
+export LMOD_FAMILY_COMPILER;
+MANPATH='/share/apps/teragrid/globus-4.0.7-r1/myproxy-3.4/man:/share/apps/teragrid/globus-4.0.7-r1/man:/opt/apps/pgi7_1/mvapich/1.0/man:/opt/apps/pgi/7.1/linux86-64/7.1-2/man:/usr/man:/usr/kerberos/man:/opt/rocks/man:/opt/ganglia/man:/usr/X11R6/man:/usr/share/man:/usr/local/man:/opt/apps/pki_apps/man';
+export MANPATH;
+MODULEPATH='~/w/lmod/mf/TACC_COMPILER/pgi/7.1:~/w/lmod/mf/TACC';
+export MODULEPATH;
+MPICH_HOME='/opt/apps/pgi7_1/mvapich/1.0';
+export MPICH_HOME;
+MYPROXY_SERVER='myproxy.teragrid.org';
+export MYPROXY_SERVER;
+PATH='/share/apps/teragrid/globus-4.0.7-r1/myproxy-3.4/bin:/share/apps/teragrid/globus-4.0.7-r1/bin:/share/apps/teragrid/globus-4.0.7-r1/sbin:/opt/apps/pgi7_1/mvapich/1.0/bin:/opt/apps/pgi/7.1/linux86-64/7.1-2/bin:/usr/local/first:~/w/lmod/src:PATH_to_LUA:PATH_to_TM:/usr/bin:/bin:/usr/local/bin:/share/sge/default/pe_scripts:~/bin:.:/opt/apps/pki_apps';
+export PATH;
+PGI='/opt/apps/pgi/7.1';
+export PGI;
+PURGE='168';
+export PURGE;
+RSHCOMMAND='/share/apps/teragrid/globus-4.0.7-r1/bin/ssh';
+export RSHCOMMAND;
+SASL_PATH='/share/apps/teragrid/globus-4.0.7-r1/sasl';
+export SASL_PATH;
+SHLIB_PATH='/share/apps/teragrid/globus-4.0.7-r1/myproxy-3.4/lib:/share/apps/teragrid/globus-4.0.7-r1/lib';
+export SHLIB_PATH;
+TACC_FAMILY_COMPILER='pgi';
+export TACC_FAMILY_COMPILER;
+_ModuleTable_='_ModuleTable_={active={Dict={["TACC"]=5,["cluster"]=4,["globus"]=3,["mvapich1"]=2,["pgi"]=1,},FN={"~/w/lmod/mf/TACC/pgi/7.1","~/w/lmod/mf/TACC_COMPILER/pgi/7.1/mvapich1/1.0","~/w/lmod/mf/TACC/globus/4.0.7","~/w/lmod/mf/TACC/cluster","~/w/lmod/mf/TACC/TACC",},Loaded={"pgi","mvapich1","globus","cluster","TACC",},default={1,1,1,0,0,},fullModName={"pgi/7.1","mvapich1/1.0","globus/4.0.7","cluster","TACC",},mType={"w","w","w","mw","mw",},},family={["compiler"]="pgi",},inactive={},mpathA={"~/w/lmod/mf/TACC_COMPILER/pgi/7.1","~/w/lmod/mf/TACC",},total={Dict={["TACC"]=5,["cluster"]=4,["globus"]=3,["mvapich1"]=2,["pgi"]=1,},FN={"~/w/lmod/mf/TACC/pgi/7.1","~/w/lmod/mf/TACC_COMPILER/pgi/7.1/mvapich1/1.0","~/w/lmod/mf/TACC/globus/4.0.7","~/w/lmod/mf/TACC/cluster","~/w/lmod/mf/TACC/TACC",},Loaded={"pgi","mvapich1","globus","cluster","TACC",},default={1,1,1,0,0,},fullModName={"pgi/7.1","mvapich1/1.0","globus/4.0.7","cluster","TACC",},mType={"w","w","w","mw","mw",},},["version"]=1,}';
+export _ModuleTable_;
+===========================
+step 2
+===========================
+MODULEPATH='~/w/lmod/mf/TACC_COMPILER/pgi/7.1:~/w/lmod/mf/TACC';
+export MODULEPATH;
+MODULEPATH='~/w/lmod/mf/TACC_COMPILER/pgi/7.1:~/w/lmod/mf/TACC';
+export MODULEPATH;

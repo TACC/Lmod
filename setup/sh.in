@@ -1,0 +1,10 @@
+#!/bin/bash
+# -*- shell-script -*-
+# -- $Id: sh.in 642 2010-12-31 17:32:33Z mclay $ --
+
+LMOD_CMD=@PKG@/libexec/lmod
+export LMOD_CMD
+module()
+{
+  eval `$LMOD_CMD bash $*`
+}

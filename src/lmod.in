@@ -1,0 +1,1262 @@
+#!@path_to_lua@/lua
+-- -*- lua -*-
+-- $Id: lmod 541 2009-08-25 15:48:45Z mclay $ --
+
+ModulePath    = "MODULEPATH"
+DfltModPath   = "LMOD_DEFAULT_MODULEPATH"
+LMODdir       = ".lmod.d"
+varTbl        = {}
+SearchString  = nil
+
+defaultMpathA = {}
+adminT        = {}
+LoadTbl       = {}
+UnLoadTbl     = {}
+UnLoadCount   = 0
+_MyFileName   = ""
+------------------------------------------------------------------------
+-- Extract directory location of "lmod" command and add it
+-- to the lua search path
+------------------------------------------------------------------------
+local cmd = arg[0]
+
+local i,j = cmd:find(".*/")
+local cmd_dir = "./"
+if (i) then
+   cmd_dir = cmd:sub(1,j)
+end
+package.path = cmd_dir .. "?.lua;" .. package.path
+capture = nil
+local getenv = os.getenv
+local rep    = string.rep
+
+require("strict")
+require("Dbg")
+require("capture")
+require("firstInPath")
+
+Usage = [[
+module sub-command [args ...]
+
+  Available sub-commands:
+     add|load      modulefile [...]        Add module(s)
+     try-add       modulefile [...]        Add, do not complain if not found
+     del|rm|unload modulefile [...]        Remove module(s)
+     try-rm        modulefile [...]        Remove module(s), do not complain
+                                           if not found
+     help          modulefile [...]        print help message from module(s)
+     swap          modfile1 modfile2       unload modfile1 and load modfile2
+     list                                  List loaded modules
+
+     avail|av                              List available modules
+     avail|av      string                  List available modules that contain
+                                           "string".
+
+     spider                                List all possible modules
+     spider        modulefile              List all possible version of that
+                                           module file
+     spider        string                  List all module that contain the
+                                           string.  Simple regular expression
+                                           supported: "[Mm]pi"
+     spider        modulefile/version      Detailed information about that
+                                           version of the module
+
+     purge                                 unload all modules
+     use [-a] [--append] path              Prepend or Append path to MODULEPATH
+     unuse path                            remove path from MODULEPATH
+
+     whatis        modulefile              print whatis information about module
+     keyword|key   string                  search all name and whatis that contain
+                                           "string". Simple regular expression
+                                           supported: "^p"
+]]
+
+local concatTbl = table.concat
+
+function cmdDir()
+   return cmd_dir
+end
+
+function version()
+   local v = {}
+   v[#v + 1] = "\nModules based on Lua: Version " .. Version.name().."\n"
+   v[#v + 1] = "    by Robert McLay mclay@tacc.utexas.edu\n\n"
+   return concatTbl(v,"")
+end
+
+function LmodError(...)
+   io.stderr:write("\nError: ")
+   for _,v in ipairs{...} do
+      io.stderr:write(v)
+   end
+   io.stderr:write("\n")
+   io.stdout:write("false\n")
+   os.exit(1)
+end
+
+local __expert = false
+
+function expert()
+   if (__expert == false) then
+      __expert = getenv("LMOD_EXPERT")
+   end
+   return __expert
+end
+
+
+require("border")
+require("lfs")
+require("BaseShell")
+require("ColumnTable")
+require("Options")
+require("serialize")
+require("fileOps")
+require("ModuleStack")
+require("string_split")
+require("BeautifulTbl")
+require("Spider")
+
+function myFileName()
+   return _MyFileName
+end
+
+function hierarchyA(package, levels)
+   local n = myFileName():gsub("%.lua$","")
+
+   -- Remove package from end of string by using the
+   -- "plain" matching via string.find function
+   package = package:gsub("%.lua$","")
+   local i,j = n:find(package,1,true)
+   if (j == n:len()) then
+      n = n:sub(1,i-1)
+   end
+
+   -- remove any leading or trailing '/'
+   n       = n:gsub("^/","")
+   n       = n:gsub("/$","")
+   local a = {}
+
+   for dir in n:split("/") do
+      a[#a + 1] = dir
+   end
+
+   local b = {}
+   local j = #a
+
+   for i = 1, levels do
+      b[#b + 1 ] = pathJoin(a[j-1],a[j])
+      j = j - 2
+   end
+
+   return b
+end
+
+local function regularize(v)
+   v = v:gsub("^%s*","")
+   v = v:gsub("%s*$","")
+   return v
+end
+
+function readAdmin()
+
+   -- If there is anything in [[adminT]] then return because
+   -- this routine has already read in the file.
+   if (next (adminT)) then return end
+
+   local adminFn = pathJoin(cmdDir(),"../../etc/admin.list")
+   local f       = io.open(adminFn)
+
+   -- Put something in adminT so that this routine will not be
+   -- run again even if the file does not exist.
+   adminT["foo"] = "bar"
+
+   if (f) then
+      local whole = f:read("*all") .. "\n"
+      f:close()
+
+
+      -- Parse file: ignore "#" comment lines and blank lines
+      -- Split lines on ":" module:message
+
+      local state = "init"
+      local key   = "unknown"
+      local value = nil
+      local a     = {}
+
+      for v in whole:split("\n") do
+
+         if (v:sub(1,1) == "#") then
+            -- ignore this comment line
+
+
+         elseif (v:find("^%s*$")) then
+            if (state == "value") then
+               value       = concatTbl(a, " ")
+               a           = {}
+               adminT[key] = value
+               state       = "init"
+            end
+
+            -- Ignore blank lines
+         elseif (state == "value") then
+            a[#a+1]     = regularize(v)
+         else
+            local i     = v:find(":")
+            if (i) then
+               key      = regularize(v:sub(1,i-1))
+               local  s = regularize(v:sub(i+1))
+               if (s:len() > 0) then
+                  a[#a+1]  = s
+               end
+               state    = "value"
+            end
+         end
+      end
+   end
+end
+
+function prtErr(...)
+   io.stderr:write(...)
+end
+
+function None()
+   print ("None")
+end
+
+local function ModulesHelp(...)
+   io.stderr:write(...)
+   io.stderr:write("\n")
+end
+
+local function Avail(...)
+   local master = Master:master()
+   local a = {}
+   for _,v in ipairs{...} do
+      a[#a + 1] = v
+   end
+   master.avail(a)
+end
+
+local function Update()
+   local master = Master:master()
+   master:reloadAll()
+end
+
+local function List()
+   local mt = MT:mt()
+
+   local totalA = mt:listTotal()
+   if (#totalA < 1) then
+      local dbg = Dbg:dbg()
+      dbg.warning("No modules installed\n")
+      return
+   end
+
+   io.stderr:write("Currently Loaded Modules:\n")
+
+   local t = {}
+   local activeA = mt:listActive()
+   for i,v  in ipairs(activeA) do
+      local ww, w = mt:modFullNameActive(v)
+      t[#t + 1]	= "  " .. i .. ") " .. w
+   end
+
+   local ct = ColumnTable:new{tbl=t,prt=prtErr}
+   ct:print_tbl()
+
+   local t = {}
+   local i = 0
+   for _,v in ipairs(totalA) do
+      if (not mt:haveModuleAnyActive(v)) then
+         local w = mt:modFullNameTotal(v)
+         i = i + 1
+         t[#t + 1] = "  " .. i .. ") " .. w
+      end
+   end
+
+   if (#t > 0) then
+      io.stderr:write("Inactive Modules:\n")
+      ct = ColumnTable:new{tbl=t,prt=prtErr}
+      ct:print_tbl()
+   end
+end
+
+function Purge()
+   local master = Master:master()
+   local mt     = MT:mt()
+   local dbg    = Dbg:dbg()
+
+   local totalA  = mt:listTotal()
+
+   if (#totalA < 1) then
+      return
+   end
+
+   local a = {}
+   for _,v in ipairs(totalA) do
+      a[#a + 1] = v
+   end
+   dbg.start("Purge(",concatTbl(a,", "),")")
+
+   UnLoad(unpack(a))
+   dbg.fini()
+end
+
+local function ShowCmd(name,...)
+   local a = {}
+   for _,v in ipairs{...} do
+      a[#a + 1] = "\"".. v .."\""
+   end
+   io.stderr:write(name,"(",concatTbl(a,", "),")\n")
+end
+
+local function Show_use(value)
+   ShowCmd("use", value)
+end
+
+local function Show_whatis(value)
+   ShowCmd("whatis", value)
+end
+
+local function Show_help(value)
+   ShowCmd("help", value)
+end
+
+local function Show_unuse(value)
+   ShowCmd("unuse", value)
+end
+
+local function Show_prepend_path(name,value)
+   ShowCmd("prepend_path", name, value)
+end
+
+local function Show_set_alias(name,value)
+   ShowCmd("set_alias", name, value)
+end
+
+local function Show_unset_alias(name)
+   ShowCmd("unset_alias",name)
+end
+
+local function Show_append_path(name,value)
+   ShowCmd("append_path", name, value)
+end
+
+local function Show_set(name,value)
+   ShowCmd("setenv", name, value)
+end
+
+local function Show_unset(name,value)
+   ShowCmd("unsetenv", name, value)
+end
+
+local function Show_remove_path(name,value)
+   ShowCmd("remove_path", name, value)
+end
+
+local function Show_load(...)
+   ShowCmd("load",...)
+end
+
+local function Show_family(...)
+   ShowCmd("family",...)
+end
+
+local function Show_unload(...)
+   ShowCmd("unload",...)
+end
+
+local function Show_prereq(...)
+   ShowCmd("prereq",...)
+end
+
+local function Show_conflict(...)
+   ShowCmd("conflict",...)
+end
+
+local function Prepend_path(name,value)
+   local mStack = ModuleStack:moduleStack()
+
+   if (varTbl[name] == nil) then
+      varTbl[name] = Var:new(name)
+   end
+
+   Dbg:dbg().print("Prepend_path(\"",name,"\", \"",value,"\")\n")
+   varTbl[name]:prepend(value)
+   mStack:setting()
+end
+
+local function Append_path(name,value)
+   local mStack = ModuleStack:moduleStack()
+
+   if (varTbl[name] == nil) then
+      varTbl[name] = Var:new(name)
+   end
+   Dbg:dbg().print("Append_path(\"",name,"\", \"",value,"\")\n")
+   varTbl[name]:append(value)
+   mStack:setting()
+end
+
+function Set(name,value)
+   local mStack = ModuleStack:moduleStack()
+
+   if (varTbl[name] == nil) then
+      varTbl[name] = Var:new(name)
+   end
+   Dbg:dbg().print("Set(\"",name,"\", \"",value,"\")\n")
+   varTbl[name]:set(value)
+   mStack:setting()
+end
+
+function Unset(name, value)
+   local mStack = ModuleStack:moduleStack()
+
+   if (varTbl[name] == nil) then
+      varTbl[name] = Var:new(name)
+   end
+   Dbg:dbg().print("Unset(\"",name,"\")\n")
+   varTbl[name]:unset()
+   mStack:setting()
+end
+
+local function SetAlias(name,value)
+   local mStack = ModuleStack:moduleStack()
+
+   if (varTbl[name] == nil) then
+      varTbl[name] = Var:new(name)
+   end
+   Dbg:dbg().print("SetAlias(\"",name,"\", \"",value,"\")\n")
+   varTbl[name]:setAlias(value)
+   mStack:setting()
+end
+
+local function UnSetAlias(name,value)
+   local mStack = ModuleStack:moduleStack()
+
+   if (varTbl[name] == nil) then
+      varTbl[name] = Var:new(name)
+   end
+   Dbg:dbg().print("UnSetAlias(\"",name,"\", \"",value,"\")\n")
+   varTbl[name]:unsetAlias(value)
+   mStack:setting()
+end
+
+local function Remove_path(name,value)
+   local mStack = ModuleStack:moduleStack()
+   mStack:setting()
+
+   if (varTbl[name] == nil) then
+      varTbl[name] = Var:new(name)
+   end
+   Dbg:dbg().print("Remove_path(\"",name,"\", \"",value,"\")\n")
+   varTbl[name]:remove(value)
+end
+
+local function BadUnset(name,value)
+   Dbg:dbg().warning("Refusing unsetenv variable while unloading: \"",name,"\"\n")
+end
+
+local function BadRemove_path(name,value)
+   Dbg:dbg().warning("Refusing remove a path element variable while unloading: \"",name,"\"\n")
+end
+
+local function BadUnSetAlias(name)
+   Dbg:dbg().warning("Refusing unset an alias while unloading: \"",name,"\"\n")
+end
+
+local function localvar(localvarA)
+   local dbg = Dbg:dbg()
+   for _, v in ipairs(localvarA) do
+      local i = v:find("=")
+      if (i) then
+         local k  = v:sub(1,i-1)
+         if (varTbl[k] == nil) then
+            varTbl[k] = Var:new(k)
+         end
+         local vv = v:sub(i+1)
+         dbg.print("setLocal(\"",k,"\", \"",vv,"\")\n")
+         varTbl[k]:setLocal(vv)
+      end
+   end
+end
+
+local function Prereq(...)
+   local dbg    = Dbg:dbg()
+   local mt  = MT:mt()
+   local a   = {}
+
+   dbg.start("Prereq(",concatTbl({...},", "),")")
+
+   for _,v in ipairs{...} do
+      if (not mt:haveModuleActive(v)) then
+         a[#a+1] = v
+      end
+   end
+   dbg.print("number found: ",#a,"\n")
+   if (#a > 0) then
+      local s = concatTbl(a," ")
+      LmodError("Can not load module without these modules loaded:\n  ",
+            s,"\n")
+   end
+   dbg.fini()
+end
+
+local function Conflict(...)
+   local mt  = MT:mt()
+   local a   = {}
+   for _,v in ipairs{...} do
+      if (mt:haveModuleActive(v)) then
+         a[#a+1] = v
+      end
+   end
+   if (#a > 0) then
+      local s = concatTbl(a," ")
+      LmodError("Can not load module because these modules are loaded:\n  ",
+            s,"\n")
+   end
+end
+
+local function SetFamily(name)
+   local dbg    = Dbg:dbg()
+   local mt     = MT:mt()
+   local mStack = ModuleStack:moduleStack()
+   local mName  = mStack:moduleName()
+
+   dbg.start("SetFamily(",name,")")
+   dbg.print("mt:setfamily(\"",name,"\",\"",mName,"\")\n")
+   local oldName = mt:setfamily(name,mName)
+   if (oldName ~= nil and oldName ~= mName and not expert() ) then
+      LmodError("You can only have one ",name," module loaded at time.\n",
+                "You already have ", oldName," loaded.\n",
+                "To correct the situation, please enter the following command:\n\n",
+                "  module swap ",oldName, " ", mName,"\n\n",
+                "Please submit a consulting ticket if you require additional assistance.\n")
+   end
+   dbg.fini()
+
+end
+
+local function UnsetFamily(name)
+   local dbg    = Dbg:dbg()
+   local mt     = MT:mt()
+
+   dbg.start("UnsetFamily(",name,")")
+   dbg.print("mt:unsetfamily(\"",name,"\")\n")
+   mt:unsetfamily(name)
+   dbg.fini()
+end
+
+family       = None
+load	     = None
+unload	     = None
+unloadsys    = None
+add	     = None
+rm	     = None
+
+use          = None
+unuse        = None
+help         = None
+whatis       = None
+setenv	     = None
+unsetenv     = None
+prepend_path = None
+append_path  = None
+remove_path  = None
+prtHdr       = None
+set_alias    = None
+unset_alias  = None
+prereq       = None
+conflict     = None
+
+avail        = Avail
+list         = List
+
+ModuleName = ""
+ModuleFn   = ""
+
+function Use(...)
+   local dbg = Dbg:dbg()
+   local mt  = MT:mt()
+   local a = {}
+   local op = Prepend_path
+   dbg.start("use(", concatTbl({...},", "),")")
+
+   for _,v in ipairs{...} do
+      local w = v:lower()
+      if (w == "-a" or w == "--append" ) then
+         op = Append_path
+      else
+         a[#a + 1] = v
+      end
+   end
+   for _,v in ipairs(a) do
+      v = abspath(v)
+      op(ModulePath, v)
+      op(DfltModPath, v)
+   end
+   mt:reloadAllModules()
+   dbg.fini()
+end
+
+function UnUse(...)
+   local dbg = Dbg:dbg()
+   local mt  = MT:mt()
+   dbg.start("unuse(", concatTbl({...},", "),")")
+   for _,v in ipairs{...} do
+      Remove_path( ModulePath,v)
+      Remove_path( DfltModPath,v)
+   end
+   mt:reloadAllModules()
+   dbg.fini()
+end
+
+function Show(...)
+   local dbg    = Dbg:dbg()
+   local master = Master:master()
+   setenv	= Show_set
+   unsetenv	= Show_unset
+   prepend_path	= Show_prepend_path
+   set_alias	= Show_set_alias
+   unset_alias	= Show_unset_alias
+   append_path	= Show_append_path
+   remove_path	= Show_remove_path
+   load  	= Show_load
+   unload  	= Show_unload
+   prereq       = Show_prereq
+   conflict     = Show_conflict
+   family       = Show_family
+   help         = Show_help
+   whatis       = Show_whatis
+   prtHdr       = function()
+                     io.stderr:write("------------------------------------------------------------\n")
+                     io.stderr:write("   ",ModuleFn,":\n")
+                     io.stderr:write("------------------------------------------------------------\n")
+                  end
+
+   master:access(...)
+
+end
+
+function Access(...)
+   local dbg    = Dbg:dbg()
+   local master = Master:master()
+   load 	= dbg.quiet
+   unload 	= dbg.quiet
+   setenv	= dbg.quiet
+   unsetenv	= dbg.quiet
+   prepend_path	= dbg.quiet
+   append_path	= dbg.quiet
+   remove_path	= dbg.quiet
+   set_alias	= dbg.quiet
+   unset_alias	= dbg.quiet
+   conflict     = dbg.quiet
+   prereq       = dbg.quiet
+   family       = dbg.quiet
+   LmodError    = dbg.quiet
+
+   local n = select('#',...)
+   if (n < 1) then
+      io.stderr:write(Usage,"\n")
+      os.exit(1)
+   end
+
+   master:access(...)
+
+end
+
+function Help(...)
+   local dbg = Dbg:dbg()
+   whatis  = dbg.quiet
+   help    = ModulesHelp
+   prtHdr  = function()
+                io.stderr:write("\n")
+                io.stderr:write("----------- Module Specific Help for \"" .. ModuleName .. "\"------------------\n")
+             end
+
+   Access(...)
+end
+
+function Whatis(...)
+   local dbg = Dbg:dbg()
+   whatis  = function(msg)
+                local nm     = ModuleName or ""
+                local l      = nm:len()
+                local nblnks
+                if (l < 20) then
+                   nblnks = 20 - l
+                else
+                   nblnks = l + 2
+                end
+                local prefix = nm .. string.rep(" ",nblnks) .. ": "
+                io.stderr:write(prefix, msg, "\n")
+             end
+   prtHdr    = dbg.quiet
+   help      = dbg.quiet
+   Access(...)
+end
+
+function Keyword(...)
+   local dbg    = Dbg:dbg()
+
+   load 	= dbg.quiet
+   unload 	= dbg.quiet
+   setenv	= dbg.quiet
+   unsetenv	= dbg.quiet
+   prepend_path	= dbg.quiet
+   append_path	= dbg.quiet
+   remove_path	= dbg.quiet
+   set_alias	= dbg.quiet
+   unset_alias	= dbg.quiet
+   conflict     = dbg.quiet
+   prereq       = dbg.quiet
+   family       = dbg.quiet
+
+   help         = Spider_help
+   whatis       = Spider_whatis
+   prepend_path = Spider_prepend_path
+   append_path  = Spider_append_path
+
+   dbg.start("Keyword(",concatTbl({...},","),")")
+
+   local master = Master:master()
+   local keyA   = {}
+
+   for _,v in ipairs{...} do
+      keyA[#keyA+1] = v
+   end
+
+   local moduleT = getModuleT()
+   local s
+   local dbT = {}
+   Spider.searchSpiderDB(keyA,{"default"},moduleT, dbT)
+   local a = {}
+   local ia = 0
+
+   local banner = border(0)
+
+   ia = ia+1; a[ia] = "\n"
+   ia = ia+1; a[ia] = banner
+   ia = ia+1; a[ia] = "The following modules match your search criteria: \""
+   ia = ia+1; a[ia] = concatTbl(keyA,"\", \"")
+   ia = ia+1; a[ia] = "\"\n"
+   ia = ia+1; a[ia] = banner
+   ia = ia+1; a[ia] = "\n"
+
+   Spider.Level0Helper(dbT,a)
+   io.stderr:write(concatTbl(a,""))
+   dbg.fini()
+
+end
+
+function UsrLoad(...)
+   local master = Master:master()
+   local mt     = MT:mt()
+   local dbg    = Dbg:dbg()
+
+   dbg.start("UsrLoad(",concatTbl({...},", "),")")
+   local a = {}
+   for _,v in ipairs{...} do
+      if (v:sub(1,1) == "-") then
+         UnLoad(v:sub(2))
+      else
+         if (v:sub(1,1) == "+") then
+            v = v:sub(2)
+         end
+         a[#a + 1] = v
+         if (mt:haveModuleAnyActive(v)) then
+            UnLoad(v)
+         end
+      end
+   end
+
+   local b = Load(unpack(a))
+
+   dbg.fini()
+   return b
+end
+
+function Load(...)
+   local master = Master:master()
+   local dbg    = Dbg:dbg()
+   local mStack = ModuleStack:moduleStack()
+
+   dbg.start("Load( ",concatTbl({...},", "),")")
+   mStack:loading()
+
+   local a = master.load(...)
+
+   if (not expert()) then
+
+      local mt      = MT:mt()
+      local t       = {}
+      readAdmin()
+      for _, moduleName in ipairs{...} do
+         local moduleFn = mt:fileNameActive(moduleName)
+         local message  = adminT[moduleFn]
+         if (message) then
+            t[moduleFn] = message
+         end
+      end
+
+      if (next(t)) then
+         local term_width  = tonumber(capture("tput cols") or "80")
+         if (term_width < 40) then
+            term_width = 80
+         end
+         local bt
+         local a       = {}
+         local border  = string.rep("-", term_width-1)
+         io.stderr:write("\n",border,"\n","Module(s):\n",border,"\n")
+         for k, v in pairs(t) do
+            io.stderr:write("\n",k," :\n")
+            a[1] = { " ", v}
+            bt = BeautifulTbl:new{tbl=a, wrapped=true, column=term_width-1,prt=prtErr}
+            bt:printTbl()
+            io.stderr:write("\n")
+         end
+         io.stderr:write(border,"\n\n")
+      end
+   end
+
+   dbg.fini()
+   return a
+end
+
+local function BadUnLoad(...)
+   local dbg = Dbg:dbg()
+   local a   = {}
+   a[#a+1]   = "Stubbornly refusing to unload module(s):"
+   for i,v in ipairs{...} do
+      a[#a+1]   = " \""..v.."\""
+   end
+   a[#a+1]   = "\n   during an unload\n"
+   dbg.warning(concatTbl(a,""))
+end
+
+function UnLoad(...)
+   local master = Master:master()
+   local mStack = ModuleStack:moduleStack()
+   local dbg    = Dbg:dbg()
+   local mt     = MT:mt()
+   local a      = {}
+   local e      = {}
+   UnLoadCount  = UnLoadCount + 1
+   dbg.start("UnLoad(", concatTbl({...},", "),")")
+
+   for _,v in ipairs{...} do
+      if (mt:haveModuleAnyTotal(v)) then
+         mt:removeTotal(v)
+      end
+   end
+   mStack:loading()
+
+   if (UnLoadCount == 1 and #e > 0 ) then
+      dbg.warning("Failed to unload: ",concatTbl(e," "),", was not currently loaded\n")
+   end
+
+   local aa     = master.unload(...)
+
+   dbg.fini()
+   UnLoadCount  = UnLoadCount - 1
+   return aa
+end
+
+function UnLoadSys(...)
+   local master = Master:master()
+   local mStack = ModuleStack:moduleStack()
+   local dbg    = Dbg:dbg()
+   local mt     = MT:mt()
+   local a      = {}
+
+   dbg.start("UnLoadSys(",concatTbl({...},", "),")")
+   mStack:loading()
+
+   a      = master.unload(...)
+   dbg.fini()
+   return a
+end
+
+local function SetDefault(...)
+   local mt   = MT:mt()
+   local dbg  = Dbg:dbg()
+   local a    = select(1, ...) or "default"
+   local path = pathJoin(os.getenv("HOME"), LMODdir)
+   dbg.start("SetDefault(",concatTbl({...},", "),")")
+
+   local aa = mt:safeToSaveActive()
+
+   if (#aa > 0) then
+      dbg.warning("Unable to save module state as a \"default\"\n",
+                  "The follow module(s):\n",
+                  "  ",concatTbl(aa,", "),"\n",
+                  "mix load statements with setting of environment variables.\n")
+      dbg.fini()
+      return
+   end
+
+   if (not isDir(path)) then
+      os.execute("mkdir ".. path)
+   end
+   path = pathJoin(path, a)
+   if (isFile(path)) then
+      io.stderr:write("Making backup of ",path,"\n")
+      os.rename(path, path .. "~")
+   end
+   mt:assignHashSumActive()
+   mt.active.hash = mt.active._hash
+   serialize{name=mt:name(), value=mt, fn = path, indent = true}
+   mt.active.hash = nil
+   dbg.fini()
+end
+
+local function GetDefault(...)
+   local mt   = MT:mt()
+   local dbg  = Dbg:dbg()
+   local a    = select(1, ...) or "default"
+   local path = pathJoin(os.getenv("HOME"), ".lmod.d", a)
+   dbg.start("GetDefault(",a,")")
+   mt:getMTfromFile(path)
+   dbg.fini()
+end
+
+local function ListDefault(...)
+   local mt   = MT:mt()
+   local dbg  = Dbg:dbg()
+   local path = pathJoin(os.getenv("HOME"), LMODdir)
+   local i    = 0
+
+   local a = {}
+
+   for file in lfs.dir(path) do
+      if (file:sub(1,1) ~= "." and file:sub(-1) ~= "~") then
+         i = i + 1
+         a[#a+1] = "  " .. i .. ") " .. file
+      end
+   end
+
+   if (#a > 0) then
+      io.stderr:write("Possible defaults:\n")
+      local ct = ColumnTable:new{tbl=a,prt=prtErr}
+      ct:print_tbl()
+   end
+end
+
+local function Swap(...)
+   local dbg = Dbg:dbg()
+   local a = select(1, ...) or ""
+   local b = select(2, ...) or ""
+   local s = {}
+
+   dbg.start("Swap(",concatTbl({...},", "),")")
+
+   local n = select("#", ...)
+   if (n ~= 2) then
+      LmodError("Wrong number of arguments to swap.\n")
+   end
+
+   local mt     = MT:mt()
+   if (not mt:haveModuleAnyTotal(a)) then
+      LmodError("Swap failed: \"",a,"\" is not loaded.\n")
+   end
+
+   UnLoad(a)
+   local aa = Load(b)
+   if (not aa[1]) then
+      LmodError("Swap failed.\n")
+   end
+   dbg.fini()
+end
+
+function getModuleT()
+
+   local dbg       = Dbg:dbg()
+   local moduleT   = {}
+   local HOME      = os.getenv("HOME") or ""
+   local cacheDir  = pathJoin(HOME,".lmod.d",".cache")
+   local moduleTFN = pathJoin(cacheDir, "moduleT.lua")
+   local errRtn    = LmodError
+
+
+   local buildModuleT = true
+
+   local mpath = getenv(DfltModPath)
+   if (mpath == nil) then
+      LmodError("The Env Variable: \"", DfltModPath, "\" is not set\n",
+                "It should be set during login")
+   end
+   local moduleDirA = {}
+   for path in mpath:split(":") do
+      moduleDirA[#moduleDirA+1] = path
+   end
+
+   local haveMTFN = isFile(moduleTFN)
+
+   if (haveMTFN) then
+      local attr  = lfs.attributes(moduleTFN)
+      buildModuleT = (os.time() - attr.change) > 86400  -- rebuild if older than a day
+   end
+
+   -- Check to see if LMOD_DEFAULT_MODULEPATH has changed.
+   if (not buildModuleT and haveMTFN) then
+      assert(loadfile(moduleTFN))()
+      local defaultMpathA = _G.defaultMpathA
+      if (#moduleDirA ~= #defaultMpathA) then
+         buildModuleT = true -- rebuild because the number of dirs has changed.
+      else
+         buildModuleT = false
+         for i = 1,#moduleDirA do
+            if (moduleDirA[i] ~= defaultMpathA[i]) then
+               buildModuleT = true
+               break
+            end
+         end
+      end
+   end
+
+   if (buildModuleT) then
+      LmodError    = dbg.quiet
+      io.stderr:write("Rebuilding cache file please wait ...")
+      Spider.findAllModules(moduleDirA, moduleT)
+      io.stderr:write(" done\n")
+      LmodError    = errRtn
+      mkdir_recursive(cacheDir)
+      local s1 = serialize{name="defaultMpathA",value=moduleDirA,indent=true}
+      local s2 = serialize{name="moduleT",      value=moduleT,   indent=true}
+      local f  = io.open(moduleTFN,"w")
+      f:write(s1,s2)
+      f:close()
+   else
+      moduleT = _G.moduleT
+   end
+   return moduleT
+end
+
+
+function SpiderCmd(mname)
+   local dbg = Dbg:dbg()
+
+   load 	= dbg.quiet
+   unload 	= dbg.quiet
+   setenv	= dbg.quiet
+   unsetenv	= dbg.quiet
+   set_alias	= dbg.quiet
+   unset_alias	= dbg.quiet
+   conflict     = dbg.quiet
+   prereq       = dbg.quiet
+   family       = dbg.quiet
+
+   help         = Spider_help
+   whatis       = Spider_whatis
+   prepend_path = Spider_prepend_path
+   append_path  = Spider_append_path
+
+   dbg.start("SpiderCmd(",tostring(mname),")")
+
+   local moduleT = getModuleT()
+
+   local s
+   local dbT = {}
+   Spider.buildSpiderDB({"default"},moduleT, dbT)
+
+   if (mname == nil) then
+      s = Spider.Level0(dbT)
+   else
+      s = Spider.Level1(dbT,mname, true)
+   end
+   io.stderr:write(s,"\n")
+   dbg.fini()
+end
+
+
+local __expert = false
+
+function expert()
+   if (__expert == false) then
+      __expert = getenv("LMOD_EXPERT")
+   end
+   return __expert
+end
+
+require("Master")
+require("MT")
+
+function main()
+   local loadTbl      = { name = "load",        checkMPATH = true,  cmd = UsrLoad     }
+   local tryAddTbl    = { name = "try-add",     checkMPATH = true,  cmd = UsrLoad     }
+   local tryRmTbl     = { name = "try-rm",      checkMPATH = true,  cmd = UnLoad      }
+   local unloadTbl    = { name = "unload",      checkMPATH = true,  cmd = UnLoad      }
+   local swapTbl      = { name = "swap",        checkMPATH = true,  cmd = Swap        }
+   local purgeTbl     = { name = "purge",       checkMPATH = true,  cmd = Purge       }
+   local availTbl     = { name = "avail",       checkMPATH = false, cmd = Avail       }
+   local listTbl      = { name = "list",        checkMPATH = false, cmd = List        }
+   local helpTbl      = { name = "help",        checkMPATH = false, cmd = Help        }
+   local whatisTbl    = { name = "whatis",      checkMPATH = false, cmd = Whatis      }
+   local showTbl      = { name = "show",        checkMPATH = false, cmd = Show        }
+   local useTbl       = { name = "use",         checkMPATH = true,  cmd = Use         }
+   local unuseTbl     = { name = "unuse",       checkMPATH = true,  cmd = UnUse       }
+   local updateTbl    = { name = "update",      checkMPATH = true,  cmd = Update      }
+   local keywordTbl   = { name = "keyword",     checkMPATH = false, cmd = Keyword     }
+   local setDefTbl    = { name = "setdefault",  checkMPATH = false, cmd = SetDefault  }
+   local getDefTbl    = { name = "getdefault",  checkMPATH = false, cmd = GetDefault  }
+   local listDefTbl   = { name = "listdefault", checkMPATH = false, cmd = ListDefault }
+   local spiderTbl    = { name = "spider",      checkMPATH = true,  cmd = SpiderCmd   }
+
+   local cmdTbl = { load        = loadTbl,
+                    add         = loadTbl,
+                    lo          = loadTbl,
+                    ["try-add"] = tryAddTbl,
+                    ["try-rm"]  = tryRmTbl,
+                    unload      = unloadTbl,
+                    unlo        = unloadTbl,
+                    rm          = unloadTbl,
+                    remove      = unloadTbl,
+                    remov       = unloadTbl,
+                    delete      = unloadTbl,
+                    del         = unloadTbl,
+                    era         = unloadTbl,
+                    erase       = unloadTbl,
+		    av          = availTbl,
+		    avail       = availTbl,
+		    li          = listTbl,
+		    list        = listTbl,
+                    sw          = swapTbl,
+                    swap        = swapTbl,
+                    switch      = swapTbl,
+                    purge       = purgeTbl,
+                    help        = helpTbl,
+                    whatis      = whatisTbl,
+                    wh          = whatisTbl,
+                    apropos     = keywordTbl,
+                    key         = keywordTbl,
+                    keyword     = keywordTbl,
+                    show        = showTbl,
+                    dis         = showTbl,
+                    display     = showTbl,
+                    use         = useTbl,
+                    unuse       = unuseTbl,
+                    update      = updateTbl,
+                    refresh     = updateTbl,
+                    refr        = updateTbl,
+                    reload      = updateTbl,
+                    setdefault  = setDefTbl,
+                    setd        = setDefTbl,
+                    sd          = setDefTbl,
+                    getdefault  = getDefTbl,
+                    getd        = getDefTbl,
+                    gd          = getDefTbl,
+                    listdefault = listDefTbl,
+                    ld          = listDefTbl,
+                    spider      = spiderTbl,
+   }
+
+   local dbg  = Dbg:dbg()
+   local lTbl = { whatis = dbg.quiet, help = dbg.quiet,
+                  setenv = Set,       unsetenv = Unset,
+                  prepend_path = Prepend_path, append_path = Append_path, remove_path = Remove_path,
+                  set_alias    = SetAlias,     unset_alias = UnSetAlias,  family      = SetFamily,
+                  load         = Load,         unload      = UnLoad,
+                  prereq       = Prereq,       conflict    = Conflict,
+   }
+
+   local unTbl = { whatis = dbg.quiet, help = dbg.quiet,
+                   setenv = Unset,     unsetenv = BadUnset,
+                   prepend_path = Remove_path,  append_path = Remove_path, remove_path = BadRemove_path,
+                   set_alias    = UnSetAlias,   unset_alias = BadUnSetAlias, family    = UnsetFamily,
+                   load         = UnLoad,       unload      = BadUnLoad,
+                   prereq       = dbg.quiet,    conflict    = dbg.quiet,
+   }
+
+   for k in pairs(lTbl) do
+      LoadTbl[k] = lTbl[k]
+   end
+
+   for k in pairs(unTbl) do
+      UnLoadTbl[k] = unTbl[k]
+   end
+
+   local shell = arg[1]
+   table.remove(arg,1)
+
+
+   local arg_str = concatTbl(arg," ")
+   local options = Options:options(Usage)
+
+   if (options.debug or options.dbglvl) then
+      dbg:activateDebug(options.dbglvl or 1)
+   end
+
+   dbg.start("lmod ", arg_str)
+
+   localvar(options.localvarA)
+
+   local cmdName = options.pargs[1]
+   table.remove(options.pargs,1)
+
+   ------------------------------------------------------------
+   -- Must output local variables even when there is the command
+   -- is not a valid command
+   --
+   -- So set [[checkMPATH]] to false by default and re-define when there
+   -- is a valid command:
+
+   local checkMPATH = false
+   if (cmdTbl[cmdName] ) then
+      checkMPATH = cmdTbl[cmdName].checkMPATH
+   end
+
+   -- Create the [[master]] object
+
+   local master = Master:master(checkMPATH)
+   master.shell = BaseShell.build(shell)
+   local mt     = MT:mt()
+
+   -- Output local vars
+   master.shell:expand(varTbl)
+
+   -- if Help was requested then quit.
+   if (options.Optiks_help) then os.exit(0) end
+
+   -- print version and quit if requested.
+   if (options.version) then
+      io.stderr:write(version())
+      os.exit(0)
+   end
+
+   -- Now quit if command is unknown.
+
+   if (cmdTbl[cmdName] == nil) then
+      io.stderr:write(version())
+      io.stderr:write(Usage,"\n")
+      os.exit(1)
+   end
+
+   if (cmdTbl[cmdName]) then
+      local cmd = cmdTbl[cmdName].cmd
+      cmdName   = cmdTbl[cmdName].name
+      if (cmdName == "try-add" or cmdName == "try-rm") then dbg:deactivateWarning() end
+      dbg.print("cmd name: ", cmdName,"\n")
+      cmd(unpack(options.pargs))
+   end
+
+   -- Recompute any inactive modules. Print out if changed
+   mt:changeInactive()
+
+   -- Print out modules that have been reloaded.
+   master:prtReloadT()
+
+   -- Store the Module table in "_ModuleTable_" env. var.
+   local n        = mt:name()
+   local oldValue = master.shell:getMT(n) or ""
+   local value    = mt:serialize()
+
+   if (oldValue ~= value) then
+      varTbl[n] = Var:new(n)
+      varTbl[n]:set(value)
+   end
+   dbg.fini()
+
+   -- Output all newly created path and variables.
+   master.shell:expand(varTbl)
+end
+
+main()

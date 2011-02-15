@@ -1,0 +1,124 @@
+-- -*- lua -*-
+-- $Id: setgetdefault.tdesc 684 2011-01-05 18:58:55Z mclay $ --
+inactiveTbl = { Darwin = 1, }
+local function isActive()
+   require("posix")
+   local osName = posix.uname("%s")
+   return (not inactiveTbl[osName])
+end
+
+testdescript = {
+   owner   = "rtm",
+   product = "modules",
+   description = [[
+	 Test initial module load
+   ]],
+   keywords = {"default","setdefault", "getdefault","setgetdefault","getsetdefault" },
+
+   active = 1,
+   testName = "setgetdefault",
+   job_submit_method = "INTERACTIVE", 
+
+   runScript = [[
+
+     unsetMT ()
+     {
+        unset _ModuleTable_
+        for i in `seq 1 1000`; do
+           num=`printf %03d $i`
+           eval j="\$_ModuleTable${num}_"
+           if [ -z "$j" ]; then
+              break
+           fi
+           unset _ModuleTable${num}_
+        done
+     }
+
+     unsetMT
+     PATH_to_LUA=`findcmd --pathOnly lua`
+     PATH_to_TM=`findcmd --pathOnly tm`
+
+     LD_LIBRARY_PATH='';                export LD_LIBRARY_PATH
+     MODULEPATH=$(testDir)/TACC;        export MODULEPATH
+     MODULEPATH_ROOT=$(testDir);        export MODULEPATH_ROOT
+     LMOD_DEFAULT_MODULEPATH=$MODULEPATH
+     export LMOD_DEFAULT_MODULEPATH
+     HOME=`(cd $HOME; /bin/pwd)`
+     HOME_ORIG=$HOME  
+     HOME=`pwd`;                        export HOME
+     COUNT=0;
+     numStep=0;
+     
+     rm -f _stderr.* _stdout.* err.* out.*
+
+     runMe ()
+     {
+        COUNT=`expr $COUNT + 1`
+        numStep=`expr $numStep + 1`
+        NUM=`printf "%02d" $numStep`
+        echo "===========================" >  _stderr.$NUM
+        echo "step $COUNT"                 >> _stderr.$NUM
+        echo "===========================" >> _stderr.$NUM
+
+        echo "===========================" >  _stdout.$NUM
+        echo "step $COUNT"                 >> _stdout.$NUM
+        echo "===========================" >> _stdout.$NUM
+
+        numStep=`expr $numStep + 1`
+        NUM=`printf "%02d" $numStep`
+        "$@" > _stdout.$NUM 2>> _stderr.$NUM
+        eval `cat _stdout.$NUM`
+     }
+
+     cleanUp ()
+     {
+        sed                                   \
+            -e "s|$PATH_to_LUA|PATH_to_LUA|g" \
+            -e "s|$PATH_to_TM|PATH_to_TM|g"   \
+            -e "s|$HOME|~|g"                  \
+            < $1 > $2
+     }
+
+     (cd $projectDir; ./configure; make src/computeHashSum)
+     rm -rf $HOME/.lmod.d
+     PATH=$(projectDir)/src:$PATH_to_LUA:$PATH_to_TM:/usr/bin:/bin
+     export PATH
+     unset  LMOD_COMPILER
+     unset  LIBPATH
+     unset  SHLIB_PATH
+     unset  INFOPATH
+     unset  MANPATH
+
+     runMe lua $(projectDir)/src/lmod.in bash load TACC 
+     runMe lua $(projectDir)/src/lmod.in bash setdefault
+     runMe lua $(projectDir)/src/lmod.in bash getdefault
+
+
+     HOME=$HOME_ORIG
+     export HOME
+     cat _stdout.[0-9][0-9] > _stdout.orig
+     joinBase64Results -bash _stdout.orig _stdout.new
+     cleanUp _stdout.new out.txt
+
+     cat _stderr.[0-9][0-9] > _stderr.orig
+     cleanUp _stderr.orig err.txt
+
+     rm -f $projectDir/src/computeHashSum
+     
+     rm -f $(cmdResultFn)
+
+     wrapperDiff -r $(cmdResultFn) $(testDir)/out.txt out.txt
+     wrapperDiff -r $(cmdResultFn) $(testDir)/err.txt err.txt
+     testFinish -c $(cmdResultFn) -r $(resultFn) -t $(runtimeFn)
+   ]],
+
+
+   blessScript = [[
+         # perform what is needed
+   ]],
+
+   tests = {
+      { id='t1'},
+   },
+
+}

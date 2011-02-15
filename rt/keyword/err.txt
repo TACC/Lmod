@@ -1,0 +1,21 @@
+Rebuilding cache file please wait ... done
+
+----------------------------------------------------------------------------
+The following modules match your search criteria: "graph"
+----------------------------------------------------------------------------
+
+  parmetis: parmetis/3.1
+    Parallel graph partitioning and fill-reduction matrix ordering routines 
+
+----------------------------------------------------------------------------
+To learn more about a package enter:
+
+   $ module spider Foo
+
+where "Foo" is the name of a module
+
+To find detailed information about a particular package you
+must enter the version if there is more than one version:
+
+   $ module spider Foo/11.1
+----------------------------------------------------------------------------

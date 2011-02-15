@@ -1,0 +1,33 @@
+#!/bin/bash
+# -*- shell-script -*-
+# $Id: build.rtm 690 2011-01-19 20:36:14Z mclay $
+VERSION=`lua -l src/Version -e "print(Version.name())" | awk '{print $1}'` 
+echo Making Version: $VERSION
+
+host=$(expr $(hostname) : "\([^.][^.]*\)")
+SUDO=""
+
+case $host in
+    mclay-d630 | mijo | jedrik | vato)
+	SUDO=sudo
+	prefix="/opt/apps";;
+    *)
+	prefix="$HOME/l/pkg";;
+esac
+
+rm -f config.status config.log
+
+cmdA=("make distclean"
+      "./configure --prefix=$prefix"
+      "$SUDO make install"
+      "make clobber"
+      )
+
+
+for i in "${cmdA[@]}" ; do
+  echo ----------------------------------------
+  echo "$i"
+  echo ----------------------------------------
+
+  $i
+done

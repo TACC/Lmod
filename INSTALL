@@ -1,0 +1,82 @@
+Lmod the lua based module system can be installed with:
+
+A) You must install lua first.  You have two choices:
+
+      1) You can download the latest lua version from  the same place you got Lmod and install
+         lua-X.X.X.tar.gz file.  It contains the lua command, lua library and other lua packages that
+         Lmod requires
+
+  OR:
+
+      2) Use the package system for your OS to install the following packages.  This is the list is for Ubuntu 8.04
+         It may be quite different with other Linux distributions or different OS
+
+            liblua5.1-0                 
+            liblua5.1-0-dev             
+            liblua5.1-filesystem-dev    
+            liblua5.1-filesystem0       
+            liblua5.1-posix-dev         
+            liblua5.1-posix0            
+            lua5.1                      
+
+      Lmod requires lua 5.1, lua 5.0 or lua 4.0 will NOT work.
+       
+
+
+   
+B) The program "lua" must be in your path before installing "Lmod".  The configure script
+   won't install lmod without it.
+
+
+   $ ./configure --prefix=/PATH/TO/LMOD/PARENT_DIR
+   $ make install
+
+
+C) If you specify "./configure --prefix=/usr/local" then the "make install" will create
+   /usr/local/lmod and /usr/local/lmod/version with a symlink /usr/local/lmod/lmod pointing to
+   version.
+
+
+D) In the setup directory there are "profile.in" and "cshrc.in" templates.  The path to lua will
+   automatically be generated.  The templates assume that your modulefiles are located in
+   @PREFIX@/lmod/modulefiles/$LMOD_sys and @PREFIX@/lmod/modulefiles/Core, where @PREFIX@ is the path
+   specified on the ./configure --prefix command
+
+
+   ********************************************************************************************
+   Obviously you will want to modify the profile.in and cshrc.in files to suit your system.
+   ********************************************************************************************
+
+
+E) You can write your module files in either lua or TCL.  Modulefiles with the lua extension are obviously
+   have lua code and the one without are treated as TCL.  The syntax of the lua modulefiles are similar but
+   not the same.  Lua module commands are written as functions.  So in TCL its:
+
+       setenv        MKL_DIR         /opt/local/intel/mkl
+       prepend-path  LD_LIBRARY_PATH /opt/local/intel/lib
+       append-path   PATH            /opt/local/intel/bin
+
+   In lua it is:
+
+       setenv(      "MKL_DIR",         "/opt/local/intel/mkl")
+       prepend_path("LD_LIBRARY_PATH", "/opt/local/intel/lib")
+       append_path( "PATH",            "/opt/local/intel/bin")
+
+   So in general lua uses a function call and text literals such as MKL_DIR must be surrounded by quotes.  
+   The TCL commands that have a dash such as append-path change to append_path in lua.
+
+   *********************************************************************************************
+   Module files written in TCL have no extension where as lua module files have a .lua extension
+   *********************************************************************************************
+
+   So the module for the MKL module above would be named "mkl" as a TCL module file and "mkl.lua" if it is
+   written in lua. 
+
+        
+
+
+
+
+F) See README_lua_modulefiles.txt for more help.
+
+   

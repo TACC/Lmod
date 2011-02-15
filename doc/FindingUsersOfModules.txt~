@@ -1,0 +1,54 @@
+
+
+                         Finding users of particular modules
+                         -----------------------------------
+                               R. T. McLay
+
+Here are the steps required to produce the list of users that have
+used particular modules.
+
+A) On Ranger go to /share/tacc_admin/moduleUsage,  On Longhorn go to
+   /share/tacc_admin/moduleUsage.  On Lonestar go to
+   /home1/tacc_admin/moduleUsage.
+
+B) Run grep on modules.list to get the absolute path of the modules
+   you are interested in.  As an example suppose you want to find the
+   list of users still using petsc 2.3.3 as well as slepc 2.3.3 etc
+
+
+
+      $ grep 2.3.3 modules.list > petsc_2.3.3.list
+
+
+C) Must add lmod programs to PATH.  Try doing:
+
+      $ module load lmod
+
+   If that does not work then do:
+
+      $ export PATH=/opt/apps/lmod/lmod/libexec:$PATH
+
+D) Run "reportUsers" to find out what modules are being used.
+
+
+      $ reportUsers -f petsc_2.3.3.list --m2u=petsc.m2u --u2m=petsc.u2m *.csv
+
+   This command will take several minutes.  When it is done there will
+   be two files: petsc.m2u which lists the particular module and the
+   users of that module; and petsc.u2m which lists users and the
+   particular modules they used.
+
+
+E) If you just wish to know the number of users of modules and not
+   which one then one can do:
+
+
+      $ processModuleUsage -f modules.list *.csv > ModulesUsed.txt
+
+
+   
+         
+
+
+
+                               

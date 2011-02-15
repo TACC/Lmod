@@ -1,0 +1,175 @@
+#!@path_to_lua@/lua
+-- -*- lua -*-
+-----------------------------------------------------------------
+-- addto:  Add to a path like environment variable.
+--
+-- Standard usage is Bash:
+--
+-- $ unset FOO
+-- $ export FOO=$(addto --append FOO a b c)
+-- $ echo "   FOO: %$FOO%"
+--     FOO: %a:b:c%
+-- $ export FOO=$(addto --append FOO d e f); echo "   FOO: %$FOO%"
+--     FOO: %a:b:c:d:e:f%
+
+require("strict")
+require("string_split")
+require("Optiks")
+require("fileOps")
+require("pairsByKeys")
+
+local master = {}
+
+function masterTbl()
+   return master
+end
+
+function myInsert(appendFlg, existFlg)
+   local insert = table.insert
+   if (appendFlg) then
+      if (existFlg) then
+         return function (arr, v) if (isDir(v)) then insert(arr, v) end end
+      else
+         return function (arr, v) insert(arr, v) end
+      end
+   else
+      if (existFlg) then
+         return function (arr, v) if (isDir(v)) then insert(arr, 1, v) end end
+      else
+         return function (arr, v) insert(arr, 1, v) end
+      end
+   end
+end
+
+function myClean(cleanFlg)
+   if (cleanFlg) then
+      return function (path)
+                path = path:gsub('//','/')
+                if (path:sub(-1,-1) == '/') then
+                   path = path:sub(1,-2)
+                end
+                return path
+             end
+   else
+      return function (path)
+                return path
+             end
+   end
+end
+                
+function myChkDir(existFlg)
+   if (existFlg)  then
+      return function(path) return isDir(path) end
+   else
+      return function(path) return true end
+   end
+end
+                   
+function main()
+
+   local remove  = table.remove
+   local concat  = table.concat
+   local envVarA = {}
+   
+   ------------------------------------------------------------------------
+   -- evaluate command line arguments
+   options()
+
+   local masterTbl = masterTbl()
+   local pargs     = masterTbl.pargs
+   local cleanFlg  = masterTbl.cleanFlg
+
+   local envVar    = os.getenv(pargs[1])
+   local insert    = myInsert(masterTbl.appendFlg, masterTbl.existFlg)
+   local cleanPath = myClean(cleanFlg)
+   local chkDir    = myChkDir(masterTbl.existFlg)
+
+   if (envVar) then
+      for v in envVar:split(":") do
+	 envVarA[#envVarA + 1] = cleanPath(v)
+      end
+   end
+
+   remove(pargs,1)
+
+   for _,v in ipairs(pargs) do
+      v = cleanPath(v)
+      for i,path in ipairs(envVarA) do
+	 if (v == path) then
+	    remove(envVarA, i)
+	    break
+	 end
+      end
+      
+      insert(envVarA, v)
+   end
+
+   if (cleanFlg) then
+      local t = {}
+      local tt = {}
+      for i,v in ipairs(envVarA) do
+         if ( not tt[v] and chkDir(v)) then
+            t[i] = v
+            tt[v] = i
+         end
+      end
+      envVarA = {}
+      for k, v in pairsByKeys(t) do
+         envVarA[#envVarA+1] = v
+      end
+   end
+         
+   if (masterTbl.verbosityLevel > 0) then
+      for i,v in ipairs(envVarA) do
+	 io.stdout:write(i,"%",v,"%\n")
+      end
+   end
+
+   io.stdout:write(concat(envVarA,":"),"\n")
+      
+end
+
+
+function options()
+   local masterTbl = masterTbl()
+   local usage         = "Usage: addto [options] envVar path1 path2 ..."
+   local cmdlineParser = Optiks:new{usage=usage, version="1.0"}
+
+   cmdlineParser:add_option{ 
+      name   = {'-v','--verbose'},
+      dest   = 'verbosityLevel',
+      action = 'count',
+   }
+
+   cmdlineParser:add_option{ 
+      name   = {'--append'},
+      dest   = 'appendFlg',
+      action = 'store_true',
+      default = false,
+   }
+
+   cmdlineParser:add_option{ 
+      name   = {'-e', '--exist', '--exists'},
+      dest   = 'existFlg',
+      action = 'store_true',
+      default = false,
+   }
+
+   cmdlineParser:add_option{ 
+      name   = {'--clean'},
+      dest   = 'cleanFlg',
+      action = 'store_true',
+      default = false,
+      help    = "Remove extra '/'s"
+   }
+
+   local optionTbl, pargs = cmdlineParser:parse(arg)
+
+   for v in pairs(optionTbl) do
+      masterTbl[v] = optionTbl[v]
+   end
+   masterTbl.pargs = pargs
+
+end
+
+main()

@@ -1,0 +1,16 @@
+-- -*- lua -*-
+-- $Id: Hermes.db 419 2009-02-17 16:18:58Z mclay $ --
+-- created: Tue Dec  4 19:07:31 2007
+ProjectData = {
+  PackageList = {
+    {
+      pkgName = "modules",
+      revision = "head",
+    },
+  },
+  HermesVersion = "1.0.2",
+  HermesVersionDate = "Tue Dec  4 19:07:31 2007",
+  ProjectName = "modules",
+  TopMakeDir = "",
+  TestLocation = "rt",
+}

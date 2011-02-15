@@ -1,0 +1,97 @@
+===========================
+step 1
+===========================
+MODULEPATH='~/w/lmod/rt/setgetdefault/TACC';
+export MODULEPATH;
+APPS='/opt/apps';
+export APPS;
+GLOBUS_HOSTNAME='ranger.tacc.utexas.edu';
+export GLOBUS_HOSTNAME;
+GLOBUS_LOCATION='/share/apps/teragrid/globus-4.0.7-r1';
+export GLOBUS_LOCATION;
+GLOBUS_PATH='/share/apps/teragrid/globus-4.0.7-r1';
+export GLOBUS_PATH;
+GLOBUS_TCP_PORT_RANGE='50000,51000';
+export GLOBUS_TCP_PORT_RANGE;
+GPT_LOCATION='/share/apps/teragrid/globus-4.0.7-r1';
+export GPT_LOCATION;
+INFOPATH='/opt/apps/intel10_1/mvapich/1.0.1/doc';
+export INFOPATH;
+LD_LIBRARY_PATH='/share/apps/teragrid/globus-4.0.7-r1/myproxy-3.4/lib:/share/apps/teragrid/globus-4.0.7-r1/lib:/opt/apps/intel10_1/mvapich/1.0.1/lib:/opt/apps/intel10_1/mvapich/1.0.1/lib/shared:/opt/apps/pgi/7.1/linux86-64/7.1-2/libso';
+export LD_LIBRARY_PATH;
+LIBPATH='/share/apps/teragrid/globus-4.0.7-r1/myproxy-3.4/lib:/share/apps/teragrid/globus-4.0.7-r1/lib';
+export LIBPATH;
+MANPATH='/share/apps/teragrid/globus-4.0.7-r1/myproxy-3.4/man:/share/apps/teragrid/globus-4.0.7-r1/man:/opt/apps/intel10_1/mvapich/1.0.1/man:/opt/apps/pgi/7.1/linux86-64/7.1-2/man:/usr/man:/usr/kerberos/man:/opt/rocks/man:/opt/ganglia/man:/usr/X11R6/man:/usr/share/man:/usr/local/man:/opt/apps/pki_apps/man';
+export MANPATH;
+MODULEPATH='/opt/apps/intel10_1/mvapich1_1_0_1/modulefiles:~/w/lmod/rt/setgetdefault/TACC_COMPILER/pgi/7.1:~/w/lmod/rt/setgetdefault/TACC';
+export MODULEPATH;
+MPICH_HOME='/opt/apps/intel10_1/mvapich/1.0.1';
+export MPICH_HOME;
+MYPROXY_SERVER='myproxy.teragrid.org';
+export MYPROXY_SERVER;
+PATH='/share/apps/teragrid/globus-4.0.7-r1/myproxy-3.4/bin:/share/apps/teragrid/globus-4.0.7-r1/bin:/share/apps/teragrid/globus-4.0.7-r1/sbin:/opt/apps/intel10_1/mvapich/1.0.1/bin:/opt/apps/pgi/7.1/linux86-64/7.1-2/bin:/usr/local/first:~/w/lmod/src:PATH_to_LUA:PATH_to_TM:/usr/bin:/bin:/usr/local/bin:/share/sge/default/pe_scripts:~/bin:.:/opt/apps/pki_apps';
+export PATH;
+PGI='/opt/apps/pgi/7.1';
+export PGI;
+PURGE='168';
+export PURGE;
+RSHCOMMAND='/share/apps/teragrid/globus-4.0.7-r1/bin/ssh';
+export RSHCOMMAND;
+SASL_PATH='/share/apps/teragrid/globus-4.0.7-r1/sasl';
+export SASL_PATH;
+SHLIB_PATH='/share/apps/teragrid/globus-4.0.7-r1/myproxy-3.4/lib:/share/apps/teragrid/globus-4.0.7-r1/lib';
+export SHLIB_PATH;
+_ModuleTable_='_ModuleTable_={active={Dict={["TACC"]=7,["TACC_symbols"]=1,["cluster"]=6,["cluster_symbols"]=2,["globus"]=5,["mvapich1"]=4,["pgi"]=3,},FN={"~/w/lmod/rt/setgetdefault/TACC/TACC_symbols","~/w/lmod/rt/setgetdefault/TACC/cluster_symbols","~/w/lmod/rt/setgetdefault/TACC/pgi/7.1","~/w/lmod/rt/setgetdefault/TACC/mvapich1/mvapich1","~/w/lmod/rt/setgetdefault/TACC/globus/4.0.7","~/w/lmod/rt/setgetdefault/TACC/cluster","~/w/lmod/rt/setgetdefault/TACC/TACC",},Loaded={"TACC_symbols","cluster_symbols","pgi","mvapich1","globus","cluster","TACC",},default={0,0,1,1,1,0,0,},fullModName={"TACC_symbols","cluster_symbols","pgi/7.1","mvapich1/mvapich1","globus/4.0.7","cluster","TACC",},mType={"w","w","w","w","w","m","m",},},family={},inactive={},mpathA={"/opt/apps/intel10_1/mvapich1_1_0_1/modulefiles","~/w/lmod/rt/setgetdefault/TACC_COMPILER/pgi/7.1","~/w/lmod/rt/setgetdefault/TACC",},total={Dict={["TACC"]=7,["TACC_symbols"]=1,["cluster"]=6,["cluster_symbols"]=2,["globus"]=5,["mvapich1"]=4,["pgi"]=3,},FN={"~/w/lmod/rt/setgetdefault/TACC/TACC_symbols","~/w/lmod/rt/setgetdefault/TACC/cluster_symbols","~/w/lmod/rt/setgetdefault/TACC/pgi/7.1","~/w/lmod/rt/setgetdefault/TACC/mvapich1/mvapich1","~/w/lmod/rt/setgetdefault/TACC/globus/4.0.7","~/w/lmod/rt/setgetdefault/TACC/cluster","~/w/lmod/rt/setgetdefault/TACC/TACC",},Loaded={"TACC_symbols","cluster_symbols","pgi","mvapich1","globus","cluster","TACC",},default={0,0,1,1,1,0,0,},fullModName={"TACC_symbols","cluster_symbols","pgi/7.1","mvapich1/mvapich1","globus/4.0.7","cluster","TACC",},mType={"w","w","w","w","w","m","m",},},["version"]=1,}';
+export _ModuleTable_;
+===========================
+step 2
+===========================
+MODULEPATH='/opt/apps/intel10_1/mvapich1_1_0_1/modulefiles:~/w/lmod/rt/setgetdefault/TACC_COMPILER/pgi/7.1:~/w/lmod/rt/setgetdefault/TACC';
+export MODULEPATH;
+MODULEPATH='/opt/apps/intel10_1/mvapich1_1_0_1/modulefiles:~/w/lmod/rt/setgetdefault/TACC_COMPILER/pgi/7.1:~/w/lmod/rt/setgetdefault/TACC';
+export MODULEPATH;
+===========================
+step 3
+===========================
+MODULEPATH='/opt/apps/intel10_1/mvapich1_1_0_1/modulefiles:~/w/lmod/rt/setgetdefault/TACC_COMPILER/pgi/7.1:~/w/lmod/rt/setgetdefault/TACC';
+export MODULEPATH;
+APPS='/opt/apps';
+export APPS;
+GLOBUS_HOSTNAME='ranger.tacc.utexas.edu';
+export GLOBUS_HOSTNAME;
+GLOBUS_LOCATION='/share/apps/teragrid/globus-4.0.7-r1';
+export GLOBUS_LOCATION;
+GLOBUS_PATH='/share/apps/teragrid/globus-4.0.7-r1';
+export GLOBUS_PATH;
+GLOBUS_TCP_PORT_RANGE='50000,51000';
+export GLOBUS_TCP_PORT_RANGE;
+GPT_LOCATION='/share/apps/teragrid/globus-4.0.7-r1';
+export GPT_LOCATION;
+INFOPATH='/opt/apps/intel10_1/mvapich/1.0.1/doc';
+export INFOPATH;
+LD_LIBRARY_PATH='/share/apps/teragrid/globus-4.0.7-r1/myproxy-3.4/lib:/share/apps/teragrid/globus-4.0.7-r1/lib:/opt/apps/intel10_1/mvapich/1.0.1/lib:/opt/apps/intel10_1/mvapich/1.0.1/lib/shared:/opt/apps/pgi/7.1/linux86-64/7.1-2/libso';
+export LD_LIBRARY_PATH;
+LIBPATH='/share/apps/teragrid/globus-4.0.7-r1/myproxy-3.4/lib:/share/apps/teragrid/globus-4.0.7-r1/lib';
+export LIBPATH;
+MANPATH='/share/apps/teragrid/globus-4.0.7-r1/myproxy-3.4/man:/share/apps/teragrid/globus-4.0.7-r1/man:/opt/apps/intel10_1/mvapich/1.0.1/man:/opt/apps/pgi/7.1/linux86-64/7.1-2/man:/usr/man:/usr/kerberos/man:/opt/rocks/man:/opt/ganglia/man:/usr/X11R6/man:/usr/share/man:/usr/local/man:/opt/apps/pki_apps/man';
+export MANPATH;
+MODULEPATH='/opt/apps/intel10_1/mvapich1_1_0_1/modulefiles:~/w/lmod/rt/setgetdefault/TACC_COMPILER/pgi/7.1:~/w/lmod/rt/setgetdefault/TACC';
+export MODULEPATH;
+MPICH_HOME='/opt/apps/intel10_1/mvapich/1.0.1';
+export MPICH_HOME;
+MYPROXY_SERVER='myproxy.teragrid.org';
+export MYPROXY_SERVER;
+PATH='/share/apps/teragrid/globus-4.0.7-r1/myproxy-3.4/bin:/share/apps/teragrid/globus-4.0.7-r1/bin:/share/apps/teragrid/globus-4.0.7-r1/sbin:/opt/apps/intel10_1/mvapich/1.0.1/bin:/opt/apps/pgi/7.1/linux86-64/7.1-2/bin:/usr/local/first:~/w/lmod/src:PATH_to_LUA:PATH_to_TM:/usr/bin:/bin:/usr/local/bin:/share/sge/default/pe_scripts:~/bin:.:/opt/apps/pki_apps';
+export PATH;
+PGI='/opt/apps/pgi/7.1';
+export PGI;
+PURGE='168';
+export PURGE;
+RSHCOMMAND='/share/apps/teragrid/globus-4.0.7-r1/bin/ssh';
+export RSHCOMMAND;
+SASL_PATH='/share/apps/teragrid/globus-4.0.7-r1/sasl';
+export SASL_PATH;
+SHLIB_PATH='/share/apps/teragrid/globus-4.0.7-r1/myproxy-3.4/lib:/share/apps/teragrid/globus-4.0.7-r1/lib';
+export SHLIB_PATH;
+__LMOD_DEFAULT_MODULES_LOADED__='1';
+export __LMOD_DEFAULT_MODULES_LOADED__;

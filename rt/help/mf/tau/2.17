@@ -1,0 +1,48 @@
+#%Module1.0##################################################################
+#
+# This module file sets up the environment variables and path for the
+# TAU distribution.
+#
+#############################################################################
+
+proc ModulesHelp { } {
+puts stderr "The tau module defines the following environment variables:"
+puts stderr "TACC_TAU_DIR, TACC_TAU_BIN, and "
+puts stderr "TACC_TAU_LIB for the location"
+puts stderr "of the Tau distribution, documentation, binaries, "
+puts stderr "and libraries.\n\n"
+puts stderr " "
+
+puts stderr "To use one of the TAU libraries, compile and link the source code with the option:"
+puts stderr ""
+puts stderr "\t-Wl,-rpath,\$TACC_TAU_LIB -L\$TACC_TAU_LIB -ltau-\"icpc\"-mpi-pdt"
+puts stderr "\nThe -Wl,-rpath,\$TACC_TAU_LIB option is not required, however,"
+puts stderr "if it is used, then this module will not have to be loaded"
+puts stderr "to run the program during future login sessions."
+puts stderr ""
+puts stderr "To use any other TAU library, please look at all possible options in "
+puts stderr " \$TACC_TAU_LIB directory for libtau-*.a files and pick the combination"
+puts stderr "desired. Then substitute the desired library in the link step, remove the "
+puts stderr "executable and recompile to relink the new library."
+puts stderr "\nVersion 2.17"
+}
+
+module-whatis "Name: Tuning Analysis Utilities "
+module-whatis "Version: 2.17"
+module-whatis "Category: library, profiling and optimization"
+module-whatis "URL: http://www.cs.uoregon.edu/research/tau/home.php"
+module-whatis "Description: Framework for Application profiling and optimization"
+
+#
+# Create environment variables.
+#
+set             tau_dir     /opt/apps/intel10/mvapich1/tau/2.17
+set             tau_bin     /opt/apps/intel10/mvapich1/tau/2.17/x86_64/bin
+set             tau_lib     /opt/apps/intel10/mvapich1/tau/2.17/x86_64/lib
+
+prepend-path    PATH            $tau_bin
+prepend-path    LD_LIBRARY_PATH $tau_lib
+
+setenv          TACC_TAU_DIR        $tau_dir
+setenv          TACC_TAU_BIN        $tau_bin
+setenv          TACC_TAU_LIB        $tau_lib

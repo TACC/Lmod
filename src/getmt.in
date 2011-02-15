@@ -1,0 +1,125 @@
+#!@path_to_lua@/lua
+-- -*- lua -*-
+-----------------------------------------------------------------
+-- getmt:  prints to screen what the value of the ModuleTable is.
+--         optionly it writes the state of the ModuleTable is to a
+--         dated file.
+--
+require("strict")
+require("fileOps")
+require("Optiks")
+require("serialize")
+require("lfs")
+require("sys")
+require("capture")
+
+local cmd = abspath(arg[0])
+local i,j = cmd:find(".*/")
+local cmd_dir = "./"
+if (i) then
+   cmd_dir = cmd:sub(1,j)
+end
+package.path = cmd_dir .. '?.lua;' .. package.path
+
+require("base64")
+
+local concat       = table.concat
+local decode64     = base64.decode64
+local format       = string.format
+local getenv       = os.getenv
+local huge         = math.huge
+
+function UUIDString(epoch)
+   local ymd  = os.date("*t", epoch)
+
+   --                                y    m    d    h    m    s
+   local uuid_date = string.format("%d_%02d_%02d_%02d_%02d_%02d", 
+                                   ymd.year, ymd.month, ymd.day, 
+                                   ymd.hour, ymd.min,   ymd.sec)
+   
+   local uuid_str  = capture("uuidgen"):sub(1,-2)
+   local uuid      = uuid_date .. "-" .. uuid_str
+
+   return uuid
+end
+
+
+function getMT()
+   local a = {}
+   local s = nil
+   for i = 1, huge do
+      local name = format("_ModuleTable%03d_",i)
+      local v = getenv(name)
+      if (v == nil) then break end
+      a[#a+1] = v
+   end
+   if (#a > 0) then
+      s = decode64(concat(a,""))
+   else
+      s = getenv("_ModuleTable_") 
+   end
+   return s
+end
+
+function main()
+
+   local optionTbl = options()
+
+   local s = getMT()
+   if (s == nil) then return end
+
+   local t = assert(loadstring(s))()
+   local s = serialize{indent=true, name="_ModuleTable_", value=_ModuleTable_}
+
+   local fn = nil
+   if (optionTbl.save_state) then
+      local uuid = UUIDString(sys.gettimeofday())
+      fn = pathJoin(getenv("HOME"), ".lmod.d", ".save", uuid .. ".lua")
+   elseif (optionTbl.fn) then
+      fn = optionTbl.fn
+   end
+
+
+   if (fn) then
+      local d = dirname(fn)
+      if (not isDir(d)) then
+         mkdir_recursive(d)
+      end 
+
+      local f = io.open(fn,"w")
+      if (f) then
+         f:write(s)
+      end
+   else
+      print (s)
+   end
+end
+
+function options()
+   local usage         = "Usage: getmt [options]"
+   local cmdlineParser = Optiks:new{usage=usage, version="1.0"}
+
+   cmdlineParser:add_option{ 
+      name   = {'-v','--verbose'},
+      dest   = 'verbosityLevel',
+      action = 'count',
+   }
+
+   cmdlineParser:add_option{ 
+      name   = {'-f', '--file'},
+      dest   = 'fn',
+      action = 'store',
+   }
+
+   cmdlineParser:add_option{ 
+      name   = {'-s', '--save_state'},
+      dest   = 'save_state',
+      action = 'store_true',
+   }
+
+   local optionTbl, pargs = cmdlineParser:parse(arg)
+
+   return optionTbl
+
+end
+main()

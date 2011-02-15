@@ -1,0 +1,138 @@
+#!@path_to_lua@/lua
+-- -*- lua -*-
+local cmd = arg[0]
+
+local i,j = cmd:find(".*/")
+local cmd_dir = "./"
+if (i) then
+   cmd_dir = cmd:sub(1,j)
+end
+package.path = cmd_dir .. "?.lua;" .. package.path
+
+function cmdDir()
+   return cmd_dir
+end
+
+function LmodError()
+end
+
+require("border")
+require("Spider")
+require("Optiks")
+require("serialize")
+require("pairsByKeys")
+local concat = table.concat
+
+
+function flip(a,t, tbl)
+   for k,v in pairs(t) do
+      local name = v.name
+      if (tbl[name] == nil) then
+         tbl[name] = {}
+      end
+      local s = concat(a,":")
+      tbl[name][#tbl[name]+1] = s
+      if (next(v.children)) then
+         a[#a+1] = name
+         flip(a,v.children, tbl)
+         a[#a]   = nil
+      end
+   end
+end
+
+function main()
+
+   options()
+   local masterTbl  = masterTbl()
+   local pargs      = masterTbl.pargs
+   local moduleT    = {}
+   local moduleDirA = {}
+   
+   for _, v in ipairs(pargs) do
+      for path in v:split(":") do
+         moduleDirA[#moduleDirA+1] = path
+      end
+   end
+
+
+   local dbg = Dbg:dbg()
+
+   if (masterTbl.debug) then
+      dbg:activateDebug(1)
+   end
+
+   dbg.start("main()")
+
+   Spider.findAllModules(moduleDirA, moduleT)
+   
+   if (masterTbl.outputStyle == "tree") then
+      local s = serialize{name="moduleT",value=moduleT,indent=true}
+      print(s)
+      return
+   end
+
+   local tbl = {}
+   if (masterTbl.outputStyle == "list") then
+      Spider.listModules(moduleT, tbl)
+      table.sort(tbl)
+      for i = 1,#tbl do
+         print(tbl[i])
+      end
+      return
+   end
+
+   flip({"dflt"}, moduleT, tbl)
+   
+   local a = {}
+   for k,v in pairsByKeys(tbl) do
+      a[#a+1] = {}
+      local b = a[#a]
+      b[#b+1] = k
+      for i = 1,#v do
+         b[#b+1] = v[i]
+      end
+   end
+
+   local bt = BeautifulTbl:new{tbl=a}
+   bt:printTbl()
+
+   dbg.fini()
+end
+
+function options()
+   local masterTbl = masterTbl()
+   local usage         = "Usage: spider [options] moduledir ..."
+   local cmdlineParser = Optiks:new{usage=usage, version="1.0"}
+
+   cmdlineParser:add_option{ 
+      name   = {'-d','--debug'},
+      dest   = 'debug',
+      action = 'store_true',
+      default = false,
+   }
+
+   cmdlineParser:add_option{ 
+      name   = {'-o','--output'},
+      dest   = 'outputStyle',
+      action = 'store',
+      default = "list",
+      help    = "Output Style: list, tree, spider"  
+   }
+
+   cmdlineParser:add_option{ 
+      name   = {'-n','--no_recursion'},
+      dest   = 'no_recursion',
+      action = 'store_true',
+      default = false,
+   }
+
+   local optionTbl, pargs = cmdlineParser:parse(arg)
+
+   for v in pairs(optionTbl) do
+      masterTbl[v] = optionTbl[v]
+   end
+   masterTbl.pargs = pargs
+
+end
+
+main()

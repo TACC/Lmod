@@ -1,0 +1,34 @@
+#!/usr/bin/env lua
+-- -*- lua -*-
+-- $Id: findLuaPkgs 419 2009-02-17 16:18:58Z mclay $ --
+require("strict")
+function string:split(pat)
+   local st, g = 1, self:gmatch("()("..pat..")")
+   local function getter(self, segs, seps, sep, cap1, ...)
+      st = sep and seps + #sep
+      return self:sub(segs, (seps or 0) - 1), cap1 or sep, ...
+   end
+   local function splitter(self)
+      if st then return getter(self, st, g()) end
+   end
+   return splitter, self
+end
+
+
+
+function main()
+
+   for _,v in ipairs(arg) do
+      for path in package.path:split(";") do
+         local s = path:gsub("?",v)
+         local f = io.open(s,"r")
+         if (f) then
+            f:close()
+            print(s)
+            break;
+         end
+      end
+   end 
+end
+
+main()

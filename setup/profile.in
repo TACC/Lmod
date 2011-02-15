@@ -1,0 +1,40 @@
+#!/bin/sh
+# -*- shell-script -*-
+########################################################################
+#  This is the system wide source file for setting up
+#  modules:
+#
+#  $Id: profile.in 690 2011-01-19 20:36:14Z mclay $
+#  $Date: 2011-01-19 14:36:14 -0600 (Wed, 19 Jan 2011) $
+########################################################################
+
+########################################################################
+# The PATH variable must include the "lua" program
+########################################################################
+
+MY_NAME="@PKG@/init/profile"
+
+. @PKG@/init/bash >/dev/null # Module Support
+
+if [ -z "$MODULEPATH_ROOT" ]; then
+  PATH=@path_to_lua@:$PATH
+  export PATH
+
+
+  USER=${USER-${LOGNAME}}  # make sure $USER is set
+  export USER
+  
+  LMOD_sys=`uname`; export LMOD_sys
+  
+  LMOD_arch=`uname -m`
+  if [ "x$LMOD_sys" = xAIX ]; then
+    LMOD_arch=rs6k
+  fi
+  export LMOD_arch
+
+  
+  MODULEPATH_ROOT="@PREFIX@/modulefiles"
+  export MODULEPATH_ROOT
+  export MODULEPATH=$(@PKG@/libexec/addto --append MODULEPATH $MODULEPATH_ROOT/$LMOD_sys $MODULEPATH_ROOT/Core)
+  export LMOD_DEFAULT_MODULEPATH=$MODULEPATH
+fi

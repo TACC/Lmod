@@ -1,0 +1,26 @@
+Environment Modules User's Guide:
+
+* Environment Modules makes it easy for users to use the latest version of a particular software or revert to older
+  versions quickly and under their own control.   It also makes it easy for the administrators to upgrade software
+  packages without users having to change their startup files.  The basic idea is this: the administrators of the
+  computer provide a list of software packages and users load the packages they wish to use.  
+
+  Using system startup files,  it is easy for administrators to load a default list of modules for users.  This way
+  all users can begin working and a can add modules as needed without being experts.  Basic operations for modules
+  are:
+
+
+      Task                                Purpose
+
+      $ module load module_A module_B     Load modules "module_A" and "module_B"
+      $ module list                       List loaded modules
+      $ module avail                      List available modules
+      $ module avail  string              List all available modules that start with "string".
+                                          So "module avail a" will print all modules that begin with "a".
+      $ module unload module_A            Unload module "module_A".
+      $ module purge                      Unload all modules.
+      $ module help module_A              Print the help description for "module_A".
+      $ module show module_A              Show the commands that "module_A" will run.
+      $ module whatis module_A            Print out the Whatis description
+      $ module keyword string             Search the whatis description for "string"
+      
