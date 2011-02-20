@@ -39,7 +39,7 @@ C) If you specify "./configure --prefix=/usr/local" then the "make install" will
 
 D) In the setup directory there are "profile.in" and "cshrc.in" templates.  The path to lua will
    automatically be generated.  The templates assume that your modulefiles are located in
-   @PREFIX@/lmod/modulefiles/$LMOD_sys and @PREFIX@/lmod/modulefiles/Core, where @PREFIX@ is the path
+   @PREFIX@/modulefiles/$LMOD_sys and @PREFIX@/modulefiles/Core, where @PREFIX@ is the path
    specified on the ./configure --prefix command
 
 
@@ -61,6 +61,8 @@ E) You can write your module files in either lua or TCL.  Modulefiles with the l
        setenv(      "MKL_DIR",         "/opt/local/intel/mkl")
        prepend_path("LD_LIBRARY_PATH", "/opt/local/intel/lib")
        append_path( "PATH",            "/opt/local/intel/bin")
+
+   Please notice that the dashes in the TCL syntax is replaced with underscores.
 
    So in general lua uses a function call and text literals such as MKL_DIR must be surrounded by quotes.  
    The TCL commands that have a dash such as append-path change to append_path in lua.

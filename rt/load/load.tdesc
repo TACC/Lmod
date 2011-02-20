@@ -1,11 +1,6 @@
 -- -*- lua -*-
 -- $Id: load.tdesc 686 2011-01-06 05:57:39Z mclay $ --
 
-print ("here: package.path", package.path)
-print ("here: masterTbl.testDir", masterTbl().testDir)
-
-
-
 testdescript = {
    owner   = "rtm",
    product = "modules",
