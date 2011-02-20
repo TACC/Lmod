@@ -1,0 +1,14 @@
+------------------------------------------------------------------------
+   Advantages of Environment Modules over no system.
+------------------------------------------------------------------------
+
+System Administrators have a couple of choices in where to place
+optional software.   It can be placed in a system standard location.
+For example /opt/bin for executables, /opt/include for include files and
+/opt/lib for libraries and provide startup scripts include these
+location in the appropriate environment variables such as PATH,
+LD_LIBRARY_PATH and so on.
+
+This way users need not modify their PATH because everything is in one
+place.  But that is the trouble.  There are always new versions of
+packages.  
