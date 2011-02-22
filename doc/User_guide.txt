@@ -394,7 +394,7 @@ found in the PATH is used.
 ------------------------------------------------------------------------
 
 Suppose the user has created a "git" module to provide the latest 
-available.   At a later date the system administrators add a newer
+available.   At a later date, the system administrators add a newer
 version of "git"
 
    $ module avail git
@@ -423,9 +423,9 @@ in MODULEPATH leads to different results:
 
 will load the "2.5.4" version and
 
-   $ module load ucc/2.3.4
+   $ module load git/2.3.4
 
-will load the "2.3.4" version.
+will load the "2.3.4" version.  
 
 
 ------------------------------------------------------------------------
