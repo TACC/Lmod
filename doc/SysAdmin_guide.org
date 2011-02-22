@@ -1,4 +1,8 @@
 Topics for System Admin Guide to Lmod:
 
 * Installing
-** 
+** MODULEPATH_ROOT
+** Explain $MODULEPATH_ROOT/{Core, Compiler, MPI}
+** linking in init/profile into /etc/profile.d
+** providing /etc/profile.d/z00_PrgEnv.{sh,csh}
+
