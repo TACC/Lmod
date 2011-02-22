@@ -3,7 +3,10 @@
 
 This guide is written to explain what Environment Modules are and why
 they are very useful for both users and system administrators.  This
-guide is written for users of environment modules.  There is a second
+guide is written for users of environment modules. Lmod is an
+implementation of Environment Modules, much of what is said here is
+true for any environment modules system but there are many features
+which are unique to Lmod. There is a second
 guide written for system admins.   Environment Modules provide
 a convenient way to dynamically change the users' environment through
 modulefiles.  This includes easily adding or removing directories to
@@ -12,14 +15,14 @@ the PATH environment variable.
 A modulefile contains the necessary information to allow a user to run
 a particular application or provide access to a particular library.
 All of this can be done dynamically without logging out and back in.
-Modulefiles for application modify the user's path to make access
+Modulefiles for applications modify the user's path to make access
 easy.  Modulefiles for Library packages provide environment variables
 that specify where the library and header files can be found.
 
-Packages can loaded and unloaded cleanly through the module system.
+Packages can be loaded and unloaded cleanly through the module system.
 All the popular shells are supported: bash, ksh, csh, tcsh, zsh.
 
-It is also very easy to switch between different version of a package
+It is also very easy to switch between different versions of a package
 if installed or remove it.
 
    $ module load gcc/4.4
@@ -41,7 +44,7 @@ if installed or remove it.
 
 The module command sets the appropriate environment variable
 independent of the user's shell.  Typically the system will load a
-default set of modules.  User can list the modules loaded by:
+default set of modules.  A user can list the modules loaded by:
 
    $ module list
 
@@ -76,7 +79,7 @@ does not exist:
 
    $ module try-add packageXYZ
 
-Modulefiles can contain help message.  To access a modulefiles do:
+Modulefiles can contain help messages.  To access a modulefile's help do:
 
    $ module help packageName
 
@@ -88,10 +91,10 @@ The module avail command has search capabilities:
 
    $ module avail cc
 
-will list for any modulefile which the string "cc".  
+will list for any modulefile where the name contains the string "cc".
 
-Modulefiles can a description section know as "whatis", it is accessed
-by:
+Modulefiles can have a description section know as "whatis".  It is
+accessed by:
 
    $ module whatis pmetis
 
@@ -100,7 +103,7 @@ by:
       pmetis/3.1          : Category: library, mathematics
       pmetis/3.1          : Description: Parallel graph partitioning.
 
-Finally there is a keyword search tool:
+Finally, there is a keyword search tool:
 
   $ module keyword word1 word2 ...
 
@@ -111,7 +114,7 @@ given on the command line.
    How the module command picks the version of a modulefile to load.
 ------------------------------------------------------------------------
 
-Suppose you have several version of the UCC compiler command.
+Suppose you have several versions of the UCC compiler command.
 
    $ module avail ucc
    --------------- /opt/apps/modulefiles/Core ----------------
@@ -122,14 +125,14 @@ If the user enters
 
    $ module load ucc/11.1
 
-and the command  will load the 11.1 version of ucc.  However if a user
+the command  will load the 11.1 version of ucc.  However, if a user
 enters: 
 
    $ module load ucc
 
-then the module command choses the one last alphabetically which is
+then the module command chooses the last one alphabetically which is
 "ucc/9.2".  This can be a problem since it is likely that the 11.1
-version is a new version than 9.2 version.  Fortunately the system
+version is a newer version than 9.2 version.  Fortunately, the system
 admins can mark a version as the default:
 
    $ module avail ucc
@@ -144,14 +147,14 @@ will now load the 11.1 version of the package.
 
 The modulefiles can be stored in different directories.  There is an
 environment variable MODULEPATH which controls that.  Modulefiles that
-are in listed in an earlier directory are found before ones in later
+are listed in an earlier directory are found before ones in later
 directories.  This is similar to command searching in the PATH
-variable.  There can be several version of a command.  The first one
+variable.  There can be several versions of a command.  The first one
 found in the PATH is used.
 
 Suppose the admins wish to make "beta" software available with
-modulefiles storied in /opt/betaApps/modulefiles.  If the MODULEPATH
-variable has /opt/betaApps/modulefiles before /opt/apps/modulefiles
+modulefiles stored in /opt/betaApps/modulefiles.  If the MODULEPATH
+variable has /opt/betaApps/modulefiles listed before /opt/apps/modulefiles
 then the ones in betaApps will be used instead:
 
    $ module avail ucc
@@ -199,7 +202,7 @@ If a user does:
 
 The first load command will load the 11.1 version of xyz.  In the
 second load, the module command knows that the user already has
-xyz/11.1 load so it unload that and then loads xyz/12.0.  This
+xyz/11.1 loaded so it unloads that and then loads xyz/12.0.  This
 protection is only available with Lmod.
 
 
@@ -234,42 +237,42 @@ implementation at a time.  Also the environment variable
    Module Hierarchy
 ------------------------------------------------------------------------
 
-Libraries build with one compiler need to be linked with applications
+Libraries built with one compiler need to be linked with applications
 with the same compiler version.   If sites are going to provide
 libraries, then there will be more than one version of the library, one
-for each compiler version.  So whether it is the Boost library or an
-mpi library, there are multiple version.   
+for each compiler version.  So, whether it is the Boost library or an
+mpi library, there are multiple versions.
 
 There are two main choices for system admins.  For the XYZ library
 compiled with either the UCC compiler or the GCC compiler, there could
-be the xyz-ucc modulefile and the xyz-gcc module file.  But this get
-much more complicated when there are multiple version of the XYZ
-library and the different compilers.  How does one label the various
-versions of library and compiler.  And even if one makes sense of the
+be the xyz-ucc modulefile and the xyz-gcc module file.  This get
+much more complicated when there are multiple versions of the XYZ
+library and different compilers.  How does one label the various
+versions of the library and the compiler?  Even if one makes sense of the
 version labeling, when a user changes compilers, the user will have to
 remember to unload the xyz-ucc and the ucc modulefiles when changing
-to gcc and xyz-gcc.  If a user has mismatched modules, their programs
+to gcc and xyz-gcc.  If users has mismatched modules, their programs
 are going to fail in very mysterious ways.
 
 A much saner strategy is use a module hierarchy.  The each compiler
 module adds to the MODULEPATH a compiler version modulefile
-directory.  The only modulefiles that exist in that directory are
+directory.  Only modulefiles that exist in that directory are
 libraries that have been built with that compiler.  When a user loads
 a particular compiler, that user only sees modulefile that are valid
 for that compiler.
 
-Similarly, application that use libraries that depend on MPI
+Similarly, applications that use libraries that depend on MPI
 implementations must be built with the same compiler - MPI pairing.
-This leads to modulefile hierarchy.  So as users start with the
-mimimum set of modules load, all they will see are compilers, not any
+This leads to modulefile hierarchy.  So, as users start with the
+mimimum set of loaded modules, all they will see are compilers, not any
 of the packaages that depend on a compiler.  Once they load a compiler
 they will see the modules that depend on that compiler.  After
 choosing an MPI implementation, then the modules that depend on that
 compiler-MPI pairing will be available.
 
-One of the nice features of Lmod is that handles the hierarchy
-easily.   So if a user swaps compilers then Lmod automatically unloads
-any modules that depended on the old compiler and reloads those
+One of the nice features of Lmod is that it handles the hierarchy
+easily.   If a user swaps compilers, then Lmod automatically unloads
+any modules that depends on the old compiler and reloads those
 modules that are dependent on the new compiler.
 
 
@@ -282,8 +285,8 @@ modules that are dependent on the new compiler.
    Due to MODULEPATH changes the follow modules have been reloaded:
    1) boost
 
-If a modulefile is not available with the new compiler then the module
-is marked as inactive.  Everytime MODULEPATH changes Lmod attempts to
+If a modulefile is not available with the new compiler, then the module
+is marked as inactive.  Everytime MODULEPATH changes, Lmod attempts to
 reload any inactive modules.
 
 
@@ -304,7 +307,7 @@ but not with the current compiler version.  Lmod offers a new command:
 
 Which lists all possible modules and not just the modules that can be
 seen in the current MODULEPATH.  This command has three modes.  The
-first way is:
+first mode is:
 
    $ module spider
 
@@ -353,8 +356,9 @@ be found:
       Help:
         The parmetis module defines the following environment variables: ...
 
-For this particular module it can be found via three different
-compiler versions and one mpi implementation.
+The module parmetis/3.1.1 has been compiled by three different version
+of the ucc compiler and one MPI implementation.
+
 
 ------------------------------------------------------------------------
     User created modules
@@ -367,10 +371,10 @@ module path:
 
 This will prepend "/path/to/personal/modulefiles" to the MODULEPATH
 environment variable. This means that any modulefiles defined here
-will used instead of the system modules.
+will be used instead of the system modules.
 
-Suppose that the user create a directory called "$HOME/modulefiles"
-and he wants a personel copy of the "git" package.  The user downloads git does
+Suppose that the user creates a directory called "$HOME/modulefiles"
+and he wants a personal copy of the "git" package and he does 
 the usual "tar, configure, make, make install" steps:
 
    $ tar xf git-2.3.4.tar.bz2
@@ -379,8 +383,8 @@ the usual "tar, configure, make, make install" steps:
    $ make
    $ make install
 
-This document has assumed that 2.3.4 is the current version of git.
-It will need to be replaced with the current version.
+This document has assumed that 2.3.4 is the current version of git,
+it will need to be replaced with the current version.
 To create a modulefile for git one does:
 
    $ cd ~/modulefiles
@@ -396,9 +400,9 @@ The point of the modulefile for git is to add
 "~/pkg/git/2.3.4/bin" to the user's path so that the personal version of
 git appears.  Starting first from the name:
 git/2.3.4.lua,  Modulefiles with the .lua extension are assumed to be
-written in lua and file without are assumed to be written in TCL.
+written in lua and files without are assumed to be written in TCL.
 
-The first line reads user's HOME directory from the environment.  The
+The first line reads the user's HOME directory from the environment.  The
 second line uses the "pathJoin" function provided from Lmod.  It joins
 strings together with the appropriate number of "/".  The last line
 calls the "prepend_path" function to add the path to git to the user's
@@ -410,9 +414,9 @@ Finally the user can do:
    $ type git
    ~/pkg/git/2.3.4/bin/git
 
-To make git be available on future login, the user needs to add the
-following to their startup scripts:  ~/.bashrc or ~/.cshrc depending
-the user's shell.
+For git to be available on future logins, users need to add the
+following to their startup scripts:  ~/.bashrc or ~/.cshrc depending on
+users' shell.
 
    module use $HOME/modulefiles
    module load git
@@ -425,7 +429,7 @@ Lua is a clean language with a simple syntax.  More about lua can be
 found at http://en.wikipedia.org/wiki/Lua_(programming_language) and 
 http://www.lua.org.
 
-Only the simpliest command are typically required for a module file.
+Only the simplest command are typically required for a module file.
 
    prepend_path("PATH", value) : prepend to a path variable the
                                  value
@@ -437,7 +441,7 @@ Only the simpliest command are typically required for a module file.
                                    value.
 
    whatis("STRING")             : The what is string, can be called
-                                  repeatly with different strings.
+                                  repeatedly with different strings.
                                   See the Admin Guide for more
                                   details.
    help( [[
@@ -468,6 +472,7 @@ Below is a typical modulefile with comments:
     whatis("Description: Ultimate Compiler Collection")
     whatis("URL: http://www.ucc.org")
 
+    setenv("UCC_HOME"                  base)
     prepend_path('PATH',               pathJoin(cc, "bin",arch))
     prepend_path('PATH',               pathJoin(fc, "bin",arch))
     prepend_path('LD_LIBRARY_PATH',    pathJoin(cc, "lib", arch))
