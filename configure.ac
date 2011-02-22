@@ -6,6 +6,18 @@ dnl This is for MGF
 
 AC_INIT(Makefile.in)
 AC_PREFIX_DEFAULT(/usr/local)
+AC_SUBST(MODULEPATH_ROOT)dnl
+AC_ARG_WITH(module-root-path,
+    AC_HELP_STRING([--with-module-root-path=<path>],[use module root path=<path> [[PREFIX/modulefiles]]]),
+    MODULEPATH="$withval"
+    AC_MSG_RESULT([MODULEPATH_ROOT = $with_module_root_path])
+    AC_DEFINE_UNQUOTED(MODULEPATH_ROOT, "$withval")dnl
+    ,
+    withval="$BASEPREFIX/Modules/modulefiles"
+    AC_MSG_WARN([will use MODULEPATH_ROOT=$withval : rerun configure using --with-module-root-path to override default])
+    MODULEPATH_ROOT="$withval"
+    AC_DEFINE_UNQUOTED(MODULEPATH_ROOT, "$withval"))dnl
+
 AC_SUBST(PATH_TO_LUA)
 AC_SUBST(PATH_TO_HASHSUM)
 AC_PATH_PROGS(PATH_TO_HASHSUM, [sha1sum] [md5sum], "")

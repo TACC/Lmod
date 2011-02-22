@@ -1,6 +1,7 @@
 # $Id: Makefile.in 701 2011-02-08 22:27:13Z mclay $
 PATH_TO_HASHSUM := @PATH_TO_HASHSUM@
 PATH_TO_LUA	:= @PATH_TO_LUA@
+MODULEPATH_ROOT := @MODULEPATH_ROOT@
 VERSION_SRC	:= src/Version.lua
 VERSION_LIB	:= $(subst .lua,,$(VERSION_SRC))
 prefix		:= @prefix@
@@ -68,6 +69,7 @@ __installMe:
           sed -e 's|@PREFIX@|@prefix@|g'                          \
 	      -e 's|@path_to_lua@|$(PATH_TO_LUA)|g'               \
 	      -e 's|@path_to_hashsum@|$(PATH_TO_HASHSUM)|g'       \
+	      -e 's|@MODULEPATH_ROOT@|$(MODULEPATH_ROOT)|g'       \
               -e 's|@PKG@|$(PKG)|g'         < $$i > $$fn;         \
           [ -n "$(DIRLOC)" ] && mv $$fn $(DESTDIR)$(DIRLOC) && chmod +x $(DESTDIR)$(DIRLOC)/$$fn; \
         done

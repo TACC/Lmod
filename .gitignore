@@ -2,3 +2,6 @@
 *~
 testreports
 t1
+config.log
+makefile
+config.status
