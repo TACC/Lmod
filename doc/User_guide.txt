@@ -2,15 +2,15 @@
                   Robert McLay, Ph.D.
 
 This guide is written to explain what Environment Modules are and why
-they are very useful for both users and system administrators.  This
-guide is written for users of environment modules. Lmod is an
+they are very useful for both users and system administrators.  Lmod is an
 implementation of Environment Modules, much of what is said here is
 true for any environment modules system but there are many features
-which are unique to Lmod. There is a second
-guide written for system admins.   Environment Modules provide
-a convenient way to dynamically change the users' environment through
-modulefiles.  This includes easily adding or removing directories to
-the PATH environment variable.  
+which are unique to Lmod. There is another guide written for system
+administrators.
+
+Environment Modules provide a convenient way to dynamically change the
+users' environment through modulefiles.  This includes easily adding
+or removing directories to the PATH environment variable.
 
 A modulefile contains the necessary information to allow a user to run
 a particular application or provide access to a particular library.
@@ -23,7 +23,7 @@ Packages can be loaded and unloaded cleanly through the module system.
 All the popular shells are supported: bash, ksh, csh, tcsh, zsh.
 
 It is also very easy to switch between different versions of a package
-if installed or remove it.
+or remove it.
 
    $ module load gcc/4.4
    $ type gcc
@@ -133,7 +133,7 @@ enters:
 then the module command chooses the last one alphabetically which is
 "ucc/9.2".  This can be a problem since it is likely that the 11.1
 version is a newer version than 9.2 version.  Fortunately, the system
-admins can mark a version as the default:
+administrators can mark a version as the default:
 
    $ module avail ucc
    --------------- /opt/apps/modulefiles ----------------
@@ -145,49 +145,8 @@ This way:
 
 will now load the 11.1 version of the package.
 
-The modulefiles can be stored in different directories.  There is an
-environment variable MODULEPATH which controls that.  Modulefiles that
-are listed in an earlier directory are found before ones in later
-directories.  This is similar to command searching in the PATH
-variable.  There can be several versions of a command.  The first one
-found in the PATH is used.
-
-Suppose the admins wish to make "beta" software available with
-modulefiles stored in /opt/betaApps/modulefiles.  If the MODULEPATH
-variable has /opt/betaApps/modulefiles listed before /opt/apps/modulefiles
-then the ones in betaApps will be used instead:
-
-   $ module avail ucc
-   --------------- /opt/betaApps/modulefiles ----------------
-   ucc/013.0
-
-   --------------- /opt/apps/modulefiles ----------------
-   ucc/11.1 (default)    ucc/12.0    ucc/8.1    ucc/9.2 
-
-   $ module load ucc
-
-The load command will load "ucc/013.0" even though alphabetically it
-is NOT the last in the list.  Reversing the order of the directories
-in MODULEPATH leads to different results:
-
-   $ module avail ucc
-   --------------- /opt/apps/modulefiles ----------------
-   ucc/11.1 (default)    ucc/12.0    ucc/8.1    ucc/9.2 
-
-   --------------- /opt/betaApps/modulefiles ----------------
-   ucc/013.0
-
-
-   $ module load ucc
-
-will load the "11.1" version and
-
-   $ module load ucc/013.0
-
-will load the "013.0" version.
-
 ------------------------------------------------------------------------
-   Protecting users:  Users can only have one version active.
+   Safety Feature (1):  Users can only have one version active.
 ------------------------------------------------------------------------
 
 If a user does:
@@ -207,7 +166,7 @@ protection is only available with Lmod.
 
 
 ------------------------------------------------------------------------
-   Protecting users from loading more than one compiler or MPI library
+   Safety Feature (2) : Users can only load one compiler or MPI stack
    at a time.
 ------------------------------------------------------------------------
 
@@ -243,7 +202,7 @@ libraries, then there will be more than one version of the library, one
 for each compiler version.  So, whether it is the Boost library or an
 mpi library, there are multiple versions.
 
-There are two main choices for system admins.  For the XYZ library
+There are two main choices for system administrators.  For the XYZ library
 compiled with either the UCC compiler or the GCC compiler, there could
 be the xyz-ucc modulefile and the xyz-gcc module file.  This get
 much more complicated when there are multiple versions of the XYZ
@@ -251,10 +210,10 @@ library and different compilers.  How does one label the various
 versions of the library and the compiler?  Even if one makes sense of the
 version labeling, when a user changes compilers, the user will have to
 remember to unload the xyz-ucc and the ucc modulefiles when changing
-to gcc and xyz-gcc.  If users has mismatched modules, their programs
+to gcc and xyz-gcc.  If users have mismatched modules, their programs
 are going to fail in very mysterious ways.
 
-A much saner strategy is use a module hierarchy.  The each compiler
+A much saner strategy is use a module hierarchy.  Each compiler
 module adds to the MODULEPATH a compiler version modulefile
 directory.  Only modulefiles that exist in that directory are
 libraries that have been built with that compiler.  When a user loads
@@ -396,11 +355,12 @@ To create a modulefile for git one does:
    prepend_path("PATH", pkg)
    ^D
 
-The point of the modulefile for git is to add
-"~/pkg/git/2.3.4/bin" to the user's path so that the personal version of
-git appears.  Starting first from the name:
-git/2.3.4.lua,  Modulefiles with the .lua extension are assumed to be
-written in lua and files without are assumed to be written in TCL.
+This modulefile for git adds "~/pkg/git/2.3.4/bin" to the user's path
+so that the personal version of git can be found.  
+
+Starting first from the name: git/2.3.4.lua, Modulefiles with the .lua
+extension are assumed to be written in lua and files without are
+assumed to be written in TCL.
 
 The first line reads the user's HOME directory from the environment.  The
 second line uses the "pathJoin" function provided from Lmod.  It joins
@@ -420,6 +380,53 @@ users' shell.
 
    module use $HOME/modulefiles
    module load git
+
+The modulefiles can be stored in different directories.  There is an
+environment variable MODULEPATH which controls that.  Modulefiles that
+are listed in an earlier directory are found before ones in later
+directories.  This is similar to command searching in the PATH
+variable.  There can be several versions of a command.  The first one
+found in the PATH is used.
+
+------------------------------------------------------------------------
+    How the module command finds modulefiles when there are two with
+    the same name
+------------------------------------------------------------------------
+
+Suppose the user has created a "git" module to provide the latest 
+available.   At a later date the system administrators add a newer
+version of "git"
+
+   $ module avail git
+   --------------- /home/user/modulefiles ----------------
+   git/2.3.4
+
+   --------------- /opt/apps/modulefiles ----------------
+   git/1.7.4  git/2.0.1  git/2.5.4 (default)
+
+   $ module load git
+
+The load command will load "git/2.3.4" even though alphabetically it
+is NOT the last in the list.  Reversing the order of the directories
+in MODULEPATH leads to different results:
+
+   $ module avail git
+
+   --------------- /opt/apps/modulefiles ----------------
+   git/1.7.4  git/2.0.1  git/2.5.4 (default)
+
+   --------------- /home/user/modulefiles ----------------
+   git/2.3.4
+
+
+   $ module load git
+
+will load the "2.5.4" version and
+
+   $ module load ucc/2.3.4
+
+will load the "2.3.4" version.
+
 
 ------------------------------------------------------------------------
    More about writing modulefiles.
