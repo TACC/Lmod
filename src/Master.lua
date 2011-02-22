@@ -201,7 +201,9 @@ local function loadModuleFile(t)
 
    local myType = extname(t.file)
    if (myType == ".lua") then
-      assert(loadfile(t.file))()
+      if (isFile(t.file)) then
+         assert(loadfile(t.file))()
+      end
    else
       local mt	  = MT:mt()
       local opt   = "-l \"" .. mt:loadActiveList() .. "\""

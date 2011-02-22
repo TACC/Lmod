@@ -161,9 +161,9 @@ clobber: clean
 distclean: clobber
 	$(RM) makefile config.status
 
-svntag:
+gittag:
         ifneq ($(TAG),)
-	  @svn st > /tmp/lmod$$$$;                                                   \
+	  @git st > /tmp/lmod$$$$;                                                   \
           if [ -s /tmp/lmod$$$$ ]; then                                              \
 	    echo "All files not checked in => try again";                            \
 	  else                                                                       \
