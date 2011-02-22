@@ -69,7 +69,7 @@ __installMe:
           sed -e 's|@PREFIX@|@prefix@|g'                          \
 	      -e 's|@path_to_lua@|$(PATH_TO_LUA)|g'               \
 	      -e 's|@path_to_hashsum@|$(PATH_TO_HASHSUM)|g'       \
-	      -e 's|@MODULEPATH_ROOT@|$(MODULEPATH_ROOT)|g'       \
+	      -e 's|@modulepath_root@|$(MODULEPATH_ROOT)|g'       \
               -e 's|@PKG@|$(PKG)|g'         < $$i > $$fn;         \
           [ -n "$(DIRLOC)" ] && mv $$fn $(DESTDIR)$(DIRLOC) && chmod +x $(DESTDIR)$(DIRLOC)/$$fn; \
         done

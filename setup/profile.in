@@ -33,7 +33,7 @@ if [ -z "$MODULEPATH_ROOT" ]; then
   export LMOD_arch
 
   
-  MODULEPATH_ROOT="@MODULEPATH_ROOT@"
+  MODULEPATH_ROOT="@modulepath_root@"
   export MODULEPATH_ROOT
   export MODULEPATH=$(@PKG@/libexec/addto --append MODULEPATH $MODULEPATH_ROOT/$LMOD_sys $MODULEPATH_ROOT/Core)
   export LMOD_DEFAULT_MODULEPATH=$MODULEPATH

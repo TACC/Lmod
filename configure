@@ -1650,17 +1650,17 @@ ac_compiler_gnu=$ac_cv_c_compiler_gnu
 
 # Check whether --with-module-root-path was given.
 if test "${with_module_root_path+set}" = set; then :
-  withval=$with_module_root_path; MODULEPATH="$withval"
+  withval=$with_module_root_path; MODULEPATH_ROOT="$withval"
     { $as_echo "$as_me:${as_lineno-$LINENO}: result: MODULEPATH_ROOT = $with_module_root_path" >&5
 $as_echo "MODULEPATH_ROOT = $with_module_root_path" >&6; }
     cat >>confdefs.h <<_ACEOF
-#define MODULEPATH_ROOT "$withval"
+#define MODULEPATH_ROOT "$with_module_root_path"
 _ACEOF
 
 else
-  withval="$BASEPREFIX/Modules/modulefiles"
-    { $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: will use MODULEPATH_ROOT=$withval : rerun configure using --with-module-root-path to override default" >&5
-$as_echo "$as_me: WARNING: will use MODULEPATH_ROOT=$withval : rerun configure using --with-module-root-path to override default" >&2;}
+  withval="$prefix/modulefiles"
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: MODULEPATH_ROOT=$withval" >&5
+$as_echo "MODULEPATH_ROOT=$withval" >&6; }
     MODULEPATH_ROOT="$withval"
     cat >>confdefs.h <<_ACEOF
 #define MODULEPATH_ROOT "$withval"

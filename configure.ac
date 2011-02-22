@@ -9,12 +9,12 @@ AC_PREFIX_DEFAULT(/usr/local)
 AC_SUBST(MODULEPATH_ROOT)dnl
 AC_ARG_WITH(module-root-path,
     AC_HELP_STRING([--with-module-root-path=<path>],[use module root path=<path> [[PREFIX/modulefiles]]]),
-    MODULEPATH="$withval"
+    MODULEPATH_ROOT="$withval"
     AC_MSG_RESULT([MODULEPATH_ROOT = $with_module_root_path])
-    AC_DEFINE_UNQUOTED(MODULEPATH_ROOT, "$withval")dnl
+    AC_DEFINE_UNQUOTED(MODULEPATH_ROOT, "$with_module_root_path")dnl
     ,
-    withval="$BASEPREFIX/Modules/modulefiles"
-    AC_MSG_WARN([will use MODULEPATH_ROOT=$withval : rerun configure using --with-module-root-path to override default])
+    withval="$prefix/modulefiles"
+    AC_MSG_RESULT([MODULEPATH_ROOT=$withval])
     MODULEPATH_ROOT="$withval"
     AC_DEFINE_UNQUOTED(MODULEPATH_ROOT, "$withval"))dnl
 
