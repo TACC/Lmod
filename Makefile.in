@@ -163,18 +163,17 @@ clobber: clean
 distclean: clobber
 	$(RM) makefile config.status
 
-svntag:
+gittag:
         ifneq ($(TAG),)
-	  @svn st > /tmp/lmod$$$$;                                                   \
+	  @git status -s > /tmp/lmod$$$$;                                            \
           if [ -s /tmp/lmod$$$$ ]; then                                              \
 	    echo "All files not checked in => try again";                            \
 	  else                                                                       \
 	    $(RM)                                                    $(VERSION_SRC); \
 	    echo "module('Version')"                              >  $(VERSION_SRC); \
 	    echo 'function name() return "'$(TAG) $(VDATE)'" end' >> $(VERSION_SRC); \
-	    svn ci -m'moving to TAG_VERSION $(TAG)'         	   $(VERSION_SRC);   \
-            SVN=`svn info | grep "Repository Root" | sed -e 's/Repository Root: //'`;\
-	    svn cp -m'moving to TAG_VERSION $(TAG)' $$SVN/trunk $$SVN/tags/$(TAG);   \
+            git commit -m "moving to TAG_VERSION $(TAG)"             $(VERSION_SRC); \
+            git tag -a $(TAG) -m 'Setting TAG_VERSION to $(TAG)'                   ; \
           fi;                                                                        \
           rm -f /tmp/lmod$$$$
         else

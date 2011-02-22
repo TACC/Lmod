@@ -491,14 +491,14 @@ function spiderSearch(dbT, mname)
       end
    end
    if (not found) then
-      LmodError("Unable to find: \"",mname,"\"")
+      io.stderr:write("Unable to find: \"",mname,"\"\n")
    end
    dbg.fini()
 end
 
 function Level1(dbT, mname, help)
    local dbg = Dbg:dbg()
-   dbg.start("spiderSearch(dbT,\"",mname,"\")")
+   dbg.start("Level1(dbT,\"",mname,"\")")
    local name = extractName(mname)
    local t    = dbT[name]
    local term_width = tonumber(capture("tput cols") or "80") - 4
