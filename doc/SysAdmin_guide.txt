@@ -86,7 +86,6 @@ C) In the setup directory there are "profile.in" and "cshrc.in"
    templates assume that your modulefiles are located in
    /opt/apps/modulefiles/$LMOD_sys and /opt/apps/modulefiles/Core, where
 
-
    
 D) You can copy or link the profile and cshrc files to /etc/profile.d
 
@@ -143,7 +142,11 @@ sourced.  The same is true for Zsh shell users where the system zshenv
 file is always read.  
 
 In all cases the system startup files should already source the *.sh
-files for bash and zsh and *.csh for csh and tcsh.
+files in /etc/profile.d for bash and zsh and /etc/profile.d/*.csh for
+csh and tcsh.
+
+
+
 
 
 
