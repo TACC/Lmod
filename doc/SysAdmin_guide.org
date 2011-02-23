@@ -1,8 +1,15 @@
 Topics for System Admin Guide to Lmod:
 
 * Installing
-** MODULEPATH_ROOT
+** Installing lua
+*** system install or tar ball
+** Installing lmod
+*** MODULEPATH_ROOT 
+** Causing modules to work at login.
+** 
+** Explain Hierarchy
 ** Explain $MODULEPATH_ROOT/{Core, Compiler, MPI}
-** linking in init/profile into /etc/profile.d
+** linking in init/profile into /etc/profile.d/modules.sh
+** linking in init/cshrc into /etc/profile.d/modules.csh
 ** providing /etc/profile.d/z00_PrgEnv.{sh,csh}
 
