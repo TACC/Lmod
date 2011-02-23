@@ -1,3 +1,152 @@
+           System Administrators Guide to Lmod
+               Robert McLay, Ph.D.
+               mclay@tacc.utexas.edu
+               mclay@zaniahgroup.com
+
+
+Environment modules simplify customizing  users shell and it can be
+done dynamically.   There have been environment module systems for
+quite a while.  See www.modules.org for TCL based module system and
+http://www.lysator.liu.se/cmod for another module system.  This
+document explains Lmod which is a completely new version the module
+system written in Lua.  Lmod has some important features over other
+module system namely a built-in solution to hierarchical modulefiles
+(described later) and provides additional safety features to users as
+described in the user guide.
+
+
+Modules are designed to modify the users environment.  One of its
+powers is to add and remove directories to PATH.  In Unix, a child
+process can not modify its parents environment so how can modules
+possibly modify any environment variables such as PATH?
+
+It is a two part process.  There is module program which reads in
+module file and generates text.  The output text contains commands
+taylored for the user's shell.  The second part is a shell alias or
+shell function which "eval" that text which causes the changes to the
+current environment.
+
+------------------------------------------------------------------------
+    Installation
+------------------------------------------------------------------------
+
+In this document, it is assumed that all optional software is going to
+be installed in /opt/apps.  Please adjust to your system.
+
+
+A) Installation of Lmod is relatively easy.  Step 1 is to install Lua.
+   There are two choices :
+
+
+   1) Use the package version for your OS to install 
+
+      For Ubuntu 10.10 you will need:
+      
+            liblua5.1-0                 
+            liblua5.1-0-dev             
+            liblua5.1-filesystem-dev    
+            liblua5.1-filesystem0       
+            liblua5.1-posix-dev         
+            liblua5.1-posix0            
+            lua5.1                      
+
+      For other linux systems you will need the lua 5.1 and the lua
+      file system package and the lua posix package.
+
+
+   2) Install the lua that came with Lmod (lua-x.y.z.tar.gz).  You can
+      install it anywhere you like as long as the lua command is in your
+      path.  One strategy is 
+
+         $ tar xf lua-x.y.z.tar.gz
+         $ cd lua-x.y.z
+         $ ./configure --prefix=/opt/apps
+         $ make; make install
+         $ ln -s /opt/apps/lua/lua/bin/lua /usr/local/bin
+
+
+      This create /opt/apps/lua/x.y.z with a symbolic link from x.y.z
+      to /opt/apps/lua/lua.   Finally it add a link from lua to
+      /usr/local/bin which is in the standard path.
+
+
+B) The program "lua" must be in your path before installing "Lmod".
+   The configure script won't install lmod without it.  Again assuming
+   that optional software is going to be installed /opt/apps/
+
+
+      $ ./configure --prefix=/opt/apps
+      $ make install
+
+   This will create /opt/apps/lmod/lmod_version and a link
+   /opt/apps/lmod/lmod
+
+C) In the setup directory there are "profile.in" and "cshrc.in"
+   templates.  The path to lua will automatically be generated.  The
+   templates assume that your modulefiles are located in
+   /opt/apps/modulefiles/$LMOD_sys and /opt/apps/modulefiles/Core, where
+
+
+   
+D) You can copy or link the profile and cshrc files to /etc/profile.d
+
+      $ ln -s /opt/apps/lmod/lmod/init/profile /etc/profile.d/modules.sh
+      $ ln -s /opt/apps/lmod/lmod/init/cshrc   /etc/profile.d/modules.csh
+
+E) To test the setup you just need to login as a user.  The module
+   command should be set and MODULEPATH should be defined for bash or
+   zsh shell users:
+
+      $ type module
+      module()
+      {
+         eval `$LMOD_CMD bash $*`
+      }
+
+      $ echo $LMOD_CMD
+      /opt/apps/lmod/lmod/libexec/lmod
+
+      $ echo $MODULEPATH
+      /opt/apps/modulefiles/Linux:/opt/apps/modulefiles/Core
+
+   Similar for csh users:
+
+      % which module   
+      module: aliased to eval `/opt/apps/lmod/lmod/libexec/lmod tcsh !*`; 
+
+      % echo $MODULEPATH
+      /opt/apps/modulefiles/Linux:/opt/apps/modulefiles/Core
+
+
+------------------------------------------------------------------------
+   Startup scripts for Bash, Csh and Zsh.
+------------------------------------------------------------------------
+
+On login shells, the bash shell first reads /etc/profile.  That script
+is should source all the *.sh files in directory "/etc/profile.d".  On
+interactive shell, the bash shell may or may not source a system file
+/etc/bashrc or similar.  Currently for example, the bash on Ubuntu sources
+/etc/bash.bashrc on interactive shells, then it sources ~/.bashrc.
+Fedora only sources the users' ~/.bashrc but by default has the
+following in the contents in each users's ~/.bashrc:
+
+   if [ -f /etc/bashrc ]; then
+      . /etc/bashrc
+   fi
+
+For bash users on interactive shells, the system bashrc file must be
+sourced so that the /etc/profile.d/modules.sh will be read and the
+module command will be defined.
+
+This is not an issue for Csh users as the system cshrc file is always
+sourced.  The same is true for Zsh shell users where the system zshenv
+file is always read.  
+
+In all cases the system startup files should already source the *.sh
+files for bash and zsh and *.csh for csh and tcsh.
+
+
+
 ------------------------------------------------------------------------
    Advantages of Environment Modules over no system.
 ------------------------------------------------------------------------
