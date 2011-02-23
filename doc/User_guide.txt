@@ -320,6 +320,71 @@ of the ucc compiler and one MPI implementation.
 
 
 ------------------------------------------------------------------------
+    Controlling which modules get loaded during login.
+------------------------------------------------------------------------
+
+Normally when a user logs in, there are a standard set of modules that
+are automatically loaded.  Users can override and add to this standard
+set in two ways.  The first is add module commands to their personal
+startup files.  The second way is through the "module setdefault"
+command.
+
+To add module commands to  users' startup scripts requires a few
+steps.  Bash users can put the module commands in either their
+~/.profile file or their ~/.bashrc file.  It is simpliest to place the
+following in their ~/.profile file:
+
+    if [ -f ~/.bashrc ]; then
+       . ~/.bashrc
+    fi
+
+and place the following in their ~/.bashrc file:
+
+   if [ -z "$BASHRC_READ" ]; then
+      export BASHRC_READ=1
+      # Place any module commands here
+      # module load git
+   fi
+
+By wrapping the module command in an if test, the module commands need
+only be read in once.  Any sub-shell will inherit the PATH and other
+environment variables automatically.  On login shells the ~/.profile
+file is read which, in the above setup, causes the ~/.bashrc file to
+be read.  On interactive non-login shells, the ~/.bashrc file is read
+instead.  Obviously, having this setup means that module commands need
+only be added in one file and not two.
+
+Csh users need only specify the module commands in their ~/.cshrc file
+as that file is always sourced:
+
+   if ( ! $?CSHRC_READ ) then
+     setenv CSHRC_READ 1
+     # Place any module command here
+     # module load git
+   endif
+   
+Assuming that the system adminstrators have installed Lmod correctly
+their is an second way which is much easier to setup.  A user logs in
+with the standard modules loaded.  Then the user modifies the default
+setup through the standard module commands:
+
+   $ module unload XYZ
+   $ module swap gcc ucc
+   $ module load git
+
+Once users have the desired modules load then they issue:
+
+   $ module setdefault
+
+This creates a file called ~/.lmod.d/default which has the list of
+desired modules.  Once this is setup a user can issue:
+
+   $ module getdefault
+
+and desired modules will be loaded and no others.     
+
+
+------------------------------------------------------------------------
     User created modules
 ------------------------------------------------------------------------
 
