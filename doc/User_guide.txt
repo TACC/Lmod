@@ -173,7 +173,7 @@ protection is only available with Lmod.
 Lmod provides an additional level of protection.  If each of the
 compiler modulefiles add a line:
 
-  family "compiler"
+  family("compiler")
 
 Then Lmod will not load another compiler modulefile.   Another benefit
 of the modulefile family directive is that an environment varible
@@ -185,7 +185,7 @@ In the High Performance Computing (HPC) world, the message passing
 interface (MPI) libraries are important.  The mpi modulefiles can
 contain a
 
-   family "MPI"
+   family("MPI")
 
 directive which will prevent users from loading more than one MPI
 implementation at a time.  Also the environment variable
@@ -522,8 +522,9 @@ Only the simplest command are typically required for a module file.
    )
                                 : What is printed out when the help
                                   command is called.
-   pathJoin("/a","b/c/","d/")   : builds a path: "/a/b/c/d" with 2 or
-                                  more arguments.
+   pathJoin("/a","b/c/","d/")   : builds a path: "/a/b/c/d", It
+                                  combines any number of strings with
+                                  one slash and remove excess slashes.
 
 
 Below is a typical modulefile with comments:

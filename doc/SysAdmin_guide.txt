@@ -147,8 +147,64 @@ csh and tcsh.
 
 
 
+The ucc modulefile (ucc.lua) might look something like this:
 
+    
+   help(
+   [[
+      This module loads the Ultimate Compiler Collection suite.
+      This provides a fortran, and C 
+   ]])
+   
+   local version = "14.2.1"
+   local base    = pathJoin("/opt/apps/ucc",version)
+   local cc      = pathJoin(base,"cc")
+   local fc      = pathJoin(base,"fc")
 
+   setenv(      "UCC_DIR",            base)
+   prepend_path("PATH",               pathJoin(cc, "bin"))
+   prepend_path("PATH",               pathJoin(fc, "bin"))
+   prepend_path("LD_LIBRARY_PATH",    pathJoin(cc, "lib"))
+   prepend_path("LD_LIBRARY_PATH",    pathJoin(fc, "lib"))
+
+   -- Setup Modulepath for packages built by this compiler
+   local mroot = os.getenv("MODULEPATH_ROOT")
+   local mdir  = pathJoin(mroot,"Compiler/ucc", version)
+   prepend_path("MODULEPATH",   mdir)
+
+------------------------------------------------------------------------   
+   Super Quick Lua Tutorial for module writers.
+------------------------------------------------------------------------   
+Lua is an efficient language built on simple syntax.  Readers wanting
+to know more about lua can see http://wikipedia/Lua (fix me) and
+http://www.lua.org.  This simple description given here should be
+sufficient to write all but the most complex modulefiles.  
+
+Only the simplest command are typically required for a module file.
+
+   prepend_path("PATH", value) : prepend to a path variable the
+                                 value
+
+   append_path("PATH", value)  : append to a path variable the
+                                 value
+
+   setenv("ENV_VAR_NAME", value) : assigns to "ENV_VAR_NAME" the
+                                   value.
+
+   whatis("STRING")             : The what is string, can be called
+                                  repeatedly with different strings.
+                                  See the Admin Guide for more
+                                  details.
+   help( [[
+   help string
+   ]]
+   )
+                                : What is printed out when the help
+                                  command is called.
+   pathJoin("/a","b/c/","d/")   : builds a path: "/a/b/c/d", It
+                                  combines any number of strings with
+                                  one slash and remove excess slashes.
+   load("a","b")                : Loads one or more modulefiles.
 
 ------------------------------------------------------------------------
    Advantages of Environment Modules over no system.
