@@ -114,7 +114,7 @@ given on the command line.
    How the module command picks the version of a modulefile to load.
 ------------------------------------------------------------------------
 
-Suppose you have several versions of the UCC compiler command.
+Suppose you have several versions of the UCC compiler suite.
 
    $ module avail ucc
    --------------- /opt/apps/modulefiles/Core ----------------

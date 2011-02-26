@@ -146,6 +146,26 @@ files in /etc/profile.d for bash and zsh and /etc/profile.d/*.csh for
 csh and tcsh.
 
 
+------------------------------------------------------------------------
+   Initial setup of Modules
+------------------------------------------------------------------------
+
+At this point, the module command is available but there are no
+modules to load.  As an example you can create a module for the
+mythical Ultimate Compiler Collection (ucc) version 14.2
+Assuming you are using /opt/apps as the location of optional software
+then packages you should:
+
+   $ tar xf ucc-14.2.tar.gz
+   $ cd ucc-14.2
+   $ ./configure --prefix=/opt/apps/ucc/14.2
+   $ make
+   $ make install
+
+The module file for this
+
+
+
 
 
 
