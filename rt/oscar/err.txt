@@ -6,19 +6,17 @@ step 2
 ===========================
 
 ------------------------------------------------------------
-   ~/w/lmod/rt/oscar/mf/Core/oscar:
+   ~/w/lmod/rt/oscar/mf/Core/oscar.lua:
 ------------------------------------------------------------
-whatis("Sets up the OSCAR modules subsystem.")
+help("	This module sets up the OSCAR modules subsystem.")
+whatis("Description: Sets up the OSCAR modules subsystem.")
 prepend_path("MODULEPATH", "~/w/lmod/rt/oscar/mf/Oscar")
-setenv("MANPATH", ":/opt/modules/default/man")
-load("c")
-load("b")
 load("a")
-help("	This module sets up the OSCAR modules subsystem.
-")
+load("b")
+load("c")
 
 ===========================
 step 3
 ===========================
 Currently Loaded Modules:
-  1) c  2) b  3) a  4) oscar
+  1) a  2) b  3) c  4) oscar
