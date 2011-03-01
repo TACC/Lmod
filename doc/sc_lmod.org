@@ -1,0 +1,32 @@
+Notes for SC Conf on Lmod, rpm etc.
+
+* Major concepts:
+** Software apps/libraries are being created and updated constantly.
+** This means that there will be old and new version of that software.
+** Users will need access new version for features or bug fixes and older versions for stability.
+** Hence the need for providing multiple version of packages and easy switching between versions.
+
+* Use of a package manager to allow for easy installation of both software and modulefiles.
+** Re-shooting of nodes?
+** 
+
+* Use Environment Modules make different version of packages easily available to users.
+** Use modules instead of softenv?
+** Users want access to a resource/package
+** Some Users need to moved to newer versions of software.
+** Provide users with a default set of modules.
+
+
+* Hierarchy
+** Application and libraries must be compiled and linked with same compiler.
+** In the HPC world, Application which which use Parallel libraries must be compiled and linked 
+   with the correct MPI - compiler pairing.
+** For parallel libraries that means multiple versions. 
+   For three compilers and three mpi implementations means 9 different
+   builds of the same version of the parallel library.
+
+
+* Hierarchical problems
+** Users
+
+
