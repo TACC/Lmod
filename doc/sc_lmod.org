@@ -25,8 +25,15 @@ Notes for SC Conf on Lmod, rpm etc.
    For three compilers and three mpi implementations means 9 different
    builds of the same version of the parallel library.
 
+* Flat versus Hierarchical
+** names like parallelLib_1.2.4-mpiLib_2.4-compiler_12.2
+** In flat system all version will be seen:  Too many version, No guidiance on what works.
+** Hierarchical layout means that you can only see the modules 
+
 
 * Hierarchical problems
-** Users
+** While users can only load matching libraries and applications for the compiler-mpi pairing.
+** Care must be taken when swapping compilers.
+
 
 

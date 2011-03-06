@@ -1,0 +1,86 @@
+\documentclass[12pt]{article}
+%\usepackage{diss_inc}
+%\usepackage{psfig}
+\usepackage{underscore}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{9.0in}
+\setlength{\topmargin}{0.0in}
+\setlength{\headheight}{0.0in}
+\setlength{\headsep}{0.0in}
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\begin{document}
+
+Here are the major points for the SC 11 paper.
+
+\begin{itemize}
+  \item Software packages are being updated all the time.
+    \begin{itemize}
+      \item Users need access to new versions for features and bug
+        fixes and older versions for stability.
+      \item Let Users choose which version they want to use.
+    \end{itemize}
+
+  \item Use a Package manager for all optional software.
+    \begin{itemize}
+      \item Makes it easy to ``shoot'' nodes.
+      \item Capture institutional knowledge in ``spec'' files.
+    \end{itemize}
+
+  \item Use Environment Modules to manage access to packages.
+    \begin{itemize}
+      \item Users want access to a resource or package and do not care
+        where that package exists in the directory structure.
+      \item Module makes it easy for users to choose which version of
+        a package to use.
+      \item Provide users with a default set of modules.
+    \end{itemize}
+
+  \item Hierarchy
+    \begin{itemize}
+      \item Application and pre-built libraries must be compiled and
+        linked with same compiler.
+      \item MPI based parallel libraries must be built and linked with
+        the same MPI-compiler pairing.
+      \item Organize Module files in a hierarchy rather than a flat system.
+      \item Flat would have names like:
+        \texttt{parallelLib\_1.2-mpiLib\_2.4-compiler\_12.2}
+      \item Hierarchical layout means that users can only see the
+        modules that are valid for the current MPI-compiler pairing.
+      \item Flat system shows ALL modules that available with no guidiance.
+    \end{itemize}
+
+
+  \item Use a new implementation of Env. Modules $\rightarrow$ Lmod.
+
+  \item Important Lmod features
+    \begin{itemize}
+      \item Users can not have two modules with the first name loaded
+        at the same time.
+        (i.e. users can not load both gcc/4.4.1 and gcc/4.5.2)
+      \item When users swap compilers, Lmod automatically unload
+        modules dependent on the old compiler and loads the same
+        modules dependent on the new compiler.
+      \item If any module is not available for the new compiler,
+        it is marked inactive.  Everytime the MODULEPATH is changed
+        the inactive modules are tested to see if they can be made active.
+      \item Users are protected from loading two compilers or two MPI
+        libraries at the same time by a new module directive.
+      \item ``module spider''
+    \end{itemize}
+
+
+  \item Recording the module used by users.
+    \begin{itemize}
+      \item Find out which modules are not used or lightly used for
+        safe removal.
+      \item For lightly used modules, send e-mail to just those users.
+      \item Tell users of one module that another module can perform
+        better. 
+    \end{itemize}
+
+\end{itemize}
+
+
+
+\end{document}
