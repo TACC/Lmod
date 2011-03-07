@@ -88,10 +88,10 @@ src/computeHashSum: $(ComputeHashSum)
 	chmod +x $@
 
 makefile: Makefile.in config.status
-	config.status
+	config.status $@
 
 config.status:
-	./configure
+	./config.status --recheck
 
 dist:  
 	$(MAKE) DistD=DIST _dist
