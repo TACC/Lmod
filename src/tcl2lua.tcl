@@ -361,8 +361,11 @@ proc use { args } {
 	    set path_cmd "append_path"
         } elseif {($path == "--prepend") ||($path == "-p") ||($path == "-prepend")} {
 	    set path_cmd "prepend_path"
-	} elseif {[file isdirectory $path]} {
-	    eval cmdargs $path_cmd MODULEPATH $path
+	} else {
+            #puts stderr "path: $path"
+            if {[file isdirectory $path]} {
+                eval cmdargs $path_cmd MODULEPATH $path
+            }
 	}
     }
 }
