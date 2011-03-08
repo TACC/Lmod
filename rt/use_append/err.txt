@@ -8,6 +8,8 @@ step 2
 ------------------------------------------------------------
    ~/w/lmod/rt/use_append/mf/Core/append:
 ------------------------------------------------------------
+append_path("MODULEPATH", "~/w/lmod/rt/use_append/mf/Append")
+append_path("MODULEPATH", "~/w/lmod/rt/use_append/mf/Append2")
 help("Dummy test module
 ")
 
