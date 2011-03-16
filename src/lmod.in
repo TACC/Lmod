@@ -594,6 +594,7 @@ function Use(...)
       op(ModulePath, v)
       op(DfltModPath, v)
    end
+   mt:buildBaseMpathA(varTbl[DfltModPath]:expand())
    mt:reloadAllModules()
    dbg.fini()
 end
@@ -606,6 +607,7 @@ function UnUse(...)
       Remove_path( ModulePath,v)
       Remove_path( DfltModPath,v)
    end
+   mt:buildBaseMpathA(varTbl[DfltModPath]:expand())
    mt:reloadAllModules()
    dbg.fini()
 end
@@ -899,7 +901,6 @@ local function SetDefault(...)
    end
    path = pathJoin(path, a)
    if (isFile(path)) then
-      io.stderr:write("Making backup of ",path,"\n")
       os.rename(path, path .. "~")
    end
    mt:assignHashSumActive()
@@ -970,6 +971,7 @@ end
 function getModuleT()
 
    local dbg       = Dbg:dbg()
+   local mt        = MT:mt()
    local moduleT   = {}
    local HOME      = os.getenv("HOME") or ""
    local cacheDir  = pathJoin(HOME,".lmod.d",".cache")
@@ -979,10 +981,9 @@ function getModuleT()
 
    local buildModuleT = true
 
-   local mpath = getenv(DfltModPath)
+   local mpath = mt:getBaseMPATH()
    if (mpath == nil) then
-      LmodError("The Env Variable: \"", DfltModPath, "\" is not set\n",
-                "It should be set during login")
+     LmodError("The Env Variable: \"", DfltModPath, "\" is not set\n")
    end
    local moduleDirA = {}
    for path in mpath:split(":") do

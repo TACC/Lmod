@@ -1,5 +1,6 @@
 -- $Id: MT.lua 641 2010-12-14 04:38:39Z mclay $ --
 require("strict")
+local DfltModPath  = DfltModPath
 local Error        = LmodError
 local Load         = Load
 local Master       = Master
@@ -11,6 +12,7 @@ local Unset        = Unset
 local assert       = assert
 local concatTbl    = table.concat
 local expert       = expert
+local getenv       = os.getenv
 local ignoreT      = { ['.'] =1, ['..'] = 1, CVS=1, ['.git'] = 1, ['.svn']=1,
                        ['.hg']= 1, ['.bzr'] = 1,}
 local io           = io
@@ -75,6 +77,8 @@ end
 
 
 local function new(self, s)
+   local dbg  = Dbg:dbg()
+   dbg.start("MT:new()")
    local o            = {}
 
    o.active           = Mlist:new()
@@ -84,6 +88,7 @@ local function new(self, s)
 
    o.family           = {}
    o.mpathA           = {}
+   o.baseMpathA       = {}
    o._same            = true
    o._MPATH           = ""
    o._locationTbl     = {}
@@ -96,7 +101,12 @@ local function new(self, s)
 
    local active, total
 
-   if (s) then
+   if (not s) then
+      local v             =  getenv(ModulePath)
+      varTbl[DfltModPath] = Var:new(DfltModPath, v)
+      o:buildBaseMpathA(v)
+      dbg.print("Initializing ", DfltModPath, ":", v, "\n")
+   else
       assert(loadstring(s))()
       local _ModuleTable_ = systemG._ModuleTable_
       for k in pairs(_ModuleTable_) do
@@ -109,6 +119,7 @@ local function new(self, s)
          end
       end
       o._MPATH = concatTbl(o.mpathA,":")
+      dbg.print("baseMpathA[1]:", o.baseMpathA[1],"\n")
    end
 
    if (active and active.Loaded) then
@@ -136,6 +147,7 @@ local function new(self, s)
    o._inactive        = o.inactive or {}
    o.inactive         = {}
 
+   dbg.fini()
    return o
 end
 
@@ -338,6 +350,19 @@ function buildMpathA(self, mpath)
    end
    self.mpathA = mpathA
    self._MPATH = concatTbl(mpathA,":")
+end
+
+function buildBaseMpathA(self, mpath)
+   local mpathA = {}
+   for path in mpath:split(":") do
+      mpathA[#mpathA + 1] = path
+   end
+   self.baseMpathA = mpathA
+end
+
+
+function getBaseMPATH(self)
+   return concatTbl(self.baseMpathA,":")
 end
 
 function reEvalModulePath(self)
