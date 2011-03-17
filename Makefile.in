@@ -14,7 +14,7 @@ INIT		:= $(prefix)/$(package)/$(version)/init
 DIRLIST		:= $(DESTDIR)$(LIBEXEC) $(DESTDIR)$(INIT)
 
 STANDALONE_PRGM := src/lmod.in src/addto.in src/getmt.in src/processMT.in  src/spider.in \
-                   src/processModuleUsage.in src/reportUsers.in
+                   src/processModuleUsage.in src/reportUsers.in src/clearMT_cmd.in
 SHELL_INIT	:= bash.in csh.in ksh.in tcsh.in zsh.in sh.in
 SHELL_INIT	:= $(patsubst %, setup/%, $(SHELL_INIT))
 
