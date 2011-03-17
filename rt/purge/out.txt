@@ -1,6 +1,8 @@
 ===========================
 step 1
 ===========================
+LMOD_DEFAULT_MODULEPATH='~/w/lmod/mf/Core';
+export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH='~/w/lmod/mf/Core';
 export MODULEPATH;
 INFOPATH='/local/info:/usr/share/info';
@@ -9,6 +11,8 @@ LD_LIBRARY_PATH='/vol/local/mpi/intel/10.1/openmpi/1.2.6.opt/lib:/vol/local/inte
 export LD_LIBRARY_PATH;
 LMOD_COMPILER='intel/11.0';
 export LMOD_COMPILER;
+LMOD_DEFAULT_MODULEPATH='~/w/lmod/mf/Core';
+export LMOD_DEFAULT_MODULEPATH;
 LMOD_FAMILY_COMPILER='intel';
 export LMOD_FAMILY_COMPILER;
 MANPATH='/vol/local/mpi/intel/10.1/openmpi/1.2.6.opt/man:/vol/local/noweb/noweb/man:/vol/local/intel/mkl/mkl/man:/vol/local/intel/idb/idb/man:/vol/local/intel/fc/fc/man:/vol/local/intel/cc/cc/man:/usr/share/man';
@@ -35,16 +39,20 @@ TACC_PMETIS_INC='/vol/pkg/Parmetis/intel/10.1/parmetis/3.1';
 export TACC_PMETIS_INC;
 TACC_PMETIS_LIB='/vol/pkg/Parmetis/intel/10.1/parmetis/3.1';
 export TACC_PMETIS_LIB;
-_ModuleTable_='_ModuleTable_={active={Dict={["PrgEnv"]=6,["admin"]=1,["intel"]=4,["local"]=3,["noweb"]=5,["openmpi"]=7,["parmetis"]=8,["unix"]=2,},FN={"~/w/lmod/mf/Core/admin/admin-1.0.lua","~/w/lmod/mf/Core/unix/unix.lua","~/w/lmod/mf/Core/local/local.lua","~/w/lmod/mf/Core/intel/intel.lua","~/w/lmod/mf/Core/noweb/2.10c.lua","~/w/lmod/mf/Core/PrgEnv.lua","~/w/lmod/mf/Compiler/intel/10.1/openmpi/1.2.6.lua","~/w/lmod/mf/MPI/intel/10.1/openmpi/1.2.6/parmetis/3.1.lua",},Loaded={"admin","unix","local","intel","noweb","PrgEnv","openmpi","parmetis",},default={1,1,1,1,1,0,1,1,},fullModName={"admin/admin-1.0","unix/unix","local/local","intel/intel","noweb/2.10c","PrgEnv","openmpi/1.2.6","parmetis/3.1",},mType={"w","w","w","w","w","m","w","w",},},family={["compiler"]="intel",},inactive={},mpathA={"~/w/lmod/mf/MPI/intel/10.1/openmpi/1.2.6","~/w/lmod/mf/Compiler/intel/10.1","~/w/lmod/mf/Core",},total={Dict={["PrgEnv"]=6,["admin"]=1,["intel"]=4,["local"]=3,["noweb"]=5,["openmpi"]=7,["parmetis"]=8,["unix"]=2,},FN={"~/w/lmod/mf/Core/admin/admin-1.0.lua","~/w/lmod/mf/Core/unix/unix.lua","~/w/lmod/mf/Core/local/local.lua","~/w/lmod/mf/Core/intel/intel.lua","~/w/lmod/mf/Core/noweb/2.10c.lua","~/w/lmod/mf/Core/PrgEnv.lua","~/w/lmod/mf/Compiler/intel/10.1/openmpi/1.2.6.lua","~/w/lmod/mf/MPI/intel/10.1/openmpi/1.2.6/parmetis/3.1.lua",},Loaded={"admin","unix","local","intel","noweb","PrgEnv","openmpi","parmetis",},default={1,1,1,1,1,0,1,1,},fullModName={"admin/admin-1.0","unix/unix","local/local","intel/intel","noweb/2.10c","PrgEnv","openmpi/1.2.6","parmetis/3.1",},mType={"w","w","w","w","w","m","w","w",},},["version"]=1,}';
+_ModuleTable_='_ModuleTable_={active={Dict={["PrgEnv"]=6,["admin"]=1,["intel"]=4,["local"]=3,["noweb"]=5,["openmpi"]=7,["parmetis"]=8,["unix"]=2,},FN={"~/w/lmod/mf/Core/admin/admin-1.0.lua","~/w/lmod/mf/Core/unix/unix.lua","~/w/lmod/mf/Core/local/local.lua","~/w/lmod/mf/Core/intel/intel.lua","~/w/lmod/mf/Core/noweb/2.10c.lua","~/w/lmod/mf/Core/PrgEnv.lua","~/w/lmod/mf/Compiler/intel/10.1/openmpi/1.2.6.lua","~/w/lmod/mf/MPI/intel/10.1/openmpi/1.2.6/parmetis/3.1.lua",},Loaded={"admin","unix","local","intel","noweb","PrgEnv","openmpi","parmetis",},default={1,1,1,1,1,0,1,1,},fullModName={"admin/admin-1.0","unix/unix","local/local","intel/intel","noweb/2.10c","PrgEnv","openmpi/1.2.6","parmetis/3.1",},mType={"w","w","w","w","w","m","w","w",},},baseMpathA={"~/w/lmod/mf/Core",},family={["compiler"]="intel",},inactive={},mpathA={"~/w/lmod/mf/MPI/intel/10.1/openmpi/1.2.6","~/w/lmod/mf/Compiler/intel/10.1","~/w/lmod/mf/Core",},total={Dict={["PrgEnv"]=6,["admin"]=1,["intel"]=4,["local"]=3,["noweb"]=5,["openmpi"]=7,["parmetis"]=8,["unix"]=2,},FN={"~/w/lmod/mf/Core/admin/admin-1.0.lua","~/w/lmod/mf/Core/unix/unix.lua","~/w/lmod/mf/Core/local/local.lua","~/w/lmod/mf/Core/intel/intel.lua","~/w/lmod/mf/Core/noweb/2.10c.lua","~/w/lmod/mf/Core/PrgEnv.lua","~/w/lmod/mf/Compiler/intel/10.1/openmpi/1.2.6.lua","~/w/lmod/mf/MPI/intel/10.1/openmpi/1.2.6/parmetis/3.1.lua",},Loaded={"admin","unix","local","intel","noweb","PrgEnv","openmpi","parmetis",},default={1,1,1,1,1,0,1,1,},fullModName={"admin/admin-1.0","unix/unix","local/local","intel/intel","noweb/2.10c","PrgEnv","openmpi/1.2.6","parmetis/3.1",},mType={"w","w","w","w","w","m","w","w",},},["version"]=1,}';
 export _ModuleTable_;
 ===========================
 step 2
 ===========================
+LMOD_DEFAULT_MODULEPATH='~/w/lmod/mf/Core';
+export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH='~/w/lmod/mf/MPI/intel/10.1/openmpi/1.2.6:~/w/lmod/mf/Compiler/intel/10.1:~/w/lmod/mf/Core';
 export MODULEPATH;
 unset 'INFOPATH';
 unset 'LD_LIBRARY_PATH';
 unset 'LMOD_COMPILER';
+LMOD_DEFAULT_MODULEPATH='~/w/lmod/mf/Core';
+export LMOD_DEFAULT_MODULEPATH;
 unset 'LMOD_FAMILY_COMPILER';
 unset 'MANPATH';
 unset 'MKL_DIR';
@@ -60,12 +68,16 @@ unset 'TACC_PMETIS_DIR';
 unset 'TACC_PMETIS_DOC';
 unset 'TACC_PMETIS_INC';
 unset 'TACC_PMETIS_LIB';
-_ModuleTable_='_ModuleTable_={active={Dict={},FN={},Loaded={},default={},fullModName={},mType={},},family={},inactive={},mpathA={"~/w/lmod/mf/Core",},total={Dict={},FN={},Loaded={},default={},fullModName={},mType={},},["version"]=1,}';
+_ModuleTable_='_ModuleTable_={active={Dict={},FN={},Loaded={},default={},fullModName={},mType={},},baseMpathA={"~/w/lmod/mf/Core",},family={},inactive={},mpathA={"~/w/lmod/mf/Core",},total={Dict={},FN={},Loaded={},default={},fullModName={},mType={},},["version"]=1,}';
 export _ModuleTable_;
 ===========================
 step 3
 ===========================
+LMOD_DEFAULT_MODULEPATH='~/w/lmod/mf/Core';
+export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH='~/w/lmod/mf/Core';
 export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH='~/w/lmod/mf/Core';
+export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH='~/w/lmod/mf/Core';
 export MODULEPATH;

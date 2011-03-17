@@ -1,15 +1,21 @@
 ===========================
 step 1
 ===========================
+LMOD_DEFAULT_MODULEPATH='~/w/lmod/mf/TACC';
+export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH='~/w/lmod/mf/TACC';
 export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH='~/w/lmod/mf/TACC';
+export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH='~/w/lmod/mf/TACC';
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={active={Dict={},FN={},Loaded={},default={},fullModName={},mType={},},family={},inactive={},mpathA={"~/w/lmod/mf/TACC",},total={Dict={},FN={},Loaded={},default={},fullModName={},mType={},},["version"]=1,}';
+_ModuleTable_='_ModuleTable_={active={Dict={},FN={},Loaded={},default={},fullModName={},mType={},},baseMpathA={"~/w/lmod/mf/TACC",},family={},inactive={},mpathA={"~/w/lmod/mf/TACC",},total={Dict={},FN={},Loaded={},default={},fullModName={},mType={},},["version"]=1,}';
 export _ModuleTable_;
 ===========================
 step 2
 ===========================
+LMOD_DEFAULT_MODULEPATH='~/w/lmod/mf/TACC';
+export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH='~/w/lmod/mf/TACC';
 export MODULEPATH;
 APPS='/opt/apps';
@@ -30,6 +36,8 @@ LD_LIBRARY_PATH='/share/apps/teragrid/globus-4.0.7-r1/myproxy-3.4/lib:/share/app
 export LD_LIBRARY_PATH;
 LIBPATH='/share/apps/teragrid/globus-4.0.7-r1/myproxy-3.4/lib:/share/apps/teragrid/globus-4.0.7-r1/lib';
 export LIBPATH;
+LMOD_DEFAULT_MODULEPATH='~/w/lmod/mf/TACC';
+export LMOD_DEFAULT_MODULEPATH;
 LMOD_FAMILY_COMPILER='pgi';
 export LMOD_FAMILY_COMPILER;
 MANPATH='/share/apps/teragrid/globus-4.0.7-r1/myproxy-3.4/man:/share/apps/teragrid/globus-4.0.7-r1/man:/opt/apps/pgi7_1/mvapich/1.0/man:/opt/apps/pgi/7.1/linux86-64/7.1-2/man:/usr/man:/usr/kerberos/man:/opt/rocks/man:/opt/ganglia/man:/usr/X11R6/man:/usr/share/man:/usr/local/man:/opt/apps/pki_apps/man';
@@ -54,25 +62,35 @@ SHLIB_PATH='/share/apps/teragrid/globus-4.0.7-r1/myproxy-3.4/lib:/share/apps/ter
 export SHLIB_PATH;
 TACC_FAMILY_COMPILER='pgi';
 export TACC_FAMILY_COMPILER;
-_ModuleTable_='_ModuleTable_={active={Dict={["TACC"]=5,["cluster"]=4,["globus"]=3,["mvapich1"]=2,["pgi"]=1,},FN={"~/w/lmod/mf/TACC/pgi/7.1","~/w/lmod/mf/TACC_COMPILER/pgi/7.1/mvapich1/1.0","~/w/lmod/mf/TACC/globus/4.0.7","~/w/lmod/mf/TACC/cluster","~/w/lmod/mf/TACC/TACC",},Loaded={"pgi","mvapich1","globus","cluster","TACC",},default={1,1,1,0,0,},fullModName={"pgi/7.1","mvapich1/1.0","globus/4.0.7","cluster","TACC",},mType={"w","w","w","mw","mw",},},family={["compiler"]="pgi",},inactive={},mpathA={"~/w/lmod/mf/TACC_COMPILER/pgi/7.1","~/w/lmod/mf/TACC",},total={Dict={["TACC"]=5,["cluster"]=4,["globus"]=3,["mvapich1"]=2,["pgi"]=1,},FN={"~/w/lmod/mf/TACC/pgi/7.1","~/w/lmod/mf/TACC_COMPILER/pgi/7.1/mvapich1/1.0","~/w/lmod/mf/TACC/globus/4.0.7","~/w/lmod/mf/TACC/cluster","~/w/lmod/mf/TACC/TACC",},Loaded={"pgi","mvapich1","globus","cluster","TACC",},default={1,1,1,0,0,},fullModName={"pgi/7.1","mvapich1/1.0","globus/4.0.7","cluster","TACC",},mType={"w","w","w","mw","mw",},},["version"]=1,}';
+_ModuleTable_='_ModuleTable_={active={Dict={["TACC"]=5,["cluster"]=4,["globus"]=3,["mvapich1"]=2,["pgi"]=1,},FN={"~/w/lmod/mf/TACC/pgi/7.1","~/w/lmod/mf/TACC_COMPILER/pgi/7.1/mvapich1/1.0","~/w/lmod/mf/TACC/globus/4.0.7","~/w/lmod/mf/TACC/cluster","~/w/lmod/mf/TACC/TACC",},Loaded={"pgi","mvapich1","globus","cluster","TACC",},default={1,1,1,0,0,},fullModName={"pgi/7.1","mvapich1/1.0","globus/4.0.7","cluster","TACC",},mType={"w","w","w","mw","mw",},},baseMpathA={"~/w/lmod/mf/TACC",},family={["compiler"]="pgi",},inactive={},mpathA={"~/w/lmod/mf/TACC_COMPILER/pgi/7.1","~/w/lmod/mf/TACC",},total={Dict={["TACC"]=5,["cluster"]=4,["globus"]=3,["mvapich1"]=2,["pgi"]=1,},FN={"~/w/lmod/mf/TACC/pgi/7.1","~/w/lmod/mf/TACC_COMPILER/pgi/7.1/mvapich1/1.0","~/w/lmod/mf/TACC/globus/4.0.7","~/w/lmod/mf/TACC/cluster","~/w/lmod/mf/TACC/TACC",},Loaded={"pgi","mvapich1","globus","cluster","TACC",},default={1,1,1,0,0,},fullModName={"pgi/7.1","mvapich1/1.0","globus/4.0.7","cluster","TACC",},mType={"w","w","w","mw","mw",},},["version"]=1,}';
 export _ModuleTable_;
 ===========================
 step 3
 ===========================
+LMOD_DEFAULT_MODULEPATH='~/w/lmod/mf/TACC';
+export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH='~/w/lmod/mf/TACC_COMPILER/pgi/7.1:~/w/lmod/mf/TACC';
 export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH='~/w/lmod/mf/TACC';
+export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH='~/w/lmod/mf/TACC_COMPILER/pgi/7.1:~/w/lmod/mf/TACC';
 export MODULEPATH;
 ===========================
 step 4
 ===========================
+LMOD_DEFAULT_MODULEPATH='~/w/lmod/mf/TACC';
+export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH='~/w/lmod/mf/TACC_COMPILER/pgi/7.1:~/w/lmod/mf/TACC';
 export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH='~/w/lmod/mf/TACC';
+export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH='~/w/lmod/mf/TACC_COMPILER/pgi/7.1:~/w/lmod/mf/TACC';
 export MODULEPATH;
 ===========================
 step 5
 ===========================
+LMOD_DEFAULT_MODULEPATH='~/w/lmod/mf/TACC';
+export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH='~/w/lmod/mf/TACC_COMPILER/pgi/7.1:~/w/lmod/mf/TACC';
 export MODULEPATH;
 unset 'APPS';
@@ -84,6 +102,8 @@ unset 'GPT_LOCATION';
 unset 'INFOPATH';
 unset 'LD_LIBRARY_PATH';
 unset 'LIBPATH';
+LMOD_DEFAULT_MODULEPATH='~/w/lmod/mf/TACC';
+export LMOD_DEFAULT_MODULEPATH;
 unset 'LMOD_FAMILY_COMPILER';
 unset 'LMOD_FAMILY_MPI';
 unset 'MANPATH';
@@ -100,17 +120,21 @@ unset 'SASL_PATH';
 unset 'SHLIB_PATH';
 unset 'TACC_FAMILY_COMPILER';
 unset 'TACC_FAMILY_MPI';
-_ModuleTable_='_ModuleTable_={active={Dict={["TACC"]=1,},FN={"~/w/lmod/mf/TACC/TACC",},Loaded={"TACC",},default={0,},fullModName={"TACC",},mType={"mw",},},family={},inactive={},mpathA={"~/w/lmod/mf/TACC",},total={Dict={["TACC"]=1,},FN={"~/w/lmod/mf/TACC/TACC",},Loaded={"TACC",},default={0,},fullModName={"TACC",},mType={"mw",},},["version"]=1,}';
+_ModuleTable_='_ModuleTable_={active={Dict={["TACC"]=1,},FN={"~/w/lmod/mf/TACC/TACC",},Loaded={"TACC",},default={0,},fullModName={"TACC",},mType={"mw",},},baseMpathA={"~/w/lmod/mf/TACC",},family={},inactive={},mpathA={"~/w/lmod/mf/TACC",},total={Dict={["TACC"]=1,},FN={"~/w/lmod/mf/TACC/TACC",},Loaded={"TACC",},default={0,},fullModName={"TACC",},mType={"mw",},},["version"]=1,}';
 export _ModuleTable_;
 ===========================
 step 6
 ===========================
+LMOD_DEFAULT_MODULEPATH='~/w/lmod/mf/TACC';
+export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH='~/w/lmod/mf/TACC';
 export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH='~/w/lmod/mf/TACC';
+export LMOD_DEFAULT_MODULEPATH;
 unset 'MANPATH';
 MODULEPATH='~/w/lmod/mf/TACC';
 export MODULEPATH;
 PATH='~/w/lmod/src:PATH_to_LUA:PATH_to_TM:/usr/bin:/bin';
 export PATH;
-_ModuleTable_='_ModuleTable_={active={Dict={},FN={},Loaded={},default={},fullModName={},mType={},},family={},inactive={},mpathA={"~/w/lmod/mf/TACC",},total={Dict={},FN={},Loaded={},default={},fullModName={},mType={},},["version"]=1,}';
+_ModuleTable_='_ModuleTable_={active={Dict={},FN={},Loaded={},default={},fullModName={},mType={},},baseMpathA={"~/w/lmod/mf/TACC",},family={},inactive={},mpathA={"~/w/lmod/mf/TACC",},total={Dict={},FN={},Loaded={},default={},fullModName={},mType={},},["version"]=1,}';
 export _ModuleTable_;

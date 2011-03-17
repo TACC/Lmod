@@ -1,23 +1,35 @@
 ===========================
 step 1
 ===========================
+LMOD_DEFAULT_MODULEPATH='~/w/lmod/rt/use_append/mf/Core';
+export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH='~/w/lmod/rt/use_append/mf/Core';
 export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH='~/w/lmod/rt/use_append/mf/Core';
+export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH='~/w/lmod/rt/use_append/mf/Core:~/w/lmod/rt/use_append/mf/Append:~/w/lmod/rt/use_append/mf/Append2';
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={active={Dict={["append"]=1,},FN={"~/w/lmod/rt/use_append/mf/Core/append",},Loaded={"append",},default={0,},fullModName={"append",},mType={"w",},},family={},inactive={},mpathA={"~/w/lmod/rt/use_append/mf/Core","~/w/lmod/rt/use_append/mf/Append","~/w/lmod/rt/use_append/mf/Append2",},total={Dict={["append"]=1,},FN={"~/w/lmod/rt/use_append/mf/Core/append",},Loaded={"append",},default={0,},fullModName={"append",},mType={"w",},},["version"]=1,}';
+_ModuleTable_='_ModuleTable_={active={Dict={["append"]=1,},FN={"~/w/lmod/rt/use_append/mf/Core/append",},Loaded={"append",},default={0,},fullModName={"append",},mType={"w",},},baseMpathA={"~/w/lmod/rt/use_append/mf/Core",},family={},inactive={},mpathA={"~/w/lmod/rt/use_append/mf/Core","~/w/lmod/rt/use_append/mf/Append","~/w/lmod/rt/use_append/mf/Append2",},total={Dict={["append"]=1,},FN={"~/w/lmod/rt/use_append/mf/Core/append",},Loaded={"append",},default={0,},fullModName={"append",},mType={"w",},},["version"]=1,}';
 export _ModuleTable_;
 ===========================
 step 2
 ===========================
+LMOD_DEFAULT_MODULEPATH='~/w/lmod/rt/use_append/mf/Core';
+export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH='~/w/lmod/rt/use_append/mf/Core:~/w/lmod/rt/use_append/mf/Append:~/w/lmod/rt/use_append/mf/Append2';
 export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH='~/w/lmod/rt/use_append/mf/Core';
+export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH='~/w/lmod/rt/use_append/mf/Core:~/w/lmod/rt/use_append/mf/Append:~/w/lmod/rt/use_append/mf/Append2';
 export MODULEPATH;
 ===========================
 step 3
 ===========================
+LMOD_DEFAULT_MODULEPATH='~/w/lmod/rt/use_append/mf/Core';
+export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH='~/w/lmod/rt/use_append/mf/Core:~/w/lmod/rt/use_append/mf/Append:~/w/lmod/rt/use_append/mf/Append2';
 export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH='~/w/lmod/rt/use_append/mf/Core';
+export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH='~/w/lmod/rt/use_append/mf/Core:~/w/lmod/rt/use_append/mf/Append:~/w/lmod/rt/use_append/mf/Append2';
 export MODULEPATH;

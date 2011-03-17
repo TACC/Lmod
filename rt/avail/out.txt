@@ -1,28 +1,40 @@
 ===========================
 step 1
 ===========================
+LMOD_DEFAULT_MODULEPATH='~/w/lmod/mf/Core:~/w/lmod/mf/Compiler/intel/10.1';
+export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH='~/w/lmod/mf/Core:~/w/lmod/mf/Compiler/intel/10.1';
 export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH='~/w/lmod/mf/Core:~/w/lmod/mf/Compiler/intel/10.1';
+export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH='~/w/lmod/mf/Core:~/w/lmod/mf/Compiler/intel/10.1';
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={active={Dict={},FN={},Loaded={},default={},fullModName={},mType={},},family={},inactive={},mpathA={"~/w/lmod/mf/Core","~/w/lmod/mf/Compiler/intel/10.1",},total={Dict={},FN={},Loaded={},default={},fullModName={},mType={},},["version"]=1,}';
+_ModuleTable_='_ModuleTable_={active={Dict={},FN={},Loaded={},default={},fullModName={},mType={},},baseMpathA={"~/w/lmod/mf/Core","~/w/lmod/mf/Compiler/intel/10.1",},family={},inactive={},mpathA={"~/w/lmod/mf/Core","~/w/lmod/mf/Compiler/intel/10.1",},total={Dict={},FN={},Loaded={},default={},fullModName={},mType={},},["version"]=1,}';
 export _ModuleTable_;
 ===========================
 step 2
 ===========================
+LMOD_DEFAULT_MODULEPATH='~/w/lmod/mf/Core:~/w/lmod/mf/Compiler/intel/10.1';
+export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH='~/w/lmod/mf/Core:~/w/lmod/mf/Compiler/intel/10.1';
 export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH='~/w/lmod/mf/Core:~/w/lmod/mf/Compiler/intel/10.1';
+export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH='~/w/lmod/mf/Core:~/w/lmod/mf/Compiler/intel/10.1';
 export MODULEPATH;
 ===========================
 step 3
 ===========================
+LMOD_DEFAULT_MODULEPATH='~/w/lmod/mf/Core:~/w/lmod/mf/Compiler/intel/10.1';
+export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH='~/w/lmod/mf/Core:~/w/lmod/mf/Compiler/intel/10.1';
 export MODULEPATH;
 LD_LIBRARY_PATH='/vol/local/intel/mkl/mkl/lib/lib:/vol/local/intel/idb/idb/lib:/vol/local/intel/fc/fc/lib:/vol/local/intel/cc/cc/lib';
 export LD_LIBRARY_PATH;
 LMOD_COMPILER='intel/11.0';
 export LMOD_COMPILER;
+LMOD_DEFAULT_MODULEPATH='~/w/lmod/mf/Core:~/w/lmod/mf/Compiler/intel/10.1';
+export LMOD_DEFAULT_MODULEPATH;
 LMOD_FAMILY_COMPILER='intel';
 export LMOD_FAMILY_COMPILER;
 MANPATH='/vol/local/intel/mkl/mkl/man:/vol/local/intel/idb/idb/man:/vol/local/intel/fc/fc/man:/vol/local/intel/cc/cc/man';
@@ -37,12 +49,16 @@ PATH='/vol/local/intel/idb/idb/bin:/vol/local/intel/fc/fc/bin:/vol/local/intel/c
 export PATH;
 TACC_FAMILY_COMPILER='intel';
 export TACC_FAMILY_COMPILER;
-_ModuleTable_='_ModuleTable_={active={Dict={["intel"]=1,},FN={"~/w/lmod/mf/Core/intel/intel.lua",},Loaded={"intel",},default={1,},fullModName={"intel/intel",},mType={"w",},},family={["compiler"]="intel",},inactive={},mpathA={"~/w/lmod/mf/Compiler/intel/10.1","~/w/lmod/mf/Core",},total={Dict={["intel"]=1,},FN={"~/w/lmod/mf/Core/intel/intel.lua",},Loaded={"intel",},default={1,},fullModName={"intel/intel",},mType={"w",},},["version"]=1,}';
+_ModuleTable_='_ModuleTable_={active={Dict={["intel"]=1,},FN={"~/w/lmod/mf/Core/intel/intel.lua",},Loaded={"intel",},default={1,},fullModName={"intel/intel",},mType={"w",},},baseMpathA={"~/w/lmod/mf/Core","~/w/lmod/mf/Compiler/intel/10.1",},family={["compiler"]="intel",},inactive={},mpathA={"~/w/lmod/mf/Compiler/intel/10.1","~/w/lmod/mf/Core",},total={Dict={["intel"]=1,},FN={"~/w/lmod/mf/Core/intel/intel.lua",},Loaded={"intel",},default={1,},fullModName={"intel/intel",},mType={"w",},},["version"]=1,}';
 export _ModuleTable_;
 ===========================
 step 4
 ===========================
+LMOD_DEFAULT_MODULEPATH='~/w/lmod/mf/Core:~/w/lmod/mf/Compiler/intel/10.1';
+export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH='~/w/lmod/mf/Compiler/intel/10.1:~/w/lmod/mf/Core';
 export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH='~/w/lmod/mf/Core:~/w/lmod/mf/Compiler/intel/10.1';
+export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH='~/w/lmod/mf/Compiler/intel/10.1:~/w/lmod/mf/Core';
 export MODULEPATH;

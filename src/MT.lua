@@ -119,7 +119,7 @@ local function new(self, s)
          end
       end
       o._MPATH = concatTbl(o.mpathA,":")
-      dbg.print("baseMpathA[1]:", o.baseMpathA[1],"\n")
+      varTbl[DfltModPath] = Var:new(DfltModPath, concatTbl(o.baseMpathA,":"))
    end
 
    if (active and active.Loaded) then
@@ -180,7 +180,6 @@ function getMTfromFile(self,fn)
    dbg.start("mt:getMTfromFile(",fn,")")
    f = io.open(fn,"r")
    if (not f) then
-      --io.stderr:write("\n")
       io.stdout:write("false\n")
       os.exit(1)
    end
@@ -224,9 +223,12 @@ function getMTfromFile(self,fn)
    -----------------------------------------------------------
    -- Clear MT and load modules from saved modules stored in
    -- "t" from above.
+   local baseMPATH = concatTbl(self.baseMpathA,":")
    s_mt = new(self,nil)
    posix.setenv(self:name(),"",true)
    setupMPATH(s_mt, mpath)
+   s_mt:buildBaseMpathA(baseMPATH)
+   varTbl[DfltModPath] = Var:new(DfltModPath,baseMPATH)
 
    dbg.print("(3) varTbl[ModulePath]:expand(): ",varTbl[ModulePath]:expand(),"\n")
    Load(unpack(a))
@@ -271,6 +273,7 @@ function getMTfromFile(self,fn)
    local n = "__LMOD_DEFAULT_MODULES_LOADED__"
    varTbl[n] = Var:new(n)
    varTbl[n]:set("1")
+   dbg.print("baseMpathA: ",concatTbl(self.baseMpathA,":"),"\n")
 
    dbg.fini()
 end

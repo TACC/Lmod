@@ -1,20 +1,28 @@
 ===========================
 step 1
 ===========================
-MODULEPATH='~/w/lmod/mf/Core';
-export MODULEPATH;
-MODULEPATH='~/w/lmod/mf/Core';
-export MODULEPATH;
-PATH='/usr/sbin:/sbin:~/w/lmod/src:PATH_to_LUA:PATH_to_TM:/usr/bin:/bin';
-export PATH;
-_ModuleTable_='_ModuleTable_={active={Dict={["admin"]=1,},FN={"~/w/lmod/mf/Core/admin/admin-1.0.lua",},Loaded={"admin",},default={1,},fullModName={"admin/admin-1.0",},mType={"w",},},family={},inactive={},mpathA={"~/w/lmod/mf/Core",},total={Dict={["admin"]=1,},FN={"~/w/lmod/mf/Core/admin/admin-1.0.lua",},Loaded={"admin",},default={1,},fullModName={"admin/admin-1.0",},mType={"w",},},["version"]=1,}';
-export _ModuleTable_;
-===========================
-step 2
-===========================
+LMOD_DEFAULT_MODULEPATH='~/w/lmod/mf/Core';
+export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH='~/w/lmod/mf/Core';
 export MODULEPATH;
 LMOD_DEFAULT_MODULEPATH='~/w/lmod/mf/Core';
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH='~/w/lmod/mf/Core';
 export MODULEPATH;
+PATH='/usr/sbin:/sbin:~/w/lmod/src:PATH_to_LUA:PATH_to_TM:/usr/bin:/bin';
+export PATH;
+_ModuleTable_='_ModuleTable_={active={Dict={["admin"]=1,},FN={"~/w/lmod/mf/Core/admin/admin-1.0.lua",},Loaded={"admin",},default={1,},fullModName={"admin/admin-1.0",},mType={"w",},},baseMpathA={"~/w/lmod/mf///Core/",},family={},inactive={},mpathA={"~/w/lmod/mf/Core",},total={Dict={["admin"]=1,},FN={"~/w/lmod/mf/Core/admin/admin-1.0.lua",},Loaded={"admin",},default={1,},fullModName={"admin/admin-1.0",},mType={"w",},},["version"]=1,}';
+export _ModuleTable_;
+===========================
+step 2
+===========================
+LMOD_DEFAULT_MODULEPATH='~/w/lmod/mf/Core';
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH='~/w/lmod/mf/Core';
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH='~/w/lmod/mf/Core';
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH='~/w/lmod/mf/Core';
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={active={Dict={["admin"]=1,},FN={"~/w/lmod/mf/Core/admin/admin-1.0.lua",},Loaded={"admin",},default={1,},fullModName={"admin/admin-1.0",},mType={"w",},},baseMpathA={"~/w/lmod/mf/Core",},family={},inactive={},mpathA={"~/w/lmod/mf/Core",},total={Dict={["admin"]=1,},FN={"~/w/lmod/mf/Core/admin/admin-1.0.lua",},Loaded={"admin",},default={1,},fullModName={"admin/admin-1.0",},mType={"w",},},["version"]=1,}';
+export _ModuleTable_;

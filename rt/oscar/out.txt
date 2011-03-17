@@ -1,8 +1,12 @@
 ===========================
 step 1
 ===========================
+LMOD_DEFAULT_MODULEPATH='~/w/lmod/rt/oscar/mf/Core';
+export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH='~/w/lmod/rt/oscar/mf/Core';
 export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH='~/w/lmod/rt/oscar/mf/Core';
+export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH='~/w/lmod/rt/oscar/mf/Oscar:~/w/lmod/rt/oscar/mf/Core';
 export MODULEPATH;
 RTM_A='a';
@@ -11,19 +15,27 @@ RTM_B='b';
 export RTM_B;
 RTM_C='c';
 export RTM_C;
-_ModuleTable_='_ModuleTable_={active={Dict={["a"]=1,["b"]=2,["c"]=3,["oscar"]=4,},FN={"~/w/lmod/rt/oscar/mf/Oscar/a","~/w/lmod/rt/oscar/mf/Oscar/b","~/w/lmod/rt/oscar/mf/Oscar/c","~/w/lmod/rt/oscar/mf/Core/oscar.lua",},Loaded={"a","b","c","oscar",},default={0,0,0,0,},fullModName={"a","b","c","oscar",},mType={"w","w","w","mw",},},family={},inactive={},mpathA={"~/w/lmod/rt/oscar/mf/Oscar","~/w/lmod/rt/oscar/mf/Core",},total={Dict={["a"]=1,["b"]=2,["c"]=3,["oscar"]=4,},FN={"~/w/lmod/rt/oscar/mf/Oscar/a","~/w/lmod/rt/oscar/mf/Oscar/b","~/w/lmod/rt/oscar/mf/Oscar/c","~/w/lmod/rt/oscar/mf/Core/oscar.lua",},Loaded={"a","b","c","oscar",},default={0,0,0,0,},fullModName={"a","b","c","oscar",},mType={"w","w","w","mw",},},["version"]=1,}';
+_ModuleTable_='_ModuleTable_={active={Dict={["a"]=1,["b"]=2,["c"]=3,["oscar"]=4,},FN={"~/w/lmod/rt/oscar/mf/Oscar/a","~/w/lmod/rt/oscar/mf/Oscar/b","~/w/lmod/rt/oscar/mf/Oscar/c","~/w/lmod/rt/oscar/mf/Core/oscar.lua",},Loaded={"a","b","c","oscar",},default={0,0,0,0,},fullModName={"a","b","c","oscar",},mType={"w","w","w","mw",},},baseMpathA={"~/w/lmod/rt/oscar/mf/Core",},family={},inactive={},mpathA={"~/w/lmod/rt/oscar/mf/Oscar","~/w/lmod/rt/oscar/mf/Core",},total={Dict={["a"]=1,["b"]=2,["c"]=3,["oscar"]=4,},FN={"~/w/lmod/rt/oscar/mf/Oscar/a","~/w/lmod/rt/oscar/mf/Oscar/b","~/w/lmod/rt/oscar/mf/Oscar/c","~/w/lmod/rt/oscar/mf/Core/oscar.lua",},Loaded={"a","b","c","oscar",},default={0,0,0,0,},fullModName={"a","b","c","oscar",},mType={"w","w","w","mw",},},["version"]=1,}';
 export _ModuleTable_;
 ===========================
 step 2
 ===========================
+LMOD_DEFAULT_MODULEPATH='~/w/lmod/rt/oscar/mf/Core';
+export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH='~/w/lmod/rt/oscar/mf/Oscar:~/w/lmod/rt/oscar/mf/Core';
 export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH='~/w/lmod/rt/oscar/mf/Core';
+export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH='~/w/lmod/rt/oscar/mf/Oscar:~/w/lmod/rt/oscar/mf/Core';
 export MODULEPATH;
 ===========================
 step 3
 ===========================
+LMOD_DEFAULT_MODULEPATH='~/w/lmod/rt/oscar/mf/Core';
+export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH='~/w/lmod/rt/oscar/mf/Oscar:~/w/lmod/rt/oscar/mf/Core';
 export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH='~/w/lmod/rt/oscar/mf/Core';
+export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH='~/w/lmod/rt/oscar/mf/Oscar:~/w/lmod/rt/oscar/mf/Core';
 export MODULEPATH;

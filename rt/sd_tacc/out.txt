@@ -1,6 +1,8 @@
 ===========================
 step 1
 ===========================
+LMOD_DEFAULT_MODULEPATH='~/w/lmod/mf/TACC';
+export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH='~/w/lmod/mf/TACC';
 export MODULEPATH;
 APPS='/opt/apps';
@@ -21,6 +23,8 @@ LD_LIBRARY_PATH='/share/apps/teragrid/globus-4.0.7-r1/myproxy-3.4/lib:/share/app
 export LD_LIBRARY_PATH;
 LIBPATH='/share/apps/teragrid/globus-4.0.7-r1/myproxy-3.4/lib:/share/apps/teragrid/globus-4.0.7-r1/lib';
 export LIBPATH;
+LMOD_DEFAULT_MODULEPATH='~/w/lmod/mf/TACC';
+export LMOD_DEFAULT_MODULEPATH;
 LMOD_FAMILY_COMPILER='pgi';
 export LMOD_FAMILY_COMPILER;
 MANPATH='/share/apps/teragrid/globus-4.0.7-r1/myproxy-3.4/man:/share/apps/teragrid/globus-4.0.7-r1/man:/opt/apps/pgi7_1/mvapich/1.0/man:/opt/apps/pgi/7.1/linux86-64/7.1-2/man:/usr/man:/usr/kerberos/man:/opt/rocks/man:/opt/ganglia/man:/usr/X11R6/man:/usr/share/man:/usr/local/man:/opt/apps/pki_apps/man';
@@ -45,12 +49,16 @@ SHLIB_PATH='/share/apps/teragrid/globus-4.0.7-r1/myproxy-3.4/lib:/share/apps/ter
 export SHLIB_PATH;
 TACC_FAMILY_COMPILER='pgi';
 export TACC_FAMILY_COMPILER;
-_ModuleTable_='_ModuleTable_={active={Dict={["TACC"]=5,["cluster"]=4,["globus"]=3,["mvapich1"]=2,["pgi"]=1,},FN={"~/w/lmod/mf/TACC/pgi/7.1","~/w/lmod/mf/TACC_COMPILER/pgi/7.1/mvapich1/1.0","~/w/lmod/mf/TACC/globus/4.0.7","~/w/lmod/mf/TACC/cluster","~/w/lmod/mf/TACC/TACC",},Loaded={"pgi","mvapich1","globus","cluster","TACC",},default={1,1,1,0,0,},fullModName={"pgi/7.1","mvapich1/1.0","globus/4.0.7","cluster","TACC",},mType={"w","w","w","mw","mw",},},family={["compiler"]="pgi",},inactive={},mpathA={"~/w/lmod/mf/TACC_COMPILER/pgi/7.1","~/w/lmod/mf/TACC",},total={Dict={["TACC"]=5,["cluster"]=4,["globus"]=3,["mvapich1"]=2,["pgi"]=1,},FN={"~/w/lmod/mf/TACC/pgi/7.1","~/w/lmod/mf/TACC_COMPILER/pgi/7.1/mvapich1/1.0","~/w/lmod/mf/TACC/globus/4.0.7","~/w/lmod/mf/TACC/cluster","~/w/lmod/mf/TACC/TACC",},Loaded={"pgi","mvapich1","globus","cluster","TACC",},default={1,1,1,0,0,},fullModName={"pgi/7.1","mvapich1/1.0","globus/4.0.7","cluster","TACC",},mType={"w","w","w","mw","mw",},},["version"]=1,}';
+_ModuleTable_='_ModuleTable_={active={Dict={["TACC"]=5,["cluster"]=4,["globus"]=3,["mvapich1"]=2,["pgi"]=1,},FN={"~/w/lmod/mf/TACC/pgi/7.1","~/w/lmod/mf/TACC_COMPILER/pgi/7.1/mvapich1/1.0","~/w/lmod/mf/TACC/globus/4.0.7","~/w/lmod/mf/TACC/cluster","~/w/lmod/mf/TACC/TACC",},Loaded={"pgi","mvapich1","globus","cluster","TACC",},default={1,1,1,0,0,},fullModName={"pgi/7.1","mvapich1/1.0","globus/4.0.7","cluster","TACC",},mType={"w","w","w","mw","mw",},},baseMpathA={"~/w/lmod/mf/TACC",},family={["compiler"]="pgi",},inactive={},mpathA={"~/w/lmod/mf/TACC_COMPILER/pgi/7.1","~/w/lmod/mf/TACC",},total={Dict={["TACC"]=5,["cluster"]=4,["globus"]=3,["mvapich1"]=2,["pgi"]=1,},FN={"~/w/lmod/mf/TACC/pgi/7.1","~/w/lmod/mf/TACC_COMPILER/pgi/7.1/mvapich1/1.0","~/w/lmod/mf/TACC/globus/4.0.7","~/w/lmod/mf/TACC/cluster","~/w/lmod/mf/TACC/TACC",},Loaded={"pgi","mvapich1","globus","cluster","TACC",},default={1,1,1,0,0,},fullModName={"pgi/7.1","mvapich1/1.0","globus/4.0.7","cluster","TACC",},mType={"w","w","w","mw","mw",},},["version"]=1,}';
 export _ModuleTable_;
 ===========================
 step 2
 ===========================
+LMOD_DEFAULT_MODULEPATH='~/w/lmod/mf/TACC';
+export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH='~/w/lmod/mf/TACC_COMPILER/pgi/7.1:~/w/lmod/mf/TACC';
 export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH='~/w/lmod/mf/TACC';
+export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH='~/w/lmod/mf/TACC_COMPILER/pgi/7.1:~/w/lmod/mf/TACC';
 export MODULEPATH;
