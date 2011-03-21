@@ -9,7 +9,7 @@ testdescript = {
    ]],
    keywords = {"python" },
 
-   active = 1,
+   active = false,
    testName = "python",
    job_submit_method = "INTERACTIVE", 
 
@@ -74,6 +74,7 @@ testdescript = {
             < $1 > $2
      }
 
+     runMe lua $(projectDir)/src/lmod.in bash -d load TACC
      runMe lua $(projectDir)/src/lmod.in bash -d load python
      runMe lua $(projectDir)/src/lmod.in bash list
 
