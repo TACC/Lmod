@@ -482,8 +482,10 @@ end
 
 local function Prereq(...)
    local dbg    = Dbg:dbg()
-   local mt  = MT:mt()
-   local a   = {}
+   local mt     = MT:mt()
+   local a      = {}
+   local mStack = ModuleStack:moduleStack()
+   local mName  = mStack:moduleName()
 
    dbg.start("Prereq(",concatTbl({...},", "),")")
 
@@ -495,15 +497,17 @@ local function Prereq(...)
    dbg.print("number found: ",#a,"\n")
    if (#a > 0) then
       local s = concatTbl(a," ")
-      LmodError("Can not load module without these modules loaded:\n  ",
+      LmodError("Can not load: \"",mName,"\" module without these modules loaded:\n  ",
             s,"\n")
    end
    dbg.fini()
 end
 
 local function Conflict(...)
-   local mt  = MT:mt()
-   local a   = {}
+   local mt     = MT:mt()
+   local a      = {}
+   local mStack = ModuleStack:moduleStack()
+   local mName  = mStack:moduleName()
    for _,v in ipairs{...} do
       if (mt:haveModuleActive(v)) then
          a[#a+1] = v
@@ -511,7 +515,7 @@ local function Conflict(...)
    end
    if (#a > 0) then
       local s = concatTbl(a," ")
-      LmodError("Can not load module because these modules are loaded:\n  ",
+      LmodError("Can not load: \"",mName,"\" module because these modules are loaded:\n  ",
             s,"\n")
    end
 end

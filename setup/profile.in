@@ -36,4 +36,5 @@ if [ -z "$MODULEPATH_ROOT" ]; then
   MODULEPATH_ROOT="@modulepath_root@"
   export MODULEPATH_ROOT
   export MODULEPATH=$(@PKG@/libexec/addto --append MODULEPATH $MODULEPATH_ROOT/$LMOD_sys $MODULEPATH_ROOT/Core)
+  export BASH_ENV=@PKG@/init/bash
 fi
