@@ -4,12 +4,28 @@ Topics for System Admin Guide to Lmod:
 ** Installing lua
 *** system install or tar ball
 ** Installing lmod
-*** MODULEPATH_ROOT 
+*** linking in init/profile into /etc/profile.d/modules.sh
+*** linking in init/cshrc into /etc/profile.d/modules.csh
 ** Causing modules to work at login.
-** 
-** Explain Hierarchy
-** Explain $MODULEPATH_ROOT/{Core, Compiler, MPI}
-** linking in init/profile into /etc/profile.d/modules.sh
-** linking in init/cshrc into /etc/profile.d/modules.csh
 ** providing /etc/profile.d/z00_PrgEnv.{sh,csh}
+
+* TCL modulefiles
+* Explain Hierarchy
+** explain naming scheme for apps and libraries
+   apps => /opt/apps/foo/version
+   libs => /opt/apps/compiler-version/foolib/version
+   mpilibs => /opt/apps/compiler-version/mpi-version/foolib/version  
+** Explain $MODULEPATH_ROOT/{Core, Compiler, MPI}
+
+* Modulefile writers philosophies
+** Meta modules should load other modules: PrgEnv
+
+** Use Prereq("foo") instead of using load("foo")
+** Use family("compiler") and similar for protection.
+** Use vasp style modulefiles when modules must be limited by group.
+
+* Use module spider to quickly check all modulefiles for valid syntax.
+
+
+* Talk about my Hier function?
 
