@@ -294,6 +294,27 @@ function versionFile(path)
    return capture(cmd):trim()
 end
 
+local function access_find_module_file(moduleName)
+   local mt = MT:mt()
+   if (mt:haveModuleTotal(moduleName)) then
+      local _, full = mt:modFullNameTotal(moduleName) 
+      return mt:fileNameTotal(moduleName), full or ""
+   end
+   local fn   = nil
+   local full = nil
+   if (isFile(moduleName)) then
+      fn = moduleName
+   else
+      fn = moduleName .. ".lua"
+      if (not isFile(fn)) then
+         local t = find_module_file(moduleName)
+         full    = t.modFullName
+         fn      = t.fn
+      end
+   end
+   return fn, full
+end
+
 function access(self, ...)
    local dbg    = Dbg:dbg()
    local mt     = MT:mt()
@@ -303,18 +324,10 @@ function access(self, ...)
    io.stderr:write("\n")
    if (systemG.help ~= dbg.quiet) then help = "-h" end
    for _, moduleName in ipairs{...} do
-      local fn
-      if (isFile(moduleName)) then
-         fn = moduleName
-      else
-         fn = moduleName .. ".lua"
-         if (not isFile(fn)) then
-            t                  = find_module_file(moduleName)
-            fn                 = t.fn
-            systemG.ModuleName = t.modFullName
-         end
-      end
+      local fn, full   = access_find_module_file(moduleName)
+      --io.stderr:write("full: ",full,"\n")
       systemG.ModuleFn   = fn
+      systemG.ModuleName = full
       if (fn) then
          prtHdr()
 	 loadModuleFile{file=fn,help=help}
