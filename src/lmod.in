@@ -151,6 +151,19 @@ function hierarchyA(package, levels)
    return b
 end
 
+function ModeLoad()
+   return "load"
+end
+
+function ModeUnload()
+   return "unload"
+end
+
+function isloaded(m)
+   local mt = MT:mt()
+   return mt:haveModuleActive(m)
+end
+
 local function regularize(v)
    v = v:gsub("^%s*","")
    v = v:gsub("%s*$","")
@@ -571,7 +584,7 @@ set_alias    = None
 unset_alias  = None
 prereq       = None
 conflict     = None
-
+mode         = None
 avail        = Avail
 list         = List
 
@@ -1159,15 +1172,15 @@ function main()
                   setenv = Set,       unsetenv = Unset,
                   prepend_path = Prepend_path, append_path = Append_path, remove_path = Remove_path,
                   set_alias    = SetAlias,     unset_alias = UnSetAlias,  family      = SetFamily,
-                  load         = Load,         unload      = UnLoad,
-                  prereq       = Prereq,       conflict    = Conflict,
+                  load         = Load,         unload      = UnLoad,      mode        = ModeLoad,
+                  prereq       = Prereq,       conflict    = Conflict,    
    }
 
    local unTbl = { whatis = dbg.quiet, help = dbg.quiet,
                    setenv = Unset,     unsetenv = BadUnset,
-                   prepend_path = Remove_path,  append_path = Remove_path, remove_path = BadRemove_path,
-                   set_alias    = UnSetAlias,   unset_alias = BadUnSetAlias, family    = UnsetFamily,
-                   load         = UnLoad,       unload      = BadUnLoad,
+                   prepend_path = Remove_path,  append_path = Remove_path,   remove_path = BadRemove_path,
+                   set_alias    = UnSetAlias,   unset_alias = BadUnSetAlias, family      = UnsetFamily,
+                   load         = UnLoad,       unload      = BadUnLoad,     mode        = ModeUnload,
                    prereq       = dbg.quiet,    conflict    = dbg.quiet,
    }
 
