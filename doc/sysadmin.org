@@ -23,6 +23,7 @@ Topics for System Admin Guide to Lmod:
 ** Use Prereq("foo") instead of using load("foo")
 ** Use family("compiler") and similar for protection.
 ** Use vasp style modulefiles when modules must be limited by group.
+** Do not mix Meta Modulefiles and Worker Bee Modulefiles -> setdefault.
 
 * Use module spider to quickly check all modulefiles for valid syntax.
 
