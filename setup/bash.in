@@ -1,0 +1,17 @@
+#!/bin/bash
+# -*- shell-script -*-
+# -- $Id: sh.in 642 2010-12-31 17:32:33Z mclay $ --
+
+LMOD_DIR=@PKG@/libexec/
+LMOD_CMD=@PKG@/libexec/lmod
+export LMOD_CMD
+module()
+{
+  eval `$LMOD_CMD bash "$@"`
+}
+export LMOD_DIR
+
+clearMT()
+{
+  eval $($LMOD_DIR/clearMT_cmd bash)
+}
