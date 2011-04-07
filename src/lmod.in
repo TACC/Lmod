@@ -69,6 +69,10 @@ module sub-command [args ...]
      keyword|key   string                  search all name and whatis that contain
                                            "string". Simple regular expression
                                            supported: "^p"
+
+See http://www.tacc.utexas.edu/tacc-projects/mclay/lmod for complete documentation.
+
+
 ]]
 
 local concatTbl = table.concat

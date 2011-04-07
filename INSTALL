@@ -81,4 +81,6 @@ E) You can write your module files in either lua or TCL.  Modulefiles with the l
 
 F) See README_lua_modulefiles.txt for more help.
 
+G) For complete documentation see http://www.tacc.utexas.edu/tacc-projects/mclay/lmod
+
    
