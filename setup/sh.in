@@ -7,7 +7,7 @@ LMOD_CMD=@PKG@/libexec/lmod
 export LMOD_CMD
 module()
 {
-  eval `$LMOD_CMD bash $*`
+  eval `$LMOD_CMD bash "$@"`
 }
 export LMOD_DIR
 
