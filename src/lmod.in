@@ -1015,7 +1015,7 @@ function getModuleT()
 
    if (haveMTFN) then
       local attr  = lfs.attributes(moduleTFN)
-      buildModuleT = (os.time() - attr.change) > 86400  -- rebuild if older than a day
+      buildModuleT = (os.time() - attr.modification) > 86400  -- rebuild if older than a day
    end
 
    -- Check to see if LMOD_DEFAULT_MODULEPATH has changed.
