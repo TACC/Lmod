@@ -684,7 +684,6 @@ function Access(...)
    end
 
    master:access(...)
-
 end
 
 function Help(...)

@@ -320,6 +320,7 @@ function access(self, ...)
    local mt     = MT:mt()
    local prtHdr = systemG.prtHdr
    local help   = nil
+   local a      = {}
    local result, t
    io.stderr:write("\n")
    if (systemG.help ~= dbg.quiet) then help = "-h" end
@@ -332,7 +333,13 @@ function access(self, ...)
          prtHdr()
 	 loadModuleFile{file=fn,help=help}
          io.stderr:write("\n")
+      else
+         a[#a+1] = moduleName
       end
+   end
+
+   if (#a > 0) then
+      io.stderr:write("Failed to find the follow modules:  \"",concatTbl(a,"\", \""),"\" in your MODULEPATH\n")
    end
 end
 
