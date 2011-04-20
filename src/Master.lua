@@ -339,7 +339,7 @@ function access(self, ...)
    end
 
    if (#a > 0) then
-      io.stderr:write("Failed to find the follow modules:  \"",concatTbl(a,"\", \""),"\" in your MODULEPATH\n")
+      io.stderr:write("Failed to find the follow module(s):  \"",concatTbl(a,"\", \""),"\" in your MODULEPATH\n")
    end
 end
 
