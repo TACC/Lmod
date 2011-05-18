@@ -39,36 +39,48 @@ Usage = [[
 module sub-command [args ...]
 
   Available sub-commands:
-     add|load      modulefile [...]        Add module(s)
-     try-add       modulefile [...]        Add, do not complain if not found
-     del|rm|unload modulefile [...]        Remove module(s)
-     try-rm        modulefile [...]        Remove module(s), do not complain
-                                           if not found
-     help          modulefile [...]        print help message from module(s)
-     swap          modfile1 modfile2       unload modfile1 and load modfile2
-     list                                  List loaded modules
+     add | load        modulefile [...]        Add module(s)
+     try-add           modulefile [...]        Add, do not complain if not found
+     del | rm | unload modulefile [...]        Remove module(s)
+     try-rm            modulefile [...]        Remove module(s), do not complain
+                                               if not found
+     help              modulefile [...]        print help message from module(s)
+     swap              modfile1 modfile2       unload modfile1 and load modfile2
+     list                                      List loaded modules
 
-     avail|av                              List available modules
-     avail|av      string                  List available modules that contain
-                                           "string".
+     avail|av                                  List available modules
+     avail|av          string                  List available modules that contain
+                                               "string".
 
-     spider                                List all possible modules
-     spider        modulefile              List all possible version of that
-                                           module file
-     spider        string                  List all module that contain the
-                                           string.  Simple regular expression
-                                           supported: "[Mm]pi"
-     spider        modulefile/version      Detailed information about that
-                                           version of the module
+     spider                                    List all possible modules
+     spider            modulefile              List all possible version of that
+                                               module file
+     spider            string                  List all module that contain the
+                                               string.  Simple regular expression
+                                               supported: "[Mm]pi"
+     spider            modulefile/version      Detailed information about that
+                                               version of the module
 
-     purge                                 unload all modules
-     use [-a] [--append] path              Prepend or Append path to MODULEPATH
-     unuse path                            remove path from MODULEPATH
+     purge                                     unload all modules
+     use [-a] [--append] path                  Prepend or Append path to MODULEPATH
+     unuse path                                remove path from MODULEPATH
 
-     whatis        modulefile              print whatis information about module
-     keyword|key   string                  search all name and whatis that contain
-                                           "string". Simple regular expression
-                                           supported: "^p"
+     whatis           modulefile               print whatis information about module
+     keyword|key      string                   search all name and whatis that contain
+                                               "string". Simple regular expression
+                                               supported: "^p"
+
+     setdefault | sd                           Save the current list of modules
+                                               to a file named "default".
+     setdefault | sd  filename                 Save the current list of modules
+                                               to "filename"
+     getdefault | gd                           Use the filename "default" to retrieve
+                                               previously saved list of modules.
+     getdefault | gd  filename                 Use the filename "filename" to retrieve
+                                               previously saved list of modules.
+     listdefault | ld                          list all saved default states.
+     
+
 
 See http://www.tacc.utexas.edu/tacc-projects/mclay/lmod for complete documentation.
 
