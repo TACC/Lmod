@@ -155,24 +155,32 @@ local function find_module_file(moduleName)
          if (ii > 1) then
             t.default  = 0
          end
+         local lastT = {}
             
          fullName   = ''
          local mn   = nil
          local attr = lfs.attributes(fn)
          if (attr and attr.mode == 'directory' and posix.access(fn,"x")) then
-            local last = ''
             found      = true   
             for file in lfs.dir(fn) do
                local f = pathJoin(fn, file)
                dbg.print("(2) fn: ",fn," file: ",file," f: ",f,"\n")
                attr = lfs.attributes(f)
                local readable = posix.access(f,"r")
-               if (readable and file:sub(1,1) ~= "." and attr.mode == 'file' and f > last and file:sub(-1,-1) ~= '~') then
-                  last	= f
+               if (readable and file:sub(1,1) ~= "." and attr.mode == 'file' and file:sub(-1,-1) ~= '~') then
+                  local key = f:gsub(".lua$","")
+                  lastT[key] = f
                end
             end
-            if (last ~= '') then
-               result      = last
+            if (next(lastT)) then
+               local lastA = {}
+               local icnt  = 0
+               for k in pairs(lastT) do
+                  icnt        = icnt + 1
+                  lastA[icnt] = k
+               end
+               sort(lastA)
+               result      = lastT[lastA[#lastA]]
                local i, j  = result:find(mpath,1,true)
                fullName    = result:sub(j+2)
                fullName    = fullName:gsub(".lua$","")
