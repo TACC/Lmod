@@ -74,9 +74,43 @@ function formModName(moduleName)
    return modName
 end
 
-count = 0
+local function lastFileInDir(fn)
+   local dbg      = Dbg:dbg()
+   dbg.start("lastFileInDir(",fn,")")
+   local lastKey   = ''
+   local lastValue = ''
+   local result    = nil
+   local fullName  = nil
+   local count     = 0
+   
+   local attr = lfs.attributes(fn)
+   if (attr and attr.mode == 'directory' and posix.access(fn,"x")) then
+      for file in lfs.dir(fn) do
+         local f = pathJoin(fn, file)
+         dbg.print("fn: ",fn," file: ",file," f: ",f,"\n")
+         attr = lfs.attributes(f)
+         local readable = posix.access(f,"r")
+         if (readable and file:sub(1,1) ~= "." and attr.mode == 'file' and file:sub(-1,-1) ~= '~') then
+            count = count + 1
+            local key = f:gsub(".lua$","")
+            if (key > lastKey) then
+               lastKey   = key
+               lastValue = f
+            end
+         end
+      end
+      if (lastKey ~= "") then
+         result     = lastValue
+      end
+   end
+   dbg.print("result: ",result,"\n")
+   dbg.fini()
+   return result, count
+end
+
 
 local searchTbl = {'.lua','', '/default', '/.version'}
+
 
 local function find_module_file(moduleName)
    local dbg      = Dbg:dbg()
@@ -152,39 +186,12 @@ local function find_module_file(moduleName)
 
       if (not found and ii == 1) then
          t.default  = 1
-         if (ii > 1) then
-            t.default  = 0
-         end
-         local lastT = {}
-            
-         fullName   = ''
-         local mn   = nil
-         local attr = lfs.attributes(fn)
-         if (attr and attr.mode == 'directory' and posix.access(fn,"x")) then
-            found      = true   
-            for file in lfs.dir(fn) do
-               local f = pathJoin(fn, file)
-               dbg.print("(2) fn: ",fn," file: ",file," f: ",f,"\n")
-               attr = lfs.attributes(f)
-               local readable = posix.access(f,"r")
-               if (readable and file:sub(1,1) ~= "." and attr.mode == 'file' and file:sub(-1,-1) ~= '~') then
-                  local key = f:gsub(".lua$","")
-                  lastT[key] = f
-               end
-            end
-            if (next(lastT)) then
-               local lastA = {}
-               local icnt  = 0
-               for k in pairs(lastT) do
-                  icnt        = icnt + 1
-                  lastA[icnt] = k
-               end
-               sort(lastA)
-               result      = lastT[lastA[#lastA]]
-               local i, j  = result:find(mpath,1,true)
-               fullName    = result:sub(j+2)
-               fullName    = fullName:gsub(".lua$","")
-            end
+         result = lastFileInDir(fn)
+         if (result) then
+            found = true
+            local i, j = result:find(mpath,1,true)
+            fullName   = result:sub(j+2)
+            fullName   = fullName:gsub(".lua$","")
          end
       end
       if (found) then break end
@@ -550,24 +557,9 @@ local function findDefault(mpath, path, prefix)
       end
    end
    if (default == nil and prefix ~= "") then
-      local attr  = lfs.attributes(path)
-      local count = 0
-      if (attr and attr.mode == "directory" and posix.access(path,"rx")) then
-         local last = ""
-         for file in lfs.dir(path) do
-            local f = pathJoin(path, file)
-            attr = lfs.attributes(f)
-            local readable = posix.access(f,"r")
-            if (readable and file:sub(1,1) ~= "." and attr and attr.mode == 'file' and file:sub(-1,-1) ~= '~') then
-               count    = count + 1
-               if (f > last) then
-                  last	= f
-               end
-            end
-         end
-         if (last ~= "" and count > 1) then
-            default = last
-         end
+      local result, count = lastFileInDir(path)
+      if (count > 1) then
+         default = result
       end
    end
    if (default) then

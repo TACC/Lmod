@@ -53,6 +53,9 @@ step 5
 ~/w/lmod/mf/Core/PrgEnv.lua
 ~/w/lmod/mf/Core/admin/admin-1.0.lua
 ~/w/lmod/mf/Core/gcc/4.2.3.lua
+~/w/lmod/mf/Core/git/1.6.3.1
+~/w/lmod/mf/Core/git/1.7.4.3.lua
+~/w/lmod/mf/Core/git/1.7.4.lua
 ~/w/lmod/mf/Core/gotoblas/1.20.lua
 ~/w/lmod/mf/Core/gotoblas/1.26.lua
 ~/w/lmod/mf/Core/gotoblas/1.30.lua

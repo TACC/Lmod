@@ -1,9 +1,9 @@
-help("The git module file defines the following environment variables:
+help([[The git module file defines the following environment variables:
 TACC_GIT_DIR, TACC_GIT_LIB, and for
-the location of the git distribution and its libraries.\n
+the location of the git distribution and its libraries.
 
 Version 1.7.4
-")
+]])
 whatis("Name: Git")
 whatis("Version: 1.7.4")
 whatis("Category: library, tools")
