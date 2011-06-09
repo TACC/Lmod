@@ -695,6 +695,7 @@ function Access(...)
    local n = select('#',...)
    if (n < 1) then
       io.stderr:write(Usage,"\n")
+      io.stderr:write(version())
       os.exit(1)
    end
 
