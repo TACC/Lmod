@@ -607,9 +607,7 @@ function Level2(t, mname)
       end
    end
 
-   tt = tt or {}
-
-   if (tt.help ~= nil) then
+   if (tt and tt.help ~= nil) then
       ia = ia + 1; a[ia] = "\n    Help:\n"
       for s in tt.help:split("\n") do
          ia = ia + 1; a[ia] = "      "
