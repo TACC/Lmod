@@ -500,6 +500,7 @@ function Level1(dbT, mname, help)
    local dbg = Dbg:dbg()
    dbg.start("Level1(dbT,\"",mname,"\")")
    local name = extractName(mname)
+   dbg.print("mname: ", mname, ", name: ",name,"\n")
    local t    = dbT[name]
    local term_width = tonumber(capture("tput cols") or "80") - 4
    if (t == nil) then
@@ -507,16 +508,18 @@ function Level1(dbT, mname, help)
       return ""
    end
 
+   if (name ~= mname) then
+      return Level2(t, mname)
+   end
+
+   local cnt = countEntries(t)
+   dbg.print("Number of entries: ",cnt ,"\n")
    if (countEntries(t) == 1) then
       k = next(t)
       mname = t[k].full
       return Level2(t, t[k].full)
    end
       
-   if (name ~= mname) then
-      return Level2(t, mname)
-   end
-
    local banner = border(2)
    local VersionT = {}
    local exampleV = nil
@@ -569,6 +572,8 @@ function Level1(dbT, mname, help)
 end
 
 function Level2(t, mname)
+   local dbg = Dbg:dbg()
+   dbg.start("Level2(t,\"",mname,"\")")
    local a  = {}
    local ia = 0
    
@@ -620,6 +625,7 @@ function Level2(t, mname)
       LmodError("Unable to find: \"",mname,"\"")
    end
 
+   dbg.fini()
    return concatTbl(a,"")
 end
 

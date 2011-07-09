@@ -1,0 +1,63 @@
+===========================
+step 1
+===========================
+unset 'LMOD_DEFAULT_MODULEPATH';
+unset 'MODULEPATH';
+LMOD_DEFAULT_MODULEPATH='~/w/lmod/mf/Core:~/w/lmod/mf/Beta';
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH='~/w/lmod/mf/Core:~/w/lmod/mf/Beta';
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={active={Dict={},FN={},Loaded={},default={},fullModName={},mType={},},baseMpathA={"~/w/lmod/mf/Core","~/w/lmod/mf/Beta",},family={},inactive={},mpathA={"~/w/lmod/mf/Core","~/w/lmod/mf/Beta",},total={Dict={},FN={},Loaded={},default={},fullModName={},mType={},},["version"]=1,}';
+export _ModuleTable_;
+===========================
+step 2
+===========================
+LMOD_DEFAULT_MODULEPATH='~/w/lmod/mf/Core:~/w/lmod/mf/Beta';
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH='~/w/lmod/mf/Core:~/w/lmod/mf/Beta';
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH='~/w/lmod/mf/Core:~/w/lmod/mf/Beta';
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH='~/w/lmod/mf/Core:~/w/lmod/mf/Beta';
+export MODULEPATH;
+===========================
+step 3
+===========================
+LMOD_DEFAULT_MODULEPATH='~/w/lmod/mf/Core:~/w/lmod/mf/Beta';
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH='~/w/lmod/mf/Core:~/w/lmod/mf/Beta';
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH='~/w/lmod/mf/Core:~/w/lmod/mf/Beta';
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH='~/w/lmod/mf/Core:~/w/lmod/mf/Beta';
+export MODULEPATH;
+===========================
+step 4
+===========================
+LMOD_DEFAULT_MODULEPATH='~/w/lmod/mf/Core:~/w/lmod/mf/Beta';
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH='~/w/lmod/mf/Core:~/w/lmod/mf/Beta';
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH='~/w/lmod/mf/Core:~/w/lmod/mf/Beta';
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH='~/w/lmod/mf/Core:~/w/lmod/mf/Beta';
+export MODULEPATH;
+===========================
+step 5
+===========================
+LMOD_DEFAULT_MODULEPATH='~/w/lmod/mf/Core:~/w/lmod/mf/Beta';
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH='~/w/lmod/mf/Core:~/w/lmod/mf/Beta';
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH='~/w/lmod/mf/Core:~/w/lmod/mf/Beta';
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH='~/w/lmod/mf/Core:~/w/lmod/mf/Beta';
+export MODULEPATH;
+===========================
+step 6
+===========================
+LMOD_DEFAULT_MODULEPATH='~/w/lmod/mf/Core:~/w/lmod/mf/Beta';
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH='~/w/lmod/mf/Core:~/w/lmod/mf/Beta';
+export MODULEPATH;
+false
