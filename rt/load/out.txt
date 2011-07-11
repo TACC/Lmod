@@ -142,3 +142,33 @@ LMOD_DEFAULT_MODULEPATH='~/w/lmod/mf/Core:~/w/lmod/mf/Beta';
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH='~/w/lmod/mf/Compiler/intel/10.1:~/w/lmod/mf/Core:~/w/lmod/mf/Beta';
 export MODULEPATH;
+PATH='/g/h/i:/d/e/f:/a/b/c:/vol/local/intel/idb/idb/bin:/vol/local/intel/fc/fc/bin:/vol/local/intel/cc/cc/bin:/vol/local/noweb/icon/bin:/vol/local/noweb/2.10c/bin:/usr/local/share/bin:/usr/local/bin:/usr/sbin:/sbin:~/w/lmod/src:PATH_to_LUA:PATH_to_TM:/usr/bin:/bin:/abc/def:/qrs/tuv';
+export PATH;
+_ModuleTable_='_ModuleTable_={active={Dict={["PrgEnv"]=5,["admin"]=1,["gotoblas"]=7,["intel"]=6,["local"]=3,["multi"]=8,["noweb"]=4,["unix"]=2,},FN={"~/w/lmod/mf/Core/admin/admin-1.0.lua","~/w/lmod/mf/Core/unix/unix.lua","~/w/lmod/mf/Core/local/local.lua","~/w/lmod/mf/Core/noweb/2.10c.lua","~/w/lmod/mf/Core/PrgEnv.lua","~/w/lmod/mf/Core/intel/intel.lua","~/w/lmod/mf/Compiler/intel/10.1/gotoblas/1.32.lua","~/w/lmod/mf/Core/multi/multi.lua",},Loaded={"admin","unix","local","noweb","PrgEnv","intel","gotoblas","multi",},default={1,1,1,1,0,1,1,1,},fullModName={"admin/admin-1.0","unix/unix","local/local","noweb/2.10c","PrgEnv","intel/intel","gotoblas/1.32","multi/multi",},mType={"w","w","w","w","m","w","w","w",},},baseMpathA={"~/w/lmod/mf/Core","~/w/lmod/mf/Beta",},family={["compiler"]="intel",},inactive={},mpathA={"~/w/lmod/mf/Compiler/intel/10.1","~/w/lmod/mf/Core","~/w/lmod/mf/Beta",},total={Dict={["PrgEnv"]=5,["admin"]=1,["gotoblas"]=7,["intel"]=6,["local"]=3,["multi"]=8,["noweb"]=4,["unix"]=2,},FN={"~/w/lmod/mf/Core/admin/admin-1.0.lua","~/w/lmod/mf/Core/unix/unix.lua","~/w/lmod/mf/Core/local/local.lua","~/w/lmod/mf/Core/noweb/2.10c.lua","~/w/lmod/mf/Core/PrgEnv.lua","~/w/lmod/mf/Core/intel/intel.lua","~/w/lmod/mf/Compiler/intel/10.1/gotoblas/1.32.lua","~/w/lmod/mf/Core/multi/multi.lua",},Loaded={"admin","unix","local","noweb","PrgEnv","intel","gotoblas","multi",},default={1,1,1,1,0,1,1,1,},fullModName={"admin/admin-1.0","unix/unix","local/local","noweb/2.10c","PrgEnv","intel/intel","gotoblas/1.32","multi/multi",},mType={"w","w","w","w","m","w","w","w",},},["version"]=1,}';
+export _ModuleTable_;
+===========================
+step 9
+===========================
+LMOD_DEFAULT_MODULEPATH='~/w/lmod/mf/Core:~/w/lmod/mf/Beta';
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH='~/w/lmod/mf/Compiler/intel/10.1:~/w/lmod/mf/Core:~/w/lmod/mf/Beta';
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH='~/w/lmod/mf/Core:~/w/lmod/mf/Beta';
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH='~/w/lmod/mf/Compiler/intel/10.1:~/w/lmod/mf/Core:~/w/lmod/mf/Beta';
+export MODULEPATH;
+PATH='/vol/local/intel/idb/idb/bin:/vol/local/intel/fc/fc/bin:/vol/local/intel/cc/cc/bin:/vol/local/noweb/icon/bin:/vol/local/noweb/2.10c/bin:/usr/local/share/bin:/usr/local/bin:/usr/sbin:/sbin:~/w/lmod/src:PATH_to_LUA:PATH_to_TM:/usr/bin:/bin';
+export PATH;
+_ModuleTable_='_ModuleTable_={active={Dict={["PrgEnv"]=5,["admin"]=1,["gotoblas"]=7,["intel"]=6,["local"]=3,["noweb"]=4,["unix"]=2,},FN={"~/w/lmod/mf/Core/admin/admin-1.0.lua","~/w/lmod/mf/Core/unix/unix.lua","~/w/lmod/mf/Core/local/local.lua","~/w/lmod/mf/Core/noweb/2.10c.lua","~/w/lmod/mf/Core/PrgEnv.lua","~/w/lmod/mf/Core/intel/intel.lua","~/w/lmod/mf/Compiler/intel/10.1/gotoblas/1.32.lua",},Loaded={"admin","unix","local","noweb","PrgEnv","intel","gotoblas",},default={1,1,1,1,0,1,1,},fullModName={"admin/admin-1.0","unix/unix","local/local","noweb/2.10c","PrgEnv","intel/intel","gotoblas/1.32",},mType={"w","w","w","w","m","w","w",},},baseMpathA={"~/w/lmod/mf/Core","~/w/lmod/mf/Beta",},family={["compiler"]="intel",},inactive={},mpathA={"~/w/lmod/mf/Compiler/intel/10.1","~/w/lmod/mf/Core","~/w/lmod/mf/Beta",},total={Dict={["PrgEnv"]=5,["admin"]=1,["gotoblas"]=7,["intel"]=6,["local"]=3,["noweb"]=4,["unix"]=2,},FN={"~/w/lmod/mf/Core/admin/admin-1.0.lua","~/w/lmod/mf/Core/unix/unix.lua","~/w/lmod/mf/Core/local/local.lua","~/w/lmod/mf/Core/noweb/2.10c.lua","~/w/lmod/mf/Core/PrgEnv.lua","~/w/lmod/mf/Core/intel/intel.lua","~/w/lmod/mf/Compiler/intel/10.1/gotoblas/1.32.lua",},Loaded={"admin","unix","local","noweb","PrgEnv","intel","gotoblas",},default={1,1,1,1,0,1,1,},fullModName={"admin/admin-1.0","unix/unix","local/local","noweb/2.10c","PrgEnv","intel/intel","gotoblas/1.32",},mType={"w","w","w","w","m","w","w",},},["version"]=1,}';
+export _ModuleTable_;
+===========================
+step 10
+===========================
+LMOD_DEFAULT_MODULEPATH='~/w/lmod/mf/Core:~/w/lmod/mf/Beta';
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH='~/w/lmod/mf/Compiler/intel/10.1:~/w/lmod/mf/Core:~/w/lmod/mf/Beta';
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH='~/w/lmod/mf/Core:~/w/lmod/mf/Beta';
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH='~/w/lmod/mf/Compiler/intel/10.1:~/w/lmod/mf/Core:~/w/lmod/mf/Beta';
+export MODULEPATH;
