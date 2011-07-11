@@ -64,6 +64,7 @@ step 5
 ~/w/lmod/mf/Core/junk/b/c/2.0.lua
 ~/w/lmod/mf/Core/junk/d/3.0.lua
 ~/w/lmod/mf/Core/local/local.lua
+~/w/lmod/mf/Core/multi/multi.lua
 ~/w/lmod/mf/Core/noweb/2.10c.lua
 ~/w/lmod/mf/Core/unix/unix.lua
 ~/w/lmod/mf/MPI/gcc/4.2.3/openmpi/1.2.6/parmetis/3.1.lua

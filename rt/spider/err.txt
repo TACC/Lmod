@@ -27,6 +27,8 @@ The following is a list of the modules currently available:
 
   mpich2: mpich2/1.0.7
 
+  multi: multi/multi
+
   noweb: noweb/2.10c
 
   openmpi: openmpi/1.2.6
@@ -79,40 +81,5 @@ Unable to find: "mpich2me"
 ===========================
 step 6
 ===========================
-lmod -d spider mpich2/1.0.5{
-  mt(){
-    MT:new(){
-    }
-  }
-  LMOD_DEFAULT_MODULEPATH='~/w/lmod/mf/Core:~/w/lmod/mf/Beta';
-  export LMOD_DEFAULT_MODULEPATH;
-  MODULEPATH='~/w/lmod/mf/Core:~/w/lmod/mf/Beta';
-  export MODULEPATH;
-  cmd name: spider
-  SpiderCmd(mpich2/1.0.5){
-    Level1(dbT,"mpich2/1.0.5"){
-      mname: mpich2/1.0.5, name: mpich2
-      capture{
-        cwd: ~/w/lmod/rt/spider/t1/i386_dbg_gcc_openmpi-2011_07_09_12_25_02-Darwin-i386-spider
-        cmd: tput cols
-        capture output{
-          80
-        }
-      }
-      Level2(t,"mpich2/1.0.5"){
-        capture{
-          cwd: ~/w/lmod/rt/spider/t1/i386_dbg_gcc_openmpi-2011_07_09_12_25_02-Darwin-i386-spider
-          cmd: tput cols
-          capture output{
-            80
-          }
-        }
-        capture{
-          cwd: ~/w/lmod/rt/spider/t1/i386_dbg_gcc_openmpi-2011_07_09_12_25_02-Darwin-i386-spider
-          cmd: tput cols
-          capture output{
-            80
-          }
-        }
 
 Error: Unable to find: "mpich2/1.0.5"
