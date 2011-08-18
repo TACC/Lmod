@@ -4,6 +4,7 @@ step 1
 ===========================
 step 2
 ===========================
+Rebuilding cache file please wait ... done
 
 ----------------------------------------------------------------------------
 The following is a list of the modules currently available:

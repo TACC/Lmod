@@ -44,9 +44,11 @@ testdescript = {
      export LMOD_DEFAULT_MODULEPATH
      numStep=0
      COUNT=0
-     HOME=`(cd $HOME; /bin/pwd)`
+     ORIG_HOME=`(cd $HOME; /bin/pwd)`
+     HOME=`/bin/pwd`
 
      rm -f _stderr.* _stdout.* err.* out.*
+     rm -f .lmod.d
 
      runMe ()
      {
@@ -76,6 +78,7 @@ testdescript = {
             < $1 > $2
      }
 
+
      runMe lua $(projectDir)/src/lmod.in bash use -a $projectDir/mf/Core $projectDir/mf/Beta
      runMe lua $(projectDir)/src/lmod.in bash spider
      runMe lua $(projectDir)/src/lmod.in bash spider mpich2
@@ -84,6 +87,7 @@ testdescript = {
      runMe lua $(projectDir)/src/lmod.in bash spider mpich2me
      runMe lua $(projectDir)/src/lmod.in bash spider mpich2/1.0.5
      
+     HOME=$ORIG_HOME
 
      cat _stdout.[0-9][0-9] > _stdout.orig
      joinBase64Results  -bash  _stdout.orig _stdout.new

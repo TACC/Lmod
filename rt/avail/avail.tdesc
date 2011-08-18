@@ -39,7 +39,7 @@ testdescript = {
      MANPATH='';                        export MANPATH
      LD_LIBRARY_PATH='';                export LD_LIBRARY_PATH
      MODULEPATH_ROOT=$(projectDir)/mf;  export MODULEPATH_ROOT
-     MODULEPATH=$(projectDir)/mf/Core:$(projectDir)/mf/Compiler/intel/10.1;
+     MODULEPATH=$(projectDir)/mf/Core:$(projectDir)/mf/Compiler/intel/10.1:$(testDir)/mf/Core
      export MODULEPATH
      LMOD_DEFAULT_MODULEPATH=$MODULEPATH
      export LMOD_DEFAULT_MODULEPATH

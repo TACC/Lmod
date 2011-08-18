@@ -512,8 +512,9 @@ end
 
 
 local function findDefault(mpath, path, prefix)
-   local dbg     = Dbg:dbg()
-   local mt      = MT:mt()
+   local dbg      = Dbg:dbg()
+   local mt       = MT:mt()
+   local localDir = true
    dbg.start("Master.findDefault(",mpath,", ", path,", ",prefix,")")
 
    local i,j = path:find(mpath)
