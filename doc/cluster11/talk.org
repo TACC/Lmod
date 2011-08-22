@@ -1,0 +1,8 @@
+Ideas for Lmod talk at IEEE Cluster 11
+
+Overall idea:
+
+Not going to explain everything. I'll bore all of you to death.  See
+web-site for complete details.  Instead I'm going to highlight why we
+at TACC enjoy using Lmod over other module systems.
+
