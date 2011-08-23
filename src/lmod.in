@@ -113,6 +113,13 @@ function LmodError(...)
    os.exit(1)
 end
 
+function LmodMessage(...)
+   for _,v in ipairs{...} do
+      io.stderr:write(v)
+   end
+   io.stderr:write("\n")
+end
+
 local __expert = false
 
 function expert()
@@ -691,6 +698,7 @@ function Access(...)
    prereq       = dbg.quiet
    family       = dbg.quiet
    LmodError    = dbg.quiet
+   LmodMessage  = dbg.quiet
 
    local n = select('#',...)
    if (n < 1) then
@@ -1013,6 +1021,7 @@ function getModuleT()
    local cacheDir  = pathJoin(HOME,".lmod.d",".cache")
    local moduleTFN = pathJoin(cacheDir, "moduleT.lua")
    local errRtn    = LmodError
+   local message   = LmodMessage
 
 
    local buildModuleT = true
@@ -1052,10 +1061,12 @@ function getModuleT()
 
    if (buildModuleT) then
       LmodError    = dbg.quiet
+      LmodMessage  = dbg.quiet
       io.stderr:write("Rebuilding cache file please wait ...")
       Spider.findAllModules(moduleDirA, moduleT)
       io.stderr:write(" done\n")
       LmodError    = errRtn
+      LmodMessage  = message
       mkdir_recursive(cacheDir)
       local s1 = serialize{name="defaultMpathA",value=moduleDirA,indent=true}
       local s2 = serialize{name="moduleT",      value=moduleT,   indent=true}
@@ -1081,6 +1092,7 @@ function SpiderCmd(mname)
    conflict     = dbg.quiet
    prereq       = dbg.quiet
    family       = dbg.quiet
+   mode         = ModeLoad
 
    help         = Spider_help
    whatis       = Spider_whatis

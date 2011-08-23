@@ -604,6 +604,7 @@ local function availDir(searchA, mpath, path, prefix, a)
 	 if (readable and (attr.mode == 'file' or attr.mode == 'link') and (file ~= "default")) then
             local n = prefix .. file
             n = n:gsub(".lua","")
+            local nn = n
             if (defaultModuleName == abspath(f,localDir)) then
                n = n .. ' (default)'
             end
@@ -611,7 +612,7 @@ local function availDir(searchA, mpath, path, prefix, a)
                a[#a + 1 ] = '  ' .. n .. '  '
             else
                for _,v in ipairs(searchA) do
-                  if (n:find(v)) then
+                  if (nn:find(v)) then
                      a[#a + 1 ] = '  ' .. n .. '  '
                      break
                   end

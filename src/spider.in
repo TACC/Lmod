@@ -16,6 +16,9 @@ end
 function LmodError()
 end
 
+function LmodMessage()
+end
+
 require("border")
 require("Spider")
 require("Optiks")

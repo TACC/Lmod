@@ -13,6 +13,7 @@ require("pairsByKeys")
 
 local Dbg         = Dbg
 local LmodError   = LmodError
+local LmodMessage = LmodMessage
 local assert      = assert
 local border      = border
 local capture     = capture
@@ -82,6 +83,9 @@ end
 function conflict(...)
 end
 
+function mode()
+   return "load"
+end
 
 
 function Spider_help(s)
@@ -327,6 +331,7 @@ function findAllModules(moduleDirA, moduleT)
    masterTbl.moduleT     = moduleT
    masterTbl.moduleStack = {{}}
    LmodError             = nothing
+   LmodMessage           = nothing
    os.exit               = nothing
 
    for _,v in ipairs(moduleDirA) do

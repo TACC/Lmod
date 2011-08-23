@@ -76,6 +76,10 @@ function LmodError(...)
    ShowCmd("LmodError",...)
 end
 
+function LmodMessage(...)
+   ShowCmd("LmodMessage",...)
+end
+
 function loadModuleFile(f)
    local myType = extname(f)
    if (myType == ".lua") then
