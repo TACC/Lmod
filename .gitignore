@@ -6,3 +6,13 @@ config.log
 makefile
 config.status
 sc.pdf
+talk.pdf
+*.aux
+*.log
+*.nav
+*.out
+*.snm
+*.toc
+*.vrb
+*.fdb_latexmk
+auto
