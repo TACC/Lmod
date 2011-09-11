@@ -38,7 +38,7 @@ testdescript = {
      PATH_to_LUA=`findcmd --pathOnly lua`
      PATH_to_TM=`findcmd --pathOnly tm`
 
-     PATH=$(projectDir)/src:$PATH_to_LUA:$PATH_to_TM:/usr/bin:/bin
+     PATH=$(projectDir)/src:$PATH_to_LUA:$PATH_to_TM:/usr/bin:/bin:/opt/local/libexec/gnubin
      export PATH
      unset  LIBPATH
      unset  SHLIB_PATH
