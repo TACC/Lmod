@@ -90,7 +90,11 @@ testdescript = {
      (cd $projectDir; ./configure; make src/computeHashSum)
      rm -rf $HOME/.lmod.d
 
-     runMe lua $(projectDir)/src/lmod.in bash load TACC 
+     runMe lua $(projectDir)/src/lmod.in bash load TACC.orig
+     runMe lua $(projectDir)/src/lmod.in bash setdefault
+
+     runMe lua $(projectDir)/src/lmod.in bash purge
+     runMe lua $(projectDir)/src/lmod.in bash load TACC
      runMe lua $(projectDir)/src/lmod.in bash setdefault
 
      HOME=$HOME_ORIG

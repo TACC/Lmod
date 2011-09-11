@@ -10,8 +10,8 @@ step 2
 ------------------------------------------------------------
 append_path("MODULEPATH", "~/w/lmod/rt/use_append/mf/Append")
 append_path("MODULEPATH", "~/w/lmod/rt/use_append/mf/Append2")
-help("Dummy test module
-")
+help([[Dummy test module
+]])
 
 ===========================
 step 3

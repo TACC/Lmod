@@ -81,3 +81,4 @@ LMOD_DEFAULT_MODULEPATH='~/w/lmod/mf/Core';
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH='~/w/lmod/mf/Core';
 export MODULEPATH;
+false

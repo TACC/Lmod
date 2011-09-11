@@ -26,27 +26,19 @@ set node       [uname node]
 # Load default enviroment
 #
 
+#
+# CA common and manpage.
+#
+append-path     PATH        /opt/apps/pki_apps
+append-path     MANPATH     /opt/apps/pki_apps/man
 
 #
-# Load Desired Modules
+# NPCI symbols
 #
+setenv          APPS        /opt/apps
+setenv 	        PURGE 	    168
 
-if { [ expr [module-info mode load] || [module-info mode display] ] } {
-	module load pgi
-	module load mvapich1
-        module load globus
-        module load cluster-paths
-}
-
-if [ module-info mode remove ] {
-	module del mvapich1
-	module del pgi
-        module del cluster-paths
-}
-
-#############################################################################
-# $Log$
-
+prepend-path    MANPATH     /usr/local/man:/usr/share/man:/usr/X11R6/man:/opt/ganglia/man:/opt/rocks/man:/usr/kerberos/man:/usr/man
 
 # ;;; Local Variables: ***
 # ;;; mode:tcl ***

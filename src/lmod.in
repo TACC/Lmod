@@ -362,8 +362,12 @@ local function Show_whatis(value)
    ShowCmd("whatis", value)
 end
 
-local function Show_help(value)
-   ShowCmd("help", value)
+local function Show_help(...)
+   local a = {}
+   for _,v in ipairs{...} do
+      a[#a + 1] = "[[".. v .."]]"
+   end
+   io.stderr:write("help","(",concatTbl(a,", "),")\n")
 end
 
 local function Show_unuse(value)
