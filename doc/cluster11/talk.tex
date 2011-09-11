@@ -1,0 +1,317 @@
+\documentclass{beamer}
+
+\usetheme[headernav]{TACC} %%Drop the 'headernav' if you don't like
+                           %%the stuff at the top of your slide
+
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{alltt}
+\usepackage{graphicx}
+
+\title{Lmod: User Friendly}
+
+
+\author{Robert McLay}
+\institute{The Texas Advanced Computing Center}
+
+\date{August 22, 2011}  %% Use this if you want to fix the date in
+                       %% stone rather than use \today
+
+\newcommand{\bfnabla}{\mbox{\boldmath$\nabla$}}
+\newcommand{\laplacian}[1]{\bfnabla^2 #1}
+\newcommand{\grad}[1]{\bfnabla #1}
+\newcommand{\tgrad}[1]{\bfnabla^T #1}
+\newcommand{\dvg}[1]{\bfnabla \cdot #1}
+\newcommand{\curl}[1]{\bfnabla \times #1}
+\newcommand{\lap}[1]{\bfnabla^2 #1}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\section{Introduction}
+
+\begin{frame}{Introduction}
+  \begin{itemize}
+    \item Fundamental Issues
+    \item Environment Modules
+    \item Software Hierarchy
+    \item Lmod
+    \item Conclusions
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Fundamental Issues}
+  \begin{itemize}
+    \item Software Packages are created and updated all the time.
+    \item Some Users need new versions for new features and bug fixes.
+    \item Other Users need older versions for stability and continuity.
+    \item No system can support all versions of all packages.
+    \item Pre-built C++ \& Fortran libraries must link with the same compiler
+    \item Similarly MPI Applications must build and link with same
+      MPI/Compiler pairing.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{TACC Environment}
+  \begin{itemize}
+    \item TACC: Texas Advanced Computing Center
+    \item Ranger: 62K cores, 580Tflops, 779 Packages
+    \item Lonestar: 22K Cores, 302Tflops, 162 Packages
+    \item Longhorn: 256 Node, 512 GPUs, 158 Packages
+    \item My Work Laptop: 98 Packages.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Enviroment Modules }
+  \begin{itemize}
+    \item The ``module'' command ``loads'' a package.
+    \item It adds directories to \texttt{PATH} or \texttt{LD\_LIBRARY\_PATH} and
+      sets env. vars.
+    \item ``\texttt{module unload} \emph{package}'' removes all packages
+      changes: \texttt{PATH}, \texttt{LD\_LIBRARY\_PATH}, unset vars.
+    \item A module file is a text file containing shell-independent commands:
+      \begin{itemize}
+        \item \texttt{prepend\_path("PATH","/opt/apps/git/1.8/bin")}
+        \item \texttt{setenv("TACC\_GIT\_DIR","/opt/apps/git/1.8")}
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Modules and Versions}
+  \begin{itemize}
+    \item Modules are typically named: \emph{package/version}
+    \item For example: \texttt{git/1.8}
+    \item There is a default version so:
+    \item ``\texttt{module load git}'' load the default version.
+    \item ``\texttt{module load git/1.8}'' load the 1.8 version.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Sys-admin Vs. User Control of software}
+  \begin{itemize}
+    \item Sys-admins control what versions are default.
+    \item Users can override defaults to newer/older versions.
+    \item When Compilers are updated, users can switch between
+      versions, allowing for testing.
+    \item This is the key to a flexible system.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Enviroment Modules History}
+  \begin{itemize}
+    \item Paper described modules in 1991 (Furlani)
+    \item Cray used modules on Unicos mid-1990's
+    \item TACC has been using modules almost as long.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{How could this possibly work?}
+  \begin{itemize}
+    \item Child processes inherit the parents enviroment.
+    \item Not the other way around.
+    \item So how does this work?
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{The Trick}
+  \begin{itemize}
+    \item The module command \texttt{lmod\_cmd} reads module files
+    \item $\Rightarrow$ shell dependent text
+    \item In bash:
+      \begin{itemize}
+          \item \texttt{module () \{ eval \$(\$LMOD\_CMD bash "\$@")\}}
+      \end{itemize}
+    \item In csh \texttt{module} is an alias:
+      \begin{itemize}
+        \item \texttt{alias module eval `\$LMOD\_CMD csh $\backslash$!*`}
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\section{Software Hierarchy}
+
+\begin{frame}{Software Hierarchy}
+  \begin{itemize}
+    \item TACC used modules from www.modules.org (TCL/C) modules
+    \item Life was good at TACC until ...
+    \item Multiple Compilers and Multiple MPI implementations.
+    \item Pre-built C++ \& Fortran libraries must link with the same compiler
+    \item Similarly MPI Applications must build and link with same
+      MPI/Compiler pairing.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Modulefile Choices}
+  \begin{itemize}
+    \item Flat Naming Scheme
+    \item Hierarchical Naming Scheme
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Flat Naming Scheme: PETSc}
+  \begin{itemize}
+    \item Compilers: GCC 4.5, Intel 11.1
+    \item MPI Implementations: MVAPICH 1.2, Openmpi 1.5
+    \item MPI Solver package: PETSc 4.1
+    \item 4 versions of PETSc: 2 Compilers $\times$ 2 MPI 
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Flat: PETSc }
+  \begin{enumerate}
+  \item \texttt{PETSc-4.1-mvapich-1.2-gcc-4.5}
+  \item \texttt{PETSc-4.1-mvapich-1.2-intel-11.1}
+  \item \texttt{PETSc-4.1-openmpi-1.5-gcc-4.5}
+  \item \texttt{PETSc-4.1-openmpi-1.5-intel-11.1}
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}{Problems w/ Flat naming scheme}
+  \begin{itemize}
+    \item Users have to load modules:
+      \begin{itemize}
+        \item ``intel-11.1''
+        \item ``mvapich-1.2-intel-11.1''
+        \item ``PETSc-4.1-mvapich-1.2-intel-11.1''
+        \item Changing compilers means unloading all three modules
+        \item Reloading new compiler, mpi, PETSc modules.
+        \item Not loading correct modules $\Rightarrow$ Mysterious Failures!
+        \item Onus on package compatibility on users! 
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Hierarchical Naming Scheme}
+  \begin{itemize}
+    \item Store modules under one tree: \texttt{/opt/apps/modulefiles}
+    \item Subdirectories:
+      \begin{itemize}
+        \item Core: Regular packages: apps, compilers, git
+        \item Compiler: Packages that depend on compiler: boost, mpi
+        \item MPI: Packages that depend on MPI/Compiler: PETSc, TAU, 
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Hierarchical Examples: Core}
+  \begin{itemize}
+    \item Generic:
+      \begin{itemize}
+        \item Package: \texttt{/opt/apps/}\emph{package/version}
+        \item Modulefile: \texttt{/opt/apps/modulefiles/}\emph{package/version}
+      \end{itemize}
+    \item Git 1.8
+      \begin{itemize}
+        \item package location: \texttt{/opt/apps/git/1.8}
+        \item Modulefile: \texttt{/opt/apps/modulefiles/Core/git/1.8}
+      \end{itemize}
+    \item Intel compilers 11.1
+      \begin{itemize}
+        \item package location: \texttt{/opt/apps/intel/11.1}
+        \item Modulefile: \texttt{/opt/apps/modulefiles/Core/intel/11.1}
+        \item Modulefile adds \texttt{/opt/apps/modulefiles/Compiler/intel/11.1} to \texttt{MODULEPATH}
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Hierarchical Examples: Compiler Dependent}
+  \begin{itemize}
+    \item Generic:
+      \begin{itemize}
+        \item Package: /opt/apps/\emph{compiler-version/package/version}
+        \item M: /opt/apps/modulefiles
+        \item Modulefile: \texttt{\$M/Compiler/}\emph{compiler/version/package/version}
+      \end{itemize}
+    \item Openmpi 1.5
+      \begin{itemize}
+        \item Package: \texttt{/opt/apps/gcc-4\_5/openmpi/1.5}
+        \item Modulefile: \texttt{\$M/Compiler/gcc/4.5/openmpi/1.5}
+        \item Modulefile adds \texttt{\$M/MPI/gcc/4.5/openmpi/1.5}
+          to \texttt{MODULEPATH}
+        \item
+        \item Package: \texttt{/opt/apps/intel-11\_1/openmpi/1.5}
+        \item Modulefile: \texttt{\$M/Compiler/intel/11.1/openmpi/1.5}
+        \item Modulefile adds \texttt{\$M/MPI/intel/11.1/openmpi/1.5}
+          to \texttt{MODULEPATH}
+          
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Hierarchical Examples: MPI/Compiler Dependent}
+  \begin{itemize}
+    \item PETSc 4.1 (1)
+      \begin{itemize}
+        \item Package: /opt/apps/intel-11\_1/openmpi-1\_5/petsc/4.1
+        \item Modulefile: \texttt{\$M/MPI/intel/11.1/openmpi/1.5/petsc/4.1}
+      \end{itemize}
+    \item PETSc 4.1 (2)
+      \begin{itemize}
+        \item Package: /opt/apps/gcc-4\_5/mvapich-1\_2/petsc/4.1
+        \item Modulefile: \texttt{\$M/MPI/gcc/4.5/mvapich/1.2/petsc/4.1}
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Loading the correct module}
+  \begin{itemize}
+    \item User loads ``intel/11.1'' module
+    \item Can only see/load compiler dependent packages that are built with
+      intel 11.1 compiler.
+    \item Can not see/load package built with other versions or other compilers.
+    \item Similar loading ``openmpi/1.5'' module.
+    \item $\Rightarrow$ User can only load package that are built w/ intel 11.1 and openmpi 1.5 and no others.
+  \end{itemize}
+\end{frame}
+
+\section{Lmod}
+
+\begin{frame}{Better but ...}
+  \begin{itemize}
+    \item Using TCL/C modules, Users can only load correct modules
+    \item Swapping compilers or MPI stack $Rightarrow$ complicated!
+    \item For Parallel libraries like PETSc:
+      \begin{itemize}
+        \item Users must unload PETSc, mpi, compiler
+        \item Reload compiler, mpi, PETSc
+        \item Nobody got this right!
+      \end{itemize}
+    \item Solution: Yet another Environment Module System: \texttt{Lmod}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Lmod}
+  \begin{itemize}
+    \item Complete Rewrite of the Environment Modules System.
+    \item Reads TCL modulefiles.
+    \item Based on the Lua scripting language.
+    \item Simple yet powerful with:
+      \begin{itemize}
+        \item Functions are first class object.
+        \item Simpifies loading/unloading of modules
+        \item Tables combine array and hash seamlessly.
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+
+
+
+
+
+\section{Conclusion}
+
+\begin{frame}{Conclusion}
+  \begin{itemize}
+    \item Use Lmod to solve all your problems
+  \end{itemize}
+\end{frame}
+
+
+
+
+\end{document}
