@@ -92,6 +92,11 @@ See http://www.tacc.utexas.edu/tacc-projects/mclay/lmod for complete documentati
 
 local concatTbl = table.concat
 
+local function lmodErrorExit()
+   io.stdout:write("false\n")
+   os.exit(1)
+end
+
 function cmdDir()
    return cmd_dir
 end
@@ -1276,7 +1281,7 @@ function main()
    if (cmdTbl[cmdName] == nil) then
       io.stderr:write(version())
       io.stderr:write(Usage,"\n")
-      os.exit(1)
+      lmodErrorExit()
    end
 
    if (cmdTbl[cmdName]) then
@@ -1306,6 +1311,10 @@ function main()
 
    -- Output all newly created path and variables.
    master.shell:expand(varTbl)
+
+   if (dbg.warningCalled()) then
+      lmodErrorExit()
+   end
 end
 
 main()
