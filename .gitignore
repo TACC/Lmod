@@ -16,3 +16,5 @@ talk.pdf
 *.vrb
 *.fdb_latexmk
 auto
+*.tar.gz
+*.tgz

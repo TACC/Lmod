@@ -1,0 +1,39 @@
+Version 3.2.1
+
+This version set return an error if there are any warning.  So if a user does "module load foo bar baz"
+and "foo" and "bar" exist and "baz" does not then Lmod will load "foo" and "bar" and report a warning that
+"baz" wasn't loaded.
+
+
+
+
+Version 3.1.2
+
+This version of Lmod supports the module command: "module spider" which will tell users all the modules
+that are possible independent of where the files are in the module hierarchy.  There is an additional
+environment variable required for the "module spider" command to work.  Please set the environment variable
+"LMOD_DEFAULT_MODULEPATH" to the initial MODULEPATH.
+
+
+
+Version 2.13
+
+This version of Lmod provide support for the "family" command.  The family command makes it easy to
+prevent user from loading two version of the same "family".  For example on our system, most users
+should not have two compilers loaded at the same time.  To support this feature, all you need do is
+add the following to all the compiler modulefiles:
+
+For TCL modulefiles do:
+
+  family "compiler"
+
+For lua module files do:
+
+  family("compiler")
+
+The word in quotes is case-sensitive so "Compiler" and "compiler" and "COMPILER" are all different.
+
+You can have different families.  So we currently have a "compiler" family and a "MPI" family.
+
+Expert users really want two of the same family loaded at the same time can set the environment
+variable "LMOD_EXPERT" to "1".  This will bypass the test for them.
