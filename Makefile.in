@@ -177,5 +177,5 @@ gittag:
           fi;                                                                        \
           rm -f /tmp/lmod$$$$
         else
-	  @echo "To svn tag do: make svntag TAG=?"
+	  @echo "To git tag do: make gittag TAG=?"
         endif

@@ -299,6 +299,38 @@
   \end{itemize}
 \end{frame}
 
+\begin{frame}{Key Insight (I): \texttt{MODULEPATH}}
+  \begin{itemize}
+    \item Lmod remembers the current state of \texttt{MODULEPATH}.
+    \item If it changes then it unloads any modules not in current
+      search path $\Rightarrow$ inactive.
+    \item It tries to activate any inactive modules.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Key Insight (II): \texttt{MODULEPATH}}
+  \begin{itemize}
+    \item Loading gcc/4.5 and boost/1.47.1
+      \begin{itemize}
+        \item Adds \texttt{/opt/apps/modulefiles/Compiler/gcc/4.5} to
+          \texttt{MODULEPATH}.
+        \item Boost: \texttt{/opt/apps/modulefiles/Compiler/gcc/4.5/boost/1.47.1}
+      \end{itemize}
+    \item Unloading gcc/4.5
+      \begin{itemize}
+        \item Removes \texttt{/opt/apps/modulefiles/Compiler/gcc/4.5}
+          from \texttt{MODULEPATH}.
+        \item Inactivates boost/1.47.1
+      \end{itemize}
+    \item Loading intel/11.1
+      \begin{itemize}
+        \item Adds \texttt{/opt/apps/modulefiles/Compiler/intel/11.1} to
+          \texttt{MODULEPATH}.
+        \item Activates Boost: \texttt{/opt/apps/modulefiles/Compiler/intel/11.1/boost/1.47.1}
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+
 
 
 
