@@ -50,8 +50,8 @@
     \item Other Users need older versions for stability and continuity.
     \item No system can support all versions of all packages.
     \item Pre-built C++ \& Fortran libraries must link with the same compiler
-    \item Similarly MPI Applications must build and link with same
-      MPI/Compiler pairing.
+    \item Similarly, MPI Applications must build and link with same
+      MPI/Compiler pairing when using prebuilt MPI libraries.
   \end{itemize}
 \end{frame}
 
@@ -179,7 +179,7 @@
         \item Changing compilers means unloading all three modules
         \item Reloading new compiler, mpi, PETSc modules.
         \item Not loading correct modules $\Rightarrow$ Mysterious Failures!
-        \item Onus on package compatibility on users! 
+        \item Onus of package compatibility on users! 
       \end{itemize}
   \end{itemize}
 \end{frame}
@@ -305,6 +305,8 @@
     \item If it changes then it unloads any modules not in current
       search path $\Rightarrow$ inactive.
     \item It tries to activate any inactive modules.
+    \item It remembers inactive modules.
+    \item It attempts to active any inactive modules on future invocations.
   \end{itemize}
 \end{frame}
 
@@ -331,8 +333,64 @@
   \end{itemize}
 \end{frame}
 
+\begin{frame}{Other Safety Features of Lmod (I)}
+  \begin{itemize}
+    \item Users can only load one version of package.
+    \item ``\texttt{module load xyz/2.1}'' loads xyz version 2.1
+    \item ``\texttt{module load xyz/2.2}'' unloads 2.1, loads 2.2
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Other Safety Features of Lmod (II)}
+  \begin{itemize}
+    \item Lmod adds a new command in modulefiles: \texttt{family("}\emph{name}\texttt{")}
+    \item All of our compiler modules have \texttt{family("compiler")}
+    \item All of our MPI modules have \texttt{family("MPI")}
+    \item Users can only load one compiler or MPI at a time
+    \item Powers users can get around restriction.
+  \end{itemize}
+\end{frame}
+
+\section{Searching for Modules}
+\label{sec:search}
 
 
+\begin{frame}{Searching for Modules}
+  \begin{itemize}
+    \item Two ways to search for modules:
+      \begin{itemize}
+        \item ``\texttt{module avail}''
+        \item ``\texttt{module spider}''
+      \end{itemize}
+    \item The ``\texttt{avail}''  command reports all ``loadable'' modules.
+    \item The ``\texttt{spider}'' command reports all possible modules.
+    \item What is the difference?
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Module avail}
+  \begin{itemize}
+    \item ``avail'' only reports modules that are loadable w/ current
+      MPI/Compiler pairing.
+    \item A parallel library may not be built for all possible pairings.
+    \item Won't show with avail.
+    \item Not all package can be build or work with all compiler/MPI suites.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Module spider}
+  \begin{itemize}
+    \item Reports all modules for given \texttt{MODULEPATH}.
+    \item It walks the tree to find all branches.
+    \item It builds a cache file that lasts a day.
+    \item Three modes:
+      \begin{itemize}
+        \item module spider - all possible modules no detail.
+        \item module spider petsc - all version of petsc, no detail.
+        \item module spider petsc/3.1 - detail.
+      \end{itemize}
+  \end{itemize}
+\end{frame}
 
 
 \section{Conclusion}

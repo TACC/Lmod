@@ -114,8 +114,7 @@ function LmodError(...)
       io.stderr:write(v)
    end
    io.stderr:write("\n")
-   io.stdout:write("false\n")
-   os.exit(1)
+   lmodErrorExit()
 end
 
 function LmodMessage(...)
@@ -142,6 +141,7 @@ require("ColumnTable")
 require("Options")
 require("serialize")
 require("fileOps")
+require("posix")
 require("ModuleStack")
 require("string_split")
 require("BeautifulTbl")
@@ -1021,6 +1021,11 @@ local function Swap(...)
    dbg.fini()
 end
 
+local function epoch()
+   local t1, t2 = posix.gettimeofday()
+   return t1 + t2*1.0e-6
+end
+
 function getModuleT()
 
    local dbg       = Dbg:dbg()
@@ -1072,16 +1077,20 @@ function getModuleT()
       LmodError    = dbg.quiet
       LmodMessage  = dbg.quiet
       io.stderr:write("Rebuilding cache file please wait ...")
+      local t1 = epoch()
       Spider.findAllModules(moduleDirA, moduleT)
+      local t2 = epoch()
       io.stderr:write(" done\n")
       LmodError    = errRtn
       LmodMessage  = message
-      mkdir_recursive(cacheDir)
-      local s1 = serialize{name="defaultMpathA",value=moduleDirA,indent=true}
-      local s2 = serialize{name="moduleT",      value=moduleT,   indent=true}
-      local f  = io.open(moduleTFN,"w")
-      f:write(s1,s2)
-      f:close()
+      if (t2 - t1 > 2.0) then
+         mkdir_recursive(cacheDir)
+         local s1 = serialize{name="defaultMpathA",value=moduleDirA,indent=true}
+         local s2 = serialize{name="moduleT",      value=moduleT,   indent=true}
+         local f  = io.open(moduleTFN,"w")
+         f:write(s1,s2)
+         f:close()
+      end
    else
       moduleT = _G.moduleT
    end
@@ -1107,14 +1116,18 @@ function SpiderCmd(mname)
    whatis       = Spider_whatis
    prepend_path = Spider_prepend_path
    append_path  = Spider_append_path
+   
 
    dbg.start("SpiderCmd(",tostring(mname),")")
 
+   
    local moduleT = getModuleT()
 
    local s
    local dbT = {}
+   local errorRtn = LmodError
    Spider.buildSpiderDB({"default"},moduleT, dbT)
+   LmodError = errorRtn
 
    if (mname == nil) then
       s = Spider.Level0(dbT)

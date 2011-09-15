@@ -330,6 +330,10 @@ function findAllModules(moduleDirA, moduleT)
    masterTbl.moduleDirT  = moduleDirT
    masterTbl.moduleT     = moduleT
    masterTbl.moduleStack = {{}}
+   local errorRtn        = LmodError
+   local msgRtn          = LmodMessage
+   local exit            = os.exit
+
    LmodError             = nothing
    LmodMessage           = nothing
    os.exit               = nothing
@@ -341,6 +345,10 @@ function findAllModules(moduleDirA, moduleT)
          findModulesInDir(v, "", moduleT)
       end
    end
+   LmodError   = errorRtn
+   LmodMessage = msgRtn
+   os.exit     = exit
+
    dbg.fini()
 end
 
