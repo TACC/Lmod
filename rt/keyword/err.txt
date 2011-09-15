@@ -1,4 +1,4 @@
-Rebuilding cache file please wait ... done
+Rebuilding cache file, please wait ... done
 
 ----------------------------------------------------------------------------
 The following modules match your search criteria: "graph"

@@ -1076,7 +1076,7 @@ function getModuleT()
    if (buildModuleT) then
       LmodError    = dbg.quiet
       LmodMessage  = dbg.quiet
-      io.stderr:write("Rebuilding cache file please wait ...")
+      io.stderr:write("Rebuilding cache file, please wait ...")
       local t1 = epoch()
       Spider.findAllModules(moduleDirA, moduleT)
       local t2 = epoch()

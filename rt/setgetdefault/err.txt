@@ -29,7 +29,7 @@ Currently Loaded Modules:
 ===========================
 step 9
 ===========================
-Rebuilding cache file please wait ... done
+Rebuilding cache file, please wait ... done
 
 ----------------------------------------------------------------------------
 The following is a list of the modules currently available:

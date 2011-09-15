@@ -75,7 +75,7 @@ testdescript = {
             -e "s|$PATH_to_LUA|PATH_to_LUA|g"                 \
             -e "s|$PATH_to_TM|PATH_to_TM|g"                   \
             -e "s|$HOME|~|g"                                  \
-            -e "/Rebuilding cache file please wait .* done/d" \
+            -e "/Rebuilding cache file, please wait .* done/d" \
             < $1 > $2
      }
 
