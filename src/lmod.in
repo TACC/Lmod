@@ -14,6 +14,16 @@ LoadTbl       = {}
 UnLoadTbl     = {}
 UnLoadCount   = 0
 _MyFileName   = ""
+
+-- ancient:   the time in seconds when the cache file is considered old
+-- shortTime: the time in seconds when building the cache file is quick
+--            enough to be computed every time rather than cached.
+ancient       = "@ancient@"
+shortTime     = "@short_time@"
+ancient       = tonumber(ancient)   or 86400
+shortTime     = tonumber(shortTime) or 2.0
+   
+
 ------------------------------------------------------------------------
 -- Extract directory location of "lmod" command and add it
 -- to the lua search path
@@ -1053,7 +1063,7 @@ function getModuleT()
 
    if (haveMTFN) then
       local attr  = lfs.attributes(moduleTFN)
-      buildModuleT = (os.time() - attr.modification) > 86400  -- rebuild if older than a day
+      buildModuleT = (os.time() - attr.modification) > ancient  -- rebuild if older than a day
    end
 
    -- Check to see if LMOD_DEFAULT_MODULEPATH has changed.
@@ -1083,14 +1093,20 @@ function getModuleT()
       io.stderr:write(" done\n")
       LmodError    = errRtn
       LmodMessage  = message
-      if (t2 - t1 > 2.0) then
+      if (t2 - t1 > shortTime) then
          mkdir_recursive(cacheDir)
          local s1 = serialize{name="defaultMpathA",value=moduleDirA,indent=true}
          local s2 = serialize{name="moduleT",      value=moduleT,   indent=true}
          local f  = io.open(moduleTFN,"w")
          f:write(s1,s2)
          f:close()
+      else
+         -- remove cache file if old
+         if (haveMTFN) then
+            posix.unlink(moduleTFN);
+         end
       end
+
    else
       moduleT = _G.moduleT
    end

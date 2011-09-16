@@ -560,6 +560,8 @@ LIBOBJS
 luaprog
 PATH_TO_HASHSUM
 PATH_TO_LUA
+SHORT_TIME
+ANCIENT
 MODULEPATH_ROOT
 target_alias
 host_alias
@@ -603,6 +605,8 @@ ac_subst_files=''
 ac_user_opts='
 enable_option_checking
 with_module_root_path
+with_ancient
+with_shortTime
 '
       ac_precious_vars='build_alias
 host_alias
@@ -1217,6 +1221,11 @@ Optional Packages:
   --without-PACKAGE       do not use PACKAGE (same as --with-PACKAGE=no)
   --with-module-root-path=<path>
                           use module root path=<path> [[PREFIX/modulefiles]]
+  --with-ancient=num_secs How long to wait before rebuilding spider cache
+                          file=num_secs [[86400]]
+  --with-shortTime=num_secs
+                          if spider build time < shortTime then no spider
+                          cache file [[2]]
 
 Report bugs to the package provider.
 _ACEOF
@@ -1651,8 +1660,8 @@ ac_compiler_gnu=$ac_cv_c_compiler_gnu
 # Check whether --with-module-root-path was given.
 if test "${with_module_root_path+set}" = set; then :
   withval=$with_module_root_path; MODULEPATH_ROOT="$withval"
-    { $as_echo "$as_me:${as_lineno-$LINENO}: result: MODULEPATH_ROOT = $with_module_root_path" >&5
-$as_echo "MODULEPATH_ROOT = $with_module_root_path" >&6; }
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: MODULEPATH_ROOT=$with_module_root_path" >&5
+$as_echo "MODULEPATH_ROOT=$with_module_root_path" >&6; }
     cat >>confdefs.h <<_ACEOF
 #define MODULEPATH_ROOT "$with_module_root_path"
 _ACEOF
@@ -1664,6 +1673,50 @@ $as_echo "MODULEPATH_ROOT=$withval" >&6; }
     MODULEPATH_ROOT="$withval"
     cat >>confdefs.h <<_ACEOF
 #define MODULEPATH_ROOT "$withval"
+_ACEOF
+
+fi
+
+
+
+# Check whether --with-ancient was given.
+if test "${with_ancient+set}" = set; then :
+  withval=$with_ancient; ANCIENT="$withval"
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: ANCIENT=$with_ancient" >&5
+$as_echo "ANCIENT=$with_ancient" >&6; }
+    cat >>confdefs.h <<_ACEOF
+#define ANCIENT "$with_ancient"
+_ACEOF
+
+else
+  withval="86400"
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: ANCIENT=$withval" >&5
+$as_echo "ANCIENT=$withval" >&6; }
+    ANCIENT="$withval"
+    cat >>confdefs.h <<_ACEOF
+#define ANCIENT "$withval"
+_ACEOF
+
+fi
+
+
+
+# Check whether --with-shortTime was given.
+if test "${with_shortTime+set}" = set; then :
+  withval=$with_shortTime; SHORT_TIME="$withval"
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: SHORT_TIME=$with_shortTime" >&5
+$as_echo "SHORT_TIME=$with_shortTime" >&6; }
+    cat >>confdefs.h <<_ACEOF
+#define SHORT_TIME "$with_shortTime"
+_ACEOF
+
+else
+  withval="2"
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: SHORT_TIME=$withval" >&5
+$as_echo "SHORT_TIME=$withval" >&6; }
+    SHORT_TIME="$withval"
+    cat >>confdefs.h <<_ACEOF
+#define SHORT_TIME "$withval"
 _ACEOF
 
 fi

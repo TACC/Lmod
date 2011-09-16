@@ -1,4 +1,6 @@
 # $Id: Makefile.in 701 2011-02-08 22:27:13Z mclay $
+ANCIENT         := @ANCIENT@
+SHORT_TIME      := @SHORT_TIME@
 PATH_TO_HASHSUM := @PATH_TO_HASHSUM@
 PATH_TO_LUA	:= @PATH_TO_LUA@
 MODULEPATH_ROOT := @MODULEPATH_ROOT@
@@ -69,6 +71,8 @@ __installMe:
           sed -e 's|@PREFIX@|@prefix@|g'                          \
 	      -e 's|@path_to_lua@|$(PATH_TO_LUA)|g'               \
 	      -e 's|@path_to_hashsum@|$(PATH_TO_HASHSUM)|g'       \
+	      -e 's|@ancient@|$(ANCIENT)|g'                       \
+	      -e 's|@short_time@|$(SHORT_TIME)|g'                 \
 	      -e 's|@modulepath_root@|$(MODULEPATH_ROOT)|g'       \
               -e 's|@PKG@|$(PKG)|g'         < $$i > $$fn;         \
           [ -n "$(DIRLOC)" ] && mv $$fn $(DESTDIR)$(DIRLOC) && chmod +x $(DESTDIR)$(DIRLOC)/$$fn; \

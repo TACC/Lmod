@@ -1,3 +1,8 @@
+Version 3.2.2
+
+If the time to build a cache file is short ( < 2 sec) when doing a "module spider" then lmod does not
+write out a cache file.  This allows for small systems to have accurate "spider's"
+
 Version 3.2.1
 
 This version set return an error if there are any warning.  So if a user does "module load foo bar baz"
