@@ -14,18 +14,7 @@ testdescript = {
 
    runScript = [[
 
-     unsetMT ()
-     {
-        unset _ModuleTable_
-        for i in `seq 1 1000`; do
-           num=`printf %03d $i`
-           eval j="\$_ModuleTable${num}_"
-           if [ -z "$j" ]; then
-              break
-           fi
-           unset _ModuleTable${num}_
-        done
-     }
+     . $(projectDir)/rt/common_funcs.sh
 
      unsetMT
      PATH_to_LUA=`findcmd --pathOnly lua`
@@ -50,14 +39,7 @@ testdescript = {
      lua $(projectDir)/src/lmod.in bash keyword graph > _stdout.orig 2> err.txt
 
      HOME=$OLDHOME
-     cleanUp ()
-     {
-        sed                                   \
-            -e "s|$PATH_to_LUA|PATH_to_LUA|g" \
-            -e "s|$PATH_to_TM|PATH_to_TM|g"   \
-            -e "s|$HOME|~|g"                  \
-            < $1 > $2
-     }
+
      joinBase64Results  -bash  _stdout.orig _stdout.new
      cleanUp _stdout.new out.txt
 

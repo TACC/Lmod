@@ -1,7 +1,6 @@
 ===========================
 step 1
 ===========================
-
  ~/w/lmod/mf/Core 
   PrgEnv                       intel/intel (default)  
   admin/admin-1.0 (default)    junk/a/c/1.0  
@@ -12,19 +11,15 @@ step 1
   gotoblas/1.20                noweb/2.10c (default)  
   gotoblas/1.26 (default)      unix/unix (default)  
   gotoblas/1.30              
-
  ~/w/lmod/mf/Compiler/intel/10.1 
   gotoblas/1.31    gotoblas/1.33    openmpi/1.2.6  
   gotoblas/1.32    mpich2/1.0.7   
-
  ~/w/lmod/rt/avail/mf/Core 
   bar/1.4                  baz/1.4 (default)    foo/1.4 (default)  
   bar/1.4-dbg (default)    baz/1.4-dbg          foo/1.4-dbg  
-
 ===========================
 step 2
 ===========================
-
  ~/w/lmod/mf/Core 
   admin/admin-1.0 (default)    junk/a/c/1.0  
   gcc/4.2.3                    junk/b/c/2.0  
@@ -32,26 +27,21 @@ step 2
   gotoblas/1.26 (default)      local/local (default)  
   gotoblas/1.30                multi/multi (default)  
   intel/intel (default)      
-
  ~/w/lmod/mf/Compiler/intel/10.1 
   gotoblas/1.31    gotoblas/1.33    openmpi/1.2.6  
   gotoblas/1.32    mpich2/1.0.7   
-
  ~/w/lmod/rt/avail/mf/Core 
   bar/1.4                  baz/1.4 (default)  
   bar/1.4-dbg (default)    baz/1.4-dbg  
-
 ===========================
 step 3
 ===========================
 ===========================
 step 4
 ===========================
-
  ~/w/lmod/mf/Compiler/intel/10.1 
   gotoblas/1.31              gotoblas/1.33    openmpi/1.2.6  
   gotoblas/1.32 (default)    mpich2/1.0.7   
-
  ~/w/lmod/mf/Core 
   PrgEnv                       intel/intel (default)  
   admin/admin-1.0 (default)    junk/a/c/1.0  
@@ -62,8 +52,6 @@ step 4
   gotoblas/1.20                noweb/2.10c (default)  
   gotoblas/1.26                unix/unix (default)  
   gotoblas/1.30              
-
  ~/w/lmod/rt/avail/mf/Core 
   bar/1.4                  baz/1.4 (default)    foo/1.4 (default)  
   bar/1.4-dbg (default)    baz/1.4-dbg          foo/1.4-dbg  
-

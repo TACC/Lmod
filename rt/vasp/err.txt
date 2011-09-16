@@ -1,20 +1,15 @@
 ===========================
 step 1
 ===========================
-Rebuilding cache file, please wait ... done
-----------------------------------------------------------------------------
 The following modules match your search criteria: "graph"
-----------------------------------------------------------------------------
   parmetis: parmetis/3.1
     Parallel graph partitioning and fill-reduction matrix ordering routines 
-----------------------------------------------------------------------------
 To learn more about a package enter:
    $ module spider Foo
 where "Foo" is the name of a module
 To find detailed information about a particular package you
 must enter the version if there is more than one version:
    $ module spider Foo/11.1
-----------------------------------------------------------------------------
 ===========================
 step 2
 ===========================
@@ -26,15 +21,13 @@ vasp/5.2            : Description: Vienna Ab-Initio Simulation Package
 ===========================
 step 3
 ===========================
------------ Module Specific Help for "vasp/5.2"------------------
+ Module Specific Help for "vasp/5.2"
 The TACC VASP module appends the path to the vasp executables
 to the PATH environment variable.  Also TACC_VASP_DIR, and 
 TACC_VASP_BIN are set to VASP home and bin directories.
- 
 Users have to show their licenses and be confirmed by 
 VASP team that they are registered users under that licenses
 Scan a copy the license and send to hliu@tacc.utexas.edu
- 
 The VASP executables are 
 vasp_std: compiled with pre processing flag: -DNGZhalf 
 vasp_gamma: compiled with pre processing flag: -DNGZhalf -DwNGZhalf 
@@ -43,7 +36,6 @@ vasp_std_vtst: vasp_std with TST
 vasp_gamma_vtst: vasp_gamma with TST 
 vasp_ncl_vtst: vasp_ncl with TST 
 vtstscripts/: utility scripts of TST 
- 
 Version 5.2
 ===========================
 step 4

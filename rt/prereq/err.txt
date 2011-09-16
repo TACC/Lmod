@@ -13,7 +13,5 @@ step 4
 ===========================
 step 5
 ===========================
-
 Error: Can not load: "slepc" module without these modules loaded:
   petsc/3.0.0
-

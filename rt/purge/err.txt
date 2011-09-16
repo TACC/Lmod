@@ -7,5 +7,4 @@ step 2
 ===========================
 step 3
 ===========================
-
 Warning: No modules installed

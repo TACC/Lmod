@@ -22,18 +22,8 @@ testdescript = {
 
    runScript = [[
 
-     unsetMT ()
-     {
-        unset _ModuleTable_
-        for i in `seq 1 1000`; do
-           num=`printf %03d $i`
-           eval j="\$_ModuleTable${num}_"
-           if [ -z "$j" ]; then
-              break
-           fi
-           unset _ModuleTable${num}_
-        done
-     }
+     . $(projectDir)/rt/common_funcs.sh
+     
 
      unsetMT
      PATH_to_LUA=`findcmd --pathOnly lua`
@@ -111,17 +101,6 @@ EOF
      unset SHELL_STARTUP_DEBUG
      chmod +x $(testName).csh
      ./$(testName).csh > err.txt 2>&1
-
-     cleanUp ()
-     {
-        sed                                        \
-            -e "s|$PATH_to_LUA|PATH_to_LUA|g"      \
-            -e "s|$PATH_to_TM|PATH_to_TM|g"        \
-            -e "s|unsetenv _ModuleTable..._;||g"   \
-            -e "s|$HOME|~|g"                       \
-            -e "/^\s*$/d"                          \
-            < $1 > $2
-     }
 
      joinBase64Results -csh  _stdout.orig _stdout.new
      cleanUp _stdout.new out.txt

@@ -4,82 +4,46 @@ step 1
 ===========================
 step 2
 ===========================
-
-----------------------------------------------------------------------------
 The following is a list of the modules currently available:
-----------------------------------------------------------------------------
   PrgEnv: PrgEnv
-
   admin: admin/admin-1.0
-
   gcc: gcc/4.2.3
-
   git: git/1.6.3.1, git/1.7.4, git/1.7.4.3
-
   gotoblas: gotoblas/1.20, gotoblas/1.26, gotoblas/1.30, gotoblas/1.30-beta, ...
     Blas Level 1, 2, 3 routines 
-
   intel: intel/intel
-
   junk: junk/a/c/1.0, junk/b/c/2.0, junk/d/3.0
-
   local: local/local
-
   mpich2: mpich2/1.0.7
-
   multi: multi/multi
-
   noweb: noweb/2.10c
-
   openmpi: openmpi/1.2.6
-
   parmetis: parmetis/3.1
     Parallel graph partitioning and fill-reduction matrix ordering routines 
-
   unix: unix/unix
-
-----------------------------------------------------------------------------
 To learn more about a package enter:
-
    $ module spider Foo
-
 where "Foo" is the name of a module
-
 To find detailed information about a particular package you
 must enter the version if there is more than one version:
-
    $ module spider Foo/11.1
-----------------------------------------------------------------------------
-
 ===========================
 step 3
 ===========================
-
-  ----------------------------------------------------------------------------
   mpich2: mpich2/1.0.7
-  ----------------------------------------------------------------------------
-
     This module can be loaded through the following modules:
       intel/intel
-
 ===========================
 step 4
 ===========================
-
-  ----------------------------------------------------------------------------
   mpich2: mpich2/1.0.7
-  ----------------------------------------------------------------------------
-
     This module can be loaded through the following modules:
       intel/intel
-
 ===========================
 step 5
 ===========================
 Unable to find: "mpich2me"
-
 ===========================
 step 6
 ===========================
-
 Error: Unable to find: "mpich2/1.0.5"

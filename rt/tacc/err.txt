@@ -1,13 +1,11 @@
 ===========================
 step 1
 ===========================
-
  ~/w/lmod/mf/TACC 
   Linux         cluster          globus/4.0.7 (default)  
   TACC          cluster-paths    mvapich1/mvapich1  
   TACC-paths    cluster.orig     pgi/7.1 (default)  
   TACC.orig     globus/4.0.1     pgi/7.2-5  
-
 ===========================
 step 2
 ===========================
@@ -20,24 +18,15 @@ Currently Loaded Modules:
 ===========================
 step 4
 ===========================
-
-
  Module Specific Help for "mvapich1/1.0"
 	This module loads the MVAPICH MPI environment built with
 	Intel compilers. By loading this module, the following commands
 	will be automatically available for compiling MPI applications:
-
-
 	mpif77       (F77 source)
 	mpif90       (F90 source)
 	mpicc        ( C  source)
 	mpiCC/mpicxx (C++ source)
-
-
 	Version 1.0
-
-
-
 ===========================
 step 5
 ===========================

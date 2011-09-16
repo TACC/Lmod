@@ -4,17 +4,13 @@ step 1
 ===========================
 step 2
 ===========================
-
-------------------------------------------------------------
    ~/w/lmod/rt/oscar/mf/Core/oscar.lua:
-------------------------------------------------------------
 help([[	This module sets up the OSCAR modules subsystem.]])
 whatis("Description: Sets up the OSCAR modules subsystem.")
 prepend_path("MODULEPATH", "~/w/lmod/rt/oscar/mf/Oscar")
 load("a")
 load("b")
 load("c")
-
 ===========================
 step 3
 ===========================
