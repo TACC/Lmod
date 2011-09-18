@@ -49,7 +49,8 @@
     \item Some Users need new versions for new features and bug fixes.
     \item Other Users need older versions for stability and continuity.
     \item No system can support all versions of all packages.
-    \item Pre-built C++ \& Fortran libraries must link with the same compiler
+    \item User programs using pre-built C++ \& Fortran libraries must
+      link with the same compiler.
     \item Similarly, MPI Applications must build and link with same
       MPI/Compiler pairing when using prebuilt MPI libraries.
   \end{itemize}
@@ -102,13 +103,25 @@
 
 \begin{frame}{Enviroment Modules History}
   \begin{itemize}
-    \item Paper described modules in 1991 (Furlani)
-    \item Cray used modules on Unicos mid-1990's
-    \item TACC has been using modules almost as long.
+    \item Paper described modules in 1991 (Furlani).
+    \item Cray used modules on Unicos mid-1990's.
+    \item TACC has been using modules since our 1st Cray T3E in the
+      late 90's.
   \end{itemize}
 \end{frame}
 
-\begin{frame}{How could this possibly work?}
+\begin{frame}{Enviroment Modules History (II)}
+  \begin{itemize}
+    \item At some point Environment Modules was written in TCL/C combination.
+    \item Another module system called CMOD:
+      //www.lysator.liu.se/cmod/ (1997-1998)
+    \item www.modules.org: TCL/C Module files written in TCL (Late '90 - now)
+    \item A pure TCL based module system: www.modules.org
+    \item Lmod: Lua Based Module  (2008 - now)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{How could modules possibly work?}
   \begin{itemize}
     \item Child processes inherit the parents enviroment.
     \item Not the other way around.
@@ -129,6 +142,27 @@
         \item \texttt{alias module eval `\$LMOD\_CMD csh $\backslash$!*`}
       \end{itemize}
   \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Trick (II)}
+    Text output of the module command:
+    \begin{itemize}
+      \item modulefile ``foo/1.0.lua'':
+    {
+\begin{verbatim}
+          setenv("FOO_VERSION","1.0")
+\end{verbatim}
+    }
+     \item Output for bash:
+\begin{verbatim}
+          export FOO_VERSION="1.0"
+\end{verbatim}
+     \item Output for csh:
+\begin{verbatim}
+          setenv FOO_VERSION "1.0"
+\end{verbatim}
+    \end{itemize}
 \end{frame}
 
 \section{Software Hierarchy}
@@ -274,7 +308,7 @@
 \begin{frame}{Better but ...}
   \begin{itemize}
     \item Using TCL/C modules, Users can only load correct modules
-    \item Swapping compilers or MPI stack $Rightarrow$ complicated!
+    \item Swapping compilers or MPI stack $\Rightarrow$ complicated!
     \item For Parallel libraries like PETSc:
       \begin{itemize}
         \item Users must unload PETSc, mpi, compiler
@@ -351,7 +385,7 @@
   \end{itemize}
 \end{frame}
 
-\section{Searching for Modules}
+\subsection{Searching for Modules}
 \label{sec:search}
 
 
@@ -373,7 +407,7 @@
     \item ``avail'' only reports modules that are loadable w/ current
       MPI/Compiler pairing.
     \item A parallel library may not be built for all possible pairings.
-    \item Won't show with avail.
+    \item Won't always show with avail.
     \item Not all package can be build or work with all compiler/MPI suites.
   \end{itemize}
 \end{frame}
@@ -382,7 +416,8 @@
   \begin{itemize}
     \item Reports all modules for given \texttt{MODULEPATH}.
     \item It walks the tree to find all branches.
-    \item It builds a cache file that lasts a day.
+    \item Large systems of modules save a cache file that is saved for
+      a day.
     \item Three modes:
       \begin{itemize}
         \item module spider - all possible modules no detail.
@@ -392,12 +427,147 @@
   \end{itemize}
 \end{frame}
 
+\subsection{Installing Lmod}
+\label{sec:installing}
+
+\begin{frame}{Installation Overview}
+  \begin{itemize}
+    \item Chose a place for module tree: ``\texttt{/opt/apps/modulefiles}''
+    \item Use configure to override default.
+    \item Install lua and Lmod applications
+    \item Place module command in system shell startup.
+    \item Possibly modify bash's startup procedure
+    \item Design a default set of modules for your users.
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Installing Lmod (I)}
+  \begin{itemize}
+    \item Download files from lmod.sf.net
+      \begin{itemize}
+        \item lua-x.y.z.tar.gz
+        \item lmod-x.y.z.tar.gz
+      \end{itemize}
+    \item Assume all ``optional'' packages are in ``\texttt{/opt/apps/}''
+    \item Install lua in \texttt{/opt/apps/lua/}\emph{x.y.z}''
+    \item ``\texttt{\$ ln -s }\emph{x.y.z} \texttt{/opt/apps/lua/lua}''
+    \item This way ``\texttt{/opt/apps/lua/lua/bin/lua}'' always points to
+      lua independent of version.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Installing Lmod (II)}
+  \begin{itemize}
+    \item Install Lmod in ``\texttt{/opt/apps/lmod/}\emph{x.y.z}''
+    \item ``\texttt{make install}'' creates a symlink from
+      ``\emph{x.y.z}'' to lmod.
+    \item This way ``\texttt{/opt/apps/lmod/lmod/...}'' always points
+      to the latest lmod.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Integrating Lmod into User's Shell (I)}
+    We must add the module alias for all user's shells by either link
+    or copy:
+    \begin{itemize}
+      \item \texttt{\$ ln -s /opt/apps/lmod/lmod/init/profile /etc/profile.d/modules.sh}
+      \item \texttt{\$ ln -s /opt/apps/lmod/lmod/init/cshrc   /etc/profile.d/modules.csh}
+      \item You may have to create ``\texttt{/etc/profile.d}'' first.
+  \end{itemize}
+\end{frame}
+
+\subsection{Shell Startup Files}
+\label{sec:startup}
+
+\begin{frame}{Bash Shell startup files}
+    \begin{tabular}{|l|l|l|}
+        \hline
+        ~           & System       & User \\\hline\hline
+        login       & /etc/profile & $\sim$/.bash\_profile $\parallel$ $\sim$/.profile, ...\\\hline
+        interactive & {\color{red}/etc/bashrc}$^\star$  & $\sim$/.bashrc\\\hline
+        non-interactive & \$BASH\_ENV  & ~\\\hline
+    \end{tabular}
+    ~\\
+    ~\\
+    $^\star$ Not always built-in!\\
+    \$BASH\_ENV points to a file which is run on  non-interactive shells.
+\end{frame}
+
+\begin{frame}{Csh Shell startup files}
+{\small
+    \begin{tabular}{|l|l|l|}
+        \hline
+        ~           & System       & User \\\hline\hline
+        login       & /etc/csh.cshrc \& /etc/csh.login &  $\sim$/.cshrc  \& $\sim$/.login\\\hline
+        interactive & /etc/csh.cshrc  & $\sim$/.cshrc\\\hline
+        non-interactive & /etc/csh.cshrc & $\sim$/.cshrc~\\\hline
+    \end{tabular}
+}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Linux /etc/profile}
+    {
+\begin{verbatim}
+if [ -d /etc/profile.d ]; then
+  for i in /etc/profile.d/*.sh; do
+    if [ -r $i ]; then
+      . $i
+    fi
+  done
+fi
+\end{verbatim}
+    }
+\end{frame}
+
+
+\begin{frame}[fragile]
+    \frametitle{Linux /etc/bashrc}
+    {
+\begin{verbatim}
+if ! shopt -q login_shell; then
+  if [ -d /etc/profile.d ]; then
+    for i in /etc/profile.d/*.SH; do
+      if [ -r $i ]; then
+        . $i
+      fi
+    done
+  fi
+fi
+\end{verbatim}
+    }
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Linux /etc/csh.cshrc}
+    {
+\begin{verbatim}
+if ( -d /etc/profile.d ) then
+  set nonomatch
+  foreach i ( /etc/profile.d/*.csh )
+     if ( -r $i ) then
+       if ($?prompt) then
+         source $i
+       else
+         source $i >& /dev/null
+       endif
+    endif
+  end
+endif
+\end{verbatim}
+    }
+\end{frame}
+
+
+
 
 \section{Conclusion}
 
 \begin{frame}{Conclusion}
   \begin{itemize}
-    \item Use Lmod to solve all your problems
+    \item lmod.sourceforge.net (lmod.sf.net)
+    \item www.tacc.utexas.edu/tacc-projects/mclay/lmod
   \end{itemize}
 \end{frame}
 
