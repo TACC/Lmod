@@ -56,6 +56,45 @@
   \end{itemize}
 \end{frame}
 
+\begin{frame}[fragile]
+    \frametitle{Example of Lmod: Environment Modules}
+    {\tiny
+\begin{alltt}
+{\color{blue}ranger\$ module list}
+Currently Loaded Modules:
+  1) Linux  2) cluster  3) TACC  4) pgi/7.2-5  5) mvapich2/1.2  6) petsc/3.1
+{\color{blue}ranger\$ module unload pgi}
+Inactive Modules:
+  1) mvapich2  2) petsc
+{\color{blue}ranger\$ module list}
+Currently Loaded Modules:
+  1) Linux  2) cluster  3) TACC
+Inactive Modules:
+  1) mvapich2  2) petsc
+{\color{blue}ranger\$ module load intel}
+Activating Modules:
+  1) mvapich2  2) petsc
+{\color{blue}ranger\$ module swap intel pgi}
+Due to MODULEPATH changes the follow modules have been reloaded:
+  1) mvapich2  2) petsc
+\end{alltt}
+    }
+\end{frame}
+
+\begin{frame}{Lmod vs. TCL/C modules}
+
+  \begin{itemize}
+    \item Lmod provides all the functionality that TCL/C Modules does.
+    \item It direct support for Software Hierarchy.
+    \item It reads both TCL and Lua based modulefiles.
+    \item It can finding all modules available via {\color{blue}module spider}.
+    \item Users can set their default set of modules via
+      {\color{blue}module  setdefault}.
+  \end{itemize}
+\end{frame}
+
+
+
 \begin{frame}{TACC Environment}
   \begin{itemize}
     \item TACC: Texas Advanced Computing Center
@@ -116,7 +155,7 @@
     \item Another module system called CMOD:
       //www.lysator.liu.se/cmod/ (1997-1998)
     \item www.modules.org: TCL/C Module files written in TCL (Late '90 - now)
-    \item A pure TCL based module system: www.modules.org
+    \item A pure TCL based module system: www.modules.org (? - now) 
     \item Lmod: Lua Based Module  (2008 - now)
   \end{itemize}
 \end{frame}
@@ -477,9 +516,6 @@
   \end{itemize}
 \end{frame}
 
-\subsection{Shell Startup Files}
-\label{sec:startup}
-
 \begin{frame}{Bash Shell startup files}
     \begin{tabular}{|l|l|l|}
         \hline
@@ -557,6 +593,31 @@ if ( -d /etc/profile.d ) then
 endif
 \end{verbatim}
     }
+\end{frame}
+
+\begin{frame}{Rebuilding Bash to use /etc/bashrc}
+  \begin{itemize}
+    \item By default bash does not read /etc/bashrc
+    \item Red Hat, Centos,  Mac OS X, don't read /etc/bashrc
+    \item Debian, Ubuntu do read /etc/bashrc
+    \item We at TACC rebuild bash so that it does read /etc/bashrc
+    \item Actually, we rebuild all shells so that they read from /etc/tacc/...
+    \item We want to control what goes in those startup files.
+    \item You must patch config-top.h to change bash's behavior.
+    \item We want interactive shells to behave the same as login shells.
+    \item All other shells read a system file.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Loading Default Modules}
+  \begin{itemize}
+    \item At TACC, all users get a default set of module loaded at startup.
+    \item In ``\texttt{/etc/profile.d/z96\_login\_modules.sh}:'' \\
+      {\color{blue}\texttt{module getdefault default || module load TACC}}
+    \item Most users get the ``TACC'' set of modules
+    \item We load standard tools, a compiler, an mpi implementation.
+    \item User can replace the default via ``{\color{blue}\texttt{module setdefault}}''
+  \end{itemize}
 \end{frame}
 
 
