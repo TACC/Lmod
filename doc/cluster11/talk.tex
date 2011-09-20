@@ -629,6 +629,28 @@ endif
   \end{itemize}
 \end{frame}
 
+\begin{frame}{Management of Modules}
+  \begin{itemize}
+    \item Encourage users to use modules with their own software.
+    \item Check modulefile syntax errors by running:
+      \{\color{blue}module spider}
+    \item Use {\color{green}\texttt{prereq("foo","bar")} instead of
+      {\color{green}\texttt{load("foo","bar")}
+    \item Use  {\color{green}\texttt{family("compiler")} and similar
+      in your compiler and MPI module files.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Making modules work with setdefault}
+  \begin{itemize}
+    \item A module file should only be either a manager module or
+      a worker module.
+    \item A worker module is one that only sets environment variables.
+    \item A manager module loads other modules.
+    \item For complicated reasons setdefault/getdefault requires that
+      no module being saved is both a manager and a worker modulefile.
+  \end{itemize}
+\end{frame}
 
 
 \section{Conclusion}
