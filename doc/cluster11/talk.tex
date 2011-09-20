@@ -620,6 +620,18 @@ endif
   \end{itemize}
 \end{frame}
 
+\begin{frame}{Modules and Package Management at TACC}
+  \begin{itemize}
+    \item All of the ``optional'' software: compilers, MPI Stacks,
+      Libraries, and Applications are install via the RPM package management.
+    \item We create our optional RPMs with both the software and the
+      module files.
+    \item Uninstalling a package removes both the software and the
+      module that access it.
+    \item We use a single parameterized spec file to build all
+      compiler/mpi pairing.
+  \end{itemize}
+\end{frame}
 
 
 
