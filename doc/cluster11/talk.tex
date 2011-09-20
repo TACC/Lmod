@@ -599,13 +599,9 @@ endif
   \begin{itemize}
     \item By default bash does not read /etc/bashrc
     \item Red Hat, Centos,  Mac OS X, don't read /etc/bashrc
-    \item Debian, Ubuntu do read /etc/bashrc
     \item We at TACC rebuild bash so that it does read /etc/bashrc
-    \item Actually, we rebuild all shells so that they read from /etc/tacc/...
-    \item We want to control what goes in those startup files.
     \item You must patch config-top.h to change bash's behavior.
-    \item We want interactive shells to behave the same as login shells.
-    \item All other shells read a system file.
+    \item We want bash interactive shells to behave the same as login shells.
   \end{itemize}
 \end{frame}
 
