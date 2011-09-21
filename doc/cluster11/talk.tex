@@ -153,7 +153,7 @@ Due to MODULEPATH changes the follow modules have been reloaded:
   \begin{itemize}
     \item At some point Environment Modules was written in TCL/C combination.
     \item Another module system called CMOD:
-      //www.lysator.liu.se/cmod/ (1997-1998)
+      www.lysator.liu.se/cmod/ (1997-1998)
     \item www.modules.org: TCL/C Module files written in TCL (Late '90 - now)
     \item A pure TCL based module system: www.modules.org (? - now) 
     \item Lmod: Lua Based Module  (2008 - now)
@@ -171,7 +171,8 @@ Due to MODULEPATH changes the follow modules have been reloaded:
 \begin{frame}{The Trick}
   \begin{itemize}
     \item The module command \texttt{lmod\_cmd} reads module files
-    \item $\Rightarrow$ shell dependent text
+    \item The program outputs shell dependent text.
+    \item Second step: evaluate shell dependent text.
     \item In bash:
       \begin{itemize}
           \item \texttt{module () \{ eval \$(\$LMOD\_CMD bash "\$@")\}}
@@ -225,6 +226,7 @@ Due to MODULEPATH changes the follow modules have been reloaded:
 \end{frame}
 
 \begin{frame}{Flat Naming Scheme: PETSc}
+  PETSc is a parallel iterative solver package:
   \begin{itemize}
     \item Compilers: GCC 4.5, Intel 11.1
     \item MPI Implementations: MVAPICH 1.2, Openmpi 1.5
@@ -460,7 +462,7 @@ Due to MODULEPATH changes the follow modules have been reloaded:
     \item Three modes:
       \begin{itemize}
         \item module spider - all possible modules no detail.
-        \item module spider petsc - all version of petsc, no detail.
+        \item module spider petsc - all versions of petsc, no detail.
         \item module spider petsc/3.1 - detail.
       \end{itemize}
   \end{itemize}
@@ -489,7 +491,7 @@ Due to MODULEPATH changes the follow modules have been reloaded:
         \item lmod-x.y.z.tar.gz
       \end{itemize}
     \item Assume all ``optional'' packages are in ``\texttt{/opt/apps/}''
-    \item Install lua in \texttt{/opt/apps/lua/}\emph{x.y.z}''
+    \item Install lua in ``\texttt{/opt/apps/lua/}\emph{x.y.z}''
     \item ``\texttt{\$ ln -s }\emph{x.y.z} \texttt{/opt/apps/lua/lua}''
     \item This way ``\texttt{/opt/apps/lua/lua/bin/lua}'' always points to
       lua independent of version.
@@ -599,7 +601,7 @@ endif
   \begin{itemize}
     \item By default bash does not read /etc/bashrc
     \item Red Hat, Centos,  Mac OS X, don't read /etc/bashrc
-    \item We at TACC rebuild bash so that it does read /etc/bashrc
+    \item At TACC, we rebuild bash so that it does read /etc/bashrc
     \item You must patch config-top.h to change bash's behavior.
     \item We want bash interactive shells to behave the same as login shells.
   \end{itemize}
@@ -611,7 +613,7 @@ endif
     \item In ``\texttt{/etc/profile.d/z96\_login\_modules.sh}:'' \\
       {\color{blue}\texttt{module getdefault default || module load TACC}}
     \item Most users get the ``TACC'' set of modules
-    \item We load standard tools, a compiler, an mpi implementation.
+    \item We load standard tools, a compiler, and an mpi implementation.
     \item User can replace the default via ``{\color{blue}\texttt{module setdefault}}''
   \end{itemize}
 \end{frame}
@@ -633,10 +635,10 @@ endif
   \begin{itemize}
     \item Encourage users to use modules with their own software.
     \item Check modulefile syntax errors by running:
-      \{\color{blue}module spider}
-    \item Use {\color{green}\texttt{prereq("foo","bar")} instead of
-      {\color{green}\texttt{load("foo","bar")}
-    \item Use  {\color{green}\texttt{family("compiler")} and similar
+       {\color{blue}module spider}
+    \item Use {\color{brown}\texttt{prereq("foo","bar")}} instead of
+      {\color{brown}\texttt{load("foo","bar")}}
+    \item Use  {\color{brown}\texttt{family("compiler")}} and similar
       in your compiler and MPI module files.
   \end{itemize}
 \end{frame}
@@ -647,7 +649,7 @@ endif
       a worker module.
     \item A worker module is one that only sets environment variables.
     \item A manager module loads other modules.
-    \item For complicated reasons setdefault/getdefault requires that
+    \item For complicated reasons, setdefault/getdefault requires that
       no module being saved is both a manager and a worker modulefile.
   \end{itemize}
 \end{frame}
@@ -657,8 +659,8 @@ endif
 
 \begin{frame}{Conclusion}
   \begin{itemize}
-    \item lmod.sourceforge.net (lmod.sf.net)
-    \item www.tacc.utexas.edu/tacc-projects/mclay/lmod
+    \item Download source from: lmod.sourceforge.net (lmod.sf.net)
+    \item Documentation: www.tacc.utexas.edu/tacc-projects/mclay/lmod
   \end{itemize}
 \end{frame}
 
