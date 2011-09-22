@@ -57,37 +57,78 @@
 \end{frame}
 
 \begin{frame}[fragile]
-    \frametitle{Example of Lmod: Environment Modules}
+    \frametitle{Example of Lmod: Environment Modules (I)}
     {\tiny
 \begin{alltt}
-{\color{blue}ranger\$ module list}
-Currently Loaded Modules:
-  1) Linux  2) cluster  3) TACC  4) pgi/7.2-5  5) mvapich2/1.2  6) petsc/3.1
-{\color{blue}ranger\$ module unload pgi}
-Inactive Modules:
-  1) mvapich2  2) petsc
-{\color{blue}ranger\$ module list}
-Currently Loaded Modules:
-  1) Linux  2) cluster  3) TACC
-Inactive Modules:
-  1) mvapich2  2) petsc
-{\color{blue}ranger\$ module load intel}
-Activating Modules:
-  1) mvapich2  2) petsc
-{\color{blue}ranger\$ module swap intel pgi}
-Due to MODULEPATH changes the follow modules have been reloaded:
-  1) mvapich2  2) petsc
+\$ {\color{blue} module avail}
+------------------ /opt/apps/modulefiles/MPI/intel/12.0/mpich2/1.4 ------------------
+  petsc/3.1 (default)    petsc/3.1-debug    pmetis/4.0    tau/2.20.3  
+
+------------------- /opt/apps/modulefiles/Compiler/intel/12.0 -----------------------
+  boost/1.45.0              gotoblas2/1.13          openmpi/1.4.3  
+  boost/1.46.0              mpich2/1.3.2            openmpi/1.5.1  
+  boost/1.46.1 (default)    mpich2/1.4 (default)    openmpi/1.5.3 (default)  
+
+-------------------------- /opt/apps/modulefiles/Core -------------------------------
+  PrgEnv               intel/11.1               papi/4.1.4  
+  admin/admin-1.0      intel/12.0 (default)     scite/2.28
+  ddt/ddt              lmod/lmod                tex/2010  
+  dmalloc/dmalloc      local/local (default)    unix/unix (default)                       
+  fdepend/1.2          mkl/mkl                  visit/visit  
+  gcc/4.4              noweb/2.11b             
+  gcc/4.5 (default)                     
 \end{alltt}
     }
 \end{frame}
 
-\begin{frame}{Lmod vs. TCL/C modules}
+\begin{frame}[fragile]
+    \frametitle{Example of Lmod: Environment Modules (II)}
+    {\tiny
+\begin{alltt}
+{\color{blue}\$ module list}
+Currently Loaded Modules:
+  1) PrgEnv  2) gcc/4.5  3) mpich2/1.4  4) petsc/3.1
+{\color{blue}\$ module unload gcc}
+Inactive Modules:
+  1) mpich2  2) petsc
+{\color{blue}\$ module list}
+Currently Loaded Modules:
+  1) PrgEnv
+Inactive Modules:
+  1) mpich2  2) petsc
+{\color{blue}\$ module load intel}
+Activating Modules:
+  1) mpich2  2) petsc
+{\color{blue}\$ module swap intel gcc}
+Due to MODULEPATH changes the follow modules have been reloaded:
+  1) mpich2  2) petsc
+\end{alltt}
+    }
+\end{frame}
+
+
+\begin{frame}{Benefits of Modules}
+  \begin{itemize}
+    \item Users do not need to know where software is installed
+    \item Environment Variables to interface package can be set:
+      \begin{itemize}
+        \item TACC\_{\color{blue}\emph{PACKAGE}}\_LIB
+        \item TACC\_{\color{blue}\emph{PACKAGE}}\_INC
+        \item User do not need to set hardcoded paths.
+      \end{itemize}
+    \item Package required variables such as \texttt{LICENSE\_PATH}
+      can be set automatically.
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Benefits of Lmod vs. TCL/C modules}
 
   \begin{itemize}
     \item Lmod provides all the functionality that TCL/C Modules does.
-    \item It direct support for Software Hierarchy.
+    \item Directly support for Software Hierarchy.
     \item It reads both TCL and Lua based modulefiles.
-    \item It can finding all modules available via {\color{blue}module spider}.
+    \item Users can find all modules available via {\color{blue}module spider}.
     \item Users can set their default set of modules via
       {\color{blue}module  setdefault}.
   \end{itemize}
@@ -105,11 +146,11 @@ Due to MODULEPATH changes the follow modules have been reloaded:
   \end{itemize}
 \end{frame}
 
-\begin{frame}{Enviroment Modules }
+\begin{frame}{Enviroment Modules}
   \begin{itemize}
     \item The ``module'' command ``loads'' a package.
     \item It adds directories to \texttt{PATH} or \texttt{LD\_LIBRARY\_PATH} and
-      sets env. vars.
+      sets other  Variables. 
     \item ``\texttt{module unload} \emph{package}'' removes all packages
       changes: \texttt{PATH}, \texttt{LD\_LIBRARY\_PATH}, unset vars.
     \item A module file is a text file containing shell-independent commands:
@@ -133,10 +174,11 @@ Due to MODULEPATH changes the follow modules have been reloaded:
 \begin{frame}{Sys-admin Vs. User Control of software}
   \begin{itemize}
     \item Sys-admins control what versions are default.
-    \item Users can override defaults to newer/older versions.
+    \item Users can load newer/older versions instead of the default.
     \item When Compilers are updated, users can switch between
       versions, allowing for testing.
     \item This is the key to a flexible system.
+    \item Users can create their own modules for personal software.
   \end{itemize}
 \end{frame}
 
@@ -151,12 +193,12 @@ Due to MODULEPATH changes the follow modules have been reloaded:
 
 \begin{frame}{Enviroment Modules History (II)}
   \begin{itemize}
-    \item At some point Environment Modules was written in TCL/C combination.
+    \item At some point Environment Modules was rewritten in a TCL/C combination.
     \item Another module system called CMOD:
       www.lysator.liu.se/cmod/ (1997-1998)
     \item www.modules.org: TCL/C Module files written in TCL (Late '90 - now)
     \item A pure TCL based module system: www.modules.org (? - now) 
-    \item Lmod: Lua Based Module  (2008 - now)
+    \item Lmod: Lua Based Module  (2008 - now) (lmod.sf.net)
   \end{itemize}
 \end{frame}
 
@@ -170,16 +212,16 @@ Due to MODULEPATH changes the follow modules have been reloaded:
 
 \begin{frame}{The Trick}
   \begin{itemize}
-    \item The module command \texttt{lmod\_cmd} reads module files
+    \item The module command {\color{blue}\texttt{lmod}} reads module files
     \item The program outputs shell dependent text.
     \item Second step: evaluate shell dependent text.
     \item In bash:
       \begin{itemize}
-          \item \texttt{module () \{ eval \$(\$LMOD\_CMD bash "\$@")\}}
+          \item {\color{blue}\texttt{module () \{ eval \$(\$LMOD\_CMD bash "\$@")\}}}
       \end{itemize}
     \item In csh \texttt{module} is an alias:
       \begin{itemize}
-        \item \texttt{alias module eval `\$LMOD\_CMD csh $\backslash$!*`}
+        \item {\color{blue}\texttt{alias module eval `\$LMOD\_CMD csh $\backslash$!*`}}
       \end{itemize}
   \end{itemize}
 \end{frame}
@@ -277,18 +319,19 @@ Due to MODULEPATH changes the follow modules have been reloaded:
     \item Generic:
       \begin{itemize}
         \item Package: \texttt{/opt/apps/}\emph{package/version}
-        \item Modulefile: \texttt{/opt/apps/modulefiles/}\emph{package/version}
+        \item M: /opt/apps/modulefiles
+        \item Modulefile: \texttt{\$M/Core}\emph{package/version}
       \end{itemize}
     \item Git 1.8
       \begin{itemize}
-        \item package location: \texttt{/opt/apps/git/1.8}
-        \item Modulefile: \texttt{/opt/apps/modulefiles/Core/git/1.8}
+        \item Package: \texttt{/opt/apps/git/1.8}
+        \item Modulefile: \texttt{\$M/Core/git/1.8}
       \end{itemize}
     \item Intel compilers 11.1
       \begin{itemize}
-        \item package location: \texttt{/opt/apps/intel/11.1}
-        \item Modulefile: \texttt{/opt/apps/modulefiles/Core/intel/11.1}
-        \item Modulefile adds \texttt{/opt/apps/modulefiles/Compiler/intel/11.1} to \texttt{MODULEPATH}
+        \item Package: \texttt{/opt/apps/Core/intel/11.1}
+        \item Modulefile: \texttt{\$M/Core/intel/11.1}
+        \item Modulefile adds \texttt{\$M/Compiler/intel/11.1} to \texttt{MODULEPATH}
       \end{itemize}
   \end{itemize}
 \end{frame}
@@ -348,8 +391,9 @@ Due to MODULEPATH changes the follow modules have been reloaded:
 
 \begin{frame}{Better but ...}
   \begin{itemize}
-    \item Using TCL/C modules, Users can only load correct modules
-    \item Swapping compilers or MPI stack $\Rightarrow$ complicated!
+    \item Using TCL/C modules, Users can load correct modules by using
+      the Software Hierarchy.
+    \item But swapping compilers or MPI stack $\Rightarrow$ complicated!
     \item For Parallel libraries like PETSc:
       \begin{itemize}
         \item Users must unload PETSc, mpi, compiler
@@ -363,7 +407,7 @@ Due to MODULEPATH changes the follow modules have been reloaded:
 \begin{frame}{Lmod}
   \begin{itemize}
     \item Complete Rewrite of the Environment Modules System.
-    \item Reads TCL modulefiles.
+    \item Reads TCL or Lua modulefiles.
     \item Based on the Lua scripting language.
     \item Simple yet powerful with:
       \begin{itemize}
@@ -388,22 +432,23 @@ Due to MODULEPATH changes the follow modules have been reloaded:
 \begin{frame}{Key Insight (II): \texttt{MODULEPATH}}
   \begin{itemize}
     \item Loading gcc/4.5 and boost/1.47.1
+    \item M=/opt/apps/modulefiles
       \begin{itemize}
-        \item Adds \texttt{/opt/apps/modulefiles/Compiler/gcc/4.5} to
+        \item Adds \texttt{\$M/Compiler/gcc/4.5} to
           \texttt{MODULEPATH}.
-        \item Boost: \texttt{/opt/apps/modulefiles/Compiler/gcc/4.5/boost/1.47.1}
+        \item Boost: \texttt{\$M/Compiler/gcc/4.5/boost/1.47.1}
       \end{itemize}
     \item Unloading gcc/4.5
       \begin{itemize}
-        \item Removes \texttt{/opt/apps/modulefiles/Compiler/gcc/4.5}
+        \item Removes \texttt{\$M/Compiler/gcc/4.5}
           from \texttt{MODULEPATH}.
         \item Inactivates boost/1.47.1
       \end{itemize}
     \item Loading intel/11.1
       \begin{itemize}
-        \item Adds \texttt{/opt/apps/modulefiles/Compiler/intel/11.1} to
+        \item Adds \texttt{\$M/Compiler/intel/11.1} to
           \texttt{MODULEPATH}.
-        \item Activates Boost: \texttt{/opt/apps/modulefiles/Compiler/intel/11.1/boost/1.47.1}
+        \item Activates Boost: \texttt{\$M/Compiler/intel/11.1/boost/1.47.1}
       \end{itemize}
   \end{itemize}
 \end{frame}
@@ -425,6 +470,21 @@ Due to MODULEPATH changes the follow modules have been reloaded:
     \item Powers users can get around restriction.
   \end{itemize}
 \end{frame}
+
+\begin{frame}{Implication of the One Name Rule}
+  \begin{itemize}
+    \item Other Module installations allow for modules with names:
+      \begin{itemize}
+        \item mpi/intel\_11\_1/openmpi/1.5
+        \item mpi/intel\_11\_1/mvapich2/1.7
+      \end{itemize}
+    \item Users can get only one \texttt{mpi} module
+    \item Use software hierarchy instead!
+  \end{itemize}
+\end{frame}
+
+
+
 
 \subsection{Searching for Modules}
 \label{sec:search}
@@ -601,7 +661,7 @@ endif
   \begin{itemize}
     \item By default bash does not read /etc/bashrc
     \item Red Hat, Centos,  Mac OS X, don't read /etc/bashrc
-    \item At TACC, we rebuild bash so that it does read /etc/bashrc
+    \item At TACC, we rebuilt bash so that it does read /etc/bashrc
     \item You must patch config-top.h to change bash's behavior.
     \item We want bash interactive shells to behave the same as login shells.
   \end{itemize}

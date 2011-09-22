@@ -354,7 +354,7 @@ function access(self, ...)
    end
 
    if (#a > 0) then
-      io.stderr:write("Failed to find the follow module(s):  \"",concatTbl(a,"\", \""),"\" in your MODULEPATH\n")
+      io.stderr:write("Failed to find the following module(s):  \"",concatTbl(a,"\", \""),"\" in your MODULEPATH\n")
    end
 end
 
@@ -496,7 +496,7 @@ function prtReloadT(self)
       a[i] = "  " .. i .. ") " .. name
    end
    if (i > 0) then
-      io.stderr:write("Due to MODULEPATH changes the follow modules have been reloaded:\n")
+      io.stderr:write("Due to MODULEPATH changes the following modules have been reloaded:\n")
       ct = ColumnTable:new{tbl=a,prt=prtErr}
       ct:print_tbl()
    end

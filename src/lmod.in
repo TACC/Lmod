@@ -952,7 +952,7 @@ local function SetDefault(...)
 
    if (#aa > 0) then
       dbg.warning("Unable to save module state as a \"default\"\n",
-                  "The follow module(s):\n",
+                  "The following module(s):\n",
                   "  ",concatTbl(aa,", "),"\n",
                   "mix load statements with setting of environment variables.\n")
       dbg.fini()
