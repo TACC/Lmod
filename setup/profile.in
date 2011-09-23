@@ -12,29 +12,30 @@
 # The PATH variable must include the "lua" program
 ########################################################################
 
-MY_NAME="@PKG@/init/profile"
+if [ -z "$USER_IS_ROOT" ]; then
 
-. @PKG@/init/bash >/dev/null # Module Support
+  . @PKG@/init/bash >/dev/null # Module Support
 
-if [ -z "$MODULEPATH_ROOT" ]; then
-  PATH=@path_to_lua@:$PATH
-  export PATH
+  if [ -z "$MODULEPATH_ROOT" ]; then
+    PATH=@path_to_lua@:$PATH
+    export PATH
 
 
-  USER=${USER-${LOGNAME}}  # make sure $USER is set
-  export USER
-  
-  LMOD_sys=`uname`; export LMOD_sys
-  
-  LMOD_arch=`uname -m`
-  if [ "x$LMOD_sys" = xAIX ]; then
-    LMOD_arch=rs6k
+    USER=${USER-${LOGNAME}}  # make sure $USER is set
+    export USER
+    
+    LMOD_sys=`uname`; export LMOD_sys
+    
+    LMOD_arch=`uname -m`
+    if [ "x$LMOD_sys" = xAIX ]; then
+      LMOD_arch=rs6k
+    fi
+    export LMOD_arch
+
+    
+    MODULEPATH_ROOT="@modulepath_root@"
+    export MODULEPATH_ROOT
+    export MODULEPATH=$(@PKG@/libexec/addto --append MODULEPATH $MODULEPATH_ROOT/$LMOD_sys $MODULEPATH_ROOT/Core)
+    export BASH_ENV=@PKG@/init/bash
   fi
-  export LMOD_arch
-
-  
-  MODULEPATH_ROOT="@modulepath_root@"
-  export MODULEPATH_ROOT
-  export MODULEPATH=$(@PKG@/libexec/addto --append MODULEPATH $MODULEPATH_ROOT/$LMOD_sys $MODULEPATH_ROOT/Core)
-  export BASH_ENV=@PKG@/init/bash
 fi
