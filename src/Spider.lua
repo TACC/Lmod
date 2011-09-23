@@ -98,7 +98,7 @@ function Spider_help(s)
    moduleT[path].help = s
 end
 
-KeyT = {Description=1, Name=1, URL=1, Version=1}
+KeyT = {Description=1, Name=1, URL=1, Version=1, Category=1, Keyword=1}
 
 function Spider_whatis(s)
    local masterTbl   = masterTbl()
@@ -381,7 +381,13 @@ function searchSpiderDB(strA, a, moduleT, dbT)
    for path, value in pairs(moduleT) do
       local name = value.name
       local full = value.full
-      local description = value.Description or ""
+      local descA = {}
+
+      descA[1] = value.Description or ""
+      descA[2] = value.Catagory or ""
+      descA[3] = value.Keyword or ""
+      local description = concatTbl(descA,"\n")
+      
       if (dbT[name] == nil) then
          dbT[name] = {}
       end

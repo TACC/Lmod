@@ -30,7 +30,7 @@ step 4
 ===========================
 step 5
 ===========================
-Due to MODULEPATH changes the follow modules have been reloaded:
+Due to MODULEPATH changes the following modules have been reloaded:
   1) mvapich1
 ===========================
 step 6

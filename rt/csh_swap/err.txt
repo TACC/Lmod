@@ -14,5 +14,5 @@ Activating Modules:
 ===========================
 step 4
 ===========================
-Due to MODULEPATH changes the follow modules have been reloaded:
+Due to MODULEPATH changes the following modules have been reloaded:
   1) openmpi  2) parmetis

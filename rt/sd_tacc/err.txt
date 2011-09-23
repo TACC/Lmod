@@ -5,7 +5,7 @@ step 1
 step 2
 ===========================
 Warning: Unable to save module state as a "default"
-The follow module(s):
+The following module(s):
   cluster.orig, TACC.orig
 mix load statements with setting of environment variables.
 ===========================
