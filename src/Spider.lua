@@ -384,7 +384,7 @@ function searchSpiderDB(strA, a, moduleT, dbT)
       local descA = {}
 
       descA[1] = value.Description or ""
-      descA[2] = value.Catagory or ""
+      descA[2] = value.Category or ""
       descA[3] = value.Keyword or ""
       local description = concatTbl(descA,"\n")
       
