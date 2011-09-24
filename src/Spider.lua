@@ -378,6 +378,9 @@ function buildSpiderDB(a, moduleT, dbT)
 end
 
 function searchSpiderDB(strA, a, moduleT, dbT)
+   local dbg = Dbg:dbg()
+   dbg.start("searchSpiderDB()")
+
    for path, value in pairs(moduleT) do
       local name = value.name
       local full = value.full
@@ -387,6 +390,10 @@ function searchSpiderDB(strA, a, moduleT, dbT)
       descA[2] = value.Category or ""
       descA[3] = value.Keyword or ""
       local description = concatTbl(descA,"\n")
+      dbg.print("description: ",description,"\n")
+      dbg.print("descA[1]: ",descA[1],"\n")
+      dbg.print("descA[2]: ",descA[2],"\n")
+      dbg.print("descA[3]: ",descA[3],"\n")
       
       if (dbT[name] == nil) then
          dbT[name] = {}
@@ -418,6 +425,7 @@ function searchSpiderDB(strA, a, moduleT, dbT)
          a[#a]   = nil
       end
    end
+   dbg.fini()
 end
 
 function Level0(dbT)
