@@ -38,4 +38,7 @@ prepend-path    LD_LIBRARY_PATH $MPICHhome/lib/shared
 
 prepend-path    LD_LIBRARY_PATH $MPICHhome/lib
 
-prepend-path    MODULEPATH      /opt/apps/intel10_1/mvapich1_1_0_1/modulefiles
+set mproot           "MODULEPATH_ROOT"
+set modulepath_root  $env($mproot)
+set moduleshome     "$modulepath_root/TACC_MPI/pgi/7.1/mvapich/1.0.1"
+prepend-path    MODULEPATH      "$moduleshome"

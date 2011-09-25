@@ -25,7 +25,7 @@ puts stderr "paths in PATH and MANPATH.:"
 ###}
 
 set sys        [uname sysname]
-set node       [uname node]
+set node       nada
 
 module load TACC_symbols
 

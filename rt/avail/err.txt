@@ -18,6 +18,8 @@ step 1
   bar/1.4                  baz/1.4 (default)    foo/1.4 (default)  
   bar/1.4-dbg (default)    baz/1.4-dbg          foo/1.4-dbg  
 Use "module spider" to find all possible modules.
+Use "module keyword key1 key2 ..." to search for all possible modules
+   matching any of the "keys".
 ===========================
 step 2
 ===========================
@@ -35,6 +37,8 @@ step 2
   bar/1.4                  baz/1.4 (default)  
   bar/1.4-dbg (default)    baz/1.4-dbg  
 Use "module spider" to find all possible modules.
+Use "module keyword key1 key2 ..." to search for all possible modules
+   matching any of the "keys".
 ===========================
 step 3
 ===========================
@@ -58,3 +62,5 @@ step 4
   bar/1.4                  baz/1.4 (default)    foo/1.4 (default)  
   bar/1.4-dbg (default)    baz/1.4-dbg          foo/1.4-dbg  
 Use "module spider" to find all possible modules.
+Use "module keyword key1 key2 ..." to search for all possible modules
+   matching any of the "keys".
