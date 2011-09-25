@@ -6,6 +6,7 @@ step 1
   TACC          cluster-paths    mvapich1/mvapich1  
   TACC-paths    cluster.orig     pgi/7.1 (default)  
   TACC.orig     globus/4.0.1     pgi/7.2-5  
+Use "module spider" to find all possible modules.
 ===========================
 step 2
 ===========================

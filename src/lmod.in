@@ -95,6 +95,7 @@ Miscellaneous sub-commands:
   show                modulefile         show the commands in the module file.
   use [-a] [--append] path               Prepend or Append path to MODULEPATH
   unuse path                             remove path from MODULEPATH
+  tablelist                              output list of active modules as a table.
 
 See http://www.tacc.utexas.edu/tacc-projects/mclay/lmod for complete documentation.
 
@@ -333,6 +334,21 @@ local function List()
       ct = ColumnTable:new{tbl=t,prt=prtErr}
       ct:print_tbl()
    end
+end
+
+local function TableList()
+   local mt = MT:mt()
+
+   local t = {}
+   local activeA = mt:listActive()
+   for i,v  in ipairs(activeA) do
+      local ww, w = mt:modFullNameActive(v)
+      local _, _, name, version = w:find("([^/]*)/?(.*)")
+      t[name] = version
+   end
+   local s = serialize{name="activeList",indent=true, value=t}
+   io.stderr:write(s,"\n")
+
 end
 
 function Purge()
@@ -1176,6 +1192,7 @@ function main()
    local purgeTbl     = { name = "purge",       checkMPATH = true,  cmd = Purge       }
    local availTbl     = { name = "avail",       checkMPATH = false, cmd = Avail       }
    local listTbl      = { name = "list",        checkMPATH = false, cmd = List        }
+   local tblLstTbl    = { name = "tablelist",   checkMPATH = false, cmd = TableList   }
    local helpTbl      = { name = "help",        checkMPATH = false, cmd = Help        }
    local whatisTbl    = { name = "whatis",      checkMPATH = false, cmd = Whatis      }
    local showTbl      = { name = "show",        checkMPATH = false, cmd = Show        }
@@ -1206,6 +1223,7 @@ function main()
 		    avail       = availTbl,
 		    li          = listTbl,
 		    list        = listTbl,
+                    tablelist   = tblLstTbl,
                     sw          = swapTbl,
                     swap        = swapTbl,
                     switch      = swapTbl,

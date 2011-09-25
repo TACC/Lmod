@@ -31,13 +31,13 @@ must enter the version if there is more than one version:
 step 3
 ===========================
   mpich2: mpich2/1.0.7
-    This module can be loaded through the following modules:
+    This module can only be loaded through the following modules:
       intel/intel
 ===========================
 step 4
 ===========================
   mpich2: mpich2/1.0.7
-    This module can be loaded through the following modules:
+    This module can only be loaded through the following modules:
       intel/intel
 ===========================
 step 5

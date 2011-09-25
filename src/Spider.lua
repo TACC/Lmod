@@ -382,19 +382,11 @@ function searchSpiderDB(strA, a, moduleT, dbT)
    dbg.start("searchSpiderDB()")
 
    for path, value in pairs(moduleT) do
-      local name = value.name
-      local full = value.full
-      local descA = {}
+      local name   = value.name or ""
+      local full   = value.full
+      local whatis = value.whatis or {}
+      whatis = concatTbl(whatis,"\n")
 
-      descA[1] = value.Description or ""
-      descA[2] = value.Category or ""
-      descA[3] = value.Keyword or ""
-      local description = concatTbl(descA,"\n")
-      dbg.print("description: ",description,"\n")
-      dbg.print("descA[1]: ",descA[1],"\n")
-      dbg.print("descA[2]: ",descA[2],"\n")
-      dbg.print("descA[3]: ",descA[3],"\n")
-      
       if (dbT[name] == nil) then
          dbT[name] = {}
       end
@@ -403,7 +395,7 @@ function searchSpiderDB(strA, a, moduleT, dbT)
       local found = false
       for i = 1,#strA do
          local str = strA[i]
-         if (name:find(str) or description:find(str)) then
+         if (name:find(str) or whatis:find(str)) then
             found = true
             break
          end
@@ -624,7 +616,7 @@ function Level2(t, mname)
                ia = ia + 1; a[ia] = "\n"
             end
             
-            ia = ia + 1; a[ia] = "\n    This module can be loaded through the following modules:\n"
+            ia = ia + 1; a[ia] = "\n    This module can only be loaded through the following modules:\n"
          end
          if (v.parent ~= "default") then
             ia = ia + 1; a[ia] = "      "

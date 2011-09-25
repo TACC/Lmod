@@ -644,7 +644,7 @@ function avail(searchA)
          ct:print_tbl()
       end
    end
-   io.stderr:write("\n")
+   io.stderr:write("\nUse \"module spider\" to find all possible modules.\n\n")
    dbg.fini()
 end
 
