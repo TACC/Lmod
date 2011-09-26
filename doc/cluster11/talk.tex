@@ -128,6 +128,10 @@ Due to MODULEPATH changes the follow modules have been reloaded:
     \item Lmod provides all the functionality that TCL/C Modules does.
     \item Directly support for Software Hierarchy.
     \item It reads both TCL and Lua based modulefiles.
+      \begin{itemize}
+        \item Lua module files have ``\texttt{.lua}'' extension.
+        \item TCL module files don't.
+      \end{itemize}
     \item Users can find all modules available via {\color{blue}module spider}.
     \item Users can set their default set of modules via
       {\color{blue}module  setdefault}.
@@ -166,8 +170,12 @@ Due to MODULEPATH changes the follow modules have been reloaded:
     \item Modules are typically named: \emph{package/version}
     \item For example: \texttt{git/1.8}
     \item There is a default version so:
-    \item ``\texttt{module load git}'' load the default version.
-    \item ``\texttt{module load git/1.8}'' load the 1.8 version.
+      \begin{itemize}
+        \item ``\texttt{module load git}'' load the default version.
+        \item ``\texttt{module load git/1.8}'' load the 1.8 version.
+      \end{itemize}
+    \item Typically a module name is a directory name and the version
+      is a file.
   \end{itemize}
 \end{frame}
 
@@ -175,7 +183,7 @@ Due to MODULEPATH changes the follow modules have been reloaded:
   \begin{itemize}
     \item Sys-admins control what versions are default.
     \item Users can load newer/older versions instead of the default.
-    \item When Compilers are updated, users can switch between
+    \item When compilers are updated, users can switch between
       versions, allowing for testing.
     \item This is the key to a flexible system.
     \item Users can create their own modules for personal software.
@@ -196,9 +204,9 @@ Due to MODULEPATH changes the follow modules have been reloaded:
     \item At some point Environment Modules was rewritten in a TCL/C combination.
     \item Another module system called CMOD:
       www.lysator.liu.se/cmod/ (1997-1998)
-    \item www.modules.org: TCL/C Module files written in TCL (Late '90 - now)
+    \item www.modules.org: TCL/C Module files written in TCL (Late '90s - now)
     \item A pure TCL based module system: www.modules.org (? - now) 
-    \item Lmod: Lua Based Module  (2008 - now) (lmod.sf.net)
+    \item Lmod: Lua Based Environment Module System (2008 - now) (lmod.sf.net)
   \end{itemize}
 \end{frame}
 
@@ -212,7 +220,7 @@ Due to MODULEPATH changes the follow modules have been reloaded:
 
 \begin{frame}{The Trick}
   \begin{itemize}
-    \item The module command {\color{blue}\texttt{lmod}} reads module files
+    \item The module command {\color{blue}\texttt{\$LMOD\_CMD}} reads module files
     \item The program outputs shell dependent text.
     \item Second step: evaluate shell dependent text.
     \item In bash:
@@ -227,7 +235,7 @@ Due to MODULEPATH changes the follow modules have been reloaded:
 \end{frame}
 
 \begin{frame}[fragile]
-    \frametitle{Trick (II)}
+    \frametitle{The Trick (II)}
     Text output of the module command:
     \begin{itemize}
       \item modulefile ``foo/1.0.lua'':
@@ -290,9 +298,9 @@ Due to MODULEPATH changes the follow modules have been reloaded:
   \begin{itemize}
     \item Users have to load modules:
       \begin{itemize}
-        \item ``intel-11.1''
-        \item ``mvapich-1.2-intel-11.1''
-        \item ``PETSc-4.1-mvapich-1.2-intel-11.1''
+        \item ``intel/11.1''
+        \item ``mvapich/1.2-intel-11.1''
+        \item ``PETSc/4.1-mvapich-1.2-intel-11.1''
         \item Changing compilers means unloading all three modules
         \item Reloading new compiler, mpi, PETSc modules.
         \item Not loading correct modules $\Rightarrow$ Mysterious Failures!
@@ -302,57 +310,101 @@ Due to MODULEPATH changes the follow modules have been reloaded:
 \end{frame}
 
 
-\begin{frame}{Hierarchical Naming Scheme}
+\begin{frame}{Hierarchical Naming Schemes}
   \begin{itemize}
     \item Store modules under one tree: \texttt{/opt/apps/modulefiles}
-    \item Subdirectories:
+    \item One strategy is to use subdirectories:
       \begin{itemize}
         \item Core: Regular packages: apps, compilers, git
         \item Compiler: Packages that depend on compiler: boost, mpi
-        \item MPI: Packages that depend on MPI/Compiler: PETSc, TAU, 
+        \item MPI: Packages that depend on MPI/Compiler: PETSc, TAU
+      \end{itemize}
+
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Hierarchical Naming Schemes (II)}
+  \begin{itemize}
+    \item TACC's strategy is:
+      \begin{itemize}
+        \item Core modules in /opt/apps/modulesfiles
+        \item Compiler modules in
+          /opt/apps/compiler-version/modulefiles: (/opt/apps/intel11\_1/modulefiles)
+        \item MPI modules in
+          /opt/apps/compiler-version/mpi-version/modulefiles: (/opt/apps/intel11\_1/mvapich2\_1\_6/modulefiles)
+      \end{itemize}
+    \item Do not do mix core modules in the same place as compiler and
+      mpi/compiler dependent modules.
+    \item I.E: Do not have:
+      \begin{itemize}
+        \item Core modules in /opt/apps/modulefiles
+        \item Compiler dependent modules in /opt/apps/modulefiles/intel11\_1/modulefiles/boost/1.46.1
+      \end{itemize}
+      
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{\texttt{MODULEPATH}}
+  \begin{itemize}
+    \item \texttt{MODULEPATH} is a colon separated list of directories
+      containing directories and module files.
+    \item No modulefiles loaded $\Rightarrow$ users can only load core modules.
+    \item Loading a compiler module adds to the \texttt{MODULEPATH}:
+      \begin{itemize}
+        \item Users can load compiler dependent modules.
+        \item This includes MPI implementations modules.
+      \end{itemize}
+    \item Loading an MPI module adds to the \texttt{MODULEPATH}:
+      \begin{itemize}
+        \item Users can load MPI libraries that match the mpi/compiler pairing.
       \end{itemize}
   \end{itemize}
 \end{frame}
+
 
 \begin{frame}{Hierarchical Examples: Core}
   \begin{itemize}
     \item Generic:
       \begin{itemize}
         \item Package: \texttt{/opt/apps/}\emph{package/version}
-        \item M: /opt/apps/modulefiles
-        \item Modulefile: \texttt{\$M/Core}\emph{package/version}
+        \item M: {\color{blue}/opt/apps/modulefiles}
+        \item Modulefile: \texttt{{\color{blue}\$M}/Core}\emph{package/version}
       \end{itemize}
     \item Git 1.8
       \begin{itemize}
         \item Package: \texttt{/opt/apps/git/1.8}
-        \item Modulefile: \texttt{\$M/Core/git/1.8}
+        \item Modulefile: \texttt{{\color{blue}\$M}/Core/git/1.8}
       \end{itemize}
     \item Intel compilers 11.1
       \begin{itemize}
         \item Package: \texttt{/opt/apps/Core/intel/11.1}
-        \item Modulefile: \texttt{\$M/Core/intel/11.1}
-        \item Modulefile adds \texttt{\$M/Compiler/intel/11.1} to \texttt{MODULEPATH}
+        \item Modulefile: \texttt{{\color{blue}\$M}/Core/intel/11.1}
+        \item Modulefile adds \texttt{{\color{blue}\$M}/Compiler/intel/11.1} to \texttt{MODULEPATH}
       \end{itemize}
   \end{itemize}
 \end{frame}
+
+
 
 \begin{frame}{Hierarchical Examples: Compiler Dependent}
   \begin{itemize}
     \item Generic:
       \begin{itemize}
         \item Package: /opt/apps/\emph{compiler-version/package/version}
-        \item M: /opt/apps/modulefiles
-        \item Modulefile: \texttt{\$M/Compiler/}\emph{compiler/version/package/version}
+        \item M: {\color{blue}/opt/apps/modulefiles}
+        \item Modulefile: \texttt{{\color{blue}\$M}/Compiler/}\emph{compiler/version/package/version}
       \end{itemize}
-    \item Openmpi 1.5
+    \item Openmpi 1.5 with gcc 4.5
       \begin{itemize}
         \item Package: \texttt{/opt/apps/gcc-4\_5/openmpi/1.5}
-        \item Modulefile: \texttt{\$M/Compiler/gcc/4.5/openmpi/1.5}
-        \item Modulefile adds \texttt{\$M/MPI/gcc/4.5/openmpi/1.5}
-          to \texttt{MODULEPATH}
-        \item
+        \item Modulefile: \texttt{{\color{blue}\$M}/Compiler/gcc/4.5/openmpi/1.5}
+        \item Modulefile adds \texttt{{\color{blue}\$M}/MPI/gcc/4.5/openmpi/1.5}
+          to \texttt{MODULEPATH} \\
+      \end{itemize}          
+    \item Openmpi 1.5 with intel 11.1
+      \begin{itemize}
         \item Package: \texttt{/opt/apps/intel-11\_1/openmpi/1.5}
-        \item Modulefile: \texttt{\$M/Compiler/intel/11.1/openmpi/1.5}
+        \item Modulefile: \texttt{{\color{blue}\$M}/Compiler/intel/11.1/openmpi/1.5}
         \item Modulefile adds \texttt{\$M/MPI/intel/11.1/openmpi/1.5}
           to \texttt{MODULEPATH}
           
@@ -365,12 +417,12 @@ Due to MODULEPATH changes the follow modules have been reloaded:
     \item PETSc 4.1 (1)
       \begin{itemize}
         \item Package: /opt/apps/intel-11\_1/openmpi-1\_5/petsc/4.1
-        \item Modulefile: \texttt{\$M/MPI/intel/11.1/openmpi/1.5/petsc/4.1}
+        \item Modulefile: \texttt{{\color{blue}\$M}/MPI/intel/11.1/openmpi/1.5/petsc/4.1}
       \end{itemize}
     \item PETSc 4.1 (2)
       \begin{itemize}
         \item Package: /opt/apps/gcc-4\_5/mvapich-1\_2/petsc/4.1
-        \item Modulefile: \texttt{\$M/MPI/gcc/4.5/mvapich/1.2/petsc/4.1}
+        \item Modulefile: \texttt{{\color{blue}\$M}/MPI/gcc/4.5/mvapich/1.2/petsc/4.1}
       \end{itemize}
   \end{itemize}
 \end{frame}
@@ -411,8 +463,8 @@ Due to MODULEPATH changes the follow modules have been reloaded:
     \item Based on the Lua scripting language.
     \item Simple yet powerful with:
       \begin{itemize}
-        \item Functions are first class object.
-        \item Simpifies loading/unloading of modules
+        \item Functions are first class objects.
+        \item Simpifies loading/unloading of modules.
         \item Tables combine array and hash seamlessly.
       \end{itemize}
   \end{itemize}
@@ -425,37 +477,38 @@ Due to MODULEPATH changes the follow modules have been reloaded:
       search path $\Rightarrow$ inactive.
     \item It tries to activate any inactive modules.
     \item It remembers inactive modules.
-    \item It attempts to active any inactive modules on future invocations.
+    \item It continues to attempt to activate any inactive modules on
+      future invocations. 
   \end{itemize}
 \end{frame}
 
 \begin{frame}{Key Insight (II): \texttt{MODULEPATH}}
   \begin{itemize}
     \item Loading gcc/4.5 and boost/1.47.1
-    \item M=/opt/apps/modulefiles
+    \item M={\color{blue}/opt/apps/modulefiles}
       \begin{itemize}
-        \item Adds \texttt{\$M/Compiler/gcc/4.5} to
+        \item Adds \texttt{{\color{blue}\$M}/Compiler/gcc/4.5} to
           \texttt{MODULEPATH}.
-        \item Boost: \texttt{\$M/Compiler/gcc/4.5/boost/1.47.1}
+        \item Boost: \texttt{{\color{blue}\$M}/Compiler/gcc/4.5/boost/1.47.1}
       \end{itemize}
     \item Unloading gcc/4.5
       \begin{itemize}
-        \item Removes \texttt{\$M/Compiler/gcc/4.5}
+        \item Removes \texttt{{\color{blue}\$M}/Compiler/gcc/4.5}
           from \texttt{MODULEPATH}.
         \item Inactivates boost/1.47.1
       \end{itemize}
     \item Loading intel/11.1
       \begin{itemize}
-        \item Adds \texttt{\$M/Compiler/intel/11.1} to
+        \item Adds \texttt{{\color{blue}\$M}/Compiler/intel/11.1} to
           \texttt{MODULEPATH}.
-        \item Activates Boost: \texttt{\$M/Compiler/intel/11.1/boost/1.47.1}
+        \item Activates Boost: \texttt{{\color{blue}\$M}/Compiler/intel/11.1/boost/1.47.1}
       \end{itemize}
   \end{itemize}
 \end{frame}
 
 \begin{frame}{Other Safety Features of Lmod (I)}
   \begin{itemize}
-    \item Users can only load one version of package.
+    \item Users can only load one version of a package.
     \item ``\texttt{module load xyz/2.1}'' loads xyz version 2.1
     \item ``\texttt{module load xyz/2.2}'' unloads 2.1, loads 2.2
   \end{itemize}
@@ -467,7 +520,7 @@ Due to MODULEPATH changes the follow modules have been reloaded:
     \item All of our compiler modules have \texttt{family("compiler")}
     \item All of our MPI modules have \texttt{family("MPI")}
     \item Users can only load one compiler or MPI at a time
-    \item Powers users can get around restriction.
+    \item Powers users can get around this restriction.
   \end{itemize}
 \end{frame}
 
@@ -498,7 +551,7 @@ Due to MODULEPATH changes the follow modules have been reloaded:
         \item ``\texttt{module spider}''
       \end{itemize}
     \item The ``\texttt{avail}''  command reports all ``loadable'' modules.
-    \item The ``\texttt{spider}'' command reports all possible modules.
+    \item The ``\texttt{spider}'' command reports all ``possible'' modules.
     \item What is the difference?
   \end{itemize}
 \end{frame}
@@ -516,7 +569,7 @@ Due to MODULEPATH changes the follow modules have been reloaded:
 \begin{frame}{Module spider}
   \begin{itemize}
     \item Reports all modules for given \texttt{MODULEPATH}.
-    \item It walks the tree to find all branches.
+    \item It recursively searches the tree to find all branches.
     \item Large systems of modules save a cache file that is saved for
       a day.
     \item Three modes:
@@ -528,6 +581,25 @@ Due to MODULEPATH changes the follow modules have been reloaded:
   \end{itemize}
 \end{frame}
 
+\begin{frame}[fragile]
+    \frametitle{Module keyword key1 key2 ...}
+    \begin{itemize}
+      \item
+    Modules can have a ``whatis'' description:
+    {\tiny
+\begin{alltt}
+whatis("Name: Abyss")
+whatis("Version: 1.2.7")
+whatis("Category: computational biology, genomics")
+whatis("URL:http://www.bcgsc.ca/platform/bioinfo/software/abyss")
+whatis("Description: Assembly By Short Sequences.")
+\end{alltt}
+    }
+  \item {\color{blue}module keyword key1 ...} will report all modules
+    with any of the {\color{blue}key}'s.
+  \end{itemize}
+\end{frame}
+
 \subsection{Installing Lmod}
 \label{sec:installing}
 
@@ -535,9 +607,9 @@ Due to MODULEPATH changes the follow modules have been reloaded:
   \begin{itemize}
     \item Chose a place for module tree: ``\texttt{/opt/apps/modulefiles}''
     \item Use configure to override default.
-    \item Install lua and Lmod applications
+    \item Install lua and Lmod applications.
     \item Place module command in system shell startup.
-    \item Possibly modify bash's startup procedure
+    \item Possibly modify bash's startup procedure.
     \item Design a default set of modules for your users.
   \end{itemize}
 \end{frame}
@@ -626,7 +698,7 @@ fi
 \begin{verbatim}
 if ! shopt -q login_shell; then
   if [ -d /etc/profile.d ]; then
-    for i in /etc/profile.d/*.SH; do
+    for i in /etc/profile.d/*.sh; do
       if [ -r $i ]; then
         . $i
       fi
@@ -681,13 +753,13 @@ endif
 \begin{frame}{Modules and Package Management at TACC}
   \begin{itemize}
     \item All of the ``optional'' software: compilers, MPI Stacks,
-      Libraries, and Applications are install via the RPM package management.
+      Libraries, and Applications are installed via the RPM package manager.
     \item We create our optional RPMs with both the software and the
       module files.
     \item Uninstalling a package removes both the software and the
       module that access it.
-    \item We use a single parameterized spec file to build all
-      compiler/mpi pairing.
+    \item We use a single parameterized RPM spec file to build all
+      compiler/mpi pairings.
   \end{itemize}
 \end{frame}
 
@@ -696,9 +768,9 @@ endif
     \item Encourage users to use modules with their own software.
     \item Check modulefile syntax errors by running:
        {\color{blue}module spider}
-    \item Use {\color{brown}\texttt{prereq("foo","bar")}} instead of
-      {\color{brown}\texttt{load("foo","bar")}}
-    \item Use  {\color{brown}\texttt{family("compiler")}} and similar
+    \item Use {\color{violet}\texttt{prereq("foo","bar")}} instead of
+      {\color{violet}\texttt{load("foo","bar")}}
+    \item Use  {\color{violet}\texttt{family("compiler")}} and similar
       in your compiler and MPI module files.
   \end{itemize}
 \end{frame}
@@ -707,12 +779,62 @@ endif
   \begin{itemize}
     \item A module file should only be either a manager module or
       a worker module.
-    \item A worker module is one that only sets environment variables.
-    \item A manager module loads other modules.
+      \begin{itemize}
+        \item A worker module is one that only sets environment variables.
+        \item A manager module loads other modules.
+      \end{itemize}
     \item For complicated reasons, setdefault/getdefault requires that
       no module being saved is both a manager and a worker modulefile.
   \end{itemize}
 \end{frame}
+
+\subsection{HPC issues}
+
+\begin{frame}{Module usage}
+  \begin{itemize}
+    \item It is possible to record module usage:
+      \begin{itemize}
+        \item Record modules loaded at logout time and/or job submission.
+        \item Find out what modules are not or under used.
+          $\Rightarrow$ removal or upgrade.
+        \item Suggest to users of one module to consider using another module.
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+    \frametitle{HPC issues: Root}
+  \begin{itemize}
+    \item Root should not define the module command or load a default
+      set of modules during shell startup.
+    \item What if \texttt{/opt/apps/} is unavailable?
+
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{HPC issues: Users}
+  \begin{itemize}
+    \item Encourage your users to use {\color{blue}module setdefault}
+    \item Or users should load their modules via $\sim$/.bashrc or
+      $\sim$/.cshrc but wrap them:
+    {\small
+\begin{verbatim}
+    if [ -z “$_READ” –a –z “$ENVIRONMENT” ]; then
+      export _READ=1 # Put any module commands here:
+      module load git
+    fi
+\end{verbatim}
+}
+\item  At TACC: ENVIRONMENT is ``BATCH'' when on a compute node.
+\item Otherwise each shell of a user's 8192 process job will try to
+  load modules $\Rightarrow$ Parallel file system metadata servers can hang.
+  \end{itemize}
+\end{frame}
+
+
 
 
 \section{Conclusion}
@@ -723,8 +845,5 @@ endif
     \item Documentation: www.tacc.utexas.edu/tacc-projects/mclay/lmod
   \end{itemize}
 \end{frame}
-
-
-
 
 \end{document}
