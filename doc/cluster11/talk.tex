@@ -264,7 +264,7 @@ Due to MODULEPATH changes the follow modules have been reloaded:
     \item Multiple Compilers and Multiple MPI implementations.
     \item Pre-built C++ \& Fortran libraries must link with the same compiler
     \item Similarly MPI Applications must build and link with same
-      MPI/Compiler pairing.
+      MPI/Compiler pairing when using prebuilt MPI libraries.
   \end{itemize}
 \end{frame}
 
@@ -526,16 +526,34 @@ Due to MODULEPATH changes the follow modules have been reloaded:
 
 \begin{frame}{Implication of the One Name Rule}
   \begin{itemize}
-    \item Other Module installations allow for modules with names:
+    \item Other Module installations (TCL/C) allow for modules with names:
       \begin{itemize}
         \item mpi/intel\_11\_1/openmpi/1.5
         \item mpi/intel\_11\_1/mvapich2/1.7
       \end{itemize}
-    \item Users can get only one \texttt{mpi} module
+    \item This won't work with \texttt{Lmod}: Users can get only one \texttt{mpi} module
     \item Use software hierarchy instead!
   \end{itemize}
 \end{frame}
 
+\begin{frame}{Setdefault/Getdefault}
+  \begin{itemize}
+    \item User can setup their own initially loaded modules.
+      \begin{itemize}
+        \item Users simply load, unload and/or swap until happy.
+        \item {\color{blue}\texttt{module setdefault}} saves state in ``default''
+        \item Our login scripts do: {\color{blue}module getdefault}
+          which loads the user's default.
+      \end{itemize}
+    \item Users can create other collections by:
+      \begin{itemize}
+        \item {\color{blue}\texttt{module setdefault}
+            {\color{violet}name}} to save it.
+        \item {\color{blue}\texttt{module getdefault}
+            {\color{violet}name}} to retrieve it.
+      \end{itemize}
+  \end{itemize}
+\end{frame}
 
 
 
