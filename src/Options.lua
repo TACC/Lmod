@@ -12,7 +12,6 @@ local next         = next
 local pairs        = pairs
 local require      = require
 local setenv       = posix.setenv
-local unsetenv     = posix.unsetenv
 local setmetatable = setmetatable
 local stderr       = io.stderr
 local systemG      = _G
