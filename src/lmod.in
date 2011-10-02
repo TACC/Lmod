@@ -595,14 +595,15 @@ local function Conflict(...)
 end
 
 local function SetFamily(name)
-   local dbg    = Dbg:dbg()
-   local mt     = MT:mt()
-   local mStack = ModuleStack:moduleStack()
-   local mName  = mStack:moduleName()
+   local dbg                    = Dbg:dbg()
+   local mt                     = MT:mt()
+   local mStack                 = ModuleStack:moduleStack()
+   local mName                  = mStack:moduleName()
+   local _, _, baseName,version = mName:find("([^/]*)/?(.*)")
 
    dbg.start("SetFamily(",name,")")
-   dbg.print("mt:setfamily(\"",name,"\",\"",mName,"\")\n")
-   local oldName = mt:setfamily(name,mName)
+   dbg.print("mt:setfamily(\"",name,"\",\"",baseName,"\")\n")
+   local oldName = mt:setfamily(name,baseName)
    if (oldName ~= nil and oldName ~= mName and not expert() ) then
       LmodError("You can only have one ",name," module loaded at time.\n",
                 "You already have ", oldName," loaded.\n",

@@ -65,9 +65,8 @@ local function build_locationTbl(tbl, pathA)
             local readable = posix.access(f,"r")
             if (readable and not ignoreT[file]) then
                local a   = tbl[file] or {}
-               local fn  = pathJoin(path,file)
                file      = file:gsub(".lua","")
-               a[#a+1]   = {file = fn, mpath = path }
+               a[#a+1]   = {file = f, mpath = path }
                tbl[file] = a
             end
          end
