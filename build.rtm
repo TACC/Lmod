@@ -8,7 +8,7 @@ host=$(expr $(hostname) : "\([^.][^.]*\)")
 SUDO=""
 
 case $host in
-    mclay-d630 | mijo | jedrik | vato)
+    mclay-d630 | mijo | jedrik | vato | hpc)
 	SUDO=sudo
 	prefix="/opt/apps";;
     *)
