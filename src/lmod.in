@@ -432,6 +432,10 @@ local function Show_load(...)
    ShowCmd("load",...)
 end
 
+local function Show_inherit(...)
+   ShowCmd("inherit",...)
+end
+
 local function Show_family(...)
    ShowCmd("family",...)
 end
@@ -627,6 +631,8 @@ end
 
 family       = None
 load	     = None
+inherit      = None
+disinherit   = None
 unload	     = None
 unloadsys    = None
 add	     = None
@@ -958,7 +964,7 @@ function UnLoadSys(...)
    return a
 end
 
-local function Inherit()
+function Inherit()
    local dbg    = Dbg:dbg()
    local master = Master:master()
    dbg.start("Inherit()")
@@ -967,7 +973,7 @@ local function Inherit()
    dbg.fini()
 end
 
-local function DisInherit()
+function DisInherit()
    local dbg    = Dbg:dbg()
    local master = Master:master()
    dbg.start("DisInherit()")
