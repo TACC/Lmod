@@ -39,29 +39,32 @@ testdescript = {
 
      rm -f _stderr.* _stdout.* err.* out.*
 
-     runMe lua $(projectDir)/src/lmod.in bash load petsc
+     runMe lua $(projectDir)/src/lmod.in bash load petsc         #  1
 
-     runMe lua $(projectDir)/src/lmod.in bash load slepc
+     runMe lua $(projectDir)/src/lmod.in bash load slepc/3.0.0   #  2
 
-     runMe lua $(projectDir)/src/lmod.in bash unload slepc
+     runMe lua $(projectDir)/src/lmod.in bash unload slepc       #  3
 
-     runMe lua $(projectDir)/src/lmod.in bash unload petsc
+     runMe lua $(projectDir)/src/lmod.in bash unload petsc       #  4
 
-     runMe lua $(projectDir)/src/lmod.in bash load slepc
+     runMe lua $(projectDir)/src/lmod.in bash load slepc         #  5
 
-     runMe lua $(projectDir)/src/lmod.in bash load petsc/2.9.0
+     runMe lua $(projectDir)/src/lmod.in bash load petsc/2.9.0   #  6
 
-     runMe lua $(projectDir)/src/lmod.in bash load slepc
+     runMe lua $(projectDir)/src/lmod.in bash load slepc         #  7
 
-     runMe lua $(projectDir)/src/lmod.in bash load petsc/3.1.0
+     runMe lua $(projectDir)/src/lmod.in bash load slepc/2.9.0   #  8
 
-     runMe lua $(projectDir)/src/lmod.in bash load slepc
+     runMe lua $(projectDir)/src/lmod.in bash load petsc/3.1.0   #  9
 
-     runMe lua $(projectDir)/src/lmod.in bash unload slepc petsc
+     runMe lua $(projectDir)/src/lmod.in bash load slepc         # 10
 
-     runMe lua $(projectDir)/src/lmod.in bash load petsc/3.1.0
+     runMe lua $(projectDir)/src/lmod.in bash unload slepc petsc # 11
 
-     runMe lua $(projectDir)/src/lmod.in bash load slepc/2.9.0
+     runMe lua $(projectDir)/src/lmod.in bash load petsc/3.1.0   # 12
+
+     runMe lua $(projectDir)/src/lmod.in bash load slepc/2.9.0   # 13
+
      
 
      PATH=$ORIGPATH

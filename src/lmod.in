@@ -432,6 +432,10 @@ local function Show_load(...)
    ShowCmd("load",...)
 end
 
+local function Show_inherit(...)
+   ShowCmd("inherit",...)
+end
+
 local function Show_family(...)
    ShowCmd("family",...)
 end
@@ -595,14 +599,15 @@ local function Conflict(...)
 end
 
 local function SetFamily(name)
-   local dbg    = Dbg:dbg()
-   local mt     = MT:mt()
-   local mStack = ModuleStack:moduleStack()
-   local mName  = mStack:moduleName()
+   local dbg                    = Dbg:dbg()
+   local mt                     = MT:mt()
+   local mStack                 = ModuleStack:moduleStack()
+   local mName                  = mStack:moduleName()
+   local _, _, baseName,version = mName:find("([^/]*)/?(.*)")
 
    dbg.start("SetFamily(",name,")")
-   dbg.print("mt:setfamily(\"",name,"\",\"",mName,"\")\n")
-   local oldName = mt:setfamily(name,mName)
+   dbg.print("mt:setfamily(\"",name,"\",\"",baseName,"\")\n")
+   local oldName = mt:setfamily(name,baseName)
    if (oldName ~= nil and oldName ~= mName and not expert() ) then
       LmodError("You can only have one ",name," module loaded at time.\n",
                 "You already have ", oldName," loaded.\n",
@@ -626,6 +631,8 @@ end
 
 family       = None
 load	     = None
+inherit      = None
+disinherit   = None
 unload	     = None
 unloadsys    = None
 add	     = None
@@ -957,6 +964,24 @@ function UnLoadSys(...)
    return a
 end
 
+function Inherit()
+   local dbg    = Dbg:dbg()
+   local master = Master:master()
+   dbg.start("Inherit()")
+   master.inherit()
+
+   dbg.fini()
+end
+
+function DisInherit()
+   local dbg    = Dbg:dbg()
+   local master = Master:master()
+   dbg.start("DisInherit()")
+   master.disinherit()
+
+   dbg.fini()
+end
+
 local function SetDefault(...)
    local mt   = MT:mt()
    local dbg  = Dbg:dbg()
@@ -1260,7 +1285,7 @@ function main()
                   prepend_path = Prepend_path, append_path = Append_path, remove_path = Remove_path,
                   set_alias    = SetAlias,     unset_alias = UnSetAlias,  family      = SetFamily,
                   load         = Load,         unload      = UnLoad,      mode        = ModeLoad,
-                  prereq       = Prereq,       conflict    = Conflict,    
+                  prereq       = Prereq,       conflict    = Conflict,    inherit     = Inherit,
    }
 
    local unTbl = { whatis = dbg.quiet, help = dbg.quiet,
@@ -1268,7 +1293,8 @@ function main()
                    prepend_path = Remove_path,  append_path = Remove_path,   remove_path = BadRemove_path,
                    set_alias    = UnSetAlias,   unset_alias = BadUnSetAlias, family      = UnsetFamily,
                    load         = UnLoad,       unload      = BadUnLoad,     mode        = ModeUnload,
-                   prereq       = dbg.quiet,    conflict    = dbg.quiet,
+                   prereq       = dbg.quiet,    conflict    = dbg.quiet,     inherit     = DisInherit,
+
    }
 
    for k in pairs(lTbl) do

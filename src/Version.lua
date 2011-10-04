@@ -1,2 +1,2 @@
 module('Version')
-function name() return "3.2.4 2011-09-25 13:01" end
+function name() return "3.2.5 2011-10-01 22:03" end

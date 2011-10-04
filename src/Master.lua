@@ -1,6 +1,8 @@
 -- $Id: Master.lua 694 2011-01-28 20:04:24Z mclay $ --
 require("strict")
 Master = { }
+local DisInherit   = DisInherit
+local Inherit      = Inherit
 local Load         = Load
 local LoadTbl      = LoadTbl
 local ModulePath   = ModulePath
@@ -383,7 +385,7 @@ function load(...)
       elseif (fn) then
          dbg.print("Master:loading: \"",moduleName,"\" from f: \"",fn,"\"\n")
 	 mt:beginOP()
-         mStack:push(moduleName)
+         mStack:push(t.modFullName)
 	 loadModuleFile{file=fn}
          t.mType = mStack:moduleType()
          mStack:pop()
