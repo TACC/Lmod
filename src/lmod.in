@@ -292,6 +292,9 @@ local function Avail(...)
    master.avail(a)
 end
 
+local function Display(...)
+end
+
 local function Update()
    local master = Master:master()
    master:reloadAll()
@@ -374,8 +377,14 @@ end
 
 local function ShowCmd(name,...)
    local a = {}
+   local s
    for _,v in ipairs{...} do
-      a[#a + 1] = "\"".. v .."\""
+      if (type(v) == "boolean") then
+         s = tostring(v)
+      else
+         s = "\"".. tostring(v) .."\""
+      end
+      a[#a + 1] = s
    end
    io.stderr:write(name,"(",concatTbl(a,", "),")\n")
 end
@@ -438,6 +447,10 @@ end
 
 local function Show_family(...)
    ShowCmd("family",...)
+end
+
+local function Show_display(...)
+   ShowCmd("display",...)
 end
 
 local function Show_unload(...)
@@ -632,12 +645,12 @@ end
 family       = None
 load	     = None
 inherit      = None
-disinherit   = None
 unload	     = None
 unloadsys    = None
 add	     = None
 rm	     = None
 
+display      = None
 use          = None
 unuse        = None
 help         = None
@@ -714,6 +727,8 @@ function Show(...)
    family       = Show_family
    help         = Show_help
    whatis       = Show_whatis
+   inherit      = Show_inherit
+   display      = Show_display
    prtHdr       = function()
                      io.stderr:write("------------------------------------------------------------\n")
                      io.stderr:write("   ",ModuleFn,":\n")
@@ -741,6 +756,8 @@ function Access(...)
    family       = dbg.quiet
    LmodError    = dbg.quiet
    LmodMessage  = dbg.quiet
+   inherit      = dbg.quiet
+   display      = dbg.quiet
 
    local n = select('#',...)
    if (n < 1) then
@@ -798,6 +815,8 @@ function Keyword(...)
    conflict     = dbg.quiet
    prereq       = dbg.quiet
    family       = dbg.quiet
+   inherit      = dbg.quiet
+   display      = dbg.quiet
 
    help         = Spider_help
    whatis       = Spider_whatis
@@ -964,20 +983,20 @@ function UnLoadSys(...)
    return a
 end
 
-function Inherit()
+function InheritModule()
    local dbg    = Dbg:dbg()
    local master = Master:master()
-   dbg.start("Inherit()")
-   master.inherit()
+   dbg.start("InheritModule()")
+   master.inheritModule()
 
    dbg.fini()
 end
 
-function DisInherit()
+function DisinheritModule()
    local dbg    = Dbg:dbg()
    local master = Master:master()
-   dbg.start("DisInherit()")
-   master.disinherit()
+   dbg.start("DisinheritModule()")
+   master.disinheritModule()
 
    dbg.fini()
 end
@@ -1285,7 +1304,8 @@ function main()
                   prepend_path = Prepend_path, append_path = Append_path, remove_path = Remove_path,
                   set_alias    = SetAlias,     unset_alias = UnSetAlias,  family      = SetFamily,
                   load         = Load,         unload      = UnLoad,      mode        = ModeLoad,
-                  prereq       = Prereq,       conflict    = Conflict,    inherit     = Inherit,
+                  prereq       = Prereq,       conflict    = Conflict,    inherit     = InheritModule,
+                  display      = Display,
    }
 
    local unTbl = { whatis = dbg.quiet, help = dbg.quiet,
@@ -1293,8 +1313,8 @@ function main()
                    prepend_path = Remove_path,  append_path = Remove_path,   remove_path = BadRemove_path,
                    set_alias    = UnSetAlias,   unset_alias = BadUnSetAlias, family      = UnsetFamily,
                    load         = UnLoad,       unload      = BadUnLoad,     mode        = ModeUnload,
-                   prereq       = dbg.quiet,    conflict    = dbg.quiet,     inherit     = DisInherit,
-
+                   prereq       = dbg.quiet,    conflict    = dbg.quiet,     inherit     = DisinheritModule,
+                   display      = dbg.quiet,
    }
 
    for k in pairs(lTbl) do
