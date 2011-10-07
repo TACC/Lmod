@@ -992,15 +992,6 @@ function InheritModule()
    dbg.fini()
 end
 
-function DisinheritModule()
-   local dbg    = Dbg:dbg()
-   local master = Master:master()
-   dbg.start("DisinheritModule()")
-   master.disinheritModule()
-
-   dbg.fini()
-end
-
 local function SetDefault(...)
    local mt   = MT:mt()
    local dbg  = Dbg:dbg()
@@ -1313,7 +1304,7 @@ function main()
                    prepend_path = Remove_path,  append_path = Remove_path,   remove_path = BadRemove_path,
                    set_alias    = UnSetAlias,   unset_alias = BadUnSetAlias, family      = UnsetFamily,
                    load         = UnLoad,       unload      = BadUnLoad,     mode        = ModeUnload,
-                   prereq       = dbg.quiet,    conflict    = dbg.quiet,     inherit     = DisinheritModule,
+                   prereq       = dbg.quiet,    conflict    = dbg.quiet,     inherit     = InheritModule,
                    display      = dbg.quiet,
    }
 

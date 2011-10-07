@@ -1,8 +1,8 @@
 -- $Id: Master.lua 694 2011-01-28 20:04:24Z mclay $ --
 require("strict")
 Master = { }
-local DisinheritModule   = DisinheritModule
 local InheritModule      = InheritModule
+local LmodError          = LmodError
 local Load               = Load
 local LoadTbl            = LoadTbl
 local ModulePath         = ModulePath
@@ -253,6 +253,7 @@ function safeToUpdate()
 end
 
 function unload(...)
+   local mStack = ModuleStack:moduleStack()
    local mt     = MT:mt()
    local dbg    = Dbg:dbg()
    local a      = {}
@@ -273,11 +274,14 @@ function unload(...)
 
    for _, moduleName in ipairs{...} do
       if (mt:haveModuleAnyActive(moduleName)) then
-         local f = mt:fileNameActive(moduleName)
-         dbg.print("Master:unload: \"",moduleName,"\" from f: ",f,"\n")
+         local f                 = mt:fileNameActive(moduleName)
+         local _, fullModuleName = mt:modFullNameActive(moduleName)
+         dbg.print("Master:unload: \"",fullModuleName,"\" from f: ",f,"\n")
          mt:beginOP()
          mt:removeActive(moduleName)
+         mStack:push(fullModuleName)
 	 loadModuleFile{file=f}
+         mStack:pop()
          mt:endOP()
          a[#a + 1] = true
       else
@@ -498,27 +502,14 @@ function inheritModule()
 
    
    local t = inhTmpl.find_module_file(mName,myFn)
-   dbg.print("fn: ", t.fn,"\n")
-   loadModuleFile{file=t.fn}
-
+   dbg.print("fn: ", tostring(t.fn),"\n")
+   if (t.fn == nil) then
+      LmodError("Failed to inherit: ",mName,"\n")
+   else
+      loadModuleFile{file=t.fn}
+   end
    dbg.fini()
-
 end
-
-function disinheritModule()
-   local dbg  = Dbg:dbg()
-   dbg.start("Master:inherit()")
-   local mStack = ModuleStack:moduleStack()
-   local myFn   = myFileName()
-   local mName  = mStack:moduleName()
-
-   dbg.print("myFn:  ", myFn,"\n")
-   dbg.print("mName: ", mName,"\n")
-   dbg.fini()
-
-end
-
-
 
 local function dirname(f)
    local result = './'

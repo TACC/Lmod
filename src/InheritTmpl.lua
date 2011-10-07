@@ -95,7 +95,7 @@ function find_module_file(fullModuleName, oldFn)
       dbg.print("(3) result: ", tostring(result), " foundOld: ", tostring(foundOld),"\n")
    end
 
-   dbg.print("fullModuleName: ",fullModuleName, " fn: ", result,"\n")
+   dbg.print("fullModuleName: ",fullModuleName, " fn: ", tostring(result),"\n")
    t.modFullName = fullModuleName
    t.fn          = result
    dbg.fini()
