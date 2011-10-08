@@ -1,4 +1,5 @@
 -- -*- lua -*-
+-- $Id: load.tdesc 686 2011-01-06 05:57:39Z mclay $ --
 
 testdescript = {
    owner   = "rtm",
@@ -6,10 +7,10 @@ testdescript = {
    description = [[
 	 Test initial module load
    ]],
-   keywords = {"load" },
+   keywords = {"inherit" },
 
    active = 1,
-   testName = "load",
+   testName = "inherit",
    job_submit_method = "INTERACTIVE", 
 
    runScript = [[
@@ -26,27 +27,21 @@ testdescript = {
      MANPATH='';                        export MANPATH
      LD_LIBRARY_PATH='';                export LD_LIBRARY_PATH
      MODULEPATH="";                     export MODULEPATH
-     MODULEPATH_ROOT=$(projectDir)/mf;  export MODULEPATH_ROOT
-     LMOD_DEFAULT_MODULEPATH=$MODULEPATH
-     export LMOD_DEFAULT_MODULEPATH
+     MODULEPATH_ROOT=$(testDir)/mf;     export MODULEPATH_ROOT
      numStep=0
      COUNT=0
      HOME=`(cd $HOME; /bin/pwd)`
 
      rm -f _stderr.* _stdout.* err.* out.*
 
-     runMe lua $(projectDir)/src/lmod.in bash use -a $projectDir/mf/Core $projectDir/mf/Beta
-     runMe lua $(projectDir)/src/lmod.in bash use $projectDir/mf/notDir
-     runMe lua $(projectDir)/src/lmod.in bash load admin PrgEnv
-     runMe lua $(projectDir)/src/lmod.in bash load gotoblas/1.30-beta
-     runMe lua $(projectDir)/src/lmod.in bash rm   gotoblas/1.30-beta
-     runMe lua $(projectDir)/src/lmod.in bash load intel
-     runMe lua $(projectDir)/src/lmod.in bash load gotoblas
-     runMe lua $(projectDir)/src/lmod.in bash load multi
-     runMe lua $(projectDir)/src/lmod.in bash unload multi
-     
+     runMe lua $(projectDir)/src/lmod.in bash use -a $(testDir)/mf/Linux $(testDir)/mf/Core $(testDir)/mf/Core2
+     runMe lua $(projectDir)/src/lmod.in bash load   junk
      
      runMe lua $(projectDir)/src/lmod.in bash list
+
+     runMe lua $(projectDir)/src/lmod.in bash unload junk
+
+     runMe lua $(projectDir)/src/lmod.in bash load junk2
 
      cat _stdout.[0-9][0-9] > _stdout.orig
      joinBase64Results  -bash  _stdout.orig _stdout.new

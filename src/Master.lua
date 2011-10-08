@@ -1,39 +1,40 @@
 require("strict")
 Master = { }
-local DisInherit   = DisInherit
-local Inherit      = Inherit
-local Load         = Load
-local LoadTbl      = LoadTbl
-local ModulePath   = ModulePath
-local UnLoad       = UnLoad
-local UnLoadSys    = UnLoadSys
-local UnLoadTbl    = UnLoadTbl
-local assert       = assert
-local capture      = capture
-local cmdDir       = cmdDir
-local concatTbl    = table.concat
-local firstInPath  = firstInPath
-local floor        = math.floor
-local getenv       = os.getenv
-local io           = io
-local ipairs       = ipairs
-local loadfile     = loadfile
-local loadstring   = loadstring
-local next         = next
-local os           = os
-local pairs        = pairs
-local print        = print
-local prtErr       = prtErr
-local setmetatable = setmetatable
-local sort         = table.sort
-local string       = string
-local systemG      = _G
-local tonumber     = tonumber
-local tostring     = tostring
-local type         = type
-local unloadsys    = unloadsys
-local expert       = expert
-local removeEntry  = table.remove
+local InheritModule      = InheritModule
+local LmodError          = LmodError
+local Load               = Load
+local LoadTbl            = LoadTbl
+local ModulePath         = ModulePath
+local UnLoad             = UnLoad
+local UnLoadSys          = UnLoadSys
+local UnLoadTbl          = UnLoadTbl
+local assert             = assert
+local capture            = capture
+local cmdDir             = cmdDir
+local concatTbl          = table.concat
+local firstInPath        = firstInPath
+local floor              = math.floor
+local getenv             = os.getenv
+local io                 = io
+local ipairs             = ipairs
+local loadfile           = loadfile
+local loadstring         = loadstring
+local myFileName         = myFileName
+local next               = next
+local os                 = os
+local pairs              = pairs
+local print              = print
+local prtErr             = prtErr
+local setmetatable       = setmetatable
+local sort               = table.sort
+local string             = string
+local systemG            = _G
+local tonumber           = tonumber
+local tostring           = tostring
+local type               = type
+local unloadsys          = unloadsys
+local expert             = expert
+local removeEntry        = table.remove
 
 require('lfs')
 require('ColumnTable')
@@ -51,6 +52,7 @@ local lfs          = lfs
 local ColumnTable  = ColumnTable
 local Dbg          = Dbg
 local isFile       = isFile
+local InheritTmpl  = require("InheritTmpl")
 local posix        = require("posix")
 local ModuleStack  = require("ModuleStack")
 
@@ -211,6 +213,7 @@ end
 local function loadModuleFile(t)
    local dbg    = Dbg:dbg()
    dbg.start("loadModuleFile")
+   dbg.print("t.file: ",t.file,"\n")
    dbg.flush()
 
    systemG._MyFileName = t.file
@@ -249,6 +252,7 @@ function safeToUpdate()
 end
 
 function unload(...)
+   local mStack = ModuleStack:moduleStack()
    local mt     = MT:mt()
    local dbg    = Dbg:dbg()
    local a      = {}
@@ -269,11 +273,14 @@ function unload(...)
 
    for _, moduleName in ipairs{...} do
       if (mt:haveModuleAnyActive(moduleName)) then
-         local f = mt:fileNameActive(moduleName)
-         dbg.print("Master:unload: \"",moduleName,"\" from f: ",f,"\n")
+         local f                 = mt:fileNameActive(moduleName)
+         local _, fullModuleName = mt:modFullNameActive(moduleName)
+         dbg.print("Master:unload: \"",fullModuleName,"\" from f: ",f,"\n")
          mt:beginOP()
          mt:removeActive(moduleName)
+         mStack:push(fullModuleName)
 	 loadModuleFile{file=f}
+         mStack:pop()
          mt:endOP()
          a[#a + 1] = true
       else
@@ -358,6 +365,7 @@ function access(self, ...)
       io.stderr:write("Failed to find the following module(s):  \"",concatTbl(a,"\", \""),"\" in your MODULEPATH\n")
    end
 end
+
 
 function load(...)
    local mStack = ModuleStack:moduleStack()
@@ -474,6 +482,31 @@ function reloadClear(self,name)
    dbg.start("Master:reloadClear()")
    dbg.print("removing \"",name,"\" from reload table\n")
    self.reloadT[name] = nil
+   dbg.fini()
+end
+
+
+
+function inheritModule()
+   local dbg     = Dbg:dbg()
+   dbg.start("Master:inherit()")
+
+   local mStack  = ModuleStack:moduleStack()
+   local myFn    = myFileName()
+   local mName   = mStack:moduleName()
+   local inhTmpl = InheritTmpl:inheritTmpl()
+
+   dbg.print("myFn:  ", myFn,"\n")
+   dbg.print("mName: ", mName,"\n")
+
+   
+   local t = inhTmpl.find_module_file(mName,myFn)
+   dbg.print("fn: ", tostring(t.fn),"\n")
+   if (t.fn == nil) then
+      LmodError("Failed to inherit: ",mName,"\n")
+   else
+      loadModuleFile{file=t.fn}
+   end
    dbg.fini()
 end
 

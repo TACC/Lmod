@@ -1,0 +1,37 @@
+===========================
+step 1
+===========================
+unset 'LMOD_DEFAULT_MODULEPATH';
+unset 'MODULEPATH';
+LMOD_DEFAULT_MODULEPATH='~/w/lmod/rt/display/mf/Core';
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH='~/w/lmod/rt/display/mf/Core';
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={active={Dict={},FN={},Loaded={},default={},fullModName={},mType={},},baseMpathA={"~/w/lmod/rt/display/mf/Core",},family={},inactive={},mpathA={"~/w/lmod/rt/display/mf/Core",},total={Dict={},FN={},Loaded={},default={},fullModName={},mType={},},["version"]=1,}';
+export _ModuleTable_;
+===========================
+step 2
+===========================
+LMOD_DEFAULT_MODULEPATH='~/w/lmod/rt/display/mf/Core';
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH='~/w/lmod/rt/display/mf/Core';
+export MODULEPATH;
+JUNK='1.0';
+export JUNK;
+LMOD_DEFAULT_MODULEPATH='~/w/lmod/rt/display/mf/Core';
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH='~/w/lmod/rt/display/mf/Core';
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={active={Dict={["junk"]=1,},FN={"~/w/lmod/rt/display/mf/Core/junk/1.0.lua",},Loaded={"junk",},default={1,},fullModName={"junk/1.0",},mType={"w",},},baseMpathA={"~/w/lmod/rt/display/mf/Core",},family={},inactive={},mpathA={"~/w/lmod/rt/display/mf/Core",},total={Dict={["junk"]=1,},FN={"~/w/lmod/rt/display/mf/Core/junk/1.0.lua",},Loaded={"junk",},default={1,},fullModName={"junk/1.0",},mType={"w",},},["version"]=1,}';
+export _ModuleTable_;
+===========================
+step 3
+===========================
+LMOD_DEFAULT_MODULEPATH='~/w/lmod/rt/display/mf/Core';
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH='~/w/lmod/rt/display/mf/Core';
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH='~/w/lmod/rt/display/mf/Core';
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH='~/w/lmod/rt/display/mf/Core';
+export MODULEPATH;
