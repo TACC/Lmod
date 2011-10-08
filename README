@@ -1,3 +1,10 @@
+Version 3.3.1
+
+This version offers better a keyword search feature. The keyword search searches the entire whatis entries and reports
+back using the spider system.  It also tells users when using "module avail" that they might want to use "module spider
+or module keyword".
+
+
 Version 3.2.2
 
 If the time to build a cache file is short ( < 2 sec) when doing a "module spider" then lmod does not
