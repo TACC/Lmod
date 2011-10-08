@@ -1,4 +1,3 @@
--- $Id: Master.lua 694 2011-01-28 20:04:24Z mclay $ --
 require("strict")
 Master = { }
 local DisInherit   = DisInherit

@@ -1,6 +1,5 @@
 #!/usr/bin/env lua
 -- -*- lua -*-
--- $Id: joinBase64Results 505 2009-07-16 22:51:27Z mclay $ --
 ------------------------------------------------------------------------
 -- Extract directory location of this command and add it
 -- to the lua search path

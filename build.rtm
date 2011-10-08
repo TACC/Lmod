@@ -1,6 +1,5 @@
 #!/bin/bash
 # -*- shell-script -*-
-# $Id: build.rtm 690 2011-01-19 20:36:14Z mclay $
 VERSION=`lua -l src/Version -e "print(Version.name())" | awk '{print $1}'` 
 echo Making Version: $VERSION
 

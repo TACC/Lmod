@@ -1,5 +1,4 @@
 #!/bin/csh
-# -- $Id: csh.in 636 2010-12-14 02:52:07Z mclay $ --
 if ($?tcsh) then
   set modules_shell="tcsh"
 else

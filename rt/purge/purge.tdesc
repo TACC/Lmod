@@ -1,5 +1,4 @@
 -- -*- lua -*-
--- $Id: purge.tdesc 697 2011-01-29 23:22:38Z mclay $ --
 testdescript = {
    owner   = "rtm",
    product = "modules",

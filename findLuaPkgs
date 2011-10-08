@@ -1,6 +1,5 @@
 #!/usr/bin/env lua
 -- -*- lua -*-
--- $Id: findLuaPkgs 419 2009-02-17 16:18:58Z mclay $ --
 require("strict")
 function string:split(pat)
    local st, g = 1, self:gmatch("()("..pat..")")

@@ -1,4 +1,3 @@
--- $Id: firstInPath.lua 419 2009-02-17 16:18:58Z mclay $ --
 
 local getenv = os.getenv
 

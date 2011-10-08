@@ -1,5 +1,4 @@
 -- -*- lua -*-
--- $Id$ --
 testdescript = {
    owner   = "rtm",
    product = "modules",

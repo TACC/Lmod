@@ -1,5 +1,4 @@
 -- -*- lua -*-
--- $Id: Bash.lua 464 2009-04-05 12:19:49Z mclay $ --
 require("strict")
 require("base64")
 require("Dbg")

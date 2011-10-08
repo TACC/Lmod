@@ -1,4 +1,3 @@
--- $Id: Mlist.lua 512 2009-07-27 20:26:37Z mclay $
 require("strict")
 Mlist = {}
 

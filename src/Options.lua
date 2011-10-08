@@ -1,4 +1,3 @@
--- $Id --
 require("strict")
 require("posix")
 require("Dbg")

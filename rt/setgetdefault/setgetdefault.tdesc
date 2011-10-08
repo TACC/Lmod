@@ -1,5 +1,4 @@
 -- -*- lua -*-
--- $Id: setgetdefault.tdesc 684 2011-01-05 18:58:55Z mclay $ --
 inactiveTbl = { Darwin = 1, }
 local function isActive()
    require("posix")

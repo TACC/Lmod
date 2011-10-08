@@ -1,5 +1,4 @@
 -- -*- lua -*-
--- $Id: show.tdesc 684 2011-01-05 18:58:55Z mclay $ --
 testdescript = {
    owner   = "rtm",
    product = "modules",

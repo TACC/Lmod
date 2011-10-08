@@ -1,4 +1,3 @@
--- $Id: Var.lua 685 2011-01-05 20:50:30Z mclay $ --
 require("strict")
 require("string_split")
 require("pairsByKeys")

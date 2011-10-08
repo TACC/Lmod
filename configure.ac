@@ -1,8 +1,5 @@
-dnl ######################################################################
-dnl $Id: configure.ac 419 2009-02-17 16:18:58Z mclay $
-dnl ######################################################################
 dnl Process this file with autoconf to produce a configure script.
-dnl This is for MGF
+dnl This is for lmod
 
 AC_INIT(Makefile.in)
 AC_PREFIX_DEFAULT(/usr/local)

@@ -1,5 +1,4 @@
 -- -*- lua -*-
--- $Id: Csh.lua 457 2009-04-02 22:34:23Z mclay $ --
 
 require("strict")
 require("base64")

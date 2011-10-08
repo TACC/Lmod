@@ -1,4 +1,3 @@
--- $Id: MT.lua 641 2010-12-14 04:38:39Z mclay $ --
 require("strict")
 local DfltModPath  = DfltModPath
 local Error        = LmodError

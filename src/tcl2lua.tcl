@@ -1,5 +1,4 @@
 #!/usr/bin/env tclsh
-# -- $Id: tcl2lua.tcl 600 2010-09-20 18:33:04Z mclay $ --
 global g_loadT g_varsT
 namespace eval ::cmdline {
     namespace export getArgv0 getopt getKnownOpt getfiles getoptions \

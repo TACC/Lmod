@@ -1,5 +1,4 @@
 -- BaseShell
--- $Id: BaseShell.lua 463 2009-04-03 19:32:36Z mclay $ --
 require("strict")
 require("base64")
 require("inherits")

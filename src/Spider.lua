@@ -1,4 +1,3 @@
--- $Id$ --
 require("border")
 require("strict")
 require("string_split")

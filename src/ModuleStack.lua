@@ -1,4 +1,3 @@
--- $Id: ModuleStack.lua 603 2010-09-27 21:28:51Z mclay $ --
 require("strict")
 require("Dbg")
 

@@ -1,6 +1,5 @@
 #!@path_to_lua@/lua
 -- -*- lua -*-
--- $Id: computeHashSum.in 700 2011-02-08 22:21:32Z mclay $ --
 local cmd = arg[0]
 local i,j = cmd:find(".*/")
 local cmd_dir = "./"

@@ -1,6 +1,5 @@
 #!@path_to_lua@/lua
 -- -*- lua -*-
--- $Id: lmod 541 2009-08-25 15:48:45Z mclay $ --
 
 ModulePath    = "MODULEPATH"
 DfltModPath   = "LMOD_DEFAULT_MODULEPATH"

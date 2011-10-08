@@ -1,5 +1,4 @@
 -- -*- lua -*-
--- $Id: Bare.lua 419 2009-02-17 16:18:58Z mclay $ --
 require("strict")
 local BaseShell	   = BaseShell
 local pairsByKeys  = pairsByKeys
