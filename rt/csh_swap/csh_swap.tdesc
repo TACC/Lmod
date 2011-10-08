@@ -58,7 +58,7 @@ cat > $(testName).csh << EOF
      echo "step 1"                      >> _stdout.1
      echo "===========================" >> _stdout.1
 
-     $PATH_to_LUA/lua $(projectDir)/src/lmod.in csh load admin PrgEnv openmpi parmetis > _stdout.2
+     lua $(projectDir)/src/lmod.in csh load admin PrgEnv openmpi parmetis > _stdout.2
      eval \`cat _stdout.2\`
 
      echo "===========================" >  _stdout.3
@@ -69,7 +69,7 @@ cat > $(testName).csh << EOF
      echo "step 2"
      echo "==========================="
 
-     $PATH_to_LUA/lua $(projectDir)/src/lmod.in csh unload intel > _stdout.4
+     lua $(projectDir)/src/lmod.in csh unload intel > _stdout.4
      eval \`cat _stdout.4\`
 
      echo "===========================" >  _stdout.5
@@ -80,7 +80,7 @@ cat > $(testName).csh << EOF
      echo "step 3"
      echo "==========================="
 
-     $PATH_to_LUA/lua $(projectDir)/src/lmod.in csh load gcc  > _stdout.6
+     lua $(projectDir)/src/lmod.in csh load gcc  > _stdout.6
      eval \`cat _stdout.6\`
 
      echo "===========================" >  _stdout.7
@@ -92,7 +92,7 @@ cat > $(testName).csh << EOF
      echo "==========================="
 
      unset histchars
-     $PATH_to_LUA/lua $(projectDir)/src/lmod.in csh --localvar histchars="$_histchars" swap gcc  intel > _stdout.8
+     lua $(projectDir)/src/lmod.in csh --localvar histchars="$_histchars" swap gcc  intel > _stdout.8
      eval \`cat _stdout.8\`
 
      cat _stdout.[1-8] > _stdout.orig
