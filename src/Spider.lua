@@ -67,6 +67,9 @@ end
 function load(...)
 end
 
+function inherit(...)
+end
+
 function family(...)
 end
 

@@ -63,6 +63,14 @@ function unload(...)
    ShowCmd("unload",...)
 end
 
+function inherit(...)
+   ShowCmd("inherit",...)
+end
+
+function display(...)
+   ShowCmd("display",...)
+end
+
 function prereq(...)
    ShowCmd("prereq",...)
 end
