@@ -70,6 +70,9 @@ end
 function inherit(...)
 end
 
+function display(...)
+end
+
 function family(...)
 end
 

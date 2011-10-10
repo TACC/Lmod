@@ -4,3 +4,4 @@ step 1
    ~/w/lmod/mf/Core/gcc/4.2.3.lua:
 family("compiler")
 prepend_path("MODULEPATH", "~/w/lmod/mf/Compiler/gcc/4.2.3")
+display(false)

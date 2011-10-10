@@ -43,6 +43,7 @@ require("strict")
 require("Dbg")
 require("capture")
 require("firstInPath")
+require("Show")
 
 Usage = [[
 module sub-command [args ...]
@@ -374,95 +375,6 @@ function Purge()
    dbg.fini()
 end
 
-local function ShowCmd(name,...)
-   local a = {}
-   local s
-   for _,v in ipairs{...} do
-      if (type(v) == "boolean") then
-         s = tostring(v)
-      else
-         s = "\"".. tostring(v) .."\""
-      end
-      a[#a + 1] = s
-   end
-   io.stderr:write(name,"(",concatTbl(a,", "),")\n")
-end
-
-local function Show_use(value)
-   ShowCmd("use", value)
-end
-
-local function Show_whatis(value)
-   ShowCmd("whatis", value)
-end
-
-local function Show_help(...)
-   local a = {}
-   for _,v in ipairs{...} do
-      a[#a + 1] = "[[".. v .."]]"
-   end
-   io.stderr:write("help","(",concatTbl(a,", "),")\n")
-end
-
-local function Show_unuse(value)
-   ShowCmd("unuse", value)
-end
-
-local function Show_prepend_path(name,value)
-   ShowCmd("prepend_path", name, value)
-end
-
-local function Show_set_alias(name,value)
-   ShowCmd("set_alias", name, value)
-end
-
-local function Show_unset_alias(name)
-   ShowCmd("unset_alias",name)
-end
-
-local function Show_append_path(name,value)
-   ShowCmd("append_path", name, value)
-end
-
-local function Show_set(name,value)
-   ShowCmd("setenv", name, value)
-end
-
-local function Show_unset(name,value)
-   ShowCmd("unsetenv", name, value)
-end
-
-local function Show_remove_path(name,value)
-   ShowCmd("remove_path", name, value)
-end
-
-local function Show_load(...)
-   ShowCmd("load",...)
-end
-
-local function Show_inherit(...)
-   ShowCmd("inherit",...)
-end
-
-local function Show_family(...)
-   ShowCmd("family",...)
-end
-
-local function Show_display(...)
-   ShowCmd("display",...)
-end
-
-local function Show_unload(...)
-   ShowCmd("unload",...)
-end
-
-local function Show_prereq(...)
-   ShowCmd("prereq",...)
-end
-
-local function Show_conflict(...)
-   ShowCmd("conflict",...)
-end
 
 local function Prepend_path(name,value)
    local mStack = ModuleStack:moduleStack()
@@ -1176,6 +1088,8 @@ function SpiderCmd(mname)
    conflict     = dbg.quiet
    prereq       = dbg.quiet
    family       = dbg.quiet
+   display      = dbg.quiet
+   inherit      = dbg.quiet
    mode         = ModeLoad
 
    help         = Spider_help

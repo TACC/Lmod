@@ -10,12 +10,14 @@ package.path = cmd_dir .. '?.lua;' .. package.path
 _MyFileName  = ""
 
 require("strict")
+
 require("fileOps")
 require("capture")
 require("firstInPath")
 
 local fh = nil
 local getenv = os.getenv
+local concatTbl = table.concat
 
 function cmdDir()
    return cmd_dir
@@ -26,14 +28,19 @@ end
 
 whatis = quiet
 help   = quiet
-setenv = quiet
 
-function ShowCmd(name, ...)
+function ShowCmd(name,...)
    local a = {}
+   local s
    for _,v in ipairs{...} do
-      a[#a+1] = "\"" .. v .. "\""
+      if (type(v) == "boolean") then
+         s = tostring(v)
+      else
+         s = "\"".. tostring(v) .."\""
+      end
+      a[#a + 1] = s
    end
-   fh:write(name,"(",table.concat(a,","),")\n")
+   fh:write(name,"(",concatTbl(a,", "),")\n")
 end
 
 function prepend_path(path, value)
@@ -53,6 +60,10 @@ end
 
 function load(...)
    ShowCmd("load",...)
+end
+
+function setenv(...)
+   ShowCmd("setenv",...)
 end
 
 function family(...)

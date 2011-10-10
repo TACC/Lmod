@@ -24,7 +24,7 @@ require("Spider")
 require("Optiks")
 require("serialize")
 require("pairsByKeys")
-local concat = table.concat
+local concatTbl = table.concat
 
 
 function flip(a,t, tbl)
@@ -33,7 +33,7 @@ function flip(a,t, tbl)
       if (tbl[name] == nil) then
          tbl[name] = {}
       end
-      local s = concat(a,":")
+      local s = concatTbl(a,":")
       tbl[name][#tbl[name]+1] = s
       if (next(v.children)) then
          a[#a+1] = name
