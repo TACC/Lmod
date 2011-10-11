@@ -29,6 +29,8 @@ end
 whatis = quiet
 help   = quiet
 setenv = quiet
+display = quiet
+
 
 function ShowCmd(name,...)
    local a = {}
@@ -63,10 +65,6 @@ function load(...)
    ShowCmd("load",...)
 end
 
-function setenv(...)
-   ShowCmd("setenv",...)
-end
-
 function family(...)
    ShowCmd("family",...)
 end
@@ -77,10 +75,6 @@ end
 
 function inherit(...)
    ShowCmd("inherit",...)
-end
-
-function display(...)
-   ShowCmd("display",...)
 end
 
 function prereq(...)
