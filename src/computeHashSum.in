@@ -30,7 +30,7 @@ whatis = quiet
 help   = quiet
 setenv = quiet
 display = quiet
-
+family  = quiet
 
 function ShowCmd(name, ...)
    local a = {}
@@ -58,10 +58,6 @@ end
 
 function load(...)
    ShowCmd("load",...)
-end
-
-function family(...)
-   ShowCmd("family",...)
 end
 
 function unload(...)
