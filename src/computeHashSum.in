@@ -9,6 +9,8 @@ end
 package.path = cmd_dir .. '?.lua;' .. package.path
 _MyFileName  = ""
 
+HashSum = "@path_to_hashsum@"
+
 require("strict")
 
 require("fileOps")
@@ -32,13 +34,20 @@ setenv = quiet
 display = quiet
 inherit = quiet
 
+local A = {}
+
 function ShowCmd(name, ...)
    local a = {}
    local s
    for _,v in ipairs{...} do
       a[#a+1] = "\"" .. v .. "\""
    end
-   fh:write(name,"(",concatTbl(a,","),")\n")
+   local b = {}
+   b[#b+1] = name
+   b[#b+1] = "("
+   b[#b+1] = concatTbl(a,",")
+   b[#b+1] = ")\n"
+   A[#A+1] = concatTbl(b,"")
 end
 
 function prepend_path(path, value)
@@ -143,14 +152,19 @@ function main()
       verbose = true
    end
    loadModuleFile(arg[i])
+   local s = concatTbl(A,"")
    if (verbose) then
-      print ("cat ".. fn)
-      os.execute("cat ".. fn)
+      io.stderr:write(s)
    end
-   local s = capture("@path_to_hashsum@ "..fn)
+   fh:write(s)
+   if (HashSum:sub(1,1) == "@" ) then
+      HashSum = findInPath("sha1sum")
+   end
+
+   local result = capture(HashSum .. " " .. fn)
    os.remove(fn)
-   local i,j = s:find(" ")
-   print (s:sub(1,i-1))
+   local i,j = result:find(" ")
+   print (result:sub(1,i-1))
 end
 
 main()

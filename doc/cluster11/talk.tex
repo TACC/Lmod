@@ -840,7 +840,7 @@ endif
       $\sim$/.cshrc but wrap them:
     {\small
 \begin{verbatim}
-    if [ -z “$_READ” –a –z “$ENVIRONMENT” ]; then
+    if [ -z “$_READ” -a -z “$ENVIRONMENT” ]; then
       export _READ=1 # Put any module commands here:
       module load git
     fi
