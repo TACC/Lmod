@@ -38,7 +38,7 @@ function ShowCmd(name, ...)
    for _,v in ipairs{...} do
       a[#a+1] = "\"" .. v .. "\""
    end
-   fh:write(name,"(",concatTbl(a,", "),")\n")
+   fh:write(name,"(",concatTbl(a,","),")\n")
 end
 
 function prepend_path(path, value)
