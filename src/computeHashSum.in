@@ -28,6 +28,7 @@ end
 
 whatis = quiet
 help   = quiet
+setenv = quiet
 
 function ShowCmd(name,...)
    local a = {}
