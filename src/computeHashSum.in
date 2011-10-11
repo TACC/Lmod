@@ -32,16 +32,11 @@ setenv = quiet
 display = quiet
 
 
-function ShowCmd(name,...)
+function ShowCmd(name, ...)
    local a = {}
    local s
    for _,v in ipairs{...} do
-      if (type(v) == "boolean") then
-         s = tostring(v)
-      else
-         s = "\"".. tostring(v) .."\""
-      end
-      a[#a + 1] = s
+      a[#a+1] = "\"" .. v .. "\""
    end
    fh:write(name,"(",concatTbl(a,", "),")\n")
 end
