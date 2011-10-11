@@ -1313,7 +1313,7 @@ function main()
    -- Output all newly created path and variables.
    master.shell:expand(varTbl)
 
-   if (dbg.warningCalled()) then
+   if (dbg.warningCalled() and not expert() ) then
       lmodErrorExit()
    end
 end
