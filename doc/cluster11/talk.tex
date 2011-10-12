@@ -836,12 +836,15 @@ endif
     \frametitle{HPC issues: Startup Files and Compute nodes}
   \begin{itemize}
     \item At TACC: the environment variable: ENVIRONMENT is ``BATCH'' when on a compute node.
-    \item The module command has to ``opendir'' on every directory in the  MODULEPATH.
     \item When in BATCH mode:
       \begin{itemize}
         \item The module command is defined.
         \item The TACC module is NOT loaded.
         \item The user's environment is passed to all processes.
+        \item Openmpi: mpirun ... -x {\color{blue}Var1} -x {\color{blue}Var2}
+        \item Mvapich2: mpirun\_rsh ... {\color{blue}Var1}={\color{blue}V1} {\color{blue}Var2}={\color{blue}V2} ...
+        \item Where {\color{blue}Var1} ... are env. vars such as
+          \$HOME, \$PATH ...
       \end{itemize}
     \item This prevents every process from a users parallel job from
       doing ``opendir("/opt/apps/modulefile/Core")''
