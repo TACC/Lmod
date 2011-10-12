@@ -833,8 +833,25 @@ endif
 \end{frame}
 
 \begin{frame}[fragile]
+    \frametitle{HPC issues: Startup Files and Compute nodes}
+  \begin{itemize}
+    \item At TACC: the environment variable: ENVIRONMENT is ``BATCH'' when on a compute node.
+    \item The module command has to ``opendir'' on every directory in the  MODULEPATH.
+    \item When in BATCH mode:
+      \begin{itemize}
+        \item The module command is defined.
+        \item The TACC module is NOT loaded.
+        \item The user's environment is passed to all processes.
+      \end{itemize}
+    \item This prevents every process from a users parallel job from
+      doing ``opendir("/opt/apps/modulefile/Core")''
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
     \frametitle{HPC issues: Users}
   \begin{itemize}
+    \item Users can overwork the parallel file system.
     \item Encourage your users to use {\color{blue}module setdefault}
     \item Or users should load their modules via $\sim$/.bashrc or
       $\sim$/.cshrc but wrap them:
@@ -846,7 +863,6 @@ endif
     fi
 \end{verbatim}
 }
-\item  At TACC: ENVIRONMENT is ``BATCH'' when on a compute node.
 \item Otherwise each shell of a user's 8192 process job will try to
   load modules $\Rightarrow$ Parallel file system metadata servers can hang.
   \end{itemize}
