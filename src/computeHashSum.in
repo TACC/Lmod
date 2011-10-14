@@ -31,16 +31,18 @@ end
 whatis = quiet
 help   = quiet
 setenv = quiet
-display = quiet
 inherit = quiet
 
 local A = {}
 
 function ShowCmd(name, ...)
    local a = {}
-   local s
    for _,v in ipairs{...} do
-      a[#a+1] = "\"" .. v .. "\""
+      local s = tostring(v)
+      if (type(v) ~= "boolean") then
+         s = "\"".. s .."\""
+      end
+      a[#a + 1] = s
    end
    local b = {}
    b[#b+1] = name
@@ -65,6 +67,10 @@ function remove_path(path, value)
    ShowCmd("remove_path", path, value)
 end
 
+function display(...)
+   ShowCmd("display",...)
+end
+   
 function load(...)
    ShowCmd("load",...)
 end
