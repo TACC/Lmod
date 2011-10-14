@@ -994,8 +994,12 @@ local function Swap(...)
 end
 
 local function epoch()
-   local t1, t2 = posix.gettimeofday()
-   return t1 + t2*1.0e-6
+   if (posix.gettimeofday) then
+      local t1, t2 = posix.gettimeofday()
+      return t1 + t2*1.0e-6
+   else
+      return os.time()
+   end
 end
 
 function getModuleT()
