@@ -20,11 +20,12 @@ function LmodMessage()
 end
 
 require("border")
-local BeautifulTbl = require("BeautifulTbl")
-local Spider       = require("Spider")
-require("Optiks")
 require("serialize")
 require("pairsByKeys")
+local BeautifulTbl = require("BeautifulTbl")
+local Dbg          = require("Dbg")
+local Optiks       = require("Optiks")
+local Spider       = require("Spider")
 local concatTbl = table.concat
 
 
