@@ -4,13 +4,13 @@ require("string_split")
 require("fileOps")
 require("fillWords")
 require("lfs")
-require("Dbg")
 require("posix")
 require("capture")
 require("pairsByKeys")
 
+local M = {}
 
-local Dbg         = Dbg
+local Dbg         = require("Dbg")
 local LmodError   = LmodError
 local LmodMessage = LmodMessage
 local assert      = assert
@@ -210,7 +210,7 @@ function processNewModulePATH(value)
          iStack        = iStack+1
          moduleStack[iStack] = {path = path, full = full, moduleT = moduleT[path].children}
          dbg.print("Top of Stack: ",iStack, " Full: ", full, " file: ", path, "\n")
-         Spider.findModulesInDir(v,"",moduleT[path].children)
+         M.findModulesInDir(v,"",moduleT[path].children)
          moduleStack[iStack] = nil
       end
    end
@@ -219,8 +219,9 @@ function processNewModulePATH(value)
 end
 
 ------------------------------------------------------------
-module("Spider")
+--module("Spider")
 ------------------------------------------------------------
+
 
 local function loadModuleFile(fn)
    local dbg    = Dbg:dbg()
@@ -252,7 +253,7 @@ local function fullName(name)
    if (i == nil) then
       n = name
    else
-      ext = name:sub(j,-1)
+      local ext = name:sub(j,-1)
       if (ext == ".lua") then
          n = name:sub(1,j-1)
       else
@@ -282,7 +283,7 @@ local function extractName(full)
    return n
 end
 
-function findModulesInDir(path, prefix, moduleT)
+function M.findModulesInDir(path, prefix, moduleT)
    local dbg  = Dbg:dbg()
    dbg.start("findModulesInDir(path=\"",path,"\", prefix=\"",prefix,"\")")
 
@@ -319,14 +320,14 @@ function findModulesInDir(path, prefix, moduleT)
                dbg.print("Saving: Full: ", full, " Name: ", name, " file: ",f,"\n")
             end
          elseif (attr.mode == 'directory') then
-            findModulesInDir(f, prefix .. file..'/',moduleT)
+            M.findModulesInDir(f, prefix .. file..'/',moduleT)
 	 end
       end
    end
    dbg.fini()
 end
 
-function findAllModules(moduleDirA, moduleT)
+function M.findAllModules(moduleDirA, moduleT)
    local dbg    = Dbg:dbg()
    dbg.start("findAllModules(",concatTbl(moduleDirA,", "),")")
    
@@ -347,7 +348,7 @@ function findAllModules(moduleDirA, moduleT)
       v             = regularize(v)
       if (moduleDirT[v] == nil) then
          moduleDirT[v] = 1
-         findModulesInDir(v, "", moduleT)
+         M.findModulesInDir(v, "", moduleT)
       end
    end
    LmodError   = errorRtn
@@ -357,7 +358,7 @@ function findAllModules(moduleDirA, moduleT)
    dbg.fini()
 end
 
-function buildSpiderDB(a, moduleT, dbT)
+function M.buildSpiderDB(a, moduleT, dbT)
    for path, value in pairs(moduleT) do
       local name = value.name
       if (dbT[name] == nil) then
@@ -376,13 +377,13 @@ function buildSpiderDB(a, moduleT, dbT)
       t[path].parent = concatTbl(a,":")
       if (next(value.children)) then
          a[#a+1] = t[path].full
-         buildSpiderDB(a, value.children, dbT)
+         M.buildSpiderDB(a, value.children, dbT)
          a[#a]   = nil
       end
    end
 end
 
-function searchSpiderDB(strA, a, moduleT, dbT)
+function M.searchSpiderDB(strA, a, moduleT, dbT)
    local dbg = Dbg:dbg()
    dbg.start("searchSpiderDB()")
 
@@ -418,14 +419,14 @@ function searchSpiderDB(strA, a, moduleT, dbT)
       end
       if (next(value.children)) then
          a[#a+1] = full
-         searchSpiderDB(strA, a, value.children, dbT)
+         M.searchSpiderDB(strA, a, value.children, dbT)
          a[#a]   = nil
       end
    end
    dbg.fini()
 end
 
-function Level0(dbT)
+function M.Level0(dbT)
 
    local a      = {}
    local ia     = 0
@@ -437,12 +438,12 @@ function Level0(dbT)
    ia = ia+1; a[ia] = "The following is a list of the modules currently available:\n"
    ia = ia+1; a[ia] = banner
 
-   Level0Helper(dbT,a)
+   M.Level0Helper(dbT,a)
 
    return concatTbl(a,"")
 end
 
-function Level0Helper(dbT,a)
+function M.Level0Helper(dbT,a)
    local t          = {}
    local term_width = tonumber(capture("tput cols") or "80") - 4
 
@@ -457,7 +458,7 @@ function Level0Helper(dbT,a)
       end
    end
 
-   ia = #a
+   local ia = #a
 
    for k,v in pairsByKeys(t) do
       local len = 0
@@ -503,7 +504,7 @@ local function countEntries(t)
    return count
 end
 
-function spiderSearch(dbT, mname)
+function M.spiderSearch(dbT, mname)
    local dbg = Dbg:dbg()
    dbg.start("spiderSearch(dbT,\"",mname,"\")")
    local found = false
@@ -520,7 +521,7 @@ function spiderSearch(dbT, mname)
    dbg.fini()
 end
 
-function Level1(dbT, mname, help)
+function M.Level1(dbT, mname, help)
    local dbg = Dbg:dbg()
    dbg.start("Level1(dbT,\"",mname,"\")")
    local name = extractName(mname)
@@ -528,20 +529,20 @@ function Level1(dbT, mname, help)
    local t    = dbT[name]
    local term_width = tonumber(capture("tput cols") or "80") - 4
    if (t == nil) then
-      spiderSearch(dbT,mname)
+      M.spiderSearch(dbT,mname)
       return ""
    end
 
    if (name ~= mname) then
-      return Level2(t, mname)
+      return M.Level2(t, mname)
    end
 
    local cnt = countEntries(t)
    dbg.print("Number of entries: ",cnt ,"\n")
    if (countEntries(t) == 1) then
-      k = next(t)
+      local k = next(t)
       mname = t[k].full
-      return Level2(t, t[k].full)
+      return M.Level2(t, t[k].full)
    end
       
    local banner = border(2)
@@ -595,7 +596,7 @@ function Level1(dbT, mname, help)
    
 end
 
-function Level2(t, mname)
+function M.Level2(t, mname)
    local dbg = Dbg:dbg()
    dbg.start("Level2(t,\"",mname,"\")")
    local a  = {}
@@ -603,7 +604,7 @@ function Level2(t, mname)
    
    local term_width = tonumber(capture("tput cols") or "80") - 4
    local tt = nil
-   banner = border(2)
+   local banner = border(2)
 
    for k,v in pairs(t) do
       if (v.full == mname) then
@@ -653,20 +654,22 @@ function Level2(t, mname)
    return concatTbl(a,"")
 end
 
-function listModules(t,tbl)
+function M.listModules(t,tbl)
    for k,v in pairs(t) do
       tbl[#tbl+1] = v.path
       if (next(v.children)) then
-         listModules(v.children,tbl)
+         M.listModules(v.children,tbl)
       end
    end
 end
 
-function dictModules(t,tbl)
+function M.dictModules(t,tbl)
    for k,v in pairs(t) do
       tbl[k] = 0
       if (next(v.children)) then
-         dictModules(v.children,tbl)
+         M.dictModules(v.children,tbl)
       end
    end
 end
+
+return M

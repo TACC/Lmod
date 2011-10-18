@@ -1,5 +1,4 @@
 require("strict")
-Master = { }
 local InheritModule      = InheritModule
 local LmodError          = LmodError
 local Load               = Load
@@ -37,26 +36,27 @@ local expert             = expert
 local removeEntry        = table.remove
 
 require('lfs')
-require('ColumnTable')
-require('MT')
+
 require("fileOps")
-require("Dbg")
 require("string_trim")
+require("fillWords")
 
 ModuleName=""
-local abspath      = abspath
-local pathJoin     = pathJoin
-local extname      = extname
-local MT           = MT
-local lfs          = lfs
-local ColumnTable  = ColumnTable
-local Dbg          = Dbg
-local isFile       = isFile
+local ColumnTable  = require('ColumnTable')
+local Dbg          = require("Dbg")
 local InheritTmpl  = require("InheritTmpl")
-local posix        = require("posix")
+local M            = {}
+local MT           = MT
 local ModuleStack  = require("ModuleStack")
+local abspath      = abspath
+local extname      = extname
+--local fillWords    = 
+local isFile       = isFile
+local lfs          = lfs
+local pathJoin     = pathJoin
+local posix        = require("posix")
 
-module("Master")
+--module("Master")
 
 s_master = {}
 
@@ -70,7 +70,7 @@ local function new(self,safe)
    return o
 end
 
-function formModName(moduleName)
+function M.formModName(moduleName)
    local idx = moduleName:find('/') or 0
    idx = idx - 1
    local modName = moduleName:sub(1,idx)
@@ -161,7 +161,7 @@ local function find_module_file(moduleName)
             result    = abspath(result, localDir)
             t.default = 1
          elseif (found and v == '/.version' and ii == 1) then
-            local vf = versionFile(result)
+            local vf = M.versionFile(result)
             if (vf) then
                t         = find_module_file(pathJoin(key,vf))
                t.default = 1
@@ -200,7 +200,7 @@ local function find_module_file(moduleName)
       if (found) then break end
    end
 
-   modName = formModName(fullName)
+   modName = M.formModName(fullName)
 
    t.fn          = result
    t.modFullName = fullName
@@ -240,18 +240,19 @@ local function loadModuleFile(t)
    dbg.fini()
 end
 
-function master(self, safe)
+function M.master(self, safe)
    if (next(s_master) == nil) then
+      MT       = systemG.MT
       s_master = new(self, safe)
    end
    return s_master
 end
 
-function safeToUpdate()
+function M.safeToUpdate()
    return s_master.safe
 end
 
-function unload(...)
+function M.unload(...)
    local mStack = ModuleStack:moduleStack()
    local mt     = MT:mt()
    local dbg    = Dbg:dbg()
@@ -287,8 +288,8 @@ function unload(...)
          a[#a + 1] = false
       end
    end
-   if (safeToUpdate() and mt:safeToCheckZombies()) then
-      reloadAll()
+   if (M.safeToUpdate() and mt:safeToCheckZombies()) then
+      M.reloadAll()
    end
    for k in pairs(prevT) do
       systemG[k] = prevT[k]
@@ -297,7 +298,7 @@ function unload(...)
    return a
 end
 
-function versionFile(path)
+function M.versionFile(path)
    local dbg     = Dbg:dbg()
    dbg.start("versionFile(",path,")")
    local f       = io.open(path,"r")
@@ -338,7 +339,7 @@ local function access_find_module_file(moduleName)
    return fn, full
 end
 
-function access(self, ...)
+function M.access(self, ...)
    local dbg    = Dbg:dbg()
    local mt     = MT:mt()
    local prtHdr = systemG.prtHdr
@@ -367,7 +368,7 @@ function access(self, ...)
 end
 
 
-function load(...)
+function M.load(...)
    local mStack = ModuleStack:moduleStack()
    local mt    = MT:mt()
    local dbg   = Dbg:dbg()
@@ -405,19 +406,19 @@ function load(...)
       end
       a[#a+1] = loaded
    end
-   if (safeToUpdate() and mt:safeToCheckZombies()) then
+   if (M.safeToUpdate() and mt:safeToCheckZombies()) then
       dbg.print("Master:load calling reloadAll()\n")
-      reloadAll()
+      M.reloadAll()
    end
    dbg.fini()
    return a
 end
 
-function fakeload(...)
+function M.fakeload(...)
+   local a   = {}
    local mt  = MT:mt()
    local dbg = Dbg:dbg()
    dbg.start("Master:fakeload(",concatTbl({...},", "),")")
-   a = {}
 
    for _, moduleName in ipairs{...} do
       local loaded = false
@@ -434,7 +435,7 @@ function fakeload(...)
 end         
 
 
-function reloadAll()
+function M.reloadAll()
    local mt   = MT:mt()
    local dbg  = Dbg:dbg()
    dbg.start("Master:reloadAll()")
@@ -477,7 +478,7 @@ function reloadAll()
    return same
 end
 
-function reloadClear(self,name)
+function M.reloadClear(self,name)
    local dbg  = Dbg:dbg()
    dbg.start("Master:reloadClear()")
    dbg.print("removing \"",name,"\" from reload table\n")
@@ -487,7 +488,7 @@ end
 
 
 
-function inheritModule()
+function M.inheritModule()
    local dbg     = Dbg:dbg()
    dbg.start("Master:inherit()")
 
@@ -520,7 +521,7 @@ local function dirname(f)
 end
 
 
-function prtReloadT(self)
+function M.prtReloadT(self)
    if (next(self.reloadT) == nil or expert()) then return end
    local t = self.reloadT
    local a = {}
@@ -531,7 +532,7 @@ function prtReloadT(self)
    end
    if (i > 0) then
       io.stderr:write("Due to MODULEPATH changes the following modules have been reloaded:\n")
-      ct = ColumnTable:new{tbl=a,prt=prtErr}
+      local ct = ColumnTable:new{tbl=a,prt=prtErr}
       ct:print_tbl()
    end
 end
@@ -559,8 +560,8 @@ local function findDefault(mpath, path, prefix)
       if (i) then
          mname = mname:sub(1,i-1)
       end
-      local pathA = mt:locationTbl(mname)
-      mpath2 = pathA[1].mpath
+      local pathA  = mt:locationTbl(mname)
+      local mpath2 = pathA[1].mpath
       --dbg.print("mname: ", mname, " mpath: ", mpath, " mpath2: ",mpath2,"\n")
 
       if (mpath ~= mpath2) then
@@ -576,7 +577,7 @@ local function findDefault(mpath, path, prefix)
    if (default == nil) then
       local vFn = abspath(pathJoin(path,".version"), localDir)
       if (isFile(vFn)) then
-         local vf = versionFile(vFn)
+         local vf = M.versionFile(vFn)
          if (vf) then
             local f = pathJoin(path,vf)
             default = abspath(f,localDir)
@@ -660,7 +661,7 @@ local function availDir(searchA, mpath, path, prefix, a)
    dbg.fini()
 end
 
-function avail(searchA)
+function M.avail(searchA)
    local dbg    = Dbg:dbg()
    dbg.start("Master.avail(",concatTbl(searchA,", "),")")
    local mpathA = MT:mt():module_pathA()
@@ -678,9 +679,9 @@ function avail(searchA)
          ct:print_tbl()
       end
    end
-   io.stderr:write("\nUse \"module spider\" to find all possible modules.\n",
-                   "Use \"module keyword key1 key2 ...\" to search for all possible modules\n",
-                   "   matching any of the \"keys\".\n\n")
+   local a = fillWords("","Use \"module spider\" to find all possible modules.",width)
+   local b = fillWords("","Use \"module keyword key1 key2 ...\" to search for all possible modules matching any of the \"keys\".",width)
+   io.stderr:write("\n",a,"\n",b, "\n\n")
    dbg.fini()
 end
 
@@ -722,7 +723,7 @@ local function spanOneModule(path, name, nameA, fileType, keyA)
                end
                --local n = concatTbl(nameA,"/")
                --io.stderr:write("file: ",file," f: ",f," mode: ",attr.mode, " n: ", n, "\n")
-               spanOneModule(f, file, nameA, attr.mode,keyA)
+               M.spanOneModule(f, file, nameA, attr.mode,keyA)
                removeEntry(nameA,#nameA)
             end
          end
@@ -732,7 +733,7 @@ local function spanOneModule(path, name, nameA, fileType, keyA)
 end
 
 
-function spanAll(self, keyA)
+function M.spanAll(self, keyA)
    local dbg    = Dbg:dbg()
    dbg.start("Master:spanAll(keyA=(",concatTbl(keyA,","),"))")
    mpathA = MT:mt():module_pathA()
@@ -752,7 +753,7 @@ function spanAll(self, keyA)
                   end
                   --local n = concatTbl(nameA,"/")
                   --io.stderr:write("(2) spanAll: file: ",file," f: ",f," mode: ", attr.mode," n: ",n,"\n")
-                  spanOneModule(f, file, nameA, attr.mode, keyA)
+                  M.spanOneModule(f, file, nameA, attr.mode, keyA)
                end
 	    end
          end
@@ -760,3 +761,5 @@ function spanAll(self, keyA)
    end
    dbg.fini()
 end
+
+return M

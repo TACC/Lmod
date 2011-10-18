@@ -1,10 +1,10 @@
 -- BaseShell
 require("strict")
-require("base64")
 require("inherits")
 
-BaseShell = {}
+local M            = {}
 
+local base64       = require("base64")
 local concat       = table.concat
 local decode64     = base64.decode64
 local format       = string.format
@@ -14,23 +14,15 @@ local print	   = print
 local setmetatable = setmetatable
 local type	   = type
 
-require('Csh')
-require('Bash')
-require('Bare')
-
-local Csh  = Csh
-local Bash = Bash
-local Bare = Bare
-
 ------------------------------------------------------------------------
-module ('BaseShell')
+--module ('BaseShell')
 ------------------------------------------------------------------------
 
-function name(self)
+function M.name(self)
    print ("Shell name:",self.my_name)
 end
 
-function getMT(self,name)
+function M.getMT(self,name)
    local a = {}
    local s = nil
    for i = 1, huge do
@@ -47,22 +39,30 @@ function getMT(self,name)
    return s
 end
 
-local shellTbl = {}
-shellTbl["sh"]	 = Bash
-shellTbl["bash"] = Bash
-shellTbl["zsh"]	 = Bash
-shellTbl["csh"]	 = Csh
-shellTbl["tcsh"] = Csh
-shellTbl.bare	 = Bare
 
-local function valid_shell(shell_name)
+local function valid_shell(shellTbl, shell_name)
    if (not shellTbl[shell_name]) then
       return shellTbl.bare
    end
    return shellTbl[shell_name]
 end
 
-function build(shell_name)
-   local o     = valid_shell(shell_name):create()
+function M.build(shell_name)
+
+   local shellTbl   = {}
+   local Csh        = require('Csh')
+   local Bash       = require('Bash')
+   local Bare       = require('Bare')
+   shellTbl["sh"]   = Bash
+   shellTbl["bash"] = Bash
+   shellTbl["zsh"]  = Bash
+   shellTbl["csh"]  = Csh
+   shellTbl["tcsh"] = Csh
+   shellTbl.bare    = Bare
+
+
+   local o     = valid_shell(shellTbl, shell_name):create()
    return o
 end
+
+return M

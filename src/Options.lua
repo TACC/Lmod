@@ -1,10 +1,8 @@
 require("strict")
 require("posix")
-require("Dbg")
-require("Version")
 
 Error = nil
-local Dbg          = Dbg
+local Dbg          = require("Dbg")
 local arg          = arg
 local format       = string.format
 local next         = next
@@ -16,9 +14,9 @@ local stderr       = io.stderr
 local systemG      = _G
 local version      = version
 
-Options = {}
+--module("Options")
 
-module("Options")
+local M = {}
 
 s_options = {}
 
@@ -39,7 +37,7 @@ local function nothing()
 end
 
 
-function options(self, usage)
+function M.options(self, usage)
    if (next(s_options) == nil) then
       local dbg = Dbg:dbg()
 
@@ -114,3 +112,5 @@ function options(self, usage)
 
    return s_options
 end
+
+return M

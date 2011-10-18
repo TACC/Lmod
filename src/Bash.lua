@@ -1,6 +1,5 @@
 -- -*- lua -*-
 require("strict")
-require("base64")
 require("Dbg")
 
 Bash              = inheritsFrom(BaseShell)
@@ -10,6 +9,7 @@ local Bash        = Bash
 local Dbg         = require("Dbg")
 local Var         = require("Var")
 local assert      = assert
+local base64      = require("base64")
 local concat      = table.concat
 local encode64    = base64.encode64
 local floor       = math.floor
@@ -22,8 +22,6 @@ local pairs       = pairs
 local pairsByKeys = pairsByKeys
 local stdout      = io.stdout
 local systemG     = _G
-
-module("Bash")
 
 local function formLine(k,v, vType)
    local lineA = {}
@@ -57,7 +55,7 @@ local function expandMT(vv)
    end
    for i,v in ipairs(a) do
       name = format("_ModuleTable%03d_",i)
-      stdout:write(formLine(name,v,vType))
+      stdout:write(formLine(name,v,nil))
    end
    for i = nblks+1, huge do
       name = format("_ModuleTable%03d_",i)
@@ -67,7 +65,7 @@ local function expandMT(vv)
    end
 end
 
-function expand(self,tbl)
+function Bash.expand(self,tbl)
    local dbg   = Dbg:dbg()
 
    for k,v in pairsByKeys(tbl) do
@@ -92,3 +90,5 @@ function expand(self,tbl)
       end
    end
 end
+
+return Bash

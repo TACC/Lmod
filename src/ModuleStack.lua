@@ -1,14 +1,14 @@
 require("strict")
-require("Dbg")
 
 ModuleStack = { }
 
-local Dbg          = Dbg
+local Dbg          = require("Dbg")
 local next         = next
 local remove       = table.remove
 local setmetatable = setmetatable
 
-module("ModuleStack")
+--module("ModuleStack")
+local M = {}
 
 s_moduleStack = {}
 
@@ -21,14 +21,14 @@ local function new(self)
    return o
 end
 
-function moduleStack(self)
+function M.moduleStack(self)
    if (next(s_moduleStack) == nil) then
       s_moduleStack = new(self)
    end
    return s_moduleStack
 end
 
-function loading(self, count)
+function M.loading(self, count)
    count       = count or 1
    local stack = self.stack
    local top   = stack[#stack]
@@ -36,26 +36,26 @@ function loading(self, count)
    top.loadCnt = top.loadCnt + count
 end
 
-function setting(self)
+function M.setting(self)
    local stack = self.stack
    local top   = stack[#stack]
 
    top.setCnt = top.setCnt + 1
 end
 
-function push(self, name)
+function M.push(self, name)
    local entry = {name = name, loadCnt = 0, setCnt = 0}
    local stack = self.stack
 
    stack[#stack+1] = entry
 end
 
-function pop(self)
+function M.pop(self)
    local stack = self.stack
    remove(stack)
 end
 
-function moduleType(self)
+function M.moduleType(self)
    local dbg   = Dbg:dbg()
    dbg.start("ModuleStack:moduleType()")
 
@@ -77,8 +77,10 @@ function moduleType(self)
    return results
 end
 
-function moduleName(self)
+function M.moduleName(self)
    local stack = self.stack
    local top   = stack[#stack]
    return top.name
 end
+
+return M

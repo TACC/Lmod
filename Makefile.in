@@ -4,10 +4,9 @@ PATH_TO_HASHSUM := @PATH_TO_HASHSUM@
 PATH_TO_LUA	:= @PATH_TO_LUA@
 MODULEPATH_ROOT := @MODULEPATH_ROOT@
 VERSION_SRC	:= src/Version.lua
-VERSION_LIB	:= $(subst .lua,,$(VERSION_SRC))
 prefix		:= @prefix@
 package		:= lmod
-version		:= $(shell $(PATH_TO_LUA)/lua -l $(VERSION_LIB) -e "print(Version.name())" | awk '{print $$1}')
+version		:= $(shell cd src; $(PATH_TO_LUA)/lua -e "local Version=require('Version'); print(Version.name())" | awk '{print $$1}')
 PKG		:= $(prefix)/$(package)/$(package)
 LIBEXEC		:= $(prefix)/$(package)/$(version)/libexec
 INIT		:= $(prefix)/$(package)/$(version)/init
@@ -168,16 +167,18 @@ distclean: clobber
 
 gittag:
         ifneq ($(TAG),)
-	  @git status -s > /tmp/lmod$$$$;                                            \
-          if [ -s /tmp/lmod$$$$ ]; then                                              \
-	    echo "All files not checked in => try again";                            \
-	  else                                                                       \
-	    $(RM)                                                    $(VERSION_SRC); \
-	    echo "module('Version')"                              >  $(VERSION_SRC); \
-	    echo 'function name() return "'$(TAG) $(VDATE)'" end' >> $(VERSION_SRC); \
-            git commit -m "moving to TAG_VERSION $(TAG)"             $(VERSION_SRC); \
-            git tag -a $(TAG) -m 'Setting TAG_VERSION to $(TAG)'                   ; \
-          fi;                                                                        \
+	  @git status -s > /tmp/lmod$$$$;                                              \
+          if [ -s /tmp/lmod$$$$ ]; then                                                \
+	    echo "All files not checked in => try again";                              \
+	  else                                                                         \
+	    $(RM)                                                      $(VERSION_SRC); \
+	    echo "--module('Version')"                              >  $(VERSION_SRC); \
+	    echo 'local M={}'                                       >> $(VERSION_SRC); \
+	    echo 'function M.name() return "'$(TAG) $(VDATE)'" end' >> $(VERSION_SRC); \
+	    echo 'return M'                                         >> $(VERSION_SRC); \
+            git commit -m "moving to TAG_VERSION $(TAG)"               $(VERSION_SRC); \
+            git tag -a $(TAG) -m 'Setting TAG_VERSION to $(TAG)'                     ; \
+          fi;                                                                          \
           rm -f /tmp/lmod$$$$
         else
 	  @echo "To git tag do: make gittag TAG=?"

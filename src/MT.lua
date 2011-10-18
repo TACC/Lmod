@@ -31,8 +31,6 @@ local unpack       = unpack
 local varTbl       = varTbl
 local Set          = Set
 
-MT = { }
-
 require("string_split")
 require("fileOps")
 require("serialize")
@@ -47,9 +45,11 @@ local pathJoin     = pathJoin
 local Dbg          = require('Dbg')
 local ColumnTable  = require('ColumnTable')
 local posix        = require("posix")
-module("MT")
 
-function name(self)
+--module("MT")
+local M = {}
+
+function M.name(self)
    return '_ModuleTable_'
 end
 
@@ -157,7 +157,7 @@ local function setupMPATH(self,mpath)
    build_locationTbl(self._locationTbl,self.mpathA)
 end
 
-function mt(self)
+function M.mt(self)
    if (s_mt == nil) then
       local dbg  = Dbg:dbg()
       dbg.start("mt()")
@@ -173,10 +173,10 @@ function mt(self)
    return s_mt
 end
 
-function getMTfromFile(self,fn)
+function M.getMTfromFile(self,fn)
    local dbg  = Dbg:dbg()
    dbg.start("mt:getMTfromFile(",fn,")")
-   f = io.open(fn,"r")
+   local f = io.open(fn,"r")
    if (not f) then
       io.stdout:write("false\n")
       os.exit(1)
@@ -276,7 +276,7 @@ function getMTfromFile(self,fn)
    dbg.fini()
 end
    
-function changePATH(self)
+function M.changePATH(self)
    if (not self._changePATH) then
       assert(self._changePATHCount == 0)
       self._changePATHCount = self._changePATHCount + 1
@@ -284,19 +284,19 @@ function changePATH(self)
    self._changePATH = true
 end
 
-function beginOP(self)
+function M.beginOP(self)
    if (self._changePATH == true) then
       self._changePATHCount = self._changePATHCount + 1
    end
 end
 
-function endOP(self)
+function M.endOP(self)
    if (self._changePATH == true) then
       self._changePATHCount = max(self._changePATHCount - 1, 0)
    end
 end
 
-function safeToCheckZombies(self)
+function M.safeToCheckZombies(self)
    local result = self._changePATHCount == 0 and self._changePATH
    local s      = "nil"
    if (result) then  s = "true" end
@@ -306,7 +306,7 @@ function safeToCheckZombies(self)
    return result
 end
 
-function setfamily(self,familyNm,mName)
+function M.setfamily(self,familyNm,mName)
    local results = self.family[familyNm]
    self.family[familyNm] = mName
    local n = "LMOD_FAMILY_" .. familyNm:upper()
@@ -316,7 +316,7 @@ function setfamily(self,familyNm,mName)
    return results
 end
 
-function unsetfamily(self,familyNm)
+function M.unsetfamily(self,familyNm)
    local n = "LMOD_FAMILY_" .. familyNm:upper()
    Unset(n, "")
    n = "TACC_FAMILY_" .. familyNm:upper()
@@ -324,7 +324,7 @@ function unsetfamily(self,familyNm)
    self.family[familyNm] = nil
 end
 
-function getfamily(self,familyNm)
+function M.getfamily(self,familyNm)
    if (familyNm == nil) then
       return self.family
    end
@@ -332,19 +332,19 @@ function getfamily(self,familyNm)
 end
 
 
-function locationTbl(self, fn)
+function M.locationTbl(self, fn)
    return self._locationTbl[fn]
 end
 
-function sameMPATH(self, mpath)
+function M.sameMPATH(self, mpath)
    return self._MPATH == mpath
 end
 
-function module_pathA(self)
+function M.module_pathA(self)
    return self.mpathA
 end
 
-function buildMpathA(self, mpath)
+function M.buildMpathA(self, mpath)
    local mpathA = {}
    for path in mpath:split(":") do
       mpathA[#mpathA + 1] = path
@@ -353,7 +353,7 @@ function buildMpathA(self, mpath)
    self._MPATH = concatTbl(mpathA,":")
 end
 
-function buildBaseMpathA(self, mpath)
+function M.buildBaseMpathA(self, mpath)
    local mpathA = {}
    for path in mpath:split(":") do
       mpathA[#mpathA + 1] = path
@@ -362,17 +362,17 @@ function buildBaseMpathA(self, mpath)
 end
 
 
-function getBaseMPATH(self)
+function M.getBaseMPATH(self)
    return concatTbl(self.baseMpathA,":")
 end
 
-function reEvalModulePath(self)
+function M.reEvalModulePath(self)
    self:buildMpathA(varTbl[ModulePath]:expand())
    self._locationTbl = {}
    build_locationTbl(self._locationTbl, self.mpathA)
 end
 
-function reloadAllModules(self)
+function M.reloadAllModules(self)
    local dbg    = Dbg:dbg()
    local master = systemG.Master:master()
    local count  = 0
@@ -381,11 +381,11 @@ function reloadAllModules(self)
    local changed = false
    local done    = false
    while (not done) do
-      count = count + 1
-      same  = master:reloadAll()
+      local same  = master:reloadAll()
       if (not same) then
          changed = true
       end
+      count       = count + 1
       if (count > ncount) then
          Error("ReLoading more than ", ncount, " times-> exiting\n")
       end
@@ -404,96 +404,96 @@ end
 -- Pass-Thru function modules in the Active list
 
 
-function addActive(self, t)
+function M.addActive(self, t)
    self.active:add(t)
 end
 
-function fileNameActive(self,moduleName)
+function M.fileNameActive(self,moduleName)
    return self.active:fileName(moduleName)
 end
 
-function haveModuleActive(self,moduleName)
+function M.haveModuleActive(self,moduleName)
    return self.active:haveModule(moduleName)
 end
 
-function haveModuleAnyActive(self,moduleName)
+function M.haveModuleAnyActive(self,moduleName)
    return self.active:haveModuleAny(moduleName)
 end
 
-function listActive(self)
+function M.listActive(self)
    return self.active:list()
 end
 
-function loadActiveList(self)
+function M.loadActiveList(self)
    local a = self.active:list()
    return concatTbl(a,":")
 end
 
-function assignHashSumActive(self)
+function M.assignHashSumActive(self)
    self.active:assignHashSum()
 end
 
-function getHashSumActive(self)
+function M.getHashSumActive(self)
    self.active:getHashSum()
 end
 
-function defaultModuleActive(self,idx)
+function M.defaultModuleActive(self,idx)
    return self.active:defaultModule(idx)
 end
 
-function modFullNameActive(self,moduleName)
+function M.modFullNameActive(self,moduleName)
    return self.active:modFullName(moduleName)
 end
 
-function mTypeActive(self,moduleName)
+function M.mTypeActive(self,moduleName)
    return self.active:moduleType(moduleName)
 end
 
-function removeActive(self, moduleName)
+function M.removeActive(self, moduleName)
    self.active:remove(moduleName)
 end
 
-function safeToSaveActive(self)
+function M.safeToSaveActive(self)
    return self.active:safeToSave()
 end
 
 ------------------------------------------------------------
 -- Pass-Thru function modules in the Total list
 
-function addTotal(self, t)
+function M.addTotal(self, t)
    self.total:add(t)
 end
 
-function fileNameTotal(self,moduleName)
+function M.fileNameTotal(self,moduleName)
    return self.total:fileName(moduleName)
 end
 
-function haveModuleTotal(self,moduleName)
+function M.haveModuleTotal(self,moduleName)
    return self.total:haveModule(moduleName)
 end
 
-function haveModuleAnyTotal(self,moduleName)
+function M.haveModuleAnyTotal(self,moduleName)
    return self.total:haveModuleAny(moduleName)
 end
 
-function listTotal(self)
+function M.listTotal(self)
    return self.total:list()
 end
 
-function defaultModuleTotal(self,moduleName)
+function M.defaultModuleTotal(self,moduleName)
    return self.total:defaultModule(moduleName)
 end
 
-function modFullNameTotal(self,moduleName)
+function M.modFullNameTotal(self,moduleName)
    return self.total:modFullName(moduleName)
 end
 
-function removeTotal(self, moduleName)
+function M.removeTotal(self, moduleName)
    self.total:remove(moduleName)
 end
 
 
-function loadTotalList(self)
+function M.loadTotalList(self)
    local a = self.total:list()
    return concatTbl(a,":")
 end
@@ -505,13 +505,14 @@ local function bool(a)
 end
 
 
-function changeInactive(self)
+function M.changeInactive(self)
    local master = systemG.Master:master()
    local a      = self:listTotal()
    local t      = {}
    local aa     = self._inactive
 
    local prt    = not expert()
+   local ct 
 
    ------------------------------------------------------------
    -- print out newly activated Modules
@@ -566,7 +567,9 @@ function changeInactive(self)
 end
 
 
-function serialize(self)
+function M.serialize(self)
    local s = serializeSys{ indent=false, name=self.name(), value=s_mt}
    return s:gsub("[ \n]","")
 end
+
+return M

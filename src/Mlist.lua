@@ -1,5 +1,4 @@
 require("strict")
-Mlist = {}
 
 local Dbg          = require("Dbg")
 local expert       = expert
@@ -12,7 +11,8 @@ local pathJoin     = pathJoin
 local removeTbl    = table.remove
 local setmetatable = setmetatable
 
-module ("Mlist")
+local M = {}
+--module ("Mlist")
 
 local function trueName(self, moduleName)
    if (moduleName == nil) then
@@ -28,17 +28,17 @@ local function trueName(self, moduleName)
 end
 
 
-function haveModuleAny(self,moduleName)
+function M.haveModuleAny(self,moduleName)
    local modName, idx = trueName(self, moduleName)
    return (idx ~= nil)
 end
 
-function defaultModule(self,moduleName)
+function M.defaultModule(self,moduleName)
    local modName, idx = trueName(self, moduleName)
    return self.default[idx] == 1
 end
 
-function haveModule(self,moduleName)
+function M.haveModule(self,moduleName)
    local modName, idx = trueName(self, moduleName)
    if (idx == nil or modName == moduleName) then
       return (idx ~= nil)
@@ -46,7 +46,7 @@ function haveModule(self,moduleName)
    return (self.fullModName[idx] == moduleName)
 end
 
-function setHashSum(self, moduleName, value)
+function M.setHashSum(self, moduleName, value)
    local modName, idx = trueName(self, moduleName)
    if (idx == nil) then
       return
@@ -54,7 +54,7 @@ function setHashSum(self, moduleName, value)
    self._hash[idx] = value
 end
 
-function getHashSum(self, moduleName)
+function M.getHashSum(self, moduleName)
    local modName, idx = trueName(self, moduleName)
    if (idx == nil) then
       return nil
@@ -62,7 +62,7 @@ function getHashSum(self, moduleName)
    return self._hash[idx]
 end
 
-function fileName(self,moduleName)
+function M.fileName(self,moduleName)
    local modName, idx = trueName(self, moduleName)
    local fn  = nil
    if (idx  ~= nil) then
@@ -71,7 +71,7 @@ function fileName(self,moduleName)
    return fn
 end
 
-function assignHashSum(self)
+function M.assignHashSum(self)
    local dbg   = Dbg:dbg()
    local fnA   = self.FN
    local hashA = self._hash
@@ -85,7 +85,7 @@ function assignHashSum(self)
 end
 
 
-function add(self, t)
+function M.add(self, t)
    local modName = t.modName
    local idx     = self.Dict[modName]
    if ( idx == nil) then
@@ -100,13 +100,13 @@ function add(self, t)
    self._hash[idx]       = t.hash
 end
 
-function remove(self, moduleName)
+function M.remove(self, moduleName)
    local modName, idx = trueName(self, moduleName)
    if (idx == nil) then return end
 
    self.Dict[modName] = nil
    for k in pairs(self.Dict) do
-      i = self.Dict[k]
+      local i = self.Dict[k]
       if ( i > idx) then
          self.Dict[k] = i - 1
       end
@@ -119,7 +119,7 @@ function remove(self, moduleName)
    removeTbl(self._hash,       idx)
 end
 
-function modFullName(self,moduleName)
+function M.modFullName(self,moduleName)
    local modName, idx = trueName(self, moduleName)
    local name  = ''
    local name2 = ''
@@ -134,11 +134,11 @@ function modFullName(self,moduleName)
    return name, name2
 end
 
-function list(self)
+function M.list(self)
    return self.Loaded
 end
 
-function moduleType(self, moduleName)
+function M.moduleType(self, moduleName)
    local modName, idx = trueName(self, moduleName)
    local fn  = nil
    local value = nil
@@ -148,7 +148,7 @@ function moduleType(self, moduleName)
    return value
 end
 
-function new(self)
+function M.new(self)
    local o   = {}
    setmetatable(o, self)
    self.__index = self
@@ -163,7 +163,7 @@ function new(self)
    return o
 end
 
-function safeToSave(self)
+function M.safeToSave(self)
    local mType  = self.mType
    local Loaded = self.Loaded
    local a     = {}
@@ -175,3 +175,5 @@ function safeToSave(self)
    end
    return a
 end
+
+return M

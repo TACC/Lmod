@@ -8,9 +8,7 @@ local io           = io
 Bare	     = inheritsFrom(BaseShell)
 Bare.my_name = 'bare'
 
-module("Bare")
-
-function expand(self,tbl)
+function Bare.expand(self,tbl)
    local t = {}
    for k in pairsByKeys(tbl) do
       local v = tbl[k]:expand()
@@ -18,3 +16,5 @@ function expand(self,tbl)
    end
    io.stderr:write(table.concat(t,"\n"),"\n")
 end
+
+return Bare

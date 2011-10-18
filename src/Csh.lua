@@ -1,12 +1,11 @@
 -- -*- lua -*-
 
 require("strict")
-require("base64")
 require("pairsByKeys")
-require("Dbg")
 
 local BaseShell   = BaseShell
-local Dbg         = Dbg
+local Dbg         = require("Dbg")
+local base64      = require("base64")
 local concat      = table.concat
 local decode64    = base64.decode64
 local encode64    = base64.encode64
@@ -23,7 +22,7 @@ Csh	    = inheritsFrom(BaseShell)
 Csh.my_name = 'csh'
 
 
-module("Csh")
+-- module("Csh")
 
 local function expandMT(vv)
    local v       = encode64(vv)
@@ -49,7 +48,7 @@ local function expandMT(vv)
    end
 end
 
-function expand(self,tbl)
+function Csh.expand(self,tbl)
    local dbg  = Dbg:dbg()
    for k in pairsByKeys(tbl) do
       local v, vType = tbl[k]:expand()
@@ -84,3 +83,5 @@ function expand(self,tbl)
       end
    end
 end
+
+return Csh

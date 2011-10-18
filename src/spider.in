@@ -20,7 +20,8 @@ function LmodMessage()
 end
 
 require("border")
-require("Spider")
+local BeautifulTbl = require("BeautifulTbl")
+local Spider       = require("Spider")
 require("Optiks")
 require("serialize")
 require("pairsByKeys")

@@ -21,8 +21,9 @@ ancient       = "@ancient@"
 shortTime     = "@short_time@"
 ancient       = tonumber(ancient)   or 86400
 shortTime     = tonumber(shortTime) or 2.0
-   
-
+MT            = {}
+Master        = {}
+BaseShell     = {}
 ------------------------------------------------------------------------
 -- Extract directory location of "lmod" command and add it
 -- to the lua search path
@@ -40,10 +41,11 @@ local getenv = os.getenv
 local rep    = string.rep
 
 require("strict")
-require("Dbg")
 require("capture")
 require("firstInPath")
 require("Show")
+local Dbg     = require("Dbg")
+local Version = require("Version")
 
 Usage = [[
 module sub-command [args ...]
@@ -147,16 +149,19 @@ end
 
 require("border")
 require("lfs")
-require("BaseShell")
-require("ColumnTable")
-require("Options")
+
 require("serialize")
 require("fileOps")
 require("posix")
-require("ModuleStack")
 require("string_split")
-require("BeautifulTbl")
-require("Spider")
+BaseShell = require("BaseShell")
+local ColumnTable  = require("ColumnTable")
+local BeautifulTbl = require("BeautifulTbl")
+local ModuleStack  = require("ModuleStack")
+local Spider       = require("Spider")
+local Var          = require("Var")
+
+local Options = require("Options")
 
 function myFileName()
    return _MyFileName
@@ -1132,8 +1137,8 @@ function expert()
    return __expert
 end
 
-require("Master")
-require("MT")
+Master = require("Master")
+MT     = require("MT")
 
 function main()
    local loadTbl      = { name = "load",        checkMPATH = true,  cmd = UsrLoad     }

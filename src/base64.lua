@@ -9,10 +9,12 @@
 local floor  = math.floor
 local string = string
 
-base64 = {}
+local M = {}
 require("strict")
 
-module("base64")
+
+
+--module("base64")
 
 local function lsh(value,shift)
    return (value*(2^shift)) % 256
@@ -30,7 +32,7 @@ end
 
 -- logic OR for number values
 local function lor(x,y)
-   result = 0
+   local result = 0
    for p=1,8 do result = result + (((bit(x,p) or bit(y,p)) == true) and 2^(p-1) or 0) end
    return result
 end
@@ -46,7 +48,7 @@ local base64chars = {[0]='A',[1]='B',[2]='C',[3]='D',[4]='E',[5]='F',[6]='G',[7]
 
 -- function encode
 -- encodes input string to base64.
-function encode64(data)
+function M.encode64(data)
    local bytes = {}
    local result = ""
    for spos=0,string.len(data)-1,3 do
@@ -73,7 +75,7 @@ local base64bytes = {['A']=0,['B']=1,['C']=2,['D']=3,['E']=4,['F']=5,['G']=6,['H
 
 -- function decode
 -- decode base64 input to string
-function decode64(data)
+function M.decode64(data)
    local chars = {}
    local result=""
    for dpos=0,string.len(data)-1,4 do
@@ -87,3 +89,5 @@ function decode64(data)
    end
    return result
 end
+
+return M

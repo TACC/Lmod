@@ -1,11 +1,9 @@
 require("strict")
-require("Dbg")
 require("fileOps")
 
-InheritTmpl = { }
-
-local MT           = require("MT")
-local Dbg          = Dbg
+local M            = {}
+local MT           = MT
+local Dbg          = require("Dbg")
 local lfs          = require("lfs")
 local ipairs       = ipairs
 local next         = next
@@ -13,9 +11,11 @@ local pathJoin     = pathJoin
 local posix        = require('posix')
 local remove       = table.remove
 local setmetatable = setmetatable
+local systemG      = _G
 local tostring     = tostring
 
-module("InheritTmpl")
+
+--module("InheritTmpl")
 
 s_inheritTmpl = {}
 
@@ -27,16 +27,17 @@ local function new(self)
    return o
 end
 
-function inheritTmpl(self)
+function M.inheritTmpl(self)
    if (next(s_inheritTmpl) == nil) then
       s_inheritTmpl = new(self)
+      MT            = systemG.MT
    end
    return s_inheritTmpl
 end
 
 local searchTbl = {'.lua',''}
 
-function find_module_file(fullModuleName, oldFn)
+function M.find_module_file(fullModuleName, oldFn)
    local dbg      = Dbg:dbg()
    dbg.start("InheritTmpl:find_module_file(",fullModuleName,",",oldFn, ")")
 
@@ -101,3 +102,5 @@ function find_module_file(fullModuleName, oldFn)
    dbg.fini()
    return t
 end
+
+return M

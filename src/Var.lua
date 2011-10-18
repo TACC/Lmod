@@ -15,9 +15,11 @@ local setmetatable = setmetatable
 local systemG      = _G
 local table        = table
 local type         = type
-Var = {}
 
-module("Var")
+
+--module("Var")
+
+local M = {}
 
 local function extract(self)
    local myValue = self.value or os.getenv(self.name) or ""
@@ -54,7 +56,7 @@ local function extract(self)
    self.export = true
 end
 
-function new(self, name, value)
+function M.new(self, name, value)
    local o = {}
    setmetatable(o,self)
    self.__index = self
@@ -64,7 +66,7 @@ function new(self, name, value)
    return o
 end
 
-function prt(self,title)
+function M.prt(self,title)
    local dbg = Dbg:dbg()
    dbg.print (title,"\n")
    dbg.print ('name:', self.name,"\n")
@@ -95,7 +97,7 @@ local function regularize(value)
 end
 
 
-function append(self,value)
+function M.append(self,value)
    if (value == nil) then return end
    for v in value:split(":") do
       v           = regularize(v)
@@ -107,7 +109,7 @@ function append(self,value)
    setenv(self.name, self:expand(), true)
 end
 
-function remove(self,value)
+function M.remove(self,value)
    if (value == nil) then return end
    for v in value:split(":") do
       v = regularize(v)
@@ -119,7 +121,7 @@ function remove(self,value)
    setenv(self.name, self:expand(), true)
 end
 
-function prepend(self,value)
+function M.prepend(self,value)
    if (value == nil) then return end
    for v in value:split(":") do
       v           = regularize(v)
@@ -130,43 +132,43 @@ function prepend(self,value)
    setenv(self.name, self:expand(), true)
 end
 
-function set(self,value)
+function M.set(self,value)
    self.value = value
    self.type  = 'var'
    setenv(self.name, value, true)
 end
 
-function unset(self)
+function M.unset(self)
    self.value = ''
    self.type  = 'var'
    setenv(self.name, nil, true)
 end
 
-function setLocal(self,value)
+function M.setLocal(self,value)
    self.value = value
    self.type  = 'local_var'
 end
 
-function unsetLocal(self,value)
+function M.unsetLocal(self,value)
    self.value = ''
    self.type  = 'local_var'
 end
 
-function setAlias(self,value)
+function M.setAlias(self,value)
    self.value = value
    self.type  = 'alias'
 end
 
-function unsetAlias(self,value)
+function M.unsetAlias(self,value)
    self.value = ''
    self.type  = 'alias'
 end
 
-function myType(self)
+function M.myType(self)
    return self.type
 end
 
-function expand(self)
+function M.expand(self)
    if (self.type ~= 'path') then
       return self.value, self.type
    end
@@ -203,3 +205,5 @@ function expand(self)
    end
    return pathStr, self.type
 end
+
+return M

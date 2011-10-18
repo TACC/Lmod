@@ -17,7 +17,7 @@ function LmodError()
 end
 
 require("border")
-require("Spider")
+local Spider = require("Spider")
 require("Optiks")
 require("VarDump")
 

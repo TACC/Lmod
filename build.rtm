@@ -1,6 +1,6 @@
 #!/bin/bash
 # -*- shell-script -*-
-VERSION=`lua -l src/Version -e "print(Version.name())" | awk '{print $1}'` 
+VERSION=`(cd src; lua -e "local Version=require('Version'); print(Version.name())") | awk '{print $1}'` 
 echo Making Version: $VERSION
 
 host=$(expr $(hostname) : "\([^.][^.]*\)")
