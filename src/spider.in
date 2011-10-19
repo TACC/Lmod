@@ -26,7 +26,7 @@ local BeautifulTbl = require("BeautifulTbl")
 local Dbg          = require("Dbg")
 local Optiks       = require("Optiks")
 local Spider       = require("Spider")
-local concatTbl = table.concat
+local concatTbl    = table.concat
 
 
 function flip(a,t, tbl)
