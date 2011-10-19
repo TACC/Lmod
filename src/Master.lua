@@ -35,7 +35,6 @@ local unloadsys          = unloadsys
 local expert             = expert
 local removeEntry        = table.remove
 
-require('lfs')
 
 require("fileOps")
 require("string_trim")
@@ -52,7 +51,7 @@ local abspath      = abspath
 local extname      = extname
 --local fillWords    = 
 local isFile       = isFile
-local lfs          = lfs
+local lfs          = require('lfs')
 local pathJoin     = pathJoin
 local posix        = require("posix")
 

@@ -1,6 +1,5 @@
 -- -*- lua -*-
 require("strict")
-require("Dbg")
 
 Bash              = inheritsFrom(BaseShell)
 Bash.my_name      = "bash"

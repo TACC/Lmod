@@ -5,13 +5,13 @@
 
 require("strict")
 require("fileOps")
-require("Optiks")
-require("lfs")
 require("string_split")
 
+local Optiks    = require("Optiks")
 local concatTbl = table.concat
-local mod       = math.mod
 local floor     = math.floor
+local lfs       = require("lfs")
+local mod       = math.mod
 
 function main()
    local optionTbl = options()

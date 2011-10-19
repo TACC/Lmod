@@ -148,11 +148,9 @@ end
 
 
 require("border")
-require("lfs")
 
 require("serialize")
 require("fileOps")
-require("posix")
 require("string_split")
 BaseShell = require("BaseShell")
 local ColumnTable  = require("ColumnTable")
@@ -160,6 +158,8 @@ local BeautifulTbl = require("BeautifulTbl")
 local ModuleStack  = require("ModuleStack")
 local Spider       = require("Spider")
 local Var          = require("Var")
+local lfs          = require("lfs")
+local posix        = require("posix")
 
 local Options = require("Options")
 

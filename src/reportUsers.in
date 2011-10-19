@@ -10,8 +10,8 @@ end
 package.path = cmd_dir .. "?.lua;" .. package.path
 
 require("string_split")
-require("Optiks")
 require("pairsByKeys")
+local Optiks = require("Optiks")
 
 blacklistT = {
    abenitez  = 1,

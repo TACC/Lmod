@@ -14,10 +14,10 @@
 
 require("strict")
 require("string_split")
-require("Optiks")
 require("fileOps")
 require("pairsByKeys")
 
+local Optiks = require("Optiks")
 local master = {}
 
 function masterTbl()

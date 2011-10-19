@@ -1,7 +1,6 @@
 require("strict")
 require("string_split")
 require("pairsByKeys")
-require("posix")
 local Dbg          = require("Dbg")
 local ModulePath   = ModulePath
 local io           = io
@@ -10,6 +9,7 @@ local os           = os
 local pairs        = pairs
 local pairsByKeys  = pairsByKeys
 local print        = print
+local posix        = require("posix")
 local setenv       = posix.setenv
 local setmetatable = setmetatable
 local systemG      = _G

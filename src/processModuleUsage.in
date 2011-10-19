@@ -18,7 +18,7 @@ end
 
 require("border")
 local Spider = require("Spider")
-require("Optiks")
+local Optiks = require("Optiks")
 require("VarDump")
 
 min = math.min

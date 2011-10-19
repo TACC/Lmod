@@ -34,8 +34,6 @@ local Set          = Set
 require("string_split")
 require("fileOps")
 require("serialize")
-require("posix")
-
 
 local serializeSys = serialize 
 local Mlist        = require("Mlist")

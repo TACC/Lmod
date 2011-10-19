@@ -3,8 +3,6 @@ require("strict")
 require("string_split")
 require("fileOps")
 require("fillWords")
-require("lfs")
-require("posix")
 require("capture")
 require("pairsByKeys")
 
@@ -22,14 +20,14 @@ local extname     = extname
 local fillWords   = fillWords
 local io          = io
 local ipairs      = ipairs
-local lfs         = lfs
+local lfs         = require("lfs")
 local loadfile    = loadfile
 local loadstring  = loadstring
 local next        = next
 local pairs       = pairs
 local pairsByKeys = pairsByKeys 
 local pathJoin    = pathJoin
-local posix       = posix
+local posix       = require("posix")
 local print       = print
 local os          = os
 local systemG     = _G

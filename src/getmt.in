@@ -7,22 +7,21 @@
 --
 require("strict")
 require("fileOps")
-require("Optiks")
 require("serialize")
-require("lfs")
 require("sys")
 require("capture")
 
-local cmd = abspath(arg[0])
-local i,j = cmd:find(".*/")
+local Optiks  = require("Optiks")
+local lfs     = require("lfs")
+local cmd     = abspath(arg[0])
+local i,j     = cmd:find(".*/")
 local cmd_dir = "./"
 if (i) then
    cmd_dir = cmd:sub(1,j)
 end
 package.path = cmd_dir .. '?.lua;' .. package.path
 
-require("base64")
-
+local base64       = require("base64")
 local concat       = table.concat
 local decode64     = base64.decode64
 local format       = string.format
