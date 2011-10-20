@@ -6,7 +6,7 @@ MODULEPATH_ROOT := @MODULEPATH_ROOT@
 VERSION_SRC	:= src/Version.lua
 prefix		:= @prefix@
 package		:= lmod
-version		:= $(shell cd src; $(PATH_TO_LUA)/lua -e "local Version=require('Version'); print(Version.name())" | awk '{print $$1}')
+version		:= $(shell cd ./src; $(PATH_TO_LUA)/lua -e "local Version=require('Version'); print(Version.name())" | awk '{print $$1}')
 PKG		:= $(prefix)/$(package)/$(package)
 LIBEXEC		:= $(prefix)/$(package)/$(version)/libexec
 INIT		:= $(prefix)/$(package)/$(version)/init
