@@ -1238,7 +1238,7 @@ function main()
       UnLoadTbl[k] = unTbl[k]
    end
 
-   local shell = arg[1]
+   local shell = barefilename(arg[1])
    table.remove(arg,1)
 
 
