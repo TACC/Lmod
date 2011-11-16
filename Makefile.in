@@ -51,8 +51,8 @@ all:
 	@echo done
 
 install: $(DIRLIST) shell_init startup libexec other_tools
-	$(RM) $(PKG)
-	ln -s $(version) $(PKG)
+	$(RM) $(DESTDIR)$(PKG)
+	ln -s $(version) $(DESTDIR)$(PKG)
 
 echo:
 	@echo Version: $(version)
