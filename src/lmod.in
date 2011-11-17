@@ -814,10 +814,19 @@ function Load(...)
       local t       = {}
       readAdmin()
       for _, moduleName in ipairs{...} do
-         local moduleFn = mt:fileNameActive(moduleName)
-         local message  = adminT[moduleFn]
+         local moduleFn  = mt:fileNameActive(moduleName)
+         local modFullNm = mt:modFullNameActive(moduleName)
+         local message
+         local key       
+         if (adminT[moduleFn]) then
+            message = adminT[moduleFn]
+            key     = moduleFn
+         elseif (adminT[modFullNm]) then
+            message = adminT[modFullNm]
+            key     = modFullNm
+         end
          if (message) then
-            t[moduleFn] = message
+            t[key] = message
          end
       end
 
