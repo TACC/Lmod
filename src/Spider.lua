@@ -655,8 +655,10 @@ function M.Level2(t, mname)
          elseif (haveHier) then
             aType = "Hier"
          end
-         a[titleIdx] = availT[aType] or "I fucked up"
-         a[ia] = "\n"  -- Remove final comma
+         a[titleIdx] = availT[aType]
+         if (titleIdx ~= ia) then
+            a[ia] = "\n"  -- Remove final comma
+         end
       end
    end
 
