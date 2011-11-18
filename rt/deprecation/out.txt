@@ -1,0 +1,49 @@
+===========================
+step 1
+===========================
+unset 'LMOD_DEFAULT_MODULEPATH';
+unset 'MODULEPATH';
+LMOD_DEFAULT_MODULEPATH='~/w/lmod/mf/Core';
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH='~/w/lmod/mf/Core';
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={active={Dict={},FN={},Loaded={},default={},fullModName={},mType={},},baseMpathA={"~/w/lmod/mf/Core",},family={},inactive={},mpathA={"~/w/lmod/mf/Core",},total={Dict={},FN={},Loaded={},default={},fullModName={},mType={},},["version"]=1,}';
+export _ModuleTable_;
+===========================
+step 2
+===========================
+LMOD_DEFAULT_MODULEPATH='~/w/lmod/mf/Core';
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH='~/w/lmod/mf/Core';
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH='~/w/lmod/mf/Core';
+export LMOD_DEFAULT_MODULEPATH;
+LMOD_FAMILY_COMPILER='gcc';
+export LMOD_FAMILY_COMPILER;
+MODULEPATH='~/w/lmod/mf/Compiler/gcc/4.2.3:~/w/lmod/mf/Core';
+export MODULEPATH;
+TACC_FAMILY_COMPILER='gcc';
+export TACC_FAMILY_COMPILER;
+_ModuleTable_='_ModuleTable_={active={Dict={["gcc"]=1,},FN={"~/w/lmod/mf/Core/gcc/4.2.3.lua",},Loaded={"gcc",},default={1,},fullModName={"gcc/4.2.3",},mType={"w",},},baseMpathA={"~/w/lmod/mf/Core",},family={["compiler"]="gcc",},inactive={},mpathA={"~/w/lmod/mf/Compiler/gcc/4.2.3","~/w/lmod/mf/Core",},total={Dict={["gcc"]=1,},FN={"~/w/lmod/mf/Core/gcc/4.2.3.lua",},Loaded={"gcc",},default={1,},fullModName={"gcc/4.2.3",},mType={"w",},},["version"]=1,}';
+export _ModuleTable_;
+===========================
+step 3
+===========================
+LMOD_DEFAULT_MODULEPATH='~/w/lmod/mf/Core';
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH='~/w/lmod/mf/Compiler/gcc/4.2.3:~/w/lmod/mf/Core';
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH='~/w/lmod/mf/Core';
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH='~/w/lmod/mf/Compiler/gcc/4.2.3:~/w/lmod/mf/Core';
+export MODULEPATH;
+PATH='/opt/apps/git/1.7.4.3/bin:~/w/lmod/src:PATH_to_LUA:PATH_to_TM:/usr/bin:/bin';
+export PATH;
+TACC_GIT_BIN='/opt/apps/git/1.7.4.3/bin';
+export TACC_GIT_BIN;
+TACC_GIT_DIR='/opt/apps/git/1.7.4.3/';
+export TACC_GIT_DIR;
+TACC_GIT_LIB='/opt/apps/git/1.7.4.3/lib';
+export TACC_GIT_LIB;
+_ModuleTable_='_ModuleTable_={active={Dict={["gcc"]=1,["git"]=2,},FN={"~/w/lmod/mf/Core/gcc/4.2.3.lua","~/w/lmod/mf/Core/git/1.7.4.3.lua",},Loaded={"gcc","git",},default={1,0,},fullModName={"gcc/4.2.3","git/1.7.4.3",},mType={"w","w",},},baseMpathA={"~/w/lmod/mf/Core",},family={["compiler"]="gcc",},inactive={},mpathA={"~/w/lmod/mf/Compiler/gcc/4.2.3","~/w/lmod/mf/Core",},total={Dict={["gcc"]=1,["git"]=2,},FN={"~/w/lmod/mf/Core/gcc/4.2.3.lua","~/w/lmod/mf/Core/git/1.7.4.3.lua",},Loaded={"gcc","git",},default={1,0,},fullModName={"gcc/4.2.3","git/1.7.4.3",},mType={"w","w",},},["version"]=1,}';
+export _ModuleTable_;

@@ -357,6 +357,8 @@ function M.findAllModules(moduleDirA, moduleT)
 end
 
 function M.buildSpiderDB(a, moduleT, dbT)
+   local dbg = Dbg:dbg()
+   dbg.start("buildSpiderDB({",concatTbl(a,","),"},moduleT, dbT)")
    for path, value in pairs(moduleT) do
       local name = value.name
       if (dbT[name] == nil) then
@@ -373,12 +375,14 @@ function M.buildSpiderDB(a, moduleT, dbT)
          end
       end
       t[path].parent = concatTbl(a,":")
+      dbg.print("path:",tostring(path)," t[path].parent: ",t[path].parent,"\n")
       if (next(value.children)) then
          a[#a+1] = t[path].full
          M.buildSpiderDB(a, value.children, dbT)
          a[#a]   = nil
       end
    end
+   dbg.fini()
 end
 
 function M.searchSpiderDB(strA, a, moduleT, dbT)
@@ -599,10 +603,20 @@ function M.Level2(t, mname)
    dbg.start("Level2(t,\"",mname,"\")")
    local a  = {}
    local ia = 0
+   local titleIdx = 0
    
    local term_width = tonumber(capture("tput cols") or "80") - 4
    local tt = nil
    local banner = border(2)
+   local availT = {
+      Core = "\n    This module can be loaded directly.\n",
+      Hier = "\n    This module can only be loaded through the following modules:\n",
+      Both = "\n    This module can be loaded directly.\n" ..
+             "\n    This module can be also loaded through the following modules:\n",
+   }
+   local haveCore = false
+   local haveHier = false
+      
 
    for k,v in pairs(t) do
       if (v.full == mname) then
@@ -619,11 +633,15 @@ function M.Level2(t, mname)
                ia = ia + 1; a[ia] = fillWords("      ",tt.Description, term_width)
                ia = ia + 1; a[ia] = "\n"
             end
-            
-            ia = ia + 1; a[ia] = "\n    This module can only be loaded through the following modules:\n"
+            ia = ia + 1; a[ia] = "Avail Title goes here.  This should never be seen\n"
+            titleIdx = ia
          end
+         dbg.print("mname: ",mname," v.parent: ",v.parent,"\n")
          if (v.parent ~= "default") then
             ia = ia + 1; a[ia] = "      "
+            haveHier = true
+         else
+            haveCore = true
          end
          for s in v.parent:split(":") do
             if (s ~= "default") then
@@ -631,6 +649,13 @@ function M.Level2(t, mname)
                ia = ia + 1; a[ia] = ', '
             end
          end
+         local aType = "Core"
+         if (haveHier and haveCore) then
+            aType = "Both"
+         elseif (haveHier) then
+            aType = "Hier"
+         end
+         a[titleIdx] = availT[aType] or "I fucked up"
          a[ia] = "\n"  -- Remove final comma
       end
    end

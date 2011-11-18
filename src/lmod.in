@@ -223,7 +223,7 @@ function readAdmin()
    -- this routine has already read in the file.
    if (next (adminT)) then return end
 
-   local adminFn = pathJoin(cmdDir(),"../../etc/admin.list")
+   local adminFn = os.getenv("LMOD_ADMIN_FILE") or pathJoin(cmdDir(),"../../etc/admin.list")
    local f       = io.open(adminFn)
 
    -- Put something in adminT so that this routine will not be
@@ -814,8 +814,8 @@ function Load(...)
       local t       = {}
       readAdmin()
       for _, moduleName in ipairs{...} do
-         local moduleFn  = mt:fileNameActive(moduleName)
-         local modFullNm = mt:modFullNameActive(moduleName)
+         local moduleFn     = mt:fileNameActive(moduleName)
+         local _, modFullNm = mt:modFullNameActive(moduleName)
          local message
          local key       
          if (adminT[moduleFn]) then
@@ -825,6 +825,7 @@ function Load(...)
             message = adminT[modFullNm]
             key     = modFullNm
          end
+
          if (message) then
             t[key] = message
          end

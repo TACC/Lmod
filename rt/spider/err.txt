@@ -42,8 +42,20 @@ step 4
 ===========================
 step 5
 ===========================
-Unable to find: "mpich2me"
+  parmetis: parmetis/3.1
+    Description:
+      Parallel graph partitioning and fill-reduction matrix ordering 
+      routines 
+    This module can be loaded directly.
+    This module can be also loaded through the following modules:
+      intel/intel, mpich2/1.0.7
+      gcc/4.2.3, openmpi/1.2.6
+      intel/intel, openmpi/1.2.6
 ===========================
 step 6
+===========================
+Unable to find: "mpich2me"
+===========================
+step 7
 ===========================
 Error: Unable to find: "mpich2/1.0.5"
