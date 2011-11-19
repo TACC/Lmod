@@ -17,4 +17,5 @@ talk.pdf
 *.fdb_latexmk
 auto
 *.tar.gz
+*.tar.bz2
 *.tgz
