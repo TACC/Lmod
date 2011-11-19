@@ -273,8 +273,8 @@ function M.unload(...)
 
    for _, moduleName in ipairs{...} do
       if (mt:haveModuleAnyActive(moduleName)) then
-         local f                 = mt:fileNameActive(moduleName)
-         local _, fullModuleName = mt:modFullNameActive(moduleName)
+         local f              = mt:fileNameActive(moduleName)
+         local fullModuleName = mt:modFullNameActive(moduleName)
          dbg.print("Master:unload: \"",fullModuleName,"\" from f: ",f,"\n")
          mt:beginOP()
          mt:removeActive(moduleName)
@@ -320,7 +320,7 @@ end
 local function access_find_module_file(moduleName)
    local mt = MT:mt()
    if (mt:haveModuleTotal(moduleName)) then
-      local _, full = mt:modFullNameTotal(moduleName) 
+      local full = mt:modFullNameTotal(moduleName) 
       return mt:fileNameTotal(moduleName), full or ""
    end
    local fn   = nil
@@ -443,9 +443,9 @@ function M.reloadAll()
    local a    = mt:listTotal()
    for _, v in ipairs(a) do
       if (mt:haveModuleActive(v)) then
-         local fullName = mt:modFullNameTotal(v)
-         local t        = find_module_file(fullName)
-         local fn       = mt:fileNameTotal(v)
+         local _, fullName = mt:modFullNameTotal(v)
+         local t           = find_module_file(fullName)
+         local fn          = mt:fileNameTotal(v)
          if (t.fn ~= fn) then
             dbg.print("Master:reloadAll t.fn: \"",t.fn or "nil","\"",
                       " mt:fileNameTotal(v): \"",fn or "nil","\"\n")
@@ -462,8 +462,8 @@ function M.reloadAll()
             end
          end
       else
-         local fn       = mt:fileNameTotal(v)
-         local fullName = mt:modFullNameTotal(v)
+         local fn          = mt:fileNameTotal(v)
+         local _, fullName = mt:modFullNameTotal(v)
          dbg.print("Master:reloadAll Loading module: \"",fullName or "nil","\"\n")
          local aa = Load(fullName)
          if (aa[1] and fn ~= mt:fileNameTotal(v)) then

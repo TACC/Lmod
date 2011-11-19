@@ -15,14 +15,14 @@ Currently Loaded Modules:
   1) admin/admin-1.0  3) local/local  5) PrgEnv
   2) unix/unix        4) noweb/2.10c  6) parmetis/3.1
 Inactive Modules:
-  1) openmpi
+  1) openmpi/1.2.6
 ===========================
 step 4
 ===========================
 Activating Modules:
-  1) openmpi
+  1) openmpi/1.2.6
 Due to MODULEPATH changes the following modules have been reloaded:
-  1) parmetis
+  1) openmpi  2) parmetis
 ===========================
 step 5
 ===========================

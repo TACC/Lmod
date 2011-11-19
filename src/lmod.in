@@ -320,7 +320,7 @@ local function List()
    local t = {}
    local activeA = mt:listActive()
    for i,v  in ipairs(activeA) do
-      local ww, w = mt:modFullNameActive(v)
+      local w = mt:modFullNameActive(v)
       t[#t + 1]	= "  " .. i .. ") " .. w
    end
 
@@ -350,7 +350,7 @@ local function TableList()
    local t = {}
    local activeA = mt:listActive()
    for i,v  in ipairs(activeA) do
-      local ww, w = mt:modFullNameActive(v)
+      local w = mt:modFullNameActive(v)
       local _, _, name, version = w:find("([^/]*)/?(.*)")
       t[name] = version
    end
@@ -814,8 +814,8 @@ function Load(...)
       local t       = {}
       readAdmin()
       for _, moduleName in ipairs{...} do
-         local moduleFn     = mt:fileNameActive(moduleName)
-         local _, modFullNm = mt:modFullNameActive(moduleName)
+         local moduleFn  = mt:fileNameActive(moduleName)
+         local modFullNm = mt:modFullNameActive(moduleName)
          local message
          local key       
          if (adminT[moduleFn]) then

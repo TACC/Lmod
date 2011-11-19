@@ -197,7 +197,7 @@ function M.getMTfromFile(self,fn)
       if (isDefault) then
          t[v] = l_mt.active:getHashSum(v)
       else
-         v    = l_mt:modFullNameActive(v)
+         _, v = l_mt:modFullNameActive(v)
          t[v] = l_mt.active:getHashSum(v)
       end
 
@@ -239,7 +239,7 @@ function M.getMTfromFile(self,fn)
       local isDefault = s_mt:defaultModuleActive(v)
       if (not isDefault) then
          local vv = v
-         v = s_mt:modFullNameActive(vv)
+         _, v = s_mt:modFullNameActive(vv)
       end
       if (not t[v]) then
          --dbg.print("  Did not find v:",v,"\n")
