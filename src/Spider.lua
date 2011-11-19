@@ -603,19 +603,21 @@ function M.Level2(t, mname)
    dbg.start("Level2(t,\"",mname,"\")")
    local a  = {}
    local ia = 0
+   local b  = {}
+   local c  = {}
    local titleIdx = 0
    
    local term_width = tonumber(capture("tput cols") or "80") - 4
    local tt = nil
    local banner = border(2)
    local availT = {
-      Core = "\n    This module can be loaded directly.\n",
-      Hier = "\n    This module can only be loaded through the following modules:\n",
-      Both = "\n    This module can be loaded directly.\n" ..
-             "\n    This module can be also loaded through the following modules:\n",
+      "\n    This module can be loaded directly.\n",
+      "\n    This module can only be loaded through the following modules:\n",
+      "\n    This module can be loaded directly.\n" ..
+        "\n    This module can be also loaded through the following modules:\n",
    }
-   local haveCore = false
-   local haveHier = false
+   local haveCore = 0
+   local haveHier = 0
       
 
    for k,v in pairs(t) do
@@ -638,29 +640,30 @@ function M.Level2(t, mname)
          end
          dbg.print("mname: ",mname," v.parent: ",v.parent,"\n")
          if (v.parent ~= "default") then
-            ia = ia + 1; a[ia] = "      "
-            haveHier = true
+            b[#b+1] = "      "
+            haveHier = 2
          else
-            haveCore = true
+            haveCore = 1
          end
          for s in v.parent:split(":") do
             if (s ~= "default") then
-               ia = ia + 1; a[ia] = s
-               ia = ia + 1; a[ia] = ', '
+               b[#b+1] = s
+               b[#b+1] = ', '
             end
          end
-         local aType = "Core"
-         if (haveHier and haveCore) then
-            aType = "Both"
-         elseif (haveHier) then
-            aType = "Hier"
-         end
-         a[titleIdx] = availT[aType]
-         if (titleIdx ~= ia) then
-            a[ia] = "\n"  -- Remove final comma
+         if (#b > 0) then
+            b[#b] = "\n" -- Remove final comma add newline instead
+            c[#c+1] = concatTbl(b,"")
+            b = {}
          end
       end
    end
+   a[titleIdx] = availT[haveCore+haveHier]
+   if (#c > 0) then
+      table.sort(c)
+      ia = ia + 1; a[ia] = concatTbl(c,"")
+   end
+      
 
    if (tt and tt.help ~= nil) then
       ia = ia + 1; a[ia] = "\n    Help:\n"

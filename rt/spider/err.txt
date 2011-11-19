@@ -48,8 +48,8 @@ step 5
       routines 
     This module can be loaded directly.
     This module can be also loaded through the following modules:
-      intel/intel, mpich2/1.0.7
       gcc/4.2.3, openmpi/1.2.6
+      intel/intel, mpich2/1.0.7
       intel/intel, openmpi/1.2.6
 ===========================
 step 6
