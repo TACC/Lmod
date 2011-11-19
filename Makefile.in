@@ -144,7 +144,10 @@ tags:
             -e 's|./TAGS||g'                                       \
             -e 's|./configure$$||g'                                \
             -e 's|.*.tar.gz$$||g'                                  \
-            -e 's|.*.tar.bz2$$||g'                                  \
+            -e 's|.*.tar.bz2$$||g'                                 \
+            -e 's|.*.csv$$||g'                                     \
+            -e 's|.*.pdf$$||g'                                     \
+            -e 's|.*.used$$||g'                                    \
             -e 's|./config.log$$||g'                               \
             -e 's|./testreports/.*||g'                             \
             -e 's|./config.status$$||g'                            \
