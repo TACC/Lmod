@@ -316,8 +316,15 @@ proc setenv { var val } {
     set g_varsT($var) $val
     cmdargs "setenv" $var $val
 }
-proc prepend-path { var val } {
-    cmdargs "prepend_path" $var $val
+proc prepend-path { var val args} {
+    if {[string match $var "-delim"] || [string match $var "-d"] || [string match $var "--delim"]} {
+        set separator $val
+        set var [lindex $args 0]
+        set val [lindex $args 1]
+        cmdargs "prepend_path" $var $val $separator
+    } else {
+        cmdargs "prepend_path" $var $val
+    }
 }
 proc set-alias { var val } {
     cmdargs "set_alias" $var $val
@@ -326,7 +333,14 @@ proc unset-alias { var } {
     cmdargs "unset_alias" $var 
 }
 proc append-path { var val } {
-    cmdargs "append_path" $var $val
+    if {[string match $var "-delim"] || [string match $var "-d"] || [string match $var "--delim"]} {
+        set separator $val
+        set var [lindex $args 0]
+        set val [lindex $args 1]
+        cmdargs "append_path" $var $val $separator
+    } else {
+        cmdargs "append_path" $var $val
+    }
 }
 proc cmdargs { cmd args } {
     foreach arg $args {

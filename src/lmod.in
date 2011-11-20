@@ -381,25 +381,29 @@ function Purge()
 end
 
 
-local function Prepend_path(name,value)
+local function Prepend_path(name,value,sep)
    local mStack = ModuleStack:moduleStack()
+   local dbg    = Dbg:dbg()
+   dbg.start("Prepend_path(\"",name,"\", \"",value,"\",\"",tostring(sep),"\")")
+   sep          = sep or ":"
 
    if (varTbl[name] == nil) then
-      varTbl[name] = Var:new(name)
+      varTbl[name] = Var:new(name, nil, sep)
    end
 
-   Dbg:dbg().print("Prepend_path(\"",name,"\", \"",value,"\")\n")
    varTbl[name]:prepend(value)
    mStack:setting()
+   dbg.fini()
 end
 
-local function Append_path(name,value)
+local function Append_path(name,value,sep)
    local mStack = ModuleStack:moduleStack()
+   sep          = sep or ":"
 
    if (varTbl[name] == nil) then
-      varTbl[name] = Var:new(name)
+      varTbl[name] = Var:new(name, nil, sep)
    end
-   Dbg:dbg().print("Append_path(\"",name,"\", \"",value,"\")\n")
+   Dbg:dbg().print("Append_path(\"",name,"\", \"",value,"\",\"",sep,"\")\n")
    varTbl[name]:append(value)
    mStack:setting()
 end
@@ -448,14 +452,15 @@ local function UnSetAlias(name,value)
    mStack:setting()
 end
 
-local function Remove_path(name,value)
+local function Remove_path(name,value,sep)
    local mStack = ModuleStack:moduleStack()
+   sep          = sep or ":"
    mStack:setting()
 
    if (varTbl[name] == nil) then
-      varTbl[name] = Var:new(name)
+      varTbl[name] = Var:new(name,nil, sep)
    end
-   Dbg:dbg().print("Remove_path(\"",name,"\", \"",value,"\")\n")
+   Dbg:dbg().print("Remove_path(\"",name,"\", \"",value,"\",\"",sep,"\")\n")
    varTbl[name]:remove(value)
 end
 

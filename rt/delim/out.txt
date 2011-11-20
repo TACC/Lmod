@@ -1,0 +1,117 @@
+===========================
+step 1
+===========================
+unset 'LMOD_DEFAULT_MODULEPATH';
+unset 'MODULEPATH';
+LMOD_DEFAULT_MODULEPATH='~/w/lmod/rt/delim/mf/Core';
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH='~/w/lmod/rt/delim/mf/Core';
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={active={Dict={},FN={},Loaded={},default={},fullModName={},mType={},},baseMpathA={"~/w/lmod/rt/delim/mf/Core",},family={},inactive={},mpathA={"~/w/lmod/rt/delim/mf/Core",},total={Dict={},FN={},Loaded={},default={},fullModName={},mType={},},["version"]=1,}';
+export _ModuleTable_;
+===========================
+step 2
+===========================
+LMOD_DEFAULT_MODULEPATH='~/w/lmod/rt/delim/mf/Core';
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH='~/w/lmod/rt/delim/mf/Core';
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH='~/w/lmod/rt/delim/mf/Core';
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH='~/w/lmod/rt/delim/mf/Core';
+export MODULEPATH;
+RTM_LUA_CPATH='/opt/apps/luaposix/luaposix/?.so';
+export RTM_LUA_CPATH;
+RTM_LUA_PATH='/opt/apps/luaposix/luaposix/?.lua;/opt/apps/luaposix/luaposix/?';
+export RTM_LUA_PATH;
+_ModuleTable_='_ModuleTable_={active={Dict={["luaposix"]=1,},FN={"~/w/lmod/rt/delim/mf/Core/luaposix/1.0.lua",},Loaded={"luaposix",},default={1,},fullModName={"luaposix/1.0",},mType={"w",},},baseMpathA={"~/w/lmod/rt/delim/mf/Core",},family={},inactive={},mpathA={"~/w/lmod/rt/delim/mf/Core",},total={Dict={["luaposix"]=1,},FN={"~/w/lmod/rt/delim/mf/Core/luaposix/1.0.lua",},Loaded={"luaposix",},default={1,},fullModName={"luaposix/1.0",},mType={"w",},},["version"]=1,}';
+export _ModuleTable_;
+===========================
+step 3
+===========================
+LMOD_DEFAULT_MODULEPATH='~/w/lmod/rt/delim/mf/Core';
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH='~/w/lmod/rt/delim/mf/Core';
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH='~/w/lmod/rt/delim/mf/Core';
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH='~/w/lmod/rt/delim/mf/Core';
+export MODULEPATH;
+unset 'RTM_LUA_CPATH';
+unset 'RTM_LUA_PATH';
+_ModuleTable_='_ModuleTable_={active={Dict={},FN={},Loaded={},default={},fullModName={},mType={},},baseMpathA={"~/w/lmod/rt/delim/mf/Core",},family={},inactive={},mpathA={"~/w/lmod/rt/delim/mf/Core",},total={Dict={},FN={},Loaded={},default={},fullModName={},mType={},},["version"]=1,}';
+export _ModuleTable_;
+===========================
+step 4
+===========================
+LMOD_DEFAULT_MODULEPATH='~/w/lmod/rt/delim/mf/Core';
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH='~/w/lmod/rt/delim/mf/Core';
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH='~/w/lmod/rt/delim/mf/Core';
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH='~/w/lmod/rt/delim/mf/Core';
+export MODULEPATH;
+RTM_LUA_CPATH=';;';
+export RTM_LUA_CPATH;
+RTM_LUA_PATH=';;';
+export RTM_LUA_PATH;
+_ModuleTable_='_ModuleTable_={active={Dict={["luaInit"]=1,},FN={"~/w/lmod/rt/delim/mf/Core/luaInit/5.1.4.lua",},Loaded={"luaInit",},default={1,},fullModName={"luaInit/5.1.4",},mType={"w",},},baseMpathA={"~/w/lmod/rt/delim/mf/Core",},family={},inactive={},mpathA={"~/w/lmod/rt/delim/mf/Core",},total={Dict={["luaInit"]=1,},FN={"~/w/lmod/rt/delim/mf/Core/luaInit/5.1.4.lua",},Loaded={"luaInit",},default={1,},fullModName={"luaInit/5.1.4",},mType={"w",},},["version"]=1,}';
+export _ModuleTable_;
+===========================
+step 5
+===========================
+LMOD_DEFAULT_MODULEPATH='~/w/lmod/rt/delim/mf/Core';
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH='~/w/lmod/rt/delim/mf/Core';
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH='~/w/lmod/rt/delim/mf/Core';
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH='~/w/lmod/rt/delim/mf/Core';
+export MODULEPATH;
+RTM_LUA_CPATH='/opt/apps/luaposix/luaposix/?.so;;';
+export RTM_LUA_CPATH;
+RTM_LUA_PATH='/opt/apps/luaposix/luaposix/?.lua;/opt/apps/luaposix/luaposix/?;;';
+export RTM_LUA_PATH;
+_ModuleTable_='_ModuleTable_={active={Dict={["luaInit"]=1,["luaposix"]=2,},FN={"~/w/lmod/rt/delim/mf/Core/luaInit/5.1.4.lua","~/w/lmod/rt/delim/mf/Core/luaposix/1.0.lua",},Loaded={"luaInit","luaposix",},default={1,1,},fullModName={"luaInit/5.1.4","luaposix/1.0",},mType={"w","w",},},baseMpathA={"~/w/lmod/rt/delim/mf/Core",},family={},inactive={},mpathA={"~/w/lmod/rt/delim/mf/Core",},total={Dict={["luaInit"]=1,["luaposix"]=2,},FN={"~/w/lmod/rt/delim/mf/Core/luaInit/5.1.4.lua","~/w/lmod/rt/delim/mf/Core/luaposix/1.0.lua",},Loaded={"luaInit","luaposix",},default={1,1,},fullModName={"luaInit/5.1.4","luaposix/1.0",},mType={"w","w",},},["version"]=1,}';
+export _ModuleTable_;
+===========================
+step 6
+===========================
+LMOD_DEFAULT_MODULEPATH='~/w/lmod/rt/delim/mf/Core';
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH='~/w/lmod/rt/delim/mf/Core';
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH='~/w/lmod/rt/delim/mf/Core';
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH='~/w/lmod/rt/delim/mf/Core';
+export MODULEPATH;
+===========================
+step 7
+===========================
+LMOD_DEFAULT_MODULEPATH='~/w/lmod/rt/delim/mf/Core';
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH='~/w/lmod/rt/delim/mf/Core';
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH='~/w/lmod/rt/delim/mf/Core';
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH='~/w/lmod/rt/delim/mf/Core';
+export MODULEPATH;
+RTM_LUA_CPATH=';;';
+export RTM_LUA_CPATH;
+RTM_LUA_PATH=';;';
+export RTM_LUA_PATH;
+_ModuleTable_='_ModuleTable_={active={Dict={},FN={},Loaded={},default={},fullModName={},mType={},},baseMpathA={"~/w/lmod/rt/delim/mf/Core",},family={},inactive={},mpathA={"~/w/lmod/rt/delim/mf/Core",},total={Dict={},FN={},Loaded={},default={},fullModName={},mType={},},["version"]=1,}';
+export _ModuleTable_;
+===========================
+step 8
+===========================
+LMOD_DEFAULT_MODULEPATH='~/w/lmod/rt/delim/mf/Core';
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH='~/w/lmod/rt/delim/mf/Core';
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH='~/w/lmod/rt/delim/mf/Core';
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH='~/w/lmod/rt/delim/mf/Core';
+export MODULEPATH;
+false
