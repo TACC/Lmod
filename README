@@ -1,3 +1,11 @@
+Version 3.3.2
+
+This is a very minor bug fix.  Part of installation process ignored DESTDIR.  You only need to update if you
+are using this as part of a spec file to create an RPM.
+
+
+
+
 Version 3.3.1
 
 This version offers better a keyword search feature. The keyword search searches the entire whatis entries and reports
