@@ -17,7 +17,7 @@ step 5
 step 6
 ===========================
 Currently Loaded Modules:
-  1) luaInit/5.1.4  2) luaposix/1.0
+  1) init_lua/5.1.4  2) luaposix/1.0
 ===========================
 step 7
 ===========================

@@ -94,7 +94,7 @@ local function lastFileInDir(fn)
          local readable = posix.access(f,"r")
          if (readable and file:sub(1,1) ~= "." and attr.mode == 'file' and file:sub(-1,-1) ~= '~') then
             count = count + 1
-            local key = f:gsub(".lua$","")
+            local key = f:gsub("%.lua$","")
             if (key > lastKey) then
                lastKey   = key
                lastValue = f
@@ -174,7 +174,7 @@ local function find_module_file(moduleName)
             else
                extra = result
             end
-            extra    = extra:gsub(".lua$","")
+            extra    = extra:gsub("%.lua$","")
             fullName = moduleName .. extra
             break
          end
@@ -193,7 +193,7 @@ local function find_module_file(moduleName)
             found = true
             local i, j = result:find(mpath,1,true)
             fullName   = result:sub(j+2)
-            fullName   = fullName:gsub(".lua$","")
+            fullName   = fullName:gsub("%.lua$","")
          end
       end
       if (found) then break end
@@ -637,7 +637,7 @@ local function availDir(searchA, mpath, path, prefix, a)
          local readable = posix.access(f,"r")
 	 if (readable and (attr.mode == 'file' or attr.mode == 'link') and (file ~= "default")) then
             local n = prefix .. file
-            n = n:gsub(".lua","")
+            n = n:gsub("%.lua$","")
             local nn = n
             if (defaultModuleName == abspath(f,localDir)) then
                n = n .. ' (default)'

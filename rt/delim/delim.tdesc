@@ -36,10 +36,10 @@ testdescript = {
      runMe lua $(projectDir)/src/lmod.in bash use -a $testDir/mf/Core
      runMe lua $(projectDir)/src/lmod.in bash load    luaposix
      runMe lua $(projectDir)/src/lmod.in bash unload  luaposix
-     runMe lua $(projectDir)/src/lmod.in bash load    luaInit
+     runMe lua $(projectDir)/src/lmod.in bash load    init_lua
      runMe lua $(projectDir)/src/lmod.in bash load    luaposix
      runMe lua $(projectDir)/src/lmod.in bash list
-     runMe lua $(projectDir)/src/lmod.in bash unload  luaInit luaposix
+     runMe lua $(projectDir)/src/lmod.in bash unload  init_lua luaposix
      runMe lua $(projectDir)/src/lmod.in bash list
      
      
