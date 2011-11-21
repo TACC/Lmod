@@ -357,6 +357,8 @@ function M.findAllModules(moduleDirA, moduleT)
 end
 
 function M.buildSpiderDB(a, moduleT, dbT)
+   local dbg = Dbg:dbg()
+   dbg.start("buildSpiderDB({",concatTbl(a,","),"},moduleT, dbT)")
    for path, value in pairs(moduleT) do
       local name = value.name
       if (dbT[name] == nil) then
@@ -373,12 +375,14 @@ function M.buildSpiderDB(a, moduleT, dbT)
          end
       end
       t[path].parent = concatTbl(a,":")
+      dbg.print("path:",tostring(path)," t[path].parent: ",t[path].parent,"\n")
       if (next(value.children)) then
          a[#a+1] = t[path].full
          M.buildSpiderDB(a, value.children, dbT)
          a[#a]   = nil
       end
    end
+   dbg.fini()
 end
 
 function M.searchSpiderDB(strA, a, moduleT, dbT)
@@ -599,10 +603,22 @@ function M.Level2(t, mname)
    dbg.start("Level2(t,\"",mname,"\")")
    local a  = {}
    local ia = 0
+   local b  = {}
+   local c  = {}
+   local titleIdx = 0
    
    local term_width = tonumber(capture("tput cols") or "80") - 4
    local tt = nil
    local banner = border(2)
+   local availT = {
+      "\n    This module can be loaded directly.\n",
+      "\n    This module can only be loaded through the following modules:\n",
+      "\n    This module can be loaded directly.\n" ..
+        "\n    This module can be also loaded through the following modules:\n",
+   }
+   local haveCore = 0
+   local haveHier = 0
+      
 
    for k,v in pairs(t) do
       if (v.full == mname) then
@@ -619,21 +635,35 @@ function M.Level2(t, mname)
                ia = ia + 1; a[ia] = fillWords("      ",tt.Description, term_width)
                ia = ia + 1; a[ia] = "\n"
             end
-            
-            ia = ia + 1; a[ia] = "\n    This module can only be loaded through the following modules:\n"
+            ia = ia + 1; a[ia] = "Avail Title goes here.  This should never be seen\n"
+            titleIdx = ia
          end
+         dbg.print("mname: ",mname," v.parent: ",v.parent,"\n")
          if (v.parent ~= "default") then
-            ia = ia + 1; a[ia] = "      "
+            b[#b+1] = "      "
+            haveHier = 2
+         else
+            haveCore = 1
          end
          for s in v.parent:split(":") do
             if (s ~= "default") then
-               ia = ia + 1; a[ia] = s
-               ia = ia + 1; a[ia] = ', '
+               b[#b+1] = s
+               b[#b+1] = ', '
             end
          end
-         a[ia] = "\n"  -- Remove final comma
+         if (#b > 0) then
+            b[#b] = "\n" -- Remove final comma add newline instead
+            c[#c+1] = concatTbl(b,"")
+            b = {}
+         end
       end
    end
+   a[titleIdx] = availT[haveCore+haveHier]
+   if (#c > 0) then
+      table.sort(c)
+      ia = ia + 1; a[ia] = concatTbl(c,"")
+   end
+      
 
    if (tt and tt.help ~= nil) then
       ia = ia + 1; a[ia] = "\n    Help:\n"

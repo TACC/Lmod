@@ -64,7 +64,7 @@ function M.find_module_file(fullModuleName, oldFn)
    end
    local fn, result, rstripped
    local foundOld = false
-   local oldFn_stripped = oldFn:gsub(".lua","")
+   local oldFn_stripped = oldFn:gsub("%.lua$","")
 
    for ii, vv in ipairs(pathA) do
       local mpath  = vv.mpath
@@ -78,7 +78,7 @@ function M.find_module_file(fullModuleName, oldFn)
          dbg.print('(1) fn: ',fn," f: ",f,"\n")
          if (readable and attr and attr.mode == "file") then
             result = f
-            rstripped = result:gsub(".lua","")
+            rstripped = result:gsub("%.lua$","")
             break
          end
       end

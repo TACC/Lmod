@@ -77,7 +77,7 @@ function Bash.expand(self,tbl)
             stdout:write("alias ",k,"=\"",v,"\";\n")
             dbg.print(   "alias ",k,"=\"",v,"\";\n")
          end
-      elseif (v == '') then
+      elseif (v == "") then
 	 stdout:write("unset '",k,"';\n")
          dbg.print(   "unset '",k,"';\n")
       elseif (k == "_ModuleTable_") then

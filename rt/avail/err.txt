@@ -9,8 +9,8 @@ step 1
   git/1.7.4                    local/local (default)  
   git/1.7.4.3 (default)        multi/multi (default)  
   gotoblas/1.20                noweb/2.10c (default)  
-  gotoblas/1.26 (default)      unix/unix (default)  
-  gotoblas/1.30              
+  gotoblas/1.26 (default)      parmetis/3.1  
+  gotoblas/1.30                unix/unix (default)  
  ~/w/lmod/mf/Compiler/intel/10.1 
   gotoblas/1.31    gotoblas/1.33    openmpi/1.2.6  
   gotoblas/1.32    mpich2/1.0.7   
@@ -29,7 +29,7 @@ step 2
   gotoblas/1.20                junk/d/3.0  
   gotoblas/1.26 (default)      local/local (default)  
   gotoblas/1.30                multi/multi (default)  
-  intel/intel (default)      
+  intel/intel (default)        parmetis/3.1  
  ~/w/lmod/mf/Compiler/intel/10.1 
   gotoblas/1.31    gotoblas/1.33    openmpi/1.2.6  
   gotoblas/1.32    mpich2/1.0.7   
@@ -56,8 +56,8 @@ step 4
   git/1.7.4                    local/local (default)  
   git/1.7.4.3 (default)        multi/multi (default)  
   gotoblas/1.20                noweb/2.10c (default)  
-  gotoblas/1.26                unix/unix (default)  
-  gotoblas/1.30              
+  gotoblas/1.26                parmetis/3.1  
+  gotoblas/1.30                unix/unix (default)  
  ~/w/lmod/rt/avail/mf/Core 
   bar/1.4                  baz/1.4 (default)    foo/1.4 (default)  
   bar/1.4-dbg (default)    baz/1.4-dbg          foo/1.4-dbg  

@@ -223,7 +223,7 @@ function readAdmin()
    -- this routine has already read in the file.
    if (next (adminT)) then return end
 
-   local adminFn = pathJoin(cmdDir(),"../../etc/admin.list")
+   local adminFn = os.getenv("LMOD_ADMIN_FILE") or pathJoin(cmdDir(),"../../etc/admin.list")
    local f       = io.open(adminFn)
 
    -- Put something in adminT so that this routine will not be
@@ -320,7 +320,7 @@ local function List()
    local t = {}
    local activeA = mt:listActive()
    for i,v  in ipairs(activeA) do
-      local ww, w = mt:modFullNameActive(v)
+      local w = mt:modFullNameActive(v)
       t[#t + 1]	= "  " .. i .. ") " .. w
    end
 
@@ -350,7 +350,7 @@ local function TableList()
    local t = {}
    local activeA = mt:listActive()
    for i,v  in ipairs(activeA) do
-      local ww, w = mt:modFullNameActive(v)
+      local w = mt:modFullNameActive(v)
       local _, _, name, version = w:find("([^/]*)/?(.*)")
       t[name] = version
    end
@@ -381,25 +381,29 @@ function Purge()
 end
 
 
-local function Prepend_path(name,value)
+local function Prepend_path(name,value,sep)
    local mStack = ModuleStack:moduleStack()
+   local dbg    = Dbg:dbg()
+   dbg.start("Prepend_path(\"",name,"\", \"",value,"\",\"",tostring(sep),"\")")
+   sep          = sep or ":"
 
    if (varTbl[name] == nil) then
-      varTbl[name] = Var:new(name)
+      varTbl[name] = Var:new(name, nil, sep)
    end
 
-   Dbg:dbg().print("Prepend_path(\"",name,"\", \"",value,"\")\n")
    varTbl[name]:prepend(value)
    mStack:setting()
+   dbg.fini()
 end
 
-local function Append_path(name,value)
+local function Append_path(name,value,sep)
    local mStack = ModuleStack:moduleStack()
+   sep          = sep or ":"
 
    if (varTbl[name] == nil) then
-      varTbl[name] = Var:new(name)
+      varTbl[name] = Var:new(name, nil, sep)
    end
-   Dbg:dbg().print("Append_path(\"",name,"\", \"",value,"\")\n")
+   Dbg:dbg().print("Append_path(\"",name,"\", \"",value,"\",\"",sep,"\")\n")
    varTbl[name]:append(value)
    mStack:setting()
 end
@@ -448,14 +452,15 @@ local function UnSetAlias(name,value)
    mStack:setting()
 end
 
-local function Remove_path(name,value)
+local function Remove_path(name,value,sep)
    local mStack = ModuleStack:moduleStack()
+   sep          = sep or ":"
    mStack:setting()
 
    if (varTbl[name] == nil) then
-      varTbl[name] = Var:new(name)
+      varTbl[name] = Var:new(name,nil, sep)
    end
-   Dbg:dbg().print("Remove_path(\"",name,"\", \"",value,"\")\n")
+   Dbg:dbg().print("Remove_path(\"",name,"\", \"",value,"\",\"",sep,"\")\n")
    varTbl[name]:remove(value)
 end
 
@@ -814,10 +819,20 @@ function Load(...)
       local t       = {}
       readAdmin()
       for _, moduleName in ipairs{...} do
-         local moduleFn = mt:fileNameActive(moduleName)
-         local message  = adminT[moduleFn]
+         local moduleFn  = mt:fileNameActive(moduleName)
+         local modFullNm = mt:modFullNameActive(moduleName)
+         local message
+         local key       
+         if (adminT[moduleFn]) then
+            message = adminT[moduleFn]
+            key     = moduleFn
+         elseif (adminT[modFullNm]) then
+            message = adminT[modFullNm]
+            key     = modFullNm
+         end
+
          if (message) then
-            t[moduleFn] = message
+            t[key] = message
          end
       end
 

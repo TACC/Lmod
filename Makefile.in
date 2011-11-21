@@ -129,7 +129,7 @@ _distTar:
 	$(RM) -r `cat .fname` `cat .fname`.tar*;         		   \
 	mv ${DistD} `cat .fname`;                            		   \
 	tar chf `cat .fname`.tar `cat .fname`;           		   \
-	gzip `cat .fname`.tar;                           		   \
+	bzip2 `cat .fname`.tar;                           		   \
 	rm -rf `cat .fname` .fname; 
 
 
@@ -137,12 +137,17 @@ test:
 	cd rt; unset TMFuncPATH; tm .
 
 tags:
-	find . \( -regex '.*~$$\|.*/\.svn$$\|.*/\.svn/' -prune \)  \
+	find . \( -regex '.*~$$\|.*/\.git\|.*/\.git/' -prune \)  \
                -o -type f > file_list.1
-	sed -e 's|.*/.svn.*||g'                                    \
+	sed -e 's|.*/.git.*||g'                                    \
             -e 's|.*/rt/.*/t1/.*||g'                               \
             -e 's|./TAGS||g'                                       \
             -e 's|./configure$$||g'                                \
+            -e 's|.*.tar.gz$$||g'                                  \
+            -e 's|.*.tar.bz2$$||g'                                 \
+            -e 's|.*.csv$$||g'                                     \
+            -e 's|.*.pdf$$||g'                                     \
+            -e 's|.*.used$$||g'                                    \
             -e 's|./config.log$$||g'                               \
             -e 's|./testreports/.*||g'                             \
             -e 's|./config.status$$||g'                            \

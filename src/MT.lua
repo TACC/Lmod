@@ -54,6 +54,7 @@ end
 s_mt = nil
 
 local function build_locationTbl(tbl, pathA)
+   local dbg = Dbg:dbg()
    for _,path in ipairs(pathA)  do
       local attr = lfs.attributes(path)
       if ( attr and attr.mode == "directory") then
@@ -62,7 +63,7 @@ local function build_locationTbl(tbl, pathA)
             local readable = posix.access(f,"r")
             if (readable and not ignoreT[file]) then
                local a   = tbl[file] or {}
-               file      = file:gsub(".lua","")
+               file      = file:gsub("%.lua$","")
                a[#a+1]   = {file = f, mpath = path }
                tbl[file] = a
             end
@@ -197,7 +198,7 @@ function M.getMTfromFile(self,fn)
       if (isDefault) then
          t[v] = l_mt.active:getHashSum(v)
       else
-         v    = l_mt:modFullNameActive(v)
+         _, v = l_mt:modFullNameActive(v)
          t[v] = l_mt.active:getHashSum(v)
       end
 
@@ -239,7 +240,7 @@ function M.getMTfromFile(self,fn)
       local isDefault = s_mt:defaultModuleActive(v)
       if (not isDefault) then
          local vv = v
-         v = s_mt:modFullNameActive(vv)
+         _, v = s_mt:modFullNameActive(vv)
       end
       if (not t[v]) then
          --dbg.print("  Did not find v:",v,"\n")

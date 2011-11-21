@@ -1,14 +1,15 @@
 -- -*- lua -*-
+
 testdescript = {
    owner   = "rtm",
    product = "modules",
    description = [[
 	 Test initial module load
    ]],
-   keywords = {"swap" },
+   keywords = {"load" },
 
    active = 1,
-   testName = "swap",
+   testName = "delim",
    job_submit_method = "INTERACTIVE", 
 
    runScript = [[
@@ -20,32 +21,31 @@ testdescript = {
      PATH_to_TM=`findcmd --pathOnly tm`
 
      PATH=$(projectDir)/src:$PATH_to_LUA:$PATH_to_TM:/usr/bin:/bin
-     unset  LMOD_COMPILER
      export PATH
      INFOPATH='';                       export INFOPATH
      MANPATH='';                        export MANPATH
      LD_LIBRARY_PATH='';                export LD_LIBRARY_PATH
-     MODULEPATH=$(projectDir)/mf/Core;  export MODULEPATH
+     MODULEPATH="";                     export MODULEPATH
      MODULEPATH_ROOT=$(projectDir)/mf;  export MODULEPATH_ROOT
-     LMOD_DEFAULT_MODULEPATH=$MODULEPATH
-     export LMOD_DEFAULT_MODULEPATH
-     unset LMOD_EXPERT
      numStep=0
      COUNT=0
      HOME=`(cd $HOME; /bin/pwd)`
 
      rm -f _stderr.* _stdout.* err.* out.*
 
-     runMe lua $(projectDir)/src/lmod.in bash load admin PrgEnv openmpi parmetis
-     runMe lua $(projectDir)/src/lmod.in bash unload intel
+     runMe lua $(projectDir)/src/lmod.in bash use -a $testDir/mf/Core
+     runMe lua $(projectDir)/src/lmod.in bash load    luaposix
+     runMe lua $(projectDir)/src/lmod.in bash unload  luaposix
+     runMe lua $(projectDir)/src/lmod.in bash load    init_lua
+     runMe lua $(projectDir)/src/lmod.in bash load    luaposix
      runMe lua $(projectDir)/src/lmod.in bash list
-     runMe lua $(projectDir)/src/lmod.in bash load gcc
+     runMe lua $(projectDir)/src/lmod.in bash unload  init_lua luaposix
      runMe lua $(projectDir)/src/lmod.in bash list
-     runMe lua $(projectDir)/src/lmod.in bash swap gcc intel
-     runMe lua $(projectDir)/src/lmod.in bash list
+     
+     
 
      cat _stdout.[0-9][0-9] > _stdout.orig
-     joinBase64Results -bash _stdout.orig _stdout.new
+     joinBase64Results  -bash  _stdout.orig _stdout.new
      cleanUp _stdout.new out.txt
 
      cat _stderr.[0-9][0-9] > _stderr.orig

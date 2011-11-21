@@ -43,6 +43,8 @@ testdescript = {
      runMe lua $(projectDir)/src/lmod.in bash spider mpich2
      runMe lua $(projectDir)/src/lmod.in bash spider mpich2/1.0.7
 
+     runMe lua $(projectDir)/src/lmod.in bash spider parmetis/3.1
+
      runMe lua $(projectDir)/src/lmod.in bash spider mpich2me
      runMe lua $(projectDir)/src/lmod.in bash spider mpich2/1.0.5
      

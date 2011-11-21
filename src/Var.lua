@@ -3,6 +3,7 @@ require("string_split")
 require("pairsByKeys")
 local Dbg          = require("Dbg")
 local ModulePath   = ModulePath
+local concatTbl    = table.concat
 local io           = io
 local ipairs       = ipairs
 local os           = os
@@ -22,14 +23,17 @@ local type         = type
 local M = {}
 
 local function extract(self)
+   local dbg = Dbg:dbg()
    local myValue = self.value or os.getenv(self.name) or ""
    local pathTbl = {}
    local imax    = 0
    local imin    = 1
    local pathA   = {}
+   local sep     = self.sep
 
+   dbg.start("extract(self)")
    if (myValue ~= '') then
-      for v  in myValue:split(":") do
+      for v  in myValue:split(sep) do
 	 if (v == '' or v:find('^%s+$')) then
 	    v = ' '
 	 else
@@ -54,14 +58,18 @@ local function extract(self)
    self.imin   = imin
    self.imax   = imax
    self.export = true
+   dbg.print("name: ", self.name,"\n")
+   dbg.print("pathTbl: \"", concatTbl(pathTbl,self.sep),"\"\n")
+   dbg.fini()
 end
 
-function M.new(self, name, value)
+function M.new(self, name, value, sep)
    local o = {}
    setmetatable(o,self)
    self.__index = self
    o.value      = value
    o.name       = name
+   o.sep        = sep or ":"
    extract(o)
    return o
 end
@@ -99,7 +107,8 @@ end
 
 function M.append(self,value)
    if (value == nil) then return end
-   for v in value:split(":") do
+   local sep = self.sep
+   for v in value:split(sep) do
       v           = regularize(v)
       local imax  = self.imax + 1
       self.tbl[v] = imax
@@ -111,7 +120,8 @@ end
 
 function M.remove(self,value)
    if (value == nil) then return end
-   for v in value:split(":") do
+   local sep = self.sep
+   for v in value:split(sep) do
       v = regularize(v)
       if (self.tbl[v]) then
          self.tbl[v] = nil
@@ -123,7 +133,8 @@ end
 
 function M.prepend(self,value)
    if (value == nil) then return end
-   for v in value:split(":") do
+   local sep = self.sep
+   for v in value:split(sep) do
       v           = regularize(v)
       self.imin   = self.imin - 1
       self.tbl[v] = self.imin
@@ -176,21 +187,33 @@ function M.expand(self)
    local t       = {}
    local pathA   = {}
    local pathStr = ""
+   local sep     = self.sep
 
    for k in pairs(self.tbl) do
       t[self.tbl[k]] = k
    end
 
+   local i = 0
 
    for _,v in pairsByKeys(t) do
+      i = i + 1
       if (v == ' ') then
          v = ''
       end
-      v = v:gsub("//","/")
+
+      v = v:gsub("//+","/")
       v = v:gsub("/$","")
       pathA[#pathA+1] = v
    end
-   pathStr = table.concat(pathA,":")
+   if (#pathA == 1 and pathA[1] == "") then
+      pathStr = sep .. sep
+   else
+      pathStr = table.concat(pathA,sep)
+      if (pathA[#pathA] == "") then
+         pathStr = pathStr .. sep
+      end
+
+   end
 
    ------------------------------------------------------------------------
    -- Remove leading and trailing ':' from PATH string

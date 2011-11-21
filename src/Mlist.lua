@@ -131,7 +131,7 @@ function M.modFullName(self,moduleName)
       end
       name2   = self.fullModName[idx]
    end
-   return name, name2
+   return name2, name
 end
 
 function M.list(self)
