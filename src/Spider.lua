@@ -611,10 +611,10 @@ function M.Level2(t, mname)
    local tt = nil
    local banner = border(2)
    local availT = {
-      "\n    This module can be loaded directly.\n",
+      "\n    This module can be loaded directly: module load " .. mname .. "\n",
       "\n    This module can only be loaded through the following modules:\n",
-      "\n    This module can be loaded directly.\n" ..
-        "\n    This module can be also loaded through the following modules:\n",
+      "\n    This module can be loaded directly: module load " .. mname .. "\n" ..
+        "\n    Additional variants of this module can also be loaded after the loading the following modules:\n",
    }
    local haveCore = 0
    local haveHier = 0
@@ -663,6 +663,8 @@ function M.Level2(t, mname)
       table.sort(c)
       ia = ia + 1; a[ia] = concatTbl(c,"")
    end
+   
+
       
 
    if (tt and tt.help ~= nil) then

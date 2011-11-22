@@ -46,8 +46,8 @@ step 5
     Description:
       Parallel graph partitioning and fill-reduction matrix ordering 
       routines 
-    This module can be loaded directly.
-    This module can be also loaded through the following modules:
+    This module can be loaded directly: module load parmetis/3.1
+    Additional variants of this module can also be loaded after the loading the following modules:
       gcc/4.2.3, openmpi/1.2.6
       intel/intel, mpich2/1.0.7
       intel/intel, openmpi/1.2.6
