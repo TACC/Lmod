@@ -512,7 +512,7 @@ function M.spiderSearch(dbT, mname)
    local found = false
    for k,v in pairs(dbT) do
       if (k:find(mname)) then
-         local s = Level1(dbT,k, false)
+         local s = M.Level1(dbT,k, false)
          io.stderr:write(s,"\n")
          found = true
       end
