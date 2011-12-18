@@ -12,6 +12,15 @@
 -- $ export FOO=$(addto --append FOO d e f); echo "   FOO: %$FOO%"
 --     FOO: %a:b:c:d:e:f%
 
+local cmd = arg[0]
+
+local i,j = cmd:find(".*/")
+local cmd_dir = "./"
+if (i) then
+   cmd_dir = cmd:sub(1,j)
+end
+package.path = cmd_dir .. "?.lua;" .. package.path
+
 require("strict")
 require("string_split")
 require("fileOps")

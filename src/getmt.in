@@ -5,6 +5,14 @@
 --         optionly it writes the state of the ModuleTable is to a
 --         dated file.
 --
+local cmd = arg[0]
+
+local i,j = cmd:find(".*/")
+local cmd_dir = "./"
+if (i) then
+   cmd_dir = cmd:sub(1,j)
+end
+package.path = cmd_dir .. "?.lua;" .. package.path
 require("strict")
 require("fileOps")
 require("serialize")
