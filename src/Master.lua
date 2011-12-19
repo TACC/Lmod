@@ -678,9 +678,11 @@ function M.avail(searchA)
          ct:print_tbl()
       end
    end
-   local a = fillWords("","Use \"module spider\" to find all possible modules.",width)
-   local b = fillWords("","Use \"module keyword key1 key2 ...\" to search for all possible modules matching any of the \"keys\".",width)
-   io.stderr:write("\n",a,"\n",b, "\n\n")
+   if (not expert()) then
+      local a = fillWords("","Use \"module spider\" to find all possible modules.",width)
+      local b = fillWords("","Use \"module keyword key1 key2 ...\" to search for all possible modules matching any of the \"keys\".",width)
+      io.stderr:write("\n",a,"\n",b, "\n\n")
+   end
    dbg.fini()
 end
 
