@@ -25,7 +25,7 @@ MODULEPATH='~/w/lmod/mf/MPI/intel/10.1/openmpi/1.2.6:~/w/lmod/mf/Compiler/intel/
 export MODULEPATH;
 MPIHOME='/vol/local/mpi/intel/10.1/openmpi/1.2.6.opt';
 export MPIHOME;
-PATH='/vol/local/mpi/intel/10.1/openmpi/1.2.6.opt/bin:/vol/local/noweb/icon/bin:/vol/local/noweb/2.10c/bin:/vol/local/intel/idb/idb/bin:/vol/local/intel/fc/fc/bin:/vol/local/intel/cc/cc/bin:/usr/local/share/bin:/usr/local/bin:/usr/sbin:/sbin:~/w/lmod/src:PATH_to_LUA:PATH_to_TM:/usr/bin:/bin';
+PATH='/vol/local/mpi/intel/10.1/openmpi/1.2.6.opt/bin:/vol/local/noweb/icon/bin:/vol/local/noweb/2.10c/bin:/vol/local/intel/idb/idb/bin:/vol/local/intel/fc/fc/bin:/vol/local/intel/cc/cc/bin:/usr/local/share/bin:/usr/local/bin:/usr/sbin:/sbin:~/w/lmod/src:PATH_to_TM:/bin';
 export PATH;
 TACC_FAMILY_COMPILER='intel';
 export TACC_FAMILY_COMPILER;
@@ -60,7 +60,7 @@ unset 'MKL_INCLUDE';
 MODULEPATH='~/w/lmod/mf/Core';
 export MODULEPATH;
 unset 'MPIHOME';
-PATH='~/w/lmod/src:PATH_to_LUA:PATH_to_TM:/usr/bin:/bin';
+PATH='~/w/lmod/src:PATH_to_TM:/bin';
 export PATH;
 unset 'TACC_FAMILY_COMPILER';
 unset 'TACC_PMETIS_BIN';

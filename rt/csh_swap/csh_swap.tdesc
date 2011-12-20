@@ -31,7 +31,7 @@ testdescript = {
      PATH=$(projectDir)/src:$PATH_to_LUA:$PATH_to_TM:/usr/bin:/bin
      export PATH
 
-     unset LUA_PATH
+     #unset LUA_PATH
 
      _histchars="@%"
 

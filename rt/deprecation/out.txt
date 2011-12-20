@@ -37,7 +37,7 @@ LMOD_DEFAULT_MODULEPATH='~/w/lmod/mf/Core';
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH='~/w/lmod/mf/Compiler/gcc/4.2.3:~/w/lmod/mf/Core';
 export MODULEPATH;
-PATH='/opt/apps/git/1.7.4.3/bin:~/w/lmod/src:PATH_to_LUA:PATH_to_TM:/usr/bin:/bin';
+PATH='/opt/apps/git/1.7.4.3/bin:~/w/lmod/src:PATH_to_TM:/bin';
 export PATH;
 TACC_GIT_BIN='/opt/apps/git/1.7.4.3/bin';
 export TACC_GIT_BIN;
