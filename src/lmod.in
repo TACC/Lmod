@@ -149,7 +149,7 @@ end
 
 require("border")
 
-require("serialize")
+require("serializeTbl")
 require("fileOps")
 require("string_split")
 BaseShell = require("BaseShell")
@@ -354,7 +354,7 @@ local function TableList()
       local _, _, name, version = w:find("([^/]*)/?(.*)")
       t[name] = version
    end
-   local s = serialize{name="activeList",indent=true, value=t}
+   local s = serializeTbl{name="activeList",indent=true, value=t}
    io.stderr:write(s,"\n")
 
 end
@@ -950,7 +950,7 @@ local function SetDefault(...)
    end
    mt:assignHashSumActive()
    mt.active.hash = mt.active._hash
-   serialize{name=mt:name(), value=mt, fn = path, indent = true}
+   serializeTbl{name=mt:name(), value=mt, fn = path, indent = true}
    mt.active.hash = nil
    dbg.fini()
 end
@@ -1081,8 +1081,8 @@ function getModuleT()
       LmodMessage  = message
       if (t2 - t1 > shortTime) then
          mkdir_recursive(cacheDir)
-         local s1 = serialize{name="defaultMpathA",value=moduleDirA,indent=true}
-         local s2 = serialize{name="moduleT",      value=moduleT,   indent=true}
+         local s1 = serializeTbl{name="defaultMpathA",value=moduleDirA,indent=true}
+         local s2 = serializeTbl{name="moduleT",      value=moduleT,   indent=true}
          local f  = io.open(moduleTFN,"w")
          f:write(s1,s2)
          f:close()
@@ -1326,7 +1326,7 @@ function main()
    -- Store the Module table in "_ModuleTable_" env. var.
    local n        = mt:name()
    local oldValue = master.shell:getMT(n) or ""
-   local value    = mt:serialize()
+   local value    = mt:serializeTbl()
 
    if (oldValue ~= value) then
       varTbl[n] = Var:new(n)

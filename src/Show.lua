@@ -33,8 +33,8 @@ function Show_unuse(value)
    ShowCmd("unuse", value)
 end
 
-function Show_prepend_path(name,value)
-   ShowCmd("prepend_path", name, value)
+function Show_prepend_path(...)
+   ShowCmd("prepend_path", ...)
 end
 
 function Show_set_alias(name,value)
@@ -45,8 +45,8 @@ function Show_unset_alias(name)
    ShowCmd("unset_alias",name)
 end
 
-function Show_append_path(name,value)
-   ShowCmd("append_path", name, value)
+function Show_append_path(...)
+   ShowCmd("append_path", ...)
 end
 
 function Show_set(name,value)

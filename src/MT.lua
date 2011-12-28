@@ -1,4 +1,5 @@
 require("strict")
+_ModuleTable_      = ""
 local DfltModPath  = DfltModPath
 local Error        = LmodError
 local Load         = Load
@@ -33,9 +34,8 @@ local Set          = Set
 
 require("string_split")
 require("fileOps")
-require("serialize")
+require("serializeTbl")
 
-local serializeSys = serialize 
 local Mlist        = require("Mlist")
 local Var          = require('Var')
 local lfs          = require('lfs')
@@ -566,8 +566,8 @@ function M.changeInactive(self)
 end
 
 
-function M.serialize(self)
-   local s = serializeSys{ indent=false, name=self.name(), value=s_mt}
+function M.serializeTbl(self)
+   local s = _G.serializeTbl{ indent=false, name=self.name(), value=s_mt}
    return s:gsub("[ \n]","")
 end
 

@@ -15,10 +15,11 @@ end
 package.path = cmd_dir .. "?.lua;" .. package.path
 require("strict")
 require("fileOps")
-require("serialize")
+require("serializeTbl")
 require("sys")
 require("capture")
 
+_ModuleTable_ = ""
 local Optiks  = require("Optiks")
 local lfs     = require("lfs")
 local cmd     = abspath(arg[0])
@@ -76,7 +77,7 @@ function main()
    if (s == nil) then return end
 
    local t = assert(loadstring(s))()
-   local s = serialize{indent=true, name="_ModuleTable_", value=_ModuleTable_}
+   local s = serializeTbl{indent=true, name="_ModuleTable_", value=_ModuleTable_}
 
    local fn = nil
    if (optionTbl.save_state) then

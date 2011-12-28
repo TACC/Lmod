@@ -20,7 +20,7 @@ function LmodMessage()
 end
 
 require("border")
-require("serialize")
+require("serializeTbl")
 require("pairsByKeys")
 local BeautifulTbl = require("BeautifulTbl")
 local Dbg          = require("Dbg")
@@ -71,7 +71,7 @@ function main()
    Spider.findAllModules(moduleDirA, moduleT)
    
    if (masterTbl.outputStyle == "tree") then
-      local s = serialize{name="moduleT",value=moduleT,indent=true}
+      local s = serializeTbl{name="moduleT",value=moduleT,indent=true}
       print(s)
       return
    end
