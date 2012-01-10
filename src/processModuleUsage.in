@@ -15,10 +15,13 @@ end
 
 function LmodError()
 end
+function LmodMessage()
+end
 
 require("border")
 local Spider = require("Spider")
 local Optiks = require("Optiks")
+local Dbg    = require("Dbg")
 require("VarDump")
 
 min = math.min
