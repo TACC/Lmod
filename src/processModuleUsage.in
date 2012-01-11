@@ -96,6 +96,7 @@ function main()
       whole = f:read("*all")
       f:close()
       for moduleFn in whole:split("\n") do
+         moduleFn = moduleFn:gsub(".lua$","")
          moduleD[moduleFn] = 0
       end
    elseif (masterTbl.mpath) then

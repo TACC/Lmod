@@ -695,6 +695,7 @@ end
 
 function M.dictModules(t,tbl)
    for k,v in pairs(t) do
+      k      = k:gsub(".lua$","")
       tbl[k] = 0
       if (next(v.children)) then
          M.dictModules(v.children,tbl)
