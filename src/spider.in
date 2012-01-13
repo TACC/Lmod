@@ -16,6 +16,9 @@ end
 function LmodError()
 end
 
+function mode()
+end
+
 function LmodMessage()
 end
 

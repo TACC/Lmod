@@ -70,6 +70,10 @@ end
 function display(...)
    ShowCmd("display",...)
 end
+
+function mode(...)
+   ShowCmd("mode",...)
+end
    
 function load(...)
    ShowCmd("load",...)
