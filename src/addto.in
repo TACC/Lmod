@@ -23,14 +23,22 @@ package.path = cmd_dir .. "?.lua;" .. package.path
 
 require("strict")
 require("string_split")
-require("fileOps")
 require("pairsByKeys")
-
+local posix  = require("posix")
 local Optiks = require("Optiks")
 local master = {}
 
 function masterTbl()
    return master
+end
+
+function isDir(d)
+   if (d == nil) then return false end
+   local t = posix.stat(d,"type")
+
+   local result = (t == "directory")
+
+   return result
 end
 
 function myInsert(appendFlg, existFlg)
@@ -87,6 +95,7 @@ function main()
    local masterTbl = masterTbl()
    local pargs     = masterTbl.pargs
    local cleanFlg  = masterTbl.cleanFlg
+   local sep       = masterTbl.sep
 
    local envVar    = os.getenv(pargs[1])
    local insert    = myInsert(masterTbl.appendFlg, masterTbl.existFlg)
@@ -94,7 +103,7 @@ function main()
    local chkDir    = myChkDir(masterTbl.existFlg)
 
    if (envVar) then
-      for v in envVar:split(":") do
+      for v in envVar:split(sep) do
 	 envVarA[#envVarA + 1] = cleanPath(v)
       end
    end
@@ -134,7 +143,7 @@ function main()
       end
    end
 
-   io.stdout:write(concat(envVarA,":"),"\n")
+   io.stdout:write(concat(envVarA,sep),"\n")
       
 end
 
@@ -170,6 +179,14 @@ function options()
       action = 'store_true',
       default = false,
       help    = "Remove extra '/'s"
+   }
+
+   cmdlineParser:add_option{ 
+      name   = {'--sep'},
+      dest   = 'sep',
+      action = 'store',
+      default = ":",
+      help    = "separator (default is ':')"
    }
 
    local optionTbl, pargs = cmdlineParser:parse(arg)
