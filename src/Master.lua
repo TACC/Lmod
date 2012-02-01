@@ -94,7 +94,11 @@ local function lastFileInDir(fn)
          local readable = posix.access(f,"r")
          if (readable and file:sub(1,1) ~= "." and attr.mode == 'file' and file:sub(-1,-1) ~= '~') then
             count = count + 1
-            local key = f:gsub("%.lua$","")
+            local key = f
+            if (not key:find("%.lua$")) then
+               key = key .. ".tcl"
+            end
+
             if (key > lastKey) then
                lastKey   = key
                lastValue = f
