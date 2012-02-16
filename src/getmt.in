@@ -97,6 +97,7 @@ function main()
       local f = io.open(fn,"w")
       if (f) then
          f:write(s)
+         f:close()
       end
    else
       print (s)
