@@ -48,6 +48,31 @@ function flip(a,t, tbl)
    end
 end
 
+local ignoreT     = {
+   "^/bin/",
+   "^/usr/bin/",
+   "^/usr/local/bin/",
+   "^/opt/apps/gcc/",
+   "^/opt/apps/intel/",
+   "^/opt/apps/pgi/",
+   "^/opt/apps/gcc[^/]*/mpich2/",
+   "^/opt/apps/intel[^/]*/mpich2/",
+   "^/opt/apps/pgi[^/]*/mpich2/",
+   "^/opt/apps/gcc[^/]*/openmpi/",
+   "^/opt/apps/intel[^/]*/openmpi/",
+   "^/opt/apps/pgi[^/]*/openmpi/",
+}
+      
+function keepThisPath(path)
+   for i = 1, #ignoreT do
+      if (path:find(ignoreT[i])) then
+         return false
+      end
+   end
+   return true
+end
+
+
 function main()
 
    options()
@@ -76,6 +101,7 @@ function main()
    if (masterTbl.outputStyle == "tree") then
       local s = serializeTbl{name="moduleT",value=moduleT,indent=true}
       print(s)
+      dbg.fini()
       return
    end
 
@@ -86,24 +112,43 @@ function main()
       for i = 1,#tbl do
          print(tbl[i])
       end
+      dbg.fini()
       return
    end
 
-   flip({"dflt"}, moduleT, tbl)
-   
-   local a = {}
-   for k,v in pairsByKeys(tbl) do
-      a[#a+1] = {}
-      local b = a[#a]
-      b[#b+1] = k
-      for i = 1,#v do
-         b[#b+1] = v[i]
+   local dbT = {}
+   Spider.buildSpiderDB({"default"}, moduleT, dbT)
+
+   if (masterTbl.outputStyle == "reverseMap") then
+      local reverseMapT = {}
+
+      for kkk,vvv in pairs(dbT) do
+
+         for kk, entry in pairs(vvv) do
+            if (entry.pathA) then
+               for path in pairs(entry.pathA) do
+                  if (keepThisPath(path)) then
+                     reverseMapT[path] = {pkg=entry.full, flavor=entry.parent, kind="bin"}
+                  end
+               end
+            end
+            if (entry.lpathA) then
+               for path in pairs(entry.lpathA) do
+                  if (keepThisPath(path)) then
+                     reverseMapT[path] = {pkg=entry.full, flavor=entry.parent, kind="lib"}
+                  end
+               end
+            end
+         end
       end
+      local s = serializeTbl{name="reverseMapT",      value=reverseMapT,   indent=true}
+      print(s)
+      dbg.fini()
+      return
    end
-
-   local bt = BeautifulTbl:new{tbl=a}
-   bt:printTbl()
-
+      
+   local s = serializeTbl{name="dbT",      value=dbT,   indent=true}
+   print(s)
    dbg.fini()
 end
 
@@ -124,7 +169,7 @@ function options()
       dest   = 'outputStyle',
       action = 'store',
       default = "list",
-      help    = "Output Style: list, tree, spider"  
+      help    = "Output Style: list, tree, reverseMap, spider"  
    }
 
    cmdlineParser:add_option{ 

@@ -46,8 +46,6 @@ end
 
 local masterTbl = masterTbl
 
-function setenv(name, value)
-end
 
 function unsetenv(name, value)
 end
@@ -90,6 +88,14 @@ function mode()
    return "load"
 end
 
+
+function Spider_setenv(name, value)
+   if (name:find("^TACC_.*_LIB")) then
+      processLPATH(value)
+   end
+end   
+
+setenv = Spider_setenv
 
 function Spider_help(s)
    local masterTbl   = masterTbl()
@@ -162,13 +168,45 @@ end
 
 local regularize = regularize
 
+function processLPATH(value)
+   local masterTbl      = masterTbl()
+   local moduleDirT     = masterTbl.moduleDirT
+   local moduleStack    = masterTbl.moduleStack 
+   local iStack         = #moduleStack
+   local path           = moduleStack[iStack].path
+   local moduleT        = moduleStack[iStack].moduleT
+   
+   local lpathA         = moduleT[path].lpathA or {}
+   lpathA[value]        = 1
+   moduleT[path].lpathA = lpathA
+end
+
+function processPATH(value)
+   local masterTbl     = masterTbl()
+   local moduleDirT    = masterTbl.moduleDirT
+   local moduleStack   = masterTbl.moduleStack 
+   local iStack        = #moduleStack
+   local path          = moduleStack[iStack].path
+   local moduleT       = moduleStack[iStack].moduleT
+   
+   local pathA         = moduleT[path].pathA or {}
+   pathA[value]        = 1
+   moduleT[path].pathA = pathA
+end
+
+
 function Spider_prepend_path(name, value)
    if (name == "MODULEPATH") then
       local dbg = Dbg:dbg()
       dbg.start("prepend_path(MODULEPATH=\"",name,"\", value=\"",value,"\")")
       processNewModulePATH(value)
       dbg.fini()
+   elseif (name == "PATH") then
+      processPATH(value)
+   elseif (name == "LD_LIBRARY_PATH") then
+      processLPATH(value)
    end
+
 end
 
 prepend_path = Spider_prepend_path
@@ -179,6 +217,10 @@ function Spider_append_path(name, value)
       dbg.start("append_path(MODULEPATH=\"",name,"\", value=\"",value,"\")")
       processNewModulePATH(value)
       dbg.fini()
+   elseif (name == "PATH") then
+      processPATH(value)
+   elseif (name == "LD_LIBRARY_PATH") then
+      processLPATH(value)
    end
 end
 
