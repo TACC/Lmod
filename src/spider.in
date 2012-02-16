@@ -49,6 +49,9 @@ function flip(a,t, tbl)
 end
 
 local ignoreT     = {
+   "^$",
+   "^%$",
+   "^%%",
    "^/bin/",
    "^/bin$",
    "^/sbin$",
