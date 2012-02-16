@@ -138,9 +138,17 @@ function myFileName()
 end
 
 function hierarchyA(package, levels)
-   package = package:gsub("%.lua$","")
    local n = myFileName():gsub("%.lua$","")
-   n       = n:gsub(package .. "$","")
+
+   -- Remove package from end of string by using the
+   -- "plain" matching via string.find function
+   package = package:gsub("%.lua$","")
+   local i,j = n:find(package,1,true)
+   if (j == n:len()) then
+      n = n:sub(1,i-1)
+   end
+
+   -- remove any leading or trailing '/'
    n       = n:gsub("^/","")
    n       = n:gsub("/$","")
    local a = {}
@@ -151,7 +159,7 @@ function hierarchyA(package, levels)
 
    local b = {}
    local j = #a
-   
+
    for i = 1, levels do
       b[#b + 1 ] = pathJoin(a[j-1],a[j])
       j = j - 2
