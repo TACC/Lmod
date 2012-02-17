@@ -169,7 +169,8 @@ function hierarchyA(package, levels)
 end
 
 function regularize(value)
-   value = value:gsub("//","/")
+   value = value:gsub("//+","/")
+   value = value:gsub("/%./","/")
    value = value:gsub("/$","")
    return value
 end
@@ -185,6 +186,7 @@ function processLPATH(value)
    local moduleT        = moduleStack[iStack].moduleT
    
    local lpathA         = moduleT[path].lpathA or {}
+   value                = regularize(value)
    lpathA[value]        = 1
    moduleT[path].lpathA = lpathA
 end
@@ -198,6 +200,7 @@ function processPATH(value)
    local moduleT       = moduleStack[iStack].moduleT
    
    local pathA         = moduleT[path].pathA or {}
+   value               = regularize(value)
    pathA[value]        = 1
    moduleT[path].pathA = pathA
 end
@@ -273,7 +276,7 @@ end
 
 local function loadModuleFile(fn)
    local dbg    = Dbg:dbg()
-   dbg.start("loadModuleFile")
+   dbg.start("loadModuleFile(" .. fn .. ")")
    dbg.flush()
 
    systemG._MyFileName = fn
