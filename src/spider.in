@@ -62,15 +62,6 @@ local ignoreT     = {
    "^/usr/local/share/bin$",
    "^/usr/lib/?",
    "^/opt/local/bin$",
-   "^/opt/apps/gcc/",
-   "^/opt/apps/intel/",
-   "^/opt/apps/pgi/",
-   "^/opt/apps/gcc[^/]*/mvapich2?/",
-   "^/opt/apps/intel[^/]*/mvapich2?/",
-   "^/opt/apps/pgi[^/]*/mvapich2?/",
-   "^/opt/apps/gcc[^/]*/openmpi/",
-   "^/opt/apps/intel[^/]*/openmpi/",
-   "^/opt/apps/pgi[^/]*/openmpi/",
 }
       
 function keepThisPath(path)
