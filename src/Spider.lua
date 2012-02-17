@@ -250,6 +250,7 @@ function processNewModulePATH(value)
    for v in value:split(":") do
       v = regularize(v)
       dbg.print("v: ", v,"\n")
+      dbg.print("moduleDir[v] ", tostring(moduleDir[v]) ,"\n")
       if (moduleDirT[v] == nil) then
          moduleDirT[v] = 1
          local path    = moduleStack[iStack].path
