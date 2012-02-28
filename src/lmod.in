@@ -137,6 +137,11 @@ function LmodMessage(...)
    io.stderr:write("\n")
 end
 
+function is_spider()
+   return false
+end
+
+
 local __expert = false
 
 function expert()

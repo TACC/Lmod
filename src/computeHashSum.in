@@ -28,10 +28,11 @@ end
 function quiet()
 end
 
-whatis = quiet
-help   = quiet
-setenv = quiet
-inherit = quiet
+whatis    = quiet
+help      = quiet
+setenv    = quiet
+inherit   = quiet
+is_spider = quiet
 
 local A = {}
 
