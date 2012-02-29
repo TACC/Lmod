@@ -1,5 +1,6 @@
 #!@path_to_lua@/lua
 -- -*- lua -*-
+IN_SPIDER = true
 local cmd = arg[0]
 
 local i,j = cmd:find(".*/")

@@ -6,6 +6,7 @@ DfltModPath   = "LMOD_DEFAULT_MODULEPATH"
 LMODdir       = ".lmod.d"
 varTbl        = {}
 SearchString  = nil
+IN_SPIDER     = false
 
 defaultMpathA = {}
 adminT        = {}
@@ -138,7 +139,10 @@ function LmodMessage(...)
 end
 
 function is_spider()
-   return false
+   local dbg = Dbg:dbg()
+   dbg.start("is_spider()")
+   dbg.fini()
+   return IN_SPIDER
 end
 
 
@@ -748,6 +752,7 @@ function Keyword(...)
    whatis       = Spider_whatis
    prepend_path = Spider_prepend_path
    append_path  = Spider_append_path
+   IN_SPIDER    = true
 
    dbg.start("Keyword(",concatTbl({...},","),")")
 
@@ -1121,6 +1126,7 @@ function SpiderCmd(mname)
    inherit      = dbg.quiet
    mode         = ModeLoad
 
+   IN_SPIDER    = true
    help         = Spider_help
    whatis       = Spider_whatis
    prepend_path = Spider_prepend_path

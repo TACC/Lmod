@@ -46,10 +46,6 @@ end
 
 local masterTbl = masterTbl
 
-function is_spider()
-   return true;
-end
-
 function unsetenv(name, value)
 end
 
