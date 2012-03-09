@@ -23,6 +23,10 @@ end
 function LmodMessage()
 end
 
+function is_spider()
+   return IN_SPIDER
+end
+
 require("border")
 require("serializeTbl")
 require("pairsByKeys")
