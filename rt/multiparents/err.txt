@@ -1,0 +1,11 @@
+===========================
+step 1
+===========================
+===========================
+step 2
+===========================
+  pmetis: pmetis/4.1
+    This module can only be loaded through the following modules:
+      intel/12.1, mpich2/1.4.1
+      intel/12.1, mpich2/1.4.1-dbg
+      intel/12.1, openmpi/1.5.4

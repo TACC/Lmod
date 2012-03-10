@@ -249,21 +249,34 @@ function processNewModulePATH(value)
       return
    end
 
+   --for v in value:split(":") do
+   --   v = regularize(v)
+   --   dbg.print("v: ", v,"\n")
+   --   dbg.print("moduleDirT[v] ", tostring(moduleDirT[v]) ,"\n")
+   --   if (moduleDirT[v] == nil) then
+   --      moduleDirT[v] = 1
+   --      local path    = moduleStack[iStack].path
+   --      local full    = moduleStack[iStack].full
+   --      local moduleT = moduleStack[iStack].moduleT
+   --      iStack        = iStack+1
+   --      moduleStack[iStack] = {path = path, full = full, moduleT = moduleT[path].children}
+   --      dbg.print("Top of Stack: ",iStack, " Full: ", full, " file: ", path, "\n")
+   --      M.findModulesInDir(v,"",moduleT[path].children)
+   --      moduleStack[iStack] = nil
+   --   end
+   --end
+
    for v in value:split(":") do
       v = regularize(v)
       dbg.print("v: ", v,"\n")
-      dbg.print("moduleDirT[v] ", tostring(moduleDirT[v]) ,"\n")
-      if (moduleDirT[v] == nil) then
-         moduleDirT[v] = 1
-         local path    = moduleStack[iStack].path
-         local full    = moduleStack[iStack].full
-         local moduleT = moduleStack[iStack].moduleT
-         iStack        = iStack+1
-         moduleStack[iStack] = {path = path, full = full, moduleT = moduleT[path].children}
-         dbg.print("Top of Stack: ",iStack, " Full: ", full, " file: ", path, "\n")
-         M.findModulesInDir(v,"",moduleT[path].children)
-         moduleStack[iStack] = nil
-      end
+      local path    = moduleStack[iStack].path
+      local full    = moduleStack[iStack].full
+      local moduleT = moduleStack[iStack].moduleT
+      iStack        = iStack+1
+      moduleStack[iStack] = {path = path, full = full, moduleT = moduleT[path].children}
+      dbg.print("Top of Stack: ",iStack, " Full: ", full, " file: ", path, "\n")
+      M.findModulesInDir(v,"",moduleT[path].children)
+      moduleStack[iStack] = nil
    end
 
    dbg.fini()
@@ -414,9 +427,7 @@ function M.buildSpiderDB(a, moduleT, dbT)
    dbg.start("buildSpiderDB({",concatTbl(a,","),"},moduleT, dbT)")
    for path, value in pairs(moduleT) do
       local name = value.name
-      if (dbT[name] == nil) then
-         dbT[name] = {}
-      end
+      dbT[name]        = dbT[name] or {}
       local t = dbT[name]
 
       for k, v in pairs(value) do
@@ -427,8 +438,9 @@ function M.buildSpiderDB(a, moduleT, dbT)
             t[path][k] = v
          end
       end
-      t[path].parent = concatTbl(a,":")
-      dbg.print("path:",tostring(path)," t[path].parent: ",t[path].parent,"\n")
+      local parent = t[path].parent or {}
+      parent[#parent+1] = concatTbl(a,":")
+      t[path].parent = parent
       if (next(value.children)) then
          a[#a+1] = t[path].full
          M.buildSpiderDB(a, value.children, dbT)
@@ -470,7 +482,9 @@ function M.searchSpiderDB(strA, a, moduleT, dbT)
                t[path][k] = v
             end
          end
-         t[path].parent = concatTbl(a,":")
+         local parent = t[path].parent or {}
+         parent[#parent+1] = concatTbl(a,":")
+         t[path].parent = parent
       end
       if (next(value.children)) then
          a[#a+1] = full
@@ -667,7 +681,7 @@ function M.Level2(t, mname)
       "\n    This module can be loaded directly: module load " .. mname .. "\n",
       "\n    This module can only be loaded through the following modules:\n",
       "\n    This module can be loaded directly: module load " .. mname .. "\n" ..
-        "\n    Additional variants of this module can also be loaded after the loading the following modules:\n",
+      "\n    Additional variants of this module can also be loaded after the loading the following modules:\n",
    }
    local haveCore = 0
    local haveHier = 0
@@ -691,18 +705,22 @@ function M.Level2(t, mname)
             ia = ia + 1; a[ia] = "Avail Title goes here.  This should never be seen\n"
             titleIdx = ia
          end
-         dbg.print("mname: ",mname," v.parent: ",v.parent,"\n")
-         if (v.parent ~= "default") then
+         if (#v.parent == 1 and v.parent[1] == "default") then
+            haveCore = 1
+         else
             b[#b+1] = "      "
             haveHier = 2
-         else
-            haveCore = 1
          end
-         for s in v.parent:split(":") do
-            if (s ~= "default") then
-               b[#b+1] = s
-               b[#b+1] = ', '
+
+         for i = 1, #v.parent do
+            local entry = v.parent[i]
+            for s in entry:split(":") do
+               if (s ~= "default") then
+                  b[#b+1] = s
+                  b[#b+1] = ', '
+               end
             end
+            b[#b] = "\n      "
          end
          if (#b > 0) then
             b[#b] = "\n" -- Remove final comma add newline instead

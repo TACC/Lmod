@@ -64,6 +64,9 @@ Loading/Unloading sub-commands:
   swap | sw | switch modfile1 modfile2   unload modfile1 and load modfile2
   purge                                  unload all modules
 
+Reset environment
+  reset                                  Do a module purge and load system defaults
+
 Listing / Searching sub-commands:
   list                                   List loaded modules
   avail|av                               List available modules
@@ -386,6 +389,21 @@ function Purge()
    dbg.start("Purge(",concatTbl(a,", "),")")
 
    UnLoad(unpack(a))
+   dbg.fini()
+end
+
+function Reset()
+   local dbg    = Dbg:dbg()
+   dbg.start("Reset()")
+   Purge()
+   local default = os.getenv("LMOD_SYSTEM_DEFAULT_MODULES") or ""
+   dbg.print("default: ",default,"\n")
+   local a = {}
+   for m in default:split(":") do
+      dbg.print("m: ",m,"\n")
+      a[#a + 1] = m
+   end
+   UsrLoad(unpack(a))
    dbg.fini()
 end
 
@@ -1173,6 +1191,7 @@ function main()
    local unloadTbl    = { name = "unload",      checkMPATH = true,  cmd = UnLoad      }
    local swapTbl      = { name = "swap",        checkMPATH = true,  cmd = Swap        }
    local purgeTbl     = { name = "purge",       checkMPATH = true,  cmd = Purge       }
+   local resetTbl     = { name = "reset",       checkMPATH = true,  cmd = Reset       }
    local availTbl     = { name = "avail",       checkMPATH = false, cmd = Avail       }
    local listTbl      = { name = "list",        checkMPATH = false, cmd = List        }
    local tblLstTbl    = { name = "tablelist",   checkMPATH = false, cmd = TableList   }
@@ -1188,53 +1207,55 @@ function main()
    local listDefTbl   = { name = "listdefault", checkMPATH = false, cmd = ListDefault }
    local spiderTbl    = { name = "spider",      checkMPATH = true,  cmd = SpiderCmd   }
 
-   local cmdTbl = { load        = loadTbl,
-                    add         = loadTbl,
-                    lo          = loadTbl,
-                    ["try-add"] = tryAddTbl,
-                    ["try-rm"]  = tryRmTbl,
-                    unload      = unloadTbl,
-                    unlo        = unloadTbl,
-                    rm          = unloadTbl,
-                    remove      = unloadTbl,
-                    remov       = unloadTbl,
-                    delete      = unloadTbl,
-                    del         = unloadTbl,
-                    era         = unloadTbl,
-                    erase       = unloadTbl,
-		    av          = availTbl,
-		    avail       = availTbl,
-		    li          = listTbl,
-		    list        = listTbl,
-                    tablelist   = tblLstTbl,
-                    sw          = swapTbl,
-                    swap        = swapTbl,
-                    switch      = swapTbl,
-                    purge       = purgeTbl,
-                    help        = helpTbl,
-                    whatis      = whatisTbl,
-                    wh          = whatisTbl,
-                    apropos     = keywordTbl,
-                    key         = keywordTbl,
-                    keyword     = keywordTbl,
-                    show        = showTbl,
-                    dis         = showTbl,
-                    display     = showTbl,
-                    use         = useTbl,
-                    unuse       = unuseTbl,
-                    update      = updateTbl,
-                    refresh     = updateTbl,
-                    refr        = updateTbl,
-                    reload      = updateTbl,
-                    setdefault  = setDefTbl,
-                    setd        = setDefTbl,
-                    sd          = setDefTbl,
-                    getdefault  = getDefTbl,
-                    getd        = getDefTbl,
-                    gd          = getDefTbl,
-                    listdefault = listDefTbl,
-                    ld          = listDefTbl,
-                    spider      = spiderTbl,
+   local cmdTbl = { 
+      ["try-add"] = tryAddTbl,
+      ["try-rm"]  = tryRmTbl,
+      add         = loadTbl,
+      apropos     = keywordTbl,
+      av          = availTbl,
+      avail       = availTbl,
+      del         = unloadTbl,
+      delete      = unloadTbl,
+      dis         = showTbl,
+      display     = showTbl,
+      era         = unloadTbl,
+      erase       = unloadTbl,
+      gd          = getDefTbl,
+      getd        = getDefTbl,
+      getdefault  = getDefTbl,
+      help        = helpTbl,
+      key         = keywordTbl,
+      keyword     = keywordTbl,
+      ld          = listDefTbl,
+      li          = listTbl,
+      list        = listTbl,
+      listdefault = listDefTbl,
+      lo          = loadTbl,
+      load        = loadTbl,
+      purge       = purgeTbl,
+      refr        = updateTbl,
+      refresh     = updateTbl,
+      reload      = updateTbl,
+      remov       = unloadTbl,
+      remove      = unloadTbl,
+      reset       = resetTbl,      
+      rm          = unloadTbl,
+      sd          = setDefTbl,
+      setd        = setDefTbl,
+      setdefault  = setDefTbl,
+      show        = showTbl,
+      spider      = spiderTbl,
+      sw          = swapTbl,
+      swap        = swapTbl,
+      switch      = swapTbl,
+      tablelist   = tblLstTbl,
+      unlo        = unloadTbl,
+      unload      = unloadTbl,
+      unuse       = unuseTbl,
+      update      = updateTbl,
+      use         = useTbl,
+      wh          = whatisTbl,
+      whatis      = whatisTbl,
    }
 
    local dbg  = Dbg:dbg()
