@@ -993,6 +993,19 @@ local function GetDefault(...)
    dbg.fini()
 end
 
+local function FindDefaults(a,path)
+   for file in lfs.dir(path) do
+      if (file:sub(1,1) ~= "." and file:sub(-1) ~= "~") then
+         local f = pathJoin(path,file)
+         if (isDir(f)) then
+            FindDefaults(a,f)
+         else
+            a[#a+1] = f
+         end
+      end
+   end
+end
+
 local function ListDefault(...)
    local mt   = MT:mt()
    local dbg  = Dbg:dbg()
@@ -1000,12 +1013,16 @@ local function ListDefault(...)
    local i    = 0
 
    local a = {}
+   local b = {}
 
-   for file in lfs.dir(path) do
-      if (file:sub(1,1) ~= "." and file:sub(-1) ~= "~") then
-         i = i + 1
-         a[#a+1] = "  " .. i .. ") " .. file
+   FindDefaults(b,path)
+   for k = 1,#b do
+      local name = b[k]
+      local i,j  = name:find(path,1,true)
+      if (i) then
+         name = name:sub(j+2)
       end
+      a[#a+1] = "  " .. k .. ") " .. name
    end
 
    if (#a > 0) then

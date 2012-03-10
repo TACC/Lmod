@@ -46,9 +46,14 @@ step 5
 ===========================
 ~/w/lmod/mf/Compiler/gcc/4.2.3/openmpi/1.2.6.lua
 ~/w/lmod/mf/Compiler/intel/10.1/gotoblas/1.31.lua
+~/w/lmod/mf/Compiler/intel/10.1/gotoblas/1.31.lua
+~/w/lmod/mf/Compiler/intel/10.1/gotoblas/1.32.lua
 ~/w/lmod/mf/Compiler/intel/10.1/gotoblas/1.32.lua
 ~/w/lmod/mf/Compiler/intel/10.1/gotoblas/1.33.lua
+~/w/lmod/mf/Compiler/intel/10.1/gotoblas/1.33.lua
 ~/w/lmod/mf/Compiler/intel/10.1/mpich2/1.0.7.lua
+~/w/lmod/mf/Compiler/intel/10.1/mpich2/1.0.7.lua
+~/w/lmod/mf/Compiler/intel/10.1/openmpi/1.2.6.lua
 ~/w/lmod/mf/Compiler/intel/10.1/openmpi/1.2.6.lua
 ~/w/lmod/mf/Core/PrgEnv.lua
 ~/w/lmod/mf/Core/admin/admin-1.0.lua
@@ -70,5 +75,8 @@ step 5
 ~/w/lmod/mf/Core/unix/unix.lua
 ~/w/lmod/mf/MPI/gcc/4.2.3/openmpi/1.2.6/parmetis/3.1.lua
 ~/w/lmod/mf/MPI/intel/10.1/mpich2/1.0.7/parmetis/3.1.lua
+~/w/lmod/mf/MPI/intel/10.1/mpich2/1.0.7/parmetis/3.1.lua
+~/w/lmod/mf/MPI/intel/10.1/openmpi/1.2.6/parmetis/3.1.lua
+~/w/lmod/mf/MPI/intel/10.1/openmpi/1.2.6/parmetis/3.1.lua
 ~/w/lmod/mf/MPI/intel/10.1/openmpi/1.2.6/parmetis/3.1.lua
 ~/w/lmod/rt/vasp/mf/vasp/5.2.lua
