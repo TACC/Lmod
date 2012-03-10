@@ -1,11 +1,20 @@
+Version 3.3.9
+
+  1) This version fixes a bug in spider output.  Now if a modulefile could be found via two or
+     more ways through the software hierarchy, all parents will be reported.
+  2) A new module command "reset" is now supported.  If the environment variable
+     "LMOD_SYSTEM_DEFAULT_MODULES" contains a list of modules then issuing "module reset" will
+     do a "module purge" and then load the list of modules specified by the this env. variable.
+  3) Users can now specify directories as part of the name given to a "module default" name.  In other words
+     doing "module setdefault foo/bar/baz" will create a file $HOME/.lmod.d/foo/bar/baz that has the current
+     list of modules.  Doing "module getdefault foo/bar/baz" will revive it.
+  4) A new function "is_spider()" has been added. It return true if the modulefile is being read by the
+     spider command.
+
 Version 3.3.7
 
 addto now adds the location of the executable to LUA_PATH before it does anything.  This is so that addto
 can find "strict.lua" and other useful lua scripts.
-
-
-
-
 
 Version 3.3.6
 
