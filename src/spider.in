@@ -34,6 +34,7 @@ end
 require("border")
 require("serializeTbl")
 require("pairsByKeys")
+require("fileOps")
 local BeautifulTbl = require("BeautifulTbl")
 local Dbg          = require("Dbg")
 local Optiks       = require("Optiks")
@@ -138,6 +139,7 @@ function main()
             if (entry.pathA) then
                for path in pairs(entry.pathA) do
                   if (keepThisPath(path)) then
+                     path=abspath(path)
                      reverseMapT[path] = {pkg=entry.full, flavor=entry.parent, kind="bin"}
                   end
                end
@@ -145,6 +147,7 @@ function main()
             if (entry.lpathA) then
                for path in pairs(entry.lpathA) do
                   if (keepThisPath(path)) then
+                     path=abspath(path)
                      reverseMapT[path] = {pkg=entry.full, flavor=entry.parent, kind="lib"}
                   end
                end
