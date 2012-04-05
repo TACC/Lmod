@@ -83,6 +83,14 @@ function keepThisPath(path)
    return true
 end
 
+local function add2map(entry, tbl, rmapT, kind)
+   for path in pairs(tbl) do
+      if (keepThisPath(path) and isDir(path)) then
+         path = abspath(path)
+         rmapT[path] = {pkg=entry.full, flavor=entry.parent, kind=kind}
+      end
+   end
+end
 
 function main()
 
@@ -137,20 +145,10 @@ function main()
 
          for kk, entry in pairs(vvv) do
             if (entry.pathA) then
-               for path in pairs(entry.pathA) do
-                  if (keepThisPath(path)) then
-                     path=abspath(path)
-                     reverseMapT[path] = {pkg=entry.full, flavor=entry.parent, kind="bin"}
-                  end
-               end
+               add2map(entry, entry.pathA, reverseMapT,"bin")
             end
             if (entry.lpathA) then
-               for path in pairs(entry.lpathA) do
-                  if (keepThisPath(path)) then
-                     path=abspath(path)
-                     reverseMapT[path] = {pkg=entry.full, flavor=entry.parent, kind="lib"}
-                  end
-               end
+               add2map(entry, entry.lpathA, reverseMapT,"lib")
             end
          end
       end
@@ -164,6 +162,9 @@ function main()
    print(s)
    dbg.fini()
 end
+
+
+
 
 function options()
    local masterTbl = masterTbl()
