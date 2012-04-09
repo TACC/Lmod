@@ -354,6 +354,7 @@ end
 
 function M.buildBaseMpathA(self, mpath)
    local mpathA = {}
+   mpath = mpath or ""
    for path in mpath:split(":") do
       mpathA[#mpathA + 1] = path
    end
