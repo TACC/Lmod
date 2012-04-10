@@ -56,6 +56,7 @@ local function expandMT(vv)
       name = format("_ModuleTable%03d_",i)
       stdout:write(formLine(name,v,nil))
    end
+   stdout:write(formLine("_ModuleTable_Sz_",#a,nil))
    for i = nblks+1, huge do
       name = format("_ModuleTable%03d_",i)
       v    = getenv(name)

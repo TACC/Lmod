@@ -6,5 +6,7 @@ LMOD_DEFAULT_MODULEPATH='~/w/lmod/mf/Core:~/w/lmod/mf/Compiler/intel/10.1:~/w/lm
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH='~/w/lmod/mf/Core:~/w/lmod/mf/Compiler/intel/10.1:~/w/lmod/mf/MPI/intel/10.1/openmpi/1.2.6';
 export MODULEPATH;
+_ModuleTable_Sz_='2';
+export _ModuleTable_Sz_;
 _ModuleTable_='_ModuleTable_={active={Dict={},FN={},Loaded={},default={},fullModName={},mType={},},baseMpathA={"~/w/lmod/mf/Core","~/w/lmod/mf/Compiler/intel/10.1","~/w/lmod/mf/MPI/intel/10.1/openmpi/1.2.6",},family={},inactive={},mpathA={"~/w/lmod/mf/Core","~/w/lmod/mf/Compiler/intel/10.1","~/w/lmod/mf/MPI/intel/10.1/openmpi/1.2.6",},total={Dict={},FN={},Loaded={},default={},fullModName={},mType={},},["version"]=1,}';
 export _ModuleTable_;

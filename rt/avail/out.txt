@@ -9,6 +9,8 @@ LMOD_DEFAULT_MODULEPATH='~/w/lmod/mf/Core:~/w/lmod/mf/Compiler/intel/10.1:~/w/lm
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH='~/w/lmod/mf/Core:~/w/lmod/mf/Compiler/intel/10.1:~/w/lmod/rt/avail/mf/Core';
 export MODULEPATH;
+_ModuleTable_Sz_='2';
+export _ModuleTable_Sz_;
 _ModuleTable_='_ModuleTable_={active={Dict={},FN={},Loaded={},default={},fullModName={},mType={},},baseMpathA={"~/w/lmod/mf/Core","~/w/lmod/mf/Compiler/intel/10.1","~/w/lmod/rt/avail/mf/Core",},family={},inactive={},mpathA={"~/w/lmod/mf/Core","~/w/lmod/mf/Compiler/intel/10.1","~/w/lmod/rt/avail/mf/Core",},total={Dict={},FN={},Loaded={},default={},fullModName={},mType={},},["version"]=1,}';
 export _ModuleTable_;
 ===========================
@@ -49,6 +51,8 @@ PATH='/vol/local/intel/idb/idb/bin:/vol/local/intel/fc/fc/bin:/vol/local/intel/c
 export PATH;
 TACC_FAMILY_COMPILER='intel';
 export TACC_FAMILY_COMPILER;
+_ModuleTable_Sz_='2';
+export _ModuleTable_Sz_;
 _ModuleTable_='_ModuleTable_={active={Dict={["intel"]=1,},FN={"~/w/lmod/mf/Core/intel/intel.lua",},Loaded={"intel",},default={1,},fullModName={"intel/intel",},mType={"w",},},baseMpathA={"~/w/lmod/mf/Core","~/w/lmod/mf/Compiler/intel/10.1","~/w/lmod/rt/avail/mf/Core",},family={["compiler"]="intel",},inactive={},mpathA={"~/w/lmod/mf/Compiler/intel/10.1","~/w/lmod/mf/Core","~/w/lmod/rt/avail/mf/Core",},total={Dict={["intel"]=1,},FN={"~/w/lmod/mf/Core/intel/intel.lua",},Loaded={"intel",},default={1,},fullModName={"intel/intel",},mType={"w",},},["version"]=1,}';
 export _ModuleTable_;
 ===========================

@@ -7,6 +7,8 @@ LMOD_DEFAULT_MODULEPATH='~/w/lmod/mf/Core:~/w/lmod/mf/Beta';
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH='~/w/lmod/mf/Core:~/w/lmod/mf/Beta';
 export MODULEPATH;
+_ModuleTable_Sz_='1';
+export _ModuleTable_Sz_;
 _ModuleTable_='_ModuleTable_={active={Dict={},FN={},Loaded={},default={},fullModName={},mType={},},baseMpathA={"~/w/lmod/mf/Core","~/w/lmod/mf/Beta",},family={},inactive={},mpathA={"~/w/lmod/mf/Core","~/w/lmod/mf/Beta",},total={Dict={},FN={},Loaded={},default={},fullModName={},mType={},},["version"]=1,}';
 export _ModuleTable_;
 ===========================
@@ -39,6 +41,8 @@ TACC_GIT_DIR='/opt/apps/git/1.7.4.3/';
 export TACC_GIT_DIR;
 TACC_GIT_LIB='/opt/apps/git/1.7.4.3/lib';
 export TACC_GIT_LIB;
+_ModuleTable_Sz_='2';
+export _ModuleTable_Sz_;
 _ModuleTable_='_ModuleTable_={active={Dict={["git"]=1,},FN={"~/w/lmod/mf/Core/git/1.7.4.3.lua",},Loaded={"git",},default={1,},fullModName={"git/1.7.4.3",},mType={"w",},},baseMpathA={"~/w/lmod/mf/Core","~/w/lmod/mf/Beta",},family={},inactive={},mpathA={"~/w/lmod/mf/Core","~/w/lmod/mf/Beta",},total={Dict={["git"]=1,},FN={"~/w/lmod/mf/Core/git/1.7.4.3.lua",},Loaded={"git",},default={1,},fullModName={"git/1.7.4.3",},mType={"w",},},["version"]=1,}';
 export _ModuleTable_;
 ===========================

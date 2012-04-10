@@ -5,6 +5,7 @@ cleanUp ()
        -e "s|:/usr/bin:|:|g"                              \
        -e "s|$PATH_to_TM|PATH_to_TM|g"                    \
        -e "s|unsetenv _ModuleTable..._;||g"               \
+       -e "s|unset _ModuleTable..._;||g"                  \
        -e "s|$HOME|~|g"                                   \
        -e "s|---*||g"                                     \
        -e "/Rebuilding cache file, please wait .* done/d" \

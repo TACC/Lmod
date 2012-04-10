@@ -25,7 +25,9 @@ end
 function M.getMT(self,name)
    local a = {}
    local s = nil
-   for i = 1, huge do
+   local mtSz = getenv("_ModuleTable_Sz_") or huge
+
+   for i = 1, mtSz do
       local name = format("_ModuleTable%03d_",i)
       local v = getenv(name)
       if (v == nil) then break end

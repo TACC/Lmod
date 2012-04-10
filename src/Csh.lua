@@ -40,6 +40,7 @@ local function expandMT(vv)
       name = format("_ModuleTable%03d_",i)
       stdout:write("setenv ",name," '",v,"';\n")
    end
+   stdout:write("setenv _ModuleTable_Sz_ ",#a,";\n")
    for i = nblks+1, huge do
       name = format("_ModuleTable%03d_",i)
       v    = getenv(name)

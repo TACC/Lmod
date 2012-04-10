@@ -33,7 +33,7 @@ function joinMT_bash(whole)
    local state = "init"
    local haveMT = false
    for s in whole:split("\n") do
-      if (s:find("^_ModuleTable.*=")) then
+      if (s:find("^_ModuleTable%d%d%d_=")) then
          if (state == "init") then
             state = "mt"
          end
@@ -69,7 +69,7 @@ function joinMT_csh(whole)
    local b
    local state = "init"
    for s in whole:split("\n") do
-      if (s:find("^setenv _ModuleTable")) then
+      if (s:find("^setenv _ModuleTable%d%d%d_")) then
          if (state == "init") then
             b = {}
             state = "mt"

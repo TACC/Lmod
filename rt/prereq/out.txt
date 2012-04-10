@@ -11,6 +11,8 @@ MODULEPATH='~/w/lmod/rt/prereq/mf';
 export MODULEPATH;
 PETSC_DIR='foo';
 export PETSC_DIR;
+_ModuleTable_Sz_='2';
+export _ModuleTable_Sz_;
 _ModuleTable_='_ModuleTable_={active={Dict={["petsc"]=1,},FN={"~/w/lmod/rt/prereq/mf/petsc/3.1.0",},Loaded={"petsc",},default={1,},fullModName={"petsc/3.1.0",},mType={"w",},},baseMpathA={"~/w/lmod/rt/prereq/mf",},family={},inactive={},mpathA={"~/w/lmod/rt/prereq/mf",},total={Dict={["petsc"]=1,},FN={"~/w/lmod/rt/prereq/mf/petsc/3.1.0",},Loaded={"petsc",},default={1,},fullModName={"petsc/3.1.0",},mType={"w",},},["version"]=1,}';
 export _ModuleTable_;
 ===========================
@@ -44,6 +46,8 @@ export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH='~/w/lmod/rt/prereq/mf';
 export MODULEPATH;
 unset 'PETSC_DIR';
+_ModuleTable_Sz_='1';
+export _ModuleTable_Sz_;
 _ModuleTable_='_ModuleTable_={active={Dict={},FN={},Loaded={},default={},fullModName={},mType={},},baseMpathA={"~/w/lmod/rt/prereq/mf",},family={},inactive={},mpathA={"~/w/lmod/rt/prereq/mf",},total={Dict={},FN={},Loaded={},default={},fullModName={},mType={},},["version"]=1,}';
 export _ModuleTable_;
 ===========================
@@ -67,6 +71,8 @@ MODULEPATH='~/w/lmod/rt/prereq/mf';
 export MODULEPATH;
 PETSC_DIR='foo';
 export PETSC_DIR;
+_ModuleTable_Sz_='2';
+export _ModuleTable_Sz_;
 _ModuleTable_='_ModuleTable_={active={Dict={["petsc"]=1,},FN={"~/w/lmod/rt/prereq/mf/petsc/2.9.0",},Loaded={"petsc",},default={0,},fullModName={"petsc/2.9.0",},mType={"w",},},baseMpathA={"~/w/lmod/rt/prereq/mf",},family={},inactive={},mpathA={"~/w/lmod/rt/prereq/mf",},total={Dict={["petsc"]=1,},FN={"~/w/lmod/rt/prereq/mf/petsc/2.9.0",},Loaded={"petsc",},default={0,},fullModName={"petsc/2.9.0",},mType={"w",},},["version"]=1,}';
 export _ModuleTable_;
 ===========================
@@ -88,6 +94,8 @@ LMOD_DEFAULT_MODULEPATH='~/w/lmod/rt/prereq/mf';
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH='~/w/lmod/rt/prereq/mf';
 export MODULEPATH;
+_ModuleTable_Sz_='2';
+export _ModuleTable_Sz_;
 _ModuleTable_='_ModuleTable_={active={Dict={["petsc"]=1,["slepc"]=2,},FN={"~/w/lmod/rt/prereq/mf/petsc/2.9.0","~/w/lmod/rt/prereq/mf/slepc/2.9.0",},Loaded={"petsc","slepc",},default={0,0,},fullModName={"petsc/2.9.0","slepc/2.9.0",},mType={"w","w",},},baseMpathA={"~/w/lmod/rt/prereq/mf",},family={},inactive={},mpathA={"~/w/lmod/rt/prereq/mf",},total={Dict={["petsc"]=1,["slepc"]=2,},FN={"~/w/lmod/rt/prereq/mf/petsc/2.9.0","~/w/lmod/rt/prereq/mf/slepc/2.9.0",},Loaded={"petsc","slepc",},default={0,0,},fullModName={"petsc/2.9.0","slepc/2.9.0",},mType={"w","w",},},["version"]=1,}';
 export _ModuleTable_;
 ===========================
@@ -103,6 +111,8 @@ MODULEPATH='~/w/lmod/rt/prereq/mf';
 export MODULEPATH;
 PETSC_DIR='foo';
 export PETSC_DIR;
+_ModuleTable_Sz_='2';
+export _ModuleTable_Sz_;
 _ModuleTable_='_ModuleTable_={active={Dict={["petsc"]=2,["slepc"]=1,},FN={"~/w/lmod/rt/prereq/mf/slepc/2.9.0","~/w/lmod/rt/prereq/mf/petsc/3.1.0",},Loaded={"slepc","petsc",},default={0,0,},fullModName={"slepc/2.9.0","petsc/3.1.0",},mType={"w","w",},},baseMpathA={"~/w/lmod/rt/prereq/mf",},family={},inactive={},mpathA={"~/w/lmod/rt/prereq/mf",},total={Dict={["petsc"]=2,["slepc"]=1,},FN={"~/w/lmod/rt/prereq/mf/slepc/2.9.0","~/w/lmod/rt/prereq/mf/petsc/3.1.0",},Loaded={"slepc","petsc",},default={0,0,},fullModName={"slepc/2.9.0","petsc/3.1.0",},mType={"w","w",},},["version"]=1,}';
 export _ModuleTable_;
 ===========================
@@ -116,6 +126,8 @@ LMOD_DEFAULT_MODULEPATH='~/w/lmod/rt/prereq/mf';
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH='~/w/lmod/rt/prereq/mf';
 export MODULEPATH;
+_ModuleTable_Sz_='2';
+export _ModuleTable_Sz_;
 _ModuleTable_='_ModuleTable_={active={Dict={["petsc"]=1,["slepc"]=2,},FN={"~/w/lmod/rt/prereq/mf/petsc/3.1.0","~/w/lmod/rt/prereq/mf/slepc/3.1.0",},Loaded={"petsc","slepc",},default={0,1,},fullModName={"petsc/3.1.0","slepc/3.1.0",},mType={"w","w",},},baseMpathA={"~/w/lmod/rt/prereq/mf",},family={},inactive={},mpathA={"~/w/lmod/rt/prereq/mf",},total={Dict={["petsc"]=1,["slepc"]=2,},FN={"~/w/lmod/rt/prereq/mf/petsc/3.1.0","~/w/lmod/rt/prereq/mf/slepc/3.1.0",},Loaded={"petsc","slepc",},default={0,1,},fullModName={"petsc/3.1.0","slepc/3.1.0",},mType={"w","w",},},["version"]=1,}';
 export _ModuleTable_;
 ===========================
@@ -130,6 +142,8 @@ export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH='~/w/lmod/rt/prereq/mf';
 export MODULEPATH;
 unset 'PETSC_DIR';
+_ModuleTable_Sz_='1';
+export _ModuleTable_Sz_;
 _ModuleTable_='_ModuleTable_={active={Dict={},FN={},Loaded={},default={},fullModName={},mType={},},baseMpathA={"~/w/lmod/rt/prereq/mf",},family={},inactive={},mpathA={"~/w/lmod/rt/prereq/mf",},total={Dict={},FN={},Loaded={},default={},fullModName={},mType={},},["version"]=1,}';
 export _ModuleTable_;
 ===========================
@@ -145,6 +159,8 @@ MODULEPATH='~/w/lmod/rt/prereq/mf';
 export MODULEPATH;
 PETSC_DIR='foo';
 export PETSC_DIR;
+_ModuleTable_Sz_='2';
+export _ModuleTable_Sz_;
 _ModuleTable_='_ModuleTable_={active={Dict={["petsc"]=1,},FN={"~/w/lmod/rt/prereq/mf/petsc/3.1.0",},Loaded={"petsc",},default={0,},fullModName={"petsc/3.1.0",},mType={"w",},},baseMpathA={"~/w/lmod/rt/prereq/mf",},family={},inactive={},mpathA={"~/w/lmod/rt/prereq/mf",},total={Dict={["petsc"]=1,},FN={"~/w/lmod/rt/prereq/mf/petsc/3.1.0",},Loaded={"petsc",},default={0,},fullModName={"petsc/3.1.0",},mType={"w",},},["version"]=1,}';
 export _ModuleTable_;
 ===========================
@@ -158,5 +174,7 @@ LMOD_DEFAULT_MODULEPATH='~/w/lmod/rt/prereq/mf';
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH='~/w/lmod/rt/prereq/mf';
 export MODULEPATH;
+_ModuleTable_Sz_='2';
+export _ModuleTable_Sz_;
 _ModuleTable_='_ModuleTable_={active={Dict={["petsc"]=1,["slepc"]=2,},FN={"~/w/lmod/rt/prereq/mf/petsc/3.1.0","~/w/lmod/rt/prereq/mf/slepc/2.9.0",},Loaded={"petsc","slepc",},default={0,0,},fullModName={"petsc/3.1.0","slepc/2.9.0",},mType={"w","w",},},baseMpathA={"~/w/lmod/rt/prereq/mf",},family={},inactive={},mpathA={"~/w/lmod/rt/prereq/mf",},total={Dict={["petsc"]=1,["slepc"]=2,},FN={"~/w/lmod/rt/prereq/mf/petsc/3.1.0","~/w/lmod/rt/prereq/mf/slepc/2.9.0",},Loaded={"petsc","slepc",},default={0,0,},fullModName={"petsc/3.1.0","slepc/2.9.0",},mType={"w","w",},},["version"]=1,}';
 export _ModuleTable_;
