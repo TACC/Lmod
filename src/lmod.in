@@ -317,7 +317,7 @@ local function Update()
    master:reloadAll()
 end
 
-local function List()
+local function List(...)
    local mt = MT:mt()
 
    local totalA = mt:listTotal()
@@ -327,31 +327,63 @@ local function List()
       return
    end
 
-   io.stderr:write("Currently Loaded Modules:\n")
+   local wanted = {}
+   for i,v in ipairs{...} do
+      wanted[i] = v
+   end
+   
 
-   local t = {}
+   local msg     = "Currently Loaded Modules"
    local activeA = mt:listActive()
-   for i,v  in ipairs(activeA) do
-      local w = mt:modFullNameActive(v)
-      t[#t + 1]	= "  " .. i .. ") " .. w
+   local t       = {}
+   local msg2    = ":"
+   
+   if (#wanted == 0) then
+      wanted[1] = ".*"
+   else
+      msg2 = " Matching: " .. table.concat(wanted," or ")
    end
 
-   local ct = ColumnTable:new{tbl=t,prt=prtErr}
-   ct:print_tbl()
+   io.stderr:write(msg,msg2,"\n")
+   local k = 0
+   for i = 1, #activeA do
+      local m = mt:modFullNameActive(activeA[i])
+      for j = 1, #wanted do
+         local p = wanted[j]
+         if (m:find(p)) then
+            k = k + 1
+            t[#t + 1] = "  " .. k .. ") " .. m
+         end
+      end
+   end
 
-   local t = {}
-   local i = 0
-   for _,v in ipairs(totalA) do
+   if (k == 0) then
+      io.stderr:write("  None found.\n")
+   else
+      local ct = ColumnTable:new{tbl=t,prt=prtErr}
+      ct:print_tbl()
+   end
+   t = {}
+   k = 0
+
+   local k = 0
+   for i = 1, #totalA do
+      local v = totalA[i]
       if (not mt:haveModuleAnyActive(v)) then
-         local w = mt:modFullNameTotal(v)
-         i = i + 1
-         t[#t + 1] = "  " .. i .. ") " .. w
+         local m = mt:modFullNameTotal(v)
+         for j = 1, #wanted do
+            local p = wanted[j]
+            if (m:find(p)) then
+               k = k + 1
+               t[#t + 1] = "  " .. k .. ") " .. m
+            end
+         end
       end
    end
 
    if (#t > 0) then
-      io.stderr:write("Inactive Modules:\n")
-      ct = ColumnTable:new{tbl=t,prt=prtErr}
+      io.stderr:write("Inactive Modules",msg2,"\n")
+      local ct = ColumnTable:new{tbl=t,prt=prtErr}
       ct:print_tbl()
    end
 end
