@@ -1,6 +1,7 @@
 require("border")
 require("strict")
 require("string_split")
+require("string_trim")
 require("fileOps")
 require("fillWords")
 require("capture")
@@ -734,6 +735,7 @@ function M.Level2(t, mname)
       -- remove any duplicates
       local d = {}
       for i = 1,#c do
+         local k = c[i]:trim()
          d[c[i]] = 1
       end
       c = {}
