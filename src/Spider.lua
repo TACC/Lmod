@@ -732,22 +732,21 @@ function M.Level2(t, mname)
    end
    a[titleIdx] = availT[haveCore+haveHier]
    if (#c > 0) then
+
       -- remove any duplicates
+      local s = concatTbl(c,"")
       local d = {}
-      for i = 1,#c do
-         local k = c[i]:trim()
-         d[c[i]] = 1
+      for k in s:split("\n") do
+         d[k] = 1
       end
       c = {}
       for k in pairs(d) do
          c[#c+1] = k
       end
       table.sort(c)
-      ia = ia + 1; a[ia] = concatTbl(c,"")
+      c[#c+1] = " "
+      ia = ia + 1; a[ia] = concatTbl(c,"\n")
    end
-   
-
-      
 
    if (tt and tt.help ~= nil) then
       ia = ia + 1; a[ia] = "\n    Help:\n"
