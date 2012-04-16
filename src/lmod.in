@@ -69,6 +69,8 @@ Reset environment
 
 Listing / Searching sub-commands:
   list                                   List loaded modules
+  list             s1 s2 ...             List loaded modules that match the s1
+                                         pattern or the s2 pattern etc.
   avail|av                               List available modules
   avail|av         string                List available modules that contain
                                          "string".
