@@ -352,7 +352,7 @@ local function List(...)
       local m = mt:modFullNameActive(activeA[i])
       for j = 1, #wanted do
          local p = wanted[j]
-         if (m:find(p)) then
+         if (m:find(p,1,true) or m:find(p)) then
             k = k + 1
             t[#t + 1] = "  " .. k .. ") " .. m
          end

@@ -646,7 +646,7 @@ local function availDir(searchA, mpath, path, prefix, a)
                a[#a + 1 ] = '  ' .. n .. '  '
             else
                for _,v in ipairs(searchA) do
-                  if (nn:find(v)) then
+                  if (nn:find(v,1,true) or nn:find(v)) then
                      a[#a + 1 ] = '  ' .. n .. '  '
                      break
                   end
