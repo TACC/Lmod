@@ -469,7 +469,8 @@ function M.searchSpiderDB(strA, a, moduleT, dbT)
       local found = false
       for i = 1,#strA do
          local str = strA[i]
-         if (name:find(str) or whatis:find(str)) then
+         if (name:find(str,1,true) or whatis:find(str,1,true) or 
+             name:find(str)        or whatis:find(str)) then
             found = true
             break
          end
@@ -579,7 +580,7 @@ function M.spiderSearch(dbT, mname)
    dbg.start("spiderSearch(dbT,\"",mname,"\")")
    local found = false
    for k,v in pairs(dbT) do
-      if (k:find(mname)) then
+      if (k:find(mname,1,true) or k:find(mname)) then
          local s = M.Level1(dbT,k, false)
          io.stderr:write(s,"\n")
          found = true
