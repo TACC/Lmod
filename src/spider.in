@@ -35,6 +35,7 @@ require("border")
 require("serializeTbl")
 require("pairsByKeys")
 require("fileOps")
+local json         = require("json")
 local BeautifulTbl = require("BeautifulTbl")
 local Dbg          = require("Dbg")
 local Optiks       = require("Optiks")
@@ -158,6 +159,12 @@ function main()
       return
    end
       
+   if (masterTbl.outputStyle == "spider-json") then
+      print(json.encode(dbT))
+      return
+   end
+
+
    local s = serializeTbl{name="dbT",      value=dbT,   indent=true}
    print(s)
    dbg.fini()
@@ -183,7 +190,7 @@ function options()
       dest   = 'outputStyle',
       action = 'store',
       default = "list",
-      help    = "Output Style: list, tree, reverseMap, spider"  
+      help    = "Output Style: list, tree, reverseMap, spider spider-json"  
    }
 
    cmdlineParser:add_option{ 
