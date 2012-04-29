@@ -250,23 +250,6 @@ function processNewModulePATH(value)
       return
    end
 
-   --for v in value:split(":") do
-   --   v = regularize(v)
-   --   dbg.print("v: ", v,"\n")
-   --   dbg.print("moduleDirT[v] ", tostring(moduleDirT[v]) ,"\n")
-   --   if (moduleDirT[v] == nil) then
-   --      moduleDirT[v] = 1
-   --      local path    = moduleStack[iStack].path
-   --      local full    = moduleStack[iStack].full
-   --      local moduleT = moduleStack[iStack].moduleT
-   --      iStack        = iStack+1
-   --      moduleStack[iStack] = {path = path, full = full, moduleT = moduleT[path].children}
-   --      dbg.print("Top of Stack: ",iStack, " Full: ", full, " file: ", path, "\n")
-   --      M.findModulesInDir(v,"",moduleT[path].children)
-   --      moduleStack[iStack] = nil
-   --   end
-   --end
-
    for v in value:split(":") do
       v = regularize(v)
       dbg.print("v: ", v,"\n")
@@ -440,7 +423,17 @@ function M.buildSpiderDB(a, moduleT, dbT)
          end
       end
       local parent = t[path].parent or {}
-      parent[#parent+1] = concatTbl(a,":")
+      local entry  = concatTbl(a,":")
+      local found  = false
+      for i = 1,#parent do
+         if ( entry == parent[i]) then
+            found = true
+            break;
+         end
+      end
+      if (not found) then
+         parent[#parent+1] = entry
+      end
       t[path].parent = parent
       if (next(value.children)) then
          a[#a+1] = t[path].full
