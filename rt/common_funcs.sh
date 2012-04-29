@@ -6,9 +6,12 @@ cleanUp ()
        -e "s|$PATH_to_TM|PATH_to_TM|g"                    \
        -e "s|unsetenv _ModuleTable..._;||g"               \
        -e "s|unset _ModuleTable..._;||g"                  \
+       -e "s|unset _ModuleTable..._;||g"                  \
        -e "s|$HOME|~|g"                                   \
        -e "s|---*||g"                                     \
        -e "/Rebuilding cache file, please wait .* done/d" \
+       -e "/^_ModuleTable_Sz_=.*$/d"                      \
+       -e "/^setenv _ModuleTable_Sz_ .*$/d"               \
        -e "/^ *$/d"                                       \
        < $1 > $2
 }
