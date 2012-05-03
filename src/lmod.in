@@ -1179,7 +1179,7 @@ function getModuleT()
 end
 
 
-function SpiderCmd(mname)
+function SpiderCmd(...)
    local dbg = Dbg:dbg()
 
    load 	= dbg.quiet
@@ -1213,10 +1213,21 @@ function SpiderCmd(mname)
    Spider.buildSpiderDB({"default"},moduleT, dbT)
    LmodError = errorRtn
 
-   if (mname == nil) then
+   local mnameA = {}
+   for _,v in ipairs{...} do
+      mnameA[#mnameA+1] = v
+   end
+
+   if (#mnameA < 1) then
       s = Spider.Level0(dbT)
    else
-      s = Spider.Level1(dbT,mname, true)
+      local a = {}
+      local help = false
+      for i = 1, #mnameA do
+         if (i == #mnameA) then help = true end
+         a[#a+1] = Spider.Level1(dbT, mnameA[i], help)
+      end
+      s = concatTbl(a[#a+1],"\n")
    end
    io.stderr:write(s,"\n")
    dbg.fini()
