@@ -1201,8 +1201,12 @@ function SpiderCmd(...)
    prepend_path = Spider_prepend_path
    append_path  = Spider_append_path
    
+   local mnameA = {}
+   for _,v in ipairs{...} do
+      mnameA[#mnameA+1] = v
+   end
 
-   dbg.start("SpiderCmd(",tostring(mname),")")
+   dbg.start("SpiderCmd(",concatTbl(mnameA,","),")")
 
    
    local moduleT = getModuleT()
@@ -1213,11 +1217,6 @@ function SpiderCmd(...)
    Spider.buildSpiderDB({"default"},moduleT, dbT)
    LmodError = errorRtn
 
-   local mnameA = {}
-   for _,v in ipairs{...} do
-      mnameA[#mnameA+1] = v
-   end
-
    if (#mnameA < 1) then
       s = Spider.Level0(dbT)
    else
@@ -1227,7 +1226,7 @@ function SpiderCmd(...)
          if (i == #mnameA) then help = true end
          a[#a+1] = Spider.Level1(dbT, mnameA[i], help)
       end
-      s = concatTbl(a[#a+1],"\n")
+      s = concatTbl(a,"\n")
    end
    io.stderr:write(s,"\n")
    dbg.fini()
