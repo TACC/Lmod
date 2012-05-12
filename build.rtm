@@ -12,14 +12,14 @@ case $host in
 	prefix="/opt/apps";;
     *)
 	prefix="$HOME/l/pkg"
-        sysprefix="/opt/apps"
+        sysprefix="/share/moduleData"
         ;;
 esac
 
 rm -f config.status config.log
 
 cmdA=("make distclean"
-      "./configure --prefix=$prefix --with-ancient=86401 --with-shortTime=2.3 --with-spiderCacheDir=$sysprefix/lmod/cacheDir"
+      "./configure --prefix=$prefix --with-ancient=86401 --with-shortTime=2.3 --with-spiderCacheDir=$sysprefix/cacheDir"
       "$SUDO make install"
       "make clobber"
       )
