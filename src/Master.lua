@@ -363,6 +363,9 @@ function M.access(self, ...)
 
    if (#a > 0) then
       io.stderr:write("Failed to find the following module(s):  \"",concatTbl(a,"\", \""),"\" in your MODULEPATH\n")
+      io.stderr:write("Try: \n",
+       "    \"module spider ", concatTbl(a," "), "\"\n",
+       "\nto see if the module(s) are available across all compilers and MPI implementations.\n")
    end
 end
 
