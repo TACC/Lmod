@@ -29,7 +29,7 @@ AC_ARG_WITH(ancient,
 
 AC_SUBST(SHORT_TIME)
 AC_ARG_WITH(shortTime,
-    AC_HELP_STRING([--with-shortTime=num_secs],[if spider build time < shortTime then no spider cache file [[2]]]),
+    AC_HELP_STRING([--with-shortTime=seconds],[if spider build time < shortTime then no spider cache file [[2]]]),
     SHORT_TIME="$withval"
     AC_MSG_RESULT([SHORT_TIME=$with_shortTime])
     AC_DEFINE_UNQUOTED(SHORT_TIME, "$with_shortTime")dnl
@@ -38,6 +38,18 @@ AC_ARG_WITH(shortTime,
     AC_MSG_RESULT([SHORT_TIME=$withval])
     SHORT_TIME="$withval"
     AC_DEFINE_UNQUOTED(SHORT_TIME, "$withval"))dnl
+
+AC_SUBST(SPIDER_CACHE_DIR)
+AC_ARG_WITH(spiderCacheDir,
+    AC_HELP_STRING([--with-spiderCacheDir=dir],[use this directory to hold a spider cache file [[]]]),
+    SPIDER_CACHE_DIR="$withval"
+    AC_MSG_RESULT([SPIDER_CACHE_DIR=$with_spiderCacheDir])
+    AC_DEFINE_UNQUOTED(SHORT_TIME, "$with_spiderCacheDir")dnl
+    ,
+    withval=""
+    AC_MSG_RESULT([SPIDER_CACHE_DIR=$withval])
+    SPIDER_CACHE_DIR="$withval"
+    AC_DEFINE_UNQUOTED(SPIDER_CACHE_DIR, "$withval"))dnl
 
 AC_SUBST(PATH_TO_LUA)
 AC_SUBST(PATH_TO_HASHSUM)

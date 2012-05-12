@@ -17,7 +17,7 @@ esac
 rm -f config.status config.log
 
 cmdA=("make distclean"
-      "./configure --prefix=$prefix --with-ancient=86401 --with-shortTime=2.3"
+      "./configure --prefix=$prefix --with-ancient=86401 --with-shortTime=2.3 --with-spiderCacheDir=$prefix/lmod/cacheDir"
       "$SUDO make install"
       "make clobber"
       )

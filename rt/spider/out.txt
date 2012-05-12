@@ -73,3 +73,14 @@ export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH='~/w/lmod/mf/Core:~/w/lmod/mf/Beta';
 export MODULEPATH;
 false
+===========================
+step 8
+===========================
+LMOD_DEFAULT_MODULEPATH='~/w/lmod/mf/Core:~/w/lmod/mf/Beta';
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH='~/w/lmod/mf/Core:~/w/lmod/mf/Beta';
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH='~/w/lmod/mf/Core:~/w/lmod/mf/Beta';
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH='~/w/lmod/mf/Core:~/w/lmod/mf/Beta';
+export MODULEPATH;

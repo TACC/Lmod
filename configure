@@ -560,6 +560,7 @@ LIBOBJS
 luaprog
 PATH_TO_HASHSUM
 PATH_TO_LUA
+SPIDER_CACHE_DIR
 SHORT_TIME
 ANCIENT
 MODULEPATH_ROOT
@@ -607,6 +608,7 @@ enable_option_checking
 with_module_root_path
 with_ancient
 with_shortTime
+with_spiderCacheDir
 '
       ac_precious_vars='build_alias
 host_alias
@@ -1223,9 +1225,11 @@ Optional Packages:
                           use module root path=<path> [[PREFIX/modulefiles]]
   --with-ancient=num_secs How long to wait before rebuilding spider cache
                           file=num_secs [[86400]]
-  --with-shortTime=num_secs
+  --with-shortTime=seconds
                           if spider build time < shortTime then no spider
                           cache file [[2]]
+  --with-spiderCacheDir=dir
+                          use this directory to hold a spider cache file [[]]
 
 Report bugs to the package provider.
 _ACEOF
@@ -1717,6 +1721,28 @@ $as_echo "SHORT_TIME=$withval" >&6; }
     SHORT_TIME="$withval"
     cat >>confdefs.h <<_ACEOF
 #define SHORT_TIME "$withval"
+_ACEOF
+
+fi
+
+
+
+# Check whether --with-spiderCacheDir was given.
+if test "${with_spiderCacheDir+set}" = set; then :
+  withval=$with_spiderCacheDir; SPIDER_CACHE_DIR="$withval"
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: SPIDER_CACHE_DIR=$with_spiderCacheDir" >&5
+$as_echo "SPIDER_CACHE_DIR=$with_spiderCacheDir" >&6; }
+    cat >>confdefs.h <<_ACEOF
+#define SHORT_TIME "$with_spiderCacheDir"
+_ACEOF
+
+else
+  withval=""
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: SPIDER_CACHE_DIR=$withval" >&5
+$as_echo "SPIDER_CACHE_DIR=$withval" >&6; }
+    SPIDER_CACHE_DIR="$withval"
+    cat >>confdefs.h <<_ACEOF
+#define SPIDER_CACHE_DIR "$withval"
 _ACEOF
 
 fi

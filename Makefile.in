@@ -1,50 +1,51 @@
-ANCIENT         := @ANCIENT@
-SHORT_TIME      := @SHORT_TIME@
-PATH_TO_HASHSUM := @PATH_TO_HASHSUM@
-PATH_TO_LUA	:= @PATH_TO_LUA@
-MODULEPATH_ROOT := @MODULEPATH_ROOT@
-VERSION_SRC	:= src/Version.lua
-prefix		:= @prefix@
-package		:= lmod
-version		:= $(shell cd ./src; $(PATH_TO_LUA)/lua -e "local Version=require('Version'); print(Version.name())" | awk '{print $$1}')
-PKG		:= $(prefix)/$(package)/$(package)
-LIBEXEC		:= $(prefix)/$(package)/$(version)/libexec
-INIT		:= $(prefix)/$(package)/$(version)/init
+ANCIENT          := @ANCIENT@
+SHORT_TIME       := @SHORT_TIME@
+SPIDER_CACHE_DIR := @SPIDER_CACHE_DIR@
+PATH_TO_HASHSUM  := @PATH_TO_HASHSUM@
+PATH_TO_LUA	 := @PATH_TO_LUA@
+MODULEPATH_ROOT  := @MODULEPATH_ROOT@
+VERSION_SRC	 := src/Version.lua
+prefix		 := @prefix@
+package		 := lmod
+version		 := $(shell cd ./src; $(PATH_TO_LUA)/lua -e "local Version=require('Version'); print(Version.name())" | awk '{print $$1}')
+PKG		 := $(prefix)/$(package)/$(package)
+LIBEXEC		 := $(prefix)/$(package)/$(version)/libexec
+INIT		 := $(prefix)/$(package)/$(version)/init
 
-DIRLIST		:= $(DESTDIR)$(LIBEXEC) $(DESTDIR)$(INIT)
+DIRLIST		 := $(DESTDIR)$(LIBEXEC) $(DESTDIR)$(INIT)
 
-STANDALONE_PRGM := src/lmod.in src/addto.in src/getmt.in src/processMT.in  src/spider.in \
-                   src/processModuleUsage.in src/reportUsers.in src/clearMT_cmd.in
-SHELL_INIT	:= bash.in csh.in ksh.in tcsh.in zsh.in sh.in
-SHELL_INIT	:= $(patsubst %, setup/%, $(SHELL_INIT))
+STANDALONE_PRGM  := src/lmod.in src/addto.in src/getmt.in src/processMT.in  src/spider.in \
+                    src/processModuleUsage.in src/reportUsers.in src/clearMT_cmd.in
+SHELL_INIT	 := bash.in csh.in ksh.in tcsh.in zsh.in sh.in
+SHELL_INIT	 := $(patsubst %, setup/%, $(SHELL_INIT))
 
-STARTUP		:= profile.in cshrc.in
-STARTUP		:= $(patsubst %, setup/%, $(STARTUP))
+STARTUP		 := profile.in cshrc.in
+STARTUP		 := $(patsubst %, setup/%, $(STARTUP))
 
-MAIN_DIR	:= Makefile.in INSTALL configure README_lua_modulefiles.txt
+MAIN_DIR	 := Makefile.in INSTALL configure README_lua_modulefiles.txt
 
-lua_code	:= $(wildcard src/*.lua) $(wildcard src/*.tcl) src/COPYRIGHT 
-VDATE		:= $(shell date +'%F %H:%M')
+lua_code	 := $(wildcard src/*.lua) $(wildcard src/*.tcl) src/COPYRIGHT 
+VDATE		 := $(shell date +'%F %H:%M')
 
-ComputeHashSum  := src/computeHashSum.in
+ComputeHashSum   := src/computeHashSum.in
 
-REQUIRED_PKGS	:= \
-                   BeautifulTbl  \
-                   ColumnTable   \
-                   Dbg           \
-                   Optiks        \
-                   Optiks_Option \
-                   capture       \
-                   fileOps       \
-	           fillWords     \
-                   json          \
-                   hash          \
-                   inherits      \
-                   pairsByKeys   \
-                   serializeTbl  \
-                   strict        \
-                   string_split  \
-                   string_trim
+REQUIRED_PKGS	 := \
+                    BeautifulTbl  \
+                    ColumnTable   \
+                    Dbg           \
+                    Optiks        \
+                    Optiks_Option \
+                    capture       \
+                    fileOps       \
+	            fillWords     \
+                    json          \
+                    hash          \
+                    inherits      \
+                    pairsByKeys   \
+                    serializeTbl  \
+                    strict        \
+                    string_split  \
+                    string_trim
 
 .PHONY: test
 
@@ -72,6 +73,7 @@ __installMe:
 	      -e 's|@path_to_hashsum@|$(PATH_TO_HASHSUM)|g'       \
 	      -e 's|@ancient@|$(ANCIENT)|g'                       \
 	      -e 's|@short_time@|$(SHORT_TIME)|g'                 \
+	      -e 's|@cacheDir@|$(SPIDER_CACHE_DIR)|g'             \
 	      -e 's|@modulepath_root@|$(MODULEPATH_ROOT)|g'       \
               -e 's|@PKG@|$(PKG)|g'         < $$i > $$fn;         \
           [ -n "$(DIRLOC)" ] && mv $$fn $(DESTDIR)$(DIRLOC) && chmod +x $(DESTDIR)$(DIRLOC)/$$fn; \

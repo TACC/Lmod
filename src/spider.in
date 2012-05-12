@@ -118,9 +118,10 @@ function main()
 
    Spider.findAllModules(moduleDirA, moduleT)
    
-   if (masterTbl.outputStyle == "tree") then
-      local s = serializeTbl{name="moduleT",value=moduleT,indent=true}
-      print(s)
+   if (masterTbl.outputStyle == "moduleT") then
+      local s1 = serializeTbl{name="defaultMpathA",value=moduleDirA,indent=true}
+      local s2 = serializeTbl{name="moduleT",      value=moduleT,   indent=true}
+      io.stdout:write(s1,s2,"\n")
       dbg.fini()
       return
    end
@@ -190,7 +191,7 @@ function options()
       dest   = 'outputStyle',
       action = 'store',
       default = "list",
-      help    = "Output Style: list, tree, reverseMap, spider spider-json"  
+      help    = "Output Style: list, moduleT, reverseMap, spider spider-json"  
    }
 
    cmdlineParser:add_option{ 

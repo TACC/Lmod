@@ -20,6 +20,7 @@ _MyFileName   = ""
 --            enough to be computed every time rather than cached.
 ancient       = "@ancient@"
 shortTime     = "@short_time@"
+sysCacheDir   = os.getenv("LMOD_SPIDER_CACHE_DIR") or "@cacheDir@"
 ancient       = tonumber(ancient)   or 86400
 shortTime     = tonumber(shortTime) or 2.0
 MT            = {}
@@ -98,7 +99,7 @@ Setting/Getting Default module sub-commands:
   getdefault | gd  filename              Use the filename "filename" to retrieve
                                          previously saved list of modules.
   listdefault | ld                       list all saved default states.
-   
+
 Miscellaneous sub-commands:
   show                modulefile         show the commands in the module file.
   use [-a] [--append] path               Prepend or Append path to MODULEPATH
@@ -333,13 +334,13 @@ local function List(...)
    for i,v in ipairs{...} do
       wanted[i] = v
    end
-   
+
 
    local msg     = "Currently Loaded Modules"
    local activeA = mt:listActive()
    local t       = {}
    local msg2    = ":"
-   
+
    if (#wanted == 0) then
       wanted[1] = ".*"
    else
@@ -884,7 +885,7 @@ function Load(...)
          local moduleFn  = mt:fileNameActive(moduleName)
          local modFullNm = mt:modFullNameActive(moduleName)
          local message
-         local key       
+         local key
          if (adminT[moduleFn]) then
             message = adminT[moduleFn]
             key     = moduleFn
@@ -1103,17 +1104,22 @@ end
 
 function getModuleT()
 
-   local dbg       = Dbg:dbg()
-   local mt        = MT:mt()
-   local moduleT   = {}
-   local HOME      = os.getenv("HOME") or ""
-   local cacheDir  = pathJoin(HOME,".lmod.d",".cache")
-   local moduleTFN = pathJoin(cacheDir, "moduleT.lua")
-   local errRtn    = LmodError
-   local message   = LmodMessage
-
+   local dbg        = Dbg:dbg()
+   local mt         = MT:mt()
+   local moduleT    = {}
+   local HOME       = os.getenv("HOME") or ""
+   local cacheDir   = pathJoin(HOME,".lmod.d",".cache")
+   local errRtn     = LmodError
+   local message    = LmodMessage
+   local cacheFileA = {
+      { file = pathJoin(cacheDir,   "moduleT.lua"), fileT = "your"  },
+      { file = pathJoin(sysCacheDir,"moduleT.lua"), fileT = "system"},
+   }
+   local userModuleTFN = pathJoin(cacheDir,"moduleT.lua")
 
    local buildModuleT = true
+
+   dbg.start("getModuleT()")
 
    local mpath = mt:getBaseMPATH()
    if (mpath == nil) then
@@ -1124,28 +1130,44 @@ function getModuleT()
       moduleDirA[#moduleDirA+1] = path
    end
 
-   local haveMTFN = isFile(moduleTFN)
-
-   if (haveMTFN) then
-      local attr  = lfs.attributes(moduleTFN)
-      buildModuleT = (os.time() - attr.modification) > ancient  -- rebuild if older than a day
-   end
-
-   -- Check to see if LMOD_DEFAULT_MODULEPATH has changed.
-   if (not buildModuleT and haveMTFN) then
-      assert(loadfile(moduleTFN))()
-      local defaultMpathA = _G.defaultMpathA
-      if (#moduleDirA ~= #defaultMpathA) then
-         buildModuleT = true -- rebuild because the number of dirs has changed.
-      else
-         buildModuleT = false
-         for i = 1,#moduleDirA do
-            if (moduleDirA[i] ~= defaultMpathA[i]) then
-               buildModuleT = true
+   local moduleTFN   = nil
+   local fileT       = nil
+   for i = 1,#cacheFileA do
+      local f = cacheFileA[i].file
+      dbg.print("cacheFile: ",f,"\n")
+      if (isFile(f)) then
+         local attr     = lfs.attributes(f)
+         local timeDiff = os.time() - attr.modification
+         buildModuleT   = timeDiff > ancient  -- rebuild if older than a day
+         dbg.print("timeDiff: ",timeDiff," buildModuleT: ", tostring(buildModuleT),"\n")
+         if (not buildModuleT) then
+            assert(loadfile(f))()
+            local defaultMpathA = _G.defaultMpathA
+            if (#moduleDirA ~= #defaultMpathA) then
+               buildModuleT = true -- rebuild because the number of dirs has changed.
+               dbg.print("(2) buildModuleT: ", tostring(buildModuleT),"\n")
+            else
+               buildModuleT = false
+               for i = 1,#moduleDirA do
+                  if (moduleDirA[i] ~= defaultMpathA[i]) then
+                     buildModuleT = true
+                     break
+                  end
+               end
+               dbg.print("(3) buildModuleT: ", tostring(buildModuleT),"\n")
+            end
+            dbg.print("(4) buildModuleT: ", tostring(buildModuleT),"\n")
+            if (not buildModuleT) then
+               moduleTFN    = f
+               fileT        = cacheFileA[i].fileT
                break
             end
          end
       end
+   end
+
+   if (moduleTFN) then
+      io.stderr:write("Using ",fileT," spider cache file\n")
    end
 
    if (buildModuleT) then
@@ -1162,19 +1184,20 @@ function getModuleT()
          mkdir_recursive(cacheDir)
          local s1 = serializeTbl{name="defaultMpathA",value=moduleDirA,indent=true}
          local s2 = serializeTbl{name="moduleT",      value=moduleT,   indent=true}
-         local f  = io.open(moduleTFN,"w")
+         local f  = io.open(userModuleTFN,"w")
          f:write(s1,s2)
          f:close()
       else
          -- remove cache file if old
-         if (haveMTFN) then
-            posix.unlink(moduleTFN);
+         if (isFile(userModuleTFN)) then
+            posix.unlink(userModuleTFN);
          end
       end
 
    else
       moduleT = _G.moduleT
    end
+   dbg.fini()
    return moduleT
 end
 
@@ -1200,11 +1223,11 @@ function SpiderCmd(mname)
    whatis       = Spider_whatis
    prepend_path = Spider_prepend_path
    append_path  = Spider_append_path
-   
+
 
    dbg.start("SpiderCmd(",tostring(mname),")")
 
-   
+
    local moduleT = getModuleT()
 
    local s
@@ -1258,7 +1281,7 @@ function main()
    local listDefTbl   = { name = "listdefault", checkMPATH = false, cmd = ListDefault }
    local spiderTbl    = { name = "spider",      checkMPATH = true,  cmd = SpiderCmd   }
 
-   local cmdTbl = { 
+   local cmdTbl = {
       ["try-add"] = tryAddTbl,
       ["try-rm"]  = tryRmTbl,
       add         = loadTbl,
@@ -1289,7 +1312,7 @@ function main()
       reload      = updateTbl,
       remov       = unloadTbl,
       remove      = unloadTbl,
-      reset       = resetTbl,      
+      reset       = resetTbl,
       rm          = unloadTbl,
       sd          = setDefTbl,
       setd        = setDefTbl,
