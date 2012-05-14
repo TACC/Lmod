@@ -31,6 +31,7 @@ function isloaded()
    return false
 end
 
+require("alarm")
 require("border")
 require("serializeTbl")
 require("pairsByKeys")
@@ -93,6 +94,16 @@ local function add2map(entry, tbl, rmapT, kind)
    end
 end
 
+function timer(s,f)
+   local a = function () f() end
+   alarm(s,a)
+end
+
+function my_alarm()
+   os.exit(1)
+end
+
+
 function main()
 
    options()
@@ -115,6 +126,9 @@ function main()
    end
 
    dbg.start("main()")
+   local quitTime = 4*60  -- quit searching after 4 mins
+
+   timer(quitTime,my_alarm)
 
    Spider.findAllModules(moduleDirA, moduleT)
    

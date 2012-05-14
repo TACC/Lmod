@@ -1112,8 +1112,9 @@ function getModuleT()
    local errRtn     = LmodError
    local message    = LmodMessage
    local cacheFileA = {
-      { file = pathJoin(cacheDir,   "moduleT.lua"), fileT = "your"  },
-      { file = pathJoin(sysCacheDir,"moduleT.lua"), fileT = "system"},
+      { file = pathJoin(cacheDir,   "moduleT.lua"),     fileT = "your"  },
+      { file = pathJoin(sysCacheDir,"moduleT.lua"),     fileT = "system"},
+      { file = pathJoin(sysCacheDir,"moduleT.old.lua"), fileT = "system"},
    }
    local userModuleTFN = pathJoin(cacheDir,"moduleT.lua")
 
