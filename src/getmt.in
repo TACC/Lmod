@@ -16,10 +16,10 @@ package.path = cmd_dir .. "?.lua;" .. package.path
 require("strict")
 require("fileOps")
 require("serializeTbl")
-require("sys")
 require("capture")
 
 _ModuleTable_ = ""
+local posix   = require("posix")
 local Optiks  = require("Optiks")
 local lfs     = require("lfs")
 local cmd     = abspath(arg[0])
@@ -51,6 +51,14 @@ function UUIDString(epoch)
    return uuid
 end
 
+local function epoch()
+   if (posix.gettimeofday) then
+      local t1, t2 = posix.gettimeofday()
+      return t1 + t2*1.0e-6
+   else
+      return os.time()
+   end
+end
 
 function getMT()
    local a = {}
@@ -81,7 +89,7 @@ function main()
 
    local fn = nil
    if (optionTbl.save_state) then
-      local uuid = UUIDString(sys.gettimeofday())
+      local uuid = UUIDString(epoch())
       fn = pathJoin(getenv("HOME"), ".lmod.d", ".save", uuid .. ".lua")
    elseif (optionTbl.fn) then
       fn = optionTbl.fn
