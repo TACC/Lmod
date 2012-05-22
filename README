@@ -14,31 +14,29 @@ Version 3.4.0
 
      spider -o moduleT $LMOD_DEFAULT_MODULEPATH > /path/to/systemCacheDir/moduleT.lua
 
-
-  Bug fix:
-
-  1) Previously modules name with special regular expression characters such as "-" would not
-     be found with "module avail" and "module spider" now they will.
-  
-  
-
-
-Version 3.3.10
-
-  Small feature added:
+  3) The module list can be search:
 
      $ module list pattern1 pattern2 ...
 
-  This command will report any module loaded that match pattern1 or pattern2 ...
+     This command will report any module loaded that match pattern1 or pattern2 ...
+
+     $ module list gcc b
+
+     Currently Loaded Modules Matching: gcc or b
+     1) gcc/4.6.2  2) boost/1.49.0
+     
 
   Bug fixes:
 
-  1) This is also minor bug fix release.  There was a subtle bug with the way the
-  module table was written out and read from the environment.  In rare cases, the
-  module table could get corrupted.  This is now fixed.
+  1) Previously modules name with special regular expression characters such
+     as "-" would not be found with "module avail" and "module spider" now they will.
+  
+  2) There was a subtle bug with the way the module table was written out and read
+     from the environment.  In rare cases, the module table could get corrupted.
+     This is now fixed.
 
-  2) Previously, if MODULEPATH was not set then a lua error would be reported.
-  This is now fixed.
+  3) Previously, if MODULEPATH was not set then a lua error would be reported.
+     This is now fixed.
 
 
 Version 3.3.9
