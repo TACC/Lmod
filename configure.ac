@@ -61,6 +61,41 @@ if test x$luaprog = "x"; then
 fi
 PATH_TO_LUA=$(echo $luaprog | sed -e 's|/lua$||')
 
+cat > luaModuleAvailable << 'EOF'
+function main()
+   for i = 1, #arg do
+      require(arg[[i]])
+      if (not package.loaded[[arg[i]]]) then
+         print (arg[[i]], "not available")
+      end
+   end
+end
+
+main()
+EOF
+
+echo -n "Checking for lua modules: posix lfs"
+
+missingModules=""
+for i in posix lfs; do
+  $luaprog luaModuleAvailable $i 2> /dev/null
+  if test "$?" != 0 ; then
+    missingModules="$missingModules $i"
+  fi
+done
+
+rm luaModuleAvailable
+if test -n "$missingModules" ; then
+  echo ""
+  echo ""
+  echo "Error: The follow lua module(s) are missing: $missingModules"
+  echo ""
+  echo "You can not run Lmod without: $missingModules"
+  exit 1
+fi
+
+echo "... yes"
+    
 
 AC_OUTPUT(makefile:Makefile.in)
 
