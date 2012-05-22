@@ -1,3 +1,28 @@
+Version 3.4.0
+
+  Changes/Features:
+
+  1) The configure script now checks to see that both lfs and posix are available or
+     the script quits.
+
+  2) Support for a system cache directory:
+
+     ./configure --with-spiderCacheDir=/path/to/systemCacheDir
+
+     On slow file system such as lustre a "module spider" can take a while. If one creates
+     a cron that runs hourly to produce a spider file.
+
+     spider -o moduleT $LMOD_DEFAULT_MODULEPATH > /path/to/systemCacheDir/moduleT.lua
+
+
+  Bug fix:
+
+  1) Previously modules name with special regular expression characters such as "-" would not
+     be found with "module avail" and "module spider" now they will.
+  
+  
+
+
 Version 3.3.10
 
   Small feature added:
