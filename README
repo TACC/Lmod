@@ -1,127 +1,116 @@
-Version 3.4.0
+Version 3.4.1/3.4.0
 
   Changes/Features:
 
-  1) The configure script now checks to see that both lfs and posix are available or
-     the script quits.
+  1) The structure of modules file directories has been extended.
+     Previous versions required that symbolic links could only be used
+     with files and not directories.  You can now use a symlink to
+     a directory.  This is useful when trying to use Lmod with an existing
+     module tree.
 
-  2) Support for a system cache directory:
 
-     ./configure --with-spiderCacheDir=/path/to/systemCacheDir
-
-     On slow file system such as lustre a "module spider" can take a while. If one creates
-     a cron that runs hourly to produce a spider file.
-
-     spider -o moduleT $LMOD_DEFAULT_MODULEPATH > /path/to/systemCacheDir/moduleT.lua
-
-  3) The module list can be search:
+  2) The module list can be search:
 
      $ module list pattern1 pattern2 ...
 
-     This command will report any module loaded that match pattern1 or pattern2 ...
+     This command will report any module loaded that match pattern1
+     or pattern2 ...
 
      $ module list gcc b
 
      Currently Loaded Modules Matching: gcc or b
      1) gcc/4.6.2  2) boost/1.49.0
      
+  3) The configure script now checks to see that both lfs and posix are
+     available or the script quits.
+
+  4) Support for a system cache directory:
+
+     ./configure --with-spiderCacheDir=/path/to/systemCacheDir
+
+     On slow file system such as lustre a "module spider" can take
+     a while. If one creates a cron that runs hourly to produce a 
+     spider file.
+
+     spider -o moduleT $LMOD_DEFAULT_MODULEPATH > /path/to/systemCacheDir/moduleT.lua
+
 
   Bug fixes:
 
-  1) Previously modules name with special regular expression characters such
-     as "-" would not be found with "module avail" and "module spider" now they will.
+  1) Previously modules name with special regular expression
+     characters such as "-" would not be found with "module avail"
+     and "module spider" now they will.
   
-  2) There was a subtle bug with the way the module table was written out and read
-     from the environment.  In rare cases, the module table could get corrupted.
-     This is now fixed.
+  2) There was a subtle bug with the way the module table was written
+     out and read from the environment.  In rare cases, the module table
+     could get corrupted.   This is now fixed.
 
-  3) Previously, if MODULEPATH was not set then a lua error would be reported.
-     This is now fixed.
+  3) Previously, if MODULEPATH was not set then a lua error would be
+     reported. This is now fixed.
 
 
 Version 3.3.9
 
-  1) This version fixes a bug in spider output.  Now if a modulefile could be
-     found via two or more ways through the software hierarchy, all parents will be
-     reported.
-  2) A new module command "reset" is now supported.  If the environment variable
-     "LMOD_SYSTEM_DEFAULT_MODULES" contains a list of modules then issuing
-     "module reset" will do a "module purge" and then load the list of modules
-     specified by the this env. variable.
-  3) Users can now specify directories as part of the name given to a "module default"
-     name.  In other words doing "module setdefault foo/bar/baz" will create a file
-     $HOME/.lmod.d/foo/bar/baz that has the current list of modules.  Doing
-     "module getdefault foo/bar/baz" will revive it.
-  4) A new function "is_spider()" has been added. It return true if the modulefile is
-     being read by the spider command.
-
-Version 3.3.7
-
-  addto now adds the location of the executable to LUA_PATH before it does anything.
-  This is so that addto can find "strict.lua" and other useful lua scripts.
+  1) This version fixes a bug in spider output.  Now if a modulefile
+     could be found via two or more ways through the software hierarchy, 
+     all parents will be reported.
+  2) A new module command "reset" is now supported.  If the environment
+     variable "LMOD_SYSTEM_DEFAULT_MODULES" contains a list of modules
+     then issuing "module reset" will do a "module purge" and then load
+     the list of modules specified by the this env. variable.
+  3) Users can now specify directories as part of the name given to a
+     "module default" name.  In other words doing
+     "module setdefault foo/bar/baz" will create a file
+     $HOME/.lmod.d/foo/bar/baz that has the current list of modules.
+     Doing "module getdefault foo/bar/baz" will revive it.
+  4) A new function "is_spider()" has been added. It return true if the
+     modulefile being read by the spider command.
 
 Version 3.3.6
 
-  This version supports a different separator for path like variables:  For TCL module files,
-  it supports the "--delim" style:
+  This version supports a different separator for path like variables:
+  For TCL module files, it supports the "--delim" style:
 
-    prepend-path --delim ";" LUA_PATH  "/opt/apps/lua/share/5.1/?.lua;/opt/apps/lua/share/5.1/?;;"
-    append-path  --delim ";" LUA_CPATH "/opt/apps/lua/share/5.1/?.so"
+    prepend-path --delim ";" LUA_PATH  "/a/lua/share/5.1/?.lua;/apps/lua/share/5.1/?;;"
+    append-path  --delim ";" LUA_CPATH "/a/lua/share/5.1/?.so"
 
   For lua modulefiles you can give an optional third argument:
 
-    prepend_path("LUA_PATH",  "/opt/apps/lua/share/5.1/?.lua;/opt/apps/lua/share/5.1/?;;",";")
-    append_path( "LUA_CPATH", "/opt/apps/lua/share/5.1/?.so", ";")
+    prepend_path("LUA_PATH",  "/a/lua/share/5.1/?.lua;/a/lua/share/5.1/?;;",";")
+    append_path( "LUA_CPATH", "/a/lua/share/5.1/?.so", ";")
 
 Version 3.3.5
 
-  This version better handles reporting the same module at multiple levels of the hierarchy through
-  "module spider". If a module is a "Core" module as well as compiler and/or mpi/compiler dependent,
+  This version better handles reporting the same module at multiple levels
+  of the hierarchy through "module spider". If a module is a "Core" module
+  as well as compiler and/or mpi/compiler dependent,
   "module spider" now reports that.
 
 
-Version 3.3.2
-
-  This is a very minor bug fix.  Part of installation process ignored DESTDIR.  You
-  only need to update if you are using this as part of a spec file to create an RPM.
-
-
-Version 3.3.1
-
-  This version offers better a keyword search feature. The keyword search searches the entire
-  whatis entries and reports back using the spider system.  It also tells users when using
-  "module avail" that they might want to use "module spider" or "module keyword".
-
-
-Version 3.2.2
-
-  If the time to build a cache file is short ( < 2 sec) when doing a "module spider" then
-  lmod does not write out a cache file.  This allows for small systems to have accurate
-  "spider's"
-
 Version 3.2.1
 
-  This version set return an error if there are any warning.  So if a user does
+  This version set return an error if there are any warning.  So if a user
+  does:
+
      $ module load foo bar baz
 
-  and "foo" and "bar" exist and "baz" does not then Lmod will load "foo" and "bar" and report
-  a warning that "baz" wasn't loaded.
+  and "foo" and "bar" exist and "baz" does not then Lmod will load "foo"
+  and "bar" and report a warning that "baz" wasn't loaded.
 
 
 Version 3.1.2
 
-  This version of Lmod supports the module command: "module spider" which will tell users all
-  the modules that are possible independent of where the files are in the module hierarchy.
-  There is an additional environment variable required for the "module spider" command to work.
-  Please set the environment variable "LMOD_DEFAULT_MODULEPATH" to the initial MODULEPATH.
-
+  This version of Lmod supports the module command: "module spider" which
+  will tell users all the modules that are possible independent of where
+  the files are in the module hierarchy.  
 
 Version 2.13
 
-  This version of Lmod provide support for the "family" command.  The family command makes
-  it easy to prevent user from loading two version of the same "family".  For example on our
-  system, most users should not have two compilers loaded at the same time.  To support this
-  feature, all you need do is add the following to all the compiler modulefiles:
+  This version of Lmod provide support for the "family" command.  The family
+  command makes it easy to prevent user from loading two version of the same
+  "family".  For example on our system, most users should not have two
+  compilers loaded at the same time.  To support this feature, all you need
+  do is add the following to all the compiler modulefiles:
 
   For TCL modulefiles do:
 
@@ -131,10 +120,12 @@ Version 2.13
 
     family("compiler")
 
-  The word in quotes is case-sensitive so "Compiler" and "compiler" and "COMPILER" are
-  all different.
+  The word in quotes is case-sensitive so "Compiler" and "compiler" and
+  "COMPILER" are all different.
 
-  You can have different families.  So we currently have a "compiler" family and a "MPI" family.
+  You can have different families.  So we currently have a "compiler"
+  family and a "MPI" family.
 
-  Expert users really want two of the same family loaded at the same time can set the environment
-  variable "LMOD_EXPERT" to "1".  This will bypass the test for them.
+  Expert users really want two of the same family loaded at the same time
+  can set the environment variable "LMOD_EXPERT" to "1".  This will bypass
+  the test for them.

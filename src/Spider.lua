@@ -355,7 +355,7 @@ function M.findModulesInDir(path, prefix, moduleT)
       if (file:sub(1,1) ~= "." and not file ~= "CVS" and file:sub(-1,-1) ~= "~") then
          local f = pathJoin(path,file)
          local readable = posix.access(f,"r")
-         attr = lfs.symlinkattributes(f) or {}
+         attr = lfs.attributes(f) or {}
          dbg.print("file: ",file," f: ",f," attr.mode: ", attr.mode,"\n")
 	 if (readable and (attr.mode == 'file' or attr.mode == 'link') and (file ~= "default")) then
             if (moduleT[f] == nil) then

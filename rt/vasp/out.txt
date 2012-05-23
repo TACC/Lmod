@@ -58,6 +58,9 @@ step 5
 ~/w/lmod/mf/Compiler/intel/10.1/openmpi/1.2.6.lua
 ~/w/lmod/mf/Core/PrgEnv.lua
 ~/w/lmod/mf/Core/admin/admin-1.0.lua
+~/w/lmod/mf/Core/boost/1.46.0.lua
+~/w/lmod/mf/Core/boost/1.47.1.lua
+~/w/lmod/mf/Core/boost/1.49.0.lua
 ~/w/lmod/mf/Core/gcc/4.2.3.lua
 ~/w/lmod/mf/Core/git/1.6.3.1
 ~/w/lmod/mf/Core/git/1.7.4.3.lua
