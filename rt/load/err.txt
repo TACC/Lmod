@@ -28,7 +28,10 @@ step 9
 ===========================
 step 10
 ===========================
+===========================
+step 11
+===========================
 Currently Loaded Modules:
   1) admin/admin-1.0  4) noweb/2.10c  7) gotoblas/1.32
-  2) unix/unix        5) PrgEnv     
+  2) unix/unix        5) PrgEnv       8) boost/1.49.0
   3) local/local      6) intel/intel

@@ -44,6 +44,7 @@ testdescript = {
      runMe lua $(projectDir)/src/lmod.in bash load gotoblas
      runMe lua $(projectDir)/src/lmod.in bash load multi
      runMe lua $(projectDir)/src/lmod.in bash unload multi
+     runMe lua $(projectDir)/src/lmod.in bash load boost
      
      
      runMe lua $(projectDir)/src/lmod.in bash list

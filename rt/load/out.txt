@@ -180,3 +180,19 @@ LMOD_DEFAULT_MODULEPATH='~/w/lmod/mf/Core:~/w/lmod/mf/Beta';
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH='~/w/lmod/mf/Compiler/intel/10.1:~/w/lmod/mf/Core:~/w/lmod/mf/Beta';
 export MODULEPATH;
+TACC_BOOST_DIR='/opt/apps/boost/1.49.0';
+export TACC_BOOST_DIR;
+export _ModuleTable_Sz_;
+_ModuleTable_='_ModuleTable_={active={Dict={["PrgEnv"]=5,["admin"]=1,["boost"]=8,["gotoblas"]=7,["intel"]=6,["local"]=3,["noweb"]=4,["unix"]=2,},FN={"~/w/lmod/mf/Core/admin/admin-1.0.lua","~/w/lmod/mf/Core/unix/unix.lua","~/w/lmod/mf/Core/local/local.lua","~/w/lmod/mf/Core/noweb/2.10c.lua","~/w/lmod/mf/Core/PrgEnv.lua","~/w/lmod/mf/Core/intel/intel.lua","~/w/lmod/mf/Compiler/intel/10.1/gotoblas/1.32.lua","~/w/lmod/mf/Core/boost/1.49.0.lua",},Loaded={"admin","unix","local","noweb","PrgEnv","intel","gotoblas","boost",},default={1,1,1,1,0,1,1,1,},fullModName={"admin/admin-1.0","unix/unix","local/local","noweb/2.10c","PrgEnv","intel/intel","gotoblas/1.32","boost/1.49.0",},mType={"w","w","w","w","m","w","w","w",},},baseMpathA={"~/w/lmod/mf/Core","~/w/lmod/mf/Beta",},family={["compiler"]="intel",},inactive={},mpathA={"~/w/lmod/mf/Compiler/intel/10.1","~/w/lmod/mf/Core","~/w/lmod/mf/Beta",},total={Dict={["PrgEnv"]=5,["admin"]=1,["boost"]=8,["gotoblas"]=7,["intel"]=6,["local"]=3,["noweb"]=4,["unix"]=2,},FN={"~/w/lmod/mf/Core/admin/admin-1.0.lua","~/w/lmod/mf/Core/unix/unix.lua","~/w/lmod/mf/Core/local/local.lua","~/w/lmod/mf/Core/noweb/2.10c.lua","~/w/lmod/mf/Core/PrgEnv.lua","~/w/lmod/mf/Core/intel/intel.lua","~/w/lmod/mf/Compiler/intel/10.1/gotoblas/1.32.lua","~/w/lmod/mf/Core/boost/1.49.0.lua",},Loaded={"admin","unix","local","noweb","PrgEnv","intel","gotoblas","boost",},default={1,1,1,1,0,1,1,1,},fullModName={"admin/admin-1.0","unix/unix","local/local","noweb/2.10c","PrgEnv","intel/intel","gotoblas/1.32","boost/1.49.0",},mType={"w","w","w","w","m","w","w","w",},},["version"]=1,}';
+export _ModuleTable_;
+===========================
+step 11
+===========================
+LMOD_DEFAULT_MODULEPATH='~/w/lmod/mf/Core:~/w/lmod/mf/Beta';
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH='~/w/lmod/mf/Compiler/intel/10.1:~/w/lmod/mf/Core:~/w/lmod/mf/Beta';
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH='~/w/lmod/mf/Core:~/w/lmod/mf/Beta';
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH='~/w/lmod/mf/Compiler/intel/10.1:~/w/lmod/mf/Core:~/w/lmod/mf/Beta';
+export MODULEPATH;
