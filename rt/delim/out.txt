@@ -121,3 +121,51 @@ export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH='~/w/lmod/rt/delim/mf/Core';
 export MODULEPATH;
 false
+===========================
+step 9
+===========================
+LMOD_DEFAULT_MODULEPATH='~/w/lmod/rt/delim/mf/Core';
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH='~/w/lmod/rt/delim/mf/Core';
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH='~/w/lmod/rt/delim/mf/Core';
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH='~/w/lmod/rt/delim/mf/Core';
+export MODULEPATH;
+NCAR_LIB_INTEL='-Wl,-rpath,/opt/intel/composer_xe_2011_sp1.6.233/compiler/lib/intel64';
+export NCAR_LIB_INTEL;
+export _ModuleTable_Sz_;
+_ModuleTable_='_ModuleTable_={active={Dict={["ncarIntel"]=1,},FN={"~/w/lmod/rt/delim/mf/Core/ncarIntel/1.0.lua",},Loaded={"ncarIntel",},default={1,},fullModName={"ncarIntel/1.0",},mType={"w",},},baseMpathA={"~/w/lmod/rt/delim/mf/Core",},family={},inactive={},mpathA={"~/w/lmod/rt/delim/mf/Core",},total={Dict={["ncarIntel"]=1,},FN={"~/w/lmod/rt/delim/mf/Core/ncarIntel/1.0.lua",},Loaded={"ncarIntel",},default={1,},fullModName={"ncarIntel/1.0",},mType={"w",},},["version"]=1,}';
+export _ModuleTable_;
+===========================
+step 10
+===========================
+LMOD_DEFAULT_MODULEPATH='~/w/lmod/rt/delim/mf/Core';
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH='~/w/lmod/rt/delim/mf/Core';
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH='~/w/lmod/rt/delim/mf/Core';
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH='~/w/lmod/rt/delim/mf/Core';
+export MODULEPATH;
+NCAR_LIB_INTEL='-Wl,-rpath,/opt/intel/composer_xe_2011_sp1.6.233/compiler/lib/intel64 -L/opt/netcdf/3.6.3/intel/12.1.0/lib -lnetcdf -lnetcdff -Wl,-rpath,/opt/netcdf/3.6.3/intel/12.1.0/lib';
+export NCAR_LIB_INTEL;
+export _ModuleTable_Sz_;
+_ModuleTable_='_ModuleTable_={active={Dict={["ncarIntel"]=1,["ncarNetcdf"]=2,},FN={"~/w/lmod/rt/delim/mf/Core/ncarIntel/1.0.lua","~/w/lmod/rt/delim/mf/Core/ncarNetcdf/1.0.lua",},Loaded={"ncarIntel","ncarNetcdf",},default={1,1,},fullModName={"ncarIntel/1.0","ncarNetcdf/1.0",},mType={"w","w",},},baseMpathA={"~/w/lmod/rt/delim/mf/Core",},family={},inactive={},mpathA={"~/w/lmod/rt/delim/mf/Core",},total={Dict={["ncarIntel"]=1,["ncarNetcdf"]=2,},FN={"~/w/lmod/rt/delim/mf/Core/ncarIntel/1.0.lua","~/w/lmod/rt/delim/mf/Core/ncarNetcdf/1.0.lua",},Loaded={"ncarIntel","ncarNetcdf",},default={1,1,},fullModName={"ncarIntel/1.0","ncarNetcdf/1.0",},mType={"w","w",},},["version"]=1,}';
+export _ModuleTable_;
+===========================
+step 11
+===========================
+LMOD_DEFAULT_MODULEPATH='~/w/lmod/rt/delim/mf/Core';
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH='~/w/lmod/rt/delim/mf/Core';
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH='~/w/lmod/rt/delim/mf/Core';
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH='~/w/lmod/rt/delim/mf/Core';
+export MODULEPATH;
+NCAR_LIB_INTEL='-Wl,-rpath,/opt/intel/composer_xe_2011_sp1.6.233/compiler/lib/intel64';
+export NCAR_LIB_INTEL;
+export _ModuleTable_Sz_;
+_ModuleTable_='_ModuleTable_={active={Dict={["ncarIntel"]=1,},FN={"~/w/lmod/rt/delim/mf/Core/ncarIntel/1.0.lua",},Loaded={"ncarIntel",},default={1,},fullModName={"ncarIntel/1.0",},mType={"w",},},baseMpathA={"~/w/lmod/rt/delim/mf/Core",},family={},inactive={},mpathA={"~/w/lmod/rt/delim/mf/Core",},total={Dict={["ncarIntel"]=1,},FN={"~/w/lmod/rt/delim/mf/Core/ncarIntel/1.0.lua",},Loaded={"ncarIntel",},default={1,},fullModName={"ncarIntel/1.0",},mType={"w",},},["version"]=1,}';
+export _ModuleTable_;
