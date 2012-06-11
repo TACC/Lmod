@@ -61,20 +61,15 @@ local function epoch()
 end
 
 function getMT()
-   local a = {}
-   local s = nil
-   for i = 1, huge do
+   local a    = {}
+   local mtSz = getenv("_ModuleTable_Sz_") or huge
+   for i = 1, mtSz do
       local name = format("_ModuleTable%03d_",i)
       local v = getenv(name)
       if (v == nil) then break end
       a[#a+1] = v
    end
-   if (#a > 0) then
-      s = decode64(concat(a,""))
-   else
-      s = getenv("_ModuleTable_") 
-   end
-   return s
+   return decode64(concat(a,""))
 end
 
 function main()

@@ -24,7 +24,6 @@ end
 
 function M.getMT(self,name)
    local a = {}
-   local s = nil
    local mtSz = getenv("_ModuleTable_Sz_") or huge
 
    for i = 1, mtSz do
@@ -33,12 +32,7 @@ function M.getMT(self,name)
       if (v == nil) then break end
       a[#a+1] = v
    end
-   if (#a > 0) then
-      s = decode64(concat(a,""))
-   else
-      s = getenv(name) 
-   end
-   return s
+   return decode64(concat(a,""))
 end
 
 
