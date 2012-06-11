@@ -22,23 +22,22 @@ function M.name(self)
    print ("Shell name:",self.my_name)
 end
 
-function M.getMT(self,name)
-   local a = {}
+function M.getMT(self)
+   local a    = {}
    local mtSz = getenv("_ModuleTable_Sz_") or huge
-   local s = nil
+   local s    = nil
 
    for i = 1, mtSz do
       local name = format("_ModuleTable%03d_",i)
-      local v = getenv(name)
+      local v    = getenv(name)
       if (v == nil) then break end
-      a[#a+1] = v
+      a[#a+1]    = v
    end
    if (#a > 0) then
       s = decode64(concat(a,""))
    end
    return s
 end
-
 
 local function valid_shell(shellTbl, shell_name)
    if (not shellTbl[shell_name]) then

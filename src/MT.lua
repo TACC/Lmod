@@ -161,7 +161,7 @@ function M.mt(self)
       local dbg  = Dbg:dbg()
       dbg.start("mt()")
       local shell        = systemG.Master:master().shell
-      s_mt               = new(self, shell:getMT(self:name()))
+      s_mt               = new(self, shell:getMT())
       varTbl[ModulePath] = Var:new(ModulePath)
       setupMPATH(s_mt, varTbl[ModulePath]:expand())
       if (not s_mt._same) then
