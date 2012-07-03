@@ -108,6 +108,17 @@ function main()
       end
    end
 
+   if (masterTbl.delete) then
+      local entry = masterTbl.delete
+      local a     = envVarA
+      envVarA = {}
+      for i = 1,#a do
+         if (entry ~= a[i]) then
+            envVarA[#envVarA+1] = a[i]
+         end
+      end
+   end
+
    remove(pargs,1)
 
    for _,v in ipairs(pargs) do
@@ -143,8 +154,11 @@ function main()
       end
    end
 
+   if (envVarA[#envVarA] == "") then
+      envVarA[#envVarA+1] = ""
+   end
+
    io.stdout:write(concat(envVarA,sep),"\n")
-      
 end
 
 
@@ -171,6 +185,13 @@ function options()
       dest   = 'existFlg',
       action = 'store_true',
       default = false,
+   }
+
+   cmdlineParser:add_option{ 
+      name   = {'-d', '--delete'},
+      dest   = 'delete',
+      action = 'store',
+      default = nil,
    }
 
    cmdlineParser:add_option{ 
