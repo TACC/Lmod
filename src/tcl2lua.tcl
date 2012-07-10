@@ -356,6 +356,9 @@ proc family { var } {
 proc loadcmd { args } {
     eval cmdargs "load" $args
 }
+proc tryloadcmd { args } {
+    eval cmdargs "try_load" $args
+}
 proc unload { args } {
     eval cmdargs "unload" $args
 }
@@ -437,6 +440,9 @@ proc module { command args } {
     switch -- $command {
         load {
             eval loadcmd $args
+        }
+        try-add {
+            eval tryloadcmd $args
         }
         unload {
             eval unload $args

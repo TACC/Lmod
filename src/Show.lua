@@ -65,6 +65,10 @@ function Show_load(...)
    ShowCmd("load",...)
 end
 
+function Show_try_load(...)
+   ShowCmd("load",...)
+end
+
 function Show_inherit(...)
    ShowCmd("inherit",...)
 end

@@ -29,7 +29,7 @@ set moduleshome     "$modulepath_root/TACC"
 #            the right thing with 411.
 
 module load Linux
-module load cluster
+module try-add cluster
 module load TACC-paths
 # ;;; Local Variables: ***
 # ;;; mode:tcl ***

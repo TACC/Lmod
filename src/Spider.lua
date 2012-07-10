@@ -63,6 +63,9 @@ end
 function load(...)
 end
 
+function try_load(...)
+end
+
 function inherit(...)
 end
 

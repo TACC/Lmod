@@ -58,9 +58,8 @@ Help sub-commands:
 
 Loading/Unloading sub-commands:
   add | load         modulefile [...]    Add module(s)
-  try-add            modulefile [...]    Add, do not complain if not found
-  del | rm | unload  modulefile [...]    Remove module(s)
-  try-rm             modulefile [...]    Remove module(s), do not complain
+  try-add | try-load modulefile [...]    Add, do not complain if not found
+  del | rm | unload  modulefile [...]    Remove module(s), do not complain
                                          if not found
   swap | sw | switch modfile1 modfile2   unload modfile1 and load modfile2
   purge                                  unload all modules
@@ -626,6 +625,7 @@ local function UnsetFamily(name)
 end
 
 family       = None
+try_load     = None
 load	     = None
 inherit      = None
 unload	     = None
@@ -704,6 +704,7 @@ function Show(...)
    append_path	= Show_append_path
    remove_path	= Show_remove_path
    load  	= Show_load
+   try_load  	= Show_try_load
    unload  	= Show_unload
    prereq       = Show_prereq
    conflict     = Show_conflict
@@ -725,6 +726,7 @@ end
 function Access(...)
    local dbg    = Dbg:dbg()
    local master = Master:master()
+   try_load     = dbg.quiet
    load 	= dbg.quiet
    unload 	= dbg.quiet
    setenv	= dbg.quiet
@@ -838,6 +840,18 @@ function Keyword(...)
    dbg.fini()
 
 end
+
+function TryLoad(...)
+   local master = Master:master()
+   local mt     = MT:mt()
+   local dbg    = Dbg:dbg()
+
+   dbg.start("TryLoad(",concatTbl({...},", "),")")
+   dbg:deactivateWarning()
+   UsrLoad(...)
+   dbg.fini()
+end
+
 
 function UsrLoad(...)
    local master = Master:master()
@@ -1270,8 +1284,7 @@ MT     = require("MT")
 
 function main()
    local loadTbl      = { name = "load",        checkMPATH = true,  cmd = UsrLoad     }
-   local tryAddTbl    = { name = "try-add",     checkMPATH = true,  cmd = UsrLoad     }
-   local tryRmTbl     = { name = "try-rm",      checkMPATH = true,  cmd = UnLoad      }
+   local tryAddTbl    = { name = "try-add",     checkMPATH = true,  cmd = TryLoad     }
    local unloadTbl    = { name = "unload",      checkMPATH = true,  cmd = UnLoad      }
    local swapTbl      = { name = "swap",        checkMPATH = true,  cmd = Swap        }
    local purgeTbl     = { name = "purge",       checkMPATH = true,  cmd = Purge       }
@@ -1292,54 +1305,54 @@ function main()
    local spiderTbl    = { name = "spider",      checkMPATH = true,  cmd = SpiderCmd   }
 
    local cmdTbl = {
-      ["try-add"] = tryAddTbl,
-      ["try-rm"]  = tryRmTbl,
-      add         = loadTbl,
-      apropos     = keywordTbl,
-      av          = availTbl,
-      avail       = availTbl,
-      del         = unloadTbl,
-      delete      = unloadTbl,
-      dis         = showTbl,
-      display     = showTbl,
-      era         = unloadTbl,
-      erase       = unloadTbl,
-      gd          = getDefTbl,
-      getd        = getDefTbl,
-      getdefault  = getDefTbl,
-      help        = helpTbl,
-      key         = keywordTbl,
-      keyword     = keywordTbl,
-      ld          = listDefTbl,
-      li          = listTbl,
-      list        = listTbl,
-      listdefault = listDefTbl,
-      lo          = loadTbl,
-      load        = loadTbl,
-      purge       = purgeTbl,
-      refr        = updateTbl,
-      refresh     = updateTbl,
-      reload      = updateTbl,
-      remov       = unloadTbl,
-      remove      = unloadTbl,
-      reset       = resetTbl,
-      rm          = unloadTbl,
-      sd          = setDefTbl,
-      setd        = setDefTbl,
-      setdefault  = setDefTbl,
-      show        = showTbl,
-      spider      = spiderTbl,
-      sw          = swapTbl,
-      swap        = swapTbl,
-      switch      = swapTbl,
-      tablelist   = tblLstTbl,
-      unlo        = unloadTbl,
-      unload      = unloadTbl,
-      unuse       = unuseTbl,
-      update      = updateTbl,
-      use         = useTbl,
-      wh          = whatisTbl,
-      whatis      = whatisTbl,
+      ["try-add"]  = tryAddTbl,
+      ["try-load"] = tryAddTbl,
+      add          = loadTbl,
+      apropos      = keywordTbl,
+      av           = availTbl,
+      avail        = availTbl,
+      del          = unloadTbl,
+      delete       = unloadTbl,
+      dis          = showTbl,
+      display      = showTbl,
+      era          = unloadTbl,
+      erase        = unloadTbl,
+      gd           = getDefTbl,
+      getd         = getDefTbl,
+      getdefault   = getDefTbl,
+      help         = helpTbl,
+      key          = keywordTbl,
+      keyword      = keywordTbl,
+      ld           = listDefTbl,
+      li           = listTbl,
+      list         = listTbl,
+      listdefault  = listDefTbl,
+      lo           = loadTbl,
+      load         = loadTbl,
+      purge        = purgeTbl,
+      refr         = updateTbl,
+      refresh      = updateTbl,
+      reload       = updateTbl,
+      remov        = unloadTbl,
+      remove       = unloadTbl,
+      reset        = resetTbl,
+      rm           = unloadTbl,
+      sd           = setDefTbl,
+      setd         = setDefTbl,
+      setdefault   = setDefTbl,
+      show         = showTbl,
+      spider       = spiderTbl,
+      sw           = swapTbl,
+      swap         = swapTbl,
+      switch       = swapTbl,
+      tablelist    = tblLstTbl,
+      unlo         = unloadTbl,
+      unload       = unloadTbl,
+      unuse        = unuseTbl,
+      update       = updateTbl,
+      use          = useTbl,
+      wh           = whatisTbl,
+      whatis       = whatisTbl,
    }
 
    local dbg  = Dbg:dbg()
@@ -1349,7 +1362,7 @@ function main()
                   set_alias    = SetAlias,     unset_alias = UnSetAlias,  family      = SetFamily,
                   load         = Load,         unload      = UnLoad,      mode        = ModeLoad,
                   prereq       = Prereq,       conflict    = Conflict,    inherit     = InheritModule,
-                  display      = Display,
+                  display      = Display,      try_load    = TryLoad,
    }
 
    local unTbl = { whatis = dbg.quiet, help = dbg.quiet,
@@ -1358,7 +1371,7 @@ function main()
                    set_alias    = UnSetAlias,   unset_alias = BadUnSetAlias, family      = UnsetFamily,
                    load         = UnLoad,       unload      = BadUnLoad,     mode        = ModeUnload,
                    prereq       = dbg.quiet,    conflict    = dbg.quiet,     inherit     = InheritModule,
-                   display      = dbg.quiet,
+                   display      = dbg.quiet,    try_load    = UnLoad,
    }
 
    for k in pairs(lTbl) do
@@ -1428,7 +1441,6 @@ function main()
    if (cmdTbl[cmdName]) then
       local cmd = cmdTbl[cmdName].cmd
       cmdName   = cmdTbl[cmdName].name
-      if (cmdName == "try-add" or cmdName == "try-rm") then dbg:deactivateWarning() end
       dbg.print("cmd name: ", cmdName,"\n")
       cmd(unpack(options.pargs))
    end

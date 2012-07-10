@@ -80,6 +80,10 @@ function load(...)
    ShowCmd("load",...)
 end
 
+function try_load(...)
+   ShowCmd("try_load",...)
+end
+
 function family(...)
    ShowCmd("family",...)
 end
