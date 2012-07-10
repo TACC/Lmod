@@ -58,7 +58,8 @@ Help sub-commands:
 
 Loading/Unloading sub-commands:
   add | load         modulefile [...]    Add module(s)
-  try-add | try-load modulefile [...]    Add, do not complain if not found
+  try-load | try-add modulefile [...]    Add module(s) , do not complain
+                                         if not found
   del | rm | unload  modulefile [...]    Remove module(s), do not complain
                                          if not found
   swap | sw | switch modfile1 modfile2   unload modfile1 and load modfile2
@@ -841,6 +842,17 @@ function Keyword(...)
 
 end
 
+function TryUsrLoad(...)
+   local master = Master:master()
+   local mt     = MT:mt()
+   local dbg    = Dbg:dbg()
+
+   dbg.start("TryUsrLoad(",concatTbl({...},", "),")")
+   dbg:deactivateWarning()
+   UsrLoad(...)
+   dbg.fini()
+end
+
 function TryLoad(...)
    local master = Master:master()
    local mt     = MT:mt()
@@ -848,7 +860,7 @@ function TryLoad(...)
 
    dbg.start("TryLoad(",concatTbl({...},", "),")")
    dbg:deactivateWarning()
-   UsrLoad(...)
+   Load(...)
    dbg.fini()
 end
 
@@ -1284,7 +1296,7 @@ MT     = require("MT")
 
 function main()
    local loadTbl      = { name = "load",        checkMPATH = true,  cmd = UsrLoad     }
-   local tryAddTbl    = { name = "try-add",     checkMPATH = true,  cmd = TryLoad     }
+   local tryAddTbl    = { name = "try-add",     checkMPATH = true,  cmd = TryUsrLoad  }
    local unloadTbl    = { name = "unload",      checkMPATH = true,  cmd = UnLoad      }
    local swapTbl      = { name = "swap",        checkMPATH = true,  cmd = Swap        }
    local purgeTbl     = { name = "purge",       checkMPATH = true,  cmd = Purge       }
