@@ -105,7 +105,7 @@ local function lastFileInDir(fn)
          result     = lastValue
       end
    end
-   dbg.print("result: ",result,"\n")
+   dbg.print("result: ",tostring(result),"\n")
    dbg.fini()
    return result, count
 end
@@ -180,7 +180,7 @@ local function find_module_file(moduleName)
          end
       end
 
-      dbg.print("found:", tostring(found), " fn: ",fn,"\n")
+      dbg.print("found:", tostring(found), " fn: ",tostring(fn),"\n")
 
       ------------------------------------------------------------
       --  Search for "last" file in directory

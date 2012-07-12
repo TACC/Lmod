@@ -8,11 +8,11 @@ varTbl        = {}
 SearchString  = nil
 IN_SPIDER     = false
 
+MCP           = {}
 defaultMpathA = {}
 adminT        = {}
 LoadTbl       = {}
 UnLoadTbl     = {}
-UnLoadCount   = 0
 _MyFileName   = ""
 
 -- ancient:   the time in seconds when the cache file is considered old
@@ -45,7 +45,9 @@ local rep    = string.rep
 require("strict")
 require("capture")
 require("firstInPath")
-require("Show")
+MasterControl = require("MasterControl")
+MCP           = {}
+require("modfuncs")
 local Dbg     = require("Dbg")
 local Version = require("Version")
 
@@ -167,7 +169,8 @@ require("border")
 require("serializeTbl")
 require("fileOps")
 require("string_split")
-BaseShell = require("BaseShell")
+BaseShell     = require("BaseShell")
+MasterControl = require("MasterControl")
 local ColumnTable  = require("ColumnTable")
 local BeautifulTbl = require("BeautifulTbl")
 local ModuleStack  = require("ModuleStack")
@@ -443,100 +446,7 @@ function Reset()
 end
 
 
-local function Prepend_path(name,value,sep)
-   local mStack = ModuleStack:moduleStack()
-   local dbg    = Dbg:dbg()
-   dbg.start("Prepend_path(\"",name,"\", \"",value,"\",\"",tostring(sep),"\")")
-   sep          = sep or ":"
 
-   if (varTbl[name] == nil) then
-      varTbl[name] = Var:new(name, nil, sep)
-   end
-
-   varTbl[name]:prepend(value)
-   mStack:setting()
-   dbg.fini()
-end
-
-local function Append_path(name,value,sep)
-   local mStack = ModuleStack:moduleStack()
-   sep          = sep or ":"
-
-   if (varTbl[name] == nil) then
-      varTbl[name] = Var:new(name, nil, sep)
-   end
-   Dbg:dbg().print("Append_path(\"",name,"\", \"",value,"\",\"",sep,"\")\n")
-   varTbl[name]:append(value)
-   mStack:setting()
-end
-
-function Set(name,value)
-   local mStack = ModuleStack:moduleStack()
-
-   if (varTbl[name] == nil) then
-      varTbl[name] = Var:new(name)
-   end
-   Dbg:dbg().print("Set(\"",name,"\", \"",value,"\")\n")
-   varTbl[name]:set(value)
-   mStack:setting()
-end
-
-function Unset(name, value)
-   local mStack = ModuleStack:moduleStack()
-
-   if (varTbl[name] == nil) then
-      varTbl[name] = Var:new(name)
-   end
-   Dbg:dbg().print("Unset(\"",name,"\")\n")
-   varTbl[name]:unset()
-   mStack:setting()
-end
-
-local function SetAlias(name,value)
-   local mStack = ModuleStack:moduleStack()
-
-   if (varTbl[name] == nil) then
-      varTbl[name] = Var:new(name)
-   end
-   Dbg:dbg().print("SetAlias(\"",name,"\", \"",value,"\")\n")
-   varTbl[name]:setAlias(value)
-   mStack:setting()
-end
-
-local function UnSetAlias(name,value)
-   local mStack = ModuleStack:moduleStack()
-
-   if (varTbl[name] == nil) then
-      varTbl[name] = Var:new(name)
-   end
-   Dbg:dbg().print("UnSetAlias(\"",name,"\", \"",value,"\")\n")
-   varTbl[name]:unsetAlias(value)
-   mStack:setting()
-end
-
-local function Remove_path(name,value,sep)
-   local mStack = ModuleStack:moduleStack()
-   sep          = sep or ":"
-   mStack:setting()
-
-   if (varTbl[name] == nil) then
-      varTbl[name] = Var:new(name,nil, sep)
-   end
-   Dbg:dbg().print("Remove_path(\"",name,"\", \"",value,"\",\"",sep,"\")\n")
-   varTbl[name]:remove(value)
-end
-
-local function BadUnset(name,value)
-   Dbg:dbg().warning("Refusing unsetenv variable while unloading: \"",name,"\"\n")
-end
-
-local function BadRemove_path(name,value)
-   Dbg:dbg().warning("Refusing remove a path element variable while unloading: \"",name,"\"\n")
-end
-
-local function BadUnSetAlias(name)
-   Dbg:dbg().warning("Refusing unset an alias while unloading: \"",name,"\"\n")
-end
 
 local function localvar(localvarA)
    local dbg = Dbg:dbg()
@@ -554,76 +464,7 @@ local function localvar(localvarA)
    end
 end
 
-local function Prereq(...)
-   local dbg    = Dbg:dbg()
-   local mt     = MT:mt()
-   local a      = {}
-   local mStack = ModuleStack:moduleStack()
-   local mName  = mStack:moduleName()
 
-   dbg.start("Prereq(",concatTbl({...},", "),")")
-
-   for _,v in ipairs{...} do
-      if (not mt:haveModuleActive(v)) then
-         a[#a+1] = v
-      end
-   end
-   dbg.print("number found: ",#a,"\n")
-   if (#a > 0) then
-      local s = concatTbl(a," ")
-      LmodError("Can not load: \"",mName,"\" module without these modules loaded:\n  ",
-            s,"\n")
-   end
-   dbg.fini()
-end
-
-local function Conflict(...)
-   local mt     = MT:mt()
-   local a      = {}
-   local mStack = ModuleStack:moduleStack()
-   local mName  = mStack:moduleName()
-   for _,v in ipairs{...} do
-      if (mt:haveModuleActive(v)) then
-         a[#a+1] = v
-      end
-   end
-   if (#a > 0) then
-      local s = concatTbl(a," ")
-      LmodError("Can not load: \"",mName,"\" module because these modules are loaded:\n  ",
-            s,"\n")
-   end
-end
-
-local function SetFamily(name)
-   local dbg                    = Dbg:dbg()
-   local mt                     = MT:mt()
-   local mStack                 = ModuleStack:moduleStack()
-   local mName                  = mStack:moduleName()
-   local _, _, baseName,version = mName:find("([^/]*)/?(.*)")
-
-   dbg.start("SetFamily(",name,")")
-   dbg.print("mt:setfamily(\"",name,"\",\"",baseName,"\")\n")
-   local oldName = mt:setfamily(name,baseName)
-   if (oldName ~= nil and oldName ~= mName and not expert() ) then
-      LmodError("You can only have one ",name," module loaded at time.\n",
-                "You already have ", oldName," loaded.\n",
-                "To correct the situation, please enter the following command:\n\n",
-                "  module swap ",oldName, " ", mName,"\n\n",
-                "Please submit a consulting ticket if you require additional assistance.\n")
-   end
-   dbg.fini()
-
-end
-
-local function UnsetFamily(name)
-   local dbg    = Dbg:dbg()
-   local mt     = MT:mt()
-
-   dbg.start("UnsetFamily(",name,")")
-   dbg.print("mt:unsetfamily(\"",name,"\")\n")
-   mt:unsetfamily(name)
-   dbg.fini()
-end
 
 family       = None
 try_load     = None
@@ -892,63 +733,6 @@ function UsrLoad(...)
    return b
 end
 
-function Load(...)
-   local master = Master:master()
-   local dbg    = Dbg:dbg()
-   local mStack = ModuleStack:moduleStack()
-
-   dbg.start("Load( ",concatTbl({...},", "),")")
-   mStack:loading()
-
-   local a = master.load(...)
-
-   if (not expert()) then
-
-      local mt      = MT:mt()
-      local t       = {}
-      readAdmin()
-      for _, moduleName in ipairs{...} do
-         local moduleFn  = mt:fileNameActive(moduleName)
-         local modFullNm = mt:modFullNameActive(moduleName)
-         local message
-         local key
-         if (adminT[moduleFn]) then
-            message = adminT[moduleFn]
-            key     = moduleFn
-         elseif (adminT[modFullNm]) then
-            message = adminT[modFullNm]
-            key     = modFullNm
-         end
-
-         if (message) then
-            t[key] = message
-         end
-      end
-
-      if (next(t)) then
-         local term_width  = tonumber(capture("tput cols") or "80")
-         if (term_width < 40) then
-            term_width = 80
-         end
-         local bt
-         local a       = {}
-         local border  = string.rep("-", term_width-1)
-         io.stderr:write("\n",border,"\n","Module(s):\n",border,"\n")
-         for k, v in pairs(t) do
-            io.stderr:write("\n",k," :\n")
-            a[1] = { " ", v}
-            bt = BeautifulTbl:new{tbl=a, wrapped=true, column=term_width-1,prt=prtErr}
-            bt:printTbl()
-            io.stderr:write("\n")
-         end
-         io.stderr:write(border,"\n\n")
-      end
-   end
-
-   dbg.fini()
-   return a
-end
-
 local function BadUnLoad(...)
    local dbg = Dbg:dbg()
    local a   = {}
@@ -960,48 +744,6 @@ local function BadUnLoad(...)
    dbg.warning(concatTbl(a,""))
 end
 
-function UnLoad(...)
-   local master = Master:master()
-   local mStack = ModuleStack:moduleStack()
-   local dbg    = Dbg:dbg()
-   local mt     = MT:mt()
-   local a      = {}
-   local e      = {}
-   UnLoadCount  = UnLoadCount + 1
-   dbg.start("UnLoad(", concatTbl({...},", "),")")
-
-   for _,v in ipairs{...} do
-      if (mt:haveModuleAnyTotal(v)) then
-         mt:removeTotal(v)
-      end
-   end
-   mStack:loading()
-
-   if (UnLoadCount == 1 and #e > 0 ) then
-      dbg.warning("Failed to unload: ",concatTbl(e," "),", was not currently loaded\n")
-   end
-
-   local aa     = master.unload(...)
-
-   dbg.fini()
-   UnLoadCount  = UnLoadCount - 1
-   return aa
-end
-
-function UnLoadSys(...)
-   local master = Master:master()
-   local mStack = ModuleStack:moduleStack()
-   local dbg    = Dbg:dbg()
-   local mt     = MT:mt()
-   local a      = {}
-
-   dbg.start("UnLoadSys(",concatTbl({...},", "),")")
-   mStack:loading()
-
-   a      = master.unload(...)
-   dbg.fini()
-   return a
-end
 
 function InheritModule()
    local dbg    = Dbg:dbg()
@@ -1368,6 +1110,10 @@ function main()
    }
 
    local dbg  = Dbg:dbg()
+
+   MCP = MasterControl.build("load")
+
+
    local lTbl = { whatis = dbg.quiet, help = dbg.quiet,
                   setenv = Set,       unsetenv = Unset,
                   prepend_path = Prepend_path, append_path = Append_path, remove_path = Remove_path,
