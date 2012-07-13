@@ -8,11 +8,8 @@ varTbl        = {}
 SearchString  = nil
 IN_SPIDER     = false
 
-MCP           = {}
 defaultMpathA = {}
 adminT        = {}
-LoadTbl       = {}
-UnLoadTbl     = {}
 _MyFileName   = ""
 
 -- ancient:   the time in seconds when the cache file is considered old
@@ -47,6 +44,7 @@ require("capture")
 require("firstInPath")
 MasterControl = require("MasterControl")
 MCP           = {}
+mcp           = {}
 require("modfuncs")
 local Dbg     = require("Dbg")
 local Version = require("Version")
@@ -108,8 +106,18 @@ Miscellaneous sub-commands:
   unuse path                             remove path from MODULEPATH
   tablelist                              output list of active modules as a table.
 
-See http://www.tacc.utexas.edu/tacc-projects/mclay/lmod for complete documentation.
+----------------------------------------------------------------------------------
+See:
 
+   http://www.tacc.utexas.edu/tacc-projects/mclay/lmod
+
+for complete documentation. It contains:
+
+   User Guide
+   Advance User Guide
+   System Administrator Guide
+
+----------------------------------------------------------------------------------
 ]]
 
 local concatTbl = table.concat
@@ -130,29 +138,6 @@ function version()
    return concatTbl(v,"")
 end
 
-function LmodError(...)
-   io.stderr:write("\nError: ")
-   for _,v in ipairs{...} do
-      io.stderr:write(v)
-   end
-   io.stderr:write("\n")
-   lmodErrorExit()
-end
-
-function LmodMessage(...)
-   for _,v in ipairs{...} do
-      io.stderr:write(v)
-   end
-   io.stderr:write("\n")
-end
-
-function is_spider()
-   local dbg = Dbg:dbg()
-   dbg.start("is_spider()")
-   dbg.fini()
-   return IN_SPIDER
-end
-
 
 local __expert = false
 
@@ -170,7 +155,6 @@ require("serializeTbl")
 require("fileOps")
 require("string_split")
 BaseShell     = require("BaseShell")
-MasterControl = require("MasterControl")
 local ColumnTable  = require("ColumnTable")
 local BeautifulTbl = require("BeautifulTbl")
 local ModuleStack  = require("ModuleStack")
@@ -214,19 +198,6 @@ function hierarchyA(package, levels)
    end
 
    return b
-end
-
-function ModeLoad()
-   return "load"
-end
-
-function ModeUnload()
-   return "unload"
-end
-
-function isloaded(m)
-   local mt = MT:mt()
-   return mt:haveModuleActive(m)
 end
 
 local function regularize(v)
@@ -299,11 +270,6 @@ end
 
 function None()
    print ("None")
-end
-
-local function ModulesHelp(...)
-   io.stderr:write(...)
-   io.stderr:write("\n")
 end
 
 local function Avail(...)
@@ -426,7 +392,7 @@ function Purge()
    end
    dbg.start("Purge(",concatTbl(a,", "),")")
 
-   UnLoad(unpack(a))
+   MCP:unload(unpack(a))
    dbg.fini()
 end
 
@@ -444,9 +410,6 @@ function Reset()
    UsrLoad(unpack(a))
    dbg.fini()
 end
-
-
-
 
 local function localvar(localvarA)
    local dbg = Dbg:dbg()
@@ -466,30 +429,14 @@ end
 
 
 
-family       = None
-try_load     = None
-load	     = None
-inherit      = None
-unload	     = None
-unloadsys    = None
 add	     = None
 rm	     = None
-
 display      = None
 use          = None
 unuse        = None
 help         = None
 whatis       = None
-setenv	     = None
-unsetenv     = None
-prepend_path = None
-append_path  = None
-remove_path  = None
 prtHdr       = None
-set_alias    = None
-unset_alias  = None
-prereq       = None
-conflict     = None
 mode         = None
 avail        = Avail
 list         = List
@@ -538,23 +485,10 @@ end
 function Show(...)
    local dbg    = Dbg:dbg()
    local master = Master:master()
-   setenv	= Show_set
-   unsetenv	= Show_unset
-   prepend_path	= Show_prepend_path
-   set_alias	= Show_set_alias
-   unset_alias	= Show_unset_alias
-   append_path	= Show_append_path
-   remove_path	= Show_remove_path
-   load  	= Show_load
-   try_load  	= Show_try_load
-   unload  	= Show_unload
-   prereq       = Show_prereq
-   conflict     = Show_conflict
-   family       = Show_family
-   help         = Show_help
-   whatis       = Show_whatis
-   inherit      = Show_inherit
-   display      = Show_display
+   dbg.start("Show(", concatTbl({...},", "),")")
+
+   mcp = MasterControl.build("show")
+
    prtHdr       = function()
                      io.stderr:write("------------------------------------------------------------\n")
                      io.stderr:write("   ",ModuleFn,":\n")
@@ -562,29 +496,15 @@ function Show(...)
                   end
 
    master:access(...)
+   dbg.fini()
 
 end
 
 function Access(...)
    local dbg    = Dbg:dbg()
    local master = Master:master()
-   try_load     = dbg.quiet
-   load 	= dbg.quiet
-   unload 	= dbg.quiet
-   setenv	= dbg.quiet
-   unsetenv	= dbg.quiet
-   prepend_path	= dbg.quiet
-   append_path	= dbg.quiet
-   remove_path	= dbg.quiet
-   set_alias	= dbg.quiet
-   unset_alias	= dbg.quiet
-   conflict     = dbg.quiet
-   prereq       = dbg.quiet
-   family       = dbg.quiet
-   LmodError    = dbg.quiet
-   LmodMessage  = dbg.quiet
-   inherit      = dbg.quiet
-   display      = dbg.quiet
+   dbg.start("Access(", concatTbl({...},", "),")")
+   mcp = MasterControl.build("access")
 
    local n = select('#',...)
    if (n < 1) then
@@ -594,12 +514,16 @@ function Access(...)
    end
 
    master:access(...)
+   dbg.fini()
 end
 
 function Help(...)
    local dbg = Dbg:dbg()
-   whatis  = dbg.quiet
-   help    = ModulesHelp
+   help    = function (...)
+      io.stderr:write(...)
+      io.stderr:write("\n")
+   end
+
    prtHdr  = function()
                 io.stderr:write("\n")
                 io.stderr:write("----------- Module Specific Help for \"" .. ModuleName .. "\"------------------\n")
@@ -623,64 +547,7 @@ function Whatis(...)
                 io.stderr:write(prefix, msg, "\n")
              end
    prtHdr    = dbg.quiet
-   help      = dbg.quiet
    Access(...)
-end
-
-function Keyword(...)
-   local dbg    = Dbg:dbg()
-
-   load 	= dbg.quiet
-   unload 	= dbg.quiet
-   setenv	= dbg.quiet
-   unsetenv	= dbg.quiet
-   prepend_path	= dbg.quiet
-   append_path	= dbg.quiet
-   remove_path	= dbg.quiet
-   set_alias	= dbg.quiet
-   unset_alias	= dbg.quiet
-   conflict     = dbg.quiet
-   prereq       = dbg.quiet
-   family       = dbg.quiet
-   inherit      = dbg.quiet
-   display      = dbg.quiet
-
-   help         = Spider_help
-   whatis       = Spider_whatis
-   prepend_path = Spider_prepend_path
-   append_path  = Spider_append_path
-   IN_SPIDER    = true
-
-   dbg.start("Keyword(",concatTbl({...},","),")")
-
-   local master = Master:master()
-   local keyA   = {}
-
-   for _,v in ipairs{...} do
-      keyA[#keyA+1] = v
-   end
-
-   local moduleT = getModuleT()
-   local s
-   local dbT = {}
-   Spider.searchSpiderDB(keyA,{"default"},moduleT, dbT)
-   local a = {}
-   local ia = 0
-
-   local banner = border(0)
-
-   ia = ia+1; a[ia] = "\n"
-   ia = ia+1; a[ia] = banner
-   ia = ia+1; a[ia] = "The following modules match your search criteria: \""
-   ia = ia+1; a[ia] = concatTbl(keyA,"\", \"")
-   ia = ia+1; a[ia] = "\"\n"
-   ia = ia+1; a[ia] = banner
-   ia = ia+1; a[ia] = "\n"
-
-   Spider.Level0Helper(dbT,a)
-   io.stderr:write(concatTbl(a,""))
-   dbg.fini()
-
 end
 
 function TryUsrLoad(...)
@@ -701,7 +568,7 @@ function TryLoad(...)
 
    dbg.start("TryLoad(",concatTbl({...},", "),")")
    dbg:deactivateWarning()
-   Load(...)
+   MCP:load(...)
    dbg.fini()
 end
 
@@ -715,44 +582,31 @@ function UsrLoad(...)
    local a = {}
    for _,v in ipairs{...} do
       if (v:sub(1,1) == "-") then
-         UnLoad(v:sub(2))
+         MCP:unload(v:sub(2))
       else
          if (v:sub(1,1) == "+") then
             v = v:sub(2)
          end
          a[#a + 1] = v
          if (mt:haveModuleAnyActive(v)) then
-            UnLoad(v)
+            MCP:unload(v)
          end
       end
    end
 
-   local b = Load(unpack(a))
+   local b = MCP:load(unpack(a))
 
    dbg.fini()
    return b
 end
 
-local function BadUnLoad(...)
-   local dbg = Dbg:dbg()
-   local a   = {}
-   a[#a+1]   = "Stubbornly refusing to unload module(s):"
-   for i,v in ipairs{...} do
-      a[#a+1]   = " \""..v.."\""
-   end
-   a[#a+1]   = "\n   during an unload\n"
-   dbg.warning(concatTbl(a,""))
-end
-
-
-function InheritModule()
+function UnLoad(...)
    local dbg    = Dbg:dbg()
-   local master = Master:master()
-   dbg.start("InheritModule()")
-   master.inheritModule()
-
+   dbg.start("UnLoad(",concatTbl({...},", "),")")
+   MCP:unload(...)
    dbg.fini()
 end
+
 
 local function SetDefault(...)
    local mt   = MT:mt()
@@ -853,8 +707,8 @@ local function Swap(...)
       LmodError("Swap failed: \"",a,"\" is not loaded.\n")
    end
 
-   UnLoad(a)
-   local aa = Load(b)
+   MCP:unload(a)
+   local aa = MCP:load(b)
    if (not aa[1]) then
       LmodError("Swap failed.\n")
    end
@@ -973,31 +827,15 @@ end
 
 function SpiderCmd(...)
    local dbg = Dbg:dbg()
+   dbg.start("SpiderCmd(", concatTbl({...},", "),")")
 
-   load 	= dbg.quiet
-   unload 	= dbg.quiet
-   setenv	= dbg.quiet
-   unsetenv	= dbg.quiet
-   set_alias	= dbg.quiet
-   unset_alias	= dbg.quiet
-   conflict     = dbg.quiet
-   prereq       = dbg.quiet
-   family       = dbg.quiet
-   display      = dbg.quiet
-   inherit      = dbg.quiet
-   mode         = ModeLoad
-
-   IN_SPIDER    = true
+   mcp          = MasterControl.build("spider")
    help         = Spider_help
    whatis       = Spider_whatis
    prepend_path = Spider_prepend_path
    append_path  = Spider_append_path
 
-   local mnameA = {}
-   for _,v in ipairs{...} do
-      mnameA[#mnameA+1] = v
-   end
-   dbg.start("SpiderCmd(",concatTbl(mnameA,","),")")
+   dbg.start("SpiderCmd(",concatTbl({...},", "),")")
 
 
    local moduleT = getModuleT()
@@ -1023,6 +861,45 @@ function SpiderCmd(...)
    dbg.fini()
 end
 
+function Keyword(...)
+   local dbg    = Dbg:dbg()
+   dbg.start("Keyword(",concatTbl({...},","),")")
+   mcp          = MasterControl.build("spider")
+   help         = Spider_help
+   whatis       = Spider_whatis
+   prepend_path = Spider_prepend_path
+   append_path  = Spider_append_path
+
+   local master = Master:master()
+   local keyA   = {}
+
+   for _,v in ipairs{...} do
+      keyA[#keyA+1] = v
+   end
+
+   local moduleT = getModuleT()
+   local s
+   local dbT = {}
+   Spider.searchSpiderDB(keyA,{"default"},moduleT, dbT)
+   local a = {}
+   local ia = 0
+
+   local banner = border(0)
+
+   ia = ia+1; a[ia] = "\n"
+   ia = ia+1; a[ia] = banner
+   ia = ia+1; a[ia] = "The following modules match your search criteria: \""
+   ia = ia+1; a[ia] = concatTbl(keyA,"\", \"")
+   ia = ia+1; a[ia] = "\"\n"
+   ia = ia+1; a[ia] = banner
+   ia = ia+1; a[ia] = "\n"
+
+   Spider.Level0Helper(dbT,a)
+   io.stderr:write(concatTbl(a,""))
+   dbg.fini()
+
+end
+
 
 local __expert = false
 
@@ -1037,6 +914,9 @@ Master = require("Master")
 MT     = require("MT")
 
 function main()
+   MCP = MasterControl.build("load")
+   mcp = MasterControl.build("load")
+   
    local loadTbl      = { name = "load",        checkMPATH = true,  cmd = UsrLoad     }
    local tryAddTbl    = { name = "try-add",     checkMPATH = true,  cmd = TryUsrLoad  }
    local unloadTbl    = { name = "unload",      checkMPATH = true,  cmd = UnLoad      }
@@ -1114,31 +994,31 @@ function main()
    MCP = MasterControl.build("load")
 
 
-   local lTbl = { whatis = dbg.quiet, help = dbg.quiet,
-                  setenv = Set,       unsetenv = Unset,
-                  prepend_path = Prepend_path, append_path = Append_path, remove_path = Remove_path,
-                  set_alias    = SetAlias,     unset_alias = UnSetAlias,  family      = SetFamily,
-                  load         = Load,         unload      = UnLoad,      mode        = ModeLoad,
-                  prereq       = Prereq,       conflict    = Conflict,    inherit     = InheritModule,
-                  display      = Display,      try_load    = TryLoad,
-   }
-
-   local unTbl = { whatis = dbg.quiet, help = dbg.quiet,
-                   setenv = Unset,     unsetenv = BadUnset,
-                   prepend_path = Remove_path,  append_path = Remove_path,   remove_path = BadRemove_path,
-                   set_alias    = UnSetAlias,   unset_alias = BadUnSetAlias, family      = UnsetFamily,
-                   load         = UnLoad,       unload      = BadUnLoad,     mode        = ModeUnload,
-                   prereq       = dbg.quiet,    conflict    = dbg.quiet,     inherit     = InheritModule,
-                   display      = dbg.quiet,    try_load    = UnLoad,
-   }
-
-   for k in pairs(lTbl) do
-      LoadTbl[k] = lTbl[k]
-   end
-
-   for k in pairs(unTbl) do
-      UnLoadTbl[k] = unTbl[k]
-   end
+   --local lTbl = { whatis = dbg.quiet, help = dbg.quiet,
+   --               setenv = Set,       unsetenv = Unset,
+   --               prepend_path = Prepend_path, append_path = Append_path, remove_path = Remove_path,
+   --               set_alias    = SetAlias,     unset_alias = UnSetAlias,  family      = SetFamily,
+   --               load         = Load,         unload      = UnLoad,      mode        = ModeLoad,
+   --               prereq       = Prereq,       conflict    = Conflict,    inherit     = InheritModule,
+   --               display      = Display,      try_load    = TryLoad,
+   --}
+   --
+   --local unTbl = { whatis = dbg.quiet, help = dbg.quiet,
+   --                setenv = Unset,     unsetenv = BadUnset,
+   --                prepend_path = Remove_path,  append_path = Remove_path,   remove_path = BadRemove_path,
+   --                set_alias    = UnSetAlias,   unset_alias = BadUnSetAlias, family      = UnsetFamily,
+   --                load         = UnLoad,       unload      = BadUnLoad,     mode        = ModeUnload,
+   --                prereq       = dbg.quiet,    conflict    = dbg.quiet,     inherit     = InheritModule,
+   --                display      = dbg.quiet,    try_load    = UnLoad,
+   --}
+   --
+   --for k in pairs(lTbl) do
+   --   LoadTbl[k] = lTbl[k]
+   --end
+   --
+   --for k in pairs(unTbl) do
+   --   UnLoadTbl[k] = unTbl[k]
+   --end
 
    local shell = barefilename(arg[1])
    table.remove(arg,1)

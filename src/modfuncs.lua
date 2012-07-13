@@ -1,5 +1,6 @@
 require("strict")
 
+
 local Dbg = require("Dbg")
 
 --- Load family functions ----
@@ -166,3 +167,45 @@ function help(...)
    dbg.fini()
    return b
 end
+
+-- Misc --
+
+function LmodError(...)
+   local dbg = Dbg:dbg()
+   dbg.start("LmodError(",concatTbl({...},", "),")")
+
+   local b = mcp:error(...)
+   dbg.fini()
+   return b
+end
+
+function LmodMessage(...)
+   local dbg = Dbg:dbg()
+   dbg.start("LmodMessage(",concatTbl({...},", "),")")
+
+   local b = mcp:message(...)
+   dbg.fini()
+   return b
+end
+
+function is_spider()
+   local dbg = Dbg:dbg()
+   dbg.start("is_spider()")
+   local b = mcp:is_spider()
+   dbg.fini()
+   return b
+end
+
+function mode()
+   local dbg = Dbg:dbg()
+   dbg.start("mode()")
+   local b = mcp:mode()
+   dbg.fini()
+   return b
+end
+
+function isloaded(m)
+   local mt = MT:mt()
+   return mt:haveModuleActive(m)
+end
+

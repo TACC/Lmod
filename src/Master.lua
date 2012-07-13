@@ -1,12 +1,6 @@
 require("strict")
-local InheritModule      = InheritModule
 local LmodError          = LmodError
-local Load               = Load
-local LoadTbl            = LoadTbl
 local ModulePath         = ModulePath
-local UnLoad             = UnLoad
-local UnLoadSys          = UnLoadSys
-local UnLoadTbl          = UnLoadTbl
 local assert             = assert
 local capture            = capture
 local cmdDir             = cmdDir
@@ -256,21 +250,16 @@ function M.unload(...)
    local mt     = MT:mt()
    local dbg    = Dbg:dbg()
    local a      = {}
-   local prevT  = { load = systemG.load, unload = systemG.unload}
    for _,v in ipairs{...} do
       a[#a+1] = v
    end
    dbg.start("Master:unload(",concatTbl(a,", "),")")
 
-   for k in pairs(UnLoadTbl) do
-      if ( prevT[k] == nil and systemG[k] ~= UnLoadTbl[k]) then
-         prevT[k]   = systemG[k]
-      end
-      systemG[k] = UnLoadTbl[k]
-   end
+   local mcp_old = mcp
+
+   mcp = MasterControl.build("unload")
 
    a = {}
-
    for _, moduleName in ipairs{...} do
       if (mt:haveModuleAnyActive(moduleName)) then
          local f              = mt:fileNameActive(moduleName)
@@ -290,9 +279,7 @@ function M.unload(...)
    if (M.safeToUpdate() and mt:safeToCheckZombies()) then
       M.reloadAll()
    end
-   for k in pairs(prevT) do
-      systemG[k] = prevT[k]
-   end
+   mcp = mcp_old
    dbg.fini()
    return a
 end
@@ -378,10 +365,6 @@ function M.load(...)
 
    dbg.start("Master:load(",concatTbl({...},", "),")")
 
-   for k in pairs(LoadTbl) do
-      systemG[k] = LoadTbl[k]
-   end
-
    a   = {}
    for _,moduleName in ipairs{...} do
       local loaded  = false
@@ -389,8 +372,8 @@ function M.load(...)
       local fn      = t.fn
       if (mt:haveModuleAnyActive(moduleName) and fn  ~= mt:fileNameActive(moduleName)) then
          dbg.print("Master:load reload module: \"",moduleName,"\" as it is already loaded\n")
-         UnLoad(moduleName)
-         local aa = Load(moduleName)
+         MCP:unload(moduleName)
+         local aa = MCP:load(moduleName)
          loaded = aa[1]
       elseif (fn) then
          dbg.print("Master:loading: \"",moduleName,"\" from f: \"",fn,"\"\n")
@@ -454,9 +437,9 @@ function M.reloadAll()
             dbg.print("Master:reloadAll t.fn: \"",t.fn or "nil","\"",
                       " mt:fileNameTotal(v): \"",fn or "nil","\"\n")
             dbg.print("Master:reloadAll Unloading module: \"",v,"\"\n")
-            UnLoadSys(v)
+            MCP:unloadsys(v)
             dbg.print("Master:reloadAll Loading module: \"",fullName or "nil","\"\n")
-            local loadA = Load(fullName)
+            local loadA = MCP:load(fullName)
             dbg.print("Master:reloadAll: fn: \"",fn or "nil",
                       "\" mt:fileNameTotal(v): \"", mt:fileNameTotal(v) or "nil","\"\n")
             if (loadA[1] and fn ~= mt:fileNameTotal(v)) then
@@ -469,7 +452,7 @@ function M.reloadAll()
          local fn          = mt:fileNameTotal(v)
          local _, fullName = mt:modFullNameTotal(v)
          dbg.print("Master:reloadAll Loading module: \"",fullName or "nil","\"\n")
-         local aa = Load(fullName)
+         local aa = MCP:load(fullName)
          if (aa[1] and fn ~= mt:fileNameTotal(v)) then
             s_master.reloadT[fullName] = 1
             dbg.print("Master:reloadAll module: ",fullName," marked as reloaded\n")
