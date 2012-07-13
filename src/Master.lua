@@ -25,7 +25,6 @@ local systemG            = _G
 local tonumber           = tonumber
 local tostring           = tostring
 local type               = type
-local unloadsys          = unloadsys
 local expert             = expert
 local removeEntry        = table.remove
 

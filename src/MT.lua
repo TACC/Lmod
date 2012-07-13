@@ -1,14 +1,9 @@
 require("strict")
 _ModuleTable_      = ""
 local DfltModPath  = DfltModPath
-local Error        = LmodError
-local Load         = Load
 local Master       = Master
 local ModulePath   = ModulePath
 local Purge        = Purge
-local Set          = Set
-local UnLoad       = UnLoad
-local Unset        = Unset
 local assert       = assert
 local concatTbl    = table.concat
 local expert       = expert
@@ -30,7 +25,6 @@ local tostring     = tostring
 local type         = type
 local unpack       = unpack
 local varTbl       = varTbl
-local Set          = Set
 
 require("string_split")
 require("fileOps")
@@ -228,7 +222,7 @@ function M.getMTfromFile(self,fn)
    varTbl[DfltModPath] = Var:new(DfltModPath,baseMPATH)
 
    dbg.print("(3) varTbl[ModulePath]:expand(): ",varTbl[ModulePath]:expand(),"\n")
-   Load(unpack(a))
+   MCP:load(unpack(a))
 
    local master = systemG.Master:master()
 
@@ -309,17 +303,17 @@ function M.setfamily(self,familyNm,mName)
    local results = self.family[familyNm]
    self.family[familyNm] = mName
    local n = "LMOD_FAMILY_" .. familyNm:upper()
-   Set(n, mName)
+   MCP:setenv(n, mName)
    n = "TACC_FAMILY_" .. familyNm:upper()
-   Set(n, mName)
+   MCP:setenv(n, mName)
    return results
 end
 
 function M.unsetfamily(self,familyNm)
    local n = "LMOD_FAMILY_" .. familyNm:upper()
-   Unset(n, "")
+   MCP:unsetenv(n, "")
    n = "TACC_FAMILY_" .. familyNm:upper()
-   Unset(n, "")
+   MCP:unsetenv(n, "")
    self.family[familyNm] = nil
 end
 

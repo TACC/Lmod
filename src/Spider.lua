@@ -47,51 +47,6 @@ end
 
 local masterTbl = masterTbl
 
-function unsetenv(name, value)
-end
-
-function set_alias(name, value)
-end
-
-function unset_alias(name, value)
-end
-
-
-function remove_path(name, value)
-end
-
-function load(...)
-end
-
-function try_load(...)
-end
-
-function inherit(...)
-end
-
-function display(...)
-end
-
-function family(...)
-end
-
-function firstInPath(...)
-end
-
-function unload(...)
-end
-
-function prereq(...)
-end
-
-function conflict(...)
-end
-
-function mode()
-   return "load"
-end
-
-
 function Spider_setenv(name, value)
    if (name:find("^TACC_.*_LIB")) then
       processLPATH(value)
@@ -223,8 +178,6 @@ function Spider_prepend_path(name, value)
 
 end
 
-prepend_path = Spider_prepend_path
-
 function Spider_append_path(name, value)
    if (name == "MODULEPATH") then
       local dbg = Dbg:dbg()
@@ -237,8 +190,6 @@ function Spider_append_path(name, value)
       processLPATH(value)
    end
 end
-
-append_path = Spider_append_path
 
 function processNewModulePATH(value)
    local dbg = Dbg:dbg()

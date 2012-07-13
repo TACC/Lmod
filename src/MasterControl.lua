@@ -5,6 +5,9 @@ require("inherits")
 local M            = {}
 
 local Dbg          = require("Dbg")
+local ModuleStack  = require("ModuleStack")
+local Var          = require("Var")
+local concatTbl    = table.concat
 local format       = string.format
 local getenv       = os.getenv
 local print	   = print

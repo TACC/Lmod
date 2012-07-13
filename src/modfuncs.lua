@@ -1,7 +1,8 @@
 require("strict")
 
 
-local Dbg = require("Dbg")
+local Dbg       = require("Dbg")
+local concatTbl = table.concat
 
 --- Load family functions ----
 
