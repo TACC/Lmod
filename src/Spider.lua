@@ -53,16 +53,14 @@ function Spider_setenv(name, value)
    end
 end   
 
-setenv = Spider_setenv
-
-function Spider_help(s)
+function Spider_help(...)
    local masterTbl   = masterTbl()
    local moduleDirT  = masterTbl.moduleDirT
    local moduleStack = masterTbl.moduleStack 
    local iStack      = #moduleStack
    local path        = moduleStack[iStack].path
    local moduleT     = moduleStack[iStack].moduleT
-   moduleT[path].help = s
+   moduleT[path].help = concatTbl({...},"")
 end
 
 KeyT = {Description=1, Name=1, URL=1, Version=1, Category=1, Keyword=1}
@@ -85,9 +83,6 @@ function Spider_whatis(s)
    end
    moduleT[path].whatis[#moduleT[path].whatis+1] = s
 end
-
-help   = Spider_help
-whatis = Spider_whatis
 
 _MyFileName  = ""
 
@@ -164,24 +159,10 @@ function processPATH(value)
 end
 
 
-function Spider_prepend_path(name, value)
+function Spider_append_path(kind, name, value)
    if (name == "MODULEPATH") then
       local dbg = Dbg:dbg()
-      dbg.start("prepend_path(MODULEPATH=\"",name,"\", value=\"",value,"\")")
-      processNewModulePATH(value)
-      dbg.fini()
-   elseif (name == "PATH") then
-      processPATH(value)
-   elseif (name == "LD_LIBRARY_PATH") then
-      processLPATH(value)
-   end
-
-end
-
-function Spider_append_path(name, value)
-   if (name == "MODULEPATH") then
-      local dbg = Dbg:dbg()
-      dbg.start("append_path(MODULEPATH=\"",name,"\", value=\"",value,"\")")
+      dbg.start(kind,"(MODULEPATH=\"",name,"\", value=\"",value,"\")")
       processNewModulePATH(value)
       dbg.fini()
    elseif (name == "PATH") then

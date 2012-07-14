@@ -269,6 +269,7 @@ end
 
 function None()
    print ("None")
+   FooBar=1
 end
 
 local function Avail(...)
@@ -430,13 +431,9 @@ end
 
 add	     = None
 rm	     = None
-display      = None
 use          = None
 unuse        = None
-help         = None
-whatis       = None
 prtHdr       = None
-mode         = None
 avail        = Avail
 list         = List
 
@@ -447,21 +444,21 @@ function Use(...)
    local dbg = Dbg:dbg()
    local mt  = MT:mt()
    local a = {}
-   local op = Prepend_path
+   local op = MCP.prepend_path
    dbg.start("use(", concatTbl({...},", "),")")
 
    for _,v in ipairs{...} do
       local w = v:lower()
       if (w == "-a" or w == "--append" ) then
-         op = Append_path
+         op = MCP.append_path
       else
          a[#a + 1] = v
       end
    end
    for _,v in ipairs(a) do
       v = abspath(v)
-      op(ModulePath, v)
-      op(DfltModPath, v)
+      op(MCP, ModulePath, v)
+      op(MCP, DfltModPath, v)
    end
    mt:buildBaseMpathA(varTbl[DfltModPath]:expand())
    mt:reloadAllModules()
@@ -473,8 +470,8 @@ function UnUse(...)
    local mt  = MT:mt()
    dbg.start("unuse(", concatTbl({...},", "),")")
    for _,v in ipairs{...} do
-      Remove_path( ModulePath,v)
-      Remove_path( DfltModPath,v)
+      MCP:remove_path( ModulePath,v)
+      MCP:remove_path( DfltModPath,v)
    end
    mt:buildBaseMpathA(varTbl[DfltModPath]:expand())
    mt:reloadAllModules()
