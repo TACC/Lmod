@@ -10,8 +10,6 @@ require("pairsByKeys")
 local M = {}
 
 local Dbg         = require("Dbg")
-local LmodError   = LmodError
-local LmodMessage = LmodMessage
 local assert      = assert
 local border      = border
 local capture     = capture
@@ -84,52 +82,6 @@ function Spider_whatis(s)
    moduleT[path].whatis[#moduleT[path].whatis+1] = s
 end
 
-_MyFileName  = ""
-
-function myFileName()
-   return _MyFileName
-end
-
-function hierarchyA(package, levels)
-   local n = myFileName():gsub("%.lua$","")
-
-   -- Remove package from end of string by using the
-   -- "plain" matching via string.find function
-   package = package:gsub("%.lua$","")
-   local i,j = n:find(package,1,true)
-   if (j == n:len()) then
-      n = n:sub(1,i-1)
-   end
-
-   -- remove any leading or trailing '/'
-   n       = n:gsub("^/","")
-   n       = n:gsub("/$","")
-   local a = {}
-
-   for dir in n:split("/") do
-      a[#a + 1] = dir
-   end
-
-   local b = {}
-   local j = #a
-
-   for i = 1, levels do
-      b[#b + 1 ] = pathJoin(a[j-1],a[j])
-      j = j - 2
-   end
-
-   return b
-end
-
-function regularize(value)
-   value = value:gsub("//+","/")
-   value = value:gsub("/%./","/")
-   value = value:gsub("/$","")
-   return value
-end
-
-local regularize = regularize
-
 function processLPATH(value)
    local masterTbl      = masterTbl()
    local moduleDirT     = masterTbl.moduleDirT
@@ -139,7 +91,7 @@ function processLPATH(value)
    local moduleT        = moduleStack[iStack].moduleT
    
    local lpathA         = moduleT[path].lpathA or {}
-   value                = regularize(value)
+   value                = path_regularize(value)
    lpathA[value]        = 1
    moduleT[path].lpathA = lpathA
 end
@@ -153,7 +105,7 @@ function processPATH(value)
    local moduleT       = moduleStack[iStack].moduleT
    
    local pathA         = moduleT[path].pathA or {}
-   value               = regularize(value)
+   value               = path_regularize(value)
    pathA[value]        = 1
    moduleT[path].pathA = pathA
 end
@@ -186,7 +138,7 @@ function processNewModulePATH(value)
    end
 
    for v in value:split(":") do
-      v = regularize(v)
+      v = path_regularize(v)
       dbg.print("v: ", v,"\n")
       local path    = moduleStack[iStack].path
       local full    = moduleStack[iStack].full
@@ -319,23 +271,16 @@ function M.findAllModules(moduleDirA, moduleT)
    masterTbl.moduleDirT  = moduleDirT
    masterTbl.moduleT     = moduleT
    masterTbl.moduleStack = {{}}
-   local errorRtn        = LmodError
-   local msgRtn          = LmodMessage
    local exit            = os.exit
-
-   LmodError             = nothing
-   LmodMessage           = nothing
    os.exit               = nothing
 
    for _,v in ipairs(moduleDirA) do
-      v             = regularize(v)
+      v             = path_regularize(v)
       if (moduleDirT[v] == nil) then
          moduleDirT[v] = 1
          M.findModulesInDir(v, "", moduleT)
       end
    end
-   LmodError   = errorRtn
-   LmodMessage = msgRtn
    os.exit     = exit
 
    dbg.fini()
@@ -384,10 +329,10 @@ function M.searchSpiderDB(strA, a, moduleT, dbT)
    dbg.start("searchSpiderDB()")
 
    for path, value in pairs(moduleT) do
-      local name   = value.name or ""
-      local full   = value.full
-      local whatis = value.whatis or {}
-      whatis = concatTbl(whatis,"\n")
+      local name    = value.name or ""
+      local full    = value.full
+      local whatisT = value.whatis or {}
+      local whatisS = concatTbl(whatisT,"\n")
 
       if (dbT[name] == nil) then
          dbT[name] = {}
@@ -397,8 +342,8 @@ function M.searchSpiderDB(strA, a, moduleT, dbT)
       local found = false
       for i = 1,#strA do
          local str = strA[i]
-         if (name:find(str,1,true) or whatis:find(str,1,true) or 
-             name:find(str)        or whatis:find(str)) then
+         if (name:find(str,1,true) or whatisS:find(str,1,true) or 
+             name:find(str)        or whatisS:find(str)) then
             found = true
             break
          end
@@ -687,7 +632,7 @@ function M.Level2(t, mname)
    end
 
    if (tt == nil) then
-      LmodError("Unable to find: \"",mname,"\"")
+      LmodSystemError("Unable to find: \"",mname,"\"")
    end
 
    dbg.fini()

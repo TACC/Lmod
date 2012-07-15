@@ -1,114 +1,54 @@
 #!@path_to_lua@/lua
 -- -*- lua -*-
-local cmd = arg[0]
-local i,j = cmd:find(".*/")
-local cmd_dir = "./"
+------------------------------------------------------------------------
+-- Use command name to add the command directory to the package.path
+------------------------------------------------------------------------
+local LuaCommandName = arg[0]
+local i,j = LuaCommandName:find(".*/")
+local LuaCommandName_dir = "./"
 if (i) then
-   cmd_dir = cmd:sub(1,j)
+   LuaCommandName_dir = LuaCommandName:sub(1,j)
 end
-package.path = cmd_dir .. '?.lua;' .. package.path
-_MyFileName  = ""
+package.path = LuaCommandName_dir .. "?.lua;" .. package.path
+
+function cmdDir()
+   return LuaCommandName_dir
+end
 
 HashSum = "@path_to_hashsum@"
 
+require("myGlobals")
 require("strict")
 
 require("fileOps")
 require("capture")
 require("firstInPath")
+MasterControl = require("MasterControl")
+MCP           = {}
+mcp           = {}
+require("modfuncs")
+require("cmdfuncs")
 
-local fh = nil
-local getenv = os.getenv
+BaseShell       = require("BaseShell")
+Dbg             = require("Dbg")
+Master          = require("Master")
+MT              = require("MT")
+
+local fh        = nil
+local getenv    = os.getenv
 local concatTbl = table.concat
 
-function cmdDir()
-   return cmd_dir
-end
 
-function quiet()
-end
-
-whatis    = quiet
-help      = quiet
-setenv    = quiet
-inherit   = quiet
-is_spider = quiet
-
-local A = {}
-
-function ShowCmd(name, ...)
-   local a = {}
-   for _,v in ipairs{...} do
-      local s = tostring(v)
-      if (type(v) ~= "boolean") then
-         s = "\"".. s .."\""
-      end
-      a[#a + 1] = s
+function loadModuleFile(obj)
+   local f
+   if (type(obj) == "table") then
+      f = obj.file
+   else
+      f = obj
    end
-   local b = {}
-   b[#b+1] = name
-   b[#b+1] = "("
-   b[#b+1] = concatTbl(a,",")
-   b[#b+1] = ")\n"
-   A[#A+1] = concatTbl(b,"")
-end
 
-function prepend_path(path, value)
-   if (path ~= "MODULEPATH") then return end
-   ShowCmd("prepend_path", path, value)
-end
-
-function append_path(path, value)
-   if (path ~= "MODULEPATH") then return end
-   ShowCmd("append_path", path, value)
-end
-
-function remove_path(path, value)
-   if (path ~= "MODULEPATH") then return end
-   ShowCmd("remove_path", path, value)
-end
-
-function display(...)
-   ShowCmd("display",...)
-end
-
-function mode(...)
-   ShowCmd("mode",...)
-end
-   
-function load(...)
-   ShowCmd("load",...)
-end
-
-function try_load(...)
-   ShowCmd("try_load",...)
-end
-
-function family(...)
-   ShowCmd("family",...)
-end
-
-function unload(...)
-   ShowCmd("unload",...)
-end
-
-function prereq(...)
-   ShowCmd("prereq",...)
-end
-
-function conflict(...)
-   ShowCmd("conflict",...)
-end
-
-function LmodError(...)
-   ShowCmd("LmodError",...)
-end
-
-function LmodMessage(...)
-   ShowCmd("LmodMessage",...)
-end
-
-function loadModuleFile(f)
+   local dbg     = Dbg:dbg()
+   dbg.start("computeHashSum-> loadModuleFile(\"",tostring(f),"\")")
    local myType = extname(f)
    if (myType == ".lua") then
       assert(loadfile(f))()
@@ -120,44 +60,15 @@ function loadModuleFile(f)
       local s     = capture(cmd)
       assert(loadstring(s))()
    end
+   dbg.fini()
 end
 
-function myFileName()
-   return _MyFileName
-end
-
-function hierarchyA(package, levels)
-   local n = myFileName():gsub("%.lua$","")
-
-   -- Remove package from end of string by using the
-   -- "plain" matching via string.find function
-   package = package:gsub("%.lua$","")
-   local i,j = n:find(package,1,true)
-   if (j == n:len()) then
-      n = n:sub(1,i-1)
-   end
-
-   -- remove any leading or trailing '/'
-   n       = n:gsub("^/","")
-   n       = n:gsub("/$","")
-   local a = {}
-
-   for dir in n:split("/") do
-      a[#a + 1] = dir
-   end
-
-   local b = {}
-   local j = #a
-   
-   for i = 1, levels do
-      b[#b + 1 ] = pathJoin(a[j-1],a[j])
-      j = j - 2
-   end
-
-   return b
-end
 
 function main()
+   
+   local dbg     = Dbg:dbg()
+   local master  = Master:master(false)
+   master.shell  = BaseShell.build("bash")
    local fn      = os.tmpname()
    fh            = io.open(fn,"w")
    local verbose = false
@@ -166,8 +77,15 @@ function main()
       i = i + 1
       verbose = true
    end
+   --dbg:activateDebug()
+   dbg.start("computeHashSum()")
+   
+   MCP           = MasterControl.build("computeHash")
+   mcp           = MasterControl.build("computeHash")
+   dbg.print("mcp set to ",mcp:name(),"\n")
+
    loadModuleFile(arg[i])
-   local s = concatTbl(A,"")
+   local s = concatTbl(ComputeModuleResultsA,"")
    if (verbose) then
       io.stderr:write(s)
    end
@@ -180,6 +98,7 @@ function main()
    os.remove(fn)
    local i,j = result:find(" ")
    print (result:sub(1,i-1))
+   dbg.fini()
 end
 
 main()

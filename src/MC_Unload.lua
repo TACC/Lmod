@@ -1,10 +1,10 @@
 -- -*- lua -*-
 require("strict")
 
-Unload            = inheritsFrom(MasterControl)
-Unload.my_name    = "MC_Unload"
+MC_Unload         = inheritsFrom(MasterControl)
+MC_Unload.my_name = "MC_Unload"
 
-local M           = Unload
+local M           = MC_Unload
 local Dbg         = require("Dbg")
 local format      = string.format
 local getenv      = os.getenv

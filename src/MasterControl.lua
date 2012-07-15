@@ -3,7 +3,7 @@ require("strict")
 require("inherits")
 
 local M            = {}
-
+local BeautifulTbl = require("BeautifulTbl")
 local Dbg          = require("Dbg")
 local ModuleStack  = require("ModuleStack")
 local Var          = require("Var")
@@ -19,7 +19,7 @@ local type	   = type
 ------------------------------------------------------------------------
 
 function M.name(self)
-   print ("Name:",self.my_name)
+   return self.my_name
 end
 
 
@@ -32,18 +32,20 @@ end
 
 function M.build(name)
 
-   local nameTbl     = {}
-   local MCLoad      = require('MC_Load')
-   local MCUnload    = require('MC_Unload')
-   local MCShow      = require('MC_Show')
-   local MCAccess    = require('MC_Access')
-   local MCSpider    = require('MC_Spider')
-   nameTbl["load"]   = MCLoad
-   nameTbl["unload"] = MCUnload
-   nameTbl["show"]   = MCShow
-   nameTbl["access"] = MCAccess
-   nameTbl["spider"] = MCSpider
-   nameTbl.default   = MCLoad
+   local nameTbl          = {}
+   local MCLoad           = require('MC_Load')
+   local MCUnload         = require('MC_Unload')
+   local MCShow           = require('MC_Show')
+   local MCAccess         = require('MC_Access')
+   local MCSpider         = require('MC_Spider')
+   local MCComputeHash    = require('MC_ComputeHash')
+   nameTbl["load"]        = MCLoad
+   nameTbl["unload"]      = MCUnload
+   nameTbl["show"]        = MCShow
+   nameTbl["access"]      = MCAccess
+   nameTbl["spider"]      = MCSpider
+   nameTbl["computeHash"] = MCComputeHash
+   nameTbl.default        = MCLoad
 
    return valid_name(nameTbl, name):create()
 end
@@ -107,6 +109,14 @@ function M.load(self, ...)
 
    dbg.fini()
    return a
+end
+
+function M.try_load(self, ...)
+   local dbg = Dbg:dbg()
+   dbg.start("MasterControl:try_load(",concatTbl({...},", "),")")
+   dbg:deactivateWarning()
+   self:load(...)
+   dbg.fini()
 end
 
 function M.unload(self, ...)
@@ -285,13 +295,23 @@ end
 -- Message/Error  Functions
 -------------------------------------------------------------------
 
-function M.error(self, ...)
+function lmodErrorExit()
+   io.stdout:write("false\n")
+   os.exit(1)
+end
+
+function LmodSystemError(...)
    io.stderr:write("\nError: ")
    for _,v in ipairs{...} do
       io.stderr:write(v)
    end
    io.stderr:write("\n")
    lmodErrorExit()
+end   
+
+
+function M.error(self, ...)
+   LmodSystemError(...)
 end
 
 function M.message(self, ...)
@@ -415,8 +435,11 @@ end
 -- Quiet Functions
 -------------------------------------------------------------------
 
+
 function M.quiet(self, ...)
    -- very Quiet !!!
 end
+
+M.display = M.quiet
 
 return M

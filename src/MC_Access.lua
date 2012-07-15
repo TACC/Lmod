@@ -1,10 +1,10 @@
 -- -*- lua -*-
 require("strict")
 
-Access            = inheritsFrom(MasterControl)
-Access.my_name    = "MC_Access"
+MC_Access         = inheritsFrom(MasterControl)
+MC_Access.my_name = "MC_Access"
 
-local M           = Access
+local M           = MC_Access
 
 M.append_path  = MasterControl.quiet
 M.conflict     = MasterControl.quiet

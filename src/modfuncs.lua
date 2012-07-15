@@ -162,8 +162,7 @@ end
 
 function help(...)
    local dbg = Dbg:dbg()
-   dbg.start("help(",concatTbl({...},", "),")")
-
+   dbg.start("help(...)")
    local b = mcp:help(...)
    dbg.fini()
    return b
@@ -208,5 +207,48 @@ end
 function isloaded(m)
    local mt = MT:mt()
    return mt:haveModuleActive(m)
+end
+
+function display(...)
+   local dbg = Dbg:dbg()
+   dbg.start("display(...)")
+   local b = mcp:display(...)
+   dbg.fini()
+   return b
+end   
+
+function myFileName()
+   return _MyFileName
+end
+
+function hierarchyA(package, levels)
+   local n = myFileName():gsub("%.lua$","")
+
+   -- Remove package from end of string by using the
+   -- "plain" matching via string.find function
+   package = package:gsub("%.lua$","")
+   local i,j = n:find(package,1,true)
+   if (j == n:len()) then
+      n = n:sub(1,i-1)
+   end
+
+   -- remove any leading or trailing '/'
+   n       = n:gsub("^/","")
+   n       = n:gsub("/$","")
+   local a = {}
+
+   for dir in n:split("/") do
+      a[#a + 1] = dir
+   end
+
+   local b = {}
+   local j = #a
+
+   for i = 1, levels do
+      b[#b + 1 ] = pathJoin(a[j-1],a[j])
+      j = j - 2
+   end
+
+   return b
 end
 

@@ -202,7 +202,7 @@ local function find_module_file(moduleName)
    return t
 end
 
-local function loadModuleFile(t)
+function loadModuleFile(t)
    local dbg    = Dbg:dbg()
    dbg.start("loadModuleFile")
    dbg.print("t.file: ",t.file,"\n")
@@ -257,6 +257,7 @@ function M.unload(...)
    local mcp_old = mcp
 
    mcp = MasterControl.build("unload")
+   dbg.print("Setting mpc to ", mcp:name(),"\n")
 
    a = {}
    for _, moduleName in ipairs{...} do
@@ -279,6 +280,7 @@ function M.unload(...)
       M.reloadAll()
    end
    mcp = mcp_old
+   dbg.print("Setting mpc to ", mcp:name(),"\n")
    dbg.fini()
    return a
 end
@@ -425,6 +427,13 @@ function M.reloadAll()
    local dbg  = Dbg:dbg()
    dbg.start("Master:reloadAll()")
 
+
+   -- Change to 
+
+   local mcp_old = mcp
+   mcp = MCP
+   dbg.print("Setting mpc to ", mcp:name(),"\n")
+
    local same = true
    local a    = mt:listTotal()
    for _, v in ipairs(a) do
@@ -436,7 +445,7 @@ function M.reloadAll()
             dbg.print("Master:reloadAll t.fn: \"",t.fn or "nil","\"",
                       " mt:fileNameTotal(v): \"",fn or "nil","\"\n")
             dbg.print("Master:reloadAll Unloading module: \"",v,"\"\n")
-            MCP:unloadsys(v)
+            mcp:unloadsys(v)
             dbg.print("Master:reloadAll Loading module: \"",fullName or "nil","\"\n")
             local loadA = MCP:load(fullName)
             dbg.print("Master:reloadAll: fn: \"",fn or "nil",
@@ -451,7 +460,7 @@ function M.reloadAll()
          local fn          = mt:fileNameTotal(v)
          local _, fullName = mt:modFullNameTotal(v)
          dbg.print("Master:reloadAll Loading module: \"",fullName or "nil","\"\n")
-         local aa = MCP:load(fullName)
+         local aa = mcp:load(fullName)
          if (aa[1] and fn ~= mt:fileNameTotal(v)) then
             s_master.reloadT[fullName] = 1
             dbg.print("Master:reloadAll module: ",fullName," marked as reloaded\n")
@@ -459,6 +468,8 @@ function M.reloadAll()
          same = not aa[1]
       end
    end
+   mcp = mcp_old
+   dbg.print("Setting mpc to ", mcp:name(),"\n")
    dbg.fini()
    return same
 end
@@ -677,24 +688,26 @@ local function spanOneModule(path, name, nameA, fileType, keyA)
    dbg.start("spanOneModule(path=\"",path,"\", name=\"",name,"\", nameA=(",concatTbl(nameA,","),"), fileType=\"",fileType,"\", keyA=(",concatTbl(keyA,","),"))")
    if (fileType == "file" and posix.access(path,"r")) then
       for _,v in ipairs(keyA) do
-	 SearchString = v
 	 nameA[#nameA+1] = name
 	 local n = concatTbl(nameA,"/")
 	 ModuleName = n
-	 systemG.whatis  = function(msg)
-			      local nm     = ModuleName or ""
-			      local l      = nm:len()
-			      local nblnks
-			      if (l < 20) then
-				 nblnks = 20 - l
-			      else
-				 nblnks = 2
-			      end
-			      local prefix = nm .. string.rep(" ",nblnks) .. ": "
-			      if (msg:find(SearchString,1,true)) then
-				 io.stderr:write(prefix, msg, "\n")
-			      end
-			   end
+	 systemG.whatis  = function(msg, v)
+                              local searchString = v
+                              return function(msg)
+                                 local nm     = ModuleName or ""
+                                 local l      = nm:len()
+                                 local nblnks
+                                 if (l < 20) then
+                                    nblnks = 20 - l
+                                 else
+                                    nblnks = 2
+                                 end
+                                 local prefix = nm .. string.rep(" ",nblnks) .. ": "
+                                 if (msg:find(searchString,1,true)) then
+                                    io.stderr:write(prefix, msg, "\n")
+                                 end
+                              end
+                           end
 	 loadModuleFile{file=path}
       end
    elseif (fileType == "directory" and posix.access(path,"x")) then

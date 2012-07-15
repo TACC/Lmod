@@ -1,14 +1,12 @@
 -- -*- lua -*-
 require("strict")
 
-Load              = inheritsFrom(MasterControl)
-Load.my_name      = "MC_Load"
-
-local M           = Load
-local Dbg         = require("Dbg")
-local format      = string.format
-local getenv      = os.getenv
-
+local MC_Load  = inheritsFrom(MasterControl)
+local M        = MC_Load
+local Dbg      = require("Dbg")
+local format   = string.format
+local getenv   = os.getenv
+M.my_name      = "MC_Load"
 M.append_path  = MasterControl.append_path
 M.conflict     = MasterControl.conflict
 M.family       = MasterControl.family

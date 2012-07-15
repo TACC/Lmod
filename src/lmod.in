@@ -1,16 +1,6 @@
 #!@path_to_lua@/lua
 -- -*- lua -*-
 
-ModulePath    = "MODULEPATH"
-DfltModPath   = "LMOD_DEFAULT_MODULEPATH"
-LMODdir       = ".lmod.d"
-varTbl        = {}
-SearchString  = nil
-IN_SPIDER     = false
-
-defaultMpathA = {}
-adminT        = {}
-_MyFileName   = ""
 
 -- ancient:   the time in seconds when the cache file is considered old
 -- shortTime: the time in seconds when building the cache file is quick
@@ -20,32 +10,38 @@ shortTime     = "@short_time@"
 sysCacheDir   = os.getenv("LMOD_SPIDER_CACHE_DIR") or "@cacheDir@"
 ancient       = tonumber(ancient)   or 86400
 shortTime     = tonumber(shortTime) or 2.0
-MT            = {}
-Master        = {}
 BaseShell     = {}
 ------------------------------------------------------------------------
 -- Extract directory location of "lmod" command and add it
 -- to the lua search path
 ------------------------------------------------------------------------
-local cmd = arg[0]
 
-local i,j = cmd:find(".*/")
-local cmd_dir = "./"
+------------------------------------------------------------------------
+-- Use command name to add the command directory to the package.path
+------------------------------------------------------------------------
+local LuaCommandName = arg[0]
+local i,j = LuaCommandName:find(".*/")
+local LuaCommandName_dir = "./"
 if (i) then
-   cmd_dir = cmd:sub(1,j)
+   LuaCommandName_dir = LuaCommandName:sub(1,j)
 end
-package.path = cmd_dir .. "?.lua;" .. package.path
-capture = nil
+package.path = LuaCommandName_dir .. "?.lua;" .. package.path
+
+function cmdDir()
+   return LuaCommandName_dir
+end
+
 local getenv = os.getenv
 local rep    = string.rep
 
+require("myGlobals")
 require("strict")
-require("capture")
 require("firstInPath")
 MasterControl = require("MasterControl")
 MCP           = {}
 mcp           = {}
 require("modfuncs")
+require("cmdfuncs")
 local Dbg     = require("Dbg")
 local Version = require("Version")
 
@@ -113,23 +109,14 @@ See:
 
 for complete documentation. It contains:
 
-   User Guide
-   Advance User Guide
-   System Administrator Guide
+   User Guide                  - How to use.
+   Advance User Guide          - How to create you own modules.
+   System Administrator Guide  - If you want to install it on your own system.
 
 ----------------------------------------------------------------------------------
 ]]
 
 local concatTbl = table.concat
-
-local function lmodErrorExit()
-   io.stdout:write("false\n")
-   os.exit(1)
-end
-
-function cmdDir()
-   return cmd_dir
-end
 
 function version()
    local v = {}
@@ -139,24 +126,13 @@ function version()
 end
 
 
-local __expert = false
-
-function expert()
-   if (__expert == false) then
-      __expert = getenv("LMOD_EXPERT")
-   end
-   return __expert
-end
-
-
 require("border")
 
 require("serializeTbl")
 require("fileOps")
 require("string_split")
-BaseShell     = require("BaseShell")
+BaseShell          = require("BaseShell")
 local ColumnTable  = require("ColumnTable")
-local BeautifulTbl = require("BeautifulTbl")
 local Spider       = require("Spider")
 local Var          = require("Var")
 local lfs          = require("lfs")
@@ -164,108 +140,6 @@ local posix        = require("posix")
 
 local Options = require("Options")
 
-function myFileName()
-   return _MyFileName
-end
-
-function hierarchyA(package, levels)
-   local n = myFileName():gsub("%.lua$","")
-
-   -- Remove package from end of string by using the
-   -- "plain" matching via string.find function
-   package = package:gsub("%.lua$","")
-   local i,j = n:find(package,1,true)
-   if (j == n:len()) then
-      n = n:sub(1,i-1)
-   end
-
-   -- remove any leading or trailing '/'
-   n       = n:gsub("^/","")
-   n       = n:gsub("/$","")
-   local a = {}
-
-   for dir in n:split("/") do
-      a[#a + 1] = dir
-   end
-
-   local b = {}
-   local j = #a
-
-   for i = 1, levels do
-      b[#b + 1 ] = pathJoin(a[j-1],a[j])
-      j = j - 2
-   end
-
-   return b
-end
-
-local function regularize(v)
-   v = v:gsub("^%s*","")
-   v = v:gsub("%s*$","")
-   return v
-end
-
-function readAdmin()
-
-   -- If there is anything in [[adminT]] then return because
-   -- this routine has already read in the file.
-   if (next (adminT)) then return end
-
-   local adminFn = os.getenv("LMOD_ADMIN_FILE") or pathJoin(cmdDir(),"../../etc/admin.list")
-   local f       = io.open(adminFn)
-
-   -- Put something in adminT so that this routine will not be
-   -- run again even if the file does not exist.
-   adminT["foo"] = "bar"
-
-   if (f) then
-      local whole = f:read("*all") .. "\n"
-      f:close()
-
-
-      -- Parse file: ignore "#" comment lines and blank lines
-      -- Split lines on ":" module:message
-
-      local state = "init"
-      local key   = "unknown"
-      local value = nil
-      local a     = {}
-
-      for v in whole:split("\n") do
-
-         if (v:sub(1,1) == "#") then
-            -- ignore this comment line
-
-
-         elseif (v:find("^%s*$")) then
-            if (state == "value") then
-               value       = concatTbl(a, " ")
-               a           = {}
-               adminT[key] = value
-               state       = "init"
-            end
-
-            -- Ignore blank lines
-         elseif (state == "value") then
-            a[#a+1]     = regularize(v)
-         else
-            local i     = v:find(":")
-            if (i) then
-               key      = regularize(v:sub(1,i-1))
-               local  s = regularize(v:sub(i+1))
-               if (s:len() > 0) then
-                  a[#a+1]  = s
-               end
-               state    = "value"
-            end
-         end
-      end
-   end
-end
-
-function prtErr(...)
-   io.stderr:write(...)
-end
 
 function None()
    print ("None")
@@ -375,27 +249,6 @@ local function TableList()
 
 end
 
-function Purge()
-   local master = Master:master()
-   local mt     = MT:mt()
-   local dbg    = Dbg:dbg()
-
-   local totalA  = mt:listTotal()
-
-   if (#totalA < 1) then
-      return
-   end
-
-   local a = {}
-   for _,v in ipairs(totalA) do
-      a[#a + 1] = v
-   end
-   dbg.start("Purge(",concatTbl(a,", "),")")
-
-   MCP:unload(unpack(a))
-   dbg.fini()
-end
-
 function Reset()
    local dbg    = Dbg:dbg()
    dbg.start("Reset()")
@@ -484,6 +337,7 @@ function Show(...)
    dbg.start("Show(", concatTbl({...},", "),")")
 
    mcp = MasterControl.build("show")
+   dbg.print("Setting mpc to ", mcp:name(),"\n")
 
    prtHdr       = function()
                      io.stderr:write("------------------------------------------------------------\n")
@@ -501,6 +355,7 @@ function Access(...)
    local master = Master:master()
    dbg.start("Access(", concatTbl({...},", "),")")
    mcp = MasterControl.build("access")
+   dbg.print("Setting mpc to ", mcp:name(),"\n")
 
    local n = select('#',...)
    if (n < 1) then
@@ -556,18 +411,6 @@ function TryUsrLoad(...)
    UsrLoad(...)
    dbg.fini()
 end
-
-function TryLoad(...)
-   local master = Master:master()
-   local mt     = MT:mt()
-   local dbg    = Dbg:dbg()
-
-   dbg.start("TryLoad(",concatTbl({...},", "),")")
-   dbg:deactivateWarning()
-   MCP:load(...)
-   dbg.fini()
-end
-
 
 function UsrLoad(...)
    local master = Master:master()
@@ -824,16 +667,8 @@ end
 function SpiderCmd(...)
    local dbg = Dbg:dbg()
    dbg.start("SpiderCmd(", concatTbl({...},", "),")")
-
-   mcp          = MasterControl.build("spider")
-   help         = Spider_help
-   whatis       = Spider_whatis
-   prepend_path = Spider_prepend_path
-   append_path  = Spider_append_path
-
-   dbg.start("SpiderCmd(",concatTbl({...},", "),")")
-
-
+   mcp           = MasterControl.build("spider")
+   dbg.print("Setting mpc to ", mcp:name(),"\n")
    local moduleT = getModuleT()
 
    local s
@@ -842,14 +677,16 @@ function SpiderCmd(...)
    Spider.buildSpiderDB({"default"},moduleT, dbT)
    LmodError = errorRtn
 
-   if (#mnameA < 1) then
+   local arg = {n=select('#',...),...}
+
+   if (arg.n < 1) then
       s = Spider.Level0(dbT)
    else
       local a = {}
       local help = false
-      for i = 1, #mnameA do
-         if (i == #mnameA) then help = true end
-         a[#a+1] = Spider.Level1(dbT, mnameA[i], help)
+      for i = 1, arg.n do
+         if (i == arg.n) then help = true end
+         a[#a+1] = Spider.Level1(dbT, arg[i], help)
       end
       s = concatTbl(a,"\n")
    end
@@ -861,22 +698,14 @@ function Keyword(...)
    local dbg    = Dbg:dbg()
    dbg.start("Keyword(",concatTbl({...},","),")")
    mcp          = MasterControl.build("spider")
-   help         = Spider_help
-   whatis       = Spider_whatis
-   prepend_path = Spider_prepend_path
-   append_path  = Spider_append_path
+   dbg.print("Setting mpc to ", mcp:name(),"\n")
 
    local master = Master:master()
-   local keyA   = {}
-
-   for _,v in ipairs{...} do
-      keyA[#keyA+1] = v
-   end
 
    local moduleT = getModuleT()
    local s
    local dbT = {}
-   Spider.searchSpiderDB(keyA,{"default"},moduleT, dbT)
+   Spider.searchSpiderDB({...},{"default"},moduleT, dbT)
    local a = {}
    local ia = 0
 
@@ -885,7 +714,7 @@ function Keyword(...)
    ia = ia+1; a[ia] = "\n"
    ia = ia+1; a[ia] = banner
    ia = ia+1; a[ia] = "The following modules match your search criteria: \""
-   ia = ia+1; a[ia] = concatTbl(keyA,"\", \"")
+   ia = ia+1; a[ia] = concatTbl({...},"\", \"")
    ia = ia+1; a[ia] = "\"\n"
    ia = ia+1; a[ia] = banner
    ia = ia+1; a[ia] = "\n"
@@ -910,8 +739,6 @@ Master = require("Master")
 MT     = require("MT")
 
 function main()
-   MCP = MasterControl.build("load")
-   mcp = MasterControl.build("load")
    
    local loadTbl      = { name = "load",        checkMPATH = true,  cmd = UsrLoad     }
    local tryAddTbl    = { name = "try-add",     checkMPATH = true,  cmd = TryUsrLoad  }
@@ -1027,8 +854,10 @@ function main()
       dbg:activateDebug(options.dbglvl or 1)
    end
 
-   dbg.start("lmod ", arg_str)
-
+   dbg.start("lmod(", arg_str,")")
+   MCP = MasterControl.build("load")
+   mcp = MasterControl.build("load")
+   dbg.print("Setting mpc to ", mcp:name(),"\n")
    localvar(options.localvarA)
 
    local cmdName = options.pargs[1]

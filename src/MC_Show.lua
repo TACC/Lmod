@@ -1,13 +1,12 @@
 -- -*- lua -*-
 require("strict")
 
-Show              = inheritsFrom(MasterControl)
-Show.my_name      = "MC_Show"
+MC_Show           = inheritsFrom(MasterControl)
+MC_Show.my_name   = "MC_Show"
 
-local M           = Show
+local M           = MC_Show
 local Dbg         = require("Dbg")
-local format      = string.format
-local getenv      = os.getenv
+local concatTbl   = table.concat
 
 local function ShowCmd(name,...)
    local a = {}
@@ -28,7 +27,7 @@ local function Show_help(...)
    for _,v in ipairs{...} do
       a[#a + 1] = "[[".. v .."]]"
    end
-   io.stderr:write("help","(",concatTbl(a,", "),")\n")
+   io.stderr:write("help(",concatTbl(a,", "),")\n")
 end
 
 function M.help(self, ...)
@@ -39,65 +38,65 @@ function M.whatis(self, value)
    ShowCmd("whatis", value)
 end
 
-function M.prepend_path(...)
+function M.prepend_path(self, ...)
    ShowCmd("prepend_path", ...)
 end
 
-function M.set_alias(name,value)
+function M.set_alias(set, name,value)
    ShowCmd("set_alias", name, value)
 end
 
-function M.unset_alias(name)
+function M.unset_alias(self, name)
    ShowCmd("unset_alias",name)
 end
 
-function M.append_path(...)
+function M.append_path(self, ...)
    ShowCmd("append_path", ...)
 end
 
-function M.setenv(name,value)
+function M.setenv(self, name,value)
    ShowCmd("setenv", name, value)
 end
 
-function M.unsetenv(name,value)
+function M.unsetenv(self, name,value)
    ShowCmd("unsetenv", name, value)
 end
 
-function M.remove_path(name,value)
+function M.remove_path(self, name,value)
    ShowCmd("remove_path", name, value)
 end
 
-function M.load(...)
+function M.load(self, ...)
    ShowCmd("load",...)
 end
 
-function M.try_load(...)
+function M.try_load(self, ...)
    ShowCmd("try_load",...)
 end
 
 M.try_add = M.try_load
 
-function M.inherit(...)
+function M.inherit(self, ...)
    ShowCmd("inherit",...)
 end
 
-function M.family(...)
+function M.family(self, ...)
    ShowCmd("family",...)
 end
 
-function M.display(...)
-   ShowCmd("display",...)
+function M.display(self, ...)
+   ShowCmd("display", ...)
 end
 
-function M.unload(...)
-   ShowCmd("unload",...)
+function M.unload(self, ...)
+   ShowCmd("unload", ...)
 end
 
-function M.prereq(...)
+function M.prereq(self, ...)
    ShowCmd("prereq",...)
 end
 
-function M.conflict(...)
+function M.conflict(self, ...)
    ShowCmd("conflict",...)
 end
 

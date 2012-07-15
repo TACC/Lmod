@@ -1,45 +1,39 @@
 #!@path_to_lua@/lua
 -- -*- lua -*-
-IN_SPIDER = true
-local cmd = arg[0]
 
-local i,j = cmd:find(".*/")
-local cmd_dir = "./"
+------------------------------------------------------------------------
+-- Use command name to add the command directory to the package.path
+------------------------------------------------------------------------
+local LuaCommandName = arg[0]
+local i,j = LuaCommandName:find(".*/")
+local LuaCommandName_dir = "./"
 if (i) then
-   cmd_dir = cmd:sub(1,j)
+   LuaCommandName_dir = LuaCommandName:sub(1,j)
 end
-package.path = cmd_dir .. "?.lua;" .. package.path
+package.path = LuaCommandName_dir .. "?.lua;" .. package.path
 
 function cmdDir()
-   return cmd_dir
+   return LuaCommandName_dir
 end
 
-function LmodError()
-end
-
-function mode()
-end
-
-function LmodMessage()
-end
-
-function is_spider()
-   return IN_SPIDER
-end
-
-function isloaded()
-   return false
-end
-
+require("myGlobals")
+require("strict")
+require("firstInPath")
 require("border")
 require("serializeTbl")
 require("pairsByKeys")
 require("fileOps")
-local json         = require("json")
-local Dbg          = require("Dbg")
-local Optiks       = require("Optiks")
-local Spider       = require("Spider")
-local concatTbl    = table.concat
+require("modfuncs")
+require("cmdfuncs")
+MasterControl       = require("MasterControl")
+MT                  = require("MT")
+Master              = require("Master")
+BaseShell           = require("BaseShell")
+local json          = require("json")
+local Dbg           = require("Dbg")
+local Optiks        = require("Optiks")
+local Spider        = require("Spider")
+local concatTbl     = table.concat
 
 
 function flip(a,t, tbl)
@@ -101,12 +95,14 @@ function main()
    local moduleT    = {}
    local moduleDirA = {}
    
+   local master     = Master:master(false)
+   master.shell     = BaseShell.build("bash")
+
    for _, v in ipairs(pargs) do
       for path in v:split(":") do
          moduleDirA[#moduleDirA+1] = path
       end
    end
-
 
    local dbg = Dbg:dbg()
 
@@ -115,6 +111,9 @@ function main()
    end
 
    dbg.start("main()")
+   MCP = MasterControl.build("spider")
+   mcp = MasterControl.build("spider")
+   dbg.print("Setting mpc to ", tostring(mcp:name()),"\n")
 
    Spider.findAllModules(moduleDirA, moduleT)
    
