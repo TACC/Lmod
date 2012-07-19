@@ -433,7 +433,10 @@ function UsrLoad(...)
       end
    end
 
-   local b = MCP:load(unpack(a))
+   local mcp_old = mcp
+   mcp           = MCP
+   local b       = mcp:load(unpack(a))
+   mcp           = mcp_old
 
    dbg.fini()
    return b
@@ -546,11 +549,14 @@ local function Swap(...)
       LmodError("Swap failed: \"",a,"\" is not loaded.\n")
    end
 
-   MCP:unload(a)
-   local aa = MCP:load(b)
+   local mcp_old = mcp
+   mcp           = MCP
+   mcp:unload(a)
+   local aa = mcp:load(b)
    if (not aa[1]) then
       LmodError("Swap failed.\n")
    end
+   mcp = mcp_old
    dbg.fini()
 end
 

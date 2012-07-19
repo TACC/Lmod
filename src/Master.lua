@@ -373,8 +373,11 @@ function M.load(...)
       local fn      = t.fn
       if (mt:haveModuleAnyActive(moduleName) and fn  ~= mt:fileNameActive(moduleName)) then
          dbg.print("Master:load reload module: \"",moduleName,"\" as it is already loaded\n")
-         MCP:unload(moduleName)
-         local aa = MCP:load(moduleName)
+         local mcp_old = mcp
+         mcp           = MCP
+         mcp:unload(moduleName)
+         local aa = mcp:load(moduleName)
+         mcp           = mcp_old
          loaded = aa[1]
       elseif (fn) then
          dbg.print("Master:loading: \"",moduleName,"\" from f: \"",fn,"\"\n")
@@ -447,7 +450,7 @@ function M.reloadAll()
             dbg.print("Master:reloadAll Unloading module: \"",v,"\"\n")
             mcp:unloadsys(v)
             dbg.print("Master:reloadAll Loading module: \"",fullName or "nil","\"\n")
-            local loadA = MCP:load(fullName)
+            local loadA = mcp:load(fullName)
             dbg.print("Master:reloadAll: fn: \"",fn or "nil",
                       "\" mt:fileNameTotal(v): \"", mt:fileNameTotal(v) or "nil","\"\n")
             if (loadA[1] and fn ~= mt:fileNameTotal(v)) then
