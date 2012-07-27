@@ -373,8 +373,11 @@ function M.load(...)
       local fn      = t.fn
       if (mt:haveModuleAnyActive(moduleName) and fn  ~= mt:fileNameActive(moduleName)) then
          dbg.print("Master:load reload module: \"",moduleName,"\" as it is already loaded\n")
-         MCP:unload(moduleName)
-         local aa = MCP:load(moduleName)
+         local mcp_old = mcp
+         mcp           = MCP
+         mcp:unload(moduleName)
+         local aa = mcp:load(moduleName)
+         mcp           = mcp_old
          loaded = aa[1]
       elseif (fn) then
          dbg.print("Master:loading: \"",moduleName,"\" from f: \"",fn,"\"\n")
@@ -447,7 +450,7 @@ function M.reloadAll()
             dbg.print("Master:reloadAll Unloading module: \"",v,"\"\n")
             mcp:unloadsys(v)
             dbg.print("Master:reloadAll Loading module: \"",fullName or "nil","\"\n")
-            local loadA = MCP:load(fullName)
+            local loadA = mcp:load(fullName)
             dbg.print("Master:reloadAll: fn: \"",fn or "nil",
                       "\" mt:fileNameTotal(v): \"", mt:fileNameTotal(v) or "nil","\"\n")
             if (loadA[1] and fn ~= mt:fileNameTotal(v)) then
@@ -528,7 +531,7 @@ function M.prtReloadT(self)
    end
    if (i > 0) then
       io.stderr:write("Due to MODULEPATH changes the following modules have been reloaded:\n")
-      local ct = ColumnTable:new{tbl=a,prt=prtErr}
+      local ct = ColumnTable:new{tbl=a,prt=prtErr,gap=0}
       ct:print_tbl()
    end
 end
@@ -607,7 +610,7 @@ end
 local function availDir(searchA, mpath, path, prefix, a)
    local dbg    = Dbg:dbg()
    dbg.start("Master.availDir(searchA=(",concatTbl(searchA,", "),"), mpath=\"",mpath,"\", ",
-             "path=\"",path,"\", prefix=\"",prefix,"\", a=(",concatTbl(a,", "),") )")
+             "path=\"",path,"\", prefix=\"",prefix,"\")")
    local sCount = #searchA
    local attr = lfs.attributes(path)
    if (not attr) then
@@ -633,18 +636,18 @@ local function availDir(searchA, mpath, path, prefix, a)
          dbg.print("file: ",file," f: ",f," attr.mode: ", attr.mode,"\n")
          local readable = posix.access(f,"r")
 	 if (readable and (attr.mode == 'file' or attr.mode == 'link') and (file ~= "default")) then
-            local n = prefix .. file
+            local dflt = ""
+            local n    = prefix .. file
             n = n:gsub("%.lua$","")
-            local nn = n
             if (defaultModuleName == abspath(f,localDir)) then
-               n = n .. ' (default)'
+               dflt = '(default)'
             end
             if (sCount == 0) then
-               a[#a + 1 ] = '  ' .. n .. '  '
+               a[#a + 1 ] = {'  ',n,dflt}
             else
                for _,v in ipairs(searchA) do
-                  if (nn:find(v,1,true) or nn:find(v)) then
-                     a[#a + 1 ] = '  ' .. n .. '  '
+                  if (n:find(v,1,true) or n:find(v)) then
+                     a[#a + 1 ] = {'  ',n,dflt}
                      break
                   end
                end
@@ -670,8 +673,8 @@ function M.avail(searchA)
       availDir(searchA, path, path, '', a)
       if (next(a)) then
          prtDirName(width, path)
-         sort(a)
-         local ct  = ColumnTable:new{tbl=a,prt=prtErr}
+         sort(a, function (a,b) return a[2] < b[2] end)
+         local ct  = ColumnTable:new{tbl=a,prt=prtErr,gap=1}
          ct:print_tbl()
       end
    end

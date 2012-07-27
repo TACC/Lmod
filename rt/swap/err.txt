@@ -12,7 +12,7 @@ Due to MODULEPATH changes the following modules have been reloaded:
 step 3
 ===========================
 Currently Loaded Modules:
-  1) admin/admin-1.0  3) local/local  5) PrgEnv
+  1) admin/admin-1.0  3) local/local  5) PrgEnv      
   2) unix/unix        4) noweb/2.10c  6) parmetis/3.1
 Inactive Modules:
   1) openmpi/1.2.6
@@ -27,9 +27,8 @@ Due to MODULEPATH changes the following modules have been reloaded:
 step 5
 ===========================
 Currently Loaded Modules:
-  1) admin/admin-1.0  4) noweb/2.10c  7) openmpi/1.2.6
-  2) unix/unix        5) PrgEnv       8) parmetis/3.1
-  3) local/local      6) gcc/4.2.3  
+  1) admin/admin-1.0  3) local/local  5) PrgEnv     7) openmpi/1.2.6
+  2) unix/unix        4) noweb/2.10c  6) gcc/4.2.3  8) parmetis/3.1 
 ===========================
 step 6
 ===========================
@@ -39,6 +38,5 @@ Due to MODULEPATH changes the following modules have been reloaded:
 step 7
 ===========================
 Currently Loaded Modules:
-  1) admin/admin-1.0  4) noweb/2.10c  7) openmpi/1.2.6
-  2) unix/unix        5) PrgEnv       8) parmetis/3.1
-  3) local/local      6) intel/intel
+  1) admin/admin-1.0  3) local/local  5) PrgEnv       7) openmpi/1.2.6
+  2) unix/unix        4) noweb/2.10c  6) intel/intel  8) parmetis/3.1 

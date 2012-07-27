@@ -206,7 +206,7 @@ local function List(...)
    if (k == 0) then
       io.stderr:write("  None found.\n")
    else
-      local ct = ColumnTable:new{tbl=t,prt=prtErr}
+      local ct = ColumnTable:new{tbl=t,prt=prtErr,gap=0}
       ct:print_tbl()
    end
    t = {}
@@ -219,7 +219,7 @@ local function List(...)
          local m = mt:modFullNameTotal(v)
          for j = 1, #wanted do
             local p = wanted[j]
-            if (m:find(p)) then
+            if (m:find(p,1,true) or m:find(p)) then
                k = k + 1
                t[#t + 1] = "  " .. k .. ") " .. m
             end
@@ -229,7 +229,7 @@ local function List(...)
 
    if (#t > 0) then
       io.stderr:write("Inactive Modules",msg2,"\n")
-      local ct = ColumnTable:new{tbl=t,prt=prtErr}
+      local ct = ColumnTable:new{tbl=t,prt=prtErr,gap=0}
       ct:print_tbl()
    end
 end
@@ -433,7 +433,10 @@ function UsrLoad(...)
       end
    end
 
-   local b = MCP:load(unpack(a))
+   local mcp_old = mcp
+   mcp           = MCP
+   local b       = mcp:load(unpack(a))
+   mcp           = mcp_old
 
    dbg.fini()
    return b
@@ -523,7 +526,7 @@ local function ListDefault(...)
 
    if (#a > 0) then
       io.stderr:write("Possible defaults:\n")
-      local ct = ColumnTable:new{tbl=a,prt=prtErr}
+      local ct = ColumnTable:new{tbl=a,prt=prtErr,gap=0}
       ct:print_tbl()
    end
 end
@@ -546,11 +549,14 @@ local function Swap(...)
       LmodError("Swap failed: \"",a,"\" is not loaded.\n")
    end
 
-   MCP:unload(a)
-   local aa = MCP:load(b)
+   local mcp_old = mcp
+   mcp           = MCP
+   mcp:unload(a)
+   local aa = mcp:load(b)
    if (not aa[1]) then
       LmodError("Swap failed.\n")
    end
+   mcp = mcp_old
    dbg.fini()
 end
 

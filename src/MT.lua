@@ -222,7 +222,10 @@ function M.getMTfromFile(self,fn)
    varTbl[DfltModPath] = Var:new(DfltModPath,baseMPATH)
 
    dbg.print("(3) varTbl[ModulePath]:expand(): ",varTbl[ModulePath]:expand(),"\n")
-   MCP:load(unpack(a))
+   local mcp_old = mcp
+   mcp           = MCP
+   mcp:load(unpack(a))
+   mcp           = mcp_old
 
    local master = systemG.Master:master()
 
