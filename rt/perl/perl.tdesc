@@ -1,0 +1,74 @@
+-- -*- lua -*-
+
+testdescript = {
+   owner   = "rtm",
+   product = "modules",
+   description = [[
+	 Test initial module load
+   ]],
+   keywords = {"perl" },
+
+   active = false,
+   testName = "perl",
+   job_submit_method = "INTERACTIVE", 
+
+   runScript = [[
+
+     . $(projectDir)/rt/common_funcs.sh
+
+     unsetMT
+     PATH_to_LUA=`findcmd --pathOnly lua`
+     PATH_to_TM=`findcmd --pathOnly tm`
+
+     PATH=$(projectDir)/src:$PATH_to_LUA:$PATH_to_TM:/usr/bin:/bin
+     export PATH
+     INFOPATH='';                       export INFOPATH
+     MANPATH='';                        export MANPATH
+     LD_LIBRARY_PATH='';                export LD_LIBRARY_PATH
+     MODULEPATH="";                     export MODULEPATH
+     MODULEPATH_ROOT=$(projectDir)/mf;  export MODULEPATH_ROOT
+     LMOD_DEFAULT_MODULEPATH=$MODULEPATH
+     export LMOD_DEFAULT_MODULEPATH
+     numStep=0
+     COUNT=0
+     HOME=`(cd $HOME; /bin/pwd)`
+
+     rm -f _stderr.* _stdout.* err.* out.*
+
+     runMe lua $(projectDir)/src/lmod.in bash use -a $projectDir/mf/Core $projectDir/mf/Beta
+     runMe lua $(projectDir)/src/lmod.in bash use $projectDir/mf/notDir
+     runMe lua $(projectDir)/src/lmod.in bash load admin PrgEnv
+     runMe lua $(projectDir)/src/lmod.in bash load gotoblas/1.30-beta
+     runMe lua $(projectDir)/src/lmod.in bash rm   gotoblas/1.30-beta
+     runMe lua $(projectDir)/src/lmod.in bash try-add gotoblas123 intel
+     runMe lua $(projectDir)/src/lmod.in bash load gotoblas
+     runMe lua $(projectDir)/src/lmod.in bash load multi
+     runMe lua $(projectDir)/src/lmod.in bash unload multi
+     runMe lua $(projectDir)/src/lmod.in bash load boost
+     
+     
+     runMe lua $(projectDir)/src/lmod.in bash list
+
+     cat _stdout.[0-9][0-9] > _stdout.orig
+     joinBase64Results  -bash  _stdout.orig _stdout.new
+     cleanUp _stdout.new out.txt
+
+     cat _stderr.[0-9][0-9] > _stderr.orig
+     cleanUp _stderr.orig err.txt
+
+     rm -f $(cmdResultFn)
+     wrapperDiff -r $(cmdResultFn) $(testDir)/out.txt out.txt
+     wrapperDiff -r $(cmdResultFn) $(testDir)/err.txt err.txt
+     testFinish -c $(cmdResultFn) -r $(resultFn) -t $(runtimeFn)
+   ]],
+
+
+   blessScript = [[
+         # perform what is needed
+   ]],
+
+   tests = {
+      { id='t1'},
+   },
+
+}
