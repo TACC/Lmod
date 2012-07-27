@@ -222,7 +222,7 @@ function M.expand(self)
       pathStr = pathStr:gsub('^:+','')
       pathStr = pathStr:gsub(':+$','')
       if (pathStr:find('::')) then
-         io.stderr:write("Warning: Removing '::' from path variable: ",self.name,"\n")
+         --io.stderr:write("Warning: Removing '::' from path variable: ",self.name,"\n")
          pathStr = pathStr:gsub('::+',":")
       end
    end

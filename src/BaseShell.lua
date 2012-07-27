@@ -14,6 +14,16 @@ local print	   = print
 local setmetatable = setmetatable
 local type	   = type
 
+function doubleQuoteEscaped(s)
+   s = s:gsub('"','\\"')
+   return s
+end
+
+function atSymbolEscaped(s)
+   s = s:gsub('@','\\@')
+   return s
+end
+
 ------------------------------------------------------------------------
 --module ('BaseShell')
 ------------------------------------------------------------------------
@@ -52,11 +62,13 @@ function M.build(shell_name)
    local Csh        = require('Csh')
    local Bash       = require('Bash')
    local Bare       = require('Bare')
+   local Perl       = require('Perl')
    shellTbl["sh"]   = Bash
    shellTbl["bash"] = Bash
    shellTbl["zsh"]  = Bash
    shellTbl["csh"]  = Csh
    shellTbl["tcsh"] = Csh
+   shellTbl["perl"] = Perl
    shellTbl.bare    = Bare
 
 

@@ -1,0 +1,11 @@
+# -*- perl -*-
+sub module {
+  eval `@PKG@/libexec/lmod perl @_`;
+  if($@) {
+    use Carp;
+    confess "module-error: $@\n";
+  }
+  return 1;
+}
+
+1;
