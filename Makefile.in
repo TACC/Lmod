@@ -93,7 +93,7 @@ src/computeHashSum: $(ComputeHashSum)
 	chmod +x $@
 
 makefile: Makefile.in config.status
-	config.status $@
+	./config.status $@
 
 config.status:
 	./config.status --recheck
