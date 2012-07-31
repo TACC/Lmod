@@ -186,6 +186,7 @@ gittag:
 	    echo 'return M'                                         >> $(VERSION_SRC); \
             git commit -m "moving to TAG_VERSION $(TAG)"               $(VERSION_SRC); \
             git tag -a $(TAG) -m 'Setting TAG_VERSION to $(TAG)'                     ; \
+	    git push --tags                                                          ; \
           fi;                                                                          \
           rm -f /tmp/lmod$$$$
         else
