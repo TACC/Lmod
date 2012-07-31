@@ -24,7 +24,7 @@ local systemG     = _G
 
 local function formLine(k,v, vType)
    local lineA       = {}
-   v                 = doubleQuoteEscaped(v)
+   v                 = doubleQuoteEscaped(tostring(v))
    lineA[#lineA + 1] = k
    lineA[#lineA + 1] = "=\""
    lineA[#lineA + 1] = v
