@@ -29,6 +29,7 @@ function Csh.expandVar(self, k, v, vType)
    local dbg = Dbg:dbg()
    local lineA       = {}
    local middle      = ' "'
+   v                 = tostring(v)
    v                 = v:gsub("!","\\!")
    v                 = doubleQuoteEscaped(v)
    if (vType == "local_var") then

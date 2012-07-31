@@ -16,7 +16,7 @@ end
 function Perl.expandVar(self, k, v, vType)
    local dbg = Dbg:dbg()
    local lineA = {}
-   v = atSymbolEscaped(doubleQuoteEscaped(v))
+   v = atSymbolEscaped(doubleQuoteEscaped(tostring(v)))
 
    lineA[#lineA + 1] = '$ENV{'
    lineA[#lineA + 1] = k

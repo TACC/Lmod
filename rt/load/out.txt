@@ -28,6 +28,8 @@ LMOD_DEFAULT_MODULEPATH="~/w/lmod/mf/Core:~/w/lmod/mf/Beta";
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="~/w/lmod/mf/Core:~/w/lmod/mf/Beta";
 export MODULEPATH;
+ADMIN_MODULE_LOADED="1";
+export ADMIN_MODULE_LOADED;
 INFOPATH="/local/info:/usr/share/info";
 export INFOPATH;
 LD_LIBRARY_PATH="/vol/local/intel/mkl/mkl/lib/lib:/vol/local/intel/idb/idb/lib:/vol/local/intel/fc/fc/lib:/vol/local/intel/cc/cc/lib";

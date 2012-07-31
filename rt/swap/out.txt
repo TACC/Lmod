@@ -5,6 +5,8 @@ LMOD_DEFAULT_MODULEPATH="~/w/lmod/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="~/w/lmod/mf/Core";
 export MODULEPATH;
+ADMIN_MODULE_LOADED="1";
+export ADMIN_MODULE_LOADED;
 INFOPATH="/local/info:/usr/share/info";
 export INFOPATH;
 LD_LIBRARY_PATH="/vol/local/mpi/intel/10.1/openmpi/1.2.6.opt/lib:/vol/local/intel/mkl/mkl/lib/lib:/vol/local/intel/idb/idb/lib:/vol/local/intel/fc/fc/lib:/vol/local/intel/cc/cc/lib";

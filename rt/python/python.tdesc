@@ -8,7 +8,7 @@ testdescript = {
    ]],
    keywords = {"python" },
 
-   active = false,
+   active = 1,
    testName = "python",
    job_submit_method = "INTERACTIVE", 
 
@@ -34,14 +34,17 @@ testdescript = {
 
      mkdir setup
      sed -e 's|@PKG@/libexec/lmod|lua $(projectDir)/src/lmod.in|g' \
-              < $(projectDir)/setup/python.in > setup/python
+              < $(projectDir)/setup/env_modules_python.py.in > setup/env_modules_python.py
 
      
 
 cat > $(testName).py << EOF
 #!/usr/bin/env python
 
-execfile("$(outputDir)/setup/python")
+import os, sys
+sys.path.insert(0,"$(outputDir)/setup/")
+
+from env_modules_python import module
 
 module("load","foobar")
 

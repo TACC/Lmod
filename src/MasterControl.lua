@@ -176,14 +176,14 @@ end
 function M.prepend_path(self, name, value, sep)
    local mStack = ModuleStack:moduleStack()
    local dbg    = Dbg:dbg()
-   dbg.start("MasterControl:prepend_path(\"",name,"\", \"",value,"\",\"",tostring(sep),"\")")
+   dbg.start("MasterControl:prepend_path(\"",name,"\", \"",tostring(value),"\",\"",tostring(sep),"\")")
    sep          = sep or ":"
 
    if (varTbl[name] == nil) then
       varTbl[name] = Var:new(name, nil, sep)
    end
 
-   varTbl[name]:prepend(value)
+   varTbl[name]:prepend(tostring(value))
    mStack:setting()
    dbg.fini()
 end
@@ -191,13 +191,13 @@ end
 function M.append_path(self, name,value,sep)
    local mStack = ModuleStack:moduleStack()
    local dbg    = Dbg:dbg()
-   dbg.start("MasterControl:append_path(\"",name,"\", \"",value,"\",\"",tostring(sep),"\")")
+   dbg.start("MasterControl:append_path(\"",name,"\", \"",tostring(value),"\",\"",tostring(sep),"\")")
    sep          = sep or ":"
 
    if (varTbl[name] == nil) then
       varTbl[name] = Var:new(name, nil, sep)
    end
-   varTbl[name]:append(value)
+   varTbl[name]:append(tostring(value))
    mStack:setting()
    dbg.fini()
 end
@@ -205,14 +205,14 @@ end
 function M.remove_path(self, name, value, sep)
    local mStack = ModuleStack:moduleStack()
    local dbg    = Dbg:dbg()
-   dbg.start("MasterControl:remove_path(\"",name,"\", \"",value,"\",\"",tostring(sep),"\")")
+   dbg.start("MasterControl:remove_path(\"",name,"\", \"",tostring(value),"\",\"",tostring(sep),"\")")
    sep          = sep or ":"
    mStack:setting()
 
    if (varTbl[name] == nil) then
       varTbl[name] = Var:new(name,nil, sep)
    end
-   varTbl[name]:remove(value)
+   varTbl[name]:remove(tostring(value))
    dbg.fini()
 end
 
@@ -233,7 +233,7 @@ function M.setenv(self, name, value)
    if (varTbl[name] == nil) then
       varTbl[name] = Var:new(name)
    end
-   varTbl[name]:set(value)
+   varTbl[name]:set(tostring(value))
    mStack:setting()
    dbg.fini()
 end
