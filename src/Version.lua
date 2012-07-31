@@ -1,4 +1,4 @@
 --module('Version')
 local M={}
-function M.name() return "3.5.1 2012-07-30 21:11" end
+function M.name() return "3.5.2 2012-07-31 15:27" end
 return M
