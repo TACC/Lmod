@@ -1,8 +1,8 @@
 ===========================
 step 1
 ===========================
-unset "LMOD_DEFAULT_MODULEPATH";
-unset "MODULEPATH";
+unset LMOD_DEFAULT_MODULEPATH;
+unset MODULEPATH;
 LMOD_DEFAULT_MODULEPATH="~/w/lmod/rt/inherit/mf/Linux:~/w/lmod/rt/inherit/mf/Core:~/w/lmod/rt/inherit/mf/Core2";
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="~/w/lmod/rt/inherit/mf/Linux:~/w/lmod/rt/inherit/mf/Core:~/w/lmod/rt/inherit/mf/Core2";
@@ -48,9 +48,9 @@ LMOD_DEFAULT_MODULEPATH="~/w/lmod/rt/inherit/mf/Linux:~/w/lmod/rt/inherit/mf/Cor
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="~/w/lmod/rt/inherit/mf/Linux:~/w/lmod/rt/inherit/mf/Core:~/w/lmod/rt/inherit/mf/Core2";
 export MODULEPATH;
-unset "JUNK_CORE2";
-unset "JUNK_LINUX";
-unset "JUNK_SYSTEM";
+unset JUNK_CORE2;
+unset JUNK_LINUX;
+unset JUNK_SYSTEM;
 LMOD_DEFAULT_MODULEPATH="~/w/lmod/rt/inherit/mf/Linux:~/w/lmod/rt/inherit/mf/Core:~/w/lmod/rt/inherit/mf/Core2";
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="~/w/lmod/rt/inherit/mf/Linux:~/w/lmod/rt/inherit/mf/Core:~/w/lmod/rt/inherit/mf/Core2";
