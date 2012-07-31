@@ -153,6 +153,19 @@ function processNewModulePATH(value)
    dbg.fini()
 end
 
+function Spider_add_property(name,value)
+   local dbg = Dbg:dbg()
+   dbg.start("Spider_add_property(name=\"",name," value=\"",value,"\")")
+   dbg.fini()
+end
+
+function Spider_remove_property(name,value)
+   local dbg = Dbg:dbg()
+   dbg.start("Spider_remove_property(name=\"",name," value=\"",value,"\")")
+   dbg.fini()
+end
+
+
 ------------------------------------------------------------
 --module("Spider")
 ------------------------------------------------------------

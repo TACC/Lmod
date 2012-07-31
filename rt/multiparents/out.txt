@@ -1,11 +1,11 @@
 ===========================
 step 1
 ===========================
-unset 'LMOD_DEFAULT_MODULEPATH';
-unset 'MODULEPATH';
-LMOD_DEFAULT_MODULEPATH='~/w/lmod/rt/multiparents/mf/core';
+unset "LMOD_DEFAULT_MODULEPATH";
+unset "MODULEPATH";
+LMOD_DEFAULT_MODULEPATH="~/w/lmod/rt/multiparents/mf/core";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH='~/w/lmod/rt/multiparents/mf/core';
+MODULEPATH="~/w/lmod/rt/multiparents/mf/core";
 export MODULEPATH;
 export _ModuleTable_Sz_;
 _ModuleTable_='_ModuleTable_={active={Dict={},FN={},Loaded={},default={},fullModName={},mType={},},baseMpathA={"~/w/lmod/rt/multiparents/mf/core",},family={},inactive={},mpathA={"~/w/lmod/rt/multiparents/mf/core",},total={Dict={},FN={},Loaded={},default={},fullModName={},mType={},},["version"]=1,}';
@@ -13,11 +13,11 @@ export _ModuleTable_;
 ===========================
 step 2
 ===========================
-LMOD_DEFAULT_MODULEPATH='~/w/lmod/rt/multiparents/mf/core';
+LMOD_DEFAULT_MODULEPATH="~/w/lmod/rt/multiparents/mf/core";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH='~/w/lmod/rt/multiparents/mf/core';
+MODULEPATH="~/w/lmod/rt/multiparents/mf/core";
 export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH='~/w/lmod/rt/multiparents/mf/core';
+LMOD_DEFAULT_MODULEPATH="~/w/lmod/rt/multiparents/mf/core";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH='~/w/lmod/rt/multiparents/mf/core';
+MODULEPATH="~/w/lmod/rt/multiparents/mf/core";
 export MODULEPATH;

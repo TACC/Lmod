@@ -8,7 +8,7 @@ testdescript = {
    ]],
    keywords = {"perl" },
 
-   active = false,
+   active = 1;
    testName = "perl",
    job_submit_method = "INTERACTIVE", 
 
@@ -25,37 +25,39 @@ testdescript = {
      INFOPATH='';                       export INFOPATH
      MANPATH='';                        export MANPATH
      LD_LIBRARY_PATH='';                export LD_LIBRARY_PATH
-     MODULEPATH="";                     export MODULEPATH
-     MODULEPATH_ROOT=$(projectDir)/mf;  export MODULEPATH_ROOT
-     LMOD_DEFAULT_MODULEPATH=$MODULEPATH
-     export LMOD_DEFAULT_MODULEPATH
+     MODULEPATH_ROOT=$(testDir)/mf;     export MODULEPATH_ROOT
+     MODULEPATH="$(testDir)/mf/Core";   export MODULEPATH
+
      numStep=0
      COUNT=0
      HOME=`(cd $HOME; /bin/pwd)`
 
+     mkdir setup
+     sed -e 's|@PKG@/libexec/lmod|lua $(projectDir)/src/lmod.in|g' \
+              < $(projectDir)/setup/perl.in > setup/perl
+
+cat > $(testName).pl << EOF
+#!/usr/bin/env perl
+use strict;
+
+require "$(outputDir)/setup/perl";
+
+module("load foobar");
+
+print "\\\$ENV{FOOBAR}: ".\$ENV{"FOOBAR"}."\n";
+
+module("avail");
+EOF
+
+
+
      rm -f _stderr.* _stdout.* err.* out.*
 
-     runMe lua $(projectDir)/src/lmod.in bash use -a $projectDir/mf/Core $projectDir/mf/Beta
-     runMe lua $(projectDir)/src/lmod.in bash use $projectDir/mf/notDir
-     runMe lua $(projectDir)/src/lmod.in bash load admin PrgEnv
-     runMe lua $(projectDir)/src/lmod.in bash load gotoblas/1.30-beta
-     runMe lua $(projectDir)/src/lmod.in bash rm   gotoblas/1.30-beta
-     runMe lua $(projectDir)/src/lmod.in bash try-add gotoblas123 intel
-     runMe lua $(projectDir)/src/lmod.in bash load gotoblas
-     runMe lua $(projectDir)/src/lmod.in bash load multi
-     runMe lua $(projectDir)/src/lmod.in bash unload multi
-     runMe lua $(projectDir)/src/lmod.in bash load boost
-     
-     
-     runMe lua $(projectDir)/src/lmod.in bash list
+     chmod +x $(testName).pl
+     ./$(testName).pl  > _stdout.000 2> _stderr.000
 
-     cat _stdout.[0-9][0-9] > _stdout.orig
-     joinBase64Results  -bash  _stdout.orig _stdout.new
-     cleanUp _stdout.new out.txt
-
-     cat _stderr.[0-9][0-9] > _stderr.orig
-     cleanUp _stderr.orig err.txt
-
+     cleanUp _stdout.000 out.txt
+     cleanUp _stderr.000 err.txt
      rm -f $(cmdResultFn)
      wrapperDiff -r $(cmdResultFn) $(testDir)/out.txt out.txt
      wrapperDiff -r $(cmdResultFn) $(testDir)/err.txt err.txt

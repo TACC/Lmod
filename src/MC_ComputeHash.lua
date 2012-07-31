@@ -25,14 +25,17 @@ function ShowCmd(name, ...)
    A[#A+1] = concatTbl(b,"")
 end
 
-M.help        = MasterControl.quiet
-M.whatis      = MasterControl.quiet
-M.setenv      = MasterControl.quiet
-M.unsetenv    = MasterControl.quiet
-M.inherit     = MasterControl.quiet
-M.set_alias   = MasterControl.quiet
-M.unset_alias = MasterControl.quiet
-M.display     = MasterControl.quiet
+M.help            = MasterControl.quiet
+M.whatis          = MasterControl.quiet
+M.setenv          = MasterControl.quiet
+M.unsetenv        = MasterControl.quiet
+M.inherit         = MasterControl.quiet
+M.set_alias       = MasterControl.quiet
+M.unset_alias     = MasterControl.quiet
+M.display         = MasterControl.quiet
+M.add_property    = MasterControl.quiet
+M.remove_property = MasterControl.quiet
+
 
 function M.prepend_path(self, name, value, sep)
    if (name ~= "MODULEPATH") then return end

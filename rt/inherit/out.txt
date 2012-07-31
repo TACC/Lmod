@@ -1,11 +1,11 @@
 ===========================
 step 1
 ===========================
-unset 'LMOD_DEFAULT_MODULEPATH';
-unset 'MODULEPATH';
-LMOD_DEFAULT_MODULEPATH='~/w/lmod/rt/inherit/mf/Linux:~/w/lmod/rt/inherit/mf/Core:~/w/lmod/rt/inherit/mf/Core2';
+unset "LMOD_DEFAULT_MODULEPATH";
+unset "MODULEPATH";
+LMOD_DEFAULT_MODULEPATH="~/w/lmod/rt/inherit/mf/Linux:~/w/lmod/rt/inherit/mf/Core:~/w/lmod/rt/inherit/mf/Core2";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH='~/w/lmod/rt/inherit/mf/Linux:~/w/lmod/rt/inherit/mf/Core:~/w/lmod/rt/inherit/mf/Core2';
+MODULEPATH="~/w/lmod/rt/inherit/mf/Linux:~/w/lmod/rt/inherit/mf/Core:~/w/lmod/rt/inherit/mf/Core2";
 export MODULEPATH;
 export _ModuleTable_Sz_;
 _ModuleTable_='_ModuleTable_={active={Dict={},FN={},Loaded={},default={},fullModName={},mType={},},baseMpathA={"~/w/lmod/rt/inherit/mf/Linux","~/w/lmod/rt/inherit/mf/Core","~/w/lmod/rt/inherit/mf/Core2",},family={},inactive={},mpathA={"~/w/lmod/rt/inherit/mf/Linux","~/w/lmod/rt/inherit/mf/Core","~/w/lmod/rt/inherit/mf/Core2",},total={Dict={},FN={},Loaded={},default={},fullModName={},mType={},},["version"]=1,}';
@@ -13,19 +13,19 @@ export _ModuleTable_;
 ===========================
 step 2
 ===========================
-LMOD_DEFAULT_MODULEPATH='~/w/lmod/rt/inherit/mf/Linux:~/w/lmod/rt/inherit/mf/Core:~/w/lmod/rt/inherit/mf/Core2';
+LMOD_DEFAULT_MODULEPATH="~/w/lmod/rt/inherit/mf/Linux:~/w/lmod/rt/inherit/mf/Core:~/w/lmod/rt/inherit/mf/Core2";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH='~/w/lmod/rt/inherit/mf/Linux:~/w/lmod/rt/inherit/mf/Core:~/w/lmod/rt/inherit/mf/Core2';
+MODULEPATH="~/w/lmod/rt/inherit/mf/Linux:~/w/lmod/rt/inherit/mf/Core:~/w/lmod/rt/inherit/mf/Core2";
 export MODULEPATH;
-JUNK_CORE2='1.0';
+JUNK_CORE2="1.0";
 export JUNK_CORE2;
-JUNK_LINUX='1.0';
+JUNK_LINUX="1.0";
 export JUNK_LINUX;
-JUNK_SYSTEM='1.0';
+JUNK_SYSTEM="1.0";
 export JUNK_SYSTEM;
-LMOD_DEFAULT_MODULEPATH='~/w/lmod/rt/inherit/mf/Linux:~/w/lmod/rt/inherit/mf/Core:~/w/lmod/rt/inherit/mf/Core2';
+LMOD_DEFAULT_MODULEPATH="~/w/lmod/rt/inherit/mf/Linux:~/w/lmod/rt/inherit/mf/Core:~/w/lmod/rt/inherit/mf/Core2";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH='~/w/lmod/rt/inherit/mf/Linux:~/w/lmod/rt/inherit/mf/Core:~/w/lmod/rt/inherit/mf/Core2';
+MODULEPATH="~/w/lmod/rt/inherit/mf/Linux:~/w/lmod/rt/inherit/mf/Core:~/w/lmod/rt/inherit/mf/Core2";
 export MODULEPATH;
 export _ModuleTable_Sz_;
 _ModuleTable_='_ModuleTable_={active={Dict={["junk"]=1,},FN={"~/w/lmod/rt/inherit/mf/Linux/junk/1.0.lua",},Loaded={"junk",},default={1,},fullModName={"junk/1.0",},mType={"w",},},baseMpathA={"~/w/lmod/rt/inherit/mf/Linux","~/w/lmod/rt/inherit/mf/Core","~/w/lmod/rt/inherit/mf/Core2",},family={},inactive={},mpathA={"~/w/lmod/rt/inherit/mf/Linux","~/w/lmod/rt/inherit/mf/Core","~/w/lmod/rt/inherit/mf/Core2",},total={Dict={["junk"]=1,},FN={"~/w/lmod/rt/inherit/mf/Linux/junk/1.0.lua",},Loaded={"junk",},default={1,},fullModName={"junk/1.0",},mType={"w",},},["version"]=1,}';
@@ -33,27 +33,27 @@ export _ModuleTable_;
 ===========================
 step 3
 ===========================
-LMOD_DEFAULT_MODULEPATH='~/w/lmod/rt/inherit/mf/Linux:~/w/lmod/rt/inherit/mf/Core:~/w/lmod/rt/inherit/mf/Core2';
+LMOD_DEFAULT_MODULEPATH="~/w/lmod/rt/inherit/mf/Linux:~/w/lmod/rt/inherit/mf/Core:~/w/lmod/rt/inherit/mf/Core2";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH='~/w/lmod/rt/inherit/mf/Linux:~/w/lmod/rt/inherit/mf/Core:~/w/lmod/rt/inherit/mf/Core2';
+MODULEPATH="~/w/lmod/rt/inherit/mf/Linux:~/w/lmod/rt/inherit/mf/Core:~/w/lmod/rt/inherit/mf/Core2";
 export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH='~/w/lmod/rt/inherit/mf/Linux:~/w/lmod/rt/inherit/mf/Core:~/w/lmod/rt/inherit/mf/Core2';
+LMOD_DEFAULT_MODULEPATH="~/w/lmod/rt/inherit/mf/Linux:~/w/lmod/rt/inherit/mf/Core:~/w/lmod/rt/inherit/mf/Core2";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH='~/w/lmod/rt/inherit/mf/Linux:~/w/lmod/rt/inherit/mf/Core:~/w/lmod/rt/inherit/mf/Core2';
+MODULEPATH="~/w/lmod/rt/inherit/mf/Linux:~/w/lmod/rt/inherit/mf/Core:~/w/lmod/rt/inherit/mf/Core2";
 export MODULEPATH;
 ===========================
 step 4
 ===========================
-LMOD_DEFAULT_MODULEPATH='~/w/lmod/rt/inherit/mf/Linux:~/w/lmod/rt/inherit/mf/Core:~/w/lmod/rt/inherit/mf/Core2';
+LMOD_DEFAULT_MODULEPATH="~/w/lmod/rt/inherit/mf/Linux:~/w/lmod/rt/inherit/mf/Core:~/w/lmod/rt/inherit/mf/Core2";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH='~/w/lmod/rt/inherit/mf/Linux:~/w/lmod/rt/inherit/mf/Core:~/w/lmod/rt/inherit/mf/Core2';
+MODULEPATH="~/w/lmod/rt/inherit/mf/Linux:~/w/lmod/rt/inherit/mf/Core:~/w/lmod/rt/inherit/mf/Core2";
 export MODULEPATH;
-unset 'JUNK_CORE2';
-unset 'JUNK_LINUX';
-unset 'JUNK_SYSTEM';
-LMOD_DEFAULT_MODULEPATH='~/w/lmod/rt/inherit/mf/Linux:~/w/lmod/rt/inherit/mf/Core:~/w/lmod/rt/inherit/mf/Core2';
+unset "JUNK_CORE2";
+unset "JUNK_LINUX";
+unset "JUNK_SYSTEM";
+LMOD_DEFAULT_MODULEPATH="~/w/lmod/rt/inherit/mf/Linux:~/w/lmod/rt/inherit/mf/Core:~/w/lmod/rt/inherit/mf/Core2";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH='~/w/lmod/rt/inherit/mf/Linux:~/w/lmod/rt/inherit/mf/Core:~/w/lmod/rt/inherit/mf/Core2';
+MODULEPATH="~/w/lmod/rt/inherit/mf/Linux:~/w/lmod/rt/inherit/mf/Core:~/w/lmod/rt/inherit/mf/Core2";
 export MODULEPATH;
 export _ModuleTable_Sz_;
 _ModuleTable_='_ModuleTable_={active={Dict={},FN={},Loaded={},default={},fullModName={},mType={},},baseMpathA={"~/w/lmod/rt/inherit/mf/Linux","~/w/lmod/rt/inherit/mf/Core","~/w/lmod/rt/inherit/mf/Core2",},family={},inactive={},mpathA={"~/w/lmod/rt/inherit/mf/Linux","~/w/lmod/rt/inherit/mf/Core","~/w/lmod/rt/inherit/mf/Core2",},total={Dict={},FN={},Loaded={},default={},fullModName={},mType={},},["version"]=1,}';
@@ -61,8 +61,8 @@ export _ModuleTable_;
 ===========================
 step 5
 ===========================
-LMOD_DEFAULT_MODULEPATH='~/w/lmod/rt/inherit/mf/Linux:~/w/lmod/rt/inherit/mf/Core:~/w/lmod/rt/inherit/mf/Core2';
+LMOD_DEFAULT_MODULEPATH="~/w/lmod/rt/inherit/mf/Linux:~/w/lmod/rt/inherit/mf/Core:~/w/lmod/rt/inherit/mf/Core2";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH='~/w/lmod/rt/inherit/mf/Linux:~/w/lmod/rt/inherit/mf/Core:~/w/lmod/rt/inherit/mf/Core2';
+MODULEPATH="~/w/lmod/rt/inherit/mf/Linux:~/w/lmod/rt/inherit/mf/Core:~/w/lmod/rt/inherit/mf/Core2";
 export MODULEPATH;
 false

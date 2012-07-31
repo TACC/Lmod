@@ -69,5 +69,24 @@ function M.is_spider(self)
    return true
 end
 
+function M.add_property(self,...)
+   local dbg    = Dbg:dbg()
+   dbg.start("MC_Spider:add_property(...)")
+   Spider_add_property("",...)
+   dbg.fini()
+   return true
+end
+
+function M.remove_property(self,...)
+   local dbg    = Dbg:dbg()
+   dbg.start("MC_Spider:remove_property(...)")
+   Spider_add_property("",...)
+   dbg.fini()
+   return true
+end
+
+
+
+
 
 return M

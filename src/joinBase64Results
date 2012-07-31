@@ -20,7 +20,7 @@ local decode64  = base64.decode64
 
 local function grab(line, b)
    local a = {}
-   for v in line:split("'") do
+   for v in line:split('"') do
       a[#a + 1] = v
    end
    b[#b+1] = a[2]

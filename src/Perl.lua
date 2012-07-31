@@ -24,7 +24,6 @@ local systemG     = _G
 
 local function formLine(k,v, vType)
    local lineA = {}
-   v = tostring(v)
    v = atSymbolEscaped(doubleQuoteEscaped(v))
 
    lineA[#lineA + 1] = '$ENV{'
@@ -55,7 +54,7 @@ local function expandMT(vv)
       name = format("_ModuleTable%03d_",i)
       stdout:write(formLine(name,v,nil))
    end
-   stdout:write(formLine("_ModuleTable_Sz_",#a,nil))
+   stdout:write(formLine("_ModuleTable_Sz_",tostring(#a),nil))
    for i = nblks+1, huge do
       name = format("_ModuleTable%03d_",i)
       v    = getenv(name)

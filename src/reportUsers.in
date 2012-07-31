@@ -10,6 +10,7 @@ end
 package.path = cmd_dir .. "?.lua;" .. package.path
 
 require("string_split")
+require("string_trim")
 require("pairsByKeys")
 local Optiks = require("Optiks")
 
@@ -126,6 +127,8 @@ function main()
    -- Save list of deprecated modules in [[moduleT]]
 
    for v in whole:split("\n") do
+      v = v:trim()
+      v = v:gsub("%.lua$","")
       moduleT[v] = 1
    end
 

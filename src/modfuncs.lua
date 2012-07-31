@@ -86,6 +86,27 @@ function unsetenv(...)
    return b
 end
 
+--- Property functions ----
+
+function add_property(...)
+   local dbg = Dbg:dbg()
+   dbg.start("add_property(",concatTbl({...},", "),")")
+
+   local b = mcp:add_property(...)
+   dbg.fini()
+   return b
+end
+
+function remove_property(...)
+   local dbg = Dbg:dbg()
+   dbg.start("remove_property(",concatTbl({...},", "),")")
+
+   local b = mcp:remove_property(...)
+   dbg.fini()
+   return b
+end
+
+
 --- Set Alias functions ---
 
 function set_alias(...)

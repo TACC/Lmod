@@ -332,6 +332,15 @@ proc set-alias { var val } {
 proc unset-alias { var } {
     cmdargs "unset_alias" $var 
 }
+
+proc add-property { var val } {
+    cmdargs "add_property" $var $val
+}
+
+proc remove-property { var val } {
+    cmdargs "remove_property" $var $val
+}
+
 proc append-path { var val } {
     if {[string match $var "-delim"] || [string match $var "-d"] || [string match $var "--delim"]} {
         set separator $val
@@ -494,6 +503,8 @@ proc execute-modulefile {modfile } {
 	interp alias $slave module-whatis {} module-whatis
 	interp alias $slave set-alias {} set-alias
 	interp alias $slave unset-alias {} unset-alias
+	interp alias $slave add-property {} add-property
+	interp alias $slave remove-property {} remove-property
 	interp alias $slave uname {} uname
 	interp alias $slave module-version {} module-version
 	interp alias $slave module-alias {} module-alias

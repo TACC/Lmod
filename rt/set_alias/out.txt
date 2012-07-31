@@ -1,15 +1,15 @@
 ===========================
 step 1
 ===========================
-LMOD_DEFAULT_MODULEPATH='~/w/lmod/rt/set_alias/mf';
+LMOD_DEFAULT_MODULEPATH="~/w/lmod/rt/set_alias/mf";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH='~/w/lmod/rt/set_alias/mf';
+MODULEPATH="~/w/lmod/rt/set_alias/mf";
 export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH='~/w/lmod/rt/set_alias/mf';
+LMOD_DEFAULT_MODULEPATH="~/w/lmod/rt/set_alias/mf";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH='~/w/lmod/rt/set_alias/mf';
+MODULEPATH="~/w/lmod/rt/set_alias/mf";
 export MODULEPATH;
-VARIABLE='1';
+VARIABLE="1";
 export VARIABLE;
 export _ModuleTable_Sz_;
 alias somealias="1";
@@ -18,15 +18,15 @@ export _ModuleTable_;
 ===========================
 step 2
 ===========================
-LMOD_DEFAULT_MODULEPATH='~/w/lmod/rt/set_alias/mf';
+LMOD_DEFAULT_MODULEPATH="~/w/lmod/rt/set_alias/mf";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH='~/w/lmod/rt/set_alias/mf';
+MODULEPATH="~/w/lmod/rt/set_alias/mf";
 export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH='~/w/lmod/rt/set_alias/mf';
+LMOD_DEFAULT_MODULEPATH="~/w/lmod/rt/set_alias/mf";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH='~/w/lmod/rt/set_alias/mf';
+MODULEPATH="~/w/lmod/rt/set_alias/mf";
 export MODULEPATH;
-VARIABLE='2';
+VARIABLE="2";
 export VARIABLE;
 export _ModuleTable_Sz_;
 alias somealias="2";

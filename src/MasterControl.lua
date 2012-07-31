@@ -290,6 +290,25 @@ function M.bad_unset_alias(self, name)
    Dbg:dbg().warning("Refusing unset an alias while unloading: \"",name,"\"\n")
 end
 
+-------------------------------------------------------------------
+-- Property Functions
+-------------------------------------------------------------------
+
+function M.add_property(self, name, value)
+   local dbg    = Dbg:dbg()
+   dbg.start("MasterControl:add_property(\"",name,"\", \"",value,"\")")
+   dbg.fini()
+end
+
+function M.remove_property(self, name, value)
+   local dbg    = Dbg:dbg()
+   dbg.start("MasterControl:remove_property(\"",name,"\", \"",value,"\")")
+   dbg.fini()
+end
+
+function M.bad_remove_property(self, name, value)
+   Dbg:dbg().warning("Refusing to remove a property while unloading: \"",name,"\"\n")
+end
 
 -------------------------------------------------------------------
 -- Message/Error  Functions

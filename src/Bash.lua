@@ -23,11 +23,12 @@ local stdout      = io.stdout
 local systemG     = _G
 
 local function formLine(k,v, vType)
-   local lineA = {}
+   local lineA       = {}
+   v                 = doubleQuoteEscaped(v)
    lineA[#lineA + 1] = k
-   lineA[#lineA + 1] = "='"
+   lineA[#lineA + 1] = "=\""
    lineA[#lineA + 1] = v
-   lineA[#lineA + 1] = "';\n"
+   lineA[#lineA + 1] = "\";\n"
    if (vType ~= "local_var") then
       lineA[#lineA + 1] = "export "
       lineA[#lineA + 1] = k
@@ -45,8 +46,6 @@ local function expandMT(vv)
    local nblks   = floor((vlen - 1)/blksize) + 1
    local name
    local alen
-   local line    = formLine("_ModuleTable_", vv, "path")
-   dbg.print(line)
    
    for i = 1, vlen, blksize do
       alen    = min(i+blksize-1,vlen)
@@ -56,7 +55,7 @@ local function expandMT(vv)
       name = format("_ModuleTable%03d_",i)
       stdout:write(formLine(name,v,nil))
    end
-   stdout:write(formLine("_ModuleTable_Sz_",#a,nil))
+   stdout:write(formLine("_ModuleTable_Sz_",tostring(#a),nil))
    for i = nblks+1, huge do
       name = format("_ModuleTable%03d_",i)
       v    = getenv(name)
@@ -79,14 +78,16 @@ function Bash.expand(self,tbl)
             dbg.print(   "alias ",k,"=\"",v,"\";\n")
          end
       elseif (v == "") then
-	 stdout:write("unset '",k,"';\n")
-         dbg.print(   "unset '",k,"';\n")
-      elseif (k == "_ModuleTable_") then
-         expandMT(v)
+	 stdout:write("unset \"",k,"\";\n")
+         dbg.print(   "unset \"",k,"\";\n")
       else
          local line = formLine(k,v, vType)
-	 stdout:write(line)
-	 dbg.print(line)
+         dbg.print(line)
+         if (k == "_ModuleTable_") then
+            expandMT(v)
+         else
+            stdout:write(line)
+         end
       end
    end
 end

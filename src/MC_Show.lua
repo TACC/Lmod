@@ -42,7 +42,15 @@ function M.prepend_path(self, ...)
    ShowCmd("prepend_path", ...)
 end
 
-function M.set_alias(set, name,value)
+function M.add_property(self, name,value)
+   ShowCmd("add_property", name, value)
+end
+
+function M.remove_property(self, name,value)
+   ShowCmd("remove_property", name, value)
+end
+
+function M.set_alias(self, name,value)
    ShowCmd("set_alias", name, value)
 end
 
