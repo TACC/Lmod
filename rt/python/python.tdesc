@@ -22,29 +22,43 @@ testdescript = {
 
      PATH=$(projectDir)/src:$PATH_to_LUA:$PATH_to_TM:/usr/bin:/bin
      export PATH
-     unset  LMOD_COMPILER
-     INFOPATH='';                        export INFOPATH
-     MANPATH='';                         export MANPATH
-     LD_LIBRARY_PATH='';                 export LD_LIBRARY_PATH
-     MODULEPATH="$(testDir)/mf/Core";    export MODULEPATH
-     MODULEPATH_ROOT=$(testDir);         export MODULEPATH_ROOT
+     INFOPATH='';                       export INFOPATH
+     MANPATH='';                        export MANPATH
+     LD_LIBRARY_PATH='';                export LD_LIBRARY_PATH
+     MODULEPATH_ROOT=$(testDir)/mf;     export MODULEPATH_ROOT
+     MODULEPATH="$(testDir)/mf/Core";   export MODULEPATH
+
      numStep=0
      COUNT=0
      HOME=`(cd $HOME; /bin/pwd)`
 
+     mkdir setup
+     sed -e 's|@PKG@/libexec/lmod|lua $(projectDir)/src/lmod.in|g' \
+              < $(projectDir)/setup/python.in > setup/python
+
+     
+
+cat > $(testName).py << EOF
+#!/usr/bin/env python
+
+execfile("$(outputDir)/setup/python")
+
+module("load","foobar")
+
+print "os.environ['FOOBAR']: ",os.environ['FOOBAR']
+
+module("avail");
+EOF
+
+
+
      rm -f _stderr.* _stdout.* err.* out.*
 
-     runMe lua $(projectDir)/src/lmod.in bash -d load TACC
-     runMe lua $(projectDir)/src/lmod.in bash -d load python
-     runMe lua $(projectDir)/src/lmod.in bash list
+     chmod +x $(testName).py
+     ./$(testName).py  > _stdout.000 2> _stderr.000
 
-     cat _stdout.[0-9][0-9] > _stdout.orig
-     joinBase64Results  -bash  _stdout.orig _stdout.new
-     cleanUp _stdout.new out.txt
-
-     cat _stderr.[0-9][0-9] > _stderr.orig
-     cleanUp _stderr.orig err.txt
-
+     cleanUp _stdout.000 out.txt
+     cleanUp _stderr.000 err.txt
      rm -f $(cmdResultFn)
      wrapperDiff -r $(cmdResultFn) $(testDir)/out.txt out.txt
      wrapperDiff -r $(cmdResultFn) $(testDir)/err.txt err.txt
