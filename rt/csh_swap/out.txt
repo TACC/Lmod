@@ -3,6 +3,7 @@ step 1
 ===========================
 setenv LMOD_DEFAULT_MODULEPATH "~/w/lmod/mf/Core";
 setenv MODULEPATH "~/w/lmod/mf/Core";
+setenv ADMIN_MODULE_LOADED "1";
 setenv INFOPATH "/local/info:/usr/share/info";
 setenv LD_LIBRARY_PATH "/vol/local/mpi/intel/10.1/openmpi/1.2.6.opt/lib:/vol/local/intel/mkl/mkl/lib/lib:/vol/local/intel/idb/idb/lib:/vol/local/intel/fc/fc/lib:/vol/local/intel/cc/cc/lib";
 setenv LMOD_COMPILER "intel/11.0";

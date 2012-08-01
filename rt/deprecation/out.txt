@@ -1,8 +1,8 @@
 ===========================
 step 1
 ===========================
-unset "LMOD_DEFAULT_MODULEPATH";
-unset "MODULEPATH";
+unset LMOD_DEFAULT_MODULEPATH;
+unset MODULEPATH;
 LMOD_DEFAULT_MODULEPATH="~/w/lmod/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="~/w/lmod/mf/Core";

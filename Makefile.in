@@ -16,7 +16,7 @@ DIRLIST		 := $(DESTDIR)$(LIBEXEC) $(DESTDIR)$(INIT)
 
 STANDALONE_PRGM  := src/lmod.in src/addto.in src/getmt.in src/processMT.in  src/spider.in \
                     src/processModuleUsage.in src/reportUsers.in src/clearMT_cmd.in
-SHELL_INIT	 := bash.in csh.in ksh.in tcsh.in zsh.in sh.in perl.in
+SHELL_INIT	 := bash.in csh.in ksh.in tcsh.in zsh.in sh.in perl.in env_modules_python.py.in
 SHELL_INIT	 := $(patsubst %, setup/%, $(SHELL_INIT))
 
 STARTUP		 := profile.in cshrc.in
@@ -93,7 +93,7 @@ src/computeHashSum: $(ComputeHashSum)
 	chmod +x $@
 
 makefile: Makefile.in config.status
-	config.status $@
+	./config.status $@
 
 config.status:
 	./config.status --recheck
@@ -186,6 +186,7 @@ gittag:
 	    echo 'return M'                                         >> $(VERSION_SRC); \
             git commit -m "moving to TAG_VERSION $(TAG)"               $(VERSION_SRC); \
             git tag -a $(TAG) -m 'Setting TAG_VERSION to $(TAG)'                     ; \
+	    git push --tags                                                          ; \
           fi;                                                                          \
           rm -f /tmp/lmod$$$$
         else
