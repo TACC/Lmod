@@ -97,12 +97,16 @@ cat > $(testName).csh << EOF
      cat _stdout.[1-8] > _stdout.orig
 EOF
 
-     HOME=`(cd $HOME; /bin/pwd)`
+     ORIG_HOME=`(cd $HOME; /bin/pwd)`
 
      rm -f _stderr.* _stdout.* err.* out.*
      unset SHELL_STARTUP_DEBUG
      chmod +x $(testName).csh
+     
+     HOME=`pwd`
      ./$(testName).csh > err.txt 2>&1
+
+     HOME=$ORIG_HOME
 
      joinBase64Results -csh  _stdout.orig _stdout.new
      cleanUp _stdout.new out.txt

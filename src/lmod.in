@@ -310,8 +310,10 @@ function Use(...)
    end
    for _,v in ipairs(a) do
       v = abspath(v)
-      op(MCP, ModulePath, v)
-      op(MCP, DfltModPath, v)
+      if (v) then
+         op(MCP, ModulePath, v)
+         op(MCP, DfltModPath, v)
+      end
    end
    mt:buildBaseMpathA(varTbl[DfltModPath]:expand())
    mt:reloadAllModules()

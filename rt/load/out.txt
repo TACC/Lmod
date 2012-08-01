@@ -1,8 +1,8 @@
 ===========================
 step 1
 ===========================
-unset "LMOD_DEFAULT_MODULEPATH";
-unset "MODULEPATH";
+unset LMOD_DEFAULT_MODULEPATH;
+unset MODULEPATH;
 LMOD_DEFAULT_MODULEPATH="~/w/lmod/mf/Core:~/w/lmod/mf/Beta";
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="~/w/lmod/mf/Core:~/w/lmod/mf/Beta";
@@ -28,6 +28,8 @@ LMOD_DEFAULT_MODULEPATH="~/w/lmod/mf/Core:~/w/lmod/mf/Beta";
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="~/w/lmod/mf/Core:~/w/lmod/mf/Beta";
 export MODULEPATH;
+ADMIN_MODULE_LOADED="1";
+export ADMIN_MODULE_LOADED;
 INFOPATH="/local/info:/usr/share/info";
 export INFOPATH;
 LD_LIBRARY_PATH="/vol/local/intel/mkl/mkl/lib/lib:/vol/local/intel/idb/idb/lib:/vol/local/intel/fc/fc/lib:/vol/local/intel/cc/cc/lib";
@@ -82,8 +84,8 @@ LMOD_DEFAULT_MODULEPATH="~/w/lmod/mf/Core:~/w/lmod/mf/Beta";
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="~/w/lmod/mf/Compiler/intel/10.1:~/w/lmod/mf/Core:~/w/lmod/mf/Beta";
 export MODULEPATH;
-unset "TACC_GOTOBLAS_DIR";
-unset "TACC_GOTOBLAS_LIB";
+unset TACC_GOTOBLAS_DIR;
+unset TACC_GOTOBLAS_LIB;
 export _ModuleTable_Sz_;
 _ModuleTable_='_ModuleTable_={active={Dict={["PrgEnv"]=6,["admin"]=1,["intel"]=4,["local"]=3,["noweb"]=5,["unix"]=2,},FN={"~/w/lmod/mf/Core/admin/admin-1.0.lua","~/w/lmod/mf/Core/unix/unix.lua","~/w/lmod/mf/Core/local/local.lua","~/w/lmod/mf/Core/intel/intel.lua","~/w/lmod/mf/Core/noweb/2.10c.lua","~/w/lmod/mf/Core/PrgEnv.lua",},Loaded={"admin","unix","local","intel","noweb","PrgEnv",},default={1,1,1,1,1,0,},fullModName={"admin/admin-1.0","unix/unix","local/local","intel/intel","noweb/2.10c","PrgEnv",},mType={"w","w","w","w","w","m",},},baseMpathA={"~/w/lmod/mf/Core","~/w/lmod/mf/Beta",},family={["compiler"]="intel",},inactive={},mpathA={"~/w/lmod/mf/Compiler/intel/10.1","~/w/lmod/mf/Core","~/w/lmod/mf/Beta",},total={Dict={["PrgEnv"]=6,["admin"]=1,["intel"]=4,["local"]=3,["noweb"]=5,["unix"]=2,},FN={"~/w/lmod/mf/Core/admin/admin-1.0.lua","~/w/lmod/mf/Core/unix/unix.lua","~/w/lmod/mf/Core/local/local.lua","~/w/lmod/mf/Core/intel/intel.lua","~/w/lmod/mf/Core/noweb/2.10c.lua","~/w/lmod/mf/Core/PrgEnv.lua",},Loaded={"admin","unix","local","intel","noweb","PrgEnv",},default={1,1,1,1,1,0,},fullModName={"admin/admin-1.0","unix/unix","local/local","intel/intel","noweb/2.10c","PrgEnv",},mType={"w","w","w","w","w","m",},},["version"]=1,}';
 export _ModuleTable_;

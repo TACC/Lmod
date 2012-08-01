@@ -69,7 +69,7 @@ LMOD_DEFAULT_MODULEPATH="~/w/lmod/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="~/w/lmod/mf/Compiler/intel/10.1:~/w/lmod/mf/Core";
 export MODULEPATH;
-unset "JUNK";
+unset JUNK;
 LMOD_DEFAULT_MODULEPATH="~/w/lmod/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="~/w/lmod/mf/Compiler/intel/10.1:~/w/lmod/mf/Core";

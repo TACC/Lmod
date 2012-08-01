@@ -7,22 +7,23 @@ Bash.my_name      = "bash"
 local Bash        = Bash
 local Dbg         = require("Dbg")
 local Var         = require("Var")
-local assert      = assert
-local base64      = require("base64")
-local concat      = table.concat
-local encode64    = base64.encode64
-local floor       = math.floor
-local format      = string.format
-local getenv      = os.getenv
-local huge        = math.huge
-local ipairs      = ipairs
-local min         = math.min
-local pairs       = pairs
-local pairsByKeys = pairsByKeys
+local concatTbl   = table.concat
 local stdout      = io.stdout
-local systemG     = _G
 
-local function formLine(k,v, vType)
+function Bash.alias(self, k, v)
+   local dbg = Dbg:dbg()
+   if (v == "") then
+      stdout:write("unalias ",k,";\n")
+      dbg.print(   "unalias ",k,";\n")
+   else
+      stdout:write("alias ",k,"=\"",v,"\";\n")
+      dbg.print(   "alias ",k,"=\"",v,"\";\n")
+   end
+end
+   
+function Bash.expandVar(self, k, v, vType)
+   local dbg = Dbg:dbg()
+   dbg.print("Key: ", k, " type(value): ", type(v)," value: ",tostring(v),"\n")
    local lineA       = {}
    v                 = doubleQuoteEscaped(tostring(v))
    lineA[#lineA + 1] = k
@@ -34,62 +35,16 @@ local function formLine(k,v, vType)
       lineA[#lineA + 1] = k
       lineA[#lineA + 1] = ";\n"
    end
-   return concat(lineA,"")
+   local line = concatTbl(lineA,"")
+   stdout:write(line)
+   dbg.print(   line)
 end
 
-local function expandMT(vv)
-   local dbg     = Dbg:dbg()
-   local v       = encode64(vv)
-   local a       = {}
-   local vlen    = v:len()
-   local blksize = 512
-   local nblks   = floor((vlen - 1)/blksize) + 1
-   local name
-   local alen
-   
-   for i = 1, vlen, blksize do
-      alen    = min(i+blksize-1,vlen)
-      a[#a+1] = v:sub(i,alen)
-   end
-   for i,v in ipairs(a) do
-      name = format("_ModuleTable%03d_",i)
-      stdout:write(formLine(name,v,nil))
-   end
-   stdout:write(formLine("_ModuleTable_Sz_",tostring(#a),nil))
-   for i = nblks+1, huge do
-      name = format("_ModuleTable%03d_",i)
-      v    = getenv(name)
-      if (v == nil) then break end
-      stdout:write("unset ",name,";\n")
-   end
+function Bash.unset(self, k, vType)
+   local dbg = Dbg:dbg()
+   stdout:write("unset ",k,";\n")
+   dbg.print(   "unset ",k,";\n")
 end
 
-function Bash.expand(self,tbl)
-   local dbg   = Dbg:dbg()
-
-   for k,v in pairsByKeys(tbl) do
-      local v,vType = tbl[k]:expand()
-      if (vType == "alias") then
-         if (v == "") then
-            stdout:write("unalias ",k,";\n")
-            dbg.print(   "unalias ",k,";\n")
-         else
-            stdout:write("alias ",k,"=\"",v,"\";\n")
-            dbg.print(   "alias ",k,"=\"",v,"\";\n")
-         end
-      elseif (v == "") then
-	 stdout:write("unset \"",k,"\";\n")
-         dbg.print(   "unset \"",k,"\";\n")
-      else
-         local line = formLine(k,v, vType)
-         dbg.print(line)
-         if (k == "_ModuleTable_") then
-            expandMT(v)
-         else
-            stdout:write(line)
-         end
-      end
-   end
-end
 
 return Bash
