@@ -19,6 +19,11 @@ function doubleQuoteEscaped(s)
    return s
 end
 
+function singleQuoteEscaped(s)
+   s = s:gsub("'","\\'")
+   return s
+end
+
 function atSymbolEscaped(s)
    s = s:gsub('@','\\@')
    return s
@@ -58,19 +63,20 @@ end
 
 function M.build(shell_name)
 
-   local shellTbl   = {}
-   local Csh        = require('Csh')
-   local Bash       = require('Bash')
-   local Bare       = require('Bare')
-   local Perl       = require('Perl')
-   shellTbl["sh"]   = Bash
-   shellTbl["bash"] = Bash
-   shellTbl["zsh"]  = Bash
-   shellTbl["csh"]  = Csh
-   shellTbl["tcsh"] = Csh
-   shellTbl["perl"] = Perl
-   shellTbl.bare    = Bare
-
+   local shellTbl     = {}
+   local Csh          = require('Csh')
+   local Bash         = require('Bash')
+   local Bare         = require('Bare')
+   local Perl         = require('Perl')
+   local Python       = require('Python')
+   shellTbl["sh"]     = Bash
+   shellTbl["bash"]   = Bash
+   shellTbl["zsh"]    = Bash
+   shellTbl["csh"]    = Csh
+   shellTbl["tcsh"]   = Csh
+   shellTbl["perl"]   = Perl
+   shellTbl["python"] = Python
+   shellTbl.bare      = Bare
 
    local o     = valid_shell(shellTbl, shell_name):create()
    return o
