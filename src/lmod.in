@@ -131,6 +131,7 @@ require("border")
 require("serializeTbl")
 require("fileOps")
 require("string_split")
+require("string_trim")
 BaseShell          = require("BaseShell")
 local ColumnTable  = require("ColumnTable")
 local Spider       = require("Spider")
@@ -255,6 +256,11 @@ function Reset()
    Purge()
    local default = os.getenv("LMOD_SYSTEM_DEFAULT_MODULES") or ""
    dbg.print("default: ",default,"\n")
+
+   default = default:trim()
+   default = default:gsub(" *, *",":")
+   default = default:gsub(" +",":")
+
    local a = {}
    for m in default:split(":") do
       dbg.print("m: ",m,"\n")

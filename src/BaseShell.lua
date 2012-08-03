@@ -134,7 +134,6 @@ function M.build(shell_name)
    shellTbl["python"] = Python
    shellTbl.bare      = Bare
 
-
    local o     = valid_shell(shellTbl, shell_name):create()
    return o
 end
