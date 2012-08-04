@@ -30,6 +30,7 @@ local function Show_help(...)
    io.stderr:write("help(",concatTbl(a,", "),")\n")
 end
 
+M.mode=MasterControl.mode_load
 function M.help(self, ...)
    Show_help(...)
 end
