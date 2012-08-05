@@ -700,7 +700,7 @@ function SpiderCmd(...)
       local help = false
       for i = 1, arg.n do
          if (i == arg.n) then help = true end
-         a[#a+1] = Spider.Level1(dbT, arg[i], help)
+         a[#a+1] = Spider.spiderSearch(dbT, arg[i], help)
       end
       s = concatTbl(a,"\n")
    end

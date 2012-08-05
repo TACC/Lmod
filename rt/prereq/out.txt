@@ -169,3 +169,41 @@ export MODULEPATH;
 export _ModuleTable_Sz_;
 _ModuleTable_='_ModuleTable_={active={Dict={["petsc"]=1,["slepc"]=2,},FN={"~/w/lmod/rt/prereq/mf/petsc/3.1.0","~/w/lmod/rt/prereq/mf/slepc/2.9.0",},Loaded={"petsc","slepc",},default={0,0,},fullModName={"petsc/3.1.0","slepc/2.9.0",},mType={"w","w",},},baseMpathA={"~/w/lmod/rt/prereq/mf",},family={},inactive={},mpathA={"~/w/lmod/rt/prereq/mf",},total={Dict={["petsc"]=1,["slepc"]=2,},FN={"~/w/lmod/rt/prereq/mf/petsc/3.1.0","~/w/lmod/rt/prereq/mf/slepc/2.9.0",},Loaded={"petsc","slepc",},default={0,0,},fullModName={"petsc/3.1.0","slepc/2.9.0",},mType={"w","w",},},["version"]=1,}';
 export _ModuleTable_;
+===========================
+step 14
+===========================
+LMOD_DEFAULT_MODULEPATH="~/w/lmod/rt/prereq/mf";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="~/w/lmod/rt/prereq/mf";
+export MODULEPATH;
+false
+===========================
+step 15
+===========================
+LMOD_DEFAULT_MODULEPATH="~/w/lmod/rt/prereq/mf";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="~/w/lmod/rt/prereq/mf";
+export MODULEPATH;
+JDK32="1";
+export JDK32;
+LMOD_DEFAULT_MODULEPATH="~/w/lmod/rt/prereq/mf";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="~/w/lmod/rt/prereq/mf";
+export MODULEPATH;
+export _ModuleTable_Sz_;
+_ModuleTable_='_ModuleTable_={active={Dict={["jdk32"]=3,["petsc"]=1,["slepc"]=2,},FN={"~/w/lmod/rt/prereq/mf/petsc/3.1.0","~/w/lmod/rt/prereq/mf/slepc/2.9.0","~/w/lmod/rt/prereq/mf/jdk32/1.0.lua",},Loaded={"petsc","slepc","jdk32",},default={0,0,1,},fullModName={"petsc/3.1.0","slepc/2.9.0","jdk32/1.0",},mType={"w","w","w",},},baseMpathA={"~/w/lmod/rt/prereq/mf",},family={},inactive={},mpathA={"~/w/lmod/rt/prereq/mf",},total={Dict={["jdk32"]=3,["petsc"]=1,["slepc"]=2,},FN={"~/w/lmod/rt/prereq/mf/petsc/3.1.0","~/w/lmod/rt/prereq/mf/slepc/2.9.0","~/w/lmod/rt/prereq/mf/jdk32/1.0.lua",},Loaded={"petsc","slepc","jdk32",},default={0,0,1,},fullModName={"petsc/3.1.0","slepc/2.9.0","jdk32/1.0",},mType={"w","w","w",},},["version"]=1,}';
+export _ModuleTable_;
+===========================
+step 16
+===========================
+LMOD_DEFAULT_MODULEPATH="~/w/lmod/rt/prereq/mf";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="~/w/lmod/rt/prereq/mf";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="~/w/lmod/rt/prereq/mf";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="~/w/lmod/rt/prereq/mf";
+export MODULEPATH;
+export _ModuleTable_Sz_;
+_ModuleTable_='_ModuleTable_={active={Dict={["jdk32"]=3,["junk"]=4,["petsc"]=1,["slepc"]=2,},FN={"~/w/lmod/rt/prereq/mf/petsc/3.1.0","~/w/lmod/rt/prereq/mf/slepc/2.9.0","~/w/lmod/rt/prereq/mf/jdk32/1.0.lua","~/w/lmod/rt/prereq/mf/junk/1.0.lua",},Loaded={"petsc","slepc","jdk32","junk",},default={0,0,1,0,},fullModName={"petsc/3.1.0","slepc/2.9.0","jdk32/1.0","junk/1.0",},mType={"w","w","w","w",},},baseMpathA={"~/w/lmod/rt/prereq/mf",},family={},inactive={},mpathA={"~/w/lmod/rt/prereq/mf",},total={Dict={["jdk32"]=3,["junk"]=4,["petsc"]=1,["slepc"]=2,},FN={"~/w/lmod/rt/prereq/mf/petsc/3.1.0","~/w/lmod/rt/prereq/mf/slepc/2.9.0","~/w/lmod/rt/prereq/mf/jdk32/1.0.lua","~/w/lmod/rt/prereq/mf/junk/1.0.lua",},Loaded={"petsc","slepc","jdk32","junk",},default={0,0,1,0,},fullModName={"petsc/3.1.0","slepc/2.9.0","jdk32/1.0","junk/1.0",},mType={"w","w","w","w",},},["version"]=1,}';
+export _ModuleTable_;

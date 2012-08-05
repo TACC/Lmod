@@ -104,6 +104,10 @@ function M.prereq(self, ...)
    ShowCmd("prereq",...)
 end
 
+function M.required(self, ...)
+   ShowCmd("required",...)
+end
+
 function M.conflict(self, ...)
    ShowCmd("conflict",...)
 end

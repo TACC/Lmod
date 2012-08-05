@@ -20,6 +20,7 @@ M.prepend_path    = MasterControl.quiet
 M.prereq          = MasterControl.quiet
 M.remove_path     = MasterControl.quiet
 M.remove_property = MasterControl.quiet
+M.required        = MasterControl.quiet
 M.setenv          = MasterControl.quiet
 M.try_load        = MasterControl.quiet
 M.unload          = MasterControl.quiet
