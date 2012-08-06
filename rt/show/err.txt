@@ -5,3 +5,9 @@ step 1
 family("compiler")
 prepend_path("MODULEPATH", "~/w/lmod/mf/Compiler/gcc/4.2.3")
 display(false)
+===========================
+step 2
+===========================
+   ~/w/lmod/mf/Core/alex/1.0.lua:
+load("noweb")
+load("git")

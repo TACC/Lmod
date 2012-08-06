@@ -12,3 +12,14 @@ export MODULEPATH;
 export _ModuleTable_Sz_;
 _ModuleTable_='_ModuleTable_={active={Dict={},FN={},Loaded={},default={},fullModName={},mType={},},baseMpathA={"~/w/lmod/mf/Core","~/w/lmod/mf/Compiler/intel/10.1",},family={},inactive={},mpathA={"~/w/lmod/mf/Core","~/w/lmod/mf/Compiler/intel/10.1",},total={Dict={},FN={},Loaded={},default={},fullModName={},mType={},},["version"]=1,}';
 export _ModuleTable_;
+===========================
+step 2
+===========================
+LMOD_DEFAULT_MODULEPATH="~/w/lmod/mf/Core:~/w/lmod/mf/Compiler/intel/10.1";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="~/w/lmod/mf/Core:~/w/lmod/mf/Compiler/intel/10.1";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="~/w/lmod/mf/Core:~/w/lmod/mf/Compiler/intel/10.1";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="~/w/lmod/mf/Core:~/w/lmod/mf/Compiler/intel/10.1";
+export MODULEPATH;

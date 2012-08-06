@@ -461,15 +461,27 @@ local function countEntries(t)
    return count
 end
 
-function M.spiderSearch(dbT, mname)
+function M.spiderSearch(dbT, mname, help)
    local dbg = Dbg:dbg()
    dbg.start("spiderSearch(dbT,\"",mname,"\")")
+   local name  = extractName(mname)
    local found = false
    for k,v in pairs(dbT) do
-      if (k:find(mname,1,true) or k:find(mname)) then
-         local s = M.Level1(dbT,k, false)
-         io.stderr:write(s,"\n")
-         found = true
+      if (k:find(name,1,true) or k:find(name)) then
+         local s
+         dbg.print("name: ",name," mname: ", mname, " k: ",k,"\n")
+         if (name ~= mname ) then
+            if (name == k) then
+                s = M.Level2(v, mname)
+                found = true
+            end
+         else
+            s = M.Level1(dbT,k, help)
+            found = true
+         end
+         if (s) then
+            io.stderr:write(s,"\n")
+         end
       end
    end
    if (not found) then
@@ -485,13 +497,9 @@ function M.Level1(dbT, mname, help)
    dbg.print("mname: ", mname, ", name: ",name,"\n")
    local t    = dbT[name]
    local term_width = tonumber(capture("tput cols") or "80") - 4
-   if (t == nil) then
-      M.spiderSearch(dbT,mname)
-      return ""
-   end
 
-   if (name ~= mname) then
-      return M.Level2(t, mname)
+   if (t == nil) then
+      return ""
    end
 
    local cnt = countEntries(t)
@@ -576,6 +584,7 @@ function M.Level2(t, mname)
       
 
    for k,v in pairs(t) do
+      dbg.print("v.full: ",v.full," mname: ",mname," k: ",k,"\n")
       if (v.full == mname) then
          if (tt == nil) then
             tt = v

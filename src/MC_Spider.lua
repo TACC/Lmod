@@ -15,6 +15,7 @@ M.load            = MasterControl.quiet
 M.message         = MasterControl.quiet
 M.mode            = MasterControl.mode_load
 M.prereq          = MasterControl.quiet
+M.required        = MasterControl.quiet
 M.try_load        = MasterControl.quiet
 M.unload          = MasterControl.quiet
 M.unloadsys       = MasterControl.quiet

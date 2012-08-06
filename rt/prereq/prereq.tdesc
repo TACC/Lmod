@@ -64,7 +64,11 @@ testdescript = {
 
      runMe lua $(projectDir)/src/lmod.in bash load slepc/2.9.0   # 13
 
-     
+     runMe lua $(projectDir)/src/lmod.in bash load junk/1.0      # 14
+
+     runMe lua $(projectDir)/src/lmod.in bash load jdk32         # 15
+
+     runMe lua $(projectDir)/src/lmod.in bash load junk/1.0      # 16
 
      PATH=$ORIGPATH
      export PATH

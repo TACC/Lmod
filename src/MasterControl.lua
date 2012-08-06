@@ -390,6 +390,33 @@ function M.conflict(self, ...)
    dbg.fini()
 end
 
+function M.required(self, ...)
+   local dbg    = Dbg:dbg()
+   local mt     = MT:mt()
+   local a      = {}
+   local mStack = ModuleStack:moduleStack()
+   local mName  = mStack:moduleName()
+
+   dbg.start("MasterControl:required(",concatTbl({...},", "),")")
+
+   local found  = false
+   for _,v in ipairs{...} do
+      if (mt:haveModuleActive(v)) then
+         found = true
+         break;
+      end
+   end
+
+   if (not found) then
+      local s = concatTbl(a," ")
+      LmodError("Can not load: \"",mName,"\" module.  At least one of these modules must be loaded:\n  ",
+            concatTbl({...},", "),"\n")
+   end
+   dbg.fini()
+end
+
+
+
 function M.family(self, name)
    local dbg                    = Dbg:dbg()
    local mt                     = MT:mt()

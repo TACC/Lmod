@@ -90,6 +90,10 @@ function M.conflict(self, ...)
    ShowCmd("conflict",...)
 end
 
+function M.required(self, ...)
+   ShowCmd("required",...)
+end
+
 function M.error(self, ...)
    ShowCmd("LmodError", ...)
 end
