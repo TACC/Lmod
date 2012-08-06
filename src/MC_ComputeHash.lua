@@ -90,6 +90,10 @@ function M.conflict(self, ...)
    ShowCmd("conflict",...)
 end
 
+function M.prereq_any(self, ...)
+   ShowCmd("prereq_any",...)
+end
+
 function M.error(self, ...)
    ShowCmd("LmodError", ...)
 end

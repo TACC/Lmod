@@ -568,6 +568,20 @@ local function Swap(...)
    dbg.fini()
 end
 
+function UUIDString(epoch)
+   local ymd  = os.date("*t", epoch)
+
+   --                                y    m    d    h    m    s
+   local uuid_date = string.format("%d_%02d_%02d_%02d_%02d_%02d", 
+                                   ymd.year, ymd.month, ymd.day, 
+                                   ymd.hour, ymd.min,   ymd.sec)
+   
+   local uuid_str  = capture("uuidgen"):sub(1,-2)
+   local uuid      = uuid_date .. "-" .. uuid_str
+
+   return uuid
+end
+
 local function epoch()
    if (posix.gettimeofday) then
       local t1, t2 = posix.gettimeofday()
@@ -678,6 +692,28 @@ function getModuleT()
 end
 
 
+function RecordCmd()
+   local dbg = Dbg:dbg()
+   dbg.start("RecordCmd()")
+   local mt   = MT:mt()
+   local s    = serializeTbl{indent=true, name="_ModuleTable_", value=_ModuleTable_}
+   local uuid = UUIDString(epoch())
+   local fn   = pathJoin(getenv("HOME"), ".lmod.d", ".save", uuid .. ".lua")
+
+   local d = dirname(fn)
+   if (not isDir(d)) then
+      mkdir_recursive(d)
+   end 
+
+   local f = io.open(fn,"w")
+   if (f) then
+      f:write(s)
+      f:close()
+   end
+   dbg.fini()
+end
+
+
 function SpiderCmd(...)
    local dbg = Dbg:dbg()
    dbg.start("SpiderCmd(", concatTbl({...},", "),")")
@@ -700,7 +736,7 @@ function SpiderCmd(...)
       local help = false
       for i = 1, arg.n do
          if (i == arg.n) then help = true end
-         a[#a+1] = Spider.Level1(dbT, arg[i], help)
+         a[#a+1] = Spider.spiderSearch(dbT, arg[i], help)
       end
       s = concatTbl(a,"\n")
    end
@@ -774,6 +810,7 @@ function main()
    local getDefTbl    = { name = "getdefault",  checkMPATH = false, cmd = GetDefault  }
    local listDefTbl   = { name = "listdefault", checkMPATH = false, cmd = ListDefault }
    local spiderTbl    = { name = "spider",      checkMPATH = true,  cmd = SpiderCmd   }
+   local recordTbl    = { name = "record",      checkMPATH = false, cmd = RecordCmd   }
 
    local cmdTbl = {
       ["try-add"]  = tryAddTbl,
@@ -801,6 +838,7 @@ function main()
       lo           = loadTbl,
       load         = loadTbl,
       purge        = purgeTbl,
+      record       = recordTbl,
       refr         = updateTbl,
       refresh      = updateTbl,
       reload       = updateTbl,

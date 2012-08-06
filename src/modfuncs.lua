@@ -147,6 +147,15 @@ function conflict(...)
    return b
 end
 
+function prereq_any(...)
+   local dbg = Dbg:dbg()
+   dbg.start("prereq_any(",concatTbl({...},", "),")")
+
+   local b = mcp:prereq_any(...)
+   dbg.fini()
+   return b
+end
+
 --- Family function ---
 
 function family(...)
@@ -236,7 +245,7 @@ function display(...)
    local b = mcp:display(...)
    dbg.fini()
    return b
-end   
+end
 
 function myFileName()
    return _MyFileName
