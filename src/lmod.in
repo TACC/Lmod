@@ -678,6 +678,11 @@ function getModuleT()
 end
 
 
+function RecordCmd(...)
+
+end
+
+
 function SpiderCmd(...)
    local dbg = Dbg:dbg()
    dbg.start("SpiderCmd(", concatTbl({...},", "),")")
@@ -774,6 +779,7 @@ function main()
    local getDefTbl    = { name = "getdefault",  checkMPATH = false, cmd = GetDefault  }
    local listDefTbl   = { name = "listdefault", checkMPATH = false, cmd = ListDefault }
    local spiderTbl    = { name = "spider",      checkMPATH = true,  cmd = SpiderCmd   }
+   local recordTbl    = { name = "record",      checkMPATH = false, cmd = RecordCmd   }
 
    local cmdTbl = {
       ["try-add"]  = tryAddTbl,
