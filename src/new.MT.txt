@@ -1,0 +1,30 @@
+-- -*- lua -*-
+_ModuleTable_ = {
+   mt = {
+      ['PrgEnv'] = { fullName = "PrgEnv", FN = "/opt/apps/mf/Core/PrgEnv.lua", default = 1, hash = "da39...", mType = "m",
+                     prop = {"a","b","c"}, active=1},
+      ['mkl']    = { },
+      ['foo']    = { active=false },
+   }
+   active = {
+      ['PrgEnv'] = 2,
+      ['mkl']    = 1,
+   },
+   inactive = {
+      'foo'
+   },
+   total = {
+      ['mkl'] = 1
+      ['PrgEnv'] = 2
+      ['foo'] = 3   -- Not sure what these number represent
+   },
+   version = 2,
+   baseMpathA = {
+    "/opt/apps/modulefiles/Darwin",
+    "/opt/apps/modulefiles/Core",
+  },
+  family = {
+    ["MPI"] = "mpich2",
+    ["compiler"] = "gcc",
+  },
+}
