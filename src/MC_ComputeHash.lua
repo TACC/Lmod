@@ -90,8 +90,8 @@ function M.conflict(self, ...)
    ShowCmd("conflict",...)
 end
 
-function M.required(self, ...)
-   ShowCmd("required",...)
+function M.prereq_any(self, ...)
+   ShowCmd("prereq_any",...)
 end
 
 function M.error(self, ...)

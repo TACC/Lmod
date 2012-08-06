@@ -105,8 +105,8 @@ function M.prereq(self, ...)
    ShowCmd("prereq",...)
 end
 
-function M.required(self, ...)
-   ShowCmd("required",...)
+function M.prereq_any(self, ...)
+   ShowCmd("prereq_any",...)
 end
 
 function M.conflict(self, ...)

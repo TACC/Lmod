@@ -390,14 +390,14 @@ function M.conflict(self, ...)
    dbg.fini()
 end
 
-function M.required(self, ...)
+function M.prereq_any(self, ...)
    local dbg    = Dbg:dbg()
    local mt     = MT:mt()
    local a      = {}
    local mStack = ModuleStack:moduleStack()
    local mName  = mStack:moduleName()
 
-   dbg.start("MasterControl:required(",concatTbl({...},", "),")")
+   dbg.start("MasterControl:prereq_any(",concatTbl({...},", "),")")
 
    local found  = false
    for _,v in ipairs{...} do

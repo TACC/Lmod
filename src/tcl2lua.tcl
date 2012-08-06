@@ -374,6 +374,9 @@ proc unload { args } {
 proc prereq { args } {
     eval cmdargs "prereq" $args
 }
+proc prereq-any { args } {
+    eval cmdargs "prereq_any" $args
+}
 proc conflict { args } {
     eval cmdargs "conflict" $args
 }
@@ -495,6 +498,7 @@ proc execute-modulefile {modfile } {
 	interp alias $slave prepend-path {} prepend-path
 	interp alias $slave remove-path {} remove-path
 	interp alias $slave prereq {} prereq
+	interp alias $slave prereq-any {} prereq-any
 	interp alias $slave conflict {} conflict
 	interp alias $slave is-loaded {} is-loaded
 	interp alias $slave module {} module
