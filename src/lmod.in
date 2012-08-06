@@ -679,10 +679,12 @@ function getModuleT()
          local f  = io.open(userModuleTFN,"w")
          f:write(s0,s1,s2)
          f:close()
+         dbg.print("Wrote: ",userModuleTFN,"\n")
       else
          -- remove cache file if old
          if (isFile(userModuleTFN)) then
             posix.unlink(userModuleTFN);
+            dbg.print("Deleted: ",userModuleTFN,"\n")
          end
       end
 
