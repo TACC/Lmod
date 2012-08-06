@@ -670,12 +670,14 @@ function getModuleT()
       io.stderr:write(" done\n")
       LmodError    = errRtn
       LmodMessage  = message
+      dbg.print("t2-t1: ",t2-t1, " shortTime: ", shortTime, "\n")
       if (t2 - t1 > shortTime) then
          mkdir_recursive(cacheDir)
+         local s0 = "-- Date: " .. os.date("%c",os.time()) .. "\n"
          local s1 = serializeTbl{name="defaultMpathA",value=moduleDirA,indent=true}
          local s2 = serializeTbl{name="moduleT",      value=moduleT,   indent=true}
          local f  = io.open(userModuleTFN,"w")
-         f:write(s1,s2)
+         f:write(s0,s1,s2)
          f:close()
       else
          -- remove cache file if old
