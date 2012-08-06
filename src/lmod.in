@@ -685,6 +685,8 @@ function getModuleT()
          if (isFile(userModuleTFN)) then
             posix.unlink(userModuleTFN);
             dbg.print("Deleted: ",userModuleTFN,"\n")
+         else
+            dbg.print("Not writing cache file.\n")
          end
       end
 
