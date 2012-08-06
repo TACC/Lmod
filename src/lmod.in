@@ -97,6 +97,7 @@ Setting/Getting Default module sub-commands:
   listdefault | ld                       list all saved default states.
 
 Miscellaneous sub-commands:
+  record                                 save the module table.
   show                modulefile         show the commands in the module file.
   use [-a] [--append] path               Prepend or Append path to MODULEPATH
   unuse path                             remove path from MODULEPATH
