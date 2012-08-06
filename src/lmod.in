@@ -693,7 +693,7 @@ end
 
 
 function RecordCmd()
-   dbg = Dbg:dbg()
+   local dbg = Dbg:dbg()
    dbg.start("RecordCmd()")
    local mt   = MT:mt()
    local s    = serializeTbl{indent=true, name="_ModuleTable_", value=_ModuleTable_}
@@ -838,6 +838,7 @@ function main()
       lo           = loadTbl,
       load         = loadTbl,
       purge        = purgeTbl,
+      record       = recordTbl,
       refr         = updateTbl,
       refresh      = updateTbl,
       reload       = updateTbl,
