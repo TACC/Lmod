@@ -9,7 +9,7 @@ ancient       = "@ancient@"
 shortTime     = "@short_time@"
 sysCacheDir   = os.getenv("LMOD_SPIDER_CACHE_DIR") or "@cacheDir@"
 ancient       = tonumber(ancient)   or 86400
-shortTime     = tonumber(shortTime) or 2.0
+shortTime     = tonumber(shortTime) or 10.0
 BaseShell     = {}
 ------------------------------------------------------------------------
 -- Extract directory location of "lmod" command and add it
