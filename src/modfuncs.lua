@@ -147,11 +147,11 @@ function conflict(...)
    return b
 end
 
-function required(...)
+function prereq_any(...)
    local dbg = Dbg:dbg()
-   dbg.start("required(",concatTbl({...},", "),")")
+   dbg.start("prereq_any(",concatTbl({...},", "),")")
 
-   local b = mcp:required(...)
+   local b = mcp:prereq_any(...)
    dbg.fini()
    return b
 end

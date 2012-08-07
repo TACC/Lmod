@@ -1,3 +1,3 @@
-required("java","jdk64","jdk32")
+prereq_any("java","jdk64","jdk32")
 
 
