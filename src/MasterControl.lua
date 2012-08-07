@@ -297,6 +297,11 @@ end
 function M.add_property(self, name, value)
    local dbg    = Dbg:dbg()
    dbg.start("MasterControl:add_property(\"",name,"\", \"",value,"\")")
+
+   local mStack  = ModuleStack:moduleStack()
+   local mName   = mStack:moduleName()
+
+
    dbg.fini()
 end
 

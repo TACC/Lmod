@@ -246,7 +246,7 @@ function M.getMTfromFile(self,fn)
    end
 
    if (#a > 0) then
-      Error("The following modules have been loaded and should not have:\n",
+      LmodError("The following modules have been loaded and should not have:\n",
                 "  ",concatTbl(a,", "),"\n",
                 "This should not happen!\n")
    end
@@ -260,7 +260,7 @@ function M.getMTfromFile(self,fn)
    end
 
    if (#a > 0) then
-      Error("The following modules have changed: ", concatTbl(a," "),"\n",
+      LmodError("The following modules have changed: ", concatTbl(a," "),"\n",
             "Please reset this default setup\n")
    end
 
@@ -384,14 +384,14 @@ function M.reloadAllModules(self)
       end
       count       = count + 1
       if (count > ncount) then
-         Error("ReLoading more than ", ncount, " times-> exiting\n")
+         LmodError("ReLoading more than ", ncount, " times-> exiting\n")
       end
       done = self:sameMPATH(varTbl[ModulePath]:expand())
    end
 
    local safe = master:safeToUpdate()
    if (not safe and changed) then
-      Error("MODULEPATH has changed: run \"module update\" to repair\n")
+      LmodError("MODULEPATH has changed: run \"module update\" to repair\n")
    end
    return not changed
 end
