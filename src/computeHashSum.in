@@ -50,15 +50,19 @@ function loadModuleFile(obj)
    local dbg     = Dbg:dbg()
    dbg.start("computeHashSum-> loadModuleFile(\"",tostring(f),"\")")
    local myType = extname(f)
+   local func
    if (myType == ".lua") then
-      assert(loadfile(f))()
+      func = loadfile(f)
    else
       local a     = {}
       a[#a + 1]	  = pathJoin(cmdDir(),"tcl2lua.tcl")
       a[#a + 1]	  = f
       local cmd   = table.concat(a," ")
       local s     = capture(cmd)
-      assert(loadstring(s))()
+      func = loadstring(s)
+   end
+   if (func) then
+      func()
    end
    dbg.fini()
 end
