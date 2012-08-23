@@ -16,10 +16,12 @@ M.message         = MasterControl.quiet
 M.mode            = MasterControl.mode_load
 M.prereq          = MasterControl.quiet
 M.prereq_any      = MasterControl.quiet
+M.set_alias       = MasterControl.quiet
 M.try_load        = MasterControl.quiet
 M.unload          = MasterControl.quiet
 M.unloadsys       = MasterControl.quiet
 M.unsetenv        = MasterControl.quiet
+M.unset_alias     = MasterControl.quiet
 M.usrload         = MasterControl.quiet
 
 function M.help(self,...)

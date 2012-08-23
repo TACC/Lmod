@@ -23,10 +23,12 @@ M.prereq_any      = MasterControl.quiet
 M.remove_path     = MasterControl.bad_remove_path
 M.remove_property = MasterControl.bad_remove_property
 M.setenv          = MasterControl.unsetenv
+M.set_alias       = MasterControl.unset_alias
 M.try_load        = MasterControl.unload
 M.unload          = MasterControl.bad_unload
 M.unloadsys       = MasterControl.bad_unload
 M.unsetenv        = MasterControl.bad_unsetenv
+M.unset_alias     = MasterControl.bad_unset_alias
 M.usrload         = MasterControl.unload
 M.whatis          = MasterControl.quiet
 
