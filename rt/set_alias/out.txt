@@ -32,3 +32,19 @@ export _ModuleTable_Sz_;
 alias somealias="2";
 _ModuleTable_='_ModuleTable_={active={Dict={["test2"]=1,},FN={"~/w/lmod/rt/set_alias/mf/test2",},Loaded={"test2",},default={0,},fullModName={"test2",},mType={"mw",},},baseMpathA={"~/w/lmod/rt/set_alias/mf",},family={},inactive={},mpathA={"~/w/lmod/rt/set_alias/mf",},total={Dict={["test2"]=1,},FN={"~/w/lmod/rt/set_alias/mf/test2",},Loaded={"test2",},default={0,},fullModName={"test2",},mType={"mw",},},["version"]=1,}';
 export _ModuleTable_;
+===========================
+step 3
+===========================
+LMOD_DEFAULT_MODULEPATH="~/w/lmod/rt/set_alias/mf";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="~/w/lmod/rt/set_alias/mf";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="~/w/lmod/rt/set_alias/mf";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="~/w/lmod/rt/set_alias/mf";
+export MODULEPATH;
+unset VARIABLE;
+export _ModuleTable_Sz_;
+unalias somealias;
+_ModuleTable_='_ModuleTable_={active={Dict={},FN={},Loaded={},default={},fullModName={},mType={},},baseMpathA={"~/w/lmod/rt/set_alias/mf",},family={},inactive={},mpathA={"~/w/lmod/rt/set_alias/mf",},total={Dict={},FN={},Loaded={},default={},fullModName={},mType={},},["version"]=1,}';
+export _ModuleTable_;

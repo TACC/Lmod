@@ -22,10 +22,12 @@ M.prereq_any      = MasterControl.quiet
 M.remove_path     = MasterControl.quiet
 M.remove_property = MasterControl.quiet
 M.setenv          = MasterControl.quiet
+M.set_alias       = MasterControl.quiet
 M.try_load        = MasterControl.quiet
 M.unload          = MasterControl.quiet
 M.unloadsys       = MasterControl.quiet
 M.unsetenv        = MasterControl.quiet
+M.unset_alias     = MasterControl.quiet
 M.usrload         = MasterControl.quiet
 M.whatis          = MasterControl.quiet
 

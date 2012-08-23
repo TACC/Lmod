@@ -178,8 +178,10 @@ local function loadModuleFile(fn)
 
    systemG._MyFileName = fn
    local myType = extname(fn)
+   local func
+   local msg
    if (myType == ".lua") then
-      assert(loadfile(fn))()
+      func, msg = loadfile(fn)
    else
       local a     = {}
       a[#a + 1]	  = pathJoin(cmdDir(),"tcl2lua.tcl")
@@ -187,7 +189,12 @@ local function loadModuleFile(fn)
       a[#a + 1]	  = fn
       local cmd   = concatTbl(a," ")
       local s     = capture(cmd)
-      assert(loadstring(s))()
+      func, msg = loadstring(s)
+   end
+   if (func) then
+      func()
+   else
+      dbg.warning("Syntax error: ",msg,"\n")
    end
    dbg.fini()
 end
