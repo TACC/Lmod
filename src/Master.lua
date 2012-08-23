@@ -211,9 +211,11 @@ function loadModuleFile(t)
    systemG._MyFileName = t.file
 
    local myType = extname(t.file)
+   local func
+   local msg
    if (myType == ".lua") then
       if (isFile(t.file)) then
-         assert(loadfile(t.file))()
+         func, msg = loadfile(t.file)
       end
    else
       local mt	  = MT:mt()
@@ -227,8 +229,18 @@ function loadModuleFile(t)
       a[#a + 1]	  = t.file
       local cmd   = concatTbl(a," ")
       local s     = capture(cmd)
-      assert(loadstring(s))()
+      func, msg   = loadstring(s)
    end
+
+   if (func) then
+      func()
+   else
+      if (t.reportErr) then
+         local n = t.moduleName or ""
+         LmodError("Unable to load module: ",n,"\n    ",msg,"\n")
+      end
+   end
+
    dbg.fini()
 end
 
@@ -268,7 +280,7 @@ function M.unload(...)
          mt:beginOP()
          mt:removeActive(moduleName)
          mStack:push(fullModuleName)
-	 loadModuleFile{file=f}
+	 loadModuleFile{file=f,moduleName=moduleName,reportErr=false}
          mStack:pop()
          mt:endOP()
          a[#a + 1] = true
@@ -342,7 +354,7 @@ function M.access(self, ...)
       systemG.ModuleName = full
       if (fn) then
          prtHdr()
-	 loadModuleFile{file=fn,help=help}
+	 loadModuleFile{file=fn,help=help,moduleName=moduleName,reportErr=true}
          io.stderr:write("\n")
       else
          a[#a+1] = moduleName
@@ -383,7 +395,7 @@ function M.load(...)
          dbg.print("Master:loading: \"",moduleName,"\" from f: \"",fn,"\"\n")
 	 mt:beginOP()
          mStack:push(t.modFullName)
-	 loadModuleFile{file=fn}
+	 loadModuleFile{file=fn,moduleName=moduleName,reportErr=true}
          t.mType = mStack:moduleType()
          mStack:pop()
 	 mt:endOP()
@@ -505,7 +517,7 @@ function M.inheritModule()
    if (t.fn == nil) then
       LmodError("Failed to inherit: ",mName,"\n")
    else
-      loadModuleFile{file=t.fn}
+      loadModuleFile{file=t.fn,moduleName=mName, reportErr=true}
    end
    dbg.fini()
 end
@@ -711,7 +723,7 @@ local function spanOneModule(path, name, nameA, fileType, keyA)
                                  end
                               end
                            end
-	 loadModuleFile{file=path}
+	 loadModuleFile{file=path,moduleName=ModuleName, reportErr=true}
       end
    elseif (fileType == "directory" and posix.access(path,"x")) then
       --io.stderr:write("dir: ",path," name: ", name, "\n")
