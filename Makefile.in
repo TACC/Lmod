@@ -24,6 +24,7 @@ STARTUP		 := $(patsubst %, setup/%, $(STARTUP))
 
 MAIN_DIR	 := Makefile.in INSTALL configure README_lua_modulefiles.txt
 
+CONTRIB          := contrib/createmodule.sh
 lua_code	 := $(wildcard src/*.lua) $(wildcard src/*.tcl) src/COPYRIGHT 
 VDATE		 := $(shell date +'%F %H:%M')
 
@@ -102,12 +103,16 @@ dist:
 	$(MAKE) DistD=DIST _dist
 
 _dist: _distMkDir _distMainDir _distSrc _distSetup _distReqPkg    \
-       _distMF    _distTar
+       _distMF    _distContrib _distTar
 
 _distMkDir:
 	$(RM) -r $(DistD)
 	mkdir $(DistD)
 
+
+_distContrib:
+	mkdir $(DistD)/contrib
+	cp $(CONTRIB) $(DistD)/contrib
 _distSrc:
 	mkdir $(DistD)/src
 	cp $(lua_code) $(ComputeHashSum) $(STANDALONE_PRGM) $(DistD)/src

@@ -15,4 +15,4 @@ step 4
 ===========================
 step 5
 ===========================
-Error: Failed to inherit: junk2/1.0
+Lmod Error: Failed to inherit: junk2/1.0

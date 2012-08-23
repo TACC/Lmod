@@ -60,7 +60,7 @@ Unable to find: "mpich2me"
 ===========================
 step 7
 ===========================
-Error: Unable to find: "mpich2/1.0.5"
+Lmod Error: Unable to find: "mpich2/1.0.5"
 ===========================
 step 8
 ===========================

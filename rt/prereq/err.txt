@@ -4,7 +4,7 @@ step 1
 ===========================
 step 2
 ===========================
-Error: Can not load: "slepc/3.0.0" module without these modules loaded:
+Lmod Error: Can not load: "slepc/3.0.0" module without these modules loaded:
   petsc/3.0.0
 ===========================
 step 3
@@ -15,7 +15,7 @@ step 4
 ===========================
 step 5
 ===========================
-Error: Can not load: "slepc/3.1.0" module without these modules loaded:
+Lmod Error: Can not load: "slepc/3.1.0" module without these modules loaded:
   petsc/3.1.0
 ===========================
 step 6
@@ -23,7 +23,7 @@ step 6
 ===========================
 step 7
 ===========================
-Error: Can not load: "slepc/3.1.0" module without these modules loaded:
+Lmod Error: Can not load: "slepc/3.1.0" module without these modules loaded:
   petsc/3.1.0
 ===========================
 step 8
@@ -46,7 +46,7 @@ step 13
 ===========================
 step 14
 ===========================
-Error: Can not load: "junk/1.0" module.  At least one of these modules must be loaded:
+Lmod Error: Can not load: "junk/1.0" module.  At least one of these modules must be loaded:
   java, jdk64, jdk32
 ===========================
 step 15
