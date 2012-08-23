@@ -957,7 +957,7 @@ function main()
    if (cmdTbl[cmdName] == nil) then
       io.stderr:write(version())
       io.stderr:write(Usage,"\n")
-      lmodErrorExit()
+      LmodErrorExit()
    end
 
    if (cmdTbl[cmdName]) then
@@ -988,7 +988,7 @@ function main()
    master.shell:expand(varTbl)
 
    if (dbg.warningCalled() and not expert() ) then
-      lmodErrorExit()
+      LmodErrorExit()
    end
 end
 

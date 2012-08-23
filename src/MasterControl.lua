@@ -319,18 +319,18 @@ end
 -- Message/Error  Functions
 -------------------------------------------------------------------
 
-function lmodErrorExit()
+function LmodErrorExit()
    io.stdout:write("false\n")
    os.exit(1)
 end
 
 function LmodSystemError(...)
-   io.stderr:write("\nError: ")
+   io.stderr:write("\nLmod Error: ")
    for _,v in ipairs{...} do
       io.stderr:write(v)
    end
    io.stderr:write("\n")
-   lmodErrorExit()
+   LmodErrorExit()
 end   
 
 
