@@ -481,6 +481,26 @@ function M.mode_unload(self)
    return "unload"
 end   
 
+function M.mode_help(self)
+   local dbg    = Dbg:dbg()
+   dbg.start("MasterControl:mode_help()")
+   dbg.fini()
+   return "help"
+end
+
+function M.mode_show(self)
+   local dbg    = Dbg:dbg()
+   dbg.start("MasterControl:mode_show()")
+   dbg.fini()
+   return "show"
+end
+
+function M.mode_spider(self)
+   local dbg    = Dbg:dbg()
+   dbg.start("MasterControl:mode_spider()")
+   dbg.fini()
+   return "spider"
+end
 
 -------------------------------------------------------------------
 -- Quiet Functions
