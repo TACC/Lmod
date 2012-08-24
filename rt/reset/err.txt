@@ -7,7 +7,7 @@ step 2
 ===========================
 step 3
 ===========================
-Warning: No modules installed
+Lmod Warning: No modules installed
 ===========================
 step 4
 ===========================

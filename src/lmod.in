@@ -872,6 +872,7 @@ function main()
    }
 
    local dbg  = Dbg:dbg()
+   dbg.set_prefix("Lmod")
 
    MCP = MasterControl.build("load")
 

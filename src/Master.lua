@@ -403,7 +403,7 @@ function M.load(...)
          mt:addTotal(t)
          loaded = true
       elseif (not mt:haveModuleTotal(moduleName)) then
-         dbg.warning("Failed to load: ",moduleName,"\n\n",
+         dbg.warning("Did not find: ",moduleName,"\n\n",
                      "Try: \"module spider ", moduleName,"\"\n" )
       end
       a[#a+1] = loaded

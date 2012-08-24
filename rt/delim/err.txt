@@ -24,7 +24,7 @@ step 7
 ===========================
 step 8
 ===========================
-Warning: No modules installed
+Lmod Warning: No modules installed
 ===========================
 step 9
 ===========================
