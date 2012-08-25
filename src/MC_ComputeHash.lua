@@ -62,10 +62,6 @@ end
 
 M.try_add = M.try_load
 
-function M.mode(self, ...)
-   ShowCmd("mode",...)
-end
-
 function M.inherit(self, ...)
    ShowCmd("inherit",...)
 end

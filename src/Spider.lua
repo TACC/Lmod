@@ -97,6 +97,8 @@ function processLPATH(value)
 end
 
 function processPATH(value)
+   if value == nil then return end
+
    local masterTbl     = masterTbl()
    local moduleDirT    = masterTbl.moduleDirT
    local moduleStack   = masterTbl.moduleStack 
@@ -266,9 +268,14 @@ function M.findModulesInDir(path, prefix, moduleT)
          dbg.print("file: ",file," f: ",f," attr.mode: ", attr.mode,"\n")
 	 if (readable and (attr.mode == 'file' or attr.mode == 'link') and (file ~= "default")) then
             if (moduleT[f] == nil) then
-               local full = fullName(pathJoin(prefix,file))
-               local name = extractName(full)
-               moduleT[f] = { path = f, name = name, full = full, children = {} }
+               local full  = fullName(pathJoin(prefix,file))
+               local fullL = full:lower()
+               local name  = extractName(full)
+               local nameL = name:lower()
+               moduleT[f] = { path = f, name = name, name_lower = nameL,
+                              full = full, full_lower = fullL,
+                              children = {}
+                            }
                moduleStack[iStack] = {path=f, full = full, moduleT = moduleT}
                dbg.print("Top of Stack: ",iStack, " Full: ", full, " file: ", f, "\n")
                loadModuleFile(f)
@@ -310,9 +317,9 @@ function M.buildSpiderDB(a, moduleT, dbT)
    local dbg = Dbg:dbg()
    dbg.start("buildSpiderDB({",concatTbl(a,","),"},moduleT, dbT)")
    for path, value in pairs(moduleT) do
-      local name = value.name
-      dbT[name]        = dbT[name] or {}
-      local t = dbT[name]
+      local nameL = value.name_lower
+      dbT[nameL]  = dbT[nameL] or {}
+      local t     = dbT[nameL]
 
       for k, v in pairs(value) do
          if (t[path] == nil) then
@@ -349,21 +356,21 @@ function M.searchSpiderDB(strA, a, moduleT, dbT)
    dbg.start("searchSpiderDB()")
 
    for path, value in pairs(moduleT) do
-      local name    = value.name or ""
+      local nameL   = value.name_lower or ""
       local full    = value.full
       local whatisT = value.whatis or {}
       local whatisS = concatTbl(whatisT,"\n")
 
-      if (dbT[name] == nil) then
-         dbT[name] = {}
+      if (dbT[nameL] == nil) then
+         dbT[nameL] = {}
       end
-      local t = dbT[name]
+      local t = dbT[nameL]
 
       local found = false
       for i = 1,#strA do
-         local str = strA[i]
-         if (name:find(str,1,true) or whatisS:find(str,1,true) or 
-             name:find(str)        or whatisS:find(str)) then
+         local str = strA[i]:lower()
+         if (nameL:find(str,1,true) or whatisS:find(str,1,true) or 
+             nameL:find(str)        or whatisS:find(str)) then
             found = true
             break
          end
@@ -409,12 +416,12 @@ end
 
 function M.Level0Helper(dbT,a)
    local t          = {}
-   local term_width = tonumber(capture("tput cols") or "80") - 4
+   local term_width = TermWidth() - 4
 
    for k,v in pairs(dbT) do
       for kk,vv in pairsByKeys(v) do
          if (t[k] == nil) then
-            t[k] = { Description = vv.Description, Versions = { }}
+            t[k] = { Description = vv.Description, Versions = { }, name = vv.name}
             t[k].Versions[vv.full] = 1
          else
             t[k].Versions[vv.full] = 1
@@ -426,7 +433,7 @@ function M.Level0Helper(dbT,a)
 
    for k,v in pairsByKeys(t) do
       local len = 0
-      ia = ia + 1; a[ia] = "  " .. k .. ":"
+      ia = ia + 1; a[ia] = "  " .. v.name .. ":"
       len = len + a[ia]:len()
       for kk,_ in pairsByKeys(v.Versions) do
          ia = ia + 1; a[ia] = " " .. kk; len = len + a[ia]:len() + 1
@@ -457,33 +464,36 @@ function M.Level0Helper(dbT,a)
 end
 
 
-local function countEntries(t)
-   local count = 0
+local function countEntries(t, mname)
+   local count   = 0
+   local nameCnt = 0
    for k,v in pairs(t) do
       count = count + 1
-      if (count > 1) then
-         break
+      if (v.name == mname) then
+         nameCnt = nameCnt + 1
       end
    end
-   return count
+   return count, nameCnt
 end
 
 function M.spiderSearch(dbT, mname, help)
    local dbg = Dbg:dbg()
    dbg.start("spiderSearch(dbT,\"",mname,"\")")
-   local name  = extractName(mname)
-   local found = false
+   local name   = extractName(mname)
+   local nameL  = name:lower()
+   local mnameL = mname:lower()
+   local found  = false
    for k,v in pairs(dbT) do
-      if (k:find(name,1,true) or k:find(name)) then
+      if (k:find(nameL,1,true) or k:find(nameL)) then
          local s
-         dbg.print("name: ",name," mname: ", mname, " k: ",k,"\n")
-         if (name ~= mname ) then
-            if (name == k) then
+         dbg.print("nameL: ",nameL," mnameL: ", mnameL, " k: ",k,"\n")
+         if (nameL ~= mnameL ) then
+            if (nameL == k) then
                 s = M.Level2(v, mname)
                 found = true
             end
          else
-            s = M.Level1(dbT,k, help)
+            s = M.Level1(dbT, mname, help)
             found = true
          end
          if (s) then
@@ -499,22 +509,22 @@ end
 
 function M.Level1(dbT, mname, help)
    local dbg = Dbg:dbg()
-   dbg.start("Level1(dbT,\"",mname,"\")")
-   local name = extractName(mname)
+   dbg.start("Level1(dbT,\"",mname,"\",help)")
+   local name       = extractName(mname)
+   local nameL      = name:lower()
+   local t          = dbT[nameL]
+   local term_width = TermWidth() - 4
    dbg.print("mname: ", mname, ", name: ",name,"\n")
-   local t    = dbT[name]
-   local term_width = tonumber(capture("tput cols") or "80") - 4
 
    if (t == nil) then
       return ""
    end
 
-   local cnt = countEntries(t)
-   dbg.print("Number of entries: ",cnt ,"\n")
-   if (countEntries(t) == 1) then
+   local cnt, nameCnt = countEntries(t, mname)
+   dbg.print("Number of entries: ",cnt ," name count: ",nameCnt, "\n")
+   if (cnt == 1 or nameCnt == 1) then
       local k = next(t)
-      mname = t[k].full
-      return M.Level2(t, t[k].full)
+      return M.Level2(t, mname, t[k].full)
    end
       
    local banner = border(2)
@@ -568,16 +578,16 @@ function M.Level1(dbT, mname, help)
    
 end
 
-function M.Level2(t, mname)
+function M.Level2(t, mname, full)
    local dbg = Dbg:dbg()
-   dbg.start("Level2(t,\"",mname,"\")")
+   dbg.start("Level2(t,\"",mname,"\", \"",tostring(full),"\")")
    local a  = {}
    local ia = 0
    local b  = {}
    local c  = {}
    local titleIdx = 0
    
-   local term_width = tonumber(capture("tput cols") or "80") - 4
+   local term_width = TermWidth() - 4
    local tt = nil
    local banner = border(2)
    local availT = {
@@ -588,10 +598,11 @@ function M.Level2(t, mname)
    }
    local haveCore = 0
    local haveHier = 0
+   local mnameL   = mname:lower()
       
 
    for k,v in pairs(t) do
-      dbg.print("v.full: ",v.full," mname: ",mname," k: ",k,"\n")
+      dbg.print("v.full: ",v.full," mname: ",mname," k: ",k," full:", tostring(full),"\n")
       if (v.full == mname) then
          if (tt == nil) then
             tt = v

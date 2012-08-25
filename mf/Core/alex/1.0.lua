@@ -1,4 +1,4 @@
-if (mode() == "load") then
+if (mode() == "load" or mode() == "show" ) then
    if ( not (isloaded("noweb") ) ) then
       load("noweb")
    end

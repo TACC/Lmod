@@ -15,7 +15,6 @@ M.help            = MasterControl.quiet
 M.inherit         = MasterControl.quiet
 M.load            = MasterControl.quiet
 M.message         = MasterControl.quiet
-M.mode            = MasterControl.mode_help
 M.prepend_path    = MasterControl.quiet
 M.prereq          = MasterControl.quiet
 M.prereq_any      = MasterControl.quiet
