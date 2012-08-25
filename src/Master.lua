@@ -678,7 +678,7 @@ function M.avail(searchA)
    local mpathA = MT:mt():module_pathA()
    local width  = 80
    if (getenv("TERM")) then
-      width  = tonumber(capture("tput cols"))
+      width  = TermWidth()
    end
    for _,path in ipairs(mpathA) do
       local a = {}

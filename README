@@ -1,3 +1,14 @@
+Version 3.5.4:
+
+ Bug Fixes:
+    1) set_alias() now correctly load and unloads, doesn't load
+       during spider.
+    2) module spider doesn't stop on a modulefile syntax error.
+       It reports the error and keeps going.
+    3) Loading a modulefile with a syntax error is handled
+       cleanly.
+
+
 Version 3.5.1/3.5.2:
 
    Features:

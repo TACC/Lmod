@@ -34,6 +34,16 @@ end
 local getenv = os.getenv
 local rep    = string.rep
 
+local s_width = false
+function TermWidth()
+   if (s_width) then
+      return s_width
+   end
+   s_width = tonumber(capture("tput cols") or "80")
+   return s_width
+end
+
+
 require("myGlobals")
 require("strict")
 require("firstInPath")
@@ -359,11 +369,11 @@ function Show(...)
 
 end
 
-function Access(...)
+function Access(mode, ...)
    local dbg    = Dbg:dbg()
    local master = Master:master()
    dbg.start("Access(", concatTbl({...},", "),")")
-   mcp = MasterControl.build("access")
+   mcp = MasterControl.build("access", mode)
    dbg.print("Setting mpc to ", mcp:name(),"\n")
 
    local n = select('#',...)
@@ -384,12 +394,12 @@ function Help(...)
       io.stderr:write("\n")
    end
 
-   prtHdr  = function()
-                io.stderr:write("\n")
-                io.stderr:write("----------- Module Specific Help for \"" .. ModuleName .. "\"------------------\n")
-             end
+   prtHdr = function()
+               io.stderr:write("\n")
+               io.stderr:write("----------- Module Specific Help for \"" .. ModuleName .. "\"------------------\n")
+            end
 
-   Access(...)
+   Access("help",...)
 end
 
 function Whatis(...)
@@ -407,7 +417,7 @@ function Whatis(...)
                 io.stderr:write(prefix, msg, "\n")
              end
    prtHdr    = dbg.quiet
-   Access(...)
+   Access("whatis",...)
 end
 
 function TryUsrLoad(...)
@@ -608,8 +618,6 @@ function getModuleT()
    }
    local userModuleTFN = pathJoin(cacheDir,"moduleT.lua")
 
-   local buildModuleT = true
-
    dbg.start("getModuleT()")
 
    local mpath = mt:getBaseMPATH()
@@ -621,24 +629,40 @@ function getModuleT()
       moduleDirA[#moduleDirA+1] = path
    end
 
-   local moduleTFN   = nil
-   local fileT       = nil
+   local buildModuleT = true
+   local moduleTFN    = nil
+   local fileT        = nil
+   local timeDiff     = math.huge
+   local idx                        -- The index for the cachefile to use.
+
+   ------------------------------------------------
+   -- Search over cacheFile and find the most recent one.
+   -- Check for user cache file and system cache file.
+   -- Use system file if acceptable?
+
+
    for i = 1,#cacheFileA do
       local f = cacheFileA[i].file
       dbg.print("cacheFile: ",f,"\n")
       if (isFile(f)) then
-         local attr     = lfs.attributes(f)
-         local timeDiff = os.time() - attr.modification
-         buildModuleT   = timeDiff > ancient  -- rebuild if older than a day
-         dbg.print("timeDiff: ",timeDiff," buildModuleT: ", tostring(buildModuleT),"\n")
+         local attr   = lfs.attributes(f)
+
+         -- Check Time
+
+         local diff   = os.time() - attr.modification
+         buildModuleT = diff > ancient  -- rebuild if older than a day
+         dbg.print("timeDiff: ",diff," buildModuleT: ", tostring(buildModuleT),"\n")
+
+
          if (not buildModuleT) then
+         
+            -- Check for matching default MODULEPATH.
             assert(loadfile(f))()
             local defaultMpathA = _G.defaultMpathA
             if (#moduleDirA ~= #defaultMpathA) then
                buildModuleT = true -- rebuild because the number of dirs has changed.
                dbg.print("(2) buildModuleT: ", tostring(buildModuleT),"\n")
             else
-               buildModuleT = false
                for i = 1,#moduleDirA do
                   if (moduleDirA[i] ~= defaultMpathA[i]) then
                      buildModuleT = true
@@ -647,14 +671,19 @@ function getModuleT()
                end
                dbg.print("(3) buildModuleT: ", tostring(buildModuleT),"\n")
             end
-            dbg.print("(4) buildModuleT: ", tostring(buildModuleT),"\n")
-            if (not buildModuleT) then
-               moduleTFN    = f
-               fileT        = cacheFileA[i].fileT
-               break
-            end
+         end
+
+         if (not buildModuleT and diff < timeDiff) then
+            timeDiff = diff
+            idx      = i
+            dbg.print("Setting idx: ",idx,"\n")
          end
       end
+   end
+
+   if (not buildModuleT) then
+      moduleTFN = cacheFileA[i].file
+      fileT     = cacheFileA[i].fileT
    end
 
    if (moduleTFN) then
@@ -672,7 +701,9 @@ function getModuleT()
       LmodError    = errRtn
       LmodMessage  = message
       dbg.print("t2-t1: ",t2-t1, " shortTime: ", shortTime, "\n")
-      if (t2 - t1 > shortTime) then
+      if (t2 - t1 < shortTime) then
+         dbg.print("Not writing cache file.\n")
+      else
          mkdir_recursive(cacheDir)
          local s0 = "-- Date: " .. os.date("%c",os.time()) .. "\n"
          local s1 = serializeTbl{name="defaultMpathA",value=moduleDirA,indent=true}
@@ -681,19 +712,22 @@ function getModuleT()
          f:write(s0,s1,s2)
          f:close()
          dbg.print("Wrote: ",userModuleTFN,"\n")
-      else
-         -- remove cache file if old
-         if (isFile(userModuleTFN)) then
-            posix.unlink(userModuleTFN);
-            dbg.print("Deleted: ",userModuleTFN,"\n")
-         else
-            dbg.print("Not writing cache file.\n")
-         end
       end
-
    else
+      assert(loadfile(moduleTFN))()
       moduleT = _G.moduleT
    end
+
+   -- remove user cache file if old
+   if (isFile(userModuleTFN)) then
+      local attr   = lfs.attributes(userModuleTFN)
+      local diff   = os.time() - attr.modification
+      if (diff > ancient) then 
+         posix.unlink(userModuleTFN);
+         dbg.print("Deleted: ",userModuleTFN,"\n")
+      end
+   end
+
    dbg.fini()
    return moduleT
 end

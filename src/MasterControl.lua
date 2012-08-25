@@ -30,7 +30,7 @@ local function valid_name(nameTbl, name)
    return nameTbl[name]
 end
 
-function M.build(name)
+function M.build(name,mode)
 
    local nameTbl          = {}
    local MCLoad           = require('MC_Load')
@@ -47,7 +47,10 @@ function M.build(name)
    nameTbl["computeHash"] = MCComputeHash
    nameTbl.default        = MCLoad
 
-   return valid_name(nameTbl, name):create()
+   local o                = valid_name(nameTbl, name):create()
+   o:_setMode(mode or name)
+
+   return o
 end
 
 -------------------------------------------------------------------
@@ -88,7 +91,7 @@ function M.load(self, ...)
       end
 
       if (next(t)) then
-         local term_width  = tonumber(capture("tput cols") or "80")
+         local term_width  = TermWidth()
          if (term_width < 40) then
             term_width = 80
          end
@@ -467,40 +470,20 @@ function M.is_spider(self)
    return false
 end
 
-function M.mode_load(self)
+function M._setMode(self, mode)
    local dbg    = Dbg:dbg()
-   dbg.start("MasterControl:mode_load()")
+   dbg.start("MasterControl:_setMode(\"",mode,"\")")
+   self._mode = mode
    dbg.fini()
-   return "load"
+end
+
+function M.mode(self)
+   local dbg    = Dbg:dbg()
+   dbg.start("MasterControl:mode()")
+   dbg.print("mode: ", self._mode,"\n")
+   dbg.fini()
+   return self._mode
 end   
-
-function M.mode_unload(self)
-   local dbg    = Dbg:dbg()
-   dbg.start("MasterControl:mode_unload()")
-   dbg.fini()
-   return "unload"
-end   
-
-function M.mode_help(self)
-   local dbg    = Dbg:dbg()
-   dbg.start("MasterControl:mode_help()")
-   dbg.fini()
-   return "help"
-end
-
-function M.mode_show(self)
-   local dbg    = Dbg:dbg()
-   dbg.start("MasterControl:mode_show()")
-   dbg.fini()
-   return "show"
-end
-
-function M.mode_spider(self)
-   local dbg    = Dbg:dbg()
-   dbg.start("MasterControl:mode_spider()")
-   dbg.fini()
-   return "spider"
-end
 
 -------------------------------------------------------------------
 -- Quiet Functions

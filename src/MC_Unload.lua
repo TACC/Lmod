@@ -16,7 +16,6 @@ M.family          = MasterControl.unset_family
 M.help            = MasterControl.quiet
 M.inherit         = MasterControl.inherit
 M.load            = MasterControl.unload
-M.mode            = MasterControl.mode_unload
 M.prepend_path    = MasterControl.remove_path
 M.prereq          = MasterControl.quiet
 M.prereq_any      = MasterControl.quiet
