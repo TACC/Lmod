@@ -493,7 +493,7 @@ function M.spiderSearch(dbT, mname, help)
                 found = true
             end
          else
-            s = M.Level1(dbT, mname, help)
+            s = M.Level1(dbT, k, help)
             found = true
          end
          if (s) then
