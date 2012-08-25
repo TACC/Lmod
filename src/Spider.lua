@@ -604,7 +604,7 @@ function M.Level2(t, mname, full)
 
    for k,v in pairs(t) do
       dbg.print("v.full: ",v.full," mname: ",mname," k: ",k," full:", tostring(full),"\n")
-      if (v.full == mname) then
+      if (v.full_lower == mname_lower) then
          if (tt == nil) then
             tt = v
             ia = ia + 1; a[ia] = "\n"
