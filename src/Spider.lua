@@ -493,14 +493,13 @@ function M.spiderSearch(dbT, mname, help)
                 found = true
             end
          else
-            s = M.Level1(dbT, mname, help)
+            s = M.Level1(dbT, v.name, help)
             found = true
          end
          if (s) then
             io.stderr:write(s,"\n")
          end
       end
-      if (found) then break end
    end
    if (not found) then
       io.stderr:write("Unable to find: \"",mname,"\"\n")
