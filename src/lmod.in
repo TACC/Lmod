@@ -684,6 +684,7 @@ function getModuleT()
    if (idx) then
       moduleTFN = cacheFileA[idx].file
       fileT     = cacheFileA[idx].fileT
+      buildModuleT = false
    else
       buildModuleT = true
    end
