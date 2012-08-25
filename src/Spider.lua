@@ -500,6 +500,7 @@ function M.spiderSearch(dbT, mname, help)
             io.stderr:write(s,"\n")
          end
       end
+      if (found) then break end
    end
    if (not found) then
       io.stderr:write("Unable to find: \"",mname,"\"\n")
