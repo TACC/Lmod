@@ -587,6 +587,7 @@ function M.Level2(t, mname, full)
    local c  = {}
    local titleIdx = 0
    
+   
    local term_width = TermWidth() - 4
    local tt = nil
    local banner = border(2)
@@ -600,10 +601,11 @@ function M.Level2(t, mname, full)
    local haveHier = 0
    local mnameL   = mname:lower()
       
-
+   full = full or ""
+   local fullL = full:lower()
    for k,v in pairs(t) do
       dbg.print("v.full: ",v.full," mname: ",mname," k: ",k," full:", tostring(full),"\n")
-      if (v.full_lower == mnameL) then
+      if (v.full_lower == mnameL or v.full_lower == fullL) then
          if (tt == nil) then
             tt = v
             ia = ia + 1; a[ia] = "\n"
