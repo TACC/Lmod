@@ -84,8 +84,8 @@ function main()
    --dbg:activateDebug()
    dbg.start("computeHashSum()")
    
-   MCP           = MasterControl.build("computeHash")
-   mcp           = MasterControl.build("computeHash")
+   MCP           = MasterControl.build("computeHash","load")
+   mcp           = MasterControl.build("computeHash","load")
    dbg.print("mcp set to ",mcp:name(),"\n")
 
    loadModuleFile(arg[i])

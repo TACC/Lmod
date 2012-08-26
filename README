@@ -1,4 +1,20 @@
-Version 3.5.4:
+Version 3.6/3.6.1:
+
+ Features:
+    1) The command:
+         $ module spider foo
+       is now a case-insensitive search.  This means that "foo" will
+       match "foo", "Foo", "FooBar" and "BarFoo".
+    2) The "mode()" function return:
+
+         load, unload, help, whatis, spider
+
+       depending on what mode the module file is beening read.
+
+    3) Note that when reading in modules with the "computeHash" program
+       the mode is "load".  The computeHash program is used to compute
+       sha1 hashes of files as part of the setdefault/getdefault commands.
+
 
  Bug Fixes:
     1) set_alias() now correctly load and unloads, doesn't load
@@ -7,7 +23,7 @@ Version 3.5.4:
        It reports the error and keeps going.
     3) Loading a modulefile with a syntax error is handled
        cleanly.
-
+    4) Lmod now searches all possible caches and picks the one which is newest.
 
 Version 3.5.1/3.5.2:
 

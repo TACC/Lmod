@@ -5,7 +5,6 @@ step 1
 step 2
 ===========================
 The following is a list of the modules currently available:
-  PrgEnv: PrgEnv
   admin: admin/admin-1.0
   alex: alex/1.0
   boost: boost/1.46.0, boost/1.47.1, boost/1.49.0
@@ -22,6 +21,7 @@ The following is a list of the modules currently available:
   openmpi: openmpi/1.2.6
   parmetis: parmetis/3.1
     Parallel graph partitioning and fill-reduction matrix ordering routines 
+  PrgEnv: PrgEnv
   unix: unix/unix
 To learn more about a package enter:
    $ module spider Foo
@@ -66,7 +66,6 @@ step 8
 ===========================
 Using your spider cache file
 The following is a list of the modules currently available:
-  PrgEnv: PrgEnv
   admin: admin/admin-1.0
   alex: alex/1.0
   boost: boost/1.46.0, boost/1.47.1, boost/1.49.0
@@ -83,6 +82,7 @@ The following is a list of the modules currently available:
   openmpi: openmpi/1.2.6
   parmetis: parmetis/3.1
     Parallel graph partitioning and fill-reduction matrix ordering routines 
+  PrgEnv: PrgEnv
   unix: unix/unix
 To learn more about a package enter:
    $ module spider Foo
