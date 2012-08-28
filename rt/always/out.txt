@@ -1,0 +1,67 @@
+===========================
+step 1
+===========================
+unset LMOD_DEFAULT_MODULEPATH;
+unset MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="~/w/lmod/rt/always/mf";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="~/w/lmod/rt/always/mf";
+export MODULEPATH;
+export _ModuleTable_Sz_;
+_ModuleTable_='_ModuleTable_={active={Dict={},FN={},Loaded={},default={},fullModName={},mType={},},baseMpathA={"~/w/lmod/rt/always/mf",},family={},inactive={},mpathA={"~/w/lmod/rt/always/mf",},total={Dict={},FN={},Loaded={},default={},fullModName={},mType={},},["version"]=1,}';
+export _ModuleTable_;
+===========================
+step 2
+===========================
+LMOD_DEFAULT_MODULEPATH="~/w/lmod/rt/always/mf";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="~/w/lmod/rt/always/mf";
+export MODULEPATH;
+LMOD_A_DIR="/a/b/c";
+export LMOD_A_DIR;
+LMOD_B_DIR="/d/e/f";
+export LMOD_B_DIR;
+LMOD_DEFAULT_MODULEPATH="~/w/lmod/rt/always/mf";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="~/w/lmod/rt/always/mf";
+export MODULEPATH;
+export _ModuleTable_Sz_;
+_ModuleTable_='_ModuleTable_={active={Dict={["a"]=1,["b"]=2,["master"]=3,},FN={"~/w/lmod/rt/always/mf/a.lua","~/w/lmod/rt/always/mf/b.lua","~/w/lmod/rt/always/mf/master/1.0.lua",},Loaded={"a","b","master",},default={0,0,1,},fullModName={"a","b","master/1.0",},mType={"w","w","m",},},baseMpathA={"~/w/lmod/rt/always/mf",},family={},inactive={},mpathA={"~/w/lmod/rt/always/mf",},total={Dict={["a"]=1,["b"]=2,["master"]=3,},FN={"~/w/lmod/rt/always/mf/a.lua","~/w/lmod/rt/always/mf/b.lua","~/w/lmod/rt/always/mf/master/1.0.lua",},Loaded={"a","b","master",},default={0,0,1,},fullModName={"a","b","master/1.0",},mType={"w","w","m",},},["version"]=1,}';
+export _ModuleTable_;
+===========================
+step 3
+===========================
+LMOD_DEFAULT_MODULEPATH="~/w/lmod/rt/always/mf";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="~/w/lmod/rt/always/mf";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="~/w/lmod/rt/always/mf";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="~/w/lmod/rt/always/mf";
+export MODULEPATH;
+===========================
+step 4
+===========================
+LMOD_DEFAULT_MODULEPATH="~/w/lmod/rt/always/mf";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="~/w/lmod/rt/always/mf";
+export MODULEPATH;
+unset LMOD_B_DIR;
+LMOD_DEFAULT_MODULEPATH="~/w/lmod/rt/always/mf";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="~/w/lmod/rt/always/mf";
+export MODULEPATH;
+export _ModuleTable_Sz_;
+_ModuleTable_='_ModuleTable_={active={Dict={["a"]=1,},FN={"~/w/lmod/rt/always/mf/a.lua",},Loaded={"a",},default={0,},fullModName={"a",},mType={"w",},},baseMpathA={"~/w/lmod/rt/always/mf",},family={},inactive={},mpathA={"~/w/lmod/rt/always/mf",},total={Dict={["a"]=1,},FN={"~/w/lmod/rt/always/mf/a.lua",},Loaded={"a",},default={0,},fullModName={"a",},mType={"w",},},["version"]=1,}';
+export _ModuleTable_;
+===========================
+step 5
+===========================
+LMOD_DEFAULT_MODULEPATH="~/w/lmod/rt/always/mf";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="~/w/lmod/rt/always/mf";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="~/w/lmod/rt/always/mf";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="~/w/lmod/rt/always/mf";
+export MODULEPATH;

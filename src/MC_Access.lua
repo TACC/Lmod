@@ -6,6 +6,8 @@ MC_Access.my_name = "MC_Access"
 
 local M           = MC_Access
 
+M.always_load     = MasterControl.quiet
+M.always_unload   = MasterControl.quiet
 M.add_property    = MasterControl.quiet
 M.append_path     = MasterControl.quiet
 M.conflict        = MasterControl.quiet

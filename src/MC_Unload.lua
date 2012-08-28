@@ -9,6 +9,8 @@ local Dbg         = require("Dbg")
 local format      = string.format
 local getenv      = os.getenv
 
+M.always_load     = MasterControl.quiet
+M.always_unload   = MasterControl.unload
 M.add_property    = MasterControl.remove_property
 M.append_path     = MasterControl.remove_path
 M.conflict        = MasterControl.quiet

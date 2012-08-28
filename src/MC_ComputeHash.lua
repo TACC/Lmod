@@ -37,6 +37,14 @@ M.add_property    = MasterControl.quiet
 M.remove_property = MasterControl.quiet
 
 
+function M.always_load(self, ...)
+   ShowCmd("always_load",...)
+end
+
+function M.always_unload(self, ...)
+   ShowCmd("always_load",...)
+end
+
 function M.prepend_path(self, name, value, sep)
    if (name ~= "MODULEPATH") then return end
    ShowCmd("prepend_path", name, value, sep)

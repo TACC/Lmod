@@ -37,6 +37,24 @@ function unload(...)
 end
 
 
+function always_load(...)
+   local dbg = Dbg:dbg()
+   dbg.start("always_load(",concatTbl({...},", "),")")
+
+   local b = mcp:always_load(...)
+   dbg.fini()
+   return b
+end
+
+function always_unload(...)
+   local dbg = Dbg:dbg()
+   dbg.start("always_unload(",concatTbl({...},", "),")")
+
+   local b = mcp:always_unload(...)
+   dbg.fini()
+   return b
+end
+
 --- PATH functions ---
 
 function prepend_path(...)

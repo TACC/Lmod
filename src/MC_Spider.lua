@@ -7,6 +7,8 @@ MC_Spider.my_name = "MC_Spider"
 
 local M           = MC_Spider
 
+M.always_load     = MasterControl.quiet
+M.always_unload   = MasterControl.quiet
 M.conflict        = MasterControl.quiet
 M.error           = MasterControl.quiet
 M.family          = MasterControl.quiet

@@ -100,6 +100,18 @@ function M.unload(self, ...)
    ShowCmd("unload", ...)
 end
 
+function M.always_load(self, ...)
+   ShowCmd("always_load", ...)
+end
+
+function M.always_unload(self, ...)
+   ShowCmd("always_unload", ...)
+end
+
+function M.unload(self, ...)
+   ShowCmd("unload", ...)
+end
+
 function M.prereq(self, ...)
    ShowCmd("prereq",...)
 end
