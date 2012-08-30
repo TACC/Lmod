@@ -1,3 +1,20 @@
+Version 3.6.2+:
+
+  Features:
+     1) added module functions "always_load(...)", "always_unload(...)"
+        The function "always_load('abc')" could be replaced by:
+
+           if (mode() == "load") then
+              load('abc')
+           end
+
+        That is, it always loads and never unloads.
+
+        The always_unload('abc') inside a modulefile will ALWAYS
+        cause the module 'abc' to be unloaded.  This is safe to do even
+        if the module is not loaded.
+
+
 Version 3.6/3.6.1:
 
  Features:
