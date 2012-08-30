@@ -73,8 +73,8 @@ function M.load(self, ...)
       local t       = {}
       readAdmin()
       for _, moduleName in ipairs{...} do
-         local moduleFn  = mt:fileNameActive(moduleName)
-         local modFullNm = mt:modFullNameActive(moduleName)
+         local moduleFn  = mt:fileName(moduleName)
+         local modFullNm = mt:fullName(moduleName)
          local message
          local key
          if (adminT[moduleFn]) then
@@ -130,8 +130,8 @@ function M.unload(self, ...)
    dbg.start("MasterControl:unload(", concatTbl({...},", "),")")
 
    for _,v in ipairs{...} do
-      if (mt:haveModuleAnyTotal(v)) then
-         mt:removeTotal(v)
+      if (mt:have(v,"any")) then
+         mt:remove(v)
       end
    end
    mStack:loading()
@@ -362,7 +362,7 @@ function M.prereq(self, ...)
    dbg.start("MasterControl:prereq(",concatTbl({...},", "),")")
 
    for _,v in ipairs{...} do
-      if (not mt:haveModuleActive(v)) then
+      if (not mt:have(v,"active")) then
          a[#a+1] = v
       end
    end
@@ -385,7 +385,7 @@ function M.conflict(self, ...)
    local mStack = ModuleStack:moduleStack()
    local mName  = mStack:moduleName()
    for _,v in ipairs{...} do
-      if (mt:haveModuleActive(v)) then
+      if (mt:have(v,"active")) then
          a[#a+1] = v
       end
    end
@@ -408,7 +408,7 @@ function M.prereq_any(self, ...)
 
    local found  = false
    for _,v in ipairs{...} do
-      if (mt:haveModuleActive(v)) then
+      if (mt:have(v,"active")) then
          found = true
          break;
       end

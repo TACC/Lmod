@@ -8,7 +8,7 @@ export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="~/w/lmod/rt/always/mf";
 export MODULEPATH;
 export _ModuleTable_Sz_;
-_ModuleTable_='_ModuleTable_={active={Dict={},FN={},Loaded={},default={},fullModName={},mType={},},baseMpathA={"~/w/lmod/rt/always/mf",},family={},inactive={},mpathA={"~/w/lmod/rt/always/mf",},total={Dict={},FN={},Loaded={},default={},fullModName={},mType={},},["version"]=1,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"~/w/lmod/rt/always/mf",},family={},inactive={},mT={},mpathA={"~/w/lmod/rt/always/mf",},["version"]=2,}';
 export _ModuleTable_;
 ===========================
 step 2
@@ -26,7 +26,7 @@ export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="~/w/lmod/rt/always/mf";
 export MODULEPATH;
 export _ModuleTable_Sz_;
-_ModuleTable_='_ModuleTable_={active={Dict={["a"]=1,["b"]=2,["master"]=3,},FN={"~/w/lmod/rt/always/mf/a.lua","~/w/lmod/rt/always/mf/b.lua","~/w/lmod/rt/always/mf/master/1.0.lua",},Loaded={"a","b","master",},default={0,0,1,},fullModName={"a","b","master/1.0",},mType={"w","w","m",},},baseMpathA={"~/w/lmod/rt/always/mf",},family={},inactive={},mpathA={"~/w/lmod/rt/always/mf",},total={Dict={["a"]=1,["b"]=2,["master"]=3,},FN={"~/w/lmod/rt/always/mf/a.lua","~/w/lmod/rt/always/mf/b.lua","~/w/lmod/rt/always/mf/master/1.0.lua",},Loaded={"a","b","master",},default={0,0,1,},fullModName={"a","b","master/1.0",},mType={"w","w","m",},},["version"]=1,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"~/w/lmod/rt/always/mf",},family={},inactive={},mT={a={["FN"]="~/w/lmod/rt/always/mf/a.lua",["default"]=0,["fullName"]="a",["hash"]=0,["loadOrder"]=2,["short"]="a",["status"]="active",},b={["FN"]="~/w/lmod/rt/always/mf/b.lua",["default"]=0,["fullName"]="b",["hash"]=0,["loadOrder"]=3,["short"]="b",["status"]="active",},master={["FN"]="~/w/lmod/rt/always/mf/master/1.0.lua",["default"]=1,["fullName"]="master/1.0",["hash"]=0,["loadOrder"]=1,["short"]="master",["status"]="active",},},mpathA={"~/w/lmod/rt/always/mf",},["version"]=2,}';
 export _ModuleTable_;
 ===========================
 step 3
@@ -46,13 +46,12 @@ LMOD_DEFAULT_MODULEPATH="~/w/lmod/rt/always/mf";
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="~/w/lmod/rt/always/mf";
 export MODULEPATH;
-unset LMOD_B_DIR;
 LMOD_DEFAULT_MODULEPATH="~/w/lmod/rt/always/mf";
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="~/w/lmod/rt/always/mf";
 export MODULEPATH;
 export _ModuleTable_Sz_;
-_ModuleTable_='_ModuleTable_={active={Dict={["a"]=1,},FN={"~/w/lmod/rt/always/mf/a.lua",},Loaded={"a",},default={0,},fullModName={"a",},mType={"w",},},baseMpathA={"~/w/lmod/rt/always/mf",},family={},inactive={},mpathA={"~/w/lmod/rt/always/mf",},total={Dict={["a"]=1,},FN={"~/w/lmod/rt/always/mf/a.lua",},Loaded={"a",},default={0,},fullModName={"a",},mType={"w",},},["version"]=1,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"~/w/lmod/rt/always/mf",},family={},inactive={},mT={a={["FN"]="~/w/lmod/rt/always/mf/a.lua",["default"]=0,["fullName"]="a",["hash"]=0,["loadOrder"]=1,["short"]="a",["status"]="active",},b={["FN"]="~/w/lmod/rt/always/mf/b.lua",["default"]=0,["fullName"]="b",["hash"]=0,["loadOrder"]=2,["short"]="b",["status"]="active",},},mpathA={"~/w/lmod/rt/always/mf",},["version"]=2,}';
 export _ModuleTable_;
 ===========================
 step 5

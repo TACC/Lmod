@@ -178,7 +178,7 @@ end
 local function List(...)
    local mt = MT:mt()
 
-   local totalA = mt:listTotal()
+   local totalA = mt:list("short","any")
    if (#totalA < 1) then
       local dbg = Dbg:dbg()
       dbg.warning("No modules installed\n")
@@ -192,7 +192,7 @@ local function List(...)
 
 
    local msg     = "Currently Loaded Modules"
-   local activeA = mt:listActive()
+   local activeA = mt:list("short","active")
    local t       = {}
    local msg2    = ":"
 
@@ -205,7 +205,7 @@ local function List(...)
    io.stderr:write(msg,msg2,"\n")
    local k = 0
    for i = 1, #activeA do
-      local m = mt:modFullNameActive(activeA[i])
+      local m = mt:fullName(activeA[i])
       for j = 1, #wanted do
          local p = wanted[j]
          if (m:find(p,1,true) or m:find(p)) then
@@ -227,8 +227,8 @@ local function List(...)
    local k = 0
    for i = 1, #totalA do
       local v = totalA[i]
-      if (not mt:haveModuleAnyActive(v)) then
-         local m = mt:modFullNameTotal(v)
+      if (not mt:have(v,"active")) then
+         local m = mt:fullName(v)
          for j = 1, #wanted do
             local p = wanted[j]
             if (m:find(p,1,true) or m:find(p)) then
@@ -250,9 +250,9 @@ local function TableList()
    local mt = MT:mt()
 
    local t = {}
-   local activeA = mt:listActive()
+   local activeA = mt:list("short","active")
    for i,v  in ipairs(activeA) do
-      local w = mt:modFullNameActive(v)
+      local w = mt:fullName(v)
       local _, _, name, version = w:find("([^/]*)/?(.*)")
       t[name] = version
    end
@@ -446,7 +446,7 @@ function UsrLoad(...)
             v = v:sub(2)
          end
          a[#a + 1] = v
-         if (mt:haveModuleAnyActive(v)) then
+         if (mt:have(v,"active")) then
             MCP:unload(v)
          end
       end
@@ -494,10 +494,8 @@ local function SetDefault(...)
    if (isFile(path)) then
       os.rename(path, path .. "~")
    end
-   mt:assignHashSumActive()
-   mt.active.hash = mt.active._hash
+   mt:assignHashSum()
    serializeTbl{name=mt:name(), value=mt, fn = path, indent = true}
-   mt.active.hash = nil
    dbg.fini()
 end
 
@@ -564,7 +562,7 @@ local function Swap(...)
    end
 
    local mt     = MT:mt()
-   if (not mt:haveModuleAnyTotal(a)) then
+   if (not mt:have(a,"any")) then
       LmodError("Swap failed: \"",a,"\" is not loaded.\n")
    end
 

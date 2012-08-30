@@ -219,7 +219,7 @@ function loadModuleFile(t)
       end
    else
       local mt	  = MT:mt()
-      local opt   = "-l \"" .. mt:loadActiveList() .. "\""
+      local opt   = "-l \"" .. mt:list("short","active") .. "\""
       if (t.help) then
          opt      = t.help
       end
@@ -273,12 +273,12 @@ function M.unload(...)
 
    a = {}
    for _, moduleName in ipairs{...} do
-      if (mt:haveModuleAnyActive(moduleName)) then
-         local f              = mt:fileNameActive(moduleName)
-         local fullModuleName = mt:modFullNameActive(moduleName)
+      if (mt:have(moduleName,"active")) then
+         local f              = mt:fileName(moduleName)
+         local fullModuleName = mt:fullName(moduleName)
          dbg.print("Master:unload: \"",fullModuleName,"\" from f: ",f,"\n")
          mt:beginOP()
-         mt:removeActive(moduleName)
+         mt:remove(moduleName)
          mStack:push(fullModuleName)
 	 loadModuleFile{file=f,moduleName=moduleName,reportErr=false}
          mStack:pop()
@@ -319,9 +319,9 @@ end
 
 local function access_find_module_file(moduleName)
    local mt = MT:mt()
-   if (mt:haveModuleTotal(moduleName)) then
-      local full = mt:modFullNameTotal(moduleName) 
-      return mt:fileNameTotal(moduleName), full or ""
+   if (mt:have(moduleName, "any")) then
+      local full = mt:fullName(moduleName) 
+      return mt:fileName(moduleName), full or ""
    end
    local fn   = nil
    local full = nil
@@ -383,7 +383,7 @@ function M.load(...)
       local loaded  = false
       local t	    = find_module_file(moduleName)
       local fn      = t.fn
-      if (mt:haveModuleAnyActive(moduleName) and fn  ~= mt:fileNameActive(moduleName)) then
+      if (mt:have(moduleName,"active") and fn  ~= mt:fileName(moduleName)) then
          dbg.print("Master:load reload module: \"",moduleName,"\" as it is already loaded\n")
          local mcp_old = mcp
          mcp           = MCP
@@ -394,15 +394,15 @@ function M.load(...)
       elseif (fn) then
          dbg.print("Master:loading: \"",moduleName,"\" from f: \"",fn,"\"\n")
 	 mt:beginOP()
+         mt:add(t, "pending")
          mStack:push(t.modFullName)
 	 loadModuleFile{file=fn,moduleName=moduleName,reportErr=true}
          t.mType = mStack:moduleType()
          mStack:pop()
 	 mt:endOP()
-         mt:addActive(t)
-         mt:addTotal(t)
+         mt:setStatus(t.modName,"active")
          loaded = true
-      elseif (not mt:haveModuleTotal(moduleName)) then
+      elseif (not mt:have(moduleName,"any")) then
          dbg.warning("Did not find: ",moduleName,"\n\n",
                      "Try: \"module spider ", moduleName,"\"\n" )
       end
@@ -428,8 +428,7 @@ function M.fakeload(...)
       local fn     = t.fn
       if (fn) then
          t.mType = "m"
-         mt:addActive(t)
-         mt:addTotal(t)
+         mt:add(t,"active")
          loaded = true
       end
       a[#a+1] = loaded
@@ -450,33 +449,33 @@ function M.reloadAll()
    dbg.print("Setting mpc to ", mcp:name(),"\n")
 
    local same = true
-   local a    = mt:listTotal()
+   local a    = mt:list("short","any")
    for _, v in ipairs(a) do
-      if (mt:haveModuleActive(v)) then
-         local _, fullName = mt:modFullNameTotal(v)
-         local t           = find_module_file(fullName)
-         local fn          = mt:fileNameTotal(v)
+      if (mt:have(v,"active")) then
+         local fullName = mt:fullName(v)
+         local t        = find_module_file(fullName)
+         local fn       = mt:fileName(v)
          if (t.fn ~= fn) then
             dbg.print("Master:reloadAll t.fn: \"",t.fn or "nil","\"",
-                      " mt:fileNameTotal(v): \"",fn or "nil","\"\n")
+                      " mt:fileName(v): \"",fn or "nil","\"\n")
             dbg.print("Master:reloadAll Unloading module: \"",v,"\"\n")
             mcp:unloadsys(v)
             dbg.print("Master:reloadAll Loading module: \"",fullName or "nil","\"\n")
             local loadA = mcp:load(fullName)
             dbg.print("Master:reloadAll: fn: \"",fn or "nil",
-                      "\" mt:fileNameTotal(v): \"", mt:fileNameTotal(v) or "nil","\"\n")
-            if (loadA[1] and fn ~= mt:fileNameTotal(v)) then
+                      "\" mt:fileName(v): \"", mt:fileName(v) or "nil","\"\n")
+            if (loadA[1] and fn ~= mt:fileName(v)) then
                same = false
                s_master.reloadT[fullName] = 1
                dbg.print("Master:reloadAll module: ",fullName," marked as reloaded\n")
             end
          end
       else
-         local fn          = mt:fileNameTotal(v)
-         local _, fullName = mt:modFullNameTotal(v)
+         local fn       = mt:fileName(v)
+         local fullName = mt:fullName(v)
          dbg.print("Master:reloadAll Loading module: \"",fullName or "nil","\"\n")
          local aa = mcp:load(fullName)
-         if (aa[1] and fn ~= mt:fileNameTotal(v)) then
+         if (aa[1] and fn ~= mt:fileName(v)) then
             s_master.reloadT[fullName] = 1
             dbg.print("Master:reloadAll module: ",fullName," marked as reloaded\n")
          end

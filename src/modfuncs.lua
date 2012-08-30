@@ -254,7 +254,7 @@ end
 
 function isloaded(m)
    local mt = MT:mt()
-   return mt:haveModuleActive(m)
+   return mt:have(m,"active")
 end
 
 function display(...)

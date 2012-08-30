@@ -14,7 +14,7 @@ function Purge()
    local mt     = MT:mt()
    local dbg    = Dbg:dbg()
 
-   local totalA  = mt:listTotal()
+   local totalA  = mt:list("short","any")
 
    if (#totalA < 1) then
       return
