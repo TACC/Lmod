@@ -401,6 +401,7 @@ function M.load(...)
          mStack:pop()
 	 mt:endOP()
          mt:setStatus(t.modName,"active")
+         dbg.print("Marked: ",t.modFullName," as loaded\n")
          loaded = true
       elseif (not mt:have(moduleName,"any")) then
          dbg.warning("Did not find: ",moduleName,"\n\n",
@@ -441,8 +442,6 @@ function M.reloadAll()
    local dbg  = Dbg:dbg()
    dbg.start("Master:reloadAll()")
 
-
-   -- Change to 
 
    local mcp_old = mcp
    mcp = MCP

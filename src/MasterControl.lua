@@ -434,7 +434,7 @@ function M.family(self, name)
    dbg.start("MasterControl:family(",name,")")
    dbg.print("mt:setfamily(\"",name,"\",\"",baseName,"\")\n")
    local oldName = mt:setfamily(name,baseName)
-   if (oldName ~= nil and oldName ~= mName and not expert() ) then
+   if (oldName ~= nil and oldName ~= baseName and not expert() ) then
       LmodError("You can only have one ",name," module loaded at time.\n",
                 "You already have ", oldName," loaded.\n",
                 "To correct the situation, please enter the following command:\n\n",

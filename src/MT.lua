@@ -457,7 +457,8 @@ function M.list(self, kind, status)
    local b    = {}
 
    for k,v in pairs(mT) do
-      if (status == "any" or status == v.status) then
+      if ((status == "any" or status == v.status) and
+          (v.status ~= "pending")) then
          icnt = icnt + 1
          a[icnt] = { v[kind], v.loadOrder}
       end
