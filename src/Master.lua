@@ -219,7 +219,8 @@ function loadModuleFile(t)
       end
    else
       local mt	  = MT:mt()
-      local opt   = "-l \"" .. mt:list("short","active") .. "\""
+      local s     = concatTbl(mt:list("short","active"),":")
+      local opt   = "-l \"" .. s .. "\""
       if (t.help) then
          opt      = t.help
       end
