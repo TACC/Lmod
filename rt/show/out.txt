@@ -10,7 +10,7 @@ export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="~/w/lmod/mf/Core:~/w/lmod/mf/Compiler/intel/10.1";
 export MODULEPATH;
 export _ModuleTable_Sz_;
-_ModuleTable_='_ModuleTable_={active={Dict={},FN={},Loaded={},default={},fullModName={},mType={},},baseMpathA={"~/w/lmod/mf/Core","~/w/lmod/mf/Compiler/intel/10.1",},family={},inactive={},mpathA={"~/w/lmod/mf/Core","~/w/lmod/mf/Compiler/intel/10.1",},total={Dict={},FN={},Loaded={},default={},fullModName={},mType={},},["version"]=1,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"~/w/lmod/mf/Core","~/w/lmod/mf/Compiler/intel/10.1",},family={},inactive={},mT={},mpathA={"~/w/lmod/mf/Core","~/w/lmod/mf/Compiler/intel/10.1",},["version"]=2,}';
 export _ModuleTable_;
 ===========================
 step 2

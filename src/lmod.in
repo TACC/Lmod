@@ -457,6 +457,20 @@ function UsrLoad(...)
    local b       = mcp:load(unpack(a))
    mcp           = mcp_old
 
+   
+   local aa = {}
+   for i = 1,#a do
+      if (not mt:have(a[i],"active")) then
+         aa[#aa+1] = a[i]
+      end
+   end
+      
+   if (#aa > 0) then
+      local s = concatTbl(aa," ")
+      dbg.warning("Did not find: ",s,"\n\n",
+                  "Try: \"module spider ", s,"\"\n" )
+   end
+
    dbg.fini()
    return b
 end
@@ -494,7 +508,7 @@ local function SetDefault(...)
    if (isFile(path)) then
       os.rename(path, path .. "~")
    end
-   mt:setHash()
+   mt:setHashSum()
    serializeTbl{name=mt:name(), value=mt, fn = path, indent = true}
    dbg.fini()
 end

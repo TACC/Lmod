@@ -50,7 +50,7 @@ export SHLIB_PATH;
 TACC_FAMILY_COMPILER="pgi";
 export TACC_FAMILY_COMPILER;
 export _ModuleTable_Sz_;
-_ModuleTable_='_ModuleTable_={active={Dict={["TACC.orig"]=5,["cluster.orig"]=4,["globus"]=3,["mvapich1"]=2,["pgi"]=1,},FN={"~/w/lmod/mf/TACC/pgi/7.1","~/w/lmod/mf/TACC_COMPILER/pgi/7.1/mvapich1/1.0","~/w/lmod/mf/TACC/globus/4.0.7","~/w/lmod/mf/TACC/cluster.orig","~/w/lmod/mf/TACC/TACC.orig",},Loaded={"pgi","mvapich1","globus","cluster.orig","TACC.orig",},default={1,1,1,0,0,},fullModName={"pgi/7.1","mvapich1/1.0","globus/4.0.7","cluster.orig","TACC.orig",},mType={"w","w","w","mw","mw",},},baseMpathA={"~/w/lmod/mf/TACC",},family={["compiler"]="pgi",},inactive={},mpathA={"~/w/lmod/mf/TACC_COMPILER/pgi/7.1","~/w/lmod/mf/TACC",},total={Dict={["TACC.orig"]=5,["cluster.orig"]=4,["globus"]=3,["mvapich1"]=2,["pgi"]=1,},FN={"~/w/lmod/mf/TACC/pgi/7.1","~/w/lmod/mf/TACC_COMPILER/pgi/7.1/mvapich1/1.0","~/w/lmod/mf/TACC/globus/4.0.7","~/w/lmod/mf/TACC/cluster.orig","~/w/lmod/mf/TACC/TACC.orig",},Loaded={"pgi","mvapich1","globus","cluster.orig","TACC.orig",},default={1,1,1,0,0,},fullModName={"pgi/7.1","mvapich1/1.0","globus/4.0.7","cluster.orig","TACC.orig",},mType={"w","w","w","mw","mw",},},["version"]=1,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=5,baseMpathA={"~/w/lmod/mf/TACC",},family={["compiler"]="pgi",},inactive={},mT={["TACC.orig"]={["FN"]="~/w/lmod/mf/TACC/TACC.orig",["default"]=0,["fullName"]="TACC.orig",["hash"]=0,["loadOrder"]=1,["mType"]="mw",["short"]="TACC.orig",["status"]="active",},["cluster.orig"]={["FN"]="~/w/lmod/mf/TACC/cluster.orig",["default"]=0,["fullName"]="cluster.orig",["hash"]=0,["loadOrder"]=2,["mType"]="mw",["short"]="cluster.orig",["status"]="active",},globus={["FN"]="~/w/lmod/mf/TACC/globus/4.0.7",["default"]=1,["fullName"]="globus/4.0.7",["hash"]=0,["loadOrder"]=5,["mType"]="w",["short"]="globus",["status"]="active",},mvapich1={["FN"]="~/w/lmod/mf/TACC_COMPILER/pgi/7.1/mvapich1/1.0",["default"]=1,["fullName"]="mvapich1/1.0",["hash"]=0,["loadOrder"]=4,["mType"]="w",["short"]="mvapich1",["status"]="active",},pgi={["FN"]="~/w/lmod/mf/TACC/pgi/7.1",["default"]=1,["fullName"]="pgi/7.1",["hash"]=0,["loadOrder"]=3,["mType"]="w",["short"]="pgi",["status"]="active",},},mpathA={"~/w/lmod/mf/TACC_COMPILER/pgi/7.1","~/w/lmod/mf/TACC",},["version"]=2,}';
 export _ModuleTable_;
 ===========================
 step 2
@@ -71,40 +71,19 @@ LMOD_DEFAULT_MODULEPATH="~/w/lmod/mf/TACC";
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="~/w/lmod/mf/TACC_COMPILER/pgi/7.1:~/w/lmod/mf/TACC";
 export MODULEPATH;
-unset APPS;
-unset GLOBUS_HOSTNAME;
-unset GLOBUS_LOCATION;
-unset GLOBUS_PATH;
-unset GLOBUS_TCP_PORT_RANGE;
-unset GPT_LOCATION;
-unset INFOPATH;
-unset LD_LIBRARY_PATH;
-unset LIBPATH;
 LMOD_DEFAULT_MODULEPATH="~/w/lmod/mf/TACC";
 export LMOD_DEFAULT_MODULEPATH;
-unset LMOD_FAMILY_COMPILER;
-unset MANPATH;
-MODULEPATH="~/w/lmod/mf/TACC";
+MODULEPATH="~/w/lmod/mf/TACC_COMPILER/pgi/7.1:~/w/lmod/mf/TACC";
 export MODULEPATH;
-unset MPICH_HOME;
-unset MYPROXY_SERVER;
-PATH="~/w/lmod/src:PATH_to_TM:/bin:/opt/local/libexec/gnubin";
-export PATH;
-unset PGI;
-unset PURGE;
-unset RSHCOMMAND;
-unset SASL_PATH;
-unset SHLIB_PATH;
-unset TACC_FAMILY_COMPILER;
 export _ModuleTable_Sz_;
-_ModuleTable_='_ModuleTable_={active={Dict={},FN={},Loaded={},default={},fullModName={},mType={},},baseMpathA={"~/w/lmod/mf/TACC",},family={},inactive={},mpathA={"~/w/lmod/mf/TACC",},total={Dict={},FN={},Loaded={},default={},fullModName={},mType={},},["version"]=1,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"~/w/lmod/mf/TACC",},family={["compiler"]="pgi",},inactive={},mT={},mpathA={"~/w/lmod/mf/TACC_COMPILER/pgi/7.1","~/w/lmod/mf/TACC",},["version"]=2,}';
 export _ModuleTable_;
 ===========================
 step 4
 ===========================
 LMOD_DEFAULT_MODULEPATH="~/w/lmod/mf/TACC";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="~/w/lmod/mf/TACC";
+MODULEPATH="~/w/lmod/mf/TACC_COMPILER/pgi/7.1:~/w/lmod/mf/TACC";
 export MODULEPATH;
 APPS="/opt/apps";
 export APPS;
@@ -136,7 +115,7 @@ MPICH_HOME="/opt/apps/pgi7_1/mvapich/1.0";
 export MPICH_HOME;
 MYPROXY_SERVER="myproxy.teragrid.org";
 export MYPROXY_SERVER;
-PATH="/usr/local/first:/share/apps/teragrid/globus-4.0.7-r1/myproxy-3.4/bin:/share/apps/teragrid/globus-4.0.7-r1/bin:/share/apps/teragrid/globus-4.0.7-r1/sbin:/opt/apps/pgi7_1/mvapich/1.0/bin:/opt/apps/pgi/7.1/linux86-64/7.1-2/bin:~/w/lmod/src:PATH_to_TM:/bin:/opt/local/libexec/gnubin:/opt/apps/pki_apps:/usr/local/bin:/share/sge6.2/default/pe_scripts:.";
+PATH="/usr/local/first:/share/apps/teragrid/globus-4.0.7-r1/myproxy-3.4/bin:/share/apps/teragrid/globus-4.0.7-r1/bin:/share/apps/teragrid/globus-4.0.7-r1/sbin:/opt/apps/pgi7_1/mvapich/1.0/bin:/opt/apps/pgi/7.1/linux86-64/7.1-2/bin:~/w/lmod/src:PATH_to_TM:/bin:/opt/local/libexec/gnubin:/share/sge/default/pe_scripts:~/bin:/opt/apps/pki_apps:/usr/local/bin:/share/sge6.2/default/pe_scripts:.";
 export PATH;
 PGI="/opt/apps/pgi/7.1";
 export PGI;
@@ -155,7 +134,7 @@ export SYSTEM;
 TACC_FAMILY_COMPILER="pgi";
 export TACC_FAMILY_COMPILER;
 export _ModuleTable_Sz_;
-_ModuleTable_='_ModuleTable_={active={Dict={["Linux"]=1,["TACC"]=8,["TACC-paths"]=7,["cluster"]=6,["cluster-paths"]=5,["globus"]=4,["mvapich1"]=3,["pgi"]=2,},FN={"~/w/lmod/mf/TACC/Linux","~/w/lmod/mf/TACC/pgi/7.1","~/w/lmod/mf/TACC_COMPILER/pgi/7.1/mvapich1/1.0","~/w/lmod/mf/TACC/globus/4.0.7","~/w/lmod/mf/TACC/cluster-paths","~/w/lmod/mf/TACC/cluster","~/w/lmod/mf/TACC/TACC-paths.lua","~/w/lmod/mf/TACC/TACC",},Loaded={"Linux","pgi","mvapich1","globus","cluster-paths","cluster","TACC-paths","TACC",},default={0,1,1,1,0,0,0,0,},fullModName={"Linux","pgi/7.1","mvapich1/1.0","globus/4.0.7","cluster-paths","cluster","TACC-paths","TACC",},mType={"w","w","w","w","w","m","w","m",},},baseMpathA={"~/w/lmod/mf/TACC",},family={["compiler"]="pgi",},inactive={},mpathA={"~/w/lmod/mf/TACC_COMPILER/pgi/7.1","~/w/lmod/mf/TACC",},total={Dict={["Linux"]=1,["TACC"]=8,["TACC-paths"]=7,["cluster"]=6,["cluster-paths"]=5,["globus"]=4,["mvapich1"]=3,["pgi"]=2,},FN={"~/w/lmod/mf/TACC/Linux","~/w/lmod/mf/TACC/pgi/7.1","~/w/lmod/mf/TACC_COMPILER/pgi/7.1/mvapich1/1.0","~/w/lmod/mf/TACC/globus/4.0.7","~/w/lmod/mf/TACC/cluster-paths","~/w/lmod/mf/TACC/cluster","~/w/lmod/mf/TACC/TACC-paths.lua","~/w/lmod/mf/TACC/TACC",},Loaded={"Linux","pgi","mvapich1","globus","cluster-paths","cluster","TACC-paths","TACC",},default={0,1,1,1,0,0,0,0,},fullModName={"Linux","pgi/7.1","mvapich1/1.0","globus/4.0.7","cluster-paths","cluster","TACC-paths","TACC",},mType={"w","w","w","w","w","m","w","m",},},["version"]=1,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=8,baseMpathA={"~/w/lmod/mf/TACC",},family={["compiler"]="pgi",},inactive={},mT={Linux={["FN"]="~/w/lmod/mf/TACC/Linux",["default"]=0,["fullName"]="Linux",["hash"]=0,["loadOrder"]=2,["mType"]="w",["short"]="Linux",["status"]="active",},TACC={["FN"]="~/w/lmod/mf/TACC/TACC",["default"]=0,["fullName"]="TACC",["hash"]=0,["loadOrder"]=1,["mType"]="m",["short"]="TACC",["status"]="active",},["TACC-paths"]={["FN"]="~/w/lmod/mf/TACC/TACC-paths.lua",["default"]=0,["fullName"]="TACC-paths",["hash"]=0,["loadOrder"]=8,["mType"]="w",["short"]="TACC-paths",["status"]="active",},cluster={["FN"]="~/w/lmod/mf/TACC/cluster",["default"]=0,["fullName"]="cluster",["hash"]=0,["loadOrder"]=3,["mType"]="m",["short"]="cluster",["status"]="active",},["cluster-paths"]={["FN"]="~/w/lmod/mf/TACC/cluster-paths",["default"]=0,["fullName"]="cluster-paths",["hash"]=0,["loadOrder"]=7,["mType"]="w",["short"]="cluster-paths",["status"]="active",},globus={["FN"]="~/w/lmod/mf/TACC/globus/4.0.7",["default"]=1,["fullName"]="globus/4.0.7",["hash"]=0,["loadOrder"]=6,["mType"]="w",["short"]="globus",["status"]="active",},mvapich1={["FN"]="~/w/lmod/mf/TACC_COMPILER/pgi/7.1/mvapich1/1.0",["default"]=1,["fullName"]="mvapich1/1.0",["hash"]=0,["loadOrder"]=5,["mType"]="w",["short"]="mvapich1",["status"]="active",},pgi={["FN"]="~/w/lmod/mf/TACC/pgi/7.1",["default"]=1,["fullName"]="pgi/7.1",["hash"]=0,["loadOrder"]=4,["mType"]="w",["short"]="pgi",["status"]="active",},},mpathA={"~/w/lmod/mf/TACC_COMPILER/pgi/7.1","~/w/lmod/mf/TACC",},["version"]=2,}';
 export _ModuleTable_;
 ===========================
 step 5
@@ -168,3 +147,6 @@ LMOD_DEFAULT_MODULEPATH="~/w/lmod/mf/TACC";
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="~/w/lmod/mf/TACC_COMPILER/pgi/7.1:~/w/lmod/mf/TACC";
 export MODULEPATH;
+export _ModuleTable_Sz_;
+_ModuleTable_='_ModuleTable_={["activeSize"]=8,baseMpathA={"~/w/lmod/mf/TACC",},family={["compiler"]="pgi",},inactive={},mT={Linux={["FN"]="~/w/lmod/mf/TACC/Linux",["default"]=0,["fullName"]="Linux",["hash"]="da39a3ee5e6b4b0d3255bfef95601890afd80709",["loadOrder"]=2,["mType"]="w",["short"]="Linux",["status"]="active",},TACC={["FN"]="~/w/lmod/mf/TACC/TACC",["default"]=0,["fullName"]="TACC",["hash"]="3961f77515cef4bab9ae42dfa401d0bb7a9d7b27",["loadOrder"]=1,["mType"]="m",["short"]="TACC",["status"]="active",},["TACC-paths"]={["FN"]="~/w/lmod/mf/TACC/TACC-paths.lua",["default"]=0,["fullName"]="TACC-paths",["hash"]="da39a3ee5e6b4b0d3255bfef95601890afd80709",["loadOrder"]=8,["mType"]="w",["short"]="TACC-paths",["status"]="active",},cluster={["FN"]="~/w/lmod/mf/TACC/cluster",["default"]=0,["fullName"]="cluster",["hash"]="773844685f2131501de153d966771c1ba5798ba7",["loadOrder"]=3,["mType"]="m",["short"]="cluster",["status"]="active",},["cluster-paths"]={["FN"]="~/w/lmod/mf/TACC/cluster-paths",["default"]=0,["fullName"]="cluster-paths",["hash"]="da39a3ee5e6b4b0d3255bfef95601890afd80709",["loadOrder"]=7,["mType"]="w",["short"]="cluster-paths",["status"]="active",},globus={["FN"]="~/w/lmod/mf/TACC/globus/4.0.7",["default"]=1,["fullName"]="globus/4.0.7",["hash"]="da39a3ee5e6b4b0d3255bfef95601890afd80709",["loadOrder"]=6,["mType"]="w",["short"]="globus",["status"]="active",},mvapich1={["FN"]="~/w/lmod/mf/TACC_COMPILER/pgi/7.1/mvapich1/1.0",["default"]=1,["fullName"]="mvapich1/1.0",["hash"]="da39a3ee5e6b4b0d3255bfef95601890afd80709",["loadOrder"]=5,["mType"]="w",["short"]="mvapich1",["status"]="active",},pgi={["FN"]="~/w/lmod/mf/TACC/pgi/7.1",["default"]=1,["fullName"]="pgi/7.1",["hash"]="422a8f952919fa397b9e3daa5e05fa10b7e3c7e6",["loadOrder"]=4,["mType"]="w",["short"]="pgi",["status"]="active",},},mpathA={"~/w/lmod/mf/TACC_COMPILER/pgi/7.1","~/w/lmod/mf/TACC",},["version"]=2,}';
+export _ModuleTable_;

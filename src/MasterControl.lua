@@ -131,11 +131,6 @@ function M.unload(self, ...)
    local mt     = MT:mt()
    dbg.start("MasterControl:unload(", concatTbl({...},", "),")")
 
-   for _,v in ipairs{...} do
-      if (mt:have(v,"any")) then
-         mt:remove(v)
-      end
-   end
    mStack:loading()
 
    local aa     = master.unload(...)

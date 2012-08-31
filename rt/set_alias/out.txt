@@ -13,7 +13,7 @@ VARIABLE="1";
 export VARIABLE;
 export _ModuleTable_Sz_;
 alias somealias="1";
-_ModuleTable_='_ModuleTable_={active={Dict={["test1"]=1,},FN={"~/w/lmod/rt/set_alias/mf/test1",},Loaded={"test1",},default={0,},fullModName={"test1",},mType={"w",},},baseMpathA={"~/w/lmod/rt/set_alias/mf",},family={},inactive={},mpathA={"~/w/lmod/rt/set_alias/mf",},total={Dict={["test1"]=1,},FN={"~/w/lmod/rt/set_alias/mf/test1",},Loaded={"test1",},default={0,},fullModName={"test1",},mType={"w",},},["version"]=1,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"~/w/lmod/rt/set_alias/mf",},family={},inactive={},mT={test1={["FN"]="~/w/lmod/rt/set_alias/mf/test1",["default"]=0,["fullName"]="test1",["hash"]=0,["loadOrder"]=1,["mType"]="w",["short"]="test1",["status"]="active",},},mpathA={"~/w/lmod/rt/set_alias/mf",},["version"]=2,}';
 export _ModuleTable_;
 ===========================
 step 2
@@ -30,7 +30,7 @@ VARIABLE="2";
 export VARIABLE;
 export _ModuleTable_Sz_;
 alias somealias="2";
-_ModuleTable_='_ModuleTable_={active={Dict={["test2"]=1,},FN={"~/w/lmod/rt/set_alias/mf/test2",},Loaded={"test2",},default={0,},fullModName={"test2",},mType={"mw",},},baseMpathA={"~/w/lmod/rt/set_alias/mf",},family={},inactive={},mpathA={"~/w/lmod/rt/set_alias/mf",},total={Dict={["test2"]=1,},FN={"~/w/lmod/rt/set_alias/mf/test2",},Loaded={"test2",},default={0,},fullModName={"test2",},mType={"mw",},},["version"]=1,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"~/w/lmod/rt/set_alias/mf",},family={},inactive={},mT={test2={["FN"]="~/w/lmod/rt/set_alias/mf/test2",["default"]=0,["fullName"]="test2",["hash"]=0,["loadOrder"]=1,["mType"]="mw",["short"]="test2",["status"]="active",},},mpathA={"~/w/lmod/rt/set_alias/mf",},["version"]=2,}';
 export _ModuleTable_;
 ===========================
 step 3
@@ -43,8 +43,6 @@ LMOD_DEFAULT_MODULEPATH="~/w/lmod/rt/set_alias/mf";
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="~/w/lmod/rt/set_alias/mf";
 export MODULEPATH;
-unset VARIABLE;
 export _ModuleTable_Sz_;
-unalias somealias;
-_ModuleTable_='_ModuleTable_={active={Dict={},FN={},Loaded={},default={},fullModName={},mType={},},baseMpathA={"~/w/lmod/rt/set_alias/mf",},family={},inactive={},mpathA={"~/w/lmod/rt/set_alias/mf",},total={Dict={},FN={},Loaded={},default={},fullModName={},mType={},},["version"]=1,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"~/w/lmod/rt/set_alias/mf",},family={},inactive={},mT={},mpathA={"~/w/lmod/rt/set_alias/mf",},["version"]=2,}';
 export _ModuleTable_;

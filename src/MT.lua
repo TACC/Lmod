@@ -221,16 +221,16 @@ function M.getMTfromFile(self,fn)
    local a      = {}  -- list of "worker-bee" modules
    local m      = {}  -- list of "manager"    modules
 
-   local active = l_mt:list("short","active")
+   local active = l_mt:list("fullName","active")
 
    for i = 1,#active do
-      local sn    = active[i]
-      t[sn]       = l_mt:getHash(sn)
-      local mType = l_mt:mType(sn)
+      local full  = active[i]
+      t[full]     = l_mt:getHash(full)
+      local mType = l_mt:mType(full)
       if (mType == "w") then
-         a[#a+1] = v
+         a[#a+1] = full
       else
-         m[#m+1] = v
+         m[#m+1] = full
       end
    end
    
@@ -261,10 +261,10 @@ function M.getMTfromFile(self,fn)
    master.fakeload(unpack(m))
    
 
-   s_mt:setHash()
+   s_mt:setHashSum()
    a = {}
-   for k in pairs(t) do
-      if(t[v] ~= s_mt:getHash(k)) then
+   for k,v  in pairs(t) do
+      if(v ~= s_mt:getHash(k)) then
          a[#a + 1] = k
       end
    end
@@ -410,13 +410,17 @@ end
 ------------------------------------------------------------
 -- Pass-Thru function modules in the Active list
 
-local function shortName(moduleName)
+function shortName(moduleName)
    return moduleName:gsub("([^/]+)/.*","%1")
 end
 
 function M.add(self, t, status)
-   local mT = self.mT
    s_loadOrder = s_loadOrder + 1
+   local mT = self.mT
+   local loadOrder = s_loadOrder
+   if (status == "inactive") then
+      loadOrder = -1
+   end
    mT[t.modName] = { fullName  = t.modFullName,
                      short     = t.modName,
                      FN        = t.fn,
@@ -429,15 +433,22 @@ function M.add(self, t, status)
 end
 
 function M.fileName(self, moduleName)
-   local mT = self.mT
-   local sn = shortName(moduleName)
-   return mT[sn].FN
+   local mT    = self.mT
+   local sn    = shortName(moduleName)
+   local entry = mT[sn]
+   if (entry == nil) then
+      return nil
+   end
+   return entry.FN
 end
 
 function M.setStatus(self, moduleName, status)
-   local mT = self.mT
-   local sn = shortName(moduleName)
-   mT[sn].status = status
+   local mT    = self.mT
+   local sn    = shortName(moduleName)
+   local entry = mT[sn]
+   if (entry ~= nil) then
+      entry.status = status
+   end
 end
 
 function M.have(self, moduleName, status)
@@ -450,10 +461,10 @@ function M.have(self, moduleName, status)
    if (entry == nil) then
       return false
    end
-   local results = ((status == "any") or (status == entry.status))
-   dbg.print("result: ",results," entry.status: ", tostring(entry.status),"\n")
-   dbg.fini()
-   return 
+   if (sn == moduleName) then
+      return ((status == "any") or (status == entry.status))
+   end
+   return (moduleName == entry.fullName)
 end
 
 function M.list(self, kind, status)
@@ -478,7 +489,7 @@ function M.list(self, kind, status)
    return b
 end
 
-function M.setHash(self)
+function M.setHashSum(self)
    local mT   = self.mT
 
    for k,v in pairs(mT) do
@@ -489,22 +500,33 @@ function M.setHash(self)
    end
 end
 
-function M.getHash(self)
-   local mT  = self.mT
-   local sn  = shortName(moduleName)
-   return mT[sn].hash
+function M.getHash(self, moduleName)
+   local mT    = self.mT
+   local sn    = shortName(moduleName)
+   local entry = mT[sn]
+   if (entry == nil) then
+      return nil
+   end
+   return entry.hash
 end
 
 function M.markDefault(self, moduleName)
    local mT = self.mT
    local sn = shortName(moduleName)
-   mT[sn].default = 1
+   local entry = mT[sn]
+   if (entry ~= nil) then
+      mT[sn].default = 1
+   end
 end
 
 function M.default(self, moduleName)
-   local mT = self.mT
-   local sn = shortName(moduleName)
-   return mT[sn].default
+   local mT    = self.mT
+   local sn    = shortName(moduleName)
+   local entry = mT[sn]
+   if (entry == nil) then
+      return nil
+   end
+   return entry.default
 end
 
 function M.setLoadOrder(self)
@@ -520,15 +542,32 @@ function M.setLoadOrder(self)
 end
 
 function M.fullName(self,moduleName)
-   local mT = self.mT
-   local sn = shortName(moduleName)
-   return mT[sn].fullName
+   local mT    = self.mT
+   local sn    = shortName(moduleName)
+   local entry = mT[sn]
+   if (entry == nil) then
+      return nil
+   end
+   return entry.fullName
 end
 
 function M.mType(self,moduleName)
-   local mT = self.mT
-   local sn = shortName(moduleName)
-   return mT[sn].mType
+   local mT    = self.mT
+   local sn    = shortName(moduleName)
+   local entry = mT[sn]
+   if (entry == nil) then
+      return nil
+   end
+   return entry.mType
+end
+
+function M.set_mType(self,moduleName, value)
+   local mT    = self.mT
+   local sn    = shortName(moduleName)
+   local entry = mT[sn]
+   if (entry ~= nil) then
+      mT[sn].mType = value
+   end
 end
 
 function M.set_mType(self,moduleName, value)
@@ -538,9 +577,12 @@ function M.set_mType(self,moduleName, value)
 end
 
 function M.remove(self, moduleName)
+   local dbg = Dbg:dbg()
+   dbg.start("MT:remove(\"",moduleName,"\")")
    local mT = self.mT
    local sn = shortName(moduleName)
    mT[sn] = nil
+   dbg.fini()
 end
 
 function M.safeToSave(self)
@@ -613,7 +655,7 @@ function M.changeInactive(self)
    if (not same and #aa > 0 and prt) then
       t = {}
       for i,v in ipairs(aa) do
-         t[#t + 1] = '  ' .. i .. ') ' .. v
+         t[#t + 1] = '  ' .. i .. ') ' .. tostring(v)
       end
       io.stderr:write("Inactive Modules:\n")
       ct = ColumnTable:new{tbl=t, prt=prtErr}
