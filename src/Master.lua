@@ -274,6 +274,7 @@ function M.unload(...)
 
    a = {}
    for _, moduleName in ipairs{...} do
+      dbg.print("(1) unload: ", moduleName,"\n")
       if (mt:have(moduleName,"active")) then
          local f              = mt:fileName(moduleName)
          local fullModuleName = mt:fullName(moduleName)
@@ -398,10 +399,11 @@ function M.load(...)
          mt:add(t, "pending")
          mStack:push(t.modFullName)
 	 loadModuleFile{file=fn,moduleName=moduleName,reportErr=true}
-         t.mType = mStack:moduleType()
+         local mType = mStack:moduleType()
          mStack:pop()
 	 mt:endOP()
          mt:setStatus(t.modName,"active")
+         mt:set_mType(t.modName, mType)
          dbg.print("Marked: ",t.modFullName," as loaded\n")
          loaded = true
       elseif (not mt:have(moduleName,"any")) then

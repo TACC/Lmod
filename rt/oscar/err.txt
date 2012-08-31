@@ -15,4 +15,4 @@ load("c")
 step 3
 ===========================
 Currently Loaded Modules:
-  1) a  2) b  3) c  4) oscar
+  1) oscar  2) a  3) b  4) c

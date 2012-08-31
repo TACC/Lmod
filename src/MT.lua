@@ -261,7 +261,7 @@ function M.getMTfromFile(self,fn)
    master.fakeload(unpack(m))
    
 
-   s_mt:assignHashSum()
+   s_mt:setHash()
    a = {}
    for k in pairs(t) do
       if(t[v] ~= s_mt:getHash(k)) then
@@ -441,13 +441,19 @@ function M.setStatus(self, moduleName, status)
 end
 
 function M.have(self, moduleName, status)
-   local mT = self.mT
-   local sn = shortName(moduleName)
+   local dbg   = Dbg:dbg()
+   dbg.start("MT:have(\"",moduleName,"\", \"",status,"\")")
+   local mT    = self.mT
+   local sn    = shortName(moduleName)
    local entry = mT[sn]
+   dbg.print("sn: ",sn, " entry: ", tostring(entry), "\n")
    if (entry == nil) then
       return false
    end
-   return ((status == "any") or (status == entry.status))
+   local results = ((status == "any") or (status == entry.status))
+   dbg.print("result: ",results," entry.status: ", tostring(entry.status),"\n")
+   dbg.fini()
+   return 
 end
 
 function M.list(self, kind, status)
@@ -523,6 +529,12 @@ function M.mType(self,moduleName)
    local mT = self.mT
    local sn = shortName(moduleName)
    return mT[sn].mType
+end
+
+function M.set_mType(self,moduleName, value)
+   local mT = self.mT
+   local sn = shortName(moduleName)
+   mT[sn].mType = value
 end
 
 function M.remove(self, moduleName)

@@ -4,8 +4,6 @@ step 1
 ===========================
 step 2
 ===========================
-Lmod Error: Can not load: "slepc/3.0.0" module without these modules loaded:
-  petsc/3.0.0
 ===========================
 step 3
 ===========================
@@ -23,8 +21,6 @@ step 6
 ===========================
 step 7
 ===========================
-Lmod Error: Can not load: "slepc/3.1.0" module without these modules loaded:
-  petsc/3.1.0
 ===========================
 step 8
 ===========================

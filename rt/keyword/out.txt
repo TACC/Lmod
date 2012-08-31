@@ -1,11 +1,11 @@
-LMOD_DEFAULT_MODULEPATH="~/w/refactorMT/mf/Core:~/w/refactorMT/mf/Compiler/intel/10.1:~/w/refactorMT/mf/MPI/intel/10.1/openmpi/1.2.6";
+LMOD_DEFAULT_MODULEPATH="~/w/lmod/mf/Core:~/w/lmod/mf/Compiler/intel/10.1:~/w/lmod/mf/MPI/intel/10.1/openmpi/1.2.6";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="~/w/refactorMT/mf/Core:~/w/refactorMT/mf/Compiler/intel/10.1:~/w/refactorMT/mf/MPI/intel/10.1/openmpi/1.2.6";
+MODULEPATH="~/w/lmod/mf/Core:~/w/lmod/mf/Compiler/intel/10.1:~/w/lmod/mf/MPI/intel/10.1/openmpi/1.2.6";
 export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="~/w/refactorMT/mf/Core:~/w/refactorMT/mf/Compiler/intel/10.1:~/w/refactorMT/mf/MPI/intel/10.1/openmpi/1.2.6";
+LMOD_DEFAULT_MODULEPATH="~/w/lmod/mf/Core:~/w/lmod/mf/Compiler/intel/10.1:~/w/lmod/mf/MPI/intel/10.1/openmpi/1.2.6";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="~/w/refactorMT/mf/Core:~/w/refactorMT/mf/Compiler/intel/10.1:~/w/refactorMT/mf/MPI/intel/10.1/openmpi/1.2.6";
+MODULEPATH="~/w/lmod/mf/Core:~/w/lmod/mf/Compiler/intel/10.1:~/w/lmod/mf/MPI/intel/10.1/openmpi/1.2.6";
 export MODULEPATH;
 export _ModuleTable_Sz_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"~/w/refactorMT/mf/Core","~/w/refactorMT/mf/Compiler/intel/10.1","~/w/refactorMT/mf/MPI/intel/10.1/openmpi/1.2.6",},family={},inactive={},mT={},mpathA={"~/w/refactorMT/mf/Core","~/w/refactorMT/mf/Compiler/intel/10.1","~/w/refactorMT/mf/MPI/intel/10.1/openmpi/1.2.6",},["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"~/w/lmod/mf/Core","~/w/lmod/mf/Compiler/intel/10.1","~/w/lmod/mf/MPI/intel/10.1/openmpi/1.2.6",},family={},inactive={},mT={},mpathA={"~/w/lmod/mf/Core","~/w/lmod/mf/Compiler/intel/10.1","~/w/lmod/mf/MPI/intel/10.1/openmpi/1.2.6",},["version"]=2,}';
 export _ModuleTable_;

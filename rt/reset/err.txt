@@ -15,8 +15,8 @@ step 4
 step 5
 ===========================
 Currently Loaded Modules:
-  1) admin/admin-1.0  3) local/local  5) noweb/2.10c  7) openmpi/1.2.6
-  2) unix/unix        4) intel/intel  6) PrgEnv       8) parmetis/3.1 
+  1) admin/admin-1.0  3) unix/unix    5) intel/intel  7) openmpi/1.2.6
+  2) PrgEnv           4) local/local  6) noweb/2.10c  8) parmetis/3.1 
 ===========================
 step 6
 ===========================

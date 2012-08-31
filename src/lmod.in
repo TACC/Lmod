@@ -476,7 +476,7 @@ local function SetDefault(...)
    local path = pathJoin(os.getenv("HOME"), LMODdir)
    dbg.start("SetDefault(",concatTbl({...},", "),")")
 
-   local aa = mt:safeToSaveActive()
+   local aa = mt:safeToSave()
 
    if (#aa > 0) then
       dbg.warning("Unable to save module state as a \"default\"\n",
@@ -494,7 +494,7 @@ local function SetDefault(...)
    if (isFile(path)) then
       os.rename(path, path .. "~")
    end
-   mt:assignHashSum()
+   mt:setHash()
    serializeTbl{name=mt:name(), value=mt, fn = path, indent = true}
    dbg.fini()
 end
