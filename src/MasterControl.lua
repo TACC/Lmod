@@ -73,20 +73,22 @@ function M.load(self, ...)
       local t       = {}
       readAdmin()
       for _, moduleName in ipairs{...} do
-         local moduleFn  = mt:fileName(moduleName)
-         local modFullNm = mt:fullName(moduleName)
-         local message
-         local key
-         if (adminT[moduleFn]) then
-            message = adminT[moduleFn]
-            key     = moduleFn
-         elseif (adminT[modFullNm]) then
-            message = adminT[modFullNm]
-            key     = modFullNm
-         end
+         if (mt:have(moduleName,"active")) then
+            local moduleFn  = mt:fileName(moduleName)
+            local modFullNm = mt:fullName(moduleName)
+            local message
+            local key
+            if (adminT[moduleFn]) then
+               message = adminT[moduleFn]
+               key     = moduleFn
+            elseif (adminT[modFullNm]) then
+               message = adminT[modFullNm]
+               key     = modFullNm
+            end
 
-         if (message) then
-            t[key] = message
+            if (message) then
+               t[key] = message
+            end
          end
       end
 
@@ -129,11 +131,6 @@ function M.unload(self, ...)
    local mt     = MT:mt()
    dbg.start("MasterControl:unload(", concatTbl({...},", "),")")
 
-   for _,v in ipairs{...} do
-      if (mt:have(v,"any")) then
-         mt:remove(v)
-      end
-   end
    mStack:loading()
 
    local aa     = master.unload(...)

@@ -14,7 +14,7 @@ export MODULEPATH;
 PATH="/usr/sbin:/sbin:~/w/lmod/src:PATH_to_TM:/bin";
 export PATH;
 export _ModuleTable_Sz_;
-_ModuleTable_='_ModuleTable_={active={Dict={["admin"]=1,},FN={"~/w/lmod/mf/Core/admin/admin-1.0.lua",},Loaded={"admin",},default={1,},fullModName={"admin/admin-1.0",},mType={"w",},},baseMpathA={"~/w/lmod/mf///Core/",},family={},inactive={},mpathA={"~/w/lmod/mf/Core",},total={Dict={["admin"]=1,},FN={"~/w/lmod/mf/Core/admin/admin-1.0.lua",},Loaded={"admin",},default={1,},fullModName={"admin/admin-1.0",},mType={"w",},},["version"]=1,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"~/w/lmod/mf///Core/",},family={},inactive={},mT={admin={["FN"]="~/w/lmod/mf/Core/admin/admin-1.0.lua",["default"]=1,["fullName"]="admin/admin-1.0",["hash"]=0,["loadOrder"]=1,["mType"]="w",["short"]="admin",["status"]="active",},},mpathA={"~/w/lmod/mf/Core",},["version"]=2,}';
 export _ModuleTable_;
 ===========================
 step 2
@@ -28,5 +28,5 @@ export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="~/w/lmod/mf/Core";
 export MODULEPATH;
 export _ModuleTable_Sz_;
-_ModuleTable_='_ModuleTable_={active={Dict={["admin"]=1,},FN={"~/w/lmod/mf/Core/admin/admin-1.0.lua",},Loaded={"admin",},default={1,},fullModName={"admin/admin-1.0",},mType={"w",},},baseMpathA={"~/w/lmod/mf/Core",},family={},inactive={},mpathA={"~/w/lmod/mf/Core",},total={Dict={["admin"]=1,},FN={"~/w/lmod/mf/Core/admin/admin-1.0.lua",},Loaded={"admin",},default={1,},fullModName={"admin/admin-1.0",},mType={"w",},},["version"]=1,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"~/w/lmod/mf/Core",},family={},inactive={},mT={admin={["FN"]="~/w/lmod/mf/Core/admin/admin-1.0.lua",["default"]=1,["fullName"]="admin/admin-1.0",["hash"]=0,["loadOrder"]=1,["mType"]="w",["short"]="admin",["status"]="active",},},mpathA={"~/w/lmod/mf/Core",},["version"]=2,}';
 export _ModuleTable_;

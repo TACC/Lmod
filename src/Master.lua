@@ -219,7 +219,8 @@ function loadModuleFile(t)
       end
    else
       local mt	  = MT:mt()
-      local opt   = "-l \"" .. mt:list("short","active") .. "\""
+      local s     = concatTbl(mt:list("short","active"),":")
+      local opt   = "-l \"" .. s .. "\""
       if (t.help) then
          opt      = t.help
       end
@@ -273,16 +274,17 @@ function M.unload(...)
 
    a = {}
    for _, moduleName in ipairs{...} do
+      dbg.print("Trying to unload: ", moduleName, "\n")
       if (mt:have(moduleName,"active")) then
          local f              = mt:fileName(moduleName)
          local fullModuleName = mt:fullName(moduleName)
          dbg.print("Master:unload: \"",fullModuleName,"\" from f: ",f,"\n")
          mt:beginOP()
-         mt:remove(moduleName)
          mStack:push(fullModuleName)
 	 loadModuleFile{file=f,moduleName=moduleName,reportErr=false}
          mStack:pop()
          mt:endOP()
+         mt:remove(moduleName)
          a[#a + 1] = true
       else
          a[#a + 1] = false
@@ -292,7 +294,7 @@ function M.unload(...)
       M.reloadAll()
    end
    mcp = mcp_old
-   dbg.print("Setting mpc to ", mcp:name(),"\n")
+   dbg.print("Resetting mpc to ", mcp:name(),"\n")
    dbg.fini()
    return a
 end
@@ -401,11 +403,10 @@ function M.load(...)
          mStack:pop()
 	 mt:endOP()
          mt:setStatus(t.modName,"active")
+         mt:set_mType(t.modName,t.mType)
+         
          dbg.print("Marked: ",t.modFullName," as loaded\n")
          loaded = true
-      elseif (not mt:have(moduleName,"any")) then
-         dbg.warning("Did not find: ",moduleName,"\n\n",
-                     "Try: \"module spider ", moduleName,"\"\n" )
       end
       a[#a+1] = loaded
    end
@@ -448,7 +449,7 @@ function M.reloadAll()
    dbg.print("Setting mpc to ", mcp:name(),"\n")
 
    local same = true
-   local a    = mt:list("short","any")
+   local a    = mt:list("fullName","any")
    for _, v in ipairs(a) do
       if (mt:have(v,"active")) then
          local fullName = mt:fullName(v)
@@ -481,6 +482,14 @@ function M.reloadAll()
          same = not aa[1]
       end
    end
+   for _, v in ipairs(a) do
+      if (not mt:have(v,"active")) then
+         local t = { modFullName = v, modName = shortName(v)}
+         dbg.print("Master:reloadAll module: ",v," marked as inactive\n")
+         mt:add(t, "inactive")
+      end
+   end
+
    mcp = mcp_old
    dbg.print("Setting mpc to ", mcp:name(),"\n")
    dbg.fini()

@@ -457,6 +457,20 @@ function UsrLoad(...)
    local b       = mcp:load(unpack(a))
    mcp           = mcp_old
 
+   
+   local aa = {}
+   for i = 1,#a do
+      if (not mt:have(a[i],"active")) then
+         aa[#aa+1] = a[i]
+      end
+   end
+      
+   if (#aa > 0) then
+      local s = concatTbl(aa," ")
+      dbg.warning("Did not find: ",s,"\n\n",
+                  "Try: \"module spider ", s,"\"\n" )
+   end
+
    dbg.fini()
    return b
 end
@@ -476,7 +490,7 @@ local function SetDefault(...)
    local path = pathJoin(os.getenv("HOME"), LMODdir)
    dbg.start("SetDefault(",concatTbl({...},", "),")")
 
-   local aa = mt:safeToSaveActive()
+   local aa = mt:safeToSave()
 
    if (#aa > 0) then
       dbg.warning("Unable to save module state as a \"default\"\n",
@@ -494,7 +508,7 @@ local function SetDefault(...)
    if (isFile(path)) then
       os.rename(path, path .. "~")
    end
-   mt:assignHashSum()
+   mt:setHashSum()
    serializeTbl{name=mt:name(), value=mt, fn = path, indent = true}
    dbg.fini()
 end
