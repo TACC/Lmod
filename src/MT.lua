@@ -110,31 +110,6 @@ local function new(self, s)
       o._MPATH = concatTbl(o.mpathA,":")
       varTbl[DfltModPath] = Var:new(DfltModPath, concatTbl(o.baseMpathA,":"))
    end
-
-   -- I don't think I need this
-
-   --if (active and active.Loaded) then
-   --   local mTypeA = active.mType or {}
-   --   for i,v in ipairs(active.Loaded) do
-   --      local hashV = nil
-   --      if (active.hash) then
-   --         hashV = active.hash[i]
-   --      end
-   --      local mType = mTypeA[i] or "mw"
-   --      local t = { fn = active.FN[i], modFullName = active.fullModName[i],
-   --                 default = active.default[i], hash = hashV, modName=v,
-   --                 mType = mType, }
-   --      o:addActive(t)
-   --   end
-   --   mTypeA = total.mType or {}
-   --   for i,v in ipairs(total.Loaded) do
-   --      local mType = mTypeA[i] or "mw"
-   --      local t = { fn = total.FN[i], modFullName = total.fullModName[i],
-   --                  default = total.default[i], modName=v, mType = mType, }
-   --      o:addTotal(t)
-   --   end
-   --end
-
    o._inactive        = o.inactive or {}
    o.inactive         = {}
 
