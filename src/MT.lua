@@ -100,7 +100,7 @@ local function new(self, s)
       local _ModuleTable_ = systemG._ModuleTable_
 
       if (_ModuleTable_.version == 1) then
-         s_loadOrder = self:convertMT(_ModuleTable_)
+         s_loadOrder = o:convertMT(_ModuleTable_)
       else
          for k,v in pairs(_ModuleTable_) do
             o[k] = v
@@ -149,24 +149,26 @@ function M.convertMT(self, v1)
    for i = 1, sz do
       local sn = a[i]
       local t  = { fn = active.FN[i], modFullName = active.fullModName[i],
-                   default = active.default[i], hash = active.hash[i], modName = sn,
-                   mTypeA  = active.mTypeA[i]
+                   default = active.default[i], hash = active.hash[i],
+                   modName = sn, mType   = active.mType[i]
       }
-      self.add(t,"active")
+      self:add(t,"active")
    end
 
-   aa          = {}
+   local aa    = {}
    local total = v1.total
    a           = total.Loaded
    for i = 1, #a do
       local sn = a[i]
       if (not self:have(sn,"active")) then
          local t = { modFullName = total.fullModName[i], modName = sn }
-         self.add(t,"inactive")
+         self:add(t,"inactive")
          aa[#aa+1] = sn
       end
    end
    
+   self.mpathA     = v1.mpathA
+   self.baseMpathA = v1.baseMpathA
    self.inactive   = aa
    self.__inactive = aa
 
