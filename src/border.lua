@@ -1,3 +1,5 @@
+require("strict")
+require("TermWidth")
 local rep=string.rep
 borderG = nil
 nspacesG = 0

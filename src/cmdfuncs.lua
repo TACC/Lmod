@@ -112,4 +112,3 @@ function prtErr(...)
    io.stderr:write(...)
 end
 
-local MT  = require("MT")

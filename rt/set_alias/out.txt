@@ -43,6 +43,8 @@ LMOD_DEFAULT_MODULEPATH="~/w/lmod/rt/set_alias/mf";
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="~/w/lmod/rt/set_alias/mf";
 export MODULEPATH;
+unset VARIABLE;
 export _ModuleTable_Sz_;
+unalias somealias;
 _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"~/w/lmod/rt/set_alias/mf",},family={},inactive={},mT={},mpathA={"~/w/lmod/rt/set_alias/mf",},["version"]=2,}';
 export _ModuleTable_;

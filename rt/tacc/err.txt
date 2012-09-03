@@ -16,8 +16,8 @@ step 2
 step 3
 ===========================
 Currently Loaded Modules:
-  1) Linux    3) mvapich1/1.0  5) cluster-paths  7) TACC-paths
-  2) pgi/7.1  4) globus/4.0.7  6) cluster        8) TACC      
+  1) TACC   3) cluster  5) mvapich1/1.0  7) cluster-paths
+  2) Linux  4) pgi/7.1  6) globus/4.0.7  8) TACC-paths   
 ===========================
 step 4
 ===========================
@@ -33,8 +33,6 @@ step 4
 ===========================
 step 5
 ===========================
-Due to MODULEPATH changes the following modules have been reloaded:
-  1) mvapich1
 ===========================
 step 6
 ===========================

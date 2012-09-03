@@ -36,6 +36,7 @@ REQUIRED_PKGS	 := \
                     Dbg           \
                     Optiks        \
                     Optiks_Option \
+                    TermWidth     \
                     capture       \
                     fileOps       \
 	            fillWords     \

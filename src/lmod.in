@@ -11,6 +11,7 @@ sysCacheDir   = os.getenv("LMOD_SPIDER_CACHE_DIR") or "@cacheDir@"
 ancient       = tonumber(ancient)   or 86400
 shortTime     = tonumber(shortTime) or 10.0
 BaseShell     = {}
+s_width       = false
 ------------------------------------------------------------------------
 -- Extract directory location of "lmod" command and add it
 -- to the lua search path
@@ -33,15 +34,6 @@ end
 
 local getenv = os.getenv
 local rep    = string.rep
-
-local s_width = false
-function TermWidth()
-   if (s_width) then
-      return s_width
-   end
-   s_width = tonumber(capture("tput cols") or "80")
-   return s_width
-end
 
 
 require("myGlobals")
@@ -135,7 +127,6 @@ function version()
    v[#v + 1] = "    by Robert McLay mclay@tacc.utexas.edu\n\n"
    return concatTbl(v,"")
 end
-
 
 require("border")
 

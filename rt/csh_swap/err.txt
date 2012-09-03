@@ -7,16 +7,16 @@ step 2
 Inactive Modules:
   1) openmpi
 Due to MODULEPATH changes the following modules have been reloaded:
-  1) parmetis
+  1) parmetis/3.1
 ===========================
 step 3
 ===========================
 Activating Modules:
   1) openmpi/1.2.6
 Due to MODULEPATH changes the following modules have been reloaded:
-  1) openmpi  2) parmetis
+  1) parmetis/3.1
 ===========================
 step 4
 ===========================
 Due to MODULEPATH changes the following modules have been reloaded:
-  1) openmpi  2) parmetis
+  1) openmpi/1.2.6  2) parmetis/3.1

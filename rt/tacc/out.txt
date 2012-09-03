@@ -10,7 +10,7 @@ export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="~/w/lmod/mf/TACC";
 export MODULEPATH;
 export _ModuleTable_Sz_;
-_ModuleTable_='_ModuleTable_={active={Dict={},FN={},Loaded={},default={},fullModName={},mType={},},baseMpathA={"~/w/lmod/mf/TACC",},family={},inactive={},mpathA={"~/w/lmod/mf/TACC",},total={Dict={},FN={},Loaded={},default={},fullModName={},mType={},},["version"]=1,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"~/w/lmod/mf/TACC",},family={},inactive={},mT={},mpathA={"~/w/lmod/mf/TACC",},["version"]=2,}';
 export _ModuleTable_;
 ===========================
 step 2
@@ -68,7 +68,7 @@ export SYSTEM;
 TACC_FAMILY_COMPILER="pgi";
 export TACC_FAMILY_COMPILER;
 export _ModuleTable_Sz_;
-_ModuleTable_='_ModuleTable_={active={Dict={["Linux"]=1,["TACC"]=8,["TACC-paths"]=7,["cluster"]=6,["cluster-paths"]=5,["globus"]=4,["mvapich1"]=3,["pgi"]=2,},FN={"~/w/lmod/mf/TACC/Linux","~/w/lmod/mf/TACC/pgi/7.1","~/w/lmod/mf/TACC_COMPILER/pgi/7.1/mvapich1/1.0","~/w/lmod/mf/TACC/globus/4.0.7","~/w/lmod/mf/TACC/cluster-paths","~/w/lmod/mf/TACC/cluster","~/w/lmod/mf/TACC/TACC-paths.lua","~/w/lmod/mf/TACC/TACC",},Loaded={"Linux","pgi","mvapich1","globus","cluster-paths","cluster","TACC-paths","TACC",},default={0,1,1,1,0,0,0,0,},fullModName={"Linux","pgi/7.1","mvapich1/1.0","globus/4.0.7","cluster-paths","cluster","TACC-paths","TACC",},mType={"w","w","w","w","w","m","w","m",},},baseMpathA={"~/w/lmod/mf/TACC",},family={["compiler"]="pgi",},inactive={},mpathA={"~/w/lmod/mf/TACC_COMPILER/pgi/7.1","~/w/lmod/mf/TACC",},total={Dict={["Linux"]=1,["TACC"]=8,["TACC-paths"]=7,["cluster"]=6,["cluster-paths"]=5,["globus"]=4,["mvapich1"]=3,["pgi"]=2,},FN={"~/w/lmod/mf/TACC/Linux","~/w/lmod/mf/TACC/pgi/7.1","~/w/lmod/mf/TACC_COMPILER/pgi/7.1/mvapich1/1.0","~/w/lmod/mf/TACC/globus/4.0.7","~/w/lmod/mf/TACC/cluster-paths","~/w/lmod/mf/TACC/cluster","~/w/lmod/mf/TACC/TACC-paths.lua","~/w/lmod/mf/TACC/TACC",},Loaded={"Linux","pgi","mvapich1","globus","cluster-paths","cluster","TACC-paths","TACC",},default={0,1,1,1,0,0,0,0,},fullModName={"Linux","pgi/7.1","mvapich1/1.0","globus/4.0.7","cluster-paths","cluster","TACC-paths","TACC",},mType={"w","w","w","w","w","m","w","m",},},["version"]=1,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=8,baseMpathA={"~/w/lmod/mf/TACC",},family={["compiler"]="pgi",},inactive={},mT={Linux={["FN"]="~/w/lmod/mf/TACC/Linux",["default"]=0,["fullName"]="Linux",["hash"]=0,["loadOrder"]=2,["mType"]="w",["short"]="Linux",["status"]="active",},TACC={["FN"]="~/w/lmod/mf/TACC/TACC",["default"]=0,["fullName"]="TACC",["hash"]=0,["loadOrder"]=1,["mType"]="m",["short"]="TACC",["status"]="active",},["TACC-paths"]={["FN"]="~/w/lmod/mf/TACC/TACC-paths.lua",["default"]=0,["fullName"]="TACC-paths",["hash"]=0,["loadOrder"]=8,["mType"]="w",["short"]="TACC-paths",["status"]="active",},cluster={["FN"]="~/w/lmod/mf/TACC/cluster",["default"]=0,["fullName"]="cluster",["hash"]=0,["loadOrder"]=3,["mType"]="m",["short"]="cluster",["status"]="active",},["cluster-paths"]={["FN"]="~/w/lmod/mf/TACC/cluster-paths",["default"]=0,["fullName"]="cluster-paths",["hash"]=0,["loadOrder"]=7,["mType"]="w",["short"]="cluster-paths",["status"]="active",},globus={["FN"]="~/w/lmod/mf/TACC/globus/4.0.7",["default"]=1,["fullName"]="globus/4.0.7",["hash"]=0,["loadOrder"]=6,["mType"]="w",["short"]="globus",["status"]="active",},mvapich1={["FN"]="~/w/lmod/mf/TACC_COMPILER/pgi/7.1/mvapich1/1.0",["default"]=1,["fullName"]="mvapich1/1.0",["hash"]=0,["loadOrder"]=5,["mType"]="w",["short"]="mvapich1",["status"]="active",},pgi={["FN"]="~/w/lmod/mf/TACC/pgi/7.1",["default"]=1,["fullName"]="pgi/7.1",["hash"]=0,["loadOrder"]=4,["mType"]="w",["short"]="pgi",["status"]="active",},},mpathA={"~/w/lmod/mf/TACC_COMPILER/pgi/7.1","~/w/lmod/mf/TACC",},["version"]=2,}';
 export _ModuleTable_;
 ===========================
 step 3
@@ -112,7 +112,6 @@ unset LIBPATH;
 LMOD_DEFAULT_MODULEPATH="~/w/lmod/mf/TACC";
 export LMOD_DEFAULT_MODULEPATH;
 unset LMOD_FAMILY_COMPILER;
-unset LMOD_FAMILY_MPI;
 unset MANPATH;
 MODULEPATH="~/w/lmod/mf/TACC";
 export MODULEPATH;
@@ -126,9 +125,8 @@ unset RSHCOMMAND;
 unset SASL_PATH;
 unset SHLIB_PATH;
 unset TACC_FAMILY_COMPILER;
-unset TACC_FAMILY_MPI;
 export _ModuleTable_Sz_;
-_ModuleTable_='_ModuleTable_={active={Dict={["Linux"]=1,["TACC"]=3,["TACC-paths"]=2,},FN={"~/w/lmod/mf/TACC/Linux","~/w/lmod/mf/TACC/TACC-paths.lua","~/w/lmod/mf/TACC/TACC",},Loaded={"Linux","TACC-paths","TACC",},default={0,0,0,},fullModName={"Linux","TACC-paths","TACC",},mType={"w","w","m",},},baseMpathA={"~/w/lmod/mf/TACC",},family={},inactive={},mpathA={"~/w/lmod/mf/TACC",},total={Dict={["Linux"]=1,["TACC"]=3,["TACC-paths"]=2,},FN={"~/w/lmod/mf/TACC/Linux","~/w/lmod/mf/TACC/TACC-paths.lua","~/w/lmod/mf/TACC/TACC",},Loaded={"Linux","TACC-paths","TACC",},default={0,0,0,},fullModName={"Linux","TACC-paths","TACC",},mType={"w","w","m",},},["version"]=1,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"~/w/lmod/mf/TACC",},family={},inactive={},mT={Linux={["FN"]="~/w/lmod/mf/TACC/Linux",["default"]=0,["fullName"]="Linux",["hash"]=0,["loadOrder"]=2,["mType"]="w",["short"]="Linux",["status"]="active",},TACC={["FN"]="~/w/lmod/mf/TACC/TACC",["default"]=0,["fullName"]="TACC",["hash"]=0,["loadOrder"]=1,["mType"]="m",["short"]="TACC",["status"]="active",},["TACC-paths"]={["FN"]="~/w/lmod/mf/TACC/TACC-paths.lua",["default"]=0,["fullName"]="TACC-paths",["hash"]=0,["loadOrder"]=3,["mType"]="w",["short"]="TACC-paths",["status"]="active",},},mpathA={"~/w/lmod/mf/TACC",},["version"]=2,}';
 export _ModuleTable_;
 ===========================
 step 6
@@ -148,5 +146,5 @@ export PATH;
 unset STTY_ARGS;
 unset SYSTEM;
 export _ModuleTable_Sz_;
-_ModuleTable_='_ModuleTable_={active={Dict={},FN={},Loaded={},default={},fullModName={},mType={},},baseMpathA={"~/w/lmod/mf/TACC",},family={},inactive={},mpathA={"~/w/lmod/mf/TACC",},total={Dict={},FN={},Loaded={},default={},fullModName={},mType={},},["version"]=1,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"~/w/lmod/mf/TACC",},family={},inactive={},mT={},mpathA={"~/w/lmod/mf/TACC",},["version"]=2,}';
 export _ModuleTable_;

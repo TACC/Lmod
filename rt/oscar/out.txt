@@ -16,7 +16,7 @@ export RTM_B;
 RTM_C="c";
 export RTM_C;
 export _ModuleTable_Sz_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=4,baseMpathA={"~/w/lmod/rt/oscar/mf/Core",},family={},inactive={},mT={a={["FN"]="~/w/lmod/rt/oscar/mf/Oscar/a",["default"]=0,["fullName"]="a",["hash"]=0,["loadOrder"]=2,["short"]="a",["status"]="active",},b={["FN"]="~/w/lmod/rt/oscar/mf/Oscar/b",["default"]=0,["fullName"]="b",["hash"]=0,["loadOrder"]=3,["short"]="b",["status"]="active",},c={["FN"]="~/w/lmod/rt/oscar/mf/Oscar/c",["default"]=0,["fullName"]="c",["hash"]=0,["loadOrder"]=4,["short"]="c",["status"]="active",},oscar={["FN"]="~/w/lmod/rt/oscar/mf/Core/oscar.lua",["default"]=0,["fullName"]="oscar",["hash"]=0,["loadOrder"]=1,["short"]="oscar",["status"]="active",},},mpathA={"~/w/lmod/rt/oscar/mf/Oscar","~/w/lmod/rt/oscar/mf/Core",},["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=4,baseMpathA={"~/w/lmod/rt/oscar/mf/Core",},family={},inactive={},mT={a={["FN"]="~/w/lmod/rt/oscar/mf/Oscar/a",["default"]=0,["fullName"]="a",["hash"]=0,["loadOrder"]=2,["mType"]="w",["short"]="a",["status"]="active",},b={["FN"]="~/w/lmod/rt/oscar/mf/Oscar/b",["default"]=0,["fullName"]="b",["hash"]=0,["loadOrder"]=3,["mType"]="w",["short"]="b",["status"]="active",},c={["FN"]="~/w/lmod/rt/oscar/mf/Oscar/c",["default"]=0,["fullName"]="c",["hash"]=0,["loadOrder"]=4,["mType"]="w",["short"]="c",["status"]="active",},oscar={["FN"]="~/w/lmod/rt/oscar/mf/Core/oscar.lua",["default"]=0,["fullName"]="oscar",["hash"]=0,["loadOrder"]=1,["mType"]="mw",["short"]="oscar",["status"]="active",},},mpathA={"~/w/lmod/rt/oscar/mf/Oscar","~/w/lmod/rt/oscar/mf/Core",},["version"]=2,}';
 export _ModuleTable_;
 ===========================
 step 2

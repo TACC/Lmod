@@ -55,6 +55,10 @@ function M.pop(self)
    remove(stack)
 end
 
+function M.empty(self)
+   return (#self.stack == 1)
+end
+
 function M.moduleType(self)
    local dbg   = Dbg:dbg()
    dbg.start("ModuleStack:moduleType()")

@@ -24,7 +24,7 @@ export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="~/w/lmod/rt/display/mf/Core";
 export MODULEPATH;
 export _ModuleTable_Sz_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"~/w/lmod/rt/display/mf/Core",},family={},inactive={},mT={junk={["FN"]="~/w/lmod/rt/display/mf/Core/junk/1.0.lua",["default"]=1,["fullName"]="junk/1.0",["hash"]=0,["loadOrder"]=1,["short"]="junk",["status"]="active",},},mpathA={"~/w/lmod/rt/display/mf/Core",},["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"~/w/lmod/rt/display/mf/Core",},family={},inactive={},mT={junk={["FN"]="~/w/lmod/rt/display/mf/Core/junk/1.0.lua",["default"]=1,["fullName"]="junk/1.0",["hash"]=0,["loadOrder"]=1,["mType"]="w",["short"]="junk",["status"]="active",},},mpathA={"~/w/lmod/rt/display/mf/Core",},["version"]=2,}';
 export _ModuleTable_;
 ===========================
 step 3

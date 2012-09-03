@@ -77,10 +77,10 @@ end
 function M.prt(self,title)
    local dbg = Dbg:dbg()
    dbg.print (title,"\n")
-   dbg.print ('name:', self.name,"\n")
-   dbg.print ('imin:', self.imin,"\n")
-   dbg.print ('imax:', self.imax,"\n")
-   dbg.print ('value:', self.value,"\n")
+   dbg.print ('name:', self.name,"'\n")
+   dbg.print ('imin:', self.imin,"'\n")
+   dbg.print ('imax:', self.imax,"'\n")
+   dbg.print ('value:', self.value,"'\n")
    for k in pairs(self.tbl) do
       dbg.print ("   %",k,"%:",self.tbl[k],"\n")
    end
@@ -101,6 +101,9 @@ end
 local function regularize(value)
    value = value:gsub("//+","/")
    value = value:gsub("/$","")
+   if (value == '') then
+      value = ' '
+   end
    return value
 end
 

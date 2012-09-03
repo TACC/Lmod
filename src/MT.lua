@@ -223,14 +223,28 @@ function M.getMTfromFile(self,fn)
 
    local active = l_mt:list("fullName","active")
 
+   ---------------------------------------------
+   -- If any module specified in the "default" file
+   -- is a default then use the short name.  This way
+   -- getting the modules from the "getdefault" specified
+   -- file will work even when the defaults have changed.
+
    for i = 1,#active do
-      local full  = active[i]
-      t[full]     = l_mt:getHash(full)
-      local mType = l_mt:mType(full)
-      if (mType == "w") then
-         a[#a+1] = full
+      local name 
+      local full      = active[i]
+      local short     = l_mt:short(full)
+      local isDefault = l_mt:default(short)
+      if (isDefault) then
+         name         = short
       else
-         m[#m+1] = full
+         name         = full
+      end
+      t[name]     = l_mt:getHash(name)
+      local mType = l_mt:mType(name)
+      if (mType == "w") then
+         a[#a+1] = name
+      else
+         m[#m+1] = name
       end
    end
    
@@ -453,18 +467,28 @@ end
 
 function M.have(self, moduleName, status)
    local dbg   = Dbg:dbg()
-   dbg.start("MT:have(\"",moduleName,"\", \"",status,"\")")
    local mT    = self.mT
    local sn    = shortName(moduleName)
    local entry = mT[sn]
-   dbg.print("sn: ",sn, " entry: ", tostring(entry), "\n")
    if (entry == nil) then
       return false
    end
    if (sn == moduleName) then
       return ((status == "any") or (status == entry.status))
    end
-   return (moduleName == entry.fullName)
+
+   if (moduleName == entry.fullName) then
+      return ((status == "any") or (status == entry.status))
+   end
+
+   moduleName = moduleName .. '/'
+   moduleName = moduleName:gsub("//+",'/')
+
+   if (entry.fullName:find(moduleName)) then
+      return ((status == "any") or (status == entry.status))
+   end
+
+   return false
 end
 
 function M.list(self, kind, status)
@@ -551,6 +575,16 @@ function M.fullName(self,moduleName)
    return entry.fullName
 end
 
+function M.short(self,moduleName)
+   local mT    = self.mT
+   local sn    = shortName(moduleName)
+   local entry = mT[sn]
+   if (entry == nil) then
+      return nil
+   end
+   return entry.short
+end
+
 function M.mType(self,moduleName)
    local mT    = self.mT
    local sn    = shortName(moduleName)
@@ -604,6 +638,7 @@ end
 
 
 function M.changeInactive(self)
+   local dbg    = Dbg:dbg()
    local master = systemG.Master:master()
    local t      = {}
    local aa     = self._inactive
@@ -627,18 +662,12 @@ function M.changeInactive(self)
       io.stderr:write("Activating Modules:\n")
       ct = ColumnTable:new{tbl=t, prt=prtErr}
       ct:print_tbl()
-      t = {}
    end
+   t = {}
 
-   ------------------------------------------------------------
-   -- Form new inactive list
-   aa = {}
-   local mT = self.mT
-   for k,v in pairs(mT) do
-      if (v.status ~= "active") then
-         t[k]      = 1
-         aa[#aa+1] = v
-      end
+   local aa = self:list("short","inactive")
+   for i = 1, #aa do
+      t[aa[i]] = 1
    end
 
    self.inactive = aa
@@ -662,6 +691,7 @@ function M.changeInactive(self)
       ct:print_tbl()
    end
 
+   dbg.fini()
    return same
 end
 

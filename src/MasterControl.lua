@@ -1,5 +1,6 @@
 -- MasterControl
 require("strict")
+require("TermWidth")
 require("inherits")
 
 local M            = {}

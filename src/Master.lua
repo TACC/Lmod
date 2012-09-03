@@ -29,6 +29,7 @@ local expert             = expert
 local removeEntry        = table.remove
 
 
+require("TermWidth")
 require("fileOps")
 require("string_trim")
 require("fillWords")
@@ -276,6 +277,7 @@ function M.unload(...)
    for _, moduleName in ipairs{...} do
       dbg.print("Trying to unload: ", moduleName, "\n")
       if (mt:have(moduleName,"active")) then
+         mt:setStatus(moduleName,"pending")
          local f              = mt:fileName(moduleName)
          local fullModuleName = mt:fullName(moduleName)
          dbg.print("Master:unload: \"",fullModuleName,"\" from f: ",f,"\n")
@@ -290,7 +292,7 @@ function M.unload(...)
          a[#a + 1] = false
       end
    end
-   if (M.safeToUpdate() and mt:safeToCheckZombies()) then
+   if (M.safeToUpdate() and mt:safeToCheckZombies() and mStack:empty()) then
       M.reloadAll()
    end
    mcp = mcp_old

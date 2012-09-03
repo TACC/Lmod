@@ -37,9 +37,14 @@ testdescript = {
 
      rm -f _stderr.* _stdout.* err.* out.*
 
-     runMe $LUA $(projectDir)/src/lmod.in bash load admin PrgEnv openmpi parmetis
-     runMe $LUA $(projectDir)/src/lmod.in bash purge
-     runMe $LUA $(projectDir)/src/lmod.in bash list
+     runMe $LUA $(projectDir)/src/lmod.in bash load PrgEnv openmpi                 # 1
+     runMe $LUA $(projectDir)/src/lmod.in bash list                                # 2
+     runMe $LUA $(projectDir)/src/lmod.in bash unload PrgEnv openmpi               # 3
+     runMe $LUA $(projectDir)/src/lmod.in bash list                                # 4
+     runMe $LUA $(projectDir)/src/lmod.in bash load admin PrgEnv openmpi parmetis  # 5
+     runMe $LUA $(projectDir)/src/lmod.in bash list                                # 6
+     runMe $LUA $(projectDir)/src/lmod.in bash purge                               # 7
+     runMe $LUA $(projectDir)/src/lmod.in bash list                                # 8
      
      PATH=$ORIGINAL_PATH
 
