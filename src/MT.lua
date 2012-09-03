@@ -147,10 +147,11 @@ function M.convertMT(self, v1)
    local a      = active.Loaded
    local sz     = #a
    for i = 1, sz do
-      local sn = a[i]
-      local t  = { fn = active.FN[i], modFullName = active.fullModName[i],
-                   default = active.default[i], hash = active.hash[i],
-                   modName = sn, mType   = active.mType[i]
+      local hashT = active.hash or {}
+      local sn    = a[i]
+      local t     = { fn = active.FN[i], modFullName = active.fullModName[i],
+                      default = active.default[i], hash = hashT[i],
+                      modName = sn, mType   = active.mType[i]
       }
       self:add(t,"active")
    end
