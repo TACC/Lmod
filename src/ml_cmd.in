@@ -3,6 +3,10 @@
 require("strict")
 require("string_split")
 local concatTbl = table.concat
+local function quoteWrap(a)
+   return "'" .. tostring(a) .. "'"
+end
+
 function main()
 
    local argA     = {}
@@ -107,9 +111,9 @@ function main()
       local u = {}
       for i = 1,#argA do
          if (argA[i]:sub(1,1) == "-") then
-            u[#u+1] = argA[i]:sub(2,-1)
+            u[#u+1] = quoteWrap(argA[i]:sub(2,-1))
          else
-            b[#b+1] = argA[i]
+            b[#b+1] = quoteWrap(argA[i])
          end
       end
       if (#u > 0) then
@@ -123,7 +127,9 @@ function main()
          a[#a+1] = concatTbl(b," ")
       end
    else
-      a[#a + 1] = concatTbl(argA," ")
+      for i = 1,#argA do
+         a[#a+1] = quoteWrap(argA[i])
+      end
    end
 
    local s = concatTbl(a," ")
