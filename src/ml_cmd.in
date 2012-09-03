@@ -1,0 +1,138 @@
+#!@path_to_lua@/lua
+-- -*- lua -*-
+require("strict")
+require("string_split")
+local concatTbl = table.concat
+function main()
+
+   local argA     = {}
+   local optA     = {}
+   local cmdA     = {}
+
+   ------------------------------------------------------------
+   -- lmodOptA: Hash table of command line arguments.  The key
+   --           is the name of the argument and the value is the
+   --           number of arguments the option requires
+   
+   local lmodOptA = {
+      ["-?"] = 0, ["--help"] = 0, ["-d"]=0, ["--version"]=0,
+      ["--expert"]=0, ["--novice"]=0, ["--localvar"]=1, ["-D"]=1 
+   }
+
+   ------------------------------------------------------------
+   -- lmodCmdA: Hash table of module commands.  The value just
+   --           has to be non-nil
+
+   local lmodCmdA = {
+      avail="avail",  av="avail", 
+      getdefault="getdefault", gd="getdefault", 
+      help="help",
+      key="keyword", keyword="keyword",
+      listdefault="listdefault", ld="listdefault",
+      purge="purge",
+      record="record",
+      setdefault="setdefault", sd="setdefault", 
+      show="show",
+      spider="spider",
+      swap="swap", sw="swap", switch="swap",
+      tablelist="tablelist",
+      update="update",
+      use="use",
+      unuse="unuse",
+      whatis="whatis",
+      list="list",
+      reset="reset",
+      unload="unload", rm = "unload", del = "unload",
+   }
+
+   local grab    = 0
+   local verbose = false
+
+   for _,v in ipairs(arg) do
+      local done = false
+      if (grab > 0) then
+         optA[#optA+1] = v
+         grab          = grab - 1
+         done          = true
+      end
+
+      if (not done and v == "-v") then
+         done    = true
+         verbose = true
+      end
+
+
+      local num = lmodOptA[v]
+      if (not done and num) then
+         grab          = num
+         optA[#optA+1] = v
+         done          = true
+      end
+
+      local cmd = lmodCmdA[v]
+      if (not done and cmd) then
+         cmdA[#cmdA + 1] = cmd
+         done            = true
+      end
+
+      if (not done) then
+         argA[#argA+1] = v
+      end
+   end
+
+   if (#cmdA > 1) then
+      io.stderr:write("error: too many commands\n")
+      os.exit(1)
+   end
+
+   local opts = concatTbl(optA," ")
+
+   local a = {}
+
+   local kind = nil
+
+   a[#a + 1] = "module"
+   a[#a + 1] = opts
+
+   if (#cmdA == 1) then
+      a[#a + 1] = cmdA[1]
+   elseif (#argA < 1) then
+      a[#a + 1] = "list"
+   else
+      kind      = "load"
+   end
+
+   if (kind == 'load') then
+      local b = {}
+      local u = {}
+      for i = 1,#argA do
+         if (argA[i]:sub(1,1) == "-") then
+            u[#u+1] = argA[i]:sub(2,-1)
+         else
+            b[#b+1] = argA[i]
+         end
+      end
+      if (#u > 0) then
+         a[#a+1] = "unload"
+         a[#a+1] = concatTbl(u," ")
+         a[#a+1] = ";"
+      end
+
+      if (#b > 0) then
+         a[#a+1] = "module load "
+         a[#a+1] = concatTbl(b," ")
+      end
+   else
+      a[#a + 1] = concatTbl(argA," ")
+   end
+
+   local s = concatTbl(a," ")
+      
+   if (verbose) then
+      io.stderr:write(s, "\n")
+   end
+      
+   io.stdout:write(s, "\n")
+end
+
+main()
