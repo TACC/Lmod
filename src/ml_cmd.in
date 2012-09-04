@@ -20,7 +20,8 @@ function main()
    
    local lmodOptA = {
       ["-?"] = 0, ["--help"] = 0, ["-d"]=0, ["--version"]=0,
-      ["--expert"]=0, ["--novice"]=0, ["--localvar"]=1, ["-D"]=1 
+      ["--old_style"] = 0, ["--expert"]=0, ["--novice"]=0,
+      ["--localvar"]=1, ["-D"]=1 
    }
 
    ------------------------------------------------------------
@@ -49,8 +50,9 @@ function main()
       unload="unload", rm = "unload", del = "unload",
    }
 
-   local grab    = 0
-   local verbose = false
+   local grab     = 0
+   local verbose  = false
+   local oldStyle = false
 
    for _,v in ipairs(arg) do
       local done = false
@@ -64,7 +66,11 @@ function main()
          done    = true
          verbose = true
       end
-
+      
+      if (not done and v == "--old_style") then
+         done     = true
+         oldStyle = true
+      end
 
       local num = lmodOptA[v]
       if (not done and num) then
@@ -103,7 +109,11 @@ function main()
    elseif (#argA < 1) then
       a[#a + 1] = "list"
    else
-      kind      = "load"
+      if (oldStyle) then
+         kind      = "load"
+      else
+         a[#a + 1] = "load"
+      end
    end
 
    if (kind == 'load') then
