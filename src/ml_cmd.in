@@ -129,11 +129,14 @@ function main()
       if (#u > 0) then
          a[#a+1] = "unload"
          a[#a+1] = concatTbl(u," ")
-         a[#a+1] = ";"
+         if (#b > 0) then
+            a[#a+1] = "; module"
+            a[#a+1] = opts
+         end
       end
 
       if (#b > 0) then
-         a[#a+1] = "module load "
+         a[#a+1] = "load "
          a[#a+1] = concatTbl(b," ")
       end
    else
