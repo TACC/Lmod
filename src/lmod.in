@@ -51,6 +51,7 @@ local Version = require("Version")
 RCFileA = {
    pathJoin(os.getenv("HOME"),".lmodrc.lua"),
    pathJoin(cmdDir(),"../../etc/.lmodrc.lua"),
+   pathJoin(cmdDir(),"../init/.lmodrc.lua"),
    os.getenv("LMOD_RC"),
 }
 
