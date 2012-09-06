@@ -5,9 +5,10 @@
 require("strict")
 require("myGlobals")
 require("string_trim")
-local Dbg       = require("Dbg")
-local concatTbl = table.concat
-local getenv    = os.getenv
+local ColumnTable = require('ColumnTable')
+local Dbg         = require("Dbg")
+local concatTbl   = table.concat
+local getenv      = os.getenv
 
 function Purge()
    local master = Master:master()
@@ -112,3 +113,87 @@ function prtErr(...)
    io.stderr:write(...)
 end
 
+function length(self)
+   local i,j = self:find("\027[^m]+m")
+   if (i == nil) then
+      local r = self:len()
+      return r
+   end
+   local k   = self:find("\027[^m]+m",j+1)
+   local r   = k - j - 1
+   return  r
+end
+
+function List(...)
+   local mt = MT:mt()
+
+   local propT = readRC()
+
+   local totalA = mt:list("short","any")
+   if (#totalA < 1) then
+      local dbg = Dbg:dbg()
+      dbg.warning("No modules installed\n")
+      return
+   end
+
+   local wanted = {}
+   for i,v in ipairs{...} do
+      wanted[i] = v
+   end
+
+
+   local msg     = "Currently Loaded Modules"
+   local activeA = mt:list("short","active")
+   local a       = {}
+   local msg2    = ":"
+
+   if (#wanted == 0) then
+      wanted[1] = ".*"
+   else
+      msg2 = " Matching: " .. table.concat(wanted," or ")
+   end
+
+   io.stderr:write(msg,msg2,"\n")
+   local k = 0
+   for i = 1, #activeA do
+      local m = mt:fullName(activeA[i])
+      for j = 1, #wanted do
+         local p = wanted[j]
+         if (m:find(p,1,true) or m:find(p)) then
+            k = k + 1
+            a[#a + 1] = mt:list_property(k, m, "short")
+         end
+      end
+   end
+
+   if (k == 0) then
+      io.stderr:write("  None found.\n")
+   else
+      local ct = ColumnTable:new{tbl=a,prt=prtErr,gap=0,len=length}
+      local s  = ct:build_tbl()
+      io.stderr:write(s,"\n")
+   end
+   a = {}
+   k = 0
+
+   local k = 0
+   for i = 1, #totalA do
+      local v = totalA[i]
+      if (not mt:have(v,"active")) then
+         local m = mt:fullName(v)
+         for j = 1, #wanted do
+            local p = wanted[j]
+            if (m:find(p,1,true) or m:find(p)) then
+               k       = k + 1
+               a[#a+1] = {tostring(k).. ") " , m}
+            end
+         end
+      end
+   end
+
+   if (#a > 0) then
+      io.stderr:write("Inactive Modules",msg2,"\n")
+      local ct = ColumnTable:new{tbl=t,prt=prtErr,gap=0}
+      io.stderr(ct:build_tbl(),"\n")
+   end
+end

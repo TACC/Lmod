@@ -11,7 +11,7 @@ sysCacheDir   = os.getenv("LMOD_SPIDER_CACHE_DIR") or "@cacheDir@"
 ancient       = tonumber(ancient)   or 86400
 shortTime     = tonumber(shortTime) or 10.0
 BaseShell     = {}
-s_width       = false
+
 ------------------------------------------------------------------------
 -- Extract directory location of "lmod" command and add it
 -- to the lua search path
@@ -36,6 +36,7 @@ local getenv = os.getenv
 local rep    = string.rep
 
 
+require("fileOps")
 require("myGlobals")
 require("strict")
 require("firstInPath")
@@ -46,6 +47,36 @@ require("modfuncs")
 require("cmdfuncs")
 local Dbg     = require("Dbg")
 local Version = require("Version")
+
+RCFileA = {
+   pathJoin(os.getenv("HOME"),".lmodrc.lua"),
+   pathJoin(cmdDir(),"../../etc/.lmodrc.lua"),
+   os.getenv("LMOD_RC"),
+}
+
+s_propT = false
+
+function readRC()
+   if (s_propT) then
+      return s_propT
+   end
+
+   local results = {}
+
+   for i = 1,#RCFileA do
+      local f  = RCFileA[i]
+      local fh = io.open(f)
+      if (fh) then
+         assert(loadfile(f))()
+         fh:close()
+         results = _G.propT
+         break
+      end
+   end
+
+   s_propT = results
+   return s_propT
+end
 
 Usage = [[
 module sub-command [args ...]
@@ -131,7 +162,6 @@ end
 require("border")
 
 require("serializeTbl")
-require("fileOps")
 require("string_split")
 require("string_trim")
 BaseShell          = require("BaseShell")
@@ -164,77 +194,6 @@ end
 local function Update()
    local master = Master:master()
    master:reloadAll()
-end
-
-local function List(...)
-   local mt = MT:mt()
-
-   local totalA = mt:list("short","any")
-   if (#totalA < 1) then
-      local dbg = Dbg:dbg()
-      dbg.warning("No modules installed\n")
-      return
-   end
-
-   local wanted = {}
-   for i,v in ipairs{...} do
-      wanted[i] = v
-   end
-
-
-   local msg     = "Currently Loaded Modules"
-   local activeA = mt:list("short","active")
-   local t       = {}
-   local msg2    = ":"
-
-   if (#wanted == 0) then
-      wanted[1] = ".*"
-   else
-      msg2 = " Matching: " .. table.concat(wanted," or ")
-   end
-
-   io.stderr:write(msg,msg2,"\n")
-   local k = 0
-   for i = 1, #activeA do
-      local m = mt:fullName(activeA[i])
-      for j = 1, #wanted do
-         local p = wanted[j]
-         if (m:find(p,1,true) or m:find(p)) then
-            k = k + 1
-            t[#t + 1] = "  " .. k .. ") " .. m
-         end
-      end
-   end
-
-   if (k == 0) then
-      io.stderr:write("  None found.\n")
-   else
-      local ct = ColumnTable:new{tbl=t,prt=prtErr,gap=0}
-      ct:print_tbl()
-   end
-   t = {}
-   k = 0
-
-   local k = 0
-   for i = 1, #totalA do
-      local v = totalA[i]
-      if (not mt:have(v,"active")) then
-         local m = mt:fullName(v)
-         for j = 1, #wanted do
-            local p = wanted[j]
-            if (m:find(p,1,true) or m:find(p)) then
-               k = k + 1
-               t[#t + 1] = "  " .. k .. ") " .. m
-            end
-         end
-      end
-   end
-
-   if (#t > 0) then
-      io.stderr:write("Inactive Modules",msg2,"\n")
-      local ct = ColumnTable:new{tbl=t,prt=prtErr,gap=0}
-      ct:print_tbl()
-   end
 end
 
 local function TableList()
@@ -945,7 +904,6 @@ function main()
 
    local shell = barefilename(arg[1])
    table.remove(arg,1)
-
 
    local arg_str = concatTbl(arg," ")
    local options = Options:options(Usage)

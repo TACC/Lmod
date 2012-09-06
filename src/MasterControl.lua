@@ -297,17 +297,20 @@ end
 function M.add_property(self, name, value)
    local dbg    = Dbg:dbg()
    dbg.start("MasterControl:add_property(\"",name,"\", \"",value,"\")")
-
    local mStack  = ModuleStack:moduleStack()
    local mName   = mStack:moduleName()
-
-
+   local mt      = MT:mt()
+   mt:add_property(mName, name, value)
    dbg.fini()
 end
 
 function M.remove_property(self, name, value)
-   local dbg    = Dbg:dbg()
+   local dbg     = Dbg:dbg()
    dbg.start("MasterControl:remove_property(\"",name,"\", \"",value,"\")")
+   local mStack  = ModuleStack:moduleStack()
+   local mName   = mStack:moduleName()
+   local mt      = MT:mt()
+   mt:remove_property(mName, name, value)
    dbg.fini()
 end
 

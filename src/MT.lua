@@ -421,6 +421,7 @@ function M.add(self, t, status)
                      hash      = t.hash,
                      status    = status,
                      loadOrder = s_loadOrder,
+                     propT     = {},
    }
 end
 
@@ -582,19 +583,12 @@ function M.set_mType(self,moduleName, value)
    end
 end
 
-function M.set_mType(self,moduleName, value)
-   local mT = self.mT
-   local sn = shortName(moduleName)
-   mT[sn].mType = value
-end
 
 function M.remove(self, moduleName)
    local dbg = Dbg:dbg()
-   dbg.start("MT:remove(\"",moduleName,"\")")
    local mT = self.mT
    local sn = shortName(moduleName)
    mT[sn] = nil
-   dbg.fini()
 end
 
 function M.safeToSave(self)
@@ -608,11 +602,167 @@ function M.safeToSave(self)
    return a
 end
 
-local function bool(a)
-   local result = "false"
-   if (a) then result = "true" end
-   return result
+
+
+function M.add_property(self, moduleName, name, value)
+   local dbg = Dbg:dbg()
+   dbg.start("MT:add_property(\"",moduleName,"\", \"",name,"\", \"",tostring(value),"\")")
+   
+   local mT    = self.mT
+   local sn    = shortName(moduleName)
+   local entry = mT[sn]
+
+   if (entry == nil) then
+      LmodError("MT:add_property(): Did not find module entry: ",moduleName,
+                ". This should not happen!\n")
+   end
+   local propDisplayT = readRC()
+   local propKindT    = propDisplayT[name]
+
+   if (propKindT == nil) then
+      LmodError("MT:add_property(): system property table has no entry for: ", name,
+                "\nCheck spelling and case of name\n")
+   end
+   local validT = propKindT.validT
+   if (validT == nil) then
+      LmodError("MT:add_property(): system property table has no validT table for: ", name,
+                "\nCheck spelling and case of name\n")
+   end
+
+   local propT        = entry.propT
+   propT[name]        = propT[name] or {}
+   local t            = propT[name]
+
+   for v in value:split(":") do
+      if (validT[v] == nil) then
+         LmodError("MT:add_property(): The validT table for ", name," has no entry for: ", value,
+                   "\nCheck spelling and case of name\n")
+      end
+      t[v] = 1
+   end
+   entry.propT[name]  = t
+
+   dbg.fini()
 end
+
+function M.remove_property(self, moduleName, name, value)
+   local dbg = Dbg:dbg()
+   dbg.start("MT:remove_property(\"",moduleName,"\", \"",name,"\", \"",tostring(value),"\")")
+   
+   local mT    = self.mT
+   local sn    = shortName(moduleName)
+   local entry = mT[sn]
+
+   if (entry == nil) then
+      LmodError("MT:remove_property(): Did not find module entry: ",moduleName,
+                ". This should not happen!\n")
+   end
+   local propDisplayT = readRC()
+   local propKindT    = propDisplayT[name]
+
+   if (propKindT == nil) then
+      LmodError("MT:remove_property(): system property table has no entry for: ", name,
+                "\nCheck spelling and case of name\n")
+   end
+   local validT = propKindT.validT
+   if (validT == nil) then
+      LmodError("MT:remove_property(): system property table has no validT table for: ", name,
+                "\nCheck spelling and case of name\n")
+   end
+
+   local propT        = entry.propT
+   local t            = propT[name] or {}
+
+   for v in value:split(":") do
+      if (validT[v] == nil) then
+         LmodError("MT:add_property(): The validT table for ", name," has no entry for: ", value,
+                   "\nCheck spelling and case of name\n")
+      end
+      t[v] = nil
+   end
+   entry.propT[name] = t
+   dbg.fini()
+end
+
+
+Foreground = "\027".."[1;"
+colorT =
+   {
+   black      = "30",
+   red        = "31",
+   green      = "32",
+   yellow     = "33",
+   blue       = "34",
+   magenta    = "35",
+   cyan       = "36",
+   white      = "37",
+}
+
+function colorize(s,color)
+   if (color == nil or s == "") then
+      return s
+   end
+
+   local a = {}
+   a[#a+1] = Foreground
+   a[#a+1] = colorT[color]
+   a[#a+1] = 'm'
+   a[#a+1] = s
+   a[#a+1] = "\027" .. "[0m"
+
+   return concatTbl(a,"")
+end
+
+function M.list_property(self, idx, moduleName, style)
+   local dbg    = Dbg:dbg()
+   dbg.start("MT:list_property(\"",moduleName,"\", \"",style,"\")")
+   local dbg = Dbg:dbg()
+   local mT    = self.mT
+   local sn    = shortName(moduleName)
+   local entry = mT[sn]
+
+   if (entry == nil) then
+      LmodError("MT:list_property(): Did not find module entry: ",moduleName,
+                ". This should not happen!\n")
+   end
+
+   local resultA
+   local propDisplayT = readRC()
+   local propT        = entry.propT
+   local iprop        = 0
+
+   for kk,vv in pairsByKeys(propDisplayT) do
+      iprop        = iprop + 1
+      local propA  = {}
+      local t      = propT[kk]
+      local result = ""
+      local color  = nil
+      if (type(t) == "table") then
+         for k in pairs(t) do
+            propA[#propA+1] = k
+         end
+
+         table.sort(propA);
+         local n = concatTbl(propA,":")
+         dbg.print("n: ",tostring(n),"\n")
+
+         if (vv.displayT[n]) then
+            result = vv.displayT[n][style]
+            color  = vv.displayT[n].color
+         end
+      end
+      dbg.print("kk: ",kk," result: ",result,"\n")
+      if (iprop == 1) then
+         resultA = { "  " .. tostring(idx) ..")", colorize(moduleName,color), colorize(result,color)}
+      else
+         resultA[#resultA+1] = colorize(result,color)
+      end
+   end
+
+   dbg.fini()
+   return resultA
+end
+
 
 
 function M.changeInactive(self)
