@@ -5,8 +5,8 @@ step 1
 step 2
 ===========================
 Currently Loaded Modules:
-  1) TACC          3) cluster          5) pgi/7.1            7) globus/4.0.7
-  2) TACC_symbols  4) cluster_symbols  6) mvapich1/mvapich1
+  1) TACC           3) cluster           5) pgi/7.1             7) globus/4.0.7
+  2) TACC_symbols   4) cluster_symbols   6) mvapich1/mvapich1
 ===========================
 step 3
 ===========================
@@ -23,8 +23,8 @@ step 6
 step 7
 ===========================
 Currently Loaded Modules:
-  1) TACC_symbols     3) pgi/7.1            5) globus/4.0.7  7) cluster
-  2) cluster_symbols  4) mvapich1/mvapich1  6) TACC          8) a/a    
+  1) TACC_symbols      3) pgi/7.1             5) globus/4.0.7   7) cluster
+  2) cluster_symbols   4) mvapich1/mvapich1   6) TACC           8) a/a
 ===========================
 step 8
 ===========================
@@ -35,8 +35,8 @@ step 9
 step 10
 ===========================
 Currently Loaded Modules:
-  1) TACC_symbols     3) pgi/7.1            5) globus/4.0.7  7) TACC   
-  2) cluster_symbols  4) mvapich1/mvapich1  6) a/a           8) cluster
+  1) TACC_symbols      3) pgi/7.1             5) globus/4.0.7   7) TACC
+  2) cluster_symbols   4) mvapich1/mvapich1   6) a/a            8) cluster
 ===========================
 step 11
 ===========================

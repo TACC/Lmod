@@ -125,6 +125,8 @@ function length(self)
 end
 
 function List(...)
+   local dbg    = Dbg:dbg()
+   dbg.start("List(...)")
    local mt = MT:mt()
 
    local propT = readRC()
@@ -169,7 +171,7 @@ function List(...)
    if (k == 0) then
       io.stderr:write("  None found.\n")
    else
-      local ct = ColumnTable:new{tbl=a,prt=prtErr,gap=0,len=length}
+      local ct = ColumnTable:new{tbl=a, gap=0, len=length}
       local s  = ct:build_tbl()
       io.stderr:write(s,"\n")
    end
@@ -185,7 +187,7 @@ function List(...)
             local p = wanted[j]
             if (m:find(p,1,true) or m:find(p)) then
                k       = k + 1
-               a[#a+1] = {tostring(k).. ") " , m}
+               a[#a+1] = {"  " .. tostring(k).. ")" , m}
             end
          end
       end
@@ -193,7 +195,8 @@ function List(...)
 
    if (#a > 0) then
       io.stderr:write("Inactive Modules",msg2,"\n")
-      local ct = ColumnTable:new{tbl=t,prt=prtErr,gap=0}
-      io.stderr(ct:build_tbl(),"\n")
+      local ct = ColumnTable:new{tbl=a,prt=prtErr,gap=0}
+      io.stderr:write(ct:build_tbl(),"\n")
    end
+   dbg.fini()
 end

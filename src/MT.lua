@@ -759,6 +759,10 @@ function M.list_property(self, idx, moduleName, style)
       end
    end
 
+   if (iprop == 0) then
+      resultA = { "  "  .. tostring(idx) ..")", moduleName }
+   end
+
    dbg.fini()
    return resultA
 end

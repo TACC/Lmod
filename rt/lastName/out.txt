@@ -41,7 +41,7 @@ export TACC_GIT_DIR;
 TACC_GIT_LIB="/opt/apps/git/1.7.4.3/lib";
 export TACC_GIT_LIB;
 export _ModuleTable_Sz_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"~/w/lmod/mf/Core","~/w/lmod/mf/Beta",},family={},inactive={},mT={git={["FN"]="~/w/lmod/mf/Core/git/1.7.4.3.lua",["default"]=1,["fullName"]="git/1.7.4.3",["hash"]=0,["loadOrder"]=1,["mType"]="w",["short"]="git",["status"]="active",},},mpathA={"~/w/lmod/mf/Core","~/w/lmod/mf/Beta",},["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"~/w/lmod/mf/Core","~/w/lmod/mf/Beta",},family={},inactive={},mT={git={["FN"]="~/w/lmod/mf/Core/git/1.7.4.3.lua",["default"]=1,["fullName"]="git/1.7.4.3",["hash"]=0,["loadOrder"]=1,["mType"]="w",propT={},["short"]="git",["status"]="active",},},mpathA={"~/w/lmod/mf/Core","~/w/lmod/mf/Beta",},["version"]=2,}';
 export _ModuleTable_;
 ===========================
 step 4

@@ -12,7 +12,7 @@ export MODULEPATH;
 PETSC_DIR="foo";
 export PETSC_DIR;
 export _ModuleTable_Sz_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"~/w/lmod/rt/prereq/mf",},family={},inactive={},mT={petsc={["FN"]="~/w/lmod/rt/prereq/mf/petsc/3.1.0",["default"]=1,["fullName"]="petsc/3.1.0",["hash"]=0,["loadOrder"]=1,["mType"]="w",["short"]="petsc",["status"]="active",},},mpathA={"~/w/lmod/rt/prereq/mf",},["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"~/w/lmod/rt/prereq/mf",},family={},inactive={},mT={petsc={["FN"]="~/w/lmod/rt/prereq/mf/petsc/3.1.0",["default"]=1,["fullName"]="petsc/3.1.0",["hash"]=0,["loadOrder"]=1,["mType"]="w",propT={},["short"]="petsc",["status"]="active",},},mpathA={"~/w/lmod/rt/prereq/mf",},["version"]=2,}';
 export _ModuleTable_;
 ===========================
 step 2
@@ -70,7 +70,7 @@ export MODULEPATH;
 PETSC_DIR="foo";
 export PETSC_DIR;
 export _ModuleTable_Sz_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"~/w/lmod/rt/prereq/mf",},family={},inactive={},mT={petsc={["FN"]="~/w/lmod/rt/prereq/mf/petsc/2.9.0",["default"]=0,["fullName"]="petsc/2.9.0",["hash"]=0,["loadOrder"]=1,["mType"]="w",["short"]="petsc",["status"]="active",},},mpathA={"~/w/lmod/rt/prereq/mf",},["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"~/w/lmod/rt/prereq/mf",},family={},inactive={},mT={petsc={["FN"]="~/w/lmod/rt/prereq/mf/petsc/2.9.0",["default"]=0,["fullName"]="petsc/2.9.0",["hash"]=0,["loadOrder"]=1,["mType"]="w",propT={},["short"]="petsc",["status"]="active",},},mpathA={"~/w/lmod/rt/prereq/mf",},["version"]=2,}';
 export _ModuleTable_;
 ===========================
 step 7
@@ -92,7 +92,7 @@ export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="~/w/lmod/rt/prereq/mf";
 export MODULEPATH;
 export _ModuleTable_Sz_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"~/w/lmod/rt/prereq/mf",},family={},inactive={},mT={petsc={["FN"]="~/w/lmod/rt/prereq/mf/petsc/2.9.0",["default"]=0,["fullName"]="petsc/2.9.0",["hash"]=0,["loadOrder"]=1,["mType"]="w",["short"]="petsc",["status"]="active",},slepc={["FN"]="~/w/lmod/rt/prereq/mf/slepc/2.9.0",["default"]=0,["fullName"]="slepc/2.9.0",["hash"]=0,["loadOrder"]=2,["mType"]="w",["short"]="slepc",["status"]="active",},},mpathA={"~/w/lmod/rt/prereq/mf",},["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"~/w/lmod/rt/prereq/mf",},family={},inactive={},mT={petsc={["FN"]="~/w/lmod/rt/prereq/mf/petsc/2.9.0",["default"]=0,["fullName"]="petsc/2.9.0",["hash"]=0,["loadOrder"]=1,["mType"]="w",propT={},["short"]="petsc",["status"]="active",},slepc={["FN"]="~/w/lmod/rt/prereq/mf/slepc/2.9.0",["default"]=0,["fullName"]="slepc/2.9.0",["hash"]=0,["loadOrder"]=2,["mType"]="w",propT={},["short"]="slepc",["status"]="active",},},mpathA={"~/w/lmod/rt/prereq/mf",},["version"]=2,}';
 export _ModuleTable_;
 ===========================
 step 9
@@ -108,7 +108,7 @@ export MODULEPATH;
 PETSC_DIR="foo";
 export PETSC_DIR;
 export _ModuleTable_Sz_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"~/w/lmod/rt/prereq/mf",},family={},inactive={},mT={petsc={["FN"]="~/w/lmod/rt/prereq/mf/petsc/3.1.0",["default"]=0,["fullName"]="petsc/3.1.0",["hash"]=0,["loadOrder"]=2,["mType"]="w",["short"]="petsc",["status"]="active",},slepc={["FN"]="~/w/lmod/rt/prereq/mf/slepc/2.9.0",["default"]=0,["fullName"]="slepc/2.9.0",["hash"]=0,["loadOrder"]=1,["mType"]="w",["short"]="slepc",["status"]="active",},},mpathA={"~/w/lmod/rt/prereq/mf",},["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"~/w/lmod/rt/prereq/mf",},family={},inactive={},mT={petsc={["FN"]="~/w/lmod/rt/prereq/mf/petsc/3.1.0",["default"]=0,["fullName"]="petsc/3.1.0",["hash"]=0,["loadOrder"]=2,["mType"]="w",propT={},["short"]="petsc",["status"]="active",},slepc={["FN"]="~/w/lmod/rt/prereq/mf/slepc/2.9.0",["default"]=0,["fullName"]="slepc/2.9.0",["hash"]=0,["loadOrder"]=1,["mType"]="w",propT={},["short"]="slepc",["status"]="active",},},mpathA={"~/w/lmod/rt/prereq/mf",},["version"]=2,}';
 export _ModuleTable_;
 ===========================
 step 10
@@ -122,7 +122,7 @@ export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="~/w/lmod/rt/prereq/mf";
 export MODULEPATH;
 export _ModuleTable_Sz_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"~/w/lmod/rt/prereq/mf",},family={},inactive={},mT={petsc={["FN"]="~/w/lmod/rt/prereq/mf/petsc/3.1.0",["default"]=0,["fullName"]="petsc/3.1.0",["hash"]=0,["loadOrder"]=1,["mType"]="w",["short"]="petsc",["status"]="active",},slepc={["FN"]="~/w/lmod/rt/prereq/mf/slepc/3.1.0",["default"]=1,["fullName"]="slepc/3.1.0",["hash"]=0,["loadOrder"]=2,["mType"]="w",["short"]="slepc",["status"]="active",},},mpathA={"~/w/lmod/rt/prereq/mf",},["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"~/w/lmod/rt/prereq/mf",},family={},inactive={},mT={petsc={["FN"]="~/w/lmod/rt/prereq/mf/petsc/3.1.0",["default"]=0,["fullName"]="petsc/3.1.0",["hash"]=0,["loadOrder"]=1,["mType"]="w",propT={},["short"]="petsc",["status"]="active",},slepc={["FN"]="~/w/lmod/rt/prereq/mf/slepc/3.1.0",["default"]=1,["fullName"]="slepc/3.1.0",["hash"]=0,["loadOrder"]=2,["mType"]="w",propT={},["short"]="slepc",["status"]="active",},},mpathA={"~/w/lmod/rt/prereq/mf",},["version"]=2,}';
 export _ModuleTable_;
 ===========================
 step 11
@@ -153,7 +153,7 @@ export MODULEPATH;
 PETSC_DIR="foo";
 export PETSC_DIR;
 export _ModuleTable_Sz_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"~/w/lmod/rt/prereq/mf",},family={},inactive={},mT={petsc={["FN"]="~/w/lmod/rt/prereq/mf/petsc/3.1.0",["default"]=0,["fullName"]="petsc/3.1.0",["hash"]=0,["loadOrder"]=1,["mType"]="w",["short"]="petsc",["status"]="active",},},mpathA={"~/w/lmod/rt/prereq/mf",},["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"~/w/lmod/rt/prereq/mf",},family={},inactive={},mT={petsc={["FN"]="~/w/lmod/rt/prereq/mf/petsc/3.1.0",["default"]=0,["fullName"]="petsc/3.1.0",["hash"]=0,["loadOrder"]=1,["mType"]="w",propT={},["short"]="petsc",["status"]="active",},},mpathA={"~/w/lmod/rt/prereq/mf",},["version"]=2,}';
 export _ModuleTable_;
 ===========================
 step 13
@@ -167,7 +167,7 @@ export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="~/w/lmod/rt/prereq/mf";
 export MODULEPATH;
 export _ModuleTable_Sz_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"~/w/lmod/rt/prereq/mf",},family={},inactive={},mT={petsc={["FN"]="~/w/lmod/rt/prereq/mf/petsc/3.1.0",["default"]=0,["fullName"]="petsc/3.1.0",["hash"]=0,["loadOrder"]=1,["mType"]="w",["short"]="petsc",["status"]="active",},slepc={["FN"]="~/w/lmod/rt/prereq/mf/slepc/2.9.0",["default"]=0,["fullName"]="slepc/2.9.0",["hash"]=0,["loadOrder"]=2,["mType"]="w",["short"]="slepc",["status"]="active",},},mpathA={"~/w/lmod/rt/prereq/mf",},["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"~/w/lmod/rt/prereq/mf",},family={},inactive={},mT={petsc={["FN"]="~/w/lmod/rt/prereq/mf/petsc/3.1.0",["default"]=0,["fullName"]="petsc/3.1.0",["hash"]=0,["loadOrder"]=1,["mType"]="w",propT={},["short"]="petsc",["status"]="active",},slepc={["FN"]="~/w/lmod/rt/prereq/mf/slepc/2.9.0",["default"]=0,["fullName"]="slepc/2.9.0",["hash"]=0,["loadOrder"]=2,["mType"]="w",propT={},["short"]="slepc",["status"]="active",},},mpathA={"~/w/lmod/rt/prereq/mf",},["version"]=2,}';
 export _ModuleTable_;
 ===========================
 step 14
@@ -191,7 +191,7 @@ export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="~/w/lmod/rt/prereq/mf";
 export MODULEPATH;
 export _ModuleTable_Sz_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"~/w/lmod/rt/prereq/mf",},family={},inactive={},mT={jdk32={["FN"]="~/w/lmod/rt/prereq/mf/jdk32/1.0.lua",["default"]=1,["fullName"]="jdk32/1.0",["hash"]=0,["loadOrder"]=3,["mType"]="w",["short"]="jdk32",["status"]="active",},petsc={["FN"]="~/w/lmod/rt/prereq/mf/petsc/3.1.0",["default"]=0,["fullName"]="petsc/3.1.0",["hash"]=0,["loadOrder"]=1,["mType"]="w",["short"]="petsc",["status"]="active",},slepc={["FN"]="~/w/lmod/rt/prereq/mf/slepc/2.9.0",["default"]=0,["fullName"]="slepc/2.9.0",["hash"]=0,["loadOrder"]=2,["mType"]="w",["short"]="slepc",["status"]="active",},},mpathA={"~/w/lmod/rt/prereq/mf",},["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"~/w/lmod/rt/prereq/mf",},family={},inactive={},mT={jdk32={["FN"]="~/w/lmod/rt/prereq/mf/jdk32/1.0.lua",["default"]=1,["fullName"]="jdk32/1.0",["hash"]=0,["loadOrder"]=3,["mType"]="w",propT={},["short"]="jdk32",["status"]="active",},petsc={["FN"]="~/w/lmod/rt/prereq/mf/petsc/3.1.0",["default"]=0,["fullName"]="petsc/3.1.0",["hash"]=0,["loadOrder"]=1,["mType"]="w",propT={},["short"]="petsc",["status"]="active",},slepc={["FN"]="~/w/lmod/rt/prereq/mf/slepc/2.9.0",["default"]=0,["fullName"]="slepc/2.9.0",["hash"]=0,["loadOrder"]=2,["mType"]="w",propT={},["short"]="slepc",["status"]="active",},},mpathA={"~/w/lmod/rt/prereq/mf",},["version"]=2,}';
 export _ModuleTable_;
 ===========================
 step 16
@@ -205,5 +205,5 @@ export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="~/w/lmod/rt/prereq/mf";
 export MODULEPATH;
 export _ModuleTable_Sz_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=4,baseMpathA={"~/w/lmod/rt/prereq/mf",},family={},inactive={},mT={jdk32={["FN"]="~/w/lmod/rt/prereq/mf/jdk32/1.0.lua",["default"]=1,["fullName"]="jdk32/1.0",["hash"]=0,["loadOrder"]=3,["mType"]="w",["short"]="jdk32",["status"]="active",},junk={["FN"]="~/w/lmod/rt/prereq/mf/junk/1.0.lua",["default"]=0,["fullName"]="junk/1.0",["hash"]=0,["loadOrder"]=4,["mType"]="w",["short"]="junk",["status"]="active",},petsc={["FN"]="~/w/lmod/rt/prereq/mf/petsc/3.1.0",["default"]=0,["fullName"]="petsc/3.1.0",["hash"]=0,["loadOrder"]=1,["mType"]="w",["short"]="petsc",["status"]="active",},slepc={["FN"]="~/w/lmod/rt/prereq/mf/slepc/2.9.0",["default"]=0,["fullName"]="slepc/2.9.0",["hash"]=0,["loadOrder"]=2,["mType"]="w",["short"]="slepc",["status"]="active",},},mpathA={"~/w/lmod/rt/prereq/mf",},["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=4,baseMpathA={"~/w/lmod/rt/prereq/mf",},family={},inactive={},mT={jdk32={["FN"]="~/w/lmod/rt/prereq/mf/jdk32/1.0.lua",["default"]=1,["fullName"]="jdk32/1.0",["hash"]=0,["loadOrder"]=3,["mType"]="w",propT={},["short"]="jdk32",["status"]="active",},junk={["FN"]="~/w/lmod/rt/prereq/mf/junk/1.0.lua",["default"]=0,["fullName"]="junk/1.0",["hash"]=0,["loadOrder"]=4,["mType"]="w",propT={},["short"]="junk",["status"]="active",},petsc={["FN"]="~/w/lmod/rt/prereq/mf/petsc/3.1.0",["default"]=0,["fullName"]="petsc/3.1.0",["hash"]=0,["loadOrder"]=1,["mType"]="w",propT={},["short"]="petsc",["status"]="active",},slepc={["FN"]="~/w/lmod/rt/prereq/mf/slepc/2.9.0",["default"]=0,["fullName"]="slepc/2.9.0",["hash"]=0,["loadOrder"]=2,["mType"]="w",propT={},["short"]="slepc",["status"]="active",},},mpathA={"~/w/lmod/rt/prereq/mf",},["version"]=2,}';
 export _ModuleTable_;

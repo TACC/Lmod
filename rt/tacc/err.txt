@@ -2,10 +2,10 @@
 step 1
 ===========================
  ~/w/lmod/mf/TACC 
-   Linux          cluster           globus/4.0.7      (default) 
-   TACC           cluster-paths     mvapich1/mvapich1           
-   TACC-paths     cluster.orig      pgi/7.1           (default) 
-   TACC.orig      globus/4.0.1      pgi/7.2-5                   
+   Linux          cluster           globus/4.0.7      (default)
+   TACC           cluster-paths     mvapich1/mvapich1
+   TACC-paths     cluster.orig      pgi/7.1           (default)
+   TACC.orig      globus/4.0.1      pgi/7.2-5
 Use "module spider" to find all possible modules. 
 Use "module keyword key1 key2 ..." to search for all possible modules matching 
 any of the "keys". 
@@ -16,8 +16,8 @@ step 2
 step 3
 ===========================
 Currently Loaded Modules:
-  1) TACC   3) cluster  5) mvapich1/1.0  7) cluster-paths
-  2) Linux  4) pgi/7.1  6) globus/4.0.7  8) TACC-paths   
+  1) TACC    3) cluster   5) mvapich1/1.0   7) cluster-paths
+  2) Linux   4) pgi/7.1   6) globus/4.0.7   8) TACC-paths
 ===========================
 step 4
 ===========================

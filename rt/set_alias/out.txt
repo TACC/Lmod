@@ -13,7 +13,7 @@ VARIABLE="1";
 export VARIABLE;
 export _ModuleTable_Sz_;
 alias somealias="1";
-_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"~/w/lmod/rt/set_alias/mf",},family={},inactive={},mT={test1={["FN"]="~/w/lmod/rt/set_alias/mf/test1",["default"]=0,["fullName"]="test1",["hash"]=0,["loadOrder"]=1,["mType"]="w",["short"]="test1",["status"]="active",},},mpathA={"~/w/lmod/rt/set_alias/mf",},["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"~/w/lmod/rt/set_alias/mf",},family={},inactive={},mT={test1={["FN"]="~/w/lmod/rt/set_alias/mf/test1",["default"]=0,["fullName"]="test1",["hash"]=0,["loadOrder"]=1,["mType"]="w",propT={},["short"]="test1",["status"]="active",},},mpathA={"~/w/lmod/rt/set_alias/mf",},["version"]=2,}';
 export _ModuleTable_;
 ===========================
 step 2
@@ -30,7 +30,7 @@ VARIABLE="2";
 export VARIABLE;
 export _ModuleTable_Sz_;
 alias somealias="2";
-_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"~/w/lmod/rt/set_alias/mf",},family={},inactive={},mT={test2={["FN"]="~/w/lmod/rt/set_alias/mf/test2",["default"]=0,["fullName"]="test2",["hash"]=0,["loadOrder"]=1,["mType"]="mw",["short"]="test2",["status"]="active",},},mpathA={"~/w/lmod/rt/set_alias/mf",},["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"~/w/lmod/rt/set_alias/mf",},family={},inactive={},mT={test2={["FN"]="~/w/lmod/rt/set_alias/mf/test2",["default"]=0,["fullName"]="test2",["hash"]=0,["loadOrder"]=1,["mType"]="mw",propT={},["short"]="test2",["status"]="active",},},mpathA={"~/w/lmod/rt/set_alias/mf",},["version"]=2,}';
 export _ModuleTable_;
 ===========================
 step 3
