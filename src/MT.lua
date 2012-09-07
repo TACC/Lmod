@@ -294,6 +294,14 @@ function M.endOP(self)
    end
 end
 
+function M.rpt_changePATHcount(self)
+   return self._changePATHCount
+end
+
+function M.rpt_changePATH(self)
+   return self._changePATH
+end
+
 function M.safeToCheckZombies(self)
    local result = self._changePATHCount == 0 and self._changePATH
    local s      = "nil"
@@ -713,7 +721,7 @@ function colorize(s,color)
    return concatTbl(a,"")
 end
 
-function M.list_property(self, idx, moduleName, style)
+function M.list_property(self, idx, moduleName, style, legendT)
    local dbg    = Dbg:dbg()
    dbg.start("MT:list_property(\"",moduleName,"\", \"",style,"\")")
    local dbg = Dbg:dbg()
@@ -747,8 +755,10 @@ function M.list_property(self, idx, moduleName, style)
          dbg.print("n: ",tostring(n),"\n")
 
          if (vv.displayT[n]) then
-            result = vv.displayT[n][style]
-            color  = vv.displayT[n].color
+            result     = vv.displayT[n][style]
+            color      = vv.displayT[n].color
+            local k    = colorize(result,color)
+            legendT[k] = vv.displayT[n].doc
          end
       end
       dbg.print("kk: ",kk," result: ",result,"\n")

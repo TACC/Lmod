@@ -105,9 +105,8 @@ function M.load(self, ...)
          for k, v in pairs(t) do
             io.stderr:write("\n",k," :\n")
             a[1] = { " ", v}
-            bt = BeautifulTbl:new{tbl=a, wrapped=true, column=term_width-1,prt=prtErr}
-            bt:printTbl()
-            io.stderr:write("\n")
+            bt = BeautifulTbl:new{tbl=a, wrapped=true, column=term_width-1}
+            io.stderr:write(bt:build_tbl(), "\n")
          end
          io.stderr:write(border,"\n\n")
       end

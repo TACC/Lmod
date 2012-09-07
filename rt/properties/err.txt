@@ -10,3 +10,8 @@ step 3
 Currently Loaded Modules:
   1) PrgEnv         3) a/1.0       5) [1;34mc/1.0[0m [1;34m(o)[0m
   2) [1;35mmkl/10.3[0m [1;35m(*)[0m   4) [1;34mb/1.0[0m [1;34m(m)[0m   6) [1;31md/1.0[0m [1;31m(@)[0m
+  Where:
+   [1;31m(@)[0m:  module is build natively for MIC and GPU and offload to the MIC
+   [1;34m(m)[0m:  module is build natively for MIC
+   [1;34m(o)[0m:  module is build for offload to the MIC
+   [1;35m(*)[0m:  module is build natively for MIC and offload to the MIC

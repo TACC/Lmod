@@ -54,7 +54,6 @@ end
 
 function Spider_help(...)
    local masterTbl   = masterTbl()
-   local moduleDirT  = masterTbl.moduleDirT
    local moduleStack = masterTbl.moduleStack 
    local iStack      = #moduleStack
    local path        = moduleStack[iStack].path
@@ -66,7 +65,6 @@ KeyT = {Description=1, Name=1, URL=1, Version=1, Category=1, Keyword=1}
 
 function Spider_whatis(s)
    local masterTbl   = masterTbl()
-   local moduleDirT  = masterTbl.moduleDirT
    local moduleStack = masterTbl.moduleStack 
    local iStack      = #moduleStack
    local path        = moduleStack[iStack].path
@@ -85,7 +83,6 @@ end
 
 function processLPATH(value)
    local masterTbl      = masterTbl()
-   local moduleDirT     = masterTbl.moduleDirT
    local moduleStack    = masterTbl.moduleStack 
    local iStack         = #moduleStack
    local path           = moduleStack[iStack].path
@@ -101,7 +98,6 @@ function processPATH(value)
    if value == nil then return end
 
    local masterTbl     = masterTbl()
-   local moduleDirT    = masterTbl.moduleDirT
    local moduleStack   = masterTbl.moduleStack 
    local iStack        = #moduleStack
    local path          = moduleStack[iStack].path
@@ -132,7 +128,6 @@ function processNewModulePATH(value)
    dbg.start("processNewModulePATH(value=\"",value,"\")")
 
    local masterTbl   = masterTbl()
-   local moduleDirT  = masterTbl.moduleDirT
    local moduleStack = masterTbl.moduleStack 
    local iStack      = #moduleStack
    if (masterTbl.no_recursion) then
@@ -159,12 +154,31 @@ end
 function Spider_add_property(name,value)
    local dbg = Dbg:dbg()
    dbg.start("Spider_add_property(name=\"",name," value=\"",value,"\")")
+
+   local masterTbl     = masterTbl()
+   local moduleStack   = masterTbl.moduleStack 
+   local iStack        = #moduleStack
+   local path          = moduleStack[iStack].path
+   local moduleT       = moduleStack[iStack].moduleT
+   local t             = moduleT[path].propT or {}
+   t[name]             = t[name] or {}
+   t[name][value]      = 1
+   moduleT[path].propT = t
    dbg.fini()
 end
 
 function Spider_remove_property(name,value)
    local dbg = Dbg:dbg()
    dbg.start("Spider_remove_property(name=\"",name," value=\"",value,"\")")
+   local masterTbl     = masterTbl()
+   local moduleStack   = masterTbl.moduleStack 
+   local iStack        = #moduleStack
+   local path          = moduleStack[iStack].path
+   local moduleT       = moduleStack[iStack].moduleT
+   local t             = moduleT[path].propT or {}
+   t[name]             = t[name] or {}
+   t[name][value]      = nil
+   moduleT[path].propT = t
    dbg.fini()
 end
 
@@ -588,6 +602,7 @@ function M.Level2(t, mname, full)
    local c  = {}
    local titleIdx = 0
    
+   local propDisplayT = readRC()
    
    local term_width = TermWidth() - 4
    local tt = nil
@@ -605,7 +620,7 @@ function M.Level2(t, mname, full)
    full = full or ""
    local fullL = full:lower()
    for k,v in pairs(t) do
-      dbg.print("v.full: ",v.full," mname: ",mname," k: ",k," full:", tostring(full),"\n")
+      dbg.print("vv.full: ",v.full," mname: ",mname," k: ",k," full:", tostring(full),"\n")
       if (v.full_lower == mnameL or v.full_lower == fullL) then
          if (tt == nil) then
             tt = v
@@ -618,6 +633,19 @@ function M.Level2(t, mname, full)
             if (tt.Description) then
                ia = ia + 1; a[ia] = "    Description:\n"
                ia = ia + 1; a[ia] = fillWords("      ",tt.Description, term_width)
+               ia = ia + 1; a[ia] = "\n"
+            end
+            if (tt.propT ) then
+               ia = ia + 1; a[ia] = "    Properties:\n"
+               for kk, vv in pairs(propDisplayT) do
+                  if (tt.propT[kk]) then
+                     for kkk in pairs(tt.propT[kk]) do
+                        if (vv.displayT[kkk]) then
+                           ia = ia + 1; a[ia] = fillWords("      ",vv.displayT[kkk].doc, term_width)
+                        end
+                     end
+                  end
+               end
                ia = ia + 1; a[ia] = "\n"
             end
             ia = ia + 1; a[ia] = "Avail Title goes here.  This should never be seen\n"

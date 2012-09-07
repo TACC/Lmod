@@ -276,22 +276,33 @@ function M.unload(...)
    a = {}
    for _, moduleName in ipairs{...} do
       dbg.print("Trying to unload: ", moduleName, "\n")
-      if (mt:have(moduleName,"active")) then
+      if (mt:have(moduleName,"inactive")) then
+         dbg.print("Removing inactive module: ", moduleName, "\n")
+         mt:remove(moduleName)
+         a[#a + 1] = true
+      elseif (mt:have(moduleName,"active")) then
+         dbg.print("Mark ", moduleName, " as pending\n")
          mt:setStatus(moduleName,"pending")
          local f              = mt:fileName(moduleName)
          local fullModuleName = mt:fullName(moduleName)
          dbg.print("Master:unload: \"",fullModuleName,"\" from f: ",f,"\n")
+         dbg.print("(0) mt:changePATHcount(): ",mt:rpt_changePATHcount(),"\n")
          mt:beginOP()
+         dbg.print("(1) mt:changePATHcount(): ",mt:rpt_changePATHcount(),"\n")
          mStack:push(fullModuleName)
 	 loadModuleFile{file=f,moduleName=moduleName,reportErr=false}
+         dbg.print("(2) mt:changePATHcount(): ",mt:rpt_changePATHcount(),"\n")
          mStack:pop()
          mt:endOP()
+         dbg.print("(3) mt:changePATHcount(): ",mt:rpt_changePATHcount(),"\n")
+         dbg.print("calling mt:remove(\"",moduleName,"\")\n")
          mt:remove(moduleName)
          a[#a + 1] = true
       else
          a[#a + 1] = false
       end
    end
+   dbg.print("(4)mt:changePATHcount(): ",mt:rpt_changePATHcount()," mt:changePATH(): ",tostring(mt:rpt_changePATH()),"\n")
    if (M.safeToUpdate() and mt:safeToCheckZombies() and mStack:empty()) then
       M.reloadAll()
    end
@@ -404,6 +415,7 @@ function M.load(...)
          t.mType = mStack:moduleType()
          mStack:pop()
 	 mt:endOP()
+         dbg.print("Making ", t.modName, " active\n")
          mt:setStatus(t.modName,"active")
          mt:set_mType(t.modName,t.mType)
          dbg.print("Marked: ",t.modFullName," as loaded\n")
@@ -542,12 +554,15 @@ end
 
 function M.prtReloadT(self)
    if (next(self.reloadT) == nil or expert()) then return end
+   local mt = MT:mt()
    local t = self.reloadT
    local a = {}
    local i = 0
    for name in pairs(t) do
-      i    = i + 1
-      a[i] = "  " .. i .. ") " .. name
+      if (mt:have(name,"active")) then
+         i    = i + 1
+         a[i] = "  " .. i .. ") " .. name
+      end
    end
    if (i > 0) then
       io.stderr:write("Due to MODULEPATH changes the following modules have been reloaded:\n")

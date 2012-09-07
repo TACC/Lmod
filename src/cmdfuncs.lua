@@ -5,10 +5,12 @@
 require("strict")
 require("myGlobals")
 require("string_trim")
-local ColumnTable = require('ColumnTable')
-local Dbg         = require("Dbg")
-local concatTbl   = table.concat
-local getenv      = os.getenv
+require("TermWidth")
+local BeautifulTbl = require('BeautifulTbl')
+local ColumnTable  = require('ColumnTable')
+local Dbg          = require("Dbg")
+local concatTbl    = table.concat
+local getenv       = os.getenv
 
 function Purge()
    local master = Master:master()
@@ -157,13 +159,14 @@ function List(...)
 
    io.stderr:write(msg,msg2,"\n")
    local k = 0
+   local legendT = {}
    for i = 1, #activeA do
       local m = mt:fullName(activeA[i])
       for j = 1, #wanted do
          local p = wanted[j]
          if (m:find(p,1,true) or m:find(p)) then
             k = k + 1
-            a[#a + 1] = mt:list_property(k, m, "short")
+            a[#a + 1] = mt:list_property(k, m, "short", legendT)
          end
       end
    end
@@ -175,6 +178,19 @@ function List(...)
       local s  = ct:build_tbl()
       io.stderr:write(s,"\n")
    end
+
+   if (next(legendT)) then
+      local term_width = TermWidth()
+      io.stderr:write("\n  Where:\n")
+      a = {}
+      for k, v in pairsByKeys(legendT) do
+         a[#a+1] = { "   " .. k ..":", v}
+      end
+      local bt = BeautifulTbl:new{tbl=a, column = term_width-1}
+      io.stderr:write(bt:build_tbl(),"\n")
+   end
+
+
    a = {}
    k = 0
 
@@ -195,7 +211,7 @@ function List(...)
 
    if (#a > 0) then
       io.stderr:write("Inactive Modules",msg2,"\n")
-      local ct = ColumnTable:new{tbl=a,prt=prtErr,gap=0}
+      local ct = ColumnTable:new{tbl=a,gap=0}
       io.stderr:write(ct:build_tbl(),"\n")
    end
    dbg.fini()

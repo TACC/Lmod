@@ -17,6 +17,7 @@ M.load            = MasterControl.quiet
 M.message         = MasterControl.quiet
 M.prereq          = MasterControl.quiet
 M.prereq_any      = MasterControl.quiet
+M.remove_path     = MasterControl.quiet
 M.set_alias       = MasterControl.quiet
 M.try_load        = MasterControl.quiet
 M.unload          = MasterControl.quiet
@@ -76,7 +77,7 @@ end
 function M.add_property(self,...)
    local dbg    = Dbg:dbg()
    dbg.start("MC_Spider:add_property(...)")
-   Spider_add_property("",...)
+   Spider_add_property(...)
    dbg.fini()
    return true
 end
@@ -84,7 +85,7 @@ end
 function M.remove_property(self,...)
    local dbg    = Dbg:dbg()
    dbg.start("MC_Spider:remove_property(...)")
-   Spider_add_property("",...)
+   Spider_remove_property(...)
    dbg.fini()
    return true
 end

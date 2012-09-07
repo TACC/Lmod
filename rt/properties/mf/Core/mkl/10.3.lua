@@ -5,4 +5,3 @@ remove_property("arch","mic")
 remove_property("arch","offload")
 add_property("arch","offload")
 add_property("arch","mic")
-
