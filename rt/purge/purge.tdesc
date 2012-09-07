@@ -33,9 +33,11 @@ testdescript = {
      export LMOD_DEFAULT_MODULEPATH
      numStep=0
      COUNT=0
-     HOME=`(cd $HOME; /bin/pwd)`
+     ORIG_HOME=`(cd $HOME; /bin/pwd)`
+     HOME=`/bin/pwd`
 
      rm -f _stderr.* _stdout.* err.* out.*
+     cp $(projectDir)/setup/.lmodrc.lua .
 
      runMe $LUA $(projectDir)/src/lmod.in bash load PrgEnv openmpi                 # 1
      runMe $LUA $(projectDir)/src/lmod.in bash list                                # 2
@@ -46,6 +48,7 @@ testdescript = {
      runMe $LUA $(projectDir)/src/lmod.in bash purge                               # 7
      runMe $LUA $(projectDir)/src/lmod.in bash list                                # 8
      
+     HOME=$ORIG_HOME
      PATH=$ORIGINAL_PATH
 
      cat _stdout.[0-9][0-9] > _stdout.orig

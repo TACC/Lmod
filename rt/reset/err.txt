@@ -15,8 +15,10 @@ step 4
 step 5
 ===========================
 Currently Loaded Modules:
-  1) admin/admin-1.0   3) unix/unix     5) intel/intel   7) openmpi/1.2.6
-  2) PrgEnv            4) local/local   6) noweb/2.10c   8) parmetis/3.1
+  1) admin/admin-1.0    3) unix/unix      5) intel/intel    7) openmpi/1.2.6
+  2) PrgEnv             4) local/local    6) noweb/2.10c    8) [1;34mparmetis/3.1[0m  [1;34m(m)[0m
+  Where:
+   [1;34m(m)[0m:  module is build natively for MIC
 ===========================
 step 6
 ===========================
@@ -24,4 +26,6 @@ step 6
 step 7
 ===========================
 Currently Loaded Modules:
-  1) admin/admin-1.0   2) intel/intel   3) openmpi/1.2.6   4) parmetis/3.1
+  1) admin/admin-1.0    2) intel/intel    3) openmpi/1.2.6    4) [1;34mparmetis/3.1[0m [1;34m(m)[0m
+  Where:
+   [1;34m(m)[0m:  module is build natively for MIC

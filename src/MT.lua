@@ -802,8 +802,8 @@ function M.changeInactive(self)
    end
    if (i > 0 and prt) then
       io.stderr:write("Activating Modules:\n")
-      ct = ColumnTable:new{tbl=t, prt=prtErr}
-      ct:print_tbl()
+      ct = ColumnTable:new{tbl=t}
+      io.stderr:write(ct:build_tbl(),"\n")
    end
    t = {}
 
@@ -829,8 +829,8 @@ function M.changeInactive(self)
          t[#t + 1] = '  ' .. i .. ') ' .. tostring(v)
       end
       io.stderr:write("Inactive Modules:\n")
-      ct = ColumnTable:new{tbl=t, prt=prtErr}
-      ct:print_tbl()
+      ct = ColumnTable:new{tbl=t}
+      io.stderr:write(ct:build_tbl(),"\n")
    end
 
    dbg.fini()

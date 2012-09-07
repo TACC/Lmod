@@ -175,8 +175,7 @@ function List(...)
       io.stderr:write("  None found.\n")
    else
       local ct = ColumnTable:new{tbl=a, gap=0, len=length}
-      local s  = ct:build_tbl()
-      io.stderr:write(s,"\n")
+      io.stderr:write(ct:build_tbl(),"\n")
    end
 
    if (next(legendT)) then

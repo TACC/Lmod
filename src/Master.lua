@@ -286,15 +286,11 @@ function M.unload(...)
          local f              = mt:fileName(moduleName)
          local fullModuleName = mt:fullName(moduleName)
          dbg.print("Master:unload: \"",fullModuleName,"\" from f: ",f,"\n")
-         dbg.print("(0) mt:changePATHcount(): ",mt:rpt_changePATHcount(),"\n")
          mt:beginOP()
-         dbg.print("(1) mt:changePATHcount(): ",mt:rpt_changePATHcount(),"\n")
          mStack:push(fullModuleName)
 	 loadModuleFile{file=f,moduleName=moduleName,reportErr=false}
-         dbg.print("(2) mt:changePATHcount(): ",mt:rpt_changePATHcount(),"\n")
          mStack:pop()
          mt:endOP()
-         dbg.print("(3) mt:changePATHcount(): ",mt:rpt_changePATHcount(),"\n")
          dbg.print("calling mt:remove(\"",moduleName,"\")\n")
          mt:remove(moduleName)
          a[#a + 1] = true
@@ -302,7 +298,6 @@ function M.unload(...)
          a[#a + 1] = false
       end
    end
-   dbg.print("(4)mt:changePATHcount(): ",mt:rpt_changePATHcount()," mt:changePATH(): ",tostring(mt:rpt_changePATH()),"\n")
    if (M.safeToUpdate() and mt:safeToCheckZombies() and mStack:empty()) then
       M.reloadAll()
    end
@@ -566,8 +561,8 @@ function M.prtReloadT(self)
    end
    if (i > 0) then
       io.stderr:write("Due to MODULEPATH changes the following modules have been reloaded:\n")
-      local ct = ColumnTable:new{tbl=a,prt=prtErr,gap=0}
-      ct:print_tbl()
+      local ct = ColumnTable:new{tbl=a,gap=0}
+      io.stderr:write(ct:build_tbl(),"\n")
    end
 end
 
@@ -709,8 +704,8 @@ function M.avail(searchA)
       if (next(a)) then
          prtDirName(width, path)
          sort(a, function (a,b) return a[2] < b[2] end)
-         local ct  = ColumnTable:new{tbl=a,prt=prtErr,gap=1}
-         ct:print_tbl()
+         local ct  = ColumnTable:new{tbl=a,gap=1}
+         io.stderr:write(ct:build_tbl(),"\n")
       end
    end
    if (not expert()) then

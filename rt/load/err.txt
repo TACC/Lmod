@@ -32,5 +32,7 @@ step 10
 step 11
 ===========================
 Currently Loaded Modules:
-  1) admin/admin-1.0   3) unix/unix     5) noweb/2.10c   7) gotoblas/1.32
-  2) PrgEnv            4) local/local   6) intel/intel   8) boost/1.49.0
+  1) admin/admin-1.0    3) unix/unix      5) noweb/2.10c    7) gotoblas/1.32
+  2) PrgEnv             4) local/local    6) intel/intel    8) [1;34mboost/1.49.0[0m  [1;34m(o)[0m
+  Where:
+   [1;34m(o)[0m:  module is build for offload to the MIC

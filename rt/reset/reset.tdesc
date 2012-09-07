@@ -33,12 +33,15 @@ testdescript = {
      export LMOD_DEFAULT_MODULEPATH
      numStep=0
      COUNT=0
-     HOME=`(cd $HOME; /bin/pwd)`
+     ORIG_HOME=`(cd $HOME; /bin/pwd)`
+     HOME=`/bin/pwd`
 
-     rm -f _stderr.* _stdout.* err.* out.*
+     rm -f _stderr.* _stdout.* err.* out.* .lmodrc.lua 
 
      LMOD_SYSTEM_DEFAULT_MODULES="admin:intel:openmpi:parmetis"
      export LMOD_SYSTEM_DEFAULT_MODULES
+
+     cp $(projectDir)/setup/.lmodrc.lua .
 
      runMe $LUA $(projectDir)/src/lmod.in bash load admin PrgEnv openmpi parmetis
      runMe $LUA $(projectDir)/src/lmod.in bash purge
@@ -48,7 +51,8 @@ testdescript = {
      runMe $LUA $(projectDir)/src/lmod.in bash list
      runMe $LUA $(projectDir)/src/lmod.in bash reset
      runMe $LUA $(projectDir)/src/lmod.in bash list
-     
+
+     HOME=$ORIG_HOME
      PATH=$ORIGINAL_PATH
 
      cat _stdout.[0-9][0-9] > _stdout.orig

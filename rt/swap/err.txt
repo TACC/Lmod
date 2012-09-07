@@ -12,8 +12,10 @@ Due to MODULEPATH changes the following modules have been reloaded:
 step 3
 ===========================
 Currently Loaded Modules:
-  1) admin/admin-1.0   3) unix/unix     5) noweb/2.10c
-  2) PrgEnv            4) local/local   6) parmetis/3.1
+  1) admin/admin-1.0    3) unix/unix      5) noweb/2.10c
+  2) PrgEnv             4) local/local    6) [1;34mparmetis/3.1[0m [1;34m(m)[0m
+  Where:
+   [1;34m(m)[0m:  module is build natively for MIC
 Inactive Modules:
   1) openmpi/1.2.6
 ===========================
@@ -27,8 +29,10 @@ Due to MODULEPATH changes the following modules have been reloaded:
 step 5
 ===========================
 Currently Loaded Modules:
-  1) admin/admin-1.0   3) unix/unix     5) noweb/2.10c   7) openmpi/1.2.6
-  2) PrgEnv            4) local/local   6) gcc/4.2.3     8) parmetis/3.1
+  1) admin/admin-1.0    3) unix/unix      5) noweb/2.10c    7) openmpi/1.2.6
+  2) PrgEnv             4) local/local    6) gcc/4.2.3      8) [1;34mparmetis/3.1[0m  [1;34m(m)[0m
+  Where:
+   [1;34m(m)[0m:  module is build natively for MIC
 ===========================
 step 6
 ===========================
@@ -38,5 +42,7 @@ Due to MODULEPATH changes the following modules have been reloaded:
 step 7
 ===========================
 Currently Loaded Modules:
-  1) admin/admin-1.0   3) unix/unix     5) noweb/2.10c   7) openmpi/1.2.6
-  2) PrgEnv            4) local/local   6) intel/intel   8) parmetis/3.1
+  1) admin/admin-1.0    3) unix/unix      5) noweb/2.10c    7) openmpi/1.2.6
+  2) PrgEnv             4) local/local    6) intel/intel    8) [1;34mparmetis/3.1[0m  [1;34m(m)[0m
+  Where:
+   [1;34m(m)[0m:  module is build natively for MIC
