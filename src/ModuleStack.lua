@@ -17,7 +17,7 @@ local function new(self)
 
    setmetatable(o,self)
    self.__index = self
-   o.stack      = { {name = "lmod_base", loadCnt = 0, setCnt = 0} }
+   o.stack      = { {name = "lmod_base", loadCnt = 0, setCnt = 0, fn = "unknown"} }
    return o
 end
 
@@ -43,8 +43,8 @@ function M.setting(self)
    top.setCnt = top.setCnt + 1
 end
 
-function M.push(self, name)
-   local entry = {name = name, loadCnt = 0, setCnt = 0}
+function M.push(self, name, fn)
+   local entry = {name = name, loadCnt = 0, setCnt = 0, fn= fn}
    local stack = self.stack
 
    stack[#stack+1] = entry
@@ -85,6 +85,12 @@ function M.moduleName(self)
    local stack = self.stack
    local top   = stack[#stack]
    return top.name
+end
+
+function M.fileName(self)
+   local stack = self.stack
+   local top   = stack[#stack]
+   return top.fn
 end
 
 return M

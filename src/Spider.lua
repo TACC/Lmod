@@ -52,6 +52,13 @@ function Spider_setenv(name, value)
    end
 end   
 
+function Spider_myFileName()
+   local masterTbl   = masterTbl()
+   local moduleStack = masterTbl.moduleStack 
+   local iStack      = #moduleStack
+   return moduleStack[iStack].fn
+end
+
 function Spider_help(...)
    local masterTbl   = masterTbl()
    local moduleStack = masterTbl.moduleStack 
@@ -142,7 +149,7 @@ function processNewModulePATH(value)
       local full    = moduleStack[iStack].full
       local moduleT = moduleStack[iStack].moduleT
       iStack        = iStack+1
-      moduleStack[iStack] = {path = path, full = full, moduleT = moduleT[path].children}
+      moduleStack[iStack] = {path = path, full = full, moduleT = moduleT[path].children, fn= v}
       dbg.print("Top of Stack: ",iStack, " Full: ", full, " file: ", path, "\n")
       M.findModulesInDir(v,"",moduleT[path].children)
       moduleStack[iStack] = nil
@@ -291,7 +298,7 @@ function M.findModulesInDir(path, prefix, moduleT)
                               full = full, full_lower = fullL,
                               children = {}
                             }
-               moduleStack[iStack] = {path=f, full = full, moduleT = moduleT}
+               moduleStack[iStack] = {path=f, full = full, moduleT = moduleT, fn = f}
                dbg.print("Top of Stack: ",iStack, " Full: ", full, " file: ", f, "\n")
                loadModuleFile(f)
                dbg.print("Saving: Full: ", full, " Name: ", name, " file: ",f,"\n")
@@ -308,6 +315,8 @@ function M.findAllModules(moduleDirA, moduleT)
    local dbg    = Dbg:dbg()
    dbg.start("findAllModules(",concatTbl(moduleDirA,", "),")")
    
+   local myFileN_old     = myFileName
+   myFileName            = Spider_myFileName
    local masterTbl       = masterTbl()
    local moduleDirT      = {}
    masterTbl.moduleDirT  = moduleDirT
@@ -325,6 +334,7 @@ function M.findAllModules(moduleDirA, moduleT)
    end
    os.exit     = exit
 
+   myFileName = myFileN_old
    dbg.fini()
 end
 

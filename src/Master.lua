@@ -287,7 +287,7 @@ function M.unload(...)
          local fullModuleName = mt:fullName(moduleName)
          dbg.print("Master:unload: \"",fullModuleName,"\" from f: ",f,"\n")
          mt:beginOP()
-         mStack:push(fullModuleName)
+         mStack:push(fullModuleName,f)
 	 loadModuleFile{file=f,moduleName=moduleName,reportErr=false}
          mStack:pop()
          mt:endOP()
@@ -351,6 +351,7 @@ end
 function M.access(self, ...)
    local dbg    = Dbg:dbg()
    local mt     = MT:mt()
+   local mStack = ModuleStack:moduleStack()
    local prtHdr = systemG.prtHdr
    local help   = nil
    local a      = {}
@@ -364,7 +365,9 @@ function M.access(self, ...)
       systemG.ModuleName = full
       if (fn) then
          prtHdr()
+         mStack:push(full, fn)
 	 loadModuleFile{file=fn,help=help,moduleName=moduleName,reportErr=true}
+         mStack:pop()
          io.stderr:write("\n")
       else
          a[#a+1] = moduleName
@@ -405,7 +408,7 @@ function M.load(...)
          dbg.print("Master:loading: \"",moduleName,"\" from f: \"",fn,"\"\n")
 	 mt:beginOP()
          mt:add(t, "pending")
-         mStack:push(t.modFullName)
+         mStack:push(t.modFullName,fn)
 	 loadModuleFile{file=fn,moduleName=moduleName,reportErr=true}
          t.mType = mStack:moduleType()
          mStack:pop()
@@ -519,7 +522,7 @@ function M.inheritModule()
    dbg.start("Master:inherit()")
 
    local mStack  = ModuleStack:moduleStack()
-   local myFn    = myFileName()
+   local myFn    = mStack:fileName()
    local mName   = mStack:moduleName()
    local inhTmpl = InheritTmpl:inheritTmpl()
 
@@ -532,7 +535,9 @@ function M.inheritModule()
    if (t.fn == nil) then
       LmodError("Failed to inherit: ",mName,"\n")
    else
+      mStack:push(mName,t.fn)
       loadModuleFile{file=t.fn,moduleName=mName, reportErr=true}
+      mStack:pop()
    end
    dbg.fini()
 end
@@ -718,6 +723,7 @@ end
 
 local function spanOneModule(path, name, nameA, fileType, keyA)
    local dbg    = Dbg:dbg()
+   local mStack = ModuleStack:moduleStack()
    dbg.start("spanOneModule(path=\"",path,"\", name=\"",name,"\", nameA=(",concatTbl(nameA,","),"), fileType=\"",fileType,"\", keyA=(",concatTbl(keyA,","),"))")
    if (fileType == "file" and posix.access(path,"r")) then
       for _,v in ipairs(keyA) do
@@ -741,7 +747,9 @@ local function spanOneModule(path, name, nameA, fileType, keyA)
                                  end
                               end
                            end
+         mStack:push(ModuleName,path)
 	 loadModuleFile{file=path,moduleName=ModuleName, reportErr=true}
+         mStack:pop()
       end
    elseif (fileType == "directory" and posix.access(path,"x")) then
       --io.stderr:write("dir: ",path," name: ", name, "\n")

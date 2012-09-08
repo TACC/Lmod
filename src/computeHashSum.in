@@ -32,6 +32,7 @@ require("cmdfuncs")
 BaseShell       = require("BaseShell")
 Dbg             = require("Dbg")
 Master          = require("Master")
+ModuleStack     = require("ModuleStack")
 MT              = require("MT")
 
 local fh        = nil
@@ -72,6 +73,7 @@ function main()
    
    local dbg     = Dbg:dbg()
    local master  = Master:master(false)
+   local mStack  = ModuleStack:moduleStack()
    master.shell  = BaseShell.build("bash")
    local fn      = os.tmpname()
    fh            = io.open(fn,"w")
@@ -88,7 +90,9 @@ function main()
    mcp           = MasterControl.build("computeHash","load")
    dbg.print("mcp set to ",mcp:name(),"\n")
 
+   mStack:push("something",arg[i])
    loadModuleFile(arg[i])
+   mStack:pop()
    local s = concatTbl(ComputeModuleResultsA,"")
    if (verbose) then
       io.stderr:write(s)

@@ -1,8 +1,9 @@
 require("strict")
 
 
-local Dbg       = require("Dbg")
-local concatTbl = table.concat
+local Dbg         = require("Dbg")
+local ModuleStack = require("ModuleStack")
+local concatTbl   = table.concat
 
 --- Load family functions ----
 
@@ -266,7 +267,8 @@ function display(...)
 end
 
 function myFileName()
-   return _MyFileName
+   local mStack = ModuleStack:moduleStack()
+   return mStack:fileName()
 end
 
 function hierarchyA(package, levels)
