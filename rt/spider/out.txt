@@ -3,84 +3,84 @@ step 1
 ===========================
 unset LMOD_DEFAULT_MODULEPATH;
 unset MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="~/w/lmod/mf/Core:~/w/lmod/mf/Beta";
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Beta";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="~/w/lmod/mf/Core:~/w/lmod/mf/Beta";
+MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Beta";
 export MODULEPATH;
 export _ModuleTable_Sz_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"~/w/lmod/mf/Core","~/w/lmod/mf/Beta",},family={},inactive={},mT={},mpathA={"~/w/lmod/mf/Core","~/w/lmod/mf/Beta",},["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/mf/Core","ProjectDIR/mf/Beta",},family={},inactive={},mT={},mpathA={"ProjectDIR/mf/Core","ProjectDIR/mf/Beta",},["version"]=2,}';
 export _ModuleTable_;
 ===========================
 step 2
 ===========================
-LMOD_DEFAULT_MODULEPATH="~/w/lmod/mf/Core:~/w/lmod/mf/Beta";
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Beta";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="~/w/lmod/mf/Core:~/w/lmod/mf/Beta";
+MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Beta";
 export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="~/w/lmod/mf/Core:~/w/lmod/mf/Beta";
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Beta";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="~/w/lmod/mf/Core:~/w/lmod/mf/Beta";
+MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Beta";
 export MODULEPATH;
 ===========================
 step 3
 ===========================
-LMOD_DEFAULT_MODULEPATH="~/w/lmod/mf/Core:~/w/lmod/mf/Beta";
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Beta";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="~/w/lmod/mf/Core:~/w/lmod/mf/Beta";
+MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Beta";
 export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="~/w/lmod/mf/Core:~/w/lmod/mf/Beta";
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Beta";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="~/w/lmod/mf/Core:~/w/lmod/mf/Beta";
+MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Beta";
 export MODULEPATH;
 ===========================
 step 4
 ===========================
-LMOD_DEFAULT_MODULEPATH="~/w/lmod/mf/Core:~/w/lmod/mf/Beta";
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Beta";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="~/w/lmod/mf/Core:~/w/lmod/mf/Beta";
+MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Beta";
 export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="~/w/lmod/mf/Core:~/w/lmod/mf/Beta";
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Beta";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="~/w/lmod/mf/Core:~/w/lmod/mf/Beta";
+MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Beta";
 export MODULEPATH;
 ===========================
 step 5
 ===========================
-LMOD_DEFAULT_MODULEPATH="~/w/lmod/mf/Core:~/w/lmod/mf/Beta";
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Beta";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="~/w/lmod/mf/Core:~/w/lmod/mf/Beta";
+MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Beta";
 export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="~/w/lmod/mf/Core:~/w/lmod/mf/Beta";
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Beta";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="~/w/lmod/mf/Core:~/w/lmod/mf/Beta";
+MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Beta";
 export MODULEPATH;
 ===========================
 step 6
 ===========================
-LMOD_DEFAULT_MODULEPATH="~/w/lmod/mf/Core:~/w/lmod/mf/Beta";
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Beta";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="~/w/lmod/mf/Core:~/w/lmod/mf/Beta";
+MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Beta";
 export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="~/w/lmod/mf/Core:~/w/lmod/mf/Beta";
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Beta";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="~/w/lmod/mf/Core:~/w/lmod/mf/Beta";
+MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Beta";
 export MODULEPATH;
 ===========================
 step 7
 ===========================
-LMOD_DEFAULT_MODULEPATH="~/w/lmod/mf/Core:~/w/lmod/mf/Beta";
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Beta";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="~/w/lmod/mf/Core:~/w/lmod/mf/Beta";
+MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Beta";
 export MODULEPATH;
 false
 ===========================
 step 8
 ===========================
-LMOD_DEFAULT_MODULEPATH="~/w/lmod/mf/Core:~/w/lmod/mf/Beta";
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Beta";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="~/w/lmod/mf/Core:~/w/lmod/mf/Beta";
+MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Beta";
 export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="~/w/lmod/mf/Core:~/w/lmod/mf/Beta";
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Beta";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="~/w/lmod/mf/Core:~/w/lmod/mf/Beta";
+MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Beta";
 export MODULEPATH;

@@ -7,6 +7,6 @@ step 2
 ===========================
 step 3
 ===========================
-   ~/w/lmod/rt/display/mf/Core/junk/1.0.lua:
+   ProjectDIR/rt/display/mf/Core/junk/1.0.lua:
 setenv("JUNK", "1.0")
 display(false)

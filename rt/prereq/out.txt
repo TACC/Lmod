@@ -1,209 +1,209 @@
 ===========================
 step 1
 ===========================
-LMOD_DEFAULT_MODULEPATH="~/w/lmod/rt/prereq/mf";
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/prereq/mf";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="~/w/lmod/rt/prereq/mf";
+MODULEPATH="ProjectDIR/rt/prereq/mf";
 export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="~/w/lmod/rt/prereq/mf";
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/prereq/mf";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="~/w/lmod/rt/prereq/mf";
+MODULEPATH="ProjectDIR/rt/prereq/mf";
 export MODULEPATH;
 PETSC_DIR="foo";
 export PETSC_DIR;
 export _ModuleTable_Sz_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"~/w/lmod/rt/prereq/mf",},family={},inactive={},mT={petsc={["FN"]="~/w/lmod/rt/prereq/mf/petsc/3.1.0",["default"]=1,["fullName"]="petsc/3.1.0",["hash"]=0,["loadOrder"]=1,["mType"]="w",propT={},["short"]="petsc",["status"]="active",},},mpathA={"~/w/lmod/rt/prereq/mf",},["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/prereq/mf",},family={},inactive={},mT={petsc={["FN"]="ProjectDIR/rt/prereq/mf/petsc/3.1.0",["default"]=1,["fullName"]="petsc/3.1.0",["hash"]=0,["loadOrder"]=1,["mType"]="w",propT={},["short"]="petsc",["status"]="active",},},mpathA={"ProjectDIR/rt/prereq/mf",},["version"]=2,}';
 export _ModuleTable_;
 ===========================
 step 2
 ===========================
-LMOD_DEFAULT_MODULEPATH="~/w/lmod/rt/prereq/mf";
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/prereq/mf";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="~/w/lmod/rt/prereq/mf";
+MODULEPATH="ProjectDIR/rt/prereq/mf";
 export MODULEPATH;
 false
 ===========================
 step 3
 ===========================
-LMOD_DEFAULT_MODULEPATH="~/w/lmod/rt/prereq/mf";
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/prereq/mf";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="~/w/lmod/rt/prereq/mf";
+MODULEPATH="ProjectDIR/rt/prereq/mf";
 export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="~/w/lmod/rt/prereq/mf";
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/prereq/mf";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="~/w/lmod/rt/prereq/mf";
+MODULEPATH="ProjectDIR/rt/prereq/mf";
 export MODULEPATH;
 ===========================
 step 4
 ===========================
-LMOD_DEFAULT_MODULEPATH="~/w/lmod/rt/prereq/mf";
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/prereq/mf";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="~/w/lmod/rt/prereq/mf";
+MODULEPATH="ProjectDIR/rt/prereq/mf";
 export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="~/w/lmod/rt/prereq/mf";
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/prereq/mf";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="~/w/lmod/rt/prereq/mf";
+MODULEPATH="ProjectDIR/rt/prereq/mf";
 export MODULEPATH;
 unset PETSC_DIR;
 export _ModuleTable_Sz_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"~/w/lmod/rt/prereq/mf",},family={},inactive={},mT={},mpathA={"~/w/lmod/rt/prereq/mf",},["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/prereq/mf",},family={},inactive={},mT={},mpathA={"ProjectDIR/rt/prereq/mf",},["version"]=2,}';
 export _ModuleTable_;
 ===========================
 step 5
 ===========================
-LMOD_DEFAULT_MODULEPATH="~/w/lmod/rt/prereq/mf";
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/prereq/mf";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="~/w/lmod/rt/prereq/mf";
+MODULEPATH="ProjectDIR/rt/prereq/mf";
 export MODULEPATH;
 false
 ===========================
 step 6
 ===========================
-LMOD_DEFAULT_MODULEPATH="~/w/lmod/rt/prereq/mf";
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/prereq/mf";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="~/w/lmod/rt/prereq/mf";
+MODULEPATH="ProjectDIR/rt/prereq/mf";
 export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="~/w/lmod/rt/prereq/mf";
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/prereq/mf";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="~/w/lmod/rt/prereq/mf";
+MODULEPATH="ProjectDIR/rt/prereq/mf";
 export MODULEPATH;
 PETSC_DIR="foo";
 export PETSC_DIR;
 export _ModuleTable_Sz_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"~/w/lmod/rt/prereq/mf",},family={},inactive={},mT={petsc={["FN"]="~/w/lmod/rt/prereq/mf/petsc/2.9.0",["default"]=0,["fullName"]="petsc/2.9.0",["hash"]=0,["loadOrder"]=1,["mType"]="w",propT={},["short"]="petsc",["status"]="active",},},mpathA={"~/w/lmod/rt/prereq/mf",},["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/prereq/mf",},family={},inactive={},mT={petsc={["FN"]="ProjectDIR/rt/prereq/mf/petsc/2.9.0",["default"]=0,["fullName"]="petsc/2.9.0",["hash"]=0,["loadOrder"]=1,["mType"]="w",propT={},["short"]="petsc",["status"]="active",},},mpathA={"ProjectDIR/rt/prereq/mf",},["version"]=2,}';
 export _ModuleTable_;
 ===========================
 step 7
 ===========================
-LMOD_DEFAULT_MODULEPATH="~/w/lmod/rt/prereq/mf";
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/prereq/mf";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="~/w/lmod/rt/prereq/mf";
+MODULEPATH="ProjectDIR/rt/prereq/mf";
 export MODULEPATH;
 false
 ===========================
 step 8
 ===========================
-LMOD_DEFAULT_MODULEPATH="~/w/lmod/rt/prereq/mf";
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/prereq/mf";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="~/w/lmod/rt/prereq/mf";
+MODULEPATH="ProjectDIR/rt/prereq/mf";
 export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="~/w/lmod/rt/prereq/mf";
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/prereq/mf";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="~/w/lmod/rt/prereq/mf";
+MODULEPATH="ProjectDIR/rt/prereq/mf";
 export MODULEPATH;
 export _ModuleTable_Sz_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"~/w/lmod/rt/prereq/mf",},family={},inactive={},mT={petsc={["FN"]="~/w/lmod/rt/prereq/mf/petsc/2.9.0",["default"]=0,["fullName"]="petsc/2.9.0",["hash"]=0,["loadOrder"]=1,["mType"]="w",propT={},["short"]="petsc",["status"]="active",},slepc={["FN"]="~/w/lmod/rt/prereq/mf/slepc/2.9.0",["default"]=0,["fullName"]="slepc/2.9.0",["hash"]=0,["loadOrder"]=2,["mType"]="w",propT={},["short"]="slepc",["status"]="active",},},mpathA={"~/w/lmod/rt/prereq/mf",},["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/prereq/mf",},family={},inactive={},mT={petsc={["FN"]="ProjectDIR/rt/prereq/mf/petsc/2.9.0",["default"]=0,["fullName"]="petsc/2.9.0",["hash"]=0,["loadOrder"]=1,["mType"]="w",propT={},["short"]="petsc",["status"]="active",},slepc={["FN"]="ProjectDIR/rt/prereq/mf/slepc/2.9.0",["default"]=0,["fullName"]="slepc/2.9.0",["hash"]=0,["loadOrder"]=2,["mType"]="w",propT={},["short"]="slepc",["status"]="active",},},mpathA={"ProjectDIR/rt/prereq/mf",},["version"]=2,}';
 export _ModuleTable_;
 ===========================
 step 9
 ===========================
-LMOD_DEFAULT_MODULEPATH="~/w/lmod/rt/prereq/mf";
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/prereq/mf";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="~/w/lmod/rt/prereq/mf";
+MODULEPATH="ProjectDIR/rt/prereq/mf";
 export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="~/w/lmod/rt/prereq/mf";
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/prereq/mf";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="~/w/lmod/rt/prereq/mf";
+MODULEPATH="ProjectDIR/rt/prereq/mf";
 export MODULEPATH;
 PETSC_DIR="foo";
 export PETSC_DIR;
 export _ModuleTable_Sz_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"~/w/lmod/rt/prereq/mf",},family={},inactive={},mT={petsc={["FN"]="~/w/lmod/rt/prereq/mf/petsc/3.1.0",["default"]=0,["fullName"]="petsc/3.1.0",["hash"]=0,["loadOrder"]=2,["mType"]="w",propT={},["short"]="petsc",["status"]="active",},slepc={["FN"]="~/w/lmod/rt/prereq/mf/slepc/2.9.0",["default"]=0,["fullName"]="slepc/2.9.0",["hash"]=0,["loadOrder"]=1,["mType"]="w",propT={},["short"]="slepc",["status"]="active",},},mpathA={"~/w/lmod/rt/prereq/mf",},["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/prereq/mf",},family={},inactive={},mT={petsc={["FN"]="ProjectDIR/rt/prereq/mf/petsc/3.1.0",["default"]=0,["fullName"]="petsc/3.1.0",["hash"]=0,["loadOrder"]=2,["mType"]="w",propT={},["short"]="petsc",["status"]="active",},slepc={["FN"]="ProjectDIR/rt/prereq/mf/slepc/2.9.0",["default"]=0,["fullName"]="slepc/2.9.0",["hash"]=0,["loadOrder"]=1,["mType"]="w",propT={},["short"]="slepc",["status"]="active",},},mpathA={"ProjectDIR/rt/prereq/mf",},["version"]=2,}';
 export _ModuleTable_;
 ===========================
 step 10
 ===========================
-LMOD_DEFAULT_MODULEPATH="~/w/lmod/rt/prereq/mf";
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/prereq/mf";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="~/w/lmod/rt/prereq/mf";
+MODULEPATH="ProjectDIR/rt/prereq/mf";
 export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="~/w/lmod/rt/prereq/mf";
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/prereq/mf";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="~/w/lmod/rt/prereq/mf";
+MODULEPATH="ProjectDIR/rt/prereq/mf";
 export MODULEPATH;
 export _ModuleTable_Sz_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"~/w/lmod/rt/prereq/mf",},family={},inactive={},mT={petsc={["FN"]="~/w/lmod/rt/prereq/mf/petsc/3.1.0",["default"]=0,["fullName"]="petsc/3.1.0",["hash"]=0,["loadOrder"]=1,["mType"]="w",propT={},["short"]="petsc",["status"]="active",},slepc={["FN"]="~/w/lmod/rt/prereq/mf/slepc/3.1.0",["default"]=1,["fullName"]="slepc/3.1.0",["hash"]=0,["loadOrder"]=2,["mType"]="w",propT={},["short"]="slepc",["status"]="active",},},mpathA={"~/w/lmod/rt/prereq/mf",},["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/prereq/mf",},family={},inactive={},mT={petsc={["FN"]="ProjectDIR/rt/prereq/mf/petsc/3.1.0",["default"]=0,["fullName"]="petsc/3.1.0",["hash"]=0,["loadOrder"]=1,["mType"]="w",propT={},["short"]="petsc",["status"]="active",},slepc={["FN"]="ProjectDIR/rt/prereq/mf/slepc/3.1.0",["default"]=1,["fullName"]="slepc/3.1.0",["hash"]=0,["loadOrder"]=2,["mType"]="w",propT={},["short"]="slepc",["status"]="active",},},mpathA={"ProjectDIR/rt/prereq/mf",},["version"]=2,}';
 export _ModuleTable_;
 ===========================
 step 11
 ===========================
-LMOD_DEFAULT_MODULEPATH="~/w/lmod/rt/prereq/mf";
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/prereq/mf";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="~/w/lmod/rt/prereq/mf";
+MODULEPATH="ProjectDIR/rt/prereq/mf";
 export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="~/w/lmod/rt/prereq/mf";
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/prereq/mf";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="~/w/lmod/rt/prereq/mf";
+MODULEPATH="ProjectDIR/rt/prereq/mf";
 export MODULEPATH;
 unset PETSC_DIR;
 export _ModuleTable_Sz_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"~/w/lmod/rt/prereq/mf",},family={},inactive={},mT={},mpathA={"~/w/lmod/rt/prereq/mf",},["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/prereq/mf",},family={},inactive={},mT={},mpathA={"ProjectDIR/rt/prereq/mf",},["version"]=2,}';
 export _ModuleTable_;
 ===========================
 step 12
 ===========================
-LMOD_DEFAULT_MODULEPATH="~/w/lmod/rt/prereq/mf";
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/prereq/mf";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="~/w/lmod/rt/prereq/mf";
+MODULEPATH="ProjectDIR/rt/prereq/mf";
 export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="~/w/lmod/rt/prereq/mf";
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/prereq/mf";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="~/w/lmod/rt/prereq/mf";
+MODULEPATH="ProjectDIR/rt/prereq/mf";
 export MODULEPATH;
 PETSC_DIR="foo";
 export PETSC_DIR;
 export _ModuleTable_Sz_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"~/w/lmod/rt/prereq/mf",},family={},inactive={},mT={petsc={["FN"]="~/w/lmod/rt/prereq/mf/petsc/3.1.0",["default"]=0,["fullName"]="petsc/3.1.0",["hash"]=0,["loadOrder"]=1,["mType"]="w",propT={},["short"]="petsc",["status"]="active",},},mpathA={"~/w/lmod/rt/prereq/mf",},["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/prereq/mf",},family={},inactive={},mT={petsc={["FN"]="ProjectDIR/rt/prereq/mf/petsc/3.1.0",["default"]=0,["fullName"]="petsc/3.1.0",["hash"]=0,["loadOrder"]=1,["mType"]="w",propT={},["short"]="petsc",["status"]="active",},},mpathA={"ProjectDIR/rt/prereq/mf",},["version"]=2,}';
 export _ModuleTable_;
 ===========================
 step 13
 ===========================
-LMOD_DEFAULT_MODULEPATH="~/w/lmod/rt/prereq/mf";
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/prereq/mf";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="~/w/lmod/rt/prereq/mf";
+MODULEPATH="ProjectDIR/rt/prereq/mf";
 export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="~/w/lmod/rt/prereq/mf";
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/prereq/mf";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="~/w/lmod/rt/prereq/mf";
+MODULEPATH="ProjectDIR/rt/prereq/mf";
 export MODULEPATH;
 export _ModuleTable_Sz_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"~/w/lmod/rt/prereq/mf",},family={},inactive={},mT={petsc={["FN"]="~/w/lmod/rt/prereq/mf/petsc/3.1.0",["default"]=0,["fullName"]="petsc/3.1.0",["hash"]=0,["loadOrder"]=1,["mType"]="w",propT={},["short"]="petsc",["status"]="active",},slepc={["FN"]="~/w/lmod/rt/prereq/mf/slepc/2.9.0",["default"]=0,["fullName"]="slepc/2.9.0",["hash"]=0,["loadOrder"]=2,["mType"]="w",propT={},["short"]="slepc",["status"]="active",},},mpathA={"~/w/lmod/rt/prereq/mf",},["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/prereq/mf",},family={},inactive={},mT={petsc={["FN"]="ProjectDIR/rt/prereq/mf/petsc/3.1.0",["default"]=0,["fullName"]="petsc/3.1.0",["hash"]=0,["loadOrder"]=1,["mType"]="w",propT={},["short"]="petsc",["status"]="active",},slepc={["FN"]="ProjectDIR/rt/prereq/mf/slepc/2.9.0",["default"]=0,["fullName"]="slepc/2.9.0",["hash"]=0,["loadOrder"]=2,["mType"]="w",propT={},["short"]="slepc",["status"]="active",},},mpathA={"ProjectDIR/rt/prereq/mf",},["version"]=2,}';
 export _ModuleTable_;
 ===========================
 step 14
 ===========================
-LMOD_DEFAULT_MODULEPATH="~/w/lmod/rt/prereq/mf";
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/prereq/mf";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="~/w/lmod/rt/prereq/mf";
+MODULEPATH="ProjectDIR/rt/prereq/mf";
 export MODULEPATH;
 false
 ===========================
 step 15
 ===========================
-LMOD_DEFAULT_MODULEPATH="~/w/lmod/rt/prereq/mf";
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/prereq/mf";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="~/w/lmod/rt/prereq/mf";
+MODULEPATH="ProjectDIR/rt/prereq/mf";
 export MODULEPATH;
 JDK32="1";
 export JDK32;
-LMOD_DEFAULT_MODULEPATH="~/w/lmod/rt/prereq/mf";
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/prereq/mf";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="~/w/lmod/rt/prereq/mf";
+MODULEPATH="ProjectDIR/rt/prereq/mf";
 export MODULEPATH;
 export _ModuleTable_Sz_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"~/w/lmod/rt/prereq/mf",},family={},inactive={},mT={jdk32={["FN"]="~/w/lmod/rt/prereq/mf/jdk32/1.0.lua",["default"]=1,["fullName"]="jdk32/1.0",["hash"]=0,["loadOrder"]=3,["mType"]="w",propT={},["short"]="jdk32",["status"]="active",},petsc={["FN"]="~/w/lmod/rt/prereq/mf/petsc/3.1.0",["default"]=0,["fullName"]="petsc/3.1.0",["hash"]=0,["loadOrder"]=1,["mType"]="w",propT={},["short"]="petsc",["status"]="active",},slepc={["FN"]="~/w/lmod/rt/prereq/mf/slepc/2.9.0",["default"]=0,["fullName"]="slepc/2.9.0",["hash"]=0,["loadOrder"]=2,["mType"]="w",propT={},["short"]="slepc",["status"]="active",},},mpathA={"~/w/lmod/rt/prereq/mf",},["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/prereq/mf",},family={},inactive={},mT={jdk32={["FN"]="ProjectDIR/rt/prereq/mf/jdk32/1.0.lua",["default"]=1,["fullName"]="jdk32/1.0",["hash"]=0,["loadOrder"]=3,["mType"]="w",propT={},["short"]="jdk32",["status"]="active",},petsc={["FN"]="ProjectDIR/rt/prereq/mf/petsc/3.1.0",["default"]=0,["fullName"]="petsc/3.1.0",["hash"]=0,["loadOrder"]=1,["mType"]="w",propT={},["short"]="petsc",["status"]="active",},slepc={["FN"]="ProjectDIR/rt/prereq/mf/slepc/2.9.0",["default"]=0,["fullName"]="slepc/2.9.0",["hash"]=0,["loadOrder"]=2,["mType"]="w",propT={},["short"]="slepc",["status"]="active",},},mpathA={"ProjectDIR/rt/prereq/mf",},["version"]=2,}';
 export _ModuleTable_;
 ===========================
 step 16
 ===========================
-LMOD_DEFAULT_MODULEPATH="~/w/lmod/rt/prereq/mf";
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/prereq/mf";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="~/w/lmod/rt/prereq/mf";
+MODULEPATH="ProjectDIR/rt/prereq/mf";
 export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="~/w/lmod/rt/prereq/mf";
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/prereq/mf";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="~/w/lmod/rt/prereq/mf";
+MODULEPATH="ProjectDIR/rt/prereq/mf";
 export MODULEPATH;
 export _ModuleTable_Sz_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=4,baseMpathA={"~/w/lmod/rt/prereq/mf",},family={},inactive={},mT={jdk32={["FN"]="~/w/lmod/rt/prereq/mf/jdk32/1.0.lua",["default"]=1,["fullName"]="jdk32/1.0",["hash"]=0,["loadOrder"]=3,["mType"]="w",propT={},["short"]="jdk32",["status"]="active",},junk={["FN"]="~/w/lmod/rt/prereq/mf/junk/1.0.lua",["default"]=0,["fullName"]="junk/1.0",["hash"]=0,["loadOrder"]=4,["mType"]="w",propT={},["short"]="junk",["status"]="active",},petsc={["FN"]="~/w/lmod/rt/prereq/mf/petsc/3.1.0",["default"]=0,["fullName"]="petsc/3.1.0",["hash"]=0,["loadOrder"]=1,["mType"]="w",propT={},["short"]="petsc",["status"]="active",},slepc={["FN"]="~/w/lmod/rt/prereq/mf/slepc/2.9.0",["default"]=0,["fullName"]="slepc/2.9.0",["hash"]=0,["loadOrder"]=2,["mType"]="w",propT={},["short"]="slepc",["status"]="active",},},mpathA={"~/w/lmod/rt/prereq/mf",},["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=4,baseMpathA={"ProjectDIR/rt/prereq/mf",},family={},inactive={},mT={jdk32={["FN"]="ProjectDIR/rt/prereq/mf/jdk32/1.0.lua",["default"]=1,["fullName"]="jdk32/1.0",["hash"]=0,["loadOrder"]=3,["mType"]="w",propT={},["short"]="jdk32",["status"]="active",},junk={["FN"]="ProjectDIR/rt/prereq/mf/junk/1.0.lua",["default"]=0,["fullName"]="junk/1.0",["hash"]=0,["loadOrder"]=4,["mType"]="w",propT={},["short"]="junk",["status"]="active",},petsc={["FN"]="ProjectDIR/rt/prereq/mf/petsc/3.1.0",["default"]=0,["fullName"]="petsc/3.1.0",["hash"]=0,["loadOrder"]=1,["mType"]="w",propT={},["short"]="petsc",["status"]="active",},slepc={["FN"]="ProjectDIR/rt/prereq/mf/slepc/2.9.0",["default"]=0,["fullName"]="slepc/2.9.0",["hash"]=0,["loadOrder"]=2,["mType"]="w",propT={},["short"]="slepc",["status"]="active",},},mpathA={"ProjectDIR/rt/prereq/mf",},["version"]=2,}';
 export _ModuleTable_;

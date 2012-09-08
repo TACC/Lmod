@@ -1,32 +1,32 @@
 ===========================
 step 1
 ===========================
-LMOD_DEFAULT_MODULEPATH="~/w/lmod/mf/Core";
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="~/w/lmod/mf/Core";
+MODULEPATH="ProjectDIR/mf/Core";
 export MODULEPATH;
 ADMIN_MODULE_LOADED="1";
 export ADMIN_MODULE_LOADED;
-LMOD_DEFAULT_MODULEPATH="~/w/lmod/mf/Core";
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="~/w/lmod/mf/Core";
+MODULEPATH="ProjectDIR/mf/Core";
 export MODULEPATH;
-PATH="/usr/sbin:/sbin:~/w/lmod/src:PATH_to_TM:/bin";
+PATH="/usr/sbin:/sbin:ProjectDIR/src:PATH_to_TM:/bin";
 export PATH;
 export _ModuleTable_Sz_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"~/w/lmod/mf///Core/",},family={},inactive={},mT={admin={["FN"]="~/w/lmod/mf/Core/admin/admin-1.0.lua",["default"]=1,["fullName"]="admin/admin-1.0",["hash"]=0,["loadOrder"]=1,["mType"]="w",propT={},["short"]="admin",["status"]="active",},},mpathA={"~/w/lmod/mf/Core",},["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/mf///Core/",},family={},inactive={},mT={admin={["FN"]="ProjectDIR/mf/Core/admin/admin-1.0.lua",["default"]=1,["fullName"]="admin/admin-1.0",["hash"]=0,["loadOrder"]=1,["mType"]="w",propT={},["short"]="admin",["status"]="active",},},mpathA={"ProjectDIR/mf/Core",},["version"]=2,}';
 export _ModuleTable_;
 ===========================
 step 2
 ===========================
-LMOD_DEFAULT_MODULEPATH="~/w/lmod/mf/Core";
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="~/w/lmod/mf/Core";
+MODULEPATH="ProjectDIR/mf/Core";
 export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="~/w/lmod/mf/Core";
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="~/w/lmod/mf/Core";
+MODULEPATH="ProjectDIR/mf/Core";
 export MODULEPATH;
 export _ModuleTable_Sz_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"~/w/lmod/mf/Core",},family={},inactive={},mT={admin={["FN"]="~/w/lmod/mf/Core/admin/admin-1.0.lua",["default"]=1,["fullName"]="admin/admin-1.0",["hash"]=0,["loadOrder"]=1,["mType"]="w",propT={},["short"]="admin",["status"]="active",},},mpathA={"~/w/lmod/mf/Core",},["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/mf/Core",},family={},inactive={},mT={admin={["FN"]="ProjectDIR/mf/Core/admin/admin-1.0.lua",["default"]=1,["fullName"]="admin/admin-1.0",["hash"]=0,["loadOrder"]=1,["mType"]="w",propT={},["short"]="admin",["status"]="active",},},mpathA={"ProjectDIR/mf/Core",},["version"]=2,}';
 export _ModuleTable_;

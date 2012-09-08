@@ -3,23 +3,23 @@ step 1
 ===========================
 unset LMOD_DEFAULT_MODULEPATH;
 unset MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="~/w/lmod/rt/properties/mf/Core";
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/properties/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="~/w/lmod/rt/properties/mf/Core";
+MODULEPATH="ProjectDIR/rt/properties/mf/Core";
 export MODULEPATH;
 export _ModuleTable_Sz_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"~/w/lmod/rt/properties/mf/Core",},family={},inactive={},mT={},mpathA={"~/w/lmod/rt/properties/mf/Core",},["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/properties/mf/Core",},family={},inactive={},mT={},mpathA={"ProjectDIR/rt/properties/mf/Core",},["version"]=2,}';
 export _ModuleTable_;
 ===========================
 step 2
 ===========================
-LMOD_DEFAULT_MODULEPATH="~/w/lmod/rt/properties/mf/Core";
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/properties/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="~/w/lmod/rt/properties/mf/Core";
+MODULEPATH="ProjectDIR/rt/properties/mf/Core";
 export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="~/w/lmod/rt/properties/mf/Core";
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/properties/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="~/w/lmod/rt/properties/mf/Core";
+MODULEPATH="ProjectDIR/rt/properties/mf/Core";
 export MODULEPATH;
 TACC_A_DIR="/opt/apps/a/1.0";
 export TACC_A_DIR;
@@ -30,16 +30,16 @@ export TACC_C_DIR;
 TACC_MKL_DIR="/opt/apps/mkl/10.3";
 export TACC_MKL_DIR;
 export _ModuleTable_Sz_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=6,baseMpathA={"~/w/lmod/rt/properties/mf/Core",},family={},inactive={},mT={PrgEnv={["FN"]="~/w/lmod/rt/properties/mf/Core/PrgEnv.lua",["default"]=0,["fullName"]="PrgEnv",["hash"]=0,["loadOrder"]=1,["mType"]="m",propT={},["short"]="PrgEnv",["status"]="active",},a={["FN"]="~/w/lmod/rt/properties/mf/Core/a/1.0.lua",["default"]=1,["fullName"]="a/1.0",["hash"]=0,["loadOrder"]=3,["mType"]="w",propT={},["short"]="a",["status"]="active",},b={["FN"]="~/w/lmod/rt/properties/mf/Core/b/1.0.lua",["default"]=1,["fullName"]="b/1.0",["hash"]=0,["loadOrder"]=4,["mType"]="w",propT={arch={["mic"]=1,},},["short"]="b",["status"]="active",},c={["FN"]="~/w/lmod/rt/properties/mf/Core/c/1.0.lua",["default"]=1,["fullName"]="c/1.0",["hash"]=0,["loadOrder"]=5,["mType"]="w",propT={arch={["offload"]=1,},},["short"]="c",["status"]="active",},d={["FN"]="~/w/lmod/rt/properties/mf/Core/d/1.0.lua",["default"]=1,["fullName"]="d/1.0",["hash"]=0,["loadOrder"]=6,["mType"]="w",propT={arch={["gpu"]=1,["mic"]=1,["offload"]=1,},},["short"]="d",["status"]="active",},mkl={["FN"]="~/w/lmod/rt/properties/mf/Core/mkl/10.3.lua",["default"]=1,["fullName"]="mkl/10.3",["hash"]=0,["loadOrder"]=2,["mType"]="w",propT={arch={["mic"]=1,["offload"]=1,},},["short"]="mkl",["status"]="active",},},mpathA={"~/w/lmod/rt/properties/mf/Core",},["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=6,baseMpathA={"ProjectDIR/rt/properties/mf/Core",},family={},inactive={},mT={PrgEnv={["FN"]="ProjectDIR/rt/properties/mf/Core/PrgEnv.lua",["default"]=0,["fullName"]="PrgEnv",["hash"]=0,["loadOrder"]=1,["mType"]="m",propT={},["short"]="PrgEnv",["status"]="active",},a={["FN"]="ProjectDIR/rt/properties/mf/Core/a/1.0.lua",["default"]=1,["fullName"]="a/1.0",["hash"]=0,["loadOrder"]=3,["mType"]="w",propT={},["short"]="a",["status"]="active",},b={["FN"]="ProjectDIR/rt/properties/mf/Core/b/1.0.lua",["default"]=1,["fullName"]="b/1.0",["hash"]=0,["loadOrder"]=4,["mType"]="w",propT={arch={["mic"]=1,},},["short"]="b",["status"]="active",},c={["FN"]="ProjectDIR/rt/properties/mf/Core/c/1.0.lua",["default"]=1,["fullName"]="c/1.0",["hash"]=0,["loadOrder"]=5,["mType"]="w",propT={arch={["offload"]=1,},},["short"]="c",["status"]="active",},d={["FN"]="ProjectDIR/rt/properties/mf/Core/d/1.0.lua",["default"]=1,["fullName"]="d/1.0",["hash"]=0,["loadOrder"]=6,["mType"]="w",propT={arch={["gpu"]=1,["mic"]=1,["offload"]=1,},},["short"]="d",["status"]="active",},mkl={["FN"]="ProjectDIR/rt/properties/mf/Core/mkl/10.3.lua",["default"]=1,["fullName"]="mkl/10.3",["hash"]=0,["loadOrder"]=2,["mType"]="w",propT={arch={["mic"]=1,["offload"]=1,},},["short"]="mkl",["status"]="active",},},mpathA={"ProjectDIR/rt/properties/mf/Core",},["version"]=2,}';
 export _ModuleTable_;
 ===========================
 step 3
 ===========================
-LMOD_DEFAULT_MODULEPATH="~/w/lmod/rt/properties/mf/Core";
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/properties/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="~/w/lmod/rt/properties/mf/Core";
+MODULEPATH="ProjectDIR/rt/properties/mf/Core";
 export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="~/w/lmod/rt/properties/mf/Core";
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/properties/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="~/w/lmod/rt/properties/mf/Core";
+MODULEPATH="ProjectDIR/rt/properties/mf/Core";
 export MODULEPATH;

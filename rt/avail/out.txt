@@ -1,40 +1,40 @@
 ===========================
 step 1
 ===========================
-LMOD_DEFAULT_MODULEPATH="~/w/lmod/mf/Core:~/w/lmod/mf/Compiler/intel/10.1:~/w/lmod/rt/avail/mf/Core";
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/rt/avail/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="~/w/lmod/mf/Core:~/w/lmod/mf/Compiler/intel/10.1:~/w/lmod/rt/avail/mf/Core";
+MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/rt/avail/mf/Core";
 export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="~/w/lmod/mf/Core:~/w/lmod/mf/Compiler/intel/10.1:~/w/lmod/rt/avail/mf/Core";
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/rt/avail/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="~/w/lmod/mf/Core:~/w/lmod/mf/Compiler/intel/10.1:~/w/lmod/rt/avail/mf/Core";
+MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/rt/avail/mf/Core";
 export MODULEPATH;
 export _ModuleTable_Sz_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"~/w/lmod/mf/Core","~/w/lmod/mf/Compiler/intel/10.1","~/w/lmod/rt/avail/mf/Core",},family={},inactive={},mT={},mpathA={"~/w/lmod/mf/Core","~/w/lmod/mf/Compiler/intel/10.1","~/w/lmod/rt/avail/mf/Core",},["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/mf/Core","ProjectDIR/mf/Compiler/intel/10.1","ProjectDIR/rt/avail/mf/Core",},family={},inactive={},mT={},mpathA={"ProjectDIR/mf/Core","ProjectDIR/mf/Compiler/intel/10.1","ProjectDIR/rt/avail/mf/Core",},["version"]=2,}';
 export _ModuleTable_;
 ===========================
 step 2
 ===========================
-LMOD_DEFAULT_MODULEPATH="~/w/lmod/mf/Core:~/w/lmod/mf/Compiler/intel/10.1:~/w/lmod/rt/avail/mf/Core";
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/rt/avail/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="~/w/lmod/mf/Core:~/w/lmod/mf/Compiler/intel/10.1:~/w/lmod/rt/avail/mf/Core";
+MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/rt/avail/mf/Core";
 export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="~/w/lmod/mf/Core:~/w/lmod/mf/Compiler/intel/10.1:~/w/lmod/rt/avail/mf/Core";
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/rt/avail/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="~/w/lmod/mf/Core:~/w/lmod/mf/Compiler/intel/10.1:~/w/lmod/rt/avail/mf/Core";
+MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/rt/avail/mf/Core";
 export MODULEPATH;
 ===========================
 step 3
 ===========================
-LMOD_DEFAULT_MODULEPATH="~/w/lmod/mf/Core:~/w/lmod/mf/Compiler/intel/10.1:~/w/lmod/rt/avail/mf/Core";
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/rt/avail/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="~/w/lmod/mf/Core:~/w/lmod/mf/Compiler/intel/10.1:~/w/lmod/rt/avail/mf/Core";
+MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/rt/avail/mf/Core";
 export MODULEPATH;
 LD_LIBRARY_PATH="/vol/local/intel/mkl/mkl/lib/lib:/vol/local/intel/idb/idb/lib:/vol/local/intel/fc/fc/lib:/vol/local/intel/cc/cc/lib";
 export LD_LIBRARY_PATH;
 LMOD_COMPILER="intel/11.0";
 export LMOD_COMPILER;
-LMOD_DEFAULT_MODULEPATH="~/w/lmod/mf/Core:~/w/lmod/mf/Compiler/intel/10.1:~/w/lmod/rt/avail/mf/Core";
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/rt/avail/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
 LMOD_FAMILY_COMPILER="intel";
 export LMOD_FAMILY_COMPILER;
@@ -44,23 +44,23 @@ MKL_DIR="/vol/local/intel/mkl/mkl/lib/lib";
 export MKL_DIR;
 MKL_INCLUDE="/vol/local/intel/mkl/mkl/include";
 export MKL_INCLUDE;
-MODULEPATH="~/w/lmod/mf/Compiler/intel/10.1:~/w/lmod/mf/Core:~/w/lmod/rt/avail/mf/Core";
+MODULEPATH="ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/Core:ProjectDIR/rt/avail/mf/Core";
 export MODULEPATH;
-PATH="/vol/local/intel/idb/idb/bin:/vol/local/intel/fc/fc/bin:/vol/local/intel/cc/cc/bin:~/w/lmod/src:PATH_to_TM:/bin";
+PATH="/vol/local/intel/idb/idb/bin:/vol/local/intel/fc/fc/bin:/vol/local/intel/cc/cc/bin:ProjectDIR/src:PATH_to_TM:/bin";
 export PATH;
 TACC_FAMILY_COMPILER="intel";
 export TACC_FAMILY_COMPILER;
 export _ModuleTable_Sz_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"~/w/lmod/mf/Core","~/w/lmod/mf/Compiler/intel/10.1","~/w/lmod/rt/avail/mf/Core",},family={["compiler"]="intel",},inactive={},mT={intel={["FN"]="~/w/lmod/mf/Core/intel/intel.lua",["default"]=1,["fullName"]="intel/intel",["hash"]=0,["loadOrder"]=1,["mType"]="w",propT={},["short"]="intel",["status"]="active",},},mpathA={"~/w/lmod/mf/Compiler/intel/10.1","~/w/lmod/mf/Core","~/w/lmod/rt/avail/mf/Core",},["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/mf/Core","ProjectDIR/mf/Compiler/intel/10.1","ProjectDIR/rt/avail/mf/Core",},family={["compiler"]="intel",},inactive={},mT={intel={["FN"]="ProjectDIR/mf/Core/intel/intel.lua",["default"]=1,["fullName"]="intel/intel",["hash"]=0,["loadOrder"]=1,["mType"]="w",propT={},["short"]="intel",["status"]="active",},},mpathA={"ProjectDIR/mf/Compiler/intel/10.1","ProjectDIR/mf/Core","ProjectDIR/rt/avail/mf/Core",},["version"]=2,}';
 export _ModuleTable_;
 ===========================
 step 4
 ===========================
-LMOD_DEFAULT_MODULEPATH="~/w/lmod/mf/Core:~/w/lmod/mf/Compiler/intel/10.1:~/w/lmod/rt/avail/mf/Core";
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/rt/avail/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="~/w/lmod/mf/Compiler/intel/10.1:~/w/lmod/mf/Core:~/w/lmod/rt/avail/mf/Core";
+MODULEPATH="ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/Core:ProjectDIR/rt/avail/mf/Core";
 export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="~/w/lmod/mf/Core:~/w/lmod/mf/Compiler/intel/10.1:~/w/lmod/rt/avail/mf/Core";
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/rt/avail/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="~/w/lmod/mf/Compiler/intel/10.1:~/w/lmod/mf/Core:~/w/lmod/rt/avail/mf/Core";
+MODULEPATH="ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/Core:ProjectDIR/rt/avail/mf/Core";
 export MODULEPATH;

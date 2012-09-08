@@ -3,19 +3,19 @@ step 1
 ===========================
 unset LMOD_DEFAULT_MODULEPATH;
 unset MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="~/w/lmod/rt/inherit/mf/Linux:~/w/lmod/rt/inherit/mf/Core:~/w/lmod/rt/inherit/mf/Core2";
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/inherit/mf/Linux:ProjectDIR/rt/inherit/mf/Core:ProjectDIR/rt/inherit/mf/Core2";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="~/w/lmod/rt/inherit/mf/Linux:~/w/lmod/rt/inherit/mf/Core:~/w/lmod/rt/inherit/mf/Core2";
+MODULEPATH="ProjectDIR/rt/inherit/mf/Linux:ProjectDIR/rt/inherit/mf/Core:ProjectDIR/rt/inherit/mf/Core2";
 export MODULEPATH;
 export _ModuleTable_Sz_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"~/w/lmod/rt/inherit/mf/Linux","~/w/lmod/rt/inherit/mf/Core","~/w/lmod/rt/inherit/mf/Core2",},family={},inactive={},mT={},mpathA={"~/w/lmod/rt/inherit/mf/Linux","~/w/lmod/rt/inherit/mf/Core","~/w/lmod/rt/inherit/mf/Core2",},["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/inherit/mf/Linux","ProjectDIR/rt/inherit/mf/Core","ProjectDIR/rt/inherit/mf/Core2",},family={},inactive={},mT={},mpathA={"ProjectDIR/rt/inherit/mf/Linux","ProjectDIR/rt/inherit/mf/Core","ProjectDIR/rt/inherit/mf/Core2",},["version"]=2,}';
 export _ModuleTable_;
 ===========================
 step 2
 ===========================
-LMOD_DEFAULT_MODULEPATH="~/w/lmod/rt/inherit/mf/Linux:~/w/lmod/rt/inherit/mf/Core:~/w/lmod/rt/inherit/mf/Core2";
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/inherit/mf/Linux:ProjectDIR/rt/inherit/mf/Core:ProjectDIR/rt/inherit/mf/Core2";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="~/w/lmod/rt/inherit/mf/Linux:~/w/lmod/rt/inherit/mf/Core:~/w/lmod/rt/inherit/mf/Core2";
+MODULEPATH="ProjectDIR/rt/inherit/mf/Linux:ProjectDIR/rt/inherit/mf/Core:ProjectDIR/rt/inherit/mf/Core2";
 export MODULEPATH;
 JUNK_CORE2="1.0";
 export JUNK_CORE2;
@@ -23,46 +23,46 @@ JUNK_LINUX="1.0";
 export JUNK_LINUX;
 JUNK_SYSTEM="1.0";
 export JUNK_SYSTEM;
-LMOD_DEFAULT_MODULEPATH="~/w/lmod/rt/inherit/mf/Linux:~/w/lmod/rt/inherit/mf/Core:~/w/lmod/rt/inherit/mf/Core2";
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/inherit/mf/Linux:ProjectDIR/rt/inherit/mf/Core:ProjectDIR/rt/inherit/mf/Core2";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="~/w/lmod/rt/inherit/mf/Linux:~/w/lmod/rt/inherit/mf/Core:~/w/lmod/rt/inherit/mf/Core2";
+MODULEPATH="ProjectDIR/rt/inherit/mf/Linux:ProjectDIR/rt/inherit/mf/Core:ProjectDIR/rt/inherit/mf/Core2";
 export MODULEPATH;
 export _ModuleTable_Sz_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"~/w/lmod/rt/inherit/mf/Linux","~/w/lmod/rt/inherit/mf/Core","~/w/lmod/rt/inherit/mf/Core2",},family={},inactive={},mT={junk={["FN"]="~/w/lmod/rt/inherit/mf/Linux/junk/1.0.lua",["default"]=1,["fullName"]="junk/1.0",["hash"]=0,["loadOrder"]=1,["mType"]="w",propT={},["short"]="junk",["status"]="active",},},mpathA={"~/w/lmod/rt/inherit/mf/Linux","~/w/lmod/rt/inherit/mf/Core","~/w/lmod/rt/inherit/mf/Core2",},["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/inherit/mf/Linux","ProjectDIR/rt/inherit/mf/Core","ProjectDIR/rt/inherit/mf/Core2",},family={},inactive={},mT={junk={["FN"]="ProjectDIR/rt/inherit/mf/Linux/junk/1.0.lua",["default"]=1,["fullName"]="junk/1.0",["hash"]=0,["loadOrder"]=1,["mType"]="w",propT={},["short"]="junk",["status"]="active",},},mpathA={"ProjectDIR/rt/inherit/mf/Linux","ProjectDIR/rt/inherit/mf/Core","ProjectDIR/rt/inherit/mf/Core2",},["version"]=2,}';
 export _ModuleTable_;
 ===========================
 step 3
 ===========================
-LMOD_DEFAULT_MODULEPATH="~/w/lmod/rt/inherit/mf/Linux:~/w/lmod/rt/inherit/mf/Core:~/w/lmod/rt/inherit/mf/Core2";
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/inherit/mf/Linux:ProjectDIR/rt/inherit/mf/Core:ProjectDIR/rt/inherit/mf/Core2";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="~/w/lmod/rt/inherit/mf/Linux:~/w/lmod/rt/inherit/mf/Core:~/w/lmod/rt/inherit/mf/Core2";
+MODULEPATH="ProjectDIR/rt/inherit/mf/Linux:ProjectDIR/rt/inherit/mf/Core:ProjectDIR/rt/inherit/mf/Core2";
 export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="~/w/lmod/rt/inherit/mf/Linux:~/w/lmod/rt/inherit/mf/Core:~/w/lmod/rt/inherit/mf/Core2";
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/inherit/mf/Linux:ProjectDIR/rt/inherit/mf/Core:ProjectDIR/rt/inherit/mf/Core2";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="~/w/lmod/rt/inherit/mf/Linux:~/w/lmod/rt/inherit/mf/Core:~/w/lmod/rt/inherit/mf/Core2";
+MODULEPATH="ProjectDIR/rt/inherit/mf/Linux:ProjectDIR/rt/inherit/mf/Core:ProjectDIR/rt/inherit/mf/Core2";
 export MODULEPATH;
 ===========================
 step 4
 ===========================
-LMOD_DEFAULT_MODULEPATH="~/w/lmod/rt/inherit/mf/Linux:~/w/lmod/rt/inherit/mf/Core:~/w/lmod/rt/inherit/mf/Core2";
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/inherit/mf/Linux:ProjectDIR/rt/inherit/mf/Core:ProjectDIR/rt/inherit/mf/Core2";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="~/w/lmod/rt/inherit/mf/Linux:~/w/lmod/rt/inherit/mf/Core:~/w/lmod/rt/inherit/mf/Core2";
+MODULEPATH="ProjectDIR/rt/inherit/mf/Linux:ProjectDIR/rt/inherit/mf/Core:ProjectDIR/rt/inherit/mf/Core2";
 export MODULEPATH;
 unset JUNK_CORE2;
 unset JUNK_LINUX;
 unset JUNK_SYSTEM;
-LMOD_DEFAULT_MODULEPATH="~/w/lmod/rt/inherit/mf/Linux:~/w/lmod/rt/inherit/mf/Core:~/w/lmod/rt/inherit/mf/Core2";
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/inherit/mf/Linux:ProjectDIR/rt/inherit/mf/Core:ProjectDIR/rt/inherit/mf/Core2";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="~/w/lmod/rt/inherit/mf/Linux:~/w/lmod/rt/inherit/mf/Core:~/w/lmod/rt/inherit/mf/Core2";
+MODULEPATH="ProjectDIR/rt/inherit/mf/Linux:ProjectDIR/rt/inherit/mf/Core:ProjectDIR/rt/inherit/mf/Core2";
 export MODULEPATH;
 export _ModuleTable_Sz_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"~/w/lmod/rt/inherit/mf/Linux","~/w/lmod/rt/inherit/mf/Core","~/w/lmod/rt/inherit/mf/Core2",},family={},inactive={},mT={},mpathA={"~/w/lmod/rt/inherit/mf/Linux","~/w/lmod/rt/inherit/mf/Core","~/w/lmod/rt/inherit/mf/Core2",},["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/inherit/mf/Linux","ProjectDIR/rt/inherit/mf/Core","ProjectDIR/rt/inherit/mf/Core2",},family={},inactive={},mT={},mpathA={"ProjectDIR/rt/inherit/mf/Linux","ProjectDIR/rt/inherit/mf/Core","ProjectDIR/rt/inherit/mf/Core2",},["version"]=2,}';
 export _ModuleTable_;
 ===========================
 step 5
 ===========================
-LMOD_DEFAULT_MODULEPATH="~/w/lmod/rt/inherit/mf/Linux:~/w/lmod/rt/inherit/mf/Core:~/w/lmod/rt/inherit/mf/Core2";
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/inherit/mf/Linux:ProjectDIR/rt/inherit/mf/Core:ProjectDIR/rt/inherit/mf/Core2";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="~/w/lmod/rt/inherit/mf/Linux:~/w/lmod/rt/inherit/mf/Core:~/w/lmod/rt/inherit/mf/Core2";
+MODULEPATH="ProjectDIR/rt/inherit/mf/Linux:ProjectDIR/rt/inherit/mf/Core:ProjectDIR/rt/inherit/mf/Core2";
 export MODULEPATH;
 false

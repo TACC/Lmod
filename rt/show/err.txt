@@ -1,13 +1,13 @@
 ===========================
 step 1
 ===========================
-   ~/w/lmod/mf/Core/gcc/4.2.3.lua:
+   ProjectDIR/mf/Core/gcc/4.2.3.lua:
 family("compiler")
-prepend_path("MODULEPATH", "~/w/lmod/mf/Compiler/gcc/4.2.3")
+prepend_path("MODULEPATH", "ProjectDIR/mf/Compiler/gcc/4.2.3")
 display(false)
 ===========================
 step 2
 ===========================
-   ~/w/lmod/mf/Core/alex/1.0.lua:
+   ProjectDIR/mf/Core/alex/1.0.lua:
 load("noweb")
 load("git")

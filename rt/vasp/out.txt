@@ -1,87 +1,87 @@
 ===========================
 step 1
 ===========================
-LMOD_DEFAULT_MODULEPATH="~/w/lmod/rt/vasp/mf:~/w/lmod/mf/Core:~/w/lmod/mf/Compiler/intel/10.1:~/w/lmod/mf/MPI/intel/10.1/openmpi/1.2.6";
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/vasp/mf:ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/MPI/intel/10.1/openmpi/1.2.6";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="~/w/lmod/rt/vasp/mf:~/w/lmod/mf/Core:~/w/lmod/mf/Compiler/intel/10.1:~/w/lmod/mf/MPI/intel/10.1/openmpi/1.2.6";
+MODULEPATH="ProjectDIR/rt/vasp/mf:ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/MPI/intel/10.1/openmpi/1.2.6";
 export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="~/w/lmod/rt/vasp/mf:~/w/lmod/mf/Core:~/w/lmod/mf/Compiler/intel/10.1:~/w/lmod/mf/MPI/intel/10.1/openmpi/1.2.6";
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/vasp/mf:ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/MPI/intel/10.1/openmpi/1.2.6";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="~/w/lmod/rt/vasp/mf:~/w/lmod/mf/Core:~/w/lmod/mf/Compiler/intel/10.1:~/w/lmod/mf/MPI/intel/10.1/openmpi/1.2.6";
+MODULEPATH="ProjectDIR/rt/vasp/mf:ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/MPI/intel/10.1/openmpi/1.2.6";
 export MODULEPATH;
 export _ModuleTable_Sz_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"~/w/lmod/rt/vasp/mf","~/w/lmod/mf/Core","~/w/lmod/mf/Compiler/intel/10.1","~/w/lmod/mf/MPI/intel/10.1/openmpi/1.2.6",},family={},inactive={},mT={},mpathA={"~/w/lmod/rt/vasp/mf","~/w/lmod/mf/Core","~/w/lmod/mf/Compiler/intel/10.1","~/w/lmod/mf/MPI/intel/10.1/openmpi/1.2.6",},["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/vasp/mf","ProjectDIR/mf/Core","ProjectDIR/mf/Compiler/intel/10.1","ProjectDIR/mf/MPI/intel/10.1/openmpi/1.2.6",},family={},inactive={},mT={},mpathA={"ProjectDIR/rt/vasp/mf","ProjectDIR/mf/Core","ProjectDIR/mf/Compiler/intel/10.1","ProjectDIR/mf/MPI/intel/10.1/openmpi/1.2.6",},["version"]=2,}';
 export _ModuleTable_;
 ===========================
 step 2
 ===========================
-LMOD_DEFAULT_MODULEPATH="~/w/lmod/rt/vasp/mf:~/w/lmod/mf/Core:~/w/lmod/mf/Compiler/intel/10.1:~/w/lmod/mf/MPI/intel/10.1/openmpi/1.2.6";
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/vasp/mf:ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/MPI/intel/10.1/openmpi/1.2.6";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="~/w/lmod/rt/vasp/mf:~/w/lmod/mf/Core:~/w/lmod/mf/Compiler/intel/10.1:~/w/lmod/mf/MPI/intel/10.1/openmpi/1.2.6";
+MODULEPATH="ProjectDIR/rt/vasp/mf:ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/MPI/intel/10.1/openmpi/1.2.6";
 export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="~/w/lmod/rt/vasp/mf:~/w/lmod/mf/Core:~/w/lmod/mf/Compiler/intel/10.1:~/w/lmod/mf/MPI/intel/10.1/openmpi/1.2.6";
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/vasp/mf:ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/MPI/intel/10.1/openmpi/1.2.6";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="~/w/lmod/rt/vasp/mf:~/w/lmod/mf/Core:~/w/lmod/mf/Compiler/intel/10.1:~/w/lmod/mf/MPI/intel/10.1/openmpi/1.2.6";
+MODULEPATH="ProjectDIR/rt/vasp/mf:ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/MPI/intel/10.1/openmpi/1.2.6";
 export MODULEPATH;
 ===========================
 step 3
 ===========================
-LMOD_DEFAULT_MODULEPATH="~/w/lmod/rt/vasp/mf:~/w/lmod/mf/Core:~/w/lmod/mf/Compiler/intel/10.1:~/w/lmod/mf/MPI/intel/10.1/openmpi/1.2.6";
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/vasp/mf:ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/MPI/intel/10.1/openmpi/1.2.6";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="~/w/lmod/rt/vasp/mf:~/w/lmod/mf/Core:~/w/lmod/mf/Compiler/intel/10.1:~/w/lmod/mf/MPI/intel/10.1/openmpi/1.2.6";
+MODULEPATH="ProjectDIR/rt/vasp/mf:ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/MPI/intel/10.1/openmpi/1.2.6";
 export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="~/w/lmod/rt/vasp/mf:~/w/lmod/mf/Core:~/w/lmod/mf/Compiler/intel/10.1:~/w/lmod/mf/MPI/intel/10.1/openmpi/1.2.6";
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/vasp/mf:ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/MPI/intel/10.1/openmpi/1.2.6";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="~/w/lmod/rt/vasp/mf:~/w/lmod/mf/Core:~/w/lmod/mf/Compiler/intel/10.1:~/w/lmod/mf/MPI/intel/10.1/openmpi/1.2.6";
+MODULEPATH="ProjectDIR/rt/vasp/mf:ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/MPI/intel/10.1/openmpi/1.2.6";
 export MODULEPATH;
 ===========================
 step 4
 ===========================
-LMOD_DEFAULT_MODULEPATH="~/w/lmod/rt/vasp/mf:~/w/lmod/mf/Core:~/w/lmod/mf/Compiler/intel/10.1:~/w/lmod/mf/MPI/intel/10.1/openmpi/1.2.6";
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/vasp/mf:ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/MPI/intel/10.1/openmpi/1.2.6";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="~/w/lmod/rt/vasp/mf:~/w/lmod/mf/Core:~/w/lmod/mf/Compiler/intel/10.1:~/w/lmod/mf/MPI/intel/10.1/openmpi/1.2.6";
+MODULEPATH="ProjectDIR/rt/vasp/mf:ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/MPI/intel/10.1/openmpi/1.2.6";
 export MODULEPATH;
 false
 ===========================
 step 5
 ===========================
-~/w/lmod/mf/Compiler/gcc/4.2.3/openmpi/1.2.6.lua
-~/w/lmod/mf/Compiler/intel/10.1/gotoblas/1.31.lua
-~/w/lmod/mf/Compiler/intel/10.1/gotoblas/1.31.lua
-~/w/lmod/mf/Compiler/intel/10.1/gotoblas/1.32.lua
-~/w/lmod/mf/Compiler/intel/10.1/gotoblas/1.32.lua
-~/w/lmod/mf/Compiler/intel/10.1/gotoblas/1.33.lua
-~/w/lmod/mf/Compiler/intel/10.1/gotoblas/1.33.lua
-~/w/lmod/mf/Compiler/intel/10.1/mpich2/1.0.7.lua
-~/w/lmod/mf/Compiler/intel/10.1/mpich2/1.0.7.lua
-~/w/lmod/mf/Compiler/intel/10.1/openmpi/1.2.6.lua
-~/w/lmod/mf/Compiler/intel/10.1/openmpi/1.2.6.lua
-~/w/lmod/mf/Core/PrgEnv.lua
-~/w/lmod/mf/Core/admin/admin-1.0.lua
-~/w/lmod/mf/Core/alex/1.0.lua
-~/w/lmod/mf/Core/boost/1.46.0.lua
-~/w/lmod/mf/Core/boost/1.47.1.lua
-~/w/lmod/mf/Core/boost/1.49.0.lua
-~/w/lmod/mf/Core/gcc/4.2.3.lua
-~/w/lmod/mf/Core/git/1.6.3.1
-~/w/lmod/mf/Core/git/1.7.4.3.lua
-~/w/lmod/mf/Core/git/1.7.4.lua
-~/w/lmod/mf/Core/gotoblas/1.20.lua
-~/w/lmod/mf/Core/gotoblas/1.26.lua
-~/w/lmod/mf/Core/gotoblas/1.30.lua
-~/w/lmod/mf/Core/intel/intel.lua
-~/w/lmod/mf/Core/junk/a/c/1.0.lua
-~/w/lmod/mf/Core/junk/b/c/2.0.lua
-~/w/lmod/mf/Core/junk/d/3.0.lua
-~/w/lmod/mf/Core/local/local.lua
-~/w/lmod/mf/Core/multi/multi.lua
-~/w/lmod/mf/Core/noweb/2.10c.lua
-~/w/lmod/mf/Core/parmetis/3.1.lua
-~/w/lmod/mf/Core/unix/unix.lua
-~/w/lmod/mf/MPI/gcc/4.2.3/openmpi/1.2.6/parmetis/3.1.lua
-~/w/lmod/mf/MPI/intel/10.1/mpich2/1.0.7/parmetis/3.1.lua
-~/w/lmod/mf/MPI/intel/10.1/mpich2/1.0.7/parmetis/3.1.lua
-~/w/lmod/mf/MPI/intel/10.1/openmpi/1.2.6/parmetis/3.1.lua
-~/w/lmod/mf/MPI/intel/10.1/openmpi/1.2.6/parmetis/3.1.lua
-~/w/lmod/mf/MPI/intel/10.1/openmpi/1.2.6/parmetis/3.1.lua
-~/w/lmod/rt/vasp/mf/vasp/5.2.lua
+ProjectDIR/mf/Compiler/gcc/4.2.3/openmpi/1.2.6.lua
+ProjectDIR/mf/Compiler/intel/10.1/gotoblas/1.31.lua
+ProjectDIR/mf/Compiler/intel/10.1/gotoblas/1.31.lua
+ProjectDIR/mf/Compiler/intel/10.1/gotoblas/1.32.lua
+ProjectDIR/mf/Compiler/intel/10.1/gotoblas/1.32.lua
+ProjectDIR/mf/Compiler/intel/10.1/gotoblas/1.33.lua
+ProjectDIR/mf/Compiler/intel/10.1/gotoblas/1.33.lua
+ProjectDIR/mf/Compiler/intel/10.1/mpich2/1.0.7.lua
+ProjectDIR/mf/Compiler/intel/10.1/mpich2/1.0.7.lua
+ProjectDIR/mf/Compiler/intel/10.1/openmpi/1.2.6.lua
+ProjectDIR/mf/Compiler/intel/10.1/openmpi/1.2.6.lua
+ProjectDIR/mf/Core/PrgEnv.lua
+ProjectDIR/mf/Core/admin/admin-1.0.lua
+ProjectDIR/mf/Core/alex/1.0.lua
+ProjectDIR/mf/Core/boost/1.46.0.lua
+ProjectDIR/mf/Core/boost/1.47.1.lua
+ProjectDIR/mf/Core/boost/1.49.0.lua
+ProjectDIR/mf/Core/gcc/4.2.3.lua
+ProjectDIR/mf/Core/git/1.6.3.1
+ProjectDIR/mf/Core/git/1.7.4.3.lua
+ProjectDIR/mf/Core/git/1.7.4.lua
+ProjectDIR/mf/Core/gotoblas/1.20.lua
+ProjectDIR/mf/Core/gotoblas/1.26.lua
+ProjectDIR/mf/Core/gotoblas/1.30.lua
+ProjectDIR/mf/Core/intel/intel.lua
+ProjectDIR/mf/Core/junk/a/c/1.0.lua
+ProjectDIR/mf/Core/junk/b/c/2.0.lua
+ProjectDIR/mf/Core/junk/d/3.0.lua
+ProjectDIR/mf/Core/local/local.lua
+ProjectDIR/mf/Core/multi/multi.lua
+ProjectDIR/mf/Core/noweb/2.10c.lua
+ProjectDIR/mf/Core/parmetis/3.1.lua
+ProjectDIR/mf/Core/unix/unix.lua
+ProjectDIR/mf/MPI/gcc/4.2.3/openmpi/1.2.6/parmetis/3.1.lua
+ProjectDIR/mf/MPI/intel/10.1/mpich2/1.0.7/parmetis/3.1.lua
+ProjectDIR/mf/MPI/intel/10.1/mpich2/1.0.7/parmetis/3.1.lua
+ProjectDIR/mf/MPI/intel/10.1/openmpi/1.2.6/parmetis/3.1.lua
+ProjectDIR/mf/MPI/intel/10.1/openmpi/1.2.6/parmetis/3.1.lua
+ProjectDIR/mf/MPI/intel/10.1/openmpi/1.2.6/parmetis/3.1.lua
+ProjectDIR/rt/vasp/mf/vasp/5.2.lua

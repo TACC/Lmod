@@ -1,9 +1,9 @@
 ===========================
 step 1
 ===========================
-LMOD_DEFAULT_MODULEPATH="~/w/lmod/mf/Core";
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="~/w/lmod/mf/Core";
+MODULEPATH="ProjectDIR/mf/Core";
 export MODULEPATH;
 ADMIN_MODULE_LOADED="1";
 export ADMIN_MODULE_LOADED;
@@ -13,7 +13,7 @@ LD_LIBRARY_PATH="/vol/local/mpi/intel/10.1/openmpi/1.2.6.opt/lib:/vol/local/inte
 export LD_LIBRARY_PATH;
 LMOD_COMPILER="intel/11.0";
 export LMOD_COMPILER;
-LMOD_DEFAULT_MODULEPATH="~/w/lmod/mf/Core";
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
 LMOD_FAMILY_COMPILER="intel";
 export LMOD_FAMILY_COMPILER;
@@ -23,11 +23,11 @@ MKL_DIR="/vol/local/intel/mkl/mkl/lib/lib";
 export MKL_DIR;
 MKL_INCLUDE="/vol/local/intel/mkl/mkl/include";
 export MKL_INCLUDE;
-MODULEPATH="~/w/lmod/mf/MPI/intel/10.1/openmpi/1.2.6:~/w/lmod/mf/Compiler/intel/10.1:~/w/lmod/mf/Core";
+MODULEPATH="ProjectDIR/mf/MPI/intel/10.1/openmpi/1.2.6:ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/Core";
 export MODULEPATH;
 MPIHOME="/vol/local/mpi/intel/10.1/openmpi/1.2.6.opt";
 export MPIHOME;
-PATH="/vol/local/mpi/intel/10.1/openmpi/1.2.6.opt/bin:/vol/local/noweb/icon/bin:/vol/local/noweb/2.10c/bin:/vol/local/intel/idb/idb/bin:/vol/local/intel/fc/fc/bin:/vol/local/intel/cc/cc/bin:/usr/local/share/bin:/usr/local/bin:/usr/sbin:/sbin:~/w/lmod/src:PATH_to_TM:/bin";
+PATH="/vol/local/mpi/intel/10.1/openmpi/1.2.6.opt/bin:/vol/local/noweb/icon/bin:/vol/local/noweb/2.10c/bin:/vol/local/intel/idb/idb/bin:/vol/local/intel/fc/fc/bin:/vol/local/intel/cc/cc/bin:/usr/local/share/bin:/usr/local/bin:/usr/sbin:/sbin:ProjectDIR/src:PATH_to_TM:/bin";
 export PATH;
 TACC_FAMILY_COMPILER="intel";
 export TACC_FAMILY_COMPILER;
@@ -42,28 +42,28 @@ export TACC_PMETIS_INC;
 TACC_PMETIS_LIB="/vol/pkg/Parmetis/intel/10.1/parmetis/3.1";
 export TACC_PMETIS_LIB;
 export _ModuleTable_Sz_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=8,baseMpathA={"~/w/lmod/mf/Core",},family={["compiler"]="intel",},inactive={},mT={PrgEnv={["FN"]="~/w/lmod/mf/Core/PrgEnv.lua",["default"]=0,["fullName"]="PrgEnv",["hash"]=0,["loadOrder"]=2,["mType"]="m",propT={},["short"]="PrgEnv",["status"]="active",},admin={["FN"]="~/w/lmod/mf/Core/admin/admin-1.0.lua",["default"]=1,["fullName"]="admin/admin-1.0",["hash"]=0,["loadOrder"]=1,["mType"]="w",propT={},["short"]="admin",["status"]="active",},intel={["FN"]="~/w/lmod/mf/Core/intel/intel.lua",["default"]=1,["fullName"]="intel/intel",["hash"]=0,["loadOrder"]=5,["mType"]="w",propT={},["short"]="intel",["status"]="active",},["local"]={["FN"]="~/w/lmod/mf/Core/local/local.lua",["default"]=1,["fullName"]="local/local",["hash"]=0,["loadOrder"]=4,["mType"]="w",propT={},["short"]="local",["status"]="active",},noweb={["FN"]="~/w/lmod/mf/Core/noweb/2.10c.lua",["default"]=1,["fullName"]="noweb/2.10c",["hash"]=0,["loadOrder"]=6,["mType"]="w",propT={},["short"]="noweb",["status"]="active",},openmpi={["FN"]="~/w/lmod/mf/Compiler/intel/10.1/openmpi/1.2.6.lua",["default"]=1,["fullName"]="openmpi/1.2.6",["hash"]=0,["loadOrder"]=7,["mType"]="w",propT={},["short"]="openmpi",["status"]="active",},parmetis={["FN"]="~/w/lmod/mf/MPI/intel/10.1/openmpi/1.2.6/parmetis/3.1.lua",["default"]=1,["fullName"]="parmetis/3.1",["hash"]=0,["loadOrder"]=8,["mType"]="w",propT={arch={["mic"]=1,},},["short"]="parmetis",["status"]="active",},unix={["FN"]="~/w/lmod/mf/Core/unix/unix.lua",["default"]=1,["fullName"]="unix/unix",["hash"]=0,["loadOrder"]=3,["mType"]="w",propT={},["short"]="unix",["status"]="active",},},mpathA={"~/w/lmod/mf/MPI/intel/10.1/openmpi/1.2.6","~/w/lmod/mf/Compiler/intel/10.1","~/w/lmod/mf/Core",},["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=8,baseMpathA={"ProjectDIR/mf/Core",},family={["compiler"]="intel",},inactive={},mT={PrgEnv={["FN"]="ProjectDIR/mf/Core/PrgEnv.lua",["default"]=0,["fullName"]="PrgEnv",["hash"]=0,["loadOrder"]=2,["mType"]="m",propT={},["short"]="PrgEnv",["status"]="active",},admin={["FN"]="ProjectDIR/mf/Core/admin/admin-1.0.lua",["default"]=1,["fullName"]="admin/admin-1.0",["hash"]=0,["loadOrder"]=1,["mType"]="w",propT={},["short"]="admin",["status"]="active",},intel={["FN"]="ProjectDIR/mf/Core/intel/intel.lua",["default"]=1,["fullName"]="intel/intel",["hash"]=0,["loadOrder"]=5,["mType"]="w",propT={},["short"]="intel",["status"]="active",},["local"]={["FN"]="ProjectDIR/mf/Core/local/local.lua",["default"]=1,["fullName"]="local/local",["hash"]=0,["loadOrder"]=4,["mType"]="w",propT={},["short"]="local",["status"]="active",},noweb={["FN"]="ProjectDIR/mf/Core/noweb/2.10c.lua",["default"]=1,["fullName"]="noweb/2.10c",["hash"]=0,["loadOrder"]=6,["mType"]="w",propT={},["short"]="noweb",["status"]="active",},openmpi={["FN"]="ProjectDIR/mf/Compiler/intel/10.1/openmpi/1.2.6.lua",["default"]=1,["fullName"]="openmpi/1.2.6",["hash"]=0,["loadOrder"]=7,["mType"]="w",propT={},["short"]="openmpi",["status"]="active",},parmetis={["FN"]="ProjectDIR/mf/MPI/intel/10.1/openmpi/1.2.6/parmetis/3.1.lua",["default"]=1,["fullName"]="parmetis/3.1",["hash"]=0,["loadOrder"]=8,["mType"]="w",propT={arch={["mic"]=1,},},["short"]="parmetis",["status"]="active",},unix={["FN"]="ProjectDIR/mf/Core/unix/unix.lua",["default"]=1,["fullName"]="unix/unix",["hash"]=0,["loadOrder"]=3,["mType"]="w",propT={},["short"]="unix",["status"]="active",},},mpathA={"ProjectDIR/mf/MPI/intel/10.1/openmpi/1.2.6","ProjectDIR/mf/Compiler/intel/10.1","ProjectDIR/mf/Core",},["version"]=2,}';
 export _ModuleTable_;
 ===========================
 step 2
 ===========================
-LMOD_DEFAULT_MODULEPATH="~/w/lmod/mf/Core";
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="~/w/lmod/mf/MPI/intel/10.1/openmpi/1.2.6:~/w/lmod/mf/Compiler/intel/10.1:~/w/lmod/mf/Core";
+MODULEPATH="ProjectDIR/mf/MPI/intel/10.1/openmpi/1.2.6:ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/Core";
 export MODULEPATH;
 unset LD_LIBRARY_PATH;
 unset LMOD_COMPILER;
-LMOD_DEFAULT_MODULEPATH="~/w/lmod/mf/Core";
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
 unset LMOD_FAMILY_COMPILER;
 MANPATH="/vol/local/noweb/noweb/man:/usr/share/man";
 export MANPATH;
 unset MKL_DIR;
 unset MKL_INCLUDE;
-MODULEPATH="~/w/lmod/mf/Core";
+MODULEPATH="ProjectDIR/mf/Core";
 export MODULEPATH;
 unset MPIHOME;
-PATH="/vol/local/noweb/icon/bin:/vol/local/noweb/2.10c/bin:/usr/local/share/bin:/usr/local/bin:/usr/sbin:/sbin:~/w/lmod/src:PATH_to_TM:/bin";
+PATH="/vol/local/noweb/icon/bin:/vol/local/noweb/2.10c/bin:/usr/local/share/bin:/usr/local/bin:/usr/sbin:/sbin:ProjectDIR/src:PATH_to_TM:/bin";
 export PATH;
 unset TACC_FAMILY_COMPILER;
 TACC_PMETIS_BIN="/vol/pkg/Parmetis/parmetis/3.1";
@@ -77,39 +77,39 @@ export TACC_PMETIS_INC;
 TACC_PMETIS_LIB="/vol/pkg/Parmetis/parmetis/3.1";
 export TACC_PMETIS_LIB;
 export _ModuleTable_Sz_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=6,baseMpathA={"~/w/lmod/mf/Core",},family={},inactive={"openmpi",},mT={PrgEnv={["FN"]="~/w/lmod/mf/Core/PrgEnv.lua",["default"]=0,["fullName"]="PrgEnv",["hash"]=0,["loadOrder"]=2,["mType"]="m",propT={},["short"]="PrgEnv",["status"]="active",},admin={["FN"]="~/w/lmod/mf/Core/admin/admin-1.0.lua",["default"]=1,["fullName"]="admin/admin-1.0",["hash"]=0,["loadOrder"]=1,["mType"]="w",propT={},["short"]="admin",["status"]="active",},["local"]={["FN"]="~/w/lmod/mf/Core/local/local.lua",["default"]=1,["fullName"]="local/local",["hash"]=0,["loadOrder"]=4,["mType"]="w",propT={},["short"]="local",["status"]="active",},noweb={["FN"]="~/w/lmod/mf/Core/noweb/2.10c.lua",["default"]=1,["fullName"]="noweb/2.10c",["hash"]=0,["loadOrder"]=5,["mType"]="w",propT={},["short"]="noweb",["status"]="active",},openmpi={["fullName"]="openmpi/1.2.6",["loadOrder"]=10,propT={},["short"]="openmpi",["status"]="inactive",},parmetis={["FN"]="~/w/lmod/mf/Core/parmetis/3.1.lua",["default"]=0,["fullName"]="parmetis/3.1",["hash"]=0,["loadOrder"]=6,["mType"]="w",propT={arch={["mic"]=1,},},["short"]="parmetis",["status"]="active",},unix={["FN"]="~/w/lmod/mf/Core/unix/unix.lua",["default"]=1,["fullName"]="unix/unix",["hash"]=0,["loadOrder"]=3,["mType"]="w",propT={},["short"]="unix",["status"]="active",},},mpathA={"~/w/lmod/mf/Core",},["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=6,baseMpathA={"ProjectDIR/mf/Core",},family={},inactive={"openmpi",},mT={PrgEnv={["FN"]="ProjectDIR/mf/Core/PrgEnv.lua",["default"]=0,["fullName"]="PrgEnv",["hash"]=0,["loadOrder"]=2,["mType"]="m",propT={},["short"]="PrgEnv",["status"]="active",},admin={["FN"]="ProjectDIR/mf/Core/admin/admin-1.0.lua",["default"]=1,["fullName"]="admin/admin-1.0",["hash"]=0,["loadOrder"]=1,["mType"]="w",propT={},["short"]="admin",["status"]="active",},["local"]={["FN"]="ProjectDIR/mf/Core/local/local.lua",["default"]=1,["fullName"]="local/local",["hash"]=0,["loadOrder"]=4,["mType"]="w",propT={},["short"]="local",["status"]="active",},noweb={["FN"]="ProjectDIR/mf/Core/noweb/2.10c.lua",["default"]=1,["fullName"]="noweb/2.10c",["hash"]=0,["loadOrder"]=5,["mType"]="w",propT={},["short"]="noweb",["status"]="active",},openmpi={["fullName"]="openmpi/1.2.6",["loadOrder"]=10,propT={},["short"]="openmpi",["status"]="inactive",},parmetis={["FN"]="ProjectDIR/mf/Core/parmetis/3.1.lua",["default"]=0,["fullName"]="parmetis/3.1",["hash"]=0,["loadOrder"]=6,["mType"]="w",propT={arch={["mic"]=1,},},["short"]="parmetis",["status"]="active",},unix={["FN"]="ProjectDIR/mf/Core/unix/unix.lua",["default"]=1,["fullName"]="unix/unix",["hash"]=0,["loadOrder"]=3,["mType"]="w",propT={},["short"]="unix",["status"]="active",},},mpathA={"ProjectDIR/mf/Core",},["version"]=2,}';
 export _ModuleTable_;
 ===========================
 step 3
 ===========================
-LMOD_DEFAULT_MODULEPATH="~/w/lmod/mf/Core";
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="~/w/lmod/mf/Core";
+MODULEPATH="ProjectDIR/mf/Core";
 export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="~/w/lmod/mf/Core";
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="~/w/lmod/mf/Core";
+MODULEPATH="ProjectDIR/mf/Core";
 export MODULEPATH;
 ===========================
 step 4
 ===========================
-LMOD_DEFAULT_MODULEPATH="~/w/lmod/mf/Core";
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="~/w/lmod/mf/Core";
+MODULEPATH="ProjectDIR/mf/Core";
 export MODULEPATH;
 LD_LIBRARY_PATH="/vol/local/mpi/gcc/4.2.3/openmpi/1.2.6.opt/lib";
 export LD_LIBRARY_PATH;
-LMOD_DEFAULT_MODULEPATH="~/w/lmod/mf/Core";
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
 LMOD_FAMILY_COMPILER="gcc";
 export LMOD_FAMILY_COMPILER;
 MANPATH="/vol/local/mpi/gcc/4.2.3/openmpi/1.2.6.opt/man:/vol/local/noweb/noweb/man:/usr/share/man";
 export MANPATH;
-MODULEPATH="~/w/lmod/mf/MPI/gcc/4.2.3/openmpi/1.2.6:~/w/lmod/mf/Compiler/gcc/4.2.3:~/w/lmod/mf/Core";
+MODULEPATH="ProjectDIR/mf/MPI/gcc/4.2.3/openmpi/1.2.6:ProjectDIR/mf/Compiler/gcc/4.2.3:ProjectDIR/mf/Core";
 export MODULEPATH;
 MPIHOME="/vol/local/mpi/gcc/4.2.3/openmpi/1.2.6.opt";
 export MPIHOME;
-PATH="/vol/local/mpi/gcc/4.2.3/openmpi/1.2.6.opt/bin:/vol/local/noweb/icon/bin:/vol/local/noweb/2.10c/bin:/usr/local/share/bin:/usr/local/bin:/usr/sbin:/sbin:~/w/lmod/src:PATH_to_TM:/bin";
+PATH="/vol/local/mpi/gcc/4.2.3/openmpi/1.2.6.opt/bin:/vol/local/noweb/icon/bin:/vol/local/noweb/2.10c/bin:/usr/local/share/bin:/usr/local/bin:/usr/sbin:/sbin:ProjectDIR/src:PATH_to_TM:/bin";
 export PATH;
 TACC_FAMILY_COMPILER="gcc";
 export TACC_FAMILY_COMPILER;
@@ -124,31 +124,31 @@ export TACC_PMETIS_INC;
 TACC_PMETIS_LIB="/vol/pkg/Parmetis/gcc/4.2.3/parmetis/3.1";
 export TACC_PMETIS_LIB;
 export _ModuleTable_Sz_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=8,baseMpathA={"~/w/lmod/mf/Core",},family={["compiler"]="gcc",},inactive={},mT={PrgEnv={["FN"]="~/w/lmod/mf/Core/PrgEnv.lua",["default"]=0,["fullName"]="PrgEnv",["hash"]=0,["loadOrder"]=2,["mType"]="m",propT={},["short"]="PrgEnv",["status"]="active",},admin={["FN"]="~/w/lmod/mf/Core/admin/admin-1.0.lua",["default"]=1,["fullName"]="admin/admin-1.0",["hash"]=0,["loadOrder"]=1,["mType"]="w",propT={},["short"]="admin",["status"]="active",},gcc={["FN"]="~/w/lmod/mf/Core/gcc/4.2.3.lua",["default"]=1,["fullName"]="gcc/4.2.3",["hash"]=0,["loadOrder"]=6,["mType"]="w",propT={},["short"]="gcc",["status"]="active",},["local"]={["FN"]="~/w/lmod/mf/Core/local/local.lua",["default"]=1,["fullName"]="local/local",["hash"]=0,["loadOrder"]=4,["mType"]="w",propT={},["short"]="local",["status"]="active",},noweb={["FN"]="~/w/lmod/mf/Core/noweb/2.10c.lua",["default"]=1,["fullName"]="noweb/2.10c",["hash"]=0,["loadOrder"]=5,["mType"]="w",propT={},["short"]="noweb",["status"]="active",},openmpi={["FN"]="~/w/lmod/mf/Compiler/gcc/4.2.3/openmpi/1.2.6.lua",["default"]=0,["fullName"]="openmpi/1.2.6",["hash"]=0,["loadOrder"]=7,["mType"]="w",propT={},["short"]="openmpi",["status"]="active",},parmetis={["FN"]="~/w/lmod/mf/MPI/gcc/4.2.3/openmpi/1.2.6/parmetis/3.1.lua",["default"]=0,["fullName"]="parmetis/3.1",["hash"]=0,["loadOrder"]=8,["mType"]="w",propT={arch={["mic"]=1,},},["short"]="parmetis",["status"]="active",},unix={["FN"]="~/w/lmod/mf/Core/unix/unix.lua",["default"]=1,["fullName"]="unix/unix",["hash"]=0,["loadOrder"]=3,["mType"]="w",propT={},["short"]="unix",["status"]="active",},},mpathA={"~/w/lmod/mf/MPI/gcc/4.2.3/openmpi/1.2.6","~/w/lmod/mf/Compiler/gcc/4.2.3","~/w/lmod/mf/Core",},["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=8,baseMpathA={"ProjectDIR/mf/Core",},family={["compiler"]="gcc",},inactive={},mT={PrgEnv={["FN"]="ProjectDIR/mf/Core/PrgEnv.lua",["default"]=0,["fullName"]="PrgEnv",["hash"]=0,["loadOrder"]=2,["mType"]="m",propT={},["short"]="PrgEnv",["status"]="active",},admin={["FN"]="ProjectDIR/mf/Core/admin/admin-1.0.lua",["default"]=1,["fullName"]="admin/admin-1.0",["hash"]=0,["loadOrder"]=1,["mType"]="w",propT={},["short"]="admin",["status"]="active",},gcc={["FN"]="ProjectDIR/mf/Core/gcc/4.2.3.lua",["default"]=1,["fullName"]="gcc/4.2.3",["hash"]=0,["loadOrder"]=6,["mType"]="w",propT={},["short"]="gcc",["status"]="active",},["local"]={["FN"]="ProjectDIR/mf/Core/local/local.lua",["default"]=1,["fullName"]="local/local",["hash"]=0,["loadOrder"]=4,["mType"]="w",propT={},["short"]="local",["status"]="active",},noweb={["FN"]="ProjectDIR/mf/Core/noweb/2.10c.lua",["default"]=1,["fullName"]="noweb/2.10c",["hash"]=0,["loadOrder"]=5,["mType"]="w",propT={},["short"]="noweb",["status"]="active",},openmpi={["FN"]="ProjectDIR/mf/Compiler/gcc/4.2.3/openmpi/1.2.6.lua",["default"]=0,["fullName"]="openmpi/1.2.6",["hash"]=0,["loadOrder"]=7,["mType"]="w",propT={},["short"]="openmpi",["status"]="active",},parmetis={["FN"]="ProjectDIR/mf/MPI/gcc/4.2.3/openmpi/1.2.6/parmetis/3.1.lua",["default"]=0,["fullName"]="parmetis/3.1",["hash"]=0,["loadOrder"]=8,["mType"]="w",propT={arch={["mic"]=1,},},["short"]="parmetis",["status"]="active",},unix={["FN"]="ProjectDIR/mf/Core/unix/unix.lua",["default"]=1,["fullName"]="unix/unix",["hash"]=0,["loadOrder"]=3,["mType"]="w",propT={},["short"]="unix",["status"]="active",},},mpathA={"ProjectDIR/mf/MPI/gcc/4.2.3/openmpi/1.2.6","ProjectDIR/mf/Compiler/gcc/4.2.3","ProjectDIR/mf/Core",},["version"]=2,}';
 export _ModuleTable_;
 ===========================
 step 5
 ===========================
-LMOD_DEFAULT_MODULEPATH="~/w/lmod/mf/Core";
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="~/w/lmod/mf/MPI/gcc/4.2.3/openmpi/1.2.6:~/w/lmod/mf/Compiler/gcc/4.2.3:~/w/lmod/mf/Core";
+MODULEPATH="ProjectDIR/mf/MPI/gcc/4.2.3/openmpi/1.2.6:ProjectDIR/mf/Compiler/gcc/4.2.3:ProjectDIR/mf/Core";
 export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="~/w/lmod/mf/Core";
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="~/w/lmod/mf/MPI/gcc/4.2.3/openmpi/1.2.6:~/w/lmod/mf/Compiler/gcc/4.2.3:~/w/lmod/mf/Core";
+MODULEPATH="ProjectDIR/mf/MPI/gcc/4.2.3/openmpi/1.2.6:ProjectDIR/mf/Compiler/gcc/4.2.3:ProjectDIR/mf/Core";
 export MODULEPATH;
 ===========================
 step 6
 ===========================
-LMOD_DEFAULT_MODULEPATH="~/w/lmod/mf/Core";
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="~/w/lmod/mf/MPI/gcc/4.2.3/openmpi/1.2.6:~/w/lmod/mf/Compiler/gcc/4.2.3:~/w/lmod/mf/Core";
+MODULEPATH="ProjectDIR/mf/MPI/gcc/4.2.3/openmpi/1.2.6:ProjectDIR/mf/Compiler/gcc/4.2.3:ProjectDIR/mf/Core";
 export MODULEPATH;
 LD_LIBRARY_PATH="/vol/local/mpi/intel/10.1/openmpi/1.2.6.opt/lib:/vol/local/intel/mkl/mkl/lib/lib:/vol/local/intel/idb/idb/lib:/vol/local/intel/fc/fc/lib:/vol/local/intel/cc/cc/lib";
 export LD_LIBRARY_PATH;
 LMOD_COMPILER="intel/11.0";
 export LMOD_COMPILER;
-LMOD_DEFAULT_MODULEPATH="~/w/lmod/mf/Core";
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
 LMOD_FAMILY_COMPILER="intel";
 export LMOD_FAMILY_COMPILER;
@@ -158,11 +158,11 @@ MKL_DIR="/vol/local/intel/mkl/mkl/lib/lib";
 export MKL_DIR;
 MKL_INCLUDE="/vol/local/intel/mkl/mkl/include";
 export MKL_INCLUDE;
-MODULEPATH="~/w/lmod/mf/MPI/intel/10.1/openmpi/1.2.6:~/w/lmod/mf/Compiler/intel/10.1:~/w/lmod/mf/Core";
+MODULEPATH="ProjectDIR/mf/MPI/intel/10.1/openmpi/1.2.6:ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/Core";
 export MODULEPATH;
 MPIHOME="/vol/local/mpi/intel/10.1/openmpi/1.2.6.opt";
 export MPIHOME;
-PATH="/vol/local/mpi/intel/10.1/openmpi/1.2.6.opt/bin:/vol/local/intel/idb/idb/bin:/vol/local/intel/fc/fc/bin:/vol/local/intel/cc/cc/bin:/vol/local/noweb/icon/bin:/vol/local/noweb/2.10c/bin:/usr/local/share/bin:/usr/local/bin:/usr/sbin:/sbin:~/w/lmod/src:PATH_to_TM:/bin";
+PATH="/vol/local/mpi/intel/10.1/openmpi/1.2.6.opt/bin:/vol/local/intel/idb/idb/bin:/vol/local/intel/fc/fc/bin:/vol/local/intel/cc/cc/bin:/vol/local/noweb/icon/bin:/vol/local/noweb/2.10c/bin:/usr/local/share/bin:/usr/local/bin:/usr/sbin:/sbin:ProjectDIR/src:PATH_to_TM:/bin";
 export PATH;
 TACC_FAMILY_COMPILER="intel";
 export TACC_FAMILY_COMPILER;
@@ -177,16 +177,16 @@ export TACC_PMETIS_INC;
 TACC_PMETIS_LIB="/vol/pkg/Parmetis/intel/10.1/parmetis/3.1";
 export TACC_PMETIS_LIB;
 export _ModuleTable_Sz_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=8,baseMpathA={"~/w/lmod/mf/Core",},family={["compiler"]="intel",},inactive={},mT={PrgEnv={["FN"]="~/w/lmod/mf/Core/PrgEnv.lua",["default"]=0,["fullName"]="PrgEnv",["hash"]=0,["loadOrder"]=2,["mType"]="m",propT={},["short"]="PrgEnv",["status"]="active",},admin={["FN"]="~/w/lmod/mf/Core/admin/admin-1.0.lua",["default"]=1,["fullName"]="admin/admin-1.0",["hash"]=0,["loadOrder"]=1,["mType"]="w",propT={},["short"]="admin",["status"]="active",},intel={["FN"]="~/w/lmod/mf/Core/intel/intel.lua",["default"]=1,["fullName"]="intel/intel",["hash"]=0,["loadOrder"]=6,["mType"]="w",propT={},["short"]="intel",["status"]="active",},["local"]={["FN"]="~/w/lmod/mf/Core/local/local.lua",["default"]=1,["fullName"]="local/local",["hash"]=0,["loadOrder"]=4,["mType"]="w",propT={},["short"]="local",["status"]="active",},noweb={["FN"]="~/w/lmod/mf/Core/noweb/2.10c.lua",["default"]=1,["fullName"]="noweb/2.10c",["hash"]=0,["loadOrder"]=5,["mType"]="w",propT={},["short"]="noweb",["status"]="active",},openmpi={["FN"]="~/w/lmod/mf/Compiler/intel/10.1/openmpi/1.2.6.lua",["default"]=0,["fullName"]="openmpi/1.2.6",["hash"]=0,["loadOrder"]=7,["mType"]="w",propT={},["short"]="openmpi",["status"]="active",},parmetis={["FN"]="~/w/lmod/mf/MPI/intel/10.1/openmpi/1.2.6/parmetis/3.1.lua",["default"]=0,["fullName"]="parmetis/3.1",["hash"]=0,["loadOrder"]=8,["mType"]="w",propT={arch={["mic"]=1,},},["short"]="parmetis",["status"]="active",},unix={["FN"]="~/w/lmod/mf/Core/unix/unix.lua",["default"]=1,["fullName"]="unix/unix",["hash"]=0,["loadOrder"]=3,["mType"]="w",propT={},["short"]="unix",["status"]="active",},},mpathA={"~/w/lmod/mf/MPI/intel/10.1/openmpi/1.2.6","~/w/lmod/mf/Compiler/intel/10.1","~/w/lmod/mf/Core",},["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=8,baseMpathA={"ProjectDIR/mf/Core",},family={["compiler"]="intel",},inactive={},mT={PrgEnv={["FN"]="ProjectDIR/mf/Core/PrgEnv.lua",["default"]=0,["fullName"]="PrgEnv",["hash"]=0,["loadOrder"]=2,["mType"]="m",propT={},["short"]="PrgEnv",["status"]="active",},admin={["FN"]="ProjectDIR/mf/Core/admin/admin-1.0.lua",["default"]=1,["fullName"]="admin/admin-1.0",["hash"]=0,["loadOrder"]=1,["mType"]="w",propT={},["short"]="admin",["status"]="active",},intel={["FN"]="ProjectDIR/mf/Core/intel/intel.lua",["default"]=1,["fullName"]="intel/intel",["hash"]=0,["loadOrder"]=6,["mType"]="w",propT={},["short"]="intel",["status"]="active",},["local"]={["FN"]="ProjectDIR/mf/Core/local/local.lua",["default"]=1,["fullName"]="local/local",["hash"]=0,["loadOrder"]=4,["mType"]="w",propT={},["short"]="local",["status"]="active",},noweb={["FN"]="ProjectDIR/mf/Core/noweb/2.10c.lua",["default"]=1,["fullName"]="noweb/2.10c",["hash"]=0,["loadOrder"]=5,["mType"]="w",propT={},["short"]="noweb",["status"]="active",},openmpi={["FN"]="ProjectDIR/mf/Compiler/intel/10.1/openmpi/1.2.6.lua",["default"]=0,["fullName"]="openmpi/1.2.6",["hash"]=0,["loadOrder"]=7,["mType"]="w",propT={},["short"]="openmpi",["status"]="active",},parmetis={["FN"]="ProjectDIR/mf/MPI/intel/10.1/openmpi/1.2.6/parmetis/3.1.lua",["default"]=0,["fullName"]="parmetis/3.1",["hash"]=0,["loadOrder"]=8,["mType"]="w",propT={arch={["mic"]=1,},},["short"]="parmetis",["status"]="active",},unix={["FN"]="ProjectDIR/mf/Core/unix/unix.lua",["default"]=1,["fullName"]="unix/unix",["hash"]=0,["loadOrder"]=3,["mType"]="w",propT={},["short"]="unix",["status"]="active",},},mpathA={"ProjectDIR/mf/MPI/intel/10.1/openmpi/1.2.6","ProjectDIR/mf/Compiler/intel/10.1","ProjectDIR/mf/Core",},["version"]=2,}';
 export _ModuleTable_;
 ===========================
 step 7
 ===========================
-LMOD_DEFAULT_MODULEPATH="~/w/lmod/mf/Core";
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="~/w/lmod/mf/MPI/intel/10.1/openmpi/1.2.6:~/w/lmod/mf/Compiler/intel/10.1:~/w/lmod/mf/Core";
+MODULEPATH="ProjectDIR/mf/MPI/intel/10.1/openmpi/1.2.6:ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/Core";
 export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="~/w/lmod/mf/Core";
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="~/w/lmod/mf/MPI/intel/10.1/openmpi/1.2.6:~/w/lmod/mf/Compiler/intel/10.1:~/w/lmod/mf/Core";
+MODULEPATH="ProjectDIR/mf/MPI/intel/10.1/openmpi/1.2.6:ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/Core";
 export MODULEPATH;

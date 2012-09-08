@@ -1,7 +1,7 @@
 ===========================
 step 1
 ===========================
- ~/w/lmod/mf/TACC 
+ ProjectDIR/mf/TACC 
    Linux          cluster           globus/4.0.7      (default)
    TACC           cluster-paths     mvapich1/mvapich1
    TACC-paths     cluster.orig      pgi/7.1           (default)

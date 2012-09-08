@@ -3,43 +3,43 @@ step 1
 ===========================
 unset LMOD_DEFAULT_MODULEPATH;
 unset MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="~/w/lmod/mf/Core";
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="~/w/lmod/mf/Core";
+MODULEPATH="ProjectDIR/mf/Core";
 export MODULEPATH;
 export _ModuleTable_Sz_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"~/w/lmod/mf/Core",},family={},inactive={},mT={},mpathA={"~/w/lmod/mf/Core",},["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/mf/Core",},family={},inactive={},mT={},mpathA={"ProjectDIR/mf/Core",},["version"]=2,}';
 export _ModuleTable_;
 ===========================
 step 2
 ===========================
-LMOD_DEFAULT_MODULEPATH="~/w/lmod/mf/Core";
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="~/w/lmod/mf/Core";
+MODULEPATH="ProjectDIR/mf/Core";
 export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="~/w/lmod/mf/Core";
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
 LMOD_FAMILY_COMPILER="gcc";
 export LMOD_FAMILY_COMPILER;
-MODULEPATH="~/w/lmod/mf/Compiler/gcc/4.2.3:~/w/lmod/mf/Core";
+MODULEPATH="ProjectDIR/mf/Compiler/gcc/4.2.3:ProjectDIR/mf/Core";
 export MODULEPATH;
 TACC_FAMILY_COMPILER="gcc";
 export TACC_FAMILY_COMPILER;
 export _ModuleTable_Sz_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"~/w/lmod/mf/Core",},family={["compiler"]="gcc",},inactive={},mT={gcc={["FN"]="~/w/lmod/mf/Core/gcc/4.2.3.lua",["default"]=1,["fullName"]="gcc/4.2.3",["hash"]=0,["loadOrder"]=1,["mType"]="w",propT={},["short"]="gcc",["status"]="active",},},mpathA={"~/w/lmod/mf/Compiler/gcc/4.2.3","~/w/lmod/mf/Core",},["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/mf/Core",},family={["compiler"]="gcc",},inactive={},mT={gcc={["FN"]="ProjectDIR/mf/Core/gcc/4.2.3.lua",["default"]=1,["fullName"]="gcc/4.2.3",["hash"]=0,["loadOrder"]=1,["mType"]="w",propT={},["short"]="gcc",["status"]="active",},},mpathA={"ProjectDIR/mf/Compiler/gcc/4.2.3","ProjectDIR/mf/Core",},["version"]=2,}';
 export _ModuleTable_;
 ===========================
 step 3
 ===========================
-LMOD_DEFAULT_MODULEPATH="~/w/lmod/mf/Core";
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="~/w/lmod/mf/Compiler/gcc/4.2.3:~/w/lmod/mf/Core";
+MODULEPATH="ProjectDIR/mf/Compiler/gcc/4.2.3:ProjectDIR/mf/Core";
 export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="~/w/lmod/mf/Core";
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="~/w/lmod/mf/Compiler/gcc/4.2.3:~/w/lmod/mf/Core";
+MODULEPATH="ProjectDIR/mf/Compiler/gcc/4.2.3:ProjectDIR/mf/Core";
 export MODULEPATH;
-PATH="/opt/apps/git/1.7.4.3/bin:~/w/lmod/src:PATH_to_TM:/bin";
+PATH="/opt/apps/git/1.7.4.3/bin:ProjectDIR/src:PATH_to_TM:/bin";
 export PATH;
 TACC_GIT_BIN="/opt/apps/git/1.7.4.3/bin";
 export TACC_GIT_BIN;
@@ -48,5 +48,5 @@ export TACC_GIT_DIR;
 TACC_GIT_LIB="/opt/apps/git/1.7.4.3/lib";
 export TACC_GIT_LIB;
 export _ModuleTable_Sz_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"~/w/lmod/mf/Core",},family={["compiler"]="gcc",},inactive={},mT={gcc={["FN"]="~/w/lmod/mf/Core/gcc/4.2.3.lua",["default"]=1,["fullName"]="gcc/4.2.3",["hash"]=0,["loadOrder"]=1,["mType"]="w",propT={},["short"]="gcc",["status"]="active",},git={["FN"]="~/w/lmod/mf/Core/git/1.7.4.3.lua",["default"]=0,["fullName"]="git/1.7.4.3",["hash"]=0,["loadOrder"]=2,["mType"]="w",propT={},["short"]="git",["status"]="active",},},mpathA={"~/w/lmod/mf/Compiler/gcc/4.2.3","~/w/lmod/mf/Core",},["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/mf/Core",},family={["compiler"]="gcc",},inactive={},mT={gcc={["FN"]="ProjectDIR/mf/Core/gcc/4.2.3.lua",["default"]=1,["fullName"]="gcc/4.2.3",["hash"]=0,["loadOrder"]=1,["mType"]="w",propT={},["short"]="gcc",["status"]="active",},git={["FN"]="ProjectDIR/mf/Core/git/1.7.4.3.lua",["default"]=0,["fullName"]="git/1.7.4.3",["hash"]=0,["loadOrder"]=2,["mType"]="w",propT={},["short"]="git",["status"]="active",},},mpathA={"ProjectDIR/mf/Compiler/gcc/4.2.3","ProjectDIR/mf/Core",},["version"]=2,}';
 export _ModuleTable_;
