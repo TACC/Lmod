@@ -3,20 +3,69 @@
 VERSION=`(cd src; lua -e "local Version=require('Version'); print(Version.name())") | awk '{print $1}'` 
 echo Making Version: $VERSION
 
-host=$(expr $(hostname) : "\([^.][^.]*\)")
-SUDO=""
+runMe()
+{
+  local cmdA=("$@")
 
-case $host in
-    mclay-d630 | mijo | jedrik | vato | hpc | vmijo)
-	SUDO=sudo
-	prefix="/opt/apps";;
+  local j
+  local jj
+  local i
+  local ignoreError
+  local j=0
+  for i in "${cmdA[@]}" ; do
+    ignoreError=
+    if [ "x${i:0:1}" = x- ]; then
+      i=${i:1}
+      ignoreError=1
+    fi
+      
+    j=$((j+1))
+    jj=$(printf "%02d" $j)
+    echo
+    echo "%%---------------------------------%%"
+    echo "   " $jj: $i
+    echo "%%---------------------------------%%"
+    echo
+
+    eval $i
+    if [ -z "$ignoreError" -a $? != 0 ]; then
+      break
+    fi
+  done
+}
+
+SET_BASE_DIR()
+{
+  myhost=$(hostname -f)
+  myhost=${myhost%.tacc.utexas.edu}
+  first=${myhost%%.*}
+  SYSHOST=${myhost#*.}
+  SUDO=""
+  
+  case $SYSHOST in
+    mclay-d630 | mijo | jedrik | vato | vmijo)
+      SUDO="sudo"
+      base="/opt/apps";;
+    
+    stampede)
+      CFLAGS_EXTRA="-mmic"
+      base="$HOME/l/pkg/$(uname -m)"
+    
     *)
-	prefix="$HOME/l/pkg"
-        sysprefix="/share/moduleData"
-        ;;
-esac
+      base="$HOME/l/pkg";;
+  esac
+  BASE_DIR=$base
+}
+
 
 rm -f config.status config.log
+
+pkgName=lmod
+
+SET_BASE_DIR $pkgName
+
+PKG=$BASE_DIR/$pkgName/$PKG_VERSION
+
 
 cmdA=("make distclean"
       "./configure --prefix=$prefix --with-ancient=86401 --with-shortTime=10.3 --with-spiderCacheDir=$sysprefix/cacheDir"
@@ -25,10 +74,4 @@ cmdA=("make distclean"
       )
 
 
-for i in "${cmdA[@]}" ; do
-  echo ----------------------------------------
-  echo "$i"
-  echo ----------------------------------------
-
-  $i
-done
+runMe "${cmdA[@]}"
