@@ -5,13 +5,6 @@ LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/vasp/mf:ProjectDIR/mf/Core:ProjectDIR/mf/
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/vasp/mf:ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/MPI/intel/10.1/openmpi/1.2.6";
 export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/vasp/mf:ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/MPI/intel/10.1/openmpi/1.2.6";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/vasp/mf:ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/MPI/intel/10.1/openmpi/1.2.6";
-export MODULEPATH;
-export _ModuleTable_Sz_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/vasp/mf","ProjectDIR/mf/Core","ProjectDIR/mf/Compiler/intel/10.1","ProjectDIR/mf/MPI/intel/10.1/openmpi/1.2.6",},family={},inactive={},mT={},mpathA={"ProjectDIR/rt/vasp/mf","ProjectDIR/mf/Core","ProjectDIR/mf/Compiler/intel/10.1","ProjectDIR/mf/MPI/intel/10.1/openmpi/1.2.6",},["version"]=2,}';
-export _ModuleTable_;
 ===========================
 step 2
 ===========================
@@ -23,6 +16,9 @@ LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/vasp/mf:ProjectDIR/mf/Core:ProjectDIR/mf/
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/vasp/mf:ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/MPI/intel/10.1/openmpi/1.2.6";
 export MODULEPATH;
+export _ModuleTable_Sz_;
+_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/vasp/mf","ProjectDIR/mf/Core","ProjectDIR/mf/Compiler/intel/10.1","ProjectDIR/mf/MPI/intel/10.1/openmpi/1.2.6",},family={},inactive={},mT={},mpathA={"ProjectDIR/rt/vasp/mf","ProjectDIR/mf/Core","ProjectDIR/mf/Compiler/intel/10.1","ProjectDIR/mf/MPI/intel/10.1/openmpi/1.2.6",},["version"]=2,}';
+export _ModuleTable_;
 ===========================
 step 3
 ===========================
@@ -41,9 +37,20 @@ LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/vasp/mf:ProjectDIR/mf/Core:ProjectDIR/mf/
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/vasp/mf:ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/MPI/intel/10.1/openmpi/1.2.6";
 export MODULEPATH;
-false
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/vasp/mf:ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/MPI/intel/10.1/openmpi/1.2.6";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/vasp/mf:ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/MPI/intel/10.1/openmpi/1.2.6";
+export MODULEPATH;
 ===========================
 step 5
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/vasp/mf:ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/MPI/intel/10.1/openmpi/1.2.6";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/vasp/mf:ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/MPI/intel/10.1/openmpi/1.2.6";
+export MODULEPATH;
+false
+===========================
+step 6
 ===========================
 ProjectDIR/mf/Compiler/gcc/4.2.3/openmpi/1.2.6.lua
 ProjectDIR/mf/Compiler/intel/10.1/gotoblas/1.31.lua

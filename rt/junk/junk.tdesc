@@ -34,6 +34,8 @@ testdescript = {
 
      rm -f _stderr.* _stdout.* err.* out.*
 
+     runMe lua $(projectDir)/src/lmod.in bash --version
+
      runMe lua $(projectDir)/src/lmod.in bash load PrgEnv
 
      runMe lua $(projectDir)/src/lmod.in bash add junk/d 

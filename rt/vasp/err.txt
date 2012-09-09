@@ -1,6 +1,11 @@
 ===========================
 step 1
 ===========================
+Modules based on Lua: Version 3.6.3.2 2012-09-08 15:45
+    by Robert McLay mclay@tacc.utexas.edu
+===========================
+step 2
+===========================
 The following modules match your search criteria: "graph"
   parmetis: parmetis/3.1
     Parallel graph partitioning and fill-reduction matrix ordering routines 
@@ -11,7 +16,7 @@ To find detailed information about a particular package you
 must enter the version if there is more than one version:
    $ module spider Foo/11.1
 ===========================
-step 2
+step 3
 ===========================
 vasp/5.2            : Name: VASP
 vasp/5.2            : Version: 5.2
@@ -19,7 +24,7 @@ vasp/5.2            : Category: application, chemistry
 vasp/5.2            : URL:http://cms.mpi.univie.ac.at/vasp/
 vasp/5.2            : Description: Vienna Ab-Initio Simulation Package
 ===========================
-step 3
+step 4
 ===========================
  Module Specific Help for "vasp/5.2"
 The TACC VASP module appends the path to the vasp executables
@@ -38,12 +43,12 @@ vasp_ncl_vtst: vasp_ncl with TST
 vtstscripts/: utility scripts of TST 
 Version 5.2
 ===========================
-step 4
+step 5
 ===========================
 Lmod Error: You do not access to VASP.5.2!
 Users have to show their licenses and be confirmed by 
 VASP team that they are registered users under that licenses
 Scan a copy the license and send to hliu@tacc.utexas.edu
 ===========================
-step 5
+step 6
 ===========================

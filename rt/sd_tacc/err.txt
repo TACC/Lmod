@@ -1,19 +1,24 @@
 ===========================
 step 1
 ===========================
+Modules based on Lua: Version 3.6.3.2 2012-09-08 15:45
+    by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
+===========================
+===========================
+step 3
 ===========================
 Lmod Warning: Unable to save module state as a "default"
 The following module(s):
   cluster.orig, TACC.orig
 mix load statements with setting of environment variables.
 ===========================
-step 3
-===========================
-===========================
 step 4
 ===========================
 ===========================
 step 5
+===========================
+===========================
+step 6
 ===========================

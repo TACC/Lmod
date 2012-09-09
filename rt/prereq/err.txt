@@ -1,33 +1,35 @@
 ===========================
 step 1
 ===========================
+Modules based on Lua: Version 3.6.3.2 2012-09-08 15:45
+    by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
 ===========================
-Lmod Error: Can not load: "slepc/3.0.0" module without these modules loaded:
-  petsc/3.0.0
 ===========================
 step 3
 ===========================
+Lmod Error: Can not load: "slepc/3.0.0" module without these modules loaded:
+  petsc/3.0.0
 ===========================
 step 4
 ===========================
 ===========================
 step 5
 ===========================
-Lmod Error: Can not load: "slepc/3.1.0" module without these modules loaded:
-  petsc/3.1.0
 ===========================
 step 6
 ===========================
-===========================
-step 7
-===========================
 Lmod Error: Can not load: "slepc/3.1.0" module without these modules loaded:
   petsc/3.1.0
 ===========================
+step 7
+===========================
+===========================
 step 8
 ===========================
+Lmod Error: Can not load: "slepc/3.1.0" module without these modules loaded:
+  petsc/3.1.0
 ===========================
 step 9
 ===========================
@@ -46,11 +48,14 @@ step 13
 ===========================
 step 14
 ===========================
-Lmod Error: Can not load: "junk/1.0" module.  At least one of these modules must be loaded:
-  java, jdk64, jdk32
 ===========================
 step 15
 ===========================
+Lmod Error: Can not load: "junk/1.0" module.  At least one of these modules must be loaded:
+  java, jdk64, jdk32
 ===========================
 step 16
+===========================
+===========================
+step 17
 ===========================

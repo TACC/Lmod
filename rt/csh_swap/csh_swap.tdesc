@@ -51,6 +51,20 @@ cat > $(testName).csh << EOF
      setenv MODULEPATH_ROOT $(projectDir)/mf
      setenv LMOD_DEFAULT_MODULEPATH $MODULEPATH
 
+
+
+
+     echo "==========================="
+     echo "step 0"
+     echo "==========================="
+
+     echo "===========================" >  _stdout.1
+     echo "step 0"                      >> _stdout.1
+     echo "===========================" >> _stdout.1
+
+     lua $(projectDir)/src/lmod.in csh --version > _stdout.2
+     eval \`cat _stdout.2\`
+
      echo "==========================="
      echo "step 1"
      echo "==========================="

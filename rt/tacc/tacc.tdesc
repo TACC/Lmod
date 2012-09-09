@@ -39,12 +39,13 @@ testdescript = {
 
      rm -f _stderr.* _stdout.* err.* out.*
 
-     runMe lua $(projectDir)/src/lmod.in bash avail              # 1
-     runMe lua $(projectDir)/src/lmod.in bash load TACC          # 2
-     runMe lua $(projectDir)/src/lmod.in bash list               # 3
-     runMe lua $(projectDir)/src/lmod.in bash help mvapich1      # 4
-     runMe lua $(projectDir)/src/lmod.in bash unload cluster     # 5
-     runMe lua $(projectDir)/src/lmod.in bash purge              # 6
+     runMe lua $(projectDir)/src/lmod.in bash --version          # 1
+     runMe lua $(projectDir)/src/lmod.in bash avail              # 2
+     runMe lua $(projectDir)/src/lmod.in bash load TACC          # 3
+     runMe lua $(projectDir)/src/lmod.in bash list               # 4
+     runMe lua $(projectDir)/src/lmod.in bash help mvapich1      # 5
+     runMe lua $(projectDir)/src/lmod.in bash unload cluster     # 6
+     runMe lua $(projectDir)/src/lmod.in bash purge              # 7
 
      PATH=$ORIGPATH
      export PATH

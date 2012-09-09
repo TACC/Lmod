@@ -35,6 +35,7 @@ testdescript = {
 
      rm -f _stderr.* _stdout.* err.* out.*
 
+     runMe lua $(projectDir)/src/lmod.in bash --version
      runMe lua $(projectDir)/src/lmod.in bash load oscar
      runMe lua $(projectDir)/src/lmod.in bash show oscar
      runMe lua $(projectDir)/src/lmod.in bash list

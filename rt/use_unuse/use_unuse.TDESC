@@ -36,6 +36,7 @@ testdescript = {
 
      rm -f _stderr.* _stdout.* err.* out.*
 
+     runMe lua $(projectDir)/src/lmod.in bash --version
      runMe lua $(projectDir)/src/lmod.in bash load pulo
 
      cat _stdout.[0-9][0-9] > _stdout.orig

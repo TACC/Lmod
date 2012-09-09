@@ -49,6 +49,7 @@ testdescript = {
      unset  INFOPATH
      unset  MANPATH
 
+     runMe lua $(projectDir)/src/lmod.in bash --version
      runMe lua $(projectDir)/src/lmod.in bash load TACC 
      runMe lua $(projectDir)/src/lmod.in bash list
      runMe lua $(projectDir)/src/lmod.in bash setdefault

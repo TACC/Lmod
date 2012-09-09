@@ -1,8 +1,13 @@
 ===========================
 step 1
 ===========================
+Modules based on Lua: Version 3.6.3.2 2012-09-08 15:45
+    by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
+===========================
+===========================
+step 3
 ===========================
 The following is a list of the modules currently available:
   admin: admin/admin-1.0
@@ -30,12 +35,6 @@ To find detailed information about a particular package you
 must enter the version if there is more than one version:
    $ module spider Foo/11.1
 ===========================
-step 3
-===========================
-  mpich2: mpich2/1.0.7
-    This module can only be loaded through the following modules:
-      intel/intel
-===========================
 step 4
 ===========================
   mpich2: mpich2/1.0.7
@@ -43,6 +42,12 @@ step 4
       intel/intel
 ===========================
 step 5
+===========================
+  mpich2: mpich2/1.0.7
+    This module can only be loaded through the following modules:
+      intel/intel
+===========================
+step 6
 ===========================
   parmetis: parmetis/3.1
     Description:
@@ -56,15 +61,15 @@ step 5
       intel/intel, mpich2/1.0.7
       intel/intel, openmpi/1.2.6
 ===========================
-step 6
+step 7
 ===========================
 Unable to find: "mpich2me"
 ===========================
-step 7
+step 8
 ===========================
 Lmod Error: Unable to find: "mpich2/1.0.5"
 ===========================
-step 8
+step 9
 ===========================
 Using your spider cache file
 The following is a list of the modules currently available:

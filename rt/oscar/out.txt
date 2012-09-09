@@ -5,6 +5,13 @@ LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/oscar/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/oscar/mf/Core";
 export MODULEPATH;
+===========================
+step 2
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/oscar/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/oscar/mf/Core";
+export MODULEPATH;
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/oscar/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/oscar/mf/Oscar:ProjectDIR/rt/oscar/mf/Core";
@@ -19,18 +26,18 @@ export _ModuleTable_Sz_;
 _ModuleTable_='_ModuleTable_={["activeSize"]=4,baseMpathA={"ProjectDIR/rt/oscar/mf/Core",},family={},inactive={},mT={a={["FN"]="ProjectDIR/rt/oscar/mf/Oscar/a",["default"]=0,["fullName"]="a",["hash"]=0,["loadOrder"]=2,["mType"]="w",propT={},["short"]="a",["status"]="active",},b={["FN"]="ProjectDIR/rt/oscar/mf/Oscar/b",["default"]=0,["fullName"]="b",["hash"]=0,["loadOrder"]=3,["mType"]="w",propT={},["short"]="b",["status"]="active",},c={["FN"]="ProjectDIR/rt/oscar/mf/Oscar/c",["default"]=0,["fullName"]="c",["hash"]=0,["loadOrder"]=4,["mType"]="w",propT={},["short"]="c",["status"]="active",},oscar={["FN"]="ProjectDIR/rt/oscar/mf/Core/oscar.lua",["default"]=0,["fullName"]="oscar",["hash"]=0,["loadOrder"]=1,["mType"]="mw",propT={},["short"]="oscar",["status"]="active",},},mpathA={"ProjectDIR/rt/oscar/mf/Oscar","ProjectDIR/rt/oscar/mf/Core",},["version"]=2,}';
 export _ModuleTable_;
 ===========================
-step 2
-===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/oscar/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/oscar/mf/Oscar:ProjectDIR/rt/oscar/mf/Core";
-export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/oscar/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/oscar/mf/Oscar:ProjectDIR/rt/oscar/mf/Core";
-export MODULEPATH;
-===========================
 step 3
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/oscar/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/oscar/mf/Oscar:ProjectDIR/rt/oscar/mf/Core";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/oscar/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/oscar/mf/Oscar:ProjectDIR/rt/oscar/mf/Core";
+export MODULEPATH;
+===========================
+step 4
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/oscar/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;

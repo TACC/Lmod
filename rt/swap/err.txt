@@ -1,15 +1,20 @@
 ===========================
 step 1
 ===========================
+Modules based on Lua: Version 3.6.3.2 2012-09-08 15:45
+    by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
+===========================
+===========================
+step 3
 ===========================
 Inactive Modules:
   1) openmpi
 Due to MODULEPATH changes the following modules have been reloaded:
   1) parmetis/3.1
 ===========================
-step 3
+step 4
 ===========================
 Currently Loaded Modules:
   1) admin/admin-1.0    3) unix/unix      5) noweb/2.10c
@@ -19,14 +24,14 @@ Currently Loaded Modules:
 Inactive Modules:
   1) openmpi/1.2.6
 ===========================
-step 4
+step 5
 ===========================
 Activating Modules:
   1) openmpi/1.2.6
 Due to MODULEPATH changes the following modules have been reloaded:
   1) parmetis/3.1
 ===========================
-step 5
+step 6
 ===========================
 Currently Loaded Modules:
   1) admin/admin-1.0    3) unix/unix      5) noweb/2.10c    7) openmpi/1.2.6
@@ -34,12 +39,12 @@ Currently Loaded Modules:
   Where:
    [1;34m(m)[0m:  module is build natively for MIC
 ===========================
-step 6
+step 7
 ===========================
 Due to MODULEPATH changes the following modules have been reloaded:
   1) openmpi/1.2.6  2) parmetis/3.1
 ===========================
-step 7
+step 8
 ===========================
 Currently Loaded Modules:
   1) admin/admin-1.0    3) unix/unix      5) noweb/2.10c    7) openmpi/1.2.6

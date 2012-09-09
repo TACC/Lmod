@@ -1,18 +1,23 @@
 ===========================
 step 1
 ===========================
+Modules based on Lua: Version 3.6.3.2 2012-09-08 15:45
+    by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
 ===========================
 ===========================
 step 3
 ===========================
-Lmod Warning: No modules installed
 ===========================
 step 4
 ===========================
+Lmod Warning: No modules installed
 ===========================
 step 5
+===========================
+===========================
+step 6
 ===========================
 Currently Loaded Modules:
   1) admin/admin-1.0    3) unix/unix      5) intel/intel    7) openmpi/1.2.6
@@ -20,10 +25,10 @@ Currently Loaded Modules:
   Where:
    [1;34m(m)[0m:  module is build natively for MIC
 ===========================
-step 6
-===========================
-===========================
 step 7
+===========================
+===========================
+step 8
 ===========================
 Currently Loaded Modules:
   1) admin/admin-1.0    2) intel/intel    3) openmpi/1.2.6    4) [1;34mparmetis/3.1[0m [1;34m(m)[0m

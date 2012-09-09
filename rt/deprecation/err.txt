@@ -1,14 +1,19 @@
 ===========================
 step 1
 ===========================
+Modules based on Lua: Version 3.6.3.2 2012-09-08 15:45
+    by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
+===========================
+===========================
+step 3
 ===========================
 Module(s):
 gcc/4.2.3 :
    This is old and you should not be using it.
 ===========================
-step 3
+step 4
 ===========================
 Module(s):
 git/1.7.4.3 :

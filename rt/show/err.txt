@@ -1,12 +1,17 @@
 ===========================
 step 1
 ===========================
+Modules based on Lua: Version 3.6.3.2 2012-09-08 15:45
+    by Robert McLay mclay@tacc.utexas.edu
+===========================
+step 2
+===========================
    ProjectDIR/mf/Core/gcc/4.2.3.lua:
 family("compiler")
 prepend_path("MODULEPATH", "ProjectDIR/mf/Compiler/gcc/4.2.3")
 display(false)
 ===========================
-step 2
+step 3
 ===========================
    ProjectDIR/mf/Core/alex/1.0.lua:
 load("noweb")

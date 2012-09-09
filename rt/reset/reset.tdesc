@@ -43,6 +43,8 @@ testdescript = {
 
      cp $(projectDir)/setup/.lmodrc.lua .
 
+     runMe $LUA $(projectDir)/src/lmod.in bash --version
+
      runMe $LUA $(projectDir)/src/lmod.in bash load admin PrgEnv openmpi parmetis
      runMe $LUA $(projectDir)/src/lmod.in bash purge
      runMe $LUA $(projectDir)/src/lmod.in bash list

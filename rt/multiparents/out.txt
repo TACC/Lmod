@@ -3,6 +3,11 @@ step 1
 ===========================
 unset LMOD_DEFAULT_MODULEPATH;
 unset MODULEPATH;
+===========================
+step 2
+===========================
+unset LMOD_DEFAULT_MODULEPATH;
+unset MODULEPATH;
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/multiparents/mf/core";
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/multiparents/mf/core";
@@ -11,7 +16,7 @@ export _ModuleTable_Sz_;
 _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/multiparents/mf/core",},family={},inactive={},mT={},mpathA={"ProjectDIR/rt/multiparents/mf/core",},["version"]=2,}';
 export _ModuleTable_;
 ===========================
-step 2
+step 3
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/multiparents/mf/core";
 export LMOD_DEFAULT_MODULEPATH;

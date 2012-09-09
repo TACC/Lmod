@@ -1,6 +1,11 @@
 ===========================
 step 1
 ===========================
+Modules based on Lua: Version 3.6.3.2 2012-09-08 15:45
+    by Robert McLay mclay@tacc.utexas.edu
+===========================
+step 2
+===========================
  ProjectDIR/mf/Core 
    PrgEnv                       gotoblas/1.26 (default)
    admin/admin-1.0 (default)    gotoblas/1.30
@@ -23,7 +28,7 @@ Use "module spider" to find all possible modules.
 Use "module keyword key1 key2 ..." to search for all possible modules matching 
 any of the "keys". 
 ===========================
-step 2
+step 3
 ===========================
  ProjectDIR/mf/Core 
    admin/admin-1.0 (default)    junk/a/c/1.0
@@ -42,10 +47,10 @@ Use "module spider" to find all possible modules.
 Use "module keyword key1 key2 ..." to search for all possible modules matching 
 any of the "keys". 
 ===========================
-step 3
-===========================
-===========================
 step 4
+===========================
+===========================
+step 5
 ===========================
  ProjectDIR/mf/Compiler/intel/10.1 
    gotoblas/1.31              gotoblas/1.33     openmpi/1.2.6

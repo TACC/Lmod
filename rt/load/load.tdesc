@@ -37,16 +37,17 @@ testdescript = {
      rm -f _stderr.* _stdout.* err.* out.*
      cp $(projectDir)/setup/.lmodrc.lua .
 
-     runMe lua $(projectDir)/src/lmod.in bash use -a $projectDir/mf/Core $projectDir/mf/Beta # 1
-     runMe lua $(projectDir)/src/lmod.in bash use $projectDir/mf/notDir                      # 2
-     runMe lua $(projectDir)/src/lmod.in bash load admin PrgEnv                              # 3
-     runMe lua $(projectDir)/src/lmod.in bash load gotoblas/1.30-beta                        # 4
-     runMe lua $(projectDir)/src/lmod.in bash rm   gotoblas/1.30-beta                        # 5
-     runMe lua $(projectDir)/src/lmod.in bash try-add gotoblas123 intel                      # 6
-     runMe lua $(projectDir)/src/lmod.in bash load gotoblas                                  # 7
-     runMe lua $(projectDir)/src/lmod.in bash load multi                                     # 8
-     runMe lua $(projectDir)/src/lmod.in bash unload multi                                   # 9
-     runMe lua $(projectDir)/src/lmod.in bash load boost                                     # 10
+     runMe lua $(projectDir)/src/lmod.in bash --version                                      # 1
+     runMe lua $(projectDir)/src/lmod.in bash use -a $projectDir/mf/Core $projectDir/mf/Beta # 2
+     runMe lua $(projectDir)/src/lmod.in bash use $projectDir/mf/notDir                      # 3
+     runMe lua $(projectDir)/src/lmod.in bash load admin PrgEnv                              # 4
+     runMe lua $(projectDir)/src/lmod.in bash load gotoblas/1.30-beta                        # 5
+     runMe lua $(projectDir)/src/lmod.in bash rm   gotoblas/1.30-beta                        # 6
+     runMe lua $(projectDir)/src/lmod.in bash try-add gotoblas123 intel                      # 7
+     runMe lua $(projectDir)/src/lmod.in bash load gotoblas                                  # 8
+     runMe lua $(projectDir)/src/lmod.in bash load multi                                     # 9
+     runMe lua $(projectDir)/src/lmod.in bash unload multi                                   # 10
+     runMe lua $(projectDir)/src/lmod.in bash load boost                                     # 11
      
      
      runMe lua $(projectDir)/src/lmod.in bash list

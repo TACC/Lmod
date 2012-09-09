@@ -1,6 +1,11 @@
 ===========================
 step 1
 ===========================
+Modules based on Lua: Version 3.6.3.2 2012-09-08 15:45
+    by Robert McLay mclay@tacc.utexas.edu
+===========================
+step 2
+===========================
  ProjectDIR/mf/TACC 
    Linux          cluster           globus/4.0.7      (default)
    TACC           cluster-paths     mvapich1/mvapich1
@@ -10,16 +15,16 @@ Use "module spider" to find all possible modules.
 Use "module keyword key1 key2 ..." to search for all possible modules matching 
 any of the "keys". 
 ===========================
-step 2
-===========================
-===========================
 step 3
+===========================
+===========================
+step 4
 ===========================
 Currently Loaded Modules:
   1) TACC    3) cluster   5) mvapich1/1.0   7) cluster-paths
   2) Linux   4) pgi/7.1   6) globus/4.0.7   8) TACC-paths
 ===========================
-step 4
+step 5
 ===========================
  Module Specific Help for "mvapich1/1.0"
 	This module loads the MVAPICH MPI environment built with
@@ -31,8 +36,8 @@ step 4
 	mpiCC/mpicxx (C++ source)
 	Version 1.0
 ===========================
-step 5
-===========================
-===========================
 step 6
+===========================
+===========================
+step 7
 ===========================

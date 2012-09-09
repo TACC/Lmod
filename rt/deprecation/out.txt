@@ -3,6 +3,11 @@ step 1
 ===========================
 unset LMOD_DEFAULT_MODULEPATH;
 unset MODULEPATH;
+===========================
+step 2
+===========================
+unset LMOD_DEFAULT_MODULEPATH;
+unset MODULEPATH;
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/mf/Core";
@@ -11,7 +16,7 @@ export _ModuleTable_Sz_;
 _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/mf/Core",},family={},inactive={},mT={},mpathA={"ProjectDIR/mf/Core",},["version"]=2,}';
 export _ModuleTable_;
 ===========================
-step 2
+step 3
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -29,7 +34,7 @@ export _ModuleTable_Sz_;
 _ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/mf/Core",},family={["compiler"]="gcc",},inactive={},mT={gcc={["FN"]="ProjectDIR/mf/Core/gcc/4.2.3.lua",["default"]=1,["fullName"]="gcc/4.2.3",["hash"]=0,["loadOrder"]=1,["mType"]="w",propT={},["short"]="gcc",["status"]="active",},},mpathA={"ProjectDIR/mf/Compiler/gcc/4.2.3","ProjectDIR/mf/Core",},["version"]=2,}';
 export _ModuleTable_;
 ===========================
-step 3
+step 4
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;

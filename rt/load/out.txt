@@ -3,6 +3,11 @@ step 1
 ===========================
 unset LMOD_DEFAULT_MODULEPATH;
 unset MODULEPATH;
+===========================
+step 2
+===========================
+unset LMOD_DEFAULT_MODULEPATH;
+unset MODULEPATH;
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Beta";
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Beta";
@@ -11,18 +16,18 @@ export _ModuleTable_Sz_;
 _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/mf/Core","ProjectDIR/mf/Beta",},family={},inactive={},mT={},mpathA={"ProjectDIR/mf/Core","ProjectDIR/mf/Beta",},["version"]=2,}';
 export _ModuleTable_;
 ===========================
-step 2
-===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Beta";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Beta";
-export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Beta";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Beta";
-export MODULEPATH;
-===========================
 step 3
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Beta";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Beta";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Beta";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Beta";
+export MODULEPATH;
+===========================
+step 4
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Beta";
 export LMOD_DEFAULT_MODULEPATH;
@@ -56,7 +61,7 @@ export _ModuleTable_Sz_;
 _ModuleTable_='_ModuleTable_={["activeSize"]=6,baseMpathA={"ProjectDIR/mf/Core","ProjectDIR/mf/Beta",},family={["compiler"]="intel",},inactive={},mT={PrgEnv={["FN"]="ProjectDIR/mf/Core/PrgEnv.lua",["default"]=0,["fullName"]="PrgEnv",["hash"]=0,["loadOrder"]=2,["mType"]="m",propT={},["short"]="PrgEnv",["status"]="active",},admin={["FN"]="ProjectDIR/mf/Core/admin/admin-1.0.lua",["default"]=1,["fullName"]="admin/admin-1.0",["hash"]=0,["loadOrder"]=1,["mType"]="w",propT={},["short"]="admin",["status"]="active",},intel={["FN"]="ProjectDIR/mf/Core/intel/intel.lua",["default"]=1,["fullName"]="intel/intel",["hash"]=0,["loadOrder"]=5,["mType"]="w",propT={},["short"]="intel",["status"]="active",},["local"]={["FN"]="ProjectDIR/mf/Core/local/local.lua",["default"]=1,["fullName"]="local/local",["hash"]=0,["loadOrder"]=4,["mType"]="w",propT={},["short"]="local",["status"]="active",},noweb={["FN"]="ProjectDIR/mf/Core/noweb/2.10c.lua",["default"]=1,["fullName"]="noweb/2.10c",["hash"]=0,["loadOrder"]=6,["mType"]="w",propT={},["short"]="noweb",["status"]="active",},unix={["FN"]="ProjectDIR/mf/Core/unix/unix.lua",["default"]=1,["fullName"]="unix/unix",["hash"]=0,["loadOrder"]=3,["mType"]="w",propT={},["short"]="unix",["status"]="active",},},mpathA={"ProjectDIR/mf/Compiler/intel/10.1","ProjectDIR/mf/Core","ProjectDIR/mf/Beta",},["version"]=2,}';
 export _ModuleTable_;
 ===========================
-step 4
+step 5
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Beta";
 export LMOD_DEFAULT_MODULEPATH;
@@ -74,7 +79,7 @@ export _ModuleTable_Sz_;
 _ModuleTable_='_ModuleTable_={["activeSize"]=7,baseMpathA={"ProjectDIR/mf/Core","ProjectDIR/mf/Beta",},family={["compiler"]="intel",},inactive={},mT={PrgEnv={["FN"]="ProjectDIR/mf/Core/PrgEnv.lua",["default"]=0,["fullName"]="PrgEnv",["hash"]=0,["loadOrder"]=2,["mType"]="m",propT={},["short"]="PrgEnv",["status"]="active",},admin={["FN"]="ProjectDIR/mf/Core/admin/admin-1.0.lua",["default"]=1,["fullName"]="admin/admin-1.0",["hash"]=0,["loadOrder"]=1,["mType"]="w",propT={},["short"]="admin",["status"]="active",},gotoblas={["FN"]="ProjectDIR/mf/Beta/gotoblas/1.30-beta.lua",["default"]=0,["fullName"]="gotoblas/1.30-beta",["hash"]=0,["loadOrder"]=7,["mType"]="w",propT={},["short"]="gotoblas",["status"]="active",},intel={["FN"]="ProjectDIR/mf/Core/intel/intel.lua",["default"]=1,["fullName"]="intel/intel",["hash"]=0,["loadOrder"]=5,["mType"]="w",propT={},["short"]="intel",["status"]="active",},["local"]={["FN"]="ProjectDIR/mf/Core/local/local.lua",["default"]=1,["fullName"]="local/local",["hash"]=0,["loadOrder"]=4,["mType"]="w",propT={},["short"]="local",["status"]="active",},noweb={["FN"]="ProjectDIR/mf/Core/noweb/2.10c.lua",["default"]=1,["fullName"]="noweb/2.10c",["hash"]=0,["loadOrder"]=6,["mType"]="w",propT={},["short"]="noweb",["status"]="active",},unix={["FN"]="ProjectDIR/mf/Core/unix/unix.lua",["default"]=1,["fullName"]="unix/unix",["hash"]=0,["loadOrder"]=3,["mType"]="w",propT={},["short"]="unix",["status"]="active",},},mpathA={"ProjectDIR/mf/Compiler/intel/10.1","ProjectDIR/mf/Core","ProjectDIR/mf/Beta",},["version"]=2,}';
 export _ModuleTable_;
 ===========================
-step 5
+step 6
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Beta";
 export LMOD_DEFAULT_MODULEPATH;
@@ -90,7 +95,7 @@ export _ModuleTable_Sz_;
 _ModuleTable_='_ModuleTable_={["activeSize"]=6,baseMpathA={"ProjectDIR/mf/Core","ProjectDIR/mf/Beta",},family={["compiler"]="intel",},inactive={},mT={PrgEnv={["FN"]="ProjectDIR/mf/Core/PrgEnv.lua",["default"]=0,["fullName"]="PrgEnv",["hash"]=0,["loadOrder"]=2,["mType"]="m",propT={},["short"]="PrgEnv",["status"]="active",},admin={["FN"]="ProjectDIR/mf/Core/admin/admin-1.0.lua",["default"]=1,["fullName"]="admin/admin-1.0",["hash"]=0,["loadOrder"]=1,["mType"]="w",propT={},["short"]="admin",["status"]="active",},intel={["FN"]="ProjectDIR/mf/Core/intel/intel.lua",["default"]=1,["fullName"]="intel/intel",["hash"]=0,["loadOrder"]=5,["mType"]="w",propT={},["short"]="intel",["status"]="active",},["local"]={["FN"]="ProjectDIR/mf/Core/local/local.lua",["default"]=1,["fullName"]="local/local",["hash"]=0,["loadOrder"]=4,["mType"]="w",propT={},["short"]="local",["status"]="active",},noweb={["FN"]="ProjectDIR/mf/Core/noweb/2.10c.lua",["default"]=1,["fullName"]="noweb/2.10c",["hash"]=0,["loadOrder"]=6,["mType"]="w",propT={},["short"]="noweb",["status"]="active",},unix={["FN"]="ProjectDIR/mf/Core/unix/unix.lua",["default"]=1,["fullName"]="unix/unix",["hash"]=0,["loadOrder"]=3,["mType"]="w",propT={},["short"]="unix",["status"]="active",},},mpathA={"ProjectDIR/mf/Compiler/intel/10.1","ProjectDIR/mf/Core","ProjectDIR/mf/Beta",},["version"]=2,}';
 export _ModuleTable_;
 ===========================
-step 6
+step 7
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Beta";
 export LMOD_DEFAULT_MODULEPATH;
@@ -120,7 +125,7 @@ export _ModuleTable_Sz_;
 _ModuleTable_='_ModuleTable_={["activeSize"]=6,baseMpathA={"ProjectDIR/mf/Core","ProjectDIR/mf/Beta",},family={["compiler"]="intel",},inactive={},mT={PrgEnv={["FN"]="ProjectDIR/mf/Core/PrgEnv.lua",["default"]=0,["fullName"]="PrgEnv",["hash"]=0,["loadOrder"]=2,["mType"]="m",propT={},["short"]="PrgEnv",["status"]="active",},admin={["FN"]="ProjectDIR/mf/Core/admin/admin-1.0.lua",["default"]=1,["fullName"]="admin/admin-1.0",["hash"]=0,["loadOrder"]=1,["mType"]="w",propT={},["short"]="admin",["status"]="active",},intel={["FN"]="ProjectDIR/mf/Core/intel/intel.lua",["default"]=1,["fullName"]="intel/intel",["hash"]=0,["loadOrder"]=6,["mType"]="w",propT={},["short"]="intel",["status"]="active",},["local"]={["FN"]="ProjectDIR/mf/Core/local/local.lua",["default"]=1,["fullName"]="local/local",["hash"]=0,["loadOrder"]=4,["mType"]="w",propT={},["short"]="local",["status"]="active",},noweb={["FN"]="ProjectDIR/mf/Core/noweb/2.10c.lua",["default"]=1,["fullName"]="noweb/2.10c",["hash"]=0,["loadOrder"]=5,["mType"]="w",propT={},["short"]="noweb",["status"]="active",},unix={["FN"]="ProjectDIR/mf/Core/unix/unix.lua",["default"]=1,["fullName"]="unix/unix",["hash"]=0,["loadOrder"]=3,["mType"]="w",propT={},["short"]="unix",["status"]="active",},},mpathA={"ProjectDIR/mf/Compiler/intel/10.1","ProjectDIR/mf/Core","ProjectDIR/mf/Beta",},["version"]=2,}';
 export _ModuleTable_;
 ===========================
-step 7
+step 8
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Beta";
 export LMOD_DEFAULT_MODULEPATH;
@@ -140,7 +145,7 @@ export _ModuleTable_Sz_;
 _ModuleTable_='_ModuleTable_={["activeSize"]=7,baseMpathA={"ProjectDIR/mf/Core","ProjectDIR/mf/Beta",},family={["compiler"]="intel",},inactive={},mT={PrgEnv={["FN"]="ProjectDIR/mf/Core/PrgEnv.lua",["default"]=0,["fullName"]="PrgEnv",["hash"]=0,["loadOrder"]=2,["mType"]="m",propT={},["short"]="PrgEnv",["status"]="active",},admin={["FN"]="ProjectDIR/mf/Core/admin/admin-1.0.lua",["default"]=1,["fullName"]="admin/admin-1.0",["hash"]=0,["loadOrder"]=1,["mType"]="w",propT={},["short"]="admin",["status"]="active",},gotoblas={["FN"]="ProjectDIR/mf/Compiler/intel/10.1/gotoblas/1.32.lua",["default"]=1,["fullName"]="gotoblas/1.32",["hash"]=0,["loadOrder"]=7,["mType"]="w",propT={},["short"]="gotoblas",["status"]="active",},intel={["FN"]="ProjectDIR/mf/Core/intel/intel.lua",["default"]=1,["fullName"]="intel/intel",["hash"]=0,["loadOrder"]=6,["mType"]="w",propT={},["short"]="intel",["status"]="active",},["local"]={["FN"]="ProjectDIR/mf/Core/local/local.lua",["default"]=1,["fullName"]="local/local",["hash"]=0,["loadOrder"]=4,["mType"]="w",propT={},["short"]="local",["status"]="active",},noweb={["FN"]="ProjectDIR/mf/Core/noweb/2.10c.lua",["default"]=1,["fullName"]="noweb/2.10c",["hash"]=0,["loadOrder"]=5,["mType"]="w",propT={},["short"]="noweb",["status"]="active",},unix={["FN"]="ProjectDIR/mf/Core/unix/unix.lua",["default"]=1,["fullName"]="unix/unix",["hash"]=0,["loadOrder"]=3,["mType"]="w",propT={},["short"]="unix",["status"]="active",},},mpathA={"ProjectDIR/mf/Compiler/intel/10.1","ProjectDIR/mf/Core","ProjectDIR/mf/Beta",},["version"]=2,}';
 export _ModuleTable_;
 ===========================
-step 8
+step 9
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Beta";
 export LMOD_DEFAULT_MODULEPATH;
@@ -156,7 +161,7 @@ export _ModuleTable_Sz_;
 _ModuleTable_='_ModuleTable_={["activeSize"]=8,baseMpathA={"ProjectDIR/mf/Core","ProjectDIR/mf/Beta",},family={["compiler"]="intel",},inactive={},mT={PrgEnv={["FN"]="ProjectDIR/mf/Core/PrgEnv.lua",["default"]=0,["fullName"]="PrgEnv",["hash"]=0,["loadOrder"]=2,["mType"]="m",propT={},["short"]="PrgEnv",["status"]="active",},admin={["FN"]="ProjectDIR/mf/Core/admin/admin-1.0.lua",["default"]=1,["fullName"]="admin/admin-1.0",["hash"]=0,["loadOrder"]=1,["mType"]="w",propT={},["short"]="admin",["status"]="active",},gotoblas={["FN"]="ProjectDIR/mf/Compiler/intel/10.1/gotoblas/1.32.lua",["default"]=1,["fullName"]="gotoblas/1.32",["hash"]=0,["loadOrder"]=7,["mType"]="w",propT={},["short"]="gotoblas",["status"]="active",},intel={["FN"]="ProjectDIR/mf/Core/intel/intel.lua",["default"]=1,["fullName"]="intel/intel",["hash"]=0,["loadOrder"]=6,["mType"]="w",propT={},["short"]="intel",["status"]="active",},["local"]={["FN"]="ProjectDIR/mf/Core/local/local.lua",["default"]=1,["fullName"]="local/local",["hash"]=0,["loadOrder"]=4,["mType"]="w",propT={},["short"]="local",["status"]="active",},multi={["FN"]="ProjectDIR/mf/Core/multi/multi.lua",["default"]=1,["fullName"]="multi/multi",["hash"]=0,["loadOrder"]=8,["mType"]="w",propT={},["short"]="multi",["status"]="active",},noweb={["FN"]="ProjectDIR/mf/Core/noweb/2.10c.lua",["default"]=1,["fullName"]="noweb/2.10c",["hash"]=0,["loadOrder"]=5,["mType"]="w",propT={},["short"]="noweb",["status"]="active",},unix={["FN"]="ProjectDIR/mf/Core/unix/unix.lua",["default"]=1,["fullName"]="unix/unix",["hash"]=0,["loadOrder"]=3,["mType"]="w",propT={},["short"]="unix",["status"]="active",},},mpathA={"ProjectDIR/mf/Compiler/intel/10.1","ProjectDIR/mf/Core","ProjectDIR/mf/Beta",},["version"]=2,}';
 export _ModuleTable_;
 ===========================
-step 9
+step 10
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Beta";
 export LMOD_DEFAULT_MODULEPATH;
@@ -172,7 +177,7 @@ export _ModuleTable_Sz_;
 _ModuleTable_='_ModuleTable_={["activeSize"]=7,baseMpathA={"ProjectDIR/mf/Core","ProjectDIR/mf/Beta",},family={["compiler"]="intel",},inactive={},mT={PrgEnv={["FN"]="ProjectDIR/mf/Core/PrgEnv.lua",["default"]=0,["fullName"]="PrgEnv",["hash"]=0,["loadOrder"]=2,["mType"]="m",propT={},["short"]="PrgEnv",["status"]="active",},admin={["FN"]="ProjectDIR/mf/Core/admin/admin-1.0.lua",["default"]=1,["fullName"]="admin/admin-1.0",["hash"]=0,["loadOrder"]=1,["mType"]="w",propT={},["short"]="admin",["status"]="active",},gotoblas={["FN"]="ProjectDIR/mf/Compiler/intel/10.1/gotoblas/1.32.lua",["default"]=1,["fullName"]="gotoblas/1.32",["hash"]=0,["loadOrder"]=7,["mType"]="w",propT={},["short"]="gotoblas",["status"]="active",},intel={["FN"]="ProjectDIR/mf/Core/intel/intel.lua",["default"]=1,["fullName"]="intel/intel",["hash"]=0,["loadOrder"]=6,["mType"]="w",propT={},["short"]="intel",["status"]="active",},["local"]={["FN"]="ProjectDIR/mf/Core/local/local.lua",["default"]=1,["fullName"]="local/local",["hash"]=0,["loadOrder"]=4,["mType"]="w",propT={},["short"]="local",["status"]="active",},noweb={["FN"]="ProjectDIR/mf/Core/noweb/2.10c.lua",["default"]=1,["fullName"]="noweb/2.10c",["hash"]=0,["loadOrder"]=5,["mType"]="w",propT={},["short"]="noweb",["status"]="active",},unix={["FN"]="ProjectDIR/mf/Core/unix/unix.lua",["default"]=1,["fullName"]="unix/unix",["hash"]=0,["loadOrder"]=3,["mType"]="w",propT={},["short"]="unix",["status"]="active",},},mpathA={"ProjectDIR/mf/Compiler/intel/10.1","ProjectDIR/mf/Core","ProjectDIR/mf/Beta",},["version"]=2,}';
 export _ModuleTable_;
 ===========================
-step 10
+step 11
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Beta";
 export LMOD_DEFAULT_MODULEPATH;
@@ -188,7 +193,7 @@ export _ModuleTable_Sz_;
 _ModuleTable_='_ModuleTable_={["activeSize"]=8,baseMpathA={"ProjectDIR/mf/Core","ProjectDIR/mf/Beta",},family={["compiler"]="intel",},inactive={},mT={PrgEnv={["FN"]="ProjectDIR/mf/Core/PrgEnv.lua",["default"]=0,["fullName"]="PrgEnv",["hash"]=0,["loadOrder"]=2,["mType"]="m",propT={},["short"]="PrgEnv",["status"]="active",},admin={["FN"]="ProjectDIR/mf/Core/admin/admin-1.0.lua",["default"]=1,["fullName"]="admin/admin-1.0",["hash"]=0,["loadOrder"]=1,["mType"]="w",propT={},["short"]="admin",["status"]="active",},boost={["FN"]="ProjectDIR/mf/Core/boost/1.49.0.lua",["default"]=1,["fullName"]="boost/1.49.0",["hash"]=0,["loadOrder"]=8,["mType"]="w",propT={arch={["offload"]=1,},},["short"]="boost",["status"]="active",},gotoblas={["FN"]="ProjectDIR/mf/Compiler/intel/10.1/gotoblas/1.32.lua",["default"]=1,["fullName"]="gotoblas/1.32",["hash"]=0,["loadOrder"]=7,["mType"]="w",propT={},["short"]="gotoblas",["status"]="active",},intel={["FN"]="ProjectDIR/mf/Core/intel/intel.lua",["default"]=1,["fullName"]="intel/intel",["hash"]=0,["loadOrder"]=6,["mType"]="w",propT={},["short"]="intel",["status"]="active",},["local"]={["FN"]="ProjectDIR/mf/Core/local/local.lua",["default"]=1,["fullName"]="local/local",["hash"]=0,["loadOrder"]=4,["mType"]="w",propT={},["short"]="local",["status"]="active",},noweb={["FN"]="ProjectDIR/mf/Core/noweb/2.10c.lua",["default"]=1,["fullName"]="noweb/2.10c",["hash"]=0,["loadOrder"]=5,["mType"]="w",propT={},["short"]="noweb",["status"]="active",},unix={["FN"]="ProjectDIR/mf/Core/unix/unix.lua",["default"]=1,["fullName"]="unix/unix",["hash"]=0,["loadOrder"]=3,["mType"]="w",propT={},["short"]="unix",["status"]="active",},},mpathA={"ProjectDIR/mf/Compiler/intel/10.1","ProjectDIR/mf/Core","ProjectDIR/mf/Beta",},["version"]=2,}';
 export _ModuleTable_;
 ===========================
-step 11
+step 12
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Beta";
 export LMOD_DEFAULT_MODULEPATH;
