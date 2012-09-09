@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -xv
 # -*- shell-script -*-
 VERSION=`(cd src; lua -e "local Version=require('Version'); print(Version.name())") | awk '{print $1}'` 
 echo Making Version: $VERSION
@@ -50,6 +50,7 @@ SET_BASE_DIR()
     stampede)
       CFLAGS_EXTRA="-mmic"
       base="$HOME/l/pkg/$(uname -m)"
+      ;;
     
     *)
       base="$HOME/l/pkg";;
@@ -64,11 +65,13 @@ pkgName=lmod
 
 SET_BASE_DIR $pkgName
 
+echo BASE_DIR: $BASE_DIR
+
 PKG=$BASE_DIR/$pkgName/$PKG_VERSION
 
 
-cmdA=("make distclean"
-      "./configure --prefix=$prefix --with-ancient=86401 --with-shortTime=10.3 --with-spiderCacheDir=$sysprefix/cacheDir"
+cmdA=("-make distclean"
+      "./configure --prefix=$BASE_DIR --with-ancient=86401 --with-shortTime=10.3 --with-spiderCacheDir=$sysprefix/cacheDir"
       "$SUDO make install"
       "make clobber"
       )
