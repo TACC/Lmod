@@ -122,11 +122,10 @@ function M.convertMT(self, v1)
    local a      = active.Loaded
    local sz     = #a
    for i = 1, sz do
-      local hashT = active.hash or {}
       local sn    = a[i]
       local t     = { fn = active.FN[i], modFullName = active.fullModName[i],
-                      default = active.default[i], hash = hashT[i],
-                      modName = sn, mType   = active.mType[i]
+                      default = active.default[i], modName = sn,
+                      mType   = active.mType[i]
       }
       self:add(t,"active")
    end
@@ -428,7 +427,6 @@ function M.add(self, t, status)
                      FN        = t.fn,
                      default   = t.default,
                      mType     = t.mType,
-                     _hash     = t.hash,
                      status    = status,
                      loadOrder = s_loadOrder,
                      propT     = {},
