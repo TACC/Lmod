@@ -461,6 +461,7 @@ local function SetDefault(...)
    end
    mt:setHashSum()
    serializeTbl{name=mt:name(), value=mt, fn = path, indent = true}
+   mt:hideHash()
    dbg.fini()
 end
 

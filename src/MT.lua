@@ -266,6 +266,8 @@ function M.getMTfromFile(self,fn)
             "Please reset this default setup\n")
    end
 
+   s_mt:hideHash()
+
    local n = "__LMOD_DEFAULT_MODULES_LOADED__"
    varTbl[n] = Var:new(n)
    varTbl[n]:set("1")
@@ -426,7 +428,7 @@ function M.add(self, t, status)
                      FN        = t.fn,
                      default   = t.default,
                      mType     = t.mType,
-                     hash      = t.hash,
+                     _hash     = t.hash,
                      status    = status,
                      loadOrder = s_loadOrder,
                      propT     = {},
@@ -520,6 +522,17 @@ function M.getHash(self, moduleName)
    end
    return entry.hash
 end
+
+
+function M.hideHash(self)
+   local mT   = self.mT
+   for k,v in pairs(mT) do
+      if (v.status == "active") then
+         v.hash    = nil
+      end
+   end
+end
+
 
 function M.markDefault(self, moduleName)
    local mT = self.mT
