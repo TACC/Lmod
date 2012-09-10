@@ -2,7 +2,7 @@
 step 0
 ===========================
 
-Modules based on Lua: Version 3.6.3.2 2012-09-08 15:45
+Modules based on Lua: Version 3.6.3.3 2012-09-09 11:18
     by Robert McLay mclay@tacc.utexas.edu
 
 ===========================
@@ -24,6 +24,10 @@ Due to MODULEPATH changes the following modules have been reloaded:
   1) parmetis/3.1
 ===========================
 step 4
+===========================
+0: Event not found.
+===========================
+step 5
 ===========================
 Due to MODULEPATH changes the following modules have been reloaded:
   1) openmpi/1.2.6  2) parmetis/3.1

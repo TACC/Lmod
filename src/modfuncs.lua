@@ -146,6 +146,26 @@ function unset_alias(...)
    return b
 end
 
+--- Set Alias functions ---
+
+function set_shell_function(...)
+   local dbg = Dbg:dbg()
+   dbg.start("set_shell_function(",concatTbl({...},", "),")")
+
+   local b = mcp:set_shell_function(...)
+   dbg.fini()
+   return b
+end
+
+function unset_shell_function(...)
+   local dbg = Dbg:dbg()
+   dbg.start("unset_shell_function(",concatTbl({...},", "),")")
+
+   local b = mcp:unset_shell_function(...)
+   dbg.fini()
+   return b
+end
+
 --- Prereq / Conflict ---
 
 function prereq(...)

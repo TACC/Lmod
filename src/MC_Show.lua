@@ -124,4 +124,14 @@ function M.conflict(self, ...)
    ShowCmd("conflict",...)
 end
 
+
+function M.set_shell_function(self, ...)
+   ShowCmd("set_shell_function", ...)
+end
+
+function M.unset_shell_function(self, ...)
+   ShowCmd("set_shell_function", ...)
+end
+
+
 return M

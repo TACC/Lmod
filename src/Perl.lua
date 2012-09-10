@@ -10,7 +10,11 @@ local concatTbl   = table.concat
 local stdout      = io.stdout
 
 function Perl.alias(self, k, v)
-   -- do nothing: alias do not make sense in a perl script
+   -- do nothing: alias do not make sense in a perl script.
+end
+
+function Perl.shellFunc(self, k, v)
+   -- do nothing: shell functions do not make sense in a perl script.
 end
 
 function Perl.expandVar(self, k, v, vType)

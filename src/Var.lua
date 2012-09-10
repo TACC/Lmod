@@ -178,6 +178,16 @@ function M.unsetAlias(self,value)
    self.type  = 'alias'
 end
 
+function M.setShellFunction(self,bash_func,csh_func)
+   self.value = {bash_func,csh_func}
+   self.type  = 'shell_function'
+end
+
+function M.unsetShellFunction(self,bash_func,csh_func)
+   self.value = ''
+   self.type  = 'shell_function'
+end
+
 function M.myType(self)
    return self.type
 end

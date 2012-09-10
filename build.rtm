@@ -1,4 +1,4 @@
-#!/bin/bash -xv
+#!/bin/bash 
 # -*- shell-script -*-
 VERSION=`(cd src; lua -e "local Version=require('Version'); print(Version.name())") | awk '{print $1}'` 
 echo Making Version: $VERSION

@@ -74,6 +74,8 @@ function M.expand(self, tbl)
       local v,vType = tbl[k]:expand()
       if (vType == "alias") then
          self:alias(k,v)
+      elseif (vType == "shell_function") then
+         self:shellFunc(k,v)
       elseif (v == "") then
          self:unset(k, vType)
       elseif (k == "_ModuleTable_") then

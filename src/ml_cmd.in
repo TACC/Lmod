@@ -7,6 +7,29 @@ local function quoteWrap(a)
    return "'" .. tostring(a) .. "'"
 end
 
+function usage()
+   io.stderr:write(" ml: A handy front end for the module command:\n\n",
+                   " Simple usage:\n",
+                   " -------------\n",
+                   "  $ ml\n",
+                   "                           means: module list\n",
+                   "  $ ml foo bar\n",
+                   "                           means: module load foo bar\n",
+                   "  $ ml -foo -bar baz goo\n",
+                   "                           means: module unload foo bar;\n",
+                   "                                  module load baz goo;\n\n",
+                   " Command usage:\n",
+                   " --------------\n\n",
+                   "Any module command can be given after ml:\n\n",
+                   "if name is avail, getdefault setdefault, show, swap,...\n",
+                   "    $ ml name  arg1 arg2 ...\n\n",
+                   "Then this is the same :\n",
+                   "    $ module name arg1 arg2 ...\n\n",
+                   "In other words you can not load a module named: show swap etc\n")
+end
+
+
+
 function main()
 
    local argA     = {}
@@ -19,7 +42,7 @@ function main()
    --           number of arguments the option requires
    
    local lmodOptA = {
-      ["-?"] = 0, ["--help"] = 0, ["-d"]=0, ["--version"]=0,
+      ["-?"] = 0, ["-h"] = 0, ["--help"] = 0, ["-d"]=0, ["--version"]=0,
       ["--old_style"] = 0, ["--expert"]=0, ["--novice"]=0,
       ["--localvar"]=1, ["-D"]=1 
    }
@@ -71,6 +94,13 @@ function main()
          done     = true
          oldStyle = true
       end
+
+      if (not done and v == "--help" or v == "-?" or v== "-h") then
+         done = true
+         usage()
+         return
+      end
+
 
       local num = lmodOptA[v]
       if (not done and num) then

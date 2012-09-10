@@ -290,6 +290,43 @@ function M.bad_unset_alias(self, name)
 end
 
 -------------------------------------------------------------------
+-- Shell Routine Functions
+-------------------------------------------------------------------
+
+function M.set_shell_function(self, name, bash_function, csh_function)
+   local mStack = ModuleStack:moduleStack()
+   local dbg    = Dbg:dbg()
+   dbg.start("MasterControl:set_shell_function(\"",name,"\", \"",bash_function,"\")",
+             "\", \"",csh_function,"\")")
+
+
+   if (varTbl[name] == nil) then
+      varTbl[name] = Var:new(name)
+   end
+   varTbl[name]:setShellFunction(bash_function, csh_function)
+   mStack:setting()
+   dbg.fini()
+end
+
+function M.unset_shell_function(self, name, bash_function, csh_function)
+   local mStack = ModuleStack:moduleStack()
+   local dbg    = Dbg:dbg()
+   dbg.start("MasterControl:unset_shell_function(\"",name,"\", \"",bash_function,"\")",
+             "\", \"",csh_function,"\")")
+
+   if (varTbl[name] == nil) then
+      varTbl[name] = Var:new(name)
+   end
+   varTbl[name]:unsetShellFunction()
+   mStack:setting()
+   dbg.fini()
+end
+
+function M.bad_unset_shell_function(self, name, bash_function, csh_function)
+   Dbg:dbg().warning("Refusing unset a shell function while unloading: \"",name,"\"\n")
+end
+
+-------------------------------------------------------------------
 -- Property Functions
 -------------------------------------------------------------------
 

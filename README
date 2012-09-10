@@ -1,20 +1,48 @@
-Version 3.6.2+:
+Version 3.6.3:
 
   Features:
-     1) added module functions "always_load(...)", "always_unload(...)"
-        The function "always_load('abc')" could be replaced by:
+   1) A handy front end for the module command: ml
+         $ ml
+                                  means: module list
+         $ ml foo bar
+                                  means: module load foo bar
+         $ ml -foo -bar baz goo
+                                  means: module unload foo bar;
+                                         module load baz goo;
 
-           if (mode() == "load") then
-              load('abc')
-           end
+      It does much more, do: "ml --help" for more information.
 
-        That is, it always loads and never unloads.
+   2) Support for shell functions under bash or csh aliases.
+      For lua module files only:
 
-        The always_unload('abc') inside a modulefile will ALWAYS
-        cause the module 'abc' to be unloaded.  This is safe to do even
-        if the module is not loaded.
+         set_shell_function("name","bash_function_str",
+                                   "csh_alias_str")
 
+      so the new ml command can be defined in a lua module file as:
 
+         set_shell_function("ml",'eval $($LMOD_DIR/ml_cmd "$@")',
+                                 "eval `$LMOD_DIR/ml_cmd $*`")
+                              
+      (csh alias internally translate the "$*" to "\!*")
+
+      NOTE: Subshells do NOT inherit alias or shell functions!
+      This means every subshell will need to load any modules that
+      define aliases or shell functions.
+
+   3) added module functions "always_load(...)", "always_unload(...)"
+      The function "always_load('abc')" could be replaced by:
+
+         if (mode() == "load") then
+            load('abc')
+         end
+
+      That is, it always loads and never unloads.
+
+      The always_unload('abc') inside a modulefile will ALWAYS
+      cause the module 'abc' to be unloaded.  This is safe to do even
+      if the module is not loaded.
+
+   
 Version 3.6/3.6.1:
 
  Features:

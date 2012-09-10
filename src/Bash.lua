@@ -21,6 +21,18 @@ function Bash.alias(self, k, v)
    end
 end
    
+function Bash.shellFunc(self, k, v)
+   local dbg = Dbg:dbg()
+   if (v == "") then
+      stdout:write("unset -f ",k,";\n")
+      dbg.print(   "unset -f ",k,";\n")
+   else
+      stdout:write(k,"() {",v[1]," };\n")
+      dbg.print(   k,"() {",v[1]," };\n")
+   end
+end   
+
+
 function Bash.expandVar(self, k, v, vType)
    local dbg = Dbg:dbg()
    dbg.print("Key: ", k, " type(value): ", type(v)," value: ",tostring(v),"\n")

@@ -12,6 +12,21 @@ Csh	    = inheritsFrom(BaseShell)
 Csh.my_name = 'csh'
 
 
+function Csh.shellFunc(self,k,v)
+   local dbg = Dbg:dbg()
+   if (v == "") then
+      stdout:write("unalias ",k,";\n")
+      dbg.print(   "unalias ",k,";\n")
+   else
+      v = v[2]
+      v = v:gsub("%$%*","\\!*")
+      v = v:gsub("%$([0-9])", "\\!:%1")
+      stdout:write("alias ",k," \"",v,"\";\n")
+      dbg.print(   "alias ",k," \"",v,"\";\n")
+   end
+end
+
+
 function Csh.alias(self, k, v)
    local dbg = Dbg:dbg()
    if (v == "") then
@@ -20,8 +35,8 @@ function Csh.alias(self, k, v)
    else
       v = v:gsub("%$%*","\\!*")
       v = v:gsub("%$([0-9])", "\\!:%1")
-      stdout:write("alias ",k,"=\"",v,"\";\n")
-      dbg.print(   "alias ",k,"=\"",v,"\";\n")
+      stdout:write("alias ",k," \"",v,"\";\n")
+      dbg.print(   "alias ",k," \"",v,"\";\n")
    end
 end
    

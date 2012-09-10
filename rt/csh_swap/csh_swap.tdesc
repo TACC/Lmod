@@ -47,70 +47,80 @@ cat > $(testName).csh << EOF
      unsetenv LMOD_EXPERT
      unsetenv LMOD_COMPILER
      unsetenv LD_LIBRARY_PATH
-     setenv MODULEPATH $(projectDir)/mf/Core
+     setenv MODULEPATH $(projectDir)/mf/Core:$(testDir)/mf/Core
      setenv MODULEPATH_ROOT $(projectDir)/mf
      setenv LMOD_DEFAULT_MODULEPATH $MODULEPATH
-
-
 
 
      echo "==========================="
      echo "step 0"
      echo "==========================="
 
-     echo "===========================" >  _stdout.1
-     echo "step 0"                      >> _stdout.1
-     echo "===========================" >> _stdout.1
+     echo "===========================" >  _stdout.01
+     echo "step 0"                      >> _stdout.01
+     echo "===========================" >> _stdout.01
 
-     lua $(projectDir)/src/lmod.in csh --version > _stdout.2
-     eval \`cat _stdout.2\`
+     lua $(projectDir)/src/lmod.in csh --version > _stdout.02
+     eval \`cat _stdout.02\`
 
      echo "==========================="
      echo "step 1"
      echo "==========================="
 
-     echo "===========================" >  _stdout.1
-     echo "step 1"                      >> _stdout.1
-     echo "===========================" >> _stdout.1
+     echo "===========================" >  _stdout.01
+     echo "step 1"                      >> _stdout.01
+     echo "===========================" >> _stdout.01
 
-     lua $(projectDir)/src/lmod.in csh load admin PrgEnv openmpi parmetis > _stdout.2
-     eval \`cat _stdout.2\`
+     lua $(projectDir)/src/lmod.in csh load admin PrgEnv openmpi parmetis > _stdout.02
+     eval \`cat _stdout.02\`
 
-     echo "===========================" >  _stdout.3
-     echo "step 2"                      >> _stdout.3
-     echo "===========================" >> _stdout.3
+     echo "===========================" >  _stdout.03
+     echo "step 2"                      >> _stdout.03
+     echo "===========================" >> _stdout.03
 
      echo "==========================="
      echo "step 2"
      echo "==========================="
 
-     lua $(projectDir)/src/lmod.in csh unload intel > _stdout.4
-     eval \`cat _stdout.4\`
+     lua $(projectDir)/src/lmod.in csh unload intel > _stdout.04
+     eval \`cat _stdout.04\`
 
-     echo "===========================" >  _stdout.5
-     echo "step 3"                      >> _stdout.5
-     echo "===========================" >> _stdout.5
+     echo "===========================" >  _stdout.05
+     echo "step 3"                      >> _stdout.05
+     echo "===========================" >> _stdout.05
 
      echo "==========================="
      echo "step 3"
      echo "==========================="
 
-     lua $(projectDir)/src/lmod.in csh load gcc  > _stdout.6
-     eval \`cat _stdout.6\`
+     lua $(projectDir)/src/lmod.in csh load gcc  > _stdout.06
+     eval \`cat _stdout.06\`
 
-     echo "===========================" >  _stdout.7
-     echo "step 4"                      >> _stdout.7
-     echo "===========================" >> _stdout.7
+     echo "===========================" >  _stdout.07
+     echo "step 4"                      >> _stdout.07
+     echo "===========================" >> _stdout.07
 
      echo "==========================="
      echo "step 4"
      echo "==========================="
 
-     unset histchars
-     lua $(projectDir)/src/lmod.in csh --localvar histchars="$_histchars" swap gcc  intel > _stdout.8
-     eval \`cat _stdout.8\`
 
-     cat _stdout.[1-8] > _stdout.orig
+     lua $(projectDir)/src/lmod.in csh load ml  > _stdout.08
+     eval \`cat _stdout.08\`
+
+     echo "===========================" >  _stdout.09
+     echo "step 5"                      >> _stdout.09
+     echo "===========================" >> _stdout.09
+
+     echo "==========================="
+     echo "step 5"
+     echo "==========================="
+
+     unset histchars
+     lua $(projectDir)/src/lmod.in csh --localvar histchars="$_histchars" swap gcc  intel > _stdout.10
+     eval \`cat _stdout.10\`
+
+     cat _stdout.[01][1-9] > _stdout.orig
 EOF
 
      ORIG_HOME=`(cd $HOME; /bin/pwd)`
