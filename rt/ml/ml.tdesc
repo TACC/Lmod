@@ -6,10 +6,10 @@ testdescript = {
    description = [[
 	 test shell functions
    ]],
-   keywords = {"always" },
+   keywords = {"ml" },
 
    active = 1,
-   testName = "always",
+   testName = "ml",
    job_submit_method = "INTERACTIVE", 
 
    runScript = [[
