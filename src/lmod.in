@@ -45,8 +45,9 @@ MCP           = {}
 mcp           = {}
 require("modfuncs")
 require("cmdfuncs")
-local Dbg     = require("Dbg")
-local Version = require("Version")
+local Dbg       = require("Dbg")
+local Version   = require("Version")
+local concatTbl = table.concat
 
 RCFileA = {
    pathJoin(os.getenv("HOME"),".lmodrc.lua"),
@@ -78,6 +79,49 @@ function readRC()
    s_propT = results
    return s_propT
 end
+
+function colorizePropA(style, moduleName, propT, legendT)
+   local resultA
+   local propDisplayT = readRC()
+   local iprop        = 0
+
+   for kk,vv in pairsByKeys(propDisplayT) do
+      iprop        = iprop + 1
+      local propA  = {}
+      local t      = propT[kk]
+      local result = ""
+      local color  = nil
+      if (type(t) == "table") then
+         for k in pairs(t) do
+            propA[#propA+1] = k
+         end
+
+         table.sort(propA);
+         local n = concatTbl(propA,":")
+
+         if (vv.displayT[n]) then
+            result     = vv.displayT[n][style]
+            color      = vv.displayT[n].color
+            local k    = colorize(result,color)
+            legendT[k] = vv.displayT[n].doc
+         end
+      end
+      if (iprop == 1) then
+         resultA = { colorize(moduleName,color), colorize(result,color)}
+      else
+         resultA[#resultA+1] = colorize(result,color)
+      end
+   end
+
+   if (iprop == 0) then
+      resultA = { moduleName }
+   end
+
+   return resultA
+
+end
+
+
 
 Usage = [[
 module sub-command [args ...]
@@ -151,7 +195,6 @@ for complete documentation. It contains:
 ----------------------------------------------------------------------------------
 ]]
 
-local concatTbl = table.concat
 
 function version()
    local v = {}
@@ -560,7 +603,11 @@ end
 local function epoch()
    if (posix.gettimeofday) then
       local t1, t2 = posix.gettimeofday()
-      return t1 + t2*1.0e-6
+      if (t2 == nil) then
+         return t1.sec + t1.usec*1.0e-6
+      else
+         return t1 + t2*1.0e-6
+      end
    else
       return os.time()
    end

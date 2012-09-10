@@ -82,9 +82,6 @@ local function new(self, s)
    o._MPATH           = ""
    o._locationTbl     = {}
 
-   o._changePATH      = false
-   o._changePATHCount = 0
-
    setmetatable(o,self)
    self.__index = self
 
@@ -275,44 +272,6 @@ function M.getMTfromFile(self,fn)
    dbg.fini()
 end
    
-function M.changePATH(self)
-   if (not self._changePATH) then
-      assert(self._changePATHCount == 0)
-      self._changePATHCount = self._changePATHCount + 1
-   end
-   self._changePATH = true
-end
-
-function M.beginOP(self)
-   if (self._changePATH == true) then
-      self._changePATHCount = self._changePATHCount + 1
-   end
-end
-
-function M.endOP(self)
-   if (self._changePATH == true) then
-      self._changePATHCount = max(self._changePATHCount - 1, 0)
-   end
-end
-
-function M.rpt_changePATHcount(self)
-   return self._changePATHCount
-end
-
-function M.rpt_changePATH(self)
-   return self._changePATH
-end
-
-function M.safeToCheckZombies(self)
-   local result = self._changePATHCount == 0 and self._changePATH
-   local s      = "nil"
-   if (result) then  s = "true" end
-   if (self._changePATHCount == 0) then
-      self._changePATH = false
-   end
-   return result
-end
-
 function M.setfamily(self,familyNm,mName)
    local results = self.family[familyNm]
    self.family[familyNm] = mName
@@ -745,45 +704,9 @@ function M.list_property(self, idx, moduleName, style, legendT)
                 ". This should not happen!\n")
    end
 
-   local resultA
-   local propDisplayT = readRC()
-   local propT        = entry.propT
-   local iprop        = 0
+   local resultA      = colorizePropA(style, moduleName, entry.propT, legendT)
 
-   for kk,vv in pairsByKeys(propDisplayT) do
-      iprop        = iprop + 1
-      local propA  = {}
-      local t      = propT[kk]
-      local result = ""
-      local color  = nil
-      if (type(t) == "table") then
-         for k in pairs(t) do
-            propA[#propA+1] = k
-         end
-
-         table.sort(propA);
-         local n = concatTbl(propA,":")
-         dbg.print("n: ",tostring(n),"\n")
-
-         if (vv.displayT[n]) then
-            result     = vv.displayT[n][style]
-            color      = vv.displayT[n].color
-            local k    = colorize(result,color)
-            legendT[k] = vv.displayT[n].doc
-         end
-      end
-      dbg.print("kk: ",kk," result: ",result,"\n")
-      if (iprop == 1) then
-         resultA = { "  " .. tostring(idx) ..")", colorize(moduleName,color), colorize(result,color)}
-      else
-         resultA[#resultA+1] = colorize(result,color)
-      end
-   end
-
-   if (iprop == 0) then
-      resultA = { "  "  .. tostring(idx) ..")", moduleName }
-   end
-
+   table.insert(resultA, 1, "  "  .. tostring(idx) ..")")
    dbg.fini()
    return resultA
 end

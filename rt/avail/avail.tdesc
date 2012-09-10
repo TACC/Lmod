@@ -32,9 +32,11 @@ testdescript = {
      export LMOD_DEFAULT_MODULEPATH
      numStep=0
      COUNT=0
-     HOME=`(cd $HOME; /bin/pwd)`
+     ORIG_HOME=`(cd $HOME; /bin/pwd)`
+     HOME=`/bin/pwd`
 
      rm -f _stderr.*  _stdout.* out.* err.*    
+     cp $(projectDir)/setup/.lmodrc.lua .
 
 
      runMe lua $(projectDir)/src/lmod.in bash --version
@@ -46,6 +48,7 @@ testdescript = {
 
      runMe lua $(projectDir)/src/lmod.in bash avail
 
+     HOME=$ORIG_HOME
 
      cat _stdout.[0-9][0-9] > _stdout.orig
      joinBase64Results -bash  _stdout.orig _stdout.new

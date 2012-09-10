@@ -286,11 +286,9 @@ function M.unload(...)
          local f              = mt:fileName(moduleName)
          local fullModuleName = mt:fullName(moduleName)
          dbg.print("Master:unload: \"",fullModuleName,"\" from f: ",f,"\n")
-         mt:beginOP()
          mStack:push(fullModuleName,f)
 	 loadModuleFile{file=f,moduleName=moduleName,reportErr=false}
          mStack:pop()
-         mt:endOP()
          dbg.print("calling mt:remove(\"",moduleName,"\")\n")
          mt:remove(moduleName)
          a[#a + 1] = true
@@ -298,7 +296,7 @@ function M.unload(...)
          a[#a + 1] = false
       end
    end
-   if (M.safeToUpdate() and mt:safeToCheckZombies() and mStack:empty()) then
+   if (M.safeToUpdate() and mStack:empty()) then
       M.reloadAll()
    end
    mcp = mcp_old
@@ -406,13 +404,11 @@ function M.load(...)
          loaded = aa[1]
       elseif (fn) then
          dbg.print("Master:loading: \"",moduleName,"\" from f: \"",fn,"\"\n")
-	 mt:beginOP()
          mt:add(t, "pending")
          mStack:push(t.modFullName,fn)
 	 loadModuleFile{file=fn,moduleName=moduleName,reportErr=true}
          t.mType = mStack:moduleType()
          mStack:pop()
-	 mt:endOP()
          dbg.print("Making ", t.modName, " active\n")
          mt:setStatus(t.modName,"active")
          mt:set_mType(t.modName,t.mType)
@@ -421,7 +417,7 @@ function M.load(...)
       end
       a[#a+1] = loaded
    end
-   if (M.safeToUpdate() and mt:safeToCheckZombies()) then
+   if (M.safeToUpdate() and mStack:empty()) then
       dbg.print("Master:load calling reloadAll()\n")
       M.reloadAll()
    end
@@ -642,12 +638,13 @@ local function findDefault(mpath, path, prefix)
 end
 
 
-local function availDir(searchA, mpath, path, prefix, a)
+local function availDir(searchA, mpath, path, prefix, moduleT, a, legendT)
    local dbg    = Dbg:dbg()
    dbg.start("Master.availDir(searchA=(",concatTbl(searchA,", "),"), mpath=\"",mpath,"\", ",
              "path=\"",path,"\", prefix=\"",prefix,"\")")
    local sCount = #searchA
-   local attr = lfs.attributes(path)
+   local attr   = lfs.attributes(path)
+   local mt     = MT:mt()
    if (not attr) then
       dbg.fini()
       return
@@ -674,21 +671,33 @@ local function availDir(searchA, mpath, path, prefix, a)
             local dflt = ""
             local n    = prefix .. file
             n = n:gsub("%.lua$","")
-            if (defaultModuleName == abspath(f,localDir)) then
-               dflt = '(default)'
-            end
+            local found = false
             if (sCount == 0) then
-               a[#a + 1 ] = {'  ',n,dflt}
+               found = true
             else
                for _,v in ipairs(searchA) do
                   if (n:find(v,1,true) or n:find(v)) then
-                     a[#a + 1 ] = {'  ',n,dflt}
-                     break
+                     found = true
                   end
                end
             end
+
+            if (found) then
+               if (defaultModuleName == abspath(f,localDir)) then
+                  dflt = '(default)'
+               end
+               local aa      = {}
+               local propT   = moduleT[f].propT or {}
+               local resultA = colorizePropA("short",n, propT, legendT)
+               aa[#aa + 1] = '  '
+               for i = 1,#resultA do
+                  aa[#aa+1] = resultA[i]
+               end
+               aa[#aa + 1] = dflt
+               a[#a + 1]   = aa
+            end
          elseif (attr.mode == 'directory') then
-            availDir(searchA,mpath, f,prefix .. file..'/',a)
+            availDir(searchA,mpath, f,prefix .. file..'/', moduleT, a, legendT)
 	 end
       end
    end
@@ -703,9 +712,12 @@ function M.avail(searchA)
    if (getenv("TERM")) then
       width  = TermWidth()
    end
+   local moduleT = getModuleT()
+   local legendT = {}
+
    for _,path in ipairs(mpathA) do
       local a = {}
-      availDir(searchA, path, path, '', a)
+      availDir(searchA, path, path, '', moduleT, a, legendT)
       if (next(a)) then
          prtDirName(width, path)
          sort(a, function (a,b) return a[2] < b[2] end)

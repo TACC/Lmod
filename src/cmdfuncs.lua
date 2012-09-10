@@ -131,8 +131,6 @@ function List(...)
    dbg.start("List(...)")
    local mt = MT:mt()
 
-   local propT = readRC()
-
    local totalA = mt:list("short","any")
    if (#totalA < 1) then
       local dbg = Dbg:dbg()
