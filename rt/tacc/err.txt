@@ -1,16 +1,17 @@
 ===========================
 step 1
 ===========================
-Modules based on Lua: Version 3.6.3.2 2012-09-08 15:45
+Modules based on Lua: Version 3.6.3.3 2012-09-09 11:18
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
 ===========================
  ProjectDIR/mf/TACC 
-   Linux          cluster           globus/4.0.7      (default)
-   TACC           cluster-paths     mvapich1/mvapich1
-   TACC-paths     cluster.orig      pgi/7.1           (default)
-   TACC.orig      globus/4.0.1      pgi/7.2-5
+   Linux          TACC.orig         cluster.orig        mvapich1/mvapich1
+   TACC           cluster           globus/4.0.1        pgi/7.1           (D)
+   TACC-paths     cluster-paths     globus/4.0.7 (D)    pgi/7.2-5
+  Where:
+   (D):  Default Module
 Use "module spider" to find all possible modules. 
 Use "module keyword key1 key2 ..." to search for all possible modules matching 
 any of the "keys". 
