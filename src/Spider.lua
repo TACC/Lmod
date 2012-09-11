@@ -160,7 +160,7 @@ end
 
 function Spider_add_property(name,value)
    local dbg = Dbg:dbg()
-   dbg.start("Spider_add_property(name=\"",name," value=\"",value,"\")")
+   dbg.start("Spider_add_property(name=\"",name,"\", value=\"",value,"\")")
 
    local masterTbl     = masterTbl()
    local moduleStack   = masterTbl.moduleStack 
@@ -176,7 +176,7 @@ end
 
 function Spider_remove_property(name,value)
    local dbg = Dbg:dbg()
-   dbg.start("Spider_remove_property(name=\"",name," value=\"",value,"\")")
+   dbg.start("Spider_remove_property(name=\"",name,"\", value=\"",value,"\")")
    local masterTbl     = masterTbl()
    local moduleStack   = masterTbl.moduleStack 
    local iStack        = #moduleStack
