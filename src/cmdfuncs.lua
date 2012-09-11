@@ -115,15 +115,9 @@ function prtErr(...)
    io.stderr:write(...)
 end
 
-function length(self)
-   local i,j = self:find("\027[^m]+m")
-   if (i == nil) then
-      local r = self:len()
-      return r
-   end
-   local k   = self:find("\027[^m]+m",j+1)
-   local r   = k - j - 1
-   return  r
+function length(s)
+   s = s:gsub("\027[^m]+m","")
+   return s:len()
 end
 
 function List(...)
@@ -186,8 +180,6 @@ function List(...)
       local bt = BeautifulTbl:new{tbl=a, column = term_width-1}
       io.stderr:write(bt:build_tbl(),"\n")
    end
-
-
    a = {}
    k = 0
 

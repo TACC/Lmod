@@ -35,8 +35,10 @@ require("string_trim")
 require("fillWords")
 
 ModuleName=""
+local BeautifulTbl = require('BeautifulTbl')
 local ColumnTable  = require('ColumnTable')
 local Dbg          = require("Dbg")
+local Default      = '(D)'
 local InheritTmpl  = require("InheritTmpl")
 local M            = {}
 local MT           = MT
@@ -642,9 +644,9 @@ local function availDir(searchA, mpath, path, prefix, moduleT, a, legendT)
    local dbg    = Dbg:dbg()
    dbg.start("Master.availDir(searchA=(",concatTbl(searchA,", "),"), mpath=\"",mpath,"\", ",
              "path=\"",path,"\", prefix=\"",prefix,"\")")
-   local sCount = #searchA
-   local attr   = lfs.attributes(path)
-   local mt     = MT:mt()
+   local sCount  = #searchA
+   local attr    = lfs.attributes(path)
+   local mt      = MT:mt()
    if (not attr) then
       dbg.fini()
       return
@@ -684,7 +686,7 @@ local function availDir(searchA, mpath, path, prefix, moduleT, a, legendT)
 
             if (found) then
                if (defaultModuleName == abspath(f,localDir)) then
-                  dflt = '(default)'
+                  dflt = Default
                end
                local aa      = {}
                local propT   = moduleT[f].propT or {}
@@ -712,7 +714,13 @@ function M.avail(searchA)
    if (getenv("TERM")) then
       width  = TermWidth()
    end
+
+   local mcp_old = mcp
+   mcp           = MasterControl.build("spider")
+   dbg.print("Setting mpc to ", mcp:name(),"\n")
    local moduleT = getModuleT()
+   mcp           = mcp_old
+   dbg.print("Resetting mpc to ", mcp:name(),"\n")
    local legendT = {}
 
    for _,path in ipairs(mpathA) do
@@ -721,10 +729,22 @@ function M.avail(searchA)
       if (next(a)) then
          prtDirName(width, path)
          sort(a, function (a,b) return a[2] < b[2] end)
-         local ct  = ColumnTable:new{tbl=a,gap=1}
+         local ct  = ColumnTable:new{tbl=a,gap=1, len=length}
          io.stderr:write(ct:build_tbl(),"\n")
       end
    end
+   legendT[Default] = "Default Module"
+
+   local term_width = TermWidth()
+   io.stderr:write("\n  Where:\n")
+   local a = {}
+   for k, v in pairsByKeys(legendT) do
+      a[#a+1] = { "   " .. k ..":", v}
+   end
+   local bt = BeautifulTbl:new{tbl=a, column = term_width-1, len=length}
+   io.stderr:write(bt:build_tbl(),"\n")
+   
+
    if (not expert()) then
       local a = fillWords("","Use \"module spider\" to find all possible modules.",width)
       local b = fillWords("","Use \"module keyword key1 key2 ...\" to search for all possible modules matching any of the \"keys\".",width)
