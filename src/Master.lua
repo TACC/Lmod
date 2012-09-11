@@ -43,6 +43,7 @@ local InheritTmpl  = require("InheritTmpl")
 local M            = {}
 local MT           = MT
 local ModuleStack  = require("ModuleStack")
+local Spider       = require("Spider")
 local abspath      = abspath
 local extname      = extname
 --local fillWords    = 
@@ -640,7 +641,7 @@ local function findDefault(mpath, path, prefix)
 end
 
 
-local function availDir(searchA, mpath, path, prefix, moduleT, a, legendT)
+local function availDir(searchA, mpath, path, prefix, dbT, a, legendT)
    local dbg    = Dbg:dbg()
    dbg.start("Master.availDir(searchA=(",concatTbl(searchA,", "),"), mpath=\"",mpath,"\", ",
              "path=\"",path,"\", prefix=\"",prefix,"\")")
@@ -691,9 +692,17 @@ local function availDir(searchA, mpath, path, prefix, moduleT, a, legendT)
                end
                local aa      = {}
                local propT   = {}
-               if (moduleT[f]) then
-                  propT = moduleT[f].propT or {}
+               local sn      = shortName(n)
+               local entry   = dbT[sn]
+               if (entry) then
+                  dbg.print("Found dbT[sn]\n")
+                  if (entry[f]) then
+                     propT =  entry[f].propT or {}
+                  end
+               else
+                  dbg.print("Did not find dbT[sn]\n")
                end
+
                local resultA = colorizePropA("short",n, propT, legendT)
                aa[#aa + 1] = '  '
                for i = 1,#resultA do
@@ -703,7 +712,7 @@ local function availDir(searchA, mpath, path, prefix, moduleT, a, legendT)
                a[#a + 1]   = aa
             end
          elseif (attr.mode == 'directory') then
-            availDir(searchA,mpath, f,prefix .. file..'/', moduleT, a, legendT)
+            availDir(searchA,mpath, f,prefix .. file..'/', dbT, a, legendT)
 	 end
       end
    end
@@ -725,11 +734,14 @@ function M.avail(searchA)
    local moduleT = getModuleT()
    mcp           = mcp_old
    dbg.print("Resetting mpc to ", mcp:name(),"\n")
+   local dbT     = {}
+   Spider.buildSpiderDB({"default"}, moduleT, dbT)
+
    local legendT = {}
 
    for _,path in ipairs(mpathA) do
       local a = {}
-      availDir(searchA, path, path, '', moduleT, a, legendT)
+      availDir(searchA, path, path, '', dbT, a, legendT)
       if (next(a)) then
          prtDirName(width, path)
          sort(a, function (a,b)
