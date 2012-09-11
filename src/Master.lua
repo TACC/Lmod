@@ -690,7 +690,10 @@ local function availDir(searchA, mpath, path, prefix, moduleT, a, legendT)
                   legendT[Default] = "Default Module"
                end
                local aa      = {}
-               local propT   = moduleT[f].propT or {}
+               local propT   = {}
+               if (moduleT[f]) then
+                  propT = moduleT[f].propT or {}
+               end
                local resultA = colorizePropA("short",n, propT, legendT)
                aa[#aa + 1] = '  '
                for i = 1,#resultA do
