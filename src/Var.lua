@@ -93,6 +93,7 @@ local function chkMP(name)
       dbg.print("calling reEvalModulePath()\n")
       local mt = systemG.MT:mt()
 
+      mt:changePATH()
       mt:reEvalModulePath()
    end
 end

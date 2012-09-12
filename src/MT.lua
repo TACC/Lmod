@@ -82,6 +82,9 @@ local function new(self, s)
    o._MPATH           = ""
    o._locationTbl     = {}
 
+   o._changePATH      = false
+   o._changePATHCount = 0
+
    setmetatable(o,self)
    self.__index = self
 
@@ -272,6 +275,37 @@ function M.getMTfromFile(self,fn)
    dbg.fini()
 end
    
+function M.changePATH(self)
+   if (not self._changePATH) then
+      assert(self._changePATHCount == 0)
+      self._changePATHCount = self._changePATHCount + 1
+   end
+   self._changePATH = true
+end
+
+function M.beginOP(self)
+   if (self._changePATH == true) then
+      self._changePATHCount = self._changePATHCount + 1
+   end
+end
+
+function M.endOP(self)
+   if (self._changePATH == true) then
+      self._changePATHCount = max(self._changePATHCount - 1, 0)
+   end
+end
+
+function M.safeToCheckZombies(self)
+   local result = self._changePATHCount == 0 and self._changePATH
+   local s      = "nil"
+   if (result) then  s = "true" end
+   if (self._changePATHCount == 0) then
+      self._changePATH = false
+   end
+   return result
+end
+
+
 function M.setfamily(self,familyNm,mName)
    local results = self.family[familyNm]
    self.family[familyNm] = mName

@@ -289,9 +289,11 @@ function M.unload(...)
          local f              = mt:fileName(moduleName)
          local fullModuleName = mt:fullName(moduleName)
          dbg.print("Master:unload: \"",fullModuleName,"\" from f: ",f,"\n")
+         mt:beginOP()
          mStack:push(fullModuleName,f)
 	 loadModuleFile{file=f,moduleName=moduleName,reportErr=false}
          mStack:pop()
+         mt:endOP()
          dbg.print("calling mt:remove(\"",moduleName,"\")\n")
          mt:remove(moduleName)
          a[#a + 1] = true
@@ -299,7 +301,7 @@ function M.unload(...)
          a[#a + 1] = false
       end
    end
-   if (M.safeToUpdate() and mStack:empty()) then
+   if (M.safeToUpdate() and mt:safeToCheckZombies() and mStack:empty()) then
       M.reloadAll()
    end
    mcp = mcp_old
@@ -408,10 +410,12 @@ function M.load(...)
       elseif (fn) then
          dbg.print("Master:loading: \"",moduleName,"\" from f: \"",fn,"\"\n")
          mt:add(t, "pending")
+	 mt:beginOP()
          mStack:push(t.modFullName,fn)
 	 loadModuleFile{file=fn,moduleName=moduleName,reportErr=true}
          t.mType = mStack:moduleType()
          mStack:pop()
+	 mt:endOP()
          dbg.print("Making ", t.modName, " active\n")
          mt:setStatus(t.modName,"active")
          mt:set_mType(t.modName,t.mType)
@@ -420,7 +424,7 @@ function M.load(...)
       end
       a[#a+1] = loaded
    end
-   if (M.safeToUpdate() and mStack:empty()) then
+   if (M.safeToUpdate() and mt:safeToCheckZombies() and mStack:empty()) then
       dbg.print("Master:load calling reloadAll()\n")
       M.reloadAll()
    end
