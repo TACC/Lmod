@@ -84,6 +84,7 @@ function colorizePropA(style, moduleName, propT, legendT)
    local resultA
    local propDisplayT = readRC()
    local iprop        = 0
+   propT              = propT or {}
 
    for kk,vv in pairsByKeys(propDisplayT) do
       iprop        = iprop + 1
