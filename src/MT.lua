@@ -682,7 +682,7 @@ function M.remove_property(self, moduleName, name, value)
                 "\nCheck spelling and case of name\n")
    end
 
-   local propT        = entry.propT
+   local propT        = entry.propT or {}
    local t            = propT[name] or {}
 
    for v in value:split(":") do
@@ -692,6 +692,7 @@ function M.remove_property(self, moduleName, name, value)
       end
       t[v] = nil
    end
+   entry.propT       = propT
    entry.propT[name] = t
    dbg.fini()
 end
