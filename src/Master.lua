@@ -110,6 +110,40 @@ end
 
 local searchTbl = {'.lua','', '/default', '/.version'}
 
+local function followDefault(path)
+   if (path == nil) then return nil end
+   local dbg      = Dbg:dbg()
+   dbg.start("followDefault(path=\"",path,"\")")
+   local attr = lfs.symlinkattributes(path)
+   local result = path
+   if (attr == nil) then
+      result = nil
+   elseif (attr.mode == "link") then
+      local rl = posix.readlink(path)
+      local a  = {}
+      local n  = 0
+      for s in path:split("/") do
+         n = n + 1
+         a[n] = s or ""
+      end
+
+      a[n] = ""
+      local i  = n
+      for s in rl:split("/") do
+         if (s == "..") then
+            i = i - 1
+         else
+            a[i] = s
+            i    = i + 1
+         end
+      end
+      result = concatTbl(a,"/")
+   end
+   dbg.print("result: ",result,"\n")
+   dbg.fini()
+   return result
+end
+
 
 local function find_module_file(moduleName)
    local dbg      = Dbg:dbg()
@@ -154,7 +188,8 @@ local function find_module_file(moduleName)
             found     = true
          end
          if (found and v == '/default' and ii == 1) then
-            result    = abspath(result, localDir)
+            result    = followDefault(result)
+            dbg.print("(2) result: ",result, " f: ", f, "\n")
             t.default = 1
          elseif (found and v == '/.version' and ii == 1) then
             local vf = M.versionFile(result)
@@ -171,6 +206,10 @@ local function find_module_file(moduleName)
             else
                extra = result
             end
+            dbg.print("i: ",tostring(i)," j: ", tostring(j),"\n")
+            dbg.print("result: ",result,"\n")
+            dbg.print("fn:     ",fn,"\n")
+            dbg.print("extra:  ",extra,"\n")
             extra    = extra:gsub("%.lua$","")
             fullName = moduleName .. extra
             break
