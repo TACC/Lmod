@@ -422,7 +422,7 @@ function M.conflict(self, ...)
    local mStack = ModuleStack:moduleStack()
    local mName  = mStack:moduleName()
    for _,v in ipairs{...} do
-      if (mt:have(v,"active")) then
+      if (mt:haveSN(v,"active")) then
          a[#a+1] = v
       end
    end

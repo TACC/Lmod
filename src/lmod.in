@@ -441,7 +441,7 @@ function UsrLoad(...)
             v = v:sub(2)
          end
          a[#a + 1] = v
-         if (mt:have(v,"active")) then
+         if (mt:haveSN(v,"active")) then
             MCP:unload(v)
          end
       end
@@ -572,7 +572,7 @@ local function Swap(...)
    end
 
    local mt     = MT:mt()
-   if (not mt:have(a,"any")) then
+   if (not mt:haveSN(a,"any")) then
       LmodError("Swap failed: \"",a,"\" is not loaded.\n")
    end
 

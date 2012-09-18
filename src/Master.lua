@@ -318,11 +318,11 @@ function M.unload(...)
    a = {}
    for _, moduleName in ipairs{...} do
       dbg.print("Trying to unload: ", moduleName, "\n")
-      if (mt:have(moduleName,"inactive")) then
+      if (mt:haveSN(moduleName,"inactive")) then
          dbg.print("Removing inactive module: ", moduleName, "\n")
          mt:remove(moduleName)
          a[#a + 1] = true
-      elseif (mt:have(moduleName,"active")) then
+      elseif (mt:haveSN(moduleName,"active")) then
          dbg.print("Mark ", moduleName, " as pending\n")
          mt:setStatus(moduleName,"pending")
          local f              = mt:fileName(moduleName)
@@ -371,7 +371,7 @@ end
 
 local function access_find_module_file(moduleName)
    local mt = MT:mt()
-   if (mt:have(moduleName, "any")) then
+   if (mt:haveSN(moduleName, "any")) then
       local full = mt:fullName(moduleName) 
       return mt:fileName(moduleName), full or ""
    end
@@ -438,7 +438,7 @@ function M.load(...)
       local loaded  = false
       local t	    = find_module_file(moduleName)
       local fn      = t.fn
-      if (mt:have(moduleName,"active") and fn  ~= mt:fileName(moduleName)) then
+      if (mt:haveSN(moduleName,"active") and fn  ~= mt:fileName(moduleName)) then
          dbg.print("Master:load reload module: \"",moduleName,"\" as it is already loaded\n")
          local mcp_old = mcp
          mcp           = MCP
