@@ -14,6 +14,6 @@ setenv ML_DIR   $PKG_DIR/lmod/lmod/libexec/
 
 setenv BASH_ENV $PKG_DIR/lmod/lmod/init/bash
 
-alias module  'eval `'$LMOD_CMD' csh \!*'
-alias ml      'eval `'$ML_DIR/ml_cmd' \!*'
-
+alias module  'eval `'$PKG_DIR/lmod/lmod/libexec/lmod' csh \!*`'
+alias ml      'eval `'$ML_DIR/ml_cmd' \!*`'
+alias getmt   $PKG_DIR/lmod/lmod/libexec/getmt
