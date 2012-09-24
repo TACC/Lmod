@@ -43,7 +43,7 @@ SET_BASE_DIR()
   SUDO=""
   
   case $SYSHOST in
-    mclay-d630 | mijo | jedrik | vato | vmijo)
+    mclay-d630 | mijo | jedrik | vato | vmijo | rios)
       SUDO="sudo"
       base="/opt/apps";;
     
