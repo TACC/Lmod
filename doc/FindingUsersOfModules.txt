@@ -1,5 +1,4 @@
 
-
                   Finding users of particular modules
                   -----------------------------------
                            R. T. McLay
@@ -7,32 +6,43 @@
 Here are the steps required to produce the list of users that have
 used particular modules.
 
-A) On Ranger go to /share/tacc_admin/moduleUsage,  On Longhorn go to
-   /share/tacc_admin/moduleUsage.  On Lonestar go to
-   /home1/tacc_admin/moduleUsage.
+1. Login as root to the machine of interest.
 
-B) Must add lmod programs to PATH.  Try doing:
+2. Remember that root has no modules loaded by default (in fact root will
+   not even recognize the module command).  Remedy this sourcing 
+   Execute
+
+      $ . ~/sourceme
+
+   or the equivalent.
+
+3. You need access to the lower level lmod utilities.  Do:
 
       $ module load lmod
-
-   If that does not work then do:
+   
+   if this doesn't work then do: 
 
       $ export PATH=/opt/apps/lmod/lmod/libexec:$PATH
 
-C) To generate a new list of modules do
+
+4. On Ranger go to /share/tacc_admin/moduleUsage,  
+   On Longhorn go to /share/tacc_admin/moduleUsage.
+   On Lonestar go to /home1/tacc_admin/moduleUsage.
+
+5. To generate a new list of modules do
 
       $ spider -o list $LMOD_DEFAULT_MODULEPATH > modules.list
 
+         NOTE: you run "spider" here, not "module spider"
 
-D) Run grep on modules.list to get the absolute path of the modules
+6. Run grep on modules.list to get the absolute path of the modules
    you are interested in.  As an example suppose you want to find the
    list of users still using petsc 2.3.3 as well as slepc 2.3.3 etc.
 
       $ grep 2.3.3 modules.list > petsc_2.3.3.list
 
 
-E) Run "reportUsers" to find out what modules are being used.
-
+7. Run "reportUsers" to find out what modules are being used.
 
       $ reportUsers -f petsc_2.3.3.list --m2u=petsc.m2u --u2m=petsc.u2m *.csv
 
@@ -41,11 +51,18 @@ E) Run "reportUsers" to find out what modules are being used.
    users of that module; and petsc.u2m which lists users and the
    particular modules they used.
 
-
-F) If you just wish to know the number loads of particular modules and not
-   which users then one can do:
-
+8. If you just wish to know the number of loads of particular modules and not
+   which users, execute the following:
 
       $ processModuleUsage -f modules.list *.csv > ModulesUsed.txt
 
 
+
+-------------------------------------------------------
+
+Revision History
+****************
+
+19 Sep 2012 -- miscellaneous corrections based on djames' experience with the tool
+
+      
