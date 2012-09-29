@@ -36,9 +36,10 @@ local getenv = os.getenv
 local rep    = string.rep
 
 
+require("strict")
+require("pager")
 require("fileOps")
 require("myGlobals")
-require("strict")
 require("firstInPath")
 MasterControl = require("MasterControl")
 MCP           = {}
@@ -155,14 +156,22 @@ Listing / Searching sub-commands:
   spider           modulefile            List all possible version of that
                                          module file
   spider           string                List all module that contain the
-                                         string.  Simple regular expression
-                                         supported: "[Mm]pi"
+                                         string.  
   spider           modulefile/version    Detailed information about that
                                          version of the module
   whatis           modulefile            print whatis information about module
   keyword | key    string                search all name and whatis that contain
-                                         "string". Simple regular expression
-                                         supported: "^p"
+                                         "string". 
+
+
+Searching with Lmod:
+  All searching (spider, list, avail, keyword) support simple regular expressions:
+
+  spider        '^p'                     finds all the modules that start with
+                                         `p' or `P'
+
+  spider        mpi                      finds all modules that have "mpi" in
+                                         their name.
 
 Setting/Getting Default module sub-commands:
   setdefault | sd                        Save the current list of modules
@@ -797,6 +806,7 @@ function SpiderCmd(...)
       s = concatTbl(a,"\n")
    end
    io.stderr:write(s,"\n")
+   --pager(io.stderr, s,"\n")
    dbg.fini()
 end
 

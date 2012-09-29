@@ -7,6 +7,7 @@ require("fileOps")
 require("fillWords")
 require("capture")
 require("pairsByKeys")
+require("pager")
 
 local M = {}
 
@@ -522,6 +523,7 @@ function M.spiderSearch(dbT, mname, help)
             found = true
          end
          if (s) then
+            --pager(io.stderr, s,"\n")
             io.stderr:write(s,"\n")
          end
       end
