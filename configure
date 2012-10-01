@@ -557,9 +557,14 @@ ac_unique_file="Makefile.in"
 ac_default_prefix=/usr/local
 ac_subst_vars='LTLIBOBJS
 LIBOBJS
+pkgConfig
+LUA_LIB
+LUA_INCLUDE
 luaprog
+pager
 PATH_TO_HASHSUM
 PATH_TO_LUA
+PATH_TO_PAGER
 SPIDER_CACHE_DIR
 SHORT_TIME
 ANCIENT
@@ -1749,6 +1754,7 @@ fi
 
 
 
+
 for ac_prog in sha1sum md5sum
 do
   # Extract the first word of "$ac_prog", so it can be a program name with args.
@@ -1794,6 +1800,49 @@ fi
   test -n "$PATH_TO_HASHSUM" && break
 done
 test -n "$PATH_TO_HASHSUM" || PATH_TO_HASHSUM=""""
+
+# Extract the first word of "more", so it can be a program name with args.
+set dummy more; ac_word=$2
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
+$as_echo_n "checking for $ac_word... " >&6; }
+if test "${ac_cv_path_pager+set}" = set; then :
+  $as_echo_n "(cached) " >&6
+else
+  case $pager in
+  [\\/]* | ?:[\\/]*)
+  ac_cv_path_pager="$pager" # Let the user override the test with a path.
+  ;;
+  *)
+  as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
+for as_dir in $PATH
+do
+  IFS=$as_save_IFS
+  test -z "$as_dir" && as_dir=.
+    for ac_exec_ext in '' $ac_executable_extensions; do
+  if { test -f "$as_dir/$ac_word$ac_exec_ext" && $as_test_x "$as_dir/$ac_word$ac_exec_ext"; }; then
+    ac_cv_path_pager="$as_dir/$ac_word$ac_exec_ext"
+    $as_echo "$as_me:${as_lineno-$LINENO}: found $as_dir/$ac_word$ac_exec_ext" >&5
+    break 2
+  fi
+done
+  done
+IFS=$as_save_IFS
+
+  test -z "$ac_cv_path_pager" && ac_cv_path_pager=""""
+  ;;
+esac
+fi
+pager=$ac_cv_path_pager
+if test -n "$pager"; then
+  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $pager" >&5
+$as_echo "$pager" >&6; }
+else
+  { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+$as_echo "no" >&6; }
+fi
+
+
+PATH_TO_PAGER=$pager
 
 # Extract the first word of "lua", so it can be a program name with args.
 set dummy lua; ac_word=$2
@@ -1877,6 +1926,65 @@ fi
 
 echo "... yes"
 
+
+
+
+LUA_INCLUDE=$PATH_TO_LUA_DIR/include
+LUA_LIB=$PATH_TO_LUA_DIR/lib
+
+if ! test -f $LUA_INCLUDE/lua.h; then
+  # Extract the first word of "pkg-config", so it can be a program name with args.
+set dummy pkg-config; ac_word=$2
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
+$as_echo_n "checking for $ac_word... " >&6; }
+if test "${ac_cv_path_pkgConfig+set}" = set; then :
+  $as_echo_n "(cached) " >&6
+else
+  case $pkgConfig in
+  [\\/]* | ?:[\\/]*)
+  ac_cv_path_pkgConfig="$pkgConfig" # Let the user override the test with a path.
+  ;;
+  *)
+  as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
+for as_dir in $PATH
+do
+  IFS=$as_save_IFS
+  test -z "$as_dir" && as_dir=.
+    for ac_exec_ext in '' $ac_executable_extensions; do
+  if { test -f "$as_dir/$ac_word$ac_exec_ext" && $as_test_x "$as_dir/$ac_word$ac_exec_ext"; }; then
+    ac_cv_path_pkgConfig="$as_dir/$ac_word$ac_exec_ext"
+    $as_echo "$as_me:${as_lineno-$LINENO}: found $as_dir/$ac_word$ac_exec_ext" >&5
+    break 2
+  fi
+done
+  done
+IFS=$as_save_IFS
+
+  test -z "$ac_cv_path_pkgConfig" && ac_cv_path_pkgConfig=""""
+  ;;
+esac
+fi
+pkgConfig=$ac_cv_path_pkgConfig
+if test -n "$pkgConfig"; then
+  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $pkgConfig" >&5
+$as_echo "$pkgConfig" >&6; }
+else
+  { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+$as_echo "no" >&6; }
+fi
+
+
+  if  ! test x$pkgConfig = "x"; then
+    for i in lua5.2 lua5.1 lua; do
+      $pkgConfig --exists $i
+      if test $? = 0; then
+        LUA_INCLUDE=`$pkgConfig --cflags $i | sed -e 's/^-I//'`
+	LUA_LIB=`$pkgConfig --libs $i`
+        break
+      fi
+    done
+  fi
+fi
 
 ac_config_files="$ac_config_files makefile:Makefile.in"
 

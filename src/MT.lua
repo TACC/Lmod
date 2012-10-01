@@ -720,34 +720,6 @@ function M.remove_property(self, moduleName, name, value)
 end
 
 
-Foreground = "\027".."[1;"
-colorT =
-   {
-   black      = "30",
-   red        = "31",
-   green      = "32",
-   yellow     = "33",
-   blue       = "34",
-   magenta    = "35",
-   cyan       = "36",
-   white      = "37",
-}
-
-function colorize(s,color)
-   if (color == nil or s == "") then
-      return s
-   end
-
-   local a = {}
-   a[#a+1] = Foreground
-   a[#a+1] = colorT[color]
-   a[#a+1] = 'm'
-   a[#a+1] = s
-   a[#a+1] = "\027" .. "[0m"
-
-   return concatTbl(a,"")
-end
-
 function M.list_property(self, idx, moduleName, style, legendT)
    local dbg    = Dbg:dbg()
    dbg.start("MT:list_property(\"",moduleName,"\", \"",style,"\")")

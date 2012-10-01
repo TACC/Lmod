@@ -13,7 +13,7 @@ export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/delim/mf/Core";
 export MODULEPATH;
 export _ModuleTable_Sz_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/delim/mf/Core",},family={},inactive={},mT={},mpathA={"ProjectDIR/rt/delim/mf/Core",},["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/delim/mf/Core",},["cacheMsg"]=true,family={},inactive={},mT={},mpathA={"ProjectDIR/rt/delim/mf/Core",},["version"]=2,}';
 export _ModuleTable_;
 ===========================
 step 3
@@ -31,7 +31,7 @@ export RTM_LUA_CPATH;
 RTM_LUA_PATH="/opt/apps/luaposix/luaposix/?.lua;/opt/apps/luaposix/luaposix/?";
 export RTM_LUA_PATH;
 export _ModuleTable_Sz_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/delim/mf/Core",},family={},inactive={},mT={luaposix={["FN"]="ProjectDIR/rt/delim/mf/Core/luaposix/1.0.lua",["default"]=1,["fullName"]="luaposix/1.0",["loadOrder"]=1,["mType"]="w",propT={},["short"]="luaposix",["status"]="active",},},mpathA={"ProjectDIR/rt/delim/mf/Core",},["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/delim/mf/Core",},["cacheMsg"]=true,family={},inactive={},mT={luaposix={["FN"]="ProjectDIR/rt/delim/mf/Core/luaposix/1.0.lua",["default"]=1,["fullName"]="luaposix/1.0",["loadOrder"]=1,["mType"]="w",propT={},["short"]="luaposix",["status"]="active",},},mpathA={"ProjectDIR/rt/delim/mf/Core",},["version"]=2,}';
 export _ModuleTable_;
 ===========================
 step 4
@@ -47,7 +47,7 @@ export MODULEPATH;
 unset RTM_LUA_CPATH;
 unset RTM_LUA_PATH;
 export _ModuleTable_Sz_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/delim/mf/Core",},family={},inactive={},mT={},mpathA={"ProjectDIR/rt/delim/mf/Core",},["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/delim/mf/Core",},["cacheMsg"]=true,family={},inactive={},mT={},mpathA={"ProjectDIR/rt/delim/mf/Core",},["version"]=2,}';
 export _ModuleTable_;
 ===========================
 step 5
@@ -65,7 +65,7 @@ export RTM_LUA_CPATH;
 RTM_LUA_PATH=";;";
 export RTM_LUA_PATH;
 export _ModuleTable_Sz_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/delim/mf/Core",},family={},inactive={},mT={init_lua={["FN"]="ProjectDIR/rt/delim/mf/Core/init_lua/5.1.4.lua",["default"]=1,["fullName"]="init_lua/5.1.4",["loadOrder"]=1,["mType"]="w",propT={},["short"]="init_lua",["status"]="active",},},mpathA={"ProjectDIR/rt/delim/mf/Core",},["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/delim/mf/Core",},["cacheMsg"]=true,family={},inactive={},mT={init_lua={["FN"]="ProjectDIR/rt/delim/mf/Core/init_lua/5.1.4.lua",["default"]=1,["fullName"]="init_lua/5.1.4",["loadOrder"]=1,["mType"]="w",propT={},["short"]="init_lua",["status"]="active",},},mpathA={"ProjectDIR/rt/delim/mf/Core",},["version"]=2,}';
 export _ModuleTable_;
 ===========================
 step 6
@@ -83,7 +83,7 @@ export RTM_LUA_CPATH;
 RTM_LUA_PATH="/opt/apps/luaposix/luaposix/?.lua;/opt/apps/luaposix/luaposix/?;;";
 export RTM_LUA_PATH;
 export _ModuleTable_Sz_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/delim/mf/Core",},family={},inactive={},mT={init_lua={["FN"]="ProjectDIR/rt/delim/mf/Core/init_lua/5.1.4.lua",["default"]=1,["fullName"]="init_lua/5.1.4",["loadOrder"]=1,["mType"]="w",propT={},["short"]="init_lua",["status"]="active",},luaposix={["FN"]="ProjectDIR/rt/delim/mf/Core/luaposix/1.0.lua",["default"]=1,["fullName"]="luaposix/1.0",["loadOrder"]=2,["mType"]="w",propT={},["short"]="luaposix",["status"]="active",},},mpathA={"ProjectDIR/rt/delim/mf/Core",},["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/delim/mf/Core",},["cacheMsg"]=true,family={},inactive={},mT={init_lua={["FN"]="ProjectDIR/rt/delim/mf/Core/init_lua/5.1.4.lua",["default"]=1,["fullName"]="init_lua/5.1.4",["loadOrder"]=1,["mType"]="w",propT={},["short"]="init_lua",["status"]="active",},luaposix={["FN"]="ProjectDIR/rt/delim/mf/Core/luaposix/1.0.lua",["default"]=1,["fullName"]="luaposix/1.0",["loadOrder"]=2,["mType"]="w",propT={},["short"]="luaposix",["status"]="active",},},mpathA={"ProjectDIR/rt/delim/mf/Core",},["version"]=2,}';
 export _ModuleTable_;
 ===========================
 step 7
@@ -110,7 +110,7 @@ export MODULEPATH;
 unset RTM_LUA_CPATH;
 unset RTM_LUA_PATH;
 export _ModuleTable_Sz_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/delim/mf/Core",},family={},inactive={},mT={},mpathA={"ProjectDIR/rt/delim/mf/Core",},["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/delim/mf/Core",},["cacheMsg"]=true,family={},inactive={},mT={},mpathA={"ProjectDIR/rt/delim/mf/Core",},["version"]=2,}';
 export _ModuleTable_;
 ===========================
 step 9
@@ -138,7 +138,7 @@ export MODULEPATH;
 NCAR_LIB_INTEL="-Wl,-rpath,/opt/intel/composer_xe_2011_sp1.6.233/compiler/lib/intel64";
 export NCAR_LIB_INTEL;
 export _ModuleTable_Sz_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/delim/mf/Core",},family={},inactive={},mT={ncarIntel={["FN"]="ProjectDIR/rt/delim/mf/Core/ncarIntel/1.0.lua",["default"]=1,["fullName"]="ncarIntel/1.0",["loadOrder"]=1,["mType"]="w",propT={},["short"]="ncarIntel",["status"]="active",},},mpathA={"ProjectDIR/rt/delim/mf/Core",},["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/delim/mf/Core",},["cacheMsg"]=true,family={},inactive={},mT={ncarIntel={["FN"]="ProjectDIR/rt/delim/mf/Core/ncarIntel/1.0.lua",["default"]=1,["fullName"]="ncarIntel/1.0",["loadOrder"]=1,["mType"]="w",propT={},["short"]="ncarIntel",["status"]="active",},},mpathA={"ProjectDIR/rt/delim/mf/Core",},["version"]=2,}';
 export _ModuleTable_;
 ===========================
 step 11
@@ -154,7 +154,7 @@ export MODULEPATH;
 NCAR_LIB_INTEL="-Wl,-rpath,/opt/intel/composer_xe_2011_sp1.6.233/compiler/lib/intel64 -L/opt/netcdf/3.6.3/intel/12.1.0/lib -lnetcdf -lnetcdff -Wl,-rpath,/opt/netcdf/3.6.3/intel/12.1.0/lib";
 export NCAR_LIB_INTEL;
 export _ModuleTable_Sz_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/delim/mf/Core",},family={},inactive={},mT={ncarIntel={["FN"]="ProjectDIR/rt/delim/mf/Core/ncarIntel/1.0.lua",["default"]=1,["fullName"]="ncarIntel/1.0",["loadOrder"]=1,["mType"]="w",propT={},["short"]="ncarIntel",["status"]="active",},ncarNetcdf={["FN"]="ProjectDIR/rt/delim/mf/Core/ncarNetcdf/1.0.lua",["default"]=1,["fullName"]="ncarNetcdf/1.0",["loadOrder"]=2,["mType"]="w",propT={},["short"]="ncarNetcdf",["status"]="active",},},mpathA={"ProjectDIR/rt/delim/mf/Core",},["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/delim/mf/Core",},["cacheMsg"]=true,family={},inactive={},mT={ncarIntel={["FN"]="ProjectDIR/rt/delim/mf/Core/ncarIntel/1.0.lua",["default"]=1,["fullName"]="ncarIntel/1.0",["loadOrder"]=1,["mType"]="w",propT={},["short"]="ncarIntel",["status"]="active",},ncarNetcdf={["FN"]="ProjectDIR/rt/delim/mf/Core/ncarNetcdf/1.0.lua",["default"]=1,["fullName"]="ncarNetcdf/1.0",["loadOrder"]=2,["mType"]="w",propT={},["short"]="ncarNetcdf",["status"]="active",},},mpathA={"ProjectDIR/rt/delim/mf/Core",},["version"]=2,}';
 export _ModuleTable_;
 ===========================
 step 12
@@ -170,5 +170,5 @@ export MODULEPATH;
 NCAR_LIB_INTEL="-Wl,-rpath,/opt/intel/composer_xe_2011_sp1.6.233/compiler/lib/intel64";
 export NCAR_LIB_INTEL;
 export _ModuleTable_Sz_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/delim/mf/Core",},family={},inactive={},mT={ncarIntel={["FN"]="ProjectDIR/rt/delim/mf/Core/ncarIntel/1.0.lua",["default"]=1,["fullName"]="ncarIntel/1.0",["loadOrder"]=1,["mType"]="w",propT={},["short"]="ncarIntel",["status"]="active",},},mpathA={"ProjectDIR/rt/delim/mf/Core",},["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/delim/mf/Core",},["cacheMsg"]=true,family={},inactive={},mT={ncarIntel={["FN"]="ProjectDIR/rt/delim/mf/Core/ncarIntel/1.0.lua",["default"]=1,["fullName"]="ncarIntel/1.0",["loadOrder"]=1,["mType"]="w",propT={},["short"]="ncarIntel",["status"]="active",},},mpathA={"ProjectDIR/rt/delim/mf/Core",},["version"]=2,}';
 export _ModuleTable_;

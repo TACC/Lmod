@@ -1,7 +1,7 @@
 ===========================
 step 1
 ===========================
-Modules based on Lua: Version 3.6.3.2 2012-09-08 15:45
+Modules based on Lua: Version 3.6.3.9 2012-09-18 08:03
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -13,10 +13,10 @@ step 3
 step 4
 ===========================
 Currently Loaded Modules:
-  1) PrgEnv         3) a/1.0       5) [1;34mc/1.0[0m [1;34m(o)[0m
-  2) [1;35mmkl/10.3[0m [1;35m(*)[0m   4) [1;34mb/1.0[0m [1;34m(m)[0m   6) [1;31md/1.0[0m [1;31m(@)[0m
+  1) PrgEnv         3) a/1.0       5) c/1.0 (o)
+  2) mkl/10.3 (*)   4) b/1.0 (m)   6) d/1.0 (@)
   Where:
-   [1;31m(@)[0m:  module is build natively for MIC and GPU and offload to the MIC
-   [1;34m(m)[0m:  module is build natively for MIC
-   [1;34m(o)[0m:  module is build for offload to the MIC
-   [1;35m(*)[0m:  module is build natively for MIC and offload to the MIC
+   (*):  module is build natively for MIC and offload to the MIC
+   (@):  module is build natively for MIC and GPU and offload to the MIC
+   (m):  module is build natively for MIC
+   (o):  module is build for offload to the MIC

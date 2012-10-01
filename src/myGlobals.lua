@@ -85,3 +85,13 @@ adminT         = {}
 --                        is written to when computing the sha1sum
 ------------------------------------------------------------------------
 ComputeModuleResultsA = {}
+
+------------------------------------------------------------------------
+-- colorize:  It is a colorizer when connected to a term and plain when not
+------------------------------------------------------------------------
+
+colorize      = false
+------------------------------------------------------------------------
+-- pager:     pipe output through more when connectted to a term 
+------------------------------------------------------------------------
+pager         = false

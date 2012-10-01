@@ -613,12 +613,17 @@ function M.prtReloadT(self)
    end
 end
 
-local function prtDirName(width,path)
+local function prtDirName(width,path,a)
    local len     = path:len()
    local lcount  = floor((width - (len + 2))/2)
    local rcount  = width - lcount - len - 2
-   io.stderr:write("\n",string.rep("-",lcount)," ",path,
-                   " ", string.rep("-",rcount),"\n")
+   a[#a+1] = "\n"
+   a[#a+1] = string.rep("-",lcount)
+   a[#a+1] = " "
+   a[#a+1] = path
+   a[#a+1] = " "
+   a[#a+1] = string.rep("-",rcount)
+   a[#a+1] = "\n"
 end
 
 
@@ -766,10 +771,7 @@ function M.avail(searchA)
    local dbg    = Dbg:dbg()
    dbg.start("Master.avail(",concatTbl(searchA,", "),")")
    local mpathA = MT:mt():module_pathA()
-   local width  = 80
-   if (getenv("TERM")) then
-      width  = TermWidth()
-   end
+   local width  = TermWidth()
 
    local mcp_old = mcp
    mcp           = MasterControl.build("spider")
@@ -782,38 +784,48 @@ function M.avail(searchA)
 
    local legendT = {}
 
+   local aa = {}
+
    for _,path in ipairs(mpathA) do
       local a = {}
       availDir(searchA, path, path, '', dbT, a, legendT)
       if (next(a)) then
-         prtDirName(width, path)
+         prtDirName(width, path,aa)
          sort(a, function (a,b)
                  local x = a[2]:gsub("\027[^m]+m","")
                  local y = b[2]:gsub("\027[^m]+m","")
                  return x < y
                  end)
          local ct  = ColumnTable:new{tbl=a,gap=1, len=length}
-         io.stderr:write(ct:build_tbl(),"\n")
+         aa[#aa+1] = ct:build_tbl()
+         aa[#aa+1] = "\n"
       end
    end
 
    if (next(legendT)) then
       local term_width = TermWidth()
-      io.stderr:write("\n  Where:\n")
+      aa[#aa+1] = "\n  Where:\n"
       local a = {}
       for k, v in pairsByKeys(legendT) do
          a[#a+1] = { "   " .. k ..":", v}
       end
       local bt = BeautifulTbl:new{tbl=a, column = term_width-1, len=length}
-      io.stderr:write(bt:build_tbl(),"\n")
+      aa[#aa+1] = bt:build_tbl()
+      aa[#aa+1] = "\n"
    end
    
 
    if (not expert()) then
       local a = fillWords("","Use \"module spider\" to find all possible modules.",width)
-      local b = fillWords("","Use \"module keyword key1 key2 ...\" to search for all possible modules matching any of the \"keys\".",width)
-      io.stderr:write("\n",a,"\n",b, "\n\n")
+      local b = fillWords("","Use \"module keyword key1 key2 ...\" to search for all " ..
+                             "possible modules matching any of the \"keys\".",width)
+      aa[#aa+1] = "\n"
+      aa[#aa+1] = a
+      aa[#aa+1] = "\n"
+      aa[#aa+1] = b
+      aa[#aa+1] = "\n\n"
    end
+   pager(io.stderr,concatTbl(aa,""))
    dbg.fini()
 end
 

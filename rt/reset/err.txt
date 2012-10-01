@@ -1,7 +1,7 @@
 ===========================
 step 1
 ===========================
-Modules based on Lua: Version 3.6.3.2 2012-09-08 15:45
+Modules based on Lua: Version 3.6.3.9 2012-09-18 08:03
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -21,9 +21,9 @@ step 6
 ===========================
 Currently Loaded Modules:
   1) admin/admin-1.0    3) unix/unix      5) intel/intel    7) openmpi/1.2.6
-  2) PrgEnv             4) local/local    6) noweb/2.10c    8) [1;34mparmetis/3.1[0m  [1;34m(m)[0m
+  2) PrgEnv             4) local/local    6) noweb/2.10c    8) parmetis/3.1  (m)
   Where:
-   [1;34m(m)[0m:  module is build natively for MIC
+   (m):  module is build natively for MIC
 ===========================
 step 7
 ===========================
@@ -31,6 +31,6 @@ step 7
 step 8
 ===========================
 Currently Loaded Modules:
-  1) admin/admin-1.0    2) intel/intel    3) openmpi/1.2.6    4) [1;34mparmetis/3.1[0m [1;34m(m)[0m
+  1) admin/admin-1.0    2) intel/intel    3) openmpi/1.2.6    4) parmetis/3.1 (m)
   Where:
-   [1;34m(m)[0m:  module is build natively for MIC
+   (m):  module is build natively for MIC

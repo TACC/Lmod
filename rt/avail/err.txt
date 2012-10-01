@@ -1,7 +1,7 @@
 ===========================
 step 1
 ===========================
-Modules based on Lua: Version 3.6.3.3 2012-09-09 11:18
+Modules based on Lua: Version 3.6.3.9 2012-09-18 08:03
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -11,8 +11,8 @@ step 2
    admin/admin-1.0     (D)    git/1.7.4.3    (D)    local/local      (D)
    alex/1.0                   gotoblas/1.20         multi/multi      (D)
    boost/1.46.0               gotoblas/1.26  (D)    noweb/2.10c      (D)
-   boost/1.47.1               gotoblas/1.30         [1;34mparmetis/3.1[0m [1;34m(m)[0m
-   [1;34mboost/1.49.0[0m    [1;34m(o)[0m (D)    intel/intel    (D)    unix/unix        (D)
+   boost/1.47.1               gotoblas/1.30         parmetis/3.1 (m)
+   boost/1.49.0    (o) (D)    intel/intel    (D)    unix/unix        (D)
    gcc/4.2.3                  junk/a/c/1.0
    git/1.6.3.1                junk/b/c/2.0
  ProjectDIR/mf/Compiler/intel/10.1 
@@ -22,9 +22,9 @@ step 2
    bar/1.4             baz/1.4      (D)    foo/1.4      (D)
    bar/1.4-dbg  (D)    baz/1.4-dbg         foo/1.4-dbg
   Where:
-   [1;34m(m)[0m:  module is build natively for MIC
-   [1;34m(o)[0m:  module is build for offload to the MIC
    (D):  Default Module
+   (m):  module is build natively for MIC
+   (o):  module is build for offload to the MIC
 Use "module spider" to find all possible modules. 
 Use "module keyword key1 key2 ..." to search for all possible modules matching 
 any of the "keys". 
@@ -34,7 +34,7 @@ step 3
  ProjectDIR/mf/Core 
    admin/admin-1.0  (D)    gotoblas/1.30         local/local      (D)
    alex/1.0                intel/intel    (D)    multi/multi      (D)
-   gcc/4.2.3               junk/a/c/1.0          [1;34mparmetis/3.1[0m [1;34m(m)[0m
+   gcc/4.2.3               junk/a/c/1.0          parmetis/3.1 (m)
    gotoblas/1.20           junk/b/c/2.0
    gotoblas/1.26    (D)    junk/d/3.0
  ProjectDIR/mf/Compiler/intel/10.1 
@@ -43,8 +43,8 @@ step 3
  ProjectDIR/rt/avail/mf/Core 
    bar/1.4      bar/1.4-dbg  (D)    baz/1.4  (D)    baz/1.4-dbg
   Where:
-   [1;34m(m)[0m:  module is build natively for MIC
    (D):  Default Module
+   (m):  module is build natively for MIC
 Use "module spider" to find all possible modules. 
 Use "module keyword key1 key2 ..." to search for all possible modules matching 
 any of the "keys". 
@@ -62,17 +62,17 @@ step 5
    admin/admin-1.0     (D)    git/1.7.4.3    (D)    local/local      (D)
    alex/1.0                   gotoblas/1.20         multi/multi      (D)
    boost/1.46.0               gotoblas/1.26         noweb/2.10c      (D)
-   boost/1.47.1               gotoblas/1.30         [1;34mparmetis/3.1[0m [1;34m(m)[0m
-   [1;34mboost/1.49.0[0m    [1;34m(o)[0m (D)    intel/intel    (D)    unix/unix        (D)
+   boost/1.47.1               gotoblas/1.30         parmetis/3.1 (m)
+   boost/1.49.0    (o) (D)    intel/intel    (D)    unix/unix        (D)
    gcc/4.2.3                  junk/a/c/1.0
    git/1.6.3.1                junk/b/c/2.0
  ProjectDIR/rt/avail/mf/Core 
    bar/1.4             baz/1.4      (D)    foo/1.4      (D)
    bar/1.4-dbg  (D)    baz/1.4-dbg         foo/1.4-dbg
   Where:
-   [1;34m(m)[0m:  module is build natively for MIC
-   [1;34m(o)[0m:  module is build for offload to the MIC
    (D):  Default Module
+   (m):  module is build natively for MIC
+   (o):  module is build for offload to the MIC
 Use "module spider" to find all possible modules. 
 Use "module keyword key1 key2 ..." to search for all possible modules matching 
 any of the "keys". 

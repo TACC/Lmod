@@ -11,6 +11,7 @@ sysCacheDir   = os.getenv("LMOD_SPIDER_CACHE_DIR") or "@cacheDir@"
 ancient       = tonumber(ancient)   or 86400
 shortTime     = tonumber(shortTime) or 10.0
 BaseShell     = {}
+Pager         = "@path_to_pager@"
 
 ------------------------------------------------------------------------
 -- Extract directory location of "lmod" command and add it
@@ -26,13 +27,23 @@ local LuaCommandName_dir = "./"
 if (i) then
    LuaCommandName_dir = LuaCommandName:sub(1,j)
 end
-package.path = LuaCommandName_dir .. "?.lua;" .. package.path
+package.path = LuaCommandName_dir .. "?.lua;"      ..
+               LuaCommandName_dir .. "?/init.lua;" ..
+               package.path
+
+package.cpath = LuaCommandName_dir .. "../lib/?.so;"..
+               package.cpath
 
 ------------------------------------------------------------------------
 -- Try to load a SitePackage Module,  If it is not there then do not
 -- abort.  Sites do not have to have a Site package.
 ------------------------------------------------------------------------
 pcall(require, "SitePackage") 
+
+local term     = false
+if (pcall(require, "term")) then
+   term = require("term")
+end
 
 
 function cmdDir()
@@ -44,16 +55,18 @@ local rep    = string.rep
 
 
 require("strict")
+require("myGlobals")
 require("pager")
 require("fileOps")
-require("myGlobals")
 require("firstInPath")
 MasterControl = require("MasterControl")
 MCP           = {}
 mcp           = {}
 require("modfuncs")
 require("cmdfuncs")
+require("colorize")
 local Dbg       = require("Dbg")
+
 local Version   = require("Version")
 local concatTbl = table.concat
 
@@ -111,14 +124,14 @@ function colorizePropA(style, moduleName, propT, legendT)
          if (vv.displayT[n]) then
             result     = vv.displayT[n][style]
             color      = vv.displayT[n].color
-            local k    = colorize(result,color)
+            local k    = colorize(color,result)
             legendT[k] = vv.displayT[n].doc
          end
       end
       if (iprop == 1) then
-         resultA = { colorize(moduleName,color), colorize(result,color)}
+         resultA = { colorize(color,moduleName), colorize(color,result)}
       else
-         resultA[#resultA+1] = colorize(result,color)
+         resultA[#resultA+1] = colorize(color,result)
       end
    end
 
@@ -817,8 +830,7 @@ function SpiderCmd(...)
       end
       s = concatTbl(a,"\n")
    end
-   io.stderr:write(s,"\n")
-   --pager(io.stderr, s,"\n")
+   pager(io.stderr, s, "\n")
    dbg.fini()
 end
 
@@ -973,6 +985,21 @@ function main()
    --for k in pairs(unTbl) do
    --   UnLoadTbl[k] = unTbl[k]
    --end
+
+   -------------------------------------------------------------------
+   -- Is io.stderr connected to a tty or not?
+   -- Setup output and pager routines
+   colorize = plain
+   pager    = bypassPager
+   
+   if (term) then
+      if (term.isatty(io.stderr)) then
+         colorize = full_colorize
+         pager    = usePager
+      end
+   end
+
+
 
    local shell = barefilename(arg[1])
    table.remove(arg,1)

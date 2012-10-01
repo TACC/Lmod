@@ -51,9 +51,13 @@ AC_ARG_WITH(spiderCacheDir,
     SPIDER_CACHE_DIR="$withval"
     AC_DEFINE_UNQUOTED(SPIDER_CACHE_DIR, "$withval"))dnl
 
+AC_SUBST(PATH_TO_PAGER)
 AC_SUBST(PATH_TO_LUA)
 AC_SUBST(PATH_TO_HASHSUM)
 AC_PATH_PROGS(PATH_TO_HASHSUM, [sha1sum] [md5sum], "")
+AC_PATH_PROG(pager,[more], "")
+PATH_TO_PAGER=$pager
+
 AC_PATH_PROG(luaprog, lua, "")
 if test x$luaprog = "x"; then
   echo The program "lua" must be in your path
@@ -96,6 +100,25 @@ fi
 
 echo "... yes"
     
+AC_SUBST(LUA_INCLUDE)
+AC_SUBST(LUA_LIB)
+
+LUA_INCLUDE=$PATH_TO_LUA_DIR/include
+LUA_LIB=$PATH_TO_LUA_DIR/lib
+
+if ! test -f $LUA_INCLUDE/lua.h; then
+  AC_PATH_PROG(pkgConfig, pkg-config, "")
+  if  ! test x$pkgConfig = "x"; then
+    for i in lua5.2 lua5.1 lua; do
+      $pkgConfig --exists $i
+      if test $? = 0; then
+        LUA_INCLUDE=`$pkgConfig --cflags $i | sed -e 's/^-I//'`
+	LUA_LIB=`$pkgConfig --libs $i`
+        break
+      fi
+    done
+  fi
+fi
 
 AC_OUTPUT(makefile:Makefile.in)
 

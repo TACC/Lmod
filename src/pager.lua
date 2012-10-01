@@ -1,25 +1,25 @@
 require("strict")
-require("TermWidth")
-require("string_split")
 
-function pager(f, ...)
-   local height = TermHeight()
+s_pager = false
 
-   local irow   = 0
-
+function bypassPager(f, ...)
    local arg = { n = select('#', ...), ...}
-
    for i = 1, arg.n do
-      for s in arg[i]:split("\n") do
-         irow = irow + 1
-         if (irow > height) then
-            irow = 0
-            f:write("MORE:")
-            local t = io.read(1)
-            f:write("\r")
-         end
-         f:write(s,"\n")
-      end
+      f:write(arg[i])
    end
 end
+
+
+function usePager(f, ...)
+   if (not s_pager) then
+      s_pager = os.getenv("PAGER") or Pager
+   end
+   local arg = { n = select('#', ...), ...}
+   local p = io.popen(s_pager .. " 1>&2" ,"w")
+   for i = 1, arg.n do
+      p:write(arg[i])
+   end
+   p:close()
+end
    
+
