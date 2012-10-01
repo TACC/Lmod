@@ -13,6 +13,10 @@ end
 function usePager(f, ...)
    if (not s_pager) then
       s_pager = os.getenv("PAGER") or Pager
+      if (s_pager == "@PATH_TO_PAGER@") then
+         bypassPager(f, ...)
+         return
+      end
    end
    local arg = { n = select('#', ...), ...}
    local p = io.popen(s_pager .. " 1>&2" ,"w")

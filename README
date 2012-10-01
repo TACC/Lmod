@@ -1,3 +1,19 @@
+Version 3.6.4:
+  1) Now uses the env. var PAGER or /bin/more to page through
+     "module spider" and "module avail"
+
+  2) Lmod now supports properties:
+
+     add_property("arch","value1")
+     add_property("arch","value2")
+
+     See .lmodrc.lua for how to setup your properties.
+
+  3) Lmod now knows if stderr is connected to a terminal or not.
+     This means that the pager (and the color output of properties)
+     are bypassed and straight text is written out when the output
+     is a file and not a tty.
+
 Version 3.6.3:
 
   Features:
