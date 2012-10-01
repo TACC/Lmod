@@ -73,7 +73,7 @@ local function new(self, s)
    dbg.start("MT:new()")
    local o            = {}
 
-   o._cacheMsg         = true
+   o.cacheMsg         = true
    o.mT               = {}
    o.version          = 2
    o.family           = {}
@@ -153,11 +153,11 @@ end
    
 
 function M.setCacheMsg(self,value)
-   self._cacheMsg = value
+   self.cacheMsg = value
 end
 
 function M.getCacheMsg(self)
-   return self._cacheMsg
+   return self.cacheMsg
 end
 
 
