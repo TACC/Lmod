@@ -28,6 +28,13 @@ if (i) then
 end
 package.path = LuaCommandName_dir .. "?.lua;" .. package.path
 
+------------------------------------------------------------------------
+-- Try to load a SitePackage Module,  If it is not there then do not
+-- abort.  Sites do not have to have a Site package.
+------------------------------------------------------------------------
+pcall(require, "SitePackage") 
+
+
 function cmdDir()
    return LuaCommandName_dir
 end
@@ -717,16 +724,21 @@ function getModuleT()
    if (buildModuleT) then
       LmodError    = dbg.quiet
       LmodMessage  = dbg.quiet
-      io.stderr:write("Rebuilding cache file, please wait ...")
+      if (mt:getCacheMsg()) then
+         io.stderr:write("Rebuilding cache file, please wait ...")
+      end
       local t1 = epoch()
       Spider.findAllModules(moduleDirA, moduleT)
       local t2 = epoch()
-      io.stderr:write(" done\n")
+      if (mt:getCacheMsg()) then
+         io.stderr:write(" done\n")
+      end
       LmodError    = errRtn
       LmodMessage  = message
       dbg.print("t2-t1: ",t2-t1, " shortTime: ", shortTime, "\n")
       if (t2 - t1 < shortTime) then
          dbg.print("Not writing cache file.\n")
+         mt:setCacheMsg(false)
       else
          mkdir_recursive(cacheDir)
          local s0 = "-- Date: " .. os.date("%c",os.time()) .. "\n"

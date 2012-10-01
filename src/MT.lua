@@ -73,6 +73,7 @@ local function new(self, s)
    dbg.start("MT:new()")
    local o            = {}
 
+   o._cacheMsg         = true
    o.mT               = {}
    o.version          = 2
    o.family           = {}
@@ -150,6 +151,14 @@ function M.convertMT(self, v1)
    return sz   -- Return the new loadOrder number.
 end
    
+
+function M.setCacheMsg(self,value)
+   self._cacheMsg = value
+end
+
+function M.getCacheMsg(self)
+   return self._cacheMsg
+end
 
 
 local function setupMPATH(self,mpath)
