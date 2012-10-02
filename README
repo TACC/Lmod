@@ -1,65 +1,78 @@
-Version 3.6.4:
-  1) Now uses the env. var PAGER or /bin/more to page through
+------------------------------------------------------------
+Dear Users of Lmod: I have created a lmod-users mailing list.
+Please ask your questions there.  I will do my best to answer
+them. This way all can benefit from the questions and answers.
+
+In particular I am interested in feedback in whether your users
+find "ml" useful and whether they like having module spider and
+avail be piped through more or whatever the users' PAGER is.
+
+Thanks,
+------------------------------------------------------------
+
+
+
+Version 4.0:
+ Features:
+  1) A handy front end for the module command: ml
+        $ ml
+                                 means: module list
+        $ ml foo bar
+                                 means: module load foo bar
+        $ ml -foo -bar baz goo
+                                 means: module unload foo bar;
+                                        module load baz goo;
+
+     It does much more, do: "ml --help" for more information.
+
+  2) Now uses the env. var PAGER or /bin/more to page through
      "module spider" and "module avail"
 
-  2) Lmod now supports properties:
+  3) Lmod now supports properties:
 
      add_property("arch","value1")
      add_property("arch","value2")
 
      See .lmodrc.lua for how to setup your properties.
 
-  3) Lmod now knows if stderr is connected to a terminal or not.
+  4) Lmod now knows if stderr is connected to a terminal or not.
      This means that the pager (and the color output of properties)
      are bypassed and straight text is written out when the output
      is a file and not a tty.  (Thanks to pieces from lua-term:
      git://github.com/hoelzro/lua-term.git)
 
-Version 3.6.3:
 
-  Features:
-   1) A handy front end for the module command: ml
-         $ ml
-                                  means: module list
-         $ ml foo bar
-                                  means: module load foo bar
-         $ ml -foo -bar baz goo
-                                  means: module unload foo bar;
-                                         module load baz goo;
+  5) Support for shell functions under bash or csh aliases.
+     For lua module files only:
 
-      It does much more, do: "ml --help" for more information.
+        set_shell_function("name","bash_function_str",
+                                  "csh_alias_str")
 
-   2) Support for shell functions under bash or csh aliases.
-      For lua module files only:
+     so the new ml command can be defined in a lua module file as:
 
-         set_shell_function("name","bash_function_str",
-                                   "csh_alias_str")
+        set_shell_function("ml",'eval $($LMOD_DIR/ml_cmd "$@")',
+                                "eval `$LMOD_DIR/ml_cmd $*`")
+                             
+     (csh alias internally translate the "$*" to "\!*")
 
-      so the new ml command can be defined in a lua module file as:
+     NOTE: Subshells do NOT inherit alias or shell functions!
+     This means every subshell will need to load any modules that
+     define aliases or shell functions.
 
-         set_shell_function("ml",'eval $($LMOD_DIR/ml_cmd "$@")',
-                                 "eval `$LMOD_DIR/ml_cmd $*`")
-                              
-      (csh alias internally translate the "$*" to "\!*")
+  6) added module functions "always_load(...)", "always_unload(...)"
+     The function "always_load('abc')" could be replaced by:
 
-      NOTE: Subshells do NOT inherit alias or shell functions!
-      This means every subshell will need to load any modules that
-      define aliases or shell functions.
+        if (mode() == "load") then
+           load('abc')
+        end
 
-   3) added module functions "always_load(...)", "always_unload(...)"
-      The function "always_load('abc')" could be replaced by:
+     That is, it always loads and never unloads.
 
-         if (mode() == "load") then
-            load('abc')
-         end
+     The always_unload('abc') inside a modulefile will ALWAYS
+     cause the module 'abc' to be unloaded.  This is safe to do even
+     if the module is not loaded.
 
-      That is, it always loads and never unloads.
-
-      The always_unload('abc') inside a modulefile will ALWAYS
-      cause the module 'abc' to be unloaded.  This is safe to do even
-      if the module is not loaded.
-
-   
+  
 Version 3.6/3.6.1:
 
  Features:

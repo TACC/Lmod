@@ -1,6 +1,7 @@
 #include <lua.h>
 #include <lauxlib.h>
 #include <lualib.h>
+#include <unistd.h>
 
 static int
 lua_isatty(lua_State *L)

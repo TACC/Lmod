@@ -6,7 +6,7 @@ OBJ      := $(patsubst %.c, %.o, $(SRC))
 
 override CFLAGS   := $(CFLAGS) -fPIC -I $(LUA_INC)
 
-OS=$(uname -s)
+OS := $(shell uname -s)
 ifeq ($(OS),Darwin)
   LIB_OPTION= -bundle -undefined dynamic_lookup #for MacOS X
 else
@@ -25,7 +25,7 @@ $(LIBRARY): $(OBJ)
 	$(CC) $(CFLAGS) $(LIB_OPTION) -o $(LIBRARY) $(OBJ) -lc
 
 install: $(SHARE)/term $(LIB)/term all
-	cp $(SONAME) $(SONAMEV) $(LIBRARY) $(LIB)/term
+	rsync -l *.so* $(LIB)/term
 	cp term/*.lua $(SHARE)/term
 
 $(LIB)/term $(SHARE)/term:
