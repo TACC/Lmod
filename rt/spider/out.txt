@@ -13,7 +13,7 @@ export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Beta";
 export MODULEPATH;
 export _ModuleTable_Sz_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/mf/Core","ProjectDIR/mf/Beta",},["cacheMsg"]=true,family={},inactive={},mT={},mpathA={"ProjectDIR/mf/Core","ProjectDIR/mf/Beta",},["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/mf/Core","ProjectDIR/mf/Beta",},family={},inactive={},mT={},mpathA={"ProjectDIR/mf/Core","ProjectDIR/mf/Beta",},["version"]=2,}';
 export _ModuleTable_;
 ===========================
 step 3
@@ -27,7 +27,7 @@ export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Beta";
 export MODULEPATH;
 export _ModuleTable_Sz_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/mf/Core","ProjectDIR/mf/Beta",},["cacheMsg"]=false,family={},inactive={},mT={},mpathA={"ProjectDIR/mf/Core","ProjectDIR/mf/Beta",},["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/mf/Core","ProjectDIR/mf/Beta",},family={},inactive={},mT={},mpathA={"ProjectDIR/mf/Core","ProjectDIR/mf/Beta",},["version"]=2,}';
 export _ModuleTable_;
 ===========================
 step 4

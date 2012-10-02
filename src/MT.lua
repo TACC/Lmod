@@ -73,7 +73,7 @@ local function new(self, s)
    dbg.start("MT:new()")
    local o            = {}
 
-   o.cacheMsg         = true
+   o.c_rebuildTime    = false
    o.mT               = {}
    o.version          = 2
    o.family           = {}
@@ -152,12 +152,13 @@ function M.convertMT(self, v1)
 end
    
 
-function M.setCacheMsg(self,value)
-   self.cacheMsg = value
+
+function M.getRebuildTime(self)
+   return self.c_rebuildTime
 end
 
-function M.getCacheMsg(self)
-   return self.cacheMsg
+function M.setRebuildTime(self,value)
+   self.c_rebuildTime = value
 end
 
 

@@ -6,10 +6,6 @@
 #
 ########################################################################
 
-########################################################################
-# The PATH variable must include the "lua" program
-########################################################################
-
 set MY_NAME="@PKG@/init/cshrc"
 
 
@@ -30,7 +26,6 @@ if ( ! $?MODULEPATH_ROOT ) then
         setenv LMOD_arch   rs6k
     endif
 
-    setenv PATH @path_to_lua@:$PATH
     setenv MODULEPATH_ROOT "@PREFIX@/modulefiles"
     setenv MODULEPATH `@PKG@/libexec/addto --append MODULEPATH $MODULEPATH_ROOT/$LMOD_sys $MODULEPATH_ROOT/Core`
     setenv BASH_ENV @PKG@/init/bash

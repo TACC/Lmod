@@ -15,6 +15,7 @@ package.path = cmd_dir .. "?.lua;" .. package.path
 
 require("strict")
 require("string_split")
+require("serializeTbl")
 local base64    = require("base64")
 local decode64  = base64.decode64
 
@@ -26,6 +27,19 @@ local function grab(line, b)
    b[#b+1] = a[2]
 end
 
+_ModuleTable_ = false
+function removeUnwantedFields(s)
+   loadstring(s)()
+   local mt = _G._ModuleTable_
+
+   for k,v in pairs(mt) do
+      if (k:sub(1,2) == "c_") then
+         mt[k] = nil
+      end
+   end
+   local s = serializeTbl{ indent=false, name="_ModuleTable_", value=mt}
+   return s:gsub("[ \n]","")
+end
 
 function joinMT_bash(whole)
    local a = {}
@@ -47,7 +61,7 @@ function joinMT_bash(whole)
          state = "init"
       elseif (haveMT and s:find("^===========================")) then
          state = "init"
-         a[#a + 1] = "_ModuleTable_='" .. decode64(table.concat(b,"")) .. "';"
+         a[#a + 1] = "_ModuleTable_='" .. removeUnwantedFields(decode64(table.concat(b,""))) .. "';"
          a[#a + 1] = "export _ModuleTable_;"
          b = {}
          haveMT = false
@@ -57,7 +71,7 @@ function joinMT_bash(whole)
       end
    end
    if (haveMT) then
-      a[#a + 1] = "_ModuleTable_='" .. decode64(table.concat(b,"")) .. "';"
+      a[#a + 1] = "_ModuleTable_='" .. removeUnwantedFields(decode64(table.concat(b,""))) .. "';"
       a[#a + 1] = "export _ModuleTable_;"
       b = {}
    end
@@ -79,13 +93,13 @@ function joinMT_csh(whole)
          a[#a + 1] = s
       else
          state     = "init"
-         a[#a + 1] = "setenv _ModuleTable_ '" .. decode64(table.concat(b,"")) .. "';"
+         a[#a + 1] = "setenv _ModuleTable_ '" .. removeUnwantedFields(decode64(table.concat(b,""))) .. "';"
          a[#a + 1] = s
       end
    end
    if (state == "mt") then
       state = "init"
-      a[#a + 1] = "setenv _ModuleTable_ '" .. decode64(table.concat(b,"")) .. "';"
+      a[#a + 1] = "setenv _ModuleTable_ '" .. removeUnwantedFields(decode64(table.concat(b,""))) .. "';"
       b = {}
    end
    return a

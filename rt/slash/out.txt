@@ -21,7 +21,7 @@ export MODULEPATH;
 PATH="/usr/sbin:/sbin:ProjectDIR/src:PATH_to_TM:/bin";
 export PATH;
 export _ModuleTable_Sz_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/mf/Core",},["cacheMsg"]=true,family={},inactive={},mT={admin={["FN"]="ProjectDIR/mf/Core/admin/admin-1.0.lua",["default"]=1,["fullName"]="admin/admin-1.0",["loadOrder"]=1,["mType"]="w",propT={},["short"]="admin",["status"]="active",},},mpathA={"ProjectDIR/mf/Core",},["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/mf/Core",},family={},inactive={},mT={admin={["FN"]="ProjectDIR/mf/Core/admin/admin-1.0.lua",["default"]=1,["fullName"]="admin/admin-1.0",["loadOrder"]=1,["mType"]="w",propT={},["short"]="admin",["status"]="active",},},mpathA={"ProjectDIR/mf/Core",},["version"]=2,}';
 export _ModuleTable_;
 ===========================
 step 3

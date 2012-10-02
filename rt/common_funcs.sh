@@ -10,6 +10,7 @@ cleanUp ()
        -e "s|$projectDir|ProjectDIR|g"                    \
        -e "s|---*||g"                                     \
        -e "/Rebuilding cache file, please wait .* done/d" \
+       -e "/Using your spider cache file/d"               \
        -e "/^_ModuleTable_Sz_=.*$/d"                      \
        -e "/^setenv _ModuleTable_Sz_ .*$/d"               \
        -e "/^ *$/d"                                       \
