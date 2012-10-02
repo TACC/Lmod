@@ -28,7 +28,8 @@ STARTUP		 := $(patsubst %, setup/%, $(STARTUP))
 
 MAIN_DIR	 := Makefile.in INSTALL configure README_lua_modulefiles.txt
 
-CONTRIB          := contrib/createmodule.sh
+CONTRIB          := contrib/createmodule.sh contrib/BuildSystemCacheFile \
+                    contrib/SitePackage contrib/tricky_modulefiles
 lua_code	 := $(wildcard src/*.lua) $(wildcard src/*.tcl) src/COPYRIGHT 
 VDATE		 := $(shell date +'%F %H:%M')
 
@@ -53,12 +54,12 @@ REQUIRED_PKGS	 := \
                     string_split  \
                     string_trim
 
-.PHONY: test
+.PHONY: test pkgs
 
 all:
 	@echo done
 
-install: $(DIRLIST) shell_init startup libexec PKGS other_tools
+install: $(DIRLIST) shell_init startup libexec pkgs other_tools
 	$(RM) $(DESTDIR)$(PKG)
 	ln -s $(version) $(DESTDIR)$(PKG)
 
@@ -99,7 +100,7 @@ src/computeHashSum: $(ComputeHashSum)
 	$(MAKE) FILELIST="$^" DIRLOC="src"      __installMe
 	chmod +x $@
 
-PKGS:
+pkgs:
 	cd pkgs; \
         $(MAKE) LUA_INC=$(LUA_INCLUDE) LUA_LIB=$(LUA_LIB)  LIB=$(DESTDIR)$(LIB) \
                 SHARE=$(DESTDIR)$(LIBEXEC) install
@@ -115,7 +116,7 @@ dist:
 	$(MAKE) DistD=DIST _dist
 
 _dist: _distMkDir _distMainDir _distSrc _distSetup _distReqPkg    \
-       _distMF    _distContrib _distTar
+       _distPkgs _distMF    _distContrib _distTar
 
 _distMkDir:
 	$(RM) -r $(DistD)
@@ -124,10 +125,14 @@ _distMkDir:
 
 _distContrib:
 	mkdir $(DistD)/contrib
-	cp $(CONTRIB) $(DistD)/contrib
+	cp -r $(CONTRIB) $(DistD)/contrib
 _distSrc:
 	mkdir $(DistD)/src
 	cp $(lua_code) $(ComputeHashSum) $(STANDALONE_PRGM) $(DistD)/src
+
+_distPkgs:
+	mkdir $(DistD)/pkgs
+	cp -r pkgs/* $(DistD)/pkgs
 
 _distSetup:
 	mkdir $(DistD)/setup

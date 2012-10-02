@@ -11,7 +11,6 @@ Thanks,
 ------------------------------------------------------------
 
 
-
 Version 4.0:
  Features:
   1) A handy front end for the module command: ml
@@ -71,6 +70,10 @@ Version 4.0:
      The always_unload('abc') inside a modulefile will ALWAYS
      cause the module 'abc' to be unloaded.  This is safe to do even
      if the module is not loaded.
+
+  7) Support for a "SitePackage" lua file to add functions to be available
+     for your lua based modulefiles.  See contrib/SitePackage for an example.
+     
 
   
 Version 3.6/3.6.1:
