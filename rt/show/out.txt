@@ -17,7 +17,7 @@ export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1";
 export MODULEPATH;
 export _ModuleTable_Sz_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/mf/Core","ProjectDIR/mf/Compiler/intel/10.1",},["cacheMsg"]=true,family={},inactive={},mT={},mpathA={"ProjectDIR/mf/Core","ProjectDIR/mf/Compiler/intel/10.1",},["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/mf/Core","ProjectDIR/mf/Compiler/intel/10.1",},family={},inactive={},mT={},mpathA={"ProjectDIR/mf/Core","ProjectDIR/mf/Compiler/intel/10.1",},["version"]=2,}';
 export _ModuleTable_;
 ===========================
 step 3

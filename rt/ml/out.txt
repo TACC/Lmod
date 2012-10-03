@@ -13,7 +13,7 @@ export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/ml/mf/Core";
 export MODULEPATH;
 export _ModuleTable_Sz_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/ml/mf/Core",},["cacheMsg"]=true,family={},inactive={},mT={},mpathA={"ProjectDIR/rt/ml/mf/Core",},["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/ml/mf/Core",},family={},inactive={},mT={},mpathA={"ProjectDIR/rt/ml/mf/Core",},["version"]=2,}';
 export _ModuleTable_;
 ===========================
 step 3
@@ -28,5 +28,5 @@ MODULEPATH="ProjectDIR/rt/ml/mf/Core";
 export MODULEPATH;
 export _ModuleTable_Sz_;
 ml() {eval $($LMOD_DIR/ml_cmd "$@") };
-_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/ml/mf/Core",},["cacheMsg"]=true,family={},inactive={},mT={ml={["FN"]="ProjectDIR/rt/ml/mf/Core/ml/1.0.lua",["default"]=1,["fullName"]="ml/1.0",["loadOrder"]=1,["mType"]="w",propT={},["short"]="ml",["status"]="active",},},mpathA={"ProjectDIR/rt/ml/mf/Core",},["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/ml/mf/Core",},family={},inactive={},mT={ml={["FN"]="ProjectDIR/rt/ml/mf/Core/ml/1.0.lua",["default"]=1,["fullName"]="ml/1.0",["loadOrder"]=1,["mType"]="w",propT={},["short"]="ml",["status"]="active",},},mpathA={"ProjectDIR/rt/ml/mf/Core",},["version"]=2,}';
 export _ModuleTable_;

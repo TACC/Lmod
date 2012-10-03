@@ -6,19 +6,11 @@
 #
 ########################################################################
 
-########################################################################
-# The PATH variable must include the "lua" program
-########################################################################
-
 if [ -z "$USER_IS_ROOT" ]; then
 
   . @PKG@/init/bash >/dev/null # Module Support
 
   if [ -z "$MODULEPATH_ROOT" ]; then
-    PATH=@path_to_lua@:$PATH
-    export PATH
-
-
     USER=${USER-${LOGNAME}}  # make sure $USER is set
     export USER
     

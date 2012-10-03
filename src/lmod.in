@@ -5,13 +5,14 @@
 -- ancient:   the time in seconds when the cache file is considered old
 -- shortTime: the time in seconds when building the cache file is quick
 --            enough to be computed every time rather than cached.
-ancient       = "@ancient@"
-shortTime     = "@short_time@"
-sysCacheDir   = os.getenv("LMOD_SPIDER_CACHE_DIR") or "@cacheDir@"
-ancient       = tonumber(ancient)   or 86400
-shortTime     = tonumber(shortTime) or 10.0
-BaseShell     = {}
-Pager         = "@path_to_pager@"
+ancient        = "@ancient@"
+shortTime      = "@short_time@"
+sysCacheDir    = os.getenv("LMOD_SPIDER_CACHE_DIR") or "@cacheDir@"
+ancient        = tonumber(ancient)   or 86400
+shortTime      = tonumber(shortTime) or 10.0
+shortLifeCache = ancient/12
+BaseShell      = {}
+Pager          = "@path_to_pager@"
 
 ------------------------------------------------------------------------
 -- Extract directory location of "lmod" command and add it
@@ -681,6 +682,7 @@ function getModuleT()
    -- Check for user cache file and system cache file.
    -- Use system file if acceptable?
 
+   ancient = mt:getRebuildTime() or ancient
 
    for i = 1,#cacheFileA do
       local f = cacheFileA[i].file
@@ -737,34 +739,36 @@ function getModuleT()
    if (buildModuleT) then
       LmodError    = dbg.quiet
       LmodMessage  = dbg.quiet
-      if (mt:getCacheMsg()) then
-         io.stderr:write("Rebuilding cache file, please wait ...")
-      end
+      io.stderr:write("Rebuilding cache file, please wait ...")
+
       local t1 = epoch()
       Spider.findAllModules(moduleDirA, moduleT)
       local t2 = epoch()
-      if (mt:getCacheMsg()) then
-         io.stderr:write(" done\n")
-      end
+      io.stderr:write(" done\n")
       LmodError    = errRtn
       LmodMessage  = message
       dbg.print("t2-t1: ",t2-t1, " shortTime: ", shortTime, "\n")
+
       if (t2 - t1 < shortTime) then
-         dbg.print("Not writing cache file.\n")
-         mt:setCacheMsg(false)
-      else
-         mkdir_recursive(cacheDir)
-         local s0 = "-- Date: " .. os.date("%c",os.time()) .. "\n"
-         local s1 = serializeTbl{name="defaultMpathA",value=moduleDirA,indent=true}
-         local s2 = serializeTbl{name="moduleT",      value=moduleT,   indent=true}
-         local f  = io.open(userModuleTFN,"w")
-         f:write(s0,s1,s2)
-         f:close()
-         dbg.print("Wrote: ",userModuleTFN,"\n")
+         ancient = shortLifeCache
+         mt:setRebuildTime(ancient)
       end
+
+      mkdir_recursive(cacheDir)
+      local s0 = "-- Date: " .. os.date("%c",os.time()) .. "\n"
+      local s1 = "ancient = " .. tostring(math.floor(ancient)) .."\n"
+      local s2 = serializeTbl{name="defaultMpathA",value=moduleDirA,indent=true}
+      local s3 = serializeTbl{name="moduleT",      value=moduleT,   indent=true}
+      local f  = io.open(userModuleTFN,"w")
+      f:write(s0,s1,s2,s3)
+      f:close()
+      dbg.print("Wrote: ",userModuleTFN,"\n")
+
    else
       assert(loadfile(moduleTFN))()
       moduleT = _G.moduleT
+      ancient = _G.ancient or ancient
+      mt:setRebuildTime(ancient)
    end
 
    -- remove user cache file if old

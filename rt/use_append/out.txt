@@ -17,7 +17,7 @@ export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/use_append/mf/Core:ProjectDIR/rt/use_append/mf/Append:ProjectDIR/rt/use_append/mf/Append2";
 export MODULEPATH;
 export _ModuleTable_Sz_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/use_append/mf/Core",},["cacheMsg"]=true,family={},inactive={},mT={append={["FN"]="ProjectDIR/rt/use_append/mf/Core/append",["default"]=0,["fullName"]="append",["loadOrder"]=1,["mType"]="w",propT={},["short"]="append",["status"]="active",},},mpathA={"ProjectDIR/rt/use_append/mf/Core","ProjectDIR/rt/use_append/mf/Append","ProjectDIR/rt/use_append/mf/Append2",},["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/use_append/mf/Core",},family={},inactive={},mT={append={["FN"]="ProjectDIR/rt/use_append/mf/Core/append",["default"]=0,["fullName"]="append",["loadOrder"]=1,["mType"]="w",propT={},["short"]="append",["status"]="active",},},mpathA={"ProjectDIR/rt/use_append/mf/Core","ProjectDIR/rt/use_append/mf/Append","ProjectDIR/rt/use_append/mf/Append2",},["version"]=2,}';
 export _ModuleTable_;
 ===========================
 step 3

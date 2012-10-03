@@ -71,7 +71,6 @@ Lmod Error: Unable to find: "mpich2/1.0.5"
 ===========================
 step 9
 ===========================
-Using your spider cache file
 The following is a list of the modules currently available:
   admin: admin/admin-1.0
   alex: alex/1.0
