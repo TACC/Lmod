@@ -12,6 +12,10 @@ Thanks,
 
 
 Version 4.0:
+ New Requirement:
+  You will need the lua header files.  This will typically
+  require the lua-devel or liblua5.1-0-dev or similar packages.
+
  Features:
   1) A handy front end for the module command: ml
         $ ml
