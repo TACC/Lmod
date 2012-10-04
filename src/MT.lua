@@ -737,6 +737,14 @@ function M.list_property(self, idx, moduleName, style, legendT)
    local resultA      = colorizePropA(style, moduleName, entry.propT, legendT)
 
    table.insert(resultA, 1, "  "  .. tostring(idx) ..")")
+
+   local tLen = resultA[1]:len() + resultA[2]:len() + tostring(resultA[3]):len()
+   dbg.print("result: \"",resultA[1],"\", \"",resultA[2],
+             "\", \"",tostring(resultA[3]),"\"\n")
+
+   dbg.print("tlen: ",tostring(tLen)," lenA: ",resultA[1]:len()," ",resultA[2]:len(),
+             " ",tostring(resultA[3]):len(),"\n")
+
    dbg.fini()
    return resultA
 end
