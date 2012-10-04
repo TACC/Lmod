@@ -1,7 +1,7 @@
 ===========================
 step 1
 ===========================
-Modules based on Lua: Version 3.6.3.9 2012-09-18 08:03
+Modules based on Lua: Version 4.0 2012-10-01 22:17
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -37,7 +37,8 @@ step 11
 step 12
 ===========================
 Currently Loaded Modules:
-  1) admin/admin-1.0    3) unix/unix      5) noweb/2.10c    7) gotoblas/1.32
-  2) PrgEnv             4) local/local    6) intel/intel    8) boost/1.49.0  (o)
+  1) admin/admin-1.0    4) local/local    7) gotoblas/1.32
+  2) PrgEnv             5) noweb/2.10c    8) boost/1.49.0  (o)
+  3) unix/unix          6) intel/intel
   Where:
    (o):  module is build for offload to the MIC

@@ -1,7 +1,7 @@
 ===========================
 step 1
 ===========================
-Modules based on Lua: Version 3.6.3.2 2012-09-08 15:45
+Modules based on Lua: Version 4.0 2012-10-01 22:17
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -10,8 +10,9 @@ step 2
 step 3
 ===========================
 Currently Loaded Modules:
-  1) TACC           3) cluster           5) pgi/7.1             7) globus/4.0.7
-  2) TACC_symbols   4) cluster_symbols   6) mvapich1/mvapich1
+  1) TACC           4) cluster_symbols     7) globus/4.0.7
+  2) TACC_symbols   5) pgi/7.1
+  3) cluster        6) mvapich1/mvapich1
 ===========================
 step 4
 ===========================
