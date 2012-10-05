@@ -43,10 +43,17 @@ SET_BASE_DIR()
   SUDO=""
   
   case $SYSHOST in
-    mclay-d630 | mijo | jedrik | vato | vmijo | rios)
+    rios | mijo | jedrik | vato | vmijo )
       SUDO="sudo"
-      base="/opt/apps";;
-    
+      base="/opt/apps"
+      ;;
+
+    ranger | lonestar )
+      base="$HOME/l/pkg";;
+      ADMIN_ranger="/share/moduleData"
+      ADMIN_ls4="/home1/moduleData"
+      eval "ADMIN_DIR=\$ADMIN_$SYSHOST"
+
     stampede)
       CFLAGS_EXTRA="-mmic"
       base="$HOME/l/pkg/$(uname -m)"
@@ -71,7 +78,7 @@ PKG=$BASE_DIR/$pkgName/$PKG_VERSION
 
 
 cmdA=("-make distclean"
-      "./configure --prefix=$BASE_DIR --with-ancient=86401 --with-shortTime=10.3 --with-spiderCacheDir=$sysprefix/cacheDir"
+      "./configure --prefix=$BASE_DIR --with-ancient=86401 --with-shortTime=10.3 --with-spiderCacheDir=ADMIN_DIR/cacheDir"
       "$SUDO make install"
       "make clobber"
       )
