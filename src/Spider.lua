@@ -343,7 +343,7 @@ function M.buildSpiderDB(a, moduleT, dbT)
    local dbg = Dbg:dbg()
    dbg.start("buildSpiderDB({",concatTbl(a,","),"},moduleT, dbT)")
    for path, value in pairs(moduleT) do
-      local nameL = value.name_lower
+      local nameL = value.name_lower or value.name:lower()
       dbT[nameL]  = dbT[nameL] or {}
       local t     = dbT[nameL]
 

@@ -765,6 +765,7 @@ function getModuleT()
       dbg.print("Wrote: ",userModuleTFN,"\n")
 
    else
+      dbg.print("Loading: ",moduleTFN,"\n")
       assert(loadfile(moduleTFN))()
       moduleT = _G.moduleT
       ancient = _G.ancient or ancient
