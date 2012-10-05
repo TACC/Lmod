@@ -49,10 +49,11 @@ SET_BASE_DIR()
       ;;
 
     ranger | lonestar )
-      base="$HOME/l/pkg";;
+      base="$HOME/l/pkg"
       ADMIN_ranger="/share/moduleData"
       ADMIN_ls4="/home1/moduleData"
       eval "ADMIN_DIR=\$ADMIN_$SYSHOST"
+      ;;
 
     stampede)
       CFLAGS_EXTRA="-mmic"
@@ -60,7 +61,8 @@ SET_BASE_DIR()
       ;;
     
     *)
-      base="$HOME/l/pkg";;
+      base="$HOME/l/pkg"
+      ;;
   esac
   BASE_DIR=$base
 }
