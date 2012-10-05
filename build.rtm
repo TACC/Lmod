@@ -80,7 +80,7 @@ PKG=$BASE_DIR/$pkgName/$PKG_VERSION
 
 
 cmdA=("-make distclean"
-      "./configure --prefix=$BASE_DIR --with-ancient=86401 --with-shortTime=10.3 --with-spiderCacheDir=ADMIN_DIR/cacheDir"
+      "./configure --prefix=$BASE_DIR --with-ancient=86401 --with-shortTime=10.3 --with-spiderCacheDir=$ADMIN_DIR/cacheDir"
       "$SUDO make install"
       "make clobber"
       )
