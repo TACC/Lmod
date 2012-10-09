@@ -65,6 +65,16 @@ if test x$luaprog = "x"; then
 fi
 PATH_TO_LUA=$(echo $luaprog | sed -e 's|/lua$||')
 
+WD=`pwd`
+
+PATH_TO_LUA_DIR=${PATH_TO_LUA}/..
+
+cd $PATH_TO_LUA_DIR
+
+PATH_TO_LUA_DIR=`pwd`
+
+cd $WD
+
 cat > luaModuleAvailable << 'EOF'
 function main()
    for i = 1, #arg do
