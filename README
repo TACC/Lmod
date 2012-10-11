@@ -10,12 +10,13 @@ avail be piped through more or whatever the users' PAGER is.
 Thanks,
 ------------------------------------------------------------
 
-Version 4.0.1:
+Version 4.0.1/4.0.2:
  Bug Fixes:
    1) Better savings of module cache file on fast systems.
    2) Fixed bug with csh use of "set_shell_function()"
    3) Fixed build error on Redhat based systems.
    4) Fixed SitePackage: only do things on mode() == 'load'
+   5) Fixed SitePackage to be read by all Lmod tools.
 
 Version 4.0:
  New Requirement:
