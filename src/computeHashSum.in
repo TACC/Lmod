@@ -11,6 +11,12 @@ if (i) then
 end
 package.path = LuaCommandName_dir .. "?.lua;" .. package.path
 
+------------------------------------------------------------------------
+-- Try to load a SitePackage Module,  If it is not there then do not
+-- abort.  Sites do not have to have a Site package.
+------------------------------------------------------------------------
+pcall(require, "SitePackage") 
+
 function cmdDir()
    return LuaCommandName_dir
 end
