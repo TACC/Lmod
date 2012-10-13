@@ -523,8 +523,7 @@ function M.spiderSearch(dbT, mname, help)
             found = true
          end
          if (s) then
-            --pager(io.stderr, s,"\n")
-            io.stderr:write(s,"\n")
+            pcall(pager,io.stderr, s,"\n")
          end
       end
    end

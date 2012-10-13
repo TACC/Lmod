@@ -825,14 +825,16 @@ function M.avail(searchA)
       aa[#aa+1] = b
       aa[#aa+1] = "\n\n"
    end
-   pager(io.stderr,concatTbl(aa,""))
+   pcall(pager,io.stderr,concatTbl(aa,""))
    dbg.fini()
 end
 
 local function spanOneModule(path, name, nameA, fileType, keyA)
    local dbg    = Dbg:dbg()
    local mStack = ModuleStack:moduleStack()
-   dbg.start("spanOneModule(path=\"",path,"\", name=\"",name,"\", nameA=(",concatTbl(nameA,","),"), fileType=\"",fileType,"\", keyA=(",concatTbl(keyA,","),"))")
+   dbg.start("spanOneModule(path=\"",path,"\", name=\"",name,
+             "\", nameA=(",concatTbl(nameA,","),"), fileType=\"",fileType,
+             "\", keyA=(",concatTbl(keyA,","),"))")
    if (fileType == "file" and posix.access(path,"r")) then
       for _,v in ipairs(keyA) do
 	 nameA[#nameA+1] = name

@@ -835,7 +835,7 @@ function SpiderCmd(...)
       end
       s = concatTbl(a,"\n")
    end
-   pager(io.stderr, s, "\n")
+   pcall(pager,io.stderr, s, "\n")
    dbg.fini()
 end
 
@@ -865,7 +865,8 @@ function Keyword(...)
    ia = ia+1; a[ia] = "\n"
 
    Spider.Level0Helper(dbT,a)
-   io.stderr:write(concatTbl(a,""))
+   pcall(pager,io.stderr,concatTbl(a,""))
+
    dbg.fini()
 
 end

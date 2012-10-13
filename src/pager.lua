@@ -23,7 +23,7 @@ function usePager(f, ...)
    for i = 1, arg.n do
       p:write(arg[i])
    end
-   p:close()
+   p:close(p)
 end
    
 

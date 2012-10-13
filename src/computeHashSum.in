@@ -20,6 +20,8 @@ pcall(require, "SitePackage")
 function cmdDir()
    return LuaCommandName_dir
 end
+package.path = LuaCommandName_dir .. "?.lua;"      ..
+               package.path
 
 HashSum = "@path_to_hashsum@"
 
