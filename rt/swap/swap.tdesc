@@ -38,14 +38,14 @@ testdescript = {
      rm -f _stderr.* _stdout.* err.* out.*
      cp $(projectDir)/setup/.lmodrc.lua .
 
-     runMe lua $(projectDir)/src/lmod.in bash --version                          # 1
-     runMe lua $(projectDir)/src/lmod.in bash load admin PrgEnv openmpi parmetis # 2
-     runMe lua $(projectDir)/src/lmod.in bash unload intel                       # 3
-     runMe lua $(projectDir)/src/lmod.in bash list                               # 4
-     runMe lua $(projectDir)/src/lmod.in bash load gcc                           # 5
-     runMe lua $(projectDir)/src/lmod.in bash list                               # 6
-     runMe lua $(projectDir)/src/lmod.in bash swap gcc intel                     # 7 
-     runMe lua $(projectDir)/src/lmod.in bash list                               # 8
+     runMe lua $(projectDir)/src/lmod.in.lua bash --version                          # 1
+     runMe lua $(projectDir)/src/lmod.in.lua bash load admin PrgEnv openmpi parmetis # 2
+     runMe lua $(projectDir)/src/lmod.in.lua bash unload intel                       # 3
+     runMe lua $(projectDir)/src/lmod.in.lua bash list                               # 4
+     runMe lua $(projectDir)/src/lmod.in.lua bash load gcc                           # 5
+     runMe lua $(projectDir)/src/lmod.in.lua bash list                               # 6
+     runMe lua $(projectDir)/src/lmod.in.lua bash swap gcc intel                     # 7 
+     runMe lua $(projectDir)/src/lmod.in.lua bash list                               # 8
      HOME=$ORIG_HOME
 
      cat _stdout.[0-9][0-9] > _stdout.orig

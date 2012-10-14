@@ -43,16 +43,16 @@ testdescript = {
 
      cp $(projectDir)/setup/.lmodrc.lua .
 
-     runMe $LUA $(projectDir)/src/lmod.in bash --version
+     runMe $LUA $(projectDir)/src/lmod.in.lua bash --version
 
-     runMe $LUA $(projectDir)/src/lmod.in bash load admin PrgEnv openmpi parmetis
-     runMe $LUA $(projectDir)/src/lmod.in bash purge
-     runMe $LUA $(projectDir)/src/lmod.in bash list
+     runMe $LUA $(projectDir)/src/lmod.in.lua bash load admin PrgEnv openmpi parmetis
+     runMe $LUA $(projectDir)/src/lmod.in.lua bash purge
+     runMe $LUA $(projectDir)/src/lmod.in.lua bash list
 
-     runMe $LUA $(projectDir)/src/lmod.in bash load admin PrgEnv openmpi parmetis
-     runMe $LUA $(projectDir)/src/lmod.in bash list
-     runMe $LUA $(projectDir)/src/lmod.in bash reset
-     runMe $LUA $(projectDir)/src/lmod.in bash list
+     runMe $LUA $(projectDir)/src/lmod.in.lua bash load admin PrgEnv openmpi parmetis
+     runMe $LUA $(projectDir)/src/lmod.in.lua bash list
+     runMe $LUA $(projectDir)/src/lmod.in.lua bash reset
+     runMe $LUA $(projectDir)/src/lmod.in.lua bash list
 
      HOME=$ORIG_HOME
      PATH=$ORIGINAL_PATH

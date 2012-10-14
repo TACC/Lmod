@@ -18,8 +18,9 @@ INIT		 := $(prefix)/$(package)/$(version)/init
 
 DIRLIST		 := $(DESTDIR)$(LIBEXEC) $(DESTDIR)$(INIT) $(DESTDIR)$(LIB)
 
-STANDALONE_PRGM  := src/lmod.in src/addto.in src/getmt.in src/processMT.in  src/spider.in \
-                    src/processModuleUsage.in src/reportUsers.in src/clearMT_cmd.in src/ml_cmd.in
+STANDALONE_PRGM  := src/lmod.in.lua src/addto.in.lua src/getmt.in.lua src/processMT.in.lua   \
+                    src/spider.in.lua src/processModuleUsage.in.lua src/reportUsers.in.lua   \
+                    src/clearMT_cmd.in.lua src/ml_cmd.in.lua
 SHELL_INIT	 := bash.in csh.in ksh.in tcsh.in zsh.in sh.in perl.in env_modules_python.py.in .lmodrc.lua
 SHELL_INIT	 := $(patsubst %, setup/%, $(SHELL_INIT))
 
@@ -33,7 +34,7 @@ CONTRIB          := contrib/createmodule.sh contrib/BuildSystemCacheFile \
 lua_code	 := $(wildcard src/*.lua) $(wildcard src/*.tcl) src/COPYRIGHT 
 VDATE		 := $(shell date +'%F %H:%M')
 
-ComputeHashSum   := src/computeHashSum.in
+ComputeHashSum   := src/computeHashSum.in.lua
 
 REQUIRED_PKGS	 := \
                     BeautifulTbl  \
@@ -74,8 +75,9 @@ $(DIRLIST) :
 
 __installMe:
 	-for i in $(FILELIST); do                                 \
-	  fn=`basename $$i .in`;                                  \
-          sed -e 's|@PREFIX@|@prefix@|g'                          \
+         bareN=$${i##*/};                                         \
+         fn=$${bareN%%.in*};                                      \
+         sed -e 's|@PREFIX@|@prefix@|g'                           \
 	      -e 's|@path_to_lua@|$(PATH_TO_LUA)|g'               \
 	      -e 's|@path_to_hashsum@|$(PATH_TO_HASHSUM)|g'       \
 	      -e 's|@path_to_pager@|$(PATH_TO_PAGER)|g'           \

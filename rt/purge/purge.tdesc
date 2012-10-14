@@ -39,14 +39,14 @@ testdescript = {
      rm -f _stderr.* _stdout.* err.* out.*
      cp $(projectDir)/setup/.lmodrc.lua .
 
-     runMe $LUA $(projectDir)/src/lmod.in bash load PrgEnv openmpi                 # 1
-     runMe $LUA $(projectDir)/src/lmod.in bash list                                # 2
-     runMe $LUA $(projectDir)/src/lmod.in bash unload PrgEnv openmpi               # 3
-     runMe $LUA $(projectDir)/src/lmod.in bash list                                # 4
-     runMe $LUA $(projectDir)/src/lmod.in bash load admin PrgEnv openmpi parmetis  # 5
-     runMe $LUA $(projectDir)/src/lmod.in bash list                                # 6
-     runMe $LUA $(projectDir)/src/lmod.in bash purge                               # 7
-     runMe $LUA $(projectDir)/src/lmod.in bash list                                # 8
+     runMe $LUA $(projectDir)/src/lmod.in.lua bash load PrgEnv openmpi                 # 1
+     runMe $LUA $(projectDir)/src/lmod.in.lua bash list                                # 2
+     runMe $LUA $(projectDir)/src/lmod.in.lua bash unload PrgEnv openmpi               # 3
+     runMe $LUA $(projectDir)/src/lmod.in.lua bash list                                # 4
+     runMe $LUA $(projectDir)/src/lmod.in.lua bash load admin PrgEnv openmpi parmetis  # 5
+     runMe $LUA $(projectDir)/src/lmod.in.lua bash list                                # 6
+     runMe $LUA $(projectDir)/src/lmod.in.lua bash purge                               # 7
+     runMe $LUA $(projectDir)/src/lmod.in.lua bash list                                # 8
      
      HOME=$ORIG_HOME
      PATH=$ORIGINAL_PATH

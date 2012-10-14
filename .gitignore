@@ -19,3 +19,5 @@ auto
 *.tar.gz
 *.tar.bz2
 *.tgz
+.buildpath
+.project

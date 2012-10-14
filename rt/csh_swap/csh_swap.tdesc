@@ -60,7 +60,7 @@ cat > $(testName).csh << EOF
      echo "step 0"                      >> _stdout.01
      echo "===========================" >> _stdout.01
 
-     lua $(projectDir)/src/lmod.in csh --version > _stdout.02
+     lua $(projectDir)/src/lmod.in.lua csh --version > _stdout.02
      eval \`cat _stdout.02\`
 
      echo "==========================="
@@ -71,7 +71,7 @@ cat > $(testName).csh << EOF
      echo "step 1"                      >> _stdout.01
      echo "===========================" >> _stdout.01
 
-     lua $(projectDir)/src/lmod.in csh load admin PrgEnv openmpi parmetis > _stdout.02
+     lua $(projectDir)/src/lmod.in.lua csh load admin PrgEnv openmpi parmetis > _stdout.02
      eval \`cat _stdout.02\`
 
      echo "===========================" >  _stdout.03
@@ -82,7 +82,7 @@ cat > $(testName).csh << EOF
      echo "step 2"
      echo "==========================="
 
-     lua $(projectDir)/src/lmod.in csh unload intel > _stdout.04
+     lua $(projectDir)/src/lmod.in.lua csh unload intel > _stdout.04
      eval \`cat _stdout.04\`
 
      echo "===========================" >  _stdout.05
@@ -93,7 +93,7 @@ cat > $(testName).csh << EOF
      echo "step 3"
      echo "==========================="
 
-     lua $(projectDir)/src/lmod.in csh load gcc  > _stdout.06
+     lua $(projectDir)/src/lmod.in.lua csh load gcc  > _stdout.06
      eval \`cat _stdout.06\`
 
      echo "===========================" >  _stdout.07
@@ -105,7 +105,7 @@ cat > $(testName).csh << EOF
      echo "==========================="
 
 
-     lua $(projectDir)/src/lmod.in csh load ml  > _stdout.08
+     lua $(projectDir)/src/lmod.in.lua csh load ml  > _stdout.08
      eval \`cat _stdout.08\`
 
      echo "===========================" >  _stdout.09
@@ -117,7 +117,7 @@ cat > $(testName).csh << EOF
      echo "==========================="
 
      unset histchars
-     lua $(projectDir)/src/lmod.in csh --localvar histchars="$_histchars" swap gcc  intel > _stdout.10
+     lua $(projectDir)/src/lmod.in.lua csh --localvar histchars="$_histchars" swap gcc  intel > _stdout.10
      eval \`cat _stdout.10\`
 
      cat _stdout.[01][1-9] > _stdout.orig

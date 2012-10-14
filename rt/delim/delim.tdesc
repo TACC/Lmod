@@ -33,18 +33,18 @@ testdescript = {
 
      rm -f _stderr.* _stdout.* err.* out.*
 
-     runMe lua $(projectDir)/src/lmod.in bash --version                    #  1
-     runMe lua $(projectDir)/src/lmod.in bash use -a $testDir/mf/Core      #  2
-     runMe lua $(projectDir)/src/lmod.in bash load    luaposix             #  3
-     runMe lua $(projectDir)/src/lmod.in bash unload  luaposix             #  4
-     runMe lua $(projectDir)/src/lmod.in bash load    init_lua             #  5
-     runMe lua $(projectDir)/src/lmod.in bash load    luaposix             #  6
-     runMe lua $(projectDir)/src/lmod.in bash list                         #  7
-     runMe lua $(projectDir)/src/lmod.in bash unload  init_lua luaposix    #  8
-     runMe lua $(projectDir)/src/lmod.in bash list                         #  9
-     runMe lua $(projectDir)/src/lmod.in bash load ncarIntel               # 10
-     runMe lua $(projectDir)/src/lmod.in bash load ncarNetcdf              # 11
-     runMe lua $(projectDir)/src/lmod.in bash unload ncarNetcdf            # 12
+     runMe lua $(projectDir)/src/lmod.in.lua bash --version                    #  1
+     runMe lua $(projectDir)/src/lmod.in.lua bash use -a $testDir/mf/Core      #  2
+     runMe lua $(projectDir)/src/lmod.in.lua bash load    luaposix             #  3
+     runMe lua $(projectDir)/src/lmod.in.lua bash unload  luaposix             #  4
+     runMe lua $(projectDir)/src/lmod.in.lua bash load    init_lua             #  5
+     runMe lua $(projectDir)/src/lmod.in.lua bash load    luaposix             #  6
+     runMe lua $(projectDir)/src/lmod.in.lua bash list                         #  7
+     runMe lua $(projectDir)/src/lmod.in.lua bash unload  init_lua luaposix    #  8
+     runMe lua $(projectDir)/src/lmod.in.lua bash list                         #  9
+     runMe lua $(projectDir)/src/lmod.in.lua bash load ncarIntel               # 10
+     runMe lua $(projectDir)/src/lmod.in.lua bash load ncarNetcdf              # 11
+     runMe lua $(projectDir)/src/lmod.in.lua bash unload ncarNetcdf            # 12
 
      cat _stdout.[0-9][0-9] > _stdout.orig
      joinBase64Results  -bash  _stdout.orig _stdout.new

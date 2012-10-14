@@ -39,11 +39,11 @@ testdescript = {
 
      rm -f _stderr.* _stdout.* err.* out.*
 
-     runMe lua $(projectDir)/src/lmod.in bash --version
-     runMe lua $(projectDir)/src/lmod.in bash keyword graph
-     runMe lua $(projectDir)/src/lmod.in bash whatis vasp
-     runMe lua $(projectDir)/src/lmod.in bash help vasp
-     runMe lua $(projectDir)/src/lmod.in bash load vasp
+     runMe lua $(projectDir)/src/lmod.in.lua bash --version
+     runMe lua $(projectDir)/src/lmod.in.lua bash keyword graph
+     runMe lua $(projectDir)/src/lmod.in.lua bash whatis vasp
+     runMe lua $(projectDir)/src/lmod.in.lua bash help vasp
+     runMe lua $(projectDir)/src/lmod.in.lua bash load vasp
      runBase lua $(projectDir)/src/spider.in -o list $LMOD_DEFAULT_MODULEPATH
 
      HOME=$OLDHOME

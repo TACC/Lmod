@@ -39,7 +39,7 @@ package.cpath = LuaCommandName_dir .. "../lib/?.so;"..
 -- Try to load a SitePackage Module,  If it is not there then do not
 -- abort.  Sites do not have to have a Site package.
 ------------------------------------------------------------------------
-pcall(require, "SitePackage") 
+--pcall(require, "SitePackage") 
 
 local term     = false
 if (pcall(require, "term")) then

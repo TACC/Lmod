@@ -34,10 +34,10 @@ testdescript = {
 
      rm -f _stderr.* _stdout.* err.* out.*
 
-     runMe lua $(projectDir)/src/lmod.in bash --version
-     runMe lua $(projectDir)/src/lmod.in bash use -a $projectDir/mf/Core 
-     runMe lua $(projectDir)/src/lmod.in bash load gcc
-     runMe lua $(projectDir)/src/lmod.in bash load git/1.7.4.3
+     runMe lua $(projectDir)/src/lmod.in.lua bash --version
+     runMe lua $(projectDir)/src/lmod.in.lua bash use -a $projectDir/mf/Core 
+     runMe lua $(projectDir)/src/lmod.in.lua bash load gcc
+     runMe lua $(projectDir)/src/lmod.in.lua bash load git/1.7.4.3
 
      cat _stdout.[0-9][0-9] > _stdout.orig
      joinBase64Results  -bash  _stdout.orig _stdout.new

@@ -35,10 +35,10 @@ testdescript = {
 
      rm -f _stderr.* _stdout.* err.* out.*
 
-     runMe lua $(projectDir)/src/lmod.in bash --version
-     runMe lua $(projectDir)/src/lmod.in bash load test1
-     runMe lua $(projectDir)/src/lmod.in bash load test2
-     runMe lua $(projectDir)/src/lmod.in bash unload test2
+     runMe lua $(projectDir)/src/lmod.in.lua bash --version
+     runMe lua $(projectDir)/src/lmod.in.lua bash load test1
+     runMe lua $(projectDir)/src/lmod.in.lua bash load test2
+     runMe lua $(projectDir)/src/lmod.in.lua bash unload test2
 
      cat _stdout.[0-9][0-9] > _stdout.orig
      joinBase64Results  -bash  _stdout.orig _stdout.new
