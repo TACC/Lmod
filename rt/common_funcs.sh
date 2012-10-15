@@ -3,6 +3,7 @@ cleanUp ()
    sed                                                    \
        -e "s|:$PATH_to_LUA:|:|g"                          \
        -e "s|:/usr/bin:|:|g"                              \
+       -e "s|:/usr/local/bin:|:|g"                        \
        -e "s|$PATH_to_TM|PATH_to_TM|g"                    \
        -e "s|unsetenv _ModuleTable..._;||g"               \
        -e "s|unset _ModuleTable..._;||g"                  \

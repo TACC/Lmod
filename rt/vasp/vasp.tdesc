@@ -44,7 +44,7 @@ testdescript = {
      runMe lua $(projectDir)/src/lmod.in.lua bash whatis vasp
      runMe lua $(projectDir)/src/lmod.in.lua bash help vasp
      runMe lua $(projectDir)/src/lmod.in.lua bash load vasp
-     runBase lua $(projectDir)/src/spider.in -o list $LMOD_DEFAULT_MODULEPATH
+     runBase lua $(projectDir)/src/spider.in.lua -o list $LMOD_DEFAULT_MODULEPATH
 
      HOME=$OLDHOME
 

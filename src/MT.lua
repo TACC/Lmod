@@ -518,10 +518,18 @@ end
 
 function M.setHashSum(self)
    local mT   = self.mT
+   local dbg  = Dbg:dbg()
 
+   local a = {}
    for k,v in pairs(mT) do
       if (v.status == "active") then
-         local s    = capture(pathJoin(cmdDir(),"computeHashSum").. " " .. v.FN)
+         a[#a + 1]    = pathJoin(cmdDir(),"computeHashSum")
+         if (dbg.active()) then
+            a[#a + 1] = "-d"
+         end
+         a[#a + 1]  = v.FN
+         local cmd  = concatTbl(a," ")
+         local s    = capture(cmd)
          v.hash     = s:sub(1,-2)
       end
    end

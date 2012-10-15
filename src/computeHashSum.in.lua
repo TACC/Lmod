@@ -23,6 +23,7 @@ end
 package.path = LuaCommandName_dir .. "?.lua;"      ..
                package.path
 
+Version = "1.0"
 HashSum = "@path_to_hashsum@"
 
 require("myGlobals")
@@ -42,10 +43,16 @@ Dbg             = require("Dbg")
 Master          = require("Master")
 ModuleStack     = require("ModuleStack")
 MT              = require("MT")
+local Optiks    = require("Optiks")
+local s_master  = {}
 
 local fh        = nil
 local getenv    = os.getenv
 local concatTbl = table.concat
+
+function masterTbl()
+   return s_master
+end
 
 
 function loadModuleFile(obj)
@@ -79,42 +86,74 @@ end
 
 function main()
    
-   local dbg     = Dbg:dbg()
-   local master  = Master:master(false)
-   local mStack  = ModuleStack:moduleStack()
-   master.shell  = BaseShell.build("bash")
-   local fn      = os.tmpname()
-   fh            = io.open(fn,"w")
-   local verbose = false
-   local i       = 1
-   if (arg[1] == "-v") then
-      i = i + 1
-      verbose = true
+   local dbg       = Dbg:dbg()
+   local master    = Master:master(false)
+   local mStack    = ModuleStack:moduleStack()
+   master.shell    = BaseShell.build("bash")
+   local fn        = os.tmpname()
+   fh              = io.open(fn,"w")
+   local i         = 1
+   local masterTbl = masterTbl()
+   options()
+   
+
+
+   if (masterTbl.debug) then
+     dbg:activateDebug()
    end
-   --dbg:activateDebug()
    dbg.start("computeHashSum()")
    
    MCP           = MasterControl.build("computeHash","load")
    mcp           = MasterControl.build("computeHash","load")
    dbg.print("mcp set to ",mcp:name(),"\n")
 
-   mStack:push("something",arg[i])
-   loadModuleFile(arg[i])
+   local f = masterTbl.pargs[1]
+   mStack:push("something", f)
+   loadModuleFile(f)
    mStack:pop()
    local s = concatTbl(ComputeModuleResultsA,"")
-   if (verbose) then
+   if (masterTbl.verbose) then
       io.stderr:write(s)
    end
    fh:write(s)
    if (HashSum:sub(1,1) == "@" ) then
       HashSum = findInPath("sha1sum")
    end
+   fh:close()
 
    local result = capture(HashSum .. " " .. fn)
    os.remove(fn)
    local i,j = result:find(" ")
    print (result:sub(1,i-1))
    dbg.fini()
+end
+
+function options()
+   local masterTbl = masterTbl()
+   local usage         = "Usage: computeHashSum [options] file"
+   local cmdlineParser = Optiks:new{usage=usage, version=Version}
+
+   cmdlineParser:add_option{ 
+      name   = {'-v','--verbose'},
+      dest   = 'verbosityLevel',
+      action = 'count',
+   }
+
+   cmdlineParser:add_option{ 
+      name   = {'-d','--debug'},
+      dest   = 'debug',
+      action = 'store_true',
+      default = false,
+      help    = "debug flag"
+   }
+
+   local optionTbl, pargs = cmdlineParser:parse(arg)
+
+   for v in pairs(optionTbl) do
+      masterTbl[v] = optionTbl[v]
+   end
+   masterTbl.pargs = pargs
+
 end
 
 main()

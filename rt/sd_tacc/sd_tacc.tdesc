@@ -54,6 +54,7 @@ testdescript = {
      runMe lua $(projectDir)/src/lmod.in.lua bash setdefault
 
      runMe lua $(projectDir)/src/lmod.in.lua bash purge
+     PATH=$PATH_to_LUA:$PATH
      runMe lua $(projectDir)/src/lmod.in.lua bash load TACC
      runMe lua $(projectDir)/src/lmod.in.lua bash setdefault
 

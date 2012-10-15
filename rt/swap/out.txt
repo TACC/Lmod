@@ -34,7 +34,7 @@ MODULEPATH="ProjectDIR/mf/MPI/intel/10.1/openmpi/1.2.6:ProjectDIR/mf/Compiler/in
 export MODULEPATH;
 MPIHOME="/vol/local/mpi/intel/10.1/openmpi/1.2.6.opt";
 export MPIHOME;
-PATH="/vol/local/mpi/intel/10.1/openmpi/1.2.6.opt/bin:/vol/local/noweb/icon/bin:/vol/local/noweb/2.10c/bin:/vol/local/intel/idb/idb/bin:/vol/local/intel/fc/fc/bin:/vol/local/intel/cc/cc/bin:/usr/local/share/bin:/usr/local/bin:/usr/sbin:/sbin:ProjectDIR/src:PATH_to_TM:/bin";
+PATH="/vol/local/mpi/intel/10.1/openmpi/1.2.6.opt/bin:/vol/local/noweb/icon/bin:/vol/local/noweb/2.10c/bin:/vol/local/intel/idb/idb/bin:/vol/local/intel/fc/fc/bin:/vol/local/intel/cc/cc/bin:/usr/local/share/bin:/usr/sbin:/sbin:ProjectDIR/src:PATH_to_TM:/bin";
 export PATH;
 TACC_FAMILY_COMPILER="intel";
 export TACC_FAMILY_COMPILER;
@@ -70,7 +70,7 @@ unset MKL_INCLUDE;
 MODULEPATH="ProjectDIR/mf/Core";
 export MODULEPATH;
 unset MPIHOME;
-PATH="/vol/local/noweb/icon/bin:/vol/local/noweb/2.10c/bin:/usr/local/share/bin:/usr/local/bin:/usr/sbin:/sbin:ProjectDIR/src:PATH_to_TM:/bin";
+PATH="/vol/local/noweb/icon/bin:/vol/local/noweb/2.10c/bin:/usr/local/share/bin:/usr/sbin:/sbin:ProjectDIR/src:PATH_to_TM:/bin";
 export PATH;
 unset TACC_FAMILY_COMPILER;
 TACC_PMETIS_BIN="/vol/pkg/Parmetis/parmetis/3.1";
@@ -116,7 +116,7 @@ MODULEPATH="ProjectDIR/mf/MPI/gcc/4.2.3/openmpi/1.2.6:ProjectDIR/mf/Compiler/gcc
 export MODULEPATH;
 MPIHOME="/vol/local/mpi/gcc/4.2.3/openmpi/1.2.6.opt";
 export MPIHOME;
-PATH="/vol/local/mpi/gcc/4.2.3/openmpi/1.2.6.opt/bin:/vol/local/noweb/icon/bin:/vol/local/noweb/2.10c/bin:/usr/local/share/bin:/usr/local/bin:/usr/sbin:/sbin:ProjectDIR/src:PATH_to_TM:/bin";
+PATH="/vol/local/mpi/gcc/4.2.3/openmpi/1.2.6.opt/bin:/vol/local/noweb/icon/bin:/vol/local/noweb/2.10c/bin:/usr/local/share/bin:/usr/sbin:/sbin:ProjectDIR/src:PATH_to_TM:/bin";
 export PATH;
 TACC_FAMILY_COMPILER="gcc";
 export TACC_FAMILY_COMPILER;
@@ -169,7 +169,7 @@ MODULEPATH="ProjectDIR/mf/MPI/intel/10.1/openmpi/1.2.6:ProjectDIR/mf/Compiler/in
 export MODULEPATH;
 MPIHOME="/vol/local/mpi/intel/10.1/openmpi/1.2.6.opt";
 export MPIHOME;
-PATH="/vol/local/mpi/intel/10.1/openmpi/1.2.6.opt/bin:/vol/local/intel/idb/idb/bin:/vol/local/intel/fc/fc/bin:/vol/local/intel/cc/cc/bin:/vol/local/noweb/icon/bin:/vol/local/noweb/2.10c/bin:/usr/local/share/bin:/usr/local/bin:/usr/sbin:/sbin:ProjectDIR/src:PATH_to_TM:/bin";
+PATH="/vol/local/mpi/intel/10.1/openmpi/1.2.6.opt/bin:/vol/local/intel/idb/idb/bin:/vol/local/intel/fc/fc/bin:/vol/local/intel/cc/cc/bin:/vol/local/noweb/icon/bin:/vol/local/noweb/2.10c/bin:/usr/local/share/bin:/usr/sbin:/sbin:ProjectDIR/src:PATH_to_TM:/bin";
 export PATH;
 TACC_FAMILY_COMPILER="intel";
 export TACC_FAMILY_COMPILER;

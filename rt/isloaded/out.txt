@@ -30,7 +30,7 @@ MKL_INCLUDE="/vol/local/intel/mkl/mkl/include";
 export MKL_INCLUDE;
 MODULEPATH="ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/Core";
 export MODULEPATH;
-PATH="/vol/local/noweb/icon/bin:/vol/local/noweb/2.10c/bin:/vol/local/intel/idb/idb/bin:/vol/local/intel/fc/fc/bin:/vol/local/intel/cc/cc/bin:/usr/local/share/bin:/usr/local/bin:ProjectDIR/src:PATH_to_TM:/bin";
+PATH="/vol/local/noweb/icon/bin:/vol/local/noweb/2.10c/bin:/vol/local/intel/idb/idb/bin:/vol/local/intel/fc/fc/bin:/vol/local/intel/cc/cc/bin:/usr/local/share/bin:ProjectDIR/src:PATH_to_TM:/bin";
 export PATH;
 TACC_FAMILY_COMPILER="intel";
 export TACC_FAMILY_COMPILER;
