@@ -106,7 +106,11 @@ local function new(self, s)
          for k,v in pairs(_ModuleTable_) do
             o[k] = v
          end
-         s_loadOrder = o.activeSize
+         local icount = 0
+         for k in pairs(o.mT) do
+            icount = icount + 1
+         end
+         s_loadOrder = icount
       end
       o._MPATH = concatTbl(o.mpathA,":")
       varTbl[DfltModPath] = Var:new(DfltModPath, concatTbl(o.baseMpathA,":"))
