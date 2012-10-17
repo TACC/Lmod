@@ -524,8 +524,8 @@ function M.setHashSum(self)
    local mT   = self.mT
    local dbg  = Dbg:dbg()
 
-   local a = {}
    for k,v in pairs(mT) do
+      local a = {}
       if (v.status == "active") then
          a[#a + 1]    = pathJoin(cmdDir(),"computeHashSum")
          if (dbg.active()) then
