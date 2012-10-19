@@ -504,11 +504,12 @@ end
 
 function M.spiderSearch(dbT, mname, help)
    local dbg = Dbg:dbg()
-   dbg.start("spiderSearch(dbT,\"",mname,"\")")
+   dbg.start("Spider:spiderSearch(dbT,\"",mname,"\")")
    local name   = extractName(mname)
    local nameL  = name:lower()
    local mnameL = mname:lower()
    local found  = false
+   local a      = {}
    for k,v in pairs(dbT) do
       if (k:find(nameL,1,true) or k:find(nameL)) then
          local s
@@ -523,12 +524,16 @@ function M.spiderSearch(dbT, mname, help)
             found = true
          end
          if (s) then
-            pcall(pager,io.stderr, s,"\n")
+            a[#a+1] = s
+            s       = nil
          end
       end
    end
    if (not found) then
       io.stderr:write("Unable to find: \"",mname,"\"\n")
+   else
+      dbg.print("calling pager\n")
+      pcall(pager,io.stderr, concatTbl(a,""))
    end
    dbg.fini()
 end
