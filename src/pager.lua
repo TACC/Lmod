@@ -18,12 +18,10 @@ function usePager(f, ...)
          return
       end
    end
-   local arg = { n = select('#', ...), ...}
    local p = io.popen(s_pager .. " 1>&2" ,"w")
-   for i = 1, arg.n do
-      p:write(arg[i])
-   end
-   p:close(p)
+   local s = table.concat({...},"")
+   p:write(s)
+   p:close()
 end
    
 
