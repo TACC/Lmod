@@ -1,4 +1,5 @@
 require("strict")
+local Dbg = require("Dbg")
 
 s_pager = false
 
@@ -11,6 +12,8 @@ end
 
 
 function usePager(f, ...)
+   local dbg = Dbg:dbg()
+   dbg.start("usePager()")
    if (not s_pager) then
       s_pager = os.getenv("PAGER") or Pager
       if (s_pager == "@PATH_TO_PAGER@") then
@@ -22,6 +25,5 @@ function usePager(f, ...)
    local s = table.concat({...},"")
    p:write(s)
    p:close()
+   dbg.fini()
 end
-   
-

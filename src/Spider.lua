@@ -531,11 +531,9 @@ function M.spiderSearch(dbT, mname, help)
    end
    if (not found) then
       io.stderr:write("Unable to find: \"",mname,"\"\n")
-   else
-      dbg.print("calling pager\n")
-      pcall(pager,io.stderr, concatTbl(a,""))
    end
    dbg.fini()
+   return concatTbl(a,"")
 end
 
 function M.Level1(dbT, mname, help)
