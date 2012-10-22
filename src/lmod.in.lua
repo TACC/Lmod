@@ -144,7 +144,7 @@ function colorizePropA(style, moduleName, propT, legendT)
 
 end
 
-
+CmdLineUsage = "module [options] sub-command [args ...]"
 
 Usage = [[
 module sub-command [args ...]
@@ -199,15 +199,15 @@ Searching with Lmod:
 
 Handling a collection of modules:
   save       | s | sd                    Save the current list of modules
-                                         to a file named "default".
+                                         to a user defined "default".
   save name  | s name                    Save the current list of modules
                                          to "name" collection.
 
-  restore                                Use the name "default" to retrieve
-                                         previously saved list of modules.
+  restore                                Restore modules from the user defined "default"
+                                         collection.
 
-  restore  name | r name                 Use the filename "default" to retrieve
-                                         previously saved list of modules.
+  restore  name | r name                 Restore modules from "name" collection.
+
 
   restore  system                        restore module state to system defaults.
 
@@ -416,8 +416,7 @@ function Access(mode, ...)
 
    local n = select('#',...)
    if (n < 1) then
-      io.stderr:write(Usage,"\n")
-      io.stderr:write(version())
+      pcall(pager, io.stderr, Usage, "\n", version()) 
       os.exit(1)
    end
 
@@ -563,10 +562,6 @@ local function Restore(a)
    local dbg  = Dbg:dbg()
    a          = a or "default"
    dbg.start("Restore(",a,")")
-
-   local mt   = MT:mt()
-   local path = pathJoin(os.getenv("HOME"), ".lmod.d", a)
-
    if (a == "system") then
       dbg.print("Restoring System\n")
       Reset()
@@ -574,6 +569,14 @@ local function Restore(a)
       return
    end
 
+   local path = pathJoin(os.getenv("HOME"), ".lmod.d", a)
+   if (not isFile(path)) then
+      dbg.warning("No user default found.  Did you mean: \"module restore system\"\n")
+      dbg.fini()
+      return
+   end
+
+   local mt   = MT:mt()
    mt:getMTfromFile(path)
    dbg.fini()
 end
@@ -591,7 +594,7 @@ local function FindDefaults(a,path)
    end
 end
 
-local function ListDefault(...)
+local function SaveList(...)
    local mt   = MT:mt()
    local dbg  = Dbg:dbg()
    local path = pathJoin(os.getenv("HOME"), LMODdir)
@@ -611,7 +614,7 @@ local function ListDefault(...)
    end
 
    if (#a > 0) then
-      io.stderr:write("Possible defaults:\n")
+      io.stderr:write("Possible named collection(s):\n")
       local ct = ColumnTable:new{tbl=a,gap=0}
       io.stderr:write(ct:build_tbl(),"\n")
    end
@@ -933,7 +936,7 @@ function main()
    local keywordTbl   = { name = "keyword",     checkMPATH = false, cmd = Keyword     }
    local saveTbl      = { name = "save",        checkMPATH = false, cmd = Save        }
    local restoreTbl   = { name = "restore",     checkMPATH = false, cmd = Restore     }
-   local listDefTbl   = { name = "listdefault", checkMPATH = false, cmd = ListDefault }
+   local savelistTbl  = { name = "savelist",    checkMPATH = false, cmd = SaveList    }
    local spiderTbl    = { name = "spider",      checkMPATH = true,  cmd = SpiderCmd   }
    local recordTbl    = { name = "record",      checkMPATH = false, cmd = RecordCmd   }
 
@@ -956,10 +959,11 @@ function main()
       help         = helpTbl,
       key          = keywordTbl,
       keyword      = keywordTbl,
-      ld           = listDefTbl,
+      ld           = savelistTbl,
       li           = listTbl,
       list         = listTbl,
-      listdefault  = listDefTbl,
+      listdefault  = savelistTbl,
+      savelist     = savelistTbl,
       lo           = loadTbl,
       load         = loadTbl,
       purge        = purgeTbl,
@@ -998,33 +1002,6 @@ function main()
 
    MCP = MasterControl.build("load")
 
-
-   --local lTbl = { whatis = dbg.quiet, help = dbg.quiet,
-   --               setenv = Set,       unsetenv = Unset,
-   --               prepend_path = Prepend_path, append_path = Append_path, remove_path = Remove_path,
-   --               set_alias    = SetAlias,     unset_alias = UnSetAlias,  family      = SetFamily,
-   --               load         = Load,         unload      = UnLoad,      mode        = ModeLoad,
-   --               prereq       = Prereq,       conflict    = Conflict,    inherit     = InheritModule,
-   --               display      = Display,      try_load    = TryLoad,
-   --}
-   --
-   --local unTbl = { whatis = dbg.quiet, help = dbg.quiet,
-   --                setenv = Unset,     unsetenv = BadUnset,
-   --                prepend_path = Remove_path,  append_path = Remove_path,   remove_path = BadRemove_path,
-   --                set_alias    = UnSetAlias,   unset_alias = BadUnSetAlias, family      = UnsetFamily,
-   --                load         = UnLoad,       unload      = BadUnLoad,     mode        = ModeUnload,
-   --                prereq       = dbg.quiet,    conflict    = dbg.quiet,     inherit     = InheritModule,
-   --                display      = dbg.quiet,    try_load    = UnLoad,
-   --}
-   --
-   --for k in pairs(lTbl) do
-   --   LoadTbl[k] = lTbl[k]
-   --end
-   --
-   --for k in pairs(unTbl) do
-   --   UnLoadTbl[k] = unTbl[k]
-   --end
-
    -------------------------------------------------------------------
    -- Is io.stderr connected to a tty or not?
    -- Setup output and pager routines
@@ -1044,7 +1021,7 @@ function main()
    table.remove(arg,1)
 
    local arg_str = concatTbl(arg," ")
-   local options = Options:options(Usage)
+   local options = Options:options(CmdLineUsage)
 
    if (options.debug or options.dbglvl) then
       dbg:activateDebug(options.dbglvl or 1)
@@ -1081,7 +1058,10 @@ function main()
    master.shell:expand(varTbl)
 
    -- if Help was requested then quit.
-   if (options.Optiks_help) then os.exit(0) end
+   if (options.Optiks_help) then
+      Help()
+      os.exit(0)
+   end
 
    -- print version and quit if requested.
    if (options.version) then
