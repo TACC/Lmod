@@ -23,3 +23,7 @@ module () {
     eval $($LMOD_CMD bash "$@")
 }
 
+
+module purge
+clearMT
+module getdefault default || module try-add TACC

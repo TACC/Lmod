@@ -68,13 +68,15 @@ function main()
 
    local lmodCmdA = {
       avail="avail",  av="avail", 
-      getdefault="getdefault", gd="getdefault", 
+      getdefault="restore", gd="restore", 
+      r="restore", restore="restore",
       help="help",
       key="keyword", keyword="keyword",
       listdefault="listdefault", ld="listdefault",
       purge="purge",
       record="record",
-      setdefault="setdefault", sd="setdefault", 
+      save="save",
+      setdefault="save", sd="save", 
       show="show",
       spider="spider",
       swap="swap", sw="swap", switch="swap",
@@ -84,6 +86,7 @@ function main()
       unuse="unuse",
       whatis="whatis",
       list="list",
+      reset="reset",
       reset="reset",
       unload="unload", rm = "unload", del = "unload",
    }

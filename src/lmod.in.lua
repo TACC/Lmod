@@ -162,8 +162,9 @@ Loading/Unloading sub-commands:
   swap | sw | switch modfile1 modfile2   unload modfile1 and load modfile2
   purge                                  unload all modules
 
-Reset environment
-  reset                                  Do a module purge and load system defaults
+Recovering system environment
+  restore system                         Do a module purge and load system defaults
+
 
 Listing / Searching sub-commands:
   list                                   List loaded modules
@@ -193,17 +194,29 @@ Searching with Lmod:
 
   spider        mpi                      finds all modules that have "mpi" in
                                          their name.
+  spider        'mpi$"                   file all modules that end with "mpi" in
+                                         their name.
 
-Setting/Getting Default module sub-commands:
-  setdefault | sd                        Save the current list of modules
+Handling a collection of modules:
+  save       | s | sd                    Save the current list of modules
                                          to a file named "default".
-  setdefault | sd  filename              Save the current list of modules
-                                         to "filename"
-  getdefault | gd                        Use the filename "default" to retrieve
+  save name  | s name                    Save the current list of modules
+                                         to "name" collection.
+
+  restore                                Use the name "default" to retrieve
                                          previously saved list of modules.
-  getdefault | gd  filename              Use the filename "filename" to retrieve
+
+  restore  name | r name                 Use the filename "default" to retrieve
                                          previously saved list of modules.
-  listdefault | ld                       list all saved default states.
+
+  restore  system                        restore module state to system defaults.
+
+
+  savelist                               list of saved collections.
+
+  -----------
+  (note that save and restore used to be setdefault and getdefault.)
+
 
 Miscellaneous sub-commands:
   record                                 save the module table.
@@ -508,12 +521,19 @@ function UnLoad(...)
 end
 
 
-local function SetDefault(...)
+local function Save(...)
    local mt   = MT:mt()
    local dbg  = Dbg:dbg()
    local a    = select(1, ...) or "default"
    local path = pathJoin(os.getenv("HOME"), LMODdir)
-   dbg.start("SetDefault(",concatTbl({...},", "),")")
+   dbg.start("Save(",concatTbl({...},", "),")")
+
+   if (a == "system") then
+      dbg.warning("The named collection 'system' is reserved. Please choose another name.\n")
+      dbg.fini()
+      return
+   end
+
 
    local aa = mt:safeToSave()
 
@@ -539,12 +559,21 @@ local function SetDefault(...)
    dbg.fini()
 end
 
-local function GetDefault(...)
-   local mt   = MT:mt()
+local function Restore(a)
    local dbg  = Dbg:dbg()
-   local a    = select(1, ...) or "default"
+   a          = a or "default"
+   dbg.start("Restore(",a,")")
+
+   local mt   = MT:mt()
    local path = pathJoin(os.getenv("HOME"), ".lmod.d", a)
-   dbg.start("GetDefault(",a,")")
+
+   if (a == "system") then
+      dbg.print("Restoring System\n")
+      Reset()
+      dbg.fini()
+      return
+   end
+
    mt:getMTfromFile(path)
    dbg.fini()
 end
@@ -902,8 +931,8 @@ function main()
    local unuseTbl     = { name = "unuse",       checkMPATH = true,  cmd = UnUse       }
    local updateTbl    = { name = "update",      checkMPATH = true,  cmd = Update      }
    local keywordTbl   = { name = "keyword",     checkMPATH = false, cmd = Keyword     }
-   local setDefTbl    = { name = "setdefault",  checkMPATH = false, cmd = SetDefault  }
-   local getDefTbl    = { name = "getdefault",  checkMPATH = false, cmd = GetDefault  }
+   local saveTbl      = { name = "save",        checkMPATH = false, cmd = Save        }
+   local restoreTbl   = { name = "restore",     checkMPATH = false, cmd = Restore     }
    local listDefTbl   = { name = "listdefault", checkMPATH = false, cmd = ListDefault }
    local spiderTbl    = { name = "spider",      checkMPATH = true,  cmd = SpiderCmd   }
    local recordTbl    = { name = "record",      checkMPATH = false, cmd = RecordCmd   }
@@ -921,9 +950,9 @@ function main()
       display      = showTbl,
       era          = unloadTbl,
       erase        = unloadTbl,
-      gd           = getDefTbl,
-      getd         = getDefTbl,
-      getdefault   = getDefTbl,
+      gd           = restoreTbl,
+      getd         = restoreTbl,
+      getdefault   = restoreTbl,
       help         = helpTbl,
       key          = keywordTbl,
       keyword      = keywordTbl,
@@ -941,10 +970,14 @@ function main()
       remov        = unloadTbl,
       remove       = unloadTbl,
       reset        = resetTbl,
+      restore      = restoreTbl,
+      r            = restoreTbl,
       rm           = unloadTbl,
-      sd           = setDefTbl,
-      setd         = setDefTbl,
-      setdefault   = setDefTbl,
+      s            = saveTbl,
+      save         = saveTbl,
+      sd           = saveTbl,
+      setd         = saveTbl,
+      setdefault   = saveTbl,
       show         = showTbl,
       spider       = spiderTbl,
       sw           = swapTbl,

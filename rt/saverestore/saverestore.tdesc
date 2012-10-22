@@ -15,7 +15,7 @@ testdescript = {
    keywords = {"default","setdefault", "getdefault","setgetdefault","getsetdefault" },
 
    active = 1,
-   testName = "setgetdefault",
+   testName = "saverestore",
    job_submit_method = "INTERACTIVE", 
 
    runScript = [[
@@ -52,15 +52,15 @@ testdescript = {
      runMe lua $(projectDir)/src/lmod.in.lua bash --version
      runMe lua $(projectDir)/src/lmod.in.lua bash load TACC 
      runMe lua $(projectDir)/src/lmod.in.lua bash list
-     runMe lua $(projectDir)/src/lmod.in.lua bash setdefault
-     runMe lua $(projectDir)/src/lmod.in.lua bash getdefault
+     runMe lua $(projectDir)/src/lmod.in.lua bash save default
+     runMe lua $(projectDir)/src/lmod.in.lua bash restore
      runMe lua $(projectDir)/src/lmod.in.lua bash use $(testDir)/TACC2
      runMe lua $(projectDir)/src/lmod.in.lua bash load a
      runMe lua $(projectDir)/src/lmod.in.lua bash list
-     runMe lua $(projectDir)/src/lmod.in.lua bash setdefault
+     runMe lua $(projectDir)/src/lmod.in.lua bash save 
      unset LMOD_DEFAULT_MODULEPATH
      unsetMT
-     runMe lua $(projectDir)/src/lmod.in.lua bash getdefault
+     runMe lua $(projectDir)/src/lmod.in.lua bash restore
      runMe lua $(projectDir)/src/lmod.in.lua bash list
      runMe lua $(projectDir)/src/lmod.in.lua bash spider
      
