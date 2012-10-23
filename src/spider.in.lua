@@ -167,8 +167,18 @@ function main()
       return
    end
       
+   if (masterTbl.outputStyle == "softwarePage") then
+      local spA = softwarePage(dbT)
+      local s = serializeTbl{name="spA",      value=spA,   indent=true}
+      print(s)
+      dbg.fini()
+      return
+   end
+
+
    if (masterTbl.outputStyle == "spider-json") then
       print(json.encode(dbT))
+      dbg.fini()
       return
    end
 
@@ -178,6 +188,53 @@ function main()
    dbg.fini()
 end
 
+function softwarePage(dbT)
+
+   local spT = {}
+   local idx = 0
+
+   for name, vv in pairs(dbT) do
+      convertEntry(name, vv, spA)
+   end
+
+   return spA
+end
+
+function convertEntry(name, vv, spA)
+
+   local keyA = {
+      "Category",
+      "Description",
+      "Keyword",
+      "Name",
+      "URL",
+      "Version",
+      "full",
+      "help",
+      "parent",
+   }
+
+
+   local keyA = { 
+
+   local entry    = {}
+   entry.package  = name
+   local vT       = {}
+
+   for mfPath, v in pairs(vv) do
+      vT.path = mfPath
+
+      for i = 1,#keyA do
+         local key = keyA[i]
+         if (v[key]) then
+            vT[key] = v[key]
+         end
+      end
+   end
+
+   entry.Versions = vT
+   spA[#spA+1] = entry
+end
 
 
 
@@ -198,7 +255,7 @@ function options()
       dest   = 'outputStyle',
       action = 'store',
       default = "list",
-      help    = "Output Style: list, moduleT, reverseMap, spider spider-json"  
+      help    = "Output Style: list, moduleT, reverseMap, spider spider-json softwarePage"  
    }
 
    cmdlineParser:add_option{ 
