@@ -169,7 +169,7 @@ function main()
       
    if (masterTbl.outputStyle == "softwarePage") then
       local spA = softwarePage(dbT)
-      local s = serializeTbl{name="spA",      value=spA,   indent=true}
+      local s = json.encode(spA))
       print(s)
       dbg.fini()
       return
