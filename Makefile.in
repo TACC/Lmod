@@ -31,7 +31,8 @@ MAIN_DIR	 := Makefile.in INSTALL configure README_lua_modulefiles.txt
 
 CONTRIB          := contrib/createmodule.sh contrib/BuildSystemCacheFile \
                     contrib/SitePackage contrib/tricky_modulefiles
-lua_code	 := $(wildcard src/*.lua) $(wildcard src/*.tcl) src/COPYRIGHT 
+lua_code	 := $(filter-out %.in.lua, $(wildcard src/*.lua))        \
+                    $(wildcard src/*.tcl) src/COPYRIGHT 
 VDATE		 := $(shell date +'%F %H:%M')
 
 ComputeHashSum   := src/computeHashSum.in.lua
@@ -68,6 +69,10 @@ echo:
 	@echo Version: $(version)
 echo_version:
 	@echo $(version)
+
+echo_rtm:
+	@echo $(filter-out src/%.in.lua, $(wildcard src/*.lua))
+
 
 
 $(DIRLIST) :
