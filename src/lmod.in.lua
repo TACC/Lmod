@@ -571,15 +571,7 @@ local function Restore(a)
 
    local path = pathJoin(os.getenv("HOME"), ".lmod.d", a)
    if (not isFile(path)) then
-      if (term) then
-         if (term.isatty(io.stderr)) then
-            dbg.warning("No user default found.  Did you mean: \"module restore system\"\n")
-            dbg.fini()
-            return
-         end
-      else
-         os.exit(1)
-      end
+      os.exit(1)
    end
 
    local mt   = MT:mt()
