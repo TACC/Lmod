@@ -112,6 +112,8 @@ function main()
    loadModuleFile(f)
    mStack:pop()
    local s = concatTbl(ComputeModuleResultsA,"")
+   dbg.print("Text to Hash: \n",s,"\n")
+
    if (masterTbl.verbose) then
       io.stderr:write(s)
    end
@@ -124,6 +126,7 @@ function main()
    local result = capture(HashSum .. " " .. fn)
    os.remove(fn)
    local i,j = result:find(" ")
+   dbg.print("hash value: ",result:sub(1,i-1))
    print (result:sub(1,i-1))
    dbg.fini()
 end
