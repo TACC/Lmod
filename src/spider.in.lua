@@ -169,8 +169,7 @@ function main()
       
    if (masterTbl.outputStyle == "softwarePage") then
       local spA = softwarePage(dbT)
-      local s = json.encode(spA))
-      print(s)
+      print(json.encode(spA))
       dbg.fini()
       return
    end
