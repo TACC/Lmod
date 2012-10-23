@@ -215,8 +215,6 @@ function convertEntry(name, vv, spA)
    }
 
 
-   local keyA = { 
-
    local entry    = {}
    entry.package  = name
    local vT       = {}
