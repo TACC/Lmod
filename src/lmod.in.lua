@@ -570,10 +570,6 @@ local function Restore(a)
    end
 
    local path = pathJoin(os.getenv("HOME"), ".lmod.d", a)
-   if (not isFile(path)) then
-      os.exit(1)
-   end
-
    local mt   = MT:mt()
    mt:getMTfromFile(path)
    dbg.fini()
