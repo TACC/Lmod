@@ -190,7 +190,7 @@ end
 
 function softwarePage(dbT)
 
-   local spT = {}
+   local spA = {}
    local idx = 0
 
    for name, vv in pairs(dbT) do
@@ -217,9 +217,11 @@ function convertEntry(name, vv, spA)
 
    local entry    = {}
    entry.package  = name
-   local vT       = {}
+   local versionT = {}
 
    for mfPath, v in pairs(vv) do
+      local vT = {}
+
       vT.path = mfPath
 
       for i = 1,#keyA do
@@ -228,6 +230,7 @@ function convertEntry(name, vv, spA)
             vT[key] = v[key]
          end
       end
+      versionT[#versionT + 1] = vT
    end
 
    entry.Versions = vT
