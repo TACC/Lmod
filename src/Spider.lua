@@ -230,6 +230,26 @@ local function lastFileInDir(fn)
    return result, count
 end
 
+function versionFile(path)
+   local dbg     = Dbg:dbg()
+   dbg.start("versionFile(",path,")")
+   local f       = io.open(path,"r")
+   if (not f)                        then
+      dbg.print("could not find: ",path,"\n")
+      dbg.fini()
+      return nil
+   end
+   local s       = f:read("*line")
+   f:close()
+   if (not s:find("^#%%Module"))      then
+      dbg.print("could not find: #%Module\n")
+      dbg.fini()
+      return nil
+   end
+   local cmd = pathJoin(cmdDir(),"ModulesVersion.tcl") .. " " .. path
+   return capture(cmd):trim()
+end
+
 local function findDefault(mpath, path, prefix)
    local dbg      = Dbg:dbg()
    local mt       = MT:mt()
@@ -247,7 +267,7 @@ local function findDefault(mpath, path, prefix)
    if (default == nil) then
       local vFn = abspath(pathJoin(path,".version"), localDir)
       if (isFile(vFn)) then
-         local vf = M.versionFile(vFn)
+         local vf = versionFile(vFn)
          if (vf) then
             local f = pathJoin(path,vf)
             default = abspath(f,localDir)
