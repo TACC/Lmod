@@ -249,7 +249,7 @@ function convertEntry(name, vv, spA)
       versionT[#versionT + 1] = vT
    end
 
-   entry.Versions = versionT
+   entry.versions = versionT
    spA[#spA+1] = entry
 end
 
