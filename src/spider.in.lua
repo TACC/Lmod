@@ -201,16 +201,21 @@ end
 
 function convertEntry(name, vv, spA)
 
-   local keyA = {
-      "Category",
-      "Description",
-      "Keyword",
-      "Name",
-      "URL",
-      "Version",
-      "full",
-      "help",
-      "parent",
+   local topKeyT = {
+      Category    = "categories",
+      Description = "description",
+      Keyword     = "keywords",
+      Name        = "displayName",
+      URL         = "url",
+   }
+
+
+
+   local keyT = {
+      Version     = "versionName",
+      full        = "full",
+      help        = "help",
+      parent      = "parent"
    }
 
 
@@ -218,15 +223,27 @@ function convertEntry(name, vv, spA)
    entry.package  = name
    local versionT = {}
 
+   local first    = true
+   local epoch    = 0
+
    for mfPath, v in pairs(vv) do
       local vT = {}
 
       vT.path = mfPath
 
-      for i = 1,#keyA do
-         local key = keyA[i]
+      if (first or (v.default and v.epoch > epoch) ) then
+         if (not first) then
+            epoch = v.epoch
+         end
+         first = false
+         for topKey, newKey in pairs(topKeyT) do
+            entry[newKey] = v[topKey]
+         end
+      end
+
+      for key, newKey in pairs(keyT) do
          if (v[key]) then
-            vT[key] = v[key]
+            vT[newKey] = v[key]
          end
       end
       versionT[#versionT + 1] = vT
