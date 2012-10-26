@@ -77,6 +77,7 @@ function main()
       purge="purge",
       record="record",
       save="save",
+      s="save",
       setdefault="save", sd="save", 
       show="show",
       spider="spider",
