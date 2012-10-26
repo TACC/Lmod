@@ -68,11 +68,12 @@ function main()
 
    local lmodCmdA = {
       avail="avail",  av="avail", 
-      getdefault="restore", gd="restore", 
+      getdefault="getdefault", gd="getdefault", 
       r="restore", restore="restore",
       help="help",
       key="keyword", keyword="keyword",
       listdefault="listdefault", ld="listdefault",
+      savelist="savelist", sl="savelist",
       purge="purge",
       record="record",
       save="save",
