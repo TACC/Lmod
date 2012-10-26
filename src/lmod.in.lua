@@ -203,8 +203,8 @@ Handling a collection of modules:
   save name  | s name                    Save the current list of modules
                                          to "name" collection.
 
-  restore                                Restore modules from the user defined "default"
-                                         collection.
+  restore                                Restore modules from the user's "default"
+                                         or system default.
 
   restore  name | r name                 Restore modules from "name" collection.
 
@@ -558,18 +558,30 @@ local function Save(...)
    dbg.fini()
 end
 
+local function GetDefault(a)
+   local dbg  = Dbg:dbg()
+   a          = a or "default"
+   dbg.start("GetDefault(",a,")")
+
+   local path = pathJoin(os.getenv("HOME"), ".lmod.d", a)
+   local mt   = MT:mt()
+   mt:getMTfromFile(path)
+   dbg.fini()
+end
+
 local function Restore(a)
    local dbg  = Dbg:dbg()
    a          = a or "default"
    dbg.start("Restore(",a,")")
-   if (a == "system") then
+   local path = pathJoin(os.getenv("HOME"), ".lmod.d", a)
+
+   if (a == "system" or not isFile(path)) then
       dbg.print("Restoring System\n")
       Reset()
       dbg.fini()
       return
    end
 
-   local path = pathJoin(os.getenv("HOME"), ".lmod.d", a)
    local mt   = MT:mt()
    mt:getMTfromFile(path)
    dbg.fini()
@@ -929,6 +941,7 @@ function main()
    local updateTbl    = { name = "update",      checkMPATH = true,  cmd = Update      }
    local keywordTbl   = { name = "keyword",     checkMPATH = false, cmd = Keyword     }
    local saveTbl      = { name = "save",        checkMPATH = false, cmd = Save        }
+   local gdTbl        = { name = "getDefault",  checkMPATH = false, cmd = GetDefault  }
    local restoreTbl   = { name = "restore",     checkMPATH = false, cmd = Restore     }
    local savelistTbl  = { name = "savelist",    checkMPATH = false, cmd = SaveList    }
    local spiderTbl    = { name = "spider",      checkMPATH = true,  cmd = SpiderCmd   }
@@ -947,9 +960,9 @@ function main()
       display      = showTbl,
       era          = unloadTbl,
       erase        = unloadTbl,
-      gd           = restoreTbl,
-      getd         = restoreTbl,
-      getdefault   = restoreTbl,
+      gd           = gdTbl,
+      getd         = gdTbl,
+      getdefault   = gdTbl,
       help         = helpTbl,
       key          = keywordTbl,
       keyword      = keywordTbl,
