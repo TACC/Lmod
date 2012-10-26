@@ -214,8 +214,17 @@ Handling a collection of modules:
 
   savelist                               list of saved collections.
 
-  -----------
-  (note that save and restore used to be setdefault and getdefault.)
+
+Deprecated commands
+   reset                                 The same as "restore system"
+   getdefault [name]                     load name collection of modules or
+                                         user's "default" if no name given.
+                                         ---> Use "restore" instead  <----
+
+   setdefault [name]                     Save current list of modules to
+                                         name if given, otherwise save as the
+                                         default list for you the user.
+                                         ---> Use "save" instead. <----
 
 
 Miscellaneous sub-commands:
@@ -315,7 +324,9 @@ function Reset()
       dbg.print("m: ",m,"\n")
       a[#a + 1] = m
    end
-   UsrLoad(unpack(a))
+   if (#a > 0) then
+      UsrLoad(unpack(a))
+   end
    dbg.fini()
 end
 
