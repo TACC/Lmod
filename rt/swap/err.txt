@@ -1,7 +1,7 @@
 ===========================
 step 1
 ===========================
-Modules based on Lua: Version 4.0 2012-10-01 22:17
+Modules based on Lua: Version 4.1 2012-10-26 11:38
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -9,12 +9,36 @@ step 2
 ===========================
 step 3
 ===========================
+ ProjectDIR/mf/MPI/intel/10.1/openmpi/1.2.6 
+   parmetis/3.1 (m)      petsc/3.2       phdf5/1.8.2
+ ProjectDIR/mf/Compiler/intel/10.1 
+   gotoblas/1.31          gotoblas/1.33       openmpi/1.2.6
+   gotoblas/1.32  (D)     mpich2/1.0.7
+ ProjectDIR/mf/Core 
+   PrgEnv                      git/1.7.4              junk/d/3.0
+   admin/admin-1.0     (D)     git/1.7.4.3    (D)     local/local      (D)
+   alex/1.0                    gotoblas/1.20          multi/multi      (D)
+   boost/1.46.0                gotoblas/1.26          noweb/2.10c      (D)
+   boost/1.47.1                gotoblas/1.30          parmetis/3.1 (m)
+   boost/1.49.0    (o) (D)     intel/intel    (D)     unix/unix        (D)
+   gcc/4.2.3                   junk/a/c/1.0
+   git/1.6.3.1                 junk/b/c/2.0
+  Where:
+   (D):  Default Module
+   (m):  module is build natively for MIC
+   (o):  module is build for offload to the MIC
+Use "module spider" to find all possible modules. 
+Use "module keyword key1 key2 ..." to search for all possible modules matching 
+any of the "keys". 
+===========================
+step 4
+===========================
 Inactive Modules:
   1) openmpi
 Due to MODULEPATH changes the following modules have been reloaded:
   1) parmetis/3.1
 ===========================
-step 4
+step 5
 ===========================
 Currently Loaded Modules:
   1) admin/admin-1.0    3) unix/unix      5) noweb/2.10c
@@ -22,16 +46,16 @@ Currently Loaded Modules:
   Where:
    (m):  module is build natively for MIC
 Inactive Modules:
-  1) openmpi/1.2.6
+  1) openmpi
 ===========================
-step 5
+step 6
 ===========================
 Activating Modules:
   1) openmpi/1.2.6
 Due to MODULEPATH changes the following modules have been reloaded:
-  1) parmetis/3.1
+  1) openmpi  2) parmetis/3.1
 ===========================
-step 6
+step 7
 ===========================
 Currently Loaded Modules:
   1) admin/admin-1.0    4) local/local    7) openmpi/1.2.6
@@ -40,16 +64,49 @@ Currently Loaded Modules:
   Where:
    (m):  module is build natively for MIC
 ===========================
-step 7
-===========================
-Due to MODULEPATH changes the following modules have been reloaded:
-  1) openmpi/1.2.6  2) parmetis/3.1
-===========================
 step 8
 ===========================
+Due to MODULEPATH changes the following modules have been reloaded:
+  1) openmpi  2) parmetis/3.1
+===========================
+step 9
+===========================
+===========================
+step 10
+===========================
 Currently Loaded Modules:
-  1) admin/admin-1.0    4) local/local    7) openmpi/1.2.6
-  2) PrgEnv             5) noweb/2.10c    8) parmetis/3.1  (m)
-  3) unix/unix          6) intel/intel
+  1) admin/admin-1.0    5) noweb/2.10c         9)  phdf5/1.8.2
+  2) PrgEnv             6) intel/intel         10) petsc/3.2
+  3) unix/unix          7) openmpi/1.2.6
+  4) local/local        8) parmetis/3.1  (m)
+  Where:
+   (m):  module is build natively for MIC
+===========================
+step 11
+===========================
+Due to MODULEPATH changes the following modules have been reloaded:
+  1) petsc  2) phdf5/1.8.2  3) parmetis/3.1
+===========================
+step 12
+===========================
+Currently Loaded Modules:
+  1) admin/admin-1.0    4) local/local    7) parmetis/3.1 (m)   10) petsc/3.1
+  2) PrgEnv             5) noweb/2.10c    8) mpich2/1.0.7
+  3) unix/unix          6) intel/intel    9) phdf5/1.8.2
+  Where:
+   (m):  module is build natively for MIC
+===========================
+step 13
+===========================
+Due to MODULEPATH changes the following modules have been reloaded:
+  1) petsc  2) phdf5/1.8.2  3) parmetis/3.1
+===========================
+step 14
+===========================
+Currently Loaded Modules:
+  1) admin/admin-1.0    5) noweb/2.10c         9)  phdf5/1.8.2
+  2) PrgEnv             6) intel/intel         10) petsc/3.2
+  3) unix/unix          7) openmpi/1.2.6
+  4) local/local        8) parmetis/3.1  (m)
   Where:
    (m):  module is build natively for MIC
