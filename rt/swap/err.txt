@@ -53,7 +53,7 @@ step 6
 Activating Modules:
   1) openmpi/1.2.6
 Due to MODULEPATH changes the following modules have been reloaded:
-  1) openmpi  2) parmetis/3.1
+  1) openmpi/1.2.6  2) parmetis/3.1
 ===========================
 step 7
 ===========================
@@ -67,7 +67,7 @@ Currently Loaded Modules:
 step 8
 ===========================
 Due to MODULEPATH changes the following modules have been reloaded:
-  1) openmpi  2) parmetis/3.1
+  1) openmpi/1.2.6  2) parmetis/3.1
 ===========================
 step 9
 ===========================
@@ -85,7 +85,7 @@ Currently Loaded Modules:
 step 11
 ===========================
 Due to MODULEPATH changes the following modules have been reloaded:
-  1) petsc  2) phdf5/1.8.2  3) parmetis/3.1
+  1) petsc/3.1  2) phdf5/1.8.2  3) parmetis/3.1
 ===========================
 step 12
 ===========================
@@ -99,7 +99,7 @@ Currently Loaded Modules:
 step 13
 ===========================
 Due to MODULEPATH changes the following modules have been reloaded:
-  1) petsc  2) phdf5/1.8.2  3) parmetis/3.1
+  1) petsc/3.2  2) phdf5/1.8.2  3) parmetis/3.1
 ===========================
 step 14
 ===========================

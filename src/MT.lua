@@ -423,6 +423,10 @@ function shortName(moduleName)
 end
 
 function M.add(self, t, status)
+   local dbg   = Dbg:dbg()
+   dbg.start("MT:add(t,",status,")")
+   dbg.print("short: ",tostring(t.modName),", full: ",tostring(t.modFullName),"\n")
+   dbg.print("fn: ",tostring(t.fn),", default: ",tostring(t.default),"\n")
    s_loadOrder = s_loadOrder + 1
    local mT = self.mT
    local loadOrder = s_loadOrder
@@ -438,6 +442,7 @@ function M.add(self, t, status)
                      loadOrder = s_loadOrder,
                      propT     = {},
    }
+   dbg.fini()
 end
 
 function M.fileName(self, moduleName)
@@ -510,7 +515,7 @@ function M.list(self, kind, status)
           (v.status ~= "pending")) then
          icnt  = icnt + 1
          nameT = kind
-         if (kind == "userList") then
+         if (kind == "userName") then
             if (v.default == 1) then
                nameT = "short"
             else

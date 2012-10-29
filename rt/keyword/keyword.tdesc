@@ -33,7 +33,8 @@ testdescript = {
      OLDHOME=`(cd $HOME; pwd)`
      HOME=`pwd`
 
-     rm -f _stderr.* _stdout.* err.* out.*
+     rm -f _stderr.* _stdout.* err.* out.* 
+     rm -rf .lmod.d
 
      lua $(projectDir)/src/lmod.in.lua bash keyword graph > _stdout.orig 2> err.txt
 

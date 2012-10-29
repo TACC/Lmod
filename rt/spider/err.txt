@@ -1,7 +1,7 @@
 ===========================
 step 1
 ===========================
-Modules based on Lua: Version 3.6.3.2 2012-09-08 15:45
+Modules based on Lua: Version 4.1 2012-10-26 11:38
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -24,8 +24,10 @@ The following is a list of the modules currently available:
   multi: multi/multi
   noweb: noweb/2.10c
   openmpi: openmpi/1.2.6
-  parmetis: parmetis/3.1
+  parmetis: parmetis/3.1, parmetis/4.0.1
     Parallel graph partitioning and fill-reduction matrix ordering routines 
+  petsc: petsc/3.1, petsc/3.2
+  phdf5: phdf5/1.8.2, phdf5/1.8.9
   PrgEnv: PrgEnv
   unix: unix/unix
 To learn more about a package enter:
@@ -58,7 +60,6 @@ step 6
     This module can be loaded directly: module load parmetis/3.1
     Additional variants of this module can also be loaded after the loading the following modules:
       gcc/4.2.3, openmpi/1.2.6
-      intel/intel, mpich2/1.0.7
       intel/intel, openmpi/1.2.6
 ===========================
 step 7
@@ -86,8 +87,10 @@ The following is a list of the modules currently available:
   multi: multi/multi
   noweb: noweb/2.10c
   openmpi: openmpi/1.2.6
-  parmetis: parmetis/3.1
+  parmetis: parmetis/3.1, parmetis/4.0.1
     Parallel graph partitioning and fill-reduction matrix ordering routines 
+  petsc: petsc/3.1, petsc/3.2
+  phdf5: phdf5/1.8.2, phdf5/1.8.9
   PrgEnv: PrgEnv
   unix: unix/unix
 To learn more about a package enter:

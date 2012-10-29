@@ -4,7 +4,7 @@ Rebuilding cache file, please wait ... done
 The following modules match your search criteria: "graph"
 ----------------------------------------------------------------------------
 
-  parmetis: parmetis/3.1
+  parmetis: parmetis/3.1, parmetis/4.0.1
     Parallel graph partitioning and fill-reduction matrix ordering routines 
 
 ----------------------------------------------------------------------------

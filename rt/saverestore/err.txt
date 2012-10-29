@@ -1,7 +1,7 @@
 ===========================
 step 1
 ===========================
-Modules based on Lua: Version 4.0.3 2012-10-13 09:56
+Modules based on Lua: Version 4.1 2012-10-26 11:38
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -19,6 +19,7 @@ step 4
 ===========================
 step 5
 ===========================
+Restoring modules to user defaults
 ===========================
 step 6
 ===========================
@@ -37,6 +38,7 @@ step 9
 ===========================
 step 10
 ===========================
+Restoring modules to user defaults
 ===========================
 step 11
 ===========================

@@ -2,7 +2,7 @@
 step 0
 ===========================
 
-Modules based on Lua: Version 4.0 2012-10-01 22:17
+Modules based on Lua: Version 4.1 2012-10-26 11:38
     by Robert McLay mclay@tacc.utexas.edu
 
 ===========================
@@ -21,7 +21,7 @@ step 3
 Activating Modules:
   1) openmpi/1.2.6
 Due to MODULEPATH changes the following modules have been reloaded:
-  1) parmetis/3.1
+  1) openmpi/1.2.6  2) parmetis/3.1
 ===========================
 step 4
 ===========================
