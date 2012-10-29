@@ -502,7 +502,8 @@ function M.reloadAll()
    dbg.print("Setting mpc to ", mcp:name(),"\n")
 
    local same = true
-   local a    = mt:list("fullName","any")
+   local a    = mt:list("userList","any")
+   --local a    = mt:list("fullName","any")
    for _, v in ipairs(a) do
       if (mt:have(v,"active")) then
          local fullName = mt:fullName(v)

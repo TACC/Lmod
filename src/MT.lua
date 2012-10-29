@@ -503,12 +503,21 @@ function M.list(self, kind, status)
    local icnt = 0
    local a    = {}
    local b    = {}
+   local nameT
 
    for k,v in pairs(mT) do
       if ((status == "any" or status == v.status) and
           (v.status ~= "pending")) then
-         icnt = icnt + 1
-         a[icnt] = { v[kind], v.loadOrder}
+         icnt  = icnt + 1
+         nameT = kind
+         if (kind == "userList") then
+            if (v.default == 1) then
+               nameT = "short"
+            else
+               nameT = "fullName"
+            end
+         end
+         a[icnt] = { v[nameT], v.loadOrder}
       end
    end
 

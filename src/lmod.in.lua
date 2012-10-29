@@ -581,20 +581,31 @@ local function GetDefault(a)
 end
 
 local function Restore(a)
-   local dbg  = Dbg:dbg()
-   a          = a or "default"
+   local dbg    = Dbg:dbg()
+   local prtMsg = false
+   if (a == nil) then
+      prtMsg = true
+      a      = "default"
+   end
+
    dbg.start("Restore(",a,")")
    local path = pathJoin(os.getenv("HOME"), ".lmod.d", a)
 
+   local msg
+
    if (a == "system" or not isFile(path)) then
       dbg.print("Restoring System\n")
+      msg = "system"
       Reset()
-      dbg.fini()
-      return
+   else
+      local mt   = MT:mt()
+      msg = "user"
+      mt:getMTfromFile(path)
    end
 
-   local mt   = MT:mt()
-   mt:getMTfromFile(path)
+   if (prtMsg and not expert()) then
+      io.stderr:write("\nRestoring modules to ",msg," defaults\n")
+   end
    dbg.fini()
 end
 
