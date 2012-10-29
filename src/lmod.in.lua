@@ -13,6 +13,11 @@ shortTime      = tonumber(shortTime) or 10.0
 shortLifeCache = ancient/12
 BaseShell      = {}
 Pager          = "@path_to_pager@"
+s_master       = {}
+
+function masterTbl()
+   return s_master
+end
 
 ------------------------------------------------------------------------
 -- Extract directory location of "lmod" command and add it
@@ -603,7 +608,8 @@ local function Restore(a)
       mt:getMTfromFile(path)
    end
 
-   if (prtMsg and not expert()) then
+   local masterTbl = masterTbl()
+   if (prtMsg and not masterTbl.initial) then
       io.stderr:write("\nRestoring modules to ",msg," defaults\n")
    end
    dbg.fini()
@@ -1049,21 +1055,24 @@ function main()
    local shell = barefilename(arg[1])
    table.remove(arg,1)
 
-   local arg_str = concatTbl(arg," ")
-   local options = Options:options(CmdLineUsage)
+   local arg_str   = concatTbl(arg," ")
+   local masterTbl = masterTbl()
+   Options:options(CmdLineUsage)
 
-   if (options.debug or options.dbglvl) then
-      dbg:activateDebug(options.dbglvl or 1)
+
+
+   if (masterTbl.debug or masterTbl.dbglvl) then
+      dbg:activateDebug(masterTbl.dbglvl or 1)
    end
 
    dbg.start("lmod(", arg_str,")")
    MCP = MasterControl.build("load")
    mcp = MasterControl.build("load")
    dbg.print("Setting mpc to ", mcp:name(),"\n")
-   localvar(options.localvarA)
+   localvar(masterTbl.localvarA)
 
-   local cmdName = options.pargs[1]
-   table.remove(options.pargs,1)
+   local cmdName = masterTbl.pargs[1]
+   table.remove(masterTbl.pargs,1)
 
    ------------------------------------------------------------
    -- Must output local variables even when there is the command
@@ -1087,13 +1096,13 @@ function main()
    master.shell:expand(varTbl)
 
    -- if Help was requested then quit.
-   if (options.Optiks_help) then
+   if (masterTbl.Optiks_help) then
       Help()
       os.exit(0)
    end
 
    -- print version and quit if requested.
-   if (options.version) then
+   if (masterTbl.version) then
       io.stderr:write(version())
       os.exit(0)
    end
@@ -1110,7 +1119,7 @@ function main()
       local cmd = cmdTbl[cmdName].cmd
       cmdName   = cmdTbl[cmdName].name
       dbg.print("cmd name: ", cmdName,"\n")
-      cmd(unpack(options.pargs))
+      cmd(unpack(masterTbl.pargs))
    end
 
    -- Recompute any inactive modules. Print out if changed
