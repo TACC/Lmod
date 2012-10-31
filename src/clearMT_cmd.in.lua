@@ -33,6 +33,7 @@ function main()
       io.stdout:write(unset, " ", name, "\n")
    end
    io.stdout:write(unset, " ", "_ModuleTable_Sz_\n")
+   io.stdout:write(unset, " ", "LMOD_DEFAULT_MODULEPATH\n")
    
 end
 
