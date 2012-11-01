@@ -619,6 +619,7 @@ local function Restore(a)
       msg = "system default"
       Reset()
    else
+      a          = a or "default"
       local mt   = MT:mt()
       msg = "user's "..a
       mt:getMTfromFile(path)
