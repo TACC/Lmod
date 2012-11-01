@@ -614,7 +614,7 @@ local function Restore(a)
    end
 
 
-   if (a == "system" )
+   if (a == "system" ) then
       dbg.print("Restoring System\n")
       msg = "system default"
       Reset()
