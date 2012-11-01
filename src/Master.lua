@@ -33,6 +33,7 @@ require("TermWidth")
 require("fileOps")
 require("string_trim")
 require("fillWords")
+require("parseVersion")
 
 ModuleName=""
 local BeautifulTbl = require('BeautifulTbl')
@@ -91,7 +92,8 @@ local function lastFileInDir(fn)
          local readable = posix.access(f,"r")
          if (readable and file:sub(1,1) ~= "." and attr.mode == 'file' and file:sub(-1,-1) ~= '~') then
             count = count + 1
-            local key = f:gsub("%.lua$","")
+            local key = file:gsub("%.lua$","")
+            key       = concatTbl(parseVersion(key),".")
             if (key > lastKey) then
                lastKey   = key
                lastValue = f
