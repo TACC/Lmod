@@ -608,7 +608,7 @@ local function Restore(a)
    elseif (a ~= "system") then
       path = pathJoin(os.getenv("HOME"), ".lmod.d", a)
       if (not isFile(path)) then
-         LmodError(" User module collection: ",a," does not exist.\n",
+         LmodError(" User module collection: \"",a,"\" does not exist.\n",
                    " Try \"module savelist\" for possible choices.\n")
       end
    end
