@@ -571,6 +571,9 @@ local function Save(...)
    mt:setHashSum()
    serializeTbl{name=mt:name(), value=mt, fn = path, indent = true}
    mt:hideHash()
+   if (not expert()) then
+      io.stderr:write("Saved current collection of modules to: ",a,"\n")
+   end
    dbg.fini()
 end
 
