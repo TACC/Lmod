@@ -593,27 +593,40 @@ local function Restore(a)
    local prtMsg = false
    if (a == nil) then
       prtMsg = true
-      a      = "default"
    end
 
-   dbg.start("Restore(",a,")")
-   local path = pathJoin(os.getenv("HOME"), ".lmod.d", a)
+   dbg.start("Restore(",tostring(a),")")
 
    local msg
+   local path
 
-   if (a == "system" or not isFile(path)) then
+   if (a == nil) then
+      path = pathJoin(os.getenv("HOME"), ".lmod.d", "default")
+      if (not isFile(path)) then
+         a = "system"
+      end
+   else if (a ~= "system") then
+      path = pathJoin(os.getenv("HOME"), ".lmod.d", a)
+      if (not isFile(path)) then
+         LmodError(" User module collection: ",a," does not exist.\n",
+                   " Try \"module savelist\" for possible choices.\n")
+      end
+   end
+
+
+   if (a == "system" )
       dbg.print("Restoring System\n")
-      msg = "system"
+      msg = "system default"
       Reset()
    else
       local mt   = MT:mt()
-      msg = "user"
+      msg = "user's "..a
       mt:getMTfromFile(path)
    end
 
    local masterTbl = masterTbl()
    if (prtMsg and not masterTbl.initial) then
-      io.stderr:write("\nRestoring modules to ",msg," defaults\n")
+      io.stderr:write("\nRestoring modules to ",msg,"\n")
    end
    dbg.fini()
 end
