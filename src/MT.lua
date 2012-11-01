@@ -237,6 +237,8 @@ function M.getMTfromFile(self,fn)
       else
          m[#m+1] = name
       end
+      dbg.print("full: ",full," short: ",short," name: ",name," isDefault: ",tostring(isDefault),
+                " mType: ", mType, "\n")
    end
    
    varTbl[ModulePath] = Var:new(ModulePath,mpath)
@@ -590,7 +592,7 @@ function M.default(self, moduleName)
    if (entry == nil) then
       return nil
    end
-   return entry.default
+   return (entry.default ~= 0)
 end
 
 function M.setLoadOrder(self)
