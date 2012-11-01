@@ -2,7 +2,6 @@
 -- -*- lua -*-
 require("strict")
 require("string_split")
-require("VarDump")
 local Dbg          = require("Dbg")
 local concatTbl    = table.concat
 
