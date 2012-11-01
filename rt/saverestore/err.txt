@@ -22,7 +22,7 @@ Saved current collection of modules to: default
 ===========================
 step 6
 ===========================
-Restoring modules to user defaults
+Restoring modules to user's default
 ===========================
 step 7
 ===========================
@@ -48,7 +48,7 @@ Saved current collection of modules to: default
 ===========================
 step 12
 ===========================
-Restoring modules to user defaults
+Restoring modules to user's default
 ===========================
 step 13
 ===========================
