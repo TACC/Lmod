@@ -40,7 +40,6 @@ replaceT = {
 -- that does not contain them. And the string "dev" is treated as if it
 -- were an "@" sign; that is, a version coming before even "a" or "alpha".
 
-
 function parseVersion(versionStr)
 
    local dbg = Dbg:dbg()
@@ -76,7 +75,7 @@ function parseVersion(versionStr)
       vA[#vA+1] = part
    end
 
-   dbg.print("versionStr: ",versionStr," results: ",concatTbl(vA,"."),"\n")
+   --dbg.print("versionStr: ",versionStr," results: ",concatTbl(vA,"."),"\n")
 
    dbg.fini()
    return vA
@@ -139,99 +138,3 @@ function parseVersionParts(versionStr)
       end
 end
 
-
---function sortTuple(a,b)
---
---   local idx = 0
---   local done = false
---   local aLen = #a
---   local bLen = #b
---   local results = false
---   local state = 1
---
---   while (not done) do
---      idx = idx + 1
---      
---      if (idx > aLen and idx > bLen) then
---         results = true;
---         state = 3
---         break;
---      end
---
---      local left  = a[idx] or " "
---      local right = b[idx] or " "
---
---      if (left < right) then
---         results =  true
---         break;
---      elseif (left > right) then
---         results =  false
---         break;
---      end
---   end
---
---   local L = concatTbl(a,".")
---   local R = concatTbl(b,".")
---   if (not results) then
---      local tmp = R
---      R         = L
---      L         = tmp
---   end
---
---   A[#A+1] = {"state: ",state, L, R }
---
---   return results
---end
---
---
---
---function main()
---
---   local dbg = Dbg:dbg()
---   --dbg:activateDebug(1)
---
---   dbg.start("main()")
---   local versionA = { "2.4", "2.4-1", "2.4.1", "2.4a1", "2.4dev1", "2.4rc1", "2.4rc2",
---                      "2.4.0.0", "2.4beta2","2.4.0.0.1",
---                      "3.2","3.2-cxx","3.3-cmplx","3.3-cxx", "3.3","3.2-shared","3.2-static",
---                      "1.8","1.8-dbg",
---
---   }
-----   local versionA = { "2.4rc1", "2.4rc2", "2.4beta2"}
---
---
---   local a = {}
---
---
---
---   --for i = 1,#versionA do
---   --   a[i] = {parseVersion(versionA[i]), versionA[i] } 
---   --end
---   --
---   --table.sort(a, function (a,b)
---   --              return sortTuple(a[1],b[1])
---   --              end)
---
---   for i = 1,#versionA do
---      a[i] = {concatTbl(parseVersion(versionA[i]),"."), versionA[i]}
---   end
---
---   table.sort(a, function (a,b)
---                 return a[1] < b[1]
---                 end)
---
---
---
---   for i = 1,#versionA do
---      print(string.format("%10s: %s",a[i][2], a[i][1]))
---   end
---
---
---
---
---
---   dbg.fini()
---
---end
---
---main()
