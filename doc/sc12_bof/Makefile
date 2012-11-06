@@ -1,0 +1,15 @@
+TALKS    := sc12_bof.pdf
+TEX_SUFS := .aux .log .nav .out .snm .toc .vrb .fdb_latexmk
+
+%.pdf:%.tex
+	latexmk -pdf $<
+
+all: $(TALKS)
+
+clean:
+	$(RM) $(foreach suf, ${TEX_SUFS}, $(TALKS:.pdf=${suf})) *~
+	$(RM) -r auto
+
+clobber: clean
+	$(RM) $(TALKS)
+
