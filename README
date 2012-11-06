@@ -10,6 +10,44 @@ avail be piped through more or whatever the users' PAGER is.
 Thanks,
 ------------------------------------------------------------
 
+Version 4.1:
+ Features:
+   1) Save/Restore replaced getdefault/setdefault.  See module help
+      for more details
+   2) Default module chosen by version sorting.  So foo/5.10 will
+      be the default even though foo/5.6 exists. Below is a list
+      of how version will be sorted.  The left side shows a
+      package version, the right side shows the internal string
+      generated to sort version numbers.  See src/parseVersion.lua
+      comments for complete rules.  There is a test code in
+      contrib/parseVersions/pv
+
+   2.4dev1: 000000002.000000004.*@.000000001.*zfinal
+     2.4a1: 000000002.000000004.*a.000000001.*zfinal
+  2.4beta2: 000000002.000000004.*beta.000000002.*zfinal
+    2.4rc1: 000000002.000000004.*c.000000001.*zfinal
+       2.4: 000000002.000000004.*zfinal
+   2.4.0.0: 000000002.000000004.*zfinal
+     2.4-1: 000000002.000000004.*zfinal-.000000001.*zfinal
+ 2.4.0.0.1: 000000002.000000004.000000000.000000000.000000001.*zfinal
+     2.4.1: 000000002.000000004.000000001.*zfinal
+3.2-static: 000000003.000000002.*static.*zfinal
+       3.2: 000000003.000000002.*zfinal
+     3.2-0: 000000003.000000002.*zfinal
+    3.2-p0: 000000003.000000002.*zfinal
+     3.2p0: 000000003.000000002.*zfinal
+     3.2-2: 000000003.000000002.*zfinal-.000000002.*zfinal
+    3.2-p3: 000000003.000000002.*zfinal-.000000003.*zfinal
+      
+      
+
+
+ Bug Fix:
+   1) Better handling of swapping out modules: default modules
+      find default modules when swapped.  Non-default modules do
+      not.
+
+
 Version 4.0.1/4.0.2/4.0.3:
  Bug Fixes:
    1) Better savings of module cache file on fast systems.

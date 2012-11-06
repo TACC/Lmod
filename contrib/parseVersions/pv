@@ -2,6 +2,8 @@
 -- -*- lua -*-
 require("strict")
 require("string_split")
+require("VarDump")
+local BeautifulTbl = require("BeautifulTbl")
 local Dbg          = require("Dbg")
 local concatTbl    = table.concat
 
@@ -30,16 +32,16 @@ replaceT = {
 -- 2.4p2 and 2.4-p2 are considered to be the same as 2.4-2.
 
 -- Strings like "a", "b", "c", "alpha", "beta", "candidate" and so on
--- (that come before "final" alphabetically) are assumed to be pre-release
+-- (that come before "zfinal" alphabetically) are assumed to be pre-release
 -- versions, so that the version "2.4" is considered newer than "2.4a1".
--- Any "-" characters preceding a pre-release indicator are removed. 
+-- Any "-" characters preceding a pre-release indicator are removed. This
+-- means that 2.4-shared is older 2.4.
 
 -- Finally, to handle miscellaneous cases, the strings "pre", "preview",
 -- and "rc" are treated as if they were "c", i.e. as though they were
 -- release candidates, and therefore are not as new as a version string
 -- that does not contain them. And the string "dev" is treated as if it
 -- were an "@" sign; that is, a version coming before even "a" or "alpha".
-
 
 function parseVersion(versionStr)
 
@@ -51,7 +53,6 @@ function parseVersion(versionStr)
    for part in parseVersionParts(versionStr) do
 
       if ( part:sub(1,1) == "*") then
-         -- Remove extra "-"
          if ( part ~= "*zfinal") then
             while (#vA > 0 and vA[#vA] == "*zfinal-") do
                vA[#vA] = nil
@@ -63,20 +64,15 @@ function parseVersion(versionStr)
             vA[#vA] = nil
          end
 
-         -- Along with the above code this removes "-0"
-         -- This way "3.2-0", "3.2-p0" and "3.2p0" are the
-         -- same as "3.2"
-
          if (part == "*zfinal") then
             while (#vA > 0 and vA[#vA] == "*zfinal-") do
                vA[#vA] = nil
             end
          end
       end
+      dbg.print("idx: ", #vA+1, " (2) part: ",part,"\n")
       vA[#vA+1] = part
    end
-
-   dbg.print("versionStr: ",versionStr," results: ",concatTbl(vA,"."),"\n")
 
    dbg.fini()
    return vA
@@ -139,99 +135,97 @@ function parseVersionParts(versionStr)
       end
 end
 
+function sortTuple(a,b)
+   local idx = 0
+   local done = false
+   local aLen = #a
+   local bLen = #b
+   local results = false
+   local state = 1
 
---function sortTuple(a,b)
---
---   local idx = 0
---   local done = false
---   local aLen = #a
---   local bLen = #b
---   local results = false
---   local state = 1
---
---   while (not done) do
---      idx = idx + 1
---      
---      if (idx > aLen and idx > bLen) then
---         results = true;
---         state = 3
---         break;
---      end
---
---      local left  = a[idx] or " "
---      local right = b[idx] or " "
---
---      if (left < right) then
---         results =  true
---         break;
---      elseif (left > right) then
---         results =  false
---         break;
---      end
---   end
---
---   local L = concatTbl(a,".")
---   local R = concatTbl(b,".")
---   if (not results) then
---      local tmp = R
---      R         = L
---      L         = tmp
---   end
---
---   A[#A+1] = {"state: ",state, L, R }
---
---   return results
---end
---
---
---
---function main()
---
---   local dbg = Dbg:dbg()
---   --dbg:activateDebug(1)
---
---   dbg.start("main()")
---   local versionA = { "2.4", "2.4-1", "2.4.1", "2.4a1", "2.4dev1", "2.4rc1", "2.4rc2",
---                      "2.4.0.0", "2.4beta2","2.4.0.0.1",
---                      "3.2","3.2-cxx","3.3-cmplx","3.3-cxx", "3.3","3.2-shared","3.2-static",
---                      "1.8","1.8-dbg",
---
---   }
-----   local versionA = { "2.4rc1", "2.4rc2", "2.4beta2"}
---
---
---   local a = {}
---
---
---
---   --for i = 1,#versionA do
---   --   a[i] = {parseVersion(versionA[i]), versionA[i] } 
---   --end
---   --
---   --table.sort(a, function (a,b)
---   --              return sortTuple(a[1],b[1])
---   --              end)
---
---   for i = 1,#versionA do
---      a[i] = {concatTbl(parseVersion(versionA[i]),"."), versionA[i]}
---   end
---
---   table.sort(a, function (a,b)
---                 return a[1] < b[1]
---                 end)
---
---
---
---   for i = 1,#versionA do
---      print(string.format("%10s: %s",a[i][2], a[i][1]))
---   end
---
---
---
---
---
---   dbg.fini()
---
---end
---
---main()
+   while (not done) do
+      idx = idx + 1
+      
+      if (idx > aLen and idx > bLen) then
+         results = true;
+         state = 3
+         break;
+      end
+
+      local left  = a[idx] or " "
+      local right = b[idx] or " "
+
+      if (left < right) then
+         results =  true
+         break;
+      elseif (left > right) then
+         results =  false
+         break;
+      end
+   end
+
+   local L = concatTbl(a,".")
+   local R = concatTbl(b,".")
+   if (not results) then
+      local tmp = R
+      R         = L
+      L         = tmp
+   end
+
+   A[#A+1] = {"state: ",state, L, R }
+
+   return results
+end
+
+
+
+function main()
+
+   local dbg = Dbg:dbg()
+   --dbg:activateDebug(1)
+
+   dbg.start("main()")
+   local versionA = { "2.4", "2.4-1", "2.4.1", "2.4a1", "2.4dev1", "2.4rc1", "2.4rc2",
+                      "2.4.0.0", "2.4beta2","2.4.0.0.1",
+                      "3.2","3.2-cxx","3.3-cmplx","3.3-cxx", "3.3","3.2-shared","3.2-static",
+                      "1.8","1.8-dbg", '3.2p1',"3.2-p3","3.2-2","3.2p0","3.2-0","3.2-p0","3.2---3"
+
+   }
+--   local versionA = { "2.4rc1", "2.4rc2", "2.4beta2"}
+
+
+   local a = {}
+
+
+
+   --for i = 1,#versionA do
+   --   a[i] = {parseVersion(versionA[i]), versionA[i] } 
+   --end
+   --
+   --table.sort(a, function (a,b)
+   --              return sortTuple(a[1],b[1])
+   --              end)
+
+   for i = 1,#versionA do
+      a[i] = {concatTbl(parseVersion(versionA[i]),"."), versionA[i]}
+   end
+
+   table.sort(a, function (a,b)
+                 return a[1] < b[1]
+                 end)
+
+
+
+   for i = 1,#versionA do
+      print(string.format("%10s: %s",a[i][2], a[i][1]))
+   end
+
+
+
+
+
+   dbg.fini()
+
+end
+
+main()
