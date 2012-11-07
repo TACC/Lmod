@@ -10,10 +10,10 @@
 \title{Lmod BoF at SC'12}
 
 
-\author{Robert McLay}
+\author{Bill Barth and Robert McLay}
 \institute{The Texas Advanced Computing Center}
 
-\date{August 30, 2011}  %% Use this if you want to fix the date in
+\date{November 14, 2012}  %% Use this if you want to fix the date in
                         %% stone rather than use \today
 
 \newcommand{\bfnabla}{\mbox{\boldmath$\nabla$}}
@@ -94,21 +94,17 @@
    {\color{blue}(m)}:  module is build natively for MIC
    {\color{red}(*)}:  module is build natively for MIC and offload to the MIC
 
+   ------
+   add_property("arch","mic")              -- > phdf5
+   add_property("arch","mic:offload")      -- > mkl
     \end{alltt}
 }
+    
+
   \item What properties would you like to support?
   \end{itemize}
 \end{frame}
 
-
-\begin{frame}{Save / Restore}
-  \begin{itemize}
-    \item \texttt{getdefault/setdefault} are becoming \texttt{save/restore}.
-    \item \texttt{module restore} load user's default or system
-      default when user's default doesn't exist
-    \item \texttt{reset} and \texttt{getdefault/setdefault} will be deprecated.
-  \end{itemize}
-\end{frame}
 
 \begin{frame}{For those who can't type: ``\texttt{ml}''}
   \begin{itemize}
@@ -185,9 +181,31 @@ propT = \{
 }
 \end{frame}
 
+\begin{frame}{Getting Bash to work right}
+  \begin{itemize}
+    \item At TACC we rebuild bash so that it reads /etc/bashrc on
+      interactive shells.  
+    \item It also reads \texttt{/etc/bash\_logout} on logout.
+  \end{itemize}
+\end{frame}
 
+\begin{frame}{Track software usage}
+  \begin{itemize}
+    \item Track software usage via syslog or logout data.
+    \item Lmod can build a reverse map: directories to modules
+  \end{itemize}
+\end{frame}
 
-
+%%\begin{frame}{Topics to Discuss}
+%%  \begin{itemize}
+%%    \item Getting Bash to work right.
+%%    \item Leveraging Lmod to know what software your users are using.
+%%    \item Best Practices w.r.t. module files
+%%    \item Using modulefiles and a package manager (e.g. rpm)
+%%    \item Using SitePackage.
+%%    \item Feature requests.
+%%  \end{itemize}
+%%\end{frame}
 
 
 
