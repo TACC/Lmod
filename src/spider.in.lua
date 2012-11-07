@@ -176,6 +176,16 @@ function main()
    end
 
 
+   if (masterTbl.outputStyle == "softwarePageLua") then
+      local spA = softwarePage(dbT)
+      local s   = serializeTbl{name="spA",      value=spA,   indent=true}
+      print(s)
+      
+      dbg.fini()
+      return
+   end
+
+
    if (masterTbl.outputStyle == "spider-json") then
       print(json.encode(dbT))
       dbg.fini()
