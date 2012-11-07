@@ -258,7 +258,12 @@ function convertEntry(name, vv, spA)
             vT[newKey] = v[key]
          end
       end
-      vT.canonicalVersionString = concatTbl(parseVersion(v.Version,"."))
+      
+      vT.canonicalVersionString = ""
+      if (v.Version) then
+         vT.canonicalVersionString = concatTbl(parseVersion(v.Version) ,".")
+      end
+
       versionT[#versionT + 1] = vT
    end
 
