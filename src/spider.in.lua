@@ -33,6 +33,7 @@ require("pairsByKeys")
 require("fileOps")
 require("modfuncs")
 require("cmdfuncs")
+require("parseVersion")
 MasterControl       = require("MasterControl")
 MT                  = require("MT")
 Master              = require("Master")
@@ -239,6 +240,7 @@ function convertEntry(name, vv, spA)
          for topKey, newKey in pairs(topKeyT) do
             entry[newKey] = v[topKey]
          end
+         entry.defaultVersionName = v.Version
       end
 
       for key, newKey in pairs(keyT) do
@@ -246,6 +248,7 @@ function convertEntry(name, vv, spA)
             vT[newKey] = v[key]
          end
       end
+      vT.canonicalVersionString = concatTbl(parseVersion(v.Version,"."))
       versionT[#versionT + 1] = vT
    end
 
