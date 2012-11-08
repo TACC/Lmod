@@ -50,7 +50,7 @@
       \begin{itemize}
         \item Supports Multiple Compiler/MPI Stacks.
         \item Automatically swaps dependent modules: petsc, fftw3.
-        \item Reads TCL module files.
+        \item Reads TCL module files or Lua module files.
         \item Implemented in Lua.
       \end{itemize}
   \end{itemize}
@@ -67,6 +67,7 @@
     \item Module files can have properties: MIC, Apps/Lib, ...
     \item module wrapper command for the typing challenged: ``ml''
     \item Version Parsing: 5.6 is now older than 5.10
+    \item Mailing list: lmod-users@lists.sourceforge.net
   \end{itemize}
 \end{frame}
 
@@ -99,8 +100,6 @@
    add_property("arch","mic:offload")      -- > mkl
     \end{alltt}
 }
-    
-
   \item What properties would you like to support?
   \end{itemize}
 \end{frame}
@@ -110,10 +109,10 @@
   \begin{itemize}
     \item \texttt{ml} is a wrapper:
       \begin{itemize}
-        \item With no argument \texttt{ml} means \texttt{module list}
-        \item With a module name \texttt{ml foo} means \texttt{module
+        \item With no argument: \texttt{ml} means \texttt{module list}
+        \item With a module name: \texttt{ml foo} means \texttt{module
             load foo}.
-        \item With a module command \texttt{ml spider} means
+        \item With a module command: \texttt{ml spider} means
           \texttt{module spider}.
       \end{itemize}
     \item See \texttt{ml --help} for more documentation.
@@ -130,19 +129,47 @@
   \end{itemize}
 \end{frame}
 
-
 \section{Topics to Discuss}
+
+\begin{frame}{Questions for users of Lmod}
+  \begin{itemize}
+    \item How big are your system?
+    \item Any of you use a lustre based home file system?
+    \item Biggest headaches with Module Systems or Lmod:
+      \begin{itemize}
+        \item Trouble dealing with staff?
+        \item Trouble converting users?
+      \end{itemize}
+    \item Software Hierarchy vs Prereq/Conflict?
+    \item Best story/Worst Story in dealing with Modules/Lmod?
+  \end{itemize}
+\end{frame}
 
 \begin{frame}{Topics to Discuss}
   \begin{itemize}
     \item Getting Bash to work right.
     \item Leveraging Lmod to know what software your users are using.
-    \item Best Practices w.r.t. module files
     \item Using modulefiles and a package manager (e.g. rpm)
     \item Using SitePackage.
     \item Feature requests.
   \end{itemize}
 \end{frame}
+
+\begin{frame}{Projects}
+  \begin{itemize}
+    \item Fast directory tree walker for lustre. (similar
+      functionality to luafilesystem) (Anyone interested?)
+    \item Allow users with personal modules use system caches (R. McLay)
+    \item Produce Json output of entire module system to populate
+      system software web-pages (R. McLay - just completed)
+    \item Support for options after commands:  \texttt{module keyword --prop mic}
+    \item Other support for properties: searching?,
+    \item What happens when a site wants two or more sets of properties?
+  \end{itemize}
+\end{frame}
+
+
+
 
 
 \section{Conclusion}
@@ -160,7 +187,7 @@
 
 
 \begin{frame}[fragile]
-    \frametitle{.lmodrc.in}
+    \frametitle{.lmodrc.lua}
   {\tiny
     \begin{alltt}
 propT = \{
@@ -184,10 +211,20 @@ propT = \{
 \begin{frame}{Getting Bash to work right}
   \begin{itemize}
     \item At TACC we rebuild bash so that it reads /etc/bashrc on
-      interactive shells.  
+      interactive shells.
     \item It also reads \texttt{/etc/bash\_logout} on logout.
+    \item We patch config-top.h to change bash behavior.
+    \item Ubuntu does the same, Red Hat does not.
   \end{itemize}
 \end{frame}
+
+\begin{frame}{SitePackage}
+  \begin{itemize}
+    \item Lmod now has a standard way to include site-specific functions
+    \item See Contrib/SitePackage for details
+  \end{itemize}
+\end{frame}
+
 
 \begin{frame}{Track software usage}
   \begin{itemize}
