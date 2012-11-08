@@ -1,0 +1,11 @@
+*~
+.*~
+*.aux
+*.fdb_latexmk
+*.log
+*.nav
+*.out
+*.snm
+*.toc
+*.vrb
+sc12_bof.pdf
