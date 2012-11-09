@@ -51,6 +51,18 @@ AC_ARG_WITH(spiderCacheDir,
     SPIDER_CACHE_DIR="$withval"
     AC_DEFINE_UNQUOTED(SPIDER_CACHE_DIR, "$withval"))dnl
 
+AC_SUBST(PREPEND_BLOCK)
+AC_ARG_WITH(prependBlock
+    AC_HELP_STRING([--with-prepend_block=yes/no],[regular order [[no]]]),
+    PREPEND_BLOCK="$withval"
+    AC_MSG_RESULT([SPIDER_CACHE_DIR=$with_spiderCacheDir])
+    AC_DEFINE_UNQUOTED(SHORT_TIME, "$with_spiderCacheDir")dnl
+    ,
+    withval="no"
+    AC_MSG_RESULT([PREPEND_BLOCK=$withval])
+    PREPEND_BLOCK="$withval"
+    AC_DEFINE_UNQUOTED(PREPEND_BLOCK, "$withval"))dnl
+
 AC_SUBST(PATH_TO_PAGER)
 AC_SUBST(PATH_TO_LUA)
 AC_SUBST(PATH_TO_HASHSUM)

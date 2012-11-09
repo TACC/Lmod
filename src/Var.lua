@@ -137,8 +137,17 @@ end
 function M.prepend(self,value)
    if (value == nil) then return end
    local sep = self.sep
+   local a   = {}
    for v in value:split(sep) do
-      v           = regularize(v)
+      a[#a+1] = regularize(v)
+   end
+
+   
+
+
+
+   for i = #a,1,-1 do
+      local v     = a[i]
       self.imin   = self.imin - 1
       self.tbl[v] = self.imin
       chkMP(self.name,false)
