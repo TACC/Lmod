@@ -593,6 +593,7 @@ pager
 PATH_TO_HASHSUM
 PATH_TO_LUA
 PATH_TO_PAGER
+PREPEND_BLOCK
 SPIDER_CACHE_DIR
 SHORT_TIME
 ANCIENT
@@ -642,6 +643,7 @@ with_module_root_path
 with_ancient
 with_shortTime
 with_spiderCacheDir
+with_prependBlock
 '
       ac_precious_vars='build_alias
 host_alias
@@ -1261,6 +1263,8 @@ Optional Packages:
                           cache file [[2]]
   --with-spiderCacheDir=dir
                           use this directory to hold a spider cache file [[]]
+  --with-prependBlock=ans Treat multiple directories passed to prepend in
+                          normal order/ not reversed [[no]]
 
 Report bugs to the package provider.
 _ACEOF
@@ -1780,6 +1784,28 @@ fi
 
 
 
+# Check whether --with-prependBlock was given.
+if test "${with_prependBlock+set}" = set; then :
+  withval=$with_prependBlock; PREPEND_BLOCK="$withval"
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: PREPEND_BLOCK=$with_prependBlock" >&5
+$as_echo "PREPEND_BLOCK=$with_prependBlock" >&6; }
+    cat >>confdefs.h <<_ACEOF
+#define PREPEND_BLOCK "$with_prependBlock"
+_ACEOF
+
+else
+  withval="no"
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: PREPEND_BLOCK=$withval" >&5
+$as_echo "PREPEND_BLOCK=$withval" >&6; }
+    PREPEND_BLOCK="$withval"
+    cat >>confdefs.h <<_ACEOF
+#define PREPEND_BLOCK "$withval"
+_ACEOF
+
+fi
+
+
+
 
 for ac_prog in sha1sum md5sum
 do
@@ -1924,7 +1950,7 @@ PATH_TO_LUA_DIR=${PATH_TO_LUA}/..
 cd $PATH_TO_LUA_DIR
 
 PATH_TO_LUA_DIR=`pwd`
-echo PATH_TO_LUA_DIR: $PATH_TO_LUA_DIR
+
 cd $WD
 
 cat > luaModuleAvailable << 'EOF'

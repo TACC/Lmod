@@ -50,6 +50,7 @@ cat > $(testName).csh << EOF
      setenv MODULEPATH $(projectDir)/mf/Core:$(testDir)/mf/Core
      setenv MODULEPATH_ROOT $(projectDir)/mf
      setenv LMOD_DEFAULT_MODULEPATH $MODULEPATH
+     setenv LMOD_PREPEND_BLOCK yes
 
 
      echo "==========================="

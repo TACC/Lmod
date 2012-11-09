@@ -1077,6 +1077,8 @@ function main()
    Options:options(CmdLineUsage)
 
 
+   -- Chose prepend_path order normal/reverse
+   set_prepend_order()
 
    if (masterTbl.debug or masterTbl.dbglvl) then
       dbg:activateDebug(masterTbl.dbglvl or 1)

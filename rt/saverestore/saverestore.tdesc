@@ -29,6 +29,7 @@ testdescript = {
      LD_LIBRARY_PATH='';                export LD_LIBRARY_PATH
      MODULEPATH=$(testDir)/TACC;        export MODULEPATH
      MODULEPATH_ROOT=$(testDir);        export MODULEPATH_ROOT
+     LMOD_PREPEND_BLOCK=yes;            export LMOD_PREPEND_BLOCK
      LMOD_DEFAULT_MODULEPATH=$MODULEPATH
      export LMOD_DEFAULT_MODULEPATH
      HOME=`(cd $HOME; /bin/pwd)`

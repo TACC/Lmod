@@ -1,26 +1,40 @@
 require("strict")
 require("string_split")
 require("pairsByKeys")
-local Dbg          = require("Dbg")
-local ModulePath   = ModulePath
-local concatTbl    = table.concat
-local io           = io
-local ipairs       = ipairs
-local os           = os
-local pairs        = pairs
-local pairsByKeys  = pairsByKeys
-local print        = print
-local posix        = require("posix")
-local setenv       = posix.setenv
-local setmetatable = setmetatable
-local systemG      = _G
-local table        = table
-local type         = type
-
+local Dbg           = require("Dbg")
+local ModulePath    = ModulePath
+local concatTbl     = table.concat
+local io            = io
+local ipairs        = ipairs
+local os            = os
+local pairs         = pairs
+local pairsByKeys   = pairsByKeys
+local print         = print
+local posix         = require("posix")
+local setenv        = posix.setenv
+local setmetatable  = setmetatable
+local systemG       = _G
+local table         = table
+local type          = type
+local prepend_order = nil
 
 --module("Var")
 
 local M = {}
+
+function set_prepend_order()
+   local order = os.getenv("LMOD_PREPEND_BLOCK") or "no"
+   if (order == "no") then
+      prepend_order = function (n)
+         return 1, n, 1
+      end
+   else
+      prepend_order = function (n)
+         return n, 1, -1
+      end
+   end
+end
+
 
 local function extract(self)
    local dbg = Dbg:dbg()
@@ -142,11 +156,9 @@ function M.prepend(self,value)
       a[#a+1] = regularize(v)
    end
 
-   
+   local is, ie, iskip = prepend_order(#a)
 
-
-
-   for i = #a,1,-1 do
+   for i = is, ie, iskip do
       local v     = a[i]
       self.imin   = self.imin - 1
       self.tbl[v] = self.imin

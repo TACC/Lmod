@@ -52,11 +52,11 @@ AC_ARG_WITH(spiderCacheDir,
     AC_DEFINE_UNQUOTED(SPIDER_CACHE_DIR, "$withval"))dnl
 
 AC_SUBST(PREPEND_BLOCK)
-AC_ARG_WITH(prependBlock
-    AC_HELP_STRING([--with-prepend_block=yes/no],[regular order [[no]]]),
+AC_ARG_WITH(prependBlock,
+    AC_HELP_STRING([--with-prependBlock=ans],[Treat multiple directories passed to prepend in normal order/ not reversed [[no]]]),
     PREPEND_BLOCK="$withval"
-    AC_MSG_RESULT([SPIDER_CACHE_DIR=$with_spiderCacheDir])
-    AC_DEFINE_UNQUOTED(SHORT_TIME, "$with_spiderCacheDir")dnl
+    AC_MSG_RESULT([PREPEND_BLOCK=$with_prependBlock])
+    AC_DEFINE_UNQUOTED(PREPEND_BLOCK, "$with_prependBlock")dnl
     ,
     withval="no"
     AC_MSG_RESULT([PREPEND_BLOCK=$withval])
