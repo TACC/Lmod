@@ -33,7 +33,7 @@ require("TermWidth")
 require("fileOps")
 require("string_trim")
 require("fillWords")
-require("parseVersion")
+require("lastFileInDir")
 
 ModuleName=""
 local BeautifulTbl = require('BeautifulTbl')
@@ -74,40 +74,6 @@ function M.formModName(moduleName)
    return modName
 end
 
-local function lastFileInDir(fn)
-   local dbg      = Dbg:dbg()
-   dbg.start("lastFileInDir(",fn,")")
-   local lastKey   = ''
-   local lastValue = ''
-   local result    = nil
-   local fullName  = nil
-   local count     = 0
-   
-   local attr = lfs.attributes(fn)
-   if (attr and attr.mode == 'directory' and posix.access(fn,"x")) then
-      for file in lfs.dir(fn) do
-         local f = pathJoin(fn, file)
-         dbg.print("fn: ",fn," file: ",file," f: ",f,"\n")
-         attr = lfs.attributes(f)
-         local readable = posix.access(f,"r")
-         if (readable and file:sub(1,1) ~= "." and attr.mode == 'file' and file:sub(-1,-1) ~= '~') then
-            count = count + 1
-            local key = file:gsub("%.lua$","")
-            key       = concatTbl(parseVersion(key),".")
-            if (key > lastKey) then
-               lastKey   = key
-               lastValue = f
-            end
-         end
-      end
-      if (lastKey ~= "") then
-         result     = lastValue
-      end
-   end
-   dbg.print("result: ",tostring(result),"\n")
-   dbg.fini()
-   return result, count
-end
 
 
 local searchTbl = {'.lua','', '/default', '/.version'}

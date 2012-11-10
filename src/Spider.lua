@@ -1,5 +1,6 @@
 require("TermWidth")
 require("border")
+require("lastFileInDir")
 require("strict")
 require("string_split")
 require("string_trim")
@@ -196,39 +197,6 @@ end
 ------------------------------------------------------------
 
 
-local function lastFileInDir(fn)
-   local dbg      = Dbg:dbg()
-   dbg.start("lastFileInDir(",fn,")")
-   local lastKey   = ''
-   local lastValue = ''
-   local result    = nil
-   local fullName  = nil
-   local count     = 0
-   
-   local attr = lfs.attributes(fn)
-   if (attr and attr.mode == 'directory' and posix.access(fn,"x")) then
-      for file in lfs.dir(fn) do
-         local f = pathJoin(fn, file)
-         dbg.print("fn: ",fn," file: ",file," f: ",f,"\n")
-         attr = lfs.attributes(f)
-         local readable = posix.access(f,"r")
-         if (readable and file:sub(1,1) ~= "." and attr.mode == 'file' and file:sub(-1,-1) ~= '~') then
-            count = count + 1
-            local key = f:gsub("%.lua$","")
-            if (key > lastKey) then
-               lastKey   = key
-               lastValue = f
-            end
-         end
-      end
-      if (lastKey ~= "") then
-         result     = lastValue
-      end
-   end
-   dbg.print("result: ",tostring(result),"\n")
-   dbg.fini()
-   return result, count
-end
 
 function versionFile(path)
    local dbg     = Dbg:dbg()
@@ -421,6 +389,10 @@ function M.findAllModules(moduleDirA, moduleT)
    local dbg    = Dbg:dbg()
    dbg.start("findAllModules(",concatTbl(moduleDirA,", "),")")
    
+   if (next(moduleT) == nil) then
+      moduleT.version = 2
+   end
+
    local myFileN_old     = myFileName
    myFileName            = Spider_myFileName
    local masterTbl       = masterTbl()
@@ -435,7 +407,8 @@ function M.findAllModules(moduleDirA, moduleT)
       v             = path_regularize(v)
       if (moduleDirT[v] == nil) then
          moduleDirT[v] = 1
-         M.findModulesInDir(v, v, "", moduleT)
+         moduleT[v]    = {}
+         M.findModulesInDir(v, v, "", moduleT[v])
       end
    end
    os.exit     = exit
@@ -446,7 +419,26 @@ end
 
 function M.buildSpiderDB(a, moduleT, dbT)
    local dbg = Dbg:dbg()
-   dbg.start("buildSpiderDB({",concatTbl(a,","),"},moduleT, dbT)")
+   dbg.start("Spider.buildSpiderDB({",concatTbl(a,","),"},moduleT, dbT)")
+
+   if (moduleT.version == nil) then
+      dbg.print("old version moduleT\n")
+      M.singleSpiderDB(a,moduleT, dbT)
+   else
+      dbg.print("version 2 moduleT\n")
+      for mpath, v in pairs(moduleT) do
+         if (type(v) == "table") then
+            dbg.print("mpath: ",mpath, "\n")
+            M.singleSpiderDB(a,v, dbT)
+         end
+      end
+   end
+   dbg.fini()
+end
+
+function M.singleSpiderDB(a, moduleT, dbT)
+   local dbg = Dbg:dbg()
+   dbg.start("Spider.singleSpiderDB({",concatTbl(a,","),"},moduleT, dbT)")
    for path, value in pairs(moduleT) do
       local nameL = value.name_lower or value.name:lower()
       dbT[nameL]  = dbT[nameL] or {}
@@ -484,7 +476,26 @@ end
 
 function M.searchSpiderDB(strA, a, moduleT, dbT)
    local dbg = Dbg:dbg()
-   dbg.start("searchSpiderDB()")
+   dbg.start("Spider:searchSpiderDB({",concatTbl(a,","),"},moduleT, dbT)")
+
+   if (moduleT.version == nil) then
+      dbg.print("old version moduleT\n")
+      M.singleSearchSpiderDB(strA, a, moduleT, dbT)
+   else
+      dbg.print("version 2 moduleT\n")
+      for mpath, v in pairs(moduleT) do
+         if (type(v) == "table") then
+            dbg.print("mpath: ",mpath, "\n")
+            M.singleSearchSpiderDB(strA, a, v, dbT)
+         end
+      end
+   end
+   dbg.fini()
+end
+
+function M.singleSearchSpiderDB(strA, a, moduleT, dbT)
+   local dbg = Dbg:dbg()
+   dbg.start("Spider.singleSearchSpiderDB()")
 
    for path, value in pairs(moduleT) do
       local nameL   = value.name_lower or ""
@@ -502,6 +513,7 @@ function M.searchSpiderDB(strA, a, moduleT, dbT)
          local str = strA[i]:lower()
          if (nameL:find(str,1,true) or whatisS:find(str,1,true) or 
              nameL:find(str)        or whatisS:find(str)) then
+            dbg.print("found txt in nameL: ",nameL,"\n")
             found = true
             break
          end
@@ -829,11 +841,25 @@ function M.Level2(t, mname, full)
    return concatTbl(a,"")
 end
 
-function M.listModules(t,tbl)
-   for k,v in pairs(t) do
+function M.listModules(moduleT, tbl)
+   if (moduleT.version == nil) then
+      M.listModulesHelper(moduleT, tbl)
+   else
+      for mpath, v in pairs(moduleT) do
+         if (type(v) == "table") then
+            M.listModulesHelper(v, tbl)
+         end
+      end
+   end
+end
+
+
+
+function M.listModulesHelper(moduleT, tbl)
+   for k,v in pairs(moduleT) do
       tbl[#tbl+1] = v.path
       if (next(v.children)) then
-         M.listModules(v.children,tbl)
+         M.listModulesHelper(v.children,tbl)
       end
    end
 end
