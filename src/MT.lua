@@ -67,6 +67,17 @@ local function build_locationTbl(tbl, pathA)
    end
 end
 
+local function columnList(stream, msg, a)
+   local t = {}
+   table.sort(a)
+   for i = 1, #a do
+      t[#t + 1] = '  ' .. i .. ') ' .. tostring(a[i])
+   end
+   stream:write(msg)
+   local ct = ColumnTable:new{tbl=t}
+   stream:write(ct:build_tbl(),"\n")
+end
+
 
 local function new(self, s)
    local dbg  = Dbg:dbg()
@@ -92,7 +103,7 @@ local function new(self, s)
    local active, total
 
    if (not s) then
-      local v             =  getenv(ModulePath)
+      local v             = getenv(ModulePath)
       varTbl[DfltModPath] = Var:new(DfltModPath, v)
       o:buildBaseMpathA(v)
       dbg.print("Initializing ", DfltModPath, ":", v, "\n")
@@ -115,7 +126,6 @@ local function new(self, s)
       o._MPATH = concatTbl(o.mpathA,":")
       varTbl[DfltModPath] = Var:new(DfltModPath, concatTbl(o.baseMpathA,":"))
    end
-   o._inactive        = o.inactive or {}
    o.inactive         = {}
 
    dbg.fini()
@@ -150,7 +160,6 @@ function M.convertMT(self, v1)
    self.mpathA     = v1.mpathA
    self.baseMpathA = v1.baseMpathA
    self.inactive   = aa
-   self.__inactive = aa
 
    return sz   -- Return the new loadOrder number.
 end
@@ -778,63 +787,54 @@ function M.list_property(self, idx, moduleName, style, legendT)
 end
 
 
-
-function M.changeInactive(self)
+function M.reportChanges(self, origMT)
    local dbg    = Dbg:dbg()
-   local master = systemG.Master:master()
-   local t      = {}
-   local aa     = self._inactive
+   dbg.start("MT:reportChanges(origMT)")
 
-   local prt    = not expert()
-   local ct 
 
-   ------------------------------------------------------------
-   -- print out newly activated Modules
+   local mT = origMT.mT
 
-   local i = 0
-   for _,v in ipairs(aa) do
-      if (self:have(v,"active")) then
-         local fullName = self:fullName(v)
-         i    = i + 1
-         t[i] = '  ' .. i .. ') ' .. fullName
-         master:reloadClear(fullName)
-      end
-   end
-   if (i > 0 and prt) then
-      io.stderr:write("Activating Modules:\n")
-      ct = ColumnTable:new{tbl=t}
-      io.stderr:write(ct:build_tbl(),"\n")
-   end
-   t = {}
+   local inactiveA = {}
+   local activeA   = {}
+   local changedA  = {}
+   local reloadA   = {}
 
-   local aa = self:list("short","inactive")
-   for i = 1, #aa do
-      t[aa[i]] = 1
-   end
-
-   self.inactive = aa
-   local same = (#aa == #self._inactive)
-   if (same) then
-      for _,v in ipairs(self._inactive) do
-         if (not t[v]) then
-            same = false
-            break
+   for k, v in pairs(mT) do
+      
+      if (self:have(k,"inactive") and v.status == "active") then
+         local name = v.fullName
+         if (v.default ~= 0) then
+            name = v.short
+         end
+         inactiveA[#inactiveA+1] = name
+      elseif (self:have(k,"active")) then
+         if ( v.status == "inactive") then
+            activeA[#activeA+1] = self:fullName(k)
+         elseif (self:fileName(k) ~= v.FN ) then
+            if (self:fullName(k) == v.fullName) then
+               reloadA[#reloadA+1] = v.fullName
+            else
+               changedA[#changedA+1] = v.fullName .. " => " .. self:fullName(k)
+            end
          end
       end
    end
+      
 
-   if (not same and #aa > 0 and prt) then
-      t = {}
-      for i,v in ipairs(aa) do
-         t[#t + 1] = '  ' .. i .. ') ' .. tostring(v)
-      end
-      io.stderr:write("Inactive Modules:\n")
-      ct = ColumnTable:new{tbl=t}
-      io.stderr:write(ct:build_tbl(),"\n")
+   if (#reloadA > 0) then
+      columnList(io.stderr,"\nDue to MODULEPATH changes the following have been reloaded:\n",
+                 reloadA)
    end
-
+   if (#inactiveA > 0) then
+      columnList(io.stderr,"\nInactive Modules:\n", inactiveA)
+   end
+   if (#activeA > 0) then
+      columnList(io.stderr,"\nActivating Modules:\n", activeA)
+   end
+   if (#changedA > 0) then
+      columnList(io.stderr,"\nThe following have been reloaded with a version change:\n", changedA)
+   end
    dbg.fini()
-   return same
 end
 
 

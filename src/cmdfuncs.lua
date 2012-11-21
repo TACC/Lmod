@@ -199,7 +199,7 @@ function List(...)
    end
 
    if (#a > 0) then
-      io.stderr:write("Inactive Modules",msg2,"\n")
+      io.stderr:write("\nInactive Modules",msg2,"\n")
       local ct = ColumnTable:new{tbl=a,gap=0}
       io.stderr:write(ct:build_tbl(),"\n")
    end

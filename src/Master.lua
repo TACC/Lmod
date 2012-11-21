@@ -63,7 +63,6 @@ local function new(self,safe)
    setmetatable(o,self)
    self.__index = self
    o.safe       = safe
-   o.reloadT    = {}
    return o
 end
 
@@ -487,7 +486,6 @@ function M.reloadAll()
                       "\" mt:fileName(v): \"", mt:fileName(v) or "nil","\"\n")
             if (loadA[1] and fn ~= mt:fileName(v)) then
                same = false
-               s_master.reloadT[fullName] = 1
                dbg.print("Master:reloadAll module: ",fullName," marked as reloaded\n")
             end
          end
@@ -497,7 +495,6 @@ function M.reloadAll()
          dbg.print("Master:reloadAll Loading module: \"",fullName or "nil","\"\n")
          local aa = mcp:load(fullName)
          if (aa[1] and fn ~= mt:fileName(v)) then
-            s_master.reloadT[fullName] = 1
             dbg.print("Master:reloadAll module: ",fullName," marked as reloaded\n")
          end
          same = not aa[1]
@@ -516,16 +513,6 @@ function M.reloadAll()
    dbg.fini()
    return same
 end
-
-function M.reloadClear(self,name)
-   local dbg  = Dbg:dbg()
-   dbg.start("Master:reloadClear()")
-   dbg.print("removing \"",name,"\" from reload table\n")
-   self.reloadT[name] = nil
-   dbg.fini()
-end
-
-
 
 function M.inheritModule()
    local dbg     = Dbg:dbg()
@@ -561,25 +548,6 @@ local function dirname(f)
    return result
 end
 
-
-function M.prtReloadT(self)
-   if (next(self.reloadT) == nil or expert()) then return end
-   local mt = MT:mt()
-   local t = self.reloadT
-   local a = {}
-   local i = 0
-   for name in pairs(t) do
-      if (mt:have(name,"active")) then
-         i    = i + 1
-         a[i] = "  " .. i .. ") " .. mt:fullName(name)
-      end
-   end
-   if (i > 0) then
-      io.stderr:write("Due to MODULEPATH changes the following modules have been reloaded:\n")
-      local ct = ColumnTable:new{tbl=a,gap=0}
-      io.stderr:write(ct:build_tbl(),"\n")
-   end
-end
 
 local function prtDirName(width,path,a)
    local len     = path:len()

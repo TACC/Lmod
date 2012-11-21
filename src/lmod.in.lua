@@ -85,6 +85,19 @@ RCFileA = {
 
 s_propT = false
 
+function deepcopy(orig)
+   local t
+   if (type(orig) == 'table') then
+      t = {}
+      for k, v in next, orig, nil do
+         t[k] = deepcopy(v)
+      end
+   else
+      t = orig
+   end
+   return t
+end
+
 function readRC()
    if (s_propT) then
       return s_propT
@@ -1111,6 +1124,8 @@ function main()
    master.shell = BaseShell.build(shell)
    local mt     = MT:mt()
 
+   local origMT = deepcopy(mt)
+
    -- Output local vars
    master.shell:expand(varTbl)
 
@@ -1141,11 +1156,8 @@ function main()
       cmd(unpack(masterTbl.pargs))
    end
 
-   -- Recompute any inactive modules. Print out if changed
-   mt:changeInactive()
-
-   -- Print out modules that have been reloaded.
-   master:prtReloadT()
+   -- Report any changes (worth reporting from original MT)
+   mt:reportChanges(origMT)
 
    -- Store the Module table in "_ModuleTable_" env. var.
    local n        = mt:name()
