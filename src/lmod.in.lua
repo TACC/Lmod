@@ -1157,7 +1157,9 @@ function main()
    end
 
    -- Report any changes (worth reporting from original MT)
-   mt:reportChanges(origMT)
+   if (not expert()) then
+      mt:reportChanges(origMT)
+   end
 
    -- Store the Module table in "_ModuleTable_" env. var.
    local n        = mt:name()

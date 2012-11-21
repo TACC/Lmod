@@ -820,20 +820,30 @@ function M.reportChanges(self, origMT)
       end
    end
       
+   local entries = false
 
-   if (#reloadA > 0) then
-      columnList(io.stderr,"\nDue to MODULEPATH changes the following have been reloaded:\n",
-                 reloadA)
-   end
    if (#inactiveA > 0) then
+      entries = true
       columnList(io.stderr,"\nInactive Modules:\n", inactiveA)
    end
    if (#activeA > 0) then
+      entries = true
       columnList(io.stderr,"\nActivating Modules:\n", activeA)
    end
+   if (#reloadA > 0) then
+      entries = true
+      columnList(io.stderr,"\nDue to MODULEPATH changes the following have been reloaded:\n",
+                 reloadA)
+   end
    if (#changedA > 0) then
+      entries = true
       columnList(io.stderr,"\nThe following have been reloaded with a version change:\n", changedA)
    end
+
+   if (entries) then
+      io.stderr:write("\n")
+   end
+
    dbg.fini()
 end
 

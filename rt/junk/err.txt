@@ -1,7 +1,7 @@
 ===========================
 step 1
 ===========================
-Modules based on Lua: Version 3.6.3.2 2012-09-08 15:45
+Modules based on Lua: Version 4.1 2012-10-26 11:38
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -12,6 +12,8 @@ step 3
 ===========================
 step 4
 ===========================
+The following have been reloaded with a version change:
+  1) junk/d/3.0 => junk/a/c/1.0
 ===========================
 step 5
 ===========================

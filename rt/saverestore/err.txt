@@ -9,6 +9,8 @@ step 2
 ===========================
 step 3
 ===========================
+The following have been reloaded with a version change:
+  1) pgi/7.1 => pgi/7.2-5
 ===========================
 step 4
 ===========================
