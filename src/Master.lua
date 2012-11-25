@@ -726,13 +726,32 @@ function M.avail(searchA)
       local a = {}
       availDir(searchA, path, path, '', dbT, a, legendT)
       if (next(a)) then
+         local b = {}
+         for i = 1, #a do
+            local fn = a[i][2]:gsub("\027[^m]+m","")
+            local d,v = splitFileName(fn)
+            local name 
+            if (d == "./") then
+               name = v
+            elseif( v:sub(1,1):find("%d")) then
+               name = pathJoin(d,concatTbl(parseVersion(v)))
+            else
+               name = pathJoin(d,v)
+            end
+
+            b[i] = { name, i}
+         end
+
          prtDirName(width, path,aa)
-         sort(a, function (a,b)
-                 local x = a[2]:gsub("\027[^m]+m","")
-                 local y = b[2]:gsub("\027[^m]+m","")
-                 return x < y
-                 end)
-         local ct  = ColumnTable:new{tbl=a,gap=1, len=length}
+         sort(b, function(a,b) return a[1] < b[1] end )
+
+         local bb = {}
+         for i = 1, #b do
+            local j = b[i][2]
+            bb[i] = a[j]
+         end
+
+         local ct  = ColumnTable:new{tbl=bb,gap=1, len=length}
          aa[#aa+1] = ct:build_tbl()
          aa[#aa+1] = "\n"
       end
