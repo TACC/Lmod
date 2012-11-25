@@ -1,7 +1,7 @@
 ===========================
 step 1
 ===========================
-Modules based on Lua: Version 4.1 2012-10-26 11:38
+Modules based on Lua: Version 4.1.1 2012-11-21 12:22
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -19,8 +19,8 @@ step 2
    gotoblas/1.31       gotoblas/1.33       openmpi/1.2.6
    gotoblas/1.32       mpich2/1.0.7
  ProjectDIR/rt/avail/mf/Core 
-   bar/1.4      (D)     baz/1.4      (D)     foo/1.4      (D)
    bar/1.4-dbg          baz/1.4-dbg          foo/1.4-dbg
+   bar/1.4      (D)     baz/1.4      (D)     foo/1.4      (D)
   Where:
    (D):  Default Module
    (m):  module is build natively for MIC
@@ -41,7 +41,7 @@ step 3
    gotoblas/1.31       gotoblas/1.33       openmpi/1.2.6
    gotoblas/1.32       mpich2/1.0.7
  ProjectDIR/rt/avail/mf/Core 
-   bar/1.4  (D)     bar/1.4-dbg       baz/1.4  (D)     baz/1.4-dbg
+   bar/1.4-dbg       bar/1.4  (D)     baz/1.4-dbg       baz/1.4  (D)
   Where:
    (D):  Default Module
    (m):  module is build natively for MIC
@@ -67,8 +67,8 @@ step 5
    gcc/4.2.3                   junk/a/c/1.0
    git/1.6.3.1                 junk/b/c/2.0
  ProjectDIR/rt/avail/mf/Core 
-   bar/1.4      (D)     baz/1.4      (D)     foo/1.4      (D)
    bar/1.4-dbg          baz/1.4-dbg          foo/1.4-dbg
+   bar/1.4      (D)     baz/1.4      (D)     foo/1.4      (D)
   Where:
    (D):  Default Module
    (m):  module is build natively for MIC
