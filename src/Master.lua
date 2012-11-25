@@ -733,7 +733,7 @@ function M.avail(searchA)
             local name 
             if (d == "./") then
                name = v
-            elseif( v:sub(1,1):find("%d")) then
+            elseif (v:sub(1,1):find("%d")) then
                name = pathJoin(d,concatTbl(parseVersion(v)))
             else
                name = pathJoin(d,v)
