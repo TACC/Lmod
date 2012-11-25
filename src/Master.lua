@@ -239,8 +239,13 @@ function loadModuleFile(t)
       a[#a + 1]	  = opt
       a[#a + 1]	  = t.file
       local cmd   = concatTbl(a," ")
-      local s     = capture(cmd)
-      func, msg   = loadstring(s)
+      local s     = capture(cmd) 
+      if (s) then
+         func, msg   = loadstring(s)
+      else
+         func = nil
+         msg  = "TCL modulefile was not read."
+      end
    end
 
    if (func) then
