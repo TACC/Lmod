@@ -57,10 +57,8 @@ end
 
 
 function main()
-   local unset = "unset"
    local setenv = bash_export
    if ( arg[1] == "csh" ) then
-      unset = "unsetenv"
       setenv = csh_setenv
    end
 
@@ -68,13 +66,12 @@ function main()
       local name = format("_ModuleTable%03d_",i)
       local v = getenv(name)
       if (v == nil) then break end
-      io.stdout:write(unset, " ", name, "\n")
+      setenv(name,"")
    end
    local mpath = getenv("LMOD_DEFAULT_MODULEPATH") or ""
-   io.stdout:write(unset, " ", "_ModuleTable_Sz_\n")
-   io.stdout:write(unset, " ", "LMOD_DEFAULT_MODULEPATH\n")
-   setenv("MODULEPATH",mpath)
-
+   setenv("MODULEPATH",              mpath)
+   setenv("_ModuleTable_Sz_",        "")
+   setenv("LMOD_DEFAULT_MODULEPATH", "")
 end
 
 main()
