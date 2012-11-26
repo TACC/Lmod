@@ -35,7 +35,7 @@ function bash_export(name, value)
       a[#a+1] = name
       a[#a+1] = "\n"
    end
-   io.stderr:write(concatTbl(a,""))
+   io.stdout:write(concatTbl(a,""))
 end
 
 function csh_setenv(name, value)
@@ -51,7 +51,7 @@ function csh_setenv(name, value)
       a[#a+1] = value
       a[#a+1] = "\"\n"
    end
-   io.stderr:write(concatTbl(a,""))
+   io.stdout:write(concatTbl(a,""))
 end
 
 
