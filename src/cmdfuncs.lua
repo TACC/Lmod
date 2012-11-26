@@ -30,6 +30,11 @@ function Purge()
    dbg.start("Purge(",concatTbl(a,", "),")")
 
    MCP:unload(unpack(a))
+
+   -- Make Default Path be the new MODULEPATH
+
+   mt:buildMpathA(mt:getBaseMPATH())
+
    dbg.fini()
 end
 
