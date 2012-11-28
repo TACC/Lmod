@@ -26,14 +26,14 @@ function bash_export(name, value)
    if (value == "") then
       a[#a+1] = "unset "
       a[#a+1] = name
-      a[#a+1] = "\n"
+      a[#a+1] = ";\n"
    else
       a[#a+1] = name
       a[#a+1] = "=\""
       a[#a+1] = value
       a[#a+1] = "\"; export "
       a[#a+1] = name
-      a[#a+1] = "\n"
+      a[#a+1] = ";\n"
    end
    io.stderr:write(concatTbl(a,""))
 end
@@ -43,13 +43,13 @@ function csh_setenv(name, value)
    if (value == "") then
       a[#a+1] = "unsetenv "
       a[#a+1] = name
-      a[#a+1] = "\n"
+      a[#a+1] = ";\n"
    else
       a[#a+1] = "setenv "
       a[#a+1] = name
       a[#a+1] = " \""
       a[#a+1] = value
-      a[#a+1] = "\"\n"
+      a[#a+1] = "\";\n"
    end
    io.stderr:write(concatTbl(a,""))
 end
