@@ -377,7 +377,7 @@ function M.access(self, ...)
       --io.stderr:write("full: ",full,"\n")
       systemG.ModuleFn   = fn
       systemG.ModuleName = full
-      if (fn) then
+      if (fn and isFile(fn)) then
          prtHdr()
          mStack:push(full, fn)
 	 loadModuleFile{file=fn,help=help,moduleName=moduleName,reportErr=true}
