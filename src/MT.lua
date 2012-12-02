@@ -285,6 +285,7 @@ function M.getMTfromFile(self,fn)
    for i = 1,#loadA do
       if (not loadA[i]) then
          aa[#aa+1] = a[i]
+         t[a[i]]   = nil   -- do not need to check hash for a non-existant module
       end
    end
 
@@ -297,7 +298,6 @@ function M.getMTfromFile(self,fn)
    for k,v  in pairs(t) do
       if(v ~= s_mt:getHash(k)) then
          aa[#aa + 1] = k
-         t[a[i]]     = nil   -- do not need to check hash for a non-existant module
       end
    end
 

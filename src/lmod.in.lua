@@ -630,18 +630,23 @@ local function Restore(a)
    if (a == "system" ) then
       dbg.print("Restoring System\n")
       msg = "system default"
-      Reset()
    else
-      a          = a or "default"
-      local mt   = MT:mt()
+      a   = a or "default"
       msg = "user's "..a
-      mt:getMTfromFile(path)
    end
 
    local masterTbl = masterTbl()
    if (prtMsg and not masterTbl.initial) then
       io.stderr:write("\nRestoring modules to ",msg,"\n")
    end
+
+   if (a == "system" ) then
+      Reset()
+   else
+      local mt   = MT:mt()
+      mt:getMTfromFile(path)
+   end
+   
    dbg.fini()
 end
 
