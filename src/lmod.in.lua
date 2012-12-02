@@ -637,7 +637,7 @@ local function Restore(a)
 
    local masterTbl = masterTbl()
    if (prtMsg and not masterTbl.initial) then
-      io.stderr:write("\nRestoring modules to ",msg,"\n")
+      io.stderr:write("\n  Restoring modules to ",msg,"\n")
    end
 
    if (a == "system" ) then
