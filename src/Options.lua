@@ -43,7 +43,7 @@ function M.options(self, usage)
    local Optiks = require("Optiks")
    s_options = new(self)
    local cmdlineParser = Optiks:new{usage   = usage,
-                                    error   = dbg.warning,
+                                    error   = LmodWarning,
                                     exit    = nothing,
                                     prt     = prt,
    }

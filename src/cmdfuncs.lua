@@ -133,7 +133,7 @@ function List(...)
    local totalA = mt:list("short","any")
    if (#totalA < 1) then
       local dbg = Dbg:dbg()
-      dbg.warning("No modules installed\n")
+      LmodWarning("No modules installed\n")
       return
    end
 

@@ -286,7 +286,7 @@ local function loadModuleFile(fn)
    if (func) then
       func()
    else
-      dbg.warning("Syntax error: ",msg,"\n")
+      LmodWarning("Found syntax error: ",msg,"\n")
    end
    dbg.fini()
 end

@@ -290,7 +290,7 @@ function M.getMTfromFile(self,fn)
    end
 
    if (#aa > 0) then
-      dbg.warning("The following modules were not loaded: ", concatTbl(aa," "),"\n\n")
+      LmodWarning("The following modules were not loaded: ", concatTbl(aa," "),"\n\n")
    end
 
    aa = {}
@@ -303,8 +303,8 @@ function M.getMTfromFile(self,fn)
 
    
    if (#aa > 0) then
-      dbg.warning("The following modules have changed: ", concatTbl(aa," "),"\n")
-      dbg.warning("Please re-create this collection\n")
+      LmodWarning("The following modules have changed: ", concatTbl(aa," "),"\n")
+      LmodWarning("Please re-create this collection\n")
    end
 
 

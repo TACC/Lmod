@@ -119,7 +119,7 @@ end
 function M.try_load(self, ...)
    local dbg = Dbg:dbg()
    dbg.start("MasterControl:try_load(",concatTbl({...},", "),")")
-   dbg:deactivateWarning()
+   deactivateWarning()
    self:load(...)
    dbg.fini()
 end
@@ -160,7 +160,7 @@ function M.bad_unload(self,...)
 
    dbg.start("MasterControl.bad_unload()")
 
-   dbg.warning("Stubbornly refusing to unload module(s): \"",
+   LmodWarning("Stubbornly refusing to unload module(s): \"",
                concatTbl({...},"\", \""),"\"",
                "\n   during an unload\n")
 
@@ -364,7 +364,7 @@ function LmodErrorExit()
 end
 
 function LmodSystemError(...)
-   io.stderr:write("\nLmod Error: ")
+   io.stderr:write("\n", colorize("red", "Lmod Error: "))
    for _,v in ipairs{...} do
       io.stderr:write(v)
    end
@@ -376,6 +376,17 @@ end
 function M.error(self, ...)
    LmodSystemError(...)
 end
+
+function M.warning(self, ...)
+   if (not expert() and  haveWarnings()) then
+      io.stderr:write("\n",colorize("red", "Lmod Warning: "))
+      for _,v in ipairs{...} do
+         io.stderr:write(v)
+      end
+      setWarningFlag()
+   end
+end
+
 
 function M.message(self, ...)
    for _,v in ipairs{...} do

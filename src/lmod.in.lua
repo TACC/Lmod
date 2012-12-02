@@ -14,6 +14,8 @@ shortLifeCache = ancient/12
 BaseShell      = {}
 Pager          = "@path_to_pager@"
 s_master       = {}
+s_warning      = false
+s_haveWarnings = true
 
 function masterTbl()
    return s_master
@@ -58,6 +60,25 @@ end
 
 local getenv = os.getenv
 local rep    = string.rep
+
+function setWarningFlag()
+   s_warning = true
+end
+function getWarningFlag()
+   return s_warning
+end
+
+function activateWarning()
+   s_haveWarnings = true
+end
+
+function deactivateWarning()
+   s_haveWarnings = false
+end
+
+function haveWarnings()
+   s_haveWarnings = false
+end
 
 
 require("strict")
@@ -492,8 +513,9 @@ function TryUsrLoad(...)
    local dbg    = Dbg:dbg()
 
    dbg.start("TryUsrLoad(",concatTbl({...},", "),")")
-   dbg:deactivateWarning()
+   deactivateWarning()
    UsrLoad(...)
+   activateWarning()
    dbg.fini()
 end
 
@@ -533,7 +555,7 @@ function UsrLoad(...)
       
    if (#aa > 0) then
       local s = concatTbl(aa," ")
-      dbg.warning("Did not find: ",s,"\n\n",
+      LmodWarning("Did not find: ",s,"\n\n",
                   "Try: \"module spider ", s,"\"\n" )
    end
 
@@ -557,7 +579,7 @@ local function Save(...)
    dbg.start("Save(",concatTbl({...},", "),")")
 
    if (a == "system") then
-      dbg.warning("The named collection 'system' is reserved. Please choose another name.\n")
+      LmodWarning("The named collection 'system' is reserved. Please choose another name.\n")
       dbg.fini()
       return
    end
@@ -566,7 +588,7 @@ local function Save(...)
    local aa = mt:safeToSave()
 
    if (#aa > 0) then
-      dbg.warning("Unable to save module state as a \"default\"\n",
+      LmodWarning("Unable to save module state as a \"default\"\n",
                   "The following module(s):\n",
                   "  ",concatTbl(aa,", "),"\n",
                   "mix load statements with setting of environment variables.\n")
@@ -1181,7 +1203,7 @@ function main()
    -- Output all newly created path and variables.
    master.shell:expand(varTbl)
 
-   if (dbg.warningCalled() and not expert() ) then
+   if (getWarningFlag() and not expert() ) then
       LmodErrorExit()
    end
 end
