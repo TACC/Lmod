@@ -1086,7 +1086,7 @@ function main()
       end
    end
 
-   dbg.set_prefix(colorize("Lmod","red"))
+   dbg.set_prefix(colorize("red","Lmod"))
 
    local shell = barefilename(arg[1])
    table.remove(arg,1)
