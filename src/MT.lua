@@ -297,12 +297,13 @@ function M.getMTfromFile(self,fn)
    for k,v  in pairs(t) do
       if(v ~= s_mt:getHash(k)) then
          aa[#aa + 1] = k
+         t[a[i]]     = nil   -- do not need to check hash for a non-existant module
       end
    end
 
    
    if (#aa > 0) then
-      dbg.warning("The following modules have changed: ", concatTbl(a," "),"\n")
+      dbg.warning("The following modules have changed: ", concatTbl(aa," "),"\n")
       dbg.warning("Please re-create this collection\n")
    end
 
