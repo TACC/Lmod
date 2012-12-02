@@ -277,17 +277,13 @@ function M.unload(...)
    local mt     = MT:mt()
    local dbg    = Dbg:dbg()
    local a      = {}
-   for _,v in ipairs{...} do
-      a[#a+1] = v
-   end
-   dbg.start("Master:unload(",concatTbl(a,", "),")")
+   dbg.start("Master:unload(",concatTbl({...},", "),")")
 
    local mcp_old = mcp
 
    mcp = MasterControl.build("unload")
    dbg.print("Setting mpc to ", mcp:name(),"\n")
 
-   a = {}
    for _, moduleName in ipairs{...} do
       dbg.print("Trying to unload: ", moduleName, "\n")
       if (mt:haveSN(moduleName,"inactive")) then

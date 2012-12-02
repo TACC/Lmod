@@ -1072,14 +1072,15 @@ function main()
    -- Setup output and pager routines
    colorize = plain
    pager    = bypassPager
+   local connectedTerm = false
    
    if (term) then
       if (term.isatty(io.stderr)) then
          colorize = full_colorize
          pager    = usePager
+         connectedTerm = true
       end
    end
-
 
 
    local shell = barefilename(arg[1])

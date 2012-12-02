@@ -138,9 +138,14 @@ function M.convertMT(self, v1)
    local sz     = #a
    for i = 1, sz do
       local sn    = a[i]
+      local hash  = nil
+      if (active.hash and active.hash[i]) then
+         hash = active.hash[i]
+      end
+      
       local t     = { fn = active.FN[i], modFullName = active.fullModName[i],
                       default = active.default[i], modName = sn,
-                      mType   = active.mType[i]
+                      mType   = active.mType[i], hash = hash,
       }
       self:add(t,"active")
    end
@@ -269,26 +274,38 @@ function M.getMTfromFile(self,fn)
    dbg.print("(3) varTbl[ModulePath]:expand(): ",varTbl[ModulePath]:expand(),"\n")
    local mcp_old = mcp
    mcp           = MCP
-   mcp:load(unpack(a))
+   local loadA   = mcp:load(unpack(a))
    mcp           = mcp_old
 
    local master = systemG.Master:master()
 
    master.fakeload(unpack(m))
-   
 
-   s_mt:setHashSum()
-   a = {}
-   for k,v  in pairs(t) do
-      if(v ~= s_mt:getHash(k)) then
-         a[#a + 1] = k
+   local aa = {}
+   for i = 1,#loadA do
+      if (not loadA[i]) then
+         aa[#aa+1] = a[i]
       end
    end
 
-   if (#a > 0) then
-      LmodError("The following modules have changed: ", concatTbl(a," "),"\n",
-            "Please reset this default setup\n")
+   if (#aa > 0) then
+      dbg.warning("The following modules were not loaded: ", concatTbl(aa," "),"\n")
    end
+
+   aa = {}
+   s_mt:setHashSum()
+   for k,v  in pairs(t) do
+      if(v ~= s_mt:getHash(k)) then
+         aa[#aa + 1] = k
+      end
+   end
+
+   
+   if (#aa > 0) then
+      dbg.warning("The following modules have changed: ", concatTbl(a," "),"\n")
+      dbg.warning("Please re-create this collection\n")
+   end
+
 
    s_mt:hideHash()
 
@@ -453,6 +470,9 @@ function M.add(self, t, status)
                      loadOrder = s_loadOrder,
                      propT     = {},
    }
+   if (t.hash and t.hash ~= 0) then
+      mT[t.modName].hash = t.hash
+   end
    dbg.fini()
 end
 
