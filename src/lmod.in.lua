@@ -1068,7 +1068,6 @@ function main()
    }
 
    local dbg  = Dbg:dbg()
-   dbg.set_prefix("Lmod")
 
    MCP = MasterControl.build("load")
 
@@ -1087,6 +1086,7 @@ function main()
       end
    end
 
+   dbg.set_prefix(colorize("Lmod","red"))
 
    local shell = barefilename(arg[1])
    table.remove(arg,1)
