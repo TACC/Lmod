@@ -217,7 +217,7 @@ end
 
 
 function M.bad_remove_path(self, name,value)
-   Dbg:dbg().warning("Refusing remove a path element variable while unloading: \"",name,"\"\n")
+   LmodWarning("Refusing remove a path element variable while unloading: \"",name,"\"\n")
 end
 
 -------------------------------------------------------------------
@@ -251,7 +251,7 @@ function M.unsetenv(self, name, value)
 end
 
 function M.bad_unsetenv(self, name, value)
-   Dbg:dbg().warning("Refusing unsetenv variable while unloading: \"",name,"\"\n")
+   LmodWarning("Refusing unsetenv variable while unloading: \"",name,"\"\n")
 end
 
 -------------------------------------------------------------------
@@ -286,7 +286,7 @@ function M.unset_alias(self, name, value)
 end
 
 function M.bad_unset_alias(self, name)
-   Dbg:dbg().warning("Refusing unset an alias while unloading: \"",name,"\"\n")
+   LmodWarning("Refusing unset an alias while unloading: \"",name,"\"\n")
 end
 
 -------------------------------------------------------------------
@@ -323,7 +323,7 @@ function M.unset_shell_function(self, name, bash_function, csh_function)
 end
 
 function M.bad_unset_shell_function(self, name, bash_function, csh_function)
-   Dbg:dbg().warning("Refusing unset a shell function while unloading: \"",name,"\"\n")
+   LmodWarning("Refusing unset a shell function while unloading: \"",name,"\"\n")
 end
 
 -------------------------------------------------------------------
@@ -351,7 +351,7 @@ function M.remove_property(self, name, value)
 end
 
 function M.bad_remove_property(self, name, value)
-   Dbg:dbg().warning("Refusing to remove a property while unloading: \"",name,"\"\n")
+   LmodWarning("Refusing to remove a property while unloading: \"",name,"\"\n")
 end
 
 -------------------------------------------------------------------

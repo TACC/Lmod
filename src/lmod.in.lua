@@ -77,7 +77,7 @@ function deactivateWarning()
 end
 
 function haveWarnings()
-   s_haveWarnings = false
+   return s_haveWarnings
 end
 
 
