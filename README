@@ -10,6 +10,17 @@ avail be piped through more or whatever the users' PAGER is.
 Thanks,
 ------------------------------------------------------------
 
+Version 4.1.4:
+ Bug Fixes:
+   1) When the warning is produced the Lmod Warning message is
+      now colorized (just the Lmod Warning part)
+   2) There is now a small change in "module restore". Previously
+      if a save module changed or did not exist the whole restore
+      would error.  Now Lmod reports which modules are missing and
+      which modules have changed, it then loads all requested
+      modules that it can find.
+
+
 Version 4.1:
  Features:
    1) Save/Restore replaced getdefault/setdefault.  See module help
