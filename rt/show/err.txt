@@ -1,7 +1,7 @@
 ===========================
 step 1
 ===========================
-Modules based on Lua: Version 3.6.3.2 2012-09-08 15:45
+Modules based on Lua: Version 4.1.3 2012-11-26 13:11
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -16,3 +16,48 @@ step 3
    ProjectDIR/mf/Core/alex/1.0.lua:
 load("noweb")
 load("git")
+===========================
+step 4
+===========================
+ ProjectDIR/mf/Core 
+   PrgEnv                  git/1.7.4             junk/d/3.0
+   admin/admin-1.0 (D)     git/1.7.4.3   (D)     local/local  (D)
+   alex/1.0                gotoblas/1.20         multi/multi  (D)
+   boost/1.46.0            gotoblas/1.26 (D)     noweb/2.10c  (D)
+   boost/1.47.1            gotoblas/1.30         parmetis/3.1
+   boost/1.49.0    (D)     intel/intel   (D)     unix/unix    (D)
+   gcc/4.2.3               junk/a/c/1.0
+   git/1.6.3.1             junk/b/c/2.0
+ ProjectDIR/mf/Compiler/intel/10.1 
+   gotoblas/1.31      gotoblas/1.33      openmpi/1.2.6
+   gotoblas/1.32      mpich2/1.0.7
+  Where:
+   (D):  Default Module
+Use "module spider" to find all possible modules. 
+Use "module keyword key1 key2 ..." to search for all possible modules matching 
+any of the "keys". 
+===========================
+step 5
+===========================
+   ProjectDIR/mf/Core/boost/1.49.0.lua:
+setenv("TACC_BOOST_DIR", "/opt/apps/boost/1.49.0")
+add_property("arch", "offload")
+===========================
+step 6
+===========================
+===========================
+step 7
+===========================
+Currently Loaded Modules:
+  1) boost/1.47.1
+===========================
+step 8
+===========================
+   ProjectDIR/mf/Core/boost/1.47.1.lua:
+setenv("TACC_BOOST_DIR", "/opt/apps/boost/1.47.1")
+===========================
+step 9
+===========================
+   ProjectDIR/mf/Core/boost/1.49.0.lua:
+setenv("TACC_BOOST_DIR", "/opt/apps/boost/1.49.0")
+add_property("arch", "offload")

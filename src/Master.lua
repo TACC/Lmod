@@ -339,7 +339,8 @@ end
 
 local function access_find_module_file(moduleName)
    local mt = MT:mt()
-   if (mt:haveSN(moduleName, "any")) then
+   if ((shortName(moduleName) == moduleName) and
+       (mt:haveSN(moduleName, "any"))) then
       local full = mt:fullName(moduleName) 
       return mt:fileName(moduleName), full or ""
    end
