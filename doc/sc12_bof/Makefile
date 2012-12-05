@@ -1,5 +1,5 @@
 TALKS    := sc12_bof.pdf
-TEX_SUFS := .aux .log .nav .out .snm .toc .vrb .fdb_latexmk
+TEX_SUFS := .aux .log .nav .out .snm .toc .vrb .fdb_latexmk .fls
 
 %.pdf:%.tex
 	latexmk -pdf $<
