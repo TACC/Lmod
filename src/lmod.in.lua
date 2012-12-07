@@ -352,11 +352,19 @@ function Reset()
    dbg.start("Reset()")
    Purge()
    local default = os.getenv("LMOD_SYSTEM_DEFAULT_MODULES") or ""
-   dbg.print("default: ",default,"\n")
+   dbg.print("default: \"",default,"\"\n")
 
    default = default:trim()
    default = default:gsub(" *, *",":")
    default = default:gsub(" +",":")
+
+   if (default == "") then
+      io.stderr:write("\nThe system default contains no modules\n")
+      io.stderr:write("  (env var: LMOD_SYSTEM_DEFAULT_MODULES is empty)\n\n")
+      dbg.fini()
+      return
+   end
+
 
    local a = {}
    for m in default:split(":") do
