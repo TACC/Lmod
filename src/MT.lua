@@ -494,6 +494,18 @@ function M.setStatus(self, moduleName, status)
    if (entry ~= nil) then
       entry.status = status
    end
+   local dbg = Dbg:dbg()
+   dbg.print("M.setStatus(",moduleName,",",tostring(status),"\n")
+end
+
+function M.getStatus(self, moduleName)
+   local mT    = self.mT
+   local sn    = shortName(moduleName)
+   local entry = mT[sn]
+   if (entry ~= nil) then
+      return entry.status
+   end
+   return nil
 end
 
 function M.haveSN(self, moduleName, status)

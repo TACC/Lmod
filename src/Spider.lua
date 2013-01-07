@@ -349,8 +349,10 @@ function M.findModulesInDir(mpath, path, prefix, moduleT)
    local masterTbl       = masterTbl()
    local moduleStack     = masterTbl.moduleStack
    local iStack          = #moduleStack
+   local mt              = MT:mt()
    
    local defaultModuleName = findDefault(mpath, path, prefix)
+
 
    for file in lfs.dir(path) do
       if (file:sub(1,1) ~= "." and not file ~= "CVS" and file:sub(-1,-1) ~= "~") then
@@ -374,7 +376,11 @@ function M.findModulesInDir(mpath, path, prefix, moduleT)
                }
                moduleStack[iStack] = {path=f, full = full, moduleT = moduleT, fn = f}
                dbg.print("Top of Stack: ",iStack, " Full: ", full, " file: ", f, "\n")
+
+               local t = {fn = f, modFullName = full, modName = name, default = 0, hash = 0}
+               mt:add(t,"pending")
                loadModuleFile(f)
+               mt:setStatus(t.modName,"active")
                dbg.print("Saving: Full: ", full, " Name: ", name, " file: ",f,"\n")
             end
          elseif (attr.mode == 'directory') then
@@ -625,9 +631,13 @@ function M.spiderSearch(dbT, mname, help)
    local name   = extractName(mname)
    local nameL  = name:lower()
    local mnameL = mname:lower()
+   dbg.print("mname: ", mname, " name: ", name, " nameL: ", nameL, "\n")
    local found  = false
    local a      = {}
    for k,v in pairs(dbT) do
+      dbg.print("nameL: ", nameL, " k: ", k, "\n")
+      local i,j = k:find(nameL)
+      dbg.print("i,j: ", tostring(i)," ", tostring(j), "\n")
       if (k:find(nameL,1,true) or k:find(nameL)) then
          local s
          dbg.print("nameL: ",nameL," mnameL: ", mnameL, " k: ",k,"\n")

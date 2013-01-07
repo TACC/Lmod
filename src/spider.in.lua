@@ -13,13 +13,6 @@ end
 package.path = LuaCommandName_dir .. "?.lua;"      ..
                package.path
 
-------------------------------------------------------------------------
--- Try to load a SitePackage Module,  If it is not there then do not
--- abort.  Sites do not have to have a Site package.
-------------------------------------------------------------------------
-pcall(require, "SitePackage") 
-
-
 function cmdDir()
    return LuaCommandName_dir
 end
@@ -124,6 +117,25 @@ function main()
    mcp = MasterControl.build("spider")
    dbg.print("Setting mpc to ", tostring(mcp:name()),"\n")
 
+   ------------------------------------------------------------------------
+   -- Try to load a SitePackage Module,  If it is not there then do not
+   -- abort.  Sites do not have to have a Site package.
+   ------------------------------------------------------------------------
+
+   local lmodPath = os.getenv("LMOD_PACKAGE_PATH") or ""
+   for path in lmodPath:split(":") do
+      path = path .. "/"
+      path = path:gsub("//+","/")
+      package.path  = path .. "?.lua;"      ..
+                      path .. "?/init.lua;" ..
+                      package.path
+
+      package.cpath = path .. "../lib/?.so;"..
+                      package.cpath
+   end
+
+   dbg.print("lmodPath:", lmodPath,"\n")
+   require("SitePackage")
    Spider.findAllModules(moduleDirA, moduleT)
    
    if (masterTbl.outputStyle == "moduleT") then
