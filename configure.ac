@@ -71,11 +71,24 @@ AC_PATH_PROG(pager,[more], "")
 PATH_TO_PAGER=$pager
 
 AC_PATH_PROG(luaprog, lua, "")
+
+luaprog=$(readlink $luaprog)
+
+while test -L $luaprog; do
+  luaprog=$(readlink $luaprog)
+done
+
+LuaV=$( $luaprog -e 'print(_VERSION)' | sed -e 's/Lua //' )
+LmodV=$( $luaprog  -e 'v=require("src/Version"); s=v.name():gsub(" .*","");print(s)')
+
+
 if test x$luaprog = "x"; then
   echo The program "lua" must be in your path
   exit
 fi
-PATH_TO_LUA=$(echo $luaprog | sed -e 's|/lua$||')
+
+
+PATH_TO_LUA=$(dirname $luaprog)
 
 WD=`pwd`
 
@@ -128,13 +141,26 @@ AC_SUBST(LUA_LIB)
 LUA_INCLUDE=$PATH_TO_LUA_DIR/include
 LUA_LIB=$PATH_TO_LUA_DIR/lib
 
+AC_ARG_WITH([lua-include],
+            [AS_HELP_STRING([--with-lua-include=@<:@path@:>@],
+                            [specify path the lua header files])
+            ])
+            
+AC_ARG_WITH([lua-lib],
+            [AS_HELP_STRING([--with-lua-libpath=@<:@path@:>@],
+                            [specify path the lua libraries])
+            ])
+            
+
+
+
 if ! test -f $LUA_INCLUDE/lua.h; then
   AC_PATH_PROG(pkgConfig, pkg-config, "")
   if  ! test x$pkgConfig = "x"; then
-    for i in lua5.2 lua5.1 lua; do
+    for i in lua$LuaV lua; do
       $pkgConfig --exists $i
       if test $? = 0; then
-        LUA_INCLUDE=`$pkgConfig --cflags $i | sed -e 's/^-I//'`
+        LUA_INCLUDE=`$pkgConfig --cflags $i | sed -e 's/^-I//' -e 's/ //g'`
 	LUA_LIB=`$pkgConfig --libs $i`
         break
       fi
@@ -142,5 +168,18 @@ if ! test -f $LUA_INCLUDE/lua.h; then
   fi
 fi
 
+if ! test -f $LUA_INCLUDE/lua.h; then
+  for i in /usr/include/lua$LuaV /usr/include/lua /usr/include; do
+     if test -f $i/lua.h ; then
+        LUA_INCLUDE=$i
+        break
+     fi
+  done
+fi
+     
+
+
+
 AC_OUTPUT(makefile:Makefile.in)
 
+AX_SUMMARIZE_CONFIG
