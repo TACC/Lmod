@@ -53,12 +53,12 @@ AC_ARG_WITH(spiderCacheDir,
 
 AC_SUBST(PREPEND_BLOCK)
 AC_ARG_WITH(prependBlock,
-    AC_HELP_STRING([--with-prependBlock=ans],[Treat multiple directories passed to prepend in normal order/ not reversed [[no]]]),
+    AC_HELP_STRING([--with-prependBlock=ans],[Treat multiple directories passed to prepend in normal order/ not reversed [[NORMAL]]]),
     PREPEND_BLOCK="$withval"
     AC_MSG_RESULT([PREPEND_BLOCK=$with_prependBlock])
     AC_DEFINE_UNQUOTED(PREPEND_BLOCK, "$with_prependBlock")dnl
     ,
-    withval="no"
+    withval="NORMAL"
     AC_MSG_RESULT([PREPEND_BLOCK=$withval])
     PREPEND_BLOCK="$withval"
     AC_DEFINE_UNQUOTED(PREPEND_BLOCK, "$withval"))dnl
@@ -71,8 +71,6 @@ AC_PATH_PROG(pager,[more], "")
 PATH_TO_PAGER=$pager
 
 AC_PATH_PROG(luaprog, lua, "")
-
-luaprog=$(readlink $luaprog)
 
 while test -L $luaprog; do
   luaprog=$(readlink $luaprog)
@@ -136,23 +134,14 @@ fi
 echo "... yes"
     
 AC_SUBST(LUA_INCLUDE)
-AC_SUBST(LUA_LIB)
 
 LUA_INCLUDE=$PATH_TO_LUA_DIR/include
-LUA_LIB=$PATH_TO_LUA_DIR/lib
 
 AC_ARG_WITH([lua-include],
             [AS_HELP_STRING([--with-lua-include=@<:@path@:>@],
                             [specify path the lua header files])
             ])
             
-AC_ARG_WITH([lua-lib],
-            [AS_HELP_STRING([--with-lua-libpath=@<:@path@:>@],
-                            [specify path the lua libraries])
-            ])
-            
-
-
 
 if ! test -f $LUA_INCLUDE/lua.h; then
   AC_PATH_PROG(pkgConfig, pkg-config, "")
@@ -161,7 +150,6 @@ if ! test -f $LUA_INCLUDE/lua.h; then
       $pkgConfig --exists $i
       if test $? = 0; then
         LUA_INCLUDE=`$pkgConfig --cflags $i | sed -e 's/^-I//' -e 's/ //g'`
-	LUA_LIB=`$pkgConfig --libs $i`
         break
       fi
     done

@@ -7,7 +7,6 @@ PATH_TO_LUA	 := @PATH_TO_LUA@
 PATH_TO_PAGER	 := @PATH_TO_PAGER@
 MODULEPATH_ROOT  := @MODULEPATH_ROOT@
 VERSION_SRC	 := src/Version.lua
-LUA_LIB          := @LUA_LIB@
 LUA_INCLUDE      := @LUA_INCLUDE@
 prefix		 := @prefix@
 package		 := lmod
@@ -111,7 +110,7 @@ src/computeHashSum: $(ComputeHashSum)
 
 pkgs:
 	cd pkgs; \
-        $(MAKE) LUA_INC=$(LUA_INCLUDE) LUA_LIB=$(LUA_LIB)  LIB=$(DESTDIR)$(LIB) \
+        $(MAKE) LUA_INC=$(LUA_INCLUDE)  LIB=$(DESTDIR)$(LIB) \
                 SHARE=$(DESTDIR)$(LIBEXEC) install
 
 

@@ -16,25 +16,10 @@ local setmetatable  = setmetatable
 local systemG       = _G
 local table         = table
 local type          = type
-local prepend_order = nil
 
 --module("Var")
 
 local M = {}
-
-function set_prepend_order()
-   local order = os.getenv("LMOD_PREPEND_BLOCK") or "no"
-   if (order == "no") then
-      prepend_order = function (n)
-         return 1, n, 1
-      end
-   else
-      prepend_order = function (n)
-         return n, 1, -1
-      end
-   end
-end
-
 
 local function extract(self)
    local dbg = Dbg:dbg()

@@ -586,7 +586,6 @@ ac_default_prefix=/usr/local
 ac_subst_vars='LTLIBOBJS
 LIBOBJS
 pkgConfig
-LUA_LIB
 LUA_INCLUDE
 luaprog
 pager
@@ -645,7 +644,6 @@ with_shortTime
 with_spiderCacheDir
 with_prependBlock
 with_lua_include
-with_lua_lib
 '
       ac_precious_vars='build_alias
 host_alias
@@ -1266,12 +1264,9 @@ Optional Packages:
   --with-spiderCacheDir=dir
                           use this directory to hold a spider cache file [[]]
   --with-prependBlock=ans Treat multiple directories passed to prepend in
-                          normal order/ not reversed [[no]]
+                          normal order/ not reversed [[NORMAL]]
   --with-lua-include=[path]
                           specify path the lua header files
-
-  --with-lua-libpath=[path]
-                          specify path the lua libraries
 
 
 Report bugs to the package provider.
@@ -1802,7 +1797,7 @@ $as_echo "PREPEND_BLOCK=$with_prependBlock" >&6; }
 _ACEOF
 
 else
-  withval="no"
+  withval="NORMAL"
     { $as_echo "$as_me:${as_lineno-$LINENO}: result: PREPEND_BLOCK=$withval" >&5
 $as_echo "PREPEND_BLOCK=$withval" >&6; }
     PREPEND_BLOCK="$withval"
@@ -1946,8 +1941,6 @@ fi
 
 
 
-luaprog=$(readlink $luaprog)
-
 while test -L $luaprog; do
   luaprog=$(readlink $luaprog)
 done
@@ -2011,24 +2004,13 @@ echo "... yes"
 
 
 
-
 LUA_INCLUDE=$PATH_TO_LUA_DIR/include
-LUA_LIB=$PATH_TO_LUA_DIR/lib
 
 
 # Check whether --with-lua-include was given.
 if test "${with_lua_include+set}" = set; then :
   withval=$with_lua_include;
 fi
-
-
-
-# Check whether --with-lua-lib was given.
-if test "${with_lua_lib+set}" = set; then :
-  withval=$with_lua_lib;
-fi
-
-
 
 
 
@@ -2079,7 +2061,6 @@ fi
       $pkgConfig --exists $i
       if test $? = 0; then
         LUA_INCLUDE=`$pkgConfig --cflags $i | sed -e 's/^-I//' -e 's/ //g'`
-	LUA_LIB=`$pkgConfig --libs $i`
         break
       fi
     done
@@ -3261,13 +3242,17 @@ fi
 echo
 echo '----------------------------------- SUMMARY -----------------------------------'
 echo
-echo Package version............... : Lmod-$LmodV
+echo Package version...........................   : Lmod-$LmodV
 echo
-echo LUA_INCLUDE................... : $LUA_INCLUDE
-echo LUA_LIB....................... : $LUA_LIB
-echo Lua executable................ : $luaprog
-echo Install dir................... : $prefix
-
+echo LUA_INCLUDE...............................   : $LUA_INCLUDE
+echo Lua executable............................   : $luaprog
+echo Install dir...............................   : $prefix
+echo
+echo MODULEPATH_ROOT...........................   : $MODULEPATH_ROOT
+echo Wait (s) before rebuilting cache..........   : $ANCIENT
+echo Do not save Cache if build time < ........   : $SHORT_TIME
+echo SPIDER_CACHE_DIR..........................   : $SPIDER_CACHE_DIR
+echo Prepending multiple dirs (NORMAL / REVERSED) : $PREPEND_BLOCK
 echo
 echo '-------------------------------------------------------------------------------'
 

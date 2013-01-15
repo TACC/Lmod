@@ -13,6 +13,7 @@ shortTime      = tonumber(shortTime) or 10.0
 shortLifeCache = ancient/12
 BaseShell      = {}
 Pager          = "@path_to_pager@"
+s_prependBlock = "@prepend_block@"
 s_master       = {}
 s_warning      = false
 s_haveWarnings = true
@@ -74,6 +75,26 @@ end
 
 function haveWarnings()
    return s_haveWarnings
+end
+
+function set_prepend_order()
+   local ansT = {
+      no      = "reverse",
+      reverse = "reverse",
+      normal  = "normal",
+      yes     = "normal",
+   }
+
+   local order = ansT[os.getenv("LMOD_PREPEND_BLOCK") or s_prependBlock] or "normal"
+   if (order == "normal") then
+      prepend_order = function (n)
+         return n, 1, -1
+      end
+   else
+      prepend_order = function (n)
+         return 1, n, 1
+      end
+   end
 end
 
 
