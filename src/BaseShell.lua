@@ -42,6 +42,11 @@ function M.name(self)
    print ("Shell name:",self.my_name)
 end
 
+function M.setActive(self, active)
+   self._active = active
+end
+
+
 function M.getMT(self)
    local a    = {}
    local mtSz = getenv("_ModuleTable_Sz_") or huge
@@ -69,6 +74,13 @@ end
 function M.expand(self, tbl)
    local dbg = Dbg:dbg()
    dbg.start("BaseShell:expand(tbl)")
+
+   if ( not self._active) then
+      dbg.print("expand is not active\n")
+      dbg.fini()
+      return
+   end
+      
 
    for k,v in pairsByKeys(tbl) do
       local v,vType = tbl[k]:expand()
@@ -137,6 +149,7 @@ function M.build(shell_name)
    shellTbl.bare      = Bare
 
    local o     = valid_shell(shellTbl, shell_name):create()
+   o._active   = true
    return o
 end
 

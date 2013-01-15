@@ -1,0 +1,65 @@
+===========================
+step 1
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/pecos/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/pecos/mf/Core";
+export MODULEPATH;
+===========================
+step 2
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/pecos/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/pecos/mf/Core";
+export MODULEPATH;
+LD_LIBRARY_PATH="/opt/apps/ossw/applications/gcc/gcc-4.6/lib64";
+export LD_LIBRARY_PATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/pecos/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+LMOD_FAMILY_COMPILER="gcc";
+export LMOD_FAMILY_COMPILER;
+MANPATH="/opt/apps/ossw/applications/gcc/gcc-4.6/share/man";
+export MANPATH;
+MODULEPATH="ProjectDIR/rt/pecos/mf/sl6/gcc/4.6/modulefiles:ProjectDIR/rt/pecos/mf/Core";
+export MODULEPATH;
+PATH="/opt/apps/ossw/applications/gcc/gcc-4.6/bin:ProjectDIR/src:PATH_to_TM:/bin";
+export PATH;
+TACC_FAMILY_COMPILER="gcc";
+export TACC_FAMILY_COMPILER;
+export _ModuleTable_Sz_;
+_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/pecos/mf/Core",},family={["compiler"]="gcc",},inactive={},mT={gcc={["FN"]="ProjectDIR/rt/pecos/mf/Core/gcc/4.6.lua",["default"]=1,["fullName"]="gcc/4.6",["loadOrder"]=1,["mType"]="w",propT={},["short"]="gcc",["status"]="active",},},mpathA={"ProjectDIR/rt/pecos/mf/sl6/gcc/4.6/modulefiles","ProjectDIR/rt/pecos/mf/Core",},["version"]=2,}';
+export _ModuleTable_;
+===========================
+step 3
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/pecos/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/pecos/mf/sl6/gcc/4.6/modulefiles:ProjectDIR/rt/pecos/mf/Core";
+export MODULEPATH;
+unset LD_LIBRARY_PATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/pecos/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+unset LMOD_FAMILY_COMPILER;
+unset MANPATH;
+MODULEPATH="ProjectDIR/rt/pecos/mf/Core";
+export MODULEPATH;
+PATH="ProjectDIR/src:PATH_to_TM:/bin";
+export PATH;
+unset TACC_FAMILY_COMPILER;
+export _ModuleTable_Sz_;
+_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/pecos/mf/Core",},family={},inactive={},mT={},mpathA={"ProjectDIR/rt/pecos/mf/Core",},["version"]=2,}';
+export _ModuleTable_;
+===========================
+step 4
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/pecos/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/pecos/mf/Core";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/pecos/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/pecos/mf/Core";
+export MODULEPATH;
+export _ModuleTable_Sz_;
+_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/pecos/mf/Core",},family={},inactive={},mT={},mpathA={"ProjectDIR/rt/pecos/mf/Core",},["version"]=2,}';
+export _ModuleTable_;

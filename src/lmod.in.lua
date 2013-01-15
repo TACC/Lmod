@@ -35,6 +35,7 @@ local LuaCommandName_dir = "./"
 if (i) then
    LuaCommandName_dir = LuaCommandName:sub(1,j)
 end
+
 package.path = LuaCommandName_dir .. "?.lua;"      ..
                LuaCommandName_dir .. "?/init.lua;" ..
                package.path
@@ -42,11 +43,6 @@ package.path = LuaCommandName_dir .. "?.lua;"      ..
 package.cpath = LuaCommandName_dir .. "../lib/?.so;"..
                package.cpath
 
-------------------------------------------------------------------------
--- Try to load a SitePackage Module,  If it is not there then do not
--- abort.  Sites do not have to have a Site package.
-------------------------------------------------------------------------
-pcall(require, "SitePackage") 
 
 local term     = false
 if (pcall(require, "term")) then
@@ -302,13 +298,11 @@ require("string_split")
 require("string_trim")
 BaseShell          = require("BaseShell")
 local ColumnTable  = require("ColumnTable")
+local Options      = require("Options")
 local Spider       = require("Spider")
 local Var          = require("Var")
 local lfs          = require("lfs")
 local posix        = require("posix")
-
-local Options = require("Options")
-
 
 function None()
    print ("None")
@@ -947,6 +941,13 @@ function SpiderCmd(...)
    dbg.print("Setting mpc to ", mcp:name(),"\n")
    local moduleT = getModuleT()
 
+   local master = Master:master()
+
+   -- The spider command changes the module table during its operations
+   -- but this should not be reported so the whole expansion of the varTbl
+   -- and the module table is turned off.
+   master.shell:setActive(false)
+
    local s
    local dbT = {}
    local errorRtn = LmodError
@@ -1138,6 +1139,28 @@ function main()
    mcp = MasterControl.build("load")
    dbg.print("Setting mpc to ", mcp:name(),"\n")
    localvar(masterTbl.localvarA)
+
+   ------------------------------------------------------------------------
+   -- Try to load a SitePackage Module,  If it is not there then do not
+   -- abort.  Sites do not have to have a Site package.
+   ------------------------------------------------------------------------
+
+   local lmodPath = os.getenv("LMOD_PACKAGE_PATH") or ""
+   for path in lmodPath:split(":") do
+      path = path .. "/"
+      path = path:gsub("//+","/")
+      package.path  = path .. "?.lua;"      ..
+                      path .. "?/init.lua;" ..
+                      package.path
+
+      package.cpath = path .. "../lib/?.so;"..
+                      package.cpath
+   end
+
+   dbg.print("lmodPath:", lmodPath,"\n")
+
+   --pcall(require, "SitePackage") 
+   require( "SitePackage") 
 
    local cmdName = masterTbl.pargs[1]
    table.remove(masterTbl.pargs,1)

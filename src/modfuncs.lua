@@ -287,6 +287,11 @@ function isloaded(m)
    return mt:have(m,"active")
 end
 
+function isPending(m)
+   local mt = MT:mt()
+   return mt:have(m,"pending")
+end
+
 function display(...)
    local dbg = Dbg:dbg()
    dbg.start("display(...)")

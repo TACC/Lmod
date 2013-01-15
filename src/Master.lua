@@ -344,18 +344,9 @@ local function access_find_module_file(moduleName)
       local full = mt:fullName(moduleName) 
       return mt:fileName(moduleName), full or ""
    end
-   local fn   = nil
-   local full = nil
-   if (isFile(moduleName)) then
-      fn = moduleName
-   else
-      fn = moduleName .. ".lua"
-      if (not isFile(fn)) then
-         local t = find_module_file(moduleName)
-         full    = t.modFullName
-         fn      = t.fn
-      end
-   end
+   local t    = find_module_file(moduleName)
+   local full = t.modFullName or ""
+   local fn   = t.fn
    return fn, full
 end
 

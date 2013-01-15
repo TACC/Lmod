@@ -1,14 +1,17 @@
 -- -*- lua -*-
+
+local testName = "pecos"
+
 testdescript = {
    owner   = "rtm",
    product = "modules",
    description = [[
 	 Test initial module load
    ]],
-   keywords = {"load" },
+   testName = testName,
+   keywords = { testName },
 
    active = 1,
-   testName = "spider",
    job_submit_method = "INTERACTIVE", 
 
    runScript = [[
@@ -21,40 +24,30 @@ testdescript = {
 
      PATH=$(projectDir)/src:$PATH_to_LUA:$PATH_to_TM:/usr/bin:/bin
      export PATH
-     unset  LMOD_COMPILER
      INFOPATH='';                       export INFOPATH
      MANPATH='';                        export MANPATH
      LD_LIBRARY_PATH='';                export LD_LIBRARY_PATH
-     MODULEPATH="";                     export MODULEPATH
-     MODULEPATH_ROOT=$(projectDir)/mf;  export MODULEPATH_ROOT
-     LMOD_DEFAULT_MODULEPATH=$MODULEPATH
-     export LMOD_DEFAULT_MODULEPATH
+     MODULEPATH_ROOT=$(testDir)/mf;     export MODULEPATH_ROOT
+     MODULEPATH=$MODULEPATH_ROOT/Core;  export MODULEPATH
+     LMOD_PACKAGE_PATH=$(testDir);      export LMOD_PACKAGE_PATH
+     SYSTEM_DIR='sl6';                  export SYSTEM_DIR
+     
      numStep=0
      COUNT=0
      ORIG_HOME=`(cd $HOME; /bin/pwd)`
      HOME=`/bin/pwd`
 
-     rm -f  _stderr.* _stdout.* err.* out.*
-     rm -fr .lmod.d .lmodrc.lua
-     cp $(projectDir)/setup/.lmodrc.lua .
+     rm -rf _stderr.* _stdout.* err.* out.* .lmod.d
 
-     runMe lua $(projectDir)/src/lmod.in.lua bash --version
-     runMe lua $(projectDir)/src/lmod.in.lua bash use -a $projectDir/mf/Core $projectDir/mf/Beta
-     runMe lua $(projectDir)/src/lmod.in.lua bash spider
-     runMe lua $(projectDir)/src/lmod.in.lua bash spider mpich2
-     runMe lua $(projectDir)/src/lmod.in.lua bash spider mpich2/1.0.7
-
-     runMe lua $(projectDir)/src/lmod.in.lua bash spider parmetis/3.1
-
-     runMe lua $(projectDir)/src/lmod.in.lua bash spider mpich2me
-     runMe lua $(projectDir)/src/lmod.in.lua bash spider mpich2/1.0.5
-     
-     mkdir -p $HOME/.lmod.d/.cache 
-     lua $(projectDir)/src/spider.in.lua -o moduleT $LMOD_DEFAULT_MODULEPATH > $HOME/.lmod.d/.cache/moduleT.lua
-     runMe lua $(projectDir)/src/lmod.in.lua bash spider
+     runMe lua $(projectDir)/src/lmod.in.lua bash --version            # 1
+     runMe lua $(projectDir)/src/lmod.in.lua bash spider               # 2
+     runMe lua $(projectDir)/src/lmod.in.lua bash spider grvy          # 3
+     runMe lua $(projectDir)/src/lmod.in.lua bash load  gcc            # 4    
+     runMe lua $(projectDir)/src/lmod.in.lua bash load  boost mpich2   # 5
+     runMe lua $(projectDir)/src/lmod.in.lua bash load  grvy           # 6
+     runMe lua $(projectDir)/src/lmod.in.lua bash list                 # 7
 
      HOME=$ORIG_HOME
-
      cat _stdout.[0-9][0-9] > _stdout.orig
      joinBase64Results  -bash  _stdout.orig _stdout.new
      cleanUp _stdout.new out.txt
