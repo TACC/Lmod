@@ -61,7 +61,10 @@ REQUIRED_PKGS	 := \
 all:
 	@echo done
 
-install: $(DIRLIST) shell_init startup libexec pkgs other_tools
+pre-install: $(DIRLIST) shell_init startup libexec pkgs other_tools
+
+
+install: pre-install
 	$(RM) $(DESTDIR)$(PKG)
 	ln -s $(version) $(DESTDIR)$(PKG)
 

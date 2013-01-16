@@ -1,7 +1,7 @@
 ===========================
 step 1
 ===========================
-Modules based on Lua: Version 4.1.1 2012-11-21 12:22
+Modules based on Lua: Version 4.1.4 2012-12-04 14:14
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -23,8 +23,8 @@ step 2
    bar/1.4      (D)     baz/1.4      (D)     foo/1.4      (D)
   Where:
    (D):  Default Module
-   (m):  module is build natively for MIC
-   (o):  module is build for offload to the MIC
+   (m):  built for host and native MIC
+   (o):  built for offload to the MIC only
 Use "module spider" to find all possible modules. 
 Use "module keyword key1 key2 ..." to search for all possible modules matching 
 any of the "keys". 
@@ -44,7 +44,7 @@ step 3
    bar/1.4-dbg       bar/1.4  (D)     baz/1.4-dbg       baz/1.4  (D)
   Where:
    (D):  Default Module
-   (m):  module is build natively for MIC
+   (m):  built for host and native MIC
 Use "module spider" to find all possible modules. 
 Use "module keyword key1 key2 ..." to search for all possible modules matching 
 any of the "keys". 
@@ -71,8 +71,8 @@ step 5
    bar/1.4      (D)     baz/1.4      (D)     foo/1.4      (D)
   Where:
    (D):  Default Module
-   (m):  module is build natively for MIC
-   (o):  module is build for offload to the MIC
+   (m):  built for host and native MIC
+   (o):  built for offload to the MIC only
 Use "module spider" to find all possible modules. 
 Use "module keyword key1 key2 ..." to search for all possible modules matching 
 any of the "keys". 

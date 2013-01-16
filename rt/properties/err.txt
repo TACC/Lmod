@@ -1,7 +1,7 @@
 ===========================
 step 1
 ===========================
-Modules based on Lua: Version 3.6.3.9 2012-09-18 08:03
+Modules based on Lua: Version 4.1.4 2012-12-04 14:14
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -16,7 +16,7 @@ Currently Loaded Modules:
   1) PrgEnv         3) a/1.0       5) c/1.0 (o)
   2) mkl/10.3 (*)   4) b/1.0 (m)   6) d/1.0 (@)
   Where:
-   (*):  module is build natively for MIC and offload to the MIC
-   (@):  module is build natively for MIC and GPU and offload to the MIC
-   (m):  module is build natively for MIC
-   (o):  module is build for offload to the MIC
+   (*):  built for host, native MIC and offload to the MIC
+   (@):  built natively for MIC and GPU and offload to the MIC
+   (m):  built for host and native MIC
+   (o):  built for offload to the MIC only

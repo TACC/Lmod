@@ -25,7 +25,7 @@ Currently Loaded Modules:
   2) PrgEnv             5) intel/intel    8) parmetis/3.1  (m)
   3) unix/unix          6) noweb/2.10c
   Where:
-   (m):  module is build natively for MIC
+   (m):  built for host and native MIC
 ===========================
 step 7
 ===========================

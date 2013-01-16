@@ -17,7 +17,7 @@ s_prependBlock = "@prepend_block@"
 s_master       = {}
 s_warning      = false
 s_haveWarnings = true
-
+prepend_order  = false
 function masterTbl()
    return s_master
 end
@@ -337,6 +337,11 @@ local function Avail(...)
       a[#a + 1] = v
    end
    master.avail(a)
+
+   -- The avail command changes the module table during its operations
+   -- but this should not be reported so the whole expansion of the varTbl
+   -- and the module table is turned off.
+   master.shell:setActive(false)
 end
 
 local function Display(...)
@@ -1000,6 +1005,11 @@ function Keyword(...)
 
    local master = Master:master()
 
+
+   -- The Keyword command changes the module table during its operations
+   -- but this should not be reported so the whole expansion of the varTbl
+   -- and the module table is turned off.
+   master.shell:setActive(false)
    local moduleT = getModuleT()
    local s
    local dbT = {}

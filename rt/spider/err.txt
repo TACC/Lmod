@@ -56,7 +56,7 @@ step 6
       Parallel graph partitioning and fill-reduction matrix ordering 
       routines 
     Properties:
-      module is build natively for MIC 
+      built for host and native MIC 
     This module can be loaded directly: module load parmetis/3.1
     Additional variants of this module can also be loaded after the loading the following modules:
       gcc/4.2.3, openmpi/1.2.6
