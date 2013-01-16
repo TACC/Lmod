@@ -31,7 +31,7 @@ function logUsage(pkg)
    local user = os.getenv("USER")
    local jobid = os.getenv("PBS_JOBID")
    local msg = ""
-   dbg.print("user: ",user," jobid: ",jobid,"\n")
+   dbg.print("user: ",user," jobid: ",tostring(jobid),"\n")
    if jobid == nil then 
       msg = string.format("user=%s,app=%s", user, pkg.id)
    else
