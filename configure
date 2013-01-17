@@ -592,6 +592,7 @@ pager
 PATH_TO_HASHSUM
 PATH_TO_LUA
 PATH_TO_PAGER
+COLORIZE
 PREPEND_BLOCK
 SPIDER_CACHE_DIR
 SHORT_TIME
@@ -643,6 +644,7 @@ with_ancient
 with_shortTime
 with_spiderCacheDir
 with_prependBlock
+with_colorize
 with_lua_include
 '
       ac_precious_vars='build_alias
@@ -1265,6 +1267,7 @@ Optional Packages:
                           use this directory to hold a spider cache file [[]]
   --with-prependBlock=ans Treat multiple directories passed to prepend in
                           normal order/ not reversed [[NORMAL]]
+  --with-colorize=ans     allow for colorized output [[YES]]
   --with-lua-include=[path]
                           specify path the lua header files
 
@@ -1803,6 +1806,28 @@ $as_echo "PREPEND_BLOCK=$withval" >&6; }
     PREPEND_BLOCK="$withval"
     cat >>confdefs.h <<_ACEOF
 #define PREPEND_BLOCK "$withval"
+_ACEOF
+
+fi
+
+
+
+# Check whether --with-colorize was given.
+if test "${with_colorize+set}" = set; then :
+  withval=$with_colorize; COLORIZE="$withval"
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: COLORIZE=$with_colorize" >&5
+$as_echo "COLORIZE=$with_colorize" >&6; }
+    cat >>confdefs.h <<_ACEOF
+#define COLORIZE "$with_colorize"
+_ACEOF
+
+else
+  withval="YES"
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: COLORIZE=$withval" >&5
+$as_echo "COLORIZE=$withval" >&6; }
+    COLORIZE="$withval"
+    cat >>confdefs.h <<_ACEOF
+#define COLORIZE "$withval"
 _ACEOF
 
 fi
@@ -3242,17 +3267,18 @@ fi
 echo
 echo '----------------------------------- SUMMARY -----------------------------------'
 echo
-echo Package version...........................   : Lmod-$LmodV
+echo "Package version............................." : Lmod-$LmodV
 echo
-echo LUA_INCLUDE...............................   : $LUA_INCLUDE
-echo Lua executable............................   : $luaprog
-echo Install dir...............................   : $prefix
+echo "LUA_INCLUDE................................." : $LUA_INCLUDE
+echo "Lua executable.............................." : $luaprog
+echo "Install dir................................." : $prefix
 echo
-echo MODULEPATH_ROOT...........................   : $MODULEPATH_ROOT
-echo Wait (s) before rebuilting cache..........   : $ANCIENT
-echo Do not save Cache if build time < ........   : $SHORT_TIME
-echo SPIDER_CACHE_DIR..........................   : $SPIDER_CACHE_DIR
-echo Prepending multiple dirs (NORMAL / REVERSED) : $PREPEND_BLOCK
+echo "MODULEPATH_ROOT............................." : $MODULEPATH_ROOT
+echo "Wait (s) before rebuilting cache............" : $ANCIENT
+echo "Do not save Cache if build time < .........." : $SHORT_TIME
+echo "SPIDER_CACHE_DIR............................" : $SPIDER_CACHE_DIR
+echo "Prepending multiple dirs (NORMAL / REVERSED)" : $PREPEND_BLOCK
+echo "Colorized output supported.................." : $COLORIZE
 echo
 echo '-------------------------------------------------------------------------------'
 

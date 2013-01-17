@@ -63,6 +63,18 @@ AC_ARG_WITH(prependBlock,
     PREPEND_BLOCK="$withval"
     AC_DEFINE_UNQUOTED(PREPEND_BLOCK, "$withval"))dnl
 
+AC_SUBST(COLORIZE)
+AC_ARG_WITH(colorize,
+    AC_HELP_STRING([--with-colorize=ans],[allow for colorized output [[YES]]]),
+    COLORIZE="$withval"
+    AC_MSG_RESULT([COLORIZE=$with_colorize])
+    AC_DEFINE_UNQUOTED(COLORIZE, "$with_colorize")dnl
+    ,
+    withval="YES"
+    AC_MSG_RESULT([COLORIZE=$withval])
+    COLORIZE="$withval"
+    AC_DEFINE_UNQUOTED(COLORIZE, "$withval"))dnl
+
 AC_SUBST(PATH_TO_PAGER)
 AC_SUBST(PATH_TO_LUA)
 AC_SUBST(PATH_TO_HASHSUM)

@@ -345,6 +345,12 @@ function M.findModulesInDir(mpath, path, prefix, moduleT)
       dbg.fini()
       return
    end
+
+   attr = lfs.attributes(path)
+   if ( attr.mode ~= "directory" or not posix.access(path,"rx")) then
+      dbg.fini()
+      return
+   end
    
    local masterTbl       = masterTbl()
    local moduleStack     = masterTbl.moduleStack

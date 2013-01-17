@@ -124,7 +124,10 @@ local function new(self, s)
          s_loadOrder = icount
       end
       o._MPATH = concatTbl(o.mpathA,":")
-      varTbl[DfltModPath] = Var:new(DfltModPath, concatTbl(o.baseMpathA,":"))
+      local baseMpath = concatTbl(o.baseMpathA,":")
+      dbg.print("baseMpath: ", baseMpath, "\n")
+
+      varTbl[DfltModPath] = Var:new(DfltModPath, baseMpath)
    end
    o.inactive         = {}
 
@@ -215,6 +218,10 @@ function M.getMTfromFile(self,fn)
    local s = f:read("*all")
    f:close()
 
+
+   local systemBaseMPATH = concatTbl(self.baseMpathA,":")
+   dbg.print("System BaseMPATH: ", systemBaseMPATH, "\n")
+
    -----------------------------------------------
    -- Initialize MT with file: fn
    -- Save module name in hash table "t"
@@ -255,21 +262,37 @@ function M.getMTfromFile(self,fn)
                 " mType: ", mType, "\n")
    end
    
+   local savedBaseMPATH = concatTbl(l_mt.baseMpathA,":")
+   dbg.print("Saved baseMPATH: ",savedBaseMPATH,"\n")
    varTbl[ModulePath] = Var:new(ModulePath,mpath)
    dbg.print("(1) varTbl[ModulePath]:expand(): ",varTbl[ModulePath]:expand(),"\n")
    Purge()
-   mpath = varTbl[ModulePath]:expand()
    dbg.print("(2) varTbl[ModulePath]:expand(): ",mpath,"\n")
 
-   -----------------------------------------------------------
+   ------------------------------------------------------------
+   -- If the new system has changed report it, fix MODULEPATH by
+   --    1) remove the saved basePATH
+   --    2) append the new system basePATH
+   -- This way the MODULEPATH is correctly updated to the new
+   -- baseMPATH
+   if (systemBaseMPATH ~= savedBaseMPATH) then
+      LmodWarning("The system MODULEPATH has changed: ",
+                  "Please rebuild your saved collection\n")
+
+      varTbl[ModulePath]:remove(savedBaseMPATH)
+      varTbl[ModulePath]:append(systemBaseMPATH)
+      mpath = varTbl[ModulePath]:expand()
+   end
+
+
+   ------------------------------------------------------------
    -- Clear MT and load modules from saved modules stored in
    -- "t" from above.
-   local baseMPATH = concatTbl(self.baseMpathA,":")
    s_mt = new(self,nil)
    posix.setenv(self:name(),"",true)
    setupMPATH(s_mt, mpath)
-   s_mt:buildBaseMpathA(baseMPATH)
-   varTbl[DfltModPath] = Var:new(DfltModPath,baseMPATH)
+   s_mt:buildBaseMpathA(systemBaseMPATH)
+   varTbl[DfltModPath] = Var:new(DfltModPath,systemBaseMPATH)
 
    dbg.print("(3) varTbl[ModulePath]:expand(): ",varTbl[ModulePath]:expand(),"\n")
    local mcp_old = mcp
@@ -822,7 +845,15 @@ end
 
 function M.reportChanges(self, origMT)
    local dbg    = Dbg:dbg()
+   local master = Master:master()
+
    dbg.start("MT:reportChanges(origMT)")
+
+   if (not master.shell:isActive()) then
+      dbg.print("Expansion is inactive\n")
+      dbg.fini()
+      return
+   end
 
 
    local mT = origMT.mT

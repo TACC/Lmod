@@ -55,7 +55,7 @@ EOF
 
 
 
-     rm -f _stderr.* _stdout.* err.* out.*
+     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d
 
      chmod +x $(testName).py
      ./$(testName).py  > _stdout.000 2> _stderr.000

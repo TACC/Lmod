@@ -46,6 +46,10 @@ function M.setActive(self, active)
    self._active = active
 end
 
+function M.isActive(self)
+   return self._active
+end
+
 
 function M.getMT(self)
    local a    = {}

@@ -1,4 +1,5 @@
 PREPEND_BLOCK    := @PREPEND_BLOCK@
+COLORIZE         := @COLORIZE@
 ANCIENT          := @ANCIENT@
 SHORT_TIME       := @SHORT_TIME@
 SPIDER_CACHE_DIR := @SPIDER_CACHE_DIR@
@@ -91,6 +92,7 @@ __installMe:
 	      -e 's|@path_to_pager@|$(PATH_TO_PAGER)|g'           \
 	      -e 's|@ancient@|$(ANCIENT)|g'                       \
 	      -e 's|@prepend_block@|$(PREPEND_BLOCK)|g'           \
+	      -e 's|@colorize@|$(COLORIZE)|g'                     \
 	      -e 's|@short_time@|$(SHORT_TIME)|g'                 \
 	      -e 's|@cacheDir@|$(SPIDER_CACHE_DIR)|g'             \
 	      -e 's|@modulepath_root@|$(MODULEPATH_ROOT)|g'       \

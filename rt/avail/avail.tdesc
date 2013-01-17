@@ -35,7 +35,7 @@ testdescript = {
      ORIG_HOME=`(cd $HOME; /bin/pwd)`
      HOME=`/bin/pwd`
 
-     rm -f _stderr.*  _stdout.* out.* err.*    
+     rm -fr _stderr.*  _stdout.* out.* err.* .lmod.d
      cp $(projectDir)/setup/.lmodrc.lua .
 
 

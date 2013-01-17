@@ -38,7 +38,7 @@ testdescript = {
      COUNT=0;
      numStep=0;
      
-     rm -f _stderr.* _stdout.* err.* out.*
+     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d
 
      (cd $projectDir; ./configure; make src/computeHashSum)
      rm -rf $HOME/.lmod.d

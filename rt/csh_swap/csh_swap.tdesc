@@ -126,7 +126,7 @@ EOF
 
      ORIG_HOME=`(cd $HOME; /bin/pwd)`
 
-     rm -f _stderr.* _stdout.* err.* out.*
+     rm -fr _stderr.* _stdout.* err.* out.*  .lmod.d
      unset SHELL_STARTUP_DEBUG
      chmod +x $(testName).csh
      

@@ -186,7 +186,8 @@ function colorizePropA(style, moduleName, propT, legendT)
          end
       end
       if (iprop == 1) then
-         resultA = { colorize(color,moduleName), colorize(color,result)}
+         --resultA = { colorize(color,moduleName), colorize(color,result)}
+         resultA = { moduleName, colorize(color,result)}
       else
          resultA[#resultA+1] = colorize(color,result)
       end
@@ -331,17 +332,19 @@ function None()
 end
 
 local function Avail(...)
+   local dbg    = Dbg:dbg()
    local master = Master:master()
    local a = {}
    for _,v in ipairs{...} do
       a[#a + 1] = v
    end
-   master.avail(a)
-
    -- The avail command changes the module table during its operations
    -- but this should not be reported so the whole expansion of the varTbl
    -- and the module table is turned off.
+   dbg.print("Avail(): setting MT expansion to false\n")
    master.shell:setActive(false)
+
+   master.avail(a)
 end
 
 local function Display(...)
@@ -1147,6 +1150,12 @@ function main()
          connectedTerm = true
       end
    end
+
+   local lmod_colorize = os.getenv("LMOD_COLORIZE") or "@colorize@"
+   if (lmod_colorize:lower() ~= "yes") then
+      colorize = plain
+   end
+
 
    dbg.set_prefix(colorize("red","Lmod"))
 

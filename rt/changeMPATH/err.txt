@@ -1,0 +1,27 @@
+===========================
+step 1
+===========================
+Modules based on Lua: Version 4.1.4.1 2013-01-16 15:26
+    by Robert McLay mclay@tacc.utexas.edu
+===========================
+step 2
+===========================
+===========================
+step 3
+===========================
+Saved current collection of modules to: default
+===========================
+step 4
+===========================
+Restoring modules to user's default
+Lmod Warning: The system MODULEPATH has changed: Please rebuild your saved collection
+===========================
+step 5
+===========================
+Currently Loaded Modules:
+  1) admin/admin-1.0    3) local/local    5) noweb/2.10c
+  2) unix/unix          4) intel/intel    6) PrgEnv
+===========================
+step 6
+===========================
+Saved current collection of modules to: foo

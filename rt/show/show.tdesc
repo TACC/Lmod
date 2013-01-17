@@ -33,7 +33,7 @@ testdescript = {
      COUNT=0
      HOME=`(cd $HOME; /bin/pwd)`
 
-     rm -f _stderr.*  _stdout.* out.* err.*    
+     rm -fr _stderr.*  _stdout.* out.* err.* .lmod.d
 
      runMe lua $(projectDir)/src/lmod.in.lua bash --version           # 1 
      runMe lua $(projectDir)/src/lmod.in.lua bash show gcc            # 2
