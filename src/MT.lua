@@ -222,7 +222,7 @@ function M.getMTfromFile(self,fn, msg)
    f:close()
 
    if (msg) then
-      io.stderr:write("Restoring ",msg,"\n")
+      io.stderr:write("Restoring modules to ",msg,"\n")
    end
    -----------------------------------------------
    -- Initialize MT with file: fn
