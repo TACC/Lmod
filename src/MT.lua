@@ -90,7 +90,6 @@ local function new(self, s)
    o.family           = {}
    o.mpathA           = {}
    o.baseMpathA       = {}
-   o.useMpathA        = {}
    o._same            = true
    o._MPATH           = ""
    o._locationTbl     = {}
@@ -103,8 +102,11 @@ local function new(self, s)
 
    local active, total
 
+   local v             = getenv(ModulePath)
+   o.systemBaseMPATH   = v
+
+   dbg.print("systemBaseMPATH: ", v, "\n")
    if (not s) then
-      local v             = getenv(ModulePath)
       varTbl[DfltModPath] = Var:new(DfltModPath, v)
       o:buildBaseMpathA(v)
       dbg.print("Initializing ", DfltModPath, ":", v, "\n")
@@ -208,7 +210,7 @@ function M.mt(self)
    return s_mt
 end
 
-function M.getMTfromFile(self,fn)
+function M.getMTfromFile(self,fn, msg)
    local dbg  = Dbg:dbg()
    dbg.start("mt:getMTfromFile(",fn,")")
    local f = io.open(fn,"r")
@@ -219,10 +221,9 @@ function M.getMTfromFile(self,fn)
    local s = f:read("*all")
    f:close()
 
-
-   local systemBaseMPATH = concatTbl(self.baseMpathA,":")
-   dbg.print("System BaseMPATH: ", systemBaseMPATH, "\n")
-
+   if (msg) then
+      io.stderr:write("Restoring ",msg,"\n")
+   end
    -----------------------------------------------
    -- Initialize MT with file: fn
    -- Save module name in hash table "t"
@@ -276,13 +277,13 @@ function M.getMTfromFile(self,fn)
    --    2) append the new system basePATH
    -- This way the MODULEPATH is correctly updated to the new
    -- baseMPATH
-   if (systemBaseMPATH ~= savedBaseMPATH) then
+   dbg.print("self.systemBaseMPATH: ",self.systemBaseMPATH,"\n")
+   dbg.print("l_mt.systemBaseMPATH: ",l_mt.systemBaseMPATH,"\n")
+   if (self.systemBaseMPATH ~= l_mt.systemBaseMPATH) then
       LmodWarning("The system MODULEPATH has changed: ",
                   "Please rebuild your saved collection\n")
-
-      varTbl[ModulePath]:remove(savedBaseMPATH)
-      varTbl[ModulePath]:append(systemBaseMPATH)
-      mpath = varTbl[ModulePath]:expand()
+      dbg.fini()
+      return false
    end
 
 
@@ -292,8 +293,8 @@ function M.getMTfromFile(self,fn)
    s_mt = new(self,nil)
    posix.setenv(self:name(),"",true)
    setupMPATH(s_mt, mpath)
-   s_mt:buildBaseMpathA(systemBaseMPATH)
-   varTbl[DfltModPath] = Var:new(DfltModPath,systemBaseMPATH)
+   s_mt:buildBaseMpathA(savedBaseMPATH)
+   varTbl[DfltModPath] = Var:new(DfltModPath,savedBaseMPATH)
 
    dbg.print("(3) varTbl[ModulePath]:expand(): ",varTbl[ModulePath]:expand(),"\n")
    local mcp_old = mcp
@@ -329,6 +330,7 @@ function M.getMTfromFile(self,fn)
    if (#aa > 0) then
       LmodWarning("The following modules have changed: ", concatTbl(aa," "),"\n")
       LmodWarning("Please re-create this collection\n")
+      return false
    end
 
 
@@ -340,6 +342,7 @@ function M.getMTfromFile(self,fn)
    dbg.print("baseMpathA: ",concatTbl(self.baseMpathA,":"),"\n")
 
    dbg.fini()
+   return true
 end
    
 function M.changePATH(self)

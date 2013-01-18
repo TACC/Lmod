@@ -29,7 +29,16 @@ end
 
 _ModuleTable_ = false
 function removeUnwantedFields(s)
-   loadstring(s)()
+   if (s == nil) then return "" end
+   local func, msg = loadstring(s)
+   if (func) then
+      func()
+   else
+      io.stderr:write("Found syntax error: ",msg,"\n")
+      io.stderr:write(s,"\n")
+      return ""
+   end
+
    local mt = _G._ModuleTable_
 
    for k,v in pairs(mt) do

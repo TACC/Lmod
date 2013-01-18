@@ -370,7 +370,7 @@ local function TableList()
 
 end
 
-function Reset()
+function Reset(msg)
    local dbg    = Dbg:dbg()
    dbg.start("Reset()")
    Purge()
@@ -380,6 +380,10 @@ function Reset()
    default = default:trim()
    default = default:gsub(" *, *",":")
    default = default:gsub(" +",":")
+
+   if (msg) then
+      io.stderr:write("Restoring system default\n")
+   end
 
    if (default == "") then
       io.stderr:write("\nThe system default contains no modules\n")
@@ -680,24 +684,27 @@ local function Restore(a)
    end
 
 
+   local masterTbl = masterTbl()
+   prtMsg = prtMsg and not masterTbl.initial
+
+
    if (a == "system" ) then
-      dbg.print("Restoring System\n")
       msg = "system default"
    else
       a   = a or "default"
       msg = "user's "..a
    end
 
-   local masterTbl = masterTbl()
-   if (prtMsg and not masterTbl.initial) then
-      io.stderr:write("\nRestoring modules to ",msg,"\n")
+   if (not prtMsg) then
+      msg = nil
    end
 
+
    if (a == "system" ) then
-      Reset()
+      Reset(msg)
    else
-      local mt   = MT:mt()
-      mt:getMTfromFile(path)
+      local mt      = MT:mt()
+      local results = mt:getMTfromFile(path,msg) or Reset(msg)
    end
    
    dbg.fini()
