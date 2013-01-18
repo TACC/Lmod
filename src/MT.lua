@@ -90,6 +90,7 @@ local function new(self, s)
    o.family           = {}
    o.mpathA           = {}
    o.baseMpathA       = {}
+   o.useMpathA        = {}
    o._same            = true
    o._MPATH           = ""
    o._locationTbl     = {}
