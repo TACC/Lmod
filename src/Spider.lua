@@ -91,6 +91,7 @@ function Spider_whatis(s)
 end
 
 function processLPATH(value)
+   if (value == nil) then return end
    local masterTbl      = masterTbl()
    local moduleStack    = masterTbl.moduleStack 
    local iStack         = #moduleStack
@@ -104,7 +105,7 @@ function processLPATH(value)
 end
 
 function processPATH(value)
-   --if (value == nil) then return end
+   if (value == nil) then return end
 
    local masterTbl     = masterTbl()
    local moduleStack   = masterTbl.moduleStack 
