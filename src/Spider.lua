@@ -767,7 +767,7 @@ function M.Level2(t, mname, full)
    full = full or ""
    local fullL = full:lower()
    for k,v in pairs(t) do
-      dbg.print("vv.full: ",tostring(v.full))," mname: ",mname," k: ",k," full:", tostring(full),"\n")
+      dbg.print("vv.full: ",tostring(v.full)," mname: ",mname," k: ",k," full:", tostring(full),"\n")
       local vfullL = v.full_lower or v.full:lower()
       if (vfullL == mnameL or vfullL == fullL) then
          if (tt == nil) then
