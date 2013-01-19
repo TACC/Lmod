@@ -1,0 +1,16 @@
+===========================
+step 1
+===========================
+Modules based on Lua: Version 4.1.4.3 2013-01-18 15:40
+    by Robert McLay mclay@tacc.utexas.edu
+===========================
+step 2
+===========================
+The following is a list of the modules currently available:
+  nil: nil/1.0
+To learn more about a package enter:
+   $ module spider Foo
+where "Foo" is the name of a module
+To find detailed information about a particular package you
+must enter the version if there is more than one version:
+   $ module spider Foo/11.1

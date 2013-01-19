@@ -47,7 +47,7 @@ export PATH;
 TACC_FAMILY_COMPILER="intel";
 export TACC_FAMILY_COMPILER;
 export _ModuleTable_Sz_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/mf/Core","ProjectDIR/mf/Compiler/intel/10.1","ProjectDIR/rt/avail/mf/Core",},family={["compiler"]="intel",},inactive={},mT={intel={["FN"]="ProjectDIR/mf/Core/intel/intel.lua",["default"]=1,["fullName"]="intel/intel",["loadOrder"]=1,["mType"]="w",propT={},["short"]="intel",["status"]="active",},},mpathA={"ProjectDIR/mf/Compiler/intel/10.1","ProjectDIR/mf/Core","ProjectDIR/rt/avail/mf/Core",},["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/mf/Core","ProjectDIR/mf/Compiler/intel/10.1","ProjectDIR/rt/avail/mf/Core",},family={["compiler"]="intel",},inactive={},mT={intel={["FN"]="ProjectDIR/mf/Core/intel/intel.lua",["default"]=1,["fullName"]="intel/intel",["loadOrder"]=1,["mType"]="w",propT={},["short"]="intel",["status"]="active",},},mpathA={"ProjectDIR/mf/Compiler/intel/10.1","ProjectDIR/mf/Core","ProjectDIR/rt/avail/mf/Core",},["systemBaseMPATH"]="ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/rt/avail/mf/Core",["version"]=2,}';
 export _ModuleTable_;
 ===========================
 step 5

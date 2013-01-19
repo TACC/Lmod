@@ -29,7 +29,7 @@ export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/display/mf/Core";
 export MODULEPATH;
 export _ModuleTable_Sz_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/display/mf/Core",},family={},inactive={},mT={junk={["FN"]="ProjectDIR/rt/display/mf/Core/junk/1.0.lua",["default"]=1,["fullName"]="junk/1.0",["loadOrder"]=1,["mType"]="w",propT={},["short"]="junk",["status"]="active",},},mpathA={"ProjectDIR/rt/display/mf/Core",},["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/display/mf/Core",},family={},inactive={},mT={junk={["FN"]="ProjectDIR/rt/display/mf/Core/junk/1.0.lua",["default"]=1,["fullName"]="junk/1.0",["loadOrder"]=1,["mType"]="w",propT={},["short"]="junk",["status"]="active",},},mpathA={"ProjectDIR/rt/display/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/display/mf/Core",["version"]=2,}';
 export _ModuleTable_;
 ===========================
 step 4

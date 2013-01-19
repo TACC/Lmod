@@ -102,6 +102,10 @@ local function new(self, s)
 
    local active, total
 
+   local v             = getenv(ModulePath)
+   o.systemBaseMPATH   = v
+
+   dbg.print("systemBaseMPATH: ", v, "\n")
    if (not s) then
       local v             = getenv(ModulePath)
       o.systemBaseMPATH   = v

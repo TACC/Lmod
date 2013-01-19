@@ -16,6 +16,13 @@ ModulePath  = "MODULEPATH"
 DfltModPath = "LMOD_DEFAULT_MODULEPATH"
 
 ------------------------------------------------------------------------
+-- UseModPath:  The name of the env. var. which holds any modulefile
+--              directories that the user added via "module use".
+------------------------------------------------------------------------
+
+UseModPath = "LMOD_USE_MODULEPATH"
+
+------------------------------------------------------------------------
 -- LMODdir:     The directory where the cache file, default files
 --              and module table state files go.
 ------------------------------------------------------------------------
