@@ -84,8 +84,21 @@ PATH_TO_PAGER=$pager
 
 AC_PATH_PROG(luaprog, lua, "")
 
+oldprog=$luaprog
 while test -L $luaprog; do
   luaprog=$(readlink $luaprog)
+  if test ${luaprog:0:1} != '/' ; then
+     d=`dirname $oldprog`
+     luaprog="$d/$luaprog"
+     CWD=`pwd`
+     d=`dirname $luaprog`
+     b=`basename $luaprog`
+     cd $d
+     d=`pwd`
+     luaprog="$d/$b"
+     cd $CWD
+  fi
+  oldprog=$luaprog
 done
 
 LuaV=$( $luaprog -e 'print(_VERSION)' | sed -e 's/Lua //' )
