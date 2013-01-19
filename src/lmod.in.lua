@@ -703,7 +703,7 @@ local function Restore(a)
       Reset(msg)
    else
       local mt      = MT:mt()
-      local results = mt:getMTfromFile(path,msg) or Reset(msg)
+      local results = mt:getMTfromFile(path,msg) or Reset(true)
    end
    
    dbg.fini()
