@@ -291,6 +291,12 @@ Miscellaneous sub-commands:
   unuse path                             remove path from MODULEPATH
   tablelist                              output list of active modules as a table.
 
+Important Environment Variables:
+  LMOD_COLORIZE                          If defined to be "YES" then Lmod prints
+                                         properties and warning in color.
+
+
+
 ----------------------------------------------------------------------------------
 See:
 
@@ -370,7 +376,7 @@ local function TableList()
 
 end
 
-function Reset()
+function Reset(msg)
    local dbg    = Dbg:dbg()
    dbg.start("Reset()")
    Purge()
@@ -380,6 +386,10 @@ function Reset()
    default = default:trim()
    default = default:gsub(" *, *",":")
    default = default:gsub(" +",":")
+
+   if (msg ~= false) then
+      io.stderr:write("Restoring modules to system default\n")
+   end
 
    if (default == "") then
       io.stderr:write("\nThe system default contains no modules\n")
@@ -656,14 +666,9 @@ end
 
 local function Restore(a)
    local dbg    = Dbg:dbg()
-   local prtMsg = false
-   if (a == nil) then
-      prtMsg = true
-   end
-
    dbg.start("Restore(",tostring(a),")")
 
-   local msg
+   local msg 
    local path
 
    if (a == nil) then
@@ -680,24 +685,24 @@ local function Restore(a)
    end
 
 
+   local masterTbl = masterTbl()
+
    if (a == "system" ) then
-      dbg.print("Restoring System\n")
       msg = "system default"
    else
       a   = a or "default"
       msg = "user's "..a
    end
 
-   local masterTbl = masterTbl()
-   if (prtMsg and not masterTbl.initial) then
-      io.stderr:write("\nRestoring modules to ",msg,"\n")
+   if (masterTbl.initial) then
+      msg = false
    end
 
    if (a == "system" ) then
-      Reset()
+      Reset(msg)
    else
-      local mt   = MT:mt()
-      mt:getMTfromFile(path)
+      local mt      = MT:mt()
+      local results = mt:getMTfromFile(path,msg) or Reset(msg)
    end
    
    dbg.fini()
