@@ -1,7 +1,7 @@
 ===========================
 step 1
 ===========================
-Modules based on Lua: Version 4.1.4.2 2013-01-17 14:48
+Modules based on Lua: Version 4.1.4.3 2013-01-18 15:40
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -13,9 +13,9 @@ Saved current collection of modules to: default
 ===========================
 step 4
 ===========================
-Restoring user's default
+Restoring modules to user's default
 Lmod Warning: The system MODULEPATH has changed: Please rebuild your saved collection
-Restoring system default
+Restoring modules to system default
 ===========================
 step 5
 ===========================
@@ -35,7 +35,7 @@ Saved current collection of modules to: default
 ===========================
 step 9
 ===========================
-Restoring user's default
+Restoring modules to user's default
 ===========================
 step 10
 ===========================
