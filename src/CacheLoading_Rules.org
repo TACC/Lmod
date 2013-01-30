@@ -1,0 +1,26 @@
+Rules for reading Cache file(s)
+
+* Read system cache file if it exists and not out-of-date
+  Mark directories that it knows about as system directories.  
+  Compare with LMOD_DEFAULT_MODULEPATH.
+
+  Any directories left over are personal MODULE directories
+
+
+* If any DEFAULT MODULEPATH directories are unknown then read user cache file if it exists and not out-of-date
+
+  User cache file is merged with system cache file.   The newer file
+  trumps the older file.
+
+* Any dirs left-over are scanned and written to user cache file with the standard timing rules. 
+
+   (maybe)
+
+  The newly scanned results are merged in.
+
+  Note that the user cache has only the left-over directories.
+
+
+
+  
+
