@@ -32,7 +32,8 @@ testdescript = {
 
      numStep=0
      COUNT=0
-     HOME=`(cd $HOME; /bin/pwd)`
+     ORIG_HOME=`(cd $HOME; /bin/pwd)`
+     HOME=`pwd`
 
      rm -fr _stderr.* _stdout.* err.* out.* .lmod.d
 
@@ -45,6 +46,8 @@ testdescript = {
 
      cat _stderr.[0-9][0-9] > _stderr.orig
      cleanUp _stderr.orig err.txt
+
+     HOME=$ORIG_HOME
 
      rm -f $(cmdResultFn)
      wrapperDiff -r $(cmdResultFn) $(testDir)/out.txt out.txt
