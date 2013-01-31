@@ -212,8 +212,8 @@ Help sub-commands:
 
 Loading/Unloading sub-commands:
   add | load         modulefile [...]    Add module(s)
-  try-load | try-add modulefile [...]    Add module(s) , do not complain
-                                         if not found
+  try-load | try-add modulefile [...]    Add module(s), do not complain if
+                                         not found
   del | rm | unload  modulefile [...]    Remove module(s), do not complain
                                          if not found
   swap | sw | switch modfile1 modfile2   unload modfile1 and load modfile2
@@ -804,44 +804,11 @@ local function epoch()
    end
 end
 
-function getModuleT()
+function readCacheFile(cacheFileA, moduleDirT, moduleT)
 
    local dbg        = Dbg:dbg()
+   dbg.start("readCacheFile(cacheFileA, moduleDirT, moduleT)")
    local mt         = MT:mt()
-   local moduleT    = {}
-   local HOME       = os.getenv("HOME") or ""
-   local cacheDir   = pathJoin(HOME,".lmod.d",".cache")
-   local errRtn     = LmodError
-   local message    = LmodMessage
-   local cacheFileA = {
-      { file = pathJoin(cacheDir,   "moduleT.lua"),     fileT = "your"  },
-      { file = pathJoin(sysCacheDir,"moduleT.lua"),     fileT = "system"},
-      { file = pathJoin(sysCacheDir,"moduleT.old.lua"), fileT = "system"},
-   }
-   local userModuleTFN = pathJoin(cacheDir,"moduleT.lua")
-
-   dbg.start("getModuleT()")
-
-   local mpath = mt:getBaseMPATH()
-   if (mpath == nil) then
-     LmodError("The Env Variable: \"", DfltModPath, "\" is not set\n")
-   end
-   local moduleDirA = {}
-   for path in mpath:split(":") do
-      moduleDirA[#moduleDirA+1] = path
-   end
-
-   local buildModuleT = true
-   local moduleTFN    = nil
-   local fileT        = nil
-   local timeDiff     = math.huge
-   local idx                        -- The index for the cachefile to use.
-
-   ------------------------------------------------
-   -- Search over cacheFile and find the most recent one.
-   -- Check for user cache file and system cache file.
-   -- Use system file if acceptable?
-
    ancient = mt:getRebuildTime() or ancient
 
    for i = 1,#cacheFileA do
@@ -852,49 +819,81 @@ function getModuleT()
 
          -- Check Time
 
-         local diff   = os.time() - attr.modification
-         buildModuleT = diff > ancient  -- rebuild if older than a day
+         local diff         = os.time() - attr.modification
+         local buildModuleT = diff > ancient  -- rebuild if older than a day
          dbg.print("timeDiff: ",diff," buildModuleT: ", tostring(buildModuleT),"\n")
-
 
          if (not buildModuleT) then
          
             -- Check for matching default MODULEPATH.
             assert(loadfile(f))()
-            local defaultMpathA = _G.defaultMpathA
-            if (#moduleDirA ~= #defaultMpathA) then
-               buildModuleT = true -- rebuild because the number of dirs has changed.
-               dbg.print("(2) buildModuleT: ", tostring(buildModuleT),"\n")
-            else
-               for i = 1,#moduleDirA do
-                  if (moduleDirA[i] ~= defaultMpathA[i]) then
-                     buildModuleT = true
-                     break
-                  end
-               end
-               dbg.print("(3) buildModuleT: ", tostring(buildModuleT),"\n")
+            for k, v in pairs(_G.moduleT) do
+               moduleDirT[k] = true
+               moduleT[k]    = v
             end
          end
 
-         if (not buildModuleT and diff < timeDiff) then
-            timeDiff = diff
-            idx      = i
-            dbg.print("Setting idx: ",idx,"\n")
-         end
+         break
+      end
+   end
+   dbg.fini()
+end
+
+
+function getModuleT()
+
+   local dbg        = Dbg:dbg()
+   local mt         = MT:mt()
+   local moduleT    = {}
+   local HOME       = os.getenv("HOME") or ""
+   local cacheDir   = pathJoin(HOME,".lmod.d",".cache")
+   local errRtn     = LmodError
+   local message    = LmodMessage
+   local sysCacheFileA = {
+      { file = pathJoin(sysCacheDir,"moduleT.lua"),     fileT = "system"},
+      { file = pathJoin(sysCacheDir,"moduleT.old.lua"), fileT = "system"},
+   }
+   local usrCacheFileA = {
+      { file = pathJoin(cacheDir,   "moduleT.lua"),     fileT = "your"  },
+   }
+   local userModuleTFN = pathJoin(cacheDir,"moduleT.lua")
+
+   dbg.start("getModuleT()")
+
+   local baseMpath = mt:getBaseMPATH()
+   if (baseMpath == nil) then
+     LmodError("The Env Variable: \"", DfltModPath, "\" is not set\n")
+   end
+   local moduleDirT = {}
+   for path in baseMpath:split(":") do
+      moduleDirT[path]          = false 
+   end
+
+   local buildModuleT = true
+   local moduleTFN    = nil
+
+   -----------------------------------------------------------------------------
+   -- Read system cache file if it exists and is not out-of-date.
+
+   readCacheFile(sysCacheFileA, moduleDirT, moduleT)
+   
+   -----------------------------------------------------------------------------
+   -- Read user cache file if it exists and is not out-of-date.
+
+   readCacheFile(usrCacheFileA, moduleDirT, moduleT)
+   
+
+   -----------------------------------------------------------------------------
+   -- Find all the directories not read in yet.
+
+   local moduleDirA = {}
+   for k,v in pairs(moduleDirT) do
+      if (v == false) then
+         moduleDirA[#moduleDirA+1] = k
       end
    end
 
-   if (idx) then
-      moduleTFN = cacheFileA[idx].file
-      fileT     = cacheFileA[idx].fileT
-      buildModuleT = false
-   else
-      buildModuleT = true
-   end
-
-   if (moduleTFN) then
-      io.stderr:write("Using ",fileT," spider cache file\n")
-   end
+   local buildModuleT = (#moduleDirA > 0)
 
    if (buildModuleT) then
       LmodError    = dbg.quiet
@@ -917,17 +916,12 @@ function getModuleT()
       mkdir_recursive(cacheDir)
       local s0 = "-- Date: " .. os.date("%c",os.time()) .. "\n"
       local s1 = "ancient = " .. tostring(math.floor(ancient)) .."\n"
-      local s2 = serializeTbl{name="defaultMpathA",value=moduleDirA,indent=true}
-      local s3 = serializeTbl{name="moduleT",      value=moduleT,   indent=true}
+      local s2 = serializeTbl{name="moduleT",      value=moduleT,   indent=true}
       local f  = io.open(userModuleTFN,"w")
-      f:write(s0,s1,s2,s3)
+      f:write(s0,s1,s2)
       f:close()
       dbg.print("Wrote: ",userModuleTFN,"\n")
-
    else
-      dbg.print("Loading: ",moduleTFN,"\n")
-      assert(loadfile(moduleTFN))()
-      moduleT = _G.moduleT
       ancient = _G.ancient or ancient
       mt:setRebuildTime(ancient)
    end
