@@ -58,6 +58,7 @@ SET_BASE_DIR()
     stampede)
       CFLAGS_EXTRA="-mmic"
       base="$HOME/l/pkg/$(uname -m)"
+      ADMIN_DIR="/home1/moduleData"
       ;;
     
     *)
