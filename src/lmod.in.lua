@@ -918,8 +918,10 @@ function getModuleT()
       local s1 = "ancient = " .. tostring(math.floor(ancient)) .."\n"
       local s2 = serializeTbl{name="moduleT",      value=moduleT,   indent=true}
       local f  = io.open(userModuleTFN,"w")
-      f:write(s0,s1,s2)
-      f:close()
+      if (f) then
+         f:write(s0,s1,s2)
+         f:close()
+      end
       dbg.print("Wrote: ",userModuleTFN,"\n")
    else
       ancient = _G.ancient or ancient
