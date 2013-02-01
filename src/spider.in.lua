@@ -1,9 +1,6 @@
 #!@path_to_lua@/lua
 -- -*- lua -*-
 
-s_warning      = false
-s_haveWarnings = true
-
 ------------------------------------------------------------------------
 -- Use command name to add the command directory to the package.path
 ------------------------------------------------------------------------
@@ -41,25 +38,6 @@ local Optiks        = require("Optiks")
 local Spider        = require("Spider")
 local concatTbl     = table.concat
 
-
-function activateWarning()
-   s_haveWarnings = true
-end
-
-function deactivateWarning()
-   s_haveWarnings = false
-end
-
-function haveWarnings()
-   return s_haveWarnings
-end
-
-function setWarningFlag()
-   s_warning = true
-end
-function getWarningFlag()
-   return s_warning
-end
 
 function flip(a,t, tbl)
    for k,v in pairs(t) do

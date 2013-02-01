@@ -210,3 +210,23 @@ function List(...)
    end
    dbg.fini()
 end
+
+function activateWarning()
+   s_haveWarnings = true
+end
+
+function deactivateWarning()
+   s_haveWarnings = false
+end
+
+function haveWarnings()
+   return s_haveWarnings
+end
+
+function setWarningFlag()
+   s_warning = true
+end
+function getWarningFlag()
+   return s_warning
+end
+

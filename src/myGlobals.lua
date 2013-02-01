@@ -102,3 +102,19 @@ colorize      = false
 -- pager:     pipe output through more when connectted to a term 
 ------------------------------------------------------------------------
 pager         = false
+
+
+
+------------------------------------------------------------------------
+-- s_warning:   if a warning was generated during the current run
+------------------------------------------------------------------------
+s_warning     = false
+
+------------------------------------------------------------------------
+-- s_haveWarnings:   if warning are allowed (or ignored).  For example
+--                  a try-load command turns off warnings.
+------------------------------------------------------------------------
+s_haveWarnings = true
+
+
+

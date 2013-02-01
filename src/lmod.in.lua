@@ -15,9 +15,8 @@ BaseShell      = {}
 Pager          = "@path_to_pager@"
 s_prependBlock = "@prepend_block@"
 s_master       = {}
-s_warning      = false
-s_haveWarnings = true
 prepend_order  = false
+
 function masterTbl()
    return s_master
 end
@@ -45,11 +44,12 @@ package.cpath = LuaCommandName_dir .. "../lib/?.so;"..
                package.cpath
 
 
+require("myGlobals")
+
 local term     = false
 if (pcall(require, "term")) then
    term = require("term")
 end
-
 
 function cmdDir()
    return LuaCommandName_dir
@@ -57,25 +57,6 @@ end
 
 local getenv = os.getenv
 local rep    = string.rep
-
-function setWarningFlag()
-   s_warning = true
-end
-function getWarningFlag()
-   return s_warning
-end
-
-function activateWarning()
-   s_haveWarnings = true
-end
-
-function deactivateWarning()
-   s_haveWarnings = false
-end
-
-function haveWarnings()
-   return s_haveWarnings
-end
 
 function set_prepend_order()
    local ansT = {
@@ -99,7 +80,6 @@ end
 
 
 require("strict")
-require("myGlobals")
 require("pager")
 require("fileOps")
 require("firstInPath")
@@ -828,8 +808,17 @@ function readCacheFile(cacheFileA, moduleDirT, moduleT)
             -- Check for matching default MODULEPATH.
             assert(loadfile(f))()
             for k, v in pairs(_G.moduleT) do
-               moduleDirT[k] = true
-               moduleT[k]    = v
+               if ( k:sub(1,1) == '/' ) then
+                  local dirTime = moduleDirT[k] or -1
+                  dbg.print("processing directory: ",k," with dirTime: ",dirTime,"\n")
+                  if (attr.modification > dirTime) then
+                     dbg.print("saving directory: ",k,"\n")
+                     moduleDirT[k] = attr.modification
+                     moduleT[k]    = v
+                  end
+               else
+                  moduleT[k] = v
+               end
             end
          end
 
@@ -866,7 +855,7 @@ function getModuleT()
    end
    local moduleDirT = {}
    for path in baseMpath:split(":") do
-      moduleDirT[path]          = false 
+      moduleDirT[path]          = -1
    end
 
    local buildModuleT = true
@@ -877,23 +866,30 @@ function getModuleT()
 
    readCacheFile(sysCacheFileA, moduleDirT, moduleT)
    
+   dbg.print("moduleT.version: ", tostring(moduleT.version),"\n")
+
    -----------------------------------------------------------------------------
    -- Read user cache file if it exists and is not out-of-date.
 
    readCacheFile(usrCacheFileA, moduleDirT, moduleT)
    
+   dbg.print("moduleT.version: ", tostring(moduleT.version),"\n")
 
    -----------------------------------------------------------------------------
    -- Find all the directories not read in yet.
 
    local moduleDirA = {}
    for k,v in pairs(moduleDirT) do
-      if (v == false) then
+      if (v < 0) then
+         dbg.print("rebuilding cache for directory: ",k,"\n")
          moduleDirA[#moduleDirA+1] = k
       end
    end
 
    local buildModuleT = (#moduleDirA > 0)
+   local userModuleT  = {}
+
+   dbg.print("buildModuleT: ",tostring(buildModuleT),"\n")
 
    if (buildModuleT) then
       LmodError    = dbg.quiet
@@ -901,7 +897,7 @@ function getModuleT()
       io.stderr:write("Rebuilding cache file, please wait ...")
 
       local t1 = epoch()
-      Spider.findAllModules(moduleDirA, moduleT)
+      Spider.findAllModules(moduleDirA, userModuleT)
       local t2 = epoch()
       io.stderr:write(" done\n")
       LmodError    = errRtn
@@ -911,18 +907,22 @@ function getModuleT()
       if (t2 - t1 < shortTime) then
          ancient = shortLifeCache
          mt:setRebuildTime(ancient)
+      else
+         mkdir_recursive(cacheDir)
+         local s0 = "-- Date: " .. os.date("%c",os.time()) .. "\n"
+         local s1 = "ancient = " .. tostring(math.floor(ancient)) .."\n"
+         local s2 = serializeTbl{name="moduleT",      value=userModuleT,   indent=true}
+         local f  = io.open(userModuleTFN,"w")
+         if (f) then
+            f:write(s0,s1,s2)
+            f:close()
+         end
+         dbg.print("Wrote: ",userModuleTFN,"\n")
+      end
+      for k, v in pairs(userModuleT) do
+         moduleT[k] = userModuleT[k]
       end
 
-      mkdir_recursive(cacheDir)
-      local s0 = "-- Date: " .. os.date("%c",os.time()) .. "\n"
-      local s1 = "ancient = " .. tostring(math.floor(ancient)) .."\n"
-      local s2 = serializeTbl{name="moduleT",      value=moduleT,   indent=true}
-      local f  = io.open(userModuleTFN,"w")
-      if (f) then
-         f:write(s0,s1,s2)
-         f:close()
-      end
-      dbg.print("Wrote: ",userModuleTFN,"\n")
    else
       ancient = _G.ancient or ancient
       mt:setRebuildTime(ancient)
