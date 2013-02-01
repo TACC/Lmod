@@ -17,6 +17,7 @@ BASE_MODULE_PATH=/opt/apps/modulefiles:/opt/modulefiles
 
 ADMIN_ranger="/share/moduleData"
 ADMIN_ls4="/home1/moduleData"
+ADMIN_stampede="/home1/moduleData"
 
 nlocal=$(hostname -f)
 nlocal=${nlocal%.tacc.utexas.edu}
@@ -26,6 +27,8 @@ SYSHOST=${nlocal#*.}
 eval "ADMIN_DIR=\$ADMIN_$SYSHOST"
 
 CacheDir=$ADMIN_DIR/cacheDir
+RmapDir=$ADMIN_DIR/reverseMapD
+
 
 ########################################################################
 #  End Site Specific Setting
@@ -47,7 +50,7 @@ buildNewDB()
    if [ "$?" = 0 ]; then
       chmod 644 $NEW
       if [ -f $RESULT ]; then
-        mv $RESULT $OLD
+        cp $RESULT $OLD
       fi
       mv $NEW $RESULT
    fi
@@ -56,6 +59,8 @@ buildNewDB()
 
 
 buildNewDB $CacheDir  moduleT 
+
+buildNewDB $RmapDir   reverseMapT  
 
 
 

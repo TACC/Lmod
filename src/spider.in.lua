@@ -1,6 +1,9 @@
 #!@path_to_lua@/lua
 -- -*- lua -*-
 
+s_warning      = false
+s_haveWarnings = true
+
 ------------------------------------------------------------------------
 -- Use command name to add the command directory to the package.path
 ------------------------------------------------------------------------
@@ -19,6 +22,7 @@ end
 
 require("myGlobals")
 require("strict")
+require("colorize")
 require("firstInPath")
 require("border")
 require("serializeTbl")
@@ -37,6 +41,25 @@ local Optiks        = require("Optiks")
 local Spider        = require("Spider")
 local concatTbl     = table.concat
 
+
+function activateWarning()
+   s_haveWarnings = true
+end
+
+function deactivateWarning()
+   s_haveWarnings = false
+end
+
+function haveWarnings()
+   return s_haveWarnings
+end
+
+function setWarningFlag()
+   s_warning = true
+end
+function getWarningFlag()
+   return s_warning
+end
 
 function flip(a,t, tbl)
    for k,v in pairs(t) do
@@ -118,6 +141,10 @@ function main()
    dbg.print("Setting mpc to ", tostring(mcp:name()),"\n")
 
    ------------------------------------------------------------------------
+   -- do not colorize output from spider
+   colorize = plain
+
+   ------------------------------------------------------------------------
    -- Try to load a SitePackage Module,  If it is not there then do not
    -- abort.  Sites do not have to have a Site package.
    ------------------------------------------------------------------------
@@ -160,7 +187,7 @@ function main()
    local dbT = {}
    Spider.buildSpiderDB({"default"}, moduleT, dbT)
 
-   if (masterTbl.outputStyle == "reverseMap") then
+   if (masterTbl.outputStyle == "reverseMap" or masterTbl.outputStyle == "reverseMapT") then
       local reverseMapT = {}
 
       for kkk,vvv in pairs(dbT) do
@@ -302,7 +329,7 @@ function options()
       dest   = 'outputStyle',
       action = 'store',
       default = "list",
-      help    = "Output Style: list, moduleT, reverseMap, spider spider-json softwarePage"  
+      help    = "Output Style: list, moduleT, reverseMapT, spider spider-json softwarePage"  
    }
 
    cmdlineParser:add_option{ 
