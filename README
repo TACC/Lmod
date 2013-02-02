@@ -3,12 +3,24 @@ Dear Users of Lmod: I have created a lmod-users mailing list.
 Please ask your questions there.  I will do my best to answer
 them. This way all can benefit from the questions and answers.
 
-In particular I am interested in feedback in whether your users
-find "ml" useful and whether they like having module spider and
-avail be piped through more or whatever the users' PAGER is.
-
 Thanks,
 ------------------------------------------------------------
+
+Version 4.2.1:
+  Features:
+    1) Spider cache file changes: If a site has a system cache file
+       then a user with personal module directories will use the
+       system cache and only store their personal cache.
+    2) This version makes multiple prepending multiple work in
+       "normal" and not "reverse" order.  Previous version had
+       this "reverse" be the default.
+    3) There is now a "pre-install" target which does everything
+       but make the link between the new version and "lmod"
+  Bug Fixes:
+    1) If the system changes the default module directories and
+       a user has a named collection then Lmod will report that
+       the system MODULEPATH has changed and it will load system
+       defaults and not the users collection.
 
 Version 4.1.4:
  Bug Fixes:
