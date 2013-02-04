@@ -100,7 +100,8 @@ __installMe:
 	        -e 's|@updateSystemFn@|$(UPDATE_SYSTEM_FN)|g'         \
 	        -e 's|@modulepath_root@|$(MODULEPATH_ROOT)|g'         \
                 -e 's|@PKG@|$(PKG)|g'         < $$i > $(DIRLOC)/$$fn; \
-            [ "$$ext" = "in.lua" ]  && chmod +x $(DIRLOC)/$$fn;       \
+            [ "$$ext" = "in.lua" -o "$$ext" = "tcl"] &&               \
+               chmod +x $(DIRLOC)/$$fn;                               \
         done
 
 shell_init: $(SHELL_INIT)
