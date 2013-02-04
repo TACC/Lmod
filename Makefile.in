@@ -9,6 +9,7 @@ PATH_TO_PAGER	 := @PATH_TO_PAGER@
 MODULEPATH_ROOT  := @MODULEPATH_ROOT@
 VERSION_SRC	 := src/Version.lua
 LUA_INCLUDE      := @LUA_INCLUDE@
+UPDATE_SYSTEM_FN := @UPDATE_SYSTEM_FN@
 prefix		 := @prefix@
 package		 := lmod
 version		 := $(shell cd ./src; $(PATH_TO_LUA)/lua -e "local Version=require('Version'); print(Version.name())" | awk '{print $$1}')
@@ -21,7 +22,7 @@ DIRLIST		 := $(DESTDIR)$(LIBEXEC) $(DESTDIR)$(INIT) $(DESTDIR)$(LIB)
 
 STANDALONE_PRGM  := src/lmod.in.lua src/addto.in.lua src/getmt.in.lua src/processMT.in.lua   \
                     src/spider.in.lua src/processModuleUsage.in.lua src/reportUsers.in.lua   \
-                    src/clearMT_cmd.in.lua src/ml_cmd.in.lua
+                    src/clearMT_cmd.in.lua src/ml_cmd.in.lua 
 SHELL_INIT	 := bash.in csh.in ksh.in tcsh.in zsh.in sh.in perl.in env_modules_python.py.in .lmodrc.lua
 SHELL_INIT	 := $(patsubst %, setup/%, $(SHELL_INIT))
 
@@ -65,7 +66,6 @@ all:
 
 pre-install: $(DIRLIST) shell_init startup libexec pkgs other_tools
 
-
 install: pre-install
 	$(RM) $(DESTDIR)$(PKG)
 	ln -s $(version) $(DESTDIR)$(PKG)
@@ -84,34 +84,36 @@ $(DIRLIST) :
 	mkdir -p $@
 
 __installMe:
-	-for i in $(FILELIST); do                                 \
-         bareN=$${i##*/};                                         \
-         fn=$${bareN%%.in*};                                      \
-         sed -e 's|@PREFIX@|@prefix@|g'                           \
-	      -e 's|@path_to_lua@|$(PATH_TO_LUA)|g'               \
-	      -e 's|@path_to_hashsum@|$(PATH_TO_HASHSUM)|g'       \
-	      -e 's|@path_to_pager@|$(PATH_TO_PAGER)|g'           \
-	      -e 's|@ancient@|$(ANCIENT)|g'                       \
-	      -e 's|@prepend_block@|$(PREPEND_BLOCK)|g'           \
-	      -e 's|@colorize@|$(COLORIZE)|g'                     \
-	      -e 's|@short_time@|$(SHORT_TIME)|g'                 \
-	      -e 's|@cacheDir@|$(SPIDER_CACHE_DIR)|g'             \
-	      -e 's|@modulepath_root@|$(MODULEPATH_ROOT)|g'       \
-              -e 's|@PKG@|$(PKG)|g'         < $$i > $$fn;         \
-          [ -n "$(DIRLOC)" ] && mv $$fn $(DESTDIR)$(DIRLOC) && chmod +x $(DESTDIR)$(DIRLOC)/$$fn; \
+	-for i in $(FILELIST); do                                     \
+           bareN=$${i##*/};                                           \
+           fn=$${bareN%%.in*};                                        \
+           ext=$${bareN#*.};                                          \
+           sed -e 's|@PREFIX@|@prefix@|g'                             \
+	        -e 's|@path_to_lua@|$(PATH_TO_LUA)|g'                 \
+	        -e 's|@path_to_hashsum@|$(PATH_TO_HASHSUM)|g'         \
+	        -e 's|@path_to_pager@|$(PATH_TO_PAGER)|g'             \
+	        -e 's|@ancient@|$(ANCIENT)|g'                         \
+	        -e 's|@prepend_block@|$(PREPEND_BLOCK)|g'             \
+	        -e 's|@colorize@|$(COLORIZE)|g'                       \
+	        -e 's|@short_time@|$(SHORT_TIME)|g'                   \
+	        -e 's|@cacheDir@|$(SPIDER_CACHE_DIR)|g'               \
+	        -e 's|@updateSystemFn@|$(UPDATE_SYSTEM_FN)|g'         \
+	        -e 's|@modulepath_root@|$(MODULEPATH_ROOT)|g'         \
+                -e 's|@PKG@|$(PKG)|g'         < $$i > $(DIRLOC)/$$fn; \
+            [ "$$ext" = "in.lua" ]  && chmod +x $(DIRLOC)/$$fn;       \
         done
 
 shell_init: $(SHELL_INIT)
-	$(MAKE) FILELIST="$^" DIRLOC=$(INIT)    __installMe
+	$(MAKE) FILELIST="$^" DIRLOC=$(DESTDIR)$(INIT)    __installMe
 
 startup: $(STARTUP)
-	$(MAKE) FILELIST="$^" DIRLOC=$(INIT)    __installMe
+	$(MAKE) FILELIST="$^" DIRLOC=$(DESTDIR)$(INIT)    __installMe
 
 other_tools: $(ComputeHashSum) $(STANDALONE_PRGM)
-	$(MAKE) FILELIST="$^" DIRLOC=$(LIBEXEC) __installMe
+	$(MAKE) FILELIST="$^" DIRLOC=$(DESTDIR)$(LIBEXEC) __installMe
 
 src/computeHashSum: $(ComputeHashSum)
-	$(MAKE) FILELIST="$^" DIRLOC="src"      __installMe
+	$(MAKE) FILELIST="$^" DIRLOC="src"                __installMe
 	chmod +x $@
 
 pkgs:
@@ -199,7 +201,7 @@ tags:
 
 
 libexec:  $(lua_code)
-	cp $^ $(DESTDIR)$(LIBEXEC)
+	$(MAKE) FILELIST="$^" DIRLOC=$(LIBEXEC) __installMe
 
 clean:
 	$(RM) config.log

@@ -51,6 +51,18 @@ AC_ARG_WITH(spiderCacheDir,
     SPIDER_CACHE_DIR="$withval"
     AC_DEFINE_UNQUOTED(SPIDER_CACHE_DIR, "$withval"))dnl
 
+AC_SUBST(UPDATE_SYSTEM_FN)
+AC_ARG_WITH(updateSystemFn,
+    AC_HELP_STRING([--with-updateSystemFn=dir],[This file is touched when the system has been updated [[]]]),
+    UPDATE_SYSTEM_FN="$withval"
+    AC_MSG_RESULT([UPDATE_SYSTEM_FN=$with_updateSystemFn])
+    AC_DEFINE_UNQUOTED(SHORT_TIME, "$with_updateSystemFn")dnl
+    ,
+    withval=""
+    AC_MSG_RESULT([UPDATE_SYSTEM_FN=$withval])
+    UPDATE_SYSTEM_FN="$withval"
+    AC_DEFINE_UNQUOTED(UPDATE_SYSTEM_FN, "$withval"))dnl
+
 AC_SUBST(PREPEND_BLOCK)
 AC_ARG_WITH(prependBlock,
     AC_HELP_STRING([--with-prependBlock=ans],[Treat multiple directories passed to prepend in normal order/ not reversed [[NORMAL]]]),

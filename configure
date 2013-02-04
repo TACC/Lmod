@@ -594,6 +594,7 @@ PATH_TO_LUA
 PATH_TO_PAGER
 COLORIZE
 PREPEND_BLOCK
+UPDATE_SYSTEM_FN
 SPIDER_CACHE_DIR
 SHORT_TIME
 ANCIENT
@@ -643,6 +644,7 @@ with_module_root_path
 with_ancient
 with_shortTime
 with_spiderCacheDir
+with_updateSystemFn
 with_prependBlock
 with_colorize
 with_lua_include
@@ -1265,6 +1267,9 @@ Optional Packages:
                           cache file [[2]]
   --with-spiderCacheDir=dir
                           use this directory to hold a spider cache file [[]]
+  --with-updateSystemFn=dir
+                          This file is modification time marks when the system
+                          has been updated [[]]
   --with-prependBlock=ans Treat multiple directories passed to prepend in
                           normal order/ not reversed [[NORMAL]]
   --with-colorize=ans     allow for colorized output [[YES]]
@@ -1784,6 +1789,28 @@ $as_echo "SPIDER_CACHE_DIR=$withval" >&6; }
     SPIDER_CACHE_DIR="$withval"
     cat >>confdefs.h <<_ACEOF
 #define SPIDER_CACHE_DIR "$withval"
+_ACEOF
+
+fi
+
+
+
+# Check whether --with-updateSystemFn was given.
+if test "${with_updateSystemFn+set}" = set; then :
+  withval=$with_updateSystemFn; UPDATE_SYSTEM_FN="$withval"
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: UPDATE_SYSTEM_FN=$with_updateSystemFn" >&5
+$as_echo "UPDATE_SYSTEM_FN=$with_updateSystemFn" >&6; }
+    cat >>confdefs.h <<_ACEOF
+#define SHORT_TIME "$with_updateSystemFn"
+_ACEOF
+
+else
+  withval=""
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: UPDATE_SYSTEM_FN=$withval" >&5
+$as_echo "UPDATE_SYSTEM_FN=$withval" >&6; }
+    UPDATE_SYSTEM_FN="$withval"
+    cat >>confdefs.h <<_ACEOF
+#define UPDATE_SYSTEM_FN "$withval"
 _ACEOF
 
 fi
@@ -3292,6 +3319,7 @@ echo "Do not save Cache if build time < .........." : $SHORT_TIME
 echo "SPIDER_CACHE_DIR............................" : $SPIDER_CACHE_DIR
 echo "Prepending multiple dirs (NORMAL / REVERSED)" : $PREPEND_BLOCK
 echo "Colorized output supported.................." : $COLORIZE
+echo "File that is touched when system is updated." : $UPDATE_SYSTEM_FN
 echo
 echo '-------------------------------------------------------------------------------'
 

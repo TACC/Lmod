@@ -1,16 +1,6 @@
 #!@path_to_lua@/lua
 -- -*- lua -*-
 
-
--- ancient:   the time in seconds when the cache file is considered old
--- shortTime: the time in seconds when building the cache file is quick
---            enough to be computed every time rather than cached.
-ancient        = "@ancient@"
-shortTime      = "@short_time@"
-sysCacheDir    = os.getenv("LMOD_SPIDER_CACHE_DIR") or "@cacheDir@"
-ancient        = tonumber(ancient)   or 86400
-shortTime      = tonumber(shortTime) or 10.0
-shortLifeCache = ancient/12
 BaseShell      = {}
 Pager          = "@path_to_pager@"
 s_prependBlock = "@prepend_block@"
@@ -784,23 +774,29 @@ local function epoch()
    end
 end
 
-function readCacheFile(cacheFileA, moduleDirT, moduleT)
+function readCacheFile(cacheType, cacheFileA, moduleDirT, moduleT)
 
    local dbg        = Dbg:dbg()
-   dbg.start("readCacheFile(cacheFileA, moduleDirT, moduleT)")
+   dbg.start("readCacheFile(cacheType, cacheFileA, moduleDirT, moduleT)")
    local mt         = MT:mt()
    ancient = mt:getRebuildTime() or ancient
+
+   local lastUpdateEpoch = epoch() - ancient
+   local attr = lfs.attributes(updateSystemFn)
+   if (attr and cacheType == "system") then
+      lastUpdateEpoch = attr.modification
+   end
 
    for i = 1,#cacheFileA do
       local f = cacheFileA[i].file
       dbg.print("cacheFile: ",f,"\n")
       if (isFile(f)) then
-         local attr   = lfs.attributes(f)
+         attr   = lfs.attributes(f)
 
          -- Check Time
 
-         local diff         = os.time() - attr.modification
-         local buildModuleT = diff > ancient  -- rebuild if older than a day
+         local diff         = attr.modification - lastUpdateEpoch
+         local buildModuleT = diff > 0  -- rebuild when older than lastUpdateEpoch
          dbg.print("timeDiff: ",diff," buildModuleT: ", tostring(buildModuleT),"\n")
 
          if (not buildModuleT) then
@@ -864,18 +860,18 @@ function getModuleT()
    -----------------------------------------------------------------------------
    -- Read system cache file if it exists and is not out-of-date.
 
-   readCacheFile(sysCacheFileA, moduleDirT, moduleT)
+   readCacheFile("system", sysCacheFileA, moduleDirT, moduleT)
    
    dbg.print("moduleT.version: ", tostring(moduleT.version),"\n")
 
-   -----------------------------------------------------------------------------
+   ------------------------------------------------------------------------
    -- Read user cache file if it exists and is not out-of-date.
 
-   readCacheFile(usrCacheFileA, moduleDirT, moduleT)
+   readCacheFile("user", usrCacheFileA, moduleDirT, moduleT)
    
    dbg.print("moduleT.version: ", tostring(moduleT.version),"\n")
 
-   -----------------------------------------------------------------------------
+   ------------------------------------------------------------------------
    -- Find all the directories not read in yet.
 
    local moduleDirA = {}
@@ -911,7 +907,8 @@ function getModuleT()
          mkdir_recursive(cacheDir)
          local s0 = "-- Date: " .. os.date("%c",os.time()) .. "\n"
          local s1 = "ancient = " .. tostring(math.floor(ancient)) .."\n"
-         local s2 = serializeTbl{name="moduleT",      value=userModuleT,   indent=true}
+         local s2 = serializeTbl{name="moduleT",      value=userModuleT,
+                                 indent=true}
          local f  = io.open(userModuleTFN,"w")
          if (f) then
             f:write(s0,s1,s2)

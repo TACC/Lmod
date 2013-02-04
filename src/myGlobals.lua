@@ -1,3 +1,5 @@
+require("fileOps")
+
 -- The global variables for Lmod:
 
 ------------------------------------------------------------------------
@@ -111,10 +113,60 @@ pager         = false
 s_warning     = false
 
 ------------------------------------------------------------------------
--- s_haveWarnings:   if warning are allowed (or ignored).  For example
+-- s_haveWarnings:  if warning are allowed (or ignored).  For example
 --                  a try-load command turns off warnings.
 ------------------------------------------------------------------------
 s_haveWarnings = true
 
 
+------------------------------------------------------------------------
+-- ancient:  the time in seconds when the cache file is considered old
+------------------------------------------------------------------------
+ancient = tonumber("@ancient@") or 86400
 
+------------------------------------------------------------------------
+-- shortTime: the time in seconds when building the cache file is quick
+--            enough to be computed every time rather than cached.
+------------------------------------------------------------------------
+
+shortTime = tonumber("@short_time@") or 10.0
+
+
+------------------------------------------------------------------------
+-- shortLifeCache: If building the cache file is fast then shorten the
+--                 ancient to this time.
+------------------------------------------------------------------------
+shortLifeCache = ancient/12
+
+------------------------------------------------------------------------
+-- sysCacheDir:  The system directory location.
+------------------------------------------------------------------------
+sysCacheDir    = os.getenv("LMOD_SPIDER_CACHE_DIR") or "@cacheDir@"
+
+------------------------------------------------------------------------
+-- sysCacheFileA: Array of system cache files
+------------------------------------------------------------------------
+sysCacheFileA = {
+      { file = pathJoin(sysCacheDir,"moduleT.lua"),     fileT = "system"},
+      { file = pathJoin(sysCacheDir,"moduleT.old.lua"), fileT = "system"},
+   }
+
+
+------------------------------------------------------------------------
+-- usrCacheDir: user cache directory
+------------------------------------------------------------------------
+usrCacheDir   = pathJoin(os.getenv("HOME"),".lmod.d",".cache")
+
+------------------------------------------------------------------------
+-- usrCacheFileA: Array of user cache files
+------------------------------------------------------------------------
+usrCacheFileA = {
+      { file = pathJoin(usrCacheDir,   "moduleT.lua"),     fileT = "your"  },
+   }
+
+------------------------------------------------------------------------
+-- updateSystemFn: The system file that is touched everytime the system
+--                 is updated.
+------------------------------------------------------------------------
+
+updateSystemFn="@updateSystemFn@"
