@@ -34,8 +34,8 @@ end
 
 function Perl.unset(self, k, vType)
    local dbg = Dbg:dbg()
-   stdout:write("delete $ENV{",name,"};\n")
-   dbg.print(   "delete $ENV{",name,"};\n")
+   stdout:write("delete $ENV{",k,"};\n")
+   dbg.print(   "delete $ENV{",k,"};\n")
 end
 
 return Perl
