@@ -796,7 +796,7 @@ function readCacheFile(cacheType, cacheFileA, moduleDirT, moduleT)
          -- Check Time
 
          local diff         = attr.modification - lastUpdateEpoch
-         local buildModuleT = diff > 0  -- rebuild when older than lastUpdateEpoch
+         local buildModuleT = diff < 0  -- rebuild when older than lastUpdateEpoch
          dbg.print("timeDiff: ",diff," buildModuleT: ", tostring(buildModuleT),"\n")
 
          if (not buildModuleT) then
