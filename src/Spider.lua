@@ -334,10 +334,13 @@ end
 
 function M.findModulesInDir(mpath, path, prefix, moduleT)
    local dbg  = Dbg:dbg()
-   dbg.start("findModulesInDir(mpath=\"",mpath," path=\"",path,"\", prefix=\"",prefix,"\")")
+   dbg.start("findModulesInDir(mpath=\"",tostring(mpath),"\", path=\"",tostring(path),
+             "\", prefix=\"",tostring(prefix),"\")")
+   
 
    local attr = lfs.attributes(mpath)
    if (not attr) then
+      dbg.print("mpath does not exist!\n")
       dbg.fini()
       return
    end
@@ -419,7 +422,7 @@ function M.findAllModules(moduleDirA, moduleT)
 
    for _,v in ipairs(moduleDirA) do
       v             = path_regularize(v)
-      if (moduleDirT[v] == nil) then
+      if (isDir(v) and moduleDirT[v] == nil) then
          moduleDirT[v] = 1
          moduleT[v]    = {}
          M.findModulesInDir(v, v, "", moduleT[v])
