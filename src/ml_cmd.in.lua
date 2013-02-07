@@ -141,7 +141,7 @@ function main()
    end
 
    if (#cmdA > 1) then
-      io.stderr:write("error: too many commands\n")
+      io.stderr:write("ml error: too many commands\n")
       os.exit(1)
    end
 
