@@ -49,7 +49,7 @@ SET_BASE_DIR()
       ADMIN_DIR=/opt/moduleData
       ;;
 
-    ranger | lonestar )
+    ranger | lonestar | ls4 )
       base="$HOME/l/pkg"
       ADMIN_ranger="/share/moduleData"
       ADMIN_ls4="/home1/moduleData"
