@@ -45,6 +45,7 @@ REQUIRED_PKGS	 := \
                     Dbg           \
                     Optiks        \
                     Optiks_Option \
+	            ProgressBar   \
 	            TermWidth     \
                     capture       \
                     escape        \
