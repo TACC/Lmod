@@ -28,7 +28,6 @@ local type               = type
 local expert             = expert
 local removeEntry        = table.remove
 
-
 require("TermWidth")
 require("fileOps")
 require("string_trim")
@@ -47,7 +46,7 @@ local ModuleStack  = require("ModuleStack")
 local Spider       = require("Spider")
 local abspath      = abspath
 local extname      = extname
---local fillWords    = 
+local hook         = require("Hook")
 local isFile       = isFile
 local lfs          = require('lfs')
 local pathJoin     = pathJoin
@@ -420,6 +419,7 @@ function M.load(...)
          mt:set_mType(t.modName,t.mType)
          dbg.print("Marked: ",t.modFullName," as loaded\n")
          loaded = true
+         hook.apply("load",t)
       end
       a[#a+1] = loaded
    end

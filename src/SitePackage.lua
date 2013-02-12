@@ -17,6 +17,3 @@
 
 -- A "SitePackage.lua" in that directory will override the one in the Lmod
 -- install directory.
-
-
-

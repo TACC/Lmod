@@ -1,0 +1,70 @@
+-- -*- lua -*-
+
+local testName = "hook"
+
+testdescript = {
+   owner   = "rtm",
+   product = "modules",
+   description = [[
+	 Test initial module load
+   ]],
+   keywords = {testName},
+
+   active = 1,
+   testName = testName,
+   job_submit_method = "INTERACTIVE", 
+
+   runScript = [[
+
+     . $(projectDir)/rt/common_funcs.sh
+
+     unsetMT
+     PATH_to_LUA=`findcmd --pathOnly lua`
+     PATH_to_TM=`findcmd --pathOnly tm`
+
+     PATH=$(projectDir)/src:$PATH_to_LUA:$PATH_to_TM:/usr/bin:/bin
+     export PATH
+     INFOPATH='';                       export INFOPATH
+     MANPATH='';                        export MANPATH
+     LD_LIBRARY_PATH='';                export LD_LIBRARY_PATH
+     MODULEPATH="";                     export MODULEPATH
+     MODULEPATH_ROOT=$(projectDir)/mf;  export MODULEPATH_ROOT
+     LMOD_PREPEND_BLOCK=yes;            export LMOD_PREPEND_BLOCK
+
+     LMOD_PACKAGE_PATH=$(testDir);      export LMOD_PACKAGE_PATH
+
+     numStep=0
+     COUNT=0
+     ORIG_HOME=`(cd $HOME; /bin/pwd)`
+     HOME=`/bin/pwd`
+
+     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d
+     
+     runMe lua $(projectDir)/src/lmod.in.lua bash --version                      # 1
+     runMe lua $(projectDir)/src/lmod.in.lua bash use -a $projectDir/mf/Core     # 2
+     runMe lua $(projectDir)/src/lmod.in.lua bash load admin intel               # 3
+
+     HOME=$ORIG_HOME
+     cat _stdout.[0-9][0-9] > _stdout.orig
+     joinBase64Results  -bash  _stdout.orig _stdout.new
+     cleanUp _stdout.new out.txt
+
+     cat _stderr.[0-9][0-9] > _stderr.orig
+     cleanUp _stderr.orig err.txt
+
+     rm -f $(cmdResultFn)
+     wrapperDiff -r $(cmdResultFn) $(testDir)/out.txt out.txt
+     wrapperDiff -r $(cmdResultFn) $(testDir)/err.txt err.txt
+     testFinish -c $(cmdResultFn) -r $(resultFn) -t $(runtimeFn)
+   ]],
+
+
+   blessScript = [[
+         # perform what is needed
+   ]],
+
+   tests = {
+      { id='t1'},
+   },
+
+}
