@@ -1,7 +1,7 @@
 #!/bin/bash 
 # -*- shell-script -*-
-VERSION=`(cd src; lua -e "local Version=require('Version'); print(Version.name())") | awk '{print $1}'` 
-echo Making Version: $VERSION
+PKG_VERSION=`(cd src; lua -e "local Version=require('Version'); print(Version.name())") | awk '{print $1}'` 
+echo Making Version: $PKG_VERSION
 
 runMe()
 {
