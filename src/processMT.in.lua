@@ -92,6 +92,7 @@ function process(userName, mt_date, f, outputFh)
    a[#a+1] = mt_date
 
    if (_ModuleTable_.version == 1) then
+      local mt=_ModuleTable_
       for i, v  in ipairs(mt.active.FN) do
          if (v:sub(-4,-1) == ".lua") then
             v = v:sub(1,-5)
