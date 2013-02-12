@@ -15,46 +15,52 @@ require("strict")
 require("fileOps")
 require("string_split")
 
-local Optiks    = require("Optiks")
-local concatTbl = table.concat
-local floor     = math.floor
-local lfs       = require("lfs")
-local mod       = math.mod
+local Optiks      = require("Optiks")
+local ProgressBar = require("ProgressBar")
+local concatTbl   = table.concat
+local lfs         = require("lfs")
 
 function main()
    local optionTbl = options()
    local outputFh  = io.open(optionTbl.fn,"a")
-   local iuser     = 0
-   local unit      = 2
-   local fence     = unit
 
    --------------------------------------------------------------
    -- count number of active users
 
-   for userName, homeDir in processPWRec("/etc/passwd") do
-      local dir = pathJoin(homeDir,".lmod.d",".save")
-      if ( isDir(dir)) then
-         iuser = iuser + 1
-      end
-   end
-   local nusers = iuser
+   -- get number of user from number of lines in /etc/passwd
+   
+   local passwd = optionTbl.passwd
+   local line   = capture("wc -l " .. passwd)
+   local nusers = line:match("(%d+)")
+   local pb     = ProgressBar:new{stream = io.stdout, max = nusers, barWidth=100}
 
-   iuser = 0
-   for userName, homeDir in processPWRec("/etc/passwd") do
+
+   local iuser = 0
+   for userName, homeDir in processPWRec(passwd) do
+      iuser   = iuser + 1
+      pb:progress(iuser)
+
       local dir = pathJoin(homeDir,".lmod.d",".save")
       if ( isDir(dir)) then
-         iuser   = iuser + 1
-         local j = floor(iuser/nusers*100)
-         if ( j > fence) then
-            io.stdout:write("#")
-            io.stdout:flush()
-            fence = fence + unit
-         end
          for file in lfs.dir(dir) do
             if (file:sub(-4,-1) == ".lua") then
                local mt_date = file:sub(1,19)
                local f = pathJoin(dir,file)
                process(userName, mt_date, f, outputFh)
+               if (optionTbl.delete) then
+                  os.remove(f)
+               end
+            end
+         end
+      end
+
+      local dir = pathJoin(homeDir,".lmod.d",".saveBatch")
+      if ( isDir(dir)) then
+         for file in lfs.dir(dir) do
+            if (file:sub(-4,-1) == ".lua") then
+               local mt_date = file:sub(1,19)
+               local f = pathJoin(dir,file)
+               processBatch(userName, mt_date, f, outputFh)
                if (optionTbl.delete) then
                   os.remove(f)
                end
@@ -82,17 +88,48 @@ function process(userName, mt_date, f, outputFh)
    end
    resultFn()
 
-   local mt = _ModuleTable_
-
    a[#a+1] = userName
    a[#a+1] = mt_date
 
-   for i, v  in ipairs(mt.active.FN) do
-      if (v:sub(-4,-1) == ".lua") then
-         v = v:sub(1,-5)
+   if (_ModuleTable_.version == 1) then
+      for i, v  in ipairs(mt.active.FN) do
+         if (v:sub(-4,-1) == ".lua") then
+            v = v:sub(1,-5)
+         end
+         a[#a+1] = "\"" .. mt.active.fullModName[i] .. ":" .. v .. "\""
       end
-      a[#a+1] = "\"" .. mt.active.fullModName[i] .. ":" .. v .. "\""
+   else
+      local mT = _ModuleTable_.mT
+      for pkg, v in pairs(mT) do
+         a[#a+1] = "\"" .. v.fullName .. ":" .. v.FN:gsub("%.lua$","") .. "\""
+      end
    end
+
+   local s = concatTbl(a,",")
+   outputFh:write(s,"\n")
+end
+
+------------------------------------------------------------------------
+-- This function process one saved module table state.  The result is one
+-- more line written to the output file.
+--
+-- Each line is userName,date,MF,MF,...
+--   where MF is "full Module Name : modulefile
+
+function processBatch(userName, mt_date, f, outputFh)
+
+   local a = {}
+   local resultFn = loadfile(f)
+
+   if (not resultFn) then
+      return
+   end
+   resultFn()
+
+   a[#a+1] = userName
+   a[#a+1] = mt_date
+   a[#a+1] = moduleInfoT.modFullName
+   a[#a+1] = moduleInfoT.fn:gsub("%.lua$","")
    local s = concatTbl(a,",")
    outputFh:write(s,"\n")
 end
@@ -142,9 +179,16 @@ function options()
    }
 
    cmdlineParser:add_option{ 
-      name   = {'-d', '--delete'},
+      name   = {'--delete'},
       dest   = 'delete',
       action = 'store_true',
+   }
+
+   cmdlineParser:add_option{ 
+      name   = {'--passwd'},
+      dest   = 'passwd',
+      action = 'store',
+      default = "/etc/passwd",
    }
 
    local optionTbl, pargs = cmdlineParser:parse(arg)
