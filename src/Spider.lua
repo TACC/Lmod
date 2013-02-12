@@ -457,6 +457,7 @@ function M.singleSpiderDB(a, moduleT, dbT)
    local dbg = Dbg:dbg()
    dbg.start("Spider.singleSpiderDB({",concatTbl(a,","),"},moduleT, dbT)")
    for path, value in pairs(moduleT) do
+      dbg.print("path: ",path,"\n")
       local nameL = value.name_lower or value.name:lower()
       dbT[nameL]  = dbT[nameL] or {}
       local t     = dbT[nameL]

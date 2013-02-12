@@ -1179,6 +1179,7 @@ function main()
    end
 
    dbg.start("lmod(", arg_str,")")
+   dbg.print("Lmod Version: ",Version.name(),"\n")
    MCP = MasterControl.build("load")
    mcp = MasterControl.build("load")
    dbg.print("Setting mpc to ", mcp:name(),"\n")
