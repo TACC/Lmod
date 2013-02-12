@@ -803,17 +803,22 @@ function readCacheFile(cacheType, cacheFileA, moduleDirT, moduleT)
          
             -- Check for matching default MODULEPATH.
             assert(loadfile(f))()
-            for k, v in pairs(_G.moduleT) do
-               if ( k:sub(1,1) == '/' ) then
-                  local dirTime = moduleDirT[k] or -1
-                  dbg.print("processing directory: ",k," with dirTime: ",dirTime,"\n")
-                  if (attr.modification > dirTime) then
-                     dbg.print("saving directory: ",k,"\n")
-                     moduleDirT[k] = attr.modification
-                     moduleT[k]    = v
+            
+            if (_G.moduleT.version == nil ) then
+               dbg.print("Ignoring old style cache file!\n")
+            else
+               for k, v in pairs(_G.moduleT) do
+                  if ( k:sub(1,1) == '/' ) then
+                     local dirTime = moduleDirT[k] or -1
+                     dbg.print("processing directory: ",k," with dirTime: ",dirTime,"\n")
+                     if (attr.modification > dirTime) then
+                        dbg.print("saving directory: ",k,"\n")
+                        moduleDirT[k] = attr.modification
+                        moduleT[k]    = v
+                     end
+                  else
+                     moduleT[k] = v
                   end
-               else
-                  moduleT[k] = v
                end
             end
          end
