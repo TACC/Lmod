@@ -15,6 +15,8 @@ require("strict")
 require("fileOps")
 require("string_split")
 
+_ModuleTable_ = false
+moduleInfoT = false
 local Optiks      = require("Optiks")
 local ProgressBar = require("ProgressBar")
 local concatTbl   = table.concat
@@ -87,6 +89,7 @@ function process(userName, mt_date, f, outputFh)
       return
    end
    resultFn()
+   if (_ModuleTable_ 
 
    a[#a+1] = userName
    a[#a+1] = mt_date
