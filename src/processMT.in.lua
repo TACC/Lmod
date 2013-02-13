@@ -107,7 +107,7 @@ function process(userName, mt_date, f, outputFh)
       end
    else
       local mT = _ModuleTable_.mT
-      if (mt and type(mt) == "table") then
+      if (mT and type(mT) == "table") then
          for pkg, v in pairs(mT) do
             if (v.fullName and v.FN) then
                a[#a+1] = "\"" .. v.fullName .. ":" .. v.FN:gsub("%.lua$","") .. "\""
