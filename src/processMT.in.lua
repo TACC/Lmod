@@ -89,7 +89,7 @@ function process(userName, mt_date, f, outputFh)
       return
    end
    resultFn()
-   if (_ModuleTable_ == nil) then return end
+   if (_ModuleTable_ == nil or type(_ModuleTable_) ~= "table" ) then return end
 
    a[#a+1] = userName
    a[#a+1] = mt_date
