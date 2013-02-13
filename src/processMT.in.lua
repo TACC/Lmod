@@ -96,21 +96,32 @@ function process(userName, mt_date, f, outputFh)
 
    if (_ModuleTable_.version == 1) then
       local mt=_ModuleTable_
-      for i, v  in ipairs(mt.active.FN) do
-         if (v:sub(-4,-1) == ".lua") then
-            v = v:sub(1,-5)
+      if (mt           and type(mt)           == "table" and
+          mt.active    and type(mt.active)    == "table" and
+          mt.active.FN and type(mt.active.FN) == "table") then
+         for i, v  in ipairs(mt.active.FN) do
+            if (v:sub(-4,-1) == ".lua") then
+               v = v:sub(1,-5)
+            end
+            if (mt.active.fullModName and type(mt.active.fullModName) == table )then
+               a[#a+1] = "\"" .. mt.active.fullModName[i] .. ":" .. v .. "\""
+            end
          end
-         a[#a+1] = "\"" .. mt.active.fullModName[i] .. ":" .. v .. "\""
       end
    else
       local mT = _ModuleTable_.mT
-      for pkg, v in pairs(mT) do
-         a[#a+1] = "\"" .. v.fullName .. ":" .. v.FN:gsub("%.lua$","") .. "\""
+      if (mt and type(mt) == "table") then
+         for pkg, v in pairs(mT) do
+            if (v.fullName and v.FN) then
+               a[#a+1] = "\"" .. v.fullName .. ":" .. v.FN:gsub("%.lua$","") .. "\""
+            end
+         end
       end
    end
-
-   local s = concatTbl(a,",")
-   outputFh:write(s,"\n")
+   if (#a > 2) then
+      local s = concatTbl(a,",")
+      outputFh:write(s,"\n")
+   end
 end
 
 ------------------------------------------------------------------------
@@ -130,18 +141,17 @@ function processBatch(userName, mt_date, f, outputFh)
    end
    resultFn()
 
-   a[#a+1] = userName
-   a[#a+1] = mt_date
-   a[#a+1] = moduleInfoT.modFullName
-   a[#a+1] = moduleInfoT.fn:gsub("%.lua$","")
-   local s = concatTbl(a,",")
-   outputFh:write(s,"\n")
+   if (moduleInfoT and type(moduleInfo) == "table" and
+       moduleInfoT.modFullName and
+       moduleInfoT.fn) then
+      a[#a+1] = userName
+      a[#a+1] = mt_date
+      a[#a+1] = moduleInfoT.modFullName
+      a[#a+1] = moduleInfoT.fn:gsub("%.lua$","")
+      local s = concatTbl(a,",")
+      outputFh:write(s,"\n")
+   end
 end
-
-
-
-
-
 
 ------------------------------------------------------------------------
 -- This function returns an iterator:  The iterator returns the next
