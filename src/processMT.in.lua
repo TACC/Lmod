@@ -100,11 +100,8 @@ function process(userName, mt_date, f, outputFh)
           mt.active    and type(mt.active)    == "table" and
           mt.active.FN and type(mt.active.FN) == "table") then
          for i, v  in ipairs(mt.active.FN) do
-            if (v:sub(-4,-1) == ".lua") then
-               v = v:sub(1,-5)
-            end
-            if (mt.active.fullModName and type(mt.active.fullModName) == table )then
-               a[#a+1] = "\"" .. mt.active.fullModName[i] .. ":" .. v .. "\""
+            if (v and mt.active.fullModName and type(mt.active.fullModName) == table )then
+               a[#a+1] = "\"" .. mt.active.fullModName[i] .. ":" .. v:gsub("%.lua$","") .. "\""
             end
          end
       end
