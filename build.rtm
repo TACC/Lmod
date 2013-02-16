@@ -1,7 +1,7 @@
 #!/bin/bash 
 # -*- shell-script -*-
-VERSION=`(cd src; lua -e "local Version=require('Version'); print(Version.name())") | awk '{print $1}'` 
-echo Making Version: $VERSION
+PKG_VERSION=`(cd src; lua -e "local Version=require('Version'); print(Version.name())") | awk '{print $1}'` 
+echo Making Version: $PKG_VERSION
 
 runMe()
 {
@@ -34,56 +34,49 @@ runMe()
   done
 }
 
-SET_BASE_DIR()
-{
-  myhost=$(hostname -f)
-  myhost=${myhost%.tacc.utexas.edu}
-  first=${myhost%%.*}
-  SYSHOST=${myhost#*.}
-  SUDO=""
+myhost=$(hostname -f)
+myhost=${myhost%.tacc.utexas.edu}
+first=${myhost%%.*}
+SYSHOST=${myhost#*.}
+SUDO=""
   
-  case $SYSHOST in
-    rios | mijo | jedrik | vato | vmijo | devo)
-      SUDO="sudo"
-      base="/opt/apps"
-      ADMIN_DIR=/opt/moduleData
-      ;;
+case $SYSHOST in
+  rios | mijo | jedrik | vato | vmijo | devo)
+    SUDO="sudo"
+    base="/opt/apps"
+    ADMIN_DIR=/opt/moduleData
+    ;;
 
-    ranger | lonestar )
-      base="$HOME/l/pkg"
-      ADMIN_ranger="/share/moduleData"
-      ADMIN_ls4="/home1/moduleData"
-      eval "ADMIN_DIR=\$ADMIN_$SYSHOST"
-      ;;
+  ls4 | longhorn | stampede)
+    base="$HOME/l/pkg"
+    ADMIN_DIR="/home1/moduleData"
+    TACC_SYSTEM=1
+    if [ $SYSHOST == "stampede" ]; then
+      base="$base/$(uname -m)"
+    fi
+    ;;
 
-    stampede)
-      CFLAGS_EXTRA="-mmic"
-      base="$HOME/l/pkg/$(uname -m)"
-      ADMIN_DIR="/home1/moduleData"
-      ;;
-    
-    *)
-      base="$HOME/l/pkg"
-      ;;
-  esac
-  BASE_DIR=$base
-}
+  *)
+    base="$HOME/l/pkg"
+    ;;
+esac
+BASE_DIR=$base
+
+pkgName=lmod
+PKG=$BASE_DIR/$pkgName/$PKG_VERSION
+
+EXTRA_CMD="echo "
+if [ -n "$TACC_SYSTEM" ]; then
+   EXTRA_CMD="cp contrib/TACC/*.lua $PKG/libexec"
+fi
 
 
 rm -f config.status config.log
 
-pkgName=lmod
-
-SET_BASE_DIR $pkgName
-
-echo BASE_DIR: $BASE_DIR
-
-PKG=$BASE_DIR/$pkgName/$PKG_VERSION
-
-
 cmdA=("-make distclean"
       "./configure --prefix=$BASE_DIR --with-ancient=86401 --with-shortTime=10.3 --with-spiderCacheDir=$ADMIN_DIR/cacheDir  --with-updateSystemFn=$ADMIN_DIR/system.txt"
       "$SUDO make install"
+      "$EXTRA_CMD"
       "make clobber"
       )
 
