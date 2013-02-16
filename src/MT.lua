@@ -495,12 +495,18 @@ function M.reloadAllModules(self)
    return not changed
 end
 
-
-------------------------------------------------------------
--- Pass-Thru function modules in the Active list
-
 function shortName(moduleName)
    return moduleName:gsub("([^/]+)/.*","%1")
+end
+
+function shortName2(moduleName)
+   local i,j = moduleName:find(".*/")
+   if (j) then
+      j = j - 1
+   else
+      j = -1
+   end
+   return moduleName:sub(1,j)
 end
 
 function M.add(self, t, status)
