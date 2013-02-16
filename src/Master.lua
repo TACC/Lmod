@@ -658,6 +658,7 @@ local function availDir(searchA, mpath, path, prefix, dbT, a, legendT)
                for _,v in ipairs(searchA) do
                   if (n:find(v,1,true) or n:find(v)) then
                      found = true
+                     break
                   end
                end
             end
