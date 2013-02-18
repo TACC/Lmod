@@ -556,7 +556,7 @@ end
 
 
 
-local function findDefault(mpath, path, prefix)
+local function findDefaultOld(mpath, path, prefix)
    local dbg      = Dbg:dbg()
    local mt       = MT:mt()
    local localDir = true
@@ -653,8 +653,8 @@ local function findDefault(mpath, sn, versionA)
       end
    end
 
-   if (not default) then
-      default = abspath(versionA[#versionA]).file, localdir)
+   if (not default and #versionA > 1) then
+      default = abspath(versionA[#versionA].file, localDir)
    end
    dbg.print("default: ", tostring(default),"\n")
    dbg.fini()
@@ -663,11 +663,13 @@ local function findDefault(mpath, sn, versionA)
 end
 
 local function availEntry(searchA, name, f, defaultModule, dbT, legendT, a)
-   local dbg    = Dbg:dbg()
+   local dbg      = Dbg:dbg()
    dbg.start("Master:availEntry(searchA, name, f, defaultModule, dbT, legendT, a)")
-   local dflt   = ""
-   local sCount = #searchA
-   local found  = false
+   local dflt     = ""
+   local sCount   = #searchA
+   local found    = false
+   local localdir = true
+   local mt       = MT:mt()
 
    if (sCount == 0) then
       found = true
@@ -686,8 +688,9 @@ local function availEntry(searchA, name, f, defaultModule, dbT, legendT, a)
          dflt = Default
          legendT[Default] = "Default Module"
       end
-      local aa = {}
+      local aa    = {}
       local propT = {}
+      local sn    = mt:shortName(name)
       local entry = dbT[sn]
       if (entry) then
          dbg.print("Found dbT[sn]\n")
@@ -714,9 +717,9 @@ local function availDir(searchA, mpath, availA, dbT, a, legendT)
    local dbg    = Dbg:dbg()
    dbg.start("Master.availDir(searchA=(",concatTbl(searchA,", "),"), mpath=\"",mpath,"\", ",
              "availA, dbT, a, legendT)")
-   local attr    = lfs.attributes(path)
+   local attr    = lfs.attributes(mpath)
    local mt      = MT:mt()
-   if (not attr or type(attr) ~= "table" or attr.mode ~= "directory", or not posix.access(path,"x")) then
+   if (not attr or type(attr) ~= "table" or attr.mode ~= "directory" or not posix.access(mpath,"x")) then
       dbg.print("Skipping non-existant directory: ", mpath,"\n")
       dbg.fini()
       return
@@ -727,15 +730,12 @@ local function availDir(searchA, mpath, availA, dbT, a, legendT)
       local sn            = availA[j].sn
       local versionA      = availA[j].versionA
       local defaultModule = false
-      -- Find the default if there is more than 1 version
-      if (#vA > 1) then
-         defaultModule = findDefault(mpath, sn, versionA)
-      end
 
       local aa = {}
-      if (#vA == 0) then
+      if (#versionA == 0) then
          availEntry(searchA, sn, "", defaultModule, dbT, legendT, a)
       else
+         defaultModule = findDefault(mpath, sn, versionA)
          for i = 1, #versionA do
             local name = pathJoin(sn, versionA[i].version)
             local f    = versionA[i].file
@@ -749,7 +749,8 @@ end
 function M.avail(searchA)
    local dbg    = Dbg:dbg()
    dbg.start("Master.avail(",concatTbl(searchA,", "),")")
-   local mpathA = MT:mt():module_pathA()
+   local mt     = MT:mt()
+   local mpathA = mt:module_pathA()
    local width  = TermWidth()
 
    local mcp_old = mcp
@@ -770,7 +771,7 @@ function M.avail(searchA)
       local a = {}
       availDir(searchA, mpath, availT[mpath], dbT, a, legendT)
       if (next(a)) then
-         prtDirName(width, path,aa)
+         prtDirName(width, mpath,aa)
          local ct  = ColumnTable:new{tbl=a, gap=1, len=length}
          aa[#aa+1] = ct:build_tbl()
          aa[#aa+1] = "\n"
