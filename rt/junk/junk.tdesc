@@ -40,9 +40,12 @@ testdescript = {
 
      runMe lua $(projectDir)/src/lmod.in.lua bash add junk/d 
 
-     runMe lua $(projectDir)/src/lmod.in.lua bash sw junk/d/3.0 junk/a/c 
+     runMe lua $(projectDir)/src/lmod.in.lua bash add junk/a/c
+     runMe lua $(projectDir)/src/lmod.in.lua bash list 
 
      runMe lua $(projectDir)/src/lmod.in.lua bash del junk/a/c/1.0
+
+
 
      cat _stdout.[0-9][0-9] > _stdout.orig
      joinBase64Results  -bash  _stdout.orig _stdout.new

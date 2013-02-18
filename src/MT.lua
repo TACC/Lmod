@@ -19,6 +19,7 @@ local os           = os
 local pairs        = pairs
 local prtErr       = prtErr
 local setmetatable = setmetatable
+local sort         = table.sort
 local string       = string
 local systemG      = _G
 local tostring     = tostring
@@ -29,6 +30,7 @@ local varTbl       = varTbl
 require("string_split")
 require("fileOps")
 require("serializeTbl")
+require("parseVersion")
 
 local Var          = require('Var')
 local lfs          = require('lfs')
@@ -48,24 +50,97 @@ end
 s_loadOrder = 0
 s_mt = nil
 
-local function build_locationTbl(tbl, pathA)
-   local dbg = Dbg:dbg()
-   for _,path in ipairs(pathA)  do
-      local attr = lfs.attributes(path)
-      if ( attr and attr.mode == "directory") then
-         for file in lfs.dir(path) do
-            local f = pathJoin(path,file)
-            local readable = posix.access(f,"r")
-            if (readable and not ignoreT[file]) then
-               local a   = tbl[file] or {}
-               file      = file:gsub("%.lua$","")
-               a[#a+1]   = {file = f, mpath = path }
-               tbl[file] = a
-            end
+local function locationTblDir(mpath, path, prefix, locationT, availT)
+   local dbg  = Dbg:dbg()
+   dbg.start("locationTblDir(mpath=",tostring(mpath),", path=",tostring(path),
+             ", prefix=",prefix,",locationT)")
+
+   local attr = lfs.attributes(path)
+   if (not attr or type(attr) ~= "table" or attr.mode ~= "directory" or not posix.access(path,"x")) then
+      dbg.fini()
+      return
+   end
+
+   local mnameT        = {}
+   local dirA          = {}
+
+   for file in lfs.dir(path) do
+      if (file:sub(1,1) ~= "." and file ~= "CVS" and file:sub(-1,-1) ~= "~") then
+         local f = pathJoin(path,file)
+         attr    = lfs.attributes(f) or {}
+         local readable = posix.access(f,"r")
+         if (readable and attr.mode == 'file' and file ~= "default") then
+            local mname = pathJoin(prefix, file):gsub("%.lua","")
+            mnameT[mname] = {file=f, mpath = mpath}
+         elseif (attr.mode == "directory") then
+            dirA[#dirA + 1] = { fullName = f, mname = pathJoin(prefix, file) } 
          end
       end
    end
+   if (#dirA > 0 or prefix == '') then
+      for k,v in pairs(mnameT) do
+         local a      = locationT[k] or {}
+         a[#a+1]      = v
+         locationT[k] = a
+         dbg.print("Adding Meta module: ",k," file: ", v.file,"\n")
+         availT[#availT+1] = { sn = k, versionA = {} }
+      end
+      for i = 1, #dirA do
+         locationTblDir(mpath, dirA[i].fullName,  dirA[i].mname, locationT, availT)
+      end
+   else
+      local a           = locationT[prefix] or {}
+      dbg.print("adding Regular module: file: ",path, " mpath: ", prefix, "\n")
+      a[#a+1]           = { file = path, mpath = mpath}
+      locationT[prefix] = a
+      availT[#availT+1] = { sn = prefix, versionA = {} }
+      local vA          = {}
+      for full, v in pairs(mnameT) do
+         local version = full:gsub(".*/","")
+         local parseV  = concatTbl(parseVersion(version), ".")
+         vA[#vA+1]     = {parseV, version, v.file}
+      end
+      sort(vA, function(a,b) return a[1] < b[1] end )
+      local a = {}
+      for i = 1, #vA do
+         a[#a+1] = {version = vA[i][2], file = vA[i][3]}
+      end
+      availT[#availT].versionA = a
+
+      local b = availT[#availT].versionA
+   end
+   dbg.fini()
 end
+
+
+local function build_locationTbl(mpathA)
+
+   local dbg       = Dbg:dbg()
+   local locationT = {}
+   local availT    = {}
+
+   for i = 1, #mpathA do
+      local mpath = mpathA[i]
+      availT[mpath] = {}
+      locationTblDir(mpath, mpath, "", locationT, availT[mpath])
+      sort(availT[mpath], function(a,b) return a.sn < b.sn end)
+   end
+
+   --for mpath, vv in pairs(availT) do
+   --   io.stderr:write("mpath: ", mpath,":\n")
+   --   for j = 1, #vv do
+   --      io.stderr:write("  ",vv[j].sn,":")
+   --      local vA = vv[j].versionA
+   --      for i = 1, #vA do
+   --         io.stderr:write(" ",vA[i],", ")
+   --      end
+   --      io.stderr:write("\n")
+   --   end
+   --end
+
+   return locationT, availT
+end
+
 
 local function columnList(stream, msg, a)
    local t = {}
@@ -93,6 +168,7 @@ local function new(self, s)
    o._same            = true
    o._MPATH           = ""
    o._locationTbl     = {}
+   o._availT          = {}
 
    o._changePATH      = false
    o._changePATHCount = 0
@@ -201,7 +277,7 @@ local function setupMPATH(self,mpath)
    if (not self._same) then
       self:buildMpathA(mpath)
    end
-   build_locationTbl(self._locationTbl,self.mpathA)
+   self._locationTbl, self._availT = build_locationTbl(self.mpathA)
 end
 
 function M.mt(self)
@@ -427,8 +503,12 @@ function M.getfamily(self,familyNm)
 end
 
 
-function M.locationTbl(self, fn)
-   return self._locationTbl[fn]
+function M.locationTbl(self, key)
+   return self._locationTbl[key]
+end
+
+function M.availT(self)
+   return self._availT
 end
 
 function M.sameMPATH(self, mpath)
@@ -464,8 +544,7 @@ end
 
 function M.reEvalModulePath(self)
    self:buildMpathA(varTbl[ModulePath]:expand())
-   self._locationTbl = {}
-   build_locationTbl(self._locationTbl, self.mpathA)
+   self._locationTbl, self._availT = build_locationTbl(self.mpathA)
 end
 
 function M.reloadAllModules(self)
@@ -495,17 +574,17 @@ function M.reloadAllModules(self)
    return not changed
 end
 
-function shortName(moduleName)
-   return moduleName:gsub("([^/]+)/.*","%1")
-end
+--function shortName(moduleName)
+--   return moduleName:gsub("([^/]+)/.*","%1")
+--end
 
-function shortName2(moduleName)
-   local i,j = moduleName:find(".*/")
-   if (j) then
-      j = j - 1
-   else
-      j = -1
+function M.shortName(self, moduleName)
+   if (self:locationTbl(moduleName)) then
+      return moduleName
    end
+
+   local i,j = moduleName:find(".*/")
+   j = (j or 0) - 1
    return moduleName:sub(1,j)
 end
 
@@ -537,7 +616,7 @@ end
 
 function M.fileName(self, moduleName)
    local mT    = self.mT
-   local sn    = shortName(moduleName)
+   local sn    = self:shortName(moduleName)
    local entry = mT[sn]
    if (entry == nil) then
       return nil
@@ -547,7 +626,7 @@ end
 
 function M.setStatus(self, moduleName, status)
    local mT    = self.mT
-   local sn    = shortName(moduleName)
+   local sn    = self:shortName(moduleName)
    local entry = mT[sn]
    if (entry ~= nil) then
       entry.status = status
@@ -558,7 +637,7 @@ end
 
 function M.getStatus(self, moduleName)
    local mT    = self.mT
-   local sn    = shortName(moduleName)
+   local sn    = self:shortName(moduleName)
    local entry = mT[sn]
    if (entry ~= nil) then
       return entry.status
@@ -568,7 +647,7 @@ end
 
 function M.haveSN(self, moduleName, status)
    local mT    = self.mT
-   local sn    = shortName(moduleName)
+   local sn    = self:shortName(moduleName)
    local entry = mT[sn]
    if (entry == nil) then
       return false
@@ -582,7 +661,7 @@ end
 function M.have(self, moduleName, status)
    local dbg   = Dbg:dbg()
    local mT    = self.mT
-   local sn    = shortName(moduleName)
+   local sn    = self:shortName(moduleName)
    local entry = mT[sn]
    if (entry == nil) then
       return false
@@ -657,7 +736,7 @@ end
 
 function M.getHash(self, moduleName)
    local mT    = self.mT
-   local sn    = shortName(moduleName)
+   local sn    = self:shortName(moduleName)
    local entry = mT[sn]
    if (entry == nil) then
       return nil
@@ -677,8 +756,8 @@ end
 
 
 function M.markDefault(self, moduleName)
-   local mT = self.mT
-   local sn = shortName(moduleName)
+   local mT    = self.mT
+   local sn    = self:shortName(moduleName)
    local entry = mT[sn]
    if (entry ~= nil) then
       mT[sn].default = 1
@@ -687,7 +766,7 @@ end
 
 function M.default(self, moduleName)
    local mT    = self.mT
-   local sn    = shortName(moduleName)
+   local sn    = self:shortName(moduleName)
    local entry = mT[sn]
    if (entry == nil) then
       return nil
@@ -709,7 +788,7 @@ end
 
 function M.fullName(self,moduleName)
    local mT    = self.mT
-   local sn    = shortName(moduleName)
+   local sn    = self:shortName(moduleName)
    local entry = mT[sn]
    if (entry == nil) then
       return nil
@@ -719,7 +798,7 @@ end
 
 function M.short(self,moduleName)
    local mT    = self.mT
-   local sn    = shortName(moduleName)
+   local sn    = self:shortName(moduleName)
    local entry = mT[sn]
    if (entry == nil) then
       return nil
@@ -729,7 +808,7 @@ end
 
 function M.mType(self,moduleName)
    local mT    = self.mT
-   local sn    = shortName(moduleName)
+   local sn    = self:shortName(moduleName)
    local entry = mT[sn]
    if (entry == nil) then
       return nil
@@ -739,7 +818,7 @@ end
 
 function M.set_mType(self,moduleName, value)
    local mT    = self.mT
-   local sn    = shortName(moduleName)
+   local sn    = self:shortName(moduleName)
    local entry = mT[sn]
    if (entry ~= nil) then
       mT[sn].mType = value
@@ -749,9 +828,9 @@ end
 
 function M.remove(self, moduleName)
    local dbg = Dbg:dbg()
-   local mT = self.mT
-   local sn = shortName(moduleName)
-   mT[sn] = nil
+   local mT  = self.mT
+   local sn  = self:shortName(moduleName)
+   mT[sn]    = nil
 end
 
 function M.safeToSave(self)
@@ -772,7 +851,7 @@ function M.add_property(self, moduleName, name, value)
    dbg.start("MT:add_property(\"",moduleName,"\", \"",name,"\", \"",tostring(value),"\")")
    
    local mT    = self.mT
-   local sn    = shortName(moduleName)
+   local sn    = self:shortName(moduleName)
    local entry = mT[sn]
 
    if (entry == nil) then
@@ -813,7 +892,7 @@ function M.remove_property(self, moduleName, name, value)
    dbg.start("MT:remove_property(\"",moduleName,"\", \"",name,"\", \"",tostring(value),"\")")
    
    local mT    = self.mT
-   local sn    = shortName(moduleName)
+   local sn    = self:shortName(moduleName)
    local entry = mT[sn]
 
    if (entry == nil) then
@@ -854,7 +933,7 @@ function M.list_property(self, idx, moduleName, style, legendT)
    dbg.start("MT:list_property(\"",moduleName,"\", \"",style,"\")")
    local dbg = Dbg:dbg()
    local mT    = self.mT
-   local sn    = shortName(moduleName)
+   local sn    = self:shortName(moduleName)
    local entry = mT[sn]
 
    if (entry == nil) then
@@ -899,7 +978,6 @@ function M.reportChanges(self, origMT)
    local reloadA   = {}
 
    for k, v in pairs(mT) do
-      
       if (self:have(k,"inactive") and v.status == "active") then
          local name = v.fullName
          if (v.default ~= 0) then

@@ -33,6 +33,7 @@ require("fileOps")
 require("string_trim")
 require("fillWords")
 require("lastFileInDir")
+require("escape")
 
 ModuleName=""
 local BeautifulTbl = require('BeautifulTbl')
@@ -117,21 +118,15 @@ local function find_module_file(moduleName)
 
    local t        = { fn = nil, modFullName = nil, modName = nil, default = 0, hash = 0}
    local mt       = MT:mt()
-   local fullName = moduleName
-   local idx      = moduleName:find('/')
-   local localDir = true
-   local key, extra, modName
-   if (idx == nil) then
-      key   = moduleName
-      extra = ''
-   else
-      key   = moduleName:sub(1,idx-1)
-      extra = moduleName:sub(idx)
-   end
+   local fullName = ""
+   local modName  = ""
+   local sn       = mt:shortName(moduleName)
+   local extra    = moduleName:gsub(escape(sn),""):gsub("^/+","")
 
-   local pathA = mt:locationTbl(key)
+   local pathA = mt:locationTbl(sn)
 
    if (pathA == nil or #pathA == 0) then
+      dbg.print("did not find key: \"",sn,"\" in mt:locationTbl()\n")
       dbg.fini()
       return t
    end
@@ -160,7 +155,7 @@ local function find_module_file(moduleName)
          elseif (found and v == '/.version' and ii == 1) then
             local vf = M.versionFile(result)
             if (vf) then
-               t         = find_module_file(pathJoin(key,vf))
+               t         = find_module_file(pathJoin(sn,vf))
                t.default = 1
                result    = t.fn
             end
@@ -196,17 +191,18 @@ local function find_module_file(moduleName)
             local i, j = result:find(mpath,1,true)
             fullName   = result:sub(j+2)
             fullName   = fullName:gsub("%.lua$","")
+            dbg.print("lastFileInDir mpath: ", mpath," fullName: ",fullName,"\n")
          end
       end
       if (found) then break end
    end
 
-   modName = M.formModName(fullName)
+   --modName = M.formModName(fullName)
 
    t.fn          = result
    t.modFullName = fullName
-   t.modName     = modName
-   dbg.print("modName: ",modName," fn: ", result," modFullName: ", fullName," default: ",tostring(t.default),"\n")
+   t.modName     = sn
+   dbg.print("modName: ",sn," fn: ", result," modFullName: ", fullName," default: ",tostring(t.default),"\n")
    dbg.fini()
    return t
 end
@@ -338,7 +334,7 @@ end
 
 local function access_find_module_file(moduleName)
    local mt = MT:mt()
-   if ((shortName(moduleName) == moduleName) and
+   if ((mt:shortName(moduleName) == moduleName) and
        (mt:haveSN(moduleName, "any"))) then
       local full = mt:fullName(moduleName) 
       return mt:fileName(moduleName), full or ""
@@ -394,6 +390,7 @@ function M.load(...)
 
    a   = {}
    for _,moduleName in ipairs{...} do
+      moduleName    = moduleName:gsub("/+$","")
       local loaded  = false
       local t	    = find_module_file(moduleName)
       local fn      = t.fn
@@ -495,7 +492,7 @@ function M.reloadAll()
    end
    for _, v in ipairs(a) do
       if (not mt:have(v,"active")) then
-         local t = { modFullName = v, modName = shortName(v)}
+         local t = { modFullName = v, modName = mt:shortName(v)}
          dbg.print("Master:reloadAll module: ",v," marked as inactive\n")
          mt:add(t, "inactive")
       end
@@ -554,6 +551,9 @@ local function prtDirName(width,path,a)
    a[#a+1] = string.rep("-",rcount)
    a[#a+1] = "\n"
 end
+
+
+
 
 
 local function findDefault(mpath, path, prefix)
@@ -617,80 +617,130 @@ local function findDefault(mpath, path, prefix)
    return default
 end
 
+local function findDefault(mpath, sn, versionA)
+   local dbg  = Dbg:dbg()
+   dbg.start("Master.findDefault(mpath=\"",mpath,"\", "," sn=\"",sn,"\")")
+   local mt   = MT:mt()
 
-local function availDir(searchA, mpath, path, prefix, dbT, a, legendT)
+   local pathA  = mt:locationTbl(sn) 
+   local mpath2 = pathA[1].mpath
+
+   if (mpath2 ~= mpath) then
+      dbg.print("(1) default: \"nil\"\n")
+      dbg.fini()
+      return nil
+   end
+
+   local localDir = true
+   local path     = pathJoin(mpath,sn)
+   local default  = abspath(pathJoin(path, "default"), localDir)
+   if (default == nil) then
+      local vFn = abspath(pathJoin(path,".version"), localDir)
+      if (isFile(vFn)) then
+         local vf = M.versionFile(vFn)
+         if (vf) then
+            local f = pathJoin(path,vf)
+            default = abspath(f,localDir)
+            --dbg.print("(1) f: ",f," default: ", tostring(default), "\n")
+            if (default == nil) then
+               local fn = vf .. ".lua"
+               local f  = pathJoin(path,fn)
+               default  = abspath(f,localDir)
+               dbg.print("(2) f: ",f," default: ", tostring(default), "\n")
+            end
+            --dbg.print("(3) default: ", tostring(default), "\n")
+         end
+      end
+   end
+
+   if (not default) then
+      default = abspath(versionA[#versionA]).file, localdir)
+   end
+   dbg.print("default: ", tostring(default),"\n")
+   dbg.fini()
+
+   return default
+end
+
+local function availEntry(searchA, name, f, defaultModule, dbT, legendT, a)
+   local dbg    = Dbg:dbg()
+   dbg.start("Master:availEntry(searchA, name, f, defaultModule, dbT, legendT, a)")
+   local dflt   = ""
+   local sCount = #searchA
+   local found  = false
+
+   if (sCount == 0) then
+      found = true
+   else
+      for i = 1, sCount do
+         local s = searchA[i]
+         if (name:find(s, 1, true) or name:find(s)) then
+            found = true
+            break
+         end
+      end
+   end
+
+   if (found) then
+      if (defaultModule == abspath(f, localdir)) then
+         dflt = Default
+         legendT[Default] = "Default Module"
+      end
+      local aa = {}
+      local propT = {}
+      local entry = dbT[sn]
+      if (entry) then
+         dbg.print("Found dbT[sn]\n")
+         if (entry[f]) then
+            propT =  entry[f].propT or {}
+         end
+      else
+         dbg.print("Did not find dbT[sn]\n")
+      end
+      local resultA = colorizePropA("short", name, propT, legendT)
+      aa[#aa + 1] = '  '
+      for i = 1,#resultA do
+         aa[#aa+1] = resultA[i]
+      end
+      aa[#aa + 1] = dflt
+      a[#a + 1]   = aa
+   end
+   dbg.fini()
+end
+
+
+
+local function availDir(searchA, mpath, availA, dbT, a, legendT)
    local dbg    = Dbg:dbg()
    dbg.start("Master.availDir(searchA=(",concatTbl(searchA,", "),"), mpath=\"",mpath,"\", ",
-             "path=\"",path,"\", prefix=\"",prefix,"\")")
-   local sCount  = #searchA
+             "availA, dbT, a, legendT)")
    local attr    = lfs.attributes(path)
    local mt      = MT:mt()
-   if (not attr) then
-      dbg.fini()
-      return
-   end
-   assert(type(attr) == "table")
-   if ( attr.mode ~= "directory" or not posix.access(path,"x")) then
+   if (not attr or type(attr) ~= "table" or attr.mode ~= "directory", or not posix.access(path,"x")) then
+      dbg.print("Skipping non-existant directory: ", mpath,"\n")
       dbg.fini()
       return
    end
 
 
-   -- Check for default first
-   local defaultModuleName = findDefault(mpath, path, prefix)
-   local localDir          = true
-   dbg.print("defaultModuleName: \"",tostring(defaultModuleName),"\"\n")
+   for j = 1, #availA do
+      local sn            = availA[j].sn
+      local versionA      = availA[j].versionA
+      local defaultModule = false
+      -- Find the default if there is more than 1 version
+      if (#vA > 1) then
+         defaultModule = findDefault(mpath, sn, versionA)
+      end
 
-   for file in lfs.dir(path) do
-      if (file:sub(1,1) ~= "." and not file ~= "CVS" and file:sub(-1,-1) ~= '~') then
-         local f = pathJoin(path, file)
-	 attr = lfs.attributes(f) or {}
-         dbg.print("file: ",file," f: ",f," attr.mode: ", attr.mode,"\n")
-         local readable = posix.access(f,"r")
-	 if (readable and (attr.mode == 'file' or attr.mode == 'link') and (file ~= "default")) then
-            local dflt = ""
-            local n    = prefix .. file
-            n = n:gsub("%.lua$","")
-            local found = false
-            if (sCount == 0) then
-               found = true
-            else
-               for _,v in ipairs(searchA) do
-                  if (n:find(v,1,true) or n:find(v)) then
-                     found = true
-                  end
-               end
-            end
-
-            if (found) then
-               if (defaultModuleName == abspath(f,localDir)) then
-                  dflt = Default
-                  legendT[Default] = "Default Module"
-               end
-               local aa      = {}
-               local propT   = {}
-               local sn      = shortName(n)
-               local entry   = dbT[sn]
-               if (entry) then
-                  dbg.print("Found dbT[sn]\n")
-                  if (entry[f]) then
-                     propT =  entry[f].propT or {}
-                  end
-               else
-                  dbg.print("Did not find dbT[sn]\n")
-               end
-
-               local resultA = colorizePropA("short",n, propT, legendT)
-               aa[#aa + 1] = '  '
-               for i = 1,#resultA do
-                  aa[#aa+1] = resultA[i]
-               end
-               aa[#aa + 1] = dflt
-               a[#a + 1]   = aa
-            end
-         elseif (attr.mode == 'directory') then
-            availDir(searchA,mpath, f,prefix .. file..'/', dbT, a, legendT)
-	 end
+      local aa = {}
+      if (#vA == 0) then
+         availEntry(searchA, sn, "", defaultModule, dbT, legendT, a)
+      else
+         for i = 1, #versionA do
+            local name = pathJoin(sn, versionA[i].version)
+            local f    = versionA[i].file
+            availEntry(searchA, name, f, defaultModule, dbT, legendT, a)
+         end
       end
    end
    dbg.fini()
@@ -712,39 +762,16 @@ function M.avail(searchA)
    Spider.buildSpiderDB({"default"}, moduleT, dbT)
 
    local legendT = {}
+   local availT  = mt:availT()
 
    local aa = {}
 
-   for _,path in ipairs(mpathA) do
+   for _,mpath in ipairs(mpathA) do
       local a = {}
-      availDir(searchA, path, path, '', dbT, a, legendT)
+      availDir(searchA, mpath, availT[mpath], dbT, a, legendT)
       if (next(a)) then
-         local b = {}
-         for i = 1, #a do
-            local fn = a[i][2]:gsub("\027[^m]+m","")
-            local d,v = splitFileName(fn)
-            local name 
-            if (d == "./") then
-               name = v
-            elseif (v:sub(1,1):find("%d")) then
-               name = pathJoin(d,concatTbl(parseVersion(v)))
-            else
-               name = pathJoin(d,v)
-            end
-
-            b[i] = { name, i}
-         end
-
          prtDirName(width, path,aa)
-         sort(b, function(a,b) return a[1] < b[1] end )
-
-         local bb = {}
-         for i = 1, #b do
-            local j = b[i][2]
-            bb[i] = a[j]
-         end
-
-         local ct  = ColumnTable:new{tbl=bb,gap=1, len=length}
+         local ct  = ColumnTable:new{tbl=a, gap=1, len=length}
          aa[#aa+1] = ct:build_tbl()
          aa[#aa+1] = "\n"
       end
