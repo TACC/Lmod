@@ -155,7 +155,8 @@ function processNewModulePATH(value)
       iStack        = iStack+1
       moduleStack[iStack] = {path = path, full = full, moduleT = moduleT[path].children, fn= v}
       dbg.print("Top of Stack: ",iStack, " Full: ", full, " file: ", path, "\n")
-      M.findModulesInDir(v,v,"",moduleT[path].children)
+      moduleT[path].children[v] = {}
+      M.findModulesInDir(v, v, "", moduleT[path].children[v])
       moduleStack[iStack] = nil
    end
 
@@ -270,9 +271,7 @@ local function findDefault(mpath, path, prefix)
       return nil
    end
 
-   --dbg.print("abspath(\"", tostring(path .. "/default"), ", \"",tostring(localDir),"\")\n")
    local default = abspath(path .. "/default", localDir)
-   --dbg.print("(2) default: ", tostring(default), "\n")
    if (default == nil) then
       local vFn = abspath(pathJoin(path,".version"), localDir)
       if (isFile(vFn)) then
@@ -280,14 +279,12 @@ local function findDefault(mpath, path, prefix)
          if (vf) then
             local f = pathJoin(path,vf)
             default = abspath(f,localDir)
-            --dbg.print("(1) f: ",f," default: ", tostring(default), "\n")
             if (default == nil) then
                local fn = vf .. ".lua"
                local f  = pathJoin(path,fn)
                default  = abspath(f,localDir)
                dbg.print("(2) f: ",f," default: ", tostring(default), "\n")
             end
-            --dbg.print("(3) default: ", tostring(default), "\n")
          end
       end
    end
@@ -439,62 +436,6 @@ function M.findModulesInDir(mpath, path, prefix, moduleT)
          loadModuleFile(v.file)
          mt:setStatus(t.modName,"active")
          dbg.print("Saving: Full: ", full, " Name: ", sn, " file: ",v.file,"\n")
-      end
-   end
-   dbg.fini()
-end
-
-function M.findModulesInDirOld(mpath, path, prefix, moduleT)
-   local dbg  = Dbg:dbg()
-   dbg.start("findModulesInDir(mpath=\"",tostring(mpath),"\", path=\"",tostring(path),
-             "\", prefix=\"",tostring(prefix),"\")")
-   
-   attr = lfs.attributes(path)
-   if (not attr or attr.mode ~= "directory" or not posix.access(path,"rx")) then
-      dbg.fini()
-      return
-   end
-   
-   local masterTbl       = masterTbl()
-   local moduleStack     = masterTbl.moduleStack
-   local iStack          = #moduleStack
-   local mt              = MT:mt()
-   
-   local defaultModuleName = findDefault(mpath, path, prefix)
-
-
-   for file in lfs.dir(path) do
-      if (file:sub(1,1) ~= "." and not file ~= "CVS" and file:sub(-1,-1) ~= "~") then
-         local f = pathJoin(path,file)
-         local readable = posix.access(f,"r")
-         attr = lfs.attributes(f) or {}
-         dbg.print("file: ",file," f: ",f," attr.mode: ", attr.mode,"\n")
-	 if (readable and (attr.mode == 'file' or attr.mode == 'link') and (file ~= "default")) then
-            if (moduleT[f] == nil) then
-               local full    = fullName(pathJoin(prefix,file))
-               local fullL   = full:lower()
-               local name    = extractName(full)
-               local nameL   = name:lower()
-               local epoch   = attr.modification
-               local default = (f == defaultModuleName)
-               moduleT[f]    = { path = f, name = name, name_lower = nameL,
-                                 full = full, full_lower = fullL, epoch = epoch,
-                                 default = default,
-                                 children = {}
-                                 
-               }
-               moduleStack[iStack] = {path=f, full = full, moduleT = moduleT, fn = f}
-               dbg.print("Top of Stack: ",iStack, " Full: ", full, " file: ", f, "\n")
-
-               local t = {fn = f, modFullName = full, modName = name, default = 0, hash = 0}
-               mt:add(t,"pending")
-               loadModuleFile(f)
-               mt:setStatus(t.modName,"active")
-               dbg.print("Saving: Full: ", full, " Name: ", name, " file: ",f,"\n")
-            end
-         elseif (attr.mode == 'directory') then
-            M.findModulesInDir(mpath, f, prefix .. file..'/',moduleT)
-	 end
       end
    end
    dbg.fini()

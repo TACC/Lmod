@@ -112,6 +112,12 @@ local function locationTblDir(mpath, path, prefix, locationT, availT)
    dbg.fini()
 end
 
+local function buildLocWmoduleT(moduleT, mpathA, locationT, availT)
+   local dbg       = Dbg:dbg()
+   dbg.start("buildLocWmoduleT(moduleT, mpathA, locationT, availT)")
+   dbg.fini()
+end
+
 
 local function build_locationTbl(mpathA)
 
@@ -119,12 +125,27 @@ local function build_locationTbl(mpathA)
    local locationT = {}
    local availT    = {}
 
+   local fast      = true
+   --local moduleT   = getModuleT(fast)
+   --
+   --if (moduleT) then
+   --   buildLocWmoduleT(moduleT, mpathA, locationT, availT)
+   --else
+   --   for i = 1, #mpathA do
+   --      local mpath = mpathA[i]
+   --      availT[mpath] = {}
+   --      locationTblDir(mpath, mpath, "", locationT, availT[mpath])
+   --      sort(availT[mpath], function(a,b) return a.sn < b.sn end)
+   --   end
+   --end
+
    for i = 1, #mpathA do
       local mpath = mpathA[i]
       availT[mpath] = {}
       locationTblDir(mpath, mpath, "", locationT, availT[mpath])
       sort(availT[mpath], function(a,b) return a.sn < b.sn end)
    end
+   
 
    -- for mpath, vv in pairs(availT) do
    --    io.stderr:write("mpath: ", mpath,":\n")

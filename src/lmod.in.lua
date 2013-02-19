@@ -787,6 +787,8 @@ function readCacheFile(cacheType, cacheFileA, moduleDirT, moduleT)
       lastUpdateEpoch = attr.modification
    end
 
+   local dirsRead = 0
+
    for i = 1,#cacheFileA do
       local f = cacheFileA[i].file
       dbg.print("cacheFile: ",f,"\n")
@@ -815,6 +817,7 @@ function readCacheFile(cacheType, cacheFileA, moduleDirT, moduleT)
                         dbg.print("saving directory: ",k,"\n")
                         moduleDirT[k] = attr.modification
                         moduleT[k]    = v
+                        dirsRead      = dirsRead + 1
                      end
                   else
                      moduleT[k] = v
@@ -827,10 +830,11 @@ function readCacheFile(cacheType, cacheFileA, moduleDirT, moduleT)
       end
    end
    dbg.fini()
+   return dirsRead
 end
 
 
-function getModuleT()
+function getModuleT(fast)
 
    local dbg        = Dbg:dbg()
    local mt         = MT:mt()
@@ -865,17 +869,13 @@ function getModuleT()
    -----------------------------------------------------------------------------
    -- Read system cache file if it exists and is not out-of-date.
 
-   readCacheFile("system", sysCacheFileA, moduleDirT, moduleT)
+   local sysDirsRead = readCacheFile("system", sysCacheFileA, moduleDirT, moduleT)
    
-   dbg.print("moduleT.version: ", tostring(moduleT.version),"\n")
-
    ------------------------------------------------------------------------
    -- Read user cache file if it exists and is not out-of-date.
 
-   readCacheFile("user", usrCacheFileA, moduleDirT, moduleT)
+   local usrDirsRead = readCacheFile("user", usrCacheFileA, moduleDirT, moduleT)
    
-   dbg.print("moduleT.version: ", tostring(moduleT.version),"\n")
-
    ------------------------------------------------------------------------
    -- Find all the directories not read in yet.
 
@@ -889,8 +889,19 @@ function getModuleT()
 
    local buildModuleT = (#moduleDirA > 0)
    local userModuleT  = {}
+   local dirsRead     = sysDirsRead + usrDirsRead
 
    dbg.print("buildModuleT: ",tostring(buildModuleT),"\n")
+
+   ------------------------------------------------------------
+   -- Do not build cache if fast is required and no cache files
+   -- have been found.
+   
+   if (dirsRead == 0 and fast) then
+      dbg.fini()
+      return nil
+   end
+
 
    if (buildModuleT) then
       LmodError    = dbg.quiet
