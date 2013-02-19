@@ -121,7 +121,9 @@ local function find_module_file(moduleName)
    local fullName = ""
    local modName  = ""
    local sn       = mt:shortName(moduleName)
-   local extra    = moduleName:gsub(escape(sn),""):gsub("^/+","")
+   local pat      = '^' .. escape(sn) .. '/?'
+   local extra    = moduleName:gsub(pat,"")
+   dbg.print("moduleName: ", moduleName, " pat: ", pat, " sn: ",sn, " extra: ", extra,"\n")
 
    local pathA = mt:locationTbl(sn)
 

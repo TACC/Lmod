@@ -126,17 +126,17 @@ local function build_locationTbl(mpathA)
       sort(availT[mpath], function(a,b) return a.sn < b.sn end)
    end
 
-   --for mpath, vv in pairs(availT) do
-   --   io.stderr:write("mpath: ", mpath,":\n")
-   --   for j = 1, #vv do
-   --      io.stderr:write("  ",vv[j].sn,":")
-   --      local vA = vv[j].versionA
-   --      for i = 1, #vA do
-   --         io.stderr:write(" ",vA[i],", ")
-   --      end
-   --      io.stderr:write("\n")
-   --   end
-   --end
+   -- for mpath, vv in pairs(availT) do
+   --    io.stderr:write("mpath: ", mpath,":\n")
+   --    for j = 1, #vv do
+   --       io.stderr:write("  ",vv[j].sn,":")
+   --       local vA = vv[j].versionA
+   --       for i = 1, #vA do
+   --          io.stderr:write(" ",vA[i].version,", ")
+   --       end
+   --       io.stderr:write("\n")
+   --    end
+   -- end
 
    return locationT, availT
 end
