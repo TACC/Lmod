@@ -117,13 +117,13 @@ local function buildLocWmoduleT(mpath, moduleT, mpathT, locationT, availT)
 
    for f, vv in pairs(moduleT) do
       local sn        = vv.name
-      local a         = location[sn] or {}
+      local a         = locationT[sn] or {}
       a[#a+1]         = { file = f, mpath = mpath }
       locationT[sn]   = a
 
       a               = availEntryT[sn] or {}
       local version   = extractVersion(vv.full, sn)
-      if (version)
+      if (version) then
          local parseV = concatTbl(parseVersion(version), ".")
          a[#a+1]      = { version = version, file = f, parseV = parseV}
       end
@@ -144,7 +144,7 @@ local function buildAllLocWmoduleT(moduleT, mpathA, locationT, availT)
 
    local mpathT = {}
    for i = 1,#mpathA do
-      mpath = mpathA[i]
+      local mpath = mpathA[i]
       if (isDir(mpath)) then
          mpathT[mpath] = 1
          availT[mpath] = {}
@@ -152,7 +152,7 @@ local function buildAllLocWmoduleT(moduleT, mpathA, locationT, availT)
    end
 
    for mpath in pairs(mpathT) do
-      mpmT = moduleT[mpath]
+      local mpmT = moduleT[mpath]
       if (mpmT) then
          buildLocWmoduleT(mpath, mpmT, mpathT, locationT, availT)
       end

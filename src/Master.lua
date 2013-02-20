@@ -121,7 +121,6 @@ local function find_module_file(moduleName)
    local modName  = ""
    local sn       = mt:shortName(moduleName)
    local extra    = extractVersion(moduleName, sn) 
-   dbg.print("moduleName: ", moduleName, " pat: ", pat, " sn: ",sn, " extra: ", tostring(extra),"\n")
 
    local pathA = mt:locationTbl(sn)
 

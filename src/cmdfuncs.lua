@@ -10,6 +10,7 @@ require("TermWidth")
 local BeautifulTbl = require('BeautifulTbl')
 local ColumnTable  = require('ColumnTable')
 local Dbg          = require("Dbg")
+local Spider       = require("Spider")
 local concatTbl    = table.concat
 local getenv       = os.getenv
 local posix        = require("posix")
@@ -253,4 +254,187 @@ function epoch()
    else
       return os.time()
    end
+end
+
+function readCacheFile(cacheType, cacheFileA, moduleDirT, moduleT)
+
+   local dbg        = Dbg:dbg()
+   dbg.start("readCacheFile(cacheType, cacheFileA, moduleDirT, moduleT)")
+   local mt         = MT:mt()
+   ancient = mt:getRebuildTime() or ancient
+
+   local lastUpdateEpoch = epoch() - ancient
+   local attr = lfs.attributes(updateSystemFn)
+   if (attr and cacheType == "system") then
+      lastUpdateEpoch = attr.modification
+   end
+
+   local dirsRead = 0
+
+   for i = 1,#cacheFileA do
+      local f = cacheFileA[i].file
+      dbg.print("cacheFile: ",f,"\n")
+      if (isFile(f)) then
+         attr   = lfs.attributes(f)
+
+         -- Check Time
+
+         local diff         = attr.modification - lastUpdateEpoch
+         local buildModuleT = diff < 0  -- rebuild when older than lastUpdateEpoch
+         dbg.print("timeDiff: ",diff," buildModuleT: ", tostring(buildModuleT),"\n")
+
+         if (not buildModuleT) then
+         
+            -- Check for matching default MODULEPATH.
+            assert(loadfile(f))()
+            
+            rawget(_G,"moduleT")
+
+            if (not rawget(_G,"moduleT") or _G.moduleT.version == nil ) then
+               dbg.print("Ignoring old style cache file!\n")
+            else
+               for k, v in pairs(_G.moduleT) do
+                  if ( k:sub(1,1) == '/' ) then
+                     local dirTime = moduleDirT[k] or -1
+                     dbg.print("processing directory: ",k," with dirTime: ",dirTime,"\n")
+                     if (attr.modification > dirTime) then
+                        dbg.print("saving directory: ",k,"\n")
+                        moduleDirT[k] = attr.modification
+                        moduleT[k]    = v
+                        dirsRead      = dirsRead + 1
+                     end
+                  else
+                     moduleT[k] = v
+                  end
+               end
+            end
+         end
+
+         break
+      end
+   end
+   dbg.fini()
+   return dirsRead
+end
+
+
+function getModuleT(fast)
+
+   local dbg        = Dbg:dbg()
+   local mt         = MT:mt()
+   local moduleT    = {}
+   local HOME       = os.getenv("HOME") or ""
+   local cacheDir   = pathJoin(HOME,".lmod.d",".cache")
+   local errRtn     = LmodError
+   local message    = LmodMessage
+   local sysCacheFileA = {
+      { file = pathJoin(sysCacheDir,"moduleT.lua"),     fileT = "system"},
+      { file = pathJoin(sysCacheDir,"moduleT.old.lua"), fileT = "system"},
+   }
+   local usrCacheFileA = {
+      { file = pathJoin(cacheDir,   "moduleT.lua"),     fileT = "your"  },
+   }
+   local userModuleTFN = pathJoin(cacheDir,"moduleT.lua")
+
+   dbg.start("getModuleT()")
+
+   local baseMpath = mt:getBaseMPATH()
+   if (baseMpath == nil) then
+     LmodError("The Env Variable: \"", DfltModPath, "\" is not set\n")
+   end
+   local moduleDirT = {}
+   for path in baseMpath:split(":") do
+      moduleDirT[path]          = -1
+   end
+
+   local buildModuleT = true
+   local moduleTFN    = nil
+
+   -----------------------------------------------------------------------------
+   -- Read system cache file if it exists and is not out-of-date.
+
+   local sysDirsRead = readCacheFile("system", sysCacheFileA, moduleDirT, moduleT)
+   
+   ------------------------------------------------------------------------
+   -- Read user cache file if it exists and is not out-of-date.
+
+   local usrDirsRead = readCacheFile("user", usrCacheFileA, moduleDirT, moduleT)
+   
+   ------------------------------------------------------------------------
+   -- Find all the directories not read in yet.
+
+   local moduleDirA = {}
+   for k,v in pairs(moduleDirT) do
+      if (v < 0) then
+         dbg.print("rebuilding cache for directory: ",k,"\n")
+         moduleDirA[#moduleDirA+1] = k
+      end
+   end
+
+   local buildModuleT = (#moduleDirA > 0)
+   local userModuleT  = {}
+   local dirsRead     = sysDirsRead + usrDirsRead
+
+   dbg.print("buildModuleT: ",tostring(buildModuleT),"\n")
+
+   ------------------------------------------------------------
+   -- Do not build cache if fast is required and no cache files
+   -- have been found.
+   
+   if (dirsRead == 0 and fast) then
+      dbg.fini()
+      return nil
+   end
+
+
+   if (buildModuleT) then
+      LmodError    = dbg.quiet
+      LmodMessage  = dbg.quiet
+      io.stderr:write("Rebuilding cache file, please wait ...")
+
+      local t1 = epoch()
+      Spider.findAllModules(moduleDirA, userModuleT)
+      local t2 = epoch()
+      io.stderr:write(" done\n")
+      LmodError    = errRtn
+      LmodMessage  = message
+      dbg.print("t2-t1: ",t2-t1, " shortTime: ", shortTime, "\n")
+
+      if (t2 - t1 < shortTime) then
+         ancient = shortLifeCache
+         mt:setRebuildTime(ancient)
+      else
+         mkdir_recursive(cacheDir)
+         local s0 = "-- Date: " .. os.date("%c",os.time()) .. "\n"
+         local s1 = "ancient = " .. tostring(math.floor(ancient)) .."\n"
+         local s2 = serializeTbl{name="moduleT",      value=userModuleT,
+                                 indent=true}
+         local f  = io.open(userModuleTFN,"w")
+         if (f) then
+            f:write(s0,s1,s2)
+            f:close()
+         end
+         dbg.print("Wrote: ",userModuleTFN,"\n")
+      end
+      for k, v in pairs(userModuleT) do
+         moduleT[k] = userModuleT[k]
+      end
+
+   else
+      ancient = _G.ancient or ancient
+      mt:setRebuildTime(ancient)
+   end
+
+   -- remove user cache file if old
+   if (isFile(userModuleTFN)) then
+      local attr   = lfs.attributes(userModuleTFN)
+      local diff   = os.time() - attr.modification
+      if (diff > ancient) then 
+         posix.unlink(userModuleTFN);
+         dbg.print("Deleted: ",userModuleTFN,"\n")
+      end
+   end
+
+   dbg.fini()
+   return moduleT
 end
