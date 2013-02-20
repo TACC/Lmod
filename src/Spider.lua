@@ -397,7 +397,9 @@ function M.findModulesInDir(mpath, path, prefix, moduleT)
          local readable = posix.access(f,"r")
          local full     = pathJoin(prefix, file):gsub("%.lua","")
          attr           = lfs.attributes(f)
-         if (readable and attr.mode == 'file' and file ~= "default") then
+         if (not attr or not readable) then
+            -- do nothing for this case
+         elseif (readable and attr.mode == 'file' and file ~= "default") then
             dbg.print("mnameT[",full,"].file: ",f,"\n")
             mnameT[full] = {file=f, mpath = mpath}
          elseif (attr.mode == "directory") then
@@ -526,7 +528,9 @@ function M.singleSpiderDB(a, moduleT, dbT)
       t[path].parent = parent
       if (next(value.children)) then
          a[#a+1] = t[path].full
-         M.buildSpiderDB(a, value.children, dbT)
+         for k, v in pairs(value.children) do
+            M.buildSpiderDB(a, v, dbT)
+         end
          a[#a]   = nil
       end
    end
@@ -592,7 +596,9 @@ function M.singleSearchSpiderDB(strA, a, moduleT, dbT)
       end
       if (next(value.children)) then
          a[#a+1] = full
-         M.searchSpiderDB(strA, a, value.children, dbT)
+         for k, v in pairs(value.children) do
+            M.searchSpiderDB(strA, a, v, dbT)
+         end
          a[#a]   = nil
       end
    end
@@ -920,20 +926,24 @@ end
 
 
 function M.listModulesHelper(moduleT, tbl)
-   for k,v in pairs(moduleT) do
-      tbl[#tbl+1] = v.path
-      if (next(v.children)) then
-         M.listModulesHelper(v.children,tbl)
+   for kk,vv in pairs(moduleT) do
+      tbl[#tbl+1] = vv.path
+      if (next(vv.children)) then
+         for k, v in pairs(vv.children) do
+            M.listModulesHelper(v, tbl)
+         end
       end
    end
 end
 
 function M.dictModules(t,tbl)
-   for k,v in pairs(t) do
-      k      = k:gsub(".lua$","")
-      tbl[k] = 0
-      if (next(v.children)) then
-         M.dictModules(v.children,tbl)
+   for kk,vv in pairs(t) do
+      kk      = kk:gsub(".lua$","")
+      tbl[kk] = 0
+      if (next(vv.children)) then
+         for k, v in pairs(vv.children) do
+            M.dictModules(v, tbl)
+         end
       end
    end
 end

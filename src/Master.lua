@@ -33,7 +33,6 @@ require("fileOps")
 require("string_trim")
 require("fillWords")
 require("lastFileInDir")
-require("escape")
 
 ModuleName=""
 local BeautifulTbl = require('BeautifulTbl')
@@ -121,9 +120,8 @@ local function find_module_file(moduleName)
    local fullName = ""
    local modName  = ""
    local sn       = mt:shortName(moduleName)
-   local pat      = '^' .. escape(sn) .. '/?'
-   local extra    = moduleName:gsub(pat,"")
-   dbg.print("moduleName: ", moduleName, " pat: ", pat, " sn: ",sn, " extra: ", extra,"\n")
+   local extra    = extractVersion(moduleName, sn) 
+   dbg.print("moduleName: ", moduleName, " pat: ", pat, " sn: ",sn, " extra: ", tostring(extra),"\n")
 
    local pathA = mt:locationTbl(sn)
 
@@ -715,10 +713,10 @@ end
 
 
 
-local function availDir(searchA, mpath, availA, dbT, a, legendT)
+local function availDir(searchA, mpath, availT, dbT, a, legendT)
    local dbg    = Dbg:dbg()
    dbg.start("Master.availDir(searchA=(",concatTbl(searchA,", "),"), mpath=\"",mpath,"\", ",
-             "availA, dbT, a, legendT)")
+             "availT, dbT, a, legendT)")
    local attr    = lfs.attributes(mpath)
    local mt      = MT:mt()
    if (not attr or type(attr) ~= "table" or attr.mode ~= "directory" or not posix.access(mpath,"x")) then
@@ -728,12 +726,9 @@ local function availDir(searchA, mpath, availA, dbT, a, legendT)
    end
 
 
-   for j = 1, #availA do
-      local sn            = availA[j].sn
-      local versionA      = availA[j].versionA
+   for sn, versionA in pairsByKeys(availT) do
       local defaultModule = false
-
-      local aa = {}
+      local aa            = {}
       if (#versionA == 0) then
          availEntry(searchA, sn, "", defaultModule, dbT, legendT, a)
       else
@@ -865,7 +860,7 @@ end
 -- function M.spanAll(self, keyA)
 --    local dbg    = Dbg:dbg()
 --    dbg.start("Master:spanAll(keyA=(",concatTbl(keyA,","),"))")
---    mpathA = MT:mt():module_pathA()
+--    mpath1A = MT:mt():module_pathA()
 --    for _, path in ipairs(mpathA) do
 --       local attr = lfs.attributes(path)
 --       if (attr and attr.mode == "directory" and posix.access(path,"x")) then

@@ -69,7 +69,9 @@ local function locationTblDir(mpath, path, prefix, locationT, availT)
          local f = pathJoin(path,file)
          attr    = lfs.attributes(f) or {}
          local readable = posix.access(f,"r")
-         if (readable and attr.mode == 'file' and file ~= "default") then
+         if (not readable or not attr) then
+            -- do nothing for non-readable non-existant files
+         elseif (attr.mode == 'file' and file ~= "default") then
             local mname = pathJoin(prefix, file):gsub("%.lua","")
             mnameT[mname] = {file=f, mpath = mpath}
          elseif (attr.mode == "directory") then
@@ -83,7 +85,7 @@ local function locationTblDir(mpath, path, prefix, locationT, availT)
          a[#a+1]      = v
          locationT[k] = a
          dbg.print("Adding Meta module: ",k," file: ", v.file,"\n")
-         availT[#availT+1] = { sn = k, versionA = {} }
+         availT[k] = { }
       end
       for i = 1, #dirA do
          locationTblDir(mpath, dirA[i].fullName,  dirA[i].mname, locationT, availT)
@@ -93,7 +95,7 @@ local function locationTblDir(mpath, path, prefix, locationT, availT)
       dbg.print("adding Regular module: file: ",path, " mpath: ", prefix, "\n")
       a[#a+1]           = { file = path, mpath = mpath}
       locationT[prefix] = a
-      availT[#availT+1] = { sn = prefix, versionA = {} }
+      availT[prefix]    = {}
       local vA          = {}
       for full, v in pairs(mnameT) do
          local version = full:gsub(".*/","")
@@ -105,16 +107,63 @@ local function locationTblDir(mpath, path, prefix, locationT, availT)
       for i = 1, #vA do
          a[#a+1] = {version = vA[i][2], file = vA[i][3]}
       end
-      availT[#availT].versionA = a
-
-      local b = availT[#availT].versionA
+      availT[prefix] = a
    end
    dbg.fini()
 end
 
-local function buildLocWmoduleT(moduleT, mpathA, locationT, availT)
+local function buildLocWmoduleT(mpath, moduleT, mpathT, locationT, availT)
+   local availEntryT = availT[mpath]
+
+   for f, vv in pairs(moduleT) do
+      local sn        = vv.name
+      local a         = location[sn] or {}
+      a[#a+1]         = { file = f, mpath = mpath }
+      locationT[sn]   = a
+
+      a               = availEntryT[sn] or {}
+      local version   = extractVersion(vv.full, sn)
+      if (version)
+         local parseV = concatTbl(parseVersion(version), ".")
+         a[#a+1]      = { version = version, file = f, parseV = parseV}
+      end
+      availEntryT[sn] = a
+
+      for k, v in pairs(vv.children) do
+         if (mpathT[k]) then
+            buildLocWmoduleT(k, moduleT, mpathT, locationT, availT)
+         end
+      end
+   end
+end
+
+
+local function buildAllLocWmoduleT(moduleT, mpathA, locationT, availT)
    local dbg       = Dbg:dbg()
-   dbg.start("buildLocWmoduleT(moduleT, mpathA, locationT, availT)")
+   dbg.start("buildAllLocWmoduleT(moduleT, mpathA, locationT, availT)")
+
+   local mpathT = {}
+   for i = 1,#mpathA do
+      mpath = mpathA[i]
+      if (isDir(mpath)) then
+         mpathT[mpath] = 1
+         availT[mpath] = {}
+      end
+   end
+
+   for mpath in pairs(mpathT) do
+      mpmT = moduleT[mpath]
+      if (mpmT) then
+         buildLocWmoduleT(mpath, mpmT, mpathT, locationT, availT)
+      end
+   end
+
+   for kk, vv in pairs(availT) do
+      for k, v in pairs(vv) do
+         sort(v, function (a,b) return a.parseV < b.parseV end)
+      end
+   end
+
    dbg.fini()
 end
 
@@ -126,25 +175,18 @@ local function build_locationTbl(mpathA)
    local availT    = {}
 
    local fast      = true
-   --local moduleT   = getModuleT(fast)
-   --
-   --if (moduleT) then
-   --   buildLocWmoduleT(moduleT, mpathA, locationT, availT)
-   --else
-   --   for i = 1, #mpathA do
-   --      local mpath = mpathA[i]
-   --      availT[mpath] = {}
-   --      locationTblDir(mpath, mpath, "", locationT, availT[mpath])
-   --      sort(availT[mpath], function(a,b) return a.sn < b.sn end)
-   --   end
-   --end
-
-   for i = 1, #mpathA do
-      local mpath = mpathA[i]
-      availT[mpath] = {}
-      locationTblDir(mpath, mpath, "", locationT, availT[mpath])
-      sort(availT[mpath], function(a,b) return a.sn < b.sn end)
+   local moduleT   = getModuleT(fast)
+   
+   if (moduleT) then
+      buildAllLocWmoduleT(moduleT, mpathA, locationT, availT)
+   else
+      for i = 1, #mpathA do
+         local mpath = mpathA[i]
+         availT[mpath] = {}
+         locationTblDir(mpath, mpath, "", locationT, availT[mpath])
+      end
    end
+
    
 
    -- for mpath, vv in pairs(availT) do

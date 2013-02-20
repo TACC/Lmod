@@ -5,6 +5,7 @@
 require("strict")
 require("myGlobals")
 require("string_trim")
+require("escape")
 require("TermWidth")
 local BeautifulTbl = require('BeautifulTbl')
 local ColumnTable  = require('ColumnTable')
@@ -46,6 +47,16 @@ function expert()
       __expert = getenv("LMOD_EXPERT")
    end
    return __expert
+end
+
+
+function extractVersion(full, sn)
+   local pat     = '^' .. escape(sn) .. '/?'
+   local version = full:gsub(pat,"")
+   if (version == "") then
+      version = nil
+   end
+   return version
 end
 
 
