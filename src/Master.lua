@@ -65,15 +65,6 @@ local function new(self,safe)
    return o
 end
 
-function M.formModName(moduleName)
-   local idx = moduleName:find('/') or 0
-   idx = idx - 1
-   local modName = moduleName:sub(1,idx)
-   return modName
-end
-
-
-
 local searchTbl = {'.lua','', '/default', '/.version'}
 
 local function followDefault(path)
@@ -117,21 +108,16 @@ local function find_module_file(moduleName)
 
    local t        = { fn = nil, modFullName = nil, modName = nil, default = 0, hash = 0}
    local mt       = MT:mt()
-   local fullName = moduleName
-   local idx      = moduleName:find('/')
-   local localDir = true
-   local key, extra, modName
-   if (idx == nil) then
-      key   = moduleName
-      extra = ''
-   else
-      key   = moduleName:sub(1,idx-1)
-      extra = moduleName:sub(idx)
-   end
+   local fullName = ""
+   local modName  = ""
+   local sn       = mt:shortName(moduleName)
+   dbg.print("sn: ",sn,"\n")
+   local extra    = extractVersion(moduleName, sn) 
 
-   local pathA = mt:locationTbl(key)
+   local pathA = mt:locationTbl(sn)
 
    if (pathA == nil or #pathA == 0) then
+      dbg.print("did not find key: \"",sn,"\" in mt:locationTbl()\n")
       dbg.fini()
       return t
    end
@@ -160,7 +146,7 @@ local function find_module_file(moduleName)
          elseif (found and v == '/.version' and ii == 1) then
             local vf = M.versionFile(result)
             if (vf) then
-               t         = find_module_file(pathJoin(key,vf))
+               t         = find_module_file(pathJoin(sn,vf))
                t.default = 1
                result    = t.fn
             end
@@ -196,17 +182,16 @@ local function find_module_file(moduleName)
             local i, j = result:find(mpath,1,true)
             fullName   = result:sub(j+2)
             fullName   = fullName:gsub("%.lua$","")
+            dbg.print("lastFileInDir mpath: ", mpath," fullName: ",fullName,"\n")
          end
       end
       if (found) then break end
    end
 
-   modName = M.formModName(fullName)
-
    t.fn          = result
    t.modFullName = fullName
-   t.modName     = modName
-   dbg.print("modName: ",modName," fn: ", result," modFullName: ", fullName," default: ",tostring(t.default),"\n")
+   t.modName     = sn
+   dbg.print("modName: ",sn," fn: ", result," modFullName: ", fullName," default: ",tostring(t.default),"\n")
    dbg.fini()
    return t
 end
@@ -338,7 +323,7 @@ end
 
 local function access_find_module_file(moduleName)
    local mt = MT:mt()
-   if ((shortName(moduleName) == moduleName) and
+   if ((mt:shortName(moduleName) == moduleName) and
        (mt:haveSN(moduleName, "any"))) then
       local full = mt:fullName(moduleName) 
       return mt:fileName(moduleName), full or ""
@@ -394,6 +379,7 @@ function M.load(...)
 
    a   = {}
    for _,moduleName in ipairs{...} do
+      moduleName    = moduleName:gsub("/+$","")  -- remove any trailing '/'
       local loaded  = false
       local t	    = find_module_file(moduleName)
       local fn      = t.fn
@@ -463,6 +449,7 @@ function M.reloadAll()
 
    local same = true
    local a    = mt:list("userName","any")
+   local snA  = mt:list("short","any")
    for _, v in ipairs(a) do
       if (mt:have(v,"active")) then
          local fullName = mt:fullName(v)
@@ -493,9 +480,9 @@ function M.reloadAll()
          same = not aa[1]
       end
    end
-   for _, v in ipairs(a) do
+   for _, v in ipairs(snA) do
       if (not mt:have(v,"active")) then
-         local t = { modFullName = v, modName = shortName(v)}
+         local t = { modFullName = v, modName = v}
          dbg.print("Master:reloadAll module: ",v," marked as inactive\n")
          mt:add(t, "inactive")
       end
@@ -556,34 +543,25 @@ local function prtDirName(width,path,a)
 end
 
 
-local function findDefault(mpath, path, prefix)
-   local dbg      = Dbg:dbg()
-   local mt       = MT:mt()
-   local localDir = true
-   dbg.start("Master.findDefault(",mpath,", ", path,", ",prefix,")")
 
-   local i,j = path:find(mpath)
-   --dbg.print("i: ",tostring(i)," j: ", tostring(j)," path:len(): ",path:len(), "\n")
-   if (i and j + 1 < path:len()) then
-      local mname = path:sub(j+2)
-      i = mname:find("/")
-      if (i) then
-         mname = mname:sub(1,i-1)
-      end
-      local pathA  = mt:locationTbl(mname)
-      local mpath2 = pathA[1].mpath
-      --dbg.print("mname: ", mname, " mpath: ", mpath, " mpath2: ",mpath2,"\n")
 
-      if (mpath ~= mpath2) then
-         dbg.print("(1)default: \"nil\"\n")
-         dbg.fini()
-         return nil
-      end
+local function findDefault(mpath, sn, versionA)
+   local dbg  = Dbg:dbg()
+   dbg.start("Master.findDefault(mpath=\"",mpath,"\", "," sn=\"",sn,"\")")
+   local mt   = MT:mt()
+
+   local pathA  = mt:locationTbl(sn) 
+   local mpath2 = pathA[1].mpath
+
+   if (mpath2 ~= mpath) then
+      dbg.print("(1) default: \"nil\"\n")
+      dbg.fini()
+      return nil
    end
 
-   --dbg.print("abspath(\"", tostring(path .. "/default"), ", \"",tostring(localDir),"\")\n")
-   local default = abspath(path .. "/default", localDir)
-   --dbg.print("(2) default: ", tostring(default), "\n")
+   local localDir = true
+   local path     = pathJoin(mpath,sn)
+   local default  = abspath(pathJoin(path, "default"), localDir)
    if (default == nil) then
       local vFn = abspath(pathJoin(path,".version"), localDir)
       if (isFile(vFn)) then
@@ -602,96 +580,92 @@ local function findDefault(mpath, path, prefix)
          end
       end
    end
-   if (default == nil and prefix ~= "") then
-      local result, count = lastFileInDir(path)
-      if (count > 1) then
-         default = result
-      end
-   end
-   if (default) then
-      default = abspath(default, localDir)
-   end
-   dbg.print("(4) default: \"",tostring(default),"\"\n")
 
+   if (not default and #versionA > 1) then
+      default = abspath(versionA[#versionA].file, localDir)
+   end
+   dbg.print("default: ", tostring(default),"\n")
    dbg.fini()
+
    return default
 end
 
+local function availEntry(searchA, name, f, defaultModule, dbT, legendT, a)
+   local dbg      = Dbg:dbg()
+   dbg.start("Master:availEntry(searchA, name, f, defaultModule, dbT, legendT, a)")
+   local dflt     = ""
+   local sCount   = #searchA
+   local found    = false
+   local localdir = true
+   local mt       = MT:mt()
 
-local function availDir(searchA, mpath, path, prefix, dbT, a, legendT)
+   if (sCount == 0) then
+      found = true
+   else
+      for i = 1, sCount do
+         local s = searchA[i]
+         if (name:find(s, 1, true) or name:find(s)) then
+            found = true
+            break
+         end
+      end
+   end
+
+   if (found) then
+      if (defaultModule == abspath(f, localdir)) then
+         dflt = Default
+         legendT[Default] = "Default Module"
+      end
+      local aa    = {}
+      local propT = {}
+      local sn    = mt:shortName(name)
+      local entry = dbT[sn]
+      if (entry) then
+         dbg.print("Found dbT[sn]\n")
+         if (entry[f]) then
+            propT =  entry[f].propT or {}
+         end
+      else
+         dbg.print("Did not find dbT[sn]\n")
+      end
+      local resultA = colorizePropA("short", name, propT, legendT)
+      aa[#aa + 1] = '  '
+      for i = 1,#resultA do
+         aa[#aa+1] = resultA[i]
+      end
+      aa[#aa + 1] = dflt
+      a[#a + 1]   = aa
+   end
+   dbg.fini()
+end
+
+
+
+local function availDir(searchA, mpath, availT, dbT, a, legendT)
    local dbg    = Dbg:dbg()
    dbg.start("Master.availDir(searchA=(",concatTbl(searchA,", "),"), mpath=\"",mpath,"\", ",
-             "path=\"",path,"\", prefix=\"",prefix,"\")")
-   local sCount  = #searchA
-   local attr    = lfs.attributes(path)
+             "availT, dbT, a, legendT)")
+   local attr    = lfs.attributes(mpath)
    local mt      = MT:mt()
-   if (not attr) then
-      dbg.fini()
-      return
-   end
-   assert(type(attr) == "table")
-   if ( attr.mode ~= "directory" or not posix.access(path,"x")) then
+   if (not attr or type(attr) ~= "table" or attr.mode ~= "directory" or not posix.access(mpath,"x")) then
+      dbg.print("Skipping non-existant directory: ", mpath,"\n")
       dbg.fini()
       return
    end
 
 
-   -- Check for default first
-   local defaultModuleName = findDefault(mpath, path, prefix)
-   local localDir          = true
-   dbg.print("defaultModuleName: \"",tostring(defaultModuleName),"\"\n")
-
-   for file in lfs.dir(path) do
-      if (file:sub(1,1) ~= "." and not file ~= "CVS" and file:sub(-1,-1) ~= '~') then
-         local f = pathJoin(path, file)
-	 attr = lfs.attributes(f) or {}
-         dbg.print("file: ",file," f: ",f," attr.mode: ", attr.mode,"\n")
-         local readable = posix.access(f,"r")
-	 if (readable and (attr.mode == 'file' or attr.mode == 'link') and (file ~= "default")) then
-            local dflt = ""
-            local n    = prefix .. file
-            n = n:gsub("%.lua$","")
-            local found = false
-            if (sCount == 0) then
-               found = true
-            else
-               for _,v in ipairs(searchA) do
-                  if (n:find(v,1,true) or n:find(v)) then
-                     found = true
-                     break
-                  end
-               end
-            end
-
-            if (found) then
-               if (defaultModuleName == abspath(f,localDir)) then
-                  dflt = Default
-                  legendT[Default] = "Default Module"
-               end
-               local aa      = {}
-               local propT   = {}
-               local sn      = shortName(n)
-               local entry   = dbT[sn]
-               if (entry) then
-                  dbg.print("Found dbT[sn]\n")
-                  if (entry[f]) then
-                     propT =  entry[f].propT or {}
-                  end
-               else
-                  dbg.print("Did not find dbT[sn]\n")
-               end
-
-               local resultA = colorizePropA("short",n, propT, legendT)
-               aa[#aa + 1] = '  '
-               for i = 1,#resultA do
-                  aa[#aa+1] = resultA[i]
-               end
-               aa[#aa + 1] = dflt
-               a[#a + 1]   = aa
-            end
-         elseif (attr.mode == 'directory') then
-            availDir(searchA,mpath, f,prefix .. file..'/', dbT, a, legendT)
-	 end
+   for sn, versionA in pairsByKeys(availT) do
+      local defaultModule = false
+      local aa            = {}
+      if (#versionA == 0) then
+         availEntry(searchA, sn, "", defaultModule, dbT, legendT, a)
+      else
+         defaultModule = findDefault(mpath, sn, versionA)
+         for i = 1, #versionA do
+            local name = pathJoin(sn, versionA[i].version)
+            local f    = versionA[i].file
+            availEntry(searchA, name, f, defaultModule, dbT, legendT, a)
+         end
       end
    end
    dbg.fini()
@@ -700,7 +674,8 @@ end
 function M.avail(searchA)
    local dbg    = Dbg:dbg()
    dbg.start("Master.avail(",concatTbl(searchA,", "),")")
-   local mpathA = MT:mt():module_pathA()
+   local mt     = MT:mt()
+   local mpathA = mt:module_pathA()
    local width  = TermWidth()
 
    local mcp_old = mcp
@@ -713,39 +688,16 @@ function M.avail(searchA)
    Spider.buildSpiderDB({"default"}, moduleT, dbT)
 
    local legendT = {}
+   local availT  = mt:availT()
 
    local aa = {}
 
-   for _,path in ipairs(mpathA) do
+   for _,mpath in ipairs(mpathA) do
       local a = {}
-      availDir(searchA, path, path, '', dbT, a, legendT)
+      availDir(searchA, mpath, availT[mpath], dbT, a, legendT)
       if (next(a)) then
-         local b = {}
-         for i = 1, #a do
-            local fn = a[i][2]:gsub("\027[^m]+m","")
-            local d,v = splitFileName(fn)
-            local name 
-            if (d == "./") then
-               name = v
-            elseif (v:sub(1,1):find("%d")) then
-               name = pathJoin(d,concatTbl(parseVersion(v)))
-            else
-               name = pathJoin(d,v)
-            end
-
-            b[i] = { name, i}
-         end
-
-         prtDirName(width, path,aa)
-         sort(b, function(a,b) return a[1] < b[1] end )
-
-         local bb = {}
-         for i = 1, #b do
-            local j = b[i][2]
-            bb[i] = a[j]
-         end
-
-         local ct  = ColumnTable:new{tbl=bb,gap=1, len=length}
+         prtDirName(width, mpath,aa)
+         local ct  = ColumnTable:new{tbl=a, gap=1, len=length}
          aa[#aa+1] = ct:build_tbl()
          aa[#aa+1] = "\n"
       end
@@ -778,88 +730,88 @@ function M.avail(searchA)
    dbg.fini()
 end
 
-local function spanOneModule(path, name, nameA, fileType, keyA)
-   local dbg    = Dbg:dbg()
-   local mStack = ModuleStack:moduleStack()
-   dbg.start("spanOneModule(path=\"",path,"\", name=\"",name,
-             "\", nameA=(",concatTbl(nameA,","),"), fileType=\"",fileType,
-             "\", keyA=(",concatTbl(keyA,","),"))")
-   if (fileType == "file" and posix.access(path,"r")) then
-      for _,v in ipairs(keyA) do
-	 nameA[#nameA+1] = name
-	 local n = concatTbl(nameA,"/")
-	 ModuleName = n
-	 systemG.whatis  = function(msg, v)
-                              local searchString = v
-                              return function(msg)
-                                 local nm     = ModuleName or ""
-                                 local l      = nm:len()
-                                 local nblnks
-                                 if (l < 20) then
-                                    nblnks = 20 - l
-                                 else
-                                    nblnks = 2
-                                 end
-                                 local prefix = nm .. string.rep(" ",nblnks) .. ": "
-                                 if (msg:find(searchString,1,true)) then
-                                    io.stderr:write(prefix, msg, "\n")
-                                 end
-                              end
-                           end
-         mStack:push(ModuleName,path)
-	 loadModuleFile{file=path,moduleName=ModuleName, reportErr=true}
-         mStack:pop()
-      end
-   elseif (fileType == "directory" and posix.access(path,"x")) then
-      --io.stderr:write("dir: ",path," name: ", name, "\n")
-      for file in lfs.dir(path) do
-         if (file:sub(1,1) ~= "." and not file ~= "CVS" and file:sub(-1,-1) ~= '~') then
-            local f = pathJoin(path, file)
-            local readable = posix.access(f,"r")
-            if (readable) then
-               attr = lfs.symlinkattributes(f)
-               if (attr.mode == "directory") then
-                  nameA[#nameA+1] = file
-               end
-               --local n = concatTbl(nameA,"/")
-               --io.stderr:write("file: ",file," f: ",f," mode: ",attr.mode, " n: ", n, "\n")
-               M.spanOneModule(f, file, nameA, attr.mode,keyA)
-               removeEntry(nameA,#nameA)
-            end
-         end
-      end
-   end
-   dbg.fini()
-end
-
-
-function M.spanAll(self, keyA)
-   local dbg    = Dbg:dbg()
-   dbg.start("Master:spanAll(keyA=(",concatTbl(keyA,","),"))")
-   mpathA = MT:mt():module_pathA()
-   for _, path in ipairs(mpathA) do
-      local attr = lfs.attributes(path)
-      if (attr and attr.mode == "directory" and posix.access(path,"x")) then
-         for file in lfs.dir(path) do
-	    --io.stderr:write("(1) spanAll: file: ",file,"\n")
-            if (file:sub(1,1) ~= "." and not file ~= "CVS" and file:sub(-1,-1) ~= '~') then
-               local f = pathJoin(path, file)
-               local readable = posix.access(f,"r")
-               if (readable) then
-                  attr = lfs.attributes(f)
-                  local nameA = {}
-                  if (attr.mode == "directory") then
-                     nameA[#nameA+1] = file
-                  end
-                  --local n = concatTbl(nameA,"/")
-                  --io.stderr:write("(2) spanAll: file: ",file," f: ",f," mode: ", attr.mode," n: ",n,"\n")
-                  M.spanOneModule(f, file, nameA, attr.mode, keyA)
-               end
-	    end
-         end
-      end
-   end
-   dbg.fini()
-end
+-- local function spanOneModule(path, name, nameA, fileType, keyA)
+--    local dbg    = Dbg:dbg()
+--    local mStack = ModuleStack:moduleStack()
+--    dbg.start("spanOneModule(path=\"",path,"\", name=\"",name,
+--              "\", nameA=(",concatTbl(nameA,","),"), fileType=\"",fileType,
+--              "\", keyA=(",concatTbl(keyA,","),"))")
+--    if (fileType == "file" and posix.access(path,"r")) then
+--       for _,v in ipairs(keyA) do
+-- 	 nameA[#nameA+1] = name
+-- 	 local n = concatTbl(nameA,"/")
+-- 	 ModuleName = n
+-- 	 systemG.whatis  = function(msg, v)
+--                               local searchString = v
+--                               return function(msg)
+--                                  local nm     = ModuleName or ""
+--                                  local l      = nm:len()
+--                                  local nblnks
+--                                  if (l < 20) then
+--                                     nblnks = 20 - l
+--                                  else
+--                                     nblnks = 2
+--                                  end
+--                                  local prefix = nm .. string.rep(" ",nblnks) .. ": "
+--                                  if (msg:find(searchString,1,true)) then
+--                                     io.stderr:write(prefix, msg, "\n")
+--                                  end
+--                               end
+--                            end
+--          mStack:push(ModuleName,path)
+-- 	 loadModuleFile{file=path,moduleName=ModuleName, reportErr=true}
+--          mStack:pop()
+--       end
+--    elseif (fileType == "directory" and posix.access(path,"x")) then
+--       --io.stderr:write("dir: ",path," name: ", name, "\n")
+--       for file in lfs.dir(path) do
+--          if (file:sub(1,1) ~= "." and not file ~= "CVS" and file:sub(-1,-1) ~= '~') then
+--             local f = pathJoin(path, file)
+--             local readable = posix.access(f,"r")
+--             if (readable) then
+--                attr = lfs.symlinkattributes(f)
+--                if (attr.mode == "directory") then
+--                   nameA[#nameA+1] = file
+--                end
+--                --local n = concatTbl(nameA,"/")
+--                --io.stderr:write("file: ",file," f: ",f," mode: ",attr.mode, " n: ", n, "\n")
+--                M.spanOneModule(f, file, nameA, attr.mode,keyA)
+--                removeEntry(nameA,#nameA)
+--             end
+--          end
+--       end
+--    end
+--    dbg.fini()
+-- end
+-- 
+-- 
+-- function M.spanAll(self, keyA)
+--    local dbg    = Dbg:dbg()
+--    dbg.start("Master:spanAll(keyA=(",concatTbl(keyA,","),"))")
+--    mpath1A = MT:mt():module_pathA()
+--    for _, path in ipairs(mpathA) do
+--       local attr = lfs.attributes(path)
+--       if (attr and attr.mode == "directory" and posix.access(path,"x")) then
+--          for file in lfs.dir(path) do
+-- 	    --io.stderr:write("(1) spanAll: file: ",file,"\n")
+--             if (file:sub(1,1) ~= "." and not file ~= "CVS" and file:sub(-1,-1) ~= '~') then
+--                local f = pathJoin(path, file)
+--                local readable = posix.access(f,"r")
+--                if (readable) then
+--                   attr = lfs.attributes(f)
+--                   local nameA = {}
+--                   if (attr.mode == "directory") then
+--                      nameA[#nameA+1] = file
+--                   end
+--                   --local n = concatTbl(nameA,"/")
+--                   --io.stderr:write("(2) spanAll: file: ",file," f: ",f," mode: ", attr.mode," n: ",n,"\n")
+--                   M.spanOneModule(f, file, nameA, attr.mode, keyA)
+--                end
+-- 	    end
+--          end
+--       end
+--    end
+--    dbg.fini()
+-- end
 
 return M

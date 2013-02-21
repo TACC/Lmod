@@ -1,0 +1,65 @@
+===========================
+step 1
+===========================
+Modules based on Lua: Version 4.2.1.2 2013-02-12 16:45
+    by Robert McLay mclay@tacc.utexas.edu
+===========================
+step 2
+===========================
+ ProjectDIR/rt/multiL/mf/Core 
+   cmplr/gcc/4.7.2       cmplr/intel/13.1
+Use "module spider" to find all possible modules. 
+Use "module keyword key1 key2 ..." to search for all possible modules matching 
+any of the "keys". 
+===========================
+step 3
+===========================
+The following is a list of the modules currently available:
+  cmplr/gcc: cmplr/gcc/4.7.2
+    Gnu Compiler Collection 
+  cmplr/intel: cmplr/intel/13.1
+    Intel Compiler Collection 
+  mpi/mpich2: mpi/mpich2/1.5.2
+  parLib/petsc: parLib/petsc/3.3
+To learn more about a package enter:
+   $ module spider Foo
+where "Foo" is the name of a module
+To find detailed information about a particular package you
+must enter the version if there is more than one version:
+   $ module spider Foo/11.1
+===========================
+step 4
+===========================
+===========================
+step 5
+===========================
+ ProjectDIR/rt/multiL/mf/cmplr/gcc/4.7 
+   mpi/mpich2/1.5.2
+ ProjectDIR/rt/multiL/mf/Core 
+   cmplr/gcc/4.7.2       cmplr/intel/13.1
+Use "module spider" to find all possible modules. 
+Use "module keyword key1 key2 ..." to search for all possible modules matching 
+any of the "keys". 
+===========================
+step 6
+===========================
+===========================
+step 7
+===========================
+===========================
+step 8
+===========================
+ ProjectDIR/rt/multiL/mf/mpi/mpich2/1.5/cmplr/gcc/4.7 
+   parLib/petsc/3.3
+ ProjectDIR/rt/multiL/mf/cmplr/gcc/4.7 
+   mpi/mpich2/1.5.2
+ ProjectDIR/rt/multiL/mf/Core 
+   cmplr/gcc/4.7.2       cmplr/intel/13.1
+Use "module spider" to find all possible modules. 
+Use "module keyword key1 key2 ..." to search for all possible modules matching 
+any of the "keys". 
+===========================
+step 9
+===========================
+Due to MODULEPATH changes the following have been reloaded:
+  1) mpi/mpich2     2) parLib/petsc

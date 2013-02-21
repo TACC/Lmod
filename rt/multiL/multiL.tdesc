@@ -1,0 +1,86 @@
+-- -*- lua -*-
+local testName = "multiL"
+
+testdescript = {
+   owner   = "rtm",
+   product = "modules",
+   description = [[
+	 Test initial module load
+   ]],
+   keywords = {testName },
+
+   active = 1,
+   testName = testName,
+   job_submit_method = "INTERACTIVE", 
+
+   runScript = [[
+
+     . $(projectDir)/rt/common_funcs.sh
+
+     unsetMT
+     PATH_to_LUA=`findcmd --pathOnly lua`
+     PATH_to_TM=`findcmd --pathOnly tm`
+
+     PATH=$(projectDir)/src:$PATH_to_LUA:$PATH_to_TM:/usr/bin:/bin
+     export PATH
+     unset  LMOD_COMPILER
+     INFOPATH='';                         export INFOPATH
+     MANPATH='';                          export MANPATH
+     LD_LIBRARY_PATH='';                  export LD_LIBRARY_PATH
+     MODULEPATH_ROOT=$(testDir)/mf;       export MODULEPATH_ROOT
+     MODULEPATH=$(testDir)/mf/Core;       export MODULEPATH
+     LMOD_DEFAULT_MODULEPATH=$MODULEPATH; export LMOD_DEFAULT_MODULEPATH
+     numStep=0
+     COUNT=0
+     ORIG_HOME=`(cd $HOME; /bin/pwd)`
+     HOME=`/bin/pwd`
+
+     rm -f  _stderr.* _stdout.* err.* out.*
+     rm -fr .lmod.d .lmodrc.lua
+     cp $(projectDir)/setup/.lmodrc.lua .
+
+     mkdir -p $HOME/.lmod.d/.cache 
+     lua $(projectDir)/src/spider.in.lua -o moduleT $LMOD_DEFAULT_MODULEPATH > $HOME/.lmod.d/.cache/moduleT.lua
+
+     runMe lua $(projectDir)/src/lmod.in.lua bash --version                  # 1
+     runMe lua $(projectDir)/src/lmod.in.lua bash avail                      # 2
+     runMe lua $(projectDir)/src/lmod.in.lua bash spider                     # 3
+     runMe lua $(projectDir)/src/lmod.in.lua bash load cmplr/gcc             # 4
+     runMe lua $(projectDir)/src/lmod.in.lua bash avail                      # 5
+     runMe lua $(projectDir)/src/lmod.in.lua bash load mpi/mpich2            # 6
+     runMe lua $(projectDir)/src/lmod.in.lua bash load parLib/petsc          # 7
+     runMe lua $(projectDir)/src/lmod.in.lua bash list                       # 8
+     runMe lua $(projectDir)/src/lmod.in.lua bash avail                      # 9
+     runMe lua $(projectDir)/src/lmod.in.lua bash unload cmplr/gcc           #10
+     runMe lua $(projectDir)/src/lmod.in.lua bash load cmplr/gcc             #11
+     runMe lua $(projectDir)/src/lmod.in.lua bash swap cmplr/gcc cmplr/intel #12
+     runMe lua $(projectDir)/src/lmod.in.lua bash list                       #13
+     runMe lua $(projectDir)/src/lmod.in.lua bash unload cmplr/intel/13.1    #14
+     runMe lua $(projectDir)/src/lmod.in.lua bash list                       #15
+     runMe lua $(projectDir)/src/lmod.in.lua bash load cmplr/intel/13.1      #16
+
+     HOME=$ORIG_HOME
+
+     cat _stdout.[0-9][0-9] > _stdout.orig
+     joinBase64Results  -bash  _stdout.orig _stdout.new
+     cleanUp _stdout.new out.txt
+
+     cat _stderr.[0-9][0-9] > _stderr.orig
+     cleanUp _stderr.orig err.txt
+
+     rm -f $(cmdResultFn)
+     wrapperDiff -r $(cmdResultFn) $(testDir)/out.txt out.txt
+     wrapperDiff -r $(cmdResultFn) $(testDir)/err.txt err.txt
+     testFinish -c $(cmdResultFn) -r $(resultFn) -t $(runtimeFn)
+   ]],
+
+
+   blessScript = [[
+         # perform what is needed
+   ]],
+
+   tests = {
+      { id='t1'},
+   },
+
+}

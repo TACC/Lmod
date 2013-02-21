@@ -155,7 +155,8 @@ function processNewModulePATH(value)
       iStack        = iStack+1
       moduleStack[iStack] = {path = path, full = full, moduleT = moduleT[path].children, fn= v}
       dbg.print("Top of Stack: ",iStack, " Full: ", full, " file: ", path, "\n")
-      M.findModulesInDir(v,v,"",moduleT[path].children)
+      moduleT[path].children[v] = {}
+      M.findModulesInDir(v, v, "", moduleT[path].children[v])
       moduleStack[iStack] = nil
    end
 
@@ -220,20 +221,18 @@ function versionFile(path)
    return capture(cmd):trim()
 end
 
-local function findDefault(mpath, path, prefix)
+local function findAssignedDefault(mpath, path, prefix)
    local dbg      = Dbg:dbg()
    local mt       = MT:mt()
    local localDir = true
-   dbg.start("Master.findDefault(",mpath,", ", path,", ",prefix,")")
+   dbg.start("Spider:findAssignedDefault(",mpath,", ", path,", ",prefix,")")
 
    if (prefix == "") then
       dbg.fini()
       return nil
    end
 
-   --dbg.print("abspath(\"", tostring(path .. "/default"), ", \"",tostring(localDir),"\")\n")
    local default = abspath(path .. "/default", localDir)
-   --dbg.print("(2) default: ", tostring(default), "\n")
    if (default == nil) then
       local vFn = abspath(pathJoin(path,".version"), localDir)
       if (isFile(vFn)) then
@@ -241,14 +240,51 @@ local function findDefault(mpath, path, prefix)
          if (vf) then
             local f = pathJoin(path,vf)
             default = abspath(f,localDir)
-            --dbg.print("(1) f: ",f," default: ", tostring(default), "\n")
             if (default == nil) then
                local fn = vf .. ".lua"
                local f  = pathJoin(path,fn)
                default  = abspath(f,localDir)
                dbg.print("(2) f: ",f," default: ", tostring(default), "\n")
             end
-            --dbg.print("(3) default: ", tostring(default), "\n")
+         end
+      end
+   end
+
+   if (default) then
+      default = abspath(default, localDir)
+   end
+   dbg.print("(4) default: \"",tostring(default),"\"\n")
+
+   dbg.fini()
+   return default
+end
+
+
+local function findDefault(mpath, path, prefix)
+   local dbg      = Dbg:dbg()
+   local mt       = MT:mt()
+   local localDir = true
+   dbg.start("Spider:findDefault(",mpath,", ", path,", ",prefix,")")
+
+   if (prefix == "") then
+      dbg.fini()
+      return nil
+   end
+
+   local default = abspath(path .. "/default", localDir)
+   if (default == nil) then
+      local vFn = abspath(pathJoin(path,".version"), localDir)
+      if (isFile(vFn)) then
+         local vf = versionFile(vFn)
+         if (vf) then
+            local f = pathJoin(path,vf)
+            default = abspath(f,localDir)
+            if (default == nil) then
+               local fn = vf .. ".lua"
+               local f  = pathJoin(path,fn)
+               default  = abspath(f,localDir)
+               dbg.print("(2) f: ",f," default: ", tostring(default), "\n")
+            end
          end
       end
    end
@@ -313,46 +349,36 @@ local function fullName(name)
 end
 
 
-local function extractName(full)
-   local i, j
-   local n = nil
-   if (full == nil) then return n end
-
-   -- extract to first directory name
-   i, j, n = full:find('([^/]+)/') 
-   if (n) then
-      return n
-   end
-
-   -- Remove any extension
-   i, j, n   = full:find('(.*)%.')
-   if (n == nil) then
-      n = full
-   end
-   return n
+local function shortName(full)
+   local i,j = full:find(".*/")
+   return full:sub(1,(j or 0) - 1)
 end
+
+local function registerModuleT(full, sn, f, defaultModule)
+   local t = {}
+
+   t.path       = f
+   t.name       = sn
+   t.name_lower = sn:lower()
+   t.full       = full
+   t.full_lower = full:lower()
+   t.epoch      = posix.stat(f, "mtime")
+   t.default    = (f == defaultModule)
+   t.children   = {}
+
+   return t
+end
+
 
 function M.findModulesInDir(mpath, path, prefix, moduleT)
    local dbg  = Dbg:dbg()
    dbg.start("findModulesInDir(mpath=\"",tostring(mpath),"\", path=\"",tostring(path),
              "\", prefix=\"",tostring(prefix),"\")")
    
-
-   local attr = lfs.attributes(mpath)
-   if (not attr) then
-      dbg.print("mpath does not exist!\n")
-      dbg.fini()
-      return
-   end
-
-   assert(type(attr) == "table")
-   if ( attr.mode ~= "directory" or not posix.access(mpath,"rx")) then
-      dbg.fini()
-      return
-   end
-
-   attr = lfs.attributes(path)
-   if ( attr.mode ~= "directory" or not posix.access(path,"rx")) then
+   local attr = lfs.attributes(path)
+   if (not attr or  type(attr) ~= "table" or attr.mode ~= "directory" or
+       not posix.access(path,"rx")) then
+      dbg.print("Directory: ",path," is non-existant or is not readable\n")
       dbg.fini()
       return
    end
@@ -361,42 +387,57 @@ function M.findModulesInDir(mpath, path, prefix, moduleT)
    local moduleStack     = masterTbl.moduleStack
    local iStack          = #moduleStack
    local mt              = MT:mt()
+   local mnameT          = {}
+   local dirA            = {}
+
    
-   local defaultModuleName = findDefault(mpath, path, prefix)
-
-
    for file in lfs.dir(path) do
-      if (file:sub(1,1) ~= "." and not file ~= "CVS" and file:sub(-1,-1) ~= "~") then
-         local f = pathJoin(path,file)
+      if (file:sub(1,1) ~= "." and file ~= "CVS" and file:sub(-1,-1) ~= "~") then
+         local f        = pathJoin(path,file)
          local readable = posix.access(f,"r")
-         attr = lfs.attributes(f) or {}
-         dbg.print("file: ",file," f: ",f," attr.mode: ", attr.mode,"\n")
-	 if (readable and (attr.mode == 'file' or attr.mode == 'link') and (file ~= "default")) then
-            if (moduleT[f] == nil) then
-               local full    = fullName(pathJoin(prefix,file))
-               local fullL   = full:lower()
-               local name    = extractName(full)
-               local nameL   = name:lower()
-               local epoch   = attr.modification
-               local default = (f == defaultModuleName)
-               moduleT[f]    = { path = f, name = name, name_lower = nameL,
-                                 full = full, full_lower = fullL, epoch = epoch,
-                                 default = default,
-                                 children = {}
-                                 
-               }
-               moduleStack[iStack] = {path=f, full = full, moduleT = moduleT, fn = f}
-               dbg.print("Top of Stack: ",iStack, " Full: ", full, " file: ", f, "\n")
+         local full     = pathJoin(prefix, file):gsub("%.lua","")
+         attr           = lfs.attributes(f)
+         if (not attr or not readable) then
+            -- do nothing for this case
+         elseif (readable and attr.mode == 'file' and file ~= "default") then
+            dbg.print("mnameT[",full,"].file: ",f,"\n")
+            mnameT[full] = {file=f, mpath = mpath}
+         elseif (attr.mode == "directory") then
+            dbg.print("dirA: f:", f,"\n")
+            dirA[#dirA + 1] = { fn = f, mname = full } 
+         end
+      end
+   end
 
-               local t = {fn = f, modFullName = full, modName = name, default = 0, hash = 0}
-               mt:add(t,"pending")
-               loadModuleFile(f)
-               mt:setStatus(t.modName,"active")
-               dbg.print("Saving: Full: ", full, " Name: ", name, " file: ",f,"\n")
-            end
-         elseif (attr.mode == 'directory') then
-            M.findModulesInDir(mpath, f, prefix .. file..'/',moduleT)
-	 end
+   if (#dirA > 0 or prefix == '') then
+      for k,v in pairs(mnameT) do
+         local full = k
+         local sn   = k
+         moduleT[v.file] = registerModuleT(full, sn, v.file, false)
+         moduleStack[iStack] = {path= v.file, full = full, moduleT = moduleT, fn = v.file}
+         dbg.print("Top of Stack: ",iStack, " Full: ", full, " file: ", v.file, "\n")
+         
+         local t = {fn = v.file, modFullName = k, modName = sn, default = 0, hash = 0}
+         mt:add(t,"pending")
+         loadModuleFile(v.file)
+         mt:setStatus(t.modName,"active")
+         dbg.print("Saving: Full: ", k, " Name: ", k, " file: ",v.file,"\n")
+      end
+      for i = 1, #dirA do
+         M.findModulesInDir(mpath, dirA[i].fn, dirA[i].mname .. '/', moduleT)
+      end
+   else
+      local defaultModule   = findAssignedDefault(mpath, path, prefix)
+      for full,v in pairs(mnameT) do
+         local sn   = shortName(full)
+         moduleT[v.file] = registerModuleT(full, sn, v.file, defaultModule)
+         moduleStack[iStack] = {path=v.file, full = full, moduleT = moduleT, fn = v.file}
+         dbg.print("Top of Stack: ",iStack, " Full: ", full, " file: ", v.file, "\n")
+         local t = {fn = v.file, modFullName = full, modName = sn, default = 0, hash = 0}
+         mt:add(t,"pending")
+         loadModuleFile(v.file)
+         mt:setStatus(t.modName,"active")
+         dbg.print("Saving: Full: ", full, " Name: ", sn, " file: ",v.file,"\n")
       end
    end
    dbg.fini()
@@ -421,8 +462,10 @@ function M.findAllModules(moduleDirA, moduleT)
    os.exit               = nothing
 
    for _,v in ipairs(moduleDirA) do
-      v             = path_regularize(v)
-      if (isDir(v) and moduleDirT[v] == nil) then
+      local mpath = path_regularize(v)
+      local attr  = lfs.attributes(mpath)
+      if (attr and attr.mode == "directory" and
+          posix.access(mpath,"rx") and moduleDirT[v] == nil) then
          moduleDirT[v] = 1
          moduleT[v]    = {}
          M.findModulesInDir(v, v, "", moduleT[v])
@@ -485,7 +528,9 @@ function M.singleSpiderDB(a, moduleT, dbT)
       t[path].parent = parent
       if (next(value.children)) then
          a[#a+1] = t[path].full
-         M.buildSpiderDB(a, value.children, dbT)
+         for k, v in pairs(value.children) do
+            M.buildSpiderDB(a, v, dbT)
+         end
          a[#a]   = nil
       end
    end
@@ -551,7 +596,9 @@ function M.singleSearchSpiderDB(strA, a, moduleT, dbT)
       end
       if (next(value.children)) then
          a[#a+1] = full
-         M.searchSpiderDB(strA, a, value.children, dbT)
+         for k, v in pairs(value.children) do
+            M.searchSpiderDB(strA, a, v, dbT)
+         end
          a[#a]   = nil
       end
    end
@@ -640,7 +687,7 @@ end
 function M.spiderSearch(dbT, mname, help)
    local dbg = Dbg:dbg()
    dbg.start("Spider:spiderSearch(dbT,\"",mname,"\")")
-   local name   = extractName(mname)
+   local name   = shortName(mname)
    local nameL  = name:lower()
    local mnameL = mname:lower()
    dbg.print("mname: ", mname, " name: ", name, " nameL: ", nameL, "\n")
@@ -678,7 +725,7 @@ end
 function M.Level1(dbT, mname, help)
    local dbg = Dbg:dbg()
    dbg.start("Level1(dbT,\"",mname,"\",help)")
-   local name       = extractName(mname)
+   local name       = shortName(mname)
    local nameL      = name:lower()
    local t          = dbT[nameL]
    local term_width = TermWidth() - 4
@@ -879,20 +926,24 @@ end
 
 
 function M.listModulesHelper(moduleT, tbl)
-   for k,v in pairs(moduleT) do
-      tbl[#tbl+1] = v.path
-      if (next(v.children)) then
-         M.listModulesHelper(v.children,tbl)
+   for kk,vv in pairs(moduleT) do
+      tbl[#tbl+1] = vv.path
+      if (next(vv.children)) then
+         for k, v in pairs(vv.children) do
+            M.listModulesHelper(v, tbl)
+         end
       end
    end
 end
 
 function M.dictModules(t,tbl)
-   for k,v in pairs(t) do
-      k      = k:gsub(".lua$","")
-      tbl[k] = 0
-      if (next(v.children)) then
-         M.dictModules(v.children,tbl)
+   for kk,vv in pairs(t) do
+      kk      = kk:gsub(".lua$","")
+      tbl[kk] = 0
+      if (next(vv.children)) then
+         for k, v in pairs(vv.children) do
+            M.dictModules(v, tbl)
+         end
       end
    end
 end

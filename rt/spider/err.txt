@@ -1,7 +1,7 @@
 ===========================
 step 1
 ===========================
-Modules based on Lua: Version 4.1.4 2012-12-04 14:14
+Modules based on Lua: Version 4.2.1.2 2013-02-12 16:45
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -18,7 +18,9 @@ The following is a list of the modules currently available:
   gotoblas: gotoblas/1.20, gotoblas/1.26, gotoblas/1.30, gotoblas/1.30-beta, ...
     Blas Level 1, 2, 3 routines 
   intel: intel/intel
-  junk: junk/a/c/1.0, junk/b/c/2.0, junk/d/3.0
+  junk/a/c: junk/a/c/1.0
+  junk/b/c: junk/b/c/2.0
+  junk/d: junk/d/3.0
   local: local/local
   mpich2: mpich2/1.0.7
   multi: multi/multi
@@ -81,7 +83,9 @@ The following is a list of the modules currently available:
   gotoblas: gotoblas/1.20, gotoblas/1.26, gotoblas/1.30, gotoblas/1.30-beta, ...
     Blas Level 1, 2, 3 routines 
   intel: intel/intel
-  junk: junk/a/c/1.0, junk/b/c/2.0, junk/d/3.0
+  junk/a/c: junk/a/c/1.0
+  junk/b/c: junk/b/c/2.0
+  junk/d: junk/d/3.0
   local: local/local
   mpich2: mpich2/1.0.7
   multi: multi/multi
