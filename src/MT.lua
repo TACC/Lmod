@@ -113,6 +113,10 @@ local function locationTblDir(mpath, path, prefix, locationT, availT)
 end
 
 local function buildLocWmoduleT(mpath, moduleT, mpathT, locationT, availT)
+   local dbg       = Dbg:dbg()
+   dbg.start("buildAllLocWmoduleT(mpath, moduleT, mpathA, locationT, availT)")
+   dbg.print("mpath: ", mpath,"\n")
+   
    local availEntryT = availT[mpath]
 
    for f, vv in pairs(moduleT) do
@@ -131,10 +135,11 @@ local function buildLocWmoduleT(mpath, moduleT, mpathT, locationT, availT)
 
       for k, v in pairs(vv.children) do
          if (mpathT[k]) then
-            buildLocWmoduleT(k, moduleT, mpathT, locationT, availT)
+            buildLocWmoduleT(k, vv.children[k], mpathT, locationT, availT)
          end
       end
    end
+   dbg.fini()
 end
 
 
@@ -636,10 +641,6 @@ function M.reloadAllModules(self)
    end
    return not changed
 end
-
---function shortName(moduleName)
---   return moduleName:gsub("([^/]+)/.*","%1")
---end
 
 function M.shortName(self, moduleName)
    if (self:locationTbl(moduleName)) then

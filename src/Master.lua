@@ -65,15 +65,6 @@ local function new(self,safe)
    return o
 end
 
-function M.formModName(moduleName)
-   local idx = moduleName:find('/') or 0
-   idx = idx - 1
-   local modName = moduleName:sub(1,idx)
-   return modName
-end
-
-
-
 local searchTbl = {'.lua','', '/default', '/.version'}
 
 local function followDefault(path)
@@ -195,8 +186,6 @@ local function find_module_file(moduleName)
       end
       if (found) then break end
    end
-
-   --modName = M.formModName(fullName)
 
    t.fn          = result
    t.modFullName = fullName
@@ -553,68 +542,6 @@ end
 
 
 
-
-
-local function findDefaultOld(mpath, path, prefix)
-   local dbg      = Dbg:dbg()
-   local mt       = MT:mt()
-   local localDir = true
-   dbg.start("Master.findDefault(",mpath,", ", path,", ",prefix,")")
-
-   local i,j = path:find(mpath)
-   --dbg.print("i: ",tostring(i)," j: ", tostring(j)," path:len(): ",path:len(), "\n")
-   if (i and j + 1 < path:len()) then
-      local mname = path:sub(j+2)
-      i = mname:find("/")
-      if (i) then
-         mname = mname:sub(1,i-1)
-      end
-      local pathA  = mt:locationTbl(mname)
-      local mpath2 = pathA[1].mpath
-      --dbg.print("mname: ", mname, " mpath: ", mpath, " mpath2: ",mpath2,"\n")
-
-      if (mpath ~= mpath2) then
-         dbg.print("(1)default: \"nil\"\n")
-         dbg.fini()
-         return nil
-      end
-   end
-
-   --dbg.print("abspath(\"", tostring(path .. "/default"), ", \"",tostring(localDir),"\")\n")
-   local default = abspath(path .. "/default", localDir)
-   --dbg.print("(2) default: ", tostring(default), "\n")
-   if (default == nil) then
-      local vFn = abspath(pathJoin(path,".version"), localDir)
-      if (isFile(vFn)) then
-         local vf = M.versionFile(vFn)
-         if (vf) then
-            local f = pathJoin(path,vf)
-            default = abspath(f,localDir)
-            --dbg.print("(1) f: ",f," default: ", tostring(default), "\n")
-            if (default == nil) then
-               local fn = vf .. ".lua"
-               local f  = pathJoin(path,fn)
-               default  = abspath(f,localDir)
-               dbg.print("(2) f: ",f," default: ", tostring(default), "\n")
-            end
-            --dbg.print("(3) default: ", tostring(default), "\n")
-         end
-      end
-   end
-   if (default == nil and prefix ~= "") then
-      local result, count = lastFileInDir(path)
-      if (count > 1) then
-         default = result
-      end
-   end
-   if (default) then
-      default = abspath(default, localDir)
-   end
-   dbg.print("(4) default: \"",tostring(default),"\"\n")
-
-   dbg.fini()
-   return default
-end
 
 local function findDefault(mpath, sn, versionA)
    local dbg  = Dbg:dbg()

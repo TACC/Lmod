@@ -43,18 +43,10 @@ function M.find_module_file(fullModuleName, oldFn)
 
    local t        = { fn = nil, modFullName = nil, modName = nil, default = 0, hash = 0}
    local mt       = MT:mt()
-   local idx      = fullModuleName:find('/')
+   local sn       = mt:shortName(fullModuleName)
+   local extra    = extractVersion(fullModuleName, sn)
    local localDir = true
    
-
-   local key, extra, modName
-   if (idx == nil) then
-      key   = fullModuleName
-      extra = ''
-   else
-      key   = fullModuleName:sub(1,idx-1)
-      extra = fullModuleName:sub(idx)
-   end
 
    local pathA = mt:locationTbl(key)
 

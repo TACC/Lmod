@@ -305,34 +305,40 @@ function myFileName()
    return mStack:fileName()
 end
 
-function hierarchyA(package, levels)
-   local n = myFileName():gsub("%.lua$","")
+function hierarchyA(package, levels, numEntries)
+   local fn = myFileName():gsub("%.lua$","")
+
+   numEntries = numEntries or 2
 
    -- Remove package from end of string by using the
    -- "plain" matching via string.find function
    package = package:gsub("%.lua$","")
-   local i,j = n:find(package,1,true)
-   if (j == n:len()) then
-      n = n:sub(1,i-1)
+   local i,j = fn:find(package,1,true)
+   if (j == fn:len()) then
+      fn = fn:sub(1,i-1)
    end
 
-   -- remove any leading or trailing '/'
-   n       = n:gsub("^/","")
-   n       = n:gsub("/$","")
+   -- remove any leading or trailing '/' or duplicate '/'
+   fn       = fn:gsub("^/","")
+   fn       = fn:gsub("/$","")
+   fn       = fn:gsub("//+","/")
    local a = {}
 
-   for dir in n:split("/") do
+   for dir in fn:split("/") do
       a[#a + 1] = dir
    end
 
    local b = {}
-   local j = #a
+   local n = #a
 
    for i = 1, levels do
-      b[#b + 1 ] = pathJoin(a[j-1],a[j])
-      j = j - 2
+      local bb = {}
+      for j = numEntries-1, 0, -1 do
+         bb[j] = a[n-j]
+      end
+      b[i] = concatTbl(bb,'/')
+      n = n - numEntries
    end
-
    return b
 end
 

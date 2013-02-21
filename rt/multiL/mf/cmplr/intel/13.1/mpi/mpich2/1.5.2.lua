@@ -11,5 +11,5 @@ local modulepath_root = os.getenv("MODULEPATH_ROOT")
 
 prepend_path('MODULEPATH',           pathJoin(modulepath_root,pkgNameVer,cmplrV))
 
-family("compiler")
+family("MPI")
 

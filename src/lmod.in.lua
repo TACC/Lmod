@@ -337,9 +337,11 @@ local function TableList()
    local t = {}
    local activeA = mt:list("short","active")
    for i,v  in ipairs(activeA) do
-      local w = mt:fullName(v)
-      local _, _, name, version = w:find("([^/]*)/?(.*)")
-      t[name] = version
+      local w  = mt:fullName(v)
+      local sn = mt:shortName(v)
+      local version = extractVersion(w,sn)
+
+      t[sn] = version
    end
    local s = serializeTbl{name="activeList",indent=true, value=t}
    io.stderr:write(s,"\n")

@@ -42,11 +42,15 @@ testdescript = {
      mkdir -p $HOME/.lmod.d/.cache 
      lua $(projectDir)/src/spider.in.lua -o moduleT $LMOD_DEFAULT_MODULEPATH > $HOME/.lmod.d/.cache/moduleT.lua
 
-     runMe lua $(projectDir)/src/lmod.in.lua bash --version
-     runMe lua $(projectDir)/src/lmod.in.lua bash avail
-     runMe lua $(projectDir)/src/lmod.in.lua bash spider
-     runMe lua $(projectDir)/src/lmod.in.lua bash load cmplr/gcc
-     runMe lua $(projectDir)/src/lmod.in.lua bash avail
+     runMe lua $(projectDir)/src/lmod.in.lua bash --version                  # 1
+     runMe lua $(projectDir)/src/lmod.in.lua bash avail                      # 2
+     runMe lua $(projectDir)/src/lmod.in.lua bash spider                     # 3
+     runMe lua $(projectDir)/src/lmod.in.lua bash load cmplr/gcc             # 4
+     runMe lua $(projectDir)/src/lmod.in.lua bash avail                      # 5
+     runMe lua $(projectDir)/src/lmod.in.lua bash load mpi/mpich2            # 6
+     runMe lua $(projectDir)/src/lmod.in.lua bash load parLib/petsc          # 7
+     runMe lua $(projectDir)/src/lmod.in.lua bash avail                      # 8
+     runMe lua $(projectDir)/src/lmod.in.lua bash swap cmplr/gcc cmplr/intel # 9
 
      HOME=$ORIG_HOME
 
