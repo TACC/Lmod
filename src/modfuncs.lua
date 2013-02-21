@@ -306,9 +306,9 @@ function myFileName()
 end
 
 function hierarchyA(package, levels, numEntries)
-   local fn = myFileName():gsub("%.lua$","")
-
+   local dbg = Dbg:dbg()
    numEntries = numEntries or 2
+   local fn  = myFileName():gsub("%.lua$","")
 
    -- Remove package from end of string by using the
    -- "plain" matching via string.find function
@@ -333,12 +333,15 @@ function hierarchyA(package, levels, numEntries)
 
    for i = 1, levels do
       local bb = {}
-      for j = numEntries-1, 0, -1 do
-         bb[j] = a[n-j]
+      for j = 1, numEntries do
+         local idx = n - numEntries + j
+         bb[j] = a[idx]
       end
       b[i] = concatTbl(bb,'/')
       n = n - numEntries
    end
+
+   dbg.fini()
    return b
 end
 

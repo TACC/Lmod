@@ -48,7 +48,7 @@ function M.find_module_file(fullModuleName, oldFn)
    local localDir = true
    
 
-   local pathA = mt:locationTbl(key)
+   local pathA = mt:locationTbl(sn)
 
    if (pathA == nil or #pathA == 0) then
       dbg.fini()

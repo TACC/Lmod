@@ -111,6 +111,7 @@ local function find_module_file(moduleName)
    local fullName = ""
    local modName  = ""
    local sn       = mt:shortName(moduleName)
+   dbg.print("sn: ",sn,"\n")
    local extra    = extractVersion(moduleName, sn) 
 
    local pathA = mt:locationTbl(sn)
@@ -448,6 +449,7 @@ function M.reloadAll()
 
    local same = true
    local a    = mt:list("userName","any")
+   local snA  = mt:list("short","any")
    for _, v in ipairs(a) do
       if (mt:have(v,"active")) then
          local fullName = mt:fullName(v)
@@ -478,9 +480,9 @@ function M.reloadAll()
          same = not aa[1]
       end
    end
-   for _, v in ipairs(a) do
+   for _, v in ipairs(snA) do
       if (not mt:have(v,"active")) then
-         local t = { modFullName = v, modName = mt:shortName(v)}
+         local t = { modFullName = v, modName = v}
          dbg.print("Master:reloadAll module: ",v," marked as inactive\n")
          mt:add(t, "inactive")
       end

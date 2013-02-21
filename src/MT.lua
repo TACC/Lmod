@@ -851,9 +851,10 @@ function M.setLoadOrder(self)
 end
 
 function M.fullName(self,moduleName)
+   local dbg   = Dbg:dbg()
    local mT    = self.mT
    local sn    = self:shortName(moduleName)
-   local entry = mT[sn]
+   local entry = mT[sn] or mT[moduleName]
    if (entry == nil) then
       return nil
    end
@@ -863,7 +864,7 @@ end
 function M.short(self,moduleName)
    local mT    = self.mT
    local sn    = self:shortName(moduleName)
-   local entry = mT[sn]
+   local entry = mT[sn] or mT[moduleName]
    if (entry == nil) then
       return nil
    end
@@ -873,7 +874,7 @@ end
 function M.mType(self,moduleName)
    local mT    = self.mT
    local sn    = self:shortName(moduleName)
-   local entry = mT[sn]
+   local entry = mT[sn] or mT[moduleName]
    if (entry == nil) then
       return nil
    end
@@ -883,7 +884,7 @@ end
 function M.set_mType(self,moduleName, value)
    local mT    = self.mT
    local sn    = self:shortName(moduleName)
-   local entry = mT[sn]
+   local entry = mT[sn] or mT[moduleName]
    if (entry ~= nil) then
       mT[sn].mType = value
    end

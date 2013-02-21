@@ -204,6 +204,7 @@ function List(...)
    local k = 0
    for i = 1, #totalA do
       local v = totalA[i]
+      dbg.print("inactive check v: ",v,"\n")
       if (not mt:have(v,"active")) then
          local m = mt:fullName(v)
          for j = 1, #wanted do
