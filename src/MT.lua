@@ -193,19 +193,26 @@ local function build_locationTbl(mpathA)
    end
 
    
-
-   -- for mpath, vv in pairs(availT) do
-   --    io.stderr:write("mpath: ", mpath,":\n")
-   --    for j = 1, #vv do
-   --       io.stderr:write("  ",vv[j].sn,":")
-   --       local vA = vv[j].versionA
-   --       for i = 1, #vA do
-   --          io.stderr:write(" ",vA[i].version,", ")
-   --       end
-   --       io.stderr:write("\n")
-   --    end
-   -- end
-
+   if (dbg.active()) then
+      dbg.print("availT: \n")
+      for mpath, vv in pairs(availT) do
+         dbg.print("  mpath: ", mpath,":\n")
+         for sn , versionA in pairsByKeys(vv) do
+            dbg.print("    ",sn,":")
+            for i = 1, #versionA do
+               io.stderr:write(" ",versionA[i].version,",")
+            end
+            io.stderr:write("\n")
+         end
+      end
+      dbg.print("locationT: \n")
+      for sn, vv in pairs(locationT) do
+         dbg.print("  sn: ", sn,":\n")
+         for i = 1, #vv do
+            dbg.print("    ",vv[i].file,"\n")
+         end
+      end
+   end
    return locationT, availT
 end
 
