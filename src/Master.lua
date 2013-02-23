@@ -65,7 +65,7 @@ local function new(self,safe)
    return o
 end
 
-local searchTbl = {'.lua','', '/default', '/.version'}
+local searchTbl = {'','.lua', '/default', '/.version'}
 
 local function followDefault(path)
    if (path == nil) then return nil end
@@ -152,18 +152,10 @@ local function find_module_file(moduleName)
             end
          end
          if (found) then
-            local i,j = result:find(fn,1,true)
-            if (i and j) then
-               extra = result:sub(1,i-1) .. result:sub(j+1)
-            else
-               extra = result
-            end
-            dbg.print("i: ",tostring(i)," j: ", tostring(j),"\n")
-            dbg.print("result: ",result,"\n")
-            dbg.print("fn:     ",fn,"\n")
-            dbg.print("extra:  ",extra,"\n")
-            extra    = extra:gsub("%.lua$","")
-            fullName = moduleName .. extra
+
+            local i,j = result:find(mpath,1,true)
+            fullName  = result:sub(j+2):gsub("%.lua$","")
+            dbg.print("fullName: ",fullName,"\n")
             break
          end
       end
@@ -180,8 +172,7 @@ local function find_module_file(moduleName)
          if (result) then
             found = true
             local i, j = result:find(mpath,1,true)
-            fullName   = result:sub(j+2)
-            fullName   = fullName:gsub("%.lua$","")
+            fullName   = result:sub(j+2):gsub("%.lua$","")
             dbg.print("lastFileInDir mpath: ", mpath," fullName: ",fullName,"\n")
          end
       end
