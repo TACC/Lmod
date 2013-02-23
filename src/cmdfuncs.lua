@@ -143,7 +143,7 @@ function List(...)
    dbg.start("List(...)")
    local mt = MT:mt()
 
-   local totalA = mt:list("short","any")
+   local totalA = mt:list("userName","any")
    if (#totalA < 1) then
       local dbg = Dbg:dbg()
       LmodWarning("No modules installed\n")
@@ -204,14 +204,14 @@ function List(...)
    local k = 0
    for i = 1, #totalA do
       local v = totalA[i]
-      dbg.print("inactive check v: ",v,"\n")
-      if (not mt:have(v,"active")) then
-         local m = mt:fullName(v)
+      dbg.print("inactive check v: ",v.name,"\n")
+      if (not mt:have(v.sn,"active")) then
+         local name = v.name
          for j = 1, #wanted do
             local p = wanted[j]
-            if (m:find(p,1,true) or m:find(p)) then
+            if (name:find(p,1,true) or name:find(p)) then
                k       = k + 1
-               a[#a+1] = {"  " .. tostring(k).. ")" , m}
+               a[#a+1] = {"  " .. tostring(k).. ")" , name}
             end
          end
       end
@@ -274,8 +274,11 @@ function readCacheFile(cacheType, cacheFileA, moduleDirT, moduleT)
 
    for i = 1,#cacheFileA do
       local f = cacheFileA[i].file
-      dbg.print("cacheFile: ",f,"\n")
-      if (isFile(f)) then
+
+      if (not isFile(f)) then
+         dbg.print("non-existant cacheFile: ",f,"\n")
+      else
+         dbg.print("cacheFile found: ",f,"\n")
          attr   = lfs.attributes(f)
 
          -- Check Time

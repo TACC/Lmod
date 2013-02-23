@@ -99,7 +99,6 @@ function main()
       fn = optionTbl.fn
    end
 
-
    if (fn) then
       local d = dirname(fn)
       if (not isDir(d)) then
@@ -112,7 +111,11 @@ function main()
          f:close()
       end
    else
-      print (s)
+      local out = io.stdout
+      if (optionTbl.errorOut) then
+         out = io.stderr
+      end
+      out:write(s,"\n")
    end
 end
 
@@ -130,6 +133,12 @@ function options()
       name   = {'-f', '--file'},
       dest   = 'fn',
       action = 'store',
+   }
+
+   cmdlineParser:add_option{ 
+      name   = {'-2', '--err'},
+      dest   = 'errorOut',
+      action = 'store_true',
    }
 
    cmdlineParser:add_option{ 

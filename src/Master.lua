@@ -65,7 +65,7 @@ local function new(self,safe)
    return o
 end
 
-local searchTbl = {'','.lua', '/default', '/.version'}
+local searchTbl = {'.lua', '', '/default', '/.version'}
 
 local function followDefault(path)
    if (path == nil) then return nil end
@@ -152,7 +152,6 @@ local function find_module_file(moduleName)
             end
          end
          if (found) then
-
             local i,j = result:find(mpath,1,true)
             fullName  = result:sub(j+2):gsub("%.lua$","")
             dbg.print("fullName: ",fullName,"\n")
@@ -440,41 +439,43 @@ function M.reloadAll()
 
    local same = true
    local a    = mt:list("userName","any")
-   local snA  = mt:list("short","any")
    for _, v in ipairs(a) do
-      if (mt:have(v,"active")) then
-         local fullName = mt:fullName(v)
+      local sn = v.sn
+      if (mt:have(sn, "active")) then
+         local fullName = v.full
          local t        = find_module_file(fullName)
-         local fn       = mt:fileName(v)
+         local fn       = mt:fileName(sn)
          if (t.fn ~= fn) then
             dbg.print("Master:reloadAll t.fn: \"",t.fn or "nil","\"",
-                      " mt:fileName(v): \"",fn or "nil","\"\n")
-            dbg.print("Master:reloadAll Unloading module: \"",v,"\"\n")
-            mcp:unloadsys(v)
+                      " mt:fileName(sn): \"",fn or "nil","\"\n")
+            dbg.print("Master:reloadAll Unloading module: \"",sn,"\"\n")
+            mcp:unloadsys(sn)
             dbg.print("Master:reloadAll Loading module: \"",fullName or "nil","\"\n")
             local loadA = mcp:load(fullName)
             dbg.print("Master:reloadAll: fn: \"",fn or "nil",
-                      "\" mt:fileName(v): \"", mt:fileName(v) or "nil","\"\n")
-            if (loadA[1] and fn ~= mt:fileName(v)) then
+                      "\" mt:fileName(sn): \"", tostring(mt:fileName(sn)), "\"\n")
+            if (loadA[1] and fn ~= mt:fileName(sn)) then
                same = false
                dbg.print("Master:reloadAll module: ",fullName," marked as reloaded\n")
             end
          end
       else
-         local fn       = mt:fileName(v)
-         local fullName = mt:fullName(v)
-         dbg.print("Master:reloadAll Loading module: \"",fullName or "nil","\"\n")
-         local aa = mcp:load(fullName)
-         if (aa[1] and fn ~= mt:fileName(v)) then
-            dbg.print("Master:reloadAll module: ",fullName," marked as reloaded\n")
+         local fn    = mt:fileName(sn)
+         local name  = v.name          -- This name is short for default and
+                                       -- Full for specific version.
+         dbg.print("Master:reloadAll Loading module: \"", tostring(name), "\"\n")
+         local aa = mcp:load(name)
+         if (aa[1] and fn ~= mt:fileName(sn)) then
+            dbg.print("Master:reloadAll module: ", name, " marked as reloaded\n")
          end
          same = not aa[1]
       end
    end
-   for _, v in ipairs(snA) do
-      if (not mt:have(v,"active")) then
-         local t = { modFullName = v, modName = v}
-         dbg.print("Master:reloadAll module: ",v," marked as inactive\n")
+   for _, v in ipairs(a) do
+      local sn = v.sn
+      if (not mt:have(sn, "active")) then
+         local t = { modFullName = v.full, modName = sn, default = v.defaultFlg}
+         dbg.print("Master:reloadAll module: ", sn, " marked as inactive\n")
          mt:add(t, "inactive")
       end
    end

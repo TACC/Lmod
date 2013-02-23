@@ -100,6 +100,8 @@ local function locationTblDir(mpath, path, prefix, locationT, availT)
       for full, v in pairs(mnameT) do
          local version = full:gsub(".*/","")
          local parseV  = concatTbl(parseVersion(version), ".")
+         --local i,j     = 
+         --local file    = 
          vA[#vA+1]     = {parseV, version, v.file}
       end
       sort(vA, function(a,b) return a[1] < b[1] end )
@@ -112,18 +114,20 @@ local function locationTblDir(mpath, path, prefix, locationT, availT)
    dbg.fini()
 end
 
-local function buildLocWmoduleT(mpath, moduleT, mpathT, locationT, availT)
+local function buildLocWmoduleT(mpath, moduleT, mpathT, lT, availT)
    local dbg       = Dbg:dbg()
-   dbg.start("buildAllLocWmoduleT(mpath, moduleT, mpathA, locationT, availT)")
+   dbg.start("buildLocWmoduleT(mpath, moduleT, mpathA, lT, availT)")
    dbg.print("mpath: ", mpath,"\n")
    
    local availEntryT = availT[mpath]
 
    for f, vv in pairs(moduleT) do
-      local sn        = vv.name
-      local a         = locationT[sn] or {}
-      a[#a+1]         = { file = f, mpath = mpath }
-      locationT[sn]   = a
+      local sn = vv.name
+      local a  = lT[sn] or {}
+      if (a[mpath] == nil) then
+         a[mpath] = { file = pathJoin(mpath,sn), mpath = mpath }
+      end
+      lT[sn]   = a
 
       a               = availEntryT[sn] or {}
       local version   = extractVersion(vv.full, sn)
@@ -135,7 +139,7 @@ local function buildLocWmoduleT(mpath, moduleT, mpathT, locationT, availT)
 
       for k, v in pairs(vv.children) do
          if (mpathT[k]) then
-            buildLocWmoduleT(k, vv.children[k], mpathT, locationT, availT)
+            buildLocWmoduleT(k, vv.children[k], mpathT, lT, availT)
          end
       end
    end
@@ -148,10 +152,11 @@ local function buildAllLocWmoduleT(moduleT, mpathA, locationT, availT)
    dbg.start("buildAllLocWmoduleT(moduleT, mpathA, locationT, availT)")
 
    local mpathT = {}
+   local lT     = {}  -- temporary locationT
    for i = 1,#mpathA do
       local mpath = mpathA[i]
       if (isDir(mpath)) then
-         mpathT[mpath] = 1
+         mpathT[mpath] = i
          availT[mpath] = {}
       end
    end
@@ -159,7 +164,7 @@ local function buildAllLocWmoduleT(moduleT, mpathA, locationT, availT)
    for mpath in pairs(mpathT) do
       local mpmT = moduleT[mpath]
       if (mpmT) then
-         buildLocWmoduleT(mpath, mpmT, mpathT, locationT, availT)
+         buildLocWmoduleT(mpath, mpmT, mpathT, lT, availT)
       end
    end
 
@@ -169,6 +174,21 @@ local function buildAllLocWmoduleT(moduleT, mpathA, locationT, availT)
       end
    end
 
+   for sn, vv in pairs(lT) do
+
+      local a = {}
+      for mpath, v in pairs(vv) do
+         a[#a + 1] = {mpathT[mpath], v}
+      end
+      sort(a, function (x,y) return x[1] < y[1] end)
+
+      local b = {}
+      for i = 1, #a do
+         b[i] = a[i][2]
+      end
+      locationT[sn] = b
+   end
+   lT = nil  -- Done with lT
    dbg.fini()
 end
 
@@ -685,6 +705,20 @@ function M.add(self, t, status)
    dbg.fini()
 end
 
+function M.userName(self, moduleName)
+   local mT    = self.mT
+   local sn    = self:shortName(moduleName)
+   local entry = mT[sn]
+   if (entry == nil) then
+      return nil
+   end
+
+   if (entry.default == 1) then
+      return entry.short
+   end
+   return entry.fullName
+end
+
 function M.fileName(self, moduleName)
    local mT    = self.mT
    local sn    = self:shortName(moduleName)
@@ -756,33 +790,44 @@ function M.have(self, moduleName, status)
 end
 
 function M.list(self, kind, status)
+   local dbg  = Dbg:dbg()
    local mT   = self.mT
    local icnt = 0
    local a    = {}
    local b    = {}
-   local nameT
 
-   for k,v in pairs(mT) do
-      if ((status == "any" or status == v.status) and
-          (v.status ~= "pending")) then
-         icnt  = icnt + 1
-         nameT = kind
-         if (kind == "userName") then
-            if (v.default == 1) then
-               nameT = "short"
-            else
+   if (kind == "userName") then
+      for k,v in pairs(mT) do
+         if ((status == "any" or status == v.status) and
+             (v.status ~= "pending")) then
+            icnt  = icnt + 1
+            local nameT = "short"
+            if (v.default ~= 1) then
                nameT = "fullName"
             end
+            dbg.print("v.short: ", tostring(v.short), ", full: ",tostring(v.fullName),"\n")
+            local obj = {sn   = v.short,   full       = v.fullName,
+                         name = v[nameT], defaultFlg = v.default }
+            a[icnt] = { v.loadOrder, obj }
          end
-         a[icnt] = { v[nameT], v.loadOrder}
+      end
+   else
+      for k,v in pairs(mT) do
+         if ((status == "any" or status == v.status) and
+             (v.status ~= "pending")) then
+            icnt  = icnt + 1
+            a[icnt] = { v.loadOrder, v[kind]}
+         end
       end
    end
 
-   table.sort (a, function(x,y) return x[2] < y[2] end)
+   table.sort (a, function(x,y) return x[1] < y[1] end)
 
    for i = 1, icnt do
-      b[i] = a[i][1]
+      b[i] = a[i][2]
    end
+
+   a = nil -- finished w/ a.
    return b
 end
 
@@ -1052,7 +1097,7 @@ function M.reportChanges(self, origMT)
    for k, v in pairs(mT) do
       if (self:have(k,"inactive") and v.status == "active") then
          local name = v.fullName
-         if (v.default ~= 0) then
+         if (v.default == 1) then
             name = v.short
          end
          inactiveA[#inactiveA+1] = name

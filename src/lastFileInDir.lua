@@ -18,10 +18,10 @@ function lastFileInDir(fn)
    if (attr and attr.mode == 'directory' and posix.access(fn,"x")) then
       for file in lfs.dir(fn) do
          local f = pathJoin(fn, file)
-         dbg.print("fn: ",fn," file: ",file," f: ",f,"\n")
          attr = lfs.attributes(f)
          local readable = posix.access(f,"r")
          if (readable and file:sub(1,1) ~= "." and attr.mode == 'file' and file:sub(-1,-1) ~= '~') then
+            dbg.print("fn: ",fn," file: ",file," f: ",f,"\n")
             count = count + 1
             local key = file:gsub("%.lua$","")
             key       = concatTbl(parseVersion(key),".")

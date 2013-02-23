@@ -1,7 +1,7 @@
 ===========================
 step 1
 ===========================
-Modules based on Lua: Version 4.2.1.2 2013-02-12 16:45
+Modules based on Lua: Version 4.2.1.3 2013-02-21 16:40
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -49,6 +49,11 @@ step 7
 ===========================
 step 8
 ===========================
+Currently Loaded Modules:
+  1) cmplr/gcc/4.7.2    2) mpi/mpich2/1.5.2    3) parLib/petsc/3.3
+===========================
+step 9
+===========================
  ProjectDIR/rt/multiL/mf/mpi/mpich2/1.5/cmplr/gcc/4.7 
    parLib/petsc/3.3
  ProjectDIR/rt/multiL/mf/cmplr/gcc/4.7 
@@ -59,7 +64,40 @@ Use "module spider" to find all possible modules.
 Use "module keyword key1 key2 ..." to search for all possible modules matching 
 any of the "keys". 
 ===========================
-step 9
+step 10
+===========================
+===========================
+step 11
+===========================
+Activating Modules:
+  1) mpi/mpich2/1.5.2     2) parLib/petsc/3.3
+===========================
+step 12
 ===========================
 Due to MODULEPATH changes the following have been reloaded:
-  1) mpi/mpich2     2) parLib/petsc
+  1) mpi/mpich2/1.5.2     2) parLib/petsc/3.3
+===========================
+step 13
+===========================
+Currently Loaded Modules:
+  1) cmplr/intel/13.1    2) mpi/mpich2/1.5.2    3) parLib/petsc/3.3
+===========================
+step 14
+===========================
+===========================
+step 15
+===========================
+Currently Loaded Modules:
+  None found.
+Inactive Modules:
+  1) mpi/mpich2   2) parLib/petsc
+===========================
+step 16
+===========================
+Activating Modules:
+  1) mpi/mpich2/1.5.2     2) parLib/petsc/3.3
+===========================
+step 17
+===========================
+Currently Loaded Modules:
+  1) cmplr/intel/13.1    2) mpi/mpich2/1.5.2    3) parLib/petsc/3.3
