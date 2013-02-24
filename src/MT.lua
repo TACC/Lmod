@@ -100,8 +100,6 @@ local function locationTblDir(mpath, path, prefix, locationT, availT)
       for full, v in pairs(mnameT) do
          local version = full:gsub(".*/","")
          local parseV  = concatTbl(parseVersion(version), ".")
-         --local i,j     = 
-         --local file    = 
          vA[#vA+1]     = {parseV, version, v.file}
       end
       sort(vA, function(a,b) return a[1] < b[1] end )
