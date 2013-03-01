@@ -25,6 +25,7 @@ function ShowCmd(name, ...)
    A[#A+1] = concatTbl(b,"")
 end
 
+M.report               = MasterControl.quiet
 M.help                 = MasterControl.quiet
 M.whatis               = MasterControl.quiet
 M.setenv               = MasterControl.quiet

@@ -67,6 +67,7 @@ function Spider_help(...)
    local iStack      = #moduleStack
    local path        = moduleStack[iStack].path
    local moduleT     = moduleStack[iStack].moduleT
+   local a           = {}
    moduleT[path].help = concatTbl({...},"")
 end
 

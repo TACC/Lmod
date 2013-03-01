@@ -18,6 +18,7 @@ M.message              = MasterControl.quiet
 M.prereq               = MasterControl.quiet
 M.prereq_any           = MasterControl.quiet
 M.remove_path          = MasterControl.quiet
+M.report               = MasterControl.warning
 M.set_alias            = MasterControl.quiet
 M.set_shell_function   = MasterControl.quiet
 M.try_load             = MasterControl.quiet

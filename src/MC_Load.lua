@@ -21,6 +21,7 @@ M.prereq               = MasterControl.prereq
 M.prereq_any           = MasterControl.prereq_any
 M.remove_path          = MasterControl.remove_path
 M.remove_property      = MasterControl.remove_property
+M.report               = MasterControl.error
 M.setenv               = MasterControl.setenv
 M.set_alias            = MasterControl.set_alias
 M.set_shell_function   = MasterControl.set_shell_function

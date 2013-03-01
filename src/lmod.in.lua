@@ -490,7 +490,7 @@ end
 function Help(...)
    local dbg = Dbg:dbg()
    help    = function (...)
-      io.stderr:write(...)
+      io.stderr:write(concatTbl({...},""))
       io.stderr:write("\n")
    end
 

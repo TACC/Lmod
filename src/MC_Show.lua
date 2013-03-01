@@ -3,10 +3,12 @@ require("strict")
 
 MC_Show           = inheritsFrom(MasterControl)
 MC_Show.my_name   = "MC_Show"
+MC_Show.report    = MasterControl.warning
 
 local M           = MC_Show
 local Dbg         = require("Dbg")
 local concatTbl   = table.concat
+
 
 local function ShowCmd(name,...)
    local a = {}
