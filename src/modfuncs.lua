@@ -23,14 +23,20 @@ local function concatTbl(aa,sep)
 end
 
 
-function validateStringArgs(cmdName, msg, ...)
-   for i, v in ipairs{...} do
+function validateStringArgs(cmdName, ...)
+   local dbg = Dbg:dbg()
+   local arg = { n = select('#', ...), ...}
+   dbg.print("cmd: ",cmdName, " arg.n: ",arg.n,"\n")
+   for i = 1, arg.n do
+      local v = arg[i]
       if (type(v) ~= "string") then
          local fn = myFileName()
-         mcp:report("Syntax error in file: ",fn, " with command: ",
+         mcp:report("Syntax error in file: ",fn, "\n with command: ",
                    cmdName, " One or more arguments are not strings\n")
+         return false
       end
    end
+   return true
 end
 
 function validateArgsWithValue(cmdName, ...)
@@ -42,6 +48,7 @@ function validateArgsWithValue(cmdName, ...)
          local fn = myFileName()
          mcp:report("Syntax error in file: ",fn, " with command: ",
                    cmdName, " One or more arguments are not strings\n")
+         return false
       end
    end
 
@@ -50,7 +57,9 @@ function validateArgsWithValue(cmdName, ...)
       local fn = myFileName()
       mcp:report("Syntax error in file: ",fn, " with command: ",
                 cmdName, " The last argument is  not string or number\n")
+      return false
    end
+   return true
 end
 
 
@@ -63,7 +72,7 @@ end
 function load(...)
    local dbg = Dbg:dbg()
    dbg.start("load(",concatTbl({...},", "),")")
-   validateStringArgs("load",...)
+   if (not validateStringArgs("load",...)) then return {} end
 
    local b = mcp:load(...)
    dbg.fini()
@@ -73,7 +82,7 @@ end
 function try_load(...)
    local dbg = Dbg:dbg()
    dbg.start("try_load(",concatTbl({...},", "),")")
-   validateStringArgs("try_load",...)
+   if (not validateStringArgs("try_load",...)) then return {} end
 
    local b = mcp:try_load(...)
    dbg.fini()
@@ -85,7 +94,7 @@ try_add = try_load
 function unload(...)
    local dbg = Dbg:dbg()
    dbg.start("unload(",concatTbl({...},", "),")")
-   validateStringArgs("unload",...)
+   if (not validateStringArgs("unload",...)) then return {} end
 
    local b = mcp:unload(...)
    dbg.fini()
@@ -96,7 +105,7 @@ end
 function always_load(...)
    local dbg = Dbg:dbg()
    dbg.start("always_load(",concatTbl({...},", "),")")
-   validateStringArgs("always_load",...)
+   if (not validateStringArgs("always_load",...)) then return {} end
 
    local b = mcp:always_load(...)
    dbg.fini()
@@ -106,7 +115,7 @@ end
 function always_unload(...)
    local dbg = Dbg:dbg()
    dbg.start("always_unload(",concatTbl({...},", "),")")
-   validateStringArgs("always_unload",...)
+   if (not validateStringArgs("always_unload",...)) then return {} end
 
    local b = mcp:always_unload(...)
    dbg.fini()
@@ -118,53 +127,50 @@ end
 function prepend_path(...)
    local dbg = Dbg:dbg()
    dbg.start("prepend_path(",concatTbl({...},", "),")")
-   validateStringArgs("prepend_path",...)
+   if (not validateStringArgs("prepend_path",...)) then return end
 
-   local b = mcp:prepend_path(...)
+   mcp:prepend_path(...)
    dbg.fini()
-   return b
 end
 
 function append_path(...)
    local dbg = Dbg:dbg()
    dbg.start("append_path(",concatTbl({...},", "),")")
-   validateStringArgs("append_path",...)
+   if (not validateStringArgs("append_path",...)) then return end
 
-   local b = mcp:append_path(...)
+   mcp:append_path(...)
    dbg.fini()
-   return b
 end
 
 function remove_path(...)
    local dbg = Dbg:dbg()
    dbg.start("remove_path(",concatTbl({...},", "),")")
-   validateStringArgs("remove_path",...)
+   if (not validateStringArgs("remove_path",...)) then return end
 
-   local b = mcp:remove_path(...)
+   mcp:remove_path(...)
    dbg.fini()
-   return b
 end
 
---- SETENV functions ----
+--- setenv functions ----
 
 function setenv(...)
    local dbg = Dbg:dbg()
    dbg.start("setenv(",concatTbl({...},", "),")")
-   validateArgsWithValue("setenv",...)
+   if (not validateArgsWithValue("setenv",...)) then return end
 
-   local b = mcp:setenv(...)
+   mcp:setenv(...)
    dbg.fini()
-   return b
+   return
 end
 
 function unsetenv(...)
    local dbg = Dbg:dbg()
    dbg.start("unsetenv(",concatTbl({...},", "),")")
-   validateStringArgs("unsetenv",...)
+   if (not validateStringArgs("unsetenv",...)) then return end
 
-   local b = mcp:unsetenv(...)
+   mcp:unsetenv(...)
    dbg.fini()
-   return b
+   return
 end
 
 --- Property functions ----
@@ -172,21 +178,19 @@ end
 function add_property(...)
    local dbg = Dbg:dbg()
    dbg.start("add_property(",concatTbl({...},", "),")")
-   validateStringArgs("add_property",...)
+   if (not validateStringArgs("add_property",...)) then return end
 
-   local b = mcp:add_property(...)
+   mcp:add_property(...)
    dbg.fini()
-   return b
 end
 
 function remove_property(...)
    local dbg = Dbg:dbg()
    dbg.start("remove_property(",concatTbl({...},", "),")")
-   validateStringArgs("remove_property",...)
+   if (not validateStringArgs("remove_property",...)) then return end
 
-   local b = mcp:remove_property(...)
+   mcp:remove_property(...)
    dbg.fini()
-   return b
 end
 
 
@@ -195,21 +199,19 @@ end
 function set_alias(...)
    local dbg = Dbg:dbg()
    dbg.start("set_alias(",concatTbl({...},", "),")")
-   validateArgsWithValue("set_alias",...)
+   if (not validateArgsWithValue("set_alias",...)) then return end
 
-   local b = mcp:set_alias(...)
+   mcp:set_alias(...)
    dbg.fini()
-   return b
 end
 
 function unset_alias(...)
    local dbg = Dbg:dbg()
    dbg.start("unset_alias(",concatTbl({...},", "),")")
-   validateStringArgs("unset_alias",...)
+   if (not validateStringArgs("unset_alias",...)) then return end
 
-   local b = mcp:unset_alias(...)
+   mcp:unset_alias(...)
    dbg.fini()
-   return b
 end
 
 --- Set Alias functions ---
@@ -217,21 +219,19 @@ end
 function set_shell_function(...)
    local dbg = Dbg:dbg()
    dbg.start("set_shell_function(",concatTbl({...},", "),")")
-   validateStringArgs("set_shell_function",...)
+   if (not validateStringArgs("set_shell_function",...)) then return end
 
-   local b = mcp:set_shell_function(...)
+   mcp:set_shell_function(...)
    dbg.fini()
-   return b
 end
 
 function unset_shell_function(...)
    local dbg = Dbg:dbg()
    dbg.start("unset_shell_function(",concatTbl({...},", "),")")
-   validateStringArgs("unset_shell_function",...)
+   if (not validateStringArgs("unset_shell_function",...)) then return end
 
-   local b = mcp:unset_shell_function(...)
+   mcp:unset_shell_function(...)
    dbg.fini()
-   return b
 end
 
 --- Prereq / Conflict ---
@@ -239,31 +239,28 @@ end
 function prereq(...)
    local dbg = Dbg:dbg()
    dbg.start("prereq(",concatTbl({...},", "),")")
-   validateStringArgs("prereq",...)
+   if (not validateStringArgs("prereq",...)) then return end
 
-   local b = mcp:prereq(...)
+   mcp:prereq(...)
    dbg.fini()
-   return b
 end
 
 function conflict(...)
    local dbg = Dbg:dbg()
    dbg.start("conflict(",concatTbl({...},", "),")")
-   validateStringArgs("conflict",...)
+   if (not validateStringArgs("conflict",...)) then return end
 
-   local b = mcp:conflict(...)
+   mcp:conflict(...)
    dbg.fini()
-   return b
 end
 
 function prereq_any(...)
    local dbg = Dbg:dbg()
    dbg.start("prereq_any(",concatTbl({...},", "),")")
-   validateStringArgs("prereq_any",...)
+   if (not validateStringArgs("prereq_any",...)) then return end
 
-   local b = mcp:prereq_any(...)
+   mcp:prereq_any(...)
    dbg.fini()
-   return b
 end
 
 --- Family function ---
@@ -271,11 +268,10 @@ end
 function family(...)
    local dbg = Dbg:dbg()
    dbg.start("family(",concatTbl({...},", "),")")
-   validateStringArgs("family",...)
+   if (not validateStringArgs("family",...)) then return end
 
-   local b = mcp:family(...)
+   mcp:family(...)
    dbg.fini()
-   return b
 end
 
 --- Inherit function ---
@@ -284,9 +280,8 @@ function inherit(...)
    local dbg = Dbg:dbg()
    dbg.start("inherit(",concatTbl({...},", "),")")
 
-   local b = mcp:inherit(...)
+   mcp:inherit(...)
    dbg.fini()
-   return b
 end
 
 
@@ -295,20 +290,18 @@ end
 function whatis(...)
    local dbg = Dbg:dbg()
    dbg.start("whatis(",concatTbl({...},", "),")")
-   validateStringArgs("whatis",...)
+   if (not validateStringArgs("whatis",...)) then return end
 
-   local b = mcp:whatis(...)
+   mcp:whatis(...)
    dbg.fini()
-   return b
 end
 
 function help(...)
    local dbg = Dbg:dbg()
    dbg.start("help(...)")
-   validateStringArgs("help",...)
-   local b = mcp:help(...)
+   if (not validateStringArgs("help",...)) then return end
+   mcp:help(...)
    dbg.fini()
-   return b
 end
 
 -- Misc --
@@ -358,22 +351,14 @@ end
 
 function isloaded(m)
    local mt = MT:mt()
-   validateStringArgs("isloaded",m)
+   if (not validateStringArgs("isloaded",m)) then return false end
    return mt:have(m,"active")
 end
 
 function isPending(m)
    local mt = MT:mt()
-   validateStringArgs("isPending",m)
+   if (not validateStringArgs("isPending",m)) then return false end
    return mt:have(m,"pending")
-end
-
-function display(...)
-   local dbg = Dbg:dbg()
-   dbg.start("display(...)")
-   local b = mcp:display(...)
-   dbg.fini()
-   return b
 end
 
 function myFileName()

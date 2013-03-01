@@ -36,7 +36,6 @@ M.unset_alias          = MasterControl.quiet
 M.set_shell_function   = MasterControl.quiet
 M.unset_shell_function = MasterControl.quiet
 M.unset_alias          = MasterControl.quiet
-M.display              = MasterControl.quiet
 M.add_property         = MasterControl.quiet
 M.remove_property      = MasterControl.quiet
 
@@ -80,10 +79,6 @@ end
 
 function M.family(self, ...)
    ShowCmd("family",...)
-end
-
-function M.display(self, ...)
-   ShowCmd("display", ...)
 end
 
 function M.unload(self, ...)

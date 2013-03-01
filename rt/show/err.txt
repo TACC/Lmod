@@ -1,7 +1,7 @@
 ===========================
 step 1
 ===========================
-Modules based on Lua: Version 4.1.4.3 2013-01-18 15:40
+Modules based on Lua: Version 4.2.1.4 2013-02-23 19:57
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -9,7 +9,6 @@ step 2
    ProjectDIR/mf/Core/gcc/4.2.3.lua:
 family("compiler")
 prepend_path("MODULEPATH", "ProjectDIR/mf/Compiler/gcc/4.2.3")
-display(false)
 ===========================
 step 3
 ===========================

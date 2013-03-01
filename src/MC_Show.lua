@@ -94,10 +94,6 @@ function M.family(self, ...)
    ShowCmd("family",...)
 end
 
-function M.display(self, ...)
-   ShowCmd("display", ...)
-end
-
 function M.unload(self, ...)
    ShowCmd("unload", ...)
 end

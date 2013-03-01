@@ -541,6 +541,4 @@ function M.quiet(self, ...)
    -- very Quiet !!!
 end
 
-M.display = M.quiet
-
 return M

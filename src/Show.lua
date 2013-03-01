@@ -77,10 +77,6 @@ function Show_family(...)
    ShowCmd("family",...)
 end
 
-function Show_display(...)
-   ShowCmd("display",...)
-end
-
 function Show_unload(...)
    ShowCmd("unload",...)
 end

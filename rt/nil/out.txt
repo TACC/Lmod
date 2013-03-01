@@ -12,3 +12,4 @@ LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/nil/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/nil/mf/Core";
 export MODULEPATH;
+false

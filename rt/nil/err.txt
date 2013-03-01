@@ -1,11 +1,15 @@
 ===========================
 step 1
 ===========================
-Modules based on Lua: Version 4.1.4.3 2013-01-18 15:40
+Modules based on Lua: Version 4.2.1.4 2013-02-23 19:57
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
 ===========================
+Rebuilding cache file, please wait ...
+Lmod Warning: Syntax error in file: ProjectDIR/rt/nil/mf/Core/nil/1.0.lua
+ with command: prepend_path One or more arguments are not strings
+ done
 The following is a list of the modules currently available:
   nil: nil/1.0
 To learn more about a package enter:
