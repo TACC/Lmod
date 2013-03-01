@@ -311,6 +311,7 @@ local function loadModuleFile(fn)
    local myType = extname(fn)
    local func
    local msg
+   local status
    if (myType == ".lua") then
       func, msg = loadfile(fn)
    else
@@ -323,7 +324,10 @@ local function loadModuleFile(fn)
       func, msg = loadstring(s)
    end
    if (func) then
-      func()
+      status, msg = pcall(func)
+      if (not status) then
+         LmodWarning("Failed in reading: ",fn, "\n",msg,"\n")
+      end
    else
       LmodWarning("Found syntax error: ",msg,"\n")
    end

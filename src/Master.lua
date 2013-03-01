@@ -197,6 +197,7 @@ function loadModuleFile(t)
    local myType = extname(t.file)
    local func
    local msg
+   local status
    if (myType == ".lua") then
       if (isFile(t.file)) then
          func, msg = loadfile(t.file)
@@ -223,7 +224,11 @@ function loadModuleFile(t)
    end
 
    if (func) then
-      func()
+      status, msg = pcall(func)
+      if (not status) then
+         local n = t.moduleName or ""
+         LmodError("Unable to load module: ",n,"\n    ",msg,"\n")
+      end
    else
       if (t.reportErr) then
          local n = t.moduleName or ""
