@@ -1,0 +1,39 @@
+===========================
+step 1
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/errHandler/mf";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/errHandler/mf";
+export MODULEPATH;
+===========================
+step 2
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/errHandler/mf";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/errHandler/mf";
+export MODULEPATH;
+false
+===========================
+step 3
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/errHandler/mf";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/errHandler/mf";
+export MODULEPATH;
+false
+===========================
+step 4
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/errHandler/mf";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/errHandler/mf";
+export MODULEPATH;
+false
+===========================
+step 5
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/errHandler/mf";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/errHandler/mf";
+export MODULEPATH;
+false
