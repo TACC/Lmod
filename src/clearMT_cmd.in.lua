@@ -5,16 +5,17 @@
 --         optionly it writes the state of the ModuleTable is to a
 --         dated file.
 --
-require("strict")
-require("fileOps")
 
-local cmd = abspath(arg[0])
+local cmd = arg[0]
 local i,j = cmd:find(".*/")
 local cmd_dir = "./"
 if (i) then
    cmd_dir = cmd:sub(1,j)
 end
 package.path = cmd_dir .. '?.lua;' .. package.path
+
+require("strict")
+require("fileOps")
 
 local concatTbl    = table.concat
 local format       = string.format

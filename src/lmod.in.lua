@@ -988,23 +988,25 @@ function main()
 
    local arg_str   = concatTbl(arg," ")
    local masterTbl = masterTbl()
-   Options:options(CmdLineUsage)
 
 
    -- Chose prepend_path order normal/reverse
    set_prepend_order()
 
-   if (masterTbl.debug or masterTbl.dbglvl) then
-      dbg:activateDebug(masterTbl.dbglvl or 1)
-   end
 
    dbg.start("lmod(", arg_str,")")
    dbg.print("Lmod Version: ",Version.name(),"\n")
    MCP = MasterControl.build("load")
    mcp = MasterControl.build("load")
+
+   Options:options(CmdLineUsage)
+
    dbg.print("Setting mpc to ", mcp:name(),"\n")
    localvar(masterTbl.localvarA)
 
+   if (masterTbl.debug or masterTbl.dbglvl) then
+      dbg:activateDebug(masterTbl.dbglvl or 1)
+   end
    ------------------------------------------------------------------------
    -- Try to load a SitePackage Module,  If it is not there then do not
    -- abort.  Sites do not have to have a Site package.
