@@ -62,10 +62,6 @@ function validateArgsWithValue(cmdName, ...)
    return true
 end
 
-
-
-
-
 --- Load family functions ----
 
 
@@ -151,7 +147,7 @@ function remove_path(...)
    dbg.fini()
 end
 
---- setenv functions ----
+--- Set Environment functions ----
 
 function setenv(...)
    local dbg = Dbg:dbg()
@@ -194,7 +190,7 @@ function remove_property(...)
 end
 
 
---- Set Alias functions ---
+--- Set Alias/Shell functions ---
 
 function set_alias(...)
    local dbg = Dbg:dbg()
@@ -213,8 +209,6 @@ function unset_alias(...)
    mcp:unset_alias(...)
    dbg.fini()
 end
-
---- Set Alias functions ---
 
 function set_shell_function(...)
    local dbg = Dbg:dbg()
