@@ -1030,6 +1030,7 @@ function main()
    local cmdName = masterTbl.pargs[1]
    table.remove(masterTbl.pargs,1)
 
+
    ------------------------------------------------------------
    -- Must output local variables even when there is the command
    -- is not a valid command
@@ -1049,6 +1050,10 @@ function main()
    local mt     = MT:mt()
 
    local origMT = deepcopy(mt)
+
+   if (masterTbl.checkSyntax) then
+      master.shell:setActive(false)
+   end
 
    -- Output local vars
    master.shell:expand(varTbl)

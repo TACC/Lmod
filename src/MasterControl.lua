@@ -401,13 +401,19 @@ end
 -------------------------------------------------------------------
 
 function M.prereq(self, ...)
-   local dbg    = Dbg:dbg()
-   local mt     = MT:mt()
-   local a      = {}
-   local mStack = ModuleStack:moduleStack()
-   local mName  = mStack:moduleName()
+   local dbg       = Dbg:dbg()
+   local mt        = MT:mt()
+   local a         = {}
+   local mStack    = ModuleStack:moduleStack()
+   local mName     = mStack:moduleName()
+   local masterTbl = masterTbl()
 
    dbg.start("MasterControl:prereq(",concatTbl({...},", "),")")
+
+   if (masterTbl.checkSyntax) then
+      dbg.print("Ignoring prereq when syntax checking\n")
+      dbg.fini()
+   end
 
    for _,v in ipairs{...} do
       if (not mt:have(v,"active")) then
@@ -428,10 +434,17 @@ function M.conflict(self, ...)
    dbg.start("MasterControl:conflict(",concatTbl({...},", "),")")
 
 
-   local mt     = MT:mt()
-   local a      = {}
-   local mStack = ModuleStack:moduleStack()
-   local mName  = mStack:moduleName()
+   local mt        = MT:mt()
+   local a         = {}
+   local mStack    = ModuleStack:moduleStack()
+   local mName     = mStack:moduleName()
+   local masterTbl = masterTbl()
+
+   if (masterTbl.checkSyntax) then
+      dbg.print("Ignoring conflicts when syntax checking\n")
+      dbg.fini()
+   end
+
    for _,v in ipairs{...} do
       if (mt:haveSN(v,"active")) then
          a[#a+1] = v
@@ -446,13 +459,19 @@ function M.conflict(self, ...)
 end
 
 function M.prereq_any(self, ...)
-   local dbg    = Dbg:dbg()
-   local mt     = MT:mt()
-   local a      = {}
-   local mStack = ModuleStack:moduleStack()
-   local mName  = mStack:moduleName()
+   local dbg       = Dbg:dbg()
+   local mt        = MT:mt()
+   local a         = {}
+   local mStack    = ModuleStack:moduleStack()
+   local mName     = mStack:moduleName()
+   local masterTbl = masterTbl()
 
    dbg.start("MasterControl:prereq_any(",concatTbl({...},", "),")")
+
+   if (masterTbl.checkSyntax) then
+      dbg.print("Ignoring prereq_any when syntax checking\n")
+      dbg.fini()
+   end
 
    local found  = false
    for _,v in ipairs{...} do
@@ -473,13 +492,19 @@ end
 
 
 function M.family(self, name)
-   local dbg                    = Dbg:dbg()
-   local mt                     = MT:mt()
-   local mStack                 = ModuleStack:moduleStack()
-   local mName                  = mStack:moduleName()
-   local sn                     = mt:shortName(mName)
+   local dbg       = Dbg:dbg()
+   local mt        = MT:mt()
+   local mStack    = ModuleStack:moduleStack()
+   local mName     = mStack:moduleName()
+   local sn        = mt:shortName(mName)
+   local masterTbl = masterTbl()
 
    dbg.start("MasterControl:family(",name,")")
+   if (masterTbl.checkSyntax) then
+      dbg.print("Ignoring family when syntax checking\n")
+      dbg.fini()
+   end
+
    dbg.print("mt:setfamily(\"",name,"\",\"",sn,"\")\n")
    local oldName = mt:setfamily(name,sn)
    if (oldName ~= nil and oldName ~= sn and not expert() ) then

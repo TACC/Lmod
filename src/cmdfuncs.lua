@@ -321,15 +321,16 @@ function readCacheFile(cacheType, cacheFileA, moduleDirT, moduleT)
    return dirsRead
 end
 
+s_moduleT = {}
 
 function getModuleT(fast)
 
    local dbg        = Dbg:dbg()
    local mt         = MT:mt()
-   local moduleT    = {}
    local HOME       = os.getenv("HOME") or ""
    local cacheDir   = pathJoin(HOME,".lmod.d",".cache")
    local errRtn     = LmodError
+   local masterTbl  = masterTbl()
    local message    = LmodMessage
    local sysCacheFileA = {
       { file = pathJoin(sysCacheDir,"moduleT.lua"),     fileT = "system"},
@@ -340,7 +341,14 @@ function getModuleT(fast)
    }
    local userModuleTFN = pathJoin(cacheDir,"moduleT.lua")
 
-   dbg.start("getModuleT()")
+   dbg.start("getModuleT(fast=", tostring(fast),")")
+
+   if (next(s_moduleT) ~= nil) then
+      dbg.print("using previously computed moduleT\n")
+      dbg.fini()
+      return s_moduleT
+   end
+
 
    local baseMpath = mt:getBaseMPATH()
    if (baseMpath == nil) then
@@ -357,12 +365,15 @@ function getModuleT(fast)
    -----------------------------------------------------------------------------
    -- Read system cache file if it exists and is not out-of-date.
 
-   local sysDirsRead = readCacheFile("system", sysCacheFileA, moduleDirT, moduleT)
+   local sysDirsRead = 0
+   if (not masterTbl.checkSyntax) then
+      sysDirsRead = readCacheFile("system", sysCacheFileA, moduleDirT, s_moduleT)
+   end
    
    ------------------------------------------------------------------------
    -- Read user cache file if it exists and is not out-of-date.
 
-   local usrDirsRead = readCacheFile("user", usrCacheFileA, moduleDirT, moduleT)
+   local usrDirsRead = readCacheFile("user", usrCacheFileA, moduleDirT, s_moduleT)
    
    ------------------------------------------------------------------------
    -- Find all the directories not read in yet.
@@ -421,7 +432,7 @@ function getModuleT(fast)
          dbg.print("Wrote: ",userModuleTFN,"\n")
       end
       for k, v in pairs(userModuleT) do
-         moduleT[k] = userModuleT[k]
+         s_moduleT[k] = userModuleT[k]
       end
 
    else
@@ -440,5 +451,5 @@ function getModuleT(fast)
    end
 
    dbg.fini()
-   return moduleT
+   return s_moduleT
 end

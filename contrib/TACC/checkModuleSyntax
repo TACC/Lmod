@@ -1,0 +1,68 @@
+#!/bin/bash
+# -*- shell-script -*-
+
+#  This script is designed to check module syntax
+
+usage()
+{
+  echo $0 modulefile
+}
+
+runMe()
+{
+  local cmdA=("$@")
+
+  local j
+  local jj
+  local i
+  local ignoreError
+  local j=0
+  for i in "${cmdA[@]}" ; do
+    ignoreError=
+    if [ "x${i:0:1}" = x- ]; then
+      i=${i:1}
+      ignoreError=1
+    fi
+      
+    j=$((j+1))
+    jj=$(printf "%02d" $j)
+    echo
+    echo "%%---------------------------------%%"
+    echo "   " $jj: $i
+    echo "%%---------------------------------%%"
+    echo
+
+    eval $i
+    if [ -z "$ignoreError" -a $? != 0 ]; then
+      exit 1
+    fi
+  done
+}
+
+DIR=/tmp/checkModuleSyntax/$$
+
+mkdir -p $DIR
+
+HOME=$DIR
+
+MODULE_FILE=$1
+
+if [ -z "$MODULE_FILE" -o ! -f "$MODULE_FILE" ]; then
+  usage
+fi
+
+clearMT
+
+export MODULEPATH=$(dirname $MODULE_FILE)
+MF=$(basename $MODULE_FILE .lua)
+
+
+cmdA=( "module --checkSyntax load $MF"
+       "module help   $MF"
+       "module whatis $MF"
+       "module --checkSyntax avail"
+       "module --checkSyntax spider"
+)
+
+runMe "${cmdA[@]}"
+

@@ -98,6 +98,13 @@ function M.options(self, usage)
       help   = "local variables needed to be set after this commands execution",
    }
 
+   cmdlineParser:add_option{
+      name   = {"--check_syntax", "--checkSyntax"},
+      dest   = "checkSyntax",
+      action = "store_true",
+      help   = "Checking module command syntax: do not load",
+   }
+
 
    local optionTbl, pargs = cmdlineParser:parse(arg)
 
