@@ -167,7 +167,7 @@ function List(...)
       msg2 = " Matching: " .. table.concat(wanted," or ")
    end
 
-   io.stderr:write(msg,msg2,"\n")
+   io.stderr:write("\n",msg,msg2,"\n")
    local k = 0
    local legendT = {}
    for i = 1, #activeA do
@@ -329,9 +329,7 @@ function getModuleT(fast)
    local mt         = MT:mt()
    local HOME       = os.getenv("HOME") or ""
    local cacheDir   = pathJoin(HOME,".lmod.d",".cache")
-   local errRtn     = LmodError
    local masterTbl  = masterTbl()
-   local message    = LmodMessage
    local sysCacheFileA = {
       { file = pathJoin(sysCacheDir,"moduleT.lua"),     fileT = "system"},
       { file = pathJoin(sysCacheDir,"moduleT.old.lua"), fileT = "system"},
@@ -403,21 +401,31 @@ function getModuleT(fast)
 
 
    if (buildModuleT) then
-      LmodError    = dbg.quiet
-      LmodMessage  = dbg.quiet
-      io.stderr:write("Rebuilding cache file, please wait ...")
+      local errRtn  = LmodError
+      local message = LmodMessage
+      LmodError     = dbg.quiet
+      LmodMessage   = dbg.quiet
+      local short   = mt:getShortTime()
+      local prtRbMsg = (not masterTbl.initial) and ((not short) or
+                                                    (short > shortTime))
+
+      if (prtRbMsg) then
+         io.stderr:write("Rebuilding cache file, please wait ...")
+      end
 
       local t1 = epoch()
       Spider.findAllModules(moduleDirA, userModuleT)
       local t2 = epoch()
-      io.stderr:write(" done\n")
+      if (prtRbMsg) then
+         io.stderr:write(" done.\n\n")
+      end
       LmodError    = errRtn
       LmodMessage  = message
       dbg.print("t2-t1: ",t2-t1, " shortTime: ", shortTime, "\n")
 
       if (t2 - t1 < shortTime) then
          ancient = shortLifeCache
-         mt:setRebuildTime(ancient)
+         mt:setRebuildTime(ancient, t2-t1)
       else
          mkdir_recursive(cacheDir)
          local s0 = "-- Date: " .. os.date("%c",os.time()) .. "\n"
@@ -437,7 +445,7 @@ function getModuleT(fast)
 
    else
       ancient = _G.ancient or ancient
-      mt:setRebuildTime(ancient)
+      mt:setRebuildTime(ancient, false)
    end
 
    -- remove user cache file if old
