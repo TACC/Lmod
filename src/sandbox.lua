@@ -1,4 +1,9 @@
+require("strict")
+require("fileOps")
+sandbox_run = false
+
 sandbox_env = {
+  require  = require,
   ipairs   = ipairs,
   next     = next,
   pairs    = pairs,
@@ -22,7 +27,10 @@ sandbox_env = {
                min = math.min, modf = math.modf, pi = math.pi, pow = math.pow, 
                rad = math.rad, random = math.random, sin = math.sin, sinh = math.sinh, 
                sqrt = math.sqrt, tan = math.tan, tanh = math.tanh },
-  os       = { clock = os.clock, difftime = os.difftime, time = os.time, date = os.date},
+  os       = { clock = os.clock, difftime = os.difftime, time = os.time, date = os.date,
+               getenv = os.getenv},
+
+  io       = { stderr = io.stderr, open = io.open, close = io.close, write = io.write },
 
   ------------------------------------------------------------
   -- lmod functions
@@ -30,57 +38,106 @@ sandbox_env = {
 
   --- Load family functions ----
 
-  load                 = load
-  try_load             = try_load
-  try_add              = try_load
-  unload               = unload
-  always_load          = always_load
-  always_unload        = always_unload
+  load                 = load,
+  try_load             = try_load,
+  try_add              = try_load,
+  unload               = unload,
+  always_load          = always_load,
+  always_unload        = always_unload,
 
   --- PATH functions ---
-  prepend_path         = prepend_path
-  append_path          = append_path
-  remove_path          = remove_path
+  prepend_path         = prepend_path,
+  append_path          = append_path,
+  remove_path          = remove_path,
   
   --- Set Environment functions ----
-  setenv               = setenv
-  unsetenv             = unsetenv
+  setenv               = setenv,
+  unsetenv             = unsetenv,
 
   --- Property functions ----
-  add_property         = add_property 
-  remove_property      = remove_property 
+  add_property         = add_property,
+  remove_property      = remove_property,
   
   --- Set Alias/shell functions ---
-  set_alias            = set_alias
-  unset_alias          = unset_alias
-  set_shell_function   = set_shell_function
-  unset_shell_function = unset_shell_function
+  set_alias            = set_alias,
+  unset_alias          = unset_alias,
+  set_shell_function   = set_shell_function,
+  unset_shell_function = unset_shell_function,
   
   --- Prereq / Conflict ---
-  prereq               = prereq
-  prereq_any           = prereq_any
-  conflict             = conflict
+  prereq               = prereq,
+  prereq_any           = prereq_any,
+  conflict             = conflict,
   
   --- Family function ---
-  family               = family
+  family               = family,
   
   --- Inherit function ---
-  inherit              = inherit
+  inherit              = inherit,
 
   -- Whatis / Help functions
-  whatis               = whatis
-  help                 = help
+  whatis               = whatis,
+  help                 = help,
 
   -- Misc --
-  LmodError            = LmodError
-  LmodWarning          = LmodWarning
-  LmodMessage          = LmodMessage
-  is_spider            = is_spider
-  mode                 = mode
-  isloaded             = isloaded
-  isPending            = isPending
+  LmodError            = LmodError,
+  LmodWarning          = LmodWarning,
+  LmodMessage          = LmodMessage,
+  is_spider            = is_spider,
+  mode                 = mode,
+  isloaded             = isloaded,
+  isPending            = isPending,
+  myFileName           = myFileName,
+  hierarchyA           = hierarchyA,
+  UUIDString           = UUIDString,
 
-  myFileName           = myFileName
+  ------------------------------------------------------------
+  -- fileOp functions
+  ------------------------------------------------------------
+  pathJoin             = pathJoin,
+  isDir                = isDir,
+  isFile               = isFile,
+  mkdir_recursive      = mkdir_recursive,
+  dirname              = dirname,
+  extname              = extname,
+  removeExt            = removeExt,
+  barefilename         = barefilename,
+  splitFileName        = splitFileName,
+  abspath              = abspath,
 
-  hierarchyA           = hierarchyA
+  ------------------------------------------------------------
+  -- lfs functions
+  ------------------------------------------------------------
+  lfs = { attributes = lfs.attributes, chdir = lfs.chdir, lock_dir = lfs.lock_dir,
+          currentdir = lfs.currentdir, dir = lfs.dir, lock = lfs.lock,
+          mkdir = lfs.mkdir, rmdir = lfs.rmdir, rmdir = lfs.rmdir,
+          setmode = lfs.setmode, symlinkattributes = lfs.symlinkattributes,
+          touch = lfs.touch, unlock = lfs.unlock
+  },
 }
+
+
+
+
+local function run5_1(untrusted_code)
+  if untrusted_code:byte(1) == 27 then return nil, "binary bytecode prohibited" end
+  local untrusted_function, message = loadstring(untrusted_code)
+  if not untrusted_function then return nil, message end
+  setfenv(untrusted_function, sandbox_env)
+  return pcall(untrusted_function)
+end
+
+-- run code under environment [Lua 5.2]
+local function run5_2(untrusted_code)
+  local untrusted_function, message = load(untrusted_code, nil, 't', sandbox_env)
+  if not untrusted_function then return nil, message end
+  return pcall(untrusted_function)
+end
+
+local version = _VERSION:gsub("^Lua%s+","")
+sandbox_run = run5_1
+if (version == "5.2") then
+   sandbox_run = run5_2
+end
+
+   

@@ -33,6 +33,7 @@ require("fileOps")
 require("string_trim")
 require("fillWords")
 require("lastFileInDir")
+require("sandbox")
 
 ModuleName=""
 local BeautifulTbl = require('BeautifulTbl')
@@ -197,10 +198,13 @@ function loadModuleFile(t)
    local myType = extname(t.file)
    local func
    local msg
-   local status
+   local status = true
+   local whole
    if (myType == ".lua") then
-      if (isFile(t.file)) then
-         func, msg = loadfile(t.file)
+      local f = io.open(t.file)
+      if (f) then
+         whole = f:read("*all")
+         f:close()
       end
    else
       local mt	  = MT:mt()
@@ -214,28 +218,20 @@ function loadModuleFile(t)
       a[#a + 1]	  = opt
       a[#a + 1]	  = t.file
       local cmd   = concatTbl(a," ")
-      local s     = capture(cmd) 
-      if (s) then
-         func, msg   = loadstring(s)
-      else
-         func = nil
-         msg  = "TCL modulefile was not read."
-      end
+      whole       = capture(cmd) 
    end
 
-   if (func) then
-      status, msg = pcall(func)
-      if (not status) then
-         local n = t.moduleName or ""
-         LmodError("Unable to load module: ",n,"\n    ",msg,"\n")
-      end
+   if (whole) then
+      status, msg = sandbox_run(whole)
    else
-      if (t.reportErr) then
-         local n = t.moduleName or ""
-         LmodError("Unable to load module: ",n,"\n    ",msg,"\n")
-      end
+      status = nil
+      msg    = "Empty or non-existant file"
    end
 
+   if (not status and t.reportErr) then
+      local n = t.moduleName or ""
+      LmodError("Unable to load module: ",n,"\n    ",msg,"\n")
+   end
    dbg.fini()
 end
 
