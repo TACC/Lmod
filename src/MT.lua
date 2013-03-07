@@ -169,10 +169,9 @@ local function buildAllLocWmoduleT(moduleT, mpathA, locationT, availT)
    for mpath, vvv in pairs(availT) do
       for sn, vv in pairs(vvv) do
          local aa = {}
-         for parseV, v in pairs(vv) do
+         for parseV, v in pairsByKeys(vv) do
             aa[#aa + 1] = v
          end
-         sort(aa, function (a,b) return a.parseV < b.parseV end)
          availT[mpath][sn] = aa
       end
    end
@@ -625,9 +624,11 @@ function M.module_pathA(self)
 end
 
 function M.buildMpathA(self, mpath)
+   local dbg    = Dbg:dbg()
    local mpathA = {}
    for path in mpath:split(":") do
       mpathA[#mpathA + 1] = path
+      dbg.print(#mpathA, ": ",path,"\n")
    end
    self.mpathA = mpathA
    self._MPATH = concatTbl(mpathA,":")
