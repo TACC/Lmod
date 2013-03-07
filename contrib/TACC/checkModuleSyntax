@@ -32,12 +32,18 @@ runMe()
     echo "%%---------------------------------%%"
     echo
 
-    eval $i
+    eval $i $QUIET
     if [ -z "$ignoreError" -a $? != 0 ]; then
       exit 1
     fi
   done
 }
+
+if [ "$1" = "--quiet" ]; then
+  QUIET=" >& /dev/null"
+  shift
+fi
+
 
 DIR=/tmp/checkModuleSyntax/$$
 
@@ -57,7 +63,10 @@ export MODULEPATH=$(dirname $MODULE_FILE)
 MF=$(basename $MODULE_FILE .lua)
 
 
-cmdA=( "module --checkSyntax load $MF"
+
+
+cmdA=( "echo MODULEPATH: $MODULEPATH"
+       "module --checkSyntax load $MF"
        "module help   $MF"
        "module whatis $MF"
        "module --checkSyntax avail"

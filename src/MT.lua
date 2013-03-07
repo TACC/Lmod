@@ -253,6 +253,7 @@ local function new(self, s)
    local o            = {}
 
    o.c_rebuildTime    = false
+   o.c_shortTime      = false
    o.mT               = {}
    o.version          = 2
    o.family           = {}
@@ -360,8 +361,13 @@ function M.getRebuildTime(self)
    return self.c_rebuildTime
 end
 
-function M.setRebuildTime(self,value)
-   self.c_rebuildTime = value
+function M.getShortTime(self)
+   return self.c_shortTime
+end
+
+function M.setRebuildTime(self,long, short)
+   self.c_rebuildTime = long
+   self.c_shortTime   = short
 end
 
 

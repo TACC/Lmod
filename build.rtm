@@ -49,7 +49,7 @@ case $SYSHOST in
 
   ls4 | longhorn | stampede)
     base="$HOME/l/pkg"
-    ADMIN_DIR="/home1/moduleData"
+    ADMIN_DIR="$HOME/moduleData"
     TACC_SYSTEM=1
     if [ $SYSHOST == "stampede" ]; then
       base="$base/$(uname -m)"

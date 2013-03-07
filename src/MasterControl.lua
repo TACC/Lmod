@@ -383,6 +383,7 @@ function M.warning(self, ...)
       for _,v in ipairs{...} do
          io.stderr:write(v)
       end
+      io.stderr:write("\n")
       setWarningFlag()
    end
 end
