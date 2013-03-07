@@ -8,6 +8,8 @@ MC_Show.report    = MasterControl.warning
 local M           = MC_Show
 local Dbg         = require("Dbg")
 local concatTbl   = table.concat
+M.activate        = MasterControl.quiet
+
 
 
 local function ShowCmd(name,...)
@@ -31,6 +33,8 @@ local function Show_help(...)
    end
    io.stderr:write("help(",concatTbl(a,", "),")\n")
 end
+
+
 
 function M.help(self, ...)
    Show_help(...)

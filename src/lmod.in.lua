@@ -476,6 +476,7 @@ function Access(mode, ...)
    dbg.start("Access(", concatTbl({...},", "),")")
    mcp = MasterControl.build("access", mode)
    dbg.print("Setting mpc to ", mcp:name(),"\n")
+   mcp.activate(mode,true)
 
    local n = select('#',...)
    if (n < 1) then
@@ -484,15 +485,12 @@ function Access(mode, ...)
    end
 
    master:access(...)
+   mcp.activate(mode,false)
    dbg.fini()
 end
 
 function Help(...)
    local dbg = Dbg:dbg()
-   help    = function (...)
-      io.stderr:write(concatTbl({...},""))
-      io.stderr:write("\n")
-   end
 
    prtHdr = function()
                io.stderr:write("\n")
@@ -504,18 +502,6 @@ end
 
 function Whatis(...)
    local dbg = Dbg:dbg()
-   whatis  = function(msg)
-                local nm     = ModuleName or ""
-                local l      = nm:len()
-                local nblnks
-                if (l < 20) then
-                   nblnks = 20 - l
-                else
-                   nblnks = l + 2
-                end
-                local prefix = nm .. string.rep(" ",nblnks) .. ": "
-                io.stderr:write(prefix, msg, "\n")
-             end
    prtHdr    = dbg.quiet
    Access("whatis",...)
 end

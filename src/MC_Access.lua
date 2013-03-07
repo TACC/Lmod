@@ -3,11 +3,37 @@ require("strict")
 
 MC_Access         = inheritsFrom(MasterControl)
 MC_Access.my_name = "MC_Access"
+concatTbl         = table.concat
 
 local M           = MC_Access
 
+local M.accessT = { help = false, whatis = false}
 
+function M.activate(name, value)
+   M.accessT[name] = value
+end
 
+function M.help(...)   
+   if (M.accessT.help) then
+      io.stderr:write(concatTbl({...},""))
+      io.stderr:write("\n")
+   end
+end
+
+function M.whatis(msg)
+   if (M.accessT.whatis) then
+      local nm     = ModuleName or ""
+      local l      = nm:len()
+      local nblnks
+      if (l < 20) then
+         nblnks = 20 - l
+      else
+         nblnks = l + 2
+      end
+      local prefix = nm .. string.rep(" ",nblnks) .. ": "
+      io.stderr:write(prefix, msg, "\n")
+   end
+end
 
 
 M.report               = MasterControl.warning
@@ -18,7 +44,6 @@ M.append_path          = MasterControl.quiet
 M.conflict             = MasterControl.quiet
 M.error                = MasterControl.quiet
 M.family               = MasterControl.quiet
-M.help                 = MasterControl.quiet
 M.inherit              = MasterControl.quiet
 M.load                 = MasterControl.quiet
 M.message              = MasterControl.quiet
@@ -36,6 +61,5 @@ M.unloadsys            = MasterControl.quiet
 M.unsetenv             = MasterControl.quiet
 M.unset_shell_function = MasterControl.quiet
 M.usrload              = MasterControl.quiet
-M.whatis               = MasterControl.quiet
 
 return M
