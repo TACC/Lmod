@@ -1,13 +1,13 @@
 ===========================
 step 1
 ===========================
-Modules based on Lua: Version 4.2.1.4 2013-02-23 19:57
+Modules based on Lua: Version 4.3a2 2013-03-06 17:49
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
 ===========================
 Lmod Error: Unable to load module: bad_syntax
-    ProjectDIR/rt/errHandler/mf/bad_syntax/1.0.lua:2: unexpected symbol near '#'
+    ProjectDIR/rt/errHandler/mf/bad_syntax/1.0.lua: [string "setenv("BAD_SYNTAX","1.0")..."]:2: unexpected symbol near '#'
 ===========================
 step 3
 ===========================
@@ -17,17 +17,17 @@ Lmod Error: Syntax error in file: ProjectDIR/rt/errHandler/mf/bad_argument/1.0.l
 step 4
 ===========================
 Lmod Error: Unable to load module: bad_func
-    ...Users/mclay/w/lmod/rt/errHandler/mf/bad_func/1.0.lua:2: variable 'unknownFunc' is not declared
+    ProjectDIR/rt/errHandler/mf/bad_func/1.0.lua: [string "setenv("BAD_FUNC","1.0")..."]:2: attempt to call global 'unknownFunc' (a nil value)
 ===========================
 step 5
 ===========================
 Rebuilding cache file, please wait ...
 Lmod Warning: Syntax error in file: ProjectDIR/rt/errHandler/mf/bad_argument/1.0.lua
  with command: help One or more arguments are not strings
-Lmod Warning: Failed in reading: ProjectDIR/rt/errHandler/mf/bad_func/1.0.lua
-...Users/mclay/w/lmod/rt/errHandler/mf/bad_func/1.0.lua:2: variable 'unknownFunc' is not declared
 Lmod Warning: Found syntax error: ProjectDIR/rt/errHandler/mf/bad_syntax/1.0.lua:2: unexpected symbol near '#'
- done
+Lmod Warning: Failed in reading: ProjectDIR/rt/errHandler/mf/bad_func/1.0.lua
+ProjectDIR/rt/errHandler/mf/bad_func/1.0.lua:2: variable 'unknownFunc' is not declared
+ done.
 The following is a list of the modules currently available:
   bad_argument: bad_argument/1.0
   bad_func: bad_func/1.0

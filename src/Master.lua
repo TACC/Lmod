@@ -230,7 +230,8 @@ function loadModuleFile(t)
 
    if (not status and t.reportErr) then
       local n = t.moduleName or ""
-      LmodError("Unable to load module: ",n,"\n    ",msg,"\n")
+      
+      LmodError("Unable to load module: ",n,"\n    ",t.file,": ", msg,"\n")
    end
    dbg.fini()
 end

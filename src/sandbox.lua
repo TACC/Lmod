@@ -1,5 +1,7 @@
 require("strict")
 require("fileOps")
+require("capture")
+require("cmdfuncs")
 sandbox_run = false
 
 sandbox_env = {
@@ -89,7 +91,6 @@ sandbox_env = {
   isPending            = isPending,
   myFileName           = myFileName,
   hierarchyA           = hierarchyA,
-  UUIDString           = UUIDString,
 
   ------------------------------------------------------------
   -- fileOp functions
@@ -114,10 +115,12 @@ sandbox_env = {
           setmode = lfs.setmode, symlinkattributes = lfs.symlinkattributes,
           touch = lfs.touch, unlock = lfs.unlock,
   },
+  ------------------------------------------------------------
+  -- Mics functions
+  ------------------------------------------------------------
+  capture              = capture,
+  UUIDString           = UUIDString,
 }
-
-
-
 
 local function run5_1(untrusted_code)
   if untrusted_code:byte(1) == 27 then return nil, "binary bytecode prohibited" end

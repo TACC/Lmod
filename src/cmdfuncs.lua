@@ -15,6 +15,20 @@ local concatTbl    = table.concat
 local getenv       = os.getenv
 local posix        = require("posix")
 
+function UUIDString(epoch)
+   local ymd  = os.date("*t", epoch)
+
+   --                                y    m    d    h    m    s
+   local uuid_date = string.format("%d_%02d_%02d_%02d_%02d_%02d", 
+                                   ymd.year, ymd.month, ymd.day, 
+                                   ymd.hour, ymd.min,   ymd.sec)
+   
+   local uuid_str  = capture("uuidgen"):sub(1,-2)
+   local uuid      = uuid_date .. "-" .. uuid_str
+
+   return uuid
+end
+
 function Purge()
    local master = Master:master()
    local mt     = MT:mt()

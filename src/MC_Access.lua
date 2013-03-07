@@ -1,26 +1,32 @@
 -- -*- lua -*-
 require("strict")
 
+Dbg               = require("Dbg")
 MC_Access         = inheritsFrom(MasterControl)
 MC_Access.my_name = "MC_Access"
 concatTbl         = table.concat
 
 local M           = MC_Access
 
-local M.accessT = { help = false, whatis = false}
+M.accessT = { help = false, whatis = false}
 
 function M.activate(name, value)
    M.accessT[name] = value
 end
 
-function M.help(...)   
-   if (M.accessT.help) then
-      io.stderr:write(concatTbl({...},""))
+function M.help(self, ...)   
+   local dbg = Dbg:dbg()
+   local arg = { n = select('#', ...), ...}
+   if (M.accessT.help == true) then
+      for i = 1, arg.n do
+         io.stderr:write(tostring(arg[i]))
+      end
       io.stderr:write("\n")
    end
+   dbg.fini()
 end
 
-function M.whatis(msg)
+function M.whatis(self, msg)
    if (M.accessT.whatis) then
       local nm     = ModuleName or ""
       local l      = nm:len()
