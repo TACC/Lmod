@@ -112,7 +112,7 @@ sandbox_env = {
           currentdir = lfs.currentdir, dir = lfs.dir, lock = lfs.lock,
           mkdir = lfs.mkdir, rmdir = lfs.rmdir, rmdir = lfs.rmdir,
           setmode = lfs.setmode, symlinkattributes = lfs.symlinkattributes,
-          touch = lfs.touch, unlock = lfs.unlock
+          touch = lfs.touch, unlock = lfs.unlock,
   },
 }
 
