@@ -131,7 +131,7 @@ local function buildLocWmoduleT(mpath, moduleT, mpathT, lT, availT)
       local version   = extractVersion(vv.full, sn)
       if (version) then
          local parseV = concatTbl(parseVersion(version), ".")
-         a[#a+1]      = { version = version, file = f, parseV = parseV}
+         a[parseV]  = { version = version, file = f, parseV = parseV}
       end
       availEntryT[sn] = a
 
@@ -166,11 +166,17 @@ local function buildAllLocWmoduleT(moduleT, mpathA, locationT, availT)
       end
    end
 
-   for kk, vv in pairs(availT) do
-      for k, v in pairs(vv) do
-         sort(v, function (a,b) return a.parseV < b.parseV end)
+   for mpath, vvv in pairs(availT) do
+      for sn, vv in pairs(vvv) do
+         local aa = {}
+         for parseV, v in pairs(vv) do
+            aa[#aa + 1] = v
+         end
+         sort(aa, function (a,b) return a.parseV < b.parseV end)
+         availT[mpath][sn] = aa
       end
    end
+
 
    for sn, vv in pairs(lT) do
 

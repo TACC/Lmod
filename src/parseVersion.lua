@@ -44,7 +44,7 @@ function parseVersion(versionStr)
 
    local dbg = Dbg:dbg()
 
-   dbg.start("parseVersion(",versionStr,")")
+   --dbg.start("parseVersion(",versionStr,")")
 
    local vA = {}
    for part in parseVersionParts(versionStr) do
@@ -76,8 +76,7 @@ function parseVersion(versionStr)
    end
 
    --dbg.print("versionStr: ",versionStr," results: ",concatTbl(vA,"."),"\n")
-
-   dbg.fini()
+   --dbg.fini()
    return vA
 end
 
