@@ -374,8 +374,8 @@ end
 function M.setRebuildTime(self,long, short)
    local dbg = Dbg:dbg()
    dbg.start("MT:setRebuildTime(long: ",long,", short: ",short,")")
-   self.c_rebuildTime = long
-   self.c_shortTime   = short
+   s_mt.c_rebuildTime = long
+   s_mt.c_shortTime   = short
    dbg.fini()
 end
 
