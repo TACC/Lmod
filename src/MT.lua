@@ -1158,7 +1158,7 @@ end
 
 function M.serializeTbl(self)
    local dbg = Dbg:dbg()
-   dbg.print("s_mt.short: ", tostring(s_mt.short),"\n")
+   dbg.print("s_mt.short: ", tostring(s_mt.shortTime),"\n")
    
    s_mt.activeSize = self:setLoadOrder()
 
