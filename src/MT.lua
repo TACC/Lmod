@@ -153,6 +153,8 @@ local function buildAllLocWmoduleT(moduleT, mpathA, locationT, availT)
    local lT     = {}  -- temporary locationT
    for i = 1,#mpathA do
       local mpath = mpathA[i]
+      local attr  = lfs.attributes(mpath)
+      dbg.print("mpath: ", mpath, " attr.mode: ", attr.mode, "\n")
       if (isDir(mpath)) then
          mpathT[mpath] = i
          availT[mpath] = {}
@@ -628,7 +630,6 @@ function M.buildMpathA(self, mpath)
    local mpathA = {}
    for path in mpath:split(":") do
       mpathA[#mpathA + 1] = path
-      dbg.print(#mpathA, ": ",path,"\n")
    end
    self.mpathA = mpathA
    self._MPATH = concatTbl(mpathA,":")
