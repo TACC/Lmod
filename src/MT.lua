@@ -374,8 +374,8 @@ end
 function M.setRebuildTime(self,long, short)
    local dbg = Dbg:dbg()
    dbg.start("MT:setRebuildTime(long: ",long,", short: ",short,")")
-   s_mt.c_rebuildTime = long
-   s_mt.c_shortTime   = short
+   self.c_rebuildTime = long
+   self.c_shortTime   = short
    dbg.fini()
 end
 
@@ -1157,6 +1157,8 @@ end
 
 
 function M.serializeTbl(self)
+   local dbg = Dbg:dbg()
+   dbg.print("s_mt.short: ", tostring(s_mt.short),"\n")
    
    s_mt.activeSize = self:setLoadOrder()
 
