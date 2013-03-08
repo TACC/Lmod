@@ -422,6 +422,7 @@ function getModuleT(fast)
       local short   = mt:getShortTime()
       local prtRbMsg = (not masterTbl.initial) and ((not short) or
                                                     (short > shortTime))
+      dbg.print("short: ", tostring(short), " shortTime: ", tostring(shortTime),"\n")
 
       if (prtRbMsg) then
          io.stderr:write("Rebuilding cache file, please wait ...")
