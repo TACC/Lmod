@@ -154,8 +154,7 @@ local function buildAllLocWmoduleT(moduleT, mpathA, locationT, availT)
    for i = 1,#mpathA do
       local mpath = mpathA[i]
       local attr  = lfs.attributes(mpath)
-      dbg.print("mpath: ", mpath, " attr.mode: ", attr.mode, "\n")
-      if (isDir(mpath)) then
+      if (attr and attr.mode == "directory") then
          mpathT[mpath] = i
          availT[mpath] = {}
       end
