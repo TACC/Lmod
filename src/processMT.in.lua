@@ -42,8 +42,9 @@ function main()
       iuser   = iuser + 1
       pb:progress(iuser)
 
-      local dir = pathJoin(homeDir,".lmod.d",".save")
-      if ( isDir(dir)) then
+      local dir  = pathJoin(homeDir,".lmod.d",".save")
+      local attr = lfs.attributes(dir)
+      if ( attr and attr.mode == "directory") then
          for file in lfs.dir(dir) do
             if (file:sub(-4,-1) == ".lua") then
                local mt_date = file:sub(1,19)
@@ -57,7 +58,8 @@ function main()
       end
 
       local dir = pathJoin(homeDir,".lmod.d",".saveBatch")
-      if ( isDir(dir)) then
+      local attr = lfs.attributes(dir)
+      if ( attr and attr.mode == "directory") then
          for file in lfs.dir(dir) do
             if (file:sub(-4,-1) == ".lua") then
                local mt_date = file:sub(1,19)

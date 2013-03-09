@@ -101,7 +101,8 @@ function main()
 
    if (fn) then
       local d = dirname(fn)
-      if (not isDir(d)) then
+      local attr = lfs.attributes(d)
+      if (not attr)
          mkdir_recursive(d)
       end 
 

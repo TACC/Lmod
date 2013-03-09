@@ -595,8 +595,9 @@ local function Save(...)
       return
    end
 
-   if (not isDir(path)) then
-      os.execute("mkdir ".. path)
+   local attr = lfs.attributes(path)
+   if (not attr) then
+      mkdir_recursive(path)
    end
    path = pathJoin(path, a)
    if (isFile(path)) then
@@ -670,8 +671,9 @@ end
 local function FindDefaults(a,path)
    for file in lfs.dir(path) do
       if (file:sub(1,1) ~= "." and file:sub(-1) ~= "~") then
-         local f = pathJoin(path,file)
-         if (isDir(f)) then
+         local f    = pathJoin(path,file)
+         local attr = lfs.attributes(f)
+         if (attr and attr.mode == "directory") then
             FindDefaults(a,f)
          else
             a[#a+1] = f
@@ -747,7 +749,8 @@ function RecordCmd()
    local fn   = pathJoin(getenv("HOME"), ".lmod.d", ".save", uuid .. ".lua")
 
    local d = dirname(fn)
-   if (not isDir(d)) then
+   local attr = lfs.attributes(d)
+   if (not attr) then
       mkdir_recursive(d)
    end 
 
@@ -967,19 +970,19 @@ function main()
    set_prepend_order()
 
 
-   dbg.start("lmod(", arg_str,")")
-   dbg.print("Lmod Version: ",Version.name(),"\n")
    MCP = MasterControl.build("load")
    mcp = MasterControl.build("load")
 
    Options:options(CmdLineUsage)
 
-   dbg.print("Setting mpc to ", mcp:name(),"\n")
    localvar(masterTbl.localvarA)
 
    if (masterTbl.debug or masterTbl.dbglvl) then
       dbg:activateDebug(masterTbl.dbglvl or 1)
    end
+   dbg.start("lmod(", arg_str,")")
+   dbg.print("Lmod Version: ",Version.name(),"\n")
+   dbg.print("Setting mpc to ", mcp:name(),"\n")
    ------------------------------------------------------------------------
    -- Try to load a SitePackage Module,  If it is not there then do not
    -- abort.  Sites do not have to have a Site package.
@@ -997,7 +1000,7 @@ function main()
                       package.cpath
    end
 
-   dbg.print("lmodPath:", lmodPath,"\n")
+   dbg.print("lmodPath: \"", lmodPath,"\"\n")
 
    --pcall(require, "SitePackage") 
    require( "SitePackage") 
@@ -1073,6 +1076,7 @@ function main()
    if (oldValue ~= value) then
       varTbl[n] = Var:new(n)
       varTbl[n]:set(value)
+      dbg.print("Writing out _ModuleTable_\n")
    end
    dbg.fini()
 

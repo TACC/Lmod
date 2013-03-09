@@ -29,11 +29,3 @@ export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/errHandler/mf";
 export MODULEPATH;
 false
-===========================
-step 5
-===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/errHandler/mf";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/errHandler/mf";
-export MODULEPATH;
-false

@@ -24,7 +24,7 @@ package.path = cmd_dir .. "?.lua;" .. package.path
 require("strict")
 require("string_split")
 require("pairsByKeys")
-local posix  = require("posix")
+local lfs    = require("lfs")
 local Optiks = require("Optiks")
 local master = {}
 
@@ -34,9 +34,9 @@ end
 
 function isDir(d)
    if (d == nil) then return false end
-   local t = posix.stat(d,"type")
 
-   local result = (t == "directory")
+   local attr    = lfs.attributes(d)
+   local results = (attr and attr.mode == "directory")
 
    return result
 end
