@@ -31,6 +31,7 @@ require("string_split")
 require("fileOps")
 require("serializeTbl")
 require("parseVersion")
+require("deepcopy")
 
 local Var          = require('Var')
 local lfs          = require('lfs')
@@ -49,6 +50,8 @@ end
 
 s_loadOrder = 0
 s_mt = nil
+
+s_mtA = {}
 
 local function locationTblDir(mpath, path, prefix, locationT, availT)
    local dbg  = Dbg:dbg()
@@ -399,10 +402,29 @@ function M.mt(self)
       if (not s_mt._same) then
          s_mt:reloadAllModules()
       end
+      s_mtA[#s_mtA+1]    = s_mt
+      M.cloneMT(self)   -- Save original MT in stack
       dbg.fini()
    end
    return s_mt
 end
+
+function M.cloneMT(self)
+   local mt = deepcopy(s_mt)
+   s_mtA[#s_mtA+1] = mt
+   s_mt = mt
+   setmetatable(s_mt, self)
+end
+
+function M.popMT()
+   s_mt = s_mtA[#s_mtA-1]
+   s_mtA[#s_mtA] = nil    -- mark for garage collection
+end
+
+function M.origMT()
+   return s_mtA[1]
+end
+
 
 function M.getMTfromFile(self,fn, msg)
    local dbg  = Dbg:dbg()
@@ -1088,11 +1110,11 @@ function M.list_property(self, idx, moduleName, style, legendT)
 end
 
 
-function M.reportChanges(self, origMT)
+function M.reportChanges(self)
    local dbg    = Dbg:dbg()
    local master = Master:master()
 
-   dbg.start("MT:reportChanges(origMT)")
+   dbg.start("MT:reportChanges()")
 
    if (not master.shell:isActive()) then
       dbg.print("Expansion is inactive\n")
@@ -1100,9 +1122,8 @@ function M.reportChanges(self, origMT)
       return
    end
 
-
-   local mT = origMT.mT
-
+   local origMT    = M.origMT()
+   local mT        = origMT.mT
    local inactiveA = {}
    local activeA   = {}
    local changedA  = {}

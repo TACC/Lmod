@@ -93,19 +93,6 @@ RCFileA = {
 
 s_propT = false
 
-function deepcopy(orig)
-   local t
-   if (type(orig) == 'table') then
-      t = {}
-      for k, v in next, orig, nil do
-         t[k] = deepcopy(v)
-      end
-   else
-      t = orig
-   end
-   return t
-end
-
 function readRC()
    if (s_propT) then
       return s_propT
@@ -294,6 +281,7 @@ require("border")
 require("serializeTbl")
 require("string_split")
 require("string_trim")
+
 BaseShell          = require("BaseShell")
 local ColumnTable  = require("ColumnTable")
 local Options      = require("Options")
@@ -1027,8 +1015,6 @@ function main()
    master.shell = BaseShell.build(shell)
    local mt     = MT:mt()
 
-   local origMT = deepcopy(mt)
-
    if (masterTbl.checkSyntax) then
       master.shell:setActive(false)
    end
@@ -1065,7 +1051,7 @@ function main()
 
    -- Report any changes (worth reporting from original MT)
    if (not expert()) then
-      mt:reportChanges(origMT)
+      mt:reportChanges()
    end
 
    -- Store the Module table in "_ModuleTable_" env. var.
