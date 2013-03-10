@@ -444,6 +444,7 @@ function M.conflict(self, ...)
    if (masterTbl.checkSyntax) then
       dbg.print("Ignoring conflicts when syntax checking\n")
       dbg.fini()
+      return
    end
 
    for _,v in ipairs{...} do
@@ -472,6 +473,7 @@ function M.prereq_any(self, ...)
    if (masterTbl.checkSyntax) then
       dbg.print("Ignoring prereq_any when syntax checking\n")
       dbg.fini()
+      return
    end
 
    local found  = false
@@ -504,6 +506,7 @@ function M.family(self, name)
    if (masterTbl.checkSyntax) then
       dbg.print("Ignoring family when syntax checking\n")
       dbg.fini()
+      return
    end
 
    dbg.print("mt:setfamily(\"",name,"\",\"",sn,"\")\n")

@@ -2,3 +2,9 @@ LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1:Pr
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/MPI/intel/10.1/openmpi/1.2.6";
 export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/MPI/intel/10.1/openmpi/1.2.6";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/MPI/intel/10.1/openmpi/1.2.6";
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/mf/Core","ProjectDIR/mf/Compiler/intel/10.1","ProjectDIR/mf/MPI/intel/10.1/openmpi/1.2.6",},family={},inactive={},mT={},mpathA={"ProjectDIR/mf/Core","ProjectDIR/mf/Compiler/intel/10.1","ProjectDIR/mf/MPI/intel/10.1/openmpi/1.2.6",},["systemBaseMPATH"]="ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/MPI/intel/10.1/openmpi/1.2.6",["version"]=2,}';
+export _ModuleTable_;

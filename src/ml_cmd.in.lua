@@ -59,7 +59,13 @@ function main()
    local lmodOptA = {
       ["-?"] = 0, ["-h"] = 0, ["--help"] = 0, ["-d"]=0, ["--version"]=0,
       ["--old_style"] = 0, ["--expert"]=0, ["--novice"]=0,
-      ["--localvar"]=1, ["-D"]=1 
+      ["--localvar"]=1, ["-D"]=1, ["--versoin"]=0, ["--ver"]=0, ["--v"]=0,
+   }
+
+   local translateT = {
+      ["--versoin"]="--version",
+      ["--ver"]="--version",
+      ["--v"]="--version",
    }
 
    ------------------------------------------------------------
@@ -125,7 +131,7 @@ function main()
       local num = lmodOptA[v]
       if (not done and num) then
          grab          = num
-         optA[#optA+1] = v
+         optA[#optA+1] = translateT[v] or v
          done          = true
       end
 

@@ -18,10 +18,9 @@ MODULEPATH="ProjectDIR/rt/set_alias/mf";
 export MODULEPATH;
 VARIABLE="1";
 export VARIABLE;
-export _ModuleTable_Sz_;
-alias somealias="1";
 _ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/set_alias/mf",},family={},inactive={},mT={test1={["FN"]="ProjectDIR/rt/set_alias/mf/test1",["default"]=0,["fullName"]="test1",["loadOrder"]=1,["mType"]="w",propT={},["short"]="test1",["status"]="active",},},mpathA={"ProjectDIR/rt/set_alias/mf",},["systemBaseMPATH"]="ProjectDIR/rt/set_alias/mf",["version"]=2,}';
 export _ModuleTable_;
+alias somealias="1";
 ===========================
 step 3
 ===========================
@@ -35,10 +34,9 @@ MODULEPATH="ProjectDIR/rt/set_alias/mf";
 export MODULEPATH;
 VARIABLE="2";
 export VARIABLE;
-export _ModuleTable_Sz_;
-alias somealias="2";
 _ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/set_alias/mf",},family={},inactive={},mT={test2={["FN"]="ProjectDIR/rt/set_alias/mf/test2",["default"]=0,["fullName"]="test2",["loadOrder"]=1,["mType"]="mw",propT={},["short"]="test2",["status"]="active",},},mpathA={"ProjectDIR/rt/set_alias/mf",},["systemBaseMPATH"]="ProjectDIR/rt/set_alias/mf",["version"]=2,}';
 export _ModuleTable_;
+alias somealias="2";
 ===========================
 step 4
 ===========================
@@ -51,7 +49,6 @@ export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/set_alias/mf";
 export MODULEPATH;
 unset VARIABLE;
-export _ModuleTable_Sz_;
-unalias somealias;
 _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/set_alias/mf",},family={},inactive={},mT={},mpathA={"ProjectDIR/rt/set_alias/mf",},["systemBaseMPATH"]="ProjectDIR/rt/set_alias/mf",["version"]=2,}';
 export _ModuleTable_;
+unalias somealias;

@@ -12,7 +12,6 @@ LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/inherit/mf/Linux:ProjectDIR/rt/inherit/mf
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/inherit/mf/Linux:ProjectDIR/rt/inherit/mf/Core:ProjectDIR/rt/inherit/mf/Core2";
 export MODULEPATH;
-export _ModuleTable_Sz_;
 _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/inherit/mf/Linux","ProjectDIR/rt/inherit/mf/Core","ProjectDIR/rt/inherit/mf/Core2",},family={},inactive={},mT={},mpathA={"ProjectDIR/rt/inherit/mf/Linux","ProjectDIR/rt/inherit/mf/Core","ProjectDIR/rt/inherit/mf/Core2",},["version"]=2,}';
 export _ModuleTable_;
 ===========================
@@ -32,7 +31,6 @@ LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/inherit/mf/Linux:ProjectDIR/rt/inherit/mf
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/inherit/mf/Linux:ProjectDIR/rt/inherit/mf/Core:ProjectDIR/rt/inherit/mf/Core2";
 export MODULEPATH;
-export _ModuleTable_Sz_;
 _ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/inherit/mf/Linux","ProjectDIR/rt/inherit/mf/Core","ProjectDIR/rt/inherit/mf/Core2",},family={},inactive={},mT={junk={["FN"]="ProjectDIR/rt/inherit/mf/Linux/junk/1.0.lua",["default"]=1,["fullName"]="junk/1.0",["loadOrder"]=1,["mType"]="w",propT={},["short"]="junk",["status"]="active",},},mpathA={"ProjectDIR/rt/inherit/mf/Linux","ProjectDIR/rt/inherit/mf/Core","ProjectDIR/rt/inherit/mf/Core2",},["systemBaseMPATH"]="ProjectDIR/rt/inherit/mf/Linux:ProjectDIR/rt/inherit/mf/Core:ProjectDIR/rt/inherit/mf/Core2",["version"]=2,}';
 export _ModuleTable_;
 ===========================
@@ -60,7 +58,6 @@ LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/inherit/mf/Linux:ProjectDIR/rt/inherit/mf
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/inherit/mf/Linux:ProjectDIR/rt/inherit/mf/Core:ProjectDIR/rt/inherit/mf/Core2";
 export MODULEPATH;
-export _ModuleTable_Sz_;
 _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/inherit/mf/Linux","ProjectDIR/rt/inherit/mf/Core","ProjectDIR/rt/inherit/mf/Core2",},family={},inactive={},mT={},mpathA={"ProjectDIR/rt/inherit/mf/Linux","ProjectDIR/rt/inherit/mf/Core","ProjectDIR/rt/inherit/mf/Core2",},["systemBaseMPATH"]="ProjectDIR/rt/inherit/mf/Linux:ProjectDIR/rt/inherit/mf/Core:ProjectDIR/rt/inherit/mf/Core2",["version"]=2,}';
 export _ModuleTable_;
 ===========================

@@ -32,6 +32,7 @@ MasterControl       = require("MasterControl")
 MT                  = require("MT")
 Master              = require("Master")
 BaseShell           = require("BaseShell")
+local lfs           = require("lfs")
 local json          = require("json")
 local Dbg           = require("Dbg")
 local Optiks        = require("Optiks")
@@ -82,7 +83,8 @@ end
 
 local function add2map(entry, tbl, rmapT, kind)
    for path in pairs(tbl) do
-      if (keepThisPath(path) and isDir(path)) then
+      local attr = lfs.attributes(path) 
+      if (keepThisPath(path) and attr and attr.mode == "directory") then
          path = abspath(path)
          rmapT[path] = {pkg=entry.full, flavor=entry.parent, kind=kind}
       end

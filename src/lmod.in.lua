@@ -93,19 +93,6 @@ RCFileA = {
 
 s_propT = false
 
-function deepcopy(orig)
-   local t
-   if (type(orig) == 'table') then
-      t = {}
-      for k, v in next, orig, nil do
-         t[k] = deepcopy(v)
-      end
-   else
-      t = orig
-   end
-   return t
-end
-
 function readRC()
    if (s_propT) then
       return s_propT
@@ -294,6 +281,7 @@ require("border")
 require("serializeTbl")
 require("string_split")
 require("string_trim")
+
 BaseShell          = require("BaseShell")
 local ColumnTable  = require("ColumnTable")
 local Options      = require("Options")
@@ -314,12 +302,6 @@ local function Avail(...)
    for _,v in ipairs{...} do
       a[#a + 1] = v
    end
-   -- The avail command changes the module table during its operations
-   -- but this should not be reported so the whole expansion of the varTbl
-   -- and the module table is turned off.
-   dbg.print("Avail(): setting MT expansion to false\n")
-   master.shell:setActive(false)
-
    master.avail(a)
 end
 
@@ -595,8 +577,9 @@ local function Save(...)
       return
    end
 
-   if (not isDir(path)) then
-      os.execute("mkdir ".. path)
+   local attr = lfs.attributes(path)
+   if (not attr) then
+      mkdir_recursive(path)
    end
    path = pathJoin(path, a)
    if (isFile(path)) then
@@ -670,8 +653,9 @@ end
 local function FindDefaults(a,path)
    for file in lfs.dir(path) do
       if (file:sub(1,1) ~= "." and file:sub(-1) ~= "~") then
-         local f = pathJoin(path,file)
-         if (isDir(f)) then
+         local f    = pathJoin(path,file)
+         local attr = lfs.attributes(f)
+         if (attr and attr.mode == "directory") then
             FindDefaults(a,f)
          else
             a[#a+1] = f
@@ -747,7 +731,8 @@ function RecordCmd()
    local fn   = pathJoin(getenv("HOME"), ".lmod.d", ".save", uuid .. ".lua")
 
    local d = dirname(fn)
-   if (not isDir(d)) then
+   local attr = lfs.attributes(d)
+   if (not attr) then
       mkdir_recursive(d)
    end 
 
@@ -768,12 +753,6 @@ function SpiderCmd(...)
    local moduleT = getModuleT()
 
    local master = Master:master()
-
-   -- The spider command changes the module table during its operations
-   -- but this should not be reported so the whole expansion of the varTbl
-   -- and the module table is turned off.
-   master.shell:setActive(false)
-
    local s
    local dbT = {}
    local errorRtn = LmodError
@@ -803,13 +782,7 @@ function Keyword(...)
    mcp          = MasterControl.build("spider")
    dbg.print("Setting mpc to ", mcp:name(),"\n")
 
-   local master = Master:master()
-
-
-   -- The Keyword command changes the module table during its operations
-   -- but this should not be reported so the whole expansion of the varTbl
-   -- and the module table is turned off.
-   master.shell:setActive(false)
+   local master  = Master:master()
    local moduleT = getModuleT()
    local s
    local dbT = {}
@@ -967,19 +940,19 @@ function main()
    set_prepend_order()
 
 
-   dbg.start("lmod(", arg_str,")")
-   dbg.print("Lmod Version: ",Version.name(),"\n")
    MCP = MasterControl.build("load")
    mcp = MasterControl.build("load")
 
    Options:options(CmdLineUsage)
 
-   dbg.print("Setting mpc to ", mcp:name(),"\n")
    localvar(masterTbl.localvarA)
 
    if (masterTbl.debug or masterTbl.dbglvl) then
       dbg:activateDebug(masterTbl.dbglvl or 1)
    end
+   dbg.start("lmod(", arg_str,")")
+   dbg.print("Lmod Version: ",Version.name(),"\n")
+   dbg.print("Setting mpc to ", mcp:name(),"\n")
    ------------------------------------------------------------------------
    -- Try to load a SitePackage Module,  If it is not there then do not
    -- abort.  Sites do not have to have a Site package.
@@ -997,7 +970,7 @@ function main()
                       package.cpath
    end
 
-   dbg.print("lmodPath:", lmodPath,"\n")
+   dbg.print("lmodPath: \"", lmodPath,"\"\n")
 
    --pcall(require, "SitePackage") 
    require( "SitePackage") 
@@ -1023,8 +996,6 @@ function main()
    local master = Master:master(checkMPATH)
    master.shell = BaseShell.build(shell)
    local mt     = MT:mt()
-
-   local origMT = deepcopy(mt)
 
    if (masterTbl.checkSyntax) then
       master.shell:setActive(false)
@@ -1062,7 +1033,7 @@ function main()
 
    -- Report any changes (worth reporting from original MT)
    if (not expert()) then
-      mt:reportChanges(origMT)
+      mt:reportChanges()
    end
 
    -- Store the Module table in "_ModuleTable_" env. var.
@@ -1073,6 +1044,7 @@ function main()
    if (oldValue ~= value) then
       varTbl[n] = Var:new(n)
       varTbl[n]:set(value)
+      dbg.print("Writing out _ModuleTable_\n")
    end
    dbg.fini()
 
