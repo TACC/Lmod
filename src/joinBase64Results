@@ -50,68 +50,92 @@ function removeUnwantedFields(s)
    return s:gsub("[ \n]","")
 end
 
-function joinMT_bash(whole)
-   local a = {}
+function sectionEnd(sType,A, a1, a2, a3)
    local b = {}
-   local state = "init"
+   if (#a2 > 0) then
+      if (sType == "bash") then
+         b[1] = "_ModuleTable_='" .. removeUnwantedFields(decode64(table.concat(a2,""))) .. "';"
+         b[2] = "export _ModuleTable_;"
+      else
+         b[1] = "setenv _ModuleTable_ '" .. removeUnwantedFields(decode64(table.concat(a2,""))) .. "';"
+      end
+   end
+   joinArrays(A, a1, b, a3)
+   a1 = {}
+   a2 = {}
+   a3 = {}
+   return a1, a2, a3
+end
+
+function joinArrays(A,...)
+   local arg = { n = select("#", ...), ...}
+   for i = 1, arg.n do
+      local b = arg[i]
+      for j = 1, #b do
+         A[#A + 1] = b[j]
+      end
+   end
+end
+
+function joinMT_bash(whole)
+   local A  = {}
+   local a1 = {}
+   local a2 = {}
+   local a3 = {}
+   local a  = a1
    local haveMT = false
    for s in whole:split("\n") do
+      local state = "init"
       if (s:find("^_ModuleTable%d%d%d_=")) then
          if (state == "init") then
             state = "mt"
          end
-         grab(s, b)
+         a = a3
+         grab(s, a2)
          haveMT = true
       elseif (s:find("^export _ModuleTable") or
-              s:find("^unset _ModuleTable")) then
-         -- do nothing
-      elseif (s:find("export") or s:find("alias") or
-              s:find("^[_a-zA-Z0-9]+=") )then
-         state = "init"
+              s:find("^unset _ModuleTable")  or
+              s:find("^_ModuleTable_Sz")) then
+         state = "ignore"
       elseif (haveMT and s:find("^===========================")) then
-         state = "init"
-         a[#a + 1] = "_ModuleTable_='" .. removeUnwantedFields(decode64(table.concat(b,""))) .. "';"
-         a[#a + 1] = "export _ModuleTable_;"
-         b = {}
-         haveMT = false
+         a1, a2, a3 = sectionEnd("bash", A, a1, a2, a3)
+         state   = "init"
+         a       = a1
+         haveMT  = false
       end 
       if (state == "init") then
          a[#a + 1] = s
       end
    end
-   if (haveMT) then
-      a[#a + 1] = "_ModuleTable_='" .. removeUnwantedFields(decode64(table.concat(b,""))) .. "';"
-      a[#a + 1] = "export _ModuleTable_;"
-      b = {}
-   end
-   return a
+   sectionEnd("bash", A, a1, a2, a3)
+   return A
 end
 
 function joinMT_csh(whole)
-   local a = {}
-   local b
+   local A  = {}
+   local a1 = {}
+   local a2 = {}
+   local a3 = {}
+   local a  = a1
    local state = "init"
    for s in whole:split("\n") do
       if (s:find("^setenv _ModuleTable%d%d%d_")) then
          if (state == "init") then
-            b = {}
             state = "mt"
          end
-         grab(s, b)
+         a = a3
+         grab(s, a2)
       elseif (state == "init") then
          a[#a + 1] = s
       else
-         state     = "init"
-         a[#a + 1] = "setenv _ModuleTable_ '" .. removeUnwantedFields(decode64(table.concat(b,""))) .. "';"
-         a[#a + 1] = s
+         a1, a2, a3 = sectionEnd("csh", A,a1,a2,a3)
+         state   = "init"
+         a       = a1
+         a[#a+1] = s
       end
    end
-   if (state == "mt") then
-      state = "init"
-      a[#a + 1] = "setenv _ModuleTable_ '" .. removeUnwantedFields(decode64(table.concat(b,""))) .. "';"
-      b = {}
-   end
-   return a
+   sectionEnd("csh",A,a1,a2,a3)
+   return A
 end
 
 function main()
