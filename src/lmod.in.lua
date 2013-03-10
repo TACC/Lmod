@@ -302,12 +302,6 @@ local function Avail(...)
    for _,v in ipairs{...} do
       a[#a + 1] = v
    end
-   -- The avail command changes the module table during its operations
-   -- but this should not be reported so the whole expansion of the varTbl
-   -- and the module table is turned off.
-   dbg.print("Avail(): setting MT expansion to false\n")
-   master.shell:setActive(false)
-
    master.avail(a)
 end
 
@@ -759,12 +753,6 @@ function SpiderCmd(...)
    local moduleT = getModuleT()
 
    local master = Master:master()
-
-   -- The spider command changes the module table during its operations
-   -- but this should not be reported so the whole expansion of the varTbl
-   -- and the module table is turned off.
-   master.shell:setActive(false)
-
    local s
    local dbT = {}
    local errorRtn = LmodError
@@ -794,13 +782,7 @@ function Keyword(...)
    mcp          = MasterControl.build("spider")
    dbg.print("Setting mpc to ", mcp:name(),"\n")
 
-   local master = Master:master()
-
-
-   -- The Keyword command changes the module table during its operations
-   -- but this should not be reported so the whole expansion of the varTbl
-   -- and the module table is turned off.
-   master.shell:setActive(false)
+   local master  = Master:master()
    local moduleT = getModuleT()
    local s
    local dbT = {}
