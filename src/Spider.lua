@@ -465,6 +465,12 @@ function M.findAllModules(moduleDirA, moduleT)
    masterTbl.moduleStack = {{}}
    local exit            = os.exit
    os.exit               = nothing
+   local mt              = MT:mt()
+
+   ------------------------------------------------------------
+   -- Create a temporary Module Table to spider all modulefiles
+   -- clear it when finished.
+   mt.cloneMT()    
 
    for _,v in ipairs(moduleDirA) do
       local mpath = path_regularize(v)
@@ -479,6 +485,10 @@ function M.findAllModules(moduleDirA, moduleT)
    os.exit     = exit
 
    myFileName = myFileN_old
+
+   ------------------------------------------------------------
+   -- clear temporary MT
+   mt.popMT()
    dbg.fini()
 end
 
