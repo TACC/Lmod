@@ -39,6 +39,7 @@ local pathJoin     = pathJoin
 local Dbg          = require('Dbg')
 local ColumnTable  = require('ColumnTable')
 local posix        = require("posix")
+local deepcopy     = table.deepcopy
 
 
 --module("MT")
@@ -409,11 +410,12 @@ function M.mt(self)
    return s_mt
 end
 
+local dcT = {function_immutable = true, metatable_immutable = true}
+
 function M.cloneMT(self)
-   local mt = deepcopy(s_mt)
+   local mt = deepcopy(s_mt, dcT)
    s_mtA[#s_mtA+1] = mt
    s_mt = mt
-   setmetatable(s_mt, self)
 end
 
 function M.popMT()
@@ -431,8 +433,7 @@ function M.getMTfromFile(self,fn, msg)
    dbg.start("mt:getMTfromFile(",fn,")")
    local f = io.open(fn,"r")
    if (not f) then
-      io.stdout:write("false\n")
-      os.exit(1)
+      LmodErrorExit()
    end
    local s = f:read("*all")
    f:close()
