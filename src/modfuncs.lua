@@ -396,7 +396,6 @@ function hierarchyA(package, levels, numEntries)
       n = n - numEntries
    end
 
-   dbg.fini()
    return b
 end
 
