@@ -392,6 +392,8 @@ local function setupMPATH(self,mpath)
    self._locationTbl, self._availT = build_locationTbl(self.mpathA)
 end
 
+local dcT = {function_immutable = true, metatable_immutable = true}
+
 function M.mt(self)
    if (s_mt == nil) then
       local dbg  = Dbg:dbg()
@@ -403,24 +405,35 @@ function M.mt(self)
       if (not s_mt._same) then
          s_mt:reloadAllModules()
       end
-      s_mtA[#s_mtA+1]    = s_mt
+      s_mtA[#s_mtA+1]    = deepcopy(s_mt, dcT)
+      dbg.print("s_mt: ",tostring(s_mt), " s_mtA[#s_mtA]: ",tostring(s_mtA[#s_mtA]),"\n")
       M.cloneMT(self)   -- Save original MT in stack
       dbg.fini()
    end
    return s_mt
 end
 
-local dcT = {function_immutable = true, metatable_immutable = true}
 
-function M.cloneMT(self)
+function M.cloneMT()
+   local dbg = Dbg:dbg()
+   dbg.start("MT.cloneMT()")
    local mt = deepcopy(s_mt, dcT)
    s_mtA[#s_mtA+1] = mt
    s_mt = mt
+   dbg.print("Now using s_mtA[",#s_mtA,"]: ",tostring(s_mt),"\n")
+   dbg.fini()
 end
 
 function M.popMT()
+   local dbg = Dbg:dbg()
+   dbg.start("MT.popMT()")
    s_mt = s_mtA[#s_mtA-1]
+   dbg.print("Now using s_mtA[",#s_mtA-1"]: ",tostring(s_mt),"\n")
+   dbg.print
+
    s_mtA[#s_mtA] = nil    -- mark for garage collection
+
+   dbg.fini()
 end
 
 function M.origMT()
