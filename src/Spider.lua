@@ -219,6 +219,7 @@ function versionFile(path)
       return nil
    end
    local cmd = pathJoin(cmdDir(),"ModulesVersion.tcl") .. " " .. path
+   dbg.fini()
    return capture(cmd):trim()
 end
 
@@ -747,6 +748,7 @@ function M.Level1(dbT, mname, help)
    dbg.print("mname: ", mname, ", name: ",name,"\n")
 
    if (t == nil) then
+      dbg.fini()
       return ""
    end
 
@@ -754,7 +756,9 @@ function M.Level1(dbT, mname, help)
    dbg.print("Number of entries: ",cnt ," name count: ",nameCnt, "\n")
    if (cnt == 1 or nameCnt == 1) then
       local k = next(t)
-      return M.Level2(t, mname, t[k].full)
+      local v = M.Level2(t, mname, t[k].full)
+      dbg.fini()
+      return v
    end
       
    local banner = border(2)
