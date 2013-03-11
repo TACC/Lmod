@@ -20,7 +20,6 @@ end
 require("myGlobals")
 require("strict")
 require("colorize")
-require("firstInPath")
 require("border")
 require("serializeTbl")
 require("pairsByKeys")

@@ -5,7 +5,6 @@ local assert             = assert
 local capture            = capture
 local cmdDir             = cmdDir
 local concatTbl          = table.concat
-local firstInPath        = firstInPath
 local floor              = math.floor
 local getenv             = os.getenv
 local io                 = io

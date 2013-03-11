@@ -1,5 +1,13 @@
 -- -*- lua -*-
-local version = "1.33"
+local pkgRoot      = "/vol/pkg"
+local name         = "gotoblas"
+local fn           = myFileName():gsub("%.lua$","")
+local version      = barefilename(fn)
+local pkgName      = pathJoin(name,version)
+local hierA        = hierarchyA(pkgName,1)
+local compiler_dir = hierA[1]:gsub("/","-"):gsub("%.","_")
+local base         = pathJoin(pkgRoot, compiler_dir, pkgName)
+
 whatis("Name: Gotoblas")
 whatis("Version: " .. version)
 whatis("Category: library, mathematics")
@@ -20,10 +28,6 @@ You can control the number threads with the SMP version using the
 OMP_NUM_THREADS environment variable.
      ]])           
 
-local pkgRoot      = "/vol/pkg"
-local compiler_dir = firstInPath("LMOD_COMPILER")
-local pkgName      = pathJoin("gotoblas",version)
-local base         = pathJoin(pkgRoot, compiler_dir, pkgName)
 setenv("TACC_GOTOBLAS_DIR",base)
 setenv("TACC_GOTOBLAS_LIB",base)
 
