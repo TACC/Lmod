@@ -29,6 +29,10 @@ M.unset_alias          = MasterControl.quiet
 M.unset_shell_function = MasterControl.quiet
 M.usrload              = MasterControl.quiet
 
+function M.myFileName(self)
+   return Spider_myFileName()
+end
+
 function M.help(self,...)
    local dbg    = Dbg:dbg()
    dbg.start("MC_Spider:help(...)")

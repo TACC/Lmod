@@ -10,7 +10,9 @@ http://www.intel.com/software/products.
 -- Intel Compilers support
 ------------------------------------------------------------------------
 local pkgName      = "intel"
-local version      = barefilename(myFileName():gsub(".lua",""))
+local fn           = myFileName()
+local fn2          = fn:gsub(".lua","")
+local version      = barefilename(fn2)
 local mdir         = pathJoin("compiler",pkgName,version)
 
 prepend_path('MODULEPATH',     pathJoin(os.getenv("MODULEPATH_ROOT"),mdir))

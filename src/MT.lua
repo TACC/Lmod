@@ -405,14 +405,15 @@ function M.mt(self)
       dbg.start("mt()")
       local shell        = systemG.Master:master().shell
       s_mt               = new(self, shell:getMT())
-      s_mtA[#s_mtA+1]    = deepcopy(s_mt, dcT)
+      s_mtA[#s_mtA+1]    = s_mt
+      dbg.print("Original s_mtA[",#s_mtA,"]: ",tostring(s_mtA[#s_mtA]),"\n")
       M.cloneMT(self)   -- Save original MT in stack
       varTbl[ModulePath] = Var:new(ModulePath)
       setupMPATH(s_mt, varTbl[ModulePath]:expand())
       if (not s_mt._same) then
          s_mt:reloadAllModules()
       end
-      dbg.print("s_mt: ",tostring(s_mt), " s_mtA[#s_mtA]: ",tostring(s_mtA[#s_mtA]),"\n")
+      dbg.print("s_mt: ",tostring(s_mt), " s_mtA[",#s_mtA,"]: ",tostring(s_mtA[#s_mtA]),"\n")
       dbg.fini()
    end
    return s_mt
@@ -423,6 +424,7 @@ function M.cloneMT()
    local dbg = Dbg:dbg()
    dbg.start("MT.cloneMT()")
    local mt = deepcopy(s_mt, dcT)
+   dbg.print("s_mt: ", tostring(s_mt)," mt: ", tostring(mt),"\n")
    s_mtA[#s_mtA+1] = mt
    s_mt = mt
    dbg.print("Now using s_mtA[",#s_mtA,"]: ",tostring(s_mt),"\n")
@@ -441,6 +443,10 @@ function M.popMT()
 end
 
 function M.origMT()
+   local dbg = Dbg:dbg()
+   dbg.start("MT.origMT()")
+   dbg.print("Original s_mtA[1]: ",tostring(s_mtA[1]),"\n")
+   dbg.fini()
    return s_mtA[1]
 end
 

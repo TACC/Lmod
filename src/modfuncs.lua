@@ -356,8 +356,7 @@ function isPending(m)
 end
 
 function myFileName()
-   local mStack = ModuleStack:moduleStack()
-   return mStack:fileName()
+   return mcp:myFileName()
 end
 
 function hierarchyA(package, levels, numEntries)

@@ -16,6 +16,7 @@ M.family               = MasterControl.family
 M.help                 = MasterControl.quiet
 M.inherit              = MasterControl.inherit
 M.load                 = MasterControl.load
+M.myFileName           = MasterControl.myFileName
 M.prepend_path         = MasterControl.prepend_path
 M.prereq               = MasterControl.prereq
 M.prereq_any           = MasterControl.prereq_any

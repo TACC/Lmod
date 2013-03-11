@@ -464,8 +464,6 @@ function M.findAllModules(moduleDirA, moduleT)
       moduleT.version = 2
    end
 
-   local myFileN_old     = myFileName
-   myFileName            = Spider_myFileName
    local masterTbl       = masterTbl()
    local moduleDirT      = {}
    masterTbl.moduleDirT  = moduleDirT
@@ -491,8 +489,6 @@ function M.findAllModules(moduleDirA, moduleT)
       end
    end
    os.exit     = exit
-
-   myFileName = myFileN_old
 
    ------------------------------------------------------------
    -- clear temporary MT

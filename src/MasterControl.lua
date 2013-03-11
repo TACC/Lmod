@@ -521,6 +521,11 @@ function M.family(self, name)
    dbg.fini()
 end
 
+function M.myFileName(self)
+   local mStack = ModuleStack:moduleStack()
+   return mStack:fileName()
+end
+
 function M.unset_family(self, name)
    local dbg    = Dbg:dbg()
    local mt     = MT:mt()
