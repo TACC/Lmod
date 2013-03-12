@@ -122,6 +122,19 @@ sandbox_env = {
   UUIDString           = UUIDString,
 }
 
+function sandbox_registration(t)
+
+   if (type(t) ~= "table") then
+      LmodError("sandbox_registration: The argument passed is: \"", type(t), "\". It should be a table")
+   end
+
+   for k,v in pairs(t) do
+      sandbox_env[k] = v
+   end
+end
+
+
+
 local function run5_1(untrusted_code)
   if untrusted_code:byte(1) == 27 then return nil, "binary bytecode prohibited" end
   local untrusted_function, message = loadstring(untrusted_code)
