@@ -138,7 +138,7 @@ sandbox_env = {
 function sandbox_registration(t)
 
    if (type(t) ~= "table") then
-      LmodError("sandbox_registration: The argument passed is: \"", type(t), "\". It should be a table")
+      LmodError("sandbox_registration: The argument passed is: \"", type(t), "\". It should be a table.")
    end
 
    for k,v in pairs(t) do

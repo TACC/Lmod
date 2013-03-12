@@ -377,9 +377,9 @@ function M.getShortTime(self)
    return self.c_shortTime
 end
 
-function M.setRebuildTime(self,long, short)
+function M.setRebuildTime(self, long, short)
    local dbg = Dbg:dbg()
-   dbg.start("MT:setRebuildTime(long: ",long,", short: ",short,")")
+   dbg.start("MT:setRebuildTime(long: ",tostring(long),", short: ",tostring(short),")")
    self.c_rebuildTime = long
    self.c_shortTime   = short
    dbg.fini()
