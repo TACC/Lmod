@@ -121,7 +121,7 @@ sandbox_env = {
   ------------------------------------------------------------
   posix = { uname = posix.uname, setenv = posix.setenv, hostid = posix.hostid,
             open = posix.open, openlog = posix.openlog, closelog = posix.closelog,
-            syslog = posix.syslog, }
+            syslog = posix.syslog, },
 
 
   ------------------------------------------------------------
