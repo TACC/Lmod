@@ -116,10 +116,14 @@ sandbox_env = {
           touch = lfs.touch, unlock = lfs.unlock,
   },
   ------------------------------------------------------------
-  -- Mics functions
+  -- Misc functions
   ------------------------------------------------------------
   capture              = capture,
   UUIDString           = UUIDString,
+  ------------------------------------------------------------
+  -- Misc System Values
+  ------------------------------------------------------------
+  _VERSION             = _VERSION,
 }
 
 function sandbox_registration(t)
