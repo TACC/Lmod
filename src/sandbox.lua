@@ -115,6 +115,15 @@ sandbox_env = {
           setmode = lfs.setmode, symlinkattributes = lfs.symlinkattributes,
           touch = lfs.touch, unlock = lfs.unlock,
   },
+
+  ------------------------------------------------------------
+  -- posix functions
+  ------------------------------------------------------------
+  posix = { uname = posix.uname, setenv = posix.setenv, hostid = posix.hostid,
+            open = posix.open, openlog = posix.openlog, closelog = posix.closelog,
+            syslog = posix.syslog, },
+
+
   ------------------------------------------------------------
   -- Misc functions
   ------------------------------------------------------------
