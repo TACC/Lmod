@@ -335,7 +335,8 @@ function readCacheFile(cacheType, cacheFileA, moduleDirT, moduleT)
    return dirsRead
 end
 
-s_moduleT = {}
+s_moduleDirT = {}
+s_moduleT    = {}
 
 function getModuleT(fast)
 
@@ -355,20 +356,18 @@ function getModuleT(fast)
 
    dbg.start("getModuleT(fast=", tostring(fast),")")
 
-   if (next(s_moduleT) ~= nil) then
-      dbg.print("using previously computed moduleT\n")
-      dbg.fini()
-      return s_moduleT
-   end
-
 
    local baseMpath = mt:getBaseMPATH()
    if (baseMpath == nil) then
      LmodError("The Env Variable: \"", DfltModPath, "\" is not set\n")
    end
-   local moduleDirT = {}
+
+   ---------------------------------------------------------------------------
+   -- Since this function can get called many time, we need to only recompute
+   -- Directories we have not yet seen
+
    for path in baseMpath:split(":") do
-      moduleDirT[path]          = -1
+      s_moduleDirT[path] = s_moduleDirT[path] or -1
    end
 
    local buildModuleT = true
@@ -379,19 +378,19 @@ function getModuleT(fast)
 
    local sysDirsRead = 0
    if (not masterTbl.checkSyntax) then
-      sysDirsRead = readCacheFile("system", sysCacheFileA, moduleDirT, s_moduleT)
+      sysDirsRead = readCacheFile("system", sysCacheFileA, s_moduleDirT, s_moduleT)
    end
    
    ------------------------------------------------------------------------
    -- Read user cache file if it exists and is not out-of-date.
 
-   local usrDirsRead = readCacheFile("user", usrCacheFileA, moduleDirT, s_moduleT)
+   local usrDirsRead = readCacheFile("user", usrCacheFileA, s_moduleDirT, s_moduleT)
    
    ------------------------------------------------------------------------
    -- Find all the directories not read in yet.
 
    local moduleDirA = {}
-   for k,v in pairs(moduleDirT) do
+   for k,v in pairs(s_moduleDirT) do
       if (v < 0) then
          dbg.print("rebuilding cache for directory: ",k,"\n")
          moduleDirA[#moduleDirA+1] = k
