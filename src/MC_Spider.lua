@@ -93,8 +93,4 @@ function M.remove_property(self,...)
    return true
 end
 
-
-
-
-
 return M
