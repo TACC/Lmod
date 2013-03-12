@@ -31,7 +31,6 @@ require("strict")
 
 require("fileOps")
 require("capture")
-require("firstInPath")
 MasterControl = require("MasterControl")
 MCP           = {}
 mcp           = {}

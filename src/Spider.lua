@@ -219,6 +219,7 @@ function versionFile(path)
       return nil
    end
    local cmd = pathJoin(cmdDir(),"ModulesVersion.tcl") .. " " .. path
+   dbg.fini()
    return capture(cmd):trim()
 end
 
@@ -304,7 +305,7 @@ end
 
 local function loadModuleFile(fn)
    local dbg    = Dbg:dbg()
-   dbg.start("loadModuleFile(" .. fn .. ")")
+   dbg.start("Spider:loadModuleFile(" .. fn .. ")")
    dbg.flush()
 
    systemG._MyFileName = fn
@@ -312,24 +313,31 @@ local function loadModuleFile(fn)
    local func
    local msg
    local status
+   local whole
    if (myType == ".lua") then
-      func, msg = loadfile(fn)
+      local f = io.open(fn)
+      if (f) then
+         whole = f:read("*all")
+         f:close()
+      end
    else
       local a     = {}
       a[#a + 1]	  = pathJoin(cmdDir(),"tcl2lua.tcl")
       a[#a + 1]	  = "-h"
       a[#a + 1]	  = fn
       local cmd   = concatTbl(a," ")
-      local s     = capture(cmd)
-      func, msg = loadstring(s)
+      whole       = capture(cmd)
    end
-   if (func) then
-      status, msg = pcall(func)
-      if (not status) then
-         LmodWarning("Failed in reading: ",fn, "\n",msg,"\n")
-      end
+
+   if (whole) then
+      status, msg = sandbox_run(whole)
    else
-      LmodWarning("Found syntax error: ",msg,"\n")
+      status = nil
+      msg    = "Empty or non-existent file"
+   end
+      
+   if (not status) then 
+      LmodWarning("Unable to load file: ",fn,": ",msg,"\n")
    end
    dbg.fini()
 end
@@ -456,8 +464,6 @@ function M.findAllModules(moduleDirA, moduleT)
       moduleT.version = 2
    end
 
-   local myFileN_old     = myFileName
-   myFileName            = Spider_myFileName
    local masterTbl       = masterTbl()
    local moduleDirT      = {}
    masterTbl.moduleDirT  = moduleDirT
@@ -483,8 +489,6 @@ function M.findAllModules(moduleDirA, moduleT)
       end
    end
    os.exit     = exit
-
-   myFileName = myFileN_old
 
    ------------------------------------------------------------
    -- clear temporary MT
@@ -747,6 +751,7 @@ function M.Level1(dbT, mname, help)
    dbg.print("mname: ", mname, ", name: ",name,"\n")
 
    if (t == nil) then
+      dbg.fini()
       return ""
    end
 
@@ -754,7 +759,9 @@ function M.Level1(dbT, mname, help)
    dbg.print("Number of entries: ",cnt ," name count: ",nameCnt, "\n")
    if (cnt == 1 or nameCnt == 1) then
       local k = next(t)
-      return M.Level2(t, mname, t[k].full)
+      local v = M.Level2(t, mname, t[k].full)
+      dbg.fini()
+      return v
    end
       
    local banner = border(2)

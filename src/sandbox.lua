@@ -115,12 +115,38 @@ sandbox_env = {
           setmode = lfs.setmode, symlinkattributes = lfs.symlinkattributes,
           touch = lfs.touch, unlock = lfs.unlock,
   },
+
   ------------------------------------------------------------
-  -- Mics functions
+  -- posix functions
+  ------------------------------------------------------------
+  posix = { uname = posix.uname, setenv = posix.setenv, hostid = posix.hostid,
+            open = posix.open, openlog = posix.openlog, closelog = posix.closelog,
+            syslog = posix.syslog, },
+
+
+  ------------------------------------------------------------
+  -- Misc functions
   ------------------------------------------------------------
   capture              = capture,
   UUIDString           = UUIDString,
+  ------------------------------------------------------------
+  -- Misc System Values
+  ------------------------------------------------------------
+  _VERSION             = _VERSION,
 }
+
+function sandbox_registration(t)
+
+   if (type(t) ~= "table") then
+      LmodError("sandbox_registration: The argument passed is: \"", type(t), "\". It should be a table.")
+   end
+
+   for k,v in pairs(t) do
+      sandbox_env[k] = v
+   end
+end
+
+
 
 local function run5_1(untrusted_code)
   if untrusted_code:byte(1) == 27 then return nil, "binary bytecode prohibited" end

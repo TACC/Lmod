@@ -9,6 +9,7 @@ local M           = MC_Show
 local Dbg         = require("Dbg")
 local concatTbl   = table.concat
 M.activate        = MasterControl.quiet
+M.myFileName      = MasterControl.myFileName
 
 
 

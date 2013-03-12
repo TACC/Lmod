@@ -39,7 +39,6 @@ testdescript = {
 
      runMe lua $(projectDir)/src/lmod.in.lua bash --version
      runMe lua $(projectDir)/src/lmod.in.lua bash use -a $testDir/mf/core
-     lua $(projectDir)/src/spider.in -d -o spider $LMOD_DEFAULT_MODULEPATH > spider.out 2> spider.err
      runMe lua $(projectDir)/src/lmod.in.lua bash spider pmetis/4.1
      
      HOME=$ORIG_HOME

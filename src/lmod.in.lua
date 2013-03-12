@@ -72,7 +72,6 @@ end
 require("strict")
 require("pager")
 require("fileOps")
-require("firstInPath")
 MasterControl = require("MasterControl")
 MCP           = {}
 mcp           = {}

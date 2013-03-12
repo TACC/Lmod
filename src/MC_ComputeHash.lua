@@ -25,19 +25,20 @@ function ShowCmd(name, ...)
    A[#A+1] = concatTbl(b,"")
 end
 
-M.report               = MasterControl.quiet
-M.help                 = MasterControl.quiet
-M.whatis               = MasterControl.quiet
-M.setenv               = MasterControl.quiet
-M.unsetenv             = MasterControl.quiet
-M.inherit              = MasterControl.quiet
-M.set_alias            = MasterControl.quiet
-M.unset_alias          = MasterControl.quiet
-M.set_shell_function   = MasterControl.quiet
-M.unset_shell_function = MasterControl.quiet
-M.unset_alias          = MasterControl.quiet
 M.add_property         = MasterControl.quiet
+M.help                 = MasterControl.quiet
+M.inherit              = MasterControl.quiet
+M.myFileName           = MasterControl.myFileName
 M.remove_property      = MasterControl.quiet
+M.report               = MasterControl.quiet
+M.set_alias            = MasterControl.quiet
+M.set_shell_function   = MasterControl.quiet
+M.setenv               = MasterControl.quiet
+M.unset_alias          = MasterControl.quiet
+M.unset_alias          = MasterControl.quiet
+M.unset_shell_function = MasterControl.quiet
+M.unsetenv             = MasterControl.quiet
+M.whatis               = MasterControl.quiet
 
 
 function M.always_load(self, ...)

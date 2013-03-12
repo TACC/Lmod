@@ -1,5 +1,6 @@
 -- -*- lua -*-
 -- vim:ft=lua:et:ts=4
+require("sandbox")
 local Dbg          = require("Dbg")
 sitePkgRoot = os.getenv("LMOD_PKG_ROOT") or "/global/apps"
 
@@ -55,3 +56,14 @@ function appendModulePath(subdir)
    append_path("MODULEPATH", mdir)
 end
 
+------------------------------------------------------------------------
+-- Any function that is called by a modulefile must be registered with
+-- the sandbox as shown below.  Remember to use curly braces "{}" and
+-- not parens "()" as you are sending a table as an argument.
+
+
+sandbox_registration{ checkRestrictedGroup = checkRestrictedGroup,
+                      logUsage = logUsage,
+                      prependModulePath = prependModulePath,
+                      appendModulePath = appendModulePath
+                    }

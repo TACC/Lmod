@@ -204,6 +204,7 @@ end
 local function build_locationTbl(mpathA)
 
    local dbg       = Dbg:dbg()
+   dbg.start("build_locationTbl(mpathA)")
    local locationT = {}
    local availT    = {}
 
@@ -241,6 +242,7 @@ local function build_locationTbl(mpathA)
          end
       end
    end
+   dbg.fini()
    return locationT, availT
 end
 
@@ -375,9 +377,9 @@ function M.getShortTime(self)
    return self.c_shortTime
 end
 
-function M.setRebuildTime(self,long, short)
+function M.setRebuildTime(self, long, short)
    local dbg = Dbg:dbg()
-   dbg.start("MT:setRebuildTime(long: ",long,", short: ",short,")")
+   dbg.start("MT:setRebuildTime(long: ",tostring(long),", short: ",tostring(short),")")
    self.c_rebuildTime = long
    self.c_shortTime   = short
    dbg.fini()
@@ -385,12 +387,17 @@ end
 
 
 local function setupMPATH(self,mpath)
+   local dbg = Dbg:dbg()
+   dbg.start("setupMPATH(self,mpath: \"",tostring(mpath),"\")")
    self._same = self:sameMPATH(mpath)
    if (not self._same) then
       self:buildMpathA(mpath)
    end
    self._locationTbl, self._availT = build_locationTbl(self.mpathA)
+   dbg.fini()
 end
+
+local dcT = {function_immutable = true, metatable_immutable = true}
 
 function M.mt(self)
    if (s_mt == nil) then
@@ -398,32 +405,48 @@ function M.mt(self)
       dbg.start("mt()")
       local shell        = systemG.Master:master().shell
       s_mt               = new(self, shell:getMT())
+      s_mtA[#s_mtA+1]    = s_mt
+      dbg.print("Original s_mtA[",#s_mtA,"]: ",tostring(s_mtA[#s_mtA]),"\n")
+      M.cloneMT(self)   -- Save original MT in stack
       varTbl[ModulePath] = Var:new(ModulePath)
       setupMPATH(s_mt, varTbl[ModulePath]:expand())
       if (not s_mt._same) then
          s_mt:reloadAllModules()
       end
-      s_mtA[#s_mtA+1]    = s_mt
-      M.cloneMT(self)   -- Save original MT in stack
+      dbg.print("s_mt: ",tostring(s_mt), " s_mtA[",#s_mtA,"]: ",tostring(s_mtA[#s_mtA]),"\n")
       dbg.fini()
    end
    return s_mt
 end
 
-local dcT = {function_immutable = true, metatable_immutable = true}
 
-function M.cloneMT(self)
+function M.cloneMT()
+   local dbg = Dbg:dbg()
+   dbg.start("MT.cloneMT()")
    local mt = deepcopy(s_mt, dcT)
+   dbg.print("s_mt: ", tostring(s_mt)," mt: ", tostring(mt),"\n")
    s_mtA[#s_mtA+1] = mt
    s_mt = mt
+   dbg.print("Now using s_mtA[",#s_mtA,"]: ",tostring(s_mt),"\n")
+   dbg.fini()
 end
 
 function M.popMT()
+   local dbg = Dbg:dbg()
+   dbg.start("MT.popMT()")
    s_mt = s_mtA[#s_mtA-1]
+   dbg.print("Now using s_mtA[",#s_mtA-1,"]: ",tostring(s_mt),"\n")
+
    s_mtA[#s_mtA] = nil    -- mark for garage collection
+
+   dbg.fini()
 end
 
 function M.origMT()
+   local dbg = Dbg:dbg()
+   dbg.start("MT.origMT()")
+   dbg.print("Original s_mtA[1]: ",tostring(s_mtA[1]),"\n")
+   dbg.fini()
    return s_mtA[1]
 end
 
@@ -1180,7 +1203,7 @@ end
 
 function M.serializeTbl(self)
    local dbg = Dbg:dbg()
-   dbg.print("s_mt.shortTime: ", tostring(s_mt.c_shortTime),"\n")
+   dbg.print("s_mt.c_shortTime: ", tostring(s_mt.c_shortTime),"\n")
    
    s_mt.activeSize = self:setLoadOrder()
 

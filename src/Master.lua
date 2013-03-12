@@ -5,7 +5,6 @@ local assert             = assert
 local capture            = capture
 local cmdDir             = cmdDir
 local concatTbl          = table.concat
-local firstInPath        = firstInPath
 local floor              = math.floor
 local getenv             = os.getenv
 local io                 = io
@@ -723,89 +722,5 @@ function M.avail(searchA)
    pcall(pager,io.stderr,concatTbl(aa,""))
    dbg.fini()
 end
-
--- local function spanOneModule(path, name, nameA, fileType, keyA)
---    local dbg    = Dbg:dbg()
---    local mStack = ModuleStack:moduleStack()
---    dbg.start("spanOneModule(path=\"",path,"\", name=\"",name,
---              "\", nameA=(",concatTbl(nameA,","),"), fileType=\"",fileType,
---              "\", keyA=(",concatTbl(keyA,","),"))")
---    if (fileType == "file" and posix.access(path,"r")) then
---       for _,v in ipairs(keyA) do
--- 	 nameA[#nameA+1] = name
--- 	 local n = concatTbl(nameA,"/")
--- 	 ModuleName = n
--- 	 systemG.whatis  = function(msg, v)
---                               local searchString = v
---                               return function(msg)
---                                  local nm     = ModuleName or ""
---                                  local l      = nm:len()
---                                  local nblnks
---                                  if (l < 20) then
---                                     nblnks = 20 - l
---                                  else
---                                     nblnks = 2
---                                  end
---                                  local prefix = nm .. string.rep(" ",nblnks) .. ": "
---                                  if (msg:find(searchString,1,true)) then
---                                     io.stderr:write(prefix, msg, "\n")
---                                  end
---                               end
---                            end
---          mStack:push(ModuleName,path)
--- 	 loadModuleFile{file=path,moduleName=ModuleName, reportErr=true}
---          mStack:pop()
---       end
---    elseif (fileType == "directory" and posix.access(path,"x")) then
---       --io.stderr:write("dir: ",path," name: ", name, "\n")
---       for file in lfs.dir(path) do
---          if (file:sub(1,1) ~= "." and not file ~= "CVS" and file:sub(-1,-1) ~= '~') then
---             local f = pathJoin(path, file)
---             local readable = posix.access(f,"r")
---             if (readable) then
---                attr = lfs.symlinkattributes(f)
---                if (attr.mode == "directory") then
---                   nameA[#nameA+1] = file
---                end
---                --local n = concatTbl(nameA,"/")
---                --io.stderr:write("file: ",file," f: ",f," mode: ",attr.mode, " n: ", n, "\n")
---                M.spanOneModule(f, file, nameA, attr.mode,keyA)
---                removeEntry(nameA,#nameA)
---             end
---          end
---       end
---    end
---    dbg.fini()
--- end
--- 
--- 
--- function M.spanAll(self, keyA)
---    local dbg    = Dbg:dbg()
---    dbg.start("Master:spanAll(keyA=(",concatTbl(keyA,","),"))")
---    mpath1A = MT:mt():module_pathA()
---    for _, path in ipairs(mpathA) do
---       local attr = lfs.attributes(path)
---       if (attr and attr.mode == "directory" and posix.access(path,"x")) then
---          for file in lfs.dir(path) do
--- 	    --io.stderr:write("(1) spanAll: file: ",file,"\n")
---             if (file:sub(1,1) ~= "." and not file ~= "CVS" and file:sub(-1,-1) ~= '~') then
---                local f = pathJoin(path, file)
---                local readable = posix.access(f,"r")
---                if (readable) then
---                   attr = lfs.attributes(f)
---                   local nameA = {}
---                   if (attr.mode == "directory") then
---                      nameA[#nameA+1] = file
---                   end
---                   --local n = concatTbl(nameA,"/")
---                   --io.stderr:write("(2) spanAll: file: ",file," f: ",f," mode: ", attr.mode," n: ",n,"\n")
---                   M.spanOneModule(f, file, nameA, attr.mode, keyA)
---                end
--- 	    end
---          end
---       end
---    end
---    dbg.fini()
--- end
 
 return M
