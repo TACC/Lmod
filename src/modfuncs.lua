@@ -346,13 +346,15 @@ end
 function isloaded(m)
    local mt = MT:mt()
    if (not validateStringArgs("isloaded",m)) then return false end
-   return mt:have(m,"active")
+   local mname = MName:new("mt", m)
+   return mt:have(mname:sn(),"active")
 end
 
 function isPending(m)
    local mt = MT:mt()
    if (not validateStringArgs("isPending",m)) then return false end
-   return mt:have(m,"pending")
+   local mname = MName:new("mt", m)
+   return mt:have(mname:sn(),"pending")
 end
 
 function myFileName()

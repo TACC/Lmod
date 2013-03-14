@@ -304,9 +304,6 @@ local function Avail(...)
    master.avail(a)
 end
 
-local function Display(...)
-end
-
 local function Update()
    local master = Master:master()
    master:reloadAll()
@@ -318,10 +315,9 @@ local function TableList()
    local t = {}
    local activeA = mt:list("short","active")
    for i,v  in ipairs(activeA) do
-      local w  = mt:fullName(v)
-      local sn = mt:shortName(v)
-      local version = extractVersion(w,sn)
-
+      local mname   = MName:new("mt",v)
+      local sn      = mname:sn()
+      local version = mname:version()
       t[sn] = version
    end
    local s = serializeTbl{name="activeList",indent=true, value=t}
@@ -514,7 +510,9 @@ function UsrLoad(...)
             v = v:sub(2)
          end
          a[#a + 1] = v
-         if (mt:haveSN(v,"active")) then
+         local mname = MName:new("load",v)
+         local sn    = mname:sn()
+         if (mt:haveSN(sn, "active")) then
             MCP:unload(v)
          end
       end
@@ -528,7 +526,10 @@ function UsrLoad(...)
    
    local aa = {}
    for i = 1,#a do
-      if (not mt:have(a[i],"active")) then
+      local v     = a[i]
+      local mname = MName:new("load",v)
+      local sn    = mname:sn()
+      if (not mt:have(sn, "active")) then
          aa[#aa+1] = a[i]
       end
    end
@@ -703,7 +704,9 @@ local function Swap(...)
    end
 
    local mt     = MT:mt()
-   if (not mt:haveSN(a,"any")) then
+   local mname  = MName:new("load",a)
+   local sn     = mname:sn()
+   if (not mt:have(sn,"any")) then
       LmodError("Swap failed: \"",a,"\" is not loaded.\n")
    end
 

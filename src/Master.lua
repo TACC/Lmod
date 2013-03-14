@@ -102,17 +102,16 @@ local function followDefault(path)
 end
 
 
-local function find_module_file(moduleName)
+local function find_module_file(mname)
    local dbg      = Dbg:dbg()
-   dbg.start("find_module_file(",moduleName,")")
+   dbg.start("find_module_file(",tostring(mname.usrName()),")")
 
    local t        = { fn = nil, modFullName = nil, modName = nil, default = 0, hash = 0}
    local mt       = MT:mt()
    local fullName = ""
    local modName  = ""
-   local sn       = mt:shortName(moduleName)
+   local sn       = mname.sn()
    dbg.print("sn: ",sn,"\n")
-   local extra    = extractVersion(moduleName, sn) 
 
    local pathA = mt:locationTbl(sn)
 
@@ -126,7 +125,7 @@ local function find_module_file(moduleName)
    for ii, vv in ipairs(pathA) do
       t.default = 0
       local mpath  = vv.mpath
-      fn           = pathJoin(vv.file, extra)
+      fn           = pathJoin(vv.file, mname.version())
       result = nil
       local found  = false
       for _,v in ipairs(searchTbl) do
@@ -146,7 +145,7 @@ local function find_module_file(moduleName)
          elseif (found and v == '/.version' and ii == 1) then
             local vf = M.versionFile(result)
             if (vf) then
-               t         = find_module_file(pathJoin(sn,vf))
+               t         = find_module_file(MName:new("load",pathJoin(sn,vf)))
                t.default = 1
                result    = t.fn
             end
@@ -260,24 +259,27 @@ function M.unload(...)
    dbg.print("Setting mpc to ", mcp:name(),"\n")
 
    for _, moduleName in ipairs{...} do
-      dbg.print("Trying to unload: ", moduleName, "\n")
-      if (mt:haveSN(moduleName,"inactive")) then
+      local mname = MName:new("unload", moduleName)
+      local sn    = mname.sn()
+      dbg.print("Trying to unload: ", moduleName, " sn: ", sn,"\n")
+      
+      if (mt:have(sn,"inactive")) then
          dbg.print("Removing inactive module: ", moduleName, "\n")
-         mt:remove(moduleName)
+         mt:remove(sn)
          a[#a + 1] = true
-      elseif (mt:haveSN(moduleName,"active")) then
+      elseif (mt:have(sn,"active")) then
          dbg.print("Mark ", moduleName, " as pending\n")
-         mt:setStatus(moduleName,"pending")
-         local f              = mt:fileName(moduleName)
-         local fullModuleName = mt:fullName(moduleName)
+         mt:setStatus(sn,"pending")
+         local f              = mt:fileName(sn)
+         local fullModuleName = mt:fullName(sn)
          dbg.print("Master:unload: \"",fullModuleName,"\" from f: ",f,"\n")
          mt:beginOP()
          mStack:push(fullModuleName,f)
 	 loadModuleFile{file=f,moduleName=moduleName,reportErr=false}
          mStack:pop()
          mt:endOP()
-         dbg.print("calling mt:remove(\"",moduleName,"\")\n")
-         mt:remove(moduleName)
+         dbg.print("calling mt:remove(\"",sn,"\")\n")
+         mt:remove(sn)
          a[#a + 1] = true
       else
          a[#a + 1] = false
@@ -312,14 +314,15 @@ function M.versionFile(path)
    return capture(cmd):trim()
 end
 
-local function access_find_module_file(moduleName)
-   local mt = MT:mt()
-   if ((mt:shortName(moduleName) == moduleName) and
-       (mt:haveSN(moduleName, "any"))) then
-      local full = mt:fullName(moduleName) 
-      return mt:fileName(moduleName), full or ""
+local function access_find_module_file(mname)
+   local mt    = MT:mt()
+   local sn    = mname.sn()
+   if (sn = mname.usrName() and mt:have(sn,"any")) then
+      local full = mt:fullName(sn) 
+      return mt:fileName(sn), full or ""
    end
-   local t    = find_module_file(moduleName)
+   
+   local t    = find_module_file(mname)
    local full = t.modFullName or ""
    local fn   = t.fn
    return fn, full
@@ -336,7 +339,8 @@ function M.access(self, ...)
    io.stderr:write("\n")
    if (systemG.help ~= dbg.quiet) then help = "-h" end
    for _, moduleName in ipairs{...} do
-      local fn, full   = access_find_module_file(moduleName)
+      local mname = MName:new("load", moduleName)
+      local fn, full   = access_find_module_file(mname)
       --io.stderr:write("full: ",full,"\n")
       systemG.ModuleFn   = fn
       systemG.ModuleName = full
@@ -370,11 +374,13 @@ function M.load(...)
 
    a   = {}
    for _,moduleName in ipairs{...} do
-      moduleName    = moduleName:gsub("/+$","")  -- remove any trailing '/'
+      moduleName    = moduleName
+      local mname   = MName:new(moduleName)
+      local sn      = mname:sn()
       local loaded  = false
-      local t	    = find_module_file(moduleName)
+      local t	    = find_module_file(mname)
       local fn      = t.fn
-      if (mt:haveSN(moduleName,"active") and fn  ~= mt:fileName(moduleName)) then
+      if (mt:have(sn,"active") and fn  ~= mt:fileName(sn)) then
          dbg.print("Master:load reload module: \"",moduleName,"\" as it is already loaded\n")
          local mcp_old = mcp
          mcp           = MCP
@@ -392,8 +398,8 @@ function M.load(...)
          mStack:pop()
 	 mt:endOP()
          dbg.print("Making ", t.modName, " active\n")
-         mt:setStatus(t.modName,"active")
-         mt:set_mType(t.modName,t.mType)
+         mt:setStatus(sn, "active")
+         mt:set_mType(sn, t.mType)
          dbg.print("Marked: ",t.modFullName," as loaded\n")
          loaded = true
          hook.apply("load",t)
@@ -416,7 +422,8 @@ function M.fakeload(...)
 
    for _, moduleName in ipairs{...} do
       local loaded = false
-      local t      = find_module_file(moduleName)
+      local mname  = MName:new("load", moduleName)
+      local t      = find_module_file(mname)
       local fn     = t.fn
       if (fn) then
          t.mType = "m"
@@ -444,7 +451,8 @@ function M.reloadAll()
       local sn = v.sn
       if (mt:have(sn, "active")) then
          local fullName = v.full
-         local t        = find_module_file(fullName)
+         local mname    = MName:new("load", fullName)
+         local t        = find_module_file(mname)
          local fn       = mt:fileName(sn)
          if (t.fn ~= fn) then
             dbg.print("Master:reloadAll t.fn: \"",t.fn or "nil","\"",
@@ -611,7 +619,8 @@ local function availEntry(searchA, name, f, defaultModule, dbT, legendT, a)
       end
       local aa    = {}
       local propT = {}
-      local sn    = mt:shortName(name)
+      local mname = MName:new("load", name)
+      local sn    = mname.sn()
       local entry = dbT[sn]
       if (entry) then
          dbg.print("Found dbT[sn]\n")

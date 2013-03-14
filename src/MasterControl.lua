@@ -74,9 +74,11 @@ function M.load(self, ...)
       local t       = {}
       readAdmin()
       for _, moduleName in ipairs{...} do
-         if (mt:have(moduleName,"active")) then
-            local moduleFn  = mt:fileName(moduleName)
-            local modFullNm = mt:fullName(moduleName)
+         local mname = MName:new("load",moduleName)
+         local sn    = mname:sn()
+         if (mt:have(sn,"active")) then
+            local moduleFn  = mt:fileName(sn)
+            local modFullNm = mt:fullName(sn)
             local message
             local key
             if (adminT[moduleFn]) then
@@ -417,7 +419,9 @@ function M.prereq(self, ...)
    end
 
    for _,v in ipairs{...} do
-      if (not mt:have(v,"active")) then
+      local mname = MName:new("mt", v)
+      local sn    = mname:sn()
+      if (not mt:have(sn,"active")) then
          a[#a+1] = v
       end
    end
@@ -448,7 +452,9 @@ function M.conflict(self, ...)
    end
 
    for _,v in ipairs{...} do
-      if (mt:haveSN(v,"active")) then
+      local mname = MName:new("mt", v)
+      local sn    = mname:sn()
+      if (mt:have(sn,"active")) then
          a[#a+1] = v
       end
    end
@@ -478,7 +484,9 @@ function M.prereq_any(self, ...)
 
    local found  = false
    for _,v in ipairs{...} do
-      if (mt:have(v,"active")) then
+      local mname = MName:new("mt", v)
+      local sn    = mname:sn()
+      if (mt:have(sn,"active")) then
          found = true
          break;
       end
@@ -499,7 +507,8 @@ function M.family(self, name)
    local mt        = MT:mt()
    local mStack    = ModuleStack:moduleStack()
    local mName     = mStack:moduleName()
-   local sn        = mt:shortName(mName)
+   local mname     = MName:new("mt",mName)
+   local sn        = mname:sn()
    local masterTbl = masterTbl()
 
    dbg.start("MasterControl:family(",name,")")

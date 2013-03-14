@@ -729,16 +729,6 @@ function M.reloadAllModules(self)
    return not changed
 end
 
-function M.shortName(self, moduleName)
-   if (self:locationTbl(moduleName)) then
-      return moduleName
-   end
-
-   local i,j = moduleName:find(".*/")
-   j = (j or 0) - 1
-   return moduleName:sub(1,j)
-end
-
 function M.add(self, t, status)
    local dbg   = Dbg:dbg()
    dbg.start("MT:add(t,",status,")")
@@ -765,9 +755,8 @@ function M.add(self, t, status)
    dbg.fini()
 end
 
-function M.userName(self, moduleName)
+function M.userName(self, sn)
    local mT    = self.mT
-   local sn    = self:shortName(moduleName)
    local entry = mT[sn]
    if (entry == nil) then
       return nil
@@ -779,9 +768,8 @@ function M.userName(self, moduleName)
    return entry.fullName
 end
 
-function M.fileName(self, moduleName)
+function M.fileName(self, sn)
    local mT    = self.mT
-   local sn    = self:shortName(moduleName)
    local entry = mT[sn]
    if (entry == nil) then
       return nil
@@ -789,9 +777,8 @@ function M.fileName(self, moduleName)
    return entry.FN
 end
 
-function M.setStatus(self, moduleName, status)
+function M.setStatus(self, sn, status)
    local mT    = self.mT
-   local sn    = self:shortName(moduleName)
    local entry = mT[sn]
    if (entry ~= nil) then
       entry.status = status
@@ -800,9 +787,8 @@ function M.setStatus(self, moduleName, status)
    dbg.print("M.setStatus(",moduleName,",",tostring(status),")\n")
 end
 
-function M.getStatus(self, moduleName)
+function M.getStatus(self, sn)
    local mT    = self.mT
-   local sn    = self:shortName(moduleName)
    local entry = mT[sn]
    if (entry ~= nil) then
       return entry.status
@@ -810,27 +796,33 @@ function M.getStatus(self, moduleName)
    return nil
 end
 
-function M.haveSN(self, moduleName, status)
+function M.haveSN(self, sn, status)
    local mT    = self.mT
-   local sn    = self:shortName(moduleName)
    local entry = mT[sn]
    if (entry == nil) then
       return false
    end
-   if (sn == entry.short) then
-      return ((status == "any") or (status == entry.status))
-   end
-   return false
+   return ((status == "any") or (status == entry.status))
 end
 
-function M.have(self, moduleName, status)
+function M.exists(self, sn, status)
+   local mT    = self.mT
+   return (mT[sn] ~= nil)
+end
+
+
+function M.have(self, sn, status)
    local dbg   = Dbg:dbg()
    local mT    = self.mT
-   local sn    = self:shortName(moduleName)
    local entry = mT[sn]
    if (entry == nil) then
       return false
    end
+
+   -- I don't know what any of this means when doing thingn
+   -- now.
+
+
    if (sn == moduleName) then
       return ((status == "any") or (status == entry.status))
    end
@@ -910,9 +902,8 @@ function M.setHashSum(self)
    end
 end
 
-function M.getHash(self, moduleName)
+function M.getHash(self, sn)
    local mT    = self.mT
-   local sn    = self:shortName(moduleName)
    local entry = mT[sn]
    if (entry == nil) then
       return nil
@@ -931,18 +922,16 @@ function M.hideHash(self)
 end
 
 
-function M.markDefault(self, moduleName)
+function M.markDefault(self, sn)
    local mT    = self.mT
-   local sn    = self:shortName(moduleName)
    local entry = mT[sn]
    if (entry ~= nil) then
       mT[sn].default = 1
    end
 end
 
-function M.default(self, moduleName)
+function M.default(self, sn)
    local mT    = self.mT
-   local sn    = self:shortName(moduleName)
    local entry = mT[sn]
    if (entry == nil) then
       return nil
@@ -962,51 +951,46 @@ function M.setLoadOrder(self)
    return sz
 end
 
-function M.fullName(self,moduleName)
+function M.fullName(self, sn)
    local dbg   = Dbg:dbg()
    local mT    = self.mT
-   local sn    = self:shortName(moduleName)
-   local entry = mT[sn] or mT[moduleName]
+   local entry = mT[sn]
    if (entry == nil) then
       return nil
    end
    return entry.fullName
 end
 
-function M.short(self,moduleName)
+function M.short(self, sn)
    local mT    = self.mT
-   local sn    = self:shortName(moduleName)
-   local entry = mT[sn] or mT[moduleName]
+   local entry = mT[sn] 
    if (entry == nil) then
       return nil
    end
    return entry.short
 end
 
-function M.mType(self,moduleName)
+function M.mType(self, sn)
    local mT    = self.mT
-   local sn    = self:shortName(moduleName)
-   local entry = mT[sn] or mT[moduleName]
+   local entry = mT[sn]
    if (entry == nil) then
       return nil
    end
    return entry.mType
 end
 
-function M.set_mType(self,moduleName, value)
+function M.set_mType(self, sn, value)
    local mT    = self.mT
-   local sn    = self:shortName(moduleName)
-   local entry = mT[sn] or mT[moduleName]
+   local entry = mT[sn]
    if (entry ~= nil) then
       mT[sn].mType = value
    end
 end
 
 
-function M.remove(self, moduleName)
+function M.remove(self, sn)
    local dbg = Dbg:dbg()
    local mT  = self.mT
-   local sn  = self:shortName(moduleName)
    mT[sn]    = nil
 end
 
@@ -1023,12 +1007,11 @@ end
 
 
 
-function M.add_property(self, moduleName, name, value)
+function M.add_property(self, sn, name, value)
    local dbg = Dbg:dbg()
    dbg.start("MT:add_property(\"",moduleName,"\", \"",name,"\", \"",tostring(value),"\")")
    
    local mT    = self.mT
-   local sn    = self:shortName(moduleName)
    local entry = mT[sn]
 
    if (entry == nil) then
@@ -1064,12 +1047,11 @@ function M.add_property(self, moduleName, name, value)
    dbg.fini()
 end
 
-function M.remove_property(self, moduleName, name, value)
+function M.remove_property(self, sn, name, value)
    local dbg = Dbg:dbg()
    dbg.start("MT:remove_property(\"",moduleName,"\", \"",name,"\", \"",tostring(value),"\")")
    
    local mT    = self.mT
-   local sn    = self:shortName(moduleName)
    local entry = mT[sn]
 
    if (entry == nil) then
@@ -1105,12 +1087,11 @@ function M.remove_property(self, moduleName, name, value)
 end
 
 
-function M.list_property(self, idx, moduleName, style, legendT)
+function M.list_property(self, idx, sn, style, legendT)
    local dbg    = Dbg:dbg()
-   dbg.start("MT:list_property(\"",moduleName,"\", \"",style,"\")")
+   dbg.start("MT:list_property(\"",sn,"\", \"",style,"\")")
    local dbg = Dbg:dbg()
    local mT    = self.mT
-   local sn    = self:shortName(moduleName)
    local entry = mT[sn]
 
    if (entry == nil) then

@@ -43,8 +43,8 @@ function M.find_module_file(fullModuleName, oldFn)
 
    local t        = { fn = nil, modFullName = nil, modName = nil, default = 0, hash = 0}
    local mt       = MT:mt()
-   local sn       = mt:shortName(fullModuleName)
-   local extra    = extractVersion(fullModuleName, sn)
+   local mname    = MName:new("load", fullModuleName)
+   local sn       = mname:sn()
    local localDir = true
    
 
@@ -60,7 +60,7 @@ function M.find_module_file(fullModuleName, oldFn)
 
    for ii, vv in ipairs(pathA) do
       local mpath  = vv.mpath
-      fn           = pathJoin(vv.file, extra)
+      fn           = pathJoin(vv.file, mname.version())
       result       = nil
       dbg.print("ii: ",ii," mpath: ",mpath," vv.file: ",vv.file," fn: ",fn,"\n")
       for i = 1, #searchTbl do
