@@ -20,7 +20,8 @@
 
 -----------------------------------------------------------------------------
 --  Any function here that is called by a module file must be registered with
---  the sandbox.  For example you have functions:
+--  the sandbox.  For example you have following functions in your
+--  SitePackage.lua file:
 
 --      function sam()
 --      end
@@ -28,7 +29,7 @@
 --      function bill()
 --      end
 
---  Then you have to do the following
+--  Then you have to add the following to your SitePackage.lua file.
 
 --      sandbox_registration{ sam = sam, bill = bill}
 
