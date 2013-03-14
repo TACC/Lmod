@@ -443,6 +443,7 @@ function M.reloadAll()
    for _, v in ipairs(a) do
       local sn = v.sn
       if (mt:have(sn, "active")) then
+         dbg.print("module sn: ",sn," is active\n")
          local fullName = v.full
          local t        = find_module_file(fullName)
          local fn       = mt:fileName(sn)
@@ -461,6 +462,7 @@ function M.reloadAll()
             end
          end
       else
+         dbg.print("module sn: ", sn, " is inactive\n")
          local fn    = mt:fileName(sn)
          local name  = v.name          -- This name is short for default and
                                        -- Full for specific version.

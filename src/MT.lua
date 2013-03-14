@@ -733,7 +733,6 @@ function M.shortName(self, moduleName)
    if (self:locationTbl(moduleName)) then
       return moduleName
    end
-
    local i,j = moduleName:find(".*/")
    j = (j or 0) - 1
    return moduleName:sub(1,j)
@@ -797,7 +796,7 @@ function M.setStatus(self, moduleName, status)
       entry.status = status
    end
    local dbg = Dbg:dbg()
-   dbg.print("M.setStatus(",moduleName,",",tostring(status),")\n")
+   dbg.print("MT:setStatus(",moduleName,",",tostring(status),")\n")
 end
 
 function M.getStatus(self, moduleName)
@@ -865,7 +864,7 @@ function M.list(self, kind, status)
             if (v.default ~= 1) then
                nameT = "fullName"
             end
-            dbg.print("v.short: ", tostring(v.short), ", full: ",tostring(v.fullName),"\n")
+            dbg.print("MT:list: v.short: ", tostring(v.short), ", full: ",tostring(v.fullName),"\n")
             local obj = {sn   = v.short,   full       = v.fullName,
                          name = v[nameT], defaultFlg = v.default }
             a[icnt] = { v.loadOrder, obj }
