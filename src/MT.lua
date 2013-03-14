@@ -65,8 +65,8 @@ local function locationTblDir(mpath, path, prefix, locationT, availT)
       return
    end
 
-   local mnameT        = {}
-   local dirA          = {}
+   local mnameT = {}
+   local dirA   = {}
 
    for file in lfs.dir(path) do
       if (file:sub(1,1) ~= "." and file ~= "CVS" and file:sub(-1,-1) ~= "~") then
