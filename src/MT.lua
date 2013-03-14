@@ -65,8 +65,8 @@ local function locationTblDir(mpath, path, prefix, locationT, availT)
       return
    end
 
-   local mnameT        = {}
-   local dirA          = {}
+   local mnameT = {}
+   local dirA   = {}
 
    for file in lfs.dir(path) do
       if (file:sub(1,1) ~= "." and file ~= "CVS" and file:sub(-1,-1) ~= "~") then
@@ -784,7 +784,7 @@ function M.setStatus(self, sn, status)
       entry.status = status
    end
    local dbg = Dbg:dbg()
-   dbg.print("M.setStatus(",moduleName,",",tostring(status),")\n")
+   dbg.print("MT:setStatus(",moduleName,",",tostring(status),")\n")
 end
 
 function M.getStatus(self, sn)
@@ -857,7 +857,7 @@ function M.list(self, kind, status)
             if (v.default ~= 1) then
                nameT = "fullName"
             end
-            dbg.print("v.short: ", tostring(v.short), ", full: ",tostring(v.fullName),"\n")
+            dbg.print("MT:list: v.short: ", tostring(v.short), ", full: ",tostring(v.fullName),"\n")
             local obj = {sn   = v.short,   full       = v.fullName,
                          name = v[nameT], defaultFlg = v.default }
             a[icnt] = { v.loadOrder, obj }

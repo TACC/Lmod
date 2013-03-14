@@ -17,3 +17,20 @@
 
 -- A "SitePackage.lua" in that directory will override the one in the Lmod
 -- install directory.
+
+-----------------------------------------------------------------------------
+--  Any function here that is called by a module file must be registered with
+--  the sandbox.  For example you have following functions in your
+--  SitePackage.lua file:
+
+--      function sam()
+--      end
+
+--      function bill()
+--      end
+
+--  Then you have to add the following to your SitePackage.lua file.
+
+--      sandbox_registration{ sam = sam, bill = bill}
+
+-- DO NOT FORGET TO USE CURLY BRACES "{}" and NOT PARENS "()"!!!!
