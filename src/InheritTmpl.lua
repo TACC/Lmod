@@ -2,6 +2,7 @@ require("strict")
 require("fileOps")
 
 local M            = {}
+local MName        = require("MName")
 local MT           = MT
 local Dbg          = require("Dbg")
 local lfs          = require("lfs")

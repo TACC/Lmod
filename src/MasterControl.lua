@@ -6,6 +6,7 @@ require("inherits")
 local M            = {}
 local BeautifulTbl = require("BeautifulTbl")
 local Dbg          = require("Dbg")
+local MName        = require("MName")
 local ModuleStack  = require("ModuleStack")
 local Var          = require("Var")
 local concatTbl    = table.concat

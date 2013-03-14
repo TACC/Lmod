@@ -10,6 +10,7 @@ require("TermWidth")
 local BeautifulTbl = require('BeautifulTbl')
 local ColumnTable  = require('ColumnTable')
 local Dbg          = require("Dbg")
+local MName        = require("MName")
 local Spider       = require("Spider")
 local concatTbl    = table.concat
 local getenv       = os.getenv

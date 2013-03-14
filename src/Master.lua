@@ -41,6 +41,7 @@ local Dbg          = require("Dbg")
 local Default      = '(D)'
 local InheritTmpl  = require("InheritTmpl")
 local M            = {}
+local MName        = require("MName")
 local MT           = MT
 local ModuleStack  = require("ModuleStack")
 local Spider       = require("Spider")

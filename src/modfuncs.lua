@@ -2,6 +2,7 @@ require("strict")
 
 
 local Dbg         = require("Dbg")
+local MName       = require("MName")
 local ModuleStack = require("ModuleStack")
 local _concatTbl  = table.concat
 
