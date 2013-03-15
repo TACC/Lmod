@@ -78,8 +78,11 @@ mcp           = {}
 require("modfuncs")
 require("cmdfuncs")
 require("colorize")
-local Dbg       = require("Dbg")
+Master = require("Master")
+MT     = require("MT")
 
+local Dbg       = require("Dbg")
+local MName     = require("MName")
 local Version   = require("Version")
 local concatTbl = table.concat
 
@@ -283,7 +286,6 @@ require("string_trim")
 
 BaseShell          = require("BaseShell")
 local ColumnTable  = require("ColumnTable")
-local MName        = require("MName")
 local Options      = require("Options")
 local Spider       = require("Spider")
 local Var          = require("Var")
@@ -513,7 +515,7 @@ function UsrLoad(...)
          a[#a + 1] = v
          local mname = MName:new("load",v)
          local sn    = mname:sn()
-         if (mt:haveSN(sn, "active")) then
+         if (mt:have(sn, "active")) then
             MCP:unload(v)
          end
       end
@@ -528,7 +530,7 @@ function UsrLoad(...)
    local aa = {}
    for i = 1,#a do
       local v     = a[i]
-      local mname = MName:new("load",v)
+      local mname = MName.new(MName, "load", v)
       local sn    = mname:sn()
       if (not mt:have(sn, "active")) then
          aa[#aa+1] = a[i]
@@ -819,9 +821,6 @@ function expert()
    end
    return __expert
 end
-
-Master = require("Master")
-MT     = require("MT")
 
 function main()
    

@@ -17,22 +17,25 @@ end
 function M.new(self, sType, name)
    local o = {}
    setmetatable(o,self)
-
+   self.__index = self
+   local dbg = Dbg:dbg()
+   dbg.start("MName:new( ",sType, ", ",tostring(name),")")
    local mt = MT:mt()
 
-   name = name:gsub("/+$","")  -- remove any trailing '/'
+   --name = name:gsub("/+$","")  -- remove any trailing '/'
    local sn = false
 
    if (sType == "load") then
-      for i = 0, 1 do
+      for level = 0, 1 do
          local n = shorten(name, level)
+         dbg.print("n: ",n,"\n")
          if (mt:locationTbl(n)) then
             sn = n
             break
          end
       end
    else
-      for i = 0, 1 do
+      for level = 0, 1 do
          local n = shorten(name, level)
          if (mt:exists(n)) then
             sn = n
@@ -41,11 +44,13 @@ function M.new(self, sType, name)
       end
    end
 
+   dbg.print("sn: ",tostring(sn),"\n")
    if (sn) then
       o._sn      = sn
       o._name    = name
       o._version = extractVersion(name, sn)
    end
+   dbg.fini()
    return o
 end
 

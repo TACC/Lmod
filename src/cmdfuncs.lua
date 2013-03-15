@@ -187,7 +187,7 @@ function List(...)
    local legendT = {}
    for i = 1, #activeA do
       local mname = MName:new("mt",activeA[i])
-      local m = mt:fullName(mname.sn())
+      local m = mt:fullName(mname:sn())
       for j = 1, #wanted do
          local p = wanted[j]
          if (m:find(p,1,true) or m:find(p)) then

@@ -105,13 +105,13 @@ end
 
 local function find_module_file(mname)
    local dbg      = Dbg:dbg()
-   dbg.start("find_module_file(",tostring(mname.usrName()),")")
+   dbg.start("find_module_file(",tostring(mname:usrName()),")")
 
    local t        = { fn = nil, modFullName = nil, modName = nil, default = 0, hash = 0}
    local mt       = MT:mt()
    local fullName = ""
    local modName  = ""
-   local sn       = mname.sn()
+   local sn       = mname:sn()
    dbg.print("sn: ",sn,"\n")
 
    local pathA = mt:locationTbl(sn)
@@ -126,7 +126,7 @@ local function find_module_file(mname)
    for ii, vv in ipairs(pathA) do
       t.default = 0
       local mpath  = vv.mpath
-      fn           = pathJoin(vv.file, mname.version())
+      fn           = pathJoin(vv.file, mname:version())
       result = nil
       local found  = false
       for _,v in ipairs(searchTbl) do
@@ -260,8 +260,8 @@ function M.unload(...)
    dbg.print("Setting mpc to ", mcp:name(),"\n")
 
    for _, moduleName in ipairs{...} do
-      local mname = MName:new("unload", moduleName)
-      local sn    = mname.sn()
+      local mname = MName:new("mt", moduleName)
+      local sn    = mname:sn()
       dbg.print("Trying to unload: ", moduleName, " sn: ", sn,"\n")
       
       if (mt:have(sn,"inactive")) then
@@ -317,8 +317,8 @@ end
 
 local function access_find_module_file(mname)
    local mt    = MT:mt()
-   local sn    = mname.sn()
-   if (sn = mname.usrName() and mt:have(sn,"any")) then
+   local sn    = mname:sn()
+   if (sn == mname:usrName() and mt:have(sn,"any")) then
       local full = mt:fullName(sn) 
       return mt:fileName(sn), full or ""
    end
@@ -376,7 +376,7 @@ function M.load(...)
    a   = {}
    for _,moduleName in ipairs{...} do
       moduleName    = moduleName
-      local mname   = MName:new(moduleName)
+      local mname   = MName:new("load",moduleName)
       local sn      = mname:sn()
       local loaded  = false
       local t	    = find_module_file(mname)
@@ -623,7 +623,7 @@ local function availEntry(searchA, name, f, defaultModule, dbT, legendT, a)
       local aa    = {}
       local propT = {}
       local mname = MName:new("load", name)
-      local sn    = mname.sn()
+      local sn    = mname:sn()
       local entry = dbT[sn]
       if (entry) then
          dbg.print("Found dbT[sn]\n")

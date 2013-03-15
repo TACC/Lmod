@@ -1,12 +1,9 @@
 require("strict")
 _ModuleTable_      = ""
 local DfltModPath  = DfltModPath
-local Master       = Master
 local ModulePath   = ModulePath
-local Purge        = Purge
 local assert       = assert
 local concatTbl    = table.concat
-local expert       = expert
 local getenv       = os.getenv
 local ignoreT      = { ['.'] =1, ['..'] = 1, CVS=1, ['.git'] = 1, ['.svn']=1,
                        ['.hg']= 1, ['.bzr'] = 1,}
@@ -17,7 +14,6 @@ local max          = math.max
 local next         = next
 local os           = os
 local pairs        = pairs
-local prtErr       = prtErr
 local setmetatable = setmetatable
 local sort         = table.sort
 local string       = string
@@ -784,7 +780,7 @@ function M.setStatus(self, sn, status)
       entry.status = status
    end
    local dbg = Dbg:dbg()
-   dbg.print("MT:setStatus(",moduleName,",",tostring(status),")\n")
+   dbg.print("MT:setStatus(",sn,",",tostring(status),")\n")
 end
 
 function M.getStatus(self, sn)
@@ -796,20 +792,10 @@ function M.getStatus(self, sn)
    return nil
 end
 
-function M.haveSN(self, sn, status)
-   local mT    = self.mT
-   local entry = mT[sn]
-   if (entry == nil) then
-      return false
-   end
-   return ((status == "any") or (status == entry.status))
-end
-
-function M.exists(self, sn, status)
+function M.exists(self, sn)
    local mT    = self.mT
    return (mT[sn] ~= nil)
 end
-
 
 function M.have(self, sn, status)
    local dbg   = Dbg:dbg()
@@ -818,27 +804,7 @@ function M.have(self, sn, status)
    if (entry == nil) then
       return false
    end
-
-   -- I don't know what any of this means when doing thingn
-   -- now.
-
-
-   if (sn == moduleName) then
-      return ((status == "any") or (status == entry.status))
-   end
-
-   if (moduleName == entry.fullName) then
-      return ((status == "any") or (status == entry.status))
-   end
-
-   moduleName = moduleName .. '/'
-   moduleName = moduleName:gsub("//+",'/')
-
-   if (entry.fullName:find(moduleName)) then
-      return ((status == "any") or (status == entry.status))
-   end
-
-   return false
+   return ((status == "any") or (status == entry.status))
 end
 
 function M.list(self, kind, status)
@@ -1095,7 +1061,7 @@ function M.list_property(self, idx, sn, style, legendT)
    local entry = mT[sn]
 
    if (entry == nil) then
-      LmodError("MT:list_property(): Did not find module entry: ",moduleName,
+      LmodError("MT:list_property(): Did not find module entry: ",sn,
                 ". This should not happen!\n")
    end
 
@@ -1117,7 +1083,7 @@ end
 
 function M.reportChanges(self)
    local dbg    = Dbg:dbg()
-   local master = Master:master()
+   local master = systemG.Master:master()
 
    dbg.start("MT:reportChanges()")
 
