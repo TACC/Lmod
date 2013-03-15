@@ -1065,7 +1065,7 @@ function M.list_property(self, idx, sn, style, legendT)
                 ". This should not happen!\n")
    end
 
-   local resultA      = colorizePropA(style, moduleName, entry.propT, legendT)
+   local resultA      = colorizePropA(style, entry.fullName, entry.propT, legendT)
 
    table.insert(resultA, 1, "  "  .. tostring(idx) ..")")
 

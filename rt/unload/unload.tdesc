@@ -48,7 +48,7 @@ testdescript = {
      runMe lua $(projectDir)/src/lmod.in.lua bash load mpich2 petsc          # 4
      runMe lua $(projectDir)/src/lmod.in.lua bash avail                      # 5
      runMe lua $(projectDir)/src/lmod.in.lua bash list                       # 6
-     runMe lua $(projectDir)/src/lmod.in.lua bash -d unload intel               # 7
+     runMe lua $(projectDir)/src/lmod.in.lua bash unload intel               # 7
 
      HOME=$ORIG_HOME
 
