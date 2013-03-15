@@ -339,7 +339,8 @@ function M.add_property(self, name, value)
    local mStack  = ModuleStack:moduleStack()
    local mName   = mStack:moduleName()
    local mt      = MT:mt()
-   mt:add_property(mName, name, value)
+   local mname   = MName:new("load",mName)
+   mt:add_property(mname:sn(), name, value)
    dbg.fini()
 end
 
@@ -349,7 +350,8 @@ function M.remove_property(self, name, value)
    local mStack  = ModuleStack:moduleStack()
    local mName   = mStack:moduleName()
    local mt      = MT:mt()
-   mt:remove_property(mName, name, value)
+   local mname   = MName:new("mt",mName)
+   mt:remove_property(mname:sn(), name, value)
    dbg.fini()
 end
 

@@ -975,13 +975,13 @@ end
 
 function M.add_property(self, sn, name, value)
    local dbg = Dbg:dbg()
-   dbg.start("MT:add_property(\"",moduleName,"\", \"",name,"\", \"",tostring(value),"\")")
+   dbg.start("MT:add_property(\"",sn,"\", \"",name,"\", \"",tostring(value),"\")")
    
    local mT    = self.mT
    local entry = mT[sn]
 
    if (entry == nil) then
-      LmodError("MT:add_property(): Did not find module entry: ",moduleName,
+      LmodError("MT:add_property(): Did not find module entry: ",sn,
                 ". This should not happen!\n")
    end
    local propDisplayT = readRC()
@@ -1015,13 +1015,13 @@ end
 
 function M.remove_property(self, sn, name, value)
    local dbg = Dbg:dbg()
-   dbg.start("MT:remove_property(\"",moduleName,"\", \"",name,"\", \"",tostring(value),"\")")
+   dbg.start("MT:remove_property(\"",sn,"\", \"",name,"\", \"",tostring(value),"\")")
    
    local mT    = self.mT
    local entry = mT[sn]
 
    if (entry == nil) then
-      LmodError("MT:remove_property(): Did not find module entry: ",moduleName,
+      LmodError("MT:remove_property(): Did not find module entry: ",sn,
                 ". This should not happen!\n")
    end
    local propDisplayT = readRC()
