@@ -121,17 +121,20 @@ export MODULEPATH;
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/multiL/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
 unset LMOD_FAMILY_COMPILER;
-MODULEPATH="ProjectDIR/rt/multiL/mf/mpi/mpich2/1.5/cmplr/gcc/4.7:ProjectDIR/rt/multiL/mf/Core";
+unset LMOD_FAMILY_MPI;
+MODULEPATH="ProjectDIR/rt/multiL/mf/Core";
 export MODULEPATH;
 unset TACC_FAMILY_COMPILER;
-_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/multiL/mf/Core",},family={["MPI"]="mpi/mpich2",},inactive={},mT={["mpi/mpich2"]={["default"]=1,["fullName"]="mpi/mpich2/1.5.2",["loadOrder"]=4,propT={},["short"]="mpi/mpich2",["status"]="inactive",},["parLib/petsc"]={["default"]=1,["fullName"]="parLib/petsc/3.3",["loadOrder"]=5,propT={},["short"]="parLib/petsc",["status"]="inactive",},},mpathA={"ProjectDIR/rt/multiL/mf/mpi/mpich2/1.5/cmplr/gcc/4.7","ProjectDIR/rt/multiL/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/multiL/mf/Core",["version"]=2,}';
+unset TACC_FAMILY_MPI;
+unset TACC_PETSC_VERSION;
+_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/multiL/mf/Core",},family={},inactive={},mT={["mpi/mpich2"]={["default"]=1,["fullName"]="mpi/mpich2/1.5.2",["loadOrder"]=5,propT={},["short"]="mpi/mpich2",["status"]="inactive",},["parLib/petsc"]={["default"]=1,["fullName"]="parLib/petsc/3.3",["loadOrder"]=6,propT={},["short"]="parLib/petsc",["status"]="inactive",},},mpathA={"ProjectDIR/rt/multiL/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/multiL/mf/Core",["version"]=2,}';
 export _ModuleTable_;
 ===========================
 step 11
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/multiL/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/multiL/mf/mpi/mpich2/1.5/cmplr/gcc/4.7:ProjectDIR/rt/multiL/mf/Core";
+MODULEPATH="ProjectDIR/rt/multiL/mf/Core";
 export MODULEPATH;
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/multiL/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -162,7 +165,7 @@ LMOD_FAMILY_COMPILER="cmplr/intel";
 export LMOD_FAMILY_COMPILER;
 LMOD_FAMILY_MPI="mpi/mpich2";
 export LMOD_FAMILY_MPI;
-MODULEPATH="ProjectDIR/rt/multiL/mf/mpi/mpich2/1.5/cmplr/intel/13.1:ProjectDIR/rt/multiL/mf/cmplr/intel/13.1:ProjectDIR/rt/multiL/mf/mpi/mpich2/1.5/cmplr/gcc/4.7:ProjectDIR/rt/multiL/mf/Core";
+MODULEPATH="ProjectDIR/rt/multiL/mf/mpi/mpich2/1.5/cmplr/intel/13.1:ProjectDIR/rt/multiL/mf/cmplr/intel/13.1:ProjectDIR/rt/multiL/mf/Core";
 export MODULEPATH;
 TACC_FAMILY_COMPILER="cmplr/intel";
 export TACC_FAMILY_COMPILER;
@@ -170,51 +173,54 @@ TACC_FAMILY_MPI="mpi/mpich2";
 export TACC_FAMILY_MPI;
 TACC_PETSC_VERSION="3.3";
 export TACC_PETSC_VERSION;
-_ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/multiL/mf/Core",},family={["MPI"]="mpi/mpich2",["compiler"]="cmplr/intel",},inactive={},mT={["cmplr/intel"]={["FN"]="ProjectDIR/rt/multiL/mf/Core/cmplr/intel/13.1.lua",["default"]=1,["fullName"]="cmplr/intel/13.1",["loadOrder"]=1,["mType"]="w",propT={},["short"]="cmplr/intel",["status"]="active",},["mpi/mpich2"]={["FN"]="ProjectDIR/rt/multiL/mf/cmplr/intel/13.1/mpi/mpich2/1.5.2.lua",["default"]=1,["fullName"]="mpi/mpich2/1.5.2",["loadOrder"]=2,["mType"]="w",propT={},["short"]="mpi/mpich2",["status"]="active",},["parLib/petsc"]={["FN"]="ProjectDIR/rt/multiL/mf/mpi/mpich2/1.5/cmplr/intel/13.1/parLib/petsc/3.3.lua",["default"]=1,["fullName"]="parLib/petsc/3.3",["loadOrder"]=3,["mType"]="w",propT={},["short"]="parLib/petsc",["status"]="active",},},mpathA={"ProjectDIR/rt/multiL/mf/mpi/mpich2/1.5/cmplr/intel/13.1","ProjectDIR/rt/multiL/mf/cmplr/intel/13.1","ProjectDIR/rt/multiL/mf/mpi/mpich2/1.5/cmplr/gcc/4.7","ProjectDIR/rt/multiL/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/multiL/mf/Core",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/multiL/mf/Core",},family={["MPI"]="mpi/mpich2",["compiler"]="cmplr/intel",},inactive={},mT={["cmplr/intel"]={["FN"]="ProjectDIR/rt/multiL/mf/Core/cmplr/intel/13.1.lua",["default"]=1,["fullName"]="cmplr/intel/13.1",["loadOrder"]=1,["mType"]="w",propT={},["short"]="cmplr/intel",["status"]="active",},["mpi/mpich2"]={["FN"]="ProjectDIR/rt/multiL/mf/cmplr/intel/13.1/mpi/mpich2/1.5.2.lua",["default"]=1,["fullName"]="mpi/mpich2/1.5.2",["loadOrder"]=2,["mType"]="w",propT={},["short"]="mpi/mpich2",["status"]="active",},["parLib/petsc"]={["FN"]="ProjectDIR/rt/multiL/mf/mpi/mpich2/1.5/cmplr/intel/13.1/parLib/petsc/3.3.lua",["default"]=1,["fullName"]="parLib/petsc/3.3",["loadOrder"]=3,["mType"]="w",propT={},["short"]="parLib/petsc",["status"]="active",},},mpathA={"ProjectDIR/rt/multiL/mf/mpi/mpich2/1.5/cmplr/intel/13.1","ProjectDIR/rt/multiL/mf/cmplr/intel/13.1","ProjectDIR/rt/multiL/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/multiL/mf/Core",["version"]=2,}';
 export _ModuleTable_;
 ===========================
 step 13
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/multiL/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/multiL/mf/mpi/mpich2/1.5/cmplr/intel/13.1:ProjectDIR/rt/multiL/mf/cmplr/intel/13.1:ProjectDIR/rt/multiL/mf/mpi/mpich2/1.5/cmplr/gcc/4.7:ProjectDIR/rt/multiL/mf/Core";
+MODULEPATH="ProjectDIR/rt/multiL/mf/mpi/mpich2/1.5/cmplr/intel/13.1:ProjectDIR/rt/multiL/mf/cmplr/intel/13.1:ProjectDIR/rt/multiL/mf/Core";
 export MODULEPATH;
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/multiL/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/multiL/mf/mpi/mpich2/1.5/cmplr/intel/13.1:ProjectDIR/rt/multiL/mf/cmplr/intel/13.1:ProjectDIR/rt/multiL/mf/mpi/mpich2/1.5/cmplr/gcc/4.7:ProjectDIR/rt/multiL/mf/Core";
+MODULEPATH="ProjectDIR/rt/multiL/mf/mpi/mpich2/1.5/cmplr/intel/13.1:ProjectDIR/rt/multiL/mf/cmplr/intel/13.1:ProjectDIR/rt/multiL/mf/Core";
 export MODULEPATH;
 ===========================
 step 14
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/multiL/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/multiL/mf/mpi/mpich2/1.5/cmplr/intel/13.1:ProjectDIR/rt/multiL/mf/cmplr/intel/13.1:ProjectDIR/rt/multiL/mf/mpi/mpich2/1.5/cmplr/gcc/4.7:ProjectDIR/rt/multiL/mf/Core";
+MODULEPATH="ProjectDIR/rt/multiL/mf/mpi/mpich2/1.5/cmplr/intel/13.1:ProjectDIR/rt/multiL/mf/cmplr/intel/13.1:ProjectDIR/rt/multiL/mf/Core";
 export MODULEPATH;
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/multiL/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
 unset LMOD_FAMILY_COMPILER;
-MODULEPATH="ProjectDIR/rt/multiL/mf/mpi/mpich2/1.5/cmplr/intel/13.1:ProjectDIR/rt/multiL/mf/mpi/mpich2/1.5/cmplr/gcc/4.7:ProjectDIR/rt/multiL/mf/Core";
+unset LMOD_FAMILY_MPI;
+MODULEPATH="ProjectDIR/rt/multiL/mf/Core";
 export MODULEPATH;
 unset TACC_FAMILY_COMPILER;
-_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/multiL/mf/Core",},family={["MPI"]="mpi/mpich2",},inactive={},mT={["mpi/mpich2"]={["default"]=1,["fullName"]="mpi/mpich2/1.5.2",["loadOrder"]=4,propT={},["short"]="mpi/mpich2",["status"]="inactive",},["parLib/petsc"]={["default"]=1,["fullName"]="parLib/petsc/3.3",["loadOrder"]=5,propT={},["short"]="parLib/petsc",["status"]="inactive",},},mpathA={"ProjectDIR/rt/multiL/mf/mpi/mpich2/1.5/cmplr/intel/13.1","ProjectDIR/rt/multiL/mf/mpi/mpich2/1.5/cmplr/gcc/4.7","ProjectDIR/rt/multiL/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/multiL/mf/Core",["version"]=2,}';
+unset TACC_FAMILY_MPI;
+unset TACC_PETSC_VERSION;
+_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/multiL/mf/Core",},family={},inactive={},mT={["mpi/mpich2"]={["default"]=1,["fullName"]="mpi/mpich2/1.5.2",["loadOrder"]=5,propT={},["short"]="mpi/mpich2",["status"]="inactive",},["parLib/petsc"]={["default"]=1,["fullName"]="parLib/petsc/3.3",["loadOrder"]=6,propT={},["short"]="parLib/petsc",["status"]="inactive",},},mpathA={"ProjectDIR/rt/multiL/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/multiL/mf/Core",["version"]=2,}';
 export _ModuleTable_;
 ===========================
 step 15
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/multiL/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/multiL/mf/mpi/mpich2/1.5/cmplr/intel/13.1:ProjectDIR/rt/multiL/mf/mpi/mpich2/1.5/cmplr/gcc/4.7:ProjectDIR/rt/multiL/mf/Core";
+MODULEPATH="ProjectDIR/rt/multiL/mf/Core";
 export MODULEPATH;
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/multiL/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/multiL/mf/mpi/mpich2/1.5/cmplr/intel/13.1:ProjectDIR/rt/multiL/mf/mpi/mpich2/1.5/cmplr/gcc/4.7:ProjectDIR/rt/multiL/mf/Core";
+MODULEPATH="ProjectDIR/rt/multiL/mf/Core";
 export MODULEPATH;
 ===========================
 step 16
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/multiL/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/multiL/mf/mpi/mpich2/1.5/cmplr/intel/13.1:ProjectDIR/rt/multiL/mf/mpi/mpich2/1.5/cmplr/gcc/4.7:ProjectDIR/rt/multiL/mf/Core";
+MODULEPATH="ProjectDIR/rt/multiL/mf/Core";
 export MODULEPATH;
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/multiL/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -222,7 +228,7 @@ LMOD_FAMILY_COMPILER="cmplr/intel";
 export LMOD_FAMILY_COMPILER;
 LMOD_FAMILY_MPI="mpi/mpich2";
 export LMOD_FAMILY_MPI;
-MODULEPATH="ProjectDIR/rt/multiL/mf/mpi/mpich2/1.5/cmplr/intel/13.1:ProjectDIR/rt/multiL/mf/cmplr/intel/13.1:ProjectDIR/rt/multiL/mf/mpi/mpich2/1.5/cmplr/gcc/4.7:ProjectDIR/rt/multiL/mf/Core";
+MODULEPATH="ProjectDIR/rt/multiL/mf/mpi/mpich2/1.5/cmplr/intel/13.1:ProjectDIR/rt/multiL/mf/cmplr/intel/13.1:ProjectDIR/rt/multiL/mf/Core";
 export MODULEPATH;
 TACC_FAMILY_COMPILER="cmplr/intel";
 export TACC_FAMILY_COMPILER;
@@ -230,16 +236,16 @@ TACC_FAMILY_MPI="mpi/mpich2";
 export TACC_FAMILY_MPI;
 TACC_PETSC_VERSION="3.3";
 export TACC_PETSC_VERSION;
-_ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/multiL/mf/Core",},family={["MPI"]="mpi/mpich2",["compiler"]="cmplr/intel",},inactive={},mT={["cmplr/intel"]={["FN"]="ProjectDIR/rt/multiL/mf/Core/cmplr/intel/13.1.lua",["default"]=0,["fullName"]="cmplr/intel/13.1",["loadOrder"]=1,["mType"]="w",propT={},["short"]="cmplr/intel",["status"]="active",},["mpi/mpich2"]={["FN"]="ProjectDIR/rt/multiL/mf/cmplr/intel/13.1/mpi/mpich2/1.5.2.lua",["default"]=1,["fullName"]="mpi/mpich2/1.5.2",["loadOrder"]=2,["mType"]="w",propT={},["short"]="mpi/mpich2",["status"]="active",},["parLib/petsc"]={["FN"]="ProjectDIR/rt/multiL/mf/mpi/mpich2/1.5/cmplr/intel/13.1/parLib/petsc/3.3.lua",["default"]=1,["fullName"]="parLib/petsc/3.3",["loadOrder"]=3,["mType"]="w",propT={},["short"]="parLib/petsc",["status"]="active",},},mpathA={"ProjectDIR/rt/multiL/mf/mpi/mpich2/1.5/cmplr/intel/13.1","ProjectDIR/rt/multiL/mf/cmplr/intel/13.1","ProjectDIR/rt/multiL/mf/mpi/mpich2/1.5/cmplr/gcc/4.7","ProjectDIR/rt/multiL/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/multiL/mf/Core",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/multiL/mf/Core",},family={["MPI"]="mpi/mpich2",["compiler"]="cmplr/intel",},inactive={},mT={["cmplr/intel"]={["FN"]="ProjectDIR/rt/multiL/mf/Core/cmplr/intel/13.1.lua",["default"]=0,["fullName"]="cmplr/intel/13.1",["loadOrder"]=1,["mType"]="w",propT={},["short"]="cmplr/intel",["status"]="active",},["mpi/mpich2"]={["FN"]="ProjectDIR/rt/multiL/mf/cmplr/intel/13.1/mpi/mpich2/1.5.2.lua",["default"]=1,["fullName"]="mpi/mpich2/1.5.2",["loadOrder"]=2,["mType"]="w",propT={},["short"]="mpi/mpich2",["status"]="active",},["parLib/petsc"]={["FN"]="ProjectDIR/rt/multiL/mf/mpi/mpich2/1.5/cmplr/intel/13.1/parLib/petsc/3.3.lua",["default"]=1,["fullName"]="parLib/petsc/3.3",["loadOrder"]=3,["mType"]="w",propT={},["short"]="parLib/petsc",["status"]="active",},},mpathA={"ProjectDIR/rt/multiL/mf/mpi/mpich2/1.5/cmplr/intel/13.1","ProjectDIR/rt/multiL/mf/cmplr/intel/13.1","ProjectDIR/rt/multiL/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/multiL/mf/Core",["version"]=2,}';
 export _ModuleTable_;
 ===========================
 step 17
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/multiL/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/multiL/mf/mpi/mpich2/1.5/cmplr/intel/13.1:ProjectDIR/rt/multiL/mf/cmplr/intel/13.1:ProjectDIR/rt/multiL/mf/mpi/mpich2/1.5/cmplr/gcc/4.7:ProjectDIR/rt/multiL/mf/Core";
+MODULEPATH="ProjectDIR/rt/multiL/mf/mpi/mpich2/1.5/cmplr/intel/13.1:ProjectDIR/rt/multiL/mf/cmplr/intel/13.1:ProjectDIR/rt/multiL/mf/Core";
 export MODULEPATH;
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/multiL/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/multiL/mf/mpi/mpich2/1.5/cmplr/intel/13.1:ProjectDIR/rt/multiL/mf/cmplr/intel/13.1:ProjectDIR/rt/multiL/mf/mpi/mpich2/1.5/cmplr/gcc/4.7:ProjectDIR/rt/multiL/mf/Core";
+MODULEPATH="ProjectDIR/rt/multiL/mf/mpi/mpich2/1.5/cmplr/intel/13.1:ProjectDIR/rt/multiL/mf/cmplr/intel/13.1:ProjectDIR/rt/multiL/mf/Core";
 export MODULEPATH;

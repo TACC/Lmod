@@ -1,7 +1,7 @@
 ===========================
 step 1
 ===========================
-Modules based on Lua: Version 4.3a3 2013-03-07 14:51
+Modules based on Lua: Version 4.3a6 2013-03-14 22:38
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -66,6 +66,8 @@ any of the "keys".
 ===========================
 step 10
 ===========================
+Inactive Modules:
+  1) mpi/mpich2     2) parLib/petsc
 ===========================
 step 11
 ===========================
@@ -84,6 +86,8 @@ Currently Loaded Modules:
 ===========================
 step 14
 ===========================
+Inactive Modules:
+  1) mpi/mpich2     2) parLib/petsc
 ===========================
 step 15
 ===========================
