@@ -44,12 +44,12 @@ function M.new(self, sType, name)
       end
    end
 
-   dbg.print("sn: ",tostring(sn),"\n")
    if (sn) then
       o._sn      = sn
       o._name    = name
       o._version = extractVersion(name, sn)
    end
+   dbg.print("sn: ",tostring(sn),", name: ",tostring(name),", version: ", tostring(o._version),"\n")
    dbg.fini()
    return o
 end
