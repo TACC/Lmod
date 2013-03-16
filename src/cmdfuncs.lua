@@ -422,8 +422,8 @@ function getModuleT(fast)
       LmodError     = dbg.quiet
       LmodMessage   = dbg.quiet
       local short   = mt:getShortTime()
-      local prtRbMsg = (not masterTbl.initial) and ((not short) or
-                                                    (short > shortTime))
+      local prtRbMsg = ((not masterTbl.expert) and (not masterTbl.initial) and
+                        ((not short) or (short > shortTime)))
       dbg.print("short: ", tostring(short), " shortTime: ", tostring(shortTime),"\n")
 
       if (prtRbMsg) then
