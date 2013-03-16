@@ -262,7 +262,7 @@ function M.unload(...)
    for _, moduleName in ipairs{...} do
       local mname = MName:new("mt", moduleName)
       local sn    = mname:sn()
-      dbg.print("Trying to unload: ", moduleName, " sn: ", sn,"\n")
+      dbg.print("Trying to unload: ", moduleName, " sn: ", tostring(sn),"\n")
       
       if (mt:have(sn,"inactive")) then
          dbg.print("Removing inactive module: ", moduleName, "\n")

@@ -22,7 +22,7 @@ function M.new(self, sType, name)
    dbg.start("MName:new( ",sType, ", ",tostring(name),")")
    local mt = MT:mt()
 
-   --name = name:gsub("/+$","")  -- remove any trailing '/'
+   name = (name or ""):gsub("/+$","")  -- remove any trailing '/'
    local sn = false
 
    if (sType == "load") then
@@ -49,6 +49,7 @@ function M.new(self, sType, name)
       o._name    = name
       o._version = extractVersion(name, sn)
    end
+
    dbg.print("sn: ",tostring(sn),", name: ",tostring(name),", version: ", tostring(o._version),"\n")
    dbg.fini()
    return o

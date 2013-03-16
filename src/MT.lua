@@ -37,7 +37,6 @@ local ColumnTable  = require('ColumnTable')
 local posix        = require("posix")
 local deepcopy     = table.deepcopy
 
-
 --module("MT")
 local M = {}
 
@@ -471,7 +470,7 @@ function M.getMTfromFile(self,fn, msg)
    local a      = {}  -- list of "worker-bee" modules
    local m      = {}  -- list of "manager"    modules
 
-   local active = l_mt:list("fullName","active")
+   local activeA = l_mt:list("userName","active")
 
    ---------------------------------------------
    -- If any module specified in the "default" file
@@ -479,25 +478,19 @@ function M.getMTfromFile(self,fn, msg)
    -- getting the modules from the "getdefault" specified
    -- file will work even when the defaults have changed.
 
-   for i = 1,#active do
-      local name 
-      local full      = active[i]
-      local short     = l_mt:short(full)
-      local isDefault = l_mt:default(short)
-      if (isDefault) then
-         name         = short
-      else
-         name         = full
-      end
-      t[name]     = l_mt:getHash(name)
-      local mType = l_mt:mType(name)
+   for i = 1,#activeA do
+      local entry = activeA[i]
+      local sn    = entry.sn
+      local name  = entry.name
+      t[sn]       = {name = name, hash = l_mt:getHash(sn)}
+      local mType = l_mt:mType(sn)
       if (mType == "w") then
          a[#a+1] = name
       else
          m[#m+1] = name
       end
-      dbg.print("full: ",full," short: ",short," name: ",name," isDefault: ",tostring(isDefault),
-                " mType: ", mType, "\n")
+      dbg.print("name: ",tostring(name)," isDefault: ",tostring(entry.defaultFlg),
+                " mType: ", tostring(mType), "\n")
    end
    
    local savedBaseMPATH = concatTbl(l_mt.baseMpathA,":")
@@ -550,36 +543,51 @@ function M.getMTfromFile(self,fn, msg)
    dbg.print("(3) varTbl[ModulePath]:expand(): ",varTbl[ModulePath]:expand(),"\n")
    local mcp_old = mcp
    mcp           = MCP
-   local loadA   = mcp:load(unpack(a))
+   mcp:load(unpack(a))
    mcp           = mcp_old
 
    local master = systemG.Master:master()
 
    master.fakeload(unpack(m))
 
+   activeA = s_mt:list("userName","active")
+
+   dbg.print("#activeA: ",#activeA,"\n")
+   local activeT = {}
+
+   for i = 1,#activeA do
+      local entry = activeA[i]
+      local sn    = entry.sn
+      dbg.print("activeA: i:",i,", sn: ",sn,", name: ",entry.name,"\n")
+      activeT[sn] = entry
+   end
+
    local aa = {}
-   for i = 1,#loadA do
-      if (not loadA[i]) then
-         aa[#aa+1] = a[i]
-         t[a[i]]   = nil   -- do not need to check hash for a non-existant module
+   for sn, v in pairs(t) do
+      if (not activeT[sn]) then
+         dbg.print("did not find activeT sn: ",sn,"\n")
+         aa[#aa+1] = v.name
+         t[sn]     = nil -- do not need to check hash for a non-existant module
       end
    end
 
+   activeA = nil  -- done with activeA
+   activeT = nil  -- done with activeT
    if (#aa > 0) then
       LmodWarning("The following modules were not loaded: ", concatTbl(aa," "),"\n\n")
    end
 
    aa = {}
    s_mt:setHashSum()
-   for k,v  in pairs(t) do
-      if(v ~= s_mt:getHash(k)) then
-         aa[#aa + 1] = k
+   for sn, v  in pairs(t) do
+      if(v.hash ~= s_mt:getHash(sn)) then
+         aa[#aa + 1] = v.name
       end
    end
 
    
    if (#aa > 0) then
-      LmodWarning("The following modules have changed: ", concatTbl(aa," "),"\n")
+      LmodWarning("The following modules have changed: ", concatTbl(aa,", "),"\n")
       LmodWarning("Please re-create this collection\n")
       return false
    end
@@ -950,6 +958,14 @@ function M.set_mType(self, sn, value)
    local entry = mT[sn]
    if (entry ~= nil) then
       mT[sn].mType = value
+   end
+end
+
+function M.reportKeys(self)
+   local dbg = Dbg:dbg()
+   local mT  = self.mT
+   for k,v in pairs(mT) do
+      dbg.print("MT:reportKeys(): Key: ",k, ", status: ",v.status,"\n")
    end
 end
 
