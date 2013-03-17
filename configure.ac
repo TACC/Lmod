@@ -53,7 +53,7 @@ AC_ARG_WITH(spiderCacheDir,
 
 AC_SUBST(UPDATE_SYSTEM_FN)
 AC_ARG_WITH(updateSystemFn,
-    AC_HELP_STRING([--with-updateSystemFn=dir],[This file is touched when the system has been updated [[]]]),
+    AC_HELP_STRING([--with-updateSystemFn=file],[This file is touched when the system has been updated [[]]]),
     UPDATE_SYSTEM_FN="$withval"
     AC_MSG_RESULT([UPDATE_SYSTEM_FN=$with_updateSystemFn])
     AC_DEFINE_UNQUOTED(SHORT_TIME, "$with_updateSystemFn")dnl

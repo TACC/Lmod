@@ -56,11 +56,19 @@ buildNewDB()
    fi
 }
 
+########################################################################
+#  Touch system file so that Lmod knows that the cache is good
+########################################################################
 
+touch  $ADMIN_DIR/system.txt
 
 buildNewDB $CacheDir  moduleT 
 
-buildNewDB $RmapDir   reverseMapT  
+
+########################################################################
+#  Build reverse map (This is optional)
+########################################################################
+#buildNewDB $RmapDir   reverseMapT  
 
 
 

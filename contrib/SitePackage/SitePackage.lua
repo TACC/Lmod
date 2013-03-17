@@ -63,7 +63,7 @@ end
 
 
 sandbox_registration{ checkRestrictedGroup = checkRestrictedGroup,
-                      logUsage = logUsage,
-                      prependModulePath = prependModulePath,
-                      appendModulePath = appendModulePath
+                      logUsage             = logUsage,
+                      prependModulePath    = prependModulePath,
+                      appendModulePath     = appendModulePath
                     }
