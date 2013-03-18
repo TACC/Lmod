@@ -22,7 +22,7 @@ the major changes are:
      users will tolerate that much typing.
 
 I am changing my numbering scheme to have alpha, beta and release candidates.
-This version is a release candidate.   You may wish to have staff use this
+This version is a beta release.   You may wish to have staff use this
 version before letting your users have at it.   Please note that mixing a
 4.* version with this version is safe,  mixing a 3.* version and this one is
 not.  Bug reports showing problems between Lmod 3.* and 5.* will receive a
