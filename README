@@ -1,38 +1,42 @@
 ------------------------------------------------------------------------
-This release of Lmod marks yet another internal refactoring of how it works.
-The commands that your users see remains the same but the internal on how it
-works has.   It is VERY VERY MUCH recommended that you read the INSTALL
-file before trying to install this new version of Lmod.  For the impatient,
-the major changes are:
+This release of Lmod marks yet another internal refactoring of how it
+works. The commands that your users see remains the same but the
+internal on how it works has.   It is VERY VERY MUCH recommended that
+you read the INSTALL file before trying to install this new version of
+Lmod.  For the impatient, the major changes are:
 
-   * This and future version of Lmod rely on the spider cache.  This speeds
-     thing up and spider should now never crash w.r.t bad module files.
-   * All module files are loaded through a "sandbox" which means that a module
-     file can only call functions that are known to the sandbox.  Those of you
-     using the SitePackage.lua or similar will need to register your functions
-     with the sandbox
-   * Bad module files which can be: (1) bad syntax, (2) invalid arguments,
-     (3) Calling functions that modulefiles shouldn't.  All of these mistakes
-     should be caught and not kill building of the spider cache file.
-   * A new hook function will make it easier for module use tracking without
-     having to have special functions inside of your module files.
-   * Support for multilevel modulefile naming schemes.  Lmod now supports
-     naming scheme such as  category/name/version. (C/N/V)  It will actually
-     supports category/sub_category/name/version or any depth that your
-     users will tolerate that much typing.
+   * This and future version of Lmod rely on the spider cache.  This
+     speeds thing up and spider should now never crash w.r.t bad module
+     files.
+   * All module files are loaded through a "sandbox" which means that
+     a module file can only call functions that are known to the sandbox.
+     Those of you using the SitePackage.lua or similar will need to
+     register your functions with the sandbox
+   * Bad module files which can be: (1) bad syntax, (2) invalid
+     arguments, (3) Calling functions that modulefiles shouldn't.  All
+     of these mistakes should be caught and not kill building of the
+     spider cache file.
+   * A new hook function will make it easier for module use tracking 
+     without having to have special functions inside of your module
+     files.
+   * Support for multilevel modulefile naming schemes.  Lmod now
+     supports naming scheme such as  category/name/version. (C/N/V)
+     It will actually supports category/sub_category/name/version or
+     any depth that your users will tolerate that much typing.
 
-I am changing my numbering scheme to have alpha, beta and release candidates.
-This version is a beta release.   You may wish to have staff use this
-version before letting your users have at it.   Please note that mixing a
-4.* version with this version is safe,  mixing a 3.* version and this one is
-not.  Bug reports showing problems between Lmod 3.* and 5.* will receive a
-polite response to upgrade your 3.* version to 4.2.1.
+I am changing my numbering scheme to have alpha, beta and release
+candidates. This version is a beta.   You may wish to have staff use
+this version before letting your users have at it.   Please note that
+mixing a 4.* version with this version is safe,  mixing a 3.* version or
+earlier and this one is not.  Bug reports showing problems between
+Lmod 3.* and 5.* will receive a polite response to upgrade your 3.*
+version to 4.2.1.
 
-Note that if your site is using C/N/V style naming convention, that only Lmod
-5.+ supports this.  I have done as much testing as I can without running a
-site that uses that style.  My tests show that the software hierarchy works
-just fine with a C/N/V scheme.  I am interested in hearing about sites
-that use a C/N/V scheme and any issues that come up.
+Note that if your site is using C/N/V style naming convention, that only
+Lmod 5.+ supports this.  I have done as much testing as I can without
+running a site that uses that style.  My tests show that the software
+hierarchy works just fine with a C/N/V scheme.  I am interested in
+hearing about sites that use a C/N/V scheme and any issues that come up.
 
 Please consider joining the Lmod-users mailing list.
 
@@ -40,7 +44,7 @@ Please read the INSTALL file even if you have installed Lmod before
 as the method of installing Lmod has changed.
 
 ------------------------------------------------------------
-Version 5.0rc1:
+Version 5.0 
     1) Hook function added.
     2) C/N/V supported
     3) Sandbox for modulefiles.
