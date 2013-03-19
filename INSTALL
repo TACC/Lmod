@@ -1,15 +1,17 @@
+********************************************************************************
 Lmod the lua based module system can be installed with:
 
 A) You must install lua first.  You have two choices:
 
-      1) You can download the latest lua version from  the same place you got Lmod and install
-         lua-X.X.X.tar.gz file.  It contains the lua command, lua library and other lua packages that
-         Lmod requires
+      1) You can download the latest lua version from  the same place you got
+         Lmod and install lua-X.X.X.tar.gz file.  It contains the lua command,
+         lua library and other lua packages that  Lmod requires
 
   OR:
 
-      2) Use the package system for your OS to install the following packages.  This is the list is for Ubuntu 8.04
-         It may be quite different with other Linux distributions or different OS
+      2) Use the package system for your OS to install the following packages.
+         This is the list is for Ubuntu 8.04.  It may be quite different with 
+         other Linux distributions or different OS
 
             liblua5.1-0                 
             liblua5.1-0-dev             
@@ -19,38 +21,99 @@ A) You must install lua first.  You have two choices:
             liblua5.1-posix0            
             lua5.1                      
 
-      Lmod requires lua 5.1, lua 5.0 or lua 4.0 will NOT work.
+      Lmod requires Lua 5.1,
+ 
+         ***** Lua 5.2, 5.0 or 4.0 will NOT work. *****
        
 
 
+B) Now with version 5.+ of Lmod, it is now very important that sites with large
+   modulefile installations, In the contrib/BuildSystemCacheFile directory is
+   an example script that shows how to build a cache file.  It also touches a file
+   called "system.txt".  Whatever this file, Lmod uses this file to know that the
+   spider cache is up-to-date.
+
+   Lmod uses the spider cache file as a replacement for walking the directory tree
+   to find all modulefiles in your MODULEPATH.  This means that Lmod only knows
+   about system modules that are found in the spider cache.  Lmod won't know about
+   any system modules that are not in this cache.  (Personal module files are
+   always found).  It turns out that reading a single file is much faster than
+   walking the directory tree.
+
+   Sites running Lmod have three choices:
+
+      1) Do not create a spider cache for system modules.  This will work fine as
+         long as the number of modules is not too large.  You will know when it
+         is time to start building a cache file when you start getting complains
+         how long it take to do any module commands.
+
+      2) If you have a formal proceedure for installing packages on your system
+         then I recommend you do the following.  Have the install proceedure run
+         the createSystemCache.sh file.  This will create file called "system.txt"
+         which marks the time that the system was last updated, so Lmod knows that
+         the cache is still good.
+
+      3) Or you can run the createSystemCache.sh script say every 30 mins.  This way
+         the cache file is up-to-date.  No new module will be unknown for more
+         30 mins.
+
    
-B) The program "lua" must be in your path before installing "Lmod".  The configure script
-   won't install lmod without it.
+C) The program "lua" must be in your path before installing "Lmod".  The
+   configure script won't install lmod without it.
 
 
    $ ./configure --prefix=/PATH/TO/LMOD/PARENT_DIR
    $ make install
 
+     Install options:
+     
+      --prefix=/usr/local
+         This will cause the "make install" to create /usr/local/lmod
+         and /usr/local/lmod/version with a symlink /usr/local/lmod/lmod
+         pointing to "version".
 
-C) If you specify "./configure --prefix=/usr/local" then the "make install" will create
-   /usr/local/lmod and /usr/local/lmod/version with a symlink /usr/local/lmod/lmod pointing to
-   version.
+      --with-module-root-path=/PATH/TO/MODULEFILE/PARENT
+         If you use the "Core" directory for Core modules, "Compiler" for compiler
+         dependent module and MPI for MPI dependent modules then you may wish to
+         define the env. var MODULEPATH_ROOT through this configure option.
+         
+      --with-spiderCacheDir=dir
+      --with-updateSystemFn=file
+         These configure options are how Lmod knows about the spider cache file
+         See Letter (B) for more details.  This is important!!!
+
+D) As an example here is my configuration line:
+
+    
+     ./configure --prefix=/opt/apps --with-spiderCacheDir=/opt/moduleData/cacheDir \
+                 --with-updateSystemFn=/opt/moduleData/system.txt
+
+  This will install Lmod 5.0 in /opt/apps/lmod/5.0 with a link:
+
+       /opt/apps/lmod/lmod => /opt/apps/lmod/5.0
+
+  The system spider cache will stored in /opt/moduleData/cacheDir.
+
+  And the system update file will be in /opt/moduleData/system.txt
+
+  
+E) In the setup directory there are "profile.in" and "cshrc.in" templates.  The
+   path to lua will automatically be generated.  The templates assume that your
+   modulefiles are located in @PREFIX@/modulefiles/$LMOD_sys and
+   @PREFIX@/modulefiles/Core, where @PREFIX@ is the path specified on the
+   ./configure --prefix command
 
 
-D) In the setup directory there are "profile.in" and "cshrc.in" templates.  The path to lua will
-   automatically be generated.  The templates assume that your modulefiles are located in
-   @PREFIX@/modulefiles/$LMOD_sys and @PREFIX@/modulefiles/Core, where @PREFIX@ is the path
-   specified on the ./configure --prefix command
+   *****************************************************************************
+   Obviously you will want to modify the profile.in and cshrc.in files to suit
+   your system.
+   *****************************************************************************
 
 
-   ********************************************************************************************
-   Obviously you will want to modify the profile.in and cshrc.in files to suit your system.
-   ********************************************************************************************
-
-
-E) You can write your module files in either lua or TCL.  Modulefiles with the lua extension are obviously
-   have lua code and the one without are treated as TCL.  The syntax of the lua modulefiles are similar but
-   not the same.  Lua module commands are written as functions.  So in TCL its:
+E) You can write your module files in either lua or TCL.  Modulefiles with the lua
+   extension are obviously have lua code and the one without are treated as TCL.
+   The syntax of the lua modulefiles are similar but not the same.  Lua module
+   commands are written as functions.  So in TCL its:
 
        setenv        MKL_DIR         /opt/local/intel/mkl
        prepend-path  LD_LIBRARY_PATH /opt/local/intel/lib
@@ -64,23 +127,43 @@ E) You can write your module files in either lua or TCL.  Modulefiles with the l
 
    Please notice that the dashes in the TCL syntax is replaced with underscores.
 
-   So in general lua uses a function call and text literals such as MKL_DIR must be surrounded by quotes.  
-   The TCL commands that have a dash such as append-path change to append_path in lua.
+   So in general lua uses a function call and text literals such as MKL_DIR must
+   be surrounded by quotes.  The TCL commands that have a dash such as append-path
+   change to append_path in lua.
 
-   *********************************************************************************************
-   Module files written in TCL have no extension where as lua module files have a .lua extension
-   *********************************************************************************************
+   *****************************************************************************
+   Module files written in TCL have no extension where as lua module files have
+   a .lua extension
+   *****************************************************************************
 
-   So the module for the MKL module above would be named "mkl" as a TCL module file and "mkl.lua" if it is
-   written in lua. 
+   So the module for the MKL module above would be named "mkl" as a TCL module
+   file and "mkl.lua" if it is written in lua. 
 
-        
+F) The bash used on Redhat, Centos, Fedora, etc (but not Debian, Ubuntu)
+   compiles bash with having a system file read during an interactive shell.
+   We at TACC patch bash to always read a system bashrc file.  See
+   contrib/bash_patch for our patch file.  You will want to modify it for
+   your site.
+
+G) If you are using "SitePackage.lua", you will need to register your functions
+   with the sandbox_registration function.  See Contrib/SitePackage for more
+   details.
 
 
+H) If you wish to track module usage and do not put extra calls in your modulefiles,
+   then please look in contrib/hook for an example on how to do it.
 
 
-F) See README_lua_modulefiles.txt for more help.
+I) Join the lmod-users mailing list at:
 
-G) For complete documentation see http://www.tacc.utexas.edu/tacc-projects/mclay/lmod
+      https://lists.sourceforge.net/lists/listinfo/lmod-users
+
+   Please use this forum to ask questions.
+
+
+Thanks for using Lmod.
+
+R. McLay
+
 
    

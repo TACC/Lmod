@@ -31,8 +31,9 @@ STARTUP		 := $(patsubst %, setup/%, $(STARTUP))
 
 MAIN_DIR	 := Makefile.in INSTALL configure README_lua_modulefiles.txt
 
-CONTRIB          := contrib/createmodule.sh contrib/BuildSystemCacheFile \
-                    contrib/SitePackage contrib/tricky_modulefiles contrib/parseVersions
+CONTRIB          := contrib/createmodule.sh contrib/BuildSystemCacheFile                  \
+                    contrib/SitePackage contrib/tricky_modulefiles contrib/parseVersions  \
+	            contrib/bash_patch contrib/hook
 lua_code	 := $(filter-out %.in.lua, $(wildcard src/*.lua))        \
                     $(wildcard src/*.tcl) src/COPYRIGHT 
 VDATE		 := $(shell date +'%F %H:%M')
@@ -204,7 +205,7 @@ tags:
 
 
 libexec:  $(lua_code)
-	$(MAKE) FILELIST="$^" DIRLOC=$(LIBEXEC) __installMe
+	$(MAKE) FILELIST="$^" DIRLOC=$(DESTDIR)$(LIBEXEC) __installMe
 
 clean:
 	$(RM) config.log

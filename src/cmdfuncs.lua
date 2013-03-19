@@ -423,8 +423,8 @@ function getModuleT(fast)
       LmodError     = dbg.quiet
       LmodMessage   = dbg.quiet
       local short   = mt:getShortTime()
-      local prtRbMsg = (not masterTbl.initial) and ((not short) or
-                                                    (short > shortTime))
+      local prtRbMsg = ((not masterTbl.expert) and (not masterTbl.initial) and
+                        ((not short) or (short > shortTime)))
       dbg.print("short: ", tostring(short), " shortTime: ", tostring(shortTime),"\n")
 
       if (prtRbMsg) then
@@ -457,6 +457,10 @@ function getModuleT(fast)
             f:close()
          end
          dbg.print("Wrote: ",userModuleTFN,"\n")
+         local buildT   = t2-t1
+         local ancient2 = math.min(buildT * 120, ancient)
+
+         mt:setRebuildTime(ancient2, buildT)
       end
       for k, v in pairs(userModuleT) do
          s_moduleT[k] = userModuleT[k]
