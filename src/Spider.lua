@@ -67,7 +67,6 @@ function Spider_help(...)
    local iStack      = #moduleStack
    local path        = moduleStack[iStack].path
    local moduleT     = moduleStack[iStack].moduleT
-   local a           = {}
    moduleT[path].help = concatTbl({...},"")
 end
 
@@ -157,6 +156,7 @@ function processNewModulePATH(value)
       moduleStack[iStack] = {path = path, full = full, moduleT = moduleT[path].children, fn= v}
       dbg.print("Top of Stack: ",iStack, " Full: ", full, " file: ", path, "\n")
       moduleT[path].children[v] = {}
+      moduleT[path].children.version = Cversion
       M.findModulesInDir(v, v, "", moduleT[path].children[v])
       moduleStack[iStack] = nil
    end
@@ -461,7 +461,7 @@ function M.findAllModules(moduleDirA, moduleT)
    dbg.start("findAllModules(",concatTbl(moduleDirA,", "),")")
    
    if (next(moduleT) == nil) then
-      moduleT.version = 2
+      moduleT.version = Cversion
    end
 
    local masterTbl       = masterTbl()
@@ -500,11 +500,14 @@ function M.buildSpiderDB(a, moduleT, dbT)
    local dbg = Dbg:dbg()
    dbg.start("Spider.buildSpiderDB({",concatTbl(a,","),"},moduleT, dbT)")
 
-   if (moduleT.version == nil) then
-      dbg.print("old version moduleT\n")
-      M.singleSpiderDB(a,moduleT, dbT)
+   dbg.print("moduleT.version: ",moduleT.version,"\n")
+
+   local version = moduleT.version or 0
+
+   if ( version < Cversion) then
+      LmodError("old version moduleT\n")
    else
-      dbg.print("version 2 moduleT\n")
+      dbg.print("Current version moduleT\n")
       for mpath, v in pairs(moduleT) do
          if (type(v) == "table") then
             dbg.print("mpath: ",mpath, "\n")
@@ -547,9 +550,7 @@ function M.singleSpiderDB(a, moduleT, dbT)
       t[path].parent = parent
       if (next(value.children)) then
          a[#a+1] = t[path].full
-         for k, v in pairs(value.children) do
-            M.buildSpiderDB(a, v, dbT)
-         end
+         M.buildSpiderDB(a, value.children, dbT)
          a[#a]   = nil
       end
    end
@@ -560,11 +561,12 @@ function M.searchSpiderDB(strA, a, moduleT, dbT)
    local dbg = Dbg:dbg()
    dbg.start("Spider:searchSpiderDB({",concatTbl(a,","),"},moduleT, dbT)")
 
-   if (moduleT.version == nil) then
-      dbg.print("old version moduleT\n")
-      M.singleSearchSpiderDB(strA, a, moduleT, dbT)
+   local version = moduleT.version or 0
+
+   if (version < Cversion) then
+      LmodError("old version moduleT\n")
    else
-      dbg.print("version 2 moduleT\n")
+      dbg.print("Current version moduleT\n")
       for mpath, v in pairs(moduleT) do
          if (type(v) == "table") then
             dbg.print("mpath: ",mpath, "\n")

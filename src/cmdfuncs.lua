@@ -309,9 +309,10 @@ function readCacheFile(cacheType, cacheFileA, moduleDirT, moduleT)
             -- Check for matching default MODULEPATH.
             assert(loadfile(f))()
             
-            rawget(_G,"moduleT")
+            local version = (_G.moduleT or {}).version or 0
 
-            if (not rawget(_G,"moduleT") or _G.moduleT.version == nil ) then
+            dbg.print("version: ",tostring(version),"\n")
+            if (version < Cversion) then
                dbg.print("Ignoring old style cache file!\n")
             else
                for k, v in pairs(_G.moduleT) do
@@ -440,7 +441,8 @@ function getModuleT(fast)
       LmodMessage  = message
       dbg.print("t2-t1: ",t2-t1, " shortTime: ", shortTime, "\n")
 
-      if (t2 - t1 < shortTime) then
+      --if (t2 - t1 < shortTime) then
+      if (false) then
          ancient = shortLifeCache
          mt:setRebuildTime(ancient, t2-t1)
       else
