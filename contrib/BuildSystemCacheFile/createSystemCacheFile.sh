@@ -60,7 +60,9 @@ buildNewDB()
 #  Touch system file so that Lmod knows that the cache is good
 ########################################################################
 
-touch  $ADMIN_DIR/system.txt
+cat > $ADMIN_DIR/system.txt <<EOF
+hostType
+EOF
 
 buildNewDB $CacheDir  moduleT 
 

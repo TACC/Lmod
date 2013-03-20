@@ -92,7 +92,7 @@ function readAdmin()
    if (next (adminT)) then return end
 
    local adminFn = getenv("LMOD_ADMIN_FILE") or pathJoin(cmdDir(),"../../etc/admin.list")
-   local f       = io.open(adminFn)
+   local f       = io.open(adminFn,"r")
 
    -- Put something in adminT so that this routine will not be
    -- run again even if the file does not exist.
@@ -274,18 +274,12 @@ function epoch()
    end
 end
 
-function readCacheFile(cacheType, cacheFileA, moduleDirT, moduleT)
+function readCacheFile(lastUpdateEpoch, cacheType, cacheFileA, moduleDirT, moduleT)
 
    local dbg        = Dbg:dbg()
-   dbg.start("readCacheFile(cacheType, cacheFileA, moduleDirT, moduleT)")
+   dbg.start("readCacheFile(lastUpdateEpoch, cacheType, cacheFileA, moduleDirT, moduleT)")
    local mt         = MT:mt()
    ancient = mt:getRebuildTime() or ancient
-
-   local lastUpdateEpoch = epoch() - ancient
-   local attr = lfs.attributes(updateSystemFn)
-   if (attr and cacheType == "system") then
-      lastUpdateEpoch = attr.modification
-   end
 
    local dirsRead = 0
 
@@ -296,7 +290,7 @@ function readCacheFile(cacheType, cacheFileA, moduleDirT, moduleT)
          dbg.print("non-existant cacheFile: ",f,"\n")
       else
          dbg.print("cacheFile found: ",f,"\n")
-         attr   = lfs.attributes(f)
+         local attr   = lfs.attributes(f)
 
          -- Check Time
 
@@ -349,10 +343,6 @@ function getModuleT(fast)
    local HOME       = os.getenv("HOME") or ""
    local cacheDir   = pathJoin(HOME,".lmod.d",".cache")
    local masterTbl  = masterTbl()
-   local sysCacheFileA = {
-      { file = pathJoin(sysCacheDir,"moduleT.lua"),     fileT = "system"},
-      { file = pathJoin(sysCacheDir,"moduleT.old.lua"), fileT = "system"},
-   }
    local usrCacheFileA = {
       { file = pathJoin(cacheDir,   "moduleT.lua"),     fileT = "your"  },
    }
@@ -360,6 +350,25 @@ function getModuleT(fast)
 
    dbg.start("getModuleT(fast=", tostring(fast),")")
 
+   local attr = lfs.attributes(updateSystemFn)
+   local lastUpdateEpoch = epoch() - ancient
+
+   local hostType = ""
+   if (attr and type(attr) == "table") then
+      local lastUpdateEpoch = epoch() - ancient
+      local f = io.open(updateSystemFn, "r")
+      hostType = f:read("*line") or ""
+      hostType = hostType:trim()
+      f:close()
+   end
+      
+      
+
+
+   local sysCacheFileA = {
+      { file = pathJoin(sysCacheDir, hostType, "moduleT.lua"),     fileT = "system"},
+      { file = pathJoin(sysCacheDir, hostType, "moduleT.old.lua"), fileT = "system"},
+   }
 
    local baseMpath = mt:getBaseMPATH()
    if (baseMpath == nil) then
@@ -382,13 +391,14 @@ function getModuleT(fast)
 
    local sysDirsRead = 0
    if (not masterTbl.checkSyntax) then
-      sysDirsRead = readCacheFile("system", sysCacheFileA, s_moduleDirT, s_moduleT)
+      sysDirsRead = readCacheFile(lastUpdateEpoch, "system", sysCacheFileA,
+                                  s_moduleDirT, s_moduleT)
    end
    
    ------------------------------------------------------------------------
    -- Read user cache file if it exists and is not out-of-date.
 
-   local usrDirsRead = readCacheFile("user", usrCacheFileA, s_moduleDirT, s_moduleT)
+   local usrDirsRead = readCacheFile(epoch() - ancient, "user", usrCacheFileA, s_moduleDirT, s_moduleT)
    
    ------------------------------------------------------------------------
    -- Find all the directories not read in yet.
