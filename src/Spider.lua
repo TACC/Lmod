@@ -617,9 +617,7 @@ function M.singleSearchSpiderDB(strA, a, moduleT, dbT)
       end
       if (next(value.children)) then
          a[#a+1] = full
-         for k, v in pairs(value.children) do
-            M.searchSpiderDB(strA, a, v, dbT)
-         end
+         M.searchSpiderDB(strA, a, value.children, dbT)
          a[#a]   = nil
       end
    end
@@ -954,7 +952,9 @@ function M.listModulesHelper(moduleT, tbl)
       tbl[#tbl+1] = vv.path
       if (next(vv.children)) then
          for k, v in pairs(vv.children) do
-            M.listModulesHelper(v, tbl)
+            if (type(v) == "table") then
+               M.listModulesHelper(v, tbl)
+            end
          end
       end
    end
@@ -966,7 +966,9 @@ function M.dictModules(t,tbl)
       tbl[kk] = 0
       if (next(vv.children)) then
          for k, v in pairs(vv.children) do
-            M.dictModules(v, tbl)
+            if (type(v) == "table") then
+               M.dictModules(v, tbl)
+            end
          end
       end
    end

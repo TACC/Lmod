@@ -309,7 +309,7 @@ function readCacheFile(cacheType, cacheFileA, moduleDirT, moduleT)
             -- Check for matching default MODULEPATH.
             assert(loadfile(f))()
             
-            local version = (_G.moduleT or {}).version or 0
+            local version = (rawget(_G,"moduleT") or {}).version or 0
 
             dbg.print("version: ",tostring(version),"\n")
             if (version < Cversion) then
@@ -441,10 +441,24 @@ function getModuleT(fast)
       LmodMessage  = message
       dbg.print("t2-t1: ",t2-t1, " shortTime: ", shortTime, "\n")
 
-      --if (t2 - t1 < shortTime) then
-      if (false) then
+      if (t2 - t1 < shortTime) then
          ancient = shortLifeCache
-         mt:setRebuildTime(ancient, t2-t1)
+
+         ------------------------------------------------------------------------
+         -- This is a bit of a hack.  Lmod needs to know the time it takes to
+         -- build the cache and it needs to store it in the ModuleTable.  The
+         -- trouble is with regression testing.  The module table is only written
+         -- out when it value changes.  We do not want a new module written out
+         -- if the only thing that has changed is the slight variation that it
+         -- took to build the cache between Lmod command runs during a regression
+         -- test.  So if the old time is with-in a factor of 2 old time then
+         -- keep the old time.
+
+         local newShortTime = t2-t1
+         if (short and 2*short > newShortTime) then
+            newShortTime = short
+         end
+         mt:setRebuildTime(ancient, newShortTime)
       else
          mkdir_recursive(cacheDir)
          local s0 = "-- Date: " .. os.date("%c",os.time()) .. "\n"
