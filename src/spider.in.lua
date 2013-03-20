@@ -65,7 +65,6 @@ local ignoreT     = {
    "^/sbin$",
    "^/usr/bin$",
    "^/usr/sbin$",
-   "^/usr/local/bin$",
    "^/usr/local/share/bin$",
    "^/usr/lib/?",
    "^/opt/local/bin$",
