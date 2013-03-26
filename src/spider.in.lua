@@ -420,7 +420,7 @@ function localSoftware(name, t)
 
    local value  = "unknown"
    local domain = "unknown"
-   local category = t.Category
+   local category = t.Category or ""
    for entry in category:split(",") do
       entry        = entry:trim()
       local entryL = entry:lower()
