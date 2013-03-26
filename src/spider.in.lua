@@ -438,8 +438,9 @@ function localSoftware(xml, name, t)
          end
       end
       if (domain == "unknown") then
-         if (entryL ~= "library" and
-             entryL ~= "application") then
+         if (entryL ~= "library"     and
+             entryL ~= "application" and
+             entry  ~= "") then
             domain = entry
          end
       end
