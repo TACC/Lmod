@@ -451,14 +451,17 @@ function localSoftware(xml, name, t)
    local Name = xml.new("Type")
    Name[1]    = value
    root:append(Name)
+   dbg.print("Type: ",value,"\n")
 
    local Name = xml.new("Domain")
    Name[1]    = domain
    root:append(Name)
+   dbg.print("domain: ",domain,"\n")
 
    local Name = xml.new("Name")
    Name[1]    = name
    root:append(Name)
+   dbg.print("name: ",name,"\n")
 
    local Description = xml.new("Description")
    Description[1]    = t.Description
