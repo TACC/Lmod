@@ -377,6 +377,9 @@ function xmlSoftwarePage(dbT)
 
    top.append(root)
 
+   xml.save(top,"stampede.out.xml")
+
+
    return top:str()
 
 end
