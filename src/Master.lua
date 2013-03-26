@@ -683,12 +683,7 @@ function M.avail(searchA)
    local mpathA = mt:module_pathA()
    local width  = TermWidth()
 
-   local mcp_old = mcp
-   mcp           = MasterControl.build("spider")
-   dbg.print("Setting mpc to ", mcp:name(),"\n")
    local moduleT = getModuleT()
-   mcp           = mcp_old
-   dbg.print("Resetting mpc to ", mcp:name(),"\n")
    local dbT     = {}
    Spider.buildSpiderDB({"default"}, moduleT, dbT)
 
@@ -696,6 +691,26 @@ function M.avail(searchA)
    local availT  = mt:availT()
 
    local aa = {}
+
+
+   if (searchA[1] == "--terse" ) then
+      dbg.print("doing --terse\n")
+      for ii = 1, #mpathA do
+         local mpath = mpathA[ii]
+         local t     = availT[mpath]
+         if (type(t) == "table" and next(t) ~= nil) then
+            io.stderr:write(mpath,":\n")
+            for sn, versionA in pairsByKeys(t) do
+               for i = 1, #versionA do
+                  local name = pathJoin(sn, versionA[i].version)
+                  io.stderr:write(name,"\n")
+               end
+            end
+         end
+      end
+      dbg.fini()
+      return
+   end
 
    for _,mpath in ipairs(mpathA) do
       local a = {}
