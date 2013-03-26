@@ -468,7 +468,7 @@ function localSoftware(xml, name, t)
    root:append(Description)
 
    local Flavor = xml.new("Flavor")
-   Flavor[1]    = t.Version
+   Flavor[1]    = t.full:gsub(".*/","")
    root:append(Flavor)
 
    local Default = xml.new("Default")
