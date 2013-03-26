@@ -27,7 +27,6 @@ require("fileOps")
 require("modfuncs")
 require("cmdfuncs")
 require("parseVersion")
-xml                 = false
 MasterControl       = require("MasterControl")
 MT                  = require("MT")
 Master              = require("Master")
