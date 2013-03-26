@@ -419,6 +419,9 @@ end
 
 
 function localSoftware(xml, name, t)
+   local dbg = Dbg:dbg()
+   dbg.start("localSoftware(xml,",name,",t)")
+   
    local root = xml.new("LocalSoftware")
 
    local value  = "unknown"
@@ -484,6 +487,7 @@ function localSoftware(xml, name, t)
    Context[1] = findLatestV(t.parent)
    root:append(Context)
 
+   dbg.fini()
    return root
 end
 
