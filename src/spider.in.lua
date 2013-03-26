@@ -368,12 +368,12 @@ function xmlSoftwarePage(dbT)
    root:append(siteID)
 
 
-   for name, vv in pairs(dbT) do
-      for file, v in pairs(vv) do
-         local xmlT = localSoftware(xml,name,v)
-         root:append(xmlT)
-      end
-   end
+   --for name, vv in pairs(dbT) do
+   --   for file, v in pairs(vv) do
+   --      local xmlT = localSoftware(xml,name,v)
+   --      root:append(xmlT)
+   --   end
+   --end
 
    top.append(root)
 
