@@ -370,7 +370,7 @@ function xmlSoftwarePage(dbT)
 
    for name, vv in pairs(dbT) do
       for file, v in pairs(vv) do
-         local xmlT = localSoftware(name,v)
+         local xmlT = localSoftware(xml,name,v)
          root:append(xmlT)
       end
    end
@@ -418,7 +418,7 @@ function findLatestV(a)
 end
 
 
-function localSoftware(name, t)
+function localSoftware(xml, name, t)
    local root = xml.new("LocalSoftware")
 
    local value  = "unknown"
