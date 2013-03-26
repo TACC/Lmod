@@ -316,7 +316,7 @@ function options()
       dest   = 'outputStyle',
       action = 'store',
       default = "list",
-      help    = "Output Style: list, moduleT, dbT, reverseMapT, spider, spider-json, softwarePage"
+      help    = "Output Style: list, moduleT, dbT, reverseMapT, spider, spider-json, softwarePage, xmlSoftwarePage"
    }
 
    cmdlineParser:add_option{
