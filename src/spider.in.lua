@@ -284,7 +284,7 @@ function convertEntry(name, vv, spA)
             vT[newKey] = v[key]
          end
       end
-      
+
       vT.canonicalVersionString = ""
       if (v.Version) then
          vT.canonicalVersionString = concatTbl(parseVersion(v.Version) ,".")
@@ -304,22 +304,22 @@ function options()
    local usage         = "Usage: spider [options] moduledir ..."
    local cmdlineParser = Optiks:new{usage=usage, version="1.0"}
 
-   cmdlineParser:add_option{ 
+   cmdlineParser:add_option{
       name   = {'-d','--debug'},
       dest   = 'debug',
       action = 'store_true',
       default = false,
    }
 
-   cmdlineParser:add_option{ 
+   cmdlineParser:add_option{
       name   = {'-o','--output'},
       dest   = 'outputStyle',
       action = 'store',
       default = "list",
-      help    = "Output Style: list, moduleT, dbT, reverseMapT, spider, spider-json, softwarePage"  
+      help    = "Output Style: list, moduleT, dbT, reverseMapT, spider, spider-json, softwarePage"
    }
 
-   cmdlineParser:add_option{ 
+   cmdlineParser:add_option{
       name   = {'-n','--no_recursion'},
       dest   = 'no_recursion',
       action = 'store_true',
@@ -351,7 +351,7 @@ function xmlSoftwarePage(dbT)
 
    local top = xml.new{
       [0] = "V4RPSoftwareRP",
-      ["xmlns:ns1"] = "https://mds.teragrid.org/2007/02/ctss" 
+      ["xmlns:ns1"] = "https://mds.teragrid.org/2007/02/ctss"
    }
 
    local root = xml.new{
@@ -367,7 +367,7 @@ function xmlSoftwarePage(dbT)
    local siteID     = xml.new("SiteID")
    siteID[1]        = "tacc.xsede.org"
    root:append(siteID)
-   
+
 
    for name, vv in pairs(dbT) do
       for file, v in pairs(vv) do
@@ -406,7 +406,7 @@ function findLatestV(a)
    end
 
    table.sort(aa, function(a,b) return a[1] > b[1] end)
-   
+
    local result = aa[1][2]
    if (result ~= "default") then
       result = result:gsub("default:","")
@@ -433,7 +433,7 @@ function localSoftware(name, t)
          end
       end
       if (domain == "unknown") then
-         if (entryL ~= "library" and 
+         if (entryL ~= "library" and
              entryL ~= "application") then
             domain = entry
          end
@@ -458,17 +458,17 @@ function localSoftware(name, t)
    local Description = xml.new("Description")
    Description[1]    = t.Description
    root:append(Description)
-   
+
    local Flavor = xml.new("Flavor")
    Flavor[1]    = t.Version
    root:append(Flavor)
-   
+
    local Default = xml.new("Default")
    local result  = "no"
    if (t.default) then result = "yes" end
    Default[1]    = result
    root:append(Default)
-   
+
    local Handle = xml.new("Handle")
    local HType  = xml.new("HandleType")
    HType[1]     = "module"
@@ -477,11 +477,11 @@ function localSoftware(name, t)
    HKey[1]      = t.full
    Handle:append(HKey)
    root:append(Handle)
-   
+
    local Context = xml.new("Context")
    Context[1] = findLatestV(t.parent)
    root:append(Context)
-   
+
    return root
 end
 
