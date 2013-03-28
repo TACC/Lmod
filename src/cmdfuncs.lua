@@ -350,6 +350,10 @@ function getModuleT(fast)
 
    dbg.start("getModuleT(fast=", tostring(fast),")")
 
+   local mcp_old = mcp
+   mcp           = MasterControl.build("spider")
+   dbg.print("Setting mpc to ", mcp:name(),"\n")
+   
    local attr = lfs.attributes(updateSystemFn)
    local lastUpdateEpoch = epoch() - ancient
 
@@ -362,8 +366,6 @@ function getModuleT(fast)
       f:close()
    end
       
-      
-
 
    local sysCacheFileA = {
       { file = pathJoin(sysCacheDir, hostType, "moduleT.lua"),     fileT = "system"},
@@ -422,6 +424,8 @@ function getModuleT(fast)
    -- have been found.
    
    if (dirsRead == 0 and fast) then
+      mcp = mcp_old
+      dbg.print("Resetting mpc to ", mcp:name(),"\n")
       dbg.fini()
       return nil
    end
@@ -505,6 +509,8 @@ function getModuleT(fast)
       end
    end
 
+   mcp = mcp_old
+   dbg.print("Resetting mpc to ", mcp:name(),"\n")
    dbg.fini()
    return s_moduleT
 end

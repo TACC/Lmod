@@ -753,8 +753,6 @@ end
 function SpiderCmd(...)
    local dbg = Dbg:dbg()
    dbg.start("SpiderCmd(", concatTbl({...},", "),")")
-   mcp           = MasterControl.build("spider")
-   dbg.print("Setting mpc to ", mcp:name(),"\n")
    local moduleT = getModuleT()
 
    local master = Master:master()
@@ -784,8 +782,6 @@ end
 function Keyword(...)
    local dbg    = Dbg:dbg()
    dbg.start("Keyword(",concatTbl({...},","),")")
-   mcp          = MasterControl.build("spider")
-   dbg.print("Setting mpc to ", mcp:name(),"\n")
 
    local master  = Master:master()
    local moduleT = getModuleT()

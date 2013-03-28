@@ -27,7 +27,6 @@ require("fileOps")
 require("modfuncs")
 require("cmdfuncs")
 require("parseVersion")
-xml                 = false
 MasterControl       = require("MasterControl")
 MT                  = require("MT")
 Master              = require("Master")
@@ -284,7 +283,7 @@ function convertEntry(name, vv, spA)
             vT[newKey] = v[key]
          end
       end
-      
+
       vT.canonicalVersionString = ""
       if (v.Version) then
          vT.canonicalVersionString = concatTbl(parseVersion(v.Version) ,".")
@@ -304,22 +303,22 @@ function options()
    local usage         = "Usage: spider [options] moduledir ..."
    local cmdlineParser = Optiks:new{usage=usage, version="1.0"}
 
-   cmdlineParser:add_option{ 
+   cmdlineParser:add_option{
       name   = {'-d','--debug'},
       dest   = 'debug',
       action = 'store_true',
       default = false,
    }
 
-   cmdlineParser:add_option{ 
+   cmdlineParser:add_option{
       name   = {'-o','--output'},
       dest   = 'outputStyle',
       action = 'store',
       default = "list",
-      help    = "Output Style: list, moduleT, dbT, reverseMapT, spider, spider-json, softwarePage"  
+      help    = "Output Style: list, moduleT, dbT, reverseMapT, spider, spider-json, softwarePage, xmlSoftwarePage"
    }
 
-   cmdlineParser:add_option{ 
+   cmdlineParser:add_option{
       name   = {'-n','--no_recursion'},
       dest   = 'no_recursion',
       action = 'store_true',
@@ -350,7 +349,7 @@ function xmlSoftwarePage(dbT)
 
    local top = xml.new{
       [0] = "V4RPSoftwareRP",
-      ["xmlns:ns1"] = "https://mds.teragrid.org/2007/02/ctss" 
+      ["xmlns:ns1"] = "https://mds.teragrid.org/2007/02/ctss"
    }
 
    local root = xml.new{
@@ -366,16 +365,18 @@ function xmlSoftwarePage(dbT)
    local siteID     = xml.new("SiteID")
    siteID[1]        = "tacc.xsede.org"
    root:append(siteID)
-   
+
 
    for name, vv in pairs(dbT) do
       for file, v in pairs(vv) do
-         local xmlT = localSoftware(name,v)
+         local xmlT = localSoftware(xml,name,v)
          root:append(xmlT)
       end
    end
 
-   top.append(root)
+   top:append(root)
+
+   
 
    return top:str()
 
@@ -405,7 +406,7 @@ function findLatestV(a)
    end
 
    table.sort(aa, function(a,b) return a[1] > b[1] end)
-   
+
    local result = aa[1][2]
    if (result ~= "default") then
       result = result:gsub("default:","")
@@ -415,12 +416,15 @@ function findLatestV(a)
 end
 
 
-function localSoftware(name, t)
+function localSoftware(xml, name, t)
+   local dbg = Dbg:dbg()
+   dbg.start("localSoftware(xml,",name,",t)")
+   
    local root = xml.new("LocalSoftware")
 
    local value  = "unknown"
    local domain = "unknown"
-   local category = t.Category
+   local category = t.Category or ""
    for entry in category:split(",") do
       entry        = entry:trim()
       local entryL = entry:lower()
@@ -432,8 +436,9 @@ function localSoftware(name, t)
          end
       end
       if (domain == "unknown") then
-         if (entryL ~= "library" and 
-             entryL ~= "application") then
+         if (entryL ~= "library"     and
+             entryL ~= "application" and
+             entry  ~= "") then
             domain = entry
          end
       end
@@ -445,29 +450,32 @@ function localSoftware(name, t)
    local Name = xml.new("Type")
    Name[1]    = value
    root:append(Name)
+   dbg.print("Type: ",value,"\n")
 
    local Name = xml.new("Domain")
    Name[1]    = domain
    root:append(Name)
+   dbg.print("domain: ",domain,"\n")
 
    local Name = xml.new("Name")
    Name[1]    = name
    root:append(Name)
+   dbg.print("name: ",name,"\n")
 
    local Description = xml.new("Description")
    Description[1]    = t.Description
    root:append(Description)
-   
+
    local Flavor = xml.new("Flavor")
-   Flavor[1]    = t.Version
+   Flavor[1]    = t.full:gsub(".*/","")
    root:append(Flavor)
-   
+
    local Default = xml.new("Default")
    local result  = "no"
    if (t.default) then result = "yes" end
    Default[1]    = result
    root:append(Default)
-   
+
    local Handle = xml.new("Handle")
    local HType  = xml.new("HandleType")
    HType[1]     = "module"
@@ -476,11 +484,12 @@ function localSoftware(name, t)
    HKey[1]      = t.full
    Handle:append(HKey)
    root:append(Handle)
-   
+
    local Context = xml.new("Context")
    Context[1] = findLatestV(t.parent)
    root:append(Context)
-   
+
+   dbg.fini()
    return root
 end
 
