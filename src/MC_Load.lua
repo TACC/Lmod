@@ -26,6 +26,7 @@ M.report               = MasterControl.error
 M.setenv               = MasterControl.setenv
 M.set_alias            = MasterControl.set_alias
 M.set_shell_function   = MasterControl.set_shell_function
+M.stack                = MasterControl.stack_push
 M.try_load             = MasterControl.try_load
 M.unload               = MasterControl.unload
 M.unloadsys            = MasterControl.unloadsys

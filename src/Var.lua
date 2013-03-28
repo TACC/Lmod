@@ -120,6 +120,14 @@ function M.append(self,value)
    setenv(self.name, self:expand(), true)
 end
 
+function M.pop(self)
+   local sep = self.sep
+   
+end
+
+
+
+
 function M.remove(self,value)
    if (value == nil) then return end
    local sep = self.sep
@@ -132,6 +140,14 @@ function M.remove(self,value)
    end
    setenv(self.name, self:expand(), true)
 end
+
+function M.push(self,value)
+   self.type = "stack"
+
+
+end
+
+
 
 function M.prepend(self,value)
    if (value == nil) then return end

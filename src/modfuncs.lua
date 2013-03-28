@@ -170,6 +170,18 @@ function unsetenv(...)
    return
 end
 
+--- Stack function
+
+function stack(...)
+   local dbg = Dbg:dbg()
+   dbg.start("stack(",concatTbl({...},", "),")")
+   if (not validateStringArgs("string",...)) then return end
+
+   mcp:stack(...)
+   dbg.fini()
+   return
+end
+
 --- Property functions ----
 
 function add_property(...)

@@ -348,7 +348,6 @@ function xmlSoftwarePage(dbT)
    host           = translateT[host] or host
 
 
-
    local top = xml.new{
       [0] = "V4RPSoftwareRP",
       ["xmlns:ns1"] = "https://mds.teragrid.org/2007/02/ctss" 

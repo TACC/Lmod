@@ -61,6 +61,10 @@ function M.set_alias(self, name,value)
    ShowCmd("set_alias", name, value)
 end
 
+function M.stack(self, name,value)
+   ShowCmd("stack", name, value)
+end
+
 function M.unset_alias(self, name)
    ShowCmd("unset_alias",name)
 end

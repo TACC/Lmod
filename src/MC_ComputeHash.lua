@@ -34,6 +34,7 @@ M.report               = MasterControl.quiet
 M.set_alias            = MasterControl.quiet
 M.set_shell_function   = MasterControl.quiet
 M.setenv               = MasterControl.quiet
+M.stack                = MasterControl.quiet
 M.unset_alias          = MasterControl.quiet
 M.unset_alias          = MasterControl.quiet
 M.unset_shell_function = MasterControl.quiet

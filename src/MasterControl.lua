@@ -258,6 +258,46 @@ function M.bad_unsetenv(self, name, value)
 end
 
 -------------------------------------------------------------------
+-- stack: push and pop
+-------------------------------------------------------------------
+
+function M.stack_push(self, name, value, sep)
+   local mStack = ModuleStack:moduleStack()
+   local dbg    = Dbg:dbg()
+   dbg.start("MasterControl:stack_push(\"",name,"\", \"",value,"\")")
+
+   local stackName = "__LMOD_STACK_" .. name
+
+   if (varTbl[stackName] == nil) then
+      varTbl[stackName] = Var:new(stackName, nil, sep)
+   end
+   varTbl[stackName]:prepend(tostring(value))
+
+   if (varTbl[name] == nil) then
+      varTbl[name] = Var:new(name)
+   end
+   varTbl[name]:set(tostring(value))
+   
+   mStack:setting()
+   dbg.fini()
+end
+
+function M.stack_pop(self, name, value, sep)
+   local mStack = ModuleStack:moduleStack()
+   local dbg    = Dbg:dbg()
+   dbg.start("MasterControl:stack_pop(\"",name,"\", \"",value,"\")")
+
+   local stackName = "__LMOD_STACK_" .. name
+
+   local v = varTbl[stackName]:pop()
+   varTbl[name]:set(v)
+
+   mStack:setting()
+   dbg.fini()
+end
+
+
+-------------------------------------------------------------------
 -- Alias Functions
 -------------------------------------------------------------------
 
