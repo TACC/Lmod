@@ -54,6 +54,7 @@ sandbox_env = {
   
   --- Set Environment functions ----
   setenv               = setenv,
+  pushenv              = pushenv,
   unsetenv             = unsetenv,
 
   --- Property functions ----
