@@ -226,6 +226,7 @@ function M.prepend(self, value, nodups)
    dbg.print("name: ",self.name,"\n")
    if (value == nil) then return end
 
+   nodups = true
    local pathA         = regularizePath(value, self.sep)
    local is, ie, iskip = prepend_order(#pathA)
    local insertFunc    = nodups and unique or first
@@ -234,7 +235,6 @@ function M.prepend(self, value, nodups)
    local imin = self.imin
    for i = is, ie, iskip do
       local path = pathA[i]
-      dbg.print("path: ",path,"\n")
       imin     = imin - 1
       local a  = tbl[path] or {}
       insertFunc(a, imin)
@@ -253,6 +253,7 @@ function M.append(self, value, nodups)
    local pathA      = regularizePath(value, self.sep)
    local insertFunc = nodups and unique or last
 
+   nodups = true
    local tbl  = self.tbl
    local imax = self.imax
    for i = 1, #pathA do

@@ -214,6 +214,39 @@ export MODULEPATH;
 ===========================
 step 12
 ===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/TACC2:ProjectDIR/rt/saverestore/TACC";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/saverestore/TACC2:ProjectDIR/rt/saverestore/TACC_COMPILER/pgi/7.2-5:ProjectDIR/rt/saverestore/TACC_MPI/pgi/7.1/mvapich/1.0.1:ProjectDIR/rt/saverestore/TACC";
+export MODULEPATH;
+unset APPS;
+unset GLOBUS_HOSTNAME;
+unset GLOBUS_LOCATION;
+unset GLOBUS_PATH;
+unset GLOBUS_TCP_PORT_RANGE;
+unset GPT_LOCATION;
+unset INFOPATH;
+unset LD_LIBRARY_PATH;
+unset LIBPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/TACC2:ProjectDIR/rt/saverestore/TACC";
+export LMOD_DEFAULT_MODULEPATH;
+unset MANPATH;
+MODULEPATH="ProjectDIR/rt/saverestore/TACC2:ProjectDIR/rt/saverestore/TACC";
+export MODULEPATH;
+unset MPICH_HOME;
+unset MYPROXY_SERVER;
+PATH="ProjectDIR/src:PATH_to_TM:/bin";
+export PATH;
+unset PGI;
+unset PURGE;
+unset RSHCOMMAND;
+unset RTM;
+unset SASL_PATH;
+unset SHLIB_PATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/saverestore/TACC2","ProjectDIR/rt/saverestore/TACC",},family={},inactive={},mT={},mpathA={"ProjectDIR/rt/saverestore/TACC2","ProjectDIR/rt/saverestore/TACC",},["systemBaseMPATH"]="ProjectDIR/rt/saverestore/TACC",["version"]=2,}';
+export _ModuleTable_;
+===========================
+step 13
+===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/TACC";
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/saverestore/TACC";
@@ -265,7 +298,7 @@ export _ModuleTable_;
 __LMOD_DEFAULT_MODULES_LOADED__="1";
 export __LMOD_DEFAULT_MODULES_LOADED__;
 ===========================
-step 13
+step 14
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/TACC2:ProjectDIR/rt/saverestore/TACC";
 export LMOD_DEFAULT_MODULEPATH;
@@ -278,7 +311,7 @@ export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["activeSize"]=8,baseMpathA={"ProjectDIR/rt/saverestore/TACC2","ProjectDIR/rt/saverestore/TACC",},family={},inactive={},mT={TACC={["FN"]="ProjectDIR/rt/saverestore/TACC/TACC",["default"]=0,["fullName"]="TACC",["loadOrder"]=7,["mType"]="m",propT={},["short"]="TACC",["status"]="active",},TACC_symbols={["FN"]="ProjectDIR/rt/saverestore/TACC/TACC_symbols",["default"]=0,["fullName"]="TACC_symbols",["loadOrder"]=1,["mType"]="w",propT={},["short"]="TACC_symbols",["status"]="active",},a={["FN"]="ProjectDIR/rt/saverestore/TACC2/a/a.lua",["default"]=1,["fullName"]="a/a",["loadOrder"]=6,["mType"]="w",propT={},["short"]="a",["status"]="active",},cluster={["FN"]="ProjectDIR/rt/saverestore/TACC/cluster",["default"]=0,["fullName"]="cluster",["loadOrder"]=8,["mType"]="m",propT={},["short"]="cluster",["status"]="active",},cluster_symbols={["FN"]="ProjectDIR/rt/saverestore/TACC/cluster_symbols",["default"]=0,["fullName"]="cluster_symbols",["loadOrder"]=2,["mType"]="w",propT={},["short"]="cluster_symbols",["status"]="active",},globus={["FN"]="ProjectDIR/rt/saverestore/TACC/globus/4.0.7",["default"]=1,["fullName"]="globus/4.0.7",["loadOrder"]=4,["mType"]="w",propT={},["short"]="globus",["status"]="active",},mvapich1={["FN"]="ProjectDIR/rt/saverestore/TACC/mvapich1/mvapich1",["default"]=1,["fullName"]="mvapich1/mvapich1",["loadOrder"]=3,["mType"]="w",propT={},["short"]="mvapich1",["status"]="active",},pgi={["FN"]="ProjectDIR/rt/saverestore/TACC/pgi/7.2-5",["default"]=0,["fullName"]="pgi/7.2-5",["loadOrder"]=5,["mType"]="w",propT={},["short"]="pgi",["status"]="active",},},mpathA={"ProjectDIR/rt/saverestore/TACC_COMPILER/pgi/7.2-5","ProjectDIR/rt/saverestore/TACC_MPI/pgi/7.1/mvapich/1.0.1","ProjectDIR/rt/saverestore/TACC2","ProjectDIR/rt/saverestore/TACC",},["systemBaseMPATH"]="ProjectDIR/rt/saverestore/TACC",["version"]=2,}';
 export _ModuleTable_;
 ===========================
-step 14
+step 15
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/TACC2:ProjectDIR/rt/saverestore/TACC";
 export LMOD_DEFAULT_MODULEPATH;

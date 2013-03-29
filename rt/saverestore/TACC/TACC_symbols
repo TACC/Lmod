@@ -53,8 +53,6 @@ if { "$sys" == "AIX" } {
 append-path     PATH        ~/bin
 append-path     PATH        .
 
-append-path     MANPATH     /usr/local/man
-
 # 9/4/2006 - Addition for lonestar login nodes - intercept of passwd/chcsh to do
 #            the right thing with 411.
 

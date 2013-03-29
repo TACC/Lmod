@@ -1,7 +1,7 @@
 ===========================
 step 1
 ===========================
-Modules based on Lua: Version 4.3a3 2013-03-07 14:51
+Modules based on Lua: Version 5.0b2 2013-03-20 06:59
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -50,15 +50,18 @@ Saved current collection of modules to: default
 ===========================
 step 12
 ===========================
-Restoring modules to user's default
 ===========================
 step 13
+===========================
+Restoring modules to user's default
+===========================
+step 14
 ===========================
 Currently Loaded Modules:
   1) TACC_symbols      3) mvapich1/mvapich1   5) pgi/7.2-5   7) TACC
   2) cluster_symbols   4) globus/4.0.7        6) a/a         8) cluster
 ===========================
-step 14
+step 15
 ===========================
 The following is a list of the modules currently available:
   a: a/a
