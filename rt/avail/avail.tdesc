@@ -26,7 +26,7 @@ testdescript = {
      MANPATH='';                        export MANPATH
      LD_LIBRARY_PATH='';                export LD_LIBRARY_PATH
      MODULEPATH_ROOT=$(projectDir)/mf;  export MODULEPATH_ROOT
-     MODULEPATH=$(projectDir)/mf/Core:$(projectDir)/mf/Compiler/intel/10.1:$(testDir)/mf/Core
+     MODULEPATH=$(projectDir)/mf/Core:$(testDir)/mf/Core
      export MODULEPATH
      LMOD_DEFAULT_MODULEPATH=$MODULEPATH
      export LMOD_DEFAULT_MODULEPATH
@@ -40,12 +40,11 @@ testdescript = {
 
 
      runMe lua $(projectDir)/src/lmod.in.lua bash --version
+     runMe lua $(projectDir)/src/lmod.in.lua bash load intel
      runMe lua $(projectDir)/src/lmod.in.lua bash avail
 
      runMe lua $(projectDir)/src/lmod.in.lua bash avail gcc intel p a j m
-
-     runMe lua $(projectDir)/src/lmod.in.lua bash load intel
-
+     runMe lua $(projectDir)/src/lmod.in.lua bash unload intel
      runMe lua $(projectDir)/src/lmod.in.lua bash avail
 
      HOME=$ORIG_HOME

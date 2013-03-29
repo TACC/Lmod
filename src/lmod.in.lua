@@ -406,11 +406,12 @@ function Use(...)
          a[#a + 1] = v
       end
    end
+   local nodups = true
    for _,v in ipairs(a) do
       v = abspath(v)
       if (v) then
-         op(MCP, ModulePath, v)
-         op(MCP, DfltModPath, v)
+         op(MCP, ModulePath,  v, ":", nodups)
+         op(MCP, DfltModPath, v, ":", nodups)
       end
    end
    mt:buildBaseMpathA(varTbl[DfltModPath]:expand())

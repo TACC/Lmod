@@ -175,7 +175,7 @@ end
 -- Path Modification Functions
 -------------------------------------------------------------------
 
-function M.prepend_path(self, name, value, sep)
+function M.prepend_path(self, name, value, sep, nodups)
    local mStack = ModuleStack:moduleStack()
    local dbg    = Dbg:dbg()
    dbg.start("MasterControl:prepend_path(\"",name,"\", \"",tostring(value),"\",\"",tostring(sep),"\")")
@@ -185,12 +185,12 @@ function M.prepend_path(self, name, value, sep)
       varTbl[name] = Var:new(name, nil, sep)
    end
 
-   varTbl[name]:prepend(tostring(value))
+   varTbl[name]:prepend(tostring(value), nodups)
    mStack:setting()
    dbg.fini()
 end
 
-function M.append_path(self, name,value,sep)
+function M.append_path(self, name, value, sep, nodups)
    local mStack = ModuleStack:moduleStack()
    local dbg    = Dbg:dbg()
    dbg.start("MasterControl:append_path(\"",name,"\", \"",tostring(value),"\",\"",tostring(sep),"\")")
@@ -199,7 +199,7 @@ function M.append_path(self, name,value,sep)
    if (varTbl[name] == nil) then
       varTbl[name] = Var:new(name, nil, sep)
    end
-   varTbl[name]:append(tostring(value))
+   varTbl[name]:append(tostring(value), nodups)
    mStack:setting()
    dbg.fini()
 end
@@ -261,15 +261,15 @@ end
 -- stack: push and pop
 -------------------------------------------------------------------
 
-function M.stack_push(self, name, value, sep)
+function M.pushenv(self, name, value)
    local mStack = ModuleStack:moduleStack()
    local dbg    = Dbg:dbg()
-   dbg.start("MasterControl:stack_push(\"",name,"\", \"",value,"\")")
+   dbg.start("MasterControl:pushenv(\"",name,"\", \"",value,"\")")
 
    local stackName = "__LMOD_STACK_" .. name
 
    if (varTbl[stackName] == nil) then
-      varTbl[stackName] = Var:new(stackName, nil, sep)
+      varTbl[stackName] = Var:new(stackName, nil, ":")
    end
    varTbl[stackName]:prepend(tostring(value))
 
@@ -282,10 +282,10 @@ function M.stack_push(self, name, value, sep)
    dbg.fini()
 end
 
-function M.stack_pop(self, name, value, sep)
+function M.popenv(self, name, value)
    local mStack = ModuleStack:moduleStack()
    local dbg    = Dbg:dbg()
-   dbg.start("MasterControl:stack_pop(\"",name,"\", \"",value,"\")")
+   dbg.start("MasterControl:popenv(\"",name,"\", \"",value,"\")")
 
    local stackName = "__LMOD_STACK_" .. name
 
