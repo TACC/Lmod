@@ -26,8 +26,6 @@ set node       [uname node]
 #
 #setenv  ARCHIVER  ranch.tacc.utexas.edu
 
-append-path     PATH        /usr/local/bin
-
 # SGE Job Wrapper
 
 append-path     PATH        /share/sge/default/pe_scripts

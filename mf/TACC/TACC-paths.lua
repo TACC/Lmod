@@ -1,7 +1,6 @@
-append_path("PATH", "/usr/local/bin")
 append_path("PATH", "/share/sge6.2/default/pe_scripts")
 append_path("PATH", ".")
-append_path("MANPATH", "/usr/local/man")
+append_path("MANPATH","/usr/local/man")
 prepend_path("PATH", "/usr/local/first")
 prepend_path("LD_LIBRARY_PATH", "/opt/ofed/lib64")
 help(

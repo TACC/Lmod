@@ -174,6 +174,11 @@ end
 -------------------------------------------------------------------
 -- Path Modification Functions
 -------------------------------------------------------------------
+LMOD_MP_T = {}
+
+LMOD_MP_T[ModulePath]  = true
+LMOD_MP_T[DfltModPath] = true
+
 
 function M.prepend_path(self, name, value, sep, nodups)
    local mStack = ModuleStack:moduleStack()
@@ -184,6 +189,8 @@ function M.prepend_path(self, name, value, sep, nodups)
    if (varTbl[name] == nil) then
       varTbl[name] = Var:new(name, nil, sep)
    end
+
+   nodups = LMOD_MP_T[name]  -- Do not allow dups on MODULEPATH like env vars.
 
    varTbl[name]:prepend(tostring(value), nodups)
    mStack:setting()

@@ -124,9 +124,11 @@ function M.prt(self,title)
       return
    end
    for k,v in pairs(self.tbl) do
+      dbg.print ("   \"",k,"\":")
       for ii = 1,#v do
-         dbg.print ("   \"",k,"\": ",v[ii],"\n")
+         io.stderr:write(" ",v[ii])
       end
+      dbg.print ("\n")
    end
    dbg.print ("\n")
 end
@@ -240,7 +242,7 @@ function M.prepend(self, value, nodups)
       chkMP(self.name, false)
    end
    self.imin = imin
-   if (dbg.active()) then self.prt("Var:prepend") end
+   if (dbg.active()) then self:prt("Var:prepend") end
 
    setenv(self.name, self:expand(), true)
    dbg.fini()

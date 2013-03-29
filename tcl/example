@@ -1,4 +1,3 @@
-prepend-path PATH /usr/local/bin
 setenv       XYZ  foo
 module       load a b c
 
