@@ -44,19 +44,18 @@ Please read the INSTALL file even if you have installed Lmod before
 as the method of installing Lmod has changed.
 
 ------------------------------------------------------------
-Version 5.0b2
+Version 5.0b3
   Bug Fix:
     1) This version handles old cache files instead of crashing.
+    2) Correctly handling of Personal module directories.
   Feature:
     1) Support for multiple system cache files added, see
        contrib/BuildSystemCacheFile/README.txt for more details.
-
-
-Version 5.0b1
-    1) Hook function added.
-    2) C/N/V supported
-    3) Sandbox for modulefiles.
-    4) Strong use of Spider cache file.
+    2) Support for "module avail --terse"
+    3) Hook function added.
+    4) C/N/V supported
+    5) Sandbox for modulefiles.
+    6) Strong use of Spider cache file.
 
 Version 4.2.1:
   Features:
