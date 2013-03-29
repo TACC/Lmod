@@ -170,14 +170,12 @@ function unsetenv(...)
    return
 end
 
---- Stack function
-
-function stack(...)
+function pushenv(...)
    local dbg = Dbg:dbg()
-   dbg.start("stack(",concatTbl({...},", "),")")
-   if (not validateStringArgs("string",...)) then return end
+   dbg.start("pushenv(",concatTbl({...},", "),")")
+   if (not validateArgsWithValue("pushenv",...)) then return end
 
-   mcp:stack(...)
+   mcp:pushenv(...)
    dbg.fini()
    return
 end
