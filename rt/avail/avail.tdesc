@@ -39,13 +39,13 @@ testdescript = {
      cp $(projectDir)/setup/.lmodrc.lua .
 
 
-     runMe lua $(projectDir)/src/lmod.in.lua bash --version
-     runMe lua $(projectDir)/src/lmod.in.lua bash load intel
-     runMe lua $(projectDir)/src/lmod.in.lua bash avail
+     runMe lua $(projectDir)/src/lmod.in.lua bash --version                # 1
+     runMe lua $(projectDir)/src/lmod.in.lua bash load intel               # 2
+     runMe lua $(projectDir)/src/lmod.in.lua bash avail                    # 3
 
-     runMe lua $(projectDir)/src/lmod.in.lua bash avail gcc intel p a j m
-     runMe lua $(projectDir)/src/lmod.in.lua bash unload intel
-     runMe lua $(projectDir)/src/lmod.in.lua bash avail
+     runMe lua $(projectDir)/src/lmod.in.lua bash avail gcc intel p a j m  # 4
+     runMe lua $(projectDir)/src/lmod.in.lua bash unload intel             # 5
+     runMe lua $(projectDir)/src/lmod.in.lua bash avail                    # 6
 
      HOME=$ORIG_HOME
 

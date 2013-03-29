@@ -8,10 +8,6 @@
 #
 #   Outputs a summary of relevant configuration settings.
 #
-# LAST MODIFICATION
-#
-#   2009-07-16
-#
 
 AC_DEFUN([AX_SUMMARIZE_CONFIG],
 [
@@ -32,6 +28,8 @@ echo "SPIDER_CACHE_DIR............................" : $SPIDER_CACHE_DIR
 echo "Prepending multiple dirs (NORMAL / REVERSED)" : $PREPEND_BLOCK
 echo "Colorized output supported.................." : $COLORIZE
 echo "File that is touched when system is updated." : $UPDATE_SYSTEM_FN
+echo "Allow duplicate entry in PATHs.............." : $DUPLICATE_PATHS
+
 echo
 echo '-------------------------------------------------------------------------------'
 

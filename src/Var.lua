@@ -18,6 +18,7 @@ local systemG       = _G
 local table         = table
 local type          = type
 
+
 --module("Var")
 
 local M = {}
@@ -173,7 +174,14 @@ whereT = {
 }
    
 function M.remove(self, value, where)
+   local dbg  = Dbg:dbg()
+   dbg.start("Var:remove(\"",tostring(value),", \"",tostring(where),"\")")
+   dbg.print("name: ",self.name,"\n")
+
    if (value == nil) then return end
+   
+   where = allow_dups(true) and where or "all"
+
    local remFunc = whereT[where] or removeAll
    local pathA   = regularizePath(value, self.sep)
    local tbl     = self.tbl
@@ -185,6 +193,7 @@ function M.remove(self, value, where)
          chkMP(self.name, true)
       end
    end
+   if (dbg.active()) then self:prt("Var:remove") end
    setenv(self.name, self:expand(), true)
 end
 
@@ -208,15 +217,18 @@ function M.pop(self)
 end
 
 local function unique(a, value)
-   a[1] = value
+   a = { value }
+   return a
 end
 
 local function first(a, value)
    table.insert(a,1, value)
+   return a 
 end
 
 local function last(a, value)
    a[#a+1] = value
+   return a 
 end
 
 
@@ -226,7 +238,6 @@ function M.prepend(self, value, nodups)
    dbg.print("name: ",self.name,"\n")
    if (value == nil) then return end
 
-   nodups = true
    local pathA         = regularizePath(value, self.sep)
    local is, ie, iskip = prepend_order(#pathA)
    local insertFunc    = nodups and unique or first
@@ -235,10 +246,9 @@ function M.prepend(self, value, nodups)
    local imin = self.imin
    for i = is, ie, iskip do
       local path = pathA[i]
-      imin     = imin - 1
-      local a  = tbl[path] or {}
-      insertFunc(a, imin)
-      tbl[path]   = a
+      imin       = imin - 1
+      local a    = tbl[path] or {}
+      tbl[path]  = insertFunc(a, imin)
       chkMP(self.name, false)
    end
    self.imin = imin
@@ -250,18 +260,17 @@ end
 
 function M.append(self, value, nodups)
    if (value == nil) then return end
+   nodups           = not allow_dups(not nodups)
    local pathA      = regularizePath(value, self.sep)
    local insertFunc = nodups and unique or last
 
-   nodups = true
    local tbl  = self.tbl
    local imax = self.imax
    for i = 1, #pathA do
       local path = pathA[i]
       imax       = imax + 1
       local a    = tbl[path] or {}
-      insertFunc(a, imax)
-      tbl[path]  = a
+      tbl[path]  = insertFunc(a, imax)
       chkMP(self.name,false)
    end
    self.imax  = imax

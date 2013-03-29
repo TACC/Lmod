@@ -75,6 +75,18 @@ AC_ARG_WITH(prependBlock,
     PREPEND_BLOCK="$withval"
     AC_DEFINE_UNQUOTED(PREPEND_BLOCK, "$withval"))dnl
 
+AC_SUBST(DUPLICATE_PATHS)
+AC_ARG_WITH(duplicatePaths,
+    AC_HELP_STRING([--with-duplicatePaths=ans],[Allow multiple directories in path like variables [[NO]]),
+    DUPLICATE_PATHS="$withval"
+    AC_MSG_RESULT([DUPLICATE_PATHS=$with_duplicatePaths])
+    AC_DEFINE_UNQUOTED(DUPLICATE_PATHS,"$with_duplicatePaths")dnl
+    ,
+    withval="NO"
+    AC_MSG_RESULT([DUPLICATE_PATHS=$withval])
+    DUPLICATE_PATHS="$withval"
+    AC_DEFINE_UNQUOTED(DUPLICATE_PATHS, "$withval"))dnl
+
 AC_SUBST(COLORIZE)
 AC_ARG_WITH(colorize,
     AC_HELP_STRING([--with-colorize=ans],[allow for colorized output [[YES]]]),

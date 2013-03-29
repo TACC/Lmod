@@ -211,18 +211,27 @@ function M.append_path(self, name, value, sep, nodups)
    dbg.fini()
 end
 
-function M.remove_path(self, name, value, sep)
+function M.remove_path(self, name, value, sep, where)
    local mStack = ModuleStack:moduleStack()
-   local dbg    = Dbg:dbg()
-   dbg.start("MasterControl:remove_path(\"",name,"\", \"",tostring(value),"\",\"",tostring(sep),"\")")
    sep          = sep or ":"
+   local dbg    = Dbg:dbg()
+   dbg.start("MasterControl:remove_path(\"",name,"\", \"",tostring(value),"\",\"",
+             tostring(sep),"\", \"",tostring(where),"\")")
    mStack:setting()
 
    if (varTbl[name] == nil) then
       varTbl[name] = Var:new(name,nil, sep)
    end
-   varTbl[name]:remove(tostring(value))
+   varTbl[name]:remove(tostring(value), where)
    dbg.fini()
+end
+
+function M.remove_path_first(self, name, value, sep)
+   M.remove_path(self, name, value, sep, "first")
+end
+
+function M.remove_path_last(self, name, value, sep)
+   M.remove_path(self, name, value, sep, "last")
 end
 
 

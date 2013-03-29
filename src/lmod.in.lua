@@ -1,11 +1,12 @@
 #!@path_to_lua@/lua
 -- -*- lua -*-
 
-BaseShell      = {}
-Pager          = "@path_to_pager@"
-s_prependBlock = "@prepend_block@"
-s_master       = {}
-prepend_order  = false
+BaseShell       = {}
+Pager           = "@path_to_pager@"
+s_prependBlock  = "@prepend_block@"
+s_master        = {}
+prepend_order   = false
+allow_dups      = false
 
 function masterTbl()
    return s_master
@@ -116,6 +117,24 @@ function readRC()
    s_propT = results
    return s_propT
 end
+
+function set_duplication()
+   local dbg  = Dbg:dbg()
+   local dups = os.getenv("LMOD_DUPLICATE_PATH") or LMOD_DUPLICATE_PATH or "no"
+   dups       = dups:lower()
+   if (dups == "yes") then
+      dbg.print("Allowing duplication in paths\n")
+      allow_dups = function (dupsIn)
+         return dupsIn
+      end
+   else
+      dbg.print("No duplication allowed in paths\n")
+      allow_dups = function (dupsIn)
+         return false
+      end
+   end
+end
+
 
 function colorizePropA(style, moduleName, propT, legendT)
    local resultA
@@ -934,10 +953,7 @@ function main()
    local arg_str   = concatTbl(arg," ")
    local masterTbl = masterTbl()
 
-
-   -- Chose prepend_path order normal/reverse
-   set_prepend_order()
-
+   set_prepend_order()   -- Chose prepend_path order normal/reverse
 
    MCP = MasterControl.build("load")
    mcp = MasterControl.build("load")
@@ -952,6 +968,7 @@ function main()
    dbg.start("lmod(", arg_str,")")
    dbg.print("Lmod Version: ",Version.name(),"\n")
    dbg.print("Setting mpc to ", mcp:name(),"\n")
+   set_duplication()     -- Chose how to handle duplicate entries in a path.
    ------------------------------------------------------------------------
    -- Try to load a SitePackage Module,  If it is not there then do not
    -- abort.  Sites do not have to have a Site package.
