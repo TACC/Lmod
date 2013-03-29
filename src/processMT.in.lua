@@ -14,6 +14,8 @@ package.path = cmd_dir .. "?.lua;" .. package.path
 require("strict")
 require("fileOps")
 require("string_split")
+require("declare")
+
 
 _ModuleTable_ = false
 moduleInfoT = false
@@ -140,7 +142,8 @@ function processBatch(userName, mt_date, f, outputFh)
    end
    resultFn()
 
-   if (moduleInfoT and type(moduleInfo) == "table" and
+   
+   if (moduleInfoT and isDefined("moduleInfo") and type(moduleInfo) == "table" and
        moduleInfoT.modFullName and
        moduleInfoT.fn) then
       a[#a+1] = userName
