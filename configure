@@ -593,6 +593,7 @@ PATH_TO_HASHSUM
 PATH_TO_LUA
 PATH_TO_PAGER
 COLORIZE
+DUPLICATE_PATHS
 PREPEND_BLOCK
 UPDATE_SYSTEM_FN
 SPIDER_CACHE_DIR
@@ -646,6 +647,7 @@ with_shortTime
 with_spiderCacheDir
 with_updateSystemFn
 with_prependBlock
+with_duplicatePaths
 with_colorize
 with_lua_include
 '
@@ -1267,11 +1269,14 @@ Optional Packages:
                           cache file [[2]]
   --with-spiderCacheDir=dir
                           use this directory to hold a spider cache file [[]]
-  --with-updateSystemFn=dir
-                          This file is modification time marks when the system
-                          has been updated [[]]
+  --with-updateSystemFn=file
+                          This file is touched when the system has been
+                          updated [[]]
   --with-prependBlock=ans Treat multiple directories passed to prepend in
                           normal order/ not reversed [[NORMAL]]
+  --with-duplicatePaths=ans
+                          Allow multiple directories in path like variables
+                          [[NO]]
   --with-colorize=ans     allow for colorized output [[YES]]
   --with-lua-include=[path]
                           specify path the lua header files
@@ -1833,6 +1838,28 @@ $as_echo "PREPEND_BLOCK=$withval" >&6; }
     PREPEND_BLOCK="$withval"
     cat >>confdefs.h <<_ACEOF
 #define PREPEND_BLOCK "$withval"
+_ACEOF
+
+fi
+
+
+
+# Check whether --with-duplicatePaths was given.
+if test "${with_duplicatePaths+set}" = set; then :
+  withval=$with_duplicatePaths; DUPLICATE_PATHS="$withval"
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: DUPLICATE_PATHS=$with_duplicatePaths" >&5
+$as_echo "DUPLICATE_PATHS=$with_duplicatePaths" >&6; }
+    cat >>confdefs.h <<_ACEOF
+#define DUPLICATE_PATHS "$with_duplicatePaths"
+_ACEOF
+
+else
+  withval="NO"
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: DUPLICATE_PATHS=$withval" >&5
+$as_echo "DUPLICATE_PATHS=$withval" >&6; }
+    DUPLICATE_PATHS="$withval"
+    cat >>confdefs.h <<_ACEOF
+#define DUPLICATE_PATHS "$withval"
 _ACEOF
 
 fi
@@ -3320,6 +3347,8 @@ echo "SPIDER_CACHE_DIR............................" : $SPIDER_CACHE_DIR
 echo "Prepending multiple dirs (NORMAL / REVERSED)" : $PREPEND_BLOCK
 echo "Colorized output supported.................." : $COLORIZE
 echo "File that is touched when system is updated." : $UPDATE_SYSTEM_FN
+echo "Allow duplicate entry in PATHs.............." : $DUPLICATE_PATHS
+
 echo
 echo '-------------------------------------------------------------------------------'
 

@@ -82,6 +82,13 @@ C) The program "lua" must be in your path before installing "Lmod".  The
          These configure options are how Lmod knows about the spider cache file
          See Letter (B) for more details.  This is important!!!
 
+      --with-duplicatePaths=ans
+         Allow duplicates in path like variables (PATH, LD_LIBRARY_PATH, etc).
+         Sites new to Lmod should allow for duplicate.  Sites that have used Lmod
+         for a while should test to see if allowing duplicates leads to different
+         behaviour for their users programs.
+
+
 D) As an example here is my configuration line:
 
     
