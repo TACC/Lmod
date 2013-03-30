@@ -313,28 +313,19 @@ end
 
 function LmodError(...)
    local dbg = Dbg:dbg()
-   --dbg.start("LmodError(",concatTbl({...},", "),")")
-
    local b = mcp:error(...)
-   --dbg.fini()
    return b
 end
 
 function LmodWarning(...)
    local dbg = Dbg:dbg()
-   --dbg.start("LmodWarning(",concatTbl({...},", "),")")
-
    local b = mcp:warning(...)
-   --dbg.fini()
    return b
 end
 
 function LmodMessage(...)
    local dbg = Dbg:dbg()
-   --dbg.start("LmodMessage(",concatTbl({...},", "),")")
-
    local b = mcp:message(...)
-   --dbg.fini()
    return b
 end
 

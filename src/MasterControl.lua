@@ -295,7 +295,7 @@ function M.pushenv(self, name, value)
    varTbl[name]:set(tostring(value))
    
    mStack:setting()
-   dbg.fini()
+   dbg.fini("MasterControl:pushenv")
 end
 
 function M.popenv(self, name, value)
@@ -305,11 +305,24 @@ function M.popenv(self, name, value)
 
    local stackName = "__LMOD_STACK_" .. name
 
+   local v = nil
+
+   if (varTbl[stackName] == nil) then
+      varTbl[stackName] = Var:new(stackName)
+   end
+      
+   dbg.print("stackName: ", stackName, " RTM pop()\n")
    local v = varTbl[stackName]:pop()
+   dbg.print("v: ", tostring(v),"\n")
+
+   if (varTbl[name] == nil) then
+      varTbl[name] = Var:new(name)
+   end
+
    varTbl[name]:set(v)
 
    mStack:setting()
-   dbg.fini()
+   dbg.fini("MasterControl:popenv")
 end
 
 

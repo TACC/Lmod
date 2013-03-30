@@ -98,14 +98,14 @@ local function followDefault(path)
       result = concatTbl(a,"/")
    end
    dbg.print("result: ",result,"\n")
-   dbg.fini()
+   dbg.fini("followDefault")
    return result
 end
 
 
 local function find_module_file(mname)
    local dbg      = Dbg:dbg()
-   dbg.start("find_module_file(",tostring(mname:usrName()),")")
+   dbg.start("Master:find_module_file(",tostring(mname:usrName()),")")
 
    local t        = { fn = nil, modFullName = nil, modName = nil, default = 0, hash = 0}
    local mt       = MT:mt()
@@ -118,7 +118,7 @@ local function find_module_file(mname)
 
    if (pathA == nil or #pathA == 0) then
       dbg.print("did not find key: \"",sn,"\" in mt:locationTbl()\n")
-      dbg.fini()
+      dbg.fini("Master:find_module_file")
       return t
    end
    local fn, result
@@ -182,7 +182,7 @@ local function find_module_file(mname)
    t.modFullName = fullName
    t.modName     = sn
    dbg.print("modName: ",sn," fn: ", result," modFullName: ", fullName," default: ",tostring(t.default),"\n")
-   dbg.fini()
+   dbg.fini("Master:find_module_file")
    return t
 end
 
@@ -232,7 +232,7 @@ function loadModuleFile(t)
       
       LmodError("Unable to load module: ",n,"\n    ",t.file,": ", msg,"\n")
    end
-   dbg.fini()
+   dbg.fini("loadModuleFile")
 end
 
 function M.master(self, safe)
@@ -291,7 +291,7 @@ function M.unload(...)
    end
    mcp = mcp_old
    dbg.print("Resetting mpc to ", mcp:name(),"\n")
-   dbg.fini()
+   dbg.fini("Master:unload")
    return a
 end
 
@@ -301,17 +301,18 @@ function M.versionFile(path)
    local f       = io.open(path,"r")
    if (not f)                        then
       dbg.print("could not find: ",path,"\n")
-      dbg.fini()
+      dbg.fini("versionFile")
       return nil
    end
    local s       = f:read("*line")
    f:close()
    if (not s:find("^#%%Module"))      then
       dbg.print("could not find: #%Module\n")
-      dbg.fini()
+      dbg.fini("versionFile")
       return nil
    end
    local cmd = pathJoin(cmdDir(),"ModulesVersion.tcl") .. " " .. path
+   dbg.fini("versionFile")
    return capture(cmd):trim()
 end
 
@@ -411,7 +412,7 @@ function M.load(...)
       dbg.print("Master:load calling reloadAll()\n")
       M.reloadAll()
    end
-   dbg.fini()
+   dbg.fini("Master:load")
    return a
 end
 
@@ -433,6 +434,7 @@ function M.fakeload(...)
       end
       a[#a+1] = loaded
    end
+   dbg.fini("Master:fakeload")
 end         
 
 
@@ -494,7 +496,7 @@ function M.reloadAll()
 
    mcp = mcp_old
    dbg.print("Setting mpc to ", mcp:name(),"\n")
-   dbg.fini()
+   dbg.fini("Master:reloadAll")
    return same
 end
 
@@ -520,7 +522,7 @@ function M.inheritModule()
       loadModuleFile{file=t.fn,moduleName=mName, reportErr=true}
       mStack:pop()
    end
-   dbg.fini()
+   dbg.fini("Master:inherit")
 end
 
 local function dirname(f)
@@ -559,7 +561,7 @@ local function findDefault(mpath, sn, versionA)
 
    if (mpath2 ~= mpath) then
       dbg.print("(1) default: \"nil\"\n")
-      dbg.fini()
+      dbg.fini("Master.findDefault")
       return nil
    end
 
@@ -589,7 +591,7 @@ local function findDefault(mpath, sn, versionA)
       default = abspath(versionA[#versionA].file, localDir)
    end
    dbg.print("default: ", tostring(default),"\n")
-   dbg.fini()
+   dbg.fini("Master.findDefault")
 
    return default
 end
@@ -641,7 +643,7 @@ local function availEntry(searchA, name, f, defaultModule, dbT, legendT, a)
       aa[#aa + 1] = dflt
       a[#a + 1]   = aa
    end
-   dbg.fini()
+   dbg.fini("Master:availEntry")
 end
 
 
@@ -654,7 +656,7 @@ local function availDir(searchA, mpath, availT, dbT, a, legendT)
    local mt      = MT:mt()
    if (not attr or type(attr) ~= "table" or attr.mode ~= "directory" or not posix.access(mpath,"x")) then
       dbg.print("Skipping non-existant directory: ", mpath,"\n")
-      dbg.fini()
+      dbg.fini("Master.availDir")
       return
    end
 
@@ -673,7 +675,7 @@ local function availDir(searchA, mpath, availT, dbT, a, legendT)
          end
       end
    end
-   dbg.fini()
+   dbg.fini("Master.availDir")
 end
 
 function M.avail(searchA)
@@ -708,7 +710,7 @@ function M.avail(searchA)
             end
          end
       end
-      dbg.fini()
+      dbg.fini("Master:avail")
       return
    end
 
@@ -747,7 +749,7 @@ function M.avail(searchA)
       aa[#aa+1] = "\n\n"
    end
    pcall(pager,io.stderr,concatTbl(aa,""))
-   dbg.fini()
+   dbg.fini("Master.avail")
 end
 
 return M

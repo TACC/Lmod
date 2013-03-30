@@ -15,7 +15,6 @@ function M.activate(name, value)
 end
 
 function M.help(self, ...)   
-   local dbg = Dbg:dbg()
    local arg = { n = select('#', ...), ...}
    if (M.accessT.help == true) then
       for i = 1, arg.n do
@@ -23,7 +22,6 @@ function M.help(self, ...)
       end
       io.stderr:write("\n")
    end
-   dbg.fini()
 end
 
 function M.whatis(self, msg)

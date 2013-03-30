@@ -365,7 +365,7 @@ function Reset(msg)
    if (default == "") then
       io.stderr:write("\nThe system default contains no modules\n")
       io.stderr:write("  (env var: LMOD_SYSTEM_DEFAULT_MODULES is empty)\n\n")
-      dbg.fini()
+      dbg.fini("Reset")
       return
    end
 
@@ -378,7 +378,7 @@ function Reset(msg)
    if (#a > 0) then
       UsrLoad(unpack(a))
    end
-   dbg.fini()
+   dbg.fini("Reset")
 end
 
 local function localvar(localvarA)
@@ -415,7 +415,7 @@ function Use(...)
    local mt  = MT:mt()
    local a = {}
    local op = MCP.prepend_path
-   dbg.start("use(", concatTbl({...},", "),")")
+   dbg.start("Use(", concatTbl({...},", "),")")
 
    for _,v in ipairs{...} do
       local w = v:lower()
@@ -435,20 +435,20 @@ function Use(...)
    end
    mt:buildBaseMpathA(varTbl[DfltModPath]:expand())
    mt:reloadAllModules()
-   dbg.fini()
+   dbg.fini("Use")
 end
 
 function UnUse(...)
    local dbg = Dbg:dbg()
    local mt  = MT:mt()
-   dbg.start("unuse(", concatTbl({...},", "),")")
+   dbg.start("UnUse(", concatTbl({...},", "),")")
    for _,v in ipairs{...} do
       MCP:remove_path( ModulePath,v)
       MCP:remove_path( DfltModPath,v)
    end
    mt:buildBaseMpathA(varTbl[DfltModPath]:expand())
    mt:reloadAllModules()
-   dbg.fini()
+   dbg.fini("UnUse")
 end
 
 function Show(...)
@@ -466,7 +466,7 @@ function Show(...)
                   end
 
    master:access(...)
-   dbg.fini()
+   dbg.fini("Show")
 
 end
 
@@ -486,7 +486,7 @@ function Access(mode, ...)
 
    master:access(...)
    mcp.activate(mode,false)
-   dbg.fini()
+   dbg.fini("Access")
 end
 
 function Help(...)
@@ -515,7 +515,7 @@ function TryUsrLoad(...)
    deactivateWarning()
    UsrLoad(...)
    activateWarning()
-   dbg.fini()
+   dbg.fini("TryUsrLoad")
 end
 
 function UsrLoad(...)
@@ -563,7 +563,7 @@ function UsrLoad(...)
                   "Try: \"module spider ", s,"\"\n" )
    end
 
-   dbg.fini()
+   dbg.fini("UsrLoad")
    return b
 end
 
@@ -571,7 +571,7 @@ function UnLoad(...)
    local dbg    = Dbg:dbg()
    dbg.start("UnLoad(",concatTbl({...},", "),")")
    MCP:unload(...)
-   dbg.fini()
+   dbg.fini("UnLoad")
 end
 
 
@@ -584,7 +584,7 @@ local function Save(...)
 
    if (a == "system") then
       LmodWarning("The named collection 'system' is reserved. Please choose another name.\n")
-      dbg.fini()
+      dbg.fini("Save")
       return
    end
 
@@ -596,7 +596,7 @@ local function Save(...)
                   "The following module(s):\n",
                   "  ",concatTbl(aa,", "),"\n",
                   "mix load statements with setting of environment variables.\n")
-      dbg.fini()
+      dbg.fini("Save")
       return
    end
 
@@ -614,7 +614,7 @@ local function Save(...)
    if (not expert()) then
       io.stderr:write("Saved current collection of modules to: ",a,"\n")
    end
-   dbg.fini()
+   dbg.fini("Save")
 end
 
 local function GetDefault(a)
@@ -625,7 +625,7 @@ local function GetDefault(a)
    local path = pathJoin(os.getenv("HOME"), ".lmod.d", a)
    local mt   = MT:mt()
    mt:getMTfromFile(path)
-   dbg.fini()
+   dbg.fini("GetDefault")
 end
 
 local function Restore(a)
@@ -670,7 +670,7 @@ local function Restore(a)
       local results = mt:getMTfromFile(path,msg) or Reset(true)
    end
    
-   dbg.fini()
+   dbg.fini("Restore")
 end
 
 local function FindDefaults(a,path)
@@ -741,7 +741,7 @@ local function Swap(...)
       LmodError("Swap failed.\n")
    end
    mcp = mcp_old
-   dbg.fini()
+   dbg.fini("Swap")
 end
 
 
@@ -766,7 +766,7 @@ function RecordCmd()
       f:write(s)
       f:close()
    end
-   dbg.fini()
+   dbg.fini("RecordCmd")
 end
 
 
@@ -796,7 +796,7 @@ function SpiderCmd(...)
       s = concatTbl(a,"\n")
    end
    pcall(pager,io.stderr, s, "\n")
-   dbg.fini()
+   dbg.fini("SpiderCmd")
 end
 
 function Keyword(...)
@@ -824,7 +824,7 @@ function Keyword(...)
    Spider.Level0Helper(dbT,a)
    pcall(pager,io.stderr,concatTbl(a,""))
 
-   dbg.fini()
+   dbg.fini("Keyword")
 
 end
 
@@ -1062,7 +1062,7 @@ function main()
       varTbl[n]:set(value)
       dbg.print("Writing out _ModuleTable_\n")
    end
-   dbg.fini()
+   dbg.fini("Lmod")
 
    -- Output all newly created path and variables.
    master.shell:expand(varTbl)

@@ -53,7 +53,7 @@ function Purge()
 
    mt:buildMpathA(mt:getBaseMPATH())
 
-   dbg.fini()
+   dbg.fini("Purge")
 end
 
 local __expert = false
@@ -239,7 +239,7 @@ function List(...)
       local ct = ColumnTable:new{tbl=a,gap=0}
       io.stderr:write(ct:build_tbl(),"\n")
    end
-   dbg.fini()
+   dbg.fini("List")
 end
 
 function activateWarning()
@@ -329,7 +329,7 @@ function readCacheFile(lastUpdateEpoch, cacheType, cacheFileA, moduleDirT, modul
          break
       end
    end
-   dbg.fini()
+   dbg.fini("readCacheFile")
    return dirsRead
 end
 
@@ -426,7 +426,7 @@ function getModuleT(fast)
    if (dirsRead == 0 and fast) then
       mcp = mcp_old
       dbg.print("Resetting mpc to ", mcp:name(),"\n")
-      dbg.fini()
+      dbg.fini("getModuleT")
       return nil
    end
 
@@ -511,6 +511,6 @@ function getModuleT(fast)
 
    mcp = mcp_old
    dbg.print("Resetting mpc to ", mcp:name(),"\n")
-   dbg.fini()
+   dbg.fini("getModuleT")
    return s_moduleT
 end

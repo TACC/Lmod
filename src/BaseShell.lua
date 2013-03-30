@@ -1,6 +1,8 @@
 -- BaseShell
 require("strict")
 require("inherits")
+require("serializeTbl")
+require("string_split")
 
 local M            = {}
 
@@ -81,7 +83,7 @@ function M.expand(self, tbl)
 
    if ( not self._active) then
       dbg.print("expand is not active\n")
-      dbg.fini()
+      dbg.fini("BaseShell:expand")
       return
    end
       
@@ -101,7 +103,7 @@ function M.expand(self, tbl)
       end
    end   
          
-   dbg.fini()
+   dbg.fini("BaseShell:expand")
 end
 
 function M.expandMT(self, v)
@@ -131,7 +133,18 @@ function M.expandMT(self, v)
       if (v == nil) then break end
       self:unset(name)
    end
-   dbg.fini()
+
+   if (dbg.active()) then
+      local blank  = " "
+      local indent = blank:rep(dbg.indentLevel()*2)
+      local s      = serializeTbl{indent=true, name="_ModuleTable_",
+                             value=_ModuleTable_}
+      for line in s:split("\n") do
+         io.stderr:write(indent,line,"\n")
+      end
+   end
+
+   dbg.fini("BaseShell:expandMT")
 end
 
 

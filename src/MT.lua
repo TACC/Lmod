@@ -56,7 +56,7 @@ local function locationTblDir(mpath, path, prefix, locationT, availT)
 
    local attr = lfs.attributes(path)
    if (not attr or type(attr) ~= "table" or attr.mode ~= "directory" or not posix.access(path,"x")) then
-      dbg.fini()
+      dbg.fini("locationTblDir")
       return
    end
 
@@ -108,7 +108,7 @@ local function locationTblDir(mpath, path, prefix, locationT, availT)
       end
       availT[prefix] = a
    end
-   dbg.fini()
+   dbg.fini("locationTblDir")
 end
 
 local function buildLocWmoduleT(mpath, moduleT, mpathT, lT, availT)
@@ -140,7 +140,7 @@ local function buildLocWmoduleT(mpath, moduleT, mpathT, lT, availT)
          end
       end
    end
-   dbg.fini()
+   dbg.fini("buildLocWmoduleT")
 end
 
 
@@ -192,7 +192,7 @@ local function buildAllLocWmoduleT(moduleT, mpathA, locationT, availT)
       locationT[sn] = b
    end
    lT = nil  -- Done with lT
-   dbg.fini()
+   dbg.fini("buildAllLocWmoduleT")
 end
 
 
@@ -237,7 +237,7 @@ local function build_locationTbl(mpathA)
          end
       end
    end
-   dbg.fini()
+   dbg.fini("build_locationTbl")
    return locationT, availT
 end
 
@@ -321,7 +321,7 @@ local function new(self, s)
 
    dbg.print("(2) systemBaseMPATH: ",o.systemBaseMPATH,"\n")
 
-   dbg.fini()
+   dbg.fini("MT:new")
    return o
 end
 
@@ -377,19 +377,19 @@ function M.setRebuildTime(self, long, short)
    dbg.start("MT:setRebuildTime(long: ",tostring(long),", short: ",tostring(short),")")
    self.c_rebuildTime = long
    self.c_shortTime   = short
-   dbg.fini()
+   dbg.fini("MT:setRebuildTime")
 end
 
 
 local function setupMPATH(self,mpath)
    local dbg = Dbg:dbg()
-   dbg.start("setupMPATH(self,mpath: \"",tostring(mpath),"\")")
+   dbg.start("MT:setupMPATH(self,mpath: \"",tostring(mpath),"\")")
    self._same = self:sameMPATH(mpath)
    if (not self._same) then
       self:buildMpathA(mpath)
    end
    self._locationTbl, self._availT = build_locationTbl(self.mpathA)
-   dbg.fini()
+   dbg.fini("MT:setupMPATH")
 end
 
 local dcT = {function_immutable = true, metatable_immutable = true}
@@ -409,7 +409,7 @@ function M.mt(self)
          s_mt:reloadAllModules()
       end
       dbg.print("s_mt: ",tostring(s_mt), " s_mtA[",#s_mtA,"]: ",tostring(s_mtA[#s_mtA]),"\n")
-      dbg.fini()
+      dbg.fini("mt")
    end
    return s_mt
 end
@@ -423,7 +423,7 @@ function M.cloneMT()
    s_mtA[#s_mtA+1] = mt
    s_mt = mt
    dbg.print("Now using s_mtA[",#s_mtA,"]: ",tostring(s_mt),"\n")
-   dbg.fini()
+   dbg.fini("MT.cloneMT")
 end
 
 function M.popMT()
@@ -434,14 +434,14 @@ function M.popMT()
 
    s_mtA[#s_mtA] = nil    -- mark for garage collection
 
-   dbg.fini()
+   dbg.fini("MT.popMT")
 end
 
 function M.origMT()
    local dbg = Dbg:dbg()
    dbg.start("MT.origMT()")
    dbg.print("Original s_mtA[1]: ",tostring(s_mtA[1]),"\n")
-   dbg.fini()
+   dbg.fini("MT.origMT")
    return s_mtA[1]
 end
 
@@ -511,7 +511,7 @@ function M.getMTfromFile(self,fn, msg)
    if (self.systemBaseMPATH ~= l_mt.systemBaseMPATH) then
       LmodWarning("The system MODULEPATH has changed: ",
                   "Please rebuild your saved collection\n")
-      dbg.fini()
+      dbg.fini("MT:getMTfromFile")
       return false
    end
 
@@ -600,7 +600,7 @@ function M.getMTfromFile(self,fn, msg)
    varTbl[n]:set("1")
    dbg.print("baseMpathA: ",concatTbl(self.baseMpathA,":"),"\n")
 
-   dbg.fini()
+   dbg.fini("MT:getMTfromFile")
    return true
 end
    
@@ -678,7 +678,6 @@ function M.module_pathA(self)
 end
 
 function M.buildMpathA(self, mpath)
-   local dbg    = Dbg:dbg()
    local mpathA = {}
    for path in mpath:split(":") do
       mpathA[#mpathA + 1] = path
@@ -707,7 +706,6 @@ function M.reEvalModulePath(self)
 end
 
 function M.reloadAllModules(self)
-   local dbg    = Dbg:dbg()
    local master = systemG.Master:master()
    local count  = 0
    local ncount = 5
@@ -756,7 +754,7 @@ function M.add(self, t, status)
    if (t.hash and t.hash ~= 0) then
       mT[t.modName].hash = t.hash
    end
-   dbg.fini()
+   dbg.fini("MT:add")
 end
 
 function M.userName(self, sn)
@@ -806,7 +804,6 @@ function M.exists(self, sn)
 end
 
 function M.have(self, sn, status)
-   local dbg   = Dbg:dbg()
    local mT    = self.mT
    local entry = mT[sn]
    if (entry == nil) then
@@ -861,16 +858,46 @@ function M.setHashSum(self)
    local mT   = self.mT
    local dbg  = Dbg:dbg()
 
+   local chsA   = { "computeHashSum", "computeHashSum.in.lua", }
+   local cmdSum = false
+   local found  = false
+
+   for i = 1,2 do
+      cmdSum  = pathJoin(cmdDir(),chsA[i]) 
+      if (isFile(cmdSum)) then
+         found = true
+         break
+      end
+   end
+         
+   if (not found) then
+      LmodError("Unable to find computeHashSum\n")
+   end
+
+   local path = "@path_to_lua@:" .. os.getenv("PATH")
+
+   local luaCmd = findInPath("lua",path)
+
+   if (luaCmd == "") then
+      LmodError("Unable to find lua\n")
+   end
+      
+   local cmdA = {}
+   cmdA[#cmdA+1] = luaCmd
+   cmdA[#cmdA+1] = cmdSum
+   if (dbg.active()) then
+      cmdA[#cmdA+1] = "--indentLevel"
+      cmdA[#cmdA+1] = tostring(dbg.indentLevel()+1)
+      cmdA[#cmdA+1] = "-d"
+   end
+   local cmd = concatTbl(cmdA," ")
+   
    for k,v in pairs(mT) do
       local a = {}
       if (v.status == "active") then
-         a[#a + 1]    = pathJoin(cmdDir(),"computeHashSum")
-         if (dbg.active()) then
-            a[#a + 1] = "-d"
-         end
+         a[#a + 1]  = cmd
          a[#a + 1]  = v.FN
-         local cmd  = concatTbl(a," ")
-         local s    = capture(cmd)
+         local s    = capture(concatTbl(a," "))
          v.hash     = s:sub(1,-2)
       end
    end
@@ -1026,7 +1053,7 @@ function M.add_property(self, sn, name, value)
    end
    entry.propT[name]  = t
 
-   dbg.fini()
+   dbg.fini("MT:add_property")
 end
 
 function M.remove_property(self, sn, name, value)
@@ -1065,7 +1092,7 @@ function M.remove_property(self, sn, name, value)
    end
    entry.propT       = propT
    entry.propT[name] = t
-   dbg.fini()
+   dbg.fini("MT:remove_property")
 end
 
 
@@ -1092,7 +1119,7 @@ function M.list_property(self, idx, sn, style, legendT)
    dbg.print("tlen: ",tostring(tLen)," lenA: ",resultA[1]:len()," ",resultA[2]:len(),
              " ",tostring(resultA[3]):len(),"\n")
 
-   dbg.fini()
+   dbg.fini("MT:list_property")
    return resultA
 end
 
@@ -1105,7 +1132,7 @@ function M.reportChanges(self)
 
    if (not master.shell:isActive()) then
       dbg.print("Expansion is inactive\n")
-      dbg.fini()
+      dbg.fini("MT:reportChanges")
       return
    end
 
@@ -1160,7 +1187,7 @@ function M.reportChanges(self)
       io.stderr:write("\n")
    end
 
-   dbg.fini()
+   dbg.fini("MT:reportChanges")
 end
 
 

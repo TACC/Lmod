@@ -45,7 +45,7 @@ local function regularizePath(path, sep)
    -- remove leading and trailing sep
    if (path:sub(1,1) == sep) then
       is = 2
-      ie = -1
+
    end
    if (path:sub(-1,-1) == sep) then
       ie = -2
@@ -73,7 +73,7 @@ local function extract(self)
    local pathA   = {}
    local sep     = self.sep
 
-   dbg.start("extract(self)")
+   dbg.start("Var:extract(self)")
 
    dbg.print("myValue: \"",myValue,"\"\n")
 
@@ -96,7 +96,7 @@ local function extract(self)
    if (dbg.active()) then
       self:prt("In extract")
    end
-   dbg.fini()
+   dbg.fini("Var:extract")
 end
 
 function M.new(self, name, value, sep)
@@ -109,7 +109,7 @@ function M.new(self, name, value, sep)
    o.name       = name
    o.sep        = sep or ":"
    extract(o)
-   dbg.fini()
+   dbg.fini("Var:new")
    return o
 end
 
@@ -193,14 +193,22 @@ function M.remove(self, value, where)
          chkMP(self.name, true)
       end
    end
+   local v    = self:expand()
+   self.value = v
+   setenv(self.name, v, true)
    if (dbg.active()) then self:prt("Var:remove") end
-   setenv(self.name, self:expand(), true)
+   dbg.fini("Var:remove")
 end
 
 function M.pop(self)
+   local dbg    = Dbg:dbg()
+   dbg.start("Var:pop()")
    local imin   = self.imin
    local min2   = math.huge
    local result = nil
+
+   if (dbg.active()) then self:prt("(1) Var:pop()") end
+
    for k, idxA in pairs(self.tbl) do
       local v = idxA[1]
       if (idxA[1] == imin) then
@@ -212,7 +220,16 @@ function M.pop(self)
          result = k
       end
    end
-   self.imin = min2
+
+   if (min2 < huge) then
+      self.imin = min2
+   end
+
+   local v    = self:expand()
+   self.value = v
+   setenv(self.name, v, true)
+   if (dbg.active()) then self:prt("(2) Var:pop()") end
+   dbg.fini("Var:pop")
    return result
 end
 
@@ -252,10 +269,12 @@ function M.prepend(self, value, nodups)
       chkMP(self.name, false)
    end
    self.imin = imin
-   if (dbg.active()) then self:prt("Var:prepend") end
 
-   setenv(self.name, self:expand(), true)
-   dbg.fini()
+   local v    = self:expand()
+   self.value = v
+   setenv(self.name, v, true)
+   if (dbg.active()) then self:prt("Var:prepend") end
+   dbg.fini("Var:prepend")
 end
 
 function M.append(self, value, nodups)
@@ -274,7 +293,9 @@ function M.append(self, value, nodups)
       chkMP(self.name,false)
    end
    self.imax  = imax
-   setenv(self.name, self:expand(), true)
+   local v    = self:expand()
+   self.value = v
+   setenv(self.name, v, true)
 end
 
 function M.set(self,value)

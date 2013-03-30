@@ -79,7 +79,7 @@ function loadModuleFile(obj)
    if (func) then
       func()
    end
-   dbg.fini()
+   dbg.fini("ComputeHashSum:loadModuleFile")
 end
 
 
@@ -95,10 +95,8 @@ function main()
    local masterTbl = masterTbl()
    options()
    
-
-
    if (masterTbl.debug) then
-     dbg:activateDebug()
+      dbg:activateDebug(1, tonumber(masterTbl.indentLevel))
    end
    dbg.start("computeHashSum()")
    
@@ -125,9 +123,9 @@ function main()
    local result = capture(HashSum .. " " .. fn)
    os.remove(fn)
    local i,j = result:find(" ")
-   dbg.print("hash value: ",result:sub(1,i-1))
+   dbg.print("hash value: ",result:sub(1,i-1),"\n")
    print (result:sub(1,i-1))
-   dbg.fini()
+   dbg.fini("computeHashSum")
 end
 
 function options()
@@ -148,6 +146,15 @@ function options()
       default = false,
       help    = "debug flag"
    }
+   cmdlineParser:add_option{ 
+      name   = {'--indentLevel'},
+      dest   = 'indentLevel',
+      action = 'store',
+      default = "0",
+      help    = "indent level for Dbg"
+   }
+
+
 
    local optionTbl, pargs = cmdlineParser:parse(arg)
 

@@ -47,7 +47,6 @@ testdescript = {
      
      rm -fr _stderr.* _stdout.* err.* out.* .lmod.d
 
-     (cd $projectDir; ./configure; make src/computeHashSum)
      rm -rf $HOME/.lmod.d
 
      runMe lua $(projectDir)/src/lmod.in.lua bash --version
@@ -68,8 +67,6 @@ testdescript = {
      cat _stderr.[0-9][0-9] > _stderr.orig
      cleanUp _stderr.orig err.txt
 
-     rm -f $projectDir/src/computeHashSum
-     
      rm -f $(cmdResultFn)
 
      wrapperDiff -r $(cmdResultFn) $(testDir)/out.txt out.txt
