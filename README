@@ -56,6 +56,20 @@ Version 5.0b3
     4) C/N/V supported
     5) Sandbox for modulefiles.
     6) Strong use of Spider cache file.
+    7) Support for new function pushenv("name","value"). It works
+       like setenv("name","value"), but when the module is unloaded
+       the old value is returned.  Suppose you have both a gcc module
+       and an mpich module that both set CC. Then
+
+          $ module load   gcc;    echo $CC  # -> CC=gcc
+          $ module load   mpich;  echo $CC  # -> CC=mpicc
+          $ module unload mpich;  echo $CC  # -> CC=???
+          $ module unload gcc;    echo $CC  # -> CC is unset
+
+       If you use both setenv("CC","..." ) then when unloading mpich
+       CC has no value.  If you use pushenv("CC","...") then CC will
+       return to "gcc" after unloading mpich and have no value when
+       gcc is unloaded.
 
 Version 4.2.1:
   Features:

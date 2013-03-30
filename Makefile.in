@@ -49,6 +49,7 @@ REQUIRED_PKGS	 := \
 	            ProgressBar   \
 	            TermWidth     \
                     capture       \
+                    declare       \
                     deepcopy      \
                     escape        \
                     fileOps       \

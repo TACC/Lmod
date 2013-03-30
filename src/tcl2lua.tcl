@@ -316,6 +316,12 @@ proc setenv { var val } {
     set g_varsT($var) $val
     cmdargs "setenv" $var $val
 }
+
+proc pushenv { var val } {
+    global g_varsT
+    set g_varsT($var) $val
+    cmdargs "pushenv" $var $val
+}
 proc prepend-path { var val args} {
     if {[string match $var "-delim"] || [string match $var "-d"] || [string match $var "--delim"]} {
         set separator $val
@@ -492,6 +498,7 @@ proc execute-modulefile {modfile } {
 	interp create $slave
 	interp alias $slave family {} family
 	interp alias $slave setenv {} setenv
+	interp alias $slave pushenv {} pushenv
 	interp alias $slave unsetenv {} unsetenv
 	interp alias $slave system {} system
 	interp alias $slave append-path {} append-path
