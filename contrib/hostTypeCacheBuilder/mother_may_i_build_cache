@@ -1,0 +1,43 @@
+#!/usr/bin/env lua
+-- -*- lua -*-
+
+Version = "0.1"
+
+require("strict")
+require("string_split")
+require("VarDump")
+local Dbg    = require("Dbg")
+local Optiks = require("Optiks")
+local master = {}
+
+function masterTbl()
+   return master
+end
+
+function main()
+
+   --options()
+   --local masterTbl   = masterTbl()
+   
+end
+
+function options()
+   local masterTbl = masterTbl()
+   local usage         = "Usage: "
+   local cmdlineParser = Optiks:new{usage=usage, version=Version, progName = arg[0]}
+
+   cmdlineParser:add_option{ 
+      name   = {'-v','--verbose'},
+      dest   = 'verbosityLevel',
+      action = 'count',
+   }
+   local optionTbl, pargs = cmdlineParser:parse(arg)
+
+   for v in pairs(optionTbl) do
+      masterTbl[v] = optionTbl[v]
+   end
+   masterTbl.pargs = pargs
+
+end
+
+main()
