@@ -359,7 +359,7 @@ function getModuleT(fast)
 
    local hostType = ""
    if (attr and type(attr) == "table") then
-      local lastUpdateEpoch = epoch() - ancient
+      lastUpdateEpoch = epoch() - attr.modification
       local f = io.open(updateSystemFn, "r")
       hostType = f:read("*line") or ""
       hostType = hostType:trim()
