@@ -67,7 +67,7 @@ function main()
    declare("clusterDescriptT")
    loadfile(masterTbl.hostDescriptFn)
 
-   local hostA = clusterDescriptT[hostType]
+   local hostA = clusterDescriptT.hostType[hostType]
    local hostT = {}
    for i = 1,#hostA do
       dbg.print("hostA[",i,"]: ",hostA[i])
@@ -75,7 +75,8 @@ function main()
    end
 
    ------------------------------------------------------------------------
-   -- Am I in hostT?
+   -- Am I in hostT?.  Start with the complete name and peel back one name
+   -- at a time.
 
    myHostName = posix.uname("%n")
    local hostIdx = -1
