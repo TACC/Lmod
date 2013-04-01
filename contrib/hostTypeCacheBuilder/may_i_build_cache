@@ -1,0 +1,182 @@
+#!/usr/bin/env lua
+-- -*- lua -*-
+
+Version = "0.1"
+
+require("strict")
+require("string_split")
+require("declare")
+require("fileOps")
+local Dbg       = require("Dbg")
+local Optiks    = require("Optiks")
+local concatTbl = table.concat
+local lfs       = require("lfs")
+local posix     = require("posix")
+
+local master = {}
+
+function masterTbl()
+   return master
+end
+
+
+
+function main()
+   local dbg = Dbg:dbg()
+   options()
+   local masterTbl  = masterTbl()
+   if (masterTbl.debug) then
+      dbg:activateDebug(1)
+   end
+   dbg.start("May_I_build_cache", concatTbl(arg," "),")")
+   local attr       = lfs.attributes(masterTbl.systemUpdateFn)
+   local hostType   = "system"
+   local lastUpdate = 0
+
+   if (attr and type(attr) == "table") then
+      lastUpdate = attr.modification
+      local f    = io.open(masterTbl.systemUpdateFn, "r")
+      hostType   = f:read("*line") or ""
+      hostType   = hostType:trim()
+      f:close()
+   end
+
+   dbg.print("hostType: ",hostType,"\n")
+
+   local sysCacheTime = 0
+   local sysCacheFile = pathJoin(masterTbl.cacheDir, hostType,"moduleT.lua")
+   attr               = lfs.attributes(sysCacheFile)
+   if (attr and type(attr) == "table") then
+      sysCacheTime = attr.modification
+   end
+
+   dbg.print("sysCacheTime - lastUpdate: ",sysCacheTime - lastUpdate,"\n")
+
+   ------------------------------------------------------------------------
+   -- If system update is older than cache file then do not rebuild
+
+   if (sysCacheTime >= lastUpdate) then
+      print("no")
+      dbg.fini()
+      return
+   end
+
+   ------------------------------------------------------------------------
+   -- Read in hostType descript file
+
+   declare("clusterDescriptT")
+   loadfile(masterTbl.hostDescriptFn)
+
+   local hostA = clusterDescriptT.hostType[hostType]
+   local hostT = {}
+   for i = 1,#hostA do
+      dbg.print("hostA[",i,"]: ",hostA[i])
+      hostT[hostA[i]] = i
+   end
+
+   ------------------------------------------------------------------------
+   -- Am I in hostT?.  Start with the complete name and peel back one name
+   -- at a time.
+
+   myHostName = posix.uname("%n")
+   local hostIdx = -1
+   while(true) do
+      dbg.print("myHostName: ",myHostName,"\n")
+      if (hostT[myHostName]) then
+         hostIdx = hostT[myHostName]
+         break
+      end
+      local i,j = myHostName:find(".*%.")
+      if (not j) then
+         break
+      end
+      myHostName = myHostName:sub(1,j-1)
+   end
+
+   dbg.print("hostIdx: ",hostIdx,"\n")
+
+   ------------------------------------------------------------------------
+   -- If I'm not in hostT then I'm not responible for building cache file.
+
+   if (hostIdx == -1) then
+      print("no")
+      dbg.fini()
+      return
+   end
+
+   ------------------------------------------------------------------------
+   -- I'm the hostType leader so I build the cache.
+   if (hostIdx == 1) then
+      print("yes")
+      dbg.fini()
+      return
+   end
+   
+   ------------------------------------------------------------------------
+   -- Ping Test.
+
+   for idx = hostIdx-1, 1, -1 do
+      local cmd    = "ping -c 1 -w 1 "..hostA[idx] .. "> /dev/null 2>&1"
+      local result = os.execute(cmd)
+      dbg.print("idx: ",idx," host: ",hostA[idx], " result: ",result,"\n")
+      if (result == 0) then
+         print("no")
+         dbg.fini()
+         return
+      end
+   end
+
+   ------------------------------------------------------------------------
+   -- Nobody senior to me is around so I get to do it.
+   print("yes")
+   dbg.fini()
+end
+
+function options()
+   local masterTbl = masterTbl()
+   local usage         = "Usage: "
+   local cmdlineParser = Optiks:new{usage=usage, version=Version, progName = arg[0]}
+
+   cmdlineParser:add_option{ 
+      name   = {'-v','--verbose'},
+      dest   = 'verbosityLevel',
+      action = 'count',
+   }
+
+   cmdlineParser:add_option{ 
+      name    = {'-f','--systemUpdateFn'},
+      dest    = 'systemUpdateFn',
+      action  = 'store',
+      default = "/tmp/losf/last_update"
+   }
+
+   cmdlineParser:add_option{ 
+      name    = {'-i','--hostDescriptFn'},
+      dest    = 'hostDescriptFn',
+      action  = 'store',
+      default = "unknown",
+   }
+
+   cmdlineParser:add_option{ 
+      name    = {'-c','--cacheDir'},
+      dest    = 'cacheDir',
+      action  = 'store',
+      default = "/home1/moduleData/cachedir"
+   }
+   
+   cmdlineParser:add_option{ 
+      name    = {'-d','--debug'},
+      dest    = 'debug',
+      action  = 'store_true',
+   }
+   
+   local optionTbl, pargs = cmdlineParser:parse(arg)
+
+   for v in pairs(optionTbl) do
+      masterTbl[v] = optionTbl[v]
+   end
+   masterTbl.pargs = pargs
+
+end
+
+main()
