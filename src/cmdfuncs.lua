@@ -14,6 +14,7 @@ local MName        = require("MName")
 local Spider       = require("Spider")
 local concatTbl    = table.concat
 local getenv       = os.getenv
+local hook         = require("Hook")
 local posix        = require("posix")
 
 function UUIDString(epoch)

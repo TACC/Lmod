@@ -12,13 +12,15 @@ LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/set_alias/mf";
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/set_alias/mf";
 export MODULEPATH;
+LMOD_ALIAS_MODULES="test1/1.0";
+export LMOD_ALIAS_MODULES;
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/set_alias/mf";
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/set_alias/mf";
 export MODULEPATH;
 VARIABLE="1";
 export VARIABLE;
-_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/set_alias/mf",},family={},inactive={},mT={test1={["FN"]="ProjectDIR/rt/set_alias/mf/test1",["default"]=0,["fullName"]="test1",["loadOrder"]=1,["mType"]="w",propT={},["short"]="test1",["status"]="active",},},mpathA={"ProjectDIR/rt/set_alias/mf",},["systemBaseMPATH"]="ProjectDIR/rt/set_alias/mf",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/set_alias/mf",},family={},inactive={},mT={test1={["FN"]="ProjectDIR/rt/set_alias/mf/test1/1.0.lua",["default"]=1,["fullName"]="test1/1.0",["loadOrder"]=1,["mType"]="mw",propT={},["short"]="test1",["status"]="active",},},mpathA={"ProjectDIR/rt/set_alias/mf",},["systemBaseMPATH"]="ProjectDIR/rt/set_alias/mf",["version"]=2,}';
 export _ModuleTable_;
 alias somealias="1";
 ===========================
@@ -28,13 +30,15 @@ LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/set_alias/mf";
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/set_alias/mf";
 export MODULEPATH;
+LMOD_ALIAS_MODULES="test2/2.0";
+export LMOD_ALIAS_MODULES;
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/set_alias/mf";
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/set_alias/mf";
 export MODULEPATH;
 VARIABLE="2";
 export VARIABLE;
-_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/set_alias/mf",},family={},inactive={},mT={test2={["FN"]="ProjectDIR/rt/set_alias/mf/test2",["default"]=0,["fullName"]="test2",["loadOrder"]=1,["mType"]="mw",propT={},["short"]="test2",["status"]="active",},},mpathA={"ProjectDIR/rt/set_alias/mf",},["systemBaseMPATH"]="ProjectDIR/rt/set_alias/mf",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/set_alias/mf",},family={},inactive={},mT={test2={["FN"]="ProjectDIR/rt/set_alias/mf/test2/2.0.lua",["default"]=1,["fullName"]="test2/2.0",["loadOrder"]=1,["mType"]="mw",propT={},["short"]="test2",["status"]="active",},},mpathA={"ProjectDIR/rt/set_alias/mf",},["systemBaseMPATH"]="ProjectDIR/rt/set_alias/mf",["version"]=2,}';
 export _ModuleTable_;
 alias somealias="2";
 ===========================
@@ -44,6 +48,7 @@ LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/set_alias/mf";
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/set_alias/mf";
 export MODULEPATH;
+unset LMOD_ALIAS_MODULES;
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/set_alias/mf";
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/set_alias/mf";
@@ -52,3 +57,37 @@ unset VARIABLE;
 _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/set_alias/mf",},family={},inactive={},mT={},mpathA={"ProjectDIR/rt/set_alias/mf",},["systemBaseMPATH"]="ProjectDIR/rt/set_alias/mf",["version"]=2,}';
 export _ModuleTable_;
 unalias somealias;
+===========================
+step 5
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/set_alias/mf";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/set_alias/mf";
+export MODULEPATH;
+LMOD_ALIAS_MODULES="test1/1.0";
+export LMOD_ALIAS_MODULES;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/set_alias/mf";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/set_alias/mf";
+export MODULEPATH;
+VARIABLE="1";
+export VARIABLE;
+_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/set_alias/mf",},family={},inactive={},mT={test1={["FN"]="ProjectDIR/rt/set_alias/mf/test1/1.0.lua",["default"]=1,["fullName"]="test1/1.0",["loadOrder"]=1,["mType"]="mw",propT={},["short"]="test1",["status"]="active",},},mpathA={"ProjectDIR/rt/set_alias/mf",},["systemBaseMPATH"]="ProjectDIR/rt/set_alias/mf",["version"]=2,}';
+export _ModuleTable_;
+alias somealias="1";
+===========================
+step 6
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/set_alias/mf";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/set_alias/mf";
+export MODULEPATH;
+LMOD_ALIAS_MODULES="test1/1.0:sfunc/1.0";
+export LMOD_ALIAS_MODULES;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/set_alias/mf";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/set_alias/mf";
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/set_alias/mf",},family={},inactive={},mT={sfunc={["FN"]="ProjectDIR/rt/set_alias/mf/sfunc/1.0.lua",["default"]=1,["fullName"]="sfunc/1.0",["loadOrder"]=2,["mType"]="w",propT={},["short"]="sfunc",["status"]="active",},test1={["FN"]="ProjectDIR/rt/set_alias/mf/test1/1.0.lua",["default"]=1,["fullName"]="test1/1.0",["loadOrder"]=1,["mType"]="mw",propT={},["short"]="test1",["status"]="active",},},mpathA={"ProjectDIR/rt/set_alias/mf",},["systemBaseMPATH"]="ProjectDIR/rt/set_alias/mf",["version"]=2,}';
+export _ModuleTable_;
+ml() {eval $($LMOD_DIR/ml_cmd "$@") };
