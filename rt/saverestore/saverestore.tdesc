@@ -32,15 +32,13 @@ testdescript = {
      unset LMOD_SYSTEM_DEFAULT_MODULES
 
 
-     HOME=`(cd $HOME; /bin/pwd)`
-     HOME_ORIG=$HOME  
+     HOME_ORIG=`(cd $HOME; /bin/pwd)`
      HOME=`pwd`;                        export HOME
      COUNT=0;
      numStep=0;
      
      rm -fr _stderr.* _stdout.* err.* out.* .lmod.d
 
-     rm -rf $HOME/.lmod.d
      PATH=$(projectDir)/src:$PATH_to_LUA:$PATH_to_TM:/usr/bin:/bin
      export PATH
      unset  LMOD_COMPILER
