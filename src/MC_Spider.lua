@@ -34,6 +34,11 @@ function M.myFileName(self)
    return Spider_myFileName()
 end
 
+
+function M.myModuleName(self)
+   return Spider_myModuleName()
+end
+
 function M.help(self,...)
    local dbg    = Dbg:dbg()
    dbg.start("MC_Spider:help(...)")

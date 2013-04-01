@@ -29,6 +29,7 @@ M.add_property         = MasterControl.quiet
 M.help                 = MasterControl.quiet
 M.inherit              = MasterControl.quiet
 M.myFileName           = MasterControl.myFileName
+M.myModuleName         = MasterControl.myModuleName
 M.pushenv              = MasterControl.quiet
 M.remove_property      = MasterControl.quiet
 M.report               = MasterControl.quiet

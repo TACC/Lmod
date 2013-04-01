@@ -363,6 +363,10 @@ function myFileName()
    return mcp:myFileName()
 end
 
+function myModuleName()
+   return mcp:myModuleName()
+end
+
 function hierarchyA(package, levels, numEntries)
    local dbg = Dbg:dbg()
    numEntries = numEntries or 2

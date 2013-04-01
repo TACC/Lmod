@@ -1,9 +1,0 @@
-#%Module1.0
-#
-
-if [ is-loaded test1 ] {
-        module del test1
-}
-
-setenv          VARIABLE                2
-set-alias       somealias               2

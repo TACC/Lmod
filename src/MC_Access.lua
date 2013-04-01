@@ -52,6 +52,7 @@ M.inherit              = MasterControl.quiet
 M.load                 = MasterControl.quiet
 M.message              = MasterControl.quiet
 M.myFileName           = MasterControl.myFileName
+M.myModuleName         = MasterControl.myModuleName
 M.prepend_path         = MasterControl.quiet
 M.prereq               = MasterControl.quiet
 M.prereq_any           = MasterControl.quiet

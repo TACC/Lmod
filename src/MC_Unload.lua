@@ -20,6 +20,7 @@ M.help                 = MasterControl.quiet
 M.inherit              = MasterControl.inherit
 M.load                 = MasterControl.unload
 M.myFileName           = MasterControl.myFileName
+M.myModuleName         = MasterControl.myModuleName
 M.prepend_path         = MasterControl.remove_path_first
 M.prereq               = MasterControl.quiet
 M.prereq_any           = MasterControl.quiet

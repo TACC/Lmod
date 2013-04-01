@@ -488,6 +488,7 @@ function M.prereq(self, ...)
    if (masterTbl.checkSyntax) then
       dbg.print("Ignoring prereq when syntax checking\n")
       dbg.fini()
+      return
    end
 
    for _,v in ipairs{...} do
@@ -616,6 +617,11 @@ end
 function M.myFileName(self)
    local mStack = ModuleStack:moduleStack()
    return mStack:fileName()
+end
+
+function M.myModuleName(self)
+   local mStack = ModuleStack:moduleStack()
+   return mStack:moduleName()
 end
 
 function M.unset_family(self, name)
