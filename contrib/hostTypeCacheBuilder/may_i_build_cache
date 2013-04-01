@@ -115,8 +115,10 @@ function main()
    ------------------------------------------------------------------------
    -- Ping Test.
 
+   local pingCmd = "ping ".. clusterDescriptT.ping_options .. " "
+
    for idx = hostIdx-1, 1, -1 do
-      local cmd    = "ping -c 1 -w 1 "..hostA[idx] .. "> /dev/null 2>&1"
+      local cmd    = pingCmd .. hostA[idx] .. "> /dev/null 2>&1"
       local result = os.execute(cmd)
       dbg.print("idx: ",idx," host: ",hostA[idx], " result: ",result,"\n")
       if (result == 0) then
