@@ -1,7 +1,9 @@
 require("strict")
 require("serializeTbl")
+require("myGlobals")
 local hook   = require("Hook")
 local getenv = os.getenv
+local posix  = require("posix")
 
 function load_hook(t)
 
@@ -26,9 +28,24 @@ function load_hook(t)
    end
 end
 
+buildHostsT = {
+   ["build.stampede.tacc.utexas.edu"]    = 1,
+   ["c560-904.stampede.tacc.utexas.edu"] = 1,
+   ["build.ls4.tacc.utexas.edu"]         = 1,
+   ["build.longhorn"]                    = 1,
+}
+   
+function buildCache_hook(t)
 
+   local userName = getenv("USER")
+   local host     = posix.uname("%n")
 
+   if (buildHostsT[host]) then
+      t.dontWriteCache = true
+   end
+end
 
+hook.register("buildCache",buildCache_hook)
 hook.register("load",load_hook)
 
 

@@ -455,7 +455,11 @@ function getModuleT(fast)
       LmodMessage  = message
       dbg.print("t2-t1: ",t2-t1, " shortTime: ", shortTime, "\n")
 
-      if (t2 - t1 < shortTime) then
+      local r = {}
+      hook.apply("buildCache",r)
+
+
+      if (t2 - t1 < shortTime or r.dontWriteCache) then
          ancient = shortLifeCache
 
          ------------------------------------------------------------------------
