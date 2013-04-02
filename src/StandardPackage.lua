@@ -8,10 +8,9 @@ local function parse_updateFn_hook(updateSystemFn, t)
    local attr = lfs.attributes(updateSystemFn)
    if (attr and type(attr) == "table") then
       local f           = io.open(updateSystemFn, "r")
-      hostType          = f:read("*line") or ""
+      local hostType    = f:read("*line") or ""
       t.hostType        = hostType:trim()
       t.lastUpdateEpoch = attr.modification
-      t.hostType        = host
    end
 end
 
