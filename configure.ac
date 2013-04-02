@@ -40,11 +40,11 @@ AC_ARG_WITH(shortTime,
     AC_DEFINE_UNQUOTED(SHORT_TIME, "$withval"))dnl
 
 AC_SUBST(SPIDER_CACHE_DIRS)
-AC_ARG_WITH(spiderCacheDirs,
-    AC_HELP_STRING([--with-spiderCacheDirs=dir1:dir2],[use these directories to hold a spider cache file [[]]]),
+AC_ARG_WITH(spiderCacheDir,
+    AC_HELP_STRING([--with-spiderCacheDir=dir1:dir2],[use these directories to hold a spider cache file [[]]]),
     SPIDER_CACHE_DIRS="$withval"
-    AC_MSG_RESULT([SPIDER_CACHE_DIRS=$with_spiderCacheDirs])
-    AC_DEFINE_UNQUOTED(SHORT_TIME, "$with_spiderCacheDirs")dnl
+    AC_MSG_RESULT([SPIDER_CACHE_DIRS=$with_spiderCacheDir])
+    AC_DEFINE_UNQUOTED(SHORT_TIME, "$with_spiderCacheDir")dnl
     ,
     withval=""
     AC_MSG_RESULT([SPIDER_CACHE_DIRS=$withval])

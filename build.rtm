@@ -45,15 +45,18 @@ case $SYSHOST in
     SUDO="sudo"
     base="/opt/apps"
     ADMIN_DIR=/opt/moduleData
+    UPDATE_FN=$ADMIN_DIR/system.txt
     ;;
 
   ls4 | longhorn | stampede)
     base="$HOME/l/pkg"
     ADMIN_DIR="$HOME/a/moduleData"
+    UPDATE_FN=$ADMIN_DIR/system.txt
 
     TACC_SYSTEM=1
     if [ $SYSHOST == "stampede" ]; then
       base="$base/$(uname -m)"
+      UPDATE_FN=/tmp/losf_last_update
     fi
     ;;
 
@@ -75,7 +78,7 @@ fi
 rm -f config.status config.log
 
 cmdA=("-make distclean"
-      "./configure --prefix=$BASE_DIR --with-ancient=86401 --with-shortTime=10.3 --with-spiderCacheDirs=$ADMIN_DIR/cacheDir  --with-updateSystemFn=$ADMIN_DIR/system.txt --with-duplicatePaths=yes"
+      "./configure --prefix=$BASE_DIR --with-ancient=86401 --with-shortTime=10.3 --with-spiderCacheDir=$ADMIN_DIR/cacheDir  --with-updateSystemFn=$UPDATE_FN --with-duplicatePaths=yes"
       "$SUDO make install"
       "$EXTRA_CMD"
       "make clobber"

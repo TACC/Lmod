@@ -644,7 +644,7 @@ enable_option_checking
 with_module_root_path
 with_ancient
 with_shortTime
-with_spiderCacheDirs
+with_spiderCacheDir
 with_updateSystemFn
 with_prependBlock
 with_duplicatePaths
@@ -1267,7 +1267,7 @@ Optional Packages:
   --with-shortTime=seconds
                           if spider build time < shortTime then no spider
                           cache file [[2]]
-  --with-spiderCacheDirs=dir1:dir2
+  --with-spiderCacheDir=dir1:dir2
                           use these directories to hold a spider cache file
                           [[]]
   --with-updateSystemFn=file
@@ -1779,13 +1779,13 @@ fi
 
 
 
-# Check whether --with-spiderCacheDirs was given.
-if test "${with_spiderCacheDirs+set}" = set; then :
-  withval=$with_spiderCacheDirs; SPIDER_CACHE_DIRS="$withval"
-    { $as_echo "$as_me:${as_lineno-$LINENO}: result: SPIDER_CACHE_DIRS=$with_spiderCacheDirs" >&5
-$as_echo "SPIDER_CACHE_DIRS=$with_spiderCacheDirs" >&6; }
+# Check whether --with-spiderCacheDir was given.
+if test "${with_spiderCacheDir+set}" = set; then :
+  withval=$with_spiderCacheDir; SPIDER_CACHE_DIRS="$withval"
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: SPIDER_CACHE_DIRS=$with_spiderCacheDir" >&5
+$as_echo "SPIDER_CACHE_DIRS=$with_spiderCacheDir" >&6; }
     cat >>confdefs.h <<_ACEOF
-#define SHORT_TIME "$with_spiderCacheDirs"
+#define SHORT_TIME "$with_spiderCacheDir"
 _ACEOF
 
 else
