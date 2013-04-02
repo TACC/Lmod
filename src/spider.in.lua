@@ -90,6 +90,18 @@ local function add2map(entry, tbl, rmapT, kind)
    end
 end
 
+function epoch()
+   if (posix.gettimeofday) then
+      local t1, t2 = posix.gettimeofday()
+      if (t2 == nil) then
+         return t1.sec + t1.usec*1.0e-6
+      else
+         return t1 + t2*1.0e-6
+      end
+   else
+      return os.time()
+   end
+end
 
 function main()
 
@@ -163,6 +175,8 @@ function main()
       return
    end
 
+   local t1 = epoch()
+
    local dbT = {}
    Spider.buildSpiderDB({"default"}, moduleT, dbT)
 
@@ -180,7 +194,9 @@ function main()
             end
          end
       end
-      local s = serializeTbl{name="reverseMapT",      value=reverseMapT,   indent=true}
+      local t2 = epoch()
+      io.stderr:write("reverseMap Build Time: ", t2-t1,"\n")
+      local s  = serializeTbl{name="reverseMapT",      value=reverseMapT,   indent=true}
       print(s)
       dbg.fini()
       return
