@@ -39,17 +39,17 @@ AC_ARG_WITH(shortTime,
     SHORT_TIME="$withval"
     AC_DEFINE_UNQUOTED(SHORT_TIME, "$withval"))dnl
 
-AC_SUBST(SPIDER_CACHE_DIR)
-AC_ARG_WITH(spiderCacheDir,
-    AC_HELP_STRING([--with-spiderCacheDir=dir],[use this directory to hold a spider cache file [[]]]),
-    SPIDER_CACHE_DIR="$withval"
-    AC_MSG_RESULT([SPIDER_CACHE_DIR=$with_spiderCacheDir])
-    AC_DEFINE_UNQUOTED(SHORT_TIME, "$with_spiderCacheDir")dnl
+AC_SUBST(SPIDER_CACHE_DIRS)
+AC_ARG_WITH(spiderCacheDirs,
+    AC_HELP_STRING([--with-spiderCacheDirs=dir1:dir2],[use these directories to hold a spider cache file [[]]]),
+    SPIDER_CACHE_DIRS="$withval"
+    AC_MSG_RESULT([SPIDER_CACHE_DIRS=$with_spiderCacheDirs])
+    AC_DEFINE_UNQUOTED(SHORT_TIME, "$with_spiderCacheDirs")dnl
     ,
     withval=""
-    AC_MSG_RESULT([SPIDER_CACHE_DIR=$withval])
-    SPIDER_CACHE_DIR="$withval"
-    AC_DEFINE_UNQUOTED(SPIDER_CACHE_DIR, "$withval"))dnl
+    AC_MSG_RESULT([SPIDER_CACHE_DIRS=$withval])
+    SPIDER_CACHE_DIRS="$withval"
+    AC_DEFINE_UNQUOTED(SPIDER_CACHE_DIRS, "$withval"))dnl
 
 AC_SUBST(UPDATE_SYSTEM_FN)
 AC_ARG_WITH(updateSystemFn,

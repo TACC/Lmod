@@ -1,6 +1,8 @@
 require("fileOps")
 
+------------------------------------------------------------------------
 -- The global variables for Lmod:
+------------------------------------------------------------------------
 
 ------------------------------------------------------------------------
 -- ModulePath: The name of the environment variable which contains the
@@ -147,16 +149,7 @@ shortLifeCache = ancient/12
 ------------------------------------------------------------------------
 -- sysCacheDir:  The system directory location.
 ------------------------------------------------------------------------
-sysCacheDir    = os.getenv("LMOD_SPIDER_CACHE_DIR") or "@cacheDir@"
-
-------------------------------------------------------------------------
--- sysCacheFileA: Array of system cache files
-------------------------------------------------------------------------
-sysCacheFileA = {
-      { file = pathJoin(sysCacheDir,"moduleT.lua"),     fileT = "system"},
-      { file = pathJoin(sysCacheDir,"moduleT.old.lua"), fileT = "system"},
-   }
-
+sysCacheDirs    = os.getenv("LMOD_SPIDER_CACHE_DIRS") or "@cacheDirs@"
 
 ------------------------------------------------------------------------
 -- usrCacheDir: user cache directory

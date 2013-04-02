@@ -969,10 +969,19 @@ function main()
    dbg.print("Lmod Version: ",Version.name(),"\n")
    dbg.print("Setting mpc to ", mcp:name(),"\n")
    set_duplication()     -- Chose how to handle duplicate entries in a path.
+
+
+   ------------------------------------------------------------------------
+   --  The StandardPackage is where Lmod registers hooks.  Sites may 
+   --  override the hook functions in SitePackage.
+   ------------------------------------------------------------------------
+   require("StandardPackage")
+
    ------------------------------------------------------------------------
    -- Try to load a SitePackage Module,  If it is not there then do not
    -- abort.  Sites do not have to have a Site package.
    ------------------------------------------------------------------------
+
 
    local lmodPath = os.getenv("LMOD_PACKAGE_PATH") or ""
    for path in lmodPath:split(":") do
@@ -987,9 +996,7 @@ function main()
    end
 
    dbg.print("lmodPath: \"", lmodPath,"\"\n")
-
-   --pcall(require, "SitePackage") 
-   require( "SitePackage") 
+   require("SitePackage") 
 
    local cmdName = masterTbl.pargs[1]
    table.remove(masterTbl.pargs,1)

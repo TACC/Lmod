@@ -1,67 +1,67 @@
-PREPEND_BLOCK    := @PREPEND_BLOCK@
-COLORIZE         := @COLORIZE@
-ANCIENT          := @ANCIENT@
-SHORT_TIME       := @SHORT_TIME@
-SPIDER_CACHE_DIR := @SPIDER_CACHE_DIR@
-PATH_TO_HASHSUM  := @PATH_TO_HASHSUM@
-PATH_TO_LUA	 := @PATH_TO_LUA@
-PATH_TO_PAGER	 := @PATH_TO_PAGER@
-MODULEPATH_ROOT  := @MODULEPATH_ROOT@
-VERSION_SRC	 := src/Version.lua
-LUA_INCLUDE      := @LUA_INCLUDE@
-UPDATE_SYSTEM_FN := @UPDATE_SYSTEM_FN@
-prefix		 := @prefix@
-package		 := lmod
-version		 := $(shell cd ./src; $(PATH_TO_LUA)/lua -e "local Version=require('Version'); print(Version.name())" | awk '{print $$1}')
-PKG		 := $(prefix)/$(package)/$(package)
-LIB		 := $(prefix)/$(package)/$(version)/lib
-LIBEXEC		 := $(prefix)/$(package)/$(version)/libexec
-INIT		 := $(prefix)/$(package)/$(version)/init
+PREPEND_BLOCK     := @PREPEND_BLOCK@
+COLORIZE          := @COLORIZE@
+ANCIENT           := @ANCIENT@
+SHORT_TIME        := @SHORT_TIME@
+SPIDER_CACHE_DIRS := @SPIDER_CACHE_DIRS@
+PATH_TO_HASHSUM   := @PATH_TO_HASHSUM@
+PATH_TO_LUA	  := @PATH_TO_LUA@
+PATH_TO_PAGER	  := @PATH_TO_PAGER@
+MODULEPATH_ROOT   := @MODULEPATH_ROOT@
+VERSION_SRC	  := src/Version.lua
+LUA_INCLUDE       := @LUA_INCLUDE@
+UPDATE_SYSTEM_FN  := @UPDATE_SYSTEM_FN@
+prefix		  := @prefix@
+package		  := lmod
+version		  := $(shell cd ./src; $(PATH_TO_LUA)/lua -e "local Version=require('Version'); print(Version.name())" | awk '{print $$1}')
+PKG		  := $(prefix)/$(package)/$(package)
+LIB		  := $(prefix)/$(package)/$(version)/lib
+LIBEXEC		  := $(prefix)/$(package)/$(version)/libexec
+INIT		  := $(prefix)/$(package)/$(version)/init
 
-DIRLIST		 := $(DESTDIR)$(LIBEXEC) $(DESTDIR)$(INIT) $(DESTDIR)$(LIB)
+DIRLIST		  := $(DESTDIR)$(LIBEXEC) $(DESTDIR)$(INIT) $(DESTDIR)$(LIB)
 
-STANDALONE_PRGM  := src/lmod.in.lua src/addto.in.lua src/getmt.in.lua src/processMT.in.lua   \
-                    src/spider.in.lua src/processModuleUsage.in.lua src/reportUsers.in.lua   \
-                    src/clearMT_cmd.in.lua src/ml_cmd.in.lua 
-SHELL_INIT	 := bash.in csh.in ksh.in tcsh.in zsh.in sh.in perl.in env_modules_python.py.in .lmodrc.lua
-SHELL_INIT	 := $(patsubst %, setup/%, $(SHELL_INIT))
+STANDALONE_PRGM   := src/lmod.in.lua src/addto.in.lua src/getmt.in.lua src/processMT.in.lua   \
+                     src/spider.in.lua src/processModuleUsage.in.lua src/reportUsers.in.lua   \
+                     src/clearMT_cmd.in.lua src/ml_cmd.in.lua 
+SHELL_INIT	  := bash.in csh.in ksh.in tcsh.in zsh.in sh.in perl.in env_modules_python.py.in .lmodrc.lua
+SHELL_INIT	  := $(patsubst %, setup/%, $(SHELL_INIT))
 
-STARTUP		 := profile.in cshrc.in
-STARTUP		 := $(patsubst %, setup/%, $(STARTUP))
+STARTUP		  := profile.in cshrc.in
+STARTUP		  := $(patsubst %, setup/%, $(STARTUP))
 
-MAIN_DIR	 := Makefile.in INSTALL configure README_lua_modulefiles.txt
+MAIN_DIR	  := Makefile.in INSTALL configure README_lua_modulefiles.txt
 
-CONTRIB          := contrib/createmodule.sh contrib/BuildSystemCacheFile                  \
-                    contrib/SitePackage contrib/tricky_modulefiles contrib/parseVersions  \
-	            contrib/bash_patch contrib/hook
-lua_code	 := $(filter-out %.in.lua, $(wildcard src/*.lua))        \
-                    $(wildcard src/*.tcl) src/COPYRIGHT 
-VDATE		 := $(shell date +'%F %H:%M')
+CONTRIB           := contrib/createmodule.sh contrib/BuildSystemCacheFile                  \
+                     contrib/SitePackage contrib/tricky_modulefiles contrib/parseVersions  \
+	             contrib/bash_patch contrib/hook
+lua_code	  := $(filter-out %.in.lua, $(wildcard src/*.lua))        \
+                     $(wildcard src/*.tcl) src/COPYRIGHT 
+VDATE		  := $(shell date +'%F %H:%M')
 
-ComputeHashSum   := src/computeHashSum.in.lua
+ComputeHashSum    := src/computeHashSum.in.lua
 
-REQUIRED_PKGS	 := \
-                    BeautifulTbl  \
-                    ColumnTable   \
-                    Dbg           \
-                    Optiks        \
-                    Optiks_Option \
-	            ProgressBar   \
-	            TermWidth     \
-                    capture       \
-                    declare       \
-                    deepcopy      \
-                    escape        \
-                    fileOps       \
-	            fillWords     \
-                    json          \
-                    hash          \
-                    inherits      \
-                    pairsByKeys   \
-                    serializeTbl  \
-                    strict        \
-                    string_split  \
-                    string_trim
+REQUIRED_PKGS	  := \
+                     BeautifulTbl  \
+                     ColumnTable   \
+                     Dbg           \
+                     Optiks        \
+                     Optiks_Option \
+	             ProgressBar   \
+	             TermWidth     \
+                     capture       \
+                     declare       \
+                     deepcopy      \
+                     escape        \
+                     fileOps       \
+	             fillWords     \
+                     json          \
+                     hash          \
+                     inherits      \
+                     pairsByKeys   \
+                     serializeTbl  \
+                     strict        \
+                     string_split  \
+                     string_trim
 
 .PHONY: test pkgs
 
@@ -100,7 +100,7 @@ __installMe:
 	        -e 's|@prepend_block@|$(PREPEND_BLOCK)|g'             \
 	        -e 's|@colorize@|$(COLORIZE)|g'                       \
 	        -e 's|@short_time@|$(SHORT_TIME)|g'                   \
-	        -e 's|@cacheDir@|$(SPIDER_CACHE_DIR)|g'               \
+	        -e 's|@cacheDirs@|$(SPIDER_CACHE_DIRS)|g'             \
 	        -e 's|@updateSystemFn@|$(UPDATE_SYSTEM_FN)|g'         \
 	        -e 's|@modulepath_root@|$(MODULEPATH_ROOT)|g'         \
                 -e 's|@PKG@|$(PKG)|g'         < $$i > $(DIRLOC)/$$fn; \

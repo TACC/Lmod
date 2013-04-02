@@ -24,7 +24,7 @@ echo
 echo "MODULEPATH_ROOT............................." : $MODULEPATH_ROOT
 echo "Wait (s) before rebuilting cache............" : $ANCIENT
 echo "Do not save Cache if build time < .........." : $SHORT_TIME
-echo "SPIDER_CACHE_DIR............................" : $SPIDER_CACHE_DIR
+echo "SPIDER_CACHE_DIRS..........................." : $SPIDER_CACHE_DIRS
 echo "Prepending multiple dirs (NORMAL / REVERSED)" : $PREPEND_BLOCK
 echo "Colorized output supported.................." : $COLORIZE
 echo "File that is touched when system is updated." : $UPDATE_SYSTEM_FN

@@ -313,21 +313,18 @@ function readCacheFile(lastUpdateEpoch, cacheType, cacheFileA, moduleDirT, modul
                for k, v in pairs(_G.moduleT) do
                   if ( k:sub(1,1) == '/' ) then
                      local dirTime = moduleDirT[k] or -1
-                     dbg.print("processing directory: ",k," with dirTime: ",dirTime,"\n")
                      if (attr.modification > dirTime) then
-                        dbg.print("saving directory: ",k,"\n")
+                        dbg.print("saving directory: ",k," from cache file: f\n")
                         moduleDirT[k] = attr.modification
                         moduleT[k]    = v
                         dirsRead      = dirsRead + 1
                      end
                   else
-                     moduleT[k] = v
+                     moduleT[k] = moduleT[k] or v
                   end
                end
             end
          end
-
-         break
       end
    end
    dbg.fini("readCacheFile")
@@ -355,23 +352,27 @@ function getModuleT(fast)
    mcp           = MasterControl.build("spider")
    dbg.print("Setting mpc to ", mcp:name(),"\n")
    
-   local attr = lfs.attributes(updateSystemFn)
    local lastUpdateEpoch = epoch() - ancient
 
-   local hostType = ""
-   if (attr and type(attr) == "table") then
-      lastUpdateEpoch = epoch() - attr.modification
-      local f = io.open(updateSystemFn, "r")
-      hostType = f:read("*line") or ""
-      hostType = hostType:trim()
-      f:close()
-   end
-      
+   local t = {}
+   hook.apply("parse_updateFn", updateSystemFn, t)
 
-   local sysCacheFileA = {
-      { file = pathJoin(sysCacheDir, hostType, "moduleT.lua"),     fileT = "system"},
-      { file = pathJoin(sysCacheDir, hostType, "moduleT.old.lua"), fileT = "system"},
-   }
+   lastUpdateEpoch = t.lastUpdateEpoch or lastUpdateEpoch
+   local hostType  = t.hostType or ""
+
+   local sysCacheFileA = {}      
+   for d in sysCacheDirs:split(":") do
+      if (hostType ~= "") then
+         sysCacheFileA[#sysCacheFileA+1] =
+            { file = pathJoin(d, hostType, "moduleT.lua"), fileT = "system"}
+         sysCacheFileA[#sysCacheFileA+1] =
+            { file = pathJoin(d, hostType, "moduleT.old.lua"), fileT = "system"}
+      end
+      sysCacheFileA[#sysCacheFileA+1] =
+         { file = pathJoin(d, "moduleT.lua"),     fileT = "system"}
+      sysCacheFileA[#sysCacheFileA+1] = 
+         { file = pathJoin(d, "moduleT.old.lua"), fileT = "system"}
+   end
 
    local baseMpath = mt:getBaseMPATH()
    if (baseMpath == nil) then
@@ -457,7 +458,7 @@ function getModuleT(fast)
       dbg.print("t2-t1: ",t2-t1, " shortTime: ", shortTime, "\n")
 
       local r = {}
-      hook.apply("buildCache",r)
+      hook.apply("writeCache",r)
 
 
       if (t2 - t1 < shortTime or r.dontWriteCache) then

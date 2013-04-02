@@ -65,17 +65,12 @@ end
 
 
 local function extract(self)
-   local dbg     = Dbg:dbg()
    local myValue = self.value or os.getenv(self.name) or ""
    local pathTbl = {}
    local imax    = 0
    local imin    = 1
    local pathA   = {}
    local sep     = self.sep
-
-   dbg.start("Var:extract(self)")
-
-   dbg.print("myValue: \"",myValue,"\"\n")
 
    if (myValue ~= '') then
       pathA = regularizePath(myValue, sep)
@@ -93,23 +88,17 @@ local function extract(self)
    self.imin   = imin
    self.imax   = imax
    self.export = true
-   if (dbg.active()) then
-      self:prt("In extract")
-   end
-   dbg.fini("Var:extract")
 end
 
 function M.new(self, name, value, sep)
    local o = {}
    setmetatable(o,self)
    local dbg          = Dbg:dbg()
-   dbg.start("Var:new(",name,", \"",tostring(value),"\")")
    self.__index = self
    o.value      = value
    o.name       = name
    o.sep        = sep or ":"
    extract(o)
-   dbg.fini("Var:new")
    return o
 end
 
@@ -175,8 +164,8 @@ whereT = {
    
 function M.remove(self, value, where)
    local dbg  = Dbg:dbg()
-   dbg.start("Var:remove(\"",tostring(value),", \"",tostring(where),"\")")
-   dbg.print("name: ",self.name,"\n")
+   --dbg.start("Var:remove(\"",tostring(value),", \"",tostring(where),"\")")
+   --dbg.print("name: ",self.name,"\n")
 
    if (value == nil) then return end
    
@@ -196,13 +185,13 @@ function M.remove(self, value, where)
    local v    = self:expand()
    self.value = v
    setenv(self.name, v, true)
-   if (dbg.active()) then self:prt("Var:remove") end
-   dbg.fini("Var:remove")
+   --if (dbg.active()) then self:prt("Var:remove") end
+   --dbg.fini("Var:remove")
 end
 
 function M.pop(self)
    local dbg    = Dbg:dbg()
-   dbg.start("Var:pop()")
+   --dbg.start("Var:pop()")
    local imin   = self.imin
    local min2   = math.huge
    local result = nil
@@ -228,8 +217,8 @@ function M.pop(self)
    local v    = self:expand()
    self.value = v
    setenv(self.name, v, true)
-   if (dbg.active()) then self:prt("(2) Var:pop()") end
-   dbg.fini("Var:pop")
+   --if (dbg.active()) then self:prt("(2) Var:pop()") end
+   --dbg.fini("Var:pop")
    return result
 end
 
@@ -251,8 +240,8 @@ end
 
 function M.prepend(self, value, nodups)
    local dbg  = Dbg:dbg()
-   dbg.start("Var:prepend(\"",tostring(value),"\")")
-   dbg.print("name: ",self.name,"\n")
+   --dbg.start("Var:prepend(\"",tostring(value),"\")")
+   --dbg.print("name: ",self.name,"\n")
    if (value == nil) then return end
 
    local pathA         = regularizePath(value, self.sep)
@@ -273,8 +262,8 @@ function M.prepend(self, value, nodups)
    local v    = self:expand()
    self.value = v
    setenv(self.name, v, true)
-   if (dbg.active()) then self:prt("Var:prepend") end
-   dbg.fini("Var:prepend")
+   --if (dbg.active()) then self:prt("Var:prepend") end
+   --dbg.fini("Var:prepend")
 end
 
 function M.append(self, value, nodups)

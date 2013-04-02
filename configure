@@ -596,7 +596,7 @@ COLORIZE
 DUPLICATE_PATHS
 PREPEND_BLOCK
 UPDATE_SYSTEM_FN
-SPIDER_CACHE_DIR
+SPIDER_CACHE_DIRS
 SHORT_TIME
 ANCIENT
 MODULEPATH_ROOT
@@ -644,7 +644,7 @@ enable_option_checking
 with_module_root_path
 with_ancient
 with_shortTime
-with_spiderCacheDir
+with_spiderCacheDirs
 with_updateSystemFn
 with_prependBlock
 with_duplicatePaths
@@ -1267,8 +1267,9 @@ Optional Packages:
   --with-shortTime=seconds
                           if spider build time < shortTime then no spider
                           cache file [[2]]
-  --with-spiderCacheDir=dir
-                          use this directory to hold a spider cache file [[]]
+  --with-spiderCacheDirs=dir1:dir2
+                          use these directories to hold a spider cache file
+                          [[]]
   --with-updateSystemFn=file
                           This file is touched when the system has been
                           updated [[]]
@@ -1778,22 +1779,22 @@ fi
 
 
 
-# Check whether --with-spiderCacheDir was given.
-if test "${with_spiderCacheDir+set}" = set; then :
-  withval=$with_spiderCacheDir; SPIDER_CACHE_DIR="$withval"
-    { $as_echo "$as_me:${as_lineno-$LINENO}: result: SPIDER_CACHE_DIR=$with_spiderCacheDir" >&5
-$as_echo "SPIDER_CACHE_DIR=$with_spiderCacheDir" >&6; }
+# Check whether --with-spiderCacheDirs was given.
+if test "${with_spiderCacheDirs+set}" = set; then :
+  withval=$with_spiderCacheDirs; SPIDER_CACHE_DIRS="$withval"
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: SPIDER_CACHE_DIRS=$with_spiderCacheDirs" >&5
+$as_echo "SPIDER_CACHE_DIRS=$with_spiderCacheDirs" >&6; }
     cat >>confdefs.h <<_ACEOF
-#define SHORT_TIME "$with_spiderCacheDir"
+#define SHORT_TIME "$with_spiderCacheDirs"
 _ACEOF
 
 else
   withval=""
-    { $as_echo "$as_me:${as_lineno-$LINENO}: result: SPIDER_CACHE_DIR=$withval" >&5
-$as_echo "SPIDER_CACHE_DIR=$withval" >&6; }
-    SPIDER_CACHE_DIR="$withval"
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: SPIDER_CACHE_DIRS=$withval" >&5
+$as_echo "SPIDER_CACHE_DIRS=$withval" >&6; }
+    SPIDER_CACHE_DIRS="$withval"
     cat >>confdefs.h <<_ACEOF
-#define SPIDER_CACHE_DIR "$withval"
+#define SPIDER_CACHE_DIRS "$withval"
 _ACEOF
 
 fi
@@ -3343,7 +3344,7 @@ echo
 echo "MODULEPATH_ROOT............................." : $MODULEPATH_ROOT
 echo "Wait (s) before rebuilting cache............" : $ANCIENT
 echo "Do not save Cache if build time < .........." : $SHORT_TIME
-echo "SPIDER_CACHE_DIR............................" : $SPIDER_CACHE_DIR
+echo "SPIDER_CACHE_DIRS..........................." : $SPIDER_CACHE_DIRS
 echo "Prepending multiple dirs (NORMAL / REVERSED)" : $PREPEND_BLOCK
 echo "Colorized output supported.................." : $COLORIZE
 echo "File that is touched when system is updated." : $UPDATE_SYSTEM_FN

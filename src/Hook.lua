@@ -5,6 +5,8 @@ local M={}
 local validT =
 {
    load = false,
+   parse_updateFn = false,
+   writeCache = false,
 }
    
 function M.register(name, func)
