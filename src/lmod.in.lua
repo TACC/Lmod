@@ -332,11 +332,14 @@ local function Update()
 end
 
 local function TableList()
+   local dbg    = Dbg:dbg()
+   dbg.start("TableList()")
    local mt = MT:mt()
 
    local t = {}
    local activeA = mt:list("short","active")
    for i,v  in ipairs(activeA) do
+      dbg.print("v: ",v,"\n")
       local mname   = MName:new("mt",v)
       local sn      = mname:sn()
       local version = mname:version()
@@ -344,7 +347,7 @@ local function TableList()
    end
    local s = serializeTbl{name="activeList",indent=true, value=t}
    io.stderr:write(s,"\n")
-
+   dbg.fini()
 end
 
 function Reset(msg)
