@@ -58,7 +58,7 @@ case $SYSHOST in
     if [ $SYSHOST == "stampede" ]; then
       base="$base/$(uname -m)"
       UPDATE_FN=/tmp/losf_last_update
-      CACHEDIRS=$ADMIN_DIR/cacheDir:$ADMIN_DIR/XSEDE/cacheDir:
+      CACHEDIRS=$ADMIN_DIR/cacheDir:$ADMIN_DIR/XSEDE/cacheDir
     fi
     ;;
 
