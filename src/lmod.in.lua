@@ -343,6 +343,8 @@ local function TableList()
       local mname   = MName:new("mt",v)
       local sn      = mname:sn()
       local version = mname:version()
+      dbg.print("v: ",v,"\n")
+      dbg.print("sn: ",tostring(sn),", version: ",tostring(version),"\n")
       t[sn] = version
    end
    local s = serializeTbl{name="activeList",indent=true, value=t}

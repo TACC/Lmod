@@ -962,6 +962,20 @@ function M.fullName(self, sn)
    return entry.fullName
 end
 
+function M.Version(self, sn)
+   local full = self:fullName(sn)
+   if (not full) then
+      return full
+   end
+
+   local i, j = full:find(".*/")
+   if (not j) then
+      return ""
+   end
+
+   return full:sub(j+1,-1)
+end
+
 function M.short(self, sn)
    local mT    = self.mT
    local entry = mT[sn] 

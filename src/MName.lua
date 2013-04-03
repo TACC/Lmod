@@ -20,8 +20,9 @@ function M.new(self, sType, name)
    self.__index = self
    local mt = MT:mt()
 
-   name = (name or ""):gsub("/+$","")  -- remove any trailing '/'
-   local sn = false
+   name          = (name or ""):gsub("/+$","")  -- remove any trailing '/'
+   local sn      = false
+   local version = false
 
    if (sType == "load") then
       for level = 0, 1 do
@@ -35,7 +36,8 @@ function M.new(self, sType, name)
       for level = 0, 1 do
          local n = shorten(name, level)
          if (mt:exists(n)) then
-            sn = n
+            sn      = n
+            version = mt:Version(sn)
             break
          end
       end
@@ -44,7 +46,7 @@ function M.new(self, sType, name)
    if (sn) then
       o._sn      = sn
       o._name    = name
-      o._version = extractVersion(name, sn)
+      o._version = version or extractVersion(name, sn)
    end
 
    return o
