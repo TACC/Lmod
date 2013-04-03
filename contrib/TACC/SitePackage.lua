@@ -70,7 +70,7 @@ end
 
 local function parse_updateFn_hook(updateSystemFn, t)
    local attr = lfs.attributes(updateSystemFn)
-   if (not attr or type(attr) == "table") then
+   if (not attr or type(attr) ~= "table") then
       return
    end
 
