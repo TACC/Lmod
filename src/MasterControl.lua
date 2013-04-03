@@ -492,13 +492,13 @@ function M.prereq(self, ...)
    end
 
    for _,v in ipairs{...} do
-      local mname   = MName:new("mt", v)
-      local sn      = mname:sn()
-      local version = mname:version()
-
-      dbg.print("sn: ",sn, " version: ",tostring(version),"\n")
+      local mname    = MName:new("mt", v)
+      local sn       = mname:sn()
+      local full     = mt:fullName(sn)
+      local version  = extractVersion(v, sn)
+      dbg.print("sn: ",sn," full: ",full, " version: ",version,"\n")
       if ((not mt:have(sn,"active")) or
-          (version and mt:fullName(sn) ~= mname:usrName())) then
+          (version and full ~= mname:usrName())) then
          a[#a+1] = v
       end
    end
@@ -531,7 +531,7 @@ function M.conflict(self, ...)
    for _,v in ipairs{...} do
       local mname   = MName:new("mt", v)
       local sn      = mname:sn()
-      local version = mname:version()
+      local version = extractVersion(v, sn)
       local found   = false
       if (version) then
          found = mt:fullName(sn) == mname:usrName()
