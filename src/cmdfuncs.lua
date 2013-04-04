@@ -68,6 +68,9 @@ end
 
 
 function extractVersion(full, sn)
+   if (full == nil or sn == nil) then
+      return nil
+   end
    local pat     = '^' .. escape(sn) .. '/?'
    local version = full:gsub(pat,"")
    if (version == "") then
