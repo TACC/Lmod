@@ -29,6 +29,7 @@ eval "ADMIN_DIR=\$ADMIN_$SYSHOST"
 CacheDir=$ADMIN_DIR/cacheDir
 RmapDir=$ADMIN_DIR/reverseMapD
 
+LastUpdateFn=$ADMIN_DIR/system.txt
 
 ########################################################################
 #  End Site Specific Setting
@@ -50,7 +51,7 @@ buildNewDB()
    if [ "$?" = 0 ]; then
       chmod 644 $NEW
       if [ -f $RESULT ]; then
-        cp $RESULT $OLD
+        cp -p $RESULT $OLD
       fi
       mv $NEW $RESULT
    fi
@@ -60,7 +61,7 @@ buildNewDB()
 #  Touch system file so that Lmod knows that the cache is good
 ########################################################################
 
-cat > $ADMIN_DIR/system.txt <<EOF
+cat > $LastUpdateFn <<EOF
 hostType
 EOF
 
