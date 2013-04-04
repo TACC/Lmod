@@ -56,6 +56,7 @@ buildNewDB()
 
    local OLD=$DIR/$file.old.lua
    local NEW=$DIR/$file.new.lua
+
    local RESULT=$DIR/$file.lua
 
    rm -f $NEW
@@ -79,7 +80,18 @@ done
 
 umask 022
 
-LMOD_DIR="~mclay/l/pkg/x86_64/lmod/lmod/libexec"
+for i in /opt/apps/lmod/lmod/libexec             \
+         ~mclay/l/pkg/x86_64/lmod/lmod/libexec   \
+         ~mclay/l/pkg/lmod/lmod/libexec          ; do
+  if [ -x $i/lmod ]; then
+    LmodVersion=$($i/lmod bash --version 2>&1 | grep "^Modules" | sed -e 's/.*Version \([0-9]\+\).*/\1/')
+    if [ "$LmodVersion" -ge 5 ]; then
+      export LMOD_DIR=$i
+      break;
+    fi
+  fi
+done
+
 RmapDir="/tmp/moduleData/reverseMapD"
 CacheDir="/tmp/moduleData/cacheDir"
 cacheFile="$CacheDir/moduleT.lua"
