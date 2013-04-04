@@ -79,12 +79,11 @@ done
 
 umask 022
 
-LMOD_DIR="/opt/apps/lmod/lmod/libexec"
+LMOD_DIR="~mclay/l/pkg/x86_64/lmod/lmod/libexec"
 RmapDir="/tmp/moduleData/reverseMapD"
 CacheDir="/tmp/moduleData/cacheDir"
 cacheFile="$CacheDir/moduleT.lua"
 timeStamp="/tmp/losf_last_update"
-
 
 # Get timeStamp epoch
 
@@ -102,11 +101,15 @@ if [ $a -ge $b ]; then
 fi
 
 if [ "$nodeType" == "login" ]; then
-  writeTS $nodeType /home1/moduleData1/last_update
+  XSEDE_dir="/home1/moduleData/XSEDE"
+  if [ ! -d $XSEDE_dir ]; then
+    mkdir -p $XSEDE_dir
+  fi
+  writeTS $nodeType /home1/moduleData/XSEDE/last_update
   for i in /opt/apps/xsede/modulefiles /share1/apps/teragrid/modulefiles; do
     if [ -d $i ]; then
-      buildNewDB /home1/moduleData1/cacheDir     $i  moduleT 
-      buildNewDB /home1/moduleData1/reverseMapD  $i  reverseMapT
+      buildNewDB /home1/moduleData/XSEDE/cacheDir     $i  moduleT 
+      buildNewDB /home1/moduleData/XSEDE/reverseMapD  $i  reverseMapT
     fi
   done
 fi
