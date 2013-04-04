@@ -50,7 +50,7 @@ buildNewDB()
    local file=$3
    local option=$file
 
-   if [ -d $DIR ]; then
+   if [ ! -d $DIR ]; then
      mkdir -p $DIR
    fi
 
