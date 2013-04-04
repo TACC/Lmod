@@ -69,11 +69,7 @@ buildNewDB()
    fi
 }
 
-
-
-
-
-
+LMOD_DIR="/opt/apps/lmod/lmod/libexec"
 RmapDir="/tmp/moduleData/reverseMapD"
 CacheDir="/tmp/moduleData/cacheDir"
 cacheFile="$CacheDir/moduleT.lua"
