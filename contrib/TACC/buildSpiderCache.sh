@@ -65,6 +65,14 @@ buildNewDB()
    fi
 }
 
+for i in ~mclay/l/pkg/x86_64/luatools/luatools \
+         ~mclay/l/pkg/luatools/luatools; do
+  if [ -f $i/share/5.1/strict.lua ]; then
+    export LUA_PATH="$i/share/5.1/?.lua;;"
+    export LUA_CPATH="$i/lib/5.1/?.so;;"
+  fi
+done
+
 LMOD_DIR="/opt/apps/lmod/lmod/libexec"
 RmapDir="/tmp/moduleData/reverseMapD"
 CacheDir="/tmp/moduleData/cacheDir"
