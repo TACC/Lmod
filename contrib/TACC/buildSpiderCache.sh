@@ -50,6 +50,10 @@ buildNewDB()
    local file=$3
    local option=$file
 
+   if [ -d $DIR ]; then
+     mkdir -p $DIR
+   fi
+
    local OLD=$DIR/$file.old.lua
    local NEW=$DIR/$file.new.lua
    local RESULT=$DIR/$file.lua
@@ -73,6 +77,8 @@ for i in ~mclay/l/pkg/x86_64/luatools/luatools \
   fi
 done
 
+umask 022
+
 LMOD_DIR="/opt/apps/lmod/lmod/libexec"
 RmapDir="/tmp/moduleData/reverseMapD"
 CacheDir="/tmp/moduleData/cacheDir"
@@ -90,13 +96,6 @@ nodeType=$(readTS $timeStamp)
 # if timestamp file is older than the cache file we are done.
 if [ $a -ge $b ]; then
   if [ "$nodeType" != "build" ]; then
-    mkdir     /tmp/moduleData
-    chmod 755 /tmp/moduleData
-    mkdir     /tmp/moduleData/cacheDir
-    chmod 755 /tmp/moduleData/cacheDir
-    mkdir     /tmp/moduleData/reverseMapD
-    chmod 755 /tmp/moduleData/reverseMapD
-
     buildNewDB $CacheDir  /opt/apps/modulefiles:/opt/modulefiles  moduleT 
     buildNewDB $RmapDir   /opt/apps/modulefiles:/opt/modulefiles  reverseMapT
   fi
