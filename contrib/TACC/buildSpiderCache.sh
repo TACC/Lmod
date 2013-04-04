@@ -60,7 +60,7 @@ buildNewDB()
 
    rm -f $NEW
    $LMOD_DIR/spider -o $option $BASEMP > $NEW
-   if [ "$?" = 0 && -f $NEW ]; then
+   if [ "$?" = 0 -a -f "$NEW" ]; then
       chmod 644 $NEW
       if [ -f $RESULT ]; then
         cp -p $RESULT $OLD
