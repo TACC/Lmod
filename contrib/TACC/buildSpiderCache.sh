@@ -104,8 +104,10 @@ fi
 if [ "$nodeType" == "login" ]; then
   writeTS $nodeType /home1/moduleData1/last_update
   for i in /opt/apps/xsede/modulefiles /share1/apps/teragrid/modulefiles; do
-    buildNewDB /home1/moduleData1/cacheDir     $i  moduleT 
-    buildNewDB /home1/moduleData1/reverseMapD  $i  reverseMapT
+    if [ -d $i ]; then
+      buildNewDB /home1/moduleData1/cacheDir     $i  moduleT 
+      buildNewDB /home1/moduleData1/reverseMapD  $i  reverseMapT
+    fi
   done
 fi
 
