@@ -58,9 +58,9 @@ buildNewDB()
    local NEW=$DIR/$file.new.lua
    local RESULT=$DIR/$file.lua
 
-   rm -f $OLD $NEW
+   rm -f $NEW
    $LMOD_DIR/spider -o $option $BASEMP > $NEW
-   if [ "$?" = 0 ]; then
+   if [ "$?" = 0 && -f $NEW ]; then
       chmod 644 $NEW
       if [ -f $RESULT ]; then
         cp -p $RESULT $OLD
