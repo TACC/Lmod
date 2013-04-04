@@ -102,9 +102,9 @@ if [ $a -ge $b ]; then
   fi
 fi
 
-if [ "$nodeType" == "master" ]; then
+if [ "$nodeType" == "login" ]; then
   writeTS $nodeType /home1/moduleData/last_update
-  for i in /opt/apps/xsede/modulefiles /share1/apps/teragrid/modulefiles do
+  for i in /opt/apps/xsede/modulefiles /share1/apps/teragrid/modulefiles; do
     buildNewDB /home1/moduleData/cacheDir     $i  moduleT 
     buildNewDB /home1/moduleData/reverseMapD  $i  reverseMapT
   done
