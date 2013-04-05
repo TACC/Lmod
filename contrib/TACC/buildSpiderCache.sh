@@ -13,10 +13,10 @@ writeTS()
   local dateStr=$(date)
   local epoch=$(date +%s)
 
-  echo "nodeType   = $nodeType" >  fn
-  echo "hostName   = $hostName" >> fn
-  echo "lastUpdate = $dateStr"  >> fn
-  echo "timeEpoch  = $epoch"    >> fn
+  echo "nodeType   = $nodeType" >  $fn
+  echo "hostName   = $hostName" >> $fn
+  echo "lastUpdate = $dateStr"  >> $fn
+  echo "timeEpoch  = $epoch"    >> $fn
 }  
   
 
@@ -52,16 +52,16 @@ buildNewDB()
 
    if [ ! -d $DIR ]; then
      mkdir -p  $DIR
-     chmod 755 $DIR
    fi
 
    local OLD=$DIR/$file.old.lua
    local NEW=$DIR/$file.new.lua
+
    local RESULT=$DIR/$file.lua
 
-   rm -f $OLD $NEW
+   rm -f $NEW
    $LMOD_DIR/spider -o $option $BASEMP > $NEW
-   if [ "$?" = 0 ]; then
+   if [ "$?" = 0 -a -f "$NEW" ]; then
       chmod 644 $NEW
       if [ -f $RESULT ]; then
         cp -p $RESULT $OLD
@@ -70,12 +70,35 @@ buildNewDB()
    fi
 }
 
-LMOD_DIR="/opt/apps/lmod/lmod/libexec"
+
+umask 022
+
+for i in /opt/apps/lmod/lmod/libexec             \
+         ~mclay/l/pkg/x86_64/lmod/lmod/libexec   \
+         ~mclay/l/pkg/lmod/lmod/libexec          ; do
+  if [ -z "$LUA_PATH" -a $i != /opt/apps/lmod/lmod/libexec ]; then
+    for i in ~mclay/l/pkg/x86_64/luatools/luatools \
+             ~mclay/l/pkg/luatools/luatools; do
+      if [ -f $i/share/5.1/strict.lua ]; then
+	export LUA_PATH="$i/share/5.1/?.lua;;"
+	export LUA_CPATH="$i/lib/5.1/?.so;;"
+      fi
+    done
+  fi
+
+  if [ -x $i/lmod ]; then
+    LmodVersion=$($i/lmod bash --version 2>&1 | grep "^Modules" | sed -e 's/.*Version \([0-9]\+\).*/\1/')
+    if [ "$LmodVersion" -ge 5 ]; then
+      export LMOD_DIR=$i
+      break;
+    fi
+  fi
+done
+
 RmapDir="/tmp/moduleData/reverseMapD"
 CacheDir="/tmp/moduleData/cacheDir"
 cacheFile="$CacheDir/moduleT.lua"
 timeStamp="/tmp/losf_last_update"
-
 
 # Get timeStamp epoch
 
@@ -92,11 +115,17 @@ if [ $a -ge $b ]; then
   fi
 fi
 
-if [ "$nodeType" == "master" ]; then
-  writeTS $nodeType /home1/moduleData/last_update
-  for i in /opt/apps/xsede/modulefiles /share1/apps/teragrid/modulefiles do
-    buildNewDB /home1/moduleData/cacheDir     $i  moduleT 
-    buildNewDB /home1/moduleData/reverseMapD  $i  reverseMapT
+if [ "$nodeType" == "login" ]; then
+  XSEDE_dir="/home1/moduleData/XSEDE"
+  if [ ! -d $XSEDE_dir ]; then
+    mkdir -p $XSEDE_dir
+  fi
+  writeTS $nodeType /home1/moduleData/XSEDE/last_update
+  for i in /opt/apps/xsede/modulefiles /share1/apps/teragrid/modulefiles; do
+    if [ -d $i ]; then
+      buildNewDB /home1/moduleData/XSEDE/cacheDir     $i  moduleT 
+      buildNewDB /home1/moduleData/XSEDE/reverseMapD  $i  reverseMapT
+    fi
   done
 fi
 
