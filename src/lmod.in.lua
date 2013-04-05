@@ -27,12 +27,12 @@ if (i) then
    LuaCommandName_dir = LuaCommandName:sub(1,j)
 end
 
-package.path = LuaCommandName_dir .. "?.lua;"      ..
-               LuaCommandName_dir .. "?/init.lua;" ..
+package.path = LuaCommandName_dir .. "tools/?.lua;" ..
+               LuaCommandName_dir .. "?/init.lua;"  ..
                package.path
 
 package.cpath = LuaCommandName_dir .. "../lib/?.so;"..
-               package.cpath
+                package.cpath
 
 
 require("myGlobals")
@@ -94,13 +94,16 @@ RCFileA = {
    os.getenv("LMOD_RC"),
 }
 
-s_propT = false
+s_readRC = false
 
 function readRC()
-   if (s_propT) then
-      return s_propT
+   if (s_readRC) then
+      s_readRC = true
+      return 
    end
 
+   declare("propT",       false)
+   declare("scDescriptT", false)
    local results = {}
 
    for i = 1,#RCFileA do
@@ -109,14 +112,21 @@ function readRC()
       if (fh) then
          assert(loadfile(f))()
          fh:close()
-         results = _G.propT
          break
       end
    end
+   s_propT       = _G.propT         or {}
+   s_scDescriptT = _G.scDescriptT   or {}
+end
 
-   s_propT = results
+function getPropT()
    return s_propT
 end
+
+function getSCDescriptT()
+   return s_scDescriptT
+end
+
 
 function set_duplication()
    local dbg  = Dbg:dbg()
@@ -138,7 +148,7 @@ end
 
 function colorizePropA(style, moduleName, propT, legendT)
    local resultA
-   local propDisplayT = readRC()
+   local propDisplayT = getPropT()
    local iprop        = 0
    propT              = propT or {}
 

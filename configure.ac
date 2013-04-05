@@ -51,6 +51,18 @@ AC_ARG_WITH(spiderCacheDir,
     SPIDER_CACHE_DIRS="$withval"
     AC_DEFINE_UNQUOTED(SPIDER_CACHE_DIRS, "$withval"))dnl
 
+AC_SUBST(SPIDER_CACHE_DESCRIPT_FN)
+AC_ARG_WITH(spiderCacheDescript,
+    AC_HELP_STRING([--with-spiderCacheDescript=fn],[Use specified file to describe cache directory and timestamp files [[]]]),
+    SPIDER_CACHE_DESCRIPT_FN="$withval"
+    AC_MSG_RESULT([SPIDER_CACHE_DESCRIPT_FN=$with_spiderCacheDescript])
+    AC_DEFINE_UNQUOTED(SHORT_TIME, "$with_spiderCacheDescript")dnl
+    ,
+    withval=""
+    AC_MSG_RESULT([SPIDER_CACHE_DESCRIPT_FN=$withval])
+    SPIDER_CACHE_DESCRIPT_FN="$withval"
+    AC_DEFINE_UNQUOTED(SPIDER_CACHE_DESCRIPT_FN, "$withval"))dnl
+
 AC_SUBST(UPDATE_SYSTEM_FN)
 AC_ARG_WITH(updateSystemFn,
     AC_HELP_STRING([--with-updateSystemFn=file],[This file is touched when the system has been updated [[]]]),

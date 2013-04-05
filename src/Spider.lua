@@ -831,7 +831,7 @@ function M.Level2(t, mname, full)
    local c  = {}
    local titleIdx = 0
    
-   local propDisplayT = readRC()
+   local propDisplayT = getPropT()
    
    local term_width = TermWidth() - 4
    local tt = nil

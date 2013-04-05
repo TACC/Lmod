@@ -9,19 +9,14 @@ local LuaCommandName_dir = "./"
 if (i) then
    LuaCommandName_dir = LuaCommandName:sub(1,j)
 end
-package.path = LuaCommandName_dir .. "?.lua;" .. package.path
+package.path = LuaCommandName_dir .. "tools/?.lua;" ..
+               LuaCommandName_dir .. "?.lua;"       .. package.path
 
-------------------------------------------------------------------------
--- Try to load a SitePackage Module,  If it is not there then do not
--- abort.  Sites do not have to have a Site package.
-------------------------------------------------------------------------
-pcall(require, "SitePackage") 
+require("SitePackage") 
 
 function cmdDir()
    return LuaCommandName_dir
 end
-package.path = LuaCommandName_dir .. "?.lua;"      ..
-               package.path
 
 Version = "1.0"
 HashSum = "@path_to_hashsum@"

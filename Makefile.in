@@ -1,74 +1,54 @@
-PREPEND_BLOCK     := @PREPEND_BLOCK@
-COLORIZE          := @COLORIZE@
-ANCIENT           := @ANCIENT@
-SHORT_TIME        := @SHORT_TIME@
-SPIDER_CACHE_DIRS := @SPIDER_CACHE_DIRS@
-PATH_TO_HASHSUM   := @PATH_TO_HASHSUM@
-PATH_TO_LUA	  := @PATH_TO_LUA@
-PATH_TO_PAGER	  := @PATH_TO_PAGER@
-MODULEPATH_ROOT   := @MODULEPATH_ROOT@
-VERSION_SRC	  := src/Version.lua
-LUA_INCLUDE       := @LUA_INCLUDE@
-UPDATE_SYSTEM_FN  := @UPDATE_SYSTEM_FN@
-prefix		  := @prefix@
-package		  := lmod
-version		  := $(shell cd ./src; $(PATH_TO_LUA)/lua -e "local Version=require('Version'); print(Version.name())" | awk '{print $$1}')
-PKG		  := $(prefix)/$(package)/$(package)
-LIB		  := $(prefix)/$(package)/$(version)/lib
-LIBEXEC		  := $(prefix)/$(package)/$(version)/libexec
-INIT		  := $(prefix)/$(package)/$(version)/init
+SPIDER_CACHE_DESCRIPT_FN := @SPIDER_CACHE_DESCRIPT_FN@
+PREPEND_BLOCK     	 := @PREPEND_BLOCK@
+COLORIZE          	 := @COLORIZE@
+ANCIENT           	 := @ANCIENT@
+SHORT_TIME        	 := @SHORT_TIME@
+SPIDER_CACHE_DIRS 	 := @SPIDER_CACHE_DIRS@
+PATH_TO_HASHSUM   	 := @PATH_TO_HASHSUM@
+PATH_TO_LUA	  	 := @PATH_TO_LUA@
+PATH_TO_PAGER	  	 := @PATH_TO_PAGER@
+MODULEPATH_ROOT   	 := @MODULEPATH_ROOT@
+VERSION_SRC	  	 := src/Version.lua
+LUA_INCLUDE       	 := @LUA_INCLUDE@
+UPDATE_SYSTEM_FN  	 := @UPDATE_SYSTEM_FN@
+prefix		  	 := @prefix@
+package		  	 := lmod
+version		  	 := $(shell cd ./src; $(PATH_TO_LUA)/lua -e "local Version=require('Version'); print(Version.name())" | awk '{print $$1}')
+PKG		  	 := $(prefix)/$(package)/$(package)
+LIB		  	 := $(prefix)/$(package)/$(version)/lib
+LIBEXEC		  	 := $(prefix)/$(package)/$(version)/libexec
+LIBTOOLS                 := $(prefix)/$(package)/$(version)/libexec/tools
+INIT		  	 := $(prefix)/$(package)/$(version)/init
 
-DIRLIST		  := $(DESTDIR)$(LIBEXEC) $(DESTDIR)$(INIT) $(DESTDIR)$(LIB)
+DIRLIST		  	 := $(DESTDIR)$(LIBEXEC) $(DESTDIR)$(LIBTOOLS) $(DESTDIR)$(INIT) $(DESTDIR)$(LIB)
 
-STANDALONE_PRGM   := src/lmod.in.lua src/addto.in.lua src/getmt.in.lua src/processMT.in.lua   \
-                     src/spider.in.lua src/processModuleUsage.in.lua src/reportUsers.in.lua   \
-                     src/clearMT_cmd.in.lua src/ml_cmd.in.lua 
-SHELL_INIT	  := bash.in csh.in ksh.in tcsh.in zsh.in sh.in perl.in env_modules_python.py.in .lmodrc.lua
-SHELL_INIT	  := $(patsubst %, setup/%, $(SHELL_INIT))
+STANDALONE_PRGM   	 := src/lmod.in.lua src/addto.in.lua src/getmt.in.lua src/processMT.in.lua   \
+                            src/spider.in.lua src/processModuleUsage.in.lua src/reportUsers.in.lua   \
+                            src/clearMT_cmd.in.lua src/ml_cmd.in.lua 
+SHELL_INIT	  	 := bash.in csh.in ksh.in tcsh.in zsh.in sh.in perl.in env_modules_python.py.in .lmodrc.lua
+SHELL_INIT	  	 := $(patsubst %, setup/%, $(SHELL_INIT))
 
-STARTUP		  := profile.in cshrc.in
-STARTUP		  := $(patsubst %, setup/%, $(STARTUP))
+STARTUP		  	 := profile.in cshrc.in
+STARTUP		  	 := $(patsubst %, setup/%, $(STARTUP))
 
-MAIN_DIR	  := Makefile.in INSTALL configure README_lua_modulefiles.txt
+MAIN_DIR	  	 := Makefile.in INSTALL configure README_lua_modulefiles.txt
 
-CONTRIB           := contrib/createmodule.sh contrib/BuildSystemCacheFile                  \
-                     contrib/SitePackage contrib/tricky_modulefiles contrib/parseVersions  \
-	             contrib/bash_patch contrib/hook
-lua_code	  := $(filter-out %.in.lua, $(wildcard src/*.lua))        \
-                     $(wildcard src/*.tcl) src/COPYRIGHT 
-VDATE		  := $(shell date +'%F %H:%M')
+CONTRIB           	 := contrib/createmodule.sh contrib/BuildSystemCacheFile                  \
+                            contrib/SitePackage contrib/tricky_modulefiles contrib/parseVersions  \
+	          	    contrib/bash_patch contrib/hook
+lua_code	  	 := $(filter-out %.in.lua, $(wildcard src/*.lua))        \
+                            $(wildcard src/*.tcl) src/COPYRIGHT 
+VDATE		  	 := $(shell date +'%F %H:%M')
 
-ComputeHashSum    := src/computeHashSum.in.lua
-
-REQUIRED_PKGS	  := \
-                     BeautifulTbl  \
-                     ColumnTable   \
-                     Dbg           \
-                     Optiks        \
-                     Optiks_Option \
-	             ProgressBar   \
-	             TermWidth     \
-                     capture       \
-                     declare       \
-                     deepcopy      \
-                     escape        \
-                     fileOps       \
-	             fillWords     \
-                     json          \
-                     hash          \
-                     inherits      \
-                     pairsByKeys   \
-                     serializeTbl  \
-                     strict        \
-                     string_split  \
-                     string_trim
+ComputeHashSum    	 := src/computeHashSum.in.lua
+spiderCacheSupportCMD    := src/spiderCacheSupport.in.lua
 
 .PHONY: test pkgs
 
 all:
 	@echo done
 
-pre-install: $(DIRLIST) shell_init startup libexec pkgs other_tools
+pre-install: $(DIRLIST) shell_init startup spiderCacheSupport libexec libtools pkgs other_tools
 
 install: pre-install
 	$(RM) $(DESTDIR)$(PKG)
@@ -76,12 +56,6 @@ install: pre-install
 
 echo:
 	@echo Version: $(version)
-echo_version:
-	@echo $(version)
-
-echo_rtm:
-	@echo $(filter-out src/%.in.lua, $(wildcard src/*.lua))
-
 
 
 $(DIRLIST) :
@@ -117,6 +91,11 @@ startup: $(STARTUP)
 other_tools: $(ComputeHashSum) $(STANDALONE_PRGM)
 	$(MAKE) FILELIST="$^" DIRLOC=$(DESTDIR)$(LIBEXEC) __installMe
 
+spiderCacheSupport:
+	if [ -f "$(SPIDER_CACHE_DESCRIPT_FN)" ]; then                 \
+          $(spiderCacheSupport) $(SPIDER_CACHE_DESCRIPT_FN) >> $(DESTDIR)$(INIT)/.lmodrc.lua;
+        fi
+
 src/computeHashSum: $(ComputeHashSum)
 	$(MAKE) FILELIST="$^" DIRLOC="src"                __installMe
 	chmod +x $@
@@ -147,9 +126,12 @@ _distMkDir:
 _distContrib:
 	mkdir $(DistD)/contrib
 	cp -r $(CONTRIB) $(DistD)/contrib
+
 _distSrc:
 	mkdir $(DistD)/src
 	cp $(lua_code) $(ComputeHashSum) $(STANDALONE_PRGM) $(DistD)/src
+	mkdir $(DistD)/src/tools
+	cp tools/*.lua $(DistD)/src/tools
 
 _distPkgs:
 	mkdir $(DistD)/pkgs
@@ -161,9 +143,6 @@ _distSetup:
 
 _distMainDir:
 	cp $(MAIN_DIR) $(DistD)
-
-_distReqPkg:
-	cp `findLuaPkgs $(REQUIRED_PKGS)` $(DistD)/src
 
 _distMF:
 	mkdir $(DistD)/mf
@@ -192,6 +171,8 @@ tags:
             -e 's|.*.tar.gz$$||g'                                  \
             -e 's|.*.tar.bz2$$||g'                                 \
             -e 's|.*.csv$$||g'                                     \
+            -e 's|^#.*||g'                                         \
+            -e 's|\.#.*||g'                                        \
             -e 's|.*.pdf$$||g'                                     \
             -e 's|.*.used$$||g'                                    \
             -e 's|./config.log$$||g'                               \
@@ -207,6 +188,10 @@ tags:
 
 libexec:  $(lua_code)
 	$(MAKE) FILELIST="$^" DIRLOC=$(DESTDIR)$(LIBEXEC) __installMe
+
+libtools: src/tools/*.lua
+	$(MAKE) FILELIST="$^" DIRLOC=$(DESTDIR)$(LIBTOOLS) __installMe
+
 
 clean:
 	$(RM) config.log

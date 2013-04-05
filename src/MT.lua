@@ -1041,7 +1041,7 @@ function M.add_property(self, sn, name, value)
       LmodError("MT:add_property(): Did not find module entry: ",sn,
                 ". This should not happen!\n")
    end
-   local propDisplayT = readRC()
+   local propDisplayT = getPropT()
    local propKindT    = propDisplayT[name]
 
    if (propKindT == nil) then
@@ -1081,7 +1081,7 @@ function M.remove_property(self, sn, name, value)
       LmodError("MT:remove_property(): Did not find module entry: ",sn,
                 ". This should not happen!\n")
    end
-   local propDisplayT = readRC()
+   local propDisplayT = getPropT()
    local propKindT    = propDisplayT[name]
 
    if (propKindT == nil) then
