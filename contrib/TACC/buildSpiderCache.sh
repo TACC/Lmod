@@ -13,10 +13,10 @@ writeTS()
   local dateStr=$(date)
   local epoch=$(date +%s)
 
-  echo "nodeType   = $nodeType" >  fn
-  echo "hostName   = $hostName" >> fn
-  echo "lastUpdate = $dateStr"  >> fn
-  echo "timeEpoch  = $epoch"    >> fn
+  echo "nodeType   = $nodeType" >  $fn
+  echo "hostName   = $hostName" >> $fn
+  echo "lastUpdate = $dateStr"  >> $fn
+  echo "timeEpoch  = $epoch"    >> $fn
 }  
   
 
