@@ -52,6 +52,7 @@ buildNewDB()
 
    if [ ! -d $DIR ]; then
      mkdir -p  $DIR
+     chmod 755 $DIR
    fi
 
    local OLD=$DIR/$file.old.lua
