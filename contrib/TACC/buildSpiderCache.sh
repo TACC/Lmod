@@ -1,7 +1,6 @@
 #!/bin/bash
 # -*- shell-script -*-
 
-
 ########################################################################
 # Generate time stamp file:
 
@@ -43,6 +42,9 @@ getModifyTime()
   echo $result
 }
 
+########################################################################
+#  Build the new database 
+
 buildNewDB()
 {
    local DIR=$1
@@ -56,7 +58,6 @@ buildNewDB()
 
    local OLD=$DIR/$file.old.lua
    local NEW=$DIR/$file.new.lua
-
    local RESULT=$DIR/$file.lua
 
    rm -f $NEW
@@ -70,6 +71,9 @@ buildNewDB()
    fi
 }
 
+######################################################################## 
+#  Load in Luatools 
+
 for i in ~mclay/l/pkg/x86_64/luatools/luatools \
          ~mclay/l/pkg/luatools/luatools; do
   if [ -f $i/share/5.1/strict.lua ]; then
@@ -78,8 +82,13 @@ for i in ~mclay/l/pkg/x86_64/luatools/luatools \
   fi
 done
 
+######################################################################## 
+#  Make directores and file be world readable
 umask 022
 
+
+######################################################################## 
+#  Find an lmod that has a version 5 or better
 for i in /opt/apps/lmod/lmod/libexec             \
          ~mclay/l/pkg/x86_64/lmod/lmod/libexec   \
          ~mclay/l/pkg/lmod/lmod/libexec          ; do
@@ -97,14 +106,14 @@ CacheDir="/tmp/moduleData/cacheDir"
 cacheFile="$CacheDir/moduleT.lua"
 timeStamp="/tmp/losf_last_update"
 
-# Get timeStamp epoch
+# Get timeStamp epoch and cacheFile epoch
 
 a=$(getModifyTime $timeStamp)
 b=$(getModifyTime $cacheFile)
 nodeType=$(readTS $timeStamp)
 
-
-# if timestamp file is older than the cache file we are done.
+# if the cache file is out-of-date then rebuild the cache files for the local
+# directories
 if [ $a -ge $b ]; then
   if [ "$nodeType" != "build" ]; then
     buildNewDB $CacheDir  /opt/apps/modulefiles:/opt/modulefiles  moduleT 
@@ -112,7 +121,9 @@ if [ $a -ge $b ]; then
   fi
 fi
 
-if [ "$nodeType" == "login" ]; then
+# if we are on master then build the shared file system cache files.
+
+if [ "$nodeType" == "master" ]; then
   XSEDE_dir="/home1/moduleData/XSEDE"
   if [ ! -d $XSEDE_dir ]; then
     mkdir -p $XSEDE_dir
