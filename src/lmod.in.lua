@@ -936,7 +936,7 @@ function main()
    }
 
    local dbg  = Dbg:dbg()
-
+   readRC()
    MCP = MasterControl.build("load")
 
    -------------------------------------------------------------------

@@ -45,7 +45,7 @@ function M.name(self)
 end
 
 s_loadOrder = 0
-s_mt = nil
+s_mt = false
 
 s_mtA = {}
 
@@ -395,7 +395,7 @@ end
 local dcT = {function_immutable = true, metatable_immutable = true}
 
 function M.mt(self)
-   if (s_mt == nil) then
+   if (not s_mt) then
       local dbg  = Dbg:dbg()
       dbg.start("mt()")
       local shell        = systemG.Master:master().shell
