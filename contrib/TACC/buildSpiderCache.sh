@@ -122,6 +122,7 @@ if [ $a -ge $b ]; then
 fi
 
 # if we are on master then build the shared file system cache files.
+# These cache files are always rebuilt everytime this script is called.
 
 if [ "$nodeType" == "master" ]; then
   XSEDE_dir="/home1/moduleData/XSEDE"
