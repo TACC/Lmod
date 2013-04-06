@@ -53,7 +53,7 @@ buildNewDB()
    local option=$file
 
    if [ ! -d $DIR ]; then
-     mkdir -p $DIR
+     mkdir -p  $DIR
    fi
 
    local OLD=$DIR/$file.old.lua
@@ -72,17 +72,6 @@ buildNewDB()
 }
 
 ######################################################################## 
-#  Load in Luatools 
-
-for i in ~mclay/l/pkg/x86_64/luatools/luatools \
-         ~mclay/l/pkg/luatools/luatools; do
-  if [ -f $i/share/5.1/strict.lua ]; then
-    export LUA_PATH="$i/share/5.1/?.lua;;"
-    export LUA_CPATH="$i/lib/5.1/?.so;;"
-  fi
-done
-
-######################################################################## 
 #  Make directores and file be world readable
 umask 022
 
@@ -92,6 +81,16 @@ umask 022
 for i in /opt/apps/lmod/lmod/libexec             \
          ~mclay/l/pkg/x86_64/lmod/lmod/libexec   \
          ~mclay/l/pkg/lmod/lmod/libexec          ; do
+  if [ -z "$LUA_PATH" -a $i != /opt/apps/lmod/lmod/libexec ]; then
+    for i in ~mclay/l/pkg/x86_64/luatools/luatools \
+             ~mclay/l/pkg/luatools/luatools; do
+      if [ -f $i/share/5.1/strict.lua ]; then
+	export LUA_PATH="$i/share/5.1/?.lua;;"
+	export LUA_CPATH="$i/lib/5.1/?.so;;"
+      fi
+    done
+  fi
+
   if [ -x $i/lmod ]; then
     LmodVersion=$($i/lmod bash --version 2>&1 | grep "^Modules" | sed -e 's/.*Version \([0-9]\+\).*/\1/')
     if [ "$LmodVersion" -ge 5 ]; then

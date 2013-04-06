@@ -12,30 +12,26 @@ local cmd_dir = "./"
 if (i) then
    cmd_dir = cmd:sub(1,j)
 end
-package.path = cmd_dir .. "?.lua;" .. package.path
+package.path = cmd_dir .. "tools/?.lua;" ..
+               cmd_dir .. "?.lua;"       .. package.path
+
 require("strict")
 require("fileOps")
 require("serializeTbl")
 require("capture")
 
-_ModuleTable_ = ""
-local posix   = require("posix")
-local Optiks  = require("Optiks")
-local lfs     = require("lfs")
-local cmd     = abspath(arg[0])
-local i,j     = cmd:find(".*/")
-local cmd_dir = "./"
-if (i) then
-   cmd_dir = cmd:sub(1,j)
-end
-package.path = cmd_dir .. '?.lua;' .. package.path
-
-local base64       = require("base64")
-local concat       = table.concat
-local decode64     = base64.decode64
-local format       = string.format
-local getenv       = os.getenv
-local huge         = math.huge
+_ModuleTable_  = ""
+local posix    = require("posix")
+local Optiks   = require("Optiks")
+local lfs      = require("lfs")
+local cmd      = abspath(arg[0])
+local i,j      = cmd:find(".*/")
+local base64   = require("base64")
+local concat   = table.concat
+local decode64 = base64.decode64
+local format   = string.format
+local getenv   = os.getenv
+local huge     = math.huge
 
 function UUIDString(epoch)
    local ymd  = os.date("*t", epoch)
