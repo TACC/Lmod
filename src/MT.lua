@@ -204,7 +204,8 @@ local function build_locationTbl(mpathA)
    local availT    = {}
 
    local fast      = true
-   local moduleT   = getModuleT(fast)
+   local cache     = Cache:cache()
+   local moduleT   = cache:build()
    
    if (moduleT) then
       buildAllLocWmoduleT(moduleT, mpathA, locationT, availT)

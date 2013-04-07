@@ -685,7 +685,8 @@ function M.avail(searchA)
    local mpathA = mt:module_pathA()
    local width  = TermWidth()
 
-   local moduleT = getModuleT()
+   local cache   = Cache:cache()
+   local moduleT = cache:build()
    local dbT     = {}
    Spider.buildSpiderDB({"default"}, moduleT, dbT)
 

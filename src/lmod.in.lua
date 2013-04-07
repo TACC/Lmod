@@ -79,6 +79,7 @@ mcp           = {}
 require("modfuncs")
 require("cmdfuncs")
 require("colorize")
+Cache  = require("Cache")
 Master = require("Master")
 MT     = require("MT")
 
@@ -788,7 +789,8 @@ end
 function SpiderCmd(...)
    local dbg = Dbg:dbg()
    dbg.start("SpiderCmd(", concatTbl({...},", "),")")
-   local moduleT = getModuleT()
+   local cache   = Cache:cache()
+   local moduleT = cache:build()
 
    local master = Master:master()
    local s
@@ -819,7 +821,8 @@ function Keyword(...)
    dbg.start("Keyword(",concatTbl({...},","),")")
 
    local master  = Master:master()
-   local moduleT = getModuleT()
+   local cache   = Cache:cache()
+   local moduleT = cache:build()
    local s
    local dbT = {}
    Spider.searchSpiderDB({...},{"default"},moduleT, dbT)

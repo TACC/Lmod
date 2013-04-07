@@ -29,7 +29,7 @@ M.unsetenv             = MasterControl.quiet
 M.unset_alias          = MasterControl.quiet
 M.unset_shell_function = MasterControl.quiet
 M.usrload              = MasterControl.quiet
-
+M.warning              = MasterControl.warning
 function M.myFileName(self)
    return Spider_myFileName()
 end

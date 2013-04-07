@@ -92,8 +92,8 @@ other_tools: $(ComputeHashSum) $(STANDALONE_PRGM)
 	$(MAKE) FILELIST="$^" DIRLOC=$(DESTDIR)$(LIBEXEC) __installMe
 
 spiderCacheSupport:
-	if [ -f "$(SPIDER_CACHE_DESCRIPT_FN)" ]; then                 \
-          $(spiderCacheSupport) $(SPIDER_CACHE_DESCRIPT_FN) >> $(DESTDIR)$(INIT)/.lmodrc.lua;
+	if [ -f "$(SPIDER_CACHE_DESCRIPT_FN)" ]; then                                         \
+          $(spiderCacheSupport) $(SPIDER_CACHE_DESCRIPT_FN) >> $(DESTDIR)$(INIT)/.lmodrc.lua; \
         fi
 
 src/computeHashSum: $(ComputeHashSum)
@@ -164,26 +164,26 @@ test:
 tags:
 	find . \( -regex '.*~$$\|.*/\.git\|.*/\.git/' -prune \)  \
                -o -type f > file_list.1
-	sed -e 's|.*/.git.*||g'                                    \
-            -e 's|.*/rt/.*/t1/.*||g'                               \
-            -e 's|./TAGS||g'                                       \
-            -e 's|./configure$$||g'                                \
-            -e 's|.*.tar.gz$$||g'                                  \
-            -e 's|.*.tar.bz2$$||g'                                 \
-            -e 's|.*.csv$$||g'                                     \
-            -e 's|^#.*||g'                                         \
-            -e 's|\.#.*||g'                                        \
-            -e 's|.*.pdf$$||g'                                     \
-            -e 's|.*.used$$||g'                                    \
-            -e 's|./config.log$$||g'                               \
-            -e 's|./testreports/.*||g'                             \
-            -e 's|./config.status$$||g'                            \
-            -e 's|.*\~$$||g'                                       \
-            -e 's|./file_list.*||g'                                \
-            -e '/^\s*$$/d'                                         \
+	sed -e 's|.*/.git.*||g'                                  \
+            -e 's|.*/rt/.*/t1/.*||g'                             \
+            -e 's|./TAGS||g'                                     \
+            -e 's|./configure$$||g'                              \
+            -e 's|.*\.tar\.gz$$||g'                              \
+            -e 's|.*\.tar\.bz2$$||g'                             \
+            -e 's|.*\.csv$$||g'                                  \
+            -e 's|^#.*||g'                                       \
+            -e 's|\.#.*||g'                                      \
+            -e 's|.*\.pdf$$||g'                                  \
+            -e 's|.*\.used$$||g'                                 \
+            -e 's|./.*\.log$$||g'                                \
+            -e 's|./testreports/.*||g'                           \
+            -e 's|./config\.status$$||g'                         \
+            -e 's|.*\~$$||g'                                     \
+            -e 's|./file_list\.*||g'                             \
+            -e '/^\s*$$/d'                                       \
 	       < file_list.1 > file_list.2
 	etags  `cat file_list.2`
-	$(RM) file_list.*
+	#$(RM) file_list.*
 
 
 libexec:  $(lua_code)
