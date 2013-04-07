@@ -179,11 +179,11 @@ tags:
             -e 's|./testreports/.*||g'                           \
             -e 's|./config\.status$$||g'                         \
             -e 's|.*\~$$||g'                                     \
-            -e 's|./file_list\.*||g'                             \
+            -e 's|./file_list\..*||g'                            \
             -e '/^\s*$$/d'                                       \
 	       < file_list.1 > file_list.2
 	etags  `cat file_list.2`
-	#$(RM) file_list.*
+	$(RM) file_list.*
 
 
 libexec:  $(lua_code)

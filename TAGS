@@ -17,61 +17,6 @@ function Python.shellFunc(18,396
 function Python.expandVar(22,510
 function Python.unset(37,872
 
-src/#MT.lua#,1276
-function M.M43,1148
-function M.M329,9013
-function M.M368,9999
-function M.M372,10065
-function M.M376,10127
-function M.M398,10787
-function M.M419,11469
-function M.M430,11778
-function M.M441,12030
-function M.M450,12213
-function M.M608,17271
-function M.M616,17469
-function M.M622,17600
-function M.M628,17737
-function M.M639,18000
-function M.M649,18277
-function M.M657,18487
-function M.M665,18622
-function M.M669,18694
-function M.M673,18746
-function M.M677,18816
-function M.M681,18873
-function M.M690,19073
-function M.M700,19266
-function M.M704,19342
-function M.M709,19498
-function M.M735,20178
-function M.M761,21033
-function M.M774,21257
-function M.M783,21410
-function M.M793,21649
-function M.M802,21807
-function M.M807,21891
-function M.M816,22089
-function M.M858,23244
-function M.M907,24353
-function M.M917,24508
-function M.M927,24670
-function M.M935,24815
-function M.M944,24979
-function M.M956,25190
-function M.M966,25376
-function M.M980,25595
-function M.M989,25749
-function M.M998,25902
-function M.M1006,26054
-function M.M1015,26242
-function M.M1021,26342
-function M.M1034,26550
-function M.M1074,27812
-function M.M1114,29092
-function M.M1142,29989
-function M.M1209,31790
-
 src/addto.in.lua,179
 function masterTbl(32,746
 function isDir(36,789
@@ -136,18 +81,6 @@ src/clearMT_cmd.in.lua,80
 function bash_export(26,643
 function csh_setenv(43,980
 function main(61,1298
-
-src/#MC_Spider.lua#,220
-function M.M33,1240
-function M.M38,1304
-function M.M42,1371
-function M.M50,1518
-function M.M58,1671
-function M.M66,1821
-function M.M75,1999
-function M.M83,2173
-function M.M90,2300
-function M.M98,2468
 
 src/processMT.in.lua,139
 function main(29,671
@@ -272,61 +205,61 @@ local function locationTblDir(52,1243
 local function buildLocWmoduleT(114,3503
 local function buildAllLocWmoduleT(147,4461
 local function build_locationTbl(199,5684
-local function columnList(245,6864
-local function new(257,7121
-function M.convertMT(328,8981
-function M.getRebuildTime(367,9967
-function M.getShortTime(371,10033
-function M.setRebuildTime(375,10095
-local function setupMPATH(384,10351
-function M.mt(397,10755
-function M.cloneMT(418,11437
-function M.popMT(429,11746
-function M.origMT(440,11998
-function M.getMTfromFile(449,12181
-function M.changePATH(607,17239
-function M.beginOP(615,17437
-function M.endOP(621,17568
-function M.safeToCheckZombies(627,17705
-function M.setfamily(638,17968
-function M.unsetfamily(648,18245
-function M.getfamily(656,18455
-function M.locationTbl(664,18590
-function M.availT(668,18662
-function M.sameMPATH(672,18714
-function M.module_pathA(676,18784
-function M.buildMpathA(680,18841
-function M.buildBaseMpathA(689,19041
-function M.getBaseMPATH(699,19234
-function M.reEvalModulePath(703,19310
-function M.reloadAllModules(708,19466
-function M.add(734,20146
-function M.userName(760,21001
-function M.fileName(773,21225
-function M.setStatus(782,21378
-function M.getStatus(792,21617
-function M.exists(801,21775
-function M.have(806,21859
-function M.list(815,22057
-function M.setHashSum(857,23212
-function M.getHash(906,24321
-function M.hideHash(916,24476
-function M.markDefault(926,24638
-function M.default(934,24783
-function M.setLoadOrder(943,24947
-function M.fullName(955,25158
-function M.Version(965,25344
-function M.short(979,25563
-function M.mType(988,25717
-function M.set_mType(997,25870
-function M.reportKeys(1005,26022
-function M.remove(1014,26210
-function M.safeToSave(1020,26310
-function M.add_property(1033,26518
-function M.remove_property(1073,27780
-function M.list_property(1113,29060
-function M.reportChanges(1141,29957
-function M.serializeTbl(1208,31758
+local function columnList(246,6896
+local function new(258,7153
+function M.convertMT(329,9013
+function M.getRebuildTime(368,9999
+function M.getShortTime(372,10065
+function M.setRebuildTime(376,10127
+local function setupMPATH(385,10383
+function M.mt(398,10787
+function M.cloneMT(419,11469
+function M.popMT(430,11778
+function M.origMT(441,12030
+function M.getMTfromFile(450,12213
+function M.changePATH(608,17271
+function M.beginOP(616,17469
+function M.endOP(622,17600
+function M.safeToCheckZombies(628,17737
+function M.setfamily(639,18000
+function M.unsetfamily(649,18277
+function M.getfamily(657,18487
+function M.locationTbl(665,18622
+function M.availT(669,18694
+function M.sameMPATH(673,18746
+function M.module_pathA(677,18816
+function M.buildMpathA(681,18873
+function M.buildBaseMpathA(690,19073
+function M.getBaseMPATH(700,19266
+function M.reEvalModulePath(704,19342
+function M.reloadAllModules(709,19498
+function M.add(735,20178
+function M.userName(761,21033
+function M.fileName(774,21257
+function M.setStatus(783,21410
+function M.getStatus(793,21649
+function M.exists(802,21807
+function M.have(807,21891
+function M.list(816,22089
+function M.setHashSum(858,23244
+function M.getHash(907,24353
+function M.hideHash(917,24508
+function M.markDefault(927,24670
+function M.default(935,24815
+function M.setLoadOrder(944,24979
+function M.fullName(956,25190
+function M.Version(966,25376
+function M.short(980,25595
+function M.mType(989,25749
+function M.set_mType(998,25902
+function M.reportKeys(1006,26054
+function M.remove(1015,26242
+function M.safeToSave(1021,26342
+function M.add_property(1034,26550
+function M.remove_property(1074,27812
+function M.list_property(1114,29092
+function M.reportChanges(1142,29989
+function M.serializeTbl(1209,31790
 
 src/tools/pairsByKeys.lua,27
 function pairsByKeys 2,18
