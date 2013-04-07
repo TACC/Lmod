@@ -57,8 +57,12 @@ case $SYSHOST in
     TACC_SYSTEM=1
     if [ $SYSHOST == "stampede" ]; then
       base="$base/$(uname -m)"
-      UPDATE_FN=/tmp/losf_last_update
-      CACHEDIRS=$ADMIN_DIR/cacheDir:$ADMIN_DIR/XSEDE/cacheDir
+      cat > /tmp/mclay_build$$ <<EOF
+/tmp/moduleData/cacheDir:/tmp/losf_last_update
+/home1/moduleData/XSEDE/cacheDir:/home1/moduleData/XSEDE/last_update
+$HOME/a/moduleData: $ADMIN_DIR/system.txt
+EOF
+      EXTRA="--with-spiderCacheDescriptFn=/tmp/mclay_build$$"
     fi
     ;;
 
@@ -81,7 +85,7 @@ fi
 rm -f config.status config.log
 
 cmdA=("-make distclean"
-      "./configure --prefix=$BASE_DIR --with-ancient=86401 --with-shortTime=10.3 --with-spiderCacheDir=$CACHEDIRS  --with-updateSystemFn=$UPDATE_FN --with-duplicatePaths=yes"
+      "./configure --prefix=$BASE_DIR --with-ancient=86401 --with-shortTime=10.3 --with-spiderCacheDir=$CACHEDIRS  --with-updateSystemFn=$UPDATE_FN --with-duplicatePaths=yes $EXTRA"
       "$SUDO make install"
       "$EXTRA_CMD"
       "make clobber"
@@ -89,3 +93,5 @@ cmdA=("-make distclean"
 
 
 runMe "${cmdA[@]}"
+
+rm -rf /tmp/mclay_build$$

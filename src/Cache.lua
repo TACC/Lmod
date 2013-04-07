@@ -6,6 +6,7 @@ require("fileOps")
 local Dbg     = require("Dbg")
 local M       = {}
 local MT      = require("MT")
+local Spider  = require("Spider")
 local hook    = require("Hook")
 local lfs     = require("lfs")
 local s_cache = false
@@ -28,27 +29,35 @@ local function new(self)
    setmetatable(o,self)
    self.__index = self
 
+   local dbg = Dbg:dbg()
+   dbg.start("Cache:new()")
+
    scDescriptT = getSCDescriptT()
    
    local scDirA = {}
 
    local systemEpoch = epoch() - ancient
 
+   dbg.print("#scDescriptT: ",#scDescriptT, "\n")
    for j  = 1, #scDescriptT  do
       local entry = scDescriptT[j]
-      hook.apply("parse_updateFn", entry.timestamp, t)
+      local t     = {}
+      if (entry.timestamp) then
+         hook.apply("parse_updateFn", entry.timestamp, t)
+      end
 
       local lastUpdate = t.lastUpdateEpoch or systemEpoch
 
       local a = {}
-      if (t.hostType) then
+      if (t.hostType and t.hostType ~= "") then
          a[#a+1] = t.hostType
       end
       a[#a+1] = ""
       for i = 1,#a do
          local dir  = pathJoin(entry.dir ,a[i])
-         local attr = lfs.attributes(entry.dir)
-         if (attr and type(attr) == table and attr.mode == "directory") then
+         local attr = lfs.attributes(dir) or {}
+         if (attr.mode == "directory") then
+            dbg.print("Adding: dir: ",dir,", timestamp: ",lastUpdate, "\n")
             scDirA[#scDirA+1] =
                { file = pathJoin(dir, "moduleT.lua"),     fileT = "system",
                  timestamp = lastUpdate}
@@ -65,7 +74,7 @@ local function new(self)
         timestamp = systemEpoch
       }
    }
-
+   local mt        = MT:mt()
    local baseMpath = mt:getBaseMPATH()
    if (baseMpath == nil) then
      LmodError("The Env Variable: \"", DfltModPath, "\" is not set\n")
@@ -82,10 +91,11 @@ local function new(self)
    o.moduleDirT   = moduleDirT
    o.usrCacheDirA = usrCacheDirA 
    o.usrModuleTFN = pathJoin(usrCacheDir,"moduleT.lua")
-   o.systemDirA   = sdDirA
+   o.systemDirA   = scDirA
 
    o.moduleT      = {}
    o.moduleDirA   = {}
+   dbg.fini("Cache.new")
    return o
 end
 
@@ -95,7 +105,6 @@ function M.cache(self)
    end
    return s_cache
 end
-
 
 local function readCacheFile(self, cacheFileA)
 
@@ -109,61 +118,64 @@ local function readCacheFile(self, cacheFileA)
    local moduleDirA = self.moduleDirA
    local moduleT    = self.moduleT
 
+   dbg.print("#cacheFileA: ",#cacheFileA,"\n")
    for i = 1,#cacheFileA do
-      local f = cacheFileA[i].file
+      local f    = cacheFileA[i].file
+      local attr = lfs.attributes(f) or {}
+      
+      if (next(attr) == nil or attr.size == 0) then
+         dbg.print("cache file does not exist: ",f,"\n")
+      else
+         dbg.print("cacheFile found: ",f,"\n")
 
-      if (not isFile(f)) then
-         LmodError("Did not find cachefile: ", f,". This should not happen\n")
-      end
-      dbg.print("cacheFile found: ",f,"\n")
-      local attr   = lfs.attributes(f)
+         -- Check Time
 
-      -- Check Time
+         local diff         = attr.modification - cacheFileA[i].timestamp
+         local buildModuleT = diff < 0  -- rebuild when older than timestamp
+         dbg.print("timeDiff: ",diff," buildModuleT: ", tostring(buildModuleT),"\n")
 
-      local diff         = attr.modification - cacheFileA.timestamp
-      local buildModuleT = diff < 0  -- rebuild when older than timestamp
-      dbg.print("timeDiff: ",diff," buildModuleT: ", tostring(buildModuleT),"\n")
-
-      if (not buildModuleT) then
-         
-         -- Check for matching default MODULEPATH.
-         assert(loadfile(f))()
+         if (not buildModuleT) then
             
-         local version = (rawget(_G,"moduleT") or {}).version or 0
+            -- Check for matching default MODULEPATH.
+            assert(loadfile(f))()
+               
+            local version = (rawget(_G,"moduleT") or {}).version or 0
 
-         dbg.print("version: ",tostring(version),"\n")
-         if (version < Cversion) then
-            dbg.print("Ignoring old style cache file!\n")
-         else
-            local G_moduleT = _G.moduleT
-            for k, v in pairs(G_moduleT) do
-               if ( k:sub(1,1) == '/' ) then
-                  local dirTime = moduleDirT[k]
-                  if (attr.modification > dirTime) then
-                     dbg.print("saving directory: ",k," from cache file: ",f,"\n")
-                     moduleDirT[k] = attr.modification
-                     moduleT[k]    = v
-                     dirsRead      = dirsRead + 1
+            dbg.print("version: ",tostring(version),"\n")
+            if (version < Cversion) then
+               dbg.print("Ignoring old style cache file!\n")
+            else
+               local G_moduleT = _G.moduleT
+               for k, v in pairs(G_moduleT) do
+                  if ( k:sub(1,1) == '/' ) then
+                     local dirTime = moduleDirT[k]
+                     if (attr.modification > dirTime) then
+                        dbg.print("saving directory: ",k," from cache file: ",f,"\n")
+                        moduleDirT[k] = attr.modification
+                        moduleT[k]    = v
+                        dirsRead      = dirsRead + 1
+                     end
+                  else
+                     moduleT[k] = moduleT[k] or v
                   end
-               else
-                  moduleT[k] = moduleT[k] or v
                end
             end
          end
       end
    end
+
    dbg.fini("Cache:readCacheFile")
    return dirsRead
 end
 
-local function build(self, fast)
+function M.build(self, fast)
    local dbg = Dbg:dbg()
    local mt = MT:mt()
    
    dbg.start("Cache:build(fast=", fast,")")
    local masterTbl = masterTbl()
 
-   local sysDirRead = 0
+   local sysDirsRead = 0
    if (not masterTbl.checkSyntax) then
       sysDirsRead = readCacheFile(self, self.systemDirA)
    end
@@ -187,28 +199,34 @@ local function build(self, fast)
       return nil
    end
 
-   local buildModuleT = (#dirA > 0)
-   local userModuleT  = {}
+   local userModuleTFN = self.usrModuleTFN
+   local buildModuleT  = (#dirA > 0)
+   local userModuleT   = {}
+   local moduleT       = self.moduleT
    dbg.print("buildModuleT: ",tostring(buildModuleT),"\n")
 
-   if (buildModuleT) then
+   
+   if (not buildModuleT) then
+      ancient = _G.ancient or ancient
+      mt:setRebuildTime(ancient, false)
+   else
       local short    = mt:getShortTime()
       local prtRbMsg = ((not masterTbl.expert) and (not masterTbl.initial) and
                         ((not short) or (short > shortTime)))
       dbg.print("short: ", tostring(short), " shortTime: ", tostring(shortTime),"\n")
-
+      
       if (prtRbMsg) then
          io.stderr:write("Rebuilding cache file, please wait ...")
       end
-
+      
       local mcp_old = mcp
       mcp           = MasterControl.build("spider")
       dbg.print("Setting mpc to ", mcp:name(),"\n")
-
+      
       local t1 = epoch()
       Spider.findAllModules(dirA, userModuleT)
       local t2 = epoch()
-
+      
       mcp           = mcp_old
       dbg.print("Resetting mpc to ", mcp:name(),"\n")
 
@@ -216,11 +234,11 @@ local function build(self, fast)
          io.stderr:write(" done.\n\n")
       end
       dbg.print("t2-t1: ",t2-t1, " shortTime: ", shortTime, "\n")
-
+   
       local r = {}
       hook.apply("writeCache",r)
-
-
+   
+   
       if (t2 - t1 < shortTime or r.dontWriteCache) then
          ancient = shortLifeCache
 
@@ -233,14 +251,13 @@ local function build(self, fast)
          -- took to build the cache between Lmod command runs during a regression
          -- test.  So if the old time is with-in a factor of 2 old time then
          -- keep the old time.
-
+         
          local newShortTime = t2-t1
          if (short and 2*short > newShortTime) then
             newShortTime = short
          end
          mt:setRebuildTime(ancient, newShortTime)
       else
-         local userModuleTFN = self.usrModuleTFN
          mkdir_recursive(cacheDir)
          local s0 = "-- Date: " .. os.date("%c",os.time()) .. "\n"
          local s1 = "ancient = " .. tostring(math.floor(ancient)) .."\n"
@@ -254,17 +271,14 @@ local function build(self, fast)
          dbg.print("Wrote: ",userModuleTFN,"\n")
          local buildT   = t2-t1
          local ancient2 = math.min(buildT * 120, ancient)
-
+      
          mt:setRebuildTime(ancient2, buildT)
       end
-      local moduleT = self.moduleT
+      dbg.print("Transfer from userModuleT to moduleT\n")
       for k, v in pairs(userModuleT) do
+         dbg.print("k: ",k,"\n")
          moduleT[k] = userModuleT[k]
       end
-
-   else
-      ancient = _G.ancient or ancient
-      mt:setRebuildTime(ancient, false)
    end
 
    -- remove user cache file if old

@@ -26,15 +26,48 @@ function main()
 
    local optionTbl, pargs = options()
 
-   local fn = pargs[1]
-   if (not isFile(fn)) then
+   local scDescriptT = false
+
+
+   if (optionTbl.descriptFn and optionTbl.descriptFn ~= "") then 
+      scDescriptT = buildFromDescript(optionTbl.descriptFn)
+   elseif (optionTbl.cacheDirs and optionTbl.cacheDirs ~= "" ) then
+      scDescriptT = buildFromEnvVars(optionTbl.cacheDirs,
+                                     optionTbl.updateFn)
+   end
+
+   if (scDescriptT and next(scDescriptT) ~= nil) then
+      local s = serializeTbl{ indent = true, name = "scDescriptT",
+                              value = scDescriptT }
+      io.stdout:write(s)
+   end
+
+end
+
+function buildFromEnvVars(cacheDirs, updateFn)
+   local scDescriptT = {}
+
+   if (not updateFn or updateFn == "") then
+      updateFn = false
+   end
+
+   local i = 0
+   for dir in cacheDirs:split(":") do
+      i = i + 1
+      scDescriptT[i] = { dir = dir, timestamp = updateFn}
+   end
+   return scDescriptT
+end
+
+function buildFromDescript(descriptFn)
+   if (not isFile(descriptFn)) then
       return
    end
 
-   local f = io.open(fn,"r")
+   local f = io.open(descriptFn,"r")
    if (not f) then
-      io.stderr:write("unable open file: ",fn,"\n")
-      return
+      io.stderr:write("unable open file: ",descriptFn,"\n")
+      return nil
    end
 
    local whole = f:read("*all")
@@ -54,9 +87,7 @@ function main()
          scDescriptT[i] = { dir = a[1], timestamp = a[2] or false }
       end
    end
-
-   io.stdout:write(serializeTbl{ indent = true, name = "scDescriptT", value = scDescriptT })
-
+   return scDescriptT
 end
 
 function options()
@@ -67,6 +98,27 @@ function options()
       name   = {'-v','--verbose'},
       dest   = 'verbosityLevel',
       action = 'count',
+   }
+
+   cmdlineParser:add_option{ 
+      name   = {'--cacheDirs'},
+      dest   = 'cacheDirs',
+      action = 'store',
+      help   = "Cache directories"
+   }
+
+   cmdlineParser:add_option{ 
+      name   = {'--updateFn'},
+      dest   = 'updateFn',
+      action = 'store',
+      help   = "last update file"
+   }
+
+   cmdlineParser:add_option{ 
+      name   = {'--descriptFn'},
+      dest   = 'descriptFn',
+      action = 'store',
+      help   = "Cache Description File"
    }
 
    local optionTbl, pargs = cmdlineParser:parse(arg)

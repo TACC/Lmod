@@ -204,7 +204,7 @@ local function build_locationTbl(mpathA)
    local availT    = {}
 
    local fast      = true
-   local cache     = Cache:cache()
+   local cache     = _G.Cache:cache()
    local moduleT   = cache:build()
    
    if (moduleT) then

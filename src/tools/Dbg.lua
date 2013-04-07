@@ -170,10 +170,9 @@ function M.Start(...)
    s_vpl = startExtractVPL(...)
    if (s_vpl <= s_currentLevel) then 
       io.stderr:write(s_indentString)
-      for i,v in ipairs{...} do
-         if (i ~= 1 or type(v) ~= "number") then
-            io.stderr:write(tostring(v))
-         end
+      local arg = { n = select('#', ...), ...}
+      for i = 1, arg.n do
+         io.stderr:write(tostring(arg[i]))
       end
       io.stderr:write("{\n")
       s_indentLevel  = s_indentLevel + 1
@@ -241,7 +240,9 @@ function M.Debug(...)
    end
 
    io.stderr:write(s_indentString)
-   for i,v in ipairs{...} do
+   local arg = { n = select("#", ...), ...}
+   for i = 1, arg.n do
+      local v = arg[i]
       if (type(v) == "table") then
 	 prtTbl(v)
       elseif (i == 1 and type(v) == 'number') then

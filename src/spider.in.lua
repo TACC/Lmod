@@ -28,6 +28,7 @@ require("modfuncs")
 require("cmdfuncs")
 require("parseVersion")
 MasterControl       = require("MasterControl")
+Cache               = require("Cache")
 MT                  = require("MT")
 Master              = require("Master")
 BaseShell           = require("BaseShell")
@@ -126,11 +127,12 @@ function main()
       dbg:activateDebug(1)
    end
 
-   dbg.start("main()")
+   dbg.start("Spider main()")
    MCP = MasterControl.build("spider")
    mcp = MasterControl.build("spider")
    dbg.print("Setting mpc to ", tostring(mcp:name()),"\n")
 
+   readRC()
    ------------------------------------------------------------------------
    -- do not colorize output from spider
    colorize = plain
@@ -156,6 +158,10 @@ function main()
    require("SitePackage")
    Spider.findAllModules(moduleDirA, moduleT)
    
+   for k,v in pairs(moduleT) do
+      dbg.print("k: ",k,"\n")
+   end
+
    if (masterTbl.outputStyle == "moduleT") then
       local s1 = serializeTbl{name="defaultMpathA",value=moduleDirA,indent=true}
       local s2 = serializeTbl{name="moduleT",      value=moduleT,   indent=true}

@@ -92,9 +92,10 @@ other_tools: $(ComputeHashSum) $(STANDALONE_PRGM)
 	$(MAKE) FILELIST="$^" DIRLOC=$(DESTDIR)$(LIBEXEC) __installMe
 
 spiderCacheSupport:
-	if [ -f "$(SPIDER_CACHE_DESCRIPT_FN)" ]; then                                         \
-          $(spiderCacheSupport) $(SPIDER_CACHE_DESCRIPT_FN) >> $(DESTDIR)$(INIT)/.lmodrc.lua; \
-        fi
+	$(spiderCacheSupport) --cacheDirs "$(SPIDER_CACHE_DIRS)"          \
+	                      --updateFn  "$(UPDATE_SYSTEM_FN)"           \
+                              --descriptFn "$(SPIDER_CACHE_DESCRIPT_FN)"  \
+                              >> $(DESTDIR)$(INIT)/.lmodrc.lua; 
 
 src/computeHashSum: $(ComputeHashSum)
 	$(MAKE) FILELIST="$^" DIRLOC="src"                __installMe

@@ -17,6 +17,45 @@ local getenv       = os.getenv
 local hook         = require("Hook")
 local posix        = require("posix")
 
+local s_readRC     = false
+RCFileA = {
+   pathJoin(os.getenv("HOME"),".lmodrc.lua"),
+   pathJoin(cmdDir(),"../../etc/.lmodrc.lua"),
+   pathJoin(cmdDir(),"../init/.lmodrc.lua"),
+   os.getenv("LMOD_RC"),
+}
+
+function readRC()
+   if (s_readRC) then
+      s_readRC = true
+      return 
+   end
+
+   declare("propT",       false)
+   declare("scDescriptT", false)
+   local results = {}
+
+   for i = 1,#RCFileA do
+      local f  = RCFileA[i]
+      local fh = io.open(f)
+      if (fh) then
+         assert(loadfile(f))()
+         fh:close()
+         break
+      end
+   end
+   s_propT       = _G.propT         or {}
+   s_scDescriptT = _G.scDescriptT   or {}
+end
+
+function getPropT()
+   return s_propT
+end
+
+function getSCDescriptT()
+   return s_scDescriptT
+end
+
 function UUIDString(epoch)
    local ymd  = os.date("*t", epoch)
 
