@@ -105,7 +105,7 @@ end
 
 local function find_module_file(mname)
    local dbg      = Dbg:dbg()
-   dbg.start("Master:find_module_file(",tostring(mname:usrName()),")")
+   dbg.start("Master:find_module_file(",mname:usrName(),")")
 
    local t        = { fn = nil, modFullName = nil, modName = nil, default = 0, hash = 0}
    local mt       = MT:mt()
@@ -159,7 +159,7 @@ local function find_module_file(mname)
          end
       end
 
-      dbg.print("found:", tostring(found), " fn: ",tostring(fn),"\n")
+      dbg.print("found:", found, " fn: ",fn,"\n")
 
       ------------------------------------------------------------
       --  Search for "last" file in directory
@@ -181,7 +181,7 @@ local function find_module_file(mname)
    t.fn          = result
    t.modFullName = fullName
    t.modName     = sn
-   dbg.print("modName: ",sn," fn: ", result," modFullName: ", fullName," default: ",tostring(t.default),"\n")
+   dbg.print("modName: ",sn," fn: ", result," modFullName: ", fullName," default: ",t.default,"\n")
    dbg.fini("Master:find_module_file")
    return t
 end
@@ -262,7 +262,7 @@ function M.unload(...)
    for _, moduleName in ipairs{...} do
       local mname = MName:new("mt", moduleName)
       local sn    = mname:sn()
-      dbg.print("Trying to unload: ", moduleName, " sn: ", tostring(sn),"\n")
+      dbg.print("Trying to unload: ", moduleName, " sn: ", sn,"\n")
       
       if (mt:have(sn,"inactive")) then
          dbg.print("Removing inactive module: ", moduleName, "\n")
@@ -477,7 +477,7 @@ function M.reloadAll()
          local fn    = mt:fileName(sn)
          local name  = v.name          -- This name is short for default and
                                        -- Full for specific version.
-         dbg.print("Master:reloadAll Loading module: \"", tostring(name), "\"\n")
+         dbg.print("Master:reloadAll Loading module: \"", name, "\"\n")
          local aa = mcp:load(name)
          if (aa[1] and fn ~= mt:fileName(sn)) then
             dbg.print("Master:reloadAll module: ", name, " marked as reloaded\n")
@@ -514,7 +514,7 @@ function M.inheritModule()
 
    
    local t = inhTmpl.find_module_file(mName,myFn)
-   dbg.print("fn: ", tostring(t.fn),"\n")
+   dbg.print("fn: ", t.fn,"\n")
    if (t.fn == nil) then
       LmodError("Failed to inherit: ",mName,"\n")
    else
@@ -575,14 +575,14 @@ local function findDefault(mpath, sn, versionA)
          if (vf) then
             local f = pathJoin(path,vf)
             default = abspath(f,localDir)
-            --dbg.print("(1) f: ",f," default: ", tostring(default), "\n")
+            --dbg.print("(1) f: ",f," default: ", default, "\n")
             if (default == nil) then
                local fn = vf .. ".lua"
                local f  = pathJoin(path,fn)
                default  = abspath(f,localDir)
-               dbg.print("(2) f: ",f," default: ", tostring(default), "\n")
+               dbg.print("(2) f: ",f," default: ", default, "\n")
             end
-            --dbg.print("(3) default: ", tostring(default), "\n")
+            --dbg.print("(3) default: ", default, "\n")
          end
       end
    end
@@ -590,7 +590,7 @@ local function findDefault(mpath, sn, versionA)
    if (not default and #versionA > 1) then
       default = abspath(versionA[#versionA].file, localDir)
    end
-   dbg.print("default: ", tostring(default),"\n")
+   dbg.print("default: ", default,"\n")
    dbg.fini("Master.findDefault")
 
    return default

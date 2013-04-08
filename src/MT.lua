@@ -51,8 +51,7 @@ s_mtA = {}
 
 local function locationTblDir(mpath, path, prefix, locationT, availT)
    local dbg  = Dbg:dbg()
-   dbg.start("locationTblDir(mpath=",tostring(mpath),", path=",tostring(path),
-             ", prefix=",prefix,",locationT)")
+   dbg.start("locationTblDir(mpath=",mpath,", path=",path,", prefix=",prefix,",locationT)")
 
    local attr = lfs.attributes(path)
    if (not attr or type(attr) ~= "table" or attr.mode ~= "directory" or not posix.access(path,"x")) then
@@ -375,7 +374,7 @@ end
 
 function M.setRebuildTime(self, long, short)
    local dbg = Dbg:dbg()
-   dbg.start("MT:setRebuildTime(long: ",tostring(long),", short: ",tostring(short),")")
+   dbg.start("MT:setRebuildTime(long: ",long,", short: ",short,")")
    self.c_rebuildTime = long
    self.c_shortTime   = short
    dbg.fini("MT:setRebuildTime")
@@ -384,7 +383,7 @@ end
 
 local function setupMPATH(self,mpath)
    local dbg = Dbg:dbg()
-   dbg.start("MT:setupMPATH(self,mpath: \"",tostring(mpath),"\")")
+   dbg.start("MT:setupMPATH(self,mpath: \"",mpath,"\")")
    self._same = self:sameMPATH(mpath)
    if (not self._same) then
       self:buildMpathA(mpath)
@@ -490,8 +489,8 @@ function M.getMTfromFile(self,fn, msg)
       else
          m[#m+1] = name
       end
-      dbg.print("name: ",tostring(name)," isDefault: ",tostring(entry.defaultFlg),
-                " mType: ", tostring(mType), "\n")
+      dbg.print("name: ",name," isDefault: ",entry.defaultFlg,
+                " mType: ", mType, "\n")
    end
    
    local savedBaseMPATH = concatTbl(l_mt.baseMpathA,":")
@@ -735,8 +734,8 @@ end
 function M.add(self, t, status)
    local dbg   = Dbg:dbg()
    dbg.start("MT:add(t,",status,")")
-   dbg.print("short: ",tostring(t.modName),", full: ",tostring(t.modFullName),"\n")
-   dbg.print("fn: ",tostring(t.fn),", default: ",tostring(t.default),"\n")
+   dbg.print("short: ",t.modName,", full: ",t.modFullName,"\n")
+   dbg.print("fn: ",t.fn,", default: ",t.default,"\n")
    s_loadOrder = s_loadOrder + 1
    local mT = self.mT
    local loadOrder = s_loadOrder
@@ -787,7 +786,7 @@ function M.setStatus(self, sn, status)
       entry.status = status
    end
    local dbg = Dbg:dbg()
-   dbg.print("MT:setStatus(",sn,",",tostring(status),")\n")
+   dbg.print("MT:setStatus(",sn,",",status,")\n")
 end
 
 function M.getStatus(self, sn)
@@ -829,7 +828,7 @@ function M.list(self, kind, status)
             if (v.default ~= 1) then
                nameT = "fullName"
             end
-            dbg.print("MT:list: v.short: ", tostring(v.short), ", full: ",tostring(v.fullName),"\n")
+            dbg.print("MT:list: v.short: ", v.short, ", full: ",v.fullName,"\n")
             local obj = {sn   = v.short,   full       = v.fullName,
                          name = v[nameT], defaultFlg = v.default }
             a[icnt] = { v.loadOrder, obj }
@@ -1033,7 +1032,7 @@ end
 
 function M.add_property(self, sn, name, value)
    local dbg = Dbg:dbg()
-   dbg.start("MT:add_property(\"",sn,"\", \"",name,"\", \"",tostring(value),"\")")
+   dbg.start("MT:add_property(\"",sn,"\", \"",name,"\", \"",value,"\")")
    
    local mT    = self.mT
    local entry = mT[sn]
@@ -1073,7 +1072,7 @@ end
 
 function M.remove_property(self, sn, name, value)
    local dbg = Dbg:dbg()
-   dbg.start("MT:remove_property(\"",sn,"\", \"",name,"\", \"",tostring(value),"\")")
+   dbg.start("MT:remove_property(\"",sn,"\", \"",name,"\", \"",value,"\")")
    
    local mT    = self.mT
    local entry = mT[sn]
@@ -1129,9 +1128,9 @@ function M.list_property(self, idx, sn, style, legendT)
 
    local tLen = resultA[1]:len() + resultA[2]:len() + tostring(resultA[3]):len()
    dbg.print("result: \"",resultA[1],"\", \"",resultA[2],
-             "\", \"",tostring(resultA[3]),"\"\n")
+             "\", \"",resultA[3],"\"\n")
 
-   dbg.print("tlen: ",tostring(tLen)," lenA: ",resultA[1]:len()," ",resultA[2]:len(),
+   dbg.print("tlen: ",tLen," lenA: ",resultA[1]:len()," ",resultA[2]:len(),
              " ",tostring(resultA[3]):len(),"\n")
 
    dbg.fini("MT:list_property")
@@ -1208,7 +1207,7 @@ end
 
 function M.serializeTbl(self)
    local dbg = Dbg:dbg()
-   dbg.print("s_mt.c_shortTime: ", tostring(s_mt.c_shortTime),"\n")
+   dbg.print("s_mt.c_shortTime: ", s_mt.c_shortTime,"\n")
    
    s_mt.activeSize = self:setLoadOrder()
 

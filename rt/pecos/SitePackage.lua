@@ -42,7 +42,7 @@ function edit_derived_modulepaths(derived_mod_dir, newmodname, newmodversion)
                      local fullName = pathJoin(modname, modversion)
                      local mt       = MT:mt()
                      local status   = mt:getStatus(fullName)
-                     dbg.print("module: ",fullName, " status: ", tostring(status),"\n")
+                     dbg.print("module: ",fullName, " status: ", status,"\n")
                      if (( fullName ~= newFullName) and
                          not (isloaded(fullName) or isPending(fullName))) then
                         have_all_modules = false

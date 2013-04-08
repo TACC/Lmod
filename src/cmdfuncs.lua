@@ -327,7 +327,7 @@ function readCacheFile(lastUpdateEpoch, cacheType, cacheFileA, moduleDirT, modul
 
          local diff         = attr.modification - lastUpdateEpoch
          local buildModuleT = diff < 0  -- rebuild when older than lastUpdateEpoch
-         dbg.print("timeDiff: ",diff," buildModuleT: ", tostring(buildModuleT),"\n")
+         dbg.print("timeDiff: ",diff," buildModuleT: ", buildModuleT,"\n")
 
          if (not buildModuleT) then
          
@@ -336,7 +336,7 @@ function readCacheFile(lastUpdateEpoch, cacheType, cacheFileA, moduleDirT, modul
             
             local version = (rawget(_G,"moduleT") or {}).version or 0
 
-            dbg.print("version: ",tostring(version),"\n")
+            dbg.print("version: ",version,"\n")
             if (version < Cversion) then
                dbg.print("Ignoring old style cache file!\n")
             else
@@ -376,7 +376,7 @@ function getModuleT(fast)
    }
    local userModuleTFN = pathJoin(cacheDir,"moduleT.lua")
 
-   dbg.start("getModuleT(fast=", tostring(fast),")")
+   dbg.start("getModuleT(fast=", fast,")")
 
    local mcp_old = mcp
    mcp           = MasterControl.build("spider")
@@ -449,7 +449,7 @@ function getModuleT(fast)
    local userModuleT  = {}
    local dirsRead     = sysDirsRead + usrDirsRead
 
-   dbg.print("buildModuleT: ",tostring(buildModuleT),"\n")
+   dbg.print("buildModuleT: ",buildModuleT,"\n")
 
    ------------------------------------------------------------
    -- Do not build cache if fast is required and no cache files
@@ -471,7 +471,7 @@ function getModuleT(fast)
       local short   = mt:getShortTime()
       local prtRbMsg = ((not masterTbl.expert) and (not masterTbl.initial) and
                         ((not short) or (short > shortTime)))
-      dbg.print("short: ", tostring(short), " shortTime: ", tostring(shortTime),"\n")
+      dbg.print("short: ", short, " shortTime: ", shortTime,"\n")
 
       if (prtRbMsg) then
          io.stderr:write("Rebuilding cache file, please wait ...")

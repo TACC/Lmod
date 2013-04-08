@@ -316,7 +316,7 @@ local function TableList()
       local sn      = mname:sn()
       local version = mname:version()
       dbg.print("v: ",v,"\n")
-      dbg.print("sn: ",tostring(sn),", version: ",tostring(version),"\n")
+      dbg.print("sn: ",sn,", version: ",version,"\n")
       t[sn] = version
    end
    local s = serializeTbl{name="activeList",indent=true, value=t}
@@ -607,7 +607,7 @@ end
 
 local function Restore(a)
    local dbg    = Dbg:dbg()
-   dbg.start("Restore(",tostring(a),")")
+   dbg.start("Restore(",a,")")
 
    local msg 
    local path

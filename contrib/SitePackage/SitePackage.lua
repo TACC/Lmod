@@ -6,7 +6,7 @@ sitePkgRoot = os.getenv("LMOD_PKG_ROOT") or "/global/apps"
 
 function checkRestrictedGroup(pkg, group) 
    local dbg = Dbg:dbg()
-   dbg.start("checkRestrictedGroup(pkg, \"",tostring(group),"\")")
+   dbg.start("checkRestrictedGroup(pkg, \"",group,"\")")
    if (mode() ~= "load") then return true end
    if (group == nil)     then return true end
    local err_message = "Only users in group \'" .. group .. 
@@ -32,7 +32,7 @@ function logUsage(pkg)
    local user = os.getenv("USER")
    local jobid = os.getenv("PBS_JOBID")
    local msg = ""
-   dbg.print("user: ",user," jobid: ",tostring(jobid),"\n")
+   dbg.print("user: ",user," jobid: ",jobid,"\n")
    if jobid == nil then 
       msg = string.format("user=%s,app=%s", user, pkg.id)
    else

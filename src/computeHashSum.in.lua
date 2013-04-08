@@ -58,7 +58,7 @@ function loadModuleFile(obj)
    end
 
    local dbg     = Dbg:dbg()
-   dbg.start("computeHashSum-> loadModuleFile(\"",tostring(f),"\")")
+   dbg.start("computeHashSum-> loadModuleFile(\"",f,"\")")
    local myType = extname(f)
    local func
    if (myType == ".lua") then

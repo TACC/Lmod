@@ -105,10 +105,10 @@ end
 function M.prt(self,title)
    local dbg = Dbg:dbg()
    dbg.print (title,"\n")
-   dbg.print ("name:  \"", tostring(self.name), "\"\n")
-   dbg.print ("imin:  \"", tostring(self.imin), "\"\n")
-   dbg.print ("imax:  \"", tostring(self.imax), "\"\n")
-   dbg.print ("value: \"", tostring(self.value),"\"\n")
+   dbg.print ("name:  \"", self.name, "\"\n")
+   dbg.print ("imin:  \"", self.imin, "\"\n")
+   dbg.print ("imax:  \"", self.imax, "\"\n")
+   dbg.print ("value: \"", self.value,"\"\n")
    if (not self.tbl or type(self.tbl) ~= "table" or next(self.tbl) == nil) then
       dbg.print("tbl is empty\n")
       return
@@ -164,7 +164,7 @@ whereT = {
    
 function M.remove(self, value, where)
    local dbg  = Dbg:dbg()
-   --dbg.start("Var:remove(\"",tostring(value),", \"",tostring(where),"\")")
+   --dbg.start("Var:remove(\"",value,", \"",where,"\")")
    --dbg.print("name: ",self.name,"\n")
 
    if (value == nil) then return end
@@ -240,7 +240,7 @@ end
 
 function M.prepend(self, value, nodups)
    local dbg  = Dbg:dbg()
-   --dbg.start("Var:prepend(\"",tostring(value),"\")")
+   --dbg.start("Var:prepend(\"",value,"\")")
    --dbg.print("name: ",self.name,"\n")
    if (value == nil) then return end
 

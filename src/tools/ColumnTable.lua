@@ -230,8 +230,7 @@ function M.__number_of_columns_rows(self,t)
    -- Compute length of each entry in table t
    -------------------------------------------------------------------------
    imin, imax = self:__entry_width(t, szA, imin, imax)
-   dbg.print("width: ",tostring(self.term_width)," imin: ",tostring(imin),
-             " imax: ",tostring(imax),"\n")
+   dbg.print("width: ",self.term_width," imin: ",imin," imax: ",imax,"\n")
 
    -------------------------------------------------------------------------
    -- Quit early if max width in table t is bigger than the number of

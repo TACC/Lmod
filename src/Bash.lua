@@ -35,7 +35,7 @@ end
 
 function Bash.expandVar(self, k, v, vType)
    local dbg = Dbg:dbg()
-   dbg.print("Key: ", k, " type(value): ", type(v)," value: ",tostring(v),"\n")
+   dbg.print("Key: ", k, " type(value): ", type(v)," value: ",v,"\n")
    local lineA       = {}
    v                 = doubleQuoteEscaped(tostring(v))
    lineA[#lineA + 1] = k

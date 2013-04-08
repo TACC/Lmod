@@ -253,7 +253,7 @@ local function findAssignedDefault(mpath, path, prefix)
                local fn = vf .. ".lua"
                local f  = pathJoin(path,fn)
                default  = abspath(f,localDir)
-               dbg.print("(2) f: ",f," default: ", tostring(default), "\n")
+               dbg.print("(2) f: ",f," default: ", default, "\n")
             end
          end
       end
@@ -262,7 +262,7 @@ local function findAssignedDefault(mpath, path, prefix)
    if (default) then
       default = abspath(default, localDir)
    end
-   dbg.print("(4) default: \"",tostring(default),"\"\n")
+   dbg.print("(4) default: \"",default,"\"\n")
 
    dbg.fini()
    return default
@@ -292,7 +292,7 @@ local function findDefault(mpath, path, prefix)
                local fn = vf .. ".lua"
                local f  = pathJoin(path,fn)
                default  = abspath(f,localDir)
-               dbg.print("(2) f: ",f," default: ", tostring(default), "\n")
+               dbg.print("(2) f: ",f," default: ", default, "\n")
             end
          end
       end
@@ -304,7 +304,7 @@ local function findDefault(mpath, path, prefix)
    if (default) then
       default = abspath(default, localDir)
    end
-   dbg.print("(4) default: \"",tostring(default),"\"\n")
+   dbg.print("(4) default: \"",default,"\"\n")
 
    dbg.fini()
    return default
@@ -392,8 +392,8 @@ end
 
 function M.findModulesInDir(mpath, path, prefix, moduleT)
    local dbg  = Dbg:dbg()
-   dbg.start("findModulesInDir(mpath=\"",tostring(mpath),"\", path=\"",tostring(path),
-             "\", prefix=\"",tostring(prefix),"\")")
+   dbg.start("findModulesInDir(mpath=\"",mpath,"\", path=\"",path,
+             "\", prefix=\"",prefix,"\")")
    
    local attr = lfs.attributes(path)
    if (not attr or  type(attr) ~= "table" or attr.mode ~= "directory" or
@@ -465,7 +465,7 @@ end
 
 function M.findAllModules(moduleDirA, moduleT)
    local dbg    = Dbg:dbg()
-   dbg.start("findAllModules(",concatTbl(moduleDirA,", "),")")
+   dbg.start("Spider:findAllModules(",concatTbl(moduleDirA,", "),")")
    
    if (next(moduleT) == nil) then
       moduleT.version = Cversion
@@ -722,7 +722,7 @@ function M.spiderSearch(dbT, mname, help)
    for k,v in pairs(dbT) do
       dbg.print("nameL: ", nameL, " k: ", k, "\n")
       local i,j = k:find(nameL)
-      dbg.print("i,j: ", tostring(i)," ", tostring(j), "\n")
+      dbg.print("i,j: ", i," ", j, "\n")
       if (k:find(nameL,1,true) or k:find(nameL)) then
          local s
          dbg.print("nameL: ",nameL," mnameL: ", mnameL, " k: ",k,"\n")
@@ -824,7 +824,7 @@ end
 
 function M.Level2(t, mname, full)
    local dbg = Dbg:dbg()
-   dbg.start("Level2(t,\"",mname,"\", \"",tostring(full),"\")")
+   dbg.start("Level2(t,\"",mname,"\", \"",full,"\")")
    local a  = {}
    local ia = 0
    local b  = {}
@@ -849,7 +849,7 @@ function M.Level2(t, mname, full)
    full = full or ""
    local fullL = full:lower()
    for k,v in pairs(t) do
-      dbg.print("vv.full: ",tostring(v.full)," mname: ",mname," k: ",k," full:", tostring(full),"\n")
+      dbg.print("vv.full: ",v.full," mname: ",mname," k: ",k," full:", full,"\n")
       local vfullL = v.full_lower or v.full:lower()
       if (vfullL == mnameL or vfullL == fullL) then
          if (tt == nil) then

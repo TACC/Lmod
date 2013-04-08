@@ -35,7 +35,7 @@ function lastFileInDir(fn)
          result     = lastValue
       end
    end
-   dbg.print("result: ",tostring(result),"\n")
+   dbg.print("result: ",result,"\n")
    dbg.fini()
    return result, count
 end

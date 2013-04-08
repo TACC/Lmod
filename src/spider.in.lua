@@ -130,9 +130,12 @@ function main()
    dbg.start("Spider main()")
    MCP = MasterControl.build("spider")
    mcp = MasterControl.build("spider")
-   dbg.print("Setting mpc to ", tostring(mcp:name()),"\n")
+   dbg.print("Setting mpc to ", mcp:name(),"\n")
 
    readRC()
+   local dontWrite = true
+   local cache     = Cache:cache(dontWrite)
+   
    ------------------------------------------------------------------------
    -- do not colorize output from spider
    colorize = plain

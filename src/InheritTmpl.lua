@@ -76,7 +76,7 @@ function M.find_module_file(fullModuleName, oldFn)
          end
       end
 
-      dbg.print("(2) result: ", tostring(result), " foundOld: ", tostring(foundOld),"\n")
+      dbg.print("(2) result: ", result, " foundOld: ", foundOld,"\n")
       if (foundOld) then
          break
       end
@@ -86,10 +86,10 @@ function M.find_module_file(fullModuleName, oldFn)
          foundOld = true
          result = nil
       end
-      dbg.print("(3) result: ", tostring(result), " foundOld: ", tostring(foundOld),"\n")
+      dbg.print("(3) result: ", result, " foundOld: ", foundOld,"\n")
    end
 
-   dbg.print("fullModuleName: ",fullModuleName, " fn: ", tostring(result),"\n")
+   dbg.print("fullModuleName: ",fullModuleName, " fn: ", result,"\n")
    t.modFullName = fullModuleName
    t.fn          = result
    dbg.fini()

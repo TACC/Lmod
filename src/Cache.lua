@@ -24,7 +24,7 @@ local function epoch()
    end
 end
 
-local function new(self)
+local function new(self, dontWrite)
    local o = {}
    setmetatable(o,self)
    self.__index = self
@@ -92,6 +92,7 @@ local function new(self)
    o.usrCacheDirA = usrCacheDirA 
    o.usrModuleTFN = pathJoin(usrCacheDir,"moduleT.lua")
    o.systemDirA   = scDirA
+   o.dontWrite    = dontWrite or false
 
    o.moduleT      = {}
    o.moduleDirA   = {}
@@ -132,7 +133,7 @@ local function readCacheFile(self, cacheFileA)
 
          local diff         = attr.modification - cacheFileA[i].timestamp
          local buildModuleT = diff < 0  -- rebuild when older than timestamp
-         dbg.print("timeDiff: ",diff," buildModuleT: ", tostring(buildModuleT),"\n")
+         dbg.print("timeDiff: ",diff," buildModuleT: ", buildModuleT,"\n")
 
          if (not buildModuleT) then
             
@@ -141,7 +142,7 @@ local function readCacheFile(self, cacheFileA)
                
             local version = (rawget(_G,"moduleT") or {}).version or 0
 
-            dbg.print("version: ",tostring(version),"\n")
+            dbg.print("version: ",version,"\n")
             if (version < Cversion) then
                dbg.print("Ignoring old style cache file!\n")
             else
@@ -203,7 +204,7 @@ function M.build(self, fast)
    local buildModuleT  = (#dirA > 0)
    local userModuleT   = {}
    local moduleT       = self.moduleT
-   dbg.print("buildModuleT: ",tostring(buildModuleT),"\n")
+   dbg.print("buildModuleT: ",buildModuleT,"\n")
 
    
    if (not buildModuleT) then
@@ -213,7 +214,7 @@ function M.build(self, fast)
       local short    = mt:getShortTime()
       local prtRbMsg = ((not masterTbl.expert) and (not masterTbl.initial) and
                         ((not short) or (short > shortTime)))
-      dbg.print("short: ", tostring(short), " shortTime: ", tostring(shortTime),"\n")
+      dbg.print("short: ", short, " shortTime: ", shortTime,"\n")
       
       if (prtRbMsg) then
          io.stderr:write("Rebuilding cache file, please wait ...")
@@ -238,8 +239,9 @@ function M.build(self, fast)
       local r = {}
       hook.apply("writeCache",r)
    
+      local dontWrite = self.dontWrite or r.dontWriteCache
    
-      if (t2 - t1 < shortTime or r.dontWriteCache) then
+      if (t2 - t1 < shortTime or dontWrite) then
          ancient = shortLifeCache
 
          ------------------------------------------------------------------------

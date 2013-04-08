@@ -35,7 +35,7 @@ testdescript = {
      ORIG_HOME=`(cd $HOME; /bin/pwd)`
      HOME=`/bin/pwd`
 
-     (cd $projectDir; ./configure; make src/computeHashSum)
+     #(cd $projectDir; ./configure; make src/computeHashSum)
 
      rm -rf _stderr.* _stdout.* err.* out.* .lmod.d
      cp $(projectDir)/setup/.lmodrc.lua .
