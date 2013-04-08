@@ -997,14 +997,10 @@ function main()
 
    local master = Master:master(checkMPATH)
    master.shell = BaseShell.build(shell)
-   local mt     = MT:mt()
 
    if (masterTbl.checkSyntax) then
       master.shell:setActive(false)
    end
-
-   -- Output local vars
-   master.shell:expand(varTbl)
 
    -- if Help was requested then quit.
    if (masterTbl.Optiks_help) then
@@ -1017,6 +1013,11 @@ function main()
       io.stderr:write(version())
       os.exit(0)
    end
+
+   local mt     = MT:mt()
+
+   -- Output local vars
+   master.shell:expand(varTbl)
 
    -- Now quit if command is unknown.
 
