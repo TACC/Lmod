@@ -974,7 +974,7 @@ function main()
                       package.cpath
    end
 
-   dbg.print("lmodPath: \"", lmodPath,"\"\n")
+   dbg.print("lmodPath: ", lmodPath, "\n")
    require("SitePackage") 
 
    local cmdName = masterTbl.pargs[1]
@@ -993,31 +993,31 @@ function main()
       checkMPATH = cmdTbl[cmdName].checkMPATH
    end
 
-   -- Create the [[master]] object
-
-   local master = Master:master(checkMPATH)
-   master.shell = BaseShell.build(shell)
-
-   if (masterTbl.checkSyntax) then
-      master.shell:setActive(false)
-   end
-
-   -- if Help was requested then quit.
-   if (masterTbl.Optiks_help) then
-      Help()
-      os.exit(0)
-   end
-
    -- print version and quit if requested.
    if (masterTbl.version) then
       io.stderr:write(version())
       os.exit(0)
    end
 
+   -- Create the [[master]] object
+
+   local master = Master:master(checkMPATH)
+   master.shell = BaseShell.build(shell)
    local mt     = MT:mt()
+
+   if (masterTbl.checkSyntax) then
+      master.shell:setActive(false)
+   end
 
    -- Output local vars
    master.shell:expand(varTbl)
+
+
+   -- if Help was requested then quit.
+   if (masterTbl.Optiks_help) then
+      Help()
+      os.exit(0)
+   end
 
    -- Now quit if command is unknown.
 

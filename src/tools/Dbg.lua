@@ -250,7 +250,10 @@ function M.Debug(...)
       else
          if (type(v) ~= "string") then
             v = tostring(v)
+         elseif ( v == "") then
+            v = "''"
          end
+         
          local idx = v:find("\n")
          if (idx == nil or v:len() == idx) then
             io.stderr:write(v)
