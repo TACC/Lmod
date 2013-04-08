@@ -57,69 +57,69 @@ cat > $(testName).csh << EOF
      echo "step 0"
      echo "==========================="
 
-     echo "===========================" >  _stdout.01
-     echo "step 0"                      >> _stdout.01
-     echo "===========================" >> _stdout.01
+     echo "===========================" >  _stdout.00
+     echo "step 0"                      >> _stdout.00
+     echo "===========================" >> _stdout.00
 
-     lua $(projectDir)/src/lmod.in.lua csh --version > _stdout.02
-     eval \`cat _stdout.02\`
+     lua $(projectDir)/src/lmod.in.lua csh --version > _stdout.01
+     eval \`cat _stdout.01\`
 
      echo "==========================="
      echo "step 1"
      echo "==========================="
 
-     echo "===========================" >  _stdout.01
-     echo "step 1"                      >> _stdout.01
-     echo "===========================" >> _stdout.01
+     echo "===========================" >  _stdout.02
+     echo "step 1"                      >> _stdout.02
+     echo "===========================" >> _stdout.02
 
-     lua $(projectDir)/src/lmod.in.lua csh load admin PrgEnv openmpi parmetis > _stdout.02
-     eval \`cat _stdout.02\`
+     lua $(projectDir)/src/lmod.in.lua csh load admin PrgEnv openmpi parmetis > _stdout.03
+     eval \`cat _stdout.03\`
 
-     echo "===========================" >  _stdout.03
-     echo "step 2"                      >> _stdout.03
-     echo "===========================" >> _stdout.03
+     echo "===========================" >  _stdout.04
+     echo "step 2"                      >> _stdout.04
+     echo "===========================" >> _stdout.04
 
      echo "==========================="
      echo "step 2"
      echo "==========================="
 
-     lua $(projectDir)/src/lmod.in.lua csh unload intel > _stdout.04
-     eval \`cat _stdout.04\`
+     lua $(projectDir)/src/lmod.in.lua csh unload intel > _stdout.05
+     eval \`cat _stdout.05\`
 
-     echo "===========================" >  _stdout.05
-     echo "step 3"                      >> _stdout.05
-     echo "===========================" >> _stdout.05
+     echo "===========================" >  _stdout.06
+     echo "step 3"                      >> _stdout.06
+     echo "===========================" >> _stdout.06
 
      echo "==========================="
      echo "step 3"
      echo "==========================="
 
-     lua $(projectDir)/src/lmod.in.lua csh load gcc  > _stdout.06
-     eval \`cat _stdout.06\`
+     lua $(projectDir)/src/lmod.in.lua csh load gcc  > _stdout.07
+     eval \`cat _stdout.07\`
 
-     echo "===========================" >  _stdout.07
-     echo "step 4"                      >> _stdout.07
-     echo "===========================" >> _stdout.07
+     echo "===========================" >  _stdout.08
+     echo "step 4"                      >> _stdout.08
+     echo "===========================" >> _stdout.08
 
      echo "==========================="
      echo "step 4"
      echo "==========================="
 
 
-     lua $(projectDir)/src/lmod.in.lua csh load ml  > _stdout.08
-     eval \`cat _stdout.08\`
+     lua $(projectDir)/src/lmod.in.lua csh load ml  > _stdout.09
+     eval \`cat _stdout.09\`
 
-     echo "===========================" >  _stdout.09
-     echo "step 5"                      >> _stdout.09
-     echo "===========================" >> _stdout.09
+     echo "===========================" >  _stdout.10
+     echo "step 5"                      >> _stdout.10
+     echo "===========================" >> _stdout.10
 
      echo "==========================="
      echo "step 5"
      echo "==========================="
 
      unset histchars
-     lua $(projectDir)/src/lmod.in.lua csh --localvar histchars="$_histchars" swap gcc  intel > _stdout.10
-     eval \`cat _stdout.10\`
+     lua $(projectDir)/src/lmod.in.lua csh --localvar histchars="$_histchars" swap gcc  intel > _stdout.11
+     eval \`cat _stdout.11\`
 
      cat _stdout.[01][1-9] > _stdout.orig
 EOF
