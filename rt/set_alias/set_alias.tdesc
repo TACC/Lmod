@@ -16,19 +16,9 @@ testdescript = {
      . $(projectDir)/rt/common_funcs.sh
 
      unsetMT
-     PATH_to_LUA=`findcmd --pathOnly lua`
-     PATH_to_TM=`findcmd --pathOnly tm`
-
-     PATH=$(projectDir)/src:$PATH_to_LUA:$PATH_to_TM:/usr/bin:/bin
-     export PATH
-     INFOPATH='';                       export INFOPATH
-     MANPATH='';                        export MANPATH
-     LD_LIBRARY_PATH='';                export LD_LIBRARY_PATH
+     initStdEnvVars
      MODULEPATH_ROOT=$(testDir);        export MODULEPATH_ROOT
      MODULEPATH=$(testDir)/mf;          export MODULEPATH
-     LMOD_DEFAULT_MODULEPATH=$MODULEPATH
-     export LMOD_DEFAULT_MODULEPATH
-     unset LMOD_EXPERT
      numStep=0
      COUNT=0
      HOME=`(cd $HOME; /bin/pwd)`

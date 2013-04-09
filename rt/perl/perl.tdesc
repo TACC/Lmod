@@ -17,14 +17,7 @@ testdescript = {
      . $(projectDir)/rt/common_funcs.sh
 
      unsetMT
-     PATH_to_LUA=`findcmd --pathOnly lua`
-     PATH_to_TM=`findcmd --pathOnly tm`
-
-     PATH=$(projectDir)/src:$PATH_to_LUA:$PATH_to_TM:/usr/bin:/bin
-     export PATH
-     INFOPATH='';                       export INFOPATH
-     MANPATH='';                        export MANPATH
-     LD_LIBRARY_PATH='';                export LD_LIBRARY_PATH
+     initStdEnvVars
      MODULEPATH_ROOT=$(testDir)/mf;     export MODULEPATH_ROOT
      MODULEPATH="$(testDir)/mf/Core";   export MODULEPATH
 

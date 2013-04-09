@@ -41,6 +41,8 @@ runMe ()
 }
 initStdEnvVars()
 {
+  unset LIBPATH
+  unset SHLIB_PATH
   unset INFOPATH
   unset MANPATH
   unset LD_LIBRARY_PATH

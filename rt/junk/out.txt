@@ -16,8 +16,6 @@ INFOPATH="/local/info:/usr/share/info";
 export INFOPATH;
 LD_LIBRARY_PATH="/vol/local/intel/mkl/mkl/lib/lib:/vol/local/intel/idb/idb/lib:/vol/local/intel/fc/fc/lib:/vol/local/intel/cc/cc/lib";
 export LD_LIBRARY_PATH;
-LMOD_COMPILER="intel/11.0";
-export LMOD_COMPILER;
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
 LMOD_FAMILY_COMPILER="intel";

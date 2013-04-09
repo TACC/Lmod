@@ -23,13 +23,9 @@ testdescript = {
      . $(projectDir)/rt/common_funcs.sh
 
      unsetMT
-     PATH_to_LUA=`findcmd --pathOnly lua`
-     PATH_to_TM=`findcmd --pathOnly tm`
-
-     LD_LIBRARY_PATH='';                export LD_LIBRARY_PATH
+     initStdEnvVars
      MODULEPATH=$(testDir)/TACC;        export MODULEPATH
      MODULEPATH_ROOT=$(testDir);        export MODULEPATH_ROOT
-     unset LMOD_SYSTEM_DEFAULT_MODULES
 
 
      HOME_ORIG=`(cd $HOME; /bin/pwd)`
@@ -38,14 +34,6 @@ testdescript = {
      numStep=0;
      
      rm -fr _stderr.* _stdout.* err.* out.* .lmod.d
-
-     PATH=$(projectDir)/src:$PATH_to_LUA:$PATH_to_TM:/usr/bin:/bin
-     export PATH
-     unset  LMOD_COMPILER
-     unset  LIBPATH
-     unset  SHLIB_PATH
-     unset  INFOPATH
-     unset  MANPATH
 
      runMe lua $(projectDir)/src/lmod.in.lua bash --version               # 1
      runMe lua $(projectDir)/src/lmod.in.lua bash load TACC               # 2

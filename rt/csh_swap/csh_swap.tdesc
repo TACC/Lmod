@@ -27,12 +27,6 @@ testdescript = {
      unsetMT
      initStdEnvVars
 
-     PATH_to_LUA=`findcmd --pathOnly lua`
-     PATH_to_TM=`findcmd --pathOnly tm`
-
-     PATH=$(projectDir)/src:$PATH_to_LUA:$PATH_to_TM:/usr/bin:/bin
-     export PATH
-
      cp $(projectDir)/setup/.lmodrc.lua .
 
      #unset LUA_PATH

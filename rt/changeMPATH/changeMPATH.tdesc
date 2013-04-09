@@ -20,11 +20,6 @@ testdescript = {
 
      unsetMT
      initStdEnvVars
-     PATH_to_LUA=`findcmd --pathOnly lua`
-     PATH_to_TM=`findcmd --pathOnly tm`
-
-     PATH=$(projectDir)/src:$PATH_to_LUA:$PATH_to_TM:/usr/bin:/bin
-     export PATH
      MODULEPATH_ROOT=$(projectDir)/mf;   export MODULEPATH_ROOT
      MODULEPATH="$(projectDir)/mf/Core"; export MODULEPATH
      numStep=0

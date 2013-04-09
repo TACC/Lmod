@@ -6,7 +6,6 @@ setenv MODULEPATH "ProjectDIR/mf/Core:ProjectDIR/rt/csh_swap/mf/Core";
 setenv ADMIN_MODULE_LOADED "1";
 setenv INFOPATH "/local/info:/usr/share/info";
 setenv LD_LIBRARY_PATH "/vol/local/mpi/intel/10.1/openmpi/1.2.6.opt/lib:/vol/local/intel/mkl/mkl/lib/lib:/vol/local/intel/idb/idb/lib:/vol/local/intel/fc/fc/lib:/vol/local/intel/cc/cc/lib";
-setenv LMOD_COMPILER "intel/11.0";
 setenv LMOD_DEFAULT_MODULEPATH "ProjectDIR/mf/Core:ProjectDIR/rt/csh_swap/mf/Core";
 setenv LMOD_FAMILY_COMPILER "intel";
 setenv MANPATH "/vol/local/mpi/intel/10.1/openmpi/1.2.6.opt/man:/vol/local/noweb/noweb/man:/vol/local/intel/mkl/mkl/man:/vol/local/intel/idb/idb/man:/vol/local/intel/fc/fc/man:/vol/local/intel/cc/cc/man:/usr/share/man";
@@ -28,7 +27,6 @@ step 2
 setenv LMOD_DEFAULT_MODULEPATH "ProjectDIR/mf/Core:ProjectDIR/rt/csh_swap/mf/Core";
 setenv MODULEPATH "ProjectDIR/mf/MPI/intel/10.1/openmpi/1.2.6:ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/Core:ProjectDIR/rt/csh_swap/mf/Core";
 unsetenv LD_LIBRARY_PATH;
-unsetenv LMOD_COMPILER;
 setenv LMOD_DEFAULT_MODULEPATH "ProjectDIR/mf/Core:ProjectDIR/rt/csh_swap/mf/Core";
 unsetenv LMOD_FAMILY_COMPILER;
 setenv MANPATH "/vol/local/noweb/noweb/man:/usr/share/man";
@@ -76,7 +74,6 @@ setenv LMOD_DEFAULT_MODULEPATH "ProjectDIR/mf/Core:ProjectDIR/rt/csh_swap/mf/Cor
 setenv MODULEPATH "ProjectDIR/mf/MPI/gcc/4.2.3/openmpi/1.2.6:ProjectDIR/mf/Compiler/gcc/4.2.3:ProjectDIR/mf/Core:ProjectDIR/rt/csh_swap/mf/Core";
 set histchars="@%";
 setenv LD_LIBRARY_PATH "/vol/local/mpi/intel/10.1/openmpi/1.2.6.opt/lib:/vol/local/intel/mkl/mkl/lib/lib:/vol/local/intel/idb/idb/lib:/vol/local/intel/fc/fc/lib:/vol/local/intel/cc/cc/lib";
-setenv LMOD_COMPILER "intel/11.0";
 setenv LMOD_DEFAULT_MODULEPATH "ProjectDIR/mf/Core:ProjectDIR/rt/csh_swap/mf/Core";
 setenv LMOD_FAMILY_COMPILER "intel";
 setenv MANPATH "/vol/local/mpi/intel/10.1/openmpi/1.2.6.opt/man:/vol/local/intel/mkl/mkl/man:/vol/local/intel/idb/idb/man:/vol/local/intel/fc/fc/man:/vol/local/intel/cc/cc/man:/vol/local/noweb/noweb/man:/usr/share/man";
