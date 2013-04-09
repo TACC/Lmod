@@ -39,6 +39,26 @@ runMe ()
    runBase "$@"
    eval `cat _stdout.$NUM`
 }
+initStdEnvVars()
+{
+  unset LIBPATH
+  unset SHLIB_PATH
+  unset INFOPATH
+  unset MANPATH
+  unset LD_LIBRARY_PATH
+  unset MODULEPATH
+  unset LMOD_DEFAULT_MODULEPATH
+  unset MODULEPATH_ROOT
+  unset LMOD_EXPERT
+  export LMOD_PREPEND_BLOCK=yes
+  PATH_to_LUA=`findcmd --pathOnly lua`
+  PATH_to_TM=`findcmd --pathOnly tm`
+
+  export PATH=$projectDir/src:$PATH_to_LUA:$PATH_to_TM:/usr/bin:/bin
+  
+}
+
+
 unsetMT ()
 {
    unset _ModuleTable_

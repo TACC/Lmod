@@ -171,7 +171,12 @@ function M.Start(...)
    if (s_vpl <= s_currentLevel) then 
       io.stderr:write(s_indentString)
       local arg = { n = select('#', ...), ...}
-      for i = 1, arg.n do
+      local is  = 1
+      if (type(arg[1]) == "number") then
+         is = 2
+      end
+
+      for i = is, arg.n do
          io.stderr:write(tostring(arg[i]))
       end
       io.stderr:write("{\n")
@@ -250,7 +255,10 @@ function M.Debug(...)
       else
          if (type(v) ~= "string") then
             v = tostring(v)
+         elseif ( v == "") then
+            v = "''"
          end
+         
          local idx = v:find("\n")
          if (idx == nil or v:len() == idx) then
             io.stderr:write(v)

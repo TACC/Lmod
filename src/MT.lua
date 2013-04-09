@@ -282,7 +282,7 @@ local function new(self, s)
    local v             = getenv(ModulePath)
    o.systemBaseMPATH   = v
 
-   dbg.print("systemBaseMPATH: ", v, "\n")
+   dbg.print("systemBaseMPATH: \"", v, "\"\n")
    if (not s) then
       local v             = getenv(ModulePath)
       o.systemBaseMPATH   = v
@@ -857,6 +857,7 @@ end
 function M.setHashSum(self)
    local mT   = self.mT
    local dbg  = Dbg:dbg()
+   dbg.start("MT:setHashSum()")
 
    local chsA   = { "computeHashSum", "computeHashSum.in.lua", }
    local cmdSum = false
@@ -876,6 +877,7 @@ function M.setHashSum(self)
 
    local path = "@path_to_lua@:" .. os.getenv("PATH")
 
+   
    local luaCmd = findInPath("lua",path)
 
    if (luaCmd == "") then
@@ -890,17 +892,20 @@ function M.setHashSum(self)
       cmdA[#cmdA+1] = tostring(dbg.indentLevel()+1)
       cmdA[#cmdA+1] = "-d"
    end
-   local cmd = concatTbl(cmdA," ")
+   local cmdStart = concatTbl(cmdA," ")
    
    for k,v in pairs(mT) do
       local a = {}
       if (v.status == "active") then
-         a[#a + 1]  = cmd
+         a[#a + 1]  = cmdStart
          a[#a + 1]  = v.FN
-         local s    = capture(concatTbl(a," "))
+         local cmd  = concatTbl(a," ")
+         dbg.print("cmd: ", cmd,"\n")
+         local s    = capture(cmd)
          v.hash     = s:sub(1,-2)
       end
    end
+   dbg.fini("MT:setHashSum")
 end
 
 function M.getHash(self, sn)
