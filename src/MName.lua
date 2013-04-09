@@ -32,6 +32,16 @@ function M.new(self, sType, name)
             break
          end
       end
+   elseif(sType == "userName") then
+      if (mt:exists(name)) then
+         sn      = name
+         name    = name
+      else
+         local n = shorten(name, 1)
+         if (mt:exists(n) )then
+            sn = n
+         end
+      end
    else
       for level = 0, 1 do
          local n = shorten(name, level)

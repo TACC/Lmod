@@ -454,10 +454,10 @@ function M.reloadAll()
       local sn = v.sn
       if (mt:have(sn, "active")) then
          dbg.print("module sn: ",sn," is active\n")
-         local fullName = v.full
-         local mname    = MName:new("load", fullName)
+         local mname    = MName:new("userName", sn)
          local t        = find_module_file(mname)
          local fn       = mt:fileName(sn)
+         local fullName = t.modFullName
          if (t.fn ~= fn) then
             dbg.print("Master:reloadAll t.fn: \"",t.fn or "nil","\"",
                       " mt:fileName(sn): \"",fn or "nil","\"\n")

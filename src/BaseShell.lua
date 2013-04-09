@@ -7,6 +7,7 @@ require("string_split")
 local M            = {}
 
 local Dbg          = require("Dbg")
+local MT           = require("MT")
 local base64       = require("base64")
 local concatTbl    = table.concat
 local decode64     = base64.decode64
@@ -89,27 +90,27 @@ function M.expand(self, tbl)
       
 
    for k,v in pairsByKeys(tbl) do
-      local v,vType = tbl[k]:expand()
+      local vstr,vType = tbl[k]:expand()
       if (vType == "alias") then
-         self:alias(k,v)
+         self:alias(k,vstr)
       elseif (vType == "shell_function") then
-         self:shellFunc(k,v)
-      elseif (v == "") then
+         self:shellFunc(k,vstr)
+      elseif (vstr == "") then
          self:unset(k, vType)
       elseif (k == "_ModuleTable_") then
-         self:expandMT(v)
+         self:expandMT(vstr)
       else
-         self:expandVar(k,v,vType)
+         self:expandVar(k,vstr,vType)
       end
    end   
          
    dbg.fini("BaseShell:expand")
 end
 
-function M.expandMT(self, v)
+function M.expandMT(self, vstr)
    local dbg = Dbg:dbg()
-   dbg.start("BaseShell:expandMT(v)")
-   local vv      = encode64(v)
+   dbg.start("BaseShell:expandMT(vstr)")
+   local vv      = encode64(vstr)
    local a       = {}
    local vlen    = vv:len()
    local blksize = 512
@@ -128,17 +129,18 @@ function M.expandMT(self, v)
    self:expandVar("_ModuleTable_Sz_",tostring(#a))
 
    for i = nblks+1, huge do
-      name = format("_ModuleTable%03d_",i)
-      v    = getenv(name)
+      name    = format("_ModuleTable%03d_",i)
+      local v = getenv(name)
       if (v == nil) then break end
       self:unset(name)
    end
 
    if (dbg.active()) then
+      local mt     = MT:mt()
       local blank  = " "
       local indent = blank:rep(dbg.indentLevel()*2)
       local s      = serializeTbl{indent=true, name="_ModuleTable_",
-                             value=_ModuleTable_}
+                             value=mt}
       for line in s:split("\n") do
          io.stderr:write(indent,line,"\n")
       end

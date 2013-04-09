@@ -12,8 +12,6 @@ end
 package.path = LuaCommandName_dir .. "tools/?.lua;" ..
                LuaCommandName_dir .. "?.lua;"       .. package.path
 
-require("SitePackage") 
-
 function cmdDir()
    return LuaCommandName_dir
 end
@@ -95,6 +93,22 @@ function main()
    end
    dbg.start("computeHashSum()")
    
+   local lmodPath = os.getenv("LMOD_PACKAGE_PATH") or ""
+   for path in lmodPath:split(":") do
+      path = path .. "/"
+      path = path:gsub("//+","/")
+      package.path  = path .. "?.lua;"      ..
+         path .. "?/init.lua;" ..
+         package.path
+      
+      package.cpath = path .. "../lib/?.so;"..
+         package.cpath
+   end
+   
+   dbg.print("package.path: ",package.path,"\n")
+   dbg.print("lmodPath: \"", lmodPath,"\"\n")
+   require("SitePackage") 
+
    MCP           = MasterControl.build("computeHash","load")
    mcp           = MasterControl.build("computeHash","load")
    dbg.print("mcp set to ",mcp:name(),"\n")

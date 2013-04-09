@@ -74,21 +74,8 @@ local function new(self, dontWrite)
         timestamp = systemEpoch
       }
    }
-   local mt        = MT:mt()
-   local baseMpath = mt:getBaseMPATH()
-   if (baseMpath == nil) then
-     LmodError("The Env Variable: \"", DfltModPath, "\" is not set\n")
-   end
 
-   -- Since this function can get called many time, we need to only recompute
-   -- Directories we have not yet seen
-
-   local moduleDirT   = {}
-   for path in baseMpath:split(":") do
-      moduleDirT[path] = -1
-   end
-
-   o.moduleDirT   = moduleDirT
+   o.moduleDirT   = {}
    o.usrCacheDirA = usrCacheDirA 
    o.usrModuleTFN = pathJoin(usrCacheDir,"moduleT.lua")
    o.systemDirA   = scDirA
@@ -101,9 +88,27 @@ local function new(self, dontWrite)
 end
 
 function M.cache(self)
+   local dbg        = Dbg:dbg()
+   dbg.start("Cache:cache()")
    if (not s_cache) then
       s_cache   = new(self)
    end
+
+   local mt        = MT:mt()
+   local baseMpath = mt:getBaseMPATH()
+   if (baseMpath == nil) then
+     LmodError("The Env Variable: \"", DfltModPath, "\" is not set\n")
+   end
+
+   local moduleDirT = s_cache.moduleDirT
+   for path in baseMpath:split(":") do
+      moduleDirT[path] = moduleDirT[path] or -1
+   end
+   
+   -- Since this function can get called many time, we need to only recompute
+   -- Directories we have not yet seen
+
+   dbg.fini("Cache:cache")
    return s_cache
 end
 

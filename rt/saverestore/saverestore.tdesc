@@ -26,7 +26,7 @@ testdescript = {
      initStdEnvVars
      MODULEPATH=$(testDir)/TACC;        export MODULEPATH
      MODULEPATH_ROOT=$(testDir);        export MODULEPATH_ROOT
-
+     LMOD_PACKAGE_PATH=$(testDir);      export LMOD_PACKAGE_PATH
 
      HOME_ORIG=`(cd $HOME; /bin/pwd)`
      HOME=`pwd`;                        export HOME

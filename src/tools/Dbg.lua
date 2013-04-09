@@ -171,7 +171,12 @@ function M.Start(...)
    if (s_vpl <= s_currentLevel) then 
       io.stderr:write(s_indentString)
       local arg = { n = select('#', ...), ...}
-      for i = 1, arg.n do
+      local is  = 1
+      if (type(arg[1]) == "number") then
+         is = 2
+      end
+      
+      for i = is, arg.n do
          io.stderr:write(tostring(arg[i]))
       end
       io.stderr:write("{\n")

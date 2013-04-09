@@ -1,10 +1,6 @@
 ===========================
 step 1
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/TACC";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/saverestore/TACC";
-export MODULEPATH;
 ===========================
 step 2
 ===========================
@@ -181,6 +177,8 @@ LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/TACC2:ProjectDIR/rt/saveresto
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/saverestore/TACC2:ProjectDIR/rt/saverestore/TACC_COMPILER/pgi/7.2-5:ProjectDIR/rt/saverestore/TACC_MPI/pgi/7.1/mvapich/1.0.1:ProjectDIR/rt/saverestore/TACC";
 export MODULEPATH;
+FOO="1.0.0.1";
+export FOO;
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/TACC2:ProjectDIR/rt/saverestore/TACC";
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/saverestore/TACC2:ProjectDIR/rt/saverestore/TACC_COMPILER/pgi/7.2-5:ProjectDIR/rt/saverestore/TACC_MPI/pgi/7.1/mvapich/1.0.1:ProjectDIR/rt/saverestore/TACC";
@@ -219,6 +217,7 @@ export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/saverestore/TACC2:ProjectDIR/rt/saverestore/TACC_COMPILER/pgi/7.2-5:ProjectDIR/rt/saverestore/TACC_MPI/pgi/7.1/mvapich/1.0.1:ProjectDIR/rt/saverestore/TACC";
 export MODULEPATH;
 unset APPS;
+unset FOO;
 unset GLOBUS_HOSTNAME;
 unset GLOBUS_LOCATION;
 unset GLOBUS_PATH;
@@ -253,6 +252,8 @@ MODULEPATH="ProjectDIR/rt/saverestore/TACC";
 export MODULEPATH;
 APPS="/opt/apps";
 export APPS;
+FOO="1.0.0.1";
+export FOO;
 GLOBUS_HOSTNAME="ranger.tacc.utexas.edu";
 export GLOBUS_HOSTNAME;
 GLOBUS_LOCATION="/share/apps/teragrid/globus-4.0.7-r1";
