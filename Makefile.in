@@ -11,6 +11,7 @@ MODULEPATH_ROOT   	 := @MODULEPATH_ROOT@
 VERSION_SRC	  	 := src/Version.lua
 LUA_INCLUDE       	 := @LUA_INCLUDE@
 UPDATE_SYSTEM_FN  	 := @UPDATE_SYSTEM_FN@
+GIT_VERSION              := $(shell git describe --always)
 prefix		  	 := @prefix@
 package		  	 := lmod
 version		  	 := $(shell cd ./src; $(PATH_TO_LUA)/lua -e "local Version=require('Version'); print(Version.name())" | awk '{print $$1}')
@@ -70,6 +71,7 @@ __installMe:
 	        -e 's|@path_to_lua@|$(PATH_TO_LUA)|g'                 \
 	        -e 's|@path_to_hashsum@|$(PATH_TO_HASHSUM)|g'         \
 	        -e 's|@path_to_pager@|$(PATH_TO_PAGER)|g'             \
+                -e 's|@git_version@|$(GIT_VERSION)|g'                 \
 	        -e 's|@ancient@|$(ANCIENT)|g'                         \
 	        -e 's|@prepend_block@|$(PREPEND_BLOCK)|g'             \
 	        -e 's|@colorize@|$(COLORIZE)|g'                       \
@@ -205,19 +207,19 @@ distclean: clobber
 
 gittag:
         ifneq ($(TAG),)
-	  @git status -s > /tmp/lmod$$$$;                                              \
-          if [ -s /tmp/lmod$$$$ ]; then                                                \
-	    echo "All files not checked in => try again";                              \
-	  else                                                                         \
-	    $(RM)                                                      $(VERSION_SRC); \
-	    echo "--module('Version')"                              >  $(VERSION_SRC); \
-	    echo 'local M={}'                                       >> $(VERSION_SRC); \
-	    echo 'function M.name() return "'$(TAG) $(VDATE)'" end' >> $(VERSION_SRC); \
-	    echo 'return M'                                         >> $(VERSION_SRC); \
-            git commit -m "moving to TAG_VERSION $(TAG)"               $(VERSION_SRC); \
-            git tag -a $(TAG) -m 'Setting TAG_VERSION to $(TAG)'                     ; \
-	    git push --tags                                                          ; \
-          fi;                                                                          \
+	  @git status -s > /tmp/lmod$$$$;                           		                     \
+          if [ -s /tmp/lmod$$$$ ]; then                             		                     \
+	    echo "All files not checked in => try again";           		                     \
+	  else                                                      		                     \
+	    $(RM)                                                   		     $(VERSION_SRC); \
+	    echo "--module('Version')"                              		  >  $(VERSION_SRC); \
+	    echo 'local M={}'                                       	          >> $(VERSION_SRC); \
+	    echo 'function M.name() return "'$(TAG) $(VDATE) '..GIT_VERSION" end' >> $(VERSION_SRC); \
+	    echo 'return M'                                         		  >> $(VERSION_SRC); \
+            git commit -m "moving to TAG_VERSION $(TAG)"            		     $(VERSION_SRC); \
+            git tag -a $(TAG) -m 'Setting TAG_VERSION to $(TAG)'    		                   ; \
+	    git push --tags                                         		                   ; \
+          fi;                                                       		                     \
           rm -f /tmp/lmod$$$$
         else
 	  @echo "To git tag do: make gittag TAG=?"
