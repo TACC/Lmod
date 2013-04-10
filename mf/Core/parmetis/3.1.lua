@@ -16,4 +16,3 @@ setenv("TACC_PMETIS_LIB",base)
 setenv("TACC_PMETIS_INC",base)
 setenv("TACC_PMETIS_DOC",pathJoin(base,"Manual"))
 
-add_property("arch","mic")
