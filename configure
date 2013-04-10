@@ -596,6 +596,7 @@ COLORIZE
 DUPLICATE_PATHS
 PREPEND_BLOCK
 UPDATE_SYSTEM_FN
+SPIDER_CACHE_DESCRIPT_FN
 SPIDER_CACHE_DIRS
 SHORT_TIME
 ANCIENT
@@ -645,6 +646,7 @@ with_module_root_path
 with_ancient
 with_shortTime
 with_spiderCacheDir
+with_spiderCacheDescript
 with_updateSystemFn
 with_prependBlock
 with_duplicatePaths
@@ -1270,6 +1272,9 @@ Optional Packages:
   --with-spiderCacheDir=dir1:dir2
                           use these directories to hold a spider cache file
                           [[]]
+  --with-spiderCacheDescript=fn
+                          Use specified file to describe cache directory and
+                          timestamp files [[]]
   --with-updateSystemFn=file
                           This file is touched when the system has been
                           updated [[]]
@@ -1795,6 +1800,28 @@ $as_echo "SPIDER_CACHE_DIRS=$withval" >&6; }
     SPIDER_CACHE_DIRS="$withval"
     cat >>confdefs.h <<_ACEOF
 #define SPIDER_CACHE_DIRS "$withval"
+_ACEOF
+
+fi
+
+
+
+# Check whether --with-spiderCacheDescript was given.
+if test "${with_spiderCacheDescript+set}" = set; then :
+  withval=$with_spiderCacheDescript; SPIDER_CACHE_DESCRIPT_FN="$withval"
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: SPIDER_CACHE_DESCRIPT_FN=$with_spiderCacheDescript" >&5
+$as_echo "SPIDER_CACHE_DESCRIPT_FN=$with_spiderCacheDescript" >&6; }
+    cat >>confdefs.h <<_ACEOF
+#define SHORT_TIME "$with_spiderCacheDescript"
+_ACEOF
+
+else
+  withval=""
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: SPIDER_CACHE_DESCRIPT_FN=$withval" >&5
+$as_echo "SPIDER_CACHE_DESCRIPT_FN=$withval" >&6; }
+    SPIDER_CACHE_DESCRIPT_FN="$withval"
+    cat >>confdefs.h <<_ACEOF
+#define SPIDER_CACHE_DESCRIPT_FN "$withval"
 _ACEOF
 
 fi
