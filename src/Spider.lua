@@ -259,6 +259,10 @@ local function findAssignedDefault(mpath, path, prefix)
       end
    end
 
+   if (default == nil and prefix ~= "") then
+      local result, count = lastFileInDir(path)
+      default = result
+   end
    if (default) then
       default = abspath(default, localDir)
    end
