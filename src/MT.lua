@@ -280,12 +280,12 @@ local function new(self, s)
    local active, total
 
    local v             = getenv(ModulePath)
-   o.systemBaseMPATH   = v
+   o.systemBaseMPATH   = path_regularize(v)
 
    dbg.print("systemBaseMPATH: ", v, "\n")
    if (not s) then
       local v             = getenv(ModulePath)
-      o.systemBaseMPATH   = v
+      o.systemBaseMPATH   = path_regularize(v)
       dbg.print("setting systemBaseMPATH: ", v, "\n")
       varTbl[DfltModPath] = Var:new(DfltModPath, v)
       o:buildBaseMpathA(v)
@@ -312,7 +312,7 @@ local function new(self, s)
 
       if (_ModuleTable_.systemBaseMPATH == nil) then
          dbg.print("setting self.systemBaseMPATH to baseMpath\n")
-	 o.systemBaseMPATH = baseMpath
+	 o.systemBaseMPATH = path_regularize(baseMpath)
       end
 
       varTbl[DfltModPath] = Var:new(DfltModPath, baseMpath)
@@ -677,22 +677,24 @@ function M.module_pathA(self)
    return self.mpathA
 end
 
-function M.buildMpathA(self, mpath)
-   local mpathA = {}
-   for path in mpath:split(":") do
-      mpathA[#mpathA + 1] = path
+local function path2pathA(mpath)
+   local a = {}
+   if (mpath) then 
+      for path in mpath:split(':') do
+         a[#a+1] = path_regularize(path)
+      end
    end
+   return a
+end
+
+function M.buildMpathA(self, mpath)
+   local mpathA = path2pathA(mpath)
    self.mpathA = mpathA
    self._MPATH = concatTbl(mpathA,":")
 end
 
 function M.buildBaseMpathA(self, mpath)
-   local mpathA = {}
-   mpath = mpath or ""
-   for path in mpath:split(":") do
-      mpathA[#mpathA + 1] = path
-   end
-   self.baseMpathA = mpathA
+   self.baseMpathA = path2pathA(mpath)
 end
 
 
@@ -1210,9 +1212,8 @@ end
 
 function M.serializeTbl(self)
    local dbg = Dbg:dbg()
-   dbg.print("s_mt.c_shortTime: ", s_mt.c_shortTime,"\n")
    
-   s_mt.activeSize = self:setLoadOrder()
+   s_mt.activeSize = s_mt:setLoadOrder()
 
    local s = _G.serializeTbl{ indent=false, name=self.name(), value=s_mt}
    return s:gsub("[ \n]","")

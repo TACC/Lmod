@@ -454,7 +454,7 @@ function M.reloadAll()
       local sn = v.sn
       if (mt:have(sn, "active")) then
          dbg.print("module sn: ",sn," is active\n")
-         local mname    = MName:new("userName", sn)
+         local mname    = MName:new("userName", v.name)
          local t        = find_module_file(mname)
          local fn       = mt:fileName(sn)
          local fullName = t.modFullName

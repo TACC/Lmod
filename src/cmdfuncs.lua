@@ -121,10 +121,14 @@ end
 
 function path_regularize(value)
    if value == nil then return nil end
-
+   value = value:gsub("^%s+","")
+   value = value:gsub("%s+$","")
    value = value:gsub("//+","/")
    value = value:gsub("/%./","/")
    value = value:gsub("/$","")
+   if (value == '') then
+      value = ' '
+   end
    return value
 end
 

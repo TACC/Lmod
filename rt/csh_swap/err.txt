@@ -8,8 +8,6 @@ Modules based on Lua: Version 5.0b4 2013-04-03 18:07
 ===========================
 step 1
 ===========================
-Rebuilding cache file, please wait ... done.
-
 ===========================
 step 2
 ===========================

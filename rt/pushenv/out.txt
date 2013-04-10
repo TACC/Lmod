@@ -1,10 +1,6 @@
 ===========================
 step 1
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/pushenv/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/pushenv/mf/Core";
-export MODULEPATH;
 ===========================
 step 2
 ===========================
@@ -100,7 +96,7 @@ LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/pushenv/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/pushenv/mf/Core";
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/pushenv/mf/Core",},family={},inactive={},mT={mpich={["default"]=1,["fullName"]="mpich/3.0",["loadOrder"]=3,propT={},["short"]="mpich",["status"]="inactive",},},mpathA={"ProjectDIR/rt/pushenv/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/pushenv/mf/Core",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/pushenv/mf/Core",},family={},inactive={},mT={mpich={["default"]=1,["fullName"]="mpich/3.0",["loadOrder"]=-1,propT={},["short"]="mpich",["status"]="inactive",},},mpathA={"ProjectDIR/rt/pushenv/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/pushenv/mf/Core",["version"]=2,}';
 export _ModuleTable_;
 unset __LMOD_STACK_CC;
 ===========================
@@ -144,8 +140,6 @@ LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/pushenv/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0:ProjectDIR/rt/pushenv/mf/Core";
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/pushenv/mf/Core",},family={},inactive={},mT={intel={["FN"]="ProjectDIR/rt/pushenv/mf/Core/intel/13.0.lua",["default"]=1,["fullName"]="intel/13.0",["loadOrder"]=3,["mType"]="w",propT={},["short"]="intel",["status"]="active",},mpich={["FN"]="ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0/mpich/3.0.lua",["default"]=1,["fullName"]="mpich/3.0",["loadOrder"]=4,["mType"]="w",propT={},["short"]="mpich",["status"]="active",},},mpathA={"ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0","ProjectDIR/rt/pushenv/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/pushenv/mf/Core",["version"]=2,}';
-export _ModuleTable_;
 __LMOD_DEFAULT_MODULES_LOADED__="1";
 export __LMOD_DEFAULT_MODULES_LOADED__;
 __LMOD_STACK_CC="mpicc:icc";

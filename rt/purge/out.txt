@@ -1,10 +1,6 @@
 ===========================
 step 1
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/mf/Core";
-export MODULEPATH;
 ===========================
 step 2
 ===========================
