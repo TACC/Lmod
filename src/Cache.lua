@@ -59,11 +59,10 @@ local function new(self, dontWrite)
          if (attr.mode == "directory") then
             dbg.print("Adding: dir: ",dir,", timestamp: ",lastUpdate, "\n")
             scDirA[#scDirA+1] =
-               { file = pathJoin(dir, "moduleT.lua"),     fileT = "system",
-                 timestamp = lastUpdate}
-            scDirA[#scDirA+1] =
-               { file = pathJoin(dir, "moduleT.old.lua"), fileT = "system",
-                 timestamp = lastUpdate}
+               { file   = pathJoin(dir, "moduleT.lua"),     fileT = "system",
+                 backup = pathJoin(dir, "moduleT.old.lua"),
+                 timestamp = lastUpdate,
+               }
          end
       end
    end
@@ -126,11 +125,20 @@ local function readCacheFile(self, cacheFileA)
 
    dbg.print("#cacheFileA: ",#cacheFileA,"\n")
    for i = 1,#cacheFileA do
-      local f    = cacheFileA[i].file
+      local f     = cacheFileA[i].file
+      local found = false
+
       local attr = lfs.attributes(f) or {}
-      
-      if (next(attr) == nil or attr.size == 0) then
-         dbg.print("cache file does not exist: ",f,"\n")
+      if (next(attr) ~= nil and attr.size > 0) then
+         found = true
+      else
+         f     = cacheFileA[i].backup or ""
+         attr  = lfs.attributes(f) or {}
+         found = (next(attr) ~= nil and attr.size > 0) 
+      end
+
+      if (not found) then
+         dbg.print("Did not find: ",f,"\n")
       else
          dbg.print("cacheFile found: ",f,"\n")
 

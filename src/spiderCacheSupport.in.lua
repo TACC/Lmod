@@ -16,6 +16,7 @@ package.path = cmd_dir .. "tools/?.lua;" ..
                cmd_dir .. "?.lua;"       .. package.path
 
 local Optiks = require("Optiks")
+local lfs    = require("lfs")
 require("strict")
 require("fileOps")
 require("string_split")
@@ -27,9 +28,14 @@ function main()
    local optionTbl, pargs = options()
 
    local scDescriptT = false
-
+   local found       = false
 
    if (optionTbl.descriptFn and optionTbl.descriptFn ~= "") then 
+      local attr = lfs.attributes(optionTbl.descriptFn) or {}
+      found      = (attr.mode == "file")
+   end
+
+   if (found) then
       scDescriptT = buildFromDescript(optionTbl.descriptFn)
    elseif (optionTbl.cacheDirs and optionTbl.cacheDirs ~= "" ) then
       scDescriptT = buildFromEnvVars(optionTbl.cacheDirs,
@@ -60,10 +66,6 @@ function buildFromEnvVars(cacheDirs, updateFn)
 end
 
 function buildFromDescript(descriptFn)
-   if (not isFile(descriptFn)) then
-      return
-   end
-
    local f = io.open(descriptFn,"r")
    if (not f) then
       io.stderr:write("unable open file: ",descriptFn,"\n")

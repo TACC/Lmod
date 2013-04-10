@@ -41,7 +41,7 @@ lua_code	  	 := $(filter-out %.in.lua, $(wildcard src/*.lua))        \
 VDATE		  	 := $(shell date +'%F %H:%M')
 
 ComputeHashSum    	 := src/computeHashSum.in.lua
-spiderCacheSupportCMD    := src/spiderCacheSupport.in.lua
+spiderCacheSupportCMD    := lua src/spiderCacheSupport.in.lua
 
 .PHONY: test pkgs
 
@@ -92,10 +92,10 @@ other_tools: $(ComputeHashSum) $(STANDALONE_PRGM)
 	$(MAKE) FILELIST="$^" DIRLOC=$(DESTDIR)$(LIBEXEC) __installMe
 
 spiderCacheSupport:
-	$(spiderCacheSupport) --cacheDirs "$(SPIDER_CACHE_DIRS)"          \
-	                      --updateFn  "$(UPDATE_SYSTEM_FN)"           \
-                              --descriptFn "$(SPIDER_CACHE_DESCRIPT_FN)"  \
-                              >> $(DESTDIR)$(INIT)/.lmodrc.lua; 
+	$(spiderCacheSupportCMD) --cacheDirs "$(SPIDER_CACHE_DIRS)"          \
+	                         --updateFn  "$(UPDATE_SYSTEM_FN)"           \
+                                 --descriptFn "$(SPIDER_CACHE_DESCRIPT_FN)"  \
+                                 >> $(DESTDIR)$(INIT)/.lmodrc.lua; 
 
 src/computeHashSum: $(ComputeHashSum)
 	$(MAKE) FILELIST="$^" DIRLOC="src"                __installMe
