@@ -63,7 +63,7 @@ case $SYSHOST in
 $HOME/a/moduleData/cacheDir: $HOME/a/moduleData/losf_last_update
 $HOME/a/moduleData/XSEDE/cacheDir: $HOME/a/moduleData/XSEDE/last_update
 EOF
-      EXTRA="--with-spiderCacheDescriptFn=/tmp/mclay_build$$"
+      EXTRA="--with-spiderCacheDescript=/tmp/mclay_build$$"
     fi
     ;;
 
