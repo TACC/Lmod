@@ -20,7 +20,6 @@ prepend_path('LD_LIBRARY_PATH', '/vol/local/intel/idb/idb/lib')
 prepend_path('MANPATH',         '/vol/local/intel/cc/cc/man')
 prepend_path('MANPATH',         '/vol/local/intel/fc/fc/man')
 prepend_path('MANPATH',         '/vol/local/intel/idb/idb/man')
-prepend_path('LMOD_COMPILER',   pathJoin("intel",version))
 
 ------------------------------------------------------------------------
 -- Intel MKL support

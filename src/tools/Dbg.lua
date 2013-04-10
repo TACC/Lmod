@@ -175,7 +175,6 @@ function M.Start(...)
       if (type(arg[1]) == "number") then
          is = 2
       end
-
       for i = is, arg.n do
          io.stderr:write(tostring(arg[i]))
       end

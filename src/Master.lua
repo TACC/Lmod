@@ -454,17 +454,19 @@ function M.reloadAll()
       local sn = v.sn
       if (mt:have(sn, "active")) then
          dbg.print("module sn: ",sn," is active\n")
-         local fullName = v.full
-         local mname    = MName:new("load", fullName)
+         dbg.print("userName:  ",v.name,"\n")
+         local mname    = MName:new("userName", v.name)
          local t        = find_module_file(mname)
          local fn       = mt:fileName(sn)
+         local fullName = t.modFullName
+         local userName = v.name
          if (t.fn ~= fn) then
             dbg.print("Master:reloadAll t.fn: \"",t.fn or "nil","\"",
                       " mt:fileName(sn): \"",fn or "nil","\"\n")
             dbg.print("Master:reloadAll Unloading module: \"",sn,"\"\n")
             mcp:unloadsys(sn)
-            dbg.print("Master:reloadAll Loading module: \"",fullName or "nil","\"\n")
-            local loadA = mcp:load(fullName)
+            dbg.print("Master:reloadAll Loading module: \"",userName or "nil","\"\n")
+            local loadA = mcp:load(userName)
             dbg.print("Master:reloadAll: fn: \"",fn or "nil",
                       "\" mt:fileName(sn): \"", tostring(mt:fileName(sn)), "\"\n")
             if (loadA[1] and fn ~= mt:fileName(sn)) then

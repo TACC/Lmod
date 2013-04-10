@@ -1,10 +1,6 @@
 ===========================
 step 1
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/vasp/mf:ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/MPI/intel/10.1/openmpi/1.2.6";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/vasp/mf:ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/MPI/intel/10.1/openmpi/1.2.6";
-export MODULEPATH;
 ===========================
 step 2
 ===========================

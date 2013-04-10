@@ -1,10 +1,6 @@
 ===========================
 step 1
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/multiL/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/multiL/mf/Core";
-export MODULEPATH;
 ===========================
 step 2
 ===========================
@@ -127,7 +123,7 @@ export MODULEPATH;
 unset TACC_FAMILY_COMPILER;
 unset TACC_FAMILY_MPI;
 unset TACC_PETSC_VERSION;
-_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/multiL/mf/Core",},family={},inactive={},mT={["mpi/mpich2"]={["default"]=1,["fullName"]="mpi/mpich2/1.5.2",["loadOrder"]=5,propT={},["short"]="mpi/mpich2",["status"]="inactive",},["parLib/petsc"]={["default"]=1,["fullName"]="parLib/petsc/3.3",["loadOrder"]=6,propT={},["short"]="parLib/petsc",["status"]="inactive",},},mpathA={"ProjectDIR/rt/multiL/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/multiL/mf/Core",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/multiL/mf/Core",},family={},inactive={},mT={["mpi/mpich2"]={["default"]=1,["fullName"]="mpi/mpich2/1.5.2",["loadOrder"]=-1,propT={},["short"]="mpi/mpich2",["status"]="inactive",},["parLib/petsc"]={["default"]=1,["fullName"]="parLib/petsc/3.3",["loadOrder"]=-1,propT={},["short"]="parLib/petsc",["status"]="inactive",},},mpathA={"ProjectDIR/rt/multiL/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/multiL/mf/Core",["version"]=2,}';
 export _ModuleTable_;
 ===========================
 step 11
@@ -202,7 +198,7 @@ export MODULEPATH;
 unset TACC_FAMILY_COMPILER;
 unset TACC_FAMILY_MPI;
 unset TACC_PETSC_VERSION;
-_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/multiL/mf/Core",},family={},inactive={},mT={["mpi/mpich2"]={["default"]=1,["fullName"]="mpi/mpich2/1.5.2",["loadOrder"]=5,propT={},["short"]="mpi/mpich2",["status"]="inactive",},["parLib/petsc"]={["default"]=1,["fullName"]="parLib/petsc/3.3",["loadOrder"]=6,propT={},["short"]="parLib/petsc",["status"]="inactive",},},mpathA={"ProjectDIR/rt/multiL/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/multiL/mf/Core",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/multiL/mf/Core",},family={},inactive={},mT={["mpi/mpich2"]={["default"]=1,["fullName"]="mpi/mpich2/1.5.2",["loadOrder"]=-1,propT={},["short"]="mpi/mpich2",["status"]="inactive",},["parLib/petsc"]={["default"]=1,["fullName"]="parLib/petsc/3.3",["loadOrder"]=-1,propT={},["short"]="parLib/petsc",["status"]="inactive",},},mpathA={"ProjectDIR/rt/multiL/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/multiL/mf/Core",["version"]=2,}';
 export _ModuleTable_;
 ===========================
 step 15

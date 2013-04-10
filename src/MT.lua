@@ -50,12 +50,12 @@ s_mt = false
 s_mtA = {}
 
 local function locationTblDir(mpath, path, prefix, locationT, availT)
-   local dbg  = Dbg:dbg()
-   dbg.start("locationTblDir(mpath=",mpath,", path=",path,", prefix=",prefix,",locationT)")
+   --local dbg  = Dbg:dbg()
+   --dbg.start("locationTblDir(mpath=",mpath,", path=",path,", prefix=",prefix,",locationT)")
 
    local attr = lfs.attributes(path)
    if (not attr or type(attr) ~= "table" or attr.mode ~= "directory" or not posix.access(path,"x")) then
-      dbg.fini("locationTblDir")
+      --dbg.fini("locationTblDir")
       return
    end
 
@@ -82,7 +82,7 @@ local function locationTblDir(mpath, path, prefix, locationT, availT)
          local a      = locationT[k] or {}
          a[#a+1]      = v
          locationT[k] = a
-         dbg.print("Adding Meta module: ",k," file: ", v.file,"\n")
+         --dbg.print("Adding Meta module: ",k," file: ", v.file,"\n")
          availT[k] = { }
       end
       for i = 1, #dirA do
@@ -90,7 +90,7 @@ local function locationTblDir(mpath, path, prefix, locationT, availT)
       end
    else
       local a           = locationT[prefix] or {}
-      dbg.print("adding Regular module: file: ",path, " mpath: ", prefix, "\n")
+      --dbg.print("adding Regular module: file: ",path, " mpath: ", prefix, "\n")
       a[#a+1]           = { file = path, mpath = mpath}
       locationT[prefix] = a
       availT[prefix]    = {}
@@ -107,7 +107,7 @@ local function locationTblDir(mpath, path, prefix, locationT, availT)
       end
       availT[prefix] = a
    end
-   dbg.fini("locationTblDir")
+   --dbg.fini("locationTblDir")
 end
 
 local function buildLocWmoduleT(mpath, moduleT, mpathT, lT, availT)
@@ -204,7 +204,7 @@ local function build_locationTbl(mpathA)
 
    local fast      = true
    local cache     = _G.Cache:cache()
-   local moduleT   = cache:build()
+   local moduleT   = cache:build(fast)
    
    if (moduleT) then
       buildAllLocWmoduleT(moduleT, mpathA, locationT, availT)
@@ -280,12 +280,12 @@ local function new(self, s)
    local active, total
 
    local v             = getenv(ModulePath)
-   o.systemBaseMPATH   = v
+   o.systemBaseMPATH   = path_regularize(v)
 
    dbg.print("systemBaseMPATH: \"", v, "\"\n")
    if (not s) then
       local v             = getenv(ModulePath)
-      o.systemBaseMPATH   = v
+      o.systemBaseMPATH   = path_regularize(v)
       dbg.print("setting systemBaseMPATH: ", v, "\n")
       varTbl[DfltModPath] = Var:new(DfltModPath, v)
       o:buildBaseMpathA(v)
@@ -312,7 +312,7 @@ local function new(self, s)
 
       if (_ModuleTable_.systemBaseMPATH == nil) then
          dbg.print("setting self.systemBaseMPATH to baseMpath\n")
-	 o.systemBaseMPATH = baseMpath
+	 o.systemBaseMPATH = path_regularize(baseMpath)
       end
 
       varTbl[DfltModPath] = Var:new(DfltModPath, baseMpath)
@@ -677,22 +677,24 @@ function M.module_pathA(self)
    return self.mpathA
 end
 
-function M.buildMpathA(self, mpath)
-   local mpathA = {}
-   for path in mpath:split(":") do
-      mpathA[#mpathA + 1] = path
+local function path2pathA(mpath)
+   local a = {}
+   if (mpath) then 
+      for path in mpath:split(':') do
+         a[#a+1] = path_regularize(path)
+      end
    end
+   return a
+end
+
+function M.buildMpathA(self, mpath)
+   local mpathA = path2pathA(mpath)
    self.mpathA = mpathA
    self._MPATH = concatTbl(mpathA,":")
 end
 
 function M.buildBaseMpathA(self, mpath)
-   local mpathA = {}
-   mpath = mpath or ""
-   for path in mpath:split(":") do
-      mpathA[#mpathA + 1] = path
-   end
-   self.baseMpathA = mpathA
+   self.baseMpathA = path2pathA(mpath)
 end
 
 
@@ -734,21 +736,24 @@ end
 function M.add(self, t, status)
    local dbg   = Dbg:dbg()
    dbg.start("MT:add(t,",status,")")
-   dbg.print("short: ",t.modName,", full: ",t.modFullName,"\n")
-   dbg.print("fn: ",t.fn,", default: ",t.default,"\n")
-   s_loadOrder = s_loadOrder + 1
-   local mT = self.mT
-   local loadOrder = s_loadOrder
+   dbg.print("MT:add:  short: ",t.modName,", full: ",t.modFullName,"\n")
+   dbg.print("MT:add: fn: ",t.fn,", default: ",t.default,"\n")
+   local loadOrder
    if (status == "inactive") then
       loadOrder = -1
+   else
+      s_loadOrder = s_loadOrder + 1
+      loadOrder   = s_loadOrder
    end
+   dbg.print("MT:add: loadOrder: ",loadOrder,"\n")
+   local mT = self.mT
    mT[t.modName] = { fullName  = t.modFullName,
                      short     = t.modName,
                      FN        = t.fn,
                      default   = t.default,
                      mType     = t.mType,
                      status    = status,
-                     loadOrder = s_loadOrder,
+                     loadOrder = loadOrder,
                      propT     = {},
    }
    if (t.hash and t.hash ~= 0) then
@@ -1212,9 +1217,8 @@ end
 
 function M.serializeTbl(self)
    local dbg = Dbg:dbg()
-   dbg.print("s_mt.c_shortTime: ", s_mt.c_shortTime,"\n")
    
-   s_mt.activeSize = self:setLoadOrder()
+   s_mt.activeSize = s_mt:setLoadOrder()
 
    local s = _G.serializeTbl{ indent=false, name=self.name(), value=s_mt}
    return s:gsub("[ \n]","")

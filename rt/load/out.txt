@@ -1,8 +1,6 @@
 ===========================
 step 1
 ===========================
-unset LMOD_DEFAULT_MODULEPATH;
-unset MODULEPATH;
 ===========================
 step 2
 ===========================
@@ -40,8 +38,6 @@ INFOPATH="/local/info:/usr/share/info";
 export INFOPATH;
 LD_LIBRARY_PATH="/vol/local/intel/mkl/mkl/lib/lib:/vol/local/intel/idb/idb/lib:/vol/local/intel/fc/fc/lib:/vol/local/intel/cc/cc/lib";
 export LD_LIBRARY_PATH;
-LMOD_COMPILER="intel/11.0";
-export LMOD_COMPILER;
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Beta";
 export LMOD_DEFAULT_MODULEPATH;
 LMOD_FAMILY_COMPILER="intel";
@@ -101,8 +97,6 @@ MODULEPATH="ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/Core:ProjectDIR/mf/B
 export MODULEPATH;
 LD_LIBRARY_PATH="/vol/local/intel/mkl/mkl/lib/lib:/vol/local/intel/idb/idb/lib:/vol/local/intel/fc/fc/lib:/vol/local/intel/cc/cc/lib";
 export LD_LIBRARY_PATH;
-LMOD_COMPILER="intel/11.0";
-export LMOD_COMPILER;
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Beta";
 export LMOD_DEFAULT_MODULEPATH;
 LMOD_FAMILY_COMPILER="intel";

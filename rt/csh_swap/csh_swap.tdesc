@@ -25,11 +25,7 @@ testdescript = {
      
 
      unsetMT
-     PATH_to_LUA=`findcmd --pathOnly lua`
-     PATH_to_TM=`findcmd --pathOnly tm`
-
-     PATH=$(projectDir)/src:$PATH_to_LUA:$PATH_to_TM:/usr/bin:/bin
-     export PATH
+     initStdEnvVars
 
      cp $(projectDir)/setup/.lmodrc.lua .
 
@@ -41,16 +37,8 @@ testdescript = {
 cat > $(testName).csh << EOF
 #!/bin/tcsh
      setenv PATH $PATH
-     unsetenv _ModuleTable001_
-     unsetenv INFOPATH
-     unsetenv MANPATH
-     unsetenv LMOD_EXPERT
-     unsetenv LMOD_COMPILER
-     unsetenv LD_LIBRARY_PATH
      setenv MODULEPATH $(projectDir)/mf/Core:$(testDir)/mf/Core
      setenv MODULEPATH_ROOT $(projectDir)/mf
-     setenv LMOD_DEFAULT_MODULEPATH $MODULEPATH
-     setenv LMOD_PREPEND_BLOCK yes
 
 
      echo "==========================="

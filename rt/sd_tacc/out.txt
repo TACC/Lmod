@@ -1,10 +1,6 @@
 ===========================
 step 1
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/TACC";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/mf/TACC";
-export MODULEPATH;
 ===========================
 step 2
 ===========================
@@ -42,7 +38,7 @@ MPICH_HOME="/opt/apps/pgi7_1/mvapich/1.0";
 export MPICH_HOME;
 MYPROXY_SERVER="myproxy.teragrid.org";
 export MYPROXY_SERVER;
-PATH="/share/apps/teragrid/globus-4.0.7-r1/sbin:/share/apps/teragrid/globus-4.0.7-r1/bin:/share/apps/teragrid/globus-4.0.7-r1/myproxy-3.4/bin:/opt/apps/pgi7_1/mvapich/1.0/bin:/opt/apps/pgi/7.1/linux86-64/7.1-2/bin:/usr/local/first:ProjectDIR/src:PATH_to_TM:/bin:/opt/local/libexec/gnubin:/share/sge/default/pe_scripts:~/bin:.:/opt/apps/pki_apps";
+PATH="/share/apps/teragrid/globus-4.0.7-r1/sbin:/share/apps/teragrid/globus-4.0.7-r1/bin:/share/apps/teragrid/globus-4.0.7-r1/myproxy-3.4/bin:/opt/apps/pgi7_1/mvapich/1.0/bin:/opt/apps/pgi/7.1/linux86-64/7.1-2/bin:/usr/local/first:ProjectDIR/src:PATH_to_TM:/bin:/share/sge/default/pe_scripts:~/bin:.:/opt/apps/pki_apps";
 export PATH;
 PGI="/opt/apps/pgi/7.1";
 export PGI;
@@ -94,7 +90,7 @@ MODULEPATH="ProjectDIR/mf/TACC";
 export MODULEPATH;
 unset MPICH_HOME;
 unset MYPROXY_SERVER;
-PATH="ProjectDIR/src:PATH_to_TM:/bin:/opt/local/libexec/gnubin";
+PATH="ProjectDIR/src:PATH_to_TM:/bin";
 export PATH;
 unset PGI;
 unset PURGE;
@@ -141,7 +137,7 @@ MPICH_HOME="/opt/apps/pgi7_1/mvapich/1.0";
 export MPICH_HOME;
 MYPROXY_SERVER="myproxy.teragrid.org";
 export MYPROXY_SERVER;
-PATH="/usr/local/first:/share/apps/teragrid/globus-4.0.7-r1/sbin:/share/apps/teragrid/globus-4.0.7-r1/bin:/share/apps/teragrid/globus-4.0.7-r1/myproxy-3.4/bin:/opt/apps/pgi7_1/mvapich/1.0/bin:/opt/apps/pgi/7.1/linux86-64/7.1-2/bin:ProjectDIR/src:PATH_to_TM:/bin:/opt/local/libexec/gnubin:/opt/apps/pki_apps:/share/sge6.2/default/pe_scripts:.";
+PATH="/usr/local/first:/share/apps/teragrid/globus-4.0.7-r1/sbin:/share/apps/teragrid/globus-4.0.7-r1/bin:/share/apps/teragrid/globus-4.0.7-r1/myproxy-3.4/bin:/opt/apps/pgi7_1/mvapich/1.0/bin:/opt/apps/pgi/7.1/linux86-64/7.1-2/bin:ProjectDIR/src:PATH_to_TM:/bin:/opt/apps/pki_apps:/share/sge6.2/default/pe_scripts:.";
 export PATH;
 PGI="/opt/apps/pgi/7.1";
 export PGI;
