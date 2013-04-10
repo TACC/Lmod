@@ -82,11 +82,11 @@ for i in /opt/apps/lmod/lmod/libexec             \
          ~mclay/l/pkg/x86_64/lmod/lmod/libexec   \
          ~mclay/l/pkg/lmod/lmod/libexec          ; do
   if [ -z "$LUA_PATH" -a $i != /opt/apps/lmod/lmod/libexec ]; then
-    for i in ~mclay/l/pkg/x86_64/luatools/luatools \
+    for j in ~mclay/l/pkg/x86_64/luatools/luatools \
              ~mclay/l/pkg/luatools/luatools; do
-      if [ -f $i/share/5.1/strict.lua ]; then
-	export LUA_PATH="$i/share/5.1/?.lua;;"
-	export LUA_CPATH="$i/lib/5.1/?.so;;"
+      if [ -f $j/share/5.1/strict.lua ]; then
+	export LUA_PATH="$j/share/5.1/?.lua;;"
+	export LUA_CPATH="$j/lib/5.1/?.so;;"
       fi
     done
   fi

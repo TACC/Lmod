@@ -133,8 +133,7 @@ function main()
    dbg.print("Setting mpc to ", mcp:name(),"\n")
 
    readRC()
-   local dontWrite = true
-   local cache     = Cache:cache(dontWrite)
+   local cache     = Cache:cache{dontWrite = true, quiet = true}
    
    ------------------------------------------------------------------------
    -- do not colorize output from spider
@@ -184,8 +183,6 @@ function main()
       return
    end
 
-   local t1 = epoch()
-
    local dbT = {}
    Spider.buildSpiderDB({"default"}, moduleT, dbT)
 
@@ -204,7 +201,6 @@ function main()
          end
       end
       local t2 = epoch()
-      io.stderr:write("reverseMap Build Time: ", t2-t1,"\n")
       local s  = serializeTbl{name="reverseMapT",      value=reverseMapT,   indent=true}
       print(s)
       dbg.fini()

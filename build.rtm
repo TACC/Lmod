@@ -60,7 +60,8 @@ case $SYSHOST in
       cat > /tmp/mclay_build$$ <<EOF
 /tmp/moduleData/cacheDir:/tmp/losf_last_update
 /home1/moduleData/XSEDE/cacheDir:/home1/moduleData/XSEDE/last_update
-$HOME/a/moduleData: $ADMIN_DIR/system.txt
+$HOME/a/moduleData/cacheDir: $HOME/a/moduleData/losf_last_update
+$HOME/a/moduleData/XSEDE/cacheDir: $HOME/a/moduleData/XSEDE/last_update
 EOF
       EXTRA="--with-spiderCacheDescriptFn=/tmp/mclay_build$$"
     fi

@@ -24,7 +24,7 @@ local function epoch()
    end
 end
 
-local function new(self, dontWrite)
+local function new(self, t)
    local o = {}
    setmetatable(o,self)
    self.__index = self
@@ -74,12 +74,14 @@ local function new(self, dontWrite)
         timestamp = systemEpoch
       }
    }
-
+   
+   t              = t or {}
    o.moduleDirT   = {}
    o.usrCacheDirA = usrCacheDirA 
    o.usrModuleTFN = pathJoin(usrCacheDir,"moduleT.lua")
    o.systemDirA   = scDirA
-   o.dontWrite    = dontWrite or false
+   o.dontWrite    = t.dontWrite or false
+   o.quiet        = t.quiet     or false
 
    o.moduleT      = {}
    o.moduleDirA   = {}
@@ -87,11 +89,11 @@ local function new(self, dontWrite)
    return o
 end
 
-function M.cache(self)
+function M.cache(self, t)
    local dbg        = Dbg:dbg()
    dbg.start("Cache:cache()")
    if (not s_cache) then
-      s_cache   = new(self)
+      s_cache   = new(self, t)
    end
 
    local mt        = MT:mt()
@@ -230,7 +232,9 @@ function M.build(self, fast)
    else
       local short    = mt:getShortTime()
       local prtRbMsg = ((not masterTbl.expert) and (not masterTbl.initial) and
-                        ((not short) or (short > shortTime)))
+                        ((not short) or (short > shortTime)) and
+                        (not self.quiet)
+      )
       dbg.print("short: ", short, " shortTime: ", shortTime,"\n")
       
       if (prtRbMsg) then
