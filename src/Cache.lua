@@ -63,6 +63,7 @@ local function new(self, dontWrite)
                  backup = pathJoin(dir, "moduleT.old.lua"),
                  timestamp = lastUpdate,
                }
+            break
          end
       end
    end
@@ -101,7 +102,10 @@ function M.cache(self)
 
    local moduleDirT = s_cache.moduleDirT
    for path in baseMpath:split(":") do
-      moduleDirT[path] = moduleDirT[path] or -1
+      local attr = lfs.attributes(path) or {}
+      if (attr.mode == "directory") then
+         moduleDirT[path] = moduleDirT[path] or -1
+      end
    end
    
    -- Since this function can get called many time, we need to only recompute
@@ -131,8 +135,8 @@ local function readCacheFile(self, cacheFileA)
       local attr = lfs.attributes(f) or {}
       if (next(attr) ~= nil and attr.size > 0) then
          found = true
-      else
-         f     = cacheFileA[i].backup or ""
+      elseif (cacheFileA[i].backup) then
+         f     = cacheFileA[i].backup
          attr  = lfs.attributes(f) or {}
          found = (next(attr) ~= nil and attr.size > 0) 
       end
@@ -145,10 +149,10 @@ local function readCacheFile(self, cacheFileA)
          -- Check Time
 
          local diff         = attr.modification - cacheFileA[i].timestamp
-         local buildModuleT = diff < 0  -- rebuild when older than timestamp
-         dbg.print("timeDiff: ",diff," buildModuleT: ", buildModuleT,"\n")
+         dbg.print("timeDiff: ",diff,"\n")
 
-         if (not buildModuleT) then
+         -- Read in cache file if not out of date.
+         if (diff > 0) then
             
             -- Check for matching default MODULEPATH.
             assert(loadfile(f))()
