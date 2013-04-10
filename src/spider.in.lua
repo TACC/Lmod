@@ -366,7 +366,7 @@ function xmlSoftwarePage(dbT)
 
 
    local hostName = posix.uname("%n")
-   local i        = hostName:find("%.")
+   local i        = hostName:find("%.") or 0
    local host     = hostName:sub(i+1,-1)
    host           = host:gsub("%..*","")
    host           = translateT[host] or host
