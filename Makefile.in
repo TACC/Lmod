@@ -118,7 +118,7 @@ config.status:
 dist:  
 	$(MAKE) DistD=DIST _dist
 
-_dist: _distMkDir _distMainDir _distSrc _distSetup _distReqPkg    \
+_dist: _distMkDir _distMainDir _distSrc _distSetup _distVersion \
        _distPkgs _distMF    _distContrib _distTar
 
 _distMkDir:
@@ -134,7 +134,10 @@ _distSrc:
 	mkdir $(DistD)/src
 	cp $(lua_code) $(ComputeHashSum) $(STANDALONE_PRGM) $(DistD)/src
 	mkdir $(DistD)/src/tools
-	cp tools/*.lua $(DistD)/src/tools
+	cp src/tools/*.lua $(DistD)/src/tools
+
+_distVersion:
+	perl -p -i -e 's/\@git\@/$(GIT_VERSION)/g' $(DistD)/src/Version.lua
 
 _distPkgs:
 	mkdir $(DistD)/pkgs
