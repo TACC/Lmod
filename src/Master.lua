@@ -44,6 +44,7 @@ local M            = {}
 local MName        = require("MName")
 local MT           = MT
 local ModuleStack  = require("ModuleStack")
+local Optiks       = require("Optiks")
 local Spider       = require("Spider")
 local abspath      = abspath
 local extname      = extname
@@ -680,9 +681,32 @@ local function availDir(searchA, mpath, availT, dbT, a, legendT)
    dbg.fini("Master.availDir")
 end
 
-function M.avail(searchA)
+local function availOptions(argA)
+   local usage = "Usage: module avail [options] search1 search2 ..."
+   local cmdlineParser = Optiks:new{usage=usage, version=""}
+
+   argA[0] = "avail"
+
+   cmdlineParser:add_option{ 
+      name   = {'-t', '--terse'},
+      dest   = 'terse',
+      action = 'store_true',
+   }
+   cmdlineParser:add_option{ 
+      name   = {'-d','--default'},
+      dest   = 'defaultOnly',
+      action = 'store_true',
+   }
+   local optionTbl, pargs = cmdlineParser:parse(argA)
+   return optionTbl, pargs
+
+end
+      
+
+
+function M.avail(argA)
    local dbg    = Dbg:dbg()
-   dbg.start("Master.avail(",concatTbl(searchA,", "),")")
+   dbg.start("Master.avail(",concatTbl(argA,", "),")")
    local mt     = MT:mt()
    local mpathA = mt:module_pathA()
    local width  = TermWidth()
@@ -697,8 +721,9 @@ function M.avail(searchA)
 
    local aa = {}
 
+   local optionTbl, searchA = availOptions(argA)
 
-   if (searchA[1] == "--terse" ) then
+   if (optionTbl.terse) then
       dbg.print("doing --terse\n")
       for ii = 1, #mpathA do
          local mpath = mpathA[ii]

@@ -64,7 +64,7 @@ function M.new(self, t)
       Exit     = t.exit or Exit
    end
       
-   if (not isDefined("ProgName")) then
+   if (not isDefined("ProgName") or not ProgName or ProgName == "") then
       declare("ProgName","")
    else
       ProgName = ProgName .. " "

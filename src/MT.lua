@@ -118,20 +118,33 @@ local function buildLocWmoduleT(mpath, moduleT, mpathT, lT, availT)
    local availEntryT = availT[mpath]
 
    for f, vv in pairs(moduleT) do
-      local sn = vv.name
-      local a  = lT[sn] or {}
+      
+      local defaultModule = false
+      local sn            = vv.name
+      local a             = lT[sn] or {}
       if (a[mpath] == nil) then
          a[mpath] = { file = pathJoin(mpath,sn), mpath = mpath }
       end
       lT[sn]   = a
 
-      a               = availEntryT[sn] or {}
+      local entryT    = availEntryT[sn] or {}
+      a               = entryT.A        or {}
+
       local version   = extractVersion(vv.full, sn)
+
       if (version) then
          local parseV = concatTbl(parseVersion(version), ".")
          a[parseV]  = { version = version, file = f, parseV = parseV}
+         if (vv.default) then
+            defaultModule = version
+         end
       end
-      availEntryT[sn] = a
+      availEntryT[sn].A = a
+
+      if (defaultModule) then
+         availEntry[sn].defaultVersion = defaultModule
+      end
+      
 
       for k, v in pairs(vv.children) do
          if (mpathT[k]) then
@@ -167,14 +180,14 @@ local function buildAllLocWmoduleT(moduleT, mpathA, locationT, availT)
 
    for mpath, vvv in pairs(availT) do
       for sn, vv in pairs(vvv) do
+         local A  = vv.A
          local aa = {}
-         for parseV, v in pairsByKeys(vv) do
+         for parseV, v in pairsByKeys(A) do
             aa[#aa + 1] = v
          end
-         availT[mpath][sn] = aa
+         availT[mpath][sn].A = aa
       end
    end
-
 
    for sn, vv in pairs(lT) do
 
@@ -221,10 +234,21 @@ local function build_locationTbl(mpathA)
       dbg.print("availT: \n")
       for mpath, vv in pairs(availT) do
          dbg.print("  mpath: ", mpath,":\n")
-         for sn , versionA in pairsByKeys(vv) do
+         dbg.print(" type(vv): ",type(vv),"\n")
+         for sn , v in pairsByKeys(vv) do
+
+            for k, _ in pairs(v) do
+               dbg.print("k: ",k,"\n")
+            end
+
             dbg.print("    ",sn,":")
-            for i = 1, #versionA do
-               io.stderr:write(" ",versionA[i].version,",")
+               
+
+            if (v.defaultModule) then
+               io.stderr:write(" (",v.defaultModule,")")
+            end
+            for i = 1, #v.A do
+               io.stderr:write(" ",v.A[i].version,",")
             end
             io.stderr:write("\n")
          end

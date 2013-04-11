@@ -437,11 +437,11 @@ function M.findModulesInDir(mpath, path, prefix, moduleT)
       for k,v in pairs(mnameT) do
          local full = k
          local sn   = k
-         moduleT[v.file] = registerModuleT(full, sn, v.file, false)
+         moduleT[v.file] = registerModuleT(full, sn, v.file, v.file)
          moduleStack[iStack] = {path= v.file, full = full, moduleT = moduleT, fn = v.file}
          dbg.print("Top of Stack: ",iStack, " Full: ", full, " file: ", v.file, "\n")
          
-         local t = {fn = v.file, modFullName = k, modName = sn, default = 0, hash = 0}
+         local t = {fn = v.file, modFullName = k, modName = sn, default = true, hash = 0}
          mt:add(t,"pending")
          loadModuleFile(v.file)
          mt:setStatus(t.modName,"active")
