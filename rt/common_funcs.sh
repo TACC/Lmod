@@ -1,7 +1,10 @@
 cleanUp ()
 {
+   gitV=$(git describe --always)
+
    sed                                                    \
        -e "s|:$PATH_to_LUA:|:|g"                          \
+       -e "s|\@git\@|$gitV|g"                             \
        -e "s|:/usr/bin:|:|g"                              \
        -e "s|:/usr/local/bin:|:|g"                        \
        -e "s|$PATH_to_TM|PATH_to_TM|g"                    \
