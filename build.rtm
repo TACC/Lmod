@@ -57,14 +57,14 @@ case $SYSHOST in
     TACC_SYSTEM=1
     if [ $SYSHOST == "stampede" ]; then
       base="$base/$(uname -m)"
-      cat > /tmp/mclay_build$$ <<EOF
+    fi
+    cat > /tmp/mclay_build$$ <<EOF
 /tmp/moduleData/cacheDir:/tmp/losf_last_update
 /home1/moduleData/XSEDE/cacheDir:/home1/moduleData/XSEDE/last_update
 $HOME/a/moduleData/cacheDir: $HOME/a/moduleData/losf_last_update
 $HOME/a/moduleData/XSEDE/cacheDir: $HOME/a/moduleData/XSEDE/last_update
 EOF
-      EXTRA="--with-spiderCacheDescript=/tmp/mclay_build$$"
-    fi
+    EXTRA="--with-spiderCacheDescript=/tmp/mclay_build$$"
     ;;
 
   *)
