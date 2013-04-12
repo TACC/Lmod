@@ -483,6 +483,7 @@ function localSoftware(xml, name, t)
    root:append(Name)
    dbg.print("name: ",name,"\n")
 
+   if (t.Description and t.Description ~= "")
    local Description = xml.new("Description")
    Description[1]    = t.Description
    root:append(Description)

@@ -180,7 +180,9 @@ Listing / Searching sub-commands:
   avail | av                             List available modules
   avail | av       string                List available modules that contain
                                          "string".
-
+  avail --terse                          List available modules in a machine
+                                         parsable way
+  avail -d                               List available default modules only.
   spider                                 List all possible modules
   spider           modulefile            List all possible version of that
                                          module file
