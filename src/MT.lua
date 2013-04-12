@@ -135,7 +135,6 @@ local function buildLocWmoduleT(mpath, moduleT, mpathT, lT, availT)
       if (version) then
          local parseV = concatTbl(parseVersion(version), ".")
          a[parseV]  = { version = version, file = f, parseV = parseV}
-         dbg.print("vv.default: ", vv.default, "\n")
       end
       availEntryT[sn] = a
 
@@ -173,12 +172,11 @@ local function buildAllLocWmoduleT(moduleT, mpathA, locationT, availT)
 
    for mpath, vvv in pairs(availT) do
       for sn, vv in pairs(vvv) do
-         local A  = vv.A
          local aa = {}
-         for parseV, v in pairsByKeys(A) do
+         for parseV, v in pairsByKeys(vv) do
             aa[#aa + 1] = v
          end
-         availT[mpath][sn].A = aa
+         availT[mpath][sn] = aa
       end
    end
 
