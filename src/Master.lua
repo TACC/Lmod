@@ -590,18 +590,18 @@ local function findDefault(mpath, sn, versionA)
       end
    end
 
-   if (not default and #versionA > 1) then
+   if (not default) then
       default = abspath(versionA[#versionA].file, localDir)
    end
    dbg.print("default: ", default,"\n")
    dbg.fini("Master.findDefault")
 
-   return default
+   return default, #versionA
 end
 
-local function availEntry(searchA, name, f, defaultModule, dbT, legendT, a)
+local function availEntry(defaultOnly, szA, searchA, name, f, defaultModule, dbT, legendT, a)
    local dbg      = Dbg:dbg()
-   dbg.start("Master:availEntry(searchA, name, f, defaultModule, dbT, legendT, a)")
+   dbg.start("Master:availEntry(defaultOnly, searchA, name, f, defaultModule, dbT, legendT, a)")
    local dflt     = ""
    local sCount   = #searchA
    local found    = false
@@ -620,8 +620,15 @@ local function availEntry(searchA, name, f, defaultModule, dbT, legendT, a)
       end
    end
 
+   if (defaultOnly and szA > 1 and  defaultModule ~= abspath(f, localdir)) then
+      found = false
+   end
+
+
+
    if (found) then
-      if (defaultModule == abspath(f, localdir)) then
+      if (defaultModule == abspath(f, localdir) and szA > 1 and
+          not defaultOnly ) then
          dflt = Default
          legendT[Default] = "Default Module"
       end
@@ -651,9 +658,9 @@ end
 
 
 
-local function availDir(searchA, mpath, availT, dbT, a, legendT)
+local function availDir(defaultOnly, searchA, mpath, availT, dbT, a, legendT)
    local dbg    = Dbg:dbg()
-   dbg.start("Master.availDir(searchA=(",concatTbl(searchA,", "),"), mpath=\"",mpath,"\", ",
+   dbg.start("Master.availDir(defaultOnly=",defaultOnly, ", searchA=(",concatTbl(searchA,", "),"), mpath=\"",mpath,"\", ",
              "availT, dbT, a, legendT)")
    local attr    = lfs.attributes(mpath)
    local mt      = MT:mt()
@@ -667,14 +674,15 @@ local function availDir(searchA, mpath, availT, dbT, a, legendT)
    for sn, versionA in pairsByKeys(availT) do
       local defaultModule = false
       local aa            = {}
-      if (#versionA == 0) then
-         availEntry(searchA, sn, "", defaultModule, dbT, legendT, a)
+      local szA           = #versionA 
+      if (szA == 0) then
+         availEntry(defaultOnly, szA, searchA, sn, "", defaultModule, dbT, legendT, a)
       else
          defaultModule = findDefault(mpath, sn, versionA)
          for i = 1, #versionA do
             local name = pathJoin(sn, versionA[i].version)
             local f    = versionA[i].file
-            availEntry(searchA, name, f, defaultModule, dbT, legendT, a)
+            availEntry(defaultOnly, szA, searchA, name, f, defaultModule, dbT, legendT, a)
          end
       end
    end
@@ -744,7 +752,7 @@ function M.avail(argA)
 
    for _,mpath in ipairs(mpathA) do
       local a = {}
-      availDir(searchA, mpath, availT[mpath], dbT, a, legendT)
+      availDir(optionTbl.defaultOnly, searchA, mpath, availT[mpath], dbT, a, legendT)
       if (next(a)) then
          prtDirName(width, mpath,aa)
          local ct  = ColumnTable:new{tbl=a, gap=1, len=length}

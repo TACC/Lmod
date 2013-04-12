@@ -50,12 +50,12 @@ s_mt = false
 s_mtA = {}
 
 local function locationTblDir(mpath, path, prefix, locationT, availT)
-   --local dbg  = Dbg:dbg()
-   --dbg.start("locationTblDir(mpath=",mpath,", path=",path,", prefix=",prefix,",locationT)")
+   local dbg  = Dbg:dbg()
+   --dbg.start("MT:locationTblDir(mpath=",mpath,", path=",path,", prefix=",prefix,",locationT)")
 
    local attr = lfs.attributes(path)
    if (not attr or type(attr) ~= "table" or attr.mode ~= "directory" or not posix.access(path,"x")) then
-      --dbg.fini("locationTblDir")
+      --dbg.fini("MT:locationTblDir")
       return
    end
 
@@ -83,7 +83,7 @@ local function locationTblDir(mpath, path, prefix, locationT, availT)
          a[#a+1]      = v
          locationT[k] = a
          --dbg.print("Adding Meta module: ",k," file: ", v.file,"\n")
-         availT[k] = { }
+         availT[k]    = {}
       end
       for i = 1, #dirA do
          locationTblDir(mpath, dirA[i].fullName,  dirA[i].mname, locationT, availT)
@@ -105,14 +105,15 @@ local function locationTblDir(mpath, path, prefix, locationT, availT)
       for i = 1, #vA do
          a[#a+1] = {version = vA[i][2], file = vA[i][3]}
       end
+      --dbg.print("Setting availT[",prefix,"]: with ",#a, " entries\n")
       availT[prefix] = a
    end
-   --dbg.fini("locationTblDir")
+   --dbg.fini("MT:locationTblDir")
 end
 
 local function buildLocWmoduleT(mpath, moduleT, mpathT, lT, availT)
    local dbg       = Dbg:dbg()
-   dbg.start("buildLocWmoduleT(mpath, moduleT, mpathA, lT, availT)")
+   dbg.start("MT:buildLocWmoduleT(mpath, moduleT, mpathA, lT, availT)")
    dbg.print("mpath: ", mpath,"\n")
    
    local availEntryT = availT[mpath]
@@ -126,25 +127,17 @@ local function buildLocWmoduleT(mpath, moduleT, mpathT, lT, availT)
          a[mpath] = { file = pathJoin(mpath,sn), mpath = mpath }
       end
       lT[sn]   = a
-
-      local entryT    = availEntryT[sn] or {}
-      a               = entryT.A        or {}
+      
+      a = availEntryT[sn] or {}
 
       local version   = extractVersion(vv.full, sn)
 
       if (version) then
          local parseV = concatTbl(parseVersion(version), ".")
          a[parseV]  = { version = version, file = f, parseV = parseV}
-         if (vv.default) then
-            defaultModule = version
-         end
+         dbg.print("vv.default: ", vv.default, "\n")
       end
-      availEntryT[sn].A = a
-
-      if (defaultModule) then
-         availEntry[sn].defaultVersion = defaultModule
-      end
-      
+      availEntryT[sn] = a
 
       for k, v in pairs(vv.children) do
          if (mpathT[k]) then
@@ -152,13 +145,13 @@ local function buildLocWmoduleT(mpath, moduleT, mpathT, lT, availT)
          end
       end
    end
-   dbg.fini("buildLocWmoduleT")
+   dbg.fini("MT:buildLocWmoduleT")
 end
 
 
 local function buildAllLocWmoduleT(moduleT, mpathA, locationT, availT)
    local dbg       = Dbg:dbg()
-   dbg.start("buildAllLocWmoduleT(moduleT, mpathA, locationT, availT)")
+   dbg.start("MT:buildAllLocWmoduleT(moduleT, mpathA, locationT, availT)")
 
    local mpathT = {}
    local lT     = {}  -- temporary locationT
@@ -204,14 +197,14 @@ local function buildAllLocWmoduleT(moduleT, mpathA, locationT, availT)
       locationT[sn] = b
    end
    lT = nil  -- Done with lT
-   dbg.fini("buildAllLocWmoduleT")
+   dbg.fini("MT:buildAllLocWmoduleT")
 end
 
 
 local function build_locationTbl(mpathA)
 
    local dbg       = Dbg:dbg()
-   dbg.start("build_locationTbl(mpathA)")
+   dbg.start("MT:build_locationTbl(mpathA)")
    local locationT = {}
    local availT    = {}
 
@@ -219,6 +212,8 @@ local function build_locationTbl(mpathA)
    local cache     = _G.Cache:cache()
    local moduleT   = cache:build(fast)
    
+   dbg.print("moduleT: ", not (not moduleT),"\n")
+
    if (moduleT) then
       buildAllLocWmoduleT(moduleT, mpathA, locationT, availT)
    else
@@ -234,21 +229,12 @@ local function build_locationTbl(mpathA)
       dbg.print("availT: \n")
       for mpath, vv in pairs(availT) do
          dbg.print("  mpath: ", mpath,":\n")
-         dbg.print(" type(vv): ",type(vv),"\n")
+
          for sn , v in pairsByKeys(vv) do
 
-            for k, _ in pairs(v) do
-               dbg.print("k: ",k,"\n")
-            end
-
             dbg.print("    ",sn,":")
-               
-
-            if (v.defaultModule) then
-               io.stderr:write(" (",v.defaultModule,")")
-            end
-            for i = 1, #v.A do
-               io.stderr:write(" ",v.A[i].version,",")
+            for i = 1, #v do
+               io.stderr:write(" ",v[i].version,",")
             end
             io.stderr:write("\n")
          end
@@ -261,7 +247,7 @@ local function build_locationTbl(mpathA)
          end
       end
    end
-   dbg.fini("build_locationTbl")
+   dbg.fini("MT:build_locationTbl")
    return locationT, availT
 end
 
