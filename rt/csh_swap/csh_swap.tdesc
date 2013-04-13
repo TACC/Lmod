@@ -29,8 +29,6 @@ testdescript = {
 
      cp $(projectDir)/setup/.lmodrc.lua .
 
-     #unset LUA_PATH
-
      _histchars="@%"
 
 
@@ -119,12 +117,14 @@ EOF
      chmod +x $(testName).csh
      
      HOME=`pwd`
-     ./$(testName).csh > err.txt 2>&1
+     ./$(testName).csh > _stderr.orig 2>&1
 
      HOME=$ORIG_HOME
 
      joinBase64Results -csh  _stdout.orig _stdout.new
-     cleanUp _stdout.new out.txt
+     cleanUp _stdout.new  out.txt
+     cleanUp _stderr.orig err.txt
+    
 
      rm -f $(cmdResultFn)
      wrapperDiff -r $(cmdResultFn) $(testDir)/out.txt out.txt

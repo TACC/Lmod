@@ -1,7 +1,7 @@
 ===========================
 step 1
 ===========================
-Modules based on Lua: Version 5.0b4 2013-04-03 18:07
+Modules based on Lua: Version 5.0b9 (5.0b9-18-g82cd8cc) 2013-04-10 17:16
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -16,11 +16,11 @@ step 3
    gotoblas/1.32  (D)     mpich2/1.0.7
  ProjectDIR/mf/Core 
    PrgEnv                      git/1.7.4              junk/d/3.0
-   admin/admin-1.0     (D)     git/1.7.4.3    (D)     local/local   (D)
-   alex/1.0                    gotoblas/1.20          multi/multi   (D)
-   boost/1.46.0                gotoblas/1.26          noweb/2.10c   (D)
-   boost/1.47.1                gotoblas/1.30          parmetis/3.1
-   boost/1.49.0    (o) (D)     intel/intel    (D)     unix/unix     (D)
+   admin/admin-1.0             git/1.7.4.3    (D)     local/local
+   alex/1.0                    gotoblas/1.20          multi/multi
+   boost/1.46.0                gotoblas/1.26          noweb/2.10c
+   boost/1.47.1                gotoblas/1.30          parmetis/3.1 (m)
+   boost/1.49.0    (o) (D)     intel/intel            unix/unix
    gcc/4.2.3                   junk/a/c/1.0
    git/1.6.3.1                 junk/b/c/2.0
   Where:
@@ -42,7 +42,9 @@ step 5
 ===========================
 Currently Loaded Modules:
   1) admin/admin-1.0    3) unix/unix      5) noweb/2.10c
-  2) PrgEnv             4) local/local    6) parmetis/3.1
+  2) PrgEnv             4) local/local    6) parmetis/3.1 (m)
+  Where:
+   (m):  built for host and native MIC
 Inactive Modules:
   1) openmpi
 ===========================
@@ -155,7 +157,10 @@ The following have been reloaded with a version change:
 step 20
 ===========================
 Currently Loaded Modules:
-  1) admin/admin-1.0    3) unix/unix      5) noweb/2.10c    7) parmetis/3.1
-  2) PrgEnv             4) local/local    6) intel/intel
+  1) admin/admin-1.0    4) local/local    7) parmetis/3.1 (m)
+  2) PrgEnv             5) noweb/2.10c
+  3) unix/unix          6) intel/intel
+  Where:
+   (m):  built for host and native MIC
 Inactive Modules:
   1) petsc   2) phdf5

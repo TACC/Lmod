@@ -137,6 +137,8 @@ MPICH_HOME="/opt/apps/pgi7_1/mvapich/1.0";
 export MPICH_HOME;
 MYPROXY_SERVER="myproxy.teragrid.org";
 export MYPROXY_SERVER;
+NAME="cluster-paths";
+export NAME;
 PATH="/usr/local/first:/share/apps/teragrid/globus-4.0.7-r1/sbin:/share/apps/teragrid/globus-4.0.7-r1/bin:/share/apps/teragrid/globus-4.0.7-r1/myproxy-3.4/bin:/opt/apps/pgi7_1/mvapich/1.0/bin:/opt/apps/pgi/7.1/linux86-64/7.1-2/bin:ProjectDIR/src:PATH_to_TM:/bin:/opt/apps/pki_apps:/share/sge6.2/default/pe_scripts:.";
 export PATH;
 PGI="/opt/apps/pgi/7.1";
