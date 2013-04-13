@@ -1,0 +1,24 @@
+#%Module#####################################################################
+proc ModulesHelp { } {
+puts stderr "The TACC modulefile defines the default paths and environment"
+puts stderr "variables needed to use the local software and utilities"
+}
+
+set F          [module-info name]
+set S          [module-info shell]
+set N          [module-info specified]
+#
+# Load default enviroment
+#
+
+#
+# CA common and manpage.
+#
+#
+setenv          FULL        $F
+setenv          NAME        $N
+setenv          USER_SHELL  $S
+
+# ;;; Local Variables: ***
+# ;;; mode:tcl ***
+# ;;; End: ***

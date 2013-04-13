@@ -92,7 +92,7 @@ cat > $(testName).csh << EOF
      echo "==========================="
 
 
-     lua $(projectDir)/src/lmod.in.lua csh load ml  > _stdout.09
+     lua $(projectDir)/src/lmod.in.lua csh load ml minfo > _stdout.09
      eval \`cat _stdout.09\`
 
      echo "===========================" >  _stdout.10
@@ -102,6 +102,20 @@ cat > $(testName).csh << EOF
      echo "==========================="
      echo "step 5"
      echo "==========================="
+
+     lua $(projectDir)/src/lmod.in.lua csh unload minfo > _stdout.11
+     eval \`cat _stdout.11\`
+
+     echo "===========================" >  _stdout.12
+     echo "step 6"                      >> _stdout.12
+     echo "===========================" >> _stdout.12
+
+     echo "==========================="
+     echo "step 6"
+     echo "==========================="
+
+     lua $(projectDir)/src/lmod.in.lua csh load minfo/1.0 > _stdout.13
+     eval \`cat _stdout.13\`
 
      unset histchars
      lua $(projectDir)/src/lmod.in.lua csh --localvar histchars="$_histchars" swap gcc  intel > _stdout.11

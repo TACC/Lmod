@@ -207,24 +207,26 @@ function loadModuleFile(t)
          f:close()
       end
    else
-      local mt	  = MT:mt()
-      local s     = concatTbl(mt:list("short","active"),":")
-      local A     = {}
-      A[#A + 1 ]  = "-l"
-      A[#A + 1 ]  = "\"" .. s .. "\"" 
-      A[#A + 1 ]  = "-n"
-      A[#A + 1 ]  = t.fullName
-      local opt   = concatTbl(A," ")
-
+      local mt	   = MT:mt()
+      local s      = concatTbl(mt:list("short","active"),":")
+      local A      = {}
+      A[#A + 1]    = "-l"
+      A[#A + 1]    = "\"" .. s .. "\"" 
+      A[#A + 1]    = "-f"
+      A[#A + 1]    = t.fullName
+      A[#A + 1]    = "-u"
+      A[#A + 1]    = t.moduleName
+      A[#A + 1]    = "-s"
+      A[#A + 1]    = s_master.shell:name()
       if (t.help) then
-         opt      = t.help
+         A[#A + 1] = t.help
       end
-      local a     = {}
-      a[#a + 1]	  = pathJoin(cmdDir(),"tcl2lua.tcl")
-      a[#a + 1]	  = opt
-      a[#a + 1]	  = t.file
-      local cmd   = concatTbl(a," ")
-      whole       = capture(cmd) 
+      local a      = {}
+      a[#a + 1]	   = pathJoin(cmdDir(),"tcl2lua.tcl")
+      a[#a + 1]	   = concatTbl(A," ")
+      a[#a + 1]	   = t.file
+      local cmd    = concatTbl(a," ")
+      whole        = capture(cmd) 
    end
 
    if (whole) then
@@ -283,7 +285,7 @@ function M.unload(...)
          dbg.print("Master:unload: \"",fullModuleName,"\" from f: ",f,"\n")
          mt:beginOP()
          mStack:push(fullModuleName,f)
-	 loadModuleFile{file=f,moduleName=moduleName,
+	 loadModuleFile{file=f,moduleName=moduleName, 
                         fullName=fullModuleName,reportErr=false}
          mStack:pop()
          mt:endOP()
