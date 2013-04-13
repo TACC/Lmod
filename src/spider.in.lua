@@ -133,7 +133,7 @@ function main()
    dbg.print("Setting mpc to ", mcp:name(),"\n")
 
    readRC()
-   local cache     = Cache:cache{dontWrite = true, quiet = true}
+   local cache = Cache:cache{dontWrite = true, quiet = true}
    
    ------------------------------------------------------------------------
    -- do not colorize output from spider
@@ -483,7 +483,6 @@ function localSoftware(xml, name, t)
    root:append(Name)
    dbg.print("name: ",name,"\n")
 
-   if (t.Description and t.Description ~= "")
    local Description = xml.new("Description")
    Description[1]    = t.Description
    root:append(Description)
