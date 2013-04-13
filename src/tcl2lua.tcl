@@ -297,6 +297,9 @@ proc module-info {what {more {}}} {
     "shell" {
         return $g_shellName
     }
+    "shelltype" {
+        return $g_shellName
+    }
     "flags" {
         return 0
     }
