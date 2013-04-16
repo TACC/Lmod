@@ -79,18 +79,7 @@ umask 022
 ######################################################################## 
 #  Find an lmod that has a version 5 or better
 for i in /opt/apps/lmod/lmod/libexec             \
-         ~mclay/l/pkg/x86_64/lmod/lmod/libexec   \
-         ~mclay/l/pkg/lmod/lmod/libexec          ; do
-  if [ -z "$LUA_PATH" -a $i != /opt/apps/lmod/lmod/libexec ]; then
-    for j in ~mclay/l/pkg/x86_64/luatools/luatools \
-             ~mclay/l/pkg/luatools/luatools; do
-      if [ -f $j/share/5.1/strict.lua ]; then
-	export LUA_PATH="$j/share/5.1/?.lua;;"
-	export LUA_CPATH="$j/lib/5.1/?.so;;"
-      fi
-    done
-  fi
-
+         /opt/apps/lmod/5.0rc1/libexec           ; do
   if [ -x $i/lmod ]; then
     LmodVersion=$($i/lmod bash --version 2>&1 | grep "^Modules" | sed -e 's/.*Version \([0-9]\+\).*/\1/')
     if [ "$LmodVersion" -ge 5 ]; then
@@ -136,7 +125,3 @@ if [ "$nodeType" == "master" ]; then
     fi
   done
 fi
-
-  
-  
-
