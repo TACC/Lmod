@@ -34,10 +34,18 @@ STARTUP		  	 := $(patsubst %, setup/%, $(STARTUP))
 
 MAIN_DIR	  	 := Makefile.in INSTALL configure README_lua_modulefiles.txt
 
-CONTRIB           	 := contrib/createmodule.sh contrib/BuildSystemCacheFile                  \
-                            contrib/SitePackage contrib/tricky_modulefiles contrib/parseVersions  \
-	          	    contrib/bash_patch contrib/hook
-lua_code	  	 := $(filter-out %.in.lua, $(wildcard src/*.lua))        \
+CONTRIB_DIRS           	 :=  \
+                             bash_patch                        \
+                             BuildSystemCacheFile              \
+                             converting_shell_to_module_files  \
+                             hook                              \
+                             parseVersions                     \
+                             SitePackage                       \
+                             TACC                              \
+                             tricky_modulefiles
+
+CONTRIB                  := $(patsubst %, contrib/%, $(CONTRIB_DIRS))
+lua_code	  	 := $(filter-out %.in.lua, $(wildcard src/*.lua))                         \
                             $(wildcard src/*.tcl) src/COPYRIGHT 
 VDATE		  	 := $(shell date +'%F %H:%M')
 

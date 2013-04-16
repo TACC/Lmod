@@ -1,0 +1,8 @@
+A new tool called "env2" will do conversions from shell scripts to Lua based and
+TCL based modulefile along with a host of other conversions.  See
+https://sourceforge.net/projects/env2/
+
+As an example:
+
+   $ env2 -from bash -to lmod /opt/apps/intel/13.0.2/bin/iccvars.sh intel64 > intel_13.0.2.lua
+
