@@ -735,7 +735,7 @@ function M.avail(argA)
    local width  = TermWidth()
    local masterTbl = masterTbl()
 
-   local cache   = Cache:cache()
+   local cache   = Cache:cache{quiet = masterTbl.terse}
    local moduleT = cache:build()
    local dbT     = {}
    Spider.buildSpiderDB({"default"}, moduleT, dbT)
@@ -755,6 +755,7 @@ function M.avail(argA)
          if (type(t) == "table" and next(t) ~= nil) then
             io.stderr:write(mpath,":\n")
             for sn, versionA in pairsByKeys(t) do
+               io.stderr:write(sn,"\n")
                for i = 1, #versionA do
                   local name = pathJoin(sn, versionA[i].version)
                   io.stderr:write(name,"\n")
