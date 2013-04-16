@@ -96,6 +96,8 @@ function M.cache(self, t)
       s_cache   = new(self, t)
    end
 
+   s_cache.quiet    = (t or {}).quiet or s_cache.quiet
+
    local mt        = MT:mt()
    local baseMpath = mt:getBaseMPATH()
    if (baseMpath == nil) then
@@ -231,9 +233,10 @@ function M.build(self, fast)
       mt:setRebuildTime(ancient, false)
    else
       local short    = mt:getShortTime()
-      local prtRbMsg = ((not masterTbl.expert) and (not masterTbl.initial) and
-                        ((not short) or (short > shortTime)) and
-                        (not self.quiet)
+      local prtRbMsg = ( (not masterTbl.expert)               and
+                         (not masterTbl.initial)              and
+                         ((not short) or (short > shortTime)) and
+                         (not self.quiet)
       )
       dbg.print("short: ", short, " shortTime: ", shortTime,"\n")
       

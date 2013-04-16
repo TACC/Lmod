@@ -66,3 +66,7 @@ _module() {
 	esac
 }
 complete -o default -F _module module
+
+# Local Variables:
+# mode: shell-script
+# End:
