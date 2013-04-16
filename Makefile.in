@@ -26,7 +26,8 @@ DIRLIST		  	 := $(DESTDIR)$(LIBEXEC) $(DESTDIR)$(LIBTOOLS) $(DESTDIR)$(INIT) $(D
 STANDALONE_PRGM   	 := src/lmod.in.lua src/addto.in.lua src/getmt.in.lua src/processMT.in.lua   \
                             src/spider.in.lua src/processModuleUsage.in.lua src/reportUsers.in.lua   \
                             src/clearMT_cmd.in.lua src/ml_cmd.in.lua 
-SHELL_INIT	  	 := bash.in csh.in ksh.in tcsh.in zsh.in sh.in perl.in env_modules_python.py.in .lmodrc.lua
+SHELL_INIT	  	 := bash.in csh.in ksh.in tcsh.in zsh.in sh.in perl.in                       \
+                            env_modules_python.py.in lmod_bash_completions .lmodrc.lua
 SHELL_INIT	  	 := $(patsubst %, setup/%, $(SHELL_INIT))
 
 STARTUP		  	 := profile.in cshrc.in

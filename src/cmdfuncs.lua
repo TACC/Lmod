@@ -203,6 +203,7 @@ end
 function List(...)
    local dbg    = Dbg:dbg()
    dbg.start("List(...)")
+   local masterTbl = masterTbl()
    local mt = MT:mt()
 
    local totalA = mt:list("userName","any")
@@ -230,7 +231,7 @@ function List(...)
    end
 
    io.stderr:write("\n",msg,msg2,"\n")
-   local k = 0
+   local kk = 0
    local legendT = {}
    for i = 1, #activeA do
       local mname = MName:new("mt",activeA[i])
@@ -239,13 +240,22 @@ function List(...)
       for j = 1, #wanted do
          local p = wanted[j]
          if (m:find(p,1,true) or m:find(p)) then
-            k = k + 1
-            a[#a + 1] = mt:list_property(k, sn, "short", legendT)
+            kk = kk + 1
+            a[#a + 1] = mt:list_property(kk, sn, "short", legendT)
          end
       end
    end
 
-   if (k == 0) then
+   if (masterTbl.terse) then
+      for i = 1,kk do
+         io.stderr:write(a[i][2],"\n")
+      end
+      dbg.fini("List")
+      return
+   end
+         
+
+   if (kk == 0) then
       io.stderr:write("  None found.\n")
    else
       local ct = ColumnTable:new{tbl=a, gap=0, len=length}
@@ -263,9 +273,8 @@ function List(...)
       io.stderr:write(bt:build_tbl(),"\n")
    end
    a = {}
-   k = 0
+   kk = 0
 
-   local k = 0
    for i = 1, #totalA do
       local v = totalA[i]
       dbg.print("inactive check v: ",v.name,"\n")
@@ -274,8 +283,8 @@ function List(...)
          for j = 1, #wanted do
             local p = wanted[j]
             if (name:find(p,1,true) or name:find(p)) then
-               k       = k + 1
-               a[#a+1] = {"  " .. tostring(k).. ")" , name}
+               kk      = kk + 1
+               a[#a+1] = {"  " .. tostring(kk).. ")" , name}
             end
          end
       end

@@ -733,6 +733,7 @@ function M.avail(argA)
    local mt     = MT:mt()
    local mpathA = mt:module_pathA()
    local width  = TermWidth()
+   local masterTbl = masterTbl()
 
    local cache   = Cache:cache()
    local moduleT = cache:build()
@@ -746,7 +747,7 @@ function M.avail(argA)
 
    local optionTbl, searchA = availOptions(argA)
 
-   if (optionTbl.terse) then
+   if (optionTbl.terse or masterTbl.terse) then
       dbg.print("doing --terse\n")
       for ii = 1, #mpathA do
          local mpath = mpathA[ii]
