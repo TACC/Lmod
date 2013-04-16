@@ -19,3 +19,7 @@ ml()
   eval $($LMOD_DIR/ml_cmd "$@")
 }
 
+
+if [ ${BASH_VERSINFO:-0} -ge 3 ] && [ -r  @PKG@/init/lmod_bash_completion ]; then
+ . @PKG@/init/lmod_bash_completion
+fi

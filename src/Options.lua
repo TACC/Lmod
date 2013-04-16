@@ -71,6 +71,13 @@ function M.options(self, usage)
    }
 
    cmdlineParser:add_option{
+      name   = {"-t","--terse"},
+      dest   = "terse",
+      action = "store_true",
+      help   = "Write out in machine readable format",
+   }
+
+   cmdlineParser:add_option{
       name   = {"--initial_load"},
       dest   = "initial",
       action = "store_true",
