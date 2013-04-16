@@ -42,7 +42,7 @@ end
 ------------------------------------------------------------------------
 
 function M.name(self)
-   print ("Shell name:",self.my_name)
+   return self.my_name
 end
 
 function M.setActive(self, active)

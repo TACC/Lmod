@@ -1,40 +1,36 @@
 ===========================
 step 0
 ===========================
-
-Modules based on Lua: Version 5.0b4 2013-04-03 18:07
+Modules based on Lua: Version 5.0b9 (5.0b9-20-gd9f882a) 2013-04-10 17:16
     by Robert McLay mclay@tacc.utexas.edu
-
 ===========================
 step 1
 ===========================
 ===========================
 step 2
 ===========================
-
 Inactive Modules:
   1) openmpi
-
 Due to MODULEPATH changes the following have been reloaded:
   1) parmetis/3.1
-
 ===========================
 step 3
 ===========================
-
 Activating Modules:
   1) openmpi/1.2.6
-
 Due to MODULEPATH changes the following have been reloaded:
   1) parmetis/3.1
-
 ===========================
 step 4
 ===========================
 ===========================
 step 5
 ===========================
-
+===========================
+step 6
+===========================
+===========================
+step 7
+===========================
 Due to MODULEPATH changes the following have been reloaded:
   1) openmpi/1.2.6     2) parmetis/3.1
-

@@ -1,5 +1,5 @@
 #!/usr/bin/env tclsh
-global g_loadT g_varsT
+global g_loadT g_varsT g_fullName g_usrName g_shellName
 namespace eval ::cmdline {
     namespace export getArgv0 getopt getKnownOpt getfiles getoptions \
 	    getKnownOptions usage
@@ -285,6 +285,7 @@ proc ::cmdline::getArgv0 {} {
 }
 
 proc module-info {what {more {}}} {
+    global g_fullName g_usrName g_shellName
     switch -- $what {
     "mode" {
         if {$more == "load" } {
@@ -294,11 +295,21 @@ proc module-info {what {more {}}} {
         }
     }
     "shell" {
-	    return "bash"
-	}
+        return $g_shellName
+    }
+    "shelltype" {
+        return $g_shellName
+    }
     "flags" {
-	    return 0
-	}
+        return 0
+    }
+    "name" {
+        return $g_fullName
+    }
+    "specified" {
+           return $g_usrName
+    }
+            
     default {
 	    error "module-info $what not supported"
 	    return {}
@@ -547,8 +558,11 @@ proc main { modfile } {
 global g_loadT g_help
 
 set options {
-            {l.arg   ""   "loaded list"}
-            {h            "print ModulesHelp command"}
+            {l.arg   ""     "loaded list"}
+            {h              "print ModulesHelp command"}
+            {f.arg   "???"  "module full name"}
+            {s.arg   "bash" "shell name"}
+            {u.arg   "???"  "module specified name"}
 }
 
 set usage ": tcl2lua.tcl \[options] filename ...\noptions:"
@@ -559,4 +573,7 @@ foreach m [split $params(l) ":"] {
     set g_loadT($m) 1
 }
 
+set g_fullName  $params(f)
+set g_usrName   $params(u)
+set g_shellName $params(s)
 eval main $argv 

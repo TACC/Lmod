@@ -29,8 +29,6 @@ testdescript = {
 
      cp $(projectDir)/setup/.lmodrc.lua .
 
-     #unset LUA_PATH
-
      _histchars="@%"
 
 
@@ -94,7 +92,7 @@ cat > $(testName).csh << EOF
      echo "==========================="
 
 
-     lua $(projectDir)/src/lmod.in.lua csh load ml  > _stdout.09
+     lua $(projectDir)/src/lmod.in.lua csh load ml minfo > _stdout.09
      eval \`cat _stdout.09\`
 
      echo "===========================" >  _stdout.10
@@ -105,11 +103,33 @@ cat > $(testName).csh << EOF
      echo "step 5"
      echo "==========================="
 
-     unset histchars
-     lua $(projectDir)/src/lmod.in.lua csh --localvar histchars="$_histchars" swap gcc  intel > _stdout.11
+     lua $(projectDir)/src/lmod.in.lua csh unload minfo > _stdout.11
      eval \`cat _stdout.11\`
 
-     cat _stdout.[01][1-9] > _stdout.orig
+     echo "===========================" >  _stdout.12
+     echo "step 6"                      >> _stdout.12
+     echo "===========================" >> _stdout.12
+
+     echo "==========================="
+     echo "step 6"
+     echo "==========================="
+
+     lua $(projectDir)/src/lmod.in.lua csh load minfo/1.0 > _stdout.13
+     eval \`cat _stdout.13\`
+
+     echo "===========================" >  _stdout.14
+     echo "step 7"                      >> _stdout.14
+     echo "===========================" >> _stdout.14
+
+     echo "==========================="
+     echo "step 7"
+     echo "==========================="
+
+     unset histchars
+     lua $(projectDir)/src/lmod.in.lua csh --localvar histchars="$_histchars" swap gcc  intel > _stdout.15
+     eval \`cat _stdout.15\`
+
+     cat _stdout.[01][0-9] > _stdout.orig
 EOF
 
      ORIG_HOME=`(cd $HOME; /bin/pwd)`
@@ -119,12 +139,14 @@ EOF
      chmod +x $(testName).csh
      
      HOME=`pwd`
-     ./$(testName).csh > err.txt 2>&1
+     ./$(testName).csh > _stderr.orig 2>&1
 
      HOME=$ORIG_HOME
 
      joinBase64Results -csh  _stdout.orig _stdout.new
-     cleanUp _stdout.new out.txt
+     cleanUp _stdout.new  out.txt
+     cleanUp _stderr.orig err.txt
+    
 
      rm -f $(cmdResultFn)
      wrapperDiff -r $(cmdResultFn) $(testDir)/out.txt out.txt

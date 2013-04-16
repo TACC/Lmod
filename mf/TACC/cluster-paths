@@ -20,6 +20,8 @@ set os         [uname release]
 set mach       [uname machine]
 set node       [uname node]
 
+set N          [module-info name]
+set S          [module-info shell]
 #
 # Load default enviroment
 #
@@ -35,6 +37,8 @@ append-path     MANPATH     /opt/apps/pki_apps/man
 #
 setenv          APPS        /opt/apps
 setenv 	        PURGE 	    168
+setenv          NAME        $N
+setenv          USER_SHELL  $S
 
 prepend-path    MANPATH     /usr/share/man:/usr/X11R6/man:/opt/ganglia/man:/opt/rocks/man:/usr/kerberos/man:/usr/man
 

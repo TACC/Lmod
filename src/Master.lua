@@ -207,18 +207,26 @@ function loadModuleFile(t)
          f:close()
       end
    else
-      local mt	  = MT:mt()
-      local s     = concatTbl(mt:list("short","active"),":")
-      local opt   = "-l \"" .. s .. "\""
+      local mt	   = MT:mt()
+      local s      = concatTbl(mt:list("short","active"),":")
+      local A      = {}
+      A[#A + 1]    = "-l"
+      A[#A + 1]    = "\"" .. s .. "\"" 
+      A[#A + 1]    = "-f"
+      A[#A + 1]    = t.fullName
+      A[#A + 1]    = "-u"
+      A[#A + 1]    = t.moduleName
+      A[#A + 1]    = "-s"
+      A[#A + 1]    = s_master.shell:name()
       if (t.help) then
-         opt      = t.help
+         A[#A + 1] = t.help
       end
-      local a     = {}
-      a[#a + 1]	  = pathJoin(cmdDir(),"tcl2lua.tcl")
-      a[#a + 1]	  = opt
-      a[#a + 1]	  = t.file
-      local cmd   = concatTbl(a," ")
-      whole       = capture(cmd) 
+      local a      = {}
+      a[#a + 1]	   = pathJoin(cmdDir(),"tcl2lua.tcl")
+      a[#a + 1]	   = concatTbl(A," ")
+      a[#a + 1]	   = t.file
+      local cmd    = concatTbl(a," ")
+      whole        = capture(cmd) 
    end
 
    if (whole) then
@@ -277,7 +285,8 @@ function M.unload(...)
          dbg.print("Master:unload: \"",fullModuleName,"\" from f: ",f,"\n")
          mt:beginOP()
          mStack:push(fullModuleName,f)
-	 loadModuleFile{file=f,moduleName=moduleName,reportErr=false}
+	 loadModuleFile{file=f,moduleName=moduleName, 
+                        fullName=fullModuleName,reportErr=false}
          mStack:pop()
          mt:endOP()
          dbg.print("calling mt:remove(\"",sn,"\")\n")
@@ -350,7 +359,8 @@ function M.access(self, ...)
       if (fn and isFile(fn)) then
          prtHdr()
          mStack:push(full, fn)
-	 loadModuleFile{file=fn,help=help,moduleName=moduleName,reportErr=true}
+	 loadModuleFile{file=fn,help=help,moduleName=moduleName,
+                        fullName=full,reportErr=true}
          mStack:pop()
          io.stderr:write("\n")
       else
@@ -396,7 +406,8 @@ function M.load(...)
          mt:add(t, "pending")
 	 mt:beginOP()
          mStack:push(t.modFullName,fn)
-	 loadModuleFile{file=fn,moduleName=moduleName,reportErr=true}
+	 loadModuleFile{file=fn,moduleName=moduleName,
+                        fullName=t.modFullName,reportErr=true}
          t.mType = mStack:moduleType()
          mStack:pop()
 	 mt:endOP()
@@ -522,7 +533,8 @@ function M.inheritModule()
       LmodError("Failed to inherit: ",mName,"\n")
    else
       mStack:push(mName,t.fn)
-      loadModuleFile{file=t.fn,moduleName=mName, reportErr=true}
+      loadModuleFile{file=t.fn,moduleName=mName,
+                     fullName=mName,reportErr=true}
       mStack:pop()
    end
    dbg.fini("Master:inherit")
@@ -601,7 +613,9 @@ end
 
 local function availEntry(defaultOnly, szA, searchA, name, f, defaultModule, dbT, legendT, a)
    local dbg      = Dbg:dbg()
-   dbg.start("Master:availEntry(defaultOnly, searchA, name, f, defaultModule, dbT, legendT, a)")
+   dbg.start("Master:availEntry(defaultOnly, szA, searchA, name, f, defaultModule, dbT, legendT, a)")
+
+   dbg.print("name: ", name,", defaultOnly: ",defaultOnly,", szA: ",szA,"\n")
    local dflt     = ""
    local sCount   = #searchA
    local found    = false
@@ -632,6 +646,7 @@ local function availEntry(defaultOnly, szA, searchA, name, f, defaultModule, dbT
          dflt = Default
          legendT[Default] = "Default Module"
       end
+      dbg.print("dflt: ",dflt,"\n")
       local aa    = {}
       local propT = {}
       local mname = MName:new("load", name)
