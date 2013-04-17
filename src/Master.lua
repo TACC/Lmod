@@ -611,11 +611,11 @@ local function findDefault(mpath, sn, versionA)
    return default, #versionA
 end
 
-local function availEntry(defaultOnly, szA, searchA, name, f, defaultModule, dbT, legendT, a)
+local function availEntry(defaultOnly, szA, searchA, sn, name, f, defaultModule, dbT, legendT, a)
    local dbg      = Dbg:dbg()
-   dbg.start("Master:availEntry(defaultOnly, szA, searchA, name, f, defaultModule, dbT, legendT, a)")
+   dbg.start("Master:availEntry(defaultOnly, szA, searchA, sn, name, f, defaultModule, dbT, legendT, a)")
 
-   dbg.print("name: ", name,", defaultOnly: ",defaultOnly,", szA: ",szA,"\n")
+   dbg.print("sn:" ,sn, ", name: ", name,", defaultOnly: ",defaultOnly,", szA: ",szA,"\n")
    local dflt     = ""
    local sCount   = #searchA
    local found    = false
@@ -627,7 +627,8 @@ local function availEntry(defaultOnly, szA, searchA, name, f, defaultModule, dbT
    else
       for i = 1, sCount do
          local s = searchA[i]
-         if (name:find(s, 1, true) or name:find(s)) then
+         if (name:find(s, 1, true) or name:find(s) or
+             sn:find(s, 1, true)   or sn:find(s)) then
             found = true
             break
          end
@@ -691,13 +692,13 @@ local function availDir(defaultOnly, searchA, mpath, availT, dbT, a, legendT)
       local aa            = {}
       local szA           = #versionA 
       if (szA == 0) then
-         availEntry(defaultOnly, szA, searchA, sn, "", defaultModule, dbT, legendT, a)
+         availEntry(defaultOnly, szA, searchA, sn, sn, "", defaultModule, dbT, legendT, a)
       else
          defaultModule = findDefault(mpath, sn, versionA)
          for i = 1, #versionA do
             local name = pathJoin(sn, versionA[i].version)
             local f    = versionA[i].file
-            availEntry(defaultOnly, szA, searchA, name, f, defaultModule, dbT, legendT, a)
+            availEntry(defaultOnly, szA, searchA, sn, name, f, defaultModule, dbT, legendT, a)
          end
       end
    end
