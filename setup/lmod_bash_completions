@@ -24,7 +24,7 @@ _module_long_arg_list() {
 		COMPREPLY=( $(compgen -W "$(_module_not_yet_loaded)" -- "$cur") )
 		break;;
 	   rm|remove|unload|switch|swap)
-		COMPREPLY=( $(IFS=: compgen -W "$(_module_loaded)" -- "$cur") )
+		COMPREPLY=( $(compgen -W "$(_module_loaded)" -- "$cur") )
 		break;;
 	   esac
 	done
@@ -35,7 +35,7 @@ _module() {
 
 	COMPREPLY=()
 
-	cmds="add apropos avail delete erase help keyword list load purge rm save show spider swap switch\
+	cmds="add avail delete help keyword list load purge rm restore save show spider swap \
 	      unload unuse update use whatis"
 
 	opts="-d -h -q -t -\
@@ -44,7 +44,7 @@ _module() {
 	case "$prev" in
 	add|load)	COMPREPLY=( $(compgen -W "$(_module_not_yet_loaded)" -- "$cur") );;
 	rm|remove|unload|switch|swap)
-			COMPREPLY=( $(IFS=: compgen -W "$(_module_loaded)" -- "$cur") );;
+			COMPREPLY=( $(      compgen -W "$(_module_loaded)" -- "$cur") );;
 	unuse)		COMPREPLY=( $(IFS=: compgen -W "${MODULEPATH}" -- "$cur") );;
 	use|*-a*)	;;			# let readline handle the completion
 	help|show|whatis)
@@ -56,8 +56,7 @@ _module() {
 		case "$cur" in
 		# The mappings below are optional abbreviations for convenience
 		ls)	COMPREPLY="list";;	# map ls -> list
-		r*)	COMPREPLY="rm";;	# also covers 'remove'
-		sw*)	COMPREPLY="switch";;
+		sw*)	COMPREPLY="swap";;
 
 		-*)	COMPREPLY=( $(compgen -W "$opts" -- "$cur") );;
 		*)	COMPREPLY=( $(compgen -W "$cmds" -- "$cur") );;
