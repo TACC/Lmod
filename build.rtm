@@ -40,6 +40,22 @@ first=${myhost%%.*}
 SYSHOST=${myhost#*.}
 SUDO=""
   
+cat > /tmp/stampede.build.$$ <<EOF
+/tmp/moduleData/cacheDir:/tmp/losf_last_update
+/home1/moduleData/XSEDE/cacheDir:/home1/moduleData/XSEDE/last_update
+EOF
+
+cat > /tmp/ls4.build.$$ <<EOF
+$HOME/a/moduleData/cacheDir: $HOME/a/moduleData/losf_last_update
+$HOME/a/moduleData/XSEDE/cacheDir: $HOME/a/moduleData/XSEDE/last_update
+EOF
+
+cat > /tmp/longhorn.build.$$ <<EOF
+$HOME/a/moduleData/cacheDir: $HOME/a/moduleData/losf_last_update
+$HOME/a/moduleData/XSEDE/cacheDir: $HOME/a/moduleData/XSEDE/last_update
+EOF
+
+
 case $SYSHOST in
   rios | mijo | jedrik | vato | vmijo | devo)
     SUDO="sudo"
@@ -47,6 +63,7 @@ case $SYSHOST in
     ADMIN_DIR=/opt/moduleData
     UPDATE_FN=$ADMIN_DIR/system.txt
     CACHEDIRS=$ADMIN_DIR/cacheDir
+    EXTRA="--with-spiderCacheDir=$CACHEDIRS  --with-updateSystemFn=$UPDATE_FN"
     ;;
 
   ls4 | longhorn | stampede)
@@ -58,13 +75,7 @@ case $SYSHOST in
     if [ $SYSHOST == "stampede" ]; then
       base="$base/$(uname -m)"
     fi
-    cat > /tmp/mclay_build$$ <<EOF
-/tmp/moduleData/cacheDir:/tmp/losf_last_update
-/home1/moduleData/XSEDE/cacheDir:/home1/moduleData/XSEDE/last_update
-$HOME/a/moduleData/cacheDir: $HOME/a/moduleData/losf_last_update
-$HOME/a/moduleData/XSEDE/cacheDir: $HOME/a/moduleData/XSEDE/last_update
-EOF
-    EXTRA="--with-spiderCacheDescript=/tmp/mclay_build$$"
+    EXTRA="--with-spiderCacheDescript=/tmp/$SYSHOST.build.$$"
     ;;
 
   *)
@@ -86,7 +97,7 @@ fi
 rm -f config.status config.log
 
 cmdA=("-make distclean"
-      "./configure --prefix=$BASE_DIR --with-ancient=86401 --with-shortTime=10.3 --with-spiderCacheDir=$CACHEDIRS  --with-updateSystemFn=$UPDATE_FN --with-duplicatePaths=yes $EXTRA"
+      "./configure --prefix=$BASE_DIR --with-ancient=86401 --with-shortTime=10.3 --with-duplicatePaths=yes $EXTRA"
       "$SUDO make install"
       "$EXTRA_CMD"
       "make clobber"
