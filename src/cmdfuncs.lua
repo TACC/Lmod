@@ -229,6 +229,18 @@ function List(...)
       msg2 = " Matching: " .. table.concat(wanted," or ")
    end
 
+   if (masterTbl.terse) then
+      for i = 1,#activeA do
+         local mname = MName:new("mt",activeA[i])
+         local sn    = mname:sn()
+         local full  = mt:fullName(sn)
+         io.stderr:write(full,"\n")
+      end
+      dbg.fini("List")
+      return
+   end
+         
+
    io.stderr:write("\n",msg,msg2,"\n")
    local kk = 0
    local legendT = {}
@@ -245,14 +257,6 @@ function List(...)
       end
    end
 
-   if (masterTbl.terse) then
-      for i = 1,kk do
-         io.stderr:write(a[i][2],"\n")
-      end
-      dbg.fini("List")
-      return
-   end
-         
 
    if (kk == 0) then
       io.stderr:write("  None found.\n")
