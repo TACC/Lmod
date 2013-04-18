@@ -2,6 +2,10 @@ _module_avail() {
 	@PKG@/libexec/lmod bash -t avail  2>&1 > /dev/null | sed ' /:$/d; s#/*$##g;'
 }
 
+_module_spider() {
+	@PKG@/libexec/lmod bash -t spider  2>&1 > /dev/null
+}
+
 _module_loaded() {
 	@PKG@/libexec/lmod bash -t list  2>&1 > /dev/null | sed ' /^ *$/d; /:$/d; s#/*$##g;'
 }
@@ -43,6 +47,7 @@ _module() {
 
 	case "$prev" in
 	add|load)	COMPREPLY=( $(compgen -W "$(_module_not_yet_loaded)" -- "$cur") );;
+        spider)         COMPREPLY=( $(compgen -W "$(_module_spider)" -- "$cur") );;
 	rm|remove|unload|switch|swap)
 			COMPREPLY=( $(      compgen -W "$(_module_loaded)" -- "$cur") );;
 	unuse)		COMPREPLY=( $(IFS=: compgen -W "${MODULEPATH}" -- "$cur") );;

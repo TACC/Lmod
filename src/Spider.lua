@@ -595,6 +595,7 @@ function M.singleSearchSpiderDB(strA, a, moduleT, dbT)
    for path, value in pairs(moduleT) do
       local nameL   = value.name_lower or ""
       local full    = value.full
+      local fullL   = value.full_lower or full:lower()
       local whatisT = value.whatis or {}
       local whatisS = concatTbl(whatisT,"\n")
 
@@ -606,8 +607,8 @@ function M.singleSearchSpiderDB(strA, a, moduleT, dbT)
       local found = false
       for i = 1,#strA do
          local str = strA[i]:lower()
-         if (nameL:find(str,1,true) or whatisS:find(str,1,true) or 
-             nameL:find(str)        or whatisS:find(str)) then
+         if (nameL:find(str,1,true)   or nameL:find(str)    or
+             whatisS:find(str,1,true) or whatisS:find(str)) then
             dbg.print("found txt in nameL: ",nameL,"\n")
             found = true
             break
@@ -637,7 +638,28 @@ end
 
 function M.Level0(dbT)
 
-   local a      = {}
+   local dbg       = Dbg:dbg()
+   local a         = {}
+   local masterTbl = masterTbl()
+   local terse     = masterTbl.terse
+
+   if (terse) then
+      dbg.start("Spider:Level0()")
+      local t  = {}
+      for kk, vv in pairs(dbT) do
+         for k, v in pairs(vv) do
+            t[v.name] = true
+            t[v.full] = true
+         end
+      end
+      for k in pairsByKeys(t) do
+         a[#a+1] = k
+      end
+      dbg.fini("Spider:Level0")
+      return concatTbl(a,"\n")
+   end
+
+
    local ia     = 0
    local banner = border(0)
 
