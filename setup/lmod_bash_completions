@@ -68,7 +68,7 @@ _module() {
 	   fi;;
 	esac
 }
-complete -o default -F _module module
+complete  -F _module module
 
 
 
