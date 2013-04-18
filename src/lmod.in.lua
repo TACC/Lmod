@@ -168,6 +168,7 @@ Loading/Unloading sub-commands:
                                          if not found
   swap | sw | switch modfile1 modfile2   unload modfile1 and load modfile2
   purge                                  unload all modules
+  refresh                                reload aliases in a subshell.
 
 Recovering system environment
   restore system                         Do a module purge and load system defaults
@@ -436,7 +437,6 @@ function Show(...)
    dbg.start("Show(", concatTbl({...},", "),")")
 
    mcp = MasterControl.build("show")
-   dbg.print("Setting mpc to ", mcp:name(),"\n")
 
    prtHdr       = function()
                      io.stderr:write("------------------------------------------------------------\n")
@@ -454,7 +454,6 @@ function Access(mode, ...)
    local master = Master:master()
    dbg.start("Access(", concatTbl({...},", "),")")
    mcp = MasterControl.build("access", mode)
-   dbg.print("Setting mpc to ", mcp:name(),"\n")
    mcp.activate(mode,true)
 
    local n = select('#',...)
@@ -824,6 +823,7 @@ function main()
    local loadTbl      = { name = "load",        checkMPATH = true,  cmd = UsrLoad     }
    local tryAddTbl    = { name = "try-add",     checkMPATH = true,  cmd = TryUsrLoad  }
    local unloadTbl    = { name = "unload",      checkMPATH = true,  cmd = UnLoad      }
+   local refreshTbl   = { name = "refresh",     checkMPATH = false, cmd = Refresh     }
    local swapTbl      = { name = "swap",        checkMPATH = true,  cmd = Swap        }
    local purgeTbl     = { name = "purge",       checkMPATH = true,  cmd = Purge       }
    local resetTbl     = { name = "reset",       checkMPATH = true,  cmd = Reset       }
@@ -873,7 +873,7 @@ function main()
       purge        = purgeTbl,
       record       = recordTbl,
       refr         = updateTbl,
-      refresh      = updateTbl,
+      refresh      = refreshTbl,
       reload       = updateTbl,
       remov        = unloadTbl,
       remove       = unloadTbl,
@@ -904,6 +904,7 @@ function main()
    local dbg  = Dbg:dbg()
    readRC()
    MCP = MasterControl.build("load")
+   mcp = MasterControl.build("load")
 
    -------------------------------------------------------------------
    -- Is io.stderr connected to a tty or not?
@@ -936,9 +937,6 @@ function main()
 
    set_prepend_order()   -- Chose prepend_path order normal/reverse
 
-   MCP = MasterControl.build("load")
-   mcp = MasterControl.build("load")
-
    Options:options(CmdLineUsage)
 
    localvar(masterTbl.localvarA)
@@ -948,7 +946,6 @@ function main()
    end
    dbg.start("lmod(", arg_str,")")
    dbg.print("Lmod Version: ",Version.name(),"\n")
-   dbg.print("Setting mpc to ", mcp:name(),"\n")
    set_duplication()     -- Chose how to handle duplicate entries in a path.
 
 

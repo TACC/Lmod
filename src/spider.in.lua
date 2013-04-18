@@ -130,7 +130,6 @@ function main()
    dbg.start("Spider main()")
    MCP = MasterControl.build("spider")
    mcp = MasterControl.build("spider")
-   dbg.print("Setting mpc to ", mcp:name(),"\n")
 
    readRC()
    local cache = Cache:cache{dontWrite = true, quiet = true}

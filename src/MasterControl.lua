@@ -37,12 +37,14 @@ function M.build(name,mode)
    local nameTbl          = {}
    local MCLoad           = require('MC_Load')
    local MCUnload         = require('MC_Unload')
+   local MCRefresh        = require('MC_Refresh')
    local MCShow           = require('MC_Show')
    local MCAccess         = require('MC_Access')
    local MCSpider         = require('MC_Spider')
    local MCComputeHash    = require('MC_ComputeHash')
    nameTbl["load"]        = MCLoad
    nameTbl["unload"]      = MCUnload
+   nameTbl["refresh"]     = MCRefresh
    nameTbl["show"]        = MCShow
    nameTbl["access"]      = MCAccess
    nameTbl["spider"]      = MCSpider
@@ -52,6 +54,8 @@ function M.build(name,mode)
    local o                = valid_name(nameTbl, name):create()
    o:_setMode(mode or name)
 
+   local dbg              = Dbg:dbg()
+   dbg.print("Setting mcp to ", o:name(),"\n")
    return o
 end
 

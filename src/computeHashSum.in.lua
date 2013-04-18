@@ -111,7 +111,6 @@ function main()
 
    MCP           = MasterControl.build("computeHash","load")
    mcp           = MasterControl.build("computeHash","load")
-   dbg.print("mcp set to ",mcp:name(),"\n")
 
    local f = masterTbl.pargs[1]
    mStack:push("something", f)

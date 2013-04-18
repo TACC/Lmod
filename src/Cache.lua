@@ -246,7 +246,6 @@ function M.build(self, fast)
       
       local mcp_old = mcp
       mcp           = MasterControl.build("spider")
-      dbg.print("Setting mpc to ", mcp:name(),"\n")
       
       local t1 = epoch()
       Spider.findAllModules(dirA, userModuleT)
@@ -275,11 +274,11 @@ function M.build(self, fast)
          -- out when it value changes.  We do not want a new module written out
          -- if the only thing that has changed is the slight variation that it
          -- took to build the cache between Lmod command runs during a regression
-         -- test.  So if the old time is with-in a factor of 2 old time then
-         -- keep the old time.
+         -- test.  So if the previous t2-t1 is also less than shortTime DO NOT
+         -- reset short to the new value.
          
          local newShortTime = t2-t1
-         if (short and 2*short > newShortTime) then
+         if (short and short < shortTime) then
             newShortTime = short
          end
          mt:setRebuildTime(ancient, newShortTime)

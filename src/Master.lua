@@ -266,8 +266,6 @@ function M.unload(...)
    local mcp_old = mcp
 
    mcp = MasterControl.build("unload")
-   dbg.print("Setting mpc to ", mcp:name(),"\n")
-
    for _, moduleName in ipairs{...} do
       local mname = MName:new("mt", moduleName)
       local sn    = mname:sn()
@@ -300,7 +298,7 @@ function M.unload(...)
       M.reloadAll()
    end
    mcp = mcp_old
-   dbg.print("Resetting mpc to ", mcp:name(),"\n")
+   dbg.print("Resetting mcp to ", mcp:name(),"\n")
    dbg.fini("Master:unload")
    return a
 end
@@ -374,6 +372,27 @@ function M.access(self, ...)
        "    \"module spider ", concatTbl(a," "), "\"\n",
        "\nto see if the module(s) are available across all compilers and MPI implementations.\n")
    end
+end
+
+
+
+function M.reload()
+   local mStack = ModuleStack:moduleStack()
+   local mt    = MT:mt()
+   local dbg   = Dbg:dbg()
+   dbg.start("Master:reload()")
+
+   local activeA = mt:list("short","active")
+
+   for i = 1,#activeA do
+      local sn = activeA[i]
+      local fn = mt:fileName(sn)
+      local full = mt:fullName(sn)
+      dbg.print("loading: ",sn," fn: ", fn,"\n")
+      loadModuleFile{file = fn, moduleName = sn, fullName = full, reportErr=true}
+   end
+
+   dbg.fini("Master:reload")
 end
 
 
@@ -458,7 +477,6 @@ function M.reloadAll()
 
    local mcp_old = mcp
    mcp = MCP
-   dbg.print("Setting mpc to ", mcp:name(),"\n")
 
    local same = true
    local a    = mt:list("userName","any")
@@ -509,7 +527,7 @@ function M.reloadAll()
    end
 
    mcp = mcp_old
-   dbg.print("Setting mpc to ", mcp:name(),"\n")
+   dbg.print("Resetting mpc to ", mcp:name(),"\n")
    dbg.fini("Master:reloadAll")
    return same
 end

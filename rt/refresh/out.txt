@@ -1,0 +1,37 @@
+===========================
+step 1
+===========================
+===========================
+step 2
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/refresh/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/refresh/mf/Core";
+export MODULEPATH;
+A="1.0a";
+export A;
+alias AA="aa";
+B="1.0b";
+export B;
+alias BB="bb";
+C="1.0";
+export C;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/refresh/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/refresh/mf/Core";
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/refresh/mf/Core",},family={},inactive={},mT={a={["FN"]="ProjectDIR/rt/refresh/mf/Core/a/1.0.lua",["default"]=1,["fullName"]="a/1.0",["loadOrder"]=1,["mType"]="w",propT={},["short"]="a",["status"]="active",},b={["FN"]="ProjectDIR/rt/refresh/mf/Core/b/1.0.lua",["default"]=1,["fullName"]="b/1.0",["loadOrder"]=2,["mType"]="w",propT={},["short"]="b",["status"]="active",},c={["FN"]="ProjectDIR/rt/refresh/mf/Core/c/1.0.lua",["default"]=1,["fullName"]="c/1.0",["loadOrder"]=3,["mType"]="w",propT={},["short"]="c",["status"]="active",},},mpathA={"ProjectDIR/rt/refresh/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/refresh/mf/Core",["version"]=2,}';
+export _ModuleTable_;
+===========================
+step 3
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/refresh/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/refresh/mf/Core";
+export MODULEPATH;
+alias AA="aa";
+alias BB="bb";
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/refresh/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/refresh/mf/Core";
+export MODULEPATH;
