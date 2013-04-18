@@ -422,6 +422,10 @@ function M.findModulesInDir(mpath, path, prefix, moduleT)
          local full     = pathJoin(prefix, file):gsub("%.lua","")
          attr           = lfs.attributes(f)
 
+         ------------------------------------------------------------
+         -- Since cache files are build by root but read by users
+         -- make sure that any user can read a file owned by root.
+
          if (readable) then
             local st    = posix.stat(f)
             if (st.uid == 0 and not st.mode:find("......r..")) then
@@ -792,7 +796,8 @@ function M.Level1(dbT, mname, help)
    dbg.print("mname: ", mname, ", name: ",name,"\n")
 
    if (t == nil) then
-      dbg.fini()
+      dbg.print("No entry called: \"",nameL, "\" in dbT\n")
+      dbg.fini("Spider:Level1")
       return ""
    end
 
@@ -801,7 +806,7 @@ function M.Level1(dbT, mname, help)
    if (cnt == 1 or nameCnt == 1) then
       local k = next(t)
       local v = M.Level2(t, mname, t[k].full)
-      dbg.fini()
+      dbg.fini("Spider:Level1")
       return v
    end
       
