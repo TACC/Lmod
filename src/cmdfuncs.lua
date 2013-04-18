@@ -322,7 +322,7 @@ function Refresh()
    local mt     = MT:mt()
 
    local mcp_old = mcp
-   mcp           = MasterControl.build("refresh")
+   mcp           = MasterControl.build("refresh","load")
    local master  = Master:master()
 
    master:reload()

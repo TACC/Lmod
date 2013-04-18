@@ -42,8 +42,7 @@ _module() {
 	cmds="add avail delete help keyword list load purge rm restore save show spider swap \
 	      unload unuse update use whatis"
 
-	opts="-d -h -q -t -\
-	      --expert --help  --quiet --terse --version"
+	opts="-d -h -q -t --expert --help  --quiet --terse --version"
 
 	case "$prev" in
 	add|load)	COMPREPLY=( $(compgen -W "$(_module_not_yet_loaded)" -- "$cur") );;
@@ -70,6 +69,25 @@ _module() {
 	esac
 }
 complete -o default -F _module module
+
+
+
+
+
+_ml() {
+  local cur="$2" prev="$3" cmds opts
+
+  COMPREPLY=()
+
+  cmds="add avail delete help keyword list load purge rm restore save sl show spider swap unload \
+        unuse update use whatis"
+
+  opts="-d -h -q -t --expert --help  --quiet --terse --version"
+
+
+  
+
+
 
 # Local Variables:
 # mode: shell-script

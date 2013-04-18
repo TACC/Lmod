@@ -134,25 +134,25 @@ local function localvar(364,11117
 function Use(393,11685
 function UnUse(421,12328
 function Show(434,12660
-function Access(453,13243
-function Help(472,13710
-function Whatis(483,13975
-function TryUsrLoad(489,14075
-function UsrLoad(501,14334
-function UnLoad(550,15440
-local function Save(558,15586
-local function GetDefault(600,16740
-local function Restore(611,17000
-local function FindDefaults(656,17952
-local function SaveList(670,18319
-local function Swap(696,18898
-function RecordCmd(730,19589
-function SpiderCmd(753,20116
-function Keyword(783,20838
-function expert(816,21582
-function main(823,21701
+function Access(452,13194
+function Help(470,13612
+function Whatis(481,13877
+function TryUsrLoad(487,13977
+function UsrLoad(499,14236
+function UnLoad(548,15342
+local function Save(556,15488
+local function GetDefault(598,16642
+local function Restore(609,16902
+local function FindDefaults(654,17854
+local function SaveList(668,18221
+local function Swap(694,18800
+function RecordCmd(728,19491
+function SpiderCmd(751,20018
+function Keyword(781,20740
+function expert(814,21484
+function main(821,21603
 
-src/Master.lua,716
+src/Master.lua,745
 local function new(61,1780
 local function followDefault(72,1971
 local function find_module_file(107,2767
@@ -163,17 +163,18 @@ function M.unload(259,7089
 function M.versionFile(306,8598
 local function access_find_module_file(327,9196
 function M.access(341,9561
-function M.load(378,10759
-function M.fakeload(429,12414
-function M.reloadAll(451,12932
-function M.inheritModule(514,15261
-local function dirname(540,15951
-local function prtDirName(550,16090
-local function findDefault(566,16420
-local function availEntry(611,17791
-local function availDir(674,19497
-local function availOptions(705,20692
-function M.avail(728,21225
+function M.reload(379,10760
+function M.load(399,11250
+function M.fakeload(450,12905
+function M.reloadAll(472,13423
+function M.inheritModule(535,15752
+local function dirname(561,16442
+local function prtDirName(571,16581
+local function findDefault(587,16911
+local function availEntry(632,18282
+local function availDir(695,19988
+local function availOptions(726,21183
+function M.avail(749,21716
 
 src/Csh.lua,117
 function Csh.shellFunc(15,243
@@ -181,26 +182,25 @@ function Csh.alias(30,598
 function Csh.expandVar(43,938
 function Csh.unset(65,1533
 
-src/cmdfuncs.lua,572
+src/cmdfuncs.lua,536
 function readRC(28,821
 function getPropT(51,1266
 function getSCDescriptT(55,1309
 function UUIDString(59,1364
 function Purge(73,1816
-function expert(101,2293
-function extractVersion(109,2413
-function path_regularize(122,2669
-function readAdmin(135,2975
-function prtErr(194,4511
-function length(198,4561
-function List(203,4634
-function activateWarning(301,7012
-function deactivateWarning(305,7069
-function haveWarnings(309,7129
-function setWarningFlag(313,7183
-function getWarningFlag(316,7233
-function readCacheFile(321,7285
-function getModuleT(380,9196
+function expert(100,2292
+function extractVersion(108,2412
+function path_regularize(121,2668
+function readAdmin(134,2974
+function prtErr(193,4510
+function length(197,4560
+function List(202,4633
+function activateWarning(300,7011
+function deactivateWarning(304,7068
+function haveWarnings(308,7128
+function setWarningFlag(312,7182
+function getWarningFlag(315,7232
+function Refresh(319,7283
 
 src/MT.lua,2028
 function M.name(43,1148
@@ -448,7 +448,7 @@ function cmdDir(15,539
 function masterTbl(45,1157
 function loadModuleFile(50,1203
 function main(79,1814
-function options(140,3490
+function options(139,3446
 
 src/parseVersion.lua,67
 function parseVersion(43,1804
@@ -552,28 +552,6 @@ src/colorize.lua,54
 function full_colorize(16,269
 function plain(35,626
 
-src/#cmdfuncs.lua#,600
-function readRC(28,821
-function getPropT(51,1266
-function getSCDescriptT(55,1309
-function UUIDString(59,1364
-function Purge(73,1816
-function expert(100,2292
-function extractVersion(108,2412
-function path_regularize(121,2668
-function readAdmin(134,2974
-function prtErr(193,4510
-function length(197,4560
-function List(202,4633
-function activateWarning(300,7011
-function deactivateWarning(304,7068
-function haveWarnings(308,7128
-function setWarningFlag(312,7182
-function getWarningFlag(315,7232
-function readCacheFile(320,7284
-function getModuleT(379,9195
-function Refresh(566,15531
-
 src/Perl.lua,120
 function Perl.alias(12,230
 function Perl.shellFunc(16,327
@@ -587,13 +565,13 @@ function keepThisPath(75,1833
 local function add2map(84,1984
 function epoch(94,2299
 function main(107,2551
-function softwarePage(247,6183
-function convertEntry(259,6341
-function options(322,7597
-function xmlSoftwarePage(358,8504
-function splitNV(406,9553
-function findLatestV(417,9771
-function localSoftware(440,10284
+function softwarePage(246,6134
+function convertEntry(258,6292
+function options(321,7548
+function xmlSoftwarePage(357,8455
+function splitNV(405,9504
+function findLatestV(416,9722
+function localSoftware(439,10235
 
 src/Hook.lua,53
 function M.register(12,121
@@ -4145,6 +4123,37 @@ export MODULEPATH;59,2741
 rt/lastName/lastName.tdesc,19
 testdescript 3,16
 
+rt/refresh/out.txt,608
+export LMOD_DEFAULT_MODULEPATH;8,183
+MODULEPATH=9,215
+export MODULEPATH;10,259
+A=11,278
+export A;12,288
+alias AA=13,298
+B=14,313
+export B;15,323
+alias BB=16,333
+C=17,348
+export C;18,357
+LMOD_DEFAULT_MODULEPATH=19,367
+export LMOD_DEFAULT_MODULEPATH;20,424
+MODULEPATH=21,456
+export MODULEPATH;22,500
+_ModuleTable_=23,519
+export _ModuleTable_;24,1238
+export LMOD_DEFAULT_MODULEPATH;29,1380
+MODULEPATH=30,1412
+export MODULEPATH;31,1456
+alias AA=32,1475
+alias BB=33,1490
+LMOD_DEFAULT_MODULEPATH=34,1505
+export LMOD_DEFAULT_MODULEPATH;35,1562
+MODULEPATH=36,1594
+export MODULEPATH;37,1638
+
+rt/refresh/refresh.tdesc,21
+local testName 2,15
+
 rt/deprecation/out.txt,1020
 unset MODULEPATH;8,157
 LMOD_DEFAULT_MODULEPATH=9,175
@@ -4527,6 +4536,14 @@ rt/display/err.txt,0
 rt/deprecation/etc/admin.list,0
 
 rt/deprecation/err.txt,0
+
+rt/refresh/mf/Core/b/1.0.lua,0
+
+rt/refresh/mf/Core/c/1.0.lua,0
+
+rt/refresh/mf/Core/a/1.0.lua,0
+
+rt/refresh/err.txt,0
 
 rt/lastName/err.txt,0
 

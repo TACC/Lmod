@@ -61,6 +61,7 @@ function main()
       ["-?"] = 0, ["-h"] = 0, ["--help"] = 0, ["-d"]=0, ["--version"]=0,
       ["--old_style"] = 0, ["--expert"]=0, ["--novice"]=0,
       ["--localvar"]=1, ["-D"]=1, ["--versoin"]=0, ["--ver"]=0, ["--v"]=0,
+      ["--terse"] = 0, ["-t"] = 0,
    }
 
    local translateT = {
@@ -74,6 +75,7 @@ function main()
    --           has to be non-nil
 
    local lmodCmdA = {
+      add="load",
       avail="avail",  av="avail", 
       getdefault="getdefault", gd="getdefault", 
       r="restore", restore="restore",
@@ -96,8 +98,7 @@ function main()
       whatis="whatis",
       list="list",
       reset="reset",
-      reset="reset",
-      unload="unload", rm = "unload", del = "unload",
+      unload="unload", rm = "unload", del = "unload", delete="unload"
    }
 
    local grab     = 0
