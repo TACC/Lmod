@@ -770,7 +770,7 @@ function M.spiderSearch(dbT, mname, help)
                 found = true
             end
          else
-            s = M.Level1(dbT, k, help)
+            s = M._Level1(dbT, k, help)
             found = true
          end
          if (s) then
@@ -786,27 +786,24 @@ function M.spiderSearch(dbT, mname, help)
    return concatTbl(a,"")
 end
 
-function M.Level1(dbT, mname, help)
+function M._Level1(dbT, mnameKey, help)
    local dbg = Dbg:dbg()
-   dbg.start("Level1(dbT,\"",mname,"\",help)")
-   local name       = shortName(mname)
-   local nameL      = name:lower()
-   local t          = dbT[nameL]
+   dbg.start("Spider:_Level1(dbT,\"",mnameKey,"\",help)")
+   local t          = dbT[mnameKey]
    local term_width = TermWidth() - 4
-   dbg.print("mname: ", mname, ", name: ",name,"\n")
 
    if (t == nil) then
-      dbg.print("No entry called: \"",nameL, "\" in dbT\n")
-      dbg.fini("Spider:Level1")
+      dbg.print("No entry called: \"",mnameKey, "\" in dbT\n")
+      dbg.fini("Spider:_Level1")
       return ""
    end
 
-   local cnt, nameCnt = countEntries(t, mname)
+   local cnt, nameCnt = countEntries(t, mnameKey)
    dbg.print("Number of entries: ",cnt ," name count: ",nameCnt, "\n")
    if (cnt == 1 or nameCnt == 1) then
       local k = next(t)
-      local v = M.Level2(t, mname, t[k].full)
-      dbg.fini("Spider:Level1")
+      local v = M.Level2(t, mnameKey, t[k].full)
+      dbg.fini("Spider:_Level1")
       return v
    end
       
@@ -856,7 +853,7 @@ function M.Level1(dbT, mname, help)
       ia = ia + 1; a[ia] = banner
    end
 
-   dbg.fini()
+   dbg.fini("Spider:_Level1")
    return concatTbl(a,"")
    
 end

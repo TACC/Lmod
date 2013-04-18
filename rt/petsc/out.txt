@@ -1,0 +1,77 @@
+===========================
+step 1
+===========================
+===========================
+step 2
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/petsc/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/petsc/mf/Core";
+export MODULEPATH;
+CPATH="/usr/include/x86_64-linux-gnu:/opt/apps/intel/13.1/composer_xe_2013.2.146/ipp/include:/opt/apps/intel/13.1/composer_xe_2013.2.146/mkl/include:/opt/apps/intel/13.1/composer_xe_2013.2.146/tbb/include:/usr/include/x86_64-linux-gnu:/opt/apps/intel/13.0.2/composer_xe_2013.2.146/ipp/include:/opt/apps/intel/13.0.2/composer_xe_2013.2.146/mkl/include:/opt/apps/intel/13.0.2/composer_xe_2013.2.146/tbb/include";
+export CPATH;
+INCLUDE="/usr/include/x86_64-linux-gnu:/opt/apps/intel/13.1/composer_xe_2013.2.146/mkl/include:/usr/include/x86_64-linux-gnu:/opt/apps/intel/13.0.2/composer_xe_2013.2.146/mkl/include";
+export INCLUDE;
+INTEL_LICENSE_FILE="/opt/apps/intel/13.1/composer_xe_2013.2.146/licenses:/opt/apps/intel/13.0.2/composer_xe_2013.2.146/licenses";
+export INTEL_LICENSE_FILE;
+LD_LIBRARY_PATH="/opt/apps/intel-13_1/mvapich2/1.9/lib:/opt/apps/intel/13.1/composer_xe_2013.2.146/mpirt/lib/intel64:/opt/apps/intel/13.1/composer_xe_2013.2.146/ipp/lib/intel64:/opt/apps/intel/13.1/composer_xe_2013.2.146/mkl/lib/intel64:/opt/apps/intel/13.1/composer_xe_2013.2.146/tbb/lib/intel64:/opt/apps/intel/13.1/composer_xe_2013.2.146/compiler/lib/intel64";
+export LD_LIBRARY_PATH;
+LIBRARY_PATH="/opt/apps/intel/13.1/composer_xe_2013.2.146/ipp/lib/intel64:/opt/apps/intel/13.1/composer_xe_2013.2.146/tbb/lib/intel64:/opt/apps/intel/13.1/composer_xe_2013.2.146/mkl/lib/intel64:/opt/apps/intel/13.0.2/composer_xe_2013.2.146/ipp/lib/intel64:/opt/apps/intel/13.0.2/composer_xe_2013.2.146/tbb/lib/intel64:/opt/apps/intel/13.0.2/composer_xe_2013.2.146/mkl/lib/intel64";
+export LIBRARY_PATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/petsc/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+LMOD_FAMILY_COMPILER="intel";
+export LMOD_FAMILY_COMPILER;
+LMOD_FAMILY_MPI="mvapich2";
+export LMOD_FAMILY_MPI;
+MANPATH="/opt/apps/intel-13_1/mvapich2/1.9/man:/opt/apps/intel/13.1/composer_xe_2013.2.146/man/en_US";
+export MANPATH;
+MODULEPATH="ProjectDIR/rt/petsc/mf/MPI/intel/13.1/mvapich2/1.9:ProjectDIR/rt/petsc/mf/Compiler/intel/13.1:ProjectDIR/rt/petsc/mf/Core";
+export MODULEPATH;
+MPICH_HOME="/opt/apps/intel-13_1/mvapich2/1.9";
+export MPICH_HOME;
+MPIHOME="/opt/apps/intel-13_1/mvapich2/1.9";
+export MPIHOME;
+NLSPATH="/opt/apps/intel/13.1/composer_xe_2013.2.146/compiler/lib/intel64/locale/%l_%t/%N:/opt/apps/intel/13.1/composer_xe_2013.2.146/ipp/lib/intel64/locale/%l_%t/%N:/opt/apps/intel/13.1/composer_xe_2013.2.146/mkl/lib/intel64/locale/%l_%t/%N:/opt/apps/intel/13.1/composer_xe_2013.2.146/debugger/intel64/locale/%l_%t/%N:/opt/apps/intel/13.0.2/composer_xe_2013.2.146/compiler/lib/intel64/locale/%l_%t/%N:/opt/apps/intel/13.0.2/composer_xe_2013.2.146/ipp/lib/intel64/locale/%l_%t/%N:/opt/apps/intel/13.0.2/composer_xe_2013.2.146/mkl/lib/intel64/locale/%l_%t/%N:/opt/apps/intel/13.0.2/composer_xe_2013.2.146/debugger/intel64/locale/%l_%t/%N";
+export NLSPATH;
+PATH="/opt/apps/intel-13_1/mvapich2/1.9/bin:/opt/apps/intel/13.1/inspector_xe_2013/bin64:/opt/apps/intel/13.1/vtune_amplifier_xe_2013/bin64:/opt/apps/intel/13.1/bin:ProjectDIR/src:PATH_to_TM:/bin";
+export PATH;
+TACC_FAMILY_COMPILER="intel";
+export TACC_FAMILY_COMPILER;
+TACC_FAMILY_MPI="mvapich2";
+export TACC_FAMILY_MPI;
+_ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/petsc/mf/Core",},family={["MPI"]="mvapich2",["compiler"]="intel",},inactive={},mT={intel={["FN"]="ProjectDIR/rt/petsc/mf/Core/intel/13.1.lua",["default"]=1,["fullName"]="intel/13.1",["loadOrder"]=1,["mType"]="w",propT={},["short"]="intel",["status"]="active",},mvapich2={["FN"]="ProjectDIR/rt/petsc/mf/Compiler/intel/13.1/mvapich2/1.9.lua",["default"]=1,["fullName"]="mvapich2/1.9",["loadOrder"]=2,["mType"]="w",propT={},["short"]="mvapich2",["status"]="active",},},mpathA={"ProjectDIR/rt/petsc/mf/MPI/intel/13.1/mvapich2/1.9","ProjectDIR/rt/petsc/mf/Compiler/intel/13.1","ProjectDIR/rt/petsc/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/petsc/mf/Core",["version"]=2,}';
+export _ModuleTable_;
+===========================
+step 3
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/petsc/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/petsc/mf/MPI/intel/13.1/mvapich2/1.9:ProjectDIR/rt/petsc/mf/Compiler/intel/13.1:ProjectDIR/rt/petsc/mf/Core";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/petsc/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/petsc/mf/MPI/intel/13.1/mvapich2/1.9:ProjectDIR/rt/petsc/mf/Compiler/intel/13.1:ProjectDIR/rt/petsc/mf/Core";
+export MODULEPATH;
+===========================
+step 4
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/petsc/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/petsc/mf/MPI/intel/13.1/mvapich2/1.9:ProjectDIR/rt/petsc/mf/Compiler/intel/13.1:ProjectDIR/rt/petsc/mf/Core";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/petsc/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/petsc/mf/MPI/intel/13.1/mvapich2/1.9:ProjectDIR/rt/petsc/mf/Compiler/intel/13.1:ProjectDIR/rt/petsc/mf/Core";
+export MODULEPATH;
+===========================
+step 5
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/petsc/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/petsc/mf/MPI/intel/13.1/mvapich2/1.9:ProjectDIR/rt/petsc/mf/Compiler/intel/13.1:ProjectDIR/rt/petsc/mf/Core";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/petsc/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/petsc/mf/MPI/intel/13.1/mvapich2/1.9:ProjectDIR/rt/petsc/mf/Compiler/intel/13.1:ProjectDIR/rt/petsc/mf/Core";
+export MODULEPATH;

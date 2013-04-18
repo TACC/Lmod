@@ -1,0 +1,6 @@
+#%Module1.0#################################################
+##
+## version file for Petsc 3.3
+##
+
+set     ModulesVersion      "3.3-unidebug"
