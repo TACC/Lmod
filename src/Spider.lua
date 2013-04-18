@@ -421,6 +421,14 @@ function M.findModulesInDir(mpath, path, prefix, moduleT)
          local readable = posix.access(f,"r")
          local full     = pathJoin(prefix, file):gsub("%.lua","")
          attr           = lfs.attributes(f)
+
+         if (readable) then
+            local st    = posix.stat(f)
+            if (st.uid == 0 and not st.mode:find("......r..")) then
+               readable = false
+            end
+         end
+
          if (not attr or not readable) then
             -- do nothing for this case
          elseif (readable and attr.mode == 'file' and file ~= "default") then
