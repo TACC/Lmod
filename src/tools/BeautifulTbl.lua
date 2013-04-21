@@ -45,6 +45,7 @@ end
 
 function M.build_tbl(self)
    local dbg    = Dbg:dbg()
+   --dbg.start("BeautifulTbl:build_tbl()")
    local length = self.length
    
    local width = 0
@@ -59,6 +60,15 @@ function M.build_tbl(self)
 
    local a  = {}
    local tt = self.tbl
+
+   if (next(tt) == nil) then
+      --dbg.print("Empty Table")
+      --dbg.fini("BeautifulTbl:build_tbl")
+      return nil
+   end
+
+   --dbg.print("simple: ",simple,"\n")
+
    if (simple) then
       for j = 1,#tt do
          local aa = {}
@@ -75,6 +85,8 @@ function M.build_tbl(self)
    local gap   = self.column - width
    local fill  = string.rep(" ",width+self.gap*(#self.columnCnt-1))
 
+   --dbg.print("column: ",self.column,", gap: ",gap,"\n")
+
    -- printing a wrapped last column
    for j = 1, #tt do
       local aa = {}
@@ -84,7 +96,7 @@ function M.build_tbl(self)
       end
 
       local icnt = width
-      local s = a[#a]
+      local s = t[#t] or ""
       for w in s:split("%s+") do
          local wlen = length(w)+1
          if (icnt + wlen < self.column or wlen > gap) then
@@ -102,65 +114,14 @@ function M.build_tbl(self)
       aa[#aa+1] ="\n"
       a[#a + 1] = concatTbl(aa,"")
    end
+   --dbg.fini("BeautifulTbl:build_tbl")
    return concatTbl(a,"\n")
 end
 
---function M.print_tbl(self)
---
---   local length = self.length
---   local width  = 0
---   local simple = true
---   if (self.wrapped and self.column > 0) then
---      for i = 1, #self.columnCnt-1 do
---         width = width + self.columnCnt[i]
---      end
---      local last = self.columnCnt[#self.columnCnt]
---      simple = (width > self.column-20) or (width + last < self.column)
---   end
---
---   if (simple) then
---      for _, a in ipairs(self.tbl) do
---         for _, v in ipairs(a) do
---            prt(v)
---         end
---         prt("\n")
---      end
---      return
---   end
---
---   self.column = self.column - 1
---   local gap = self.column - width
---   local fill=string.rep(" ",width+self.gap*(#self.columnCnt-1))
---
---   -- printing a wrapped last column
---   for _, a in ipairs(self.tbl) do
---      local aa = {}
---      for i = 1, #a-1 do
---         aa[#aa+1] = a[i]
---      end
---
---      local icnt = width
---      local s = a[#a]
---      for w in s:split("%s+") do
---         local wlen = length(w)+1
---         if (icnt + wlen < self.column or wlen > gap) then
---            aa[#aa+1] = w .. " "
---         else
---            aa[#aa+1] ="\n"
---            prt(concatTbl(aa,""))
---            aa    = {}
---            aa[1] = fill
---            icnt  = width
---            aa[2] = w .. " "
---         end
---         icnt = icnt + wlen
---      end
---      aa[#aa+1] ="\n"
---      prt(concatTbl(aa,""))
---   end
---end
 
 function M.__build_tbl(self,tblIn)
+   local dbg = Dbg:dbg()
+   --dbg.start("BeautifulTbl:__build_tbl(tblIn)")
 
    local length    = self.length
    local columnCnt = {}
@@ -194,7 +155,26 @@ function M.__build_tbl(self,tblIn)
       end
    end
 
+   --if (dbg.active()) then
+   --   dbg.print("#columnCnt: ",#columnCnt,"\n")
+   --   local a = {}
+   --   a[#a+1] = "columnCnt:"
+   --   for i = 1,#columnCnt do
+   --      a[#a+1] = tostring(columnCnt[i])
+   --   end
+   --   dbg.print(concatTbl(a," "),"\n")
+   --
+   --   for irow = 1,#tbl do
+   --      dbg.print("")
+   --      for icol = 1, #tbl[irow] do
+   --         io.stderr:write("|",tbl[irow][icol])
+   --      end
+   --      io.stderr:write("|\n")
+   --   end
+   --end
+
    self.columnCnt = columnCnt
+   --dbg.fini("BeautifulTbl:__build_tbl")
    return tbl
 end
 
