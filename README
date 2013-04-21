@@ -44,19 +44,24 @@ Please read the INSTALL file even if you have installed Lmod before
 as the method of installing Lmod has changed.
 
 ------------------------------------------------------------
-Version 5.0b3
+Version 5.0rc1
   Bug Fix:
     1) This version handles old cache files instead of crashing.
     2) Correctly handling of Personal module directories.
   Feature:
-    1) Support for multiple system cache files added, see
+    1) Bash command line tab completion for both module and ml
+       commands. 
+    2) Support for multiple system cache files added, see
        contrib/BuildSystemCacheFile/README.txt for more details.
-    2) Support for "module avail --terse"
-    3) Hook function added.
-    4) C/N/V supported
-    5) Sandbox for modulefiles.
-    6) Strong use of Spider cache file.
-    7) Support for new function pushenv("name","value"). It works
+    3) New option "--terse" for list, avail and spider.  This
+       produces machine readable output for these commands
+    4) New option "--default" for avail.  This will list only the
+       default modules.
+    5) Hook function added.
+    6) C/N/V supported
+    7) Sandbox for modulefiles.
+    8) Strong use of Spider cache file.
+    9) Support for new function pushenv("name","value"). It works
        like setenv("name","value"), but when the module is unloaded
        the old value is returned.  Suppose you have both a gcc module
        and an mpich module that both set CC. Then

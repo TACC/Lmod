@@ -450,15 +450,16 @@ function Show(...)
 end
 
 function Access(mode, ...)
-   local dbg    = Dbg:dbg()
-   local master = Master:master()
+   local dbg       = Dbg:dbg()
+   local master    = Master:master()
+   local masterTbl = masterTbl()
    dbg.start("Access(", concatTbl({...},", "),")")
    mcp = MasterControl.build("access", mode)
    mcp.activate(mode,true)
 
    local n = select('#',...)
    if (n < 1) then
-      pcall(pager, io.stderr, Usage, "\n", version()) 
+      pcall(pager, io.stderr, masterTbl.cmdHelpMsg, "\n", Usage, "\n", version()) 
       os.exit(1)
    end
 
@@ -1014,7 +1015,7 @@ function main()
 
 
    -- if Help was requested then quit.
-   if (masterTbl.Optiks_help) then
+   if (masterTbl.cmdhelp) then
       Help()
       os.exit(0)
    end

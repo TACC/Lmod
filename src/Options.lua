@@ -18,14 +18,13 @@ local version      = version
 
 local M = {}
 
-s_options = {}
+s_options = false
 
 local function new(self)
    local o = {}
 
    setmetatable(o,self)
    self.__index = self
-
    return o
 end
 
@@ -41,13 +40,22 @@ function M.options(self, usage)
    local dbg = Dbg:dbg()
 
    local Optiks = require("Optiks")
+
    s_options = new(self)
-   local cmdlineParser = Optiks:new{usage   = usage,
-                                    error   = LmodWarning,
-                                    exit    = nothing,
-                                    prt     = prt,
+
+   local cmdlineParser  = Optiks:new{usage   = usage,
+                                     error   = LmodWarning,
+                                     exit    = nothing,
+                                     prt     = prt,
    }
 
+   cmdlineParser:add_option{
+      name   = {"-h","-?","--help"},
+      dest   = "cmdhelp",
+      action = "store_true",
+      help   = "Program tracing written to stderr",
+   }
+   
    cmdlineParser:add_option{
       name   = {"-D","--debug"},
       dest   = "debug",
@@ -113,10 +121,9 @@ function M.options(self, usage)
 
 
    local optionTbl, pargs = cmdlineParser:parse(arg)
-
-   local masterTbl = masterTbl()
-
-   masterTbl.pargs = pargs
+   local masterTbl        = masterTbl()
+   masterTbl.pargs        = pargs
+   masterTbl.cmdHelpMsg   = cmdlineParser:buildHelpMsg()
 
    for k in pairs(optionTbl) do
       masterTbl[k] = optionTbl[k]
@@ -129,6 +136,10 @@ function M.options(self, usage)
    if (optionTbl.novice) then
       setenv("LMOD_EXPERT", nil)
    end
+end
+
+function M.helpMsg(self)
+   return self.cmdlineParser:buildHelpMsg()
 end
 
 return M

@@ -12,7 +12,8 @@ validTable = {
    action  = "required",
    type    = "optional",
    default = "optional",
-   help    = "optional"
+   help    = "optional",
+   system  = "optional",
 }
 
 validActions = { append = 1,

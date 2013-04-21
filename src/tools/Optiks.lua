@@ -25,6 +25,7 @@ local Exit         = Optiks_Exit
 local Option       = require("Optiks_Option")
 local ProgName     = ""
 local arg          = arg
+local concatTbl    = table.concat
 local io           = io
 local ipairs       = ipairs
 local os           = os
@@ -44,6 +45,9 @@ local function Prt(...)
    stdout:write(...)
 end
 
+local function PrtEnd()
+end
+
 icnt = 0
 
 function M.new(self, t)
@@ -59,8 +63,10 @@ function M.new(self, t)
       usage    = t.usage
       ProgName = t.progName 
       version  = t.version
+      
       Error    = t.error or Error
       Prt      = t.prt or Prt
+      PrtEnd   = t.prtEnd or PrtEnd
       Exit     = t.exit or Exit
    end
       
@@ -72,6 +78,7 @@ function M.new(self, t)
 
    o.exit     = Exit
    o.prt      = Prt
+   o.prtEnd   = PrtEnd
    o.usage    = usage
    o.version  = version
    if (usage == nil) then
@@ -82,23 +89,6 @@ function M.new(self, t)
       end
       o.usage = "Usage: " .. cmd .. " [options]"
    end
-
-   o:add_option{
-      name    = {"-h", "-?", "--help"},
-      dest    = "Optiks_help",
-      action  = "store_true",
-      help    = "Show this help message and exit",
-   }
-
-   if (version) then
-      o:add_option{
-         name    = {"--version"},
-         dest    = "Optiks_version",
-         action  = "store_true",
-         help    = "Output version info and exit",
-      }
-   end
-
 
    o.dispTbl  = {
       append      = M.display_store,
@@ -114,16 +104,28 @@ end
 function M.add_option(self, myTable)
    local opt   = Option:new(myTable)
 
-   table.insert(self.optA, opt)
-
    local names = opt:optionNames()
+
+   local systemDefault = opt.system
+
+   local safeToAdd = true
 
    for i,v in ipairs(names) do
       local _, _, dash, key = v:find("^(%-%-?)([^=-][^=]*)")
-      if (self.argNames[key]) then
-         Error("duplicate option: \"" .. v .. "\"\n")
+      
+      local exists = self.argNames[key]
+      if (not exists) then
+         self.argNames[key] = opt.table
+      else
+         safeToAdd = false
+         if (not systemDefault) then
+            Error("duplicate option: \"" .. v .. "\"\n")
+         end
       end
-      self.argNames[key] = opt.table
+   end
+
+   if (safeToAdd) then
+      table.insert(self.optA, opt)
    end
 end
 
@@ -217,26 +219,56 @@ function M.parseOpt(self, optName, arg, argIn, argTbl)
    end
 end
 
-function M.printHelp(self)
+function M.buildHelpMsg(self)
    local term_width  = TermWidth()
-
-   self.prt(self.usage,"\n")
-   self.prt("\nOptions:\n")
-
+   local b = {}
+   b[#b+1] = self.usage
+   b[#b+1] = "\n\nOptions:\n"
+   
    local a = {}
    for _,v  in ipairs(self.optA) do
       local opt = v.table
       a[#a + 1] = { "  " .. self.dispTbl[opt.action](self, opt), opt.help or " " }
+      io.stderr:write("a[#a][1]: ",tostring(a[#a][1]), ", a[#a][2]: ",tostring(a[#a][2]),"\n")
    end
-
+   
    local bt = BeautifulTbl:new{tbl=a, wrapped=true, column=term_width-1}
-   self.prt(bt:build_tbl(),"\n")
+   b[#b+1] = bt:build_tbl()
+   b[#b+1] = "\n"
 
+   return concatTbl(b,"")
+end
+
+function M.printHelp(self)
+   self.prt(self:buildHelpMsg())
    self.exit(0)
 end
 
 
 function M.parse(self, argIn)
+
+   ------------------------------------------------------------
+   -- add these options if the client has not already set them.
+
+   self:add_option{
+      name    = {"-h", "-?", "--help"},
+      dest    = "Optiks_help",
+      action  = "store_true",
+      help    = "Show this help message and exit",
+      system  = true,
+   }
+
+   if (self.version) then
+      self:add_option{
+         name    = {"--version"},
+         dest    = "Optiks_version",
+         action  = "store_true",
+         help    = "Output version info and exit",
+         system  = true,
+      }
+   end
+
+
    local noProcess = nil
    local parg      = {}
    local argTbl    = {[0] = argIn[0]}

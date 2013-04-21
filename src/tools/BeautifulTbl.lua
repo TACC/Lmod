@@ -115,7 +115,7 @@ function M.build_tbl(self)
       a[#a + 1] = concatTbl(aa,"")
    end
    --dbg.fini("BeautifulTbl:build_tbl")
-   return concatTbl(a,"\n")
+   return concatTbl(a,"")
 end
 
 
