@@ -106,7 +106,7 @@ function M.add_option(self, myTable)
 
    local names = opt:optionNames()
 
-   local systemDefault = opt.system
+   local systemDefault = opt.table.system
 
    local safeToAdd = true
 
@@ -229,7 +229,6 @@ function M.buildHelpMsg(self)
    for _,v  in ipairs(self.optA) do
       local opt = v.table
       a[#a + 1] = { "  " .. self.dispTbl[opt.action](self, opt), opt.help or " " }
-      io.stderr:write("a[#a][1]: ",tostring(a[#a][1]), ", a[#a][2]: ",tostring(a[#a][2]),"\n")
    end
    
    local bt = BeautifulTbl:new{tbl=a, wrapped=true, column=term_width-1}
