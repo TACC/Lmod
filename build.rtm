@@ -64,6 +64,10 @@ case $SYSHOST in
     UPDATE_FN=$ADMIN_DIR/system.txt
     CACHEDIRS=$ADMIN_DIR/cacheDir
     EXTRA="--with-spiderCacheDir=$CACHEDIRS  --with-updateSystemFn=$UPDATE_FN"
+
+    if [ "$SYSHOST" == "mijo" ]; then
+      MAKE_EXTRA="LUA_PATH=\"$LUA_PATH\" LUA_CPATH=\"$LUA_CPATH\""
+    fi
     ;;
 
   ls4 | longhorn | stampede)
@@ -92,13 +96,11 @@ if [ -n "$TACC_SYSTEM" ]; then
    EXTRA_CMD="cp contrib/TACC/*.lua $PKG/libexec"
 fi
 
-
-
 rm -f config.status config.log
 
 cmdA=("-make distclean"
       "./configure --prefix=$BASE_DIR --with-ancient=86401 --with-shortTime=10.3 --with-duplicatePaths=yes $EXTRA"
-      "$SUDO make install"
+      "$SUDO make install $MAKE_EXTRA"
       "$EXTRA_CMD"
       "make clobber"
       )

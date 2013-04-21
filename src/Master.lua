@@ -766,6 +766,8 @@ function M.avail(argA)
 
    local optionTbl, searchA = availOptions(argA)
 
+   local defaultOnly = optionTbl.defaultOnly or masterTbl.defaultOnly
+
    if (optionTbl.terse or masterTbl.terse) then
       dbg.print("doing --terse\n")
       for ii = 1, #mpathA do
@@ -788,7 +790,7 @@ function M.avail(argA)
 
    for _,mpath in ipairs(mpathA) do
       local a = {}
-      availDir(optionTbl.defaultOnly, searchA, mpath, availT[mpath], dbT, a, legendT)
+      availDir(defaultOnly, searchA, mpath, availT[mpath], dbT, a, legendT)
       if (next(a)) then
          prtDirName(width, mpath,aa)
          local ct  = ColumnTable:new{tbl=a, gap=1, len=length}

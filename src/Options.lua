@@ -49,18 +49,17 @@ function M.options(self, usage)
    }
 
    cmdlineParser:add_option{
-      name   = {"-d"},
+      name   = {"-D","--debug"},
       dest   = "debug",
       action = "store_true",
-      help   = "Print debugging",
+      help   = "Program tracing written to stderr",
    }
 
    cmdlineParser:add_option{
-      name   = {"-D"},
-      dest   = "dbglvl",
-      action = "store",
-      type   = "number",
-      help   = "Debug Level",
+      name   = {"-d","--default"},
+      dest   = "defaultOnly",
+      action = "store_true",
+      help   = "List default modules only when used with avail"
    }
 
    cmdlineParser:add_option{
