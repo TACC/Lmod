@@ -53,7 +53,7 @@ function M.options(self, usage)
       name   = {"-h","-?","--help"},
       dest   = "cmdhelp",
       action = "store_true",
-      help   = "Program tracing written to stderr",
+      help   = "This help message",
    }
    
    cmdlineParser:add_option{
@@ -81,7 +81,8 @@ function M.options(self, usage)
       name   = {"-t","--terse"},
       dest   = "terse",
       action = "store_true",
-      help   = "Write out in machine readable format",
+      help   = "Write out in machine readable format for " ..
+               "commands: list, avail, spider",
    }
 
    cmdlineParser:add_option{

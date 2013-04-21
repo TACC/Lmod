@@ -168,11 +168,8 @@ Loading/Unloading sub-commands:
                                          if not found
   swap | sw | switch modfile1 modfile2   unload modfile1 and load modfile2
   purge                                  unload all modules
-  refresh                                reload aliases in a subshell.
-
-Recovering system environment
-  restore system                         Do a module purge and load system defaults
-
+  refresh                                reload aliases from current list of
+                                         modules.
 
 Listing / Searching sub-commands:
   list                                   List loaded modules
@@ -181,9 +178,6 @@ Listing / Searching sub-commands:
   avail | av                             List available modules
   avail | av       string                List available modules that contain
                                          "string".
-  avail --terse                          List available modules in a machine
-                                         parsable way
-  avail -d                               List available default modules only.
   spider                                 List all possible modules
   spider           modulefile            List all possible version of that
                                          module file
@@ -197,15 +191,15 @@ Listing / Searching sub-commands:
 
 
 Searching with Lmod:
-  All searching (spider, list, avail, keyword) support simple regular expressions:
+  All searching (spider, list, avail, keyword) support regular expressions:
 
-  spider        '^p'                     finds all the modules that start with
-                                         `p' or `P'
+  spider        '^p'                     finds all the modules that start 
+                                         with `p' or `P'
 
-  spider        mpi                      finds all modules that have "mpi" in
-                                         their name.
-  spider        'mpi$"                   file all modules that end with "mpi" in
-                                         their name.
+  spider        mpi                      finds all modules that have "mpi" 
+                                         in their name.
+  spider        'mpi$"                   file all modules that end with "mpi"
+                                         in their name.
 
 Handling a collection of modules:
   save       | s | sd                    Save the current list of modules
@@ -213,13 +207,14 @@ Handling a collection of modules:
   save name  | s name                    Save the current list of modules
                                          to "name" collection.
 
-  restore                                Restore modules from the user's "default"
-                                         or system default.
+  restore                                Restore modules from the user's 
+                                         "default" or system default.
 
-  restore  name | r name                 Restore modules from "name" collection.
+  restore  name | r name                 Restore modules from "name" 
+                                         collection.
 
-
-  restore  system                        restore module state to system defaults.
+  restore  system                        restore module state to system
+                                         defaults.
 
 
   savelist                               list of saved collections.
@@ -242,13 +237,12 @@ Miscellaneous sub-commands:
   show                modulefile         show the commands in the module file.
   use [-a] [--append] path               Prepend or Append path to MODULEPATH
   unuse path                             remove path from MODULEPATH
-  tablelist                              output list of active modules as a table.
+  tablelist                              output list of active modules as a
+                                         lua table.
 
 Important Environment Variables:
-  LMOD_COLORIZE                          If defined to be "YES" then Lmod prints
-                                         properties and warning in color.
-
-
+  LMOD_COLORIZE                          If defined to be "YES" then Lmod 
+                                         prints properties and warning in color.
 
 ----------------------------------------------------------------------------------
 See:
