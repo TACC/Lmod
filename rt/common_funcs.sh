@@ -48,11 +48,13 @@ initStdEnvVars()
   unset SHLIB_PATH
   unset INFOPATH
   unset MANPATH
+  unset INCLUDE
   unset CPATH
-  unset INTEL_LICENSE_PATH
+  unset INTEL_LICENSE_FILE
   unset LIBRARY_PATH
   unset NLSPATH
   unset LD_LIBRARY_PATH
+  unset DYLD_LIBRARY_PATH
   unset MODULEPATH
   unset LMOD_DEFAULT_MODULEPATH
   unset MODULEPATH_ROOT

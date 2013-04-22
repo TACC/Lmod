@@ -24,9 +24,6 @@ setenv(      'MPIHOME',         mpihome)
 setenv(      'MPICH_HOME',      mpihome)
 
 
-if (os.getenv("LMOD_sys") == "Darwin") then
-   prepend_path('DYLD_LIBRARY_PATH', pathJoin(mpihome,"lib/trace_rlog"))
-else
-   prepend_path('LD_LIBRARY_PATH',   pathJoin(mpihome,"lib"))
-end
+prepend_path('LD_LIBRARY_PATH',   pathJoin(mpihome,"lib"))
+
 family("MPI")
