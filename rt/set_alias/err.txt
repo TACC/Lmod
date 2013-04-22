@@ -1,7 +1,7 @@
 ===========================
 step 1
 ===========================
-Modules based on Lua: Version 5.0b3 2013-03-29 11:12
+Modules based on Lua: Version 5.0rc1 (5.0rc1-27-g748289a) 2013-04-16 11:06
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2

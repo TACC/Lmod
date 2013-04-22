@@ -86,4 +86,4 @@ MODULEPATH="ProjectDIR/rt/set_alias/mf";
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/set_alias/mf",},family={},inactive={},mT={sfunc={["FN"]="ProjectDIR/rt/set_alias/mf/sfunc/1.0.lua",["default"]=1,["fullName"]="sfunc/1.0",["loadOrder"]=2,["mType"]="w",propT={},["short"]="sfunc",["status"]="active",},test1={["FN"]="ProjectDIR/rt/set_alias/mf/test1/1.0.lua",["default"]=1,["fullName"]="test1/1.0",["loadOrder"]=1,["mType"]="mw",propT={},["short"]="test1",["status"]="active",},},mpathA={"ProjectDIR/rt/set_alias/mf",},["systemBaseMPATH"]="ProjectDIR/rt/set_alias/mf",["version"]=2,}';
 export _ModuleTable_;
-ml() {eval $($LMOD_DIR/ml_cmd "$@") };
+ml() { eval $($LMOD_DIR/ml_cmd "$@"); };
