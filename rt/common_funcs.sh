@@ -71,7 +71,13 @@ initStdEnvVars()
 unsetMT ()
 {
    unset _ModuleTable_
-   for i in `seq 1 1000`; do
+   local last
+   last=1000
+   if [ -n "$_ModuleTable_Sz_" ]; then
+       last=$_ModuleTable_Sz_
+       unset _ModuleTable_Sz_
+   fi
+   for i in `seq 1 $last`; do
       num=`printf %03d $i`
       eval j="\$_ModuleTable${num}_"
       if [ -z "$j" ]; then
