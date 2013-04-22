@@ -35,8 +35,17 @@ testdescript = {
 cat > $(testName).csh << EOF
 #!/bin/tcsh
 
-     lua /home1/00515/mclay/w/lmod/src/clearMT_cmd.in.lua csh > _stdclr.00
+     lua $(projectDir)/src/lmod.in.lua csh list  > /dev/null
+
+     lua $(projectDir)/src/lmod.in.lua csh purge > _stdclr.00
      eval \`cat _stdclr.00\`
+
+     lua $(projectDir)/src/clearMT_cmd.in.lua csh > _stdclr.01
+     eval \`cat _stdclr.01\`
+
+
+     echo LMOD_DEFAULT_MODULEPATH %$LMOD_DEFAULT_MODULEPATH%
+     echo MODULEPATH              %$MODULEPATH%
 
      setenv PATH $PATH
      setenv MODULEPATH $(projectDir)/mf/Core:$(testDir)/mf/Core
