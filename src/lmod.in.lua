@@ -968,7 +968,6 @@ function main()
                       package.cpath
    end
 
-   dbg.print("package.path: ", package.path,"\n")
    dbg.print("lmodPath: ", lmodPath,"\n")
    require("SitePackage") 
 

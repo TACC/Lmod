@@ -27,8 +27,8 @@ function Bash.shellFunc(self, k, v)
       stdout:write("unset -f ",k,";\n")
       dbg.print(   "unset -f ",k,";\n")
    else
-      stdout:write(k,"() {",v[1]," };\n")
-      dbg.print(   k,"() {",v[1]," };\n")
+      stdout:write(k,"() {",v[1],"; };\n")
+      dbg.print(   k,"() {",v[1],"; };\n")
    end
 end   
 
