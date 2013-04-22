@@ -1,7 +1,7 @@
 ===========================
 step 1
 ===========================
-Modules based on Lua: Version 5.0rc1 (5.0rc1-23-gebbcc85) 2013-04-16 11:06
+Modules based on Lua: Version 5.0rc1 (5.0rc1-24-g395ce41) 2013-04-16 11:06
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -67,110 +67,6 @@ must enter the version if there is more than one version:
 ===========================
 step 5
 ===========================
-  petsc/petsc/3.3-complex: petsc/petsc/3.3-complex
-    Description:
-      Numerical library for sparse linear algebra 
-    This module can only be loaded through the following modules:
-      intel/13.1, mvapich2/1.9
-    Help:
-      The petsc module defines the following environment variables:
-      TACC_PETSC_DIR, TACC_PETSC_BIN, and
-      TACC_PETSC_LIB for the location
-      of the Petsc distribution, documentation, binaries,
-      and libraries.
-      Version 3.3; shared library support; hdf5 support
-      external packages installed:  parmetis spai hypre   hdf5 mumps scalapack spooles superlu (sequential/distributed)
-  petsc/petsc/3.3-debug: petsc/petsc/3.3-debug
-    Description:
-      Numerical library for sparse linear algebra 
-    This module can only be loaded through the following modules:
-      intel/13.1, mvapich2/1.9
-    Help:
-      The petsc module defines the following environment variables:
-      TACC_PETSC_DIR, TACC_PETSC_BIN, and
-      TACC_PETSC_LIB for the location
-      of the Petsc distribution, documentation, binaries,
-      and libraries.
-      Version 3.3; shared library support; hdf5 support
-      external packages installed:  parmetis spai hypre   hdf5 mumps scalapack spooles superlu (sequential/distributed)
-  petsc/petsc/3.3-cxx: petsc/petsc/3.3-cxx
-    Description:
-      Numerical library for sparse linear algebra 
-    This module can only be loaded through the following modules:
-      intel/13.1, mvapich2/1.9
-    Help:
-      The petsc module defines the following environment variables:
-      TACC_PETSC_DIR, TACC_PETSC_BIN, and
-      TACC_PETSC_LIB for the location
-      of the Petsc distribution, documentation, binaries,
-      and libraries.
-      Version 3.3; shared library support; hdf5 support; C++ support
-      external packages installed:  parmetis spai hypre   hdf5 mumps scalapack spooles superlu (sequential/distributed)
-  petsc/petsc/3.3-cxxcomplexdebug: petsc/petsc/3.3-cxxcomplexdebug
-    Description:
-      Numerical library for sparse linear algebra 
-    This module can only be loaded through the following modules:
-      intel/13.1, mvapich2/1.9
-    Help:
-      The petsc module defines the following environment variables:
-      TACC_PETSC_DIR, TACC_PETSC_BIN, and
-      TACC_PETSC_LIB for the location
-      of the Petsc distribution, documentation, binaries,
-      and libraries.
-      Version 3.3; shared library support; hdf5 support; C++ support
-      external packages installed:  parmetis spai hypre   hdf5 mumps scalapack spooles superlu (sequential/distributed)
-  petsc/petsc/3.3-cxxcomplex: petsc/petsc/3.3-cxxcomplex
-    Description:
-      Numerical library for sparse linear algebra 
-    This module can only be loaded through the following modules:
-      intel/13.1, mvapich2/1.9
-    Help:
-      The petsc module defines the following environment variables:
-      TACC_PETSC_DIR, TACC_PETSC_BIN, and
-      TACC_PETSC_LIB for the location
-      of the Petsc distribution, documentation, binaries,
-      and libraries.
-      Version 3.3; shared library support; hdf5 support; C++ support
-      external packages installed:  parmetis spai hypre   hdf5 mumps scalapack spooles superlu (sequential/distributed)
-  petsc/petsc/3.3-cxxdebug: petsc/petsc/3.3-cxxdebug
-    Description:
-      Numerical library for sparse linear algebra 
-    This module can only be loaded through the following modules:
-      intel/13.1, mvapich2/1.9
-    Help:
-      The petsc module defines the following environment variables:
-      TACC_PETSC_DIR, TACC_PETSC_BIN, and
-      TACC_PETSC_LIB for the location
-      of the Petsc distribution, documentation, binaries,
-      and libraries.
-      Version 3.3; shared library support; hdf5 support; C++ support
-      external packages installed:  parmetis spai hypre   hdf5 mumps scalapack spooles superlu (sequential/distributed)
-  petsc/petsc/petsc/petsc/petsc: petsc/petsc/petsc/petsc/petsc/3.3
-    Description:
-      Numerical library for sparse linear algebra 
-    This module can only be loaded through the following modules:
-      intel/13.1, mvapich2/1.9
-    Help:
-      The petsc module defines the following environment variables:
-      TACC_PETSC_DIR, TACC_PETSC_BIN, and
-      TACC_PETSC_LIB for the location
-      of the Petsc distribution, documentation, binaries,
-      and libraries.
-      Version 3.3; shared library support; hdf5 support
-      external packages installed:  parmetis spai hypre    mumps scalapack spooles superlu (sequential/distributed)
-  petsc/petsc/petsc/petsc/3.3: petsc/petsc/petsc/petsc/3.3
-    Description:
-      Numerical library for sparse linear algebra 
-    This module can only be loaded through the following modules:
-      intel/13.1, mvapich2/1.9
-    Help:
-      The petsc module defines the following environment variables:
-      TACC_PETSC_DIR, TACC_PETSC_BIN, and
-      TACC_PETSC_LIB for the location
-      of the Petsc distribution, documentation, binaries,
-      and libraries.
-      Version 3.3; shared library support; hdf5 support
-      external packages installed:  parmetis spai hypre   hdf5 mumps scalapack spooles superlu (sequential/distributed)
   petsc/petsc/3.3: petsc/petsc/3.3
     Description:
       Numerical library for sparse linear algebra 
@@ -184,20 +80,7 @@ step 5
       and libraries.
       Version 3.3; shared library support; hdf5 support
       external packages installed:  parmetis spai hypre   hdf5 mumps scalapack spooles superlu (sequential/distributed)
-  petsc/petsc/petsc/3.3: petsc/petsc/petsc/3.3
-    Description:
-      Numerical library for sparse linear algebra 
-    This module can only be loaded through the following modules:
-      intel/13.1, mvapich2/1.9
-    Help:
-      The petsc module defines the following environment variables:
-      TACC_PETSC_DIR, TACC_PETSC_BIN, and
-      TACC_PETSC_LIB for the location
-      of the Petsc distribution, documentation, binaries,
-      and libraries.
-      Version 3.3; shared library support; hdf5 support
-      external packages installed:  parmetis spai hypre   hdf5 mumps scalapack spooles superlu (sequential/distributed)
-  petsc/petsc/3.3-unidebug: petsc/petsc/3.3-unidebug
+  petsc/petsc/3.3-complex: petsc/petsc/3.3-complex
     Description:
       Numerical library for sparse linear algebra 
     This module can only be loaded through the following modules:
@@ -223,6 +106,71 @@ step 5
       and libraries.
       Version 3.3; shared library support; hdf5 support
       external packages installed:  parmetis spai hypre   hdf5 mumps scalapack spooles superlu (sequential/distributed)
+  petsc/petsc/3.3-cxx: petsc/petsc/3.3-cxx
+    Description:
+      Numerical library for sparse linear algebra 
+    This module can only be loaded through the following modules:
+      intel/13.1, mvapich2/1.9
+    Help:
+      The petsc module defines the following environment variables:
+      TACC_PETSC_DIR, TACC_PETSC_BIN, and
+      TACC_PETSC_LIB for the location
+      of the Petsc distribution, documentation, binaries,
+      and libraries.
+      Version 3.3; shared library support; hdf5 support; C++ support
+      external packages installed:  parmetis spai hypre   hdf5 mumps scalapack spooles superlu (sequential/distributed)
+  petsc/petsc/3.3-cxxcomplex: petsc/petsc/3.3-cxxcomplex
+    Description:
+      Numerical library for sparse linear algebra 
+    This module can only be loaded through the following modules:
+      intel/13.1, mvapich2/1.9
+    Help:
+      The petsc module defines the following environment variables:
+      TACC_PETSC_DIR, TACC_PETSC_BIN, and
+      TACC_PETSC_LIB for the location
+      of the Petsc distribution, documentation, binaries,
+      and libraries.
+      Version 3.3; shared library support; hdf5 support; C++ support
+      external packages installed:  parmetis spai hypre   hdf5 mumps scalapack spooles superlu (sequential/distributed)
+  petsc/petsc/3.3-cxxcomplexdebug: petsc/petsc/3.3-cxxcomplexdebug
+    Description:
+      Numerical library for sparse linear algebra 
+    This module can only be loaded through the following modules:
+      intel/13.1, mvapich2/1.9
+    Help:
+      The petsc module defines the following environment variables:
+      TACC_PETSC_DIR, TACC_PETSC_BIN, and
+      TACC_PETSC_LIB for the location
+      of the Petsc distribution, documentation, binaries,
+      and libraries.
+      Version 3.3; shared library support; hdf5 support; C++ support
+      external packages installed:  parmetis spai hypre   hdf5 mumps scalapack spooles superlu (sequential/distributed)
+  petsc/petsc/3.3-cxxdebug: petsc/petsc/3.3-cxxdebug
+    Description:
+      Numerical library for sparse linear algebra 
+    This module can only be loaded through the following modules:
+      intel/13.1, mvapich2/1.9
+    Help:
+      The petsc module defines the following environment variables:
+      TACC_PETSC_DIR, TACC_PETSC_BIN, and
+      TACC_PETSC_LIB for the location
+      of the Petsc distribution, documentation, binaries,
+      and libraries.
+      Version 3.3; shared library support; hdf5 support; C++ support
+      external packages installed:  parmetis spai hypre   hdf5 mumps scalapack spooles superlu (sequential/distributed)
+  petsc/petsc/3.3-debug: petsc/petsc/3.3-debug
+    Description:
+      Numerical library for sparse linear algebra 
+    This module can only be loaded through the following modules:
+      intel/13.1, mvapich2/1.9
+    Help:
+      The petsc module defines the following environment variables:
+      TACC_PETSC_DIR, TACC_PETSC_BIN, and
+      TACC_PETSC_LIB for the location
+      of the Petsc distribution, documentation, binaries,
+      and libraries.
+      Version 3.3; shared library support; hdf5 support
+      external packages installed:  parmetis spai hypre   hdf5 mumps scalapack spooles superlu (sequential/distributed)
   petsc/petsc/3.3-uni: petsc/petsc/3.3-uni
     Description:
       Numerical library for sparse linear algebra 
@@ -236,3 +184,55 @@ step 5
       and libraries.
       Version 3.3; shared library support; hdf5 support
       external packages installed:  parmetis spai hypre   hdf5 mumps scalapack spooles superlu (sequential/distributed)
+  petsc/petsc/3.3-unidebug: petsc/petsc/3.3-unidebug
+    Description:
+      Numerical library for sparse linear algebra 
+    This module can only be loaded through the following modules:
+      intel/13.1, mvapich2/1.9
+    Help:
+      The petsc module defines the following environment variables:
+      TACC_PETSC_DIR, TACC_PETSC_BIN, and
+      TACC_PETSC_LIB for the location
+      of the Petsc distribution, documentation, binaries,
+      and libraries.
+      Version 3.3; shared library support; hdf5 support
+      external packages installed:  parmetis spai hypre   hdf5 mumps scalapack spooles superlu (sequential/distributed)
+  petsc/petsc/petsc/3.3: petsc/petsc/petsc/3.3
+    Description:
+      Numerical library for sparse linear algebra 
+    This module can only be loaded through the following modules:
+      intel/13.1, mvapich2/1.9
+    Help:
+      The petsc module defines the following environment variables:
+      TACC_PETSC_DIR, TACC_PETSC_BIN, and
+      TACC_PETSC_LIB for the location
+      of the Petsc distribution, documentation, binaries,
+      and libraries.
+      Version 3.3; shared library support; hdf5 support
+      external packages installed:  parmetis spai hypre   hdf5 mumps scalapack spooles superlu (sequential/distributed)
+  petsc/petsc/petsc/petsc/3.3: petsc/petsc/petsc/petsc/3.3
+    Description:
+      Numerical library for sparse linear algebra 
+    This module can only be loaded through the following modules:
+      intel/13.1, mvapich2/1.9
+    Help:
+      The petsc module defines the following environment variables:
+      TACC_PETSC_DIR, TACC_PETSC_BIN, and
+      TACC_PETSC_LIB for the location
+      of the Petsc distribution, documentation, binaries,
+      and libraries.
+      Version 3.3; shared library support; hdf5 support
+      external packages installed:  parmetis spai hypre   hdf5 mumps scalapack spooles superlu (sequential/distributed)
+  petsc/petsc/petsc/petsc/petsc: petsc/petsc/petsc/petsc/petsc/3.3
+    Description:
+      Numerical library for sparse linear algebra 
+    This module can only be loaded through the following modules:
+      intel/13.1, mvapich2/1.9
+    Help:
+      The petsc module defines the following environment variables:
+      TACC_PETSC_DIR, TACC_PETSC_BIN, and
+      TACC_PETSC_LIB for the location
+      of the Petsc distribution, documentation, binaries,
+      and libraries.
+      Version 3.3; shared library support; hdf5 support
+      external packages installed:  parmetis spai hypre    mumps scalapack spooles superlu (sequential/distributed)

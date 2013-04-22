@@ -604,7 +604,7 @@ function M.singleSearchSpiderDB(strA, a, moduleT, dbT)
    local dbg = Dbg:dbg()
    dbg.start("Spider.singleSearchSpiderDB()")
 
-   for path, value in pairs(moduleT) do
+   for path, value in pairsByKeys(moduleT) do
       local nameL   = value.name_lower or ""
       local full    = value.full
       local fullL   = value.full_lower or full:lower()
@@ -757,7 +757,7 @@ function M.spiderSearch(dbT, mname, help)
    dbg.print("mname: ", mname, " name: ", name, " nameL: ", nameL, "\n")
    local found  = false
    local a      = {}
-   for k,v in pairs(dbT) do
+   for k,v in pairsByKeys(dbT) do
       dbg.print("nameL: ", nameL, " k: ", k, "\n")
       local i,j = k:find(nameL)
       dbg.print("i,j: ", i," ", j, "\n")
