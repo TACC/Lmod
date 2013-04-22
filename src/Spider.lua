@@ -590,7 +590,7 @@ function M.searchSpiderDB(strA, a, moduleT, dbT)
       LmodError("old version moduleT\n")
    else
       dbg.print("Current version moduleT\n")
-      for mpath, v in pairs(moduleT) do
+      for mpath, v in pairsByKeys(moduleT) do
          if (type(v) == "table") then
             dbg.print("mpath: ",mpath, "\n")
             M.singleSearchSpiderDB(strA, a, v, dbT)
