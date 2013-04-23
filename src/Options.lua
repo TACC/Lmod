@@ -124,10 +124,14 @@ function M.options(self, usage)
    local optionTbl, pargs = cmdlineParser:parse(arg)
    local masterTbl        = masterTbl()
    masterTbl.pargs        = pargs
-   masterTbl.cmdHelpMsg   = cmdlineParser:buildHelpMsg()
+
 
    for k in pairs(optionTbl) do
       masterTbl[k] = optionTbl[k]
+   end
+
+   if (masterTbl.cmdhelp) then
+      masterTbl.cmdHelpMsg   = cmdlineParser:buildHelpMsg() 
    end
 
    if (optionTbl.expert) then
@@ -137,10 +141,6 @@ function M.options(self, usage)
    if (optionTbl.novice) then
       setenv("LMOD_EXPERT", nil)
    end
-end
-
-function M.helpMsg(self)
-   return self.cmdlineParser:buildHelpMsg()
 end
 
 return M
