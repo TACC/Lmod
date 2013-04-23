@@ -27,8 +27,6 @@ testdescript = {
      ORIG_HOME=`(cd $HOME; /bin/pwd)`
      HOME=`/bin/pwd`
 
-     #(cd $projectDir; ./configure; make src/computeHashSum)
-
      rm -rf _stderr.* _stdout.* err.* out.* .lmod.d
      cp $(projectDir)/setup/.lmodrc.lua .
 
@@ -66,8 +64,6 @@ testdescript = {
 
      cat _stderr.[0-9][0-9] > _stderr.orig
      cleanUp _stderr.orig err.txt
-
-     rm -f $projectDir/src/computeHashSum
 
      rm -f $(cmdResultFn)
      wrapperDiff -r $(cmdResultFn) $(testDir)/out.txt out.txt
