@@ -6,3 +6,15 @@ As an example:
 
    $ env2 -from bash -to lmod /opt/apps/intel/13.0.2/bin/iccvars.sh intel64 > intel_13.0.2.lua
 
+
+------------------------------------------------------------------------
+--  The current version as of April 23, 2013 does not yet support lmod.
+--  I have include my changed version here.  You should check to see
+--  if there is a more recent version then the one I have included here.
+------------------------------------------------------------------------
+--  The one I here doesn't support arguments so for the intel compiler
+--  shell script I had to modify it to assume that if there are no arguments
+--  to assume "intel64"
+------------------------------------------------------------------------
+
+
