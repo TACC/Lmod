@@ -15,6 +15,13 @@ LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/help/mf";
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/help/mf";
 export MODULEPATH;
+===========================
+step 4
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/help/mf";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/help/mf";
+export MODULEPATH;
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/help/mf";
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/help/mf";

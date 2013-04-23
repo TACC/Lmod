@@ -130,7 +130,8 @@ function M.options(self, usage)
       masterTbl[k] = optionTbl[k]
    end
 
-   if (masterTbl.cmdhelp) then
+   masterTbl.cmdHelpMsg      = "" 
+   if (masterTbl.cmdhelp or pargs[1] == "help" ) then
       masterTbl.cmdHelpMsg   = cmdlineParser:buildHelpMsg() 
    end
 

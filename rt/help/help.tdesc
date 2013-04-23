@@ -32,6 +32,7 @@ testdescript = {
      mkdir -p $HOME/.lmod.d/.cache 
 
      runMe lua $(projectDir)/src/lmod.in.lua bash --version                  # 1
+     runMe lua $(projectDir)/src/lmod.in.lua bash --help                     # 2
      runMe lua $(projectDir)/src/lmod.in.lua bash help                       # 2
      runMe lua $(projectDir)/src/lmod.in.lua bash help amber                 # 3
      HOME=$ORIG_HOME
