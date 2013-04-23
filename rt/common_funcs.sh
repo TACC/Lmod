@@ -59,6 +59,7 @@ initStdEnvVars()
   unset LMOD_DEFAULT_MODULEPATH
   unset MODULEPATH_ROOT
   unset LMOD_EXPERT
+  unset LMOD_SYSTEM_DEFAULT_MODULES
   export LMOD_PREPEND_BLOCK=yes
   PATH_to_LUA=`findcmd --pathOnly lua`
   PATH_to_TM=`findcmd --pathOnly tm`
