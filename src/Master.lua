@@ -629,9 +629,9 @@ local function findDefault(mpath, sn, versionA)
    return default, #versionA
 end
 
-local function availEntry(defaultOnly, szA, searchA, sn, name, f, defaultModule, dbT, legendT, a)
+local function availEntry(defaultOnly, terse, szA, searchA, sn, name, f, defaultModule, dbT, legendT, a)
    local dbg      = Dbg:dbg()
-   dbg.start("Master:availEntry(defaultOnly, szA, searchA, sn, name, f, defaultModule, dbT, legendT, a)")
+   dbg.start("Master:availEntry(defaultOnly, terse, szA, searchA, sn, name, f, defaultModule, dbT, legendT, a)")
 
    dbg.print("sn:" ,sn, ", name: ", name,", defaultOnly: ",defaultOnly,", szA: ",szA,"\n")
    local dflt     = ""
@@ -657,9 +657,17 @@ local function availEntry(defaultOnly, szA, searchA, sn, name, f, defaultModule,
       found = false
    end
 
+   if (not found) then
+      dbg.print("Not found\n")
+      dbg.fini("Master:availEntry")
+      return
+   end
+      
 
 
-   if (found) then
+   if (terse) then
+      a[#a+1] = name
+   else
       if (defaultModule == abspath(f, localdir) and szA > 1 and
           not defaultOnly ) then
          dflt = Default
@@ -692,10 +700,10 @@ end
 
 
 
-local function availDir(defaultOnly, searchA, mpath, availT, dbT, a, legendT)
+local function availDir(defaultOnly, terse, searchA, mpath, availT, dbT, a, legendT)
    local dbg    = Dbg:dbg()
-   dbg.start("Master.availDir(defaultOnly=",defaultOnly, ", searchA=(",concatTbl(searchA,", "),"), mpath=\"",mpath,"\", ",
-             "availT, dbT, a, legendT)")
+   dbg.start("Master.availDir(defaultOnly= ",defaultOnly,", terse= ",terse, ", searchA=(",concatTbl(searchA,", "),
+             "), mpath= \"",mpath,"\", ", "availT, dbT, a, legendT)")
    local attr    = lfs.attributes(mpath)
    local mt      = MT:mt()
    if (not attr or type(attr) ~= "table" or attr.mode ~= "directory" or not posix.access(mpath,"x")) then
@@ -710,13 +718,13 @@ local function availDir(defaultOnly, searchA, mpath, availT, dbT, a, legendT)
       local aa            = {}
       local szA           = #versionA 
       if (szA == 0) then
-         availEntry(defaultOnly, szA, searchA, sn, sn, "", defaultModule, dbT, legendT, a)
+         availEntry(defaultOnly, terse, szA, searchA, sn, sn, "", defaultModule, dbT, legendT, a)
       else
          defaultModule = findDefault(mpath, sn, versionA)
          for i = 1, #versionA do
             local name = pathJoin(sn, versionA[i].version)
             local f    = versionA[i].file
-            availEntry(defaultOnly, szA, searchA, sn, name, f, defaultModule, dbT, legendT, a)
+            availEntry(defaultOnly, terse, szA, searchA, sn, name, f, defaultModule, dbT, legendT, a)
          end
       end
    end
@@ -767,20 +775,19 @@ function M.avail(argA)
    local optionTbl, searchA = availOptions(argA)
 
    local defaultOnly = optionTbl.defaultOnly or masterTbl.defaultOnly
+   local terse       = optionTbl.terse       or masterTbl.terse
 
-   if (optionTbl.terse or masterTbl.terse) then
+
+   if (terse) then
       dbg.print("doing --terse\n")
       for ii = 1, #mpathA do
          local mpath = mpathA[ii]
-         local t     = availT[mpath]
-         if (type(t) == "table" and next(t) ~= nil) then
+         local a     = {}
+         availDir(defaultOnly, terse, searchA, mpath, availT[mpath], dbT, a, legendT)
+         if (next(a)) then
             io.stderr:write(mpath,":\n")
-            for sn, versionA in pairsByKeys(t) do
-               io.stderr:write(sn,"\n")
-               for i = 1, #versionA do
-                  local name = pathJoin(sn, versionA[i].version)
-                  io.stderr:write(name,"\n")
-               end
+            for i=1,#a do
+               io.stderr:write(a[i],"\n")
             end
          end
       end
@@ -790,7 +797,7 @@ function M.avail(argA)
 
    for _,mpath in ipairs(mpathA) do
       local a = {}
-      availDir(defaultOnly, searchA, mpath, availT[mpath], dbT, a, legendT)
+      availDir(defaultOnly, terse, searchA, mpath, availT[mpath], dbT, a, legendT)
       if (next(a)) then
          prtDirName(width, mpath,aa)
          local ct  = ColumnTable:new{tbl=a, gap=1, len=length}
