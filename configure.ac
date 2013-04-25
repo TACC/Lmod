@@ -226,6 +226,28 @@ if ! test -f $LUA_INCLUDE/lua.h; then
   done
 fi
      
+AC_SUBST(ZSH_SITE_FUNCTIONS_DIR)
+AC_PATH_PROG(ZSH, zsh)
+PATH_TO_ZSH=$ZSH
+
+if test -n "$PATH_TO_ZSH" ; then
+  cat > conftest.zsh << 'EOF'
+for dir in $fpath ; do
+  case $dir in
+    */site-functions)
+      echo $dir;;
+  esac
+done
+EOF
+
+   chmod +x conftest.zsh
+   ZSH_SITE_FUNCTIONS_DIR=`$PATH_TO_ZSH ./conftest.zsh`
+fi
+
+
+
+
+
 
 
 

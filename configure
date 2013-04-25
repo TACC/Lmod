@@ -585,6 +585,8 @@ ac_unique_file="Makefile.in"
 ac_default_prefix=/usr/local
 ac_subst_vars='LTLIBOBJS
 LIBOBJS
+ZSH
+ZSH_SITE_FUNCTIONS_DIR
 pkgConfig
 LUA_INCLUDE
 luaprog
@@ -2197,6 +2199,67 @@ if ! test -f $LUA_INCLUDE/lua.h; then
 fi
 
 
+# Extract the first word of "zsh", so it can be a program name with args.
+set dummy zsh; ac_word=$2
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
+$as_echo_n "checking for $ac_word... " >&6; }
+if ${ac_cv_path_ZSH+:} false; then :
+  $as_echo_n "(cached) " >&6
+else
+  case $ZSH in
+  [\\/]* | ?:[\\/]*)
+  ac_cv_path_ZSH="$ZSH" # Let the user override the test with a path.
+  ;;
+  *)
+  as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
+for as_dir in $PATH
+do
+  IFS=$as_save_IFS
+  test -z "$as_dir" && as_dir=.
+    for ac_exec_ext in '' $ac_executable_extensions; do
+  if as_fn_executable_p "$as_dir/$ac_word$ac_exec_ext"; then
+    ac_cv_path_ZSH="$as_dir/$ac_word$ac_exec_ext"
+    $as_echo "$as_me:${as_lineno-$LINENO}: found $as_dir/$ac_word$ac_exec_ext" >&5
+    break 2
+  fi
+done
+  done
+IFS=$as_save_IFS
+
+  ;;
+esac
+fi
+ZSH=$ac_cv_path_ZSH
+if test -n "$ZSH"; then
+  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $ZSH" >&5
+$as_echo "$ZSH" >&6; }
+else
+  { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+$as_echo "no" >&6; }
+fi
+
+
+PATH_TO_ZSH=$ZSH
+
+if test -n "$PATH_TO_ZSH" ; then
+  cat > conftest.zsh << 'EOF'
+for dir in $fpath ; do
+  case $dir in
+    */site-functions)
+      echo $dir;;
+  esac
+done
+EOF
+
+   chmod +x conftest.zsh
+   ZSH_SITE_FUNCTIONS_DIR=`$PATH_TO_ZSH ./conftest.zsh`
+fi
+
+
+
+
+
+
 
 
 ac_config_files="$ac_config_files makefile:Makefile.in"
@@ -3376,6 +3439,7 @@ echo "Prepending multiple dirs (NORMAL / REVERSED)" : $PREPEND_BLOCK
 echo "Colorized output supported.................." : $COLORIZE
 echo "File that is touched when system is updated." : $UPDATE_SYSTEM_FN
 echo "Allow duplicate entry in PATHs.............." : $DUPLICATE_PATHS
+echo "ZSH Tab Completion Functions Site Directory." : $ZSH_SITE_FUNCTIONS_DIR
 
 echo
 echo '-------------------------------------------------------------------------------'

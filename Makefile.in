@@ -1,3 +1,4 @@
+ZSH_SITE_FUNCTIONS_DIR   := @ZSH_SITE_FUNCTIONS_DIR@
 SPIDER_CACHE_DESCRIPT_FN := @SPIDER_CACHE_DESCRIPT_FN@
 PREPEND_BLOCK     	 := @PREPEND_BLOCK@
 COLORIZE          	 := @COLORIZE@
@@ -30,6 +31,8 @@ SHELL_INIT	  	 := bash.in csh.in ksh.in tcsh.in zsh.in sh.in perl.in            
                             env_modules_python.py.in lmod_bash_completions .lmodrc.lua
 SHELL_INIT	  	 := $(patsubst %, setup/%, $(SHELL_INIT))
 
+ZSH_FUNCS                := setup/zsh/_ml setup/zsh/_module
+
 STARTUP		  	 := profile.in cshrc.in
 STARTUP		  	 := $(patsubst %, setup/%, $(STARTUP))
 
@@ -58,7 +61,7 @@ spiderCacheSupportCMD    := lua src/spiderCacheSupport.in.lua
 all:
 	@echo done
 
-pre-install: $(DIRLIST) shell_init startup spiderCacheSupport libexec libtools pkgs other_tools
+pre-install: $(DIRLIST) shell_init startup spiderCacheSupport libexec libtools pkgs other_tools zsh_tab_funcs
 
 install: pre-install
 	$(RM) $(DESTDIR)$(PKG)
@@ -117,6 +120,10 @@ pkgs:
         $(MAKE) LUA_INC=$(LUA_INCLUDE)  LIB=$(DESTDIR)$(LIB) \
                 SHARE=$(DESTDIR)$(LIBEXEC) install
 
+zsh_tab_funcs: $(ZSH_FUNCS)
+	-if [ -n "$(ZSH_SITE_FUNCTIONS_DIR)" ]; then \
+          cp $^ $(DESTDIR)$(ZSH_SITE_FUNCTIONS_DIR);                \
+        fi
 
 makefile: Makefile.in config.status
 	./config.status $@
@@ -127,8 +134,8 @@ config.status:
 dist:  
 	$(MAKE) DistD=DIST _dist
 
-_dist: _distMkDir _distMainDir _distSrc _distSetup _distVersion \
-       _distPkgs _distMF    _distContrib _distTar
+_dist: _distMkDir _distMainDir _distSrc _distSetup _distSetupZsh \
+       _distVersion _distPkgs _distMF    _distContrib _distTar
 
 _distMkDir:
 	$(RM) -r $(DistD)
@@ -155,6 +162,12 @@ _distPkgs:
 _distSetup:
 	mkdir $(DistD)/setup
 	cp $(SHELL_INIT) $(STARTUP) $(DistD)/setup
+
+_distSetupZsh:
+	mkdir $(DistD)/setup/zsh
+	cp $(ZSH_FUNCS) $(DistD)/setup/zsh
+
+
 
 _distMainDir:
 	cp $(MAIN_DIR) $(DistD)
