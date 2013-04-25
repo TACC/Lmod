@@ -147,26 +147,26 @@ _ml()
 
 _ml_loaded_modules_negated()
 {
-  _loaded_modules_negated=(${$(/opt/apps/lmod/lmod/libexec/lmod bash -t list 2>&1 > /dev/null | sed ' /^ *$/d; /:$/d; s#/*$##g; s|^|-|g;')})
+  _loaded_modules_negated=(${$(module -t list 2>&1 > /dev/null | sed ' /^ *$/d; /:$/d; s#/*$##g; s|^|-|g;')})
 }
 
 _ml_loaded_modules()
 {
-  _loaded_modules=(${$(/opt/apps/lmod/lmod/libexec/lmod bash -t list 2>&1 > /dev/null | sed ' /^ *$/d; /:$/d; s#/*$##g;')})
+  _loaded_modules=(${$(module -t list 2>&1 > /dev/null | sed ' /^ *$/d; /:$/d; s#/*$##g;')})
 }
 
 # Fills the available modules cache
 _ml_available_modules()
 {
   if [[ -n $MODULEPATH ]];  then
-    _available_modules=(${$(/opt/apps/lmod/lmod/libexec/lmod bash -t avail 2>&1 > /dev/null | sed ' /:$/d; s#/*$##g;')})
+    _available_modules=(${$(module -t avail 2>&1 > /dev/null | sed ' /:$/d; s#/*$##g;')})
   fi
 }
 
 # Fills the available modules cache
 _ml_spider_list()
 {
-  _spider_list=(${$(/opt/apps/lmod/lmod/libexec/lmod bash -t spider 2>&1 > /dev/null)})
+  _spider_list=(${$(module -t spider 2>&1 > /dev/null)})
 }
 
 
