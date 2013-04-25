@@ -41,6 +41,8 @@ cat > $(testName).csh << EOF
      lua $(projectDir)/src/clearMT_cmd.in.lua csh > _stdclr.01
      eval \`cat _stdclr.01\`
 
+     setenv ORIG_HOME `(cd $HOME; /bin/pwd)`
+     setenv HOME      `pwd`
 
      unsetenv MANPATH
 
@@ -140,18 +142,15 @@ cat > $(testName).csh << EOF
      eval \`cat _stdout.15\`
 
      cat _stdout.[01][0-9] > _stdout.orig
-EOF
 
-     ORIG_HOME=`(cd $HOME; /bin/pwd)`
+     setenv HOME $ORIG_HOME
+EOF
 
      rm -fr _stderr.* _stdout.* err.* out.*  .lmod.d
      unset SHELL_STARTUP_DEBUG
      chmod +x $(testName).csh
      
-     HOME=`pwd`
      ./$(testName).csh > _stderr.orig 2>&1
-
-     HOME=$ORIG_HOME
 
      joinBase64Results -csh  _stdout.orig _stdout.new
      cleanUp _stdout.new  out.txt
