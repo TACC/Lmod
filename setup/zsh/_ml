@@ -116,7 +116,7 @@ _ml()
       ;;
     11)
       #echo "pattern 11 " >> $HOME/t/ml.log
-      _arguments -s              \
+      _arguments                 \
         $arguments               \
         $_loaded_modules_negated 
       ;;
