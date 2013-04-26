@@ -7,9 +7,6 @@ _ml()
   local curcontext="$curcontext" state line arguments opt descript arg w optState cmd
   local -A opt_args optT cmdT
 
-  #echo ""                >> $HOME/t/ml.log
-  #echo "Here in _ml() 1" >> $HOME/t/ml.log
-
   arguments=(
     '(-h --help)'{--help,-h}'[display usage info]'
     '(- *)'{--version,--v,-V}'[module command version]'
@@ -95,37 +92,27 @@ _ml()
     fi
   done
 
-  #echo "first pattern: $pattern" >> $HOME/t/ml.log
-  #echo "CURRENT: $CURRENT"      >> $HOME/t/ml.log
-
   w=$words[$CURRENT]
   firstC=$w[1]
-  #echo "\$words[CURRENT]: \"$w\" firstC: \"$firstC\"" >> $HOME/t/ml.log
 
   if [ "$firstC" = "-" ]; then
     ((pattern++))
   fi
-  #echo "pattern: $pattern " >> $HOME/t/ml.log
 
   case $pattern in
     10)
       cmdsPavail=($_ml_cmds $_available_modules)
-      #echo "pattern 10 " >> $HOME/t/ml.log
-      #echo "describe " >> $HOME/t/ml.log
       _describe -t commands 'ml commands' cmdsPavail  || compadd "$@"
       ;;
     11)
-      #echo "pattern 11 " >> $HOME/t/ml.log
       _arguments                 \
         $arguments               \
         $_loaded_modules_negated 
       ;;
     20)
-      #echo "pattern 20 " >> $HOME/t/ml.log
       compadd "$@" -a -- _available_modules 
       ;;
     21)
-      #echo "pattern 21 " >> $HOME/t/ml.log
       compadd "$@" -a -- _loaded_modules_negated
       ;;
     30|31)
@@ -135,7 +122,6 @@ _ml()
         display) cmd="show";;
       esac
         
-      #echo "pattern 30/31" >> $HOME/t/ml.log
       local update_policy
       curcontext="${curcontext%:*:*}:ml-${cmd}:"
       zstyle -s ":completion:${curcontext}:" cache-policy update_policy
@@ -172,21 +158,18 @@ _ml_spider_list()
 
 _ml_unload()
 {
-  #echo "in _ml_unload" >> $HOME/t/ml.log
   _module_loaded_modules
   compadd "$@" -a -- _loaded_modules
 }
 
 _ml_help()
 {
-  #echo "in _ml_help" >> $HOME/t/ml.log
   _module_available_modules
   compadd "$@" -a -- _available_modules
 }
 
 _ml_swap()
 {
-  #echo "in _ml_swap: CURRENT: $CURRENT" >> $HOME/t/ml.log
   if [[ $words[$CURRENT-1] == "swap" ]]; then
     _module_loaded_modules
     compadd "$@" -a -- _loaded_modules
