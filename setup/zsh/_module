@@ -5,12 +5,12 @@ _module()
 {
 
   _arguments \
-    '(-h --help)'{--help,-h}'[display usage info]'                                     \
-    '(-V --version)'{--version,-V}'[module command version and configuration options]' \
-    '(-t --terse)'{--terse,-t}'[display avail and list output in short format]'        \
-    '(-d --default)'{--default,-d}'[List default modules only when used with avail]'   \
-    '(-D --debug)'{--debug,-D}'[Send program tracing information to stderr]'           \
-    '(-q --quiet)'{--quiet,-q}'[disable verbose messages]'                             \
+    '(-h --help)'{--help,-h}'[display usage info]'                                     	\
+    '(- *)'{--version,--v,-V}'[module command version]'                                	\
+    '(-t --terse)'{--terse,-t}'[display avail, list and spider output in short format]'	\
+    '(-d --default)'{--default,-d}'[List default modules only when used with avail]'   	\
+    '(-D --debug)'{--debug,-D}'[Send program tracing information to stderr]'           	\
+    '(-q --quiet)'{--quiet,-q}'[disable verbose messages]'                             	\
     '*::module command:_module_command'
 }
 
