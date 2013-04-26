@@ -4,7 +4,7 @@
 _module()
 {
 
-  _arguments -s \
+  _arguments \
     '(-h --help)'{--help,-h}'[display usage info]'                                     \
     '(-V --version)'{--version,-V}'[module command version and configuration options]' \
     '(-t --terse)'{--terse,-t}'[display avail and list output in short format]'        \

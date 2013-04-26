@@ -44,13 +44,14 @@ Please read the INSTALL file even if you have installed Lmod before
 as the method of installing Lmod has changed.
 
 ------------------------------------------------------------
-Version 5.0rc1
+Version 5.0rc2
   Bug Fix:
     1) This version handles old cache files instead of crashing.
     2) Correctly handling of Personal module directories.
   Feature:
-    1) Bash command line tab completion for both module and ml
-       commands. 
+    1) Bash/Zsh command line tab completion for both module and ml
+       commands.  The Zsh support is added to the site-function directory
+       under Zsh control.
     2) Support for multiple system cache files added, see
        contrib/BuildSystemCacheFile/README.txt for more details.
     3) New option "--terse" for list, avail and spider.  This
@@ -64,12 +65,14 @@ Version 5.0rc1
     9) Support for new function pushenv("name","value"). It works
        like setenv("name","value"), but when the module is unloaded
        the old value is returned.  Suppose you have both a gcc module
-       and an mpich module that both set CC. Then
+       and an mpich module that both set CC by either setenv or pushenv.
+       Then:
 
-          $ module load   gcc;    echo $CC  # -> CC=gcc
-          $ module load   mpich;  echo $CC  # -> CC=mpicc
-          $ module unload mpich;  echo $CC  # -> CC=???
-          $ module unload gcc;    echo $CC  # -> CC is unset
+          #                                      SETENV         PUSHENV
+          $ module load   gcc;    echo $CC  # -> CC=gcc         CC=gcc
+          $ module load   mpich;  echo $CC  # -> CC=mpicc       CC=mpicc
+          $ module unload mpich;  echo $CC  # -> CC is unset    CC=gcc
+          $ module unload gcc;    echo $CC  # -> CC is unset    CC is unset  
 
        If you use both setenv("CC","..." ) then when unloading mpich
        CC has no value.  If you use pushenv("CC","...") then CC will
