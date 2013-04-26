@@ -222,6 +222,7 @@ function M.build(self, fast)
       return nil
    end
 
+   local moduleDirT    = self.moduleDirT
    local userModuleTFN = self.usrModuleTFN
    local buildModuleT  = (#dirA > 0)
    local userModuleT   = {}
