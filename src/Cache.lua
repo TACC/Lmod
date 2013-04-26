@@ -252,6 +252,9 @@ function M.build(self, fast)
       Spider.findAllModules(dirA, userModuleT)
       local t2 = epoch()
       
+      
+
+
       mcp           = mcp_old
       dbg.print("Resetting mpc to ", mcp:name(),"\n")
 
@@ -306,6 +309,12 @@ function M.build(self, fast)
       for k, v in pairs(userModuleT) do
          dbg.print("k: ",k,"\n")
          moduleT[k] = userModuleT[k]
+      end
+      dbg.print("Show that these directories have been walked")
+      t2 = epoch()
+      for i = 1,#dirA do
+         local k = dirA[i]
+         moduleDirT[k] = t2
       end
    end
 
