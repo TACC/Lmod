@@ -25,12 +25,11 @@ Lmod.  For the impatient, the major changes are:
      any depth that your users will tolerate that much typing.
 
 I am changing my numbering scheme to have alpha, beta and release
-candidates. This version is a beta.   You may wish to have staff use
-this version before letting your users have at it.   Please note that
-mixing a 4.* version with this version is safe,  mixing a 3.* version or
-earlier and this one is not.  Bug reports showing problems between
-Lmod 3.* and 5.* will receive a polite response to upgrade your 3.*
-version to 4.2.1.
+candidates. You may wish to have staff use this version before letting
+your users have at it.   Please note that mixing a 4.* version with
+this version is safe,  mixing a 3.* version or earlier and this one
+is not.  Bug reports showing problems between Lmod 3.* and 5.* will
+receive a polite response to upgrade your 3.* version to 4.2.1.
 
 Note that if your site is using C/N/V style naming convention, that only
 Lmod 5.+ supports this.  I have done as much testing as I can without
