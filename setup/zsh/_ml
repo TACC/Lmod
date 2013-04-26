@@ -112,7 +112,7 @@ _ml()
       cmdsPavail=($_ml_cmds $_available_modules)
       #echo "pattern 10 " >> $HOME/t/ml.log
       #echo "describe " >> $HOME/t/ml.log
-      _describe -t commands 'ml command' cmdsPavail  || compadd "$@"
+      _describe -t commands 'ml commands' cmdsPavail  || compadd "$@"
       ;;
     11)
       #echo "pattern 11 " >> $HOME/t/ml.log
@@ -122,7 +122,7 @@ _ml()
       ;;
     20)
       #echo "pattern 20 " >> $HOME/t/ml.log
-      _describe -t commands 'ml command' _available_modules  || compadd "$@"
+      compadd "$@" -a -- _available_modules 
       ;;
     21)
       #echo "pattern 21 " >> $HOME/t/ml.log
