@@ -77,6 +77,7 @@ local function new(self, t)
    
    t              = t or {}
    o.moduleDirT   = {}
+   o.usrCacheDir  = usrCacheDir
    o.usrCacheDirA = usrCacheDirA 
    o.usrModuleTFN = pathJoin(usrCacheDir,"moduleT.lua")
    o.systemDirA   = scDirA
@@ -283,7 +284,7 @@ function M.build(self, fast)
          end
          mt:setRebuildTime(ancient, newShortTime)
       else
-         mkdir_recursive(cacheDir)
+         mkdir_recursive(self.usrCacheDir)
          local s0 = "-- Date: " .. os.date("%c",os.time()) .. "\n"
          local s1 = "ancient = " .. tostring(math.floor(ancient)) .."\n"
          local s2 = serializeTbl{name="moduleT",      value=userModuleT,
