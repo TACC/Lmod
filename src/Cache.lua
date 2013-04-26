@@ -206,11 +206,12 @@ function M.build(self, fast)
    ------------------------------------------------------------------------
    -- Read user cache file if it exists and is not out-of-date.
 
+   local moduleDirT  = self.moduleDirT
    local usrDirsRead = readCacheFile(self, self.usrCacheDirA)
 
    local dirA = {}
-   for k,v in pairs(self.moduleDirT) do
-      if (v < 0) then
+   for k, v in pairs(moduleDirT) do
+      if (v <= 0) then
          dbg.print("rebuilding cache for directory: ",k,"\n")
          dirA[#dirA+1] = k
       end
@@ -222,7 +223,6 @@ function M.build(self, fast)
       return nil
    end
 
-   local moduleDirT    = self.moduleDirT
    local userModuleTFN = self.usrModuleTFN
    local buildModuleT  = (#dirA > 0)
    local userModuleT   = {}
