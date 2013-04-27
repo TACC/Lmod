@@ -61,13 +61,14 @@ function main()
       ["-?"] = 0, ["-h"] = 0, ["--help"] = 0, ["-d"]=0, ["--version"]=0,
       ["--old_style"] = 0, ["--expert"]=0, ["--novice"]=0, ["-D"]=0, 
       ["--localvar"]=1, ["-D"]=1, ["--versoin"]=0, ["--ver"]=0, ["--v"]=0,
-      ["--terse"] = 0, ["-t"] = 0, ["-V"]=0,
+      ["--terse"] = 0, ["-t"] = 0, ["-V"]=0, ["-v"]=0,
    }
 
    local translateT = {
       ["--versoin"]="--version",
       ["--ver"]="--version",
       ["--v"]="--version",
+      ["-v"]="--version",
    }
 
    ------------------------------------------------------------
@@ -113,7 +114,7 @@ function main()
          done          = true
       end
 
-      if (not done and v == "-v") then
+      if (not done and v == "--verbose") then
          done    = true
          verbose = true
       end
