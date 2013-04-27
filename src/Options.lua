@@ -100,7 +100,7 @@ function M.options(self, usage)
    }
 
    cmdlineParser:add_option{
-      name   = {"-v","-V","--version"},
+      name   = {"-v","--version"},
       dest   = "version",
       action = "store_true",
       help   = "Print version info and quit",
