@@ -721,6 +721,9 @@ local function availDir(defaultOnly, terse, searchA, mpath, availT, dbT, a, lege
          availEntry(defaultOnly, terse, szA, searchA, sn, sn, "", defaultModule, dbT, legendT, a)
       else
          defaultModule = findDefault(mpath, sn, versionA)
+         if (terse) then
+            availEntry(defaultOnly, terse, szA, searchA, sn, sn, "", defaultModule, dbT, legendT, a)
+         end
          for i = 1, #versionA do
             local name = pathJoin(sn, versionA[i].version)
             local f    = versionA[i].file
