@@ -54,7 +54,7 @@ Version 5.0rc2
     2) Support for multiple system cache files added, see
        contrib/BuildSystemCacheFile/README.txt for more details.
     3) New option "--terse" for list, avail and spider.  This
-       produces machine readable output for these commands
+       produces machine readable output.
     4) New option "--default" for avail.  This will list only the
        default modules.
     5) Hook function added.
