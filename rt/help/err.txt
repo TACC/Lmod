@@ -1,7 +1,7 @@
 ===========================
 step 1
 ===========================
-Modules based on Lua: Version 5.0rc1 (5.0rc1-36-g4d48ca2) 2013-04-16 11:06
+Modules based on Lua: Version 5.0rc2 (5.0rc2-13-g442ff5b) 2013-04-26 11:23
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -16,7 +16,7 @@ Options:
                                 commands: list, avail, spider 
   --initial_load                loading Lmod for first time in a user shell 
   --novice                      Turn off expert flag 
-  -V --version                  Print version info and quit 
+  -v --version                  Print version info and quit 
   --localvar=localvarA          local variables needed to be set after this 
                                 commands execution 
   --check_syntax --checkSyntax  Checking module command syntax: do not load 
@@ -96,7 +96,7 @@ for complete documentation. It contains:
    User Guide                  - How to use.
    Advance User Guide          - How to create you own modules.
    System Administrator Guide  - If you want to install it on your own system.
-Modules based on Lua: Version 5.0rc1 (5.0rc1-36-g4d48ca2) 2013-04-16 11:06
+Modules based on Lua: Version 5.0rc2 (5.0rc2-13-g442ff5b) 2013-04-26 11:23
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 3
@@ -111,7 +111,7 @@ Options:
                                 commands: list, avail, spider 
   --initial_load                loading Lmod for first time in a user shell 
   --novice                      Turn off expert flag 
-  -V --version                  Print version info and quit 
+  -v --version                  Print version info and quit 
   --localvar=localvarA          local variables needed to be set after this 
                                 commands execution 
   --check_syntax --checkSyntax  Checking module command syntax: do not load 
@@ -191,7 +191,7 @@ for complete documentation. It contains:
    User Guide                  - How to use.
    Advance User Guide          - How to create you own modules.
    System Administrator Guide  - If you want to install it on your own system.
-Modules based on Lua: Version 5.0rc1 (5.0rc1-36-g4d48ca2) 2013-04-16 11:06
+Modules based on Lua: Version 5.0rc2 (5.0rc2-13-g442ff5b) 2013-04-26 11:23
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 4

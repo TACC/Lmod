@@ -1,7 +1,7 @@
 ===========================
 step 1
 ===========================
-Modules based on Lua: Version 5.0rc1 (5.0rc1-35-gda0e96d) 2013-04-16 11:06
+Modules based on Lua: Version 5.0rc2 (5.0rc2-13-g442ff5b) 2013-04-26 11:23
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -81,32 +81,50 @@ step 7
 ===========================
 ProjectDIR/mf/Core:
 PrgEnv
+admin
 admin/admin-1.0
+alex
 alex/1.0
+boost
 boost/1.46.0
 boost/1.47.1
 boost/1.49.0
+gcc
 gcc/4.2.3
+git
 git/1.6.3.1
 git/1.7.4
 git/1.7.4.3
+gotoblas
 gotoblas/1.20
 gotoblas/1.26
 gotoblas/1.30
+intel
 intel/intel
+junk/a/c
 junk/a/c/1.0
+junk/b/c
 junk/b/c/2.0
+junk/d
 junk/d/3.0
+local
 local/local
+multi
 multi/multi
+noweb
 noweb/2.10c
+parmetis
 parmetis/3.1
+unix
 unix/unix
 ProjectDIR/rt/avail/mf/Core:
+bar
 bar/1.4-dbg
 bar/1.4
+baz
 baz/1.4-dbg
 baz/1.4
+foo
 foo/1.4-dbg
 foo/1.4
 ===========================
@@ -114,20 +132,32 @@ step 8
 ===========================
 ProjectDIR/mf/Core:
 PrgEnv
+admin
 admin/admin-1.0
+alex
 alex/1.0
 boost/1.49.0
+gcc
 gcc/4.2.3
 git/1.7.4.3
 gotoblas/1.26
+intel
 intel/intel
+junk/a/c
 junk/a/c/1.0
+junk/b/c
 junk/b/c/2.0
+junk/d
 junk/d/3.0
+local
 local/local
+multi
 multi/multi
+noweb
 noweb/2.10c
+parmetis
 parmetis/3.1
+unix
 unix/unix
 ProjectDIR/rt/avail/mf/Core:
 bar/1.4
@@ -137,6 +167,7 @@ foo/1.4
 step 9
 ===========================
 ProjectDIR/mf/Core:
+git
 git/1.6.3.1
 git/1.7.4
 git/1.7.4.3
