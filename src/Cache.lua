@@ -157,7 +157,7 @@ local function readCacheFile(self, cacheFileA)
          dbg.print("timeDiff: ",diff,"\n")
 
          -- Read in cache file if not out of date.
-         if (diff > 0) then
+         if (diff >= 0) then
             
             -- Check for matching default MODULEPATH.
             assert(loadfile(f))()
