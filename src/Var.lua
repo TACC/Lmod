@@ -36,8 +36,11 @@ end
 
 
 local function regularizePath(path, sep)
-   if (not path or path == '') then
+   if (not path) then
       return {}
+   end
+   if (path == '') then
+      return { ' ' }
    end
 
    local is, ie
