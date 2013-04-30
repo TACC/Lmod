@@ -2,6 +2,7 @@ require("strict")
 require("myGlobals")
 require("string_trim")
 require("fileOps")
+require("cmdfuncs")
 
 local Dbg     = require("Dbg")
 local M       = {}
@@ -173,6 +174,7 @@ local function readCacheFile(self, cacheFileA)
                   if ( k:sub(1,1) == '/' ) then
                      local dirTime = moduleDirT[k] or 0
                      if (attr.modification > dirTime) then
+                        k             = path_regularize(k)
                         dbg.print("saving directory: ",k," from cache file: ",f,"\n")
                         moduleDirT[k] = attr.modification
                         moduleT[k]    = v
