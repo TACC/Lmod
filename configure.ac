@@ -137,10 +137,6 @@ while test -L $luaprog; do
   oldprog=$luaprog
 done
 
-if test -n "$LUA_PATH" ; then
-  export LUA_PATH="$LUA_PATH;;"
-fi
-
 LuaV=$( $luaprog -e 'print(_VERSION)' | sed -e 's/Lua //' )
 LmodV=$( $luaprog  -e 'v=require("src/Version"); s=v.name():gsub(" .*","");print(s)')
 
