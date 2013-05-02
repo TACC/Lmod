@@ -36,6 +36,7 @@ _ml()
     "spider:List all possible modules"
     "show:display information about a module"
     "list:list loaded modules"
+    "load:load a module"
     "avail:list all available modules"
     "use:add a directory to MODULEPATH"
     "unuse:remove a directory from MODULEPATH"
@@ -182,6 +183,13 @@ _ml_swap()
 
 # Completion function for display|show
 _ml_show()
+{
+  _ml_available_modules
+  compadd "$@" -a -- _available_modules
+}
+
+# Completion function for load
+_ml_load()
 {
   _ml_available_modules
   compadd "$@" -a -- _available_modules

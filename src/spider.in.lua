@@ -206,7 +206,7 @@ function main()
       return
    end
       
-   if (masterTbl.outputStyle == "softwarePage") then
+   if (masterTbl.outputStyle == "softwarePage" or masterTbl.outputStyle == "jsonSoftwarePage")  then
       local spA = softwarePage(dbT)
       print(json.encode(spA))
       dbg.fini()
@@ -335,7 +335,7 @@ function options()
       dest   = 'outputStyle',
       action = 'store',
       default = "list",
-      help    = "Output Style: list, moduleT, dbT, reverseMapT, spider, spider-json, softwarePage, xmlSoftwarePage"
+      help    = "Output Style: list, moduleT, dbT, reverseMapT, spider, spider-json, softwarePage, jsonSoftwarePage, xmlSoftwarePage"
    }
 
    cmdlineParser:add_option{
