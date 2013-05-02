@@ -36,8 +36,11 @@ end
 
 
 local function regularizePath(path, sep)
-   if (not path or path == '') then
-      return nil
+   if (not path) then
+      return {}
+   end
+   if (path == '') then
+      return { ' ' }
    end
 
    local is, ie
@@ -45,7 +48,6 @@ local function regularizePath(path, sep)
    -- remove leading and trailing sep
    if (path:sub(1,1) == sep) then
       is = 2
-
    end
    if (path:sub(-1,-1) == sep) then
       ie = -2

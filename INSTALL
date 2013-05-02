@@ -28,10 +28,11 @@ A) You must install lua first.  You have two choices:
 
 
 B) Now with version 5.+ of Lmod, it is now very important that sites with large
-   modulefile installations, In the contrib/BuildSystemCacheFile directory is
-   an example script that shows how to build a cache file.  It also touches a file
-   called "system.txt".  Whatever this file, Lmod uses this file to know that the
-   spider cache is up-to-date.
+   modulefile installations build system spider cache files. In the
+   contrib/BuildSystemCacheFile directory is an example script that shows how
+   to build a cache file.  It also touches a file called "system.txt".  Whatever
+   the name of this file, Lmod uses this file to know that the spider cache is
+   up-to-date.
 
    Lmod uses the spider cache file as a replacement for walking the directory tree
    to find all modulefiles in your MODULEPATH.  This means that Lmod only knows

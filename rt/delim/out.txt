@@ -23,11 +23,11 @@ LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/delim/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/delim/mf/Core";
 export MODULEPATH;
-RTM_LUA_CPATH="/opt/apps/luaposix/luaposix/?.so";
+RTM_LUA_CPATH=";;";
 export RTM_LUA_CPATH;
-RTM_LUA_PATH="/opt/apps/luaposix/luaposix/?.lua;/opt/apps/luaposix/luaposix/?";
+RTM_LUA_PATH=";;";
 export RTM_LUA_PATH;
-_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/delim/mf/Core",},family={},inactive={},mT={luaposix={["FN"]="ProjectDIR/rt/delim/mf/Core/luaposix/1.0.lua",["default"]=1,["fullName"]="luaposix/1.0",["loadOrder"]=1,["mType"]="w",propT={},["short"]="luaposix",["status"]="active",},},mpathA={"ProjectDIR/rt/delim/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/delim/mf/Core",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/delim/mf/Core",},family={},inactive={},mT={init_lua={["FN"]="ProjectDIR/rt/delim/mf/Core/init_lua/5.1.4.lua",["default"]=1,["fullName"]="init_lua/5.1.4",["loadOrder"]=1,["mType"]="w",propT={},["short"]="init_lua",["status"]="active",},},mpathA={"ProjectDIR/rt/delim/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/delim/mf/Core",["version"]=2,}';
 export _ModuleTable_;
 ===========================
 step 4
@@ -40,9 +40,11 @@ LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/delim/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/delim/mf/Core";
 export MODULEPATH;
-unset RTM_LUA_CPATH;
-unset RTM_LUA_PATH;
-_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/delim/mf/Core",},family={},inactive={},mT={},mpathA={"ProjectDIR/rt/delim/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/delim/mf/Core",["version"]=2,}';
+RTM_LUA_CPATH="/opt/apps/luaposix/luaposix/?.so;;";
+export RTM_LUA_CPATH;
+RTM_LUA_PATH="/opt/apps/luaposix/luaposix/?.lua;/opt/apps/luaposix/luaposix/?;;";
+export RTM_LUA_PATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/delim/mf/Core",},family={},inactive={},mT={init_lua={["FN"]="ProjectDIR/rt/delim/mf/Core/init_lua/5.1.4.lua",["default"]=1,["fullName"]="init_lua/5.1.4",["loadOrder"]=1,["mType"]="w",propT={},["short"]="init_lua",["status"]="active",},luaposix={["FN"]="ProjectDIR/rt/delim/mf/Core/luaposix/1.0.lua",["default"]=1,["fullName"]="luaposix/1.0",["loadOrder"]=2,["mType"]="w",propT={},["short"]="luaposix",["status"]="active",},},mpathA={"ProjectDIR/rt/delim/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/delim/mf/Core",["version"]=2,}';
 export _ModuleTable_;
 ===========================
 step 5
@@ -72,12 +74,10 @@ LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/delim/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/delim/mf/Core";
 export MODULEPATH;
-RTM_LUA_CPATH="/opt/apps/luaposix/luaposix/?.so;;";
+RTM_LUA_CPATH=";;";
 export RTM_LUA_CPATH;
-RTM_LUA_PATH="/opt/apps/luaposix/luaposix/?.lua;/opt/apps/luaposix/luaposix/?;;";
+RTM_LUA_PATH=";;";
 export RTM_LUA_PATH;
-_ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/delim/mf/Core",},family={},inactive={},mT={init_lua={["FN"]="ProjectDIR/rt/delim/mf/Core/init_lua/5.1.4.lua",["default"]=1,["fullName"]="init_lua/5.1.4",["loadOrder"]=1,["mType"]="w",propT={},["short"]="init_lua",["status"]="active",},luaposix={["FN"]="ProjectDIR/rt/delim/mf/Core/luaposix/1.0.lua",["default"]=1,["fullName"]="luaposix/1.0",["loadOrder"]=2,["mType"]="w",propT={},["short"]="luaposix",["status"]="active",},},mpathA={"ProjectDIR/rt/delim/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/delim/mf/Core",["version"]=2,}';
-export _ModuleTable_;
 ===========================
 step 7
 ===========================
@@ -89,8 +89,25 @@ LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/delim/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/delim/mf/Core";
 export MODULEPATH;
+RTM_LUA_CPATH="/opt/apps/luaposix/luaposix/?.so;;";
+export RTM_LUA_CPATH;
+RTM_LUA_PATH="/opt/apps/luaposix/luaposix/?.lua;/opt/apps/luaposix/luaposix/?;;";
+export RTM_LUA_PATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/delim/mf/Core",},family={},inactive={},mT={init_lua={["FN"]="ProjectDIR/rt/delim/mf/Core/init_lua/5.1.4.lua",["default"]=1,["fullName"]="init_lua/5.1.4",["loadOrder"]=1,["mType"]="w",propT={},["short"]="init_lua",["status"]="active",},luaposix={["FN"]="ProjectDIR/rt/delim/mf/Core/luaposix/1.0.lua",["default"]=1,["fullName"]="luaposix/1.0",["loadOrder"]=2,["mType"]="w",propT={},["short"]="luaposix",["status"]="active",},},mpathA={"ProjectDIR/rt/delim/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/delim/mf/Core",["version"]=2,}';
+export _ModuleTable_;
 ===========================
 step 8
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/delim/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/delim/mf/Core";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/delim/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/delim/mf/Core";
+export MODULEPATH;
+===========================
+step 9
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/delim/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -105,7 +122,7 @@ unset RTM_LUA_PATH;
 _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/delim/mf/Core",},family={},inactive={},mT={},mpathA={"ProjectDIR/rt/delim/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/delim/mf/Core",["version"]=2,}';
 export _ModuleTable_;
 ===========================
-step 9
+step 10
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/delim/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -117,7 +134,7 @@ MODULEPATH="ProjectDIR/rt/delim/mf/Core";
 export MODULEPATH;
 false
 ===========================
-step 10
+step 11
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/delim/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -132,7 +149,7 @@ export NCAR_LIB_INTEL;
 _ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/delim/mf/Core",},family={},inactive={},mT={ncarIntel={["FN"]="ProjectDIR/rt/delim/mf/Core/ncarIntel/1.0.lua",["default"]=1,["fullName"]="ncarIntel/1.0",["loadOrder"]=1,["mType"]="w",propT={},["short"]="ncarIntel",["status"]="active",},},mpathA={"ProjectDIR/rt/delim/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/delim/mf/Core",["version"]=2,}';
 export _ModuleTable_;
 ===========================
-step 11
+step 12
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/delim/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -147,7 +164,7 @@ export NCAR_LIB_INTEL;
 _ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/delim/mf/Core",},family={},inactive={},mT={ncarIntel={["FN"]="ProjectDIR/rt/delim/mf/Core/ncarIntel/1.0.lua",["default"]=1,["fullName"]="ncarIntel/1.0",["loadOrder"]=1,["mType"]="w",propT={},["short"]="ncarIntel",["status"]="active",},ncarNetcdf={["FN"]="ProjectDIR/rt/delim/mf/Core/ncarNetcdf/1.0.lua",["default"]=1,["fullName"]="ncarNetcdf/1.0",["loadOrder"]=2,["mType"]="w",propT={},["short"]="ncarNetcdf",["status"]="active",},},mpathA={"ProjectDIR/rt/delim/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/delim/mf/Core",["version"]=2,}';
 export _ModuleTable_;
 ===========================
-step 12
+step 13
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/delim/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
