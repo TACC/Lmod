@@ -363,8 +363,16 @@ function myFileName()
    return mcp:myFileName()
 end
 
+function myModuleFullName()
+   return mcp:myModuleFullName()
+end
+
 function myModuleName()
    return mcp:myModuleName()
+end
+
+function myModuleVersion()
+   return mcp:myModuleVersion()
 end
 
 function hierarchyA(package, levels, numEntries)

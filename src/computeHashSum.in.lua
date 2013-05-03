@@ -105,7 +105,6 @@ function main()
          package.cpath
    end
    
-   dbg.print("package.path: ",package.path,"\n")
    dbg.print("lmodPath: \"", lmodPath,"\"\n")
    require("SitePackage") 
 
@@ -113,7 +112,7 @@ function main()
    mcp           = MasterControl.build("computeHash","load")
 
    local f = masterTbl.pargs[1]
-   mStack:push("something", f)
+   mStack:push(masterTbl.moduleName, f)
    loadModuleFile(f)
    mStack:pop()
    local s = concatTbl(ComputeModuleResultsA,"")
@@ -146,9 +145,15 @@ function options()
       dest   = 'verbosityLevel',
       action = 'count',
    }
+   cmdlineParser:add_option{ 
+      name   = {'--moduleName'},
+      dest   = 'moduleName',
+      action = 'store',
+      help   = "Full name of the module file"
+   }
 
    cmdlineParser:add_option{ 
-      name   = {'-d','--debug'},
+      name   = {'-D','-d','--debug'},
       dest   = 'debug',
       action = 'store_true',
       default = false,

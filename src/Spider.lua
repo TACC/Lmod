@@ -54,20 +54,6 @@ function Spider_setenv(name, value)
    end
 end   
 
-function Spider_myFileName()
-   local masterTbl   = masterTbl()
-   local moduleStack = masterTbl.moduleStack 
-   local iStack      = #moduleStack
-   return moduleStack[iStack].fn
-end
-
-function Spider_myModuleName()
-   local masterTbl   = masterTbl()
-   local moduleStack = masterTbl.moduleStack 
-   local iStack      = #moduleStack
-   return moduleStack[iStack].full
-end
-
 function Spider_help(...)
    local masterTbl   = masterTbl()
    local moduleStack = masterTbl.moduleStack 

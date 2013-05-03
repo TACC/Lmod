@@ -1,0 +1,65 @@
+-- -*- lua -*-
+local testName = "uitSitePkg"
+testdescript = {
+   owner   = "rtm",
+   product = "modules",
+   description = [[
+	 Test initial module load
+   ]],
+   keywords = {testName},
+
+   active = 1,
+   testName = testName,
+   job_submit_method = "INTERACTIVE", 
+
+   runScript = [[
+
+     . $(projectDir)/rt/common_funcs.sh
+
+     unsetMT
+     initStdEnvVars
+     MODULEPATH_ROOT=$(testDir)/mf;     export MODULEPATH_ROOT
+     MODULEPATH=$(testDir)/mf/Core;     export MODULEPATH
+     LMOD_PACKAGE_PATH=$(testDir);      export LMOD_PACKAGE_PATH
+
+     HOME_ORIG=`(cd $HOME; /bin/pwd)`
+     HOME=`pwd`;                        export HOME
+     COUNT=0;
+     numStep=0;
+     
+     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d
+
+     LMOD_PACKAGE_PATH=$(testDir)/mf/site-scripts; export LMOD_PACKAGE_PATH
+     runMe lua $(projectDir)/src/lmod.in.lua bash --version               # 1
+     runMe lua $(projectDir)/src/lmod.in.lua bash load gcc python         # 2
+     runMe lua $(projectDir)/src/lmod.in.lua bash list                    # 3
+     runMe lua $(projectDir)/src/lmod.in.lua bash save default            # 4
+     runMe lua $(projectDir)/src/lmod.in.lua bash restore                 # 5
+     runMe lua $(projectDir)/src/lmod.in.lua bash spider                  # 6
+     
+     HOME=$HOME_ORIG
+     export HOME
+     cat _stdout.[0-9][0-9] > _stdout.orig
+     joinBase64Results -bash _stdout.orig _stdout.new
+     cleanUp _stdout.new out.txt
+
+     cat _stderr.[0-9][0-9] > _stderr.orig
+     cleanUp _stderr.orig err.txt
+
+     rm -f $(cmdResultFn)
+
+     wrapperDiff -r $(cmdResultFn) $(testDir)/out.txt out.txt
+     wrapperDiff -r $(cmdResultFn) $(testDir)/err.txt err.txt
+     testFinish -c $(cmdResultFn) -r $(resultFn) -t $(runtimeFn)
+   ]],
+
+
+   blessScript = [[
+         # perform what is needed
+   ]],
+
+   tests = {
+      { id='t1'},
+   },
+
+}

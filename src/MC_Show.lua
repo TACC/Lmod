@@ -1,16 +1,18 @@
 -- -*- lua -*-
 require("strict")
 
-MC_Show           = inheritsFrom(MasterControl)
-MC_Show.my_name   = "MC_Show"
-MC_Show.report    = MasterControl.warning
+MC_Show            = inheritsFrom(MasterControl)
+MC_Show.my_name    = "MC_Show"
+MC_Show.report     = MasterControl.warning
 
-local M           = MC_Show
-local Dbg         = require("Dbg")
-local concatTbl   = table.concat
-M.activate        = MasterControl.quiet
-M.myFileName      = MasterControl.myFileName
-M.myModuleName    = MasterControl.myModuleName
+local M            = MC_Show
+local Dbg          = require("Dbg")
+local concatTbl    = table.concat
+M.activate         = MasterControl.quiet
+M.myFileName       = MasterControl.myFileName
+M.myModuleFullName = MasterControl.myModuleFullName
+M.myModuleName     = MasterControl.myModuleName
+M.myModuleVersion  = MasterControl.myModuleVersion
 
 
 

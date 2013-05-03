@@ -324,7 +324,7 @@ function options()
    local cmdlineParser = Optiks:new{usage=usage, version="1.0"}
 
    cmdlineParser:add_option{
-      name   = {'-d','--debug'},
+      name   = {'-D','--debug'},
       dest   = 'debug',
       action = 'store_true',
       default = false,

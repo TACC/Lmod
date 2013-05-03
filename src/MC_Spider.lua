@@ -30,13 +30,44 @@ M.unset_alias          = MasterControl.quiet
 M.unset_shell_function = MasterControl.quiet
 M.usrload              = MasterControl.quiet
 M.warning              = MasterControl.warning
+
 function M.myFileName(self)
-   return Spider_myFileName()
+   local masterTbl   = masterTbl()
+   local moduleStack = masterTbl.moduleStack 
+   local iStack      = #moduleStack
+   return moduleStack[iStack].fn
 end
 
 
+function M.myModuleFullName(self)
+   local masterTbl   = masterTbl()
+   local moduleStack = masterTbl.moduleStack 
+   local iStack      = #moduleStack
+   return moduleStack[iStack].full
+end
+
 function M.myModuleName(self)
-   return Spider_myModuleName()
+   local masterTbl   = masterTbl()
+   local moduleStack = masterTbl.moduleStack 
+   local iStack      = #moduleStack
+   local full        = moduleStack[iStack].full
+   local i,j         = full:find(".*/")
+   if (j) then
+      return full:sub(1,j-1)
+   end
+   return full
+end
+
+function M.myModuleVersion(self)
+   local masterTbl   = masterTbl()
+   local moduleStack = masterTbl.moduleStack 
+   local iStack      = #moduleStack
+   local full        = moduleStack[iStack].full
+   local i,j         = full:find(".*/")
+   if (j) then
+      return full:sub(j+1,-1)
+   end
+   return ""
 end
 
 function M.help(self,...)

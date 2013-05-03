@@ -623,9 +623,29 @@ function M.myFileName(self)
    return mStack:fileName()
 end
 
-function M.myModuleName(self)
+function M.myModuleFullName(self)
    local mStack = ModuleStack:moduleStack()
    return mStack:moduleName()
+end
+
+function M.myModuleName(self)
+   local mStack = ModuleStack:moduleStack()
+   local full   = mStack:moduleName()
+   local i,j    = full:find(".*/")
+   if (j) then
+      return full:sub(1,j-1)
+   end
+   return full
+end
+
+function M.myModuleVersion(self)
+   local mStack = ModuleStack:moduleStack()
+   local full   = mStack:moduleName()
+   local i,j    = full:find(".*/")
+   if (j) then
+      return full:sub(j+1,-1)
+   end
+   return ""
 end
 
 function M.unset_family(self, name)

@@ -904,7 +904,7 @@ function M.setHashSum(self)
    if (dbg.active()) then
       cmdA[#cmdA+1] = "--indentLevel"
       cmdA[#cmdA+1] = tostring(dbg.indentLevel()+1)
-      cmdA[#cmdA+1] = "-d"
+      cmdA[#cmdA+1] = "-D"
    end
    local cmdStart = concatTbl(cmdA," ")
    
@@ -912,6 +912,8 @@ function M.setHashSum(self)
       local a = {}
       if (v.status == "active") then
          a[#a + 1]  = cmdStart
+         a[#a + 1]  = "--moduleName"
+         a[#a + 1]  = v.fullName
          a[#a + 1]  = v.FN
          local cmd  = concatTbl(a," ")
          dbg.print("cmd: ", cmd,"\n")

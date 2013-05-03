@@ -91,7 +91,9 @@ sandbox_env = {
   isloaded             = isloaded,
   isPending            = isPending,
   myFileName           = myFileName,
+  myModuleFullName     = myModuleFullName,
   myModuleName         = myModuleName,
+  myModuleVersion      = myModuleVersion,
   hierarchyA           = hierarchyA,
 
   ------------------------------------------------------------
