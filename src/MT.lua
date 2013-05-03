@@ -278,6 +278,7 @@ local function new(self, s)
    o._MPATH           = ""
    o._locationTbl     = {}
    o._availT          = {}
+   o._loadT           = {}
 
    o._changePATH      = false
    o._changePATHCount = 0
@@ -1155,7 +1156,13 @@ function M.list_property(self, idx, sn, style, legendT)
    return resultA
 end
 
-
+function M.userLoad(self, sn,usrName)
+   local dbg    = Dbg:dbg()
+   dbg.start("MT:userLoad(",sn,")")
+   local loadT  = self._loadT
+   loadT[sn]    = usrName
+   dbg.fini("MT:userLoad")
+end
 function M.reportChanges(self)
    local dbg    = Dbg:dbg()
    local master = systemG.Master:master()
@@ -1174,22 +1181,27 @@ function M.reportChanges(self)
    local activeA   = {}
    local changedA  = {}
    local reloadA   = {}
+   local loadT     = self._loadT
 
-   for k, v in pairs(mT) do
-      if (self:have(k,"inactive") and v.status == "active") then
+   for sn, v in pairs(mT) do
+      if (self:have(sn,"inactive") and v.status == "active") then
          local name = v.fullName
          if (v.default == 1) then
             name = v.short
          end
          inactiveA[#inactiveA+1] = name
-      elseif (self:have(k,"active")) then
+      elseif (self:have(sn,"active")) then
          if ( v.status == "inactive") then
-            activeA[#activeA+1] = self:fullName(k)
-         elseif (self:fileName(k) ~= v.FN ) then
-            if (self:fullName(k) == v.fullName) then
+            activeA[#activeA+1] = self:fullName(sn)
+         elseif (self:fileName(sn) ~= v.FN) then
+            if (self:fullName(sn) == v.fullName) then
                reloadA[#reloadA+1] = v.fullName
             else
-               changedA[#changedA+1] = v.fullName .. " => " .. self:fullName(k)
+               local usrName = loadT[sn]
+               local fullN   = self:fullName(sn)
+               if (usrName ~= fullN) then
+                  changedA[#changedA+1] = v.fullName .. " => " .. fullN
+               end
             end
          end
       end

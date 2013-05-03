@@ -1,7 +1,7 @@
 ===========================
 step 1
 ===========================
-Modules based on Lua: Version 4.1.4.3 2013-01-18 15:40
+Modules based on Lua: Version 5.0rc2 (5.0rc2-25-g9bbfba4) 2013-04-26 11:23
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -36,8 +36,6 @@ step 9
 ===========================
 step 10
 ===========================
-The following have been reloaded with a version change:
-  1) petsc/2.9.0 => petsc/3.1.0
 ===========================
 step 11
 ===========================

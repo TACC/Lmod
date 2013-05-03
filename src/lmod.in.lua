@@ -527,6 +527,10 @@ function UsrLoad(...)
       local sn    = mname:sn()
       if (not mt:have(sn, "active")) then
          aa[#aa+1] = a[i]
+      else
+         ------------------------------------------------------
+         -- Register user loads so that Karl will be happy.
+         mt:userLoad(sn,a[i])
       end
    end
       
@@ -713,6 +717,13 @@ local function Swap(...)
    if (not aa[1]) then
       LmodError("Swap failed.\n")
    end
+
+   ------------------------------------------------------
+   -- Register user loads so that Karl will be happy.
+
+   local mname = MName:new("load",b)
+   local sn    = mname:sn()
+   mt:userLoad(sn,b)
    mcp = mcp_old
    dbg.fini("Swap")
 end

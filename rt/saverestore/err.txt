@@ -1,7 +1,7 @@
 ===========================
 step 1
 ===========================
-Modules based on Lua: Version 5.0b4 2013-04-03 18:07
+Modules based on Lua: Version 5.0rc2 (5.0rc2-25-g9bbfba4) 2013-04-26 11:23
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -9,8 +9,6 @@ step 2
 ===========================
 step 3
 ===========================
-The following have been reloaded with a version change:
-  1) pgi/7.1 => pgi/7.2-5
 ===========================
 step 4
 ===========================
