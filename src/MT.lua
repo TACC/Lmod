@@ -912,8 +912,10 @@ function M.setHashSum(self)
       local a = {}
       if (v.status == "active") then
          a[#a + 1]  = cmdStart
-         a[#a + 1]  = "--moduleName"
+         a[#a + 1]  = "--fullName"
          a[#a + 1]  = v.fullName
+         a[#a + 1]  = "--sn"
+         a[#a + 1]  = v.short
          a[#a + 1]  = v.FN
          local cmd  = concatTbl(a," ")
          dbg.print("cmd: ", cmd,"\n")

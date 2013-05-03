@@ -118,7 +118,7 @@ function Spider_append_path(kind, name, value)
       local dbg = Dbg:dbg()
       dbg.start(kind,"(MODULEPATH=\"",name,"\", value=\"",value,"\")")
       processNewModulePATH(value)
-      dbg.fini()
+      dbg.fini(kind)
    elseif (name == "PATH") then
       processPATH(value)
    elseif (name == "LD_LIBRARY_PATH") then
@@ -135,7 +135,7 @@ function processNewModulePATH(value)
    local moduleStack = masterTbl.moduleStack 
    local iStack      = #moduleStack
    if (masterTbl.no_recursion) then
-      dbg.fini()
+      dbg.fini("processNewModulePATH")
       return
    end
 
@@ -154,7 +154,7 @@ function processNewModulePATH(value)
       moduleStack[iStack] = nil
    end
 
-   dbg.fini()
+   dbg.fini("processNewModulePATH")
 end
 
 function Spider_add_property(name,value)
@@ -170,7 +170,7 @@ function Spider_add_property(name,value)
    t[name]             = t[name] or {}
    t[name][value]      = 1
    moduleT[path].propT = t
-   dbg.fini()
+   dbg.fini("Spider_add_property")
 end
 
 function Spider_remove_property(name,value)
@@ -185,7 +185,7 @@ function Spider_remove_property(name,value)
    t[name]             = t[name] or {}
    t[name][value]      = nil
    moduleT[path].propT = t
-   dbg.fini()
+   dbg.fini("Spider_remove_property")
 end
 
 
@@ -201,18 +201,18 @@ function versionFile(path)
    local f       = io.open(path,"r")
    if (not f)                        then
       dbg.print("could not find: ",path,"\n")
-      dbg.fini()
+      dbg.fini("versionFile")
       return nil
    end
    local s       = f:read("*line")
    f:close()
    if (not s:find("^#%%Module"))      then
       dbg.print("could not find: #%Module\n")
-      dbg.fini()
+      dbg.fini("versionFile")
       return nil
    end
    local cmd = pathJoin(cmdDir(),"ModulesVersion.tcl") .. " " .. path
-   dbg.fini()
+   dbg.fini("versionFile")
    return capture(cmd):trim()
 end
 
@@ -223,7 +223,8 @@ local function findAssignedDefault(mpath, path, prefix)
    dbg.start("Spider:findAssignedDefault(",mpath,", ", path,", ",prefix,")")
 
    if (prefix == "") then
-      dbg.fini()
+      dbg.print("prefix is \"\"\n")
+      dbg.fini("Spider:findAssignedDefault")
       return nil
    end
 
@@ -254,7 +255,7 @@ local function findAssignedDefault(mpath, path, prefix)
    end
    dbg.print("(4) default: \"",default,"\"\n")
 
-   dbg.fini()
+   dbg.fini("Spider:findAssignedDefault")
    return default
 end
 
@@ -266,7 +267,7 @@ local function findDefault(mpath, path, prefix)
    dbg.start("Spider:findDefault(",mpath,", ", path,", ",prefix,")")
 
    if (prefix == "") then
-      dbg.fini()
+      dbg.fini("Spider:findDefault")
       return nil
    end
 
@@ -296,7 +297,7 @@ local function findDefault(mpath, path, prefix)
    end
    dbg.print("(4) default: \"",default,"\"\n")
 
-   dbg.fini()
+   dbg.fini("Spider:findDefault")
    return default
 end
 
@@ -336,7 +337,7 @@ local function loadModuleFile(fn)
    if (not status) then 
       LmodWarning("Unable to load file: ",fn,": ",msg,"\n")
    end
-   dbg.fini()
+   dbg.fini("Spider:loadModuleFile")
 end
 
 
@@ -389,7 +390,7 @@ function M.findModulesInDir(mpath, path, prefix, moduleT)
    if (not attr or  type(attr) ~= "table" or attr.mode ~= "directory" or
        not posix.access(path,"rx")) then
       dbg.print("Directory: ",path," is non-existant or is not readable\n")
-      dbg.fini()
+      dbg.fini("findModulesInDir")
       return
    end
    
@@ -436,7 +437,7 @@ function M.findModulesInDir(mpath, path, prefix, moduleT)
          local full = k
          local sn   = k
          moduleT[v.file] = registerModuleT(full, sn, v.file, v.file)
-         moduleStack[iStack] = {path= v.file, full = full, moduleT = moduleT, fn = v.file}
+         moduleStack[iStack] = {path= v.file, sn = sn, full = full, moduleT = moduleT, fn = v.file}
          dbg.print("Top of Stack: ",iStack, " Full: ", full, " file: ", v.file, "\n")
          
          local t = {fn = v.file, modFullName = k, modName = sn, default = true, hash = 0}
@@ -453,7 +454,7 @@ function M.findModulesInDir(mpath, path, prefix, moduleT)
       for full,v in pairs(mnameT) do
          local sn   = shortName(full)
          moduleT[v.file] = registerModuleT(full, sn, v.file, defaultModule)
-         moduleStack[iStack] = {path=v.file, full = full, moduleT = moduleT, fn = v.file}
+         moduleStack[iStack] = {path=v.file, sn = sn, full = full, moduleT = moduleT, fn = v.file}
          dbg.print("Top of Stack: ",iStack, " Full: ", full, " file: ", v.file, "\n")
          local t = {fn = v.file, modFullName = full, modName = sn, default = 0, hash = 0}
          mt:add(t,"pending")
@@ -462,7 +463,7 @@ function M.findModulesInDir(mpath, path, prefix, moduleT)
          dbg.print("Saving: Full: ", full, " Name: ", sn, " file: ",v.file,"\n")
       end
    end
-   dbg.fini()
+   dbg.fini("findModulesInDir")
 end
 
 function M.findAllModules(moduleDirA, moduleT)
@@ -502,7 +503,7 @@ function M.findAllModules(moduleDirA, moduleT)
    ------------------------------------------------------------
    -- clear temporary MT
    mt.popMT()
-   dbg.fini()
+   dbg.fini("Spider:findAllModules")
 end
 
 function M.buildSpiderDB(a, moduleT, dbT)
@@ -524,7 +525,7 @@ function M.buildSpiderDB(a, moduleT, dbT)
          end
       end
    end
-   dbg.fini()
+   dbg.fini("Spider.buildSpiderDB")
 end
 
 function M.singleSpiderDB(a, moduleT, dbT)
@@ -563,7 +564,7 @@ function M.singleSpiderDB(a, moduleT, dbT)
          a[#a]   = nil
       end
    end
-   dbg.fini()
+   dbg.fini("Spider.singleSpiderDB")
 end
 
 function M.searchSpiderDB(strA, a, moduleT, dbT)
@@ -583,7 +584,7 @@ function M.searchSpiderDB(strA, a, moduleT, dbT)
          end
       end
    end
-   dbg.fini()
+   dbg.fini("Spider:searchSpiderDB")
 end
 
 function M.singleSearchSpiderDB(strA, a, moduleT, dbT)
@@ -631,7 +632,7 @@ function M.singleSearchSpiderDB(strA, a, moduleT, dbT)
          a[#a]   = nil
       end
    end
-   dbg.fini()
+   dbg.fini("Spider.singleSearchSpiderDB")
 end
 
 function M.Level0(dbT)
@@ -768,7 +769,7 @@ function M.spiderSearch(dbT, mname, help)
    if (not found) then
       io.stderr:write("Unable to find: \"",mname,"\"\n")
    end
-   dbg.fini()
+   dbg.fini("Spider:spiderSearch")
    return concatTbl(a,"")
 end
 

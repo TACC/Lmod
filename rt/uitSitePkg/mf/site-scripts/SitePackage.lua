@@ -28,8 +28,14 @@ end
 function checkRestrictedGroup(pkg, group) 
    local dbg = Dbg:dbg()
    dbg.start("checkRestrictedGroup(pkg, \"",tostring(group),"\")")
-   if (mode() ~= "load") then return true end
-   if (group == nil)     then return true end
+   if (mode() ~= "load") then
+      dbg.fini("checkRestrictedGroup")
+      return true
+   end
+   if (group == nil)     then
+      dbg.fini("checkRestrictedGroup")
+      return true
+   end
    local err_message = "Only users in group \'" .. group .. 
         "\' can access module \'" .. pkg.id .. "\'"
    local found = false
@@ -37,19 +43,22 @@ function checkRestrictedGroup(pkg, group)
 
    for g in grps:split("[ \n]") do
       if (g == group) then
-         dbg.fini()
+         dbg.fini("checkRestrictedGroup")
          return true
       end
    end
    LmodError(err_message,"\n")
-   dbg.fini()
+   dbg.fini("checkRestrictedGroup")
    return false
 end
 
 function logUsage(pkg)
    local dbg = Dbg:dbg()
    dbg.start("logUsage(pkg)")
-   if (mode() ~= "load") then return true end
+   if (mode() ~= "load") then
+      dbg.fini("logUsage")
+      return true
+   end
    local user = os.getenv("USER")
    local jobid = os.getenv("PBS_JOBID")
    local msg = ""
@@ -62,7 +71,7 @@ function logUsage(pkg)
    end
    local cmd = "logger -t lmod -p local0.info " .. msg
    os.execute(cmd)
-   dbg.fini()
+   dbg.fini("logUsage")
 end
 
 function prependModulePath(subdir)
@@ -127,7 +136,6 @@ function loadPkgDefaults()
     local f     
     dbg.start("loadPkgDefaults()")
 
-
     pkg.name              = myModuleName()
     pkg.version           = myModuleVersion()
     pkg.id                = myModuleFullName()
@@ -140,10 +148,12 @@ function loadPkgDefaults()
     pkg.description       = ""
     pkg.help              = ""
 
+    
+    dbg.print("name: ", pkg.name, " version: ", pkg.version, " id: ",pkg.id,"\n")
+
     fn = pathJoin(defaultsDir, pkg.name .. ".lua")
     f  = io.open(fn)
 
-    dbg.print("f: ",tostring(f),", fn: ", fn,"\n")
 
     if (f) then
         whole = f:read("*all")
@@ -165,13 +175,13 @@ function loadPkgDefaults()
 end
 
 sandbox_registration {
-      getAppRoot = getAppRoot
-    , loadPkgDefaults = loadPkgDefaults
-    , setPkgInfo = setPkgInfo
-    , prependModulePath = prependModulePath
-    , appendModulePath = appendModulePath
-    , logUsage = logUsage
+      getAppRoot           = getAppRoot
+    , loadPkgDefaults      = loadPkgDefaults
+    , setPkgInfo           = setPkgInfo
+    , prependModulePath    = prependModulePath
+    , appendModulePath     = appendModulePath
+    , logUsage             = logUsage
     , checkRestrictedGroup = checkRestrictedGroup
-    , readHelpFile = readHelpFile
+    , readHelpFile         = readHelpFile
 }
 

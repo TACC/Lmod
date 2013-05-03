@@ -1,5 +1,5 @@
 require("strict")
-
+require("escape")
 ModuleStack = { }
 
 local Dbg          = require("Dbg")
@@ -43,8 +43,8 @@ function M.setting(self)
    top.setCnt = top.setCnt + 1
 end
 
-function M.push(self, name, fn)
-   local entry = {name = name, loadCnt = 0, setCnt = 0, fn= fn}
+function M.push(self, full, sn, fn)
+   local entry = {full = full, sn = sn, loadCnt = 0, setCnt = 0, fn= fn}
    local stack = self.stack
 
    stack[#stack+1] = entry
@@ -81,10 +81,24 @@ function M.moduleType(self)
    return results
 end
 
-function M.moduleName(self)
+function M.fullName(self)
    local stack = self.stack
    local top   = stack[#stack]
-   return top.name
+   return top.full
+end
+
+function M.sn(self)
+   local stack = self.stack
+   local top   = stack[#stack]
+   return top.sn
+end
+
+function M.version(self)
+   local stack   = self.stack
+   local top     = stack[#stack]
+   local full    = top.full
+   local sn      = top.sn
+   return extractVersion(full, sn) or ""
 end
 
 function M.fileName(self)

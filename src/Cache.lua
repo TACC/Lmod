@@ -312,7 +312,7 @@ function M.build(self, fast)
          dbg.print("k: ",k,"\n")
          moduleT[k] = userModuleT[k]
       end
-      dbg.print("Show that these directories have been walked")
+      dbg.print("Show that these directories have been walked\n")
       t2 = epoch()
       for i = 1,#dirA do
          local k = dirA[i]

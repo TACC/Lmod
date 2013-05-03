@@ -282,7 +282,7 @@ function M.unload(...)
          local fullModuleName = mt:fullName(sn)
          dbg.print("Master:unload: \"",fullModuleName,"\" from f: ",f,"\n")
          mt:beginOP()
-         mStack:push(fullModuleName,f)
+         mStack:push(fullModuleName, sn, f)
 	 loadModuleFile{file=f,moduleName=moduleName, 
                         fullName=fullModuleName,reportErr=false}
          mStack:pop()
@@ -356,7 +356,7 @@ function M.access(self, ...)
       systemG.ModuleName = full
       if (fn and isFile(fn)) then
          prtHdr()
-         mStack:push(full, fn)
+         mStack:push(full, mname:sn(), fn)
 	 loadModuleFile{file=fn,help=help,moduleName=moduleName,
                         fullName=full,reportErr=true}
          mStack:pop()
@@ -424,7 +424,7 @@ function M.load(...)
          dbg.print("Master:loading: \"",moduleName,"\" from f: \"",fn,"\"\n")
          mt:add(t, "pending")
 	 mt:beginOP()
-         mStack:push(t.modFullName,fn)
+         mStack:push(t.modFullName, sn, fn)
 	 loadModuleFile{file=fn,moduleName=moduleName,
                         fullName=t.modFullName,reportErr=true}
          t.mType = mStack:moduleType()
@@ -538,21 +538,22 @@ function M.inheritModule()
 
    local mStack  = ModuleStack:moduleStack()
    local myFn    = mStack:fileName()
-   local mName   = mStack:moduleName()
+   local mySn    = mStack:sn()
+   local mFull   = mStack:fullName()
    local inhTmpl = InheritTmpl:inheritTmpl()
 
    dbg.print("myFn:  ", myFn,"\n")
-   dbg.print("mName: ", mName,"\n")
+   dbg.print("mFull: ", mFull,"\n")
 
    
-   local t = inhTmpl.find_module_file(mName,myFn)
+   local t = inhTmpl.find_module_file(mFull,myFn)
    dbg.print("fn: ", t.fn,"\n")
    if (t.fn == nil) then
-      LmodError("Failed to inherit: ",mName,"\n")
+      LmodError("Failed to inherit: ",mFull,"\n")
    else
-      mStack:push(mName,t.fn)
-      loadModuleFile{file=t.fn,moduleName=mName,
-                     fullName=mName,reportErr=true}
+      mStack:push(mFull, mySn, t.fn)
+      loadModuleFile{file=t.fn,moduleName=mFull,
+                     fullName=mFull,reportErr=true}
       mStack:pop()
    end
    dbg.fini("Master:inherit")

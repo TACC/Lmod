@@ -112,7 +112,7 @@ function main()
    mcp           = MasterControl.build("computeHash","load")
 
    local f = masterTbl.pargs[1]
-   mStack:push(masterTbl.moduleName, f)
+   mStack:push(masterTbl.fullName, masterTbl.sn, f)
    loadModuleFile(f)
    mStack:pop()
    local s = concatTbl(ComputeModuleResultsA,"")
@@ -146,8 +146,15 @@ function options()
       action = 'count',
    }
    cmdlineParser:add_option{ 
-      name   = {'--moduleName'},
-      dest   = 'moduleName',
+      name   = {'--fullName'},
+      dest   = 'fullName',
+      action = 'store',
+      help   = "Full name of the module file"
+   }
+
+   cmdlineParser:add_option{ 
+      name   = {'--sn'},
+      dest   = 'sn',
       action = 'store',
       help   = "Full name of the module file"
    }

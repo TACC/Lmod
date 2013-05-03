@@ -410,9 +410,9 @@ function M.add_property(self, name, value)
    local dbg    = Dbg:dbg()
    dbg.start("MasterControl:add_property(\"",name,"\", \"",value,"\")")
    local mStack  = ModuleStack:moduleStack()
-   local mName   = mStack:moduleName()
+   local mFull   = mStack:fullName()
    local mt      = MT:mt()
-   local mname   = MName:new("load",mName)
+   local mname   = MName:new("load",mFull)
    mt:add_property(mname:sn(), name, value)
    dbg.fini()
 end
@@ -421,9 +421,9 @@ function M.remove_property(self, name, value)
    local dbg     = Dbg:dbg()
    dbg.start("MasterControl:remove_property(\"",name,"\", \"",value,"\")")
    local mStack  = ModuleStack:moduleStack()
-   local mName   = mStack:moduleName()
+   local mFull   = mStack:fullName()
    local mt      = MT:mt()
-   local mname   = MName:new("mt",mName)
+   local mname   = MName:new("mt",mFull)
    mt:remove_property(mname:sn(), name, value)
    dbg.fini()
 end
@@ -484,7 +484,7 @@ function M.prereq(self, ...)
    local mt        = MT:mt()
    local a         = {}
    local mStack    = ModuleStack:moduleStack()
-   local mName     = mStack:moduleName()
+   local mFull     = mStack:fullName()
    local masterTbl = masterTbl()
 
    dbg.start("MasterControl:prereq(",concatTbl({...},", "),")")
@@ -509,7 +509,7 @@ function M.prereq(self, ...)
    dbg.print("number found: ",#a,"\n")
    if (#a > 0) then
       local s = concatTbl(a," ")
-      LmodError("Can not load: \"",mName,"\" module without these modules loaded:\n  ",
+      LmodError("Can not load: \"",mFull,"\" module without these modules loaded:\n  ",
             s,"\n")
    end
    dbg.fini()
@@ -523,7 +523,7 @@ function M.conflict(self, ...)
    local mt        = MT:mt()
    local a         = {}
    local mStack    = ModuleStack:moduleStack()
-   local mName     = mStack:moduleName()
+   local mFull     = mStack:fullName()
    local masterTbl = masterTbl()
 
    if (masterTbl.checkSyntax) then
@@ -548,7 +548,7 @@ function M.conflict(self, ...)
    end
    if (#a > 0) then
       local s = concatTbl(a," ")
-      LmodError("Can not load: \"",mName,"\" module because these modules are loaded:\n  ",
+      LmodError("Can not load: \"",mFull,"\" module because these modules are loaded:\n  ",
             s,"\n")
    end
    dbg.fini()
@@ -559,7 +559,7 @@ function M.prereq_any(self, ...)
    local mt        = MT:mt()
    local a         = {}
    local mStack    = ModuleStack:moduleStack()
-   local mName     = mStack:moduleName()
+   local mFull     = mStack:fullName()
    local masterTbl = masterTbl()
 
    dbg.start("MasterControl:prereq_any(",concatTbl({...},", "),")")
@@ -582,7 +582,7 @@ function M.prereq_any(self, ...)
 
    if (not found) then
       local s = concatTbl(a," ")
-      LmodError("Can not load: \"",mName,"\" module.  At least one of these modules must be loaded:\n  ",
+      LmodError("Can not load: \"",mFull,"\" module.  At least one of these modules must be loaded:\n  ",
             concatTbl({...},", "),"\n")
    end
    dbg.fini()
@@ -594,8 +594,8 @@ function M.family(self, name)
    local dbg       = Dbg:dbg()
    local mt        = MT:mt()
    local mStack    = ModuleStack:moduleStack()
-   local mName     = mStack:moduleName()
-   local mname     = MName:new("mt",mName)
+   local mFull     = mStack:fullName()
+   local mname     = MName:new("mt",mFull)
    local sn        = mname:sn()
    local masterTbl = masterTbl()
 
@@ -612,7 +612,7 @@ function M.family(self, name)
       LmodError("You can only have one ",name," module loaded at a time.\n",
                 "You already have ", oldName," loaded.\n",
                 "To correct the situation, please enter the following command:\n\n",
-                "  module swap ",oldName, " ", mName,"\n\n",
+                "  module swap ",oldName, " ", mFull,"\n\n",
                 "Please submit a consulting ticket if you require additional assistance.\n")
    end
    dbg.fini()
@@ -625,27 +625,17 @@ end
 
 function M.myModuleFullName(self)
    local mStack = ModuleStack:moduleStack()
-   return mStack:moduleName()
+   return mStack:fullName()
 end
 
 function M.myModuleName(self)
    local mStack = ModuleStack:moduleStack()
-   local full   = mStack:moduleName()
-   local i,j    = full:find(".*/")
-   if (j) then
-      return full:sub(1,j-1)
-   end
-   return full
+   return mStack:sn()
 end
 
 function M.myModuleVersion(self)
    local mStack = ModuleStack:moduleStack()
-   local full   = mStack:moduleName()
-   local i,j    = full:find(".*/")
-   if (j) then
-      return full:sub(j+1,-1)
-   end
-   return ""
+   return mStack:version()
 end
 
 function M.unset_family(self, name)

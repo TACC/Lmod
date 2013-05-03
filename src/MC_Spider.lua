@@ -50,12 +50,7 @@ function M.myModuleName(self)
    local masterTbl   = masterTbl()
    local moduleStack = masterTbl.moduleStack 
    local iStack      = #moduleStack
-   local full        = moduleStack[iStack].full
-   local i,j         = full:find(".*/")
-   if (j) then
-      return full:sub(1,j-1)
-   end
-   return full
+   return moduleStack[iStack].sn
 end
 
 function M.myModuleVersion(self)
@@ -63,11 +58,8 @@ function M.myModuleVersion(self)
    local moduleStack = masterTbl.moduleStack 
    local iStack      = #moduleStack
    local full        = moduleStack[iStack].full
-   local i,j         = full:find(".*/")
-   if (j) then
-      return full:sub(j+1,-1)
-   end
-   return ""
+   local sn          = moduleStack[iStack].sn
+   return extractVersion(full, sn) or ""
 end
 
 function M.help(self,...)
