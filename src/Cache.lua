@@ -69,7 +69,6 @@ local function new(self, t)
       end
    end
 
-   local usrCacheDir  = pathJoin(os.getenv("HOME"), ".lmod.d/.cache")
    local usrCacheDirA = {
       { file = pathJoin(usrCacheDir, "moduleT.lua"), fileT = "your",
         timestamp = systemEpoch

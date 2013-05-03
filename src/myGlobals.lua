@@ -152,10 +152,25 @@ shortLifeCache = ancient/12
 sysCacheDirs    = os.getenv("LMOD_SPIDER_CACHE_DIRS") or "@cacheDirs@"
 
 ------------------------------------------------------------------------
+-- USE_DOT_FILES: Use ~/.lmod.d/.cache or ~/.lmod.d/__cache__
+------------------------------------------------------------------------
+
+USE_DOT_FILES = "@use_dot_files@"
+
+------------------------------------------------------------------------
 -- usrCacheDir: user cache directory
 ------------------------------------------------------------------------
-usrCacheDir   = pathJoin(os.getenv("HOME"),".lmod.d",".cache")
-
+USER_CACHE_DIR_NAME  = ".cache"
+USER_SAVE_DIR_NAME   = ".save"
+USER_SBATCH_DIR_NAME = ".saveBatch"
+if ( USE_DOT_FILES:lower() == "no" ) then
+  USER_CACHE_DIR_NAME  = "__cache__"
+  USER_SAVE_DIR_NAME   = "__save__"
+  USER_SBATCH_DIR_NAME = "__saveBatch__"
+end
+usrCacheDir   = pathJoin(os.getenv("HOME"),".lmod.d",USER_CACHE_DIR_NAME)
+usrSaveDir    = pathJoin(os.getenv("HOME"),".lmod.d",USER_SAVE_DIR_NAME)
+usrSBatchDir  = pathJoin(os.getenv("HOME"),".lmod.d",USER_SBATCH_DIR_NAME)
 ------------------------------------------------------------------------
 -- usrCacheFileA: Array of user cache files
 ------------------------------------------------------------------------

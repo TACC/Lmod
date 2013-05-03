@@ -737,7 +737,7 @@ function RecordCmd()
    local mt   = MT:mt()
    local s    = serializeTbl{indent=true, name="_ModuleTable_", value=_ModuleTable_}
    local uuid = UUIDString(epoch())
-   local fn   = pathJoin(getenv("HOME"), ".lmod.d", ".save", uuid .. ".lua")
+   local fn   = pathJoin(usrSaveDir, uuid .. ".lua")
 
    local d = dirname(fn)
    local attr = lfs.attributes(d)

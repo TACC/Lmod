@@ -16,6 +16,7 @@ package.path = cmd_dir .. "tools/?.lua;" ..
 require("strict")
 require("fileOps")
 require("string_split")
+require("myGlobals")
 require("declare")
 
 
@@ -46,7 +47,7 @@ function main()
       iuser   = iuser + 1
       pb:progress(iuser)
 
-      local dir  = pathJoin(homeDir,".lmod.d",".save")
+      local dir  = usrSaveDir
       local attr = lfs.attributes(dir)
       if ( attr and attr.mode == "directory") then
          for file in lfs.dir(dir) do
@@ -61,7 +62,7 @@ function main()
          end
       end
 
-      local dir = pathJoin(homeDir,".lmod.d",".saveBatch")
+      local dir  = usrSBatchDir
       local attr = lfs.attributes(dir)
       if ( attr and attr.mode == "directory") then
          for file in lfs.dir(dir) do

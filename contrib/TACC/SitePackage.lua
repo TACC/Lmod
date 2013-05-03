@@ -23,8 +23,8 @@ local function load_hook(t)
    ------------------------------------------------------------------------
    -- Exit out if MPI rank is greater than zero
    ------------------------------------------------------------------------
-   local A = {"PMI_RANK", "PMI_ID", "MPIRUN_RANK",
-              "OMPI_COMM_WORLD_RANK", "OMPI_MCA_ns_nds_vpid"}
+   local A = {"PMI_RANK", "PMI_ID", "OMPI_COMM_WORLD_RANK",
+              "OMPI_MCA_ns_nds_vpid"}
 
 
    for i = 1,#A do
@@ -44,7 +44,7 @@ local function load_hook(t)
    local moduleInfoT = { modFullName=t.modFullName, fn=t.fn}
    local s           = serializeTbl{name="moduleInfoT", value=moduleInfoT}
    local uuid        = UUIDString(os.time())
-   local dirN        = pathJoin(getenv("HOME"), ".lmod.d", ".saveBatch")
+   local dirN        = usrSBatchDir
    local fn          = pathJoin(dirN, uuid .. ".lua")
 
    if (not isDir(dirN)) then

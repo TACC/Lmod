@@ -1,3 +1,4 @@
+USE_DOT_FILES            := @USE_DOT_FILES@
 ZSH_SITE_FUNCTIONS_DIR   := @ZSH_SITE_FUNCTIONS_DIR@
 SPIDER_CACHE_DESCRIPT_FN := @SPIDER_CACHE_DESCRIPT_FN@
 PREPEND_BLOCK     	 := @PREPEND_BLOCK@
@@ -83,6 +84,7 @@ __installMe:
 	        -e 's|@path_to_lua@|$(PATH_TO_LUA)|g'                 \
 	        -e 's|@path_to_hashsum@|$(PATH_TO_HASHSUM)|g'         \
 	        -e 's|@path_to_pager@|$(PATH_TO_PAGER)|g'             \
+                -e 's|@use_dot_files@|$(USE_DOT_FILES)|g'             \
                 -e 's|@git@|$(GIT_VERSION)|g'                         \
 	        -e 's|@ancient@|$(ANCIENT)|g'                         \
 	        -e 's|@prepend_block@|$(PREPEND_BLOCK)|g'             \

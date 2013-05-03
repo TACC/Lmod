@@ -39,12 +39,24 @@ AC_ARG_WITH(shortTime,
     SHORT_TIME="$withval"
     AC_DEFINE_UNQUOTED(SHORT_TIME, "$withval"))dnl
 
+AC_SUBST(USE_DOT_FILES)
+AC_ARG_WITH(useDotFiles,
+    AC_HELP_STRING([--with-useDotFiles=yes/no],[If yes use ~/.lmod.d/.cache, if no use ~/.lmod.d/__cache__]),
+    USE_DOT_FILES="$withval"
+    AC_MSG_RESULT([USE_DOT_FILES=$with_useDotFiles])
+    AC_DEFINE_UNQUOTED(USE_DOT_FILES, "$with_useDotFiles")dnl
+    ,
+    withval="yes"
+    AC_MSG_RESULT([USE_DOT_FILES=$withval])
+    USE_DOT_FILES="$withval"
+    AC_DEFINE_UNQUOTED(USE_DOT_FILES, "$withval"))dnl
+
 AC_SUBST(SPIDER_CACHE_DIRS)
 AC_ARG_WITH(spiderCacheDir,
     AC_HELP_STRING([--with-spiderCacheDir=dir1:dir2],[use these directories to hold a spider cache file [[]]]),
     SPIDER_CACHE_DIRS="$withval"
     AC_MSG_RESULT([SPIDER_CACHE_DIRS=$with_spiderCacheDir])
-    AC_DEFINE_UNQUOTED(SHORT_TIME, "$with_spiderCacheDir")dnl
+    AC_DEFINE_UNQUOTED(SPIDER_CACHE_DIRS, "$with_spiderCacheDir")dnl
     ,
     withval=""
     AC_MSG_RESULT([SPIDER_CACHE_DIRS=$withval])

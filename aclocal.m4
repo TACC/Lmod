@@ -13,7 +13,7 @@ AC_DEFUN([AX_SUMMARIZE_CONFIG],
 [
 
 echo
-echo '----------------------------------- SUMMARY -----------------------------------'
+echo '----------------------------------- SUMMARY ----------------------------------'
 echo
 echo "Package version............................." : Lmod-$LmodV
 echo 
@@ -30,9 +30,10 @@ echo "Colorized output supported.................." : $COLORIZE
 echo "File that is touched when system is updated." : $UPDATE_SYSTEM_FN
 echo "Allow duplicate entry in PATHs.............." : $DUPLICATE_PATHS
 echo "ZSH Tab Completion Functions Site Directory." : $ZSH_SITE_FUNCTIONS_DIR
+echo "Use Dot files in ~/.lmod.d.................." : $USE_DOT_FILES
 
 echo
-echo '-------------------------------------------------------------------------------'
+echo '------------------------------------------------------------------------------'
 
 echo
 echo Configure complete, now type \'make\' and then \'make install\'.

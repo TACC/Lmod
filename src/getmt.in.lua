@@ -19,6 +19,7 @@ require("strict")
 require("fileOps")
 require("serializeTbl")
 require("capture")
+require("myGlobals")
 
 _ModuleTable_  = ""
 local posix    = require("posix")
@@ -90,7 +91,7 @@ function main()
    local fn = nil
    if (optionTbl.save_state) then
       local uuid = UUIDString(epoch())
-      fn = pathJoin(getenv("HOME"), ".lmod.d", ".save", uuid .. ".lua")
+      fn = pathJoin(usrSaveDir, uuid .. ".lua")
    elseif (optionTbl.fn) then
       fn = optionTbl.fn
    end
