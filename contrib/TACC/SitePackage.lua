@@ -3,16 +3,20 @@ require("serializeTbl")
 require("myGlobals")
 require("string_split")
 require("string_trim")
+local Dbg    = require("Dbg")
 local hook   = require("Hook")
 local getenv = os.getenv
 local posix  = require("posix")
 
 local function load_hook(t)
    
+   local dbg = Dbg:dbg()
+   dbg.start("load_hook()")
    ------------------------------------------------------------------------
    -- Exit out if regular (not a batch job)
    ------------------------------------------------------------------------
    if (getenv("ENVIRONMENT") ~= "BATCH") then
+      dbg.fini()
       return
    end
 
@@ -26,6 +30,7 @@ local function load_hook(t)
    for i = 1,#A do
       local my_rank = tonumber(getenv(A[i])) or 0
       if (my_rank > 0) then
+         dbg.fini()
          return
       end
    end
@@ -35,6 +40,7 @@ local function load_hook(t)
    -- it is zero.  So write record.
    ------------------------------------------------------------------------
 
+   dbg.print("fullName: ",t.modFullName,"\n")
    local moduleInfoT = { modFullName=t.modFullName, fn=t.fn}
    local s           = serializeTbl{name="moduleInfoT", value=moduleInfoT}
    local uuid        = UUIDString(os.time())
@@ -50,6 +56,7 @@ local function load_hook(t)
       f:write(s)
       f:close()
    end
+   dbg.fini()
 end
 
 buildHostsT = {
