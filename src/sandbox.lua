@@ -109,6 +109,7 @@ sandbox_env = {
   barefilename         = barefilename,
   splitFileName        = splitFileName,
   abspath              = abspath,
+  path_regularize      = path_regularize,
 
   ------------------------------------------------------------
   -- lfs functions

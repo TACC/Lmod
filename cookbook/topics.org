@@ -1,0 +1,66 @@
+Here are a list of possible topics for a Lmod Cookbook.
+
+* Intro:
+The other manuals (user guide, advanced user guide, and system
+adminstration guide) are there to describe how to use Lmod either from
+a user, advanced user or sys-admin point of view.  But what is not
+discussed is how Lmod is the pivot point or fulcrum for how "optional"
+software is provided to users, where and how software is stored.
+
+
+* Software Hierarchy:
+Does this need to be discussed further?
+Maybe.
+
+Layout questions for both name/version and category/name/version
+
+The fact that having compiler or compiler/mpi dependent pkgs means
+that there are going to be multiple copies of the packages no matter
+what you do.  How to do handle this.
+
+Maybe talk about spider tech here?
+
+* Package Management Issues: Dealing multiple copies of the same or similar packages.
+
+Working with Lmod means that there will be multiple copies of
+packages.  Either you will have multiple version of a compiler or any
+other package. Or you will have multiple copies of the same version of
+the same package (e.g: boost 1.53.0 for both intel, gcc, or fftw3 3.3 for
+gcc 4.7.2/ mpich/3.0 and intel 13.0, mpich/3.0, and ...).  How be DRY!
+
+1) use TACC's way of packaging software (or similar)  put all your
+   information in the rpm spec file.  This builds the software package
+   and it creates the module file.  TACC uses a parameterized spec
+   file.  So if there are two compilers and two mpi stacks we build
+   the software 4 times with the same spec file, each time with
+   different command line options.
+
+2) Use symbolic links and generic type modulefiles.  Here I discuss
+   the lua functions myFileName(), myModuleFullName(),etc.
+
+3) Use Jonas Technique for a pkg class and having a generic module
+   located at the Lmod location.
+
+* Talk about generic modulefiles?
+describe myFileName(), myModuleFullName(), etc.  Also discuss hierarchyA()
+
+* Generating Software Pages directly from Module files.
+  Talk about json, xml, and dbT.lua files.
+
+* inherit
+
+* Tracking module usage.
+Talk about syslogd approach, talk about .bash_logout approach, talk
+about load hook.
+
+* Testing Lmod?
+
+* Working on Lmod?
+
+* Modules and startup behavior in a parallel environment
+
+Problems with module commands in a user's ~/.bashrc
+
+* pushenv?
+
+ 

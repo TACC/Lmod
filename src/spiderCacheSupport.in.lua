@@ -60,6 +60,7 @@ function buildFromEnvVars(cacheDirs, updateFn)
 
    local i = 0
    for dir in cacheDirs:split(":") do
+      dir = path_regularize(dir)
       i = i + 1
       scDescriptT[i] = { dir = dir, timestamp = updateFn}
    end
@@ -84,7 +85,7 @@ function buildFromDescript(descriptFn)
           not line:find("^%s*$")) then
          local a = {}
          for v in line:split(':') do
-            a[#a+1] = v:trim()
+            a[#a+1] = path_regularize(v:trim())
          end
          i = i + 1
          scDescriptT[i] = { dir = a[1], timestamp = a[2] or false }

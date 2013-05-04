@@ -76,13 +76,13 @@ function main()
    --           has to be non-nil
 
    local lmodCmdA = {
-      add="load",
       avail="avail",  av="avail", 
       getdefault="getdefault", gd="getdefault", 
       help="help",
       key="keyword", keyword="keyword",
       list="list",
       listdefault="listdefault", ld="listdefault",
+      load="load", add="load",
       purge="purge",
       r="restore", restore="restore",
       refresh="refresh",

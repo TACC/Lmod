@@ -18,7 +18,7 @@ testdescript = {
 
      unsetMT
      initStdEnvVars
-     MODULEPATH_ROOT=$(projectDir)/mf;  export MODULEPATH_ROOT
+     MODULEPATH_ROOT=$(projectDir)/mf//;  export MODULEPATH_ROOT
      numStep=0
      COUNT=0
      HOME=`(cd $HOME; /bin/pwd)`

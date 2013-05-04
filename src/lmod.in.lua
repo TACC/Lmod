@@ -962,8 +962,7 @@ function main()
    require("StandardPackage")
 
    ------------------------------------------------------------------------
-   -- Try to load a SitePackage Module,  If it is not there then do not
-   -- abort.  Sites do not have to have a Site package.
+   -- Load a SitePackage Module.
    ------------------------------------------------------------------------
 
 
@@ -980,11 +979,10 @@ function main()
    end
 
    dbg.print("lmodPath: ", lmodPath,"\n")
-   require("SitePackage") 
+   require("SitePackage")
 
    local cmdName = masterTbl.pargs[1]
    table.remove(masterTbl.pargs,1)
-
 
    ------------------------------------------------------------
    -- Must output local variables even when there is the command

@@ -84,6 +84,7 @@ end
 local function add2map(entry, tbl, rmapT, kind)
    for path in pairs(tbl) do
       local attr = lfs.attributes(path) 
+      path = path_regularize(path)
       if (keepThisPath(path) and attr and attr.mode == "directory") then
          path = abspath(path)
          rmapT[path] = {pkg=entry.full, flavor=entry.parent, kind=kind}
@@ -117,7 +118,7 @@ function main()
 
    for _, v in ipairs(pargs) do
       for path in v:split(":") do
-         moduleDirA[#moduleDirA+1] = path
+         moduleDirA[#moduleDirA+1] = path_regularize(path)
       end
    end
 
@@ -139,8 +140,7 @@ function main()
    colorize = plain
 
    ------------------------------------------------------------------------
-   -- Try to load a SitePackage Module,  If it is not there then do not
-   -- abort.  Sites do not have to have a Site package.
+   -- Load a SitePackage Module.  
    ------------------------------------------------------------------------
 
    local lmodPath = os.getenv("LMOD_PACKAGE_PATH") or ""
