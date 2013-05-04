@@ -231,11 +231,11 @@ function M.build(self, fast)
    dbg.print("buildModuleT: ",buildModuleT,"\n")
 
    
+   local short    = mt:getShortTime()
    if (not buildModuleT) then
       ancient = _G.ancient or ancient
-      mt:setRebuildTime(ancient, false)
+      mt:setRebuildTime(ancient, short)
    else
-      local short    = mt:getShortTime()
       local prtRbMsg = ( (not masterTbl.expert)               and
                          (not masterTbl.initial)              and
                          ((not short) or (short > shortTime)) and
@@ -244,7 +244,11 @@ function M.build(self, fast)
       dbg.print("short: ", short, " shortTime: ", shortTime,"\n")
       
       if (prtRbMsg) then
-         io.stderr:write("Rebuilding cache file, please wait ...")
+         if (dbg.active()) then
+            dbg.print("Rebuilding cache file, please wait ...\n")
+         else
+            io.stderr:write("Rebuilding cache file, please wait ...")
+         end
       end
       
       local mcp_old = mcp
@@ -254,14 +258,15 @@ function M.build(self, fast)
       Spider.findAllModules(dirA, userModuleT)
       local t2 = epoch()
       
-      
-
-
       mcp           = mcp_old
       dbg.print("Resetting mpc to ", mcp:name(),"\n")
 
       if (prtRbMsg) then
-         io.stderr:write(" done.\n\n")
+         if (dbg.active()) then
+            dbg.print("done.\n")
+         else
+            io.stderr:write(" done.\n\n")
+         end
       end
       dbg.print("t2-t1: ",t2-t1, " shortTime: ", shortTime, "\n")
    
