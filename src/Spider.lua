@@ -32,6 +32,11 @@
 --
 --------------------------------------------------------------------------
 
+--------------------------------------------------------------------------
+-- Spider.lua: This Class walks the MODULEPATH.  
+--------------------------------------------------------------------------
+
+
 require("TermWidth")
 require("strict")
 require("string_split")
@@ -133,7 +138,6 @@ function processPATH(value)
    moduleT[path].pathA = pathA
 end
 
-
 function Spider_append_path(kind, name, value)
    if (name == "MODULEPATH") then
       local dbg = Dbg:dbg()
@@ -214,9 +218,7 @@ end
 --module("Spider")
 ------------------------------------------------------------
 
-
-
-function versionFile(path)
+local function versionFile(path)
    local dbg     = Dbg:dbg()
    dbg.start("versionFile(",path,")")
    local f       = io.open(path,"r")

@@ -4082,20 +4082,20 @@ function M.master(279,8508
 function M.safeToUpdate(287,8665
 function M.unload(291,8720
 function M.versionFile(338,10234
-local function access_find_module_file(359,10832
-function M.access(373,11197
-function M.reload(411,12408
-function M.load(431,12898
-function M.fakeload(482,14558
-function M.reloadAll(504,15076
-function M.inheritModule(567,17405
-local function dirname(594,18131
-local function prtDirName(604,18270
-local function findDefault(620,18600
-local function availEntry(665,19971
-local function availDir(736,21837
-local function availOptions(770,23213
-function M.avail(793,23746
+local function access_find_module_file(359,10860
+function M.access(373,11225
+function M.reload(411,12436
+function M.load(431,12926
+function M.fakeload(482,14586
+function M.reloadAll(504,15104
+function M.inheritModule(567,17433
+local function dirname(594,18159
+local function prtDirName(604,18298
+local function findDefault(620,18628
+local function availEntry(665,19999
+local function availDir(736,21865
+local function availOptions(770,23241
+function M.avail(793,23774
 
 src/MasterControl.lua,1554
 function M.name(57,2323
@@ -4179,39 +4179,39 @@ function Python.expandVar(55,2165
 function Python.unset(70,2527
 
 src/Spider.lua,1173
-function nothing(61,2262
-function masterTbl(66,2308
-function Spider_setenv(72,2380
-function Spider_help(78,2496
-function Spider_whatis(89,2860
-function processLPATH(107,3380
-function processPATH(121,3849
-function Spider_append_path(137,4308
-function processNewModulePATH(150,4681
-function Spider_add_property(181,5724
-function Spider_remove_property(197,6277
-function versionFile(219,6985
-local function findAssignedDefault(240,7581
-local function findDefault(284,8834
-local function loadModuleFile(325,10017
-local function fullName(365,10888
-local function shortName(384,11246
-local function registerModuleT(389,11349
-function M.findModulesInDir(405,11669
-function M.findAllModules(490,15069
-function M.buildSpiderDB(530,16273
-function M.singleSpiderDB(552,16872
-function M.searchSpiderDB(591,17951
-function M.singleSearchSpiderDB(611,18521
-function M.Level0(659,19927
-function M.Level0Helper(697,20715
-local function countEntries(747,22288
-function M.spiderSearch(759,22528
-function M._Level1(797,23665
-function M.Level2(869,25653
-function M.listModules(987,29299
-function M.listModulesHelper(1001,29575
-function M.dictModules(1014,29892
+function nothing(66,2464
+function masterTbl(71,2510
+function Spider_setenv(77,2582
+function Spider_help(83,2698
+function Spider_whatis(94,3062
+function processLPATH(112,3582
+function processPATH(126,4051
+function Spider_append_path(141,4509
+function processNewModulePATH(154,4882
+function Spider_add_property(185,5925
+function Spider_remove_property(201,6478
+function versionFile(221,7184
+local function findAssignedDefault(242,7780
+local function findDefault(286,9033
+local function loadModuleFile(327,10216
+local function fullName(367,11087
+local function shortName(386,11445
+local function registerModuleT(391,11548
+function M.findModulesInDir(407,11868
+function M.findAllModules(492,15268
+function M.buildSpiderDB(532,16472
+function M.singleSpiderDB(554,17071
+function M.searchSpiderDB(593,18150
+function M.singleSearchSpiderDB(613,18720
+function M.Level0(661,20126
+function M.Level0Helper(699,20914
+local function countEntries(749,22487
+function M.spiderSearch(761,22727
+function M._Level1(799,23864
+function M.Level2(871,25852
+function M.listModules(989,29498
+function M.listModulesHelper(1003,29774
+function M.dictModules(1016,30091
 
 src/StandardPackage.lua,44
 local function parse_updateFn_hook(39,1800
@@ -4345,46 +4345,46 @@ local function quoteWrap(52,2283
 function usage(56,2352
 function main(83,3626
 
-src/modfuncs.lua,1186
-local function concatTbl(46,2004
-function validateStringArgs(63,2332
-function validateArgsWithValue(79,2812
-function load(104,3528
-function try_load(114,3741
-function unload(126,3990
-function always_load(137,4212
-function always_unload(147,4453
-function prepend_path(159,4726
-function append_path(168,4946
-function remove_path(177,5162
-function setenv(188,5414
-function unsetenv(198,5623
-function pushenv(208,5837
-function add_property(220,6079
-function remove_property(229,6299
-function set_alias(241,6567
-function unset_alias(250,6778
-function set_shell_function(259,6994
-function unset_shell_function(268,7238
-function prereq(279,7517
-function conflict(288,7713
-function prereq_any(297,7917
-function family(308,8154
-function inherit(319,8376
-function whatis(330,8543
-function help(339,8739
-function LmodError(349,8916
-function LmodWarning(355,9010
-function LmodMessage(361,9108
-function is_spider(367,9206
-function mode(375,9340
-function isloaded(383,9459
-function isPending(390,9649
-function myFileName(397,9842
-function myModuleFullName(401,9896
-function myModuleName(405,9962
-function myModuleVersion(409,10020
-function hierarchyA(413,10084
+src/modfuncs.lua,1204
+local function concatTbl(59,2674
+local function validateStringArgs(76,3002
+local function validateArgsWithValue(92,3488
+function load(117,4210
+function try_load(127,4423
+function unload(139,4672
+function always_load(150,4894
+function always_unload(160,5135
+function prepend_path(172,5408
+function append_path(181,5628
+function remove_path(190,5844
+function setenv(201,6096
+function unsetenv(211,6305
+function pushenv(221,6519
+function add_property(233,6761
+function remove_property(242,6981
+function set_alias(254,7249
+function unset_alias(263,7460
+function set_shell_function(272,7676
+function unset_shell_function(281,7920
+function prereq(292,8199
+function conflict(301,8395
+function prereq_any(310,8599
+function family(321,8836
+function inherit(332,9058
+function whatis(343,9225
+function help(352,9421
+function LmodError(362,9598
+function LmodWarning(368,9692
+function LmodMessage(374,9790
+function is_spider(380,9888
+function mode(388,10022
+function isloaded(396,10141
+function isPending(403,10331
+function myFileName(410,10524
+function myModuleFullName(414,10578
+function myModuleName(418,10644
+function myModuleVersion(422,10702
+function hierarchyA(426,10766
 
 src/pager.lua,57
 function bypassPager(40,1733
@@ -4679,8 +4679,6 @@ src/MC_Unload.lua,0
 src/MC_Refresh.lua,0
 
 src/MC_Load.lua,0
-
-src/COPYRIGHT,0
 
 setup/perl.in,0
 

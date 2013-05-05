@@ -45,6 +45,8 @@
 -- constructed in the various modes Lmod gets run in.  The modes include
 -- load, unload, show, etc.  See MC_Load.lua and the other MC_*.lua files
 -- As well as the base class MasterControl.lua for more details.
+
+-- See src/tools/Dbg.lua for details on how this debugging tool works.
 --------------------------------------------------------------------------
 
 require("strict")
