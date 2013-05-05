@@ -34,7 +34,6 @@ require("fillWords")
 require("lastFileInDir")
 require("sandbox")
 
-ModuleName=""
 local BeautifulTbl = require('BeautifulTbl')
 local ColumnTable  = require('ColumnTable')
 local Dbg          = require("Dbg")

@@ -19,6 +19,7 @@ end
 
 require("myGlobals")
 require("strict")
+require("utils")
 require("colorize")
 require("border")
 require("serializeTbl")

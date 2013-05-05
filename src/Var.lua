@@ -5,18 +5,9 @@ local Dbg           = require("Dbg")
 local ModulePath    = ModulePath
 local concatTbl     = table.concat
 local huge          = math.huge
-local io            = io
-local ipairs        = ipairs
-local os            = os
-local pairs         = pairs
-local pairsByKeys   = pairsByKeys
-local print         = print
 local posix         = require("posix")
 local setenv        = posix.setenv
-local setmetatable  = setmetatable
 local systemG       = _G
-local table         = table
-local type          = type
 
 
 --module("Var")

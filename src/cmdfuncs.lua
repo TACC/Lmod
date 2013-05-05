@@ -1,6 +1,6 @@
-------------------------------------------------------------------------
--- The command functions
-------------------------------------------------------------------------
+-------------------------------------------------------------------------
+-- The command functions: The all the user commands are implemented here.
+-------------------------------------------------------------------------
 
 require("strict")
 require("myGlobals")
@@ -17,172 +17,100 @@ local getenv       = os.getenv
 local hook         = require("Hook")
 local posix        = require("posix")
 
-local s_readRC     = false
-RCFileA = {
-   pathJoin(os.getenv("HOME"),".lmodrc.lua"),
-   pathJoin(cmdDir(),"../../etc/.lmodrc.lua"),
-   pathJoin(cmdDir(),"../init/.lmodrc.lua"),
-   os.getenv("LMOD_RC"),
-}
+local function Access(mode, ...)
+   local dbg       = Dbg:dbg()
+   local master    = Master:master()
+   local masterTbl = masterTbl()
+   dbg.start("Access(", concatTbl({...},", "),")")
+   mcp = MasterControl.build("access", mode)
+   mcp.activate(mode,true)
 
-function readRC()
-   if (s_readRC) then
-      s_readRC = true
-      return 
+   local n = select('#',...)
+   if (n < 1) then
+      pcall(pager, io.stderr, masterTbl.cmdHelpMsg, "\n", Usage, "\n",
+            version()) 
+      os.exit(1)
    end
 
-   declare("propT",       false)
-   declare("scDescriptT", false)
-   local results = {}
-
-   for i = 1,#RCFileA do
-      local f  = RCFileA[i]
-      local fh = io.open(f)
-      if (fh) then
-         assert(loadfile(f))()
-         fh:close()
-         break
-      end
-   end
-   s_propT       = _G.propT         or {}
-   s_scDescriptT = _G.scDescriptT   or {}
+   master:access(...)
+   mcp.activate(mode,false)
+   dbg.fini("Access")
 end
 
-function getPropT()
-   return s_propT
-end
-
-function getSCDescriptT()
-   return s_scDescriptT
-end
-
-function UUIDString(epoch)
-   local ymd  = os.date("*t", epoch)
-
-   --                                y    m    d    h    m    s
-   local uuid_date = string.format("%d_%02d_%02d_%02d_%02d_%02d", 
-                                   ymd.year, ymd.month, ymd.day, 
-                                   ymd.hour, ymd.min,   ymd.sec)
-   
-   local uuid_str  = capture("uuidgen"):sub(1,-2)
-   local uuid      = uuid_date .. "-" .. uuid_str
-
-   return uuid
-end
-
-function Purge()
-   local master = Master:master()
-   local mt     = MT:mt()
-   local dbg    = Dbg:dbg()
-   local totalA  = mt:list("short","any")
-
-   if (#totalA < 1) then
-      return
-   end
-
-   local a = {}
-   for _,v in ipairs(totalA) do
-      a[#a + 1] = v
-   end
-   dbg.start("Purge(",concatTbl(a,", "),")")
-
-   MCP:unload(unpack(a))
-
-   -- Make Default Path be the new MODULEPATH
-
-   mt:buildMpathA(mt:getBaseMPATH())
-
-   dbg.fini("Purge")
-end
-
-local __expert = false
-
-function expert()
-   if (__expert == false) then
-      __expert = getenv("LMOD_EXPERT")
-   end
-   return __expert
-end
-
-
-function extractVersion(full, sn)
-   if (full == nil or sn == nil) then
-      return nil
-   end
-   local pat     = '^' .. escape(sn) .. '/?'
-   local version = full:gsub(pat,"")
-   if (version == "") then
-      version = nil
-   end
-   return version
-end
-
-function readAdmin()
-
-   -- If there is anything in [[adminT]] then return because
-   -- this routine has already read in the file.
-   if (next (adminT)) then return end
-
-   local adminFn = getenv("LMOD_ADMIN_FILE") or pathJoin(cmdDir(),"../../etc/admin.list")
-   local f       = io.open(adminFn,"r")
-
-   -- Put something in adminT so that this routine will not be
-   -- run again even if the file does not exist.
-   adminT["foo"] = "bar"
-
-   if (f) then
-      local whole = f:read("*all") .. "\n"
-      f:close()
-
-
-      -- Parse file: ignore "#" comment lines and blank lines
-      -- Split lines on ":" module:message
-
-      local state = "init"
-      local key   = "unknown"
-      local value = nil
-      local a     = {}
-
-      for v in whole:split("\n") do
-
-         if (v:sub(1,1) == "#") then
-            -- ignore this comment line
-
-
-         elseif (v:find("^%s*$")) then
-            if (state == "value") then
-               value       = concatTbl(a, " ")
-               a           = {}
-               adminT[key] = value
-               state       = "init"
-            end
-
-            -- Ignore blank lines
-         elseif (state == "value") then
-            a[#a+1]     = v:trim()
+local function FindDefaults(a,path)
+   for file in lfs.dir(path) do
+      if (file:sub(1,1) ~= "." and file:sub(-1) ~= "~") then
+         local f    = pathJoin(path,file)
+         local attr = lfs.attributes(f)
+         if (attr and attr.mode == "directory") then
+            FindDefaults(a,f)
          else
-            local i     = v:find(":")
-            if (i) then
-               key      = v:sub(1,i-1):trim()
-               local  s = v:sub(i+1):trim()
-               if (s:len() > 0) then
-                  a[#a+1]  = s
-               end
-               state    = "value"
-            end
+            a[#a+1] = f
          end
       end
    end
 end
 
-
-function prtErr(...)
-   io.stderr:write(...)
+function Avail(...)
+   local dbg    = Dbg:dbg()
+   local master = Master:master()
+   local a = {}
+   for _,v in ipairs{...} do
+      a[#a + 1] = v
+   end
+   master.avail(a)
 end
 
-function length(s)
-   s = s:gsub("\027[^m]+m","")
-   return s:len()
+function GetDefault(a)
+   local dbg  = Dbg:dbg()
+   a          = a or "default"
+   dbg.start("GetDefault(",a,")")
+
+   local path = pathJoin(os.getenv("HOME"), ".lmod.d", a)
+   local mt   = MT:mt()
+   mt:getMTfromFile(path)
+   dbg.fini("GetDefault")
+end
+
+function Help(...)
+   local dbg = Dbg:dbg()
+
+   prtHdr = function()
+               io.stderr:write("\n")
+               io.stderr:write("----------- Module Specific Help for \"" .. ModuleName ..
+                               "\"------------------\n")
+            end
+
+   Access("help",...)
+end
+
+function Keyword(...)
+   local dbg    = Dbg:dbg()
+   dbg.start("Keyword(",concatTbl({...},","),")")
+
+   local master  = Master:master()
+   local cache   = Cache:cache()
+   local moduleT = cache:build()
+   local s
+   local dbT = {}
+   Spider.searchSpiderDB({...},{"default"},moduleT, dbT)
+   local a = {}
+   local ia = 0
+
+   local banner = border(0)
+
+   ia = ia+1; a[ia] = "\n"
+   ia = ia+1; a[ia] = banner
+   ia = ia+1; a[ia] = "The following modules match your search criteria: \""
+   ia = ia+1; a[ia] = concatTbl({...},"\", \"")
+   ia = ia+1; a[ia] = "\"\n"
+   ia = ia+1; a[ia] = banner
+   ia = ia+1; a[ia] = "\n"
+
+   Spider.Level0Helper(dbT,a)
+   pcall(pager,io.stderr,concatTbl(a,""))
+
+   dbg.fini("Keyword")
 end
 
 function List(...)
@@ -226,7 +154,6 @@ function List(...)
       return
    end
          
-
    io.stderr:write("\n",msg,msg2,"\n")
    local kk = 0
    local legendT = {}
@@ -242,7 +169,6 @@ function List(...)
          end
       end
    end
-
 
    if (kk == 0) then
       io.stderr:write("  None found.\n")
@@ -287,24 +213,119 @@ function List(...)
    dbg.fini("List")
 end
 
-function activateWarning()
-   s_haveWarnings = true
+function Load_Try(...)
+   local master = Master:master()
+   local mt     = MT:mt()
+   local dbg    = Dbg:dbg()
+
+   dbg.start("Load_Try(",concatTbl({...},", "),")")
+   deactivateWarning()
+   Load_Usr(...)
+   activateWarning()
+   dbg.fini("Load_Try")
 end
 
-function deactivateWarning()
-   s_haveWarnings = false
+function Load_Usr(...)
+   local master = Master:master()
+   local mt     = MT:mt()
+   local dbg    = Dbg:dbg()
+
+   dbg.start("Load_Usr(",concatTbl({...},", "),")")
+   local a = {}
+   for _,v in ipairs{...} do
+      if (v:sub(1,1) == "-") then
+         MCP:unload(v:sub(2))
+      else
+         if (v:sub(1,1) == "+") then
+            v = v:sub(2)
+         end
+         a[#a + 1] = v
+         local mname = MName:new("load",v)
+         local sn    = mname:sn()
+         if (mt:have(sn, "active")) then
+            MCP:unload(v)
+         end
+      end
+   end
+
+   local mcp_old = mcp
+   mcp           = MCP
+   local b       = mcp:load(unpack(a))
+   mcp           = mcp_old
+
+   
+   local aa = {}
+   for i = 1,#a do
+      local v     = a[i]
+      local mname = MName.new(MName, "load", v)
+      local sn    = mname:sn()
+      if (not mt:have(sn, "active")) then
+         aa[#aa+1] = a[i]
+      else
+         ------------------------------------------------------
+         -- Register user loads so that Karl will be happy.
+         mt:userLoad(sn,a[i])
+      end
+   end
+      
+   if (#aa > 0) then
+      local s = concatTbl(aa," ")
+      LmodWarning("Did not find: ",s,"\n\n",
+                  "Try: \"module spider ", s,"\"\n" )
+   end
+
+   dbg.fini("Load_Usr")
+   return b
 end
 
-function haveWarnings()
-   return s_haveWarnings
+function Purge()
+   local master = Master:master()
+   local mt     = MT:mt()
+   local dbg    = Dbg:dbg()
+   local totalA  = mt:list("short","any")
+
+   if (#totalA < 1) then
+      return
+   end
+
+   local a = {}
+   for _,v in ipairs(totalA) do
+      a[#a + 1] = v
+   end
+   dbg.start("Purge(",concatTbl(a,", "),")")
+
+   MCP:unload(unpack(a))
+
+   -- Make Default Path be the new MODULEPATH
+
+   mt:buildMpathA(mt:getBaseMPATH())
+
+   dbg.fini("Purge")
 end
 
-function setWarningFlag()
-   s_warning = true
+function RecordCmd()
+   local dbg = Dbg:dbg()
+   dbg.start("RecordCmd()")
+   local mt   = MT:mt()
+   local s    = serializeTbl{indent=true, name="_ModuleTable_",
+                             value=_ModuleTable_}
+   local uuid = UUIDString(epoch())
+   local fn   = pathJoin(usrSaveDir, uuid .. ".lua")
+
+   local d = dirname(fn)
+   local attr = lfs.attributes(d)
+   if (not attr) then
+      mkdir_recursive(d)
+   end 
+
+   local f = io.open(fn,"w")
+   if (f) then
+      f:write(s)
+      f:close()
+   end
+   dbg.fini("RecordCmd")
 end
-function getWarningFlag()
-   return s_warning
-end
+
 
 function Refresh()
    local dbg = Dbg:dbg()
@@ -321,4 +342,315 @@ function Refresh()
    dbg.print("Resetting mcp to : ",mcp:name(),"\n")
    dbg.fini("Refresh")
 end
+
+function Reset(msg)
+   local dbg    = Dbg:dbg()
+   dbg.start("Reset()")
+   Purge()
+   local default = os.getenv("LMOD_SYSTEM_DEFAULT_MODULES") or ""
+   dbg.print("default: \"",default,"\"\n")
+
+   default = default:trim()
+   default = default:gsub(" *, *",":")
+   default = default:gsub(" +",":")
+
+   if (msg ~= false) then
+      io.stderr:write("Restoring modules to system default\n")
+   end
+
+   if (default == "") then
+      io.stderr:write("\nThe system default contains no modules\n")
+      io.stderr:write("  (env var: LMOD_SYSTEM_DEFAULT_MODULES is empty)\n\n")
+      dbg.fini("Reset")
+      return
+   end
+
+
+   local a = {}
+   for m in default:split(":") do
+      dbg.print("m: ",m,"\n")
+      a[#a + 1] = m
+   end
+   if (#a > 0) then
+      Load_Usr(unpack(a))
+   end
+   dbg.fini("Reset")
+end
+
+function Restore(a)
+   local dbg    = Dbg:dbg()
+   dbg.start("Restore(",a,")")
+
+   local msg 
+   local path
+
+   if (a == nil) then
+      path = pathJoin(os.getenv("HOME"), ".lmod.d", "default")
+      if (not isFile(path)) then
+         a = "system"
+      end
+   elseif (a ~= "system") then
+      path = pathJoin(os.getenv("HOME"), ".lmod.d", a)
+      if (not isFile(path)) then
+         LmodError(" User module collection: \"",a,"\" does not exist.\n",
+                   " Try \"module savelist\" for possible choices.\n")
+      end
+   end
+
+   local masterTbl = masterTbl()
+
+   if (a == "system" ) then
+      msg = "system default"
+   else
+      a   = a or "default"
+      msg = "user's "..a
+   end
+
+   if (masterTbl.initial) then
+      msg = false
+   end
+
+
+   if (a == "system" ) then
+      Reset(msg)
+   else
+      local mt      = MT:mt()
+      local results = mt:getMTfromFile(path,msg) or Reset(true)
+   end
    
+   dbg.fini("Restore")
+end
+
+function Save(...)
+   local mt   = MT:mt()
+   local dbg  = Dbg:dbg()
+   local a    = select(1, ...) or "default"
+   local path = pathJoin(os.getenv("HOME"), LMODdir)
+   dbg.start("Save(",concatTbl({...},", "),")")
+
+   if (a == "system") then
+      LmodWarning("The named collection 'system' is reserved. Please choose another name.\n")
+      dbg.fini("Save")
+      return
+   end
+
+
+   local aa = mt:safeToSave()
+
+   if (#aa > 0) then
+      LmodWarning("Unable to save module state as a \"default\"\n",
+                  "The following module(s):\n",
+                  "  ",concatTbl(aa,", "),"\n",
+                  "mix load statements with setting of environment variables.\n")
+      dbg.fini("Save")
+      return
+   end
+
+   local attr = lfs.attributes(path)
+   if (not attr) then
+      mkdir_recursive(path)
+   end
+   path = pathJoin(path, a)
+   if (isFile(path)) then
+      os.rename(path, path .. "~")
+   end
+   mt:setHashSum()
+   serializeTbl{name=mt:name(), value=mt, fn = path, indent = true}
+   mt:hideHash()
+   if (not expert()) then
+      io.stderr:write("Saved current collection of modules to: ",a,"\n")
+   end
+   dbg.fini("Save")
+end
+
+function SaveList(...)
+   local mt   = MT:mt()
+   local dbg  = Dbg:dbg()
+   local path = pathJoin(os.getenv("HOME"), LMODdir)
+   local i    = 0
+
+   local a = {}
+   local b = {}
+
+   FindDefaults(b,path)
+   for k = 1,#b do
+      local name = b[k]
+      local i,j  = name:find(path,1,true)
+      if (i) then
+         name = name:sub(j+2)
+      end
+      a[#a+1] = "  " .. k .. ") " .. name
+   end
+
+   if (#a > 0) then
+      io.stderr:write("Possible named collection(s):\n")
+      local ct = ColumnTable:new{tbl=a,gap=0}
+      io.stderr:write(ct:build_tbl(),"\n")
+   end
+end
+
+function Show(...)
+   local dbg    = Dbg:dbg()
+   local master = Master:master()
+   dbg.start("Show(", concatTbl({...},", "),")")
+
+   mcp = MasterControl.build("show")
+
+   prtHdr       = function()
+                     io.stderr:write("------------------------------------------------------------\n")
+                     io.stderr:write("   ",ModuleFn,":\n")
+                     io.stderr:write("------------------------------------------------------------\n")
+                  end
+
+   master:access(...)
+   dbg.fini("Show")
+end
+
+function SpiderCmd(...)
+   local dbg = Dbg:dbg()
+   dbg.start("SpiderCmd(", concatTbl({...},", "),")")
+   local cache   = Cache:cache()
+   local moduleT = cache:build()
+
+   local master = Master:master()
+   local s
+   local dbT = {}
+   local errorRtn = LmodError
+   Spider.buildSpiderDB({"default"},moduleT, dbT)
+   LmodError = errorRtn
+
+   local arg = {n=select('#',...),...}
+
+   if (arg.n < 1) then
+      s = Spider.Level0(dbT)
+   else
+      local a = {}
+      local help = false
+      for i = 1, arg.n do
+         if (i == arg.n) then help = true end
+         a[#a+1] = Spider.spiderSearch(dbT, arg[i], help)
+      end
+      s = concatTbl(a,"\n")
+   end
+   pcall(pager,io.stderr, s, "\n")
+   dbg.fini("SpiderCmd")
+end
+
+function Swap(...)
+   local dbg = Dbg:dbg()
+   local a = select(1, ...) or ""
+   local b = select(2, ...) or ""
+   local s = {}
+
+   dbg.start("Swap(",concatTbl({...},", "),")")
+
+   local n = select("#", ...)
+   if (n ~= 2) then
+      LmodError("Wrong number of arguments to swap.\n")
+   end
+
+   local mt    = MT:mt()
+   local mname = MName:new("load",a)
+   local sn    = mname:sn()
+   if (not mt:have(sn,"any")) then
+      LmodError("Swap failed: \"",a,"\" is not loaded.\n")
+   end
+
+   local mcp_old = mcp
+   mcp           = MCP
+   mcp:unload(a)
+   local aa = mcp:load(b)
+   if (not aa[1]) then
+      LmodError("Swap failed.\n")
+   end
+
+   ------------------------------------------------------
+   -- Register user loads so that Karl will be happy.
+
+   local mname = MName:new("load",b)
+   local sn    = mname:sn()
+   mt:userLoad(sn,b)
+   mcp = mcp_old
+   dbg.fini("Swap")
+end
+
+function TableList()
+   local dbg    = Dbg:dbg()
+   dbg.start("TableList()")
+   local mt = MT:mt()
+
+   local t = {}
+   local activeA = mt:list("short","active")
+   for i,v  in ipairs(activeA) do
+      dbg.print("v: ",v,"\n")
+      local mname   = MName:new("mt",v)
+      local sn      = mname:sn()
+      local version = mname:version()
+      dbg.print("v: ",v,"\n")
+      dbg.print("sn: ",sn,", version: ",version,"\n")
+      t[sn] = version
+   end
+   local s = serializeTbl{name="activeList",indent=true, value=t}
+   io.stderr:write(s,"\n")
+   dbg.fini()
+end
+
+function Update()
+   local master = Master:master()
+   master:reloadAll()
+end
+   
+function Use(...)
+   local dbg = Dbg:dbg()
+   local mt  = MT:mt()
+   local a = {}
+   local op = MCP.prepend_path
+   dbg.start("Use(", concatTbl({...},", "),")")
+
+   for _,v in ipairs{...} do
+      local w = v:lower()
+      if (w == "-a" or w == "--append" ) then
+         op = MCP.append_path
+      else
+         a[#a + 1] = v
+      end
+   end
+   local nodups = true
+   for _,v in ipairs(a) do
+      v = abspath(v)
+      if (v) then
+         op(MCP, ModulePath,  v, ":", nodups)
+         op(MCP, DfltModPath, v, ":", nodups)
+      end
+   end
+   mt:buildBaseMpathA(varTbl[DfltModPath]:expand())
+   mt:reloadAllModules()
+   dbg.fini("Use")
+end
+
+function UnUse(...)
+   local dbg = Dbg:dbg()
+   local mt  = MT:mt()
+   dbg.start("UnUse(", concatTbl({...},", "),")")
+   for _,v in ipairs{...} do
+      MCP:remove_path( ModulePath,v)
+      MCP:remove_path( DfltModPath,v)
+   end
+   mt:buildBaseMpathA(varTbl[DfltModPath]:expand())
+   mt:reloadAllModules()
+   dbg.fini("UnUse")
+end
+
+function UnLoad(...)
+   local dbg    = Dbg:dbg()
+   dbg.start("UnLoad(",concatTbl({...},", "),")")
+   MCP:unload(...)
+   dbg.fini("UnLoad")
+end
+
+function Whatis(...)
+   local dbg = Dbg:dbg()
+   prtHdr    = dbg.quiet
+   Access("whatis",...)
+end
+

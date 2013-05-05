@@ -13,29 +13,18 @@ require("pager")
 local M = {}
 
 local Dbg         = require("Dbg")
-local assert      = assert
 local border      = border
 local capture     = capture
 local cmdDir      = cmdDir
 local concatTbl   = table.concat
 local extname     = extname
 local fillWords   = fillWords
-local io          = io
-local ipairs      = ipairs
 local lfs         = require("lfs")
-local loadfile    = loadfile
-local loadstring  = loadstring
-local next        = next
-local pairs       = pairs
 local pairsByKeys = pairsByKeys 
 local pathJoin    = pathJoin
 local posix       = require("posix")
 local print       = print
-local os          = os
 local systemG     = _G
-local tonumber    = tonumber
-local tostring    = tostring
-local type        = type
 
 function nothing()
 end

@@ -21,6 +21,7 @@ HashSum = "@path_to_hashsum@"
 
 require("myGlobals")
 require("strict")
+require("utils")
 
 require("fileOps")
 require("capture")

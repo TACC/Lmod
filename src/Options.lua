@@ -2,17 +2,11 @@ require("strict")
 
 Error = nil
 local Dbg          = require("Dbg")
-local arg          = arg
 local format       = string.format
-local next         = next
-local pairs        = pairs
 local posix        = require("posix")
-local require      = require
 local setenv       = posix.setenv
-local setmetatable = setmetatable
 local stderr       = io.stderr
 local systemG      = _G
-local version      = version
 
 --module("Options")
 

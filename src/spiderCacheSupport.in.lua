@@ -19,6 +19,7 @@ package.path = cmd_dir .. "tools/?.lua;" ..
 local Optiks = require("Optiks")
 local lfs    = require("lfs")
 require("strict")
+require("utils")
 require("fileOps")
 require("string_split")
 require("string_trim")
