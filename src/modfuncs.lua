@@ -7,7 +7,6 @@ local ModuleStack = require("ModuleStack")
 local _concatTbl  = table.concat
 
 local function concatTbl(aa,sep)
-
    local a = {}
    for i = 1, #aa do
       local v     = aa[i]
@@ -64,7 +63,6 @@ function validateArgsWithValue(cmdName, ...)
 end
 
 --- Load family functions ----
-
 
 function load(...)
    local dbg = Dbg:dbg()
@@ -375,23 +373,30 @@ function myModuleVersion()
    return mcp:myModuleVersion()
 end
 
-function hierarchyA(package, levels, numEntries)
+function hierarchyA(package, levels)
    local dbg = Dbg:dbg()
-   numEntries = numEntries or 2
    local fn  = myFileName():gsub("%.lua$","")
+
+   if (levels < 1) then
+      return {}
+   end
 
    -- Remove package from end of string by using the
    -- "plain" matching via string.find function
-   package = package:gsub("%.lua$","")
+   package = path_regularize(package:gsub("%.lua$",""))
    local i,j = fn:find(package,1,true)
    if (j == fn:len()) then
       fn = fn:sub(1,i-1)
    end
 
-   -- remove any leading or trailing '/' or duplicate '/'
-   fn       = fn:gsub("^/","")
-   fn       = fn:gsub("/$","")
-   fn       = fn:gsub("//+","/")
+   fn = path_regularize(fn)
+   local j          = 0
+   local numEntries = 0
+   while (j) do
+      j          = package:find("/",j+1)
+      numEntries = numEntries + 1
+   end
+
    local a = {}
 
    for dir in fn:split("/") do
@@ -413,4 +418,3 @@ function hierarchyA(package, levels, numEntries)
 
    return b
 end
-
