@@ -51,7 +51,7 @@ CONTRIB_DIRS           	 :=  \
 
 CONTRIB                  := $(patsubst %, contrib/%, $(CONTRIB_DIRS))
 lua_code	  	 := $(filter-out %.in.lua, $(wildcard src/*.lua))                         \
-                            $(wildcard src/*.tcl) src/COPYRIGHT 
+                            $(wildcard src/*.tcl)
 VDATE		  	 := $(shell date +'%F %H:%M')
 
 ComputeHashSum    	 := src/computeHashSum.in.lua

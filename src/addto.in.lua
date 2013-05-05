@@ -64,6 +64,10 @@ local lfs    = require("lfs")
 local Optiks = require("Optiks")
 local master = {}
 
+function cmdDir()
+   return cmd_dir
+end
+
 function masterTbl()
    return master
 end

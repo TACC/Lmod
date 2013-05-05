@@ -68,6 +68,9 @@ local format   = string.format
 local getenv   = os.getenv
 local huge     = math.huge
 
+function cmdDir()
+   return cmd_dir
+end
 function UUIDString(epoch)
    local ymd  = os.date("*t", epoch)
 

@@ -58,6 +58,9 @@ local format       = string.format
 local getenv       = os.getenv
 local huge         = math.huge
 
+function cmdDir()
+   return cmd_dir
+end
 function bash_export(name, value)
    local a = {}
    if (value == "") then

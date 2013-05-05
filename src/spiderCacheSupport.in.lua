@@ -44,6 +44,10 @@ local cmd_dir = "./"
 if (i) then
    cmd_dir = cmd:sub(1,j)
 end
+function cmdDir()
+   return cmd_dir
+end
+
 package.path = cmd_dir .. "tools/?.lua;" ..
                cmd_dir .. "?.lua;"       .. package.path
 
@@ -56,6 +60,7 @@ require("fileOps")
 require("string_split")
 require("string_trim")
 require("serializeTbl")
+
 
 function main()
 

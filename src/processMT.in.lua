@@ -62,6 +62,9 @@ local ProgressBar = require("ProgressBar")
 local concatTbl   = table.concat
 local lfs         = require("lfs")
 
+function cmdDir()
+   return cmd_dir
+end
 function main()
    local optionTbl = options()
    local outputFh  = io.open(optionTbl.fn,"a")
