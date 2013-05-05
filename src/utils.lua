@@ -1,6 +1,41 @@
+--------------------------------------------------------------------------
+-- Lmod License
+--------------------------------------------------------------------------
+--
+--  Lmod is licensed under the terms of the MIT license reproduced below.
+--  This means that Lua is free software and can be used for both academic
+--  and commercial purposes at absolutely no cost.
+--
+--  ----------------------------------------------------------------------
+--
+--  Copyright (C) 2008-2013 Robert McLay
+--
+--  Permission is hereby granted, free of charge, to any person obtaining
+--  a copy of this software and associated documentation files (the
+--  "Software"), to deal in the Software without restriction, including
+--  without limitation the rights to use, copy, modify, merge, publish,
+--  distribute, sublicense, and/or sell copies of the Software, and to
+--  permit persons to whom the Software is furnished to do so, subject
+--  to the following conditions:
+--
+--  The above copyright notice and this permission notice shall be 
+--  included in all copies or substantial portions of the Software.
+--
+--  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+--  EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+--  OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+--  NONINFRINGEMENT.  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS
+--  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN
+--  ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+--  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+--  THE SOFTWARE.
+--
+--------------------------------------------------------------------------
+
 require("strict")
 require("fileOps")
 require("string_split")
+require("parseVersion")
 local getenv = os.getenv
 
 function prtErr(...)
@@ -162,4 +197,57 @@ function readAdmin()
          end
       end
    end
+end
+
+
+local Dbg       = require("Dbg")
+local lfs       = require("lfs")
+local posix     = require("posix")
+local concatTbl = table.concat
+
+function lastFileInDir(fn)
+   local dbg      = Dbg:dbg()
+   dbg.start("lastFileInDir(",fn,")")
+   local lastKey   = ''
+   local lastValue = ''
+   local result    = nil
+   local fullName  = nil
+   local count     = 0
+   
+   local attr = lfs.attributes(fn)
+   if (attr and attr.mode == 'directory' and posix.access(fn,"x")) then
+      for file in lfs.dir(fn) do
+         local f = pathJoin(fn, file)
+         attr = lfs.attributes(f)
+         local readable = posix.access(f,"r")
+         if (readable and file:sub(1,1) ~= "." and attr.mode == 'file' and file:sub(-1,-1) ~= '~') then
+            dbg.print("fn: ",fn," file: ",file," f: ",f,"\n")
+            count = count + 1
+            local key = file:gsub("%.lua$","")
+            key       = concatTbl(parseVersion(key),".")
+            if (key > lastKey) then
+               lastKey   = key
+               lastValue = f
+            end
+         end
+      end
+      if (lastKey ~= "") then
+         result     = lastValue
+      end
+   end
+   dbg.print("result: ",result,"\n")
+   dbg.fini()
+   return result, count
+end
+
+local rep=string.rep
+borderG = nil
+nspacesG = 0
+function border(nspaces)
+   if (not borderG or nspaces ~= nspacesG) then
+      nspacesG = nspaces
+      local term_width = TermWidth() - 4
+      borderG = rep(" ",nspaces) .. rep("-", term_width) .. "\n"
+   end
+   return borderG
 end

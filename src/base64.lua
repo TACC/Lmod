@@ -12,8 +12,6 @@ local string = string
 local M = {}
 require("strict")
 
-
-
 --module("base64")
 
 local function lsh(value,shift)
