@@ -337,22 +337,22 @@ end
 
 function M.versionFile(path)
    local dbg     = Dbg:dbg()
-   dbg.start("versionFile(",path,")")
+   dbg.start("Master:versionFile(",path,")")
    local f       = io.open(path,"r")
    if (not f)                        then
       dbg.print("could not find: ",path,"\n")
-      dbg.fini("versionFile")
+      dbg.fini("Master:versionFile")
       return nil
    end
    local s       = f:read("*line")
    f:close()
    if (not s:find("^#%%Module"))      then
       dbg.print("could not find: #%Module\n")
-      dbg.fini("versionFile")
+      dbg.fini("Master:versionFile")
       return nil
    end
    local cmd = pathJoin(cmdDir(),"ModulesVersion.tcl") .. " " .. path
-   dbg.fini("versionFile")
+   dbg.fini("Master:versionFile")
    return capture(cmd):trim()
 end
 
