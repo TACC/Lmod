@@ -1,0 +1,221 @@
+Generic Module files:
+---------------------
+
+Converting the module path into package location:
+-----------------------------------------------------
+
+Modulefiles are the way we set the environment variables and possibly
+shell aliases to access a particular application or library.  The
+trouble is that there can be many modules each with minor changes
+between each of them.  For example, the difference between various the
+modulefiles for each instance of gcc compiler might only be the
+version number.  Another example is say the Parallel HDF5 modulefile.
+For the same version of P-HDF5 there might be several instances of the
+modulefile, one for each of the various compiler and MPI stack
+combinations.
+
+It might be nice to create reuseable modulefiles for both gcc and
+parallel HDF5 modulefile.  In another cookbook section "Hierarchical
+Naming Convection",  we discussed file names for both package location
+and its modulefile name.  To make this discussion concrete, we are
+going to assume one naming convention.  Here is the package location:
+
+  $prefix/${compiler}-$C_Version/${mpi}-$M_Version/$pkg/$version
+
+And module file location for a parallel package:
+
+  $mprefix/MPI/$compiler/$C_Version/$mpi/$M_Version/$pkg/$version
+
+so for the parallel package P-HDF5 1.8.10 built with gcc 4.7.2 and mpich
+3.0.4 the two paths are:
+
+  /opt/apps/gcc-4_7/mpich-3_0/phdf5/1.8.10/
+  /opt/apps/modulefiles/MPI/gcc/4.7/mpich/3.0/phdf5/1.8.10.lua
+
+Note that we are using the assumption that the third digit in the
+compiler and mpich stack represent bug fixes and not interface
+changes.  Therefore parallel packages do not have to be rebuilt when
+gcc 4.7.3 or mpich 3.0.5 are installed.
+
+With fixed rules for package location we can use the modulefile
+location to build its package location with some Lmod helper
+functions:
+
+    myFileName():        The complete path to the modulefile.
+    myModuleFullName():  The full name of a module.
+    myModuleName():      The short name of a module.
+    myModuleVersion():   The version of a module.
+    hierarchyA():        Returns an array of software hierachy
+                         information.
+
+The full name of a module is "name/version".  The "hierachyA()"
+function is used to extract the mpi and compiler names. It takes two
+arguments, the first is the full package name and the second is the
+number levels to return.  The number of levels for a  compiler
+dependent package would be "1" and compiler/mpi dependent package is
+"2". 
+
+A module can determine its location then with the following lua/Lmod
+code:
+
+
+   local pkgName   = myModuleFullName()
+   local hierA     = hierarchyA(pkgName, 2)
+   local mpiName   = hierA[1]:gsub("/","-"):gsub("%.","_")
+   local cmplrName = hierA[2]:gsub("/","-"):gsub("%.","_")
+   local base      = pathJoin("/opt/apps", cmplrName, mpiName, pkgName)
+
+Some sites use a naming convention of category/name/version.  Every
+thing is similar except that it makes sense to use the category name
+instead of a the fixed "MPI" string and flip the compiler and mpi
+names. The package and modulefile paths are:
+
+  $prefix/mpi-$MN-$MV/compiler-$CN-$CV/$category/$pkg/$version
+  $mprefix/mpi/$MN/$MV/compiler/$CN/$CV/$category/$pkg/$version.lua
+
+Where $MN is the mpi stack name, $MV is the mpi version, $CN is the
+compiler name and $CV is the compiler version. So the P-HDF5 package
+would have the following paths: 
+
+  /opt/apps/mpi-mpich-3_0/compiler-gcc-4_7/parallel/hdf5/1.8.10/
+  /opt/apps/modulefiles/mpi/mpich/3.0/compiler/gcc/4.7/parallel/hdf5/1.8.10.lua
+
+And the code to convert the module file location is similar to what was
+before:
+
+   local pkgName   = myModuleFullName()
+   local hierA     = hierarchyA(pkgName, 2)
+   local cmplrName = hierA[1]:gsub("/","-"):gsub("%.","_")
+   local mpiName   = hierA[2]:gsub("/","-"):gsub("%.","_")
+   local base      = pathJoin("/opt/apps", mpiName, cmplrName, pkgName)
+
+It is just that the compiler and mpi names have swapped position.  The
+hierarchyA() function determines that if the package name has three
+parts then the mpi and compiler names do as well.
+
+
+Using the "Pkg" Class:
+----------------------
+
+Modulesfiles set the environment variables and more importantly they
+can explain the what the modulefile does by providing a help message
+and strings to populate the whatis database.  Jonas Juselius has
+provided a "Pkg" class method of setting these entries and providing a
+method for all of the modulefiles of the same type to share this
+information. 
+
+So the gcc modulefile can be quite compact:
+
+    family("compiler")
+    local pkg = loadPkgDefaults(0)
+    setPkgInfo(pkg)
+    prependModulePath(pathJoin("Compiler", pkg.id))
+    prepend_path("MANPATH",         pathJoin(pkg.prefix, "share/man"))
+    prepend_path("PATH",            pathJoin(pkg.prefix, "bin"))
+    prepend_path("LD_LIBRARY_PATH", pathJoin(pkg.prefix, "lib64"))
+
+This modulefile takes advantage of the SitePackage.lua file which
+defines the package functions such as loadPkgDefaults().  The
+loadPkgDefault(level) function could look like this:
+
+  SiteRootDir = "/opt/apps"
+  DefaultsDir = "/opt/apps/modulefiles/Defaults"
+  function loadPkgDefaults(levels) 
+      local pkg = {}
+      local status
+      local msg
+      local whole
+
+      ------------------------------------------------------------
+      -- Fill default values
+      pkg.name         = myModuleName()
+      pkg.version      = myModuleVersion()
+      pkg.id           = myModuleFullName()
+      pkg.display_name = pkg.name
+      pkg.url          = ""
+      pkg.license      = ""
+      pkg.category     = ""
+      pkg.keywords     = ""
+      pkg.description  = ""
+      pkg.help         = ""
+
+      ------------------------------------------------------------
+      -- build package prefix from modulefile location
+      local hierA      = hierarchyA(pkgName, levels)
+      local a          = {}
+      a[#a+1]          = SiteRootDir
+      for i = levels,1,-1 do
+         a[#a+1] = hierA[i]:gsub("/","-"):gsub("%.","_")
+      end
+      a[#a+1]          = pkg.id
+      pkg.prefix       = pathJoin(unpack(a))
+
+      
+      ------------------------------------------------------------
+      -- Read default package description file 
+
+      local fn         = pathJoin(DefaultsDir, pkg.name .. ".lua")
+      local f          = io.open(fn)
+      local whole      = false
+      local status     = false
+      local msg        = "Empty file"
+      if (f) then
+          whole = f:read("*all")
+          f:close()
+      end
+
+      ------------------------------------------------------------
+      -- Evaluate string from package description file through
+      -- sandbox_run for safety checks.
+
+      if (whole) then
+          status, msg = sandbox_run(whole)
+      end
+
+      if (not status) then
+          LmodError("Unable to load file: ", fn, ": ", msg, "\n")
+      end
+
+      for k,v in pairs(msg) do
+         pkg[k] = v
+      end
+      return pkg
+  end
+
+
+The above code uses the hierarchyA function to extract the compiler
+or compiler/mpi information from the module file location.  In this
+case I'm assuming that this site is using the naming scheme first
+described in this section.  In this case then the MPI info is first
+and the compiler info is second.  This is why to for look runs
+backwards.  The gcc.lua file looks like this:
+
+
+   local pkg = {}
+
+   pkg.display_name = "GNU Compilers"
+   pkg.help = "GCC Help message"
+   pkg.category = "development"
+   pkg.keywords = "compiler"
+   pkg.url = "http://gcc.gnu.org/"
+   pkg.license = "GPL"
+   pkg.description = "GNU compiler suite"
+
+   return pkg
+
+This way all gcc modules can share the same help, and whatis
+information.  For completeness the setPkgInfo(pkg) routine is given
+below:
+
+   function setPkgInfo(pkg)
+      help(pkg.help)
+      whatis("Name: "        .. pkg.display_name)
+      whatis("Version: "     .. pkg.version)
+      whatis("Module: "      .. pkg.id)
+      whatis("Category: "    .. pkg.category)
+      whatis("Keyword: "     .. pkg.keywords)
+      whatis("URL: "         .. pkg.url)
+      whatis("License: "     .. pkg.license)
+      whatis("Description: " .. pkg.description)
+   end
+
