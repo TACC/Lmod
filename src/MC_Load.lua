@@ -32,6 +32,10 @@
 --
 --------------------------------------------------------------------------
 
+--------------------------------------------------------------------------
+-- Loading a module causes all the commands to act in the positive.
+
+
 require("strict")
 
 local MC_Load          = inheritsFrom(MasterControl)
