@@ -50,7 +50,6 @@ local next               = next
 local os                 = os
 local pairs              = pairs
 local print              = print
-local prtErr             = prtErr
 local setmetatable       = setmetatable
 local sort               = table.sort
 local string             = string

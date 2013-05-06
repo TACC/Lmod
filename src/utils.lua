@@ -32,20 +32,34 @@
 --
 --------------------------------------------------------------------------
 
+--------------------------------------------------------------------------
+-- utils.lua:  This is the file that has miscellaneous utility functions.
+--------------------------------------------------------------------------
+
+
 require("strict")
 require("fileOps")
 require("string_split")
+require("string_trim")
 require("parseVersion")
-local getenv = os.getenv
+local Dbg       = require("Dbg")
+local lfs       = require("lfs")
+local concatTbl = table.concat
+local getenv    = os.getenv
+local posix     = require("posix")
 
-function prtErr(...)
-   io.stderr:write(...)
-end
+
+--------------------------------------------------------------------------
+-- compute the length of a string and ignore any string colorization.
 
 function length(s)
    s = s:gsub("\027[^m]+m","")
    return s:len()
 end
+
+--------------------------------------------------------------------------
+-- UUIDString(epoch): Unique string that combines the current time/date
+--                    with a uuid id string.
 
 function UUIDString(epoch)
    local ymd  = os.date("*t", epoch)
@@ -61,6 +75,11 @@ function UUIDString(epoch)
    return uuid
 end
 
+
+--------------------------------------------------------------------------
+-- Compare the full name of a modulefile with the shortname.
+-- Return nil if the shortname and full name are the same.
+
 function extractVersion(full, sn)
    if (full == nil or sn == nil) then
       return nil
@@ -73,14 +92,19 @@ function extractVersion(full, sn)
    return version
 end
 
-local __expert = false
 
+--------------------------------------------------------------------------
+-- Are we in expert mode?
+local __expert = false
 function expert()
    if (__expert == false) then
       __expert = getenv("LMOD_EXPERT")
    end
    return __expert
 end
+
+--------------------------------------------------------------------------
+-- Deal with warnings
 
 function activateWarning()
    s_haveWarnings = true
@@ -100,6 +124,11 @@ end
 function getWarningFlag()
    return s_warning
 end
+
+--------------------------------------------------------------------------
+-- read in the system and possible a user lmod configuration file.
+-- The system one is read first.  These provide default value
+-- The user one can override the default values.
 
 local s_readRC     = false
 RCFileA = {
@@ -141,6 +170,20 @@ function getSCDescriptT()
 end
 
 
+--------------------------------------------------------------------------
+--  Read the admin.list file.  It is a Key value pairing of module names
+--  and a message.  The module names can be either the full name or the file
+--  name.  The message can be multi-line.  A blank line is signifies the
+--  end of the message.
+--  
+--  /path/to/modulefile: Blah Blah Blah
+--                       Blah Blah Blah
+--
+--  module/version:      Blah Blah Blah
+--                       Blah Blah Blah
+--
+
+
 function readAdmin()
 
    -- If there is anything in [[adminT]] then return because
@@ -158,7 +201,6 @@ function readAdmin()
       local whole = f:read("*all") .. "\n"
       f:close()
 
-
       -- Parse file: ignore "#" comment lines and blank lines
       -- Split lines on ":" module:message
 
@@ -168,6 +210,8 @@ function readAdmin()
       local a     = {}
 
       for v in whole:split("\n") do
+
+         v = v:trim()
 
          if (v:sub(1,1) == "#") then
             -- ignore this comment line
@@ -199,29 +243,29 @@ function readAdmin()
    end
 end
 
+---------------------------------------------------------------------------
+-- lastFileInDir(path): This function finds the latest version of a package
+-- in the directory "path".  It uses the parseVersion() function to decide
+-- which version is the most recent.  It is not a lexigraphical search but
+-- uses rules built into parseVersion().
 
-local Dbg       = require("Dbg")
-local lfs       = require("lfs")
-local posix     = require("posix")
-local concatTbl = table.concat
-
-function lastFileInDir(fn)
+function lastFileInDir(path)
    local dbg      = Dbg:dbg()
-   dbg.start("lastFileInDir(",fn,")")
+   dbg.start("lastFileInDir(",path,")")
    local lastKey   = ''
    local lastValue = ''
    local result    = nil
    local fullName  = nil
    local count     = 0
    
-   local attr = lfs.attributes(fn)
-   if (attr and attr.mode == 'directory' and posix.access(fn,"x")) then
-      for file in lfs.dir(fn) do
-         local f = pathJoin(fn, file)
+   local attr = lfs.attributes(path)
+   if (attr and attr.mode == 'directory' and posix.access(path,"x")) then
+      for file in lfs.dir(path) do
+         local f = pathJoin(path, file)
          attr = lfs.attributes(f)
          local readable = posix.access(f,"r")
          if (readable and file:sub(1,1) ~= "." and attr.mode == 'file' and file:sub(-1,-1) ~= '~') then
-            dbg.print("fn: ",fn," file: ",file," f: ",f,"\n")
+            dbg.print("path: ",path," file: ",file," f: ",f,"\n")
             count = count + 1
             local key = file:gsub("%.lua$","")
             key       = concatTbl(parseVersion(key),".")
@@ -239,6 +283,10 @@ function lastFileInDir(fn)
    dbg.fini()
    return result, count
 end
+
+------------------------------------------------------------------------
+-- Build a border string of nspace leading spaces followed by "-"'s to
+-- exactly 4 spaces before the end of the terminal.
 
 local rep=string.rep
 borderG = nil
