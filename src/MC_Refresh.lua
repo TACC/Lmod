@@ -32,6 +32,13 @@
 --
 --------------------------------------------------------------------------
 
+--------------------------------------------------------------------------
+-- Setup for refresh mode. Refresh just reloads every currently loaded
+-- module so that shell functions and aliases will be defined in a
+-- sub-shell.  So almost all Lmod functions do nothing except for the ones
+-- that name the module and the set_alias and set_shell_function functions.
+
+
 require("strict")
 
 local MC_Refresh       = inheritsFrom(MasterControl)

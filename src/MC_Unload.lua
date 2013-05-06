@@ -32,6 +32,10 @@
 --
 --------------------------------------------------------------------------
 
+--------------------------------------------------------------------------
+-- When unloading all the positive actions of a module are reversed.  So
+-- setting an env. var. is reversed.  Note that 
+
 
 require("strict")
 

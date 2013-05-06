@@ -33,31 +33,11 @@
 --------------------------------------------------------------------------
 
 require("strict")
-local LmodError          = LmodError
-local ModulePath         = ModulePath
-local assert             = assert
-local capture            = capture
-local cmdDir             = cmdDir
 local concatTbl          = table.concat
 local floor              = math.floor
 local getenv             = os.getenv
-local io                 = io
-local ipairs             = ipairs
-local loadfile           = loadfile
-local loadstring         = loadstring
-local myFileName         = myFileName
-local next               = next
-local os                 = os
-local pairs              = pairs
-local print              = print
-local setmetatable       = setmetatable
 local sort               = table.sort
-local string             = string
 local systemG            = _G
-local tonumber           = tonumber
-local tostring           = tostring
-local type               = type
-local expert             = expert
 local removeEntry        = table.remove
 
 require("TermWidth")
