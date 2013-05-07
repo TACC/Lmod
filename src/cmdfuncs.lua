@@ -51,13 +51,19 @@ local getenv       = os.getenv
 local hook         = require("Hook")
 local posix        = require("posix")
 
+--------------------------------------------------------------------------
+-- Access(): Both Help and Whatis functions funnel their actions through 
+-- the Access function. MC_Access defines real functions for both M.help
+-- and M.access.  The mcp.accessMode function activates one or the other
+-- depending on what mode Access is called with.
+
 local function Access(mode, ...)
    local dbg       = Dbg:dbg()
    local master    = Master:master()
    local masterTbl = masterTbl()
    dbg.start("Access(", concatTbl({...},", "),")")
    mcp = MasterControl.build("access", mode)
-   mcp.activate(mode,true)
+   mcp.accessMode(mode,true)
 
    local n = select('#',...)
    if (n < 1) then
@@ -67,23 +73,34 @@ local function Access(mode, ...)
    end
 
    master:access(...)
-   mcp.activate(mode,false)
+   mcp.accessMode(mode,false)
    dbg.fini("Access")
 end
 
-local function FindDefaults(a,path)
+--------------------------------------------------------------------------
+-- findNamedCollections:  This helper function walks the ~/.lmod.d
+-- directory and reports back the list of named collections.
+-- Note that names that start with "." or end with "~" or start with
+-- "__" are ignored.
+
+local function findNamedCollections(a,path)
    for file in lfs.dir(path) do
-      if (file:sub(1,1) ~= "." and file:sub(-1) ~= "~") then
+      if (file:sub(1,1) ~= "." and file:sub(-1) ~= "~" and
+          file:sub(1,2) ~= "__") then
          local f    = pathJoin(path,file)
          local attr = lfs.attributes(f)
          if (attr and attr.mode == "directory") then
-            FindDefaults(a,f)
+            findNamedCollections(a,f)
          else
             a[#a+1] = f
          end
       end
    end
 end
+
+------------------------------------------------------------------------
+-- Avail(): just convert the vararg into an actual array and call
+--          master.avail to do the real work.
 
 function Avail(...)
    local dbg    = Dbg:dbg()
@@ -94,6 +111,13 @@ function Avail(...)
    end
    master.avail(a)
 end
+
+--------------------------------------------------------------------------
+-- GetDefault(): get the command line argument and use MT:getMTfromFile()
+--               to read the module table from the file and use that
+--               collections of module to load.  This routine is deprecated
+--               and will be removed.  Use restore instead.
+
 
 function GetDefault(a)
    local dbg  = Dbg:dbg()
@@ -106,6 +130,10 @@ function GetDefault(a)
    dbg.fini("GetDefault")
 end
 
+--------------------------------------------------------------------------
+-- Help():  Define the prtHdr function and use the helper function Access()
+--          to report the Help message to the user.
+
 function Help(...)
    local dbg = Dbg:dbg()
 
@@ -117,6 +145,11 @@ function Help(...)
 
    Access("help",...)
 end
+
+--------------------------------------------------------------------------
+-- Keyword(): Use the list of user requested keywords to be searched
+--            through the spider cache.
+
 
 function Keyword(...)
    local dbg    = Dbg:dbg()
@@ -146,6 +179,12 @@ function Keyword(...)
 
    dbg.fini("Keyword")
 end
+
+--------------------------------------------------------------------------
+-- List(): List the loaded modulefile
+--         *** Note that this needs to be fixed as --terse does not support
+--         searching. ***
+
 
 function List(...)
    local dbg    = Dbg:dbg()
@@ -246,6 +285,7 @@ function List(...)
    end
    dbg.fini("List")
 end
+
 
 function Load_Try(...)
    local master = Master:master()
@@ -506,7 +546,7 @@ function SaveList(...)
    local a = {}
    local b = {}
 
-   FindDefaults(b,path)
+   findNamedCollections(b,path)
    for k = 1,#b do
       local name = b[k]
       local i,j  = name:find(path,1,true)
