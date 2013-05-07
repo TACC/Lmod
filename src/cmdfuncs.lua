@@ -677,6 +677,13 @@ function SpiderCmd(...)
    dbg.fini("SpiderCmd")
 end
 
+--------------------------------------------------------------------------
+--  Swap(): Swap one module for another.  That is unload the first
+--          and load the second.  If the second modulefile is successfully
+--          loaded then it is registered with MT so that it won't be
+--          reported in a swap message.
+
+
 function Swap(...)
    local dbg = Dbg:dbg()
    local a = select(1, ...) or ""
@@ -715,6 +722,9 @@ function Swap(...)
    dbg.fini("Swap")
 end
 
+--------------------------------------------------------------------------
+--  TableList(): list the loaded modules in a lua table
+
 function TableList()
    local dbg    = Dbg:dbg()
    dbg.start("TableList()")
@@ -736,11 +746,19 @@ function TableList()
    dbg.fini()
 end
 
+--------------------------------------------------------------------------
+--  Update(): reload all modules.
+
 function Update()
    local master = Master:master()
    master:reloadAll()
 end
    
+--------------------------------------------------------------------------
+--  Use(): add a directory to MODULEPATH and LMOD_DEFAULT_MODULEPATH.
+--         Note that this causes all the modules to be reviewed and
+--         possibly reloaded if a module.  
+
 function Use(...)
    local dbg = Dbg:dbg()
    local mt  = MT:mt()
@@ -769,6 +787,11 @@ function Use(...)
    dbg.fini("Use")
 end
 
+--------------------------------------------------------------------------
+--  UnUse(): remove a directory from both MODULEPATH and
+--           LMOD_DEFAULT_MODULEPATH.  Note that all currently loaded
+--           modules reviewed and possibly reloaded or made inactive.
+
 function UnUse(...)
    local dbg = Dbg:dbg()
    local mt  = MT:mt()
@@ -782,12 +805,18 @@ function UnUse(...)
    dbg.fini("UnUse")
 end
 
+--------------------------------------------------------------------------
+--  UnLoad():  unload all requested modules
+
 function UnLoad(...)
    local dbg    = Dbg:dbg()
    dbg.start("UnLoad(",concatTbl({...},", "),")")
    MCP:unload(...)
    dbg.fini("UnLoad")
 end
+
+--------------------------------------------------------------------------
+--  Whatis(): Run whatis on all request modules given the the command line.
 
 function Whatis(...)
    local dbg = Dbg:dbg()
