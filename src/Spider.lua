@@ -814,8 +814,16 @@ function M._Level1(key, T, searchName, help)
    end
 
    if (cnt == 1 or nameCnt == 1 or fullCnt > 0) then
-      local k = next(T)
-      local v = M._Level2(T, searchName, T[k].full)
+      local searchL = searchName:lower()
+      local full    = false
+      for k, v in pairs(T) do
+         if (v.full_lower == searchL) then
+            full = v.full
+            break
+         end
+      end
+
+      local v = M._Level2(T, searchName, full)
       dbg.fini("Spider:_Level1")
       return v
    end
