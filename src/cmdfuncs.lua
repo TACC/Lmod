@@ -290,6 +290,10 @@ function List(...)
 end
 
 
+------------------------------------------------------------------------
+-- Load_Try():  load modules from users but do not issue warnings
+--              if the module is not there.
+
 function Load_Try(...)
    local master = Master:master()
    local mt     = MT:mt()
@@ -301,6 +305,18 @@ function Load_Try(...)
    activateWarning()
    dbg.fini("Load_Try")
 end
+
+------------------------------------------------------------------------
+-- Load_Usr():  load modules from users.  If a module name has
+--              a minus sign in front of it then unload it.  Do that
+--              before loading any other modules.  Also if the
+--              shortName of a request module is already loaded then
+--              unload it.  This way:
+--                   $ module load foo/1.1; module load foo/1.3
+--              the second load of "foo" will not load it twice.
+--              Finally any successful loading of a module is registered
+--              with "MT" so that when a user does the above commands
+--              it won't get the swap message.
 
 function Load_Usr(...)
    local master = Master:master()
@@ -355,6 +371,9 @@ function Load_Usr(...)
    return b
 end
 
+--------------------------------------------------------------------------
+-- Purge():  unload all loaded modules
+
 function Purge()
    local master = Master:master()
    local mt     = MT:mt()
@@ -380,6 +399,10 @@ function Purge()
    dbg.fini("Purge")
 end
 
+--------------------------------------------------------------------------
+-- RecordCmd(): Write the current state of the module table to the
+--              lmod-save directory.  This command should probably go away.
+
 function RecordCmd()
    local dbg = Dbg:dbg()
    dbg.start("RecordCmd()")
@@ -403,6 +426,12 @@ function RecordCmd()
    dbg.fini("RecordCmd")
 end
 
+--------------------------------------------------------------------------
+-- Refresh(): reload all loaded modules so that any alias or shell
+--            functions are defined.  No other module commands are active.
+--            This command exists so that sub-shells will have the aliases
+--            defined.
+
 
 function Refresh()
    local dbg = Dbg:dbg()
@@ -419,6 +448,12 @@ function Refresh()
    dbg.print("Resetting mcp to : ",mcp:name(),"\n")
    dbg.fini("Refresh")
 end
+
+--------------------------------------------------------------------------
+-- Reset():  Reset all module commands back to the system defined default
+--           value in env. var. LMOD_SYSTEM_DEFAULT_MODULES.  If that
+--           variable is not defined then there are no default modules
+--           and this command is the same as a purge.
 
 function Reset(msg)
    local dbg    = Dbg:dbg()
@@ -453,6 +488,11 @@ function Reset(msg)
    end
    dbg.fini("Reset")
 end
+
+--------------------------------------------------------------------------
+-- Restore(): Restore the state of the user's loaded modules original 
+--            state. If a user has a "default" then use that collection.
+--            Otherwise do a "Reset()"
 
 function Restore(a)
    local dbg    = Dbg:dbg()
@@ -498,6 +538,16 @@ function Restore(a)
    dbg.fini("Restore")
 end
 
+--------------------------------------------------------------------------
+-- Save(): Save the current list of modules to whatever name the user
+--         gave on the command line or "default" if there is none.
+--         Note that this function checks to see if any of the currently
+--         loaded modules mix load statements with the setting of
+--         environment variables.  In that case, Lmod will not save the
+--         state of the modules into a collection.  The reasons are
+--         complicated but a "manager" module file is "fake" loaded so
+--         that any setenv or prepend_path commands will not be executed.
+
 function Save(...)
    local mt   = MT:mt()
    local dbg  = Dbg:dbg()
@@ -540,6 +590,10 @@ function Save(...)
    dbg.fini("Save")
 end
 
+
+--------------------------------------------------------------------------
+-- SaveList(): report to the user all the named collections he/she has.
+
 function SaveList(...)
    local mt   = MT:mt()
    local dbg  = Dbg:dbg()
@@ -560,11 +614,16 @@ function SaveList(...)
    end
 
    if (#a > 0) then
-      io.stderr:write("Possible named collection(s):\n")
+      io.stderr:write("Named collection list:\n")
       local ct = ColumnTable:new{tbl=a,gap=0}
       io.stderr:write(ct:build_tbl(),"\n")
    end
 end
+
+--------------------------------------------------------------------------
+-- Show(): use the show mode of MasterControl to list the active Lmod
+--         commands in a module file.  Note that it is always in Lua
+--         even if the modulefile is written in TCL.
 
 function Show(...)
    local dbg    = Dbg:dbg()
@@ -582,6 +641,11 @@ function Show(...)
    master:access(...)
    dbg.fini("Show")
 end
+
+--------------------------------------------------------------------------
+-- SpiderCmd(): Do a level 0 spider report if there are no command line
+--              arguments.  Otherwise do a spider search to generate a
+--              level 1 or level 2 report on particular modules.
 
 function SpiderCmd(...)
    local dbg = Dbg:dbg()
