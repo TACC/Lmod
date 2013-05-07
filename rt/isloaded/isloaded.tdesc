@@ -25,11 +25,11 @@ testdescript = {
 
      rm -fr _stderr.* _stdout.* err.* out.* .lmod.d
 
-     runMe lua $(projectDir)/src/lmod.in.lua bash --version
-     runMe lua $(projectDir)/src/lmod.in.lua bash load PrgEnv
-     runMe lua $(projectDir)/src/lmod.in.lua bash use  $(testDir)/mf
-     runMe lua $(projectDir)/src/lmod.in.lua bash load isloaded
-     runMe lua $(projectDir)/src/lmod.in.lua bash del  isloaded
+     runMe lua $(projectDir)/src/lmod.in.lua bash --version           # 1
+     runMe lua $(projectDir)/src/lmod.in.lua bash load PrgEnv         # 2
+     runMe lua $(projectDir)/src/lmod.in.lua bash use  $(testDir)/mf  # 3
+     runMe lua $(projectDir)/src/lmod.in.lua bash load isloaded       # 4
+     runMe lua $(projectDir)/src/lmod.in.lua bash del  isloaded       # 5
 
 
      cat _stdout.[0-9][0-9] > _stdout.orig

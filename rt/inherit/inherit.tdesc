@@ -24,15 +24,12 @@ testdescript = {
 
      rm -fr _stderr.* _stdout.* err.* out.* .lmod.d
 
-     runMe lua $(projectDir)/src/lmod.in.lua bash --version
+     runMe lua $(projectDir)/src/lmod.in.lua bash --version              # 1
      runMe lua $(projectDir)/src/lmod.in.lua bash use -a $(testDir)/mf/Linux $(testDir)/mf/Core $(testDir)/mf/Core2
-     runMe lua $(projectDir)/src/lmod.in.lua bash load   junk
-     
-     runMe lua $(projectDir)/src/lmod.in.lua bash list
-
-     runMe lua $(projectDir)/src/lmod.in.lua bash unload junk
-
-     runMe lua $(projectDir)/src/lmod.in.lua bash load junk2
+     runMe lua $(projectDir)/src/lmod.in.lua bash load   junk            # 3
+     runMe lua $(projectDir)/src/lmod.in.lua bash list                   # 4 
+     runMe lua $(projectDir)/src/lmod.in.lua bash unload junk            # 5
+     runMe lua $(projectDir)/src/lmod.in.lua bash load junk2             # 6
 
      cat _stdout.[0-9][0-9] > _stdout.orig
      joinBase64Results  -bash  _stdout.orig _stdout.new

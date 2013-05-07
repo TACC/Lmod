@@ -364,24 +364,6 @@ local function loadModuleFile(fn)
 end
 
 
-local function fullName(name)
-   local n    = nil
-   if (name == nil) then return n end
-   local i,j  = name:find('.*/')
-   i,j        = name:find('.*%.',j)
-   if (i == nil) then
-      n = name
-   else
-      local ext = name:sub(j,-1)
-      if (ext == ".lua") then
-         n = name:sub(1,j-1)
-      else
-         n = name
-      end
-   end
-   return n
-end
-
 
 local function shortName(full)
    local i,j = full:find(".*/")
@@ -746,73 +728,94 @@ function M.Level0Helper(dbT,a)
 end
 
 
-local function countEntries(t, mname)
+local function countEntries(t, searchName)
    local count   = 0
    local nameCnt = 0
+   local fullCnt = 0
+   local searchL = (searchName or ""):lower()
    for k,v in pairs(t) do
       count = count + 1
-      if (v.name == mname) then
+      if (v.name_lower == searchL) then
          nameCnt = nameCnt + 1
       end
+      if (v.full_lower == searchL) then
+         fullCnt = fullCnt + 1
+      end
    end
-   return count, nameCnt
+   return count, nameCnt, fullCnt
 end
 
-function M.spiderSearch(dbT, mname, help)
+function M.spiderSearch(dbT, searchName, help)
    local dbg = Dbg:dbg()
-   dbg.start("Spider:spiderSearch(dbT,\"",mname,"\")")
-   local name   = shortName(mname)
-   local nameL  = name:lower()
-   local mnameL = mname:lower()
-   dbg.print("mname: ", mname, " name: ", name, " nameL: ", nameL, "\n")
-   local found  = false
-   local a      = {}
-   for k,v in pairsByKeys(dbT) do
-      dbg.print("nameL: ", nameL, " k: ", k, "\n")
-      local i,j = k:find(nameL)
-      dbg.print("i,j: ", i," ", j, "\n")
-      if (k:find(nameL,1,true) or k:find(nameL)) then
-         local s
-         dbg.print("nameL: ",nameL," mnameL: ", mnameL, " k: ",k,"\n")
-         if (nameL ~= mnameL ) then
-            if (nameL == k) then
-                s = M.Level2(v, mname)
-                found = true
-            end
-         else
-            s = M._Level1(dbT, k, help)
-            found = true
-         end
+   dbg.start("Spider:spiderSearch(dbT,\"",searchName,"\")")
+   local found = false
+   local A  = {}
+   A[1]     = searchName:lower()
+   local sn = shortName(searchName):lower()
+   if (sn ~= A[1]) then
+      A[2]  = sn
+   end
+
+   local a     = {}
+   for i = 1, #A do
+      local searchL = A[i]
+      local T = dbT[searchL]
+      if (T) then
+         dbg.print("Found exact match: searchL: ",searchL,"\n")
+         local s = M._Level1(searchL, T, searchName, help)
          if (s) then
             a[#a+1] = s
-            s       = nil
+         end
+         found = true
+      end
+   end
+
+   if (not found) then
+      for k, v in pairsByKeys(dbT) do
+         for i = 1, #A do
+            local searchL = A[i]
+            if (k:find(searchL,1,true) or k:find(searchL)) then
+               found = true
+               dbg.print("Found inexact match: searchL: ",searchL,", k: ",k,"\n")
+               local s = M._Level1(k, v, searchName, help)
+               if (s) then
+                  a[#a+1] = s
+               end
+            end
          end
       end
    end
+
    if (not found) then
-      io.stderr:write("Unable to find: \"",mname,"\"\n")
+      io.stderr:write("Unable to find: \"",searchName,"\"\n")
    end
    dbg.fini("Spider:spiderSearch")
    return concatTbl(a,"")
 end
 
-function M._Level1(dbT, mnameKey, help)
+function M._Level1(key, T, searchName, help)
    local dbg = Dbg:dbg()
-   dbg.start("Spider:_Level1(dbT,\"",mnameKey,"\",help)")
-   local t          = dbT[mnameKey]
+   dbg.start("Spider:_Level1(T,\"",searchName,"\",help)")
    local term_width = TermWidth() - 4
 
-   if (t == nil) then
-      dbg.print("No entry called: \"",mnameKey, "\" in dbT\n")
+   if (T == nil) then
+      dbg.print("No entry called: \"",searchName, "\" in dbT\n")
       dbg.fini("Spider:_Level1")
       return ""
    end
 
-   local cnt, nameCnt = countEntries(t, mnameKey)
-   dbg.print("Number of entries: ",cnt ," name count: ",nameCnt, "\n")
-   if (cnt == 1 or nameCnt == 1) then
-      local k = next(t)
-      local v = M.Level2(t, mnameKey, t[k].full)
+   local cnt, nameCnt, fullCnt = countEntries(T, searchName)
+   dbg.print("Number of entries: ",cnt ," name count: ",nameCnt, " full count: ",fullCnt, "\n")
+
+   if (key:len() < searchName:len() and fullCnt == 0) then
+      LmodSystemError("Unable to find: \"",searchName,"\"")
+      dbg.fini("Spider:_Level1")
+      return ""
+   end
+
+   if (cnt == 1 or nameCnt == 1 or fullCnt > 0) then
+      local k = next(T)
+      local v = M._Level2(T, searchName, T[k].full)
       dbg.fini("Spider:_Level1")
       return v
    end
@@ -822,12 +825,12 @@ function M._Level1(dbT, mnameKey, help)
    local exampleV = nil
    local key = nil
    local Description = nil
-   for k, v in pairsByKeys(t) do
+   for k, v in pairsByKeys(T) do
       if (VersionT[k] == nil) then
-         key = v.name
-         Description = v.Description 
+         key              = v.name
+         Description      = v.Description 
          VersionT[v.full] = 1
-         exampleV = v.full
+         exampleV         = v.full
       else
          VersionT[v.full] = 1
       end
@@ -868,9 +871,9 @@ function M._Level1(dbT, mnameKey, help)
    
 end
 
-function M.Level2(t, mname, full)
+function M._Level2(T, searchName, full)
    local dbg = Dbg:dbg()
-   dbg.start("Level2(t,\"",mname,"\", \"",full,"\")")
+   dbg.start("Spider:_Level2(T,\"",searchName,"\", \"",full,"\")")
    local a  = {}
    local ia = 0
    local b  = {}
@@ -883,19 +886,19 @@ function M.Level2(t, mname, full)
    local tt = nil
    local banner = border(2)
    local availT = {
-      "\n    This module can be loaded directly: module load " .. mname .. "\n",
+      "\n    This module can be loaded directly: module load " .. searchName .. "\n",
       "\n    This module can only be loaded through the following modules:\n",
-      "\n    This module can be loaded directly: module load " .. mname .. "\n" ..
+      "\n    This module can be loaded directly: module load " .. searchName .. "\n" ..
       "\n    Additional variants of this module can also be loaded after the loading the following modules:\n",
    }
    local haveCore = 0
    local haveHier = 0
-   local mnameL   = mname:lower()
+   local mnameL   = searchName:lower()
       
    full = full or ""
    local fullL = full:lower()
-   for k,v in pairs(t) do
-      dbg.print("vv.full: ",v.full," mname: ",mname," k: ",k," full:", full,"\n")
+   for k,v in pairs(T) do
+      dbg.print("vv.full: ",v.full," searchName: ",searchName," k: ",k," full:", full,"\n")
       local vfullL = v.full_lower or v.full:lower()
       if (vfullL == mnameL or vfullL == fullL) then
          if (tt == nil) then
@@ -979,10 +982,10 @@ function M.Level2(t, mname, full)
    end
 
    if (tt == nil) then
-      LmodSystemError("Unable to find: \"",mname,"\"")
+      LmodSystemError("Unable to find: \"",searchName,"\"")
    end
 
-   dbg.fini()
+   dbg.fini("Spider:_Level2")
    return concatTbl(a,"")
 end
 
@@ -998,8 +1001,6 @@ function M.listModules(moduleT, tbl)
    end
 end
 
-
-
 function M.listModulesHelper(moduleT, tbl)
    for kk,vv in pairs(moduleT) do
       tbl[#tbl+1] = vv.path
@@ -1013,8 +1014,8 @@ function M.listModulesHelper(moduleT, tbl)
    end
 end
 
-function M.dictModules(t,tbl)
-   for kk,vv in pairs(t) do
+function M.dictModules(T,tbl)
+   for kk,vv in pairs(T) do
       kk      = kk:gsub(".lua$","")
       tbl[kk] = 0
       if (next(vv.children)) then
@@ -1028,3 +1029,42 @@ function M.dictModules(t,tbl)
 end
 
 return M
+
+--function M.spiderSearch(dbT, mname, help)
+--   local dbg = Dbg:dbg()
+--   dbg.start("Spider:spiderSearch(dbT,\"",mname,"\")")
+--   local name   = shortName(mname)
+--   local nameL  = name:lower()
+--   local mnameL = mname:lower()
+--   dbg.print("mname: ", mname, " name: ", name, " nameL: ", nameL, "\n")
+--   local found  = false
+--   local a      = {}
+--   for k,v in pairsByKeys(dbT) do
+--      dbg.print("nameL: ", nameL, " k: ", k, "\n")
+--      local i,j = k:find(nameL)
+--      dbg.print("i,j: ", i," ", j, "\n")
+--      if (k:find(nameL,1,true) or k:find(nameL)) then
+--         local s
+--         dbg.print("nameL: ",nameL," mnameL: ", mnameL, " k: ",k,"\n")
+--         if (nameL ~= mnameL ) then
+--            if (nameL == k) then
+--                s = M.Level2(v, mname)
+--                found = true
+--            end
+--         else
+--            s = M._Level1(dbT, k, help)
+--            found = true
+--         end
+--         if (s) then
+--            a[#a+1] = s
+--            s       = nil
+--         end
+--      end
+--   end
+--   if (not found) then
+--      io.stderr:write("Unable to find: \"",mname,"\"\n")
+--   end
+--   dbg.fini("Spider:spiderSearch")
+--   return concatTbl(a,"")
+--end
+
