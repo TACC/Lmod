@@ -182,8 +182,6 @@ end
 
 --------------------------------------------------------------------------
 -- List(): List the loaded modulefile
---         *** Note that this needs to be fixed as --terse does not support
---         searching. ***
 
 
 function List(...)
@@ -194,8 +192,8 @@ function List(...)
 
    local totalA = mt:list("userName","any")
    if (#totalA < 1) then
-      local dbg = Dbg:dbg()
       LmodWarning("No modules installed\n")
+      dbg.fini("List")
       return
    end
 
@@ -221,7 +219,12 @@ function List(...)
          local mname = MName:new("mt",activeA[i])
          local sn    = mname:sn()
          local full  = mt:fullName(sn)
-         io.stderr:write(full,"\n")
+         for j = 1, #wanted do
+            local p = wanted[j]
+            if (full:find(p,1,true) or full:find(p)) then
+               io.stderr:write(full,"\n")
+            end
+         end
       end
       dbg.fini("List")
       return
@@ -233,10 +236,10 @@ function List(...)
    for i = 1, #activeA do
       local mname = MName:new("mt",activeA[i])
       local sn    = mname:sn()
-      local m = mt:fullName(sn)
+      local full  = mt:fullName(sn)
       for j = 1, #wanted do
          local p = wanted[j]
-         if (m:find(p,1,true) or m:find(p)) then
+         if (full:find(p,1,true) or full:find(p)) then
             kk = kk + 1
             a[#a + 1] = mt:list_property(kk, sn, "short", legendT)
          end
