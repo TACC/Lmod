@@ -47,8 +47,8 @@ local M           = MC_Access
 
 M.accessT = { help = false, whatis = false}
 
-function M.activate(name, value)
-   M.accessT[name] = value
+function M.accessMode(mode, value)
+   M.accessT[mode] = value
 end
 
 function M.help(self, ...)   
