@@ -20,7 +20,7 @@
 --  permit persons to whom the Software is furnished to do so, subject
 --  to the following conditions:
 --
---  The above copyright notice and this permission notice shall be 
+--  The above copyright notice and this permission notice shall be
 --  included in all copies or substantial portions of the Software.
 --
 --  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
@@ -43,7 +43,7 @@ local LuaCommandName_dir = "./"
 if (i) then
    LuaCommandName_dir = LuaCommandName:sub(1,j)
 end
-package.path = LuaCommandName_dir .. "tools/?.lua;" .. 
+package.path = LuaCommandName_dir .. "tools/?.lua;" ..
                LuaCommandName_dir .. "?.lua;"       .. package.path
 
 require("strict")
@@ -87,14 +87,14 @@ function main()
    local cmdA     = {}
 
    ------------------------------------------------------------
-   -- lmodOptA: Hash table of command line arguments.  The key
+   -- lmodOptT: Hash table of command line arguments.  The key
    --           is the name of the argument and the value is the
    --           number of arguments the option requires
-   
-   local lmodOptA = {
+
+   local lmodOptT = {
       ["-?"] = 0, ["-h"] = 0, ["--help"] = 0, ["-d"]=0, ["--version"]=0,
-      ["--old_style"] = 0, ["--expert"]=0, ["--novice"]=0, ["-D"]=0, 
-      ["--localvar"]=1, ["-D"]=1, ["--versoin"]=0, ["--ver"]=0, ["-v"]=0,
+      ["--old_style"] = 0, ["--expert"]=0, ["--novice"]=0, ["-D"]=0,
+      ["--localvar"]=1, ["--versoin"]=0, ["--ver"]=0, ["-v"]=0,
       ["--terse"] = 0, ["-t"] = 0,
    }
 
@@ -106,12 +106,12 @@ function main()
    }
 
    ------------------------------------------------------------
-   -- lmodCmdA: Hash table of module commands.  The value just
+   -- lmodCmdT: Hash table of module commands.  The value just
    --           has to be non-nil
 
-   local lmodCmdA = {
-      avail="avail",  av="avail", 
-      getdefault="getdefault", gd="getdefault", 
+   local lmodCmdT = {
+      avail="avail",  av="avail",
+      getdefault="getdefault", gd="getdefault",
       help="help",
       key="keyword", keyword="keyword",
       list="list",
@@ -124,7 +124,7 @@ function main()
       s="save",
       save="save",
       savelist="savelist", sl="savelist",
-      setdefault="save", sd="save", 
+      setdefault="save", sd="save",
       show="show",
       spider="spider",
       swap="swap", sw="swap", switch="swap",
@@ -139,6 +139,7 @@ function main()
    local grab     = 0
    local verbose  = false
    local oldStyle = false
+   local show     = false
 
    for _,v in ipairs(arg) do
       local done = false
@@ -152,10 +153,15 @@ function main()
          done    = true
          verbose = true
       end
-      
+
       if (not done and v == "--old_style") then
          done     = true
          oldStyle = true
+      end
+
+      if (not done and v == "--show") then
+         done   = true
+         show   = true
       end
 
       if (not done and v == "--help" or v == "-?" or v== "-h") then
@@ -165,14 +171,14 @@ function main()
       end
 
 
-      local num = lmodOptA[v]
+      local num = lmodOptT[v]
       if (not done and num) then
          grab          = num
          optA[#optA+1] = translateT[v] or v
          done          = true
       end
 
-      local cmd = lmodCmdA[v]
+      local cmd = lmodCmdT[v]
       if (not done and cmd) then
          cmdA[#cmdA + 1] = cmd
          done            = true
@@ -239,12 +245,14 @@ function main()
    end
 
    local s = concatTbl(a," ")
-      
-   if (verbose) then
+
+   if (verbose or show) then
       io.stderr:write(s, "\n")
    end
-      
-   io.stdout:write(s, "\n")
+
+   if (not show) then
+      io.stdout:write(s, "\n")
+   end
 end
 
 main()
