@@ -18,7 +18,7 @@
 --  permit persons to whom the Software is furnished to do so, subject
 --  to the following conditions:
 --
---  The above copyright notice and this permission notice shall be 
+--  The above copyright notice and this permission notice shall be
 --  included in all copies or substantial portions of the Software.
 --
 --  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
@@ -35,6 +35,7 @@
 
 require("strict")
 require("string_split")
+require("string_trim")
 
 local concatTbl = table.concat
 
@@ -48,6 +49,7 @@ function fillWords(indent,line,width)
    for word in line:split("[ \n]+") do
       local wlen = word:len()
       if (wlen + len >= width) then
+         a[ia] = a[ia]:trim()
          ia = ia + 1; a[ia] = "\n";
          ia = ia + 1; a[ia] = indent; len = indent:len()
       end
@@ -55,5 +57,6 @@ function fillWords(indent,line,width)
       ia = ia + 1; a[ia] = " ";
       len = len + wlen + 1
    end
+   a[ia] = a[ia]:trim()
    return concatTbl(a,"")
 end

@@ -20,7 +20,7 @@
 --  permit persons to whom the Software is furnished to do so, subject
 --  to the following conditions:
 --
---  The above copyright notice and this permission notice shall be 
+--  The above copyright notice and this permission notice shall be
 --  included in all copies or substantial portions of the Software.
 --
 --  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
@@ -95,8 +95,8 @@ blacklistT = {
    mrhanlon  = 1,
    peterson  = 1,
    phurley   = 1,
-   pnav      = 1, 
-   praveen   = 1,  
+   pnav      = 1,
+   praveen   = 1,
    root      = 1,
    sgeadmin  = 1,
    timm      = 1,
@@ -148,7 +148,7 @@ function main()
    local moduleT    = {}   -- Deprecated module list
    local m2u        = {}   -- module to user table
    local u2m        = {}   -- user to module table
-   
+
    if (masterTbl.moduleListFn == nil) then
       print("No list of deprecated modules, quiting!\n")
       return
@@ -212,7 +212,7 @@ function main()
       end
       f:close()
    end
-               
+
    --------------------------------------------------------------
    -- Write out list of users and the deprecated modules they use
 
@@ -235,7 +235,7 @@ function options()
    local usage         = "Usage:  reportUsers [options] moduleUsage.csv ..."
    local cmdlineParser = Optiks:new{usage=usage, version="1.0"}
 
-   cmdlineParser:add_option{ 
+   cmdlineParser:add_option{
       name    = {"-d","--debug"},
       dest    = "debug",
       action  = "store_true",
@@ -243,7 +243,7 @@ function options()
       default = false,
    }
 
-   cmdlineParser:add_option{ 
+   cmdlineParser:add_option{
       name    = {"-f","--file"},
       dest    = "moduleListFn",
       action  = "store",
@@ -251,7 +251,7 @@ function options()
       default = false,
    }
 
-   cmdlineParser:add_option{ 
+   cmdlineParser:add_option{
       name    = {"--m2u"},
       dest    = "m2uFn",
       action  = "store",
@@ -259,14 +259,14 @@ function options()
       default = false,
    }
 
-   cmdlineParser:add_option{ 
+   cmdlineParser:add_option{
       name    = {"--u2m"},
       dest    = "u2mFn",
       action  = "store",
       help    = "output file containing list of users and the list of deprecated modules they use",
       default = false,
    }
-   
+
 
    local optionTbl, pargs = cmdlineParser:parse(arg)
 

@@ -18,7 +18,7 @@
 --  permit persons to whom the Software is furnished to do so, subject
 --  to the following conditions:
 --
---  The above copyright notice and this permission notice shall be 
+--  The above copyright notice and this permission notice shall be
 --  included in all copies or substantial portions of the Software.
 --
 --  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
@@ -52,7 +52,7 @@ local hook         = require("Hook")
 local posix        = require("posix")
 
 --------------------------------------------------------------------------
--- Access(): Both Help and Whatis functions funnel their actions through 
+-- Access(): Both Help and Whatis functions funnel their actions through
 -- the Access function. MC_Access defines real functions for both M.help
 -- and M.access.  The mcp.accessMode function activates one or the other
 -- depending on what mode Access is called with.
@@ -68,7 +68,7 @@ local function Access(mode, ...)
    local n = select('#',...)
    if (n < 1) then
       pcall(pager, io.stderr, masterTbl.cmdHelpMsg, "\n", Usage, "\n",
-            version()) 
+            version())
       os.exit(1)
    end
 
@@ -229,7 +229,7 @@ function List(...)
       dbg.fini("List")
       return
    end
-         
+
    io.stderr:write("\n",msg,msg2,"\n")
    local kk = 0
    local legendT = {}
@@ -346,7 +346,7 @@ function Load_Usr(...)
    local b       = mcp:load(unpack(a))
    mcp           = mcp_old
 
-   
+
    local aa = {}
    for i = 1,#a do
       local v     = a[i]
@@ -360,7 +360,7 @@ function Load_Usr(...)
          mt:userLoad(sn,a[i])
       end
    end
-      
+
    if (#aa > 0) then
       local s = concatTbl(aa," ")
       LmodWarning("Did not find: ",s,"\n\n",
@@ -416,7 +416,7 @@ function RecordCmd()
    local attr = lfs.attributes(d)
    if (not attr) then
       mkdir_recursive(d)
-   end 
+   end
 
    local f = io.open(fn,"w")
    if (f) then
@@ -490,7 +490,7 @@ function Reset(msg)
 end
 
 --------------------------------------------------------------------------
--- Restore(): Restore the state of the user's loaded modules original 
+-- Restore(): Restore the state of the user's loaded modules original
 --            state. If a user has a "default" then use that collection.
 --            Otherwise do a "Reset()"
 
@@ -498,7 +498,7 @@ function Restore(a)
    local dbg    = Dbg:dbg()
    dbg.start("Restore(",a,")")
 
-   local msg 
+   local msg
    local path
 
    if (a == nil) then
@@ -534,7 +534,7 @@ function Restore(a)
       local mt      = MT:mt()
       local results = mt:getMTfromFile(path,msg) or Reset(true)
    end
-   
+
    dbg.fini("Restore")
 end
 
@@ -753,11 +753,11 @@ function Update()
    local master = Master:master()
    master:reloadAll()
 end
-   
+
 --------------------------------------------------------------------------
 --  Use(): add a directory to MODULEPATH and LMOD_DEFAULT_MODULEPATH.
 --         Note that this causes all the modules to be reviewed and
---         possibly reloaded if a module.  
+--         possibly reloaded if a module.
 
 function Use(...)
    local dbg = Dbg:dbg()

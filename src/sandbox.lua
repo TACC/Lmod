@@ -18,7 +18,7 @@
 --  permit persons to whom the Software is furnished to do so, subject
 --  to the following conditions:
 --
---  The above copyright notice and this permission notice shall be 
+--  The above copyright notice and this permission notice shall be
 --  included in all copies or substantial portions of the Software.
 --
 --  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
@@ -48,20 +48,20 @@ sandbox_env = {
   tostring = tostring,
   type     = type,
   unpack   = unpack,
-  string   = { byte = string.byte, char = string.char, find = string.find, 
-               format = string.format, gmatch = string.gmatch, gsub = string.gsub, 
-               len = string.len, lower = string.lower, match = string.match, 
-               rep = string.rep, reverse = string.reverse, sub = string.sub, 
+  string   = { byte = string.byte, char = string.char, find = string.find,
+               format = string.format, gmatch = string.gmatch, gsub = string.gsub,
+               len = string.len, lower = string.lower, match = string.match,
+               rep = string.rep, reverse = string.reverse, sub = string.sub,
                upper = string.upper },
   table    = { insert = table.insert, remove = table.remove, sort = table.sort,
                concat = table.concat },
-  math     = { abs = math.abs, acos = math.acos, asin = math.asin, 
-               atan = math.atan, atan2 = math.atan2, ceil = math.ceil, cos = math.cos, 
-               cosh = math.cosh, deg = math.deg, exp = math.exp, floor = math.floor, 
-               fmod = math.fmod, frexp = math.frexp, huge = math.huge, 
-               ldexp = math.ldexp, log = math.log, log10 = math.log10, max = math.max, 
-               min = math.min, modf = math.modf, pi = math.pi, pow = math.pow, 
-               rad = math.rad, random = math.random, sin = math.sin, sinh = math.sinh, 
+  math     = { abs = math.abs, acos = math.acos, asin = math.asin,
+               atan = math.atan, atan2 = math.atan2, ceil = math.ceil, cos = math.cos,
+               cosh = math.cosh, deg = math.deg, exp = math.exp, floor = math.floor,
+               fmod = math.fmod, frexp = math.frexp, huge = math.huge,
+               ldexp = math.ldexp, log = math.log, log10 = math.log10, max = math.max,
+               min = math.min, modf = math.modf, pi = math.pi, pow = math.pow,
+               rad = math.rad, random = math.random, sin = math.sin, sinh = math.sinh,
                sqrt = math.sqrt, tan = math.tan, tanh = math.tanh },
   os       = { clock = os.clock, difftime = os.difftime, time = os.time, date = os.date,
                getenv = os.getenv},
@@ -85,7 +85,7 @@ sandbox_env = {
   prepend_path         = prepend_path,
   append_path          = append_path,
   remove_path          = remove_path,
-  
+
   --- Set Environment functions ----
   setenv               = setenv,
   pushenv              = pushenv,
@@ -94,21 +94,21 @@ sandbox_env = {
   --- Property functions ----
   add_property         = add_property,
   remove_property      = remove_property,
-  
+
   --- Set Alias/shell functions ---
   set_alias            = set_alias,
   unset_alias          = unset_alias,
   set_shell_function   = set_shell_function,
   unset_shell_function = unset_shell_function,
-  
+
   --- Prereq / Conflict ---
   prereq               = prereq,
   prereq_any           = prereq_any,
   conflict             = conflict,
-  
+
   --- Family function ---
   family               = family,
-  
+
   --- Inherit function ---
   inherit              = inherit,
 
@@ -208,4 +208,4 @@ if (version == "5.2") then
    sandbox_run = run5_2
 end
 
-   
+

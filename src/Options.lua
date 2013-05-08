@@ -18,7 +18,7 @@
 --  permit persons to whom the Software is furnished to do so, subject
 --  to the following conditions:
 --
---  The above copyright notice and this permission notice shall be 
+--  The above copyright notice and this permission notice shall be
 --  included in all copies or substantial portions of the Software.
 --
 --  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
@@ -83,7 +83,7 @@ function M.options(self, usage)
       action = "store_true",
       help   = "This help message",
    }
-   
+
    cmdlineParser:add_option{
       name   = {"-D","--debug"},
       dest   = "debug",
@@ -133,7 +133,7 @@ function M.options(self, usage)
       action = "store_true",
       help   = "Print version info and quit",
    }
-   
+
    cmdlineParser:add_option{
       name   = {"--localvar"},
       dest   = "localvarA",
@@ -158,9 +158,9 @@ function M.options(self, usage)
       masterTbl[k] = optionTbl[k]
    end
 
-   masterTbl.cmdHelpMsg      = "" 
+   masterTbl.cmdHelpMsg      = ""
    if (masterTbl.cmdhelp or pargs[1] == "help" ) then
-      masterTbl.cmdHelpMsg   = cmdlineParser:buildHelpMsg() 
+      masterTbl.cmdHelpMsg   = cmdlineParser:buildHelpMsg()
    end
 
    if (optionTbl.expert) then

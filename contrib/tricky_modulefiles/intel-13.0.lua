@@ -3,7 +3,7 @@ help(
 [[
 This module loads the intel compiler path and environment variables
 
-]])      
+]])
 ------------------------------------------------------------------------
 -- Intel Compilers support
 ------------------------------------------------------------------------

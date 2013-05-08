@@ -21,7 +21,7 @@
 --  permit persons to whom the Software is furnished to do so, subject
 --  to the following conditions:
 --
---  The above copyright notice and this permission notice shall be 
+--  The above copyright notice and this permission notice shall be
 --  included in all copies or substantial portions of the Software.
 --
 --  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
@@ -217,21 +217,21 @@ Listing / Searching sub-commands:
   spider           modulefile            List all possible version of that
                                          module file
   spider           string                List all module that contain the
-                                         string.  
+                                         string.
   spider           modulefile/version    Detailed information about that
                                          version of the module
   whatis           modulefile            print whatis information about module
   keyword | key    string                search all name and whatis that contain
-                                         "string". 
+                                         "string".
 
 
 Searching with Lmod:
   All searching (spider, list, avail, keyword) support regular expressions:
 
-  spider        '^p'                     finds all the modules that start 
+  spider        '^p'                     finds all the modules that start
                                          with `p' or `P'
 
-  spider        mpi                      finds all modules that have "mpi" 
+  spider        mpi                      finds all modules that have "mpi"
                                          in their name.
   spider        'mpi$"                   file all modules that end with "mpi"
                                          in their name.
@@ -242,10 +242,10 @@ Handling a collection of modules:
   save name  | s name                    Save the current list of modules
                                          to "name" collection.
 
-  restore                                Restore modules from the user's 
+  restore                                Restore modules from the user's
                                          "default" or system default.
 
-  restore  name | r name                 Restore modules from "name" 
+  restore  name | r name                 Restore modules from "name"
                                          collection.
 
   restore  system                        restore module state to system
@@ -259,12 +259,12 @@ Deprecated commands
    reset                                 The same as "restore system"
    getdefault [name]                     load name collection of modules or
                                          user's "default" if no name given.
-                                         ---> Use "restore" instead  <----
+                                         ===> Use "restore" instead  <====
 
    setdefault [name]                     Save current list of modules to
                                          name if given, otherwise save as the
                                          default list for you the user.
-                                         ---> Use "save" instead. <----
+                                         ===> Use "save" instead. <====
 
 
 Miscellaneous sub-commands:
@@ -276,7 +276,7 @@ Miscellaneous sub-commands:
                                          lua table.
 
 Important Environment Variables:
-  LMOD_COLORIZE                          If defined to be "YES" then Lmod 
+  LMOD_COLORIZE                          If defined to be "YES" then Lmod
                                          prints properties and warning in color.
 
 ----------------------------------------------------------------------------------
@@ -351,7 +351,7 @@ ModuleFn   = ""
 
 
 function main()
-   
+
    local loadTbl      = { name = "load",        checkMPATH = true,  cmd = Load_Usr    }
    local tryAddTbl    = { name = "try-add",     checkMPATH = true,  cmd = Load_Try    }
    local unloadTbl    = { name = "unload",      checkMPATH = true,  cmd = UnLoad      }
@@ -444,7 +444,7 @@ function main()
    colorize = plain
    pager    = bypassPager
    local connectedTerm = false
-   
+
    if (term) then
       if (term.isatty(io.stderr)) then
          colorize = full_colorize
@@ -482,7 +482,7 @@ function main()
 
 
    ------------------------------------------------------------------------
-   --  The StandardPackage is where Lmod registers hooks.  Sites may 
+   --  The StandardPackage is where Lmod registers hooks.  Sites may
    --  override the hook functions in SitePackage.
    ------------------------------------------------------------------------
    require("StandardPackage")

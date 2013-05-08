@@ -10,18 +10,18 @@ If a you have a module path:
 
    /opt/apps/intel11_1/modulefiles/mkl/{10.3~}
 
-   and 
+   and
 
    /opt/apps/modulefiles/mkl/{10.3}
 
 
-Then 
+Then
 
    module load mkl/10.3
 
 works!
 
-But 
+But
 
    module load mkl
 
@@ -29,7 +29,7 @@ does not.
 
 The problem is that first dir in the MPATH does not have any valid
 modulefiles.  The rule is that only the first directory can use the
-default.  So the code would have to know that no defaults where in the 
+default.  So the code would have to know that no defaults where in the
 first directory so that the second one could have a default.
 
 Note that this will have to work for module avail as well!
@@ -41,12 +41,12 @@ Greg Abrams send me this bug where if you have qt/4.7.0 loaded then
 load paraview it fails but works if it is note loaded:
 
 
-     $ ml qt/4.7.0 
+     $ ml qt/4.7.0
      $ ml paraview/3.14.0
 
 fails, Yet
 
-    $ ml -qt; ml parview/3.14.0 
+    $ ml -qt; ml parview/3.14.0
 
 works
 
@@ -70,6 +70,6 @@ if [ module-info mode remove ] {
     module del python/2.7.1-epd
     module del qt/4.7.0
     module del silo/4.6.2
-} 
+}
 
 prereq   qt/4.7.0 silo/4.6.2 python/2.7.1-epd

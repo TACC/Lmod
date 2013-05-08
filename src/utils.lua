@@ -18,7 +18,7 @@
 --  permit persons to whom the Software is furnished to do so, subject
 --  to the following conditions:
 --
---  The above copyright notice and this permission notice shall be 
+--  The above copyright notice and this permission notice shall be
 --  included in all copies or substantial portions of the Software.
 --
 --  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
@@ -65,10 +65,10 @@ function UUIDString(epoch)
    local ymd  = os.date("*t", epoch)
 
    --                                y    m    d    h    m    s
-   local uuid_date = string.format("%d_%02d_%02d_%02d_%02d_%02d", 
-                                   ymd.year, ymd.month, ymd.day, 
+   local uuid_date = string.format("%d_%02d_%02d_%02d_%02d_%02d",
+                                   ymd.year, ymd.month, ymd.day,
                                    ymd.hour, ymd.min,   ymd.sec)
-   
+
    local uuid_str  = capture("uuidgen"):sub(1,-2)
    local uuid      = uuid_date .. "-" .. uuid_str
 
@@ -141,7 +141,7 @@ RCFileA = {
 function readRC()
    if (s_readRC) then
       s_readRC = true
-      return 
+      return
    end
 
    declare("propT",       false)
@@ -175,7 +175,7 @@ end
 --  and a message.  The module names can be either the full name or the file
 --  name.  The message can be multi-line.  A blank line is signifies the
 --  end of the message.
---  
+--
 --  /path/to/modulefile: Blah Blah Blah
 --                       Blah Blah Blah
 --
@@ -257,7 +257,7 @@ function lastFileInDir(path)
    local result    = nil
    local fullName  = nil
    local count     = 0
-   
+
    local attr = lfs.attributes(path)
    if (attr and attr.mode == 'directory' and posix.access(path,"x")) then
       for file in lfs.dir(path) do

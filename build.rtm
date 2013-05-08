@@ -1,6 +1,6 @@
-#!/bin/bash 
+#!/bin/bash
 # -*- shell-script -*-
-PKG_VERSION=`(cd src; lua -e "local Version=require('Version'); print(Version.name())") | awk '{print $1}'` 
+PKG_VERSION=`(cd src; lua -e "local Version=require('Version'); print(Version.name())") | awk '{print $1}'`
 echo Making Version: $PKG_VERSION
 
 runMe()
@@ -18,7 +18,7 @@ runMe()
       i=${i:1}
       ignoreError=1
     fi
-      
+
     j=$((j+1))
     jj=$(printf "%02d" $j)
     echo
@@ -39,7 +39,7 @@ myhost=${myhost%.tacc.utexas.edu}
 first=${myhost%%.*}
 SYSHOST=${myhost#*.}
 SUDO=""
-  
+
 cat > /tmp/stampede.build.$$ <<EOF
 /tmp/moduleData/cacheDir:/tmp/losf_last_update
 /home1/moduleData/XSEDE/cacheDir:/home1/moduleData/XSEDE/last_update

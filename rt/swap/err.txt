@@ -9,12 +9,12 @@ step 2
 ===========================
 step 3
 ===========================
- ProjectDIR/mf/MPI/intel/10.1/openmpi/1.2.6 
+ProjectDIR/mf/MPI/intel/10.1/openmpi/1.2.6
    parmetis/3.1 (m)      petsc/3.2       phdf5/1.8.2       phdf5/1.8.10  (D)
- ProjectDIR/mf/Compiler/intel/10.1 
+ProjectDIR/mf/Compiler/intel/10.1
    gotoblas/1.31          gotoblas/1.33       openmpi/1.2.6
    gotoblas/1.32  (D)     mpich2/1.0.7
- ProjectDIR/mf/Core 
+ProjectDIR/mf/Core
    PrgEnv                      git/1.7.4              junk/d/3.0
    admin/admin-1.0             git/1.7.4.3    (D)     local/local
    alex/1.0                    gotoblas/1.20          multi/multi
@@ -27,9 +27,9 @@ step 3
    (D):  Default Module
    (m):  built for host and native MIC
    (o):  built for offload to the MIC only
-Use "module spider" to find all possible modules. 
-Use "module keyword key1 key2 ..." to search for all possible modules matching 
-any of the "keys". 
+Use "module spider" to find all possible modules.
+Use "module keyword key1 key2 ..." to search for all possible modules matching
+any of the "keys".
 ===========================
 step 4
 ===========================

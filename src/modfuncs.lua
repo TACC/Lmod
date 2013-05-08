@@ -18,7 +18,7 @@
 --  permit persons to whom the Software is furnished to do so, subject
 --  to the following conditions:
 --
---  The above copyright notice and this permission notice shall be 
+--  The above copyright notice and this permission notice shall be
 --  included in all copies or substantial portions of the Software.
 --
 --  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
@@ -33,7 +33,7 @@
 --------------------------------------------------------------------------
 
 --------------------------------------------------------------------------
--- modfuncs.lua:  All the functions that are "Lmod" functions are in 
+-- modfuncs.lua:  All the functions that are "Lmod" functions are in
 -- this file.  Since the behavior of many of the Lmod functions (such as
 -- setenv) function when the user is doing a load, unload, show, many of
 -- these function they do the following:

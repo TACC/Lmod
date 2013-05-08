@@ -18,7 +18,7 @@
 --  permit persons to whom the Software is furnished to do so, subject
 --  to the following conditions:
 --
---  The above copyright notice and this permission notice shall be 
+--  The above copyright notice and this permission notice shall be
 --  included in all copies or substantial portions of the Software.
 --
 --  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
@@ -51,7 +51,7 @@ function M.accessMode(mode, value)
    M.accessT[mode] = value
 end
 
-function M.help(self, ...)   
+function M.help(self, ...)
    local arg = { n = select('#', ...), ...}
    if (M.accessT.help == true) then
       for i = 1, arg.n do

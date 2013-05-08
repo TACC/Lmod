@@ -15,7 +15,7 @@ step 4
 The following is a list of the modules currently available:
   boost: boost/1.51.0
   gcc: gcc/4.6
-    GCC Compiler Family (C/C++/Fortran for x86_64) 
+    GCC Compiler Family (C/C++/Fortran for x86_64)
   mpich2: mpich2/1.5
   openmpi: openmpi/1.6
 To learn more about a package enter:

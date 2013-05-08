@@ -9,7 +9,7 @@ testdescript = {
 
    active = 1,
    testName = "reset",
-   job_submit_method = "INTERACTIVE", 
+   job_submit_method = "INTERACTIVE",
 
    runScript = [[
 

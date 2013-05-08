@@ -21,10 +21,10 @@ function edit_derived_modulepaths(derived_mod_dir, newmodname, newmodversion)
    -- Find every parent directory for this module version
    local outer_find = capture( "find "..derived_mod_dir.." -type d -name "..newmodversion )
    for newmoddir in string.gmatch(outer_find, "[^\n]+") do
-      
+
       -- Make sure this is *our* module's directory
       if string.find(newmoddir, escmodname.."/"..escmodversion.."$") then
-     
+
          -- Find every descendant directory with module files
          local inner_find = capture( "find "..newmoddir.." -type d -name modulefiles" )
          for modfilesdir in string.gmatch(inner_find, "[^\n]+") do
@@ -71,7 +71,7 @@ function edit_new_derived_modulepaths(derived_mod_dir)
 
    -- Find every parent directory for this module version
    local inner_find = capture( "find "..derived_mod_dir.." -type d -name modulefiles" )
-  
+
    for modfilesdir in string.gmatch(inner_find, "[^\n]+") do
 
       -- Load module files directories that we have all
@@ -85,7 +85,7 @@ function edit_new_derived_modulepaths(derived_mod_dir)
                break
             end
          end
-            
+
          -- We have all prerequisites, so load the new path.
          if (have_all_modules) then
             prepend_path( "MODULEPATH", modfilesdir )

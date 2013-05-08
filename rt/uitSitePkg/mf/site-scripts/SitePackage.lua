@@ -6,16 +6,16 @@ local Dbg    = require("Dbg")
 local hook   = require("Hook")
 local siteAppRoot = os.getenv("LMOD_PKG_ROOT") or "/global/apps"
 local defaultsDir = pathJoin(os.getenv("MODULEPATH_ROOT"), "defaults")
-local helpDirRoot = os.getenv("LMOD_HELP_ROOT") or 
+local helpDirRoot = os.getenv("LMOD_HELP_ROOT") or
               pathJoin(os.getenv("MODULEPATH_ROOT"), "help")
 local siteUrl = "http://hpc.uit.no/"
 
----- Retrieve the directory portion of a path, or an empty string if 
+---- Retrieve the directory portion of a path, or an empty string if
 ---- the path does not include a directory.
 ----
 local function getdirectory(p)
-    local n = string.find(p:reverse(), "/") 
-    local i = 0 
+    local n = string.find(p:reverse(), "/")
+    local i = 0
     if n then i = p:len() - string.find(p:reverse(), "/") + 1 end
     if (i) then
         if i > 1 then i = i - 1 end
@@ -25,7 +25,7 @@ local function getdirectory(p)
     end
 end
 
-function checkRestrictedGroup(pkg, group) 
+function checkRestrictedGroup(pkg, group)
    local dbg = Dbg:dbg()
    dbg.start("checkRestrictedGroup(pkg, \"",tostring(group),"\")")
    if (mode() ~= "load") then
@@ -36,7 +36,7 @@ function checkRestrictedGroup(pkg, group)
       dbg.fini("checkRestrictedGroup")
       return true
    end
-   local err_message = "Only users in group \'" .. group .. 
+   local err_message = "Only users in group \'" .. group ..
         "\' can access module \'" .. pkg.id .. "\'"
    local found = false
    local grps = capture("groups")
@@ -63,10 +63,10 @@ function logUsage(pkg)
    local jobid = os.getenv("PBS_JOBID")
    local msg = ""
    dbg.print("user: ",user," jobid: ",jobid,"\n")
-   if jobid == nil then 
+   if jobid == nil then
       msg = string.format("user=%s,app=%s", user, pkg.id)
    else
-      msg = string.format("user=%s,app=%s,job=%s", 
+      msg = string.format("user=%s,app=%s,job=%s",
                           user, pkg.id, jobid)
    end
    local cmd = "logger -t lmod -p local0.info " .. msg
@@ -99,7 +99,7 @@ function readHelpFile(file_name)
    return help_text
 end
 
-function getAppRoot() 
+function getAppRoot()
     return siteAppRoot
 end
 
@@ -126,14 +126,14 @@ function setPkgInfo(pkg)
     end
 end
 
-function loadPkgDefaults() 
+function loadPkgDefaults()
     local dbg = Dbg:dbg()
     local pkg = {}
     local status
     local msg
     local whole
-    local fn    
-    local f     
+    local fn
+    local f
     dbg.start("loadPkgDefaults()")
 
     pkg.name              = myModuleName()
@@ -148,7 +148,7 @@ function loadPkgDefaults()
     pkg.description       = ""
     pkg.help              = ""
 
-    
+
     dbg.print("name: ", pkg.name, " version: ", pkg.version, " id: ",pkg.id,"\n")
 
     fn = pathJoin(defaultsDir, pkg.name .. ".lua")

@@ -12,7 +12,7 @@ testdescript = {
    keywords = { testName },
 
    active = false,
-   job_submit_method = "INTERACTIVE", 
+   job_submit_method = "INTERACTIVE",
 
    runScript = [[
 
@@ -24,7 +24,7 @@ testdescript = {
      MODULEPATH=$MODULEPATH_ROOT/Core;  export MODULEPATH
      LMOD_PACKAGE_PATH=$(testDir);      export LMOD_PACKAGE_PATH
      SYSTEM_DIR='sl6';                  export SYSTEM_DIR
-     
+
      numStep=0
      COUNT=0
      ORIG_HOME=`(cd $HOME; /bin/pwd)`
@@ -35,7 +35,7 @@ testdescript = {
      runMe lua $(projectDir)/src/lmod.in.lua bash --version            # 1
      runMe lua $(projectDir)/src/lmod.in.lua bash spider               # 2
      runMe lua $(projectDir)/src/lmod.in.lua bash spider grvy          # 3
-     runMe lua $(projectDir)/src/lmod.in.lua bash load  gcc            # 4    
+     runMe lua $(projectDir)/src/lmod.in.lua bash load  gcc            # 4
      runMe lua $(projectDir)/src/lmod.in.lua bash load  boost mpich2   # 5
      runMe lua $(projectDir)/src/lmod.in.lua bash load  grvy           # 6
      runMe lua $(projectDir)/src/lmod.in.lua bash list                 # 7

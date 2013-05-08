@@ -18,7 +18,7 @@
 --  permit persons to whom the Software is furnished to do so, subject
 --  to the following conditions:
 --
---  The above copyright notice and this permission notice shall be 
+--  The above copyright notice and this permission notice shall be
 --  included in all copies or substantial portions of the Software.
 --
 --  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
@@ -95,15 +95,15 @@ function M.new(self, t)
    local version  = nil
    if (type(t) == "table") then
       usage    = t.usage
-      ProgName = t.progName 
+      ProgName = t.progName
       version  = t.version
-      
+
       Error    = t.error or Error
       Prt      = t.prt or Prt
       PrtEnd   = t.prtEnd or PrtEnd
       Exit     = t.exit or Exit
    end
-      
+
    if (not isDefined("ProgName") or not ProgName or ProgName == "") then
       declare("ProgName","")
    else
@@ -146,7 +146,7 @@ function M.add_option(self, myTable)
 
    for i,v in ipairs(names) do
       local _, _, dash, key = v:find("^(%-%-?)([^=-][^=]*)")
-      
+
       local exists = self.argNames[key]
       if (not exists) then
          self.argNames[key] = opt.table
@@ -258,13 +258,13 @@ function M.buildHelpMsg(self)
    local b = {}
    b[#b+1] = self.usage
    b[#b+1] = "\n\nOptions:\n"
-   
+
    local a = {}
    for _,v  in ipairs(self.optA) do
       local opt = v.table
       a[#a + 1] = { "  " .. self.dispTbl[opt.action](self, opt), opt.help or " " }
    end
-   
+
    local bt = BeautifulTbl:new{tbl=a, wrapped=true, column=term_width-1}
    b[#b+1] = bt:build_tbl()
    b[#b+1] = "\n"

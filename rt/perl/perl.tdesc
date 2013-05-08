@@ -10,7 +10,7 @@ testdescript = {
 
    active = 1;
    testName = "perl",
-   job_submit_method = "INTERACTIVE", 
+   job_submit_method = "INTERACTIVE",
 
    runScript = [[
 

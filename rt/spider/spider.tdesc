@@ -9,7 +9,7 @@ testdescript = {
 
    active = 1,
    testName = "spider",
-   job_submit_method = "INTERACTIVE", 
+   job_submit_method = "INTERACTIVE",
 
    runScript = [[
 
@@ -27,7 +27,7 @@ testdescript = {
      rm -fr .lmod.d .lmodrc.lua
      cp $(projectDir)/setup/.lmodrc.lua .
 
-     runMe lua $(projectDir)/src/lmod.in.lua bash --version                                                        # 1 
+     runMe lua $(projectDir)/src/lmod.in.lua bash --version                                                        # 1
      runMe lua $(projectDir)/src/lmod.in.lua bash use -a $projectDir/mf/Core $projectDir/mf/Beta                   # 2
      runMe lua $(projectDir)/src/lmod.in.lua bash spider                                                           # 3
      runMe lua $(projectDir)/src/lmod.in.lua bash spider mpich2                                                    # 4
@@ -38,8 +38,8 @@ testdescript = {
      runMe lua $(projectDir)/src/lmod.in.lua bash spider mpich2me                                                  # 7
      runMe lua $(projectDir)/src/lmod.in.lua bash spider mpich2/1.0.5                                              # 8
 
-     mkdir -p $HOME/.lmod.d/.cache                                                                                 
-     lua $(projectDir)/src/spider.in.lua -o moduleT $LMOD_DEFAULT_MODULEPATH > $HOME/.lmod.d/.cache/moduleT.lua    
+     mkdir -p $HOME/.lmod.d/.cache
+     lua $(projectDir)/src/spider.in.lua -o moduleT $LMOD_DEFAULT_MODULEPATH > $HOME/.lmod.d/.cache/moduleT.lua
      runMe lua $(projectDir)/src/lmod.in.lua bash spider                                                           # 9
 
      HOME=$ORIG_HOME

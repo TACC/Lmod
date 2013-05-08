@@ -16,11 +16,11 @@ echo
 echo '----------------------------------- SUMMARY ----------------------------------'
 echo
 echo "Package version............................." : Lmod-$LmodV
-echo 
+echo
 echo "LUA_INCLUDE................................." : $LUA_INCLUDE
 echo "Lua executable.............................." : $luaprog
-echo "Install dir................................." : $prefix 
-echo 
+echo "Install dir................................." : $prefix
+echo
 echo "MODULEPATH_ROOT............................." : $MODULEPATH_ROOT
 echo "Wait (s) before rebuilting cache............" : $ANCIENT
 echo "Do not save Cache if build time < .........." : $SHORT_TIME

@@ -16,8 +16,8 @@ writeTS()
   echo "hostName   = $hostName" >> $fn
   echo "lastUpdate = $dateStr"  >> $fn
   echo "timeEpoch  = $epoch"    >> $fn
-}  
-  
+}
+
 
 ########################################################################
 # Read time stamp file for nodeType
@@ -43,7 +43,7 @@ getModifyTime()
 }
 
 ########################################################################
-#  Build the new database 
+#  Build the new database
 
 buildNewDB()
 {
@@ -71,12 +71,12 @@ buildNewDB()
    fi
 }
 
-######################################################################## 
+########################################################################
 #  Make directores and file be world readable
 umask 022
 
 
-######################################################################## 
+########################################################################
 #  Find an lmod that has a version 5 or better
 for i in /opt/apps/lmod/lmod/libexec             \
          /opt/apps/lmod/5.0rc1/libexec           ; do
@@ -104,7 +104,7 @@ nodeType=$(readTS $timeStamp)
 # directories
 if [ $a -ge $b ]; then
   if [ "$nodeType" != "build" ]; then
-    buildNewDB $CacheDir  /opt/apps/modulefiles:/opt/modulefiles  moduleT 
+    buildNewDB $CacheDir  /opt/apps/modulefiles:/opt/modulefiles  moduleT
     buildNewDB $RmapDir   /opt/apps/modulefiles:/opt/modulefiles  reverseMapT
   fi
 fi
@@ -120,7 +120,7 @@ if [ "$nodeType" == "master" ]; then
   writeTS $nodeType /home1/moduleData/XSEDE/last_update
   for i in /opt/apps/xsede/modulefiles /share1/apps/teragrid/modulefiles; do
     if [ -d $i ]; then
-      buildNewDB /home1/moduleData/XSEDE/cacheDir     $i  moduleT 
+      buildNewDB /home1/moduleData/XSEDE/cacheDir     $i  moduleT
       buildNewDB /home1/moduleData/XSEDE/reverseMapD  $i  reverseMapT
     fi
   done

@@ -20,7 +20,7 @@
 --  permit persons to whom the Software is furnished to do so, subject
 --  to the following conditions:
 --
---  The above copyright notice and this permission notice shall be 
+--  The above copyright notice and this permission notice shall be
 --  included in all copies or substantial portions of the Software.
 --
 --  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
@@ -104,7 +104,7 @@ local ignoreT     = {
    "^/usr/lib/?",
    "^/opt/local/bin$",
 }
-      
+
 function keepThisPath(path)
    for i = 1, #ignoreT do
       if (path:find(ignoreT[i])) then
@@ -116,7 +116,7 @@ end
 
 local function add2map(entry, tbl, rmapT, kind)
    for path in pairs(tbl) do
-      local attr = lfs.attributes(path) 
+      local attr = lfs.attributes(path)
       path = path_regularize(path)
       if (keepThisPath(path) and attr and attr.mode == "directory") then
          path = abspath(path)
@@ -145,7 +145,7 @@ function main()
    local pargs      = masterTbl.pargs
    local moduleT    = {}
    local moduleDirA = {}
-   
+
    local master     = Master:master(false)
    master.shell     = BaseShell.build("bash")
 
@@ -167,13 +167,13 @@ function main()
 
    readRC()
    local cache = Cache:cache{dontWrite = true, quiet = true}
-   
+
    ------------------------------------------------------------------------
    -- do not colorize output from spider
    colorize = plain
 
    ------------------------------------------------------------------------
-   -- Load a SitePackage Module.  
+   -- Load a SitePackage Module.
    ------------------------------------------------------------------------
 
    local lmodPath = os.getenv("LMOD_PACKAGE_PATH") or ""
@@ -191,7 +191,7 @@ function main()
    dbg.print("lmodPath:", lmodPath,"\n")
    require("SitePackage")
    Spider.findAllModules(moduleDirA, moduleT)
-   
+
    for k,v in pairs(moduleT) do
       dbg.print("k: ",k,"\n")
    end
@@ -238,7 +238,7 @@ function main()
       dbg.fini()
       return
    end
-      
+
    if (masterTbl.outputStyle == "softwarePage" or masterTbl.outputStyle == "jsonSoftwarePage")  then
       local spA = softwarePage(dbT)
       print(json.encode(spA))
@@ -258,7 +258,7 @@ function main()
       local spA = softwarePage(dbT)
       local s   = serializeTbl{name="spA",      value=spA,   indent=true}
       print(s)
-      
+
       dbg.fini()
       return
    end
@@ -429,7 +429,7 @@ function xmlSoftwarePage(dbT)
 
    top:append(root)
 
-   
+
 
    return top:str()
 
@@ -472,7 +472,7 @@ end
 function localSoftware(xml, name, t)
    local dbg = Dbg:dbg()
    dbg.start("localSoftware(xml,",name,",t)")
-   
+
    local root = xml.new("LocalSoftware")
 
    local value  = "unknown"

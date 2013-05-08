@@ -4,7 +4,7 @@
 You have a choice of using lua or TCL as the implementation language
 for your modulefiles.  Modulefiles with the ".lua" extension are
 treated as lua files.  Otherwise the modulefile is assumed to be in
-TCL.   
+TCL.
 
 The TCL modulefiles are translated by a small tcl program in the src
 directory:  tcl2lua.tcl.  Each time a TCL module is accessed it is
@@ -77,4 +77,4 @@ well-written book on lua:
 NOTE: If you use the tcl2lua.tcl program, you obviously require that
 TCL is installed.   But you would have anyway if you have already been
 using modules.
-************************************************************************  
+************************************************************************

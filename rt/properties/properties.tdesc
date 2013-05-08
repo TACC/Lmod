@@ -9,7 +9,7 @@ testdescript = {
 
    active = 1,
    testName = "properties",
-   job_submit_method = "INTERACTIVE", 
+   job_submit_method = "INTERACTIVE",
 
    runScript = [[
 
@@ -24,7 +24,7 @@ testdescript = {
      HOME=`/bin/pwd`
 
      rm -f  _stderr.* _stdout.* err.* out.*
-     rm -fr .lmod.d .lmodrc.lua 
+     rm -fr .lmod.d .lmodrc.lua
 
      cp $(projectDir)/setup/.lmodrc.lua .
 

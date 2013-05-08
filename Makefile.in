@@ -111,7 +111,7 @@ spiderCacheSupport:
 	$(spiderCacheSupportCMD) --cacheDirs "$(SPIDER_CACHE_DIRS)"          \
 	                         --updateFn  "$(UPDATE_SYSTEM_FN)"           \
                                  --descriptFn "$(SPIDER_CACHE_DESCRIPT_FN)"  \
-                                 >> $(DESTDIR)$(INIT)/.lmodrc.lua; 
+                                 >> $(DESTDIR)$(INIT)/.lmodrc.lua;
 
 src/computeHashSum: $(ComputeHashSum)
 	$(MAKE) FILELIST="$^" DIRLOC="src"                __installMe
@@ -133,7 +133,7 @@ makefile: Makefile.in config.status
 config.status:
 	./config.status --recheck
 
-dist:  
+dist:
 	$(MAKE) DistD=DIST _dist
 
 _dist: _distMkDir _distMainDir _distSrc _distSetup _distSetupZsh \
@@ -177,7 +177,7 @@ _distMainDir:
 _distMF:
 	mkdir $(DistD)/mf
 	cp -r mf $(DistD)/mf
-	find $(DistD)/mf -name .svn | xargs rm -rf 
+	find $(DistD)/mf -name .svn | xargs rm -rf
 
 _distTar:
 	echo "Lmod"-$(version) > .fname;                		   \
@@ -185,7 +185,7 @@ _distTar:
 	mv ${DistD} `cat .fname`;                            		   \
 	tar chf `cat .fname`.tar `cat .fname`;           		   \
 	bzip2 `cat .fname`.tar;                           		   \
-	rm -rf `cat .fname` .fname; 
+	rm -rf `cat .fname` .fname;
 
 
 test:

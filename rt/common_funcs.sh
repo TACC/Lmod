@@ -12,7 +12,7 @@ cleanUp ()
        -e "s|unset _ModuleTable..._;||g"                  \
        -e "s|unset _ModuleTable..._;||g"                  \
        -e "s|$projectDir|ProjectDIR|g"                    \
-       -e "s|----*||g"                                    \
+       -e "s| *\-\-\-\-* *||g"                            \
        -e "/Rebuilding cache file, please wait .* done/d" \
        -e "/Using your spider cache file/d"               \
        -e "/^_ModuleTable_Sz_=.*$/d"                      \
@@ -65,7 +65,7 @@ initStdEnvVars()
   PATH_to_TM=`findcmd --pathOnly tm`
 
   export PATH=$projectDir/src:$PATH_to_LUA:$PATH_to_TM:/usr/bin:/bin
-  
+
 }
 
 

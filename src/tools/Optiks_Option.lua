@@ -18,7 +18,7 @@
 --  permit persons to whom the Software is furnished to do so, subject
 --  to the following conditions:
 --
---  The above copyright notice and this permission notice shall be 
+--  The above copyright notice and this permission notice shall be
 --  included in all copies or substantial portions of the Software.
 --
 --  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
@@ -109,7 +109,7 @@ end
 
 
 function M.new(self, myTable)
-   local o = {} 
+   local o = {}
    setmetatable(o, self)
    self.__index  = self
    o.table       = myTable
@@ -118,6 +118,6 @@ function M.new(self, myTable)
       Optiks_Error(errStr)
    end
    return o
-end   
+end
 
 return M

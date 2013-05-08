@@ -18,7 +18,7 @@
 --  permit persons to whom the Software is furnished to do so, subject
 --  to the following conditions:
 --
---  The above copyright notice and this permission notice shall be 
+--  The above copyright notice and this permission notice shall be
 --  included in all copies or substantial portions of the Software.
 --
 --  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
@@ -107,7 +107,7 @@ local function locationTblDir(mpath, path, prefix, locationT, availT)
             local mname = pathJoin(prefix, file):gsub("%.lua","")
             mnameT[mname] = {file=f, mpath = mpath}
          elseif (attr.mode == "directory") then
-            dirA[#dirA + 1] = { fullName = f, mname = pathJoin(prefix, file) } 
+            dirA[#dirA + 1] = { fullName = f, mname = pathJoin(prefix, file) }
          end
       end
    end
@@ -149,11 +149,11 @@ local function buildLocWmoduleT(mpath, moduleT, mpathT, lT, availT)
    local dbg       = Dbg:dbg()
    dbg.start("MT:buildLocWmoduleT(mpath, moduleT, mpathA, lT, availT)")
    dbg.print("mpath: ", mpath,"\n")
-   
+
    local availEntryT = availT[mpath]
 
    for f, vv in pairs(moduleT) do
-      
+
       local defaultModule = false
       local sn            = vv.name
       local a             = lT[sn] or {}
@@ -161,7 +161,7 @@ local function buildLocWmoduleT(mpath, moduleT, mpathT, lT, availT)
          a[mpath] = { file = pathJoin(mpath,sn), mpath = mpath }
       end
       lT[sn]   = a
-      
+
       a = availEntryT[sn] or {}
 
       local version   = extractVersion(vv.full, sn)
@@ -243,7 +243,7 @@ local function build_locationTbl(mpathA)
    local fast      = true
    local cache     = _G.Cache:cache()
    local moduleT   = cache:build(fast)
-   
+
    dbg.print("moduleT: ", not (not moduleT),"\n")
 
    if (moduleT) then
@@ -256,7 +256,7 @@ local function build_locationTbl(mpathA)
       end
    end
 
-   
+
    if (dbg.active()) then
       dbg.print("availT: \n")
       for mpath, vv in pairs(availT) do
@@ -378,7 +378,7 @@ function M.convertMT(self, v1)
       if (active.hash and active.hash[i]) then
          hash = active.hash[i]
       end
-      
+
       local t     = { fn = active.FN[i], modFullName = active.fullModName[i],
                       default = active.default[i], modName = sn,
                       mType   = active.mType[i], hash = hash,
@@ -397,14 +397,14 @@ function M.convertMT(self, v1)
          aa[#aa+1] = sn
       end
    end
-   
+
    self.mpathA     = v1.mpathA
    self.baseMpathA = v1.baseMpathA
    self.inactive   = aa
 
    return sz   -- Return the new loadOrder number.
 end
-   
+
 
 
 function M.getRebuildTime(self)
@@ -535,7 +535,7 @@ function M.getMTfromFile(self,fn, msg)
       dbg.print("name: ",name," isDefault: ",entry.defaultFlg,
                 " mType: ", mType, "\n")
    end
-   
+
    local savedBaseMPATH = concatTbl(l_mt.baseMpathA,":")
    dbg.print("Saved baseMPATH: ",savedBaseMPATH,"\n")
    varTbl[ModulePath] = Var:new(ModulePath,mpath)
@@ -571,7 +571,7 @@ function M.getMTfromFile(self,fn, msg)
    -- environment then MODULEPATH is used to set the system base MPATH.
    -- It is detected when a new MT is constructed and the MT is nil.
    -- Well the line above this comment is also constructing a MT where
-   -- the module table in the environment value is ignored.  So this 
+   -- the module table in the environment value is ignored.  So this
    -- hack is here to make sure that the value of the system Base MPATH
    -- remains what is was.  There should be a better way to do this
    -- but I can't think of one at the moment.
@@ -628,7 +628,7 @@ function M.getMTfromFile(self,fn, msg)
       end
    end
 
-   
+
    if (#aa > 0) then
       LmodWarning("The following modules have changed: ", concatTbl(aa,", "),"\n")
       LmodWarning("Please re-create this collection\n")
@@ -646,7 +646,7 @@ function M.getMTfromFile(self,fn, msg)
    dbg.fini("MT:getMTfromFile")
    return true
 end
-   
+
 function M.changePATH(self)
    if (not self._changePATH) then
       assert(self._changePATHCount == 0)
@@ -722,7 +722,7 @@ end
 
 local function path2pathA(mpath)
    local a = {}
-   if (mpath) then 
+   if (mpath) then
       for path in mpath:split(':') do
          a[#a+1] = path_regularize(path)
       end
@@ -912,26 +912,26 @@ function M.setHashSum(self)
    local found  = false
 
    for i = 1,2 do
-      cmdSum  = pathJoin(cmdDir(),chsA[i]) 
+      cmdSum  = pathJoin(cmdDir(),chsA[i])
       if (isFile(cmdSum)) then
          found = true
          break
       end
    end
-         
+
    if (not found) then
       LmodError("Unable to find computeHashSum\n")
    end
 
    local path = "@path_to_lua@:" .. os.getenv("PATH")
 
-   
+
    local luaCmd = findInPath("lua",path)
 
    if (luaCmd == "") then
       LmodError("Unable to find lua\n")
    end
-      
+
    local cmdA = {}
    cmdA[#cmdA+1] = luaCmd
    cmdA[#cmdA+1] = cmdSum
@@ -941,7 +941,7 @@ function M.setHashSum(self)
       cmdA[#cmdA+1] = "-D"
    end
    local cmdStart = concatTbl(cmdA," ")
-   
+
    for k,v in pairs(mT) do
       local a = {}
       if (v.status == "active") then
@@ -1005,7 +1005,7 @@ function M.setLoadOrder(self)
    for i = 1,sz do
       local sn = a[i]
       mT[sn].loadOrder = i
-   end      
+   end
    return sz
 end
 
@@ -1035,7 +1035,7 @@ end
 
 function M.short(self, sn)
    local mT    = self.mT
-   local entry = mT[sn] 
+   local entry = mT[sn]
    if (entry == nil) then
       return nil
    end
@@ -1090,7 +1090,7 @@ end
 function M.add_property(self, sn, name, value)
    local dbg = Dbg:dbg()
    dbg.start("MT:add_property(\"",sn,"\", \"",name,"\", \"",value,"\")")
-   
+
    local mT    = self.mT
    local entry = mT[sn]
 
@@ -1130,7 +1130,7 @@ end
 function M.remove_property(self, sn, name, value)
    local dbg = Dbg:dbg()
    dbg.start("MT:remove_property(\"",sn,"\", \"",name,"\", \"",value,"\")")
-   
+
    local mT    = self.mT
    local entry = mT[sn]
 
@@ -1244,7 +1244,7 @@ function M.reportChanges(self)
          end
       end
    end
-      
+
    local entries = false
 
    if (#inactiveA > 0) then
@@ -1275,7 +1275,7 @@ end
 
 function M.serializeTbl(self)
    local dbg = Dbg:dbg()
-   
+
    s_mt.activeSize = s_mt:setLoadOrder()
 
    local s = _G.serializeTbl{ indent=false, name=self.name(), value=s_mt}

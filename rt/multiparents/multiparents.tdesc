@@ -9,7 +9,7 @@ testdescript = {
 
    active = 1,
    testName = "multiparent",
-   job_submit_method = "INTERACTIVE", 
+   job_submit_method = "INTERACTIVE",
 
    runScript = [[
 
@@ -29,7 +29,7 @@ testdescript = {
      runMe lua $(projectDir)/src/lmod.in.lua bash --version                # 1
      runMe lua $(projectDir)/src/lmod.in.lua bash use -a $testDir/mf/core  # 2
      runMe lua $(projectDir)/src/lmod.in.lua bash spider pmetis/4.1        # 3
-     
+
      HOME=$ORIG_HOME
 
      cat _stdout.[0-9][0-9] > _stdout.orig

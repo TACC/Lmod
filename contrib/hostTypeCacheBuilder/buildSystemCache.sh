@@ -2,7 +2,7 @@
 # -*- shell-script -*-
 
 ########################################################################
-#  Create a system cache file 
+#  Create a system cache file
 #
 #   This creates the system cache file for module spider.
 ########################################################################
@@ -66,7 +66,7 @@ fi
 ########################################################################
 #  Build reverse map (This is optional)
 ########################################################################
-#buildNewDB $RmapDir   reverseMapT  
+#buildNewDB $RmapDir   reverseMapT
 
 
 

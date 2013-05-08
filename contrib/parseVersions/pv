@@ -20,7 +20,7 @@
 --  permit persons to whom the Software is furnished to do so, subject
 --  to the following conditions:
 --
---  The above copyright notice and this permission notice shall be 
+--  The above copyright notice and this permission notice shall be
 --  included in all copies or substantial portions of the Software.
 --
 --  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
@@ -120,7 +120,7 @@ function parseVersionParts(versionStr)
    local i,j, results
    return
       function()
-      
+
          -- skip over "."
          if (ipos <= s_end and s:sub(ipos,ipos) == ".") then
             ipos = ipos + 1
@@ -161,9 +161,9 @@ function parseVersionParts(versionStr)
             return "*zfinal-"
          end
 
-         -- return any single character as 
+         -- return any single character as
          results = s:sub(ipos,ipos)
-         
+
          ipos    = ipos + 1
          return "*" .. (replaceT[results] or results)
       end
@@ -179,7 +179,7 @@ function sortTuple(a,b)
 
    while (not done) do
       idx = idx + 1
-      
+
       if (idx > aLen and idx > bLen) then
          results = true;
          state = 3
@@ -233,7 +233,7 @@ function main()
 
 
    --for i = 1,#versionA do
-   --   a[i] = {parseVersion(versionA[i]), versionA[i] } 
+   --   a[i] = {parseVersion(versionA[i]), versionA[i] }
    --end
    --
    --table.sort(a, function (a,b)

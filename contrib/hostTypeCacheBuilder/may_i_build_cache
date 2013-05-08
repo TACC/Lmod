@@ -111,7 +111,7 @@ function main()
       dbg.fini()
       return
    end
-   
+
    ------------------------------------------------------------------------
    -- Ping Test.
 
@@ -139,39 +139,39 @@ function options()
    local usage         = "Usage: "
    local cmdlineParser = Optiks:new{usage=usage, version=Version, progName = arg[0]}
 
-   cmdlineParser:add_option{ 
+   cmdlineParser:add_option{
       name   = {'-v','--verbose'},
       dest   = 'verbosityLevel',
       action = 'count',
    }
 
-   cmdlineParser:add_option{ 
+   cmdlineParser:add_option{
       name    = {'-f','--systemUpdateFn'},
       dest    = 'systemUpdateFn',
       action  = 'store',
       default = "/tmp/losf/last_update"
    }
 
-   cmdlineParser:add_option{ 
+   cmdlineParser:add_option{
       name    = {'-i','--hostDescriptFn'},
       dest    = 'hostDescriptFn',
       action  = 'store',
       default = "unknown",
    }
 
-   cmdlineParser:add_option{ 
+   cmdlineParser:add_option{
       name    = {'-c','--cacheDir'},
       dest    = 'cacheDir',
       action  = 'store',
       default = "/home1/moduleData/cachedir"
    }
-   
-   cmdlineParser:add_option{ 
+
+   cmdlineParser:add_option{
       name    = {'-d','--debug'},
       dest    = 'debug',
       action  = 'store_true',
    }
-   
+
    local optionTbl, pargs = cmdlineParser:parse(arg)
 
    for v in pairs(optionTbl) do

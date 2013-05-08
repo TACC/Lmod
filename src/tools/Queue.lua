@@ -44,19 +44,19 @@ return M
 -- require("strict")
 -- local Queue = require("Queue")
 -- function main()
--- 
+--
 --    local a = { 5, 4, 3, 2, 1}
--- 
--- 
+--
+--
 --    local q = Queue:new()
--- 
+--
 --    for i = 1,#a do
 --       q:push(a[i])
 --    end
--- 
+--
 --    while (not q:isempty()) do
 --       print (q:pop())
 --    end
 -- end
--- 
+--
 -- main()

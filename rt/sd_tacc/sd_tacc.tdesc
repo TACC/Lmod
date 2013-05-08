@@ -16,7 +16,7 @@ testdescript = {
 
    active = 1,
    testName = "sd_tacc",
-   job_submit_method = "INTERACTIVE", 
+   job_submit_method = "INTERACTIVE",
 
    runScript = [[
 
@@ -27,11 +27,11 @@ testdescript = {
      MODULEPATH_ROOT=$(projectDir)/mf;  export MODULEPATH_ROOT
 
      HOME=`(cd $HOME; /bin/pwd)`
-     HOME_ORIG=$HOME  
+     HOME_ORIG=$HOME
      HOME=`pwd`;                        export HOME
      COUNT=0;
      numStep=0;
-     
+
      rm -fr _stderr.* _stdout.* err.* out.* .lmod.d
 
      rm -rf $HOME/.lmod.d

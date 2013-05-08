@@ -20,7 +20,7 @@
 --  permit persons to whom the Software is furnished to do so, subject
 --  to the following conditions:
 --
---  The above copyright notice and this permission notice shall be 
+--  The above copyright notice and this permission notice shall be
 --  included in all copies or substantial portions of the Software.
 --
 --  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
@@ -75,10 +75,10 @@ function UUIDString(epoch)
    local ymd  = os.date("*t", epoch)
 
    --                                y    m    d    h    m    s
-   local uuid_date = string.format("%d_%02d_%02d_%02d_%02d_%02d", 
-                                   ymd.year, ymd.month, ymd.day, 
+   local uuid_date = string.format("%d_%02d_%02d_%02d_%02d_%02d",
+                                   ymd.year, ymd.month, ymd.day,
                                    ymd.hour, ymd.min,   ymd.sec)
-   
+
    local uuid_str  = capture("uuidgen"):sub(1,-2)
    local uuid      = uuid_date .. "-" .. uuid_str
 
@@ -138,7 +138,7 @@ function main()
       local attr = lfs.attributes(d)
       if (not attr) then
          mkdir_recursive(d)
-      end 
+      end
 
       local f = io.open(fn,"w")
       if (f) then
@@ -158,25 +158,25 @@ function options()
    local usage         = "Usage: getmt [options]"
    local cmdlineParser = Optiks:new{usage=usage, version="1.0"}
 
-   cmdlineParser:add_option{ 
+   cmdlineParser:add_option{
       name   = {'-v','--verbose'},
       dest   = 'verbosityLevel',
       action = 'count',
    }
 
-   cmdlineParser:add_option{ 
+   cmdlineParser:add_option{
       name   = {'-f', '--file'},
       dest   = 'fn',
       action = 'store',
    }
 
-   cmdlineParser:add_option{ 
+   cmdlineParser:add_option{
       name   = {'-2', '--err'},
       dest   = 'errorOut',
       action = 'store_true',
    }
 
-   cmdlineParser:add_option{ 
+   cmdlineParser:add_option{
       name   = {'-s', '--save_state'},
       dest   = 'save_state',
       action = 'store_true',

@@ -18,7 +18,7 @@
 --  permit persons to whom the Software is furnished to do so, subject
 --  to the following conditions:
 --
---  The above copyright notice and this permission notice shall be 
+--  The above copyright notice and this permission notice shall be
 --  included in all copies or substantial portions of the Software.
 --
 --  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
@@ -222,7 +222,7 @@ function loadModuleFile(t)
       local s      = concatTbl(mt:list("short","active"),":")
       local A      = {}
       A[#A + 1]    = "-l"
-      A[#A + 1]    = "\"" .. s .. "\"" 
+      A[#A + 1]    = "\"" .. s .. "\""
       A[#A + 1]    = "-f"
       A[#A + 1]    = t.fullName
       A[#A + 1]    = "-u"
@@ -237,7 +237,7 @@ function loadModuleFile(t)
       a[#a + 1]	   = concatTbl(A," ")
       a[#a + 1]	   = t.file
       local cmd    = concatTbl(a," ")
-      whole        = capture(cmd) 
+      whole        = capture(cmd)
    end
 
    if (whole) then
@@ -249,7 +249,7 @@ function loadModuleFile(t)
 
    if (not status and t.reportErr) then
       local n = t.moduleName or ""
-      
+
       LmodError("Unable to load module: ",n,"\n    ",t.file,": ", msg,"\n")
    end
    dbg.fini("loadModuleFile")
@@ -281,7 +281,7 @@ function M.unload(...)
       local mname = MName:new("mt", moduleName)
       local sn    = mname:sn()
       dbg.print("Trying to unload: ", moduleName, " sn: ", sn,"\n")
-      
+
       if (mt:have(sn,"inactive")) then
          dbg.print("Removing inactive module: ", moduleName, "\n")
          mt:remove(sn)
@@ -294,7 +294,7 @@ function M.unload(...)
          dbg.print("Master:unload: \"",fullModuleName,"\" from f: ",f,"\n")
          mt:beginOP()
          mStack:push(fullModuleName, sn, f)
-	 loadModuleFile{file=f,moduleName=moduleName, 
+	 loadModuleFile{file=f,moduleName=moduleName,
                         fullName=fullModuleName,reportErr=false}
          mStack:pop()
          mt:endOP()
@@ -339,10 +339,10 @@ local function access_find_module_file(mname)
    local mt    = MT:mt()
    local sn    = mname:sn()
    if (sn == mname:usrName() and mt:have(sn,"any")) then
-      local full = mt:fullName(sn) 
+      local full = mt:fullName(sn)
       return mt:fileName(sn), full or ""
    end
-   
+
    local t    = find_module_file(mname)
    local full = t.modFullName or ""
    local fn   = t.fn
@@ -477,7 +477,7 @@ function M.fakeload(...)
       a[#a+1] = loaded
    end
    dbg.fini("Master:fakeload")
-end         
+end
 
 
 function M.reloadAll()
@@ -556,7 +556,7 @@ function M.inheritModule()
    dbg.print("myFn:  ", myFn,"\n")
    dbg.print("mFull: ", mFull,"\n")
 
-   
+
    local t = inhTmpl.find_module_file(mFull,myFn)
    dbg.print("fn: ", t.fn,"\n")
    if (t.fn == nil) then
@@ -601,7 +601,7 @@ local function findDefault(mpath, sn, versionA)
    dbg.start("Master.findDefault(mpath=\"",mpath,"\", "," sn=\"",sn,"\")")
    local mt   = MT:mt()
 
-   local pathA  = mt:locationTbl(sn) 
+   local pathA  = mt:locationTbl(sn)
    local mpath2 = pathA[1].mpath
 
    if (mpath2 ~= mpath) then
@@ -674,7 +674,7 @@ local function availEntry(defaultOnly, terse, szA, searchA, sn, name, f, default
       dbg.fini("Master:availEntry")
       return
    end
-      
+
 
 
    if (terse) then
@@ -728,7 +728,7 @@ local function availDir(defaultOnly, terse, searchA, mpath, availT, dbT, a, lege
    for sn, versionA in pairsByKeys(availT) do
       local defaultModule = false
       local aa            = {}
-      local szA           = #versionA 
+      local szA           = #versionA
       if (szA == 0) then
          availEntry(defaultOnly, terse, szA, searchA, sn, sn, "", defaultModule, dbT, legendT, a)
       else
@@ -752,12 +752,12 @@ local function availOptions(argA)
 
    argA[0] = "avail"
 
-   cmdlineParser:add_option{ 
+   cmdlineParser:add_option{
       name   = {'-t', '--terse'},
       dest   = 'terse',
       action = 'store_true',
    }
-   cmdlineParser:add_option{ 
+   cmdlineParser:add_option{
       name   = {'-d','--default'},
       dest   = 'defaultOnly',
       action = 'store_true',
@@ -766,7 +766,7 @@ local function availOptions(argA)
    return optionTbl, pargs
 
 end
-      
+
 
 
 function M.avail(argA)
@@ -832,7 +832,7 @@ function M.avail(argA)
       aa[#aa+1] = bt:build_tbl()
       aa[#aa+1] = "\n"
    end
-   
+
 
    if (not expert()) then
       local a = fillWords("","Use \"module spider\" to find all possible modules.",width)

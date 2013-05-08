@@ -21,7 +21,7 @@
 --  permit persons to whom the Software is furnished to do so, subject
 --  to the following conditions:
 --
---  The above copyright notice and this permission notice shall be 
+--  The above copyright notice and this permission notice shall be
 --  included in all copies or substantial portions of the Software.
 --
 --  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
@@ -73,7 +73,7 @@ function main()
    -- count number of active users
 
    -- get number of user from number of lines in /etc/passwd
-   
+
    local passwd = optionTbl.passwd
    local line   = capture("wc -l " .. passwd)
    local nusers = line:match("(%d+)")
@@ -183,7 +183,7 @@ function processBatch(userName, mt_date, f, outputFh)
    end
    resultFn()
 
-   
+
    if (moduleInfoT and isDefined("moduleInfo") and type(moduleInfo) == "table" and
        moduleInfoT.modFullName and
        moduleInfoT.fn) then
@@ -203,7 +203,7 @@ end
 
 function processPWRec(fn)
    io.input(fn)
-   return 
+   return
      function()
         local line = io.read()
         if (line == nil) then
@@ -222,26 +222,26 @@ function options()
    local usage         = "Usage: processMT [options]"
    local cmdlineParser = Optiks:new{usage=usage, version="1.0"}
 
-   cmdlineParser:add_option{ 
+   cmdlineParser:add_option{
       name   = {'-v','--verbose'},
       dest   = 'verbosityLevel',
       action = 'count',
    }
 
-   cmdlineParser:add_option{ 
+   cmdlineParser:add_option{
       name    = {'-f', '--file'},
       dest    = 'fn',
       action  = 'store',
       default = "moduleUsage.csv"
    }
 
-   cmdlineParser:add_option{ 
+   cmdlineParser:add_option{
       name   = {'--delete'},
       dest   = 'delete',
       action = 'store_true',
    }
 
-   cmdlineParser:add_option{ 
+   cmdlineParser:add_option{
       name   = {'--passwd'},
       dest   = 'passwd',
       action = 'store',

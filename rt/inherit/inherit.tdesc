@@ -9,7 +9,7 @@ testdescript = {
 
    active = 1,
    testName = "inherit",
-   job_submit_method = "INTERACTIVE", 
+   job_submit_method = "INTERACTIVE",
 
    runScript = [[
 
@@ -27,7 +27,7 @@ testdescript = {
      runMe lua $(projectDir)/src/lmod.in.lua bash --version              # 1
      runMe lua $(projectDir)/src/lmod.in.lua bash use -a $(testDir)/mf/Linux $(testDir)/mf/Core $(testDir)/mf/Core2
      runMe lua $(projectDir)/src/lmod.in.lua bash load   junk            # 3
-     runMe lua $(projectDir)/src/lmod.in.lua bash list                   # 4 
+     runMe lua $(projectDir)/src/lmod.in.lua bash list                   # 4
      runMe lua $(projectDir)/src/lmod.in.lua bash unload junk            # 5
      runMe lua $(projectDir)/src/lmod.in.lua bash load junk2             # 6
 

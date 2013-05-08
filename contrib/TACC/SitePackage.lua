@@ -18,7 +18,7 @@
 --  permit persons to whom the Software is furnished to do so, subject
 --  to the following conditions:
 --
---  The above copyright notice and this permission notice shall be 
+--  The above copyright notice and this permission notice shall be
 --  included in all copies or substantial portions of the Software.
 --
 --  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
@@ -43,7 +43,7 @@ local getenv = os.getenv
 local posix  = require("posix")
 
 local function load_hook(t)
-   
+
    local dbg = Dbg:dbg()
    dbg.start("load_hook()")
    ------------------------------------------------------------------------
@@ -99,7 +99,7 @@ buildHostsT = {
    ["build.ls4.tacc.utexas.edu"]         = 1,
    ["build.longhorn"]                    = 1,
 }
-   
+
 local function writeCache_hook(t)
    local userName = getenv("USER")
    local host     = posix.uname("%n")
@@ -119,7 +119,7 @@ local function parse_updateFn_hook(updateSystemFn, t)
    local f           = assert(io.open(updateSystemFn,"r"))
    local whole       = f:read("*all")
    f:close()
-   
+
    for line in whole:split("\n") do
       line = line:trim()
       if (not line:find("^[#!-]")) then

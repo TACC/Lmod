@@ -27,12 +27,12 @@ prepend-path    MODULEPATH      "$moduleshome"
 
 
 if [ module-info mode load ] {
-    if {  [ is-loaded intel   ] } { 
-        puts stderr "\tModule intel already loaded\n" 
+    if {  [ is-loaded intel   ] } {
+        puts stderr "\tModule intel already loaded\n"
     }
 
-    if {  [ is-loaded pgi   ] } { 
-        puts stderr "\tModule pgi already loaded\n" 
+    if {  [ is-loaded pgi   ] } {
+        puts stderr "\tModule pgi already loaded\n"
     }
 }
 

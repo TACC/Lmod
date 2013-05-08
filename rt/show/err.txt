@@ -1,7 +1,7 @@
 ===========================
 step 1
 ===========================
-Modules based on Lua: Version 5.0b9 (5.0b9-18-g82cd8cc) 2013-04-10 17:16
+Modules based on Lua: Version 5.0rc2 (5.0rc2-54-g7045ea1) 2013-04-26 11:23
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -18,7 +18,7 @@ load("git")
 ===========================
 step 4
 ===========================
- ProjectDIR/mf/Core 
+ProjectDIR/mf/Core
    PrgEnv                  git/1.7.4             junk/d/3.0
    admin/admin-1.0         git/1.7.4.3   (D)     local/local
    alex/1.0                gotoblas/1.20         multi/multi
@@ -27,14 +27,14 @@ step 4
    boost/1.49.0    (D)     intel/intel           unix/unix
    gcc/4.2.3               junk/a/c/1.0
    git/1.6.3.1             junk/b/c/2.0
- ProjectDIR/mf/Compiler/intel/10.1 
+ProjectDIR/mf/Compiler/intel/10.1
    gotoblas/1.31      gotoblas/1.33      openmpi/1.2.6
    gotoblas/1.32      mpich2/1.0.7
   Where:
    (D):  Default Module
-Use "module spider" to find all possible modules. 
-Use "module keyword key1 key2 ..." to search for all possible modules matching 
-any of the "keys". 
+Use "module spider" to find all possible modules.
+Use "module keyword key1 key2 ..." to search for all possible modules matching
+any of the "keys".
 ===========================
 step 5
 ===========================

@@ -1,7 +1,7 @@
 MCLAY=~mclay
 
 for i in $MCLAY/l/pkg/$(uname -m) $MCLAY/l/pkg; do
-  if [ -x $i/lmod/lmod/libexec/lmod ]; then  
+  if [ -x $i/lmod/lmod/libexec/lmod ]; then
     PKG_DIR=$i
     break
   fi
