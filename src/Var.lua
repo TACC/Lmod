@@ -48,19 +48,8 @@ local systemG       = _G
 
 local M = {}
 
-local function regularize(value)
-   value = value:gsub("^%s+","")
-   value = value:gsub("%s+$","")
-   value = value:gsub("//+","/")
-   value = value:gsub("/$","")
-   if (value == '') then
-      value = ' '
-   end
-   return value
-end
 
-
-local function regularizePath(path, sep)
+local function regularizePathA(path, sep)
    if (not path) then
       return {}
    end
@@ -83,7 +72,7 @@ local function regularizePath(path, sep)
 
    local pathA = {}
    for v  in path:split(sep) do
-      pathA[#pathA + 1] = regularize(v)
+      pathA[#pathA + 1] = path_regularize(v)
    end
 
    return pathA
@@ -100,7 +89,7 @@ local function extract(self)
    local sep     = self.sep
 
    if (myValue ~= '') then
-      pathA = regularizePath(myValue, sep)
+      pathA = regularizePathA(myValue, sep)
 
       for i,v in ipairs(pathA) do
          local a    = pathTbl[v] or {}
@@ -199,7 +188,7 @@ function M.remove(self, value, where)
    where = allow_dups(true) and where or "all"
 
    local remFunc = whereT[where] or removeAll
-   local pathA   = regularizePath(value, self.sep)
+   local pathA   = regularizePathA(value, self.sep)
    local tbl     = self.tbl
 
    for i = 1, #pathA do
@@ -271,7 +260,7 @@ function M.prepend(self, value, nodups)
    --dbg.print("name: ",self.name,"\n")
    if (value == nil) then return end
 
-   local pathA         = regularizePath(value, self.sep)
+   local pathA         = regularizePathA(value, self.sep)
    local is, ie, iskip = prepend_order(#pathA)
    local insertFunc    = nodups and unique or first
 
@@ -296,7 +285,7 @@ end
 function M.append(self, value, nodups)
    if (value == nil) then return end
    nodups           = not allow_dups(not nodups)
-   local pathA      = regularizePath(value, self.sep)
+   local pathA      = regularizePathA(value, self.sep)
    local insertFunc = nodups and unique or last
 
    local tbl  = self.tbl
