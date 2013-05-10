@@ -58,7 +58,8 @@ local Dbg          = require('Dbg')
 local ColumnTable  = require('ColumnTable')
 local posix        = require("posix")
 local deepcopy     = table.deepcopy
-local load         = load or loadstring
+local version      = _VERSION:gsub("^Lua%s+","")
+local load         = (version == "5.1") and loadstring or load
 
 --module("MT")
 local M = {}

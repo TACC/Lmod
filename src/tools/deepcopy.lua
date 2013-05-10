@@ -108,9 +108,10 @@ do
     local debug_setupvalue = debug and debug.setupvalue or nil
     local debug_upvalueid = debug and debug.upvalueid or nil
     local debug_upvaluejoin = debug and debug.upvaluejoin or nil
-    local load   = load or loadstring
-    local unpack = unpack or table.unpack
-    local table  = table
+    local version = _VERSION:gsub("^Lua%s+","")
+    local load    = (version == "5.1") and loadstring or load
+    local unpack  = unpack or table.unpack
+    local table   = table
     table.deepcopy_copyfunc_list = {
       --["type"] = function(stack, orig, copy, state, temp1, temp2, temp..., tempN)
       --

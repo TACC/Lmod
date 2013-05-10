@@ -67,6 +67,8 @@ local decode64 = base64.decode64
 local format   = string.format
 local getenv   = os.getenv
 local huge     = math.huge
+local version  = _VERSION:gsub("^Lua%s+","")
+local load     = (version == "5.1") and loadstring or load
 
 function cmdDir()
    return cmd_dir
@@ -122,7 +124,7 @@ function main()
    local s = getMT()
    if (s == nil) then return end
 
-   local t = assert(loadstring(s))()
+   local t = assert(load(s))()
    local s = serializeTbl{indent=true, name="_ModuleTable_", value=_ModuleTable_}
 
    local fn = nil
