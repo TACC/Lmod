@@ -61,6 +61,7 @@ M.inherit              = MasterControl.inherit
 M.load                 = MasterControl.unload
 M.myFileName           = MasterControl.myFileName
 M.myModuleFullName     = MasterControl.myModuleFullName
+M.myModuleUsrName      = MasterControl.myModuleUsrName
 M.myModuleName         = MasterControl.myModuleName
 M.myModuleVersion      = MasterControl.myModuleVersion
 M.prepend_path         = MasterControl.remove_path_first

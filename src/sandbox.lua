@@ -36,6 +36,9 @@ require("strict")
 require("fileOps")
 require("capture")
 require("cmdfuncs")
+require("modfuncs")
+require("utils")
+local posix = require("posix")
 sandbox_run = false
 
 sandbox_env = {
@@ -54,8 +57,8 @@ sandbox_env = {
                rep = string.rep, reverse = string.reverse, sub = string.sub,
                upper = string.upper },
   table    = { insert = table.insert, remove = table.remove, sort = table.sort,
-               concat = table.concat, unpack = table.unpack },
-               sqrt = math.sqrt, tan = math.tan, tanh = math.tanh },
+               concat = table.concat, unpack = table.unpack, sqrt = math.sqrt,
+               tan = math.tan, tanh = math.tanh },
   os       = { clock = os.clock, difftime = os.difftime, time = os.time, date = os.date,
                getenv = os.getenv},
 
@@ -119,6 +122,7 @@ sandbox_env = {
   isPending            = isPending,
   myFileName           = myFileName,
   myModuleFullName     = myModuleFullName,
+  myModuleUsrName      = myModuleUsrName,
   myModuleName         = myModuleName,
   myModuleVersion      = myModuleVersion,
   hierarchyA           = hierarchyA,
@@ -196,9 +200,9 @@ local function run5_2(untrusted_code)
 end
 
 local version = _VERSION:gsub("^Lua%s+","")
-sandbox_run = run5_1
-if (version == "5.2") then
-   sandbox_run = run5_2
+sandbox_run = run5_2
+if (version == "5.1") then
+   sandbox_run = run5_1
 end
 
 

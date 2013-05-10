@@ -937,6 +937,8 @@ function M.setHashSum(self)
          a[#a + 1]  = cmdStart
          a[#a + 1]  = "--fullName"
          a[#a + 1]  = v.fullName
+         a[#a + 1]  = "--usrName"
+         a[#a + 1]  = self:usrName(v.short)
          a[#a + 1]  = "--sn"
          a[#a + 1]  = v.short
          a[#a + 1]  = v.FN
@@ -958,7 +960,6 @@ function M.getHash(self, sn)
    return entry.hash
 end
 
-
 function M.hideHash(self)
    local mT   = self.mT
    for k,v in pairs(mT) do
@@ -967,7 +968,6 @@ function M.hideHash(self)
       end
    end
 end
-
 
 function M.markDefault(self, sn)
    local mT    = self.mT
@@ -984,6 +984,13 @@ function M.default(self, sn)
       return nil
    end
    return (entry.default ~= 0)
+end
+
+function M.usrName(self,sn)
+   if (self:default(sn)) then
+      return sn
+   end
+   return self:fullName(sn)
 end
 
 function M.setLoadOrder(self)
@@ -1210,7 +1217,7 @@ function M.reportChanges(self)
    local reloadA   = {}
    local loadT     = self._loadT
 
-   for sn, v in pairs(mT) do
+   for sn, v in pairsByKeys(mT) do
       if (self:have(sn,"inactive") and v.status == "active") then
          local name = v.fullName
          if (v.default == 1) then

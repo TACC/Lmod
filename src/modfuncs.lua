@@ -419,6 +419,10 @@ function myModuleName()
    return mcp:myModuleName()
 end
 
+function myModuleUsrName()
+   return mcp:myModuleUsrName()
+end
+
 function myModuleVersion()
    return mcp:myModuleVersion()
 end

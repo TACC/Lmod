@@ -39,7 +39,6 @@
 
 require("strict")
 require("fileOps")
-require("sandbox")
 require("string_split")
 require("string_trim")
 require("parseVersion")
@@ -48,64 +47,6 @@ local lfs       = require("lfs")
 local concatTbl = table.concat
 local getenv    = os.getenv
 local posix     = require("posix")
-
-
-------------------------------------------------------------------------
--- loadModuleFile(t): read a modulefile in via sandbox_run
-
-function loadModuleFile(t)
-   local dbg    = Dbg:dbg()
-   dbg.start("loadModuleFile")
-   dbg.print("t.file: ",t.file,"\n")
-   dbg.flush()
-
-   local myType = extname(t.file)
-   local func
-   local msg
-   local status = true
-   local whole
-   if (myType == ".lua") then
-      local f = io.open(t.file)
-      if (f) then
-         whole = f:read("*all")
-         f:close()
-      end
-   else
-      local s      = t.mList or ""
-      local A      = {}
-      A[#A + 1]    = "-l"
-      A[#A + 1]    = "\"" .. s .. "\"" 
-      A[#A + 1]    = "-f"
-      A[#A + 1]    = t.fullName
-      A[#A + 1]    = "-u"
-      A[#A + 1]    = t.moduleName
-      A[#A + 1]    = "-s"
-      A[#A + 1]    = s_master.shell:name()
-      if (t.help) then
-         A[#A + 1] = t.help
-      end
-      local a      = {}
-      a[#a + 1]	   = pathJoin(cmdDir(),"tcl2lua.tcl")
-      a[#a + 1]	   = concatTbl(A," ")
-      a[#a + 1]	   = t.file
-      local cmd    = concatTbl(a," ")
-      whole        = capture(cmd) 
-   end
-
-   if (whole) then
-      status, msg = sandbox_run(whole)
-   else
-      status = nil
-      msg    = "Empty or non-existant file"
-   end
-
-   if (not status and t.reportErr) then
-      local n = t.moduleName or ""
-      
-      LmodError("Unable to load module: ",n,"\n    ",t.file,": ", msg,"\n")
-   end
-   dbg.fini("loadModuleFile")
-end
 
 
 --------------------------------------------------------------------------

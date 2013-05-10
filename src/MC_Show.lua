@@ -47,6 +47,7 @@ M.myFileName       = MasterControl.myFileName
 M.myModuleFullName = MasterControl.myModuleFullName
 M.myModuleName     = MasterControl.myModuleName
 M.myModuleVersion  = MasterControl.myModuleVersion
+M.myModuleUsrName  = MasterControl.myModuleUsrName
 
 
 

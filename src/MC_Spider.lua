@@ -79,6 +79,8 @@ function M.myModuleFullName(self)
    return moduleStack[iStack].full
 end
 
+M.myModuleUsrName = M.myModuleFullName
+
 function M.myModuleName(self)
    local masterTbl   = masterTbl()
    local moduleStack = masterTbl.moduleStack

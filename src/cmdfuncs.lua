@@ -443,7 +443,7 @@ function Refresh()
    mcp           = MasterControl.build("refresh","load")
    local master  = Master:master()
 
-   master:reload()
+   master:refresh()
 
    mcp = mcp_old
    dbg.print("Resetting mcp to : ",mcp:name(),"\n")

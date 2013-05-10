@@ -64,6 +64,7 @@ M.help                 = MasterControl.quiet
 M.inherit              = MasterControl.quiet
 M.myFileName           = MasterControl.myFileName
 M.myModuleFullName     = MasterControl.myModuleFullName
+M.myModuleUsrName      = MasterControl.myModuleUsrName
 M.myModuleName         = MasterControl.myModuleName
 M.myModuleVersion      = MasterControl.myModuleVersion
 M.pushenv              = MasterControl.quiet

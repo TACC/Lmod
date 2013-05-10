@@ -77,8 +77,8 @@ function M.setting(self)
    top.setCnt = top.setCnt + 1
 end
 
-function M.push(self, full, sn, fn)
-   local entry = {full = full, sn = sn, loadCnt = 0, setCnt = 0, fn= fn}
+function M.push(self, full, usrName, sn, fn)
+   local entry = {full = full, usrName = usrName, sn = sn, loadCnt = 0, setCnt = 0, fn= fn}
    local stack = self.stack
 
    stack[#stack+1] = entry
@@ -125,6 +125,12 @@ function M.sn(self)
    local stack = self.stack
    local top   = stack[#stack]
    return top.sn
+end
+
+function M.usrName(self)
+   local stack = self.stack
+   local top   = stack[#stack]
+   return top.usrName
 end
 
 function M.version(self)

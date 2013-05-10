@@ -689,6 +689,11 @@ function M.myModuleFullName(self)
    return mStack:fullName()
 end
 
+function M.myModuleUsrName(self)
+   local mStack = ModuleStack:moduleStack()
+   return mStack:usrName()
+end
+
 function M.myModuleName(self)
    local mStack = ModuleStack:moduleStack()
    return mStack:sn()

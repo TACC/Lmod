@@ -116,7 +116,8 @@ function main()
    local dbg       = Dbg:dbg()
    local master    = Master:master(false)
    local mStack    = ModuleStack:moduleStack()
-   master.shell    = BaseShell.build("bash")
+   local shellN    = "bash"
+   master.shell    = BaseShell.build(shellN)
    local fn        = os.tmpname()
    fh              = io.open(fn,"w")
    local i         = 1
@@ -147,9 +148,8 @@ function main()
    mcp           = MasterControl.build("computeHash","load")
 
    local f = masterTbl.pargs[1]
-   mStack:push(masterTbl.fullName, masterTbl.sn, f)
-   loadModuleFile{file=f, moduleName=masterTbl.sn,
-                  fullName=masterTbl.fullName, reportErr=true}
+   mStack:push(masterTbl.fullName, masterTbl.usrName, masterTbl.sn, f)
+   loadModuleFile{file=f, shell=shellN, reportErr=true}
    mStack:pop()
    local s = concatTbl(ComputeModuleResultsA,"")
    dbg.print("Text to Hash: \n",s,"\n")
@@ -186,6 +186,13 @@ function options()
       dest   = 'fullName',
       action = 'store',
       help   = "Full name of the module file"
+   }
+
+   cmdlineParser:add_option{
+      name   = {'--usrName'},
+      dest   = 'usrName',
+      action = 'store',
+      help   = "User name of the module file"
    }
 
    cmdlineParser:add_option{

@@ -44,6 +44,7 @@ local MT      = require("MT")
 local Spider  = require("Spider")
 local hook    = require("Hook")
 local lfs     = require("lfs")
+local posix   = require("posix")
 local s_cache = false
 
 local function epoch()

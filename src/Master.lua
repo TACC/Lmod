@@ -44,7 +44,7 @@ require("TermWidth")
 require("fileOps")
 require("string_trim")
 require("fillWords")
-require("sandbox")
+require("loadModuleFile")
 
 local BeautifulTbl = require('BeautifulTbl')
 local ColumnTable  = require('ColumnTable')
@@ -53,16 +53,11 @@ local Default      = '(D)'
 local InheritTmpl  = require("InheritTmpl")
 local M            = {}
 local MName        = require("MName")
-local MT           = MT
 local ModuleStack  = require("ModuleStack")
 local Optiks       = require("Optiks")
 local Spider       = require("Spider")
-local abspath      = abspath
-local extname      = extname
 local hook         = require("Hook")
-local isFile       = isFile
 local lfs          = require('lfs')
-local pathJoin     = pathJoin
 local posix        = require("posix")
 
 --module("Master")
@@ -215,6 +210,7 @@ function M.unload(...)
    local mt     = MT:mt()
    local dbg    = Dbg:dbg()
    local a      = {}
+   local shellN = s_master.shell:name()
    dbg.start("Master:unload(",concatTbl({...},", "),")")
 
    local mcp_old = mcp
@@ -237,9 +233,8 @@ function M.unload(...)
          local fullModuleName = mt:fullName(sn)
          dbg.print("Master:unload: \"",fullModuleName,"\" from f: ",f,"\n")
          mt:beginOP()
-         mStack:push(fullModuleName, sn, f)
-	 loadModuleFile{file=f,moduleName=moduleName, mList=mList,
-                        fullName=fullModuleName,reportErr=false}
+         mStack:push(fullModuleName, moduleName, sn, f)
+	 loadModuleFile{file=f, mList=mList, shell=shellN, reportErr=false}
          mStack:pop()
          mt:endOP()
          dbg.print("calling mt:remove(\"",sn,"\")\n")
@@ -300,6 +295,7 @@ function M.access(self, ...)
    local prtHdr = systemG.prtHdr
    local help   = nil
    local a      = {}
+   local shellN = s_master.shell:name()
    local result, t
    io.stderr:write("\n")
    if (systemG.help ~= dbg.quiet) then help = "-h" end
@@ -311,10 +307,9 @@ function M.access(self, ...)
       systemG.ModuleName = full
       if (fn and isFile(fn)) then
          prtHdr()
-         mStack:push(full, mname:sn(), fn)
+         mStack:push(full, moduleName, mname:sn(), fn)
          local mList = concatTbl(mt:list("short","active"),":")
-	 loadModuleFile{file=fn,help=help,moduleName=moduleName,
-                        fullName=full, mList = mList, reportErr=true}
+	 loadModuleFile{file=fn,help=help, shell=shellN, mList = mList, reportErr=true}
          mStack:pop()
          io.stderr:write("\n")
       else
@@ -332,33 +327,38 @@ end
 
 
 
-function M.reload()
+function M.refresh()
    local mStack = ModuleStack:moduleStack()
-   local mt    = MT:mt()
-   local dbg   = Dbg:dbg()
-   dbg.start("Master:reload()")
+   local mt     = MT:mt()
+   local dbg    = Dbg:dbg()
+   local shellN = s_master.shell:name()
+   dbg.start("Master:refresh()")
 
    local activeA = mt:list("short","active")
 
    for i = 1,#activeA do
-      local sn    = activeA[i]
-      local fn    = mt:fileName(sn)
-      local full  = mt:fullName(sn)
-      local mList = concatTbl(mt:list("short","active"),":")
+      local sn      = activeA[i]
+      local fn      = mt:fileName(sn)
+      local usrName = mt:usrName(sn)
+      local full    = mt:fullName(sn)
+      local mList   = concatTbl(mt:list("short","active"),":")
+      mStack:push(full, usrName, sn, fn)
       dbg.print("loading: ",sn," fn: ", fn,"\n")
-      loadModuleFile{file = fn, moduleName = sn, fullName = full,
-                     mList = mList, reportErr=true}
+      loadModuleFile{file = fn, shell = shellN, mList = mList,
+                     reportErr=true}
+      mStack:pop()
    end
 
-   dbg.fini("Master:reload")
+   dbg.fini("Master:refresh")
 end
 
 
 function M.load(...)
    local mStack = ModuleStack:moduleStack()
-   local mt    = MT:mt()
-   local dbg   = Dbg:dbg()
-   local a     = {}
+   local shellN = s_master.shell:name()
+   local mt     = MT:mt()
+   local dbg    = Dbg:dbg()
+   local a      = {}
 
    dbg.start("Master:load(",concatTbl({...},", "),")")
 
@@ -383,9 +383,8 @@ function M.load(...)
          local mList = concatTbl(mt:list("short","active"),":")
          mt:add(t, "pending")
 	 mt:beginOP()
-         mStack:push(t.modFullName, sn, fn)
-	 loadModuleFile{file=fn,moduleName=moduleName, mList = mList,
-                        fullName=t.modFullName,reportErr=true}
+         mStack:push(t.modFullName, moduleName, sn, fn)
+	 loadModuleFile{file=fn, shell = shellN, mList = mList, reportErr=true}
          t.mType = mStack:moduleType()
          mStack:pop()
 	 mt:endOP()
@@ -495,8 +494,11 @@ function M.inheritModule()
    local dbg     = Dbg:dbg()
    dbg.start("Master:inherit()")
 
+   local mt      = MT:mt()
+   local shellN  = s_master.shell:name()
    local mStack  = ModuleStack:moduleStack()
    local myFn    = mStack:fileName()
+   local myUsrN  = mStack:usrName()
    local mySn    = mStack:sn()
    local mFull   = mStack:fullName()
    local inhTmpl = InheritTmpl:inheritTmpl()
@@ -511,9 +513,9 @@ function M.inheritModule()
       LmodError("Failed to inherit: ",mFull,"\n")
    else
       local mList = concatTbl(mt:list("short","active"),":")
-      mStack:push(mFull, mySn, t.fn)
-      loadModuleFile{file=t.fn,moduleName=mFull, mList = mList,
-                     fullName=mFull,reportErr=true}
+      mStack:push(mFull, myUsrN, mySn, t.fn)
+      loadModuleFile{file=t.fn,mList = mList, shell=shellN,
+                     reportErr=true}
       mStack:pop()
    end
    dbg.fini("Master:inherit")
