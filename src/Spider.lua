@@ -50,17 +50,9 @@ require("pager")
 local M = {}
 
 local Dbg         = require("Dbg")
-local border      = border
-local capture     = capture
-local cmdDir      = cmdDir
 local concatTbl   = table.concat
-local extname     = extname
-local fillWords   = fillWords
 local lfs         = require("lfs")
-local pairsByKeys = pairsByKeys
-local pathJoin    = pathJoin
 local posix       = require("posix")
-local print       = print
 local systemG     = _G
 
 local function nothing()
@@ -450,7 +442,7 @@ function M.findModulesInDir(mpath, path, prefix, moduleT)
 
          local t = {fn = v.file, modFullName = k, modName = sn, default = true, hash = 0}
          mt:add(t,"pending")
-         loadModuleFile(v.file)
+         loadModuleFile{file=v.file, moduleName=sn, fullName=k, reportErr=true}
          mt:setStatus(t.modName,"active")
          dbg.print("Saving: Full: ", k, " Name: ", k, " file: ",v.file,"\n")
       end
@@ -466,7 +458,7 @@ function M.findModulesInDir(mpath, path, prefix, moduleT)
          dbg.print("Top of Stack: ",iStack, " Full: ", full, " file: ", v.file, "\n")
          local t = {fn = v.file, modFullName = full, modName = sn, default = 0, hash = 0}
          mt:add(t,"pending")
-         loadModuleFile(v.file)
+         loadModuleFile{file=v.file, moduleName=sn, fullName=full, reportErr=true}
          mt:setStatus(t.modName,"active")
          dbg.print("Saving: Full: ", full, " Name: ", sn, " file: ",v.file,"\n")
       end

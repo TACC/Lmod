@@ -87,14 +87,6 @@ LMOD_DUPLICATE_PATH = os.getenv("LMOD_DUPLICATE_PATH") or "@duplicate_path@"
 
 defaultMpathA = {}
 
-
-------------------------------------------------------------------------
--- _MyFileName: The global variable that holds the name of the current
---              modulefile.
-------------------------------------------------------------------------
-
-_MyFileName   = ""
-
 ------------------------------------------------------------------------
 -- MT:        The table that hold the Module Table Class.
 ------------------------------------------------------------------------

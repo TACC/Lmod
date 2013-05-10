@@ -114,9 +114,9 @@ end
 
 --- Load family functions ----
 
-function load(...)
+function load_module(...)
    local dbg = Dbg:dbg()
-   dbg.start("load(",concatTbl({...},", "),")")
+   dbg.start("load_module(",concatTbl({...},", "),")")
    if (not validateStringArgs("load",...)) then return {} end
 
    local b = mcp:load(...)

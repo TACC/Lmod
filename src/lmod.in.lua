@@ -123,7 +123,7 @@ local Dbg       = require("Dbg")
 local MName     = require("MName")
 local Version   = require("Version")
 local concatTbl = table.concat
-
+local unpack    = unpack or table.unpack
 
 function set_duplication()
    local dbg  = Dbg:dbg()

@@ -118,6 +118,7 @@ This modulefile takes advantage of the SitePackage.lua file which
 defines the package functions such as loadPkgDefaults().  The
 loadPkgDefault(level) function could look like this:
 
+  local unpack = unpack or table.unpack
   SiteRootDir = "/opt/apps"
   DefaultsDir = "/opt/apps/modulefiles/Defaults"
   function loadPkgDefaults(levels)

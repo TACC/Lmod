@@ -53,6 +53,7 @@ local decode_scanWhitespace
 local encodeString
 local isArray
 local isEncodable
+base.load = base.load or base.loadstring
 
 -----------------------------------------------------------------------------
 -- PUBLIC FUNCTIONS
@@ -231,7 +232,7 @@ function decode_scanNumber(s,startPos)
     endPos = endPos + 1
   end
   local stringValue = 'return ' .. string.sub(s,startPos, endPos-1)
-  local stringEval = base.loadstring(stringValue)
+  local stringEval = base.load(stringValue)
   base.assert(stringEval, 'Failed to scan number [ ' .. stringValue .. '] in JSON string at position ' .. startPos .. ' : ' .. endPos)
   return stringEval(), endPos
 end
@@ -305,7 +306,7 @@ function decode_scanString(s,startPos)
     base.assert(endPos <= stringLen+1, "String decoding failed: unterminated string at position " .. endPos)
   until bEnded
   local stringValue = 'return ' .. string.sub(s, startPos, endPos-1)
-  local stringEval = base.loadstring(stringValue)
+  local stringEval = base.load(stringValue)
   base.assert(stringEval, 'Failed to load string [ ' .. stringValue .. '] in JSON4Lua.decode_scanString at position ' .. startPos .. ' : ' .. endPos)
   return stringEval(), endPos
 end

@@ -32,6 +32,9 @@
 --
 --------------------------------------------------------------------------
 
+--------------------------------------------------------------------------
+-- A Bare Shell:  just expand the values as key:"value" pairs
+
 
 require("strict")
 local BaseShell	   = BaseShell
@@ -43,12 +46,12 @@ Bare	     = inheritsFrom(BaseShell)
 Bare.my_name = 'bare'
 
 function Bare.expand(self,tbl)
-   local t = {}
+   local a = {}
    for k in pairsByKeys(tbl) do
       local v = tbl[k]:expand()
-      t[#t + 1] = k .. ": " .. "'" .. v .. "'"
+      a[#a + 1] = k .. ": " .. "'" .. v .. "'"
    end
-   io.stderr:write(table.concat(t,"\n"),"\n")
+   io.stderr:write(table.concat(a,"\n"),"\n")
 end
 
 return Bare
