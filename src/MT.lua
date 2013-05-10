@@ -36,26 +36,14 @@ require("strict")
 _ModuleTable_      = ""
 local DfltModPath  = DfltModPath
 local ModulePath   = ModulePath
-local assert       = assert
 local concatTbl    = table.concat
 local getenv       = os.getenv
 local ignoreT      = { ['.'] =1, ['..'] = 1, CVS=1, ['.git'] = 1, ['.svn']=1,
                        ['.hg']= 1, ['.bzr'] = 1,}
-local io           = io
-local ipairs       = ipairs
-local loadstring   = loadstring
 local max          = math.max
-local next         = next
-local os           = os
-local pairs        = pairs
-local setmetatable = setmetatable
 local sort         = table.sort
-local string       = string
 local systemG      = _G
-local tostring     = tostring
-local type         = type
-local unpack       = unpack
-local varTbl       = varTbl
+local unpack       = unpack or table.unpack
 
 require("string_split")
 require("fileOps")
@@ -70,6 +58,7 @@ local Dbg          = require('Dbg')
 local ColumnTable  = require('ColumnTable')
 local posix        = require("posix")
 local deepcopy     = table.deepcopy
+local load         = load or loadstring
 
 --module("MT")
 local M = {}
@@ -334,7 +323,7 @@ local function new(self, s)
       o:buildBaseMpathA(v)
       dbg.print("Initializing ", DfltModPath, ":", v, "\n")
    else
-      assert(loadstring(s))()
+      assert(load(s))()
       local _ModuleTable_ = systemG._ModuleTable_
 
       if (_ModuleTable_.version == 1) then

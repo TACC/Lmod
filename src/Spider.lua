@@ -324,44 +324,43 @@ local function findDefault(mpath, path, prefix)
    return default
 end
 
-local function loadModuleFile(fn)
-   local dbg    = Dbg:dbg()
-   dbg.start("Spider:loadModuleFile(" .. fn .. ")")
-   dbg.flush()
-
-   systemG._MyFileName = fn
-   local myType = extname(fn)
-   local func
-   local msg
-   local status
-   local whole
-   if (myType == ".lua") then
-      local f = io.open(fn)
-      if (f) then
-         whole = f:read("*all")
-         f:close()
-      end
-   else
-      local a     = {}
-      a[#a + 1]	  = pathJoin(cmdDir(),"tcl2lua.tcl")
-      a[#a + 1]	  = "-h"
-      a[#a + 1]	  = fn
-      local cmd   = concatTbl(a," ")
-      whole       = capture(cmd)
-   end
-
-   if (whole) then
-      status, msg = sandbox_run(whole)
-   else
-      status = nil
-      msg    = "Empty or non-existent file"
-   end
-      
-   if (not status) then 
-      LmodWarning("Unable to load file: ",fn,": ",msg,"\n")
-   end
-   dbg.fini("Spider:loadModuleFile")
-end
+--local function loadModuleFile(fn)
+--   local dbg    = Dbg:dbg()
+--   dbg.start("Spider:loadModuleFile(" .. fn .. ")")
+--   dbg.flush()
+--
+--   local myType = extname(fn)
+--   local func
+--   local msg
+--   local status
+--   local whole
+--   if (myType == ".lua") then
+--      local f = io.open(fn)
+--      if (f) then
+--         whole = f:read("*all")
+--         f:close()
+--      end
+--   else
+--      local a     = {}
+--      a[#a + 1]	  = pathJoin(cmdDir(),"tcl2lua.tcl")
+--      a[#a + 1]	  = "-h"
+--      a[#a + 1]	  = fn
+--      local cmd   = concatTbl(a," ")
+--      whole       = capture(cmd)
+--   end
+--
+--   if (whole) then
+--      status, msg = sandbox_run(whole)
+--   else
+--      status = nil
+--      msg    = "Empty or non-existent file"
+--   end
+--      
+--   if (not status) then 
+--      LmodWarning("Unable to load file: ",fn,": ",msg,"\n")
+--   end
+--   dbg.fini("Spider:loadModuleFile")
+--end
 
 --------------------------------------------------------------------------
 -- Keep this function.  Yes this function is not safe with c/n/v name
@@ -450,7 +449,7 @@ function M.findModulesInDir(mpath, path, prefix, moduleT)
          
          local t = {fn = v.file, modFullName = k, modName = sn, default = true, hash = 0}
          mt:add(t,"pending")
-         loadModuleFile(v.file)
+         loadModuleFile{file=v.file, moduleName=sn, fullName=k, reportErr=true}
          mt:setStatus(t.modName,"active")
          dbg.print("Saving: Full: ", k, " Name: ", k, " file: ",v.file,"\n")
       end
@@ -466,7 +465,7 @@ function M.findModulesInDir(mpath, path, prefix, moduleT)
          dbg.print("Top of Stack: ",iStack, " Full: ", full, " file: ", v.file, "\n")
          local t = {fn = v.file, modFullName = full, modName = sn, default = 0, hash = 0}
          mt:add(t,"pending")
-         loadModuleFile(v.file)
+         loadModuleFile{file=v.file, moduleName=sn, fullName=full, reportErr=true}
          mt:setStatus(t.modName,"active")
          dbg.print("Saving: Full: ", full, " Name: ", sn, " file: ",v.file,"\n")
       end

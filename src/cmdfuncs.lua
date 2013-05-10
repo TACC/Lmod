@@ -50,6 +50,7 @@ local concatTbl    = table.concat
 local getenv       = os.getenv
 local hook         = require("Hook")
 local posix        = require("posix")
+local unpack       = unpack or table.unpack
 
 --------------------------------------------------------------------------
 -- Access(): Both Help and Whatis functions funnel their actions through 

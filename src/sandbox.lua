@@ -47,14 +47,14 @@ sandbox_env = {
   tonumber = tonumber,
   tostring = tostring,
   type     = type,
-  unpack   = unpack,
+  unpack   = unpack or table.unpack,
   string   = { byte = string.byte, char = string.char, find = string.find, 
                format = string.format, gmatch = string.gmatch, gsub = string.gsub, 
                len = string.len, lower = string.lower, match = string.match, 
                rep = string.rep, reverse = string.reverse, sub = string.sub, 
                upper = string.upper },
   table    = { insert = table.insert, remove = table.remove, sort = table.sort,
-               concat = table.concat },
+               concat = table.concat, unpack = table.unpack },
   math     = { abs = math.abs, acos = math.acos, asin = math.asin, 
                atan = math.atan, atan2 = math.atan2, ceil = math.ceil, cos = math.cos, 
                cosh = math.cosh, deg = math.deg, exp = math.exp, floor = math.floor, 
@@ -74,7 +74,7 @@ sandbox_env = {
 
   --- Load family functions ----
 
-  load                 = load,
+  load                 = load_module,
   try_load             = try_load,
   try_add              = try_load,
   unload               = unload,

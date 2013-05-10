@@ -16,7 +16,7 @@ UPDATE_SYSTEM_FN  	 := @UPDATE_SYSTEM_FN@
 GIT_VERSION              := $(shell git describe --always)
 prefix		  	 := @prefix@
 package		  	 := lmod
-version		  	 := $(shell cd ./src; $(PATH_TO_LUA)/lua -e "local Version=require('Version'); print(Version.tag())")
+version		  	 := $(shell cd ./src; $(PATH_TO_LUA)/lua -e "V=require('Version'); print(V.tag())")
 PKG		  	 := $(prefix)/$(package)/$(package)
 LIB		  	 := $(prefix)/$(package)/$(version)/lib
 LIBEXEC		  	 := $(prefix)/$(package)/$(version)/libexec

@@ -198,62 +198,6 @@ local function find_module_file(mname)
    return t
 end
 
-function loadModuleFile(t)
-   local dbg    = Dbg:dbg()
-   dbg.start("loadModuleFile")
-   dbg.print("t.file: ",t.file,"\n")
-   dbg.flush()
-
-   systemG._MyFileName = t.file
-
-   local myType = extname(t.file)
-   local func
-   local msg
-   local status = true
-   local whole
-   if (myType == ".lua") then
-      local f = io.open(t.file)
-      if (f) then
-         whole = f:read("*all")
-         f:close()
-      end
-   else
-      local mt	   = MT:mt()
-      local s      = concatTbl(mt:list("short","active"),":")
-      local A      = {}
-      A[#A + 1]    = "-l"
-      A[#A + 1]    = "\"" .. s .. "\"" 
-      A[#A + 1]    = "-f"
-      A[#A + 1]    = t.fullName
-      A[#A + 1]    = "-u"
-      A[#A + 1]    = t.moduleName
-      A[#A + 1]    = "-s"
-      A[#A + 1]    = s_master.shell:name()
-      if (t.help) then
-         A[#A + 1] = t.help
-      end
-      local a      = {}
-      a[#a + 1]	   = pathJoin(cmdDir(),"tcl2lua.tcl")
-      a[#a + 1]	   = concatTbl(A," ")
-      a[#a + 1]	   = t.file
-      local cmd    = concatTbl(a," ")
-      whole        = capture(cmd) 
-   end
-
-   if (whole) then
-      status, msg = sandbox_run(whole)
-   else
-      status = nil
-      msg    = "Empty or non-existant file"
-   end
-
-   if (not status and t.reportErr) then
-      local n = t.moduleName or ""
-      
-      LmodError("Unable to load module: ",n,"\n    ",t.file,": ", msg,"\n")
-   end
-   dbg.fini("loadModuleFile")
-end
 
 function M.master(self, safe)
    if (next(s_master) == nil) then
@@ -289,12 +233,13 @@ function M.unload(...)
       elseif (mt:have(sn,"active")) then
          dbg.print("Mark ", moduleName, " as pending\n")
          mt:setStatus(sn,"pending")
+         local mList          = concatTbl(mt:list("short","active"),":")
          local f              = mt:fileName(sn)
          local fullModuleName = mt:fullName(sn)
          dbg.print("Master:unload: \"",fullModuleName,"\" from f: ",f,"\n")
          mt:beginOP()
          mStack:push(fullModuleName, sn, f)
-	 loadModuleFile{file=f,moduleName=moduleName, 
+	 loadModuleFile{file=f,moduleName=moduleName, mList=mList,
                         fullName=fullModuleName,reportErr=false}
          mStack:pop()
          mt:endOP()
@@ -368,8 +313,9 @@ function M.access(self, ...)
       if (fn and isFile(fn)) then
          prtHdr()
          mStack:push(full, mname:sn(), fn)
+         local mList = concatTbl(mt:list("short","active"),":")
 	 loadModuleFile{file=fn,help=help,moduleName=moduleName,
-                        fullName=full,reportErr=true}
+                        fullName=full, mList = mList, reportErr=true}
          mStack:pop()
          io.stderr:write("\n")
       else
@@ -396,11 +342,13 @@ function M.reload()
    local activeA = mt:list("short","active")
 
    for i = 1,#activeA do
-      local sn = activeA[i]
-      local fn = mt:fileName(sn)
-      local full = mt:fullName(sn)
+      local sn    = activeA[i]
+      local fn    = mt:fileName(sn)
+      local full  = mt:fullName(sn)
+      local mList = concatTbl(mt:list("short","active"),":")
       dbg.print("loading: ",sn," fn: ", fn,"\n")
-      loadModuleFile{file = fn, moduleName = sn, fullName = full, reportErr=true}
+      loadModuleFile{file = fn, moduleName = sn, fullName = full,
+                     mList = mList, reportErr=true}
    end
 
    dbg.fini("Master:reload")
@@ -433,10 +381,11 @@ function M.load(...)
          loaded = aa[1]
       elseif (fn) then
          dbg.print("Master:loading: \"",moduleName,"\" from f: \"",fn,"\"\n")
+         local mList = concatTbl(mt:list("short","active"),":")
          mt:add(t, "pending")
 	 mt:beginOP()
          mStack:push(t.modFullName, sn, fn)
-	 loadModuleFile{file=fn,moduleName=moduleName,
+	 loadModuleFile{file=fn,moduleName=moduleName, mList = mList,
                         fullName=t.modFullName,reportErr=true}
          t.mType = mStack:moduleType()
          mStack:pop()
@@ -562,8 +511,9 @@ function M.inheritModule()
    if (t.fn == nil) then
       LmodError("Failed to inherit: ",mFull,"\n")
    else
+      local mList = concatTbl(mt:list("short","active"),":")
       mStack:push(mFull, mySn, t.fn)
-      loadModuleFile{file=t.fn,moduleName=mFull,
+      loadModuleFile{file=t.fn,moduleName=mFull, mList = mList,
                      fullName=mFull,reportErr=true}
       mStack:pop()
    end

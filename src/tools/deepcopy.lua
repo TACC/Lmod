@@ -108,8 +108,9 @@ do
     local debug_setupvalue = debug and debug.setupvalue or nil
     local debug_upvalueid = debug and debug.upvalueid or nil
     local debug_upvaluejoin = debug and debug.upvaluejoin or nil
-    local unpack = unpack
-    local table = table
+    local load   = load or loadstring
+    local unpack = unpack or table.unpack
+    local table  = table
     table.deepcopy_copyfunc_list = {
       --["type"] = function(stack, orig, copy, state, temp1, temp2, temp..., tempN)
       --    
@@ -237,7 +238,7 @@ do
                     copy = orig
                     return copy, true
                 else
-                    copy = loadstring(string.dump(orig), nil, nil, stack.function_env)
+                    copy = load(string.dump(orig), nil, nil, stack.function_env)
                     stack[orig] = copy
                     
                     if debug_getupvalue ~= nil and debug_setupvalue ~= nil then
