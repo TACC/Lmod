@@ -6,7 +6,7 @@ The following modules match your search criteria: "graph"
 ----------------------------------------------------------------------------
 
   parmetis: parmetis/3.1, parmetis/4.0.1
-    Parallel graph partitioning and fill-reduction matrix ordering routines 
+    Parallel graph partitioning and fill-reduction matrix ordering routines
 
 ----------------------------------------------------------------------------
 To learn more about a package enter:

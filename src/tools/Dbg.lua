@@ -18,7 +18,7 @@
 --  permit persons to whom the Software is furnished to do so, subject
 --  to the following conditions:
 --
---  The above copyright notice and this permission notice shall be 
+--  The above copyright notice and this permission notice shall be
 --  included in all copies or substantial portions of the Software.
 --
 --  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
@@ -47,7 +47,7 @@
 --       b()
 --       dbg.fini()
 --    end
---    
+--
 --    function b()
 --       local dbg   = Dbg:dbg()
 --       dbg.start(2,"b")
@@ -55,24 +55,24 @@
 --       c()
 --       dbg.fini()
 --    end
---    
+--
 --    function c()
 --       local dbg   = Dbg:dbg()
 --       dbg.start(3,"c")
 --       dbg.print(1,"In c","\n")
 --       dbg.fini()
 --    end
---    
+--
 --    function main()
 --       local level = 10
 --       local dbg   = Dbg:dbg()
 --       dbg:activateDebug(level)
---    
+--
 --       dbg.start(2,"main")
 --       a()
 --       dbg.fini()
 --    end
---    
+--
 --    main()
 
 local blank        = " "
@@ -181,7 +181,7 @@ local function extractVPL(...)
       vpl = firstV
    end
    return vpl
-end   
+end
 
 local function startExtractVPL(...)
    local vpl = s_vpl
@@ -191,11 +191,11 @@ local function startExtractVPL(...)
    end
    s_levelA[#s_levelA+1] = vpl
    return vpl
-end   
+end
 
 function M.Start(...)
    s_vpl = startExtractVPL(...)
-   if (s_vpl <= s_currentLevel) then 
+   if (s_vpl <= s_currentLevel) then
       io.stderr:write(s_indentString)
       local arg = { n = select('#', ...), ...}
       local is  = 1
@@ -226,7 +226,7 @@ function M.Fini(s)
    end
    s_vpl = s_levelA[#s_levelA]
 
-   if (vpl <= s_currentLevel) then 
+   if (vpl <= s_currentLevel) then
       s_indentLevel  = max(0, s_indentLevel - 1)
       s_indentString = blank:rep(s_indentLevel*2)
       if (s) then
@@ -258,7 +258,7 @@ function M.errorExit()
    io.stdout:write("false\n")
    os.exit(1)
 end
-   
+
 function M.warningCalled()
    return s_warningCalled
 end
@@ -266,8 +266,8 @@ end
 
 function M.Debug(...)
    local vpl = extractVPL(...)
-   if (vpl > s_currentLevel) then 
-      return 
+   if (vpl > s_currentLevel) then
+      return
    end
 
    io.stderr:write(s_indentString)
@@ -284,7 +284,7 @@ function M.Debug(...)
          elseif ( v == "") then
             v = "''"
          end
-         
+
          local idx = v:find("\n")
          if (idx == nil or v:len() == idx) then
             io.stderr:write(v)

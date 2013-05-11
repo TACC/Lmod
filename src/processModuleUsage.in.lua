@@ -20,7 +20,7 @@
 --  permit persons to whom the Software is furnished to do so, subject
 --  to the following conditions:
 --
---  The above copyright notice and this permission notice shall be 
+--  The above copyright notice and this permission notice shall be
 --  included in all copies or substantial portions of the Software.
 --
 --  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
@@ -124,7 +124,7 @@ function main()
    dbg.start("main()")
 
    ------------------------------------------------------------
-   -- Read list of module files from input argument 
+   -- Read list of module files from input argument
    -- Or spider the module file directories.
    if (masterTbl.mlist) then
       f = assert(io.open(masterTbl.mlist))
@@ -147,12 +147,12 @@ function main()
       return
    end
 
-   
+
    local dateRange      = {}
    dateRange[1]         = 0
    dateRange[2]         = os.time()
    local inputDateRange = {math.huge, 0}
-   
+
    if (masterTbl.dateRange) then
       dateRange[1] = convert_time_2_epoch(masterTbl.dateRange:gsub(":.*$",""))
       dateRange[2] = convert_time_2_epoch(masterTbl.dateRange:gsub("^.*:","") .."_23_59_59")
@@ -162,7 +162,7 @@ function main()
       f     = assert(io.open(fn))
       whole = f:read("*all")
       f:close()
-      
+
       for record in whole:split("\n") do
          local a = fromCSV(record)
          local user = a[1]
@@ -184,7 +184,7 @@ function main()
          end
       end
    end
-      
+
    inputDateRange[1] = os.date("%c",inputDateRange[1])
    inputDateRange[2] = os.date("%c",inputDateRange[2])
 
@@ -195,7 +195,7 @@ function main()
          io.stdout:write(v,",",k,"\n")
       end
    end
-   
+
    dbg.fini()
 end
 
@@ -204,7 +204,7 @@ function options()
    local usage         = "Usage: processModuleUsage [options] moduleUsage.csv ..."
    local cmdlineParser = Optiks:new{usage=usage, version="1.0"}
 
-   cmdlineParser:add_option{ 
+   cmdlineParser:add_option{
       name    = {"-d","--debug"},
       dest    = "debug",
       action  = "store_true",
@@ -212,7 +212,7 @@ function options()
       default = false,
    }
 
-   cmdlineParser:add_option{ 
+   cmdlineParser:add_option{
       name    = {"-m","--modulepath"},
       dest    = "mpath",
       action  = "store",
@@ -220,7 +220,7 @@ function options()
       default = false,
    }
 
-   cmdlineParser:add_option{ 
+   cmdlineParser:add_option{
       name    = {"-f","--file"},
       dest    = "mlist",
       action  = "store",
@@ -228,7 +228,7 @@ function options()
       default = false,
    }
 
-   cmdlineParser:add_option{ 
+   cmdlineParser:add_option{
       name    = {"--date"},
       dest    = "dateRange",
       action  = "store",
@@ -236,7 +236,7 @@ function options()
       default = false,
    }
 
-   
+
 
    local optionTbl, pargs = cmdlineParser:parse(arg)
 

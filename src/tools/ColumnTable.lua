@@ -18,7 +18,7 @@
 --  permit persons to whom the Software is furnished to do so, subject
 --  to the following conditions:
 --
---  The above copyright notice and this permission notice shall be 
+--  The above copyright notice and this permission notice shall be
 --  included in all copies or substantial portions of the Software.
 --
 --  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
@@ -141,7 +141,7 @@ function M.__entry_width1(self, t, szA, imin, imax)
       imax        = max(imax, len)
       imin        = min(imin, len)
       szA[#szA+1] = len
-   end      
+   end
    return imin, imax
 end
 
@@ -232,7 +232,7 @@ function M.__display2(self,i, icol)
    local b        = {}
    local sum      = 0
    local len      = 0
-   
+
    for idim = 1, dim2 do
       b[#b+1]    = a[idim]
       local len1 = szA[idim]
@@ -242,7 +242,7 @@ function M.__display2(self,i, icol)
       sum        = sum + len2
    end
    b[#b+1]      = blank:rep(width - sum)
-   
+
    return concatTbl(b,"")
 end
 
@@ -259,7 +259,7 @@ function M.__number_of_columns_rows(self,t)
    local sz     = #t
    self.sz      = sz
    self.szA     = szA
-   
+
    -------------------------------------------------------------------------
    -- Compute length of each entry in table t
    -------------------------------------------------------------------------
@@ -287,7 +287,7 @@ function M.__number_of_columns_rows(self,t)
    local max_columns = floor(min(self.term_width/imin, sz))
    local nrows       = ceil(sz/max_columns)
    max_columns       = ceil(sz/nrows)
-   
+
 
    local results
    for ncols = max_columns, 1, -1  do

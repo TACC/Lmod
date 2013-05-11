@@ -9,7 +9,7 @@ step 2
 ===========================
 step 3
 ===========================
- ProjectDIR/rt/petsc/mf/MPI/intel/13.1/mvapich2/1.9 
+ProjectDIR/rt/petsc/mf/MPI/intel/13.1/mvapich2/1.9
    petsc/petsc/3.3                       petsc/petsc/3.3-debug
    petsc/petsc/3.3-complex               petsc/petsc/3.3-uni
    petsc/petsc/3.3-complexdebug          petsc/petsc/3.3-unidebug
@@ -17,47 +17,47 @@ step 3
    petsc/petsc/3.3-cxxcomplex            petsc/petsc/petsc/petsc/3.3
    petsc/petsc/3.3-cxxcomplexdebug       petsc/petsc/petsc/petsc/petsc/3.3
    petsc/petsc/3.3-cxxdebug
- ProjectDIR/rt/petsc/mf/Compiler/intel/13.1 
+ProjectDIR/rt/petsc/mf/Compiler/intel/13.1
    mvapich2/1.9
- ProjectDIR/rt/petsc/mf/Core 
+ProjectDIR/rt/petsc/mf/Core
    intel/13.1
-Use "module spider" to find all possible modules. 
-Use "module keyword key1 key2 ..." to search for all possible modules matching 
-any of the "keys". 
+Use "module spider" to find all possible modules.
+Use "module keyword key1 key2 ..." to search for all possible modules matching
+any of the "keys".
 ===========================
 step 4
 ===========================
 The following is a list of the modules currently available:
   intel: intel/13.1
-    Intel Compiler Collection 
+    Intel Compiler Collection
   mvapich2: mvapich2/1.9
-    Mpich 2: Message Passing Interface Library version 2 
+    Mpich 2: Message Passing Interface Library version 2
   petsc/petsc/3.3: petsc/petsc/3.3
-    Numerical library for sparse linear algebra 
+    Numerical library for sparse linear algebra
   petsc/petsc/3.3-complex: petsc/petsc/3.3-complex
-    Numerical library for sparse linear algebra 
+    Numerical library for sparse linear algebra
   petsc/petsc/3.3-complexdebug: petsc/petsc/3.3-complexdebug
-    Numerical library for sparse linear algebra 
+    Numerical library for sparse linear algebra
   petsc/petsc/3.3-cxx: petsc/petsc/3.3-cxx
-    Numerical library for sparse linear algebra 
+    Numerical library for sparse linear algebra
   petsc/petsc/3.3-cxxcomplex: petsc/petsc/3.3-cxxcomplex
-    Numerical library for sparse linear algebra 
+    Numerical library for sparse linear algebra
   petsc/petsc/3.3-cxxcomplexdebug: petsc/petsc/3.3-cxxcomplexdebug
-    Numerical library for sparse linear algebra 
+    Numerical library for sparse linear algebra
   petsc/petsc/3.3-cxxdebug: petsc/petsc/3.3-cxxdebug
-    Numerical library for sparse linear algebra 
+    Numerical library for sparse linear algebra
   petsc/petsc/3.3-debug: petsc/petsc/3.3-debug
-    Numerical library for sparse linear algebra 
+    Numerical library for sparse linear algebra
   petsc/petsc/3.3-uni: petsc/petsc/3.3-uni
-    Numerical library for sparse linear algebra 
+    Numerical library for sparse linear algebra
   petsc/petsc/3.3-unidebug: petsc/petsc/3.3-unidebug
-    Numerical library for sparse linear algebra 
+    Numerical library for sparse linear algebra
   petsc/petsc/petsc/3.3: petsc/petsc/petsc/3.3
-    Numerical library for sparse linear algebra 
+    Numerical library for sparse linear algebra
   petsc/petsc/petsc/petsc/3.3: petsc/petsc/petsc/petsc/3.3
-    Numerical library for sparse linear algebra 
+    Numerical library for sparse linear algebra
   petsc/petsc/petsc/petsc/petsc: petsc/petsc/petsc/petsc/petsc/3.3
-    Numerical library for sparse linear algebra 
+    Numerical library for sparse linear algebra
 To learn more about a package enter:
    $ module spider Foo
 where "Foo" is the name of a module
@@ -69,7 +69,7 @@ step 5
 ===========================
   petsc/petsc/3.3: petsc/petsc/3.3
     Description:
-      Numerical library for sparse linear algebra 
+      Numerical library for sparse linear algebra
     This module can only be loaded through the following modules:
       intel/13.1, mvapich2/1.9
     Help:
@@ -82,7 +82,7 @@ step 5
       external packages installed:  parmetis spai hypre   hdf5 mumps scalapack spooles superlu (sequential/distributed)
   petsc/petsc/3.3-complex: petsc/petsc/3.3-complex
     Description:
-      Numerical library for sparse linear algebra 
+      Numerical library for sparse linear algebra
     This module can only be loaded through the following modules:
       intel/13.1, mvapich2/1.9
     Help:
@@ -95,7 +95,7 @@ step 5
       external packages installed:  parmetis spai hypre   hdf5 mumps scalapack spooles superlu (sequential/distributed)
   petsc/petsc/3.3-complexdebug: petsc/petsc/3.3-complexdebug
     Description:
-      Numerical library for sparse linear algebra 
+      Numerical library for sparse linear algebra
     This module can only be loaded through the following modules:
       intel/13.1, mvapich2/1.9
     Help:
@@ -108,7 +108,7 @@ step 5
       external packages installed:  parmetis spai hypre   hdf5 mumps scalapack spooles superlu (sequential/distributed)
   petsc/petsc/3.3-cxx: petsc/petsc/3.3-cxx
     Description:
-      Numerical library for sparse linear algebra 
+      Numerical library for sparse linear algebra
     This module can only be loaded through the following modules:
       intel/13.1, mvapich2/1.9
     Help:
@@ -121,7 +121,7 @@ step 5
       external packages installed:  parmetis spai hypre   hdf5 mumps scalapack spooles superlu (sequential/distributed)
   petsc/petsc/3.3-cxxcomplex: petsc/petsc/3.3-cxxcomplex
     Description:
-      Numerical library for sparse linear algebra 
+      Numerical library for sparse linear algebra
     This module can only be loaded through the following modules:
       intel/13.1, mvapich2/1.9
     Help:
@@ -134,7 +134,7 @@ step 5
       external packages installed:  parmetis spai hypre   hdf5 mumps scalapack spooles superlu (sequential/distributed)
   petsc/petsc/3.3-cxxcomplexdebug: petsc/petsc/3.3-cxxcomplexdebug
     Description:
-      Numerical library for sparse linear algebra 
+      Numerical library for sparse linear algebra
     This module can only be loaded through the following modules:
       intel/13.1, mvapich2/1.9
     Help:
@@ -147,7 +147,7 @@ step 5
       external packages installed:  parmetis spai hypre   hdf5 mumps scalapack spooles superlu (sequential/distributed)
   petsc/petsc/3.3-cxxdebug: petsc/petsc/3.3-cxxdebug
     Description:
-      Numerical library for sparse linear algebra 
+      Numerical library for sparse linear algebra
     This module can only be loaded through the following modules:
       intel/13.1, mvapich2/1.9
     Help:
@@ -160,7 +160,7 @@ step 5
       external packages installed:  parmetis spai hypre   hdf5 mumps scalapack spooles superlu (sequential/distributed)
   petsc/petsc/3.3-debug: petsc/petsc/3.3-debug
     Description:
-      Numerical library for sparse linear algebra 
+      Numerical library for sparse linear algebra
     This module can only be loaded through the following modules:
       intel/13.1, mvapich2/1.9
     Help:
@@ -173,7 +173,7 @@ step 5
       external packages installed:  parmetis spai hypre   hdf5 mumps scalapack spooles superlu (sequential/distributed)
   petsc/petsc/3.3-uni: petsc/petsc/3.3-uni
     Description:
-      Numerical library for sparse linear algebra 
+      Numerical library for sparse linear algebra
     This module can only be loaded through the following modules:
       intel/13.1, mvapich2/1.9
     Help:
@@ -186,7 +186,7 @@ step 5
       external packages installed:  parmetis spai hypre   hdf5 mumps scalapack spooles superlu (sequential/distributed)
   petsc/petsc/3.3-unidebug: petsc/petsc/3.3-unidebug
     Description:
-      Numerical library for sparse linear algebra 
+      Numerical library for sparse linear algebra
     This module can only be loaded through the following modules:
       intel/13.1, mvapich2/1.9
     Help:
@@ -199,7 +199,7 @@ step 5
       external packages installed:  parmetis spai hypre   hdf5 mumps scalapack spooles superlu (sequential/distributed)
   petsc/petsc/petsc/3.3: petsc/petsc/petsc/3.3
     Description:
-      Numerical library for sparse linear algebra 
+      Numerical library for sparse linear algebra
     This module can only be loaded through the following modules:
       intel/13.1, mvapich2/1.9
     Help:
@@ -212,7 +212,7 @@ step 5
       external packages installed:  parmetis spai hypre   hdf5 mumps scalapack spooles superlu (sequential/distributed)
   petsc/petsc/petsc/petsc/3.3: petsc/petsc/petsc/petsc/3.3
     Description:
-      Numerical library for sparse linear algebra 
+      Numerical library for sparse linear algebra
     This module can only be loaded through the following modules:
       intel/13.1, mvapich2/1.9
     Help:
@@ -225,7 +225,7 @@ step 5
       external packages installed:  parmetis spai hypre   hdf5 mumps scalapack spooles superlu (sequential/distributed)
   petsc/petsc/petsc/petsc/petsc: petsc/petsc/petsc/petsc/petsc/3.3
     Description:
-      Numerical library for sparse linear algebra 
+      Numerical library for sparse linear algebra
     This module can only be loaded through the following modules:
       intel/13.1, mvapich2/1.9
     Help:

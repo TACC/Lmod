@@ -20,7 +20,7 @@
 --  permit persons to whom the Software is furnished to do so, subject
 --  to the following conditions:
 --
---  The above copyright notice and this permission notice shall be 
+--  The above copyright notice and this permission notice shall be
 --  included in all copies or substantial portions of the Software.
 --
 --  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
@@ -82,52 +82,53 @@ function masterTbl()
 end
 
 
-function loadModuleFile(obj)
-   local f
-   if (type(obj) == "table") then
-      f = obj.file
-   else
-      f = obj
-   end
-
-   local dbg     = Dbg:dbg()
-   dbg.start("computeHashSum-> loadModuleFile(\"",f,"\")")
-   local myType = extname(f)
-   local func
-   if (myType == ".lua") then
-      func = loadfile(f)
-   else
-      local a     = {}
-      a[#a + 1]	  = pathJoin(cmdDir(),"tcl2lua.tcl")
-      a[#a + 1]	  = f
-      local cmd   = table.concat(a," ")
-      local s     = capture(cmd)
-      func = loadstring(s)
-   end
-   if (func) then
-      func()
-   end
-   dbg.fini("ComputeHashSum:loadModuleFile")
-end
+--function loadModuleFile(obj)
+--   local f
+--   if (type(obj) == "table") then
+--      f = obj.file
+--   else
+--      f = obj
+--   end
+--
+--   local dbg     = Dbg:dbg()
+--   dbg.start("computeHashSum-> loadModuleFile(\"",f,"\")")
+--   local myType = extname(f)
+--   local func
+--   if (myType == ".lua") then
+--      func = loadfile(f)
+--   else
+--      local a     = {}
+--      a[#a + 1]	  = pathJoin(cmdDir(),"tcl2lua.tcl")
+--      a[#a + 1]	  = f
+--      local cmd   = table.concat(a," ")
+--      local s     = capture(cmd)
+--      func = loadstring(s)
+--   end
+--   if (func) then
+--      func()
+--   end
+--   dbg.fini("ComputeHashSum:loadModuleFile")
+--end
 
 
 function main()
-   
+
    local dbg       = Dbg:dbg()
    local master    = Master:master(false)
    local mStack    = ModuleStack:moduleStack()
-   master.shell    = BaseShell.build("bash")
+   local shellN    = "bash"
+   master.shell    = BaseShell.build(shellN)
    local fn        = os.tmpname()
    fh              = io.open(fn,"w")
    local i         = 1
    local masterTbl = masterTbl()
    options()
-   
+
    if (masterTbl.debug) then
       dbg:activateDebug(1, tonumber(masterTbl.indentLevel))
    end
    dbg.start("computeHashSum()")
-   
+
    local lmodPath = os.getenv("LMOD_PACKAGE_PATH") or ""
    for path in lmodPath:split(":") do
       path = path .. "/"
@@ -135,20 +136,20 @@ function main()
       package.path  = path .. "?.lua;"      ..
          path .. "?/init.lua;" ..
          package.path
-      
+
       package.cpath = path .. "../lib/?.so;"..
          package.cpath
    end
-   
+
    dbg.print("lmodPath: \"", lmodPath,"\"\n")
-   require("SitePackage") 
+   require("SitePackage")
 
    MCP           = MasterControl.build("computeHash","load")
    mcp           = MasterControl.build("computeHash","load")
 
    local f = masterTbl.pargs[1]
-   mStack:push(masterTbl.fullName, masterTbl.sn, f)
-   loadModuleFile(f)
+   mStack:push(masterTbl.fullName, masterTbl.usrName, masterTbl.sn, f)
+   loadModuleFile{file=f, shell=shellN, reportErr=true}
    mStack:pop()
    local s = concatTbl(ComputeModuleResultsA,"")
    dbg.print("Text to Hash: \n",s,"\n")
@@ -175,33 +176,40 @@ function options()
    local usage         = "Usage: computeHashSum [options] file"
    local cmdlineParser = Optiks:new{usage=usage, version=Version}
 
-   cmdlineParser:add_option{ 
+   cmdlineParser:add_option{
       name   = {'-v','--verbose'},
       dest   = 'verbosityLevel',
       action = 'count',
    }
-   cmdlineParser:add_option{ 
+   cmdlineParser:add_option{
       name   = {'--fullName'},
       dest   = 'fullName',
       action = 'store',
       help   = "Full name of the module file"
    }
 
-   cmdlineParser:add_option{ 
+   cmdlineParser:add_option{
+      name   = {'--usrName'},
+      dest   = 'usrName',
+      action = 'store',
+      help   = "User name of the module file"
+   }
+
+   cmdlineParser:add_option{
       name   = {'--sn'},
       dest   = 'sn',
       action = 'store',
       help   = "Full name of the module file"
    }
 
-   cmdlineParser:add_option{ 
+   cmdlineParser:add_option{
       name   = {'-D','-d','--debug'},
       dest   = 'debug',
       action = 'store_true',
       default = false,
       help    = "debug flag"
    }
-   cmdlineParser:add_option{ 
+   cmdlineParser:add_option{
       name   = {'--indentLevel'},
       dest   = 'indentLevel',
       action = 'store',

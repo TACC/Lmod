@@ -18,7 +18,7 @@
 --  permit persons to whom the Software is furnished to do so, subject
 --  to the following conditions:
 --
---  The above copyright notice and this permission notice shall be 
+--  The above copyright notice and this permission notice shall be
 --  included in all copies or substantial portions of the Software.
 --
 --  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
@@ -61,6 +61,7 @@ M.inherit              = MasterControl.inherit
 M.load                 = MasterControl.unload
 M.myFileName           = MasterControl.myFileName
 M.myModuleFullName     = MasterControl.myModuleFullName
+M.myModuleUsrName      = MasterControl.myModuleUsrName
 M.myModuleName         = MasterControl.myModuleName
 M.myModuleVersion      = MasterControl.myModuleVersion
 M.prepend_path         = MasterControl.remove_path_first

@@ -1,7 +1,7 @@
 ===========================
 step 1
 ===========================
-Modules based on Lua: Version 5.0rc2 (5.0rc2-13-g442ff5b) 2013-04-26 11:23
+Modules based on Lua: Version 5.0rc2 (5.0rc2-54-g7045ea1) 2013-04-26 11:23
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -9,10 +9,10 @@ step 2
 ===========================
 step 3
 ===========================
- ProjectDIR/mf/Compiler/intel/10.1 
+ProjectDIR/mf/Compiler/intel/10.1
    gotoblas/1.31          gotoblas/1.33       openmpi/1.2.6
    gotoblas/1.32  (D)     mpich2/1.0.7
- ProjectDIR/mf/Core 
+ProjectDIR/mf/Core
    PrgEnv                      git/1.7.4              junk/d/3.0
    admin/admin-1.0             git/1.7.4.3    (D)     local/local
    alex/1.0                    gotoblas/1.20          multi/multi
@@ -21,43 +21,43 @@ step 3
    boost/1.49.0    (o) (D)     intel/intel            unix/unix
    gcc/4.2.3                   junk/a/c/1.0
    git/1.6.3.1                 junk/b/c/2.0
- ProjectDIR/rt/avail/mf/Core 
+ProjectDIR/rt/avail/mf/Core
    bar/1.4-dbg          baz/1.4-dbg          foo/1.4-dbg
    bar/1.4      (D)     baz/1.4      (D)     foo/1.4      (D)
   Where:
    (D):  Default Module
    (m):  built for host and native MIC
    (o):  built for offload to the MIC only
-Use "module spider" to find all possible modules. 
-Use "module keyword key1 key2 ..." to search for all possible modules matching 
-any of the "keys". 
+Use "module spider" to find all possible modules.
+Use "module keyword key1 key2 ..." to search for all possible modules matching
+any of the "keys".
 ===========================
 step 4
 ===========================
- ProjectDIR/mf/Compiler/intel/10.1 
+ProjectDIR/mf/Compiler/intel/10.1
    gotoblas/1.31          gotoblas/1.33       openmpi/1.2.6
    gotoblas/1.32  (D)     mpich2/1.0.7
- ProjectDIR/mf/Core 
+ProjectDIR/mf/Core
    admin/admin-1.0       gotoblas/1.30       local/local
    alex/1.0              intel/intel         multi/multi
    gcc/4.2.3             junk/a/c/1.0        parmetis/3.1 (m)
    gotoblas/1.20         junk/b/c/2.0
    gotoblas/1.26         junk/d/3.0
- ProjectDIR/rt/avail/mf/Core 
+ProjectDIR/rt/avail/mf/Core
    bar/1.4-dbg       bar/1.4  (D)     baz/1.4-dbg       baz/1.4  (D)
   Where:
    (D):  Default Module
    (m):  built for host and native MIC
-Use "module spider" to find all possible modules. 
-Use "module keyword key1 key2 ..." to search for all possible modules matching 
-any of the "keys". 
+Use "module spider" to find all possible modules.
+Use "module keyword key1 key2 ..." to search for all possible modules matching
+any of the "keys".
 ===========================
 step 5
 ===========================
 ===========================
 step 6
 ===========================
- ProjectDIR/mf/Core 
+ProjectDIR/mf/Core
    PrgEnv                      git/1.7.4              junk/d/3.0
    admin/admin-1.0             git/1.7.4.3    (D)     local/local
    alex/1.0                    gotoblas/1.20          multi/multi
@@ -66,16 +66,16 @@ step 6
    boost/1.49.0    (o) (D)     intel/intel            unix/unix
    gcc/4.2.3                   junk/a/c/1.0
    git/1.6.3.1                 junk/b/c/2.0
- ProjectDIR/rt/avail/mf/Core 
+ProjectDIR/rt/avail/mf/Core
    bar/1.4-dbg          baz/1.4-dbg          foo/1.4-dbg
    bar/1.4      (D)     baz/1.4      (D)     foo/1.4      (D)
   Where:
    (D):  Default Module
    (m):  built for host and native MIC
    (o):  built for offload to the MIC only
-Use "module spider" to find all possible modules. 
-Use "module keyword key1 key2 ..." to search for all possible modules matching 
-any of the "keys". 
+Use "module spider" to find all possible modules.
+Use "module keyword key1 key2 ..." to search for all possible modules matching
+any of the "keys".
 ===========================
 step 7
 ===========================

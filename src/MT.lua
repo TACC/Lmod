@@ -18,7 +18,7 @@
 --  permit persons to whom the Software is furnished to do so, subject
 --  to the following conditions:
 --
---  The above copyright notice and this permission notice shall be 
+--  The above copyright notice and this permission notice shall be
 --  included in all copies or substantial portions of the Software.
 --
 --  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
@@ -43,7 +43,7 @@ local ignoreT      = { ['.'] =1, ['..'] = 1, CVS=1, ['.git'] = 1, ['.svn']=1,
 local max          = math.max
 local sort         = table.sort
 local systemG      = _G
-local varTbl       = varTbl
+local unpack       = unpack or table.unpack
 
 require("string_split")
 require("fileOps")
@@ -58,6 +58,8 @@ local Dbg          = require('Dbg')
 local ColumnTable  = require('ColumnTable')
 local posix        = require("posix")
 local deepcopy     = table.deepcopy
+local version      = _VERSION:gsub("^Lua%s+","")
+local load         = (version == "5.1") and loadstring or load
 
 --module("MT")
 local M = {}
@@ -95,7 +97,7 @@ local function locationTblDir(mpath, path, prefix, locationT, availT)
             local mname = pathJoin(prefix, file):gsub("%.lua","")
             mnameT[mname] = {file=f, mpath = mpath}
          elseif (attr.mode == "directory") then
-            dirA[#dirA + 1] = { fullName = f, mname = pathJoin(prefix, file) } 
+            dirA[#dirA + 1] = { fullName = f, mname = pathJoin(prefix, file) }
          end
       end
    end
@@ -137,11 +139,11 @@ local function buildLocWmoduleT(mpath, moduleT, mpathT, lT, availT)
    local dbg       = Dbg:dbg()
    dbg.start("MT:buildLocWmoduleT(mpath, moduleT, mpathA, lT, availT)")
    dbg.print("mpath: ", mpath,"\n")
-   
+
    local availEntryT = availT[mpath]
 
    for f, vv in pairs(moduleT) do
-      
+
       local defaultModule = false
       local sn            = vv.name
       local a             = lT[sn] or {}
@@ -149,7 +151,7 @@ local function buildLocWmoduleT(mpath, moduleT, mpathT, lT, availT)
          a[mpath] = { file = pathJoin(mpath,sn), mpath = mpath }
       end
       lT[sn]   = a
-      
+
       a = availEntryT[sn] or {}
 
       local version   = extractVersion(vv.full, sn)
@@ -231,7 +233,7 @@ local function build_locationTbl(mpathA)
    local fast      = true
    local cache     = _G.Cache:cache()
    local moduleT   = cache:build(fast)
-   
+
    dbg.print("moduleT: ", not (not moduleT),"\n")
 
    if (moduleT) then
@@ -244,7 +246,7 @@ local function build_locationTbl(mpathA)
       end
    end
 
-   
+
    if (dbg.active()) then
       dbg.print("availT: \n")
       for mpath, vv in pairs(availT) do
@@ -322,7 +324,7 @@ local function new(self, s)
       o:buildBaseMpathA(v)
       dbg.print("Initializing ", DfltModPath, ":", v, "\n")
    else
-      assert(loadstring(s))()
+      assert(load(s))()
       local _ModuleTable_ = systemG._ModuleTable_
 
       if (_ModuleTable_.version == 1) then
@@ -366,7 +368,7 @@ function M.convertMT(self, v1)
       if (active.hash and active.hash[i]) then
          hash = active.hash[i]
       end
-      
+
       local t     = { fn = active.FN[i], modFullName = active.fullModName[i],
                       default = active.default[i], modName = sn,
                       mType   = active.mType[i], hash = hash,
@@ -385,14 +387,14 @@ function M.convertMT(self, v1)
          aa[#aa+1] = sn
       end
    end
-   
+
    self.mpathA     = v1.mpathA
    self.baseMpathA = v1.baseMpathA
    self.inactive   = aa
 
    return sz   -- Return the new loadOrder number.
 end
-   
+
 
 
 function M.getRebuildTime(self)
@@ -523,7 +525,7 @@ function M.getMTfromFile(self,fn, msg)
       dbg.print("name: ",name," isDefault: ",entry.defaultFlg,
                 " mType: ", mType, "\n")
    end
-   
+
    local savedBaseMPATH = concatTbl(l_mt.baseMpathA,":")
    dbg.print("Saved baseMPATH: ",savedBaseMPATH,"\n")
    varTbl[ModulePath] = Var:new(ModulePath,mpath)
@@ -559,7 +561,7 @@ function M.getMTfromFile(self,fn, msg)
    -- environment then MODULEPATH is used to set the system base MPATH.
    -- It is detected when a new MT is constructed and the MT is nil.
    -- Well the line above this comment is also constructing a MT where
-   -- the module table in the environment value is ignored.  So this 
+   -- the module table in the environment value is ignored.  So this
    -- hack is here to make sure that the value of the system Base MPATH
    -- remains what is was.  There should be a better way to do this
    -- but I can't think of one at the moment.
@@ -616,7 +618,7 @@ function M.getMTfromFile(self,fn, msg)
       end
    end
 
-   
+
    if (#aa > 0) then
       LmodWarning("The following modules have changed: ", concatTbl(aa,", "),"\n")
       LmodWarning("Please re-create this collection\n")
@@ -634,7 +636,7 @@ function M.getMTfromFile(self,fn, msg)
    dbg.fini("MT:getMTfromFile")
    return true
 end
-   
+
 function M.changePATH(self)
    if (not self._changePATH) then
       assert(self._changePATHCount == 0)
@@ -710,7 +712,7 @@ end
 
 local function path2pathA(mpath)
    local a = {}
-   if (mpath) then 
+   if (mpath) then
       for path in mpath:split(':') do
          a[#a+1] = path_regularize(path)
       end
@@ -864,10 +866,9 @@ function M.list(self, kind, status)
             if (v.default ~= 1) then
                nameT = "fullName"
             end
-            dbg.print("MT:list: v.short: ", v.short, ", full: ",v.fullName,"\n")
             local obj = {sn   = v.short,   full       = v.fullName,
                          name = v[nameT], defaultFlg = v.default }
-            a[icnt] = { v.loadOrder, obj }
+            a[icnt] = { v.loadOrder, v[nameT], obj }
          end
       end
    else
@@ -875,15 +876,21 @@ function M.list(self, kind, status)
          if ((status == "any" or status == v.status) and
              (v.status ~= "pending")) then
             icnt  = icnt + 1
-            a[icnt] = { v.loadOrder, v[kind]}
+            a[icnt] = { v.loadOrder, v[kind], v[kind]}
          end
       end
    end
 
-   table.sort (a, function(x,y) return x[1] < y[1] end)
+   table.sort (a, function(x,y)
+                     if (x[1] == y[1]) then
+                        return x[2] < y[2]
+                     else
+                        return x[1] < y[1]
+                     end
+                  end)
 
    for i = 1, icnt do
-      b[i] = a[i][2]
+      b[i] = a[i][3]
    end
 
    a = nil -- finished w/ a.
@@ -900,26 +907,26 @@ function M.setHashSum(self)
    local found  = false
 
    for i = 1,2 do
-      cmdSum  = pathJoin(cmdDir(),chsA[i]) 
+      cmdSum  = pathJoin(cmdDir(),chsA[i])
       if (isFile(cmdSum)) then
          found = true
          break
       end
    end
-         
+
    if (not found) then
       LmodError("Unable to find computeHashSum\n")
    end
 
    local path = "@path_to_lua@:" .. os.getenv("PATH")
 
-   
+
    local luaCmd = findInPath("lua",path)
 
    if (luaCmd == "") then
       LmodError("Unable to find lua\n")
    end
-      
+
    local cmdA = {}
    cmdA[#cmdA+1] = luaCmd
    cmdA[#cmdA+1] = cmdSum
@@ -929,13 +936,15 @@ function M.setHashSum(self)
       cmdA[#cmdA+1] = "-D"
    end
    local cmdStart = concatTbl(cmdA," ")
-   
+
    for k,v in pairs(mT) do
       local a = {}
       if (v.status == "active") then
          a[#a + 1]  = cmdStart
          a[#a + 1]  = "--fullName"
          a[#a + 1]  = v.fullName
+         a[#a + 1]  = "--usrName"
+         a[#a + 1]  = self:usrName(v.short)
          a[#a + 1]  = "--sn"
          a[#a + 1]  = v.short
          a[#a + 1]  = v.FN
@@ -957,7 +966,6 @@ function M.getHash(self, sn)
    return entry.hash
 end
 
-
 function M.hideHash(self)
    local mT   = self.mT
    for k,v in pairs(mT) do
@@ -966,7 +974,6 @@ function M.hideHash(self)
       end
    end
 end
-
 
 function M.markDefault(self, sn)
    local mT    = self.mT
@@ -985,6 +992,13 @@ function M.default(self, sn)
    return (entry.default ~= 0)
 end
 
+function M.usrName(self,sn)
+   if (self:default(sn)) then
+      return sn
+   end
+   return self:fullName(sn)
+end
+
 function M.setLoadOrder(self)
    local a  = self:list("short","active")
    local mT = self.mT
@@ -993,7 +1007,7 @@ function M.setLoadOrder(self)
    for i = 1,sz do
       local sn = a[i]
       mT[sn].loadOrder = i
-   end      
+   end
    return sz
 end
 
@@ -1023,7 +1037,7 @@ end
 
 function M.short(self, sn)
    local mT    = self.mT
-   local entry = mT[sn] 
+   local entry = mT[sn]
    if (entry == nil) then
       return nil
    end
@@ -1065,7 +1079,7 @@ end
 function M.safeToSave(self)
    local mT = self.mT
    local a  = {}
-   for k,v in pairs(mT) do
+   for k,v in pairsByKeys(mT) do
       if (v.status == "active" and v.mType == "mw") then
          a[#a+1] = k
       end
@@ -1078,7 +1092,7 @@ end
 function M.add_property(self, sn, name, value)
    local dbg = Dbg:dbg()
    dbg.start("MT:add_property(\"",sn,"\", \"",name,"\", \"",value,"\")")
-   
+
    local mT    = self.mT
    local entry = mT[sn]
 
@@ -1118,7 +1132,7 @@ end
 function M.remove_property(self, sn, name, value)
    local dbg = Dbg:dbg()
    dbg.start("MT:remove_property(\"",sn,"\", \"",name,"\", \"",value,"\")")
-   
+
    local mT    = self.mT
    local entry = mT[sn]
 
@@ -1209,7 +1223,7 @@ function M.reportChanges(self)
    local reloadA   = {}
    local loadT     = self._loadT
 
-   for sn, v in pairs(mT) do
+   for sn, v in pairsByKeys(mT) do
       if (self:have(sn,"inactive") and v.status == "active") then
          local name = v.fullName
          if (v.default == 1) then
@@ -1232,7 +1246,7 @@ function M.reportChanges(self)
          end
       end
    end
-      
+
    local entries = false
 
    if (#inactiveA > 0) then
@@ -1263,7 +1277,7 @@ end
 
 function M.serializeTbl(self)
    local dbg = Dbg:dbg()
-   
+
    s_mt.activeSize = s_mt:setLoadOrder()
 
    local s = _G.serializeTbl{ indent=false, name=self.name(), value=s_mt}

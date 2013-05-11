@@ -1,12 +1,12 @@
 --[[ deepcopy.lua
-    
+
     Deep-copy function for Lua - v0.2
     ==============================
       - Does not overflow the stack.
       - Maintains cyclic-references
       - Copies metatables
       - Maintains common upvalues between copied functions (for Lua 5.2 only)
-    
+
     TODO
     ----
       - Document usage (properly) and provide examples
@@ -18,12 +18,12 @@
       - Copy function environments in Lua 5.1 and LuaJIT
         (Lua 5.2's _ENV is actually a good idea!)
       - Handle C functions
-    
+
     Usage
     -----
         copy = table.deecopy(orig)
         copy = table.deecopy(orig, params, customcopyfunc_list)
-    
+
     `params` is a table of parameters to inform the copy functions how to
     copy the data. The default ones available are:
       - `value_ignore` (`table`/`nil`): any keys in this table will not be
@@ -43,7 +43,7 @@
         `false`)
       - `function_upvalue_dontcopy` (`boolean`): do not copy upvalue values
         (does not stop joining). (default: `false`)
-    
+
     `customcopyfunc_list` is a table of typenames to copy functions.
     For example, a simple solution for userdata:
     { ["userdata"] = function(stack, orig, copy, state, arg1, arg2)
@@ -66,21 +66,21 @@
     Any parameters passed to the `params` are available in `stack`.
     You can use custom paramter names, but keep in mind that numeric keys and
     string keys prefixed with a single underscore are reserved.
-    
+
     License
     -------
     Copyright (C) 2012 Declan White
-    
+
     Permission is hereby granted, free of charge, to any person obtaining a
     copy of this software and associated documentation files (the "Software"),
     to deal in the Software without restriction, including without limitation
     the rights to use, copy, modify, merge, publish, distribute, sublicense,
     and/or sell copies of the Software, and to permit persons to whom the
     Software is furnished to do so, subject to the following conditions:
-    
+
     The above copyright notice and this permission notice shall be included in
     all copies or substantial portions of the Software.
-    
+
     THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
     IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
     FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
@@ -108,11 +108,13 @@ do
     local debug_setupvalue = debug and debug.setupvalue or nil
     local debug_upvalueid = debug and debug.upvalueid or nil
     local debug_upvaluejoin = debug and debug.upvaluejoin or nil
-    local unpack = unpack
-    local table = table
+    local version = _VERSION:gsub("^Lua%s+","")
+    local load    = (version == "5.1") and loadstring or load
+    local unpack  = unpack or table.unpack
+    local table   = table
     table.deepcopy_copyfunc_list = {
       --["type"] = function(stack, orig, copy, state, temp1, temp2, temp..., tempN)
-      --    
+      --
       --    -- When complete:
       --    state = true
       --
@@ -124,7 +126,7 @@ do
       --    -- If you wanted to pop two from the last state and push four new ones:
       --    stack:_pop(2)
       --    stack:_push('t', 'e', 's', 't')
-      --    
+      --
       --    -- To copy a child value:
       --    -- (Note: any calls to push or pop MUST be BEFORE a call to this)
       --    state:recurse(childvalue_orig)
@@ -134,11 +136,11 @@ do
       --    -- (Note: the copy may be nil if it was not copied (because caller
       --    -- specified it not to be)).
       --    -- You can only call this once per iteration.
-      --    
+      --
       --    -- Return like this:
       --    -- (Temp variables are not part of the return list due to optimisation.)
       --    return copy, state
-      --    
+      --
       --end,
         _plainolddata = function(stack, orig, copy, state)
             return orig, true
@@ -172,11 +174,11 @@ do
                 -- orig, copy:{}, state, metaorig, metacopy
                 local copy_meta = arg2--select(2, ...)
                 stack:_pop(2)
-                
+
                 if copy_meta ~= nil then
                     setmetatable(copy, copy_meta)
                 end
-                
+
                 -- Now start copying key-value pairs
                 orig_prevkey = nil -- grab first key
                 grabkey = true --goto grabkey
@@ -185,7 +187,7 @@ do
                 -- orig, copy:{}, state, keyorig, keycopy
                 local orig_key = arg1--select(1, ...)
                 local copy_key = arg2--select(2, ...)
-                
+
                 if copy_key ~= nil then
                     -- leave keyorig and keycopy on the stack
                     local orig_value = rawget(orig, orig_key)
@@ -204,11 +206,11 @@ do
               --local orig_value = arg3--select(3, ...)
                 local copy_value = arg4--select(4, ...)
                 stack:_pop(4)
-                
+
                 if copy_value ~= nil then
                     rawset(copy, copy_key, copy_value)
                 end
-                
+
                 -- Grab next key to copy
                 orig_prevkey = orig_key
                 grabkey = true --goto grabkey
@@ -237,9 +239,9 @@ do
                     copy = orig
                     return copy, true
                 else
-                    copy = loadstring(string.dump(orig), nil, nil, stack.function_env)
+                    copy = load(string.dump(orig), nil, nil, stack.function_env)
                     stack[orig] = copy
-                    
+
                     if debug_getupvalue ~= nil and debug_setupvalue ~= nil then
                         grabupvalue = true
                         grabupvalue_idx = 1
@@ -254,9 +256,9 @@ do
               --local orig_upvalue_value = arg2
                 local copy_upvalue_value = arg3
                 stack:_pop(3)
-                
+
                 debug_setupvalue(copy, orig_upvalue_idx, copy_upvalue_value)
-                
+
                 grabupvalue_idx = orig_upvalue_idx+1
                 stack:_push(grabupvalue_idx)
                 grabupvalue = true
@@ -308,7 +310,7 @@ do
     table.deepcopy_copyfunc_list["boolean"] = table.deepcopy_copyfunc_list._plainolddata
     -- `nil` should never be encounted... but just in case:
     table.deepcopy_copyfunc_list["nil"    ] = table.deepcopy_copyfunc_list._plainolddata
-    
+
     do
         local ORIG, COPY, RETTO, STATE, SIZE = 0, 1, 2, 3, 4
         function table.deepcopy_push(...)

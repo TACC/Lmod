@@ -18,7 +18,7 @@
 --  permit persons to whom the Software is furnished to do so, subject
 --  to the following conditions:
 --
---  The above copyright notice and this permission notice shall be 
+--  The above copyright notice and this permission notice shall be
 --  included in all copies or substantial portions of the Software.
 --
 --  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
@@ -66,7 +66,7 @@ M.warning              = MasterControl.warning
 
 function M.myFileName(self)
    local masterTbl   = masterTbl()
-   local moduleStack = masterTbl.moduleStack 
+   local moduleStack = masterTbl.moduleStack
    local iStack      = #moduleStack
    return moduleStack[iStack].fn
 end
@@ -74,21 +74,23 @@ end
 
 function M.myModuleFullName(self)
    local masterTbl   = masterTbl()
-   local moduleStack = masterTbl.moduleStack 
+   local moduleStack = masterTbl.moduleStack
    local iStack      = #moduleStack
    return moduleStack[iStack].full
 end
 
+M.myModuleUsrName = M.myModuleFullName
+
 function M.myModuleName(self)
    local masterTbl   = masterTbl()
-   local moduleStack = masterTbl.moduleStack 
+   local moduleStack = masterTbl.moduleStack
    local iStack      = #moduleStack
    return moduleStack[iStack].sn
 end
 
 function M.myModuleVersion(self)
    local masterTbl   = masterTbl()
-   local moduleStack = masterTbl.moduleStack 
+   local moduleStack = masterTbl.moduleStack
    local iStack      = #moduleStack
    local full        = moduleStack[iStack].full
    local sn          = moduleStack[iStack].sn
@@ -101,7 +103,7 @@ function M.help(self,...)
    Spider_help(...)
    dbg.fini()
    return true
-end   
+end
 
 function M.whatis(self,...)
    local dbg    = Dbg:dbg()
@@ -109,7 +111,7 @@ function M.whatis(self,...)
    Spider_whatis(...)
    dbg.fini()
    return true
-end   
+end
 
 function M.setenv(self,...)
    local dbg    = Dbg:dbg()

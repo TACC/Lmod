@@ -18,7 +18,7 @@
 --  permit persons to whom the Software is furnished to do so, subject
 --  to the following conditions:
 --
---  The above copyright notice and this permission notice shall be 
+--  The above copyright notice and this permission notice shall be
 --  included in all copies or substantial portions of the Software.
 --
 --  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
@@ -36,14 +36,12 @@
 require("strict")
 require("string_trim")
 require("string_split")
-local posix = require("posix")
-local lfs   = require("lfs")
-
+local posix     = require("posix")
+local lfs       = require("lfs")
 local concatTbl = table.concat
 
 function findInPath(exec, path)
    local result  = ""
-
    if ( exec == nil) then return result end
 
    if (exec:find("/")) then

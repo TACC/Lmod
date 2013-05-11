@@ -18,7 +18,7 @@
 --  permit persons to whom the Software is furnished to do so, subject
 --  to the following conditions:
 --
---  The above copyright notice and this permission notice shall be 
+--  The above copyright notice and this permission notice shall be
 --  included in all copies or substantial portions of the Software.
 --
 --  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
@@ -33,7 +33,7 @@
 --------------------------------------------------------------------------
 
 --------------------------------------------------------------------------
--- Spider.lua: This Class walks the MODULEPATH.  
+-- Spider.lua: This Class walks the MODULEPATH.
 --------------------------------------------------------------------------
 
 
@@ -70,11 +70,11 @@ function Spider_setenv(name, value)
    if (name:find("^TACC_.*_LIB")) then
       processLPATH(value)
    end
-end   
+end
 
 function Spider_help(...)
    local masterTbl   = masterTbl()
-   local moduleStack = masterTbl.moduleStack 
+   local moduleStack = masterTbl.moduleStack
    local iStack      = #moduleStack
    local path        = moduleStack[iStack].path
    local moduleT     = moduleStack[iStack].moduleT
@@ -85,7 +85,7 @@ KeyT = {Description=1, Name=1, URL=1, Version=1, Category=1, Keyword=1}
 
 function Spider_whatis(s)
    local masterTbl   = masterTbl()
-   local moduleStack = masterTbl.moduleStack 
+   local moduleStack = masterTbl.moduleStack
    local iStack      = #moduleStack
    local path        = moduleStack[iStack].path
    local moduleT     = moduleStack[iStack].moduleT
@@ -104,11 +104,11 @@ end
 function processLPATH(value)
    if (value == nil) then return end
    local masterTbl      = masterTbl()
-   local moduleStack    = masterTbl.moduleStack 
+   local moduleStack    = masterTbl.moduleStack
    local iStack         = #moduleStack
    local path           = moduleStack[iStack].path
    local moduleT        = moduleStack[iStack].moduleT
-   
+
    local lpathA         = moduleT[path].lpathA or {}
    value                = path_regularize(value)
    lpathA[value]        = 1
@@ -119,11 +119,11 @@ function processPATH(value)
    if (value == nil) then return end
 
    local masterTbl     = masterTbl()
-   local moduleStack   = masterTbl.moduleStack 
+   local moduleStack   = masterTbl.moduleStack
    local iStack        = #moduleStack
    local path          = moduleStack[iStack].path
    local moduleT       = moduleStack[iStack].moduleT
-   
+
    local pathA         = moduleT[path].pathA or {}
    value               = path_regularize(value)
    pathA[value]        = 1
@@ -149,7 +149,7 @@ function processNewModulePATH(value)
    dbg.start("processNewModulePATH(value=\"",value,"\")")
 
    local masterTbl   = masterTbl()
-   local moduleStack = masterTbl.moduleStack 
+   local moduleStack = masterTbl.moduleStack
    local iStack      = #moduleStack
    if (masterTbl.no_recursion) then
       dbg.fini("processNewModulePATH")
@@ -179,7 +179,7 @@ function Spider_add_property(name,value)
    dbg.start("Spider_add_property(name=\"",name,"\", value=\"",value,"\")")
 
    local masterTbl     = masterTbl()
-   local moduleStack   = masterTbl.moduleStack 
+   local moduleStack   = masterTbl.moduleStack
    local iStack        = #moduleStack
    local path          = moduleStack[iStack].path
    local moduleT       = moduleStack[iStack].moduleT
@@ -194,7 +194,7 @@ function Spider_remove_property(name,value)
    local dbg = Dbg:dbg()
    dbg.start("Spider_remove_property(name=\"",name,"\", value=\"",value,"\")")
    local masterTbl     = masterTbl()
-   local moduleStack   = masterTbl.moduleStack 
+   local moduleStack   = masterTbl.moduleStack
    local iStack        = #moduleStack
    local path          = moduleStack[iStack].path
    local moduleT       = moduleStack[iStack].moduleT
@@ -316,45 +316,6 @@ local function findDefault(mpath, path, prefix)
    return default
 end
 
-local function loadModuleFile(fn)
-   local dbg    = Dbg:dbg()
-   dbg.start("Spider:loadModuleFile(" .. fn .. ")")
-   dbg.flush()
-
-   systemG._MyFileName = fn
-   local myType = extname(fn)
-   local func
-   local msg
-   local status
-   local whole
-   if (myType == ".lua") then
-      local f = io.open(fn)
-      if (f) then
-         whole = f:read("*all")
-         f:close()
-      end
-   else
-      local a     = {}
-      a[#a + 1]	  = pathJoin(cmdDir(),"tcl2lua.tcl")
-      a[#a + 1]	  = "-h"
-      a[#a + 1]	  = fn
-      local cmd   = concatTbl(a," ")
-      whole       = capture(cmd)
-   end
-
-   if (whole) then
-      status, msg = sandbox_run(whole)
-   else
-      status = nil
-      msg    = "Empty or non-existent file"
-   end
-      
-   if (not status) then 
-      LmodWarning("Unable to load file: ",fn,": ",msg,"\n")
-   end
-   dbg.fini("Spider:loadModuleFile")
-end
-
 --------------------------------------------------------------------------
 -- Keep this function.  Yes this function is not safe with c/n/v name
 -- schemes but it is O.K. The places that this function is used in this
@@ -385,7 +346,7 @@ function M.findModulesInDir(mpath, path, prefix, moduleT)
    local dbg  = Dbg:dbg()
    dbg.start("findModulesInDir(mpath=\"",mpath,"\", path=\"",path,
              "\", prefix=\"",prefix,"\")")
-   
+
    local attr = lfs.attributes(path)
    if (not attr or  type(attr) ~= "table" or attr.mode ~= "directory" or
        not posix.access(path,"rx")) then
@@ -393,7 +354,8 @@ function M.findModulesInDir(mpath, path, prefix, moduleT)
       dbg.fini("findModulesInDir")
       return
    end
-   
+
+   local shellN          = "bash"
    local masterTbl       = masterTbl()
    local moduleStack     = masterTbl.moduleStack
    local iStack          = #moduleStack
@@ -401,7 +363,7 @@ function M.findModulesInDir(mpath, path, prefix, moduleT)
    local mnameT          = {}
    local dirA            = {}
 
-   
+
    for file in lfs.dir(path) do
       if (file:sub(1,1) ~= "." and file ~= "CVS" and file:sub(-1,-1) ~= "~") then
          local f        = pathJoin(path,file)
@@ -427,7 +389,7 @@ function M.findModulesInDir(mpath, path, prefix, moduleT)
             mnameT[full] = {file=f, mpath = mpath}
          elseif (attr.mode == "directory") then
             dbg.print("dirA: f:", f,"\n")
-            dirA[#dirA + 1] = { fn = f, mname = full } 
+            dirA[#dirA + 1] = { fn = f, mname = full }
          end
       end
    end
@@ -439,10 +401,10 @@ function M.findModulesInDir(mpath, path, prefix, moduleT)
          moduleT[v.file] = registerModuleT(full, sn, v.file, v.file)
          moduleStack[iStack] = {path= v.file, sn = sn, full = full, moduleT = moduleT, fn = v.file}
          dbg.print("Top of Stack: ",iStack, " Full: ", full, " file: ", v.file, "\n")
-         
+
          local t = {fn = v.file, modFullName = k, modName = sn, default = true, hash = 0}
          mt:add(t,"pending")
-         loadModuleFile(v.file)
+         loadModuleFile{file=v.file, shell=shellN, reportErr=true}
          mt:setStatus(t.modName,"active")
          dbg.print("Saving: Full: ", k, " Name: ", k, " file: ",v.file,"\n")
       end
@@ -458,7 +420,7 @@ function M.findModulesInDir(mpath, path, prefix, moduleT)
          dbg.print("Top of Stack: ",iStack, " Full: ", full, " file: ", v.file, "\n")
          local t = {fn = v.file, modFullName = full, modName = sn, default = 0, hash = 0}
          mt:add(t,"pending")
-         loadModuleFile(v.file)
+         loadModuleFile{file=v.file, shell=shellN, reportErr=true}
          mt:setStatus(t.modName,"active")
          dbg.print("Saving: Full: ", full, " Name: ", sn, " file: ",v.file,"\n")
       end
@@ -469,7 +431,7 @@ end
 function M.findAllModules(moduleDirA, moduleT)
    local dbg    = Dbg:dbg()
    dbg.start("Spider:findAllModules(",concatTbl(moduleDirA,", "),")")
-   
+
    if (next(moduleT) == nil) then
       moduleT.version = Cversion
    end
@@ -486,7 +448,7 @@ function M.findAllModules(moduleDirA, moduleT)
    ------------------------------------------------------------
    -- Create a temporary Module Table to spider all modulefiles
    -- clear it when finished.
-   mt.cloneMT()    
+   mt.cloneMT()
 
    for _,v in ipairs(moduleDirA) do
       local mpath = path_regularize(v)
@@ -822,7 +784,7 @@ function M._Level1(key, T, searchName, help)
    end
 
 
-      
+
    local banner = border(2)
    local VersionT = {}
    local exampleV = nil
@@ -831,7 +793,7 @@ function M._Level1(key, T, searchName, help)
    for k, v in pairsByKeys(T) do
       if (VersionT[k] == nil) then
          key              = v.name
-         Description      = v.Description 
+         Description      = v.Description
          VersionT[v.full] = 1
          exampleV         = v.full
       else
@@ -850,7 +812,7 @@ function M._Level1(key, T, searchName, help)
       ia = ia + 1; a[ia] = "    Description:\n"
       ia = ia + 1; a[ia] = fillWords("      ",Description,term_width)
       ia = ia + 1; a[ia] = "\n\n"
-      
+
    end
    ia = ia + 1; a[ia] = "     Versions:\n"
    for k, v in pairsByKeys(VersionT) do
@@ -871,7 +833,7 @@ function M._Level1(key, T, searchName, help)
 
    dbg.fini("Spider:_Level1")
    return concatTbl(a,"")
-   
+
 end
 
 function M._Level2(T, searchName, full)
@@ -882,9 +844,9 @@ function M._Level2(T, searchName, full)
    local b  = {}
    local c  = {}
    local titleIdx = 0
-   
+
    local propDisplayT = getPropT()
-   
+
    local term_width = TermWidth() - 4
    local tt = nil
    local banner = border(2)
@@ -897,7 +859,7 @@ function M._Level2(T, searchName, full)
    local haveCore = 0
    local haveHier = 0
    local mnameL   = searchName:lower()
-      
+
    full = full or ""
    local fullL = full:lower()
    for k,v in pairs(T) do
@@ -909,7 +871,7 @@ function M._Level2(T, searchName, full)
             ia = ia + 1; a[ia] = "\n"
             ia = ia + 1; a[ia] = banner
             ia = ia + 1; a[ia] = "  " .. tt.name .. ": "
-            ia = ia + 1; a[ia] = tt.full 
+            ia = ia + 1; a[ia] = tt.full
             ia = ia + 1; a[ia] = "\n"
             ia = ia + 1; a[ia] = banner
             if (tt.Description) then

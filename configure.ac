@@ -205,7 +205,7 @@ if test -n "$missingModules" ; then
 fi
 
 echo "... yes"
-    
+
 AC_SUBST(LUA_INCLUDE)
 
 LUA_INCLUDE=$PATH_TO_LUA_DIR/include
@@ -214,7 +214,7 @@ AC_ARG_WITH([lua-include],
             [AS_HELP_STRING([--with-lua-include=@<:@path@:>@],
                             [specify path the lua header files])
             ])
-            
+
 
 if ! test -f $LUA_INCLUDE/lua.h; then
   AC_PATH_PROG(pkgConfig, pkg-config, "")
@@ -237,7 +237,7 @@ if ! test -f $LUA_INCLUDE/lua.h; then
      fi
   done
 fi
-     
+
 AC_SUBST(ZSH_SITE_FUNCTIONS_DIR)
 AC_PATH_PROG(ZSH, zsh)
 PATH_TO_ZSH=$ZSH

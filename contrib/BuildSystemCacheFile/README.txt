@@ -27,7 +27,7 @@ then the rules are:
      and combine $CACHEDIR and hostType to be the cache directory.
 
 
-So if 
+So if
 
    CACHEDIR="/opt/moduleData/cacheDir"
    UpdateFN="/tmp/systemUpdate/update"
@@ -41,6 +41,6 @@ Then the cache directory will be:
 
 
 
-  
 
- 
+
+

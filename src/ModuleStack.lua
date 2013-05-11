@@ -18,7 +18,7 @@
 --  permit persons to whom the Software is furnished to do so, subject
 --  to the following conditions:
 --
---  The above copyright notice and this permission notice shall be 
+--  The above copyright notice and this permission notice shall be
 --  included in all copies or substantial portions of the Software.
 --
 --  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
@@ -104,11 +104,8 @@ function M.setting(self)
    top.setCnt = top.setCnt + 1
 end
 
---------------------------------------------------------------------------
--- ModuleStack:push(): push a new module file on the stack.
-
-function M.push(self, full, sn, fn)
-   local entry = {full = full, sn = sn, loadCnt = 0, setCnt = 0, fn= fn}
+function M.push(self, full, usrName, sn, fn)
+   local entry = {full = full, usrName = usrName, sn = sn, loadCnt = 0, setCnt = 0, fn= fn}
    local stack = self.stack
 
    stack[#stack+1] = entry
@@ -176,8 +173,13 @@ function M.sn(self)
 end
 
 --------------------------------------------------------------------------
--- ModuleStack:sn(): return the module version for modulefile at
+-- ModuleStack:usrName(): return the module version for modulefile at
 --                   the top of the stack.
+function M.usrName(self)
+   local stack = self.stack
+   local top   = stack[#stack]
+   return top.usrName
+end
 
 function M.version(self)
    local stack   = self.stack

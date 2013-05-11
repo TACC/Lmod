@@ -51,7 +51,7 @@ _module_command()
       rm) cmd="unload";;
       display) cmd="show";;
     esac
-                
+
     if (( $#cmd )); then
       local update_policy
       curcontext="${curcontext%:*:*}:module-${cmd}:"
@@ -142,7 +142,7 @@ _module_use()
 {
   _arguments -s \
     '(-a --append)'{--append,-a}'[append the directories instead of prepending]' \
-    '*:directory:_files -/'    
+    '*:directory:_files -/'
 }
 
 # Completion function for unuse

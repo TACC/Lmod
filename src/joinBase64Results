@@ -20,7 +20,7 @@
 --  permit persons to whom the Software is furnished to do so, subject
 --  to the following conditions:
 --
---  The above copyright notice and this permission notice shall be 
+--  The above copyright notice and this permission notice shall be
 --  included in all copies or substantial portions of the Software.
 --
 --  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
@@ -53,6 +53,8 @@ require("string_split")
 require("serializeTbl")
 local base64    = require("base64")
 local decode64  = base64.decode64
+local version   = _VERSION:gsub("^Lua%s+","")
+local load      = (version == "5.1") and loadstring or load
 
 local function grab(line, b)
    local a = {}
@@ -65,7 +67,7 @@ end
 _ModuleTable_ = false
 function removeUnwantedFields(s)
    if (s == nil) then return "" end
-   local func, msg = loadstring(s)
+   local func, msg = load(s)
    if (func) then
       func()
    else
@@ -137,7 +139,7 @@ function joinMT_bash(whole)
          state   = "init"
          a       = a1
          haveMT  = false
-      end 
+      end
       if (state == "init") then
          a[#a + 1] = s
       end
@@ -198,7 +200,7 @@ function main()
       end
       f:close()
    end
-   
+
 end
 
 main()

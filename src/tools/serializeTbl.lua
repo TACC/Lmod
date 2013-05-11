@@ -18,7 +18,7 @@
 --  permit persons to whom the Software is furnished to do so, subject
 --  to the following conditions:
 --
---  The above copyright notice and this permission notice shall be 
+--  The above copyright notice and this permission notice shall be
 --  included in all copies or substantial portions of the Software.
 --
 --  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
@@ -66,7 +66,7 @@ local function outputTblHelper(indentIdx, name, T, a, level)
    end
 
    --------------------------------------------------
-   -- Set initial indent 
+   -- Set initial indent
 
    local indent = ''
    if (indentIdx > 0) then
@@ -97,7 +97,7 @@ local function outputTblHelper(indentIdx, name, T, a, level)
       indentIdx = indentIdx + 2
       indent    = string.rep(" ",indentIdx)
    end
-      
+
    for key, value in pairsByKeys(t) do
       if (type(t[key]) == 'table') then
 	 outputTblHelper(indentIdx, key, t[key], a, level+1)
@@ -145,7 +145,7 @@ function serializeTbl(options)
    if (options.fn == nil) then
       return s
    end
-   
+
    local fn = options.fn
    local d  = dirname(fn)
    if (not isDir(d)) then

@@ -18,7 +18,7 @@
 --  permit persons to whom the Software is furnished to do so, subject
 --  to the following conditions:
 --
---  The above copyright notice and this permission notice shall be 
+--  The above copyright notice and this permission notice shall be
 --  included in all copies or substantial portions of the Software.
 --
 --  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
@@ -203,7 +203,7 @@ function M.unload(self, ...)
    return aa
 end
 
-   
+
 function M.unloadsys(self, ...)
    local master = Master:master()
    local mStack = ModuleStack:moduleStack()
@@ -354,7 +354,7 @@ function M.pushenv(self, name, value)
       varTbl[name] = Var:new(name)
    end
    varTbl[name]:set(tostring(value))
-   
+
    mStack:setting()
    dbg.fini("MasterControl:pushenv")
 end
@@ -371,7 +371,7 @@ function M.popenv(self, name, value)
    if (varTbl[stackName] == nil) then
       varTbl[stackName] = Var:new(stackName)
    end
-      
+
    dbg.print("stackName: ", stackName, " RTM pop()\n")
    local v = varTbl[stackName]:pop()
    dbg.print("v: ", v,"\n")
@@ -505,7 +505,7 @@ function LmodSystemError(...)
    end
    io.stderr:write("\n")
    LmodErrorExit()
-end   
+end
 
 
 function M.error(self, ...)
@@ -685,6 +685,11 @@ function M.myModuleFullName(self)
    return mStack:fullName()
 end
 
+function M.myModuleUsrName(self)
+   local mStack = ModuleStack:moduleStack()
+   return mStack:usrName()
+end
+
 function M.myModuleName(self)
    local mStack = ModuleStack:moduleStack()
    return mStack:sn()
@@ -733,7 +738,7 @@ function M.mode(self)
    dbg.print("mode: ", self._mode,"\n")
    dbg.fini()
    return self._mode
-end   
+end
 
 -------------------------------------------------------------------
 -- Quiet Functions

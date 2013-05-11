@@ -18,7 +18,7 @@
 --  permit persons to whom the Software is furnished to do so, subject
 --  to the following conditions:
 --
---  The above copyright notice and this permission notice shall be 
+--  The above copyright notice and this permission notice shall be
 --  included in all copies or substantial portions of the Software.
 --
 --  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
@@ -44,6 +44,7 @@ local MT      = require("MT")
 local Spider  = require("Spider")
 local hook    = require("Hook")
 local lfs     = require("lfs")
+local posix   = require("posix")
 local s_cache = false
 
 local function epoch()
@@ -68,7 +69,7 @@ local function new(self, t)
    dbg.start("Cache:new()")
 
    scDescriptT = getSCDescriptT()
-   
+
    local scDirA = {}
 
    local systemEpoch = epoch() - ancient
@@ -108,11 +109,11 @@ local function new(self, t)
         timestamp = systemEpoch
       }
    }
-   
+
    t              = t or {}
    o.moduleDirT   = {}
    o.usrCacheDir  = usrCacheDir
-   o.usrCacheDirA = usrCacheDirA 
+   o.usrCacheDirA = usrCacheDirA
    o.usrModuleTFN = pathJoin(usrCacheDir,"moduleT.lua")
    o.systemDirA   = scDirA
    o.dontWrite    = t.dontWrite or false
@@ -146,7 +147,7 @@ function M.cache(self, t)
          moduleDirT[path] = moduleDirT[path] or -1
       end
    end
-   
+
    -- Since this function can get called many time, we need to only recompute
    -- Directories we have not yet seen
 
@@ -177,7 +178,7 @@ local function readCacheFile(self, cacheFileA)
       elseif (cacheFileA[i].backup) then
          f     = cacheFileA[i].backup
          attr  = lfs.attributes(f) or {}
-         found = (next(attr) ~= nil and attr.size > 0) 
+         found = (next(attr) ~= nil and attr.size > 0)
       end
 
       if (not found) then
@@ -192,10 +193,10 @@ local function readCacheFile(self, cacheFileA)
 
          -- Read in cache file if not out of date.
          if (diff >= 0) then
-            
+
             -- Check for matching default MODULEPATH.
             assert(loadfile(f))()
-               
+
             local version = (rawget(_G,"moduleT") or {}).version or 0
 
             dbg.print("version: ",version,"\n")
@@ -229,7 +230,7 @@ end
 function M.build(self, fast)
    local dbg = Dbg:dbg()
    local mt = MT:mt()
-   
+
    dbg.start("Cache:build(fast=", fast,")")
    local masterTbl = masterTbl()
 
@@ -251,7 +252,7 @@ function M.build(self, fast)
          dirA[#dirA+1] = k
       end
    end
-   
+
    local dirsRead = sysDirsRead + usrDirsRead
    if (dirsRead == 0 and fast) then
       dbg.fini("Cache:build")
@@ -264,7 +265,7 @@ function M.build(self, fast)
    local moduleT       = self.moduleT
    dbg.print("buildModuleT: ",buildModuleT,"\n")
 
-   
+
    local short    = mt:getShortTime()
    if (not buildModuleT) then
       ancient = _G.ancient or ancient
@@ -276,7 +277,7 @@ function M.build(self, fast)
                          (not self.quiet)
       )
       dbg.print("short: ", short, " shortTime: ", shortTime,"\n")
-      
+
       if (prtRbMsg) then
          if (dbg.active()) then
             dbg.print("Rebuilding cache file, please wait ...\n")
@@ -284,14 +285,14 @@ function M.build(self, fast)
             io.stderr:write("Rebuilding cache file, please wait ...")
          end
       end
-      
+
       local mcp_old = mcp
       mcp           = MasterControl.build("spider")
-      
+
       local t1 = epoch()
       Spider.findAllModules(dirA, userModuleT)
       local t2 = epoch()
-      
+
       mcp           = mcp_old
       dbg.print("Resetting mpc to ", mcp:name(),"\n")
 
@@ -303,14 +304,14 @@ function M.build(self, fast)
          end
       end
       dbg.print("t2-t1: ",t2-t1, " shortTime: ", shortTime, "\n")
-   
+
       local r = {}
       hook.apply("writeCache",r)
-   
+
       dbg.print("self.dontWrite: ", self.dontWrite, ", r.dontWriteCache: ", r.dontWriteCache,"\n")
 
       local dontWrite = self.dontWrite or r.dontWriteCache
-   
+
       if (t2 - t1 < shortTime or dontWrite) then
          ancient = shortLifeCache
 
@@ -323,7 +324,7 @@ function M.build(self, fast)
          -- took to build the cache between Lmod command runs during a regression
          -- test.  So if the previous t2-t1 is also less than shortTime DO NOT
          -- reset short to the new value.
-         
+
          local newShortTime = t2-t1
          if (short and short < shortTime) then
             newShortTime = short
@@ -343,7 +344,7 @@ function M.build(self, fast)
          dbg.print("Wrote: ",userModuleTFN,"\n")
          local buildT   = t2-t1
          local ancient2 = math.min(buildT * 120, ancient)
-      
+
          mt:setRebuildTime(ancient2, buildT)
       end
       dbg.print("Transfer from userModuleT to moduleT\n")
@@ -363,7 +364,7 @@ function M.build(self, fast)
    if (isFile(userModuleTFN)) then
       local attr   = lfs.attributes(userModuleTFN)
       local diff   = os.time() - attr.modification
-      if (diff > ancient) then 
+      if (diff > ancient) then
          posix.unlink(userModuleTFN);
          dbg.print("Deleted: ",userModuleTFN,"\n")
       end

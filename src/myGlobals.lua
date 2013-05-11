@@ -18,7 +18,7 @@
 --  permit persons to whom the Software is furnished to do so, subject
 --  to the following conditions:
 --
---  The above copyright notice and this permission notice shall be 
+--  The above copyright notice and this permission notice shall be
 --  included in all copies or substantial portions of the Software.
 --
 --  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
@@ -40,7 +40,7 @@ require("fileOps")
 
 ------------------------------------------------------------------------
 -- ModulePath: The name of the environment variable which contains the
---             directories that contain modulefiles.  This 
+--             directories that contain modulefiles.  This
 ------------------------------------------------------------------------
 
 ModulePath  = "MODULEPATH"
@@ -61,7 +61,7 @@ DfltModPath = "LMOD_DEFAULT_MODULEPATH"
 LMODdir     = ".lmod.d"
 
 ------------------------------------------------------------------------
--- varTbl:      The global table of environment variables that the 
+-- varTbl:      The global table of environment variables that the
 --              modules are setting or modifying.
 ------------------------------------------------------------------------
 
@@ -86,14 +86,6 @@ LMOD_DUPLICATE_PATH = os.getenv("LMOD_DUPLICATE_PATH") or "@duplicate_path@"
 ------------------------------------------------------------------------
 
 defaultMpathA = {}
-
-
-------------------------------------------------------------------------
--- _MyFileName: The global variable that holds the name of the current
---              modulefile.           
-------------------------------------------------------------------------
-
-_MyFileName   = ""
 
 ------------------------------------------------------------------------
 -- MT:        The table that hold the Module Table Class.
@@ -143,7 +135,7 @@ ComputeModuleResultsA = {}
 
 colorize      = false
 ------------------------------------------------------------------------
--- pager:     pipe output through more when connectted to a term 
+-- pager:     pipe output through more when connectted to a term
 ------------------------------------------------------------------------
 pager         = false
 

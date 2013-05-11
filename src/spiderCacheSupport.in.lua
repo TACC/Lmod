@@ -21,7 +21,7 @@
 --  permit persons to whom the Software is furnished to do so, subject
 --  to the following conditions:
 --
---  The above copyright notice and this permission notice shall be 
+--  The above copyright notice and this permission notice shall be
 --  included in all copies or substantial portions of the Software.
 --
 --  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
@@ -69,7 +69,7 @@ function main()
    local scDescriptT = false
    local found       = false
 
-   if (optionTbl.descriptFn and optionTbl.descriptFn ~= "") then 
+   if (optionTbl.descriptFn and optionTbl.descriptFn ~= "") then
       local attr = lfs.attributes(optionTbl.descriptFn) or {}
       found      = (attr.mode == "file")
    end
@@ -136,27 +136,27 @@ function options()
    local usage         = "Usage: spiderCacheSupport [options] descriptFn"
    local cmdlineParser = Optiks:new{usage=usage, version="1.0"}
 
-   cmdlineParser:add_option{ 
+   cmdlineParser:add_option{
       name   = {'-v','--verbose'},
       dest   = 'verbosityLevel',
       action = 'count',
    }
 
-   cmdlineParser:add_option{ 
+   cmdlineParser:add_option{
       name   = {'--cacheDirs'},
       dest   = 'cacheDirs',
       action = 'store',
       help   = "Cache directories"
    }
 
-   cmdlineParser:add_option{ 
+   cmdlineParser:add_option{
       name   = {'--updateFn'},
       dest   = 'updateFn',
       action = 'store',
       help   = "last update file"
    }
 
-   cmdlineParser:add_option{ 
+   cmdlineParser:add_option{
       name   = {'--descriptFn'},
       dest   = 'descriptFn',
       action = 'store',

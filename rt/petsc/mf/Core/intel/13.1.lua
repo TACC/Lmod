@@ -33,7 +33,7 @@ To get started using Intel(R) Advisor XE 2013 Update 2:
 To view movies and additional training, visit
 http://www.intel.com/software/products.
 
-]])      
+]])
 ------------------------------------------------------------------------
 -- Intel Compilers support
 ------------------------------------------------------------------------

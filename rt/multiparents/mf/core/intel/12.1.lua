@@ -5,7 +5,7 @@ This module loads the intel compiler path and environment variables
 To view movies and additional training, visit
 http://www.intel.com/software/products.
 
-]])      
+]])
 ------------------------------------------------------------------------
 -- Intel Compilers support
 ------------------------------------------------------------------------

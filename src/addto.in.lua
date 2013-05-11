@@ -21,7 +21,7 @@
 --  permit persons to whom the Software is furnished to do so, subject
 --  to the following conditions:
 --
---  The above copyright notice and this permission notice shall be 
+--  The above copyright notice and this permission notice shall be
 --  included in all copies or substantial portions of the Software.
 --
 --  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
@@ -113,7 +113,7 @@ function myClean(cleanFlg)
              end
    end
 end
-                
+
 function myChkDir(existFlg)
    if (existFlg)  then
       return function(path) return isDir(path) end
@@ -121,13 +121,13 @@ function myChkDir(existFlg)
       return function(path) return true end
    end
 end
-                   
+
 function main()
 
    local remove  = table.remove
    local concat  = table.concat
    local envVarA = {}
-   
+
    ------------------------------------------------------------------------
    -- evaluate command line arguments
    options()
@@ -169,7 +169,7 @@ function main()
 	    break
 	 end
       end
-      
+
       insert(envVarA, v)
    end
 
@@ -187,7 +187,7 @@ function main()
          envVarA[#envVarA+1] = v
       end
    end
-         
+
    if (masterTbl.verbosityLevel > 0) then
       for i,v in ipairs(envVarA) do
 	 io.stdout:write(i,"%",v,"%\n")
@@ -207,34 +207,34 @@ function options()
    local usage         = "Usage: addto [options] envVar path1 path2 ..."
    local cmdlineParser = Optiks:new{usage=usage, version="1.0"}
 
-   cmdlineParser:add_option{ 
+   cmdlineParser:add_option{
       name   = {'-v','--verbose'},
       dest   = 'verbosityLevel',
       action = 'count',
    }
 
-   cmdlineParser:add_option{ 
+   cmdlineParser:add_option{
       name   = {'--append'},
       dest   = 'appendFlg',
       action = 'store_true',
       default = false,
    }
 
-   cmdlineParser:add_option{ 
+   cmdlineParser:add_option{
       name   = {'-e', '--exist', '--exists'},
       dest   = 'existFlg',
       action = 'store_true',
       default = false,
    }
 
-   cmdlineParser:add_option{ 
+   cmdlineParser:add_option{
       name   = {'-d', '--delete'},
       dest   = 'delete',
       action = 'store',
       default = nil,
    }
 
-   cmdlineParser:add_option{ 
+   cmdlineParser:add_option{
       name   = {'--clean'},
       dest   = 'cleanFlg',
       action = 'store_true',
@@ -242,7 +242,7 @@ function options()
       help    = "Remove extra '/'s"
    }
 
-   cmdlineParser:add_option{ 
+   cmdlineParser:add_option{
       name   = {'--sep'},
       dest   = 'sep',
       action = 'store',

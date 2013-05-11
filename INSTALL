@@ -10,21 +10,21 @@ A) You must install lua first.  You have two choices:
   OR:
 
       2) Use the package system for your OS to install the following packages.
-         This is the list is for Ubuntu 8.04.  It may be quite different with 
+         This is the list is for Ubuntu 8.04.  It may be quite different with
          other Linux distributions or different OS
 
-            liblua5.1-0                 
-            liblua5.1-0-dev             
-            liblua5.1-filesystem-dev    
-            liblua5.1-filesystem0       
-            liblua5.1-posix-dev         
-            liblua5.1-posix0            
-            lua5.1                      
+            liblua5.1-0
+            liblua5.1-0-dev
+            liblua5.1-filesystem-dev
+            liblua5.1-filesystem0
+            liblua5.1-posix-dev
+            liblua5.1-posix0
+            lua5.1
 
       Lmod requires Lua 5.1,
- 
+
          ***** Lua 5.2, 5.0 or 4.0 will NOT work. *****
-       
+
 
 
 B) Now with version 5.+ of Lmod, it is now very important that sites with large
@@ -70,9 +70,9 @@ B) Now with version 5.+ of Lmod, it is now very important that sites with large
 
          lines starting with '#' and blank lines are ignored.  Also note that a
          single timestamp file can be used with multiple cache directories.
-             
 
-   
+
+
 C) The program "lua" must be in your path before installing "Lmod".  The
    configure script won't install lmod without it.
 
@@ -81,7 +81,7 @@ C) The program "lua" must be in your path before installing "Lmod".  The
    $ make install
 
      Install options:
-     
+
       --prefix=/usr/local
          This will cause the "make install" to create /usr/local/lmod
          and /usr/local/lmod/version with a symlink /usr/local/lmod/lmod
@@ -91,7 +91,7 @@ C) The program "lua" must be in your path before installing "Lmod".  The
          If you use the "Core" directory for Core modules, "Compiler" for compiler
          dependent module and MPI for MPI dependent modules then you may wish to
          define the env. var MODULEPATH_ROOT through this configure option.
-         
+
       --with-spiderCacheDir=dirs
       --with-updateSystemFn=file
       --with-spiderCacheDescript=file
@@ -109,7 +109,7 @@ C) The program "lua" must be in your path before installing "Lmod".  The
 
 D) As an example here is my configuration line:
 
-    
+
      ./configure --prefix=/opt/apps --with-spiderCacheDir=/opt/moduleData/cacheDir \
                  --with-updateSystemFn=/opt/moduleData/system.txt
 
@@ -121,7 +121,7 @@ D) As an example here is my configuration line:
 
   And the system update file will be in /opt/moduleData/system.txt
 
-  
+
 E) In the setup directory there are "profile.in" and "cshrc.in" templates.  The
    path to lua will automatically be generated.  The templates assume that your
    modulefiles are located in @PREFIX@/modulefiles/$LMOD_sys and
@@ -162,7 +162,7 @@ E) You can write your module files in either lua or TCL.  Modulefiles with the l
    *****************************************************************************
 
    So the module for the MKL module above would be named "mkl" as a TCL module
-   file and "mkl.lua" if it is written in lua. 
+   file and "mkl.lua" if it is written in lua.
 
 F) The bash used on Redhat, Centos, Fedora, etc (but not Debian, Ubuntu)
    compiles bash with having a system file read during an interactive shell.
@@ -191,4 +191,4 @@ Thanks for using Lmod.
 R. McLay
 
 
-   
+

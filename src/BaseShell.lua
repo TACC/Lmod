@@ -18,7 +18,7 @@
 --  permit persons to whom the Software is furnished to do so, subject
 --  to the following conditions:
 --
---  The above copyright notice and this permission notice shall be 
+--  The above copyright notice and this permission notice shall be
 --  included in all copies or substantial portions of the Software.
 --
 --  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
@@ -120,7 +120,7 @@ function M.expand(self, tbl)
       dbg.fini("BaseShell:expand")
       return
    end
-      
+
 
    for k,v in pairsByKeys(tbl) do
       local vstr,vType = tbl[k]:expand()
@@ -135,8 +135,8 @@ function M.expand(self, tbl)
       else
          self:expandVar(k,vstr,vType)
       end
-   end   
-         
+   end
+
    dbg.fini("BaseShell:expand")
 end
 

@@ -53,7 +53,7 @@ function is used to extract the mpi and compiler names. It takes two
 arguments, the first is the full package name and the second is the
 number levels to return.  The number of levels for a  compiler
 dependent package would be "1" and compiler/mpi dependent package is
-"2". 
+"2".
 
 A module can determine its location then with the following lua/Lmod
 code:
@@ -75,7 +75,7 @@ names. The package and modulefile paths are:
 
 Where $MN is the mpi stack name, $MV is the mpi version, $CN is the
 compiler name and $CV is the compiler version. So the P-HDF5 package
-would have the following paths: 
+would have the following paths:
 
   /opt/apps/mpi-mpich-3_0/compiler-gcc-4_7/parallel/hdf5/1.8.10/
   /opt/apps/modulefiles/mpi/mpich/3.0/compiler/gcc/4.7/parallel/hdf5/1.8.10.lua
@@ -102,7 +102,7 @@ can explain the what the modulefile does by providing a help message
 and strings to populate the whatis database.  Jonas Juselius has
 provided a "Pkg" class method of setting these entries and providing a
 method for all of the modulefiles of the same type to share this
-information. 
+information.
 
 So the gcc modulefile can be quite compact:
 
@@ -118,9 +118,10 @@ This modulefile takes advantage of the SitePackage.lua file which
 defines the package functions such as loadPkgDefaults().  The
 loadPkgDefault(level) function could look like this:
 
+  local unpack = unpack or table.unpack
   SiteRootDir = "/opt/apps"
   DefaultsDir = "/opt/apps/modulefiles/Defaults"
-  function loadPkgDefaults(levels) 
+  function loadPkgDefaults(levels)
       local pkg = {}
       local status
       local msg
@@ -150,9 +151,9 @@ loadPkgDefault(level) function could look like this:
       a[#a+1]          = pkg.id
       pkg.prefix       = pathJoin(unpack(a))
 
-      
+
       ------------------------------------------------------------
-      -- Read default package description file 
+      -- Read default package description file
 
       local fn         = pathJoin(DefaultsDir, pkg.name .. ".lua")
       local f          = io.open(fn)

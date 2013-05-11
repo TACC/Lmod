@@ -17,7 +17,7 @@ if ( ! $?MODULEPATH_ROOT ) then
     if ( $?USER) then
         setenv USER $LOGNAME
     endif
-    
+
     set UNAME = `uname`
     setenv LMOD_sys    $UNAME
 

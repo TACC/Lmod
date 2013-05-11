@@ -1,25 +1,25 @@
 ===========================
 step 1
 ===========================
-Modules based on Lua: Version 5.0rc2 (5.0rc2-13-g442ff5b) 2013-04-26 11:23
+Modules based on Lua: Version 5.0rc2 (5.0rc2-54-g7045ea1) 2013-04-26 11:23
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
 ===========================
 module [options] sub-command [args ...]
 Options:
-  -h -? --help                  This help message 
-  -D --debug                    Program tracing written to stderr 
-  -d --default                  List default modules only when used with avail 
-  -q --quiet --expert           Do not print out warnings 
-  -t --terse                    Write out in machine readable format for 
-                                commands: list, avail, spider 
-  --initial_load                loading Lmod for first time in a user shell 
-  --novice                      Turn off expert flag 
-  -v --version                  Print version info and quit 
-  --localvar=localvarA          local variables needed to be set after this 
-                                commands execution 
-  --check_syntax --checkSyntax  Checking module command syntax: do not load 
+  -h -? --help                  This help message
+  -D --debug                    Program tracing written to stderr
+  -d --default                  List default modules only when used with avail
+  -q --quiet --expert           Do not print out warnings
+  -t --terse                    Write out in machine readable format for
+                                commands: list, avail, spider
+  --initial_load                loading Lmod for first time in a user shell
+  --novice                      Turn off expert flag
+  -v --version                  Print version info and quit
+  --localvar=localvarA          local variables needed to be set after this
+                                commands execution
+  --check_syntax --checkSyntax  Checking module command syntax: do not load
 module sub-command [args ...]
 Help sub-commands:
   help                                   prints this message
@@ -45,17 +45,17 @@ Listing / Searching sub-commands:
   spider           modulefile            List all possible version of that
                                          module file
   spider           string                List all module that contain the
-                                         string.  
+                                         string.
   spider           modulefile/version    Detailed information about that
                                          version of the module
   whatis           modulefile            print whatis information about module
   keyword | key    string                search all name and whatis that contain
-                                         "string". 
+                                         "string".
 Searching with Lmod:
   All searching (spider, list, avail, keyword) support regular expressions:
-  spider        '^p'                     finds all the modules that start 
+  spider        '^p'                     finds all the modules that start
                                          with `p' or `P'
-  spider        mpi                      finds all modules that have "mpi" 
+  spider        mpi                      finds all modules that have "mpi"
                                          in their name.
   spider        'mpi$"                   file all modules that end with "mpi"
                                          in their name.
@@ -64,9 +64,9 @@ Handling a collection of modules:
                                          to a user defined "default".
   save name  | s name                    Save the current list of modules
                                          to "name" collection.
-  restore                                Restore modules from the user's 
+  restore                                Restore modules from the user's
                                          "default" or system default.
-  restore  name | r name                 Restore modules from "name" 
+  restore  name | r name                 Restore modules from "name"
                                          collection.
   restore  system                        restore module state to system
                                          defaults.
@@ -75,11 +75,11 @@ Deprecated commands
    reset                                 The same as "restore system"
    getdefault [name]                     load name collection of modules or
                                          user's "default" if no name given.
-                                         > Use "restore" instead  <
+                                         ===> Use "restore" instead  <====
    setdefault [name]                     Save current list of modules to
                                          name if given, otherwise save as the
                                          default list for you the user.
-                                         > Use "save" instead. <
+                                         ===> Use "save" instead. <====
 Miscellaneous sub-commands:
   record                                 save the module table.
   show                modulefile         show the commands in the module file.
@@ -88,7 +88,7 @@ Miscellaneous sub-commands:
   tablelist                              output list of active modules as a
                                          lua table.
 Important Environment Variables:
-  LMOD_COLORIZE                          If defined to be "YES" then Lmod 
+  LMOD_COLORIZE                          If defined to be "YES" then Lmod
                                          prints properties and warning in color.
 See:
    http://www.tacc.utexas.edu/tacc-projects/mclay/lmod
@@ -96,25 +96,25 @@ for complete documentation. It contains:
    User Guide                  - How to use.
    Advance User Guide          - How to create you own modules.
    System Administrator Guide  - If you want to install it on your own system.
-Modules based on Lua: Version 5.0rc2 (5.0rc2-13-g442ff5b) 2013-04-26 11:23
+Modules based on Lua: Version 5.0rc2 (5.0rc2-54-g7045ea1) 2013-04-26 11:23
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 3
 ===========================
 module [options] sub-command [args ...]
 Options:
-  -h -? --help                  This help message 
-  -D --debug                    Program tracing written to stderr 
-  -d --default                  List default modules only when used with avail 
-  -q --quiet --expert           Do not print out warnings 
-  -t --terse                    Write out in machine readable format for 
-                                commands: list, avail, spider 
-  --initial_load                loading Lmod for first time in a user shell 
-  --novice                      Turn off expert flag 
-  -v --version                  Print version info and quit 
-  --localvar=localvarA          local variables needed to be set after this 
-                                commands execution 
-  --check_syntax --checkSyntax  Checking module command syntax: do not load 
+  -h -? --help                  This help message
+  -D --debug                    Program tracing written to stderr
+  -d --default                  List default modules only when used with avail
+  -q --quiet --expert           Do not print out warnings
+  -t --terse                    Write out in machine readable format for
+                                commands: list, avail, spider
+  --initial_load                loading Lmod for first time in a user shell
+  --novice                      Turn off expert flag
+  -v --version                  Print version info and quit
+  --localvar=localvarA          local variables needed to be set after this
+                                commands execution
+  --check_syntax --checkSyntax  Checking module command syntax: do not load
 module sub-command [args ...]
 Help sub-commands:
   help                                   prints this message
@@ -140,17 +140,17 @@ Listing / Searching sub-commands:
   spider           modulefile            List all possible version of that
                                          module file
   spider           string                List all module that contain the
-                                         string.  
+                                         string.
   spider           modulefile/version    Detailed information about that
                                          version of the module
   whatis           modulefile            print whatis information about module
   keyword | key    string                search all name and whatis that contain
-                                         "string". 
+                                         "string".
 Searching with Lmod:
   All searching (spider, list, avail, keyword) support regular expressions:
-  spider        '^p'                     finds all the modules that start 
+  spider        '^p'                     finds all the modules that start
                                          with `p' or `P'
-  spider        mpi                      finds all modules that have "mpi" 
+  spider        mpi                      finds all modules that have "mpi"
                                          in their name.
   spider        'mpi$"                   file all modules that end with "mpi"
                                          in their name.
@@ -159,9 +159,9 @@ Handling a collection of modules:
                                          to a user defined "default".
   save name  | s name                    Save the current list of modules
                                          to "name" collection.
-  restore                                Restore modules from the user's 
+  restore                                Restore modules from the user's
                                          "default" or system default.
-  restore  name | r name                 Restore modules from "name" 
+  restore  name | r name                 Restore modules from "name"
                                          collection.
   restore  system                        restore module state to system
                                          defaults.
@@ -170,11 +170,11 @@ Deprecated commands
    reset                                 The same as "restore system"
    getdefault [name]                     load name collection of modules or
                                          user's "default" if no name given.
-                                         > Use "restore" instead  <
+                                         ===> Use "restore" instead  <====
    setdefault [name]                     Save current list of modules to
                                          name if given, otherwise save as the
                                          default list for you the user.
-                                         > Use "save" instead. <
+                                         ===> Use "save" instead. <====
 Miscellaneous sub-commands:
   record                                 save the module table.
   show                modulefile         show the commands in the module file.
@@ -183,7 +183,7 @@ Miscellaneous sub-commands:
   tablelist                              output list of active modules as a
                                          lua table.
 Important Environment Variables:
-  LMOD_COLORIZE                          If defined to be "YES" then Lmod 
+  LMOD_COLORIZE                          If defined to be "YES" then Lmod
                                          prints properties and warning in color.
 See:
    http://www.tacc.utexas.edu/tacc-projects/mclay/lmod
@@ -191,13 +191,13 @@ for complete documentation. It contains:
    User Guide                  - How to use.
    Advance User Guide          - How to create you own modules.
    System Administrator Guide  - If you want to install it on your own system.
-Modules based on Lua: Version 5.0rc2 (5.0rc2-13-g442ff5b) 2013-04-26 11:23
+Modules based on Lua: Version 5.0rc2 (5.0rc2-54-g7045ea1) 2013-04-26 11:23
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 4
 ===========================
- Module Specific Help for "amber/9"
-The TACC Amber installation only includes the parallel Sander/pmemd modules. 
+Module Specific Help for "amber/9"
+The TACC Amber installation only includes the parallel Sander/pmemd modules.
 The Amber modulefile defines the following environment variables:
 TACC_AMBER_DIR, TACC_AMBER_DOC, TACC_AMBER_BIN for the location of
 the Amber distribution, documentation, and binaries, respectively.

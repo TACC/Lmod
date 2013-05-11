@@ -13,16 +13,16 @@ if [ -z "$USER_IS_ROOT" ]; then
   if [ -z "$MODULEPATH_ROOT" ]; then
     USER=${USER-${LOGNAME}}  # make sure $USER is set
     export USER
-    
+
     LMOD_sys=`uname`; export LMOD_sys
-    
+
     LMOD_arch=`uname -m`
     if [ "x$LMOD_sys" = xAIX ]; then
       LMOD_arch=rs6k
     fi
     export LMOD_arch
 
-    
+
     MODULEPATH_ROOT="@modulepath_root@"
     export MODULEPATH_ROOT
     export LMOD_COLORIZE=@colorize@

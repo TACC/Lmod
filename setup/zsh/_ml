@@ -11,7 +11,7 @@ _ml()
     '(-h --help)'{--help,-h}'[display usage info]'
     '(- *)'{--version,-v}'[module command version]'
     '(-t --terse)'{--terse,-t}'[display avail, list and spider output in short format]'
-    '(-d --default)'{--default,-d}'[List default modules only when used with avail]' 
+    '(-d --default)'{--default,-d}'[List default modules only when used with avail]'
     '(-D --debug)'{--debug,-D}'[Send program tracing information to stderr]'
     '(-q --quiet)'{--quiet,-q}'[disable verbose messages]'
     '--Verbose[show generated module command]'
@@ -21,7 +21,7 @@ _ml()
     opt=${${arg#*\)}%%\[*}
     descript=${${arg#*\[}%%\]*}
     optT[$opt]=$descript
-  done  
+  done
 
   _ml_loaded_modules_negated
   _ml_available_modules
@@ -51,7 +51,7 @@ _ml()
     cmd=${i%%:*}
     cmdT[$cmd]=1
   done
-  
+
 
   #  previous        current      choices         pattern
   # ---------------------------------------------------------
@@ -62,18 +62,18 @@ _ml()
   #                                -loadM
   # ---------------------------------------------------------
   # ml -o1 -M1       <nothing>     availM           20
-  #                    A*          
+  #                    A*
   # ---------------------------------------------------------
   # ml -o1 -M1         -           -loadM           21
   # ---------------------------------------------------------
   # ml -o1  M1       <nothing>     availM           20
-  #                    A*          
+  #                    A*
   # ---------------------------------------------------------
   # ml -o1  M1         -           -loadM           21
   # ---------------------------------------------------------
   # ml -o1  cmd        *           cmd-specific     30
   # ---------------------------------------------------------
-  
+
   cmd=""
 
   pattern=10
@@ -82,9 +82,9 @@ _ml()
     w=$words[$i]
     firstC=$w[1]
     #echo "\$words[$i]: \"$w\" firstC: \"$firstC\"" >> $HOME/t/ml.log
-    if   [ -n "$optT[$w]"  ]; then 
+    if   [ -n "$optT[$w]"  ]; then
       pattern=10
-    elif [ "$firstC" = "-" ]; then 
+    elif [ "$firstC" = "-" ]; then
       pattern=20
       break;
     elif [ "$cmdT[$w]" = 1 ]; then
@@ -109,10 +109,10 @@ _ml()
     11)
       _arguments                 \
         $arguments               \
-        $_loaded_modules_negated 
+        $_loaded_modules_negated
       ;;
     20)
-      compadd "$@" -a -- _available_modules 
+      compadd "$@" -a -- _available_modules
       ;;
     21)
       compadd "$@" -a -- _loaded_modules_negated
@@ -123,7 +123,7 @@ _ml()
         rm) cmd="unload";;
         display) cmd="show";;
       esac
-        
+
       local update_policy
       curcontext="${curcontext%:*:*}:ml-${cmd}:"
       zstyle -s ":completion:${curcontext}:" cache-policy update_policy
@@ -200,7 +200,7 @@ _ml_use()
 {
   _arguments -s \
     '(-a --append)'{--append,-a}'[append the directories instead of prepending]' \
-    '*:directory:_files -/'    
+    '*:directory:_files -/'
 }
 
 # Completion function for unuse

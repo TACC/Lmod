@@ -9,7 +9,7 @@ testdescript = {
 
    active = 1,
    testName = "avail",
-   job_submit_method = "INTERACTIVE", 
+   job_submit_method = "INTERACTIVE",
 
    runScript = [[
 
@@ -40,7 +40,7 @@ testdescript = {
      runMe lua $(projectDir)/src/lmod.in.lua bash -t    avail git          # 9
      runMe lua $(projectDir)/src/lmod.in.lua bash -t -d avail git          #10
      runMe lua $(projectDir)/src/lmod.in.lua bash -t    avail git/1.7.4.3  #11
-     
+
 
      HOME=$ORIG_HOME
 

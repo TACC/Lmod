@@ -6,7 +6,7 @@
 
 -- A better approach is to create a file named "SitePackage.lua" in a different
 -- directory separate from the Lmod installed directory.  Then you should modify
--- your modules.sh and modules.csh (or however you initialize the "module" command) 
+-- your modules.sh and modules.csh (or however you initialize the "module" command)
 -- with:
 
 --    (for bash, zsh, etc)

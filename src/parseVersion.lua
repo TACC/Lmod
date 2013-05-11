@@ -18,7 +18,7 @@
 --  permit persons to whom the Software is furnished to do so, subject
 --  to the following conditions:
 --
---  The above copyright notice and this permission notice shall be 
+--  The above copyright notice and this permission notice shall be
 --  included in all copies or substantial portions of the Software.
 --
 --  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
@@ -64,7 +64,7 @@ replaceT = {
 -- Strings like "a", "b", "c", "alpha", "beta", "candidate" and so on
 -- (that come before "final" alphabetically) are assumed to be pre-release
 -- versions, so that the version "2.4" is considered newer than "2.4a1".
--- Any "-" characters preceding a pre-release indicator are removed. 
+-- Any "-" characters preceding a pre-release indicator are removed.
 
 -- Finally, to handle miscellaneous cases, the strings "pre", "preview",
 -- and "rc" are treated as if they were "c", i.e. as though they were
@@ -120,7 +120,7 @@ function parseVersionParts(versionStr)
    local i,j, results
    return
       function()
-      
+
          -- skip over "."
          if (ipos <= s_end and s:sub(ipos,ipos) == ".") then
             ipos = ipos + 1
@@ -161,9 +161,9 @@ function parseVersionParts(versionStr)
             return "*zfinal-"
          end
 
-         -- return any single character as 
+         -- return any single character as
          results = s:sub(ipos,ipos)
-         
+
          ipos    = ipos + 1
          return "*" .. (replaceT[results] or results)
       end

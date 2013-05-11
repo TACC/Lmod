@@ -9,7 +9,7 @@ testdescript = {
 
    active = 1,
    testName = "purge",
-   job_submit_method = "INTERACTIVE", 
+   job_submit_method = "INTERACTIVE",
 
    runScript = [[
 
@@ -38,7 +38,7 @@ testdescript = {
      runMe $LUA $(projectDir)/src/lmod.in.lua bash list                                # 7
      runMe $LUA $(projectDir)/src/lmod.in.lua bash purge                               # 8
      runMe $LUA $(projectDir)/src/lmod.in.lua bash list                                # 9
-     
+
      HOME=$ORIG_HOME
      PATH=$ORIGINAL_PATH
 

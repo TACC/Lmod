@@ -17,12 +17,12 @@ testdescript = {
 
    active = 1,
    testName = "csh_swap",
-   job_submit_method = "INTERACTIVE", 
+   job_submit_method = "INTERACTIVE",
 
    runScript = [[
 
      . $(projectDir)/rt/common_funcs.sh
-     
+
 
      unsetMT
      initStdEnvVars
@@ -149,13 +149,13 @@ EOF
      rm -fr _stderr.* _stdout.* err.* out.*  .lmod.d
      unset SHELL_STARTUP_DEBUG
      chmod +x $(testName).csh
-     
+
      ./$(testName).csh > _stderr.orig 2>&1
 
      joinBase64Results -csh  _stdout.orig _stdout.new
      cleanUp _stdout.new  out.txt
      cleanUp _stderr.orig err.txt
-    
+
 
      rm -f $(cmdResultFn)
      wrapperDiff -r $(cmdResultFn) $(testDir)/out.txt out.txt

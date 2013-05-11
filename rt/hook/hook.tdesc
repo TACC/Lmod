@@ -12,7 +12,7 @@ testdescript = {
 
    active = 1,
    testName = testName,
-   job_submit_method = "INTERACTIVE", 
+   job_submit_method = "INTERACTIVE",
 
    runScript = [[
 
@@ -31,7 +31,7 @@ testdescript = {
      HOME=`/bin/pwd`
 
      rm -fr _stderr.* _stdout.* err.* out.* .lmod.d
-     
+
      runMe lua $(projectDir)/src/lmod.in.lua bash --version                      # 1
      runMe lua $(projectDir)/src/lmod.in.lua bash use -a $projectDir/mf/Core     # 2
      runMe lua $(projectDir)/src/lmod.in.lua bash load admin intel               # 3

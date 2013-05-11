@@ -9,7 +9,7 @@ testdescript = {
 
    active   = 1,
    testName = "prereq",
-   job_submit_method = "INTERACTIVE", 
+   job_submit_method = "INTERACTIVE",
 
    runScript = [[
 
@@ -23,7 +23,7 @@ testdescript = {
      numStep=0;
      HOME=`(cd $HOME; /bin/pwd)`
 
-     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d 
+     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d
 
      runMe lua $(projectDir)/src/lmod.in.lua bash --version          #  1
      runMe lua $(projectDir)/src/lmod.in.lua bash load petsc         #  2

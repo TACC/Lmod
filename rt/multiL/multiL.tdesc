@@ -11,7 +11,7 @@ testdescript = {
 
    active = 1,
    testName = testName,
-   job_submit_method = "INTERACTIVE", 
+   job_submit_method = "INTERACTIVE",
 
    runScript = [[
 
@@ -30,7 +30,7 @@ testdescript = {
      rm -fr .lmod.d .lmodrc.lua
      cp $(projectDir)/setup/.lmodrc.lua .
 
-     mkdir -p $HOME/.lmod.d/.cache 
+     mkdir -p $HOME/.lmod.d/.cache
      lua $(projectDir)/src/spider.in.lua -o moduleT $MODULEPATH > $HOME/.lmod.d/.cache/moduleT.lua
      lua $(projectDir)/src/spider.in.lua -o dbT     $MODULEPATH > $HOME/dbT.lua
 

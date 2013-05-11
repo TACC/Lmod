@@ -2,16 +2,16 @@ Here are some notes on how modulefiles should be laid out when using
 Lmod:
 
 * To start with we need a naming convention for how modules are named
-   
+
    1) a module can be a file:  TACC,  Linux
    2) a module can be a directory with a version:
 
       foo/1.0
-   
-** A single file is typically used to be a meta-module.  
+
+** A single file is typically used to be a meta-module.
    That is a module that loads other modules.  This file has only one
    version
-** Type 2 is more typical: the directory name is name of the module 
+** Type 2 is more typical: the directory name is name of the module
    and the file name is the version: foo/1.0, gcc/4.7.2.
 
 * Lmod only supports type 1 and type 2.
@@ -20,7 +20,7 @@ Lmod:
   This is not supported by Lmod.  One could use category-name/version
   or similar but the category can not be a directory.
 
-* Lmod design rule: One can only load one "name" at a time.  
+* Lmod design rule: One can only load one "name" at a time.
 
   If one had a module tree that used the "category/name/version"
   style,  Lmod would treat the category as the name.  So suppose that
@@ -38,9 +38,9 @@ Lmod:
   Now that might not be bad.  Except that there are a few users that
   need to load more that one compiler at a time.  Also no user could
   ever load both fftw3 and petsc at the same time. Lmod will not allow
-  for more than one "name" at a time.  
+  for more than one "name" at a time.
 
-  If adding the category to the name is desirable then 
+  If adding the category to the name is desirable then
 
      compiler-gcc/4.7.2
      compiler-open64/5.0
@@ -49,11 +49,11 @@ Lmod:
      mpi-fftw3/3.3
      mpi-petsc/3.3
 
-  or some similar convection.     
+  or some similar convection.
 
-* Taking advantage of Lmod ability to automatically swap compiler and compiler-mpi 
+* Taking advantage of Lmod ability to automatically swap compiler and compiler-mpi
   dependent modules:
-  
-  
+
+
 
 *

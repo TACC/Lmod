@@ -24,9 +24,9 @@ step 6
 ===========================
 The following is a list of the modules currently available:
   gcc: gcc/4.7.2
-    GNU compiler suite 
+    GNU compiler suite
   python: python/2.7.3, python/3.3.0
-    Python with scientific packages 
+    Python with scientific packages
 To learn more about a package enter:
    $ module spider Foo
 where "Foo" is the name of a module

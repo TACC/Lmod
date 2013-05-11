@@ -10,7 +10,7 @@ testdescript = {
 
    active = 1,
    testName = "deprecation",
-   job_submit_method = "INTERACTIVE", 
+   job_submit_method = "INTERACTIVE",
 
    runScript = [[
 
@@ -18,8 +18,8 @@ testdescript = {
 
      unsetMT
      initStdEnvVars
-     export MODULEPATH_ROOT=$(projectDir)/mf;  
-     export LMOD_ADMIN_FILE=$(testDir)/etc/admin.list; 
+     export MODULEPATH_ROOT=$(projectDir)/mf;
+     export LMOD_ADMIN_FILE=$(testDir)/etc/admin.list;
      numStep=0
      COUNT=0
      HOME=`(cd $HOME; /bin/pwd)`

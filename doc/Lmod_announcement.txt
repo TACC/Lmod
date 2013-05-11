@@ -1,16 +1,16 @@
-Exec Summary: 
-------------- 
+Exec Summary:
+-------------
 
 I have created yet another module system (Lmod) to handle the problem
 where we have a MODULEPATH hierarchy.  We have packages (i.e. PETSc)
-which depend on a particular MPI library which depend on a compiler.  
+which depend on a particular MPI library which depend on a compiler.
 Users switching compilers have to unload most modules and reload the
 new modules.  With Lmod, users can swap compilers and Lmod will reload
 any required modules.  Or users can unload a compiler some modules
 will become inactive until the MODULEPATH changes to make it possible
 to reload them.
 
-My new module system is based on Lua but is should be a drop-in-replacement.  
+My new module system is based on Lua but is should be a drop-in-replacement.
 Modules written in TCL are translated on the fly.
 
 I am sending this announcement to the modules.org list to see if other
@@ -57,7 +57,7 @@ have to unload say PETSc, the mpi library and the compiler then
 load the compiler, mpi library, etc.
 
 Clearly the current version of the module command makes this more
-complicated than it needs to be. 
+complicated than it needs to be.
 
 
 My Solution:
@@ -94,7 +94,7 @@ their game engine.  See www.lua.org for more information.
 One of the useful features of Lua is that functions are first class
 objects.  That means that function can be handled like variables,
 copied and renamed.   This is a huge advantage when dealing with the
-the "load" function inside a module.  
+the "load" function inside a module.
 
 When loading a module, the "load" function equals the "Load" function
 which evaluate and sets the environment variables.  When unloading, the

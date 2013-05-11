@@ -16,7 +16,7 @@ The following is a list of the modules currently available:
   gcc: gcc/4.2.3
   git: git/1.6.3.1, git/1.7.4, git/1.7.4.3
   gotoblas: gotoblas/1.20, gotoblas/1.26, gotoblas/1.30, gotoblas/1.30-beta, ...
-    Blas Level 1, 2, 3 routines 
+    Blas Level 1, 2, 3 routines
   intel: intel/intel
   junk/a/c: junk/a/c/1.0
   junk/b/c: junk/b/c/2.0
@@ -27,7 +27,7 @@ The following is a list of the modules currently available:
   noweb: noweb/2.10c
   openmpi: openmpi/1.2.6
   parmetis: parmetis/3.1, parmetis/4.0.1
-    Parallel graph partitioning and fill-reduction matrix ordering routines 
+    Parallel graph partitioning and fill-reduction matrix ordering routines
   petsc: petsc/3.1, petsc/3.2
   phdf5: phdf5/1.8.10, phdf5/1.8.2, phdf5/1.8.9
   PrgEnv: PrgEnv
@@ -55,10 +55,10 @@ step 6
 ===========================
   parmetis: parmetis/3.1
     Description:
-      Parallel graph partitioning and fill-reduction matrix ordering 
-      routines 
+      Parallel graph partitioning and fill-reduction matrix ordering
+      routines
     Properties:
-      built for host and native MIC 
+      built for host and native MIC
     This module can be loaded directly: module load parmetis/3.1
     Additional variants of this module can also be loaded after the loading the following modules:
       gcc/4.2.3, openmpi/1.2.6
@@ -81,7 +81,7 @@ The following is a list of the modules currently available:
   gcc: gcc/4.2.3
   git: git/1.6.3.1, git/1.7.4, git/1.7.4.3
   gotoblas: gotoblas/1.20, gotoblas/1.26, gotoblas/1.30, gotoblas/1.30-beta, ...
-    Blas Level 1, 2, 3 routines 
+    Blas Level 1, 2, 3 routines
   intel: intel/intel
   junk/a/c: junk/a/c/1.0
   junk/b/c: junk/b/c/2.0
@@ -92,7 +92,7 @@ The following is a list of the modules currently available:
   noweb: noweb/2.10c
   openmpi: openmpi/1.2.6
   parmetis: parmetis/3.1, parmetis/4.0.1
-    Parallel graph partitioning and fill-reduction matrix ordering routines 
+    Parallel graph partitioning and fill-reduction matrix ordering routines
   petsc: petsc/3.1, petsc/3.2
   phdf5: phdf5/1.8.10, phdf5/1.8.2, phdf5/1.8.9
   PrgEnv: PrgEnv

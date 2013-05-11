@@ -4,12 +4,12 @@ require("sandbox")
 local Dbg          = require("Dbg")
 sitePkgRoot = os.getenv("LMOD_PKG_ROOT") or "/global/apps"
 
-function checkRestrictedGroup(pkg, group) 
+function checkRestrictedGroup(pkg, group)
    local dbg = Dbg:dbg()
    dbg.start("checkRestrictedGroup(pkg, \"",group,"\")")
    if (mode() ~= "load") then return true end
    if (group == nil)     then return true end
-   local err_message = "Only users in group \'" .. group .. 
+   local err_message = "Only users in group \'" .. group ..
         "\' can access module \'" .. pkg.id .. "\'"
    local found = false
    local grps = capture("groups")
@@ -33,10 +33,10 @@ function logUsage(pkg)
    local jobid = os.getenv("PBS_JOBID")
    local msg = ""
    dbg.print("user: ",user," jobid: ",jobid,"\n")
-   if jobid == nil then 
+   if jobid == nil then
       msg = string.format("user=%s,app=%s", user, pkg.id)
    else
-      msg = string.format("user=%s,app=%s,job=%s", 
+      msg = string.format("user=%s,app=%s,job=%s",
                           user, pkg.id, jobid)
    end
    local cmd = "logger -t lmod -p local0.info " .. msg

@@ -4,7 +4,7 @@ LIBRARY  := $(SONAMEV).0.1
 SRC      := core.c
 OBJ      := $(patsubst %.c, %.o, $(SRC))
 
-override CFLAGS  := $(CFLAGS) -fPIC 
+override CFLAGS  := $(CFLAGS) -fPIC
 
 ifneq ($(LUA_INC),)
   override CFLAGS  := $(CFLAGS) -I$(LUA_INC)

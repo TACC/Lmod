@@ -22,7 +22,7 @@ whatis([[Description: ]])
 
 checkRestrictedGroup(pkg, nil)
 
-setenv("FOO_ROOT", pkg.prefix) 
+setenv("FOO_ROOT", pkg.prefix)
 
 prepend_path("PATH", pathJoin(composer, "bin"))
 prepend_path("LD_LIBRARY_PATH", pathJoin(composer, "lib"))

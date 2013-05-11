@@ -18,7 +18,7 @@
 --  permit persons to whom the Software is furnished to do so, subject
 --  to the following conditions:
 --
---  The above copyright notice and this permission notice shall be 
+--  The above copyright notice and this permission notice shall be
 --  included in all copies or substantial portions of the Software.
 --
 --  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
@@ -36,12 +36,13 @@
 
 require("strict")
 require("string_split")
+require("string_trim")
 local Dbg          = require("Dbg")
-local setmetatable = setmetatable
 local concatTbl	   = table.concat
 local max	   = math.max
 local strlen       = string.len
 local stdout       = io.stdout
+
 
 local M = { gap = 2}
 
@@ -76,7 +77,7 @@ function M.build_tbl(self)
    local dbg    = Dbg:dbg()
    --dbg.start("BeautifulTbl:build_tbl()")
    local length = self.length
-   
+
    local width = 0
    local simple = true
    if (self.wrapped and self.column > 0) then
@@ -131,6 +132,7 @@ function M.build_tbl(self)
          if (icnt + wlen < self.column or wlen > gap) then
             aa[#aa+1] = w .. " "
          else
+            aa[#aa]   = aa[#aa]:trim()
             aa[#aa+1] ="\n"
             a[#a + 1] = concatTbl(aa,"")
             aa    = {}
@@ -140,6 +142,7 @@ function M.build_tbl(self)
          end
          icnt = icnt + wlen
       end
+      aa[#aa]   = aa[#aa]:trim()
       aa[#aa+1] ="\n"
       a[#a + 1] = concatTbl(aa,"")
    end

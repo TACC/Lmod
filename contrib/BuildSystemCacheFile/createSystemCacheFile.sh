@@ -2,7 +2,7 @@
 # -*- shell-script -*-
 
 ########################################################################
-#  Create a system cache file 
+#  Create a system cache file
 #
 #   This creates the system cache file for module spider.
 ########################################################################
@@ -65,13 +65,13 @@ cat > $LastUpdateFn <<EOF
 hostType
 EOF
 
-buildNewDB $CacheDir  moduleT 
+buildNewDB $CacheDir  moduleT
 
 
 ########################################################################
 #  Build reverse map (This is optional)
 ########################################################################
-#buildNewDB $RmapDir   reverseMapT  
+#buildNewDB $RmapDir   reverseMapT
 
 
 

@@ -81,7 +81,7 @@ in HTML, PDF, RTF, plain text or as a man page.
 =item B<-ignore> VARLIST
 
 Comma separated list of variables to ignore. By default, B<env2> starts
-with the list set to 
+with the list set to
 
  _,ENV,ENV2,OLDPWD,SHLVL
 
@@ -104,7 +104,7 @@ Searches for the file in the current directory or $HOME if path not specified.
 
 =item B<-reset>
 
-Resets the ignore list to a minimum set. 
+Resets the ignore list to a minimum set.
 
 See also B<-clear>, B<-ignore> and B<-unsafe_clear>.
 
@@ -141,7 +141,7 @@ colon separated list. Default is to apply this to common path variables:
 Resets the ignore list to completely empty. This is potentially
 dangerous because allows inclusion of dangerous environment variables
 that the user should not touch. These dangerous variables can have an
-adverse affect on operation of UNIX. 
+adverse affect on operation of UNIX.
 
 See also B<-clear>, B<-ignore> and B<-reset>.
 
@@ -174,7 +174,7 @@ To support YAML, this script uses the CPAN YAML module.
 
 =head1 COPYRIGHT/LICENSE
 
-env2 is copyright (C) 2003-2008 David C Black. All rights reserved. 
+env2 is copyright (C) 2003-2008 David C Black. All rights reserved.
 This code may is hereby made available under Apache 2.0 licensing.
 
 =head1 AUTHOR
@@ -224,7 +224,7 @@ if ($use_sha1) {
 
 if (@ARGV == 0 or scalar(@ARGV) and $ARGV[0] =~ m/^-{1,2}h(elp)?/) {
   exec "perldoc $RealBin/$RealScript";
-} elsif (scalar(@ARGV) and $ARGV[0] eq '+TEST') { 
+} elsif (scalar(@ARGV) and $ARGV[0] eq '+TEST') {
   # +TEST is a hidden option for testing the script itself
   &TestIndexPath( 1, 'a',       'a',    0,  0);
   &TestIndexPath( 2, 'a',       'e',   -1, -1);
@@ -330,11 +330,11 @@ if (@ARGV == 0 or scalar(@ARGV) and $ARGV[0] =~ m/^-{1,2}h(elp)?/) {
       printf STDERR "%s Version #%s\n",$RealBin,$VERSION;
     } elsif ($arg =~ m{^-{1,2}sha(?:1?)$}) {
       printf STDERR "%s %s/%s\n",$SHA1,$RealBin,$RealScript;
-    } elsif ($arg =~ m{^-{1,2}only$}) { 
+    } elsif ($arg =~ m{^-{1,2}only$}) {
       push @ONLY,split('[ :,]',shift(@ARGV));
     } elsif ($arg =~ m{^-{1,2}ignored$}) {
       printf STDERR "Ignoring: %s\n",join(' ',@IGNORE);
-    } elsif ($arg =~ m{^-{1,2}ignore$}) { 
+    } elsif ($arg =~ m{^-{1,2}ignore$}) {
       push @IGNORE,split('[ :,]',shift(@ARGV));
     } elsif ($arg eq '-o') {
       if (@ARGV and $ARGV[0] !~ m{^[/A-Za-z0-9.]}) {
@@ -536,7 +536,7 @@ EOT
   for my $var (keys %$NEWENV) {
     next if not @ONLY and grep($_ eq $var,@IGNORE);
     next if @ONLY and not grep($_ eq $var,@ONLY);
-    warn "WARNING(env2): setting $var\n" 
+    warn "WARNING(env2): setting $var\n"
       if $verbose and @ONLY and grep($_ eq $var,@DEFAULT_IGNORE);
     next if (exists $OLDENV{$var} and $OLDENV{$var} eq $NEWENV->{$var}); # Skip duplicates
     ##########################################################################

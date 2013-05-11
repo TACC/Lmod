@@ -51,7 +51,7 @@ function M.encode64(data)
    local result = ""
    for spos=0,string.len(data)-1,3 do
       for byte=1,3 do
-         bytes[byte] = string.byte(string.sub(data,(spos+byte))) or 0 
+         bytes[byte] = string.byte(string.sub(data,(spos+byte))) or 0
       end
       result = string.format('%s%s%s%s%s',result,base64chars[rsh(bytes[1],2)],
                              base64chars[lor(lsh((bytes[1] % 4),4), rsh(bytes[2],4))] or

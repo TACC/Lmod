@@ -16,7 +16,7 @@ testdescript = {
 
    active = 1,
    testName = "saverestore",
-   job_submit_method = "INTERACTIVE", 
+   job_submit_method = "INTERACTIVE",
 
    runScript = [[
 
@@ -32,13 +32,13 @@ testdescript = {
      HOME=`pwd`;                        export HOME
      COUNT=0;
      numStep=0;
-     
+
      rm -fr _stderr.* _stdout.* err.* out.* .lmod.d
 
      LMOD_PACKAGE_PATH=$(testDir);      export LMOD_PACKAGE_PATH
      runMe lua $(projectDir)/src/lmod.in.lua bash --version               # 1
      runMe lua $(projectDir)/src/lmod.in.lua bash load TACC               # 2
-     runMe lua $(projectDir)/src/lmod.in.lua bash load pgi/7.2-5          # 3 
+     runMe lua $(projectDir)/src/lmod.in.lua bash load pgi/7.2-5          # 3
      runMe lua $(projectDir)/src/lmod.in.lua bash list                    # 4
      runMe lua $(projectDir)/src/lmod.in.lua bash save default            # 5
      runMe lua $(projectDir)/src/lmod.in.lua bash restore                 # 6
@@ -55,7 +55,7 @@ testdescript = {
      runMe lua $(projectDir)/src/lmod.in.lua bash restore                 #13
      runMe lua $(projectDir)/src/lmod.in.lua bash list                    #14
      runMe lua $(projectDir)/src/lmod.in.lua bash spider                  #15
-     
+
      HOME=$HOME_ORIG
      export HOME
      cat _stdout.[0-9][0-9] > _stdout.orig

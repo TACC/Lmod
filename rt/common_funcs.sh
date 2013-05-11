@@ -7,12 +7,13 @@ cleanUp ()
        -e "s|\@git\@|$gitV|g"                             \
        -e "s|:/usr/bin:|:|g"                              \
        -e "s|:/usr/local/bin:|:|g"                        \
+       -e "s|:$PATH_to_SHA1:|:|g"                         \
        -e "s|$PATH_to_TM|PATH_to_TM|g"                    \
        -e "s|unsetenv _ModuleTable..._;||g"               \
        -e "s|unset _ModuleTable..._;||g"                  \
        -e "s|unset _ModuleTable..._;||g"                  \
        -e "s|$projectDir|ProjectDIR|g"                    \
-       -e "s|----*||g"                                    \
+       -e "s| *\-\-\-\-* *||g"                            \
        -e "/Rebuilding cache file, please wait .* done/d" \
        -e "/Using your spider cache file/d"               \
        -e "/^_ModuleTable_Sz_=.*$/d"                      \
@@ -63,9 +64,10 @@ initStdEnvVars()
   export LMOD_PREPEND_BLOCK=yes
   PATH_to_LUA=`findcmd --pathOnly lua`
   PATH_to_TM=`findcmd --pathOnly tm`
+  PATH_to_SHA1=`findcmd --pathOnly sha1sum`
 
-  export PATH=$projectDir/src:$PATH_to_LUA:$PATH_to_TM:/usr/bin:/bin
-  
+  export PATH=$projectDir/src:$PATH_to_LUA:$PATH_to_TM:$PATH_to_SHA1:/usr/bin:/bin
+
 }
 
 

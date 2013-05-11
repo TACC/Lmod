@@ -20,7 +20,7 @@
 #  permit persons to whom the Software is furnished to do so, subject
 #  to the following conditions:
 #
-#  The above copyright notice and this permission notice shall be 
+#  The above copyright notice and this permission notice shall be
 #  included in all copies or substantial portions of the Software.
 #
 #  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
@@ -197,7 +197,7 @@ proc ::cmdline::GetOptionDefaults {optlist defaultArrayVar} {
 	set name [lindex $opt 0]
 	if {[regsub -- .secret$ $name {} name] == 1} {
 	    # Need to hide this from the usage display and getopt
-	}   
+	}
 	lappend opts $name
 	if {[regsub -- .arg$ $name {} name] == 1} {
 
@@ -344,7 +344,7 @@ proc module-info {what {more {}}} {
     "specified" {
            return $g_usrName
     }
-            
+
     default {
 	    error "module-info $what not supported"
 	    return {}
@@ -382,7 +382,7 @@ proc set-alias { var val } {
     cmdargs "set_alias" $var $val
 }
 proc unset-alias { var } {
-    cmdargs "unset_alias" $var 
+    cmdargs "unset_alias" $var
 }
 
 proc add-property { var val } {
@@ -611,4 +611,4 @@ foreach m [split $params(l) ":"] {
 set g_fullName  $params(f)
 set g_usrName   $params(u)
 set g_shellName $params(s)
-eval main $argv 
+eval main $argv
