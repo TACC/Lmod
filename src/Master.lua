@@ -57,12 +57,8 @@ local MT           = MT
 local ModuleStack  = require("ModuleStack")
 local Optiks       = require("Optiks")
 local Spider       = require("Spider")
-local abspath      = abspath
-local extname      = extname
 local hook         = require("Hook")
-local isFile       = isFile
 local lfs          = require('lfs')
-local pathJoin     = pathJoin
 local posix        = require("posix")
 
 --module("Master")

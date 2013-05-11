@@ -32,7 +32,9 @@
 --
 --------------------------------------------------------------------------
 
--- BaseShell
+--------------------------------------------------------------------------
+-- BaseShell:  This is the base class for all the shell output classes.
+
 require("strict")
 require("inherits")
 require("serializeTbl")
@@ -52,9 +54,6 @@ local getenv       = os.getenv
 local huge         = math.huge
 local min          = math.min
 local pairsByKeys  = pairsByKeys
-local print	   = print
-local setmetatable = setmetatable
-local type	   = type
 
 function doubleQuoteEscaped(s)
    s = s:gsub('"','\\"')

@@ -40,7 +40,6 @@ Python.my_name    = "python"
 local Python      = Python
 local Dbg         = require("Dbg")
 local Var         = require("Var")
-local assert      = assert
 local concatTbl   = table.concat
 local stdout      = io.stdout
 

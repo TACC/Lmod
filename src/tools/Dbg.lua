@@ -77,14 +77,7 @@
 
 local blank        = " "
 local huge         = math.huge
-local io           = io
-local ipairs       = ipairs
 local max          = math.max
-local os           = os
-local select       = select
-local setmetatable = setmetatable
-local tostring     = tostring
-local type         = type
 local remove       = table.remove
 
 require("strict")

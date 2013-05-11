@@ -34,8 +34,6 @@
 
 -- Option.lua
 require("strict")
-local setmetatable = setmetatable
-local pairs=pairs
 local Optiks_Error=Optiks_Error
 local M = {}
 

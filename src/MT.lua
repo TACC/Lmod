@@ -36,25 +36,13 @@ require("strict")
 _ModuleTable_      = ""
 local DfltModPath  = DfltModPath
 local ModulePath   = ModulePath
-local assert       = assert
 local concatTbl    = table.concat
 local getenv       = os.getenv
 local ignoreT      = { ['.'] =1, ['..'] = 1, CVS=1, ['.git'] = 1, ['.svn']=1,
                        ['.hg']= 1, ['.bzr'] = 1,}
-local io           = io
-local ipairs       = ipairs
-local loadstring   = loadstring
 local max          = math.max
-local next         = next
-local os           = os
-local pairs        = pairs
-local setmetatable = setmetatable
 local sort         = table.sort
-local string       = string
 local systemG      = _G
-local tostring     = tostring
-local type         = type
-local unpack       = unpack
 local varTbl       = varTbl
 
 require("string_split")

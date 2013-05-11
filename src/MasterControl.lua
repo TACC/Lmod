@@ -71,11 +71,7 @@ local MName        = require("MName")
 local ModuleStack  = require("ModuleStack")
 local Var          = require("Var")
 local concatTbl    = table.concat
-local format       = string.format
 local getenv       = os.getenv
-local print	   = print
-local setmetatable = setmetatable
-local type	   = type
 
 ------------------------------------------------------------------------
 --module ('MasterControl')

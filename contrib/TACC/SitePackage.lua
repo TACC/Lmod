@@ -42,6 +42,10 @@ local hook   = require("Hook")
 local getenv = os.getenv
 local posix  = require("posix")
 
+--------------------------------------------------------------------------
+-- load_hook(): Here we record the any modules loaded during a batch job.
+
+
 local function load_hook(t)
    
    local dbg = Dbg:dbg()
@@ -100,6 +104,10 @@ buildHostsT = {
    ["build.longhorn"]                    = 1,
 }
    
+
+--------------------------------------------------------------------------
+-- writeCache_hook(): set dontWriteCache on build machines
+
 local function writeCache_hook(t)
    local userName = getenv("USER")
    local host     = posix.uname("%n")

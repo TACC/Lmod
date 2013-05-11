@@ -40,14 +40,9 @@ local MName        = require("MName")
 local MT           = MT
 local Dbg          = require("Dbg")
 local lfs          = require("lfs")
-local ipairs       = ipairs
-local next         = next
-local pathJoin     = pathJoin
 local posix        = require('posix')
 local remove       = table.remove
-local setmetatable = setmetatable
 local systemG      = _G
-local tostring     = tostring
 
 
 --module("InheritTmpl")

@@ -50,17 +50,9 @@ require("pager")
 local M = {}
 
 local Dbg         = require("Dbg")
-local border      = border
-local capture     = capture
-local cmdDir      = cmdDir
 local concatTbl   = table.concat
-local extname     = extname
-local fillWords   = fillWords
 local lfs         = require("lfs")
-local pairsByKeys = pairsByKeys 
-local pathJoin    = pathJoin
 local posix       = require("posix")
-local print       = print
 local systemG     = _G
 
 local function nothing()

@@ -34,10 +34,6 @@
 
 
 require("strict")
-local BaseShell	   = BaseShell
-local pairsByKeys  = pairsByKeys
-local table        = table
-local io           = io
 
 Bare	     = inheritsFrom(BaseShell)
 Bare.my_name = 'bare'

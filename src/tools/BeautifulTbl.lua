@@ -39,12 +39,7 @@ require("string_split")
 local Dbg          = require("Dbg")
 local setmetatable = setmetatable
 local concatTbl	   = table.concat
-local ipairs	   = ipairs
-local pairs	   = pairs
-local type	   = type
-local print	   = print
 local max	   = math.max
-local string	   = string
 local strlen       = string.len
 local stdout       = io.stdout
 
