@@ -200,6 +200,6 @@ local function run5_2(untrusted_code)
 end
 
 local version = _VERSION:gsub("^Lua%s+","")
-sandbox_run = (version == "5.1") run5_1 or run5_2
+sandbox_run = (version == "5.1") and run5_1 or run5_2
 
 
