@@ -866,10 +866,9 @@ function M.list(self, kind, status)
             if (v.default ~= 1) then
                nameT = "fullName"
             end
-            dbg.print("MT:list: v.short: ", v.short, ", full: ",v.fullName,"\n")
             local obj = {sn   = v.short,   full       = v.fullName,
                          name = v[nameT], defaultFlg = v.default }
-            a[icnt] = { v.loadOrder, obj }
+            a[icnt] = { v.loadOrder, v[nameT], obj }
          end
       end
    else
@@ -877,15 +876,26 @@ function M.list(self, kind, status)
          if ((status == "any" or status == v.status) and
              (v.status ~= "pending")) then
             icnt  = icnt + 1
-            a[icnt] = { v.loadOrder, v[kind]}
+            a[icnt] = { v.loadOrder, v[kind], v[kind]}
          end
       end
    end
 
-   table.sort (a, function(x,y) return x[1] < y[1] end)
+   table.sort (a, function(x,y)
+                     if (x[1] == y[1]) then
+                        return x[2] < y[2]
+                     else
+                        return x[1] < y[1]
+                     end
+                  end)
 
    for i = 1, icnt do
-      b[i] = a[i][2]
+      b[i] = a[i][3]
+      if (kind == "userName") then
+         dbg.print("MT:list: b[",i,"]: ",b[i].name," order: ", a[i][1],"\n")
+      else
+         dbg.print("MT:list: b[",i,"]: ",b[i]," order: ", a[i][1],"\n")
+      end
    end
 
    a = nil -- finished w/ a.
@@ -1074,7 +1084,7 @@ end
 function M.safeToSave(self)
    local mT = self.mT
    local a  = {}
-   for k,v in pairs(mT) do
+   for k,v in pairsByKeys(mT) do
       if (v.status == "active" and v.mType == "mw") then
          a[#a+1] = k
       end
