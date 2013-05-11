@@ -53,7 +53,7 @@ local decode_scanWhitespace
 local encodeString
 local isArray
 local isEncodable
-local version   = _VERSION:gsub("^Lua%s+","")
+local version   = base._VERSION:gsub("^Lua%s+","")
 base.load = (version == "5.1") and base.loadstring or base.load
 
 -----------------------------------------------------------------------------
