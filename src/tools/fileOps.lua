@@ -36,14 +36,12 @@
 require("strict")
 require("string_trim")
 require("string_split")
-local posix = require("posix")
-local lfs   = require("lfs")
-
+local posix     = require("posix")
+local lfs       = require("lfs")
 local concatTbl = table.concat
 
 function findInPath(exec, path)
    local result  = ""
-
    if ( exec == nil) then return result end
 
    if (exec:find("/")) then
