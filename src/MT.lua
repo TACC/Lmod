@@ -891,11 +891,6 @@ function M.list(self, kind, status)
 
    for i = 1, icnt do
       b[i] = a[i][3]
-      if (kind == "userName") then
-         dbg.print("MT:list: b[",i,"]: ",b[i].name," order: ", a[i][1],"\n")
-      else
-         dbg.print("MT:list: b[",i,"]: ",b[i]," order: ", a[i][1],"\n")
-      end
    end
 
    a = nil -- finished w/ a.
