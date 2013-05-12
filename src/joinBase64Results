@@ -53,8 +53,7 @@ require("string_split")
 require("serializeTbl")
 local base64    = require("base64")
 local decode64  = base64.decode64
-local version   = _VERSION:gsub("^Lua%s+","")
-local load      = (version == "5.1") and loadstring or load
+local load      = (_VERSION == "Lua 5.1") and loadstring or load
 
 local function grab(line, b)
    local a = {}

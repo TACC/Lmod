@@ -67,8 +67,7 @@ local decode64 = base64.decode64
 local format   = string.format
 local getenv   = os.getenv
 local huge     = math.huge
-local version  = _VERSION:gsub("^Lua%s+","")
-local load     = (version == "5.1") and loadstring or load
+local load     = (_VERSION == "Lua 5.1") and loadstring or load
 
 function cmdDir()
    return cmd_dir

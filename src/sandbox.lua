@@ -199,7 +199,6 @@ local function run5_2(untrusted_code)
   return pcall(untrusted_function)
 end
 
-local version = _VERSION:gsub("^Lua%s+","")
-sandbox_run = (version == "5.1") and run5_1 or run5_2
+sandbox_run = (_VERSION == "Lua 5.1") and run5_1 or run5_2
 
 

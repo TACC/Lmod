@@ -81,36 +81,6 @@ function masterTbl()
    return s_master
 end
 
-
---function loadModuleFile(obj)
---   local f
---   if (type(obj) == "table") then
---      f = obj.file
---   else
---      f = obj
---   end
---
---   local dbg     = Dbg:dbg()
---   dbg.start("computeHashSum-> loadModuleFile(\"",f,"\")")
---   local myType = extname(f)
---   local func
---   if (myType == ".lua") then
---      func = loadfile(f)
---   else
---      local a     = {}
---      a[#a + 1]	  = pathJoin(cmdDir(),"tcl2lua.tcl")
---      a[#a + 1]	  = f
---      local cmd   = table.concat(a," ")
---      local s     = capture(cmd)
---      func = loadstring(s)
---   end
---   if (func) then
---      func()
---   end
---   dbg.fini("ComputeHashSum:loadModuleFile")
---end
-
-
 function main()
 
    local dbg       = Dbg:dbg()
