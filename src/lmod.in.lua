@@ -570,7 +570,7 @@ function main()
 
    -- Store the Module table in "_ModuleTable_" env. var.
    local n        = mt:name()
-   local oldValue = master.shell:getMT() or ""
+   local oldValue = getMT() or ""
    local value    = mt:serializeTbl()
 
    if (oldValue ~= value) then

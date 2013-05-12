@@ -55,6 +55,9 @@ local huge         = math.huge
 local min          = math.min
 local pairsByKeys  = pairsByKeys
 
+--------------------------------------------------------------------------
+-- Simple string conversion routines doing what they say.
+
 function doubleQuoteEscaped(s)
    s = s:gsub('"','\\"')
    return s
@@ -70,46 +73,42 @@ function atSymbolEscaped(s)
    return s
 end
 
-------------------------------------------------------------------------
---module ('BaseShell')
-------------------------------------------------------------------------
+
+--------------------------------------------------------------------------
+-- BaseShell Member functions:
+--------------------------------------------------------------------------
+
+--------------------------------------------------------------------------
+-- BaseShell:name(): returns the derived class's name: (e.g. bash)
 
 function M.name(self)
    return self.my_name
 end
 
+--------------------------------------------------------------------------
+-- BaseShell:setActive(): Should shell output be turned on.  Currently
+--                        checkSyntax mode is the only thing that turns off
+--                        output.
+
 function M.setActive(self, active)
    self._active = active
 end
+
+--------------------------------------------------------------------------
+-- BaseShell:isActive(): Are we active.
 
 function M.isActive(self)
    return self._active
 end
 
 
-function M.getMT(self)
-   local a    = {}
-   local mtSz = getenv("_ModuleTable_Sz_") or huge
-   local s    = nil
-
-   for i = 1, mtSz do
-      local name = format("_ModuleTable%03d_",i)
-      local v    = getenv(name)
-      if (v == nil) then break end
-      a[#a+1]    = v
-   end
-   if (#a > 0) then
-      s = decode64(concatTbl(a,""))
-   end
-   return s
-end
-
-local function valid_shell(shellTbl, shell_name)
-   if (not shellTbl[shell_name]) then
-      return shellTbl.bare
-   end
-   return shellTbl[shell_name]
-end
+--------------------------------------------------------------------------
+-- BaseShell:expand(): This base class function is what converts the
+--                     environment variables stored internally into
+--                     strings.  Each variable knows its type, so this
+--                     routine does a big switch on each type and calls
+--                     the derived shell class member function to do the
+--                     actual expansion to standard out (io.stdout).
 
 function M.expand(self, tbl)
    local dbg = Dbg:dbg()
@@ -139,6 +138,14 @@ function M.expand(self, tbl)
 
    dbg.fini("BaseShell:expand")
 end
+
+--------------------------------------------------------------------------
+-- BaseShell:expandMT():  This routine outputs the _ModuleTable_.  This
+--                        table is how Lmod knows its state.  It is a lua
+--                        table which is serialized into a string.  Then
+--                        this string is uuencode and broken up into
+--                        512 pieces.  This way the shell's little brain
+--                        won't be taxed to much.
 
 function M.expandMT(self, vstr)
    local dbg = Dbg:dbg()
@@ -182,6 +189,19 @@ function M.expandMT(self, vstr)
    dbg.fini("BaseShell:expandMT")
 end
 
+--------------------------------------------------------------------------
+-- valid_shell:  returns the valid shell name if it is in the shellTbl or
+--               bare otherwise.
+
+local function valid_shell(shellTbl, shell_name)
+   if (not shellTbl[shell_name]) then
+      return shellTbl.bare
+   end
+   return shellTbl[shell_name]
+end
+
+--------------------------------------------------------------------------
+-- BaseShell:build():  This is the factory that builds the derived shell.
 
 function M.build(shell_name)
 

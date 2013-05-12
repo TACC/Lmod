@@ -104,6 +104,9 @@ function M.setting(self)
    top.setCnt = top.setCnt + 1
 end
 
+--------------------------------------------------------------------------
+-- ModuleStack:push(): push current module information on stack.
+
 function M.push(self, full, usrName, sn, fn)
    local entry = {full = full, usrName = usrName, sn = sn, loadCnt = 0, setCnt = 0, fn= fn}
    local stack = self.stack
@@ -173,14 +176,18 @@ function M.sn(self)
 end
 
 --------------------------------------------------------------------------
--- ModuleStack:usrName(): return the module version for modulefile at
---                   the top of the stack.
+-- ModuleStack:usrName(): return the name specified by the user for
+--                        modulefile at the top of the stack.
+
 function M.usrName(self)
    local stack = self.stack
    local top   = stack[#stack]
    return top.usrName
 end
 
+--------------------------------------------------------------------------
+-- ModuleStack:version(): return the module version for modulefile at
+--                        the top of the stack.
 function M.version(self)
    local stack   = self.stack
    local top     = stack[#stack]

@@ -1,0 +1,91 @@
+Some notes that will eventually make it into an Lmod Archecture
+Document.
+
+* This document assumes that you know and understand the public interface to Lmod:
+By this I mean that you know what loading and unloading a module does.
+
+
+* Some basic statement about what Lmod does and how it does it.
+
+** At its core all Lmod is doing is managing a Key Value pair Hash table:
+
+The Lmod VarTbl variable contains the variables that have been changed
+by loading or unloading modules.  After all the user requests (such as
+loading the following modules) have been completed, Lmod walks the
+varTbl table and prints out to standard out any env. vars that have
+been changed.
+
+** The expansion of the varTbl is controlled by the shell.
+On the command line to lmod command is the shell name.  This name can
+be "bash", "csh" among others. That name is used to construct a
+derived shell objects that knows how to expand the key value pairs
+into the appropriate shell syntax.
+
+** The Module Table:
+
+Lmod needs to know what modules are loaded, their filenames, and other
+information.  This information is contained in a lua table.  To
+transfer this information between calls to Lmod, this table is
+converted to a string (which is a simple lua program).  This string is
+stored in the environment.  
+
+Lua tables in string form look like this:
+
+_ModuleTable_ = {
+  mT = {
+    PrgEnv = {
+      ["FN"] = "/opt/apps/modulefiles/Core/PrgEnv.lua",
+      ["default"] = 0,
+      ["fullName"] = "PrgEnv",
+      ["loadOrder"] = 15,
+      ["mType"] = "m",
+      propT = {
+      },
+      ["short"] = "PrgEnv",
+      ["status"] = "active",
+    },
+  },
+}
+
+This collection of quotes and brackets can cause any shell (but
+particularly csh) a host of problems when attempting to store this in
+a env. var.  So instead this is uuencoded and broken up into pieces.
+The first 512 characters are stored in _ModuleTable001_, second 512
+characters in _ModuleTable002_ and so forth.  The variable
+_ModuleTable_Sz_ contains the number of these variables.
+
+At the start of every Lmod command, it reads in the module table from
+the environment by reading in _ModuleTable_Sz_ and then reading in the
+appropriate number of the _ModuleTableXXX_ variables.  These are
+combined into a string that is uudecoded into a string.  This string
+is evaluate by the Lua interpreter to become the internal initial
+state of the module table.
+
+
+** MODULEPATH and LMOD_DEFAULT_MODULEPATH:
+
+The MODULEPATH variable contains a list of directories.  This list
+provides access to all the modules that a user can currently load.
+LMOD_DEFAULT_MODULEPATH contains a list of directories that contain
+"Core" modules.  The difference is that the "module spider" command
+uses LMOD_DEFAULT_MODULEPATH to walk the modulefiles to find all the
+modules. 
+
+The way this works is that the system administrators provide a list of
+one or more directories that contains "Core" modules.  At startup this
+is the value that MODULEPATH has.  Lmod knows that at startup time
+there is no initial value for the Module Table.  In this way, it uses
+MODULEPATH to initialize LMOD_DEFAULT_MODULEPATH.  Also the "module
+use " command adds to both MODULEPATH and LMOD_DEFAULT_MODULEPATH.
+
+The spider operation uses LMOD_DEFAULT_MODULEPATH to walk the
+modules.  When a compiler module changes MODULEPATH to provide access
+to compiler dependent modules, Lmod knows that those dependent modules
+are dependent on the compiler.  The action of changing the MODULEPATH
+is what signifies that dependency NOT that the compiler module
+anything special.  Lmod has no idea that any particular module is
+special.  It just knows that some modules change the MODULEPATH and
+that makes them special.
+
+** 
+

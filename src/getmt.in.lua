@@ -54,6 +54,7 @@ require("fileOps")
 require("serializeTbl")
 require("capture")
 require("myGlobals")
+require("utils")
 
 _ModuleTable_  = ""
 local posix    = require("posix")
@@ -66,54 +67,10 @@ local concat   = table.concat
 local decode64 = base64.decode64
 local format   = string.format
 local getenv   = os.getenv
-local huge     = math.huge
 local load     = (_VERSION == "Lua 5.1") and loadstring or load
 
 function cmdDir()
    return cmd_dir
-end
-function UUIDString(epoch)
-   local ymd  = os.date("*t", epoch)
-
-   --                                y    m    d    h    m    s
-   local uuid_date = string.format("%d_%02d_%02d_%02d_%02d_%02d",
-                                   ymd.year, ymd.month, ymd.day,
-                                   ymd.hour, ymd.min,   ymd.sec)
-
-   local uuid_str  = capture("uuidgen"):sub(1,-2)
-   local uuid      = uuid_date .. "-" .. uuid_str
-
-   return uuid
-end
-
-local function epoch()
-   if (posix.gettimeofday) then
-      local t1, t2 = posix.gettimeofday()
-      if (t2 == nil) then
-         return t1.sec + t1.usec*1.0e-6
-      else
-         return t1 + t2*1.0e-6
-      end
-   else
-      return os.time()
-   end
-end
-
-function getMT()
-   local a    = {}
-   local mtSz = getenv("_ModuleTable_Sz_") or huge
-   local s    = nil
-
-   for i = 1, mtSz do
-      local name = format("_ModuleTable%03d_",i)
-      local v    = getenv(name)
-      if (v == nil) then break end
-      a[#a+1]    = v
-   end
-   if (#a > 0) then
-      s = decode64(concat(a,""))
-   end
-   return s
 end
 
 function main()

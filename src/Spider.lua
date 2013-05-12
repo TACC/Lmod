@@ -36,7 +36,6 @@
 -- Spider.lua: This Class walks the MODULEPATH.
 --------------------------------------------------------------------------
 
-
 require("TermWidth")
 require("strict")
 require("string_split")

@@ -37,6 +37,38 @@ require("myGlobals")
 require("string_trim")
 require("fileOps")
 require("cmdfuncs")
+require("utils")
+
+
+--------------------------------------------------------------------------
+-- Cache: This class reads all the cache files in.  It will on occasion
+--        write a user cache file.  This is a singleton class.  
+--
+-- Rules: The rules about when to trust a cache file or not also when to
+--        write a cache file out in the user directory.
+--
+------------------------------------------------------------------------
+-->   0)  Cache files are trusted to know what module files are in the
+-->       MODULEPATH.  This means that if one adds a modulefile WITHOUT
+-->       updating the cache, LMOD DOES NOT KNOW ABOUT IT!!!.  This is
+-->       not a bug but a feature.
+------------------------------------------------------------------------
+--
+--    1)  A cache file can have a system timestamp associated with it.
+--        If it does then as long as the cache file is the same or newer
+--        then the timestamp then it is good forever.
+--    2)  A cache file without a timestamp is considered good for no more
+--        than "ancient" seconds old.  It is whatever was configured with
+--        Lmod. Typically "ancient" is 86400 seconds or 24 hours.
+--    3)  Modulefiles under system control can (should?) have a timestamp
+--        associated with but personal modulefiles typically do not.
+--    4)  Any PATH in MODULEPATH that are not covered by any modulefiles
+--        are walked.  If the time associated with building the cache file
+--        is short then no user cache file is written. Short is typically
+--        10 seconds and it is set at configure time.
+
+
+
 
 local Dbg     = require("Dbg")
 local M       = {}
@@ -47,18 +79,14 @@ local lfs     = require("lfs")
 local posix   = require("posix")
 local s_cache = false
 
-local function epoch()
-   if (posix.gettimeofday) then
-      local t1, t2 = posix.gettimeofday()
-      if (t2 == nil) then
-         return t1.sec + t1.usec*1.0e-6
-      else
-         return t1 + t2*1.0e-6
-      end
-   else
-      return os.time()
-   end
-end
+--------------------------------------------------------------------------
+-- new(): This singleton construct reads the scDescriptT table that can be
+--        defined in the .lmodrc.lua.  Typically this table, if it exists
+--        by the configure script.  If it does not then scDescriptT will
+--        be an array with zero entries.  This ctor finds all the system 
+--        and user directories where cache files are stored.  It also
+--        figure out the timestamps.
+
 
 local function new(self, t)
    local o = {}
@@ -125,6 +153,14 @@ local function new(self, t)
    return o
 end
 
+--------------------------------------------------------------------------
+-- Cache:cache(): This is the front-end to the singleton ctor.  It
+--                (obviously) constructs the static s_cache var once
+--                then serves s_cache to subsequent callers.  Since
+--                the MODULEPATH can change during execution, we set
+--                moduleDirT[path] to -1 for any we have not already
+--                processed.
+
 function M.cache(self, t)
    local dbg        = Dbg:dbg()
    dbg.start("Cache:cache()")
@@ -140,6 +176,9 @@ function M.cache(self, t)
      LmodError("The Env Variable: \"", DfltModPath, "\" is not set\n")
    end
 
+   -- Since this function can get called many time, we need to only recompute
+   -- Directories we have not yet seen
+
    local moduleDirT = s_cache.moduleDirT
    for path in baseMpath:split(":") do
       local attr = lfs.attributes(path) or {}
@@ -148,12 +187,14 @@ function M.cache(self, t)
       end
    end
 
-   -- Since this function can get called many time, we need to only recompute
-   -- Directories we have not yet seen
-
    dbg.fini("Cache:cache")
    return s_cache
 end
+
+--------------------------------------------------------------------------
+-- readCacheFile(): This routine finds and reads in a cache file.  If it
+--                  finds a cache file is simply does a "loadfile" on it
+--                  and updates moduleT and moduleDirT.
 
 local function readCacheFile(self, cacheFileA)
 
@@ -226,6 +267,36 @@ local function readCacheFile(self, cacheFileA)
    dbg.fini("Cache:readCacheFile")
    return dirsRead
 end
+
+--------------------------------------------------------------------------
+-- Cache:build(): This is the client code interface to getting the cache
+--                files.  It is also responsible for writing the user cache
+--                file if it takes to long to build the cache data.  If the
+--                data already exists from previous calls then it just
+--                re-used.  If there are any directories that are not known
+--                then this function call on Spider:findAllModules() to build
+--                the cache data that is not known.
+--
+--                If the time to rebuild the cache is quick (time < short) then
+--                the build time is recorded in the ModuleTable.  That way if
+--                it is quick, Lmod will report that it is rebuilding the spider
+--                cache the first time but not any other times during a login
+--                session.
+--
+--                There is a hook function "writeCache" that gets called.
+--                There may be times when the cache file should never be written.
+--                For example, if you have a build machine where packages
+--                and modulefiles are being generated at random times then
+--                the cache file could be out-of-date.  So instead of trying
+--                to rebuild the cache file every second, just do not write it
+--                and live with slightly slower response time from Lmod.
+
+--                The "fast" option.  Lmod starts up in "fast" mode.
+--                This mode means that Lmod will try to read any cache files
+--                if it finds none, it doesn't try to build them, instead
+--                Lmod will walk only the directories in MODULEPATH and not
+--                spider everything.
+
 
 function M.build(self, fast)
    local dbg = Dbg:dbg()

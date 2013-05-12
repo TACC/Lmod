@@ -32,6 +32,10 @@
 --
 --------------------------------------------------------------------------
 
+--------------------------------------------------------------------------
+-- Bash:  This is a derived class from BaseShell.  This classes knows how
+--        to expand the environment variable into bash syntax.
+
 
 require("strict")
 
@@ -44,6 +48,10 @@ local Var         = require("Var")
 local concatTbl   = table.concat
 local stdout      = io.stdout
 
+--------------------------------------------------------------------------
+-- Bash:alias(): Either define or undefine a bash shell alias.
+
+
 function Bash.alias(self, k, v)
    local dbg = Dbg:dbg()
    if (v == "") then
@@ -54,6 +62,9 @@ function Bash.alias(self, k, v)
       dbg.print(   "alias ",k,"=\"",v,"\";\n")
    end
 end
+
+--------------------------------------------------------------------------
+-- Bash:shellFunc(): Either define or undefine a bash shell function
 
 function Bash.shellFunc(self, k, v)
    local dbg = Dbg:dbg()
@@ -66,6 +77,10 @@ function Bash.shellFunc(self, k, v)
    end
 end
 
+
+--------------------------------------------------------------------------
+-- Bash:expandVar(): Define either a global or local variable in bash
+--                   syntax
 
 function Bash.expandVar(self, k, v, vType)
    local dbg = Dbg:dbg()
@@ -85,6 +100,9 @@ function Bash.expandVar(self, k, v, vType)
    stdout:write(line)
    dbg.print(   line)
 end
+
+--------------------------------------------------------------------------
+-- Bash:unset() unset an environment variable.
 
 function Bash.unset(self, k, vType)
    local dbg = Dbg:dbg()

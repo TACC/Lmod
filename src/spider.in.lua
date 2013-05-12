@@ -125,19 +125,6 @@ local function add2map(entry, tbl, rmapT, kind)
    end
 end
 
-function epoch()
-   if (posix.gettimeofday) then
-      local t1, t2 = posix.gettimeofday()
-      if (t2 == nil) then
-         return t1.sec + t1.usec*1.0e-6
-      else
-         return t1 + t2*1.0e-6
-      end
-   else
-      return os.time()
-   end
-end
-
 function main()
 
    options()

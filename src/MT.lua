@@ -50,6 +50,7 @@ require("fileOps")
 require("serializeTbl")
 require("parseVersion")
 require("deepcopy")
+require("utils")
 
 local Var          = require('Var')
 local lfs          = require('lfs')
@@ -431,7 +432,7 @@ function M.mt(self)
       local dbg  = Dbg:dbg()
       dbg.start("mt()")
       local shell        = systemG.Master:master().shell
-      s_mt               = new(self, shell:getMT())
+      s_mt               = new(self, getMT())
       s_mtA[#s_mtA+1]    = s_mt
       dbg.print("Original s_mtA[",#s_mtA,"]: ",tostring(s_mtA[#s_mtA]),"\n")
       M.cloneMT(self)   -- Save original MT in stack
