@@ -326,6 +326,7 @@ function M.build(self, fast)
 
    local dirsRead = sysDirsRead + usrDirsRead
    if (dirsRead == 0 and fast) then
+      dbg.print("Fast and dirsRead: ",dirsRead,"\n")
       dbg.fini("Cache:build")
       return nil
    end
