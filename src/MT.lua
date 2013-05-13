@@ -349,6 +349,8 @@ local function new(self, s)
       end
 
       varTbl[DfltModPath] = Var:new(DfltModPath, baseMpath)
+      dbg.print("buildBaseMpathA(",baseMpath,")\n")
+      o:buildBaseMpathA(baseMpath)
    end
    o.inactive         = {}
 
@@ -569,8 +571,9 @@ function M.getMTfromFile(self,fn, msg)
 
 
    posix.setenv(self:name(),"",true)
-   setupMPATH(s_mt, mpath)
+   --setupMPATH(s_mt, mpath)
    s_mt:buildBaseMpathA(savedBaseMPATH)
+   setupMPATH(s_mt, savedBaseMPATH)
    varTbl[DfltModPath] = Var:new(DfltModPath,savedBaseMPATH)
 
    dbg.print("(3) varTbl[ModulePath]:expand(): ",varTbl[ModulePath]:expand(),"\n")

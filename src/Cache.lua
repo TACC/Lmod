@@ -184,6 +184,7 @@ function M.cache(self, t)
       local attr = lfs.attributes(path) or {}
       if (attr.mode == "directory") then
          moduleDirT[path] = moduleDirT[path] or -1
+         dbg.print("moduleDirT[",path,"]: ",moduleDirT[path], "\n")
       end
    end
 
@@ -316,8 +317,10 @@ function M.build(self, fast)
    local moduleDirT  = self.moduleDirT
    local usrDirsRead = readCacheFile(self, self.usrCacheDirA)
 
-   local dirA = {}
+   local dirA   = {}
+   local numMDT = 0
    for k, v in pairs(moduleDirT) do
+      numMDT = numMDT + 1
       if (v <= 0) then
          dbg.print("rebuilding cache for directory: ",k,"\n")
          dirA[#dirA+1] = k
@@ -325,7 +328,7 @@ function M.build(self, fast)
    end
 
    local dirsRead = sysDirsRead + usrDirsRead
-   if (dirsRead == 0 and fast) then
+   if (dirsRead == 0 and fast and numMDT == #dirA) then
       dbg.print("Fast and dirsRead: ",dirsRead,"\n")
       dbg.fini("Cache:build")
       return nil
