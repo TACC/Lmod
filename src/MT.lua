@@ -400,11 +400,11 @@ end
 
 
 function M.getRebuildTime(self)
-   return s_mt.c_rebuildTime
+   return self.c_rebuildTime
 end
 
 function M.getShortTime(self)
-   return s_mt.c_shortTime
+   return self.c_shortTime
 end
 
 function M.setRebuildTime(self, long, short)
