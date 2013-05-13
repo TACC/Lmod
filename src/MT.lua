@@ -559,7 +559,10 @@ function M.getMTfromFile(self,fn, msg)
    -- Clear MT and load modules from saved modules stored in
    -- "t" from above.
    local sbMP = self.systemBaseMPATH
+   dbg.print("mt (self): ", tostring(self), "\n")
    s_mt = new(self,nil)
+   dbg.print("s_mt: ", tostring(s_mt), "\n")
+
 
    ------------------------------------------------------------
    -- This is a hack.  The system base MODULEPATH is set when
