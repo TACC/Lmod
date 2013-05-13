@@ -462,6 +462,13 @@ function M.cloneMT()
    dbg.fini("MT.cloneMT")
 end
 
+function M.pushMT(self)
+   local dbg = Dbg:dbg()
+   dbg.start("MT.pushMT()")
+   s_mtA[#s_mtA+1] = self
+   dbg.fini("MT.pushMT")
+end
+
 function M.popMT()
    local dbg = Dbg:dbg()
    dbg.start("MT.popMT()")
@@ -561,8 +568,8 @@ function M.getMTfromFile(self,fn, msg)
    local sbMP = self.systemBaseMPATH
    dbg.print("mt (self): ", tostring(self), "\n")
    s_mt = new(self,nil)
-   dbg.print("s_mt: ", tostring(s_mt), "\n")
-
+   dbg.print("(1) s_mt: ", tostring(s_mt), "\n")
+   s_mt:pushMT()
 
    ------------------------------------------------------------
    -- This is a hack.  The system base MODULEPATH is set when
@@ -578,7 +585,6 @@ function M.getMTfromFile(self,fn, msg)
 
 
    posix.setenv(self:name(),"",true)
-   --setupMPATH(s_mt, mpath)
    s_mt:buildBaseMpathA(savedBaseMPATH)
    setupMPATH(s_mt, savedBaseMPATH)
    varTbl[DfltModPath] = Var:new(DfltModPath,savedBaseMPATH)
