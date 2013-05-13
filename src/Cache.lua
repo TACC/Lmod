@@ -340,6 +340,7 @@ function M.build(self, fast)
    local moduleT       = self.moduleT
    dbg.print("buildModuleT: ",buildModuleT,"\n")
 
+   dbg.print("mt: ", tostring(mt), "\n")
 
    local short    = mt:getShortTime()
    if (not buildModuleT) then
@@ -421,6 +422,7 @@ function M.build(self, fast)
          local ancient2 = math.min(buildT * 120, ancient)
 
          mt:setRebuildTime(ancient2, buildT)
+         dbg.print("mt: ", tostring(mt), "\n")
       end
       dbg.print("Transfer from userModuleT to moduleT\n")
       for k, v in pairs(userModuleT) do
