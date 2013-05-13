@@ -406,6 +406,7 @@ function M.build(self, fast)
             newShortTime = short
          end
          mt:setRebuildTime(ancient, newShortTime)
+         dbg.print("mt: ", tostring(mt), "\n")
       else
          mkdir_recursive(self.usrCacheDir)
          local s0 = "-- Date: " .. os.date("%c",os.time()) .. "\n"
