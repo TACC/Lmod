@@ -458,6 +458,7 @@ function M.cloneMT()
    s_mtA[#s_mtA+1] = mt
    s_mt = mt
    dbg.print("Now using s_mtA[",#s_mtA,"]: ",tostring(s_mt),"\n")
+   dbg.print("s_mt.shortTime: ",s_mt.shortTime,"\n")
    dbg.fini("MT.cloneMT")
 end
 
@@ -466,6 +467,7 @@ function M.popMT()
    dbg.start("MT.popMT()")
    s_mt = s_mtA[#s_mtA-1]
    dbg.print("Now using s_mtA[",#s_mtA-1,"]: ",tostring(s_mt),"\n")
+   dbg.print("s_mt.shortTime: ",s_mt.shortTime,"\n")
 
    s_mtA[#s_mtA] = nil    -- mark for garage collection
 
@@ -476,6 +478,7 @@ function M.origMT()
    local dbg = Dbg:dbg()
    dbg.start("MT.origMT()")
    dbg.print("Original s_mtA[1]: ",tostring(s_mtA[1]),"\n")
+   dbg.print("s_mtA[1].shortTime: ",s_mtA[1].shortTime,"\n")
    dbg.fini("MT.origMT")
    return s_mtA[1]
 end
