@@ -465,9 +465,10 @@ end
 function M.popMT()
    local dbg = Dbg:dbg()
    dbg.start("MT.popMT()")
+   dbg.print("(1)s_mt.shortTime: ",s_mt.shortTime,"\n")
    s_mt = s_mtA[#s_mtA-1]
    dbg.print("Now using s_mtA[",#s_mtA-1,"]: ",tostring(s_mt),"\n")
-   dbg.print("s_mt.shortTime: ",s_mt.shortTime,"\n")
+   dbg.print("(2)s_mt.shortTime: ",s_mt.shortTime,"\n")
 
    s_mtA[#s_mtA] = nil    -- mark for garage collection
 
