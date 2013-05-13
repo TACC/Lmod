@@ -1,5 +1,8 @@
 #!@path_to_lua@/lua
 -- -*- lua -*-
+
+require("strict")
+
 --------------------------------------------------------------------------
 -- Lmod License
 --------------------------------------------------------------------------
@@ -49,7 +52,10 @@ end
 package.path = cmd_dir .. "tools/?.lua;" ..
                cmd_dir .. "?.lua;"       .. package.path
 
-require("strict")
+function cmdDir()
+   return cmd_dir
+end
+
 require("fileOps")
 require("serializeTbl")
 require("capture")
@@ -68,10 +74,6 @@ local decode64 = base64.decode64
 local format   = string.format
 local getenv   = os.getenv
 local load     = (_VERSION == "Lua 5.1") and loadstring or load
-
-function cmdDir()
-   return cmd_dir
-end
 
 function main()
 
