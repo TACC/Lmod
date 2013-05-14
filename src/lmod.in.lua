@@ -119,11 +119,12 @@ Cache  = require("Cache")
 Master = require("Master")
 MT     = require("MT")
 
-local Dbg       = require("Dbg")
-local MName     = require("MName")
-local Version   = require("Version")
-local concatTbl = table.concat
-local unpack    = unpack or table.unpack
+local BeautifulTbl = require('BeautifulTbl')
+local Dbg          = require("Dbg")
+local MName        = require("MName")
+local Version      = require("Version")
+local concatTbl    = table.concat
+local unpack       = unpack or table.unpack
 
 function set_duplication()
    local dbg  = Dbg:dbg()
@@ -186,113 +187,210 @@ function colorizePropA(style, moduleName, propT, legendT)
 
 end
 
+
+s_Usage = false
+
+function Usage()
+   if (s_Usage) then
+      return s_Usage
+   end
+   local website = colorize("red","http://www.tacc.utexas.edu/tacc-projects/lmod")
+   local line    = border(0)
+   local a = {}
+   a[#a+1] = { "module [options] sub-command [args ...]" }
+   a[#a+1] = { "" }
+   a[#a+1] = { "Help sub-commands:" }
+   a[#a+1] = { "------------------" }
+   a[#a+1] = { "  help", "",            "prints this message"}
+   a[#a+1] = { "  help", "module [...]","print help message from module(s)"}
+   a[#a+1] = { "" }
+   a[#a+1] = { "Loading/Unloading sub-commands:" }
+   a[#a+1] = { "-------------------------------" }
+   a[#a+1] = { "  load | add",         "module [...]",  "load module(s)"}
+   a[#a+1] = { "  try-load | try-add", "module [...]",  "Add module(s), do not complain if not found"}
+   a[#a+1] = { "  del | unload",       "module [...]",  "Remove module(s), do not complain if not found"}
+   a[#a+1] = { "  swap | sw | switch", "m1 m2",         "unload m1 and load m2" }
+   a[#a+1] = { "  purge",              "",              "unload all modules"}
+   a[#a+1] = { "  refresh",            "",              "reload aliases from current list of modules."}
+   a[#a+1] = { "" }
+   a[#a+1] = { "Listing / Searching sub-commands:" }
+   a[#a+1] = { "---------------------------------" }
+   a[#a+1] = { "  list",         "",             "List loaded modules"}
+   a[#a+1] = { "  list",         "s1 s2 ...",    "List loaded modules that match the pattern"}
+   a[#a+1] = { "  avail | av",   "",             "List available modules"}
+   a[#a+1] = { "  avail | av",   "string",       "List available modules that contain \"string\"."}
+   a[#a+1] = { "  spider",       "",             "List all possible modules"}
+   a[#a+1] = { "  spider",       "module",       "List all possible version of that module file"}
+   a[#a+1] = { "  spider",       "string",       "List all module that contain the \"string\"."}
+   a[#a+1] = { "  spider",       "name/version", "Detailed information about that version of the module."}
+   a[#a+1] = { "  whatis",       "module",       "Print whatis information about module"}
+   a[#a+1] = { "  keyword | key","string",       "Search all name and whatis that contain \"string\"."}
+   a[#a+1] = { "" }
+   a[#a+1] = { "Searching with Lmod:"}
+   a[#a+1] = { "--------------------" }
+   a[#a+1] = { "  All searching (spider, list, avail, keyword) support regular expressions:"}
+   a[#a+1] = { "" }
+   a[#a+1] = { "  spider", "'^p'",  "Finds all the modules that start with `p' or `P'"}
+   a[#a+1] = { "  spider", "mpi",   "Finds all modules that have \"mpi\" in their name."}
+   a[#a+1] = { "  spider", "'mpi$", "Finds all modules that end with \"mpi\" in their name."}
+   a[#a+1] = { "" }
+   a[#a+1] = { "Handling a collection of modules:"}
+   a[#a+1] = { "--------------------------------" }
+   a[#a+1] = { "  save | s",    "",       "Save the current list of modules to a user defined \"default\"."}
+   a[#a+1] = { "  save | s",    "name",   "Save the current list of modules to \"name\" collection."}
+   a[#a+1] = { "  restore | r", "",       "Restore modules from the user's \"default\" or system default."}
+   a[#a+1] = { "  restore | r", "name",   "Restore modules from \"name\" collection."}
+   a[#a+1] = { "  restore",     "system", "Restore module state to system defaults."}
+   a[#a+1] = { "  savelist",    "",       "List of saved collections."}
+   a[#a+1] = { "" }
+   a[#a+1] = { "Deprecated commands:"}
+   a[#a+1] = { "--------------------"}
+   a[#a+1] = { "  reset",     "",        "The same as \"restore system\""}
+   a[#a+1] = { "  getdefault", "[name]", "load name collection of modules or "..
+                                         "user's \"default\" if no name given."}
+   a[#a+1] = { "",            "",        "===> Use \"restore\" instead  <===="}
+   a[#a+1] = { "  setdefault","[name]",  "Save current list of modules to name if given, "..
+                                         "otherwise save as the default list for you the user."}
+   a[#a+1] = { "",            "",        "===> Use \"save\" instead. <===="}
+   a[#a+1] = { "" }
+   a[#a+1] = { "Miscellaneous sub-commands:"}
+   a[#a+1] = { "---------------------------"}
+   a[#a+1] = { "  show",     "modulefile", "show the commands in the module file."}
+   a[#a+1] = { "  use [-a]", "path",       "Prepend or Append path to MODULEPATH."}
+   a[#a+1] = { "  unuse",    "path",       "remove path from MODULEPATH."}
+   a[#a+1] = { "  tablelist","",           "output list of active modules as a lua table."}
+   a[#a+1] = { "" }
+   a[#a+1] = { "Important Environment Variables:"}
+   a[#a+1] = { "--------------------------------"}
+   a[#a+1] = { "  LMOD_COLORIZE", "", "If defined to be \"YES\" then Lmod prints "..
+                                      "properties and warning in color."}
+   a[#a+1] = { "" }
+   a[#a+1] = { line}
+   a[#a+1] = { "For more documentation see "..website}
+   a[#a+1] = { line }
+   a[#a+1] = { "  User Guide                 - How to use."}
+   a[#a+1] = { "  Advance User Guide         - How to create you own modules."}
+   a[#a+1] = { "  System Administrator Guide - If you want to install it on your own system."}
+
+
+   local dbg    = Dbg:dbg()
+   local twidth = TermWidth()
+   dbg.print("twidth: ",twidth,"\n")
+   local bt     = BeautifulTbl:new{tbl=a, column = twidth-1, len = length, wrapped=true}
+   s_Usage      = bt:build_tbl()
+
+   return s_Usage
+end
+
+
+
 CmdLineUsage = "module [options] sub-command [args ...]"
 
-Usage = [[
-module sub-command [args ...]
-
-Help sub-commands:
-  help                                   prints this message
-  help               modulefile [...]    print help message from module(s)
-
-Loading/Unloading sub-commands:
-  add | load         modulefile [...]    Add module(s)
-  try-load | try-add modulefile [...]    Add module(s), do not complain if
-                                         not found
-  del | rm | unload  modulefile [...]    Remove module(s), do not complain
-                                         if not found
-  swap | sw | switch modfile1 modfile2   unload modfile1 and load modfile2
-  purge                                  unload all modules
-  refresh                                reload aliases from current list of
-                                         modules.
-
-Listing / Searching sub-commands:
-  list                                   List loaded modules
-  list             s1 s2 ...             List loaded modules that match the s1
-                                         pattern or the s2 pattern etc.
-  avail | av                             List available modules
-  avail | av       string                List available modules that contain
-                                         "string".
-  spider                                 List all possible modules
-  spider           modulefile            List all possible version of that
-                                         module file
-  spider           string                List all module that contain the
-                                         string.
-  spider           modulefile/version    Detailed information about that
-                                         version of the module
-  whatis           modulefile            print whatis information about module
-  keyword | key    string                search all name and whatis that contain
-                                         "string".
-
-
-Searching with Lmod:
-  All searching (spider, list, avail, keyword) support regular expressions:
-
-  spider        '^p'                     finds all the modules that start
-                                         with `p' or `P'
-
-  spider        mpi                      finds all modules that have "mpi"
-                                         in their name.
-  spider        'mpi$"                   file all modules that end with "mpi"
-                                         in their name.
-
-Handling a collection of modules:
-  save       | s | sd                    Save the current list of modules
-                                         to a user defined "default".
-  save name  | s name                    Save the current list of modules
-                                         to "name" collection.
-
-  restore                                Restore modules from the user's
-                                         "default" or system default.
-
-  restore  name | r name                 Restore modules from "name"
-                                         collection.
-
-  restore  system                        restore module state to system
-                                         defaults.
-
-
-  savelist                               list of saved collections.
-
-
-Deprecated commands
-   reset                                 The same as "restore system"
-   getdefault [name]                     load name collection of modules or
-                                         user's "default" if no name given.
-                                         ===> Use "restore" instead  <====
-
-   setdefault [name]                     Save current list of modules to
-                                         name if given, otherwise save as the
-                                         default list for you the user.
-                                         ===> Use "save" instead. <====
-
-
-Miscellaneous sub-commands:
-  record                                 save the module table.
-  show                modulefile         show the commands in the module file.
-  use [-a] [--append] path               Prepend or Append path to MODULEPATH
-  unuse path                             remove path from MODULEPATH
-  tablelist                              output list of active modules as a
-                                         lua table.
-
-Important Environment Variables:
-  LMOD_COLORIZE                          If defined to be "YES" then Lmod
-                                         prints properties and warning in color.
-
-----------------------------------------------------------------------------------
-See:
-
-   http://www.tacc.utexas.edu/tacc-projects/mclay/lmod
-
-for complete documentation. It contains:
-
-   User Guide                  - How to use.
-   Advance User Guide          - How to create you own modules.
-   System Administrator Guide  - If you want to install it on your own system.
-
-----------------------------------------------------------------------------------
-]]
-
+--Usage = [[
+--module sub-command [args ...]
+--
+--Help sub-commands:
+--  help                                   prints this message
+--  help               modulefile [...]    print help message from module(s)
+--
+--Loading/Unloading sub-commands:
+--  add | load         modulefile [...]    Add module(s)
+--  try-load | try-add modulefile [...]    Add module(s), do not complain if
+--                                         not found
+--  del | rm | unload  modulefile [...]    Remove module(s), do not complain
+--                                         if not found
+--  swap | sw | switch modfile1 modfile2   unload modfile1 and load modfile2
+--  purge                                  unload all modules
+--  refresh                                reload aliases from current list of
+--                                         modules.
+--
+--Listing / Searching sub-commands:
+--  list                                   List loaded modules
+--  list             s1 s2 ...             List loaded modules that match the s1
+--                                         pattern or the s2 pattern etc.
+--  avail | av                             List available modules
+--  avail | av       string                List available modules that contain
+--                                         "string".
+--  spider                                 List all possible modules
+--  spider           modulefile            List all possible version of that
+--                                         module file
+--  spider           string                List all module that contain the
+--                                         string.
+--  spider           modulefile/version    Detailed information about that
+--                                         version of the module
+--  whatis           modulefile            print whatis information about module
+--  keyword | key    string                search all name and whatis that contain
+--                                         "string".
+--
+--
+--Searching with Lmod:
+--  All searching (spider, list, avail, keyword) support regular expressions:
+--
+--  spider        '^p'                     finds all the modules that start
+--                                         with `p' or `P'
+--
+--  spider        mpi                      finds all modules that have "mpi"
+--                                         in their name.
+--  spider        'mpi$"                   file all modules that end with "mpi"
+--                                         in their name.
+--
+--Handling a collection of modules:
+--  save       | s | sd                    Save the current list of modules
+--                                         to a user defined "default".
+--  save name  | s name                    Save the current list of modules
+--                                         to "name" collection.
+--
+--  restore                                Restore modules from the user's
+--                                         "default" or system default.
+--
+--  restore  name | r name                 Restore modules from "name"
+--                                         collection.
+--
+--  restore  system                        restore module state to system
+--                                         defaults.
+--
+--
+--  savelist                               list of saved collections.
+--
+--
+--Deprecated commands
+--   reset                                 The same as "restore system"
+--   getdefault [name]                     load name collection of modules or
+--                                         user's "default" if no name given.
+--                                         ===> Use "restore" instead  <====
+--
+--   setdefault [name]                     Save current list of modules to
+--                                         name if given, otherwise save as the
+--                                         default list for you the user.
+--                                         ===> Use "save" instead. <====
+--
+--
+--Miscellaneous sub-commands:
+--  record                                 save the module table.
+--  show                modulefile         show the commands in the module file.
+--  use [-a] [--append] path               Prepend or Append path to MODULEPATH
+--  unuse path                             remove path from MODULEPATH
+--  tablelist                              output list of active modules as a
+--                                         lua table.
+--
+--Important Environment Variables:
+--  LMOD_COLORIZE                          If defined to be "YES" then Lmod
+--                                         prints properties and warning in color.
+--
+------------------------------------------------------------------------------------
+--See:
+--
+--   http://www.tacc.utexas.edu/tacc-projects/mclay/lmod
+--
+--for complete documentation. It contains:
+--
+--   User Guide                  - How to use.
+--   Advance User Guide          - How to create you own modules.
+--   System Administrator Guide  - If you want to install it on your own system.
+--
+------------------------------------------------------------------------------------
+--]]
+--
 
 function version()
    local v = {}
@@ -478,6 +576,7 @@ function main()
    end
    dbg.start("lmod(", arg_str,")")
    dbg.print("Lmod Version: ",Version.name(),"\n")
+   dbg.print("package.path: ",package.path,"\n")
    set_duplication()     -- Chose how to handle duplicate entries in a path.
 
 
@@ -490,7 +589,6 @@ function main()
    ------------------------------------------------------------------------
    -- Load a SitePackage Module.
    ------------------------------------------------------------------------
-
 
    local lmodPath = os.getenv("LMOD_PACKAGE_PATH") or ""
    for path in lmodPath:split(":") do
@@ -552,7 +650,7 @@ function main()
 
    if (cmdTbl[cmdName] == nil) then
       io.stderr:write(version())
-      io.stderr:write(Usage,"\n")
+      io.stderr:write(Usage(),"\n")
       LmodErrorExit()
    end
 

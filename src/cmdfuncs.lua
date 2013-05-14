@@ -68,7 +68,7 @@ local function Access(mode, ...)
 
    local n = select('#',...)
    if (n < 1) then
-      pcall(pager, io.stderr, masterTbl.cmdHelpMsg, "\n", Usage, "\n",
+      pcall(pager, io.stderr, masterTbl.cmdHelpMsg, "\n", Usage(), "\n",
             version())
       os.exit(1)
    end

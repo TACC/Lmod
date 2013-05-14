@@ -39,6 +39,7 @@ require("string_split")
 local Dbg          = require("Dbg")
 local concatTbl	   = table.concat
 local max	   = math.max
+local min	   = math.min
 local strlen       = string.len
 local stdout       = io.stdout
 
@@ -64,7 +65,6 @@ function M.new(self, t)
    self.__index  = self
 
    o.length   = o.len or strlen
-   prt        = t.prt or prt
    o.justifyT = t.justifyT or {}
    o.tbl      = o:__build_tbl(tbl)
    o.column   = o.column  or 0
@@ -73,17 +73,20 @@ function M.new(self, t)
 end
 
 function M.build_tbl(self)
-   local dbg    = Dbg:dbg()
-   --dbg.start("BeautifulTbl:build_tbl()")
+   --local dbg    = Dbg:dbg()
+   --dbg.start("BeautifulTbl:build_tbl(RTM)")
    local length = self.length
    
-   local width = 0
+   local width  = 0
+   local colgap = self.gap
    local simple = true
    if (self.wrapped and self.column > 0) then
       for i = 1, #self.columnCnt-1 do
-         width = width + self.columnCnt[i]
+         width = width + self.columnCnt[i] + colgap
       end
       local last = self.columnCnt[#self.columnCnt]
+      --dbg.print("width: ",width," last: ", last, " column: ",self.column,"\n")
+
       simple = (width > self.column-20) or (width + last < self.column)
    end
 
@@ -96,51 +99,59 @@ function M.build_tbl(self)
       return nil
    end
 
-   --dbg.print("simple: ",simple,"\n")
 
    if (simple) then
+      --dbg.print("simple: ",simple,"\n")
       for j = 1,#tt do
          local t = tt[j]
          t[#t] = t[#t]:gsub("%s+$","")
          a[j]  = concatTbl(t,"")
       end
+      --dbg.fini("BeautifulTbl:build_tbl")
       return concatTbl(a,"\n")
    end
 
    self.column = self.column - 1
    local gap   = self.column - width
-   local fill  = string.rep(" ",width+self.gap*(#self.columnCnt-1))
+   local fill  = string.rep(" ",width)
 
    --dbg.print("column: ",self.column,", gap: ",gap,"\n")
 
    -- printing a wrapped last column
+   local maxnc  = self.maxnc
+   local maxnc1 = maxnc - 1
    for j = 1, #tt do
-      local aa = {}
-      local t = tt[j]
-      for i = 1, #t-1 do
+      local aa  = {}
+      local t   = tt[j]
+      local nc  = #t
+      local nc1 = min(nc, maxnc1)
+      
+      for i = 1, nc1 do
          aa[#aa+1] = t[i]
       end
 
-      local icnt = width
-      local s = t[#t] or ""
-      for w in s:split("%s+") do
-         local wlen = length(w)+1
-         if (w == "") then
-            wlen = 0
-         elseif (icnt + wlen < self.column or wlen > gap) then
-            aa[#aa+1] = w .. " "
-         else
-            aa[#aa]   = aa[#aa]:gsub("%s+$","")
-            aa[#aa+1] = "\n"
-            a[#a + 1] = concatTbl(aa,"")
-            aa        = {}
-            aa[1]     = fill
-            icnt      = width
-            aa[2]     = w .. " "
+      if (nc == maxnc) then
+         local icnt = width
+         local s = t[#t] or ""
+         for w in s:split("%s+") do
+            local wlen = length(w)+1
+            if (w == "") then
+               wlen = 0
+            elseif (icnt + wlen < self.column or wlen > gap) then
+               aa[#aa+1] = w .. " "
+            else
+               aa[#aa]   = aa[#aa]:gsub("%s+$","")
+               aa[#aa+1] = "\n"
+               a[#a + 1] = concatTbl(aa,"")
+               aa        = {}
+               aa[1]     = fill
+               icnt      = width
+               aa[2]     = w .. " "
+            end
+            icnt = icnt + wlen
          end
-         icnt = icnt + wlen
       end
-      aa[#aa]   = aa[#aa]:gsub("%s+$","")
+      aa[#aa]   = (aa[#aa] or ""):gsub("%s+$","")
       aa[#aa+1] = "\n"
       a[#a + 1] = concatTbl(aa,"")
    end
@@ -155,20 +166,23 @@ function M.__build_tbl(self,tblIn)
 
    local length    = self.length
    local columnCnt = {}
-   local maxnc     = 1
    local tbl       = {}
-   local icol,irow
    local justifyT  = {}
 
-   for _,a  in ipairs(tblIn) do
-      icol = 0
-      for _, v in ipairs(a) do
-	 icol = icol + 1
-	 columnCnt[icol] = max(length(v), columnCnt[icol] or 0)
+
+   for irow = 1, #tblIn do
+      local a    = tblIn[irow]
+      local numC = #a
+      for icol = 1, numC do
+         local v = a[icol]
+         if (numC > 1) then
+            columnCnt[icol] = max(length(v), columnCnt[icol] or 0)
+         end
       end
    end
 
-   maxnc = #columnCnt
+   local maxnc = #columnCnt
+   self.maxnc  = maxnc
    for icol = 1, maxnc do
       local s             = (self.justifyT[icol] or ""):lower():sub(1,1)
       justifyT[icol]      = (s == "r") and "r" or "l"
@@ -177,20 +191,25 @@ function M.__build_tbl(self,tblIn)
 
    local gap = self.gap
 
-   for _,a  in ipairs(tblIn) do
-      icol = 0
-      irow = #tbl+1
-      tbl[irow] = {}
+   for irow = 1, #tblIn do
+      local a    = tblIn[irow]
+      local numC = #a
+      local b    = {}
+      
 
-      for _,v in ipairs(a) do
-         v = tostring(v)
-	 icol = icol + 1
-         local nspaces = columnCnt[icol] - length(v)
-         if (justifyT[icol] == "l") then
-            tbl[irow][icol] = v .. blank:rep(nspaces+gap)
+      for icol = 1, #a do
+         local v = tostring(a[icol])
+         if (numC == 1) then
+            b[icol] = v
          else
-            tbl[irow][icol] = blank:rep(nspaces) .. v .. blank:rep(gap)
+            local nspaces = columnCnt[icol] - length(v)
+            if (justifyT[icol] == "l") then
+               b[icol] = v .. blank:rep(nspaces+gap)
+            else
+               b[icol] = blank:rep(nspaces) .. v .. blank:rep(gap)
+            end
          end
+         tbl[irow] = b
       end
    end
 
