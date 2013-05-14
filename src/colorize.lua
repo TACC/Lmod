@@ -33,6 +33,17 @@
 --------------------------------------------------------------------------
 
 require("strict")
+
+------------------------------------------------------------------------
+-- Colorize functions:  The full_colorize() function takes an array of
+--                      strings and wraps the ANSI color start and
+--                      stop and produces a single string.
+--
+-- plain() is there when users or writing to a file. The point is that
+--         there is no colorization added to the string.
+--                        
+
+
 Foreground = "\027".."[1;"
 colorT =
    {

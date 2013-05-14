@@ -784,7 +784,7 @@ function Use(...)
       end
    end
    mt:buildBaseMpathA(varTbl[DfltModPath]:expand())
-   mt:reloadAllModules()
+   --mt:reloadAllModules()
    dbg.fini("Use")
 end
 
