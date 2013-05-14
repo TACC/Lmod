@@ -36,13 +36,11 @@
 
 require("strict")
 require("string_split")
-require("string_trim")
 local Dbg          = require("Dbg")
 local concatTbl	   = table.concat
 local max	   = math.max
 local strlen       = string.len
 local stdout       = io.stdout
-
 
 local M = { gap = 2}
 
@@ -67,6 +65,7 @@ function M.new(self, t)
 
    o.length   = o.len or strlen
    prt        = t.prt or prt
+   o.justifyT = t.justifyT or {}
    o.tbl      = o:__build_tbl(tbl)
    o.column   = o.column  or 0
    o.wrapped  = o.wrapped or false
@@ -77,7 +76,7 @@ function M.build_tbl(self)
    local dbg    = Dbg:dbg()
    --dbg.start("BeautifulTbl:build_tbl()")
    local length = self.length
-
+   
    local width = 0
    local simple = true
    if (self.wrapped and self.column > 0) then
@@ -101,12 +100,9 @@ function M.build_tbl(self)
 
    if (simple) then
       for j = 1,#tt do
-         local aa = {}
          local t = tt[j]
-         for i = 1,#t do
-            aa[#aa + 1] = t[i]
-         end
-         a[#a + 1] = concatTbl(aa,"")
+         t[#t] = t[#t]:gsub("%s+$","")
+         a[j]  = concatTbl(t,"")
       end
       return concatTbl(a,"\n")
    end
@@ -129,21 +125,23 @@ function M.build_tbl(self)
       local s = t[#t] or ""
       for w in s:split("%s+") do
          local wlen = length(w)+1
-         if (icnt + wlen < self.column or wlen > gap) then
+         if (w == "") then
+            wlen = 0
+         elseif (icnt + wlen < self.column or wlen > gap) then
             aa[#aa+1] = w .. " "
          else
-            aa[#aa]   = aa[#aa]:trim()
-            aa[#aa+1] ="\n"
+            aa[#aa]   = aa[#aa]:gsub("%s+$","")
+            aa[#aa+1] = "\n"
             a[#a + 1] = concatTbl(aa,"")
-            aa    = {}
-            aa[1] = fill
-            icnt  = width
-            aa[2] = w .. " "
+            aa        = {}
+            aa[1]     = fill
+            icnt      = width
+            aa[2]     = w .. " "
          end
          icnt = icnt + wlen
       end
-      aa[#aa]   = aa[#aa]:trim()
-      aa[#aa+1] ="\n"
+      aa[#aa]   = aa[#aa]:gsub("%s+$","")
+      aa[#aa+1] = "\n"
       a[#a + 1] = concatTbl(aa,"")
    end
    --dbg.fini("BeautifulTbl:build_tbl")
@@ -160,6 +158,7 @@ function M.__build_tbl(self,tblIn)
    local maxnc     = 1
    local tbl       = {}
    local icol,irow
+   local justifyT  = {}
 
    for _,a  in ipairs(tblIn) do
       icol = 0
@@ -170,6 +169,14 @@ function M.__build_tbl(self,tblIn)
    end
 
    maxnc = #columnCnt
+   for icol = 1, maxnc do
+      local s             = (self.justifyT[icol] or ""):lower():sub(1,1)
+      justifyT[icol]      = (s == "r") and "r" or "l"
+      self.justifyT[icol] = justifyT[icol]
+   end
+
+   local gap = self.gap
+
    for _,a  in ipairs(tblIn) do
       icol = 0
       irow = #tbl+1
@@ -178,11 +185,11 @@ function M.__build_tbl(self,tblIn)
       for _,v in ipairs(a) do
          v = tostring(v)
 	 icol = icol + 1
-         if (icol < maxnc) then
-            local nspaces = columnCnt[icol] - length(v) + self.gap
-            tbl[irow][icol] = v .. blank:rep(nspaces)
+         local nspaces = columnCnt[icol] - length(v)
+         if (justifyT[icol] == "l") then
+            tbl[irow][icol] = v .. blank:rep(nspaces+gap)
          else
-            tbl[irow][icol] = v
+            tbl[irow][icol] = blank:rep(nspaces) .. v .. blank:rep(gap)
          end
       end
    end
