@@ -275,7 +275,6 @@ function Usage()
 
    local dbg    = Dbg:dbg()
    local twidth = TermWidth()
-   dbg.print("twidth: ",twidth,"\n")
    local bt     = BeautifulTbl:new{tbl=a, column = twidth-1, len = length, wrapped=true}
    s_Usage      = bt:build_tbl()
 
