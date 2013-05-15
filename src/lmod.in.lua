@@ -266,11 +266,12 @@ function Usage()
                                       "properties and warning in color."}
    a[#a+1] = { "" }
    a[#a+1] = { line}
-   a[#a+1] = { "For more documentation see "..website}
-   a[#a+1] = { line }
+   a[#a+1] = { "The following guides are at "..website}
+   a[#a+1] = { "" }
    a[#a+1] = { "  User Guide                 - How to use."}
    a[#a+1] = { "  Advance User Guide         - How to create you own modules."}
-   a[#a+1] = { "  System Administrator Guide - If you want to install it on your own system."}
+   a[#a+1] = { "  System Administrator Guide - How to install Lmod on your own system."}
+   a[#a+1] = { line }
 
 
    local dbg    = Dbg:dbg()

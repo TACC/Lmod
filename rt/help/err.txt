@@ -1,7 +1,7 @@
 ===========================
 step 1
 ===========================
-Modules based on Lua: Version 5.0rc2 (5.0rc2-54-g7045ea1) 2013-04-26 11:23
+Modules based on Lua: Version 5.0rc2 (5.0rc2-86-gf58c473) 2013-04-26 11:23
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -10,7 +10,8 @@ module [options] sub-command [args ...]
 Options:
   -h -? --help                  This help message
   -D --debug                    Program tracing written to stderr
-  -d --default                  List default modules only when used with avail
+  -d --default                  List default modules only when used with
+                                avail
   -q --quiet --expert           Do not print out warnings
   -t --terse                    Write out in machine readable format for
                                 commands: list, avail, spider
@@ -20,83 +21,78 @@ Options:
   --localvar=localvarA          local variables needed to be set after this
                                 commands execution
   --check_syntax --checkSyntax  Checking module command syntax: do not load
-module sub-command [args ...]
+module [options] sub-command [args ...]
 Help sub-commands:
-  help                                   prints this message
-  help               modulefile [...]    print help message from module(s)
+  help                              prints this message
+  help                module [...]  print help message from module(s)
 Loading/Unloading sub-commands:
-  add | load         modulefile [...]    Add module(s)
-  try-load | try-add modulefile [...]    Add module(s), do not complain if
-                                         not found
-  del | rm | unload  modulefile [...]    Remove module(s), do not complain
-                                         if not found
-  swap | sw | switch modfile1 modfile2   unload modfile1 and load modfile2
-  purge                                  unload all modules
-  refresh                                reload aliases from current list of
-                                         modules.
+  load | add          module [...]  load module(s)
+  try-load | try-add  module [...]  Add module(s), do not complain if not
+                                    found
+  del | unload        module [...]  Remove module(s), do not complain if not
+                                    found
+  swap | sw | switch  m1 m2         unload m1 and load m2
+  purge                             unload all modules
+  refresh                           reload aliases from current list of
+                                    modules.
 Listing / Searching sub-commands:
-  list                                   List loaded modules
-  list             s1 s2 ...             List loaded modules that match the s1
-                                         pattern or the s2 pattern etc.
-  avail | av                             List available modules
-  avail | av       string                List available modules that contain
-                                         "string".
-  spider                                 List all possible modules
-  spider           modulefile            List all possible version of that
-                                         module file
-  spider           string                List all module that contain the
-                                         string.
-  spider           modulefile/version    Detailed information about that
-                                         version of the module
-  whatis           modulefile            print whatis information about module
-  keyword | key    string                search all name and whatis that contain
-                                         "string".
+  list                              List loaded modules
+  list                s1 s2 ...     List loaded modules that match the
+                                    pattern
+  avail | av                        List available modules
+  avail | av          string        List available modules that contain
+                                    "string".
+  spider                            List all possible modules
+  spider              module        List all possible version of that module
+                                    file
+  spider              string        List all module that contain the
+                                    "string".
+  spider              name/version  Detailed information about that version
+                                    of the module.
+  whatis              module        Print whatis information about module
+  keyword | key       string        Search all name and whatis that contain
+                                    "string".
 Searching with Lmod:
   All searching (spider, list, avail, keyword) support regular expressions:
-  spider        '^p'                     finds all the modules that start
-                                         with `p' or `P'
-  spider        mpi                      finds all modules that have "mpi"
-                                         in their name.
-  spider        'mpi$"                   file all modules that end with "mpi"
-                                         in their name.
+  spider              '^p'          Finds all the modules that start with
+                                    `p' or `P'
+  spider              mpi           Finds all modules that have "mpi" in
+                                    their name.
+  spider              'mpi$         Finds all modules that end with "mpi" in
+                                    their name.
 Handling a collection of modules:
-  save       | s | sd                    Save the current list of modules
-                                         to a user defined "default".
-  save name  | s name                    Save the current list of modules
-                                         to "name" collection.
-  restore                                Restore modules from the user's
-                                         "default" or system default.
-  restore  name | r name                 Restore modules from "name"
-                                         collection.
-  restore  system                        restore module state to system
-                                         defaults.
-  savelist                               list of saved collections.
-Deprecated commands
-   reset                                 The same as "restore system"
-   getdefault [name]                     load name collection of modules or
-                                         user's "default" if no name given.
-                                         ===> Use "restore" instead  <====
-   setdefault [name]                     Save current list of modules to
-                                         name if given, otherwise save as the
-                                         default list for you the user.
-                                         ===> Use "save" instead. <====
+  save | s                          Save the current list of modules to a
+                                    user defined "default".
+  save | s            name          Save the current list of modules to
+                                    "name" collection.
+  restore | r                       Restore modules from the user's
+                                    "default" or system default.
+  restore | r         name          Restore modules from "name" collection.
+  restore             system        Restore module state to system defaults.
+  savelist                          List of saved collections.
+Deprecated commands:
+  reset                             The same as "restore system"
+  getdefault          [name]        load name collection of modules or
+                                    user's "default" if no name given.
+                                    ===> Use "restore" instead <====
+  setdefault          [name]        Save current list of modules to name if
+                                    given, otherwise save as the default
+                                    list for you the user.
+                                    ===> Use "save" instead. <====
 Miscellaneous sub-commands:
-  record                                 save the module table.
-  show                modulefile         show the commands in the module file.
-  use [-a] [--append] path               Prepend or Append path to MODULEPATH
-  unuse path                             remove path from MODULEPATH
-  tablelist                              output list of active modules as a
-                                         lua table.
+  show                modulefile    show the commands in the module file.
+  use [-a]            path          Prepend or Append path to MODULEPATH.
+  unuse               path          remove path from MODULEPATH.
+  tablelist                         output list of active modules as a lua
+                                    table.
 Important Environment Variables:
-  LMOD_COLORIZE                          If defined to be "YES" then Lmod
-                                         prints properties and warning in color.
-See:
-   http://www.tacc.utexas.edu/tacc-projects/mclay/lmod
-for complete documentation. It contains:
-   User Guide                  - How to use.
-   Advance User Guide          - How to create you own modules.
-   System Administrator Guide  - If you want to install it on your own system.
-Modules based on Lua: Version 5.0rc2 (5.0rc2-54-g7045ea1) 2013-04-26 11:23
+  LMOD_COLORIZE                     If defined to be "YES" then Lmod prints
+                                    properties and warning in color.
+The following guides are at http://www.tacc.utexas.edu/tacc-projects/lmod
+  User Guide                 - How to use.
+  Advance User Guide         - How to create you own modules.
+  System Administrator Guide - How to install Lmod on your own system.
+Modules based on Lua: Version 5.0rc2 (5.0rc2-86-gf58c473) 2013-04-26 11:23
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 3
@@ -105,7 +101,8 @@ module [options] sub-command [args ...]
 Options:
   -h -? --help                  This help message
   -D --debug                    Program tracing written to stderr
-  -d --default                  List default modules only when used with avail
+  -d --default                  List default modules only when used with
+                                avail
   -q --quiet --expert           Do not print out warnings
   -t --terse                    Write out in machine readable format for
                                 commands: list, avail, spider
@@ -115,83 +112,78 @@ Options:
   --localvar=localvarA          local variables needed to be set after this
                                 commands execution
   --check_syntax --checkSyntax  Checking module command syntax: do not load
-module sub-command [args ...]
+module [options] sub-command [args ...]
 Help sub-commands:
-  help                                   prints this message
-  help               modulefile [...]    print help message from module(s)
+  help                              prints this message
+  help                module [...]  print help message from module(s)
 Loading/Unloading sub-commands:
-  add | load         modulefile [...]    Add module(s)
-  try-load | try-add modulefile [...]    Add module(s), do not complain if
-                                         not found
-  del | rm | unload  modulefile [...]    Remove module(s), do not complain
-                                         if not found
-  swap | sw | switch modfile1 modfile2   unload modfile1 and load modfile2
-  purge                                  unload all modules
-  refresh                                reload aliases from current list of
-                                         modules.
+  load | add          module [...]  load module(s)
+  try-load | try-add  module [...]  Add module(s), do not complain if not
+                                    found
+  del | unload        module [...]  Remove module(s), do not complain if not
+                                    found
+  swap | sw | switch  m1 m2         unload m1 and load m2
+  purge                             unload all modules
+  refresh                           reload aliases from current list of
+                                    modules.
 Listing / Searching sub-commands:
-  list                                   List loaded modules
-  list             s1 s2 ...             List loaded modules that match the s1
-                                         pattern or the s2 pattern etc.
-  avail | av                             List available modules
-  avail | av       string                List available modules that contain
-                                         "string".
-  spider                                 List all possible modules
-  spider           modulefile            List all possible version of that
-                                         module file
-  spider           string                List all module that contain the
-                                         string.
-  spider           modulefile/version    Detailed information about that
-                                         version of the module
-  whatis           modulefile            print whatis information about module
-  keyword | key    string                search all name and whatis that contain
-                                         "string".
+  list                              List loaded modules
+  list                s1 s2 ...     List loaded modules that match the
+                                    pattern
+  avail | av                        List available modules
+  avail | av          string        List available modules that contain
+                                    "string".
+  spider                            List all possible modules
+  spider              module        List all possible version of that module
+                                    file
+  spider              string        List all module that contain the
+                                    "string".
+  spider              name/version  Detailed information about that version
+                                    of the module.
+  whatis              module        Print whatis information about module
+  keyword | key       string        Search all name and whatis that contain
+                                    "string".
 Searching with Lmod:
   All searching (spider, list, avail, keyword) support regular expressions:
-  spider        '^p'                     finds all the modules that start
-                                         with `p' or `P'
-  spider        mpi                      finds all modules that have "mpi"
-                                         in their name.
-  spider        'mpi$"                   file all modules that end with "mpi"
-                                         in their name.
+  spider              '^p'          Finds all the modules that start with
+                                    `p' or `P'
+  spider              mpi           Finds all modules that have "mpi" in
+                                    their name.
+  spider              'mpi$         Finds all modules that end with "mpi" in
+                                    their name.
 Handling a collection of modules:
-  save       | s | sd                    Save the current list of modules
-                                         to a user defined "default".
-  save name  | s name                    Save the current list of modules
-                                         to "name" collection.
-  restore                                Restore modules from the user's
-                                         "default" or system default.
-  restore  name | r name                 Restore modules from "name"
-                                         collection.
-  restore  system                        restore module state to system
-                                         defaults.
-  savelist                               list of saved collections.
-Deprecated commands
-   reset                                 The same as "restore system"
-   getdefault [name]                     load name collection of modules or
-                                         user's "default" if no name given.
-                                         ===> Use "restore" instead  <====
-   setdefault [name]                     Save current list of modules to
-                                         name if given, otherwise save as the
-                                         default list for you the user.
-                                         ===> Use "save" instead. <====
+  save | s                          Save the current list of modules to a
+                                    user defined "default".
+  save | s            name          Save the current list of modules to
+                                    "name" collection.
+  restore | r                       Restore modules from the user's
+                                    "default" or system default.
+  restore | r         name          Restore modules from "name" collection.
+  restore             system        Restore module state to system defaults.
+  savelist                          List of saved collections.
+Deprecated commands:
+  reset                             The same as "restore system"
+  getdefault          [name]        load name collection of modules or
+                                    user's "default" if no name given.
+                                    ===> Use "restore" instead <====
+  setdefault          [name]        Save current list of modules to name if
+                                    given, otherwise save as the default
+                                    list for you the user.
+                                    ===> Use "save" instead. <====
 Miscellaneous sub-commands:
-  record                                 save the module table.
-  show                modulefile         show the commands in the module file.
-  use [-a] [--append] path               Prepend or Append path to MODULEPATH
-  unuse path                             remove path from MODULEPATH
-  tablelist                              output list of active modules as a
-                                         lua table.
+  show                modulefile    show the commands in the module file.
+  use [-a]            path          Prepend or Append path to MODULEPATH.
+  unuse               path          remove path from MODULEPATH.
+  tablelist                         output list of active modules as a lua
+                                    table.
 Important Environment Variables:
-  LMOD_COLORIZE                          If defined to be "YES" then Lmod
-                                         prints properties and warning in color.
-See:
-   http://www.tacc.utexas.edu/tacc-projects/mclay/lmod
-for complete documentation. It contains:
-   User Guide                  - How to use.
-   Advance User Guide          - How to create you own modules.
-   System Administrator Guide  - If you want to install it on your own system.
-Modules based on Lua: Version 5.0rc2 (5.0rc2-54-g7045ea1) 2013-04-26 11:23
+  LMOD_COLORIZE                     If defined to be "YES" then Lmod prints
+                                    properties and warning in color.
+The following guides are at http://www.tacc.utexas.edu/tacc-projects/lmod
+  User Guide                 - How to use.
+  Advance User Guide         - How to create you own modules.
+  System Administrator Guide - How to install Lmod on your own system.
+Modules based on Lua: Version 5.0rc2 (5.0rc2-86-gf58c473) 2013-04-26 11:23
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 4
