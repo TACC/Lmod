@@ -32,6 +32,11 @@
 --
 --------------------------------------------------------------------------
 
+--------------------------------------------------------------------------
+-- Csh: This is a derived class from BaseShell.  This classes knows how
+--      to expand the environment variable into Csh syntax.
+
+
 require("strict")
 require("pairsByKeys")
 
@@ -43,25 +48,12 @@ local stdout      = io.stdout
 Csh	    = inheritsFrom(BaseShell)
 Csh.my_name = 'csh'
 
-
-function Csh.shellFunc(self,k,v)
-   local dbg = Dbg:dbg()
-   if (v == "") then
-      stdout:write("unalias ",k,";\n")
-      dbg.print(   "unalias ",k,";\n")
-   else
-      v = v[2]
-      v = v:gsub("%$%*","\\!*")
-      v = v:gsub("%$([0-9])", "\\!:%1")
-      stdout:write("alias ",k," '",v,"';\n")
-      dbg.print(   "alias ",k," '",v,"';\n")
-   end
-end
-
+--------------------------------------------------------------------------
+-- Csh:alias(): Either define or undefine a Csh shell alias.
 
 function Csh.alias(self, k, v)
    local dbg = Dbg:dbg()
-   if (v == "") then
+   if (v == "" ) then
       stdout:write("unalias ",k,";\n")
       dbg.print(   "unalias ",k,";\n")
    else
@@ -71,6 +63,18 @@ function Csh.alias(self, k, v)
       dbg.print(   "alias ",k," '",v,"';\n")
    end
 end
+
+--------------------------------------------------------------------------
+-- Csh:shellFunc(): reuse the Csh:alias function after deciding if is
+--                  a set or unset of the alias.
+
+function Csh.shellFunc(self,k,v)
+   local vv = (type(v) == "table") and v[2] or ""
+   self:alias(k,vv)
+end
+
+--------------------------------------------------------------------------
+-- Csh:expandVar(): expand a single key-value pair into Csh syntax.
 
 function Csh.expandVar(self, k, v, vType)
    local dbg = Dbg:dbg()
@@ -93,6 +97,9 @@ function Csh.expandVar(self, k, v, vType)
    stdout:write(line)
    dbg.print(   line)
 end
+
+--------------------------------------------------------------------------
+-- Csh:unset(): unset a local or env. variable.
 
 function Csh.unset(self, k, vType)
    local dbg = Dbg:dbg()

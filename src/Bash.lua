@@ -33,8 +33,8 @@
 --------------------------------------------------------------------------
 
 --------------------------------------------------------------------------
--- Bash:  This is a derived class from BaseShell.  This classes knows how
---        to expand the environment variable into bash syntax.
+-- Bash: This is a derived class from BaseShell.  This classes knows how
+--       to expand the environment variable into bash syntax.
 
 
 require("strict")

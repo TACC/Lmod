@@ -47,12 +47,6 @@ local M = { gap = 2}
 
 local blank = ' '
 
-local function prt(...)
-   stdout:write(...)
-end
-
-
-
 function M.new(self, t)
    local tbl = t
    local o = {}

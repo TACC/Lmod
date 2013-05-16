@@ -32,22 +32,37 @@
 --
 --------------------------------------------------------------------------
 
+--------------------------------------------------------------------------
+-- Hook: A way for client sites to register functions that are defined in
+--       SitePackage.lua 
+--
+
 require("strict")
 
 local M={}
 
 local validT =
 {
-   load = false,
-   parse_updateFn = false,
-   writeCache = false,
+      ['load']       = false,  -- This load hook is called after a
+                               -- modulefile is loaded.
+      parse_updateFn = false,  -- This hook returns the time on the 
+                               -- timestamp file.
+      writeCache     = false,  -- This hook return whether a cache 
+                               -- should be written.
 }
+
+--------------------------------------------------------------------------
+-- Hook:register(): Checks for a valid hook name and stores it if valid.
 
 function M.register(name, func)
    if (validT[name] ~= nil) then
       validT[name] = func
    end
 end
+
+--------------------------------------------------------------------------
+-- Hook:apply():  If a valid hook function has been registered then apply
+--                it.
 
 function M.apply(name, ...)
    if (validT[name]) then

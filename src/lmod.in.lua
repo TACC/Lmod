@@ -110,8 +110,6 @@ require("utils")
 require("pager")
 require("fileOps")
 MasterControl = require("MasterControl")
-MCP           = {}
-mcp           = {}
 require("modfuncs")
 require("cmdfuncs")
 require("colorize")
