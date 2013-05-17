@@ -50,7 +50,6 @@ local BeautifulTbl = require('BeautifulTbl')
 local ColumnTable  = require('ColumnTable')
 local Dbg          = require("Dbg")
 local Default      = '(D)'
-local InheritTmpl  = require("InheritTmpl")
 local M            = {}
 local MName        = require("MName")
 local ModuleStack  = require("ModuleStack")
@@ -325,8 +324,6 @@ function M.access(self, ...)
    end
 end
 
-
-
 function M.refresh()
    local mStack = ModuleStack:moduleStack()
    local mt     = MT:mt()
@@ -490,6 +487,66 @@ function M.reloadAll()
    return same
 end
 
+local function find_inherit_module(fullModuleName, oldFn)
+   local dbg      = Dbg:dbg()
+   dbg.start("find_inherit_module(",fullModuleName,",",oldFn, ")")
+
+   local t        = {fn = nil, modFullName = nil, modName = nil,
+                     default = 0, hash = 0}
+   local mt       = systemG.MT:mt()
+   local mname    = MName:new("load", fullModuleName)
+   local sn       = mname:sn()
+   local localDir = true
+
+
+   local pathA = mt:locationTbl(sn)
+
+   if (pathA == nil or #pathA == 0) then
+      dbg.fini("find_inherit_module")
+      return t
+   end
+   local fn, result, rstripped
+   local foundOld = false
+   local oldFn_stripped = oldFn:gsub("%.lua$","")
+
+   for ii, vv in ipairs(pathA) do
+      local mpath  = vv.mpath
+      fn           = pathJoin(vv.file, mname:version())
+      result       = nil
+      dbg.print("ii: ",ii," mpath: ",mpath," vv.file: ",vv.file," fn: ",fn,"\n")
+      for i = 1, #searchTbl do
+         local f        = fn .. searchTbl[i]
+         local attr     = lfs.attributes(f)
+         local readable = posix.access(f,"r")
+         dbg.print('(1) fn: ',fn," f: ",f,"\n")
+         if (readable and attr and attr.mode == "file") then
+            result = f
+            rstripped = result:gsub("%.lua$","")
+            break
+         end
+      end
+
+      dbg.print("(2) result: ", result, " foundOld: ", foundOld,"\n")
+      if (foundOld) then
+         break
+      end
+
+
+      if (result and rstripped == oldFn_stripped) then
+         foundOld = true
+         result = nil
+      end
+      dbg.print("(3) result: ", result, " foundOld: ", foundOld,"\n")
+   end
+
+   dbg.print("fullModuleName: ",fullModuleName, " fn: ", result,"\n")
+   t.modFullName = fullModuleName
+   t.fn          = result
+   dbg.fini("find_inherit_module")
+   return t
+end
+
+
 function M.inheritModule()
    local dbg     = Dbg:dbg()
    dbg.start("Master:inherit()")
@@ -501,13 +558,12 @@ function M.inheritModule()
    local myUsrN  = mStack:usrName()
    local mySn    = mStack:sn()
    local mFull   = mStack:fullName()
-   local inhTmpl = InheritTmpl:inheritTmpl()
 
    dbg.print("myFn:  ", myFn,"\n")
    dbg.print("mFull: ", mFull,"\n")
 
 
-   local t = inhTmpl.find_module_file(mFull,myFn)
+   local t = find_inherit_module(mFull,myFn)
    dbg.print("fn: ", t.fn,"\n")
    if (t.fn == nil) then
       LmodError("Failed to inherit: ",mFull,"\n")
