@@ -2094,15 +2094,24 @@ while test -L $luaprog; do
   oldprog=$luaprog
 done
 
-LuaV=$( $luaprog -e 'print(_VERSION)' | sed -e 's/Lua //' )
-LmodV=$( $luaprog  -e 'v=require("src/Version"); s=v.name():gsub(" .*","");print(s)')
-
-
 if test x$luaprog = "x"; then
   echo The program "lua" must be in your path
   exit
 fi
 
+echo -n "Checking for valid Lua version"
+
+LuaV=$( $luaprog -e 'print(_VERSION)' | sed -e 's/Lua //' )
+LmodV=$( $luaprog  -e 'v=require("src/Version"); s=v.name():gsub(" .*","");print(s)')
+
+IntLuaV=$( $luaprog  -e "_,_,M,m=_VERSION:gsub('Lua%s+',''):find('(%d+)%.(%d)'); print(M*1000+m)")
+
+if test $IntLuaV -lt 5001 -o $IntLuaV -gt 5002; then
+  echo "Error: Lmod requires versions 5.1 or 5.2, You have: $LuaV"
+  exit 1
+fi
+
+echo "... $LuaV"
 
 PATH_TO_LUA=$(dirname $luaprog)
 

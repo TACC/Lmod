@@ -21,9 +21,9 @@ A) You must install lua first.  You have two choices:
             liblua5.1-posix0
             lua5.1
 
-      Lmod requires Lua 5.1,
+      Lmod requires Lua 5.1 or 5.2
 
-         ***** Lua 5.2, 5.0 or 4.0 will NOT work. *****
+         ***** Lua 5.0 or 4.0 will NOT work. *****
 
 
 
@@ -78,7 +78,6 @@ C) The program "lua" must be in your path before installing "Lmod".  The
 
 
    $ ./configure --prefix=/PATH/TO/LMOD/PARENT_DIR
-   $ make install
 
      Install options:
 
@@ -106,23 +105,41 @@ C) The program "lua" must be in your path before installing "Lmod".  The
 
 
 
-
 D) As an example here is my configuration line:
 
 
      ./configure --prefix=/opt/apps --with-spiderCacheDir=/opt/moduleData/cacheDir \
                  --with-updateSystemFn=/opt/moduleData/system.txt
 
-  This will install Lmod 5.0 in /opt/apps/lmod/5.0 with a link:
-
-       /opt/apps/lmod/lmod => /opt/apps/lmod/5.0
-
   The system spider cache will stored in /opt/moduleData/cacheDir.
-
   And the system update file will be in /opt/moduleData/system.txt
 
 
-E) In the setup directory there are "profile.in" and "cshrc.in" templates.  The
+E) There are two ways to install Lmod
+
+      $ make pre-install
+
+   or
+
+      $ make install
+
+   Most site will want to do "make install".  If you do:
+
+      ./configure --prefix=/opt/apps
+
+   Then "make pre-install" and "make install" will install the package in:
+   "/opt/apps/lmod/5.0" or whatever version of Lmod you are installing.
+
+   The install target does two more things:
+   
+      1) It installs the zsh tab completions function in a system location such
+         as /usr/share/zsh/site-functions.
+      2) It makes the sym-link between version and "lmod".
+
+         /opt/apps/lmod/lmod => /opt/apps/lmod/5.0
+
+
+F) In the setup directory there are "profile.in" and "cshrc.in" templates.  The
    path to lua will automatically be generated.  The templates assume that your
    modulefiles are located in @PREFIX@/modulefiles/$LMOD_sys and
    @PREFIX@/modulefiles/Core, where @PREFIX@ is the path specified on the
@@ -135,7 +152,7 @@ E) In the setup directory there are "profile.in" and "cshrc.in" templates.  The
    *****************************************************************************
 
 
-E) You can write your module files in either lua or TCL.  Modulefiles with the lua
+G) You can write your module files in either lua or TCL.  Modulefiles with the lua
    extension are obviously have lua code and the one without are treated as TCL.
    The syntax of the lua modulefiles are similar but not the same.  Lua module
    commands are written as functions.  So in TCL its:
@@ -164,22 +181,22 @@ E) You can write your module files in either lua or TCL.  Modulefiles with the l
    So the module for the MKL module above would be named "mkl" as a TCL module
    file and "mkl.lua" if it is written in lua.
 
-F) The bash used on Redhat, Centos, Fedora, etc (but not Debian, Ubuntu)
+H) The bash used on Redhat, Centos, Fedora, etc (but not Debian, Ubuntu)
    compiles bash with having a system file read during an interactive shell.
    We at TACC patch bash to always read a system bashrc file.  See
    contrib/bash_patch for our patch file.  You will want to modify it for
    your site.
 
-G) If you are using "SitePackage.lua", you will need to register your functions
+I) If you are using "SitePackage.lua", you will need to register your functions
    with the sandbox_registration function.  See Contrib/SitePackage for more
    details.
 
 
-H) If you wish to track module usage and do not put extra calls in your modulefiles,
+J) If you wish to track module usage and do not put extra calls in your modulefiles,
    then please look in contrib/hook for an example on how to do it.
 
 
-I) Join the lmod-users mailing list at:
+K) Join the lmod-users mailing list at:
 
       https://lists.sourceforge.net/lists/listinfo/lmod-users
 
