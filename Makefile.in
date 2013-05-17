@@ -62,9 +62,9 @@ spiderCacheSupportCMD    := lua src/spiderCacheSupport.in.lua
 all:
 	@echo done
 
-pre-install: $(DIRLIST) shell_init startup spiderCacheSupport libexec libtools pkgs other_tools zsh_tab_funcs
+pre-install: $(DIRLIST) shell_init startup spiderCacheSupport libexec libtools pkgs other_tools 
 
-install: pre-install
+install: pre-install  zsh_tab_funcs
 	$(RM) $(DESTDIR)$(PKG)
 	ln -s $(version) $(DESTDIR)$(PKG)
 
@@ -80,7 +80,7 @@ __installMe:
            bareN=$${i##*/};                                           \
            fn=$${bareN%%.in*};                                        \
            ext=$${bareN#*.};                                          \
-           sed -e 's|@PREFIX@|@prefix@|g'                             \
+           sed  -e 's|@PREFIX@|@prefix@|g'                            \
 	        -e 's|@path_to_lua@|$(PATH_TO_LUA)|g'                 \
 	        -e 's|@path_to_hashsum@|$(PATH_TO_HASHSUM)|g'         \
 	        -e 's|@path_to_pager@|$(PATH_TO_PAGER)|g'             \
