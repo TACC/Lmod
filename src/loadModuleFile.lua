@@ -32,11 +32,6 @@
 --
 --------------------------------------------------------------------------
 
---------------------------------------------------------------------------
--- utils.lua:  This is the file that has miscellaneous utility functions.
---------------------------------------------------------------------------
-
-
 require("strict")
 require("fileOps")
 require("sandbox")
@@ -61,12 +56,15 @@ function loadModuleFile(t)
    local status = true
    local whole
    if (myType == ".lua") then
+      -- Read in lua module file into a [[whole]] string.
       local f = io.open(t.file)
       if (f) then
          whole = f:read("*all")
          f:close()
       end
    else
+      -- Build argument list then call tcl2lua translator
+      -- Capture results into [[whole]] string.
       local s      = t.mList or ""
       local A      = {}
       A[#A + 1]    = "-l"
@@ -88,6 +86,7 @@ function loadModuleFile(t)
       whole        = capture(cmd) 
    end
 
+   -- Use the sandbox to evaluate modulefile text.
    if (whole) then
       status, msg = sandbox_run(whole)
    else
@@ -95,6 +94,7 @@ function loadModuleFile(t)
       msg    = "Empty or non-existant file"
    end
 
+   -- report any errors
    if (not status and t.reportErr) then
       local n = usrName or ""
       
