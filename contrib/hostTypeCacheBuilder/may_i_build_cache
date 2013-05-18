@@ -13,10 +13,10 @@ local concatTbl = table.concat
 local lfs       = require("lfs")
 local posix     = require("posix")
 
-local master = {}
+local s_masterTbl = {}
 
 function masterTbl()
-   return master
+   return s_masterTbl
 end
 
 

@@ -62,14 +62,14 @@ require("string_split")
 require("pairsByKeys")
 local lfs    = require("lfs")
 local Optiks = require("Optiks")
-local master = {}
+local s_masterTbl = {}
 
 function cmdDir()
    return cmd_dir
 end
 
 function masterTbl()
-   return master
+   return s_masterTbl
 end
 
 function isDir(d)

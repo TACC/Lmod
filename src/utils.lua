@@ -191,6 +191,15 @@ function length(s)
 end
 
 --------------------------------------------------------------------------
+-- masterTbl(): Manage the Master Hash Table.  The command line arguments
+--              and the ModuleStack (when using Spider) are stored here.
+
+s_masterTbl = {}
+function masterTbl()
+   return s_masterTbl
+end
+
+--------------------------------------------------------------------------
 --  Read the admin.list file.  It is a Key value pairing of module names
 --  and a message.  The module names can be either the full name or the file
 --  name.  The message can be multi-line.  A blank line is signifies the

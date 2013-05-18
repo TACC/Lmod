@@ -134,10 +134,10 @@ blacklistT = {
    yye00     = 1,
 }
 
-local master    = {}
+local s_masterTbl = {}
 
 function masterTbl()
-   return master
+   return s_masterTbl
 end
 
 function main()

@@ -33,6 +33,7 @@
 --------------------------------------------------------------------------
 
 require("strict")
+require("utils")
 
 local Dbg              = require("Dbg")
 MC_Spider              = inheritsFrom(MasterControl)

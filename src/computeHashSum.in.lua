@@ -65,20 +65,20 @@ mcp           = {}
 require("modfuncs")
 require("cmdfuncs")
 
-BaseShell       = require("BaseShell")
-Dbg             = require("Dbg")
-Master          = require("Master")
-ModuleStack     = require("ModuleStack")
-MT              = require("MT")
-local Optiks    = require("Optiks")
-local s_master  = {}
+BaseShell         = require("BaseShell")
+Dbg               = require("Dbg")
+Master            = require("Master")
+ModuleStack       = require("ModuleStack")
+MT                = require("MT")
+local Optiks      = require("Optiks")
+local s_masterTbl = {}
 
-local fh        = nil
-local getenv    = os.getenv
-local concatTbl = table.concat
+local fh          = nil
+local getenv      = os.getenv
+local concatTbl   = table.concat
 
 function masterTbl()
-   return s_master
+   return s_masterTbl
 end
 
 function main()

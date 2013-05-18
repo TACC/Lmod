@@ -38,13 +38,8 @@
 BaseShell       = {}
 Pager           = "@path_to_pager@"
 s_prependBlock  = "@prepend_block@"
-s_master        = {}
 prepend_order   = false
 allow_dups      = false
-
-function masterTbl()
-   return s_master
-end
 
 ------------------------------------------------------------------------
 -- Extract directory location of "lmod" command and add it

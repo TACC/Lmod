@@ -57,13 +57,13 @@ local systemG     = _G
 local function nothing()
 end
 
-local s_master    = {}
-
-function masterTbl()
-   return s_master
-end
-
-local masterTbl = masterTbl
+--local s_master    = {}
+--
+--function masterTbl()
+--   return s_master
+--end
+--
+--local masterTbl = masterTbl
 
 function Spider_setenv(name, value)
    if (name:find("^TACC_.*_LIB")) then
