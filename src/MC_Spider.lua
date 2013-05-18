@@ -32,6 +32,13 @@
 --
 --------------------------------------------------------------------------
 
+--------------------------------------------------------------------------
+-- MC_Spider: This derived class of MasterControl is how Spider reads
+--            in modulefiles.  It uses masterTbl() to hold the moduleStack.
+--            It looks for adding paths to MODULEPATH.  It also keeps track
+--            of properties.
+
+
 require("strict")
 require("utils")
 
@@ -65,6 +72,11 @@ M.unset_shell_function = MasterControl.quiet
 M.usrload              = MasterControl.quiet
 M.warning              = MasterControl.warning
 
+
+--------------------------------------------------------------------------
+-- MC_Spider:myFileName(): use the moduleStack to return the filename
+--                         of the modulefile.
+
 function M.myFileName(self)
    local masterTbl   = masterTbl()
    local moduleStack = masterTbl.moduleStack
@@ -72,6 +84,11 @@ function M.myFileName(self)
    return moduleStack[iStack].fn
 end
 
+--------------------------------------------------------------------------
+-- MC_Spider:myModuleFullName(): use the moduleStack to return the full 
+--                               name of the module.  This is typically
+--                               name/version.  For Spider we assume that
+--                               the user name is the full name.
 
 function M.myModuleFullName(self)
    local masterTbl   = masterTbl()
@@ -82,12 +99,21 @@ end
 
 M.myModuleUsrName = M.myModuleFullName
 
+--------------------------------------------------------------------------
+-- MC_Spider:myModuleName(): use the moduleStack to return the short
+--                           name of the module.  
+
 function M.myModuleName(self)
    local masterTbl   = masterTbl()
    local moduleStack = masterTbl.moduleStack
    local iStack      = #moduleStack
    return moduleStack[iStack].sn
 end
+
+--------------------------------------------------------------------------
+-- MC_Spider:myModuleName(): use the moduleStack to return the version
+--                           of the module.  For meta modules the version
+--                           will be ""
 
 function M.myModuleVersion(self)
    local masterTbl   = masterTbl()
@@ -97,6 +123,9 @@ function M.myModuleVersion(self)
    local sn          = moduleStack[iStack].sn
    return extractVersion(full, sn) or ""
 end
+
+--------------------------------------------------------------------------
+-- MC_Spider:help(): Collect the help message into moduleT
 
 function M.help(self,...)
    local dbg    = Dbg:dbg()
@@ -110,6 +139,9 @@ function M.help(self,...)
    dbg.fini()
    return true
 end
+
+--------------------------------------------------------------------------
+-- MC_Spider:whatis(): Collect the whatis messages into moduleT
 
 function M.whatis(self,s)
    local dbg    = Dbg:dbg()
@@ -133,6 +165,9 @@ function M.whatis(self,s)
    return true
 end
 
+--------------------------------------------------------------------------
+-- MC_Spider:setenv(): Track "TACC_.*_LIB" environment variables.
+
 function M.setenv(self, name, value)
    local dbg    = Dbg:dbg()
    dbg.start("MC_Spider:setenv(name, value)")
@@ -143,6 +178,9 @@ function M.setenv(self, name, value)
    return true
 end
 
+--------------------------------------------------------------------------
+-- MC_Spider:prepend_path(): Pass-thru to Spider_append_path().
+
 function M.prepend_path(self,...)
    local dbg    = Dbg:dbg()
    dbg.start("MC_Spider:prepend_path(...)")
@@ -152,6 +190,9 @@ function M.prepend_path(self,...)
 
 end
 
+--------------------------------------------------------------------------
+-- MC_Spider:append_path(): Pass-thru to Spider_append_path().
+
 function M.append_path(self,...)
    local dbg    = Dbg:dbg()
    dbg.start("MC_Spider:append_path(...)")
@@ -160,12 +201,18 @@ function M.append_path(self,...)
    return true
 end
 
+--------------------------------------------------------------------------
+-- MC_Spider:is_spider: always return true.
+
 function M.is_spider(self)
    local dbg    = Dbg:dbg()
    dbg.start("MC_Spider:is_spider()")
    dbg.fini()
    return true
 end
+
+--------------------------------------------------------------------------
+-- MC_Spider:add_property: Copy the property to moduleT
 
 function M.add_property(self, name, value)
    local dbg    = Dbg:dbg()
@@ -182,6 +229,9 @@ function M.add_property(self, name, value)
    dbg.fini()
    return true
 end
+
+--------------------------------------------------------------------------
+-- MC_Spider:remove_property: Remove the property to moduleT
 
 function M.remove_property(self,name, value)
    local dbg    = Dbg:dbg()
