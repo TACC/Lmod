@@ -121,7 +121,8 @@ function processNewModulePATH(value)
       local full    = moduleStack[iStack].full
       local moduleT = moduleStack[iStack].moduleT
       iStack        = iStack+1
-      moduleStack[iStack] = {path = path, full = full, moduleT = moduleT[path].children, fn= v}
+      moduleStack[iStack] = {path = path, full = full,
+                             moduleT = moduleT[path].children, fn= v}
       dbg.print("Top of Stack: ",iStack, " Full: ", full, " file: ", path, "\n")
       moduleT[path].children[v] = {}
       moduleT[path].children.version = Cversion
