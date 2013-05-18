@@ -1,7 +1,7 @@
 ===========================
 step 1
 ===========================
-Modules based on Lua: Version 5.0rc2 (5.0rc2-54-g7045ea1) 2013-04-26 11:23
+Modules based on Lua: Version 5.0rc3 (5.0rc3-1-g5910b80) 2013-05-17 10:46
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -13,4 +13,4 @@ step 3
 step 4
 ===========================
    ProjectDIR/rt/display/mf/Core/junk/1.0.lua:
-setenv("JUNK", "1.0")
+setenv("JUNK","1.0")

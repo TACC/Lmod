@@ -1,7 +1,7 @@
 ===========================
 step 1
 ===========================
-Modules based on Lua: Version 4.1.4.3 2013-01-18 15:40
+Modules based on Lua: Version 5.0rc3 (5.0rc3-1-g5910b80) 2013-05-17 10:46
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -10,8 +10,8 @@ step 2
 step 3
 ===========================
    ProjectDIR/rt/use_append/mf/Core/append:
-append_path("MODULEPATH", "ProjectDIR/rt/use_append/mf/Append")
-append_path("MODULEPATH", "ProjectDIR/rt/use_append/mf/Append2")
+append_path("MODULEPATH","ProjectDIR/rt/use_append/mf/Append")
+append_path("MODULEPATH","ProjectDIR/rt/use_append/mf/Append2")
 help([[Dummy test module
 ]])
 ===========================

@@ -32,8 +32,13 @@
 --
 --------------------------------------------------------------------------
 
+--------------------------------------------------------------------------
+-- MC_Show: This derived class of MasterControl just prints ever module
+--          command.
+
 
 require("strict")
+require("utils")
 
 MC_Show            = inheritsFrom(MasterControl)
 MC_Show.my_name    = "MC_Show"
@@ -49,20 +54,8 @@ M.myModuleName     = MasterControl.myModuleName
 M.myModuleVersion  = MasterControl.myModuleVersion
 M.myModuleUsrName  = MasterControl.myModuleUsrName
 
-
-
 local function ShowCmd(name,...)
-   local a = {}
-   local s
-   for _,v in ipairs{...} do
-      if (type(v) == "boolean") then
-         s = tostring(v)
-      else
-         s = "\"".. tostring(v) .."\""
-      end
-      a[#a + 1] = s
-   end
-   io.stderr:write(name,"(",concatTbl(a,", "),")\n")
+   io.stderr:write(ShowCmdStr(name, ...))
 end
 
 local function Show_help(...)
@@ -72,8 +65,6 @@ local function Show_help(...)
    end
    io.stderr:write("help(",concatTbl(a,", "),")\n")
 end
-
-
 
 function M.help(self, ...)
    Show_help(...)

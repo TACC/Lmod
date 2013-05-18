@@ -1,14 +1,14 @@
 ===========================
 step 1
 ===========================
-Modules based on Lua: Version 5.0rc2 (5.0rc2-54-g7045ea1) 2013-04-26 11:23
+Modules based on Lua: Version 5.0rc3 (5.0rc3-1-g5910b80) 2013-05-17 10:46
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
 ===========================
    ProjectDIR/mf/Core/gcc/4.2.3.lua:
 family("compiler")
-prepend_path("MODULEPATH", "ProjectDIR/mf/Compiler/gcc/4.2.3")
+prepend_path("MODULEPATH","ProjectDIR/mf/Compiler/gcc/4.2.3")
 ===========================
 step 3
 ===========================
@@ -39,8 +39,8 @@ any of the "keys".
 step 5
 ===========================
    ProjectDIR/mf/Core/boost/1.49.0.lua:
-setenv("TACC_BOOST_DIR", "/opt/apps/boost/1.49.0")
-add_property("arch", "offload")
+setenv("TACC_BOOST_DIR","/opt/apps/boost/1.49.0")
+add_property("arch","offload")
 ===========================
 step 6
 ===========================
@@ -53,10 +53,10 @@ Currently Loaded Modules:
 step 8
 ===========================
    ProjectDIR/mf/Core/boost/1.47.1.lua:
-setenv("TACC_BOOST_DIR", "/opt/apps/boost/1.47.1")
+setenv("TACC_BOOST_DIR","/opt/apps/boost/1.47.1")
 ===========================
 step 9
 ===========================
    ProjectDIR/mf/Core/boost/1.49.0.lua:
-setenv("TACC_BOOST_DIR", "/opt/apps/boost/1.49.0")
-add_property("arch", "offload")
+setenv("TACC_BOOST_DIR","/opt/apps/boost/1.49.0")
+add_property("arch","offload")
