@@ -325,6 +325,22 @@ function UUIDString(epoch)
    return uuid
 end
 
+function ShowCmdStr(name, ...)
+   local a = {}
+   for _,v in ipairs{...} do
+      local s = tostring(v)
+      if (type(v) ~= "boolean") then
+         s = "\"".. s .."\""
+      end
+      a[#a + 1] = s
+   end
+   local b = {}
+   b[#b+1] = name
+   b[#b+1] = "("
+   b[#b+1] = concatTbl(a,",")
+   b[#b+1] = ")\n"
+   return concatTbl(b,"")
+end
 
 
 --------------------------------------------------------------------------
