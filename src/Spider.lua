@@ -57,48 +57,7 @@ local systemG     = _G
 local function nothing()
 end
 
---local s_master    = {}
---
---function masterTbl()
---   return s_master
---end
---
---local masterTbl = masterTbl
-
-function Spider_setenv(name, value)
-   if (name:find("^TACC_.*_LIB")) then
-      processLPATH(value)
-   end
-end
-
-function Spider_help(...)
-   local masterTbl   = masterTbl()
-   local moduleStack = masterTbl.moduleStack
-   local iStack      = #moduleStack
-   local path        = moduleStack[iStack].path
-   local moduleT     = moduleStack[iStack].moduleT
-   moduleT[path].help = concatTbl({...},"")
-end
-
 KeyT = {Description=1, Name=1, URL=1, Version=1, Category=1, Keyword=1}
-
-function Spider_whatis(s)
-   local masterTbl   = masterTbl()
-   local moduleStack = masterTbl.moduleStack
-   local iStack      = #moduleStack
-   local path        = moduleStack[iStack].path
-   local moduleT     = moduleStack[iStack].moduleT
-
-   local i,j, key, value = s:find('^%s*([^: ]+)%s*:%s*(.*)')
-   local k  = KeyT[key]
-   if (k) then
-      moduleT[path][key] = value
-   end
-   if (moduleT[path].whatis == nil) then
-      moduleT[path].whatis ={}
-   end
-   moduleT[path].whatis[#moduleT[path].whatis+1] = s
-end
 
 function processLPATH(value)
    if (value == nil) then return end
@@ -172,38 +131,6 @@ function processNewModulePATH(value)
 
    dbg.fini("processNewModulePATH")
 end
-
-function Spider_add_property(name,value)
-   local dbg = Dbg:dbg()
-   dbg.start("Spider_add_property(name=\"",name,"\", value=\"",value,"\")")
-
-   local masterTbl     = masterTbl()
-   local moduleStack   = masterTbl.moduleStack
-   local iStack        = #moduleStack
-   local path          = moduleStack[iStack].path
-   local moduleT       = moduleStack[iStack].moduleT
-   local t             = moduleT[path].propT or {}
-   t[name]             = t[name] or {}
-   t[name][value]      = 1
-   moduleT[path].propT = t
-   dbg.fini("Spider_add_property")
-end
-
-function Spider_remove_property(name,value)
-   local dbg = Dbg:dbg()
-   dbg.start("Spider_remove_property(name=\"",name,"\", value=\"",value,"\")")
-   local masterTbl     = masterTbl()
-   local moduleStack   = masterTbl.moduleStack
-   local iStack        = #moduleStack
-   local path          = moduleStack[iStack].path
-   local moduleT       = moduleStack[iStack].moduleT
-   local t             = moduleT[path].propT or {}
-   t[name]             = t[name] or {}
-   t[name][value]      = nil
-   moduleT[path].propT = t
-   dbg.fini("Spider_remove_property")
-end
-
 
 ------------------------------------------------------------
 --module("Spider")

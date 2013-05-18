@@ -101,23 +101,44 @@ end
 function M.help(self,...)
    local dbg    = Dbg:dbg()
    dbg.start("MC_Spider:help(...)")
-   Spider_help(...)
+   local masterTbl    = masterTbl()
+   local moduleStack  = masterTbl.moduleStack
+   local iStack       = #moduleStack
+   local path         = moduleStack[iStack].path
+   local moduleT      = moduleStack[iStack].moduleT
+   moduleT[path].help = concatTbl({...},"")
    dbg.fini()
    return true
 end
 
-function M.whatis(self,...)
+function M.whatis(self,s)
    local dbg    = Dbg:dbg()
    dbg.start("MC_Spider:whatis(...)")
-   Spider_whatis(...)
+   local masterTbl   = masterTbl()
+   local moduleStack = masterTbl.moduleStack
+   local iStack      = #moduleStack
+   local path        = moduleStack[iStack].path
+   local moduleT     = moduleStack[iStack].moduleT
+
+   local i,j, key, value = s:find('^%s*([^: ]+)%s*:%s*(.*)')
+   local k  = KeyT[key]
+   if (k) then
+      moduleT[path][key] = value
+   end
+   if (moduleT[path].whatis == nil) then
+      moduleT[path].whatis ={}
+   end
+   moduleT[path].whatis[#moduleT[path].whatis+1] = s
    dbg.fini()
    return true
 end
 
-function M.setenv(self,...)
+function M.setenv(self, name, value)
    local dbg    = Dbg:dbg()
-   dbg.start("MC_Spider:setenv(...)")
-   Spider_setenv(...)
+   dbg.start("MC_Spider:setenv(name, value)")
+   if (name:find("^TACC_.*_LIB")) then
+      processLPATH(value)
+   end
    dbg.fini()
    return true
 end
@@ -146,18 +167,34 @@ function M.is_spider(self)
    return true
 end
 
-function M.add_property(self,...)
+function M.add_property(self, name, value)
    local dbg    = Dbg:dbg()
-   dbg.start("MC_Spider:add_property(...)")
-   Spider_add_property(...)
+   dbg.start("MC_Spider:add_property(name=\"",name,"\", value=\"",value,"\")")
+   local masterTbl     = masterTbl()
+   local moduleStack   = masterTbl.moduleStack
+   local iStack        = #moduleStack
+   local path          = moduleStack[iStack].path
+   local moduleT       = moduleStack[iStack].moduleT
+   local t             = moduleT[path].propT or {}
+   t[name]             = t[name] or {}
+   t[name][value]      = 1
+   moduleT[path].propT = t
    dbg.fini()
    return true
 end
 
-function M.remove_property(self,...)
+function M.remove_property(self,name, value)
    local dbg    = Dbg:dbg()
-   dbg.start("MC_Spider:remove_property(...)")
-   Spider_remove_property(...)
+   dbg.start("MC_Spider:remove_property(name=\"",name,"\", value=\"",value,"\")")
+   local masterTbl     = masterTbl()
+   local moduleStack   = masterTbl.moduleStack
+   local iStack        = #moduleStack
+   local path          = moduleStack[iStack].path
+   local moduleT       = moduleStack[iStack].moduleT
+   local t             = moduleT[path].propT or {}
+   t[name]             = t[name] or {}
+   t[name][value]      = nil
+   moduleT[path].propT = t
    dbg.fini()
    return true
 end
