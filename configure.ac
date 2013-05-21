@@ -132,6 +132,11 @@ PATH_TO_PAGER=$pager
 
 AC_PATH_PROG(luaprog, lua, "")
 
+if test x$luaprog = "x"; then
+  echo The program "lua" must be in your path
+  exit
+fi
+
 oldprog=$luaprog
 while test -L $luaprog; do
   luaprog=$(readlink $luaprog)
@@ -149,10 +154,6 @@ while test -L $luaprog; do
   oldprog=$luaprog
 done
 
-if test x$luaprog = "x"; then
-  echo The program "lua" must be in your path
-  exit
-fi
 
 echo -n "Checking for valid Lua version"
 

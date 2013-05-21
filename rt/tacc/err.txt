@@ -1,7 +1,7 @@
 ===========================
 step 1
 ===========================
-Modules based on Lua: Version 5.0rc3 (5.0rc3-11-g4c7893f) 2013-05-17 10:46
+Modules based on Lua: Version 5.0rc3 (5.0rc3-13-g37d5a8e) 2013-05-17 10:46
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -22,24 +22,7 @@ step 3
 ===========================
 step 4
 ===========================
-Currently Loaded Modules:
-  1) TACC    3) cluster   5) mvapich1/1.0   7) cluster-paths
-  2) Linux   4) pgi/7.1   6) globus/4.0.7   8) TACC-paths
-===========================
-step 5
-===========================
-The following have been reloaded with a version change:
-  1) mvapich1/1.0 => mvapich1/mvapich1
-===========================
-step 6
-===========================
-Currently Loaded Modules:
-  1) TACC    3) cluster        5) cluster-paths   7) mvapich1/mvapich1
-  2) Linux   4) globus/4.0.7   6) TACC-paths      8) pgi/7.2-5
-===========================
-step 7
-===========================
-Module Specific Help for "mvapich1/mvapich1"
+Module Specific Help for "mvapich1/1.0"
 	This module loads the MVAPICH MPI environment built with
 	Intel compilers. By loading this module, the following commands
 	will be automatically available for compiling MPI applications:
@@ -47,10 +30,49 @@ Module Specific Help for "mvapich1/mvapich1"
 	mpif90       (F90 source)
 	mpicc        ( C  source)
 	mpiCC/mpicxx (C++ source)
-	Version 1.0.1
+	Version 1.0
+===========================
+step 5
+===========================
+Currently Loaded Modules:
+  1) TACC    3) cluster   5) mvapich1/1.0   7) cluster-paths
+  2) Linux   4) pgi/7.1   6) globus/4.0.7   8) TACC-paths
+===========================
+step 6
+===========================
+The following have been reloaded with a version change:
+  1) mvapich1/1.0 => mvapich1/mvapich1
+===========================
+step 7
+===========================
+Currently Loaded Modules:
+  1) TACC    3) cluster        5) cluster-paths   7) mvapich1/mvapich1
+  2) Linux   4) globus/4.0.7   6) TACC-paths      8) pgi/7.2-5
 ===========================
 step 8
 ===========================
+The following have been reloaded with a version change:
+  1) mvapich1/mvapich1 => mvapich1/1.0     2) pgi/7.2-5 => pgi/7.1
 ===========================
 step 9
+===========================
+Currently Loaded Modules:
+  1) TACC    3) cluster        5) cluster-paths   7) pgi/7.1
+  2) Linux   4) globus/4.0.7   6) TACC-paths      8) mvapich1/1.0
+===========================
+step 10
+===========================
+The following have been reloaded with a version change:
+  1) mvapich1/1.0 => mvapich1/mvapich1
+===========================
+step 11
+===========================
+Currently Loaded Modules:
+  1) TACC    3) cluster        5) cluster-paths   7) mvapich1/mvapich1
+  2) Linux   4) globus/4.0.7   6) TACC-paths      8) pgi/7.2-5
+===========================
+step 12
+===========================
+===========================
+step 13
 ===========================

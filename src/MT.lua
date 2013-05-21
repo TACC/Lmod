@@ -81,7 +81,22 @@ s_mtA = {}
 
 --------------------------------------------------------------------------
 -- locationTblDir(): This local function walks a single directory to find
---                   all  
+--                   all the modulefiles in that directory.  This function
+--                   is used when moduleT is not available.  The naming
+--                   rule is implemented here:
+--                     (1) If a file is a member of a path in MODULEPATH
+--                         then it is a meta-module.
+--                     (2) If a file is a sub-directory of MODULEPATH, then
+--                         and there are no subdirectories (excluding
+--                         '.' and '..' of course), then these files are
+--                         version files and the names are the directory
+--                         (or directories) between the path in MODULEPATH
+--                         and here.
+--                     (3) If a file is in a directory with subdirectories
+--                         then that file is a meta-module.
+--
+--                   Meta-modules are modulefiles that are not versioned.
+--                   They typically load other modules but not always.
 
 local function locationTblDir(mpath, path, prefix, locationT, availT)
    local attr = lfs.attributes(path)
@@ -99,7 +114,7 @@ local function locationTblDir(mpath, path, prefix, locationT, availT)
          attr    = lfs.attributes(f) or {}
          local readable = posix.access(f,"r")
          if (not readable or not attr) then
-            -- do nothing for non-readable non-existant files
+            -- do nothing for non-readable or non-existant files
          elseif (attr.mode == 'file' and file ~= "default") then
             local mname = pathJoin(prefix, file):gsub("%.lua","")
             mnameT[mname] = {file=f, mpath = mpath}

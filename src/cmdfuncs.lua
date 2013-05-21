@@ -355,9 +355,9 @@ function Load_Usr(...)
       local mname = MName.new(MName, "load", v)
       local sn    = mname:sn()
       if (not mt:have(sn, "active")) then
-         aa[#aa+1] = a[i]
+         aa[#aa+1] = v
       else
-         local usrN  = (not masterTbl().latest) and b or mt:fullName(sn)
+         local usrN  = (not masterTbl().latest) and v or mt:fullName(sn)
          dbg.print("Karl registration: ",sn," user: ", usrN,"\n")
          
          ------------------------------------------------------
