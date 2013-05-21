@@ -1254,9 +1254,8 @@ function M.reportChanges(self)
                reloadA[#reloadA+1] = v.fullName
             else
                local usrName = loadT[sn]
-               local fullN   = self:fullName(sn)
-               if (usrName ~= fullN) then
-                  changedA[#changedA+1] = v.fullName .. " => " .. fullN
+               if (not usrName) then
+                  changedA[#changedA+1] = v.fullName .. " => " .. self:fullName(sn)
                end
             end
          end

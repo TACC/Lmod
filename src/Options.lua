@@ -121,6 +121,13 @@ function M.options(self, usage)
    }
 
    cmdlineParser:add_option{
+      name   = {"--latest"},
+      dest   = "latest",
+      action = "store_true",
+      help   = "Load latest (ignore default)",
+   }
+
+   cmdlineParser:add_option{
       name   = {"--novice"},
       dest   = "novice",
       action = "store_true",

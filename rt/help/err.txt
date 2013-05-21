@@ -1,7 +1,7 @@
 ===========================
 step 1
 ===========================
-Modules based on Lua: Version 5.0rc2 (5.0rc2-86-gf58c473) 2013-04-26 11:23
+Modules based on Lua: Version 5.0rc3 (5.0rc3-7-g931c13f) 2013-05-17 10:46
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -16,6 +16,7 @@ Options:
   -t --terse                    Write out in machine readable format for
                                 commands: list, avail, spider
   --initial_load                loading Lmod for first time in a user shell
+  --latest                      Load latest (ignore default)
   --novice                      Turn off expert flag
   -v --version                  Print version info and quit
   --localvar=localvarA          local variables needed to be set after this
@@ -92,7 +93,7 @@ The following guides are at http://www.tacc.utexas.edu/tacc-projects/lmod
   User Guide                 - How to use.
   Advance User Guide         - How to create you own modules.
   System Administrator Guide - How to install Lmod on your own system.
-Modules based on Lua: Version 5.0rc2 (5.0rc2-86-gf58c473) 2013-04-26 11:23
+Modules based on Lua: Version 5.0rc3 (5.0rc3-7-g931c13f) 2013-05-17 10:46
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 3
@@ -107,6 +108,7 @@ Options:
   -t --terse                    Write out in machine readable format for
                                 commands: list, avail, spider
   --initial_load                loading Lmod for first time in a user shell
+  --latest                      Load latest (ignore default)
   --novice                      Turn off expert flag
   -v --version                  Print version info and quit
   --localvar=localvarA          local variables needed to be set after this
@@ -183,7 +185,7 @@ The following guides are at http://www.tacc.utexas.edu/tacc-projects/lmod
   User Guide                 - How to use.
   Advance User Guide         - How to create you own modules.
   System Administrator Guide - How to install Lmod on your own system.
-Modules based on Lua: Version 5.0rc2 (5.0rc2-86-gf58c473) 2013-04-26 11:23
+Modules based on Lua: Version 5.0rc3 (5.0rc3-7-g931c13f) 2013-05-17 10:46
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 4
