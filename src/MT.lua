@@ -32,6 +32,13 @@
 --
 --------------------------------------------------------------------------
 
+--------------------------------------------------------------------------
+-- MT: This class controls the ModuleTable.  The ModuleTable is how Lmod
+--     communicates what modules are loaded or inactive and so on between
+--     module commands. 
+
+
+
 require("strict")
 _ModuleTable_      = ""
 local DfltModPath  = DfltModPath
@@ -54,7 +61,6 @@ require("utils")
 
 local Var          = require('Var')
 local lfs          = require('lfs')
-local pathJoin     = pathJoin
 local Dbg          = require('Dbg')
 local ColumnTable  = require('ColumnTable')
 local posix        = require("posix")
@@ -74,12 +80,9 @@ s_mt = false
 s_mtA = {}
 
 local function locationTblDir(mpath, path, prefix, locationT, availT)
-   local dbg  = Dbg:dbg()
-   --dbg.start("MT:locationTblDir(mpath=",mpath,", path=",path,", prefix=",prefix,",locationT)")
-
    local attr = lfs.attributes(path)
-   if (not attr or type(attr) ~= "table" or attr.mode ~= "directory" or not posix.access(path,"x")) then
-      --dbg.fini("MT:locationTblDir")
+   if (not attr or type(attr) ~= "table" or attr.mode ~= "directory"
+       or not posix.access(path,"x")) then
       return
    end
 
@@ -106,7 +109,6 @@ local function locationTblDir(mpath, path, prefix, locationT, availT)
          local a      = locationT[k] or {}
          a[#a+1]      = v
          locationT[k] = a
-         --dbg.print("Adding Meta module: ",k," file: ", v.file,"\n")
          availT[k]    = {}
       end
       for i = 1, #dirA do
@@ -114,7 +116,6 @@ local function locationTblDir(mpath, path, prefix, locationT, availT)
       end
    else
       local a           = locationT[prefix] or {}
-      --dbg.print("adding Regular module: file: ",path, " mpath: ", prefix, "\n")
       a[#a+1]           = { file = path, mpath = mpath}
       locationT[prefix] = a
       availT[prefix]    = {}
@@ -129,10 +130,8 @@ local function locationTblDir(mpath, path, prefix, locationT, availT)
       for i = 1, #vA do
          a[#a+1] = {version = vA[i][2], file = vA[i][3]}
       end
-      --dbg.print("Setting availT[",prefix,"]: with ",#a, " entries\n")
       availT[prefix] = a
    end
-   --dbg.fini("MT:locationTblDir")
 end
 
 local function buildLocWmoduleT(mpath, moduleT, mpathT, lT, availT)
