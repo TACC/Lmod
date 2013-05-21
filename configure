@@ -2075,7 +2075,10 @@ else
 $as_echo "no" >&6; }
 fi
 
-
+if test x$luaprog = "x"; then
+  echo The program "lua" must be in your path
+  exit
+fi
 
 oldprog=$luaprog
 while test -L $luaprog; do
@@ -2093,11 +2096,6 @@ while test -L $luaprog; do
   fi
   oldprog=$luaprog
 done
-
-if test x$luaprog = "x"; then
-  echo The program "lua" must be in your path
-  exit
-fi
 
 echo -n "Checking for valid Lua version"
 
