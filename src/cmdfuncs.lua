@@ -357,16 +357,12 @@ function Load_Usr(...)
       if (not mt:have(sn, "active")) then
          aa[#aa+1] = a[i]
       else
-         local usrName = a[i]
-         if (masterTbl().latest) then
-            usrName = mt:fullName(sn)
-         end
-
-         dbg.print("Karl registration: ",sn," user: ", usrName,"\n")
+         local usrN  = (not masterTbl().latest) and b or mt:fullName(sn)
+         dbg.print("Karl registration: ",sn," user: ", usrN,"\n")
          
          ------------------------------------------------------
          -- Register user loads so that Karl will be happy.
-         mt:userLoad(sn,usrName)
+         mt:userLoad(sn,usrN)
       end
    end
 
@@ -724,9 +720,10 @@ function Swap(...)
    ------------------------------------------------------
    -- Register user loads so that Karl will be happy.
 
-   local mname = MName:new("load",b)
+   local mname = MName:new("mt",b)
    local sn    = mname:sn()
-   mt:userLoad(sn,b)
+   local usrN  = (not masterTbl().latest) and b or mt:fullName(sn)
+   mt:userLoad(sn,usrN)
    mcp = mcp_old
    dbg.fini("Swap")
 end

@@ -79,6 +79,10 @@ s_mt = false
 
 s_mtA = {}
 
+--------------------------------------------------------------------------
+-- locationTblDir(): This local function walks a single directory to find
+--                   all  
+
 local function locationTblDir(mpath, path, prefix, locationT, availT)
    local attr = lfs.attributes(path)
    if (not attr or type(attr) ~= "table" or attr.mode ~= "directory"
