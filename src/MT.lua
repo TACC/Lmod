@@ -245,14 +245,12 @@ local function build_locationTbl(mpathA)
       end
    end
 
-
    if (dbg.active()) then
       dbg.print("availT: \n")
       for mpath, vv in pairs(availT) do
          dbg.print("  mpath: ", mpath,":\n")
 
          for sn , v in pairsByKeys(vv) do
-
             dbg.print("    ",sn,":")
             for i = 1, #v do
                io.stderr:write(" ",v[i].version,",")
@@ -1253,7 +1251,8 @@ function M.reportChanges(self)
                reloadA[#reloadA+1] = v.fullName
             else
                local usrName = loadT[sn]
-               if (not usrName) then
+               local fullN   = self:fullName(sn)
+               if (usrName ~= fullN) then
                   changedA[#changedA+1] = v.fullName .. " => " .. self:fullName(sn)
                end
             end
@@ -1273,7 +1272,8 @@ function M.reportChanges(self)
    end
    if (#reloadA > 0) then
       entries = true
-      columnList(io.stderr,"\nDue to MODULEPATH changes the following have been reloaded:\n",
+      columnList(io.stderr,"\nDue to MODULEPATH changes the following "
+                    .."have been reloaded:\n",
                  reloadA)
    end
    if (#changedA > 0) then

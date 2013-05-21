@@ -30,9 +30,11 @@ testdescript = {
      runMe lua $(projectDir)/src/lmod.in.lua bash avail              # 2
      runMe lua $(projectDir)/src/lmod.in.lua bash load TACC          # 3
      runMe lua $(projectDir)/src/lmod.in.lua bash list               # 4
-     runMe lua $(projectDir)/src/lmod.in.lua bash help mvapich1      # 5
-     runMe lua $(projectDir)/src/lmod.in.lua bash unload cluster     # 6
-     runMe lua $(projectDir)/src/lmod.in.lua bash purge              # 7
+     runMe lua $(projectDir)/src/lmod.in.lua bash --latest load pgi  # 5
+     runMe lua $(projectDir)/src/lmod.in.lua bash list               # 6
+     runMe lua $(projectDir)/src/lmod.in.lua bash help mvapich1      # 7
+     runMe lua $(projectDir)/src/lmod.in.lua bash unload cluster     # 8
+     runMe lua $(projectDir)/src/lmod.in.lua bash purge              # 9
 
      PATH=$ORIGPATH
      export PATH

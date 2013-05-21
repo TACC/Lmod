@@ -357,11 +357,16 @@ function Load_Usr(...)
       if (not mt:have(sn, "active")) then
          aa[#aa+1] = a[i]
       else
-         dbg.print("Karl registration: ",sn," user: ", a[i],"\n")
+         local usrName = a[i]
+         if (masterTbl().latest) then
+            usrName = mt:fullName(sn)
+         end
+
+         dbg.print("Karl registration: ",sn," user: ", usrName,"\n")
          
          ------------------------------------------------------
          -- Register user loads so that Karl will be happy.
-         mt:userLoad(sn,a[i])
+         mt:userLoad(sn,usrName)
       end
    end
 
