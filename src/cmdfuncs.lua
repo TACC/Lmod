@@ -348,6 +348,7 @@ function Load_Usr(...)
    mcp           = mcp_old
 
 
+
    local aa = {}
    for i = 1,#a do
       local v     = a[i]
@@ -356,6 +357,8 @@ function Load_Usr(...)
       if (not mt:have(sn, "active")) then
          aa[#aa+1] = a[i]
       else
+         dbg.print("Karl registration: ",sn," user: ", a[i],"\n")
+         
          ------------------------------------------------------
          -- Register user loads so that Karl will be happy.
          mt:userLoad(sn,a[i])

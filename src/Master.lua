@@ -72,7 +72,10 @@ local function new(self,safe)
    return o
 end
 
-local searchTbl = {'.lua', '', '/default', '/.version'}
+local searchTbl     = {'.lua', '', '/default', '/.version'}
+local numSearch     = 4
+local numSrchLatest = 2
+
 
 local function followDefault(path)
    if (path == nil) then return nil end
@@ -128,22 +131,25 @@ local function find_module_file(mname)
    end
    local fn, result
 
+   local numS = (masterTbl().latest) and numSrchLatest or numSearch
+
    for ii, vv in ipairs(pathA) do
-      t.default = 0
-      local mpath  = vv.mpath
-      fn           = pathJoin(vv.file, mname:version())
-      result = nil
       local found  = false
-      for _,v in ipairs(searchTbl) do
+      local mpath  = vv.mpath
+      t.default    = 0
+      fn           = pathJoin(vv.file, mname:version())
+      result       = nil
+      for i = 1, numS do
+         local v    = searchTbl[i]
          local f    = fn .. v
          local attr = lfs.attributes(f)
          local readable = posix.access(f,"r")
-         dbg.print('(1) fn: ',fn," v: ",v," f: ",f,"\n")
 
          if (readable and attr and attr.mode == 'file') then
             result    = f
             found     = true
          end
+         dbg.print('(1) fn: ',fn,", found: ",found,", v: ",v,", f: ",f,"\n")
          if (found and v == '/default' and ii == 1) then
             result    = followDefault(result)
             dbg.print("(2) result: ",result, " f: ", f, "\n")
@@ -157,7 +163,7 @@ local function find_module_file(mname)
             end
          end
          if (found) then
-            local i,j = result:find(mpath,1,true)
+            local _,j = result:find(mpath,1,true)
             fullName  = result:sub(j+2):gsub("%.lua$","")
             dbg.print("fullName: ",fullName,"\n")
             break
@@ -175,7 +181,7 @@ local function find_module_file(mname)
          result = lastFileInDir(fn)
          if (result) then
             found = true
-            local i, j = result:find(mpath,1,true)
+            local _, j = result:find(mpath,1,true)
             fullName   = result:sub(j+2):gsub("%.lua$","")
             dbg.print("lastFileInDir mpath: ", mpath," fullName: ",fullName,"\n")
          end
