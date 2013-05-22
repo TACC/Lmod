@@ -108,6 +108,10 @@ local function locationTblDir(mpath, path, prefix, locationT, availT)
    local mnameT = {}
    local dirA   = {}
 
+   -----------------------------------------------------------------------------
+   -- Read every relevant file in a directory.  Copy directory names into dirA.
+   -- Copy files into mnameT.
+
    for file in lfs.dir(path) do
       if (file:sub(1,1) ~= "." and file ~= "CVS" and file:sub(-1,-1) ~= "~") then
          local f = pathJoin(path,file)
@@ -123,22 +127,40 @@ local function locationTblDir(mpath, path, prefix, locationT, availT)
          end
       end
    end
+
+
    if (#dirA > 0 or prefix == '') then
+      --------------------------------------------------------------------------
+      -- If prefix is '' then this directory in directly under MODULEPATH so
+      -- any files are meta-modules.  Also if there are files when there are
+      -- directories then these files are also meta-modules.
+
+      -- Copy any meta-modules into the array stored at locationT[k].
       for k,v in pairs(mnameT) do
          local a      = locationT[k] or {}
          a[#a+1]      = v
          locationT[k] = a
          availT[k]    = {}
       end
+
+      -- For any directories found recursively call locationDir to process.
       for i = 1, #dirA do
          locationTblDir(mpath, dirA[i].fullName,  dirA[i].mname, locationT, availT)
       end
    else
+      ------------------------------------------------------------------------
+      -- If here, then there are no directories and this is not a top level
+      -- directory. So any files found here are versions for the module.  
+      -- The "name" of the module is the "prefix".
+
       local a           = locationT[prefix] or {}
       a[#a+1]           = { file = path, mpath = mpath}
       locationT[prefix] = a
       availT[prefix]    = {}
       local vA          = {}
+
+      ------------------------------------------------------------------------
+      -- Sort the files by parseVersion order and store them in "availT[prefix]".
       for full, v in pairs(mnameT) do
          local version = full:gsub(".*/","")
          local parseV  = concatTbl(parseVersion(version), ".")
@@ -147,11 +169,17 @@ local function locationTblDir(mpath, path, prefix, locationT, availT)
       sort(vA, function(a,b) return a[1] < b[1] end )
       local a = {}
       for i = 1, #vA do
-         a[#a+1] = {version = vA[i][2], file = vA[i][3]}
+         a[i] = {version = vA[i][2], file = vA[i][3]}
       end
       availT[prefix] = a
    end
 end
+
+--------------------------------------------------------------------------
+-- buildLocWmoduleT(): This local function walks a single directory in
+--                     moduleT.  This routine fills in availT[mpath} and
+--                     the local copy of the locationT "lT"
+
 
 local function buildLocWmoduleT(mpath, moduleT, mpathT, lT, availT)
    local dbg       = Dbg:dbg()
@@ -161,6 +189,9 @@ local function buildLocWmoduleT(mpath, moduleT, mpathT, lT, availT)
    local availEntryT = availT[mpath]
 
    for f, vv in pairs(moduleT) do
+
+      --------------------------------------------------------------------
+      -- 
 
       local defaultModule = false
       local sn            = vv.name

@@ -32,6 +32,13 @@
 --
 --------------------------------------------------------------------------
 
+--------------------------------------------------------------------------
+-- Master: This class is responsible for actively managing the actions of
+--         Lmod.  It is responsible finding and loading or unloading a
+--         modulefile.  It is also responsible for reloading modules when
+--         the module path changes.  Finally it is responsible for finding
+--         modulefiles for "avail"
+
 require("strict")
 local concatTbl          = table.concat
 local floor              = math.floor
@@ -59,7 +66,8 @@ local hook         = require("Hook")
 local lfs          = require('lfs')
 local posix        = require("posix")
 
---module("Master")
+------------------------------------------------------------------------
+-- Master:new() a private ctor that is used to construct a singleton.
 
 s_master = {}
 
@@ -76,6 +84,10 @@ local searchTbl     = {'.lua', '', '/default', '/.version'}
 local numSearch     = 4
 local numSrchLatest = 2
 
+--------------------------------------------------------------------------
+-- followDefault(): This local function is used to find a default file
+--                  that maybe in symbolic link chain. This returns
+--                  the absolute path.
 
 local function followDefault(path)
    if (path == nil) then return nil end
@@ -111,6 +123,33 @@ local function followDefault(path)
    return result
 end
 
+--------------------------------------------------------------------------
+-- find_module_file(): This local routine is one of the key routines in
+--                     Lmod.  This routine uses the MT:locationTbl routine
+--                     find an array of directory paths that contain the 
+--                     module name of interest.  The outer loop searches
+--                     over these directory paths.  The inner loop searches
+--                     over files in the directory.
+
+--  This routine is setting Lmod policy:
+--    1) If it is a meta-module then it finds it immediately.
+--    2) If a user specifies a module name (and not the full name) then
+--       the following rules are used:
+--         a) if a default or a .version file is specified then it is used
+--            to pick the default.  (default file trumps .version)
+--         b) If not default file is used (or --latest is used) then the
+--            last file in the directory is used to pick the latest.
+--            (see lastFileInDir() for details).
+--         c) If the module name is used (and not full) then the first
+--            directory in pathA is used.
+--    3) If the user specifies the full name, then the each directory is
+--       search in pathA.  It uses the first one that matches.  This is
+--       the only way that the second directory is searched.
+--    4) Note on --latest.  It just searches the first directory for the
+--       "latest"  IT DOESN'T search any other directories in pathA.
+--       (This just a restatement of 2c.)
+
+
 local function find_module_file(mname)
    local dbg      = Dbg:dbg()
    dbg.start("Master:find_module_file(",mname:usrName(),")")
@@ -133,7 +172,8 @@ local function find_module_file(mname)
 
    local numS = (masterTbl().latest) and numSrchLatest or numSearch
 
-   for ii, vv in ipairs(pathA) do
+   for ii = 1, #pathA do
+      local vv     = pathA[ii]
       local found  = false
       local mpath  = vv.mpath
       t.default    = 0
