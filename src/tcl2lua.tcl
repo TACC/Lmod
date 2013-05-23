@@ -456,8 +456,18 @@ proc unuse { args } {
 
 }
 
+proc setPutMode { value } {
+    global putMode
+    set putMode $value
+}
+
 proc myPuts { stream msg } {
-	puts stdout $msg
+    global putMode
+    if {$putMode != "inHelp"} {
+        eval cmdargs "LmodMessage" "$msg" 
+    } else {
+        puts stdout "$msg"
+    }
 }
 
 
@@ -536,10 +546,12 @@ proc reportWarning {message {nonewline ""}} {
 }
 
 proc execute-modulefile {modfile } {
-    global env g_help ModulesCurrentModulefile
+    global env g_help ModulesCurrentModulefile putMode
     set ModulesCurrentModulefile $modfile
 
     set slave "__modname"
+    set putMode "normal"
+
     if {![interp exists $slave]} {
 	interp create $slave
 	interp alias $slave family {} family
@@ -555,7 +567,8 @@ proc execute-modulefile {modfile } {
 	interp alias $slave conflict {} conflict
 	interp alias $slave is-loaded {} is-loaded
 	interp alias $slave module {} module
-        if { $g_help } { interp alias $slave puts {} myPuts }
+        interp alias $slave setPutMode {} setPutMode
+        interp alias $slave puts {} myPuts 
 	interp alias $slave module-info {} module-info
 	interp alias $slave module-whatis {} module-whatis
 	interp alias $slave set-alias {} set-alias
@@ -577,9 +590,15 @@ proc execute-modulefile {modfile } {
         if { $g_help && [info procs "ModulesHelp"] == "ModulesHelp" } {
             set start "help(\[\["
             set end   "\]\])"
+            setPutMode "inHelp"
             puts stdout $start
             ModulesHelp
             puts stdout $end
+            setPutMode "normal"
+        }
+        if {$sourceFailed} {
+            reportWarning $errorMsg
+            return 1
         }
     }]
     interp delete $slave
