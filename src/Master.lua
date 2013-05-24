@@ -126,7 +126,7 @@ end
 --------------------------------------------------------------------------
 -- find_module_file(): This local routine is one of the key routines in
 --                     Lmod.  This routine uses the MT:locationTbl routine
---                     find an array of directory paths that contain the 
+--                     find an array of directory paths that contain the
 --                     module name of interest.  The outer loop searches
 --                     over these directory paths.  The inner loop searches
 --                     over files in the directory.
@@ -161,8 +161,10 @@ local function find_module_file(mname)
    local sn       = mname:sn()
    dbg.print("sn: ",sn,"\n")
 
-   local pathA = mt:locationTbl(sn)
+   -- Get all directories that contain the shortname [[sn]].  If none exist
+   -- then the module does not exist. Therefore exit.
 
+   local pathA = mt:locationTbl(sn)
    if (pathA == nil or #pathA == 0) then
       dbg.print("did not find key: \"",sn,"\" in mt:locationTbl()\n")
       dbg.fini("Master:find_module_file")
@@ -170,8 +172,12 @@ local function find_module_file(mname)
    end
    local fn, result
 
+   -- numS is the number of items to search for.  The first two are standard, the
+   -- next 2 are the default and .version choices.  So if the user specifies
+   -- "--latest" on the command line then set numS to 2 otherwise 4.
    local numS = (masterTbl().latest) and numSrchLatest or numSearch
 
+   -- Outer Loop search over directories.
    for ii = 1, #pathA do
       local vv     = pathA[ii]
       local found  = false
@@ -179,11 +185,19 @@ local function find_module_file(mname)
       t.default    = 0
       fn           = pathJoin(vv.file, mname:version())
       result       = nil
+
+      -- Inner loop search over search choices.
       for i = 1, numS do
          local v    = searchTbl[i]
          local f    = fn .. v
          local attr = lfs.attributes(f)
          local readable = posix.access(f,"r")
+
+         -- Three choices:
+
+         -- 1) exact match
+         -- 2) name/default exists
+         -- 3) name/.version exists.
 
          if (readable and attr and attr.mode == 'file') then
             result    = f
@@ -202,6 +216,7 @@ local function find_module_file(mname)
                result    = t.fn
             end
          end
+         -- One of the three choices matched.
          if (found) then
             local _,j = result:find(mpath,1,true)
             fullName  = result:sub(j+2):gsub("%.lua$","")
@@ -212,11 +227,11 @@ local function find_module_file(mname)
 
       dbg.print("found:", found, " fn: ",fn,"\n")
 
-      ------------------------------------------------------------
-      --  Search for "last" file in directory
-      ------------------------------------------------------------
 
       if (not found and ii == 1) then
+         ------------------------------------------------------------
+         -- Search for "last" file in 1st directory since it wasn't
+         -- found with exact or default match.
          t.default  = 1
          result = lastFileInDir(fn)
          if (result) then
@@ -229,6 +244,9 @@ local function find_module_file(mname)
       if (found) then break end
    end
 
+   ------------------------------------------------------------------
+   -- Build results and return.
+
    t.fn          = result
    t.modFullName = fullName
    t.modName     = sn
@@ -238,6 +256,9 @@ local function find_module_file(mname)
 end
 
 
+--------------------------------------------------------------------------
+-- Master:master() - Singleton Ctor.
+
 function M.master(self, safe)
    if (next(s_master) == nil) then
       MT       = systemG.MT
@@ -245,6 +266,10 @@ function M.master(self, safe)
    end
    return s_master
 end
+
+--------------------------------------------------------------------------
+-- Master:safeToUpdate() - [[safe]] is set during ctor. It is controlled
+--                         by the command table in lmod.
 
 function M.safeToUpdate()
    return s_master.safe
