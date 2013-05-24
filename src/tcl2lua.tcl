@@ -464,7 +464,7 @@ proc setPutMode { value } {
 proc myPuts { stream msg } {
     global putMode
     if {$putMode != "inHelp"} {
-        eval cmdargs "LmodMessage" "$msg" 
+        puts stdout "LmodMessage(\"$msg\")" 
     } else {
         puts stdout "$msg"
     }
@@ -537,12 +537,9 @@ proc module { command args } {
     }
 }
 
-proc reportWarning {message {nonewline ""}} {
-    if {$nonewline != ""} {
-	puts -nonewline stderr "$message"
-    } else {
-	puts stderr "$message"
-    }
+proc reportError {message} {
+    global ModulesCurrentModulefile g_fullName
+    puts stdout "LmodSystemError(\"$ModulesCurrentModulefile: ($g_fullName): $message\")"
 }
 
 proc execute-modulefile {modfile } {
@@ -578,7 +575,7 @@ proc execute-modulefile {modfile } {
 	interp alias $slave uname {} uname
 	interp alias $slave module-version {} module-version
 	interp alias $slave module-alias {} module-alias
-	interp alias $slave reportWarning {} reportWarning
+	interp alias $slave reportError {} reportError
 
 	interp eval $slave {global ModulesCurrentModulefile g_help}
 	interp eval $slave [list "set" "ModulesCurrentModulefile" $modfile]
@@ -597,7 +594,7 @@ proc execute-modulefile {modfile } {
             setPutMode "normal"
         }
         if {$sourceFailed} {
-            reportWarning $errorMsg
+            reportError $errorMsg
             return 1
         }
     }]

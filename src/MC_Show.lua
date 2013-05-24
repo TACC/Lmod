@@ -86,6 +86,10 @@ function M.remove_property(self, name,value)
    ShowCmd("remove_property", name, value)
 end
 
+function M.message(self, ...)
+   ShowCmd("LmodMessage", ...)
+end
+
 function M.set_alias(self, name,value)
    ShowCmd("set_alias", name, value)
 end

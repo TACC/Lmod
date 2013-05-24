@@ -116,6 +116,7 @@ sandbox_env = {
   LmodError            = LmodError,
   LmodWarning          = LmodWarning,
   LmodMessage          = LmodMessage,
+  LmodSystemError      = LmodSystemError,
   is_spider            = is_spider,
   mode                 = mode,
   isloaded             = isloaded,
