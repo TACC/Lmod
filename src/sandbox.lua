@@ -116,7 +116,6 @@ sandbox_env = {
   LmodError            = LmodError,
   LmodWarning          = LmodWarning,
   LmodMessage          = LmodMessage,
-  LmodSystemError      = LmodSystemError,
   is_spider            = is_spider,
   mode                 = mode,
   isloaded             = isloaded,
@@ -128,6 +127,12 @@ sandbox_env = {
   myModuleVersion      = myModuleVersion,
   hierarchyA           = hierarchyA,
 
+  -- Normal modulefiles should not use these function(s):
+  LmodSystemError      = LmodSystemError,   -- Normal Modulefiles should use
+                                            -- LmodError instead.  LmodError
+                                            -- is inactive during avail and spider.
+                                            -- This function ALWAYS produces an
+                                            -- error.
   ------------------------------------------------------------
   -- fileOp functions
   ------------------------------------------------------------

@@ -275,6 +275,9 @@ function M.safeToUpdate()
    return s_master.safe
 end
 
+--------------------------------------------------------------------------
+-- Master:unload() - unload modulefile(s) via the module names.
+
 function M.unload(...)
    local mStack = ModuleStack:moduleStack()
    local mt     = MT:mt()
