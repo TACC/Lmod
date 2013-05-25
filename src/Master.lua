@@ -267,6 +267,173 @@ function M.master(self, safe)
    return s_master
 end
 
+
+--------------------------------------------------------------------------
+-- access_find_module_file(): This local function returns the name of the
+--                            filename and the full name of the module file.
+--                            If the user gives the short name and it is
+--                            loaded then that version is used not the default
+--                            module file for the one named.  Otherwise
+--                            find_module_file is used.  
+
+local function access_find_module_file(mname)
+   local mt    = MT:mt()
+   local sn    = mname:sn()
+   if (sn == mname:usrName() and mt:have(sn,"any")) then
+      local full = mt:fullName(sn)
+      return mt:fileName(sn), full or ""
+   end
+
+   local t    = find_module_file(mname)
+   local full = t.modFullName or ""
+   local fn   = t.fn
+   return fn, full
+end
+
+--------------------------------------------------------------------------
+-- Master:access():  This member function is engine that runs the user
+--                   commands "help", "whatis" and "show".  In each case
+--                   mcp is set to MC_Access, MC_Access and MC_Show,
+--                   respectively.  Using that value of mcp, the
+--                   modulefile is found and evaluated by loadModuleFile.
+--                   This causes the help, or whatis or showing the
+--                   modulefile as the user requested.
+
+function M.access(self, ...)
+   local dbg    = Dbg:dbg()
+   local mt     = MT:mt()
+   local mStack = ModuleStack:moduleStack()
+   local prtHdr = systemG.prtHdr
+   local a      = {}
+   local shellN = s_master.shell:name()
+   local help   = (systemG.help ~= dbg.quiet) and "-h" or nil
+   local result, t
+   io.stderr:write("\n")
+
+   local arg = {n=select('#', ...), ...}
+   for i = 1, arg.n do
+      local moduleName   = arg[i]
+      local mname        = MName:new("load", moduleName)
+      local fn, full     = access_find_module_file(mname)
+      systemG.ModuleFn   = fn
+      systemG.ModuleName = full
+      if (fn and isFile(fn)) then
+         prtHdr()
+         mStack:push(full, moduleName, mname:sn(), fn)
+         local mList = concatTbl(mt:list("short","active"),":")
+	 loadModuleFile{file=fn,help=help, shell=shellN, mList = mList,
+                        reportErr=true}
+         mStack:pop()
+         io.stderr:write("\n")
+      else
+         a[#a+1] = moduleName
+      end
+   end
+
+   if (#a > 0) then
+      io.stderr:write("Failed to find the following module(s):  \"",
+                      concatTbl(a,"\", \""),"\" in your MODULEPATH\n")
+      io.stderr:write("Try: \n",
+                      "    \"module spider ", concatTbl(a," "), "\"\n",
+                      "\nto see if the module(s) are available across all ",
+                      "compilers and MPI implementations.\n")
+   end
+end
+
+--------------------------------------------------------------------------
+-- Master:load(): Load all requested modules.  Each module is unloaded
+--                if it is currently loaded.
+
+function M.load(...)
+   local mStack = ModuleStack:moduleStack()
+   local shellN = s_master.shell:name()
+   local mt     = MT:mt()
+   local dbg    = Dbg:dbg()
+   local a      = {}
+
+   dbg.start("Master:load(",concatTbl({...},", "),")")
+
+   a   = {}
+   for _,moduleName in ipairs{...} do
+      moduleName    = moduleName
+      local mname   = MName:new("load",moduleName)
+      local sn      = mname:sn()
+      local loaded  = false
+      local t	    = find_module_file(mname)
+      local fn      = t.fn
+      if (mt:have(sn,"active") and fn  ~= mt:fileName(sn)) then
+         dbg.print("Master:load reload module: \"",moduleName,
+                   "\" as it is already loaded\n")
+         local mcp_old = mcp
+         mcp           = MCP
+         mcp:unload(moduleName)
+         local aa = mcp:load(moduleName)
+         mcp           = mcp_old
+         loaded = aa[1]
+      elseif (fn) then
+         dbg.print("Master:loading: \"",moduleName,"\" from f: \"",fn,"\"\n")
+         local mList = concatTbl(mt:list("short","active"),":")
+         mt:add(t, "pending")
+	 mt:beginOP()
+         mStack:push(t.modFullName, moduleName, sn, fn)
+	 loadModuleFile{file=fn, shell = shellN, mList = mList, reportErr=true}
+         t.mType = mStack:moduleType()
+         mStack:pop()
+	 mt:endOP()
+         dbg.print("Making ", t.modName, " active\n")
+         mt:setStatus(sn, "active")
+         mt:set_mType(sn, t.mType)
+         dbg.print("Marked: ",t.modFullName," as loaded\n")
+         loaded = true
+         hook.apply("load",t)
+      end
+      a[#a+1] = loaded
+   end
+   if (M.safeToUpdate() and mt:safeToCheckZombies() and mStack:empty()) then
+      dbg.print("Master:load calling reloadAll()\n")
+      M.reloadAll()
+   end
+   dbg.fini("Master:load")
+   return a
+end
+
+--------------------------------------------------------------------------
+-- Master:refresh() - Loop over all active modules and reload each one.
+--                    Since only the "shell" functions are active and all
+--                    other Lmod functions are inactive because mcp is now
+--                    MC_Refresh, there is no need to unload and reload the
+--                    modulefiles.  Just call loadModuleFile() to redefine
+--                    the aliases/shell functions in a subshell.
+
+function M.refresh()
+   local mStack  = ModuleStack:moduleStack()
+   local mt      = MT:mt()
+   local dbg     = Dbg:dbg()
+   local shellN  = s_master.shell:name()
+   local mcp_old = mcp
+   mcp           = MasterControl.build("refresh","load")
+   dbg.start("Master:refresh()")
+
+   local activeA = mt:list("short","active")
+
+   for i = 1,#activeA do
+      local sn      = activeA[i]
+      local fn      = mt:fileName(sn)
+      local usrName = mt:usrName(sn)
+      local full    = mt:fullName(sn)
+      local mList   = concatTbl(mt:list("short","active"),":")
+      mStack:push(full, usrName, sn, fn)
+      dbg.print("loading: ",sn," fn: ", fn,"\n")
+      loadModuleFile{file = fn, shell = shellN, mList = mList,
+                     reportErr=true}
+      mStack:pop()
+   end
+
+   mcp = mcp_old
+   dbg.print("Resetting mcp to : ",mcp:name(),"\n")
+   dbg.fini("Master:refresh")
+end
+
 --------------------------------------------------------------------------
 -- Master:safeToUpdate() - [[safe]] is set during ctor. It is controlled
 --                         by the command table in lmod.
@@ -354,155 +521,6 @@ function M.versionFile(path)
    return capture(cmd):trim()
 end
 
---------------------------------------------------------------------------
--- access_find_module_file(): This local function returns the name of the
---                            filename and the full name of the module file.
---                            If the user gives the short name and it is
---                            loaded then that version is used not the default
---                            module file for the one named.  Otherwise
---                            find_module_file is used.  
-
-local function access_find_module_file(mname)
-   local mt    = MT:mt()
-   local sn    = mname:sn()
-   if (sn == mname:usrName() and mt:have(sn,"any")) then
-      local full = mt:fullName(sn)
-      return mt:fileName(sn), full or ""
-   end
-
-   local t    = find_module_file(mname)
-   local full = t.modFullName or ""
-   local fn   = t.fn
-   return fn, full
-end
-
---------------------------------------------------------------------------
--- Master:access():  This member function is engine that runs the user
---                   commands "help", "whatis" and "show".  In each case
---                   mcp is set to MC_Access, MC_Access and MC_Show,
---                   respectively.  Using that value of mcp, the
---                   modulefile is found and evaluated by loadModuleFile.
---                   This causes the help, or whatis or showing the
---                   modulefile as the user requested.
-
-function M.access(self, ...)
-   local dbg    = Dbg:dbg()
-   local mt     = MT:mt()
-   local mStack = ModuleStack:moduleStack()
-   local prtHdr = systemG.prtHdr
-   local a      = {}
-   local shellN = s_master.shell:name()
-   local help   = (systemG.help ~= dbg.quiet) and "-h" or nil
-   local result, t
-   io.stderr:write("\n")
-
-   local arg = {n=select('#', ...), ...}
-   for i = 1, arg.n do
-      local moduleName   = arg[i]
-      local mname        = MName:new("load", moduleName)
-      local fn, full     = access_find_module_file(mname)
-      systemG.ModuleFn   = fn
-      systemG.ModuleName = full
-      if (fn and isFile(fn)) then
-         prtHdr()
-         mStack:push(full, moduleName, mname:sn(), fn)
-         local mList = concatTbl(mt:list("short","active"),":")
-	 loadModuleFile{file=fn,help=help, shell=shellN, mList = mList,
-                        reportErr=true}
-         mStack:pop()
-         io.stderr:write("\n")
-      else
-         a[#a+1] = moduleName
-      end
-   end
-
-   if (#a > 0) then
-      io.stderr:write("Failed to find the following module(s):  \"",
-                      concatTbl(a,"\", \""),"\" in your MODULEPATH\n")
-      io.stderr:write("Try: \n",
-                      "    \"module spider ", concatTbl(a," "), "\"\n",
-                      "\nto see if the module(s) are available across all "..
-                      "compilers and MPI implementations.\n")
-   end
-end
-
-function M.refresh()
-   local mStack = ModuleStack:moduleStack()
-   local mt     = MT:mt()
-   local dbg    = Dbg:dbg()
-   local shellN = s_master.shell:name()
-   dbg.start("Master:refresh()")
-
-   local activeA = mt:list("short","active")
-
-   for i = 1,#activeA do
-      local sn      = activeA[i]
-      local fn      = mt:fileName(sn)
-      local usrName = mt:usrName(sn)
-      local full    = mt:fullName(sn)
-      local mList   = concatTbl(mt:list("short","active"),":")
-      mStack:push(full, usrName, sn, fn)
-      dbg.print("loading: ",sn," fn: ", fn,"\n")
-      loadModuleFile{file = fn, shell = shellN, mList = mList,
-                     reportErr=true}
-      mStack:pop()
-   end
-
-   dbg.fini("Master:refresh")
-end
-
-
-function M.load(...)
-   local mStack = ModuleStack:moduleStack()
-   local shellN = s_master.shell:name()
-   local mt     = MT:mt()
-   local dbg    = Dbg:dbg()
-   local a      = {}
-
-   dbg.start("Master:load(",concatTbl({...},", "),")")
-
-   a   = {}
-   for _,moduleName in ipairs{...} do
-      moduleName    = moduleName
-      local mname   = MName:new("load",moduleName)
-      local sn      = mname:sn()
-      local loaded  = false
-      local t	    = find_module_file(mname)
-      local fn      = t.fn
-      if (mt:have(sn,"active") and fn  ~= mt:fileName(sn)) then
-         dbg.print("Master:load reload module: \"",moduleName,"\" as it is already loaded\n")
-         local mcp_old = mcp
-         mcp           = MCP
-         mcp:unload(moduleName)
-         local aa = mcp:load(moduleName)
-         mcp           = mcp_old
-         loaded = aa[1]
-      elseif (fn) then
-         dbg.print("Master:loading: \"",moduleName,"\" from f: \"",fn,"\"\n")
-         local mList = concatTbl(mt:list("short","active"),":")
-         mt:add(t, "pending")
-	 mt:beginOP()
-         mStack:push(t.modFullName, moduleName, sn, fn)
-	 loadModuleFile{file=fn, shell = shellN, mList = mList, reportErr=true}
-         t.mType = mStack:moduleType()
-         mStack:pop()
-	 mt:endOP()
-         dbg.print("Making ", t.modName, " active\n")
-         mt:setStatus(sn, "active")
-         mt:set_mType(sn, t.mType)
-         dbg.print("Marked: ",t.modFullName," as loaded\n")
-         loaded = true
-         hook.apply("load",t)
-      end
-      a[#a+1] = loaded
-   end
-   if (M.safeToUpdate() and mt:safeToCheckZombies() and mStack:empty()) then
-      dbg.print("Master:load calling reloadAll()\n")
-      M.reloadAll()
-   end
-   dbg.fini("Master:load")
-   return a
-end
 
 function M.fakeload(...)
    local a   = {}

@@ -447,16 +447,8 @@ end
 function Refresh()
    local dbg = Dbg:dbg()
    dbg.start("Refresh()")
-   local mt     = MT:mt()
-
-   local mcp_old = mcp
-   mcp           = MasterControl.build("refresh","load")
    local master  = Master:master()
-
    master:refresh()
-
-   mcp = mcp_old
-   dbg.print("Resetting mcp to : ",mcp:name(),"\n")
    dbg.fini("Refresh")
 end
 
