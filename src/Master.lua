@@ -326,6 +326,13 @@ function M.unload(...)
    return a
 end
 
+--------------------------------------------------------------------------
+-- Master:versionFile(): This routine is given the absolute path to a
+--                       .version file.  It checks to make sure that it is
+--                       a valid TCL file.  It then uses the
+--                       ModulesVersion.tcl script to return what the value
+--                       of "ModulesVersion" is.
+
 function M.versionFile(path)
    local dbg     = Dbg:dbg()
    dbg.start("Master:versionFile(",path,")")
@@ -347,6 +354,14 @@ function M.versionFile(path)
    return capture(cmd):trim()
 end
 
+--------------------------------------------------------------------------
+-- access_find_module_file(): This local function returns the name of the
+--                            filename and the full name of the module file.
+--                            If the user gives the short name and it is
+--                            loaded then that version is used not the default
+--                            module file for the one named.  Otherwise
+--                            find_module_file is used.  
+
 local function access_find_module_file(mname)
    local mt    = MT:mt()
    local sn    = mname:sn()
@@ -361,28 +376,39 @@ local function access_find_module_file(mname)
    return fn, full
 end
 
+--------------------------------------------------------------------------
+-- Master:access():  This member function is engine that runs the user
+--                   commands "help", "whatis" and "show".  In each case
+--                   mcp is set to MC_Access, MC_Access and MC_Show,
+--                   respectively.  Using that value of mcp, the
+--                   modulefile is found and evaluated by loadModuleFile.
+--                   This causes the help, or whatis or showing the
+--                   modulefile as the user requested.
+
 function M.access(self, ...)
    local dbg    = Dbg:dbg()
    local mt     = MT:mt()
    local mStack = ModuleStack:moduleStack()
    local prtHdr = systemG.prtHdr
-   local help   = nil
    local a      = {}
    local shellN = s_master.shell:name()
+   local help   = (systemG.help ~= dbg.quiet) and "-h" or nil
    local result, t
    io.stderr:write("\n")
-   if (systemG.help ~= dbg.quiet) then help = "-h" end
-   for _, moduleName in ipairs{...} do
-      local mname = MName:new("load", moduleName)
-      local fn, full   = access_find_module_file(mname)
-      --io.stderr:write("full: ",full,"\n")
+
+   local arg = {n=select('#', ...), ...}
+   for i = 1, arg.n do
+      local moduleName   = arg[i]
+      local mname        = MName:new("load", moduleName)
+      local fn, full     = access_find_module_file(mname)
       systemG.ModuleFn   = fn
       systemG.ModuleName = full
       if (fn and isFile(fn)) then
          prtHdr()
          mStack:push(full, moduleName, mname:sn(), fn)
          local mList = concatTbl(mt:list("short","active"),":")
-	 loadModuleFile{file=fn,help=help, shell=shellN, mList = mList, reportErr=true}
+	 loadModuleFile{file=fn,help=help, shell=shellN, mList = mList,
+                        reportErr=true}
          mStack:pop()
          io.stderr:write("\n")
       else
@@ -391,10 +417,12 @@ function M.access(self, ...)
    end
 
    if (#a > 0) then
-      io.stderr:write("Failed to find the following module(s):  \"",concatTbl(a,"\", \""),"\" in your MODULEPATH\n")
+      io.stderr:write("Failed to find the following module(s):  \"",
+                      concatTbl(a,"\", \""),"\" in your MODULEPATH\n")
       io.stderr:write("Try: \n",
-       "    \"module spider ", concatTbl(a," "), "\"\n",
-       "\nto see if the module(s) are available across all compilers and MPI implementations.\n")
+                      "    \"module spider ", concatTbl(a," "), "\"\n",
+                      "\nto see if the module(s) are available across all "..
+                      "compilers and MPI implementations.\n")
    end
 end
 

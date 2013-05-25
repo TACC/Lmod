@@ -139,10 +139,16 @@ function Help(...)
    local dbg = Dbg:dbg()
 
    prtHdr = function()
-               io.stderr:write("\n")
-               io.stderr:write("----------- Module Specific Help for \"" .. ModuleName ..
-                               "\"------------------\n")
-            end
+      local twidth    = TermWidth()
+      local middleStr = " Module Specific Help for \"" .. ModuleName .. "\" "
+      local bwidth    = (twidth - middleStr:len())/2
+      local border    = string.rep("-",bwidth)
+      local title     = border .. middleStr .. border 
+      local tlen      = title:len()
+      local extra     = string.rep("-", twidth - tlen)
+      io.stderr:write("\n")
+      io.stderr:write(title, extra, "\n")
+   end
 
    Access("help",...)
 end
@@ -636,13 +642,13 @@ function Show(...)
    dbg.start("Show(", concatTbl({...},", "),")")
 
    mcp = MasterControl.build("show")
+   local borderStr = border(0)
 
    prtHdr       = function()
-                     io.stderr:write("------------------------------------------------------------\n")
+                     io.stderr:write(borderStr)
                      io.stderr:write("   ",ModuleFn,":\n")
-                     io.stderr:write("------------------------------------------------------------\n")
+                     io.stderr:write(borderStr)
                   end
-
    master:access(...)
    dbg.fini("Show")
 end
@@ -657,15 +663,11 @@ function SpiderCmd(...)
    dbg.start("SpiderCmd(", concatTbl({...},", "),")")
    local cache   = Cache:cache()
    local moduleT = cache:build()
-
-   local master = Master:master()
+   local dbT     = {}
    local s
-   local dbT = {}
-   local errorRtn = LmodError
    Spider.buildSpiderDB({"default"},moduleT, dbT)
-   LmodError = errorRtn
 
-   local arg = {n=select('#',...),...}
+   local arg = {n=select('#', ...), ...}
 
    if (arg.n < 1) then
       s = Spider.Level0(dbT)
