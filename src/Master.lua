@@ -233,7 +233,7 @@ local function find_module_file(mname)
    dbg.print("sn: ",sn,"\n")
 
    -- Get all directories that contain the shortname [[sn]].  If none exist
-   -- then the module does not exist. Therefore exit.
+   -- then the module does not exist => exit
 
    local pathA = mt:locationTbl(sn)
    if (pathA == nil or #pathA == 0) then

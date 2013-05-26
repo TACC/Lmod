@@ -140,7 +140,7 @@ function Help(...)
 
    prtHdr = function()
       local twidth    = TermWidth()
-      local middleStr = " Module Specific Help for \"" .. ModuleName .. "\" "
+      local middleStr = "Module Specific Help for \"" .. ModuleName .. "\""
       local title     = bannerStr(twidth, middleStr)
       io.stderr:write("\n")
       io.stderr:write(title, "\n")
