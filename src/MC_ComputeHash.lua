@@ -32,8 +32,25 @@
 --
 --------------------------------------------------------------------------
 
+--------------------------------------------------------------------------
+-- MC_ComputeHash:  This class is used to detect when a module file changes
+--                  in a way that will tell the user that their collection
+--                  of modules has to be reformed.  The problem is that if
+--                  a modulefile changes the directory that it prepends to
+--                  MODULEPATH or prereq or conflicts change, then the
+--                  current is considered no-longer valid.
+--
+-- The way this works is that this class sets most Lmod functions to be
+-- quiet.  Mainly any loads, or changes to MODULEPATH generate output.
+-- This output is collect into the array [[ComputeModuleResultsA]].
+-- Then the command computeHashSum takes that array output and computes
+-- either mdsum or sha1sum of the text.   When a collection is stored,
+-- this hash sum is computed.  When a collection is reloaded the hash sum
+-- is recomputed for each modulefile.  If the sums are different then
+-- the collection is no longer valid.
 
 require("strict")
+require("utils")
 
 MC_ComputeHash         = inheritsFrom(MasterControl)
 MC_ComputeHash.my_name = "MC_ComputeHash"
@@ -43,20 +60,7 @@ local concatTbl        = table.concat
 local A                = ComputeModuleResultsA
 
 function ShowCmd(name, ...)
-   local a = {}
-   for _,v in ipairs{...} do
-      local s = tostring(v)
-      if (type(v) ~= "boolean") then
-         s = "\"".. s .."\""
-      end
-      a[#a + 1] = s
-   end
-   local b = {}
-   b[#b+1] = name
-   b[#b+1] = "("
-   b[#b+1] = concatTbl(a,",")
-   b[#b+1] = ")\n"
-   A[#A+1] = concatTbl(b,"")
+   A[#A+1] = ShowCmdStr(name, ...)
 end
 
 M.add_property         = MasterControl.quiet

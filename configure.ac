@@ -155,7 +155,7 @@ while test -L $luaprog; do
 done
 
 
-echo -n "Checking for valid Lua version"
+printf "checking for valid Lua version"
 
 LuaV=$( $luaprog -e 'print(_VERSION)' | sed -e 's/Lua //' )
 LmodV=$( $luaprog  -e 'v=require("src/Version"); s=v.name():gsub(" .*","");print(s)')
@@ -194,7 +194,7 @@ end
 main()
 EOF
 
-echo -n "Checking for lua modules: posix lfs"
+printf "checking for lua modules: posix lfs"
 
 missingModules=""
 for i in posix lfs; do

@@ -32,6 +32,55 @@
 --
 --------------------------------------------------------------------------
 
+--------------------------------------------------------------------------
+-- Var:  This class is manages the hash table that stores the "environment"
+--       variables that Lmod controls.  Each instant of Var holds a single
+--       environment variable, path, local variable, shell function or alias.
+--       This class is at the core of Lmod.  Lmod is all about controlling
+--       the user environment and this is where Lmod does this.
+--
+--       The other point of this class is to check to see when MODULEPATH
+--       has changed.
+
+--------------------------------------------------------------------------
+-- PATH Variables:
+--------------------------------------------------------------------------
+-- Storing PATH variables is complicated.  Each time a path variable is
+-- encountered,  it is split apart into a hash table - array structure.
+-- Assuming PATH="/u/bin:/u/l/bin:/u/bin" then self.tbl contains:
+--
+--   self.tbl["/u/bin"]   = { 1, 3 }
+--   self.tbl["/u/l/bin"] = { 2 }
+--
+-- Obviously the each key is the path.  The values are a weight that 
+-- represents where it will appear when expanded back into a path-like
+-- environment variable.  If "/u/l/bin" is removed then there will be a
+-- gap in the values.  Each time a path is prepended it inserts a lower
+-- value.  Appending adds a higher value.  So prepending "/a/b" and
+-- appending "/d/e" results in:
+--
+--   self.tbl["/u/bin"]   = { 1, 3 }
+--   self.tbl["/u/l/bin"] = { 2 }
+--   self.tbl["/a/b"]     = { 0 }
+--   self.tbl["/d/e"]     = { 4 }
+--
+-- Originally Lmod removed duplicates. Even now MODULEPATH and
+-- LMOD_DEFAULT_MODULEPATH remove duplicates.  So depending what the
+-- policy that was chosen at configure time, there may duplicates or
+-- not.  This is the reason for use of "remFunc" in Var:remove() and
+-- "insertFunc" in Var:prepend() and Var:append().
+--
+--------------------------------------------------------------------------
+-- PUSHENV: Supporting a stack environment variable.
+--------------------------------------------------------------------------
+-- A site may wish to set CC to be the name of the c compiler.  They can
+-- do this with pushenv("CC","gcc").   This is implemented in this class
+-- via Var:prepend() to push and Var:pop() to pop the stack.  So the trick
+-- here is that all sites allow duplicates to be stored when prepending.
+-- This way prepend will always work as a push even when append and remove
+-- do not allow duplicates.  Then the Var:pop() member function will work
+-- correctly independent of site policy towards duplicates
+
 require("strict")
 require("string_split")
 require("pairsByKeys")
@@ -44,10 +93,22 @@ local setenv        = posix.setenv
 local systemG       = _G
 
 
---module("Var")
-
 local M = {}
 
+--------------------------------------------------------------------------
+-- regularizePathA(): This function takes a path like variable and breaks
+--                    it up into an array.  Each path component is
+--                    standandized by path_regularize().  This function
+--                    removes leading and trailing spaces and duplicate '/'
+--                    etc.
+--
+--                    Typically the separator is a colon but it can be
+--                    anything.  Some env. vars (such as TEXINPUTS and
+--                    LUA_PATH) use "::" or ";;" to mean that the 
+--                    specified values are prepended to the system ones.
+--                    To handle that, the path component is converted to 
+--                    a single space.  This single space is later removed
+--                    when expanding.
 
 local function regularizePathA(path, sep)
    if (not path) then
@@ -78,7 +139,12 @@ local function regularizePathA(path, sep)
    return pathA
 end
 
-
+--------------------------------------------------------------------------
+-- extract(): The ctor uses this routine to initialize the variable to be
+--            the value from the environment. This routine assumes that
+--            all variables are path like variables here.  Not to worry
+--            however, the set function mark the type as "var" and not
+--            "path".  Other functions work similarly.
 
 local function extract(self)
    local myValue = self.value or os.getenv(self.name) or ""
@@ -106,6 +172,10 @@ local function extract(self)
    self.export = true
 end
 
+--------------------------------------------------------------------------
+-- Var:new():  The ctor for this class.  It uses extract to build its
+--             initial value from the environment.
+
 function M.new(self, name, value, sep)
    local o = {}
    setmetatable(o,self)
@@ -117,6 +187,9 @@ function M.new(self, name, value, sep)
    extract(o)
    return o
 end
+
+--------------------------------------------------------------------------
+-- Var:prt() This member function is here just when debugging.
 
 function M.prt(self,title)
    local dbg = Dbg:dbg()
@@ -139,6 +212,10 @@ function M.prt(self,title)
    dbg.print ("\n")
 end
 
+--------------------------------------------------------------------------
+-- chkMP(): This function is called to let Lmod know that the MODULEPATH
+--          has changed.
+
 local function chkMP(name)
    if (name == ModulePath) then
       local dbg = Dbg:dbg()
@@ -150,7 +227,12 @@ local function chkMP(name)
    end
 end
 
-
+--------------------------------------------------------------------------
+--  The following three local functions implement the dup/no_dup
+--  functionality:
+--     removeAll():   no dups allowed
+--     removeFirst(): dups allowed, called when reversing prepend_path
+--     removeLast():  dups allowed, called when reversing append_path
 
 local function removeAll(a)
    return nil
@@ -178,15 +260,17 @@ whereT = {
    last   = removeLast,
 }
 
+--------------------------------------------------------------------------
+-- Var:remove(): remove an entry in a path.  The remove action depends on
+--               "where".  Note that the final action of this routine is
+--               to push the new value into the current environment so that
+--               any modules loaded will also know the new value.
+
 function M.remove(self, value, where)
    local dbg  = Dbg:dbg()
-   --dbg.start("Var:remove(\"",value,", \"",where,"\")")
-   --dbg.print("name: ",self.name,"\n")
-
    if (value == nil) then return end
 
    where = allow_dups(true) and where or "all"
-
    local remFunc = whereT[where] or removeAll
    local pathA   = regularizePathA(value, self.sep)
    local tbl     = self.tbl
@@ -195,19 +279,20 @@ function M.remove(self, value, where)
       local path = pathA[i]
       if (tbl[path]) then
          tbl[path] = remFunc(self.tbl[path])
-         chkMP(self.name, true)
+         chkMP(self.name)
       end
    end
    local v    = self:expand()
    self.value = v
    setenv(self.name, v, true)
-   --if (dbg.active()) then self:prt("Var:remove") end
-   --dbg.fini("Var:remove")
 end
+
+--------------------------------------------------------------------------
+-- Var:pop(): Remove the top value and return the second value or nil if
+--            none are left. 
 
 function M.pop(self)
    local dbg    = Dbg:dbg()
-   --dbg.start("Var:pop()")
    local imin   = self.imin
    local min2   = math.huge
    local result = nil
@@ -233,10 +318,15 @@ function M.pop(self)
    local v    = self:expand()
    self.value = v
    setenv(self.name, v, true)
-   --if (dbg.active()) then self:prt("(2) Var:pop()") end
-   --dbg.fini("Var:pop")
    return result
 end
+
+--------------------------------------------------------------------------
+-- The following three local functions implement the dup/no_dup
+-- functionality:
+--     unique(): no dups allowed
+--     first():  dups allowed, call by prepend.
+--     last():   dups allowed, call by append.
 
 local function unique(a, value)
    a = { value }
@@ -254,10 +344,12 @@ local function last(a, value)
 end
 
 
+--------------------------------------------------------------------------
+-- Var:prepend(): Prepend an entry into a path. [[nodups]] controls
+--                policies on duplication by setting [[insertFunc]].
+
 function M.prepend(self, value, nodups)
    local dbg  = Dbg:dbg()
-   --dbg.start("Var:prepend(\"",value,"\")")
-   --dbg.print("name: ",self.name,"\n")
    if (value == nil) then return end
 
    local pathA         = regularizePathA(value, self.sep)
@@ -271,16 +363,18 @@ function M.prepend(self, value, nodups)
       imin       = imin - 1
       local a    = tbl[path] or {}
       tbl[path]  = insertFunc(a, imin)
-      chkMP(self.name, false)
+      chkMP(self.name)
    end
    self.imin = imin
 
    local v    = self:expand()
    self.value = v
    setenv(self.name, v, true)
-   --if (dbg.active()) then self:prt("Var:prepend") end
-   --dbg.fini("Var:prepend")
 end
+
+--------------------------------------------------------------------------
+-- Var:append(): Append an entry into a path. [[nodups]] controls
+--               policies on duplication by setting [[insertFunc]].
 
 function M.append(self, value, nodups)
    if (value == nil) then return end
@@ -295,13 +389,16 @@ function M.append(self, value, nodups)
       imax       = imax + 1
       local a    = tbl[path] or {}
       tbl[path]  = insertFunc(a, imax)
-      chkMP(self.name,false)
+      chkMP(self.name)
    end
    self.imax  = imax
    local v    = self:expand()
    self.value = v
    setenv(self.name, v, true)
 end
+
+--------------------------------------------------------------------------
+-- Master: The following are simple set/unset functions.
 
 function M.set(self,value)
    self.value = value or ''
@@ -346,9 +443,21 @@ function M.unsetShellFunction(self,bash_func,csh_func)
    self.type  = 'shell_function'
 end
 
+--------------------------------------------------------------------------
+-- Master:myType() - return the var type.
 function M.myType(self)
    return self.type
 end
+
+--------------------------------------------------------------------------
+-- Master:expand(): Expand the value into a string.   Obviously non-path
+--                  types are simply returned.
+-- 
+--                  It is a two step process to expand the path variables.
+--                  First table (self.tbl) is flipped where now the indices
+--                  are the keys and the paths are the values.  This creates
+--                  [[t]] with integer keys with possible gaps.  Then second
+--                  loop uses pairByKeys to pick keys from lowest to highest.
 
 function M.expand(self)
    if (self.type ~= 'path') then
@@ -360,37 +469,39 @@ function M.expand(self)
    local pathStr = ""
    local sep     = self.sep
 
+   -- Step 1: Make a sparse array with path as values
    for k, v in pairs(self.tbl) do
       for ii = 1,#v do
          t[v[ii]] = k
       end
    end
 
-   local i = 0
+   -- Step 2: Use pairByKeys to copy paths into pathA in correct order.
 
+   local n = 0
    for _,v in pairsByKeys(t) do
-      i = i + 1
+      n = n + 1
+      v = path_regularize(v)
       if (v == ' ') then
          v = ''
       end
-
-      v = v:gsub("//+","/")
-      v = v:gsub("/$","")
-      pathA[#pathA+1] = v
+      pathA[n] = v
    end
-   if (#pathA == 1 and pathA[1] == "") then
+
+   -- Step 3: convert pathA array into "sep" separated string.
+   --         Also Handle "" at end of "path"
+   if (n == 1 and pathA[1] == "") then
       pathStr = sep .. sep
    else
-      pathStr = table.concat(pathA,sep)
+      pathStr = concatTbl(pathA,sep)
       if (pathA[#pathA] == "") then
          pathStr = pathStr .. sep
       end
-
    end
 
-   ------------------------------------------------------------------------
-   -- Remove leading and trailing ':' from PATH string
-   ------------------------------------------------------------------------
+   -- Step 4: Remove leading and trailing ':' from PATH string
+   --         Note this cleanup is only for PATH and no other
+   --         path variables.
    if (self.name == 'PATH') then
       pathStr = pathStr:gsub('^:+','')
       pathStr = pathStr:gsub(':+$','')

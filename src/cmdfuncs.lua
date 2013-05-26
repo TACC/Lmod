@@ -141,13 +141,9 @@ function Help(...)
    prtHdr = function()
       local twidth    = TermWidth()
       local middleStr = " Module Specific Help for \"" .. ModuleName .. "\" "
-      local bwidth    = (twidth - middleStr:len())/2
-      local border    = string.rep("-",bwidth)
-      local title     = border .. middleStr .. border 
-      local tlen      = title:len()
-      local extra     = string.rep("-", twidth - tlen)
+      local title     = bannerStr(twidth, middleStr)
       io.stderr:write("\n")
-      io.stderr:write(title, extra, "\n")
+      io.stderr:write(title, "\n")
    end
 
    Access("help",...)

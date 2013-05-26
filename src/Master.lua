@@ -41,7 +41,6 @@
 
 require("strict")
 local concatTbl          = table.concat
-local floor              = math.floor
 local getenv             = os.getenv
 local sort               = table.sort
 local systemG            = _G
@@ -121,6 +120,78 @@ local function followDefault(path)
    dbg.print("result: ",result,"\n")
    dbg.fini("followDefault")
    return result
+end
+
+--------------------------------------------------------------------------
+-- find_inherit_module(): This local function is very similar to
+--                        [[find_module_file]].  The idea is that
+--                        an advanced user wants to inherit a compiler
+--                        module and/or an mpi stack module.  They want
+--                        to inherit the system compiler but add to the
+--                        MODULEPATH.  This routine does a similar search
+--                        for the module.  It searches for the original
+--                        module in pathA and then searches again.  Only
+--                        after finding the same named module does it 
+--                        return.
+
+
+local function find_inherit_module(fullModuleName, oldFn)
+   local dbg      = Dbg:dbg()
+   dbg.start("find_inherit_module(",fullModuleName,",",oldFn, ")")
+
+   local t        = {fn = nil, modFullName = nil, modName = nil,
+                     default = 0, hash = 0}
+   local mt       = systemG.MT:mt()
+   local mname    = MName:new("load", fullModuleName)
+   local sn       = mname:sn()
+   local localDir = true
+
+
+   local pathA = mt:locationTbl(sn)
+
+   if (pathA == nil or #pathA == 0) then
+      dbg.fini("find_inherit_module")
+      return t
+   end
+   local fn, result, rstripped
+   local foundOld = false
+   local oldFn_stripped = oldFn:gsub("%.lua$","")
+
+   for ii, vv in ipairs(pathA) do
+      local mpath  = vv.mpath
+      fn           = pathJoin(vv.file, mname:version())
+      result       = nil
+      dbg.print("ii: ",ii," mpath: ",mpath," vv.file: ",vv.file," fn: ",fn,"\n")
+      for i = 1, #searchTbl do
+         local f        = fn .. searchTbl[i]
+         local attr     = lfs.attributes(f)
+         local readable = posix.access(f,"r")
+         dbg.print('(1) fn: ',fn," f: ",f,"\n")
+         if (readable and attr and attr.mode == "file") then
+            result = f
+            rstripped = result:gsub("%.lua$","")
+            break
+         end
+      end
+
+      dbg.print("(2) result: ", result, " foundOld: ", foundOld,"\n")
+      if (foundOld) then
+         break
+      end
+
+
+      if (result and rstripped == oldFn_stripped) then
+         foundOld = true
+         result = nil
+      end
+      dbg.print("(3) result: ", result, " foundOld: ", foundOld,"\n")
+   end
+
+   dbg.print("fullModuleName: ",fullModuleName, " fn: ", result,"\n")
+   t.modFullName = fullModuleName
+   t.fn          = result
+   dbg.fini("find_inherit_module")
+   return t
 end
 
 --------------------------------------------------------------------------
@@ -250,7 +321,8 @@ local function find_module_file(mname)
    t.fn          = result
    t.modFullName = fullName
    t.modName     = sn
-   dbg.print("modName: ",sn," fn: ", result," modFullName: ", fullName," default: ",t.default,"\n")
+   dbg.print("modName: ",sn," fn: ", result," modFullName: ", fullName,
+             " default: ",t.default,"\n")
    dbg.fini("Master:find_module_file")
    return t
 end
@@ -341,6 +413,37 @@ function M.access(self, ...)
 end
 
 --------------------------------------------------------------------------
+-- Master:fakeload()  Loading a user collection has its problems.  A meta
+--                    module or manager module (one that loads other
+--                    modules) is not actually loaded.  Instead it is
+--                    "fake" loaded.  That is it is added to the Module 
+--                    Table.  The reasons for this are complicated but
+--                    since all manager modules only load and do not set
+--                    anything then all the action that a manager module
+--                    is going to do has already been done.
+
+function M.fakeload(...)
+   local a   = {}
+   local mt  = MT:mt()
+   local dbg = Dbg:dbg()
+   dbg.start("Master:fakeload(",concatTbl({...},", "),")")
+
+   for _, moduleName in ipairs{...} do
+      local loaded = false
+      local mname  = MName:new("load", moduleName)
+      local t      = find_module_file(mname)
+      local fn     = t.fn
+      if (fn) then
+         t.mType = "m"
+         mt:add(t,"active")
+         loaded = true
+      end
+      a[#a+1] = loaded
+   end
+   dbg.fini("Master:fakeload")
+end
+
+--------------------------------------------------------------------------
 -- Master:load(): Load all requested modules.  Each module is unloaded
 --                if it is currently loaded.
 
@@ -361,7 +464,7 @@ function M.load(...)
       local loaded  = false
       local t	    = find_module_file(mname)
       local fn      = t.fn
-      if (mt:have(sn,"active") and fn  ~= mt:fileName(sn)) then
+      if (mt:have(sn,"active")) then
          dbg.print("Master:load reload module: \"",moduleName,
                    "\" as it is already loaded\n")
          local mcp_old = mcp
@@ -522,28 +625,6 @@ function M.versionFile(path)
 end
 
 
-function M.fakeload(...)
-   local a   = {}
-   local mt  = MT:mt()
-   local dbg = Dbg:dbg()
-   dbg.start("Master:fakeload(",concatTbl({...},", "),")")
-
-   for _, moduleName in ipairs{...} do
-      local loaded = false
-      local mname  = MName:new("load", moduleName)
-      local t      = find_module_file(mname)
-      local fn     = t.fn
-      if (fn) then
-         t.mType = "m"
-         mt:add(t,"active")
-         loaded = true
-      end
-      a[#a+1] = loaded
-   end
-   dbg.fini("Master:fakeload")
-end
-
-
 function M.reloadAll()
    local mt   = MT:mt()
    local dbg  = Dbg:dbg()
@@ -607,64 +688,6 @@ function M.reloadAll()
    return same
 end
 
-local function find_inherit_module(fullModuleName, oldFn)
-   local dbg      = Dbg:dbg()
-   dbg.start("find_inherit_module(",fullModuleName,",",oldFn, ")")
-
-   local t        = {fn = nil, modFullName = nil, modName = nil,
-                     default = 0, hash = 0}
-   local mt       = systemG.MT:mt()
-   local mname    = MName:new("load", fullModuleName)
-   local sn       = mname:sn()
-   local localDir = true
-
-
-   local pathA = mt:locationTbl(sn)
-
-   if (pathA == nil or #pathA == 0) then
-      dbg.fini("find_inherit_module")
-      return t
-   end
-   local fn, result, rstripped
-   local foundOld = false
-   local oldFn_stripped = oldFn:gsub("%.lua$","")
-
-   for ii, vv in ipairs(pathA) do
-      local mpath  = vv.mpath
-      fn           = pathJoin(vv.file, mname:version())
-      result       = nil
-      dbg.print("ii: ",ii," mpath: ",mpath," vv.file: ",vv.file," fn: ",fn,"\n")
-      for i = 1, #searchTbl do
-         local f        = fn .. searchTbl[i]
-         local attr     = lfs.attributes(f)
-         local readable = posix.access(f,"r")
-         dbg.print('(1) fn: ',fn," f: ",f,"\n")
-         if (readable and attr and attr.mode == "file") then
-            result = f
-            rstripped = result:gsub("%.lua$","")
-            break
-         end
-      end
-
-      dbg.print("(2) result: ", result, " foundOld: ", foundOld,"\n")
-      if (foundOld) then
-         break
-      end
-
-
-      if (result and rstripped == oldFn_stripped) then
-         foundOld = true
-         result = nil
-      end
-      dbg.print("(3) result: ", result, " foundOld: ", foundOld,"\n")
-   end
-
-   dbg.print("fullModuleName: ",fullModuleName, " fn: ", result,"\n")
-   t.modFullName = fullModuleName
-   t.fn          = result
-   dbg.fini("find_inherit_module")
-   return t
-end
 
 
 function M.inheritModule()
@@ -695,29 +718,6 @@ function M.inheritModule()
       mStack:pop()
    end
    dbg.fini("Master:inherit")
-end
-
-local function dirname(f)
-   local result = './'
-   for w in f:gmatch('.*/') do
-      result = w
-      break
-   end
-   return result
-end
-
-
-local function prtDirName(width,path,a)
-   local len     = path:len()
-   local lcount  = floor((width - (len + 2))/2)
-   local rcount  = width - lcount - len - 2
-   a[#a+1] = "\n"
-   a[#a+1] = string.rep("-",lcount)
-   a[#a+1] = " "
-   a[#a+1] = path
-   a[#a+1] = " "
-   a[#a+1] = string.rep("-",rcount)
-   a[#a+1] = "\n"
 end
 
 
@@ -897,22 +897,22 @@ end
 
 
 function M.avail(argA)
-   local dbg    = Dbg:dbg()
+   local dbg       = Dbg:dbg()
    dbg.start("Master.avail(",concatTbl(argA,", "),")")
-   local mt     = MT:mt()
-   local mpathA = mt:module_pathA()
-   local width  = TermWidth()
+   local mt        = MT:mt()
+   local mpathA    = mt:module_pathA()
+   local twidth    = TermWidth()
    local masterTbl = masterTbl()
 
-   local cache   = Cache:cache{quiet = masterTbl.terse}
-   local moduleT = cache:build()
-   local dbT     = {}
+   local cache     = Cache:cache{quiet = masterTbl.terse}
+   local moduleT   = cache:build()
+   local dbT       = {}
    Spider.buildSpiderDB({"default"}, moduleT, dbT)
 
-   local legendT = {}
-   local availT  = mt:availT()
+   local legendT   = {}
+   local availT    = mt:availT()
 
-   local aa = {}
+   local aa        = {}
 
    local optionTbl, searchA = availOptions(argA)
 
@@ -941,7 +941,9 @@ function M.avail(argA)
       local a = {}
       availDir(defaultOnly, terse, searchA, mpath, availT[mpath], dbT, a, legendT)
       if (next(a)) then
-         prtDirName(width, mpath,aa)
+         aa[#aa+1] = "\n"
+         aa[#aa+1] = bannerStr(twidth, mpath)
+         aa[#aa+1] = "\n"
          local ct  = ColumnTable:new{tbl=a, gap=1, len=length}
          aa[#aa+1] = ct:build_tbl()
          aa[#aa+1] = "\n"
@@ -949,22 +951,21 @@ function M.avail(argA)
    end
 
    if (next(legendT)) then
-      local term_width = TermWidth()
       aa[#aa+1] = "\n  Where:\n"
       local a = {}
       for k, v in pairsByKeys(legendT) do
          a[#a+1] = { "   " .. k ..":", v}
       end
-      local bt = BeautifulTbl:new{tbl=a, column = term_width-1, len=length}
+      local bt = BeautifulTbl:new{tbl=a, column = twidth-1, len=length}
       aa[#aa+1] = bt:build_tbl()
       aa[#aa+1] = "\n"
    end
 
 
    if (not expert()) then
-      local a = fillWords("","Use \"module spider\" to find all possible modules.",width)
+      local a = fillWords("","Use \"module spider\" to find all possible modules.",twidth)
       local b = fillWords("","Use \"module keyword key1 key2 ...\" to search for all " ..
-                             "possible modules matching any of the \"keys\".",width)
+                             "possible modules matching any of the \"keys\".",twidth)
       aa[#aa+1] = "\n"
       aa[#aa+1] = a
       aa[#aa+1] = "\n"

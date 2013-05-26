@@ -50,10 +50,28 @@ local posix     = require("posix")
 
 local concatTbl = table.concat
 local decode64  = base64.decode64
+local floor     = math.floor
 local format    = string.format
 local getenv    = os.getenv
 local huge      = math.huge
+local rep       = string.rep
 
+--------------------------------------------------------------------------
+-- bannerStr(): This function builds a banner string that is centered
+--              and has dashes on the left and right side.
+
+function bannerStr(width, str)
+   local a       = {}
+   local len     = str:len() + 2
+   local lcount  = floor((width - len)/2)
+   local rcount  = width - lcount - len
+   a[#a+1] = rep("-",lcount)
+   a[#a+1] = " "
+   a[#a+1] = str
+   a[#a+1] = " "
+   a[#a+1] = rep("-",rcount)
+   return concatTbl(a,"")
+end
 
 ------------------------------------------------------------------------
 -- border(); Build a border string of nspace leading spaces followed 
@@ -315,6 +333,27 @@ function getSCDescriptT()
    return s_scDescriptT
 end
 
+--------------------------------------------------------------------------
+-- ShowCmdStr(): Build a string of what the command would be. Used by
+--               MC_Show and MC_ComputeHash.
+
+function ShowCmdStr(name, ...)
+   local a = {}
+   for _,v in ipairs{...} do
+      local s = tostring(v)
+      if (type(v) ~= "boolean") then
+         s = "\"".. s .."\""
+      end
+      a[#a + 1] = s
+   end
+   local b = {}
+   b[#b+1] = name
+   b[#b+1] = "("
+   b[#b+1] = concatTbl(a,",")
+   b[#b+1] = ")\n"
+   return concatTbl(b,"")
+end
+
 
 --------------------------------------------------------------------------
 -- UUIDString(epoch): Unique string that combines the current time/date
@@ -332,23 +371,6 @@ function UUIDString(epoch)
    local uuid      = uuid_date .. "-" .. uuid_str
 
    return uuid
-end
-
-function ShowCmdStr(name, ...)
-   local a = {}
-   for _,v in ipairs{...} do
-      local s = tostring(v)
-      if (type(v) ~= "boolean") then
-         s = "\"".. s .."\""
-      end
-      a[#a + 1] = s
-   end
-   local b = {}
-   b[#b+1] = name
-   b[#b+1] = "("
-   b[#b+1] = concatTbl(a,",")
-   b[#b+1] = ")\n"
-   return concatTbl(b,"")
 end
 
 
