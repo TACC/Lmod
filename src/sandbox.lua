@@ -32,6 +32,15 @@
 --
 --------------------------------------------------------------------------
 
+--------------------------------------------------------------------------
+-- Sandbox: Modulefiles are "loaded" in a sandbox.  That is when the module
+--          file is evaluated, it can only run a limited set of functions.
+--          This file provides for a default list of functions that can be
+--          run.  There is also a sandbox_registration so that sites using
+--          SitePackage can register their functions. Finally there are two
+--          versions of run function one for Lua 5.1 and another for Lua 5.2
+--          The appropriate version is assigned to [[sandbox_run]].
+
 require("strict")
 require("fileOps")
 require("capture")
@@ -41,6 +50,9 @@ require("utils")
 local posix = require("posix")
 sandbox_run = false
 
+
+--------------------------------------------------------------------------
+-- Table containing valid functions for modulefiles.
 sandbox_env = {
   require  = require,
   ipairs   = ipairs,
@@ -161,10 +173,10 @@ sandbox_env = {
   ------------------------------------------------------------
   -- posix functions
   ------------------------------------------------------------
-  posix = { uname = posix.uname, setenv = posix.setenv, hostid = posix.hostid,
-            open = posix.open, openlog = posix.openlog, closelog = posix.closelog,
+  posix = { uname = posix.uname, setenv = posix.setenv,
+            hostid = posix.hostid, open = posix.open,
+            openlog = posix.openlog, closelog = posix.closelog,
             syslog = posix.syslog, },
-
 
   ------------------------------------------------------------
   -- Misc functions
@@ -177,17 +189,31 @@ sandbox_env = {
   _VERSION             = _VERSION,
 }
 
+--------------------------------------------------------------------------
+-- sandbox_registration(): Sites should call this function if they have
+--                         functions inside their SitePackage.lua file for
+--                         any functions that they want that are callable
+--                         via their modulefiles.
+
 function sandbox_registration(t)
-
    if (type(t) ~= "table") then
-      LmodError("sandbox_registration: The argument passed is: \"", type(t), "\". It should be a table.")
+      LmodError("sandbox_registration: The argument passed is: \"", type(t),
+                "\". It should be a table.")
    end
-
    for k,v in pairs(t) do
       sandbox_env[k] = v
    end
 end
 
+
+--------------------------------------------------------------------------
+-- sandbox_run(): Define two version: Lua 5.1 or 5.2.  It is likely that
+--                The 5.2 version will be good for many new versions of
+--                Lua but time will only tell.
+
+-- This function is what actually "loads" a modulefile with protection
+-- against modulefiles call functions they shouldn't or syntax errors
+-- of any kind.
 
 
 local function run5_1(untrusted_code)
