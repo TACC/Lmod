@@ -120,7 +120,6 @@ function parseVersionParts(versionStr)
    local i,j, results
    return
       function()
-
          -- skip over "."
          if (ipos <= s_end and s:sub(ipos,ipos) == ".") then
             ipos = ipos + 1
