@@ -72,23 +72,8 @@ local Optiks        = require("Optiks")
 local Spider        = require("Spider")
 local concatTbl     = table.concat
 local posix         = require("posix")
+local sort          = table.sort
 
-
-function flip(a,t, tbl)
-   for k,v in pairs(t) do
-      local name = v.name
-      if (tbl[name] == nil) then
-         tbl[name] = {}
-      end
-      local s = concatTbl(a,":")
-      tbl[name][#tbl[name]+1] = s
-      if (next(v.children)) then
-         a[#a+1] = name
-         flip(a,v.children, tbl)
-         a[#a]   = nil
-      end
-   end
-end
 
 local ignoreT     = {
    "^$",
@@ -124,6 +109,87 @@ local function add2map(entry, tbl, rmapT, kind)
       end
    end
 end
+
+local function rptList(moduleDirA, moduleT, dbT)
+   local dbg = Dbg:dbg()
+   dbg.start("rptList(moduleDirA, moduleT, dbT)")
+   Spider.listModules(moduleT, tbl)
+   sort(tbl)
+   for i = 1,#tbl do
+      print(tbl[i])
+   end
+   dbg.fini("rptList")
+end
+
+local function rptModuleT(moduleDirA, moduleT, dbT)
+   local dbg = Dbg:dbg()
+   dbg.start("rptModuleT(moduleDirA, moduleT,dbT)")
+   local s1 = serializeTbl{name="defaultMpathA",value=moduleDirA,indent=true}
+   local s2 = serializeTbl{name="moduleT",      value=moduleT,   indent=true}
+   io.stdout:write(s1,s2,"\n")
+   dbg.fini("rptModuleT")
+end
+
+local function rptReverseMapT(moduleDirA, moduleT, dbT)
+   local dbg = Dbg:dbg()
+   dbg.start("rptReverseMapT(moduleDirA, moduleT, dbT)")
+   local reverseMapT = {}
+
+   for kkk,vvv in pairs(dbT) do
+      for kk, entry in pairs(vvv) do
+         if (entry.pathA) then
+            add2map(entry, entry.pathA, reverseMapT,"bin")
+         end
+         if (entry.lpathA) then
+            add2map(entry, entry.lpathA, reverseMapT,"lib")
+         end
+      end
+   end
+   local s  = serializeTbl{name="reverseMapT",      value=reverseMapT,   indent=true}
+   print(s)
+   dbg.fini("rptReverseMapT")
+end
+
+local function rptSoftwarePageJson(moduleDirA, moduleT, dbT)
+   local dbg = Dbg:dbg()
+   dbg.start("rptSoftwarePageJson(moduleDirA, moduleT, dbT)")
+   local spA = softwarePage(dbT)
+   print(json.encode(spA))
+   dbg.fini("rptSoftwarePageJson")
+end
+
+local function rptSoftwarePageLua(moduleDirA, moduleT, dbT)
+   local dbg = Dbg:dbg()
+   dbg.start("rptSoftwarePageLua(moduleDirA, moduleT, dbT)")
+   local spA = softwarePage(dbT)
+   local s   = serializeTbl{name="spA",      value=spA,   indent=true}
+   print(s)
+   dbg.fini("rptSoftwarePageLua")
+end
+
+local function rptSoftwarePageXml(moduleDirA, moduleT, dbT)
+   local dbg = Dbg:dbg()
+   dbg.start("rptSoftwarePageXml(moduleDirA, moduleT, dbT)")
+   local xmlStr = xmlSoftwarePage(dbT)
+   print(xmlStr)
+   dbg.fini("rptSoftwarePageXml")
+end
+
+local function rptDbT(moduleDirA, moduleT, dbT)
+   local dbg = Dbg:dbg()
+   dbg.start("rptDbT(moduleDirA, moduleT, dbT)")
+   local s = serializeTbl{name="dbT",      value=dbT,   indent=true}
+   print(s)
+   dbg.fini("rptDbT")
+end
+
+local function rptDbTJson(moduleDirA, moduleT, dbT)
+   local dbg = Dbg:dbg()
+   dbg.start("rptDbTJson(moduleDirA, moduleT, dbT)")
+   print(json.encode(dbT))
+   dbg.fini("rptDbTJson")
+end
+
 
 function main()
 
@@ -179,88 +245,32 @@ function main()
    require("SitePackage")
    Spider.findAllModules(moduleDirA, moduleT)
 
-   for k,v in pairs(moduleT) do
-      dbg.print("k: ",k,"\n")
-   end
-
-   if (masterTbl.outputStyle == "moduleT") then
-      local s1 = serializeTbl{name="defaultMpathA",value=moduleDirA,indent=true}
-      local s2 = serializeTbl{name="moduleT",      value=moduleT,   indent=true}
-      io.stdout:write(s1,s2,"\n")
-      dbg.fini()
-      return
-   end
-
-   local tbl = {}
-   if (masterTbl.outputStyle == "list") then
-      Spider.listModules(moduleT, tbl)
-      table.sort(tbl)
-      for i = 1,#tbl do
-         print(tbl[i])
+   if (dbg.active()) then
+      for k,v in pairs(moduleT) do
+         dbg.print("k: ",k,"\n")
       end
-      dbg.fini()
-      return
    end
 
    local dbT = {}
    Spider.buildSpiderDB({"default"}, moduleT, dbT)
 
-   if (masterTbl.outputStyle == "reverseMap" or masterTbl.outputStyle == "reverseMapT") then
-      local reverseMapT = {}
+   -- This interpT converts user outputstyle into a function call.
 
-      for kkk,vvv in pairs(dbT) do
+   local interpT = {
+      moduleT          = rptModuleT
+      softwarePage     = rptSoftwarePageJson,
+      jsonSoftwarePage = rptSoftwarePageJson,
+      xmlSoftwarePage  = rptSoftwarePageXml,
+      softwarePageLua  = rptSoftwarePageLua,
+      ["spider-json"]  = rptdbTJson,
+      dbT              = rptdbT,
+   }
 
-         for kk, entry in pairs(vvv) do
-            if (entry.pathA) then
-               add2map(entry, entry.pathA, reverseMapT,"bin")
-            end
-            if (entry.lpathA) then
-               add2map(entry, entry.lpathA, reverseMapT,"lib")
-            end
-         end
-      end
-      local t2 = epoch()
-      local s  = serializeTbl{name="reverseMapT",      value=reverseMapT,   indent=true}
-      print(s)
-      dbg.fini()
-      return
+   -- grap function and run with it.
+   local func = interpT[masterTbl.outputStyle]
+   if (func) then
+      func(moduleDirA, moduleT, dbT)
    end
-
-   if (masterTbl.outputStyle == "softwarePage" or masterTbl.outputStyle == "jsonSoftwarePage")  then
-      local spA = softwarePage(dbT)
-      print(json.encode(spA))
-      dbg.fini()
-      return
-   end
-
-   if (masterTbl.outputStyle == "xmlSoftwarePage") then
-      local xmlStr = xmlSoftwarePage(dbT)
-      print(xmlStr)
-      dbg.fini()
-      return
-   end
-
-
-   if (masterTbl.outputStyle == "softwarePageLua") then
-      local spA = softwarePage(dbT)
-      local s   = serializeTbl{name="spA",      value=spA,   indent=true}
-      print(s)
-
-      dbg.fini()
-      return
-   end
-
-
-   if (masterTbl.outputStyle == "spider-json") then
-      print(json.encode(dbT))
-      dbg.fini()
-      return
-   end
-
-
-   local s = serializeTbl{name="dbT",      value=dbT,   indent=true}
-   print(s)
-   dbg.fini()
 end
 
 function softwarePage(dbT)
