@@ -113,6 +113,7 @@ end
 local function rptList(moduleDirA, moduleT, dbT)
    local dbg = Dbg:dbg()
    dbg.start("rptList(moduleDirA, moduleT, dbT)")
+   local tbl = {}
    Spider.listModules(moduleT, tbl)
    sort(tbl)
    for i = 1,#tbl do
@@ -257,13 +258,16 @@ function main()
    -- This interpT converts user outputstyle into a function call.
 
    local interpT = {
-      moduleT          = rptModuleT
+      list             = rptList,
+      moduleT          = rptModuleT,
       softwarePage     = rptSoftwarePageJson,
       jsonSoftwarePage = rptSoftwarePageJson,
       xmlSoftwarePage  = rptSoftwarePageXml,
       softwarePageLua  = rptSoftwarePageLua,
-      ["spider-json"]  = rptdbTJson,
-      dbT              = rptdbT,
+      reverseMapT      = rptReverseMapT,
+      reverseMap       = rptReverseMapT,
+      ["spider-json"]  = rptDbTJson,
+      dbT              = rptDbT,
    }
 
    -- grap function and run with it.
