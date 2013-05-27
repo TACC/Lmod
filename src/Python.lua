@@ -32,6 +32,11 @@
 --
 --------------------------------------------------------------------------
 
+--------------------------------------------------------------------------
+-- Python(): This is a derived class from BaseShell.  It expands variables
+--           into python syntax.  Note that aliases and shell functions are
+--           ignored as they do not make sense in Python.
+
 require("strict")
 
 Python            = inheritsFrom(BaseShell)

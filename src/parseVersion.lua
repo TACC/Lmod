@@ -112,6 +112,10 @@ function parseVersion(versionStr)
    return vA
 end
 
+--------------------------------------------------------------------------
+-- parseVersionParts() Return the iterator return the next piece of the
+--                     version.
+
 function parseVersionParts(versionStr)
    local s     = versionStr:lower()
    local s_end = s:len()

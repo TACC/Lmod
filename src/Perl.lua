@@ -32,6 +32,10 @@
 --
 --------------------------------------------------------------------------
 
+--------------------------------------------------------------------------
+-- Perl(): This is a derived class from BaseShell.  It expands variables
+--         into perl syntax.  Note that aliases and shell functions are
+--         ignored as they do not make sense in Perl.
 
 require("strict")
 

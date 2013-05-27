@@ -32,6 +32,13 @@
 --
 --------------------------------------------------------------------------
 
+--------------------------------------------------------------------------
+-- escape(): Convert a search string that may have special regular
+--           expression and quote them.  This is very useful when
+--           trying to match version numbers like "2.4-1" where you
+--           want "." and "-" to treated as normal characters and not
+--           regular expression ones.
+
 isLua51 = _VERSION:match('5%.1$')
 
 function escape(s)
