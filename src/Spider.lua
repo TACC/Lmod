@@ -895,7 +895,7 @@ end
 
 function M.listModulesHelper(moduleT, tbl)
    for kk,vv in pairs(moduleT) do
-      tbl[#tbl+1] = vv.path
+      tbl[vv.path] = 1
       if (next(vv.children)) then
          for k, v in pairs(vv.children) do
             if (type(v) == "table") then

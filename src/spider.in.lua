@@ -115,9 +115,8 @@ local function rptList(moduleDirA, moduleT, dbT)
    dbg.start("rptList(moduleDirA, moduleT, dbT)")
    local tbl = {}
    Spider.listModules(moduleT, tbl)
-   sort(tbl)
-   for i = 1,#tbl do
-      print(tbl[i])
+   for k in pairsByKeys(tbl) do
+      print(k)
    end
    dbg.fini("rptList")
 end
@@ -278,14 +277,10 @@ function main()
 end
 
 function softwarePage(dbT)
-
    local spA = {}
-   local idx = 0
-
    for name, vv in pairs(dbT) do
       convertEntry(name, vv, spA)
    end
-
    return spA
 end
 
@@ -369,7 +364,9 @@ function options()
       dest   = 'outputStyle',
       action = 'store',
       default = "list",
-      help    = "Output Style: list, moduleT, dbT, reverseMapT, spider, spider-json, softwarePage, jsonSoftwarePage, xmlSoftwarePage"
+      help    = "Output Style: list, moduleT, dbT, reverseMapT, "..
+                "spider, spider-json, softwarePage, jsonSoftwarePage, "..
+                "xmlSoftwarePage"
    }
 
    cmdlineParser:add_option{
@@ -429,8 +426,6 @@ function xmlSoftwarePage(dbT)
    end
 
    top:append(root)
-
-
 
    return top:str()
 

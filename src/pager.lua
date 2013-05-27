@@ -33,9 +33,18 @@
 --------------------------------------------------------------------------
 
 require("strict")
-local Dbg = require("Dbg")
+local Dbg       = require("Dbg")
+local concatTbl = table.concat
+--------------------------------------------------------------------------
+-- Pager: This file provides two ways to use the pager.  If stderr is
+--        connected to a term and it is configured for it, stderr will be
+--        run through the pager.  If not bypassPager is used which just
+--        writes all strings to the stream "f".
 
 s_pager = false
+
+--------------------------------------------------------------------------
+-- bypassPager(): all input arguments to stream f
 
 function bypassPager(f, ...)
    local arg = { n = select('#', ...), ...}
@@ -44,6 +53,10 @@ function bypassPager(f, ...)
    end
 end
 
+
+--------------------------------------------------------------------------
+-- usePager(): Use pager to present input arguments to user via whatever
+--             pager has been chosen.
 
 function usePager(f, ...)
    local dbg = Dbg:dbg()
@@ -56,7 +69,7 @@ function usePager(f, ...)
       end
    end
    local p = io.popen(s_pager .. " 1>&2" ,"w")
-   local s = table.concat({...},"")
+   local s = concatTbl({...},"")
    p:write(s)
    p:close()
    dbg.fini()
