@@ -350,7 +350,7 @@ end
 
 local function columnList(stream, msg, a)
    local t = {}
-   table.sort(a)
+   sort(a)
    for i = 1, #a do
       t[#t + 1] = '  ' .. i .. ') ' .. tostring(a[i])
    end
@@ -980,6 +980,62 @@ function M.add(self, t, status)
 end
 
 --------------------------------------------------------------------------
+-- MT:list(): Return a array of modules currently in MT.  The list is
+--            always sorted in loadOrder.
+--
+-- There are two kinds of returns for this member function.
+--    mt:list("userName",...) returns an object containing an table
+--                            which has the short, full, etc.
+--    mt:list(... , ...) returns a simply array of names.
+
+function M.list(self, kind, status)
+   local dbg  = Dbg:dbg()
+   local mT   = self.mT
+   local icnt = 0
+   local a    = {}
+   local b    = {}
+
+   if (kind == "userName") then
+      for k,v in pairs(mT) do
+         if ((status == "any" or status == v.status) and
+             (v.status ~= "pending")) then
+            icnt  = icnt + 1
+            local nameT = "short"
+            if (v.default ~= 1) then
+               nameT = "fullName"
+            end
+            local obj = {sn   = v.short,   full       = v.fullName,
+                         name = v[nameT], defaultFlg = v.default }
+            a[icnt] = { v.loadOrder, v[nameT], obj }
+         end
+      end
+   else
+      for k,v in pairs(mT) do
+         if ((status == "any" or status == v.status) and
+             (v.status ~= "pending")) then
+            icnt  = icnt + 1
+            a[icnt] = { v.loadOrder, v[kind], v[kind]}
+         end
+      end
+   end
+
+   sort (a, function(x,y)
+               if (x[1] == y[1]) then
+                  return x[2] < y[2]
+               else
+                  return x[1] < y[1]
+               end
+            end)
+
+   for i = 1, icnt do
+      b[i] = a[i][3]
+   end
+
+   a = nil -- finished w/ a.
+   return b
+end
+
+--------------------------------------------------------------------------
 -- Simple Get/Set functions for entries in MT.
 
 function M.userName(self, sn)
@@ -1141,55 +1197,112 @@ function M.set_mType(self, sn, value)
    end
 end
 
---------------------------------------------------------------------------
--- MT:list()
 
-function M.list(self, kind, status)
-   local dbg  = Dbg:dbg()
-   local mT   = self.mT
-   local icnt = 0
-   local a    = {}
-   local b    = {}
 
-   if (kind == "userName") then
-      for k,v in pairs(mT) do
-         if ((status == "any" or status == v.status) and
-             (v.status ~= "pending")) then
-            icnt  = icnt + 1
-            local nameT = "short"
-            if (v.default ~= 1) then
-               nameT = "fullName"
-            end
-            local obj = {sn   = v.short,   full       = v.fullName,
-                         name = v[nameT], defaultFlg = v.default }
-            a[icnt] = { v.loadOrder, v[nameT], obj }
-         end
-      end
-   else
-      for k,v in pairs(mT) do
-         if ((status == "any" or status == v.status) and
-             (v.status ~= "pending")) then
-            icnt  = icnt + 1
-            a[icnt] = { v.loadOrder, v[kind], v[kind]}
-         end
-      end
+function M.getHash(self, sn)
+   local mT    = self.mT
+   local entry = mT[sn]
+   if (entry == nil) then
+      return nil
    end
-
-   table.sort (a, function(x,y)
-                     if (x[1] == y[1]) then
-                        return x[2] < y[2]
-                     else
-                        return x[1] < y[1]
-                     end
-                  end)
-
-   for i = 1, icnt do
-      b[i] = a[i][3]
-   end
-
-   a = nil -- finished w/ a.
-   return b
+   return entry.hash
 end
+
+function M.hideHash(self)
+   local mT   = self.mT
+   for k,v in pairs(mT) do
+      if (v.status == "active") then
+         v.hash    = nil
+      end
+   end
+end
+
+function M.markDefault(self, sn)
+   local mT    = self.mT
+   local entry = mT[sn]
+   if (entry ~= nil) then
+      mT[sn].default = 1
+   end
+end
+
+function M.default(self, sn)
+   local mT    = self.mT
+   local entry = mT[sn]
+   if (entry == nil) then
+      return nil
+   end
+   return (entry.default ~= 0)
+end
+
+function M.usrName(self,sn)
+   if (self:default(sn)) then
+      return sn
+   end
+   return self:fullName(sn)
+end
+
+function M.setLoadOrder(self)
+   local a  = self:list("short","active")
+   local mT = self.mT
+   local sz = #a
+
+   for i = 1,sz do
+      local sn = a[i]
+      mT[sn].loadOrder = i
+   end
+   return sz
+end
+
+function M.fullName(self, sn)
+   local dbg   = Dbg:dbg()
+   local mT    = self.mT
+   local entry = mT[sn]
+   if (entry == nil) then
+      return nil
+   end
+   return entry.fullName
+end
+
+function M.Version(self, sn)
+   local full = self:fullName(sn)
+   if (not full) then
+      return full
+   end
+
+   local i, j = full:find(".*/")
+   if (not j) then
+      return ""
+   end
+
+   return full:sub(j+1,-1)
+end
+
+function M.short(self, sn)
+   local mT    = self.mT
+   local entry = mT[sn]
+   if (entry == nil) then
+      return nil
+   end
+   return entry.short
+end
+
+function M.mType(self, sn)
+   local mT    = self.mT
+   local entry = mT[sn]
+   if (entry == nil) then
+      return nil
+   end
+   return entry.mType
+end
+
+function M.set_mType(self, sn, value)
+   local mT    = self.mT
+   local entry = mT[sn]
+   if (entry ~= nil) then
+      mT[sn].mType = value
+   end
+end
+
 
 function M.setHashSum(self)
    local mT   = self.mT
