@@ -50,7 +50,8 @@ local stdout      = io.stdout
 
 --------------------------------------------------------------------------
 -- Bash:alias(): Either define or undefine a bash shell alias.
-
+--               Modify module definition of function so that there is
+--               one and only one semicolon at the end.
 
 function Bash.alias(self, k, v)
    local dbg = Dbg:dbg()
@@ -58,13 +59,16 @@ function Bash.alias(self, k, v)
       stdout:write("unalias ",k,";\n")
       dbg.print(   "unalias ",k,";\n")
    else
+      v = v:gsub(";%s*$","")
       stdout:write("alias ",k,"=\"",v,"\";\n")
       dbg.print(   "alias ",k,"=\"",v,"\";\n")
    end
 end
 
 --------------------------------------------------------------------------
--- Bash:shellFunc(): Either define or undefine a bash shell function
+-- Bash:shellFunc(): Either define or undefine a bash shell function.
+--                   Modify module definition of function so that there is
+--                   one and only one semicolon at the end.
 
 function Bash.shellFunc(self, k, v)
    local dbg = Dbg:dbg()
@@ -72,8 +76,9 @@ function Bash.shellFunc(self, k, v)
       stdout:write("unset -f ",k,";\n")
       dbg.print(   "unset -f ",k,";\n")
    else
-      stdout:write(k,"() { ",v[1],"; };\n")
-      dbg.print(   k,"() { ",v[1],"; };\n")
+      local func = v[1]:gsub(";%s*$","")
+      stdout:write(k,"() { ",func,"; };\n")
+      dbg.print(   k,"() { ",func,"; };\n")
    end
 end
 

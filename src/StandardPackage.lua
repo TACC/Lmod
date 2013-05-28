@@ -48,4 +48,8 @@ end
 
 hook.register("parse_updateFn",parse_updateFn_hook)
 
+local function site_name_hook()
+   return "TACC"
+end
 
+hook.register("SiteName",site_name_hook)

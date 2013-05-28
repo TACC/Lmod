@@ -127,7 +127,7 @@ function GetDefault(a)
 
    local path = pathJoin(os.getenv("HOME"), ".lmod.d", a)
    local mt   = MT:mt()
-   mt:getMTfromFile(path)
+   mt:getMTfromFile{fn=path, name=a}
    dbg.fini("GetDefault")
 end
 
@@ -531,7 +531,7 @@ function Restore(a)
       Reset(msg)
    else
       local mt      = MT:mt()
-      local results = mt:getMTfromFile(path,msg) or Reset(true)
+      local results = mt:getMTfromFile{fn=path, name=a, msg=msg} or Reset(true)
    end
 
    dbg.fini("Restore")

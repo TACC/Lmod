@@ -49,6 +49,9 @@ local validT =
                                -- timestamp file.
       writeCache     = false,  -- This hook return whether a cache 
                                -- should be written.
+      SiteName       = false,  -- Hook to specify Site Name
+                               -- It is used to generate family
+                               -- prefix:  site_FAMILY_
 }
 
 --------------------------------------------------------------------------
@@ -66,7 +69,7 @@ end
 
 function M.apply(name, ...)
    if (validT[name]) then
-      validT[name](...)
+      return validT[name](...)
    end
 end
 return M

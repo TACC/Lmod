@@ -63,6 +63,7 @@ local Var          = require('Var')
 local lfs          = require('lfs')
 local Dbg          = require('Dbg')
 local ColumnTable  = require('ColumnTable')
+local hook         = require("Hook")
 local posix        = require("posix")
 local deepcopy     = table.deepcopy
 local load         = (_VERSION == "Lua 5.1") and loadstring or load
@@ -537,21 +538,21 @@ function M.mt(self)
 end
 
 --------------------------------------------------------------------------
--- 
-
+-- MT:cloneMT(): deepcopy and push on stack
 
 local dcT = {function_immutable = true, metatable_immutable = true}
 function M.cloneMT()
    local dbg = Dbg:dbg()
    dbg.start("MT.cloneMT()")
    local mt = deepcopy(s_mt, dcT)
-   dbg.print("s_mt: ", tostring(s_mt)," mt: ", tostring(mt),"\n")
-   s_mtA[#s_mtA+1] = mt
+   mt:pushMT()
    s_mt = mt
    dbg.print("Now using s_mtA[",#s_mtA,"]: ",tostring(s_mt),"\n")
-   dbg.print("s_mt.shortTime: ",s_mt.shortTime,"\n")
    dbg.fini("MT.cloneMT")
 end
+
+--------------------------------------------------------------------------
+-- MT:pushMT(): push self on stack.
 
 function M.pushMT(self)
    local dbg = Dbg:dbg()
@@ -560,23 +561,21 @@ function M.pushMT(self)
    dbg.fini("MT.pushMT")
 end
 
+--------------------------------------------------------------------------
+-- MT:popMT(): Pop the stack and set [[s_mt]] to be the current value.
+
 function M.popMT()
    local dbg = Dbg:dbg()
    dbg.start("MT.popMT()")
-   dbg.print("(1)s_mt.shortTime: ",s_mt.shortTime,"\n")
    s_mt = s_mtA[#s_mtA-1]
    dbg.print("Now using s_mtA[",#s_mtA-1,"]: ",tostring(s_mt),"\n")
-   dbg.print("(2)s_mt.shortTime: ",s_mt.shortTime,"\n")
-
    s_mtA[#s_mtA] = nil    -- mark for garage collection
-
    dbg.fini("MT.popMT")
 end
 
 
 --------------------------------------------------------------------------
 -- MT:origMT(): Return the original MT from bottom of stack.
-
 
 function M.origMT()
    local dbg = Dbg:dbg()
@@ -588,10 +587,27 @@ function M.origMT()
 end
 
 
-function M.getMTfromFile(self,fn, msg)
+--------------------------------------------------------------------------
+-- MT:getMTfromFile(): Read in a user collection of modules and make it
+--                     the new value of [[s_mt]].  This routine is probably
+--                     too complicated by half.  The idea is that we read
+--                     the collection to get the list of modules requested.
+--                     We also need the base MODULEPATH as a replacement.
+--
+--  To complicate things we must check for:
+--    a) make sure that the hash values are the same between old and new.
+--    b) make sure that the system base path has not changed.  To detect this
+--       there are now two base modulepaths.  The system base modulepath is
+--       the one when there is no _ModuleTable_ in the environment.  Then there
+--       is a second one which contains any module use commands by the user.
+
+
+function M.getMTfromFile(self,t)
    local dbg  = Dbg:dbg()
-   dbg.start("mt:getMTfromFile(",fn,")")
-   local f = io.open(fn,"r")
+   dbg.start("mt:getMTfromFile(",t.fn,")")
+   local f              = io.open(t.fn,"r")
+   local msg            = t.msg
+   local collectionName = t.name
    if (not f) then
       LmodErrorExit()
    end
@@ -680,23 +696,26 @@ function M.getMTfromFile(self,fn, msg)
    s_mt.systemBaseMPATH = sbMP
 
 
-   posix.setenv(self:name(),"",true)
+   -----------------------------------------------------------------------
+   -- Save the new system base modulepath.
    s_mt:buildBaseMpathA(savedBaseMPATH)
    setupMPATH(s_mt, savedBaseMPATH)
    varTbl[DfltModPath] = Var:new(DfltModPath,savedBaseMPATH)
 
-   dbg.print("(3) varTbl[ModulePath]:expand(): ",varTbl[ModulePath]:expand(),"\n")
+   -----------------------------------------------------------------------
+   -- Load all the worker bee modules using MCP to guarantee that all
+   -- actions are in the positive.  Then fake load all manager modules.
+
    local mcp_old = mcp
    mcp           = MCP
    mcp:load(unpack(a))
    mcp           = mcp_old
-
    local master = systemG.Master:master()
-
    master.fakeload(unpack(m))
 
+   -----------------------------------------------------------------------
+   -- Now check to see that all requested modules got loaded.
    activeA = s_mt:list("userName","active")
-
    dbg.print("#activeA: ",#activeA,"\n")
    local activeT = {}
 
@@ -719,8 +738,12 @@ function M.getMTfromFile(self,fn, msg)
    activeA = nil  -- done with activeA
    activeT = nil  -- done with activeT
    if (#aa > 0) then
-      LmodWarning("The following modules were not loaded: ", concatTbl(aa," "),"\n\n")
+      LmodWarning("The following modules were not loaded: ",
+                  concatTbl(aa," "),"\n\n")
    end
+
+   --------------------------------------------------------------------------
+   -- Check that the hash sums match between collection and current values. 
 
    aa = {}
    s_mt:setHashSum()
@@ -740,11 +763,18 @@ function M.getMTfromFile(self,fn, msg)
 
    s_mt:hideHash()
 
-   local n = "__LMOD_DEFAULT_MODULES_LOADED__"
-   varTbl[n] = Var:new(n)
-   varTbl[n]:set("1")
-   dbg.print("baseMpathA: ",concatTbl(self.baseMpathA,":"),"\n")
+   -----------------------------------------------------------------------
+   -- Set environment variable __LMOD_DEFAULT_MODULES_LOADED__ so that
+   -- users have a way to know that their default collection was safely
+   -- read in.
 
+   if (collectionName == "default") then
+      local n = "__LMOD_DEFAULT_MODULES_LOADED__"
+      varTbl[n] = Var:new(n)
+      varTbl[n]:set("1")
+   end
+      
+   dbg.print("baseMpathA: ",concatTbl(self.baseMpathA,":"),"\n")
    dbg.fini("MT:getMTfromFile")
    return true
 end
@@ -779,22 +809,40 @@ function M.safeToCheckZombies(self)
    return result
 end
 
+--------------------------------------------------------------------------
+-- Get/Set functions for family.  
+
+s_familyA = false
+local function buildFamilyPrefix()
+   if (not s_familyA) then
+      s_familyA    = {}
+      s_familyA[1] = "LMOD_FAMILY_"
+      local siteName = hook.apply("SiteName")
+      if (siteName) then
+         s_familyA[2] = siteName .. "_FAMILY_"
+      end
+   end
+   return s_familyA
+end
+
 
 function M.setfamily(self,familyNm,mName)
    local results = self.family[familyNm]
    self.family[familyNm] = mName
-   local n = "LMOD_FAMILY_" .. familyNm:upper()
-   MCP:setenv(n, mName)
-   n = "TACC_FAMILY_" .. familyNm:upper()
-   MCP:setenv(n, mName)
+   local familyA = buildFamilyPrefix()
+   for i = 1,#familyA do
+      local n = familyA[i] .. familyNm:upper()
+      MCP:setenv(n, mName)
+   end
    return results
 end
 
 function M.unsetfamily(self,familyNm)
-   local n = "LMOD_FAMILY_" .. familyNm:upper()
-   MCP:unsetenv(n, "")
-   n = "TACC_FAMILY_" .. familyNm:upper()
-   MCP:unsetenv(n, "")
+   local familyA = buildFamilyPrefix()
+   for i = 1,#familyA do
+      local n = familyA[i] .. familyNm:upper()
+      MCP:unsetenv(n, "")
+   end
    self.family[familyNm] = nil
 end
 
