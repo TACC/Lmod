@@ -350,7 +350,7 @@ end
 
 local function columnList(stream, msg, a)
    local t = {}
-   table.sort(a)
+   sort(a)
    for i = 1, #a do
       t[#t + 1] = '  ' .. i .. ') ' .. tostring(a[i])
    end
@@ -779,30 +779,49 @@ function M.getMTfromFile(self,t)
    return true
 end
 
+--------------------------------------------------------------------------
+-- These routine are used to decide when it is safe to reload modules.
+-- The idea is that when there is a change in MODULEPATH, MT:changePATH
+-- is called. Every time a module is loaded MT:beginOP() is called.
+-- Afterwards MT:endOP() is called.  The routine MT:safeToCheckZombies()
+-- returns true when the count is zero and self._changePATH is also true.
+-- It then changes self._changePATH to nil so future calls to
+-- safeToCheckZombies will be false.
+
+
 function M.changePATH(self)
+   local dbg = Dbg:dbg()
    if (not self._changePATH) then
       assert(self._changePATHCount == 0)
       self._changePATHCount = self._changePATHCount + 1
    end
    self._changePATH = true
-end
+   --dbg.print("MT:changePATH: self._changePATH: ",self._changePATH, " count: ",self._changePATHCount,"\n")
+ end
 
 function M.beginOP(self)
+   local dbg = Dbg:dbg()
    if (self._changePATH == true) then
       self._changePATHCount = self._changePATHCount + 1
    end
+   --dbg.print("MT:beginOP: self._changePATH: ",self._changePATH, " count: ",self._changePATHCount,"\n")
 end
 
 function M.endOP(self)
+   local dbg = Dbg:dbg()
    if (self._changePATH == true) then
       self._changePATHCount = max(self._changePATHCount - 1, 0)
    end
+   --dbg.print("MT:endOP: self._changePATH: ",self._changePATH, " count: ",self._changePATHCount,"\n")
+end
+
+function M.zombieState(self)
+   return self._changePATHCount == 0 and self._changePATH
 end
 
 function M.safeToCheckZombies(self)
    local result = self._changePATHCount == 0 and self._changePATH
-   local s      = "nil"
-   if (result) then  s = "true" end
+   local s      = (result) and "true" or "nil"
    if (self._changePATHCount == 0) then
       self._changePATH = false
    end
@@ -853,6 +872,8 @@ function M.getfamily(self,familyNm)
    return self.family[familyNm]
 end
 
+--------------------------------------------------------------------------
+-- Simple Get/Set functions.
 
 function M.locationTbl(self, key)
    return self._locationTbl[key]
@@ -926,6 +947,9 @@ function M.reloadAllModules(self)
    return not changed
 end
 
+--------------------------------------------------------------------------
+--  MT:add(): Adds a module to MT.
+
 function M.add(self, t, status)
    local dbg   = Dbg:dbg()
    dbg.start("MT:add(t,",status,")")
@@ -954,6 +978,65 @@ function M.add(self, t, status)
    end
    dbg.fini("MT:add")
 end
+
+--------------------------------------------------------------------------
+-- MT:list(): Return a array of modules currently in MT.  The list is
+--            always sorted in loadOrder.
+--
+-- There are two kinds of returns for this member function.
+--    mt:list("userName",...) returns an object containing an table
+--                            which has the short, full, etc.
+--    mt:list(... , ...) returns a simply array of names.
+
+function M.list(self, kind, status)
+   local dbg  = Dbg:dbg()
+   local mT   = self.mT
+   local icnt = 0
+   local a    = {}
+   local b    = {}
+
+   if (kind == "userName") then
+      for k,v in pairs(mT) do
+         if ((status == "any" or status == v.status) and
+             (v.status ~= "pending")) then
+            icnt  = icnt + 1
+            local nameT = "short"
+            if (v.default ~= 1) then
+               nameT = "fullName"
+            end
+            local obj = {sn   = v.short,   full       = v.fullName,
+                         name = v[nameT], defaultFlg = v.default }
+            a[icnt] = { v.loadOrder, v[nameT], obj }
+         end
+      end
+   else
+      for k,v in pairs(mT) do
+         if ((status == "any" or status == v.status) and
+             (v.status ~= "pending")) then
+            icnt  = icnt + 1
+            a[icnt] = { v.loadOrder, v[kind], v[kind]}
+         end
+      end
+   end
+
+   sort (a, function(x,y)
+               if (x[1] == y[1]) then
+                  return x[2] < y[2]
+               else
+                  return x[1] < y[1]
+               end
+            end)
+
+   for i = 1, icnt do
+      b[i] = a[i][3]
+   end
+
+   a = nil -- finished w/ a.
+   return b
+end
+
+--------------------------------------------------------------------------
+-- Simple Get/Set functions for entries in MT.
 
 function M.userName(self, sn)
    local mT    = self.mT
@@ -1008,113 +1091,6 @@ function M.have(self, sn, status)
       return false
    end
    return ((status == "any") or (status == entry.status))
-end
-
-function M.list(self, kind, status)
-   local dbg  = Dbg:dbg()
-   local mT   = self.mT
-   local icnt = 0
-   local a    = {}
-   local b    = {}
-
-   if (kind == "userName") then
-      for k,v in pairs(mT) do
-         if ((status == "any" or status == v.status) and
-             (v.status ~= "pending")) then
-            icnt  = icnt + 1
-            local nameT = "short"
-            if (v.default ~= 1) then
-               nameT = "fullName"
-            end
-            local obj = {sn   = v.short,   full       = v.fullName,
-                         name = v[nameT], defaultFlg = v.default }
-            a[icnt] = { v.loadOrder, v[nameT], obj }
-         end
-      end
-   else
-      for k,v in pairs(mT) do
-         if ((status == "any" or status == v.status) and
-             (v.status ~= "pending")) then
-            icnt  = icnt + 1
-            a[icnt] = { v.loadOrder, v[kind], v[kind]}
-         end
-      end
-   end
-
-   table.sort (a, function(x,y)
-                     if (x[1] == y[1]) then
-                        return x[2] < y[2]
-                     else
-                        return x[1] < y[1]
-                     end
-                  end)
-
-   for i = 1, icnt do
-      b[i] = a[i][3]
-   end
-
-   a = nil -- finished w/ a.
-   return b
-end
-
-function M.setHashSum(self)
-   local mT   = self.mT
-   local dbg  = Dbg:dbg()
-   dbg.start("MT:setHashSum()")
-
-   local chsA   = { "computeHashSum", "computeHashSum.in.lua", }
-   local cmdSum = false
-   local found  = false
-
-   for i = 1,2 do
-      cmdSum  = pathJoin(cmdDir(),chsA[i])
-      if (isFile(cmdSum)) then
-         found = true
-         break
-      end
-   end
-
-   if (not found) then
-      LmodError("Unable to find computeHashSum\n")
-   end
-
-   local path = "@path_to_lua@:" .. os.getenv("PATH")
-
-
-   local luaCmd = findInPath("lua",path)
-
-   if (luaCmd == "") then
-      LmodError("Unable to find lua\n")
-   end
-
-   local cmdA = {}
-   cmdA[#cmdA+1] = luaCmd
-   cmdA[#cmdA+1] = cmdSum
-   if (dbg.active()) then
-      cmdA[#cmdA+1] = "--indentLevel"
-      cmdA[#cmdA+1] = tostring(dbg.indentLevel()+1)
-      cmdA[#cmdA+1] = "-D"
-   end
-   local cmdStart = concatTbl(cmdA," ")
-
-   for k,v in pairs(mT) do
-      local a = {}
-      if (v.status == "active") then
-         a[#a + 1]  = cmdStart
-         a[#a + 1]  = "--fullName"
-         a[#a + 1]  = v.fullName
-         a[#a + 1]  = "--usrName"
-         a[#a + 1]  = self:usrName(v.short)
-         a[#a + 1]  = "--sn"
-         a[#a + 1]  = v.short
-         a[#a + 1]  = v.FN
-         local cmd  = concatTbl(a," ")
-         dbg.print("cmd: ", cmd,"\n")
-         local s    = capture(cmd)
-         v.hash     = s:sub(1,-2)
-      end
-   end
-   dbg.fini("MT:setHashSum")
 end
 
 function M.getHash(self, sn)
@@ -1220,6 +1196,174 @@ function M.set_mType(self, sn, value)
       mT[sn].mType = value
    end
 end
+
+
+
+function M.getHash(self, sn)
+   local mT    = self.mT
+   local entry = mT[sn]
+   if (entry == nil) then
+      return nil
+   end
+   return entry.hash
+end
+
+function M.hideHash(self)
+   local mT   = self.mT
+   for k,v in pairs(mT) do
+      if (v.status == "active") then
+         v.hash    = nil
+      end
+   end
+end
+
+function M.markDefault(self, sn)
+   local mT    = self.mT
+   local entry = mT[sn]
+   if (entry ~= nil) then
+      mT[sn].default = 1
+   end
+end
+
+function M.default(self, sn)
+   local mT    = self.mT
+   local entry = mT[sn]
+   if (entry == nil) then
+      return nil
+   end
+   return (entry.default ~= 0)
+end
+
+function M.usrName(self,sn)
+   if (self:default(sn)) then
+      return sn
+   end
+   return self:fullName(sn)
+end
+
+function M.setLoadOrder(self)
+   local a  = self:list("short","active")
+   local mT = self.mT
+   local sz = #a
+
+   for i = 1,sz do
+      local sn = a[i]
+      mT[sn].loadOrder = i
+   end
+   return sz
+end
+
+function M.fullName(self, sn)
+   local dbg   = Dbg:dbg()
+   local mT    = self.mT
+   local entry = mT[sn]
+   if (entry == nil) then
+      return nil
+   end
+   return entry.fullName
+end
+
+function M.Version(self, sn)
+   local full = self:fullName(sn)
+   if (not full) then
+      return full
+   end
+
+   local i, j = full:find(".*/")
+   if (not j) then
+      return ""
+   end
+
+   return full:sub(j+1,-1)
+end
+
+function M.short(self, sn)
+   local mT    = self.mT
+   local entry = mT[sn]
+   if (entry == nil) then
+      return nil
+   end
+   return entry.short
+end
+
+function M.mType(self, sn)
+   local mT    = self.mT
+   local entry = mT[sn]
+   if (entry == nil) then
+      return nil
+   end
+   return entry.mType
+end
+
+function M.set_mType(self, sn, value)
+   local mT    = self.mT
+   local entry = mT[sn]
+   if (entry ~= nil) then
+      mT[sn].mType = value
+   end
+end
+
+
+function M.setHashSum(self)
+   local mT   = self.mT
+   local dbg  = Dbg:dbg()
+   dbg.start("MT:setHashSum()")
+
+   local chsA   = { "computeHashSum", "computeHashSum.in.lua", }
+   local cmdSum = false
+   local found  = false
+
+   for i = 1,2 do
+      cmdSum  = pathJoin(cmdDir(),chsA[i])
+      if (isFile(cmdSum)) then
+         found = true
+         break
+      end
+   end
+
+   if (not found) then
+      LmodError("Unable to find computeHashSum\n")
+   end
+
+   local path = "@path_to_lua@:" .. os.getenv("PATH")
+
+
+   local luaCmd = findInPath("lua",path)
+
+   if (luaCmd == "") then
+      LmodError("Unable to find lua\n")
+   end
+
+   local cmdA = {}
+   cmdA[#cmdA+1] = luaCmd
+   cmdA[#cmdA+1] = cmdSum
+   if (dbg.active()) then
+      cmdA[#cmdA+1] = "--indentLevel"
+      cmdA[#cmdA+1] = tostring(dbg.indentLevel()+1)
+      cmdA[#cmdA+1] = "-D"
+   end
+   local cmdStart = concatTbl(cmdA," ")
+
+   for k,v in pairs(mT) do
+      local a = {}
+      if (v.status == "active") then
+         a[#a + 1]  = cmdStart
+         a[#a + 1]  = "--fullName"
+         a[#a + 1]  = v.fullName
+         a[#a + 1]  = "--usrName"
+         a[#a + 1]  = self:usrName(v.short)
+         a[#a + 1]  = "--sn"
+         a[#a + 1]  = v.short
+         a[#a + 1]  = v.FN
+         local cmd  = concatTbl(a," ")
+         dbg.print("cmd: ", cmd,"\n")
+         local s    = capture(cmd)
+         v.hash     = s:sub(1,-2)
+      end
+   end
+   dbg.fini("MT:setHashSum")
+end
+
 
 function M.reportKeys(self)
    local dbg = Dbg:dbg()
