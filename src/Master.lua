@@ -514,11 +514,13 @@ function M.load(...)
          local mList = concatTbl(mt:list("short","active"),":")
          mt:add(t, "pending")
 	 mt:beginOP()
+         dbg.print("changePATH: ", mt._changePATHCount, "\n")
          mStack:push(t.modFullName, moduleName, sn, fn)
 	 loadModuleFile{file=fn, shell = shellN, mList = mList, reportErr=true}
          t.mType = mStack:moduleType()
          mStack:pop()
 	 mt:endOP()
+         dbg.print("changePATH: ", mt._changePATHCount, "\n")
          dbg.print("Making ", t.modName, " active\n")
          mt:setStatus(sn, "active")
          mt:set_mType(sn, t.mType)
@@ -528,9 +530,14 @@ function M.load(...)
       end
       a[#a+1] = loaded
    end
+
+   dbg.print("changePATH: ", mt._changePATHCount, " Zombie state: ",mt:zombieState(),
+             " mStack:empty(): ",mStack:empty(),"\n")
    if (M.safeToUpdate() and mt:safeToCheckZombies() and mStack:empty()) then
       dbg.print("Master:load calling reloadAll()\n")
       M.reloadAll()
+      dbg.print("changePATH: ", mt._changePATHCount, " Zombie state: ",mt:zombieState(),
+             " mStack:empty(): ",mStack:empty(),"\n")
    end
    dbg.fini("Master:load")
    return a
@@ -684,10 +691,12 @@ function M.unload(...)
          local fullModuleName = mt:fullName(sn)
          dbg.print("Master:unload: \"",fullModuleName,"\" from f: ",f,"\n")
          mt:beginOP()
+         dbg.print("changePATH: ", mt._changePATHCount, "\n")
          mStack:push(fullModuleName, moduleName, sn, f)
 	 loadModuleFile{file=f, mList=mList, shell=shellN, reportErr=false}
          mStack:pop()
          mt:endOP()
+         dbg.print("changePATH: ", mt._changePATHCount, "\n")
          dbg.print("calling mt:remove(\"",sn,"\")\n")
          mt:remove(sn)
          a[#a + 1] = true
@@ -695,8 +704,13 @@ function M.unload(...)
          a[#a + 1] = false
       end
    end
+   dbg.print("changePATH: ", mt._changePATHCount, " Zombie state: ",mt:zombieState(),
+             " mStack:empty(): ",mStack:empty(),"\n")
    if (M.safeToUpdate() and mt:safeToCheckZombies() and mStack:empty()) then
+      dbg.print("In unload calling Master.reload\n")
       M.reloadAll()
+      dbg.print("changePATH: ", mt._changePATHCount, " Zombie state: ",mt:zombieState(),
+                " mStack:empty(): ",mStack:empty(),"\n")
    end
    mcp = mcp_old
    dbg.print("Resetting mcp to ", mcp:name(),"\n")

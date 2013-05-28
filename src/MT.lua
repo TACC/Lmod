@@ -779,30 +779,49 @@ function M.getMTfromFile(self,t)
    return true
 end
 
+--------------------------------------------------------------------------
+-- These routine are used to decide when it is safe to reload modules.
+-- The idea is that when there is a change in MODULEPATH, MT:changePATH
+-- is called. Every time a module is loaded MT:beginOP() is called.
+-- Afterwards MT:endOP() is called.  The routine MT:safeToCheckZombies()
+-- returns true when the count is zero and self._changePATH is also true.
+-- It then changes self._changePATH to nil so future calls to
+-- safeToCheckZombies will be false.
+
+
 function M.changePATH(self)
+   local dbg = Dbg:dbg()
    if (not self._changePATH) then
       assert(self._changePATHCount == 0)
       self._changePATHCount = self._changePATHCount + 1
    end
    self._changePATH = true
-end
+   --dbg.print("MT:changePATH: self._changePATH: ",self._changePATH, " count: ",self._changePATHCount,"\n")
+ end
 
 function M.beginOP(self)
+   local dbg = Dbg:dbg()
    if (self._changePATH == true) then
       self._changePATHCount = self._changePATHCount + 1
    end
+   --dbg.print("MT:beginOP: self._changePATH: ",self._changePATH, " count: ",self._changePATHCount,"\n")
 end
 
 function M.endOP(self)
+   local dbg = Dbg:dbg()
    if (self._changePATH == true) then
       self._changePATHCount = max(self._changePATHCount - 1, 0)
    end
+   --dbg.print("MT:endOP: self._changePATH: ",self._changePATH, " count: ",self._changePATHCount,"\n")
+end
+
+function M.zombieState(self)
+   return self._changePATHCount == 0 and self._changePATH
 end
 
 function M.safeToCheckZombies(self)
    local result = self._changePATHCount == 0 and self._changePATH
-   local s      = "nil"
-   if (result) then  s = "true" end
+   local s      = (result) and "true" or "nil"
    if (self._changePATHCount == 0) then
       self._changePATH = false
    end
@@ -853,6 +872,8 @@ function M.getfamily(self,familyNm)
    return self.family[familyNm]
 end
 
+--------------------------------------------------------------------------
+-- Simple Get/Set functions.
 
 function M.locationTbl(self, key)
    return self._locationTbl[key]
@@ -926,6 +947,9 @@ function M.reloadAllModules(self)
    return not changed
 end
 
+--------------------------------------------------------------------------
+--  MT:add(): Adds a module to MT.
+
 function M.add(self, t, status)
    local dbg   = Dbg:dbg()
    dbg.start("MT:add(t,",status,")")
@@ -954,6 +978,9 @@ function M.add(self, t, status)
    end
    dbg.fini("MT:add")
 end
+
+--------------------------------------------------------------------------
+-- Simple Get/Set functions for entries in MT.
 
 function M.userName(self, sn)
    local mT    = self.mT
@@ -1009,6 +1036,113 @@ function M.have(self, sn, status)
    end
    return ((status == "any") or (status == entry.status))
 end
+
+function M.getHash(self, sn)
+   local mT    = self.mT
+   local entry = mT[sn]
+   if (entry == nil) then
+      return nil
+   end
+   return entry.hash
+end
+
+function M.hideHash(self)
+   local mT   = self.mT
+   for k,v in pairs(mT) do
+      if (v.status == "active") then
+         v.hash    = nil
+      end
+   end
+end
+
+function M.markDefault(self, sn)
+   local mT    = self.mT
+   local entry = mT[sn]
+   if (entry ~= nil) then
+      mT[sn].default = 1
+   end
+end
+
+function M.default(self, sn)
+   local mT    = self.mT
+   local entry = mT[sn]
+   if (entry == nil) then
+      return nil
+   end
+   return (entry.default ~= 0)
+end
+
+function M.usrName(self,sn)
+   if (self:default(sn)) then
+      return sn
+   end
+   return self:fullName(sn)
+end
+
+function M.setLoadOrder(self)
+   local a  = self:list("short","active")
+   local mT = self.mT
+   local sz = #a
+
+   for i = 1,sz do
+      local sn = a[i]
+      mT[sn].loadOrder = i
+   end
+   return sz
+end
+
+function M.fullName(self, sn)
+   local dbg   = Dbg:dbg()
+   local mT    = self.mT
+   local entry = mT[sn]
+   if (entry == nil) then
+      return nil
+   end
+   return entry.fullName
+end
+
+function M.Version(self, sn)
+   local full = self:fullName(sn)
+   if (not full) then
+      return full
+   end
+
+   local i, j = full:find(".*/")
+   if (not j) then
+      return ""
+   end
+
+   return full:sub(j+1,-1)
+end
+
+function M.short(self, sn)
+   local mT    = self.mT
+   local entry = mT[sn]
+   if (entry == nil) then
+      return nil
+   end
+   return entry.short
+end
+
+function M.mType(self, sn)
+   local mT    = self.mT
+   local entry = mT[sn]
+   if (entry == nil) then
+      return nil
+   end
+   return entry.mType
+end
+
+function M.set_mType(self, sn, value)
+   local mT    = self.mT
+   local entry = mT[sn]
+   if (entry ~= nil) then
+      mT[sn].mType = value
+   end
+end
+
+--------------------------------------------------------------------------
+-- MT:list()
 
 function M.list(self, kind, status)
    local dbg  = Dbg:dbg()
@@ -1117,109 +1251,6 @@ function M.setHashSum(self)
    dbg.fini("MT:setHashSum")
 end
 
-function M.getHash(self, sn)
-   local mT    = self.mT
-   local entry = mT[sn]
-   if (entry == nil) then
-      return nil
-   end
-   return entry.hash
-end
-
-function M.hideHash(self)
-   local mT   = self.mT
-   for k,v in pairs(mT) do
-      if (v.status == "active") then
-         v.hash    = nil
-      end
-   end
-end
-
-function M.markDefault(self, sn)
-   local mT    = self.mT
-   local entry = mT[sn]
-   if (entry ~= nil) then
-      mT[sn].default = 1
-   end
-end
-
-function M.default(self, sn)
-   local mT    = self.mT
-   local entry = mT[sn]
-   if (entry == nil) then
-      return nil
-   end
-   return (entry.default ~= 0)
-end
-
-function M.usrName(self,sn)
-   if (self:default(sn)) then
-      return sn
-   end
-   return self:fullName(sn)
-end
-
-function M.setLoadOrder(self)
-   local a  = self:list("short","active")
-   local mT = self.mT
-   local sz = #a
-
-   for i = 1,sz do
-      local sn = a[i]
-      mT[sn].loadOrder = i
-   end
-   return sz
-end
-
-function M.fullName(self, sn)
-   local dbg   = Dbg:dbg()
-   local mT    = self.mT
-   local entry = mT[sn]
-   if (entry == nil) then
-      return nil
-   end
-   return entry.fullName
-end
-
-function M.Version(self, sn)
-   local full = self:fullName(sn)
-   if (not full) then
-      return full
-   end
-
-   local i, j = full:find(".*/")
-   if (not j) then
-      return ""
-   end
-
-   return full:sub(j+1,-1)
-end
-
-function M.short(self, sn)
-   local mT    = self.mT
-   local entry = mT[sn]
-   if (entry == nil) then
-      return nil
-   end
-   return entry.short
-end
-
-function M.mType(self, sn)
-   local mT    = self.mT
-   local entry = mT[sn]
-   if (entry == nil) then
-      return nil
-   end
-   return entry.mType
-end
-
-function M.set_mType(self, sn, value)
-   local mT    = self.mT
-   local entry = mT[sn]
-   if (entry ~= nil) then
-      mT[sn].mType = value
-   end
-end
 
 function M.reportKeys(self)
    local dbg = Dbg:dbg()
