@@ -43,6 +43,8 @@ require("strict")
 require("utils")
 
 local Dbg              = require("Dbg")
+local concatTbl        = table.concat
+local hook             = require("Hook")
 MC_Spider              = inheritsFrom(MasterControl)
 MC_Spider.my_name      = "MC_Spider"
 
@@ -166,12 +168,23 @@ function M.whatis(self,s)
 end
 
 --------------------------------------------------------------------------
--- MC_Spider:setenv(): Track "TACC_.*_LIB" environment variables.
+-- MC_Spider:setenv(): Track "TACC_.*_LIB" environment variables or
+--                     whatever the site is called.
 
+s_pat = false
 function M.setenv(self, name, value)
    local dbg    = Dbg:dbg()
    dbg.start("MC_Spider:setenv(name, value)")
-   if (name:find("^TACC_.*_LIB")) then
+
+   if (not s_pat) then
+      local a = {}
+      a[#a+1] = "^"
+      a[#a+1] = hook.apply("SiteName")
+      a[#a+1] = "_.*_LIB"
+      s_pat   = concatTbl(a,"")
+   end
+
+   if (name:find(s_pat)) then
       processLPATH(value)
    end
    dbg.fini()
