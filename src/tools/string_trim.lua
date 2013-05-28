@@ -32,6 +32,9 @@
 --
 --------------------------------------------------------------------------
 
+--------------------------------------------------------------------------
+-- string:trim(): remove leading and trailing spaces.
+
 function string:trim()
    local ja = self:find("%S")
    if (ja == nil) then

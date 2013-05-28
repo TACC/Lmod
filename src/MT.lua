@@ -178,7 +178,7 @@ end
 --------------------------------------------------------------------------
 -- buildLocWmoduleT(): This local function walks a single directory in
 --                     moduleT.  This routine fills in availT[mpath} and
---                     the local copy of the locationT "lT"
+--                     the local copy of the locationT "lT".
 
 
 local function buildLocWmoduleT(mpath, moduleT, mpathT, lT, availT)
@@ -221,9 +221,22 @@ local function buildLocWmoduleT(mpath, moduleT, mpathT, lT, availT)
 end
 
 
+--------------------------------------------------------------------------
+-- buildAllLocWmoduleT(): This routine walks moduleT for all directories
+--                        stored there. Once all the directories have been
+--                        traversed by [[buildLocWmoduleT]], [[availT]] is
+--                        rebuilt to have the entries in parseVersion order
+--                        and locationT is sorted as well.
+
 local function buildAllLocWmoduleT(moduleT, mpathA, locationT, availT)
    local dbg       = Dbg:dbg()
    dbg.start("MT:buildAllLocWmoduleT(moduleT, mpathA, locationT, availT)")
+
+
+   -----------------------------------------------------------------------
+   -- Initialize [[mpathT]] and [[availT]] for directories in [[mpathA]]
+   -- that exist.
+
 
    local mpathT = {}
    local lT     = {}  -- temporary locationT
@@ -236,12 +249,17 @@ local function buildAllLocWmoduleT(moduleT, mpathA, locationT, availT)
       end
    end
 
+   -----------------------------------------------------------------------
+   -- For each directory in [[mpathT]] process that table in [[moduleT]]
    for mpath in pairs(mpathT) do
       local mpmT = moduleT[mpath]
       if (mpmT) then
          buildLocWmoduleT(mpath, mpmT, mpathT, lT, availT)
       end
    end
+
+   -----------------------------------------------------------------------
+   -- Rebuild [[availT]] to have the versions in parseVersion order.
 
    for mpath, vvv in pairs(availT) do
       for sn, vv in pairs(vvv) do
@@ -253,8 +271,9 @@ local function buildAllLocWmoduleT(moduleT, mpathA, locationT, availT)
       end
    end
 
+   -----------------------------------------------------------------------
+   -- Sort [[locationT]] as well.
    for sn, vv in pairs(lT) do
-
       local a = {}
       for mpath, v in pairs(vv) do
          a[#a + 1] = {mpathT[mpath], v}
@@ -271,6 +290,11 @@ local function buildAllLocWmoduleT(moduleT, mpathA, locationT, availT)
    dbg.fini("MT:buildAllLocWmoduleT")
 end
 
+
+--------------------------------------------------------------------------
+-- build_locationTbl(): Build [[locationT]] either by using [[moduleT]] if
+--                      it exists or use [[locationTblDir]] to walk the
+--                      directories.
 
 local function build_locationTbl(mpathA)
 
@@ -320,6 +344,8 @@ local function build_locationTbl(mpathA)
    return locationT, availT
 end
 
+--------------------------------------------------------------------------
+-- columnList(): Generate a columeTable with a title.
 
 local function columnList(stream, msg, a)
    local t = {}
@@ -332,6 +358,9 @@ local function columnList(stream, msg, a)
    stream:write(ct:build_tbl(),"\n")
 end
 
+
+------------------------------------------------------------------------
+-- MT:new(): local ctor for MT.  It uses [[s]] to be the initial value.
 
 local function new(self, s)
    local dbg  = Dbg:dbg()
@@ -407,6 +436,9 @@ local function new(self, s)
    return o
 end
 
+--------------------------------------------------------------------------
+-- MT:convertMT() - Translate a version 1 MT into current version.
+
 function M.convertMT(self, v1)
    local active = v1.active
    local a      = active.Loaded
@@ -444,7 +476,8 @@ function M.convertMT(self, v1)
    return sz   -- Return the new loadOrder number.
 end
 
-
+--------------------------------------------------------------------------
+-- Get/Set functions for shortTime and rebuild time for cache.
 
 function M.getRebuildTime(self)
    return self.c_rebuildTime
@@ -462,6 +495,8 @@ function M.setRebuildTime(self, long, short)
    dbg.fini("MT:setRebuildTime")
 end
 
+--------------------------------------------------------------------------
+-- setupMPATH(): Build locationTbl and availT based on new MODULEPATH.
 
 local function setupMPATH(self,mpath)
    local dbg = Dbg:dbg()
@@ -474,7 +509,12 @@ local function setupMPATH(self,mpath)
    dbg.fini("MT:setupMPATH")
 end
 
-local dcT = {function_immutable = true, metatable_immutable = true}
+--------------------------------------------------------------------------
+-- MT:mt(): Public access to MT function.  For the most part this is a
+--          singleton class.  The trouble is that there is a stack of
+--          MT on certain occations.  So this member function will construct
+--          one, then clone itself.  This way there is an original one for
+--          later comparison.
 
 function M.mt(self)
    if (not s_mt) then
@@ -496,7 +536,11 @@ function M.mt(self)
    return s_mt
 end
 
+--------------------------------------------------------------------------
+-- 
 
+
+local dcT = {function_immutable = true, metatable_immutable = true}
 function M.cloneMT()
    local dbg = Dbg:dbg()
    dbg.start("MT.cloneMT()")
@@ -528,6 +572,11 @@ function M.popMT()
 
    dbg.fini("MT.popMT")
 end
+
+
+--------------------------------------------------------------------------
+-- MT:origMT(): Return the original MT from bottom of stack.
+
 
 function M.origMT()
    local dbg = Dbg:dbg()

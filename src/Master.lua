@@ -444,6 +444,42 @@ function M.fakeload(...)
 end
 
 --------------------------------------------------------------------------
+-- Master:inheritModule(): load the module that has the same name as the
+--                         one on the top of mStack.  This way a user
+--                         can "inherit" the contents of a system module
+--                         instead of copying.
+
+function M.inheritModule()
+   local dbg     = Dbg:dbg()
+   dbg.start("Master:inherit()")
+
+   local mt      = MT:mt()
+   local shellN  = s_master.shell:name()
+   local mStack  = ModuleStack:moduleStack()
+   local myFn    = mStack:fileName()
+   local myUsrN  = mStack:usrName()
+   local mySn    = mStack:sn()
+   local mFull   = mStack:fullName()
+
+   dbg.print("myFn:  ", myFn,"\n")
+   dbg.print("mFull: ", mFull,"\n")
+
+
+   local t = find_inherit_module(mFull,myFn)
+   dbg.print("fn: ", t.fn,"\n")
+   if (t.fn == nil) then
+      LmodError("Failed to inherit: ",mFull,"\n")
+   else
+      local mList = concatTbl(mt:list("short","active"),":")
+      mStack:push(mFull, myUsrN, mySn, t.fn)
+      loadModuleFile{file=t.fn,mList = mList, shell=shellN,
+                     reportErr=true}
+      mStack:pop()
+   end
+   dbg.fini("Master:inherit")
+end
+
+--------------------------------------------------------------------------
 -- Master:load(): Load all requested modules.  Each module is unloaded
 --                if it is currently loaded.
 
@@ -538,6 +574,78 @@ function M.refresh()
 end
 
 --------------------------------------------------------------------------
+-- Master:reloadAll(): Loop over all modules in MT to see if they still
+--                     can be seen.  We check every active module to see 
+--                     if the file associated with loaded module is the 
+--                     same as [[find_module_file()]] reports.  If not
+--                     then it is unloaded and an attempt is made to reload
+--                     it.  Each inactive module is re-loaded if possible.
+
+function M.reloadAll()
+   local mt   = MT:mt()
+   local dbg  = Dbg:dbg()
+   dbg.start("Master:reloadAll()")
+
+   local mcp_old = mcp
+   mcp = MCP
+
+   local same = true
+   local a    = mt:list("userName","any")
+   for i = 1, #a do
+      local v = a[i]
+      local sn = v.sn
+      if (mt:have(sn, "active")) then
+         dbg.print("module sn: ",sn," is active\n")
+         dbg.print("userName:  ",v.name,"\n")
+         local mname    = MName:new("userName", v.name)
+         local t        = find_module_file(mname)
+         local fn       = mt:fileName(sn)
+         local fullName = t.modFullName
+         local userName = v.name
+         if (t.fn ~= fn) then
+            dbg.print("Master:reloadAll t.fn: \"",t.fn or "nil","\"",
+                      " mt:fileName(sn): \"",fn or "nil","\"\n")
+            dbg.print("Master:reloadAll Unloading module: \"",sn,"\"\n")
+            mcp:unloadsys(sn)
+            dbg.print("Master:reloadAll Loading module: \"",userName or "nil","\"\n")
+            local loadA = mcp:load(userName)
+            dbg.print("Master:reloadAll: fn: \"",fn or "nil",
+                      "\" mt:fileName(sn): \"", tostring(mt:fileName(sn)), "\"\n")
+            if (loadA[1] and fn ~= mt:fileName(sn)) then
+               same = false
+               dbg.print("Master:reloadAll module: ",fullName," marked as reloaded\n")
+            end
+         end
+      else
+         dbg.print("module sn: ", sn, " is inactive\n")
+         local fn    = mt:fileName(sn)
+         local name  = v.name          -- This name is short for default and
+                                       -- Full for specific version.
+         dbg.print("Master:reloadAll Loading module: \"", name, "\"\n")
+         local aa = mcp:load(name)
+         if (aa[1] and fn ~= mt:fileName(sn)) then
+            dbg.print("Master:reloadAll module: ", name, " marked as reloaded\n")
+         end
+         same = not aa[1]
+      end
+   end
+   for i = 1, #a do
+      local v  = a[i]
+      local sn = v.sn
+      if (not mt:have(sn, "active")) then
+         local t = { modFullName = v.full, modName = sn, default = v.defaultFlg}
+         dbg.print("Master:reloadAll module: ", sn, " marked as inactive\n")
+         mt:add(t, "inactive")
+      end
+   end
+
+   mcp = mcp_old
+   dbg.print("Resetting mpc to ", mcp:name(),"\n")
+   dbg.fini("Master:reloadAll")
+   return same
+end
+
+--------------------------------------------------------------------------
 -- Master:safeToUpdate() - [[safe]] is set during ctor. It is controlled
 --                         by the command table in lmod.
 
@@ -624,104 +732,14 @@ function M.versionFile(path)
    return capture(cmd):trim()
 end
 
-
-function M.reloadAll()
-   local mt   = MT:mt()
-   local dbg  = Dbg:dbg()
-   dbg.start("Master:reloadAll()")
+--------------------------------------------------------------------------
+--  All these routines in this block to the end are part of "avail"
+--------------------------------------------------------------------------
 
 
-   local mcp_old = mcp
-   mcp = MCP
-
-   local same = true
-   local a    = mt:list("userName","any")
-   for _, v in ipairs(a) do
-      local sn = v.sn
-      if (mt:have(sn, "active")) then
-         dbg.print("module sn: ",sn," is active\n")
-         dbg.print("userName:  ",v.name,"\n")
-         local mname    = MName:new("userName", v.name)
-         local t        = find_module_file(mname)
-         local fn       = mt:fileName(sn)
-         local fullName = t.modFullName
-         local userName = v.name
-         if (t.fn ~= fn) then
-            dbg.print("Master:reloadAll t.fn: \"",t.fn or "nil","\"",
-                      " mt:fileName(sn): \"",fn or "nil","\"\n")
-            dbg.print("Master:reloadAll Unloading module: \"",sn,"\"\n")
-            mcp:unloadsys(sn)
-            dbg.print("Master:reloadAll Loading module: \"",userName or "nil","\"\n")
-            local loadA = mcp:load(userName)
-            dbg.print("Master:reloadAll: fn: \"",fn or "nil",
-                      "\" mt:fileName(sn): \"", tostring(mt:fileName(sn)), "\"\n")
-            if (loadA[1] and fn ~= mt:fileName(sn)) then
-               same = false
-               dbg.print("Master:reloadAll module: ",fullName," marked as reloaded\n")
-            end
-         end
-      else
-         dbg.print("module sn: ", sn, " is inactive\n")
-         local fn    = mt:fileName(sn)
-         local name  = v.name          -- This name is short for default and
-                                       -- Full for specific version.
-         dbg.print("Master:reloadAll Loading module: \"", name, "\"\n")
-         local aa = mcp:load(name)
-         if (aa[1] and fn ~= mt:fileName(sn)) then
-            dbg.print("Master:reloadAll module: ", name, " marked as reloaded\n")
-         end
-         same = not aa[1]
-      end
-   end
-   for _, v in ipairs(a) do
-      local sn = v.sn
-      if (not mt:have(sn, "active")) then
-         local t = { modFullName = v.full, modName = sn, default = v.defaultFlg}
-         dbg.print("Master:reloadAll module: ", sn, " marked as inactive\n")
-         mt:add(t, "inactive")
-      end
-   end
-
-   mcp = mcp_old
-   dbg.print("Resetting mpc to ", mcp:name(),"\n")
-   dbg.fini("Master:reloadAll")
-   return same
-end
-
-
-
-function M.inheritModule()
-   local dbg     = Dbg:dbg()
-   dbg.start("Master:inherit()")
-
-   local mt      = MT:mt()
-   local shellN  = s_master.shell:name()
-   local mStack  = ModuleStack:moduleStack()
-   local myFn    = mStack:fileName()
-   local myUsrN  = mStack:usrName()
-   local mySn    = mStack:sn()
-   local mFull   = mStack:fullName()
-
-   dbg.print("myFn:  ", myFn,"\n")
-   dbg.print("mFull: ", mFull,"\n")
-
-
-   local t = find_inherit_module(mFull,myFn)
-   dbg.print("fn: ", t.fn,"\n")
-   if (t.fn == nil) then
-      LmodError("Failed to inherit: ",mFull,"\n")
-   else
-      local mList = concatTbl(mt:list("short","active"),":")
-      mStack:push(mFull, myUsrN, mySn, t.fn)
-      loadModuleFile{file=t.fn,mList = mList, shell=shellN,
-                     reportErr=true}
-      mStack:pop()
-   end
-   dbg.fini("Master:inherit")
-end
-
-
-
+--------------------------------------------------------------------------
+-- findDefault(): Find the default module for the current directory
+--                [[mpath]].
 
 local function findDefault(mpath, sn, versionA)
    local dbg  = Dbg:dbg()
@@ -768,11 +786,19 @@ local function findDefault(mpath, sn, versionA)
    return default, #versionA
 end
 
-local function availEntry(defaultOnly, terse, szA, searchA, sn, name, f, defaultModule, dbT, legendT, a)
-   local dbg      = Dbg:dbg()
-   dbg.start("Master:availEntry(defaultOnly, terse, szA, searchA, sn, name, f, defaultModule, dbT, legendT, a)")
+--------------------------------------------------------------------------
+--  availEntry(): This routine is handed a single entry.  It check to see
+--                if matches the search criteria.  It also adds any
+--                properties such as default or anything from [[propT]].
 
-   dbg.print("sn:" ,sn, ", name: ", name,", defaultOnly: ",defaultOnly,", szA: ",szA,"\n")
+local function availEntry(defaultOnly, terse, szA, searchA, sn, name,
+                          f, defaultModule, dbT, legendT, a)
+   local dbg      = Dbg:dbg()
+   dbg.start("Master:availEntry(defaultOnly, terse, szA, searchA, "..
+                               "sn, name, f, defaultModule, dbT, legendT, a)")
+
+   dbg.print("sn:" ,sn, ", name: ", name,", defaultOnly: ",defaultOnly,
+             ", szA: ",szA,"\n")
    local dflt     = ""
    local sCount   = #searchA
    local found    = false
@@ -801,8 +827,6 @@ local function availEntry(defaultOnly, terse, szA, searchA, sn, name, f, default
       dbg.fini("Master:availEntry")
       return
    end
-
-
 
    if (terse) then
       a[#a+1] = name
@@ -838,14 +862,21 @@ local function availEntry(defaultOnly, terse, szA, searchA, sn, name, f, default
 end
 
 
+---------------------------------------------------------------------------
+-- availDir(): Handle a single directory and collect any entries through
+--             [[availEntry]].
 
-local function availDir(defaultOnly, terse, searchA, mpath, availT, dbT, a, legendT)
+
+local function availDir(defaultOnly, terse, searchA, mpath, availT,
+                        dbT, a, legendT)
    local dbg    = Dbg:dbg()
-   dbg.start("Master.availDir(defaultOnly= ",defaultOnly,", terse= ",terse, ", searchA=(",concatTbl(searchA,", "),
-             "), mpath= \"",mpath,"\", ", "availT, dbT, a, legendT)")
+   dbg.start("Master.availDir(defaultOnly= ",defaultOnly,", terse= ",terse,
+             ", searchA=(",concatTbl(searchA,", "), "), mpath= \"",mpath,"\", ",
+             "availT, dbT, a, legendT)")
    local attr    = lfs.attributes(mpath)
    local mt      = MT:mt()
-   if (not attr or type(attr) ~= "table" or attr.mode ~= "directory" or not posix.access(mpath,"x")) then
+   if (not attr or type(attr) ~= "table" or attr.mode ~= "directory"
+       or not posix.access(mpath,"x")) then
       dbg.print("Skipping non-existant directory: ", mpath,"\n")
       dbg.fini("Master.availDir")
       return
@@ -857,21 +888,30 @@ local function availDir(defaultOnly, terse, searchA, mpath, availT, dbT, a, lege
       local aa            = {}
       local szA           = #versionA
       if (szA == 0) then
-         availEntry(defaultOnly, terse, szA, searchA, sn, sn, "", defaultModule, dbT, legendT, a)
+         availEntry(defaultOnly, terse, szA, searchA, sn, sn, "",
+                    defaultModule, dbT, legendT, a)
       else
          defaultModule = findDefault(mpath, sn, versionA)
          if (terse) then
-            availEntry(defaultOnly, terse, szA, searchA, sn, sn, "", defaultModule, dbT, legendT, a)
+            availEntry(defaultOnly, terse, szA, searchA, sn, sn, "",
+                       defaultModule, dbT, legendT, a)
          end
          for i = 1, #versionA do
             local name = pathJoin(sn, versionA[i].version)
             local f    = versionA[i].file
-            availEntry(defaultOnly, terse, szA, searchA, sn, name, f, defaultModule, dbT, legendT, a)
+            availEntry(defaultOnly, terse, szA, searchA, sn, name,
+                       f, defaultModule, dbT, legendT, a)
          end
       end
    end
    dbg.fini("Master.availDir")
 end
+
+--------------------------------------------------------------------------
+-- availOptions(): "module avail " takes options that are given here.
+--                 Note that these are also available with the Lmod
+--                 options. So "module -t avail" and "module avail -t" are
+--                 the same thing.
 
 local function availOptions(argA)
    local usage = "Usage: module avail [options] search1 search2 ..."
@@ -894,8 +934,9 @@ local function availOptions(argA)
 
 end
 
-
-
+--------------------------------------------------------------------------
+-- Master:avail(): Report the available modules with properties and 
+--                 defaults.  Run results through pager.
 function M.avail(argA)
    local dbg       = Dbg:dbg()
    dbg.start("Master.avail(",concatTbl(argA,", "),")")
