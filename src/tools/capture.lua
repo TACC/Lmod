@@ -32,14 +32,16 @@
 --
 --------------------------------------------------------------------------
 
--- $Id: capture.lua 118 2009-02-16 05:03:36Z mclay $ --
+--------------------------------------------------------------------------
+-- Capture:  use io.popen to open a pipe to collect the output of a
+--           command.  
 
 capture = nil
 require("strict")
 
 local Dbg   = require("Dbg")
 local posix = require("posix")
-function capturePOPEN(cmd,level)
+function capture(cmd,level)
    local dbg    = Dbg:dbg()
    level        = level or 1
    local level2 = level or 2
@@ -59,27 +61,3 @@ function capturePOPEN(cmd,level)
    return ret
 end
 
-function captureFILE(cmd, level)
-   local dbg    = Dbg:dbg()
-   level        = level or 1
-   local level2 = level or 2
-   dbg.start(level,"captureFILE")
-   dbg.print("cmd: ",cmd,"\n")
-   local tmpName = os.tmpname()
-   local cmd     = cmd .. " > " .. tmpName
-   local results = nil
-   os.execute(cmd)
-   local f = io.open(tmpName)
-   if (f) then
-      results = f:read("*all")
-      f:close()
-      os.remove(tmpName)
-      dbg.start(level2,"capture output")
-      dbg.print(results)
-      dbg.fini()
-   end
-   dbg.fini()
-   return results
-end
-
-capture = capturePOPEN

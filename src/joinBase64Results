@@ -177,7 +177,21 @@ function joinMT_csh(whole)
          a = a3
          grab(s, a2)
       elseif (state == "init") then
-         a[#a + 1] = s
+         local i,j, name, str = s:find("^(setenv __LMOD_STACK[^ ]*)%s+\"(.*)\"")
+         if (not i) then
+            a[#a + 1] = s
+         else
+            local b = {}
+            b[#b+1] = name
+            b[#b+1] = " \""
+            for v in str:split(":") do
+               v = decode64(v)
+               b[#b+1] = v
+               b[#b+1] = ":"
+            end
+            b[#b]   = "\";"
+            a[#a+1] = concatTbl(b,"")
+         end
       else
          a1, a2, a3 = sectionEnd("csh", A,a1,a2,a3)
          state   = "init"
