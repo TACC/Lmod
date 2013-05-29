@@ -233,6 +233,20 @@ clobber: clean
 distclean: clobber
 	$(RM) makefile config.status
 
+world_update:
+	@git status -s > /tmp/lmod$$$$;                                            \
+        if [ -s /tmp/lmod$$$$ ]; then                                              \
+            echo "All files not checked in => try again";                          \
+        else                                                                       \
+            git push github;                                                       \
+            git push --tags github;                                                \
+            git push sf;                                                           \
+            git push --tags sf;                                                    \
+        fi;                                                                        \
+        rm -f /tmp/lmod$$$$
+
+
+
 gittag:
         ifneq ($(TAG),)
 	  @git status -s > /tmp/lmod$$$$;                                            \
