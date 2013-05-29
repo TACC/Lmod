@@ -1197,8 +1197,6 @@ function M.set_mType(self, sn, value)
    end
 end
 
-
-
 function M.getHash(self, sn)
    local mT    = self.mT
    local entry = mT[sn]
@@ -1303,6 +1301,9 @@ function M.set_mType(self, sn, value)
    end
 end
 
+--------------------------------------------------------------------------
+-- MT:setHashSum(): Use [[computeHashSum]] to compute hash for each active
+--                  module in MT.
 
 function M.setHashSum(self)
    local mT   = self.mT
@@ -1325,9 +1326,7 @@ function M.setHashSum(self)
       LmodError("Unable to find computeHashSum\n")
    end
 
-   local path = "@path_to_lua@:" .. os.getenv("PATH")
-
-
+   local path   = "@path_to_lua@:" .. os.getenv("PATH")
    local luaCmd = findInPath("lua",path)
 
    if (luaCmd == "") then
@@ -1391,6 +1390,8 @@ function M.safeToSave(self)
    return a
 end
 
+--------------------------------------------------------------------------
+-- MT:add_property() add a property to an active module.
 
 
 function M.add_property(self, sn, name, value)
@@ -1433,6 +1434,9 @@ function M.add_property(self, sn, name, value)
    dbg.fini("MT:add_property")
 end
 
+--------------------------------------------------------------------------
+-- MT:remove_property() remove a property to an active module.
+
 function M.remove_property(self, sn, name, value)
    local dbg = Dbg:dbg()
    dbg.start("MT:remove_property(\"",sn,"\", \"",name,"\", \"",value,"\")")
@@ -1472,6 +1476,8 @@ function M.remove_property(self, sn, name, value)
    dbg.fini("MT:remove_property")
 end
 
+--------------------------------------------------------------------------
+-- MT:list_property(): What it says.
 
 function M.list_property(self, idx, sn, style, legendT)
    local dbg    = Dbg:dbg()
@@ -1500,6 +1506,13 @@ function M.list_property(self, idx, sn, style, legendT)
    return resultA
 end
 
+--------------------------------------------------------------------------
+-- MT:userLoad(): Mark a module as having been loaded by user request.
+--                This is used by MT:reportChanges() to not print. So
+--                if a user does this:
+--                   $ module swap mvapich2 mvapich2/1.9
+--                Lmod will not report that mvapich2 has been reloaded.
+
 function M.userLoad(self, sn,usrName)
    local dbg    = Dbg:dbg()
    dbg.start("MT:userLoad(",sn,")")
@@ -1507,6 +1520,13 @@ function M.userLoad(self, sn,usrName)
    loadT[sn]    = usrName
    dbg.fini("MT:userLoad")
 end
+
+--------------------------------------------------------------------------
+-- MT:reportChanges(): Compare the original MT with the current one.
+--                     Report any modules that have become inactive or
+--                     active.  Or report that a module has swapped or a
+--                     version has changed.
+
 function M.reportChanges(self)
    local dbg    = Dbg:dbg()
    local master = systemG.Master:master()
@@ -1579,6 +1599,9 @@ function M.reportChanges(self)
    dbg.fini("MT:reportChanges")
 end
 
+--------------------------------------------------------------------------
+-- MT:serializeTbl(): A wrapper for serializeTbl and all the white space
+--                   removed.
 
 function M.serializeTbl(self)
    local dbg = Dbg:dbg()
@@ -1586,7 +1609,7 @@ function M.serializeTbl(self)
    s_mt.activeSize = s_mt:setLoadOrder()
 
    local s = _G.serializeTbl{ indent=false, name=self.name(), value=s_mt}
-   return s:gsub("[ \n]","")
+   return s:gsub("%s+","")
 end
 
 return M

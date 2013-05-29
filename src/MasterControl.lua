@@ -70,7 +70,10 @@ local Dbg          = require("Dbg")
 local MName        = require("MName")
 local ModuleStack  = require("ModuleStack")
 local Var          = require("Var")
+local base64       = require("base64")
 local concatTbl    = table.concat
+local decode64     = base64.decode64
+local encode64     = base64.encode64
 local getenv       = os.getenv
 
 ------------------------------------------------------------------------
@@ -348,12 +351,16 @@ function M.pushenv(self, name, value)
    if (varTbl[stackName] == nil) then
       varTbl[stackName] = Var:new(stackName, nil, ":")
    end
-   varTbl[stackName]:prepend(tostring(value))
+   
+   local v   = tostring(value)
+   local v64 = encode64(value)
+
+   varTbl[stackName]:prepend(v64)
 
    if (varTbl[name] == nil) then
       varTbl[name] = Var:new(name)
    end
-   varTbl[name]:set(tostring(value))
+   varTbl[name]:set(v)
 
    mStack:setting()
    dbg.fini("MasterControl:pushenv")
@@ -372,8 +379,12 @@ function M.popenv(self, name, value)
       varTbl[stackName] = Var:new(stackName)
    end
 
-   dbg.print("stackName: ", stackName, " RTM pop()\n")
-   local v = varTbl[stackName]:pop()
+   dbg.print("stackName: ", stackName, " pop()\n")
+   local v64 = varTbl[stackName]:pop()
+   local v   = nil
+   if (v64) then
+      v = decode64(v64)
+   end
    dbg.print("v: ", v,"\n")
 
    if (varTbl[name] == nil) then

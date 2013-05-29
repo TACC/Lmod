@@ -52,6 +52,7 @@ require("strict")
 require("string_split")
 require("serializeTbl")
 local base64    = require("base64")
+local concatTbl = table.concat
 local decode64  = base64.decode64
 local load      = (_VERSION == "Lua 5.1") and loadstring or load
 
@@ -140,7 +141,21 @@ function joinMT_bash(whole)
          haveMT  = false
       end
       if (state == "init") then
-         a[#a + 1] = s
+         local i,j, name, str = s:find("^(__LMOD_STACK.*)=\"(.*)\"")
+         if (not i) then
+            a[#a + 1] = s
+         else
+            local b = {}
+            b[#b+1] = name
+            b[#b+1] = "=\""
+            for v in str:split(":") do
+               v = decode64(v)
+               b[#b+1] = v
+               b[#b+1] = ":"
+            end
+            b[#b] = "\";"
+            a[#a+1] = concatTbl(b,"")
+         end
       end
    end
    sectionEnd("bash", A, a1, a2, a3)

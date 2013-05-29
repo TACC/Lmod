@@ -120,7 +120,7 @@ function load_module(...)
    if (not validateStringArgs("load",...)) then return {} end
 
    local b = mcp:load(...)
-   dbg.fini()
+   dbg.fini("load_module")
    return b
 end
 
@@ -130,7 +130,7 @@ function try_load(...)
    if (not validateStringArgs("try_load",...)) then return {} end
 
    local b = mcp:try_load(...)
-   dbg.fini()
+   dbg.fini("try_load")
    return b
 end
 
@@ -142,7 +142,7 @@ function unload(...)
    if (not validateStringArgs("unload",...)) then return {} end
 
    local b = mcp:unload(...)
-   dbg.fini()
+   dbg.fini("unload")
    return b
 end
 
@@ -153,7 +153,7 @@ function always_load(...)
    if (not validateStringArgs("always_load",...)) then return {} end
 
    local b = mcp:always_load(...)
-   dbg.fini()
+   dbg.fini("always_load")
    return b
 end
 
@@ -163,7 +163,7 @@ function always_unload(...)
    if (not validateStringArgs("always_unload",...)) then return {} end
 
    local b = mcp:always_unload(...)
-   dbg.fini()
+   dbg.fini("always_unload")
    return b
 end
 
@@ -175,7 +175,7 @@ function prepend_path(...)
    if (not validateStringArgs("prepend_path",...)) then return end
 
    mcp:prepend_path(...)
-   dbg.fini()
+   dbg.fini("prepend_path")
 end
 
 function append_path(...)
@@ -184,7 +184,7 @@ function append_path(...)
    if (not validateStringArgs("append_path",...)) then return end
 
    mcp:append_path(...)
-   dbg.fini()
+   dbg.fini("append_path")
 end
 
 function remove_path(...)
@@ -193,7 +193,7 @@ function remove_path(...)
    if (not validateStringArgs("remove_path",...)) then return end
 
    mcp:remove_path(...)
-   dbg.fini()
+   dbg.fini("remove_path")
 end
 
 --- Set Environment functions ----
@@ -204,7 +204,7 @@ function setenv(...)
    if (not validateArgsWithValue("setenv",...)) then return end
 
    mcp:setenv(...)
-   dbg.fini()
+   dbg.fini("setenv")
    return
 end
 
@@ -214,7 +214,7 @@ function unsetenv(...)
    if (not validateStringArgs("unsetenv",...)) then return end
 
    mcp:unsetenv(...)
-   dbg.fini()
+   dbg.fini("unsetenv")
    return
 end
 
@@ -224,7 +224,7 @@ function pushenv(...)
    if (not validateArgsWithValue("pushenv",...)) then return end
 
    mcp:pushenv(...)
-   dbg.fini()
+   dbg.fini("pushenv")
    return
 end
 
@@ -236,7 +236,7 @@ function add_property(...)
    if (not validateStringArgs("add_property",...)) then return end
 
    mcp:add_property(...)
-   dbg.fini()
+   dbg.fini("add_property")
 end
 
 function remove_property(...)
@@ -245,7 +245,7 @@ function remove_property(...)
    if (not validateStringArgs("remove_property",...)) then return end
 
    mcp:remove_property(...)
-   dbg.fini()
+   dbg.fini("remove_property")
 end
 
 
@@ -257,7 +257,7 @@ function set_alias(...)
    if (not validateArgsWithValue("set_alias",...)) then return end
 
    mcp:set_alias(...)
-   dbg.fini()
+   dbg.fini("set_alias")
 end
 
 function unset_alias(...)
@@ -266,7 +266,7 @@ function unset_alias(...)
    if (not validateStringArgs("unset_alias",...)) then return end
 
    mcp:unset_alias(...)
-   dbg.fini()
+   dbg.fini("unset_alias")
 end
 
 function set_shell_function(...)
@@ -284,7 +284,7 @@ function unset_shell_function(...)
    if (not validateStringArgs("unset_shell_function",...)) then return end
 
    mcp:unset_shell_function(...)
-   dbg.fini()
+   dbg.fini("unset_shell_function")
 end
 
 --- Prereq / Conflict ---
@@ -295,7 +295,7 @@ function prereq(...)
    if (not validateStringArgs("prereq",...)) then return end
 
    mcp:prereq(...)
-   dbg.fini()
+   dbg.fini("prereq")
 end
 
 function conflict(...)
@@ -313,7 +313,7 @@ function prereq_any(...)
    if (not validateStringArgs("prereq_any",...)) then return end
 
    mcp:prereq_any(...)
-   dbg.fini()
+   dbg.fini("conflict")
 end
 
 --- Family function ---
@@ -324,7 +324,7 @@ function family(...)
    if (not validateStringArgs("family",...)) then return end
 
    mcp:family(...)
-   dbg.fini()
+   dbg.fini("family")
 end
 
 --- Inherit function ---
@@ -334,7 +334,7 @@ function inherit(...)
    dbg.start("inherit(",concatTbl({...},", "),")")
 
    mcp:inherit(...)
-   dbg.fini()
+   dbg.fini("inherit")
 end
 
 
@@ -346,7 +346,7 @@ function whatis(...)
    if (not validateStringArgs("whatis",...)) then return end
 
    mcp:whatis(...)
-   dbg.fini()
+   dbg.fini("whatis")
 end
 
 function help(...)
@@ -354,7 +354,7 @@ function help(...)
    dbg.start("help(...)")
    if (not validateStringArgs("help",...)) then return end
    mcp:help(...)
-   dbg.fini()
+   dbg.fini("help")
 end
 
 -- Misc --
@@ -381,7 +381,7 @@ function is_spider()
    local dbg = Dbg:dbg()
    dbg.start("is_spider()")
    local b = mcp:is_spider()
-   dbg.fini()
+   dbg.fini("is_spider")
    return b
 end
 
@@ -389,7 +389,7 @@ function mode()
    local dbg = Dbg:dbg()
    dbg.start("mode()")
    local b = mcp:mode()
-   dbg.fini()
+   dbg.fini("mode")
    return b
 end
 
