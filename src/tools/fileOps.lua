@@ -32,6 +32,9 @@
 --
 --------------------------------------------------------------------------
 
+--------------------------------------------------------------------------
+-- fileOps: A collection of useful file operations.
+
 
 require("strict")
 require("string_trim")
@@ -39,6 +42,9 @@ require("string_split")
 local posix     = require("posix")
 local lfs       = require("lfs")
 local concatTbl = table.concat
+
+--------------------------------------------------------------------------
+-- findInPath(): find the absolute path to an executable.
 
 function findInPath(exec, path)
    local result  = ""
@@ -63,6 +69,10 @@ function findInPath(exec, path)
    return result
 end
 
+------------------------------------------------------------------------
+-- isDir(): Return true if path is a directory.  Note that a symlink to
+--          a directory is not a directory.
+
 function isDir(d)
    if (d == nil) then return false end
    local t = posix.stat(d,"type")
@@ -71,6 +81,9 @@ function isDir(d)
 
    return result
 end
+
+--------------------------------------------------------------------------
+-- isFile(): Return true if file exists is and is a file or link.
 
 function isFile(fn)
    if (fn == nil) then return false end
@@ -81,12 +94,18 @@ function isFile(fn)
    return result
 end
 
+--------------------------------------------------------------------------
+-- isExec(): Returns true if file is readable and executable.
+
 function isExec(fn)
    if (fn == nil) then return false end
    local result = posix.access(fn,"rx")
    return result
 end
 
+--------------------------------------------------------------------------
+-- dirname(): Return the directory part of path. Will return "./" if path
+--            is without a directory.
 
 function dirname(path)
    if (path == nil) then return nil end
@@ -99,6 +118,9 @@ function dirname(path)
    end
    return result
 end
+
+--------------------------------------------------------------------------
+-- extname(): Return the extension of a file or "" if there is none.
 
 function extname(path)
    if (path == nil) then return nil end
@@ -113,6 +135,9 @@ function extname(path)
    return result
 end
 
+--------------------------------------------------------------------------
+-- removeExt(): Remove extension from path.
+
 function removeExt(path)
    if (path == nil) then return nil end
    local result
@@ -126,6 +151,9 @@ function removeExt(path)
    return result
 end
 
+--------------------------------------------------------------------------
+-- barefilename(): return the file name w/o any directory part.
+
 function barefilename(path)
    if (path == nil) then return nil end
    local result
@@ -137,6 +165,9 @@ function barefilename(path)
    end
    return result
 end
+
+--------------------------------------------------------------------------
+-- splitFileName(): split a path into a directory and a file.
 
 function splitFileName(path)
    if (path == nil) then return nil, nil end
@@ -151,6 +182,10 @@ function splitFileName(path)
    end
    return d, f
 end
+
+--------------------------------------------------------------------------
+-- pathJoin(): Join argument into a path that has single slashes between
+--             directory names and no trailing slash.
 
 function pathJoin(...)
    local a = {}
@@ -191,6 +226,9 @@ function pathJoin(...)
    return s
 end
 
+--------------------------------------------------------------------------
+-- mkdir_recursive(): Create a new directory recursively.
+
 function mkdir_recursive(path)
    local absolute
    if (path:sub(1,1) == '/') then
@@ -211,6 +249,9 @@ function mkdir_recursive(path)
       end
    end
 end
+
+--------------------------------------------------------------------------
+-- abspath(): find true path through symlinks.
 
 function abspath (path, localDir)
    if (path == nil) then return nil end
@@ -246,6 +287,9 @@ function abspath (path, localDir)
    lfs.chdir(cwd)
    return result
 end
+
+--------------------------------------------------------------------------
+-- path_regularize(): Remove leading and trail spaces and extra slashes.
 
 function path_regularize(value)
    if value == nil then return nil end
