@@ -397,7 +397,6 @@ require("string_split")
 require("string_trim")
 
 BaseShell          = require("BaseShell")
-local ColumnTable  = require("ColumnTable")
 local Options      = require("Options")
 local Spider       = require("Spider")
 local Var          = require("Var")

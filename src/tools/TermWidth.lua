@@ -32,6 +32,11 @@
 --
 --------------------------------------------------------------------------
 
+--------------------------------------------------------------------------
+-- TermWidth(): Use tput cols to find the number of columns.  Then check
+--              stderr to see if it is connected to a tty.  If not then
+--              use 80 columns wide as default.
+
 require("strict")
 require("capture")
 local term    = false

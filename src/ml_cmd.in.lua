@@ -68,7 +68,7 @@ function usage()
                    "Command usage:\n",
                    "--------------\n\n",
                    "Any module command can be given after ml:\n\n",
-                   "if name is avail, getdefault setdefault, show, swap,...\n",
+                   "if name is avail, save, restore, show, swap,...\n",
                    "    $ ml name  arg1 arg2 ...\n\n",
                    "Then this is the same :\n",
                    "    $ module name arg1 arg2 ...\n\n",

@@ -32,14 +32,26 @@
 --
 --------------------------------------------------------------------------
 
+--------------------------------------------------------------------------
+-- ProgressBar(): This class generates a progress bar.  To use do:
+--
+--       local pb = ProgressBar:new{stream = io.stdout, max = N, barWidth=100}
+--       for i = 1, N do
+--          pb:progress(i)
+--          -- stuff you want to show progress on.
+--       end
+
+--------------------------------------------------------------------------
+-- The design (if I can be so bold (;->)) is to model a football field.
+-- The total size is given to the ctor.  There is a "+" for every 10%
+-- in progress and "|" at 50 and 100%.
+
+
 require("strict")
-local Dbg          = require("Dbg")
-
-local M = { barWidth = 50 }
-
-s_symbolT = {}
-
+local Dbg   = require("Dbg")
+local M     = { barWidth = 50 }
 local floor = math.floor
+s_symbolT   = {}
 
 function M.new(self, t)
    local tbl = t

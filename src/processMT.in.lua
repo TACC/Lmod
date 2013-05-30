@@ -77,7 +77,7 @@ function main()
    local passwd = optionTbl.passwd
    local line   = capture("wc -l " .. passwd)
    local nusers = line:match("(%d+)")
-   local pb     = ProgressBar:new{stream = io.stdout, max = nusers, barWidth=100}
+   local pb     = ProgressBar:new{stream = io.stdout, max = nusers, barWidth=100}r
 
 
    local iuser = 0

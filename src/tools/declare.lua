@@ -32,6 +32,11 @@
 --
 --------------------------------------------------------------------------
 
+--------------------------------------------------------------------------
+-- Function taken from Programming in Lua: These functions allow us to
+-- define a global variable inside a function or check to see if it is
+-- defined as a global variable.
+
 function declare(name, initval)
    rawset(_G, name, initval or false)
 end
