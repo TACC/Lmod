@@ -36,7 +36,6 @@
 -- Capture:  use io.popen to open a pipe to collect the output of a
 --           command.  
 
-capture = nil
 require("strict")
 
 local Dbg   = require("Dbg")
