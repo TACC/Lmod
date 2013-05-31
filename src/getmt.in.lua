@@ -58,7 +58,6 @@ end
 require("strict")
 require("fileOps")
 require("serializeTbl")
-require("capture")
 require("myGlobals")
 require("utils")
 
