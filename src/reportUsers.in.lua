@@ -44,6 +44,7 @@ end
 package.path = cmd_dir .. "tools/?.lua;" ..
                cmd_dir .. "?.lua;"       .. package.path
 
+require("strict")
 require("string_split")
 require("string_trim")
 require("pairsByKeys")

@@ -53,6 +53,7 @@ end
 function LmodMessage()
 end
 
+require("strict")
 require("utils")
 local Spider = require("Spider")
 local Optiks = require("Optiks")

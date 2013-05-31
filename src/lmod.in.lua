@@ -65,6 +65,7 @@ package.cpath = LuaCommandName_dir .. "../lib/?.so;"..
                 package.cpath
 
 
+require("strict")
 require("myGlobals")
 
 local term     = false
@@ -100,7 +101,6 @@ function set_prepend_order()
 end
 
 
-require("strict")
 require("utils")
 require("pager")
 require("fileOps")

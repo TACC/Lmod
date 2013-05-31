@@ -1,7 +1,6 @@
 #!@path_to_lua@/lua
 -- -*- lua -*-
 
-require("strict")
 
 --------------------------------------------------------------------------
 -- Lmod License
@@ -56,6 +55,7 @@ function cmdDir()
    return cmd_dir
 end
 
+require("strict")
 require("fileOps")
 require("serializeTbl")
 require("capture")
