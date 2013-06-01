@@ -33,7 +33,7 @@
 --------------------------------------------------------------------------
 
 ------------------------------------------------------------------------
--- Create a new class that inherits from a base class
+-- Create a new class that inherits from a [[baseClass]]
 ------------------------------------------------------------------------
 
 function inheritsFrom( baseClass )
