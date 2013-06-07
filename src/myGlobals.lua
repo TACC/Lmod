@@ -156,14 +156,14 @@ s_haveWarnings = true
 ------------------------------------------------------------------------
 -- ancient:  the time in seconds when the cache file is considered old
 ------------------------------------------------------------------------
-ancient = tonumber("@ancient@") or 86400
+ancient = getenv("LMOD_ANCIENT_TIME") or tonumber("@ancient@") or 86400
 
 ------------------------------------------------------------------------
 -- shortTime: the time in seconds when building the cache file is quick
 --            enough to be computed every time rather than cached.
 ------------------------------------------------------------------------
 
-shortTime = tonumber("@short_time@") or 10.0
+shortTime = getenv("LMOD_SHORT_TIME") or tonumber("@short_time@") or 10.0
 
 
 ------------------------------------------------------------------------

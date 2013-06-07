@@ -1,0 +1,44 @@
+Lmod 5.0 has been released.
+
+  Lmod Homepage:
+
+     http://www.tacc.utexas.edu/tacc-projects/lmod
+
+  Lmod Downloads:
+
+     https://sourceforge.net/projects/lmod/files/
+
+  Lmod Repo:
+
+     git://github.com/TACC/Lmod.git
+
+
+
+What is Lmod?
+-------------
+
+Environment module systems helps user manage their environments on Unix systems.  The applications, compilers, and libraries that one user needs are probably different from the ones other users need. A good module system "sets the table " for users by loading the packages each user needs.  Lmod is a Lua-based re-implementation of (and drop-in replacement for) the TCL/C based module system.  It can directly read TCL-based module files as well as Lua-based ones.
+
+Many centers build multiple versions of packages such as boost for multiple compilers.  To make a particular one available a user does:
+
+
+   $ module load boost/1.53.0
+
+This typically modifies the user's environment by changing the PATH or LD_LIBARY_PATH and defining environment variables such as BOOST_INC which might define the include path to boost header files.
+
+One advantage that Lmod provides is that a center can support multiple compilers, each with its own module.  Lmod makes swapping compiler-dependent modules easy by unloading the version of boost for one compiler and automatically loading the correct one for the new compiler:
+
+   $ module swap intel gcc
+
+   Due to MODULEPATH change(s) the following have been reloaded:
+     1) boost/1.53.0 
+
+Lmod offers many other user safety features that prevent loading two versions of the same module or two different compilers at the same time (unless the user chooses expert mode).  There are many new features that 5.0 provides over earlier versions such as:
+
+   1) Support for module properties.
+   2) Category/name/version naming convention supported.
+   3) Bash/Zsh tab completions support.
+   4) Use of sandbox to detect module file errors.
+
+
+I know that it more common for Lua-based libraries to be announced on the mailing list but I thought that there may be other Unix users out there on the mailing list who would appreciate knowing that there is a Lua-based module system out there.

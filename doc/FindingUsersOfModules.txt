@@ -1,7 +1,9 @@
 
-                  Finding users of particular modules
-                  -----------------------------------
-                           R. T. McLay
+                   Finding users of particular modules
+                   -----------------------------------
+                              R. T. McLay
+
+                      v1.2 (modified 6 Jun 2013)
 
 Here are the steps required to produce the list of users that have
 used particular modules.
@@ -9,12 +11,11 @@ used particular modules.
 1. Login as root to the machine of interest.
 
 2. Remember that root has no modules loaded by default (in fact root will
-   not even recognize the module command).  Remedy this sourcing
-   Execute
+   not even recognize the module command).  Remedy this by executing...
 
       $ . ~/sourceme
 
-   or the equivalent.
+   ...or the equivalent (note the need to source this file).
 
 3. You need access to the lower level lmod utilities.  Do:
 
@@ -25,7 +26,7 @@ used particular modules.
       $ export PATH=/opt/apps/lmod/lmod/libexec:$PATH
 
 
-4. On Ranger go to /share/tacc_admin/moduleUsage,
+4. On Stampede go to /home1/moduleData/moduleUsage.
    On Longhorn go to /share/tacc_admin/moduleUsage.
    On Lonestar go to /home1/tacc_admin/moduleUsage.
 
@@ -64,5 +65,7 @@ Revision History
 ****************
 
 19 Sep 2012 -- miscellaneous corrections based on djames' experience with the tool
+
+6 Jun 2013 -- minor updates reflecting tests on Stampede
 
 
