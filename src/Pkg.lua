@@ -40,7 +40,7 @@ local M = {}
 s_KeyA = { 'display_name',
            'help',
            'keywords',
-           'URL'
+           'URL',
            'category',
            'description'
 }
@@ -72,7 +72,7 @@ function M.new(self, t)
    if (level > 0) then
       local hierA   = hierarchyA(pkgNameVer,level)
   
-      for i = 1, level do
+      for i = level,1,-1 do
          a[#a+1]    = hierA[i]:gsub("/","-"):gsub("%.","_")
       end
    end
@@ -81,6 +81,7 @@ function M.new(self, t)
    local base       = pathJoin(unpack(a))
    o._pkgBase       = base
 
+   o:setPkgInfo()
    return o
 end
    
@@ -89,11 +90,11 @@ function M.pkgName(self)
 end
 
 function M.pkgDisplayName(self)
-   return self._display_Name
+   return self._display_name
 end
 
 function M.pkgVersion(self)
-   return self._pkgName
+   return self._pkgVersion
 end
 
 function M.pkgBase(self)
@@ -101,8 +102,8 @@ function M.pkgBase(self)
 end
 
 function M.setPkgInfo(self)
-   whatis("Name: "    .. self.pkgDisplayName())
-   whatis("Version: " .. self.pkgVersion())
+   whatis("Name: "    .. self:pkgDisplayName())
+   whatis("Version: " .. self:pkgVersion())
 
    local keyA = {"Category", "Description", "URL", "Keywords", "License"}
    

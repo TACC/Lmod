@@ -47,7 +47,9 @@ require("capture")
 require("cmdfuncs")
 require("modfuncs")
 require("utils")
+local Pkg   = require("Pkg")
 local posix = require("posix")
+
 sandbox_run = false
 
 
@@ -183,6 +185,10 @@ sandbox_env = {
   ------------------------------------------------------------
   capture              = capture,
   UUIDString           = UUIDString,
+  ------------------------------------------------------------
+  -- Pkg: Package Class
+  ------------------------------------------------------------
+  Pkg                  = Pkg,
   ------------------------------------------------------------
   -- Misc System Values
   ------------------------------------------------------------

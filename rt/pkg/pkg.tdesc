@@ -1,15 +1,17 @@
 -- -*- lua -*-
 
+local testName = "pkg"
+
 testdescript = {
    owner   = "rtm",
    product = "modules",
    description = [[
 	 Test initial module load
    ]],
-   keywords = {"pkg" },
+   keywords = {testName },
 
    active = 1,
-   testName = "load",
+   testName = testName,
    job_submit_method = "INTERACTIVE",
 
    runScript = [[
@@ -18,9 +20,9 @@ testdescript = {
 
      unsetMT
      initStdEnvVars
-     MODULEPATH_ROOT=$(projectDir)/mf;  export MODULEPATH_ROOT
-     LMOD_DEFAULT_MODULEPATH=$MODULEPATH
-     export LMOD_DEFAULT_MODULEPATH
+     MODULEPATH_ROOT=$(testDir)/mf;  export MODULEPATH_ROOT
+     MODULEPATH=$(testDir)/mf/Core;  export MODULEPATH
+
      numStep=0
      COUNT=0
      ORIG_HOME=`(cd $HOME; /bin/pwd)`
@@ -29,19 +31,11 @@ testdescript = {
      rm -fr _stderr.* _stdout.* err.* out.* .lmod.d
      cp $(projectDir)/setup/.lmodrc.lua .
 
-     runMe lua $(projectDir)/src/lmod.in.lua bash --version                                      # 1
-     runMe lua $(projectDir)/src/lmod.in.lua bash use -a $projectDir/mf/Core $projectDir/mf/Beta # 2
-     runMe lua $(projectDir)/src/lmod.in.lua bash use $projectDir/mf/notDir                      # 3
-     runMe lua $(projectDir)/src/lmod.in.lua bash load admin PrgEnv                              # 4
-     runMe lua $(projectDir)/src/lmod.in.lua bash load gotoblas/1.30-beta                        # 5
-     runMe lua $(projectDir)/src/lmod.in.lua bash rm   gotoblas/1.30-beta                        # 6
-     runMe lua $(projectDir)/src/lmod.in.lua bash try-add gotoblas123 intel                      # 7
-     runMe lua $(projectDir)/src/lmod.in.lua bash load gotoblas                                  # 8
-     runMe lua $(projectDir)/src/lmod.in.lua bash load multi                                     # 9
-     runMe lua $(projectDir)/src/lmod.in.lua bash unload multi                                   # 10
-     runMe lua $(projectDir)/src/lmod.in.lua bash load boost                                     # 11
-
-
+     runMe lua $(projectDir)/src/lmod.in.lua bash --version            # 1
+     runMe lua $(projectDir)/src/lmod.in.lua bash load gcc mpich       # 2
+     runMe lua $(projectDir)/src/lmod.in.lua bash load boost pmetis    # 3
+     runMe lua $(projectDir)/src/lmod.in.lua bash show boost           # 4
+     runMe lua $(projectDir)/src/lmod.in.lua bash show pmetis          # 5
      runMe lua $(projectDir)/src/lmod.in.lua bash list
 
      HOME=$ORIG_HOME
