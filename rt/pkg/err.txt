@@ -1,0 +1,57 @@
+===========================
+step 1
+===========================
+Modules based on Lua: Version 5.0 (5.0-11-g5ed3723) 2013-05-29 05:22
+    by Robert McLay mclay@tacc.utexas.edu
+===========================
+step 2
+===========================
+===========================
+step 3
+===========================
+===========================
+step 4
+===========================
+   ProjectDIR/rt/pkg/mf/Compiler/gcc/4.7/boost/1.53.0.lua:
+whatis("Name: Boost")
+whatis("Version: 1.53.0")
+whatis("Category: System Environment/Base")
+whatis("Description: Boost provides free peer-reviewed  portable C++ source libraries.")
+whatis("URL: http://www.boost.org")
+help([[The boost module file defines the following environment variables:
+TACC_BOOST_DIR, TACC_BOOST_LIB, and TACC_BOOST_INC for
+the location of the boost distribution.
+]])
+setenv("TACC_BOOST_LIB","/opt/apps/gcc-4_7/boost/1.53.0/lib")
+setenv("TACC_BOOST_INC","/opt/apps/gcc-4_7/boost/1.53.0/include")
+add_property("arch","mic")
+===========================
+step 5
+===========================
+   ProjectDIR/rt/pkg/mf/MPI/gcc/4.7/mpich/3.0/pmetis/4.0.3.lua:
+whatis("Name: ParMETIS")
+whatis("Version: 4.0.3")
+whatis("Category: Library, Mathematics")
+whatis("Description: Parallel graph partitioning and fill-reduction matrix ordering routines")
+whatis("URL: http://glaros.dtc.umn.edu/gkhome/views/metis")
+whatis("Keywords: Library, Parallel, Mathematics, Graph Partitioning")
+help([[The pmetis module defines the following environment variables:
+TACC_PMETIS_DIR, TACC_PMETIS_DOC, TACC_PMETIS_BIN, 
+TACC_PMETIS_LIB, and TACC_PMETIS_INC for the location
+of the ParMetis distribution, documentation, binaries,
+libraries, and include files.
+To use the parmetis library, include compilation and link directives
+of the form: -L$TACC_PMETIS_LIB -I$TACC_PMETIS_INC -lparmetis -lmetis
+Here is an example command to compile pmetis_test.c:
+mpicc -I$TACC_PMETIS_INC pmetis_test.c -L$TACC_PMETIS_LIB -lparmetis
+]])
+setenv("TACC_PMETIS_DIR","/opt/apps/gcc-4_7/mpich-3_0/pmetis/4.0.3")
+setenv("TACC_PMETIS_INC","/opt/apps/gcc-4_7/mpich-3_0/pmetis/4.0.3/include")
+setenv("TACC_PMETIS_LIB","/opt/apps/gcc-4_7/mpich-3_0/pmetis/4.0.3/lib")
+===========================
+step 6
+===========================
+Currently Loaded Modules:
+  1) gcc/4.7.3    2) mpich/3.0.4    3) boost/1.53.0 (m)   4) pmetis/4.0.3
+  Where:
+   (m):  built for host and native MIC
