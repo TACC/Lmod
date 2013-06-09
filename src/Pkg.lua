@@ -44,6 +44,10 @@ s_KeyA = { 'display_name',
            'category',
            'description'
 }
+
+s_MdirA = { [0] = "Compiler",
+            [1] = "MPI",
+}
            
 SITE_PACKAGE_ROOT = os.getenv("SITE_PACKAGE_ROOT") or "/opt/apps"
 
@@ -69,6 +73,7 @@ function M.new(self, t)
 
    local a          = {}
    a[#a+1]          = SITE_PACKAGE_ROOT
+  
    if (level > 0) then
       local hierA   = hierarchyA(pkgNameVer,level)
   
@@ -77,7 +82,6 @@ function M.new(self, t)
       end
    end
    a[#a+1]          = pkgNameVer
-
    local base       = pathJoin(unpack(a))
    o._pkgBase       = base
 
@@ -99,6 +103,26 @@ end
 
 function M.pkgBase(self)
    return self._pkgBase
+end
+
+function M.moduleDir(self)
+   local b     = {}
+   b[#b+1]     = os.getenv("MODULEPATH_ROOT")
+   b[#b+1]     = s_MdirA[level]
+   local level = self.level or 0
+
+   if (level > 0) then
+      local hierA = hierarchyA(self._pkgNameVer, level)
+      for i = level, 1, -1 do
+         b[#b+1] = hierA[i]
+      end
+   end
+   local pkgV = self._pkgVersion:match("([0-9]+%.[0-9]+)%.?")
+
+   b[#b+1]    = pathJoin(self._pkgName,pkgV)
+   local mdir = pathJoin(unpack(a))
+
+   return mdir
 end
 
 function M.setPkgInfo(self)
