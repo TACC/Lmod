@@ -8,8 +8,8 @@ LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/pkg/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/pkg/mf/Core";
 export MODULEPATH;
-DYLD_LIBRARY_PATH="/opt/apps/gcc-4_7/mpich/3.0.4/lib/trace_rlog";
-export DYLD_LIBRARY_PATH;
+LD_LIBRARY_PATH="/opt/apps/gcc-4_7/mpich/3.0.4/lib";
+export LD_LIBRARY_PATH;
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/pkg/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
 LMOD_FAMILY_COMPILER="gcc";
@@ -79,6 +79,17 @@ MODULEPATH="ProjectDIR/rt/pkg/mf/MPI/gcc/4.7/mpich/3.0:ProjectDIR/rt/pkg/mf/Comp
 export MODULEPATH;
 ===========================
 step 6
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/pkg/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/pkg/mf/MPI/gcc/4.7/mpich/3.0:ProjectDIR/rt/pkg/mf/Compiler/gcc/4.7:ProjectDIR/rt/pkg/mf/Core";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/pkg/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/pkg/mf/MPI/gcc/4.7/mpich/3.0:ProjectDIR/rt/pkg/mf/Compiler/gcc/4.7:ProjectDIR/rt/pkg/mf/Core";
+export MODULEPATH;
+===========================
+step 7
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/pkg/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;

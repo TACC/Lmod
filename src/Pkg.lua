@@ -106,20 +106,21 @@ function M.pkgBase(self)
 end
 
 function M.moduleDir(self)
-   local b     = {}
-   b[#b+1]     = os.getenv("MODULEPATH_ROOT")
-   b[#b+1]     = s_MdirA[level]
    local level = self.level or 0
+   local a     = {}
+   a[#a+1]     = os.getenv("MODULEPATH_ROOT")
+   a[#a+1]     = s_MdirA[level]
+
 
    if (level > 0) then
       local hierA = hierarchyA(self._pkgNameVer, level)
       for i = level, 1, -1 do
-         b[#b+1] = hierA[i]
+         a[#a+1] = hierA[i]
       end
    end
    local pkgV = self._pkgVersion:match("([0-9]+%.[0-9]+)%.?")
 
-   b[#b+1]    = pathJoin(self._pkgName,pkgV)
+   a[#a+1]    = pathJoin(self._pkgName,pkgV)
    local mdir = pathJoin(unpack(a))
 
    return mdir

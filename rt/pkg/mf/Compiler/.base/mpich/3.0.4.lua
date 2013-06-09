@@ -1,21 +1,17 @@
 -- -*- lua -*-
-local pkgName      = myModuleName()
-local pkgVersion   = myModuleVersion()
-local pkgNameVer   = myModuleFullName()
-local pkgV         = pkgVersion:match("([0-9]+%.[0-9]+)%.?")
+local help = [[
+Mpich implementation MPI 3.0
+]]
 
-local hierA        = hierarchyA(pkgNameVer,1)
-local compiler_dir = hierA[1]:gsub("/","-"):gsub("%.","_")
-local pkgRoot      = "/opt/apps/"
-local base         = pathJoin(pkgRoot, compiler_dir, pkgNameVer)
-local pkgNV        = pathJoin(pkgName,pkgV)
-local mdir         = pathJoin(os.getenv('MODULEPATH_ROOT'), "MPI",hierA[1],pkgNV)
-compiler_dir       = compiler_dir
+local pkg = Pkg:new{Category     = "MPI",
+                    URL          = "http://www.mpich.org",
+                    Description  = "Message Passing Interface Library version 3",
+                    level        = 1,
+                    help         = help
+}
+local mdir = pkg:moduleDir()
+local base = pkg:pkgBase()
 
-whatis("Name: "    .. pkgName)
-whatis("Version: " .. pkgVersion)
-whatis("Category: library, runtime support")
-whatis("Description: Mpich: Message Passing Interface Library version 3")
 prepend_path('MODULEPATH',      mdir)
 prepend_path('PATH',            pathJoin(base,"bin"))
 prepend_path('MANPATH',         pathJoin(base,"man"))
@@ -23,9 +19,5 @@ setenv(      'MPIHOME',         base)
 setenv(      'MPICH_HOME',      base)
 
 
-if (os.getenv("LMOD_sys") == "Darwin") then
-   prepend_path('DYLD_LIBRARY_PATH', pathJoin(base,"lib/trace_rlog"))
-else
-   prepend_path('LD_LIBRARY_PATH',   pathJoin(base,"lib"))
-end
+prepend_path('LD_LIBRARY_PATH',   pathJoin(base,"lib"))
 family("MPI")

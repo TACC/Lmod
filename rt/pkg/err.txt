@@ -1,7 +1,7 @@
 ===========================
 step 1
 ===========================
-Modules based on Lua: Version 5.0 (5.0-11-g5ed3723) 2013-05-29 05:22
+Modules based on Lua: Version 5.0 (5.0-13-gcf8b03e) 2013-05-29 05:22
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -50,6 +50,24 @@ setenv("TACC_PMETIS_INC","/opt/apps/gcc-4_7/mpich-3_0/pmetis/4.0.3/include")
 setenv("TACC_PMETIS_LIB","/opt/apps/gcc-4_7/mpich-3_0/pmetis/4.0.3/lib")
 ===========================
 step 6
+===========================
+   ProjectDIR/rt/pkg/mf/Compiler/gcc/4.7/mpich/3.0.4.lua:
+whatis("Name: mpich")
+whatis("Version: 3.0.4")
+whatis("Category: MPI")
+whatis("Description: Message Passing Interface Library version 3")
+whatis("URL: http://www.mpich.org")
+help([[Mpich implementation MPI 3.0
+]])
+prepend_path("MODULEPATH","ProjectDIR/rt/pkg/mf/MPI/gcc/4.7/mpich/3.0")
+prepend_path("PATH","/opt/apps/gcc-4_7/mpich/3.0.4/bin")
+prepend_path("MANPATH","/opt/apps/gcc-4_7/mpich/3.0.4/man")
+setenv("MPIHOME","/opt/apps/gcc-4_7/mpich/3.0.4")
+setenv("MPICH_HOME","/opt/apps/gcc-4_7/mpich/3.0.4")
+prepend_path("LD_LIBRARY_PATH","/opt/apps/gcc-4_7/mpich/3.0.4/lib")
+family("MPI")
+===========================
+step 7
 ===========================
 Currently Loaded Modules:
   1) gcc/4.7.3    2) mpich/3.0.4    3) boost/1.53.0 (m)   4) pmetis/4.0.3
