@@ -1,7 +1,7 @@
 ===========================
 step 1
 ===========================
-Modules based on Lua: Version 5.0 (5.0-13-gcf8b03e) 2013-05-29 05:22
+Modules based on Lua: Version 5.0 (5.0-15-g67f9521) 2013-05-29 05:22
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -69,7 +69,76 @@ family("MPI")
 ===========================
 step 7
 ===========================
+Due to MODULEPATH changes the following have been reloaded:
+  1) boost/1.53.0     2) mpich/3.0.4     3) pmetis/4.0.3
+===========================
+step 8
+===========================
+   ProjectDIR/rt/pkg/mf/Core/intel/13.1.0.lua:
+whatis("Name: intel")
+whatis("Version: 13.1.0")
+whatis("Category: Compiler")
+whatis("Description: The Intel Compiler Collection")
+whatis("URL: http://intel.com")
+whatis("Keywords: Compiler")
+help([[This module loads the intel compiler path and environment variables
+To get started using Intel(R) VTune(TM) Amplifier XE 2013 Update 4:
+    - To set your environment variables: source
+/opt/apps/intel/13.1/vtune_amplifier_xe_2013/amplxe-vars.sh
+    - To start the graphical user interface: amplxe-gui
+    - To use the command-line interface: amplxe-cl
+    - For more getting started resources:
+/opt/apps/intel/13.1/vtune_amplifier_xe_2013/
+      documentation/en/welcomepage/get_started.html.
+To get started using Intel(R) Inspector XE 2013 Update 4:
+    - To set your environment variables: source
+/opt/apps/intel/13.1/inspector_xe_2013/inspxe-vars.sh
+    - To start the graphical user interface: inspxe-gui
+    - To use the command-line interface: inspxe-cl
+    - For more getting started resources:
+/opt/apps/intel/13.1/inspector_xe_2013/
+      documentation/en/welcomepage/get_started.html.
+To get started using Intel(R) Advisor XE 2013 Update 2:
+    - To set your environment variables: source
+/opt/apps/intel/13.1/advisor_xe_2013/advixe-vars.sh
+    - To start the graphical user interface: advixe-gui
+    - To use the command-line interface: advixe-cl
+    - For more getting started resources: /opt/apps/intel/13.1/advisor_xe_2013/
+      documentation/en/welcomepage/get_started.html.
+      To get help, append the -help option or precede with the man command.
+    - For more getting started resources:
+To view movies and additional training, visit
+http://www.intel.com/software/products.
+]])
+prepend_path("LD_LIBRARY_PATH","/opt/apps/intel/13.1.0/composer_xe_2013.2.146/compiler/lib/intel64")
+prepend_path("LIBRARY_PATH","/opt/apps/intel/13.1.0/composer_xe_2013.2.146/mkl/lib/intel64")
+prepend_path("NLSPATH","/opt/apps/intel/13.1.0/composer_xe_2013.2.146/debugger/intel64/locale/%l_%t/%N")
+prepend_path("LD_LIBRARY_PATH","/opt/apps/intel/13.1.0/composer_xe_2013.2.146/tbb/lib/intel64")
+prepend_path("LIBRARY_PATH","/opt/apps/intel/13.1.0/composer_xe_2013.2.146/tbb/lib/intel64")
+prepend_path("CPATH","/opt/apps/intel/13.1.0/composer_xe_2013.2.146/tbb/include")
+prepend_path("LD_LIBRARY_PATH","/opt/apps/intel/13.1.0/composer_xe_2013.2.146/mkl/lib/intel64")
+prepend_path("INCLUDE","/opt/apps/intel/13.1.0/composer_xe_2013.2.146/mkl/include")
+prepend_path("CPATH","/opt/apps/intel/13.1.0/composer_xe_2013.2.146/mkl/include")
+prepend_path("NLSPATH","/opt/apps/intel/13.1.0/composer_xe_2013.2.146/mkl/lib/intel64/locale/%l_%t/%N")
+prepend_path("LD_LIBRARY_PATH","/opt/apps/intel/13.1.0/composer_xe_2013.2.146/ipp/lib/intel64")
+prepend_path("LIBRARY_PATH","/opt/apps/intel/13.1.0/composer_xe_2013.2.146/ipp/lib/intel64")
+prepend_path("NLSPATH","/opt/apps/intel/13.1.0/composer_xe_2013.2.146/ipp/lib/intel64/locale/%l_%t/%N")
+prepend_path("CPATH","/opt/apps/intel/13.1.0/composer_xe_2013.2.146/ipp/include")
+prepend_path("LD_LIBRARY_PATH","/opt/apps/intel/13.1.0/composer_xe_2013.2.146/mpirt/lib/intel64")
+prepend_path("NLSPATH","/opt/apps/intel/13.1.0/composer_xe_2013.2.146/compiler/lib/intel64/locale/%l_%t/%N")
+prepend_path("INTEL_LICENSE_FILE","/opt/apps/intel/13.1.0/composer_xe_2013.2.146/licenses")
+prepend_path("MANPATH","/opt/apps/intel/13.1.0/composer_xe_2013.2.146/man/en_US")
+prepend_path("PATH","/opt/apps/intel/13.1.0/bin")
+prepend_path("INCLUDE","/usr/include/x86_64-linux-gnu")
+prepend_path("CPATH","/usr/include/x86_64-linux-gnu")
+prepend_path("PATH","/opt/apps/intel/13.1.0/vtune_amplifier_xe_2013/bin64")
+prepend_path("PATH","/opt/apps/intel/13.1.0/inspector_xe_2013/bin64")
+prepend_path("MODULEPATH","ProjectDIR/rt/pkg/mf/Compiler/intel/13.1")
+family("compiler")
+===========================
+step 9
+===========================
 Currently Loaded Modules:
-  1) gcc/4.7.3    2) mpich/3.0.4    3) boost/1.53.0 (m)   4) pmetis/4.0.3
+  1) intel/13.1.0    2) boost/1.53.0 (m)   3) mpich/3.0.4    4) pmetis/4.0.3
   Where:
    (m):  built for host and native MIC
