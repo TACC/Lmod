@@ -1,0 +1,28 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   Larry Wall's Practical Extraction and Report Language - Homepage: http://www.perl.org/
+}
+}
+
+module-whatis {Larry Wall's Practical Extraction and Report Language - Homepage: http://www.perl.org/}
+
+set root    /Users/kehoste/.local/easybuild/software/Perl/5.16.3-goolf-1.4.10
+
+conflict    Perl
+
+if { ![is-loaded goolf/1.4.10] } {
+    module load goolf/1.4.10
+}
+
+prepend-path	LD_LIBRARY_PATH		$root/lib
+prepend-path	MANPATH		$root/man
+prepend-path	PATH		$root/bin
+
+setenv	EBROOTPERL		"$root"
+setenv	EBVERSIONPERL		"5.16.3"
+setenv	EBDEVELPERL		"$root/easybuild/Perl-5.16.3-goolf-1.4.10-easybuild-devel"
+
+setenv	EBEXTSLISTPERL		"IO::String-1.08,Data::Stag-0.11,DB_File-1.827,DBI-1.625,Bio::Perl-1.6.901,Sub::Uplevel-0.24,Tree::DAG_Node-1.11,Try::Tiny-0.12,Test::Fatal-0.010,Test::Exception-0.31,Test::Warn-0.24,Test::Requires-0.06,Test::Tester-0.108,Params::Util-1.07,Sub::Install-0.926,Data::OptList-0.107,Sub::Exporter-0.985,Test::Output-1.01,Module::Runtime-0.013,Module::Implementation-0.06,List::MoreUtils-0.33,Package::DeprecationManager-0.13,Dist::CheckConflicts-0.02,Package::Stash-0.34,Class::Load-0.20,MRO::Compat-0.12,Sub::Name-0.05,Eval::Closure-0.08,Sub::Exporter::Progressive-0.001010,Devel::GlobalDestruction-0.11,boolean-0.30,Tie::IxHash-1.23,Moose-2.0801,Params::Validate-1.07,DateTime::Locale-0.45,Class::Singleton-1.4,DateTime::TimeZone-1.58,DateTime-1.01,Data::Types-0.09,DateTime::Tiny-1.04,File::Slurp-9999.19,HTTP::Date-6.02,IO::HTML-1.00,LWP::MediaTypes-6.02,URI-1.60,HTTP::Request-6.06,HTML::Tagset-3.20,HTML::Entities-3.70,AnyEvent-7.04,Mouse-1.05"
+
+# built with EasyBuild version 1.5.0dev

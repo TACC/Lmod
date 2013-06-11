@@ -1,0 +1,27 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   PAML is a package of programs for phylogenetic 
+ analyses of DNA or protein sequences using maximum likelihood. - Homepage: http://abacus.gene.ucl.ac.uk/software/paml.html
+}
+}
+
+module-whatis {PAML is a package of programs for phylogenetic 
+ analyses of DNA or protein sequences using maximum likelihood. - Homepage: http://abacus.gene.ucl.ac.uk/software/paml.html}
+
+set root    /Users/kehoste/.local/easybuild/software/PAML/4.7-goolf-1.4.10
+
+conflict    PAML
+
+if { ![is-loaded goolf/1.4.10] } {
+    module load goolf/1.4.10
+}
+
+prepend-path	PATH		$root/bin
+
+setenv	EBROOTPAML		"$root"
+setenv	EBVERSIONPAML		"4.7"
+setenv	EBDEVELPAML		"$root/easybuild/PAML-4.7-goolf-1.4.10-easybuild-devel"
+
+
+# built with EasyBuild version 1.5.0dev

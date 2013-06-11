@@ -1,0 +1,32 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   MUMmer is a system for rapidly aligning entire genomes, whether in complete or draft form. AMOS makes use of it. - Homepage: http://mummer.sourceforge.net/
+}
+}
+
+module-whatis {MUMmer is a system for rapidly aligning entire genomes, whether in complete or draft form. AMOS makes use of it. - Homepage: http://mummer.sourceforge.net/}
+
+set root    /Users/kehoste/.local/easybuild/software/MUMmer/3.23-goolf-1.4.10-Perl-5.16.3
+
+conflict    MUMmer
+
+if { ![is-loaded goolf/1.4.10] } {
+    module load goolf/1.4.10
+}
+
+if { ![is-loaded Perl/5.16.3-goolf-1.4.10] } {
+    module load Perl/5.16.3-goolf-1.4.10
+}
+
+prepend-path	PATH		$root/bin
+
+setenv	EBROOTMUMMER		"$root"
+setenv	EBVERSIONMUMMER		"3.23"
+setenv	EBDEVELMUMMER		"$root/easybuild/MUMmer-3.23-goolf-1.4.10-Perl-5.16.3-easybuild-devel"
+
+prepend-path	PATH		$root/bin
+prepend-path	PATH		$root/bin/aux_bin
+prepend-path	PERL5LIB		$root/bin/scripts
+
+# built with EasyBuild version 1.5.0dev

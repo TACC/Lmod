@@ -1,0 +1,27 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   EasyBuild is a software build and installation framework
+written in Python that allows you to install software in a structured,
+repeatable and robust way. - Homepage: http://hpcugent.github.com/easybuild/
+}
+}
+
+module-whatis {EasyBuild is a software build and installation framework
+written in Python that allows you to install software in a structured,
+repeatable and robust way. - Homepage: http://hpcugent.github.com/easybuild/}
+
+set root    /Users/kehoste/.local/easybuild/software/EasyBuild/1.2.0
+
+conflict    EasyBuild
+
+prepend-path	LD_LIBRARY_PATH		$root/lib
+prepend-path	PATH		$root/bin
+
+setenv	EBROOTEASYBUILD		"$root"
+setenv	EBVERSIONEASYBUILD		"1.2.0"
+setenv	EBDEVELEASYBUILD		"$root/easybuild/EasyBuild-1.2.0-easybuild-devel"
+
+prepend-path	PYTHONPATH		$root/lib/python2.7/site-packages
+
+# built with EasyBuild version 1.5.0

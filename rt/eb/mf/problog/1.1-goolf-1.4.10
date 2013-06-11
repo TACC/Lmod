@@ -1,0 +1,25 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   ProbLog is a probabilistic Prolog, a probabilistic logic programming language. - Homepage: http://dtai.cs.kuleuven.be/problog/problog1.html
+}
+}
+
+module-whatis {ProbLog is a probabilistic Prolog, a probabilistic logic programming language. - Homepage: http://dtai.cs.kuleuven.be/problog/problog1.html}
+
+set root    /Users/kehoste/.local/easybuild/software/problog/1.1-goolf-1.4.10
+
+conflict    problog
+
+if { ![is-loaded goolf/1.4.10] } {
+    module load goolf/1.4.10
+}
+
+prepend-path	PATH		$root/bin
+
+setenv	EBROOTPROBLOG		"$root"
+setenv	EBVERSIONPROBLOG		"1.1"
+setenv	EBDEVELPROBLOG		"$root/easybuild/problog-1.1-goolf-1.4.10-easybuild-devel"
+
+
+# built with EasyBuild version 1.5.0dev

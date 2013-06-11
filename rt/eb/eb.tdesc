@@ -1,0 +1,63 @@
+-- -*- lua -*-
+local testName = "eb"
+
+testdescript = {
+   owner   = "rtm",
+   product = "modules",
+   description = [[
+	 Test initial module load
+   ]],
+   keywords = {testName },
+
+   active = 1,
+   testName = testName,
+   job_submit_method = "INTERACTIVE",
+
+   runScript = [[
+
+     . $(projectDir)/rt/common_funcs.sh
+
+     unsetMT
+     initStdEnvVars
+     MODULEPATH=$(testDir)/mf;       export MODULEPATH
+     numStep=0
+     COUNT=0
+     ORIG_HOME=`(cd $HOME; /bin/pwd)`
+     HOME=`/bin/pwd`
+
+     rm -f  _stderr.* _stdout.* err.* out.*
+     rm -fr .lmod.d .lmodrc.lua
+     cp $(projectDir)/setup/.lmodrc.lua .
+
+     mkdir -p $HOME/.lmod.d/.cache
+
+     #lua $(projectDir)/src/spider.in.lua -o moduleT $MODULEPATH > $HOME/.lmod.d/.cache/moduleT.lua
+     runMe lua $(projectDir)/src/lmod.in.lua bash --version                  # 1
+     runMe lua $(projectDir)/src/lmod.in.lua bash load numpy                 # 2
+     runMe lua $(projectDir)/src/lmod.in.lua bash list                       # 3
+
+     HOME=$ORIG_HOME
+
+     cat _stdout.[0-9][0-9] > _stdout.orig
+     joinBase64Results  -bash  _stdout.orig _stdout.new
+     cleanUp _stdout.new out.txt
+
+     cat _stderr.[0-9][0-9] > _stderr.orig
+     cleanUp _stderr.orig err.txt
+
+     rm -f $(cmdResultFn)
+     wrapperDiff -r $(cmdResultFn) $(testDir)/out.txt out.txt
+     wrapperDiff -r $(cmdResultFn) $(testDir)/err.txt err.txt
+     testFinish -c $(cmdResultFn) -r $(resultFn) -t $(runtimeFn)
+   ]],
+
+
+   blessScript = [[
+         # perform what is needed
+   ]],
+
+   tests = {
+      { id='t1'},
+   },
+
+}

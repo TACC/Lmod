@@ -1,0 +1,24 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   FCM is a set of tools for managing and building source code. - Homepage: http://www.metoffice.gov.uk/research/collaboration/fcm
+}
+}
+
+module-whatis {FCM is a set of tools for managing and building source code. - Homepage: http://www.metoffice.gov.uk/research/collaboration/fcm}
+
+set root    /Users/kehoste/.local/easybuild/software/FCM/2.3.1
+
+conflict    FCM
+
+prepend-path	LD_LIBRARY_PATH		$root/lib
+prepend-path	MANPATH		$root/man
+prepend-path	PATH		$root/bin
+prepend-path	PATH		$root/sbin
+
+setenv	EBROOTFCM		"$root"
+setenv	EBVERSIONFCM		"2.3.1"
+setenv	EBDEVELFCM		"$root/easybuild/FCM-2.3.1-easybuild-devel"
+
+
+# built with EasyBuild version 1.5.0dev

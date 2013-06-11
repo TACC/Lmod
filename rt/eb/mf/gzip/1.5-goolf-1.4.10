@@ -1,0 +1,26 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   gzip (GNU zip) is a popular data compression program as a replacement for compress - Homepage: http://www.gnu.org/software/gzip/
+}
+}
+
+module-whatis {gzip (GNU zip) is a popular data compression program as a replacement for compress - Homepage: http://www.gnu.org/software/gzip/}
+
+set root    /Users/kehoste/.local/easybuild/software/gzip/1.5-goolf-1.4.10
+
+conflict    gzip
+
+if { ![is-loaded goolf/1.4.10] } {
+    module load goolf/1.4.10
+}
+
+prepend-path	MANPATH		$root/share/man
+prepend-path	PATH		$root/bin
+
+setenv	EBROOTGZIP		"$root"
+setenv	EBVERSIONGZIP		"1.5"
+setenv	EBDEVELGZIP		"$root/easybuild/gzip-1.5-goolf-1.4.10-easybuild-devel"
+
+
+# built with EasyBuild version 1.5.0dev

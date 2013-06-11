@@ -1,0 +1,43 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   Mothur is a single piece of open-source, expandable software to fill the bioinformatics needs of
+the microbial ecology community. - Homepage: http://www.mothur.org/
+}
+}
+
+module-whatis {Mothur is a single piece of open-source, expandable software to fill the bioinformatics needs of
+the microbial ecology community. - Homepage: http://www.mothur.org/}
+
+set root    /Users/kehoste/.local/easybuild/software/Mothur/1.30.2-goolf-1.4.10
+
+conflict    Mothur
+
+if { ![is-loaded goolf/1.4.10] } {
+    module load goolf/1.4.10
+}
+
+if { ![is-loaded libreadline/6.2-goolf-1.4.10] } {
+    module load libreadline/6.2-goolf-1.4.10
+}
+
+if { ![is-loaded ncurses/5.9-goolf-1.4.10] } {
+    module load ncurses/5.9-goolf-1.4.10
+}
+
+if { ![is-loaded bzip2/1.0.6-goolf-1.4.10] } {
+    module load bzip2/1.0.6-goolf-1.4.10
+}
+
+if { ![is-loaded gzip/1.5-goolf-1.4.10] } {
+    module load gzip/1.5-goolf-1.4.10
+}
+
+prepend-path	PATH		$root/bin
+
+setenv	EBROOTMOTHUR		"$root"
+setenv	EBVERSIONMOTHUR		"1.30.2"
+setenv	EBDEVELMOTHUR		"$root/easybuild/Mothur-1.30.2-goolf-1.4.10-easybuild-devel"
+
+
+# built with EasyBuild version 1.5.0dev
