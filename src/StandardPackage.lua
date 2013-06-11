@@ -31,6 +31,8 @@
 --------------------------------------------------------------------------
 
 require("strict")
+PkgBase      = require("PkgBase")
+Pkg          = PkgBase.build("Pkg")
 local hook   = require("Hook")
 local getenv = os.getenv
 local lfs    = require("lfs")
@@ -53,3 +55,5 @@ local function site_name_hook()
 end
 
 hook.register("SiteName",site_name_hook)
+
+sandbox_registration { Pkg = Pkg }

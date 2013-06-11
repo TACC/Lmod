@@ -1,5 +1,5 @@
 -- -*- lua -*-
-local help = [[
+local helpMsg = [[
 The boost module file defines the following environment variables:
 TACC_BOOST_DIR, TACC_BOOST_LIB, and TACC_BOOST_INC for
 the location of the boost distribution.
@@ -11,7 +11,7 @@ local pkg = Pkg:new{Category     = "System Environment/Base",
                                    " portable C++ source libraries.",
                     display_name = "Boost",
                     level        = 1,
-                    help         = help
+                    help         = helpMsg
 }
                      
 local base = pkg:pkgBase()

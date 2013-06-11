@@ -33,55 +33,18 @@
 --------------------------------------------------------------------------
 
 require("strict")
+require("inherits")
 
-Pkg = inheritsFrom(PkgBase)
-
-local M = Pkg
-
-s_MdirA = { [0] = "Compiler",
-            [1] = "MPI",
-}
-
-function M.name(self)
-   return "Pkg"
-end
+local unpack = unpack or table.unpack
+local M = inheritsFrom(PkgBase)
 
 function M._build_pkgBase(self,level)
-   local pkgNameVer = self._pkgNameVer
-   local pkgRoot    = self._pkgRoot
+   local fn         = myFileName()
+
    local a          = {}
-   a[#a+1]          = pkgRoot
-   if (level > 0) then
-      local hierA   = hierarchyA(pkgNameVer,level)
-  
-      for i = level,1,-1 do
-         a[#a+1]    = hierA[i]:gsub("/","-"):gsub("%.","_")
-      end
-   end
-   a[#a+1] = pkgNameVer
+   a[#a+1]          = fn:match("(.*)/modulefile")
+   a[#a+1]          = self._pkgNameVer
    return pathJoin(unpack(a))
 end   
-
-function M.moduleDir(self)
-   local level = self.level or 0
-   local a     = {}
-   a[#a+1]     = os.getenv("MODULEPATH_ROOT")
-   a[#a+1]     = s_MdirA[level]
-
-   if (level > 0) then
-      local hierA = hierarchyA(self._pkgNameVer, level)
-      for i = level, 1, -1 do
-         a[#a+1] = hierA[i]
-      end
-   end
-   local pkgV = self._pkgVersion:match("([0-9]+%.[0-9]+)%.?")
-
-   a[#a+1]    = pathJoin(self._pkgName,pkgV)
-   local mdir = pathJoin(unpack(a))
-
-   return mdir
-end
-
+   
 return M
-
-

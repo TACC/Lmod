@@ -227,3 +227,6 @@ s_scDescriptT  = {}
 ------------------------------------------------------------------------
 
 GIT_VERSION = "@git_version@"
+
+PkgBase = false
+PkgLmod = false

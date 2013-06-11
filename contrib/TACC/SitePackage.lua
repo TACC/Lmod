@@ -31,7 +31,6 @@
 --  THE SOFTWARE.
 --
 --------------------------------------------------------------------------
-
 require("strict")
 require("serializeTbl")
 require("myGlobals")
@@ -42,6 +41,7 @@ local hook   = require("Hook")
 local getenv = os.getenv
 local posix  = require("posix")
 
+Pkg = PkgBase.build("PkgTACC")
 --------------------------------------------------------------------------
 -- load_hook(): Here we record the any modules loaded during a batch job.
 
@@ -144,3 +144,5 @@ end
 hook.register("load",           load_hook)
 hook.register("parse_updateFn", parse_updateFn_hook)
 hook.register("writeCache",     writeCache_hook)
+
+sandbox_registration { Pkg = Pkg }

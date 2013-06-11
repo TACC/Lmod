@@ -1,7 +1,7 @@
 ===========================
 step 1
 ===========================
-Modules based on Lua: Version 5.0 (5.0-15-g67f9521) 2013-05-29 05:22
+Modules based on Lua: Version 5.0 (5.0-16-g8fbce52) 2013-05-29 05:22
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -21,6 +21,8 @@ whatis("URL: http://www.boost.org")
 help([[The boost module file defines the following environment variables:
 TACC_BOOST_DIR, TACC_BOOST_LIB, and TACC_BOOST_INC for
 the location of the boost distribution.
+]], [[
+Version 1.53.0
 ]])
 setenv("TACC_BOOST_LIB","/opt/apps/gcc-4_7/boost/1.53.0/lib")
 setenv("TACC_BOOST_INC","/opt/apps/gcc-4_7/boost/1.53.0/include")
@@ -44,6 +46,8 @@ To use the parmetis library, include compilation and link directives
 of the form: -L$TACC_PMETIS_LIB -I$TACC_PMETIS_INC -lparmetis -lmetis
 Here is an example command to compile pmetis_test.c:
 mpicc -I$TACC_PMETIS_INC pmetis_test.c -L$TACC_PMETIS_LIB -lparmetis
+]], [[
+Version 4.0.3
 ]])
 setenv("TACC_PMETIS_DIR","/opt/apps/gcc-4_7/mpich-3_0/pmetis/4.0.3")
 setenv("TACC_PMETIS_INC","/opt/apps/gcc-4_7/mpich-3_0/pmetis/4.0.3/include")
@@ -58,6 +62,8 @@ whatis("Category: MPI")
 whatis("Description: Message Passing Interface Library version 3")
 whatis("URL: http://www.mpich.org")
 help([[Mpich implementation MPI 3.0
+]], [[
+Version 3.0.4
 ]])
 prepend_path("MODULEPATH","ProjectDIR/rt/pkg/mf/MPI/gcc/4.7/mpich/3.0")
 prepend_path("PATH","/opt/apps/gcc-4_7/mpich/3.0.4/bin")
@@ -109,6 +115,8 @@ To get started using Intel(R) Advisor XE 2013 Update 2:
     - For more getting started resources:
 To view movies and additional training, visit
 http://www.intel.com/software/products.
+]], [[
+Version 13.1.0
 ]])
 prepend_path("LD_LIBRARY_PATH","/opt/apps/intel/13.1.0/composer_xe_2013.2.146/compiler/lib/intel64")
 prepend_path("LIBRARY_PATH","/opt/apps/intel/13.1.0/composer_xe_2013.2.146/mkl/lib/intel64")

@@ -32,56 +32,92 @@
 --
 --------------------------------------------------------------------------
 
+--------------------------------------------------------------------------
+-- PkgBase:
+
 require("strict")
+require("inherits")
 
-Pkg = inheritsFrom(PkgBase)
+local M = {}
 
-local M = Pkg
+function M.build(name)
+   local pkg = require(name)
+   return pkg:create()
+end
+
+function M.pkgBaseName(self)
+   return "PkgBase"
+end
 
 s_MdirA = { [0] = "Compiler",
             [1] = "MPI",
 }
+           
+SITE_PACKAGE_ROOT = os.getenv("SITE_PACKAGE_ROOT") or "/opt/apps"
 
-function M.name(self)
-   return "Pkg"
+function M.new(self, t)
+   local o = {}
+   setmetatable(o,self)
+   self.__index = self
+
+   for k, v in pairs(t) do
+      o[k] = v
+   end
+
+   local pkgName    = myModuleName()
+   local pkgVersion = myModuleVersion()
+   local pkgNameVer = myModuleFullName()
+   o._pkgName       = pkgName
+   o._pkgVersion    = pkgVersion
+   o._pkgNameVer    = pkgNameVer
+   o._display_name  = o.display_name or pkgName
+   o._pkgRoot       = o.pkgRoot or SITE_PACKAGE_ROOT
+   
+   local level      = o.level or 0
+
+   local a          = {}
+   a[#a+1]          = o._pkgRoot
+  
+   o._pkgBase       = o:_build_pkgBase(level)
+   o:setPkgInfo()
+   return o
 end
 
-function M._build_pkgBase(self,level)
-   local pkgNameVer = self._pkgNameVer
-   local pkgRoot    = self._pkgRoot
-   local a          = {}
-   a[#a+1]          = pkgRoot
-   if (level > 0) then
-      local hierA   = hierarchyA(pkgNameVer,level)
-  
-      for i = level,1,-1 do
-         a[#a+1]    = hierA[i]:gsub("/","-"):gsub("%.","_")
+function M.setPkgInfo(self)
+   whatis("Name: "    .. self:pkgDisplayName())
+   whatis("Version: " .. self:pkgVersion())
+
+   local keyA = {"Category", "Description", "URL", "Keywords", "License"}
+   
+   for i = 1, #keyA do
+      local k = keyA[i]
+      local v = self[k]
+      if (v and type(v) == "string") then
+         whatis(k .. ": "..v)
       end
    end
-   a[#a+1] = pkgNameVer
-   return pathJoin(unpack(a))
-end   
 
-function M.moduleDir(self)
-   local level = self.level or 0
-   local a     = {}
-   a[#a+1]     = os.getenv("MODULEPATH_ROOT")
-   a[#a+1]     = s_MdirA[level]
-
-   if (level > 0) then
-      local hierA = hierarchyA(self._pkgNameVer, level)
-      for i = level, 1, -1 do
-         a[#a+1] = hierA[i]
-      end
+   local helpMsg = self.help
+   if (helpMsg) then
+      local version = "\nVersion " .. self:pkgVersion() .. "\n"
+      help(helpMsg, version)
    end
-   local pkgV = self._pkgVersion:match("([0-9]+%.[0-9]+)%.?")
+end
 
-   a[#a+1]    = pathJoin(self._pkgName,pkgV)
-   local mdir = pathJoin(unpack(a))
+function M.pkgName(self)
+   return self._pkgName
+end
 
-   return mdir
+function M.pkgDisplayName(self)
+   return self._display_name
+end
+
+function M.pkgVersion(self)
+   return self._pkgVersion
+end
+
+function M.pkgBase(self)
+   return self._pkgBase
 end
 
 return M
-
-
