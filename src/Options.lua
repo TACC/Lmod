@@ -161,7 +161,6 @@ function M.options(self, usage)
       help   = "Checking module command syntax: do not load",
    }
 
-
    local optionTbl, pargs = cmdlineParser:parse(arg)
    local masterTbl        = masterTbl()
    masterTbl.pargs        = pargs

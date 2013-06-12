@@ -38,9 +38,6 @@ require("string_trim")
 require("fileOps")
 require("cmdfuncs")
 require("utils")
-local Timer     = require("Timer")
-local timer     = Timer:timer()
-
 --------------------------------------------------------------------------
 -- Cache: This class reads all the cache files in.  It will on occasion
 --        write a user cache file.  This is a singleton class.  

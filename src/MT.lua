@@ -983,9 +983,10 @@ end
 -- MT:list(): Return a array of modules currently in MT.  The list is
 --            always sorted in loadOrder.
 --
--- There are two kinds of returns for this member function.
+-- There are three kinds of returns for this member function.
 --    mt:list("userName",...) returns an object containing an table
 --                            which has the short, full, etc.
+--    mt:list("both",...) returns the short and full name of 
 --    mt:list(... , ...) returns a simply array of names.
 
 function M.list(self, kind, status)
@@ -1007,6 +1008,18 @@ function M.list(self, kind, status)
             local obj = {sn   = v.short,   full       = v.fullName,
                          name = v[nameT], defaultFlg = v.default }
             a[icnt] = { v.loadOrder, v[nameT], obj }
+         end
+      end
+   elseif (kind == "both") then
+      for k, v in pairs(mT) do
+         if ((status == "any" or status == v.status) and
+             (v.status ~= "pending")) then
+            icnt  = icnt + 1
+            a[icnt] = { v.loadOrder, v.short, v.short}
+            if (v.short ~= v.fullName) then
+               icnt  = icnt + 1
+               a[icnt] = { v.loadOrder, v.fullName, v.fullName}
+            end
          end
       end
    else

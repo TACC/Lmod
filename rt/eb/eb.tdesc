@@ -31,10 +31,12 @@ testdescript = {
 
      mkdir -p $HOME/.lmod.d/.cache
 
-     #lua $(projectDir)/src/spider.in.lua -o moduleT $MODULEPATH > $HOME/.lmod.d/.cache/moduleT.lua
+     lua $(projectDir)/src/spider.in.lua -o moduleT $MODULEPATH > $HOME/.lmod.d/.cache/moduleT.lua
      runMe lua $(projectDir)/src/lmod.in.lua bash --version                  # 1
      runMe lua $(projectDir)/src/lmod.in.lua bash load numpy                 # 2
      runMe lua $(projectDir)/src/lmod.in.lua bash list                       # 3
+     runMe lua $(projectDir)/src/lmod.in.lua bash load CMake bam2fastq       # 4
+     runMe lua $(projectDir)/src/lmod.in.lua bash list                       # 5
 
      HOME=$ORIG_HOME
 
