@@ -38,7 +38,8 @@ require("string_trim")
 require("fileOps")
 require("cmdfuncs")
 require("utils")
-
+local Timer     = require("Timer")
+local timer     = Timer:timer()
 
 --------------------------------------------------------------------------
 -- Cache: This class reads all the cache files in.  It will on occasion
@@ -86,7 +87,6 @@ local s_cache = false
 --        be an array with zero entries.  This ctor finds all the system 
 --        and user directories where cache files are stored.  It also
 --        figure out the timestamps.
-
 
 local function new(self, t)
    local o = {}

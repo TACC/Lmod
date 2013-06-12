@@ -37,7 +37,9 @@ require("fileOps")
 require("sandbox")
 require("string_split")
 local Dbg       = require("Dbg")
+local Timer     = require("Timer")
 local concatTbl = table.concat
+local timer     = Timer:timer()
 
 ------------------------------------------------------------------------
 -- loadModuleFile(t): read a modulefile in via sandbox_run
@@ -63,6 +65,8 @@ function loadModuleFile(t)
          f:close()
       end
    else
+
+      local t1     = epoch()
       -- Build argument list then call tcl2lua translator
       -- Capture results into [[whole]] string.
       local s      = t.mList or ""
@@ -84,11 +88,16 @@ function loadModuleFile(t)
       a[#a + 1]	   = t.file
       local cmd    = concatTbl(a," ")
       whole        = capture(cmd) 
+      local t2     = epoch()
+      timer:deltaT("tcl2lua", t2-t1)
    end
 
    -- Use the sandbox to evaluate modulefile text.
    if (whole) then
+      local t1 = epoch()
       status, msg = sandbox_run(whole)
+      local t2 = epoch()
+      timer:deltaT("sandbox_run", t2-t1)
    else
       status = nil
       msg    = "Empty or non-existant file"
