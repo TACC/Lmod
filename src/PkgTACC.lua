@@ -39,12 +39,8 @@ local unpack = unpack or table.unpack
 local M = inheritsFrom(PkgBase)
 
 function M._build_pkgBase(self,level)
-   local fn         = myFileName()
-
-   local a          = {}
-   a[#a+1]          = fn:match("(.*)/modulefile")
-   a[#a+1]          = self._pkgNameVer
-   return pathJoin(unpack(a))
+   local dir = myFileName():match("(.*)/modulefile")
+   return pathJoin(dir, self._pkgNameVer)
 end   
    
 return M

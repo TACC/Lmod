@@ -394,7 +394,6 @@ local function new(self, s)
 
    dbg.print("systemBaseMPATH: \"", v, "\"\n")
    if (not s) then
-      local v             = getenv(ModulePath)
       o.systemBaseMPATH   = path_regularize(v)
       dbg.print("setting systemBaseMPATH: ", v, "\n")
       varTbl[DfltModPath] = Var:new(DfltModPath, v)
@@ -521,7 +520,6 @@ function M.mt(self)
    if (not s_mt) then
       local dbg  = Dbg:dbg()
       dbg.start("mt()")
-      local shell        = systemG.Master:master().shell
       s_mt               = new(self, getMT())
       s_mtA[#s_mtA+1]    = s_mt
       dbg.print("Original s_mtA[",#s_mtA,"]: ",tostring(s_mtA[#s_mtA]),"\n")
