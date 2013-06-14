@@ -424,9 +424,15 @@ local function new(self, s)
 	 o.systemBaseMPATH = path_regularize(baseMpath)
       end
 
-      varTbl[DfltModPath] = Var:new(DfltModPath, baseMpath)
-      dbg.print("buildBaseMpathA(",baseMpath,")\n")
-      o:buildBaseMpathA(baseMpath)
+      -----------------------------------------------------------------
+      -- Compare MODULEPATH from environment versus ModuleTable
+      if (o.systemBaseMPATH == o._MPATH) then
+         varTbl[DfltModPath] = Var:new(DfltModPath, baseMpath)
+         dbg.print("buildBaseMpathA(",baseMpath,")\n")
+         o:buildBaseMpathA(baseMpath)
+      else
+         o:resolveMpathChanges()
+      end
    end
    o.inactive         = {}
 
@@ -778,6 +784,45 @@ function M.getMTfromFile(self,t)
 end
 
 --------------------------------------------------------------------------
+-- resolveMpathChanges: Handle when MODULEPATH is changed outside of Lmod
+function M.resolveMpathChanges(self)
+   local usrMpathA  = regularizePathA(self.systemBaseMPATH)
+   local mpathA     = self.mpathA
+   local kU         = #usrMpathA
+   local kM         = #mpathA
+   local mU         = 0
+   local mM         = 0
+   for i = kM, 1, -1 do
+      if (usrMpathA[kM] ~= mpathA[i]) then
+         mU = kM
+         mM = i
+         break
+      end
+      kM = kM - 1
+   end
+
+   if ( mM ~= 0) then
+      local a = {}
+      a[#a+1] = [[ The environment MODULEPATH has been changed in unexpected ways.
+                     Lmod is unable to use given MODULEPATH. It is using: ]]
+      a[#a+1] = concatTbl(mpathA,":")
+      a[#a+1] = "Please use \"module use ...\" instead."
+      
+      LmodWarning(fillWords("", concatTbl(a,""),TermWidth()))
+   end
+
+   usrMpathA[kM+1] = nil
+
+   local dmp = concatTbl(usrMpathA,":") .. ":" .. varTbl[DfltModPath]:expand()
+   varTbl[DfltModPath] = Var:new(DfltModPath, dmp)
+   varTbl[ModulePath]  = Var:new(ModulePath, self.systemBaseMPATH)
+
+
+end
+
+
+
+--------------------------------------------------------------------------
 -- These routine are used to decide when it is safe to reload modules.
 -- The idea is that when there is a change in MODULEPATH, MT:changePATH
 -- is called. Every time a module is loaded MT:beginOP() is called.
@@ -981,9 +1026,10 @@ end
 -- MT:list(): Return a array of modules currently in MT.  The list is
 --            always sorted in loadOrder.
 --
--- There are two kinds of returns for this member function.
+-- There are three kinds of returns for this member function.
 --    mt:list("userName",...) returns an object containing an table
 --                            which has the short, full, etc.
+--    mt:list("both",...) returns the short and full name of 
 --    mt:list(... , ...) returns a simply array of names.
 
 function M.list(self, kind, status)
@@ -1005,6 +1051,18 @@ function M.list(self, kind, status)
             local obj = {sn   = v.short,   full       = v.fullName,
                          name = v[nameT], defaultFlg = v.default }
             a[icnt] = { v.loadOrder, v[nameT], obj }
+         end
+      end
+   elseif (kind == "both") then
+      for k, v in pairs(mT) do
+         if ((status == "any" or status == v.status) and
+             (v.status ~= "pending")) then
+            icnt  = icnt + 1
+            a[icnt] = { v.loadOrder, v.short, v.short}
+            if (v.short ~= v.fullName) then
+               icnt  = icnt + 1
+               a[icnt] = { v.loadOrder, v.fullName, v.fullName}
+            end
          end
       end
    else

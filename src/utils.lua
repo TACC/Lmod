@@ -219,6 +219,50 @@ function masterTbl()
 end
 
 --------------------------------------------------------------------------
+-- regularizePathA(): This function takes a path like variable and breaks
+--                    it up into an array.  Each path component is
+--                    standandized by path_regularize().  This function
+--                    removes leading and trailing spaces and duplicate '/'
+--                    etc.
+--
+--                    Typically the separator is a colon but it can be
+--                    anything.  Some env. vars (such as TEXINPUTS and
+--                    LUA_PATH) use "::" or ";;" to mean that the 
+--                    specified values are prepended to the system ones.
+--                    To handle that, the path component is converted to 
+--                    a single space.  This single space is later removed
+--                    when expanding.
+
+function regularizePathA(path, sep)
+   if (not path) then
+      return {}
+   end
+   if (path == '') then
+      return { ' ' }
+   end
+
+   local is, ie
+
+   -- remove leading and trailing sep
+   if (path:sub(1,1) == sep) then
+      is = 2
+   end
+   if (path:sub(-1,-1) == sep) then
+      ie = -2
+   end
+   if (is) then
+      path = path:sub(is,ie)
+   end
+
+   local pathA = {}
+   for v  in path:split(sep) do
+      pathA[#pathA + 1] = path_regularize(v)
+   end
+
+   return pathA
+end
+
+--------------------------------------------------------------------------
 --  Read the admin.list file.  It is a Key value pairing of module names
 --  and a message.  The module names can be either the full name or the file
 --  name.  The message can be multi-line.  A blank line is signifies the

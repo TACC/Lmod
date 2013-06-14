@@ -392,7 +392,9 @@ function M.access(self, ...)
       if (fn and isFile(fn)) then
          prtHdr()
          mStack:push(full, moduleName, mname:sn(), fn)
-         local mList = concatTbl(mt:list("short","active"),":")
+         
+         local mList = concatTbl(mt:list("both","active"),":") 
+
 	 loadModuleFile{file=fn,help=help, shell=shellN, mList = mList,
                         reportErr=true}
          mStack:pop()
@@ -470,7 +472,7 @@ function M.inheritModule()
    if (t.fn == nil) then
       LmodError("Failed to inherit: ",mFull,"\n")
    else
-      local mList = concatTbl(mt:list("short","active"),":")
+      local mList = concatTbl(mt:list("both","active"),":")
       mStack:push(mFull, myUsrN, mySn, t.fn)
       loadModuleFile{file=t.fn,mList = mList, shell=shellN,
                      reportErr=true}
@@ -511,7 +513,7 @@ function M.load(...)
          loaded = aa[1]
       elseif (fn) then
          dbg.print("Master:loading: \"",moduleName,"\" from f: \"",fn,"\"\n")
-         local mList = concatTbl(mt:list("short","active"),":")
+         local mList = concatTbl(mt:list("both","active"),":")
          mt:add(t, "pending")
 	 mt:beginOP()
          dbg.print("changePATH: ", mt._changePATHCount, "\n")
@@ -567,7 +569,7 @@ function M.refresh()
       local fn      = mt:fileName(sn)
       local usrName = mt:usrName(sn)
       local full    = mt:fullName(sn)
-      local mList   = concatTbl(mt:list("short","active"),":")
+      local mList   = concatTbl(mt:list("both","active"),":")
       mStack:push(full, usrName, sn, fn)
       dbg.print("loading: ",sn," fn: ", fn,"\n")
       loadModuleFile{file = fn, shell = shellN, mList = mList,
@@ -686,7 +688,7 @@ function M.unload(...)
       elseif (mt:have(sn,"active")) then
          dbg.print("Mark ", moduleName, " as pending\n")
          mt:setStatus(sn,"pending")
-         local mList          = concatTbl(mt:list("short","active"),":")
+         local mList          = concatTbl(mt:list("both","active"),":")
          local f              = mt:fileName(sn)
          local fullModuleName = mt:fullName(sn)
          dbg.print("Master:unload: \"",fullModuleName,"\" from f: ",f,"\n")

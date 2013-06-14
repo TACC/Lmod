@@ -1,7 +1,7 @@
 ===========================
 step 1
 ===========================
-Modules based on Lua: Version 5.0 (5.0-17-g6d60540) 2013-05-29 05:22
+Modules based on Lua: Version 5.0 (5.0-19-ga0e06a1) 2013-05-29 05:22
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -11,16 +11,39 @@ step 3
 ===========================
 Currently Loaded Modules:
   1)  numpy/1.6.2-goolf-1.4.10-Python-2.7.3
-  2)  Python/2.7.3-goolf-1.4.10
-  3)  bzip2/1.0.6-goolf-1.4.10
-  4)  zlib/1.2.7-goolf-1.4.10
-  5)  libreadline/6.2-goolf-1.4.10
-  6)  ncurses/5.9-goolf-1.4.10
-  7)  goolf/1.4.10
+  2)  goolf/1.4.10
+  3)  GCC/4.7.2
+  4)  OpenMPI/1.6.4-GCC-4.7.2
+  5)  hwloc/1.6.2-GCC-4.7.2
+  6)  OpenBLAS/0.2.6-gompi-1.4.10-LAPACK-3.4.2
+  7)  gompi/1.4.10
   8)  FFTW/3.3.3-gompi-1.4.10
   9)  ScaLAPACK/2.0.2-gompi-1.4.10-OpenBLAS-0.2.6-LAPACK-3.4.2
-  10) OpenBLAS/0.2.6-gompi-1.4.10-LAPACK-3.4.2
-  11) gompi/1.4.10
-  12) OpenMPI/1.6.4-GCC-4.7.2
-  13) hwloc/1.6.2-GCC-4.7.2
-  14) GCC/4.7.2
+  10) Python/2.7.3-goolf-1.4.10
+  11) bzip2/1.0.6-goolf-1.4.10
+  12) zlib/1.2.7-goolf-1.4.10
+  13) libreadline/6.2-goolf-1.4.10
+  14) ncurses/5.9-goolf-1.4.10
+===========================
+step 4
+===========================
+===========================
+step 5
+===========================
+Currently Loaded Modules:
+  1)  numpy/1.6.2-goolf-1.4.10-Python-2.7.3
+  2)  goolf/1.4.10
+  3)  GCC/4.7.2
+  4)  OpenMPI/1.6.4-GCC-4.7.2
+  5)  hwloc/1.6.2-GCC-4.7.2
+  6)  OpenBLAS/0.2.6-gompi-1.4.10-LAPACK-3.4.2
+  7)  gompi/1.4.10
+  8)  FFTW/3.3.3-gompi-1.4.10
+  9)  ScaLAPACK/2.0.2-gompi-1.4.10-OpenBLAS-0.2.6-LAPACK-3.4.2
+  10) Python/2.7.3-goolf-1.4.10
+  11) bzip2/1.0.6-goolf-1.4.10
+  12) zlib/1.2.7-goolf-1.4.10
+  13) libreadline/6.2-goolf-1.4.10
+  14) ncurses/5.9-goolf-1.4.10
+  15) CMake/2.8.4-goolf-1.4.10
+  16) bam2fastq/1.1.0-goolf-1.4.10

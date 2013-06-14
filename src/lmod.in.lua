@@ -205,6 +205,7 @@ function Usage()
    a[#a+1] = { "  swap | sw | switch", "m1 m2",         "unload m1 and load m2" }
    a[#a+1] = { "  purge",              "",              "unload all modules"}
    a[#a+1] = { "  refresh",            "",              "reload aliases from current list of modules."}
+   a[#a+1] = { "  update",             "",              "reload all currently loaded modules."}
    a[#a+1] = { "" }
    a[#a+1] = { "Listing / Searching sub-commands:" }
    a[#a+1] = { "---------------------------------" }
@@ -441,7 +442,6 @@ ModuleFn   = ""
 
 
 function main()
-
    local loadTbl      = { name = "load",        checkMPATH = true,  cmd = Load_Usr    }
    local tryAddTbl    = { name = "try-add",     checkMPATH = true,  cmd = Load_Try    }
    local unloadTbl    = { name = "unload",      checkMPATH = true,  cmd = UnLoad      }
@@ -618,6 +618,12 @@ function main()
    -- print version and quit if requested.
    if (masterTbl.version) then
       io.stderr:write(version())
+      os.exit(0)
+   end
+
+   -- print version and quit if requested.
+   if (masterTbl.printUserCacheFileLocation) then
+      io.stderr:write(pathJoin(usrCacheDir,"moduleT.lua"),"\n")
       os.exit(0)
    end
 
