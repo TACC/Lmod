@@ -621,6 +621,12 @@ function main()
       os.exit(0)
    end
 
+   -- print version and quit if requested.
+   if (masterTbl.printUserCacheFileLocation) then
+      io.stderr:write(pathJoin(usrCacheDir,"moduleT.lua"),"\n")
+      os.exit(0)
+   end
+
    -- Create the [[master]] object
 
    local master = Master:master(checkMPATH)

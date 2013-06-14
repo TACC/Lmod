@@ -394,7 +394,6 @@ local function new(self, s)
 
    dbg.print("systemBaseMPATH: \"", v, "\"\n")
    if (not s) then
-      local v             = getenv(ModulePath)
       o.systemBaseMPATH   = path_regularize(v)
       dbg.print("setting systemBaseMPATH: ", v, "\n")
       varTbl[DfltModPath] = Var:new(DfltModPath, v)
@@ -425,9 +424,15 @@ local function new(self, s)
 	 o.systemBaseMPATH = path_regularize(baseMpath)
       end
 
-      varTbl[DfltModPath] = Var:new(DfltModPath, baseMpath)
-      dbg.print("buildBaseMpathA(",baseMpath,")\n")
-      o:buildBaseMpathA(baseMpath)
+      -----------------------------------------------------------------
+      -- Compare MODULEPATH from environment versus ModuleTable
+      if (o.systemBaseMPATH == o._MPATH) then
+         varTbl[DfltModPath] = Var:new(DfltModPath, baseMpath)
+         dbg.print("buildBaseMpathA(",baseMpath,")\n")
+         o:buildBaseMpathA(baseMpath)
+      else
+         o:resolveMpathChanges()
+      end
    end
    o.inactive         = {}
 
@@ -521,7 +526,6 @@ function M.mt(self)
    if (not s_mt) then
       local dbg  = Dbg:dbg()
       dbg.start("mt()")
-      local shell        = systemG.Master:master().shell
       s_mt               = new(self, getMT())
       s_mtA[#s_mtA+1]    = s_mt
       dbg.print("Original s_mtA[",#s_mtA,"]: ",tostring(s_mtA[#s_mtA]),"\n")
@@ -778,6 +782,45 @@ function M.getMTfromFile(self,t)
    dbg.fini("MT:getMTfromFile")
    return true
 end
+
+--------------------------------------------------------------------------
+-- resolveMpathChanges: Handle when MODULEPATH is changed outside of Lmod
+function M.resolveMpathChanges(self)
+   local usrMpathA  = regularizePathA(self.systemBaseMPATH)
+   local mpathA     = self.mpathA
+   local kU         = #usrMpathA
+   local kM         = #mpathA
+   local mU         = 0
+   local mM         = 0
+   for i = kM, 1, -1 do
+      if (usrMpathA[kM] ~= mpathA[i]) then
+         mU = kM
+         mM = i
+         break
+      end
+      kM = kM - 1
+   end
+
+   if ( mM ~= 0) then
+      local a = {}
+      a[#a+1] = [[ The environment MODULEPATH has been changed in unexpected ways.
+                     Lmod is unable to use given MODULEPATH. It is using: ]]
+      a[#a+1] = concatTbl(mpathA,":")
+      a[#a+1] = "Please use \"module use ...\" instead."
+      
+      LmodWarning(fillWords("", concatTbl(a,""),TermWidth()))
+   end
+
+   usrMpathA[kM+1] = nil
+
+   local dmp = concatTbl(usrMpathA,":") .. ":" .. varTbl[DfltModPath]:expand()
+   varTbl[DfltModPath] = Var:new(DfltModPath, dmp)
+   varTbl[ModulePath]  = Var:new(ModulePath, self.systemBaseMPATH)
+
+
+end
+
+
 
 --------------------------------------------------------------------------
 -- These routine are used to decide when it is safe to reload modules.
