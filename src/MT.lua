@@ -389,16 +389,15 @@ local function new(self, s)
 
    local active, total
 
-   local v             = getenv(ModulePath)
-   o.systemBaseMPATH   = path_regularize(v)
+   local currentMPATH  = getenv(ModulePath)
+   o.systemBaseMPATH   = path_regularize(currentMPATH)
 
-   dbg.print("systemBaseMPATH: \"", v, "\"\n")
+   dbg.print("systemBaseMPATH: \"", currentMPATH, "\"\n")
    if (not s) then
-      o.systemBaseMPATH   = path_regularize(v)
-      dbg.print("setting systemBaseMPATH: ", v, "\n")
-      varTbl[DfltModPath] = Var:new(DfltModPath, v)
-      o:buildBaseMpathA(v)
-      dbg.print("Initializing ", DfltModPath, ":", v, "\n")
+      dbg.print("setting systemBaseMPATH: ", currentMPATH, "\n")
+      varTbl[DfltModPath] = Var:new(DfltModPath, currentMPATH)
+      o:buildBaseMpathA(currentMPATH)
+      dbg.print("Initializing ", DfltModPath, ":", currentMPATH, "\n")
    else
       assert(load(s))()
       local _ModuleTable_ = systemG._ModuleTable_
@@ -422,16 +421,18 @@ local function new(self, s)
       if (_ModuleTable_.systemBaseMPATH == nil) then
          dbg.print("setting self.systemBaseMPATH to baseMpath\n")
 	 o.systemBaseMPATH = path_regularize(baseMpath)
+         o._MPATH = o.systemBaseMPATH
       end
-
       -----------------------------------------------------------------
       -- Compare MODULEPATH from environment versus ModuleTable
-      if (o.systemBaseMPATH == o._MPATH) then
+      if (currentMPATH == o._MPATH) then
          varTbl[DfltModPath] = Var:new(DfltModPath, baseMpath)
          dbg.print("buildBaseMpathA(",baseMpath,")\n")
          o:buildBaseMpathA(baseMpath)
       else
-         o:resolveMpathChanges()
+         dbg.print("currentMPATH: ",currentMPATH,"\n")
+         dbg.print("_MPATH:          ",o._MPATH,"\n")
+         o:resolveMpathChanges(currentMPATH)
       end
    end
    o.inactive         = {}
@@ -785,8 +786,8 @@ end
 
 --------------------------------------------------------------------------
 -- resolveMpathChanges: Handle when MODULEPATH is changed outside of Lmod
-function M.resolveMpathChanges(self)
-   local usrMpathA  = regularizePathA(self.systemBaseMPATH)
+function M.resolveMpathChanges(self,currentMPATH)
+   local usrMpathA  = regularizePathA(self.currentMPATH)
    local mpathA     = self.mpathA
    local kU         = #usrMpathA
    local kM         = #mpathA
@@ -806,18 +807,23 @@ function M.resolveMpathChanges(self)
       a[#a+1] = [[ The environment MODULEPATH has been changed in unexpected ways.
                      Lmod is unable to use given MODULEPATH. It is using: ]]
       a[#a+1] = concatTbl(mpathA,":")
-      a[#a+1] = "Please use \"module use ...\" instead."
+      a[#a+1] = "Please use \"module use ...\" to change MODULEPATH instead."
       
       LmodWarning(fillWords("", concatTbl(a,""),TermWidth()))
+
+   else
+
+      usrMpathA[kM+1] = nil
+      
+      local dmp = concatTbl(usrMpathA,":") .. ":" .. varTbl[DfltModPath]:expand()
+      varTbl[DfltModPath] = Var:new(DfltModPath, dmp)
+      varTbl[ModulePath]  = Var:new(ModulePath, self.systemBaseMPATH)
+      self:buildBaseMpathA(dmp)
+      
+      LmodMessage(fillWords("",[[Lmod as detected external MODULEPATH changes,
+                              Please use \"module use\" instead" ]],
+                            TermWidth()))
    end
-
-   usrMpathA[kM+1] = nil
-
-   local dmp = concatTbl(usrMpathA,":") .. ":" .. varTbl[DfltModPath]:expand()
-   varTbl[DfltModPath] = Var:new(DfltModPath, dmp)
-   varTbl[ModulePath]  = Var:new(ModulePath, self.systemBaseMPATH)
-
-
 end
 
 
