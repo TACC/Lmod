@@ -15,7 +15,7 @@ module-whatis {The Genome Analysis Toolkit or GATK is a software package develop
  data quality assurance. Its robust architecture, powerful processing engine and 
  high-performance computing features make it capable of taking on projects of any size. - Homepage: http://www.broadinstitute.org/gatk/}
 
-set root    /Users/kehoste/.local/easybuild/software/GATK/2.5-2
+set root    /home/xyzzy/.local/easybuild/software/GATK/2.5-2
 
 conflict    GATK
 

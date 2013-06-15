@@ -9,7 +9,7 @@ proc ModulesHelp { } {
 module-whatis {PAML is a package of programs for phylogenetic 
  analyses of DNA or protein sequences using maximum likelihood. - Homepage: http://abacus.gene.ucl.ac.uk/software/paml.html}
 
-set root    /Users/kehoste/.local/easybuild/software/PAML/4.7-goolf-1.4.10
+set root    /home/xyzzy/.local/easybuild/software/PAML/4.7-goolf-1.4.10
 
 conflict    PAML
 

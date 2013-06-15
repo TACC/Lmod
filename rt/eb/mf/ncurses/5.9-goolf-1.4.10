@@ -11,7 +11,7 @@ module-whatis {The Ncurses (new curses) library is a free software emulation of 
 and more. It uses Terminfo format, supports pads and color and multiple highlights and forms characters and
 function-key mapping, and has all the other SYSV-curses enhancements over BSD Curses. - Homepage: http://www.gnu.org/software/ncurses/}
 
-set root    /Users/kehoste/.local/easybuild/software/ncurses/5.9-goolf-1.4.10
+set root    /home/xyzzy/.local/easybuild/software/ncurses/5.9-goolf-1.4.10
 
 conflict    ncurses
 

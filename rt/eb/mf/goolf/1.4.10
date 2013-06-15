@@ -9,7 +9,7 @@ proc ModulesHelp { } {
 module-whatis {GNU Compiler Collection (GCC) based compiler toolchain, including
  OpenMPI for MPI support, OpenBLAS (BLAS and LAPACK support), FFTW and ScaLAPACK. - Homepage: (none)}
 
-set root    /Users/kehoste/.local/easybuild/software/goolf/1.4.10
+set root    /home/xyzzy/.local/easybuild/software/goolf/1.4.10
 
 conflict    goolf
 

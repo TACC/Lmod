@@ -7,7 +7,7 @@ proc ModulesHelp { } {
 
 module-whatis {OrthoMCL is a genome-scale algorithm for grouping orthologous protein sequences. - Homepage: http://orthomcl.org/}
 
-set root    /Users/kehoste/.local/easybuild/software/orthomcl/2.0.8-goolf-1.4.10
+set root    /home/xyzzy/.local/easybuild/software/orthomcl/2.0.8-goolf-1.4.10
 
 conflict    orthomcl
 

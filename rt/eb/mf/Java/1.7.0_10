@@ -9,7 +9,7 @@ proc ModulesHelp { } {
 module-whatis {Java Platform, Standard Edition (Java SE) lets you develop and deploy
  Java applications on desktops and servers. - Homepage: http://java.com/}
 
-set root    /Users/kehoste/.local/easybuild/software/Java/1.7.0_10
+set root    /home/xyzzy/.local/easybuild/software/Java/1.7.0_10
 
 conflict    Java
 

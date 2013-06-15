@@ -7,7 +7,7 @@ proc ModulesHelp { } {
 
 module-whatis {gzip (GNU zip) is a popular data compression program as a replacement for compress - Homepage: http://www.gnu.org/software/gzip/}
 
-set root    /Users/kehoste/.local/easybuild/software/gzip/1.5-goolf-1.4.10
+set root    /home/xyzzy/.local/easybuild/software/gzip/1.5-goolf-1.4.10
 
 conflict    gzip
 

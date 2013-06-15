@@ -7,7 +7,7 @@ proc ModulesHelp { } {
 
 module-whatis {Python is a programming language that lets you work more quickly and integrate your systems more effectively. - Homepage: http://python.org/}
 
-set root    /Users/kehoste/.local/easybuild/software/Python/2.7.3-goolf-1.4.10
+set root    /home/xyzzy/.local/easybuild/software/Python/2.7.3-goolf-1.4.10
 
 conflict    Python
 

@@ -11,7 +11,7 @@ module-whatis {zlib is designed to be a free, general-purpose, legally unencumbe
 not covered by any patents -- lossless data-compression library for use on virtually any 
 computer hardware and operating system. - Homepage: http://www.zlib.net/}
 
-set root    /Users/kehoste/.local/easybuild/software/zlib/1.2.7-goolf-1.4.10
+set root    /home/xyzzy/.local/easybuild/software/zlib/1.2.7-goolf-1.4.10
 
 conflict    zlib
 

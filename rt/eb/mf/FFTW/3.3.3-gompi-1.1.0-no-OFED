@@ -9,7 +9,7 @@ in one or more dimensions, of arbitrary input size, and of both real and complex
 module-whatis {FFTW is a C subroutine library for computing the discrete Fourier transform (DFT)
 in one or more dimensions, of arbitrary input size, and of both real and complex data. - Homepage: http://www.fftw.org}
 
-set root    /Users/kehoste/.local/easybuild/install/FFTW/3.3.3-gompi-1.1.0-no-OFED
+set root    /home/xyzzy/.local/easybuild/install/FFTW/3.3.3-gompi-1.1.0-no-OFED
 
 conflict    FFTW
 

@@ -9,7 +9,7 @@ relatively short nucleotide sequences against a long reference sequence such as 
 module-whatis {Burrows-Wheeler Aligner (BWA) is an efficient program that aligns
 relatively short nucleotide sequences against a long reference sequence such as the human genome. - Homepage: http://bio-bwa.sourceforge.net/}
 
-set root    /Users/kehoste/.local/easybuild/software/BWA/0.6.2-goolf-1.4.10
+set root    /home/xyzzy/.local/easybuild/software/BWA/0.6.2-goolf-1.4.10
 
 conflict    BWA
 
