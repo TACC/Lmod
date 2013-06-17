@@ -425,7 +425,7 @@ local function new(self, s)
       end
       -----------------------------------------------------------------
       -- Compare MODULEPATH from environment versus ModuleTable
-      if (currentMPATH == o._MPATH) then
+      if (currentMPATH == nil or currentMPATH == o._MPATH) then
          varTbl[DfltModPath] = Var:new(DfltModPath, baseMpath)
          dbg.print("buildBaseMpathA(",baseMpath,")\n")
          o:buildBaseMpathA(baseMpath)
@@ -775,8 +775,7 @@ function M.getMTfromFile(self,t)
 
    if (collectionName == "default") then
       local n = "__LMOD_DEFAULT_MODULES_LOADED__"
-      varTbl[n] = Var:new(n)
-      varTbl[n]:set("1")
+      varTbl[n] = Var:new(n,"1")
    end
       
    dbg.print("baseMpathA: ",concatTbl(self.baseMpathA,":"),"\n")
@@ -787,7 +786,7 @@ end
 --------------------------------------------------------------------------
 -- resolveMpathChanges: Handle when MODULEPATH is changed outside of Lmod
 function M.resolveMpathChanges(self,currentMPATH)
-   local usrMpathA  = regularizePathA(self.currentMPATH)
+   local usrMpathA  = path2pathA(self.currentMPATH)
    local mpathA     = self.mpathA
    local kU         = #usrMpathA
    local kM         = #mpathA
@@ -805,9 +804,9 @@ function M.resolveMpathChanges(self,currentMPATH)
    if ( mM ~= 0) then
       local a = {}
       a[#a+1] = [[ The environment MODULEPATH has been changed in unexpected ways.
-                     Lmod is unable to use given MODULEPATH. It is using: ]]
+                     Lmod is unable to use given MODULEPATH. It is using: "]]
       a[#a+1] = concatTbl(mpathA,":")
-      a[#a+1] = "Please use \"module use ...\" to change MODULEPATH instead."
+      a[#a+1] = "\". Please use \"module use ...\" to change MODULEPATH instead."
       
       LmodWarning(fillWords("", concatTbl(a,""),TermWidth()))
 
@@ -938,16 +937,6 @@ end
 
 function M.module_pathA(self)
    return self.mpathA
-end
-
-local function path2pathA(mpath)
-   local a = {}
-   if (mpath) then
-      for path in mpath:split(':') do
-         a[#a+1] = path_regularize(path)
-      end
-   end
-   return a
 end
 
 function M.buildMpathA(self, mpath)

@@ -219,21 +219,22 @@ function masterTbl()
 end
 
 --------------------------------------------------------------------------
--- regularizePathA(): This function takes a path like variable and breaks
---                    it up into an array.  Each path component is
---                    standandized by path_regularize().  This function
---                    removes leading and trailing spaces and duplicate '/'
---                    etc.
+-- path2pathA(): This function takes a path like variable and breaks
+--               it up into an array.  Each path component is
+--               standandized by path_regularize().  This function
+--               removes leading and trailing spaces and duplicate '/'
+--               etc.
 --
---                    Typically the separator is a colon but it can be
---                    anything.  Some env. vars (such as TEXINPUTS and
---                    LUA_PATH) use "::" or ";;" to mean that the 
---                    specified values are prepended to the system ones.
---                    To handle that, the path component is converted to 
---                    a single space.  This single space is later removed
---                    when expanding.
+--               Typically the separator is a colon but it can be
+--               anything.  Some env. vars (such as TEXINPUTS and
+--               LUA_PATH) use "::" or ";;" to mean that the 
+--               specified values are prepended to the system ones.
+--               To handle that, the path component is converted to 
+--               a single space.  This single space is later removed
+--               when expanding.
 
-function regularizePathA(path, sep)
+function path2pathA(path, sep)
+   sep = sep or ":"
    if (not path) then
       return {}
    end

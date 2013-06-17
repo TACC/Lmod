@@ -577,9 +577,6 @@ function main()
    --  override the hook functions in SitePackage.
    ------------------------------------------------------------------------
    require("StandardPackage")
-   
-   dbg.print("Pkg:name():        ",Pkg:name(),"\n")
-   dbg.print("Pkg:pkgBaseName(): ",Pkg:pkgBaseName(),"\n")
 
    ------------------------------------------------------------------------
    -- Load a SitePackage Module.

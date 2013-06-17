@@ -112,7 +112,7 @@ local function extract(self)
    local sep     = self.sep
 
    if (myValue ~= '') then
-      pathA = regularizePathA(myValue, sep)
+      pathA = path2pathA(myValue, sep)
 
       for i,v in ipairs(pathA) do
          local a    = pathTbl[v] or {}
@@ -142,6 +142,7 @@ function M.new(self, name, value, sep)
    o.name       = name
    o.sep        = sep or ":"
    extract(o)
+   setenv(name, value, true)
    return o
 end
 
@@ -229,7 +230,7 @@ function M.remove(self, value, where)
 
    where = allow_dups(true) and where or "all"
    local remFunc = whereT[where] or removeAll
-   local pathA   = regularizePathA(value, self.sep)
+   local pathA   = path2pathA(value, self.sep)
    local tbl     = self.tbl
 
    for i = 1, #pathA do
@@ -309,7 +310,7 @@ function M.prepend(self, value, nodups)
    local dbg  = Dbg:dbg()
    if (value == nil) then return end
 
-   local pathA         = regularizePathA(value, self.sep)
+   local pathA         = path2pathA(value, self.sep)
    local is, ie, iskip = prepend_order(#pathA)
    local insertFunc    = nodups and unique or first
 
@@ -336,7 +337,7 @@ end
 function M.append(self, value, nodups)
    if (value == nil) then return end
    nodups           = not allow_dups(not nodups)
-   local pathA      = regularizePathA(value, self.sep)
+   local pathA      = path2pathA(value, self.sep)
    local insertFunc = nodups and unique or last
 
    local tbl  = self.tbl

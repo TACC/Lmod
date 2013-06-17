@@ -198,6 +198,7 @@ tags:
             -e 's|.*/rt/.*/t1/.*||g'                             \
             -e 's|./TAGS||g'                                     \
             -e 's|./configure$$||g'                              \
+            -e 's|.*\.tgz$$||g'                                  \
             -e 's|.*\.tar\.gz$$||g'                              \
             -e 's|.*\.tar\.bz2$$||g'                             \
             -e 's|.*\.csv$$||g'                                  \
