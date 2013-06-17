@@ -7,7 +7,7 @@ proc ModulesHelp { } {
 
 module-whatis {Larry Wall's Practical Extraction and Report Language - Homepage: http://www.perl.org/}
 
-set root    /Users/kehoste/.local/easybuild/software/Perl/5.16.3-goolf-1.4.10
+set root    /home/xyzzy/.local/easybuild/software/Perl/5.16.3-goolf-1.4.10
 
 conflict    Perl
 

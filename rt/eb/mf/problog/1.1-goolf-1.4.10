@@ -7,7 +7,7 @@ proc ModulesHelp { } {
 
 module-whatis {ProbLog is a probabilistic Prolog, a probabilistic logic programming language. - Homepage: http://dtai.cs.kuleuven.be/problog/problog1.html}
 
-set root    /Users/kehoste/.local/easybuild/software/problog/1.1-goolf-1.4.10
+set root    /home/xyzzy/.local/easybuild/software/problog/1.1-goolf-1.4.10
 
 conflict    problog
 

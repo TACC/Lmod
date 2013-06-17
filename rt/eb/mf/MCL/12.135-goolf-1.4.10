@@ -15,7 +15,7 @@ module-whatis {The MCL algorithm is short for the Markov Cluster Algorithm, a fa
   Stijn van Dongen at the Centre for Mathematics and Computer Science (also known as CWI)
   in the Netherlands. MCL has been applied in a number of different domains, mostly in bioinformatics. - Homepage: http://micans.org/mcl/}
 
-set root    /Users/kehoste/.local/easybuild/software/MCL/12.135-goolf-1.4.10
+set root    /home/xyzzy/.local/easybuild/software/MCL/12.135-goolf-1.4.10
 
 conflict    MCL
 

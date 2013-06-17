@@ -7,7 +7,7 @@ proc ModulesHelp { } {
 
 module-whatis {RAxML search algorithm for maximum likelihood based inference of phylogenetic trees. - Homepage: https://github.com/stamatak/standard-RAxML}
 
-set root    /Users/kehoste/.local/easybuild/software/RAxML/7.2.6-goolf-1.4.10-seq-sse3
+set root    /home/xyzzy/.local/easybuild/software/RAxML/7.2.6-goolf-1.4.10-seq-sse3
 
 conflict    RAxML
 

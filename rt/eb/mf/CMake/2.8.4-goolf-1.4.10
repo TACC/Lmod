@@ -9,7 +9,7 @@ CMake is a family of tools designed to build, test and package software. - Homep
 module-whatis {CMake, the cross-platform, open-source build system.
 CMake is a family of tools designed to build, test and package software. - Homepage: http://www.cmake.org}
 
-set root    /Users/kehoste/.local/easybuild/software/CMake/2.8.4-goolf-1.4.10
+set root    /home/xyzzy/.local/easybuild/software/CMake/2.8.4-goolf-1.4.10
 
 conflict    CMake
 

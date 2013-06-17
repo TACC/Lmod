@@ -7,7 +7,7 @@ proc ModulesHelp { } {
 
 module-whatis {The Open MPI Project is an open source MPI-2 implementation. - Homepage: http://www.open-mpi.org/}
 
-set root    /Users/kehoste/.local/easybuild/software/OpenMPI/1.4.5-GCC-4.6.3-no-OFED
+set root    /home/xyzzy/.local/easybuild/software/OpenMPI/1.4.5-GCC-4.6.3-no-OFED
 
 conflict    OpenMPI
 

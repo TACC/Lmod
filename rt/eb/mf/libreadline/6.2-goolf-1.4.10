@@ -13,7 +13,7 @@ command lines as they are typed in. Both Emacs and vi editing modes are availabl
 additional functions to maintain a list of previously-entered command lines, to recall and perhaps reedit those lines,
 and perform csh-like history expansion on previous commands. - Homepage: http://cnswww.cns.cwru.edu/php/chet/readline/rltop.html}
 
-set root    /Users/kehoste/.local/easybuild/software/libreadline/6.2-goolf-1.4.10
+set root    /home/xyzzy/.local/easybuild/software/libreadline/6.2-goolf-1.4.10
 
 conflict    libreadline
 

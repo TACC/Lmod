@@ -7,7 +7,7 @@ proc ModulesHelp { } {
 
 module-whatis {The GNU Compiler Collection includes front ends for C, C++, Objective-C, Fortran, Java, and Ada, as well as libraries for these languages (libstdc++, libgcj,...). - Homepage: http://gcc.gnu.org/}
 
-set root    /Users/kehoste/.local/easybuild/software/GCC/4.7.1-CLooG-PPL
+set root    /home/xyzzy/.local/easybuild/software/GCC/4.7.1-CLooG-PPL
 
 conflict    GCC
 

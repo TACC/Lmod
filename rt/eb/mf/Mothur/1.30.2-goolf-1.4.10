@@ -9,7 +9,7 @@ the microbial ecology community. - Homepage: http://www.mothur.org/
 module-whatis {Mothur is a single piece of open-source, expandable software to fill the bioinformatics needs of
 the microbial ecology community. - Homepage: http://www.mothur.org/}
 
-set root    /Users/kehoste/.local/easybuild/software/Mothur/1.30.2-goolf-1.4.10
+set root    /home/xyzzy/.local/easybuild/software/Mothur/1.30.2-goolf-1.4.10
 
 conflict    Mothur
 
