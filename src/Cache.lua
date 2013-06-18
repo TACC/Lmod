@@ -246,7 +246,7 @@ local function readCacheFile(self, cacheFileA)
                for k, v in pairs(G_moduleT) do
                   if ( k:sub(1,1) == '/' ) then
                      local dirTime = moduleDirT[k] or 0
-                     if (attr.modification > dirTime) then
+                     if (moduleDirT[k] and attr.modification > dirTime) then
                         k             = path_regularize(k)
                         dbg.print("saving directory: ",k," from cache file: ",f,"\n")
                         moduleDirT[k] = attr.modification

@@ -1,7 +1,7 @@
 ===========================
 step 1
 ===========================
-Modules based on Lua: Version 5.0 (5.0-27-g10ece47) 2013-05-29 05:22
+Modules based on Lua: Version 5.0 (5.0-28-g853f021) 2013-05-29 05:22
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -17,8 +17,7 @@ step 4
 step 5
 ===========================
 Restoring modules to user's default
-Lmod Warning: The system MODULEPATH has changed: Please rebuild your saved
-collection
+Lmod Warning: The system MODULEPATH has changed: Please rebuild your saved collection.
 Restoring modules to system default
 The system default contains no modules
   (env var: LMOD_SYSTEM_DEFAULT_MODULES is empty)
@@ -26,9 +25,9 @@ The system default contains no modules
 step 6
 ===========================
 Lmod Warning: The environment MODULEPATH has been changed in unexpected ways.
- Lmod is unable to use given MODULEPATH. It is using:
-"ProjectDIR/rt/changeMPATH/mf/Core:ProjectDIR/mf/Core". Please
-use "module use ..." to change MODULEPATH instead.
+Lmod is unable to use given MODULEPATH. It is using: 
+    "ProjectDIR/rt/changeMPATH/mf/Core:ProjectDIR/mf/Core".
+Please use "module use ..." to change MODULEPATH instead.
 ===========================
 step 7
 ===========================
