@@ -24,10 +24,12 @@ Lmod.  For the impatient, the major changes are:
      It will actually supports category/sub_category/name/version or
      any depth that your users will tolerate that much typing.
 
-Version 5.0
+Version 5.0.1
   Bug Fix:
     1) This version handles old cache files instead of crashing.
     2) Correctly handling of Personal module directories.
+    3) Correctly handles isloaded function for TCL modulefiles.
+    4) Tracks MODULEPATH changes external to Lmod.
   Feature:
     1) Bash/Zsh command line tab completion for both module and ml
        commands.  The Zsh support is added to the site-function directory
