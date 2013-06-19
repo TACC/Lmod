@@ -61,13 +61,19 @@ local Dbg         = require("Dbg")
 local Optiks      = require("Optiks")
 local ProgressBar = require("ProgressBar")
 local concatTbl   = table.concat
-local lfs         = require("lfs")
 local dbg         = Dbg:dbg()
+local lfs         = require("lfs")
 function cmdDir()
    return cmd_dir
 end
 function main()
    local optionTbl = options()
+   if (optionTbl.debug) then
+      dbg:activateDebug(1)
+   end
+
+   dbg.start("processMT()")
+
    local outputFh  = io.open(optionTbl.fn,"a")
 
    --------------------------------------------------------------
@@ -80,11 +86,14 @@ function main()
    local nusers = line:match("(%d+)")
    local pb     = ProgressBar:new{stream = io.stdout, max = nusers, barWidth=100}
 
+   dbg.print("nusers: ",nusers,"\n")
 
    local iuser = 0
    for userName, homeDir in processPWRec(passwd) do
       iuser   = iuser + 1
       pb:progress(iuser)
+
+      dbg.print("user: ",iuser," userName: ",userName,"\n")
 
       local dir  = usrSaveDir
       local attr = lfs.attributes(dir)
@@ -117,6 +126,7 @@ function main()
       end
    end
    io.stdout:write("\n")
+   dbg.fini("processMT")
 end
 
 ------------------------------------------------------------------------
@@ -261,4 +271,4 @@ function options()
 
 end
 main()
-p
+
