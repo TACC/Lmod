@@ -406,7 +406,7 @@ function M.buildSpiderDB(a, moduleT, dbT)
    if ( version < Cversion) then
       LmodError("old version moduleT\n")
    else
-      dbg.print("Current version moduleT\n")
+      dbg.print("Current version moduleT.\n")
       for mpath, v in pairs(moduleT) do
          if (type(v) == "table") then
             dbg.print("mpath: ",mpath, "\n")
@@ -463,7 +463,7 @@ function M.searchSpiderDB(strA, a, moduleT, dbT)
    local version = moduleT.version or 0
 
    if (version < Cversion) then
-      LmodError("old version moduleT\n")
+      LmodError("old version moduleT.\n")
    else
       dbg.print("Current version moduleT\n")
       for mpath, v in pairsByKeys(moduleT) do

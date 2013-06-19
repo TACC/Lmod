@@ -673,7 +673,7 @@ function M.getMTfromFile(self,t)
    dbg.print("l_mt.systemBaseMPATH: ",l_mt.systemBaseMPATH,"\n")
    if (self.systemBaseMPATH ~= l_mt.systemBaseMPATH) then
       LmodWarning("The system MODULEPATH has changed: ",
-                  "Please rebuild your saved collection\n")
+                  "Please rebuild your saved collection.\n")
       dbg.fini("MT:getMTfromFile")
       return false
    end
@@ -761,7 +761,7 @@ function M.getMTfromFile(self,t)
 
    if (#aa > 0) then
       LmodWarning("The following modules have changed: ", concatTbl(aa,", "),"\n")
-      LmodWarning("Please re-create this collection\n")
+      LmodWarning("Please re-create this collection.\n")
       return false
    end
 
@@ -803,12 +803,12 @@ function M.resolveMpathChanges(self,currentMPATH)
 
    if ( mM ~= 0) then
       local a = {}
-      a[#a+1] = [[ The environment MODULEPATH has been changed in unexpected ways.
-                     Lmod is unable to use given MODULEPATH. It is using: "]]
+      a[#a+1] = "The environment MODULEPATH has been changed in unexpected ways.\n"
+      a[#a+1] = "Lmod is unable to use given MODULEPATH. It is using: \n    \""
       a[#a+1] = concatTbl(mpathA,":")
-      a[#a+1] = "\". Please use \"module use ...\" to change MODULEPATH instead."
+      a[#a+1] = "\".\nPlease use \"module use ...\" to change MODULEPATH instead."
       
-      LmodWarning(fillWords("", concatTbl(a,""),TermWidth()))
+      LmodWarning(concatTbl(a,""))
 
    else
 
@@ -819,9 +819,8 @@ function M.resolveMpathChanges(self,currentMPATH)
       varTbl[ModulePath]  = Var:new(ModulePath, self.systemBaseMPATH)
       self:buildBaseMpathA(dmp)
       
-      LmodMessage(fillWords("",[[Lmod as detected external MODULEPATH changes,
-                              Please use \"module use\" instead" ]],
-                            TermWidth()))
+      LmodMessage("Lmod as detected external MODULEPATH changes, " ..
+                  "Please use \"module use\" instead.")
    end
 end
 
@@ -973,14 +972,14 @@ function M.reloadAllModules(self)
       end
       count       = count + 1
       if (count > ncount) then
-         LmodError("ReLoading more than ", ncount, " times-> exiting\n")
+         LmodError("ReLoading more than ", ncount, " times-> exiting.\n")
       end
       done = self:sameMPATH(varTbl[ModulePath]:expand())
    end
 
    local safe = master:safeToUpdate()
    if (not safe and changed) then
-      LmodError("MODULEPATH has changed: run \"module update\" to repair\n")
+      LmodError("MODULEPATH has changed: run \"module update\" to repair.\n")
    end
    return not changed
 end
@@ -1374,14 +1373,14 @@ function M.setHashSum(self)
    end
 
    if (not found) then
-      LmodError("Unable to find computeHashSum\n")
+      LmodError("Unable to find computeHashSum.\n")
    end
 
    local path   = "@path_to_lua@:" .. os.getenv("PATH")
    local luaCmd = findInPath("lua",path)
 
    if (luaCmd == "") then
-      LmodError("Unable to find lua\n")
+      LmodError("Unable to find lua.\n")
    end
 
    local cmdA = {}
@@ -1461,12 +1460,12 @@ function M.add_property(self, sn, name, value)
 
    if (propKindT == nil) then
       LmodError("MT:add_property(): system property table has no entry for: ", name,
-                "\nCheck spelling and case of name\n")
+                "\nCheck spelling and case of name.\n")
    end
    local validT = propKindT.validT
    if (validT == nil) then
       LmodError("MT:add_property(): system property table has no validT table for: ", name,
-                "\nCheck spelling and case of name\n")
+                "\nCheck spelling and case of name.\n")
    end
 
    local propT        = entry.propT
@@ -1476,7 +1475,7 @@ function M.add_property(self, sn, name, value)
    for v in value:split(":") do
       if (validT[v] == nil) then
          LmodError("MT:add_property(): The validT table for ", name," has no entry for: ", value,
-                   "\nCheck spelling and case of name\n")
+                   "\nCheck spelling and case of name.\n")
       end
       t[v] = 1
    end
@@ -1504,12 +1503,12 @@ function M.remove_property(self, sn, name, value)
 
    if (propKindT == nil) then
       LmodError("MT:remove_property(): system property table has no entry for: ", name,
-                "\nCheck spelling and case of name\n")
+                "\nCheck spelling and case of name.\n")
    end
    local validT = propKindT.validT
    if (validT == nil) then
       LmodError("MT:remove_property(): system property table has no validT table for: ", name,
-                "\nCheck spelling and case of name\n")
+                "\nCheck spelling and case of name.\n")
    end
 
    local propT        = entry.propT or {}
@@ -1518,7 +1517,7 @@ function M.remove_property(self, sn, name, value)
    for v in value:split(":") do
       if (validT[v] == nil) then
          LmodError("MT:add_property(): The validT table for ", name," has no entry for: ", value,
-                   "\nCheck spelling and case of name\n")
+                   "\nCheck spelling and case of name.\n")
       end
       t[v] = nil
    end

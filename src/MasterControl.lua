@@ -504,6 +504,18 @@ end
 -- Message/Error  Functions
 -------------------------------------------------------------------
 
+local function msg(lead, ...)
+   local twidth = TermWidth()
+   local arg = { n = select('#', ...), ...}
+   io.stderr:write("\n")
+   arg[1] = lead .. arg[1]
+   local whole = concatTbl(arg,"")
+   for s in whole:split("\n") do
+      io.stderr:write(fillWords("",s, twidth),"\n")
+   end
+   io.stderr:write("\n")
+end
+
 function LmodErrorExit()
    io.stdout:write("false\n")
    os.exit(1)

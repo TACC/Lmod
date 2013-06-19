@@ -37,6 +37,7 @@ require("myGlobals")
 require("string_split")
 require("string_trim")
 local Dbg    = require("Dbg")
+PkgBase      = require("PkgBase")
 local hook   = require("Hook")
 local getenv = os.getenv
 local posix  = require("posix")

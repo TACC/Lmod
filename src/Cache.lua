@@ -170,7 +170,7 @@ function M.cache(self, t)
    local mt        = MT:mt()
    local baseMpath = mt:getBaseMPATH()
    if (baseMpath == nil) then
-     LmodError("The Env Variable: \"", DfltModPath, "\" is not set\n")
+     LmodError("The Env Variable: \"", DfltModPath, "\" is not set.\n")
    end
 
    -- Since this function can get called many time, we need to only recompute
@@ -246,7 +246,7 @@ local function readCacheFile(self, cacheFileA)
                for k, v in pairs(G_moduleT) do
                   if ( k:sub(1,1) == '/' ) then
                      local dirTime = moduleDirT[k] or 0
-                     if (attr.modification > dirTime) then
+                     if (moduleDirT[k] and attr.modification > dirTime) then
                         k             = path_regularize(k)
                         dbg.print("saving directory: ",k," from cache file: ",f,"\n")
                         moduleDirT[k] = attr.modification
@@ -369,13 +369,6 @@ function M.build(self, fast)
       mcp           = mcp_old
       dbg.print("Resetting mpc to ", mcp:name(),"\n")
 
-      if (prtRbMsg) then
-         if (dbg.active()) then
-            dbg.print("done.\n")
-         else
-            io.stderr:write(" done.\n\n")
-         end
-      end
       dbg.print("t2-t1: ",t2-t1, " shortTime: ", shortTime, "\n")
 
       local r = {}
@@ -384,6 +377,8 @@ function M.build(self, fast)
       dbg.print("self.dontWrite: ", self.dontWrite, ", r.dontWriteCache: ", r.dontWriteCache,"\n")
 
       local dontWrite = self.dontWrite or r.dontWriteCache
+
+      local doneMsg = "done."
 
       if (t2 - t1 < shortTime or dontWrite) then
          ancient = shortLifeCache
@@ -404,6 +399,7 @@ function M.build(self, fast)
          end
          mt:setRebuildTime(ancient, newShortTime)
          dbg.print("mt: ", tostring(mt), "\n")
+         doneMsg = "(Fast not written) done."
       else
          mkdir_recursive(self.usrCacheDir)
          local s0 = "-- Date: " .. os.date("%c",os.time()) .. "\n"
@@ -421,6 +417,14 @@ function M.build(self, fast)
 
          mt:setRebuildTime(ancient2, buildT)
          dbg.print("mt: ", tostring(mt), "\n")
+         doneMsg = "(written) done."
+      end
+      if (prtRbMsg) then
+         if (dbg.active()) then
+            dbg.print(doneMsg, "\n")
+         else
+            io.stderr:write(" ",doneMsg,"\n\n")
+         end
       end
       dbg.print("Transfer from userModuleT to moduleT\n")
       for k, v in pairs(userModuleT) do
