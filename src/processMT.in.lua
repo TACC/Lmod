@@ -57,11 +57,12 @@ require("declare")
 
 _ModuleTable_ = false
 moduleInfoT = false
+local Dbg         = require("Dbg")
 local Optiks      = require("Optiks")
 local ProgressBar = require("ProgressBar")
 local concatTbl   = table.concat
 local lfs         = require("lfs")
-
+local dbg         = Dbg:dbg()
 function cmdDir()
    return cmd_dir
 end
@@ -242,6 +243,12 @@ function options()
    }
 
    cmdlineParser:add_option{
+      name   = {'-D'},
+      dest   = 'debug',
+      action = 'store_true',
+   }
+
+   cmdlineParser:add_option{
       name   = {'--passwd'},
       dest   = 'passwd',
       action = 'store',
@@ -254,3 +261,4 @@ function options()
 
 end
 main()
+p
