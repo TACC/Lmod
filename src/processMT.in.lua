@@ -63,6 +63,7 @@ local ProgressBar = require("ProgressBar")
 local concatTbl   = table.concat
 local dbg         = Dbg:dbg()
 local lfs         = require("lfs")
+
 function cmdDir()
    return cmd_dir
 end
@@ -91,12 +92,14 @@ function main()
    local iuser = 0
    for userName, homeDir in processPWRec(passwd) do
       iuser   = iuser + 1
-      pb:progress(iuser)
+      if (not optionTbl.quiet) then
+         pb:progress(iuser)
+      end
 
-      dbg.print("user: ",iuser," userName: ",userName,"\n")
 
-      local dir  = usrSaveDir
+      local dir  = pathJoin(homeDir,".lmod.d",USER_SAVE_DIR_NAME)
       local attr = lfs.attributes(dir)
+      dbg.print("user: ",iuser," userName: ",userName," dir: ",dir,"\n")
       if ( attr and attr.mode == "directory") then
          for file in lfs.dir(dir) do
             if (file:sub(-4,-1) == ".lua") then
@@ -110,7 +113,7 @@ function main()
          end
       end
 
-      local dir  = usrSBatchDir
+      local dir  = pathJoin(homeDir,".lmod.d",USER_SBATCH_DIR_NAME)
       local attr = lfs.attributes(dir)
       if ( attr and attr.mode == "directory") then
          for file in lfs.dir(dir) do
@@ -253,6 +256,12 @@ function options()
    }
 
    cmdlineParser:add_option{
+      name   = {'--quiet'},
+      dest   = 'quiet',
+      action = 'store_true',
+   }
+
+   cmdlineParser:add_option{
       name   = {'-D'},
       dest   = 'debug',
       action = 'store_true',
@@ -271,4 +280,3 @@ function options()
 
 end
 main()
-
