@@ -1,7 +1,7 @@
 ===========================
 step 1
 ===========================
-Modules based on Lua: Version 5.0 (5.0-16-g8fbce52) 2013-05-29 05:22
+Modules based on Lua: Version 5.0.1 (5.0.1-6-g4f694c8) 2013-06-18 14:14
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -31,7 +31,7 @@ add_property("arch","mic")
 step 5
 ===========================
    ProjectDIR/rt/pkg/mf/MPI/gcc/4.7/mpich/3.0/pmetis/4.0.3.lua:
-whatis("Name: ParMETIS")
+whatis("Name: PMETIS")
 whatis("Version: 4.0.3")
 whatis("Category: Library, Mathematics")
 whatis("Description: Parallel graph partitioning and fill-reduction matrix ordering routines")

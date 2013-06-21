@@ -37,8 +37,8 @@
 
 require("strict")
 require("inherits")
-
-local M = {}
+local M    = {}
+local hook = require("Hook")
 
 function M.build(name)
    local pkg = require(name)
@@ -101,6 +101,34 @@ function M.setPkgInfo(self)
    if (helpMsg) then
       local version = "\nVersion " .. self:pkgVersion() .. "\n"
       help(helpMsg, version)
+   end
+end
+
+local stdT = { DIR = "", BIN = "bin", LIB = "lib", INC = "include"}
+
+
+function M.setStandardPaths(self, ...)
+   local siteName = hook.apply("SiteName"):upper()
+   local base     = self:pkgBase()
+   local pkgNameU = self:pkgDisplayName():upper()
+
+   local arg = { n = select("#", ...), ...}
+
+
+   for i = 1, arg.n do
+      local v  = arg[i]:upper()
+      local pp = stdT[v]             -- Path piece
+      if (pp == nil) then
+         LmodError("Unknown Key: \"",arg[i], "\" in setStandardPaths\n")
+      end
+
+      local name = siteName .. "_" .. pkgNameU .. "_" .. v
+      local path = pathJoin(base, pp)
+      setenv(name, path)
+
+      if (v == "BIN") then
+         prepend_path("PATH", path)
+      end
    end
 end
 

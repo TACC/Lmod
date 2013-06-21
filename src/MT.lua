@@ -415,24 +415,24 @@ local function new(self, s)
          s_loadOrder = icount
       end
       o._MPATH = concatTbl(o.mpathA,":")
-      local baseMpath = concatTbl(o.baseMpathA,":")
-      dbg.print("baseMpath: ", baseMpath, "\n")
+      local baseMPATH = concatTbl(o.baseMpathA,":")
+      dbg.print("baseMPATH: ", baseMPATH, "\n")
 
       if (_ModuleTable_.systemBaseMPATH == nil) then
-         dbg.print("setting self.systemBaseMPATH to baseMpath\n")
-	 o.systemBaseMPATH = path_regularize(baseMpath)
+         dbg.print("setting self.systemBaseMPATH to baseMPATH\n")
+	 o.systemBaseMPATH = path_regularize(baseMPATH)
          o._MPATH = o.systemBaseMPATH
       end
       -----------------------------------------------------------------
       -- Compare MODULEPATH from environment versus ModuleTable
       if (currentMPATH == nil or currentMPATH == o._MPATH) then
-         varTbl[DfltModPath] = Var:new(DfltModPath, baseMpath)
-         dbg.print("buildBaseMpathA(",baseMpath,")\n")
-         o:buildBaseMpathA(baseMpath)
+         varTbl[DfltModPath] = Var:new(DfltModPath, baseMPATH)
+         dbg.print("buildBaseMpathA(",baseMPATH,")\n")
+         o:buildBaseMpathA(baseMPATH)
       else
          dbg.print("currentMPATH: ",currentMPATH,"\n")
          dbg.print("_MPATH:          ",o._MPATH,"\n")
-         o:resolveMpathChanges(currentMPATH)
+         o:resolveMpathChanges(currentMPATH, baseMPATH)
       end
    end
    o.inactive         = {}
@@ -785,20 +785,20 @@ end
 
 --------------------------------------------------------------------------
 -- resolveMpathChanges: Handle when MODULEPATH is changed outside of Lmod
-function M.resolveMpathChanges(self,currentMPATH)
-   local usrMpathA  = path2pathA(self.currentMPATH)
+function M.resolveMpathChanges(self, currentMPATH, baseMPATH)
+   local usrMpathA  = path2pathA(currentMPATH)
    local mpathA     = self.mpathA
    local kU         = #usrMpathA
    local kM         = #mpathA
    local mU         = 0
    local mM         = 0
    for i = kM, 1, -1 do
-      if (usrMpathA[kM] ~= mpathA[i]) then
-         mU = kM
+      if (usrMpathA[kU] ~= mpathA[i]) then
+         mU = kU
          mM = i
          break
       end
-      kM = kM - 1
+      kU = kU - 1
    end
 
    if ( mM ~= 0) then
@@ -811,12 +811,13 @@ function M.resolveMpathChanges(self,currentMPATH)
       LmodWarning(concatTbl(a,""))
 
    else
-
-      usrMpathA[kM+1] = nil
-      
-      local dmp = concatTbl(usrMpathA,":") .. ":" .. varTbl[DfltModPath]:expand()
+      local a = {}
+      for i = 1,kU do
+         a[i] = usrMpathA[i]
+      end
+      local dmp    = concatTbl(a,":") .. ":" .. baseMPATH
       varTbl[DfltModPath] = Var:new(DfltModPath, dmp)
-      varTbl[ModulePath]  = Var:new(ModulePath, self.systemBaseMPATH)
+      varTbl[ModulePath]  = Var:new(ModulePath, currentMPATH)
       self:buildBaseMpathA(dmp)
       
       LmodMessage("Lmod as detected external MODULEPATH changes, " ..

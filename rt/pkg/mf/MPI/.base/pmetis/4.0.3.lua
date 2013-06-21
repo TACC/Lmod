@@ -20,11 +20,9 @@ local pkg = Pkg:new{Category     = "Library, Mathematics",
                     URL          = "http://glaros.dtc.umn.edu/gkhome/views/metis",
                     Description  = "Parallel graph partitioning and fill-reduction "..
                                    "matrix ordering routines",
-                    display_name = "ParMETIS",
+                    display_name = "PMETIS",
                     level        = 2,
                     help         = help
 }
-local base = pkg:pkgBase()
-setenv(      "TACC_PMETIS_DIR", base)
-setenv(      "TACC_PMETIS_INC", pathJoin(base,"include"))
-setenv(      "TACC_PMETIS_LIB", pathJoin(base,"lib"))
+
+pkg:setStandardPaths("DIR","INC","LIB")

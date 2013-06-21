@@ -14,9 +14,7 @@ local pkg = Pkg:new{Category     = "System Environment/Base",
                     help         = helpMsg
 }
                      
-local base = pkg:pkgBase()
-setenv( 'TACC_BOOST_LIB',  pathJoin(base,"lib"))
-setenv( 'TACC_BOOST_INC',  pathJoin(base,"include"))
+pkg:setStandardPaths("LIB","INC")
 
 add_property("arch","mic")
 
