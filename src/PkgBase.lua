@@ -104,7 +104,7 @@ function M.setPkgInfo(self)
    end
 end
 
-local stdT = { DIR = "", BIN = "bin", LIB = "lib", INC = "include"}
+local stdT = { DIR = "", BIN = "bin", LIB = "lib", INC = "include",DOC="doc"}
 
 
 function M.setStandardPaths(self, ...)
