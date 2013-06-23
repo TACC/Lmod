@@ -411,6 +411,10 @@ function myFileName()
    return mcp:myFileName()
 end
 
+function myShellName()
+   return mcp:myShellName()
+end
+
 function myModuleFullName()
    return mcp:myModuleFullName()
 end

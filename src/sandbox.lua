@@ -133,6 +133,7 @@ sandbox_env = {
   mode                 = mode,
   isloaded             = isloaded,
   isPending            = isPending,
+  myShellName          = myShellName,
   myFileName           = myFileName,
   myModuleFullName     = myModuleFullName,
   myModuleUsrName      = myModuleUsrName,

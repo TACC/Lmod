@@ -346,6 +346,11 @@ function M.pushenv(self, name, value)
    local dbg    = Dbg:dbg()
    dbg.start("MasterControl:pushenv(\"",name,"\", \"",value,"\")")
 
+   ----------------------------------------------------------------
+   -- If name exists in the env and the stack version of the name
+   -- doesn't exist then use the name's value as the initial value
+   -- for "stackName".
+
    local stackName = "__LMOD_STACK_" .. name
    local v64       = nil
    local v         = getenv(name)
@@ -703,6 +708,11 @@ function M.family(self, name)
                 "Please submit a consulting ticket if you require additional assistance.\n")
    end
    dbg.fini()
+end
+
+function M.myShellName(self)
+   local master = _G.Master:master()
+   return master.shell:name()
 end
 
 function M.myFileName(self)

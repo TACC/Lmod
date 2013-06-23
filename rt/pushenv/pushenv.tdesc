@@ -24,7 +24,7 @@ testdescript = {
      COUNT=0
      HOME_ORIG=`(cd $HOME; /bin/pwd)`
      HOME=`pwd`;                        export HOME
-     RTM_SETTARG_CMD=/bin/true;         export RTM_SETTARG_CMD
+     RTM_SETTARG_CMD=":";               export RTM_SETTARG_CMD
 
      rm -fr _stderr.* _stdout.* err.* out.* .lmod.d
 
