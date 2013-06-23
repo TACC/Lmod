@@ -1,7 +1,7 @@
 ===========================
 step 1
 ===========================
-Modules based on Lua: Version 5.0b4 2013-04-03 18:07
+Modules based on Lua: Version 5.0.1 (5.0.1-7-g2aafe1c) 2013-06-18 14:14
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -31,8 +31,14 @@ Activating Modules:
 ===========================
 step 9
 ===========================
-Saved current collection of modules to: default
 ===========================
 step 10
+===========================
+===========================
+step 11
+===========================
+Saved current collection of modules to: default
+===========================
+step 12
 ===========================
 Restoring modules to user's default

@@ -347,13 +347,20 @@ function M.pushenv(self, name, value)
    dbg.start("MasterControl:pushenv(\"",name,"\", \"",value,"\")")
 
    local stackName = "__LMOD_STACK_" .. name
+   local v64       = nil
+   local v         = getenv(name)
+   if (getenv(stackName) == nil and v) then
+      v64          = encode64(v)
+   end
+
 
    if (varTbl[stackName] == nil) then
-      varTbl[stackName] = Var:new(stackName, nil, ":")
+      varTbl[stackName] = Var:new(stackName, v64, ":")
    end
-   
-   local v   = tostring(value)
-   local v64 = encode64(value)
+
+
+   v   = tostring(value)
+   v64 = encode64(value)
 
    varTbl[stackName]:prepend(v64)
 

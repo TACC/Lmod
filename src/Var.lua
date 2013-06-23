@@ -88,6 +88,7 @@ require("utils")
 local Dbg           = require("Dbg")
 local ModulePath    = ModulePath
 local concatTbl     = table.concat
+local getenv        = os.getenv
 local huge          = math.huge
 local posix         = require("posix")
 local setenv        = posix.setenv
@@ -104,7 +105,7 @@ local M = {}
 --            "path".  Other functions work similarly.
 
 local function extract(self)
-   local myValue = self.value or os.getenv(self.name) or ""
+   local myValue = self.value or getenv(self.name) or ""
    local pathTbl = {}
    local imax    = 0
    local imin    = 1

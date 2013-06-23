@@ -23,7 +23,8 @@ testdescript = {
      numStep=0
      COUNT=0
      HOME_ORIG=`(cd $HOME; /bin/pwd)`
-     HOME=`pwd`;                       export HOME
+     HOME=`pwd`;                        export HOME
+     RTM_SETTARG_CMD=/bin/true;         export RTM_SETTARG_CMD
 
      rm -fr _stderr.* _stdout.* err.* out.* .lmod.d
 
@@ -35,6 +36,8 @@ testdescript = {
      runMe lua $(projectDir)/src/lmod.in.lua bash load intel mpich # 6
      runMe lua $(projectDir)/src/lmod.in.lua bash unload intel     # 7
      runMe lua $(projectDir)/src/lmod.in.lua bash load intel       # 8
+     runMe lua $(projectDir)/src/lmod.in.lua bash load settarg     # 9
+     runMe lua $(projectDir)/src/lmod.in.lua bash unload settarg   #10
 
      runMe lua $(projectDir)/src/lmod.in.lua bash save             # 9
      runMe lua $(projectDir)/src/lmod.in.lua bash restore          #10

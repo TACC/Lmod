@@ -127,8 +127,42 @@ LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/pushenv/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0:ProjectDIR/rt/pushenv/mf/Core";
 export MODULEPATH;
+RTM_SETTARG_CMD="SETTARG_CMD";
+export RTM_SETTARG_CMD;
+_ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/pushenv/mf/Core",},family={},inactive={},mT={intel={["FN"]="ProjectDIR/rt/pushenv/mf/Core/intel/13.0.lua",["default"]=1,["fullName"]="intel/13.0",["loadOrder"]=1,["mType"]="w",propT={},["short"]="intel",["status"]="active",},mpich={["FN"]="ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0/mpich/3.0.lua",["default"]=1,["fullName"]="mpich/3.0",["loadOrder"]=2,["mType"]="w",propT={},["short"]="mpich",["status"]="active",},settarg={["FN"]="ProjectDIR/rt/pushenv/mf/Core/settarg/1.0.lua",["default"]=1,["fullName"]="settarg/1.0",["loadOrder"]=3,["mType"]="w",propT={},["short"]="settarg",["status"]="active",},},mpathA={"ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0","ProjectDIR/rt/pushenv/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/pushenv/mf/Core",["version"]=2,}';
+export _ModuleTable_;
+__LMOD_STACK_RTM_SETTARG_CMD="SETTARG_CMD:/bin/true";
+export __LMOD_STACK_RTM_SETTARG_CMD;
 ===========================
 step 10
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/pushenv/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0:ProjectDIR/rt/pushenv/mf/Core";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/pushenv/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0:ProjectDIR/rt/pushenv/mf/Core";
+export MODULEPATH;
+RTM_SETTARG_CMD="/bin/true";
+export RTM_SETTARG_CMD;
+_ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/pushenv/mf/Core",},family={},inactive={},mT={intel={["FN"]="ProjectDIR/rt/pushenv/mf/Core/intel/13.0.lua",["default"]=1,["fullName"]="intel/13.0",["loadOrder"]=1,["mType"]="w",propT={},["short"]="intel",["status"]="active",},mpich={["FN"]="ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0/mpich/3.0.lua",["default"]=1,["fullName"]="mpich/3.0",["loadOrder"]=2,["mType"]="w",propT={},["short"]="mpich",["status"]="active",},},mpathA={"ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0","ProjectDIR/rt/pushenv/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/pushenv/mf/Core",["version"]=2,}';
+export _ModuleTable_;
+__LMOD_STACK_RTM_SETTARG_CMD="/bin/true";
+export __LMOD_STACK_RTM_SETTARG_CMD;
+===========================
+step 11
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/pushenv/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0:ProjectDIR/rt/pushenv/mf/Core";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/pushenv/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0:ProjectDIR/rt/pushenv/mf/Core";
+export MODULEPATH;
+===========================
+step 12
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/pushenv/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
