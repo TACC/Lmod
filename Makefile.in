@@ -9,6 +9,7 @@ SPIDER_CACHE_DIRS 	 := @SPIDER_CACHE_DIRS@
 PATH_TO_HASHSUM   	 := @PATH_TO_HASHSUM@
 PATH_TO_LUA	  	 := @PATH_TO_LUA@
 PATH_TO_PAGER	  	 := @PATH_TO_PAGER@
+PATH_TO_TRUE             := @PATH_TO_TRUE@
 MODULEPATH_ROOT   	 := @MODULEPATH_ROOT@
 VERSION_SRC	  	 := src/Version.lua
 LUA_INCLUDE       	 := @LUA_INCLUDE@
@@ -84,6 +85,7 @@ __installMe:
 	        -e 's|@path_to_lua@|$(PATH_TO_LUA)|g'                 \
 	        -e 's|@path_to_hashsum@|$(PATH_TO_HASHSUM)|g'         \
 	        -e 's|@path_to_pager@|$(PATH_TO_PAGER)|g'             \
+	        -e 's|@path_to_true@|$(PATH_TO_TRUE)|g'               \
                 -e 's|@use_dot_files@|$(USE_DOT_FILES)|g'             \
                 -e 's|@git@|$(GIT_VERSION)|g'                         \
 	        -e 's|@ancient@|$(ANCIENT)|g'                         \

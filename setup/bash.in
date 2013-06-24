@@ -4,11 +4,12 @@
 LMOD_DIR=@PKG@/libexec/
 LMOD_CMD=@PKG@/libexec/lmod
 export LMOD_CMD
+export LMOD_DIR
 module()
 {
   eval $($LMOD_CMD bash "$@")
+  [ $? = 0 ] && eval $($LMOD_SETTARG_CMD -s sh )
 }
-export LMOD_DIR
 
 clearMT()
 {

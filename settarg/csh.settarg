@@ -1,0 +1,14 @@
+alias settarg 'eval `$CFDTOOLS/mk/settarg_cmd --shell csh \!*`'
+alias dbg  "settarg dbg  \!*"
+alias chk  "settarg chk  \!*"
+alias opt  "settarg opt  \!*"
+alias mdbg "settarg mdbg \!*"
+alias gopt "settarg gopt \!*"
+alias targ "echo $TARG"
+
+setenv PATH $PATH:$HOME/w/settarg
+
+if ( $METHOD == '' ) then
+  set METHOD=dbg
+fi
+settarg $METHOD
