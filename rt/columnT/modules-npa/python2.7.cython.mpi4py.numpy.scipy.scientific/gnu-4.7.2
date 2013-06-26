@@ -1,0 +1,35 @@
+#%Module1.0
+#####################################################################
+
+set modulename  "Nick Papior Andersen's parallel python script for: gnu-4.7.2"
+set version	13-150
+set compiler	gnu-4.7.2
+set basepath	/directory/should/not/exist
+
+proc ModulesHelp { } {
+    puts stderr "\tLoads $modulename ($version)"
+}
+
+module-whatis "Loads $modulename ($version), compiler $compiler."
+
+# This module will load the following modules:
+module load zlib/1.2.7/gnu-4.7.2
+module load hdf5-serial/1.8.10/gnu-4.7.2
+module load netcdf-serial/4.2.1.1/gnu-4.7.2
+module load python/2.7.3/gnu-4.7.2
+module load fftw/3.3.2/gnu-4.7.2
+module load SuiteSparse_config/4.0.2/gnu-4.7.2
+module load AMD/2.3.1/gnu-4.7.2
+module load COLAMD/2.8.0/gnu-4.7.2
+module load CAMD/2.3.1/gnu-4.7.2
+module load CCOLAMD/2.8.0/gnu-4.7.2
+module load CHOLMOD/2.0.1/gnu-4.7.2
+module load UMFPACK/5.6.1/gnu-4.7.2
+module load atlas/3.10.1/gnu-4.7.2
+module load numpy/1.7.0/python-2.7.3/gnu-4.7.2
+module load openmpi/1.6.4/gnu-4.7.2
+module load ScientificPython/2.9.2/python-2.7.3/gnu-4.7.2
+module load scipy/0.11.0/python-2.7.3/gnu-4.7.2
+module load Cython/0.18/python-2.7.3/gnu-4.7.2
+module load mpi4py/1.3/python-2.7.3/gnu-4.7.2
+

@@ -1,0 +1,36 @@
+#%Module1.0
+#####################################################################
+
+set modulename  "Nick Papior Andersen's Photonics python script for QuTip: intel-13.1.1"
+set version	13-149
+set compiler	intel-13.1.1
+set basepath	/directory/should/not/exist
+
+proc ModulesHelp { } {
+    puts stderr "\tLoads $modulename ($version)"
+}
+
+module-whatis "Loads $modulename ($version), compiler $compiler."
+
+# This module will load the following modules:
+module load intel/13.1.1
+module load zlib/1.2.7/intel-13.1.1
+module load hdf5-serial/1.8.10/intel-13.1.1
+module load netcdf-serial/4.2.1.1/intel-13.1.1
+module load python/2.7.3/intel-13.1.1
+module load fftw/3.3.2/intel-13.1.1
+module load SuiteSparse_config/4.0.2/intel-13.1.1
+module load AMD/2.3.1/intel-13.1.1
+module load COLAMD/2.8.0/intel-13.1.1
+module load CAMD/2.3.1/intel-13.1.1
+module load CCOLAMD/2.8.0/intel-13.1.1
+module load CHOLMOD/2.0.1/intel-13.1.1
+module load UMFPACK/5.6.1/intel-13.1.1
+module load numpy/1.7.0/python-2.7.3/intel-13.1.1
+module load scipy/0.11.0/python-2.7.3/intel-13.1.1
+module load Cython/0.18/python-2.7.3/intel-13.1.1
+module load matplotlib/1.2.0/python-2.7.3/intel-13.1.1
+module load ScientificPython/2.9.2/python-2.7.3/intel-13.1.1
+module load numexpr/2.0.1/python-2.7.3/intel-13.1.1
+module load QuTiP/2.1.0/python-2.7.3/intel-13.1.1
+

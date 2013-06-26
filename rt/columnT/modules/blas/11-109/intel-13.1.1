@@ -1,0 +1,17 @@
+#%Module1.0
+#####################################################################
+
+set modulename  blas
+set version	11-109
+set compiler	intel-13.1.1
+set basepath	/opt/blas/$version/intel-13.1.1
+
+proc ModulesHelp { } {
+    puts stderr "\tLoads $modulename ($version)"
+}
+
+module-whatis "Loads $modulename ($version), compiler $compiler."
+
+# Requirements for the module:
+prereq intel/13.1.1
+

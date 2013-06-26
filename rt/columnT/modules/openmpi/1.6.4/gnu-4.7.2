@@ -1,0 +1,15 @@
+#%Module1.0
+#####################################################################
+
+set modulename  openmpi
+set version	1.6.4
+set compiler	gnu-4.7.2
+set basepath	/opt/openmpi/$version/gnu-4.7.2
+
+proc ModulesHelp { } {
+    puts stderr "\tLoads $modulename ($version)"
+}
+
+module-whatis "Loads $modulename ($version), compiler $compiler."
+
+prepend-path PATH             $basepath/bin

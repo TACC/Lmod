@@ -1,0 +1,16 @@
+#%Module1.0
+#####################################################################
+
+set modulename  python
+set version	2.7.3
+set compiler	gnu-4.7.2
+set basepath	/opt/python/$version/gnu-4.7.2
+
+proc ModulesHelp { } {
+    puts stderr "\tLoads $modulename ($version)"
+}
+
+module-whatis "Loads $modulename ($version), compiler $compiler."
+
+prepend-path PATH             $basepath/bin
+prepend-path PYTHONPATH  $basepath/lib/python2.7/site-packages

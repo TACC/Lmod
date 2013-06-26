@@ -1,0 +1,20 @@
+#%Module1.0
+#####################################################################
+
+set modulename  mumps
+set version	4.10.0
+set compiler	gnu-4.7.2
+set basepath	/opt/mumps/$version/gnu-4.7.2
+
+proc ModulesHelp { } {
+    puts stderr "\tLoads $modulename ($version)"
+}
+
+module-whatis "Loads $modulename ($version), compiler $compiler."
+
+# Requirements for the module:
+prereq openmpi/1.6.4/gnu-4.7.2
+prereq parmetis/3.2.0/gnu-4.7.2
+prereq blas/11-109/gnu-4.7.2
+prereq scalapack/2.0.2/gnu-4.7.2
+

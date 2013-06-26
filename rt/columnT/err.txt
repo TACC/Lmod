@@ -1,0 +1,515 @@
+===========================
+step 1
+===========================
+Modules based on Lua: Version 5.0.1 (5.0.1-13-g8ab06b3) 2013-06-18 14:14
+    by Robert McLay mclay@tacc.utexas.edu
+===========================
+step 2
+===========================
+ProjectDIR/rt/columnT/modules
+   AMD/2.3.1/gnu-4.7.2
+   AMD/2.3.1/intel-13.1.1                           (D)
+   CAMD/2.3.1/gnu-4.7.2
+   CAMD/2.3.1/intel-13.1.1                          (D)
+   CCOLAMD/2.8.0/gnu-4.7.2
+   CCOLAMD/2.8.0/intel-13.1.1                       (D)
+   CHOLMOD/2.0.1/gnu-4.7.2
+   CHOLMOD/2.0.1/intel-13.1.1                       (D)
+   COLAMD/2.8.0/gnu-4.7.2
+   COLAMD/2.8.0/intel-13.1.1                        (D)
+   Cython/0.18/python-2.7.3/gnu-4.7.2
+   Cython/0.18/python-2.7.3/intel-13.1.1            (D)
+   Inelastica-DEV/151/python-2.7.3/gnu-4.7.2
+   Inelastica-DEV/151/python-2.7.3/intel-13.1.1     (D)
+   Inelastica/1.1/python-2.7.3/gnu-4.7.2
+   Inelastica/1.1/python-2.7.3/intel-13.1.1         (D)
+   QuTiP/2.1.0/python-2.7.3/gnu-4.7.2
+   QuTiP/2.1.0/python-2.7.3/intel-13.1.1            (D)
+   ScientificPython/2.9.2/python-2.7.3/gnu-4.7.2
+   ScientificPython/2.9.2/python-2.7.3/intel-13.1.1 (D)
+   SuiteSparse_config/4.0.2/gnu-4.7.2
+   SuiteSparse_config/4.0.2/intel-13.1.1            (D)
+   UMFPACK/5.6.1/gnu-4.7.2
+   UMFPACK/5.6.1/intel-13.1.1                       (D)
+   ase/3.6.0.2515/python-2.7.3/gnu-4.7.2
+   ase/3.6.0.2515/python-2.7.3/intel-13.1.1         (D)
+   ase/3.7.1.3184/python-2.7.3/gnu-4.7.2
+   ase/3.7.1.3184/python-2.7.3/intel-13.1.1         (D)
+   atlas/3.10.1/gnu-4.7.2
+   atlas/3.10.1/intel-13.1.1                        (D)
+   bison/2.6.5/gnu-4.7.2
+   bison/2.6.5/intel-13.1.1                         (D)
+   blas/11-109/gnu-4.7.2
+   blas/11-109/intel-13.1.1                         (D)
+   bzr/2.5.1/python-2.7.3/intel-13.1.1
+   espresso/5.0.1/intel-13.1.1
+   fftw/2.1.5/gnu-4.7.2
+   fftw/2.1.5/intel-13.1.1                          (D)
+   fftw/3.3.2/gnu-4.7.2
+   fftw/3.3.2/intel-13.1.1                          (D)
+   fftw/intel/intel-13.1.1
+   flex/2.5.37/gnu-4.7.2
+   flex/2.5.37/intel-13.1.1                         (D)
+   gnuplot/4.6.1/intel-13.1.1
+   gpaw-setups/0.9.9672
+   gpaw/0.9.0.8965/python-2.7.3/gnu-4.7.2
+   gpaw/0.9.0.8965/python-2.7.3/intel-13.1.1        (D)
+   grace/5.1.23/intel-13.1.1
+   gulp/4.0/intel-13.1.1
+   h5py/2.1.0/python-2.7.3/gnu-4.7.2
+   h5py/2.1.0/python-2.7.3/intel-13.1.1             (D)
+   h5utils-serial/1.12.1/gnu-4.7.2
+   h5utils-serial/1.12.1/intel-13.1.1               (D)
+   hdf5-serial/1.8.10/gnu-4.7.2
+   hdf5-serial/1.8.10/intel-13.1.1                  (D)
+   hdf5/1.8.10/gnu-4.7.2
+   hdf5/1.8.10/intel-13.1.1                         (D)
+   intel/13.1.1
+   lapack/3.4.2/gnu-4.7.2
+   lapack/3.4.2/intel-13.1.1                        (D)
+   lmod/5.0.1/intel-13.1.1
+   lua/5.2.2/intel-13.1.1
+   matplotlib/1.2.0/python-2.7.3/gnu-4.7.2
+   matplotlib/1.2.0/python-2.7.3/intel-13.1.1       (D)
+   molden/5.0/intel-13.1.1
+   mpi4py/1.3/python-2.7.3/gnu-4.7.2
+   mpi4py/1.3/python-2.7.3/intel-13.1.1             (D)
+   mumps/4.10.0/gnu-4.7.2
+   mumps/4.10.0/intel-13.1.1                        (D)
+   netcdf-logging/4.2.1.1/gnu-4.7.2
+   netcdf-logging/4.2.1.1/intel-13.1.1              (D)
+   netcdf-serial/4.2.1.1/gnu-4.7.2
+   netcdf-serial/4.2.1.1/intel-13.1.1               (D)
+   netcdf/4.2.1.1/gnu-4.7.2
+   netcdf/4.2.1.1/intel-13.1.1                      (D)
+   netcdf/4.3.0/gnu-4.7.2
+   netcdf/4.3.0/intel-13.1.1                        (D)
+   nose/1.2.1
+   numexpr/1.4.2/python-2.7.3/gnu-4.7.2
+   numexpr/1.4.2/python-2.7.3/intel-13.1.1          (D)
+   numexpr/2.0.1/python-2.7.3/gnu-4.7.2
+   numexpr/2.0.1/python-2.7.3/intel-13.1.1          (D)
+   numpy/1.7.0/python-2.7.3/gnu-4.7.2
+   numpy/1.7.0/python-2.7.3/intel-13.1.1            (D)
+   openmpi/1.6.4/gnu-4.7.2
+   openmpi/1.6.4/intel-13.1.1                       (D)
+   parmetis/3.2.0/gnu-4.7.2
+   parmetis/3.2.0/intel-13.1.1                      (D)
+   parmetis/4.0.2/gnu-4.7.2
+   parmetis/4.0.2/intel-13.1.1                      (D)
+   pcre/8.31/gnu-4.7.2
+   pcre/8.31/intel-13.1.1                           (D)
+   phonopy/1.6.3/python-2.7.3/gnu-4.7.2
+   phonopy/1.6.3/python-2.7.3/intel-13.1.1          (D)
+   pnetcdf/1.3.1/gnu-4.7.2
+   pnetcdf/1.3.1/intel-13.1.1                       (D)
+   python/2.7.3/gnu-4.7.2
+   python/2.7.3/intel-13.1.1                        (D)
+   pythtb/1.6.2/python-2.7.3/gnu-4.7.2
+   pythtb/1.6.2/python-2.7.3/intel-13.1.1           (D)
+   scalapack/2.0.2/gnu-4.7.2
+   scalapack/2.0.2/intel-13.1.1                     (D)
+   scipy/0.11.0/python-2.7.3/gnu-4.7.2
+   scipy/0.11.0/python-2.7.3/intel-13.1.1           (D)
+   scipy/0.12.0/python-2.7.3/intel-13.1.1
+   siesta-trunk/429/intel-13.1.1
+   siesta-trunk/458/intel-13.1.1
+   siesta-ts-dev/454/intel-13.1.1
+   siesta/3.1/gnu-4.7.2
+   siesta/3.1/intel-13.1.1                          (D)
+   siesta/3.2/gnu-4.7.2
+   siesta/3.2/intel-13.1.1                          (D)
+   swig/2.0.8/gnu-4.7.2
+   swig/2.0.8/intel-13.1.1                          (D)
+   vasp/5.3.3-fftw3.3.2/intel-13.1.1
+   vasp/5.3.3-fftwintel/intel-13.1.1
+   vasp/POTCARS/LDA
+   vasp/POTCARS/LDA.52
+   vasp/POTCARS/PBE
+   vasp/POTCARS/PBE.52                              (D)
+   vmd-text/1.9.1/intel-13.1.1
+   vmd/1.9.1/intel-13.1.1
+   wannier90/1.1/intel-13.1.1
+   wannier90/1.2/intel-13.1.1
+   xcrysden/1.5.53/intel-13.1.1
+   zlib/1.2.7/gnu-4.7.2
+   zlib/1.2.7/intel-13.1.1                          (D)
+ProjectDIR/rt/columnT/modules-npa
+   blas.lapack/gnu-4.7.2
+   blas.lapack/intel-13.1.1                                                 (D)
+   gnuplot.molden.grace.xcrysden/intel-13.1.1
+   mpi.atlas.scalapack/gnu-4.7.2
+   mpi.atlas.scalapack/intel-13.1.1                                         (D)
+   mpi.blas.lapack.scalapack/gnu-4.7.2
+   mpi.blas.lapack.scalapack/intel-13.1.1                                   (D)
+   mpi.zlib.hdf5.netcdf/gnu-4.7.2
+   mpi.zlib.hdf5.netcdf/intel-13.1.1                                        (D)
+   python2.7.cython.mpi4py.numpy.scipy.scientific/gnu-4.7.2
+   python2.7.cython.mpi4py.numpy.scipy.scientific/intel-13.1.1              (D)
+   python2.7.cython.numpy.scipy.numexpr.scientific.matplotlib/gnu-4.7.2
+   python2.7.cython.numpy.scipy.numexpr.scientific.matplotlib/intel-13.1.11 (D)
+   python2.7.numpy.scipy.scientific.ase.gpaw.inelastica/gnu-4.7.2
+   python2.7.numpy.scipy.scientific.ase.gpaw.inelastica/intel-13.1.1        (D)
+   python2.7.scientific.cython.numexpr.qutip/gnu-4.7.2
+   python2.7.scientific.cython.numexpr.qutip/intel-13.1.1                   (D)
+   test/intel-13.1.1
+  Where:
+   (D):  Default Module
+Use "module spider" to find all possible modules.
+Use "module keyword key1 key2 ..." to search for all possible modules matching
+any of the "keys".
+===========================
+step 3
+===========================
+===========================
+step 4
+===========================
+Currently Loaded Modules:
+  1)  mpi.zlib.hdf5.netcdf/intel-13.1.1
+  2)  openmpi/1.6.4/intel-13.1.1
+  3)  hdf5/1.8.10/intel-13.1.1
+  4)  pnetcdf/1.3.1/intel-13.1.1
+  5)  netcdf/4.2.1.1/intel-13.1.1
+  6)  python2.7.cython.numpy.scipy.numexpr.scientific.matplotlib/intel-13.1.11
+  7)  intel/13.1.1
+  8)  zlib/1.2.7/intel-13.1.1
+  9)  hdf5-serial/1.8.10/intel-13.1.1
+  10) netcdf-serial/4.2.1.1/intel-13.1.1
+  11) python/2.7.3/intel-13.1.1
+  12) fftw/3.3.2/intel-13.1.1
+  13) SuiteSparse_config/4.0.2/intel-13.1.1
+  14) AMD/2.3.1/intel-13.1.1
+  15) COLAMD/2.8.0/intel-13.1.1
+  16) CAMD/2.3.1/intel-13.1.1
+  17) CCOLAMD/2.8.0/intel-13.1.1
+  18) CHOLMOD/2.0.1/intel-13.1.1
+  19) UMFPACK/5.6.1/intel-13.1.1
+  20) numpy/1.7.0/python-2.7.3/intel-13.1.1
+  21) Cython/0.18/python-2.7.3/intel-13.1.1
+  22) ScientificPython/2.9.2/python-2.7.3/intel-13.1.1
+  23) scipy/0.11.0/python-2.7.3/intel-13.1.1
+  24) numexpr/2.0.1/python-2.7.3/intel-13.1.1
+  25) matplotlib/1.2.0/python-2.7.3/intel-13.1.1
+  26) fftw/2.1.5/intel-13.1.1
+  27) grace/5.1.23/intel-13.1.1
+===========================
+step 5
+===========================
+_ModuleTable_ = {
+  ["activeSize"] = 27,
+  baseMpathA = {
+    "ProjectDIR/rt/columnT/modules",
+    "ProjectDIR/rt/columnT/modules-npa",
+  },
+  ["c_rebuildTime"] = 7200,
+  ["c_shortTime"] = 1.0894379615784,
+  family = {
+  },
+  inactive = {
+  },
+  mT = {
+    ["AMD/2.3.1"] = {
+      ["FN"] = "ProjectDIR/rt/columnT/modules/AMD/2.3.1/intel-13.1.1",
+      ["default"] = 0,
+      ["fullName"] = "AMD/2.3.1/intel-13.1.1",
+      ["loadOrder"] = 14,
+      ["mType"] = "w",
+      propT = {
+      },
+      ["short"] = "AMD/2.3.1",
+      ["status"] = "active",
+    },
+    ["CAMD/2.3.1"] = {
+      ["FN"] = "ProjectDIR/rt/columnT/modules/CAMD/2.3.1/intel-13.1.1",
+      ["default"] = 0,
+      ["fullName"] = "CAMD/2.3.1/intel-13.1.1",
+      ["loadOrder"] = 16,
+      ["mType"] = "w",
+      propT = {
+      },
+      ["short"] = "CAMD/2.3.1",
+      ["status"] = "active",
+    },
+    ["CCOLAMD/2.8.0"] = {
+      ["FN"] = "ProjectDIR/rt/columnT/modules/CCOLAMD/2.8.0/intel-13.1.1",
+      ["default"] = 0,
+      ["fullName"] = "CCOLAMD/2.8.0/intel-13.1.1",
+      ["loadOrder"] = 17,
+      ["mType"] = "w",
+      propT = {
+      },
+      ["short"] = "CCOLAMD/2.8.0",
+      ["status"] = "active",
+    },
+    ["CHOLMOD/2.0.1"] = {
+      ["FN"] = "ProjectDIR/rt/columnT/modules/CHOLMOD/2.0.1/intel-13.1.1",
+      ["default"] = 0,
+      ["fullName"] = "CHOLMOD/2.0.1/intel-13.1.1",
+      ["loadOrder"] = 18,
+      ["mType"] = "w",
+      propT = {
+      },
+      ["short"] = "CHOLMOD/2.0.1",
+      ["status"] = "active",
+    },
+    ["COLAMD/2.8.0"] = {
+      ["FN"] = "ProjectDIR/rt/columnT/modules/COLAMD/2.8.0/intel-13.1.1",
+      ["default"] = 0,
+      ["fullName"] = "COLAMD/2.8.0/intel-13.1.1",
+      ["loadOrder"] = 15,
+      ["mType"] = "w",
+      propT = {
+      },
+      ["short"] = "COLAMD/2.8.0",
+      ["status"] = "active",
+    },
+    ["Cython/0.18/python-2.7.3"] = {
+      ["FN"] = "ProjectDIR/rt/columnT/modules/Cython/0.18/python-2.7.3/intel-13.1.1",
+      ["default"] = 0,
+      ["fullName"] = "Cython/0.18/python-2.7.3/intel-13.1.1",
+      ["loadOrder"] = 21,
+      ["mType"] = "w",
+      propT = {
+      },
+      ["short"] = "Cython/0.18/python-2.7.3",
+      ["status"] = "active",
+    },
+    ["ScientificPython/2.9.2/python-2.7.3"] = {
+      ["FN"] = "ProjectDIR/rt/columnT/modules/ScientificPython/2.9.2/python-2.7.3/intel-13.1.1",
+      ["default"] = 0,
+      ["fullName"] = "ScientificPython/2.9.2/python-2.7.3/intel-13.1.1",
+      ["loadOrder"] = 22,
+      ["mType"] = "w",
+      propT = {
+      },
+      ["short"] = "ScientificPython/2.9.2/python-2.7.3",
+      ["status"] = "active",
+    },
+    ["SuiteSparse_config/4.0.2"] = {
+      ["FN"] = "ProjectDIR/rt/columnT/modules/SuiteSparse_config/4.0.2/intel-13.1.1",
+      ["default"] = 0,
+      ["fullName"] = "SuiteSparse_config/4.0.2/intel-13.1.1",
+      ["loadOrder"] = 13,
+      ["mType"] = "w",
+      propT = {
+      },
+      ["short"] = "SuiteSparse_config/4.0.2",
+      ["status"] = "active",
+    },
+    ["UMFPACK/5.6.1"] = {
+      ["FN"] = "ProjectDIR/rt/columnT/modules/UMFPACK/5.6.1/intel-13.1.1",
+      ["default"] = 0,
+      ["fullName"] = "UMFPACK/5.6.1/intel-13.1.1",
+      ["loadOrder"] = 19,
+      ["mType"] = "w",
+      propT = {
+      },
+      ["short"] = "UMFPACK/5.6.1",
+      ["status"] = "active",
+    },
+    ["fftw/2.1.5"] = {
+      ["FN"] = "ProjectDIR/rt/columnT/modules/fftw/2.1.5/intel-13.1.1",
+      ["default"] = 1,
+      ["fullName"] = "fftw/2.1.5/intel-13.1.1",
+      ["loadOrder"] = 26,
+      ["mType"] = "w",
+      propT = {
+      },
+      ["short"] = "fftw/2.1.5",
+      ["status"] = "active",
+    },
+    ["fftw/3.3.2"] = {
+      ["FN"] = "ProjectDIR/rt/columnT/modules/fftw/3.3.2/intel-13.1.1",
+      ["default"] = 0,
+      ["fullName"] = "fftw/3.3.2/intel-13.1.1",
+      ["loadOrder"] = 12,
+      ["mType"] = "w",
+      propT = {
+      },
+      ["short"] = "fftw/3.3.2",
+      ["status"] = "active",
+    },
+    ["grace/5.1.23"] = {
+      ["FN"] = "ProjectDIR/rt/columnT/modules/grace/5.1.23/intel-13.1.1",
+      ["default"] = 1,
+      ["fullName"] = "grace/5.1.23/intel-13.1.1",
+      ["loadOrder"] = 27,
+      ["mType"] = "w",
+      propT = {
+      },
+      ["short"] = "grace/5.1.23",
+      ["status"] = "active",
+    },
+    ["hdf5-serial/1.8.10"] = {
+      ["FN"] = "ProjectDIR/rt/columnT/modules/hdf5-serial/1.8.10/intel-13.1.1",
+      ["default"] = 0,
+      ["fullName"] = "hdf5-serial/1.8.10/intel-13.1.1",
+      ["loadOrder"] = 9,
+      ["mType"] = "w",
+      propT = {
+      },
+      ["short"] = "hdf5-serial/1.8.10",
+      ["status"] = "active",
+    },
+    ["hdf5/1.8.10"] = {
+      ["FN"] = "ProjectDIR/rt/columnT/modules/hdf5/1.8.10/intel-13.1.1",
+      ["default"] = 0,
+      ["fullName"] = "hdf5/1.8.10/intel-13.1.1",
+      ["loadOrder"] = 3,
+      ["mType"] = "w",
+      propT = {
+      },
+      ["short"] = "hdf5/1.8.10",
+      ["status"] = "active",
+    },
+    intel = {
+      ["FN"] = "ProjectDIR/rt/columnT/modules/intel/13.1.1",
+      ["default"] = 0,
+      ["fullName"] = "intel/13.1.1",
+      ["loadOrder"] = 7,
+      ["mType"] = "w",
+      propT = {
+      },
+      ["short"] = "intel",
+      ["status"] = "active",
+    },
+    ["matplotlib/1.2.0/python-2.7.3"] = {
+      ["FN"] = "ProjectDIR/rt/columnT/modules/matplotlib/1.2.0/python-2.7.3/intel-13.1.1",
+      ["default"] = 0,
+      ["fullName"] = "matplotlib/1.2.0/python-2.7.3/intel-13.1.1",
+      ["loadOrder"] = 25,
+      ["mType"] = "w",
+      propT = {
+      },
+      ["short"] = "matplotlib/1.2.0/python-2.7.3",
+      ["status"] = "active",
+    },
+    ["mpi.zlib.hdf5.netcdf"] = {
+      ["FN"] = "ProjectDIR/rt/columnT/modules-npa/mpi.zlib.hdf5.netcdf/intel-13.1.1",
+      ["default"] = 1,
+      ["fullName"] = "mpi.zlib.hdf5.netcdf/intel-13.1.1",
+      ["loadOrder"] = 1,
+      ["mType"] = "m",
+      propT = {
+      },
+      ["short"] = "mpi.zlib.hdf5.netcdf",
+      ["status"] = "active",
+    },
+    ["netcdf-serial/4.2.1.1"] = {
+      ["FN"] = "ProjectDIR/rt/columnT/modules/netcdf-serial/4.2.1.1/intel-13.1.1",
+      ["default"] = 0,
+      ["fullName"] = "netcdf-serial/4.2.1.1/intel-13.1.1",
+      ["loadOrder"] = 10,
+      ["mType"] = "w",
+      propT = {
+      },
+      ["short"] = "netcdf-serial/4.2.1.1",
+      ["status"] = "active",
+    },
+    ["netcdf/4.2.1.1"] = {
+      ["FN"] = "ProjectDIR/rt/columnT/modules/netcdf/4.2.1.1/intel-13.1.1",
+      ["default"] = 0,
+      ["fullName"] = "netcdf/4.2.1.1/intel-13.1.1",
+      ["loadOrder"] = 5,
+      ["mType"] = "w",
+      propT = {
+      },
+      ["short"] = "netcdf/4.2.1.1",
+      ["status"] = "active",
+    },
+    ["numexpr/2.0.1/python-2.7.3"] = {
+      ["FN"] = "ProjectDIR/rt/columnT/modules/numexpr/2.0.1/python-2.7.3/intel-13.1.1",
+      ["default"] = 0,
+      ["fullName"] = "numexpr/2.0.1/python-2.7.3/intel-13.1.1",
+      ["loadOrder"] = 24,
+      ["mType"] = "w",
+      propT = {
+      },
+      ["short"] = "numexpr/2.0.1/python-2.7.3",
+      ["status"] = "active",
+    },
+    ["numpy/1.7.0/python-2.7.3"] = {
+      ["FN"] = "ProjectDIR/rt/columnT/modules/numpy/1.7.0/python-2.7.3/intel-13.1.1",
+      ["default"] = 0,
+      ["fullName"] = "numpy/1.7.0/python-2.7.3/intel-13.1.1",
+      ["loadOrder"] = 20,
+      ["mType"] = "w",
+      propT = {
+      },
+      ["short"] = "numpy/1.7.0/python-2.7.3",
+      ["status"] = "active",
+    },
+    ["openmpi/1.6.4"] = {
+      ["FN"] = "ProjectDIR/rt/columnT/modules/openmpi/1.6.4/intel-13.1.1",
+      ["default"] = 0,
+      ["fullName"] = "openmpi/1.6.4/intel-13.1.1",
+      ["loadOrder"] = 2,
+      ["mType"] = "w",
+      propT = {
+      },
+      ["short"] = "openmpi/1.6.4",
+      ["status"] = "active",
+    },
+    ["pnetcdf/1.3.1"] = {
+      ["FN"] = "ProjectDIR/rt/columnT/modules/pnetcdf/1.3.1/intel-13.1.1",
+      ["default"] = 0,
+      ["fullName"] = "pnetcdf/1.3.1/intel-13.1.1",
+      ["loadOrder"] = 4,
+      ["mType"] = "w",
+      propT = {
+      },
+      ["short"] = "pnetcdf/1.3.1",
+      ["status"] = "active",
+    },
+    ["python/2.7.3"] = {
+      ["FN"] = "ProjectDIR/rt/columnT/modules/python/2.7.3/intel-13.1.1",
+      ["default"] = 0,
+      ["fullName"] = "python/2.7.3/intel-13.1.1",
+      ["loadOrder"] = 11,
+      ["mType"] = "w",
+      propT = {
+      },
+      ["short"] = "python/2.7.3",
+      ["status"] = "active",
+    },
+    ["python2.7.cython.numpy.scipy.numexpr.scientific.matplotlib"] = {
+      ["FN"] = "ProjectDIR/rt/columnT/modules-npa/python2.7.cython.numpy.scipy.numexpr.scientific.matplotlib/intel-13.1.11",
+      ["default"] = 1,
+      ["fullName"] = "python2.7.cython.numpy.scipy.numexpr.scientific.matplotlib/intel-13.1.11",
+      ["loadOrder"] = 6,
+      ["mType"] = "m",
+      propT = {
+      },
+      ["short"] = "python2.7.cython.numpy.scipy.numexpr.scientific.matplotlib",
+      ["status"] = "active",
+    },
+    ["scipy/0.11.0/python-2.7.3"] = {
+      ["FN"] = "ProjectDIR/rt/columnT/modules/scipy/0.11.0/python-2.7.3/intel-13.1.1",
+      ["default"] = 0,
+      ["fullName"] = "scipy/0.11.0/python-2.7.3/intel-13.1.1",
+      ["loadOrder"] = 23,
+      ["mType"] = "w",
+      propT = {
+      },
+      ["short"] = "scipy/0.11.0/python-2.7.3",
+      ["status"] = "active",
+    },
+    ["zlib/1.2.7"] = {
+      ["FN"] = "ProjectDIR/rt/columnT/modules/zlib/1.2.7/intel-13.1.1",
+      ["default"] = 0,
+      ["fullName"] = "zlib/1.2.7/intel-13.1.1",
+      ["loadOrder"] = 8,
+      ["mType"] = "w",
+      propT = {
+      },
+      ["short"] = "zlib/1.2.7",
+      ["status"] = "active",
+    },
+  },
+  mpathA = {
+    "ProjectDIR/rt/columnT/modules",
+    "ProjectDIR/rt/columnT/modules-npa",
+  },
+  ["systemBaseMPATH"] = "ProjectDIR/rt/columnT/modules:ProjectDIR/rt/columnT/modules-npa",
+  ["version"] = 2,
+}

@@ -1,0 +1,23 @@
+#%Module1.0
+#####################################################################
+
+set modulename  siesta
+set version	3.1
+set compiler	gnu-4.7.2
+set basepath	/opt/siesta/$version/gnu-4.7.2
+
+proc ModulesHelp { } {
+    puts stderr "\tLoads $modulename ($version)"
+}
+
+module-whatis "Loads $modulename ($version), compiler $compiler."
+
+# Requirements for the module:
+prereq openmpi/1.6.4/gnu-4.7.2
+prereq zlib/1.2.7/gnu-4.7.2
+prereq hdf5-serial/1.8.10/gnu-4.7.2
+prereq netcdf-serial/4.2.1.1/gnu-4.7.2
+prereq atlas/3.10.1/gnu-4.7.2
+prereq scalapack/2.0.2/gnu-4.7.2
+
+prepend-path PATH             $basepath/bin

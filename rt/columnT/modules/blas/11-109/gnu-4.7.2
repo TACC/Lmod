@@ -1,0 +1,14 @@
+#%Module1.0
+#####################################################################
+
+set modulename  blas
+set version	11-109
+set compiler	gnu-4.7.2
+set basepath	/opt/blas/$version/gnu-4.7.2
+
+proc ModulesHelp { } {
+    puts stderr "\tLoads $modulename ($version)"
+}
+
+module-whatis "Loads $modulename ($version), compiler $compiler."
+

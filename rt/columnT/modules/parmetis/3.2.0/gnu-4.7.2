@@ -1,0 +1,17 @@
+#%Module1.0
+#####################################################################
+
+set modulename  parmetis
+set version	3.2.0
+set compiler	gnu-4.7.2
+set basepath	/opt/parmetis/$version/gnu-4.7.2
+
+proc ModulesHelp { } {
+    puts stderr "\tLoads $modulename ($version)"
+}
+
+module-whatis "Loads $modulename ($version), compiler $compiler."
+
+# Requirements for the module:
+prereq openmpi/1.6.4/gnu-4.7.2
+

@@ -1,0 +1,22 @@
+#%Module1.0
+#####################################################################
+
+set modulename  netcdf-logging
+set version	4.2.1.1
+set compiler	intel-13.1.1
+set basepath	/opt/netcdf-logging/$version/intel-13.1.1
+
+proc ModulesHelp { } {
+    puts stderr "\tLoads $modulename ($version)"
+}
+
+module-whatis "Loads $modulename ($version), compiler $compiler."
+
+# Requirements for the module:
+prereq intel/13.1.1
+prereq openmpi/1.6.4/intel-13.1.1
+prereq zlib/1.2.7/intel-13.1.1
+prereq hdf5/1.8.10/intel-13.1.1
+prereq pnetcdf/1.3.1/intel-13.1.1
+
+prepend-path PATH             $basepath/bin

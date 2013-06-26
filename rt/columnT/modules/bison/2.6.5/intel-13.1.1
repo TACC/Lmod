@@ -1,0 +1,18 @@
+#%Module1.0
+#####################################################################
+
+set modulename  bison
+set version	2.6.5
+set compiler	intel-13.1.1
+set basepath	/opt/bison/$version/intel-13.1.1
+
+proc ModulesHelp { } {
+    puts stderr "\tLoads $modulename ($version)"
+}
+
+module-whatis "Loads $modulename ($version), compiler $compiler."
+
+# Requirements for the module:
+prereq intel/13.1.1
+
+prepend-path PATH             $basepath/bin
