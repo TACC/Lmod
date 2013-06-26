@@ -134,6 +134,13 @@ function M.options(self, usage)
    }
 
    cmdlineParser:add_option{
+      name   = {"--ignore_cache"},
+      dest   = "ignoreCache",
+      action = "store_true",
+      help   = "Treat the cache file(s) as out-of-date",
+   }
+
+   cmdlineParser:add_option{
       name   = {"--novice"},
       dest   = "novice",
       action = "store_true",

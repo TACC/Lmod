@@ -303,6 +303,10 @@ function M.build(self, fast)
    dbg.start("Cache:build(fast=", fast,")")
    local masterTbl = masterTbl()
 
+   if (masterTbl.ignoreCache) then
+      return nil
+   end
+
    local sysDirsRead = 0
    if (not masterTbl.checkSyntax) then
       sysDirsRead = readCacheFile(self, self.systemDirA)

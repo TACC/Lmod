@@ -619,14 +619,7 @@ function main()
       os.exit(0)
    end
 
-   -- print version and quit if requested.
-   if (masterTbl.printUserCacheFileLocation) then
-      io.stderr:write(pathJoin(usrCacheDir,"moduleT.lua"),"\n")
-      os.exit(0)
-   end
-
    -- Create the [[master]] object
-
    local master = Master:master(checkMPATH)
    master.shell = BaseShell.build(shell)
    local mt     = MT:mt()
@@ -680,11 +673,8 @@ function main()
    -- Output all newly created path and variables.
    master.shell:expand(varTbl)
 
-   io.stderr:write("about to exec expand\n")
    -- Expand any shell command registered.
    Exec:exec():expand()
-   io.stderr:write("finished\n")
-
 
    if (getWarningFlag() and not expert() ) then
       LmodErrorExit()
