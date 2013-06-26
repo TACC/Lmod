@@ -74,6 +74,10 @@ function M.whatis(self, value)
    ShowCmd("whatis", value)
 end
 
+function M.execute(self, ...)
+   ShowCmd("execute", ...)
+end
+
 function M.prepend_path(self, ...)
    ShowCmd("prepend_path", ...)
 end

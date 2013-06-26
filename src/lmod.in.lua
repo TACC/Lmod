@@ -111,6 +111,7 @@ require("colorize")
 Cache  = require("Cache")
 Master = require("Master")
 MT     = require("MT")
+Exec   = require("Exec")
 
 local BeautifulTbl = require('BeautifulTbl')
 local Dbg          = require("Dbg")
@@ -678,6 +679,12 @@ function main()
 
    -- Output all newly created path and variables.
    master.shell:expand(varTbl)
+
+   io.stderr:write("about to exec expand\n")
+   -- Expand any shell command registered.
+   Exec:exec():expand()
+   io.stderr:write("finished\n")
+
 
    if (getWarningFlag() and not expert() ) then
       LmodErrorExit()

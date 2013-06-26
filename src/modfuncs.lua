@@ -385,6 +385,14 @@ function is_spider()
    return b
 end
 
+function execute(...)
+   local dbg = Dbg:dbg()
+   dbg.start("execute(...)")
+   local b = mcp:execute(...)
+   dbg.fini("execute")
+   return b
+end   
+
 function mode()
    local dbg = Dbg:dbg()
    dbg.start("mode()")

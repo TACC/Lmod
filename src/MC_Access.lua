@@ -86,13 +86,13 @@ function M.whatis(self, msg)
 end
 
 
-M.report               = MasterControl.warning
 M.always_load          = MasterControl.quiet
 M.always_unload        = MasterControl.quiet
 M.add_property         = MasterControl.quiet
 M.append_path          = MasterControl.quiet
 M.conflict             = MasterControl.quiet
 M.error                = MasterControl.quiet
+M.execute              = MasterControl.quiet
 M.family               = MasterControl.quiet
 M.inherit              = MasterControl.quiet
 M.load                 = MasterControl.quiet
@@ -108,6 +108,7 @@ M.prereq_any           = MasterControl.quiet
 M.pushenv              = MasterControl.quiet
 M.remove_path          = MasterControl.quiet
 M.remove_property      = MasterControl.quiet
+M.report               = MasterControl.warning
 M.setenv               = MasterControl.quiet
 M.set_alias            = MasterControl.quiet
 M.set_shell_function   = MasterControl.quiet

@@ -67,6 +67,7 @@ require("inherits")
 local M            = {}
 local BeautifulTbl = require("BeautifulTbl")
 local Dbg          = require("Dbg")
+local Exec         = require("Exec")
 local MName        = require("MName")
 local ModuleStack  = require("ModuleStack")
 local Var          = require("Var")
@@ -779,6 +780,15 @@ function M.mode(self)
    dbg.fini()
    return self._mode
 end
+
+function M.execute(self, ...)
+   local dbg    = Dbg:dbg()
+   dbg.start("MasterControl:execute(...)")
+   local exec = Exec:exec()
+   exec:register(...)
+   dbg.fini("MasterControl:execute")
+end   
+
 
 -------------------------------------------------------------------
 -- Quiet Functions

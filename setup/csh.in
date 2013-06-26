@@ -24,7 +24,7 @@ if ( $?histchars) then
 endif
 
 
-alias module  $prefix'eval `'$LMOD_CMD' '$modules_shell $midfix $histchar'*` $postfix '; 'eval `$LMOD_SETTARG_CMD -sh csh`'
+alias module  $prefix'eval `'$LMOD_CMD' '$modules_shell $midfix $histchar'*` $postfix $LMOD_SETTARG_CMD'
 alias clearMT 'eval `'$LMOD_DIR/clearMT_cmd csh'`'
 
 alias ml      'eval `'$LMOD_DIR/ml_cmd' '$histchar'*`'

@@ -64,6 +64,7 @@ function ShowCmd(name, ...)
 end
 
 M.add_property         = MasterControl.quiet
+M.execute              = MasterControl.quiet
 M.help                 = MasterControl.quiet
 M.inherit              = MasterControl.quiet
 M.myFileName           = MasterControl.myFileName

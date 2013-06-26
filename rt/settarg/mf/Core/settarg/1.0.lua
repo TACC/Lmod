@@ -11,3 +11,6 @@ set_shell_function("mdbg", 'settarg "$@" mdbg',  'settarg mdbg $*')
 set_shell_function("targ", 'builtin echo $TARG', 'echo $TARG')
 set_alias("cdt", "cd $TARG")
 
+if (mode() == "unload") then
+   execute("echo foo and bar")
+end
