@@ -1,10 +1,4 @@
 #!/bin/csh
-if ($?tcsh) then
-  set modules_shell="tcsh"
-else
-  set modules_shell="csh"
-endif
-
 set LMOD_CMD="@PKG@/libexec/lmod"
 set LMOD_DIR="@PKG@/libexec"
 
@@ -23,8 +17,7 @@ if ( $?histchars) then
   endif
 endif
 
-
-alias module  $prefix'eval `'$LMOD_CMD' '$modules_shell $midfix $histchar'*` $postfix $LMOD_SETTARG_CMD'
+alias module  $prefix'eval `$LMOD_CMD csh '$midfix $histchar'*` $postfix eval `$LMOD_SETTARG_CMD --s csh`'
 alias clearMT 'eval `'$LMOD_DIR/clearMT_cmd csh'`'
 
 alias ml      'eval `'$LMOD_DIR/ml_cmd' '$histchar'*`'
