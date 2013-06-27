@@ -6,7 +6,7 @@ testdescript = {
    description = [[
 	 Test initial module load
    ]],
-   keywords = {testName },
+   keywords = {testName,"settarg" },
 
    active = 1,
    testName = testName,
