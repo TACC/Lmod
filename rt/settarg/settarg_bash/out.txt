@@ -27,7 +27,7 @@ step 3
 ===========================
 BUILDTARGET='x86_64_dbg';
 export BUILDTARGET;
-METHOD_TITLE='x86_64 D';
+METHOD_TITLE='D';
 export METHOD_TITLE;
 PATH='./obj/_x86_64_dbg:ProjectDIR/src:PATH_to_TM:/bin';
 export PATH;
@@ -50,7 +50,7 @@ step 4
 ===========================
 BUILDTARGET='x86_64_opt';
 export BUILDTARGET;
-METHOD_TITLE='x86_64 O';
+METHOD_TITLE='O';
 export METHOD_TITLE;
 PATH='./obj/_x86_64_opt:ProjectDIR/src:PATH_to_TM:/bin';
 export PATH;
@@ -104,7 +104,7 @@ step 6
 ===========================
 BUILDTARGET='x86_64_opt_gcc-4.7.2_mpich-3.0.4';
 export BUILDTARGET;
-METHOD_TITLE='x86_64 O gcc-4.7.2 M-3.0.4';
+METHOD_TITLE='O gcc-4.7.2 M-3.0.4';
 export METHOD_TITLE;
 PATH='/opt/apps/gcc-4_7/mpich/3.0.4/bin:./obj/_x86_64_opt_gcc-4.7.2_mpich-3.0.4:ProjectDIR/src:PATH_to_TM:/bin';
 export PATH;
