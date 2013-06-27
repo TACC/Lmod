@@ -68,15 +68,15 @@ function getUname()
             if (line == nil) then break end
             if (line:find("cpu family")) then
                local _, _, v = line:find(".*:%s*(.*)")
-               cpu_family = string.format("%02x",v)
+               cpu_family = string.format("%02x",tonumber(v))
                count = count + 1
             elseif (line:find("model name")) then
                local _, _, v = line:find(".*:%s*(.*)")
-               machFullName = string.format("%02x",v)
+               machFullName = v
                count = count + 1
             elseif (line:find("model")) then
                local _, _, v = line:find(".*:%s*(.*)")
-               model = string.format("%02x",v)
+               model = string.format("%02x",tonumber(v))
                count = count + 1
             end
             if (count > 2) then break end
