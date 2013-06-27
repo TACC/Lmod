@@ -117,6 +117,13 @@ function  M.options(self)
       default = ""
    }
 
+   cmdlineParser:add_option{ 
+      name   = {'--no_cpu_model'},
+      dest   = 'noCpuModel',
+      action = 'store_true',
+      default = ""
+   }
+
    local optionTbl, pargs = cmdlineParser:parse(arg)
 
    for v in pairs(optionTbl) do

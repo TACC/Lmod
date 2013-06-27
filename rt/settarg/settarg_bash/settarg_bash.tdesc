@@ -31,13 +31,13 @@ testdescript = {
 
      rm -fr _stderr.* _stdout.* err.* out.* .lmod.d
 
-     runMe lua $(projectDir)/src/lmod.in.lua bash --version            # 1
-     runMe lua $(projectDir)/src/lmod.in.lua bash load settarg         # 2
-     runMe lua $(projectDir)/settarg/settarg_cmd.in.lua -m x86_64 dbg  # 3
-     runMe lua $(projectDir)/settarg/settarg_cmd.in.lua -m x86_64 opt  # 4
-     runMe lua $(projectDir)/src/lmod.in.lua bash load gcc mpich       # 5 
-     runMe lua $(projectDir)/settarg/settarg_cmd.in.lua -m x86_64      # 6
-     runMe lua $(projectDir)/src/lmod.in.lua bash unload settarg       # 7
+     runMe lua $(projectDir)/src/lmod.in.lua bash --version                 # 1
+     runMe lua $(projectDir)/src/lmod.in.lua bash load settarg              # 2    
+     runMe lua $(projectDir)/settarg/settarg_cmd.in.lua --no_cpu_model dbg  # 3
+     runMe lua $(projectDir)/settarg/settarg_cmd.in.lua --no_cpu_model opt  # 4
+     runMe lua $(projectDir)/src/lmod.in.lua bash load gcc mpich            # 5 
+     runMe lua $(projectDir)/settarg/settarg_cmd.in.lua --no_cpu_model      # 6
+     runMe lua $(projectDir)/src/lmod.in.lua bash unload settarg            # 7    
 
 
      HOME_ORIG=$HOME

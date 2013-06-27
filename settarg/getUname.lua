@@ -47,6 +47,7 @@ function getUname()
       return t
    end
 
+   local masterTbl        = masterTbl()
    local machFullName     = nil
    local osName           = posix.uname("%s")
    local machName         = posix.uname("%m")
@@ -57,7 +58,7 @@ function getUname()
       osName   = "Irix"
       machName = "mips"
    end
-   if (osName == "Linux") then
+   if (osName == "Linux" and not masterTbl.noCpuModel) then
       local cpu_family
       local model
       local count = 0
