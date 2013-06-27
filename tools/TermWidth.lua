@@ -39,8 +39,10 @@
 
 require("strict")
 require("capture")
+local getenv  = os.getenv
 local term    = false
 local s_width = false
+local s_DFLT  = 80
 if (pcall(require,"term")) then
    term = require("term")
 end
@@ -49,11 +51,15 @@ function TermWidth()
    if (s_width) then
       return s_width
    end
-   s_width = tonumber(capture("tput cols")) or 80
+   if (getenv("TERM")) then
+      s_width = tonumber(capture("tput cols")) or s_DFLT
+   else
+      s_width = s_DFLT
+   end
 
    if (term) then
       if (not term.isatty(io.stderr)) then
-         s_width = 80
+         s_width = s_DFLT
       end
    end
 
