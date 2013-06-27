@@ -1,6 +1,22 @@
 #!/usr/bin/env lua
 -- -*- lua -*-
 
+local LuaCommandName = arg[0]
+local i,j = LuaCommandName:find(".*/")
+local LuaCommandName_dir = "./"
+if (i) then
+   LuaCommandName_dir = LuaCommandName:sub(1,j)
+end
+
+package.path = LuaCommandName_dir .. "../tools/?.lua;" ..
+               LuaCommandName_dir .. "?.lua;"       ..
+               LuaCommandName_dir .. "?/init.lua;"  ..
+               package.path
+
+function cmdDir()
+   return LuaCommandName_dir
+end
+
 if (not pcall(require,"strict")) then
    os.exit(0)
 end
@@ -10,24 +26,6 @@ local master = {}
 function masterTbl()
    return master
 end
-
-function splitFileName(path)
-   local d, f
-   local i,j = path:find(".*/")
-   if (i == nil) then
-      d = './'
-      f = path
-   else
-      d = path:sub(1,j)
-      f = path:sub(j+1,-1)
-   end
-   return d, f
-end
-
-local execDir = splitFileName(arg[0])
--- remove current directory from search path
-package.path = package.path:gsub("^%./%?.lua;","")
-package.path=execDir .. '/?.lua;' .. package.path
 
 BaseShell      = require("BaseShell")
 
@@ -39,9 +37,9 @@ require("Output")
 require("FindProjectData")
 
 function main()
-   local dbg       = Dbg:dbg()
-   local masterTbl = masterTbl()
-   masterTbl.execDir = execDir
+   local dbg         = Dbg:dbg()
+   local masterTbl   = masterTbl()
+   masterTbl.execDir = cmdDir()
 
    CmdLineOptions:options()
    if (masterTbl.debug) then

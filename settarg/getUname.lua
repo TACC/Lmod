@@ -36,11 +36,11 @@ function getUname()
                local _, _, v = line:find(".*:%s*(.*)")
                cpu_family = string.format("%02x",v)
                count = count + 1
-            else if (line:find("model name")) then
+            elseif (line:find("model name")) then
                local _, _, v = line:find(".*:%s*(.*)")
                machFullName = string.format("%02x",v)
                count = count + 1
-            else if (line:find("model")) then
+            elseif (line:find("model")) then
                local _, _, v = line:find(".*:%s*(.*)")
                model = string.format("%02x",v)
                count = count + 1
