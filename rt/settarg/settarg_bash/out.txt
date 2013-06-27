@@ -1,0 +1,149 @@
+===========================
+step 1
+===========================
+===========================
+step 2
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/settarg/settarg_bash/../mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/settarg/settarg_bash/../mf/Core";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/settarg/settarg_bash/../mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+LMOD_SETTARG_CMD="lua ProjectDIR/settarg/settarg_cmd.in.lua";
+export LMOD_SETTARG_CMD;
+MODULEPATH="ProjectDIR/rt/settarg/settarg_bash/../mf/Core";
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/settarg/settarg_bash/../mf/Core",},family={},inactive={},mT={settarg={["FN"]="ProjectDIR/rt/settarg/settarg_bash/../mf/Core/settarg/1.0.lua",["default"]=1,["fullName"]="settarg/1.0",["loadOrder"]=1,["mType"]="w",propT={},["short"]="settarg",["status"]="active",},},mpathA={"ProjectDIR/rt/settarg/settarg_bash/../mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/settarg/settarg_bash/../mf/Core",["version"]=2,}';
+export _ModuleTable_;
+alias cdt="cd $TARG";
+dbg() { settarg "$@" dbg; };
+mdbg() { settarg "$@" mdbg; };
+opt() { settarg "$@" opt; };
+settarg() { eval $($LMOD_SETTARG_CMD --shell sh "$@"); };
+targ() { builtin echo $TARG; };
+===========================
+step 3
+===========================
+unset 'TARG_COMPILER_FAMILY';
+TARG_METHOD='dbg';
+export TARG_METHOD;
+unset 'TARG_PROFILING_FAMILY';
+TARG_MACH='x86_64';
+export TARG_MACH;
+unset 'TARG_MPI_FAMILY';
+PATH='./obj/_x86_64_dbg:ProjectDIR/src:PATH_to_TM:/bin';
+export PATH;
+unset 'TARG_MPI';
+unset 'TARG_COMPILER';
+TARG='obj/_x86_64_dbg';
+export TARG;
+BUILDTARGET='x86_64_dbg';
+export BUILDTARGET;
+TARG_TARGET='x86_64_dbg';
+export TARG_TARGET;
+unset 'TARG_PROFILING';
+METHOD_TITLE='D';
+export METHOD_TITLE;
+===========================
+step 4
+===========================
+unset 'TARG_PROFILING';
+TARG_MACH='x86_64';
+export TARG_MACH;
+TARG_TARGET='x86_64_opt';
+export TARG_TARGET;
+PATH='./obj/_x86_64_opt:ProjectDIR/src:PATH_to_TM:/bin';
+export PATH;
+TARG='obj/_x86_64_opt';
+export TARG;
+TARG_METHOD='opt';
+export TARG_METHOD;
+METHOD_TITLE='O';
+export METHOD_TITLE;
+unset 'TARG_MPI';
+unset 'TARG_PROFILING_FAMILY';
+unset 'TARG_COMPILER';
+BUILDTARGET='x86_64_opt';
+export BUILDTARGET;
+unset 'TARG_MPI_FAMILY';
+unset 'TARG_COMPILER_FAMILY';
+===========================
+step 5
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/settarg/settarg_bash/../mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/settarg/settarg_bash/../mf/Core";
+export MODULEPATH;
+LD_LIBRARY_PATH="/opt/apps/gcc-4_7/mpich/3.0.4/lib";
+export LD_LIBRARY_PATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/settarg/settarg_bash/../mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+LMOD_FAMILY_COMPILER="gcc";
+export LMOD_FAMILY_COMPILER;
+LMOD_FAMILY_MPI="mpich";
+export LMOD_FAMILY_MPI;
+MANPATH="/opt/apps/gcc-4_7/mpich/3.0.4/man";
+export MANPATH;
+MODULEPATH="ProjectDIR/rt/settarg/settarg_bash/../mf/MPI/gcc/4.7/mpich/3.0:ProjectDIR/rt/settarg/settarg_bash/../mf/Compiler/gcc/4.7:ProjectDIR/rt/settarg/settarg_bash/../mf/Core";
+export MODULEPATH;
+MPICH_HOME="/opt/apps/gcc-4_7/mpich/3.0.4";
+export MPICH_HOME;
+MPIHOME="/opt/apps/gcc-4_7/mpich/3.0.4";
+export MPIHOME;
+PATH="/opt/apps/gcc-4_7/mpich/3.0.4/bin:./obj/_x86_64_opt:ProjectDIR/src:PATH_to_TM:/bin";
+export PATH;
+TACC_FAMILY_COMPILER="gcc";
+export TACC_FAMILY_COMPILER;
+TACC_FAMILY_MPI="mpich";
+export TACC_FAMILY_MPI;
+_ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/settarg/settarg_bash/../mf/Core",},family={["MPI"]="mpich",["compiler"]="gcc",},inactive={},mT={gcc={["FN"]="ProjectDIR/rt/settarg/settarg_bash/../mf/Core/gcc/4.7.2.lua",["default"]=1,["fullName"]="gcc/4.7.2",["loadOrder"]=2,["mType"]="w",propT={},["short"]="gcc",["status"]="active",},mpich={["FN"]="ProjectDIR/rt/settarg/settarg_bash/../mf/Compiler/gcc/4.7/mpich/3.0.4.lua",["default"]=1,["fullName"]="mpich/3.0.4",["loadOrder"]=3,["mType"]="w",propT={},["short"]="mpich",["status"]="active",},settarg={["FN"]="ProjectDIR/rt/settarg/settarg_bash/../mf/Core/settarg/1.0.lua",["default"]=1,["fullName"]="settarg/1.0",["loadOrder"]=1,["mType"]="w",propT={},["short"]="settarg",["status"]="active",},},mpathA={"ProjectDIR/rt/settarg/settarg_bash/../mf/MPI/gcc/4.7/mpich/3.0","ProjectDIR/rt/settarg/settarg_bash/../mf/Compiler/gcc/4.7","ProjectDIR/rt/settarg/settarg_bash/../mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/settarg/settarg_bash/../mf/Core",["version"]=2,}';
+export _ModuleTable_;
+===========================
+step 6
+===========================
+unset 'TARG_PROFILING';
+PATH='/opt/apps/gcc-4_7/mpich/3.0.4/bin:./obj/_x86_64_opt_gcc-4.7.2_mpich-3.0.4:ProjectDIR/src:PATH_to_TM:/bin';
+export PATH;
+TARG_COMPILER='gcc-4.7.2';
+export TARG_COMPILER;
+METHOD_TITLE='O gcc-4.7.2 M-3.0.4';
+export METHOD_TITLE;
+TARG_MPI_FAMILY='mpich';
+export TARG_MPI_FAMILY;
+TARG_TARGET='x86_64_opt_gcc-4.7.2_mpich-3.0.4';
+export TARG_TARGET;
+TARG_METHOD='opt';
+export TARG_METHOD;
+TARG_MACH='x86_64';
+export TARG_MACH;
+TARG='obj/_x86_64_opt_gcc-4.7.2_mpich-3.0.4';
+export TARG;
+TARG_COMPILER_FAMILY='gcc';
+export TARG_COMPILER_FAMILY;
+unset 'TARG_PROFILING_FAMILY';
+TARG_MPI='mpich-3.0.4';
+export TARG_MPI;
+BUILDTARGET='x86_64_opt_gcc-4.7.2_mpich-3.0.4';
+export BUILDTARGET;
+===========================
+step 7
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/settarg/settarg_bash/../mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/settarg/settarg_bash/../mf/MPI/gcc/4.7/mpich/3.0:ProjectDIR/rt/settarg/settarg_bash/../mf/Compiler/gcc/4.7:ProjectDIR/rt/settarg/settarg_bash/../mf/Core";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/settarg/settarg_bash/../mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+unset LMOD_SETTARG_CMD;
+MODULEPATH="ProjectDIR/rt/settarg/settarg_bash/../mf/MPI/gcc/4.7/mpich/3.0:ProjectDIR/rt/settarg/settarg_bash/../mf/Compiler/gcc/4.7:ProjectDIR/rt/settarg/settarg_bash/../mf/Core";
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/settarg/settarg_bash/../mf/Core",},family={["MPI"]="mpich",["compiler"]="gcc",},inactive={},mT={gcc={["FN"]="ProjectDIR/rt/settarg/settarg_bash/../mf/Core/gcc/4.7.2.lua",["default"]=1,["fullName"]="gcc/4.7.2",["loadOrder"]=1,["mType"]="w",propT={},["short"]="gcc",["status"]="active",},mpich={["FN"]="ProjectDIR/rt/settarg/settarg_bash/../mf/Compiler/gcc/4.7/mpich/3.0.4.lua",["default"]=1,["fullName"]="mpich/3.0.4",["loadOrder"]=2,["mType"]="w",propT={},["short"]="mpich",["status"]="active",},},mpathA={"ProjectDIR/rt/settarg/settarg_bash/../mf/MPI/gcc/4.7/mpich/3.0","ProjectDIR/rt/settarg/settarg_bash/../mf/Compiler/gcc/4.7","ProjectDIR/rt/settarg/settarg_bash/../mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/settarg/settarg_bash/../mf/Core",["version"]=2,}';
+export _ModuleTable_;
+unalias cdt;
+unset -f dbg;
+unset -f mdbg;
+unset -f opt;
+unset -f settarg;
+unset -f targ;
+echo foo and bar;
