@@ -25,49 +25,49 @@ targ() { builtin echo $TARG; };
 ===========================
 step 3
 ===========================
-unset 'TARG_COMPILER_FAMILY';
-TARG_METHOD='dbg';
-export TARG_METHOD;
-unset 'TARG_PROFILING_FAMILY';
-TARG_MACH='x86_64';
-export TARG_MACH;
-unset 'TARG_MPI_FAMILY';
-PATH='./obj/_x86_64_dbg:ProjectDIR/src:PATH_to_TM:/bin';
-export PATH;
-unset 'TARG_MPI';
-unset 'TARG_COMPILER';
-TARG='obj/_x86_64_dbg';
-export TARG;
 BUILDTARGET='x86_64_dbg';
 export BUILDTARGET;
+METHOD_TITLE='x86_64 D';
+export METHOD_TITLE;
+PATH='./obj/_x86_64_dbg:ProjectDIR/src:PATH_to_TM:/bin';
+export PATH;
+TARG='obj/_x86_64_dbg';
+export TARG;
+unset 'TARG_COMPILER';
+unset 'TARG_COMPILER_FAMILY';
+TARG_MACH='x86_64';
+export TARG_MACH;
+TARG_METHOD='dbg';
+export TARG_METHOD;
+unset 'TARG_MPI';
+unset 'TARG_MPI_FAMILY';
+unset 'TARG_PROFILING';
+unset 'TARG_PROFILING_FAMILY';
 TARG_TARGET='x86_64_dbg';
 export TARG_TARGET;
-unset 'TARG_PROFILING';
-METHOD_TITLE='D';
-export METHOD_TITLE;
 ===========================
 step 4
 ===========================
-unset 'TARG_PROFILING';
-TARG_MACH='x86_64';
-export TARG_MACH;
-TARG_TARGET='x86_64_opt';
-export TARG_TARGET;
+BUILDTARGET='x86_64_opt';
+export BUILDTARGET;
+METHOD_TITLE='x86_64 O';
+export METHOD_TITLE;
 PATH='./obj/_x86_64_opt:ProjectDIR/src:PATH_to_TM:/bin';
 export PATH;
 TARG='obj/_x86_64_opt';
 export TARG;
+unset 'TARG_COMPILER';
+unset 'TARG_COMPILER_FAMILY';
+TARG_MACH='x86_64';
+export TARG_MACH;
 TARG_METHOD='opt';
 export TARG_METHOD;
-METHOD_TITLE='O';
-export METHOD_TITLE;
 unset 'TARG_MPI';
-unset 'TARG_PROFILING_FAMILY';
-unset 'TARG_COMPILER';
-BUILDTARGET='x86_64_opt';
-export BUILDTARGET;
 unset 'TARG_MPI_FAMILY';
-unset 'TARG_COMPILER_FAMILY';
+unset 'TARG_PROFILING';
+unset 'TARG_PROFILING_FAMILY';
+TARG_TARGET='x86_64_opt';
+export TARG_TARGET;
 ===========================
 step 5
 ===========================
@@ -102,30 +102,30 @@ export _ModuleTable_;
 ===========================
 step 6
 ===========================
-unset 'TARG_PROFILING';
-PATH='/opt/apps/gcc-4_7/mpich/3.0.4/bin:./obj/_x86_64_opt_gcc-4.7.2_mpich-3.0.4:ProjectDIR/src:PATH_to_TM:/bin';
-export PATH;
-TARG_COMPILER='gcc-4.7.2';
-export TARG_COMPILER;
-METHOD_TITLE='O gcc-4.7.2 M-3.0.4';
-export METHOD_TITLE;
-TARG_MPI_FAMILY='mpich';
-export TARG_MPI_FAMILY;
-TARG_TARGET='x86_64_opt_gcc-4.7.2_mpich-3.0.4';
-export TARG_TARGET;
-TARG_METHOD='opt';
-export TARG_METHOD;
-TARG_MACH='x86_64';
-export TARG_MACH;
-TARG='obj/_x86_64_opt_gcc-4.7.2_mpich-3.0.4';
-export TARG;
-TARG_COMPILER_FAMILY='gcc';
-export TARG_COMPILER_FAMILY;
-unset 'TARG_PROFILING_FAMILY';
-TARG_MPI='mpich-3.0.4';
-export TARG_MPI;
 BUILDTARGET='x86_64_opt_gcc-4.7.2_mpich-3.0.4';
 export BUILDTARGET;
+METHOD_TITLE='x86_64 O gcc-4.7.2 M-3.0.4';
+export METHOD_TITLE;
+PATH='/opt/apps/gcc-4_7/mpich/3.0.4/bin:./obj/_x86_64_opt_gcc-4.7.2_mpich-3.0.4:ProjectDIR/src:PATH_to_TM:/bin';
+export PATH;
+TARG='obj/_x86_64_opt_gcc-4.7.2_mpich-3.0.4';
+export TARG;
+TARG_COMPILER='gcc-4.7.2';
+export TARG_COMPILER;
+TARG_COMPILER_FAMILY='gcc';
+export TARG_COMPILER_FAMILY;
+TARG_MACH='x86_64';
+export TARG_MACH;
+TARG_METHOD='opt';
+export TARG_METHOD;
+TARG_MPI='mpich-3.0.4';
+export TARG_MPI;
+TARG_MPI_FAMILY='mpich';
+export TARG_MPI_FAMILY;
+unset 'TARG_PROFILING';
+unset 'TARG_PROFILING_FAMILY';
+TARG_TARGET='x86_64_opt_gcc-4.7.2_mpich-3.0.4';
+export TARG_TARGET;
 ===========================
 step 7
 ===========================
@@ -146,4 +146,4 @@ unset -f mdbg;
 unset -f opt;
 unset -f settarg;
 unset -f targ;
-echo foo and bar;
+settarg --purge;
