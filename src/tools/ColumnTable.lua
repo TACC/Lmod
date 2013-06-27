@@ -203,6 +203,7 @@ end
 --                             column range for a 2-D array.
 
 function M.__columnSum2(self, istart, iend)
+   local dbg  = Dbg:dbg()
    local szA  = self.szA
    local dim2 = self.dim[2]
    local maxA = {}
@@ -290,8 +291,9 @@ function M.__number_of_columns_rows(self,t)
    if (imax >= self.term_width) then
       self.ncols      = 1
       self.nrows      = sz
-      self.columnCnt  = {imax}
-      self.columnCntI = {imax}
+      self.columnCnt  = {}
+      self.columnCntI = {}
+      self.columnCnt[1], self.columnCntI[1] = self:__columnSum(1,sz)
       dbg.print("imax >= self.term_width\n")
       dbg.fini()
       return
