@@ -70,6 +70,20 @@ initStdEnvVars()
 
 }
 
+clearTARG()
+{
+  unset BUILDTARGET
+  unset TARG
+  unset TARGET_PREFIX
+  unset TARG_COMPILER
+  unset TARG_COMPILER_FAMILY
+  unset TARG_MACH
+  unset TARG_METHOD
+  unset TARG_MPI
+  unset TARG_MPI_FAMILY
+  unset TARG_TARGET
+}
+
 
 unsetMT ()
 {
