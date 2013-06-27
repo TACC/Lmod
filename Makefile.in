@@ -226,7 +226,7 @@ libexec:  $(lua_code)
 Inst_Tools: tools/*.lua
 	$(MAKE) FILELIST="$^" DIRLOC=$(DESTDIR)$(TOOLS) __installMe
 
-Inst_Settarg: settarg/*.lua
+Inst_Settarg: settarg/*.lua settarg/.settarg.lua
 	$(MAKE) FILELIST="$^" DIRLOC=$(DESTDIR)$(SETTARG) __installMe
 
 

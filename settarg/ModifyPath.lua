@@ -33,6 +33,7 @@
 --------------------------------------------------------------------------
 
 require("strict")
+require("escape")
 local Dbg = require("Dbg")
 function ModifyPath()
 
@@ -46,9 +47,13 @@ function ModifyPath()
    local w_oldTarg = ":./" .. oldTarg .. ":"
    local w_targ    = ":./" .. targ    .. ":"
 
+   if (targ == "") then
+      w_targ    = "::"
+   end
+
    dbg.start("ModifyPath()")
 
-   w_oldTarg = w_oldTarg:gsub("%-","%%-")
+   w_oldTarg = escape(w_oldTarg)
 
    if (w_oldTarg == '::' or w_path:find(w_oldTarg) == nil) then
       path = w_targ .. path
@@ -57,6 +62,9 @@ function ModifyPath()
       path = w_path:gsub(w_oldTarg,w_targ)
       dbg.print("(2) path:",path,"\n")
    end
+
+   path = path:gsub("::","")
+   dbg.print("(3) path:",path,"\n")
 
    if (path:sub(1,1) == ':') then
       path = path:sub(2)

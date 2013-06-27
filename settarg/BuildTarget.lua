@@ -297,6 +297,14 @@ function M.exec(shell, targetList)
       end
    end
    envVarsTbl.METHOD_TITLE  = table.concat(aa," ")
+
+   if (masterTbl.purgeFlag) then
+      for k in pairs(envVarsTbl) do
+         envVarsTbl[k] = ""
+      end
+   end
+
+
    dbg.fini()
 end
 
