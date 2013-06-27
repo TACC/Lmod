@@ -20,10 +20,11 @@ version		  	 := $(shell cd ./src; $(PATH_TO_LUA)/lua -e "V=require('Version'); p
 PKG		  	 := $(prefix)/$(package)/$(package)
 LIB		  	 := $(prefix)/$(package)/$(version)/lib
 LIBEXEC		  	 := $(prefix)/$(package)/$(version)/libexec
-LIBTOOLS                 := $(prefix)/$(package)/$(version)/libexec/tools
+TOOLS                    := $(prefix)/$(package)/$(version)/tools
+SETTARG                  := $(prefix)/$(package)/$(version)/settarg
 INIT		  	 := $(prefix)/$(package)/$(version)/init
 
-DIRLIST		  	 := $(DESTDIR)$(LIBEXEC) $(DESTDIR)$(LIBTOOLS) $(DESTDIR)$(INIT) $(DESTDIR)$(LIB)
+DIRLIST		  	 := $(DESTDIR)$(LIBEXEC) $(DESTDIR)$(TOOLS) $(DESTDIR)$(SETTARG) $(DESTDIR)$(INIT) $(DESTDIR)$(LIB)
 
 STANDALONE_PRGM   	 := src/lmod.in.lua src/addto.in.lua src/getmt.in.lua src/processMT.in.lua   \
                             src/spider.in.lua src/processModuleUsage.in.lua src/reportUsers.in.lua   \
@@ -62,7 +63,8 @@ spiderCacheSupportCMD    := lua src/spiderCacheSupport.in.lua
 all:
 	@echo done
 
-pre-install: $(DIRLIST) shell_init startup spiderCacheSupport libexec libtools pkgs other_tools 
+pre-install: $(DIRLIST) shell_init startup spiderCacheSupport libexec \
+             Inst_Tools Inst_Settarg pkgs other_tools 
 
 install: pre-install  zsh_tab_funcs
 	$(RM) $(DESTDIR)$(PKG)
@@ -221,8 +223,11 @@ tags:
 libexec:  $(lua_code)
 	$(MAKE) FILELIST="$^" DIRLOC=$(DESTDIR)$(LIBEXEC) __installMe
 
-libtools: src/tools/*.lua
-	$(MAKE) FILELIST="$^" DIRLOC=$(DESTDIR)$(LIBTOOLS) __installMe
+Inst_Tools: tools/*.lua
+	$(MAKE) FILELIST="$^" DIRLOC=$(DESTDIR)$(TOOLS) __installMe
+
+Inst_Settarg: settarg/*.lua
+	$(MAKE) FILELIST="$^" DIRLOC=$(DESTDIR)$(SETTARG) __installMe
 
 
 clean:
