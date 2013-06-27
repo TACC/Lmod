@@ -146,4 +146,4 @@ unset -f mdbg;
 unset -f opt;
 unset -f settarg;
 unset -f targ;
-settarg --purge;
+eval `lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --purge`;

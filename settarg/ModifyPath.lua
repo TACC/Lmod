@@ -48,7 +48,7 @@ function ModifyPath()
    local w_targ    = ":./" .. targ    .. ":"
 
    if (targ == "") then
-      w_targ    = "::"
+      w_targ    = ":"
    end
 
    dbg.start("ModifyPath()")
@@ -62,9 +62,6 @@ function ModifyPath()
       path = w_path:gsub(w_oldTarg,w_targ)
       dbg.print("(2) path:",path,"\n")
    end
-
-   path = path:gsub("::","")
-   dbg.print("(3) path:",path,"\n")
 
    if (path:sub(1,1) == ':') then
       path = path:sub(2)
