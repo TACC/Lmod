@@ -63,7 +63,8 @@ function usePager(f, ...)
    dbg.start("usePager()")
    if (not s_pager) then
       s_pager = os.getenv("PAGER") or Pager
-      if (s_pager == "@PATH_TO_PAGER@") then
+      s_pager = findInPath(s_pager)
+      if (s_pager == "") then
          bypassPager(f, ...)
          return
       end
