@@ -1,7 +1,7 @@
 ===========================
 step 1
 ===========================
-Modules based on Lua: Version 5.0.1 (5.0.1-13-g8ab06b3) 2013-06-18 14:14
+Modules based on Lua: Version 5.0.1 (5.0.1-19-g8ac45a2) 2013-06-18 14:14
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -164,6 +164,12 @@ step 3
 ===========================
 step 4
 ===========================
+===========================
+step 5
+===========================
+===========================
+step 6
+===========================
 Currently Loaded Modules:
   1)  mpi.zlib.hdf5.netcdf/intel-13.1.1
   2)  openmpi/1.6.4/intel-13.1.1
@@ -193,7 +199,7 @@ Currently Loaded Modules:
   26) fftw/2.1.5/intel-13.1.1
   27) grace/5.1.23/intel-13.1.1
 ===========================
-step 5
+step 7
 ===========================
 _ModuleTable_ = {
   ["activeSize"] = 27,
@@ -201,8 +207,6 @@ _ModuleTable_ = {
     "ProjectDIR/rt/columnT/modules",
     "ProjectDIR/rt/columnT/modules-npa",
   },
-  ["c_rebuildTime"] = 7200,
-  ["c_shortTime"] = 1.0894379615784,
   family = {
   },
   inactive = {

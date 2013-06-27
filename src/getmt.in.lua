@@ -84,9 +84,11 @@ function main()
    local t = assert(load(s))()
 
    local mt = _ModuleTable_
-   for k,v in pairs(mt) do
-      if (k:sub(1,2) == "c_") then
-         mt[k] = nil
+   if (optionTbl.testing) then
+      for k,v in pairs(mt) do
+         if (k:sub(1,2) == "c_") then
+            mt[k] = nil
+         end
       end
    end
       

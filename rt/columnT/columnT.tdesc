@@ -28,16 +28,18 @@ testdescript = {
 
      rm -fr _stderr.* _stdout.* err.* out.* .lmod.d
 
-     mA="mpi.zlib.hdf5.netcdf python2.7.cython.numpy.scipy.numexpr.scientific.matplotlib
-         fftw/2.1.5 grace/5.1.23"
+     m1=" 
+         "
 
 
 
-     runMe lua $(projectDir)/src/lmod.in.lua bash --version        # 1
-     runMe lua $(projectDir)/src/lmod.in.lua bash avail            # 2
-     runMe lua $(projectDir)/src/lmod.in.lua bash load $mA         # 3
-     runMe lua $(projectDir)/src/lmod.in.lua bash list             # 4
-     runMe lua $(projectDir)/src/getmt.in.lua -2                   # 5
+     runMe lua $(projectDir)/src/lmod.in.lua bash --version                    # 1
+     runMe lua $(projectDir)/src/lmod.in.lua bash avail                        # 2
+     runMe lua $(projectDir)/src/lmod.in.lua bash load mpi.zlib.hdf5.netcdf    # 3
+     runMe lua $(projectDir)/src/lmod.in.lua bash load python2.7.cython.numpy.scipy.numexpr.scientific.matplotlib #4
+     runMe lua $(projectDir)/src/lmod.in.lua bash load fftw/2.1.5 grace/5.1.23 # 5
+     runMe lua $(projectDir)/src/lmod.in.lua bash list                         # 6
+     runMe lua $(projectDir)/src/getmt.in.lua --regressionTesting -2           # 7
 
      HOME_ORIG=$HOME
 
