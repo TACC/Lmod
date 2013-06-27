@@ -1,7 +1,7 @@
 local projDir    = os.getenv("projectDir")
 local settarg_cmd = pathJoin(projDir, "settarg", "settarg_cmd.in.lua")
 
-setenv("LMOD_SETTARG_CMD", "lua ".. settarg_cmd)
+setenv("LMOD_SETTARG_CMD", settarg_cmd)
 set_shell_function("settarg", 'eval $($LMOD_SETTARG_CMD --shell sh "$@")',
    'eval `$LMOD_SETTARG_CMD  --shell csh $*`')
 
