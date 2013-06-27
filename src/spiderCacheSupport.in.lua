@@ -48,7 +48,7 @@ function cmdDir()
    return cmd_dir
 end
 
-package.path = cmd_dir .. "tools/?.lua;" ..
+package.path = cmd_dir .. "../tools/?.lua;" ..
                cmd_dir .. "?.lua;"       .. package.path
 
 

@@ -48,7 +48,7 @@ local cmd_dir = "./"
 if (i) then
    cmd_dir = cmd:sub(1,j)
 end
-package.path = cmd_dir .. "tools/?.lua;" ..
+package.path = cmd_dir .. "../tools/?.lua;" ..
                cmd_dir .. "?.lua;"       .. package.path
 
 function cmdDir()
@@ -82,7 +82,16 @@ function main()
    if (s == nil) then return end
 
    local t = assert(load(s))()
-   local s = serializeTbl{indent=true, name="_ModuleTable_", value=_ModuleTable_}
+
+   local mt = _ModuleTable_
+   for k,v in pairs(mt) do
+      if (k:sub(1,2) == "c_") then
+         mt[k] = nil
+      end
+   end
+      
+
+   local s = serializeTbl{indent=true, name="_ModuleTable_", value= mt}
 
    local fn = nil
    if (optionTbl.save_state) then
@@ -132,6 +141,12 @@ function options()
    cmdlineParser:add_option{
       name   = {'-2', '--err'},
       dest   = 'errorOut',
+      action = 'store_true',
+   }
+
+   cmdlineParser:add_option{
+      name   = {'--regressionTesting'},
+      dest   = 'testing',
       action = 'store_true',
    }
 

@@ -54,7 +54,7 @@ local cmd_dir = "./"
 if (i) then
    cmd_dir = cmd:sub(1,j)
 end
-package.path = cmd_dir .. "tools/?.lua;" ..
+package.path = cmd_dir .. "../tools/?.lua;" ..
                cmd_dir .. "?.lua;"       .. package.path
 
 require("strict")

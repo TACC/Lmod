@@ -43,7 +43,7 @@ local LuaCommandName_dir = "./"
 if (i) then
    LuaCommandName_dir = LuaCommandName:sub(1,j)
 end
-package.path = LuaCommandName_dir .. "tools/?.lua;" ..
+package.path = LuaCommandName_dir .. "../tools/?.lua;" ..
                LuaCommandName_dir .. "?.lua;"       .. package.path
 
 require("strict")
