@@ -8,7 +8,7 @@ export LMOD_DIR
 module()
 {
   eval $($LMOD_CMD bash "$@")
-  [ $? = 0 ] && eval $($LMOD_SETTARG_CMD -s sh)
+  [ $? = 0 ] && eval $(${LMOD_SETTARG_CMD--} -s sh)
 }
 
 clearMT()
