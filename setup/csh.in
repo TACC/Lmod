@@ -1,6 +1,6 @@
 #!/bin/csh
-set LMOD_CMD="@PKG@/libexec/lmod"
-set LMOD_DIR="@PKG@/libexec"
+setenv LMOD_CMD "@PKG@/libexec/lmod"
+setenv LMOD_DIR "@PKG@/libexec"
 
 set prefix  = ""
 set midfix  = ""
@@ -17,7 +17,7 @@ if ( $?histchars) then
   endif
 endif
 
-alias module  $prefix'eval `$LMOD_CMD csh '$midfix $histchar'*` $postfix eval `$LMOD_SETTARG_CMD -s csh`'
+alias module  $prefix'eval `$LMOD_CMD csh '$midfix $histchar'*` '$postfix' eval `$LMOD_SETTARG_CMD -s csh`'
 alias clearMT 'eval `'$LMOD_DIR/clearMT_cmd csh'`'
 
 alias ml      'eval `'$LMOD_DIR/ml_cmd' '$histchar'*`'
