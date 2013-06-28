@@ -36,7 +36,9 @@ require("strict")
 
 Pkg = inheritsFrom(PkgBase)
 
+local Dbg = require("Dbg")
 local M = Pkg
+local dbg = Dbg:dbg()
 
 s_MdirA = { [0] = "Compiler",
             [1] = "MPI",
@@ -47,6 +49,7 @@ function M.name(self)
 end
 
 function M._build_pkgBase(self,level)
+   dbg.start("Pkg:_build_pkgBase()")
    local pkgNameVer = self._pkgNameVer
    local pkgRoot    = self._pkgRoot
    local a          = {}
@@ -59,10 +62,12 @@ function M._build_pkgBase(self,level)
       end
    end
    a[#a+1] = pkgNameVer
+   dbg.fini("Pkg:_build_pkgBase")
    return pathJoin(unpack(a))
 end   
 
 function M.moduleDir(self)
+   dbg.start("Pkg:moduleDir()")
    local level = self.level or 0
    local a     = {}
    a[#a+1]     = os.getenv("MODULEPATH_ROOT")
@@ -79,6 +84,7 @@ function M.moduleDir(self)
    a[#a+1]    = pathJoin(self._pkgName,pkgV)
    local mdir = pathJoin(unpack(a))
 
+   dbg.fini("Pkg:moduleDir")
    return mdir
 end
 

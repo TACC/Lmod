@@ -226,6 +226,12 @@ function main()
    colorize = plain
 
    ------------------------------------------------------------------------
+   --  The StandardPackage is where Lmod registers hooks.  Sites may
+   --  override the hook functions in SitePackage.
+   ------------------------------------------------------------------------
+   require("StandardPackage")
+
+   ------------------------------------------------------------------------
    -- Load a SitePackage Module.
    ------------------------------------------------------------------------
 
