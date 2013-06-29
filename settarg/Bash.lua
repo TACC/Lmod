@@ -44,7 +44,7 @@ function Bash.expand(self, tbl)
    for k in pairsByKeys(tbl) do
       local v     = tbl[k]
       local lineA = {}
-      if (v == '') then
+      if (v == '' or not v) then
          io.stdout:write("unset '",k,"';\n")
       else
          lineA[#lineA + 1] = k

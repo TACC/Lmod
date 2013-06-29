@@ -81,6 +81,18 @@ function main()
    end
    dbg.start("settarg()")
 
+   if (masterTbl.cmdHelp) then
+      io.stderr:write("Lmod settarg ",Version.name(),"\n")
+      io.stderr:write(masterTbl.cmdHelpMsg,"\n")
+      dbg.fini("settarg")
+      return
+   end
+
+   if (masterTbl.version) then
+      io.stderr:write("Lmod settarg ",Version.name(),"\n")
+      os.exit(0)
+   end
+
    ------------------------------------------
    -- Build shell object
    local shell = BaseShell.build(masterTbl.shell)

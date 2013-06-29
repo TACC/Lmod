@@ -633,7 +633,7 @@ function main()
 
 
    -- if Help was requested then quit.
-   if (masterTbl.cmdhelp) then
+   if (masterTbl.cmdHelp) then
       Help()
       os.exit(0)
    end

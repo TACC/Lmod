@@ -44,7 +44,7 @@ Csh.my_name     = 'csh'
 function Csh.expand(self,tbl)
    for k in pairsByKeys(tbl) do
       local v = tbl[k]
-      if (v == '') then
+      if (v == '' or not v) then
          io.stdout:write("unsetenv ",k,";\n")
       else
          io.stdout:write("setenv ",k," '",v,"';\n")

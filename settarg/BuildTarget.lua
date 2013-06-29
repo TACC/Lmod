@@ -40,7 +40,10 @@ require("fileOps")
 
 local Dbg         = require("Dbg")
 local posix       = require("posix")
+local base64      = require("base64")
 local concatTbl   = table.concat
+local decode64    = base64.decode64
+local encode64    = base64.encode64
 local getenv      = posix.getenv
 local load        = (_VERSION == "Lua 5.1") and loadstring or load
 local masterTbl   = masterTbl
@@ -51,15 +54,7 @@ require("ProcessModuleTable")
 local M          = {}
 
 function M.default_MACH()
-   local masterTbl = masterTbl()
-   local results = masterTbl.mach
-   if (results == "") then
-      results = getenv("TARG_MACH") or "host"
-   end
-   if (results == "host") then
-      results = getUname().machName
-   end
-   return results
+   return getUname().machName
 end
 
 function M.default_BUILD_SCENARIO()
@@ -108,19 +103,43 @@ local function string2Tbl(s,tbl)
    dbg.start("string2Tbl(\"",s,"\", tbl)")
    local stringKindTbl = masterTbl().stringKindTbl
    for v in s:split("%s+") do
-      local kind = stringKindTbl[v]
-      if (kind) then
-         local K = "TARG_" .. kind:upper()
-         v  = (K == "TARG_BUILD_SCENARIO" and v == "empty") and "" or v
-         dbg.print("v: ",v," kind: ",kind," K: ",K,"\n")
-
-         tbl[K] = v
-         
+      local kindA  = stringKindTbl[v]
+      if (kindA == nil) then
+         local K = "TARG_EXTRA"
+         local t = tbl[K] or {}
+         t[v] = true
+         tbl[K] = t
+         dbg.print("Adding \"",v,"\" to TARG_EXTRA\n")
+      else
+         for i = 1,#kindA do
+            local kind = kindA[i]
+            local K = "TARG_" .. kind:upper()
+            v  = (K == "TARG_BUILD_SCENARIO" and v == "empty") and "" or v
+            dbg.print("v: ",v," kind: ",kind," K: ",K,"\n")
+            tbl[K] = v
+         end
       end
    end
-
-   
    dbg.fini()
+end
+
+function M.init_EXTRA()
+   local dbg = Dbg:dbg()
+   dbg.start("BuildTarget.init_EXTRA()")
+   
+   local t = {}
+   local extra = getenv("TARG_EXTRA_ENCODED_ARRAY") 
+   if (not extra) then
+      dbg.print("Empty TARG_EXTRA_ENCODED_ARRAY\n")
+   else
+      for v64 in extra:split(":") do
+         local v = decode64(v64)
+         t[v]    = true
+         dbg.print("Adding ",v," to initial value of TARG_EXTRA\n")
+      end
+   end
+   dbg.fini("BuildTarget.init_EXTRA")
+   return t
 end
 
 function M.buildTbl(targetTbl)
@@ -144,6 +163,9 @@ function M.buildTbl(targetTbl)
       tbl[key] = v
    end
 
+   -- Always extract EXTRA from environment
+   tbl.TARG_EXTRA = M.init_EXTRA()
+
    -- Always set mach
    tbl.TARG_MACH = M.default_MACH()
 
@@ -163,7 +185,7 @@ function M.buildTbl(targetTbl)
       end
    end
 
-   local a = {"build_scenario","mach"} 
+   local a = {"build_scenario","mach", "extra"} 
    for _,v in ipairs(a) do
       if (targetTbl[v]) then
          targetTbl[v] = -1
@@ -208,7 +230,9 @@ local function readDotFiles()
          for k in pairs(systemG.ModuleTbl) do
             ModuleMstrTbl[k] = systemG.ModuleTbl[k]
             for _, v in ipairs(ModuleMstrTbl[k]) do
-               stringKindTbl[v] = k
+               local a          = stringKindTbl[v] or {}
+               a[#a+1]          = k
+               stringKindTbl[v] = a
             end
          end
          for k in pairs(ModuleMstrTbl) do
@@ -245,45 +269,67 @@ function M.exec(shell, targetList)
    targetList = targetList or masterTbl.targetList
    local familyTbl  = masterTbl.familyTbl
    local targetTbl = {}
+
+   targetList[#targetList+1] = "extra"
    for i,v in ipairs(targetList) do
       targetTbl[v] = i
    end
 
-   
-
    local tbl = M.buildTbl(targetTbl)
    
-   string2Tbl(table.concat(masterTbl.pargs," ") or '',tbl)
+   string2Tbl(concatTbl(masterTbl.pargs," ") or '',tbl)
 
    processModuleTable(shell:getMT(ModuleTable), targetTbl, tbl)
 
-   -- Remove options
+   -- Remove options from TARG_EXTRA
+
    for i = 1,#masterTbl.remOptions do
       local rem = masterTbl.remOptions[i]
       dbg.print("remove opt: ",rem,"\n")
-      for k,v in pairs(tbl) do
-         if (k == rem or v == rem) then
-            dbg.print("removing k: ",k," v: ",v,"\n")
-            tbl[k] = ""
-         end
+      local t = tbl.TARG_EXTRA 
+      if (next(t) ~= nil) then
+         t[rem] = nil
       end
+   end
+   
+   if (next(tbl.TARG_EXTRA) == nil or masterTbl.purgeFlag) then
+      tbl.TARG_EXTRA               = false
+      tbl.TARG_EXTRA_ENCODED_ARRAY = false
+   else
+      local t = tbl.TARG_EXTRA
+      local a = {}
+      local b = {}
+      for k in pairsByKeys(t) do
+         a[#a+1] = k
+         b[#b+1] = encode64(k)
+      end
+      tbl.TARG_EXTRA               = concatTbl(a,"_")
+      tbl.TARG_EXTRA_ENCODED_ARRAY = concatTbl(b,":")
    end
 
    local a = {}
    for _,v in ipairs(targetList) do
-      local K = "TARG_" .. v:upper()
-      a[#a + 1] = tbl[K]
-      if (familyTbl[v]) then
-         local KK = K .. "_FAMILY"
-         envVarsTbl[KK] = tbl[K]:gsub("-.*","")
+      local K     = "TARG_" .. v:upper()
+      local KK    = K .. "_FAMILY"
+      local entry = tbl[K]
+      if (not entry) then
+         envVarsTbl[KK] = false
+      else
+         a[#a + 1]   = entry
+         if (familyTbl[v]) then
+            local value    = entry:gsub("-.*","")
+            envVarsTbl[KK] = value
+            dbg.print("envVarsTbl[",KK,"]: ",value,"\n")
+         end
       end
    end
+
 
    for k in pairs(tbl) do
       envVarsTbl[k] = tbl[k]
    end
 
-   target = table.concat(a,"_")
+   target = concatTbl(a,"_")
    target = target:gsub("_+","_")
    target = target:gsub("_$","")
 
@@ -310,13 +356,15 @@ function M.exec(shell, targetList)
 
       if (v:len() > 0) then
          local s = TitleTbl[name] or v
-         if (TitleTbl[name] and version ~= "" ) then
-            s = TitleTbl[name] .. "-" .. version
+         if (s) then
+            if (TitleTbl[name] and version ~= "" ) then
+               s = TitleTbl[name] .. "-" .. version
+            end
+            aa[#aa+1] = s
          end
-         aa[#aa+1] = s
       end
    end
-   local s                          = table.concat(aa," "):trim()
+   local s                          = concatTbl(aa," "):trim()
    local paren                      = ""
    if (s ~= "") then
       paren                         = "("..s..")"
@@ -324,7 +372,7 @@ function M.exec(shell, targetList)
    envVarsTbl.TARG_TITLE_BAR        = s
    envVarsTbl.TARG_TITLE_BAR_PAREN  = paren
 
-   if (masterTbl.purgeFlag) then
+   if (masterTbl.destoryFlag) then
       for k in pairs(envVarsTbl) do
          envVarsTbl[k] = ""
       end

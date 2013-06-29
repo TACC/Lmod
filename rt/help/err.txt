@@ -1,7 +1,7 @@
 ===========================
 step 1
 ===========================
-Modules based on Lua: Version 5.0.1 (5.0.1-19-g8ac45a2) 2013-06-18 14:14
+Modules based on Lua: Version 5.0.1 (5.0.1-47-gf923987) 2013-06-18 14:14
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -95,7 +95,7 @@ The following guides are at http://www.tacc.utexas.edu/tacc-projects/lmod
   User Guide                 - How to use.
   Advance User Guide         - How to create you own modules.
   System Administrator Guide - How to install Lmod on your own system.
-Modules based on Lua: Version 5.0.1 (5.0.1-19-g8ac45a2) 2013-06-18 14:14
+Modules based on Lua: Version 5.0.1 (5.0.1-47-gf923987) 2013-06-18 14:14
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 3
@@ -189,7 +189,7 @@ The following guides are at http://www.tacc.utexas.edu/tacc-projects/lmod
   User Guide                 - How to use.
   Advance User Guide         - How to create you own modules.
   System Administrator Guide - How to install Lmod on your own system.
-Modules based on Lua: Version 5.0.1 (5.0.1-19-g8ac45a2) 2013-06-18 14:14
+Modules based on Lua: Version 5.0.1 (5.0.1-47-gf923987) 2013-06-18 14:14
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 4

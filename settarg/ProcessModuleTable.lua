@@ -81,13 +81,12 @@ function processModuleTable(mt_string, targetTbl, tbl)
          end
       end
    end
-   
 
    for k in pairs(targetTbl) do
       if (targetTbl[k] ~= -1) then
          dbg.print("Clearing k: ",k," targetTbl[k]: ", tostring(targetTbl[k]), "\n")
          local K = "TARG_" .. k:upper()
-         tbl[K] = ''
+         tbl[K] = false
       end
    end
    dbg.fini()

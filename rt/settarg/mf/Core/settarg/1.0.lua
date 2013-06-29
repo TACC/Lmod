@@ -14,6 +14,6 @@ set_alias("cdt", "cd $TARG")
 
 if (mode() == "unload") then
    local myShell = myShellName()
-   local cmd     = "eval `lua " .. settarg_cmd .. " -s " .. myShell .. " --purge`"
+   local cmd     = "eval `lua " .. settarg_cmd .. " -s " .. myShell .. " --destroy`"
    execute(cmd)
 end

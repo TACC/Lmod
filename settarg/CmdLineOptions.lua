@@ -66,8 +66,23 @@ function  M.options(self)
    local Optiks = require("Optiks")
 
    local masterTbl     = masterTbl()
-   local usage         = "Usage: settarg [options] [dbg|opt|...] [compilers] [mpi_stacks] [anything_else]" 
-   local cmdlineParser = Optiks:new{usage=usage, version=format("settarg %s",version())}
+   local usage         = "Usage: settarg [options] [dbg|opt|...] [anything_else]" 
+   local versionStr    = format("Lmod settarg %s",version())
+   local cmdlineParser = Optiks:new{usage=usage}
+
+   cmdlineParser:add_option{
+      name   = {"-h","-?","--help"},
+      dest   = "cmdHelp",
+      action = "store_true",
+      help   = "This help message",
+   }
+
+   cmdlineParser:add_option{
+      name   = {"-v","--version"},
+      dest   = "version",
+      action = "store_true",
+      help   = "Print version info and quit",
+   }
 
    cmdlineParser:add_option{ 
       name    = {'-s','--shell'},
@@ -75,12 +90,6 @@ function  M.options(self)
       action  = 'store',
       type    = 'string',
       default = 'bash',
-   }
-
-   cmdlineParser:add_option{ 
-      name   = {'-v','--verbose'},
-      dest   = 'verbosityLevel',
-      action = 'count',
    }
 
    cmdlineParser:add_option{ 
@@ -100,6 +109,14 @@ function  M.options(self)
       name   = {'-p','--purge'},
       dest   = 'purgeFlag',
       action = 'store_true',
+      help   = "purge all extra fields",
+   }
+
+   cmdlineParser:add_option{ 
+      name   = {'--destroy'},
+      dest   = 'destroyFlag',
+      action = 'store_true',
+      help   = "Obliterate all settarg environment variables",
    }
 
    cmdlineParser:add_option{ 
@@ -107,14 +124,6 @@ function  M.options(self)
       dest   = 'remOptions',
       action = 'append',
       type   = 'string',
-   }
-
-   cmdlineParser:add_option{ 
-      name   = {'-m', '--mach'},
-      dest   = 'mach',
-      action = 'store',
-      type   = 'string',
-      default = ""
    }
 
    cmdlineParser:add_option{ 
@@ -131,6 +140,12 @@ function  M.options(self)
    end
    masterTbl.pargs = pargs
    
+   masterTbl.cmdHelpMsg      = ""
+   if (masterTbl.cmdHelp or pargs[1] == "help" ) then
+      masterTbl.cmdHelpMsg   = cmdlineParser:buildHelpMsg()
+   end
+
+
    masterTbl.shell = barefilename(masterTbl.shell)
 
    return s_CmdLineOptions

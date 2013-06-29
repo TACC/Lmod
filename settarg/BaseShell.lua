@@ -39,7 +39,7 @@ require("inherits")
 local M            = {}
 
 local base64       = require("base64")
-local concat       = table.concat
+local concatTbl    = table.concat
 local decode64     = base64.decode64
 local format       = string.format
 local getenv       = os.getenv
@@ -65,7 +65,7 @@ function M.getMT(self,name)
       a[#a+1]    = v
    end
    if (#a > 0) then
-      s = decode64(concat(a,""))
+      s = decode64(concatTbl(a,""))
    end
    return s
 end

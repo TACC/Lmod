@@ -85,7 +85,7 @@ function M.options(self, usage)
 
    cmdlineParser:add_option{
       name   = {"-h","-?","--help"},
-      dest   = "cmdhelp",
+      dest   = "cmdHelp",
       action = "store_true",
       help   = "This help message",
    }
@@ -161,13 +161,6 @@ function M.options(self, usage)
       help   = "local variables needed to be set after this commands execution",
    }
 
-   --cmdlineParser:add_option{
-   --   name   = {"--print-user-cache-file"},
-   --   dest   = "printUserCacheFileLocation",
-   --   action = "store_true",
-   --   help   = "Print the name of the file that contains the user cache file.",
-   --}
-
    cmdlineParser:add_option{
       name   = {"--check_syntax", "--checkSyntax"},
       dest   = "checkSyntax",
@@ -185,7 +178,7 @@ function M.options(self, usage)
    end
 
    masterTbl.cmdHelpMsg      = ""
-   if (masterTbl.cmdhelp or pargs[1] == "help" ) then
+   if (masterTbl.cmdHelp or pargs[1] == "help" ) then
       masterTbl.cmdHelpMsg   = cmdlineParser:buildHelpMsg()
    end
 

@@ -36,6 +36,9 @@ TARG_BUILD_SCENARIO='dbg';
 export TARG_BUILD_SCENARIO;
 unset 'TARG_COMPILER';
 unset 'TARG_COMPILER_FAMILY';
+unset 'TARG_EXTRA';
+unset 'TARG_EXTRA_ENCODED_ARRAY';
+unset 'TARG_EXTRA_FAMILY';
 TARG_MACH='x86_64';
 export TARG_MACH;
 unset 'TARG_MPI';
@@ -59,6 +62,9 @@ TARG_BUILD_SCENARIO='opt';
 export TARG_BUILD_SCENARIO;
 unset 'TARG_COMPILER';
 unset 'TARG_COMPILER_FAMILY';
+unset 'TARG_EXTRA';
+unset 'TARG_EXTRA_ENCODED_ARRAY';
+unset 'TARG_EXTRA_FAMILY';
 TARG_MACH='x86_64';
 export TARG_MACH;
 unset 'TARG_MPI';
@@ -81,6 +87,9 @@ export TARG;
 unset 'TARG_BUILD_SCENARIO';
 unset 'TARG_COMPILER';
 unset 'TARG_COMPILER_FAMILY';
+unset 'TARG_EXTRA';
+unset 'TARG_EXTRA_ENCODED_ARRAY';
+unset 'TARG_EXTRA_FAMILY';
 TARG_MACH='x86_64';
 export TARG_MACH;
 unset 'TARG_MPI';
@@ -123,31 +132,176 @@ export _ModuleTable_;
 ===========================
 step 7
 ===========================
-BUILDTARGET='x86_64_gcc-4.7.2_mpich-3.0.4';
+BUILDTARGET='x86_64';
 export BUILDTARGET;
-PATH='/opt/apps/gcc-4_7/mpich/3.0.4/bin:./obj/_x86_64_gcc-4.7.2_mpich-3.0.4:ProjectDIR/src:PATH_to_TM:/bin';
+PATH='/opt/apps/gcc-4_7/mpich/3.0.4/bin:./obj/_x86_64:ProjectDIR/src:PATH_to_TM:/bin';
 export PATH;
-TARG='obj/_x86_64_gcc-4.7.2_mpich-3.0.4';
+TARG='obj/_x86_64';
 export TARG;
 unset 'TARG_BUILD_SCENARIO';
-TARG_COMPILER='gcc-4.7.2';
-export TARG_COMPILER;
-TARG_COMPILER_FAMILY='gcc';
-export TARG_COMPILER_FAMILY;
+unset 'TARG_COMPILER';
+unset 'TARG_COMPILER_FAMILY';
+unset 'TARG_EXTRA';
+unset 'TARG_EXTRA_ENCODED_ARRAY';
 TARG_MACH='x86_64';
 export TARG_MACH;
-TARG_MPI='mpich-3.0.4';
-export TARG_MPI;
-TARG_MPI_FAMILY='mpich';
-export TARG_MPI_FAMILY;
-TARG_TARGET='x86_64_gcc-4.7.2_mpich-3.0.4';
+unset 'TARG_MPI';
+unset 'TARG_MPI_FAMILY';
+TARG_TARGET='x86_64';
 export TARG_TARGET;
-TARG_TITLE_BAR='gcc-4.7.2 M-3.0.4';
-export TARG_TITLE_BAR;
-TARG_TITLE_BAR_PAREN='(gcc-4.7.2 M-3.0.4)';
-export TARG_TITLE_BAR_PAREN;
+unset 'TARG_TITLE_BAR';
+unset 'TARG_TITLE_BAR_PAREN';
 ===========================
 step 8
+===========================
+BUILDTARGET='x86_64_f_f';
+export BUILDTARGET;
+PATH='/opt/apps/gcc-4_7/mpich/3.0.4/bin:./obj/_x86_64_f_f:ProjectDIR/src:PATH_to_TM:/bin';
+export PATH;
+TARG='obj/_x86_64_f_f';
+export TARG;
+unset 'TARG_BUILD_SCENARIO';
+unset 'TARG_COMPILER';
+unset 'TARG_COMPILER_FAMILY';
+TARG_EXTRA='f_f';
+export TARG_EXTRA;
+TARG_EXTRA_ENCODED_ARRAY='Zl9m';
+export TARG_EXTRA_ENCODED_ARRAY;
+TARG_MACH='x86_64';
+export TARG_MACH;
+unset 'TARG_MPI';
+unset 'TARG_MPI_FAMILY';
+TARG_TARGET='x86_64_f_f';
+export TARG_TARGET;
+TARG_TITLE_BAR='f_f';
+export TARG_TITLE_BAR;
+TARG_TITLE_BAR_PAREN='(f_f)';
+export TARG_TITLE_BAR_PAREN;
+===========================
+step 9
+===========================
+BUILDTARGET='x86_64_b:b_f_f';
+export BUILDTARGET;
+PATH='/opt/apps/gcc-4_7/mpich/3.0.4/bin:./obj/_x86_64_b:b_f_f:ProjectDIR/src:PATH_to_TM:/bin';
+export PATH;
+TARG='obj/_x86_64_b:b_f_f';
+export TARG;
+unset 'TARG_BUILD_SCENARIO';
+unset 'TARG_COMPILER';
+unset 'TARG_COMPILER_FAMILY';
+TARG_EXTRA='b:b_f_f';
+export TARG_EXTRA;
+TARG_EXTRA_ENCODED_ARRAY='Yjpi:Zl9m';
+export TARG_EXTRA_ENCODED_ARRAY;
+TARG_MACH='x86_64';
+export TARG_MACH;
+unset 'TARG_MPI';
+unset 'TARG_MPI_FAMILY';
+TARG_TARGET='x86_64_b:b_f_f';
+export TARG_TARGET;
+TARG_TITLE_BAR='b:b_f_f';
+export TARG_TITLE_BAR;
+TARG_TITLE_BAR_PAREN='(b:b_f_f)';
+export TARG_TITLE_BAR_PAREN;
+===========================
+step 10
+===========================
+BUILDTARGET='x86_64_b:b';
+export BUILDTARGET;
+PATH='/opt/apps/gcc-4_7/mpich/3.0.4/bin:./obj/_x86_64_b:b:ProjectDIR/src:PATH_to_TM:/bin';
+export PATH;
+TARG='obj/_x86_64_b:b';
+export TARG;
+unset 'TARG_BUILD_SCENARIO';
+unset 'TARG_COMPILER';
+unset 'TARG_COMPILER_FAMILY';
+TARG_EXTRA='_b:b';
+export TARG_EXTRA;
+TARG_EXTRA_ENCODED_ARRAY=':Yjpi';
+export TARG_EXTRA_ENCODED_ARRAY;
+TARG_MACH='x86_64';
+export TARG_MACH;
+unset 'TARG_MPI';
+unset 'TARG_MPI_FAMILY';
+TARG_TARGET='x86_64_b:b';
+export TARG_TARGET;
+TARG_TITLE_BAR='_b:b';
+export TARG_TITLE_BAR;
+TARG_TITLE_BAR_PAREN='(_b:b)';
+export TARG_TITLE_BAR_PAREN;
+===========================
+step 11
+===========================
+BUILDTARGET='x86_64';
+export BUILDTARGET;
+PATH='/opt/apps/gcc-4_7/mpich/3.0.4/bin:./obj/_x86_64:ProjectDIR/src:PATH_to_TM:/bin';
+export PATH;
+TARG='obj/_x86_64';
+export TARG;
+unset 'TARG_BUILD_SCENARIO';
+unset 'TARG_COMPILER';
+unset 'TARG_COMPILER_FAMILY';
+unset 'TARG_EXTRA';
+unset 'TARG_EXTRA_ENCODED_ARRAY';
+TARG_MACH='x86_64';
+export TARG_MACH;
+unset 'TARG_MPI';
+unset 'TARG_MPI_FAMILY';
+TARG_TARGET='x86_64';
+export TARG_TARGET;
+unset 'TARG_TITLE_BAR';
+unset 'TARG_TITLE_BAR_PAREN';
+===========================
+step 12
+===========================
+BUILDTARGET='x86_64_b:b_f_f';
+export BUILDTARGET;
+PATH='/opt/apps/gcc-4_7/mpich/3.0.4/bin:./obj/_x86_64_b:b_f_f:ProjectDIR/src:PATH_to_TM:/bin';
+export PATH;
+TARG='obj/_x86_64_b:b_f_f';
+export TARG;
+unset 'TARG_BUILD_SCENARIO';
+unset 'TARG_COMPILER';
+unset 'TARG_COMPILER_FAMILY';
+TARG_EXTRA='b:b_f_f';
+export TARG_EXTRA;
+TARG_EXTRA_ENCODED_ARRAY='Yjpi:Zl9m';
+export TARG_EXTRA_ENCODED_ARRAY;
+TARG_MACH='x86_64';
+export TARG_MACH;
+unset 'TARG_MPI';
+unset 'TARG_MPI_FAMILY';
+TARG_TARGET='x86_64_b:b_f_f';
+export TARG_TARGET;
+TARG_TITLE_BAR='b:b_f_f';
+export TARG_TITLE_BAR;
+TARG_TITLE_BAR_PAREN='(b:b_f_f)';
+export TARG_TITLE_BAR_PAREN;
+===========================
+step 13
+===========================
+BUILDTARGET='x86_64';
+export BUILDTARGET;
+PATH='/opt/apps/gcc-4_7/mpich/3.0.4/bin:./obj/_x86_64:ProjectDIR/src:PATH_to_TM:/bin';
+export PATH;
+TARG='obj/_x86_64';
+export TARG;
+unset 'TARG_BUILD_SCENARIO';
+unset 'TARG_COMPILER';
+unset 'TARG_COMPILER_FAMILY';
+unset 'TARG_EXTRA';
+unset 'TARG_EXTRA_ENCODED_ARRAY';
+unset 'TARG_EXTRA_FAMILY';
+TARG_MACH='x86_64';
+export TARG_MACH;
+unset 'TARG_MPI';
+unset 'TARG_MPI_FAMILY';
+TARG_TARGET='x86_64';
+export TARG_TARGET;
+unset 'TARG_TITLE_BAR';
+unset 'TARG_TITLE_BAR_PAREN';
+===========================
+step 14
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/settarg/settarg_bash/../mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -167,4 +321,4 @@ unset -f mdbg;
 unset -f opt;
 unset -f settarg;
 unset -f targ;
-eval `lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --purge`;
+eval `lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --destroy`;

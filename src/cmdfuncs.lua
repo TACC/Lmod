@@ -70,7 +70,8 @@ local function Access(mode, ...)
    if (n < 1) then
       pcall(pager, io.stderr, masterTbl.cmdHelpMsg, "\n", Usage(), "\n",
             version())
-      os.exit(1)
+      dbg.fini("Access")
+      return
    end
 
    master:access(...)

@@ -28,10 +28,12 @@ runBase ()
    NUM=`printf "%02d" $numStep`
    echo "===========================" >  _stderr.$NUM
    echo "step $COUNT"                 >> _stderr.$NUM
+   echo "$@"                          >> _stderr.$NUM
    echo "===========================" >> _stderr.$NUM
 
    echo "===========================" >  _stdout.$NUM
    echo "step $COUNT"                 >> _stdout.$NUM
+   echo "$@"                          >> _stdout.$NUM
    echo "===========================" >> _stdout.$NUM
 
    numStep=`expr $numStep + 1`
