@@ -23,6 +23,7 @@ LIBEXEC		  	 := $(prefix)/$(package)/$(version)/libexec
 TOOLS                    := $(prefix)/$(package)/$(version)/tools
 SETTARG                  := $(prefix)/$(package)/$(version)/settarg
 INIT		  	 := $(prefix)/$(package)/$(version)/init
+SETTARG_SOURCE           := settarg/*.lua  settarg/.settarg.lua  settarg/targ.in
 
 DIRLIST		  	 := $(DESTDIR)$(LIBEXEC) $(DESTDIR)$(TOOLS) $(DESTDIR)$(SETTARG) $(DESTDIR)$(INIT) $(DESTDIR)$(LIB)
 
@@ -78,26 +79,26 @@ $(DIRLIST) :
 	mkdir -p $@
 
 __installMe:
-	-for i in $(FILELIST); do                                     	    \
-           bareN=$${i##*/};                                           	    \
-           fn=$${bareN%%.in*};                                        	    \
-           ext=$${bareN#*.};                                          	    \
-           sed  -e 's|@PREFIX@|@prefix@|g'                            	    \
-	        -e 's|@path_to_lua@|$(PATH_TO_LUA)|g'                 	    \
-	        -e 's|@path_to_hashsum@|$(PATH_TO_HASHSUM)|g'         	    \
-	        -e 's|@path_to_pager@|$(PATH_TO_PAGER)|g'             	    \
-                -e 's|@use_dot_files@|$(USE_DOT_FILES)|g'             	    \
-                -e 's|@git@|$(GIT_VERSION)|g'                         	    \
-	        -e 's|@ancient@|$(ANCIENT)|g'                         	    \
-	        -e 's|@prepend_block@|$(PREPEND_BLOCK)|g'             	    \
-	        -e 's|@colorize@|$(COLORIZE)|g'                       	    \
-	        -e 's|@short_time@|$(SHORT_TIME)|g'                   	    \
-	        -e 's|@cacheDirs@|$(SPIDER_CACHE_DIRS)|g'             	    \
-	        -e 's|@updateSystemFn@|$(UPDATE_SYSTEM_FN)|g'         	    \
-	        -e 's|@modulepath_root@|$(MODULEPATH_ROOT)|g'         	    \
-                -e 's|@PKG@|$(PKG)|g'         < $$i > $(DIRLOC)/$$fn; 	    \
-            [ "$$ext" = "in.lua" -o "$$ext" = "tcl" -o "$$ext" = ".in" ] && \
-               chmod +x $(DIRLOC)/$$fn;                                     \
+	-for i in $(FILELIST); do                                     	   \
+           bareN=$${i##*/};                                           	   \
+           fn=$${bareN%%.in*};                                        	   \
+           ext=$${bareN#*.};                                          	   \
+           sed  -e 's|@PREFIX@|@prefix@|g'                            	   \
+	        -e 's|@path_to_lua@|$(PATH_TO_LUA)|g'                 	   \
+	        -e 's|@path_to_hashsum@|$(PATH_TO_HASHSUM)|g'         	   \
+	        -e 's|@path_to_pager@|$(PATH_TO_PAGER)|g'             	   \
+                -e 's|@use_dot_files@|$(USE_DOT_FILES)|g'             	   \
+                -e 's|@git@|$(GIT_VERSION)|g'                         	   \
+	        -e 's|@ancient@|$(ANCIENT)|g'                         	   \
+	        -e 's|@prepend_block@|$(PREPEND_BLOCK)|g'             	   \
+	        -e 's|@colorize@|$(COLORIZE)|g'                       	   \
+	        -e 's|@short_time@|$(SHORT_TIME)|g'                   	   \
+	        -e 's|@cacheDirs@|$(SPIDER_CACHE_DIRS)|g'             	   \
+	        -e 's|@updateSystemFn@|$(UPDATE_SYSTEM_FN)|g'         	   \
+	        -e 's|@modulepath_root@|$(MODULEPATH_ROOT)|g'         	   \
+                -e 's|@PKG@|$(PKG)|g'         < $$i > $(DIRLOC)/$$fn; 	   \
+            [ "$$ext" = "in.lua" -o "$$ext" = "tcl" -o "$$ext" = "in" ] && \
+               chmod +x $(DIRLOC)/$$fn;                                    \
         done
 
 shell_init: $(SHELL_INIT)
@@ -151,10 +152,10 @@ _distContrib:
 	cp -r $(CONTRIB) $(DistD)/contrib
 
 _distSrc:
-	mkdir $(DistD)/src
+	mkdir $(DistD)/src $(DistD)/tools $(DistD)/settarg
 	cp $(lua_code) $(ComputeHashSum) $(STANDALONE_PRGM) $(DistD)/src
-	mkdir $(DistD)/src/tools
-	cp src/tools/*.lua $(DistD)/src/tools
+	cp tools/*.lua $(DistD)/tools
+	cp $(SETTARG_SOURCE) $(DistD)/settarg
 
 _distVersion:
 	perl -p -i -e 's/\@git\@/$(GIT_VERSION)/g' $(DistD)/src/Version.lua
@@ -226,7 +227,7 @@ libexec:  $(lua_code)
 Inst_Tools: tools/*.lua
 	$(MAKE) FILELIST="$^" DIRLOC=$(DESTDIR)$(TOOLS) __installMe
 
-Inst_Settarg: settarg/*.lua settarg/.settarg.lua settarg/targ.in
+Inst_Settarg: $(SETTARG_SOURCE)
 	$(MAKE) FILELIST="$^" DIRLOC=$(DESTDIR)$(SETTARG) __installMe
 
 

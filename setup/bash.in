@@ -5,20 +5,108 @@ LMOD_DIR=@PKG@/libexec/
 LMOD_CMD=@PKG@/libexec/lmod
 export LMOD_CMD
 export LMOD_DIR
+
+########################################################################
+#  Define the module command:  The first line runs the "lmod" command
+#  to generate text:
+#      export PATH="..."
+#  then the "eval" converts the text into changes in the current shell.
+#
+#  The second command is the settarg command.  Normally LMOD_SETTARG_CMD
+#  is undefined or is ":".  Either way the eval does nothing.  When the
+#  settarg module is loaded, it defines LMOD_SETTARG_CMD.  The settarg
+#  command knows how to read the ModuleTable that Lmod maintains and 
+#  generates a series of env. vars that describe the current state of 
+#  loaded modules.  So if one is on a x86_64 linux computer with gcc/4.7.2
+#  and openmpi/1.6.3 loaded, then settarg will assign:
+#
+#     BUILDTARGET=x86_64_gcc-4.7.2_openmpi-1.6.3
+#     TARG=_x86_64_gcc-4.7.2_openmpi-1.6.3
+#     TARG_COMPILER=gcc-4.7.2
+#     TARG_COMPILER_FAMILY=gcc
+#     TARG_MACH=x86_64
+#     TARG_MPI=openmpi-1.6.3
+#     TARG_MPI_FAMILY=openmpi
+#     TARG_TARGET=x86_64_gcc-4.7.2_openmpi-1.6.3
+#     TARG_TITLE_BAR=gcc-4.7.2 O-1.6.3
+#     TARG_TITLE_BAR_PAREN=(gcc-4.7.2 O-1.6.3)
+#
+#  unloading openmpi/1.6.3 automatically changes these vars to be:
+#
+#   BUILDTARGET=x86_64_gcc-4.6.3
+#   TARG=_x86_64_gcc-4.6.3
+#   TARG_COMPILER=gcc-4.6.3
+#   TARG_COMPILER_FAMILY=gcc
+#   TARG_MACH=x86_64
+#   TARG_TARGET=x86_64_gcc-4.6.3
+#   TARG_TITLE_BAR=gcc-4.6.3
+#   TARG_TITLE_BAR_PAREN=(gcc-4.6.3)
+#
+# See Lmod web site for more details.
+
 module()
 {
   eval $($LMOD_CMD bash "$@")
   [ $? = 0 ] && eval $(${LMOD_SETTARG_CMD:-:} -s sh)
 }
 
-clearMT()
-{
-  eval $($LMOD_DIR/clearMT_cmd bash)
-}
+########################################################################
+#  ml is a shorthand tool for people who can't type moduel, err, module
+#  It is also a combination command:
+#     ml            -> module list
+#     ml gcc        -> module load gcc
+#     ml -gcc intel -> module unload gcc; module load intel
+#  It does much more do: "ml --help" for more information.
 ml()
 {
   eval $($LMOD_DIR/ml_cmd "$@")
 }
+
+########################################################################
+#  clearMT removes the ModuleTable from your environment.  It is rarely
+#  needed but it useful sometimes.
+
+clearMT()
+{
+  eval $($LMOD_DIR/clearMT_cmd bash)
+}
+
+########################################################################
+#  The following make the action of the settarg available to the titlebar
+#  for both xterm's and screen but only for interactive shells.
+if [ "$PS1" ]; then
+   xSetTitleLmod()
+   {
+     builtin echo -n -e "\033]2;$1\007"; 
+   }
+   screenSetTitleLmod()
+   {
+     builtin echo -n -e "\033_$1\033";
+   }
+   
+   SET_TITLE_BAR=:
+   
+   case $TERM in
+     xterm*)
+       SET_TITLE_BAR=xSetTitleLmod
+       ;;
+     screen)
+       SET_TITLE_BAR=screenSetTitle
+   esac
+   
+   precmd()
+   {
+     eval $(${LMOD_SETTARG_CMD:-:} -s bash)
+     ${SET_TITLE_BAR:-:} ${TARG_TITLE_BAR_PAREN}${USER}@${HOSTNAME%%.*}:${PWD/#$HOME/~}
+     ${USER_PROMPT_CMD:-:}
+   }
+
+   # define the PROMPT_COMMAND to be precmd iff it isn't defined already.
+   : ${PROMPT_COMMAND:=precmd}
+fi
+
+########################################################################
+#  Make tab completions available to bash users.
 
 if [ ${BASH_VERSINFO:-0} -ge 3 ] && [ -r  @PKG@/init/lmod_bash_completions ]; then
  . @PKG@/init/lmod_bash_completions

@@ -328,6 +328,9 @@ function M.exec(shell, targetList)
       for k in pairs(envVarsTbl) do
          envVarsTbl[k] = ""
       end
+      -------------------------------------------------------
+      -- For csh users this variable must have value.
+      envVarsTbl.TARG_TITLE_BAR_PAREN  = " "
    end
 
 

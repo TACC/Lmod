@@ -26,7 +26,7 @@ Working with Lmod means that there will be multiple copies of
 packages.  Either you will have multiple version of a compiler or any
 other package. Or you will have multiple copies of the same version of
 the same package (e.g: boost 1.53.0 for both intel, gcc, or fftw3 3.3 for
-gcc 4.7.2/ mpich/3.0 and intel 13.0, mpich/3.0, and ...).  How be DRY!
+gcc 4.7.2/ mpich/3.0 and intel 13.0, mpich/3.0, and ...).  How to be DRY?
 
 1) use TACC's way of packaging software (or similar)  put all your
    information in the rpm spec file.  This builds the software package

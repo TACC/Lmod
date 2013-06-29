@@ -27,6 +27,15 @@ unset midfix
 unset postfix
 unset histchar
 
+alias cwdcmd 'eval `$LMOD_SETTARG_CMD -s csh`'
+
+if ( $?prompt ) then
+   switch ($TERM)
+       case "xterm*":
+            alias precmd 'echo -n "\033]0;${TARG_TITLE_BAR_PAREN}${HOST}:$cwd\007"'
+            breaksw
+   endsw
+endif
 # Local Variables:
 # mode: shell-script
 # end:
