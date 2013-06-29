@@ -79,7 +79,7 @@ function main()
    if (masterTbl.debug) then
       dbg:activateDebug(1)
    end
-   dbg.start("settarg")
+   dbg.start("settarg()")
 
    ------------------------------------------
    -- Build shell object
@@ -88,7 +88,7 @@ function main()
    BuildTarget.exec(shell, FindProjectData())
    ModifyPath()
    Output(shell)
-   dbg.fini()
+   dbg.fini("settarg")
 end
 
 main()

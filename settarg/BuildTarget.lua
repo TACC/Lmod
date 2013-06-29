@@ -64,6 +64,7 @@ end
 
 function M.default_BUILD_SCENARIO()
    local dbg       = Dbg:dbg()
+   dbg.start("BuildTarget:default_BUILD_SCENARIO()")
    local masterTbl = masterTbl()
    local MethodTbl = masterTbl.MethodTbl
 
@@ -71,13 +72,15 @@ function M.default_BUILD_SCENARIO()
    -- Search over hostname first
    local t        = getUname()
    local hostname = t.hostName
-   dbg.print("in M.default_BUILD_SCENARIO\n")
 
    local v = nil
    while (true) do
-      dbg.print("hostname: ", hostname,"\n")
       v = MethodTbl[hostname]
-      if (v) then return v end
+      if (v) then
+         dbg.print("hostname: ", hostname," v: ",v,"\n")
+         dbg.fini("BuildTarget:default_BUILD_SCENARIO")
+         return v
+      end
       local i = hostname:find("%.")
       if (not i) then break end
       hostname = hostname:sub(i+1)
@@ -87,8 +90,14 @@ function M.default_BUILD_SCENARIO()
    -- Search over machName
    v = MethodTbl[t.machName] or MethodTbl[t.machFamilyName] or
        MethodTbl.default
-   if (v) then return v end
+   if (v) then
+      dbg.print("machName v: ",v,"\n")
+      dbg.fini("BuildTarget:default_BUILD_SCENARIO")
+      return v
+   end
 
+   dbg.print("default v: ",v,"\n")
+   
    -------------------------------------------------------
    -- Return last resort default
    return "empty"
@@ -137,7 +146,6 @@ function M.buildTbl(targetTbl)
 
    -- Always set mach
    tbl.TARG_MACH = M.default_MACH()
-   dbg.print("tbl.TARG_MACH: ",tostring(tbl.TARG_MACH),"\n")
 
    if ( tbl.TARG_BUILD_SCENARIO == "empty") then
       tbl.TARG_BUILD_SCENARIO = ""
