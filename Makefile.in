@@ -78,26 +78,26 @@ $(DIRLIST) :
 	mkdir -p $@
 
 __installMe:
-	-for i in $(FILELIST); do                                     \
-           bareN=$${i##*/};                                           \
-           fn=$${bareN%%.in*};                                        \
-           ext=$${bareN#*.};                                          \
-           sed  -e 's|@PREFIX@|@prefix@|g'                            \
-	        -e 's|@path_to_lua@|$(PATH_TO_LUA)|g'                 \
-	        -e 's|@path_to_hashsum@|$(PATH_TO_HASHSUM)|g'         \
-	        -e 's|@path_to_pager@|$(PATH_TO_PAGER)|g'             \
-                -e 's|@use_dot_files@|$(USE_DOT_FILES)|g'             \
-                -e 's|@git@|$(GIT_VERSION)|g'                         \
-	        -e 's|@ancient@|$(ANCIENT)|g'                         \
-	        -e 's|@prepend_block@|$(PREPEND_BLOCK)|g'             \
-	        -e 's|@colorize@|$(COLORIZE)|g'                       \
-	        -e 's|@short_time@|$(SHORT_TIME)|g'                   \
-	        -e 's|@cacheDirs@|$(SPIDER_CACHE_DIRS)|g'             \
-	        -e 's|@updateSystemFn@|$(UPDATE_SYSTEM_FN)|g'         \
-	        -e 's|@modulepath_root@|$(MODULEPATH_ROOT)|g'         \
-                -e 's|@PKG@|$(PKG)|g'         < $$i > $(DIRLOC)/$$fn; \
-            [ "$$ext" = "in.lua" -o "$$ext" = "tcl" ] &&              \
-               chmod +x $(DIRLOC)/$$fn;                               \
+	-for i in $(FILELIST); do                                     	    \
+           bareN=$${i##*/};                                           	    \
+           fn=$${bareN%%.in*};                                        	    \
+           ext=$${bareN#*.};                                          	    \
+           sed  -e 's|@PREFIX@|@prefix@|g'                            	    \
+	        -e 's|@path_to_lua@|$(PATH_TO_LUA)|g'                 	    \
+	        -e 's|@path_to_hashsum@|$(PATH_TO_HASHSUM)|g'         	    \
+	        -e 's|@path_to_pager@|$(PATH_TO_PAGER)|g'             	    \
+                -e 's|@use_dot_files@|$(USE_DOT_FILES)|g'             	    \
+                -e 's|@git@|$(GIT_VERSION)|g'                         	    \
+	        -e 's|@ancient@|$(ANCIENT)|g'                         	    \
+	        -e 's|@prepend_block@|$(PREPEND_BLOCK)|g'             	    \
+	        -e 's|@colorize@|$(COLORIZE)|g'                       	    \
+	        -e 's|@short_time@|$(SHORT_TIME)|g'                   	    \
+	        -e 's|@cacheDirs@|$(SPIDER_CACHE_DIRS)|g'             	    \
+	        -e 's|@updateSystemFn@|$(UPDATE_SYSTEM_FN)|g'         	    \
+	        -e 's|@modulepath_root@|$(MODULEPATH_ROOT)|g'         	    \
+                -e 's|@PKG@|$(PKG)|g'         < $$i > $(DIRLOC)/$$fn; 	    \
+            [ "$$ext" = "in.lua" -o "$$ext" = "tcl" -o "$$ext" = ".in" ] && \
+               chmod +x $(DIRLOC)/$$fn;                                     \
         done
 
 shell_init: $(SHELL_INIT)
@@ -226,7 +226,7 @@ libexec:  $(lua_code)
 Inst_Tools: tools/*.lua
 	$(MAKE) FILELIST="$^" DIRLOC=$(DESTDIR)$(TOOLS) __installMe
 
-Inst_Settarg: settarg/*.lua settarg/.settarg.lua
+Inst_Settarg: settarg/*.lua settarg/.settarg.lua settarg/targ.in
 	$(MAKE) FILELIST="$^" DIRLOC=$(DESTDIR)$(SETTARG) __installMe
 
 
