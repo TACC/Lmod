@@ -1,44 +1,56 @@
 ===========================
 step 1
+lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.0.1 (5.0.1-10-gb05ec35) 2013-06-18 14:14
+Modules based on Lua: Version 5.0.1 (5.0.1-48-g540fa7d) 2013-06-18 14:14
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
+lua ProjectDIR/src/lmod.in.lua bash load intel
 ===========================
 ===========================
 step 3
+lua ProjectDIR/src/lmod.in.lua bash load mpich
 ===========================
 ===========================
 step 4
+lua ProjectDIR/src/lmod.in.lua bash unload mpich
 ===========================
 ===========================
 step 5
+lua ProjectDIR/src/lmod.in.lua bash unload intel
 ===========================
 ===========================
 step 6
+lua ProjectDIR/src/lmod.in.lua bash load intel mpich
 ===========================
 ===========================
 step 7
+lua ProjectDIR/src/lmod.in.lua bash unload intel
 ===========================
 Inactive Modules:
   1) mpich
 ===========================
 step 8
+lua ProjectDIR/src/lmod.in.lua bash load intel
 ===========================
 Activating Modules:
   1) mpich/3.0
 ===========================
 step 9
+lua ProjectDIR/src/lmod.in.lua bash load settarg
 ===========================
 ===========================
 step 10
+lua ProjectDIR/src/lmod.in.lua bash unload settarg
 ===========================
 ===========================
 step 11
+lua ProjectDIR/src/lmod.in.lua bash save
 ===========================
 Saved current collection of modules to: default
 ===========================
 step 12
+lua ProjectDIR/src/lmod.in.lua bash restore
 ===========================
 Restoring modules to user's default

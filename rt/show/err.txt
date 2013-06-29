@@ -1,22 +1,26 @@
 ===========================
 step 1
+lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.0rc3 (5.0rc3-1-g5910b80) 2013-05-17 10:46
+Modules based on Lua: Version 5.0.1 (5.0.1-48-g540fa7d) 2013-06-18 14:14
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
+lua ProjectDIR/src/lmod.in.lua bash show gcc
 ===========================
    ProjectDIR/mf/Core/gcc/4.2.3.lua:
 family("compiler")
 prepend_path("MODULEPATH","ProjectDIR/mf/Compiler/gcc/4.2.3")
 ===========================
 step 3
+lua ProjectDIR/src/lmod.in.lua bash show alex
 ===========================
    ProjectDIR/mf/Core/alex/1.0.lua:
 load("noweb")
 load("git")
 ===========================
 step 4
+lua ProjectDIR/src/lmod.in.lua bash avail
 ===========================
 ProjectDIR/mf/Core
    PrgEnv                  git/1.7.4             junk/d/3.0
@@ -37,25 +41,30 @@ Use "module keyword key1 key2 ..." to search for all possible modules matching
 any of the "keys".
 ===========================
 step 5
+lua ProjectDIR/src/lmod.in.lua bash show boost
 ===========================
    ProjectDIR/mf/Core/boost/1.49.0.lua:
 setenv("TACC_BOOST_DIR","/opt/apps/boost/1.49.0")
 add_property("arch","offload")
 ===========================
 step 6
+lua ProjectDIR/src/lmod.in.lua bash load boost/1.47.1
 ===========================
 ===========================
 step 7
+lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
 Currently Loaded Modules:
   1) boost/1.47.1
 ===========================
 step 8
+lua ProjectDIR/src/lmod.in.lua bash show boost
 ===========================
    ProjectDIR/mf/Core/boost/1.47.1.lua:
 setenv("TACC_BOOST_DIR","/opt/apps/boost/1.47.1")
 ===========================
 step 9
+lua ProjectDIR/src/lmod.in.lua bash show boost/1.49.0
 ===========================
    ProjectDIR/mf/Core/boost/1.49.0.lua:
 setenv("TACC_BOOST_DIR","/opt/apps/boost/1.49.0")

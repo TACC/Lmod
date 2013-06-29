@@ -1,8 +1,10 @@
 ===========================
 step 1
+lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
 ===========================
 step 2
+lua ProjectDIR/src/lmod.in.lua bash load settarg
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/settarg/settarg_bash/../mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -25,6 +27,7 @@ settarg() { eval $($LMOD_SETTARG_CMD --shell sh "$@"); };
 targ() { builtin echo $TARG; };
 ===========================
 step 3
+lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --no_cpu_model dbg
 ===========================
 BUILDTARGET='x86_64_dbg';
 export BUILDTARGET;
@@ -51,6 +54,7 @@ TARG_TITLE_BAR_PAREN='(D)';
 export TARG_TITLE_BAR_PAREN;
 ===========================
 step 4
+lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --no_cpu_model opt
 ===========================
 BUILDTARGET='x86_64_opt';
 export BUILDTARGET;
@@ -77,6 +81,7 @@ TARG_TITLE_BAR_PAREN='(O)';
 export TARG_TITLE_BAR_PAREN;
 ===========================
 step 5
+lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --no_cpu_model empty
 ===========================
 BUILDTARGET='x86_64';
 export BUILDTARGET;
@@ -100,6 +105,7 @@ unset 'TARG_TITLE_BAR';
 unset 'TARG_TITLE_BAR_PAREN';
 ===========================
 step 6
+lua ProjectDIR/src/lmod.in.lua bash load gcc mpich
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/settarg/settarg_bash/../mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -131,6 +137,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/settar
 export _ModuleTable_;
 ===========================
 step 7
+lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --no_cpu_model
 ===========================
 BUILDTARGET='x86_64';
 export BUILDTARGET;
@@ -153,6 +160,7 @@ unset 'TARG_TITLE_BAR';
 unset 'TARG_TITLE_BAR_PAREN';
 ===========================
 step 8
+lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --no_cpu_model f_f
 ===========================
 BUILDTARGET='x86_64_f_f';
 export BUILDTARGET;
@@ -179,6 +187,7 @@ TARG_TITLE_BAR_PAREN='(f_f)';
 export TARG_TITLE_BAR_PAREN;
 ===========================
 step 9
+lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --no_cpu_model b:b
 ===========================
 BUILDTARGET='x86_64_b:b_f_f';
 export BUILDTARGET;
@@ -205,6 +214,7 @@ TARG_TITLE_BAR_PAREN='(b:b_f_f)';
 export TARG_TITLE_BAR_PAREN;
 ===========================
 step 10
+lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --no_cpu_model -r f_f
 ===========================
 BUILDTARGET='x86_64_b:b';
 export BUILDTARGET;
@@ -231,6 +241,7 @@ TARG_TITLE_BAR_PAREN='(_b:b)';
 export TARG_TITLE_BAR_PAREN;
 ===========================
 step 11
+lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --no_cpu_model -r b:b
 ===========================
 BUILDTARGET='x86_64';
 export BUILDTARGET;
@@ -253,6 +264,7 @@ unset 'TARG_TITLE_BAR';
 unset 'TARG_TITLE_BAR_PAREN';
 ===========================
 step 12
+lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --no_cpu_model f_f b:b
 ===========================
 BUILDTARGET='x86_64_b:b_f_f';
 export BUILDTARGET;
@@ -279,6 +291,7 @@ TARG_TITLE_BAR_PAREN='(b:b_f_f)';
 export TARG_TITLE_BAR_PAREN;
 ===========================
 step 13
+lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --no_cpu_model --purge
 ===========================
 BUILDTARGET='x86_64';
 export BUILDTARGET;
@@ -302,6 +315,7 @@ unset 'TARG_TITLE_BAR';
 unset 'TARG_TITLE_BAR_PAREN';
 ===========================
 step 14
+lua ProjectDIR/src/lmod.in.lua bash unload settarg
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/settarg/settarg_bash/../mf/Core";
 export LMOD_DEFAULT_MODULEPATH;

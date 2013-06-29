@@ -1,8 +1,10 @@
 ===========================
 step 1
+lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
 ===========================
 step 2
+lua ProjectDIR/src/lmod.in.lua bash use -a ProjectDIR/rt/always/mf
 ===========================
 unset LMOD_DEFAULT_MODULEPATH;
 unset MODULEPATH;
@@ -14,6 +16,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/always
 export _ModuleTable_;
 ===========================
 step 3
+lua ProjectDIR/src/lmod.in.lua bash load master
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/always/mf";
 export LMOD_DEFAULT_MODULEPATH;
@@ -31,6 +34,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/always
 export _ModuleTable_;
 ===========================
 step 4
+lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/always/mf";
 export LMOD_DEFAULT_MODULEPATH;
@@ -42,6 +46,7 @@ MODULEPATH="ProjectDIR/rt/always/mf";
 export MODULEPATH;
 ===========================
 step 5
+lua ProjectDIR/src/lmod.in.lua bash unload master
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/always/mf";
 export LMOD_DEFAULT_MODULEPATH;
@@ -56,6 +61,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/always
 export _ModuleTable_;
 ===========================
 step 6
+lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/always/mf";
 export LMOD_DEFAULT_MODULEPATH;

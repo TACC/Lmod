@@ -1,16 +1,20 @@
 ===========================
 step 1
+lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.0rc3 (5.0rc3-1-g5910b80) 2013-05-17 10:46
+Modules based on Lua: Version 5.0.1 (5.0.1-48-g540fa7d) 2013-06-18 14:14
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
+lua ProjectDIR/src/lmod.in.lua bash use -a ProjectDIR/rt/display/mf/Core
 ===========================
 ===========================
 step 3
+lua ProjectDIR/src/lmod.in.lua bash load junk
 ===========================
 ===========================
 step 4
+lua ProjectDIR/src/lmod.in.lua bash show junk
 ===========================
    ProjectDIR/rt/display/mf/Core/junk/1.0.lua:
 setenv("JUNK","1.0")

@@ -1,8 +1,10 @@
 ===========================
 step 1
+lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
 ===========================
 step 2
+lua ProjectDIR/src/lmod.in.lua bash load TACC
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/TACC";
 export LMOD_DEFAULT_MODULEPATH;
@@ -52,6 +54,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=7,baseMpathA={"ProjectDIR/rt/savere
 export _ModuleTable_;
 ===========================
 step 3
+lua ProjectDIR/src/lmod.in.lua bash load pgi/7.2-5
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/TACC";
 export LMOD_DEFAULT_MODULEPATH;
@@ -73,6 +76,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=7,baseMpathA={"ProjectDIR/rt/savere
 export _ModuleTable_;
 ===========================
 step 4
+lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/TACC";
 export LMOD_DEFAULT_MODULEPATH;
@@ -84,6 +88,7 @@ MODULEPATH="ProjectDIR/rt/saverestore/TACC_COMPILER/pgi/7.2-5:ProjectDIR/rt/save
 export MODULEPATH;
 ===========================
 step 5
+lua ProjectDIR/src/lmod.in.lua bash save default
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/TACC";
 export LMOD_DEFAULT_MODULEPATH;
@@ -95,6 +100,7 @@ MODULEPATH="ProjectDIR/rt/saverestore/TACC_COMPILER/pgi/7.2-5:ProjectDIR/rt/save
 export MODULEPATH;
 ===========================
 step 6
+lua ProjectDIR/src/lmod.in.lua bash restore
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/TACC";
 export LMOD_DEFAULT_MODULEPATH;
@@ -146,6 +152,7 @@ __LMOD_DEFAULT_MODULES_LOADED__="1";
 export __LMOD_DEFAULT_MODULES_LOADED__;
 ===========================
 step 7
+lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/TACC";
 export LMOD_DEFAULT_MODULEPATH;
@@ -157,6 +164,7 @@ MODULEPATH="ProjectDIR/rt/saverestore/TACC_COMPILER/pgi/7.2-5:ProjectDIR/rt/save
 export MODULEPATH;
 ===========================
 step 8
+lua ProjectDIR/src/lmod.in.lua bash use ProjectDIR/rt/saverestore/TACC2
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/TACC";
 export LMOD_DEFAULT_MODULEPATH;
@@ -170,6 +178,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=7,baseMpathA={"ProjectDIR/rt/savere
 export _ModuleTable_;
 ===========================
 step 9
+lua ProjectDIR/src/lmod.in.lua bash load a
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/TACC2:ProjectDIR/rt/saverestore/TACC";
 export LMOD_DEFAULT_MODULEPATH;
@@ -187,6 +196,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=8,baseMpathA={"ProjectDIR/rt/savere
 export _ModuleTable_;
 ===========================
 step 10
+lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/TACC2:ProjectDIR/rt/saverestore/TACC";
 export LMOD_DEFAULT_MODULEPATH;
@@ -198,6 +208,7 @@ MODULEPATH="ProjectDIR/rt/saverestore/TACC2:ProjectDIR/rt/saverestore/TACC_COMPI
 export MODULEPATH;
 ===========================
 step 11
+lua ProjectDIR/src/lmod.in.lua bash save
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/TACC2:ProjectDIR/rt/saverestore/TACC";
 export LMOD_DEFAULT_MODULEPATH;
@@ -209,6 +220,7 @@ MODULEPATH="ProjectDIR/rt/saverestore/TACC2:ProjectDIR/rt/saverestore/TACC_COMPI
 export MODULEPATH;
 ===========================
 step 12
+lua ProjectDIR/src/lmod.in.lua bash purge
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/TACC2:ProjectDIR/rt/saverestore/TACC";
 export LMOD_DEFAULT_MODULEPATH;
@@ -243,6 +255,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/savere
 export _ModuleTable_;
 ===========================
 step 13
+lua ProjectDIR/src/lmod.in.lua bash restore
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/TACC";
 export LMOD_DEFAULT_MODULEPATH;
@@ -298,6 +311,7 @@ __LMOD_DEFAULT_MODULES_LOADED__="1";
 export __LMOD_DEFAULT_MODULES_LOADED__;
 ===========================
 step 14
+lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/TACC2:ProjectDIR/rt/saverestore/TACC";
 export LMOD_DEFAULT_MODULEPATH;
@@ -309,6 +323,7 @@ MODULEPATH="ProjectDIR/rt/saverestore/TACC_COMPILER/pgi/7.2-5:ProjectDIR/rt/save
 export MODULEPATH;
 ===========================
 step 15
+lua ProjectDIR/src/lmod.in.lua bash spider
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/TACC2:ProjectDIR/rt/saverestore/TACC";
 export LMOD_DEFAULT_MODULEPATH;

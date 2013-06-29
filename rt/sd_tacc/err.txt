@@ -1,13 +1,16 @@
 ===========================
 step 1
+lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.0rc2 (5.0rc2-61-ga31019e) 2013-04-26 11:23
+Modules based on Lua: Version 5.0.1 (5.0.1-48-g540fa7d) 2013-06-18 14:14
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
+lua ProjectDIR/src/lmod.in.lua bash load TACC.orig
 ===========================
 ===========================
 step 3
+lua ProjectDIR/src/lmod.in.lua bash save
 ===========================
 Lmod Warning: Unable to save module state as a "default"
 The following module(s):
@@ -15,11 +18,14 @@ The following module(s):
 mix load statements with setting of environment variables.
 ===========================
 step 4
+lua ProjectDIR/src/lmod.in.lua bash purge
 ===========================
 ===========================
 step 5
+lua ProjectDIR/src/lmod.in.lua bash load TACC
 ===========================
 ===========================
 step 6
+lua ProjectDIR/src/lmod.in.lua bash save
 ===========================
 Saved current collection of modules to: default

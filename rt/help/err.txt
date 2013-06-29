@@ -1,10 +1,12 @@
 ===========================
 step 1
+lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.0.1 (5.0.1-47-gf923987) 2013-06-18 14:14
+Modules based on Lua: Version 5.0.1 (5.0.1-48-g540fa7d) 2013-06-18 14:14
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
+lua ProjectDIR/src/lmod.in.lua bash --help
 ===========================
 module [options] sub-command [args ...]
 Options:
@@ -95,10 +97,11 @@ The following guides are at http://www.tacc.utexas.edu/tacc-projects/lmod
   User Guide                 - How to use.
   Advance User Guide         - How to create you own modules.
   System Administrator Guide - How to install Lmod on your own system.
-Modules based on Lua: Version 5.0.1 (5.0.1-47-gf923987) 2013-06-18 14:14
+Modules based on Lua: Version 5.0.1 (5.0.1-48-g540fa7d) 2013-06-18 14:14
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 3
+lua ProjectDIR/src/lmod.in.lua bash help
 ===========================
 module [options] sub-command [args ...]
 Options:
@@ -189,10 +192,11 @@ The following guides are at http://www.tacc.utexas.edu/tacc-projects/lmod
   User Guide                 - How to use.
   Advance User Guide         - How to create you own modules.
   System Administrator Guide - How to install Lmod on your own system.
-Modules based on Lua: Version 5.0.1 (5.0.1-47-gf923987) 2013-06-18 14:14
+Modules based on Lua: Version 5.0.1 (5.0.1-48-g540fa7d) 2013-06-18 14:14
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 4
+lua ProjectDIR/src/lmod.in.lua bash help amber
 ===========================
 Module Specific Help for "amber/9"
 The TACC Amber installation only includes the parallel Sander/pmemd modules.

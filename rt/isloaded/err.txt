@@ -1,18 +1,23 @@
 ===========================
 step 1
+lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 4.1.4.3 2013-01-18 15:40
+Modules based on Lua: Version 5.0.1 (5.0.1-48-g540fa7d) 2013-06-18 14:14
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
+lua ProjectDIR/src/lmod.in.lua bash load PrgEnv
 ===========================
 ===========================
 step 3
+lua ProjectDIR/src/lmod.in.lua bash use ProjectDIR/rt/isloaded/mf
 ===========================
 ===========================
 step 4
+lua ProjectDIR/src/lmod.in.lua bash load isloaded
 ===========================
 Found intel
 ===========================
 step 5
+lua ProjectDIR/src/lmod.in.lua bash del isloaded
 ===========================

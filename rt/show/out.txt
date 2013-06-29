@@ -1,8 +1,10 @@
 ===========================
 step 1
+lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
 ===========================
 step 2
+lua ProjectDIR/src/lmod.in.lua bash show gcc
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1";
 export LMOD_DEFAULT_MODULEPATH;
@@ -16,6 +18,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/mf/Core",
 export _ModuleTable_;
 ===========================
 step 3
+lua ProjectDIR/src/lmod.in.lua bash show alex
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1";
 export LMOD_DEFAULT_MODULEPATH;
@@ -27,6 +30,7 @@ MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1";
 export MODULEPATH;
 ===========================
 step 4
+lua ProjectDIR/src/lmod.in.lua bash avail
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1";
 export LMOD_DEFAULT_MODULEPATH;
@@ -40,6 +44,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/mf/Core",
 export _ModuleTable_;
 ===========================
 step 5
+lua ProjectDIR/src/lmod.in.lua bash show boost
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1";
 export LMOD_DEFAULT_MODULEPATH;
@@ -51,6 +56,7 @@ MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1";
 export MODULEPATH;
 ===========================
 step 6
+lua ProjectDIR/src/lmod.in.lua bash load boost/1.47.1
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1";
 export LMOD_DEFAULT_MODULEPATH;
@@ -66,6 +72,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/mf/Core",
 export _ModuleTable_;
 ===========================
 step 7
+lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1";
 export LMOD_DEFAULT_MODULEPATH;
@@ -77,6 +84,7 @@ MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1";
 export MODULEPATH;
 ===========================
 step 8
+lua ProjectDIR/src/lmod.in.lua bash show boost
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1";
 export LMOD_DEFAULT_MODULEPATH;
@@ -88,6 +96,7 @@ MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1";
 export MODULEPATH;
 ===========================
 step 9
+lua ProjectDIR/src/lmod.in.lua bash show boost/1.49.0
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1";
 export LMOD_DEFAULT_MODULEPATH;

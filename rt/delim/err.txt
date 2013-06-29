@@ -1,44 +1,57 @@
 ===========================
 step 1
+lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.0rc2 (5.0rc2-18-gdc094c4) 2013-04-26 11:23
+Modules based on Lua: Version 5.0.1 (5.0.1-48-g540fa7d) 2013-06-18 14:14
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
+lua ProjectDIR/src/lmod.in.lua bash use -a ProjectDIR/rt/delim/mf/Core
 ===========================
 ===========================
 step 3
+lua ProjectDIR/src/lmod.in.lua bash load init_lua
 ===========================
 ===========================
 step 4
+lua ProjectDIR/src/lmod.in.lua bash load luaposix
 ===========================
 ===========================
 step 5
+lua ProjectDIR/src/lmod.in.lua bash unload luaposix
 ===========================
 ===========================
 step 6
+lua ProjectDIR/src/lmod.in.lua bash load init_lua
 ===========================
 ===========================
 step 7
+lua ProjectDIR/src/lmod.in.lua bash load luaposix
 ===========================
 ===========================
 step 8
+lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
 Currently Loaded Modules:
   1) init_lua/5.1.4   2) luaposix/1.0
 ===========================
 step 9
+lua ProjectDIR/src/lmod.in.lua bash unload init_lua luaposix
 ===========================
 ===========================
 step 10
+lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
 Lmod Warning: No modules installed
 ===========================
 step 11
+lua ProjectDIR/src/lmod.in.lua bash load ncarIntel
 ===========================
 ===========================
 step 12
+lua ProjectDIR/src/lmod.in.lua bash load ncarNetcdf
 ===========================
 ===========================
 step 13
+lua ProjectDIR/src/lmod.in.lua bash unload ncarNetcdf
 ===========================

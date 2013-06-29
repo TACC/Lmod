@@ -1,13 +1,16 @@
 ===========================
 step 1
+lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.0rc2 (5.0rc2-54-g7045ea1) 2013-04-26 11:23
+Modules based on Lua: Version 5.0.1 (5.0.1-48-g540fa7d) 2013-06-18 14:14
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
+lua ProjectDIR/src/lmod.in.lua bash load intel
 ===========================
 ===========================
 step 3
+lua ProjectDIR/src/lmod.in.lua bash avail
 ===========================
 ProjectDIR/mf/Compiler/intel/10.1
    gotoblas/1.31          gotoblas/1.33       openmpi/1.2.6
@@ -33,6 +36,7 @@ Use "module keyword key1 key2 ..." to search for all possible modules matching
 any of the "keys".
 ===========================
 step 4
+lua ProjectDIR/src/lmod.in.lua bash avail gcc intel p a j m
 ===========================
 ProjectDIR/mf/Compiler/intel/10.1
    gotoblas/1.31          gotoblas/1.33       openmpi/1.2.6
@@ -53,9 +57,11 @@ Use "module keyword key1 key2 ..." to search for all possible modules matching
 any of the "keys".
 ===========================
 step 5
+lua ProjectDIR/src/lmod.in.lua bash unload intel
 ===========================
 ===========================
 step 6
+lua ProjectDIR/src/lmod.in.lua bash avail
 ===========================
 ProjectDIR/mf/Core
    PrgEnv                      git/1.7.4              junk/d/3.0
@@ -78,6 +84,7 @@ Use "module keyword key1 key2 ..." to search for all possible modules matching
 any of the "keys".
 ===========================
 step 7
+lua ProjectDIR/src/lmod.in.lua bash -t avail
 ===========================
 ProjectDIR/mf/Core:
 PrgEnv
@@ -129,6 +136,7 @@ foo/1.4-dbg
 foo/1.4
 ===========================
 step 8
+lua ProjectDIR/src/lmod.in.lua bash -t -d avail
 ===========================
 ProjectDIR/mf/Core:
 PrgEnv
@@ -165,6 +173,7 @@ baz/1.4
 foo/1.4
 ===========================
 step 9
+lua ProjectDIR/src/lmod.in.lua bash -t avail git
 ===========================
 ProjectDIR/mf/Core:
 git
@@ -173,11 +182,13 @@ git/1.7.4
 git/1.7.4.3
 ===========================
 step 10
+lua ProjectDIR/src/lmod.in.lua bash -t -d avail git
 ===========================
 ProjectDIR/mf/Core:
 git/1.7.4.3
 ===========================
 step 11
+lua ProjectDIR/src/lmod.in.lua bash -t avail git/1.7.4.3
 ===========================
 ProjectDIR/mf/Core:
 git/1.7.4.3

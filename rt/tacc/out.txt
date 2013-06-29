@@ -1,8 +1,10 @@
 ===========================
 step 1
+lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
 ===========================
 step 2
+lua ProjectDIR/src/lmod.in.lua bash avail
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/TACC";
 export LMOD_DEFAULT_MODULEPATH;
@@ -16,6 +18,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/mf/TACC",
 export _ModuleTable_;
 ===========================
 step 3
+lua ProjectDIR/src/lmod.in.lua bash load TACC
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/TACC";
 export LMOD_DEFAULT_MODULEPATH;
@@ -77,6 +80,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=8,baseMpathA={"ProjectDIR/mf/TACC",
 export _ModuleTable_;
 ===========================
 step 4
+lua ProjectDIR/src/lmod.in.lua bash help mvapich1
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/TACC";
 export LMOD_DEFAULT_MODULEPATH;
@@ -88,6 +92,7 @@ MODULEPATH="ProjectDIR/mf/TACC_COMPILER/pgi/7.1:ProjectDIR/mf/TACC";
 export MODULEPATH;
 ===========================
 step 5
+lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/TACC";
 export LMOD_DEFAULT_MODULEPATH;
@@ -99,6 +104,7 @@ MODULEPATH="ProjectDIR/mf/TACC_COMPILER/pgi/7.1:ProjectDIR/mf/TACC";
 export MODULEPATH;
 ===========================
 step 6
+lua ProjectDIR/src/lmod.in.lua bash --latest load pgi
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/TACC";
 export LMOD_DEFAULT_MODULEPATH;
@@ -132,6 +138,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=8,baseMpathA={"ProjectDIR/mf/TACC",
 export _ModuleTable_;
 ===========================
 step 7
+lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/TACC";
 export LMOD_DEFAULT_MODULEPATH;
@@ -143,6 +150,7 @@ MODULEPATH="ProjectDIR/mf/TACC_COMPILER/pgi/7.2-5:/opt/apps/intel10_1/mvapich1_1
 export MODULEPATH;
 ===========================
 step 8
+lua ProjectDIR/src/lmod.in.lua bash load pgi
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/TACC";
 export LMOD_DEFAULT_MODULEPATH;
@@ -174,6 +182,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=8,baseMpathA={"ProjectDIR/mf/TACC",
 export _ModuleTable_;
 ===========================
 step 9
+lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/TACC";
 export LMOD_DEFAULT_MODULEPATH;
@@ -185,6 +194,7 @@ MODULEPATH="ProjectDIR/mf/TACC_COMPILER/pgi/7.1:ProjectDIR/mf/TACC";
 export MODULEPATH;
 ===========================
 step 10
+lua ProjectDIR/src/lmod.in.lua bash --latest swap pgi pgi
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/TACC";
 export LMOD_DEFAULT_MODULEPATH;
@@ -218,6 +228,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=8,baseMpathA={"ProjectDIR/mf/TACC",
 export _ModuleTable_;
 ===========================
 step 11
+lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/TACC";
 export LMOD_DEFAULT_MODULEPATH;
@@ -229,6 +240,7 @@ MODULEPATH="ProjectDIR/mf/TACC_COMPILER/pgi/7.2-5:/opt/apps/intel10_1/mvapich1_1
 export MODULEPATH;
 ===========================
 step 12
+lua ProjectDIR/src/lmod.in.lua bash unload cluster
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/TACC";
 export LMOD_DEFAULT_MODULEPATH;
@@ -269,6 +281,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/mf/TACC",
 export _ModuleTable_;
 ===========================
 step 13
+lua ProjectDIR/src/lmod.in.lua bash purge
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/TACC";
 export LMOD_DEFAULT_MODULEPATH;

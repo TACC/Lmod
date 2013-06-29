@@ -1,63 +1,80 @@
 ===========================
 step 1
+lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.0rc2 (5.0rc2-25-g9bbfba4) 2013-04-26 11:23
+Modules based on Lua: Version 5.0.1 (5.0.1-48-g540fa7d) 2013-06-18 14:14
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
+lua ProjectDIR/src/lmod.in.lua bash load petsc
 ===========================
 ===========================
 step 3
+lua ProjectDIR/src/lmod.in.lua bash load slepc/3.0.0
 ===========================
 Lmod Error: Can not load: "slepc/3.0.0" module without these modules loaded:
   petsc/3.0.0
 ===========================
 step 4
+lua ProjectDIR/src/lmod.in.lua bash unload slepc
 ===========================
 ===========================
 step 5
+lua ProjectDIR/src/lmod.in.lua bash unload petsc
 ===========================
 ===========================
 step 6
+lua ProjectDIR/src/lmod.in.lua bash load slepc
 ===========================
 Lmod Error: Can not load: "slepc/3.1.0" module without these modules loaded:
   petsc/3.1.0
 ===========================
 step 7
+lua ProjectDIR/src/lmod.in.lua bash load petsc/2.9.0
 ===========================
 ===========================
 step 8
+lua ProjectDIR/src/lmod.in.lua bash load slepc
 ===========================
 Lmod Error: Can not load: "slepc/3.1.0" module without these modules loaded:
   petsc/3.1.0
 ===========================
 step 9
+lua ProjectDIR/src/lmod.in.lua bash load slepc/2.9.0
 ===========================
 ===========================
 step 10
+lua ProjectDIR/src/lmod.in.lua bash load petsc/3.1.0
 ===========================
 ===========================
 step 11
+lua ProjectDIR/src/lmod.in.lua bash load slepc
 ===========================
 The following have been reloaded with a version change:
   1) slepc/2.9.0 => slepc/3.1.0
 ===========================
 step 12
+lua ProjectDIR/src/lmod.in.lua bash unload slepc petsc
 ===========================
 ===========================
 step 13
+lua ProjectDIR/src/lmod.in.lua bash load petsc/3.1.0
 ===========================
 ===========================
 step 14
+lua ProjectDIR/src/lmod.in.lua bash load slepc/2.9.0
 ===========================
 ===========================
 step 15
+lua ProjectDIR/src/lmod.in.lua bash load junk/1.0
 ===========================
 Lmod Error: Can not load: "junk/1.0" module.  At least one of these modules must be loaded:
   java, jdk64, jdk32
 ===========================
 step 16
+lua ProjectDIR/src/lmod.in.lua bash load jdk32
 ===========================
 ===========================
 step 17
+lua ProjectDIR/src/lmod.in.lua bash load junk/1.0
 ===========================

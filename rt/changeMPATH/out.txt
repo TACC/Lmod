@@ -1,8 +1,10 @@
 ===========================
 step 1
+lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
 ===========================
 step 2
+lua ProjectDIR/src/lmod.in.lua bash load admin PrgEnv
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -34,6 +36,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=6,baseMpathA={"ProjectDIR/mf/Core",
 export _ModuleTable_;
 ===========================
 step 3
+lua ProjectDIR/src/lmod.in.lua bash save default
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -45,6 +48,7 @@ MODULEPATH="ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/Core";
 export MODULEPATH;
 ===========================
 step 4
+lua ProjectDIR/src/lmod.in.lua bash purge
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -68,6 +72,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/mf/Core",
 export _ModuleTable_;
 ===========================
 step 5
+lua ProjectDIR/src/lmod.in.lua bash restore
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/changeMPATH/mf/Core:ProjectDIR/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -82,6 +87,7 @@ export _ModuleTable_;
 false
 ===========================
 step 6
+lua ProjectDIR/src/lmod.in.lua bash purge
 ===========================
 MODULEPATH="ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/Core";
 export MODULEPATH;
@@ -92,6 +98,7 @@ export _ModuleTable_;
 false
 ===========================
 step 7
+lua ProjectDIR/src/lmod.in.lua bash use ProjectDIR/rt/changeMPATH/mf/Core
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -105,6 +112,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/change
 export _ModuleTable_;
 ===========================
 step 8
+lua ProjectDIR/src/lmod.in.lua bash load admin PrgEnv
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/changeMPATH/mf/Core:ProjectDIR/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -136,6 +144,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=6,baseMpathA={"ProjectDIR/rt/change
 export _ModuleTable_;
 ===========================
 step 9
+lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/changeMPATH/mf/Core:ProjectDIR/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -147,6 +156,7 @@ MODULEPATH="ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/rt/changeMPATH/mf/Core:
 export MODULEPATH;
 ===========================
 step 10
+lua ProjectDIR/src/lmod.in.lua bash save default
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/changeMPATH/mf/Core:ProjectDIR/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -158,6 +168,7 @@ MODULEPATH="ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/rt/changeMPATH/mf/Core:
 export MODULEPATH;
 ===========================
 step 11
+lua ProjectDIR/src/lmod.in.lua bash purge
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/changeMPATH/mf/Core:ProjectDIR/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -181,6 +192,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/change
 export _ModuleTable_;
 ===========================
 step 12
+lua ProjectDIR/src/lmod.in.lua bash restore
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -214,6 +226,7 @@ __LMOD_DEFAULT_MODULES_LOADED__="1";
 export __LMOD_DEFAULT_MODULES_LOADED__;
 ===========================
 step 13
+lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/changeMPATH/mf/Core:ProjectDIR/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -225,6 +238,7 @@ MODULEPATH="ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/rt/changeMPATH/mf/Core:
 export MODULEPATH;
 ===========================
 step 14
+lua ProjectDIR/src/lmod.in.lua bash save foo
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/changeMPATH/mf/Core:ProjectDIR/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;

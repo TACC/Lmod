@@ -1,8 +1,10 @@
 ===========================
 step 1
+lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
 ===========================
 step 2
+lua ProjectDIR/src/lmod.in.lua bash load PrgEnv
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -32,6 +34,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=5,baseMpathA={"ProjectDIR/mf/Core",
 export _ModuleTable_;
 ===========================
 step 3
+lua ProjectDIR/src/lmod.in.lua bash use ProjectDIR/rt/isloaded/mf
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -45,6 +48,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=5,baseMpathA={"ProjectDIR/rt/isload
 export _ModuleTable_;
 ===========================
 step 4
+lua ProjectDIR/src/lmod.in.lua bash load isloaded
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/isloaded/mf:ProjectDIR/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -58,6 +62,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=6,baseMpathA={"ProjectDIR/rt/isload
 export _ModuleTable_;
 ===========================
 step 5
+lua ProjectDIR/src/lmod.in.lua bash del isloaded
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/isloaded/mf:ProjectDIR/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;

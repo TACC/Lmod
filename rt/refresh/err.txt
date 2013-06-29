@@ -1,11 +1,14 @@
 ===========================
 step 1
+lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.0rc1 (5.0rc1-6-gaef8a3e) 2013-04-16 11:06
+Modules based on Lua: Version 5.0.1 (5.0.1-48-g540fa7d) 2013-06-18 14:14
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
+lua ProjectDIR/src/lmod.in.lua bash load a b c
 ===========================
 ===========================
 step 3
+lua ProjectDIR/src/lmod.in.lua bash refresh
 ===========================

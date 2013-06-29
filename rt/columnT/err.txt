@@ -1,10 +1,12 @@
 ===========================
 step 1
+lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.0.1 (5.0.1-19-g8ac45a2) 2013-06-18 14:14
+Modules based on Lua: Version 5.0.1 (5.0.1-48-g540fa7d) 2013-06-18 14:14
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
+lua ProjectDIR/src/lmod.in.lua bash avail
 ===========================
 ProjectDIR/rt/columnT/modules
    AMD/2.3.1/gnu-4.7.2
@@ -160,15 +162,19 @@ Use "module keyword key1 key2 ..." to search for all possible modules matching
 any of the "keys".
 ===========================
 step 3
+lua ProjectDIR/src/lmod.in.lua bash load mpi.zlib.hdf5.netcdf
 ===========================
 ===========================
 step 4
+lua ProjectDIR/src/lmod.in.lua bash load python2.7.cython.numpy.scipy.numexpr.scientific.matplotlib
 ===========================
 ===========================
 step 5
+lua ProjectDIR/src/lmod.in.lua bash load fftw/2.1.5 grace/5.1.23
 ===========================
 ===========================
 step 6
+lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
 Currently Loaded Modules:
   1)  mpi.zlib.hdf5.netcdf/intel-13.1.1
@@ -200,6 +206,7 @@ Currently Loaded Modules:
   27) grace/5.1.23/intel-13.1.1
 ===========================
 step 7
+lua ProjectDIR/src/getmt.in.lua --regressionTesting -2
 ===========================
 _ModuleTable_ = {
   ["activeSize"] = 27,

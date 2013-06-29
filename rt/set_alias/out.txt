@@ -1,8 +1,10 @@
 ===========================
 step 1
+lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
 ===========================
 step 2
+lua ProjectDIR/src/lmod.in.lua bash load test1
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/set_alias/mf";
 export LMOD_DEFAULT_MODULEPATH;
@@ -19,6 +21,7 @@ export _ModuleTable_;
 alias somealias="1";
 ===========================
 step 3
+lua ProjectDIR/src/lmod.in.lua bash load test2
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/set_alias/mf";
 export LMOD_DEFAULT_MODULEPATH;
@@ -35,6 +38,7 @@ export _ModuleTable_;
 alias somealias="2";
 ===========================
 step 4
+lua ProjectDIR/src/lmod.in.lua bash unload test2
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/set_alias/mf";
 export LMOD_DEFAULT_MODULEPATH;
@@ -50,6 +54,7 @@ export _ModuleTable_;
 unalias somealias;
 ===========================
 step 5
+lua ProjectDIR/src/lmod.in.lua bash load test1
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/set_alias/mf";
 export LMOD_DEFAULT_MODULEPATH;
@@ -66,6 +71,7 @@ export _ModuleTable_;
 alias somealias="1";
 ===========================
 step 6
+lua ProjectDIR/src/lmod.in.lua bash load sfunc
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/set_alias/mf";
 export LMOD_DEFAULT_MODULEPATH;

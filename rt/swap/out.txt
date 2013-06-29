@@ -1,8 +1,10 @@
 ===========================
 step 1
+lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
 ===========================
 step 2
+lua ProjectDIR/src/lmod.in.lua bash load admin PrgEnv openmpi parmetis
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -46,6 +48,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=8,baseMpathA={"ProjectDIR/mf/Core",
 export _ModuleTable_;
 ===========================
 step 3
+lua ProjectDIR/src/lmod.in.lua bash avail
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -59,6 +62,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=8,baseMpathA={"ProjectDIR/mf/Core",
 export _ModuleTable_;
 ===========================
 step 4
+lua ProjectDIR/src/lmod.in.lua bash unload intel
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -92,6 +96,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=6,baseMpathA={"ProjectDIR/mf/Core",
 export _ModuleTable_;
 ===========================
 step 5
+lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -103,6 +108,7 @@ MODULEPATH="ProjectDIR/mf/Core";
 export MODULEPATH;
 ===========================
 step 6
+lua ProjectDIR/src/lmod.in.lua bash load gcc
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -138,6 +144,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=8,baseMpathA={"ProjectDIR/mf/Core",
 export _ModuleTable_;
 ===========================
 step 7
+lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -149,6 +156,7 @@ MODULEPATH="ProjectDIR/mf/MPI/gcc/4.2.3/openmpi/1.2.6:ProjectDIR/mf/Compiler/gcc
 export MODULEPATH;
 ===========================
 step 8
+lua ProjectDIR/src/lmod.in.lua bash swap gcc intel
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -188,6 +196,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=8,baseMpathA={"ProjectDIR/mf/Core",
 export _ModuleTable_;
 ===========================
 step 9
+lua ProjectDIR/src/lmod.in.lua bash load phdf5/1.8.2 petsc
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -205,6 +214,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=10,baseMpathA={"ProjectDIR/mf/Core"
 export _ModuleTable_;
 ===========================
 step 10
+lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -216,6 +226,7 @@ MODULEPATH="ProjectDIR/mf/MPI/intel/10.1/openmpi/1.2.6:ProjectDIR/mf/Compiler/in
 export MODULEPATH;
 ===========================
 step 11
+lua ProjectDIR/src/lmod.in.lua bash swap openmpi mpich2
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -252,6 +263,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=10,baseMpathA={"ProjectDIR/mf/Core"
 export _ModuleTable_;
 ===========================
 step 12
+lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -263,6 +275,7 @@ MODULEPATH="ProjectDIR/mf/MPI/intel/10.1/mpich2/1.0.7:ProjectDIR/mf/Compiler/int
 export MODULEPATH;
 ===========================
 step 13
+lua ProjectDIR/src/lmod.in.lua bash swap mpich2 openmpi
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -299,6 +312,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=10,baseMpathA={"ProjectDIR/mf/Core"
 export _ModuleTable_;
 ===========================
 step 14
+lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -310,6 +324,7 @@ MODULEPATH="ProjectDIR/mf/MPI/intel/10.1/openmpi/1.2.6:ProjectDIR/mf/Compiler/in
 export MODULEPATH;
 ===========================
 step 15
+lua ProjectDIR/src/lmod.in.lua bash load phdf5
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -325,6 +340,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=10,baseMpathA={"ProjectDIR/mf/Core"
 export _ModuleTable_;
 ===========================
 step 16
+lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -336,6 +352,7 @@ MODULEPATH="ProjectDIR/mf/MPI/intel/10.1/openmpi/1.2.6:ProjectDIR/mf/Compiler/in
 export MODULEPATH;
 ===========================
 step 17
+lua ProjectDIR/src/lmod.in.lua bash swap openmpi mpich2
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -372,6 +389,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=10,baseMpathA={"ProjectDIR/mf/Core"
 export _ModuleTable_;
 ===========================
 step 18
+lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -383,6 +401,7 @@ MODULEPATH="ProjectDIR/mf/MPI/intel/10.1/mpich2/1.0.7:ProjectDIR/mf/Compiler/int
 export MODULEPATH;
 ===========================
 step 19
+lua ProjectDIR/src/lmod.in.lua bash unload mpich2
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -415,6 +434,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=7,baseMpathA={"ProjectDIR/mf/Core",
 export _ModuleTable_;
 ===========================
 step 20
+lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;

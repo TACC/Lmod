@@ -1,8 +1,10 @@
 ===========================
 step 1
+lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
 ===========================
 step 2
+lua ProjectDIR/src/lmod.in.lua bash load bad_syntax
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/errHandler/mf";
 export LMOD_DEFAULT_MODULEPATH;
@@ -11,6 +13,7 @@ export MODULEPATH;
 false
 ===========================
 step 3
+lua ProjectDIR/src/lmod.in.lua bash load bad_argument
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/errHandler/mf";
 export LMOD_DEFAULT_MODULEPATH;
@@ -19,6 +22,7 @@ export MODULEPATH;
 false
 ===========================
 step 4
+lua ProjectDIR/src/lmod.in.lua bash load bad_func
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/errHandler/mf";
 export LMOD_DEFAULT_MODULEPATH;

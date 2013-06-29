@@ -1,13 +1,16 @@
 ===========================
 step 1
+lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.0 (5.0-19-ga0e06a1) 2013-05-29 05:22
+Modules based on Lua: Version 5.0.1 (5.0.1-48-g540fa7d) 2013-06-18 14:14
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
+lua ProjectDIR/src/lmod.in.lua bash load numpy
 ===========================
 ===========================
 step 3
+lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
 Currently Loaded Modules:
   1)  numpy/1.6.2-goolf-1.4.10-Python-2.7.3
@@ -26,9 +29,11 @@ Currently Loaded Modules:
   14) ncurses/5.9-goolf-1.4.10
 ===========================
 step 4
+lua ProjectDIR/src/lmod.in.lua bash load CMake bam2fastq
 ===========================
 ===========================
 step 5
+lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
 Currently Loaded Modules:
   1)  numpy/1.6.2-goolf-1.4.10-Python-2.7.3

@@ -1,10 +1,12 @@
 ===========================
 step 1
+lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.0rc3 (5.0rc3-13-g37d5a8e) 2013-05-17 10:46
+Modules based on Lua: Version 5.0.1 (5.0.1-48-g540fa7d) 2013-06-18 14:14
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
+lua ProjectDIR/src/lmod.in.lua bash avail
 ===========================
 ProjectDIR/mf/TACC
    Linux           cluster            globus/4.0.7      (D)
@@ -18,9 +20,11 @@ Use "module keyword key1 key2 ..." to search for all possible modules matching
 any of the "keys".
 ===========================
 step 3
+lua ProjectDIR/src/lmod.in.lua bash load TACC
 ===========================
 ===========================
 step 4
+lua ProjectDIR/src/lmod.in.lua bash help mvapich1
 ===========================
 Module Specific Help for "mvapich1/1.0"
 	This module loads the MVAPICH MPI environment built with
@@ -33,46 +37,55 @@ Module Specific Help for "mvapich1/1.0"
 	Version 1.0
 ===========================
 step 5
+lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
 Currently Loaded Modules:
   1) TACC    3) cluster   5) mvapich1/1.0   7) cluster-paths
   2) Linux   4) pgi/7.1   6) globus/4.0.7   8) TACC-paths
 ===========================
 step 6
+lua ProjectDIR/src/lmod.in.lua bash --latest load pgi
 ===========================
 The following have been reloaded with a version change:
   1) mvapich1/1.0 => mvapich1/mvapich1
 ===========================
 step 7
+lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
 Currently Loaded Modules:
   1) TACC    3) cluster        5) cluster-paths   7) mvapich1/mvapich1
   2) Linux   4) globus/4.0.7   6) TACC-paths      8) pgi/7.2-5
 ===========================
 step 8
+lua ProjectDIR/src/lmod.in.lua bash load pgi
 ===========================
 The following have been reloaded with a version change:
   1) mvapich1/mvapich1 => mvapich1/1.0     2) pgi/7.2-5 => pgi/7.1
 ===========================
 step 9
+lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
 Currently Loaded Modules:
   1) TACC    3) cluster        5) cluster-paths   7) pgi/7.1
   2) Linux   4) globus/4.0.7   6) TACC-paths      8) mvapich1/1.0
 ===========================
 step 10
+lua ProjectDIR/src/lmod.in.lua bash --latest swap pgi pgi
 ===========================
 The following have been reloaded with a version change:
   1) mvapich1/1.0 => mvapich1/mvapich1
 ===========================
 step 11
+lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
 Currently Loaded Modules:
   1) TACC    3) cluster        5) cluster-paths   7) mvapich1/mvapich1
   2) Linux   4) globus/4.0.7   6) TACC-paths      8) pgi/7.2-5
 ===========================
 step 12
+lua ProjectDIR/src/lmod.in.lua bash unload cluster
 ===========================
 ===========================
 step 13
+lua ProjectDIR/src/lmod.in.lua bash purge
 ===========================

@@ -1,10 +1,12 @@
 ===========================
 step 1
+lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.0rc2 (5.0rc2-54-g7045ea1) 2013-04-26 11:23
+Modules based on Lua: Version 5.0.1 (5.0.1-48-g540fa7d) 2013-06-18 14:14
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
+lua ProjectDIR/src/lmod.in.lua bash avail
 ===========================
 ProjectDIR/rt/multiL/mf/Core
    cmplr/gcc/4.7.2       cmplr/intel/13.1
@@ -13,6 +15,7 @@ Use "module keyword key1 key2 ..." to search for all possible modules matching
 any of the "keys".
 ===========================
 step 3
+lua ProjectDIR/src/lmod.in.lua bash spider
 ===========================
 The following is a list of the modules currently available:
   cmplr/gcc: cmplr/gcc/4.7.2
@@ -29,9 +32,11 @@ must enter the version if there is more than one version:
    $ module spider Foo/11.1
 ===========================
 step 4
+lua ProjectDIR/src/lmod.in.lua bash load cmplr/gcc
 ===========================
 ===========================
 step 5
+lua ProjectDIR/src/lmod.in.lua bash avail
 ===========================
 ProjectDIR/rt/multiL/mf/cmplr/gcc/4.7
    mpi/mpich2/1.5.2
@@ -42,17 +47,21 @@ Use "module keyword key1 key2 ..." to search for all possible modules matching
 any of the "keys".
 ===========================
 step 6
+lua ProjectDIR/src/lmod.in.lua bash load mpi/mpich2
 ===========================
 ===========================
 step 7
+lua ProjectDIR/src/lmod.in.lua bash load parLib/petsc
 ===========================
 ===========================
 step 8
+lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
 Currently Loaded Modules:
   1) cmplr/gcc/4.7.2    2) mpi/mpich2/1.5.2    3) parLib/petsc/3.3
 ===========================
 step 9
+lua ProjectDIR/src/lmod.in.lua bash avail
 ===========================
 ProjectDIR/rt/multiL/mf/mpi/mpich2/1.5/cmplr/gcc/4.7
    parLib/petsc/3.3
@@ -65,31 +74,37 @@ Use "module keyword key1 key2 ..." to search for all possible modules matching
 any of the "keys".
 ===========================
 step 10
+lua ProjectDIR/src/lmod.in.lua bash unload cmplr/gcc
 ===========================
 Inactive Modules:
   1) mpi/mpich2     2) parLib/petsc
 ===========================
 step 11
+lua ProjectDIR/src/lmod.in.lua bash load cmplr/gcc
 ===========================
 Activating Modules:
   1) mpi/mpich2/1.5.2     2) parLib/petsc/3.3
 ===========================
 step 12
+lua ProjectDIR/src/lmod.in.lua bash swap cmplr/gcc cmplr/intel
 ===========================
 Due to MODULEPATH changes the following have been reloaded:
   1) mpi/mpich2/1.5.2     2) parLib/petsc/3.3
 ===========================
 step 13
+lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
 Currently Loaded Modules:
   1) cmplr/intel/13.1    2) mpi/mpich2/1.5.2    3) parLib/petsc/3.3
 ===========================
 step 14
+lua ProjectDIR/src/lmod.in.lua bash unload cmplr/intel/13.1
 ===========================
 Inactive Modules:
   1) mpi/mpich2     2) parLib/petsc
 ===========================
 step 15
+lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
 Currently Loaded Modules:
   None found.
@@ -97,11 +112,13 @@ Inactive Modules:
   1) mpi/mpich2   2) parLib/petsc
 ===========================
 step 16
+lua ProjectDIR/src/lmod.in.lua bash load cmplr/intel/13.1
 ===========================
 Activating Modules:
   1) mpi/mpich2/1.5.2     2) parLib/petsc/3.3
 ===========================
 step 17
+lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
 Currently Loaded Modules:
   1) cmplr/intel/13.1    2) mpi/mpich2/1.5.2    3) parLib/petsc/3.3

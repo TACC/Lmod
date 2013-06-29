@@ -1,8 +1,10 @@
 ===========================
 step 1
+lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
 ===========================
 step 2
+lua ProjectDIR/src/lmod.in.lua bash load gcc mpich
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/pkg/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -34,6 +36,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/pkg/mf
 export _ModuleTable_;
 ===========================
 step 3
+lua ProjectDIR/src/lmod.in.lua bash load boost pmetis
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/pkg/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -57,6 +60,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=4,baseMpathA={"ProjectDIR/rt/pkg/mf
 export _ModuleTable_;
 ===========================
 step 4
+lua ProjectDIR/src/lmod.in.lua bash show boost
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/pkg/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -68,6 +72,7 @@ MODULEPATH="ProjectDIR/rt/pkg/mf/MPI/gcc/4.7/mpich/3.0:ProjectDIR/rt/pkg/mf/Comp
 export MODULEPATH;
 ===========================
 step 5
+lua ProjectDIR/src/lmod.in.lua bash show pmetis
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/pkg/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -79,6 +84,7 @@ MODULEPATH="ProjectDIR/rt/pkg/mf/MPI/gcc/4.7/mpich/3.0:ProjectDIR/rt/pkg/mf/Comp
 export MODULEPATH;
 ===========================
 step 6
+lua ProjectDIR/src/lmod.in.lua bash show mpich
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/pkg/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -90,6 +96,7 @@ MODULEPATH="ProjectDIR/rt/pkg/mf/MPI/gcc/4.7/mpich/3.0:ProjectDIR/rt/pkg/mf/Comp
 export MODULEPATH;
 ===========================
 step 7
+lua ProjectDIR/src/lmod.in.lua bash swap gcc intel
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/pkg/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -141,6 +148,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=4,baseMpathA={"ProjectDIR/rt/pkg/mf
 export _ModuleTable_;
 ===========================
 step 8
+lua ProjectDIR/src/lmod.in.lua bash show intel
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/pkg/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -152,6 +160,7 @@ MODULEPATH="ProjectDIR/rt/pkg/mf/MPI/intel/13.1/mpich/3.0:ProjectDIR/rt/pkg/mf/C
 export MODULEPATH;
 ===========================
 step 9
+lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/pkg/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;

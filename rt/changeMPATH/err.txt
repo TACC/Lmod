@@ -1,20 +1,25 @@
 ===========================
 step 1
+lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.0 (5.0-28-g853f021) 2013-05-29 05:22
+Modules based on Lua: Version 5.0.1 (5.0.1-48-g540fa7d) 2013-06-18 14:14
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
+lua ProjectDIR/src/lmod.in.lua bash load admin PrgEnv
 ===========================
 ===========================
 step 3
+lua ProjectDIR/src/lmod.in.lua bash save default
 ===========================
 Saved current collection of modules to: default
 ===========================
 step 4
+lua ProjectDIR/src/lmod.in.lua bash purge
 ===========================
 ===========================
 step 5
+lua ProjectDIR/src/lmod.in.lua bash restore
 ===========================
 Restoring modules to user's default
 Lmod Warning: The system MODULEPATH has changed: Please rebuild your saved collection.
@@ -23,6 +28,7 @@ The system default contains no modules
   (env var: LMOD_SYSTEM_DEFAULT_MODULES is empty)
 ===========================
 step 6
+lua ProjectDIR/src/lmod.in.lua bash purge
 ===========================
 Lmod Warning: The environment MODULEPATH has been changed in unexpected ways.
 Lmod is unable to use given MODULEPATH. It is using: 
@@ -30,34 +36,42 @@ Lmod is unable to use given MODULEPATH. It is using:
 Please use "module use ..." to change MODULEPATH instead.
 ===========================
 step 7
+lua ProjectDIR/src/lmod.in.lua bash use ProjectDIR/rt/changeMPATH/mf/Core
 ===========================
 ===========================
 step 8
+lua ProjectDIR/src/lmod.in.lua bash load admin PrgEnv
 ===========================
 ===========================
 step 9
+lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
 Currently Loaded Modules:
   1) admin/admin-1.0    3) unix/unix      5) intel/intel
   2) PrgEnv             4) local/local    6) noweb/2.10c
 ===========================
 step 10
+lua ProjectDIR/src/lmod.in.lua bash save default
 ===========================
 Saved current collection of modules to: default
 ===========================
 step 11
+lua ProjectDIR/src/lmod.in.lua bash purge
 ===========================
 ===========================
 step 12
+lua ProjectDIR/src/lmod.in.lua bash restore
 ===========================
 Restoring modules to user's default
 ===========================
 step 13
+lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
 Currently Loaded Modules:
   1) admin/admin-1.0    3) local/local    5) noweb/2.10c
   2) unix/unix          4) intel/intel    6) PrgEnv
 ===========================
 step 14
+lua ProjectDIR/src/lmod.in.lua bash save foo
 ===========================
 Saved current collection of modules to: foo
