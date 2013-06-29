@@ -84,12 +84,12 @@ function M.default_METHOD()
 
    -------------------------------------------------------
    -- Search over machName
-   v       = MethodTbl[t.machName]
+   v       = MethodTbl[t.machName] or MethodTbl[t.machFamilyName]
    if (v) then return v end
 
    -------------------------------------------------------
    -- Return last resort default
-   return "dbg"
+   return "empty"
 end
 
 local function string2Tbl(s,tbl)
@@ -128,6 +128,12 @@ function M.buildTbl(targetTbl)
       tbl[key] = v
    end
 
+   -- if Build Scenario is "empty" then make the value ""
+
+   if ( tbl.TARG_BUILD_SCENARIO == "empty") then
+      tbl.TARG_BUILD_SCENARIO = ""
+   end
+
    -- Always set mach
    tbl.TARG_MACH = M.default_MACH()
    dbg.print("tbl.TARG_MACH: ",tostring(tbl.TARG_MACH),"\n")
@@ -143,7 +149,7 @@ function M.buildTbl(targetTbl)
       end
    end
 
-   local a = {"method","mach"} 
+   local a = {"build_scenario","mach"} 
    for _,v in ipairs(a) do
       if (targetTbl[v]) then
          targetTbl[v] = -1
@@ -296,7 +302,8 @@ function M.exec(shell, targetList)
          aa[#aa+1] = s
       end
    end
-   envVarsTbl.METHOD_TITLE  = table.concat(aa," ")
+   envVarsTbl.TARG_TITLE_BAR        = table.concat(aa," ")
+   envVarsTbl.TARG_TITLE_BAR_PAREN  = "("..envVarsTbl.TARG_TITLE_BAR..")"
 
    if (masterTbl.purgeFlag) then
       for k in pairs(envVarsTbl) do

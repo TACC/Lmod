@@ -99,6 +99,7 @@ function main()
    end
    dbg.start("computeHashSum()")
 
+   require("StandardPackage")
    local lmodPath = os.getenv("LMOD_PACKAGE_PATH") or ""
    for path in lmodPath:split(":") do
       path = path .. "/"

@@ -38,6 +38,8 @@
 require("strict")
 require("inherits")
 local M    = {}
+local Dbg  = require("Dbg")
+local dbg  = Dbg:dbg()
 local hook = require("Hook")
 
 function M.build(name)
@@ -60,6 +62,7 @@ function M.new(self, t)
    setmetatable(o,self)
    self.__index = self
 
+   dbg.start("PkgBase:new()")
    for k, v in pairs(t) do
       o[k] = v
    end
@@ -80,10 +83,12 @@ function M.new(self, t)
   
    o._pkgBase       = o:_build_pkgBase(level)
    o:setPkgInfo()
+   dbg.fini("PkgBase:new")
    return o
 end
 
 function M.setPkgInfo(self)
+   dbg.start("PkgBase:setPkgInfo()")
    whatis("Name: "    .. self:pkgDisplayName())
    whatis("Version: " .. self:pkgVersion())
 
@@ -102,12 +107,14 @@ function M.setPkgInfo(self)
       local version = "\nVersion " .. self:pkgVersion() .. "\n"
       help(helpMsg, version)
    end
+   dbg.fini("PkgBase:setPkgInfo")
 end
 
 local stdT = { DIR = "", BIN = "bin", LIB = "lib", INC = "include",DOC="doc"}
 
 
 function M.setStandardPaths(self, ...)
+   dbg.start("PkgBase:setStandardPaths()")
    local siteName = hook.apply("SiteName"):upper()
    local base     = self:pkgBase()
    local pkgNameU = self:pkgDisplayName():upper()
@@ -130,6 +137,7 @@ function M.setStandardPaths(self, ...)
          prepend_path("PATH", path)
       end
    end
+   dbg.fini("PkgBase:setStandardPaths")
 end
 
 function M.pkgName(self)

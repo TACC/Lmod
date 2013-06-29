@@ -51,13 +51,8 @@ function getUname()
    local machFullName     = nil
    local osName           = posix.uname("%s")
    local machName         = posix.uname("%m")
+   local machFamilyName   = machName
    osName                 = string.gsub(osName,"[ /]","_")
-   if (osName:lower() == "aix") then
-      machName = "rs6k"
-   elseif (osName:lower():sub(1,4) == "irix") then
-      osName   = "Irix"
-      machName = "mips"
-   end
    if (osName == "Linux" and not masterTbl.noCpuModel) then
       local cpu_family
       local model
@@ -83,14 +78,14 @@ function getUname()
             if (count > 2) then break end
          end
       end
-      machName = machName .. "_" .. cpu_family .. "_" .. model
+      machFullName = machName .. "_" .. cpu_family .. "_" .. model
    end
-   t.osName       = osName
-   t.machName     = machName
-   t.machFullName = machFullName
-   t.os_mach      = osName .. '-' .. machName
-   t.target       = os.getenv("TARGET") or ""
-   t.hostName     = capture("hostname -f"):gsub("%s+","")
+   t.osName         = osName
+   t.machName       = machName
+   t.machFamilyName = machFamilyName
+   t.os_mach        = osName .. '-' .. machName
+   t.target         = os.getenv("TARGET") or ""
+   t.hostName       = capture("hostname -f"):gsub("%s+","")
 
    s_t = t
    return t

@@ -1,9 +1,10 @@
 -- -*- lua -*-
 -- $Id: .settarg.lua 194 2008-06-25 21:43:50Z mclay $
 MethodTbl = { 
+   default                           = "empty",
    i686                              = "dbg",
    i386                              = "dbg",
-   x86_64                            = "dbg",
+   x86_64                            = "empty",
    ['stampede.tacc.utexas.edu']      = "opt",
    ['ls4.tacc.utexas.edu']           = "opt",
    longhorn                          = "opt",
@@ -18,8 +19,7 @@ TitleTbl = {
    gopt                   = 'G',
    chk                    = 'C',
    impi                   = "IM",
-   mvapich                = 'M1',
-   mvapich2               = 'M2',
+   mvapich2               = 'M',
    openmpi                = "O",
    mpich                  = "M",
    mpich2                 = "M",
@@ -28,7 +28,7 @@ TitleTbl = {
 }
 
 ModuleTbl = {
-   method             = {"mdbg", "dbg", "chk", "opt", "gopt",},
+   build_scenario     = {"mdbg", "dbg", "chk", "opt", "gopt", "empty"},
    mpi                = {"mpich", "mpich2", "openmpi", "mvapich2", "impi"},
    compiler           = {"intel", "pgi", "gcc", "sun",},
    blas               = {"gotoblas", "mkl",},
@@ -39,6 +39,6 @@ ModuleTbl = {
    file_io            = { "hdf5", "phdf5" },
 }
 
-TargetList = { "mach", "method",  "compiler", "mpi", "profiling"} 
+TargetList = { "mach", "build_scenario", "compiler", "mpi"} 
 
-NoFamilyList = {"mach", "method",}
+NoFamilyList = {"mach", "build_scenario",}
