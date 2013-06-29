@@ -35,6 +35,7 @@
 require("strict")
 require("getUname")
 require("string_split")
+require("string_trim")
 require("fileOps")
 
 local Dbg         = require("Dbg")
@@ -61,7 +62,7 @@ function M.default_MACH()
    return results
 end
 
-function M.default_METHOD()
+function M.default_BUILD_SCENARIO()
    local dbg       = Dbg:dbg()
    local masterTbl = masterTbl()
    local MethodTbl = masterTbl.MethodTbl
@@ -70,7 +71,7 @@ function M.default_METHOD()
    -- Search over hostname first
    local t        = getUname()
    local hostname = t.hostName
-   dbg.print("in default_METHOD\n")
+   dbg.print("in M.default_BUILD_SCENARIO\n")
 
    local v = nil
    while (true) do
@@ -84,7 +85,8 @@ function M.default_METHOD()
 
    -------------------------------------------------------
    -- Search over machName
-   v       = MethodTbl[t.machName] or MethodTbl[t.machFamilyName]
+   v = MethodTbl[t.machName] or MethodTbl[t.machFamilyName] or
+       MethodTbl.default
    if (v) then return v end
 
    -------------------------------------------------------
@@ -100,10 +102,15 @@ local function string2Tbl(s,tbl)
       local kind = stringKindTbl[v]
       if (kind) then
          local K = "TARG_" .. kind:upper()
+         v  = (K == "TARG_BUILD_SCENARIO" and v == "empty") and "" or v
          dbg.print("v: ",v," kind: ",kind," K: ",K,"\n")
+
          tbl[K] = v
+         
       end
    end
+
+   
    dbg.fini()
 end
 
@@ -128,16 +135,15 @@ function M.buildTbl(targetTbl)
       tbl[key] = v
    end
 
-   -- if Build Scenario is "empty" then make the value ""
+   -- Always set mach
+   tbl.TARG_MACH = M.default_MACH()
+   dbg.print("tbl.TARG_MACH: ",tostring(tbl.TARG_MACH),"\n")
 
    if ( tbl.TARG_BUILD_SCENARIO == "empty") then
       tbl.TARG_BUILD_SCENARIO = ""
    end
 
-   -- Always set mach
-   tbl.TARG_MACH = M.default_MACH()
-   dbg.print("tbl.TARG_MACH: ",tostring(tbl.TARG_MACH),"\n")
-
+   dbg.print("tbl.TARG_BUILD_SCENARIO: ",tbl.TARG_BUILD_SCENARIO ,"\n")
    local env = getenv()
 
    for key in pairs(env) do
@@ -302,8 +308,13 @@ function M.exec(shell, targetList)
          aa[#aa+1] = s
       end
    end
-   envVarsTbl.TARG_TITLE_BAR        = table.concat(aa," ")
-   envVarsTbl.TARG_TITLE_BAR_PAREN  = "("..envVarsTbl.TARG_TITLE_BAR..")"
+   local s                          = table.concat(aa," "):trim()
+   local paren                      = ""
+   if (s ~= "") then
+      paren                         = "("..s..")"
+   end
+   envVarsTbl.TARG_TITLE_BAR        = s
+   envVarsTbl.TARG_TITLE_BAR_PAREN  = paren
 
    if (masterTbl.purgeFlag) then
       for k in pairs(envVarsTbl) do

@@ -84,7 +84,7 @@ function  M.options(self)
    }
 
    cmdlineParser:add_option{ 
-      name   = {'-d','--debug'},
+      name   = {'-D','--debug'},
       dest   = 'debug',
       action = 'store_true',
    }

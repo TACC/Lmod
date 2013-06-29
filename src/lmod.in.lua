@@ -88,7 +88,7 @@ function set_prepend_order()
       yes     = "normal",
    }
 
-   local order = ansT[os.getenv("LMOD_PREPEND_BLOCK") or s_prependBlock] or "normal"
+   local order = ansT[getenv("LMOD_PREPEND_BLOCK") or s_prependBlock] or "normal"
    if (order == "normal") then
       prepend_order = function (n)
          return n, 1, -1
@@ -122,7 +122,7 @@ local unpack       = unpack or table.unpack
 
 function set_duplication()
    local dbg  = Dbg:dbg()
-   local dups = os.getenv("LMOD_DUPLICATE_PATH") or LMOD_DUPLICATE_PATH or "no"
+   local dups = getenv("LMOD_DUPLICATE_PATH") or LMOD_DUPLICATE_PATH or "no"
    dups       = dups:lower()
    if (dups == "yes") then
       dbg.print("Allowing duplication in paths\n")
@@ -544,7 +544,7 @@ function main()
       end
    end
 
-   local lmod_colorize = os.getenv("LMOD_COLORIZE") or "@colorize@"
+   local lmod_colorize = getenv("LMOD_COLORIZE") or "@colorize@"
    if (lmod_colorize:lower() ~= "yes") then
       colorize = plain
    end
@@ -583,7 +583,7 @@ function main()
    -- Load a SitePackage Module.
    ------------------------------------------------------------------------
 
-   local lmodPath = os.getenv("LMOD_PACKAGE_PATH") or ""
+   local lmodPath = getenv("LMOD_PACKAGE_PATH") or ""
    for path in lmodPath:split(":") do
       path = path .. "/"
       path = path:gsub("//+","/")
