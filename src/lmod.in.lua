@@ -536,7 +536,7 @@ function main()
    pager    = bypassPager
    local connectedTerm = false
 
-   if (term) then
+   if (term and getenv("TERM")) then
       if (term.isatty(io.stderr)) then
          colorize = full_colorize
          pager    = usePager
