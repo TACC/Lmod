@@ -101,7 +101,7 @@ s_mtA = {}
 
 local function locationTblDir(mpath, path, prefix, locationT, availT)
    local dbg  = Dbg:dbg()
-   dbg.start("locationTblDir(",mpath,",",path,",",prefix,")")
+   --dbg.start("locationTblDir(",mpath,",",path,",",prefix,")")
    local attr = lfs.attributes(path)
    if (not attr or type(attr) ~= "table" or attr.mode ~= "directory"
        or not posix.access(path,"x")) then
@@ -132,7 +132,7 @@ local function locationTblDir(mpath, path, prefix, locationT, availT)
    end
 
 
-   dbg.print("#dirA: ",#dirA,"\n")
+   --dbg.print("#dirA: ",#dirA,"\n")
 
    if (#dirA > 0 or prefix == '') then
       --------------------------------------------------------------------------
@@ -176,10 +176,10 @@ local function locationTblDir(mpath, path, prefix, locationT, availT)
       for i = 1, #vA do
          a[i] = {version = vA[i][2], file = vA[i][3]}
       end
-      dbg.print("Adding ",prefix," to availT, #a: ",#a,"\n")
+      --dbg.print("Adding ",prefix," to availT, #a: ",#a,"\n")
       availT[prefix] = a
    end
-   dbg.fini("locationTblDir")
+   --dbg.fini("locationTblDir")
 end
 
 --------------------------------------------------------------------------
@@ -383,8 +383,8 @@ local function new(self, s)
    o.baseMpathA       = {}
    o._same            = true
    o._MPATH           = ""
-   o._locationTbl     = {}
-   o._availT          = {}
+   o._locationTbl     = false
+   o._availT          = false
    o._loadT           = {}
 
    o._changePATH      = false
@@ -518,7 +518,6 @@ local function setupMPATH(self,mpath)
    if (not self._same) then
       self:buildMpathA(mpath)
    end
-   self._locationTbl, self._availT = build_locationTbl(self.mpathA)
    dbg.fini("MT:setupMPATH")
 end
 
@@ -930,10 +929,16 @@ end
 -- Simple Get/Set functions.
 
 function M.locationTbl(self, key)
+   if (not self._locationTbl) then
+      self._locationTbl, self._availT = build_locationTbl(self.mpathA)
+   end
    return self._locationTbl[key]
 end
 
 function M.availT(self)
+   if (not self._availT) then
+      self._locationTbl, self._availT = build_locationTbl(self.mpathA)
+   end
    return self._availT
 end
 
