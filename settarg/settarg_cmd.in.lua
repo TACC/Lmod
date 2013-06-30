@@ -81,6 +81,16 @@ function main()
    end
    dbg.start("settarg()")
 
+   -- Error out if there are spaces in command line arguments
+   for i = 1,#masterTbl.pargs do
+      local s = masterTbl.pargs[i]
+      if (s:find("%s")) then
+         io.stderr:write("Error: Argument #",i," has spaces in it: \"",s,"\"\n")
+         os.exit(1)
+      end
+   end
+
+
    if (masterTbl.cmdHelp) then
       io.stderr:write("Lmod settarg ",Version.name(),"\n")
       io.stderr:write(masterTbl.cmdHelpMsg,"\n")

@@ -103,16 +103,17 @@ local function string2Tbl(s,tbl)
    dbg.start("string2Tbl(\"",s,"\", tbl)")
    local stringKindTbl = masterTbl().stringKindTbl
    for v in s:split("%s+") do
-      local kindA  = stringKindTbl[v]
-      if (kindA == nil) then
-         local K = "TARG_EXTRA"
-         local t = tbl[K] or {}
-         t[v] = true
-         tbl[K] = t
-         dbg.print("Adding \"",v,"\" to TARG_EXTRA\n")
+      local kindT  = stringKindTbl[v]
+      if (kindT == nil) then
+         if (v ~= "") then
+            local K = "TARG_EXTRA"
+            local t = tbl[K] or {}
+            t[v]    = true
+            tbl[K]  = t
+            dbg.print("Adding \"",v,"\" to TARG_EXTRA\n")
+         end
       else
-         for i = 1,#kindA do
-            local kind = kindA[i]
+         for kind in pairs(kindT) do
             local K = "TARG_" .. kind:upper()
             v  = (K == "TARG_BUILD_SCENARIO" and v == "empty") and "" or v
             dbg.print("v: ",v," kind: ",kind," K: ",K,"\n")
@@ -197,6 +198,7 @@ function M.buildTbl(targetTbl)
 end
 
 local function readDotFiles()
+   local dbg       = Dbg:dbg()
    local masterTbl = masterTbl()
    
    -------------------------------------------------------
@@ -230,9 +232,9 @@ local function readDotFiles()
          for k in pairs(systemG.ModuleTbl) do
             ModuleMstrTbl[k] = systemG.ModuleTbl[k]
             for _, v in ipairs(ModuleMstrTbl[k]) do
-               local a          = stringKindTbl[v] or {}
-               a[#a+1]          = k
-               stringKindTbl[v] = a
+               local t          = stringKindTbl[v] or {}
+               t[k]             = true
+               stringKindTbl[v] = t
             end
          end
          for k in pairs(ModuleMstrTbl) do

@@ -57,27 +57,17 @@ function processModuleTable(mt_string, targetTbl, tbl)
    local masterTbl     = masterTbl()
    local stringKindTbl = masterTbl.stringKindTbl
 
-   if (mt.version == 1) then
-      local defaultA     = mt.active.default
-      local fullModNameA = mt.active.fullModName
-      for i,v in ipairs(mt.active.Loaded) do
-         local key = stringKindTbl[v]
-         if (targetTbl[key]) then
-            targetTbl[key] = -1
-            local K = "TARG_" .. key:upper()
-            tbl[K] = buildTargetName(v, defaultA[i], fullModNameA[i])
-            dbg.print("V1: K: ",K, " tbl[K]: ",tbl[K],"\n")
-         end
-      end
-   elseif (mt.version == 2) then
-      local mT = mt.mT
-      for sn,v in pairs(mT) do
-         local key = stringKindTbl[sn]
-         if (v.status == "active" and targetTbl[key] ) then
-            targetTbl[key] = -1
-            local K = "TARG_" .. key:upper()
-            tbl[K] = buildTargetName(sn, v.default, v.fullName)
-            dbg.print("V2: K: ",K, " tbl[K]: ",tbl[K],"\n")
+   local mT = mt.mT
+   for sn,v in pairs(mT) do
+      local kindT = stringKindTbl[sn]
+      if (kindT and next(kindT) ~= nil) then
+         for key in pairs(kindT) do
+            if (v.status == "active" and targetTbl[key] ) then
+               targetTbl[key] = -1
+               local K = "TARG_" .. key:upper()
+               tbl[K] = buildTargetName(sn, v.default, v.fullName)
+               dbg.print("V2: K: ",K, " tbl[K]: ",tbl[K],"\n")
+            end
          end
       end
    end
