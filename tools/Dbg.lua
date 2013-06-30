@@ -110,6 +110,7 @@ local function new(self)
    setmetatable(o,self)
    self.__index = self
    o.print      = M.Quiet
+   o.printA     = M.Quiet
    o.start      = M.Quiet
    o.fini       = M.Quiet
    o.warning    = M.Warning
@@ -117,9 +118,6 @@ local function new(self)
    o.quiet      = M.Quiet
    o.indent     = M.Empty
    o.is_active  = false
-   --if (t and type(t) == 'table') then
-   --   o.vpl       = t.vpl
-   --end
    return o
 end
 
@@ -138,6 +136,7 @@ function M.activateDebug(self, level, indentLevel)
    level = level or 1
    if (level > 0) then
       self.print            = M.Debug
+      self.printA           = M.PrintA
       self.start            = M.Start
       self.fini             = M.Fini
       self.indent           = M.Indent
@@ -296,6 +295,38 @@ function M.Debug(...)
       end
    end
 end
+
+function M.PrintA(t)
+   local a    = t.a
+   if (type(a[1]) == "table") then
+      M._print2D(t)
+      return
+   end
+
+   io.stderr:write(s_indentString)
+   io.stderr:write(t.name)
+
+   for i = 1,#a do
+      io.stderr:write(" ",a[i])
+   end
+   io.stderr:write("\n")
+end
+
+function M._print2D(t)
+   local name = t.name
+   local A    = t.a
+
+   for j = 1,#A do
+      io.stderr:write(s_indentString)
+      io.stderr:write(name,"[",j,"]:")
+      local a = A[j]
+      for i = 1,#a do
+         io.stderr:write(" ",a[i])
+      end
+      io.stderr:write("\n")
+   end
+end
+
 
 function M.flush()
    io.stderr:flush()

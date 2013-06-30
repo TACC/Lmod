@@ -172,14 +172,16 @@ function M.__entry_width2(self, t, szA)
       szA[#szA+1] = b
    end
 
-   imin = dim2*self.innerGap
+   imin = (dim2-1)*self.innerGap
    imax = imin
-   dbg.print("initial imin: ",imin,"\n")
 
    for idim = 1, dim2 do
       imin = imin + minA[idim]
       imax = imax + maxA[idim]
    end
+   --dbg.printA{name = "minA", a = minA}
+   --dbg.printA{name = "maxA", a = maxA}
+
    dbg.fini()
    return imin, imax
 end
@@ -222,7 +224,11 @@ function M.__columnSum2(self, istart, iend)
    for idim = 1, dim2 do
       maxV = maxV + maxA[idim]
    end
-   return maxV + dim2*self.innerGap, maxA
+   local sum = maxV + (dim2-1)*self.innerGap
+
+   --dbg.print("is: ",istart," ie: ",iend, " maxV: ",maxV, " sum: ",sum)
+   --dbg.printA{name = "maxA", a = maxA}
+   return sum, maxA
 end
 
 --------------------------------------------------------------------------
@@ -239,6 +245,7 @@ end
 -- ColumnTable:__display2(): Pad string with trailing spaces to get to
 --                           correct width for a 2-D array
 function M.__display2(self,i, icol)
+   local dbg      = Dbg:dbg()
    local width    = self.columnCnt[icol]
    local widthA   = self.columnCntI[icol]
    local dim2     = self.dim[2]
@@ -250,7 +257,7 @@ function M.__display2(self,i, icol)
    local sum      = 0
    local len      = 0
 
-   for idim = 1, dim2 do
+   for idim = 1, dim2-1 do
       b[#b+1]    = a[idim]
       local len1 = szA[idim]
       sum        = sum + len1
@@ -258,9 +265,13 @@ function M.__display2(self,i, icol)
       b[#b+1]    = blank:rep(len2)
       sum        = sum + len2
    end
-   b[#b+1]      = blank:rep(width - sum)
+   b[#b+1]       = a[dim2]
+   sum           = sum + szA[dim2]
+   b[#b+1]       = blank:rep(width - sum)
+   local s       = concatTbl(b,"")
 
-   return concatTbl(b,"")
+   dbg.print("len: ",s:len()," s: \"",s,"\"\n")
+   return s
 end
 
 
@@ -342,6 +353,11 @@ function M.__number_of_columns_rows(self,t)
    end
 
    local ncols     = results
+   dbg.print("ncols: ",results,"\n")
+
+   dbg.printA{name="columnCnt",  a=columnCnt}
+   dbg.printA{name="columnCntI", a=columnCntI}
+
    local nrows     = math.ceil(sz/ncols)
    self.ncols      = math.ceil(sz/nrows)
    self.nrows      = nrows
@@ -356,6 +372,7 @@ end
 --                          fit and generate the table.
 
 function M.build_tbl(self)
+   local dbg       = Dbg:dbg()
    local a         = {}
    local columnCnt = self.columnCnt
    local nrows     = self.nrows
