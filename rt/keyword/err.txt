@@ -1,4 +1,4 @@
-Rebuilding cache file, please wait ... (Fast not written) done.
+Rebuilding cache, please wait ... (Fast not written) done.
 
 
 ----------------------------------------------------------------------------

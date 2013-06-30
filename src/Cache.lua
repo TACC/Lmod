@@ -357,9 +357,9 @@ function M.build(self, fast)
 
       if (prtRbMsg) then
          if (dbg.active()) then
-            dbg.print("Rebuilding cache file, please wait ...\n")
+            dbg.print("Rebuilding cache, please wait ...\n")
          else
-            io.stderr:write("Rebuilding cache file, please wait ...")
+            io.stderr:write("Rebuilding cache, please wait ...")
          end
       end
 
@@ -421,7 +421,7 @@ function M.build(self, fast)
 
          mt:setRebuildTime(ancient2, buildT)
          dbg.print("mt: ", tostring(mt), "\n")
-         doneMsg = "(written) done."
+         doneMsg = "(written to file) done."
       end
       if (prtRbMsg) then
          if (dbg.active()) then
