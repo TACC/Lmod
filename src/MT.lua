@@ -100,6 +100,8 @@ s_mtA = {}
 --                   They typically load other modules but not always.
 
 local function locationTblDir(mpath, path, prefix, locationT, availT)
+   local dbg  = Dbg:dbg()
+   dbg.start("locationTblDir(",mpath,",",path,",",prefix,")")
    local attr = lfs.attributes(path)
    if (not attr or type(attr) ~= "table" or attr.mode ~= "directory"
        or not posix.access(path,"x")) then
@@ -130,6 +132,8 @@ local function locationTblDir(mpath, path, prefix, locationT, availT)
    end
 
 
+   dbg.print("#dirA: ",#dirA,"\n")
+
    if (#dirA > 0 or prefix == '') then
       --------------------------------------------------------------------------
       -- If prefix is '' then this directory in directly under MODULEPATH so
@@ -148,7 +152,7 @@ local function locationTblDir(mpath, path, prefix, locationT, availT)
       for i = 1, #dirA do
          locationTblDir(mpath, dirA[i].fullName,  dirA[i].mname, locationT, availT)
       end
-   else
+   elseif (next(mnameT) ~= nil) then
       ------------------------------------------------------------------------
       -- If here, then there are no directories and this is not a top level
       -- directory. So any files found here are versions for the module.  
@@ -172,8 +176,10 @@ local function locationTblDir(mpath, path, prefix, locationT, availT)
       for i = 1, #vA do
          a[i] = {version = vA[i][2], file = vA[i][3]}
       end
+      dbg.print("Adding ",prefix," to availT, #a: ",#a,"\n")
       availT[prefix] = a
    end
+   dbg.fini("locationTblDir")
 end
 
 --------------------------------------------------------------------------

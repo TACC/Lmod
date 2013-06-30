@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.0.1 (5.0.1-49-g5096f24) 2013-06-18 14:14
+Modules based on Lua: Version 5.0.1 (5.0.1-53-g79612e0) 2013-06-18 14:14
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -86,7 +86,6 @@ ProjectDIR/rt/columnT/modules
    netcdf/4.2.1.1/intel-13.1.1                       (D)
    netcdf/4.3.0/gnu-4.7.2
    netcdf/4.3.0/intel-13.1.1                         (D)
-   nose/1.2.1
    numexpr/1.4.2/python-2.7.3/gnu-4.7.2
    numexpr/1.4.2/python-2.7.3/intel-13.1.1           (D)
    numexpr/2.0.1/python-2.7.3/gnu-4.7.2
