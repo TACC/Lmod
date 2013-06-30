@@ -123,6 +123,18 @@ AC_ARG_WITH(colorize,
     COLORIZE="$withval"
     AC_DEFINE_UNQUOTED(COLORIZE, "$withval"))dnl
 
+AC_SUBST(SETTARG)
+AC_ARG_WITH(settarg,
+    AC_HELP_STRING([--with-settarg=ans],[startup files fully support settarg [[yes]]]),
+    SETTARG="$withval"
+    AC_MSG_RESULT([SETTARG=$with_settarg])
+    AC_DEFINE_UNQUOTED(SETTARG, "$with_settarg")dnl
+    ,
+    withval="yes"
+    AC_MSG_RESULT([SETTARG=$withval])
+    SETTARG="$withval"
+    AC_DEFINE_UNQUOTED(SETTARG, "$withval"))dnl
+
 AC_SUBST(PATH_TO_PAGER)
 AC_SUBST(PATH_TO_LUA)
 AC_SUBST(PATH_TO_HASHSUM)

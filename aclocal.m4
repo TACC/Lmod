@@ -31,6 +31,7 @@ echo "File that is touched when system is updated." : $UPDATE_SYSTEM_FN
 echo "Allow duplicate entry in PATHs.............." : $DUPLICATE_PATHS
 echo "ZSH Tab Completion Functions Site Directory." : $ZSH_SITE_FUNCTIONS_DIR
 echo "Use Dot files in ~/.lmod.d.................." : $USE_DOT_FILES
+echo "Full Settarg support........................" : $SETTARG
 
 echo
 echo '------------------------------------------------------------------------------'

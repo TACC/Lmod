@@ -75,34 +75,36 @@ clearMT()
 #  The following make the action of the settarg available to the titlebar
 #  for both xterm's and screen but only for interactive shells.
 if [ "$PS1" ]; then
-   xSetTitleLmod()
-   {
-     builtin echo -n -e "\033]2;$1\007"; 
-   }
-   screenSetTitleLmod()
-   {
-     builtin echo -n -e "\033_$1\033";
-   }
+  if [ "$LMOD_SETTARG_SUPPORT" = yes ]; then
+    xSetTitleLmod()
+    {
+      builtin echo -n -e "\033]2;$1\007"; 
+    }
+    screenSetTitleLmod()
+    {
+      builtin echo -n -e "\033_$1\033";
+    }
+    
+    SET_TITLE_BAR=:
+    
+    case $TERM in
+      xterm*)
+        SET_TITLE_BAR=xSetTitleLmod
+        ;;
+      screen)
+        SET_TITLE_BAR=screenSetTitle
+    esac
    
-   SET_TITLE_BAR=:
-   
-   case $TERM in
-     xterm*)
-       SET_TITLE_BAR=xSetTitleLmod
-       ;;
-     screen)
-       SET_TITLE_BAR=screenSetTitle
-   esac
-   
-   precmd()
-   {
-     eval $(${LMOD_SETTARG_CMD:-:} -s bash)
-     ${SET_TITLE_BAR:-:} ${TARG_TITLE_BAR_PAREN}${USER}@${HOSTNAME%%.*}:${PWD/#$HOME/~}
-     ${USER_PROMPT_CMD:-:}
-   }
+    precmd()
+    {
+      eval $(${LMOD_SETTARG_CMD:-:} -s bash)
+      ${SET_TITLE_BAR:-:} ${TARG_TITLE_BAR_PAREN}${USER}@${HOSTNAME%%.*}:${PWD/#$HOME/~}
+      ${USER_PROMPT_CMD:-:}
+    }
 
-   # define the PROMPT_COMMAND to be precmd iff it isn't defined already.
-   : ${PROMPT_COMMAND:=precmd}
+    # define the PROMPT_COMMAND to be precmd iff it isn't defined already.
+    : ${PROMPT_COMMAND:=precmd}
+  fi
 fi
 
 ########################################################################
