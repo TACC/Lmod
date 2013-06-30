@@ -355,7 +355,6 @@ function M.build(self, fast)
       )
       dbg.print("short: ", short, " shortTime: ", shortTime,"\n")
 
-      prtRbMsg = true
       if (prtRbMsg) then
          if (dbg.active()) then
             dbg.print("Rebuilding cache file, please wait ...\n")
