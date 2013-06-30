@@ -512,7 +512,6 @@ local function setupMPATH(self,mpath)
    if (not self._same) then
       self:buildMpathA(mpath)
    end
-   self._locationTbl, self._availT = build_locationTbl(self.mpathA)
    dbg.fini("MT:setupMPATH")
 end
 
@@ -927,6 +926,7 @@ function M.locationTbl(self, key)
    if (not self._locationTbl) then
       self._locationTbl, self._availT = build_locationTbl(self.mpathA)
    end
+   return self._locationTbl[key]
 end
 
 function M.availT(self)
