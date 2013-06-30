@@ -32,12 +32,12 @@ STANDALONE_PRGM   	 := src/lmod.in.lua src/addto.in.lua src/getmt.in.lua src/pro
                             src/clearMT_cmd.in.lua src/ml_cmd.in.lua src/spiderCacheSupport.in.lua
 SHELL_INIT	  	 := bash.in csh.in ksh.in tcsh.in zsh.in sh.in perl.in                       \
                             env_modules_python.py.in lmod_bash_completions .lmodrc.lua
-SHELL_INIT	  	 := $(patsubst %, setup/%, $(SHELL_INIT))
+SHELL_INIT	  	 := $(patsubst %, init/%, $(SHELL_INIT))
 
-ZSH_FUNCS                := setup/zsh/_ml setup/zsh/_module
+ZSH_FUNCS                := init/zsh/_ml init/zsh/_module
 
 STARTUP		  	 := profile.in cshrc.in
-STARTUP		  	 := $(patsubst %, setup/%, $(STARTUP))
+STARTUP		  	 := $(patsubst %, init/%, $(STARTUP))
 
 MAIN_DIR	  	 := Makefile.in INSTALL configure README_lua_modulefiles.txt
 
@@ -165,12 +165,12 @@ _distPkgs:
 	cp -r pkgs/* $(DistD)/pkgs
 
 _distSetup:
-	mkdir $(DistD)/setup
-	cp $(SHELL_INIT) $(STARTUP) $(DistD)/setup
+	mkdir $(DistD)/init
+	cp $(SHELL_INIT) $(STARTUP) $(DistD)/init
 
 _distSetupZsh:
-	mkdir $(DistD)/setup/zsh
-	cp $(ZSH_FUNCS) $(DistD)/setup/zsh
+	mkdir $(DistD)/init/zsh
+	cp $(ZSH_FUNCS) $(DistD)/init/zsh
 
 
 
