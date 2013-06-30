@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.0.1 (5.0.1-48-g540fa7d) 2013-06-18 14:14
+Modules based on Lua: Version 5.0.1 (5.0.1-49-g5096f24) 2013-06-18 14:14
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -13,12 +13,12 @@ step 3
 lua ProjectDIR/src/lmod.in.lua bash avail
 ===========================
 ProjectDIR/rt/petsc/mf/MPI/intel/13.1/mvapich2/1.9
-   petsc/petsc/3.3                       petsc/petsc/3.3-debug
-   petsc/petsc/3.3-complex               petsc/petsc/3.3-uni
-   petsc/petsc/3.3-complexdebug          petsc/petsc/3.3-unidebug
-   petsc/petsc/3.3-cxx                   petsc/petsc/petsc/3.3
-   petsc/petsc/3.3-cxxcomplex            petsc/petsc/petsc/petsc/3.3
-   petsc/petsc/3.3-cxxcomplexdebug       petsc/petsc/petsc/petsc/petsc/3.3
+   petsc/petsc/3.3                      petsc/petsc/3.3-debug
+   petsc/petsc/3.3-complex              petsc/petsc/3.3-uni
+   petsc/petsc/3.3-complexdebug         petsc/petsc/3.3-unidebug
+   petsc/petsc/3.3-cxx                  petsc/petsc/petsc/3.3
+   petsc/petsc/3.3-cxxcomplex           petsc/petsc/petsc/petsc/3.3
+   petsc/petsc/3.3-cxxcomplexdebug      petsc/petsc/petsc/petsc/petsc/3.3
    petsc/petsc/3.3-cxxdebug
 ProjectDIR/rt/petsc/mf/Compiler/intel/13.1
    mvapich2/1.9

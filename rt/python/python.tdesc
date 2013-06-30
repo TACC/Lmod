@@ -25,9 +25,9 @@ testdescript = {
      COUNT=0
      HOME=`(cd $HOME; /bin/pwd)`
 
-     mkdir setup
+     mkdir init
      sed -e 's|@PKG@/libexec/lmod|lua $(projectDir)/src/lmod.in.lua|g' \
-              < $(projectDir)/setup/env_modules_python.py.in > setup/env_modules_python.py
+              < $(projectDir)/init/env_modules_python.py.in > init/env_modules_python.py
 
 
 
@@ -35,7 +35,7 @@ cat > $(testName).py << EOF
 #!/usr/bin/env python
 
 import os, sys
-sys.path.insert(0,"$(outputDir)/setup/")
+sys.path.insert(0,"$(outputDir)/init/")
 
 from env_modules_python import module
 

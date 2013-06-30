@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.0.1 (5.0.1-48-g540fa7d) 2013-06-18 14:14
+Modules based on Lua: Version 5.0.1 (5.0.1-49-g5096f24) 2013-06-18 14:14
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -36,7 +36,7 @@ ProjectDIR/rt/unload/mf/MPI/intel/13.0/mpich2/1.5
 ProjectDIR/rt/unload/mf/Compiler/intel/13.0
    mpich2/1.5.2
 ProjectDIR/rt/unload/mf/Core
-   gcc/4.7.2       intel/13.0
+   gcc/4.7.2      intel/13.0
 Use "module spider" to find all possible modules.
 Use "module keyword key1 key2 ..." to search for all possible modules matching
 any of the "keys".
@@ -45,7 +45,7 @@ step 6
 lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
 Currently Loaded Modules:
-  1) intel/13.0    2) mpich2/1.5.2    3) petsc/3.2
+  1) intel/13.0   2) mpich2/1.5.2   3) petsc/3.2
 ===========================
 step 7
 lua ProjectDIR/src/lmod.in.lua bash unload intel

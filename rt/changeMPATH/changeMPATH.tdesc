@@ -28,7 +28,7 @@ testdescript = {
      HOME=`/bin/pwd`
 
      rm -rf _stderr.* _stdout.* err.* out.* .lmod.d
-     cp $(projectDir)/setup/.lmodrc.lua .
+     cp $(projectDir)/init/.lmodrc.lua .
 
      runMe lua $(projectDir)/src/lmod.in.lua bash --version                        # 1
      runMe lua $(projectDir)/src/lmod.in.lua bash load admin PrgEnv                # 2

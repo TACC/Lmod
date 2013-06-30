@@ -27,7 +27,7 @@ testdescript = {
      unsetMT
      initStdEnvVars
 
-     cp $(projectDir)/setup/.lmodrc.lua .
+     cp $(projectDir)/init/.lmodrc.lua .
 
      _histchars="@%"
 

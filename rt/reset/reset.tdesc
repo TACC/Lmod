@@ -32,7 +32,7 @@ testdescript = {
      LMOD_SYSTEM_DEFAULT_MODULES="admin:intel:openmpi:parmetis"
      export LMOD_SYSTEM_DEFAULT_MODULES
 
-     cp $(projectDir)/setup/.lmodrc.lua .
+     cp $(projectDir)/init/.lmodrc.lua .
 
      runMe $LUA $(projectDir)/src/lmod.in.lua bash --version                          # 1
      runMe $LUA $(projectDir)/src/lmod.in.lua bash load admin PrgEnv openmpi parmetis # 2

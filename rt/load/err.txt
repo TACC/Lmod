@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.0.1 (5.0.1-48-g540fa7d) 2013-06-18 14:14
+Modules based on Lua: Version 5.0.1 (5.0.1-49-g5096f24) 2013-06-18 14:14
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -49,8 +49,7 @@ step 12
 lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
 Currently Loaded Modules:
-  1) admin/admin-1.0    4) local/local    7) gotoblas/1.32
-  2) PrgEnv             5) noweb/2.10c    8) boost/1.49.0  (o)
-  3) unix/unix          6) intel/intel
+  1) admin/admin-1.0   3) unix/unix     5) noweb/2.10c   7) gotoblas/1.32
+  2) PrgEnv            4) local/local   6) intel/intel   8) boost/1.49.0  (o)
   Where:
    (o):  built for offload to the MIC only

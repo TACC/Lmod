@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.0.1 (5.0.1-48-g540fa7d) 2013-06-18 14:14
+Modules based on Lua: Version 5.0.1 (5.0.1-49-g5096f24) 2013-06-18 14:14
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -13,8 +13,8 @@ step 3
 /opt/apps/lua/lua/bin/lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
 Currently Loaded Modules:
-  1) PrgEnv       3) local/local    5) noweb/2.10c
-  2) unix/unix    4) intel/intel    6) openmpi/1.2.6
+  1) PrgEnv      3) local/local   5) noweb/2.10c
+  2) unix/unix   4) intel/intel   6) openmpi/1.2.6
 ===========================
 step 4
 /opt/apps/lua/lua/bin/lua ProjectDIR/src/lmod.in.lua bash unload PrgEnv openmpi
@@ -33,9 +33,8 @@ step 7
 /opt/apps/lua/lua/bin/lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
 Currently Loaded Modules:
-  1) admin/admin-1.0    4) local/local    7) openmpi/1.2.6
-  2) PrgEnv             5) intel/intel    8) parmetis/3.1  (m)
-  3) unix/unix          6) noweb/2.10c
+  1) admin/admin-1.0   3) unix/unix     5) intel/intel   7) openmpi/1.2.6
+  2) PrgEnv            4) local/local   6) noweb/2.10c   8) parmetis/3.1  (m)
   Where:
    (m):  built for host and native MIC
 ===========================

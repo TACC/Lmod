@@ -28,7 +28,7 @@ testdescript = {
 
      rm -fr _stderr.* _stdout.* err.* out.* .lmod.d cacheDir
 
-     cp $(projectDir)/setup/.lmodrc.lua .
+     cp $(projectDir)/init/.lmodrc.lua .
 
      cat > fn << EOF
 $(outputDir)/cacheDir: $(outputDir)/last_update
