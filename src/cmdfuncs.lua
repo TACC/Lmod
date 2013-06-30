@@ -272,7 +272,6 @@ function List(...)
 
    for i = 1, #totalA do
       local v = totalA[i]
-      dbg.print("inactive check v: ",v.name,"\n")
       if (not mt:have(v.sn,"active")) then
          local name = v.name
          for j = 1, #wanted do

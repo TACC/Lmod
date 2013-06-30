@@ -1543,7 +1543,7 @@ end
 
 function M.list_property(self, idx, sn, style, legendT)
    local dbg    = Dbg:dbg()
-   dbg.start("MT:list_property(\"",sn,"\", \"",style,"\")")
+   --dbg.start("MT:list_property(\"",sn,"\", \"",style,"\")")
    local dbg = Dbg:dbg()
    local mT    = self.mT
    local entry = mT[sn]
@@ -1558,13 +1558,7 @@ function M.list_property(self, idx, sn, style, legendT)
    table.insert(resultA, 1, "  "  .. tostring(idx) ..")")
 
    local tLen = resultA[1]:len() + resultA[2]:len() + tostring(resultA[3]):len()
-   dbg.print("result: \"",resultA[1],"\", \"",resultA[2],
-             "\", \"",resultA[3],"\"\n")
-
-   dbg.print("tlen: ",tLen," lenA: ",resultA[1]:len()," ",resultA[2]:len(),
-             " ",tostring(resultA[3]):len(),"\n")
-
-   dbg.fini("MT:list_property")
+   --dbg.fini("MT:list_property")
    return resultA
 end
 

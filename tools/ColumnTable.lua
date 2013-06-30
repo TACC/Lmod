@@ -269,8 +269,6 @@ function M.__display2(self,i, icol)
    sum           = sum + szA[dim2]
    b[#b+1]       = blank:rep(width - sum)
    local s       = concatTbl(b,"")
-
-   dbg.print("len: ",s:len()," s: \"",s,"\"\n")
    return s
 end
 
@@ -346,21 +344,33 @@ function M.__number_of_columns_rows(self,t)
       end
       sum = sum + columnCnt[ncols]
 
+      dbg.print("ncols: ",ncols, " sum: ",sum," twidth: ",self.term_width,"\n")
+
       if (sum < self.term_width) then
          results = ncols
          break
       end
    end
 
-   local ncols     = results
-   dbg.print("ncols: ",results,"\n")
-
+   local istart = 1
+   local iskip  = nrows - 1
+   local ncols  = results
+   local nrows  = math.ceil(sz/ncols)
+   self.ncols   = math.ceil(sz/nrows)
+   self.nrows   = nrows
+   ncols        = self.ncols
+   columnCnt    = {}
+   columnCntI   = {}
+   for icol = 1, ncols do
+      local iend = min(istart + iskip, sz)
+      columnCnt[icol], columnCntI[icol] = self:__columnSum(istart,iend)
+      istart = istart + nrows
+   end
+   
+   dbg.print("ncols: ",ncols,"\n")
    dbg.printA{name="columnCnt",  a=columnCnt}
    dbg.printA{name="columnCntI", a=columnCntI}
 
-   local nrows     = math.ceil(sz/ncols)
-   self.ncols      = math.ceil(sz/nrows)
-   self.nrows      = nrows
    self.columnCnt  = columnCnt
    self.columnCntI = columnCntI
    dbg.fini()
