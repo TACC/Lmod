@@ -377,8 +377,8 @@ local function new(self, s)
    o.baseMpathA       = {}
    o._same            = true
    o._MPATH           = ""
-   o._locationTbl     = {}
-   o._availT          = {}
+   o._locationTbl     = false
+   o._availT          = false
    o._loadT           = {}
 
    o._changePATH      = false
@@ -924,10 +924,15 @@ end
 -- Simple Get/Set functions.
 
 function M.locationTbl(self, key)
-   return self._locationTbl[key]
+   if (not self._locationTbl) then
+      self._locationTbl, self._availT = build_locationTbl(self.mpathA)
+   end
 end
 
 function M.availT(self)
+   if (not self._availT) then
+      self._locationTbl, self._availT = build_locationTbl(self.mpathA)
+   end
    return self._availT
 end
 
