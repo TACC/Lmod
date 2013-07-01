@@ -57,7 +57,7 @@ local function new(self)
    tbl.short_time           = { doc = "Cache Build time at which file is written" , value = "@short_time@",           }
    tbl.prepend_block        = { doc = "Order in which prepends are done"          , value = "@prepend_block@",        }
    tbl.colorize             = { doc = "Colorize Lmod"                             , value = "@colorize@",             }
-   tbl.pkg                  = { doc = "Pkg Class name"                            , value = Pkg.name() or "unknown",                  }
+   tbl.pkg                  = { doc = "Pkg Class name"                            , value = Pkg.name() or "unknown",  }
 
    o.tbl = tbl
    return o
