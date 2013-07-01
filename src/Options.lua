@@ -168,6 +168,13 @@ function M.options(self, usage)
       help   = "Checking module command syntax: do not load",
    }
 
+   cmdlineParser:add_option{
+      name   = {"--config" },
+      dest   = "config",
+      action = "store_true",
+      help   = "Report Lmod Configuration",
+   }
+
    local optionTbl, pargs = cmdlineParser:parse(arg)
    local masterTbl        = masterTbl()
    masterTbl.pargs        = pargs

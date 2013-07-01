@@ -108,10 +108,11 @@ MasterControl = require("MasterControl")
 require("modfuncs")
 require("cmdfuncs")
 require("colorize")
-Cache  = require("Cache")
-Master = require("Master")
-MT     = require("MT")
-Exec   = require("Exec")
+
+Cache         = require("Cache")
+Master        = require("Master")
+MT            = require("MT")
+Exec          = require("Exec")
 
 local BeautifulTbl = require('BeautifulTbl')
 local Dbg          = require("Dbg")
@@ -616,6 +617,15 @@ function main()
    -- print version and quit if requested.
    if (masterTbl.version) then
       io.stderr:write(version())
+      os.exit(0)
+   end
+
+   -- print Configuration and quit.
+   if (masterTbl.config) then
+      local Configuration = require("Configuration")
+      local configuration = Configuration:configuration()
+      io.stderr:write(version())
+      io.stderr:write(configuration:report(),"\n")
       os.exit(0)
    end
 

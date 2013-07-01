@@ -1,4 +1,4 @@
---------------------------------------------------------------------------
+k--------------------------------------------------------------------------
 -- Lmod License
 --------------------------------------------------------------------------
 --
@@ -37,6 +37,10 @@ require("inherits")
 
 local unpack = unpack or table.unpack
 local M = inheritsFrom(PkgBase)
+
+function M.name(self)
+   return "PkgTACC"
+end
 
 function M._build_pkgBase(self,level)
    local dir = myFileName():match("(.*)/modulefile")

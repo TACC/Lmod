@@ -84,7 +84,7 @@ __installMe:
            bareN=$${i##*/};                                           	   \
            fn=$${bareN%%.in*};                                        	   \
            ext=$${bareN#*.};                                          	   \
-           sed  -e 's|@PREFIX@|@prefix@|g'                            	   \
+           sed  -e 's|@PREFIX@|$(prefix)|g'                            	   \
 	        -e 's|@path_to_lua@|$(PATH_TO_LUA)|g'                 	   \
 	        -e 's|@path_to_hashsum@|$(PATH_TO_HASHSUM)|g'         	   \
 	        -e 's|@path_to_pager@|$(PATH_TO_PAGER)|g'             	   \

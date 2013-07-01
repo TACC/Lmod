@@ -278,13 +278,6 @@ EOF
    ZSH_SITE_FUNCTIONS_DIR=`$PATH_TO_ZSH ./conftest.zsh`
 fi
 
-
-
-
-
-
-
-
 AC_OUTPUT(makefile:Makefile.in)
 
 AX_SUMMARIZE_CONFIG
