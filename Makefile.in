@@ -1,9 +1,9 @@
-LMOD_SETTARG_SUPPORT     := @SETTARG@
-USE_DOT_FILES            := @USE_DOT_FILES@
+LMOD_SETTARG_SUPPORT     := $(shell echo "@SETTARG@"       | tr '[:upper:]' '[:lower:]')
+USE_DOT_FILES            := $(shell echo "@USE_DOT_FILES@" | tr '[:upper:]' '[:lower:]')
+PREPEND_BLOCK     	 := $(shell echo "@PREPEND_BLOCK@" | tr '[:upper:]' '[:lower:]')
+COLORIZE          	 := $(shell echo "@COLORIZE@"      | tr '[:upper:]' '[:lower:]')
 ZSH_SITE_FUNCTIONS_DIR   := @ZSH_SITE_FUNCTIONS_DIR@
 SPIDER_CACHE_DESCRIPT_FN := @SPIDER_CACHE_DESCRIPT_FN@
-PREPEND_BLOCK     	 := @PREPEND_BLOCK@
-COLORIZE          	 := @COLORIZE@
 ANCIENT           	 := @ANCIENT@
 SHORT_TIME        	 := @SHORT_TIME@
 SPIDER_CACHE_DIRS 	 := @SPIDER_CACHE_DIRS@
