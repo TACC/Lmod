@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.0.1 (5.0.1-64-g6a14e0c) 2013-06-18 14:14
+Modules based on Lua: Version 5.0.1 (5.0.1-67-gc78614c) 2013-06-18 14:14
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -98,7 +98,7 @@ The following guides are at http://www.tacc.utexas.edu/tacc-projects/lmod
   User Guide                 - How to use.
   Advance User Guide         - How to create you own modules.
   System Administrator Guide - How to install Lmod on your own system.
-Modules based on Lua: Version 5.0.1 (5.0.1-64-g6a14e0c) 2013-06-18 14:14
+Modules based on Lua: Version 5.0.1 (5.0.1-67-gc78614c) 2013-06-18 14:14
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 3
@@ -194,7 +194,7 @@ The following guides are at http://www.tacc.utexas.edu/tacc-projects/lmod
   User Guide                 - How to use.
   Advance User Guide         - How to create you own modules.
   System Administrator Guide - How to install Lmod on your own system.
-Modules based on Lua: Version 5.0.1 (5.0.1-64-g6a14e0c) 2013-06-18 14:14
+Modules based on Lua: Version 5.0.1 (5.0.1-67-gc78614c) 2013-06-18 14:14
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 4
@@ -210,3 +210,33 @@ and $AMBERHOME/exe is included in the PATH variable.
 Here is an example command for executing the Sander module:
 sander.LES -i tes.in -o tes.out -p tes.prmtop.save -c tes.x -r tes.rst
 Version 9
+===========================
+step 5
+lua ProjectDIR/src/lmod.in.lua bash -D --config
+===========================
+lmod(-D --config){
+  Lmod Version: 5.0.1 (5.0.1-67-gc78614c) 2013-06-18 14:14
+  package.path: ProjectDIR/src/../tools/?.lua;ProjectDIR/src/?.lua;ProjectDIR/src/?/init.lua;/opt/apps/luarocks/share/lua/5.2/?.lua;/opt/apps/luarocks/share/lua/?/init.lua;/opt/apps/luatools/5.2.2/share/5.2/?.lua;/opt/apps/lua/5.2.2/share/lua/5.2/?.lua;/opt/apps/lua/5.2.2/share/lua/5.2/?/init.lua;/opt/apps/lua/5.2.2/lib/lua/5.2/?.lua;/opt/apps/lua/5.2.2/lib/lua/5.2/?/init.lua;./?.lua;
+  No duplication allowed in paths
+  lmodPath: ''
+  capture{
+    cwd: ProjectDIR/rt/help/t1/x86_64_dbg_gcc-4.6.3_openmpi-1.6.3-2013_07_01_08_20_44-Darwin-x86_64-help
+    cmd: /usr/local/opt/coreutils/libexec/gnubin/sha1sum ProjectDIR/src/SitePackage.lua
+    capture output{
+      2c2c49b67c4b8310273480360552eaa69713a462  ProjectDIR/src/SitePackage.lua
+    }
+  }
+Modules based on Lua: Version 5.0.1 (5.0.1-67-gc78614c) 2013-06-18 14:14
+    by Robert McLay mclay@tacc.utexas.edu
+Name             Value                   Description
+ancient          @ancient@               User cache file valid time(sec)
+colorize         @colorize@              Colorize Lmod
+path_to_lua      @path_to_lua@           Path to Lua
+path_to_pager    @path_to_pager@         Path to Pager
+pkg              Pkg                     Pkg Class name
+prefix           @PREFIX@                Lmod prefix
+prepend_block    @prepend_block@         Prepend order
+settarg_support  @lmod_settarg_support@  Supporting Full Settarg Use
+short_time       @short_time@            Write cache after (sec)
+sitePkg          standard                Site Pkg location
+use_dot_files    @use_dot_files@         Using dotfiles

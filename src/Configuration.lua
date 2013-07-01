@@ -70,7 +70,7 @@ local function new(self)
       
       local HashSum = "@path_to_hashsum@"
       if (HashSum:sub(1,1) == "@") then
-         HashSum = findInPath("sha1Sum")
+         HashSum = findInPath("sha1sum")
       end
       
       local result = capture(HashSum .. " " .. locSitePkg)

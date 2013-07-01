@@ -36,3 +36,7 @@ LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/help/mf";
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/help/mf";
 export MODULEPATH;
+===========================
+step 5
+lua ProjectDIR/src/lmod.in.lua bash -D --config
+===========================
