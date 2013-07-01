@@ -1293,7 +1293,7 @@ Optional Packages:
                           Allow multiple directories in path like variables
                           [[NO]]
   --with-colorize=ans     allow for colorized output [[YES]]
-  --with-settarg=ans      startup files fully support settarg [[yes]]
+  --with-settarg=ans      startup files fully support settarg [[NO]]
   --with-lua-include=[path]
                           specify path the lua header files
 
@@ -1958,7 +1958,7 @@ $as_echo "SETTARG=$with_settarg" >&6; }
 _ACEOF
 
 else
-  withval="yes"
+  withval="NO"
     { $as_echo "$as_me:${as_lineno-$LINENO}: result: SETTARG=$withval" >&5
 $as_echo "SETTARG=$withval" >&6; }
     SETTARG="$withval"
@@ -2316,13 +2316,6 @@ EOF
    chmod +x conftest.zsh
    ZSH_SITE_FUNCTIONS_DIR=`$PATH_TO_ZSH ./conftest.zsh`
 fi
-
-
-
-
-
-
-
 
 ac_config_files="$ac_config_files makefile:Makefile.in"
 
