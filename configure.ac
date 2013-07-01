@@ -125,12 +125,12 @@ AC_ARG_WITH(colorize,
 
 AC_SUBST(SETTARG)
 AC_ARG_WITH(settarg,
-    AC_HELP_STRING([--with-settarg=ans],[startup files fully support settarg [[yes]]]),
+    AC_HELP_STRING([--with-settarg=ans],[startup files fully support settarg [[NO]]]),
     SETTARG="$withval"
     AC_MSG_RESULT([SETTARG=$with_settarg])
     AC_DEFINE_UNQUOTED(SETTARG, "$with_settarg")dnl
     ,
-    withval="yes"
+    withval="NO"
     AC_MSG_RESULT([SETTARG=$withval])
     SETTARG="$withval"
     AC_DEFINE_UNQUOTED(SETTARG, "$withval"))dnl

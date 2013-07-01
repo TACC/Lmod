@@ -35,21 +35,21 @@
 require("strict")
 
 require("fileOps")
-require("utils")
-ProjectData = nil
 
-local ProjectDBFile = "Hermes.db"
+local posix = require("posix")
+function findFileInTree(fn)
+   local cwd = posix.getcwd()
+   local wd  = cwd
 
-function FindProjectData()
-   local results = nil
-
-   local dbfn = FindProjectDataFile(ProjectDBFile)
-   if (dbfn) then
-      assert(loadfile(dbfn))()
-      if (ProjectData) then
-         results = ProjectData.TargetList or results
-      end
+   while (wd ~= "/" and not posix.access(fn,"r")) do
+      posix.chdir("..")
+      wd = posix.getcwd()
    end
-   return results
 
+   posix.chdir(cwd)
+   if (wd == "/") then
+      return nil
+   else
+      return pathJoin(wd,fn)
+   end
 end

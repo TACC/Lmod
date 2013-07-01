@@ -37,6 +37,8 @@ require("getUname")
 require("string_split")
 require("string_trim")
 require("fileOps")
+require("utils")
+require("ProcessModuleTable")
 
 local Dbg         = require("Dbg")
 local posix       = require("posix")
@@ -49,7 +51,6 @@ local load        = (_VERSION == "Lua 5.1") and loadstring or load
 local masterTbl   = masterTbl
 local systemG     = _G
 local ModuleTable = "_ModuleTable_"
-require("ProcessModuleTable")
 
 local M          = {}
 
@@ -208,6 +209,12 @@ local function readDotFiles()
                pathJoin(getenv('HOME') or '',".settarg.lua"),
    }
 
+   local projectConfig = findFileInTree(".settarg.lua")
+
+   if (projectConfig ~= a[2]) then
+      a[#a+1] = projectConfig
+   end
+
    local MethodMstrTbl = {}
    local TitleMstrTbl  = {}
    local ModuleMstrTbl = {}
@@ -215,6 +222,7 @@ local function readDotFiles()
    local familyTbl     = {}
 
    for _, fn  in ipairs(a) do
+      dbg.print("fn: ",fn,"\n")
       local f = io.open(fn,"r")
       if (f) then
          local s  = f:read("*all")
@@ -255,11 +263,10 @@ local function readDotFiles()
    masterTbl.familyTbl     = familyTbl
 end
 
-function M.exec(shell, targetList)
+function M.exec(shell)
    local dbg         = Dbg:dbg()
    local name        = shell:name() or "unknown"
-   dbg.start("BuildTarget.exec(\"",tostring(name),"\", (",
-             concatTbl(targetList or {},", "),"))")
+   dbg.start("BuildTarget.exec(\"",name,")")
    local masterTbl   = masterTbl()
    local envVarsTbl  = {}
    local target      = masterTbl.target or getenv('TARGET') or ''
@@ -268,7 +275,7 @@ function M.exec(shell, targetList)
    masterTbl.envVarsTbl  = envVarsTbl
 
    readDotFiles()
-   targetList = targetList or masterTbl.targetList
+   local targetList = masterTbl.targetList
    local familyTbl  = masterTbl.familyTbl
    local targetTbl = {}
 

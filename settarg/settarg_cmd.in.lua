@@ -68,7 +68,6 @@ local CmdLineOptions = require("CmdLineOptions")
 local BuildTarget    = require("BuildTarget")
 require("ModifyPath")
 require("Output")
-require("FindProjectData")
 
 function main()
    local dbg         = Dbg:dbg()
@@ -107,7 +106,7 @@ function main()
    -- Build shell object
    local shell = BaseShell.build(masterTbl.shell)
 
-   BuildTarget.exec(shell, FindProjectData())
+   BuildTarget.exec(shell)
    ModifyPath()
    Output(shell)
    dbg.fini("settarg")
