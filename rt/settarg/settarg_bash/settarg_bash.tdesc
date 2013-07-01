@@ -31,20 +31,21 @@ testdescript = {
 
      rm -fr _stderr.* _stdout.* err.* out.* .lmod.d
 
-     runMe lua $(projectDir)/src/lmod.in.lua bash --version                            # 1
-     runMe lua $(projectDir)/src/lmod.in.lua bash load settarg                         # 2    
-     runMe lua $(projectDir)/settarg/settarg_cmd.in.lua -s bash --no_cpu_model dbg     # 3
-     runMe lua $(projectDir)/settarg/settarg_cmd.in.lua -s bash --no_cpu_model opt     # 4
-     runMe lua $(projectDir)/settarg/settarg_cmd.in.lua -s bash --no_cpu_model empty   # 5
-     runMe lua $(projectDir)/src/lmod.in.lua bash load gcc mpich                       # 6 
-     runMe lua $(projectDir)/settarg/settarg_cmd.in.lua -s bash --no_cpu_model         # 7
-     runMe lua $(projectDir)/settarg/settarg_cmd.in.lua -s bash --no_cpu_model f_f     # 8
-     runMe lua $(projectDir)/settarg/settarg_cmd.in.lua -s bash --no_cpu_model b:b     # 9
-     runMe lua $(projectDir)/settarg/settarg_cmd.in.lua -s bash --no_cpu_model -r f_f  #10
-     runMe lua $(projectDir)/settarg/settarg_cmd.in.lua -s bash --no_cpu_model -r b:b  #11
-     runMe lua $(projectDir)/settarg/settarg_cmd.in.lua -s bash --no_cpu_model f_f b:b #12
-     runMe lua $(projectDir)/settarg/settarg_cmd.in.lua -s bash --no_cpu_model --purge #13
-     runMe lua $(projectDir)/src/lmod.in.lua bash unload settarg                       #14
+     runMe lua $(projectDir)/src/lmod.in.lua bash --version                              # 1
+     runMe lua $(projectDir)/src/lmod.in.lua bash load settarg                           # 2    
+     runMe lua $(projectDir)/settarg/settarg_cmd.in.lua -s bash --no_cpu_model dbg       # 3
+     runMe lua $(projectDir)/settarg/settarg_cmd.in.lua -s bash --no_cpu_model opt       # 4
+     runMe lua $(projectDir)/settarg/settarg_cmd.in.lua -s bash --no_cpu_model empty     # 5
+     runMe lua $(projectDir)/src/lmod.in.lua bash load gcc mpich                         # 6 
+     runMe lua $(projectDir)/settarg/settarg_cmd.in.lua -s bash --no_cpu_model           # 7
+     runMe lua $(projectDir)/settarg/settarg_cmd.in.lua -s bash --no_cpu_model f_f       # 8
+     runMe lua $(projectDir)/settarg/settarg_cmd.in.lua -s bash --no_cpu_model b:b       # 9
+     runMe lua $(projectDir)/settarg/settarg_cmd.in.lua -s bash --no_cpu_model -r f_f    #10
+     runMe lua $(projectDir)/settarg/settarg_cmd.in.lua -s bash --no_cpu_model -r b:b    #11
+     runMe lua $(projectDir)/settarg/settarg_cmd.in.lua -s bash --no_cpu_model f_f b:b   #12
+     runMe lua $(projectDir)/settarg/settarg_cmd.in.lua -s bash --no_cpu_model --purge   #13
+     runMe lua $(projectDir)/settarg/settarg_cmd.in.lua -s bash --no_cpu_model --destroy #14
+     runMe lua $(projectDir)/src/lmod.in.lua bash unload settarg                         #15
 
 
      HOME_ORIG=$HOME

@@ -381,7 +381,8 @@ function M.exec(shell)
    envVarsTbl.TARG_TITLE_BAR        = s
    envVarsTbl.TARG_TITLE_BAR_PAREN  = paren
 
-   if (masterTbl.destoryFlag) then
+   dbg.print("masterTbl.destoryFlag: ",masterTbl.destroyFlag,"\n")
+   if (masterTbl.destroyFlag) then
       for k in pairs(envVarsTbl) do
          envVarsTbl[k] = ""
       end

@@ -351,6 +351,27 @@ TARG_TITLE_BAR_PAREN='(gcc-4.7.2 M-3.0.4)';
 export TARG_TITLE_BAR_PAREN;
 ===========================
 step 14
+lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --no_cpu_model --destroy
+===========================
+unset 'BUILDTARGET';
+PATH='/opt/apps/gcc-4_7/mpich/3.0.4/bin:ProjectDIR/src:PATH_to_TM:/bin';
+export PATH;
+unset 'TARG';
+unset 'TARG_BUILD_SCENARIO';
+unset 'TARG_COMPILER';
+unset 'TARG_COMPILER_FAMILY';
+unset 'TARG_EXTRA';
+unset 'TARG_EXTRA_ENCODED_ARRAY';
+unset 'TARG_EXTRA_FAMILY';
+unset 'TARG_MACH';
+unset 'TARG_MPI';
+unset 'TARG_MPI_FAMILY';
+unset 'TARG_TARGET';
+unset 'TARG_TITLE_BAR';
+TARG_TITLE_BAR_PAREN=' ';
+export TARG_TITLE_BAR_PAREN;
+===========================
+step 15
 lua ProjectDIR/src/lmod.in.lua bash unload settarg
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/settarg/settarg_bash/../mf/Core";
