@@ -95,7 +95,7 @@ function main()
       ["-?"] = 0, ["-h"] = 0, ["--help"] = 0, ["-d"]=0, ["--version"]=0,
       ["--old_style"] = 0, ["--expert"]=0, ["--novice"]=0, ["-D"]=0,
       ["--localvar"]=1, ["--terse"] = 0, ["-t"] = 0, ["--latest"] = 0,
-      ["--versoin"]=0, ["--ver"]=0, ["--v"]=0, ["-v"]=0,
+      ["--versoin"]=0, ["--ver"]=0, ["--v"]=0, ["-v"]=0,['--config'] = 0,
    }
 
    local translateT = {
