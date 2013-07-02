@@ -8,8 +8,6 @@
 
 if [ -z "$USER_IS_ROOT" ]; then
 
-  . @PKG@/init/bash >/dev/null # Module Support
-
   if [ -z "$MODULEPATH_ROOT" ]; then
     USER=${USER-${LOGNAME}}  # make sure $USER is set
     export USER
@@ -32,4 +30,7 @@ if [ -z "$USER_IS_ROOT" ]; then
     export MODULEPATH=$(@PKG@/libexec/addto --append MODULEPATH $MODULEPATH_ROOT/$LMOD_sys $MODULEPATH_ROOT/Core)
     export BASH_ENV=@PKG@/init/bash
   fi
+
+  . @PKG@/init/bash >/dev/null # Module Support
+
 fi
