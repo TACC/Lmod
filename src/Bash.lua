@@ -73,8 +73,8 @@ end
 function Bash.shellFunc(self, k, v)
    local dbg = Dbg:dbg()
    if (v == "") then
-      stdout:write("unset -f ",k,";\n")
-      dbg.print(   "unset -f ",k,";\n")
+      stdout:write("unset -f ",k," 2> /dev/null;\n")
+      dbg.print(   "unset -f ",k," 2> /dev/null;\n")
    else
       local func = v[1]:gsub(";%s*$","")
       stdout:write(k,"() { ",func,"; };\n")

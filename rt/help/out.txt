@@ -38,5 +38,5 @@ MODULEPATH="ProjectDIR/rt/help/mf";
 export MODULEPATH;
 ===========================
 step 5
-lua ProjectDIR/src/lmod.in.lua bash -D --config
+lua ProjectDIR/src/lmod.in.lua bash --config
 ===========================
