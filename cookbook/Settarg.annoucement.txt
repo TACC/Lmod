@@ -18,6 +18,20 @@ e) Support for settarg has been added.
 ------------------------------------------------------------------------
 What is Settarg?
 ------------------------------------------------------------------------
+* New module settarg
+
+* A new functionality that allows Lmod to keep current and consistent
+  a set of env. variable that encapsolate the state of the currently
+  loaded modules.
+* For example TARG_COMPILER would be gcc-4.7.3
+* First example of a new capiabitlty
+** For example I use it this way
+** In fact it is designed to support this work flow.
+** Even if this workflow is not yours you may find parts of this usefull.
+
+
+
+
 
 Settarg is an optional feature of Lmod.  It is there to answer the
 question is there an easy way for your build system to which compiler you
