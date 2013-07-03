@@ -98,7 +98,7 @@ if [ "$PS1" ]; then
     precmd()
     {
       eval $(${LMOD_SETTARG_CMD:-:} -s bash)
-      ${SET_TITLE_BAR:-:} ${TARG_TITLE_BAR_PAREN}${USER}@${HOSTNAME%%.*}:${PWD/#$HOME/~}
+      ${SET_TITLE_BAR:-:} "${TARG_TITLE_BAR_PAREN}${USER}@${HOSTNAME%%.*}:${PWD/#$HOME/~}"
       ${USER_PROMPT_CMD:-:}
     }
 
