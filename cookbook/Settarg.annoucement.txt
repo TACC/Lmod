@@ -48,15 +48,38 @@ e) Verify that the "precmd" shell function or alias is defined and
 What variables are set by Settarg?
 ----------------------------------
 
-Typically you will get:
-
-TARG
-TARG_COMPILER_FAMILY
-TARG_COMPILER
-TARG_BUILD_SCENARIO
+Typically you will something this when gcc/4.7.2 is loaded:
 
 
+   TARG=_x86_64_06_1a_gcc-4.7.3
+   TARG_COMPILER=gcc-4.7.3
+   TARG_COMPILER_FAMILY=gcc
+   TARG_MACH=x86_64_06_1a
+   TARG_TARGET=x86_64_06_1a_gcc-4.7.3
 
+When mpich/3.0.4 is also loaded you get:
+
+   TARG=_x86_64_06_1a_gcc-4.7.3_mpich-3.0.4
+   TARG_COMPILER=gcc-4.7.3
+   TARG_COMPILER_FAMILY=gcc
+   TARG_MACH=x86_64_06_1a
+   TARG_TARGET=x86_64_06_1a_gcc-4.7.3_mpich-3.0.4
+   TARG_MPI=mpich-3.0.4
+   TARG_MPI_FAMILY=mpich
+
+The TARG variable reports the state of the modules.  By default the
+TARG variable is:
+
+ TARG =   _ + ${TARG_MACH}     + _ + ${TARG_BUILD_SCENARIO} + 
+          _ + ${TARG_COMPILER} + _ + ${TARG_MPI}
+
+where "+" means string concatation.  If one of the above variables
+is undefined then the extra underscores are removed.
+
+The ${TARG_BUILD_SCENARIO} is by default set to be empty.  The
+commands "dbg" and "opt" set TARG_BUILD_SCENARIO to be "dbg" and "opt"
+respectively.   This variable could be used by a build system to
+control whether the optimized or debug version of a program is built.
 
 
 
