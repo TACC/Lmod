@@ -58,23 +58,34 @@ function M.default_MACH()
    return getUname().machName
 end
 
-function M.default_BUILD_SCENARIO()
+function M.default_BUILD_SCENARIO(tbl)
    local dbg       = Dbg:dbg()
    dbg.start("BuildTarget:default_BUILD_SCENARIO()")
    local masterTbl = masterTbl()
    local MethodTbl = masterTbl.MethodTbl
 
    -------------------------------------------------------
+   -- First look to see if there is TARG_BUILD_SCENARIO_STATE
+   local v = getenv("TARG_BUILD_SCENARIO_STATE")
+   if (v) then
+      dbg.print("STATE: ",v,"\n")
+      dbg.fini("BuildTarget:default_BUILD_SCENARIO")
+      tbl.TARG_BUILD_SCENARIO_STATE = v
+      return v
+   end
+   
+
+   -------------------------------------------------------
    -- Search over hostname first
    local t        = getUname()
    local hostname = t.hostName
 
-   local v = nil
    while (true) do
       v = MethodTbl[hostname]
       if (v) then
          dbg.print("hostname: ", hostname," v: ",v,"\n")
          dbg.fini("BuildTarget:default_BUILD_SCENARIO")
+         tbl.TARG_BUILD_SCENARIO_STATE = v
          return v
       end
       local i = hostname:find("%.")
@@ -89,14 +100,15 @@ function M.default_BUILD_SCENARIO()
    if (v) then
       dbg.print("machName v: ",v,"\n")
       dbg.fini("BuildTarget:default_BUILD_SCENARIO")
+      tbl.TARG_BUILD_SCENARIO_STATE = v
       return v
    end
 
+   v = "empty"
+   tbl.TARG_BUILD_SCENARIO_STATE = v
    dbg.print("default v: ",v,"\n")
-   
-   -------------------------------------------------------
-   -- Return last resort default
-   return "empty"
+   dbg.fini("BuildTarget:default_BUILD_SCENARIO")
+   return v
 end
 
 local function string2Tbl(s,tbl)
@@ -116,7 +128,10 @@ local function string2Tbl(s,tbl)
       else
          for kind in pairs(kindT) do
             local K = "TARG_" .. kind:upper()
-            v  = (K == "TARG_BUILD_SCENARIO" and v == "empty") and "" or v
+            if (K == "TARG_BUILD_SCENARIO" and v == "empty") then
+               v                             = ""
+               tbl.TARG_BUILD_SCENARIO_STATE = "empty"
+            end
             dbg.print("v: ",v," kind: ",kind," K: ",K,"\n")
             tbl[K] = v
          end
@@ -157,7 +172,7 @@ function M.buildTbl(targetTbl)
          local ss = "default_" .. K
          dbg.print("ss: ", ss, "\n")
          if (M[ss]) then
-            v = M[ss]()
+            v = M[ss](tbl)
          else
             v = ''
          end
@@ -170,12 +185,13 @@ function M.buildTbl(targetTbl)
 
    -- Always set mach
    tbl.TARG_MACH = M.default_MACH()
+   
 
-   if ( tbl.TARG_BUILD_SCENARIO == "empty") then
-      tbl.TARG_BUILD_SCENARIO = ""
+   local method = tbl.TARG_BUILD_SCENARIO
+   if (tbl.TARG_BUILD_SCENARIO_STATE and tbl.TARG_BUILD_SCENARIO_STATE == "empty") then
+      method = "empty"
    end
 
-   dbg.print("tbl.TARG_BUILD_SCENARIO: ",tbl.TARG_BUILD_SCENARIO ,"\n")
    local env = getenv()
 
    for key in pairs(env) do
@@ -187,6 +203,13 @@ function M.buildTbl(targetTbl)
       end
    end
 
+   tbl.TARG_BUILD_SCENARIO_STATE = method
+   tbl.TARG_BUILD_SCENARIO       = method
+   if (method == "empty") then
+      tbl.TARG_BUILD_SCENARIO    = ""
+   end
+
+   dbg.print("tbl.TARG_BUILD_SCENARIO_STATE: ",tbl.TARG_BUILD_SCENARIO_STATE ,"\n")
    local a = {"build_scenario","mach", "extra"} 
    for _,v in ipairs(a) do
       if (targetTbl[v]) then
@@ -286,9 +309,11 @@ function M.exec(shell)
 
    local tbl = M.buildTbl(targetTbl)
    
+   dbg.print("(1) tbl.TARG_BUILD_SCENARIO_STATE: ",tbl.TARG_BUILD_SCENARIO_STATE ,"\n")
    string2Tbl(concatTbl(masterTbl.pargs," ") or '',tbl)
-
+   dbg.print("(2) tbl.TARG_BUILD_SCENARIO_STATE: ",tbl.TARG_BUILD_SCENARIO_STATE ,"\n")
    processModuleTable(shell:getMT(ModuleTable), targetTbl, tbl)
+   dbg.print("(3) tbl.TARG_BUILD_SCENARIO_STATE: ",tbl.TARG_BUILD_SCENARIO_STATE ,"\n")
 
    -- Remove options from TARG_EXTRA
 
@@ -301,6 +326,8 @@ function M.exec(shell)
       end
    end
    
+   dbg.print("(4) tbl.TARG_BUILD_SCENARIO_STATE: ",tbl.TARG_BUILD_SCENARIO_STATE ,"\n")
+
    if (next(tbl.TARG_EXTRA) == nil or masterTbl.purgeFlag) then
       tbl.TARG_EXTRA               = false
       tbl.TARG_EXTRA_ENCODED_ARRAY = false
@@ -315,6 +342,8 @@ function M.exec(shell)
       tbl.TARG_EXTRA               = concatTbl(a,"_")
       tbl.TARG_EXTRA_ENCODED_ARRAY = concatTbl(b,":")
    end
+
+   dbg.print("(5) tbl.TARG_BUILD_SCENARIO_STATE: ",tbl.TARG_BUILD_SCENARIO_STATE ,"\n")
 
    local a = {}
    for _,v in ipairs(targetList) do
@@ -337,6 +366,8 @@ function M.exec(shell)
    for k in pairs(tbl) do
       envVarsTbl[k] = tbl[k]
    end
+
+   dbg.print("(6) envVarsTbl.TARG_BUILD_SCENARIO_STATE: ",envVarsTbl.TARG_BUILD_SCENARIO_STATE ,"\n")
 
    target = concatTbl(a,"_")
    target = target:gsub("_+","_")
@@ -380,6 +411,8 @@ function M.exec(shell)
    end
    envVarsTbl.TARG_TITLE_BAR        = s
    envVarsTbl.TARG_TITLE_BAR_PAREN  = paren
+
+   dbg.print("(7) envVarsTbl.TARG_BUILD_SCENARIO_STATE: ",envVarsTbl.TARG_BUILD_SCENARIO_STATE ,"\n")
 
    dbg.print("masterTbl.destoryFlag: ",masterTbl.destroyFlag,"\n")
    if (masterTbl.destroyFlag) then
