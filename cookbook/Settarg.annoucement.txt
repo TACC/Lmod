@@ -1,0 +1,69 @@
+Lmod Version 5.1.0:
+
+Version 5.1.0 now supports the following new features:
+
+a) module --ignore_cache which tell Lmod to ignore the cache if it
+   exists.
+
+b) module --config report how lmod was configured.
+
+c) Now Lmod does not walk the directory tree on command like list and
+   unload.
+
+d) The pager is now only used when TERM is defined and stderr is
+   connected to a tty (this includes a pty: pseudo tty).
+
+e) Support for settarg has been added.
+
+------------------------------------------------------------------------
+What is Settarg?
+------------------------------------------------------------------------
+
+Settarg is an optional feature of Lmod.  It is there to answer the
+question is there an easy way for your build system to which compiler you
+are using, which mpi stack, what other modules are you using.  And the
+fundamental feature of settarg is: Can you have an single environment
+variable that enscapsilate the state of your modules (that you care
+about).  The answer to those questions is yes, it is settarg.  Settarg
+knows how to read the module table and therefore know what modules you
+have loaded.  
+
+Many developers like to build their programs in multiple ways say in
+debug or optimized modes.  Settarg provides environment variables that
+be used to control the build process.
+
+
+How do you use settarg?
+-----------------------
+
+a) Configure and install Lmod with settarg support to be "yes".
+b) Copy the config/settarg/1.0.lua module into your module tree.
+c) Load the settarg module.
+d) Verify that the TARG variable have been set: $ env | grep TARG
+e) Verify that the "precmd" shell function or alias is defined and
+   PROMPT_COMMAND="precmd" for bash.  Strings that contain the
+   compiler name should appear in the xterm title bar.
+
+
+What variables are set by Settarg?
+----------------------------------
+
+Typically you will get:
+
+TARG
+TARG_COMPILER_FAMILY
+TARG_COMPILER
+TARG_BUILD_SCENARIO
+
+
+
+
+
+
+
+
+
+
+
+
+

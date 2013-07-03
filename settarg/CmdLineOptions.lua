@@ -130,7 +130,6 @@ function  M.options(self)
       name   = {'--no_cpu_model'},
       dest   = 'noCpuModel',
       action = 'store_true',
-      default = ""
    }
 
    local optionTbl, pargs = cmdlineParser:parse(arg)
