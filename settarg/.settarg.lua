@@ -15,7 +15,8 @@ TitleTbl = {
    openmpi                = "O",
    mpich                  = "M",
    mpich2                 = "M",
-   intel                  = "icc",
+   intel                  = "I",
+   gcc                    = "G",
    tau                    = 'Tau',
 }
 
