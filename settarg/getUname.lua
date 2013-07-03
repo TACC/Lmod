@@ -79,6 +79,7 @@ function getUname()
          end
       end
       machFullName = machName .. "_" .. cpu_family .. "_" .. model
+      machName     = machFullName
    end
    t.osName         = osName
    t.machName       = machName
