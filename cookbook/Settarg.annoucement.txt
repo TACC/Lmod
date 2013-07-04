@@ -18,7 +18,40 @@ e) Support for settarg has been added.
 ------------------------------------------------------------------------
 What is Settarg?
 ------------------------------------------------------------------------
-* New module settarg
+* Settarg is new module that access a new tool that dynamically and
+automatically updates "TARG" and a host of other environment variables
+to encapsulates the state of the modules loaded.   For example, if I
+have  the gcc/4.7.2 module loaded and the new settarg module loaded I
+get the following variables defined in my environment.
+
+   TARG=ST_OBJ/_x86_64_06_1a_gcc-4.7.3
+   TARG_COMPILER=gcc-4.7.3
+   TARG_COMPILER_FAMILY=gcc
+   TARG_MACH=x86_64_06_1a
+
+If I change my compiler to intel/13.1.0, the above variable change to:
+
+   TARG=ST_OBJ/_x86_64_06_1a_dbg_intel-13.1.0
+   TARG_COMPILER=intel-13.1.0
+   TARG_COMPILER_FAMILY=intel
+   TARG_MACH=x86_64_06_1a
+
+This was designed to help me as a developer of software applications
+where I am constantly changing compilers, mpi stacks and other
+modules.  These variable are used to set the compiler flags and other
+things in my Makefiles to control how my application is built.  In my
+case TARG is where the the objects, libraries and executables are
+placed during the build process.  It easy to have the title bar
+reflect the dynamic state of your modules.  You control which modules are
+mentioned in the titlebar.
+
+I have found this combination of settarg and Lmod to be a powerful
+development tool.  Even if this workflow is not yours, you may find
+parts of this useful.
+
+
+
+New module settarg
 
 * A new functionality that allows Lmod to keep current and consistent
   a set of env. variable that encapsolate the state of the currently
