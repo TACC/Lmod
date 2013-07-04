@@ -1,0 +1,405 @@
+------------------------------------------------------------------------
+This release of Lmod marks yet another internal refactoring of how it
+works. The commands that your users see remains the same but the
+internal on how it works has.   It is VERY VERY MUCH recommended that
+you read the INSTALL file before trying to install this new version of
+Lmod.  For the impatient, the major changes are:
+
+   * This and future version of Lmod rely on the spider cache.  This
+     speeds thing up and spider should now never crash w.r.t bad module
+     files.
+   * All module files are loaded through a "sandbox" which means that
+     a module file can only call functions that are known to the sandbox.
+     Those of you using the SitePackage.lua or similar will need to
+     register your functions with the sandbox
+   * Bad module files which can be: (1) bad syntax, (2) invalid
+     arguments, (3) Calling functions that modulefiles shouldn't.  All
+     of these mistakes should be caught and not kill building of the
+     spider cache file.
+   * A new hook function will make it easier for module use tracking
+     without having to have special functions inside of your module
+     files.
+   * Support for multilevel modulefile naming schemes.  Lmod now
+     supports naming scheme such as  category/name/version. (C/N/V)
+     It will actually supports category/sub_category/name/version or
+     any depth that your users will tolerate that much typing.
+
+Version 5.0.1
+  Bug Fix:
+    1) This version handles old cache files instead of crashing.
+    2) Correctly handling of Personal module directories.
+    3) Correctly handles isloaded function for TCL modulefiles.
+    4) Tracks MODULEPATH changes external to Lmod.
+  Feature:
+    1) Bash/Zsh command line tab completion for both module and ml
+       commands.  The Zsh support is added to the site-function directory
+       under Zsh control.
+    2) Support for multiple system cache files added, see
+       contrib/BuildSystemCacheFile/README.txt for more details.
+    3) New option "--terse" for list, avail and spider.  This
+       produces machine readable output.
+    4) New option "--default" for avail.  This will list only the
+       default modules.
+    5) Hook function added.
+    6) C/N/V supported
+    7) Sandbox for modulefiles.
+    8) Strong use of Spider cache file.
+    9) Support for new function pushenv("name","value"). It works
+       like setenv("name","value"), but when the module is unloaded
+       the old value is returned.  Suppose you have both a gcc module
+       and an mpich module that both set CC by either setenv or pushenv.
+       Then:
+
+          #                                      SETENV         PUSHENV
+          $ module load   gcc;    echo $CC  # -> CC=gcc         CC=gcc
+          $ module load   mpich;  echo $CC  # -> CC=mpicc       CC=mpicc
+          $ module unload mpich;  echo $CC  # -> CC is unset    CC=gcc
+          $ module unload gcc;    echo $CC  # -> CC is unset    CC is unset
+
+       If you use both setenv("CC","..." ) then when unloading mpich
+       CC has no value.  If you use pushenv("CC","...") then CC will
+       return to "gcc" after unloading mpich and have no value when
+       gcc is unloaded.  What is pushed can be complicated and have
+       colons in the text.  One could push PS1 for different prompts.
+   10) New option "--latest" for load and swap.  This option loads
+       or swaps out the latest version and ignores the default version.
+
+
+Version 4.2.1:
+  Features:
+    1) Spider cache file changes: If a site has a system cache file
+       then a user with personal module directories will use the
+       system cache and only store their personal cache.
+    2) This version makes multiple prepending multiple work in
+       "normal" and not "reverse" order.  Previous version had
+       this "reverse" be the default.
+    3) There is now a "pre-install" target which does everything
+       but make the link between the new version and "lmod"
+  Bug Fixes:
+    1) If the system changes the default module directories and
+       a user has a named collection then Lmod will report that
+       the system MODULEPATH has changed and it will load system
+       defaults and not the users collection.
+
+Version 4.1.4:
+ Bug Fixes:
+   1) When the warning is produced the Lmod Warning message is
+      now colorized (just the Lmod Warning part)
+   2) There is now a small change in "module restore". Previously
+      if a save module changed or did not exist the whole restore
+      would error.  Now Lmod reports which modules are missing and
+      which modules have changed, it then loads all requested
+      modules that it can find.
+
+
+Version 4.1:
+ Features:
+   1) Save/Restore replaced getdefault/setdefault.  See module help
+      for more details.
+   2) Default module chosen by version sorting.  So foo/5.10 will
+      be the default even though foo/5.6 exists. See
+      src/parseVersion.lua comments for complete rules.  There is
+      a test code in contrib/parseVersions/pv. Below is a list
+      of how version will be sorted. The left side shows a
+      package version, the right side shows the internal string
+      generated to sort version numbers.
+
+   2.4dev1: 000000002.000000004.*@.000000001.*zfinal
+     2.4a1: 000000002.000000004.*a.000000001.*zfinal
+  2.4beta2: 000000002.000000004.*beta.000000002.*zfinal
+    2.4rc1: 000000002.000000004.*c.000000001.*zfinal
+       2.4: 000000002.000000004.*zfinal
+   2.4.0.0: 000000002.000000004.*zfinal
+     2.4-1: 000000002.000000004.*zfinal-.000000001.*zfinal
+ 2.4.0.0.1: 000000002.000000004.000000000.000000000.000000001.*zfinal
+     2.4.1: 000000002.000000004.000000001.*zfinal
+3.2-static: 000000003.000000002.*static.*zfinal
+       3.2: 000000003.000000002.*zfinal
+     3.2-0: 000000003.000000002.*zfinal
+    3.2-p0: 000000003.000000002.*zfinal
+     3.2p0: 000000003.000000002.*zfinal
+     3.2-2: 000000003.000000002.*zfinal-.000000002.*zfinal
+    3.2-p3: 000000003.000000002.*zfinal-.000000003.*zfinal
+
+
+ Bug Fix:
+   1) Better handling of swapping out modules: default modules
+      find default modules when swapped.  Non-default modules do
+      not.
+
+
+Version 4.0.1/4.0.2/4.0.3:
+ Bug Fixes:
+   1) Better savings of module cache file on fast systems.
+   2) Fixed bug with csh use of "set_shell_function()"
+   3) Fixed build error on Redhat based systems.
+   4) Fixed SitePackage: only do things on mode() == 'load'
+   5) Fixed SitePackage to be read by all Lmod tools.
+   6) Lmod correctly handles a ^C when using more as PAGER.
+
+Version 4.0:
+ New Requirement:
+  You will need the lua header files.  This will typically
+  require the lua-devel or liblua5.1-0-dev or similar packages.
+
+ Features:
+  1) A handy front end for the module command: ml
+        $ ml
+                                 means: module list
+        $ ml foo bar
+                                 means: module load foo bar
+        $ ml -foo -bar baz goo
+                                 means: module unload foo bar;
+                                        module load baz goo;
+
+     It does much more, do: "ml --help" for more information.
+
+  2) Now uses the env. var PAGER or /bin/more to page through
+     "module spider" and "module avail"
+
+  3) Lmod now supports properties:
+
+     add_property("arch","value1")
+     add_property("arch","value2")
+
+     See .lmodrc.lua for how to setup your properties.
+
+  4) Lmod now knows if stderr is connected to a terminal or not.
+     This means that the pager (and the color output of properties)
+     are bypassed and straight text is written out when the output
+     is a file and not a tty.  (Thanks to pieces from lua-term:
+     git://github.com/hoelzro/lua-term.git)
+
+
+  5) Support for shell functions under bash or csh aliases.
+     For lua module files only:
+
+        set_shell_function("name","bash_function_str",
+                                  "csh_alias_str")
+
+     so the new ml command can be defined in a lua module file as:
+
+        set_shell_function("ml",'eval $($LMOD_DIR/ml_cmd "$@")',
+                                "eval `$LMOD_DIR/ml_cmd $*`")
+
+     (csh alias internally translate the "$*" to "\!*")
+
+     NOTE: Subshells do NOT inherit alias or shell functions!
+     This means every subshell will need to load any modules that
+     define aliases or shell functions.
+
+  6) added module functions "always_load(...)", "always_unload(...)"
+     The function "always_load('abc')" could be replaced by:
+
+        if (mode() == "load") then
+           load('abc')
+        end
+
+     That is, it always loads and never unloads.
+
+     The always_unload('abc') inside a modulefile will ALWAYS
+     cause the module 'abc' to be unloaded.  This is safe to do even
+     if the module is not loaded.
+
+  7) Support for a "SitePackage" lua file to add functions to be available
+     for your lua based modulefiles.  See contrib/SitePackage for an example.
+
+
+
+Version 3.6/3.6.1:
+
+ Features:
+    1) The command:
+         $ module spider foo
+       is now a case-insensitive search.  This means that "foo" will
+       match "foo", "Foo", "FooBar" and "BarFoo".
+    2) The "mode()" function return:
+
+         load, unload, help, whatis, spider
+
+       depending on what mode the module file is beening read.
+
+    3) Note that when reading in modules with the "computeHash" program
+       the mode is "load".  The computeHash program is used to compute
+       sha1 hashes of files as part of the setdefault/getdefault commands.
+
+
+ Bug Fixes:
+    1) set_alias() now correctly load and unloads, doesn't load
+       during spider.
+    2) module spider doesn't stop on a modulefile syntax error.
+       It reports the error and keeps going.
+    3) Loading a modulefile with a syntax error is handled
+       cleanly.
+    4) Lmod now searches all possible caches and picks the one which is newest.
+
+Version 3.5.1/3.5.2:
+
+   Features:
+
+   1) Support for perl added.
+   2) Support for python added:
+
+      Example:
+
+      #!/usr/bin/env python
+
+      import os, sys
+      sys.path.insert(0,"/opt/apps/lmod/lmod/setup/")
+
+      from env_modules_python import module
+
+      module("load","foobar")
+
+      print "os.environ['FOOBAR']: ",os.environ['FOOBAR']
+
+      module("avail");
+
+
+
+Version 3.4.2:
+
+   Features:
+
+   1) A Lua modulefile can have a new command "try_load()". It is
+      the same as a load() EXCEPT that it will not produce an error
+      if the module does NOT exist.
+
+   2) Similarily a TCL modulefile can have:
+
+        module try-add foo
+
+      which will load "foo" if it exists.  If it doesn't then there is
+      no error reported.
+
+Version 3.4.1/3.4.0
+
+  Changes/Features:
+
+  1) The structure of modules file directories has been extended.
+     Previous versions required that symbolic links could only be used
+     with files and not directories.  You can now use a symlink to
+     a directory.  This is useful when trying to use Lmod with an existing
+     module tree.
+
+
+  2) The module list can be search:
+
+     $ module list pattern1 pattern2 ...
+
+     This command will report any module loaded that match pattern1
+     or pattern2 ...
+
+     $ module list gcc b
+
+     Currently Loaded Modules Matching: gcc or b
+     1) gcc/4.6.2  2) boost/1.49.0
+
+  3) The configure script now checks to see that both lfs and posix are
+     available or the script quits.
+
+  4) Support for a system cache directory:
+
+     ./configure --with-spiderCacheDir=/path/to/systemCacheDir
+
+     On slow file system such as lustre a "module spider" can take
+     a while. If one creates a cron that runs hourly to produce a
+     spider file.
+
+     spider -o moduleT $LMOD_DEFAULT_MODULEPATH > /path/to/systemCacheDir/moduleT.lua
+
+
+  Bug fixes:
+
+  1) Previously modules name with special regular expression
+     characters such as "-" would not be found with "module avail"
+     and "module spider" now they will.
+
+  2) There was a subtle bug with the way the module table was written
+     out and read from the environment.  In rare cases, the module table
+     could get corrupted.   This is now fixed.
+
+  3) Previously, if MODULEPATH was not set then a lua error would be
+     reported. This is now fixed.
+
+
+Version 3.3.9
+
+  1) This version fixes a bug in spider output.  Now if a modulefile
+     could be found via two or more ways through the software hierarchy,
+     all parents will be reported.
+  2) A new module command "reset" is now supported.  If the environment
+     variable "LMOD_SYSTEM_DEFAULT_MODULES" contains a list of modules
+     then issuing "module reset" will do a "module purge" and then load
+     the list of modules specified by the this env. variable.
+  3) Users can now specify directories as part of the name given to a
+     "module default" name.  In other words doing
+     "module setdefault foo/bar/baz" will create a file
+     $HOME/.lmod.d/foo/bar/baz that has the current list of modules.
+     Doing "module getdefault foo/bar/baz" will revive it.
+  4) A new function "is_spider()" has been added. It return true if the
+     modulefile being read by the spider command.
+
+Version 3.3.6
+
+  This version supports a different separator for path like variables:
+  For TCL module files, it supports the "--delim" style:
+
+    prepend-path --delim ";" LUA_PATH  "/a/lua/share/5.1/?.lua;/apps/lua/share/5.1/?;;"
+    append-path  --delim ";" LUA_CPATH "/a/lua/share/5.1/?.so"
+
+  For lua modulefiles you can give an optional third argument:
+
+    prepend_path("LUA_PATH",  "/a/lua/share/5.1/?.lua;/a/lua/share/5.1/?;;",";")
+    append_path( "LUA_CPATH", "/a/lua/share/5.1/?.so", ";")
+
+Version 3.3.5
+
+  This version better handles reporting the same module at multiple levels
+  of the hierarchy through "module spider". If a module is a "Core" module
+  as well as compiler and/or mpi/compiler dependent,
+  "module spider" now reports that.
+
+
+Version 3.2.1
+
+  This version set return an error if there are any warning.  So if a user
+  does:
+
+     $ module load foo bar baz
+
+  and "foo" and "bar" exist and "baz" does not then Lmod will load "foo"
+  and "bar" and report a warning that "baz" wasn't loaded.
+
+
+Version 3.1.2
+
+  This version of Lmod supports the module command: "module spider" which
+  will tell users all the modules that are possible independent of where
+  the files are in the module hierarchy.
+
+Version 2.13
+
+  This version of Lmod provide support for the "family" command.  The family
+  command makes it easy to prevent user from loading two version of the same
+  "family".  For example on our system, most users should not have two
+  compilers loaded at the same time.  To support this feature, all you need
+  do is add the following to all the compiler modulefiles:
+
+  For TCL modulefiles do:
+
+    family "compiler"
+
+  For lua module files do:
+
+    family("compiler")
+
+  The word in quotes is case-sensitive so "Compiler" and "compiler" and
+  "COMPILER" are all different.
+
+  You can have different families.  So we currently have a "compiler"
+  family and a "MPI" family.
+
+  Expert users really want two of the same family loaded at the same time
+  can set the environment variable "LMOD_EXPERT" to "1".  This will bypass
+  the test for them.
