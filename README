@@ -2,15 +2,15 @@ Lmod Version 5.1.0:
 
 Version 5.1.0 now supports the following new features:
 
-a) module --ignore_cache which tell Lmod to ignore the cache even if it
+a) module --ignore_cache which tells Lmod to ignore the cache even if it
    exists.
 
-b) module --config report how lmod was configured.
+b) module --config reports how lmod was configured.
 
-c) Now Lmod does not walk the directory tree on command like list and
+c) Lmod no longer walks the directory tree on command like list and
    unload.
 
-d) The pager is now only used when TERM is defined and stderr is
+d) The pager is now used only when TERM is defined and stderr is
    connected to a tty (this includes a pty: pseudo tty).
 
 e) Support for settarg has been added.
@@ -18,18 +18,20 @@ e) Support for settarg has been added.
 ------------------------------------------------------------------------
 What is Settarg?
 ------------------------------------------------------------------------
-* Settarg is new module that access a new tool that dynamically and
-automatically updates "TARG" and a host of other environment variables
-to encapsulates the state of the modules loaded.   For example, if I
-have  the gcc/4.7.2 module loaded and the new settarg module loaded I
-get the following variables defined in my environment.
+
+* Settarg is new module that accesses a new tool to dynamically and
+automatically update "TARG" and a host of other environment
+variables. These new environment variables encapsulate the state of
+the modules loaded. For example, if I have the gcc/4.7.2 module loaded
+and the new settarg module loaded I get the following variables
+defined in my environment.
 
    TARG=ST_OBJ/_x86_64_06_1a_gcc-4.7.3
    TARG_COMPILER=gcc-4.7.3
    TARG_COMPILER_FAMILY=gcc
    TARG_MACH=x86_64_06_1a
 
-If I change my compiler to intel/13.1.0, the above variable change to:
+If I change my compiler to intel/13.1.0, these variables change to:
 
    TARG=ST_OBJ/_x86_64_06_1a_dbg_intel-13.1.0
    TARG_COMPILER=intel-13.1.0
@@ -38,16 +40,16 @@ If I change my compiler to intel/13.1.0, the above variable change to:
 
 This was designed to help me as a developer of software applications
 where I am constantly changing compilers, mpi stacks and other
-modules.  These variable are used to set the compiler flags and other
-things in my Makefiles to control how my application is built.  In my
-case TARG is where the the objects, libraries and executables are
-placed during the build process.  It easy to have the title bar
-reflect the dynamic state of your modules.  You control which modules are
-mentioned in the titlebar.
-
-I have found this combination of settarg and Lmod to be a powerful
-development tool.  Even if this workflow is not yours, you may find
-parts of this useful.
+modules. These variable are used to set the compiler flags and other
+things in my Makefiles to control how my application is built. In my
+case $TARG is where the the objects, libraries and executables are
+placed during the build process. It easy to have the title bar reflect
+the dynamic state of your modules. You control which modules are
+mentioned in the titlebar.  I have found this combination of settarg
+and Lmod to be a powerful development tool. Even if this workflow is
+not yours, you may find parts of this useful.
 
 
-For more details see: ....
+For more details see: contrib/settarg/Settarg.txt
+
+
