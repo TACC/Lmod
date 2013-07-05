@@ -28,6 +28,8 @@ if [ -z "$USER_IS_ROOT" ]; then
     export LMOD_COLORIZE=@colorize@
     export LMOD_PREPEND_BLOCK=@prepend_block@
     export MODULEPATH=$(@PKG@/libexec/addto --append MODULEPATH $MODULEPATH_ROOT/$LMOD_sys $MODULEPATH_ROOT/Core)
+    export MODULEPATH=$(@PKG@/libexec/addto --append MODULEPATH @PKG@/modulefiles/Core)
+
     export BASH_ENV=@PKG@/init/bash
   fi
 

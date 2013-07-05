@@ -66,30 +66,6 @@ New module settarg
 
 
 
-Settarg is an optional feature of Lmod.  It is there to answer the
-question is there an easy way for your build system to which compiler you
-are using, which mpi stack, what other modules are you using.  And the
-fundamental feature of settarg is: Can you have an single environment
-variable that enscapsilate the state of your modules (that you care
-about).  The answer to those questions is yes, it is settarg.  Settarg
-knows how to read the module table and therefore know what modules you
-have loaded.  
-
-Many developers like to build their programs in multiple ways say in
-debug or optimized modes.  Settarg provides environment variables that
-be used to control the build process.
-
-
-How do you use settarg?
------------------------
-
-a) Configure and install Lmod with settarg support to be "yes".
-b) Copy the config/settarg/1.0.lua module into your module tree.
-c) Load the settarg module.
-d) Verify that the TARG variable have been set: $ env | grep TARG
-e) Verify that the "precmd" shell function or alias is defined and
-   PROMPT_COMMAND="precmd" for bash.  Strings that contain the
-   compiler name should appear in the xterm title bar.
 
 
 What variables are set by Settarg?

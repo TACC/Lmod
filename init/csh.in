@@ -28,7 +28,7 @@ unset postfix
 unset histchar
 
 
-if ( $?prompt && "$LMOD_SETTARG_SUPPORT" == yes ) then
+if ( $?prompt && "$LMOD_SETTARG_SUPPORT" != no ) then
    alias cwdcmd 'eval `$LMOD_SETTARG_CMD -s csh`'
    switch ($TERM)
        case "xterm*":

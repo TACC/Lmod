@@ -99,7 +99,7 @@ fi
 rm -f config.status config.log
 
 cmdA=("-make distclean"
-      "./configure --prefix=$BASE_DIR --with-ancient=86401 --with-shortTime=10.3 --with-settarg=YES --with-duplicatePaths=yes $EXTRA"
+      "./configure --prefix=$BASE_DIR --with-ancient=86401 --with-shortTime=10.3 --with-settarg=FULL --with-duplicatePaths=yes $EXTRA"
       "$SUDO make install $MAKE_EXTRA"
       "$EXTRA_CMD"
       "make clobber"

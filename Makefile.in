@@ -24,9 +24,13 @@ LIBEXEC		  	 := $(prefix)/$(package)/$(version)/libexec
 TOOLS                    := $(prefix)/$(package)/$(version)/tools
 SETTARG                  := $(prefix)/$(package)/$(version)/settarg
 INIT		  	 := $(prefix)/$(package)/$(version)/init
+LMOD_MF 	  	 := $(prefix)/$(package)/$(version)/modulefiles/Core
+LMOD_MF_SOURCE           := MF/*.version.lua
 SETTARG_SOURCE           := settarg/*.lua  settarg/.settarg.lua  settarg/targ.in
 
-DIRLIST		  	 := $(DESTDIR)$(LIBEXEC) $(DESTDIR)$(TOOLS) $(DESTDIR)$(SETTARG) $(DESTDIR)$(INIT) $(DESTDIR)$(LIB)
+DIRLIST		  	 := $(DESTDIR)$(LIBEXEC) $(DESTDIR)$(TOOLS) $(DESTDIR)$(SETTARG)             \
+                            $(DESTDIR)$(INIT) $(DESTDIR)$(LIB) $(DESTDIR)$(LMOD_MF)
+
 
 STANDALONE_PRGM   	 := src/lmod.in.lua src/addto.in.lua src/getmt.in.lua src/processMT.in.lua   \
                             src/spider.in.lua src/processModuleUsage.in.lua src/reportUsers.in.lua   \
@@ -66,7 +70,7 @@ all:
 	@echo done
 
 pre-install: $(DIRLIST) shell_init startup spiderCacheSupport libexec \
-             Inst_Tools Inst_Settarg pkgs other_tools 
+             Inst_Tools Inst_Settarg Inst_Lmod_MF pkgs other_tools 
 
 install: pre-install  zsh_tab_funcs
 	$(RM) $(DESTDIR)$(PKG)
@@ -84,6 +88,7 @@ __installMe:
            bareN=$${i##*/};                                           	   \
            fn=$${bareN%%.in*};                                        	   \
            ext=$${bareN#*.};                                          	   \
+	   : echo "DIRLOC/fn: $(DIRLOC)/$$fn";                             \
            sed  -e 's|@PREFIX@|$(prefix)|g'                            	   \
 	        -e 's|@path_to_lua@|$(PATH_TO_LUA)|g'                 	   \
 	        -e 's|@path_to_hashsum@|$(PATH_TO_HASHSUM)|g'         	   \
@@ -101,6 +106,12 @@ __installMe:
                 -e 's|@PKG@|$(PKG)|g'         < $$i > $(DIRLOC)/$$fn; 	   \
             [ "$$ext" = "in.lua" -o "$$ext" = "tcl" -o "$$ext" = "in" ] && \
                chmod +x $(DIRLOC)/$$fn;                                    \
+            if [ "$$ext" = "version.lua" ]; then                           \
+               mname=$${bareN%%.*};                                        \
+	       : echo "DIRLOC: $(DIRLOC)/$$mname";                         \
+	       mkdir -p $(DIRLOC)/$$mname;                                 \
+               mv $(DIRLOC)/$$fn $(DIRLOC)/$$mname/$$mname.lua;            \
+            fi;                                                            \
         done
 
 shell_init: $(SHELL_INIT)
@@ -180,9 +191,9 @@ _distMainDir:
 	cp $(MAIN_DIR) $(DistD)
 
 _distMF:
-	mkdir $(DistD)/mf
+	mkdir $(DistD)/mf $(DistD)/MF
 	cp -r mf $(DistD)/mf
-	find $(DistD)/mf -name .svn | xargs rm -rf
+	cp -r MF $(DistD)/MF
 
 _distTar:
 	echo "Lmod"-$(version) > .fname;                		   \
@@ -232,6 +243,9 @@ Inst_Tools: tools/*.lua
 Inst_Settarg: $(SETTARG_SOURCE)
 	$(MAKE) FILELIST="$^" DIRLOC=$(DESTDIR)$(SETTARG) __installMe
 
+
+Inst_Lmod_MF: $(LMOD_MF_SOURCE)
+	$(MAKE) FILELIST="$^" DIRLOC=$(DESTDIR)$(LMOD_MF) __installMe
 
 clean:
 	$(RM) config.log

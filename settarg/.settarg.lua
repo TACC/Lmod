@@ -1,6 +1,6 @@
 -- -*- lua -*-
--- $Id: .settarg.lua 194 2008-06-25 21:43:50Z mclay $
-MethodTbl = { 
+
+BuildScenarioTbl = { 
    default                = "empty",
 }
 

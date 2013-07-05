@@ -122,18 +122,48 @@ local function outputTblHelper(indentIdx, name, T, a, level)
       indent    = string.rep(" ",indentIdx)
    end
 
-   for key, value in pairsByKeys(t) do
-      if (type(t[key]) == 'table') then
-	 outputTblHelper(indentIdx, key, t[key], a, level+1)
-      else
-	 if (type(key) == "string") then
-	    str = indent .. '[\"'..key ..'\"] = '
-	 else
-	    str = indent
-	 end
-         a[#a+1] = str
-         a[#a+1] = nsformat(t[key])
+   -- verify if is an array with no tables in it.
+   local isArray = true
+   for key, value in pairs(t) do
+      if (type(value) == "table" or type(key) == "string") then
+         isArray = false
+         break
+      end
+   end
+   
+   local twidth = TermWidth()
+   local w      = 0
+   if (isArray) then
+      a[#a+1] = indent
+      w       = w + indent:len()
+      for i = 1,#t-1 do
+         a[#a+1] = nsformat(t[i])
+         w       = w + a[#a]:len()
+         a[#a+1] = ", "
+         w       = w + a[#a]:len()
+         if ( w > twidth) then
+            table.insert(a,#a-2,"\n" .. indent)
+            w       = a[#a-1]:len()+2+indent:len()
+         end
+      end
+      if (#t > 1) then
+         a[#a+1] = nsformat(t[#t])
          a[#a+1] = ",\n"
+      end
+   else
+      for key, value in pairsByKeys(t) do
+         if (type(value) == 'table') then
+            outputTblHelper(indentIdx, key, t[key], a, level+1)
+         else
+            if (type(key) == "string") then
+               str = indent .. '[\"'..key ..'\"] = '
+            else
+               str = indent
+            end
+            a[#a+1] = str
+            a[#a+1] = nsformat(t[key])
+            a[#a+1] = ",\n"
+         end
       end
    end
    indent    = origIndent

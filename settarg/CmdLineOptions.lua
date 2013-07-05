@@ -120,6 +120,13 @@ function  M.options(self)
    }
 
    cmdlineParser:add_option{ 
+      name   = {'--report'},
+      dest   = 'report',
+      action = 'store_true',
+      help   = "Report the settarg table",
+   }
+
+   cmdlineParser:add_option{ 
       name   = {'-r', '--remove'},
       dest   = 'remOptions',
       action = 'append',

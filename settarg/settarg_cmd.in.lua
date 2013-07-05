@@ -68,6 +68,8 @@ local CmdLineOptions = require("CmdLineOptions")
 local BuildTarget    = require("BuildTarget")
 require("ModifyPath")
 require("Output")
+require("serializeTbl")
+
 
 function main()
    local dbg         = Dbg:dbg()
@@ -107,6 +109,16 @@ function main()
    local shell = BaseShell.build(masterTbl.shell)
 
    BuildTarget.exec(shell)
+
+   if (masterTbl.report) then
+      io.stderr:write(serializeTbl{name="BuildScenario", indent=true, value=masterTbl.BuildScenarioTbl},"\n")
+      io.stderr:write(serializeTbl{name="ModuleTbl",     indent=true, value=masterTbl.ModuleTbl},       "\n")
+      io.stderr:write(serializeTbl{name="TargetList",    indent=true, value=masterTbl.targetList},      "\n")
+      io.stderr:write(serializeTbl{name="TitleTbl",      indent=true, value=masterTbl.TitleTbl},        "\n")
+      dbg.fini("settarg")
+      return
+   end
+      
    ModifyPath()
    Output(shell)
    dbg.fini("settarg")

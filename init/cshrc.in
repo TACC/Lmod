@@ -30,6 +30,7 @@ if ( ! $?MODULEPATH_ROOT ) then
     setenv LMOD_PREPEND_BLOCK   @prepend_block@
     setenv MODULEPATH_ROOT      "@PREFIX@/modulefiles"
     setenv MODULEPATH           `@PKG@/libexec/addto --append MODULEPATH $MODULEPATH_ROOT/$LMOD_sys $MODULEPATH_ROOT/Core`
+    setenv MODULEPATH           `@PKG@/libexec/addto --append MODULEPATH @PKG@/modulefiles/Core`
     setenv BASH_ENV @PKG@/init/bash
 endif
 

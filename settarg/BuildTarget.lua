@@ -58,11 +58,15 @@ function M.default_MACH()
    return getUname().machName
 end
 
+function M.default_OS()
+   return getUname().osName
+end
+
 function M.default_BUILD_SCENARIO(tbl)
    local dbg       = Dbg:dbg()
    dbg.start("BuildTarget:default_BUILD_SCENARIO()")
    local masterTbl = masterTbl()
-   local MethodTbl = masterTbl.MethodTbl
+   local BuildScenarioTbl = masterTbl.BuildScenarioTbl
 
    -------------------------------------------------------
    -- First look to see if there is TARG_BUILD_SCENARIO_STATE
@@ -81,7 +85,7 @@ function M.default_BUILD_SCENARIO(tbl)
    local hostname = t.hostName
 
    while (true) do
-      v = MethodTbl[hostname]
+      v = BuildScenarioTbl[hostname]
       if (v) then
          dbg.print("hostname: ", hostname," v: ",v,"\n")
          dbg.fini("BuildTarget:default_BUILD_SCENARIO")
@@ -95,8 +99,8 @@ function M.default_BUILD_SCENARIO(tbl)
 
    -------------------------------------------------------
    -- Search over machName
-   v = MethodTbl[t.machName] or MethodTbl[t.machFamilyName] or
-       MethodTbl.default
+   v = BuildScenarioTbl[t.machName] or BuildScenarioTbl[t.machFamilyName] or
+       BuildScenarioTbl.default
    if (v) then
       dbg.print("machName v: ",v,"\n")
       dbg.fini("BuildTarget:default_BUILD_SCENARIO")
@@ -170,12 +174,12 @@ function M.buildTbl(targetTbl)
       local v   = getenv(key)
       if (v == nil) then
          local ss = "default_" .. K
-         dbg.print("ss: ", ss, "\n")
          if (M[ss]) then
             v = M[ss](tbl)
          else
             v = ''
          end
+         dbg.print("ss: ", ss," v: ",v,"\n")
       end
       tbl[key] = v
    end
@@ -185,7 +189,6 @@ function M.buildTbl(targetTbl)
 
    -- Always set mach
    tbl.TARG_MACH = M.default_MACH()
-   
 
    local method = tbl.TARG_BUILD_SCENARIO
    if (tbl.TARG_BUILD_SCENARIO_STATE and tbl.TARG_BUILD_SCENARIO_STATE == "empty") then
@@ -210,7 +213,8 @@ function M.buildTbl(targetTbl)
    end
 
    dbg.print("tbl.TARG_BUILD_SCENARIO_STATE: ",tbl.TARG_BUILD_SCENARIO_STATE ,"\n")
-   local a = {"build_scenario","mach", "extra"} 
+   local a = {"build_scenario","mach", "extra",} 
+   targetTbl.os = -1
    for _,v in ipairs(a) do
       if (targetTbl[v]) then
          targetTbl[v] = -1
@@ -252,8 +256,8 @@ local function readDotFiles()
          assert(load(s))()
          f:close()
 
-         for k in pairs(systemG.MethodTbl) do
-            MethodMstrTbl[k] = systemG.MethodTbl[k]
+         for k in pairs(systemG.BuildScenarioTbl) do
+            MethodMstrTbl[k] = systemG.BuildScenarioTbl[k]
          end
 
          for k in pairs(systemG.TitleTbl) do
@@ -278,12 +282,13 @@ local function readDotFiles()
       end
    end
 
-   masterTbl.TitleTbl      = TitleMstrTbl
-   masterTbl.MethodTbl     = MethodMstrTbl
-   masterTbl.stringKindTbl = stringKindTbl
-   masterTbl.ModuleTbl     = ModuleMstrTbl
-   masterTbl.targetList    = systemG.TargetList
-   masterTbl.familyTbl     = familyTbl
+   masterTbl.TitleTbl         = TitleMstrTbl
+   masterTbl.BuildScenarioTbl = MethodMstrTbl
+   masterTbl.stringKindTbl    = stringKindTbl
+   masterTbl.ModuleTbl        = ModuleMstrTbl
+   masterTbl.targetList       = systemG.TargetList
+   masterTbl.familyTbl        = familyTbl
+
 end
 
 function M.exec(shell)
@@ -325,7 +330,7 @@ function M.exec(shell)
          t[rem] = nil
       end
    end
-   
+
    dbg.print("(4) tbl.TARG_BUILD_SCENARIO_STATE: ",tbl.TARG_BUILD_SCENARIO_STATE ,"\n")
 
    if (next(tbl.TARG_EXTRA) == nil or masterTbl.purgeFlag) then

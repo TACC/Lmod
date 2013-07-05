@@ -1,0 +1,182 @@
+Settarg is an optional feature of Lmod.  It is there to answer the
+question is there an easy way for your build system to know which
+compiler you are using, which mpi stack, what other modules are you
+using.  And the fundamental feature of settarg is: Can you have an
+single environment variable that enscapsulates the state of your
+modules (that you care about).  The answer to those questions is yes,
+it is settarg.  Settarg knows how to read the module table and
+therefore know what modules you have loaded.
+
+Many developers like to build their programs in multiple ways say in
+debug or optimized modes.  Settarg provides environment variables that
+be used to control the build process.
+
+
+How do you use settarg?
+-----------------------
+
+a) Configure and install Lmod with settarg support to be "yes" or
+   "full".  Using "full" will provide some aliases which are optional.
+b) Try loading the settarg module.
+c) If you can't then copy the modulefiles/Core/settarg/settarg.lua
+   into your module tree. Note that modulefiles is a directory under
+   the same tree where the lmod program is stored.  Then try again
+   to load settarg.
+d) Run any module command and verify that the TARG variable have been
+   set:
+       $ env | grep TARG
+e) Verify that the "precmd" shell function or alias is defined and
+   PROMPT_COMMAND="precmd" for bash.  Strings that contain the
+   compiler name should appear in the xterm title bar.
+
+What variables are set?
+-----------------------
+
+    TARGET_PREFIX=TARG/
+
+    TARG_MACH=x86_64_06_2A
+    TARG_BUILD_SCENARIO=dbg
+
+    TARG_COMPILER=gcc-4.6.3
+    TARG_COMPILER_FAMILY=gcc
+
+    TARG_MPI=openmpi-1.6.3
+    TARG_MPI_FAMILY=openmpi
+
+    TARG=TARG/_x86_64_06_2A_dbg_gcc-4.6.3_openmpi-1.6.3
+
+    TARG_TITLE_BAR=D G-4.6.3 O-1.6.3
+    TARG_TITLE_BAR_PAREN=(D G-4.6.3 O-1.6.3)
+
+This is a common set of variables generated or used by settarg.
+
+1) TARGET_PREFIX:  This variable is defined outside of settarg and is
+                   used as the prefix to TARG.  In the settarg module
+                   it is defined to be "TARG/" but it can be anything
+                   or undefined.  
+
+2) TARG_MACH:      This is the machine architecture along with the
+                   cpu family and model number in two hex numbers.
+
+3) TARG_BUILD_SCENARIO:  This can be used to control compiler flags
+                         so that "dbg" might mean to create a
+                         debuggable executable.  Where as "opt" might
+                         mean to build a fully optimized build.
+
+4) TARG_COMPILER, TARG_MPI, etc:  the name of the compiler and version
+
+
+This leads to TARG which the key variable.  It is created as:
+
+
+TARG = ${TARGET_PREFIX} . ${TARG_MACH} + ${TARG_BUILD_SCENARIO} +
+       ${TARG_COMPILER} + ${TARG_MPI}
+
+Where "." means append and + means append with "_" in between.
+
+
+
+Controlling settarg via the .settarg.lua configuration files:
+-------------------------------------------------------------
+
+Below is a typical .settarg.lua file.  This is file contains several
+tables in written in Lua.  If you don't know Lua, it still should be
+easy to modify this table. just remember the comma's.
+
+The BuildScenarioTbl table maps host name to Build Scenario state.  So
+the default is "empty" which means that the TARG_BUILD_SCENARIO is
+undefined.  If you are on "login1.stampede.tacc.utexas.edu" your
+default TARG_BUILD_SCENARIO will be "opt".  Similarily, any host with
+"foo.bar.edu" will have a default scenario of "dbg".
+
+------------------------------------------------------------------------
+BuildScenarioTbl = { 
+   default             = "empty",
+   ["tacc.utexas.edu"] = "opt",
+   ["foo.bar.edu"]     = "dbg",
+}
+
+ModuleTbl = {
+   build_scenario     = { "dbg", "opt", "empty"},
+   compiler           = { "intel", "pgi", "gcc", "sun",},
+   mpi                = { "mpich", "mpich2", "openmpi", "mvapich2", "impi"},
+   solver             = { "petsc","trilinos"},
+   profiling          = { "mpiP", "tau"},
+   file_io            = { "hdf5", "netcdf", },
+}
+
+TargetList = { "mach", "build_scenario", "compiler", "mpi"} 
+
+NoFamilyList = {"mach", "build_scenario","os"}
+
+TitleTbl = {
+   dbg                    = 'D',
+   opt                    = 'O',
+   impi                   = "IM",
+   mvapich2               = 'M',
+   openmpi                = "O",
+   mpich                  = "M",
+   mpich2                 = "M",
+   intel                  = "I",
+   gcc                    = "G",
+   phdf5                  = "H5"
+   hdf5                   = "H5"
+}
+
+------------------------------------------------------------------------
+
+ModuleTbl connects module names with a category.  It is also used to
+define "build_scenario" which is just words to declare a build state.
+In other words, in the above table "dbg" and "opt" could be anything.
+The only hard-wired name is "empty".  The category "build_scenario" is
+also hard-wired.  The names of all other categories are not fixed and
+you are free to add other categories.
+
+This table is also how settarg knows what the names of the compiler
+and mpi stacks are.  If your site uses the name "ompi" for openmpi
+then the above table will have to be modified to match.
+
+TargetList defines how TARG is assembled.  It is an array of
+categories.   The category "mach" is special it is always defined to
+be `uname -m` plus on linux systems it contains the cpu family and
+model from /proc/cpuinfo.  Settarg ships with this order but sites can
+change the order to be anything they like.   Also notice that there
+are many more categories then are listed in TargetList.  More on this
+aspect in the "Custom Configuration" section.
+
+The NoFamilyList is an array of categories that do not get the FAMILY
+version.  All categories do.  For example, if TARG_COMPILER is
+"gcc-4.7.2" then TARG_COMPILER_FAMILY is "gcc".
+
+Finally TitleTbl is a way to map a build scenario or a module name
+into an abbreviation.   The space on the title bar is limited so
+shortening the string can be useful.  The order in which categories
+appear on the title bar is the same as TargetList.  So a title bar
+with "O G-4.7.2 O-1.6.3" would mean that you are in "opt" mode with
+gcc/4.7.2 and openmpi/1.6.3 loaded.
+
+
+Custom Configuration:
+---------------------
+
+Settarg will read up to three separate copies of .settarg.lua.  The
+first one is in the same directory as the settarg command is.  The
+second place is in the user's home directory (if it exists).  Then
+from the current directory up to "/" it looks for another .settarg.lua (if it exists).
+It will not re-read the ~/.settarg.lua.  Typically a user should copy
+the system .settarg.lua to their home directory and specify the
+generally desired behaviour.  Then in top directory of a project place
+a simple .settarg.lua that specifies how the target list should be put
+together for that project:
+
+Suppose that TargetList ~/.settarg.lua is
+
+   TargetList  = { "mach", "build_scenario", "compiler", "mpi",}
+
+Then in ~/project/a there is another .settarg.lua that just has:
+
+   TargetList  = { "mach", "build_scenario", "compiler", "mpi", "file_io"}
+
+Normally in any directory your TARG will be the default, but in any
+directory below ~/project/a TARG will have hdf5 or netcdf if either
+are loaded.

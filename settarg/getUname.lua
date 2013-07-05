@@ -50,6 +50,7 @@ function getUname()
    local masterTbl        = masterTbl()
    local machFullName     = nil
    local osName           = posix.uname("%s")
+   local release          = posix.uname("%r")
    local machName         = posix.uname("%m")
    local machFamilyName   = machName
    osName                 = string.gsub(osName,"[ /]","_")
@@ -77,11 +78,12 @@ function getUname()
             end
             if (count > 2) then break end
          end
+         f:close()
       end
       machFullName = machName .. "_" .. cpu_family .. "_" .. model
       machName     = machFullName
    end
-   t.osName         = osName
+   t.osName         = osName .. "-" .. release
    t.machName       = machName
    t.machFamilyName = machFamilyName
    t.os_mach        = osName .. '-' .. machName

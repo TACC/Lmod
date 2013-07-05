@@ -13,27 +13,33 @@ c) Lmod no longer walks the directory tree on command like list and
 d) The pager is now used only when TERM is defined and stderr is
    connected to a tty (this includes a pty: pseudo tty).
 
-e) Support for settarg has been added.
+e) The system startup scripts (init/profile, and init/cshrc) that
+   are usually linked to modules.sh and modules.csh in /etc/profile.d
+   contains now modulefiles: lmod and settarg.  Please consider using
+   this as defined or moving these module files into your normal
+   MODULEPATH.
+
+f) Support for settarg has been added.
 
 ------------------------------------------------------------------------
 What is Settarg?
 ------------------------------------------------------------------------
 
 * Settarg is new module that accesses a new tool to dynamically and
-automatically update "TARG" and a host of other environment
+automatically update "$TARG" and a host of other environment
 variables. These new environment variables encapsulate the state of
 the modules loaded. For example, if I have the gcc/4.7.2 module loaded
 and the new settarg module loaded I get the following variables
 defined in my environment.
 
-   TARG=ST_OBJ/_x86_64_06_1a_gcc-4.7.3
+   TARG=TARG/_x86_64_06_1a_gcc-4.7.3
    TARG_COMPILER=gcc-4.7.3
    TARG_COMPILER_FAMILY=gcc
    TARG_MACH=x86_64_06_1a
 
 If I change my compiler to intel/13.1.0, these variables change to:
 
-   TARG=ST_OBJ/_x86_64_06_1a_dbg_intel-13.1.0
+   TARG=TARG/_x86_64_06_1a_dbg_intel-13.1.0
    TARG_COMPILER=intel-13.1.0
    TARG_COMPILER_FAMILY=intel
    TARG_MACH=x86_64_06_1a
