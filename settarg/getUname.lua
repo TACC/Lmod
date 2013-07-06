@@ -53,6 +53,7 @@ function getUname()
    local release          = posix.uname("%r")
    local machName         = posix.uname("%m")
    local machFamilyName   = machName
+   local machDescript     = machName
    osName                 = string.gsub(osName,"[ /]","_")
    if (osName == "Linux" and not masterTbl.noCpuModel) then
       local cpu_family
@@ -69,7 +70,7 @@ function getUname()
                count = count + 1
             elseif (line:find("model name")) then
                local _, _, v = line:find(".*:%s*(.*)")
-               machFullName = v
+               machDescript = v
                count = count + 1
             elseif (line:find("model")) then
                local _, _, v = line:find(".*:%s*(.*)")
@@ -84,6 +85,7 @@ function getUname()
       machName     = machFullName
    end
    t.osName         = osName .. "-" .. release
+   t.machDescript   = machDescript
    t.machName       = machName
    t.machFamilyName = machFamilyName
    t.os_mach        = osName .. '-' .. machName
