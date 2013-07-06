@@ -63,5 +63,7 @@ function TermWidth()
       end
    end
 
+   s_width = (s_width > 30) and s_width or 30
+
    return s_width
 end
