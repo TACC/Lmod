@@ -1670,9 +1670,12 @@ end
 function M.serializeTbl(self)
    local dbg = Dbg:dbg()
 
-   self.activeSize = self:setLoadOrder()
+   dbg.print("self: ",tostring(self),"\n")
+   dbg.print("s_mt: ",tostring(s_mt),"\n")
 
-   local s = _G.serializeTbl{ indent=false, name=self.name(), value=self}
+   s_mt.activeSize = self:setLoadOrder()
+
+   local s = _G.serializeTbl{ indent=false, name=s_mt:name(), value=s_mt}
    return s:gsub("%s+","")
 end
 

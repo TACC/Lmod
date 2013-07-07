@@ -663,11 +663,16 @@ function main()
       cmd(unpack(masterTbl.pargs))
    end
 
+   -- Get a fresh mt as the command run above may have created
+   -- a new one.
+   mt = MT:mt()
+
    -- Report any changes (worth reporting from original MT)
    if (not expert()) then
       mt:reportChanges()
    end
 
+   dbg.print("mt: ",tostring(mt),"\n")
    -- Store the Module table in "_ModuleTable_" env. var.
    local n        = mt:name()
    local oldValue = getMT() or ""

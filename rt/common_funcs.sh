@@ -10,13 +10,16 @@ cleanUp ()
        -e "s|:$PATH_to_SHA1:|:|g"                         \
        -e "s|^lmod_version.*||g"                          \
        -e "s|^luaV *Lua.*||g"                             \
+       -e "s|^\(TARG_OS_FAMILY=\).*|\1''|g"               \
+       -e "s|^\(TARG_OS=\).*|\1''|g"                      \
+       -e "s|^\(TARG_MACH_DESCRIPT=\).*|\1''|g"           \
        -e "s|$PATH_to_TM|PATH_to_TM|g"                    \
        -e "s|unsetenv _ModuleTable..._;||g"               \
        -e "s|unset _ModuleTable..._;||g"                  \
        -e "s|unset _ModuleTable..._;||g"                  \
        -e "s|$projectDir|ProjectDIR|g"                    \
        -e "s| *\-\-\-\-* *||g"                            \
-       -e "/Rebuilding cache.* done/d" \
+       -e "/Rebuilding cache.* done/d"                    \
        -e "/Using your spider cache file/d"               \
        -e "/^_ModuleTable_Sz_=.*$/d"                      \
        -e "/^setenv _ModuleTable_Sz_ .*$/d"               \
