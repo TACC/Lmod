@@ -778,8 +778,10 @@ function Use(...)
          op(MCP, DfltModPath, v, ":", nodups)
       end
    end
+
+
    mt:buildBaseMpathA(varTbl[DfltModPath]:expand())
-   --mt:reloadAllModules()
+   mt:buildMpathA(varTbl[ModulePath]:expand())
    dbg.fini("Use")
 end
 
