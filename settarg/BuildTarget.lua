@@ -54,6 +54,15 @@ local ModuleTable = "_ModuleTable_"
 
 local M          = {}
 
+BuildScenarioTbl = {}
+TitleTbl         = {}
+ModuleTbl        = {}
+TargetList       = {}
+NoFamilyList     = {}
+
+require("sandbox")
+
+
 function M.default_MACH()
    return getUname().machName
 end
@@ -265,9 +274,16 @@ local function readDotFiles()
       dbg.print("fn: ",fn,"\n")
       local f = io.open(fn,"r")
       if (f) then
-         local s  = f:read("*all")
-         assert(load(s))()
+         local whole  = f:read("*all")
          f:close()
+
+         --local status, msg = sandbox_run(whole)
+         --if (not status) then
+         --   io.stderr:write(msg,"\n")
+         --   os.exit(1)
+         --end
+
+         assert(load(whole))()
 
          for k in pairs(systemG.BuildScenarioTbl) do
             MethodMstrTbl[k] = systemG.BuildScenarioTbl[k]
