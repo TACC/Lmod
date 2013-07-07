@@ -791,6 +791,8 @@ end
 --------------------------------------------------------------------------
 -- resolveMpathChanges: Handle when MODULEPATH is changed outside of Lmod
 function M.resolveMpathChanges(self, currentMPATH, baseMPATH)
+   local dbg        = Dbg:dbg()
+   dbg.start("MT:resolveMpathChanges(currentMPATH, baseMPATH)")
    local usrMpathA  = path2pathA(currentMPATH)
    local mpathA     = self.mpathA
    local kU         = #usrMpathA
@@ -825,9 +827,14 @@ function M.resolveMpathChanges(self, currentMPATH, baseMPATH)
       varTbl[ModulePath]  = Var:new(ModulePath, currentMPATH)
       self:buildBaseMpathA(dmp)
       
-      LmodMessage("Lmod as detected external MODULEPATH changes, " ..
+      dbg.print("currentMPATH: ",currentMPATH,"\n")
+      dbg.print("MPATH:        ",concatTbl(self.mpathA,":"),"\n")
+
+
+      LmodMessage("Lmod has detected external MODULEPATH changes, " ..
                   "Please use \"module use\" instead.")
    end
+   dbg.fini("MT:resolveMpathChanges")
 end
 
 
@@ -849,7 +856,8 @@ function M.changePATH(self)
       self._changePATHCount = self._changePATHCount + 1
    end
    self._changePATH = true
-   --dbg.print("MT:changePATH: self._changePATH: ",self._changePATH, " count: ",self._changePATHCount,"\n")
+   --dbg.print("MT:changePATH: self._changePATH: ",self._changePATH,
+   --          " count: ",self._changePATHCount,"\n")
  end
 
 function M.beginOP(self)
@@ -1662,9 +1670,9 @@ end
 function M.serializeTbl(self)
    local dbg = Dbg:dbg()
 
-   s_mt.activeSize = s_mt:setLoadOrder()
+   self.activeSize = self:setLoadOrder()
 
-   local s = _G.serializeTbl{ indent=false, name=self.name(), value=s_mt}
+   local s = _G.serializeTbl{ indent=false, name=self.name(), value=self}
    return s:gsub("%s+","")
 end
 
