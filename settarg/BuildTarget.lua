@@ -60,9 +60,6 @@ ModuleTbl        = {}
 TargetList       = {}
 NoFamilyList     = {}
 
-require("sandbox")
-
-
 function M.default_MACH()
    return getUname().machName
 end
@@ -277,20 +274,30 @@ local function readDotFiles()
          local whole  = f:read("*all")
          f:close()
 
-         --local status, msg = sandbox_run(whole)
-         --if (not status) then
-         --   io.stderr:write(msg,"\n")
-         --   os.exit(1)
-         --end
-
-         assert(load(whole))()
-
-         for k in pairs(systemG.BuildScenarioTbl) do
-            MethodMstrTbl[k] = systemG.BuildScenarioTbl[k]
+         local status = true
+         local func, msg = load(whole)
+         if (func) then
+            status, msg = pcall(func)
+         else
+            status = false
          end
 
-         for k in pairs(systemG.TitleTbl) do
-            TitleMstrTbl[k] = systemG.TitleTbl[k]
+         if (not status) then
+            io.stderr:write("Error: Unable to load: ",fn,"\n",
+                            "  ", msg,"\n");
+            os.exit(1)
+         end
+
+         dbg.print("BuildScenarioTbl.default: ",_G.BuildScenarioTbl.default, "\n")
+
+         for k,v in pairs(systemG.BuildScenarioTbl) do
+            dbg.print("BS: k: ",k," v: ",v,"\n")
+            MethodMstrTbl[k] = v
+         end
+
+         for k,v in pairs(systemG.TitleTbl) do
+            dbg.print("Title: k: ",k," v: ",v,"\n")
+            TitleMstrTbl[k] = v
          end
 
          for k in pairs(systemG.ModuleTbl) do
