@@ -51,16 +51,9 @@ function TermWidth()
    if (s_width) then
       return s_width
    end
-   if (getenv("TERM")) then
+   s_width = s_DFLT
+   if (getenv("TERM") and term and term.isatty(io.stderr)) then
       s_width = tonumber(capture("tput cols")) or s_DFLT
-   else
-      s_width = s_DFLT
-   end
-
-   if (term) then
-      if (not term.isatty(io.stderr)) then
-         s_width = s_DFLT
-      end
    end
 
    s_width = (s_width > 30) and s_width or 30
