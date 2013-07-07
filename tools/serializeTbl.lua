@@ -50,6 +50,7 @@
 require("strict")
 require("fileOps")
 require("pairsByKeys")
+require("TermWidth")
 
 --------------------------------------------------------------------------
 -- nsformat(): Convert the string value into a quoted string of some kind
@@ -146,7 +147,7 @@ local function outputTblHelper(indentIdx, name, T, a, level)
             w       = a[#a-1]:len()+2+indent:len()
          end
       end
-      if (#t > 1) then
+      if (#t > 0) then
          a[#a+1] = nsformat(t[#t])
          a[#a+1] = ",\n"
       end
