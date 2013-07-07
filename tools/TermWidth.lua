@@ -39,6 +39,7 @@
 
 require("strict")
 require("capture")
+local capture = capture or function (s) return nil end
 local getenv  = os.getenv
 local term    = false
 local s_width = false
