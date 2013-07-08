@@ -90,7 +90,7 @@ function M.default_HOST()
 
    local a = {}
    for i = 1,#hostTbl do
-      local entry = hostTbl[i]
+      local entry = tonumber(hostTbl[i])
       if (entry <= #hostA) then
          a[#a+1] = hostA[entry]
       end

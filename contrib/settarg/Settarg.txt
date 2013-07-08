@@ -34,7 +34,7 @@ What variables are set?
 
     TARGET_PREFIX=TARG/
 
-    TARG_MACH=x86_64_06_2A
+    TARG_MACH=x86_64_06_2d
     TARG_BUILD_SCENARIO=dbg
 
     TARG_COMPILER=gcc-4.6.3
@@ -43,10 +43,17 @@ What variables are set?
     TARG_MPI=openmpi-1.6.3
     TARG_MPI_FAMILY=openmpi
 
-    TARG=TARG/_x86_64_06_2A_dbg_gcc-4.6.3_openmpi-1.6.3
+    TARG=TARG/_x86_64_06_2d_dbg_gcc-4.6.3_openmpi-1.6.3
+
+    TARG_OS=Linux-2.6.32-279
+    TARG_OS_Family=Linux
+    TARG_HOST=stampede
+
 
     TARG_TITLE_BAR=D G-4.6.3 O-1.6.3
     TARG_TITLE_BAR_PAREN=(D G-4.6.3 O-1.6.3)
+
+
 
 This is a common set of variables generated or used by settarg.
 
@@ -61,9 +68,20 @@ This is a common set of variables generated or used by settarg.
 3) TARG_BUILD_SCENARIO:  This can be used to control compiler flags
                          so that "dbg" might mean to create a
                          debuggable executable.  Where as "opt" might
-                         mean to build a fully optimized build.
+                         mean to build a fully optimized build.  To
+                         clear this field use "empty"
+                         
 
-4) TARG_COMPILER, TARG_MPI, etc:  the name of the compiler and version
+4) TARG_OS, TARG_OS_FAMILY: These are the OS name and family.  These
+                            variables are always defined even if there
+                            are not part of TARG.
+
+
+5) TARG_HOST:  This variable is always defined.  See below on how this
+               is extracted from `hostname -f`
+
+6) TARG_COMPILER, TARG_MPI, etc:  the name of the compiler and version
+
 
 
 This leads to TARG which the key variable.  It is created as:
@@ -72,7 +90,8 @@ This leads to TARG which the key variable.  It is created as:
 TARG = ${TARGET_PREFIX} . ${TARG_MACH} + ${TARG_BUILD_SCENARIO} +
        ${TARG_COMPILER} + ${TARG_MPI}
 
-Where "." means append and + means append with "_" in between.
+Where "." means append and + means append with "_" in between.  If
+something is not defined then the extra "_" is removed.
 
 
 
@@ -123,6 +142,8 @@ TitleTbl = {
    hdf5                   = "H5"
 }
 
+HostnameTbl = { 2}
+
 ------------------------------------------------------------------------
 
 ModuleTbl connects module names with a category.  It is also used to
@@ -148,13 +169,20 @@ The NoFamilyList is an array of categories that do not get the FAMILY
 version.  All categories do.  For example, if TARG_COMPILER is
 "gcc-4.7.2" then TARG_COMPILER_FAMILY is "gcc".
 
-Finally TitleTbl is a way to map a build scenario or a module name
+TitleTbl is a way to map a build scenario or a module name
 into an abbreviation.   The space on the title bar is limited so
 shortening the string can be useful.  The order in which categories
 appear on the title bar is the same as TargetList.  So a title bar
 with "O G-4.7.2 O-1.6.3" would mean that you are in "opt" mode with
 gcc/4.7.2 and openmpi/1.6.3 loaded.
 
+Finally, HostnameTbl tells settarg how to extract an entry from the
+full hostname to be used as TARG_HOST.  If your host has multiple
+components then a "2" would say to use the second component as
+TARG_HOST.  So if your hostname is "login1.stampede.tacc.utexas.edu"
+then TARG_HOST would be "stampede".  If HostnameTbl was "{ 3,2}" then
+TARG_HOST would be "tacc.stampede".  If your hostname has a single
+component then that is used for TARG_HOST.
 
 Custom Configuration:
 ---------------------
