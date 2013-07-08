@@ -37,3 +37,5 @@ ModuleTbl = {
 TargetList = { "mach", "build_scenario", "compiler", "mpi"} 
 
 NoFamilyList = {"mach", "build_scenario",}
+
+TargPathLoc = "first"

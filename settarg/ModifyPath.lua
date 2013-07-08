@@ -37,17 +37,18 @@ require("escape")
 local Dbg = require("Dbg")
 function ModifyPath()
 
-   local dbg       = Dbg:dbg()
-   local masterTbl = masterTbl()
-   local oldTarg   = os.getenv('TARG') or ''
-   local targ      = masterTbl.envVarsTbl.TARG
-   local path      = os.getenv('PATH') or ''
+   local dbg         = Dbg:dbg()
+   local masterTbl   = masterTbl()
+   local oldTarg     = os.getenv('TARG') or ''
+   local targ        = masterTbl.envVarsTbl.TARG
+   local targPathLoc = masterTbl.TargPathLoc
+   local path        = os.getenv('PATH') or ''
 
-   local w_path    = ":"   .. path    .. ":"
-   local w_oldTarg = ":./" .. oldTarg .. ":"
-   local w_targ    = ":./" .. targ    .. ":"
+   local w_path      = ":"   .. path    .. ":"
+   local w_oldTarg   = ":./" .. oldTarg .. ":"
+   local w_targ      = ":./" .. targ    .. ":"
 
-   if (targ == "") then
+   if (targ == "" or targPathLoc == "empty") then
       w_targ    = ":"
    end
 
@@ -56,7 +57,12 @@ function ModifyPath()
    w_oldTarg = escape(w_oldTarg)
 
    if (w_oldTarg == '::' or w_path:find(w_oldTarg) == nil) then
-      path = w_targ .. path
+      if (targPathLoc == "last") then
+         path =  path .. w_targ
+      else
+         path = w_targ .. path
+      end
+         
       dbg.print("(1) path: ",path,"\n")
    else
       path = w_path:gsub(w_oldTarg,w_targ)

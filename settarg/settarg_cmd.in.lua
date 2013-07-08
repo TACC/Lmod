@@ -115,6 +115,7 @@ function main()
       io.stderr:write(serializeTbl{name="ModuleTbl",     indent=true, value=masterTbl.ModuleTbl},       "\n")
       io.stderr:write(serializeTbl{name="TargetList",    indent=true, value=masterTbl.targetList},      "\n")
       io.stderr:write(serializeTbl{name="TitleTbl",      indent=true, value=masterTbl.TitleTbl},        "\n")
+      io.stderr:write("TargPathLoc = \"",masterTbl.TargPathLoc,"\"\n")
       dbg.fini("settarg")
       return
    end

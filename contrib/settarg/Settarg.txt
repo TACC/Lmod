@@ -142,6 +142,8 @@ TitleTbl = {
    hdf5                   = "H5"
 }
 
+TargPathLoc = "first"
+
 HostnameTbl = { 2}
 
 ------------------------------------------------------------------------
@@ -175,6 +177,15 @@ shortening the string can be useful.  The order in which categories
 appear on the title bar is the same as TargetList.  So a title bar
 with "O G-4.7.2 O-1.6.3" would mean that you are in "opt" mode with
 gcc/4.7.2 and openmpi/1.6.3 loaded.
+
+TargPathLoc controls where (or if) $TARG.  Normally the value of TARG
+is placed in the PATH at the begining of your PATH.  You can place it
+at the end of your PATH when TargPathLoc = "last".  If TargPathLoc is
+"empty" then TARG is removed from your path.  Actually the rules
+controlling where TARG goes in your path are slightly more
+complicated.  TargPathLoc controls where $TARG is placed in your path
+when TARG was not there before.  After the first time TARG is added to
+your path, TARG maintains its relative location.  
 
 Finally, HostnameTbl tells settarg how to extract an entry from the
 full hostname to be used as TARG_HOST.  If your host has multiple

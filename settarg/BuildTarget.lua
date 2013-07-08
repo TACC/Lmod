@@ -60,6 +60,7 @@ ModuleTbl        = {}
 TargetList       = {}
 NoFamilyList     = {}
 HostnameTbl      = {}
+TargPathLoc      = "first"
 
 function M.default_MACH()
    return getUname().machName
@@ -302,6 +303,7 @@ local function readDotFiles()
    local stringKindTbl = {}
    local familyTbl     = {}
    local HostTbl       = {}
+   local TargPathLoc   = "first"
 
    for _, fn  in ipairs(a) do
       dbg.print("fn: ",fn,"\n")
@@ -323,6 +325,9 @@ local function readDotFiles()
                             "  ", msg,"\n");
             os.exit(1)
          end
+
+         TargPathLoc = systemG.TargPathLoc
+         
 
          for k,v in pairs(systemG.BuildScenarioTbl) do
             dbg.print("BS: k: ",k," v: ",v,"\n")
@@ -356,6 +361,7 @@ local function readDotFiles()
       end
    end
 
+   masterTbl.TargPathLoc      = TargPathLoc
    masterTbl.HostTbl          = HostTbl
    masterTbl.TitleTbl         = TitleMstrTbl
    masterTbl.BuildScenarioTbl = MethodMstrTbl
