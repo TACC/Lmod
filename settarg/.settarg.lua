@@ -4,6 +4,8 @@ BuildScenarioTbl = {
    default                = "empty",
 }
 
+HostnameTbl = { 2 }
+
 TitleTbl = {
    mic                    = "MIC",
    dbg                    = 'D',

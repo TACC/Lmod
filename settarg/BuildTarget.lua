@@ -59,6 +59,7 @@ TitleTbl         = {}
 ModuleTbl        = {}
 TargetList       = {}
 NoFamilyList     = {}
+HostnameTbl      = {}
 
 function M.default_MACH()
    return getUname().machName
@@ -72,6 +73,35 @@ function M.default_OS()
    dbg.fini("BuildTarget:default_OS")
    return name
 end
+
+function M.default_HOST()
+   local masterTbl = masterTbl()
+   local hostTbl   = masterTbl.HostTbl
+   local hostName  = getUname().hostName
+   local hostA     = {}
+
+   for v in hostName:split("%.") do
+      hostA[#hostA+1] = v
+   end
+   local result   = hostA[1]
+   if (#hostA == 1) then
+      return result
+   end
+
+   local a = {}
+   for i = 1,#hostTbl do
+      local entry = hostTbl[i]
+      if (entry <= #hostA) then
+         a[#a+1] = hostA[entry]
+      end
+   end
+
+   if (#a > 0) then
+      result = concatTbl(a,".")
+   end
+   return result
+end
+
 
 function M.default_BUILD_SCENARIO(tbl)
    local dbg       = Dbg:dbg()
@@ -210,6 +240,11 @@ function M.buildTbl(targetTbl)
    targetTbl.os        = -1
    targetTbl.os_family = -1
 
+   -- Always set host
+   tbl.TARG_HOST       = M.default_HOST()
+   targetTbl.host      = -1
+
+
    local method = tbl.TARG_BUILD_SCENARIO
    if (tbl.TARG_BUILD_SCENARIO_STATE and tbl.TARG_BUILD_SCENARIO_STATE == "empty") then
       method = "empty"
@@ -266,6 +301,7 @@ local function readDotFiles()
    local ModuleMstrTbl = {}
    local stringKindTbl = {}
    local familyTbl     = {}
+   local HostTbl       = {}
 
    for _, fn  in ipairs(a) do
       dbg.print("fn: ",fn,"\n")
@@ -288,11 +324,13 @@ local function readDotFiles()
             os.exit(1)
          end
 
-         dbg.print("BuildScenarioTbl.default: ",_G.BuildScenarioTbl.default, "\n")
-
          for k,v in pairs(systemG.BuildScenarioTbl) do
             dbg.print("BS: k: ",k," v: ",v,"\n")
             MethodMstrTbl[k] = v
+         end
+
+         for k,v in pairs(systemG.HostnameTbl) do
+            HostTbl[k] = v
          end
 
          for k,v in pairs(systemG.TitleTbl) do
@@ -318,6 +356,7 @@ local function readDotFiles()
       end
    end
 
+   masterTbl.HostTbl          = HostTbl
    masterTbl.TitleTbl         = TitleMstrTbl
    masterTbl.BuildScenarioTbl = MethodMstrTbl
    masterTbl.stringKindTbl    = stringKindTbl

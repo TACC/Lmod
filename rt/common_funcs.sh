@@ -10,6 +10,7 @@ cleanUp ()
        -e "s|:$PATH_to_SHA1:|:|g"                         \
        -e "s|^lmod_version.*||g"                          \
        -e "s|^luaV *Lua.*||g"                             \
+       -e "s|^\(TARG_HOST=\).*|\1''|g"                    \
        -e "s|^\(TARG_OS_FAMILY=\).*|\1''|g"               \
        -e "s|^\(TARG_OS=\).*|\1''|g"                      \
        -e "s|^\(TARG_MACH_DESCRIPT=\).*|\1''|g"           \
