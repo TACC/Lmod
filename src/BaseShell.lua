@@ -189,6 +189,9 @@ function M.expandMT(self, vstr)
    dbg.fini("BaseShell:expandMT")
 end
 
+
+
+
 --------------------------------------------------------------------------
 -- valid_shell:  returns the valid shell name if it is in the shellTbl or
 --               bare otherwise.
@@ -200,27 +203,40 @@ local function valid_shell(shellTbl, shell_name)
    return shellTbl[shell_name]
 end
 
+s_shellTbl = false
+
+local function createShellTbl()
+   if (not s_shellTbl) then
+      local shellTbl     = {}
+      local Csh          = require('Csh')
+      local Bash         = require('Bash')
+      local Bare         = require('Bare')
+      local Perl         = require('Perl')
+      local Python       = require('Python')
+      shellTbl["sh"]     = Bash
+      shellTbl["bash"]   = Bash
+      shellTbl["zsh"]    = Bash
+      shellTbl["csh"]    = Csh
+      shellTbl["tcsh"]   = Csh
+      shellTbl["perl"]   = Perl
+      shellTbl["python"] = Python
+      shellTbl.bare      = Bare
+      s_shellTbl         = shellTbl
+   end
+end
+
+
+function M.isValid(shell_name)
+   createShellTbl()
+   return s_shellTbl[shell_name]
+end
+
 --------------------------------------------------------------------------
 -- BaseShell:build():  This is the factory that builds the derived shell.
 
 function M.build(shell_name)
-
-   local shellTbl     = {}
-   local Csh          = require('Csh')
-   local Bash         = require('Bash')
-   local Bare         = require('Bare')
-   local Perl         = require('Perl')
-   local Python       = require('Python')
-   shellTbl["sh"]     = Bash
-   shellTbl["bash"]   = Bash
-   shellTbl["zsh"]    = Bash
-   shellTbl["csh"]    = Csh
-   shellTbl["tcsh"]   = Csh
-   shellTbl["perl"]   = Perl
-   shellTbl["python"] = Python
-   shellTbl.bare      = Bare
-
-   local o     = valid_shell(shellTbl, shell_name):create()
+   createShellTbl()
+   local o     = valid_shell(s_shellTbl, shell_name):create()
    o._active   = true
    return o
 end

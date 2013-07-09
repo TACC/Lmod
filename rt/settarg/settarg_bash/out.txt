@@ -18,7 +18,7 @@ MODULEPATH="ProjectDIR/rt/settarg/settarg_bash/../mf/Core";
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/settarg/settarg_bash/../mf/Core",},family={},inactive={},mT={settarg={["FN"]="ProjectDIR/rt/settarg/settarg_bash/../mf/Core/settarg/1.0.lua",["default"]=1,["fullName"]="settarg/1.0",["loadOrder"]=1,["mType"]="w",propT={},["short"]="settarg",["status"]="active",},},mpathA={"ProjectDIR/rt/settarg/settarg_bash/../mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/settarg/settarg_bash/../mf/Core",["version"]=2,}';
 export _ModuleTable_;
-alias cdt="cd $TARG";
+alias cdt='cd $TARG';
 dbg() { settarg "$@" dbg; };
 empty() { settarg "$@" empty; };
 mdbg() { settarg "$@" mdbg; };

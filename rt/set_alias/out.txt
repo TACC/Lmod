@@ -18,7 +18,7 @@ VARIABLE="1";
 export VARIABLE;
 _ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/set_alias/mf",},family={},inactive={},mT={test1={["FN"]="ProjectDIR/rt/set_alias/mf/test1/1.0.lua",["default"]=1,["fullName"]="test1/1.0",["loadOrder"]=1,["mType"]="mw",propT={},["short"]="test1",["status"]="active",},},mpathA={"ProjectDIR/rt/set_alias/mf",},["systemBaseMPATH"]="ProjectDIR/rt/set_alias/mf",["version"]=2,}';
 export _ModuleTable_;
-alias somealias="1";
+alias somealias='1';
 ===========================
 step 3
 lua ProjectDIR/src/lmod.in.lua bash load test2
@@ -35,7 +35,7 @@ VARIABLE="2";
 export VARIABLE;
 _ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/set_alias/mf",},family={},inactive={},mT={test2={["FN"]="ProjectDIR/rt/set_alias/mf/test2/2.0.lua",["default"]=1,["fullName"]="test2/2.0",["loadOrder"]=1,["mType"]="mw",propT={},["short"]="test2",["status"]="active",},},mpathA={"ProjectDIR/rt/set_alias/mf",},["systemBaseMPATH"]="ProjectDIR/rt/set_alias/mf",["version"]=2,}';
 export _ModuleTable_;
-alias somealias="2";
+alias somealias='2';
 ===========================
 step 4
 lua ProjectDIR/src/lmod.in.lua bash unload test2
@@ -68,7 +68,7 @@ VARIABLE="1";
 export VARIABLE;
 _ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/set_alias/mf",},family={},inactive={},mT={test1={["FN"]="ProjectDIR/rt/set_alias/mf/test1/1.0.lua",["default"]=1,["fullName"]="test1/1.0",["loadOrder"]=1,["mType"]="mw",propT={},["short"]="test1",["status"]="active",},},mpathA={"ProjectDIR/rt/set_alias/mf",},["systemBaseMPATH"]="ProjectDIR/rt/set_alias/mf",["version"]=2,}';
 export _ModuleTable_;
-alias somealias="1";
+alias somealias='1';
 ===========================
 step 6
 lua ProjectDIR/src/lmod.in.lua bash load sfunc

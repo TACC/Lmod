@@ -554,7 +554,12 @@ function main()
    dbg.set_prefix(colorize("red","Lmod"))
 
    local shell = barefilename(arg[1])
-   table.remove(arg,1)
+   if (BaseShell.isValid(shell)) then
+      table.remove(arg,1)
+   else
+      shell = "bash"
+   end
+
 
    local arg_str   = concatTbl(arg," ")
    local masterTbl = masterTbl()
