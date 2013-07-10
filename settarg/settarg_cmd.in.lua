@@ -111,10 +111,12 @@ function main()
    BuildTarget.exec(shell)
 
    if (masterTbl.report) then
-      io.stderr:write(serializeTbl{name="BuildScenario", indent=true, value=masterTbl.BuildScenarioTbl},"\n")
-      io.stderr:write(serializeTbl{name="ModuleTbl",     indent=true, value=masterTbl.ModuleTbl},       "\n")
-      io.stderr:write(serializeTbl{name="TargetList",    indent=true, value=masterTbl.targetList},      "\n")
-      io.stderr:write(serializeTbl{name="TitleTbl",      indent=true, value=masterTbl.TitleTbl},        "\n")
+      io.stderr:write(serializeTbl{name="BuildScenarioTbl",   indent=true, value=masterTbl.BuildScenarioTbl},"\n")
+      io.stderr:write(serializeTbl{name="HostnameTbl",        indent=true, value=masterTbl.HostTbl},         "\n")
+      io.stderr:write(serializeTbl{name="ModuleTbl",          indent=true, value=masterTbl.ModuleTbl},       "\n")
+      io.stderr:write(serializeTbl{name="TargetList",         indent=true, value=masterTbl.targetList},      "\n")
+      io.stderr:write(serializeTbl{name="SettargDirTemplate", indent=true, value=masterTbl.SettargDirTmpl},  "\n")
+      io.stderr:write(serializeTbl{name="TitleTbl",           indent=true, value=masterTbl.TitleTbl},        "\n")
       io.stderr:write("TargPathLoc = \"",masterTbl.TargPathLoc,"\"\n")
       dbg.fini("settarg")
       return
