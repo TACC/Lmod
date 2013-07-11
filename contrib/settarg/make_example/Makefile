@@ -1,6 +1,3 @@
-.SUFFIX:
-.SUFFIX: .c .o
-
 
 ifeq ($(TARG_COMPILER_FAMILY),gcc)
    CC := gcc
@@ -10,8 +7,6 @@ ifeq ($(TARG_COMPILER_FAMILY),intel)
    CC := icc
 endif
 
-
-
 ifneq ($(TARG),)
   override O_DIR := $(TARG)/
 endif
@@ -20,7 +15,7 @@ endif
 DEPENDENCY_FLAG   := -MM
 EXEC 		  := $(O_DIR)hello
 SRC  		  := main.c hello.c
-OBJS 		  := $(O_DIR)main.o $(O_DIR)hello.o 
+OBJS 		  := $(patsubst %.c, $(O_DIR)%.o, $(SRC))
 
 all: $(O_DIR)
 	$(MAKE) _all

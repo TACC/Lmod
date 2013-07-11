@@ -1,8 +1,11 @@
-.SUFFIX:
-.SUFFIX: .c .o
 
+ifeq ($(TARG_COMPILER_FAMILY),gcc)
+   CC := gcc
+endif
 
-
+ifeq ($(TARG_COMPILER_FAMILY),intel)
+   CC := icc
+endif
 
 ifneq ($(TARG),)
   override O_DIR := $(TARG)/
@@ -23,13 +26,10 @@ $(EXEC): $(OBJS)
 
 neat:
 	$(RM) *~
-
 clean: neat
 	$(RM) $(OBJS)
 clobber: clean
 	$(RM) $(EXEC)
-
-
 
 
 

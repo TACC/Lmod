@@ -274,7 +274,7 @@ are loaded.
 Using TARG in a Makefile:
 -------------------------
 
-See the make_example directory and the README inside.  That directory
+See the make_example directory and the README.txt inside.  That directory
 contains a simple Makefile and a more complicated one to a way to use
 $TARG in a Makefile so that all generated files (*.o and the
 executable) are in the $TARG directory.
