@@ -40,7 +40,7 @@ behavior.  You can load and unload the settarg module at will to turn
 on and off these new features.  Settarg does work for Csh users as
 well a feat not to be scoffed at.
 
-                       *** NOTE ****
+                        *** NOTE ****
 
 
 For example, if I have the gcc/4.7.2 module loaded
