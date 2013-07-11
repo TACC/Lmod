@@ -16,11 +16,16 @@ LMOD_SETTARG_CMD="lua ProjectDIR/settarg/settarg_cmd.in.lua";
 export LMOD_SETTARG_CMD;
 MODULEPATH="ProjectDIR/rt/settarg/settarg_bash/../mf/Core";
 export MODULEPATH;
+SETTARG_TAG1="OBJ";
+export SETTARG_TAG1;
+SETTARG_TAG2="_";
+export SETTARG_TAG2;
 _ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/settarg/settarg_bash/../mf/Core",},family={},inactive={},mT={settarg={["FN"]="ProjectDIR/rt/settarg/settarg_bash/../mf/Core/settarg/1.0.lua",["default"]=1,["fullName"]="settarg/1.0",["loadOrder"]=1,["mType"]="w",propT={},["short"]="settarg",["status"]="active",},},mpathA={"ProjectDIR/rt/settarg/settarg_bash/../mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/settarg/settarg_bash/../mf/Core",["version"]=2,}';
 export _ModuleTable_;
 alias cdt='cd $TARG';
 dbg() { settarg "$@" dbg; };
 empty() { settarg "$@" empty; };
+gettargdir() { builtin echo $TARG; };
 mdbg() { settarg "$@" mdbg; };
 opt() { settarg "$@" opt; };
 settarg() { eval $($LMOD_SETTARG_CMD --shell sh "$@"); };
@@ -29,11 +34,9 @@ targ() { builtin echo $TARG; };
 step 3
 lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --no_cpu_model dbg
 ===========================
-BUILDTARGET='x86_64_dbg';
-export BUILDTARGET;
-PATH='./obj/_x86_64_dbg:ProjectDIR/src:PATH_to_TM:/bin';
+PATH='./OBJ/_x86_64_dbg:ProjectDIR/src:PATH_to_TM:/bin';
 export PATH;
-TARG='obj/_x86_64_dbg';
+TARG='OBJ/_x86_64_dbg';
 export TARG;
 TARG_BUILD_SCENARIO='dbg';
 export TARG_BUILD_SCENARIO;
@@ -56,8 +59,8 @@ TARG_OS=''
 export TARG_OS;
 TARG_OS_FAMILY=''
 export TARG_OS_FAMILY;
-TARG_TARGET='x86_64_dbg';
-export TARG_TARGET;
+TARG_SUMMARY='x86_64_dbg';
+export TARG_SUMMARY;
 TARG_TITLE_BAR='D';
 export TARG_TITLE_BAR;
 TARG_TITLE_BAR_PAREN='(D)';
@@ -66,11 +69,9 @@ export TARG_TITLE_BAR_PAREN;
 step 4
 lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --no_cpu_model opt
 ===========================
-BUILDTARGET='x86_64_opt';
-export BUILDTARGET;
-PATH='./obj/_x86_64_opt:ProjectDIR/src:PATH_to_TM:/bin';
+PATH='./obj/__x86_64_opt:ProjectDIR/src:PATH_to_TM:/bin';
 export PATH;
-TARG='obj/_x86_64_opt';
+TARG='obj/__x86_64_opt';
 export TARG;
 TARG_BUILD_SCENARIO='opt';
 export TARG_BUILD_SCENARIO;
@@ -93,8 +94,8 @@ TARG_OS=''
 export TARG_OS;
 TARG_OS_FAMILY=''
 export TARG_OS_FAMILY;
-TARG_TARGET='x86_64_opt';
-export TARG_TARGET;
+TARG_SUMMARY='x86_64_opt';
+export TARG_SUMMARY;
 TARG_TITLE_BAR='O';
 export TARG_TITLE_BAR;
 TARG_TITLE_BAR_PAREN='(O)';
@@ -103,11 +104,9 @@ export TARG_TITLE_BAR_PAREN;
 step 5
 lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --no_cpu_model empty
 ===========================
-BUILDTARGET='x86_64';
-export BUILDTARGET;
-PATH='./obj/_x86_64:ProjectDIR/src:PATH_to_TM:/bin';
+PATH='./obj/__x86_64:ProjectDIR/src:PATH_to_TM:/bin';
 export PATH;
-TARG='obj/_x86_64';
+TARG='obj/__x86_64';
 export TARG;
 unset 'TARG_BUILD_SCENARIO';
 TARG_BUILD_SCENARIO_STATE='empty';
@@ -129,8 +128,8 @@ TARG_OS=''
 export TARG_OS;
 TARG_OS_FAMILY=''
 export TARG_OS_FAMILY;
-TARG_TARGET='x86_64';
-export TARG_TARGET;
+TARG_SUMMARY='x86_64';
+export TARG_SUMMARY;
 unset 'TARG_TITLE_BAR';
 unset 'TARG_TITLE_BAR_PAREN';
 ===========================
@@ -157,7 +156,7 @@ MPICH_HOME="/opt/apps/gcc-4_7/mpich/3.0.4";
 export MPICH_HOME;
 MPIHOME="/opt/apps/gcc-4_7/mpich/3.0.4";
 export MPIHOME;
-PATH="/opt/apps/gcc-4_7/mpich/3.0.4/bin:./obj/_x86_64:ProjectDIR/src:PATH_to_TM:/bin";
+PATH="/opt/apps/gcc-4_7/mpich/3.0.4/bin:./obj/__x86_64:ProjectDIR/src:PATH_to_TM:/bin";
 export PATH;
 TACC_FAMILY_COMPILER="gcc";
 export TACC_FAMILY_COMPILER;
@@ -169,11 +168,9 @@ export _ModuleTable_;
 step 7
 lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --no_cpu_model
 ===========================
-BUILDTARGET='x86_64_gcc-4.7.2_mpich-3.0.4';
-export BUILDTARGET;
-PATH='/opt/apps/gcc-4_7/mpich/3.0.4/bin:./obj/_x86_64_gcc-4.7.2_mpich-3.0.4:ProjectDIR/src:PATH_to_TM:/bin';
+PATH='/opt/apps/gcc-4_7/mpich/3.0.4/bin:./obj/__x86_64_gcc-4.7.2_mpich-3.0.4:ProjectDIR/src:PATH_to_TM:/bin';
 export PATH;
-TARG='obj/_x86_64_gcc-4.7.2_mpich-3.0.4';
+TARG='obj/__x86_64_gcc-4.7.2_mpich-3.0.4';
 export TARG;
 unset 'TARG_BUILD_SCENARIO';
 TARG_BUILD_SCENARIO_STATE='empty';
@@ -199,8 +196,8 @@ TARG_OS=''
 export TARG_OS;
 TARG_OS_FAMILY=''
 export TARG_OS_FAMILY;
-TARG_TARGET='x86_64_gcc-4.7.2_mpich-3.0.4';
-export TARG_TARGET;
+TARG_SUMMARY='x86_64_gcc-4.7.2_mpich-3.0.4';
+export TARG_SUMMARY;
 TARG_TITLE_BAR='G-4.7.2 M-3.0.4';
 export TARG_TITLE_BAR;
 TARG_TITLE_BAR_PAREN='(G-4.7.2 M-3.0.4)';
@@ -209,11 +206,9 @@ export TARG_TITLE_BAR_PAREN;
 step 8
 lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --no_cpu_model f_f
 ===========================
-BUILDTARGET='x86_64_gcc-4.7.2_mpich-3.0.4_f_f';
-export BUILDTARGET;
-PATH='/opt/apps/gcc-4_7/mpich/3.0.4/bin:./obj/_x86_64_gcc-4.7.2_mpich-3.0.4_f_f:ProjectDIR/src:PATH_to_TM:/bin';
+PATH='/opt/apps/gcc-4_7/mpich/3.0.4/bin:./obj/__x86_64_gcc-4.7.2_mpich-3.0.4_f_f:ProjectDIR/src:PATH_to_TM:/bin';
 export PATH;
-TARG='obj/_x86_64_gcc-4.7.2_mpich-3.0.4_f_f';
+TARG='obj/__x86_64_gcc-4.7.2_mpich-3.0.4_f_f';
 export TARG;
 unset 'TARG_BUILD_SCENARIO';
 TARG_BUILD_SCENARIO_STATE='empty';
@@ -240,8 +235,8 @@ TARG_OS=''
 export TARG_OS;
 TARG_OS_FAMILY=''
 export TARG_OS_FAMILY;
-TARG_TARGET='x86_64_gcc-4.7.2_mpich-3.0.4_f_f';
-export TARG_TARGET;
+TARG_SUMMARY='x86_64_gcc-4.7.2_mpich-3.0.4_f_f';
+export TARG_SUMMARY;
 TARG_TITLE_BAR='G-4.7.2 M-3.0.4 f_f';
 export TARG_TITLE_BAR;
 TARG_TITLE_BAR_PAREN='(G-4.7.2 M-3.0.4 f_f)';
@@ -250,11 +245,9 @@ export TARG_TITLE_BAR_PAREN;
 step 9
 lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --no_cpu_model b:b
 ===========================
-BUILDTARGET='x86_64_gcc-4.7.2_mpich-3.0.4_b:b_f_f';
-export BUILDTARGET;
-PATH='/opt/apps/gcc-4_7/mpich/3.0.4/bin:./obj/_x86_64_gcc-4.7.2_mpich-3.0.4_b:b_f_f:ProjectDIR/src:PATH_to_TM:/bin';
+PATH='/opt/apps/gcc-4_7/mpich/3.0.4/bin:./obj/__x86_64_gcc-4.7.2_mpich-3.0.4_b:b_f_f:ProjectDIR/src:PATH_to_TM:/bin';
 export PATH;
-TARG='obj/_x86_64_gcc-4.7.2_mpich-3.0.4_b:b_f_f';
+TARG='obj/__x86_64_gcc-4.7.2_mpich-3.0.4_b:b_f_f';
 export TARG;
 unset 'TARG_BUILD_SCENARIO';
 TARG_BUILD_SCENARIO_STATE='empty';
@@ -281,8 +274,8 @@ TARG_OS=''
 export TARG_OS;
 TARG_OS_FAMILY=''
 export TARG_OS_FAMILY;
-TARG_TARGET='x86_64_gcc-4.7.2_mpich-3.0.4_b:b_f_f';
-export TARG_TARGET;
+TARG_SUMMARY='x86_64_gcc-4.7.2_mpich-3.0.4_b:b_f_f';
+export TARG_SUMMARY;
 TARG_TITLE_BAR='G-4.7.2 M-3.0.4 b:b_f_f';
 export TARG_TITLE_BAR;
 TARG_TITLE_BAR_PAREN='(G-4.7.2 M-3.0.4 b:b_f_f)';
@@ -291,11 +284,9 @@ export TARG_TITLE_BAR_PAREN;
 step 10
 lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --no_cpu_model -r f_f
 ===========================
-BUILDTARGET='x86_64_gcc-4.7.2_mpich-3.0.4_b:b';
-export BUILDTARGET;
-PATH='/opt/apps/gcc-4_7/mpich/3.0.4/bin:./obj/_x86_64_gcc-4.7.2_mpich-3.0.4_b:b:ProjectDIR/src:PATH_to_TM:/bin';
+PATH='/opt/apps/gcc-4_7/mpich/3.0.4/bin:./obj/__x86_64_gcc-4.7.2_mpich-3.0.4_b:b:ProjectDIR/src:PATH_to_TM:/bin';
 export PATH;
-TARG='obj/_x86_64_gcc-4.7.2_mpich-3.0.4_b:b';
+TARG='obj/__x86_64_gcc-4.7.2_mpich-3.0.4_b:b';
 export TARG;
 unset 'TARG_BUILD_SCENARIO';
 TARG_BUILD_SCENARIO_STATE='empty';
@@ -322,8 +313,8 @@ TARG_OS=''
 export TARG_OS;
 TARG_OS_FAMILY=''
 export TARG_OS_FAMILY;
-TARG_TARGET='x86_64_gcc-4.7.2_mpich-3.0.4_b:b';
-export TARG_TARGET;
+TARG_SUMMARY='x86_64_gcc-4.7.2_mpich-3.0.4_b:b';
+export TARG_SUMMARY;
 TARG_TITLE_BAR='G-4.7.2 M-3.0.4 b:b';
 export TARG_TITLE_BAR;
 TARG_TITLE_BAR_PAREN='(G-4.7.2 M-3.0.4 b:b)';
@@ -332,11 +323,9 @@ export TARG_TITLE_BAR_PAREN;
 step 11
 lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --no_cpu_model -r b:b
 ===========================
-BUILDTARGET='x86_64_gcc-4.7.2_mpich-3.0.4';
-export BUILDTARGET;
-PATH='/opt/apps/gcc-4_7/mpich/3.0.4/bin:./obj/_x86_64_gcc-4.7.2_mpich-3.0.4:ProjectDIR/src:PATH_to_TM:/bin';
+PATH='/opt/apps/gcc-4_7/mpich/3.0.4/bin:./obj/__x86_64_gcc-4.7.2_mpich-3.0.4:ProjectDIR/src:PATH_to_TM:/bin';
 export PATH;
-TARG='obj/_x86_64_gcc-4.7.2_mpich-3.0.4';
+TARG='obj/__x86_64_gcc-4.7.2_mpich-3.0.4';
 export TARG;
 unset 'TARG_BUILD_SCENARIO';
 TARG_BUILD_SCENARIO_STATE='empty';
@@ -362,8 +351,8 @@ TARG_OS=''
 export TARG_OS;
 TARG_OS_FAMILY=''
 export TARG_OS_FAMILY;
-TARG_TARGET='x86_64_gcc-4.7.2_mpich-3.0.4';
-export TARG_TARGET;
+TARG_SUMMARY='x86_64_gcc-4.7.2_mpich-3.0.4';
+export TARG_SUMMARY;
 TARG_TITLE_BAR='G-4.7.2 M-3.0.4';
 export TARG_TITLE_BAR;
 TARG_TITLE_BAR_PAREN='(G-4.7.2 M-3.0.4)';
@@ -372,11 +361,9 @@ export TARG_TITLE_BAR_PAREN;
 step 12
 lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --no_cpu_model f_f b:b
 ===========================
-BUILDTARGET='x86_64_gcc-4.7.2_mpich-3.0.4_b:b_f_f';
-export BUILDTARGET;
-PATH='/opt/apps/gcc-4_7/mpich/3.0.4/bin:./obj/_x86_64_gcc-4.7.2_mpich-3.0.4_b:b_f_f:ProjectDIR/src:PATH_to_TM:/bin';
+PATH='/opt/apps/gcc-4_7/mpich/3.0.4/bin:./obj/__x86_64_gcc-4.7.2_mpich-3.0.4_b:b_f_f:ProjectDIR/src:PATH_to_TM:/bin';
 export PATH;
-TARG='obj/_x86_64_gcc-4.7.2_mpich-3.0.4_b:b_f_f';
+TARG='obj/__x86_64_gcc-4.7.2_mpich-3.0.4_b:b_f_f';
 export TARG;
 unset 'TARG_BUILD_SCENARIO';
 TARG_BUILD_SCENARIO_STATE='empty';
@@ -403,8 +390,8 @@ TARG_OS=''
 export TARG_OS;
 TARG_OS_FAMILY=''
 export TARG_OS_FAMILY;
-TARG_TARGET='x86_64_gcc-4.7.2_mpich-3.0.4_b:b_f_f';
-export TARG_TARGET;
+TARG_SUMMARY='x86_64_gcc-4.7.2_mpich-3.0.4_b:b_f_f';
+export TARG_SUMMARY;
 TARG_TITLE_BAR='G-4.7.2 M-3.0.4 b:b_f_f';
 export TARG_TITLE_BAR;
 TARG_TITLE_BAR_PAREN='(G-4.7.2 M-3.0.4 b:b_f_f)';
@@ -413,11 +400,9 @@ export TARG_TITLE_BAR_PAREN;
 step 13
 lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --no_cpu_model --purge
 ===========================
-BUILDTARGET='x86_64_gcc-4.7.2_mpich-3.0.4';
-export BUILDTARGET;
-PATH='/opt/apps/gcc-4_7/mpich/3.0.4/bin:./obj/_x86_64_gcc-4.7.2_mpich-3.0.4:ProjectDIR/src:PATH_to_TM:/bin';
+PATH='/opt/apps/gcc-4_7/mpich/3.0.4/bin:./obj/__x86_64_gcc-4.7.2_mpich-3.0.4:ProjectDIR/src:PATH_to_TM:/bin';
 export PATH;
-TARG='obj/_x86_64_gcc-4.7.2_mpich-3.0.4';
+TARG='obj/__x86_64_gcc-4.7.2_mpich-3.0.4';
 export TARG;
 unset 'TARG_BUILD_SCENARIO';
 TARG_BUILD_SCENARIO_STATE='empty';
@@ -443,8 +428,8 @@ TARG_OS=''
 export TARG_OS;
 TARG_OS_FAMILY=''
 export TARG_OS_FAMILY;
-TARG_TARGET='x86_64_gcc-4.7.2_mpich-3.0.4';
-export TARG_TARGET;
+TARG_SUMMARY='x86_64_gcc-4.7.2_mpich-3.0.4';
+export TARG_SUMMARY;
 TARG_TITLE_BAR='G-4.7.2 M-3.0.4';
 export TARG_TITLE_BAR;
 TARG_TITLE_BAR_PAREN='(G-4.7.2 M-3.0.4)';
@@ -453,7 +438,6 @@ export TARG_TITLE_BAR_PAREN;
 step 14
 lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --no_cpu_model --destroy
 ===========================
-unset 'BUILDTARGET';
 PATH='/opt/apps/gcc-4_7/mpich/3.0.4/bin:ProjectDIR/src:PATH_to_TM:/bin';
 export PATH;
 unset 'TARG';
@@ -471,7 +455,7 @@ unset 'TARG_MPI';
 unset 'TARG_MPI_FAMILY';
 unset 'TARG_OS';
 unset 'TARG_OS_FAMILY';
-unset 'TARG_TARGET';
+unset 'TARG_SUMMARY';
 unset 'TARG_TITLE_BAR';
 TARG_TITLE_BAR_PAREN=' ';
 export TARG_TITLE_BAR_PAREN;
@@ -493,6 +477,7 @@ export _ModuleTable_;
 unalias cdt;
 unset -f dbg 2> /dev/null;
 unset -f empty 2> /dev/null;
+unset -f gettargdir 2> /dev/null;
 unset -f mdbg 2> /dev/null;
 unset -f opt 2> /dev/null;
 unset -f settarg 2> /dev/null;

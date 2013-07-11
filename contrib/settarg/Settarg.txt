@@ -11,6 +11,9 @@ Many developers like to build their programs in multiple ways say in
 debug or optimized modes.  Settarg provides environment variables that
 be used to control the build process.
 
+The workflow envisioned here is that $TARG will name a directory that
+will contain the build artifacts (e.g. *.o and executables).
+
 
 How do you use settarg?
 -----------------------
@@ -32,8 +35,6 @@ e) Verify that the "precmd" shell function or alias is defined and
 What variables are set?
 -----------------------
 
-    TARGET_PREFIX=TARG/
-
     TARG_MACH=x86_64_06_2d
     TARG_BUILD_SCENARIO=dbg
 
@@ -43,24 +44,20 @@ What variables are set?
     TARG_MPI=openmpi-1.6.3
     TARG_MPI_FAMILY=openmpi
 
-    TARG=TARG/_x86_64_06_2d_dbg_gcc-4.6.3_openmpi-1.6.3
 
     TARG_OS=Linux-2.6.32-279
     TARG_OS_Family=Linux
     TARG_HOST=stampede
 
 
+    TARG_SUMMARY=x86_64_06_2d_dbg_gcc-4.6.3_openmpi-1.6.3
+
     TARG_TITLE_BAR=D G-4.6.3 O-1.6.3
     TARG_TITLE_BAR_PAREN=(D G-4.6.3 O-1.6.3)
 
-
+    TARG=OBJ/_x86_64_06_2d_dbg_gcc-4.6.3_openmpi-1.6.3
 
 This is a common set of variables generated or used by settarg.
-
-1) TARGET_PREFIX:  This variable is defined outside of settarg and is
-                   used as the prefix to TARG.  In the settarg module
-                   it is defined to be "TARG/" but it can be anything
-                   or undefined.  
 
 2) TARG_MACH:      This is the machine architecture along with the
                    cpu family and model number in two hex numbers.
@@ -74,24 +71,23 @@ This is a common set of variables generated or used by settarg.
 
 4) TARG_OS, TARG_OS_FAMILY: These are the OS name and family.  These
                             variables are always defined even if there
-                            are not part of TARG.
+                            are not part of TARG_SUMMARY.
 
 
-5) TARG_HOST:  This variable is always defined.  See below on how this
-               is extracted from `hostname -f`
+5) TARG_HOST:  See below on how this is extracted from `hostname -f`
 
 6) TARG_COMPILER, TARG_MPI, etc:  the name of the compiler and version
 
 
+7 TARG_SUMMARY:  The dynamic combination of items like the machine
+                 architecture, build scenario, etc.   See below for
+                 how this gets built.
 
-This leads to TARG which the key variable.  It is created as:
+8) TARG_TITLE_BAR:  This contains everything in TARG_SUMMARY but it is
+                    abbreviated to fit the space available.  
 
-
-TARG = ${TARGET_PREFIX} . ${TARG_MACH} + ${TARG_BUILD_SCENARIO} +
-       ${TARG_COMPILER} + ${TARG_MPI}
-
-Where "." means append and + means append with "_" in between.  If
-something is not defined then the extra "_" is removed.
+8) TARG:  This variable contains all the "interesting" items.  How is
+          put together is described later.
 
 
 
@@ -124,9 +120,11 @@ ModuleTbl = {
    file_io            = { "hdf5", "netcdf", },
 }
 
-TargetList = { "mach", "build_scenario", "compiler", "mpi"} 
+TargetList = { "mach", "build_scenario", "compiler", "mpi"}
 
-NoFamilyList = {"mach", "build_scenario","os"}
+SettargDirTemplate = { "$SETTARG_TAG1", "/", "$SETTARG_TAG2", "$TARG_SUMMARY" }
+
+NoFamilyList = {"mach", "build_scenario"}
 
 TitleTbl = {
    dbg                    = 'D',
@@ -135,7 +133,7 @@ TitleTbl = {
    mvapich2               = 'M',
    openmpi                = "O",
    mpich                  = "M",
-   mpich2                 = "M",
+   mpich2                 = "M2",
    intel                  = "I",
    gcc                    = "G",
    phdf5                  = "H5"
@@ -159,24 +157,38 @@ This table is also how settarg knows what the names of the compiler
 and mpi stacks are.  If your site uses the name "ompi" for openmpi
 then the above table will have to be modified to match.
 
-TargetList defines how TARG is assembled.  It is an array of
+TargetList defines how TARG_SUMMARY is assembled.  It is an array of
 categories.   The category "mach" is special it is always defined to
 be `uname -m` plus on linux systems it contains the cpu family and
-model from /proc/cpuinfo.  Settarg ships with this order but sites can
-change the order to be anything they like.   Also notice that there
-are many more categories then are listed in TargetList.  More on this
+model from /proc/cpuinfo. Each piece is concatenated together with
+"_".  If an item is undefined then the extra "_" is removed.
+
+Settarg ships with the order given above, but sites and users can
+change the order to be anything they like.  Also notice that there are
+many more categories then are listed in TargetList.  More on this
 aspect in the "Custom Configuration" section.
+
+SettargDirTemplate specifies how TARG is assembled.  In the case shown
+above then env var SETTARG_TAG1 is combined with "/" and
+SETTARG_TAG2 followed by TARG_SUMMARY.  Both "TAG" variables have to
+be set in the environment.  Here we have assumed that SETTARG_TAG1 is
+"OBJ" and SETTARG_TAG2 is "_".  This leads to TARG being:
+
+    TARG=OBJ/_x86_64_06_2d_dbg_gcc-4.6.3_openmpi-1.6.3   
+
 
 The NoFamilyList is an array of categories that do not get the FAMILY
 version.  All categories do.  For example, if TARG_COMPILER is
 "gcc-4.7.2" then TARG_COMPILER_FAMILY is "gcc".
 
-TitleTbl is a way to map a build scenario or a module name
-into an abbreviation.   The space on the title bar is limited so
-shortening the string can be useful.  The order in which categories
-appear on the title bar is the same as TargetList.  So a title bar
-with "O G-4.7.2 O-1.6.3" would mean that you are in "opt" mode with
-gcc/4.7.2 and openmpi/1.6.3 loaded.
+The TARG_TITLE_BAR and TARG_TITLE_BAR_PAREN are strings that could be
+used in a terminal title bar. Every item in the TARG_SUMMARY is in the
+TITLE bar variables (except for TARG_MACH).  Because the title bar
+space is limited, TitleTbl is a way to map each item into an
+abbreviation.   The order in which categories appear on the
+title bar is the same as TargetList.  So a title bar with "O G-4.7.2
+O-1.6.3" would mean that you are in "opt" mode with gcc/4.7.2 and
+openmpi/1.6.3 loaded.
 
 TargPathLoc controls where (or if) $TARG.  Normally the value of TARG
 is placed in the PATH at the begining of your PATH.  You can place it
@@ -194,6 +206,44 @@ TARG_HOST.  So if your hostname is "login1.stampede.tacc.utexas.edu"
 then TARG_HOST would be "stampede".  If HostnameTbl was "{ 3,2}" then
 TARG_HOST would be "tacc.stampede".  If your hostname has a single
 component then that is used for TARG_HOST.
+
+Commands:
+---------
+
+The environment TARG's value is typically used as a name of the build
+directory.  So the settarg module provides some helpful aliases to
+take advantage of this.
+
+   * gettargdir: it is simply an alias for "echo $TARG"
+   * cdt:        Another alias: "cd $TARG"
+   * settarg:    How to set the build scenario and to access other
+                 features.
+
+By default settarg has an "empty" build scenario.  This can be changed
+by:
+    $ settarg dbg
+    $ settarg opt
+
+Which will change TARG_BUILD_SCENARIO to "dbg" or "opt".  Also
+
+    $ settarg --report
+
+report the state of the .settarg table after combining all the
+possible .settarg.lua files.
+
+For those of you who like short commands the settarg module provides:
+
+    $ targ
+
+which is a short for "gettargdir".  Also if you switch between build
+scenarios frequently may wish to define the following shortcuts for
+setting dbg and opt.
+
+    dbg() { settarg "$@" dbg; }
+    opt() { settarg "$@" opt; }
+
+These shortcuts are defined by the settarg module if Lmod is installed
+with "--with-settarg=full"
 
 Custom Configuration:
 ---------------------
@@ -228,4 +278,3 @@ See the make_example directory and the README inside.  That directory
 contains a simple Makefile and a more complicated one to a way to use
 $TARG in a Makefile so that all generated files (*.o and the
 executable) are in the $TARG directory.
-

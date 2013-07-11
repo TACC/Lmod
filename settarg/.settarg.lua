@@ -16,7 +16,7 @@ TitleTbl = {
    mvapich2               = 'M',
    openmpi                = "O",
    mpich                  = "M",
-   mpich2                 = "M",
+   mpich2                 = "M2",
    intel                  = "I",
    gcc                    = "G",
    tau                    = 'Tau',
@@ -35,6 +35,8 @@ ModuleTbl = {
 }
 
 TargetList = { "mach", "build_scenario", "compiler", "mpi"} 
+
+SettargDirTemplate = { "$SETTARG_TAG1", "/", "$SETTARG_TAG2", "$TARG_SUMMARY" }
 
 NoFamilyList = {"mach", "build_scenario",}
 

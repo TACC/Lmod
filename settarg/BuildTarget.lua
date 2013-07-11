@@ -60,6 +60,7 @@ ModuleTbl        = {}
 TargetList       = {}
 NoFamilyList     = {}
 HostnameTbl      = {}
+SettargDirTmpl   = {}
 TargPathLoc      = "first"
 
 function M.default_MACH()
@@ -297,13 +298,14 @@ local function readDotFiles()
       a[#a+1] = projectConfig
    end
 
-   local MethodMstrTbl = {}
-   local TitleMstrTbl  = {}
-   local ModuleMstrTbl = {}
-   local stringKindTbl = {}
-   local familyTbl     = {}
-   local HostTbl       = {}
-   local TargPathLoc   = "first"
+   local MethodMstrTbl  = {}
+   local TitleMstrTbl   = {}
+   local ModuleMstrTbl  = {}
+   local stringKindTbl  = {}
+   local familyTbl      = {}
+   local HostTbl        = {}
+   local SettargDirTmpl = {}
+   local TargPathLoc    = "first"
 
    for _, fn  in ipairs(a) do
       dbg.print("fn: ",fn,"\n")
@@ -328,6 +330,9 @@ local function readDotFiles()
 
          TargPathLoc = systemG.TargPathLoc
          
+         for k,v in pairs(systemG.SettargDirTemplate) do
+            SettargDirTmpl[k] = v
+         end
 
          for k,v in pairs(systemG.BuildScenarioTbl) do
             dbg.print("BS: k: ",k," v: ",v,"\n")
@@ -369,6 +374,7 @@ local function readDotFiles()
    masterTbl.ModuleTbl        = ModuleMstrTbl
    masterTbl.targetList       = systemG.TargetList
    masterTbl.familyTbl        = familyTbl
+   masterTbl.SettargDirTmpl   = SettargDirTmpl
 
 end
 
@@ -450,9 +456,27 @@ function M.exec(shell)
    target = target:gsub("_+","_")
    target = target:gsub("_$","")
 
-   envVarsTbl.BUILDTARGET = target
-   envVarsTbl.TARG_TARGET = target
-   envVarsTbl.TARG        = (getenv('TARGET_PREFIX') or '') .. "_" .. target
+   envVarsTbl.TARG_SUMMARY = target
+
+   local SettargDirTmpl = masterTbl.SettargDirTmpl
+
+   local b = {}
+
+   for i = 1,#SettargDirTmpl do
+      local n = SettargDirTmpl[i]
+      if (n:sub(1,1) ~= "$") then
+         b[#b+1] = n
+      else
+         n = n:sub(2,-1)
+         if (n == "TARG_SUMMARY") then
+            b[#b+1] = target
+         else
+            b[#b+1] = getenv(n) or ""
+         end
+      end
+   end
+
+   envVarsTbl.TARG         = concatTbl(b,"")
 
    local TitleTbl = masterTbl.TitleTbl
 

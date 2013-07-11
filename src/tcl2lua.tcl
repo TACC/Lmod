@@ -358,9 +358,16 @@ proc module-whatis { msg } {
 }
 
 proc setenv { var val } {
-    global g_varsT
-    set g_varsT($var) $val
-    cmdargs "setenv" $var $val
+    if {[string match $var "-respect"] || [string match $var "-r"] || [string match $var "--respect"]} {
+        set respect "true"
+        set var [lindex $args 0]
+        set val [lindex $args 1]
+        cmdargs "setenv" $var $val $respect
+    } else {
+        global g_varsT
+        set g_varsT($var) $val
+        cmdargs "setenv" $var $val
+    }
 }
 
 proc pushenv { var val } {

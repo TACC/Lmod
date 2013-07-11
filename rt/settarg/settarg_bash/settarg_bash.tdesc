@@ -18,8 +18,9 @@ testdescript = {
 
      unsetMT
      clearTARG
-     TARGET_PREFIX="obj/";                 export TARGET_PREFIX
      initStdEnvVars
+     unset SETTARG_TAG1
+     unset SETTARG_TAG2
      MODULEPATH=$(testDir)/../mf/Core;     export MODULEPATH
      MODULEPATH_ROOT=$(testDir)/../mf;     export MODULEPATH_ROOT
 
@@ -34,6 +35,8 @@ testdescript = {
      runMe lua $(projectDir)/src/lmod.in.lua bash --version                              # 1
      runMe lua $(projectDir)/src/lmod.in.lua bash load settarg                           # 2    
      runMe lua $(projectDir)/settarg/settarg_cmd.in.lua -s bash --no_cpu_model dbg       # 3
+     SETTARG_TAG1="obj";                   export SETTARG_TAG1
+     SETTARG_TAG2="__";                    export SETTARG_TAG2
      runMe lua $(projectDir)/settarg/settarg_cmd.in.lua -s bash --no_cpu_model opt       # 4
      runMe lua $(projectDir)/settarg/settarg_cmd.in.lua -s bash --no_cpu_model empty     # 5
      runMe lua $(projectDir)/src/lmod.in.lua bash load gcc mpich                         # 6 

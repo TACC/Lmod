@@ -103,7 +103,7 @@ local function validateArgsWithValue(cmdName, ...)
    end
 
    local v = arg[arg.n]
-   if (type(v) ~= "string" and type(v) ~= "number") then
+   if (type(v) ~= "string" and type(v) ~= "number" and type(v) ~= "boolean") then
       local fn = myFileName()
       mcp:report("Syntax error in file: ",fn, " with command: ",
                 cmdName, " The last argument is  not string or number\n")
@@ -211,7 +211,7 @@ end
 function unsetenv(...)
    local dbg = Dbg:dbg()
    dbg.start("unsetenv(",concatTbl({...},", "),")")
-   if (not validateStringArgs("unsetenv",...)) then return end
+   if (not validateArgsWithValue("unsetenv",...)) then return end
 
    mcp:unsetenv(...)
    dbg.fini("unsetenv")
