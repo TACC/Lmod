@@ -251,12 +251,12 @@ Custom Configuration:
 Settarg will read up to three separate copies of .settarg.lua.  The
 first one is in the same directory as the settarg command is.  The
 second place is in the user's home directory (if it exists).  Then
-from the current directory up to "/" it looks for another .settarg.lua (if it exists).
-It will not re-read the ~/.settarg.lua.  Typically a user should copy
-the system .settarg.lua to their home directory and specify the
-generally desired behaviour.  Then in top directory of a project place
-a simple .settarg.lua that specifies how the target list should be put
-together for that project:
+from the current directory up to "/" it looks for another .settarg.lua
+(if it exists).  It will not re-read the ~/.settarg.lua.  Typically a
+user should copy the system .settarg.lua to their home directory and
+specify the generally desired behaviour.  Then in top directory of a
+project place a simple .settarg.lua that specifies how the target list
+should be put together for that project:
 
 Suppose that TargetList ~/.settarg.lua is
 
