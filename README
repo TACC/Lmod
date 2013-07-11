@@ -32,14 +32,14 @@ the modules loaded. For example, if I have the gcc/4.7.2 module loaded
 and the new settarg module loaded I get the following variables
 defined in my environment.
 
-   TARG=TARG/_x86_64_06_1a_gcc-4.7.3
+   TARG=OBJ/_x86_64_06_1a_gcc-4.7.3
    TARG_COMPILER=gcc-4.7.3
    TARG_COMPILER_FAMILY=gcc
    TARG_MACH=x86_64_06_1a
 
 If I change my compiler to intel/13.1.0, these variables change to:
 
-   TARG=TARG/_x86_64_06_1a_dbg_intel-13.1.0
+   TARG=OBJ/_x86_64_06_1a_dbg_intel-13.1.0
    TARG_COMPILER=intel-13.1.0
    TARG_COMPILER_FAMILY=intel
    TARG_MACH=x86_64_06_1a
@@ -50,12 +50,10 @@ modules. These variable are used to set the compiler flags and other
 things in my Makefiles to control how my application is built. In my
 case $TARG is where the the objects, libraries and executables are
 placed during the build process. It easy to have the title bar reflect
-the dynamic state of your modules. You control which modules are
-mentioned in the titlebar.  I have found this combination of settarg
-and Lmod to be a powerful development tool. Even if this workflow is
-not yours, you may find parts of this useful.
+the dynamic state of your modules. You can abbreviate items mentioned
+in the titlebar.  I have found this combination of settarg and Lmod to
+be a powerful development tool. Even if this workflow is not yours,
+you may find parts of this useful.
 
-
-For more details see: contrib/settarg/Settarg.txt
-
-
+For more details see: contrib/settarg/Settarg.txt and the Make example
+in contrib/settarg/make_example.
