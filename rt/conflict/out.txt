@@ -1,0 +1,64 @@
+===========================
+step 1
+lua ProjectDIR/src/lmod.in.lua bash --version
+===========================
+===========================
+step 2
+lua ProjectDIR/src/lmod.in.lua bash load a b
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/conflict/mf";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/conflict/mf";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/conflict/mf";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/conflict/mf";
+export MODULEPATH;
+TEST_A="1";
+export TEST_A;
+TEST_B="1";
+export TEST_B;
+_ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/conflict/mf",},family={},inactive={},mT={a={["FN"]="ProjectDIR/rt/conflict/mf/a.lua",["default"]=0,["fullName"]="a",["loadOrder"]=1,["mType"]="w",propT={},["short"]="a",["status"]="active",},b={["FN"]="ProjectDIR/rt/conflict/mf/b.lua",["default"]=0,["fullName"]="b",["loadOrder"]=2,["mType"]="w",propT={},["short"]="b",["status"]="active",},},mpathA={"ProjectDIR/rt/conflict/mf",},["systemBaseMPATH"]="ProjectDIR/rt/conflict/mf",["version"]=2,}';
+export _ModuleTable_;
+===========================
+step 3
+lua ProjectDIR/src/lmod.in.lua bash load c
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/conflict/mf";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/conflict/mf";
+export MODULEPATH;
+false
+===========================
+step 4
+lua ProjectDIR/src/lmod.in.lua bash list
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/conflict/mf";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/conflict/mf";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/conflict/mf";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/conflict/mf";
+export MODULEPATH;
+===========================
+step 5
+lua ProjectDIR/src/lmod.in.lua bash swap a c
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/conflict/mf";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/conflict/mf";
+export MODULEPATH;
+false
+===========================
+step 6
+lua ProjectDIR/src/lmod.in.lua bash list
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/conflict/mf";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/conflict/mf";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/conflict/mf";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/conflict/mf";
+export MODULEPATH;
