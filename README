@@ -19,7 +19,7 @@ e) The system startup scripts (init/profile, and init/cshrc) that
    this as defined or moving these module files into your normal
    MODULEPATH.
 
-f) Support for settarg has been added.  
+f) Support for settarg has been added for Bash, Zsh and Tcsh users.
 
 g) See README.old for features added in earlier versions.
 
@@ -37,8 +37,9 @@ the modules loaded.
 Please note that settarg feature is optional and is implemented as a
 module.  If and only if the settarg module is loaded you get the new
 behavior.  You can load and unload the settarg module at will to turn
-on and off these new features.  Settarg does work for Csh users as
-well a feat not to be scoffed at.
+on and off these new features.  Settarg does work for tcsh users as
+well a feat not to be scoffed at! Unfortunately C-shell is
+missing necessary features for it to work there.
 
                         *** NOTE ****
 
