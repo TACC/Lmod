@@ -59,6 +59,7 @@ require("strict")
 require("fileOps")
 require("serializeTbl")
 require("myGlobals")
+require("capture")
 require("utils")
 
 _ModuleTable_  = ""

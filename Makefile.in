@@ -52,6 +52,7 @@ CONTRIB_DIRS           	 :=  \
                              converting_shell_to_module_files  \
                              hook                              \
                              parseVersions                     \
+	                     settarg                           \
                              SitePackage                       \
                              TACC                              \
                              tricky_modulefiles
@@ -191,9 +192,8 @@ _distMainDir:
 	cp $(MAIN_DIR) $(DistD)
 
 _distMF:
-	mkdir $(DistD)/mf $(DistD)/MF
-	cp -r mf $(DistD)/mf
-	cp -r MF $(DistD)/MF
+	mkdir $(DistD)/MF
+	cp -r MF $(DistD)/
 
 _distTar:
 	echo "Lmod"-$(version) > .fname;                		   \
