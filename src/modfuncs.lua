@@ -50,10 +50,12 @@
 --------------------------------------------------------------------------
 
 require("strict")
+require("parseVersion")
 
 local Dbg         = require("Dbg")
 local MName       = require("MName")
 local ModuleStack = require("ModuleStack")
+local Version     = require("Version")
 local _concatTbl  = table.concat
 
 local function concatTbl(aa,sep)
@@ -413,6 +415,14 @@ function isPending(m)
    if (not validateStringArgs("isPending",m)) then return false end
    local mname = MName:new("mt", m)
    return mt:have(mname:sn(),"pending")
+end
+
+function LmodVersion()
+   return Version.tag()
+end
+
+function versionTest(s)
+   return concatTbl(parseVersion(s))
 end
 
 function myFileName()
