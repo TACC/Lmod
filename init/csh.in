@@ -17,7 +17,11 @@ if ( $?histchars) then
   endif
 endif
 
-alias module  $prefix'eval `$LMOD_CMD csh '$midfix $histchar'*` '$postfix' eval `$LMOD_SETTARG_CMD -s csh`'
+if ($?tcsh) then
+  alias module  $prefix'eval `$LMOD_CMD csh '$midfix $histchar'*` '$postfix' eval `$LMOD_SETTARG_CMD -s csh`'
+else
+  alias module  $prefix'eval `$LMOD_CMD csh '$midfix $histchar'*` '$postfix
+endif
 alias clearMT 'eval `'$LMOD_DIR/clearMT_cmd csh'`'
 
 alias ml      'eval `'$LMOD_DIR/ml_cmd' '$histchar'*`'
@@ -28,13 +32,15 @@ unset postfix
 unset histchar
 
 
-if ( $?prompt && "$LMOD_SETTARG_SUPPORT" != no ) then
+if ( $?prompt && $?tcsh && "$LMOD_SETTARG_SUPPORT" != no ) then
    alias cwdcmd 'eval `$LMOD_SETTARG_CMD -s csh`'
+
    switch ($TERM)
-       case "xterm*":
-            alias precmd 'echo -n "\033]0;${TARG_TITLE_BAR_PAREN}${HOST}:$cwd\007"'
-            breaksw
-   endsw
+      case "xterm*":
+         alias precmd 'echo -n "\033]2;${TARG_TITLE_BAR_PAREN}${HOST}:$cwd\007"'
+         breaksw
+      endsw
+   endif
 endif
 # Local Variables:
 # mode: shell-script

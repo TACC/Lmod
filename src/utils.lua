@@ -42,7 +42,6 @@ require("fileOps")
 require("string_split")
 require("string_trim")
 require("parseVersion")
-require("capture")
 
 local base64    = require("base64")
 local Dbg       = require("Dbg")
@@ -441,4 +440,26 @@ end
 function getWarningFlag()
    return s_warning
 end
+
+
+function capture(cmd,level)
+   local dbg    = Dbg:dbg()
+   level        = level or 1
+   local level2 = level or 2
+   dbg.start(level, "capture")
+   dbg.print("cwd: ",posix.getcwd(),"\n")
+   dbg.print("cmd: ",cmd,"\n")
+   local p = io.popen(cmd)
+   if p == nil then
+      return nil
+   end
+   local ret = p:read("*all")
+   p:close()
+   dbg.start(level2,"capture output")
+   dbg.print(ret)
+   dbg.fini()
+   dbg.fini()
+   return ret
+end
+
 
