@@ -27,7 +27,7 @@ g) See README.old for features added in earlier versions.
 What is Settarg?
 ------------------------------------------------------------------------
 
-* Settarg is new module that accesses a new tool to dynamically and
+Settarg is new module that accesses a new tool to dynamically and
 automatically update "$TARG" and a host of other environment
 variables. These new environment variables encapsulate the state of
 the modules loaded.
@@ -38,8 +38,8 @@ Please note that settarg feature is optional and is implemented as a
 module.  If and only if the settarg module is loaded you get the new
 behavior.  You can load and unload the settarg module at will to turn
 on and off these new features.  Settarg does work for tcsh users as
-well a feat not to be scoffed at! Unfortunately C-shell is
-missing necessary features for it to work there.
+well a feat not to be scoffed at! Unfortunately regular csh is
+missing necessary features for it to work.
 
                         *** NOTE ****
 
