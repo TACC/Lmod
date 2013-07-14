@@ -13,4 +13,5 @@ end
 
 if (versionTest(LmodVersion()) > versionTest("100000000000.0")) then
    LmodMessage("(3) Failed Module Test\n")
+   unknownFunc("A","b","C")
 end
