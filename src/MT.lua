@@ -514,6 +514,10 @@ end
 local function setupMPATH(self,mpath)
    local dbg = Dbg:dbg()
    dbg.start("MT:setupMPATH(self,mpath: \"",mpath,"\")")
+   if (mpath == nil or mpath == "") then
+      LmodError("MODULEPATH is undefined\n")
+   end
+
    self._same = self:sameMPATH(mpath)
    if (not self._same) then
       self:buildMpathA(mpath)
