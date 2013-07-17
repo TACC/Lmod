@@ -638,6 +638,8 @@ function M.reloadAll()
          same = not aa[1]
       end
    end
+
+
    for i = 1, #a do
       local v  = a[i]
       local sn = v.sn
@@ -645,6 +647,19 @@ function M.reloadAll()
          local t = { modFullName = v.full, modName = sn, default = v.defaultFlg}
          dbg.print("Master:reloadAll module: ", sn, " marked as inactive\n")
          mt:add(t, "inactive")
+      end
+   end
+
+   local force   = masterTbl().force
+   if (not force) then
+      local stickyA = mt:getStickA()
+      for i = 1, #stickyA do
+         entry       = stickyA[i]
+         local mname = MName:new("entryT",entry)
+         local t     = find_module_file(mname)
+         if (t.fn == entry.FN) then
+            mcp:load(mname:usrName())
+         end
       end
    end
 
@@ -691,6 +706,12 @@ function M.unload(...)
          local mList          = concatTbl(mt:list("both","active"),":")
          local f              = mt:fileName(sn)
          local fullModuleName = mt:fullName(sn)
+         local isSticky       = mt:haveProperty(sn, "lmod", "sticky")
+         if (isSticky) then
+            mt:addStickyA(sn)
+            dbg.print("sn: ", sn, " Sticky: ",isSticky,"\n")
+         end
+
          dbg.print("Master:unload: \"",fullModuleName,"\" from f: ",f,"\n")
          mt:beginOP()
          dbg.print("changePATH: ", mt._changePATHCount, "\n")

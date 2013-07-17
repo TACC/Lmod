@@ -100,35 +100,44 @@ function M.new(self, sType, name)
    self.__index = self
    local mt = MT:mt()
 
-   name          = (name or ""):gsub("/+$","")  -- remove any trailing '/'
    local sn      = false
    local version = false
 
-   if (sType == "load") then
-      for level = 0, 1 do
-         local n = shorten(name, level)
-         if (mt:locationTbl(n)) then
-            sn = n
-            break
-         end
-      end
-   elseif(sType == "userName") then
-      if (mt:exists(name)) then
-         sn      = name
-         name    = name
-      else
-         local n = shorten(name, 1)
-         if (mt:exists(n) )then
-            sn = n
-         end
-      end
+   end
+
+   if (sType == "entryT") then
+      t       = name
+      sn      = t.sn
+      name    = t.userName
+      version = extractVersion(t.fullName, sn)
    else
-      for level = 0, 1 do
-         local n = shorten(name, level)
-         if (mt:exists(n)) then
-            sn      = n
-            version = mt:Version(sn)
-            break
+      name    = (name or ""):gsub("/+$","")  -- remove any trailing '/'
+      if (sType == "load") then
+         for level = 0, 1 do
+            local n = shorten(name, level)
+            if (mt:locationTbl(n)) then
+               sn = n
+               break
+            end
+         end
+      elseif(sType == "userName") then
+         if (mt:exists(name)) then
+            sn      = name
+            name    = name
+         else
+            local n = shorten(name, 1)
+            if (mt:exists(n) )then
+               sn = n
+            end
+         end
+      else
+         for level = 0, 1 do
+            local n = shorten(name, level)
+            if (mt:exists(n)) then
+               sn      = n
+               version = mt:Version(sn)
+               break
+            end
          end
       end
     end

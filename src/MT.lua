@@ -386,6 +386,7 @@ local function new(self, s)
    o._locationTbl     = false
    o._availT          = false
    o._loadT           = {}
+   o._stickyA         = {}
 
    o._changePATH      = false
    o._changePATHCount = 0
@@ -1574,6 +1575,14 @@ function M.list_property(self, idx, sn, style, legendT)
    return resultA
 end
 
+function M.haveProperty(self, sn, propName, propValue)
+   local entry = self.mT[sn]
+   if (entry == nil and entry.propT == nil and entry.propT[propName] ) then
+      return nil
+   end
+   return entry.propT[propName][propValue]
+end
+      
 --------------------------------------------------------------------------
 -- MT:userLoad(): Mark a module as having been loaded by user request.
 --                This is used by MT:reportChanges() to not print. So
@@ -1681,6 +1690,17 @@ function M.serializeTbl(self)
 
    local s = _G.serializeTbl{ indent=false, name=s_mt:name(), value=s_mt}
    return s:gsub("%s+","")
+end
+
+function M.addStickyA(self, sn)
+   local a       = self._stickyA
+   local entry   = self.mT[sn]
+   a[#a+1] = {sn = sn, FN = entry.FN, fullName = entry.fullName,
+              userName = self:userName(sn)}
+end
+
+function M.getStickyA(self)
+   return self._stickyA
 end
 
 return M

@@ -175,6 +175,13 @@ function M.options(self, usage)
       help   = "Report Lmod Configuration",
    }
 
+   cmdlineParser:add_option{
+      name   = {"--force" },
+      dest   = "force",
+      action = "store_true",
+      help   = "force removal of a sticky module",
+   }
+
    local optionTbl, pargs = cmdlineParser:parse(arg)
    local masterTbl        = masterTbl()
    masterTbl.pargs        = pargs
