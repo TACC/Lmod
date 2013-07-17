@@ -126,6 +126,8 @@ sandbox_env = {
   help                 = help,
 
   -- Misc --
+  versionTest          = versionTest,
+  LmodVersion          = LmodVersion,
   LmodError            = LmodError,
   LmodWarning          = LmodWarning,
   LmodMessage          = LmodMessage,
