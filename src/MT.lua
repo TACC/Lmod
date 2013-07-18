@@ -1086,11 +1086,20 @@ function M.list(self, kind, status)
          end
       end
    else
-      for k,v in pairs(mT) do
-         if ((status == "any" or status == v.status) and
-             (v.status ~= "pending")) then
-            icnt  = icnt + 1
-            a[icnt] = { v.loadOrder, v[kind], v[kind]}
+      if (status == "sticky") then
+         for sn, v in pairs(mT) do
+            if (self:haveProperty(sn,"lmod","sticky")) then
+               icnt = icnt + 1
+               a[icnt] = { v.loadOrder, v[kind], v[kind]}
+            end
+         end
+      else
+         for k,v in pairs(mT) do
+            if ((status == "any" or status == v.status) and
+                (v.status ~= "pending")) then
+               icnt  = icnt + 1
+               a[icnt] = { v.loadOrder, v[kind], v[kind]}
+            end
          end
       end
    end

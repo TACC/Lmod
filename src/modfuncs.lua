@@ -421,7 +421,7 @@ function LmodVersion()
    return Version.tag()
 end
 
-function versionTest(s)
+function convertToCanonical(s)
    return concatTbl(parseVersion(s))
 end
 

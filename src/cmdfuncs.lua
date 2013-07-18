@@ -386,6 +386,7 @@ function Purge()
    local mt     = MT:mt()
    local dbg    = Dbg:dbg()
    local totalA  = mt:list("short","any")
+   local stickyA = mt:list("short","sticky")
 
    if (#totalA < 1) then
       return
@@ -399,8 +400,38 @@ function Purge()
 
    MCP:unload(unpack(a))
 
-   -- Make Default Path be the new MODULEPATH
+   local activeA = mt:list("short","active")
+   local activeT = {}
+   for i = 1, #activeA do
+      activeT[activeA[i]] = 1
+   end
 
+   local stuckA   = {}
+   local unstuckA = {}
+   for i = 1, #stickyA do
+      local sn = stickyA[i]
+      if (activeT[sn]) then
+         local j = #stuckA+1
+         stuckA[j] = { "  " .. tostring(j) .. ")", mt:fullName(sn) }
+      else
+         local j = #unstuckA+1
+         unstuckA[j] = { "  " .. tostring(j) .. ")", sn }
+      end
+   end
+
+   if (#stuckA > 0) then
+      io.stderr:write("\nThe following sticky modules were not unloaded (Use --force to unload):\n")
+      local ct = ColumnTable{tbl=stuckA, gap=0}
+      io.stderr:write(ct:build_tbl(),"\n")
+      
+   end
+   if (#stuckA > 0) then
+      io.stderr:write("\nThe following sticky modules were unloaded:\n")
+      local ct = ColumnTable{tbl=unstuckA, gap=0}
+      io.stderr:write(ct:build_tbl(),"\n")
+   end
+   
+   -- Make Default Path be the new MODULEPATH
    mt:buildMpathA(mt:getBaseMPATH())
 
    dbg.fini("Purge")
