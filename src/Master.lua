@@ -650,19 +650,6 @@ function M.reloadAll()
       end
    end
 
-   local force   = masterTbl().force
-   if (not force) then
-      local stickyA = mt:getStickyA()
-      for i = 1, #stickyA do
-         entry       = stickyA[i]
-         local mname = MName:new("entryT",entry)
-         local t     = find_module_file(mname)
-         if (t.fn == entry.FN) then
-            mcp:load(mname:usrName())
-         end
-      end
-   end
-
    mcp = mcp_old
    dbg.print("Resetting mpc to ", mcp:name(),"\n")
    dbg.fini("Master:reloadAll")
@@ -735,8 +722,38 @@ function M.unload(...)
       dbg.print("changePATH: ", mt._changePATHCount, " Zombie state: ",mt:zombieState(),
                 " mStack:empty(): ",mStack:empty(),"\n")
    end
+
    mcp = mcp_old
    dbg.print("Resetting mcp to ", mcp:name(),"\n")
+   
+   -- Try to reload any sticky modules.
+
+   if (mStack:empty() and not masterTbl().force) then
+      local stuckA  = {}
+      local stickyA = mt:getStickyA()
+      for i = 1, #stickyA do
+         local entry = stickyA[i]
+         local mname = MName:new("entryT",entry)
+         local t     = find_module_file(mname)
+         if (t.fn == entry.FN) then
+            MCP:load(mname:usrName())
+         end
+         local sn = mname:sn()
+         if (mt:have(sn,"active")) then
+            local j   = #stuckA+1
+            stuckA[j] = { string.format("%3d)",j) , mt:fullName(sn) }
+         end
+      end
+
+      if (#stuckA > 0) then
+         io.stderr:write("\nThe following sticky modules were not unloaded:\n")
+         io.stderr:write("   (Use \"module --force purge\" to unload):\n\n")
+         local ct = ColumnTable:new{tbl=stuckA, gap=0}
+         io.stderr:write(ct:build_tbl(),"\n")
+      end
+   end
+
+
    dbg.fini("Master:unload")
    return a
 end
