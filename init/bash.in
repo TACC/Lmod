@@ -80,19 +80,12 @@ if [ "$PS1" ]; then
     {
       builtin echo -n -e "\033]2;$1\007"; 
     }
-    screenSetTitleLmod()
-    {
-      builtin echo -n -e "\033_$1\033";
-    }
-    
     SET_TITLE_BAR=:
     
     case $TERM in
       xterm*)
         SET_TITLE_BAR=xSetTitleLmod
         ;;
-      screen)
-        SET_TITLE_BAR=screenSetTitle
     esac
    
     SHOST=${SHOST-${HOSTNAME%%.*}}
