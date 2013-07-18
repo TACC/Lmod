@@ -220,15 +220,19 @@ function M.__columnSum2(self, istart, iend)
       end
    end
 
-   local maxV = 0
-   for idim = 1, dim2 do
-      maxV = maxV + maxA[idim]
+   local maxV  = 0
+   local found = false
+   for idim = dim2, 1, -1 do
+      if (found or maxA[idim] > 0) then
+         found = true
+         maxV  = maxV + self.innerGap
+      end
+      maxV  = maxV + maxA[idim]
    end
-   local sum = maxV + (dim2-1)*self.innerGap
-
+   
    --dbg.print("is: ",istart," ie: ",iend, " maxV: ",maxV, " sum: ",sum)
    --dbg.printA{name = "maxA", a = maxA}
-   return sum, maxA
+   return maxV, maxA
 end
 
 --------------------------------------------------------------------------
@@ -257,16 +261,23 @@ function M.__display2(self,i, icol)
    local sum      = 0
    local len      = 0
 
-   for idim = 1, dim2-1 do
+   local lastCol  = dim2
+   for i = dim2, 1, -1 do
+      if (widthA[i] > 0) then break end
+      lastCol = i - 1
+   end
+
+   for idim = 1, dim2 do
       b[#b+1]    = a[idim]
       local len1 = szA[idim]
       sum        = sum + len1
-      local len2 = widthA[idim] - len1 + innerGap
+      local len2 = widthA[idim] - len1
+      if (idim < lastCol) then
+         len2    = len2 + innerGap
+      end
       b[#b+1]    = blank:rep(len2)
       sum        = sum + len2
    end
-   b[#b+1]       = a[dim2]
-   sum           = sum + szA[dim2]
    b[#b+1]       = blank:rep(width - sum)
    local s       = concatTbl(b,"")
    return s
@@ -338,11 +349,9 @@ function M.__number_of_columns_rows(self,t)
       end
 
       sum = 0
-      for icol = 1,ncols-1 do
-         columnCnt[icol] = columnCnt[icol] + gap
-	 sum             = sum + columnCnt[icol]
+      for icol = 1,ncols do
+	 sum = sum + columnCnt[icol]
       end
-      sum = sum + columnCnt[ncols]
 
       dbg.print("ncols: ",ncols, " sum: ",sum," twidth: ",self.term_width,"\n")
 

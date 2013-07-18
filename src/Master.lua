@@ -652,7 +652,7 @@ function M.reloadAll()
 
    local force   = masterTbl().force
    if (not force) then
-      local stickyA = mt:getStickA()
+      local stickyA = mt:getStickyA()
       for i = 1, #stickyA do
          entry       = stickyA[i]
          local mname = MName:new("entryT",entry)

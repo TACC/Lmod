@@ -348,17 +348,21 @@ RCFileA = {
 }
 
 function readRC()
+   local dbg     = Dbg:dbg()
+   dbg.start("readRC()")
    if (s_readRC) then
       s_readRC = true
       return
    end
-
+   
    declare("propT",       false)
    declare("scDescriptT", false)
    local results = {}
 
+
    for i = 1,#RCFileA do
       local f  = RCFileA[i]
+      dbg.print("readRC: f: ",f,"\n")
       local fh = io.open(f)
       if (fh) then
          assert(loadfile(f))()
@@ -368,6 +372,7 @@ function readRC()
    end
    s_propT       = _G.propT         or {}
    s_scDescriptT = _G.scDescriptT   or {}
+   dbg.fini("readRC")
 end
 
 function getPropT()
