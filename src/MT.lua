@@ -310,6 +310,11 @@ local function build_locationTbl(mpathA)
    local locationT = {}
    local availT    = {}
 
+
+   if (varTbl[ModulePath] == nil or varTbl[ModulePath]:expand() == "") then
+      LmodError("MODULEPATH is undefined\n")
+   end
+
    local fast      = true
    local cache     = _G.Cache:cache()
    local moduleT   = cache:build(fast)
@@ -515,10 +520,6 @@ end
 local function setupMPATH(self,mpath)
    local dbg = Dbg:dbg()
    dbg.start("MT:setupMPATH(self,mpath: \"",mpath,"\")")
-   if (mpath == nil or mpath == "") then
-      LmodError("MODULEPATH is undefined\n")
-   end
-
    self._same = self:sameMPATH(mpath)
    if (not self._same) then
       self:buildMpathA(mpath)
@@ -1576,8 +1577,9 @@ function M.list_property(self, idx, sn, style, legendT)
 end
 
 function M.haveProperty(self, sn, propName, propValue)
+   local dbg   = Dbg:dbg()
    local entry = self.mT[sn]
-   if (entry == nil and entry.propT == nil and entry.propT[propName] ) then
+   if (entry == nil or entry.propT == nil or entry.propT[propName] == nil ) then
       return nil
    end
    return entry.propT[propName][propValue]
