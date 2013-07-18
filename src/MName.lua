@@ -103,8 +103,6 @@ function M.new(self, sType, name)
    local sn      = false
    local version = false
 
-   end
-
    if (sType == "entryT") then
       t       = name
       sn      = t.sn
@@ -140,7 +138,7 @@ function M.new(self, sType, name)
             end
          end
       end
-    end
+   end
 
    if (sn) then
       o._sn      = sn
