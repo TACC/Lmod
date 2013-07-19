@@ -609,7 +609,8 @@ function SaveList(...)
       if (i) then
          name = name:sub(j+2)
       end
-      a[#a+1] = "  " .. k .. ") " .. name
+      local cstr = string.format("%3d) ",k)
+      a[#a+1] = cstr .. name
    end
 
    if (#a > 0) then

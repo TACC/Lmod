@@ -363,7 +363,8 @@ local function columnList(stream, msg, a)
    local t = {}
    sort(a)
    for i = 1, #a do
-      t[#t + 1] = '  ' .. i .. ') ' .. tostring(a[i])
+      local cstr = string.format("%3d) ",i)
+      t[#t + 1] = cstr .. tostring(a[i])
    end
    stream:write(msg)
    local ct = ColumnTable:new{tbl=t}
