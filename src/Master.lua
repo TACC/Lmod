@@ -638,6 +638,8 @@ function M.reloadAll()
          same = not aa[1]
       end
    end
+
+
    for i = 1, #a do
       local v  = a[i]
       local sn = v.sn
@@ -691,6 +693,12 @@ function M.unload(...)
          local mList          = concatTbl(mt:list("both","active"),":")
          local f              = mt:fileName(sn)
          local fullModuleName = mt:fullName(sn)
+         local isSticky       = mt:haveProperty(sn, "lmod", "sticky")
+         if (isSticky) then
+            mt:addStickyA(sn)
+            dbg.print("sn: ", sn, " Sticky: ",isSticky,"\n")
+         end
+
          dbg.print("Master:unload: \"",fullModuleName,"\" from f: ",f,"\n")
          mt:beginOP()
          dbg.print("changePATH: ", mt._changePATHCount, "\n")
@@ -714,8 +722,47 @@ function M.unload(...)
       dbg.print("changePATH: ", mt._changePATHCount, " Zombie state: ",mt:zombieState(),
                 " mStack:empty(): ",mStack:empty(),"\n")
    end
+
    mcp = mcp_old
    dbg.print("Resetting mcp to ", mcp:name(),"\n")
+   
+   -- Try to reload any sticky modules.
+
+   if (mStack:empty() and not masterTbl().force) then
+      local stuckA   = {}
+      local unstuckA = {}
+      local stickyA  = mt:getStickyA()
+      for i = 1, #stickyA do
+         local entry = stickyA[i]
+         local mname = MName:new("entryT",entry)
+         local t     = find_module_file(mname)
+         if (t.fn == entry.FN) then
+            MCP:load(mname:usrName())
+         end
+         local sn = mname:sn()
+         if (mt:have(sn,"active")) then
+            local j   = #stuckA+1
+            stuckA[j] = { string.format("%3d)",j) , mt:fullName(sn) }
+         else
+            local j   = #unstuckA+1
+            unstuckA[j] = { string.format("%3d)",j) , mname:usrName() }
+         end
+      end
+
+      if (#stuckA > 0) then
+         io.stderr:write("\nThe following sticky modules were not unloaded:\n")
+         io.stderr:write("   (Use \"module --force purge\" to unload):\n\n")
+         local ct = ColumnTable:new{tbl=stuckA, gap=0}
+         io.stderr:write(ct:build_tbl(),"\n")
+      end
+      if (#unstuckA > 0) then
+         io.stderr:write("\nThe following sticky modules could not be reloaded:\n")
+         local ct = ColumnTable:new{tbl=unstuckA, gap=0}
+         io.stderr:write(ct:build_tbl(),"\n")
+      end
+   end
+
+
    dbg.fini("Master:unload")
    return a
 end

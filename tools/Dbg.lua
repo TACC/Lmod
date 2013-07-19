@@ -307,7 +307,7 @@ function M.PrintA(t)
    io.stderr:write(t.name)
 
    for i = 1,#a do
-      io.stderr:write(" ",a[i])
+      io.stderr:write(" \"",a[i],"\"")
    end
    io.stderr:write("\n")
 end

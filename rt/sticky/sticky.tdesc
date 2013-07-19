@@ -1,14 +1,15 @@
 -- -*- lua -*-
+local testName="sticky"
 testdescript = {
    owner   = "rtm",
    product = "modules",
    description = [[
 	 Test initial module load
    ]],
-   keywords = {"pushenv" },
+   keywords = {testName },
 
    active = 1,
-   testName = "pushenv",
+   testName = testName,
    job_submit_method = "INTERACTIVE",
 
    runScript = [[
@@ -28,19 +29,21 @@ testdescript = {
 
      rm -fr _stderr.* _stdout.* err.* out.* .lmod.d
 
-     runMe lua $(projectDir)/src/lmod.in.lua bash --version        # 1
-     runMe lua $(projectDir)/src/lmod.in.lua bash load intel       # 2
-     runMe lua $(projectDir)/src/lmod.in.lua bash load mpich       # 3
-     runMe lua $(projectDir)/src/lmod.in.lua bash unload mpich     # 4
-     runMe lua $(projectDir)/src/lmod.in.lua bash unload intel     # 5
-     runMe lua $(projectDir)/src/lmod.in.lua bash load intel mpich # 6
-     runMe lua $(projectDir)/src/lmod.in.lua bash unload intel     # 7
-     runMe lua $(projectDir)/src/lmod.in.lua bash load intel       # 8
-     runMe lua $(projectDir)/src/lmod.in.lua bash load settarg     # 9
-     runMe lua $(projectDir)/src/lmod.in.lua bash unload settarg   #10
-
-     runMe lua $(projectDir)/src/lmod.in.lua bash save             #11
-     runMe lua $(projectDir)/src/lmod.in.lua bash restore          #12
+     runMe lua $(projectDir)/src/lmod.in.lua bash --version          # 1
+     runMe lua $(projectDir)/src/lmod.in.lua bash load std           # 2
+     runMe lua $(projectDir)/src/lmod.in.lua bash list               # 3
+     runMe lua $(projectDir)/src/lmod.in.lua bash unload std         # 4
+     runMe lua $(projectDir)/src/lmod.in.lua bash list               # 5
+     runMe lua $(projectDir)/src/lmod.in.lua bash load gcc boost     # 6
+     runMe lua $(projectDir)/src/lmod.in.lua bash list               # 7
+     runMe lua $(projectDir)/src/lmod.in.lua bash purge              # 8
+     runMe lua $(projectDir)/src/lmod.in.lua bash --force purge      # 9
+     runMe lua $(projectDir)/src/lmod.in.lua bash list               #10
+     runMe lua $(projectDir)/src/lmod.in.lua bash load std           #11
+     runMe lua $(projectDir)/src/lmod.in.lua bash rm std             #12
+     runMe lua $(projectDir)/src/lmod.in.lua bash list               #13
+     runMe lua $(projectDir)/src/lmod.in.lua bash --force rm std     #14
+     runMe lua $(projectDir)/src/lmod.in.lua bash list               #15
 
      HOME_ORIG=$HOME
 

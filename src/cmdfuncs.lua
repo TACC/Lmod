@@ -386,6 +386,7 @@ function Purge()
    local mt     = MT:mt()
    local dbg    = Dbg:dbg()
    local totalA  = mt:list("short","any")
+   local stickyA = mt:list("short","sticky")
 
    if (#totalA < 1) then
       return
@@ -398,9 +399,8 @@ function Purge()
    dbg.start("Purge(",concatTbl(a,", "),")")
 
    MCP:unload(unpack(a))
-
+   
    -- Make Default Path be the new MODULEPATH
-
    mt:buildMpathA(mt:getBaseMPATH())
 
    dbg.fini("Purge")
@@ -609,7 +609,8 @@ function SaveList(...)
       if (i) then
          name = name:sub(j+2)
       end
-      a[#a+1] = "  " .. k .. ") " .. name
+      local cstr = string.format("%3d) ",k)
+      a[#a+1] = cstr .. name
    end
 
    if (#a > 0) then

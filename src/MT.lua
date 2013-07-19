@@ -310,6 +310,11 @@ local function build_locationTbl(mpathA)
    local locationT = {}
    local availT    = {}
 
+
+   if (varTbl[ModulePath] == nil or varTbl[ModulePath]:expand() == "") then
+      LmodError("MODULEPATH is undefined\n")
+   end
+
    local fast      = true
    local cache     = _G.Cache:cache()
    local moduleT   = cache:build(fast)
@@ -358,7 +363,8 @@ local function columnList(stream, msg, a)
    local t = {}
    sort(a)
    for i = 1, #a do
-      t[#t + 1] = '  ' .. i .. ') ' .. tostring(a[i])
+      local cstr = string.format("%3d) ",i)
+      t[#t + 1] = cstr .. tostring(a[i])
    end
    stream:write(msg)
    local ct = ColumnTable:new{tbl=t}
@@ -386,6 +392,7 @@ local function new(self, s)
    o._locationTbl     = false
    o._availT          = false
    o._loadT           = {}
+   o._stickyA         = {}
 
    o._changePATH      = false
    o._changePATHCount = 0
@@ -1080,11 +1087,20 @@ function M.list(self, kind, status)
          end
       end
    else
-      for k,v in pairs(mT) do
-         if ((status == "any" or status == v.status) and
-             (v.status ~= "pending")) then
-            icnt  = icnt + 1
-            a[icnt] = { v.loadOrder, v[kind], v[kind]}
+      if (status == "sticky") then
+         for sn, v in pairs(mT) do
+            if (self:haveProperty(sn,"lmod","sticky")) then
+               icnt = icnt + 1
+               a[icnt] = { v.loadOrder, v[kind], v[kind]}
+            end
+         end
+      else
+         for k,v in pairs(mT) do
+            if ((status == "any" or status == v.status) and
+                (v.status ~= "pending")) then
+               icnt  = icnt + 1
+               a[icnt] = { v.loadOrder, v[kind], v[kind]}
+            end
          end
       end
    end
@@ -1561,15 +1577,26 @@ function M.list_property(self, idx, sn, style, legendT)
                 ". This should not happen!\n")
    end
 
-   local resultA      = colorizePropA(style, entry.fullName, entry.propT, legendT)
+   local resultA = colorizePropA(style, entry.fullName, entry.propT, legendT)
 
-   table.insert(resultA, 1, "  "  .. tostring(idx) ..")")
+   local cstr    = string.format("%3d)",idx)     
+
+   table.insert(resultA, 1, cstr)
 
    local tLen = resultA[1]:len() + resultA[2]:len() + tostring(resultA[3]):len()
    --dbg.fini("MT:list_property")
    return resultA
 end
 
+function M.haveProperty(self, sn, propName, propValue)
+   local dbg   = Dbg:dbg()
+   local entry = self.mT[sn]
+   if (entry == nil or entry.propT == nil or entry.propT[propName] == nil ) then
+      return nil
+   end
+   return entry.propT[propName][propValue]
+end
+      
 --------------------------------------------------------------------------
 -- MT:userLoad(): Mark a module as having been loaded by user request.
 --                This is used by MT:reportChanges() to not print. So
@@ -1677,6 +1704,17 @@ function M.serializeTbl(self)
 
    local s = _G.serializeTbl{ indent=false, name=s_mt:name(), value=s_mt}
    return s:gsub("%s+","")
+end
+
+function M.addStickyA(self, sn)
+   local a       = self._stickyA
+   local entry   = self.mT[sn]
+   a[#a+1] = {sn = sn, FN = entry.FN, fullName = entry.fullName,
+              userName = self:userName(sn)}
+end
+
+function M.getStickyA(self)
+   return self._stickyA
 end
 
 return M

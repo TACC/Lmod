@@ -1,0 +1,11 @@
+===========================
+step 1
+lua ProjectDIR/src/lmod.in.lua bash --version
+===========================
+Modules based on Lua: Version 5.1.0 (5.1.0-22-g0a3a5fa) 2013-07-10 22:01
+    by Robert McLay mclay@tacc.utexas.edu
+===========================
+step 2
+lua ProjectDIR/src/lmod.in.lua bash load a
+===========================
+Lmod Error: MODULEPATH is undefined

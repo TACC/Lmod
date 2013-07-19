@@ -140,7 +140,7 @@ end
 
 
 function colorizePropA(style, moduleName, propT, legendT)
-   local resultA
+   local resultA      = { moduleName }
    local propDisplayT = getPropT()
    local iprop        = 0
    propT              = propT or {}
@@ -166,20 +166,10 @@ function colorizePropA(style, moduleName, propT, legendT)
             legendT[k] = vv.displayT[n].doc
          end
       end
-      if (iprop == 1) then
-         --resultA = { colorize(color,moduleName), colorize(color,result)}
-         resultA = { moduleName, colorize(color,result)}
-      else
-         resultA[#resultA+1] = colorize(color,result)
-      end
+      local s             = colorize(color,result)
+      resultA[#resultA+1] = s
    end
-
-   if (iprop == 0) then
-      resultA = { moduleName }
-   end
-
    return resultA
-
 end
 
 
@@ -526,7 +516,6 @@ function main()
    }
 
    local dbg  = Dbg:dbg()
-   readRC()
    MCP = MasterControl.build("load")
    mcp = MasterControl.build("load")
 
@@ -577,6 +566,7 @@ function main()
    dbg.print("Lmod Version: ",Version.name(),"\n")
    dbg.print("package.path: ",package.path,"\n")
    set_duplication()     -- Chose how to handle duplicate entries in a path.
+   readRC()
 
 
    ------------------------------------------------------------------------

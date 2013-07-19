@@ -1,0 +1,198 @@
+===========================
+step 1
+lua ProjectDIR/src/lmod.in.lua bash --version
+===========================
+===========================
+step 2
+lua ProjectDIR/src/lmod.in.lua bash load std
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
+export MODULEPATH;
+A="Sticky";
+export A;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/sticky/mf/Core",},family={},inactive={},mT={std={["FN"]="ProjectDIR/rt/sticky/mf/Core/std/1.0.lua",["default"]=1,["fullName"]="std/1.0",["loadOrder"]=1,["mType"]="w",propT={arch={["mic"]=1,},lmod={["sticky"]=1,},},["short"]="std",["status"]="active",},},mpathA={"ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",["version"]=2,}';
+export _ModuleTable_;
+===========================
+step 3
+lua ProjectDIR/src/lmod.in.lua bash list
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
+export MODULEPATH;
+===========================
+step 4
+lua ProjectDIR/src/lmod.in.lua bash unload std
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
+export MODULEPATH;
+A="Sticky";
+export A;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
+export MODULEPATH;
+===========================
+step 5
+lua ProjectDIR/src/lmod.in.lua bash list
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
+export MODULEPATH;
+===========================
+step 6
+lua ProjectDIR/src/lmod.in.lua bash load gcc boost
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/sticky/mf/Compiler/gcc/4.6:ProjectDIR/rt/sticky/mf/Core";
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/sticky/mf/Core",},family={},inactive={},mT={boost={["FN"]="ProjectDIR/rt/sticky/mf/Compiler/gcc/4.6/boost/1.53.0.lua",["default"]=1,["fullName"]="boost/1.53.0",["loadOrder"]=3,["mType"]="w",propT={lmod={["sticky"]=1,},},["short"]="boost",["status"]="active",},gcc={["FN"]="ProjectDIR/rt/sticky/mf/Core/gcc/4.6.lua",["default"]=1,["fullName"]="gcc/4.6",["loadOrder"]=2,["mType"]="w",propT={},["short"]="gcc",["status"]="active",},std={["FN"]="ProjectDIR/rt/sticky/mf/Core/std/1.0.lua",["default"]=1,["fullName"]="std/1.0",["loadOrder"]=1,["mType"]="w",propT={arch={["mic"]=1,},lmod={["sticky"]=1,},},["short"]="std",["status"]="active",},},mpathA={"ProjectDIR/rt/sticky/mf/Compiler/gcc/4.6","ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",["version"]=2,}';
+export _ModuleTable_;
+===========================
+step 7
+lua ProjectDIR/src/lmod.in.lua bash list
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/sticky/mf/Compiler/gcc/4.6:ProjectDIR/rt/sticky/mf/Core";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/sticky/mf/Compiler/gcc/4.6:ProjectDIR/rt/sticky/mf/Core";
+export MODULEPATH;
+===========================
+step 8
+lua ProjectDIR/src/lmod.in.lua bash purge
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/sticky/mf/Compiler/gcc/4.6:ProjectDIR/rt/sticky/mf/Core";
+export MODULEPATH;
+A="Sticky";
+export A;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/sticky/mf/Core",},family={},inactive={},mT={std={["FN"]="ProjectDIR/rt/sticky/mf/Core/std/1.0.lua",["default"]=1,["fullName"]="std/1.0",["loadOrder"]=1,["mType"]="w",propT={arch={["mic"]=1,},lmod={["sticky"]=1,},},["short"]="std",["status"]="active",},},mpathA={"ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",["version"]=2,}';
+export _ModuleTable_;
+===========================
+step 9
+lua ProjectDIR/src/lmod.in.lua bash --force purge
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
+export MODULEPATH;
+unset A;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/sticky/mf/Core",},family={},inactive={},mT={},mpathA={"ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",["version"]=2,}';
+export _ModuleTable_;
+===========================
+step 10
+lua ProjectDIR/src/lmod.in.lua bash list
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
+export MODULEPATH;
+false
+===========================
+step 11
+lua ProjectDIR/src/lmod.in.lua bash load std
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
+export MODULEPATH;
+A="Sticky";
+export A;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/sticky/mf/Core",},family={},inactive={},mT={std={["FN"]="ProjectDIR/rt/sticky/mf/Core/std/1.0.lua",["default"]=1,["fullName"]="std/1.0",["loadOrder"]=1,["mType"]="w",propT={arch={["mic"]=1,},lmod={["sticky"]=1,},},["short"]="std",["status"]="active",},},mpathA={"ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",["version"]=2,}';
+export _ModuleTable_;
+===========================
+step 12
+lua ProjectDIR/src/lmod.in.lua bash rm std
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
+export MODULEPATH;
+A="Sticky";
+export A;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
+export MODULEPATH;
+===========================
+step 13
+lua ProjectDIR/src/lmod.in.lua bash list
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
+export MODULEPATH;
+===========================
+step 14
+lua ProjectDIR/src/lmod.in.lua bash --force rm std
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
+export MODULEPATH;
+unset A;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/sticky/mf/Core",},family={},inactive={},mT={},mpathA={"ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",["version"]=2,}';
+export _ModuleTable_;
+===========================
+step 15
+lua ProjectDIR/src/lmod.in.lua bash list
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
+export MODULEPATH;
+false

@@ -37,6 +37,7 @@ if ( $?prompt && $?tcsh && "$LMOD_SETTARG_SUPPORT" != no ) then
 
    switch ($TERM)
       case "xterm*":
+         set echo_style=both
          alias precmd 'echo -n "\033]2;${TARG_TITLE_BAR_PAREN}${HOST}:$cwd\007"'
          breaksw
       endsw

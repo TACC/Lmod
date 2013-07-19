@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.0.1 (5.0.1-49-g5096f24) 2013-06-18 14:14
+Modules based on Lua: Version 5.1.0 (5.1.0-22-g0a3a5fa) 2013-07-10 22:01
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -17,8 +17,8 @@ step 4
 lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
 Currently Loaded Modules:
-  1) PrgEnv        3) a/1.0      5) c/1.0 (o)
-  2) mkl/10.3 (*)  4) b/1.0 (m)  6) d/1.0 (@)
+  1) PrgEnv         3) a/1.0       5) c/1.0 (o)
+  2) mkl/10.3 (*)   4) b/1.0 (m)   6) d/1.0 (@)
   Where:
    (*):  built for host, native MIC and offload to the MIC
    (@):  built natively for MIC and GPU and offload to the MIC
