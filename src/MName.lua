@@ -104,7 +104,7 @@ function M.new(self, sType, name)
    local version = false
 
    if (sType == "entryT") then
-      t       = name
+      local t = name
       sn      = t.sn
       name    = t.userName
       version = extractVersion(t.fullName, sn)
