@@ -1,0 +1,42 @@
+#!/bin/bash
+# -*- shell-script -*-
+
+
+########################################################################
+# Wrapper for rpm command.
+
+
+########################################################################
+# Generate time stamp file:
+
+writeTS()
+{
+  local nodeType=$1
+  local fn=$2
+  local hostName=$(hostname -f)
+  local dateStr=$(date)
+  local epoch=$(date +%s)
+
+  echo "nodeType   = $nodeType" >  $fn
+  echo "hostName   = $hostName" >> $fn
+  echo "lastUpdate = $dateStr"  >> $fn
+  echo "timeEpoch  = $epoch"    >> $fn
+}
+
+########################################################################
+#  Make directores and file be world readable
+umask 022
+
+
+########################################################################
+#  Look for rpm options that will change the installed files.
+
+arg=$1
+case $arg in
+  -U*|-i*|-e*|--install|--upgrade|--erase)
+    writeTS build /tmp/losf_last_update ;;
+esac
+
+exec /bin/rpm "$@"
+
+

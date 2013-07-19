@@ -90,7 +90,7 @@ for i in /opt/apps/lmod/lmod/libexec             \
 done
 
 RmapDir="/tmp/moduleData/reverseMapD"
-CacheDir="/tmp/moduleData/cacheDir"
+CacheDir="/tmp/moduleData/cacheDir" 
 cacheFile="$CacheDir/moduleT.lua"
 timeStamp="/tmp/losf_last_update"
 
