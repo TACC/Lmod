@@ -729,8 +729,9 @@ function M.unload(...)
    -- Try to reload any sticky modules.
 
    if (mStack:empty() and not masterTbl().force) then
-      local stuckA  = {}
-      local stickyA = mt:getStickyA()
+      local stuckA   = {}
+      local unstuckA = {}
+      local stickyA  = mt:getStickyA()
       for i = 1, #stickyA do
          local entry = stickyA[i]
          local mname = MName:new("entryT",entry)
@@ -742,6 +743,9 @@ function M.unload(...)
          if (mt:have(sn,"active")) then
             local j   = #stuckA+1
             stuckA[j] = { string.format("%3d)",j) , mt:fullName(sn) }
+         else
+            local j   = #unstuckA+1
+            unstuckA[j] = { string.format("%3d)",j) , mname:usrName() }
          end
       end
 
@@ -749,6 +753,11 @@ function M.unload(...)
          io.stderr:write("\nThe following sticky modules were not unloaded:\n")
          io.stderr:write("   (Use \"module --force purge\" to unload):\n\n")
          local ct = ColumnTable:new{tbl=stuckA, gap=0}
+         io.stderr:write(ct:build_tbl(),"\n")
+      end
+      if (#unstuckA > 0) then
+         io.stderr:write("\nThe following sticky modules could not be reloaded:\n")
+         local ct = ColumnTable:new{tbl=unstuckA, gap=0}
          io.stderr:write(ct:build_tbl(),"\n")
       end
    end

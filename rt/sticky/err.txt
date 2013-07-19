@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.1.0 (5.1.0-27-g963c9c0) 2013-07-10 22:01
+Modules based on Lua: Version 5.1.0 (5.1.0-31-g295c1f3) 2013-07-10 22:01
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -24,3 +24,43 @@ lua ProjectDIR/src/lmod.in.lua bash unload std
 The following sticky modules were not unloaded:
    (Use "module --force purge" to unload):
   1) std/1.0
+===========================
+step 5
+lua ProjectDIR/src/lmod.in.lua bash list
+===========================
+Currently Loaded Modules:
+  1) std/1.0 (m) (S)
+  Where:
+   (S):  Module is Sticky, requires --force to unload or purge
+   (m):  built for host and native MIC
+===========================
+step 6
+lua ProjectDIR/src/lmod.in.lua bash load gcc boost
+===========================
+===========================
+step 7
+lua ProjectDIR/src/lmod.in.lua bash list
+===========================
+Currently Loaded Modules:
+  1) std/1.0 (m) (S)   2) gcc/4.6   3) boost/1.53.0  (S)
+  Where:
+   (S):  Module is Sticky, requires --force to unload or purge
+   (m):  built for host and native MIC
+===========================
+step 8
+lua ProjectDIR/src/lmod.in.lua bash purge
+===========================
+The following sticky modules were not unloaded:
+   (Use "module --force purge" to unload):
+  1) std/1.0
+The following sticky modules could not be reloaded:
+  1) boost
+===========================
+step 9
+lua ProjectDIR/src/lmod.in.lua bash --force purge
+===========================
+===========================
+step 10
+lua ProjectDIR/src/lmod.in.lua bash list
+===========================
+Lmod Warning: No modules installed
