@@ -1576,9 +1576,11 @@ function M.list_property(self, idx, sn, style, legendT)
                 ". This should not happen!\n")
    end
 
-   local resultA      = colorizePropA(style, entry.fullName, entry.propT, legendT)
+   local resultA = colorizePropA(style, entry.fullName, entry.propT, legendT)
 
-   table.insert(resultA, 1, "  "  .. tostring(idx) ..")")
+   local cstr    = string.format("%3d)",idx)     
+
+   table.insert(resultA, 1, cstr)
 
    local tLen = resultA[1]:len() + resultA[2]:len() + tostring(resultA[3]):len()
    --dbg.fini("MT:list_property")
