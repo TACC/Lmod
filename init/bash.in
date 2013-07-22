@@ -50,6 +50,17 @@ module()
   [ $? = 0 ] && eval $(${LMOD_SETTARG_CMD:-:} -s sh)
 }
 
+if [ "${LMOD_SETTARG_CMD:-:}" != ":" ]; then
+  settarg () {
+    eval $(${LMOD_SETTARG_CMD:-:} -s sh "$@" )
+  }
+  alias cdt="cd $TARG"
+fi 
+  
+
+
+
+
 ########################################################################
 #  ml is a shorthand tool for people who can't type moduel, err, module
 #  It is also a combination command:
