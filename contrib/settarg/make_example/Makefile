@@ -11,11 +11,22 @@ ifneq ($(TARG),)
   override O_DIR := $(TARG)/
 endif
 
+ifeq ($(TARG_BUILD_SCENARIO),dbg)
+  CF := -g -O0
+endif
+
+ifeq ($(TARG_BUILD_SCENARIO),opt)
+  CF := -O3
+endif
+
+
+
 
 DEPENDENCY_FLAG   := -MM
 EXEC 		  := $(O_DIR)hello
 SRC  		  := main.c hello.c
 OBJS 		  := $(patsubst %.c, $(O_DIR)%.o, $(SRC))
+override CFLAGS   := $(CFLAGS) $(CF)
 
 all: $(O_DIR)
 	$(MAKE) _all
