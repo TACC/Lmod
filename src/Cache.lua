@@ -403,7 +403,7 @@ function M.build(self, fast)
          end
          mt:setRebuildTime(ancient, newShortTime)
          dbg.print("mt: ", tostring(mt), "\n")
-         doneMsg = "(Fast not written) done."
+         doneMsg = "(not written to file) done"
       else
          mkdir_recursive(self.usrCacheDir)
          local s0 = "-- Date: " .. os.date("%c",os.time()) .. "\n"

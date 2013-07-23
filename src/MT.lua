@@ -836,10 +836,6 @@ function M.resolveMpathChanges(self, currentMPATH, baseMPATH)
       
       dbg.print("currentMPATH: ",currentMPATH,"\n")
       dbg.print("MPATH:        ",concatTbl(self.mpathA,":"),"\n")
-
-
-      LmodMessage("Lmod has detected external MODULEPATH changes, " ..
-                  "Please use \"module use\" instead.")
    end
    dbg.fini("MT:resolveMpathChanges")
 end
