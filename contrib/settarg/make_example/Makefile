@@ -1,3 +1,5 @@
+########################################################################
+#  Use TARG_COMPILER_FAMILY to set the C compiler name
 
 ifeq ($(TARG_COMPILER_FAMILY),gcc)
    CC := gcc
@@ -7,9 +9,19 @@ ifeq ($(TARG_COMPILER_FAMILY),intel)
    CC := icc
 endif
 
+
+########################################################################
+#  Use O_DIR as equal to $(TARG)/ so that if TARG is empty then O_DIR
+#  will be empty.  But if $(TARG) as a value then O_DIR will have a
+#  trailing slash.
+
 ifneq ($(TARG),)
   override O_DIR := $(TARG)/
 endif
+
+########################################################################
+#  Use TARG_BUILD_SCENARIO to set the compiler options for either
+#  debug or optimize.
 
 ifeq ($(TARG_BUILD_SCENARIO),dbg)
   CF := -g -O0
