@@ -5316,26 +5316,26 @@ function M.bad_remove_property(526,16139
 local function msg(534,16439
 function LmodErrorExit(546,16752
 function LmodSystemError(551,16826
-function M.error(561,17048
-function M.warning(565,17105
-function M.message(577,17377
-function M.prereq(589,17654
-function M.conflict(625,18743
+function M.error(561,17052
+function M.warning(565,17109
+function M.message(577,17381
+function M.prereq(589,17658
+function M.conflict(625,18745
 function M.prereq_any(664,19786
-function M.family(700,20725
-function M.myShellName(728,21772
-function M.myFileName(733,21873
-function M.myModuleFullName(738,21978
-function M.myModuleUsrName(743,22089
-function M.myModuleName(748,22198
-function M.myModuleVersion(753,22299
-function M.unset_family(758,22408
-function M.inherit(768,22670
-function M.is_spider(776,22865
-function M._setMode(783,23022
-function M.mode(790,23199
-function M.execute(798,23386
-function M.quiet(812,23740
+function M.family(700,20723
+function M.myShellName(728,21770
+function M.myFileName(733,21871
+function M.myModuleFullName(738,21976
+function M.myModuleUsrName(743,22087
+function M.myModuleName(748,22196
+function M.myModuleVersion(753,22297
+function M.unset_family(758,22406
+function M.inherit(768,22668
+function M.is_spider(776,22863
+function M._setMode(783,23020
+function M.mode(790,23197
+function M.execute(798,23384
+function M.quiet(812,23738
 
 src/ModuleStack.lua,369
 local function new(67,2801
@@ -6950,8 +6950,6 @@ mf/Beta/gotoblas/1.30-beta.lua,0
 init/perl.in,0
 
 init/.lmodrc.lua,0
-
-doc/xsede13/bof.org,0
 
 doc/LmodArchecture.tex,0
 
