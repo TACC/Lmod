@@ -50,7 +50,7 @@ Version 5.2
 step 5
 lua ProjectDIR/src/lmod.in.lua bash load vasp
 ===========================
-Lmod Error: You do not access to VASP.5.2!
+Lmod has detected the following error: You do not access to VASP.5.2!
 Users have to show their licenses and be confirmed by
 VASP team that they are registered users under that licenses
 Scan a copy the license and send to hliu@tacc.utexas.edu

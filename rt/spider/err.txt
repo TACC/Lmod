@@ -78,7 +78,7 @@ Unable to find: "mpich2me"
 step 8
 lua ProjectDIR/src/lmod.in.lua bash spider mpich2/1.0.5
 ===========================
-Lmod Error: Unable to find: "mpich2/1.0.5"
+Lmod has detected the following error: Unable to find: "mpich2/1.0.5"
 ===========================
 step 9
 lua ProjectDIR/src/lmod.in.lua bash spider

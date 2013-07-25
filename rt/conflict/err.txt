@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.1.0 (5.1.0-2-g1d01229) 2013-07-10 22:01
+Modules based on Lua: Version 5.1.0 (5.1.0-42-g1a03d68) 2013-07-10 22:01
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -12,7 +12,7 @@ lua ProjectDIR/src/lmod.in.lua bash load a b
 step 3
 lua ProjectDIR/src/lmod.in.lua bash load c
 ===========================
-Lmod Error: Can not load: "c" module because these modules are loaded:
+Lmod has detected the following error: Cannot load module "c" because these modules are loaded:
   b
 ===========================
 step 4
@@ -24,7 +24,7 @@ Currently Loaded Modules:
 step 5
 lua ProjectDIR/src/lmod.in.lua bash swap a c
 ===========================
-Lmod Error: Can not load: "c" module because these modules are loaded:
+Lmod has detected the following error: Cannot load module "c" because these modules are loaded:
   b
 ===========================
 step 6

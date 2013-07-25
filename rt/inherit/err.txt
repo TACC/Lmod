@@ -26,4 +26,4 @@ lua ProjectDIR/src/lmod.in.lua bash unload junk
 step 6
 lua ProjectDIR/src/lmod.in.lua bash load junk2
 ===========================
-Lmod Error: Failed to inherit: junk2/1.0
+Lmod has detected the following error: Failed to inherit: junk2/1.0

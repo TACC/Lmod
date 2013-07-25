@@ -12,7 +12,7 @@ lua ProjectDIR/src/lmod.in.lua bash load petsc
 step 3
 lua ProjectDIR/src/lmod.in.lua bash load slepc/3.0.0
 ===========================
-Lmod Error: Can not load: "slepc/3.0.0" module without these modules loaded:
+Lmod has detected the following error: Cannot load module "slepc/3.0.0" without these modules loaded:
   petsc/3.0.0
 ===========================
 step 4
@@ -26,7 +26,7 @@ lua ProjectDIR/src/lmod.in.lua bash unload petsc
 step 6
 lua ProjectDIR/src/lmod.in.lua bash load slepc
 ===========================
-Lmod Error: Can not load: "slepc/3.1.0" module without these modules loaded:
+Lmod has detected the following error: Cannot load module "slepc/3.1.0" without these modules loaded:
   petsc/3.1.0
 ===========================
 step 7
@@ -36,7 +36,7 @@ lua ProjectDIR/src/lmod.in.lua bash load petsc/2.9.0
 step 8
 lua ProjectDIR/src/lmod.in.lua bash load slepc
 ===========================
-Lmod Error: Can not load: "slepc/3.1.0" module without these modules loaded:
+Lmod has detected the following error: Cannot load module "slepc/3.1.0" without these modules loaded:
   petsc/3.1.0
 ===========================
 step 9
@@ -68,7 +68,7 @@ lua ProjectDIR/src/lmod.in.lua bash load slepc/2.9.0
 step 15
 lua ProjectDIR/src/lmod.in.lua bash load junk/1.0
 ===========================
-Lmod Error: Can not load: "junk/1.0" module.  At least one of these modules must be loaded:
+Lmod has detected the following error: Cannot load module "junk/1.0".  At least one of these modules must be loaded:
   java, jdk64, jdk32
 ===========================
 step 16

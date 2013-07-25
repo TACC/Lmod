@@ -549,7 +549,7 @@ function LmodErrorExit()
 end
 
 function LmodSystemError(...)
-   io.stderr:write("\n", colorize("red", "Lmod Error: "))
+   io.stderr:write("\n", colorize("red", "Lmod has detected the following error: "))
    for _,v in ipairs{...} do
       io.stderr:write(v)
    end
@@ -616,7 +616,7 @@ function M.prereq(self, ...)
    dbg.print("number found: ",#a,"\n")
    if (#a > 0) then
       local s = concatTbl(a," ")
-      LmodError("Can not load: \"",mFull,"\" module without these modules loaded:\n  ",
+      LmodError("Cannot load module \"",mFull,"\" without these modules loaded:\n  ",
             s,"\n")
    end
    dbg.fini("MasterControl:prereq")
@@ -655,7 +655,7 @@ function M.conflict(self, ...)
    end
    if (#a > 0) then
       local s = concatTbl(a," ")
-      LmodError("Can not load: \"",mFull,"\" module because these modules are loaded:\n  ",
+      LmodError("Cannot load module \"",mFull,"\" because these modules are loaded:\n  ",
             s,"\n")
    end
    dbg.fini("MasterControl:conflict")
@@ -689,7 +689,7 @@ function M.prereq_any(self, ...)
 
    if (not found) then
       local s = concatTbl(a," ")
-      LmodError("Can not load: \"",mFull,"\" module.  At least one of these modules must be loaded:\n  ",
+      LmodError("Cannot load module \"",mFull,"\".  At least one of these modules must be loaded:\n  ",
             concatTbl({...},", "),"\n")
    end
    dbg.fini("MasterControl:prereq_any")
