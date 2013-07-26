@@ -110,7 +110,10 @@ function M.setPkgInfo(self)
    dbg.fini("PkgBase:setPkgInfo")
 end
 
-local stdT = { DIR = "", BIN = "bin", LIB = "lib", INC = "include",DOC="doc"}
+local stdT = { DIR = "", BIN = "bin", LIB = "lib",
+               INC = "include", DOC="doc"
+               MAN = "man",
+}
 
 
 function M.setStandardPaths(self, ...)
@@ -136,6 +139,12 @@ function M.setStandardPaths(self, ...)
       if (v == "BIN") then
          prepend_path("PATH", path)
       end
+
+      if (v == "MAN") then
+         prepend_path("MANPATH", path)
+      end
+
+
    end
    dbg.fini("PkgBase:setStandardPaths")
 end
