@@ -111,7 +111,7 @@ function M.setPkgInfo(self)
 end
 
 local stdT = { DIR = "", BIN = "bin", LIB = "lib",
-               INC = "include", DOC="doc"
+               INC = "include", DOC="doc",
                MAN = "man",
 }
 
