@@ -289,10 +289,11 @@ function M.findModulesInDir(mpath, path, prefix, moduleT)
    local mt              = MT:mt()
    local mnameT          = {}
    local dirA            = {}
-
+   local ignoreT         = ignoreFileT()
 
    for file in lfs.dir(path) do
-      if (file:sub(1,1) ~= "." and file ~= "CVS" and file:sub(-1,-1) ~= "~") then
+      if (not ignoreT[file] and file:sub(-1,-1) ~= "~" and
+          file:sub(1,8) ~= ".version" ) then
          local f        = pathJoin(path,file)
          local readable = posix.access(f,"r")
          local full     = pathJoin(prefix, file):gsub("%.lua","")
@@ -314,7 +315,7 @@ function M.findModulesInDir(mpath, path, prefix, moduleT)
          elseif (readable and attr.mode == 'file' and file ~= "default") then
             dbg.print("mnameT[",full,"].file: ",f,"\n")
             mnameT[full] = {file=f, mpath = mpath}
-         elseif (attr.mode == "directory") then
+         elseif (attr.mode == "directory" and file:sub(1,1) ~= ".") then
             dbg.print("dirA: f:", f,"\n")
             dirA[#dirA + 1] = { fn = f, mname = full }
          end
@@ -536,11 +537,15 @@ function M.Level0(dbT)
       local t  = {}
       for kk, vv in pairs(dbT) do
          for k, v in pairs(vv) do
-            t[v.name] = true
-            t[v.full] = true
+            local version = extractVersion(v.full, v.name)
+            if ((version or ""):sub(1,1) ~= ".") then
+               t[v.name] = true
+               t[v.full] = true
+            end
          end
       end
       for k in pairsByKeys(t) do
+         
          a[#a+1] = k
       end
       dbg.fini("Spider:Level0")
@@ -566,13 +571,16 @@ function M.Level0Helper(dbT,a)
    local t          = {}
    local term_width = TermWidth() - 4
 
-   for k,v in pairs(dbT) do
-      for kk,vv in pairsByKeys(v) do
-         if (t[k] == nil) then
-            t[k] = { Description = vv.Description, Versions = { }, name = vv.name}
-            t[k].Versions[vv.full] = 1
-         else
-            t[k].Versions[vv.full] = 1
+   for kk,vv in pairs(dbT) do
+      for k,v in pairsByKeys(vv) do
+         local version = extractVersion(v.full, v.name)
+         if ((version or ""):sub(1,1) ~= ".") then
+            if (t[kk] == nil) then
+               t[kk] = { Description = v.Description, Versions = { }, name = v.name}
+               t[kk].Versions[v.full] = 1
+            else
+               t[kk].Versions[v.full] = 1
+            end
          end
       end
    end
@@ -619,17 +627,20 @@ local function countEntries(t, searchName)
    local full    = false
    local searchL = (searchName or ""):lower()
    for k,v in pairs(t) do
-      count = count + 1
-      if (not full) then
-         full = v.full
-      end
-      if (v.name_lower == searchL) then
-         nameCnt = nameCnt + 1
-         full  = v.full
-      end
-      if (v.full_lower == searchL) then
-         fullCnt = fullCnt + 1
-         full  = v.full
+      local version = extractVersion(v.full, v.name) or ""
+      if (version:sub(1,1) ~= ".") then
+         count = count + 1
+         if (not full) then
+            full = v.full
+         end
+         if (v.name_lower == searchL) then
+            nameCnt = nameCnt + 1
+            full  = v.full
+         end
+         if (v.full_lower == searchL) then
+            fullCnt = fullCnt + 1
+            full  = v.full
+         end
       end
    end
    return count, nameCnt, fullCnt, full
@@ -695,10 +706,13 @@ function M._Level1(key, T, searchName, help)
    end
 
    local cnt, nameCnt, fullCnt, full = countEntries(T, searchName)
-   dbg.print("Number of entries: ",cnt ," name count: ",nameCnt, " full count: ",fullCnt,
-             " full: ", full, "\n")
+   dbg.print("Number of entries: ",cnt ," name count: ",nameCnt,
+             " full count: ",fullCnt, " full: ", full, "\n")
 
-   if (key:len() < searchName:len() and fullCnt == 0) then
+   dbg.print("key: \"",key,"\" searchName: \"",searchName,"\"\n")
+
+   if ((key:len() < searchName:len() and fullCnt == 0 ) or
+       (cnt == 0 and fullCnt == 0)) then
       LmodSystemError("Unable to find: \"",searchName,"\"")
       dbg.fini("Spider:_Level1")
       return ""
@@ -718,13 +732,16 @@ function M._Level1(key, T, searchName, help)
    local key = nil
    local Description = nil
    for k, v in pairsByKeys(T) do
-      if (VersionT[k] == nil) then
-         key              = v.name
-         Description      = v.Description
-         VersionT[v.full] = 1
-         exampleV         = v.full
-      else
-         VersionT[v.full] = 1
+      local version = extractVersion(v.full, v.name) or ""
+      if (version:sub(1,1) ~= ".") then
+         if (VersionT[k] == nil) then
+            key              = v.name
+            Description      = v.Description
+            VersionT[v.full] = 1
+            exampleV         = v.full
+         else
+            VersionT[v.full] = 1
+         end
       end
    end
 

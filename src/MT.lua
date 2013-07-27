@@ -45,8 +45,6 @@ local DfltModPath  = DfltModPath
 local ModulePath   = ModulePath
 local concatTbl    = table.concat
 local getenv       = os.getenv
-local ignoreT      = { ['.'] =1, ['..'] = 1, CVS=1, ['.git'] = 1, ['.svn']=1,
-                       ['.hg']= 1, ['.bzr'] = 1,}
 local max          = math.max
 local sort         = table.sort
 local systemG      = _G
@@ -101,7 +99,7 @@ s_mtA = {}
 
 local function locationTblDir(mpath, path, prefix, locationT, availT)
    local dbg  = Dbg:dbg()
-   --dbg.start("locationTblDir(",mpath,",",path,",",prefix,")")
+   dbg.start("locationTblDir(",mpath,",",path,",",prefix,")")
    local attr = lfs.attributes(path)
    if (not attr or type(attr) ~= "table" or attr.mode ~= "directory"
        or not posix.access(path,"x")) then
@@ -114,9 +112,10 @@ local function locationTblDir(mpath, path, prefix, locationT, availT)
    -----------------------------------------------------------------------------
    -- Read every relevant file in a directory.  Copy directory names into dirA.
    -- Copy files into mnameT.
+   local ignoreT = ignoreFileT()
 
    for file in lfs.dir(path) do
-      if (file:sub(1,1) ~= "." and file ~= "CVS" and file:sub(-1,-1) ~= "~") then
+      if (not ignoreT[file] and file:sub(-1,-1) ~= "~" and file:sub(1,8) ~= ".version") then
          local f = pathJoin(path,file)
          attr    = lfs.attributes(f) or {}
          local readable = posix.access(f,"r")
@@ -125,14 +124,14 @@ local function locationTblDir(mpath, path, prefix, locationT, availT)
          elseif (attr.mode == 'file' and file ~= "default") then
             local mname = pathJoin(prefix, file):gsub("%.lua","")
             mnameT[mname] = {file=f, mpath = mpath}
-         elseif (attr.mode == "directory") then
+         elseif (attr.mode == "directory" and file:sub(1,1) ~= ".") then
             dirA[#dirA + 1] = { fullName = f, mname = pathJoin(prefix, file) }
          end
       end
    end
 
 
-   --dbg.print("#dirA: ",#dirA,"\n")
+   dbg.print("#dirA: ",#dirA,"\n")
 
    if (#dirA > 0 or prefix == '') then
       --------------------------------------------------------------------------
@@ -176,10 +175,10 @@ local function locationTblDir(mpath, path, prefix, locationT, availT)
       for i = 1, #vA do
          a[i] = {version = vA[i][2], file = vA[i][3]}
       end
-      --dbg.print("Adding ",prefix," to availT, #a: ",#a,"\n")
+      dbg.print("Adding ",prefix," to availT, #a: ",#a,"\n")
       availT[prefix] = a
    end
-   --dbg.fini("locationTblDir")
+   dbg.fini("locationTblDir")
 end
 
 --------------------------------------------------------------------------

@@ -891,6 +891,14 @@ local function availEntry(defaultOnly, terse, szA, searchA, sn, name,
       return
    end
 
+   local mname   = MName:new("load", name)
+   local version = mname:version() or ""
+   if (version:sub(1,1) == ".") then
+      dbg.print("Not printing a dot modulefile\n")
+      dbg.fini("Master:availEntry")
+      return
+   end
+
    if (terse) then
       a[#a+1] = name
    else
@@ -902,7 +910,6 @@ local function availEntry(defaultOnly, terse, szA, searchA, sn, name,
       dbg.print("dflt: ",dflt,"\n")
       local aa    = {}
       local propT = {}
-      local mname = MName:new("load", name)
       local sn    = mname:sn()
       local entry = dbT[sn]
       if (entry) then

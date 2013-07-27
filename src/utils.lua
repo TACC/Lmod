@@ -133,6 +133,26 @@ function extractVersion(full, sn)
    return version
 end
 
+
+s_ignoreT = {
+   ['.']         = true,
+   ['..']        = true,
+   ['CVS']       = true,
+   ['.DS_Store'] = true,
+   ['.git']      = true,
+   ['.svn']      = true,
+   ['.hg']       = true,
+   ['.bzr']      = true,   
+}
+
+
+function ignoreFileT()
+   local fileT = s_ignoreT
+   return fileT
+end
+
+
+
 --------------------------------------------------------------------------
 -- getMT(): Ask the environment for the _ModuleTable_ value.
 --          It is uuencoded and broken into pieces so that the

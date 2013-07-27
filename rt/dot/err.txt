@@ -1,0 +1,93 @@
+===========================
+step 1
+lua ProjectDIR/src/lmod.in.lua bash --version
+===========================
+Modules based on Lua: Version 5.1.0 (5.1.0-47-g50004bb) 2013-07-10 22:01
+    by Robert McLay mclay@tacc.utexas.edu
+===========================
+step 2
+lua ProjectDIR/src/lmod.in.lua bash spider
+===========================
+The following is a list of the modules currently available:
+  b: b/1.0
+To learn more about a package enter:
+   $ module spider Foo
+where "Foo" is the name of a module
+To find detailed information about a particular package you
+must enter the version if there is more than one version:
+   $ module spider Foo/11.1
+===========================
+step 3
+lua ProjectDIR/src/lmod.in.lua bash avail
+===========================
+ProjectDIR/rt/dot/mf
+   b/1.0
+Use "module spider" to find all possible modules.
+Use "module keyword key1 key2 ..." to search for all possible modules matching
+any of the "keys".
+===========================
+step 4
+lua ProjectDIR/src/lmod.in.lua bash load a/.1.0
+===========================
+===========================
+step 5
+lua ProjectDIR/src/lmod.in.lua bash list
+===========================
+Currently Loaded Modules:
+  1) a/.1.0
+===========================
+step 6
+lua ProjectDIR/src/lmod.in.lua bash purge
+===========================
+===========================
+step 7
+lua ProjectDIR/src/lmod.in.lua bash spider
+===========================
+The following is a list of the modules currently available:
+  b: b/1.0
+To learn more about a package enter:
+   $ module spider Foo
+where "Foo" is the name of a module
+To find detailed information about a particular package you
+must enter the version if there is more than one version:
+   $ module spider Foo/11.1
+===========================
+step 8
+lua ProjectDIR/src/lmod.in.lua bash spider b
+===========================
+  b: b/1.0
+    This module can be loaded directly: module load b/1.0
+===========================
+step 9
+lua ProjectDIR/src/lmod.in.lua bash spider b/.2.0
+===========================
+Lmod has detected the following error: Unable to find: "b/.2.0"
+===========================
+step 10
+lua ProjectDIR/src/lmod.in.lua bash spider a
+===========================
+Lmod has detected the following error: Unable to find: "a"
+===========================
+step 11
+lua ProjectDIR/src/lmod.in.lua bash spider a/.1.0
+===========================
+Lmod has detected the following error: Unable to find: "a/.1.0"
+===========================
+step 12
+lua ProjectDIR/src/lmod.in.lua bash avail
+===========================
+ProjectDIR/rt/dot/mf
+   b/1.0
+Use "module spider" to find all possible modules.
+Use "module keyword key1 key2 ..." to search for all possible modules matching
+any of the "keys".
+===========================
+step 13
+lua ProjectDIR/src/lmod.in.lua bash load a/.1.0 b/.2.0
+===========================
+===========================
+step 14
+lua ProjectDIR/src/lmod.in.lua bash list
+===========================
+Currently Loaded Modules:
+  1) a/.1.0   2) b/.2.0

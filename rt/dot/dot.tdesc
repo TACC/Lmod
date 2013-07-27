@@ -1,0 +1,72 @@
+-- -*- lua -*-
+
+local testName = "dot"
+testdescript = {
+   owner   = "rtm",
+   product = "modules",
+   description = [[
+	 Test initial module load
+   ]],
+   keywords = {testName },
+
+   active = 1,
+   testName = testName,
+   job_submit_method = "INTERACTIVE",
+
+   runScript = [[
+
+     . $(projectDir)/rt/common_funcs.sh
+
+     unsetMT
+     initStdEnvVars
+     MODULEPATH=$(testDir)/mf;  export MODULEPATH
+     numStep=0
+     COUNT=0
+     ORIG_HOME=`(cd $HOME; /bin/pwd)`
+     HOME=`/bin/pwd`
+
+     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d
+     cp $(projectDir)/init/.lmodrc.lua .
+     mkdir -p .lmod.d/.cache
+
+     runMe lua /Users/mclay/w/lmod/src/lmod.in.lua bash --version             # 1
+     runMe lua /Users/mclay/w/lmod/src/lmod.in.lua bash spider                # 2
+     runMe lua /Users/mclay/w/lmod/src/lmod.in.lua bash avail                 # 3
+     runMe lua /Users/mclay/w/lmod/src/lmod.in.lua bash load a/.1.0           # 4
+     runMe lua /Users/mclay/w/lmod/src/lmod.in.lua bash list                  # 5
+     runMe lua /Users/mclay/w/lmod/src/lmod.in.lua bash purge                 # 6
+     lua /Users/mclay/w/lmod/src/spider.in.lua -o moduleT $LMOD_DEFAULT_MODULEPATH > $HOME/.lmod.d/.cache/moduleT.lua
+     runMe lua /Users/mclay/w/lmod/src/lmod.in.lua bash spider                # 7
+     runMe lua /Users/mclay/w/lmod/src/lmod.in.lua bash spider b              # 8
+     runMe lua /Users/mclay/w/lmod/src/lmod.in.lua bash spider b/.2.0         # 9
+     runMe lua /Users/mclay/w/lmod/src/lmod.in.lua bash spider a              #10
+     runMe lua /Users/mclay/w/lmod/src/lmod.in.lua bash spider a/.1.0         #11
+     runMe lua /Users/mclay/w/lmod/src/lmod.in.lua bash avail                 #12
+     runMe lua /Users/mclay/w/lmod/src/lmod.in.lua bash load a/.1.0 b/.2.0    #13
+     runMe lua /Users/mclay/w/lmod/src/lmod.in.lua bash list                  #14
+
+
+     HOME=$ORIG_HOME
+     cat _stdout.[0-9][0-9] > _stdout.orig
+     joinBase64Results  -bash  _stdout.orig _stdout.new
+     cleanUp _stdout.new out.txt
+
+     cat _stderr.[0-9][0-9] > _stderr.orig
+     cleanUp _stderr.orig err.txt
+
+     rm -f $(cmdResultFn)
+     wrapperDiff -r $(cmdResultFn) $(testDir)/out.txt out.txt
+     wrapperDiff -r $(cmdResultFn) $(testDir)/err.txt err.txt
+     testFinish -c $(cmdResultFn) -r $(resultFn) -t $(runtimeFn)
+   ]],
+
+
+   blessScript = [[
+         # perform what is needed
+   ]],
+
+   tests = {
+      { id='t1'},
+   },
+
+}
