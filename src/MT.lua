@@ -99,7 +99,7 @@ s_mtA = {}
 
 local function locationTblDir(mpath, path, prefix, locationT, availT)
    local dbg  = Dbg:dbg()
-   dbg.start("locationTblDir(",mpath,",",path,",",prefix,")")
+   --dbg.start("locationTblDir(",mpath,",",path,",",prefix,")")
    local attr = lfs.attributes(path)
    if (not attr or type(attr) ~= "table" or attr.mode ~= "directory"
        or not posix.access(path,"x")) then
@@ -131,7 +131,7 @@ local function locationTblDir(mpath, path, prefix, locationT, availT)
    end
 
 
-   dbg.print("#dirA: ",#dirA,"\n")
+   --dbg.print("#dirA: ",#dirA,"\n")
 
    if (#dirA > 0 or prefix == '') then
       --------------------------------------------------------------------------
@@ -175,10 +175,10 @@ local function locationTblDir(mpath, path, prefix, locationT, availT)
       for i = 1, #vA do
          a[i] = {version = vA[i][2], file = vA[i][3]}
       end
-      dbg.print("Adding ",prefix," to availT, #a: ",#a,"\n")
+      --dbg.print("Adding ",prefix," to availT, #a: ",#a,"\n")
       availT[prefix] = a
    end
-   dbg.fini("locationTblDir")
+   --dbg.fini("locationTblDir")
 end
 
 --------------------------------------------------------------------------
@@ -1454,19 +1454,26 @@ function M.reportKeys(self)
 end
 
 
-function M.setInheritFn(self,sn,fn)
-   local dbg  = Dbg:dbg()
-   local mT   = self.mT
-   if (mT[sn].fnI ~= nil) then
-      LmodError("You can only inherit once\n")
-   end
-   mT[sn].fnI = fn
+function M.pushInheritFn(self,sn,fn)
+   local dbg   = Dbg:dbg()
+   local mT    = self.mT
+   local fnI   = mT[sn].fnI or {}
+   fnI[#fnI+1] = fn
+   mT[sn].fnI  = fnI
 end
 
-function M.getInheritFn(self,sn)
+function M.popInheritFn(self,sn)
    local dbg  = Dbg:dbg()
    local mT   = self.mT
-   return mT[sn].fnI
+   local fn   = nil
+   local fnI  = mT[sn].fnI
+   if (fnI and #fnI > 0) then
+      fn = table.remove(fnI)
+      if (#fnI == 0) then
+         mT[sn].fnI = nil
+      end
+   end
+   return fn
 end
 
 function M.remove(self, sn)

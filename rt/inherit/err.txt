@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.1.1 (5.1.1) 2013-07-27 00:30
+Modules based on Lua: Version 5.1.1 (5.1.1-1-g7c3863f) 2013-07-27 00:30
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -12,12 +12,12 @@ lua ProjectDIR/src/lmod.in.lua bash use -a ProjectDIR/rt/inherit/mf/Linux Projec
 step 3
 lua ProjectDIR/src/lmod.in.lua bash load junk
 ===========================
-Lmod has detected the following error: You can only inherit once
 ===========================
 step 4
 lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
-Lmod Warning: No modules installed
+Currently Loaded Modules:
+  1) junk/1.0
 ===========================
 step 5
 lua ProjectDIR/src/lmod.in.lua bash unload junk

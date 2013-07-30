@@ -467,8 +467,11 @@ function M.inheritModule()
    dbg.print("mFull: ", mFull,"\n")
 
    local fnI     
+   
    if (mode() == "unload") then
-      fnI = mt:getInheritFn(sn)
+      dbg.print("here before pop\n")
+      fnI = mt:popInheritFn(sn)
+      dbg.print("fnI: ",fnI,"\n")
    else
       local t = find_inherit_module(mFull,myFn)
       fnI = t.fn
@@ -486,7 +489,7 @@ function M.inheritModule()
    end
 
    if (mode() == "load") then
-      mt:setInheritFn(sn,fnI)
+      mt:pushInheritFn(sn,fnI)
    end
 
    dbg.fini("Master:inherit")
