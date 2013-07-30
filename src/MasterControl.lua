@@ -246,9 +246,9 @@ LMOD_MP_T[DfltModPath] = true
 
 
 function M.prepend_path(self, name, value, sep, nodups)
-   local mStack = ModuleStack:moduleStack()
    local dbg    = Dbg:dbg()
    dbg.start("MasterControl:prepend_path(\"",name,"\", \"",value,"\",\"",sep,"\")")
+   local mStack = ModuleStack:moduleStack()
    sep          = sep or ":"
 
    if (varTbl[name] == nil) then
@@ -795,9 +795,17 @@ function M.mode(self)
    return self._mode
 end
 
+--------------------------------------------------------------------------
+-- MasterControl:execute() - place a string that will be executed when
+--                           the output from Lmod eval'ed.  Note this command
+--                           makes the module a worker-bee module and not a
+--                           manager module.
+
 function M.execute(self, ...)
    local dbg    = Dbg:dbg()
    dbg.start("MasterControl:execute(...)")
+   local mStack = ModuleStack:moduleStack()
+   mStack:setting()
    local exec = Exec:exec()
    exec:register(...)
    dbg.fini("MasterControl:execute")
