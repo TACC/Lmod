@@ -1454,6 +1454,21 @@ function M.reportKeys(self)
 end
 
 
+function M.setInheritFn(self,sn,fn)
+   local dbg  = Dbg:dbg()
+   local mT   = self.mT
+   if (mT[sn].fnI ~= nil) then
+      LmodError("You can only inherit once\n")
+   end
+   mT[sn].fnI = fn
+end
+
+function M.getInheritFn(self,sn)
+   local dbg  = Dbg:dbg()
+   local mT   = self.mT
+   return mT[sn].fnI
+end
+
 function M.remove(self, sn)
    local dbg = Dbg:dbg()
    local mT  = self.mT

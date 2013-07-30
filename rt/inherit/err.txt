@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.0.1 (5.0.1-48-g540fa7d) 2013-06-18 14:14
+Modules based on Lua: Version 5.1.1 (5.1.1) 2013-07-27 00:30
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -12,12 +12,12 @@ lua ProjectDIR/src/lmod.in.lua bash use -a ProjectDIR/rt/inherit/mf/Linux Projec
 step 3
 lua ProjectDIR/src/lmod.in.lua bash load junk
 ===========================
+Lmod has detected the following error: You can only inherit once
 ===========================
 step 4
 lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
-Currently Loaded Modules:
-  1) junk/1.0
+Lmod Warning: No modules installed
 ===========================
 step 5
 lua ProjectDIR/src/lmod.in.lua bash unload junk
@@ -27,3 +27,47 @@ step 6
 lua ProjectDIR/src/lmod.in.lua bash load junk2
 ===========================
 Lmod has detected the following error: Failed to inherit: junk2/1.0
+===========================
+step 7
+lua ProjectDIR/src/lmod.in.lua bash use ProjectDIR/rt/inherit/pmf/core
+===========================
+===========================
+step 8
+lua ProjectDIR/src/lmod.in.lua bash load intel
+===========================
+===========================
+step 9
+lua ProjectDIR/src/lmod.in.lua bash load mpich
+===========================
+===========================
+step 10
+lua ProjectDIR/src/lmod.in.lua bash load p4est
+===========================
+===========================
+step 11
+lua ProjectDIR/src/lmod.in.lua bash list
+===========================
+Currently Loaded Modules:
+  1) intel/13.1.3   2) mpich/3.0.4   3) p4est/1.0
+===========================
+step 12
+lua ProjectDIR/src/lmod.in.lua bash swap mpich openmpi
+===========================
+Due to MODULEPATH changes the following have been reloaded:
+  1) p4est/1.0
+===========================
+step 13
+lua ProjectDIR/src/lmod.in.lua bash swap intel gcc
+===========================
+Due to MODULEPATH changes the following have been reloaded:
+  1) openmpi/1.6.5  2) p4est/1.0
+===========================
+step 14
+lua ProjectDIR/src/lmod.in.lua bash list
+===========================
+Currently Loaded Modules:
+  1) gcc/4.7.3   2) openmpi/1.6.5   3) p4est/1.0
+===========================
+step 15
+lua ProjectDIR/src/lmod.in.lua bash purge
+===========================

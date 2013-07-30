@@ -24,12 +24,24 @@ testdescript = {
 
      rm -fr _stderr.* _stdout.* err.* out.* .lmod.d
 
-     runMe lua $(projectDir)/src/lmod.in.lua bash --version              # 1
+     runMe lua $(projectDir)/src/lmod.in.lua bash --version                    # 1
      runMe lua $(projectDir)/src/lmod.in.lua bash use -a $(testDir)/mf/Linux $(testDir)/mf/Core $(testDir)/mf/Core2
-     runMe lua $(projectDir)/src/lmod.in.lua bash load   junk            # 3
-     runMe lua $(projectDir)/src/lmod.in.lua bash list                   # 4
-     runMe lua $(projectDir)/src/lmod.in.lua bash unload junk            # 5
-     runMe lua $(projectDir)/src/lmod.in.lua bash load junk2             # 6
+     runMe lua $(projectDir)/src/lmod.in.lua bash load   junk                  # 3
+     runMe lua $(projectDir)/src/lmod.in.lua bash list                         # 4
+     runMe lua $(projectDir)/src/lmod.in.lua bash unload junk                  # 5
+     runMe lua $(projectDir)/src/lmod.in.lua bash load junk2                   # 6   
+     runMe lua $(projectDir)/src/lmod.in.lua bash use $(testDir)/pmf/core      # 7
+     runMe lua $(projectDir)/src/lmod.in.lua bash load intel                   # 8
+     runMe lua $(projectDir)/src/lmod.in.lua bash load mpich                   # 9
+     runMe lua $(projectDir)/src/lmod.in.lua bash load p4est                   #10
+     runMe lua $(projectDir)/src/lmod.in.lua bash list                         #11
+     runMe lua $(projectDir)/src/lmod.in.lua bash swap mpich openmpi           #12
+     runMe lua $(projectDir)/src/lmod.in.lua bash swap intel gcc               #13
+     runMe lua $(projectDir)/src/lmod.in.lua bash list                         #14
+     runMe lua $(projectDir)/src/lmod.in.lua bash purge                        #15
+
+
+     
 
      cat _stdout.[0-9][0-9] > _stdout.orig
      joinBase64Results  -bash  _stdout.orig _stdout.new

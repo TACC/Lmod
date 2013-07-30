@@ -460,24 +460,35 @@ function M.inheritModule()
    local mStack  = ModuleStack:moduleStack()
    local myFn    = mStack:fileName()
    local myUsrN  = mStack:usrName()
-   local mySn    = mStack:sn()
+   local sn      = mStack:sn()
    local mFull   = mStack:fullName()
 
    dbg.print("myFn:  ", myFn,"\n")
    dbg.print("mFull: ", mFull,"\n")
 
+   local fnI     
+   if (mode() == "unload") then
+      fnI = mt:getInheritFn(sn)
+   else
+      local t = find_inherit_module(mFull,myFn)
+      fnI = t.fn
+   end
 
-   local t = find_inherit_module(mFull,myFn)
-   dbg.print("fn: ", t.fn,"\n")
-   if (t.fn == nil) then
+   dbg.print("fn: ", fnI,"\n")
+   if (fnI == nil) then
       LmodError("Failed to inherit: ",mFull,"\n")
    else
       local mList = concatTbl(mt:list("both","active"),":")
-      mStack:push(mFull, myUsrN, mySn, t.fn)
-      loadModuleFile{file=t.fn,mList = mList, shell=shellN,
+      mStack:push(mFull, myUsrN, sn, fnI)
+      loadModuleFile{file=fnI,mList = mList, shell=shellN,
                      reportErr=true}
       mStack:pop()
    end
+
+   if (mode() == "load") then
+      mt:setInheritFn(sn,fnI)
+   end
+
    dbg.fini("Master:inherit")
 end
 
