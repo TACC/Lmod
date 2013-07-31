@@ -508,6 +508,7 @@ function M.add_property(self, name, value)
    local mFull   = mStack:fullName()
    local mt      = MT:mt()
    local mname   = MName:new("load",mFull)
+   mStack:setting()
    mt:add_property(mname:sn(), name, value)
    dbg.fini("MasterControl:add_property")
 end
@@ -519,6 +520,7 @@ function M.remove_property(self, name, value)
    local mFull   = mStack:fullName()
    local mt      = MT:mt()
    local mname   = MName:new("mt",mFull)
+   mStack:setting()
    mt:remove_property(mname:sn(), name, value)
    dbg.fini("MasterControl:remove_property")
 end
@@ -594,6 +596,7 @@ function M.prereq(self, ...)
    local mFull     = mStack:fullName()
    local masterTbl = masterTbl()
 
+   mStack:setting()
    dbg.start("MasterControl:prereq(",concatTbl({...},", "),")")
 
    if (masterTbl.checkSyntax) then
@@ -632,6 +635,7 @@ function M.conflict(self, ...)
    local mStack    = ModuleStack:moduleStack()
    local mFull     = mStack:fullName()
    local masterTbl = masterTbl()
+   mStack:setting()
 
    if (masterTbl.checkSyntax) then
       dbg.print("Ignoring conflicts when syntax checking\n")
@@ -668,6 +672,7 @@ function M.prereq_any(self, ...)
    local mStack    = ModuleStack:moduleStack()
    local mFull     = mStack:fullName()
    local masterTbl = masterTbl()
+   mStack:setting()
 
    dbg.start("MasterControl:prereq_any(",concatTbl({...},", "),")")
 
@@ -705,6 +710,7 @@ function M.family(self, name)
    local mname     = MName:new("mt",mFull)
    local sn        = mname:sn()
    local masterTbl = masterTbl()
+   mStack:setting()
 
    dbg.start("MasterControl:family(",name,")")
    if (masterTbl.checkSyntax) then
@@ -768,7 +774,10 @@ end
 function M.inherit(self)
    local dbg    = Dbg:dbg()
    local master = Master:master()
+   local mStack = ModuleStack:moduleStack()
+   mStack:setting()
    dbg.start("MasterControl:inherit()")
+
    master.inheritModule()
    dbg.fini("MasterControl:inherit")
 end
