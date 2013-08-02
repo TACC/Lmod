@@ -32,52 +32,74 @@
 --
 --------------------------------------------------------------------------
 
+--------------------------------------------------------------------------
+-- STT:  This class manages the Settarg Table.  This table records the
+--       state of the settarg variables.
+
+
 require("strict")
+require("serializeTbl")
+require("utils")
 
-require("fileOps")
+_SettargTable_ = ""
 
-local getenv = os.getenv
-local posix  = require("posix")
 
-function findFileInTree(fn)
-   local cwd = posix.getcwd()
-   local wd  = cwd
+local M         = {}
+local Dbg       = require("Dbg")
+local concatTbl = table.concat
+local dbg       = Dbg:dbg()
+local load      = (_VERSION == "Lua 5.1") and loadstring or load
 
-   while (wd ~= "/" and not posix.access(fn,"r")) do
-      posix.chdir("..")
-      wd = posix.getcwd()
-   end
+s_stt = false
 
-   posix.chdir(cwd)
-   if (wd == "/") then
-      return nil
-   else
-      return pathJoin(wd,fn)
-   end
+local function stt_version()
+   return 1
 end
 
-function STError(...)
+local function new(self, s)
+   dbg.start("STT:new(s)")
+   local o   = {}
 
    
+   if (not s) then
+      local targT = {}
+      targT.build_scenario_state = "empty"
+      targT.extraA               = {}
+      o.targT                    = targT
+      o.version                  = stt_version()
+   else
+      assert(load(s))()
+      local _SettargTable_ = _G._SettargTable_
+      for k, v in pairs(_SettargTable_) do
+         o[k] = v
+      end
+
+      if (o.version ~= stt_version()) then
 
 
+
+   end
+
+   setmetatable(o, self)
+   self.__index  = self
+   dbg.fini("STT:new")
+   return o
+end
+
+function M.stt(self)
+   if (not s_stt) then
+      dbg.start("STT:stt()")
+      s_stt = new(self, getSTT())
+      dbg.fini("STT:stt")
+   end
+   return s_stt
 end
 
 
-function getSTT()
-   local a    = {}
-   local sz = getenv("_SettargTable_Sz_") or huge
-   local s    = nil
-
-   for i = 1, sz do
-      local name = format("_SettargTable%03d_",i)
-      local v    = getenv(name)
-      if (v == nil) then break end
-      a[#a+1]    = v
-   end
-   if (#a > 0) then
-      s = decode64(concatTbl(a,""))
-   end
-   return s
+function M.serializeTbl(self)
+   local s = serializeTbl{indent = false, name = "_SettargTable_", value = self}
+   return s:gsub("%s+","")
 end
 
+
+return M

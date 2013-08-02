@@ -370,6 +370,9 @@ local function columnList(stream, msg, a)
    stream:write(ct:build_tbl(),"\n")
 end
 
+local function mt_version()
+   return 2
+end
 
 ------------------------------------------------------------------------
 -- MT:new(): local ctor for MT.  It uses [[s]] to be the initial value.
@@ -382,7 +385,7 @@ local function new(self, s)
    o.c_rebuildTime    = false
    o.c_shortTime      = false
    o.mT               = {}
-   o.version          = 2
+   o.version          = mt_version()
    o.family           = {}
    o.mpathA           = {}
    o.baseMpathA       = {}
