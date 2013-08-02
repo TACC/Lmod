@@ -37,13 +37,18 @@ require("strict")
 require("inherits")
 
 local M            = {}
-
+local Dbg          = require("Dbg")
+local STT          = require("STT")         
 local base64       = require("base64")
 local concatTbl    = table.concat
+local dbg          = Dbg:dbg()
 local decode64     = base64.decode64
+local encode64     = base64.encode64
+local floor        = math.floor
 local format       = string.format
 local getenv       = os.getenv
 local huge         = math.huge
+local min          = math.min
 
 ------------------------------------------------------------------------
 --module ('BaseShell')
@@ -91,9 +96,59 @@ function M.build(shell_name)
    shellTbl["tcsh"] = Csh
    shellTbl.bare    = Bare
 
-
    local o     = valid_shell(shellTbl, shell_name):create()
    return o
 end
+
+function M.expand(self, tbl)
+   for k, v in pairsByKeys(tbl) do
+      if (k == "_SettargTable_") then
+         self:expandSTT(v)
+      else
+         self:expandVar(k,v)
+      end
+   end
+end
+
+function M.expandSTT(self, vstr)
+   dbg.start("BaseShell:expandSTT(vstr)")
+   local vv      = encode64(vstr)
+   local a       = {}
+   local vlen    = vv:len()
+   local blksize = 512
+   local nblks   = floor((vlen - 1)/blksize) + 1
+   local name
+   local alen
+
+   for i = 1, vlen, blksize do
+      alen    = min(i+blksize-1,vlen)
+      a[#a+1] = vv:sub(i,alen)
+   end
+   for i = 1, #a do
+      name = format("_SettargTable%03d_",i)
+      self:expandVar(name, a[i])
+   end
+   self:expandVar("_SettargTable_Sz_",tostring(#a))
+
+   for i = nblks+1, huge do
+      name    = format("_SettargTable%03d_",i)
+      local v = getenv(name)
+      if (v == nil) then break end
+      self:unset(name)
+   end
+
+   if (dbg.active()) then
+      local stt    = STT:stt()
+      local blank  = " "
+      local indent = blank:rep(dbg.indentLevel()*2)
+      local s      = serializeTbl{indent=true, name="_SettargTable_",
+                             value=stt}
+      for line in s:split("\n") do
+         io.stderr:write(indent,line,"\n")
+      end
+   end
+
+   dbg.fini("BaseShell:expandSTT")
+end   
 
 return M

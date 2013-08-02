@@ -39,25 +39,27 @@ Bash              = inheritsFrom(BaseShell)
 Bash.my_name      = 'bash'
 local systemG     = _G
 
-function Bash.expand(self, tbl)
+function Bash.expandVar(self, k, v)
 
-   for k in pairsByKeys(tbl) do
-      local v     = tbl[k]
-      local lineA = {}
-      if (v == '' or not v) then
-         io.stdout:write("unset '",k,"';\n")
-      else
-         lineA[#lineA + 1] = k
-         lineA[#lineA + 1] = "='"
-         lineA[#lineA + 1] = v
-         lineA[#lineA + 1] = "';\n"
-         lineA[#lineA + 1] = "export "
-         lineA[#lineA + 1] = k
-         lineA[#lineA + 1] = ";\n"
-         local line = concat(lineA,"")
-         io.stdout:write(line)
-      end
+   local lineA = {}
+   if (v == '' or not v) then
+      io.stdout:write("unset '",k,"';\n")
+   else
+      lineA[#lineA + 1] = k
+      lineA[#lineA + 1] = "='"
+      lineA[#lineA + 1] = v
+      lineA[#lineA + 1] = "';\n"
+      lineA[#lineA + 1] = "export "
+      lineA[#lineA + 1] = k
+      lineA[#lineA + 1] = ";\n"
+      local line = concat(lineA,"")
+      io.stdout:write(line)
    end
+end
+
+function Bash.unset(self, k)
+   local dbg = Dbg:dbg()
+   io.stdout:write("unset ",k,";\n")
 end
 
 return Bash

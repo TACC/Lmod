@@ -41,6 +41,7 @@ require("utils")
 require("ProcessModuleTable")
 
 local Dbg         = require("Dbg")
+local STT         = require("STT")
 local posix       = require("posix")
 local base64      = require("base64")
 local concatTbl   = table.concat
@@ -51,6 +52,7 @@ local load        = (_VERSION == "Lua 5.1") and loadstring or load
 local masterTbl   = masterTbl
 local systemG     = _G
 local ModuleTable = "_ModuleTable_"
+local dbg         = Dbg:dbg()
 
 local M          = {}
 
@@ -68,7 +70,6 @@ function M.default_MACH()
 end
 
 function M.default_OS()
-   local dbg = Dbg:dbg()
    dbg.start("BuildTarget:default_OS()")
    local name = getUname().osName
    dbg.print("name: ",name,"\n")
@@ -106,18 +107,17 @@ end
 
 
 function M.default_BUILD_SCENARIO(tbl)
-   local dbg       = Dbg:dbg()
    dbg.start("BuildTarget:default_BUILD_SCENARIO()")
-   local masterTbl = masterTbl()
+   local masterTbl        = masterTbl()
    local BuildScenarioTbl = masterTbl.BuildScenarioTbl
-
+   local stt              = STT:stt() 
+   
    -------------------------------------------------------
    -- First look to see if there is TARG_BUILD_SCENARIO_STATE
-   local v = getenv("TARG_BUILD_SCENARIO_STATE")
-   if (v) then
+   local v = stt:getBuildScenarioState()
+   if (v ~= "unknown") then
       dbg.print("STATE: ",v,"\n")
       dbg.fini("BuildTarget:default_BUILD_SCENARIO")
-      tbl.TARG_BUILD_SCENARIO_STATE = v
       return v
    end
    
@@ -132,7 +132,7 @@ function M.default_BUILD_SCENARIO(tbl)
       if (v) then
          dbg.print("hostname: ", hostname," v: ",v,"\n")
          dbg.fini("BuildTarget:default_BUILD_SCENARIO")
-         tbl.TARG_BUILD_SCENARIO_STATE = v
+         stt:setBuildScenarioState(v)
          return v
       end
       local i = hostname:find("%.")
@@ -146,38 +146,34 @@ function M.default_BUILD_SCENARIO(tbl)
        BuildScenarioTbl.default
    if (v) then
       dbg.print("machName v: ",v,"\n")
+      stt:setBuildScenarioState(v)
       dbg.fini("BuildTarget:default_BUILD_SCENARIO")
-      tbl.TARG_BUILD_SCENARIO_STATE = v
       return v
    end
 
    v = "empty"
-   tbl.TARG_BUILD_SCENARIO_STATE = v
+   stt:setBuildScenarioState(v)
    dbg.print("default v: ",v,"\n")
    dbg.fini("BuildTarget:default_BUILD_SCENARIO")
    return v
 end
 
 local function string2Tbl(s,tbl)
-   local dbg = Dbg:dbg()
    dbg.start("string2Tbl(\"",s,"\", tbl)")
+   local stt           = STT:stt()
    local stringKindTbl = masterTbl().stringKindTbl
    for v in s:split("%s+") do
       local kindT  = stringKindTbl[v]
       if (kindT == nil) then
          if (v ~= "") then
-            local K = "TARG_EXTRA"
-            local t = tbl[K] or {}
-            t[v]    = true
-            tbl[K]  = t
+            stt:add2ExtraT(v)
             dbg.print("Adding \"",v,"\" to TARG_EXTRA\n")
          end
       else
          for kind in pairs(kindT) do
             local K = "TARG_" .. kind:upper()
-            if (K == "TARG_BUILD_SCENARIO" and v == "empty") then
-               v                             = ""
-               tbl.TARG_BUILD_SCENARIO_STATE = "empty"
+            if (K == "TARG_BUILD_SCENARIO") then
+               stt:setBuildScenarioState(v)
             end
             dbg.print("v: ",v," kind: ",kind," K: ",K,"\n")
             tbl[K] = v
@@ -187,29 +183,10 @@ local function string2Tbl(s,tbl)
    dbg.fini()
 end
 
-function M.init_EXTRA()
-   local dbg = Dbg:dbg()
-   dbg.start("BuildTarget.init_EXTRA()")
-   
-   local t = {}
-   local extra = getenv("TARG_EXTRA_ENCODED_ARRAY") 
-   if (not extra) then
-      dbg.print("Empty TARG_EXTRA_ENCODED_ARRAY\n")
-   else
-      for v64 in extra:split(":") do
-         local v = decode64(v64)
-         t[v]    = true
-         dbg.print("Adding ",v," to initial value of TARG_EXTRA\n")
-      end
-   end
-   dbg.fini("BuildTarget.init_EXTRA")
-   return t
-end
-
 function M.buildTbl(targetTbl)
-   local dbg = Dbg:dbg()
    dbg.start("BuildTarget.buildTbl(targetTbl)")
    local tbl = {}
+   local stt = STT:stt()
 
    for k in pairs(targetTbl) do
       local K   = k:upper()
@@ -226,9 +203,6 @@ function M.buildTbl(targetTbl)
       end
       tbl[key] = v
    end
-
-   -- Always extract EXTRA from environment
-   tbl.TARG_EXTRA = M.init_EXTRA()
 
    -- Always set mach
    tbl.TARG_MACH           = M.default_MACH()
@@ -247,11 +221,6 @@ function M.buildTbl(targetTbl)
    targetTbl.host      = -1
 
 
-   local method = tbl.TARG_BUILD_SCENARIO
-   if (tbl.TARG_BUILD_SCENARIO_STATE and tbl.TARG_BUILD_SCENARIO_STATE == "empty") then
-      method = "empty"
-   end
-
    local env = getenv()
 
    for key in pairs(env) do
@@ -263,13 +232,6 @@ function M.buildTbl(targetTbl)
       end
    end
 
-   tbl.TARG_BUILD_SCENARIO_STATE = method
-   tbl.TARG_BUILD_SCENARIO       = method
-   if (method == "empty") then
-      tbl.TARG_BUILD_SCENARIO    = ""
-   end
-
-   dbg.print("tbl.TARG_BUILD_SCENARIO_STATE: ",tbl.TARG_BUILD_SCENARIO_STATE ,"\n")
    local a = {"build_scenario","mach", "extra",} 
    for _,v in ipairs(a) do
       if (targetTbl[v]) then
@@ -282,7 +244,6 @@ function M.buildTbl(targetTbl)
 end
 
 local function readDotFiles()
-   local dbg       = Dbg:dbg()
    local masterTbl = masterTbl()
    
    -------------------------------------------------------
@@ -379,13 +340,13 @@ local function readDotFiles()
 end
 
 function M.exec(shell)
-   local dbg         = Dbg:dbg()
    local name        = shell:name() or "unknown"
    dbg.start("BuildTarget.exec(\"",name,")")
    local masterTbl   = masterTbl()
    local envVarsTbl  = {}
    local target      = masterTbl.target or getenv('TARGET') or ''
    local t           = getUname()
+   local stt         = STT:stt()
 
    masterTbl.envVarsTbl  = envVarsTbl
 
@@ -404,31 +365,21 @@ function M.exec(shell)
    string2Tbl(concatTbl(masterTbl.pargs," ") or '',tbl)
    processModuleTable(shell:getMT(ModuleTable), targetTbl, tbl)
 
+
+   tbl.TARG_BUILD_SCENARIO_STATE = stt:getBuildScenarioState()
+   tbl.TARG_BUILD_SCENARIO       = stt:getBuildScenario()
+
+   dbg.print("tbl.TARG_BUILD_SCENARIO_STATE: ",tbl.TARG_BUILD_SCENARIO_STATE ,"\n")
+
    -- Remove options from TARG_EXTRA
 
-   for i = 1,#masterTbl.remOptions do
-      local rem = masterTbl.remOptions[i]
-      dbg.print("remove opt: ",rem,"\n")
-      local t = tbl.TARG_EXTRA 
-      if (next(t) ~= nil) then
-         t[rem] = nil
-      end
+   if (masterTbl.purgeFlag) then
+      stt:purgeExtraT()
+   else
+      stt:removeFromExtra(masterTbl.remOptions)
    end
 
-   if (next(tbl.TARG_EXTRA) == nil or masterTbl.purgeFlag) then
-      tbl.TARG_EXTRA               = false
-      tbl.TARG_EXTRA_ENCODED_ARRAY = false
-   else
-      local t = tbl.TARG_EXTRA
-      local a = {}
-      local b = {}
-      for k in pairsByKeys(t) do
-         a[#a+1] = k
-         b[#b+1] = encode64(k)
-      end
-      tbl.TARG_EXTRA               = concatTbl(a,"_")
-      tbl.TARG_EXTRA_ENCODED_ARRAY = concatTbl(b,":")
-   end
+   tbl.TARG_EXTRA = stt:getEXTRA()
 
    local a = {}
    for _,v in ipairs(targetList) do
@@ -494,7 +445,6 @@ function M.exec(shell)
    local aa = {}
    for _,v in ipairs(a) do
       local _, _, name, version = v:find("([^-]*)-?(.*)")
-
       if (v:len() > 0) then
          local s = TitleTbl[name] or v
          if (s) then
@@ -522,7 +472,7 @@ function M.exec(shell)
       envVarsTbl.TARG_TITLE_BAR_PAREN  = " "
    end
 
-
+   envVarsTbl._SettargTable_ = stt:serializeTbl()
    dbg.fini()
 end
 

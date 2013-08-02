@@ -29,21 +29,21 @@ testdescript = {
      cp $(projectDir)/init/.lmodrc.lua .
      mkdir -p .lmod.d/.cache
 
-     runMe lua /Users/mclay/w/lmod/src/lmod.in.lua bash --version             # 1
-     runMe lua /Users/mclay/w/lmod/src/lmod.in.lua bash spider                # 2
-     runMe lua /Users/mclay/w/lmod/src/lmod.in.lua bash avail                 # 3
-     runMe lua /Users/mclay/w/lmod/src/lmod.in.lua bash load a/.1.0           # 4
-     runMe lua /Users/mclay/w/lmod/src/lmod.in.lua bash list                  # 5
-     runMe lua /Users/mclay/w/lmod/src/lmod.in.lua bash purge                 # 6
-     lua /Users/mclay/w/lmod/src/spider.in.lua -o moduleT $LMOD_DEFAULT_MODULEPATH > $HOME/.lmod.d/.cache/moduleT.lua
-     runMe lua /Users/mclay/w/lmod/src/lmod.in.lua bash spider                # 7
-     runMe lua /Users/mclay/w/lmod/src/lmod.in.lua bash spider b              # 8
-     runMe lua /Users/mclay/w/lmod/src/lmod.in.lua bash spider b/.2.0         # 9
-     runMe lua /Users/mclay/w/lmod/src/lmod.in.lua bash spider a              #10
-     runMe lua /Users/mclay/w/lmod/src/lmod.in.lua bash spider a/.1.0         #11
-     runMe lua /Users/mclay/w/lmod/src/lmod.in.lua bash avail                 #12
-     runMe lua /Users/mclay/w/lmod/src/lmod.in.lua bash load a/.1.0 b/.2.0    #13
-     runMe lua /Users/mclay/w/lmod/src/lmod.in.lua bash list                  #14
+     runMe lua $(projectDir)/src/lmod.in.lua bash --version             # 1
+     runMe lua $(projectDir)/src/lmod.in.lua bash spider                # 2
+     runMe lua $(projectDir)/src/lmod.in.lua bash avail                 # 3
+     runMe lua $(projectDir)/src/lmod.in.lua bash load a/.1.0           # 4
+     runMe lua $(projectDir)/src/lmod.in.lua bash list                  # 5
+     runMe lua $(projectDir)/src/lmod.in.lua bash purge                 # 6
+     lua $(projectDir)/src/spider.in.lua -o moduleT $LMOD_DEFAULT_MODULEPATH > $HOME/.lmod.d/.cache/moduleT.lua
+     runMe lua $(projectDir)/src/lmod.in.lua bash spider                # 7
+     runMe lua $(projectDir)/src/lmod.in.lua bash spider b              # 8
+     runMe lua $(projectDir)/src/lmod.in.lua bash spider b/.2.0         # 9
+     runMe lua $(projectDir)/src/lmod.in.lua bash spider a              #10
+     runMe lua $(projectDir)/src/lmod.in.lua bash spider a/.1.0         #11
+     runMe lua $(projectDir)/src/lmod.in.lua bash avail                 #12
+     runMe lua $(projectDir)/src/lmod.in.lua bash load a/.1.0 b/.2.0    #13
+     runMe lua $(projectDir)/src/lmod.in.lua bash list                  #14
 
 
      HOME=$ORIG_HOME

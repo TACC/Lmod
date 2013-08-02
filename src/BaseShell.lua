@@ -122,7 +122,7 @@ function M.expand(self, tbl)
 
 
    for k,v in pairsByKeys(tbl) do
-      local vstr,vType = tbl[k]:expand()
+      local vstr,vType = v:expand()
       if (vType == "alias") then
          self:alias(k,vstr)
       elseif (vType == "shell_function") then

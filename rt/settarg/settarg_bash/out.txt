@@ -45,8 +45,6 @@ export TARG_BUILD_SCENARIO_STATE;
 unset 'TARG_COMPILER';
 unset 'TARG_COMPILER_FAMILY';
 unset 'TARG_EXTRA';
-unset 'TARG_EXTRA_ENCODED_ARRAY';
-unset 'TARG_EXTRA_FAMILY';
 TARG_HOST=''
 export TARG_HOST;
 TARG_MACH='x86_64';
@@ -65,6 +63,10 @@ TARG_TITLE_BAR='D';
 export TARG_TITLE_BAR;
 TARG_TITLE_BAR_PAREN='(D)';
 export TARG_TITLE_BAR_PAREN;
+_SettargTable001_='X1NldHRhcmdUYWJsZV89e1siYnVpbGRTY2VuYXJpbyJdPSJkYmciLFsiYnVpbGRTY2VuYXJpb1N0YXRlIl09ImRiZyIsZXh0cmFUPXt9LFsidmVyc2lvbiJdPTEsfQ==';
+export _SettargTable001_;
+_SettargTable_Sz_='1';
+export _SettargTable_Sz_;
 ===========================
 step 4
 lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --no_cpu_model opt
@@ -75,13 +77,11 @@ TARG='obj/__x86_64_opt';
 export TARG;
 TARG_BUILD_SCENARIO='opt';
 export TARG_BUILD_SCENARIO;
-TARG_BUILD_SCENARIO_STATE='dbg';
+TARG_BUILD_SCENARIO_STATE='opt';
 export TARG_BUILD_SCENARIO_STATE;
 unset 'TARG_COMPILER';
 unset 'TARG_COMPILER_FAMILY';
 unset 'TARG_EXTRA';
-unset 'TARG_EXTRA_ENCODED_ARRAY';
-unset 'TARG_EXTRA_FAMILY';
 TARG_HOST=''
 export TARG_HOST;
 TARG_MACH='x86_64';
@@ -100,6 +100,10 @@ TARG_TITLE_BAR='O';
 export TARG_TITLE_BAR;
 TARG_TITLE_BAR_PAREN='(O)';
 export TARG_TITLE_BAR_PAREN;
+_SettargTable001_='X1NldHRhcmdUYWJsZV89e1siYnVpbGRTY2VuYXJpbyJdPSJvcHQiLFsiYnVpbGRTY2VuYXJpb1N0YXRlIl09Im9wdCIsZXh0cmFUPXt9LFsidmVyc2lvbiJdPTEsfQ==';
+export _SettargTable001_;
+_SettargTable_Sz_='1';
+export _SettargTable_Sz_;
 ===========================
 step 5
 lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --no_cpu_model empty
@@ -114,8 +118,6 @@ export TARG_BUILD_SCENARIO_STATE;
 unset 'TARG_COMPILER';
 unset 'TARG_COMPILER_FAMILY';
 unset 'TARG_EXTRA';
-unset 'TARG_EXTRA_ENCODED_ARRAY';
-unset 'TARG_EXTRA_FAMILY';
 TARG_HOST=''
 export TARG_HOST;
 TARG_MACH='x86_64';
@@ -132,6 +134,10 @@ TARG_SUMMARY='x86_64';
 export TARG_SUMMARY;
 unset 'TARG_TITLE_BAR';
 unset 'TARG_TITLE_BAR_PAREN';
+_SettargTable001_='X1NldHRhcmdUYWJsZV89e1siYnVpbGRTY2VuYXJpb1N0YXRlIl09ImVtcHR5IixleHRyYVQ9e30sWyJ2ZXJzaW9uIl09MSx9';
+export _SettargTable001_;
+_SettargTable_Sz_='1';
+export _SettargTable_Sz_;
 ===========================
 step 6
 lua ProjectDIR/src/lmod.in.lua bash load gcc mpich
@@ -180,8 +186,6 @@ export TARG_COMPILER;
 TARG_COMPILER_FAMILY='gcc';
 export TARG_COMPILER_FAMILY;
 unset 'TARG_EXTRA';
-unset 'TARG_EXTRA_ENCODED_ARRAY';
-unset 'TARG_EXTRA_FAMILY';
 TARG_HOST=''
 export TARG_HOST;
 TARG_MACH='x86_64';
@@ -202,6 +206,10 @@ TARG_TITLE_BAR='G-4.7.2 M-3.0.4';
 export TARG_TITLE_BAR;
 TARG_TITLE_BAR_PAREN='(G-4.7.2 M-3.0.4)';
 export TARG_TITLE_BAR_PAREN;
+_SettargTable001_='X1NldHRhcmdUYWJsZV89e1siYnVpbGRTY2VuYXJpb1N0YXRlIl09ImVtcHR5IixleHRyYVQ9e30sWyJ2ZXJzaW9uIl09MSx9';
+export _SettargTable001_;
+_SettargTable_Sz_='1';
+export _SettargTable_Sz_;
 ===========================
 step 8
 lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --no_cpu_model f_f
@@ -219,8 +227,6 @@ TARG_COMPILER_FAMILY='gcc';
 export TARG_COMPILER_FAMILY;
 TARG_EXTRA='f_f';
 export TARG_EXTRA;
-TARG_EXTRA_ENCODED_ARRAY='Zl9m';
-export TARG_EXTRA_ENCODED_ARRAY;
 TARG_HOST=''
 export TARG_HOST;
 TARG_MACH='x86_64';
@@ -241,6 +247,10 @@ TARG_TITLE_BAR='G-4.7.2 M-3.0.4 f_f';
 export TARG_TITLE_BAR;
 TARG_TITLE_BAR_PAREN='(G-4.7.2 M-3.0.4 f_f)';
 export TARG_TITLE_BAR_PAREN;
+_SettargTable001_='X1NldHRhcmdUYWJsZV89e1siYnVpbGRTY2VuYXJpb1N0YXRlIl09ImVtcHR5IixleHRyYVQ9e1siZl9mIl09dHJ1ZSx9LFsidmVyc2lvbiJdPTEsfQ==';
+export _SettargTable001_;
+_SettargTable_Sz_='1';
+export _SettargTable_Sz_;
 ===========================
 step 9
 lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --no_cpu_model b:b
@@ -258,8 +268,6 @@ TARG_COMPILER_FAMILY='gcc';
 export TARG_COMPILER_FAMILY;
 TARG_EXTRA='b:b_f_f';
 export TARG_EXTRA;
-TARG_EXTRA_ENCODED_ARRAY='Yjpi:Zl9m';
-export TARG_EXTRA_ENCODED_ARRAY;
 TARG_HOST=''
 export TARG_HOST;
 TARG_MACH='x86_64';
@@ -280,6 +288,10 @@ TARG_TITLE_BAR='G-4.7.2 M-3.0.4 b:b_f_f';
 export TARG_TITLE_BAR;
 TARG_TITLE_BAR_PAREN='(G-4.7.2 M-3.0.4 b:b_f_f)';
 export TARG_TITLE_BAR_PAREN;
+_SettargTable001_='X1NldHRhcmdUYWJsZV89e1siYnVpbGRTY2VuYXJpb1N0YXRlIl09ImVtcHR5IixleHRyYVQ9e1siYjpiIl09dHJ1ZSxbImZfZiJdPXRydWUsfSxbInZlcnNpb24iXT0xLH0=';
+export _SettargTable001_;
+_SettargTable_Sz_='1';
+export _SettargTable_Sz_;
 ===========================
 step 10
 lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --no_cpu_model -r f_f
@@ -297,8 +309,6 @@ TARG_COMPILER_FAMILY='gcc';
 export TARG_COMPILER_FAMILY;
 TARG_EXTRA='b:b';
 export TARG_EXTRA;
-TARG_EXTRA_ENCODED_ARRAY='Yjpi';
-export TARG_EXTRA_ENCODED_ARRAY;
 TARG_HOST=''
 export TARG_HOST;
 TARG_MACH='x86_64';
@@ -319,6 +329,10 @@ TARG_TITLE_BAR='G-4.7.2 M-3.0.4 b:b';
 export TARG_TITLE_BAR;
 TARG_TITLE_BAR_PAREN='(G-4.7.2 M-3.0.4 b:b)';
 export TARG_TITLE_BAR_PAREN;
+_SettargTable001_='X1NldHRhcmdUYWJsZV89e1siYnVpbGRTY2VuYXJpb1N0YXRlIl09ImVtcHR5IixleHRyYVQ9e1siYjpiIl09dHJ1ZSx9LFsidmVyc2lvbiJdPTEsfQ==';
+export _SettargTable001_;
+_SettargTable_Sz_='1';
+export _SettargTable_Sz_;
 ===========================
 step 11
 lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --no_cpu_model -r b:b
@@ -335,8 +349,6 @@ export TARG_COMPILER;
 TARG_COMPILER_FAMILY='gcc';
 export TARG_COMPILER_FAMILY;
 unset 'TARG_EXTRA';
-unset 'TARG_EXTRA_ENCODED_ARRAY';
-unset 'TARG_EXTRA_FAMILY';
 TARG_HOST=''
 export TARG_HOST;
 TARG_MACH='x86_64';
@@ -357,6 +369,10 @@ TARG_TITLE_BAR='G-4.7.2 M-3.0.4';
 export TARG_TITLE_BAR;
 TARG_TITLE_BAR_PAREN='(G-4.7.2 M-3.0.4)';
 export TARG_TITLE_BAR_PAREN;
+_SettargTable001_='X1NldHRhcmdUYWJsZV89e1siYnVpbGRTY2VuYXJpb1N0YXRlIl09ImVtcHR5IixleHRyYVQ9e30sWyJ2ZXJzaW9uIl09MSx9';
+export _SettargTable001_;
+_SettargTable_Sz_='1';
+export _SettargTable_Sz_;
 ===========================
 step 12
 lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --no_cpu_model f_f b:b
@@ -374,8 +390,6 @@ TARG_COMPILER_FAMILY='gcc';
 export TARG_COMPILER_FAMILY;
 TARG_EXTRA='b:b_f_f';
 export TARG_EXTRA;
-TARG_EXTRA_ENCODED_ARRAY='Yjpi:Zl9m';
-export TARG_EXTRA_ENCODED_ARRAY;
 TARG_HOST=''
 export TARG_HOST;
 TARG_MACH='x86_64';
@@ -396,6 +410,10 @@ TARG_TITLE_BAR='G-4.7.2 M-3.0.4 b:b_f_f';
 export TARG_TITLE_BAR;
 TARG_TITLE_BAR_PAREN='(G-4.7.2 M-3.0.4 b:b_f_f)';
 export TARG_TITLE_BAR_PAREN;
+_SettargTable001_='X1NldHRhcmdUYWJsZV89e1siYnVpbGRTY2VuYXJpb1N0YXRlIl09ImVtcHR5IixleHRyYVQ9e1siYjpiIl09dHJ1ZSxbImZfZiJdPXRydWUsfSxbInZlcnNpb24iXT0xLH0=';
+export _SettargTable001_;
+_SettargTable_Sz_='1';
+export _SettargTable_Sz_;
 ===========================
 step 13
 lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --no_cpu_model --purge
@@ -412,8 +430,6 @@ export TARG_COMPILER;
 TARG_COMPILER_FAMILY='gcc';
 export TARG_COMPILER_FAMILY;
 unset 'TARG_EXTRA';
-unset 'TARG_EXTRA_ENCODED_ARRAY';
-unset 'TARG_EXTRA_FAMILY';
 TARG_HOST=''
 export TARG_HOST;
 TARG_MACH='x86_64';
@@ -434,6 +450,10 @@ TARG_TITLE_BAR='G-4.7.2 M-3.0.4';
 export TARG_TITLE_BAR;
 TARG_TITLE_BAR_PAREN='(G-4.7.2 M-3.0.4)';
 export TARG_TITLE_BAR_PAREN;
+_SettargTable001_='X1NldHRhcmdUYWJsZV89e1siYnVpbGRTY2VuYXJpb1N0YXRlIl09ImVtcHR5IixleHRyYVQ9e30sWyJ2ZXJzaW9uIl09MSx9';
+export _SettargTable001_;
+_SettargTable_Sz_='1';
+export _SettargTable_Sz_;
 ===========================
 step 14
 lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --no_cpu_model --destroy
@@ -446,8 +466,6 @@ unset 'TARG_BUILD_SCENARIO_STATE';
 unset 'TARG_COMPILER';
 unset 'TARG_COMPILER_FAMILY';
 unset 'TARG_EXTRA';
-unset 'TARG_EXTRA_ENCODED_ARRAY';
-unset 'TARG_EXTRA_FAMILY';
 unset 'TARG_HOST';
 unset 'TARG_MACH';
 unset 'TARG_MACH_DESCRIPT';
@@ -459,6 +477,10 @@ unset 'TARG_SUMMARY';
 unset 'TARG_TITLE_BAR';
 TARG_TITLE_BAR_PAREN=' ';
 export TARG_TITLE_BAR_PAREN;
+_SettargTable001_='X1NldHRhcmdUYWJsZV89e1siYnVpbGRTY2VuYXJpb1N0YXRlIl09ImVtcHR5IixleHRyYVQ9e30sWyJ2ZXJzaW9uIl09MSx9';
+export _SettargTable001_;
+_SettargTable_Sz_='1';
+export _SettargTable_Sz_;
 ===========================
 step 15
 lua ProjectDIR/src/lmod.in.lua bash unload settarg

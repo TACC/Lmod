@@ -36,8 +36,15 @@ require("strict")
 
 require("fileOps")
 
-local getenv = os.getenv
-local posix  = require("posix")
+local Dbg       = require("Dbg")
+local base64    = require("base64")
+local concatTbl = table.concat
+local dbg       = Dbg:dbg()
+local decode64  = base64.decode64
+local format    = string.format
+local getenv    = os.getenv
+local huge      = math.huge
+local posix     = require("posix")
 
 function findFileInTree(fn)
    local cwd = posix.getcwd()
@@ -57,12 +64,14 @@ function findFileInTree(fn)
 end
 
 function STError(...)
-
-   
-
-
+   io.stderr:write("\n","Settarg has detected the following error: ")
+   local arg = { n = select("#", ...), ...}
+   for i = 1, arg.n do
+      io.stderr:write(arg[i])
+   end
+   io.stderr:write("\n")
 end
-
+   
 
 function getSTT()
    local a    = {}

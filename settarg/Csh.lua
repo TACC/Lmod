@@ -41,15 +41,21 @@ local decode64  = base64.decode64
 Csh             = inheritsFrom(BaseShell)
 Csh.my_name     = 'csh'
 
-function Csh.expand(self,tbl)
-   for k in pairsByKeys(tbl) do
-      local v = tbl[k]
-      if (v == '' or not v) then
-         io.stdout:write("unsetenv ",k,";\n")
-      else
-         io.stdout:write("setenv ",k," '",v,"';\n")
-      end
+function Csh.expandVar(self,k, v)
+   if (v == '' or not v) then
+      io.stdout:write("unsetenv ",k,";\n")
+   else
+      io.stdout:write("setenv ",k," '",v,"';\n")
    end
+end
+
+function Csh.unset(self, k)
+   local lineA       = {}
+   lineA[#lineA + 1] = "unsetenv "
+   lineA[#lineA + 1] = k
+   lineA[#lineA + 1] = ";\n"
+   local line = concatTbl(lineA,"")
+   io.stdout:write(line)
 end
 
 return Csh

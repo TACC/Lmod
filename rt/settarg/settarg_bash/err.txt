@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.0.1 (5.0.1-102-g60747e5) 2013-06-18 14:14
+Modules based on Lua: Version 5.1.1 (5.1.1-5-gcf69dcb) 2013-07-27 00:30
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2

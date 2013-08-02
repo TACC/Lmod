@@ -62,11 +62,9 @@ local function new(self, s)
 
    
    if (not s) then
-      local targT = {}
-      targT.build_scenario_state = "empty"
-      targT.extraA               = {}
-      o.targT                    = targT
-      o.version                  = stt_version()
+      o.buildScenarioState = "unknown"
+      o.extraT             = {}
+      o.version            = stt_version()
    else
       assert(load(s))()
       local _SettargTable_ = _G._SettargTable_
@@ -75,9 +73,10 @@ local function new(self, s)
       end
 
       if (o.version ~= stt_version()) then
-
-
-
+         STError("Settarg Table Versions do not match: ",
+                 "\n  settarg table version: ",stt_version(),
+                 "\n  environment version: ", o.version,"\n")
+      end
    end
 
    setmetatable(o, self)
@@ -85,6 +84,51 @@ local function new(self, s)
    dbg.fini("STT:new")
    return o
 end
+
+function M.add2ExtraT(self,key)
+   local extraT = self.extraT
+   extraT[key] = true
+end
+
+
+function M.getBuildScenario(self)
+   return self.buildScenario or ""
+end
+
+function M.getBuildScenarioState(self)
+   return self.buildScenarioState
+end
+
+function M.setBuildScenarioState(self, scenario)
+   self.buildScenarioState = scenario
+   self.buildScenario      = (scenario ~= "empty") and scenario or nil
+end
+
+function M.getEXTRA(self)
+   dbg.start("STT:getEXTRA()")
+   local extraT  = self.extraT
+   local a = {}
+   for k in pairsByKeys(extraT) do
+      a[#a+1] = k
+   end
+   dbg.fini("STT:getEXTRA")
+   return concatTbl(a,"_")
+end
+   
+function M.removeFromExtra(self, remA)
+   dbg.start("STT:removeFromExtra(remA)")
+   local extraT = self.extraT
+   for i = 1,#remA do
+      extraT[remA[i]] = nil
+   end
+   dbg.fini("STT:removeFromExtra")
+   return
+end
+
+function M.purgeExtraT(self)
+   self.extraT = {}
+end
+
 
 function M.stt(self)
    if (not s_stt) then
