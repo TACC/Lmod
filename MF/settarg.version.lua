@@ -21,7 +21,6 @@ if ((os.getenv("LMOD_SETTARG_SUPPORT") or ""):lower() == "full") then
    set_shell_function("mdbg",  'settarg "$@" mdbg',  'settarg $* mdbg')
 end
 
-
 local myShell = myShellName()
 local cmd     = "eval `" .. settarg_cmd .. " -s " .. myShell .. " --destroy`"
 execute{cmd=cmd, modeA = {"unload"}}

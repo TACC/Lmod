@@ -58,7 +58,6 @@ function Bash.expandVar(self, k, v)
 end
 
 function Bash.unset(self, k)
-   local dbg = Dbg:dbg()
    io.stdout:write("unset ",k,";\n")
 end
 
