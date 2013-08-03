@@ -20,7 +20,7 @@ cleanUp ()
        -e "s|unset _ModuleTable..._;||g"                  \
        -e "s|$projectDir|ProjectDIR|g"                    \
        -e "s| *\-\-\-\-* *||g"                            \
-       -e "/Rebuilding cache.* done/d"                    \
+       -e "/Rebuilding cache.*done/d"                     \
        -e "/Using your spider cache file/d"               \
        -e "/^_ModuleTable_Sz_=.*$/d"                      \
        -e "/^setenv _ModuleTable_Sz_ .*$/d"               \
@@ -46,6 +46,7 @@ runBase ()
    NUM=`printf "%02d" $numStep`
    "$@" > _stdout.$NUM 2>> _stderr.$NUM
 }
+
 runMe ()
 {
    runBase "$@"
@@ -109,5 +110,24 @@ unsetMT ()
          break
       fi
       unset _ModuleTable${num}_
+   done
+}
+
+unsetSTT ()
+{
+   unset _SettargTable_
+   local last
+   last=1000
+   if [ -n "$_SettargTable_Sz_" ]; then
+       last=$_SettargTable_Sz_
+       unset _SettargTable_Sz_
+   fi
+   for i in `seq 1 $last`; do
+      num=`printf %03d $i`
+      eval j="\$_SettargTable${num}_"
+      if [ -z "$j" ]; then
+         break
+      fi
+      unset _SettargTable${num}_
    done
 }

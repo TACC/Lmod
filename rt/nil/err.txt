@@ -2,16 +2,14 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.1.0 (5.1.0-39-gab1cc78) 2013-07-10 22:01
+Modules based on Lua: Version 5.1.1 (5.1.1-13-g1b1c969) 2013-07-27 00:30
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
 lua ProjectDIR/src/lmod.in.lua bash spider
 ===========================
-Rebuilding cache, please wait ...
 Lmod Warning: Syntax error in file: ProjectDIR/rt/nil/mf/Core/nil/1.0.lua
  with command: prepend_path One or more arguments are not strings
- (not written to file) done
 The following is a list of the modules currently available:
   nil: nil/1.0
 To learn more about a package enter:

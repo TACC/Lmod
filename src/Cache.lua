@@ -68,10 +68,12 @@ require("utils")
 
 
 
+local CTimer  = require("CTimer")
 local Dbg     = require("Dbg")
 local M       = {}
 local MT      = require("MT")
 local Spider  = require("Spider")
+local dbg     = Dbg:dbg()
 local hook    = require("Hook")
 local lfs     = require("lfs")
 local posix   = require("posix")
@@ -90,7 +92,6 @@ local function new(self, t)
    setmetatable(o,self)
    self.__index = self
 
-   local dbg = Dbg:dbg()
    dbg.start("Cache:new()")
 
    scDescriptT = getSCDescriptT()
@@ -159,7 +160,6 @@ end
 --                processed.
 
 function M.cache(self, t)
-   local dbg        = Dbg:dbg()
    dbg.start("Cache:cache()")
    if (not s_cache) then
       s_cache   = new(self, t)
@@ -196,7 +196,6 @@ end
 
 local function readCacheFile(self, cacheFileA)
 
-   local dbg        = Dbg:dbg()
    dbg.start("Cache:readCacheFile(cacheFileA)")
    local mt         = MT:mt()
 
@@ -297,7 +296,6 @@ end
 
 
 function M.build(self, fast)
-   local dbg = Dbg:dbg()
    local mt = MT:mt()
 
    dbg.start("Cache:build(fast=", fast,")")
@@ -355,19 +353,14 @@ function M.build(self, fast)
       )
       dbg.print("short: ", short, " shortTime: ", shortTime,"\n")
 
-      if (prtRbMsg) then
-         if (dbg.active()) then
-            dbg.print("Rebuilding cache, please wait ...\n")
-         else
-            io.stderr:write("Rebuilding cache, please wait ...")
-         end
-      end
+      local cTimer = CTimer:cTimer("Rebuilding cache, please wait ...",
+                                   Threshold, prtRbMsg)
 
       local mcp_old = mcp
       mcp           = MasterControl.build("spider")
 
       local t1 = epoch()
-      Spider.findAllModules(dirA, userModuleT, t1)
+      Spider.findAllModules(dirA, userModuleT)
       local t2 = epoch()
 
       mcp           = mcp_old
@@ -382,7 +375,7 @@ function M.build(self, fast)
 
       local dontWrite = self.dontWrite or r.dontWriteCache
 
-      local doneMsg = "done."
+      local doneMsg = " done."
 
       if (t2 - t1 < shortTime or dontWrite) then
          ancient = shortLifeCache
@@ -403,7 +396,7 @@ function M.build(self, fast)
          end
          mt:setRebuildTime(ancient, newShortTime)
          dbg.print("mt: ", tostring(mt), "\n")
-         doneMsg = "(not written to file) done"
+         doneMsg = " (not written to file) done"
       else
          mkdir_recursive(self.usrCacheDir)
          local s0 = "-- Date: " .. os.date("%c",os.time()) .. "\n"
@@ -421,15 +414,9 @@ function M.build(self, fast)
 
          mt:setRebuildTime(ancient2, buildT)
          dbg.print("mt: ", tostring(mt), "\n")
-         doneMsg = "(written to file) done."
+         doneMsg = " (written to file) done."
       end
-      if (prtRbMsg) then
-         if (dbg.active()) then
-            dbg.print(doneMsg, "\n")
-         else
-            io.stderr:write(" ",doneMsg,"\n\n")
-         end
-      end
+      cTimer:done(doneMsg)
       dbg.print("Transfer from userModuleT to moduleT\n")
       for k, v in pairs(userModuleT) do
          dbg.print("k: ",k,"\n")

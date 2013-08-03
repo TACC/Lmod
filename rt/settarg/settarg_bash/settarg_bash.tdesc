@@ -17,6 +17,7 @@ testdescript = {
      . $(projectDir)/rt/common_funcs.sh
 
      unsetMT
+     unsetSTT
      clearTARG
      initStdEnvVars
      unset SETTARG_TAG1
@@ -49,9 +50,9 @@ testdescript = {
      runMe lua $(projectDir)/settarg/settarg_cmd.in.lua -s bash --no_cpu_model f_f b:b   #12
      runMe lua $(projectDir)/settarg/settarg_cmd.in.lua -s bash --no_cpu_model --stt     #13
      runMe lua $(projectDir)/settarg/settarg_cmd.in.lua -s bash --no_cpu_model --purge   #14
-     runMe echo "TARG_RTM: $TARG_RTM" 1>&2                                               #16
-     runMe lua $(projectDir)/src/lmod.in.lua bash show settarg                           #17
-     runMe lua $(projectDir)/src/lmod.in.lua bash unload settarg                         #18
+     runBase echo "TARG_RTM: $TARG_RTM"                                                  #15
+     runMe lua $(projectDir)/src/lmod.in.lua bash show settarg                           #16
+     runMe lua $(projectDir)/src/lmod.in.lua bash unload settarg                         #17
 
      HOME_ORIG=$HOME
 

@@ -60,7 +60,6 @@ local function new(self, s)
    dbg.start("STT:new(s)")
    local o   = {}
 
-   
    if (not s) then
       o.buildScenarioState = "unknown"
       o.targA              = {}
@@ -79,6 +78,9 @@ local function new(self, s)
                  "\n  environment version: ", o.version,"\n")
       end
    end
+
+   dbg.print("buildScenarioState: ",o.buildScenarioState,"\n")
+
 
    setmetatable(o, self)
    self.__index  = self
@@ -101,6 +103,7 @@ function M.getBuildScenarioState(self)
 end
 
 function M.setBuildScenarioState(self, scenario)
+   dbg.print("Setting BS: ",scenario, "\n")
    self.buildScenarioState = scenario
    self.buildScenario      = (scenario ~= "empty") and scenario or nil
 end

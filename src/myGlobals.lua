@@ -167,6 +167,12 @@ shortTime = os.getenv("LMOD_SHORT_TIME") or tonumber("@short_time@") or 10.0
 
 
 ------------------------------------------------------------------------
+-- Threshold:  The amount of time to wait before printing the cache
+--             rebuild message.  (It has to be 1 second or greater).
+------------------------------------------------------------------------
+Threshold = os.getenv("LMOD_THRESHOLD") or 1
+
+------------------------------------------------------------------------
 -- shortLifeCache: If building the cache file is fast then shorten the
 --                 ancient to this time.
 ------------------------------------------------------------------------
@@ -220,6 +226,8 @@ s_propT  = {}
 -- s_scDescriptT: Where the system cache descript table is stored.
 ------------------------------------------------------------------------
 s_scDescriptT  = {}
+
+
 
 
 ------------------------------------------------------------------------

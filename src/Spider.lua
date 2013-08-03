@@ -48,6 +48,7 @@ require("pager")
 
 local M = {}
 
+local CTimer      = require("CTimer")
 local Dbg         = require("Dbg")
 local concatTbl   = table.concat
 local lfs         = require("lfs")
@@ -290,6 +291,7 @@ function M.findModulesInDir(mpath, path, prefix, moduleT)
    local mnameT          = {}
    local dirA            = {}
    local ignoreT         = ignoreFileT()
+   local cTimer          = CTimer:cTimer()
 
    for file in lfs.dir(path) do
       if (not ignoreT[file] and file:sub(-1,-1) ~= "~" and
@@ -321,6 +323,8 @@ function M.findModulesInDir(mpath, path, prefix, moduleT)
          end
       end
    end
+
+   cTimer:test()
 
    if (#dirA > 0 or prefix == '') then
       for k,v in pairs(mnameT) do

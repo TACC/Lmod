@@ -1,5 +1,3 @@
-Rebuilding cache, please wait ... (not written to file) done
-
 
 ----------------------------------------------------------------------------
 The following modules match your search criteria: "graph"
