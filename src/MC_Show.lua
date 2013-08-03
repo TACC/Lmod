@@ -74,8 +74,8 @@ function M.whatis(self, value)
    ShowCmd("whatis", value)
 end
 
-function M.execute(self, ...)
-   ShowCmd("execute", ...)
+function M.execute(self, t)
+   io.stderr:write("execute{cmd=\"",t.cmd,"\", modeA={\"",concatTbl(t.modeA, "\", \""),"\"}}\n")
 end
 
 function M.prepend_path(self, ...)

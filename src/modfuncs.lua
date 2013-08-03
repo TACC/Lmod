@@ -387,10 +387,16 @@ function is_spider()
    return b
 end
 
-function execute(...)
+function execute(t)
    local dbg = Dbg:dbg()
    dbg.start("execute(...)")
-   local b = mcp:execute(...)
+   if (type(t) ~= "table" or not t.cmd or type(t.modeA) ~= "table") then
+      mcp:report("Syntax error in file: ", myFileName(), "\n with command: execute",
+                 "\nsyntax is:\n",
+                 "    execute{cmd=\"command string\",modeA={\"load\",...}}\n")
+      return
+   end
+   local b = mcp:execute(t)
    dbg.fini("execute")
    return b
 end   

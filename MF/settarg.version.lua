@@ -22,11 +22,10 @@ if ((os.getenv("LMOD_SETTARG_SUPPORT") or ""):lower() == "full") then
 end
 
 
-if (mode() == "unload") then
-   local myShell = myShellName()
-   local cmd     = "eval `" .. settarg_cmd .. " -s " .. myShell .. " --destroy`"
-   execute(cmd)
-end
+local myShell = myShellName()
+local cmd     = "eval `" .. settarg_cmd .. " -s " .. myShell .. " --destroy`"
+execute{cmd=cmd, modeA = {"unload"}}
+
 
 local helpMsg = [[
 Settarg Help Message:

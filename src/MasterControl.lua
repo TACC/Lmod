@@ -810,13 +810,20 @@ end
 --                           makes the module a worker-bee module and not a
 --                           manager module.
 
-function M.execute(self, ...)
+function M.execute(self, t)
    local dbg    = Dbg:dbg()
-   dbg.start("MasterControl:execute(...)")
+   dbg.start("MasterControl:execute(t)")
    local mStack = ModuleStack:moduleStack()
    mStack:setting()
-   local exec = Exec:exec()
-   exec:register(...)
+   local a      = t.modeA or {}
+   local myMode = self:mode()
+   for i = 1,#a do
+      if (myMode == a[i]) then
+         local exec   = Exec:exec()
+         exec:register(t.cmd)
+         break
+      end
+   end
    dbg.fini("MasterControl:execute")
 end   
 

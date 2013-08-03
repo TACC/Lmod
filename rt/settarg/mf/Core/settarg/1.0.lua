@@ -16,8 +16,8 @@ set_shell_function("targ",        'builtin echo $TARG', 'echo $TARG')
 set_shell_function("gettargdir",  'builtin echo $TARG', 'echo $TARG')
 set_alias("cdt", "cd $TARG")
 
-if (mode() == "unload") then
-   local myShell = myShellName()
-   local cmd     = "eval `lua " .. settarg_cmd .. " -s " .. myShell .. " --destroy`"
-   execute(cmd)
-end
+local myShell = myShellName()
+local cmd     = "eval `lua " .. settarg_cmd .. " -s " .. myShell .. " --destroy`"
+execute{cmd=cmd,modeA={"unload"}}
+
+

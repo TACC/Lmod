@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.1.1 (5.1.1-9-gae3c124) 2013-07-27 00:30
+Modules based on Lua: Version 5.1.1 (5.1.1-11-gdae2bbe) 2013-07-27 00:30
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -72,12 +72,25 @@ lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --no_cpu_model --purge
 ===========================
 ===========================
 step 15
-lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --no_cpu_model --destroy
+echo TARG_RTM: Is Great
 ===========================
 ===========================
 step 16
-echo TARG_RTM: Is Great
+lua ProjectDIR/src/lmod.in.lua bash show settarg
 ===========================
+   ProjectDIR/rt/settarg/settarg_bash/../mf/Core/settarg/1.0.lua:
+setenv("SETTARG_TAG1","OBJ")
+setenv("SETTARG_TAG2","_")
+setenv("LMOD_SETTARG_CMD","lua ProjectDIR/settarg/settarg_cmd.in.lua")
+set_shell_function("settarg","eval $($LMOD_SETTARG_CMD --shell sh "$@")","eval `$LMOD_SETTARG_CMD  --shell csh $*`")
+set_shell_function("dbg","settarg "$@" dbg","settarg $* dbg  ")
+set_shell_function("empty","settarg "$@" empty","settarg $* empty")
+set_shell_function("opt","settarg "$@" opt","settarg $* opt  ")
+set_shell_function("mdbg","settarg "$@" mdbg","settarg $* mdbg ")
+set_shell_function("targ","builtin echo $TARG","echo $TARG")
+set_shell_function("gettargdir","builtin echo $TARG","echo $TARG")
+set_alias("cdt","cd $TARG")
+execute{cmd="eval `lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --destroy`", modeA={"unload"}}
 ===========================
 step 17
 lua ProjectDIR/src/lmod.in.lua bash unload settarg

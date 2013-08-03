@@ -456,32 +456,21 @@ _SettargTable_Sz_='1';
 export _SettargTable_Sz_;
 ===========================
 step 15
-lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --no_cpu_model --destroy
-===========================
-PATH='/opt/apps/gcc-4_7/mpich/3.0.4/bin:ProjectDIR/src:PATH_to_TM:/bin';
-export PATH;
-unset 'TARG';
-unset 'TARG_BUILD_SCENARIO';
-unset 'TARG_BUILD_SCENARIO_STATE';
-unset 'TARG_COMPILER';
-unset 'TARG_COMPILER_FAMILY';
-unset 'TARG_EXTRA';
-unset 'TARG_HOST';
-unset 'TARG_MACH';
-unset 'TARG_MACH_DESCRIPT';
-unset 'TARG_MPI';
-unset 'TARG_MPI_FAMILY';
-unset 'TARG_OS';
-unset 'TARG_OS_FAMILY';
-unset 'TARG_SUMMARY';
-unset 'TARG_TITLE_BAR';
-TARG_TITLE_BAR_PAREN=' ';
-export TARG_TITLE_BAR_PAREN;
-===========================
-step 16
 echo TARG_RTM: Is Great
 ===========================
 TARG_RTM: Is Great
+===========================
+step 16
+lua ProjectDIR/src/lmod.in.lua bash show settarg
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/settarg/settarg_bash/../mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/settarg/settarg_bash/../mf/MPI/gcc/4.7/mpich/3.0:ProjectDIR/rt/settarg/settarg_bash/../mf/Compiler/gcc/4.7:ProjectDIR/rt/settarg/settarg_bash/../mf/Core";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/settarg/settarg_bash/../mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/settarg/settarg_bash/../mf/MPI/gcc/4.7/mpich/3.0:ProjectDIR/rt/settarg/settarg_bash/../mf/Compiler/gcc/4.7:ProjectDIR/rt/settarg/settarg_bash/../mf/Core";
+export MODULEPATH;
 ===========================
 step 17
 lua ProjectDIR/src/lmod.in.lua bash unload settarg
