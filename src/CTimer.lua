@@ -65,7 +65,6 @@ function M.cTimer(self,msg, threshold, active)
 end
 
 function M.test(self)
-   dbg.start("CTimer:test()")
    if (self.state == "init") then
       local delta = epoch() - self.start
       if (delta > self.threshold) then
@@ -73,7 +72,6 @@ function M.test(self)
          self.state = "activeMsg"
       end
    end
-   dbg.fini("CTimer:test")
 end
 
 function M.done(self,endMsg)
