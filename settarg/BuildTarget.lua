@@ -471,8 +471,11 @@ function M.exec(shell)
       -- For csh users this variable must have value.
       envVarsTbl.TARG_TITLE_BAR_PAREN  = " "
    end
-
-   envVarsTbl._SettargTable_ = stt:serializeTbl()
+   local old_stt = getSTT() or ""
+   local new_stt = stt:serializeTbl()
+   if (old_stt ~= new_stt) then
+      envVarsTbl._SettargTable_ = new_stt
+   end
    dbg.fini()
 end
 
