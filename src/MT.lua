@@ -1714,16 +1714,19 @@ end
 -- MT:serializeTbl(): A wrapper for serializeTbl and all the white space
 --                   removed.
 
-function M.serializeTbl(self)
+function M.serializeTbl(self, state)
    local dbg = Dbg:dbg()
-
    dbg.print("self: ",tostring(self),"\n")
    dbg.print("s_mt: ",tostring(s_mt),"\n")
 
    s_mt.activeSize = self:setLoadOrder()
 
-   local s = _G.serializeTbl{ indent=false, name=s_mt:name(), value=s_mt}
-   return s:gsub("%s+","")
+   if (not state) then
+      local s = _G.serializeTbl{ indent=false, name=s_mt:name(), value=s_mt}
+      return s:gsub("%s+","")
+   else
+      return _G.serializeTbl{ indent=true, name=s_mt:name(), value=s_mt}
+   end
 end
 
 function M.addStickyA(self, sn)

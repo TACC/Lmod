@@ -643,6 +643,11 @@ function main()
       os.exit(0)
    end
 
+   if (masterTbl.reportMT) then
+      io.stderr:write(mt:serializeTbl("pretty"),"\n")
+      os.exit(0)
+   end
+
    -- Now quit if command is unknown.
 
    if (cmdTbl[cmdName] == nil) then

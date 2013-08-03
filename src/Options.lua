@@ -176,6 +176,13 @@ function M.options(self, usage)
    }
 
    cmdlineParser:add_option{
+      name   = {"--mt" },
+      dest   = "reportMT",
+      action = "store_true",
+      help   = "Report Module Table State",
+   }
+
+   cmdlineParser:add_option{
       name   = {"--force" },
       dest   = "force",
       action = "store_true",
