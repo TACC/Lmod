@@ -123,7 +123,14 @@ function  M.options(self)
       name   = {'--report'},
       dest   = 'report',
       action = 'store_true',
-      help   = "Report the settarg table",
+      help   = "Report the settarg configuration table ",
+   }
+
+   cmdlineParser:add_option{ 
+      name   = {'--stt'},
+      dest   = 'stt',
+      action = 'store_true',
+      help   = "Report the settarg table in the environment",
    }
 
    cmdlineParser:add_option{ 

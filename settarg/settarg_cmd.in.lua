@@ -66,14 +66,16 @@ BaseShell      = require("BaseShell")
 local Dbg            = require("Dbg")
 local CmdLineOptions = require("CmdLineOptions")
 local BuildTarget    = require("BuildTarget")
+local STT            = require("STT")
+local dbg            = Dbg:dbg()
 require("ModifyPath")
 require("Output")
 require("serializeTbl")
 
 
 function main()
-   local dbg         = Dbg:dbg()
    local masterTbl   = masterTbl()
+   
    masterTbl.execDir = cmdDir()
 
    CmdLineOptions:options()
@@ -122,6 +124,13 @@ function main()
       return
    end
       
+   if (masterTbl.stt) then
+      local stt = STT:stt()
+      local s   = stt:serializeTbl("pretty")
+      io.stderr:write(s,"\n")
+      return
+   end
+
    ModifyPath()
    Output(shell)
    dbg.fini("settarg")

@@ -63,6 +63,7 @@ local function new(self, s)
    
    if (not s) then
       o.buildScenarioState = "unknown"
+      o.targA              = {}
       o.extraT             = {}
       o.version            = stt_version()
    else
@@ -129,6 +130,24 @@ function M.purgeExtraT(self)
    self.extraT = {}
 end
 
+function M.registerVars(self,tbl)
+   local a = {}
+   for k in pairsByKeys(tbl) do
+      a[#a+1] = k
+   end
+   self.targA = a
+end
+
+function M.clearEnv(self, t, keepT)
+   local a = self.targA or {}
+   for i = 1,#a do
+      local key = a[i]
+      local s   = key:sub(6):lower():gsub("_family","")
+      if (not keepT[s]) then
+         t[key] = false
+      end
+   end
+end
 
 function M.stt(self)
    if (not s_stt) then
@@ -140,10 +159,16 @@ function M.stt(self)
 end
 
 
-function M.serializeTbl(self)
-   local s = serializeTbl{indent = false, name = "_SettargTable_", value = self}
-   return s:gsub("%s+","")
+function M.serializeTbl(self, state)
+   state = state or false
+   if (not state) then
+      local s = serializeTbl{indent = false, name = "_SettargTable_", value = self}
+      return s:gsub("%s+","")
+   end
+   return serializeTbl{indent = true, name = "_SettargTable_", value = self}
 end
+
+
 
 
 return M

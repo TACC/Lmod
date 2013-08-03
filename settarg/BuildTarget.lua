@@ -220,17 +220,8 @@ function M.buildTbl(targetTbl)
    tbl.TARG_HOST       = M.default_HOST()
    targetTbl.host      = -1
 
-
-   local env = getenv()
-
-   for key in pairs(env) do
-      if (key:sub(1,5) == "TARG_") then
-         local s = key:sub(6):lower():gsub("_family","")
-         if (not targetTbl[s]) then 
-            tbl[key] = ""
-         end
-      end
-   end
+   -- Clear 
+   stt:clearEnv(tbl, targetTbl)
 
    local a = {"build_scenario","mach", "extra",} 
    for _,v in ipairs(a) do
@@ -471,6 +462,8 @@ function M.exec(shell)
       -- For csh users this variable must have value.
       envVarsTbl.TARG_TITLE_BAR_PAREN  = " "
    end
+
+   stt:registerVars(envVarsTbl)
 
    envVarsTbl._SettargTable_ = stt:serializeTbl()
    dbg.fini()
