@@ -38,13 +38,13 @@ require("sandbox")
 require("string_split")
 local Dbg       = require("Dbg")
 local concatTbl = table.concat
+local dbg       = Dbg:dbg()
 
 ------------------------------------------------------------------------
 -- loadModuleFile(t): read a modulefile in via sandbox_run
 
 function loadModuleFile(t)
-   local dbg    = Dbg:dbg()
-   dbg.start("loadModuleFile")
+   dbg.start("loadModuleFile()")
    dbg.print("t.file: ",t.file,"\n")
    dbg.flush()
 
