@@ -1,3 +1,11 @@
+Lmod Version 5.1.1:
+Bug Fixes and internal improvements
+  a) Lmod can now find all the dot module files.
+  b) Fixed bug with inherit()
+  c) Settarg nolonger tries to control all TARG_* variables.
+  d) Better handling of "Rebuild cache ..." line.
+  e) Improvements to the execute function.
+
 Lmod Version 5.1.0:
 
 Version 5.1.0 now supports the following new features:
