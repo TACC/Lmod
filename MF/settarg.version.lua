@@ -34,7 +34,7 @@ encapsulate the state of the modules loaded.
 For example, if you have the settarg module and gcc/4.7.2 module loaded
 then the following variables are defined in your environment:
 
-   TARG=OBJ/_
+   TARG=OBJ/_x86_64_06_1a_gcc-4.7.3
    TARG_COMPILER=gcc-4.7.3
    TARG_COMPILER_FAMILY=gcc
    TARG_MACH=x86_64_06_1a
@@ -50,10 +50,28 @@ If you change your compiler to intel/13.1.0, these variables change to:
 
 If you have the mpich 3.0.4 module loaded then you have:
 
+   TARG=OBJ/_x86_64_06_1a_intel-13.1.0_mpich-3.0.4
+   TARG_COMPILER=intel-13.1.0
+   TARG_COMPILER_FAMILY=intel
+   TARG_MACH=x86_64_06_1a
+   TARG_MPI=mpich-3.0.4
+   TARG_MPI_FAMILY=mpich
+   TARG_SUMMARY=x86_64_06_1a_dbg_intel-13.1.0_mpich-3.0.4
 
+You also get some TARG_* variables that always available:
 
-One way that these variables can be used is 
+   TARG_MACH=x86_64_06_1a
+   TARG_MACH_DESCRIPT=...
+   TARG_HOST=...
+   TARG_OS=Linux-3.8.0-27-generic
+   TARG_OS_FAMILY=Linux
 
+One way that these variables can be used is part of a build system where
+the executables and object files are placed in $TARG.  You can also use
+$TARG_COMPILER_FAMILY to know which compiler you are using so that you
+can set the appropriate compiler flags.
+
+Settarg can do more.  Please see the Lmod website for more details.
 ]]
 
 help(helpMsg)
