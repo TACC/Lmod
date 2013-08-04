@@ -20,27 +20,25 @@ export LMOD_DIR
 #  loaded modules.  So if one is on a x86_64 linux computer with gcc/4.7.2
 #  and openmpi/1.6.3 loaded, then settarg will assign:
 #
-#     BUILDTARGET=x86_64_gcc-4.7.2_openmpi-1.6.3
 #     TARG=_x86_64_gcc-4.7.2_openmpi-1.6.3
 #     TARG_COMPILER=gcc-4.7.2
 #     TARG_COMPILER_FAMILY=gcc
 #     TARG_MACH=x86_64
 #     TARG_MPI=openmpi-1.6.3
 #     TARG_MPI_FAMILY=openmpi
-#     TARG_TARGET=x86_64_gcc-4.7.2_openmpi-1.6.3
+#     TARG_SUMMARY=x86_64_gcc-4.7.2_openmpi-1.6.3
 #     TARG_TITLE_BAR=gcc-4.7.2 O-1.6.3
 #     TARG_TITLE_BAR_PAREN=(gcc-4.7.2 O-1.6.3)
 #
 #  unloading openmpi/1.6.3 automatically changes these vars to be:
 #
-#   BUILDTARGET=x86_64_gcc-4.6.3
-#   TARG=_x86_64_gcc-4.6.3
-#   TARG_COMPILER=gcc-4.6.3
-#   TARG_COMPILER_FAMILY=gcc
-#   TARG_MACH=x86_64
-#   TARG_TARGET=x86_64_gcc-4.6.3
-#   TARG_TITLE_BAR=gcc-4.6.3
-#   TARG_TITLE_BAR_PAREN=(gcc-4.6.3)
+#     TARG=_x86_64_gcc-4.6.3
+#     TARG_COMPILER=gcc-4.6.3
+#     TARG_COMPILER_FAMILY=gcc
+#     TARG_MACH=x86_64
+#     TARG_SUMMARY=x86_64_gcc-4.6.3
+#     TARG_TITLE_BAR=gcc-4.6.3
+#     TARG_TITLE_BAR_PAREN=(gcc-4.6.3)
 #
 # See Lmod web site for more details.
 

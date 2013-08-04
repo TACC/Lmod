@@ -357,10 +357,9 @@ function M.exec(shell)
    processModuleTable(shell:getMT(ModuleTable), targetTbl, tbl)
 
 
-   tbl.TARG_BUILD_SCENARIO_STATE = stt:getBuildScenarioState()
    tbl.TARG_BUILD_SCENARIO       = stt:getBuildScenario()
 
-   dbg.print("tbl.TARG_BUILD_SCENARIO_STATE: ",tbl.TARG_BUILD_SCENARIO_STATE ,"\n")
+   dbg.print("BUILD_SCENARIO_STATE: ",stt:getBuildScenarioState(),"\n")
 
    -- Remove options from TARG_EXTRA
 
