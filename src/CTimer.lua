@@ -44,23 +44,19 @@ local function new(self, msg, threshold, active)
    local o = {}
    setmetatable(o,self)
    self.__index = self
-   dbg.start("CTimer:new()")
 
    o.state     = active and "init" or "dead"
    o.start     = epoch()
    o.msg       = msg
    o.threshold = threshold
 
-   dbg.fini("CTimer:new")
    return o
 end
 
-function M.cTimer(self,msg, threshold, active)
-   dbg.start("CTimer:cTimer()")
+function M.cTimer(self, msg, threshold, active)
    if (not s_cTimer) then
       s_cTimer = new(self, msg, threshold, active)
    end
-   dbg.fini("CTimer:cTimer")
    return s_cTimer
 end
 
