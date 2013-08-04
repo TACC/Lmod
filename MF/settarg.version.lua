@@ -27,7 +27,7 @@ execute{cmd=cmd, modeA = {"unload"}}
 
 
 local helpMsg = [[ 
-The settarg module dynamically and automatically update "$TARG" and a
+The settarg module dynamically and automatically updates "$TARG" and a
 host of other environment variables. These new environment variables
 encapsulate the state of the modules loaded.
 
