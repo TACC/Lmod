@@ -128,7 +128,6 @@ function main()
       local stt = STT:stt()
       local s   = stt:serializeTbl("pretty")
       io.stderr:write(s,"\n")
-      return
    end
 
    ModifyPath()

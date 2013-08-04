@@ -7,8 +7,8 @@ modules (that you care about).  The answer to those questions is yes,
 it is settarg.  Settarg knows how to read the module table and
 therefore know what modules you have loaded.
 
-Many developers like to build their programs in multiple ways say in
-debug or optimized modes.  Settarg provides environment variables that
+Many developers like to build their programs in multiple ways (say in
+debug or optimized modes).  Settarg provides environment variables that
 be used to control the build process.
 
 The workflow envisioned here is that $TARG will name a directory that
