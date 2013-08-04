@@ -48,7 +48,8 @@ If you change your compiler to intel/13.1.0, these variables change to:
    TARG_MACH=x86_64_06_1a
    TARG_SUMMARY=x86_64_06_1a_intel-13.1.0
 
-If you have the mpich 3.0.4 module loaded then you have:
+If you then load mpich 3.0.4 module the following variables automatically
+change to:
 
    TARG=OBJ/_x86_64_06_1a_intel-13.1.0_mpich-3.0.4
    TARG_COMPILER=intel-13.1.0
@@ -58,7 +59,8 @@ If you have the mpich 3.0.4 module loaded then you have:
    TARG_MPI_FAMILY=mpich
    TARG_SUMMARY=x86_64_06_1a_dbg_intel-13.1.0_mpich-3.0.4
 
-You also get some TARG_* variables that always available:
+You also get some TARG_* variables that always available, independent
+of what modules you have loaded:
 
    TARG_MACH=x86_64_06_1a
    TARG_MACH_DESCRIPT=...
