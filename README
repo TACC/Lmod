@@ -5,6 +5,8 @@ Bug Fixes and internal improvements
   c) Settarg nolonger tries to control all TARG_* variables.
   d) Better handling of "Rebuild cache ..." line.
   e) Improvements to the execute function.
+  f) "module --mt" prints the module table
+  g) "settarg --stt" prints the settarg table.
 
 Lmod Version 5.1.0:
 
