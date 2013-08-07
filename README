@@ -38,7 +38,7 @@ What is Settarg?
 ------------------------------------------------------------------------
 
 Settarg is new module that accesses a new tool to dynamically and
-automatically update "$TARG" and a host of other environment
+automatically updates "$TARG" and a host of other environment
 variables. These new environment variables encapsulate the state of
 the modules loaded.
 

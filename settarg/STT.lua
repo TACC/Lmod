@@ -95,7 +95,11 @@ end
 
 
 function M.getBuildScenario(self)
-   return self.buildScenario or ""
+   local method = self.buildScenarioState
+   if (not method or method == "empty") then
+      method = ""
+   end
+   return method
 end
 
 function M.getBuildScenarioState(self)
@@ -105,7 +109,6 @@ end
 function M.setBuildScenarioState(self, scenario)
    dbg.print("Setting BS: ",scenario, "\n")
    self.buildScenarioState = scenario
-   self.buildScenario      = (scenario ~= "empty") and scenario or nil
 end
 
 function M.getEXTRA(self)

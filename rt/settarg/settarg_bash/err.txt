@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.1.1 (5.1.1-15-g1f13e3d) 2013-07-27 00:30
+Modules based on Lua: Version 5.1.1 (5.1.1-25-g3abbd78) 2013-07-27 00:30
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -50,10 +50,10 @@ lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --no_cpu_model f_f b:b
 ===========================
 ===========================
 step 13
-lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --no_cpu_model --stt
+lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --no_cpu_model --stt dbg
 ===========================
 _SettargTable_ = {
-  ["buildScenarioState"] = "empty",
+  ["buildScenarioState"] = "dbg",
   extraT = {
     ["b:b"] = true,
     ["f_f"] = true,
