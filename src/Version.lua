@@ -1,7 +1,7 @@
 --module('Version')
 local M={}
-function M.tag()  return "5.1.2"   end
-function M.date() return "2013-08-11 08:32" end
+function M.tag()  return "5.1.3a1"   end
+function M.date() return "2013-08-11 08:33" end
 function M.git()  return "(@git@)"  end
 function M.name()
   local a = {}
