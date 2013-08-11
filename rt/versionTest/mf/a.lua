@@ -15,3 +15,18 @@ if (convertToCanonical(LmodVersion()) > convertToCanonical("100000000000.0")) th
    LmodMessage("(3) Failed Module Test\n")
    unknownFunc("A","b","C")
 end
+
+local nameA = {
+   "LMOD_VERSION",
+   "LMOD_VERSION_MAJOR",
+   "LMOD_VERSION_MINOR",
+   "LMOD_VERSION_SUBMINOR",
+}
+
+for i = 1,#nameA do
+   local vstr = os.getenv(nameA[i])
+   if (vstr) then
+      LmodMessage("Lmod reports a ",nameA[i],"\n")
+   end
+end
+

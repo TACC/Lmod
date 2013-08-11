@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.1.0 (5.1.0-13-gbc9c3d1) 2013-07-10 22:01
+Modules based on Lua: Version 5.1.1 (5.1.1-26-ga800770) 2013-07-27 00:30
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -15,3 +15,7 @@ lua ProjectDIR/src/lmod.in.lua bash load a
 5.1.1:  000000005000000001000000001*zfinal
 (1) Passed Module Test
 (2) Passed Module Test
+Lmod reports a LMOD_VERSION
+Lmod reports a LMOD_VERSION_MAJOR
+Lmod reports a LMOD_VERSION_MINOR
+Lmod reports a LMOD_VERSION_SUBMINOR

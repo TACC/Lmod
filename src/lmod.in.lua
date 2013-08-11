@@ -555,6 +555,8 @@ function main()
 
    set_prepend_order()   -- Chose prepend_path order normal/reverse
 
+   setenv_lmod_version()  -- Push Lmod version into environment
+
    Options:options(CmdLineUsage)
 
    localvar(masterTbl.localvarA)

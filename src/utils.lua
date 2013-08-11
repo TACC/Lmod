@@ -43,6 +43,7 @@ require("string_split")
 require("string_trim")
 require("parseVersion")
 
+local Version   = require("Version")
 local base64    = require("base64")
 local Dbg       = require("Dbg")
 local lfs       = require("lfs")
@@ -441,6 +442,28 @@ function UUIDString(epoch)
    local uuid      = uuid_date .. "-" .. uuid_str
 
    return uuid
+end
+
+--------------------------------------------------------------------------
+-- Push the Lmod Version into the environment
+function setenv_lmod_version()
+   local nameA = { "LMOD_VERSION_MAJOR",
+                   "LMOD_VERSION_MINOR",
+                   "LMOD_VERSION_SUBMINOR"
+   }
+
+   local versionStr = Version.tag()
+
+   posix.setenv("LMOD_VERSION",versionStr, true)
+   local numA = {}
+
+   for s in versionStr:split("%.") do
+      numA[#numA+1] = s
+   end
+
+   for i = 1, #nameA do
+      posix.setenv(nameA[i],numA[i] or "0", true)
+   end
 end
 
 

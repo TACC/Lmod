@@ -225,6 +225,8 @@ function main()
    -- do not colorize output from spider
    colorize = plain
 
+   setenv_lmod_version() -- push Lmod version info into env for modulefiles.
+
    ------------------------------------------------------------------------
    --  The StandardPackage is where Lmod registers hooks.  Sites may
    --  override the hook functions in SitePackage.
