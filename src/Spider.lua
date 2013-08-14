@@ -50,6 +50,7 @@ local M = {}
 
 local CTimer      = require("CTimer")
 local Dbg         = require("Dbg")
+local timer       = require("Timer"):timer()
 local concatTbl   = table.concat
 local lfs         = require("lfs")
 local posix       = require("posix")
@@ -271,6 +272,7 @@ end
 
 
 function M.findModulesInDir(mpath, path, prefix, moduleT)
+   local t1   = epoch()
    local dbg  = Dbg:dbg()
    dbg.start("findModulesInDir(mpath=\"",mpath,"\", path=\"",path,
              "\", prefix=\"",prefix,"\")")
@@ -357,6 +359,7 @@ function M.findModulesInDir(mpath, path, prefix, moduleT)
          dbg.print("Saving: Full: ", full, " Name: ", sn, " file: ",v.file,"\n")
       end
    end
+   timer:deltaT("Spider:findModulesInDir", epoch() - t1)
    dbg.fini("findModulesInDir")
 end
 

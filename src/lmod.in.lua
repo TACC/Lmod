@@ -117,9 +117,11 @@ Exec          = require("Exec")
 local BeautifulTbl = require('BeautifulTbl')
 local Dbg          = require("Dbg")
 local MName        = require("MName")
+local Timer        = require("Timer")
 local Version      = require("Version")
 local concatTbl    = table.concat
 local unpack       = unpack or table.unpack
+local timer        = Timer:timer()
 
 function set_duplication()
    local dbg  = Dbg:dbg()
@@ -434,6 +436,7 @@ ModuleFn   = ""
 
 
 function main()
+   local t1           = epoch()
    local loadTbl      = { name = "load",        checkMPATH = true,  cmd = Load_Usr    }
    local tryAddTbl    = { name = "try-add",     checkMPATH = true,  cmd = Load_Try    }
    local unloadTbl    = { name = "unload",      checkMPATH = true,  cmd = UnLoad      }
@@ -692,6 +695,12 @@ function main()
 
    -- Expand any shell command registered.
    Exec:exec():expand()
+
+   timer:deltaT("main", epoch() - t1)
+   if (masterTbl.reportTimer) then
+      io.stderr:write(timer:report(),"\n")
+   end
+
 
    if (getWarningFlag() and not expert() ) then
       LmodErrorExit()

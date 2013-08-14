@@ -77,6 +77,7 @@ local hook    = require("Hook")
 local lfs     = require("lfs")
 local posix   = require("posix")
 local s_cache = false
+local timer   = require("Timer"):timer()
 
 --------------------------------------------------------------------------
 -- new(): This singleton construct reads the scDescriptT table that can be
@@ -304,6 +305,7 @@ function M.build(self, fast)
       return nil
    end
 
+   local T1 = epoch()
    local sysDirsRead = 0
    if (not masterTbl.checkSyntax) then
       sysDirsRead = readCacheFile(self, self.systemDirA)
@@ -439,6 +441,7 @@ function M.build(self, fast)
          dbg.print("Deleted: ",userModuleTFN,"\n")
       end
    end
+   timer:deltaT("Cache:build", epoch() - T1)
    dbg.fini("Cache:build")
    return moduleT
 end

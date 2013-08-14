@@ -183,6 +183,13 @@ function M.options(self, usage)
    }
 
    cmdlineParser:add_option{
+      name   = {"--timer" },
+      dest   = "reportTimer",
+      action = "store_true",
+      help   = "report run times",
+   }
+
+   cmdlineParser:add_option{
       name   = {"--force" },
       dest   = "force",
       action = "store_true",
