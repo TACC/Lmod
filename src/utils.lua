@@ -94,18 +94,28 @@ end
 -- epoch(): return the number of seconds (and maybe partial seconds) since
 --          Jan 1, 1970 12:00:00 Midnight G.M.T (Zulu)
 
-function epoch()
+
+function build_epoch()
    if (posix.gettimeofday) then
-      local t1, t2 = posix.gettimeofday()
-      if (t2 == nil) then
-         return t1.sec + t1.usec*1.0e-6
+      local x1, x2 = posix.gettimeofday()
+      if (x2 == nil) then
+         epoch_type = "posix.gettimeofday() (1)"
+         epoch = function()
+            local t = posix.gettimeofday()
+            return t.sec + t.usec*1.0e-6
+         end
       else
-         return t1 + t2*1.0e-6
+         epoch_type = "posix.gettimeofday() (2)"
+         epoch = function()
+            local t1, t2 = posix.gettimeofday()
+            return t1 + t2*1.0e-6
+         end
       end
    else
-      return os.time()
+      epoch_type = "os.time"
+      epoch = os.time
    end
-end
+end   
 
 --------------------------------------------------------------------------
 -- expert(): Are we in expert mode?

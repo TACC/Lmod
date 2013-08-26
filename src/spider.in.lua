@@ -219,6 +219,7 @@ function main()
    mcp = MasterControl.build("spider")
 
    readRC()
+   build_epoch() -- build the epoch function
    local cache = Cache:cache{dontWrite = true, quiet = true}
 
    ------------------------------------------------------------------------

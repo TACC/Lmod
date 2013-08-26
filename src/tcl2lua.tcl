@@ -522,6 +522,9 @@ proc module { command args } {
         load {
             eval loadcmd $args
         }
+        add {
+            eval loadcmd $args
+        }
         try-add {
             eval tryloadcmd $args
         }

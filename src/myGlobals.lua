@@ -236,5 +236,11 @@ s_scDescriptT  = {}
 
 GIT_VERSION = "@git_version@"
 
+------------------------------------------------------------------------
+-- epoch
+------------------------------------------------------------------------
+epoch      = false
+epoch_type = false
+
 PkgBase = false
 PkgLmod = false

@@ -102,12 +102,15 @@ end
 
 
 require("utils")
+build_epoch()          -- build the epoch function
+local t1 = epoch()
 require("pager")
 require("fileOps")
 MasterControl = require("MasterControl")
 require("modfuncs")
 require("cmdfuncs")
 require("colorize")
+
 
 Cache         = require("Cache")
 Master        = require("Master")
@@ -556,8 +559,7 @@ function main()
    local arg_str   = concatTbl(arg," ")
    local masterTbl = masterTbl()
 
-   set_prepend_order()   -- Chose prepend_path order normal/reverse
-
+   set_prepend_order()    -- Chose prepend_path order normal/reverse
    setenv_lmod_version()  -- Push Lmod version into environment
 
    Options:options(CmdLineUsage)
@@ -598,6 +600,7 @@ function main()
 
    dbg.print("lmodPath: ", lmodPath,"\n")
    require("SitePackage")
+   dbg.print("epoch_type: ",epoch_type,"\n")
 
    local cmdName = masterTbl.pargs[1]
    table.remove(masterTbl.pargs,1)
