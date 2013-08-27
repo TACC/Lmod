@@ -273,8 +273,8 @@ end
 
 
 function M.findModulesInDir(mpath, path, prefix, moduleT)
-   local t1   = epoch()
    local d1   = gettimeofday()
+   local t1   = d1.sec + d1.usec*1.0e-6
    local dbg  = Dbg:dbg()
    dbg.start("findModulesInDir(mpath=\"",mpath,"\", path=\"",path,
              "\", prefix=\"",prefix,"\")")
@@ -361,8 +361,8 @@ function M.findModulesInDir(mpath, path, prefix, moduleT)
          dbg.print("Saving: Full: ", full, " Name: ", sn, " file: ",v.file,"\n")
       end
    end
-   local t2 = epoch()
    local d2 = gettimeofday()
+   local t2 = d2.sec + d2.usec*1.0e-6
    Sum = Sum + (d2.sec - d1.sec) + (d2.usec - d1.usec)*1.0e-6
    timer:deltaT("Spider:findModulesInDir", t2 - t1)
    dbg.fini("findModulesInDir")
