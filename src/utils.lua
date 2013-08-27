@@ -96,24 +96,27 @@ end
 
 
 function build_epoch()
+   local t0 = os.time()
    if (posix.gettimeofday) then
       local x1, x2 = posix.gettimeofday()
       if (x2 == nil) then
          epoch_type = "posix.gettimeofday() (1)"
          epoch = function()
             local t = posix.gettimeofday()
-            return t.sec + t.usec*1.0e-6
+            return (t.sec - t0) + t.usec*1.0e-6
          end
       else
          epoch_type = "posix.gettimeofday() (2)"
          epoch = function()
             local t1, t2 = posix.gettimeofday()
-            return t1 + t2*1.0e-6
+            return (t1 - t0) + t2*1.0e-6
          end
       end
    else
       epoch_type = "os.time"
-      epoch = os.time
+      epoch = function()
+         return os.time() - t0
+      end
    end
 end   
 
