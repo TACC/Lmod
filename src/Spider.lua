@@ -362,6 +362,7 @@ function M.findModulesInDir(level, mpath, path, prefix, moduleT)
    end
    local t2 = epoch()
    if (level == 0) then
+      dbg.print("Spider:findModulesInDir: mpath: \"",mpath,"\", path: \"",path,"\"\n")
       timer:deltaT("Spider:findModulesInDir", t2 - t1)
    end
    dbg.fini("findModulesInDir")
