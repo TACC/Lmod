@@ -56,7 +56,7 @@ local format    = string.format
 local getenv    = os.getenv
 local huge      = math.huge
 local rep       = string.rep
-local T0        = os.time()
+local T0        = 0
 
 --------------------------------------------------------------------------
 -- bannerStr(): This function builds a banner string that is centered
