@@ -360,6 +360,7 @@ function M.findModulesInDir(mpath, path, prefix, moduleT)
       end
    end
    local t2 = epoch()
+   Sum = Sum + (t2 - t1)
    timer:deltaT("Spider:findModulesInDir", t2 - t1)
    dbg.fini("findModulesInDir")
 end
