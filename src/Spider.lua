@@ -48,13 +48,14 @@ require("pager")
 
 local M = {}
 
-local CTimer      = require("CTimer")
-local Dbg         = require("Dbg")
-local timer       = require("Timer"):timer()
-local concatTbl   = table.concat
-local lfs         = require("lfs")
-local posix       = require("posix")
-local systemG     = _G
+local CTimer       = require("CTimer")
+local Dbg          = require("Dbg")
+local timer        = require("Timer"):timer()
+local concatTbl    = table.concat
+local lfs          = require("lfs")
+local posix        = require("posix")
+local systemG      = _G
+local gettimeofday = posix.gettimeofday
 
 local function nothing()
 end
@@ -273,6 +274,7 @@ end
 
 function M.findModulesInDir(mpath, path, prefix, moduleT)
    local t1   = epoch()
+   local d1   = gettimeofday()
    local dbg  = Dbg:dbg()
    dbg.start("findModulesInDir(mpath=\"",mpath,"\", path=\"",path,
              "\", prefix=\"",prefix,"\")")
@@ -360,7 +362,8 @@ function M.findModulesInDir(mpath, path, prefix, moduleT)
       end
    end
    local t2 = epoch()
-   Sum = Sum + (t2 - t1)
+   local d2 = gettimeofday
+   Sum = Sum + (d2.sec - d1.sec) + (d2.usec - d1.usec)*1.0e-6
    timer:deltaT("Spider:findModulesInDir", t2 - t1)
    dbg.fini("findModulesInDir")
 end
