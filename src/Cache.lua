@@ -441,7 +441,7 @@ function M.build(self, fast)
          dbg.print("Deleted: ",userModuleTFN,"\n")
       end
    end
-   local T2
+   local T2 = epoch()
    timer:deltaT("Cache:build", T2 - T1)
    dbg.fini("Cache:build")
    return moduleT
