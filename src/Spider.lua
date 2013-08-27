@@ -129,7 +129,7 @@ function processNewModulePATH(value)
       dbg.print("Top of Stack: ",iStack, " Full: ", full, " file: ", path, "\n")
       moduleT[path].children[v] = {}
       moduleT[path].children.version = Cversion
-      M.findModulesInDir(v, v, "", moduleT[path].children[v])
+      M.findModulesInDir(0,v, v, "", moduleT[path].children[v])
       moduleStack[iStack] = nil
    end
 
@@ -272,10 +272,10 @@ local function registerModuleT(full, sn, f, defaultModule)
 end
 
 
-function M.findModulesInDir(mpath, path, prefix, moduleT)
+function M.findModulesInDir(level, mpath, path, prefix, moduleT)
    local t1   = epoch()
    local dbg  = Dbg:dbg()
-   dbg.start("findModulesInDir(mpath=\"",mpath,"\", path=\"",path,
+   dbg.start("findModulesInDir(level= ",level,", mpath=\"",mpath,"\", path=\"",path,
              "\", prefix=\"",prefix,"\")")
 
    local attr = lfs.attributes(path)
@@ -344,7 +344,7 @@ function M.findModulesInDir(mpath, path, prefix, moduleT)
          dbg.print("Saving: Full: ", k, " Name: ", k, " file: ",v.file,"\n")
       end
       for i = 1, #dirA do
-         M.findModulesInDir(mpath, dirA[i].fn, dirA[i].mname .. '/', moduleT)
+         M.findModulesInDir(level+1,mpath, dirA[i].fn, dirA[i].mname .. '/', moduleT)
       end
    else
       local defaultModule   = findAssignedDefault(mpath, path, prefix)
@@ -361,7 +361,7 @@ function M.findModulesInDir(mpath, path, prefix, moduleT)
       end
    end
    local t2 = epoch()
-   if (prefix == '') then
+   if (level == 0) then
       timer:deltaT("Spider:findModulesInDir", t2 - t1)
    end
    dbg.fini("findModulesInDir")
@@ -396,7 +396,7 @@ function M.findAllModules(moduleDirA, moduleT)
           posix.access(mpath,"rx") and moduleDirT[v] == nil) then
          moduleDirT[v] = 1
          moduleT[v]    = {}
-         M.findModulesInDir(v, v, "", moduleT[v])
+         M.findModulesInDir(0, v, v, "", moduleT[v])
       end
    end
    os.exit     = exit
