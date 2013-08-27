@@ -103,7 +103,6 @@ end
 
 require("utils")
 build_epoch()          -- build the epoch function
-local t1 = epoch()
 require("pager")
 require("fileOps")
 MasterControl = require("MasterControl")
@@ -699,7 +698,8 @@ function main()
    -- Expand any shell command registered.
    Exec:exec():expand()
 
-   timer:deltaT("main", epoch() - t1)
+   local t2 = epoch()
+   timer:deltaT("main", t2 - t1)
    if (masterTbl.reportTimer) then
       io.stderr:write(timer:report(),"\n")
    end

@@ -359,7 +359,8 @@ function M.findModulesInDir(mpath, path, prefix, moduleT)
          dbg.print("Saving: Full: ", full, " Name: ", sn, " file: ",v.file,"\n")
       end
    end
-   timer:deltaT("Spider:findModulesInDir", epoch() - t1)
+   local t2 = epoch()
+   timer:deltaT("Spider:findModulesInDir", t2 - t1)
    dbg.fini("findModulesInDir")
 end
 
