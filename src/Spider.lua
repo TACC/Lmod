@@ -278,10 +278,10 @@ function M.findModulesInDir(level, mpath, path, prefix, moduleT)
    dbg.start("findModulesInDir(level= ",level,", mpath=\"",mpath,"\", path=\"",path,
              "\", prefix=\"",prefix,"\")")
 
-   if (level == 0) then
-      t1   = epoch()
-      dbg.print("t1: ",t1,"\n")
-   end
+   --if (level == 0) then
+   --   t1   = epoch()
+   --   dbg.print("t1: ",t1,"\n")
+   --end
    local attr = lfs.attributes(path)
    if (not attr or  type(attr) ~= "table" or attr.mode ~= "directory" or
        not posix.access(path,"rx")) then
@@ -364,11 +364,11 @@ function M.findModulesInDir(level, mpath, path, prefix, moduleT)
          dbg.print("Saving: Full: ", full, " Name: ", sn, " file: ",v.file,"\n")
       end
    end
-   local t2 = epoch()
-   if (level == 0) then
-      dbg.print("Spider:findModulesInDir: mpath: \"",mpath,"\", path: \"",path,"\", t1: ",t1," t2: ",t2, "\n")
-      timer:deltaT("Spider:findModulesInDir", t2 - t1)
-   end
+   --local t2 = epoch()
+   --if (level == 0) then
+   --   dbg.print("Spider:findModulesInDir: mpath: \"",mpath,"\", path: \"",path,"\", t1: ",t1," t2: ",t2, "\n")
+   --   timer:deltaT("Spider:findModulesInDir", t2 - t1)
+   --end
    dbg.fini("findModulesInDir")
 end
 
