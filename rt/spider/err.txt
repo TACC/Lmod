@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.0.1 (5.0.1-48-g540fa7d) 2013-06-18 14:14
+Modules based on Lua: Version 5.1.4 (5.1.4) 2013-08-27 14:41
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -43,20 +43,77 @@ must enter the version if there is more than one version:
    $ module spider Foo/11.1
 ===========================
 step 4
+lua ProjectDIR/src/lmod.in.lua bash -t spider
+===========================
+PrgEnv
+admin/
+admin/admin-1.0
+alex/
+alex/1.0
+boost/
+boost/1.46.0
+boost/1.47.1
+boost/1.49.0
+gcc/
+gcc/4.2.3
+git/
+git/1.6.3.1
+git/1.7.4
+git/1.7.4.3
+gotoblas/
+gotoblas/1.20
+gotoblas/1.26
+gotoblas/1.30
+gotoblas/1.30-beta
+gotoblas/1.31
+gotoblas/1.32
+gotoblas/1.33
+intel/
+intel/intel
+junk/a/c/
+junk/a/c/1.0
+junk/b/c/
+junk/b/c/2.0
+junk/d/
+junk/d/3.0
+local/
+local/local
+mpich2/
+mpich2/1.0.7
+multi/
+multi/multi
+noweb/
+noweb/2.10c
+openmpi/
+openmpi/1.2.6
+parmetis/
+parmetis/3.1
+parmetis/4.0.1
+petsc/
+petsc/3.1
+petsc/3.2
+phdf5/
+phdf5/1.8.10
+phdf5/1.8.2
+phdf5/1.8.9
+unix/
+unix/unix
+===========================
+step 5
 lua ProjectDIR/src/lmod.in.lua bash spider mpich2
 ===========================
   mpich2: mpich2/1.0.7
     This module can only be loaded through the following modules:
       intel/intel
 ===========================
-step 5
+step 6
 lua ProjectDIR/src/lmod.in.lua bash spider mpich2/1.0.7
 ===========================
   mpich2: mpich2/1.0.7
     This module can only be loaded through the following modules:
       intel/intel
 ===========================
-step 6
+step 7
 lua ProjectDIR/src/lmod.in.lua bash spider parmetis/3.1
 ===========================
   parmetis: parmetis/3.1
@@ -70,17 +127,17 @@ lua ProjectDIR/src/lmod.in.lua bash spider parmetis/3.1
       gcc/4.2.3, openmpi/1.2.6
       intel/intel, openmpi/1.2.6
 ===========================
-step 7
+step 8
 lua ProjectDIR/src/lmod.in.lua bash spider mpich2me
 ===========================
 Unable to find: "mpich2me"
 ===========================
-step 8
+step 9
 lua ProjectDIR/src/lmod.in.lua bash spider mpich2/1.0.5
 ===========================
 Lmod has detected the following error: Unable to find: "mpich2/1.0.5"
 ===========================
-step 9
+step 10
 lua ProjectDIR/src/lmod.in.lua bash spider
 ===========================
 The following is a list of the modules currently available:

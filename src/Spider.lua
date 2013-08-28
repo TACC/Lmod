@@ -555,14 +555,17 @@ function M.Level0(dbT)
          for k, v in pairs(vv) do
             local version = extractVersion(v.full, v.name)
             if ((version or ""):sub(1,1) ~= ".") then
-               t[v.name] = true
-               t[v.full] = true
+               if (v.name == v.full) then
+                  t[v.name] = v.name
+               else
+                  t[v.name] = v.name .. "/"
+                  t[v.full] = v.full
+               end
             end
          end
       end
-      for k in pairsByKeys(t) do
-         
-         a[#a+1] = k
+      for k,v in pairsByKeys(t) do
+         a[#a+1] = v
       end
       dbg.fini("Spider:Level0")
       return concatTbl(a,"\n")

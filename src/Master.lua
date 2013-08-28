@@ -914,7 +914,13 @@ local function availEntry(defaultOnly, terse, szA, searchA, sn, name,
    end
 
    if (terse) then
-      a[#a+1] = name
+      if (sn == name and szA > 0) then
+         if (not defaultOnly) then
+            a[#a+1] = name .. "/"
+         end
+      else
+         a[#a+1] = name
+      end
    else
       if (defaultModule == abspath(f, localdir) and szA > 1 and
           not defaultOnly ) then
@@ -976,6 +982,10 @@ local function availDir(defaultOnly, terse, searchA, mpath, availT,
                     defaultModule, dbT, legendT, a)
       else
          defaultModule = findDefault(mpath, sn, versionA)
+         if (terse) then
+            availEntry(defaultOnly, terse, szA, searchA, sn, sn, "",
+                       defaultModule, dbT, legendT, a)
+         end
          for i = 1, #versionA do
             local name = pathJoin(sn, versionA[i].version)
             local f    = versionA[i].file
