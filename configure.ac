@@ -275,7 +275,7 @@ done
 EOF
 
    chmod +x conftest.zsh
-   ZSH_SITE_FUNCTIONS_DIR=`$PATH_TO_ZSH ./conftest.zsh`
+   ZSH_SITE_FUNCTIONS_DIR=`$PATH_TO_ZSH -f ./conftest.zsh`
 fi
 
 AC_OUTPUT(makefile:Makefile.in)
