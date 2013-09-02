@@ -1,3 +1,25 @@
+Lmod Version 5.1.5:
+Bug Fixes:
+  a) Changes in the terse output for avail and spider.  A directory
+     that contains module versions has a trailing "/"
+  b) The environment that a module sees (and only in that environment).
+     Lmod defines the following variables shown with their current values:
+        LMOD_VERSION:          5.1.5
+        LMOD_VERSION_MAJOR:    5
+        LMOD_VERSION_MINOR:    1
+        LMOD_VERSION_SUBMINOR: 5
+
+  c) Module function to do version comparison (only for lua based modulefiles):
+
+       if (convertToCanonical(LmodVersion()) > convertToCanonical("5.0")) then
+          -- Do something that is only valid for Lmod 5.0 or greater
+       end
+
+    The function convertToCanonical() knows how to deal with alpha, beta,
+    and rc version and the function LmodVersion() returns the current
+    version of Lmod.
+     
+
 Lmod Version 5.1.1:
 Bug Fixes and internal improvements
   a) Lmod can now find all the dot module files.

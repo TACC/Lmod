@@ -55,7 +55,9 @@ local floor     = math.floor
 local format    = string.format
 local getenv    = os.getenv
 local huge      = math.huge
+
 local rep       = string.rep
+local T0        = os.time()
 
 --------------------------------------------------------------------------
 -- bannerStr(): This function builds a banner string that is centered
@@ -96,26 +98,25 @@ end
 
 
 function build_epoch()
-   local t0 = os.time()
    if (posix.gettimeofday) then
       local x1, x2 = posix.gettimeofday()
       if (x2 == nil) then
          epoch_type = "posix.gettimeofday() (1)"
          epoch = function()
             local t = posix.gettimeofday()
-            return (t.sec - t0) + t.usec*1.0e-6
+            return (t.sec - T0) + t.usec*1.0e-6
          end
       else
          epoch_type = "posix.gettimeofday() (2)"
          epoch = function()
             local t1, t2 = posix.gettimeofday()
-            return (t1 - t0) + t2*1.0e-6
+            return (t1 - T0) + t2*1.0e-6
          end
       end
    else
       epoch_type = "os.time"
       epoch = function()
-         return os.time() - t0
+         return os.time() - T0
       end
    end
 end   

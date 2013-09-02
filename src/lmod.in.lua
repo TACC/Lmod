@@ -40,7 +40,6 @@ Pager           = "@path_to_pager@"
 s_prependBlock  = "@prepend_block@"
 prepend_order   = false
 allow_dups      = false
-Sum             = 0.0
 ------------------------------------------------------------------------
 -- Extract directory location of "lmod" command and add it
 -- to the lua search path
@@ -701,7 +700,6 @@ function main()
    local t2 = epoch()
    timer:deltaT("main", t2 - t1)
    if (masterTbl.reportTimer) then
-      io.stderr:write("Sum: ",Sum,"\n")
       io.stderr:write(timer:report(),"\n")
    end
 

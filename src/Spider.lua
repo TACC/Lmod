@@ -129,7 +129,7 @@ function processNewModulePATH(value)
       dbg.print("Top of Stack: ",iStack, " Full: ", full, " file: ", path, "\n")
       moduleT[path].children[v] = {}
       moduleT[path].children.version = Cversion
-      M.findModulesInDir(v, v, "", moduleT[path].children[v])
+      M.findModulesInDir(0,v, v, "", moduleT[path].children[v])
       moduleStack[iStack] = nil
    end
 
@@ -272,13 +272,16 @@ local function registerModuleT(full, sn, f, defaultModule)
 end
 
 
-function M.findModulesInDir(mpath, path, prefix, moduleT)
-   local t1   = epoch()
-   local d1   = gettimeofday()
+function M.findModulesInDir(level, mpath, path, prefix, moduleT)
+   local t1
    local dbg  = Dbg:dbg()
-   dbg.start("findModulesInDir(mpath=\"",mpath,"\", path=\"",path,
+   dbg.start("findModulesInDir(level= ",level,", mpath=\"",mpath,"\", path=\"",path,
              "\", prefix=\"",prefix,"\")")
 
+   --if (level == 0) then
+   --   t1   = epoch()
+   --   dbg.print("t1: ",t1,"\n")
+   --end
    local attr = lfs.attributes(path)
    if (not attr or  type(attr) ~= "table" or attr.mode ~= "directory" or
        not posix.access(path,"rx")) then
@@ -345,7 +348,7 @@ function M.findModulesInDir(mpath, path, prefix, moduleT)
          dbg.print("Saving: Full: ", k, " Name: ", k, " file: ",v.file,"\n")
       end
       for i = 1, #dirA do
-         M.findModulesInDir(mpath, dirA[i].fn, dirA[i].mname .. '/', moduleT)
+         M.findModulesInDir(level+1,mpath, dirA[i].fn, dirA[i].mname .. '/', moduleT)
       end
    else
       local defaultModule   = findAssignedDefault(mpath, path, prefix)
@@ -361,10 +364,11 @@ function M.findModulesInDir(mpath, path, prefix, moduleT)
          dbg.print("Saving: Full: ", full, " Name: ", sn, " file: ",v.file,"\n")
       end
    end
-   local t2 = epoch()
-   local d2 = gettimeofday()
-   Sum = Sum + (d2.sec - d1.sec) + (d2.usec - d1.usec)*1.0e-6
-   timer:deltaT("Spider:findModulesInDir", t2 - t1)
+   --local t2 = epoch()
+   --if (level == 0) then
+   --   dbg.print("Spider:findModulesInDir: mpath: \"",mpath,"\", path: \"",path,"\", t1: ",t1," t2: ",t2, "\n")
+   --   timer:deltaT("Spider:findModulesInDir", t2 - t1)
+   --end
    dbg.fini("findModulesInDir")
 end
 
@@ -397,7 +401,7 @@ function M.findAllModules(moduleDirA, moduleT)
           posix.access(mpath,"rx") and moduleDirT[v] == nil) then
          moduleDirT[v] = 1
          moduleT[v]    = {}
-         M.findModulesInDir(v, v, "", moduleT[v])
+         M.findModulesInDir(0, v, v, "", moduleT[v])
       end
    end
    os.exit     = exit
@@ -551,14 +555,17 @@ function M.Level0(dbT)
          for k, v in pairs(vv) do
             local version = extractVersion(v.full, v.name)
             if ((version or ""):sub(1,1) ~= ".") then
-               t[v.name] = true
-               t[v.full] = true
+               if (v.name == v.full) then
+                  t[v.name] = v.name
+               else
+                  t[v.name] = v.name .. "/"
+                  t[v.full] = v.full
+               end
             end
          end
       end
-      for k in pairsByKeys(t) do
-         
-         a[#a+1] = k
+      for k,v in pairsByKeys(t) do
+         a[#a+1] = v
       end
       dbg.fini("Spider:Level0")
       return concatTbl(a,"\n")
