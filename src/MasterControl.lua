@@ -817,8 +817,9 @@ function M.execute(self, t)
    mStack:setting()
    local a      = t.modeA or {}
    local myMode = self:mode()
+
    for i = 1,#a do
-      if (myMode == a[i]) then
+      if (myMode == a[i] or a[i]:lower() == "all" ) then
          local exec   = Exec:exec()
          exec:register(t.cmd)
          break
