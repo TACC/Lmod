@@ -43,6 +43,7 @@ require("string_split")
 require("string_trim")
 require("parseVersion")
 
+local Version   = require("Version")
 local base64    = require("base64")
 local Dbg       = require("Dbg")
 local lfs       = require("lfs")
@@ -54,7 +55,9 @@ local floor     = math.floor
 local format    = string.format
 local getenv    = os.getenv
 local huge      = math.huge
+
 local rep       = string.rep
+local T0        = os.time()
 
 --------------------------------------------------------------------------
 -- bannerStr(): This function builds a banner string that is centered
@@ -93,18 +96,30 @@ end
 -- epoch(): return the number of seconds (and maybe partial seconds) since
 --          Jan 1, 1970 12:00:00 Midnight G.M.T (Zulu)
 
-function epoch()
+
+function build_epoch()
    if (posix.gettimeofday) then
-      local t1, t2 = posix.gettimeofday()
-      if (t2 == nil) then
-         return t1.sec + t1.usec*1.0e-6
+      local x1, x2 = posix.gettimeofday()
+      if (x2 == nil) then
+         epoch_type = "posix.gettimeofday() (1)"
+         epoch = function()
+            local t = posix.gettimeofday()
+            return (t.sec - T0) + t.usec*1.0e-6
+         end
       else
-         return t1 + t2*1.0e-6
+         epoch_type = "posix.gettimeofday() (2)"
+         epoch = function()
+            local t1, t2 = posix.gettimeofday()
+            return (t1 - T0) + t2*1.0e-6
+         end
       end
    else
-      return os.time()
+      epoch_type = "os.time"
+      epoch = function()
+         return os.time() - T0
+      end
    end
-end
+end   
 
 --------------------------------------------------------------------------
 -- expert(): Are we in expert mode?
@@ -441,6 +456,28 @@ function UUIDString(epoch)
    local uuid      = uuid_date .. "-" .. uuid_str
 
    return uuid
+end
+
+--------------------------------------------------------------------------
+-- Push the Lmod Version into the environment
+function setenv_lmod_version()
+   local nameA = { "LMOD_VERSION_MAJOR",
+                   "LMOD_VERSION_MINOR",
+                   "LMOD_VERSION_SUBMINOR"
+   }
+
+   local versionStr = Version.tag()
+
+   posix.setenv("LMOD_VERSION",versionStr, true)
+   local numA = {}
+
+   for s in versionStr:split("%.") do
+      numA[#numA+1] = s
+   end
+
+   for i = 1, #nameA do
+      posix.setenv(nameA[i],numA[i] or "0", true)
+   end
 end
 
 

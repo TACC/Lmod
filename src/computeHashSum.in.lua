@@ -99,6 +99,9 @@ function main()
    end
    dbg.start("computeHashSum()")
 
+   setenv_lmod_version() -- push Lmod version info into env for modulefiles.
+   build_epoch()         -- build the epoch function
+
    require("StandardPackage")
    local lmodPath = os.getenv("LMOD_PACKAGE_PATH") or ""
    for path in lmodPath:split(":") do

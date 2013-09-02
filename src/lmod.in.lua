@@ -40,7 +40,6 @@ Pager           = "@path_to_pager@"
 s_prependBlock  = "@prepend_block@"
 prepend_order   = false
 allow_dups      = false
-
 ------------------------------------------------------------------------
 -- Extract directory location of "lmod" command and add it
 -- to the lua search path
@@ -102,12 +101,14 @@ end
 
 
 require("utils")
+build_epoch()          -- build the epoch function
 require("pager")
 require("fileOps")
 MasterControl = require("MasterControl")
 require("modfuncs")
 require("cmdfuncs")
 require("colorize")
+
 
 Cache         = require("Cache")
 Master        = require("Master")
@@ -117,9 +118,11 @@ Exec          = require("Exec")
 local BeautifulTbl = require('BeautifulTbl')
 local Dbg          = require("Dbg")
 local MName        = require("MName")
+local Timer        = require("Timer")
 local Version      = require("Version")
 local concatTbl    = table.concat
 local unpack       = unpack or table.unpack
+local timer        = Timer:timer()
 
 function set_duplication()
    local dbg  = Dbg:dbg()
@@ -434,6 +437,7 @@ ModuleFn   = ""
 
 
 function main()
+   local t1           = epoch()
    local loadTbl      = { name = "load",        checkMPATH = true,  cmd = Load_Usr    }
    local tryAddTbl    = { name = "try-add",     checkMPATH = true,  cmd = Load_Try    }
    local unloadTbl    = { name = "unload",      checkMPATH = true,  cmd = UnLoad      }
@@ -553,7 +557,8 @@ function main()
    local arg_str   = concatTbl(arg," ")
    local masterTbl = masterTbl()
 
-   set_prepend_order()   -- Chose prepend_path order normal/reverse
+   set_prepend_order()    -- Chose prepend_path order normal/reverse
+   setenv_lmod_version()  -- Push Lmod version into environment
 
    Options:options(CmdLineUsage)
 
@@ -593,6 +598,7 @@ function main()
 
    dbg.print("lmodPath: ", lmodPath,"\n")
    require("SitePackage")
+   dbg.print("epoch_type: ",epoch_type,"\n")
 
    local cmdName = masterTbl.pargs[1]
    table.remove(masterTbl.pargs,1)
@@ -690,6 +696,13 @@ function main()
 
    -- Expand any shell command registered.
    Exec:exec():expand()
+
+   local t2 = epoch()
+   timer:deltaT("main", t2 - t1)
+   if (masterTbl.reportTimer) then
+      io.stderr:write(timer:report(),"\n")
+   end
+
 
    if (getWarningFlag() and not expert() ) then
       LmodErrorExit()

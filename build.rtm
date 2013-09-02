@@ -3,6 +3,17 @@
 PKG_VERSION=`(cd src; lua -e "local Version=require('Version'); print(Version.name())") | awk '{print $1}'`
 echo Making Version: $PKG_VERSION
 
+make_install()
+{
+  if [ "$BUILD_TYPE" != "EXPERIMENTAL" ]; then
+    $SUDO make install     $MAKE_EXTRA
+  else
+    $SUDO make pre-install $MAKE_EXTRA
+    $SUDO rm -f $BASE_DIR/lmod/EXPERIMENTAL
+    $SUDO ln -s $PKG_VERSION $BASE_DIR/lmod/EXPERIMENTAL
+  fi    
+}
+
 runMe()
 {
   local cmdA=("$@")
@@ -33,6 +44,12 @@ runMe()
     fi
   done
 }
+
+BUILD_TYPE="standard"
+if [ "$1" = "-e" ]; then
+  BUILD_TYPE="EXPERIMENTAL"
+  echo BUILD_TYPE: $BUILD_TYPE
+fi
 
 myhost=$(hostname -f)
 myhost=${myhost%.tacc.utexas.edu}
@@ -98,9 +115,10 @@ fi
 
 rm -f config.status config.log
 
+
 cmdA=("-make distclean"
       "./configure --prefix=$BASE_DIR --with-ancient=86401 --with-shortTime=10.3 --with-settarg=FULL --with-duplicatePaths=yes $EXTRA"
-      "$SUDO make install $MAKE_EXTRA"
+      "make_install"
       "$EXTRA_CMD"
       "make clobber"
       )

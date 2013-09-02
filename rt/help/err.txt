@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.1.1 (5.1.1-10-g9578b87) 2013-07-27 00:30
+Modules based on Lua: Version 5.1.3a2 (5.1.3a2-18-gfd48ba3) 2013-08-14 15:23
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -27,6 +27,7 @@ Options:
   --check_syntax --checkSyntax  Checking module command syntax: do not load
   --config                      Report Lmod Configuration
   --mt                          Report Module Table State
+  --timer                       report run times
   --force                       force removal of a sticky module
 module [options] sub-command [args ...]
 Help sub-commands:
@@ -100,7 +101,7 @@ The following guides are at http://www.tacc.utexas.edu/tacc-projects/lmod
   User Guide                 - How to use.
   Advance User Guide         - How to create you own modules.
   System Administrator Guide - How to install Lmod on your own system.
-Modules based on Lua: Version 5.1.1 (5.1.1-10-g9578b87) 2013-07-27 00:30
+Modules based on Lua: Version 5.1.3a2 (5.1.3a2-18-gfd48ba3) 2013-08-14 15:23
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 3
@@ -125,6 +126,7 @@ Options:
   --check_syntax --checkSyntax  Checking module command syntax: do not load
   --config                      Report Lmod Configuration
   --mt                          Report Module Table State
+  --timer                       report run times
   --force                       force removal of a sticky module
 module [options] sub-command [args ...]
 Help sub-commands:
@@ -198,7 +200,7 @@ The following guides are at http://www.tacc.utexas.edu/tacc-projects/lmod
   User Guide                 - How to use.
   Advance User Guide         - How to create you own modules.
   System Administrator Guide - How to install Lmod on your own system.
-Modules based on Lua: Version 5.1.1 (5.1.1-10-g9578b87) 2013-07-27 00:30
+Modules based on Lua: Version 5.1.3a2 (5.1.3a2-18-gfd48ba3) 2013-08-14 15:23
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 4
@@ -218,7 +220,7 @@ Version 9
 step 5
 lua ProjectDIR/src/lmod.in.lua bash --config
 ===========================
-Modules based on Lua: Version 5.1.1 (5.1.1-10-g9578b87) 2013-07-27 00:30
+Modules based on Lua: Version 5.1.3a2 (5.1.3a2-18-gfd48ba3) 2013-08-14 15:23
     by Robert McLay mclay@tacc.utexas.edu
 Name             Value                   Description
 ancient          @ancient@               User cache file valid time(sec)
