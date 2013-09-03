@@ -48,6 +48,7 @@ require("cmdfuncs")
 require("modfuncs")
 require("utils")
 local posix = require("posix")
+local lfs   = require("lfs")
 
 sandbox_run = false
 
