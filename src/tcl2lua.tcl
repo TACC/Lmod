@@ -421,9 +421,19 @@ proc family { var } {
     cmdargs "family" $var
 }
 
+
 proc loadcmd { args } {
     eval cmdargs "load" $args
 }
+
+proc system { args } {
+    foreach arg $args {
+        lappend cmdArgsL "$arg"
+    }
+    set cmdArgs [join $cmdArgsL " "]
+    puts stdout "execute\{cmd=\"$cmdArgs\",mode = \{\"all\"\}\}"
+}
+
 proc tryloadcmd { args } {
     eval cmdargs "try_load" $args
 }
