@@ -913,7 +913,11 @@ local function availEntry(defaultOnly, terse, szA, searchA, sn, name,
       return
    end
 
+
+   
    if (terse) then
+      -- Print out directory (e.g. gcc) for tab-completion
+      -- But only print it out when reporting defaultOnly.
       if (sn == name and szA > 0) then
          if (not defaultOnly) then
             a[#a+1] = name .. "/"
@@ -983,6 +987,7 @@ local function availDir(defaultOnly, terse, searchA, mpath, availT,
       else
          defaultModule = findDefault(mpath, sn, versionA)
          if (terse) then
+            -- Print out directory (e.g. gcc) for tab-completion
             availEntry(defaultOnly, terse, szA, searchA, sn, sn, "",
                        defaultModule, dbT, legendT, a)
          end

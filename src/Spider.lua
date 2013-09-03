@@ -558,6 +558,7 @@ function M.Level0(dbT)
                if (v.name == v.full) then
                   t[v.name] = v.name
                else
+                  -- print out directory name (e.g. gcc) for tab completion.
                   t[v.name] = v.name .. "/"
                   t[v.full] = v.full
                end
