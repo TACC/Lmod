@@ -192,13 +192,57 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=8,baseMpathA={"ProjectDIR/mf/Core",
 export _ModuleTable_;
 ===========================
 step 12
-lua ProjectDIR/src/lmod.in.lua bash list
+lua ProjectDIR/src/lmod.in.lua bash use -a ProjectDIR/rt/load/mf/Core
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Beta";
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/Core:ProjectDIR/mf/Beta";
 export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Beta";
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/load/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/Core:ProjectDIR/mf/Beta";
+MODULEPATH="ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/load/mf/Core";
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=8,baseMpathA={"ProjectDIR/mf/Core","ProjectDIR/mf/Beta","ProjectDIR/rt/load/mf/Core",},family={["compiler"]="intel",},inactive={},mT={PrgEnv={["FN"]="ProjectDIR/mf/Core/PrgEnv.lua",["default"]=0,["fullName"]="PrgEnv",["loadOrder"]=2,["mType"]="m",propT={},["short"]="PrgEnv",["status"]="active",},admin={["FN"]="ProjectDIR/mf/Core/admin/admin-1.0.lua",["default"]=1,["fullName"]="admin/admin-1.0",["loadOrder"]=1,["mType"]="w",propT={},["short"]="admin",["status"]="active",},boost={["FN"]="ProjectDIR/mf/Core/boost/1.49.0.lua",["default"]=1,["fullName"]="boost/1.49.0",["loadOrder"]=8,["mType"]="w",propT={arch={["offload"]=1,},},["short"]="boost",["status"]="active",},gotoblas={["FN"]="ProjectDIR/mf/Compiler/intel/10.1/gotoblas/1.32.lua",["default"]=1,["fullName"]="gotoblas/1.32",["loadOrder"]=7,["mType"]="w",propT={},["short"]="gotoblas",["status"]="active",},intel={["FN"]="ProjectDIR/mf/Core/intel/intel.lua",["default"]=1,["fullName"]="intel/intel",["loadOrder"]=6,["mType"]="w",propT={},["short"]="intel",["status"]="active",},["local"]={["FN"]="ProjectDIR/mf/Core/local/local.lua",["default"]=1,["fullName"]="local/local",["loadOrder"]=4,["mType"]="w",propT={},["short"]="local",["status"]="active",},noweb={["FN"]="ProjectDIR/mf/Core/noweb/2.10c.lua",["default"]=1,["fullName"]="noweb/2.10c",["loadOrder"]=5,["mType"]="w",propT={},["short"]="noweb",["status"]="active",},unix={["FN"]="ProjectDIR/mf/Core/unix/unix.lua",["default"]=1,["fullName"]="unix/unix",["loadOrder"]=3,["mType"]="w",propT={},["short"]="unix",["status"]="active",},},mpathA={"ProjectDIR/mf/Compiler/intel/10.1","ProjectDIR/mf/Core","ProjectDIR/mf/Beta","ProjectDIR/rt/load/mf/Core",},["systemBaseMPATH"]="ProjectDIR/mf/Core:ProjectDIR/mf/Beta",["version"]=2,}';
+export _ModuleTable_;
+===========================
+step 13
+lua ProjectDIR/src/lmod.in.lua bash avail
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/load/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/load/mf/Core";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/load/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/load/mf/Core";
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=8,baseMpathA={"ProjectDIR/mf/Core","ProjectDIR/mf/Beta","ProjectDIR/rt/load/mf/Core",},family={["compiler"]="intel",},inactive={},mT={PrgEnv={["FN"]="ProjectDIR/mf/Core/PrgEnv.lua",["default"]=0,["fullName"]="PrgEnv",["loadOrder"]=2,["mType"]="m",propT={},["short"]="PrgEnv",["status"]="active",},admin={["FN"]="ProjectDIR/mf/Core/admin/admin-1.0.lua",["default"]=1,["fullName"]="admin/admin-1.0",["loadOrder"]=1,["mType"]="w",propT={},["short"]="admin",["status"]="active",},boost={["FN"]="ProjectDIR/mf/Core/boost/1.49.0.lua",["default"]=1,["fullName"]="boost/1.49.0",["loadOrder"]=8,["mType"]="w",propT={arch={["offload"]=1,},},["short"]="boost",["status"]="active",},gotoblas={["FN"]="ProjectDIR/mf/Compiler/intel/10.1/gotoblas/1.32.lua",["default"]=1,["fullName"]="gotoblas/1.32",["loadOrder"]=7,["mType"]="w",propT={},["short"]="gotoblas",["status"]="active",},intel={["FN"]="ProjectDIR/mf/Core/intel/intel.lua",["default"]=1,["fullName"]="intel/intel",["loadOrder"]=6,["mType"]="w",propT={},["short"]="intel",["status"]="active",},["local"]={["FN"]="ProjectDIR/mf/Core/local/local.lua",["default"]=1,["fullName"]="local/local",["loadOrder"]=4,["mType"]="w",propT={},["short"]="local",["status"]="active",},noweb={["FN"]="ProjectDIR/mf/Core/noweb/2.10c.lua",["default"]=1,["fullName"]="noweb/2.10c",["loadOrder"]=5,["mType"]="w",propT={},["short"]="noweb",["status"]="active",},unix={["FN"]="ProjectDIR/mf/Core/unix/unix.lua",["default"]=1,["fullName"]="unix/unix",["loadOrder"]=3,["mType"]="w",propT={},["short"]="unix",["status"]="active",},},mpathA={"ProjectDIR/mf/Compiler/intel/10.1","ProjectDIR/mf/Core","ProjectDIR/mf/Beta","ProjectDIR/rt/load/mf/Core",},["systemBaseMPATH"]="ProjectDIR/mf/Core:ProjectDIR/mf/Beta",["version"]=2,}';
+export _ModuleTable_;
+===========================
+step 14
+lua ProjectDIR/src/lmod.in.lua bash load alex
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/load/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/load/mf/Core";
+export MODULEPATH;
+ALEX="2.0";
+export ALEX;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/load/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/load/mf/Core";
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=9,baseMpathA={"ProjectDIR/mf/Core","ProjectDIR/mf/Beta","ProjectDIR/rt/load/mf/Core",},family={["compiler"]="intel",},inactive={},mT={PrgEnv={["FN"]="ProjectDIR/mf/Core/PrgEnv.lua",["default"]=0,["fullName"]="PrgEnv",["loadOrder"]=2,["mType"]="m",propT={},["short"]="PrgEnv",["status"]="active",},admin={["FN"]="ProjectDIR/mf/Core/admin/admin-1.0.lua",["default"]=1,["fullName"]="admin/admin-1.0",["loadOrder"]=1,["mType"]="w",propT={},["short"]="admin",["status"]="active",},alex={["FN"]="ProjectDIR/rt/load/mf/Core/alex/2.0.lua",["default"]=1,["fullName"]="alex/2.0",["loadOrder"]=9,["mType"]="w",propT={},["short"]="alex",["status"]="active",},boost={["FN"]="ProjectDIR/mf/Core/boost/1.49.0.lua",["default"]=1,["fullName"]="boost/1.49.0",["loadOrder"]=8,["mType"]="w",propT={arch={["offload"]=1,},},["short"]="boost",["status"]="active",},gotoblas={["FN"]="ProjectDIR/mf/Compiler/intel/10.1/gotoblas/1.32.lua",["default"]=1,["fullName"]="gotoblas/1.32",["loadOrder"]=7,["mType"]="w",propT={},["short"]="gotoblas",["status"]="active",},intel={["FN"]="ProjectDIR/mf/Core/intel/intel.lua",["default"]=1,["fullName"]="intel/intel",["loadOrder"]=6,["mType"]="w",propT={},["short"]="intel",["status"]="active",},["local"]={["FN"]="ProjectDIR/mf/Core/local/local.lua",["default"]=1,["fullName"]="local/local",["loadOrder"]=4,["mType"]="w",propT={},["short"]="local",["status"]="active",},noweb={["FN"]="ProjectDIR/mf/Core/noweb/2.10c.lua",["default"]=1,["fullName"]="noweb/2.10c",["loadOrder"]=5,["mType"]="w",propT={},["short"]="noweb",["status"]="active",},unix={["FN"]="ProjectDIR/mf/Core/unix/unix.lua",["default"]=1,["fullName"]="unix/unix",["loadOrder"]=3,["mType"]="w",propT={},["short"]="unix",["status"]="active",},},mpathA={"ProjectDIR/mf/Compiler/intel/10.1","ProjectDIR/mf/Core","ProjectDIR/mf/Beta","ProjectDIR/rt/load/mf/Core",},["systemBaseMPATH"]="ProjectDIR/mf/Core:ProjectDIR/mf/Beta",["version"]=2,}';
+export _ModuleTable_;
+===========================
+step 15
+lua ProjectDIR/src/lmod.in.lua bash list
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/load/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/load/mf/Core";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/load/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/load/mf/Core";
 export MODULEPATH;

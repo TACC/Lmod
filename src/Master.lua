@@ -825,24 +825,20 @@ local function findDefault(mpath, sn, versionA)
    local dbg  = Dbg:dbg()
    dbg.start("Master.findDefault(mpath=\"",mpath,"\", "," sn=\"",sn,"\")")
    local mt   = MT:mt()
-
-   local pathA  = mt:locationTbl(sn)
-   local mpath2 = pathA[1].mpath
-
-   if (mpath2 ~= mpath) then
-      dbg.print("(1) default: \"nil\"\n")
-      dbg.fini("Master.findDefault")
-      return nil
-   end
-
+   local t    = {}
+   
+   local marked   = false
    local localDir = true
    local path     = pathJoin(mpath,sn)
    local default  = abspath(pathJoin(path, "default"), localDir)
-   if (default == nil) then
+   if (default) then
+      marked   = true
+   else
       local vFn = abspath(pathJoin(path,".version"), localDir)
       if (isFile(vFn)) then
          local vf = M.versionFile(vFn)
          if (vf) then
+            marked = true
             local f = pathJoin(path,vf)
             default = abspath(f,localDir)
             --dbg.print("(1) f: ",f," default: ", default, "\n")
@@ -861,9 +857,13 @@ local function findDefault(mpath, sn, versionA)
       default = abspath(versionA[#versionA].file, localDir)
    end
    dbg.print("default: ", default,"\n")
-   dbg.fini("Master.findDefault")
 
-   return default, #versionA
+   t.default     = default
+   t.marked      = marked
+   t.numVersions = #versionA
+
+   dbg.fini("Master.findDefault")
+   return t
 end
 
 --------------------------------------------------------------------------
@@ -872,10 +872,10 @@ end
 --                properties such as default or anything from [[propT]].
 
 local function availEntry(defaultOnly, terse, szA, searchA, sn, name,
-                          f, defaultModule, dbT, legendT, a)
+                          f, defaultModuleT, dbT, legendT, a)
    local dbg      = Dbg:dbg()
    dbg.start("Master:availEntry(defaultOnly, terse, szA, searchA, "..
-                               "sn, name, f, defaultModule, dbT, legendT, a)")
+                               "sn, name, f, defaultModuleT, dbT, legendT, a)")
 
    dbg.print("sn:" ,sn, ", name: ", name,", defaultOnly: ",defaultOnly,
              ", szA: ",szA,"\n")
@@ -897,6 +897,8 @@ local function availEntry(defaultOnly, terse, szA, searchA, sn, name,
          end
       end
    end
+
+   local defaultModule = defaultModuleT.default
 
    if (defaultOnly and szA > 1 and  defaultModule ~= abspath(f, localdir)) then
       found = false
@@ -929,8 +931,10 @@ local function availEntry(defaultOnly, terse, szA, searchA, sn, name,
          a[#a+1] = name
       end
    else
-      if (defaultModule == abspath(f, localdir) and szA > 1 and
-          not defaultOnly ) then
+      dbg.print("defaultModule: ",defaultModule, ", marked: ", defaultModuleT.marked,"\n")
+      if ((defaultModule == abspath(f, localdir)) and
+            (szA > 1 or defaultModuleT.marked) and
+            not defaultOnly ) then
          dflt = Default
          legendT[Default] = "Default Module"
       end
@@ -981,24 +985,24 @@ local function availDir(defaultOnly, terse, searchA, mpath, availT,
 
 
    for sn, versionA in pairsByKeys(availT) do
-      local defaultModule = false
-      local aa            = {}
-      local szA           = #versionA
+      local defaultModuleT = {}
+      local aa             = {}
+      local szA            = #versionA
       if (szA == 0) then
          availEntry(defaultOnly, terse, szA, searchA, sn, sn, "",
-                    defaultModule, dbT, legendT, a)
+                    defaultModuleT, dbT, legendT, a)
       else
-         defaultModule = findDefault(mpath, sn, versionA)
+         defaultModuleT = findDefault(mpath, sn, versionA)
          if (terse) then
             -- Print out directory (e.g. gcc) for tab-completion
             availEntry(defaultOnly, terse, szA, searchA, sn, sn, "",
-                       defaultModule, dbT, legendT, a)
+                       defaultModuleT, dbT, legendT, a)
          end
          for i = 1, #versionA do
             local name = pathJoin(sn, versionA[i].version)
             local f    = versionA[i].file
             availEntry(defaultOnly, terse, szA, searchA, sn, name,
-                       f, defaultModule, dbT, legendT, a)
+                       f, defaultModuleT, dbT, legendT, a)
          end
       end
    end

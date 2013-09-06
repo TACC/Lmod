@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.1.0 (5.1.0-32-g5be75e1) 2013-07-10 22:01
+Modules based on Lua: Version 5.1.5 (5.1.5-12-g2f0e087) 2013-08-28 14:03
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -19,9 +19,9 @@ ProjectDIR/mf/Compiler/intel/10.1
    gotoblas/1.32   (D)    mpich2/1.0.7
 ProjectDIR/mf/Core
    PrgEnv                      git/1.7.4              junk/d/3.0
-   admin/admin-1.0             git/1.7.4.3     (D)    local/local
+   admin/admin-1.0      (D)    git/1.7.4.3     (D)    local/local
    alex/1.0                    gotoblas/1.20          multi/multi
-   boost/1.46.0                gotoblas/1.26          noweb/2.10c
+   boost/1.46.0                gotoblas/1.26   (D)    noweb/2.10c
    boost/1.47.1                gotoblas/1.30          parmetis/3.1 (m)
    boost/1.49.0    (o)  (D)    intel/intel            unix/unix
    gcc/4.2.3                   junk/a/c/1.0

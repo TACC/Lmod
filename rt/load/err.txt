@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.0.1 (5.0.1-49-g5096f24) 2013-06-18 14:14
+Modules based on Lua: Version 5.1.5 (5.1.5-12-g2f0e087) 2013-08-28 14:03
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -46,10 +46,46 @@ lua ProjectDIR/src/lmod.in.lua bash load boost
 ===========================
 ===========================
 step 12
+lua ProjectDIR/src/lmod.in.lua bash use -a ProjectDIR/rt/load/mf/Core
+===========================
+===========================
+step 13
+lua ProjectDIR/src/lmod.in.lua bash avail
+===========================
+ProjectDIR/mf/Compiler/intel/10.1
+   gotoblas/1.31          gotoblas/1.33    openmpi/1.2.6
+   gotoblas/1.32   (D)    mpich2/1.0.7
+ProjectDIR/mf/Core
+   PrgEnv                      git/1.7.4              junk/d/3.0
+   admin/admin-1.0      (D)    git/1.7.4.3     (D)    local/local
+   alex/1.0                    gotoblas/1.20          multi/multi
+   boost/1.46.0                gotoblas/1.26   (D)    noweb/2.10c
+   boost/1.47.1                gotoblas/1.30          parmetis/3.1 (m)
+   boost/1.49.0    (o)  (D)    intel/intel            unix/unix
+   gcc/4.2.3                   junk/a/c/1.0
+   git/1.6.3.1                 junk/b/c/2.0
+ProjectDIR/mf/Beta
+   gotoblas/1.30-beta
+ProjectDIR/rt/load/mf/Core
+   alex/2.0   (D)
+  Where:
+   (D):  Default Module
+   (m):  built for host and native MIC
+   (o):  built for offload to the MIC only
+Use "module spider" to find all possible modules.
+Use "module keyword key1 key2 ..." to search for all possible modules matching
+any of the "keys".
+===========================
+step 14
+lua ProjectDIR/src/lmod.in.lua bash load alex
+===========================
+===========================
+step 15
 lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
 Currently Loaded Modules:
-  1) admin/admin-1.0   3) unix/unix     5) noweb/2.10c   7) gotoblas/1.32
-  2) PrgEnv            4) local/local   6) intel/intel   8) boost/1.49.0  (o)
+  1) admin/admin-1.0   4) local/local   7) gotoblas/1.32
+  2) PrgEnv            5) noweb/2.10c   8) boost/1.49.0  (o)
+  3) unix/unix         6) intel/intel   9) alex/2.0
   Where:
    (o):  built for offload to the MIC only

@@ -431,7 +431,7 @@ proc system { args } {
         lappend cmdArgsL "$arg"
     }
     set cmdArgs [join $cmdArgsL " "]
-    puts stdout "execute\{cmd=\"$cmdArgs\",mode = \{\"all\"\}\}"
+    puts stdout "execute\{cmd=\"$cmdArgs\",modeA = \{\"all\"\}\}"
 }
 
 proc tryloadcmd { args } {
