@@ -249,13 +249,14 @@ local function find_module_file(mname)
    local numS = (masterTbl().latest) and numSrchLatest or numSearch
 
    -- Outer Loop search over directories.
+   local found  = false
    for ii = 1, #pathA do
       local vv     = pathA[ii]
-      local found  = false
       local mpath  = vv.mpath
       t.default    = 0
       fn           = pathJoin(vv.file, mname:version())
       result       = nil
+      found        = false
 
       -- Inner loop search over search choices.
       for i = 1, numS do
@@ -275,11 +276,11 @@ local function find_module_file(mname)
             found     = true
          end
          dbg.print('(1) fn: ',fn,", found: ",found,", v: ",v,", f: ",f,"\n")
-         if (found and v == '/default' and ii == 1) then
+         if (found and v == '/default') then
             result    = followDefault(result)
             dbg.print("(2) result: ",result, " f: ", f, "\n")
             t.default = 1
-         elseif (found and v == '/.version' and ii == 1) then
+         elseif (found and v == '/.version') then
             local vf = M.versionFile(result)
             if (vf) then
                t         = find_module_file(MName:new("load",pathJoin(sn,vf)))
@@ -295,24 +296,27 @@ local function find_module_file(mname)
             break
          end
       end
-
-      dbg.print("found:", found, " fn: ",fn,"\n")
-
-
-      if (not found and ii == 1) then
-         ------------------------------------------------------------
-         -- Search for "last" file in 1st directory since it wasn't
-         -- found with exact or default match.
-         t.default  = 1
-         result = lastFileInDir(fn)
-         if (result) then
-            found = true
-            local _, j = result:find(mpath,1,true)
-            fullName   = result:sub(j+2):gsub("%.lua$","")
-            dbg.print("lastFileInDir mpath: ", mpath," fullName: ",fullName,"\n")
-         end
-      end
       if (found) then break end
+   end
+
+   dbg.print("found:", found, " fn: ",fn,"\n")
+
+   if (not found) then
+      local vv    = pathA[1]
+      local mpath = vv.mpath
+      fn = pathJoin(vv.file, mname:version())
+
+      ------------------------------------------------------------
+      -- Search for "last" file in 1st directory since it wasn't
+      -- found with exact or default match.
+      t.default  = 1
+      result = lastFileInDir(fn)
+      if (result) then
+         found = true
+         local _, j = result:find(mpath,1,true)
+         fullName   = result:sub(j+2):gsub("%.lua$","")
+         dbg.print("lastFileInDir mpath: ", mpath," fullName: ",fullName,"\n")
+      end
    end
 
    ------------------------------------------------------------------
