@@ -898,9 +898,10 @@ local function availEntry(defaultOnly, terse, szA, searchA, sn, name,
       end
    end
 
-   local defaultModule = defaultModuleT.default
+   dbg.print("defaultOnly: ",defaultOnly, ", defaultModuleT.fn: ",defaultModuleT.fn,
+             ", f: ",f,", abspath(f, localdir): ",abspath(f, localdir),"\n")
 
-   if (defaultOnly and szA > 1 and  defaultModule ~= abspath(f, localdir)) then
+   if (defaultOnly and defaultModuleT.fn ~= abspath(f, localdir)) then
       found = false
    end
 
@@ -931,10 +932,16 @@ local function availEntry(defaultOnly, terse, szA, searchA, sn, name,
          a[#a+1] = name
       end
    else
-      dbg.print("defaultModule: ",defaultModule, ", marked: ", defaultModuleT.marked,"\n")
-      if ((defaultModule == abspath(f, localdir)) and
-            (szA > 1 or defaultModuleT.marked) and
-            not defaultOnly ) then
+      dbg.print("defaultModuleT.fn: ",defaultModuleT.fn,
+                ", kind: ", defaultModuleT.kind,
+                ", num: ",  defaultModuleT.num,
+                ", f: ", f,
+                ", abspath(f, localdir): ",abspath(f, localdir),
+                "\n")
+      
+
+      if ((defaultModuleT.fn == abspath(f, localdir)) and
+          (defaultModuleT.num > 1) and not defaultOnly ) then
          dflt = Default
          legendT[Default] = "Default Module"
       end
@@ -968,12 +975,12 @@ end
 --             [[availEntry]].
 
 
-local function availDir(defaultOnly, terse, searchA, mpath, availT,
+local function availDir(defaultOnly, terse, searchA, mpath, locationT, availT,
                         dbT, a, legendT)
    local dbg    = Dbg:dbg()
    dbg.start("Master.availDir(defaultOnly= ",defaultOnly,", terse= ",terse,
              ", searchA=(",concatTbl(searchA,", "), "), mpath= \"",mpath,"\", ",
-             "availT, dbT, a, legendT)")
+             ",locationT, availT, dbT, a, legendT)")
    local attr    = lfs.attributes(mpath)
    local mt      = MT:mt()
    if (not attr or type(attr) ~= "table" or attr.mode ~= "directory"
@@ -985,14 +992,15 @@ local function availDir(defaultOnly, terse, searchA, mpath, availT,
 
 
    for sn, versionA in pairsByKeys(availT) do
-      local defaultModuleT = {}
+      dbg.print("sn: ",sn,"\n")
+      local defaultModuleT = locationT[sn].default
       local aa             = {}
       local szA            = #versionA
       if (szA == 0) then
-         availEntry(defaultOnly, terse, szA, searchA, sn, sn, "",
+         local fn = versionA[0].file
+         availEntry(defaultOnly, terse, szA, searchA, sn, sn, fn,
                     defaultModuleT, dbT, legendT, a)
       else
-         defaultModuleT = findDefault(mpath, sn, versionA)
          if (terse) then
             -- Print out directory (e.g. gcc) for tab-completion
             availEntry(defaultOnly, terse, szA, searchA, sn, sn, "",
@@ -1050,10 +1058,12 @@ function M.avail(argA)
    local cache     = Cache:cache{quiet = masterTbl.terse}
    local moduleT   = cache:build()
    local dbT       = {}
+
    Spider.buildSpiderDB({"default"}, moduleT, dbT)
 
    local legendT   = {}
    local availT    = mt:availT()
+   local locationT = mt:locationTbl()
 
    local aa        = {}
 
@@ -1062,13 +1072,14 @@ function M.avail(argA)
    local defaultOnly = optionTbl.defaultOnly or masterTbl.defaultOnly
    local terse       = optionTbl.terse       or masterTbl.terse
 
+   dbg.print("locationT: ",tostring(locationT),"\n")
 
    if (terse) then
       dbg.print("doing --terse\n")
       for ii = 1, #mpathA do
          local mpath = mpathA[ii]
          local a     = {}
-         availDir(defaultOnly, terse, searchA, mpath, availT[mpath], dbT, a, legendT)
+         availDir(defaultOnly, terse, searchA, mpath, locationT, availT[mpath], dbT, a, legendT)
          if (next(a)) then
             io.stderr:write(mpath,":\n")
             for i=1,#a do
@@ -1082,7 +1093,8 @@ function M.avail(argA)
 
    for _,mpath in ipairs(mpathA) do
       local a = {}
-      availDir(defaultOnly, terse, searchA, mpath, availT[mpath], dbT, a, legendT)
+
+      availDir(defaultOnly, terse, searchA, mpath, locationT, availT[mpath], dbT, a, legendT)
       if (next(a)) then
          aa[#aa+1] = "\n"
          aa[#aa+1] = bannerStr(twidth, mpath)
