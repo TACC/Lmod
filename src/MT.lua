@@ -158,7 +158,7 @@ local function locationTblDir(mpath, path, prefix, locationT, availT)
       -- The "name" of the module is the "prefix".
 
       local a           = locationT[prefix] or {}
-      a[#a+1]           = { file = path, mpath = mpath}
+      a[#a+1]           = {file = path, mpath = mpath}
       locationT[prefix] = a
       availT[prefix]    = {}
       local vA          = {}

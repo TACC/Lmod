@@ -161,15 +161,14 @@ local function versionFile(path)
    return capture(cmd):trim()
 end
 
-local function findAssignedDefault(mpath, path, prefix)
+local function findMarkedDefault(mpath, path)
    local dbg      = Dbg:dbg()
    local mt       = MT:mt()
    local localDir = true
-   dbg.start("Spider:findAssignedDefault(",mpath,", ", path,", ",prefix,")")
+   dbg.start("Spider:findMarkedDefault(",mpath,", ", path,", ",prefix,")")
 
    if (prefix == "") then
-      dbg.print("prefix is \"\"\n")
-      dbg.fini("Spider:findAssignedDefault")
+      dbg.fini("Spider:findMarkedDefault")
       return nil
    end
 
@@ -190,61 +189,15 @@ local function findAssignedDefault(mpath, path, prefix)
          end
       end
    end
-
-   if (default == nil and prefix ~= "") then
-      local result, count = lastFileInDir(path)
-      default = result
-   end
    if (default) then
       default = abspath(default, localDir)
    end
    dbg.print("(4) default: \"",default,"\"\n")
 
-   dbg.fini("Spider:findAssignedDefault")
+   dbg.fini("Spider:findMarkedDefault")
    return default
 end
 
-
-local function findDefault(mpath, path, prefix)
-   local dbg      = Dbg:dbg()
-   local mt       = MT:mt()
-   local localDir = true
-   dbg.start("Spider:findDefault(",mpath,", ", path,", ",prefix,")")
-
-   if (prefix == "") then
-      dbg.fini("Spider:findDefault")
-      return nil
-   end
-
-   local default = abspath(path .. "/default", localDir)
-   if (default == nil) then
-      local vFn = abspath(pathJoin(path,".version"), localDir)
-      if (isFile(vFn)) then
-         local vf = versionFile(vFn)
-         if (vf) then
-            local f = pathJoin(path,vf)
-            default = abspath(f,localDir)
-            if (default == nil) then
-               local fn = vf .. ".lua"
-               local f  = pathJoin(path,fn)
-               default  = abspath(f,localDir)
-               dbg.print("(2) f: ",f," default: ", default, "\n")
-            end
-         end
-      end
-   end
-   if (default == nil and prefix ~= "") then
-      local result, count = lastFileInDir(path)
-      default = result
-   end
-   if (default) then
-      default = abspath(default, localDir)
-   end
-   dbg.print("(4) default: \"",default,"\"\n")
-
-   dbg.fini("Spider:findDefault")
-   return default
-end
 
 --------------------------------------------------------------------------
 -- Keep this function.  Yes this function is not safe with c/n/v name
@@ -256,17 +209,17 @@ local function shortName(full)
    return full:sub(1,(j or 0) - 1)
 end
 
-local function registerModuleT(full, sn, f, defaultModule)
+local function registerModuleT(full, sn, f, markedDefault)
    local t = {}
 
-   t.path       = f
-   t.name       = sn
-   t.name_lower = sn:lower()
-   t.full       = full
-   t.full_lower = full:lower()
-   t.epoch      = posix.stat(f, "mtime")
-   t.default    = (f == defaultModule)
-   t.children   = {}
+   t.path          = f
+   t.name          = sn
+   t.name_lower    = sn:lower()
+   t.full          = full
+   t.full_lower    = full:lower()
+   t.epoch         = posix.stat(f, "mtime")
+   t.markedDefault = (f == markedDefault)
+   t.children      = {}
 
    return t
 end
@@ -337,7 +290,7 @@ function M.findModulesInDir(level, mpath, path, prefix, moduleT)
       for k,v in pairs(mnameT) do
          local full = k
          local sn   = k
-         moduleT[v.file] = registerModuleT(full, sn, v.file, v.file)
+         moduleT[v.file] = registerModuleT(full, sn, v.file, nil)
          moduleStack[iStack] = {path= v.file, sn = sn, full = full, moduleT = moduleT, fn = v.file}
          dbg.print("Top of Stack: ",iStack, " Full: ", full, " file: ", v.file, "\n")
 
@@ -351,10 +304,10 @@ function M.findModulesInDir(level, mpath, path, prefix, moduleT)
          M.findModulesInDir(level+1,mpath, dirA[i].fn, dirA[i].mname .. '/', moduleT)
       end
    else
-      local defaultModule   = findAssignedDefault(mpath, path, prefix)
+      local markedDefault   = findMarkedDefault(mpath, path)
       for full,v in pairs(mnameT) do
          local sn   = shortName(full)
-         moduleT[v.file] = registerModuleT(full, sn, v.file, defaultModule)
+         moduleT[v.file] = registerModuleT(full, sn, v.file, markedDefault)
          moduleStack[iStack] = {path=v.file, sn = sn, full = full, moduleT = moduleT, fn = v.file}
          dbg.print("Top of Stack: ",iStack, " Full: ", full, " file: ", v.file, "\n")
          local t = {fn = v.file, modFullName = full, modName = sn, default = 0, hash = 0}
@@ -364,11 +317,6 @@ function M.findModulesInDir(level, mpath, path, prefix, moduleT)
          dbg.print("Saving: Full: ", full, " Name: ", sn, " file: ",v.file,"\n")
       end
    end
-   --local t2 = epoch()
-   --if (level == 0) then
-   --   dbg.print("Spider:findModulesInDir: mpath: \"",mpath,"\", path: \"",path,"\", t1: ",t1," t2: ",t2, "\n")
-   --   timer:deltaT("Spider:findModulesInDir", t2 - t1)
-   --end
    dbg.fini("findModulesInDir")
 end
 
