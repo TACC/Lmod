@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.1.3a2 (5.1.3a2-18-gfd48ba3) 2013-08-14 15:23
+Modules based on Lua: Version 5.1.6 (5.1.6-3-gd040b7f) 2013-09-06 19:17
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -16,7 +16,7 @@ Options:
                                 avail
   -q --quiet --expert           Do not print out warnings
   -t --terse                    Write out in machine readable format for
-                                commands: list, avail, spider
+                                commands: list, avail, spider, savelist
   --initial_load                loading Lmod for first time in a user shell
   --latest                      Load latest (ignore default)
   --ignore_cache                Treat the cache file(s) as out-of-date
@@ -101,7 +101,7 @@ The following guides are at http://www.tacc.utexas.edu/tacc-projects/lmod
   User Guide                 - How to use.
   Advance User Guide         - How to create you own modules.
   System Administrator Guide - How to install Lmod on your own system.
-Modules based on Lua: Version 5.1.3a2 (5.1.3a2-18-gfd48ba3) 2013-08-14 15:23
+Modules based on Lua: Version 5.1.6 (5.1.6-3-gd040b7f) 2013-09-06 19:17
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 3
@@ -115,7 +115,7 @@ Options:
                                 avail
   -q --quiet --expert           Do not print out warnings
   -t --terse                    Write out in machine readable format for
-                                commands: list, avail, spider
+                                commands: list, avail, spider, savelist
   --initial_load                loading Lmod for first time in a user shell
   --latest                      Load latest (ignore default)
   --ignore_cache                Treat the cache file(s) as out-of-date
@@ -200,7 +200,7 @@ The following guides are at http://www.tacc.utexas.edu/tacc-projects/lmod
   User Guide                 - How to use.
   Advance User Guide         - How to create you own modules.
   System Administrator Guide - How to install Lmod on your own system.
-Modules based on Lua: Version 5.1.3a2 (5.1.3a2-18-gfd48ba3) 2013-08-14 15:23
+Modules based on Lua: Version 5.1.6 (5.1.6-3-gd040b7f) 2013-09-06 19:17
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 4
@@ -220,7 +220,7 @@ Version 9
 step 5
 lua ProjectDIR/src/lmod.in.lua bash --config
 ===========================
-Modules based on Lua: Version 5.1.3a2 (5.1.3a2-18-gfd48ba3) 2013-08-14 15:23
+Modules based on Lua: Version 5.1.6 (5.1.6-3-gd040b7f) 2013-09-06 19:17
     by Robert McLay mclay@tacc.utexas.edu
 Name             Value                   Description
 ancient          @ancient@               User cache file valid time(sec)

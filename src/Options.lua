@@ -116,7 +116,7 @@ function M.options(self, usage)
       dest   = "terse",
       action = "store_true",
       help   = "Write out in machine readable format for " ..
-               "commands: list, avail, spider",
+               "commands: list, avail, spider, savelist",
    }
 
    cmdlineParser:add_option{

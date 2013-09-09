@@ -193,7 +193,6 @@ function List(...)
    dbg.start("List(...)")
    local masterTbl = masterTbl()
    local mt = MT:mt()
-
    local totalA = mt:list("userName","any")
    if (#totalA < 1) then
       LmodWarning("No modules installed\n")
@@ -594,15 +593,27 @@ end
 -- SaveList(): report to the user all the named collections he/she has.
 
 function SaveList(...)
-   local mt   = MT:mt()
-   local dbg  = Dbg:dbg()
-   local path = pathJoin(os.getenv("HOME"), LMODdir)
-   local i    = 0
-
-   local a = {}
-   local b = {}
+   local mt        = MT:mt()
+   local dbg       = Dbg:dbg()
+   local path      = pathJoin(os.getenv("HOME"), LMODdir)
+   local masterTbl = masterTbl()
+   local a         = {}
+   local b         = {}
 
    findNamedCollections(b,path)
+   if (masterTbl.terse) then
+      for k = 1,#b do
+         local name = b[k]
+         local i,j  = name:find(path,1,true)
+         if (i) then
+            name = name:sub(j+2)
+         end
+         io.stderr:write(name,"\n")
+      end
+      return
+   end
+
+
    for k = 1,#b do
       local name = b[k]
       local i,j  = name:find(path,1,true)
