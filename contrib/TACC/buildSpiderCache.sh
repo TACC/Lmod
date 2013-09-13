@@ -1,6 +1,11 @@
 #!/bin/bash
 # -*- shell-script -*-
 
+force=
+if [ "$1" = "--force" ]; then
+  force="force"
+fi  
+
 ########################################################################
 # Generate time stamp file:
 
@@ -102,7 +107,7 @@ nodeType=$(readTS $timeStamp)
 
 # if the cache file is out-of-date then rebuild the cache files for the local
 # directories
-if [ $a -ge $b ]; then
+if [ -n "$force" -o $a -ge $b ]; then
   if [ "$nodeType" != "build" ]; then
     buildNewDB $CacheDir  /opt/apps/modulefiles:/opt/modulefiles  moduleT
     buildNewDB $RmapDir   /opt/apps/modulefiles:/opt/modulefiles  reverseMapT
