@@ -56,8 +56,8 @@ local stdout      = io.stdout
 function Bash.alias(self, k, v)
    local dbg = Dbg:dbg()
    if (v == "") then
-      stdout:write("unalias ",k,";\n")
-      dbg.print(   "unalias ",k,";\n")
+      stdout:write("unalias ",k," 2> /dev/null;\n")
+      dbg.print(   "unalias ",k," 2> /dev/null;\n")
    else
       v = v:gsub(";%s*$","")
       stdout:write("alias ",k,"='",v,"';\n")
