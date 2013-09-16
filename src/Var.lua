@@ -85,7 +85,7 @@ require("strict")
 require("string_split")
 require("pairsByKeys")
 require("utils")
-local Dbg           = require("Dbg")
+local dbg           = require("Dbg"):dbg()
 local ModulePath    = ModulePath
 local concatTbl     = table.concat
 local getenv        = os.getenv
@@ -137,7 +137,6 @@ end
 function M.new(self, name, value, sep)
    local o = {}
    setmetatable(o,self)
-   local dbg          = Dbg:dbg()
    self.__index = self
    o.value      = value
    o.name       = name
@@ -151,7 +150,6 @@ end
 -- Var:prt() This member function is here just when debugging.
 
 function M.prt(self,title)
-   local dbg = Dbg:dbg()
    dbg.print (title,"\n")
    dbg.print ("name:  \"", self.name, "\"\n")
    dbg.print ("imin:  \"", self.imin, "\"\n")
@@ -177,7 +175,6 @@ end
 
 local function chkMP(name)
    if (name == ModulePath) then
-      local dbg = Dbg:dbg()
       dbg.print("calling reEvalModulePath()\n")
       local mt = systemG.MT:mt()
 
@@ -226,7 +223,6 @@ whereT = {
 --               any modules loaded will also know the new value.
 
 function M.remove(self, value, where)
-   local dbg  = Dbg:dbg()
    if (value == nil) then return end
 
    where = allow_dups(true) and where or "all"
@@ -251,7 +247,6 @@ end
 --            none are left. 
 
 function M.pop(self)
-   local dbg    = Dbg:dbg()
    local imin   = self.imin
    local min2   = math.huge
    local result = nil
@@ -308,7 +303,6 @@ end
 --                policies on duplication by setting [[insertFunc]].
 
 function M.prepend(self, value, nodups)
-   local dbg  = Dbg:dbg()
    if (value == nil) then return end
 
    local pathA         = path2pathA(value, self.sep)

@@ -39,7 +39,7 @@
 
 require("strict")
 require("utils")
-local Dbg           = require("Dbg")
+local dbg           = require("Dbg"):dbg()
 local concatTbl     = table.concat
 local getenv        = os.getenv
 
@@ -58,7 +58,6 @@ end
 
 function M.exec(self)
    if (not s_exec) then
-      local dbg = Dbg:dbg()
       dbg.start("Exec:exec()")
       s_exec = new(self)
       dbg.fini("Exec:exec")

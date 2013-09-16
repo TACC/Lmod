@@ -37,11 +37,10 @@ require("strict")
 require("inherits")
 
 local M            = {}
-local Dbg          = require("Dbg")
+local dbg          = require("Dbg"):dbg()
 local STT          = require("STT")         
 local base64       = require("base64")
 local concatTbl    = table.concat
-local dbg          = Dbg:dbg()
 local decode64     = base64.decode64
 local encode64     = base64.encode64
 local floor        = math.floor

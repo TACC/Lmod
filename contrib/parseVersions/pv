@@ -40,6 +40,7 @@ require("VarDump")
 local BeautifulTbl = require("BeautifulTbl")
 local Dbg          = require("Dbg")
 local concatTbl    = table.concat
+local dbg          = Dbg:dbg()
 
 replaceT = {
    pre     = "c",
@@ -79,8 +80,6 @@ replaceT = {
 
 function parseVersion(versionStr)
 
-   local dbg = Dbg:dbg()
-
    dbg.start("parseVersion(",versionStr,")")
 
    local vA = {}
@@ -116,7 +115,6 @@ function parseVersionParts(versionStr)
    local s     = versionStr:lower()
    local s_end = s:len()
    local ipos  = 1
-   local dbg   = Dbg:dbg()
    local i,j, results
    return
       function()
@@ -215,7 +213,6 @@ end
 
 function main()
 
-   local dbg = Dbg:dbg()
    --dbg:activateDebug(1)
 
    dbg.start("main()")

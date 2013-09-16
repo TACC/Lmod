@@ -59,10 +59,12 @@
 --        to be loaded at a time.
 
 require("strict")
+require("utils")
 
-local M   = {}
-local Dbg = require("Dbg")
-local MT  = require("MT")
+local M    = {}
+local dbg  = require("Dbg"):dbg()
+local MT   = require("MT")
+local pack = (_VERSION == "Lua 5.1") and argsPack or table.pack
 
 --------------------------------------------------------------------------
 -- shorten(): This function allows for taking the name and remove one
@@ -92,9 +94,11 @@ end
 --              already loaded.  Knowing the short name it is possible to
 --              figure out the version (if one exists).  If the module name
 --              doesn't exist then the short name (sn) and version are set 
---              to false.
+--              to false.  The last argument is "action".  Normally this
+--              argument is nil, which implies the value is "equal".  Other
+--              choices are "atleast", ...
 
-function M.new(self, sType, name)
+function M.new(self, sType, name, action)
    local o = {}
    setmetatable(o,self)
    self.__index = self
@@ -141,9 +145,11 @@ function M.new(self, sType, name)
    end
 
    if (sn) then
-      o._sn      = sn
-      o._name    = name
-      o._version = version or extractVersion(name, sn)
+      o._sn       = sn
+      o._name     = name
+      o._version  = version or extractVersion(name, sn)
+      o._action   = action or "equal"
+      o.watermark = "Lmod"
    end
 
    return o
@@ -172,4 +178,25 @@ function M.version(self)
    return self._version
 end
 
+--------------------------------------------------------------------------
+-- MName:action(): Return the action for the module. 
+
+function M.action(self)
+   return self._action
+end
+
+--------------------------------------------------------------------------
+-- MName:build(...): Return an array of MName objects
+
+function M.build(self,...)
+   local arg = pack(...)
+   
+   
+end
+
+
+
+
 return M
+
+

@@ -38,8 +38,7 @@
 require("strict")
 require("inherits")
 local M    = {}
-local Dbg  = require("Dbg")
-local dbg  = Dbg:dbg()
+local dbg  = require("Dbg"):dbg()
 local hook = require("Hook")
 
 function M.build(name)

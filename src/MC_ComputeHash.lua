@@ -55,7 +55,7 @@ require("utils")
 MC_ComputeHash         = inheritsFrom(MasterControl)
 MC_ComputeHash.my_name = "MC_ComputeHash"
 local M                = MC_ComputeHash
-local Dbg              = require("Dbg")
+local dbg              = require("Dbg"):dbg()
 local concatTbl        = table.concat
 local A                = ComputeModuleResultsA
 

@@ -36,15 +36,21 @@ require("strict")
 
 require("fileOps")
 
-local Dbg       = require("Dbg")
+local dbg       = require("Dbg"):dbg()
 local base64    = require("base64")
 local concatTbl = table.concat
-local dbg       = Dbg:dbg()
 local decode64  = base64.decode64
 local format    = string.format
 local getenv    = os.getenv
 local huge      = math.huge
 local posix     = require("posix")
+
+
+function argsPack(...)
+   local arg = { n = select ("#", ...), ...}
+   return arg
+end
+local pack        = (_VERSION == "Lua 5.1") and argsPack or table.pack
 
 function findFileInTree(fn)
    local cwd = posix.getcwd()
@@ -65,7 +71,7 @@ end
 
 function STError(...)
    io.stderr:write("\n","Settarg has detected the following error: ")
-   local arg = { n = select("#", ...), ...}
+   local arg = pack(...)
    for i = 1, arg.n do
       io.stderr:write(arg[i])
    end

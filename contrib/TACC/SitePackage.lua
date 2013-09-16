@@ -37,6 +37,7 @@ require("myGlobals")
 require("string_split")
 require("string_trim")
 local Dbg    = require("Dbg")
+local dbg    = Dbg:dbg()
 PkgBase      = require("PkgBase")
 local hook   = require("Hook")
 local getenv = os.getenv
@@ -48,8 +49,6 @@ Pkg = PkgBase.build("PkgTACC")
 
 
 local function load_hook(t)
-
-   local dbg = Dbg:dbg()
    dbg.start("load_hook()")
    ------------------------------------------------------------------------
    -- Exit out if regular (not a batch job)

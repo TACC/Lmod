@@ -52,7 +52,7 @@ require("strict")
 require("TermWidth")
 require("Dbg")
 local concatTbl = table.concat
-local Dbg       = require("Dbg")
+local dbg       = require("Dbg"):dbg()
 local getenv    = os.getenv
 local max       = math.max
 local min       = math.min
@@ -82,7 +82,6 @@ end
 -- ColumnTable:new(): Compute the actual number of rows and columns that
 --                    will fit.
 function M.new(self,t)
-   local dbg = Dbg:dbg()
    local tbl = t
    local o   = {}
    if (t.tbl) then
@@ -146,7 +145,6 @@ end
 -- ColumnTable:__entry_width2(): compute [[szA]] array for a 2-D column.
 
 function M.__entry_width2(self, t, szA)
-   local dbg       = Dbg:dbg()
    dbg.start("ColumnTable:__entry_width2()")
    local imin      = huge
    local imax      = 0
@@ -205,7 +203,6 @@ end
 --                             column range for a 2-D array.
 
 function M.__columnSum2(self, istart, iend)
-   local dbg  = Dbg:dbg()
    local szA  = self.szA
    local dim2 = self.dim[2]
    local maxA = {}
@@ -249,7 +246,6 @@ end
 -- ColumnTable:__display2(): Pad string with trailing spaces to get to
 --                           correct width for a 2-D array
 function M.__display2(self,i, icol)
-   local dbg      = Dbg:dbg()
    local width    = self.columnCnt[icol]
    local widthA   = self.columnCntI[icol]
    local dim2     = self.dim[2]
@@ -288,7 +284,6 @@ end
 -- Compute the number of rows and columns that will fit.
 
 function M.__number_of_columns_rows(self,t)
-   local dbg    = Dbg.dbg()
    dbg.start("ColumnTable:__number_of_columns_rows()")
    local floor  = math.floor
    local ceil   = math.ceil
@@ -391,7 +386,6 @@ end
 --                          fit and generate the table.
 
 function M.build_tbl(self)
-   local dbg       = Dbg:dbg()
    local a         = {}
    local columnCnt = self.columnCnt
    local nrows     = self.nrows

@@ -68,11 +68,10 @@ require("utils")
 
 
 local CTimer  = require("CTimer")
-local Dbg     = require("Dbg")
+local dbg     = require("Dbg"):dbg()
 local M       = {}
 local MT      = require("MT")
 local Spider  = require("Spider")
-local dbg     = Dbg:dbg()
 local hook    = require("Hook")
 local lfs     = require("lfs")
 local posix   = require("posix")

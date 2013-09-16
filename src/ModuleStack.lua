@@ -53,7 +53,7 @@ require("escape")
 require("strict")
 ModuleStack = { }
 
-local Dbg          = require("Dbg")
+local dbg          = require("Dbg"):dbg()
 local remove       = table.remove
 
 --module("ModuleStack")
@@ -135,7 +135,6 @@ end
 --                           meta/regular or (manager/worker bee) or both.
 
 function M.moduleType(self)
-   local dbg   = Dbg:dbg()
    dbg.start("ModuleStack:moduleType()")
 
    local stack   = self.stack

@@ -73,7 +73,7 @@
 
 require("strict")
 require("string_split")
-local Dbg          = require("Dbg")
+local dbg          = require("Dbg"):dbg()
 local concatTbl	   = table.concat
 local max	   = math.max
 local min	   = math.min

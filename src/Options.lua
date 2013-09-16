@@ -43,7 +43,7 @@
 require("strict")
 
 Error = nil
-local Dbg          = require("Dbg")
+local dbg          = require("Dbg"):dbg()
 local format       = string.format
 local posix        = require("posix")
 local setenv       = posix.setenv
@@ -71,7 +71,6 @@ end
 
 
 function M.options(self, usage)
-   local dbg = Dbg:dbg()
 
    local Optiks = require("Optiks")
 

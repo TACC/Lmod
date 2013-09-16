@@ -3,6 +3,7 @@
 -- author: jonas.juselius@uit.no
 
 local Dbg    = require("Dbg")
+local dbg    = Dbg:dbg()
 local hook   = require("Hook")
 local siteAppRoot = os.getenv("LMOD_PKG_ROOT") or "/global/apps"
 local defaultsDir = pathJoin(os.getenv("MODULEPATH_ROOT"), "defaults")
@@ -26,7 +27,6 @@ local function getdirectory(p)
 end
 
 function checkRestrictedGroup(pkg, group)
-   local dbg = Dbg:dbg()
    dbg.start("checkRestrictedGroup(pkg, \"",tostring(group),"\")")
    if (mode() ~= "load") then
       dbg.fini("checkRestrictedGroup")
@@ -53,7 +53,6 @@ function checkRestrictedGroup(pkg, group)
 end
 
 function logUsage(pkg)
-   local dbg = Dbg:dbg()
    dbg.start("logUsage(pkg)")
    if (mode() ~= "load") then
       dbg.fini("logUsage")
@@ -127,7 +126,6 @@ function setPkgInfo(pkg)
 end
 
 function loadPkgDefaults()
-    local dbg = Dbg:dbg()
     local pkg = {}
     local status
     local msg

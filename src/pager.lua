@@ -33,7 +33,7 @@
 --------------------------------------------------------------------------
 
 require("strict")
-local Dbg       = require("Dbg")
+local dbg       = require("Dbg"):dbg()
 local concatTbl = table.concat
 --------------------------------------------------------------------------
 -- Pager: This file provides two ways to use the pager.  If stderr is
@@ -59,7 +59,6 @@ end
 --             pager has been chosen.
 
 function usePager(f, ...)
-   local dbg = Dbg:dbg()
    dbg.start("usePager()")
    if (not s_pager) then
       s_pager = os.getenv("PAGER") or Pager

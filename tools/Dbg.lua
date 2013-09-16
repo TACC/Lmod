@@ -105,6 +105,12 @@ local function prtTbl(a)
    end
 end
 
+local function argsPack(...)
+   local arg = { n = select ("#", ...), ...}
+   return arg
+end
+local pack        = (_VERSION == "Lua 5.1") and argsPack or table.pack
+
 local function new(self)
    local o = {}
    setmetatable(o,self)
@@ -238,16 +244,18 @@ end
 
 function M.Warning(...)
    io.stderr:write("\n",s_prefix,"Warning: ")
-   for _,v in ipairs{...} do
-      io.stderr:write(v)
+   local arg = pack(...)
+   for i = 1, arg.n do
+      io.stderr:write(arg[i])
    end
    s_warningCalled = true
 end
 
 function M.Error(...)
    io.stderr:write("\n",s_prefix,"Error: ")
-   for _,v in ipairs{...} do
-      io.stderr:write(v)
+   local arg = pack(...)
+   for i = 1, arg.n do
+      io.stderr:write(arg[i])
    end
    io.stderr:write("\n")
    errorExit()

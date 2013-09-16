@@ -36,9 +36,8 @@ require("strict")
 require("fileOps")
 require("sandbox")
 require("string_split")
-local Dbg       = require("Dbg")
+local dbg       = require("Dbg"):dbg()
 local concatTbl = table.concat
-local dbg       = Dbg:dbg()
 
 ------------------------------------------------------------------------
 -- loadModuleFile(t): read a modulefile in via sandbox_run

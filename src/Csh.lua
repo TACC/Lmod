@@ -41,7 +41,7 @@ require("strict")
 require("pairsByKeys")
 
 local BaseShell   = BaseShell
-local Dbg         = require("Dbg")
+local dbg         = require("Dbg"):dbg()
 local concatTbl   = table.concat
 local stdout      = io.stdout
 
@@ -55,7 +55,6 @@ Csh.my_name = 'csh'
 --              end.
 
 function Csh.alias(self, k, v)
-   local dbg = Dbg:dbg()
    if (v == "" ) then
       stdout:write("unalias ",k,";\n")
       dbg.print(   "unalias ",k,";\n")
@@ -81,7 +80,6 @@ end
 -- Csh:expandVar(): expand a single key-value pair into Csh syntax.
 
 function Csh.expandVar(self, k, v, vType)
-   local dbg = Dbg:dbg()
    local lineA       = {}
    local middle      = ' "'
    v                 = tostring(v)
@@ -106,7 +104,6 @@ end
 -- Csh:unset(): unset a local or env. variable.
 
 function Csh.unset(self, k, vType)
-   local dbg = Dbg:dbg()
    local lineA       = {}
    if (vType == "local_var") then
       lineA[#lineA + 1] = "unset "

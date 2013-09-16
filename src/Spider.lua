@@ -49,7 +49,7 @@ require("pager")
 local M = {}
 
 local CTimer       = require("CTimer")
-local Dbg          = require("Dbg")
+local dbg          = require("Dbg"):dbg()
 local timer        = require("Timer"):timer()
 local concatTbl    = table.concat
 local lfs          = require("lfs")
@@ -93,7 +93,6 @@ end
 
 function Spider_append_path(kind, name, value)
    if (name == "MODULEPATH") then
-      local dbg = Dbg:dbg()
       dbg.start(kind,"(MODULEPATH=\"",name,"\", value=\"",value,"\")")
       processNewModulePATH(value)
       dbg.fini(kind)
@@ -106,7 +105,6 @@ end
 
 function processNewModulePATH(value)
    if (value == nil) then return end
-   local dbg = Dbg:dbg()
    dbg.start("processNewModulePATH(value=\"",value,"\")")
 
    local masterTbl   = masterTbl()
@@ -141,7 +139,6 @@ end
 ------------------------------------------------------------
 
 local function versionFile(path)
-   local dbg     = Dbg:dbg()
    dbg.start("versionFile(",path,")")
    local f       = io.open(path,"r")
    if (not f)                        then
@@ -162,7 +159,6 @@ local function versionFile(path)
 end
 
 local function findMarkedDefault(mpath, path)
-   local dbg      = Dbg:dbg()
    local mt       = MT:mt()
    local localDir = true
    dbg.start("Spider:findMarkedDefault(",mpath,", ", path,")")
@@ -227,7 +223,6 @@ end
 
 function M.findModulesInDir(level, mpath, path, prefix, moduleT)
    local t1
-   local dbg  = Dbg:dbg()
    dbg.start("findModulesInDir(level= ",level,", mpath=\"",mpath,"\", path=\"",path,
              "\", prefix=\"",prefix,"\")")
 
@@ -321,7 +316,6 @@ function M.findModulesInDir(level, mpath, path, prefix, moduleT)
 end
 
 function M.findAllModules(moduleDirA, moduleT)
-   local dbg    = Dbg:dbg()
    dbg.start("Spider:findAllModules(",concatTbl(moduleDirA,", "),")")
 
    if (next(moduleT) == nil) then
@@ -361,7 +355,6 @@ function M.findAllModules(moduleDirA, moduleT)
 end
 
 function M.buildSpiderDB(a, moduleT, dbT)
-   local dbg = Dbg:dbg()
    dbg.start("Spider.buildSpiderDB({",concatTbl(a,","),"},moduleT, dbT)")
 
    dbg.print("moduleT.version: ",moduleT.version,"\n")
@@ -383,7 +376,6 @@ function M.buildSpiderDB(a, moduleT, dbT)
 end
 
 function M.singleSpiderDB(a, moduleT, dbT)
-   local dbg = Dbg:dbg()
    dbg.start("Spider.singleSpiderDB({",concatTbl(a,","),"},moduleT, dbT)")
    for path, value in pairs(moduleT) do
       dbg.print("path: ",path,"\n")
@@ -422,7 +414,6 @@ function M.singleSpiderDB(a, moduleT, dbT)
 end
 
 function M.searchSpiderDB(strA, a, moduleT, dbT)
-   local dbg = Dbg:dbg()
    dbg.start("Spider:searchSpiderDB({",concatTbl(a,","),"},moduleT, dbT)")
 
    local version = moduleT.version or 0
@@ -442,7 +433,6 @@ function M.searchSpiderDB(strA, a, moduleT, dbT)
 end
 
 function M.singleSearchSpiderDB(strA, a, moduleT, dbT)
-   local dbg = Dbg:dbg()
    dbg.start("Spider.singleSearchSpiderDB()")
 
    for path, value in pairsByKeys(moduleT) do
@@ -490,8 +480,6 @@ function M.singleSearchSpiderDB(strA, a, moduleT, dbT)
 end
 
 function M.Level0(dbT)
-
-   local dbg       = Dbg:dbg()
    local a         = {}
    local masterTbl = masterTbl()
    local terse     = masterTbl.terse
@@ -615,7 +603,6 @@ local function countEntries(t, searchName)
 end
 
 function M.spiderSearch(dbT, searchName, help)
-   local dbg = Dbg:dbg()
    dbg.start("Spider:spiderSearch(dbT,\"",searchName,"\")")
    local found = false
    local A  = {}
@@ -663,7 +650,6 @@ function M.spiderSearch(dbT, searchName, help)
 end
 
 function M._Level1(key, T, searchName, help)
-   local dbg = Dbg:dbg()
    dbg.start("Spider:_Level1(T,\"",searchName,"\",help)")
    local term_width = TermWidth() - 4
 
@@ -749,7 +735,6 @@ function M._Level1(key, T, searchName, help)
 end
 
 function M._Level2(T, searchName, full)
-   local dbg = Dbg:dbg()
    dbg.start("Spider:_Level2(T,\"",searchName,"\", \"",full,"\")")
    local a  = {}
    local ia = 0

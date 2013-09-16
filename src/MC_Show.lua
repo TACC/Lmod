@@ -39,7 +39,7 @@
 
 require("strict")
 require("utils")
-
+local pack         = (_VERSION == "Lua 5.1") and argsPack or table.pack
 MC_Show            = inheritsFrom(MasterControl)
 MC_Show.my_name    = "MC_Show"
 MC_Show.report     = MasterControl.warning
@@ -59,9 +59,10 @@ local function ShowCmd(name,...)
 end
 
 local function Show_help(...)
-   local a = {}
-   for _,v in ipairs{...} do
-      a[#a + 1] = "[[".. v .."]]"
+   local arg = pack(...)
+   local a   = {}
+   for i = 1,arg.n do
+      a[#a + 1] = "[[".. arg[i] .."]]"
    end
    io.stderr:write("help(",concatTbl(a,", "),")\n")
 end

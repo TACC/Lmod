@@ -36,9 +36,8 @@ require("strict")
 
 Pkg = inheritsFrom(PkgBase)
 
-local Dbg = require("Dbg")
+local dbg = require("Dbg"):dbg()
 local M = Pkg
-local dbg = Dbg:dbg()
 
 s_MdirA = { [0] = "Compiler",
             [1] = "MPI",

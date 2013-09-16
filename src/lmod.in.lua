@@ -116,7 +116,7 @@ MT            = require("MT")
 Exec          = require("Exec")
 
 local BeautifulTbl = require('BeautifulTbl')
-local Dbg          = require("Dbg")
+local dbg          = require("Dbg"):dbg()
 local MName        = require("MName")
 local Timer        = require("Timer")
 local Version      = require("Version")
@@ -125,7 +125,6 @@ local unpack       = unpack or table.unpack
 local timer        = Timer:timer()
 
 function set_duplication()
-   local dbg  = Dbg:dbg()
    local dups = getenv("LMOD_DUPLICATE_PATH") or LMOD_DUPLICATE_PATH or "no"
    dups       = dups:lower()
    if (dups == "yes") then
@@ -263,7 +262,6 @@ function Usage()
    a[#a+1] = { line }
 
 
-   local dbg    = Dbg:dbg()
    local twidth = TermWidth()
    local bt     = BeautifulTbl:new{tbl=a, column = twidth-1, len = length, wrapped=true}
    s_Usage      = bt:build_tbl()
@@ -406,7 +404,6 @@ end
 
 
 local function localvar(localvarA)
-   local dbg = Dbg:dbg()
    for _, v in ipairs(localvarA) do
       local i = v:find("=")
       if (i) then
@@ -519,7 +516,6 @@ function main()
       whatis       = whatisTbl,
    }
 
-   local dbg  = Dbg:dbg()
    MCP = MasterControl.build("load")
    mcp = MasterControl.build("load")
 

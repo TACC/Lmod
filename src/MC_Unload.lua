@@ -45,7 +45,7 @@ MC_Unload              = inheritsFrom(MasterControl)
 MC_Unload.my_name      = "MC_Unload"
 
 local M                = MC_Unload
-local Dbg              = require("Dbg")
+local dbg              = require("Dbg"):dbg()
 local format           = string.format
 local getenv           = os.getenv
 
