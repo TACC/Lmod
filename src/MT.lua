@@ -538,9 +538,13 @@ local function new(self, s)
          dbg.print("buildBaseMpathA(",baseMPATH,")\n")
          o:buildBaseMpathA(baseMPATH)
       else
-         dbg.print("currentMPATH: ",currentMPATH,"\n")
-         dbg.print("_MPATH:          ",o._MPATH,"\n")
-         o:resolveMpathChanges(currentMPATH, baseMPATH)
+         dbg.print("currentMPATH:        ",currentMPATH,"\n")
+         dbg.print("_MPATH:              ",o._MPATH,"\n")
+         dbg.print("o.systemBaseMPATH:   ",o.systemBaseMPATH,"\n")
+         dbg.print("baseMPATH:           ",o.systemBaseMPATH,"\n")
+         if (o.systemBaseMPATH == currentMPATH) then
+            o:resolveMpathChanges(currentMPATH, baseMPATH)
+         end
       end
    end
    o.inactive         = {}
@@ -635,8 +639,9 @@ function M.mt(self)
       s_mtA[#s_mtA+1]    = s_mt
       dbg.print("Original s_mtA[",#s_mtA,"]: ",tostring(s_mtA[#s_mtA]),"\n")
       M.cloneMT(self)   -- Save original MT in stack
-      varTbl[ModulePath] = Var:new(ModulePath)
+      varTbl[ModulePath] = Var:new(ModulePath, getenv(ModulePath))
       setupMPATH(s_mt, varTbl[ModulePath]:expand())
+      dbg.print("s_mt._same: ",s_mt._same, "\n")
       if (not s_mt._same) then
          s_mt:reloadAllModules()
       end
@@ -810,12 +815,13 @@ function M.getMTfromFile(self,t)
    -- Load all the worker bee modules using MCP to guarantee that all
    -- actions are in the positive.  Then fake load all manager modules.
 
+   local MName   = _G.MName
    local mcp_old = mcp
    mcp           = MCP
-   mcp:load(unpack(a))
+   mcp:load(MName:buildA("load",unpack(a)))
    mcp           = mcp_old
    local master = systemG.Master:master()
-   master.fakeload(unpack(m))
+   master.fakeload(MName:buildA("load",unpack(m)))
 
    -----------------------------------------------------------------------
    -- Now check to see that all requested modules got loaded.
@@ -892,6 +898,12 @@ function M.resolveMpathChanges(self, currentMPATH, baseMPATH)
    local kM         = #mpathA
    local mU         = 0
    local mM         = 0
+
+   if (kM > kU) then
+      dbg.fini("MT:resolveMpathChanges")
+      return
+   end
+
    for i = kM, 1, -1 do
       if (usrMpathA[kU] ~= mpathA[i]) then
          mU = kU
@@ -901,13 +913,14 @@ function M.resolveMpathChanges(self, currentMPATH, baseMPATH)
       kU = kU - 1
    end
 
+   dbg.print("mU: ",mU,", mM: ",mM,"\n")
    if ( mM ~= 0) then
       local a = {}
       a[#a+1] = "The environment MODULEPATH has been changed in unexpected ways.\n"
       a[#a+1] = "Lmod is unable to use given MODULEPATH. It is using: \n    \""
       a[#a+1] = concatTbl(mpathA,":")
       a[#a+1] = "\".\nPlease use \"module use ...\" to change MODULEPATH instead."
-      
+
       LmodWarning(concatTbl(a,""))
 
    else
@@ -919,7 +932,7 @@ function M.resolveMpathChanges(self, currentMPATH, baseMPATH)
       varTbl[DfltModPath] = Var:new(DfltModPath, dmp)
       varTbl[ModulePath]  = Var:new(ModulePath, currentMPATH)
       self:buildBaseMpathA(dmp)
-      
+
       dbg.print("currentMPATH: ",currentMPATH,"\n")
       dbg.print("MPATH:        ",concatTbl(self.mpathA,":"),"\n")
    end
@@ -976,7 +989,7 @@ function M.safeToCheckZombies(self)
 end
 
 --------------------------------------------------------------------------
--- Get/Set functions for family.  
+-- Get/Set functions for family.
 
 s_familyA = false
 local function buildFamilyPrefix()
@@ -1068,13 +1081,16 @@ function M.reEvalModulePath(self)
 end
 
 function M.reloadAllModules(self)
-   local master = systemG.Master:master()
+   dbg.start("MT:reloadAllModules()")
+   local master = _G.Master:master()
+   dbg.print("after init call to Master:master()\n")
    local count  = 0
    local ncount = 5
 
    local changed = false
    local done    = false
    while (not done) do
+      dbg.print("Calling master:reloadAll()\n")
       local same  = master:reloadAll()
       if (not same) then
          changed = true
@@ -1090,6 +1106,7 @@ function M.reloadAllModules(self)
    if (not safe and changed) then
       LmodError("MODULEPATH has changed: run \"module update\" to repair.\n")
    end
+   dbg.fini("MT:reloadAllModules")
    return not changed
 end
 
@@ -1131,7 +1148,7 @@ end
 -- There are three kinds of returns for this member function.
 --    mt:list("userName",...) returns an object containing an table
 --                            which has the short, full, etc.
---    mt:list("both",...) returns the short and full name of 
+--    mt:list("both",...) returns the short and full name of
 --    mt:list(... , ...) returns a simply array of names.
 
 function M.list(self, kind, status)
@@ -1669,7 +1686,7 @@ function M.list_property(self, idx, sn, style, legendT)
 
    local resultA = colorizePropA(style, entry.fullName, entry.propT, legendT)
 
-   local cstr    = string.format("%3d)",idx)     
+   local cstr    = string.format("%3d)",idx)
 
    table.insert(resultA, 1, cstr)
 
@@ -1685,7 +1702,7 @@ function M.haveProperty(self, sn, propName, propValue)
    end
    return entry.propT[propName][propValue]
 end
-      
+
 --------------------------------------------------------------------------
 -- MT:userLoad(): Mark a module as having been loaded by user request.
 --                This is used by MT:reportChanges() to not print. So

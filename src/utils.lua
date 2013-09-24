@@ -147,7 +147,7 @@ end
 --                   are the same.
 
 function extractVersion(full, sn)
-   if (full == nil or sn == nil) then
+   if (not full or not sn) then
       return nil
    end
    local pat     = '^' .. escape(sn) .. '/?'
@@ -448,6 +448,21 @@ function ShowCmdStr(name, ...)
    b[#b+1] = ")\n"
    return concatTbl(b,"")
 end
+
+function ShowCmdA(name, mA)
+   local a = {}
+   for i = 1, #mA do
+      local mname = mA[i]
+      a[i] = '"' .. mA[i]:usrName() .. '"'
+   end
+   local b = {}
+   b[#b+1] = name
+   b[#b+1] = "("
+   b[#b+1] = concatTbl(a,",")
+   b[#b+1] = ")\n"
+   return concatTbl(b,"")
+end
+
 
 
 --------------------------------------------------------------------------

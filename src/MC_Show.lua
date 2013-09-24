@@ -123,12 +123,12 @@ function M.remove_path(self, name,value)
    ShowCmd("remove_path", name, value)
 end
 
-function M.load(self, ...)
-   ShowCmd("load",...)
+function M.load(self, mA)
+   io.stderr:write(ShowCmdA("load",mA))
 end
 
-function M.try_load(self, ...)
-   ShowCmd("try_load",...)
+function M.try_load(self, mA)
+   io.stderr:write(ShowCmdA("try_load",mA))
 end
 
 M.try_add = M.try_load
@@ -141,20 +141,20 @@ function M.family(self, ...)
    ShowCmd("family",...)
 end
 
-function M.unload(self, ...)
-   ShowCmd("unload", ...)
+function M.unload(self, mA)
+   io.stderr:write(ShowCmdA("unload", mA))
 end
 
-function M.always_load(self, ...)
-   ShowCmd("always_load", ...)
+function M.always_load(self, mA)
+   io.stderr:write(ShowCmd("always_load", mA))
 end
 
-function M.always_unload(self, ...)
-   ShowCmd("always_unload", ...)
+function M.always_unload(self, mA)
+   io.stderr:write(ShowCmdA("always_unload", mA))
 end
 
-function M.unload(self, ...)
-   ShowCmd("unload", ...)
+function M.unload(self, mA)
+   io.stderr:write(ShowCmd("unload", mA))
 end
 
 function M.prereq(self, ...)

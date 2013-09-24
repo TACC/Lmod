@@ -102,63 +102,168 @@ function M.new(self, sType, name, action)
    local o = {}
    setmetatable(o,self)
    self.__index = self
-   local mt = MT:mt()
 
-   local sn      = false
-   local version = false
-
-   if (sType == "entryT") then
+   o._sn      = false
+   o._version = false
+   o._sType   = sType
+   o._input   = name
+   if (sType == "entryT" ) then
       local t = name
-      sn      = t.sn
-      name    = t.userName
-      version = extractVersion(t.fullName, sn)
+      o._name = t.userName
    else
       name    = (name or ""):gsub("/+$","")  -- remove any trailing '/'
-      if (sType == "load") then
-         for level = 0, 1 do
-            local n = shorten(name, level)
-            if (mt:locationTbl(n)) then
-               sn = n
-               break
-            end
-         end
-      elseif(sType == "userName") then
-         if (mt:exists(name)) then
-            sn      = name
-            name    = name
-         else
-            local n = shorten(name, 1)
-            if (mt:exists(n) )then
-               sn = n
-            end
-         end
+      o._name = name
+   end
+   o._action  = action or "equal"
+   return o
+end
+
+--function M.new(self, sType, name, action)
+--   local o = {}
+--   setmetatable(o,self)
+--   self.__index = self
+--   local mt = MT:mt()
+--
+--   local sn      = false
+--   local version = false
+--
+--   if (sType == "entryT") then
+--      local t = name
+--      sn      = t.sn
+--      name    = t.userName
+--      version = extractVersion(t.fullName, sn)
+--   else
+--      name    = (name or ""):gsub("/+$","")  -- remove any trailing '/'
+--      if (sType == "load") then
+--         for level = 0, 1 do
+--            local n = shorten(name, level)
+--            if (mt:locationTbl(n)) then
+--               sn = n
+--               break
+--            end
+--         end
+--      elseif(sType == "userName") then
+--         if (mt:exists(name)) then
+--            sn      = name
+--            name    = name
+--         else
+--            local n = shorten(name, 1)
+--            if (mt:exists(n) )then
+--               sn = n
+--            end
+--         end
+--      else
+--         for level = 0, 1 do
+--            local n = shorten(name, level)
+--            if (mt:exists(n)) then
+--               sn      = n
+--               version = mt:Version(sn)
+--               break
+--            end
+--         end
+--      end
+--   end
+--
+--   if (sn) then
+--      o._sn       = sn
+--      o._name     = name
+--      o._version  = version or extractVersion(name, sn)
+--      o.watermark = "Lmod"
+--   end
+--
+--   return o
+--end
+
+--------------------------------------------------------------------------
+-- MName:buildA(...): Return an array of MName objects
+
+function M.buildA(self,sType, ...)
+   local arg = pack(...)
+   local a = {}
+
+   for i = 1, arg.n do
+      local v = arg[i]
+      if (type(v) == "string" ) then
+         a[#a + 1] = self:new(sType, v, "equal")
+      elseif (type(v) == "table") then
+         a[#a + 1] = v
+      end
+   end
+   return a
+end
+
+function M.convert2stringA(self, ...)
+   local arg = pack(...)
+   local a = {}
+   for i = 1, arg.n do
+      local v      = arg[i]
+      local action = v.action()
+      if (action == "equal") then
+         a[#a+1] = '"' .. v:usrName() .. '"'
       else
-         for level = 0, 1 do
-            local n = shorten(name, level)
-            if (mt:exists(n)) then
-               sn      = n
-               version = mt:Version(sn)
-               break
-            end
+         local b = {}
+         b[#b+1] = action
+         b[#b+1] = '("'
+         b[#b+1] = v.sn()
+         b[#b+1] = '","'
+         b[#b+1] = v.version()
+         b[#b+1] = '")'
+         a[#a+1] = concatTbl(b,"")
+      end
+   end
+
+   return a
+end
+
+local function lazyEval(self)
+   dbg.start("lazyEval(self)")
+   local sType = self._sType
+   if (sType == "entryT") then
+      local t       = self._input
+      self._sn      = t.sn
+      self._version = extractVersion(t.fullName, t.sn)
+      dbg.fini("lazyEval")
+      return
+   end
+
+   local mt   = MT:mt()
+   local name = self._name
+   if (sType == "load") then
+      for level = 0, 1 do
+         local n = shorten(name, level)
+         if (mt:locationTbl(n)) then
+            self._sn      = n
+            break
+         end
+      end
+   else
+      for level = 0, 1 do
+         local n = shorten(name, level)
+         if (mt:exists(n)) then
+            self._sn      = n
+            self._version = mt:Version(n)
+            break
          end
       end
    end
 
-   if (sn) then
-      o._sn       = sn
-      o._name     = name
-      o._version  = version or extractVersion(name, sn)
-      o._action   = action or "equal"
-      o.watermark = "Lmod"
+   if (self._sn and not self._version) then
+      self._version = extractVersion(self._name, self._sn)
    end
-
-   return o
+   dbg.fini("lazyEval")
 end
+
 
 --------------------------------------------------------------------------
 -- MName:sn(): Return the short name
 
 function M.sn(self)
+   if (not self._sn) then
+      dbg.start("MName:sn()")
+      lazyEval(self)
+      dbg.fini("MName:sn")
+   end
+
    return self._sn
 end
 
@@ -175,27 +280,14 @@ end
 --                  version is nil if not known.
 
 function M.version(self)
+   if (self._sn and self._sn == self._name) then return end
+   if (not self._version) then
+      dbg.start("MName:version()")
+      lazyEval(self)
+      dbg.fini("MName:version")
+   end
    return self._version
 end
-
---------------------------------------------------------------------------
--- MName:action(): Return the action for the module. 
-
-function M.action(self)
-   return self._action
-end
-
---------------------------------------------------------------------------
--- MName:build(...): Return an array of MName objects
-
-function M.build(self,...)
-   local arg = pack(...)
-   
-   
-end
-
-
-
 
 return M
 

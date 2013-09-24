@@ -112,12 +112,13 @@ require("colorize")
 
 Cache         = require("Cache")
 Master        = require("Master")
+MName         = require("MName")
 MT            = require("MT")
 Exec          = require("Exec")
 
 local BeautifulTbl = require('BeautifulTbl')
 local dbg          = require("Dbg"):dbg()
-local MName        = require("MName")
+
 local Timer        = require("Timer")
 local Version      = require("Version")
 local concatTbl    = table.concat
@@ -626,6 +627,7 @@ function main()
       os.exit(0)
    end
 
+
    -- Create the [[master]] object
    local master = Master:master(checkMPATH)
    master.shell = BaseShell.build(shell)
@@ -637,7 +639,6 @@ function main()
 
    -- Output local vars
    master.shell:expand(varTbl)
-
 
    -- if Help was requested then quit.
    if (masterTbl.cmdHelp) then

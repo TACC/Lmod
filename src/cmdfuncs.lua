@@ -313,41 +313,47 @@ function Load_Usr(...)
    local mt     = MT:mt()
 
    dbg.start("Load_Usr(",concatTbl({...},", "),")")
-   local a = {}
+   local uA = {}
+   local lA = {}
    local arg = pack(...)
    for i = 1, arg.n do
       local v = arg[i]
       if (v:sub(1,1) == "-") then
-         MCP:unload(v:sub(2))
+         uA[#uA+1] = MName:new("load", v:sub(2), "equal")
       else
          if (v:sub(1,1) == "+") then
             v = v:sub(2)
          end
-         a[#a + 1] = v
-         local mname = MName:new("load",v)
+         local mname = MName:new("load",v, "equal")
          local sn    = mname:sn()
+         dbg.print("v: ",v,", sn: ",sn,"\n")
          if (mt:have(sn, "active")) then
-            MCP:unload(v)
+            uA[#uA+1] = mname
          end
+         lA[#lA+1] = mname
+         dbg.print("#lA: ",#lA,", v: ",v,", mname:usrName(): ",mname:usrName(),"\n")
       end
+   end
+
+   if (#uA > 0) then
+      MCP:unload(uA)
    end
 
    local mcp_old = mcp
    mcp           = MCP
-   local b       = mcp:load(unpack(a))
+   dbg.print ("#lA: ",#lA,"\n")
+   local b       = mcp:load(lA)
    mcp           = mcp_old
 
 
-
    local aa = {}
-   for i = 1,#a do
-      local v     = a[i]
-      local mname = MName.new(MName, "load", v)
+   for i = 1,#lA do
+      local mname = lA[i]
       local sn    = mname:sn()
       if (not mt:have(sn, "active")) then
-         aa[#aa+1] = v
+         aa[#aa+1] = mname:usrName()
       else
-         local usrN  = (not masterTbl().latest) and v or mt:fullName(sn)
+         local usrN  = (not masterTbl().latest) and mname:usrName() or mt:fullName(sn)
          dbg.print("Karl registration: ",sn," user: ", usrN,"\n")
          
          ------------------------------------------------------
@@ -373,19 +379,18 @@ function Purge()
    local master = Master:master()
    local mt     = MT:mt()
    local totalA  = mt:list("short","any")
-   local stickyA = mt:list("short","sticky")
 
    if (#totalA < 1) then
       return
    end
 
-   local a = {}
-   for _,v in ipairs(totalA) do
-      a[#a + 1] = v
+   local mA = {}
+   for i = 1, #totalA do
+      mA[#mA+1] = MName:new("mt",totalA[i],"equal")
    end
-   dbg.start("Purge(",concatTbl(a,", "),")")
+   dbg.start("Purge(",concatTbl(totalA,", "),")")
 
-   MCP:unload(unpack(a))
+   MCP:unload(mA)
    
    -- Make Default Path be the new MODULEPATH
    mt:buildMpathA(mt:getBaseMPATH())
@@ -684,16 +689,19 @@ function Swap(...)
    end
 
    local mt    = MT:mt()
-   local mname = MName:new("load",a)
+   local mname = MName:new("mt", a)
    local sn    = mname:sn()
    if (not mt:have(sn,"any")) then
       LmodError("Swap failed: \"",a,"\" is not loaded.\n")
    end
 
+   local mA      = {}
    local mcp_old = mcp
    mcp           = MCP
-   mcp:unload(a)
-   local aa = mcp:load(b)
+   mA[1]         = mname
+   mcp:unload(mA)
+   mA[1]         = MName:new("load",b)
+   local aa = mcp:load(mA)
    if (not aa[1]) then
       LmodError("Swap failed.\n")
    end
@@ -701,7 +709,7 @@ function Swap(...)
    ------------------------------------------------------
    -- Register user loads so that Karl will be happy.
 
-   local mname = MName:new("mt",b)
+   local mname = mA[1]
    local sn    = mname:sn()
    local usrN  = (not masterTbl().latest) and b or mt:fullName(sn)
    mt:userLoad(sn,usrN)
@@ -800,7 +808,7 @@ end
 
 function UnLoad(...)
    dbg.start("UnLoad(",concatTbl({...},", "),")")
-   MCP:unload(...)
+   MCP:unload(MName:buildA("mt", ...))
    dbg.fini("UnLoad")
 end
 

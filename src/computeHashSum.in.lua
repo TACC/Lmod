@@ -66,7 +66,7 @@ require("modfuncs")
 require("cmdfuncs")
 
 BaseShell         = require("BaseShell")
-local Master      = require("Master")
+Master            = require("Master")
 local dbg         = require("Dbg"):dbg()
 
 local ModuleStack = require("ModuleStack")
@@ -81,6 +81,7 @@ local concatTbl   = table.concat
 function masterTbl()
    return s_masterTbl
 end
+
 
 function main()
    local master    = Master:master(false)

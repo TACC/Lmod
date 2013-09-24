@@ -125,23 +125,28 @@ end
 -- Load / Unload functions
 -------------------------------------------------------------------
 
-function M.load(self, ...)
+function M.load(self, mA)
    local master = Master:master()
    local mStack = ModuleStack:moduleStack()
 
-   dbg.start("MasterControl:load(",concatTbl({...},", "),")")
+   if (dbg.active()) then
+      local a = {}
+      for i = 1, #mA do
+         a[#a + 1] = mA[i]:usrName()
+      end
+      local s = concatTbl(a, ", ")
+      dbg.start("MasterControl:load(mA={"..s.."})")
+   end
    mStack:loading()
 
-   local a = master.load(...)
-   local arg = pack(...)
+   local a = master.load(mA)
    if (not expert()) then
 
       local mt      = MT:mt()
       local t       = {}
       readAdmin()
-      for i = 1, arg.n do
-         local moduleName = arg[i]
-         local mname      = MName:new("load",moduleName)
+      for i = 1, #mA do
+         local mname      = mA[i]
          local sn         = mname:sn()
          if (mt:have(sn,"active")) then
             local moduleFn  = mt:fileName(sn)
@@ -185,49 +190,46 @@ function M.load(self, ...)
    return a
 end
 
-function M.try_load(self, ...)
-   dbg.start("MasterControl:try_load(",concatTbl({...},", "),")")
+function M.try_load(self, mA)
+   dbg.start("MasterControl:try_load(mA)")
    deactivateWarning()
-   self:load(...)
+   self:load(mA)
    dbg.fini("MasterControl:try_load")
 end
 
-function M.unload(self, ...)
+function M.unload(self, mA)
+   dbg.start("MasterControl:unload(mA)")
    local master = Master:master()
    local mStack = ModuleStack:moduleStack()
    local mt     = MT:mt()
-   dbg.start("MasterControl:unload(", concatTbl({...},", "),")")
 
    mStack:loading()
-
-   local aa     = master.unload(...)
+   local aa     = master.unload(mA)
 
    dbg.fini("MasterControl:unload")
    return aa
 end
 
 
-function M.unloadsys(self, ...)
+function M.unloadsys(self, mA)
+   dbg.start("MasterControl.unloadsys(mA)")
    local master = Master:master()
    local mStack = ModuleStack:moduleStack()
    local mt     = MT:mt()
    local a      = {}
 
-   dbg.start("MasterControl.unloadsys(",concatTbl({...},", "),")")
    mStack:loading()
-   a      = master.unload(...)
+   a      = master.unload(mA)
    dbg.fini("MasterControl.unloadsys")
    return a
 end
 
-function M.bad_unload(self,...)
+function M.bad_unload(self,mA)
    local a   = {}
 
-   dbg.start("MasterControl.bad_unload()")
+   dbg.start("MasterControl.bad_unload(mA)")
 
-   LmodWarning("Stubbornly refusing to unload module(s): \"",
-               concatTbl({...},"\", \""),"\"",
-               "\n   during an unload\n")
+   LmodWarning("Stubbornly refusing to unload module(s) during an unload\n")
 
    dbg.fini("MasterControl.bad_unload")
 end
@@ -597,6 +599,7 @@ function M.prereq(self, ...)
       local mname    = MName:new("mt", v)
       local sn       = mname:sn()
       local full     = mt:fullName(sn)
+      dbg.print("sn: ",sn, ", full: ", full,", v: ",v,"\n")
       local version  = extractVersion(v, sn)
       dbg.print("sn: ",sn," full: ",full, " version: ",version,"\n")
       if ((not mt:have(sn,"active")) or

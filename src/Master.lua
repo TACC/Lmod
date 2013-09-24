@@ -73,11 +73,13 @@ local pack         = (_VERSION == "Lua 5.1") and argsPack or table.pack
 s_master = {}
 
 local function new(self,safe)
+   dbg.start("Master:new(",safe,")")
    local o = {}
 
    setmetatable(o,self)
    self.__index = self
    o.safe       = safe
+   dbg.fini("Master:new")
    return o
 end
 
@@ -229,7 +231,7 @@ local function find_module_file(mname)
    local fullName = ""
    local modName  = ""
    local sn       = mname:sn()
-   dbg.print("sn: ",sn,"\n")
+   dbg.print("f_m_f sn: ",sn,"\n")
 
    -- Get all directories that contain the shortname [[sn]].  If none exist
    -- then the module does not exist => exit
@@ -335,10 +337,12 @@ end
 -- Master:master() - Singleton Ctor.
 
 function M.master(self, safe)
+   dbg.start("Master:master(safe: ",safe,")")
    if (next(s_master) == nil) then
       MT       = systemG.MT
       s_master = new(self, safe)
    end
+   dbg.fini("Master:master")
    return s_master
 end
 
@@ -426,15 +430,13 @@ end
 --                    anything then all the action that a manager module
 --                    is going to do has already been done.
 
-function M.fakeload(...)
-   dbg.start("Master:fakeload(",concatTbl({...},", "),")")
+function M.fakeload(mA)
+   dbg.start("Master:fakeload(mA)")
    local a   = {}
    local mt  = MT:mt()
-   local arg = pack(...)
-   for i = 1,arg.n do
-      local moduleName = arg[i]
+   for i = 1,#mA do
+      local mname      = mA[i]
       local loaded     = false
-      local mname      = MName:new("load", moduleName)
       local t          = find_module_file(mname)
       local fn         = t.fn
       if (fn) then
@@ -500,19 +502,18 @@ end
 -- Master:load(): Load all requested modules.  Each module is unloaded
 --                if it is currently loaded.
 
-function M.load(...)
+function M.load(mA)
    local mStack = ModuleStack:moduleStack()
    local shellN = s_master.shell:name()
    local mt     = MT:mt()
    local a      = {}
 
-   dbg.start("Master:load(",concatTbl({...},", "),")")
+   dbg.start("Master:load(mA)")
 
-   local arg    = pack(...)
    a   = {}
-   for i  = 1,arg.n do
-      local moduleName = arg[i]
-      local mname      = MName:new("load",moduleName)
+   for i  = 1,#mA do
+      local mname      = mA[i]
+      local moduleName = mname:usrName()
       local sn         = mname:sn()
       local loaded     = false
       local t          = find_module_file(mname)
@@ -522,8 +523,10 @@ function M.load(...)
                    "\" as it is already loaded\n")
          local mcp_old = mcp
          mcp           = MCP
-         mcp:unload(moduleName)
-         local aa = mcp:load(moduleName)
+         local ma      = {}
+         ma[1]         = mA[i]
+         mcp:unload(ma)
+         local aa = mcp:load(ma)
          mcp           = mcp_old
          loaded = aa[1]
       elseif (fn) then
@@ -628,9 +631,11 @@ function M.reloadAll()
             dbg.print("Master:reloadAll t.fn: \"",t.fn or "nil","\"",
                       " mt:fileName(sn): \"",fn or "nil","\"\n")
             dbg.print("Master:reloadAll Unloading module: \"",sn,"\"\n")
-            mcp:unloadsys(sn)
+            local ma = {}
+            ma[1] = mname
+            mcp:unloadsys(ma)
             dbg.print("Master:reloadAll Loading module: \"",userName or "nil","\"\n")
-            local loadA = mcp:load(userName)
+            local loadA = mcp:load(ma)
             dbg.print("Master:reloadAll: fn: \"",fn or "nil",
                       "\" mt:fileName(sn): \"", tostring(mt:fileName(sn)), "\"\n")
             if (loadA[1] and fn ~= mt:fileName(sn)) then
@@ -644,7 +649,9 @@ function M.reloadAll()
          local name  = v.name          -- This name is short for default and
                                        -- Full for specific version.
          dbg.print("Master:reloadAll Loading module: \"", name, "\"\n")
-         local aa = mcp:load(name)
+         local ma    = {}
+         ma[1]       = MName:new("load",name)
+         local aa = mcp:load(ma)
          if (aa[1] and fn ~= mt:fileName(sn)) then
             dbg.print("Master:reloadAll module: ", name, " marked as reloaded\n")
          end
@@ -680,20 +687,19 @@ end
 --------------------------------------------------------------------------
 -- Master:unload() - unload modulefile(s) via the module names.
 
-function M.unload(...)
+function M.unload(mA)
    local mStack = ModuleStack:moduleStack()
    local mt     = MT:mt()
    local a      = {}
    local shellN = s_master.shell:name()
-   dbg.start("Master:unload(",concatTbl({...},", "),")")
+   dbg.start("Master:unload(mA)")
 
    local mcp_old = mcp
 
    mcp = MasterControl.build("unload")
-   local arg = pack(...)
-   for i = 1, arg.n do
-      local moduleName = arg[i]
-      local mname      = MName:new("mt", moduleName)
+   for i = 1, #mA do
+      local mname      = mA[i]
+      local moduleName = mname:usrName()
       local sn         = mname:sn()
       dbg.print("Trying to unload: ", moduleName, " sn: ", sn,"\n")
 
@@ -751,7 +757,9 @@ function M.unload(...)
          local mname = MName:new("entryT",entry)
          local t     = find_module_file(mname)
          if (t.fn == entry.FN) then
-            MCP:load(mname:usrName())
+            local ma = {}
+            ma[1] = mname
+            MCP:load(ma)
          end
          local sn = mname:sn()
          if (mt:have(sn,"active")) then

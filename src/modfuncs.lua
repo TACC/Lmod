@@ -120,7 +120,7 @@ function load_module(...)
    dbg.start("load_module(",concatTbl({...},", "),")")
    if (not validateStringArgs("load",...)) then return {} end
 
-   local b = mcp:load(...)
+   local b = mcp:load(MName:buildA("load",...))
    dbg.fini("load_module")
    return b
 end
@@ -129,7 +129,7 @@ function try_load(...)
    dbg.start("try_load(",concatTbl({...},", "),")")
    if (not validateStringArgs("try_load",...)) then return {} end
 
-   local b = mcp:try_load(...)
+   local b = mcp:try_load(MName:buildA("load",...))
    dbg.fini("try_load")
    return b
 end
@@ -140,7 +140,7 @@ function unload(...)
    dbg.start("unload(",concatTbl({...},", "),")")
    if (not validateStringArgs("unload",...)) then return {} end
 
-   local b = mcp:unload(...)
+   local b = mcp:unload(MName:buildA("mt",...))
    dbg.fini("unload")
    return b
 end
@@ -150,7 +150,7 @@ function always_load(...)
    dbg.start("always_load(",concatTbl({...},", "),")")
    if (not validateStringArgs("always_load",...)) then return {} end
 
-   local b = mcp:always_load(...)
+   local b = mcp:always_load(MName:buildA("load",...))
    dbg.fini("always_load")
    return b
 end
@@ -159,7 +159,7 @@ function always_unload(...)
    dbg.start("always_unload(",concatTbl({...},", "),")")
    if (not validateStringArgs("always_unload",...)) then return {} end
 
-   local b = mcp:always_unload(...)
+   local b = mcp:always_unload(MName:buildA("mt",...))
    dbg.fini("always_unload")
    return b
 end
