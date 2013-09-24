@@ -577,7 +577,7 @@ end
 -- Misc Functions
 -------------------------------------------------------------------
 
-function M.prereq(self, ...)
+function M.prereq(self, mA)
    local mt        = MT:mt()
    local a         = {}
    local mStack    = ModuleStack:moduleStack()
@@ -585,18 +585,18 @@ function M.prereq(self, ...)
    local masterTbl = masterTbl()
 
    mStack:setting()
-   dbg.start("MasterControl:prereq(",concatTbl({...},", "),")")
+   dbg.start("MasterControl:prereq(mA)")
 
    if (masterTbl.checkSyntax) then
       dbg.print("Ignoring prereq when syntax checking\n")
       dbg.fini("MasterControl:prereq")
       return
    end
-   local arg = pack(...)
 
-   for i = 1, arg.n do
-      local v        = arg[i]
-      local mname    = MName:new("mt", v)
+   local a = {}
+   for i = 1, #mA do
+      local mname    = mA[i]
+      local v        = mname:usrName()
       local sn       = mname:sn()
       local full     = mt:fullName(sn)
       dbg.print("sn: ",sn, ", full: ", full,", v: ",v,"\n")
@@ -616,8 +616,8 @@ function M.prereq(self, ...)
    dbg.fini("MasterControl:prereq")
 end
 
-function M.conflict(self, ...)
-   dbg.start("MasterControl:conflict(",concatTbl({...},", "),")")
+function M.conflict(self, mA)
+   dbg.start("MasterControl:conflict(mA)")
 
 
    local mt        = MT:mt()
@@ -633,10 +633,10 @@ function M.conflict(self, ...)
       return
    end
 
-   local arg = pack(...)
-   for i = 1, arg.n do
-      local v       = arg[i]
-      local mname   = MName:new("mt", v)
+   local a = {}
+   for i = 1, #mA do
+      local mname   = mA[i]
+      local v       = mname:usrName()
       local sn      = mname:sn()
       local version = extractVersion(v, sn)
       local found   = false
@@ -657,7 +657,7 @@ function M.conflict(self, ...)
    dbg.fini("MasterControl:conflict")
 end
 
-function M.prereq_any(self, ...)
+function M.prereq_any(self, mA)
    local mt        = MT:mt()
    local a         = {}
    local mStack    = ModuleStack:moduleStack()
@@ -665,7 +665,7 @@ function M.prereq_any(self, ...)
    local masterTbl = masterTbl()
    mStack:setting()
 
-   dbg.start("MasterControl:prereq_any(",concatTbl({...},", "),")")
+   dbg.start("MasterControl:prereq_any(mA)")
 
    if (masterTbl.checkSyntax) then
       dbg.print("Ignoring prereq_any when syntax checking\n")
@@ -674,11 +674,12 @@ function M.prereq_any(self, ...)
    end
 
    local found  = false
-   local arg    = pack(...)
-   for i = 1,arg.n do
-      local v     = arg[i]
-      local mname = MName:new("mt", v)
+   local a      = {}
+   for i = 1, #mA do
+      local mname = mA[i]
+      local v     = mname:usrName()
       local sn    = mname:sn()
+      a[#a + 1]   = v
       if (mt:have(sn,"active")) then
          found = true
          break;
@@ -688,7 +689,7 @@ function M.prereq_any(self, ...)
    if (not found) then
       local s = concatTbl(a," ")
       LmodError("Cannot load module \"",mFull,"\".  At least one of these modules must be loaded:\n  ",
-            concatTbl({...},", "),"\n")
+            concatTbl(a,", "),"\n")
    end
    dbg.fini("MasterControl:prereq_any")
 end

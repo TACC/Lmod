@@ -277,8 +277,8 @@ end
 function prereq(...)
    dbg.start("prereq(",concatTbl({...},", "),")")
    if (not validateStringArgs("prereq",...)) then return end
-
-   mcp:prereq(...)
+   
+   mcp:prereq(MName:buildA("mt",...))
    dbg.fini("prereq")
 end
 
@@ -286,7 +286,7 @@ function conflict(...)
    dbg.start("conflict(",concatTbl({...},", "),")")
    if (not validateStringArgs("conflict",...)) then return end
 
-   mcp:conflict(...)
+   mcp:conflict(MName:buildA("mt",...))
    dbg.fini()
 end
 
@@ -294,7 +294,7 @@ function prereq_any(...)
    dbg.start("prereq_any(",concatTbl({...},", "),")")
    if (not validateStringArgs("prereq_any",...)) then return end
 
-   mcp:prereq_any(...)
+   mcp:prereq_any(MName:buildA("mt",...))
    dbg.fini("conflict")
 end
 
