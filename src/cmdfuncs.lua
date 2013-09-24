@@ -319,12 +319,12 @@ function Load_Usr(...)
    for i = 1, arg.n do
       local v = arg[i]
       if (v:sub(1,1) == "-") then
-         uA[#uA+1] = MName:new("load", v:sub(2), "equal")
+         uA[#uA+1] = MName:new("load", v:sub(2))
       else
          if (v:sub(1,1) == "+") then
             v = v:sub(2)
          end
-         local mname = MName:new("load",v, "equal")
+         local mname = MName:new("load",v)
          local sn    = mname:sn()
          dbg.print("v: ",v,", sn: ",sn,"\n")
          if (mt:have(sn, "active")) then
@@ -386,7 +386,7 @@ function Purge()
 
    local mA = {}
    for i = 1, #totalA do
-      mA[#mA+1] = MName:new("mt",totalA[i],"equal")
+      mA[#mA+1] = MName:new("mt",totalA[i])
    end
    dbg.start("Purge(",concatTbl(totalA,", "),")")
 

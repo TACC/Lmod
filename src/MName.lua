@@ -95,7 +95,7 @@ end
 --              figure out the version (if one exists).  If the module name
 --              doesn't exist then the short name (sn) and version are set 
 --              to false.  The last argument is "action".  Normally this
---              argument is nil, which implies the value is "equal".  Other
+--              argument is nil, which implies the value is "match".  Other
 --              choices are "atleast", ...
 
 function M.new(self, sType, name, action)
@@ -114,7 +114,7 @@ function M.new(self, sType, name, action)
       name    = (name or ""):gsub("/+$","")  -- remove any trailing '/'
       o._name = name
    end
-   o._action  = action or "equal"
+   o._action  = action or "match"
    return o
 end
 
@@ -184,7 +184,7 @@ function M.buildA(self,sType, ...)
    for i = 1, arg.n do
       local v = arg[i]
       if (type(v) == "string" ) then
-         a[#a + 1] = self:new(sType, v, "equal")
+         a[#a + 1] = self:new(sType, v)
       elseif (type(v) == "table") then
          a[#a + 1] = v
       end
@@ -198,7 +198,7 @@ function M.convert2stringA(self, ...)
    for i = 1, arg.n do
       local v      = arg[i]
       local action = v.action()
-      if (action == "equal") then
+      if (action == "match") then
          a[#a+1] = '"' .. v:usrName() .. '"'
       else
          local b = {}
