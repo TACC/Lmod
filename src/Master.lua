@@ -141,8 +141,7 @@ end
 local function find_inherit_module(fullModuleName, oldFn)
    dbg.start("find_inherit_module(",fullModuleName,",",oldFn, ")")
 
-   local t        = {fn = nil, modFullName = nil, modName = nil,
-                     default = 0, hash = 0}
+   local t        = {fn = nil, modFullName = nil, modName = nil, default = 0}
    local mt       = systemG.MT:mt()
    local mname    = MName:new("load", fullModuleName)
    local sn       = mname:sn()
@@ -226,7 +225,7 @@ end
 local function find_module_file(mname)
    dbg.start("Master:find_module_file(",mname:usrName(),")")
 
-   local t        = { fn = nil, modFullName = nil, modName = nil, default = 0, hash = 0}
+   local t        = { fn = nil, modFullName = nil, modName = nil, default = 0}
    local mt       = MT:mt()
    local fullName = ""
    local modName  = ""
@@ -363,7 +362,7 @@ local function access_find_module_file(mname)
       return mt:fileName(sn), full or ""
    end
 
-   local t    = find_module_file(mname)
+   local t    = mname:find()
    local full = t.modFullName or ""
    local fn   = t.fn
    return fn, full
@@ -437,7 +436,7 @@ function M.fakeload(mA)
    for i = 1,#mA do
       local mname      = mA[i]
       local loaded     = false
-      local t          = find_module_file(mname)
+      local t          = mname:find()
       local fn         = t.fn
       if (fn) then
          t.mType = "m"
@@ -516,7 +515,7 @@ function M.load(mA)
       local moduleName = mname:usrName()
       local sn         = mname:sn()
       local loaded     = false
-      local t          = find_module_file(mname)
+      local t          = mname:find()
       local fn         = t.fn
       if (mt:have(sn,"active")) then
          dbg.print("Master:load reload module: \"",moduleName,
@@ -623,7 +622,7 @@ function M.reloadAll()
          dbg.print("module sn: ",sn," is active\n")
          dbg.print("userName:  ",v.name,"\n")
          local mname    = MName:new("userName", v.name)
-         local t        = find_module_file(mname)
+         local t        = mname:find()
          local fn       = mt:fileName(sn)
          local fullName = t.modFullName
          local userName = v.name
@@ -755,7 +754,7 @@ function M.unload(mA)
       for i = 1, #stickyA do
          local entry = stickyA[i]
          local mname = MName:new("entryT",entry)
-         local t     = find_module_file(mname)
+         local t     = mname:find()
          if (t.fn == entry.FN) then
             local ma = {}
             ma[1] = mname

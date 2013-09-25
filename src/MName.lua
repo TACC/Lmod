@@ -61,10 +61,11 @@
 require("strict")
 require("utils")
 
-local M    = {}
-local dbg  = require("Dbg"):dbg()
-local MT   = require("MT")
-local pack = (_VERSION == "Lua 5.1") and argsPack or table.pack
+local M      = {}
+local dbg    = require("Dbg"):dbg()
+local MT     = require("MT")
+local pack   = (_VERSION == "Lua 5.1") and argsPack or table.pack
+local posix  = require("posix")
 
 --------------------------------------------------------------------------
 -- shorten(): This function allows for taking the name and remove one
@@ -114,65 +115,12 @@ function M.new(self, sType, name, action)
       name    = (name or ""):gsub("/+$","")  -- remove any trailing '/'
       o._name = name
    end
-   o._action  = action or "match"
+   if (not action) then
+      action = masterTbl().latest and "latest" or "match"
+   end
+   o._action  = action
    return o
 end
-
---function M.new(self, sType, name, action)
---   local o = {}
---   setmetatable(o,self)
---   self.__index = self
---   local mt = MT:mt()
---
---   local sn      = false
---   local version = false
---
---   if (sType == "entryT") then
---      local t = name
---      sn      = t.sn
---      name    = t.userName
---      version = extractVersion(t.fullName, sn)
---   else
---      name    = (name or ""):gsub("/+$","")  -- remove any trailing '/'
---      if (sType == "load") then
---         for level = 0, 1 do
---            local n = shorten(name, level)
---            if (mt:locationTbl(n)) then
---               sn = n
---               break
---            end
---         end
---      elseif(sType == "userName") then
---         if (mt:exists(name)) then
---            sn      = name
---            name    = name
---         else
---            local n = shorten(name, 1)
---            if (mt:exists(n) )then
---               sn = n
---            end
---         end
---      else
---         for level = 0, 1 do
---            local n = shorten(name, level)
---            if (mt:exists(n)) then
---               sn      = n
---               version = mt:Version(sn)
---               break
---            end
---         end
---      end
---   end
---
---   if (sn) then
---      o._sn       = sn
---      o._name     = name
---      o._version  = version or extractVersion(name, sn)
---      o.watermark = "Lmod"
---   end
---
---   return o
---end
 
 --------------------------------------------------------------------------
 -- MName:buildA(...): Return an array of MName objects
@@ -287,6 +235,159 @@ function M.version(self)
       dbg.fini("MName:version")
    end
    return self._version
+end
+
+--------------------------------------------------------------------------
+-- followDefault(): This local function is used to find a default file
+--                  that maybe in symbolic link chain. This returns
+--                  the absolute path.
+
+local function followDefault(path)
+   if (path == nil) then return nil end
+   dbg.start("followDefault(path=\"",path,"\")")
+   local attr = lfs.symlinkattributes(path)
+   local result = path
+   if (attr == nil) then
+      result = nil
+   elseif (attr.mode == "link") then
+      local rl = posix.readlink(path)
+      local a  = {}
+      local n  = 0
+      for s in path:split("/") do
+         n = n + 1
+         a[n] = s or ""
+      end
+
+      a[n] = ""
+      local i  = n
+      for s in rl:split("/") do
+         if (s == "..") then
+            i = i - 1
+         else
+            a[i] = s
+            i    = i + 1
+         end
+      end
+      result = concatTbl(a,"/")
+   end
+   dbg.print("result: ",result,"\n")
+   dbg.fini("followDefault")
+   return result
+end
+
+local searchTbl     = {'.lua', '', '/default', '/.version'}
+local numSearch     = 4
+local numSrchLatest = 2
+
+function M.find(self)
+   dbg.start("MName:find(",self:usrName(),")")
+   local t        = { fn = nil, modFullName = nil, modName = nil, default = 0}
+   local mt       = MT:mt()
+   local fullName = ""
+   local modName  = ""
+   local sn       = self:sn()
+   local Master   = Master
+   dbg.print("MName:find sn: ",sn,"\n")
+
+   -- Get all directories that contain the shortname [[sn]].  If none exist
+   -- then the module does not exist => exit
+
+   local pathA = mt:locationTbl(sn)
+   if (pathA == nil or #pathA == 0) then
+      dbg.print("did not find key: \"",sn,"\" in mt:locationTbl()\n")
+      dbg.fini("MName:find")
+      return t
+   end
+   local fn, result
+
+   -- numS is the number of items to search for.  The first two are standard, the
+   -- next 2 are the default and .version choices.  So if the user specifies
+   -- "--latest" on the command line then set numS to 2 otherwise 4.
+   local numS = (masterTbl().latest) and numSrchLatest or numSearch
+
+   -- Outer Loop search over directories.
+   local found  = false
+   for ii = 1, #pathA do
+      local vv     = pathA[ii]
+      local mpath  = vv.mpath
+      t.default    = 0
+      fn           = pathJoin(vv.file, self:version())
+      result       = nil
+      found        = false
+
+      -- Inner loop search over search choices.
+      for i = 1, numS do
+         local v    = searchTbl[i]
+         local f    = fn .. v
+         local attr = lfs.attributes(f)
+         local readable = posix.access(f,"r")
+
+         -- Three choices:
+
+         -- 1) exact match
+         -- 2) name/default exists
+         -- 3) name/.version exists.
+
+         if (readable and attr and attr.mode == 'file') then
+            result    = f
+            found     = true
+         end
+         dbg.print('(1) fn: ',fn,", found: ",found,", v: ",v,", f: ",f,"\n")
+         if (found and v == '/default') then
+            result    = followDefault(result)
+            dbg.print("(2) result: ",result, " f: ", f, "\n")
+            t.default = 1
+         elseif (found and v == '/.version') then
+            local vf = Master.versionFile(result)
+            if (vf) then
+               local mname = M.new(self,"load",pathJoin(sn,vf))
+               t           = mname:find()
+               t.default   = 1
+               result      = t.fn
+            end
+         end
+         -- One of the three choices matched.
+         if (found) then
+            local _,j = result:find(mpath,1,true)
+            fullName  = result:sub(j+2):gsub("%.lua$","")
+            dbg.print("fullName: ",fullName,"\n")
+            break
+         end
+      end
+      if (found) then break end
+   end
+
+   dbg.print("found:", found, " fn: ",fn,"\n")
+
+   if (not found) then
+      local vv    = pathA[1]
+      local mpath = vv.mpath
+      fn = pathJoin(vv.file, self:version())
+
+      ------------------------------------------------------------
+      -- Search for "last" file in 1st directory since it wasn't
+      -- found with exact or default match.
+      t.default  = 1
+      result = lastFileInDir(fn)
+      if (result) then
+         found = true
+         local _, j = result:find(mpath,1,true)
+         fullName   = result:sub(j+2):gsub("%.lua$","")
+         dbg.print("lastFileInDir mpath: ", mpath," fullName: ",fullName,"\n")
+      end
+   end
+
+   ------------------------------------------------------------------
+   -- Build results and return.
+
+   t.fn          = result
+   t.modFullName = fullName
+   t.modName     = sn
+   dbg.print("modName: ",sn," fn: ", result," modFullName: ", fullName,
+             " default: ",t.default,"\n")
+
+   dbg.fini("MName:find")
+   return t
 end
 
 return M
