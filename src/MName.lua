@@ -88,6 +88,10 @@ local function shorten(name, level)
    return name:sub(1,j)
 end
 
+function M.action(self)
+   return self._action
+end
+
 --------------------------------------------------------------------------
 -- MName:new(): This ctor takes "sType" to lookup in either the
 --              locationTbl() or the exists() depending on whether it is
@@ -303,7 +307,7 @@ function M.find(self)
    -- numS is the number of items to search for.  The first two are standard, the
    -- next 2 are the default and .version choices.  So if the user specifies
    -- "--latest" on the command line then set numS to 2 otherwise 4.
-   local numS = (masterTbl().latest) and numSrchLatest or numSearch
+   local numS = (self:action() == "latest") and numSrchLatest or numSearch
 
    -- Outer Loop search over directories.
    local found  = false

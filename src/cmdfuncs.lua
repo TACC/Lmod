@@ -326,12 +326,10 @@ function Load_Usr(...)
          end
          local mname = MName:new("load",v)
          local sn    = mname:sn()
-         dbg.print("v: ",v,", sn: ",sn,"\n")
          if (mt:have(sn, "active")) then
             uA[#uA+1] = mname
          end
          lA[#lA+1] = mname
-         dbg.print("#lA: ",#lA,", v: ",v,", mname:usrName(): ",mname:usrName(),"\n")
       end
    end
 
@@ -341,7 +339,6 @@ function Load_Usr(...)
 
    local mcp_old = mcp
    mcp           = MCP
-   dbg.print ("#lA: ",#lA,"\n")
    local b       = mcp:load(lA)
    mcp           = mcp_old
 

@@ -44,6 +44,7 @@ testdescript = {
      runMe lua $(projectDir)/src/lmod.in.lua bash avail                                          # 13
      runMe lua $(projectDir)/src/lmod.in.lua bash -d avail                                       # 14
      runMe lua $(projectDir)/src/lmod.in.lua bash load alex                                      # 15
+     runMe lua $(projectDir)/src/lmod.in.lua bash --latest load rtm_intel                        # 17
      runMe lua $(projectDir)/src/lmod.in.lua bash list                                           # 16
 
      HOME=$ORIG_HOME

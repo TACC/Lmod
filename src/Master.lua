@@ -73,13 +73,11 @@ local pack         = (_VERSION == "Lua 5.1") and argsPack or table.pack
 s_master = {}
 
 local function new(self,safe)
-   dbg.start("Master:new(",safe,")")
    local o = {}
 
    setmetatable(o,self)
    self.__index = self
    o.safe       = safe
-   dbg.fini("Master:new")
    return o
 end
 
@@ -533,13 +531,11 @@ function M.load(mA)
          local mList = concatTbl(mt:list("both","active"),":")
          mt:add(t, "pending")
 	 mt:beginOP()
-         dbg.print("changePATH: ", mt._changePATHCount, "\n")
          mStack:push(t.modFullName, moduleName, sn, fn)
 	 loadModuleFile{file=fn, shell = shellN, mList = mList, reportErr=true}
          t.mType = mStack:moduleType()
          mStack:pop()
 	 mt:endOP()
-         dbg.print("changePATH: ", mt._changePATHCount, "\n")
          dbg.print("Making ", t.modName, " active\n")
          mt:setStatus(sn, "active")
          mt:set_mType(sn, t.mType)
@@ -550,13 +546,9 @@ function M.load(mA)
       a[#a+1] = loaded
    end
 
-   dbg.print("changePATH: ", mt._changePATHCount, " Zombie state: ",mt:zombieState(),
-             " mStack:empty(): ",mStack:empty(),"\n")
    if (M.safeToUpdate() and mt:safeToCheckZombies() and mStack:empty()) then
       dbg.print("Master:load calling reloadAll()\n")
       M.reloadAll()
-      dbg.print("changePATH: ", mt._changePATHCount, " Zombie state: ",mt:zombieState(),
-             " mStack:empty(): ",mStack:empty(),"\n")
    end
    dbg.fini("Master:load")
    return a

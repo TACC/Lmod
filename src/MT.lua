@@ -656,21 +656,19 @@ end
 
 local dcT = {function_immutable = true, metatable_immutable = true}
 function M.cloneMT()
-   dbg.start("MT.cloneMT()")
+   --dbg.start("MT.cloneMT()")
    local mt = deepcopy(s_mt, dcT)
    mt:pushMT()
    s_mt = mt
-   dbg.print("Now using s_mtA[",#s_mtA,"]: ",tostring(s_mt),"\n")
-   dbg.fini("MT.cloneMT")
+   --dbg.print("Now using s_mtA[",#s_mtA,"]: ",tostring(s_mt),"\n")
+   --dbg.fini("MT.cloneMT")
 end
 
 --------------------------------------------------------------------------
 -- MT:pushMT(): push self on stack.
 
 function M.pushMT(self)
-   dbg.start("MT.pushMT()")
    s_mtA[#s_mtA+1] = self
-   dbg.fini("MT.pushMT")
 end
 
 --------------------------------------------------------------------------
