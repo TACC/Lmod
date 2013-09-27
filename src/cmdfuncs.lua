@@ -41,15 +41,17 @@ require("myGlobals")
 require("string_trim")
 require("escape")
 require("TermWidth")
+require("utils")
 local BeautifulTbl = require('BeautifulTbl')
 local ColumnTable  = require('ColumnTable')
-local Dbg          = require("Dbg")
+local dbg          = require("Dbg"):dbg()
 local MName        = require("MName")
 local Spider       = require("Spider")
 local concatTbl    = table.concat
 local getenv       = os.getenv
 local hook         = require("Hook")
 local posix        = require("posix")
+local pack         = (_VERSION == "Lua 5.1") and argsPack or table.pack
 local unpack       = unpack or table.unpack
 
 --------------------------------------------------------------------------
@@ -59,7 +61,6 @@ local unpack       = unpack or table.unpack
 -- depending on what mode Access is called with.
 
 local function Access(mode, ...)
-   local dbg       = Dbg:dbg()
    local master    = Master:master()
    local masterTbl = masterTbl()
    dbg.start("Access(", concatTbl({...},", "),")")
@@ -105,13 +106,9 @@ end
 --          master.avail to do the real work.
 
 function Avail(...)
-   local dbg    = Dbg:dbg()
    local master = Master:master()
-   local a = {}
-   for _,v in ipairs{...} do
-      a[#a + 1] = v
-   end
-   master.avail(a)
+   local arg    = pack(...)
+   master.avail(arg)
 end
 
 --------------------------------------------------------------------------
@@ -122,7 +119,6 @@ end
 
 
 function GetDefault(a)
-   local dbg  = Dbg:dbg()
    a          = a or "default"
    dbg.start("GetDefault(",a,")")
 
@@ -137,7 +133,6 @@ end
 --          to report the Help message to the user.
 
 function Help(...)
-   local dbg = Dbg:dbg()
 
    prtHdr = function()
       local twidth    = TermWidth()
@@ -156,7 +151,6 @@ end
 
 
 function Keyword(...)
-   local dbg    = Dbg:dbg()
    dbg.start("Keyword(",concatTbl({...},","),")")
 
    local master  = Master:master()
@@ -189,7 +183,6 @@ end
 
 
 function List(...)
-   local dbg    = Dbg:dbg()
    dbg.start("List(...)")
    local masterTbl = masterTbl()
    local mt = MT:mt()
@@ -200,18 +193,14 @@ function List(...)
       return
    end
 
-   local wanted = {}
-   for i,v in ipairs{...} do
-      wanted[i] = v
-   end
-
+   local wanted = pack(...)
 
    local msg     = "Currently Loaded Modules"
    local activeA = mt:list("short","active")
    local a       = {}
    local msg2    = ":"
 
-   if (#wanted == 0) then
+   if (wanted.n == 0) then
       wanted[1] = ".*"
    else
       msg2 = " Matching: " .. table.concat(wanted," or ")
@@ -299,7 +288,6 @@ end
 function Load_Try(...)
    local master = Master:master()
    local mt     = MT:mt()
-   local dbg    = Dbg:dbg()
 
    dbg.start("Load_Try(",concatTbl({...},", "),")")
    deactivateWarning()
@@ -323,42 +311,46 @@ end
 function Load_Usr(...)
    local master = Master:master()
    local mt     = MT:mt()
-   local dbg    = Dbg:dbg()
 
    dbg.start("Load_Usr(",concatTbl({...},", "),")")
-   local a = {}
-   for _,v in ipairs{...} do
+   local uA = {}
+   local lA = {}
+   local arg = pack(...)
+   for i = 1, arg.n do
+      local v = arg[i]
       if (v:sub(1,1) == "-") then
-         MCP:unload(v:sub(2))
+         uA[#uA+1] = MName:new("load", v:sub(2))
       else
          if (v:sub(1,1) == "+") then
             v = v:sub(2)
          end
-         a[#a + 1] = v
          local mname = MName:new("load",v)
          local sn    = mname:sn()
          if (mt:have(sn, "active")) then
-            MCP:unload(v)
+            uA[#uA+1] = mname
          end
+         lA[#lA+1] = mname
       end
+   end
+
+   if (#uA > 0) then
+      MCP:unload(uA)
    end
 
    local mcp_old = mcp
    mcp           = MCP
-   local b       = mcp:load(unpack(a))
+   local b       = mcp:load(lA)
    mcp           = mcp_old
 
 
-
    local aa = {}
-   for i = 1,#a do
-      local v     = a[i]
-      local mname = MName.new(MName, "load", v)
+   for i = 1,#lA do
+      local mname = lA[i]
       local sn    = mname:sn()
       if (not mt:have(sn, "active")) then
-         aa[#aa+1] = v
+         aa[#aa+1] = mname:usrName()
       else
-         local usrN  = (not masterTbl().latest) and v or mt:fullName(sn)
+         local usrN  = (not masterTbl().latest) and mname:usrName() or mt:fullName(sn)
          dbg.print("Karl registration: ",sn," user: ", usrN,"\n")
          
          ------------------------------------------------------
@@ -383,21 +375,19 @@ end
 function Purge()
    local master = Master:master()
    local mt     = MT:mt()
-   local dbg    = Dbg:dbg()
    local totalA  = mt:list("short","any")
-   local stickyA = mt:list("short","sticky")
 
    if (#totalA < 1) then
       return
    end
 
-   local a = {}
-   for _,v in ipairs(totalA) do
-      a[#a + 1] = v
+   local mA = {}
+   for i = 1, #totalA do
+      mA[#mA+1] = MName:new("mt",totalA[i])
    end
-   dbg.start("Purge(",concatTbl(a,", "),")")
+   dbg.start("Purge(",concatTbl(totalA,", "),")")
 
-   MCP:unload(unpack(a))
+   MCP:unload(mA)
    
    -- Make Default Path be the new MODULEPATH
    mt:buildMpathA(mt:getBaseMPATH())
@@ -410,7 +400,6 @@ end
 --              lmod-save directory.  This command should probably go away.
 
 function RecordCmd()
-   local dbg = Dbg:dbg()
    dbg.start("RecordCmd()")
    local mt   = MT:mt()
    local s    = serializeTbl{indent=true, name="_ModuleTable_",
@@ -440,7 +429,6 @@ end
 
 
 function Refresh()
-   local dbg = Dbg:dbg()
    dbg.start("Refresh()")
    local master  = Master:master()
    master:refresh()
@@ -454,7 +442,6 @@ end
 --           and this command is the same as a purge.
 
 function Reset(msg)
-   local dbg    = Dbg:dbg()
    dbg.start("Reset()")
    Purge()
    local default = os.getenv("LMOD_SYSTEM_DEFAULT_MODULES") or ""
@@ -493,7 +480,6 @@ end
 --            Otherwise do a "Reset()"
 
 function Restore(a)
-   local dbg    = Dbg:dbg()
    dbg.start("Restore(",a,")")
 
    local msg
@@ -548,7 +534,6 @@ end
 
 function Save(...)
    local mt   = MT:mt()
-   local dbg  = Dbg:dbg()
    local a    = select(1, ...) or "default"
    local path = pathJoin(os.getenv("HOME"), LMODdir)
    dbg.start("Save(",concatTbl({...},", "),")")
@@ -594,7 +579,6 @@ end
 
 function SaveList(...)
    local mt        = MT:mt()
-   local dbg       = Dbg:dbg()
    local path      = pathJoin(os.getenv("HOME"), LMODdir)
    local masterTbl = masterTbl()
    local a         = {}
@@ -637,7 +621,6 @@ end
 --         even if the modulefile is written in TCL.
 
 function Show(...)
-   local dbg    = Dbg:dbg()
    local master = Master:master()
    dbg.start("Show(", concatTbl({...},", "),")")
 
@@ -659,7 +642,6 @@ end
 --              level 1 or level 2 report on particular modules.
 
 function SpiderCmd(...)
-   local dbg = Dbg:dbg()
    dbg.start("SpiderCmd(", concatTbl({...},", "),")")
    local cache   = Cache:cache()
    local moduleT = cache:build()
@@ -692,7 +674,6 @@ end
 
 
 function Swap(...)
-   local dbg = Dbg:dbg()
    local a = select(1, ...) or ""
    local b = select(2, ...) or ""
    local s = {}
@@ -705,16 +686,19 @@ function Swap(...)
    end
 
    local mt    = MT:mt()
-   local mname = MName:new("load",a)
+   local mname = MName:new("mt", a)
    local sn    = mname:sn()
    if (not mt:have(sn,"any")) then
       LmodError("Swap failed: \"",a,"\" is not loaded.\n")
    end
 
+   local mA      = {}
    local mcp_old = mcp
    mcp           = MCP
-   mcp:unload(a)
-   local aa = mcp:load(b)
+   mA[1]         = mname
+   mcp:unload(mA)
+   mA[1]         = MName:new("load",b)
+   local aa = mcp:load(mA)
    if (not aa[1]) then
       LmodError("Swap failed.\n")
    end
@@ -722,7 +706,7 @@ function Swap(...)
    ------------------------------------------------------
    -- Register user loads so that Karl will be happy.
 
-   local mname = MName:new("mt",b)
+   local mname = mA[1]
    local sn    = mname:sn()
    local usrN  = (not masterTbl().latest) and b or mt:fullName(sn)
    mt:userLoad(sn,usrN)
@@ -734,7 +718,6 @@ end
 --  TableList(): list the loaded modules in a lua table
 
 function TableList()
-   local dbg    = Dbg:dbg()
    dbg.start("TableList()")
    local mt = MT:mt()
 
@@ -768,13 +751,14 @@ end
 --         possibly reloaded if a module.
 
 function Use(...)
-   local dbg = Dbg:dbg()
    local mt  = MT:mt()
    local a = {}
    local op = MCP.prepend_path
    dbg.start("Use(", concatTbl({...},", "),")")
 
-   for _,v in ipairs{...} do
+   local arg = pack(...)
+   for i = 1, arg.n do
+      local v = arg[i]
       local w = v:lower()
       if (w == "-a" or w == "--append" ) then
          op = MCP.append_path
@@ -803,10 +787,11 @@ end
 --           modules reviewed and possibly reloaded or made inactive.
 
 function UnUse(...)
-   local dbg = Dbg:dbg()
    local mt  = MT:mt()
    dbg.start("UnUse(", concatTbl({...},", "),")")
-   for _,v in ipairs{...} do
+   local arg = pack(...)
+   for i = 1, arg.n do
+      local v = arg[i]
       MCP:remove_path( ModulePath,v)
       MCP:remove_path( DfltModPath,v)
    end
@@ -819,9 +804,8 @@ end
 --  UnLoad():  unload all requested modules
 
 function UnLoad(...)
-   local dbg    = Dbg:dbg()
    dbg.start("UnLoad(",concatTbl({...},", "),")")
-   MCP:unload(...)
+   MCP:unload(MName:buildA("mt", ...))
    dbg.fini("UnLoad")
 end
 
@@ -829,7 +813,6 @@ end
 --  Whatis(): Run whatis on all request modules given the the command line.
 
 function Whatis(...)
-   local dbg = Dbg:dbg()
    prtHdr    = dbg.quiet
    Access("whatis",...)
 end

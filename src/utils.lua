@@ -45,7 +45,7 @@ require("parseVersion")
 
 local Version   = require("Version")
 local base64    = require("base64")
-local Dbg       = require("Dbg")
+local dbg       = require("Dbg"):dbg()
 local lfs       = require("lfs")
 local posix     = require("posix")
 
@@ -58,6 +58,16 @@ local huge      = math.huge
 
 local rep       = string.rep
 local T0        = os.time()
+
+--------------------------------------------------------------------------
+-- argsPack():  This is 5.1 Lua function to cover the table.pack function
+--              that is in Lua 5.2 and later.
+
+function argsPack(...)
+   local arg = { n = select ("#", ...), ...}
+   return arg
+end
+local pack        = (_VERSION == "Lua 5.1") and argsPack or table.pack
 
 --------------------------------------------------------------------------
 -- bannerStr(): This function builds a banner string that is centered
@@ -137,7 +147,7 @@ end
 --                   are the same.
 
 function extractVersion(full, sn)
-   if (full == nil or sn == nil) then
+   if (not full or not sn) then
       return nil
    end
    local pat     = '^' .. escape(sn) .. '/?'
@@ -200,7 +210,6 @@ end
 --                       into parseVersion().
 
 function lastFileInDir(path)
-   local dbg      = Dbg:dbg()
    dbg.start("lastFileInDir(",path,")")
    local lastKey   = ''
    local lastValue = ''
@@ -383,7 +392,6 @@ RCFileA = {
 }
 
 function readRC()
-   local dbg     = Dbg:dbg()
    dbg.start("readRC()")
    if (s_readRC) then
       s_readRC = true
@@ -424,7 +432,9 @@ end
 
 function ShowCmdStr(name, ...)
    local a = {}
-   for _,v in ipairs{...} do
+   local arg = pack(...)
+   for i = 1, arg.n do
+      local v = arg[i]
       local s = tostring(v)
       if (type(v) ~= "boolean") then
          s = "\"".. s .."\""
@@ -438,6 +448,21 @@ function ShowCmdStr(name, ...)
    b[#b+1] = ")\n"
    return concatTbl(b,"")
 end
+
+function ShowCmdA(name, mA)
+   local a = {}
+   for i = 1, #mA do
+      local mname = mA[i]
+      a[i] = '"' .. mA[i]:usrName() .. '"'
+   end
+   local b = {}
+   b[#b+1] = name
+   b[#b+1] = "("
+   b[#b+1] = concatTbl(a,",")
+   b[#b+1] = ")\n"
+   return concatTbl(b,"")
+end
+
 
 
 --------------------------------------------------------------------------
@@ -505,7 +530,6 @@ end
 
 
 function capture(cmd,level)
-   local dbg    = Dbg:dbg()
    level        = level or 1
    local level2 = level or 2
    dbg.start(level, "capture")

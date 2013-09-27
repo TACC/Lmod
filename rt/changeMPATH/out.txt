@@ -78,7 +78,7 @@ LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/changeMPATH/mf/Core:ProjectDIR/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/changeMPATH/mf/Core:ProjectDIR/mf/Core";
 export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core";
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/changeMPATH/mf/Core:ProjectDIR/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/Core";
 export MODULEPATH;
@@ -95,7 +95,6 @@ MODULEPATH="ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/Core";
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/changeMPATH/mf/Core","ProjectDIR/mf/Core",},family={},inactive={},mT={},mpathA={"ProjectDIR/mf/Compiler/intel/10.1","ProjectDIR/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/changeMPATH/mf/Core:ProjectDIR/mf/Core",["version"]=2,}';
 export _ModuleTable_;
-false
 ===========================
 step 7
 lua ProjectDIR/src/lmod.in.lua bash use ProjectDIR/rt/changeMPATH/mf/Core

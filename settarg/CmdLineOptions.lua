@@ -34,7 +34,7 @@
 
 require("strict")
 require("fileOps")
-local Dbg          = require("Dbg")
+local dbg          = require("Dbg"):dbg()
 local arg          = arg
 local format       = string.format
 local masterTbl    = masterTbl

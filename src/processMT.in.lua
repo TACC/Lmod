@@ -57,11 +57,10 @@ require("declare")
 
 _ModuleTable_ = false
 moduleInfoT = false
-local Dbg         = require("Dbg")
+local dbg         = require("Dbg"):dbg()
 local Optiks      = require("Optiks")
 local ProgressBar = require("ProgressBar")
 local concatTbl   = table.concat
-local dbg         = Dbg:dbg()
 local lfs         = require("lfs")
 
 function cmdDir()

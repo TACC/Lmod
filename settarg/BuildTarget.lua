@@ -40,7 +40,7 @@ require("fileOps")
 require("utils")
 require("ProcessModuleTable")
 
-local Dbg         = require("Dbg")
+local dbg         = require("Dbg"):dbg()
 local STT         = require("STT")
 local posix       = require("posix")
 local base64      = require("base64")
@@ -52,7 +52,6 @@ local load        = (_VERSION == "Lua 5.1") and loadstring or load
 local masterTbl   = masterTbl
 local systemG     = _G
 local ModuleTable = "_ModuleTable_"
-local dbg         = Dbg:dbg()
 
 local M          = {}
 

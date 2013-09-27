@@ -51,8 +51,9 @@
 
 require("strict")
 require("parseVersion")
+require("utils")
 
-local Dbg         = require("Dbg")
+local dbg         = require("Dbg"):dbg()
 local MName       = require("MName")
 local ModuleStack = require("ModuleStack")
 local Version     = require("Version")
@@ -76,7 +77,6 @@ end
 
 
 local function validateStringArgs(cmdName, ...)
-   local dbg = Dbg:dbg()
    local arg = { n = select('#', ...), ...}
    dbg.print("cmd: ",cmdName, " arg.n: ",arg.n,"\n")
    for i = 1, arg.n do
@@ -117,21 +117,19 @@ end
 --- Load family functions ----
 
 function load_module(...)
-   local dbg = Dbg:dbg()
    dbg.start("load_module(",concatTbl({...},", "),")")
    if (not validateStringArgs("load",...)) then return {} end
 
-   local b = mcp:load(...)
+   local b = mcp:load(MName:buildA("load",...))
    dbg.fini("load_module")
    return b
 end
 
 function try_load(...)
-   local dbg = Dbg:dbg()
    dbg.start("try_load(",concatTbl({...},", "),")")
    if (not validateStringArgs("try_load",...)) then return {} end
 
-   local b = mcp:try_load(...)
+   local b = mcp:try_load(MName:buildA("load",...))
    dbg.fini("try_load")
    return b
 end
@@ -139,32 +137,29 @@ end
 try_add = try_load
 
 function unload(...)
-   local dbg = Dbg:dbg()
    dbg.start("unload(",concatTbl({...},", "),")")
    if (not validateStringArgs("unload",...)) then return {} end
 
-   local b = mcp:unload(...)
+   local b = mcp:unload(MName:buildA("mt",...))
    dbg.fini("unload")
    return b
 end
 
 
 function always_load(...)
-   local dbg = Dbg:dbg()
    dbg.start("always_load(",concatTbl({...},", "),")")
    if (not validateStringArgs("always_load",...)) then return {} end
 
-   local b = mcp:always_load(...)
+   local b = mcp:always_load(MName:buildA("load",...))
    dbg.fini("always_load")
    return b
 end
 
 function always_unload(...)
-   local dbg = Dbg:dbg()
    dbg.start("always_unload(",concatTbl({...},", "),")")
    if (not validateStringArgs("always_unload",...)) then return {} end
 
-   local b = mcp:always_unload(...)
+   local b = mcp:always_unload(MName:buildA("mt",...))
    dbg.fini("always_unload")
    return b
 end
@@ -172,7 +167,6 @@ end
 --- PATH functions ---
 
 function prepend_path(...)
-   local dbg = Dbg:dbg()
    dbg.start("prepend_path(",concatTbl({...},", "),")")
    if (not validateStringArgs("prepend_path",...)) then return end
 
@@ -181,7 +175,6 @@ function prepend_path(...)
 end
 
 function append_path(...)
-   local dbg = Dbg:dbg()
    dbg.start("append_path(",concatTbl({...},", "),")")
    if (not validateStringArgs("append_path",...)) then return end
 
@@ -190,7 +183,6 @@ function append_path(...)
 end
 
 function remove_path(...)
-   local dbg = Dbg:dbg()
    dbg.start("remove_path(",concatTbl({...},", "),")")
    if (not validateStringArgs("remove_path",...)) then return end
 
@@ -201,7 +193,6 @@ end
 --- Set Environment functions ----
 
 function setenv(...)
-   local dbg = Dbg:dbg()
    dbg.start("setenv(",concatTbl({...},", "),")")
    if (not validateArgsWithValue("setenv",...)) then return end
 
@@ -211,7 +202,6 @@ function setenv(...)
 end
 
 function unsetenv(...)
-   local dbg = Dbg:dbg()
    dbg.start("unsetenv(",concatTbl({...},", "),")")
    if (not validateArgsWithValue("unsetenv",...)) then return end
 
@@ -221,7 +211,6 @@ function unsetenv(...)
 end
 
 function pushenv(...)
-   local dbg = Dbg:dbg()
    dbg.start("pushenv(",concatTbl({...},", "),")")
    if (not validateArgsWithValue("pushenv",...)) then return end
 
@@ -233,7 +222,6 @@ end
 --- Property functions ----
 
 function add_property(...)
-   local dbg = Dbg:dbg()
    dbg.start("add_property(",concatTbl({...},", "),")")
    if (not validateStringArgs("add_property",...)) then return end
 
@@ -242,7 +230,6 @@ function add_property(...)
 end
 
 function remove_property(...)
-   local dbg = Dbg:dbg()
    dbg.start("remove_property(",concatTbl({...},", "),")")
    if (not validateStringArgs("remove_property",...)) then return end
 
@@ -254,7 +241,6 @@ end
 --- Set Alias/Shell functions ---
 
 function set_alias(...)
-   local dbg = Dbg:dbg()
    dbg.start("set_alias(",concatTbl({...},", "),")")
    if (not validateArgsWithValue("set_alias",...)) then return end
 
@@ -263,7 +249,6 @@ function set_alias(...)
 end
 
 function unset_alias(...)
-   local dbg = Dbg:dbg()
    dbg.start("unset_alias(",concatTbl({...},", "),")")
    if (not validateStringArgs("unset_alias",...)) then return end
 
@@ -272,7 +257,6 @@ function unset_alias(...)
 end
 
 function set_shell_function(...)
-   local dbg = Dbg:dbg()
    dbg.start("set_shell_function(",concatTbl({...},", "),")")
    if (not validateStringArgs("set_shell_function",...)) then return end
 
@@ -281,7 +265,6 @@ function set_shell_function(...)
 end
 
 function unset_shell_function(...)
-   local dbg = Dbg:dbg()
    dbg.start("unset_shell_function(",concatTbl({...},", "),")")
    if (not validateStringArgs("unset_shell_function",...)) then return end
 
@@ -292,36 +275,32 @@ end
 --- Prereq / Conflict ---
 
 function prereq(...)
-   local dbg = Dbg:dbg()
    dbg.start("prereq(",concatTbl({...},", "),")")
    if (not validateStringArgs("prereq",...)) then return end
-
-   mcp:prereq(...)
+   
+   mcp:prereq(MName:buildA("mt",...))
    dbg.fini("prereq")
 end
 
 function conflict(...)
-   local dbg = Dbg:dbg()
    dbg.start("conflict(",concatTbl({...},", "),")")
    if (not validateStringArgs("conflict",...)) then return end
 
-   mcp:conflict(...)
+   mcp:conflict(MName:buildA("mt",...))
    dbg.fini()
 end
 
 function prereq_any(...)
-   local dbg = Dbg:dbg()
    dbg.start("prereq_any(",concatTbl({...},", "),")")
    if (not validateStringArgs("prereq_any",...)) then return end
 
-   mcp:prereq_any(...)
+   mcp:prereq_any(MName:buildA("mt",...))
    dbg.fini("conflict")
 end
 
 --- Family function ---
 
 function family(...)
-   local dbg = Dbg:dbg()
    dbg.start("family(",concatTbl({...},", "),")")
    if (not validateStringArgs("family",...)) then return end
 
@@ -332,7 +311,6 @@ end
 --- Inherit function ---
 
 function inherit(...)
-   local dbg = Dbg:dbg()
    dbg.start("inherit(",concatTbl({...},", "),")")
 
    mcp:inherit(...)
@@ -343,7 +321,6 @@ end
 -- Whatis / Help functions
 
 function whatis(...)
-   local dbg = Dbg:dbg()
    dbg.start("whatis(",concatTbl({...},", "),")")
    if (not validateStringArgs("whatis",...)) then return end
 
@@ -352,7 +329,6 @@ function whatis(...)
 end
 
 function help(...)
-   local dbg = Dbg:dbg()
    dbg.start("help(...)")
    if (not validateStringArgs("help",...)) then return end
    mcp:help(...)
@@ -362,25 +338,21 @@ end
 -- Misc --
 
 function LmodError(...)
-   local dbg = Dbg:dbg()
    local b = mcp:error(...)
    return b
 end
 
 function LmodWarning(...)
-   local dbg = Dbg:dbg()
    local b = mcp:warning(...)
    return b
 end
 
 function LmodMessage(...)
-   local dbg = Dbg:dbg()
    local b = mcp:message(...)
    return b
 end
 
 function is_spider()
-   local dbg = Dbg:dbg()
    dbg.start("is_spider()")
    local b = mcp:is_spider()
    dbg.fini("is_spider")
@@ -388,7 +360,6 @@ function is_spider()
 end
 
 function execute(t)
-   local dbg = Dbg:dbg()
    dbg.start("execute(...)")
    if (type(t) ~= "table" or not t.cmd or type(t.modeA) ~= "table") then
       mcp:report("Syntax error in file: ", myFileName(), "\n with command: execute",
@@ -402,7 +373,6 @@ function execute(t)
 end   
 
 function mode()
-   local dbg = Dbg:dbg()
    dbg.start("mode()")
    local b = mcp:mode()
    dbg.fini("mode")
@@ -456,7 +426,6 @@ function myModuleVersion()
 end
 
 function hierarchyA(package, levels)
-   local dbg = Dbg:dbg()
    local fn  = myFileName():gsub("%.lua$","")
 
    if (levels < 1) then

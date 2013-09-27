@@ -42,7 +42,7 @@ require("string_split")
 
 local M            = {}
 
-local Dbg          = require("Dbg")
+local dbg          = require("Dbg"):dbg()
 local MT           = require("MT")
 local base64       = require("base64")
 local concatTbl    = table.concat
@@ -111,7 +111,6 @@ end
 --                     actual expansion to standard out (io.stdout).
 
 function M.expand(self, tbl)
-   local dbg = Dbg:dbg()
    dbg.start("BaseShell:expand(tbl)")
 
    if ( not self._active) then
@@ -148,7 +147,6 @@ end
 --                        won't be taxed to much.
 
 function M.expandMT(self, vstr)
-   local dbg = Dbg:dbg()
    dbg.start("BaseShell:expandMT(vstr)")
    local vv      = encode64(vstr)
    local a       = {}

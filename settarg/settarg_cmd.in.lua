@@ -63,11 +63,10 @@ end
 
 BaseShell      = require("BaseShell")
 
-local Dbg            = require("Dbg")
+local dbg            = require("Dbg"):dbg()
 local CmdLineOptions = require("CmdLineOptions")
 local BuildTarget    = require("BuildTarget")
 local STT            = require("STT")
-local dbg            = Dbg:dbg()
 require("ModifyPath")
 require("Output")
 require("serializeTbl")

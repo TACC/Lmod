@@ -34,7 +34,7 @@
 
 require("strict")
 require("string_split")
-local Dbg          = require("Dbg")
+local dbg          = require("Dbg"):dbg()
 local concatTbl    = table.concat
 
 replaceT = {
@@ -73,8 +73,6 @@ replaceT = {
 -- were an "@" sign; that is, a version coming before even "a" or "alpha".
 
 function parseVersion(versionStr)
-
-   local dbg = Dbg:dbg()
 
    --dbg.start("parseVersion(",versionStr,")")
 
@@ -120,7 +118,6 @@ function parseVersionParts(versionStr)
    local s     = versionStr:lower()
    local s_end = s:len()
    local ipos  = 1
-   local dbg   = Dbg:dbg()
    local i,j, results
    return
       function()

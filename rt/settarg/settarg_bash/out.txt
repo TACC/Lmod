@@ -503,7 +503,7 @@ MODULEPATH="ProjectDIR/rt/settarg/settarg_bash/../mf/MPI/gcc/4.7/mpich/3.0:Proje
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/settarg/settarg_bash/../mf/Core",},family={["MPI"]="mpich",["compiler"]="gcc",},inactive={},mT={gcc={["FN"]="ProjectDIR/rt/settarg/settarg_bash/../mf/Core/gcc/4.7.2.lua",["default"]=1,["fullName"]="gcc/4.7.2",["loadOrder"]=1,["mType"]="w",propT={},["short"]="gcc",["status"]="active",},mpich={["FN"]="ProjectDIR/rt/settarg/settarg_bash/../mf/Compiler/gcc/4.7/mpich/3.0.4.lua",["default"]=1,["fullName"]="mpich/3.0.4",["loadOrder"]=2,["mType"]="w",propT={},["short"]="mpich",["status"]="active",},},mpathA={"ProjectDIR/rt/settarg/settarg_bash/../mf/MPI/gcc/4.7/mpich/3.0","ProjectDIR/rt/settarg/settarg_bash/../mf/Compiler/gcc/4.7","ProjectDIR/rt/settarg/settarg_bash/../mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/settarg/settarg_bash/../mf/Core",["version"]=2,}';
 export _ModuleTable_;
-unalias cdt;
+unalias cdt 2> /dev/null;
 unset -f dbg 2> /dev/null;
 unset -f empty 2> /dev/null;
 unset -f gettargdir 2> /dev/null;

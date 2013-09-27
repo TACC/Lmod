@@ -63,10 +63,11 @@
 require("strict")
 require("TermWidth")
 require("inherits")
+require("utils")
 
 local M            = {}
 local BeautifulTbl = require("BeautifulTbl")
-local Dbg          = require("Dbg")
+local dbg          = require("Dbg"):dbg()
 local Exec         = require("Exec")
 local MName        = require("MName")
 local ModuleStack  = require("ModuleStack")
@@ -76,6 +77,7 @@ local concatTbl    = table.concat
 local decode64     = base64.decode64
 local encode64     = base64.encode64
 local getenv       = os.getenv
+local pack         = (_VERSION == "Lua 5.1") and argsPack or table.pack
 
 ------------------------------------------------------------------------
 --module ('MasterControl')
@@ -115,7 +117,6 @@ function M.build(name,mode)
    local o                = valid_name(nameTbl, name):create()
    o:_setMode(mode or name)
 
-   local dbg              = Dbg:dbg()
    dbg.print("Setting mcp to ", o:name(),"\n")
    return o
 end
@@ -124,24 +125,29 @@ end
 -- Load / Unload functions
 -------------------------------------------------------------------
 
-function M.load(self, ...)
+function M.load(self, mA)
    local master = Master:master()
-   local dbg    = Dbg:dbg()
    local mStack = ModuleStack:moduleStack()
 
-   dbg.start("MasterControl:load(",concatTbl({...},", "),")")
+   if (dbg.active()) then
+      local a = {}
+      for i = 1, #mA do
+         a[#a + 1] = mA[i]:usrName()
+      end
+      local s = concatTbl(a, ", ")
+      dbg.start("MasterControl:load(mA={"..s.."})")
+   end
    mStack:loading()
 
-   local a = master.load(...)
-
+   local a = master.load(mA)
    if (not expert()) then
 
       local mt      = MT:mt()
       local t       = {}
       readAdmin()
-      for _, moduleName in ipairs{...} do
-         local mname = MName:new("load",moduleName)
-         local sn    = mname:sn()
+      for i = 1, #mA do
+         local mname      = mA[i]
+         local sn         = mname:sn()
          if (mt:have(sn,"active")) then
             local moduleFn  = mt:fileName(sn)
             local modFullNm = mt:fullName(sn)
@@ -184,53 +190,46 @@ function M.load(self, ...)
    return a
 end
 
-function M.try_load(self, ...)
-   local dbg = Dbg:dbg()
-   dbg.start("MasterControl:try_load(",concatTbl({...},", "),")")
+function M.try_load(self, mA)
+   dbg.start("MasterControl:try_load(mA)")
    deactivateWarning()
-   self:load(...)
+   self:load(mA)
    dbg.fini("MasterControl:try_load")
 end
 
-function M.unload(self, ...)
+function M.unload(self, mA)
+   dbg.start("MasterControl:unload(mA)")
    local master = Master:master()
    local mStack = ModuleStack:moduleStack()
-   local dbg    = Dbg:dbg()
    local mt     = MT:mt()
-   dbg.start("MasterControl:unload(", concatTbl({...},", "),")")
 
    mStack:loading()
-
-   local aa     = master.unload(...)
+   local aa     = master.unload(mA)
 
    dbg.fini("MasterControl:unload")
    return aa
 end
 
 
-function M.unloadsys(self, ...)
+function M.unloadsys(self, mA)
+   dbg.start("MasterControl.unloadsys(mA)")
    local master = Master:master()
    local mStack = ModuleStack:moduleStack()
-   local dbg    = Dbg:dbg()
    local mt     = MT:mt()
    local a      = {}
 
-   dbg.start("MasterControl.unloadsys(",concatTbl({...},", "),")")
    mStack:loading()
-   a      = master.unload(...)
+   a      = master.unload(mA)
    dbg.fini("MasterControl.unloadsys")
    return a
 end
 
-function M.bad_unload(self,...)
-   local dbg = Dbg:dbg()
+function M.bad_unload(self,mA)
    local a   = {}
 
-   dbg.start("MasterControl.bad_unload()")
+   dbg.start("MasterControl.bad_unload(mA)")
 
-   LmodWarning("Stubbornly refusing to unload module(s): \"",
-               concatTbl({...},"\", \""),"\"",
-               "\n   during an unload\n")
+   LmodWarning("Stubbornly refusing to unload module(s) during an unload\n")
 
    dbg.fini("MasterControl.bad_unload")
 end
@@ -246,7 +245,6 @@ LMOD_MP_T[DfltModPath] = true
 
 
 function M.prepend_path(self, name, value, sep, nodups)
-   local dbg    = Dbg:dbg()
    dbg.start("MasterControl:prepend_path(\"",name,"\", \"",value,"\",\"",sep,"\")")
    local mStack = ModuleStack:moduleStack()
    sep          = sep or ":"
@@ -264,7 +262,6 @@ end
 
 function M.append_path(self, name, value, sep, nodups)
    local mStack = ModuleStack:moduleStack()
-   local dbg    = Dbg:dbg()
    dbg.start("MasterControl:append_path(\"",name,"\", \"",value,"\",\"",sep,"\")")
    sep          = sep or ":"
 
@@ -279,7 +276,6 @@ end
 function M.remove_path(self, name, value, sep, where)
    local mStack = ModuleStack:moduleStack()
    sep          = sep or ":"
-   local dbg    = Dbg:dbg()
    dbg.start("MasterControl:remove_path(\"",name,"\", \"",value,"\",\"",
              sep,"\", \"",where,"\")")
    mStack:setting()
@@ -310,7 +306,6 @@ end
 
 function M.setenv(self, name, value, respect)
    local mStack = ModuleStack:moduleStack()
-   local dbg    = Dbg:dbg()
    dbg.start("MasterControl:setenv(\"",name,"\", \"",value,"\", \"",
               respect,")")
    
@@ -331,7 +326,6 @@ end
 
 function M.unsetenv(self, name, value, respect)
    local mStack = ModuleStack:moduleStack()
-   local dbg    = Dbg:dbg()
    dbg.start("MasterControl:unsetenv(\"",name,"\", \"",value,"\")")
 
    if (respect and getenv(name) ~= value) then
@@ -358,7 +352,6 @@ end
 
 function M.pushenv(self, name, value)
    local mStack = ModuleStack:moduleStack()
-   local dbg    = Dbg:dbg()
    dbg.start("MasterControl:pushenv(\"",name,"\", \"",value,"\")")
 
    ----------------------------------------------------------------
@@ -395,7 +388,6 @@ end
 
 function M.popenv(self, name, value)
    local mStack = ModuleStack:moduleStack()
-   local dbg    = Dbg:dbg()
    dbg.start("MasterControl:popenv(\"",name,"\", \"",value,"\")")
 
    local stackName = "__LMOD_STACK_" .. name
@@ -431,7 +423,6 @@ end
 
 function M.set_alias(self, name, value)
    local mStack = ModuleStack:moduleStack()
-   local dbg    = Dbg:dbg()
    dbg.start("MasterControl:set_alias(\"",name,"\", \"",value,"\")")
 
 
@@ -445,7 +436,6 @@ end
 
 function M.unset_alias(self, name, value)
    local mStack = ModuleStack:moduleStack()
-   local dbg    = Dbg:dbg()
    dbg.start("MasterControl:unset_alias(\"",name,"\", \"",value,"\")")
 
    if (varTbl[name] == nil) then
@@ -466,7 +456,6 @@ end
 
 function M.set_shell_function(self, name, bash_function, csh_function)
    local mStack = ModuleStack:moduleStack()
-   local dbg    = Dbg:dbg()
    dbg.start("MasterControl:set_shell_function(\"",name,"\", \"",bash_function,"\")",
              "\", \"",csh_function,"\")")
 
@@ -481,7 +470,6 @@ end
 
 function M.unset_shell_function(self, name, bash_function, csh_function)
    local mStack = ModuleStack:moduleStack()
-   local dbg    = Dbg:dbg()
    dbg.start("MasterControl:unset_shell_function(\"",name,"\", \"",bash_function,"\")",
              "\", \"",csh_function,"\")")
 
@@ -502,7 +490,6 @@ end
 -------------------------------------------------------------------
 
 function M.add_property(self, name, value)
-   local dbg    = Dbg:dbg()
    dbg.start("MasterControl:add_property(\"",name,"\", \"",value,"\")")
    local mStack  = ModuleStack:moduleStack()
    local mFull   = mStack:fullName()
@@ -514,7 +501,6 @@ function M.add_property(self, name, value)
 end
 
 function M.remove_property(self, name, value)
-   local dbg     = Dbg:dbg()
    dbg.start("MasterControl:remove_property(\"",name,"\", \"",value,"\")")
    local mStack  = ModuleStack:moduleStack()
    local mFull   = mStack:fullName()
@@ -552,8 +538,9 @@ end
 
 function LmodSystemError(...)
    io.stderr:write("\n", colorize("red", "Lmod has detected the following error: "))
-   for _,v in ipairs{...} do
-      io.stderr:write(v)
+   local arg = pack(...)
+   for i = 1, arg.n do
+      io.stderr:write(arg[i])
    end
    io.stderr:write("\n")
    LmodErrorExit()
@@ -567,8 +554,9 @@ end
 function M.warning(self, ...)
    if (not expert() and  haveWarnings()) then
       io.stderr:write("\n",colorize("red", "Lmod Warning: "))
-      for _,v in ipairs{...} do
-         io.stderr:write(v)
+      local arg = pack(...)
+      for i = 1, arg.n do
+         io.stderr:write(arg[i])
       end
       io.stderr:write("\n")
       setWarningFlag()
@@ -577,8 +565,9 @@ end
 
 
 function M.message(self, ...)
-   for _,v in ipairs{...} do
-      io.stderr:write(v)
+   local arg = pack(...)
+   for i = 1, arg.n do
+      io.stderr:write(arg[i])
    end
    io.stderr:write("\n")
 end
@@ -588,8 +577,7 @@ end
 -- Misc Functions
 -------------------------------------------------------------------
 
-function M.prereq(self, ...)
-   local dbg       = Dbg:dbg()
+function M.prereq(self, mA)
    local mt        = MT:mt()
    local a         = {}
    local mStack    = ModuleStack:moduleStack()
@@ -597,7 +585,7 @@ function M.prereq(self, ...)
    local masterTbl = masterTbl()
 
    mStack:setting()
-   dbg.start("MasterControl:prereq(",concatTbl({...},", "),")")
+   dbg.start("MasterControl:prereq(mA)")
 
    if (masterTbl.checkSyntax) then
       dbg.print("Ignoring prereq when syntax checking\n")
@@ -605,10 +593,13 @@ function M.prereq(self, ...)
       return
    end
 
-   for _,v in ipairs{...} do
-      local mname    = MName:new("mt", v)
+   local a = {}
+   for i = 1, #mA do
+      local mname    = mA[i]
+      local v        = mname:usrName()
       local sn       = mname:sn()
       local full     = mt:fullName(sn)
+      dbg.print("sn: ",sn, ", full: ", full,", v: ",v,"\n")
       local version  = extractVersion(v, sn)
       dbg.print("sn: ",sn," full: ",full, " version: ",version,"\n")
       if ((not mt:have(sn,"active")) or
@@ -625,9 +616,8 @@ function M.prereq(self, ...)
    dbg.fini("MasterControl:prereq")
 end
 
-function M.conflict(self, ...)
-   local dbg    = Dbg:dbg()
-   dbg.start("MasterControl:conflict(",concatTbl({...},", "),")")
+function M.conflict(self, mA)
+   dbg.start("MasterControl:conflict(mA)")
 
 
    local mt        = MT:mt()
@@ -643,8 +633,10 @@ function M.conflict(self, ...)
       return
    end
 
-   for _,v in ipairs{...} do
-      local mname   = MName:new("mt", v)
+   local a = {}
+   for i = 1, #mA do
+      local mname   = mA[i]
+      local v       = mname:usrName()
       local sn      = mname:sn()
       local version = extractVersion(v, sn)
       local found   = false
@@ -665,8 +657,7 @@ function M.conflict(self, ...)
    dbg.fini("MasterControl:conflict")
 end
 
-function M.prereq_any(self, ...)
-   local dbg       = Dbg:dbg()
+function M.prereq_any(self, mA)
    local mt        = MT:mt()
    local a         = {}
    local mStack    = ModuleStack:moduleStack()
@@ -674,7 +665,7 @@ function M.prereq_any(self, ...)
    local masterTbl = masterTbl()
    mStack:setting()
 
-   dbg.start("MasterControl:prereq_any(",concatTbl({...},", "),")")
+   dbg.start("MasterControl:prereq_any(mA)")
 
    if (masterTbl.checkSyntax) then
       dbg.print("Ignoring prereq_any when syntax checking\n")
@@ -683,9 +674,12 @@ function M.prereq_any(self, ...)
    end
 
    local found  = false
-   for _,v in ipairs{...} do
-      local mname = MName:new("mt", v)
+   local a      = {}
+   for i = 1, #mA do
+      local mname = mA[i]
+      local v     = mname:usrName()
       local sn    = mname:sn()
+      a[#a + 1]   = v
       if (mt:have(sn,"active")) then
          found = true
          break;
@@ -695,7 +689,7 @@ function M.prereq_any(self, ...)
    if (not found) then
       local s = concatTbl(a," ")
       LmodError("Cannot load module \"",mFull,"\".  At least one of these modules must be loaded:\n  ",
-            concatTbl({...},", "),"\n")
+            concatTbl(a,", "),"\n")
    end
    dbg.fini("MasterControl:prereq_any")
 end
@@ -703,7 +697,6 @@ end
 
 
 function M.family(self, name)
-   local dbg       = Dbg:dbg()
    local mt        = MT:mt()
    local mStack    = ModuleStack:moduleStack()
    local mFull     = mStack:fullName()
@@ -762,7 +755,6 @@ function M.myModuleVersion(self)
 end
 
 function M.unset_family(self, name)
-   local dbg    = Dbg:dbg()
    local mt     = MT:mt()
 
    dbg.start("MasterControl:unset_family(",name,")")
@@ -772,7 +764,6 @@ function M.unset_family(self, name)
 end
 
 function M.inherit(self)
-   local dbg    = Dbg:dbg()
    local master = Master:master()
    local mStack = ModuleStack:moduleStack()
    mStack:setting()
@@ -783,21 +774,18 @@ function M.inherit(self)
 end
 
 function M.is_spider(self)
-   local dbg    = Dbg:dbg()
    dbg.start("MasterControl:is_spider()")
    dbg.fini("MasterControl:is_spider")
    return false
 end
 
 function M._setMode(self, mode)
-   local dbg    = Dbg:dbg()
    dbg.start("MasterControl:_setMode(\"",mode,"\")")
    self._mode = mode
    dbg.fini("MasterControl:_setMode")
 end
 
 function M.mode(self)
-   local dbg    = Dbg:dbg()
    dbg.start("MasterControl:mode()")
    dbg.print("mode: ", self._mode,"\n")
    dbg.fini("MasterControl:mode")
@@ -811,7 +799,6 @@ end
 --                           manager module.
 
 function M.execute(self, t)
-   local dbg    = Dbg:dbg()
    dbg.start("MasterControl:execute(t)")
    local mStack = ModuleStack:moduleStack()
    mStack:setting()

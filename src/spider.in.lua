@@ -67,7 +67,7 @@ Master              = require("Master")
 BaseShell           = require("BaseShell")
 local lfs           = require("lfs")
 local json          = require("json")
-local Dbg           = require("Dbg")
+local dbg           = require("Dbg"):dbg()
 local Optiks        = require("Optiks")
 local Spider        = require("Spider")
 local concatTbl     = table.concat
@@ -111,7 +111,6 @@ local function add2map(entry, tbl, rmapT, kind)
 end
 
 local function rptList(moduleDirA, moduleT, dbT)
-   local dbg = Dbg:dbg()
    dbg.start("rptList(moduleDirA, moduleT, dbT)")
    local tbl = {}
    Spider.listModules(moduleT, tbl)
@@ -122,7 +121,6 @@ local function rptList(moduleDirA, moduleT, dbT)
 end
 
 local function rptModuleT(moduleDirA, moduleT, dbT)
-   local dbg = Dbg:dbg()
    dbg.start("rptModuleT(moduleDirA, moduleT,dbT)")
    local s1 = serializeTbl{name="defaultMpathA",value=moduleDirA,indent=true}
    local s2 = serializeTbl{name="moduleT",      value=moduleT,   indent=true}
@@ -131,7 +129,6 @@ local function rptModuleT(moduleDirA, moduleT, dbT)
 end
 
 local function rptReverseMapT(moduleDirA, moduleT, dbT)
-   local dbg = Dbg:dbg()
    dbg.start("rptReverseMapT(moduleDirA, moduleT, dbT)")
    local reverseMapT = {}
 
@@ -151,7 +148,6 @@ local function rptReverseMapT(moduleDirA, moduleT, dbT)
 end
 
 local function rptSoftwarePageJson(moduleDirA, moduleT, dbT)
-   local dbg = Dbg:dbg()
    dbg.start("rptSoftwarePageJson(moduleDirA, moduleT, dbT)")
    local spA = softwarePage(dbT)
    print(json.encode(spA))
@@ -159,7 +155,6 @@ local function rptSoftwarePageJson(moduleDirA, moduleT, dbT)
 end
 
 local function rptSoftwarePageLua(moduleDirA, moduleT, dbT)
-   local dbg = Dbg:dbg()
    dbg.start("rptSoftwarePageLua(moduleDirA, moduleT, dbT)")
    local spA = softwarePage(dbT)
    local s   = serializeTbl{name="spA",      value=spA,   indent=true}
@@ -168,7 +163,6 @@ local function rptSoftwarePageLua(moduleDirA, moduleT, dbT)
 end
 
 local function rptSoftwarePageXml(moduleDirA, moduleT, dbT)
-   local dbg = Dbg:dbg()
    dbg.start("rptSoftwarePageXml(moduleDirA, moduleT, dbT)")
    local xmlStr = xmlSoftwarePage(dbT)
    print(xmlStr)
@@ -176,7 +170,6 @@ local function rptSoftwarePageXml(moduleDirA, moduleT, dbT)
 end
 
 local function rptDbT(moduleDirA, moduleT, dbT)
-   local dbg = Dbg:dbg()
    dbg.start("rptDbT(moduleDirA, moduleT, dbT)")
    local s = serializeTbl{name="dbT",      value=dbT,   indent=true}
    print(s)
@@ -184,7 +177,6 @@ local function rptDbT(moduleDirA, moduleT, dbT)
 end
 
 local function rptDbTJson(moduleDirA, moduleT, dbT)
-   local dbg = Dbg:dbg()
    dbg.start("rptDbTJson(moduleDirA, moduleT, dbT)")
    print(json.encode(dbT))
    dbg.fini("rptDbTJson")
@@ -208,7 +200,6 @@ function main()
       end
    end
 
-   local dbg = Dbg:dbg()
 
    if (masterTbl.debug) then
       dbg:activateDebug(1)
@@ -475,7 +466,6 @@ end
 
 
 function localSoftware(xml, name, t)
-   local dbg = Dbg:dbg()
    dbg.start("localSoftware(xml,",name,",t)")
 
    local root = xml.new("LocalSoftware")

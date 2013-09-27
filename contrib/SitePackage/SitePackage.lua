@@ -1,11 +1,11 @@
 -- -*- lua -*-
 -- vim:ft=lua:et:ts=4
 require("sandbox")
-local Dbg          = require("Dbg")
+local Dbg = require("Dbg")
+local dbg = Dbg:dbg()
 sitePkgRoot = os.getenv("LMOD_PKG_ROOT") or "/global/apps"
 
 function checkRestrictedGroup(pkg, group)
-   local dbg = Dbg:dbg()
    dbg.start("checkRestrictedGroup(pkg, \"",group,"\")")
    if (mode() ~= "load") then return true end
    if (group == nil)     then return true end
@@ -26,7 +26,6 @@ function checkRestrictedGroup(pkg, group)
 end
 
 function logUsage(pkg)
-   local dbg = Dbg:dbg()
    dbg.start("logUsage(pkg)")
    if (mode() ~= "load") then return true end
    local user = os.getenv("USER")

@@ -38,7 +38,7 @@ require("capture")
 require("fileOps")
 require("pairsByKeys")
 local BeautifulTbl = require('BeautifulTbl')
-local Dbg          = require('Dbg')
+local dbg          = require('Dbg'):dbg()
 local M            = {}
 
 s_configuration   = false

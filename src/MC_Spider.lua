@@ -42,7 +42,7 @@
 require("strict")
 require("utils")
 
-local Dbg              = require("Dbg")
+local dbg              = require("Dbg"):dbg()
 local concatTbl        = table.concat
 local hook             = require("Hook")
 MC_Spider              = inheritsFrom(MasterControl)
@@ -131,7 +131,6 @@ end
 -- MC_Spider:help(): Collect the help message into moduleT
 
 function M.help(self,...)
-   local dbg    = Dbg:dbg()
    dbg.start("MC_Spider:help(...)")
    local masterTbl    = masterTbl()
    local moduleStack  = masterTbl.moduleStack
@@ -147,7 +146,6 @@ end
 -- MC_Spider:whatis(): Collect the whatis messages into moduleT
 
 function M.whatis(self,s)
-   local dbg    = Dbg:dbg()
    dbg.start("MC_Spider:whatis(...)")
    local masterTbl   = masterTbl()
    local moduleStack = masterTbl.moduleStack
@@ -174,7 +172,6 @@ end
 
 s_pat = false
 function M.setenv(self, name, value)
-   local dbg    = Dbg:dbg()
    dbg.start("MC_Spider:setenv(name, value)")
 
    if (not s_pat) then
@@ -196,7 +193,6 @@ end
 -- MC_Spider:prepend_path(): Pass-thru to Spider_append_path().
 
 function M.prepend_path(self,...)
-   local dbg    = Dbg:dbg()
    dbg.start("MC_Spider:prepend_path(...)")
    Spider_append_path("prepend",...)
    dbg.fini()
@@ -208,7 +204,6 @@ end
 -- MC_Spider:append_path(): Pass-thru to Spider_append_path().
 
 function M.append_path(self,...)
-   local dbg    = Dbg:dbg()
    dbg.start("MC_Spider:append_path(...)")
    Spider_append_path("append",...)
    dbg.fini()
@@ -219,7 +214,6 @@ end
 -- MC_Spider:is_spider: always return true.
 
 function M.is_spider(self)
-   local dbg    = Dbg:dbg()
    dbg.start("MC_Spider:is_spider()")
    dbg.fini()
    return true
@@ -229,7 +223,6 @@ end
 -- MC_Spider:add_property: Copy the property to moduleT
 
 function M.add_property(self, name, value)
-   local dbg    = Dbg:dbg()
    dbg.start("MC_Spider:add_property(name=\"",name,"\", value=\"",value,"\")")
    local masterTbl     = masterTbl()
    local moduleStack   = masterTbl.moduleStack
@@ -248,7 +241,6 @@ end
 -- MC_Spider:remove_property: Remove the property to moduleT
 
 function M.remove_property(self,name, value)
-   local dbg    = Dbg:dbg()
    dbg.start("MC_Spider:remove_property(name=\"",name,"\", value=\"",value,"\")")
    local masterTbl     = masterTbl()
    local moduleStack   = masterTbl.moduleStack

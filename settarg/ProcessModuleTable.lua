@@ -34,7 +34,7 @@
 
 require("strict")
 _ModuleTable_ = ""
-local Dbg     = require("Dbg")
+local dbg     = require("Dbg"):dbg()
 local systemG = _G
 local load    = (_VERSION == "Lua 5.1") and loadstring or load
 
@@ -48,7 +48,6 @@ local function buildTargetName(name, defaultFlag, fullName)
 end
 
 function processModuleTable(mt_string, targetTbl, tbl)
-   local dbg = Dbg:dbg()
    dbg.start("processModuleTable(mt_string, targetTbl, tbl)")
    if (mt_string == nil) then return end
    assert(load(mt_string))()

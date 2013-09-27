@@ -38,10 +38,9 @@
 
 require("strict")
 
-local Dbg   = require("Dbg")
+local dbg   = require("Dbg"):dbg()
 local posix = require("posix")
 function capture(cmd,level)
-   local dbg    = Dbg:dbg()
    level        = level or 1
    local level2 = level or 2
    dbg.start(level, "capture")

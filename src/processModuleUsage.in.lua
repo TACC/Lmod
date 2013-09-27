@@ -57,7 +57,7 @@ require("strict")
 require("utils")
 local Spider = require("Spider")
 local Optiks = require("Optiks")
-local Dbg    = require("Dbg")
+local dbg    = require("Dbg"):dbg()
 require("VarDump")
 
 min = math.min
@@ -115,8 +115,6 @@ function main()
    local moduleD    = {}
    local moduleDirA = {}
    local f, whole
-
-   local dbg = Dbg:dbg()
 
    if (masterTbl.debug) then
       dbg:activateDebug(1)

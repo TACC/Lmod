@@ -66,10 +66,11 @@ require("modfuncs")
 require("cmdfuncs")
 
 BaseShell         = require("BaseShell")
-Dbg               = require("Dbg")
 Master            = require("Master")
-ModuleStack       = require("ModuleStack")
-MT                = require("MT")
+local dbg         = require("Dbg"):dbg()
+
+local ModuleStack = require("ModuleStack")
+local MT          = require("MT")
 local Optiks      = require("Optiks")
 local s_masterTbl = {}
 
@@ -81,9 +82,8 @@ function masterTbl()
    return s_masterTbl
 end
 
-function main()
 
-   local dbg       = Dbg:dbg()
+function main()
    local master    = Master:master(false)
    local mStack    = ModuleStack:moduleStack()
    local shellN    = "bash"

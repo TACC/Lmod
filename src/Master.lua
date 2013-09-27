@@ -51,10 +51,11 @@ require("fileOps")
 require("string_trim")
 require("fillWords")
 require("loadModuleFile")
+require("utils")
 
 local BeautifulTbl = require('BeautifulTbl')
 local ColumnTable  = require('ColumnTable')
-local Dbg          = require("Dbg")
+local dbg          = require("Dbg"):dbg()
 local Default      = '(D)'
 local M            = {}
 local MName        = require("MName")
@@ -64,6 +65,7 @@ local Spider       = require("Spider")
 local hook         = require("Hook")
 local lfs          = require('lfs')
 local posix        = require("posix")
+local pack         = (_VERSION == "Lua 5.1") and argsPack or table.pack
 
 ------------------------------------------------------------------------
 -- Master:new() a private ctor that is used to construct a singleton.
@@ -90,7 +92,6 @@ local numSrchLatest = 2
 
 local function followDefault(path)
    if (path == nil) then return nil end
-   local dbg      = Dbg:dbg()
    dbg.start("followDefault(path=\"",path,"\")")
    local attr = lfs.symlinkattributes(path)
    local result = path
@@ -136,11 +137,9 @@ end
 
 
 local function find_inherit_module(fullModuleName, oldFn)
-   local dbg      = Dbg:dbg()
    dbg.start("find_inherit_module(",fullModuleName,",",oldFn, ")")
 
-   local t        = {fn = nil, modFullName = nil, modName = nil,
-                     default = 0, hash = 0}
+   local t        = {fn = nil, modFullName = nil, modName = nil, default = 0}
    local mt       = systemG.MT:mt()
    local mname    = MName:new("load", fullModuleName)
    local sn       = mname:sn()
@@ -222,15 +221,14 @@ end
 
 
 local function find_module_file(mname)
-   local dbg      = Dbg:dbg()
    dbg.start("Master:find_module_file(",mname:usrName(),")")
 
-   local t        = { fn = nil, modFullName = nil, modName = nil, default = 0, hash = 0}
+   local t        = { fn = nil, modFullName = nil, modName = nil, default = 0}
    local mt       = MT:mt()
    local fullName = ""
    local modName  = ""
    local sn       = mname:sn()
-   dbg.print("sn: ",sn,"\n")
+   dbg.print("f_m_f sn: ",sn,"\n")
 
    -- Get all directories that contain the shortname [[sn]].  If none exist
    -- then the module does not exist => exit
@@ -336,10 +334,12 @@ end
 -- Master:master() - Singleton Ctor.
 
 function M.master(self, safe)
+   dbg.start("Master:master(safe: ",safe,")")
    if (next(s_master) == nil) then
       MT       = systemG.MT
       s_master = new(self, safe)
    end
+   dbg.fini("Master:master")
    return s_master
 end
 
@@ -360,7 +360,7 @@ local function access_find_module_file(mname)
       return mt:fileName(sn), full or ""
    end
 
-   local t    = find_module_file(mname)
+   local t    = mname:find()
    local full = t.modFullName or ""
    local fn   = t.fn
    return fn, full
@@ -376,7 +376,6 @@ end
 --                   modulefile as the user requested.
 
 function M.access(self, ...)
-   local dbg    = Dbg:dbg()
    local mt     = MT:mt()
    local mStack = ModuleStack:moduleStack()
    local prtHdr = systemG.prtHdr
@@ -386,7 +385,7 @@ function M.access(self, ...)
    local result, t
    io.stderr:write("\n")
 
-   local arg = {n=select('#', ...), ...}
+   local arg = pack(...)
    for i = 1, arg.n do
       local moduleName   = arg[i]
       local mname        = MName:new("load", moduleName)
@@ -428,17 +427,15 @@ end
 --                    anything then all the action that a manager module
 --                    is going to do has already been done.
 
-function M.fakeload(...)
+function M.fakeload(mA)
+   dbg.start("Master:fakeload(mA)")
    local a   = {}
    local mt  = MT:mt()
-   local dbg = Dbg:dbg()
-   dbg.start("Master:fakeload(",concatTbl({...},", "),")")
-
-   for _, moduleName in ipairs{...} do
-      local loaded = false
-      local mname  = MName:new("load", moduleName)
-      local t      = find_module_file(mname)
-      local fn     = t.fn
+   for i = 1,#mA do
+      local mname      = mA[i]
+      local loaded     = false
+      local t          = mname:find()
+      local fn         = t.fn
       if (fn) then
          t.mType = "m"
          mt:add(t,"active")
@@ -456,7 +453,6 @@ end
 --                         instead of copying.
 
 function M.inheritModule()
-   local dbg     = Dbg:dbg()
    dbg.start("Master:inherit()")
 
    local mt      = MT:mt()
@@ -503,30 +499,31 @@ end
 -- Master:load(): Load all requested modules.  Each module is unloaded
 --                if it is currently loaded.
 
-function M.load(...)
+function M.load(mA)
    local mStack = ModuleStack:moduleStack()
    local shellN = s_master.shell:name()
    local mt     = MT:mt()
-   local dbg    = Dbg:dbg()
    local a      = {}
 
-   dbg.start("Master:load(",concatTbl({...},", "),")")
+   dbg.start("Master:load(mA)")
 
    a   = {}
-   for _,moduleName in ipairs{...} do
-      moduleName    = moduleName
-      local mname   = MName:new("load",moduleName)
-      local sn      = mname:sn()
-      local loaded  = false
-      local t	    = find_module_file(mname)
-      local fn      = t.fn
+   for i  = 1,#mA do
+      local mname      = mA[i]
+      local moduleName = mname:usrName()
+      local sn         = mname:sn()
+      local loaded     = false
+      local t          = mname:find()
+      local fn         = t.fn
       if (mt:have(sn,"active")) then
          dbg.print("Master:load reload module: \"",moduleName,
                    "\" as it is already loaded\n")
          local mcp_old = mcp
          mcp           = MCP
-         mcp:unload(moduleName)
-         local aa = mcp:load(moduleName)
+         local ma      = {}
+         ma[1]         = mA[i]
+         mcp:unload(ma)
+         local aa = mcp:load(ma)
          mcp           = mcp_old
          loaded = aa[1]
       elseif (fn) then
@@ -534,13 +531,11 @@ function M.load(...)
          local mList = concatTbl(mt:list("both","active"),":")
          mt:add(t, "pending")
 	 mt:beginOP()
-         dbg.print("changePATH: ", mt._changePATHCount, "\n")
          mStack:push(t.modFullName, moduleName, sn, fn)
 	 loadModuleFile{file=fn, shell = shellN, mList = mList, reportErr=true}
          t.mType = mStack:moduleType()
          mStack:pop()
 	 mt:endOP()
-         dbg.print("changePATH: ", mt._changePATHCount, "\n")
          dbg.print("Making ", t.modName, " active\n")
          mt:setStatus(sn, "active")
          mt:set_mType(sn, t.mType)
@@ -551,13 +546,9 @@ function M.load(...)
       a[#a+1] = loaded
    end
 
-   dbg.print("changePATH: ", mt._changePATHCount, " Zombie state: ",mt:zombieState(),
-             " mStack:empty(): ",mStack:empty(),"\n")
    if (M.safeToUpdate() and mt:safeToCheckZombies() and mStack:empty()) then
       dbg.print("Master:load calling reloadAll()\n")
       M.reloadAll()
-      dbg.print("changePATH: ", mt._changePATHCount, " Zombie state: ",mt:zombieState(),
-             " mStack:empty(): ",mStack:empty(),"\n")
    end
    dbg.fini("Master:load")
    return a
@@ -574,7 +565,6 @@ end
 function M.refresh()
    local mStack  = ModuleStack:moduleStack()
    local mt      = MT:mt()
-   local dbg     = Dbg:dbg()
    local shellN  = s_master.shell:name()
    local mcp_old = mcp
    mcp           = MasterControl.build("refresh","load")
@@ -610,7 +600,6 @@ end
 
 function M.reloadAll()
    local mt   = MT:mt()
-   local dbg  = Dbg:dbg()
    dbg.start("Master:reloadAll()")
 
    local mcp_old = mcp
@@ -625,7 +614,7 @@ function M.reloadAll()
          dbg.print("module sn: ",sn," is active\n")
          dbg.print("userName:  ",v.name,"\n")
          local mname    = MName:new("userName", v.name)
-         local t        = find_module_file(mname)
+         local t        = mname:find()
          local fn       = mt:fileName(sn)
          local fullName = t.modFullName
          local userName = v.name
@@ -633,9 +622,11 @@ function M.reloadAll()
             dbg.print("Master:reloadAll t.fn: \"",t.fn or "nil","\"",
                       " mt:fileName(sn): \"",fn or "nil","\"\n")
             dbg.print("Master:reloadAll Unloading module: \"",sn,"\"\n")
-            mcp:unloadsys(sn)
+            local ma = {}
+            ma[1] = mname
+            mcp:unloadsys(ma)
             dbg.print("Master:reloadAll Loading module: \"",userName or "nil","\"\n")
-            local loadA = mcp:load(userName)
+            local loadA = mcp:load(ma)
             dbg.print("Master:reloadAll: fn: \"",fn or "nil",
                       "\" mt:fileName(sn): \"", tostring(mt:fileName(sn)), "\"\n")
             if (loadA[1] and fn ~= mt:fileName(sn)) then
@@ -649,7 +640,9 @@ function M.reloadAll()
          local name  = v.name          -- This name is short for default and
                                        -- Full for specific version.
          dbg.print("Master:reloadAll Loading module: \"", name, "\"\n")
-         local aa = mcp:load(name)
+         local ma    = {}
+         ma[1]       = MName:new("load",name)
+         local aa = mcp:load(ma)
          if (aa[1] and fn ~= mt:fileName(sn)) then
             dbg.print("Master:reloadAll module: ", name, " marked as reloaded\n")
          end
@@ -685,20 +678,20 @@ end
 --------------------------------------------------------------------------
 -- Master:unload() - unload modulefile(s) via the module names.
 
-function M.unload(...)
+function M.unload(mA)
    local mStack = ModuleStack:moduleStack()
    local mt     = MT:mt()
-   local dbg    = Dbg:dbg()
    local a      = {}
    local shellN = s_master.shell:name()
-   dbg.start("Master:unload(",concatTbl({...},", "),")")
+   dbg.start("Master:unload(mA)")
 
    local mcp_old = mcp
 
    mcp = MasterControl.build("unload")
-   for _, moduleName in ipairs{...} do
-      local mname = MName:new("mt", moduleName)
-      local sn    = mname:sn()
+   for i = 1, #mA do
+      local mname      = mA[i]
+      local moduleName = mname:usrName()
+      local sn         = mname:sn()
       dbg.print("Trying to unload: ", moduleName, " sn: ", sn,"\n")
 
       if (mt:have(sn,"inactive")) then
@@ -753,9 +746,11 @@ function M.unload(...)
       for i = 1, #stickyA do
          local entry = stickyA[i]
          local mname = MName:new("entryT",entry)
-         local t     = find_module_file(mname)
+         local t     = mname:find()
          if (t.fn == entry.FN) then
-            MCP:load(mname:usrName())
+            local ma = {}
+            ma[1] = mname
+            MCP:load(ma)
          end
          local sn = mname:sn()
          if (mt:have(sn,"active")) then
@@ -792,7 +787,6 @@ end
 --                       of "ModulesVersion" is.
 
 function M.versionFile(path)
-   local dbg     = Dbg:dbg()
    dbg.start("Master:versionFile(",path,")")
    local f       = io.open(path,"r")
    if (not f)                        then
@@ -822,7 +816,6 @@ end
 --                [[mpath]].
 
 local function findDefault(mpath, sn, versionA)
-   local dbg  = Dbg:dbg()
    dbg.start("Master.findDefault(mpath=\"",mpath,"\", "," sn=\"",sn,"\")")
    local mt   = MT:mt()
    local t    = {}
@@ -873,7 +866,6 @@ end
 
 local function availEntry(defaultOnly, terse, szA, searchA, sn, name,
                           f, defaultModuleT, dbT, legendT, a)
-   local dbg      = Dbg:dbg()
    dbg.start("Master:availEntry(defaultOnly, terse, szA, searchA, "..
                                "sn, name, f, defaultModuleT, dbT, legendT, a)")
 
@@ -977,7 +969,6 @@ end
 
 local function availDir(defaultOnly, terse, searchA, mpath, locationT, availT,
                         dbT, a, legendT)
-   local dbg    = Dbg:dbg()
    dbg.start("Master.availDir(defaultOnly= ",defaultOnly,", terse= ",terse,
              ", searchA=(",concatTbl(searchA,", "), "), mpath= \"",mpath,"\", ",
              ",locationT, availT, dbT, a, legendT)")
@@ -1048,7 +1039,6 @@ end
 -- Master:avail(): Report the available modules with properties and 
 --                 defaults.  Run results through pager.
 function M.avail(argA)
-   local dbg       = Dbg:dbg()
    dbg.start("Master.avail(",concatTbl(argA,", "),")")
    local mt        = MT:mt()
    local mpathA    = mt:module_pathA()

@@ -55,7 +55,7 @@ require("utils")
 MC_ComputeHash         = inheritsFrom(MasterControl)
 MC_ComputeHash.my_name = "MC_ComputeHash"
 local M                = MC_ComputeHash
-local Dbg              = require("Dbg")
+local dbg              = require("Dbg"):dbg()
 local concatTbl        = table.concat
 local A                = ComputeModuleResultsA
 
@@ -85,12 +85,12 @@ M.unsetenv             = MasterControl.quiet
 M.whatis               = MasterControl.quiet
 
 
-function M.always_load(self, ...)
-   ShowCmd("always_load",...)
+function M.always_load(self, mA)
+   A[#A+1] = ShowCmdA("always_load", mA)
 end
 
-function M.always_unload(self, ...)
-   ShowCmd("always_load",...)
+function M.always_unload(self, mA)
+   A[#A+1] = ShowCmdA("always_load", mA)
 end
 
 function M.prepend_path(self, name, value, sep)
@@ -108,12 +108,12 @@ function M.remove_path(self, name, value, sep)
    ShowCmd("remove_path", name, value, sep)
 end
 
-function M.load(self, ...)
-   ShowCmd("load",...)
+function M.load(self, mA)
+   A[#A+1] = ShowCmdA("load", mA)
 end
 
-function M.try_load(self, ...)
-   ShowCmd("try_load",...)
+function M.try_load(self, mA)
+   A[#A+1] = ShowCmdA("try_load", mA)
 end
 
 M.try_add = M.try_load
@@ -126,8 +126,8 @@ function M.family(self, ...)
    ShowCmd("family",...)
 end
 
-function M.unload(self, ...)
-   ShowCmd("unload", ...)
+function M.unload(self, mA)
+   A[#A+1] = ShowCmdA("unload", mA)
 end
 
 function M.prereq(self, ...)

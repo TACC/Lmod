@@ -40,7 +40,7 @@
 require("strict")
 
 local Perl        = inheritsFrom(BaseShell)
-local Dbg         = require("Dbg")
+local dbg         = require("Dbg"):dbg()
 local concatTbl   = table.concat
 local stdout      = io.stdout
 Perl.my_name      = "perl"
@@ -54,7 +54,6 @@ function Perl.shellFunc(self, k, v)
 end
 
 function Perl.expandVar(self, k, v, vType)
-   local dbg = Dbg:dbg()
    local lineA = {}
    v = atSymbolEscaped(doubleQuoteEscaped(tostring(v)))
 
@@ -69,7 +68,6 @@ function Perl.expandVar(self, k, v, vType)
 end
 
 function Perl.unset(self, k, vType)
-   local dbg = Dbg:dbg()
    stdout:write("delete $ENV{",k,"};\n")
    dbg.print(   "delete $ENV{",k,"};\n")
 end

@@ -48,7 +48,7 @@
 
 
 require("strict")
-local Dbg   = require("Dbg")
+local dbg   = require("Dbg"):dbg()
 local M     = { barWidth = 50 }
 local floor = math.floor
 s_symbolT   = {}

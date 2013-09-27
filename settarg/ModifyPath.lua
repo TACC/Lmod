@@ -34,10 +34,8 @@
 
 require("strict")
 require("escape")
-local Dbg = require("Dbg")
+local dbg = require("Dbg"):dbg()
 function ModifyPath()
-
-   local dbg         = Dbg:dbg()
    local masterTbl   = masterTbl()
    local oldTarg     = os.getenv('TARG') or ''
    local targ        = masterTbl.envVarsTbl.TARG

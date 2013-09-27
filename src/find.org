@@ -1,0 +1,37 @@
+Rules for using template design pattern when doing MName:find based
+on actions:
+
+* Match Rules:
+
+** Validate sn in mt:locationTbl(sn) -> pathA
+
+everyone has to pass that.
+
+** exact match (either .lua or '')
+
+** default match ( either /default or /.version )
+
+** latest 
+
+
+* Latest Rules:
+
+** Validate sn in mt:locationTbl(sn) -> pathA
+
+everyone has to pass that.
+
+** exact match (either .lua or '')
+** latest
+
+
+* AtLeast Rules:
+
+** Validate sn in mt:locationTbl(sn) -> pathA
+
+everyone has to pass that.
+** default match ( either .lua or '')
+** check for "atleast"
+** if not then latest
+** check for "atleast"
+
+

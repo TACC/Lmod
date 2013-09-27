@@ -3,12 +3,12 @@ require("escape")
 local Dbg        = require("Dbg")
 local SYSTEM_DIR = os.getenv("SYSTEM_DIR")
 local MROOT      = os.getenv("MODULEPATH_ROOT")
+local dbg        = Dbg:dbg()
 
 -- Add all applicable derived modulepaths when loading
 -- newmodname/newmodversion
 -- Or remove all applicable derived modulepaths when unloading
 function edit_derived_modulepaths(derived_mod_dir, newmodname, newmodversion)
-   local dbg = Dbg:dbg()
    dbg.start("edit_derived_modulepaths(",derived_mod_dir, ",", newmodname,
              ",",newmodversion,")")
 

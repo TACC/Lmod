@@ -51,7 +51,7 @@ export MODULEPATH;
 unset VARIABLE;
 _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/set_alias/mf",},family={},inactive={},mT={},mpathA={"ProjectDIR/rt/set_alias/mf",},["systemBaseMPATH"]="ProjectDIR/rt/set_alias/mf",["version"]=2,}';
 export _ModuleTable_;
-unalias somealias;
+unalias somealias 2> /dev/null;
 ===========================
 step 5
 lua ProjectDIR/src/lmod.in.lua bash load test1

@@ -40,7 +40,7 @@
 require("strict")
 
 local Python      = inheritsFrom(BaseShell)
-local Dbg         = require("Dbg")
+local dbg         = require("Dbg"):dbg()
 local Var         = require("Var")
 local concatTbl   = table.concat
 local stdout      = io.stdout
@@ -55,7 +55,6 @@ function Python.shellFunc(self, k, v)
 end
 
 function Python.expandVar(self, k, v, vType)
-   local dbg = Dbg:dbg()
    local lineA = {}
    v = singleQuoteEscaped(v)
 
@@ -70,7 +69,6 @@ function Python.expandVar(self, k, v, vType)
 end
 
 function Python.unset(self, k, vType)
-   local dbg = Dbg:dbg()
    local lineA = {}
    lineA[#lineA + 1] = "os.environ['"
    lineA[#lineA + 1] = k

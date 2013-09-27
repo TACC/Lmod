@@ -34,10 +34,17 @@
 
 -- Optiks.lua
 
+local function argsPack(...)
+   local arg = { n = select ("#", ...), ...}
+   return arg
+end
+local pack        = (_VERSION == "Lua 5.1") and argsPack or table.pack
+
 function Optiks_Error(...)
    io.stderr:write("\n",ProgName,"Error: ")
-   for _,v in ipairs{...} do
-      io.stderr:write(v)
+   local arg = pack(...)
+   for i = 1, arg.n do
+      io.stderr:write(arg[i])
    end
    io.stderr:write("\n")
    os.exit(1)

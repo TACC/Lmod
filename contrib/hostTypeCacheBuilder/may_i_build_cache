@@ -10,6 +10,7 @@ require("fileOps")
 local Dbg       = require("Dbg")
 local Optiks    = require("Optiks")
 local concatTbl = table.concat
+local dbg       = Dbg:dbg()
 local lfs       = require("lfs")
 local posix     = require("posix")
 
@@ -22,7 +23,6 @@ end
 
 
 function main()
-   local dbg = Dbg:dbg()
    options()
    local masterTbl  = masterTbl()
    if (masterTbl.debug) then

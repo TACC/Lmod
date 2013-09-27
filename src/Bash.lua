@@ -41,7 +41,7 @@ require("strict")
 
 
 local Bash        = inheritsFrom(BaseShell)
-local Dbg         = require("Dbg")
+local dbg         = require("Dbg"):dbg()
 local Var         = require("Var")
 local concatTbl   = table.concat
 local stdout      = io.stdout
@@ -53,7 +53,6 @@ Bash.my_name      = "bash"
 --               one and only one semicolon at the end.
 
 function Bash.alias(self, k, v)
-   local dbg = Dbg:dbg()
    if (v == "") then
       stdout:write("unalias ",k," 2> /dev/null;\n")
       dbg.print(   "unalias ",k," 2> /dev/null;\n")
@@ -70,7 +69,6 @@ end
 --                   one and only one semicolon at the end.
 
 function Bash.shellFunc(self, k, v)
-   local dbg = Dbg:dbg()
    if (v == "") then
       stdout:write("unset -f ",k," 2> /dev/null;\n")
       dbg.print(   "unset -f ",k," 2> /dev/null;\n")
@@ -87,7 +85,6 @@ end
 --                   syntax
 
 function Bash.expandVar(self, k, v, vType)
-   local dbg = Dbg:dbg()
    dbg.print("Key: ", k, " type(value): ", type(v)," value: ",v,"\n")
    local lineA       = {}
    v                 = doubleQuoteEscaped(tostring(v))
@@ -109,7 +106,6 @@ end
 -- Bash:unset() unset an environment variable.
 
 function Bash.unset(self, k, vType)
-   local dbg = Dbg:dbg()
    stdout:write("unset ",k,";\n")
    dbg.print(   "unset ",k,";\n")
 end
