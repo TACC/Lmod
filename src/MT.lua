@@ -1068,6 +1068,12 @@ function M.reEvalModulePath(self)
    self._locationTbl, self._availT = build_locationTbl(self.mpathA)
 end
 
+function M.clearLocationAvailT(self)
+   self._locationTbl = false
+   self._availT      = false
+end
+   
+
 function M.reloadAllModules(self)
    local master = systemG.Master:master()
    local count  = 0

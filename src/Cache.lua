@@ -443,6 +443,8 @@ function M.build(self, fast)
    end
    local T2 = epoch()
    timer:deltaT("Cache:build", T2 - T1)
+   mt:clearLocationAvailT()
+
    dbg.fini("Cache:build")
    return moduleT
 end

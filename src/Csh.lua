@@ -40,12 +40,10 @@
 require("strict")
 require("pairsByKeys")
 
-local BaseShell   = BaseShell
 local Dbg         = require("Dbg")
 local concatTbl   = table.concat
 local stdout      = io.stdout
-
-Csh	    = inheritsFrom(BaseShell)
+local Csh	  = inheritsFrom(BaseShell)
 Csh.my_name = 'csh'
 
 --------------------------------------------------------------------------

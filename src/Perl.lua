@@ -39,13 +39,11 @@
 
 require("strict")
 
-Perl              = inheritsFrom(BaseShell)
-Perl.my_name      = "perl"
-
-local Perl        = Perl
+local Perl        = inheritsFrom(BaseShell)
 local Dbg         = require("Dbg")
 local concatTbl   = table.concat
 local stdout      = io.stdout
+Perl.my_name      = "perl"
 
 function Perl.alias(self, k, v)
    -- do nothing: alias do not make sense in a perl script.

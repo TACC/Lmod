@@ -39,14 +39,13 @@
 
 require("strict")
 
-Bash              = inheritsFrom(BaseShell)
-Bash.my_name      = "bash"
 
-local Bash        = Bash
+local Bash        = inheritsFrom(BaseShell)
 local Dbg         = require("Dbg")
 local Var         = require("Var")
 local concatTbl   = table.concat
 local stdout      = io.stdout
+Bash.my_name      = "bash"
 
 --------------------------------------------------------------------------
 -- Bash:alias(): Either define or undefine a bash shell alias.
