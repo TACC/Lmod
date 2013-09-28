@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.0.1 (5.0.1-48-g540fa7d) 2013-06-18 14:14
+Modules based on Lua: Version 5.1.6 (5.1.6-18-gc26dfc4) 2013-09-06 19:17
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -10,15 +10,24 @@ lua ProjectDIR/src/lmod.in.lua bash load bad_syntax
 ===========================
 Lmod has detected the following error: Unable to load module: bad_syntax
     ProjectDIR/rt/errHandler/mf/bad_syntax/1.0.lua: [string "setenv("BAD_SYNTAX","1.0")..."]:2: unexpected symbol near '#'
+While processing the following module(s):
+Module fullname  Module Filename
+bad_syntax/1.0   ProjectDIR/rt/errHandler/mf/bad_syntax/1.0.lua
 ===========================
 step 3
 lua ProjectDIR/src/lmod.in.lua bash load bad_argument
 ===========================
 Lmod has detected the following error: Syntax error in file: ProjectDIR/rt/errHandler/mf/bad_argument/1.0.lua
  with command: help One or more arguments are not strings
+While processing the following module(s):
+Module fullname   Module Filename
+bad_argument/1.0  ProjectDIR/rt/errHandler/mf/bad_argument/1.0.lua
 ===========================
 step 4
 lua ProjectDIR/src/lmod.in.lua bash load bad_func
 ===========================
 Lmod has detected the following error: Unable to load module: bad_func
     ProjectDIR/rt/errHandler/mf/bad_func/1.0.lua: [string "setenv("BAD_FUNC","1.0")..."]:2: attempt to call global 'unknownFunc' (a nil value)
+While processing the following module(s):
+Module fullname  Module Filename
+bad_func/1.0     ProjectDIR/rt/errHandler/mf/bad_func/1.0.lua

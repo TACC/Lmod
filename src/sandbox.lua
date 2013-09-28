@@ -91,6 +91,10 @@ sandbox_env = {
   always_load          = always_load,
   always_unload        = always_unload,
 
+  --- Load Modify functions ---
+  atleast              = atleast,
+
+
   --- PATH functions ---
   prepend_path         = prepend_path,
   append_path          = append_path,

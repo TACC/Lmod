@@ -125,10 +125,11 @@ function M.new(self, sType, name, action)
    end
    local o = s_findT[action]:create()
 
-   o._sn      = false
-   o._version = false
-   o._sType   = sType
-   o._input   = name
+   o._sn        = false
+   o._version   = false
+   o._sType     = sType
+   o._input     = name
+   o._waterMark = "MName"
    if (sType == "entryT" ) then
       local t = name
       o._name = t.userName
@@ -361,7 +362,7 @@ function M.find_marked_default(self, pathA, t)
    for ii = 1, #pathA do
       local vv    = pathA[ii]
       local mpath = vv.mpath
-      local fn    = pathJoin(vv.file, self:version())
+      local fn    = vv.file
       found       = false
       result      = nil
 
@@ -452,7 +453,7 @@ function M.find_marked_default_atleast(self, pathA, t)
 
    found, t = self:find_marked_default(pathA, t)
 
-   local pvRequired = parseVersion(self.version())
+   local pvRequired = parseVersion(self:version())
    local version    = extractVersion(t.modFullName, t.modName)
    local pv         = parseVersion(version)
    if (pv < pvRequired) then
@@ -482,11 +483,11 @@ function M.find_atleast(self, pathA, t)
    )
 
    
-   local pvRequired = parseVersion(self.version())
+   local pvRequired = parseVersion(self:version())
    local idx        = false
    for i = 1,#a do
       local v = a[i]
-      if (v.pv > pvRequired) then
+      if (v.pv >= pvRequired) then
          idx = i
          break
       end

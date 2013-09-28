@@ -83,6 +83,26 @@ local pack         = (_VERSION == "Lua 5.1") and argsPack or table.pack
 --module ('MasterControl')
 ------------------------------------------------------------------------
 
+local function mustLoad(mA)
+   local aa = {}
+
+   local mt = MT:mt()
+   for i = 1, #mA do
+      local mname = mA[i]
+      local sn    = mname:sn()
+      if (not mt:have(sn, "active")) then
+         aa[#aa+1] = mname:usrName()
+      end
+   end
+
+   if (#aa > 0) then
+      local s = concatTbl(aa, " ")
+      mcp:report("Did not find: ",s,"\n\n",
+                 "Try: \"module spider ", s,"\"\n" )
+   end
+end
+
+
 function M.name(self)
    return self.my_name
 end
@@ -124,7 +144,12 @@ end
 -------------------------------------------------------------------
 -- Load / Unload functions
 -------------------------------------------------------------------
-
+function M.load_usr(self, mA)
+   self:load(mA)
+   if (haveWarnings()) then
+      mustLoad(mA)
+   end
+end
 function M.load(self, mA)
    local master = Master:master()
    local mStack = ModuleStack:moduleStack()
@@ -519,6 +544,24 @@ end
 -- Message/Error  Functions
 -------------------------------------------------------------------
 
+local function moduleStackTraceBack()
+   local mStack = ModuleStack:moduleStack()
+   if (mStack:empty()) then return end
+
+   local aa = {}
+   aa[1] = { "Module fullname", "Module Filename"}
+   aa[2] = { "---------------", "---------------"}
+
+   while (not mStack:empty()) do
+      aa[#aa+1] = {mStack:fullName(), mStack:fileName()}
+      mStack:pop()
+   end
+
+   local bt = BeautifulTbl:new{tbl=aa}
+   io.stderr:write("\n","While processing the following module(s):\n\n",
+                   bt:build_tbl(),"\n")
+end
+
 local function msg(lead, ...)
    local twidth = TermWidth()
    local arg = { n = select('#', ...), ...}
@@ -529,6 +572,7 @@ local function msg(lead, ...)
       io.stderr:write(fillWords("",s, twidth),"\n")
    end
    io.stderr:write("\n")
+   moduleStackTraceBack()
 end
 
 function LmodErrorExit()
@@ -540,9 +584,10 @@ function LmodSystemError(...)
    io.stderr:write("\n", colorize("red", "Lmod has detected the following error: "))
    local arg = pack(...)
    for i = 1, arg.n do
-      io.stderr:write(arg[i])
+      io.stderr:write(tostring(arg[i]))
    end
    io.stderr:write("\n")
+   moduleStackTraceBack()
    LmodErrorExit()
 end
 
@@ -556,9 +601,10 @@ function M.warning(self, ...)
       io.stderr:write("\n",colorize("red", "Lmod Warning: "))
       local arg = pack(...)
       for i = 1, arg.n do
-         io.stderr:write(arg[i])
+         io.stderr:write(tostring(arg[i]))
       end
       io.stderr:write("\n")
+      moduleStackTraceBack()
       setWarningFlag()
    end
 end
@@ -567,7 +613,7 @@ end
 function M.message(self, ...)
    local arg = pack(...)
    for i = 1, arg.n do
-      io.stderr:write(arg[i])
+      io.stderr:write(tostring(arg[i]))
    end
    io.stderr:write("\n")
 end

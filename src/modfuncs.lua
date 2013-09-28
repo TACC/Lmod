@@ -58,8 +58,12 @@ local MName       = require("MName")
 local ModuleStack = require("ModuleStack")
 local Version     = require("Version")
 local _concatTbl  = table.concat
+local pack        = (_VERSION == "Lua 5.1") and argsPack or table.pack
 
 local function concatTbl(aa,sep)
+   if (not dbg.active()) then
+      return ""
+   end
    local a = {}
    for i = 1, #aa do
       local v     = aa[i]
@@ -75,9 +79,8 @@ local function concatTbl(aa,sep)
    return _concatTbl(a, sep)
 end
 
-
 local function validateStringArgs(cmdName, ...)
-   local arg = { n = select('#', ...), ...}
+   local arg = pack(...)
    dbg.print("cmd: ",cmdName, " arg.n: ",arg.n,"\n")
    for i = 1, arg.n do
       local v = arg[i]
@@ -91,8 +94,33 @@ local function validateStringArgs(cmdName, ...)
    return true
 end
 
+local function validateModules(cmdName, ...)
+   local arg = pack(...)
+   dbg.print("cmd: ",cmdName, " arg.n: ",arg.n,"\n")
+   local allGood = true
+   local fn      = false
+   for i = 1, arg.n do
+      local v = arg[i]
+      if (type(v) == "string") then
+         allGood = true
+      elseif (type(v) == "table" and v._waterMark == "MName") then
+         allGood = true
+      else
+         allGood = false
+         fn = myFileName()
+         break
+      end
+   end
+   if (not allGood) then
+      local fn = myFileName()
+      mcp:report("vM: Syntax error in file: ",fn, "\n with command: \"",
+                 cmdName, "\" One or more arguments are not strings\n")
+   end
+   return allGood
+end
+
 local function validateArgsWithValue(cmdName, ...)
-   local arg = { n = select('#', ...), ...}
+   local arg = pack(...)
 
    for i = 1, arg.n -1 do
       local v = arg[i]
@@ -118,9 +146,9 @@ end
 
 function load_module(...)
    dbg.start("load_module(",concatTbl({...},", "),")")
-   if (not validateStringArgs("load",...)) then return {} end
+   if (not validateModules("load",...)) then return {} end
 
-   local b = mcp:load(MName:buildA("load",...))
+   local b  = mcp:load_usr(MName:buildA("load",...))
    dbg.fini("load_module")
    return b
 end
@@ -150,7 +178,7 @@ function always_load(...)
    dbg.start("always_load(",concatTbl({...},", "),")")
    if (not validateStringArgs("always_load",...)) then return {} end
 
-   local b = mcp:always_load(MName:buildA("load",...))
+   local b  = mcp:always_load(MName:buildA("load",...))
    dbg.fini("always_load")
    return b
 end
@@ -162,6 +190,17 @@ function always_unload(...)
    local b = mcp:always_unload(MName:buildA("mt",...))
    dbg.fini("always_unload")
    return b
+end
+
+--- Load/Prereq  Modify functions ---
+
+function atleast(m)
+   dbg.start("atleast(",m,")")
+
+   local mname = MName:new("load", m, "atleast")
+
+   dbg.fini("atleast")
+   return mname
 end
 
 --- PATH functions ---
@@ -425,17 +464,16 @@ function myModuleVersion()
    return mcp:myModuleVersion()
 end
 
-function hierarchyA(package, levels)
+function hierarchyA(pkgName, levels)
    local fn  = myFileName():gsub("%.lua$","")
-
    if (levels < 1) then
       return {}
    end
 
-   -- Remove package from end of string by using the
+   -- Remove pkgName from end of string by using the
    -- "plain" matching via string.find function
-   package = path_regularize(package:gsub("%.lua$",""))
-   local i,j = fn:find(package,1,true)
+   pkgName = path_regularize(pkgName:gsub("%.lua$",""))
+   local i,j = fn:find(pkgName,1,true)
    if (j == fn:len()) then
       fn = fn:sub(1,i-1)
    end
@@ -444,7 +482,7 @@ function hierarchyA(package, levels)
    local j          = 0
    local numEntries = 0
    while (j) do
-      j          = package:find("/",j+1)
+      j          = pkgName:find("/",j+1)
       numEntries = numEntries + 1
    end
 
@@ -457,13 +495,14 @@ function hierarchyA(package, levels)
    local b = {}
    local n = #a
 
+   
    for i = 1, levels do
       local bb = {}
       for j = 1, numEntries do
          local idx = n - numEntries + j
          bb[j] = a[idx]
       end
-      b[i] = concatTbl(bb,'/')
+      b[i] = _concatTbl(bb,'/')
       n = n - numEntries
    end
 

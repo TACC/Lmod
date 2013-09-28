@@ -127,6 +127,8 @@ function M.load(self, mA)
    io.stderr:write(ShowCmdA("load",mA))
 end
 
+M.load_usr = M.load
+
 function M.try_load(self, mA)
    io.stderr:write(ShowCmdA("try_load",mA))
 end

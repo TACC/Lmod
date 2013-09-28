@@ -75,6 +75,7 @@ replaceT = {
 function parseVersion(versionStr)
 
    --dbg.start("parseVersion(",versionStr,")")
+   versionStr = versionStr or ""
 
    local vA = {}
    for part in parseVersionParts(versionStr) do

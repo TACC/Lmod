@@ -112,6 +112,10 @@ function M.load(self, mA)
    A[#A+1] = ShowCmdA("load", mA)
 end
 
+function M.load_usr(self, mA)
+   A[#A+1] = ShowCmdA("load", mA)
+end
+
 function M.try_load(self, mA)
    A[#A+1] = ShowCmdA("try_load", mA)
 end

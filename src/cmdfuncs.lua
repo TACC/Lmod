@@ -347,9 +347,7 @@ function Load_Usr(...)
    for i = 1,#lA do
       local mname = lA[i]
       local sn    = mname:sn()
-      if (not mt:have(sn, "active")) then
-         aa[#aa+1] = mname:usrName()
-      else
+      if (mt:have(sn, "active")) then
          local usrN  = (not masterTbl().latest) and mname:usrName() or mt:fullName(sn)
          dbg.print("Karl registration: ",sn," user: ", usrN,"\n")
          
@@ -357,12 +355,6 @@ function Load_Usr(...)
          -- Register user loads so that Karl will be happy.
          mt:userLoad(sn,usrN)
       end
-   end
-
-   if (#aa > 0) then
-      local s = concatTbl(aa," ")
-      LmodWarning("Did not find: ",s,"\n\n",
-                  "Try: \"module spider ", s,"\"\n" )
    end
 
    dbg.fini("Load_Usr")

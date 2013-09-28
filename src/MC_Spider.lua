@@ -58,6 +58,7 @@ M.execute              = MasterControl.execute
 M.family               = MasterControl.quiet
 M.inherit              = MasterControl.quiet
 M.load                 = MasterControl.quiet
+M.load_usr             = MasterControl.quiet
 M.message              = MasterControl.quiet
 M.prereq               = MasterControl.quiet
 M.prereq_any           = MasterControl.quiet

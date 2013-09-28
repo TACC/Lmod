@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.0.1 (5.0.1-48-g540fa7d) 2013-06-18 14:14
+Modules based on Lua: Version 5.1.6 (5.1.6-18-gc26dfc4) 2013-09-06 19:17
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -54,6 +54,9 @@ Lmod has detected the following error: You do not access to VASP.5.2!
 Users have to show their licenses and be confirmed by
 VASP team that they are registered users under that licenses
 Scan a copy the license and send to hliu@tacc.utexas.edu
+While processing the following module(s):
+Module fullname  Module Filename
+vasp/5.2         ProjectDIR/rt/vasp/mf/vasp/5.2.lua
 ===========================
 step 6
 lua ProjectDIR/src/spider.in.lua -o list ProjectDIR/rt/vasp/mf:ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/MPI/intel/10.1/openmpi/1.2.6
