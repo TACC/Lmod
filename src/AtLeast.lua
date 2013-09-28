@@ -35,6 +35,7 @@
 require("strict")
 
 local M        = inheritsFrom(MName)
+local dbg      = require("Dbg"):dbg()
 M.my_name      = "atleast"
 
 
@@ -42,6 +43,26 @@ local s_steps = {
    MName.find_marked_default_atleast,
    MName.find_atleast,
 }
+
+function M.prereq(self)
+   local result  = false
+   local mt      = MT:mt()
+   local sn      = self:sn()
+   local usrName = self:usrName()
+
+   if (not mt:have(sn,"active")) then
+      return usrName, M.my_name
+   end
+
+   local pvRequired = parseVersion(self:version())
+   local full       = mt:fullName(sn)
+   local pv         = parseVersion(mt:Version(sn))
+
+   if (pvRequired > pv) then
+      result = usrName
+   end
+   return result, M.my_name
+end   
 
 function M.steps()
    return s_steps

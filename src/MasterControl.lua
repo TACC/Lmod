@@ -641,21 +641,19 @@ function M.prereq(self, mA)
 
    local a = {}
    for i = 1, #mA do
-      local mname    = mA[i]
-      local v        = mname:usrName()
-      local sn       = mname:sn()
-      local full     = mt:fullName(sn)
-      dbg.print("sn: ",sn, ", full: ", full,", v: ",v,"\n")
-      local version  = extractVersion(v, sn)
-      dbg.print("sn: ",sn," full: ",full, " version: ",version,"\n")
-      if ((not mt:have(sn,"active")) or
-          (version and full ~= mname:usrName())) then
-         a[#a+1] = v
+      local v, msg = mA[i]:prereq()
+      if (v) then
+         if (msg) then
+            a[#a+1] = msg .."(\"" .. v .. "\")"
+         else
+            a[#a+1] = v
+         end
       end
    end
+
    dbg.print("number found: ",#a,"\n")
    if (#a > 0) then
-      local s = concatTbl(a," ")
+      local s = concatTbl(a,", ")
       LmodError("Cannot load module \"",mFull,"\" without these modules loaded:\n  ",
             s,"\n")
    end
@@ -722,13 +720,15 @@ function M.prereq_any(self, mA)
    local found  = false
    local a      = {}
    for i = 1, #mA do
-      local mname = mA[i]
-      local v     = mname:usrName()
-      local sn    = mname:sn()
-      a[#a + 1]   = v
-      if (mt:have(sn,"active")) then
+      local v,msg = mA[i]:prereq()
+      if (not v) then
          found = true
-         break;
+         break
+      end
+      if (msg) then
+         a[#a+1] = msg .."(\"" .. v .. "\")"
+      else
+         a[#a+1] = v
       end
    end
 

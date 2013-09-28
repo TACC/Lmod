@@ -90,6 +90,19 @@ local function shorten(name, level)
    return name:sub(1,j)
 end
 
+function M.prereq(self)
+   local result  = false
+   local mt      = MT:mt()
+   local sn      = self:sn()
+   local version = self:version()
+   local full    = mt:fullName(sn)
+   if (  ( not mt:have(sn,"active")) or
+         ( version and full ~= self:usrName())) then
+      result = self:usrName()
+   end
+   return result
+end
+
 function M.action(self)
    return self._action
 end

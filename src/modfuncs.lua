@@ -155,7 +155,7 @@ end
 
 function try_load(...)
    dbg.start("try_load(",concatTbl({...},", "),")")
-   if (not validateStringArgs("try_load",...)) then return {} end
+   if (not validateModules("try_load",...)) then return {} end
 
    local b = mcp:try_load(MName:buildA("load",...))
    dbg.fini("try_load")
@@ -176,7 +176,7 @@ end
 
 function always_load(...)
    dbg.start("always_load(",concatTbl({...},", "),")")
-   if (not validateStringArgs("always_load",...)) then return {} end
+   if (not validateModules("always_load",...)) then return {} end
 
    local b  = mcp:always_load(MName:buildA("load",...))
    dbg.fini("always_load")
@@ -315,9 +315,9 @@ end
 
 function prereq(...)
    dbg.start("prereq(",concatTbl({...},", "),")")
-   if (not validateStringArgs("prereq",...)) then return end
+   if (not validateModules("prereq", ...)) then return end
    
-   mcp:prereq(MName:buildA("mt",...))
+   mcp:prereq(MName:buildA("load", ...))
    dbg.fini("prereq")
 end
 
@@ -325,13 +325,13 @@ function conflict(...)
    dbg.start("conflict(",concatTbl({...},", "),")")
    if (not validateStringArgs("conflict",...)) then return end
 
-   mcp:conflict(MName:buildA("mt",...))
+   mcp:conflict(MName:buildA("load",...))
    dbg.fini()
 end
 
 function prereq_any(...)
    dbg.start("prereq_any(",concatTbl({...},", "),")")
-   if (not validateStringArgs("prereq_any",...)) then return end
+   if (not validateModules("prereq_any",...)) then return end
 
    mcp:prereq_any(MName:buildA("mt",...))
    dbg.fini("conflict")
