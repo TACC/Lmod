@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.1.6 (5.1.6-18-gc26dfc4) 2013-09-06 19:17
+Modules based on Lua: Version 5.1.6 (5.1.6-20-gc648b1a) 2013-09-06 19:17
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -54,3 +54,35 @@ lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
 Currently Loaded Modules:
   1) M1   2) M2   3) a/1.3   4) M5   5) b/1.1   6) c/1.0
+===========================
+step 10
+lua ProjectDIR/src/lmod.in.lua bash load -a M6
+===========================
+Lmod has detected the following error: Cannot load module "M6" without these modules loaded:
+  atleast("a/1.3")
+While processing the following module(s):
+Module fullname  Module Filename
+M6               ProjectDIR/rt/atleast/mf/Core/M6.lua
+===========================
+step 11
+lua ProjectDIR/src/lmod.in.lua bash load a/1.3 M6
+===========================
+===========================
+step 12
+lua ProjectDIR/src/lmod.in.lua bash load a/1.4 M6
+===========================
+===========================
+step 13
+lua ProjectDIR/src/lmod.in.lua bash load a/1.1 M6
+===========================
+Lmod has detected the following error: Cannot load module "M6" without these modules loaded:
+  atleast("a/1.3")
+While processing the following module(s):
+Module fullname  Module Filename
+M6               ProjectDIR/rt/atleast/mf/Core/M6.lua
+===========================
+step 14
+lua ProjectDIR/src/lmod.in.lua bash list
+===========================
+Currently Loaded Modules:
+  1) M1   2) M2   3) M5   4) b/1.1   5) c/1.0   6) a/1.4   7) M6
