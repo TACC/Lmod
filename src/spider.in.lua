@@ -335,7 +335,7 @@ function convertEntry(name, vv, spA)
 
       vT.canonicalVersionString = ""
       if (v.Version) then
-         vT.canonicalVersionString = concatTbl(parseVersion(v.Version) ,".")
+         vT.canonicalVersionString = parseVersion(v.Version)
       end
 
       versionT[#versionT + 1] = vT
@@ -449,7 +449,7 @@ function findLatestV(a)
       local b     = {}
       for full in entry:split(":") do
          local name, version = splitNV(full)
-         b[#b+1] = name .. "/" .. concatTbl(parseVersion(version), ".")
+         b[#b+1] = name .. "/" .. parseVersion(version)
       end
       aa[i] = { concatTbl(b,":"), entry}
    end

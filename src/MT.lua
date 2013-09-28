@@ -210,7 +210,7 @@ local function locationTblDir(mpath, path, prefix, locationT, availT)
       -- Sort the files by parseVersion order and store them in "availT[prefix]".
       for full, v in pairs(mnameT) do
          local version = full:gsub(".*/","")
-         local parseV  = concatTbl(parseVersion(version), ".")
+         local parseV  = parseVersion(version)
          vA[#vA+1]     = {parseV, version, v.file}
       end
       sort(vA, function(a,b) return a[1] < b[1] end )
@@ -254,7 +254,7 @@ local function buildLocWmoduleT(mpath, moduleT, mpathT, lT, availT)
       local version   = extractVersion(vv.full, sn)
 
       if (version) then
-         local parseV = concatTbl(parseVersion(version), ".")
+         local parseV = parseVersion(version)
          a[parseV]    = { version = version, file = f, parseV = parseV,
                           markedDefault = vv.markedDefault}
       else

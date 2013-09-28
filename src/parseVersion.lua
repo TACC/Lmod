@@ -107,7 +107,7 @@ function parseVersion(versionStr)
 
    --dbg.print("versionStr: ",versionStr," results: ",concatTbl(vA,"."),"\n")
    --dbg.fini()
-   return vA
+   return concatTbl(vA,".")
 end
 
 --------------------------------------------------------------------------

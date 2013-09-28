@@ -1,8 +1,14 @@
-LmodMessage("5.0rc2: ",convertToCanonical("5.0rc2"))
-LmodMessage("5.0:    ",convertToCanonical("5.0"))
-LmodMessage("5.1:    ",convertToCanonical("5.1"))
-LmodMessage("5.1.0:  ",convertToCanonical("5.1.0"))
-LmodMessage("5.1.1:  ",convertToCanonical("5.1.1"))
+LmodMessage("5.0rc2:   ",convertToCanonical("5.0rc2"))
+LmodMessage("5.0:      ",convertToCanonical("5.0"))
+LmodMessage("5.1:      ",convertToCanonical("5.1"))
+LmodMessage("5.1.0:    ",convertToCanonical("5.1.0"))
+LmodMessage("5.1.1:    ",convertToCanonical("5.1.1"))
+LmodMessage("default:  ",convertToCanonical("default"))
+
+local result = (convertToCanonical("default") < convertToCanonical("5.1.1"))
+LmodMessage("\"default\" < \"5.1.1\" is ", tostring(result))
+
+
 if (convertToCanonical(LmodVersion()) > convertToCanonical("5.0")) then
    LmodMessage("(1) Passed Module Test")
 end

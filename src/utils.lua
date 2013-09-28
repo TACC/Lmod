@@ -202,44 +202,70 @@ function getMT()
    return s
 end
 
----------------------------------------------------------------------------
--- lastFileInDir(path): This function finds the latest version of a package
---                      in the directory "path".  It uses the parseVersion()
---                      function to decide which version is the most recent.
---                      It is not a lexigraphical search but uses rules built
---                       into parseVersion().
-
-function lastFileInDir(path)
-   dbg.start("lastFileInDir(",path,")")
+function allVersions(pathA)
+   dbg.start("allVersions(pathA)")
    local lastKey   = ''
    local lastValue = ''
    local result    = nil
    local fullName  = nil
    local count     = 0
+   local a         = {}
 
-   local attr = lfs.attributes(path)
-   if (attr and attr.mode == 'directory' and posix.access(path,"x")) then
-      for file in lfs.dir(path) do
-         local f = pathJoin(path, file)
-         attr = lfs.attributes(f)
-         local readable = posix.access(f,"r")
-         if (readable and file:sub(1,1) ~= "." and attr.mode == 'file' and file:sub(-1,-1) ~= '~') then
-            dbg.print("path: ",path," file: ",file," f: ",f,"\n")
-            count = count + 1
-            local key = file:gsub("%.lua$","")
-            key       = concatTbl(parseVersion(key),".")
-            if (key > lastKey) then
-               lastKey   = key
-               lastValue = f
+   for i = 1, #pathA do
+      local vv   = pathA[i]
+      local path = vv.file
+      local attr = lfs.attributes(path)
+      if (attr and attr.mode == 'directory' and posix.access(path,"x")) then
+         for v in lfs.dir(path) do
+            local f = pathJoin(path, v)
+            attr    = lfs.attributes(f)
+            local readable = posix.access(f,"r")
+            if (readable and v:sub(1,1) ~= "." and attr.mode == 'file'
+                and v:sub(-1,-1) ~= '~') then
+               v       = v:gsub("%.lua$","")
+               local pv = parseVersion(v)
+               dbg.print("path: ",path," v: ",v," f: ",f,"\n")
+               a[#a+1] = {version=v, file=f, idx = i, mpath=vv.mpath, pv=pv}
+               dbg.print("pv: ",pv,"\n")
             end
          end
       end
-      if (lastKey ~= "") then
-         result     = lastValue
+   end
+   dbg.fini("allVersions")
+   return a
+end   
+
+---------------------------------------------------------------------------
+-- lastFileInPathA(path): This function finds the latest version of a package
+--                      in the directory "path".  It uses the parseVersion()
+--                      function to decide which version is the most recent.
+--                      It is not a lexigraphical search but uses rules built
+--                       into parseVersion().
+
+
+function lastFileInPathA(pathA)
+
+   dbg.start("lastFileInPathA(pathA)")
+
+   local lastKey   = ''
+   local lastValue = ''
+   local result    = nil
+   local fullName  = nil
+   local a         = allVersions(pathA)
+   local count     = #a
+
+   for i = 1, count do
+      local vv  = a[i]
+      if (vv.pv > lastKey) then
+         lastKey   = vv.pv
+         lastValue = vv
       end
    end
+   if (lastKey ~= "") then
+      result     = lastValue
+   end
    dbg.print("result: ",result,"\n")
-   dbg.fini()
+   dbg.fini("lastFileInPathA")
    return result, count
 end
 

@@ -220,114 +220,114 @@ end
 --       (This just a restatement of 2c.)
 
 
-local function find_module_file(mname)
-   dbg.start("Master:find_module_file(",mname:usrName(),")")
-
-   local t        = { fn = nil, modFullName = nil, modName = nil, default = 0}
-   local mt       = MT:mt()
-   local fullName = ""
-   local modName  = ""
-   local sn       = mname:sn()
-   dbg.print("f_m_f sn: ",sn,"\n")
-
-   -- Get all directories that contain the shortname [[sn]].  If none exist
-   -- then the module does not exist => exit
-
-   local pathA = mt:locationTbl(sn)
-   if (pathA == nil or #pathA == 0) then
-      dbg.print("did not find key: \"",sn,"\" in mt:locationTbl()\n")
-      dbg.fini("Master:find_module_file")
-      return t
-   end
-   local fn, result
-
-   -- numS is the number of items to search for.  The first two are standard, the
-   -- next 2 are the default and .version choices.  So if the user specifies
-   -- "--latest" on the command line then set numS to 2 otherwise 4.
-   local numS = (masterTbl().latest) and numSrchLatest or numSearch
-
-   -- Outer Loop search over directories.
-   local found  = false
-   for ii = 1, #pathA do
-      local vv     = pathA[ii]
-      local mpath  = vv.mpath
-      t.default    = 0
-      fn           = pathJoin(vv.file, mname:version())
-      result       = nil
-      found        = false
-
-      -- Inner loop search over search choices.
-      for i = 1, numS do
-         local v    = searchTbl[i]
-         local f    = fn .. v
-         local attr = lfs.attributes(f)
-         local readable = posix.access(f,"r")
-
-         -- Three choices:
-
-         -- 1) exact match
-         -- 2) name/default exists
-         -- 3) name/.version exists.
-
-         if (readable and attr and attr.mode == 'file') then
-            result    = f
-            found     = true
-         end
-         dbg.print('(1) fn: ',fn,", found: ",found,", v: ",v,", f: ",f,"\n")
-         if (found and v == '/default') then
-            result    = followDefault(result)
-            dbg.print("(2) result: ",result, " f: ", f, "\n")
-            t.default = 1
-         elseif (found and v == '/.version') then
-            local vf = M.versionFile(result)
-            if (vf) then
-               t         = find_module_file(MName:new("load",pathJoin(sn,vf)))
-               t.default = 1
-               result    = t.fn
-            end
-         end
-         -- One of the three choices matched.
-         if (found) then
-            local _,j = result:find(mpath,1,true)
-            fullName  = result:sub(j+2):gsub("%.lua$","")
-            dbg.print("fullName: ",fullName,"\n")
-            break
-         end
-      end
-      if (found) then break end
-   end
-
-   dbg.print("found:", found, " fn: ",fn,"\n")
-
-   if (not found) then
-      local vv    = pathA[1]
-      local mpath = vv.mpath
-      fn = pathJoin(vv.file, mname:version())
-
-      ------------------------------------------------------------
-      -- Search for "last" file in 1st directory since it wasn't
-      -- found with exact or default match.
-      t.default  = 1
-      result = lastFileInDir(fn)
-      if (result) then
-         found = true
-         local _, j = result:find(mpath,1,true)
-         fullName   = result:sub(j+2):gsub("%.lua$","")
-         dbg.print("lastFileInDir mpath: ", mpath," fullName: ",fullName,"\n")
-      end
-   end
-
-   ------------------------------------------------------------------
-   -- Build results and return.
-
-   t.fn          = result
-   t.modFullName = fullName
-   t.modName     = sn
-   dbg.print("modName: ",sn," fn: ", result," modFullName: ", fullName,
-             " default: ",t.default,"\n")
-   dbg.fini("Master:find_module_file")
-   return t
-end
+--local function find_module_file(mname)
+--   dbg.start("Master:find_module_file(",mname:usrName(),")")
+--
+--   local t        = { fn = nil, modFullName = nil, modName = nil, default = 0}
+--   local mt       = MT:mt()
+--   local fullName = ""
+--   local modName  = ""
+--   local sn       = mname:sn()
+--   dbg.print("f_m_f sn: ",sn,"\n")
+--
+--   -- Get all directories that contain the shortname [[sn]].  If none exist
+--   -- then the module does not exist => exit
+--
+--   local pathA = mt:locationTbl(sn)
+--   if (pathA == nil or #pathA == 0) then
+--      dbg.print("did not find key: \"",sn,"\" in mt:locationTbl()\n")
+--      dbg.fini("Master:find_module_file")
+--      return t
+--   end
+--   local fn, result
+--
+--   -- numS is the number of items to search for.  The first two are standard, the
+--   -- next 2 are the default and .version choices.  So if the user specifies
+--   -- "--latest" on the command line then set numS to 2 otherwise 4.
+--   local numS = (masterTbl().latest) and numSrchLatest or numSearch
+--
+--   -- Outer Loop search over directories.
+--   local found  = false
+--   for ii = 1, #pathA do
+--      local vv     = pathA[ii]
+--      local mpath  = vv.mpath
+--      t.default    = 0
+--      fn           = pathJoin(vv.file, mname:version())
+--      result       = nil
+--      found        = false
+--
+--      -- Inner loop search over search choices.
+--      for i = 1, numS do
+--         local v    = searchTbl[i]
+--         local f    = fn .. v
+--         local attr = lfs.attributes(f)
+--         local readable = posix.access(f,"r")
+--
+--         -- Three choices:
+--
+--         -- 1) exact match
+--         -- 2) name/default exists
+--         -- 3) name/.version exists.
+--
+--         if (readable and attr and attr.mode == 'file') then
+--            result    = f
+--            found     = true
+--         end
+--         dbg.print('(1) fn: ',fn,", found: ",found,", v: ",v,", f: ",f,"\n")
+--         if (found and v == '/default') then
+--            result    = followDefault(result)
+--            dbg.print("(2) result: ",result, " f: ", f, "\n")
+--            t.default = 1
+--         elseif (found and v == '/.version') then
+--            local vf = M.versionFile(result)
+--            if (vf) then
+--               t         = find_module_file(MName:new("load",pathJoin(sn,vf)))
+--               t.default = 1
+--               result    = t.fn
+--            end
+--         end
+--         -- One of the three choices matched.
+--         if (found) then
+--            local _,j = result:find(mpath,1,true)
+--            fullName  = result:sub(j+2):gsub("%.lua$","")
+--            dbg.print("fullName: ",fullName,"\n")
+--            break
+--         end
+--      end
+--      if (found) then break end
+--   end
+--
+--   dbg.print("found:", found, " fn: ",fn,"\n")
+--
+--   if (not found) then
+--      local vv    = pathA[1]
+--      local mpath = vv.mpath
+--      fn = pathJoin(vv.file, mname:version())
+--
+--      ------------------------------------------------------------
+--      -- Search for "last" file in 1st directory since it wasn't
+--      -- found with exact or default match.
+--      t.default  = 1
+--      result = lastFileInDir(fn)
+--      if (result) then
+--         found = true
+--         local _, j = result:find(mpath,1,true)
+--         fullName   = result:sub(j+2):gsub("%.lua$","")
+--         dbg.print("lastFileInDir mpath: ", mpath," fullName: ",fullName,"\n")
+--      end
+--   end
+--
+--   ------------------------------------------------------------------
+--   -- Build results and return.
+--
+--   t.fn          = result
+--   t.modFullName = fullName
+--   t.modName     = sn
+--   dbg.print("modName: ",sn," fn: ", result," modFullName: ", fullName,
+--             " default: ",t.default,"\n")
+--   dbg.fini("Master:find_module_file")
+--   return t
+--end
 
 
 --------------------------------------------------------------------------
@@ -515,6 +515,7 @@ function M.load(mA)
       local loaded     = false
       local t          = mname:find()
       local fn         = t.fn
+      dbg.print("fn: ", t.fn,"\n")
       if (mt:have(sn,"active")) then
          dbg.print("Master:load reload module: \"",moduleName,
                    "\" as it is already loaded\n")

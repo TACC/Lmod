@@ -67,6 +67,7 @@ local dbg    = require("Dbg"):dbg()
 local MT     = require("MT")
 local pack   = (_VERSION == "Lua 5.1") and argsPack or table.pack
 local posix  = require("posix")
+local sort   = table.sort
 MName        = M
 --------------------------------------------------------------------------
 -- shorten(): This function allows for taking the name and remove one
@@ -342,11 +343,10 @@ function M.find_exact_match(self, pathA, t)
    end
 
    dbg.fini("MName:find_exact_match")
-   return found
+   return found, t
 end
 
 searchDefaultT = { "/default", "/.version" }
-
 
 function M.find_marked_default(self, pathA, t)
    dbg.start("MName:find_marked_default(pathA, t)")
@@ -378,7 +378,7 @@ function M.find_marked_default(self, pathA, t)
                if (result) then
                   t.default = 1
                   found  = true
-                  break;
+                  break
                end
             elseif (v == "/.version") then
                local vf = Master.versionFile(result)
@@ -387,6 +387,7 @@ function M.find_marked_default(self, pathA, t)
                   t           = mname:find()
                   t.default   = 1
                   result      = t.fn
+                  dbg.print ("(1) .version: t.fn: ", t.fn,"\n")
                   found       = true
                   break;
                end
@@ -401,6 +402,7 @@ function M.find_marked_default(self, pathA, t)
       end
    end
 
+   dbg.print ("(2) .version: t.fn: ", t.fn,"\n")
    
    if (found) then
       t.fn          = result
@@ -410,8 +412,9 @@ function M.find_marked_default(self, pathA, t)
                 " default: ",t.default,"\n")
    end
 
+   dbg.print ("(3) .version: t.fn: ", t.fn,"\n")
    dbg.fini("MName:find_marked_default")
-   return found
+   return found, t
 end
 
 function M.find_latest(self, pathA, t)
@@ -423,41 +426,85 @@ function M.find_latest(self, pathA, t)
    local modName   = ""
    local Master    = Master
    local sn        = self:sn()
-   local lastKey   = ''
-   local lastValue = false
 
-   for ii = 1, #pathA do
-      local vv    = pathA[ii]
-      local mpath = vv.mpath
-      local fn    = pathJoin(vv.file, self:version())
-      found       = false
-      result      = lastFileInDir(fn)
-      if (result) then
-         local _, j    = result:find(mpath, 1, true)
-         fullName      = result:sub(j+2):gsub("%.lua$","")
-         local version = extractVersion(fullName, sn)
-         local pv      = concatTbl(parseVersion(version),".")
-         dbg.print("lastFileInDir mpath: ", mpath," fullName: ",fullName,"\n")
-         if (pv > lastKey) then
-            lastValue = {fullName = fullName, fn = result, mpath = mpath}
-         end
-      end
-   end
-
-   if (lastValue) then
+   result          = lastFileInPathA(pathA)
+   if (result) then
+      local file    = result.file
+      local _, j    = file:find(result.mpath, 1, true)
+      t.modFullName = file:sub(j+2):gsub("%.lua$","")
       found         = true
       t.default     = 1
-      t.fn          = lastValue.fn
-      t.modFullName = lastValue.fullName
+      t.fn          = file
       t.modName     = sn
-      dbg.print("modName: ",sn," fn: ", result," modFullName: ", fullName,
+      dbg.print("modName: ",sn," fn: ", file," modFullName: ", t.modFullName,
                 " default: ",t.default,"\n")
    end
 
    dbg.fini("MName:find_latest")
-   return found
+   return found, t
 end
 
+function M.find_marked_default_atleast(self, pathA, t)
+   dbg.start("MName:find_marked_default_atleast(pathA, t)")
+   dbg.print("UserName: ", self:usrName(), "\n")
+
+   local found = false
+
+   found, t = self:find_marked_default(pathA, t)
+
+   local pvRequired = parseVersion(self.version())
+   local version    = extractVersion(t.modFullName, t.modName)
+   local pv         = parseVersion(version)
+   if (pv < pvRequired) then
+      found     = false
+      t.default = 0
+      t.fn      = nil
+   end
+   
+   dbg.fini("MName:find_marked_default_atleast")
+   return found, t
+end
+
+function M.find_atleast(self, pathA, t)
+   dbg.start("MName:find_atleast(pathA, t)")
+   dbg.print("UserName: ", self:usrName(), "\n")
+
+   local found = false
+   local a     = allVersions(pathA)
+
+   sort(a, function(a,b)
+             if (a.pv == b.pv) then
+                return a.idx < b.idx
+             else
+                return a.pv < b.pv
+             end
+           end
+   )
+
+   
+   local pvRequired = parseVersion(self.version())
+   local idx        = false
+   for i = 1,#a do
+      local v = a[i]
+      if (v.pv > pvRequired) then
+         idx = i
+         break
+      end
+   end
+   
+   if (idx ) then
+      local v       = a[idx]
+      t.fn          = v.file
+      local _, j    = v.file:find(v.mpath, 1, true)
+      t.modFullName = v.file:sub(j+2):gsub("%.lua$","")
+      t.default     = 0
+      t.modName     = self:sn()
+      found         = true
+   end
+
+   dbg.fini("MName:find_atleast")
+   return found, t
+end
 
 
 function M.find(self)
@@ -481,11 +528,14 @@ function M.find(self)
    local stepA = self:steps()
    for i = 1, #stepA do
       local func = stepA[i]
-      found      = func(self, pathA, t)
+      found, t   = func(self, pathA, t)
+      dbg.print("(1) t.fn: ", t.fn, "\n")
       if (found) then
          break
       end
    end
+
+   dbg.print("(2) t.fn: ", t.fn, "\n")
 
    dbg.fini("MName:find")
    return t

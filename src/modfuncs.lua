@@ -398,7 +398,7 @@ function LmodVersion()
 end
 
 function convertToCanonical(s)
-   return concatTbl(parseVersion(s))
+   return parseVersion(s)
 end
 
 function myFileName()
