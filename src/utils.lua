@@ -462,7 +462,7 @@ function ShowCmdStr(name, ...)
    for i = 1, arg.n do
       local v = arg[i]
       local s = tostring(v)
-      if (type(v) ~= "boolean") then
+      if (v ~= nil and type(v) ~= "boolean") then
          s = "\"".. s .."\""
       end
       a[#a + 1] = s
