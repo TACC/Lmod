@@ -111,12 +111,18 @@ local function argsPack(...)
 end
 local pack        = (_VERSION == "Lua 5.1") and argsPack or table.pack
 
+local function changeIndentLevel(i)
+   s_indentLevel  = s_indentLevel + i
+   s_indentString = blank:rep(s_indentLevel*2)
+end
+
 local function new(self)
    local o = {}
    setmetatable(o,self)
    self.__index = self
    o.print      = M.Quiet
    o.printA     = M.Quiet
+   o.textA      = M.Quiet
    o.start      = M.Quiet
    o.fini       = M.Quiet
    o.warning    = M.Warning
@@ -143,6 +149,7 @@ function M.activateDebug(self, level, indentLevel)
    if (level > 0) then
       self.print            = M.Debug
       self.printA           = M.PrintA
+      self.textA            = M.TextA
       self.start            = M.Start
       self.fini             = M.Fini
       self.indent           = M.Indent
@@ -211,8 +218,7 @@ function M.Start(...)
          io.stderr:write(tostring(arg[i]))
       end
       io.stderr:write("{\n")
-      s_indentLevel  = s_indentLevel + 1
-      s_indentString = blank:rep(s_indentLevel*2)
+      changeIndentLevel(1)
    end
 end
 
@@ -303,6 +309,27 @@ function M.Debug(...)
       end
    end
 end
+
+   
+
+function M.TextA(t)
+   local a  = t.a
+   
+   io.stderr:write(s_indentString)
+   if (#a == 0) then
+      io.stderr:write(t.name,": (empty)\n")
+      return
+   else
+      io.stderr:write(t.name,":\n")
+   end
+
+   changeIndentLevel(1)
+   for i = 1, #a do
+      io.stderr:write(s_indentString, a[i])
+   end
+   changeIndentLevel(-1)
+end
+
 
 function M.PrintA(t)
    local a    = t.a

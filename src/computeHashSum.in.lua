@@ -126,7 +126,7 @@ function main()
    loadModuleFile{file=f, shell=shellN, reportErr=true}
    mStack:pop()
    local s = concatTbl(ComputeModuleResultsA,"")
-   dbg.print("Text to Hash: \n",s,"\n")
+   dbg.textA{name="Text to Hash",a=ComputeModuleResultsA}
 
    if (masterTbl.verbose) then
       io.stderr:write(s)
