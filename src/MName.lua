@@ -63,8 +63,9 @@ require("utils")
 require("inherits")
 
 local M      = {}
-local dbg    = require("Dbg"):dbg()
 local MT     = require("MT")
+local dbg    = require("Dbg"):dbg()
+local huge   = math.huge
 local pack   = (_VERSION == "Lua 5.1") and argsPack or table.pack
 local posix  = require("posix")
 local sort   = table.sort
@@ -119,17 +120,19 @@ end
 --              choices are "atleast", ...
 
 s_findT = false
-function M.new(self, sType, name, action)
+function M.new(self, sType, name, action, is, ie)
 
    if (not s_findT) then
-      local Match   = require("Match")
-      local AtLeast = require("AtLeast")
-      local Latest  = require("Latest")
+      local Match    = require("Match")
+      local AtLeast  = require("AtLeast")
+      local Latest   = require("Latest")
+      local Between  = require("Between")
 
       local findT   = {}
       findT["match"]   = Match
       findT["atleast"] = AtLeast
       findT["latest"]  = Latest
+      findT["between"] = Between
       s_findT          = findT
    end
 
@@ -151,6 +154,8 @@ function M.new(self, sType, name, action)
       o._name = name
    end
    o._action  = action
+   o._is      = is or ''
+   o._ie      = ie or tostring(1.1e9)
    return o
 end
 
@@ -440,7 +445,7 @@ function M.find_latest(self, pathA, t)
    local modName   = ""
    local Master    = Master
    local sn        = self:sn()
-
+   
    result          = lastFileInPathA(pathA)
    if (result) then
       local file    = result.file
@@ -476,6 +481,27 @@ function M.find_marked_default_atleast(self, pathA, t)
    end
    
    dbg.fini("MName:find_marked_default_atleast")
+   return found, t
+end
+
+function M.find_marked_default_between(self, pathA, t)
+   dbg.start("MName:find_marked_default_between(pathA, t)")
+
+   local found = false
+
+   found, t = self:find_marked_default(pathA, t)
+
+   local left       = parseVersion(self._is)
+   local right      = parseVersion(self._ie)
+   local version    = extractVersion(t.modFullName, t.modName)
+   local pv         = parseVersion(version)
+   if (pv < left or  pv > right) then
+      found     = false
+      t.default = 0
+      t.fn      = nil
+   end
+   
+   dbg.fini("MName:find_marked_default_between")
    return found, t
 end
 
@@ -520,6 +546,48 @@ function M.find_atleast(self, pathA, t)
    return found, t
 end
 
+function M.find_between(self, pathA, t)
+   dbg.start("MName:find_between(pathA, t)")
+   dbg.print("UserName: ", self:usrName(), "\n")
+
+   local found = false
+   local a     = allVersions(pathA)
+
+   sort(a, function(a,b)
+             if (a.pv == b.pv) then
+                return a.idx < b.idx
+             else
+                return a.pv < b.pv
+             end
+           end
+   )
+
+   local left       = parseVersion(self._is)
+   local right      = parseVersion(self._ie)
+
+   local idx        = false
+   for i = #a, 1, -1 do
+      local v = a[i]
+      if (left <= v.pv and v.pv <= right) then  
+         idx = i
+         break
+      end
+   end
+   
+   if (idx ) then
+      local v       = a[idx]
+      t.fn          = v.file
+      local _, j    = v.file:find(v.mpath, 1, true)
+      t.modFullName = v.file:sub(j+2):gsub("%.lua$","")
+      t.default     = 0
+      t.modName     = self:sn()
+      found         = true
+   end
+
+   dbg.fini("MName:find_between")
+   return found, t
+end
+
 
 function M.find(self)
    dbg.start("MName:find(",self:usrName(),")")
@@ -555,120 +623,6 @@ function M.find(self)
    return t
 end
 
-
---local searchTbl     = {'.lua', '', '/default', '/.version'}
---local numSearch     = 4
---local numSrchLatest = 2
---
---function M.find(self)
---   dbg.start("MName:find(",self:usrName(),")")
---   local t        = { fn = nil, modFullName = nil, modName = nil, default = 0}
---   local mt       = MT:mt()
---   local fullName = ""
---   local modName  = ""
---   local sn       = self:sn()
---   local Master   = Master
---   dbg.print("MName:find sn: ",sn,"\n")
---
---   -- Get all directories that contain the shortname [[sn]].  If none exist
---   -- then the module does not exist => exit
---
---   local pathA = mt:locationTbl(sn)
---   if (pathA == nil or #pathA == 0) then
---      dbg.print("did not find key: \"",sn,"\" in mt:locationTbl()\n")
---      dbg.fini("MName:find")
---      return t
---   end
---   local fn, result
---
---   -- numS is the number of items to search for.  The first two are standard, the
---   -- next 2 are the default and .version choices.  So if the user specifies
---   -- "--latest" on the command line then set numS to 2 otherwise 4.
---   local numS = (self:action() == "latest") and numSrchLatest or numSearch
---
---   -- Outer Loop search over directories.
---   local found  = false
---   for ii = 1, #pathA do
---      local vv     = pathA[ii]
---      local mpath  = vv.mpath
---      t.default    = 0
---      fn           = pathJoin(vv.file, self:version())
---      result       = nil
---      found        = false
---
---      -- Inner loop search over search choices.
---      for i = 1, numS do
---         local v    = searchTbl[i]
---         local f    = fn .. v
---         local attr = lfs.attributes(f)
---         local readable = posix.access(f,"r")
---
---         -- Three choices:
---
---         -- 1) exact match
---         -- 2) name/default exists
---         -- 3) name/.version exists.
---
---         if (readable and attr and attr.mode == 'file') then
---            result    = f
---            found     = true
---         end
---         dbg.print('(1) fn: ',fn,", found: ",found,", v: ",v,", f: ",f,"\n")
---         if (found and v == '/default') then
---            result    = followDefault(result)
---            dbg.print("(2) result: ",result, " f: ", f, "\n")
---            t.default = 1
---         elseif (found and v == '/.version') then
---            local vf = Master.versionFile(result)
---            if (vf) then
---               local mname = M.new(self,"load",pathJoin(sn,vf))
---               t           = mname:find()
---               t.default   = 1
---               result      = t.fn
---            end
---         end
---         -- One of the three choices matched.
---         if (found) then
---            local _,j = result:find(mpath,1,true)
---            fullName  = result:sub(j+2):gsub("%.lua$","")
---            dbg.print("fullName: ",fullName,"\n")
---            break
---         end
---      end
---      if (found) then break end
---   end
---
---   dbg.print("found:", found, " fn: ",fn,"\n")
---
---   if (not found) then
---      local vv    = pathA[1]
---      local mpath = vv.mpath
---      fn = pathJoin(vv.file, self:version())
---
---      ------------------------------------------------------------
---      -- Search for "last" file in 1st directory since it wasn't
---      -- found with exact or default match.
---      t.default  = 1
---      result = lastFileInDir(fn)
---      if (result) then
---         found = true
---         local _, j = result:find(mpath,1,true)
---         fullName   = result:sub(j+2):gsub("%.lua$","")
---      end
---   end
---
---   ------------------------------------------------------------------
---   -- Build results and return.
---
---   t.fn          = result
---   t.modFullName = fullName
---   t.modName     = sn
---   dbg.print("modName: ",sn," fn: ", result," modFullName: ", fullName,
---             " default: ",t.default,"\n")
---
---   dbg.fini("MName:find")
---   return t
---end
 
 return M
 

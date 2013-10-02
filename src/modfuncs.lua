@@ -203,6 +203,15 @@ function atleast(m)
    return mname
 end
 
+function between(m,is,ie)
+   dbg.start("between(",m,is,ie,")")
+
+   local mname = MName:new("load", m, "between", is, ie)
+
+   dbg.fini("between")
+   return mname
+end
+
 --- PATH functions ---
 
 function prepend_path(...)

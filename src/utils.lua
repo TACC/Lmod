@@ -202,7 +202,7 @@ function getMT()
    return s
 end
 
-function allVersions(pathA)
+function allVersions(pathA, n)
    dbg.start("allVersions(pathA)")
    local lastKey   = ''
    local lastValue = ''
@@ -210,8 +210,9 @@ function allVersions(pathA)
    local fullName  = nil
    local count     = 0
    local a         = {}
+   local n         = n or #pathA
 
-   for i = 1, #pathA do
+   for i = 1, n do
       local vv   = pathA[i]
       local path = vv.file
       local attr = lfs.attributes(path)
@@ -237,13 +238,13 @@ end
 
 ---------------------------------------------------------------------------
 -- lastFileInPathA(path): This function finds the latest version of a package
---                      in the directory "path".  It uses the parseVersion()
---                      function to decide which version is the most recent.
---                      It is not a lexigraphical search but uses rules built
---                       into parseVersion().
+--                        in the directory "path".  It uses the parseVersion()
+--                        function to decide which version is the most recent.
+--                        It is not a lexigraphical search but uses rules built
+--                        into parseVersion().
 
 
-function lastFileInPathA(pathA)
+function lastFileInPathA(pathA, n)
 
    dbg.start("lastFileInPathA(pathA)")
 
@@ -251,7 +252,7 @@ function lastFileInPathA(pathA)
    local lastValue = ''
    local result    = nil
    local fullName  = nil
-   local a         = allVersions(pathA)
+   local a         = allVersions(pathA, n)
    local count     = #a
 
    for i = 1, count do

@@ -36,12 +36,12 @@ require("strict")
 
 local M        = inheritsFrom(MName)
 local dbg      = require("Dbg"):dbg()
-M.my_name      = "atleast"
+M.my_name      = "between"
 
 
 local s_steps = {
-   MName.find_marked_default_atleast,
-   MName.find_latest,
+   MName.find_marked_default_between,
+   MName.find_between,
 }
 
 function M.prereq(self)
@@ -54,11 +54,13 @@ function M.prereq(self)
       return usrName, M.my_name
    end
 
-   local pvRequired = parseVersion(self:version())
+   local left       = parseVersion(self._is)
+   local right      = parseVersion(self._ie)
+
    local full       = mt:fullName(sn)
    local pv         = parseVersion(mt:Version(sn))
 
-   if (pvRequired > pv) then
+   if (left <= pv and pv <= right) then
       result = usrName
    end
    return result, M.my_name
