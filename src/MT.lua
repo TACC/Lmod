@@ -380,11 +380,23 @@ local function buildAllLocWmoduleT(moduleT, mpathA, locationT, availT)
          if (found) then break end
       end
       if (not found) then
-         local mpath    = pathA[1].mpath
-         local versionA = availT[mpath][sn]
-         local num      = #versionA
-         local fn       = abspath(versionA[num].file, true)
-         locationT[sn].default = {fn = fn, kind = "last", num = num}
+         local versionA  = availT[pathA[1].mpath][sn]
+         local num       = #versionA
+         local lastKey   = versionA[num].parseV
+         local lastValue = versionA[num]
+         local sum       = num
+         for i = 2, #pathA do
+            versionA = availT[pathA[i].mpath][sn]
+            num      = #versionA
+            local pv = versionA[num].parseV
+            if (pv > lastKey) then
+               lastKey   = pv
+               lastValue = versionA[num]
+            end
+            sum = sum + num
+         end
+         local fn              = abspath(lastValue.file, true)
+         locationT[sn].default = {fn = fn, kind = "last", num = sum}
       end
    end
          

@@ -46,6 +46,11 @@ testdescript = {
      runMe lua $(projectDir)/src/lmod.in.lua bash load alex                                      # 15
      runMe lua $(projectDir)/src/lmod.in.lua bash --latest load rtm_intel                        # 16
      runMe lua $(projectDir)/src/lmod.in.lua bash list                                           # 17
+     runMe lua $(projectDir)/src/lmod.in.lua bash use    $testDir/mf/Share                       # 18
+     runMe lua $(projectDir)/src/lmod.in.lua bash use -a $testDir/mf/Scratch                     # 19
+     runMe lua $(projectDir)/src/lmod.in.lua bash avail A B                                      # 20
+     runMe lua $(projectDir)/src/lmod.in.lua bash load  A B                                      # 21
+     runMe lua $(projectDir)/src/lmod.in.lua bash list                                           # 22
 
      HOME=$ORIG_HOME
      cat _stdout.[0-9][0-9] > _stdout.orig
