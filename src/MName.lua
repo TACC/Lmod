@@ -124,15 +124,14 @@ function M.new(self, sType, name, action, is, ie)
 
    if (not s_findT) then
       local Match    = require("Match")
-      local AtLeast  = require("AtLeast")
       local Latest   = require("Latest")
       local Between  = require("Between")
 
       local findT   = {}
       findT["match"]   = Match
-      findT["atleast"] = AtLeast
       findT["latest"]  = Latest
       findT["between"] = Between
+      findT["atleast"] = Between
       s_findT          = findT
    end
 
@@ -153,9 +152,17 @@ function M.new(self, sType, name, action, is, ie)
       name    = (name or ""):gsub("/+$","")  -- remove any trailing '/'
       o._name = name
    end
-   o._action  = action
-   o._is      = is or ''
-   o._ie      = ie or tostring(1.1e9)
+   o._action   = action
+   o._is       = is or ''
+   o._ie       = ie or tostring(1234567890)
+   o._range    = {}
+   o._range[1] = is
+   if (ie ) then
+      o._range[2] = ie
+   end
+
+   o._actName = action
+      
    return o
 end
 
@@ -463,27 +470,6 @@ function M.find_latest(self, pathA, t)
    return found, t
 end
 
-function M.find_marked_default_atleast(self, pathA, t)
-   dbg.start("MName:find_marked_default_atleast(pathA, t)")
-   dbg.print("UserName: ", self:usrName(), "\n")
-
-   local found = false
-
-   found, t = self:find_marked_default(pathA, t)
-
-   local pvRequired = parseVersion(self:version())
-   local version    = extractVersion(t.modFullName, t.modName)
-   local pv         = parseVersion(version)
-   if (pv < pvRequired) then
-      found     = false
-      t.default = 0
-      t.fn      = nil
-   end
-   
-   dbg.fini("MName:find_marked_default_atleast")
-   return found, t
-end
-
 function M.find_marked_default_between(self, pathA, t)
    dbg.start("MName:find_marked_default_between(pathA, t)")
 
@@ -502,47 +488,6 @@ function M.find_marked_default_between(self, pathA, t)
    end
    
    dbg.fini("MName:find_marked_default_between")
-   return found, t
-end
-
-function M.find_atleast(self, pathA, t)
-   dbg.start("MName:find_atleast(pathA, t)")
-   dbg.print("UserName: ", self:usrName(), "\n")
-
-   local found = false
-   local a     = allVersions(pathA)
-
-   sort(a, function(a,b)
-             if (a.pv == b.pv) then
-                return a.idx < b.idx
-             else
-                return a.pv < b.pv
-             end
-           end
-   )
-
-   
-   local pvRequired = parseVersion(self:version())
-   local idx        = false
-   for i = 1,#a do
-      local v = a[i]
-      if (v.pv >= pvRequired) then
-         idx = i
-         break
-      end
-   end
-   
-   if (idx ) then
-      local v       = a[idx]
-      t.fn          = v.file
-      local _, j    = v.file:find(v.mpath, 1, true)
-      t.modFullName = v.file:sub(j+2):gsub("%.lua$","")
-      t.default     = 0
-      t.modName     = self:sn()
-      found         = true
-   end
-
-   dbg.fini("MName:find_atleast")
    return found, t
 end
 
@@ -586,6 +531,10 @@ function M.find_between(self, pathA, t)
 
    dbg.fini("MName:find_between")
    return found, t
+end
+
+function M.show(self)
+   return self:usrName()
 end
 
 

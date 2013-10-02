@@ -34,9 +34,10 @@
 
 require("strict")
 
-local M        = inheritsFrom(MName)
-local dbg      = require("Dbg"):dbg()
-M.my_name      = "between"
+local M         = inheritsFrom(MName)
+local dbg       = require("Dbg"):dbg()
+local concatTbl = table.concat
+M.my_name       = "between"
 
 
 local s_steps = {
@@ -44,6 +45,20 @@ local s_steps = {
    MName.find_between,
 }
 
+
+function M.show(self)
+   local a = {}
+   a[#a+1] = self._actName
+   a[#a+1] = "(\""
+   a[#a+1] = self:sn() .. '"'
+   for i = 1, #self._range do
+      a[#a+1] = ",\""
+      a[#a+1] = self._range[i] .. '"'
+   end
+   a[#a+1] = ")"
+   return concatTbl(a,"")
+end
+   
 function M.prereq(self)
    local result  = false
    local mt      = MT:mt()
@@ -51,19 +66,18 @@ function M.prereq(self)
    local usrName = self:usrName()
 
    if (not mt:have(sn,"active")) then
-      return usrName, M.my_name
+      result = self:show()
+   else
+      local left       = parseVersion(self._is)
+      local right      = parseVersion(self._ie)
+      local full       = mt:fullName(sn)
+      local pv         = parseVersion(mt:Version(sn))
+
+      if (pv < left or pv > right) then
+         result = self:show()
+      end
    end
-
-   local left       = parseVersion(self._is)
-   local right      = parseVersion(self._ie)
-
-   local full       = mt:fullName(sn)
-   local pv         = parseVersion(mt:Version(sn))
-
-   if (left <= pv and pv <= right) then
-      result = usrName
-   end
-   return result, M.my_name
+   return result
 end   
 
 function M.steps()

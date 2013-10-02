@@ -194,10 +194,10 @@ end
 
 --- Load/Prereq  Modify functions ---
 
-function atleast(m)
-   dbg.start("atleast(",m,")")
+function atleast(m, is)
+   dbg.start("atleast(",m,", ",is,")")
 
-   local mname = MName:new("load", m, "atleast")
+   local mname = MName:new("load", m, "atleast", is)
 
    dbg.fini("atleast")
    return mname

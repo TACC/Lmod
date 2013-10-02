@@ -481,8 +481,7 @@ end
 function ShowCmdA(name, mA)
    local a = {}
    for i = 1, #mA do
-      local mname = mA[i]
-      a[i] = '"' .. mA[i]:usrName() .. '"'
+      a[i] = '"' .. mA[i]:show() .. '"'
    end
    local b = {}
    b[#b+1] = name

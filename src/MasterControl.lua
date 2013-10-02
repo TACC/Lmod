@@ -85,20 +85,22 @@ local pack         = (_VERSION == "Lua 5.1") and argsPack or table.pack
 
 local function mustLoad(mA)
    local aa = {}
+   local bb = {}
 
    local mt = MT:mt()
    for i = 1, #mA do
       local mname = mA[i]
       local sn    = mname:sn()
       if (not mt:have(sn, "active")) then
-         aa[#aa+1] = mname:usrName()
+         aa[#aa+1] = mname:show()
+         bb[#bb+1] = mname:usrName()
       end
    end
 
    if (#aa > 0) then
-      local s = concatTbl(aa, " ")
+      local s = concatTbl(aa, ", ")
       mcp:report("Did not find: ",s,"\n\n",
-                 "Try: \"module spider ", s,"\"\n" )
+                 "Try: \"module spider ", concatTbl(bb," "),"\"\n" )
    end
 end
 
@@ -641,20 +643,16 @@ function M.prereq(self, mA)
 
    local a = {}
    for i = 1, #mA do
-      local v, msg = mA[i]:prereq()
+      local v = mA[i]:prereq()
       if (v) then
-         if (msg) then
-            a[#a+1] = msg .."(\"" .. v .. "\")"
-         else
-            a[#a+1] = v
-         end
+         a[#a+1] = mA[i]:prereq()
       end
    end
 
    dbg.print("number found: ",#a,"\n")
    if (#a > 0) then
       local s = concatTbl(a,", ")
-      LmodError("Cannot load module \"",mFull,"\" without these modules loaded:\n  ",
+      LmodError("Cannot  module \"",mFull,"\" without these modules loaded:\n  ",
             s,"\n")
    end
    dbg.fini("MasterControl:prereq")
