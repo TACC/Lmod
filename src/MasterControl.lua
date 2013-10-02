@@ -652,7 +652,7 @@ function M.prereq(self, mA)
    dbg.print("number found: ",#a,"\n")
    if (#a > 0) then
       local s = concatTbl(a,", ")
-      LmodError("Cannot  module \"",mFull,"\" without these modules loaded:\n  ",
+      LmodError("Cannot load module \"",mFull,"\" without these modules loaded:\n  ",
             s,"\n")
    end
    dbg.fini("MasterControl:prereq")
