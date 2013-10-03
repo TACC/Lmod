@@ -22,6 +22,7 @@ _module_command()
   _module_cmds=(
     "help:print the usage of each sub-command"
     "load:load a module into the shell environment"
+    "try-load:load a module into the shell environment, no warnings if not found"
     "add:load a module into the shell environment"
     "unload:remove a module from the shell environment"
     "rm:remove a module from the shell environment"
@@ -47,7 +48,7 @@ _module_command()
     cmd="${${_module_cmds[(r)$words[1]:*]%%:*}}"
     # Deal with any aliases
     case $cmd in
-      add) cmd="load";;
+      add|try-load) cmd="load";;
       rm) cmd="unload";;
       display) cmd="show";;
     esac

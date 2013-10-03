@@ -37,6 +37,7 @@ _ml()
     "show:display information about a module"
     "list:list loaded modules"
     "load:load a module"
+    "try-load:load a module, no warnings if not found"
     "avail:list all available modules"
     "use:add a directory to MODULEPATH"
     "unuse:remove a directory from MODULEPATH"
@@ -119,7 +120,7 @@ _ml()
       ;;
     30|31)
       case $cmd in
-        add) cmd="load";;
+        add|try-load) cmd="load";;
         rm) cmd="unload";;
         display) cmd="show";;
       esac
