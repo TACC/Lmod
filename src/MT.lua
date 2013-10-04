@@ -259,7 +259,7 @@ local function buildLocWmoduleT(mpath, moduleT, mpathT, lT, availT)
                           markedDefault = vv.markedDefault}
       else
          a[0]         = { version = 0, file = f, markedDefault = false,
-                          parseV = 0}
+                          parseV = ""}
       end
       availEntryT[sn] = a
 
