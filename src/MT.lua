@@ -78,50 +78,6 @@ s_mt = false
 
 s_mtA = {}
 
---local function abspath (path, localDir)
---   dbg.start("abspath(path: ",path,", localDir: ",localDir,")")
---   if (path == nil) then return nil end
---   local cwd = lfs.currentdir()
---   path = path:trim()
---
---   if (path:sub(1,1) ~= '/') then
---      path = pathJoin(cwd,path)
---   end
---
---   local dir    = dirname(path)
---   local ival   = lfs.chdir(dir)
---
---   path = pathJoin(lfs.currentdir(), barefilename(path))
---   local result = path
---
---   local attr = lfs.symlinkattributes(path)
---   if (attr == nil) then
---      lfs.chdir(cwd)
---      dbg.print("no attr\n")
---      dbg.fini("abspath")
---      return nil
---   elseif (attr.mode == "link") then
---      local rl = posix.readlink(path)
---      if (not rl) then
---         lfs.chdir(cwd)
---         dbg.print("read link does not exist\n")
---         dbg.fini("abspath")
---         return nil
---      end
---      if (localDir and (rl:sub(1,1) == "/" or rl:sub(1,3) == "../")) then
---         lfs.chdir(cwd)
---         dbg.print("localDir is true so returning result: ",result,"\n")
---         dbg.fini("abspath")
---         return result
---      end
---      result = abspath(rl, localDir)
---   end
---   lfs.chdir(cwd)
---   dbg.print("Regular file: result: ",result,"\n")
---   dbg.fini("abspath")
---   return result
---end
-
 --------------------------------------------------------------------------
 -- locationTblDir(): This local function walks a single directory to find
 --                   all the modulefiles in that directory.  This function
@@ -259,7 +215,7 @@ local function buildLocWmoduleT(mpath, moduleT, mpathT, lT, availT)
                           markedDefault = vv.markedDefault}
       else
          a[0]         = { version = 0, file = f, markedDefault = false,
-                          parseV = ""}
+                          parseV = "z"}
       end
       availEntryT[sn] = a
 
@@ -380,15 +336,13 @@ local function buildAllLocWmoduleT(moduleT, mpathA, locationT, availT)
          if (found) then break end
       end
       if (not found) then
-         local versionA  = availT[pathA[1].mpath][sn]
-         local num       = #versionA
-         local lastKey   = versionA[num].parseV
-         local lastValue = versionA[num]
-         local sum       = num
-         for i = 2, #pathA do
-            versionA = availT[pathA[i].mpath][sn]
-            num      = #versionA
-            local pv = versionA[num].parseV
+         local lastValue = false
+         local lastKey   = ''
+         local sum       = 0
+         for i = 1, #pathA do
+            local versionA = availT[pathA[i].mpath][sn]
+            local num      = #versionA
+            local pv       = versionA[num].parseV
             if (pv > lastKey) then
                lastKey   = pv
                lastValue = versionA[num]

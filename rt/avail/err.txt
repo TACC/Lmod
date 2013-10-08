@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.1.6 (5.1.6-1-g6040705) 2013-09-06 19:17
+Modules based on Lua: Version 5.1.8 (5.1.8-3-g2d80a74) 2013-10-02 17:16
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -25,8 +25,9 @@ ProjectDIR/mf/Core
    gcc/4.2.3                   junk/a/c/1.0
    git/1.6.3.1                 junk/b/c/2.0
 ProjectDIR/rt/avail/mf/Core
-   bar/1.4-dbg          baz/1.4-dbg          foo/1.4-dbg
-   bar/1.4       (D)    baz/1.4       (D)    foo/1.4       (D)
+   bar/1.4-dbg          baz/1.4       (D)    local/1.1
+   bar/1.4       (D)    foo/1.4-dbg          local/1.2   (D)
+   baz/1.4-dbg          foo/1.4       (D)
   Where:
    (D):  Default Module
    (m):  built for host and native MIC
@@ -47,7 +48,8 @@ ProjectDIR/mf/Core
    gcc/4.2.3          intel/intel      local/local
    gotoblas/1.20      junk/a/c/1.0     multi/multi
 ProjectDIR/rt/avail/mf/Core
-   bar/1.4-dbg    bar/1.4   (D)    baz/1.4-dbg    baz/1.4   (D)
+   bar/1.4-dbg          baz/1.4-dbg          local/1.1
+   bar/1.4       (D)    baz/1.4       (D)    local/1.2   (D)
   Where:
    (D):  Default Module
    (m):  built for host and native MIC
@@ -72,8 +74,9 @@ ProjectDIR/mf/Core
    gcc/4.2.3                   junk/a/c/1.0
    git/1.6.3.1                 junk/b/c/2.0
 ProjectDIR/rt/avail/mf/Core
-   bar/1.4-dbg          baz/1.4-dbg          foo/1.4-dbg
-   bar/1.4       (D)    baz/1.4       (D)    foo/1.4       (D)
+   bar/1.4-dbg          baz/1.4       (D)    local/1.1
+   bar/1.4       (D)    foo/1.4-dbg          local/1.2   (D)
+   baz/1.4-dbg          foo/1.4       (D)
   Where:
    (D):  Default Module
    (m):  built for host and native MIC
@@ -133,6 +136,9 @@ baz/1.4
 foo/
 foo/1.4-dbg
 foo/1.4
+local/
+local/1.1
+local/1.2
 ===========================
 step 8
 lua ProjectDIR/src/lmod.in.lua bash -t -d avail
@@ -149,7 +155,6 @@ intel/intel
 junk/a/c/1.0
 junk/b/c/2.0
 junk/d/3.0
-local/local
 multi/multi
 noweb/2.10c
 parmetis/3.1
@@ -158,6 +163,7 @@ ProjectDIR/rt/avail/mf/Core:
 bar/1.4
 baz/1.4
 foo/1.4
+local/1.2
 ===========================
 step 9
 lua ProjectDIR/src/lmod.in.lua bash -t avail git
@@ -179,3 +185,22 @@ lua ProjectDIR/src/lmod.in.lua bash -t avail git/1.7.4.3
 ===========================
 ProjectDIR/mf/Core:
 git/1.7.4.3
+===========================
+step 12
+lua ProjectDIR/src/lmod.in.lua bash use ProjectDIR/rt/avail/mf/Core2
+===========================
+===========================
+step 13
+lua ProjectDIR/src/lmod.in.lua bash avail local
+===========================
+ProjectDIR/rt/avail/mf/Core2
+   local   (D)
+ProjectDIR/mf/Core
+   local/local
+ProjectDIR/rt/avail/mf/Core
+   local/1.1    local/1.2
+  Where:
+   (D):  Default Module
+Use "module spider" to find all possible modules.
+Use "module keyword key1 key2 ..." to search for all possible modules matching
+any of the "keys".

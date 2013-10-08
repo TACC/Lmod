@@ -130,6 +130,7 @@ function main()
       spider="spider",
       swap="swap", sw="swap", switch="swap",
       tablelist="tablelist",
+      ['try-load'] = "try-load",
       unload="unload", rm = "unload", del = "unload", delete="unload",
       unuse="unuse",
       update="update",

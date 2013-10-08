@@ -690,7 +690,7 @@ function Swap(...)
    mA[1]         = mname
    mcp:unload(mA)
    mA[1]         = MName:new("load",b)
-   local aa = mcp:load(mA)
+   local aa = mcp:load_usr(mA)
    if (not aa[1]) then
       LmodError("Swap failed.\n")
    end
