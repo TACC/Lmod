@@ -339,7 +339,7 @@ function Load_Usr(...)
 
    local mcp_old = mcp
    mcp           = MCP
-   local b       = mcp:load(lA)
+   local b       = mcp:load_usr(lA)
    mcp           = mcp_old
 
 

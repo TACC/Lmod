@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.1.7 (5.1.7-6-g44e9c16) 2013-09-28 18:49
+Modules based on Lua: Version 5.1.8 (5.1.8-2-g2b05a3d) 2013-10-02 17:16
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -152,3 +152,9 @@ Currently Loaded Modules:
   4) local/local       8) boost/1.49.0  (o)  12) B/1.4
   Where:
    (o):  built for offload to the MIC only
+===========================
+step 23
+lua ProjectDIR/src/lmod.in.lua bash load DoNotExist
+===========================
+Lmod has detected the following error: Did not find: DoNotExist
+Try: "module spider DoNotExist"
