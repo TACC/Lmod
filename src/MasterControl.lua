@@ -147,10 +147,11 @@ end
 -- Load / Unload functions
 -------------------------------------------------------------------
 function M.load_usr(self, mA)
-   self:load(mA)
+   local a = self:load(mA)
    if (haveWarnings()) then
       mustLoad(mA)
    end
+   return a
 end
 function M.load(self, mA)
    local master = Master:master()
