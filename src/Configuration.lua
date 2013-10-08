@@ -81,13 +81,21 @@ local function new(self)
    end
    
 
+   local lmod_version = Version.git()
+   if (lmod_version == "") then
+      lmod_version = Version.tag()
+   else
+      lmod_version = lmod_version:gsub("[)(]","")
+   end
+
+
    local tbl = {}
    tbl.prefix          = { doc = "Lmod prefix"                     , value = "@PREFIX@",               }
    tbl.path_to_lua     = { doc = "Path to Lua"                     , value = "@path_to_lua@",          }
    tbl.path_to_pager   = { doc = "Path to Pager"                   , value = "@path_to_pager@",        }
    tbl.settarg_support = { doc = "Supporting Full Settarg Use"     , value = "@lmod_settarg_support@", }
    tbl.use_dot_files   = { doc = "Using dotfiles"                  , value = "@use_dot_files@",        }
-   tbl.lmod_version    = { doc = "Lmod git version"                , value = "@git@",                  }
+   tbl.lmod_version    = { doc = "Lmod version"                    , value = lmod_version,             }
    tbl.ancient         = { doc = "User cache file valid time(sec)" , value = "@ancient@",              }
    tbl.short_time      = { doc = "Write cache after (sec)"         , value = "@short_time@",           }
    tbl.prepend_block   = { doc = "Prepend order"                   , value = "@prepend_block@",        }

@@ -8,18 +8,20 @@ ProjectData 3,52
 INSTALL,85
          Lmod and install lua-X.X.X.tar.gz file.  It contains the lua command,7,271
 
-Makefile.in,470
+Makefile.in,566
 LMOD_SETTARG_SUPPORT 1,0
-version		  	 := $(shell cd ./src; $(20,936
-           ext=91,4013
-                -e 's|@PKG@|$(PKG)|g'         < $$i > $(DIRLOC)/$$fn;$$fn107,5155
-               chmod +x $(DIRLOC)/$$fn;$$fn109,5308
-               mname=111,5462
-	       mkdir -p $(DIRLOC)/$$mname;$$mname113,5609
-               mv $(DIRLOC)/$$fn $(DIRLOC)/$$mname/$$mname.lua;lua114,5679
-            fi;115,5756
-shell_init: $(118,5847
-          cp $^ $(144,6770
+GIT_VERSION              := $(shell if [ -n "$(GIT_PROG)" ]; then lmodV=18,874
+prefix	19,993
+version		  	 := $(shell cd ./src; $(21,1038
+           ext=92,4115
+                -e 's|@PKG@|$(PKG)|g'         < $$i > $(DIRLOC)/$$fn;$$fn108,5258
+               chmod +x $(DIRLOC)/$$fn;$$fn110,5411
+               mname=112,5565
+	       mkdir -p $(DIRLOC)/$$mname;$$mname114,5712
+               mv $(DIRLOC)/$$fn $(DIRLOC)/$$mname/$$mname.lua;lua115,5782
+            fi;116,5859
+shell_init: $(119,5950
+          cp $^ $(145,6873
 
 README.old,454
 Lmod.  For the impatient,6,349
@@ -52,7 +54,7 @@ BASE_DIR=106,2378
    EXTRA_CMD=113,2493
 
 configure.ac,24
-function main(197,6410
+function main(200,6468
 
 contrib/BuildSystemCacheFile/README.txt,22
 file. Obviously,2,69
@@ -306,19 +308,6 @@ _module_show(132,3584
 _module_use(142,3760
 _module_unuse(150,3940
 _module_whatis(156,4032
-
-makefile,470
-LMOD_SETTARG_SUPPORT 1,0
-version		  	 := $(shell cd ./src; $(20,942
-           ext=91,4019
-                -e 's|@PKG@|$(PKG)|g'         < $$i > $(DIRLOC)/$$fn;$$fn107,5161
-               chmod +x $(DIRLOC)/$$fn;$$fn109,5314
-               mname=111,5468
-	       mkdir -p $(DIRLOC)/$$mname;$$mname113,5615
-               mv $(DIRLOC)/$$fn $(DIRLOC)/$$mname/$$mname.lua;lua114,5685
-            fi;115,5762
-shell_init: $(118,5853
-          cp $^ $(144,6776
 
 mf/TACC/TACC,34
 set modulepath_root  $env(24,929
@@ -5714,8 +5703,8 @@ function M.build(297,11379
 src/Configuration.lua,125
 local function locatePkg(46,1888
 local function new(61,2164
-function M.configuration(102,4171
-function M.report(109,4307
+function M.configuration(110,4343
+function M.report(117,4479
 
 src/Csh.lua,121
 function Csh.alias(55,2402
@@ -5938,55 +5927,55 @@ function M.name(108,4218
 local function valid_name(113,4269
 function M.build(120,4406
 function M.load_usr(149,5427
-function M.load(155,5532
-function M.try_load(220,7295
-function M.unload(227,7451
-function M.unloadsys(241,7737
-function M.bad_unload(254,8044
-function M.prepend_path(274,8509
-function M.append_path(290,9005
-function M.remove_path(303,9416
-function M.remove_path_first(317,9853
-function M.remove_path_last(321,9961
-function M.bad_remove_path(326,10068
-function M.setenv(334,10376
-function M.unsetenv(354,10878
-function M.bad_unsetenv(372,11356
-function M.pushenv(380,11641
-function M.popenv(416,12555
-function M.set_alias(451,13362
-function M.unset_alias(464,13688
-function M.bad_unset_alias(476,14021
-function M.set_shell_function(484,14303
-function M.unset_shell_function(498,14758
-function M.bad_unset_shell_function(511,15193
-function M.add_property(519,15516
-function M.remove_property(530,15894
-function M.bad_remove_property(541,16282
-local function moduleStackTraceBack(549,16582
-local function msg(567,17098
-function LmodErrorExit(580,17437
-function LmodSystemError(585,17511
-function M.error(597,17797
-function M.warning(601,17854
-function M.message(615,18192
-function M.prereq(628,18503
-function M.conflict(661,19304
-function M.prereq_any(702,20346
-function M.family(743,21313
-function M.myShellName(771,22349
-function M.myFileName(776,22450
-function M.myModuleFullName(781,22555
-function M.myModuleUsrName(786,22666
-function M.myModuleName(791,22775
-function M.myModuleVersion(796,22876
-function M.unset_family(801,22985
-function M.inherit(810,23219
-function M.is_spider(820,23451
-function M._setMode(826,23580
-function M.mode(832,23729
-function M.execute(845,24234
-function M.quiet(868,24807
+function M.load(156,5554
+function M.try_load(221,7317
+function M.unload(228,7473
+function M.unloadsys(242,7759
+function M.bad_unload(255,8066
+function M.prepend_path(275,8531
+function M.append_path(291,9027
+function M.remove_path(304,9438
+function M.remove_path_first(318,9875
+function M.remove_path_last(322,9983
+function M.bad_remove_path(327,10090
+function M.setenv(335,10398
+function M.unsetenv(355,10900
+function M.bad_unsetenv(373,11378
+function M.pushenv(381,11663
+function M.popenv(417,12577
+function M.set_alias(452,13384
+function M.unset_alias(465,13710
+function M.bad_unset_alias(477,14043
+function M.set_shell_function(485,14325
+function M.unset_shell_function(499,14780
+function M.bad_unset_shell_function(512,15215
+function M.add_property(520,15538
+function M.remove_property(531,15916
+function M.bad_remove_property(542,16304
+local function moduleStackTraceBack(550,16604
+local function msg(568,17120
+function LmodErrorExit(581,17459
+function LmodSystemError(586,17533
+function M.error(598,17819
+function M.warning(602,17876
+function M.message(616,18214
+function M.prereq(629,18525
+function M.conflict(662,19326
+function M.prereq_any(703,20368
+function M.family(744,21335
+function M.myShellName(772,22371
+function M.myFileName(777,22472
+function M.myModuleFullName(782,22577
+function M.myModuleUsrName(787,22688
+function M.myModuleName(792,22797
+function M.myModuleVersion(797,22898
+function M.unset_family(802,23007
+function M.inherit(811,23241
+function M.is_spider(821,23473
+function M._setMode(827,23602
+function M.mode(833,23751
+function M.execute(846,24256
+function M.quiet(869,24829
 
 src/Match.lua,26
 function M.steps(47,1852
@@ -6108,9 +6097,9 @@ function M.expand(415,13187
 
 src/Version.lua,88
 function M.tag(3,31
-function M.date(4,70
-function M.git(5,118
-function M.name(6,158
+function M.date(4,71
+function M.git(5,119
+function M.name(6,157
 
 src/addto.in.lua,210
 function cmdDir(67,2424
@@ -6148,12 +6137,12 @@ function SaveList(572,17276
 function Show(615,18421
 function SpiderCmd(636,19130
 function Swap(668,20072
-function TableList(712,21201
-function Update(735,21844
-function Use(745,22179
-function UnUse(781,23136
-function UnLoad(798,23605
-function Whatis(807,23894
+function TableList(712,21205
+function Update(735,21848
+function Use(745,22183
+function UnUse(781,23140
+function UnLoad(798,23609
+function Whatis(807,23898
 
 src/colorize.lua,56
 function full_colorize(61,2369
