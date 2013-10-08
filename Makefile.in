@@ -14,7 +14,8 @@ MODULEPATH_ROOT   	 := @MODULEPATH_ROOT@
 VERSION_SRC	  	 := src/Version.lua
 LUA_INCLUDE       	 := @LUA_INCLUDE@
 UPDATE_SYSTEM_FN  	 := @UPDATE_SYSTEM_FN@
-GIT_VERSION              := $(shell git describe --always)
+GIT_PROG                 := @PATH_TO_GIT@
+GIT_VERSION              := $(shell if [ -n "$(GIT_PROG)" ]; then git describe --always; fi)
 prefix		  	 := @prefix@
 package		  	 := lmod
 version		  	 := $(shell cd ./src; $(PATH_TO_LUA)/lua -e "V=require('Version'); print(V.tag())")
@@ -96,7 +97,7 @@ __installMe:
 	        -e 's|@path_to_pager@|$(PATH_TO_PAGER)|g'             	   \
                 -e 's|@lmod_settarg_support@|$(LMOD_SETTARG_SUPPORT)|g'    \
                 -e 's|@use_dot_files@|$(USE_DOT_FILES)|g'             	   \
-                -e 's|@git@|$(GIT_VERSION)|g'                         	   \
+                -e 's|@git@|($(GIT_VERSION))|g'                            \
 	        -e 's|@ancient@|$(ANCIENT)|g'                         	   \
 	        -e 's|@prepend_block@|$(PREPEND_BLOCK)|g'             	   \
 	        -e 's|@colorize@|$(COLORIZE)|g'                       	   \
@@ -281,7 +282,7 @@ gittag:
 	    echo 'local M={}'                                     >> $(VERSION_SRC); \
 	    echo 'function M.tag()  return "$(TAG)"   end'        >> $(VERSION_SRC); \
 	    echo 'function M.date() return "$(VDATE)" end'        >> $(VERSION_SRC); \
-	    echo 'function M.git()  return "(@git@)"  end'        >> $(VERSION_SRC); \
+	    echo 'function M.git()  return "@git@"  end'          >> $(VERSION_SRC); \
 	    echo 'function M.name()'                              >> $(VERSION_SRC); \
             echo '  local a = {}'                                 >> $(VERSION_SRC); \
 	    echo '  a[#a+1] = M.tag()'                            >> $(VERSION_SRC); \
