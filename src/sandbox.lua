@@ -94,6 +94,7 @@ sandbox_env = {
   --- Load Modify functions ---
   atleast              = atleast,
   between              = between,
+  latest               = latest,
 
   --- PATH functions ---
   prepend_path         = prepend_path,

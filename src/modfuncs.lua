@@ -212,6 +212,17 @@ function between(m,is,ie)
    return mname
 end
 
+function latest(m,is,ie)
+   dbg.start("latest(",m,")")
+
+   local mname = MName:new("load", m, "latest")
+
+   dbg.fini("latest")
+   return mname
+end
+
+
+
 --- PATH functions ---
 
 function prepend_path(...)
