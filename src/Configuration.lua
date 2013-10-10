@@ -39,6 +39,7 @@ require("fileOps")
 require("pairsByKeys")
 local BeautifulTbl = require('BeautifulTbl')
 local dbg          = require('Dbg'):dbg()
+local Version      = require("Version")
 local M            = {}
 
 s_configuration   = false
