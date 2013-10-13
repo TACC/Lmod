@@ -646,7 +646,7 @@ function M.prereq(self, mA)
    for i = 1, #mA do
       local v = mA[i]:prereq()
       if (v) then
-         a[#a+1] = mA[i]:prereq()
+         a[#a+1] = v
       end
    end
 
