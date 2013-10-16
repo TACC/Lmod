@@ -39,6 +39,7 @@ require("fileOps")
 require("pairsByKeys")
 local BeautifulTbl = require('BeautifulTbl')
 local dbg          = require('Dbg'):dbg()
+local concatTbl    = table.concat
 local M            = {}
 
 s_configuration   = false
@@ -88,6 +89,7 @@ local function new(self)
       lmod_version = lmod_version:gsub("[)(]","")
    end
 
+   local rcFile = findRCFile() or "unknown"
 
    local tbl = {}
    tbl.prefix          = { doc = "Lmod prefix"                     , value = "@PREFIX@",               }
@@ -102,6 +104,7 @@ local function new(self)
    tbl.colorize        = { doc = "Colorize Lmod"                   , value = "@colorize@",             }
    tbl.pkg             = { doc = "Pkg Class name"                  , value = Pkg.name() or "unknown",  }
    tbl.sitePkg         = { doc = "Site Pkg location"               , value = locSitePkg,               }
+   tbl.lmodrc          = { doc = "Lmod Configuration File"         , value = rcFile,                   }
    tbl.luaV            = { doc = "Lua Version"                     , value = _VERSION,                 }
    o.tbl = tbl
    return o
@@ -125,7 +128,21 @@ function M.report(self)
    end
 
    local bt = BeautifulTbl:new{tbl=a}
-   return bt:build_tbl()
+   local a  = {}
+   a[#a+1]  = bt:build_tbl()
+   a[#a+1]  = "\n"
+   a[#a+1]  = "-------------------------"
+   a[#a+1]  = " Lmod Configuration file:"
+   a[#a+1]  = "-------------------------"
+   a[#a+1]  = "\n"
+
+   local fh = io.open(tbl.lmodrc.value)
+   local s  = fh:read("*all")
+   fh:close()
+   a[#a+1]  = s
+   a[#a+1]  = "\n"
+
+   return concatTbl(a,"\n")
 end
 return M
 

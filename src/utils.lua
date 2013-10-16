@@ -418,6 +418,19 @@ RCFileA = {
    os.getenv("LMOD_RC"),
 }
 
+function findRCFile()
+   local result = false
+   for i = 1,#RCFileA do
+      local f        = RCFileA[i]
+      if (posix.access(f,"r")) then
+         result         = f
+         break
+      end
+   end
+   return result
+end
+   
+
 function readRC()
    dbg.start("readRC()")
    if (s_readRC) then
@@ -430,15 +443,11 @@ function readRC()
    local results = {}
 
 
-   for i = 1,#RCFileA do
-      local f  = RCFileA[i]
-      dbg.print("readRC: f: ",f,"\n")
-      local fh = io.open(f)
-      if (fh) then
-         assert(loadfile(f))()
-         fh:close()
-         break
-      end
+   local f = findRCFile()
+   local fh = io.open(f)
+   if (fh) then
+      assert(loadfile(f))()
+      fh:close()
    end
    s_propT       = _G.propT         or {}
    s_scDescriptT = _G.scDescriptT   or {}
