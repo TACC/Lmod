@@ -40,6 +40,7 @@ require("pairsByKeys")
 local BeautifulTbl = require('BeautifulTbl')
 local dbg          = require('Dbg'):dbg()
 local concatTbl    = table.concat
+local Version      = require("Version")
 local M            = {}
 
 s_configuration   = false

@@ -34,14 +34,49 @@
 
 require("strict")
 
-local M        = inheritsFrom(MName)
-M.my_name      = "latest"
+local M         = inheritsFrom(MName)
+local MT        = require("MT")
+local concatTbl = table.concat
+local dbg       = require("Dbg"):dbg()
+M.my_name       = "latest"
 
 local s_steps = {
    MName.find_exact_match,
    MName.find_latest,
 }
 
+function M.show(self)
+   local a = {}
+   a[#a+1] = self._actName
+   a[#a+1] = "(\""
+   a[#a+1] = self:sn()
+   a[#a+1] = "\")"
+   return concatTbl(a,"")
+end
+
+function M.prereq(self)
+   dbg.start("Latest:prereq()")
+   local result = false
+   local mt     = MT:mt()
+   local sn     = self:sn()
+   local pathA  = mt:locationTbl(sn)
+   if (pathA == nil or #pathA == 0) then
+      dbg.print("pathA has no entries\n")
+      dbg.fini("Latest:prereq")
+      return result
+   end
+
+   local found, t = self:find_latest(pathA)
+   local version  = extractVersion(t.modFullName, sn)
+   local sv       = mt:Version(sn)
+   if (sv ~= version) then
+      dbg.print("version loaded is not latest: version: ",version, ", sv: ", sv,"\n")
+      dbg.fini("Latest:prereq")
+      return self:show()
+   end
+   dbg.fini("Latest:prereq")
+   return result
+end
 
 function M.steps()
    return s_steps

@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.1.7 (5.1.7-5-g123d92e) 2013-09-28 18:49
+Modules based on Lua: Version 5.1.10 5.1.10-6-ge29f4d6 2013-10-08 08:37
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -107,3 +107,17 @@ Try: "module spider c"
 While processing the following module(s):
 Module fullname  Module Filename
 M8               ProjectDIR/rt/between/mf/Core/M8.lua
+===========================
+step 18
+lua ProjectDIR/src/lmod.in.lua bash purge
+===========================
+===========================
+step 19
+lua ProjectDIR/src/lmod.in.lua bash load M9
+===========================
+===========================
+step 20
+lua ProjectDIR/src/lmod.in.lua bash list
+===========================
+Currently Loaded Modules:
+  1) M9   2) b/1.4

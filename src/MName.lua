@@ -321,9 +321,10 @@ end
 
 local searchExtT = { ".lua", ''}
 
-function M.find_exact_match(self, pathA, t)
+function M.find_exact_match(self, pathA)
    dbg.start("MName:find_exact_match(pathA, t)")
    dbg.print("UserName: ", self:usrName(), "\n")
+   local t        = { fn = nil, modFullName = nil, modName = nil, default = 0}
    local found    = false
    local result   = nil
    local fullName = ""
@@ -374,9 +375,10 @@ end
 
 searchDefaultT = { "/default", "/.version" }
 
-function M.find_marked_default(self, pathA, t)
+function M.find_marked_default(self, pathA)
    dbg.start("MName:find_marked_default(pathA, t)")
    dbg.print("UserName: ", self:usrName(), "\n")
+   local t        = { fn = nil, modFullName = nil, modName = nil, default = 0}
    local found    = false
    local result   = nil
    local fullName = ""
@@ -443,9 +445,10 @@ function M.find_marked_default(self, pathA, t)
    return found, t
 end
 
-function M.find_latest(self, pathA, t)
+function M.find_latest(self, pathA)
    dbg.start("MName:find_latest(pathA, t)")
    dbg.print("UserName: ", self:usrName(), "\n")
+   local t         = { fn = nil, modFullName = nil, modName = nil, default = 0}
    local found     = false
    local result    = nil
    local fullName  = ""
@@ -470,9 +473,10 @@ function M.find_latest(self, pathA, t)
    return found, t
 end
 
-function M.find_marked_default_between(self, pathA, t)
+function M.find_marked_default_between(self, pathA)
    dbg.start("MName:find_marked_default_between(pathA, t)")
 
+   local t     = { fn = nil, modFullName = nil, modName = nil, default = 0}
    local found = false
 
    found, t = self:find_marked_default(pathA, t)
@@ -491,10 +495,11 @@ function M.find_marked_default_between(self, pathA, t)
    return found, t
 end
 
-function M.find_between(self, pathA, t)
+function M.find_between(self, pathA)
    dbg.start("MName:find_between(pathA, t)")
    dbg.print("UserName: ", self:usrName(), "\n")
 
+   local t     = { fn = nil, modFullName = nil, modName = nil, default = 0}
    local found = false
    local a     = allVersions(pathA)
 
@@ -559,7 +564,7 @@ function M.find(self)
    local stepA = self:steps()
    for i = 1, #stepA do
       local func = stepA[i]
-      found, t   = func(self, pathA, t)
+      found, t   = func(self, pathA)
       dbg.print("(1) t.fn: ", t.fn, "\n")
       if (found) then
          break

@@ -68,10 +68,10 @@ function M.prereq(self)
    if (not mt:have(sn,"active")) then
       result = self:show()
    else
-      local left       = parseVersion(self._is)
-      local right      = parseVersion(self._ie)
-      local full       = mt:fullName(sn)
-      local pv         = parseVersion(mt:Version(sn))
+      local left  = parseVersion(self._is)
+      local right = parseVersion(self._ie)
+      local full  = mt:fullName(sn)
+      local pv    = parseVersion(mt:Version(sn))
 
       if (pv < left or pv > right) then
          result = self:show()
