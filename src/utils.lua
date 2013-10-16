@@ -427,7 +427,7 @@ function findRCFile()
          break
       end
    end
-   return result
+   return abspath(result)
 end
    
 
