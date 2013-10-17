@@ -63,7 +63,7 @@ local function new(self)
    local o = {}
    setmetatable(o,self)
    self.__index = self
-
+   
    local locSitePkg = locatePkg("SitePackage") or "unknown"
 
    if (locSitePkg ~= "unknown") then
@@ -80,7 +80,6 @@ local function new(self)
          locSitePkg = "standard"
       end
    end
-   
 
    local lmod_version = Version.git()
    if (lmod_version == "") then
@@ -88,22 +87,26 @@ local function new(self)
    else
       lmod_version = lmod_version:gsub("[)(]","")
    end
-
+   local settarg_support = "@lmod_settarg_support@"
+   local pkgName         = Pkg.name() or "unknown"
+   local lmod_colorize   = getenv("LMOD_COLORIZE") or "@colorize@"
 
    local tbl = {}
-   tbl.prefix          = { doc = "Lmod prefix"                     , value = "@PREFIX@",               }
-   tbl.path_to_lua     = { doc = "Path to Lua"                     , value = "@path_to_lua@",          }
-   tbl.path_to_pager   = { doc = "Path to Pager"                   , value = "@path_to_pager@",        }
-   tbl.settarg_support = { doc = "Supporting Full Settarg Use"     , value = "@lmod_settarg_support@", }
-   tbl.use_dot_files   = { doc = "Using dotfiles"                  , value = "@use_dot_files@",        }
-   tbl.lmod_version    = { doc = "Lmod version"                    , value = lmod_version,             }
-   tbl.ancient         = { doc = "User cache file valid time(sec)" , value = "@ancient@",              }
-   tbl.short_time      = { doc = "Write cache after (sec)"         , value = "@short_time@",           }
-   tbl.prepend_block   = { doc = "Prepend order"                   , value = "@prepend_block@",        }
-   tbl.colorize        = { doc = "Colorize Lmod"                   , value = "@colorize@",             }
-   tbl.pkg             = { doc = "Pkg Class name"                  , value = Pkg.name() or "unknown",  }
-   tbl.sitePkg         = { doc = "Site Pkg location"               , value = locSitePkg,               }
-   tbl.luaV            = { doc = "Lua Version"                     , value = _VERSION,                 }
+   tbl.prefix     = { doc = "Lmod prefix"                 , value = "@PREFIX@",          }  
+   tbl.path_lua   = { doc = "Path to Lua"                 , value = "@path_to_lua@",     }
+   tbl.path_pager = { doc = "Path to Pager"               , value = "@path_to_pager@",   }
+   tbl.path_hash  = { doc = "Path to HashSum"             , value = "@path_to_hashsum@", }
+   tbl.settarg    = { doc = "Supporting Full Settarg Use" , value = settarg_support,     }
+   tbl.dot_files  = { doc = "Using dotfiles"              , value = "@use_dot_files@",   }
+   tbl.lmodV      = { doc = "Lmod version"                , value = lmod_version,        }
+   tbl.ancient    = { doc = "User cache valid time(sec)"  , value = "@ancient@",         }
+   tbl.short_tm   = { doc = "Write cache after (sec)"     , value = "@short_time@",      }
+   tbl.prpnd_blk  = { doc = "Prepend order"               , value = "@prepend_block@",   }
+   tbl.colorize   = { doc = "Colorize Lmod"               , value = lmod_colorize,       }
+   tbl.mpath_root = { doc = "MODULEPATH_ROOT"             , value = "@modulepath_root@", }
+   tbl.pkg        = { doc = "Pkg Class name"              , value = pkgName,             }
+   tbl.sitePkg    = { doc = "Site Pkg location"           , value = locSitePkg,          }
+   tbl.luaV       = { doc = "Lua Version"                 , value = _VERSION,            }
    o.tbl = tbl
    return o
 end
@@ -122,7 +125,9 @@ function M.report(self)
    a[#a+1]   = {"----", "-----", "-----------",}
    
    for k, v in pairsByKeys(tbl) do
-      a[#a+1] = {k, v.value, v.doc }
+      if (v.value:sub(1,1) ~= "@") then
+         a[#a+1] = {k, v.value, v.doc }
+      end
    end
 
    local bt = BeautifulTbl:new{tbl=a}
