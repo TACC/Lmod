@@ -433,7 +433,7 @@ function readRC()
       local fh = io.open(f)
       if (fh) then
          assert(loadfile(f))()
-         s_rcFileA[#s_rcFileA+1] = f
+         s_rcFileA[#s_rcFileA+1] = abspath(f)
          fh:close()
       end
       local propT       = _G.propT or {} 

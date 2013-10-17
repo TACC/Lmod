@@ -43,6 +43,7 @@ local BeautifulTbl = require('BeautifulTbl')
 local Version      = require("Version")
 local concatTbl    = table.concat
 local dbg          = require('Dbg'):dbg()
+local getenv       = os.getenv
 local rep          = string.rep
 local M            = {}
 
@@ -105,7 +106,7 @@ local function new(self)
    tbl.path_hash  = { doc = "Path to HashSum"             , value = "@path_to_hashsum@",  }
    tbl.settarg    = { doc = "Supporting Full Settarg Use" , value = settarg_support,      }
    tbl.dot_files  = { doc = "Using dotfiles"              , value = "@use_dot_files@",    }
-   tbl.numSC      = { doc = "number of cache dirs",       , value = numSC,                }
+   tbl.numSC      = { doc = "number of cache dirs"        , value = numSC,                }
    tbl.lmodV      = { doc = "Lmod version"                , value = lmod_version,         }
    tbl.ancient    = { doc = "User cache valid time(sec)"  , value = "@ancient@",          }
    tbl.short_tm   = { doc = "Write cache after (sec)"     , value = "@short_time@",       }
@@ -134,9 +135,7 @@ function M.report(self)
    a[#a+1]   = {"----", "-----", "-----------",}
    
    for k, v in pairsByKeys(tbl) do
-      if (v.value:sub(1,1) ~= "@") then
-         a[#a+1] = {k, v.value, v.doc }
-      end
+      a[#a+1] = {k, v.value, v.doc }
    end
 
    local b = {}
@@ -161,7 +160,7 @@ function M.report(self)
       a[#a+1]   = {"Cache Directory",  "Time Stamp File",}
       a[#a+1]   = {"---------------",  "---------------",}
       for i = 1, #scDescriptT do
-         a[#a+1] = { scDescriptT.dir, scDescriptT.timestamp}
+         a[#a+1] = { scDescriptT[i].dir, scDescriptT[i].timestamp}
       end
       bt = BeautifulTbl:new{tbl=a}
       b[#b+1]  = bt:build_tbl()
