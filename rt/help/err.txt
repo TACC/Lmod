@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.1.6 (5.1.6-3-gd040b7f) 2013-09-06 19:17
+Modules based on Lua: Version 5.1.10 5.1.10-15-gb527a98 2013-10-08 08:37
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -101,7 +101,7 @@ The following guides are at http://www.tacc.utexas.edu/tacc-projects/lmod
   User Guide                 - How to use.
   Advance User Guide         - How to create you own modules.
   System Administrator Guide - How to install Lmod on your own system.
-Modules based on Lua: Version 5.1.6 (5.1.6-3-gd040b7f) 2013-09-06 19:17
+Modules based on Lua: Version 5.1.10 5.1.10-15-gb527a98 2013-10-08 08:37
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 3
@@ -200,7 +200,7 @@ The following guides are at http://www.tacc.utexas.edu/tacc-projects/lmod
   User Guide                 - How to use.
   Advance User Guide         - How to create you own modules.
   System Administrator Guide - How to install Lmod on your own system.
-Modules based on Lua: Version 5.1.6 (5.1.6-3-gd040b7f) 2013-09-06 19:17
+Modules based on Lua: Version 5.1.10 5.1.10-15-gb527a98 2013-10-08 08:37
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 4
@@ -220,17 +220,85 @@ Version 9
 step 5
 lua ProjectDIR/src/lmod.in.lua bash --config
 ===========================
-Modules based on Lua: Version 5.1.6 (5.1.6-3-gd040b7f) 2013-09-06 19:17
+Modules based on Lua: Version 5.1.10 5.1.10-15-gb527a98 2013-10-08 08:37
     by Robert McLay mclay@tacc.utexas.edu
-Name             Value                   Description
-ancient          @ancient@               User cache file valid time(sec)
-colorize         @colorize@              Colorize Lmod
-path_to_lua      @path_to_lua@           Path to Lua
-path_to_pager    @path_to_pager@         Path to Pager
-pkg              Pkg                     Pkg Class name
-prefix           @PREFIX@                Lmod prefix
-prepend_block    @prepend_block@         Prepend order
-settarg_support  @lmod_settarg_support@  Supporting Full Settarg Use
-short_time       @short_time@            Write cache after (sec)
-sitePkg          standard                Site Pkg location
-use_dot_files    @use_dot_files@         Using dotfiles
+Description                  Value
+User cache valid time(sec)   @ancient@
+Colorize Lmod                yes
+Using dotfiles               @use_dot_files@
+Allow duplicate paths        @duplicate_paths@
+MODULEPATH_ROOT              @modulepath_root@
+number of cache dirs         0
+Path to HashSum              @path_to_hashsum@
+Path to Lua                  @path_to_lua@
+Path to Pager                @path_to_pager@
+Pkg Class name               Pkg
+Lmod prefix                  @PREFIX@
+Prepend order                @prepend_block@
+Supporting Full Settarg Use  @lmod_settarg_support@
+Write cache after (sec)      @short_time@
+Site Pkg location            standard
+Active RC file(s):
+ProjectDIR/init/.lmodrc.lua
+OutputDIR/.lmodrc.lua
+ Lmod Property Table: 
+propT = {
+  arch = {
+    displayT = {
+      gpu = {
+        ["color"] = "red",
+        ["doc"] = "built for GPU",
+        ["long"] = "(g)",
+        ["short"] = "(g)",
+      },
+      ["gpu:mic"] = {
+        ["color"] = "red",
+        ["doc"] = "built natively for MIC and GPU",
+        ["long"] = "(g,m)",
+        ["short"] = "(gm)",
+      },
+      ["gpu:mic:offload"] = {
+        ["color"] = "red",
+        ["doc"] = "built natively for MIC and GPU and offload to the MIC",
+        ["long"] = "(g,m,o)",
+        ["short"] = "(@)",
+      },
+      mic = {
+        ["color"] = "blue",
+        ["doc"] = "built for host and native MIC",
+        ["long"] = "(m)",
+        ["short"] = "(m)",
+      },
+      ["mic:offload"] = {
+        ["color"] = "blue",
+        ["doc"] = "built for host, native MIC and offload to the MIC",
+        ["long"] = "(m,o)",
+        ["short"] = "(*)",
+      },
+      offload = {
+        ["color"] = "blue",
+        ["doc"] = "built for offload to the MIC only",
+        ["long"] = "(o)",
+        ["short"] = "(o)",
+      },
+    },
+    validT = {
+      ["gpu"] = 1,
+      ["mic"] = 1,
+      ["offload"] = 1,
+    },
+  },
+  lmod = {
+    displayT = {
+      sticky = {
+        ["color"] = "red",
+        ["doc"] = "Module is Sticky, requires --force to unload or purge",
+        ["long"] = "(S)",
+        ["short"] = "(S)",
+      },
+    },
+    validT = {
+      ["sticky"] = 1,
+    },
+  },
+}

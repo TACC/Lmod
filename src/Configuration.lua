@@ -131,11 +131,11 @@ end
 function M.report(self)
    local a   = {}
    local tbl = self.tbl
-   a[#a+1]   = {"Name", "Value", "Description",}
-   a[#a+1]   = {"----", "-----", "-----------",}
+   a[#a+1]   = {"Description", "Value", }
+   a[#a+1]   = {"-----------", "-----", }
    
    for k, v in pairsByKeys(tbl) do
-      a[#a+1] = {k, v.value, v.doc }
+      a[#a+1] = {v.doc, v.value }
    end
 
    local b = {}
