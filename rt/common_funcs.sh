@@ -18,6 +18,7 @@ cleanUp ()
        -e "s|unsetenv _ModuleTable..._;||g"               \
        -e "s|unset _ModuleTable..._;||g"                  \
        -e "s|unset _ModuleTable..._;||g"                  \
+       -e "s|$outputDir|OutputDIR|g"                      \
        -e "s|$projectDir|ProjectDIR|g"                    \
        -e "s| *\-\-\-\-* *||g"                            \
        -e "s|\-%%\-.*||g"                                 \
