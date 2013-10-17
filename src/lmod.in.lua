@@ -126,7 +126,7 @@ local unpack       = unpack or table.unpack
 local timer        = Timer:timer()
 
 function set_duplication()
-   local dups = getenv("LMOD_DUPLICATE_PATH") or LMOD_DUPLICATE_PATH or "no"
+   local dups = LMOD_DUPLICATE_PATHS
    dups       = dups:lower()
    if (dups == "yes") then
       dbg.print("Allowing duplication in paths\n")

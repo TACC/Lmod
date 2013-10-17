@@ -19,7 +19,7 @@ testdescript = {
      initStdEnvVars
      MODULEPATH=$(testDir)/mf/;         export MODULEPATH
      MODULEPATH_ROOT=$(projectDir)/mf;  export MODULEPATH_ROOT
-     LMOD_DUPLICATE_PATH=yes;           export LMOD_DUPLICATE_PATH
+     LMOD_DUPLICATE_PATHS=yes;          export LMOD_DUPLICATE_PATHS
 
      numStep=0
      COUNT=0
@@ -35,7 +35,7 @@ testdescript = {
      runMe lua $(projectDir)/src/lmod.in.lua bash unload c          # 6
      runMe lua $(projectDir)/src/lmod.in.lua bash unload d          # 7
 
-     LMOD_DUPLICATE_PATH=no;           export LMOD_DUPLICATE_PATH
+     LMOD_DUPLICATE_PATHS=no;          export LMOD_DUPLICATE_PATHS
      runMe lua $(projectDir)/src/lmod.in.lua bash load a b c        # 8
      runMe lua $(projectDir)/src/lmod.in.lua bash load d            # 9
      runMe lua $(projectDir)/src/lmod.in.lua bash unload a          #10

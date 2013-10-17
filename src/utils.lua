@@ -412,9 +412,9 @@ end
 
 local s_readRC     = false
 RCFileA = {
-   pathJoin(getenv("HOME"),".lmodrc.lua"),
-   pathJoin(cmdDir(),"../../etc/.lmodrc.lua"),
    pathJoin(cmdDir(),"../init/.lmodrc.lua"),
+   pathJoin(cmdDir(),"../../etc/.lmodrc.lua"),
+   pathJoin(getenv("HOME"),".lmodrc.lua"),
    os.getenv("LMOD_RC"),
 }
 
@@ -427,21 +427,24 @@ function readRC()
    
    declare("propT",       false)
    declare("scDescriptT", false)
-   local results = {}
-
 
    for i = 1,#RCFileA do
-      local f  = RCFileA[i]
-      dbg.print("readRC: f: ",f,"\n")
+      local f        = RCFileA[i]
       local fh = io.open(f)
       if (fh) then
          assert(loadfile(f))()
+         s_rcFileA[#s_rcFileA+1] = f
          fh:close()
-         break
+      end
+      local propT       = _G.propT or {} 
+      local scDescriptT = _G.scDescriptT   or {}
+      for k,v in pairs(propT) do
+         s_propT[k] = v
+      end
+      for k,v in pairs(scDescriptT) do
+         s_scDescriptT[k] = v
       end
    end
-   s_propT       = _G.propT         or {}
-   s_scDescriptT = _G.scDescriptT   or {}
    dbg.fini("readRC")
 end
 
@@ -451,6 +454,10 @@ end
 
 function getSCDescriptT()
    return s_scDescriptT
+end
+
+function getRCFileA()
+   return s_rcFileA
 end
 
 --------------------------------------------------------------------------

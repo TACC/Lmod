@@ -37,9 +37,13 @@ require("strict")
 require("capture")
 require("fileOps")
 require("pairsByKeys")
+require("serializeTbl")
+require("utils")
 local BeautifulTbl = require('BeautifulTbl')
-local dbg          = require('Dbg'):dbg()
 local Version      = require("Version")
+local concatTbl    = table.concat
+local dbg          = require('Dbg'):dbg()
+local rep          = string.rep
 local M            = {}
 
 s_configuration   = false
@@ -90,23 +94,28 @@ local function new(self)
    local settarg_support = "@lmod_settarg_support@"
    local pkgName         = Pkg.name() or "unknown"
    local lmod_colorize   = getenv("LMOD_COLORIZE") or "@colorize@"
+   local scDescriptT     = getSCDescriptT()
+   local numSC           = #scDescriptT
 
    local tbl = {}
-   tbl.prefix     = { doc = "Lmod prefix"                 , value = "@PREFIX@",          }  
-   tbl.path_lua   = { doc = "Path to Lua"                 , value = "@path_to_lua@",     }
-   tbl.path_pager = { doc = "Path to Pager"               , value = "@path_to_pager@",   }
-   tbl.path_hash  = { doc = "Path to HashSum"             , value = "@path_to_hashsum@", }
-   tbl.settarg    = { doc = "Supporting Full Settarg Use" , value = settarg_support,     }
-   tbl.dot_files  = { doc = "Using dotfiles"              , value = "@use_dot_files@",   }
-   tbl.lmodV      = { doc = "Lmod version"                , value = lmod_version,        }
-   tbl.ancient    = { doc = "User cache valid time(sec)"  , value = "@ancient@",         }
-   tbl.short_tm   = { doc = "Write cache after (sec)"     , value = "@short_time@",      }
-   tbl.prpnd_blk  = { doc = "Prepend order"               , value = "@prepend_block@",   }
-   tbl.colorize   = { doc = "Colorize Lmod"               , value = lmod_colorize,       }
-   tbl.mpath_root = { doc = "MODULEPATH_ROOT"             , value = "@modulepath_root@", }
-   tbl.pkg        = { doc = "Pkg Class name"              , value = pkgName,             }
-   tbl.sitePkg    = { doc = "Site Pkg location"           , value = locSitePkg,          }
-   tbl.luaV       = { doc = "Lua Version"                 , value = _VERSION,            }
+   tbl.prefix     = { doc = "Lmod prefix"                 , value = "@PREFIX@",           }  
+   tbl.dupPaths   = { doc = "Allow duplicate paths"       , value = LMOD_DUPLICATE_PATHS, }
+   tbl.path_lua   = { doc = "Path to Lua"                 , value = "@path_to_lua@",      }
+   tbl.path_pager = { doc = "Path to Pager"               , value = "@path_to_pager@",    }
+   tbl.path_hash  = { doc = "Path to HashSum"             , value = "@path_to_hashsum@",  }
+   tbl.settarg    = { doc = "Supporting Full Settarg Use" , value = settarg_support,      }
+   tbl.dot_files  = { doc = "Using dotfiles"              , value = "@use_dot_files@",    }
+   tbl.numSC      = { doc = "number of cache dirs",       , value = numSC,                }
+   tbl.lmodV      = { doc = "Lmod version"                , value = lmod_version,         }
+   tbl.ancient    = { doc = "User cache valid time(sec)"  , value = "@ancient@",          }
+   tbl.short_tm   = { doc = "Write cache after (sec)"     , value = "@short_time@",       }
+   tbl.prpnd_blk  = { doc = "Prepend order"               , value = "@prepend_block@",    }
+   tbl.colorize   = { doc = "Colorize Lmod"               , value = lmod_colorize,        }
+   tbl.mpath_root = { doc = "MODULEPATH_ROOT"             , value = "@modulepath_root@",  }
+   tbl.pkg        = { doc = "Pkg Class name"              , value = pkgName,              }
+   tbl.sitePkg    = { doc = "Site Pkg location"           , value = locSitePkg,           }
+   tbl.luaV       = { doc = "Lua Version"                 , value = _VERSION,             }
+
    o.tbl = tbl
    return o
 end
@@ -130,8 +139,46 @@ function M.report(self)
       end
    end
 
+   local b = {}
    local bt = BeautifulTbl:new{tbl=a}
-   return bt:build_tbl()
+   b[#b+1]  = bt:build_tbl()
+   b[#b+1]  = "\n"
+   
+   local rcFileA = getRCFileA()
+   if (#rcFileA) then
+      b[#b+1] = "Active RC file(s):"
+      b[#b+1] = "------------------"
+      for i = 1, #rcFileA do
+         b[#b+1] = rcFileA[i]
+      end
+      b[#b+1]  = "\n"
+   end         
+
+
+   local scDescriptT = getSCDescriptT()
+   if (#scDescriptT > 0) then
+      a = {}
+      a[#a+1]   = {"Cache Directory",  "Time Stamp File",}
+      a[#a+1]   = {"---------------",  "---------------",}
+      for i = 1, #scDescriptT do
+         a[#a+1] = { scDescriptT.dir, scDescriptT.timestamp}
+      end
+      bt = BeautifulTbl:new{tbl=a}
+      b[#b+1]  = bt:build_tbl()
+      b[#b+1]  = "\n"
+   end
+
+   local twidth = TermWidth()
+   local banner = rep("-", twidth - 2)
+   local str    = " Lmod Property Table: "
+   b[#b+1]  = banner
+   b[#b+1]  = str
+   b[#b+1]  = banner
+   b[#b+1]  = "\n"
+   b[#b+1]  = serializeTbl{ indent = true, name="propT", value = getPropT() }
+   b[#b+1]  = "\n"
+
+   return concatTbl(b,"\n")
 end
 return M
 

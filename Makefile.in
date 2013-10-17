@@ -5,6 +5,7 @@ COLORIZE          	 := $(shell echo "@COLORIZE@"      | tr '[:upper:]' '[:lower:
 ZSH_SITE_FUNCTIONS_DIR   := @ZSH_SITE_FUNCTIONS_DIR@
 SPIDER_CACHE_DESCRIPT_FN := @SPIDER_CACHE_DESCRIPT_FN@
 ANCIENT           	 := @ANCIENT@
+DUPLICATE_PATHS          := @DUPLICATE_PATHS@
 SHORT_TIME        	 := @SHORT_TIME@
 SPIDER_CACHE_DIRS 	 := @SPIDER_CACHE_DIRS@
 PATH_TO_HASHSUM   	 := @PATH_TO_HASHSUM@
@@ -101,6 +102,7 @@ __installMe:
 	        -e 's|@ancient@|$(ANCIENT)|g'                         	   \
 	        -e 's|@prepend_block@|$(PREPEND_BLOCK)|g'             	   \
 	        -e 's|@colorize@|$(COLORIZE)|g'                       	   \
+	        -e 's|@duplicate_paths@|$(DUPLICATE_PATHS)|g'      	   \
 	        -e 's|@short_time@|$(SHORT_TIME)|g'                   	   \
 	        -e 's|@cacheDirs@|$(SPIDER_CACHE_DIRS)|g'             	   \
 	        -e 's|@updateSystemFn@|$(UPDATE_SYSTEM_FN)|g'         	   \
