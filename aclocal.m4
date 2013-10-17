@@ -23,6 +23,7 @@ echo "Install dir................................." : $prefix
 echo
 echo "MODULEPATH_ROOT............................." : $MODULEPATH_ROOT
 echo "Wait (s) before rebuilting cache............" : $ANCIENT
+echo "Allow Duplicate Paths......................." : $DUPLICATE_PATHS
 echo "Do not save Cache if build time < .........." : $SHORT_TIME
 echo "SPIDER_CACHE_DIRS..........................." : $SPIDER_CACHE_DIRS
 echo "Prepending multiple dirs (NORMAL / REVERSED)" : $PREPEND_BLOCK

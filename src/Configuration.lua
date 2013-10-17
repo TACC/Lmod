@@ -37,10 +37,12 @@ require("strict")
 require("capture")
 require("fileOps")
 require("pairsByKeys")
+require("utils")
 local BeautifulTbl = require('BeautifulTbl')
-local dbg          = require('Dbg'):dbg()
-local concatTbl    = table.concat
 local Version      = require("Version")
+local concatTbl    = table.concat
+local dbg          = require('Dbg'):dbg()
+local rep          = string.rep
 local M            = {}
 
 s_configuration   = false
@@ -90,8 +92,6 @@ local function new(self)
       lmod_version = lmod_version:gsub("[)(]","")
    end
 
-   local rcFile = findRCFile() or "unknown"
-
    local tbl = {}
    tbl.prefix          = { doc = "Lmod prefix"                     , value = "@PREFIX@",               }
    tbl.path_to_lua     = { doc = "Path to Lua"                     , value = "@path_to_lua@",          }
@@ -103,9 +103,9 @@ local function new(self)
    tbl.short_time      = { doc = "Write cache after (sec)"         , value = "@short_time@",           }
    tbl.prepend_block   = { doc = "Prepend order"                   , value = "@prepend_block@",        }
    tbl.colorize        = { doc = "Colorize Lmod"                   , value = "@colorize@",             }
+   tbl.duplicatePaths  = { doc = "Allow duplicate paths"           , value = LMOD_DUPLICATE_PATHS,     }
    tbl.pkg             = { doc = "Pkg Class name"                  , value = Pkg.name() or "unknown",  }
    tbl.sitePkg         = { doc = "Site Pkg location"               , value = locSitePkg,               }
-   tbl.lmodrc          = { doc = "Lmod Configuration File"         , value = rcFile,                   }
    tbl.luaV            = { doc = "Lua Version"                     , value = _VERSION,                 }
    o.tbl = tbl
    return o
@@ -127,17 +127,22 @@ function M.report(self)
    for k, v in pairsByKeys(tbl) do
       a[#a+1] = {k, v.value, v.doc }
    end
+   
+   local twidth = TermWidth()
+   local rcFile = findRCFile()
+   local banner = rep("-", twidth - 2)
+   local str    = " Lmod Configuration file: " .. rcFile
 
    local bt = BeautifulTbl:new{tbl=a}
    local a  = {}
    a[#a+1]  = bt:build_tbl()
    a[#a+1]  = "\n"
-   a[#a+1]  = "-------------------------"
-   a[#a+1]  = " Lmod Configuration file:"
-   a[#a+1]  = "-------------------------"
+   a[#a+1]  = banner
+   a[#a+1]  = str
+   a[#a+1]  = banner
    a[#a+1]  = "\n"
 
-   local fh = io.open(tbl.lmodrc.value)
+   local fh = io.open(rcFile)
    local s  = fh:read("*all")
    fh:close()
    a[#a+1]  = s

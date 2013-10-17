@@ -74,11 +74,11 @@ varTbl      = {}
 Cversion      = 3
 
 ------------------------------------------------------------------------
--- LMOD_DUPLICATE_PATH:  Allow the same path to be stored in PATH like
+-- LMOD_DUPLICATE_PATHS:  Allow the same path to be stored in PATH like
 --                       vars like PATH, LD_LIBRARY_PATH, etc
 ------------------------------------------------------------------------
 
-LMOD_DUPLICATE_PATH = os.getenv("LMOD_DUPLICATE_PATH") or "@duplicate_path@"
+LMOD_DUPLICATE_PATHS = os.getenv("LMOD_DUPLICATE_PATHS") or "@duplicate_paths@" 
 
 ------------------------------------------------------------------------
 -- defaultMpathA: The array of paths that are hold the default
