@@ -1,0 +1,75 @@
+-- -*- lua -*-
+local testName = "colorize"
+testdescript = {
+   owner   = "rtm",
+   product = "modules",
+   description = [[
+	 Test initial module colorize
+   ]],
+   keywords = {testName },
+
+   active = 1,
+   testName = testName,
+   job_submit_method = "INTERACTIVE",
+
+   runScript = [[
+
+     . $(projectDir)/rt/common_funcs.sh
+
+     unsetMT
+     initStdEnvVars
+     MODULEPATH=$(testDir)/mf;     export MODULEPATH
+     numStep=0
+     COUNT=0
+     ORIG_HOME=`(cd $HOME; /bin/pwd)`
+     HOME=`/bin/pwd`
+
+     rm -f  _stderr.* _stdout.* err.* out.*
+     rm -fr .lmod.d .lmodrc.lua
+
+     cp $(testDir)/.lmodrc.lua .
+
+     runMe lua $(projectDir)/src/lmod.in.lua bash --version                  # 1
+     export LMOD_COLORIZE=FORCE
+     export LMOD_TERM_WIDTH=59
+     runMe lua $(projectDir)/src/lmod.in.lua bash avail                      # 2
+     export LMOD_TERM_WIDTH=71
+     runMe lua $(projectDir)/src/lmod.in.lua bash avail                      # 3
+     export LMOD_TERM_WIDTH=76
+     runMe lua $(projectDir)/src/lmod.in.lua bash avail                      # 4
+     export LMOD_TERM_WIDTH=85
+     runMe lua $(projectDir)/src/lmod.in.lua bash avail                      # 5
+     export LMOD_TERM_WIDTH=97
+     runMe lua $(projectDir)/src/lmod.in.lua bash avail                      # 6
+     export LMOD_TERM_WIDTH=108
+     runMe lua $(projectDir)/src/lmod.in.lua bash avail                      # 6
+     export LMOD_TERM_WIDTH=119
+     runMe lua $(projectDir)/src/lmod.in.lua bash avail                      # 6
+
+     HOME=$ORIG_HOME
+
+
+
+     cat _stdout.[0-9][0-9] > _stdout.orig
+     joinBase64Results  -bash  _stdout.orig _stdout.new
+     cleanUp _stdout.new out.txt
+
+     cat _stderr.[0-9][0-9] > _stderr.orig
+     cleanUp _stderr.orig err.txt
+
+     rm -f $(cmdResultFn)
+     wrapperDiff -r $(cmdResultFn) $(testDir)/out.txt out.txt
+     wrapperDiff -r $(cmdResultFn) $(testDir)/err.txt err.txt
+     testFinish -c $(cmdResultFn) -r $(resultFn) -t $(runtimeFn)
+   ]],
+
+
+   blessScript = [[
+         # perform what is needed
+   ]],
+
+   tests = {
+      { id='t1'},
+   },
+
+}

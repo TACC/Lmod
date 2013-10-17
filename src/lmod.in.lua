@@ -540,6 +540,10 @@ function main()
       colorize = plain
    end
 
+   if (lmod_colorize:lower() == "force") then
+      colorize = full_colorize
+   end
+
 
    dbg.set_prefix(colorize("red","Lmod"))
 

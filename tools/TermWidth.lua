@@ -52,10 +52,12 @@ function TermWidth()
    if (s_width) then
       return s_width
    end
+   s_DFLT  = tonumber(getenv("LMOD_TERM_WIDTH")) or s_DFLT
    s_width = s_DFLT
    if (getenv("TERM") and term and term.isatty(io.stderr)) then
       s_width = tonumber(capture("tput cols")) or s_DFLT
    end
+
 
    s_width = (s_width > 30) and s_width or 30
 
