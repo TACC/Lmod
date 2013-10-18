@@ -50,6 +50,9 @@ function findInPath(exec, path)
    local result  = ""
    if ( exec == nil) then return result end
 
+   local i,j = exec:find(" ")
+   if (
+
    if (exec:find("/")) then
       if (posix.access(exec,"x")) then
          return exec

@@ -61,11 +61,14 @@ end
 function usePager(f, ...)
    dbg.start("usePager()")
    if (not s_pager) then
-      s_pager = os.getenv("PAGER") or Pager
-      s_pager = findInPath(s_pager)
+      local pager = os.getenv("PAGER") or Pager
+      s_pager = findInPath(pager)
       if (s_pager == "") then
          bypassPager(f, ...)
          return
+      end
+      if (pager == "more") then
+         s_pager = s_pager .. " -f"
       end
    end
    local p = io.popen(s_pager .. " 1>&2" ,"w")
