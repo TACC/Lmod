@@ -49,12 +49,17 @@ local concatTbl = table.concat
 function findInPath(exec, path)
    local result  = ""
    if ( exec == nil) then return result end
+   exec = exec:trim()
+   local i = exec:find(" ")
+   local cmd  = exec
+   local tail = ""
+   if (i) then
+      cmd  = exec:find(1,i-1)
+      tail = exec:find(i)
+   end
 
-   local i,j = exec:find(" ")
-   if (
-
-   if (exec:find("/")) then
-      if (posix.access(exec,"x")) then
+   if (cmd:find("/")) then
+      if (posix.access(cmd,"x")) then
          return exec
       else
          return result
@@ -63,9 +68,9 @@ function findInPath(exec, path)
 
    path    = path or os.getenv("PATH")
    for dir in path:split(":") do
-      local cmd = pathJoin(dir, exec)
-      if (posix.access(cmd,"x")) then
-         result = cmd
+      local fullcmd = pathJoin(dir, cmd)
+      if (posix.access(fullcmd,"x")) then
+         result = fullcmd .. tail
          break
       end
    end

@@ -35,6 +35,14 @@
 require("strict")
 local dbg       = require("Dbg"):dbg()
 local concatTbl = table.concat
+
+local function argsPack(...)
+   local  arg = { n = select ("#", ...), ...}
+   return arg
+end
+
+local pack        = (_VERSION == "Lua 5.1") and argsPack or table.pack
+
 --------------------------------------------------------------------------
 -- Pager: This file provides two ways to use the pager.  If stderr is
 --        connected to a term and it is configured for it, stderr will be
@@ -43,16 +51,16 @@ local concatTbl = table.concat
 
 s_pager = false
 
+
 --------------------------------------------------------------------------
 -- bypassPager(): all input arguments to stream f
 
 function bypassPager(f, ...)
-   local arg = { n = select('#', ...), ...}
+   local arg = pack(...)
    for i = 1, arg.n do
       f:write(arg[i])
    end
 end
-
 
 --------------------------------------------------------------------------
 -- usePager(): Use pager to present input arguments to user via whatever
@@ -60,20 +68,22 @@ end
 
 function usePager(f, ...)
    dbg.start("usePager()")
-   if (not s_pager) then
-      local pager = os.getenv("PAGER") or Pager
-      s_pager = findInPath(pager)
-      if (s_pager == "") then
-         bypassPager(f, ...)
-         return
-      end
-      if (pager == "more") then
-         s_pager = s_pager .. " -f"
-      end
-   end
    local p = io.popen(s_pager .. " 1>&2" ,"w")
    local s = concatTbl({...},"")
    p:write(s)
    p:close()
    dbg.fini()
+end
+
+--------------------------------------------------------------------------
+-- buildPager(): Return usePager if PAGER exists otherwise,  return bypassPager
+
+function buildPager()
+   local func  = bypassPager
+   local pager = os.getenv("PAGER") or Pager
+   s_pager     = findInPath(pager)
+   if (s_pager and s_pager ~= "") then
+      func     = usePager
+   end
+   return func
 end
