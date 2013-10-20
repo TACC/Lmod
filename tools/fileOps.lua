@@ -54,8 +54,8 @@ function findInPath(exec, path)
    local cmd  = exec
    local tail = ""
    if (i) then
-      cmd  = exec:find(1,i-1)
-      tail = exec:find(i)
+      cmd  = exec:sub(1,i-1)
+      tail = exec:sub(i)
    end
 
    if (cmd:find("/")) then
