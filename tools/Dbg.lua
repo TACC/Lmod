@@ -145,8 +145,11 @@ function M.set_prefix(prefix)
 end
 
 function M.activateDebug(self, level, indentLevel)
-   level = level or 1
-   if (level > 0) then
+   level = tonumber(level) or 1
+   if (level == 0) then
+      self.start            = M.Start
+      self.fini             = M.Fini
+   elseif (level > 0) then
       self.print            = M.Debug
       self.printA           = M.PrintA
       self.textA            = M.TextA

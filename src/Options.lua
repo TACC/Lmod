@@ -90,9 +90,16 @@ function M.options(self, usage)
    }
 
    cmdlineParser:add_option{
-      name   = {"-D","--debug"},
+      name   = {"-D"},
       dest   = "debug",
       action = "store_true",
+      help   = "Program tracing written to stderr",
+   }
+
+   cmdlineParser:add_option{
+      name   = {"--debug"},
+      dest   = "dbglvl",
+      action = "store",
       help   = "Program tracing written to stderr",
    }
 

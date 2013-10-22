@@ -740,7 +740,8 @@ function M.unload(mA)
    
    -- Try to reload any sticky modules.
 
-   if (mStack:empty() and not masterTbl().force) then
+   if (M.safeToUpdate() and mt:safeToCheckZombies() and mStack:empty() and
+       not masterTbl().force) then
       local stuckA   = {}
       local unstuckA = {}
       local stickyA  = mt:getStickyA()
