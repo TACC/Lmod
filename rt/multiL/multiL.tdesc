@@ -34,23 +34,23 @@ testdescript = {
      lua $(projectDir)/src/spider.in.lua -o moduleT $MODULEPATH > $HOME/.lmod.d/.cache/moduleT.lua
      lua $(projectDir)/src/spider.in.lua -o dbT     $MODULEPATH > $HOME/dbT.lua
 
-     runMe lua $(projectDir)/src/lmod.in.lua bash --version                  # 1
-     runMe lua $(projectDir)/src/lmod.in.lua bash avail                      # 2
-     runMe lua $(projectDir)/src/lmod.in.lua bash spider                     # 3
-     runMe lua $(projectDir)/src/lmod.in.lua bash load cmplr/gcc             # 4
-     runMe lua $(projectDir)/src/lmod.in.lua bash avail                      # 5
-     runMe lua $(projectDir)/src/lmod.in.lua bash load mpi/mpich2            # 6
-     runMe lua $(projectDir)/src/lmod.in.lua bash load parLib/petsc          # 7
-     runMe lua $(projectDir)/src/lmod.in.lua bash list                       # 8
-     runMe lua $(projectDir)/src/lmod.in.lua bash avail                      # 9
-     runMe lua $(projectDir)/src/lmod.in.lua bash unload cmplr/gcc           #10
-     runMe lua $(projectDir)/src/lmod.in.lua bash load cmplr/gcc             #11
-     runMe lua $(projectDir)/src/lmod.in.lua bash swap cmplr/gcc cmplr/intel #12
-     runMe lua $(projectDir)/src/lmod.in.lua bash list                       #13
-     runMe lua $(projectDir)/src/lmod.in.lua bash unload cmplr/intel/13.1    #14
-     runMe lua $(projectDir)/src/lmod.in.lua bash list                       #15
-     runMe lua $(projectDir)/src/lmod.in.lua bash load cmplr/intel/13.1      #16
-     runMe lua $(projectDir)/src/lmod.in.lua bash list                       #17
+     runLmod --version                  # 1
+     runLmod avail                      # 2
+     runLmod spider                     # 3
+     runLmod load cmplr/gcc             # 4
+     runLmod avail                      # 5
+     runLmod load mpi/mpich2            # 6
+     runLmod load parLib/petsc          # 7
+     runLmod list                       # 8
+     runLmod avail                      # 9
+     runLmod unload cmplr/gcc           #10
+     runLmod load cmplr/gcc             #11
+     runLmod swap cmplr/gcc cmplr/intel #12
+     runLmod list                       #13
+     runLmod unload cmplr/intel/13.1    #14
+     runLmod list                       #15
+     runLmod load cmplr/intel/13.1      #16
+     runLmod list                       #17
 
      HOME=$ORIG_HOME
 

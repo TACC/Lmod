@@ -28,10 +28,10 @@ testdescript = {
 
      cp $(projectDir)/init/.lmodrc.lua .
 
-     runMe lua $(projectDir)/src/lmod.in.lua bash --version                  # 1
-     runMe lua $(projectDir)/src/lmod.in.lua bash use -a $(testDir)/mf/Core  # 2
-     runMe lua $(projectDir)/src/lmod.in.lua bash load PrgEnv                # 3
-     runMe lua $(projectDir)/src/lmod.in.lua bash list                       # 4
+     runLmod --version                  # 1
+     runLmod use -a $(testDir)/mf/Core  # 2
+     runLmod load PrgEnv                # 3
+     runLmod list                       # 4
 
      HOME=$ORIG_HOME
 

@@ -30,12 +30,12 @@ testdescript = {
      rm -fr _stderr.* _stdout.* err.* out.* .lmod.d
 
      LMOD_PACKAGE_PATH=$(testDir)/mf/site-scripts; export LMOD_PACKAGE_PATH
-     runMe lua $(projectDir)/src/lmod.in.lua bash --version               # 1
-     runMe lua $(projectDir)/src/lmod.in.lua bash load gcc python         # 2
-     runMe lua $(projectDir)/src/lmod.in.lua bash list                    # 3
-     runMe lua $(projectDir)/src/lmod.in.lua bash save default            # 4
-     runMe lua $(projectDir)/src/lmod.in.lua bash restore                 # 5
-     runMe lua $(projectDir)/src/lmod.in.lua bash spider                  # 6
+     runLmod --version               # 1
+     runLmod load gcc python         # 2
+     runLmod list                    # 3
+     runLmod save default            # 4
+     runLmod restore                 # 5
+     runLmod spider                  # 6
 
      HOME=$HOME_ORIG
      export HOME

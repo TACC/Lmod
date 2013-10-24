@@ -31,11 +31,11 @@ testdescript = {
 
      mkdir -p $HOME/.lmod.d/.cache
 
-     runMe lua $(projectDir)/src/lmod.in.lua bash --version                  # 1
-     runMe lua $(projectDir)/src/lmod.in.lua bash --help                     # 2
-     runMe lua $(projectDir)/src/lmod.in.lua bash help                       # 3
-     runMe lua $(projectDir)/src/lmod.in.lua bash help amber                 # 4
-     runMe lua $(projectDir)/src/lmod.in.lua bash --config                   # 5
+     runLmod --version                  # 1
+     runLmod --help                     # 2
+     runLmod help                       # 3
+     runLmod help amber                 # 4
+     runLmod --config                   # 5
      HOME=$ORIG_HOME
 
      cat _stdout.[0-9][0-9] > _stdout.orig

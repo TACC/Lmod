@@ -26,9 +26,9 @@ testdescript = {
      rm -f  _stderr.* _stdout.* err.* out.*
      rm -fr .lmod.d
 
-     runMe lua $(projectDir)/src/lmod.in.lua bash --version                # 1
-     runMe lua $(projectDir)/src/lmod.in.lua bash use -a $testDir/mf/core  # 2
-     runMe lua $(projectDir)/src/lmod.in.lua bash spider pmetis/4.1        # 3
+     runLmod --version                # 1
+     runLmod use -a $testDir/mf/core  # 2
+     runLmod spider pmetis/4.1        # 3
 
      HOME=$ORIG_HOME
 

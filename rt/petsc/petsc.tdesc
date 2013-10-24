@@ -34,11 +34,11 @@ testdescript = {
      lua $(projectDir)/src/spider.in.lua -o moduleT $MODULEPATH > $HOME/.lmod.d/.cache/moduleT.lua
      lua $(projectDir)/src/spider.in.lua -o dbT     $MODULEPATH > $HOME/dbT.lua
 
-     runMe lua $(projectDir)/src/lmod.in.lua bash --version                  # 1
-     runMe lua $(projectDir)/src/lmod.in.lua bash load intel mvapich2        # 2
-     runMe lua $(projectDir)/src/lmod.in.lua bash avail                      # 3
-     runMe lua $(projectDir)/src/lmod.in.lua bash spider                     # 4
-     runMe lua $(projectDir)/src/lmod.in.lua bash spider pet                 # 5
+     runLmod --version                  # 1
+     runLmod load intel mvapich2        # 2
+     runLmod avail                      # 3
+     runLmod spider                     # 4
+     runLmod spider pet                 # 5
 
      HOME=$ORIG_HOME
 

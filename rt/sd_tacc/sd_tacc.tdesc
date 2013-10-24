@@ -36,14 +36,14 @@ testdescript = {
 
      rm -rf $HOME/.lmod.d
 
-     runMe lua $(projectDir)/src/lmod.in.lua bash --version         # 1
-     runMe lua $(projectDir)/src/lmod.in.lua bash load TACC.orig    # 2
-     runMe lua $(projectDir)/src/lmod.in.lua bash save              # 3
+     runLmod --version         # 1
+     runLmod load TACC.orig    # 2
+     runLmod save              # 3
 
-     runMe lua $(projectDir)/src/lmod.in.lua bash purge             # 4
+     runLmod purge             # 4
      PATH=$PATH_to_LUA:$PATH
-     runMe lua $(projectDir)/src/lmod.in.lua bash load TACC         # 5
-     runMe lua $(projectDir)/src/lmod.in.lua bash save              # 6
+     runLmod load TACC         # 5
+     runLmod save              # 6
 
      HOME=$HOME_ORIG
      export HOME

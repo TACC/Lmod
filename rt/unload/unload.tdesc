@@ -33,13 +33,13 @@ testdescript = {
      mkdir -p $HOME/.lmod.d/.cache
      lua $(projectDir)/src/spider.in.lua -o moduleT $MODULEPATH > $HOME/.lmod.d/.cache/moduleT.lua
 
-     runMe lua $(projectDir)/src/lmod.in.lua bash --version                  # 1
-     runMe lua $(projectDir)/src/lmod.in.lua bash spider                     # 2
-     runMe lua $(projectDir)/src/lmod.in.lua bash load intel                 # 3
-     runMe lua $(projectDir)/src/lmod.in.lua bash load mpich2 petsc          # 4
-     runMe lua $(projectDir)/src/lmod.in.lua bash avail                      # 5
-     runMe lua $(projectDir)/src/lmod.in.lua bash list                       # 6
-     runMe lua $(projectDir)/src/lmod.in.lua bash unload intel               # 7
+     runLmod --version                  # 1
+     runLmod spider                     # 2
+     runLmod load intel                 # 3
+     runLmod load mpich2 petsc          # 4
+     runLmod avail                      # 5
+     runLmod list                       # 6
+     runLmod unload intel               # 7
 
      HOME=$ORIG_HOME
 

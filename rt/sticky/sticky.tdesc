@@ -29,29 +29,29 @@ testdescript = {
 
      rm -fr _stderr.* _stdout.* err.* out.* .lmod.d
 
-     runMe lua $(projectDir)/src/lmod.in.lua bash --version          # 1
-     runMe lua $(projectDir)/src/lmod.in.lua bash load std           # 2
-     runMe lua $(projectDir)/src/lmod.in.lua bash list               # 3
-     runMe lua $(projectDir)/src/lmod.in.lua bash unload std         # 4
-     runMe lua $(projectDir)/src/lmod.in.lua bash list               # 5
-     runMe lua $(projectDir)/src/lmod.in.lua bash load gcc boost     # 6
-     runMe lua $(projectDir)/src/lmod.in.lua bash list               # 7
-     runMe lua $(projectDir)/src/lmod.in.lua bash purge              # 8
-     runMe lua $(projectDir)/src/lmod.in.lua bash --force purge      # 9
-     runMe lua $(projectDir)/src/lmod.in.lua bash list               #10
-     runMe lua $(projectDir)/src/lmod.in.lua bash load std           #11
-     runMe lua $(projectDir)/src/lmod.in.lua bash rm std             #12
-     runMe lua $(projectDir)/src/lmod.in.lua bash list               #13
-     runMe lua $(projectDir)/src/lmod.in.lua bash --force rm std     #14
-     runMe lua $(projectDir)/src/lmod.in.lua bash list               #15
-     runMe lua $(projectDir)/src/lmod.in.lua bash load StdEnv        #16
-     runMe lua $(projectDir)/src/lmod.in.lua bash list               #17
-     runMe lua $(projectDir)/src/lmod.in.lua bash load StdEnv        #18
-     runMe lua $(projectDir)/src/lmod.in.lua bash list               #19
-     runMe lua $(projectDir)/src/lmod.in.lua bash unload a b         #20
-     runMe lua $(projectDir)/src/lmod.in.lua bash list               #21
-     runMe lua $(projectDir)/src/lmod.in.lua bash purge              #22
-     runMe lua $(projectDir)/src/lmod.in.lua bash list               #23
+     runLmod --version          # 1
+     runLmod load std           # 2
+     runLmod list               # 3
+     runLmod unload std         # 4
+     runLmod list               # 5
+     runLmod load gcc boost     # 6
+     runLmod list               # 7
+     runLmod purge              # 8
+     runLmod --force purge      # 9
+     runLmod list               #10
+     runLmod load std           #11
+     runLmod rm std             #12
+     runLmod list               #13
+     runLmod --force rm std     #14
+     runLmod list               #15
+     runLmod load StdEnv        #16
+     runLmod list               #17
+     runLmod load StdEnv        #18
+     runLmod list               #19
+     runLmod unload a b         #20
+     runLmod list               #21
+     runLmod purge              #22
+     runLmod list               #23
 
 
 

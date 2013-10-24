@@ -25,15 +25,15 @@ testdescript = {
 
      rm -fr _stderr.*  _stdout.* out.* err.* .lmod.d
 
-     runMe lua $(projectDir)/src/lmod.in.lua bash --version           # 1
-     runMe lua $(projectDir)/src/lmod.in.lua bash show gcc            # 2
-     runMe lua $(projectDir)/src/lmod.in.lua bash show alex           # 3
-     runMe lua $(projectDir)/src/lmod.in.lua bash avail               # 4
-     runMe lua $(projectDir)/src/lmod.in.lua bash show boost          # 5
-     runMe lua $(projectDir)/src/lmod.in.lua bash load boost/1.47.1   # 6
-     runMe lua $(projectDir)/src/lmod.in.lua bash list                # 7
-     runMe lua $(projectDir)/src/lmod.in.lua bash show boost          # 8
-     runMe lua $(projectDir)/src/lmod.in.lua bash show boost/1.49.0   # 9
+     runLmod --version           # 1
+     runLmod show gcc            # 2
+     runLmod show alex           # 3
+     runLmod avail               # 4
+     runLmod show boost          # 5
+     runLmod load boost/1.47.1   # 6
+     runLmod list                # 7
+     runLmod show boost          # 8
+     runLmod show boost/1.49.0   # 9
 
 
      cat _stdout.[0-9][0-9] > _stdout.orig

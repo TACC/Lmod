@@ -32,9 +32,9 @@ testdescript = {
 
      rm -fr _stderr.* _stdout.* err.* out.* .lmod.d
 
-     runMe lua $(projectDir)/src/lmod.in.lua bash --version                      # 1
-     runMe lua $(projectDir)/src/lmod.in.lua bash use -a $projectDir/mf/Core     # 2
-     runMe lua $(projectDir)/src/lmod.in.lua bash load admin intel               # 3
+     runLmod --version                      # 1
+     runLmod use -a $projectDir/mf/Core     # 2
+     runLmod load admin intel               # 3
 
      HOME=$ORIG_HOME
      cat _stdout.[0-9][0-9] > _stdout.orig

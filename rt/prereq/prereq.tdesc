@@ -25,23 +25,23 @@ testdescript = {
 
      rm -fr _stderr.* _stdout.* err.* out.* .lmod.d
 
-     runMe lua $(projectDir)/src/lmod.in.lua bash --version          #  1
-     runMe lua $(projectDir)/src/lmod.in.lua bash load petsc         #  2
-     runMe lua $(projectDir)/src/lmod.in.lua bash load slepc/3.0.0   #  3
-     runMe lua $(projectDir)/src/lmod.in.lua bash unload slepc       #  4
-     runMe lua $(projectDir)/src/lmod.in.lua bash unload petsc       #  5
-     runMe lua $(projectDir)/src/lmod.in.lua bash load slepc         #  6
-     runMe lua $(projectDir)/src/lmod.in.lua bash load petsc/2.9.0   #  7
-     runMe lua $(projectDir)/src/lmod.in.lua bash load slepc         #  8
-     runMe lua $(projectDir)/src/lmod.in.lua bash load slepc/2.9.0   #  9
-     runMe lua $(projectDir)/src/lmod.in.lua bash load petsc/3.1.0   # 10
-     runMe lua $(projectDir)/src/lmod.in.lua bash load slepc         # 11
-     runMe lua $(projectDir)/src/lmod.in.lua bash unload slepc petsc # 12
-     runMe lua $(projectDir)/src/lmod.in.lua bash load petsc/3.1.0   # 13
-     runMe lua $(projectDir)/src/lmod.in.lua bash load slepc/2.9.0   # 14
-     runMe lua $(projectDir)/src/lmod.in.lua bash load junk/1.0      # 15
-     runMe lua $(projectDir)/src/lmod.in.lua bash load jdk32         # 16
-     runMe lua $(projectDir)/src/lmod.in.lua bash load junk/1.0      # 17
+     runLmod --version          #  1
+     runLmod load petsc         #  2
+     runLmod load slepc/3.0.0   #  3
+     runLmod unload slepc       #  4
+     runLmod unload petsc       #  5
+     runLmod load slepc         #  6
+     runLmod load petsc/2.9.0   #  7
+     runLmod load slepc         #  8
+     runLmod load slepc/2.9.0   #  9
+     runLmod load petsc/3.1.0   # 10
+     runLmod load slepc         # 11
+     runLmod unload slepc petsc # 12
+     runLmod load petsc/3.1.0   # 13
+     runLmod load slepc/2.9.0   # 14
+     runLmod load junk/1.0      # 15
+     runLmod load jdk32         # 16
+     runLmod load junk/1.0      # 17
 
      PATH=$ORIGPATH
      export PATH

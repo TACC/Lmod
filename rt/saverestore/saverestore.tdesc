@@ -36,25 +36,25 @@ testdescript = {
      rm -fr _stderr.* _stdout.* err.* out.* .lmod.d
 
      LMOD_PACKAGE_PATH=$(testDir);      export LMOD_PACKAGE_PATH
-     runMe lua $(projectDir)/src/lmod.in.lua bash --version               # 1
-     runMe lua $(projectDir)/src/lmod.in.lua bash load TACC               # 2
-     runMe lua $(projectDir)/src/lmod.in.lua bash load pgi/7.2-5          # 3
-     runMe lua $(projectDir)/src/lmod.in.lua bash list                    # 4
-     runMe lua $(projectDir)/src/lmod.in.lua bash save default            # 5
-     runMe lua $(projectDir)/src/lmod.in.lua bash restore                 # 6
-     runMe lua $(projectDir)/src/lmod.in.lua bash list                    # 7
-     runMe lua $(projectDir)/src/lmod.in.lua bash use $(testDir)/TACC2    # 8
-     runMe lua $(projectDir)/src/lmod.in.lua bash load a                  # 9
-     runMe lua $(projectDir)/src/lmod.in.lua bash list                    #10
-     runMe lua $(projectDir)/src/lmod.in.lua bash save                    #11
+     runLmod --version               # 1
+     runLmod load TACC               # 2
+     runLmod load pgi/7.2-5          # 3
+     runLmod list                    # 4
+     runLmod save default            # 5
+     runLmod restore                 # 6
+     runLmod list                    # 7
+     runLmod use $(testDir)/TACC2    # 8
+     runLmod load a                  # 9
+     runLmod list                    #10
+     runLmod save                    #11
 
-     runMe lua $(projectDir)/src/lmod.in.lua bash purge                   #12
+     runLmod purge                   #12
      unsetMT
      MODULEPATH=$(testDir)/TACC
 
-     runMe lua $(projectDir)/src/lmod.in.lua bash restore                 #13
-     runMe lua $(projectDir)/src/lmod.in.lua bash list                    #14
-     runMe lua $(projectDir)/src/lmod.in.lua bash spider                  #15
+     runLmod restore                 #13
+     runLmod list                    #14
+     runLmod spider                  #15
 
      HOME=$HOME_ORIG
      export HOME

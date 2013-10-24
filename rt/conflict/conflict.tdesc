@@ -29,12 +29,12 @@ testdescript = {
      rm -fr _stderr.* _stdout.* err.* out.* .lmod.d
      cp $(projectDir)/init/.lmodrc.lua .
 
-     runMe lua $(projectDir)/src/lmod.in.lua bash --version                                      # 1
-     runMe lua $(projectDir)/src/lmod.in.lua bash load a b                                       # 2
-     runMe lua $(projectDir)/src/lmod.in.lua bash load c                                         # 3
-     runMe lua $(projectDir)/src/lmod.in.lua bash list                                           # 4
-     runMe lua $(projectDir)/src/lmod.in.lua bash swap a c                                       # 5
-     runMe lua $(projectDir)/src/lmod.in.lua bash list                                           # 6
+     runLmod --version                                      # 1
+     runLmod load a b                                       # 2
+     runLmod load c                                         # 3
+     runLmod list                                           # 4
+     runLmod swap a c                                       # 5
+     runLmod list                                           # 6
 
      HOME=$ORIG_HOME
      cat _stdout.[0-9][0-9] > _stdout.orig

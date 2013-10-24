@@ -28,19 +28,19 @@ testdescript = {
 
      rm -fr _stderr.* _stdout.* err.* out.* .lmod.d
 
-     runMe lua $(projectDir)/src/lmod.in.lua bash --version        # 1
-     runMe lua $(projectDir)/src/lmod.in.lua bash load intel       # 2
-     runMe lua $(projectDir)/src/lmod.in.lua bash load mpich       # 3
-     runMe lua $(projectDir)/src/lmod.in.lua bash unload mpich     # 4
-     runMe lua $(projectDir)/src/lmod.in.lua bash unload intel     # 5
-     runMe lua $(projectDir)/src/lmod.in.lua bash load intel mpich # 6
-     runMe lua $(projectDir)/src/lmod.in.lua bash unload intel     # 7
-     runMe lua $(projectDir)/src/lmod.in.lua bash load intel       # 8
-     runMe lua $(projectDir)/src/lmod.in.lua bash load settarg     # 9
-     runMe lua $(projectDir)/src/lmod.in.lua bash unload settarg   #10
+     runLmod --version        # 1
+     runLmod load intel       # 2
+     runLmod load mpich       # 3
+     runLmod unload mpich     # 4
+     runLmod unload intel     # 5
+     runLmod load intel mpich # 6
+     runLmod unload intel     # 7
+     runLmod load intel       # 8
+     runLmod load settarg     # 9
+     runLmod unload settarg   #10
 
-     runMe lua $(projectDir)/src/lmod.in.lua bash save             #11
-     runMe lua $(projectDir)/src/lmod.in.lua bash restore          #12
+     runLmod save             #11
+     runLmod restore          #12
 
      HOME_ORIG=$HOME
 

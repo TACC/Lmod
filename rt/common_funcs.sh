@@ -54,6 +54,11 @@ runMe ()
    runBase "$@"
    eval `cat _stdout.$NUM`
 }
+runLmod ()
+{
+   runBase lua $projectDir/src/lmod.in.lua bash "$@"
+   eval `cat _stdout.$NUM`
+}
 initStdEnvVars()
 {
   unset LIBPATH

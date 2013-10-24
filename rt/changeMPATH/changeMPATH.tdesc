@@ -30,32 +30,32 @@ testdescript = {
      rm -rf _stderr.* _stdout.* err.* out.* .lmod.d
      cp $(projectDir)/init/.lmodrc.lua .
 
-     runMe lua $(projectDir)/src/lmod.in.lua bash --version                        # 1
-     runMe lua $(projectDir)/src/lmod.in.lua bash load admin PrgEnv                # 2
-     runMe lua $(projectDir)/src/lmod.in.lua bash save default                     # 3
+     runLmod --version                        # 1
+     runLmod load admin PrgEnv                # 2
+     runLmod save default                     # 3
 
-     runMe lua $(projectDir)/src/lmod.in.lua bash purge                            # 4
+     runLmod purge                            # 4
      unsetMT
      MODULEPATH=$(testDir)/mf/Core:$(projectDir)/mf/Core
 
-     runMe lua $(projectDir)/src/lmod.in.lua bash restore                          # 5
+     runLmod restore                          # 5
 
-     runMe lua $(projectDir)/src/lmod.in.lua bash purge                            # 6
+     runLmod purge                            # 6
      unsetMT
      MODULEPATH=$(projectDir)/mf/Core
 
-     runMe lua $(projectDir)/src/lmod.in.lua bash use  $(testDir)/mf/Core          # 7
-     runMe lua $(projectDir)/src/lmod.in.lua bash load admin PrgEnv                # 8
-     runMe lua $(projectDir)/src/lmod.in.lua bash list                             # 9
-     runMe lua $(projectDir)/src/lmod.in.lua bash save default                     #10
+     runLmod use  $(testDir)/mf/Core          # 7
+     runLmod load admin PrgEnv                # 8
+     runLmod list                             # 9
+     runLmod save default                     #10
 
-     runMe lua $(projectDir)/src/lmod.in.lua bash purge                            #11
+     runLmod purge                            #11
      unsetMT
      MODULEPATH=$(projectDir)/mf/Core
 
-     runMe lua $(projectDir)/src/lmod.in.lua bash restore                          #12
-     runMe lua $(projectDir)/src/lmod.in.lua bash list                             #13
-     runMe lua $(projectDir)/src/lmod.in.lua bash save foo                         #14
+     runLmod restore                          #12
+     runLmod list                             #13
+     runLmod save foo                         #14
 
      HOME=$ORIG_HOME
      cat _stdout.[0-9][0-9] > _stdout.orig

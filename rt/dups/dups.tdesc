@@ -27,21 +27,21 @@ testdescript = {
 
      rm -fr _stderr.* _stdout.* err.* out.* .lmod.d
 
-     runMe lua $(projectDir)/src/lmod.in.lua bash --version         # 1
-     runMe lua $(projectDir)/src/lmod.in.lua bash load a b c        # 2
-     runMe lua $(projectDir)/src/lmod.in.lua bash load d            # 3
-     runMe lua $(projectDir)/src/lmod.in.lua bash unload a          # 4
-     runMe lua $(projectDir)/src/lmod.in.lua bash unload b          # 5
-     runMe lua $(projectDir)/src/lmod.in.lua bash unload c          # 6
-     runMe lua $(projectDir)/src/lmod.in.lua bash unload d          # 7
+     runLmod --version         # 1
+     runLmod load a b c        # 2
+     runLmod load d            # 3
+     runLmod unload a          # 4
+     runLmod unload b          # 5
+     runLmod unload c          # 6
+     runLmod unload d          # 7
 
      LMOD_DUPLICATE_PATHS=no;          export LMOD_DUPLICATE_PATHS
-     runMe lua $(projectDir)/src/lmod.in.lua bash load a b c        # 8
-     runMe lua $(projectDir)/src/lmod.in.lua bash load d            # 9
-     runMe lua $(projectDir)/src/lmod.in.lua bash unload a          #10
-     runMe lua $(projectDir)/src/lmod.in.lua bash unload b          #11
-     runMe lua $(projectDir)/src/lmod.in.lua bash unload c          #12
-     runMe lua $(projectDir)/src/lmod.in.lua bash unload d          #13
+     runLmod load a b c        # 8
+     runLmod load d            # 9
+     runLmod unload a          #10
+     runLmod unload b          #11
+     runLmod unload c          #12
+     runLmod unload d          #13
 
 
      cat _stdout.[0-9][0-9] > _stdout.orig

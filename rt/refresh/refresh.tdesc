@@ -32,9 +32,9 @@ testdescript = {
 
      mkdir -p $HOME/.lmod.d/.cache
 
-     runMe lua $(projectDir)/src/lmod.in.lua bash --version                  # 1
-     runMe lua $(projectDir)/src/lmod.in.lua bash load a b c                 # 2
-     runMe lua $(projectDir)/src/lmod.in.lua bash refresh                    # 3
+     runLmod --version                  # 1
+     runLmod load a b c                 # 2
+     runLmod refresh                    # 3
 
      HOME=$ORIG_HOME
 

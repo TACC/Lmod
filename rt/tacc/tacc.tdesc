@@ -26,19 +26,19 @@ testdescript = {
 
      rm -fr _stderr.* _stdout.* err.* out.* .lmod.d
 
-     runMe lua $(projectDir)/src/lmod.in.lua bash --version             # 1
-     runMe lua $(projectDir)/src/lmod.in.lua bash avail                 # 2
-     runMe lua $(projectDir)/src/lmod.in.lua bash load TACC             # 3
-     runMe lua $(projectDir)/src/lmod.in.lua bash help mvapich1         # 4
-     runMe lua $(projectDir)/src/lmod.in.lua bash list                  # 5
-     runMe lua $(projectDir)/src/lmod.in.lua bash --latest load pgi     # 6
-     runMe lua $(projectDir)/src/lmod.in.lua bash list                  # 7
-     runMe lua $(projectDir)/src/lmod.in.lua bash load pgi              # 8
-     runMe lua $(projectDir)/src/lmod.in.lua bash list                  # 9
-     runMe lua $(projectDir)/src/lmod.in.lua bash --latest swap pgi pgi #10
-     runMe lua $(projectDir)/src/lmod.in.lua bash list                  #11
-     runMe lua $(projectDir)/src/lmod.in.lua bash unload cluster        #12 
-     runMe lua $(projectDir)/src/lmod.in.lua bash purge                 #13
+     runLmod --version             # 1
+     runLmod avail                 # 2
+     runLmod load TACC             # 3
+     runLmod help mvapich1         # 4
+     runLmod list                  # 5
+     runLmod --latest load pgi     # 6
+     runLmod list                  # 7
+     runLmod load pgi              # 8
+     runLmod list                  # 9
+     runLmod --latest swap pgi pgi #10
+     runLmod list                  #11
+     runLmod unload cluster        #12 
+     runLmod purge                 #13
 
      PATH=$ORIGPATH
      export PATH

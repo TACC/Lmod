@@ -24,12 +24,12 @@ testdescript = {
 
      rm -fr  _stderr.* _stdout.* err.* out.* .lmod.d
 
-     runMe lua $(projectDir)/src/lmod.in.lua bash --version         # 1
-     runMe lua $(projectDir)/src/lmod.in.lua bash load PrgEnv       # 2
-     runMe lua $(projectDir)/src/lmod.in.lua bash add junk/d        # 3
-     runMe lua $(projectDir)/src/lmod.in.lua bash add junk/a/c      # 4
-     runMe lua $(projectDir)/src/lmod.in.lua bash list              # 5
-     runMe lua $(projectDir)/src/lmod.in.lua bash del junk/a/c/1.0  # 6
+     runLmod --version         # 1
+     runLmod load PrgEnv       # 2
+     runLmod add junk/d        # 3
+     runLmod add junk/a/c      # 4
+     runLmod list              # 5
+     runLmod del junk/a/c/1.0  # 6
 
 
 
