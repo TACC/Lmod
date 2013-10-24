@@ -379,7 +379,7 @@ function Purge()
    end
    dbg.start("Purge(",concatTbl(totalA,", "),")")
 
-   MCP:unload(mA)
+   MCP:unload_usr(mA)
    
    -- Make Default Path be the new MODULEPATH
    mt:buildMpathA(mt:getBaseMPATH())
@@ -797,7 +797,7 @@ end
 
 function UnLoad(...)
    dbg.start("UnLoad(",concatTbl({...},", "),")")
-   MCP:unload(MName:buildA("mt", ...))
+   MCP:unload_usr(MName:buildA("mt", ...))
    dbg.fini("UnLoad")
 end
 

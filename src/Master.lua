@@ -625,7 +625,7 @@ function M.reloadAll()
             dbg.print("Master:reloadAll Unloading module: \"",sn,"\"\n")
             local ma = {}
             ma[1] = mname
-            mcp:unloadsys(ma)
+            mcp:unload(ma)
             dbg.print("Master:reloadAll Loading module: \"",userName or "nil","\"\n")
             local loadA = mcp:load(ma)
             dbg.print("Master:reloadAll: fn: \"",fn or "nil",
@@ -737,48 +737,57 @@ function M.unload(mA)
 
    mcp = mcp_old
    dbg.print("Resetting mcp to ", mcp:name(),"\n")
-   
+   dbg.fini("Master:unload")
+   return a
+end   
+ 
+
+function M.reload_sticky(self)
+
+   dbg.start("Master:reload_sticky()")
    -- Try to reload any sticky modules.
+   if (masterTbl().force) then
+      dbg.fini("Master:reload_sticky")
+      return
+   end
 
-   if (M.safeToUpdate() and mt:safeToCheckZombies() and mStack:empty() and
-       not masterTbl().force) then
-      local stuckA   = {}
-      local unstuckA = {}
-      local stickyA  = mt:getStickyA()
-      for i = 1, #stickyA do
-         local entry = stickyA[i]
-         local mname = MName:new("entryT",entry)
-         local t     = mname:find()
-         if (t.fn == entry.FN) then
-            local ma = {}
-            ma[1] = mname
-            MCP:load(ma)
-         end
-         local sn = mname:sn()
-         if (mt:have(sn,"active")) then
-            local j   = #stuckA+1
-            stuckA[j] = { string.format("%3d)",j) , mt:fullName(sn) }
-         else
-            local j   = #unstuckA+1
-            unstuckA[j] = { string.format("%3d)",j) , mname:usrName() }
-         end
-      end
+   local mt     = MT:mt()
 
-      if (#stuckA > 0) then
-         io.stderr:write("\nThe following sticky modules were not unloaded:\n")
-         io.stderr:write("   (Use \"module --force purge\" to unload):\n\n")
-         local ct = ColumnTable:new{tbl=stuckA, gap=0}
-         io.stderr:write(ct:build_tbl(),"\n")
+   local stuckA   = {}
+   local unstuckA = {}
+   local stickyA  = mt:getStickyA()
+   for i = 1, #stickyA do
+      local entry = stickyA[i]
+      local mname = MName:new("entryT",entry)
+      local t     = mname:find()
+      if (t.fn == entry.FN) then
+         local ma = {}
+         ma[1] = mname
+         MCP:load(ma)
       end
-      if (#unstuckA > 0) then
-         io.stderr:write("\nThe following sticky modules could not be reloaded:\n")
-         local ct = ColumnTable:new{tbl=unstuckA, gap=0}
-         io.stderr:write(ct:build_tbl(),"\n")
+      local sn = mname:sn()
+      if (mt:have(sn,"active")) then
+         local j   = #stuckA+1
+         stuckA[j] = { string.format("%3d)",j) , mt:fullName(sn) }
+      else
+         local j   = #unstuckA+1
+         unstuckA[j] = { string.format("%3d)",j) , mname:usrName() }
       end
    end
 
-   dbg.fini("Master:unload")
-   return a
+   if (#stuckA > 0) then
+      io.stderr:write("\nThe following sticky modules were not unloaded:\n")
+      io.stderr:write("   (Use \"module --force purge\" to unload):\n\n")
+      local ct = ColumnTable:new{tbl=stuckA, gap=0}
+      io.stderr:write(ct:build_tbl(),"\n")
+   end
+   if (#unstuckA > 0) then
+      io.stderr:write("\nThe following sticky modules could not be reloaded:\n")
+      local ct = ColumnTable:new{tbl=unstuckA, gap=0}
+      io.stderr:write(ct:build_tbl(),"\n")
+   end
+
+   dbg.fini("Master:reload_sticky")
 end
 
 --------------------------------------------------------------------------

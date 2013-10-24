@@ -48,6 +48,11 @@ testdescript = {
      runMe lua $(projectDir)/src/lmod.in.lua bash list               #17
      runMe lua $(projectDir)/src/lmod.in.lua bash load StdEnv        #18
      runMe lua $(projectDir)/src/lmod.in.lua bash list               #19
+     runMe lua $(projectDir)/src/lmod.in.lua bash unload a b         #20
+     runMe lua $(projectDir)/src/lmod.in.lua bash list               #21
+     runMe lua $(projectDir)/src/lmod.in.lua bash purge              #22
+     runMe lua $(projectDir)/src/lmod.in.lua bash list               #23
+
 
 
      HOME_ORIG=$HOME

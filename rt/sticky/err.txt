@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.1.12 5.1.12-2-g41bbf4f 2013-10-20 09:21
+Modules based on Lua: Version 5.1.13 5.1.13 2013-10-22 20:36
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -21,11 +21,18 @@ Currently Loaded Modules:
 step 4
 lua ProjectDIR/src/lmod.in.lua bash unload std
 ===========================
+The following sticky modules were not unloaded:
+   (Use "module --force purge" to unload):
+  1) std/1.0
 ===========================
 step 5
 lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
-Lmod Warning: No modules installed
+Currently Loaded Modules:
+  1) std/1.0 (m) (S)
+  Where:
+   (S):  Module is Sticky, requires --force to unload or purge
+   (m):  built for host and native MIC
 ===========================
 step 6
 lua ProjectDIR/src/lmod.in.lua bash load gcc boost
@@ -35,13 +42,19 @@ step 7
 lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
 Currently Loaded Modules:
-  1) gcc/4.6   2) boost/1.53.0  (S)
+  1) std/1.0 (m) (S)   2) gcc/4.6   3) boost/1.53.0  (S)
   Where:
    (S):  Module is Sticky, requires --force to unload or purge
+   (m):  built for host and native MIC
 ===========================
 step 8
 lua ProjectDIR/src/lmod.in.lua bash purge
 ===========================
+The following sticky modules were not unloaded:
+   (Use "module --force purge" to unload):
+  1) std/1.0
+The following sticky modules could not be reloaded:
+  1) boost
 ===========================
 step 9
 lua ProjectDIR/src/lmod.in.lua bash --force purge
@@ -59,11 +72,18 @@ lua ProjectDIR/src/lmod.in.lua bash load std
 step 12
 lua ProjectDIR/src/lmod.in.lua bash rm std
 ===========================
+The following sticky modules were not unloaded:
+   (Use "module --force purge" to unload):
+  1) std/1.0
 ===========================
 step 13
 lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
-Lmod Warning: No modules installed
+Currently Loaded Modules:
+  1) std/1.0 (m) (S)
+  Where:
+   (S):  Module is Sticky, requires --force to unload or purge
+   (m):  built for host and native MIC
 ===========================
 step 14
 lua ProjectDIR/src/lmod.in.lua bash --force rm std
@@ -91,6 +111,33 @@ lua ProjectDIR/src/lmod.in.lua bash load StdEnv
 ===========================
 ===========================
 step 19
+lua ProjectDIR/src/lmod.in.lua bash list
+===========================
+Currently Loaded Modules:
+  1) StdEnv  (S)   2) a/1.0   3) b/1.1
+  Where:
+   (S):  Module is Sticky, requires --force to unload or purge
+===========================
+step 20
+lua ProjectDIR/src/lmod.in.lua bash unload a b
+===========================
+===========================
+step 21
+lua ProjectDIR/src/lmod.in.lua bash list
+===========================
+Currently Loaded Modules:
+  1) StdEnv  (S)
+  Where:
+   (S):  Module is Sticky, requires --force to unload or purge
+===========================
+step 22
+lua ProjectDIR/src/lmod.in.lua bash purge
+===========================
+The following sticky modules were not unloaded:
+   (Use "module --force purge" to unload):
+  1) StdEnv
+===========================
+step 23
 lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
 Currently Loaded Modules:

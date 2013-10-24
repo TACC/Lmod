@@ -234,23 +234,22 @@ function M.unload(self, mA)
    mStack:loading()
    local aa     = master.unload(mA)
 
+
+
    dbg.fini("MasterControl:unload")
    return aa
 end
 
+function M.unload_usr(self, mA)
+   dbg.start("MasterControl:unload_usr(mA)")
 
-function M.unloadsys(self, mA)
-   dbg.start("MasterControl.unloadsys(mA)")
+   self:unload(mA)
    local master = Master:master()
-   local mStack = ModuleStack:moduleStack()
-   local mt     = MT:mt()
-   local a      = {}
-
-   mStack:loading()
-   a      = master.unload(mA)
-   dbg.fini("MasterControl.unloadsys")
-   return a
+   local aa = master:reload_sticky()
+   dbg.fini("MasterControl:unload_usr")
+   return aa
 end
+
 
 function M.bad_unload(self,mA)
    local a   = {}
