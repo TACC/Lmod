@@ -4,6 +4,7 @@ cleanUp ()
 
    sed                                                    \
        -e "s|:$PATH_to_LUA:|:|g"                          \
+       -e "s|$PATH_to_LUA/lua|lua|g"                      \
        -e "s|\@git\@|$gitV|g"                             \
        -e "s|:/usr/bin:|:|g"                              \
        -e "s|:/usr/local/bin:|:|g"                        \
@@ -56,9 +57,20 @@ runMe ()
 }
 runLmod ()
 {
-   runBase lua $projectDir/src/lmod.in.lua bash "$@"
+   runBase $LUA_EXEC $projectDir/src/lmod.in.lua bash "$@"
    eval `cat _stdout.$NUM`
 }
+
+buildModuleT {}
+{
+   $LUA_EXEC $projectDir/src/spider.in.lua -o moduleT "$@"
+}
+
+buildDbT {}
+{
+   $LUA_EXEC $projectDir/src/spider.in.lua -o dbT     "$@"
+}
+
 initStdEnvVars()
 {
   unset LIBPATH
@@ -81,7 +93,9 @@ initStdEnvVars()
   PATH_to_LUA=`findcmd --pathOnly lua`
   PATH_to_TM=`findcmd --pathOnly tm`
   PATH_to_SHA1=`findcmd --pathOnly sha1sum`
+  LUA_EXEC=$PATH_to_LUA/lua
 
+  
   export PATH=$projectDir/src:$PATH_to_LUA:$PATH_to_TM:$PATH_to_SHA1:/usr/bin:/bin
 
 }
