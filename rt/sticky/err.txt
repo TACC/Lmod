@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.1.14 5.1.14-2-g630991f 2013-10-23 19:07
+Modules based on Lua: Version 5.2rc1 5.2rc1 2013-10-27 09:20
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -205,6 +205,36 @@ lua ProjectDIR/src/lmod.in.lua bash restore
 Restoring modules to user's default
 ===========================
 step 35
+lua ProjectDIR/src/lmod.in.lua bash list
+===========================
+Currently Loaded Modules:
+  1) M1   2) c/1.7   3) d/1.8
+===========================
+step 36
+lua ProjectDIR/src/lmod.in.lua bash --force purge
+===========================
+===========================
+step 37
+lua ProjectDIR/src/lmod.in.lua bash load c d M1
+===========================
+===========================
+step 38
+lua ProjectDIR/src/lmod.in.lua bash list
+===========================
+Currently Loaded Modules:
+  1) M1   2) c/1.7   3) d/1.8
+===========================
+step 39
+lua ProjectDIR/src/lmod.in.lua bash save
+===========================
+Saved current collection of modules to: default
+===========================
+step 40
+lua ProjectDIR/src/lmod.in.lua bash restore
+===========================
+Restoring modules to user's default
+===========================
+step 41
 lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
 Currently Loaded Modules:

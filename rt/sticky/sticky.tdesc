@@ -64,6 +64,12 @@ testdescript = {
      runLmod save               #33
      runLmod restore            #34
      runLmod list               #35
+     runLmod --force purge      #36
+     runLmod load c d M1        #37
+     runLmod list               #38
+     runLmod save               #39
+     runLmod restore            #40
+     runLmod list               #41
 
 
 
