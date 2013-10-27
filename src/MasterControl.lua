@@ -122,12 +122,14 @@ function M.build(name,mode)
    local nameTbl          = {}
    local MCLoad           = require('MC_Load')
    local MCUnload         = require('MC_Unload')
+   local MCMgrLoad        = require('MC_MgrLoad')
    local MCRefresh        = require('MC_Refresh')
    local MCShow           = require('MC_Show')
    local MCAccess         = require('MC_Access')
    local MCSpider         = require('MC_Spider')
    local MCComputeHash    = require('MC_ComputeHash')
    nameTbl["load"]        = MCLoad
+   nameTbl["mgrload"]     = MCMgrLoad
    nameTbl["unload"]      = MCUnload
    nameTbl["refresh"]     = MCRefresh
    nameTbl["show"]        = MCShow
@@ -240,12 +242,12 @@ function M.unload(self, mA)
    return aa
 end
 
-function M.unload_usr(self, mA)
+function M.unload_usr(self, mA, force)
    dbg.start("MasterControl:unload_usr(mA)")
 
    self:unload(mA)
    local master = Master:master()
-   local aa = master:reload_sticky()
+   local aa = master:reload_sticky(force)
    dbg.fini("MasterControl:unload_usr")
    return aa
 end
@@ -260,6 +262,22 @@ function M.bad_unload(self,mA)
 
    dbg.fini("MasterControl.bad_unload")
 end
+
+
+function M.fake_load(self,mA)
+   local mStack = ModuleStack:moduleStack()
+
+   if (dbg.active()) then
+      local a = {}
+      for i = 1, #mA do
+         a[#a + 1] = mA[i]:usrName()
+      end
+      local s = concatTbl(a, ", ")
+      dbg.start("MasterControl:fake_load(mA={"..s.."})")
+   end
+   mStack:loading()
+   dbg.fini("MasterControl:fake_load")
+end   
 
 
 -------------------------------------------------------------------

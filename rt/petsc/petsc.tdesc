@@ -31,8 +31,8 @@ testdescript = {
      cp $(projectDir)/init/.lmodrc.lua .
 
      mkdir -p $HOME/.lmod.d/.cache
-     lua $(projectDir)/src/spider.in.lua -o moduleT $MODULEPATH > $HOME/.lmod.d/.cache/moduleT.lua
-     lua $(projectDir)/src/spider.in.lua -o dbT     $MODULEPATH > $HOME/dbT.lua
+     buildModuleT $MODULEPATH > $HOME/.lmod.d/.cache/moduleT.lua
+     buildDbT     $MODULEPATH > $HOME/dbT.lua
 
      runLmod --version                  # 1
      runLmod load intel mvapich2        # 2

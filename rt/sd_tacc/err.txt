@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.0.1 (5.0.1-48-g540fa7d) 2013-06-18 14:14
+Modules based on Lua: Version 5.1.14 5.1.14-2-g630991f 2013-10-23 19:07
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -12,10 +12,7 @@ lua ProjectDIR/src/lmod.in.lua bash load TACC.orig
 step 3
 lua ProjectDIR/src/lmod.in.lua bash save
 ===========================
-Lmod Warning: Unable to save module state as a "default"
-The following module(s):
-  TACC.orig, cluster.orig
-mix load statements with setting of environment variables.
+Saved current collection of modules to: default
 ===========================
 step 4
 lua ProjectDIR/src/lmod.in.lua bash purge

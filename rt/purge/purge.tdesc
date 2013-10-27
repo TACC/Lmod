@@ -29,15 +29,15 @@ testdescript = {
      rm -fr _stderr.* _stdout.* err.* out.* .lmod.d
      cp $(projectDir)/init/.lmodrc.lua .
 
-     runLmod --version                            # 1
-     runMe $LUA $(projectDir)/src/lmod.in.lua bash load PrgEnv openmpi                 # 2
-     runMe $LUA $(projectDir)/src/lmod.in.lua bash list                                # 3
-     runMe $LUA $(projectDir)/src/lmod.in.lua bash unload PrgEnv openmpi               # 4
-     runMe $LUA $(projectDir)/src/lmod.in.lua bash list                                # 5
-     runMe $LUA $(projectDir)/src/lmod.in.lua bash load admin PrgEnv openmpi parmetis  # 6
-     runMe $LUA $(projectDir)/src/lmod.in.lua bash list                                # 7
-     runMe $LUA $(projectDir)/src/lmod.in.lua bash purge                               # 8
-     runMe $LUA $(projectDir)/src/lmod.in.lua bash list                                # 9
+     runLmod --version                           # 1
+     runLmod load PrgEnv openmpi                 # 2
+     runLmod list                                # 3
+     runLmod unload PrgEnv openmpi               # 4
+     runLmod list                                # 5
+     runLmod load admin PrgEnv openmpi parmetis  # 6
+     runLmod list                                # 7
+     runLmod purge                               # 8
+     runLmod list                                # 9
 
      HOME=$ORIG_HOME
      PATH=$ORIGINAL_PATH

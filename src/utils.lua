@@ -203,7 +203,6 @@ function getMT()
 end
 
 function allVersions(pathA, n)
-   dbg.start("allVersions(pathA)")
    local lastKey   = ''
    local lastValue = ''
    local result    = nil
@@ -225,14 +224,11 @@ function allVersions(pathA, n)
                 and v:sub(-1,-1) ~= '~') then
                v       = v:gsub("%.lua$","")
                local pv = parseVersion(v)
-               dbg.print("path: ",path," v: ",v," f: ",f,"\n")
                a[#a+1] = {version=v, file=f, idx = i, mpath=vv.mpath, pv=pv}
-               dbg.print("pv: ",pv,"\n")
             end
          end
       end
    end
-   dbg.fini("allVersions")
    return a
 end   
 
@@ -245,9 +241,6 @@ end
 
 
 function lastFileInPathA(pathA, n)
-
-   dbg.start("lastFileInPathA(pathA)")
-
    local lastKey   = ''
    local lastValue = ''
    local result    = nil
@@ -265,8 +258,6 @@ function lastFileInPathA(pathA, n)
    if (lastKey ~= "") then
       result     = lastValue
    end
-   dbg.print("result: ",result,"\n")
-   dbg.fini("lastFileInPathA")
    return result, count
 end
 

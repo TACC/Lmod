@@ -364,7 +364,7 @@ end
 --------------------------------------------------------------------------
 -- Purge():  unload all loaded modules
 
-function Purge()
+function Purge(force)
    local master = Master:master()
    local mt     = MT:mt()
    local totalA  = mt:list("short","any")
@@ -379,7 +379,7 @@ function Purge()
    end
    dbg.start("Purge(",concatTbl(totalA,", "),")")
 
-   MCP:unload_usr(mA)
+   MCP:unload_usr(mA,force)
    
    -- Make Default Path be the new MODULEPATH
    mt:buildMpathA(mt:getBaseMPATH())
@@ -537,16 +537,16 @@ function Save(...)
    end
 
 
-   local aa = mt:safeToSave()
-
-   if (#aa > 0) then
-      LmodWarning("Unable to save module state as a \"default\"\n",
-                  "The following module(s):\n",
-                  "  ",concatTbl(aa,", "),"\n",
-                  "mix load statements with setting of environment variables.\n")
-      dbg.fini("Save")
-      return
-   end
+   --local aa = mt:safeToSave()
+   --
+   --if (#aa > 0) then
+   --   LmodWarning("Unable to save module state as a \"default\"\n",
+   --               "The following module(s):\n",
+   --               "  ",concatTbl(aa,", "),"\n",
+   --               "mix load statements with setting of environment variables.\n")
+   --   dbg.fini("Save")
+   --   return
+   --end
 
    local attr = lfs.attributes(path)
    if (not attr) then

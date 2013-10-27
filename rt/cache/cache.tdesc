@@ -36,7 +36,7 @@ EOF
 
      lua $(projectDir)/src/spiderCacheSupport.in.lua --descriptFn fn >> .lmodrc.lua
      mkdir cacheDir
-     lua $(projectDir)/src/spider.in.lua -o moduleT $MODULEPATH > cacheDir/moduleT.lua.old
+     buildModuleT $MODULEPATH > cacheDir/moduleT.lua.old
      touch last_update
      cp cacheDir/moduleT.lua.old  cacheDir/moduleT.lua
 

@@ -31,7 +31,7 @@ testdescript = {
 
      mkdir -p $HOME/.lmod.d/.cache
 
-     lua $(projectDir)/src/spider.in.lua -o moduleT $MODULEPATH > $HOME/.lmod.d/.cache/moduleT.lua
+     buildModuleT $MODULEPATH > $HOME/.lmod.d/.cache/moduleT.lua
      runLmod --version                  # 1
      runLmod load numpy                 # 2
      runLmod list                       # 3

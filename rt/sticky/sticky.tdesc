@@ -52,6 +52,18 @@ testdescript = {
      runLmod list               #21
      runLmod purge              #22
      runLmod list               #23
+     runLmod save               #24
+     runLmod --force purge      #25
+     runLmod restore            #26
+     runLmod list               #27
+     runLmod restore            #28
+     runLmod list               #29
+     runLmod --force purge      #30
+     runLmod load M1            #31
+     runLmod list               #32
+     runLmod save               #33
+     runLmod restore            #34
+     runLmod list               #35
 
 
 

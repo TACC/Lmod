@@ -1,10 +1,10 @@
 ===========================
 step 1
-/opt/apps/lua/lua/bin/lua ProjectDIR/src/lmod.in.lua bash --version
+lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
 ===========================
 step 2
-/opt/apps/lua/lua/bin/lua ProjectDIR/src/lmod.in.lua bash load admin PrgEnv openmpi parmetis
+lua ProjectDIR/src/lmod.in.lua bash load admin PrgEnv openmpi parmetis
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -48,7 +48,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=8,baseMpathA={"ProjectDIR/mf/Core",
 export _ModuleTable_;
 ===========================
 step 3
-/opt/apps/lua/lua/bin/lua ProjectDIR/src/lmod.in.lua bash purge
+lua ProjectDIR/src/lmod.in.lua bash purge
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -78,7 +78,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/mf/Core",
 export _ModuleTable_;
 ===========================
 step 4
-/opt/apps/lua/lua/bin/lua ProjectDIR/src/lmod.in.lua bash list
+lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -91,7 +91,7 @@ export MODULEPATH;
 false
 ===========================
 step 5
-/opt/apps/lua/lua/bin/lua ProjectDIR/src/lmod.in.lua bash load admin PrgEnv openmpi parmetis
+lua ProjectDIR/src/lmod.in.lua bash load admin PrgEnv openmpi parmetis
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -135,7 +135,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=8,baseMpathA={"ProjectDIR/mf/Core",
 export _ModuleTable_;
 ===========================
 step 6
-/opt/apps/lua/lua/bin/lua ProjectDIR/src/lmod.in.lua bash list
+lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -147,7 +147,7 @@ MODULEPATH="ProjectDIR/mf/MPI/intel/10.1/openmpi/1.2.6:ProjectDIR/mf/Compiler/in
 export MODULEPATH;
 ===========================
 step 7
-/opt/apps/lua/lua/bin/lua ProjectDIR/src/lmod.in.lua bash restore system
+lua ProjectDIR/src/lmod.in.lua bash restore system
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -190,7 +190,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=4,baseMpathA={"ProjectDIR/mf/Core",
 export _ModuleTable_;
 ===========================
 step 8
-/opt/apps/lua/lua/bin/lua ProjectDIR/src/lmod.in.lua bash list
+lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;

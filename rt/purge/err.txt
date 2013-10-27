@@ -2,35 +2,35 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.0.1 (5.0.1-49-g5096f24) 2013-06-18 14:14
+Modules based on Lua: Version 5.1.14 5.1.14-1-g7ec759a 2013-10-23 19:07
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
-/opt/apps/lua/lua/bin/lua ProjectDIR/src/lmod.in.lua bash load PrgEnv openmpi
+lua ProjectDIR/src/lmod.in.lua bash load PrgEnv openmpi
 ===========================
 ===========================
 step 3
-/opt/apps/lua/lua/bin/lua ProjectDIR/src/lmod.in.lua bash list
+lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
 Currently Loaded Modules:
   1) PrgEnv      3) local/local   5) noweb/2.10c
   2) unix/unix   4) intel/intel   6) openmpi/1.2.6
 ===========================
 step 4
-/opt/apps/lua/lua/bin/lua ProjectDIR/src/lmod.in.lua bash unload PrgEnv openmpi
+lua ProjectDIR/src/lmod.in.lua bash unload PrgEnv openmpi
 ===========================
 ===========================
 step 5
-/opt/apps/lua/lua/bin/lua ProjectDIR/src/lmod.in.lua bash list
+lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
 Lmod Warning: No modules installed
 ===========================
 step 6
-/opt/apps/lua/lua/bin/lua ProjectDIR/src/lmod.in.lua bash load admin PrgEnv openmpi parmetis
+lua ProjectDIR/src/lmod.in.lua bash load admin PrgEnv openmpi parmetis
 ===========================
 ===========================
 step 7
-/opt/apps/lua/lua/bin/lua ProjectDIR/src/lmod.in.lua bash list
+lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
 Currently Loaded Modules:
   1) admin/admin-1.0   3) unix/unix     5) intel/intel   7) openmpi/1.2.6
@@ -39,10 +39,10 @@ Currently Loaded Modules:
    (m):  built for host and native MIC
 ===========================
 step 8
-/opt/apps/lua/lua/bin/lua ProjectDIR/src/lmod.in.lua bash purge
+lua ProjectDIR/src/lmod.in.lua bash purge
 ===========================
 ===========================
 step 9
-/opt/apps/lua/lua/bin/lua ProjectDIR/src/lmod.in.lua bash list
+lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
 Lmod Warning: No modules installed

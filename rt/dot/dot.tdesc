@@ -35,7 +35,7 @@ testdescript = {
      runLmod load a/.1.0           # 4
      runLmod list                  # 5
      runLmod purge                 # 6
-     lua $(projectDir)/src/spider.in.lua -o moduleT $LMOD_DEFAULT_MODULEPATH > $HOME/.lmod.d/.cache/moduleT.lua
+     buildModuleT $LMOD_DEFAULT_MODULEPATH > $HOME/.lmod.d/.cache/moduleT.lua
      runLmod spider                # 7
      runLmod spider b              # 8
      runLmod spider b/.2.0         # 9

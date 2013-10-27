@@ -61,12 +61,12 @@ runLmod ()
    eval `cat _stdout.$NUM`
 }
 
-buildModuleT {}
+buildModuleT ()
 {
    $LUA_EXEC $projectDir/src/spider.in.lua -o moduleT "$@"
 }
 
-buildDbT {}
+buildDbT ()
 {
    $LUA_EXEC $projectDir/src/spider.in.lua -o dbT     "$@"
 }

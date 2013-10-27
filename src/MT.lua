@@ -703,32 +703,12 @@ function M.getMTfromFile(self,t)
 
    local activeA = l_mt:list("userName","active")
 
-   ---------------------------------------------
-   -- If any module specified in the "default" file
-   -- is a default then use the short name.  This way
-   -- getting the modules from the "getdefault" specified
-   -- file will work even when the defaults have changed.
-
-   for i = 1,#activeA do
-      local entry = activeA[i]
-      local sn    = entry.sn
-      local name  = entry.name
-      t[sn]       = {name = name, hash = l_mt:getHash(sn)}
-      local mType = l_mt:mType(sn)
-      if (mType == "w") then
-         a[#a+1] = name
-      else
-         m[#m+1] = name
-      end
-      dbg.print("name: ",name," isDefault: ",entry.defaultFlg,
-                " mType: ", mType, "\n")
-   end
-
    local savedBaseMPATH = concatTbl(l_mt.baseMpathA,":")
    dbg.print("Saved baseMPATH: ",savedBaseMPATH,"\n")
    varTbl[ModulePath] = Var:new(ModulePath,mpath)
    dbg.print("(1) varTbl[ModulePath]:expand(): ",varTbl[ModulePath]:expand(),"\n")
-   Purge()
+   local force = true
+   Purge(force)
    dbg.print("(2) varTbl[ModulePath]:expand(): ",mpath,"\n")
 
    ------------------------------------------------------------
@@ -776,16 +756,31 @@ function M.getMTfromFile(self,t)
    varTbl[DfltModPath] = Var:new(DfltModPath,savedBaseMPATH)
 
    -----------------------------------------------------------------------
-   -- Load all the worker bee modules using MCP to guarantee that all
-   -- actions are in the positive.  Then fake load all manager modules.
+   -- Load all modules: use Mgrload for manager modules, regular mcp 
+   -- for rest.
 
-   local MName   = _G.MName
-   local mcp_old = mcp
-   mcp           = MCP
-   mcp:load(MName:buildA("load",unpack(a)))
-   mcp           = mcp_old
-   local master = systemG.Master:master()
-   master.fakeload(MName:buildA("load",unpack(m)))
+   local MName     = _G.MName
+   local mcp_old   = mcp
+   local mcpActive = MCP
+   local mcpMgr    = MasterControl.build("mgrload")
+
+   for i = 1, #activeA do
+      local mA    = {}
+      local entry = activeA[i]
+      local sn    = entry.sn
+      local name  = entry.name
+      mA[1]       = MName:new("load",name)
+      t[sn]       = {name = name, hash = l_mt:getHash(sn)}
+      local mType = l_mt:mType(sn)
+      if (mType == "w") then
+         mcp = mcpActive
+         mcp:load(mA)
+      else
+         mcp = mcpMgr
+         MCP.load(mcp, mA)
+      end
+   end
+   mcp = mcp_old
 
    -----------------------------------------------------------------------
    -- Now check to see that all requested modules got loaded.
@@ -1544,17 +1539,6 @@ end
 function M.remove(self, sn)
    local mT  = self.mT
    mT[sn]    = nil
-end
-
-function M.safeToSave(self)
-   local mT = self.mT
-   local a  = {}
-   for k,v in pairsByKeys(mT) do
-      if (v.status == "active" and v.mType == "mw") then
-         a[#a+1] = k
-      end
-   end
-   return a
 end
 
 --------------------------------------------------------------------------

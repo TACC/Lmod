@@ -68,7 +68,6 @@ LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/TACC";
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/mf/TACC_COMPILER/pgi/7.1:ProjectDIR/mf/TACC";
 export MODULEPATH;
-false
 ===========================
 step 4
 lua ProjectDIR/src/lmod.in.lua bash purge

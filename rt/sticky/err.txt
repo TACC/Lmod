@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.1.13 5.1.13 2013-10-22 20:36
+Modules based on Lua: Version 5.1.14 5.1.14-2-g630991f 2013-10-23 19:07
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -144,3 +144,68 @@ Currently Loaded Modules:
   1) StdEnv  (S)   2) a/1.0   3) b/1.1
   Where:
    (S):  Module is Sticky, requires --force to unload or purge
+===========================
+step 24
+lua ProjectDIR/src/lmod.in.lua bash save
+===========================
+Saved current collection of modules to: default
+===========================
+step 25
+lua ProjectDIR/src/lmod.in.lua bash --force purge
+===========================
+===========================
+step 26
+lua ProjectDIR/src/lmod.in.lua bash restore
+===========================
+Restoring modules to user's default
+===========================
+step 27
+lua ProjectDIR/src/lmod.in.lua bash list
+===========================
+Currently Loaded Modules:
+  1) StdEnv  (S)   2) a/1.0   3) b/1.1
+  Where:
+   (S):  Module is Sticky, requires --force to unload or purge
+===========================
+step 28
+lua ProjectDIR/src/lmod.in.lua bash restore
+===========================
+Restoring modules to user's default
+===========================
+step 29
+lua ProjectDIR/src/lmod.in.lua bash list
+===========================
+Currently Loaded Modules:
+  1) StdEnv  (S)   2) a/1.0   3) b/1.1
+  Where:
+   (S):  Module is Sticky, requires --force to unload or purge
+===========================
+step 30
+lua ProjectDIR/src/lmod.in.lua bash --force purge
+===========================
+===========================
+step 31
+lua ProjectDIR/src/lmod.in.lua bash load M1
+===========================
+===========================
+step 32
+lua ProjectDIR/src/lmod.in.lua bash list
+===========================
+Currently Loaded Modules:
+  1) M1   2) c/1.7   3) d/1.8
+===========================
+step 33
+lua ProjectDIR/src/lmod.in.lua bash save
+===========================
+Saved current collection of modules to: default
+===========================
+step 34
+lua ProjectDIR/src/lmod.in.lua bash restore
+===========================
+Restoring modules to user's default
+===========================
+step 35
+lua ProjectDIR/src/lmod.in.lua bash list
+===========================
+Currently Loaded Modules:
+  1) M1   2) c/1.7   3) d/1.8

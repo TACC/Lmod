@@ -742,11 +742,11 @@ function M.unload(mA)
 end   
  
 
-function M.reload_sticky(self)
+function M.reload_sticky(self, force)
 
    dbg.start("Master:reload_sticky()")
    -- Try to reload any sticky modules.
-   if (masterTbl().force) then
+   if (masterTbl().force or force) then
       dbg.fini("Master:reload_sticky")
       return
    end

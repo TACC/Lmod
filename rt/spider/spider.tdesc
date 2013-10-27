@@ -40,7 +40,7 @@ testdescript = {
      runLmod spider mpich2/1.0.5                                              # 9
 
      mkdir -p $HOME/.lmod.d/.cache
-     lua $(projectDir)/src/spider.in.lua -o moduleT $LMOD_DEFAULT_MODULEPATH > $HOME/.lmod.d/.cache/moduleT.lua
+     buildModuleT $LMOD_DEFAULT_MODULEPATH > $HOME/.lmod.d/.cache/moduleT.lua
      runLmod spider                                                           #10
 
      HOME=$ORIG_HOME

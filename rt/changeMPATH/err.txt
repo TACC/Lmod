@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.1.6 (5.1.6-7-g681bd14) 2013-09-06 19:17
+Modules based on Lua: Version 5.1.14 5.1.14-2-g630991f 2013-10-23 19:07
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -64,8 +64,8 @@ step 13
 lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
 Currently Loaded Modules:
-  1) admin/admin-1.0   3) local/local   5) noweb/2.10c
-  2) unix/unix         4) intel/intel   6) PrgEnv
+  1) admin/admin-1.0   3) unix/unix     5) intel/intel
+  2) PrgEnv            4) local/local   6) noweb/2.10c
 ===========================
 step 14
 lua ProjectDIR/src/lmod.in.lua bash save foo
