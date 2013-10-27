@@ -1,3 +1,27 @@
+Lmod Version 5.2rc1:
+Features:
+  a) Modulefiles can mix load commands and setenv's and still be saved.
+  b) In Lua modulefiles you can modify load function behavior:
+        load(atleast("a","1.2"))       -- load module "a" with version 1.2
+                                       -- or higher.
+        load(between("b","1.2","1.4")  -- load module "b" with version between
+                                       -- 1.2 and 1.4.
+        load(latest("c"))              -- load latest version of "c", ignore
+                                       -- marked default.
+
+     This only works in Lua module files, and works on all load functions:
+     load, always_load.
+  c) In Lua modulefiles you can modify prereq function behavior:
+        prereq(atleast("a","1.2"))      -- Module "a" must be version 1.2 
+                                        -- or higher.
+        prereq(between("b","1.2","1.4") -- Module "b" must be version between
+                                        -- 1.2 and 1.4.
+        prereq(latest("c"))             -- Module "c" must be latest possible
+
+     This only works in Lua module files, and works on all prereq functions:
+     prereq, prereq_any.
+
+
 Lmod Version 5.1.5:
 Bug Fixes:
   a) Changes in the terse output for avail and spider.  A directory
