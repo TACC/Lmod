@@ -291,7 +291,6 @@ LMOD_MP_T[DfltModPath] = true
 
 function M.prepend_path(self, name, value, sep, nodups)
    dbg.start("MasterControl:prepend_path(\"",name,"\", \"",value,"\",\"",sep,"\")")
-   local mStack = ModuleStack:moduleStack()
    sep          = sep or ":"
 
    if (varTbl[name] == nil) then
@@ -301,12 +300,10 @@ function M.prepend_path(self, name, value, sep, nodups)
    nodups = LMOD_MP_T[name]  -- Do not allow dups on MODULEPATH like env vars.
 
    varTbl[name]:prepend(tostring(value), nodups)
-   mStack:setting()
    dbg.fini("MasterControl:prepend_path")
 end
 
 function M.append_path(self, name, value, sep, nodups)
-   local mStack = ModuleStack:moduleStack()
    dbg.start("MasterControl:append_path(\"",name,"\", \"",value,"\",\"",sep,"\")")
    sep          = sep or ":"
 
@@ -314,16 +311,13 @@ function M.append_path(self, name, value, sep, nodups)
       varTbl[name] = Var:new(name, nil, sep)
    end
    varTbl[name]:append(tostring(value), nodups)
-   mStack:setting()
    dbg.fini("MasterControl:append_path")
 end
 
 function M.remove_path(self, name, value, sep, where)
-   local mStack = ModuleStack:moduleStack()
-   sep          = sep or ":"
+   sep = sep or ":"
    dbg.start("MasterControl:remove_path(\"",name,"\", \"",value,"\",\"",
              sep,"\", \"",where,"\")")
-   mStack:setting()
 
    if (varTbl[name] == nil) then
       varTbl[name] = Var:new(name,nil, sep)
@@ -350,7 +344,6 @@ end
 -------------------------------------------------------------------
 
 function M.setenv(self, name, value, respect)
-   local mStack = ModuleStack:moduleStack()
    dbg.start("MasterControl:setenv(\"",name,"\", \"",value,"\", \"",
               respect,")")
    
@@ -365,12 +358,10 @@ function M.setenv(self, name, value, respect)
       varTbl[name] = Var:new(name)
    end
    varTbl[name]:set(tostring(value))
-   mStack:setting()
    dbg.fini("MasterControl:setenv")
 end
 
 function M.unsetenv(self, name, value, respect)
-   local mStack = ModuleStack:moduleStack()
    dbg.start("MasterControl:unsetenv(\"",name,"\", \"",value,"\")")
 
    if (respect and getenv(name) ~= value) then
@@ -383,7 +374,6 @@ function M.unsetenv(self, name, value, respect)
       varTbl[name] = Var:new(name)
    end
    varTbl[name]:unset()
-   mStack:setting()
    dbg.fini("MasterControl:unsetenv")
 end
 
@@ -396,7 +386,6 @@ end
 -------------------------------------------------------------------
 
 function M.pushenv(self, name, value)
-   local mStack = ModuleStack:moduleStack()
    dbg.start("MasterControl:pushenv(\"",name,"\", \"",value,"\")")
 
    ----------------------------------------------------------------
@@ -427,12 +416,10 @@ function M.pushenv(self, name, value)
    end
    varTbl[name]:set(v)
 
-   mStack:setting()
    dbg.fini("MasterControl:pushenv")
 end
 
 function M.popenv(self, name, value)
-   local mStack = ModuleStack:moduleStack()
    dbg.start("MasterControl:popenv(\"",name,"\", \"",value,"\")")
 
    local stackName = "__LMOD_STACK_" .. name
@@ -457,7 +444,6 @@ function M.popenv(self, name, value)
 
    varTbl[name]:set(v)
 
-   mStack:setting()
    dbg.fini("MasterControl:popenv")
 end
 
@@ -467,7 +453,6 @@ end
 -------------------------------------------------------------------
 
 function M.set_alias(self, name, value)
-   local mStack = ModuleStack:moduleStack()
    dbg.start("MasterControl:set_alias(\"",name,"\", \"",value,"\")")
 
 
@@ -475,19 +460,16 @@ function M.set_alias(self, name, value)
       varTbl[name] = Var:new(name)
    end
    varTbl[name]:setAlias(value)
-   mStack:setting()
    dbg.fini("MasterControl:set_alias")
 end
 
 function M.unset_alias(self, name, value)
-   local mStack = ModuleStack:moduleStack()
    dbg.start("MasterControl:unset_alias(\"",name,"\", \"",value,"\")")
 
    if (varTbl[name] == nil) then
       varTbl[name] = Var:new(name)
    end
    varTbl[name]:unsetAlias(value)
-   mStack:setting()
    dbg.fini("MasterControl:unset_alias")
 end
 
@@ -500,7 +482,6 @@ end
 -------------------------------------------------------------------
 
 function M.set_shell_function(self, name, bash_function, csh_function)
-   local mStack = ModuleStack:moduleStack()
    dbg.start("MasterControl:set_shell_function(\"",name,"\", \"",bash_function,"\")",
              "\", \"",csh_function,"\")")
 
@@ -509,12 +490,10 @@ function M.set_shell_function(self, name, bash_function, csh_function)
       varTbl[name] = Var:new(name)
    end
    varTbl[name]:setShellFunction(bash_function, csh_function)
-   mStack:setting()
    dbg.fini("MasterControl:set_shell_function")
 end
 
 function M.unset_shell_function(self, name, bash_function, csh_function)
-   local mStack = ModuleStack:moduleStack()
    dbg.start("MasterControl:unset_shell_function(\"",name,"\", \"",bash_function,"\")",
              "\", \"",csh_function,"\")")
 
@@ -522,7 +501,6 @@ function M.unset_shell_function(self, name, bash_function, csh_function)
       varTbl[name] = Var:new(name)
    end
    varTbl[name]:unsetShellFunction()
-   mStack:setting()
    dbg.fini("MasterControl:unset_shell_function")
 end
 
@@ -535,23 +513,19 @@ end
 -------------------------------------------------------------------
 
 function M.add_property(self, name, value)
-   dbg.start("MasterControl:add_property(\"",name,"\", \"",value,"\")")
    local mStack  = ModuleStack:moduleStack()
    local mFull   = mStack:fullName()
    local mt      = MT:mt()
    local mname   = MName:new("load",mFull)
-   mStack:setting()
    mt:add_property(mname:sn(), name, value)
    dbg.fini("MasterControl:add_property")
 end
 
 function M.remove_property(self, name, value)
-   dbg.start("MasterControl:remove_property(\"",name,"\", \"",value,"\")")
    local mStack  = ModuleStack:moduleStack()
    local mFull   = mStack:fullName()
    local mt      = MT:mt()
    local mname   = MName:new("mt",mFull)
-   mStack:setting()
    mt:remove_property(mname:sn(), name, value)
    dbg.fini("MasterControl:remove_property")
 end
@@ -650,7 +624,6 @@ function M.prereq(self, mA)
    local mFull     = mStack:fullName()
    local masterTbl = masterTbl()
 
-   mStack:setting()
    dbg.start("MasterControl:prereq(mA)")
 
    if (masterTbl.checkSyntax) then
@@ -685,7 +658,6 @@ function M.conflict(self, mA)
    local mStack    = ModuleStack:moduleStack()
    local mFull     = mStack:fullName()
    local masterTbl = masterTbl()
-   mStack:setting()
 
    if (masterTbl.checkSyntax) then
       dbg.print("Ignoring conflicts when syntax checking\n")
@@ -723,7 +695,6 @@ function M.prereq_any(self, mA)
    local mStack    = ModuleStack:moduleStack()
    local mFull     = mStack:fullName()
    local masterTbl = masterTbl()
-   mStack:setting()
 
    dbg.start("MasterControl:prereq_any(mA)")
 
@@ -765,7 +736,6 @@ function M.family(self, name)
    local mname     = MName:new("mt",mFull)
    local sn        = mname:sn()
    local masterTbl = masterTbl()
-   mStack:setting()
 
    dbg.start("MasterControl:family(",name,")")
    if (masterTbl.checkSyntax) then
@@ -827,8 +797,6 @@ end
 
 function M.inherit(self)
    local master = Master:master()
-   local mStack = ModuleStack:moduleStack()
-   mStack:setting()
    dbg.start("MasterControl:inherit()")
 
    master.inheritModule()
@@ -862,8 +830,6 @@ end
 
 function M.execute(self, t)
    dbg.start("MasterControl:execute(t)")
-   local mStack = ModuleStack:moduleStack()
-   mStack:setting()
    local a      = t.modeA or {}
    local myMode = self:mode()
 

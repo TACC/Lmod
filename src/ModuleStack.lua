@@ -69,7 +69,7 @@ local function new(self)
 
    setmetatable(o,self)
    self.__index = self
-   o.stack      = { {full = "lmod_base/0.0", sn = "lmod_base", loadCnt = 0, setCnt = 0, fn = "unknown"} }
+   o.stack      = { {full = "lmod_base/0.0", sn = "lmod_base", loadCnt = 0, fn = "unknown"} }
    return o
 end
 
@@ -95,20 +95,10 @@ function M.loading(self, count)
 end
 
 --------------------------------------------------------------------------
--- ModuleStack:setting(): bump the env. var. set counter.
-
-function M.setting(self)
-   local stack = self.stack
-   local top   = stack[#stack]
-
-   top.setCnt = top.setCnt + 1
-end
-
---------------------------------------------------------------------------
 -- ModuleStack:push(): push current module information on stack.
 
 function M.push(self, full, usrName, sn, fn)
-   local entry = {full = full, usrName = usrName, sn = sn, loadCnt = 0, setCnt = 0, fn= fn}
+   local entry = {full = full, usrName = usrName, sn = sn, loadCnt = 0, fn= fn}
    local stack = self.stack
 
    stack[#stack+1] = entry
@@ -142,11 +132,7 @@ function M.moduleType(self)
    local results = nil
 
    if (top.loadCnt > 0) then
-      if (top.setCnt > 0) then
-         results = "mw"
-      else
-         results = "m"
-      end
+      results = "m"
    else
       results = "w"
    end
