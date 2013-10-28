@@ -290,8 +290,8 @@ LMOD_MP_T[DfltModPath] = true
 
 
 function M.prepend_path(self, name, value, sep, nodups)
+   sep = sep or ":"
    dbg.start("MasterControl:prepend_path(\"",name,"\", \"",value,"\",\"",sep,"\")")
-   sep          = sep or ":"
 
    if (varTbl[name] == nil) then
       varTbl[name] = Var:new(name, nil, sep)
@@ -304,8 +304,8 @@ function M.prepend_path(self, name, value, sep, nodups)
 end
 
 function M.append_path(self, name, value, sep, nodups)
+   sep = sep or ":"
    dbg.start("MasterControl:append_path(\"",name,"\", \"",value,"\",\"",sep,"\")")
-   sep          = sep or ":"
 
    if (varTbl[name] == nil) then
       varTbl[name] = Var:new(name, nil, sep)
