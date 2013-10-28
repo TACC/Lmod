@@ -104,6 +104,13 @@ local function mustLoad(mA)
    end
 end
 
+local function mAList(mA)
+   local a = {}
+   for i = 1, #mA do
+      a[#a + 1] = mA[i]:usrName()
+   end
+   return concatTbl(a, ", ")
+end
 
 function M.name(self)
    return self.my_name
@@ -160,11 +167,7 @@ function M.load(self, mA)
    local mStack = ModuleStack:moduleStack()
 
    if (dbg.active()) then
-      local a = {}
-      for i = 1, #mA do
-         a[#a + 1] = mA[i]:usrName()
-      end
-      local s = concatTbl(a, ", ")
+      local s = mAList(mA)
       dbg.start("MasterControl:load(mA={"..s.."})")
    end
    mStack:loading()
@@ -228,10 +231,14 @@ function M.try_load(self, mA)
 end
 
 function M.unload(self, mA)
-   dbg.start("MasterControl:unload(mA)")
    local master = Master:master()
    local mStack = ModuleStack:moduleStack()
    local mt     = MT:mt()
+
+   if (dbg.active()) then
+      local s = mAList(mA)
+      dbg.start("MasterControl:unload(mA={"..s.."})")
+   end
 
    mStack:loading()
    local aa     = master.unload(mA)
@@ -268,11 +275,7 @@ function M.fake_load(self,mA)
    local mStack = ModuleStack:moduleStack()
 
    if (dbg.active()) then
-      local a = {}
-      for i = 1, #mA do
-         a[#a + 1] = mA[i]:usrName()
-      end
-      local s = concatTbl(a, ", ")
+      local s = mAList(mA)
       dbg.start("MasterControl:fake_load(mA={"..s.."})")
    end
    mStack:loading()
@@ -518,7 +521,6 @@ function M.add_property(self, name, value)
    local mt      = MT:mt()
    local mname   = MName:new("load",mFull)
    mt:add_property(mname:sn(), name, value)
-   dbg.fini("MasterControl:add_property")
 end
 
 function M.remove_property(self, name, value)
@@ -527,7 +529,6 @@ function M.remove_property(self, name, value)
    local mt      = MT:mt()
    local mname   = MName:new("mt",mFull)
    mt:remove_property(mname:sn(), name, value)
-   dbg.fini("MasterControl:remove_property")
 end
 
 function M.bad_remove_property(self, name, value)

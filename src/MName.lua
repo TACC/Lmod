@@ -208,13 +208,11 @@ function M.convert2stringA(self, ...)
 end
 
 local function lazyEval(self)
-   dbg.start("lazyEval(self)")
    local sType = self._sType
    if (sType == "entryT") then
       local t       = self._input
       self._sn      = t.sn
       self._version = extractVersion(t.fullName, t.sn)
-      dbg.fini("lazyEval")
       return
    end
 
@@ -242,7 +240,6 @@ local function lazyEval(self)
    if (self._sn and not self._version) then
       self._version = extractVersion(self._name, self._sn)
    end
-   dbg.fini("lazyEval")
 end
 
 
@@ -251,9 +248,7 @@ end
 
 function M.sn(self)
    if (not self._sn) then
-      dbg.start("MName:sn()")
       lazyEval(self)
-      dbg.fini("MName:sn")
    end
 
    return self._sn
@@ -274,9 +269,7 @@ end
 function M.version(self)
    if (self._sn and self._sn == self._name) then return end
    if (not self._version) then
-      dbg.start("MName:version()")
       lazyEval(self)
-      dbg.fini("MName:version")
    end
    return self._version
 end

@@ -81,7 +81,6 @@ end
 
 local function validateStringArgs(cmdName, ...)
    local arg = pack(...)
-   dbg.print("cmd: ",cmdName, " arg.n: ",arg.n,"\n")
    for i = 1, arg.n do
       local v = arg[i]
       if (type(v) ~= "string") then
