@@ -43,15 +43,16 @@ testdescript = {
      runLmod use -a $testDir/mf/Core                        # 12
      runLmod avail                                          # 13
      runLmod -d avail                                       # 14
-     runLmod load alex                                      # 15
-     runLmod --latest load rtm_intel                        # 16
-     runLmod list                                           # 17
-     runLmod use    $testDir/mf/Share                       # 18
-     runLmod use -a $testDir/mf/Scratch                     # 19
-     runLmod avail A B                                      # 20
-     runLmod load  A B                                      # 21
-     runLmod list                                           # 22
-     runLmod load  DoNotExist                               # 23
+     runLmod load boost/1.57.0                              # 15
+     runLmod load alex                                      # 16
+     runLmod --latest load rtm_intel                        # 17
+     runLmod list                                           # 18
+     runLmod use    $testDir/mf/Share                       # 19
+     runLmod use -a $testDir/mf/Scratch                     # 20
+     runLmod avail A B                                      # 21
+     runLmod load  A B                                      # 22
+     runLmod list                                           # 23
+     runLmod load  DoNotExist                               # 25
 
 
      HOME=$ORIG_HOME

@@ -440,15 +440,23 @@ end
 
 function M.find_latest(self, pathA)
    dbg.start("MName:find_latest(pathA, t)")
-   dbg.print("UserName: ", self:usrName(), "\n")
-   local t         = { fn = nil, modFullName = nil, modName = nil, default = 0}
    local found     = false
+   local t         = { fn = nil, modFullName = nil, modName = nil, default = 0}
+   local usrName   = self:usrName()
+   local sn        = self:sn()
+   dbg.print("UserName: ", self:usrName(), ", sn: ",sn,"\n")
+   if (sn ~= usrName) then
+      dbg.fini("MName:find_latest")
+      return found, t
+   end
+
+
    local result    = nil
    local fullName  = ""
    local modName   = ""
    local Master    = Master
-   local sn        = self:sn()
    
+
    result          = lastFileInPathA(pathA)
    if (result) then
       local file    = result.file

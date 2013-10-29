@@ -290,8 +290,6 @@ LMOD_MP_T = {}
 
 LMOD_MP_T[ModulePath]  = true
 LMOD_MP_T[DfltModPath] = true
-
-
 function M.prepend_path(self, name, value, sep, nodups)
    sep = sep or ":"
    dbg.start("MasterControl:prepend_path(\"",name,"\", \"",value,"\",\"",sep,"\")")
@@ -300,7 +298,9 @@ function M.prepend_path(self, name, value, sep, nodups)
       varTbl[name] = Var:new(name, nil, sep)
    end
 
-   nodups = LMOD_MP_T[name]  -- Do not allow dups on MODULEPATH like env vars.
+
+   -- Do not allow dups on MODULEPATH like env vars.
+   nodups = LMOD_MP_T[name] or nodups
 
    varTbl[name]:prepend(tostring(value), nodups)
    dbg.fini("MasterControl:prepend_path")
@@ -313,6 +313,10 @@ function M.append_path(self, name, value, sep, nodups)
    if (varTbl[name] == nil) then
       varTbl[name] = Var:new(name, nil, sep)
    end
+
+   -- Do not allow dups on MODULEPATH like env vars.
+   nodups = LMOD_MP_T[name] or nodups
+
    varTbl[name]:append(tostring(value), nodups)
    dbg.fini("MasterControl:append_path")
 end
