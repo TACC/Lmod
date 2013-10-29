@@ -326,10 +326,7 @@ function Load_Usr(...)
          end
          local mname = MName:new("load",v)
          local sn    = mname:sn()
-         if (mt:have(sn, "active")) then
-            uA[#uA+1] = mname
-         end
-         lA[#lA+1] = mname
+         lA[#lA+1]   = mname
       end
    end
 
