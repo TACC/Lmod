@@ -11,6 +11,7 @@ cleanUp ()
        -e "s|:$PATH_to_SHA1:|:|g"                         \
        -e "s|^Lmod version.*||g"                          \
        -e "s|^Lua Version.*||g"                           \
+       -e "s|^\(uname -a\).*|\1|g"                        \
        -e "s|^\(TARG_HOST=\).*|\1''|g"                    \
        -e "s|^\(TARG_OS_FAMILY=\).*|\1''|g"               \
        -e "s|^\(TARG_OS=\).*|\1''|g"                      \
