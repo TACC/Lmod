@@ -301,6 +301,8 @@ function M.build(self, fast)
    local masterTbl = masterTbl()
 
    if (masterTbl.ignoreCache or LMOD_IGNORE_CACHE) then
+      dbg.print("LMOD_IGNORE_CACHE is true\n")
+      dbg.fini("Cache:build")
       return nil
    end
 
