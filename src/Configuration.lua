@@ -97,6 +97,7 @@ local function new(self)
    local lmod_colorize   = getenv("LMOD_COLORIZE") or "@colorize@"
    local scDescriptT     = getSCDescriptT()
    local numSC           = #scDescriptT
+   local uname           = capture("uname -a")
 
    local tbl = {}
    tbl.prefix     = { doc = "Lmod prefix"                 , value = "@PREFIX@",           }  
@@ -115,6 +116,7 @@ local function new(self)
    tbl.mpath_root = { doc = "MODULEPATH_ROOT"             , value = "@modulepath_root@",  }
    tbl.pkg        = { doc = "Pkg Class name"              , value = pkgName,              }
    tbl.sitePkg    = { doc = "Site Pkg location"           , value = locSitePkg,           }
+   tbl.uname      = { doc = "uname -a"                    , value = uname,                }
    tbl.luaV       = { doc = "Lua Version"                 , value = _VERSION,             }
 
    o.tbl = tbl
