@@ -52,6 +52,8 @@ local validT =
       SiteName       = false,  -- Hook to specify Site Name
                                -- It is used to generate family
                                -- prefix:  site_FAMILY_
+      msgHook        = false,  -- Hook to print messages after:
+                               -- avail, list, spider
 }
 
 --------------------------------------------------------------------------

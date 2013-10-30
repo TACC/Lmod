@@ -277,6 +277,13 @@ function List(...)
       local ct = ColumnTable:new{tbl=a,gap=0}
       io.stderr:write(ct:build_tbl(),"\n")
    end
+
+   local aa = {}
+   aa = hook.apply("msgHook","list",aa)
+   if (#aa > 0) then
+      io.stderr:write(concatTbl(aa,""))
+   end
+
    dbg.fini("List")
 end
 
@@ -638,12 +645,12 @@ function SpiderCmd(...)
    local s
    Spider.buildSpiderDB({"default"},moduleT, dbT)
 
-   local arg = {n=select('#', ...), ...}
+   local arg = pack(...)
 
    if (arg.n < 1) then
       s = Spider.Level0(dbT)
    else
-      local a = {}
+      local a    = {}
       local help = false
       for i = 1, arg.n do
          if (i == arg.n) then help = true end
@@ -651,7 +658,11 @@ function SpiderCmd(...)
       end
       s = concatTbl(a,"\n")
    end
-   pcall(pager,io.stderr, s, "\n")
+   local a = {}
+   a[#a+1] = s
+   a = hook.apply("msgHook","spider",a)
+
+   pcall(pager,io.stderr, concatTbl(a,""), "\n")
    dbg.fini("SpiderCmd")
 end
 

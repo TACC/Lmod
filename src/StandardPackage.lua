@@ -31,6 +31,9 @@
 --------------------------------------------------------------------------
 
 require("strict")
+require("TermWidth")
+require("fillWords")
+require("string_split")
 PkgBase      = require("PkgBase")
 Pkg          = PkgBase.build("Pkg")
 local hook   = require("Hook")
@@ -54,6 +57,36 @@ local function site_name_hook()
    return "TACC"
 end
 
+
+
+
 hook.register("SiteName",site_name_hook)
+
+local msgT = {
+   avail = [[
+Use "module spider" to find all possible modules.
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".]],
+   list  = [[
+]],
+   spider = [[
+]],
+}
+
+
+local function msg(kind, a)
+   local twidth = TermWidth()
+
+   local s      = msgT[kind] or ""
+   for line in s:split("\n") do
+      a[#a+1] = "\n"
+      a[#a+1] = fillWords("",line,twidth)
+   end
+   a[#a+1] = "\n\n"
+   return a
+end
+
+
+hook.register("msgHook",msg)
+
 
 sandbox_registration { Pkg = Pkg }

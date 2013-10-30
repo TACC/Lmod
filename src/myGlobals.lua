@@ -80,6 +80,11 @@ Cversion      = 3
 
 LMOD_DUPLICATE_PATHS = os.getenv("LMOD_DUPLICATE_PATHS") or "@duplicate_paths@" 
 
+
+LMOD_IGNORE_CACHE = os.getenv("LMOD_IGNORE_CACHE") or "0"
+LMOD_IGNORE_CACHE = (LMOD_IGNORE_CACHE:trim() ~= "0") 
+   
+
 ------------------------------------------------------------------------
 -- defaultMpathA: The array of paths that are hold the default
 --                (non-hierarchical) MODULEPATH

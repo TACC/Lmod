@@ -1119,14 +1119,7 @@ function M.avail(argA)
 
 
    if (not expert()) then
-      local a = fillWords("","Use \"module spider\" to find all possible modules.",twidth)
-      local b = fillWords("","Use \"module keyword key1 key2 ...\" to search for all " ..
-                             "possible modules matching any of the \"keys\".",twidth)
-      aa[#aa+1] = "\n"
-      aa[#aa+1] = a
-      aa[#aa+1] = "\n"
-      aa[#aa+1] = b
-      aa[#aa+1] = "\n\n"
+      aa = hook.apply("msgHook", "avail", aa)
    end
    pcall(pager,io.stderr,concatTbl(aa,""))
    dbg.fini("Master.avail")
