@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.1.8 (5.1.8-3-g2d80a74) 2013-10-02 17:16
+Modules based on Lua: Version 5.2rc3 5.2rc3-1-gec8a79e 2013-10-30 12:53
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -201,6 +201,31 @@ ProjectDIR/rt/avail/mf/Core
    local/1.1    local/1.2
   Where:
    (D):  Default Module
+Use "module spider" to find all possible modules.
+Use "module keyword key1 key2 ..." to search for all possible modules matching
+any of the "keys".
+===========================
+step 14
+lua ProjectDIR/src/lmod.in.lua bash --ignore_cache avail
+===========================
+ProjectDIR/rt/avail/mf/Core2
+   local   (D)
+ProjectDIR/mf/Core
+   PrgEnv                      git/1.7.4              junk/d/3.0
+   admin/admin-1.0             git/1.7.4.3     (D)    local/local
+   alex/1.0                    gotoblas/1.20          multi/multi
+   boost/1.46.0                gotoblas/1.26   (D)    noweb/2.10c
+   boost/1.47.1                gotoblas/1.30          parmetis/3.1 (m)
+   boost/1.49.0    (o)  (D)    intel/intel            unix/unix
+   gcc/4.2.3                   junk/a/c/1.0
+   git/1.6.3.1                 junk/b/c/2.0
+ProjectDIR/rt/avail/mf/Core
+   bar/1.4-dbg          baz/1.4-dbg          foo/1.4-dbg          local/1.1
+   bar/1.4       (D)    baz/1.4       (D)    foo/1.4       (D)    local/1.2
+  Where:
+   (D):  Default Module
+   (m):  built for host and native MIC
+   (o):  built for offload to the MIC only
 Use "module spider" to find all possible modules.
 Use "module keyword key1 key2 ..." to search for all possible modules matching
 any of the "keys".

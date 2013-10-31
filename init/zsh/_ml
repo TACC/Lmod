@@ -14,6 +14,7 @@ _ml()
     '(-d --default)'{--default,-d}'[List default modules only when used with avail]'
     '(-D --debug)'{--debug,-D}'[Send program tracing information to stderr]'
     '(-q --quiet)'{--quiet,-q}'[disable verbose messages]'
+    '--ignore_cache[Treat the cache file(s) as out-of-date]'
     '--Verbose[show generated module command]'
     )
 

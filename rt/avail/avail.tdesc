@@ -43,7 +43,9 @@ testdescript = {
      runLmod -t    avail git/1.7.4.3  #11
      runLmod use $(testDir)/mf/Core2  #12
      runLmod avail local              #13
+     runLmod --ignore_cache avail     #14
 
+     
      
      
 

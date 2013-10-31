@@ -176,3 +176,15 @@ LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/avail/mf/Core2:ProjectDIR/mf/Core:Project
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/avail/mf/Core2:ProjectDIR/mf/Core:ProjectDIR/rt/avail/mf/Core";
 export MODULEPATH;
+===========================
+step 14
+lua ProjectDIR/src/lmod.in.lua bash --ignore_cache avail
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/avail/mf/Core2:ProjectDIR/mf/Core:ProjectDIR/rt/avail/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/avail/mf/Core2:ProjectDIR/mf/Core:ProjectDIR/rt/avail/mf/Core";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/avail/mf/Core2:ProjectDIR/mf/Core:ProjectDIR/rt/avail/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/avail/mf/Core2:ProjectDIR/mf/Core:ProjectDIR/rt/avail/mf/Core";
+export MODULEPATH;

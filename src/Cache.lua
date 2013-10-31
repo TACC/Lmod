@@ -194,11 +194,15 @@ end
 --                  and updates moduleT and moduleDirT.
 
 local function readCacheFile(self, cacheFileA)
-
    dbg.start("Cache:readCacheFile(cacheFileA)")
-   local mt         = MT:mt()
+   local dirsRead  = 0
+   if (masterTbl().ignoreCache or LMOD_IGNORE_CACHE) then
+      dbg.print("LMOD_IGNORE_CACHE is true\n")
+      dbg.fini("Cache:readCacheFile")
+      return dirsRead
+   end
 
-   local dirsRead = 0
+   local mt         = MT:mt()
 
    local moduleDirT = self.moduleDirT
    local moduleDirA = self.moduleDirA
@@ -300,24 +304,19 @@ function M.build(self, fast)
    dbg.start("Cache:build(fast=", fast,")")
    local masterTbl = masterTbl()
 
-   if (masterTbl.ignoreCache or LMOD_IGNORE_CACHE) then
-      dbg.print("LMOD_IGNORE_CACHE is true\n")
-      dbg.fini("Cache:build")
-      return nil
-   end
-
+   
    local T1 = epoch()
    local sysDirsRead = 0
    if (not masterTbl.checkSyntax) then
       sysDirsRead = readCacheFile(self, self.systemDirA)
    end
-
+      
    ------------------------------------------------------------------------
    -- Read user cache file if it exists and is not out-of-date.
-
+      
    local moduleDirT  = self.moduleDirT
    local usrDirsRead = readCacheFile(self, self.usrCacheDirA)
-
+      
    local dirA   = {}
    local numMDT = 0
    for k, v in pairs(moduleDirT) do
@@ -342,17 +341,17 @@ function M.build(self, fast)
    dbg.print("buildModuleT: ",buildModuleT,"\n")
 
    dbg.print("mt: ", tostring(mt), "\n")
-
+   
    local short    = mt:getShortTime()
    if (not buildModuleT) then
       ancient = _G.ancient or ancient
       mt:setRebuildTime(ancient, short)
    else
-      local prtRbMsg = ( (not masterTbl.expert)               and
-                         (not masterTbl.initial)              and
-                         ((not short) or (short > shortTime)) and
-                         (not self.quiet)
-      )
+      local prtRbMsg = ((not masterTbl.expert)               and
+                        (not masterTbl.initial)              and
+                        ((not short) or (short > shortTime)) and
+                        (not self.quiet)
+                       )
       dbg.print("short: ", short, " shortTime: ", shortTime,"\n")
 
       local cTimer = CTimer:cTimer("Rebuilding cache, please wait ...",
