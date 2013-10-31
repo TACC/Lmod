@@ -137,6 +137,7 @@ local function new(self, t)
 
    t              = t or {}
    o.moduleDirT   = {}
+   o.mDT          = {}
    o.usrCacheDir  = usrCacheDir
    o.usrCacheDirA = usrCacheDirA
    o.usrModuleTFN = pathJoin(usrCacheDir,"moduleT.lua")
@@ -168,18 +169,20 @@ function M.cache(self, t)
 
    local mt        = MT:mt()
    local baseMpath = mt:getBaseMPATH()
-   if (baseMpath == nil) then
+   if (baseMpath == nil or baseMpath == '') then
      LmodError("The Env Variable: \"", DfltModPath, "\" is not set.\n")
    end
 
    -- Since this function can get called many time, we need to only recompute
    -- Directories we have not yet seen
 
+   local mDT        = s_cache.mDT
    local moduleDirT = s_cache.moduleDirT
    for path in baseMpath:split(":") do
       local attr = lfs.attributes(path) or {}
       if (attr.mode == "directory") then
-         moduleDirT[path] = moduleDirT[path] or -1
+         mDT[path]        = mDT[path]        or -1
+         moduleDirT[path] = moduleDirT[path] or false
          dbg.print("moduleDirT[",path,"]: ",moduleDirT[path], "\n")
       end
    end
@@ -205,6 +208,7 @@ local function readCacheFile(self, cacheFileA)
    local mt         = MT:mt()
 
    local moduleDirT = self.moduleDirT
+   local mDT        = self.mDT
    local moduleDirA = self.moduleDirA
    local moduleT    = self.moduleT
 
@@ -247,11 +251,12 @@ local function readCacheFile(self, cacheFileA)
                local G_moduleT = _G.moduleT
                for k, v in pairs(G_moduleT) do
                   if ( k:sub(1,1) == '/' ) then
-                     local dirTime = moduleDirT[k] or 0
-                     if (moduleDirT[k] and attr.modification > dirTime) then
+                     local dirTime = mDT[k] or 0
+                     if (mDT[k] and attr.modification > dirTime) then
                         k             = path_regularize(k)
                         dbg.print("saving directory: ",k," from cache file: ",f,"\n")
-                        moduleDirT[k] = attr.modification
+                        mDT[k]        = attr.modification
+                        moduleDirT[k] = true
                         moduleT[k]    = v
                         dirsRead      = dirsRead + 1
                      end
@@ -321,7 +326,7 @@ function M.build(self, fast)
    local numMDT = 0
    for k, v in pairs(moduleDirT) do
       numMDT = numMDT + 1
-      if (v <= 0) then
+      if (not v) then
          dbg.print("rebuilding cache for directory: ",k,"\n")
          dirA[#dirA+1] = k
       end
