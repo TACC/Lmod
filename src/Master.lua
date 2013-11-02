@@ -1058,6 +1058,12 @@ function M.avail(argA)
    local moduleT   = cache:build()
    local dbT       = {}
 
+   local baseMpath = mt:getBaseMPATH()
+   if (baseMpath == nil or baseMpath == '') then
+     LmodError("avail is not possible, MODULEPATH is not set.\n")
+   end
+   
+
    Spider.buildSpiderDB({"default"}, moduleT, dbT)
 
    local legendT   = {}

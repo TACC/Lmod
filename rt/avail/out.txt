@@ -188,3 +188,23 @@ LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/avail/mf/Core2:ProjectDIR/mf/Core:Project
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/avail/mf/Core2:ProjectDIR/mf/Core:ProjectDIR/rt/avail/mf/Core";
 export MODULEPATH;
+===========================
+step 15
+lua ProjectDIR/src/lmod.in.lua bash purge
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/avail/mf/Core2:ProjectDIR/mf/Core:ProjectDIR/rt/avail/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/avail/mf/Core2:ProjectDIR/mf/Core:ProjectDIR/rt/avail/mf/Core";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/avail/mf/Core2:ProjectDIR/mf/Core:ProjectDIR/rt/avail/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/avail/mf/Core2:ProjectDIR/mf/Core:ProjectDIR/rt/avail/mf/Core";
+export MODULEPATH;
+===========================
+step 16
+lua ProjectDIR/src/lmod.in.lua bash avail
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/avail/mf/Core2:ProjectDIR/mf/Core:ProjectDIR/rt/avail/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+unset MODULEPATH;
+false

@@ -45,9 +45,10 @@ testdescript = {
      runLmod avail local              #13
      runLmod --ignore_cache avail     #14
 
-     
-     
-     
+     runLmod purge                    #15
+     unsetMT
+     unset MODULEPATH
+     runLmod avail                    #16
 
 
      HOME=$ORIG_HOME
