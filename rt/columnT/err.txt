@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.1.6 (5.1.6-1-g6040705) 2013-09-06 19:17
+Modules based on Lua: Version 5.2rc3 5.2rc3-3-gdc4c9f6 2013-10-30 12:53
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -222,7 +222,6 @@ _ModuleTable_ = {
       ["default"] = 0,
       ["fullName"] = "AMD/2.3.1/intel-13.1.1",
       ["loadOrder"] = 14,
-      ["mType"] = "w",
       propT = {
               },
       ["short"] = "AMD/2.3.1",
@@ -233,7 +232,6 @@ _ModuleTable_ = {
       ["default"] = 0,
       ["fullName"] = "CAMD/2.3.1/intel-13.1.1",
       ["loadOrder"] = 16,
-      ["mType"] = "w",
       propT = {
               },
       ["short"] = "CAMD/2.3.1",
@@ -244,7 +242,6 @@ _ModuleTable_ = {
       ["default"] = 0,
       ["fullName"] = "CCOLAMD/2.8.0/intel-13.1.1",
       ["loadOrder"] = 17,
-      ["mType"] = "w",
       propT = {
               },
       ["short"] = "CCOLAMD/2.8.0",
@@ -255,7 +252,6 @@ _ModuleTable_ = {
       ["default"] = 0,
       ["fullName"] = "CHOLMOD/2.0.1/intel-13.1.1",
       ["loadOrder"] = 18,
-      ["mType"] = "w",
       propT = {
               },
       ["short"] = "CHOLMOD/2.0.1",
@@ -266,7 +262,6 @@ _ModuleTable_ = {
       ["default"] = 0,
       ["fullName"] = "COLAMD/2.8.0/intel-13.1.1",
       ["loadOrder"] = 15,
-      ["mType"] = "w",
       propT = {
               },
       ["short"] = "COLAMD/2.8.0",
@@ -277,7 +272,6 @@ _ModuleTable_ = {
       ["default"] = 0,
       ["fullName"] = "Cython/0.18/python-2.7.3/intel-13.1.1",
       ["loadOrder"] = 21,
-      ["mType"] = "w",
       propT = {
               },
       ["short"] = "Cython/0.18/python-2.7.3",
@@ -288,7 +282,6 @@ _ModuleTable_ = {
       ["default"] = 0,
       ["fullName"] = "ScientificPython/2.9.2/python-2.7.3/intel-13.1.1",
       ["loadOrder"] = 22,
-      ["mType"] = "w",
       propT = {
               },
       ["short"] = "ScientificPython/2.9.2/python-2.7.3",
@@ -299,7 +292,6 @@ _ModuleTable_ = {
       ["default"] = 0,
       ["fullName"] = "SuiteSparse_config/4.0.2/intel-13.1.1",
       ["loadOrder"] = 13,
-      ["mType"] = "w",
       propT = {
               },
       ["short"] = "SuiteSparse_config/4.0.2",
@@ -310,7 +302,6 @@ _ModuleTable_ = {
       ["default"] = 0,
       ["fullName"] = "UMFPACK/5.6.1/intel-13.1.1",
       ["loadOrder"] = 19,
-      ["mType"] = "w",
       propT = {
               },
       ["short"] = "UMFPACK/5.6.1",
@@ -321,7 +312,6 @@ _ModuleTable_ = {
       ["default"] = 1,
       ["fullName"] = "fftw/2.1.5/intel-13.1.1",
       ["loadOrder"] = 26,
-      ["mType"] = "w",
       propT = {
               },
       ["short"] = "fftw/2.1.5",
@@ -332,7 +322,6 @@ _ModuleTable_ = {
       ["default"] = 0,
       ["fullName"] = "fftw/3.3.2/intel-13.1.1",
       ["loadOrder"] = 12,
-      ["mType"] = "w",
       propT = {
               },
       ["short"] = "fftw/3.3.2",
@@ -343,7 +332,6 @@ _ModuleTable_ = {
       ["default"] = 1,
       ["fullName"] = "grace/5.1.23/intel-13.1.1",
       ["loadOrder"] = 27,
-      ["mType"] = "w",
       propT = {
               },
       ["short"] = "grace/5.1.23",
@@ -354,7 +342,6 @@ _ModuleTable_ = {
       ["default"] = 0,
       ["fullName"] = "hdf5-serial/1.8.10/intel-13.1.1",
       ["loadOrder"] = 9,
-      ["mType"] = "w",
       propT = {
               },
       ["short"] = "hdf5-serial/1.8.10",
@@ -365,7 +352,6 @@ _ModuleTable_ = {
       ["default"] = 0,
       ["fullName"] = "hdf5/1.8.10/intel-13.1.1",
       ["loadOrder"] = 3,
-      ["mType"] = "w",
       propT = {
               },
       ["short"] = "hdf5/1.8.10",
@@ -376,7 +362,6 @@ _ModuleTable_ = {
       ["default"] = 0,
       ["fullName"] = "intel/13.1.1",
       ["loadOrder"] = 7,
-      ["mType"] = "w",
       propT = {
               },
       ["short"] = "intel",
@@ -387,7 +372,6 @@ _ModuleTable_ = {
       ["default"] = 0,
       ["fullName"] = "matplotlib/1.2.0/python-2.7.3/intel-13.1.1",
       ["loadOrder"] = 25,
-      ["mType"] = "w",
       propT = {
               },
       ["short"] = "matplotlib/1.2.0/python-2.7.3",
@@ -398,7 +382,6 @@ _ModuleTable_ = {
       ["default"] = 1,
       ["fullName"] = "mpi.zlib.hdf5.netcdf/intel-13.1.1",
       ["loadOrder"] = 1,
-      ["mType"] = "m",
       propT = {
               },
       ["short"] = "mpi.zlib.hdf5.netcdf",
@@ -409,7 +392,6 @@ _ModuleTable_ = {
       ["default"] = 0,
       ["fullName"] = "netcdf-serial/4.2.1.1/intel-13.1.1",
       ["loadOrder"] = 10,
-      ["mType"] = "w",
       propT = {
               },
       ["short"] = "netcdf-serial/4.2.1.1",
@@ -420,7 +402,6 @@ _ModuleTable_ = {
       ["default"] = 0,
       ["fullName"] = "netcdf/4.2.1.1/intel-13.1.1",
       ["loadOrder"] = 5,
-      ["mType"] = "w",
       propT = {
               },
       ["short"] = "netcdf/4.2.1.1",
@@ -431,7 +412,6 @@ _ModuleTable_ = {
       ["default"] = 0,
       ["fullName"] = "numexpr/2.0.1/python-2.7.3/intel-13.1.1",
       ["loadOrder"] = 24,
-      ["mType"] = "w",
       propT = {
               },
       ["short"] = "numexpr/2.0.1/python-2.7.3",
@@ -442,7 +422,6 @@ _ModuleTable_ = {
       ["default"] = 0,
       ["fullName"] = "numpy/1.7.0/python-2.7.3/intel-13.1.1",
       ["loadOrder"] = 20,
-      ["mType"] = "w",
       propT = {
               },
       ["short"] = "numpy/1.7.0/python-2.7.3",
@@ -453,7 +432,6 @@ _ModuleTable_ = {
       ["default"] = 0,
       ["fullName"] = "openmpi/1.6.4/intel-13.1.1",
       ["loadOrder"] = 2,
-      ["mType"] = "w",
       propT = {
               },
       ["short"] = "openmpi/1.6.4",
@@ -464,7 +442,6 @@ _ModuleTable_ = {
       ["default"] = 0,
       ["fullName"] = "pnetcdf/1.3.1/intel-13.1.1",
       ["loadOrder"] = 4,
-      ["mType"] = "w",
       propT = {
               },
       ["short"] = "pnetcdf/1.3.1",
@@ -475,7 +452,6 @@ _ModuleTable_ = {
       ["default"] = 0,
       ["fullName"] = "python/2.7.3/intel-13.1.1",
       ["loadOrder"] = 11,
-      ["mType"] = "w",
       propT = {
               },
       ["short"] = "python/2.7.3",
@@ -486,7 +462,6 @@ _ModuleTable_ = {
       ["default"] = 1,
       ["fullName"] = "python2.7.cython.numpy.scipy.numexpr.scientific.matplotlib/intel-13.1.11",
       ["loadOrder"] = 6,
-      ["mType"] = "m",
       propT = {
               },
       ["short"] = "python2.7.cython.numpy.scipy.numexpr.scientific.matplotlib",
@@ -497,7 +472,6 @@ _ModuleTable_ = {
       ["default"] = 0,
       ["fullName"] = "scipy/0.11.0/python-2.7.3/intel-13.1.1",
       ["loadOrder"] = 23,
-      ["mType"] = "w",
       propT = {
               },
       ["short"] = "scipy/0.11.0/python-2.7.3",
@@ -508,7 +482,6 @@ _ModuleTable_ = {
       ["default"] = 0,
       ["fullName"] = "zlib/1.2.7/intel-13.1.1",
       ["loadOrder"] = 8,
-      ["mType"] = "w",
       propT = {
               },
       ["short"] = "zlib/1.2.7",

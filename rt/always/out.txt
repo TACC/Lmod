@@ -30,7 +30,7 @@ LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/always/mf";
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/always/mf";
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/always/mf",},family={},inactive={},mT={a={["FN"]="ProjectDIR/rt/always/mf/a.lua",["default"]=0,["fullName"]="a",["loadOrder"]=2,["mType"]="w",propT={},["short"]="a",["status"]="active",},b={["FN"]="ProjectDIR/rt/always/mf/b.lua",["default"]=0,["fullName"]="b",["loadOrder"]=3,["mType"]="w",propT={},["short"]="b",["status"]="active",},master={["FN"]="ProjectDIR/rt/always/mf/master/1.0.lua",["default"]=1,["fullName"]="master/1.0",["loadOrder"]=1,["mType"]="m",propT={},["short"]="master",["status"]="active",},},mpathA={"ProjectDIR/rt/always/mf",},["systemBaseMPATH"]="ProjectDIR/rt/always/mf",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/always/mf",},family={},inactive={},mT={a={["FN"]="ProjectDIR/rt/always/mf/a.lua",["default"]=0,["fullName"]="a",["loadOrder"]=2,propT={},["short"]="a",["status"]="active",},b={["FN"]="ProjectDIR/rt/always/mf/b.lua",["default"]=0,["fullName"]="b",["loadOrder"]=3,propT={},["short"]="b",["status"]="active",},master={["FN"]="ProjectDIR/rt/always/mf/master/1.0.lua",["default"]=1,["fullName"]="master/1.0",["loadOrder"]=1,propT={},["short"]="master",["status"]="active",},},mpathA={"ProjectDIR/rt/always/mf",},["systemBaseMPATH"]="ProjectDIR/rt/always/mf",["version"]=2,}';
 export _ModuleTable_;
 ===========================
 step 4
@@ -57,7 +57,7 @@ LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/always/mf";
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/always/mf";
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/always/mf",},family={},inactive={},mT={a={["FN"]="ProjectDIR/rt/always/mf/a.lua",["default"]=0,["fullName"]="a",["loadOrder"]=1,["mType"]="w",propT={},["short"]="a",["status"]="active",},},mpathA={"ProjectDIR/rt/always/mf",},["systemBaseMPATH"]="ProjectDIR/rt/always/mf",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/always/mf",},family={},inactive={},mT={a={["FN"]="ProjectDIR/rt/always/mf/a.lua",["default"]=0,["fullName"]="a",["loadOrder"]=1,propT={},["short"]="a",["status"]="active",},},mpathA={"ProjectDIR/rt/always/mf",},["systemBaseMPATH"]="ProjectDIR/rt/always/mf",["version"]=2,}';
 export _ModuleTable_;
 ===========================
 step 6

@@ -14,5 +14,5 @@ LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/versionTest/mf";
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/versionTest/mf";
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/versionTest/mf",},family={},inactive={},mT={a={["FN"]="ProjectDIR/rt/versionTest/mf/a.lua",["default"]=0,["fullName"]="a",["loadOrder"]=1,["mType"]="w",propT={},["short"]="a",["status"]="active",},},mpathA={"ProjectDIR/rt/versionTest/mf",},["systemBaseMPATH"]="ProjectDIR/rt/versionTest/mf",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/versionTest/mf",},family={},inactive={},mT={a={["FN"]="ProjectDIR/rt/versionTest/mf/a.lua",["default"]=0,["fullName"]="a",["loadOrder"]=1,propT={},["short"]="a",["status"]="active",},},mpathA={"ProjectDIR/rt/versionTest/mf",},["systemBaseMPATH"]="ProjectDIR/rt/versionTest/mf",["version"]=2,}';
 export _ModuleTable_;

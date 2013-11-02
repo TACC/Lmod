@@ -164,13 +164,11 @@ function M.load_usr(self, mA)
 end
 function M.load(self, mA)
    local master = Master:master()
-   local mStack = ModuleStack:moduleStack()
 
    if (dbg.active()) then
       local s = mAList(mA)
       dbg.start("MasterControl:load(mA={"..s.."})")
    end
-   mStack:loading()
 
    local a = master.load(mA)
    if (not expert()) then
@@ -232,7 +230,6 @@ end
 
 function M.unload(self, mA)
    local master = Master:master()
-   local mStack = ModuleStack:moduleStack()
    local mt     = MT:mt()
 
    if (dbg.active()) then
@@ -240,7 +237,6 @@ function M.unload(self, mA)
       dbg.start("MasterControl:unload(mA={"..s.."})")
    end
 
-   mStack:loading()
    local aa     = master.unload(mA)
 
 
@@ -272,13 +268,11 @@ end
 
 
 function M.fake_load(self,mA)
-   local mStack = ModuleStack:moduleStack()
 
    if (dbg.active()) then
       local s = mAList(mA)
       dbg.start("MasterControl:fake_load(mA={"..s.."})")
    end
-   mStack:loading()
    dbg.fini("MasterControl:fake_load")
 end   
 

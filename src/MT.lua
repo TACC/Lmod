@@ -537,7 +537,7 @@ function M.convertMT(self, v1)
 
       local t     = { fn = active.FN[i], modFullName = active.fullModName[i],
                       default = active.default[i], modName = sn,
-                      mType   = active.mType[i], hash = hash,
+                      hash = hash,
       }
       self:add(t,"active")
    end
@@ -756,30 +756,19 @@ function M.getMTfromFile(self,t)
    varTbl[DfltModPath] = Var:new(DfltModPath,savedBaseMPATH)
 
    -----------------------------------------------------------------------
-   -- Load all modules: use Mgrload for manager modules, regular mcp 
-   -- for rest.
+   -- Load all modules: use Mgrload load for all modules
 
-   local MName     = _G.MName
-   local mcp_old   = mcp
-   local mcpActive = MCP
-   local mcpMgr    = MasterControl.build("mgrload")
+   local MName   = _G.MName
+   local mcp_old = mcp
+   local mcp     = MasterControl.build("mgrload")
 
+   local mA        = {}
    for i = 1, #activeA do
-      local mA    = {}
       local entry = activeA[i]
-      local sn    = entry.sn
       local name  = entry.name
-      mA[1]       = MName:new("load",name)
-      t[sn]       = {name = name, hash = l_mt:getHash(sn)}
-      local mType = l_mt:mType(sn)
-      if (mType == "w") then
-         mcp = mcpActive
-         mcp:load(mA)
-      else
-         mcp = mcpMgr
-         MCP.load(mcp, mA)
-      end
+      mA[#mA+1]   = MName:new("load",name)
    end
+   MCP.load(mcp,mA)
    mcp = mcp_old
 
    -----------------------------------------------------------------------
@@ -1095,7 +1084,6 @@ function M.add(self, t, status)
                      short     = t.modName,
                      FN        = t.fn,
                      default   = t.default,
-                     mType     = t.mType,
                      status    = status,
                      loadOrder = loadOrder,
                      propT     = {},
@@ -1326,23 +1314,6 @@ function M.short(self, sn)
    return entry.short
 end
 
-function M.mType(self, sn)
-   local mT    = self.mT
-   local entry = mT[sn]
-   if (entry == nil) then
-      return nil
-   end
-   return entry.mType
-end
-
-function M.set_mType(self, sn, value)
-   local mT    = self.mT
-   local entry = mT[sn]
-   if (entry ~= nil) then
-      mT[sn].mType = value
-   end
-end
-
 function M.getHash(self, sn)
    local mT    = self.mT
    local entry = mT[sn]
@@ -1429,22 +1400,6 @@ function M.short(self, sn)
    return entry.short
 end
 
-function M.mType(self, sn)
-   local mT    = self.mT
-   local entry = mT[sn]
-   if (entry == nil) then
-      return nil
-   end
-   return entry.mType
-end
-
-function M.set_mType(self, sn, value)
-   local mT    = self.mT
-   local entry = mT[sn]
-   if (entry ~= nil) then
-      mT[sn].mType = value
-   end
-end
 
 --------------------------------------------------------------------------
 -- MT:setHashSum(): Use [[computeHashSum]] to compute hash for each active

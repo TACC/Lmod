@@ -169,9 +169,9 @@ function M.cache(self, t)
 
    local mt        = MT:mt()
    local baseMpath = mt:getBaseMPATH()
-   if (baseMpath == nil or baseMpath == '') then
-     LmodError("The Env Variable: \"", DfltModPath, "\" is not set.\n")
-   end
+   --if (baseMpath == nil or baseMpath == '') then
+   --  LmodError("The Env Variable: \"", DfltModPath, "\" is not set.\n")
+   --end
 
    -- Since this function can get called many time, we need to only recompute
    -- Directories we have not yet seen

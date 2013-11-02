@@ -22,7 +22,7 @@ PATH="/opt/apps/ossw/applications/gcc/gcc-4.6/bin:ProjectDIR/src:PATH_to_TM:/bin
 export PATH;
 TACC_FAMILY_COMPILER="gcc";
 export TACC_FAMILY_COMPILER;
-_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/pecos/mf/Core",},family={["compiler"]="gcc",},inactive={},mT={gcc={["FN"]="ProjectDIR/rt/pecos/mf/Core/gcc/4.6.lua",["default"]=1,["fullName"]="gcc/4.6",["loadOrder"]=1,["mType"]="w",propT={},["short"]="gcc",["status"]="active",},},mpathA={"ProjectDIR/rt/pecos/mf/sl6/gcc/4.6/modulefiles","ProjectDIR/rt/pecos/mf/Core",},["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/pecos/mf/Core",},family={["compiler"]="gcc",},inactive={},mT={gcc={["FN"]="ProjectDIR/rt/pecos/mf/Core/gcc/4.6.lua",["default"]=1,["fullName"]="gcc/4.6",["loadOrder"]=1,propT={},["short"]="gcc",["status"]="active",},},mpathA={"ProjectDIR/rt/pecos/mf/sl6/gcc/4.6/modulefiles","ProjectDIR/rt/pecos/mf/Core",},["version"]=2,}';
 export _ModuleTable_;
 ===========================
 step 3

@@ -32,7 +32,7 @@ MODULEPATH="ProjectDIR/rt/unload/mf/Compiler/intel/13.0:ProjectDIR/rt/unload/mf/
 export MODULEPATH;
 TACC_FAMILY_COMPILER="intel";
 export TACC_FAMILY_COMPILER;
-_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/unload/mf/Core",},family={["compiler"]="intel",},inactive={},mT={intel={["FN"]="ProjectDIR/rt/unload/mf/Core/intel/13.0.lua",["default"]=1,["fullName"]="intel/13.0",["loadOrder"]=1,["mType"]="w",propT={},["short"]="intel",["status"]="active",},},mpathA={"ProjectDIR/rt/unload/mf/Compiler/intel/13.0","ProjectDIR/rt/unload/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/unload/mf/Core",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/unload/mf/Core",},family={["compiler"]="intel",},inactive={},mT={intel={["FN"]="ProjectDIR/rt/unload/mf/Core/intel/13.0.lua",["default"]=1,["fullName"]="intel/13.0",["loadOrder"]=1,propT={},["short"]="intel",["status"]="active",},},mpathA={"ProjectDIR/rt/unload/mf/Compiler/intel/13.0","ProjectDIR/rt/unload/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/unload/mf/Core",["version"]=2,}';
 export _ModuleTable_;
 ===========================
 step 4
@@ -52,7 +52,7 @@ PETSC_VERSION="3.2";
 export PETSC_VERSION;
 TACC_FAMILY_MPI="mpich2";
 export TACC_FAMILY_MPI;
-_ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/unload/mf/Core",},family={["MPI"]="mpich2",["compiler"]="intel",},inactive={},mT={intel={["FN"]="ProjectDIR/rt/unload/mf/Core/intel/13.0.lua",["default"]=1,["fullName"]="intel/13.0",["loadOrder"]=1,["mType"]="w",propT={},["short"]="intel",["status"]="active",},mpich2={["FN"]="ProjectDIR/rt/unload/mf/Compiler/intel/13.0/mpich2/1.5.2.lua",["default"]=1,["fullName"]="mpich2/1.5.2",["loadOrder"]=2,["mType"]="w",propT={},["short"]="mpich2",["status"]="active",},petsc={["FN"]="ProjectDIR/rt/unload/mf/MPI/intel/13.0/mpich2/1.5/petsc/3.2.lua",["default"]=1,["fullName"]="petsc/3.2",["loadOrder"]=3,["mType"]="w",propT={},["short"]="petsc",["status"]="active",},},mpathA={"ProjectDIR/rt/unload/mf/MPI/intel/13.0/mpich2/1.5","ProjectDIR/rt/unload/mf/Compiler/intel/13.0","ProjectDIR/rt/unload/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/unload/mf/Core",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/unload/mf/Core",},family={["MPI"]="mpich2",["compiler"]="intel",},inactive={},mT={intel={["FN"]="ProjectDIR/rt/unload/mf/Core/intel/13.0.lua",["default"]=1,["fullName"]="intel/13.0",["loadOrder"]=1,propT={},["short"]="intel",["status"]="active",},mpich2={["FN"]="ProjectDIR/rt/unload/mf/Compiler/intel/13.0/mpich2/1.5.2.lua",["default"]=1,["fullName"]="mpich2/1.5.2",["loadOrder"]=2,propT={},["short"]="mpich2",["status"]="active",},petsc={["FN"]="ProjectDIR/rt/unload/mf/MPI/intel/13.0/mpich2/1.5/petsc/3.2.lua",["default"]=1,["fullName"]="petsc/3.2",["loadOrder"]=3,propT={},["short"]="petsc",["status"]="active",},},mpathA={"ProjectDIR/rt/unload/mf/MPI/intel/13.0/mpich2/1.5","ProjectDIR/rt/unload/mf/Compiler/intel/13.0","ProjectDIR/rt/unload/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/unload/mf/Core",["version"]=2,}';
 export _ModuleTable_;
 ===========================
 step 5

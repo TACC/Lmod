@@ -427,24 +427,24 @@ end
 --                    anything then all the action that a manager module
 --                    is going to do has already been done.
 
-function M.fakeload(mA)
-   dbg.start("Master:fakeload(mA)")
-   local a   = {}
-   local mt  = MT:mt()
-   for i = 1,#mA do
-      local mname      = mA[i]
-      local loaded     = false
-      local t          = mname:find()
-      local fn         = t.fn
-      if (fn) then
-         t.mType = "m"
-         mt:add(t,"active")
-         loaded = true
-      end
-      a[#a+1] = loaded
-   end
-   dbg.fini("Master:fakeload")
-end
+--function M.fakeload(mA)
+--   dbg.start("Master:fakeload(mA)")
+--   local a   = {}
+--   local mt  = MT:mt()
+--   for i = 1,#mA do
+--      local mname      = mA[i]
+--      local loaded     = false
+--      local t          = mname:find()
+--      local fn         = t.fn
+--      if (fn) then
+--         t.mType = "m"
+--         mt:add(t,"active")
+--         loaded = true
+--      end
+--      a[#a+1] = loaded
+--   end
+--   dbg.fini("Master:fakeload")
+--end
 
 --------------------------------------------------------------------------
 -- Master:inheritModule(): load the module that has the same name as the
@@ -534,12 +534,10 @@ function M.load(mA)
 	 mt:beginOP()
          mStack:push(t.modFullName, moduleName, sn, fn)
 	 loadModuleFile{file=fn, shell = shellN, mList = mList, reportErr=true}
-         t.mType = mStack:moduleType()
          mStack:pop()
 	 mt:endOP()
          dbg.print("Making ", t.modName, " active\n")
          mt:setStatus(sn, "active")
-         mt:set_mType(sn, t.mType)
          dbg.print("Marked: ",t.modFullName," as loaded\n")
          loaded = true
          hook.apply("load",t)

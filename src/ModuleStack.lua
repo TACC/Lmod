@@ -84,17 +84,6 @@ function M.moduleStack(self)
 end
 
 --------------------------------------------------------------------------
--- ModuleStack:loading(): bump the load counter.
-
-function M.loading(self, count)
-   count       = count or 1
-   local stack = self.stack
-   local top   = stack[#stack]
-
-   top.loadCnt = top.loadCnt + count
-end
-
---------------------------------------------------------------------------
 -- ModuleStack:push(): push current module information on stack.
 
 function M.push(self, full, usrName, sn, fn)
@@ -118,27 +107,6 @@ end
 
 function M.empty(self)
    return (#self.stack == 1)
-end
-
---------------------------------------------------------------------------
--- ModuleStack:moduleType(): report what type the current module is:
---                           meta/regular or (manager/worker bee) or both.
-
-function M.moduleType(self)
-   dbg.start("ModuleStack:moduleType()")
-
-   local stack   = self.stack
-   local top     = stack[#stack]
-   local results = nil
-
-   if (top.loadCnt > 0) then
-      results = "m"
-   else
-      results = "w"
-   end
-   dbg.print("full: ",top.full," type: ",results,"\n")
-   dbg.fini()
-   return results
 end
 
 --------------------------------------------------------------------------
