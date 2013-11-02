@@ -12,7 +12,7 @@ Or you can email me if you wish to chat there at other times.
 
 Lmod Version 5.2rc4:
 Features:
-  a) Modulefiles can mix load commands and setenv's and still be saved.
+  a) Modulefiles can mix load commands and setenv's and still be saved and restored.
   b) In Lua modulefiles you can modify load function behavior:
         load(atleast("a","1.2"))       -- load module "a" with version 1.2
                                        -- or higher.
