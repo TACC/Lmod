@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.2rc1 5.2rc1-4-g7e85194 2013-10-27 09:20
+Modules based on Lua: Version 5.2rc4 5.2rc4-5-g330ed5a 2013-10-31 15:44
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -164,3 +164,32 @@ lua ProjectDIR/src/lmod.in.lua bash load DoNotExist
 ===========================
 Lmod has detected the following error: Did not find: DoNotExist
 Try: "module spider DoNotExist"
+===========================
+step 25
+lua ProjectDIR/src/lmod.in.lua bash list
+===========================
+Currently Loaded Modules:
+  1) admin/admin-1.0   5) noweb/2.10c         9) alex/2.0
+  2) PrgEnv            6) intel/intel        10) rtm_intel/12.1
+  3) unix/unix         7) gotoblas/1.32      11) A/1.1.1
+  4) local/local       8) boost/1.49.0  (o)  12) B/1.4
+  Where:
+   (o):  built for offload to the MIC only
+===========================
+step 26
+lua ProjectDIR/src/lmod.in.lua bash tablelist
+===========================
+activeList = {
+  ["A"] = "1.1.1",
+  ["B"] = "1.4",
+  ["PrgEnv"] = "",
+  ["admin"] = "admin-1.0",
+  ["alex"] = "2.0",
+  ["boost"] = "1.49.0",
+  ["gotoblas"] = "1.32",
+  ["intel"] = "intel",
+  ["local"] = "local",
+  ["noweb"] = "2.10c",
+  ["rtm_intel"] = "12.1",
+  ["unix"] = "unix",
+}

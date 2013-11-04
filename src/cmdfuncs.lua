@@ -724,11 +724,9 @@ function TableList()
    local t = {}
    local activeA = mt:list("short","active")
    for i,v  in ipairs(activeA) do
-      dbg.print("v: ",v,"\n")
       local mname   = MName:new("mt",v)
       local sn      = mname:sn()
       local version = mname:version()
-      dbg.print("v: ",v,"\n")
       dbg.print("sn: ",sn,", version: ",version,"\n")
       t[sn] = version
    end
