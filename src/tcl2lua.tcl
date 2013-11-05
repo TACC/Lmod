@@ -559,7 +559,7 @@ proc module { command args } {
 
 proc reportError {message} {
     global ModulesCurrentModulefile g_fullName
-    puts stdout "LmodSystemError(\[\[$ModulesCurrentModulefile: ($g_fullName): $message\]\])"
+    puts stdout "LmodError(\[\[$ModulesCurrentModulefile: ($g_fullName): $message\]\])"
 }
 
 proc execute-modulefile {modfile } {
