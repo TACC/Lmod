@@ -727,7 +727,6 @@ function TableList()
       local mname   = MName:new("mt",v)
       local sn      = mname:sn()
       local version = mname:version()
-      dbg.print("v: ",v,"\n")
       dbg.print("sn: ",sn,", version: ",version,"\n")
       t[sn] = version
    end

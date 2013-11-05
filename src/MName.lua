@@ -267,7 +267,9 @@ end
 --                  version is nil if not known.
 
 function M.version(self)
-   if (self._sn and self._sn == self._name) then return end
+   if (self._sn and self._sn == self._name and self._sType == "load") then
+      return nil
+   end
    if (not self._version) then
       lazyEval(self)
    end

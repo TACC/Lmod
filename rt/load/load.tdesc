@@ -52,7 +52,9 @@ testdescript = {
      runLmod avail A B                                      # 21
      runLmod load  A B                                      # 22
      runLmod list                                           # 23
-     runLmod load  DoNotExist                               # 25
+     runLmod load  DoNotExist                               # 24
+     runLmod list                                           # 25
+     runLmod tablelist                                      # 26
 
 
      HOME=$ORIG_HOME
