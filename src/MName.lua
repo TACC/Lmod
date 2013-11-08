@@ -267,12 +267,20 @@ end
 --                  version is nil if not known.
 
 function M.version(self)
-   if (self._sType == "load" and self._sn and self._sn == self._name) then
+   dbg.start("MName:version()")
+   dbg.print("sType:   ", self._sType,"\n")
+   dbg.print("sn:      ", self._sn,"\n")
+   dbg.print("name:    ", self._name,"\n")
+   dbg.print("version: ", self._version,"\n")
+   if ((self._sn and self._sn == self._name) and
+       (self._sType == "load" or self._sType == "userName")) then
+      dbg.fini("MName:version")
       return nil
    end
    if (not self._version) then
       lazyEval(self)
    end
+   dbg.fini("MName:version")
    return self._version
 end
 
