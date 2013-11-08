@@ -2,11 +2,11 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.1.4 (5.1.4) 2013-08-27 14:41
+Modules based on Lua: Version 5.2rc4 5.2rc4-13-g8545607 2013-10-31 15:44
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash use -a ProjectDIR/mf/Core ProjectDIR/mf/Beta
+lua ProjectDIR/src/lmod.in.lua bash use -a ProjectDIR/mf/Core ProjectDIR/mf/Beta ProjectDIR/rt/spider/mf/Core
 ===========================
 ===========================
 step 3
@@ -34,6 +34,7 @@ The following is a list of the modules currently available:
   petsc: petsc/3.1, petsc/3.2
   phdf5: phdf5/1.8.10, phdf5/1.8.2, phdf5/1.8.9
   PrgEnv: PrgEnv
+  R: R/2.1.5, r/2.1.5
   unix: unix/unix
 To learn more about a package enter:
    $ module spider Foo
@@ -46,6 +47,8 @@ step 4
 lua ProjectDIR/src/lmod.in.lua bash -t spider
 ===========================
 PrgEnv
+R/
+R/2.1.5
 admin/
 admin/admin-1.0
 alex/
@@ -96,6 +99,8 @@ phdf5/
 phdf5/1.8.10
 phdf5/1.8.2
 phdf5/1.8.9
+r/
+r/2.1.5
 unix/
 unix/unix
 ===========================
@@ -133,11 +138,35 @@ lua ProjectDIR/src/lmod.in.lua bash spider mpich2me
 Unable to find: "mpich2me"
 ===========================
 step 9
-lua ProjectDIR/src/lmod.in.lua bash spider mpich2/1.0.5
+lua ProjectDIR/src/lmod.in.lua bash spider R
 ===========================
-Lmod has detected the following error: Unable to find: "mpich2/1.0.5"
+  r:
+     Versions:
+        R/2.1.5
+        r/2.1.5
+  To find detailed information about r please enter the full name.
+  For example:
+     $ module spider r/2.1.5
 ===========================
 step 10
+lua ProjectDIR/src/lmod.in.lua bash spider ^R
+===========================
+  r:
+     Versions:
+        R/2.1.5
+        r/2.1.5
+  To find detailed information about r please enter the full name.
+  For example:
+     $ module spider r/2.1.5
+===========================
+step 11
+lua ProjectDIR/src/lmod.in.lua bash spider mpich2/1.0.5
+===========================
+  mpich2: mpich2/1.0.7
+    This module can only be loaded through the following modules:
+      intel/intel
+===========================
+step 12
 lua ProjectDIR/src/lmod.in.lua bash spider
 ===========================
 The following is a list of the modules currently available:
@@ -162,6 +191,7 @@ The following is a list of the modules currently available:
   petsc: petsc/3.1, petsc/3.2
   phdf5: phdf5/1.8.10, phdf5/1.8.2, phdf5/1.8.9
   PrgEnv: PrgEnv
+  R: R/2.1.5, r/2.1.5
   unix: unix/unix
 To learn more about a package enter:
    $ module spider Foo

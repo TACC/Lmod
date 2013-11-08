@@ -665,8 +665,9 @@ function M._Level1(key, T, searchName, help)
 
    dbg.print("key: \"",key,"\" searchName: \"",searchName,"\"\n")
 
-   if ((key:len() < searchName:len() and fullCnt == 0 ) or
-       (cnt == 0 and fullCnt == 0)) then
+   --if ((key:len() < searchName:len() and fullCnt == 0 ) or
+   --    (cnt == 0 and fullCnt == 0)) then
+   if (cnt == 0 and fullCnt == 0) then
       LmodSystemError("Unable to find: \"",searchName,"\"")
       dbg.fini("Spider:_Level1")
       return ""
