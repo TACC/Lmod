@@ -19,7 +19,8 @@ echo "Package version............................." : Lmod-$LmodV
 echo
 echo "LUA_INCLUDE................................." : $LUA_INCLUDE
 echo "Lua executable.............................." : $luaprog
-echo "Install dir................................." : $prefix
+echo "Prefix......................................" : $prefix
+echo "Actual Install dir.........................." : $prefix/lmod/$LmodV
 echo
 echo "MODULEPATH_ROOT............................." : $MODULEPATH_ROOT
 echo "Wait (s) before rebuilting cache............" : $ANCIENT
@@ -36,6 +37,22 @@ echo "Full Settarg support........................" : $SETTARG
 
 echo
 echo '------------------------------------------------------------------------------'
+echo 
+echo '******************************************************************************'
+echo 
+echo Lmod overwrites the env var BASH_ENV to make the module command available in 
+echo bash scripts.  If your site does not set BASH_ENV then you can ignore the
+echo comments below.
+echo
+echo If your site already uses BASH_ENV to point to a site specific script, please 
+echo consider sourcing Lmod\'s init/bash from your site\'s file.
+echo
+echo BASH_ENV is defined both in:
+echo "   $prefix/lmod/$LmodV/init/profile"
+echo "   $prefix/lmod/$LmodV/init/cshrc"
+echo 
+echo '******************************************************************************'
+
 
 echo
 echo Configure complete, now type \'make\' and then \'make install\'.

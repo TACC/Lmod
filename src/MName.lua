@@ -267,7 +267,7 @@ end
 --                  version is nil if not known.
 
 function M.version(self)
-   if (self._sn and self._sn == self._name and self._sType == "load") then
+   if (self._sType == "load" and self._sn and self._sn == self._name) then
       return nil
    end
    if (not self._version) then

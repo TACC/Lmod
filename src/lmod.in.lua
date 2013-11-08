@@ -511,11 +511,19 @@ function main()
       checkMPATH = cmdTbl[cmdName].checkMPATH
    end
 
+   -- dumpversion and quit if requested.
+
+   if (masterTbl.dumpversion) then
+      io.stderr:write(Version.tag(),"\n")
+      os.exit(0)
+   end
+
    -- print version and quit if requested.
    if (masterTbl.version) then
       io.stderr:write(version())
       os.exit(0)
    end
+
 
    -- print Configuration and quit.
    if (masterTbl.config) then

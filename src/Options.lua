@@ -161,6 +161,13 @@ function M.options(self, usage)
    }
 
    cmdlineParser:add_option{
+      name   = {"--dumpversion"},
+      dest   = "dumpversion",
+      action = "store_true",
+      help   = "Dump version in a machine readable way and quit",
+   }
+
+   cmdlineParser:add_option{
       name   = {"--localvar"},
       dest   = "localvarA",
       action = "append",
