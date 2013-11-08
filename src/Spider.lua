@@ -589,7 +589,7 @@ local function countEntries(t, searchName)
          if (not full) then
             full = v.full
          end
-         if (v.name_lower == searchL) then
+         if (v.name_lower:find(searchL)) then
             nameCnt = nameCnt + 1
             full  = v.full
          end
@@ -650,7 +650,7 @@ function M.spiderSearch(dbT, searchName, help)
 end
 
 function M._Level1(key, T, searchName, help)
-   dbg.start("Spider:_Level1(T,\"",searchName,"\",help)")
+   dbg.start("Spider:_Level1(",key,", T,\"",searchName,"\",help)")
    local term_width = TermWidth() - 4
 
    if (T == nil) then

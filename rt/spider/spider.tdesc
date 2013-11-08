@@ -28,7 +28,7 @@ testdescript = {
      cp $(projectDir)/init/.lmodrc.lua .
 
      runLmod --version                                                        # 1
-     runLmod use -a $projectDir/mf/Core $projectDir/mf/Beta                   # 2
+     runLmod use -a $projectDir/mf/Core $projectDir/mf/Beta $testDir/mf/Core  # 2
      runLmod spider                                                           # 3
      runLmod -t spider                                                        # 4
      runLmod spider mpich2                                                    # 5
@@ -37,11 +37,15 @@ testdescript = {
      runLmod spider parmetis/3.1                                              # 7
 
      runLmod spider mpich2me                                                  # 8
-     runLmod spider mpich2/1.0.5                                              # 9
+     runLmod spider R                                                         # 9
+     runLmod spider '^R'                                                      #10
+     runLmod spider mpich2/1.0.5                                              #11
+     r
 
      mkdir -p $HOME/.lmod.d/.cache
      buildModuleT $LMOD_DEFAULT_MODULEPATH > $HOME/.lmod.d/.cache/moduleT.lua
-     runLmod spider                                                           #10
+     runLmod spider                                                           #12
+     
 
      HOME=$ORIG_HOME
 
