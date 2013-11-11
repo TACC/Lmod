@@ -1,0 +1,294 @@
+\documentclass{beamer}
+
+\usetheme[headernav]{TACC} %%Drop the 'headernav' if you don't like
+                           %%the stuff at the top of your slide
+
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{alltt}
+\usepackage{graphicx}
+
+\title{Lmod: An Environment Module System}
+
+
+\author{Robert McLay}
+\institute{The Texas Advanced Computing Center}
+
+\date{November 14, 2012}  %% Use this if you want to fix the date in
+                        %% stone rather than use \today
+
+\newcommand{\bfnabla}{\mbox{\boldmath$\nabla$}}
+\newcommand{\laplacian}[1]{\bfnabla^2 #1}
+\newcommand{\grad}[1]{\bfnabla #1}
+\newcommand{\tgrad}[1]{\bfnabla^T #1}
+\newcommand{\dvg}[1]{\bfnabla \cdot #1}
+\newcommand{\curl}[1]{\bfnabla \times #1}
+\newcommand{\lap}[1]{\bfnabla^2 #1}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}{My Passions}
+  \begin{itemize}
+    \item Write tools to protect users w/o hindering experts.
+    \item Automate when possible to eliminate repeat tickets.
+    \item Looked for a way to manage TACC's Software Hierarchy.
+      \begin{itemize}
+        \item Match libraries and apps to compiler and MPI stacks.
+        \item End the bleeding  when users swapped compiler or MPI modules!!
+      \end{itemize}
+    \item Lmod was born.
+      
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Lmod Safety Features (I)}
+  \begin{itemize}
+    \item A drop-in replacement for TCL/C modules.
+    \item Especially useful w/ software hierarchy $\Rightarrow$ Can't
+      load mismatched modules.
+    \item Automatically swaps in the libraries compatible with the
+      current compiler/MPI stack.(i.e. Boost, fftw, PETSc)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Lmod Safety Features (II)}
+  \begin{itemize}
+    \item Allow only one module of a given``name'' at a time.
+    \item Family function prevents loading more than one compiler or
+      MPI Stack (expert can override!)
+    \item Users can save default set of modules and their owned  named collections.
+    \item Active development and user community.
+    \item Strong regression testing allows for easy refactoring.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle {Lmod Safety Feature for Developers: settarg}
+    \begin{itemize}
+      \item Provide safety, flexibility and repeatability in a dynamic environment.
+      \item Encapsulates the state of the modules loaded and
+        dynamically updates the state when modules change:
+        {\tiny
+          \begin{alltt}
+              $ {\color{blue} env | grep '^TARG'}
+              TARG_BUILD_SCENARIO=dbg
+              TARG=OBJ/_x86_64_dbg_gcc-4.6.3_mpich2-1.5
+              TARG_MPI_FAMILY=mpich2
+              TARG_MPI=mpich2-1.5
+              $ {\color{blue} module swap mpich2 openmpi; opt; env | grep '^TARG'}
+              TARG_BUILD_SCENARIO=opt
+              TARG=OBJ/_x86_64_opt_gcc-4.6.3_openmpi-1.6.3
+              TARG_MPI=openmpi-1.6.3
+              TARG_MPI_FAMILY=openmpi
+          \end{alltt}
+          }
+      \end{itemize}
+\end{frame}
+  
+\begin{frame}{Thanks for your attention!}
+  \begin{itemize}
+    \item Lmod BoF (TACC Booth:  Wednesday 12:00 to 12:30)
+    \item lmod.sf.net, www.tacc.utexas.edu/tacc-projects/lmod
+    \item lmod-users@lists.sourceforge.net
+  \end{itemize}
+\end{frame}
+
+
+
+%\section{Recent Features}
+%
+%\begin{frame}{Recent Features}
+%  \begin{itemize}
+%    \item Case-insensitive searching with ``module spider''
+%    \item spider, keyword, avail and help now use \texttt{\$PAGER}
+%    \item A standard way to support site packages.
+%    \item \texttt{getdefault/setdefault} becoming \texttt{save/restore}
+%    \item Module files can have properties: MIC, Apps/Lib, ...
+%    \item module wrapper command for the typing challenged: ``ml''
+%    \item Version Parsing: 5.6 is now older than 5.10
+%    \item Mailing list: lmod-users@lists.sourceforge.net
+%  \end{itemize}
+%\end{frame}
+%
+%\begin{frame}{Save / Restore}
+%  \begin{itemize}
+%    \item \texttt{getdefault/setdefault} becoming \texttt{save/restore}
+%    \item \texttt{module restore} load user's default or system
+%      default when user's default doesn't exist
+%    \item \texttt{reset} and \texttt{getdefault/setdefault} will be deprecated.
+%  \end{itemize}
+%\end{frame}
+%
+%\begin{frame}[fragile]
+%    \frametitle{Module Properties}
+%  \begin{itemize}
+%    \item TACC is deploying Stampede with MIC accelerators
+%    \item Some modules will be ``MIC'' aware: mkl, fftw3, phdf5, ...
+%    \item Lmod will decorate these modules:
+%  {\tiny
+%    \begin{alltt}
+%  1) unix/unix     3) ddt/ddt       5) mpich2/1.5    7) {\color{blue}phdf5/1.8.9 (m)}
+%  2) intel/13.0    4) {\color{red}mkl/mkl (*)}   6) petsc/3.2     8) PrgEnv
+%
+%  Where:
+%   {\color{blue}(m)}:  module is build natively for MIC
+%   {\color{red}(*)}:  module is build natively for MIC and offload to the MIC
+%
+%   ------
+%   add_property("arch","mic")              -- > phdf5
+%   add_property("arch","mic:offload")      -- > mkl
+%    \end{alltt}
+%}
+%  \item What properties would you like to support?
+%  \end{itemize}
+%\end{frame}
+%
+%
+%\begin{frame}{For those who can't type: ``\texttt{ml}''}
+%  \begin{itemize}
+%    \item \texttt{ml} is a wrapper:
+%      \begin{itemize}
+%        \item With no argument: \texttt{ml} means \texttt{module list}
+%        \item With a module name: \texttt{ml foo} means \texttt{module
+%            load foo}.
+%        \item With a module command: \texttt{ml spider} means
+%          \texttt{module spider}.
+%      \end{itemize}
+%    \item See \texttt{ml --help} for more documentation.
+%    \item With \texttt{ml}, you never need to spell ``\texttt{moduel, moudule, module}''
+%      correctly again.
+%  \end{itemize}
+%\end{frame}
+%
+%\begin{frame}{Module version sorting}
+%  \begin{itemize}
+%    \item Old way lexicographically sort: 5.6 is newer that 5.10
+%    \item New way 5.10 is newer than 5.6
+%    \item Old to new: 2.4dev1, 2.4a1, 2.4rc2, 2.4, 2.4-1, 2.4.1
+%    \item Same: 2.4-1, 2.4p1, 2.4-p1
+%    \item Old to new: 3.2-shared, 3.2
+%  \end{itemize}
+%\end{frame}
+%
+%\section{Topics to Discuss}
+%
+%\begin{frame}{Questions for users of Lmod}
+%  \begin{itemize}
+%    \item How big are your system?
+%    \item Any of you use a lustre based home file system?
+%    \item Biggest headaches with Module Systems or Lmod:
+%      \begin{itemize}
+%        \item Trouble dealing with staff?
+%        \item Trouble converting users?
+%      \end{itemize}
+%    \item Software Hierarchy vs Prereq/Conflict?
+%    \item Best story/Worst Story in dealing with Modules/Lmod?
+%  \end{itemize}
+%\end{frame}
+%
+%\begin{frame}{Topics to Discuss}
+%  \begin{itemize}
+%    \item Getting Bash to work right.
+%    \item Leveraging Lmod to know what software your users are using.
+%    \item Using modulefiles and a package manager (e.g. rpm)
+%    \item Using SitePackage.
+%    \item Feature requests.
+%  \end{itemize}
+%\end{frame}
+%
+%\begin{frame}{Projects}
+%  \begin{itemize}
+%    \item Fast directory tree walker for lustre. (similar
+%      functionality to luafilesystem) (Anyone interested?)
+%    \item Allow users with personal modules use system caches (R. McLay)
+%    \item Produce Json output of entire module system to populate
+%      system software web-pages (R. McLay - just completed)
+%    \item Support for options after commands:  \texttt{module keyword --prop mic}
+%    \item Other support for properties: searching?,
+%    \item What happens when a site wants two or more sets of properties?
+%  \end{itemize}
+%\end{frame}
+%
+%
+%
+%
+%
+%\section{Conclusion}
+%
+%\begin{frame}{For more information}
+%  \begin{itemize}
+%    \item Download source from: lmod.sourceforge.net (lmod.sf.net)
+%    \item Documentation: www.tacc.utexas.edu/tacc-projects/mclay/lmod
+%    \item Introduction to Lmod talk at lmod.sf.net.
+%    \item Best Practices Paper from SC'11
+%  \end{itemize}
+%\end{frame}
+%
+%\section{Extra}
+%
+%
+%\begin{frame}[fragile]
+%    \frametitle{.lmodrc.lua}
+%  {\tiny
+%    \begin{alltt}
+%propT = \{
+%   arch = \{
+%      validT = \{ mic = 1, offload = 1, gpu = 1, \},
+%      displayT = \{
+%         ["mic:offload"]     = \{ short = "(*)",  color = "red",     doc = "...",\},
+%         ["mic"]             = \{ short = "(m)",  color = "blue",    doc = "...",\},
+%         ["offload"]         = \{ short = "(o)",  color = "blue",    doc = "...",\},
+%         ["gpu"]             = \{ short = "(g)",  color = "magenta", doc = "...",\},
+%         ["gpu:mic"]         = \{ short = "(gm)", color = "magenta", doc = "...",\},
+%         ["gpu:mic:offload"] = \{ short = "(@)",  color = "magenta", doc = "...",\},
+%      \},
+%   \},
+%\}
+%
+%    \end{alltt}
+%}
+%\end{frame}
+%
+%\begin{frame}{Getting Bash to work right}
+%  \begin{itemize}
+%    \item At TACC we rebuild bash so that it reads /etc/bashrc on
+%      interactive shells.
+%    \item It also reads \texttt{/etc/bash\_logout} on logout.
+%    \item We patch config-top.h to change bash behavior.
+%    \item Ubuntu does the same, Red Hat does not.
+%  \end{itemize}
+%\end{frame}
+%
+%\begin{frame}{SitePackage}
+%  \begin{itemize}
+%    \item Lmod now has a standard way to include site-specific functions
+%    \item See Contrib/SitePackage for details
+%  \end{itemize}
+%\end{frame}
+%
+%
+%\begin{frame}{Track software usage}
+%  \begin{itemize}
+%    \item Track software usage via syslog or logout data.
+%    \item Lmod can build a reverse map: directories to modules
+%  \end{itemize}
+%\end{frame}
+
+%%\begin{frame}{Topics to Discuss}
+%%  \begin{itemize}
+%%    \item Getting Bash to work right.
+%%    \item Leveraging Lmod to know what software your users are using.
+%%    \item Best Practices w.r.t. module files
+%%    \item Using modulefiles and a package manager (e.g. rpm)
+%%    \item Using SitePackage.
+%%    \item Feature requests.
+%%  \end{itemize}
+%%\end{frame}
+
+
+
+
+\end{document}
