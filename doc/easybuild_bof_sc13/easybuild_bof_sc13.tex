@@ -13,8 +13,8 @@
 \author{Robert McLay}
 \institute{The Texas Advanced Computing Center}
 
-\date{November 14, 2012}  %% Use this if you want to fix the date in
-                        %% stone rather than use \today
+\date{November 19, 2013}  %% Use this if you want to fix the date in
+                          %% stone rather than use \today
 
 \newcommand{\bfnabla}{\mbox{\boldmath$\nabla$}}
 \newcommand{\laplacian}[1]{\bfnabla^2 #1}
@@ -34,55 +34,55 @@
   \begin{itemize}
     \item Write tools to protect users w/o hindering experts.
     \item Automate when possible to eliminate repeat tickets.
-    \item Looked for a way to manage TACC's Software Hierarchy.
+    \item Manage TACC's Software Hierarchy.
       \begin{itemize}
         \item Match libraries and apps to compiler and MPI stacks.
-        \item End the bleeding  when users swapped compiler or MPI modules!!
+        \item End the bleeding  when users swap compiler or MPI modules!!
       \end{itemize}
-    \item Lmod was born.
+    \item Lmod was born in 2009.
       
   \end{itemize}
 \end{frame}
 
-\begin{frame}{Lmod Safety Features (I)}
+\begin{frame}{Lmod Features (I)}
   \begin{itemize}
     \item A drop-in replacement for TCL/C modules.
     \item Especially useful w/ software hierarchy $\Rightarrow$ Can't
       load mismatched modules.
-    \item Automatically swaps in the libraries compatible with the
-      current compiler/MPI stack.(i.e. Boost, fftw, PETSc)
+    \item Automatically swaps in the libraries (e.g. Boost, fftw,
+      PETSc) compatible with the current compiler/MPI stack.
   \end{itemize}
 \end{frame}
 
-\begin{frame}{Lmod Safety Features (II)}
+\begin{frame}{Lmod Features (II)}
   \begin{itemize}
     \item Allow only one module of a given``name'' at a time.
-    \item Family function prevents loading more than one compiler or
-      MPI Stack (expert can override!)
+    \item Prevents loading more than one compiler or
+      MPI Stack (expert can override!).
     \item Users can save default set of modules and their owned  named collections.
     \item Active development and user community.
-    \item Strong regression testing allows for easy refactoring.
+    \item Robust regression testing allows for easy refactoring.
   \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
-    \frametitle {Lmod Safety Feature for Developers: settarg}
+    \frametitle {Lmod for Developers: settarg}
     \begin{itemize}
       \item Provide safety, flexibility and repeatability in a dynamic environment.
       \item Encapsulates the state of the modules loaded and
         dynamically updates the state when modules change:
-        {\tiny
+        {\small
           \begin{alltt}
-              $ {\color{blue} env | grep '^TARG'}
-              TARG_BUILD_SCENARIO=dbg
-              TARG=OBJ/_x86_64_dbg_gcc-4.6.3_mpich2-1.5
-              TARG_MPI_FAMILY=mpich2
-              TARG_MPI=mpich2-1.5
-              $ {\color{blue} module swap mpich2 openmpi; opt; env | grep '^TARG'}
-              TARG_BUILD_SCENARIO=opt
-              TARG=OBJ/_x86_64_opt_gcc-4.6.3_openmpi-1.6.3
-              TARG_MPI=openmpi-1.6.3
-              TARG_MPI_FAMILY=openmpi
+    \$ {\color{red} env | grep '^TARG'}
+    {\color{blue}TARG_BUILD_SCENARIO=dbg 
+    TARG=OBJ/_x86_64_dbg_gcc-4.6_mpich-3.0
+    TARG_MPI_FAMILY=mpich
+    TARG_MPI=mpich-3.0}
+    \${\color{red} module swap mpich openmpi; opt; env | grep '^TARG'}
+    {\color{blue}TARG_BUILD_SCENARIO=opt
+    TARG=OBJ/_x86_64_opt_gcc-4.6_openmpi-1.6
+    TARG_MPI=openmpi-1.6
+    TARG_MPI_FAMILY=openmpi}
           \end{alltt}
           }
       \end{itemize}
@@ -90,7 +90,8 @@
   
 \begin{frame}{Thanks for your attention!}
   \begin{itemize}
-    \item Lmod BoF (TACC Booth:  Wednesday 12:00 to 12:30)
+    \item Job Level Analytics BoF Wednesday 11/20 @ 5:30 to 7:00pm
+    \item Lmod BoF (TACC Booth:  Wednesday 11/20 @ 12:00 to 12:30pm)
     \item lmod.sf.net, www.tacc.utexas.edu/tacc-projects/lmod
     \item lmod-users@lists.sourceforge.net
   \end{itemize}
