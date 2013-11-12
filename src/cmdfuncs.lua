@@ -529,9 +529,10 @@ end
 --         that any setenv or prepend_path commands will not be executed.
 
 function Save(...)
-   local mt   = MT:mt()
-   local a    = select(1, ...) or "default"
-   local path = pathJoin(os.getenv("HOME"), LMODdir)
+   local masterTbl = masterTbl()
+   local mt        = MT:mt()
+   local a         = select(1, ...) or "default"
+   local path      = pathJoin(os.getenv("HOME"), LMODdir)
    dbg.start("Save(",concatTbl({...},", "),")")
 
    if (a == "system") then
@@ -540,6 +541,13 @@ function Save(...)
       return
    end
 
+   local activeA = mt:list("short","active")
+   local force   = masterTbl.force
+   if (#activeA == 0 and not force) then
+      LmodError("You are trying to save an empty collection of modules in \"",a,"\n",
+                "If this is truely what you want then enter: \n",
+                "   module --force save ",a,"\n")
+   end
 
    --local aa = mt:safeToSave()
    --
