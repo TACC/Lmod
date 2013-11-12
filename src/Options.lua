@@ -206,7 +206,7 @@ function M.options(self, usage)
       name   = {"--force" },
       dest   = "force",
       action = "store_true",
-      help   = "force removal of a sticky module",
+      help   = "force removal of a sticky module or save an empty collection",
    }
 
    local optionTbl, pargs = cmdlineParser:parse(arg)
