@@ -67,7 +67,9 @@
     \item Sticky modules: unloaded or purged with ``--force'' flag.
     \item Improvements when searching for default modules.
     \item Allow duplicate paths.
-    \item New function ``\texttt{pushenv}'' 
+    \item New function ``\texttt{pushenv}''
+    \item hooks: load, msgHook, etc
+    \item tab completion for Bash and Zsh for both ``\texttt{module}'' and ``\texttt{ml}''
   \end{itemize}
 \end{frame}
 
@@ -91,20 +93,109 @@
   \begin{itemize}
     \item Meta modules can be save even if they have \texttt{setenv}
       and \texttt{prepend\_path} commands.
+    \item Thanks to the mailing list and especially, Maxime
+      Boissonneault his help in solving this problem.
   \end{itemize}
 \end{frame}
 
 \begin{frame}{Load and prereq modify functions}
   \begin{itemize}
-    \item 
+    \item \texttt{load(atleast("A","1.4"))}
+    \item \texttt{load(between("B","1.4","2.7"))}
+    \item \texttt{load(latest("C"))}
+    \item \texttt{prereq(atleast("D","1.4"))}
+    \item \texttt{prereq(between("E","1.4","2.7"))}
+    \item \texttt{prereq(latest("F"))}
+    \item Typically marked default then latest.
   \end{itemize}
 \end{frame}
 
-\begin{frame}{Settarg}
+\begin{frame}[fragile]
+    \frametitle {settarg}
+    \begin{itemize}
+      \item This module provides safety, flexibility and repeatability in a dynamic environment.
+      \item It encapsulates the state of the modules loaded and
+        dynamically updates the state when modules change:
+        {\small
+          \begin{alltt}
+    \$ {\color{red} env | grep '^TARG'}
+    {\color{blue}TARG_BUILD_SCENARIO=dbg 
+    TARG=OBJ/_x86_64_dbg_gcc-4.6_mpich-3.0
+    TARG_MPI_FAMILY=mpich
+    TARG_MPI=mpich-3.0}
+    \${\color{red} module swap mpich openmpi; opt; env | grep '^TARG'}
+    {\color{blue}TARG_BUILD_SCENARIO=opt
+    TARG=OBJ/_x86_64_opt_gcc-4.6_openmpi-1.6
+    TARG_MPI=openmpi-1.6
+    TARG_MPI_FAMILY=openmpi}
+          \end{alltt}
+          }
+      \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle {settarg (II)}
+    \begin{itemize}
+      \item Typically TARG is OBJ/\$ARCH\_\$SCENARIO\_\$CMPLR\_\$MPI
+      \item \texttt{TARG=OBJ/\_x86\_64\_dbg\_gcc-4.6\_mpich-3.0}
+      \item User can extend this with user level or directory level
+        specialiation.
+      \item \texttt{OBJ/\_x86\_64\_dbg\_intel-14.0\_mpich-3.0\_petsc-3.4}
+      \item A makefile can modified to write generated file into \$TARG.
+      \item Never need to ``\texttt{make clobber}'' when switching
+        scenario, compiler, etc.
+      \end{itemize}
+\end{frame}
+
+
+\section{Topics to Discuss}
+
+\begin{frame}{Questions for users of Lmod}
   \begin{itemize}
-    \item 
+    \item How big are your system?
+    \item Any of you use a lustre based home file system?
+    \item Biggest headaches with Module Systems or Lmod:
+      \begin{itemize}
+        \item Trouble dealing with staff?
+        \item Trouble converting users?
+      \end{itemize}
+    \item Software Hierarchy vs Prereq/Conflict?
+    \item Best story/Worst Story in dealing with Modules/Lmod?
   \end{itemize}
 \end{frame}
+
+\begin{frame}{Topics to Discuss}
+  \begin{itemize}
+    \item Getting Bash to work right.
+    \item Leveraging Lmod to know what software your users are using.
+    \item Using modulefiles and a package manager (e.g. rpm)
+    \item Using SitePackage.
+    \item Feature requests.
+  \end{itemize}
+\end{frame}
+
+
+\section{Conclusion}
+
+\begin{frame}{For more information}
+  \begin{itemize}
+    \item Introduction to Lmod talk at lmod.sf.net.
+    \item Download source from: lmod.sourceforge.net (lmod.sf.net)
+    \item lmod-users@lists.sourceforge.net
+    \item Documentation: www.tacc.utexas.edu/tacc-projects/lmod
+    \item Best Practices Paper from SC'11
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Future Work}
+  \begin{itemize}
+    \item Improve and update documentation. 
+    \item Move new features from README into web documentation.
+    \item Theory and Practice of Modules and Site Management.
+  \end{itemize}
+\end{frame}
+
+
 
 
 
@@ -179,31 +270,6 @@
   \end{itemize}
 \end{frame}
 
-\section{Topics to Discuss}
-
-\begin{frame}{Questions for users of Lmod}
-  \begin{itemize}
-    \item How big are your system?
-    \item Any of you use a lustre based home file system?
-    \item Biggest headaches with Module Systems or Lmod:
-      \begin{itemize}
-        \item Trouble dealing with staff?
-        \item Trouble converting users?
-      \end{itemize}
-    \item Software Hierarchy vs Prereq/Conflict?
-    \item Best story/Worst Story in dealing with Modules/Lmod?
-  \end{itemize}
-\end{frame}
-
-\begin{frame}{Topics to Discuss}
-  \begin{itemize}
-    \item Getting Bash to work right.
-    \item Leveraging Lmod to know what software your users are using.
-    \item Using modulefiles and a package manager (e.g. rpm)
-    \item Using SitePackage.
-    \item Feature requests.
-  \end{itemize}
-\end{frame}
 
 \begin{frame}{Projects}
   \begin{itemize}
@@ -222,18 +288,6 @@
 
 
 
-\section{Conclusion}
-
-\begin{frame}{For more information}
-  \begin{itemize}
-    \item Download source from: lmod.sourceforge.net (lmod.sf.net)
-    \item Documentation: www.tacc.utexas.edu/tacc-projects/mclay/lmod
-    \item Introduction to Lmod talk at lmod.sf.net.
-    \item Best Practices Paper from SC'11
-  \end{itemize}
-\end{frame}
-
-\section{Extra}
 
 
 \begin{frame}[fragile]
