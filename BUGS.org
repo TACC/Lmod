@@ -38,3 +38,6 @@ if [ module-info mode remove ] {
 }
 
 prereq   qt/4.7.0 silo/4.6.2 python/2.7.1-epd
+
+
+
