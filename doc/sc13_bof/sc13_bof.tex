@@ -60,16 +60,54 @@
 
 \begin{frame}{New Features}
   \begin{itemize}
+    \item With \texttt{ml}, you never need to spell ``\texttt{moduel, moudule, module}''
+      correctly again.
     \item Module properties.
     \item Modulefiles are now read through a ``sandbox''
-    \item Full support of Category/name/version module name convention
-      (with nesting as complex as you like).
     \item Sticky modules: unloaded or purged with ``--force'' flag.
     \item Improvements when searching for default modules.
     \item Allow duplicate paths.
-    \item New function ``\texttt{pushenv}''
+    \item New function ``\texttt{pushenv}'' 
   \end{itemize}
 \end{frame}
+
+
+\begin{frame}{Category/name/version}
+  \begin{itemize}
+    \item Lmod now support Category/name/version
+    \item Module can be named ``\texttt{bio/bowtie/1.7}''
+    \item Nesting can be as complex as you like.
+    \item The one ``name'' rule works here.
+    \item Meta module support generalized:
+      \begin{itemize}
+        \item Any module file in a directory that contains a
+          sub-directory is a meta module (no version)
+        \item Version files are in a directory with no sub-directories.
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Collection saving}
+  \begin{itemize}
+    \item Meta modules can be save even if they have \texttt{setenv}
+      and \texttt{prepend\_path} commands.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Load and prereq modify functions}
+  \begin{itemize}
+    \item 
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Settarg}
+  \begin{itemize}
+    \item 
+  \end{itemize}
+\end{frame}
+
+
+
 \begin{frame}{Previous Features}
   \begin{itemize}
     \item Case-insensitive searching with ``module spider''
@@ -128,8 +166,6 @@
           \texttt{module spider}.
       \end{itemize}
     \item See \texttt{ml --help} for more documentation.
-    \item With \texttt{ml}, you never need to spell ``\texttt{moduel, moudule, module}''
-      correctly again.
   \end{itemize}
 \end{frame}
 
