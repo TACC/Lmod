@@ -63,41 +63,36 @@
 
 \begin{frame}{New Features}
   \begin{itemize}
-    \item With \texttt{ml}, you never need to spell ``\texttt{moduel, moudule, module}''
-      correctly again.
+    \item Meta-modules can be saved even when they include \texttt{setenv}
+      and \texttt{prepend\_path} commands.
+    \item Thanks to the mailing list and especially, Maxime
+      Boissonneault for help solving this problem.
     \item Module properties.
-    \item Modulefiles are now read through a ``sandbox''
+    \item Modulefiles are now read through a ``sandbox''.
     \item Sticky modules: unloaded or purged with ``--force'' flag.
     \item Improvements when searching for default modules.
-    \item Allow duplicate paths.
+    \item Allows duplicate paths.
     \item New function ``\texttt{pushenv}''
-    \item hooks: load, msgHook, etc
-    \item tab completion for Bash and Zsh for both ``\texttt{module}'' and ``\texttt{ml}''
+    \item hooks: load, msgHook, etc.
+    \item With \texttt{ml}, you never need to spell ``\texttt{moduel, moudule, module}''
+      correctly again.
+    \item tab completion for Bash and Zsh for both ``\texttt{module}'' and ``\texttt{ml}''.
   \end{itemize}
 \end{frame}
 
 
 \begin{frame}{Category/name/version}
   \begin{itemize}
-    \item Lmod now support Category/name/version
+    \item Lmod now supports Category/name/version.
     \item Module can be named ``\texttt{bio/bowtie/1.7}''
     \item Nesting can be as complex as you like.
     \item The one ``name'' rule works here.
-    \item Meta module support generalized:
+    \item Meta-module support generalized:
       \begin{itemize}
         \item Any module file in a directory that contains a
-          sub-directory is a meta module (no version)
+          sub-directory is a meta-module (no version).
         \item Version files are in a directory with no sub-directories.
       \end{itemize}
-  \end{itemize}
-\end{frame}
-
-\begin{frame}{Collection saving}
-  \begin{itemize}
-    \item Meta modules can be save even if they have \texttt{setenv}
-      and \texttt{prepend\_path} commands.
-    \item Thanks to the mailing list and especially, Maxime
-      Boissonneault his help in solving this problem.
   \end{itemize}
 \end{frame}
 
@@ -142,7 +137,7 @@
       \item Typically TARG is OBJ/\$ARCH\_\$SCENARIO\_\$CMPLR\_\$MPI
       \item \texttt{TARG=OBJ/\_x86\_64\_dbg\_gcc-4.6\_mpich-3.0}
       \item User can extend this with user level or directory level
-        specialiation.
+        specialization.
       \item \texttt{OBJ/\_x86\_64\_dbg\_intel-14.0\_mpich-3.0\_petsc-3.4}
       \item A makefile can modified to write generated file into \$TARG.
       \item Never need to ``\texttt{make clobber}'' when switching
@@ -155,15 +150,15 @@
 
 \begin{frame}{Questions for users of Lmod}
   \begin{itemize}
-    \item How big are your system?
-    \item Any of you use a lustre based home file system?
-    \item Biggest headaches with Module Systems or Lmod:
+    \item How big are your systems?
+    \item Any of you use a Lustre based home file system?
+    \item Biggest headaches with module systems or Lmod:
       \begin{itemize}
         \item Trouble dealing with staff?
         \item Trouble converting users?
       \end{itemize}
-    \item Software Hierarchy vs Prereq/Conflict?
-    \item Best story/Worst Story in dealing with Modules/Lmod?
+    \item Software hierarchy vs prereq/conflict?
+    \item Best story/worst story in dealing with modules/Lmod?
   \end{itemize}
 \end{frame}
 
