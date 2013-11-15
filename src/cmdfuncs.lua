@@ -513,6 +513,12 @@ function Restore(a)
    else
       local mt      = MT:mt()
       local results = mt:getMTfromFile{fn=path, name=a, msg=msg} or Reset(true)
+
+      local activeA = mt:list("short","active")
+      if (#activeA == 0 ) then
+         LmodWarning("You have no modules loaded because the collection \"",a,
+                     "\" is empty!\n")
+      end
    end
 
    dbg.fini("Restore")
@@ -544,9 +550,11 @@ function Save(...)
    local activeA = mt:list("short","active")
    local force   = masterTbl.force
    if (#activeA == 0 and not force) then
-      LmodError("You are trying to save an empty collection of modules in \"",a,"\n",
-                "If this is truely what you want then enter: \n",
-                "   module --force save ",a,"\n")
+      LmodWarning("You are trying to save an empty collection of modules in \"",a,
+                  "\".  If this is what you want then enter: \n",
+                  "   module --force save ",a,"\n")
+      dbg.fini("Save")
+      return
    end
 
    --local aa = mt:safeToSave()
