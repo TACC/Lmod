@@ -120,10 +120,7 @@ LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/spi
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/spider/mf/Core";
 export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/spider/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/spider/mf/Core";
-export MODULEPATH;
+false
 ===========================
 step 12
 lua ProjectDIR/src/lmod.in.lua bash spider

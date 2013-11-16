@@ -513,12 +513,6 @@ function Restore(a)
    else
       local mt      = MT:mt()
       local results = mt:getMTfromFile{fn=path, name=a, msg=msg} or Reset(true)
-
-      local activeA = mt:list("short","active")
-      if (#activeA == 0 ) then
-         LmodWarning("You have no modules loaded because the collection \"",a,
-                     "\" is empty!\n")
-      end
    end
 
    dbg.fini("Restore")

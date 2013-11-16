@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.2rc3 5.2rc3 2013-10-30 12:53
+Modules based on Lua: Version 5.2rc4 5.2rc4-19-g8a2d341 2013-10-31 15:44
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -23,13 +23,16 @@ Options:
   --ignore_cache                Treat the cache file(s) as out-of-date
   --novice                      Turn off expert flag
   -v --version                  Print version info and quit
+  --dumpversion                 Dump version in a machine readable way and
+                                quit
   --localvar=localvarA          local variables needed to be set after this
                                 commands execution
   --check_syntax --checkSyntax  Checking module command syntax: do not load
   --config                      Report Lmod Configuration
   --mt                          Report Module Table State
   --timer                       report run times
-  --force                       force removal of a sticky module
+  --force                       force removal of a sticky module or save an
+                                empty collection
 module [options] sub-command [args ...]
 Help sub-commands:
   help                              prints this message
@@ -102,7 +105,7 @@ The following guides are at http://www.tacc.utexas.edu/tacc-projects/lmod
   User Guide                 - How to use.
   Advance User Guide         - How to create you own modules.
   System Administrator Guide - How to install Lmod on your own system.
-Modules based on Lua: Version 5.2rc3 5.2rc3 2013-10-30 12:53
+Modules based on Lua: Version 5.2rc4 5.2rc4-19-g8a2d341 2013-10-31 15:44
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 3
@@ -123,13 +126,16 @@ Options:
   --ignore_cache                Treat the cache file(s) as out-of-date
   --novice                      Turn off expert flag
   -v --version                  Print version info and quit
+  --dumpversion                 Dump version in a machine readable way and
+                                quit
   --localvar=localvarA          local variables needed to be set after this
                                 commands execution
   --check_syntax --checkSyntax  Checking module command syntax: do not load
   --config                      Report Lmod Configuration
   --mt                          Report Module Table State
   --timer                       report run times
-  --force                       force removal of a sticky module
+  --force                       force removal of a sticky module or save an
+                                empty collection
 module [options] sub-command [args ...]
 Help sub-commands:
   help                              prints this message
@@ -202,7 +208,7 @@ The following guides are at http://www.tacc.utexas.edu/tacc-projects/lmod
   User Guide                 - How to use.
   Advance User Guide         - How to create you own modules.
   System Administrator Guide - How to install Lmod on your own system.
-Modules based on Lua: Version 5.2rc3 5.2rc3 2013-10-30 12:53
+Modules based on Lua: Version 5.2rc4 5.2rc4-19-g8a2d341 2013-10-31 15:44
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 4
@@ -222,7 +228,7 @@ Version 9
 step 5
 lua ProjectDIR/src/lmod.in.lua bash --config
 ===========================
-Modules based on Lua: Version 5.2rc3 5.2rc3 2013-10-30 12:53
+Modules based on Lua: Version 5.2rc4 5.2rc4-19-g8a2d341 2013-10-31 15:44
     by Robert McLay mclay@tacc.utexas.edu
 Description                  Value
 User cache valid time(sec)   @ancient@
