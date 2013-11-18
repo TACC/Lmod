@@ -774,6 +774,10 @@ function M.getMTfromFile(self,t)
    -----------------------------------------------------------------------
    -- Now check to see that all requested modules got loaded.
    activeA = s_mt:list("userName","active")
+   if (#activeA == 0 ) then
+      LmodWarning("You have no modules loaded because the collection \"",a,
+                     "\" is empty!\n")
+   end
    dbg.print("#activeA: ",#activeA,"\n")
    local activeT = {}
 
@@ -1722,10 +1726,14 @@ function M.serializeTbl(self, state)
 end
 
 function M.addStickyA(self, sn)
-   local a       = self._stickyA
-   local entry   = self.mT[sn]
-   a[#a+1] = {sn = sn, FN = entry.FN, fullName = entry.fullName,
-              userName = self:userName(sn)}
+   local a        = self._stickyA
+   local entry    = self.mT[sn]
+   local default  = entry.default
+   local userName = self:userName(sn)
+   local fullName = (default == 1 ) and sn or entry.fullName
+
+   a[#a+1] = {sn = sn, FN = entry.FN, fullName = fullName,
+              userName = userName }
 end
 
 function M.getStickyA(self)

@@ -352,7 +352,7 @@ function prereq_any(...)
    dbg.start("prereq_any(",concatTbl({...},", "),")")
    if (not validateModules("prereq_any",...)) then return end
 
-   mcp:prereq_any(MName:buildA("mt",...))
+   mcp:prereq_any(MName:buildA("load",...))
    dbg.fini("conflict")
 end
 
