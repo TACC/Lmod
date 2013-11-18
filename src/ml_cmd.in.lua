@@ -127,6 +127,7 @@ function main()
       save="save",
       savelist="savelist", sl="savelist",
       setdefault="save", sd="save",
+      search="search",
       show="show",
       spider="spider",
       swap="swap", sw="swap", switch="swap",

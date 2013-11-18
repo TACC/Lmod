@@ -622,6 +622,20 @@ function SaveList(...)
 end
 
 --------------------------------------------------------------------------
+-- SearchCmd(): Point users to either spider or keyword
+
+function SearchCmd(...)
+   local s = concatTbl({...}, " ")
+   io.stderr:write("\"module search\" does not exist. To list all possible modules do: \n",
+                   "   module spider ",s,"\n\n",
+                   "To search the contents of modules for matching words do:\n",
+                   "   module keyword ",s,"\n")
+end
+
+
+
+
+--------------------------------------------------------------------------
 -- Show(): use the show mode of MasterControl to list the active Lmod
 --         commands in a module file.  Note that it is always in Lua
 --         even if the modulefile is written in TCL.
