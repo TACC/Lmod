@@ -513,6 +513,12 @@ function Restore(a)
    else
       local mt      = MT:mt()
       local results = mt:getMTfromFile{fn=path, name=a, msg=msg} or Reset(true)
+
+      local activeA = mt:list("short","active")
+      if (#activeA == 0 ) then
+         LmodWarning("You have no modules loaded because the collection \"",a,
+                     "\" is empty!\n")
+      end
    end
 
    dbg.fini("Restore")
@@ -620,6 +626,20 @@ function SaveList(...)
       io.stderr:write(ct:build_tbl(),"\n")
    end
 end
+
+--------------------------------------------------------------------------
+-- SearchCmd(): Point users to either spider or keyword
+
+function SearchCmd(...)
+   local s = concatTbl({...}, " ")
+   io.stderr:write("\"module search\" does not exist. To list all possible modules do: \n",
+                   "   module spider ",s,"\n\n",
+                   "To search the contents of modules for matching words do:\n",
+                   "   module keyword ",s,"\n")
+end
+
+
+
 
 --------------------------------------------------------------------------
 -- Show(): use the show mode of MasterControl to list the active Lmod

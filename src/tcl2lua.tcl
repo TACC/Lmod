@@ -354,7 +354,7 @@ proc module-info {what {more {}}} {
 
 proc module-whatis { msg } {
     regsub -all {[\n]} $msg  " " msg2
-    cmdargs "whatis" $msg2
+    puts stdout "whatis(\[\[$msg2\]\])"
 }
 
 proc setenv { var val } {

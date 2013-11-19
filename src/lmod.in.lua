@@ -353,6 +353,7 @@ function main()
    local restoreTbl   = { name = "restore",     checkMPATH = false, cmd = Restore     }
    local savelistTbl  = { name = "savelist",    checkMPATH = false, cmd = SaveList    }
    local spiderTbl    = { name = "spider",      checkMPATH = true,  cmd = SpiderCmd   }
+   local searchTbl    = { name = "search",      checkMPATH = false, cmd = SearchCmd   }
    local recordTbl    = { name = "record",      checkMPATH = false, cmd = RecordCmd   }
 
    local cmdTbl = {
@@ -395,6 +396,7 @@ function main()
       s            = saveTbl,
       save         = saveTbl,
       sd           = saveTbl,
+      search       = searchTbl,
       setd         = saveTbl,
       setdefault   = saveTbl,
       show         = showTbl,

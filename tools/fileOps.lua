@@ -272,8 +272,11 @@ function abspath (path, localDir)
 
    local dir    = dirname(path)
    local ival   = lfs.chdir(dir)
+   if (ival) then
+      dir = lfs.currentdir()
+   end
 
-   path = pathJoin(lfs.currentdir(), barefilename(path))
+   path = pathJoin(dir, barefilename(path))
    local result = path
 
    local attr = lfs.symlinkattributes(path)
