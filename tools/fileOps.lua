@@ -272,9 +272,8 @@ function abspath (path, localDir)
 
    local dir    = dirname(path)
    local ival   = lfs.chdir(dir)
-   if (ival) then
-      dir = lfs.currentdir()
-   end
+
+   dir          = lfs.currentdir() or dir
 
    path = pathJoin(dir, barefilename(path))
    local result = path
