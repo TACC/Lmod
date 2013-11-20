@@ -106,3 +106,29 @@ LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1";
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1";
 export MODULEPATH;
+===========================
+step 10
+lua ProjectDIR/src/lmod.in.lua bash use ProjectDIR/rt/show/mf/Core
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/show/mf/Core:ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/show/mf/Core:ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1";
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/show/mf/Core","ProjectDIR/mf/Core","ProjectDIR/mf/Compiler/intel/10.1",},family={},inactive={},mT={boost={["FN"]="ProjectDIR/mf/Core/boost/1.47.1.lua",["default"]=0,["fullName"]="boost/1.47.1",["loadOrder"]=1,propT={},["short"]="boost",["status"]="active",},},mpathA={"ProjectDIR/rt/show/mf/Core","ProjectDIR/mf/Core","ProjectDIR/mf/Compiler/intel/10.1",},["systemBaseMPATH"]="ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1",["version"]=2,}';
+export _ModuleTable_;
+===========================
+step 11
+lua ProjectDIR/src/lmod.in.lua bash show a
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/show/mf/Core:ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/show/mf/Core:ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/show/mf/Core:ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/show/mf/Core:ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1";
+export MODULEPATH;

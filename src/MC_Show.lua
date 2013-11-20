@@ -3,7 +3,7 @@
 --------------------------------------------------------------------------
 --
 --  Lmod is licensed under the terms of the MIT license reproduced below.
---  This means that Lua is free software and can be used for both academic
+--  This means that Lmod is free software and can be used for both academic
 --  and commercial purposes at absolutely no cost.
 --
 --  ----------------------------------------------------------------------
@@ -156,21 +156,20 @@ function M.always_unload(self, mA)
 end
 
 function M.unload(self, mA)
-   io.stderr:write(ShowCmd("unload", mA))
+   io.stderr:write(ShowCmdA("unload", mA))
 end
 
-function M.prereq(self, ...)
-   ShowCmd("prereq",...)
+function M.prereq(self, mA)
+   io.stderr:write(ShowCmdA("prereq",mA))
 end
 
-function M.prereq_any(self, ...)
-   ShowCmd("prereq_any",...)
+function M.prereq_any(self, mA)
+   io.stderr:write(ShowCmdA("prereq_any",mA))
 end
 
-function M.conflict(self, ...)
-   ShowCmd("conflict",...)
+function M.conflict(self, mA)
+   io.stderr:write(ShowCmdA("conflict",mA))
 end
-
 
 function M.set_shell_function(self, ...)
    ShowCmd("set_shell_function", ...)

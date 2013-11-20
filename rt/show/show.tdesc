@@ -25,15 +25,18 @@ testdescript = {
 
      rm -fr _stderr.*  _stdout.* out.* err.* .lmod.d
 
-     runLmod --version           # 1
-     runLmod show gcc            # 2
-     runLmod show alex           # 3
-     runLmod avail               # 4
-     runLmod show boost          # 5
-     runLmod load boost/1.47.1   # 6
-     runLmod list                # 7
-     runLmod show boost          # 8
-     runLmod show boost/1.49.0   # 9
+     runLmod --version              # 1
+     runLmod show gcc               # 2
+     runLmod show alex              # 3
+     runLmod avail                  # 4
+     runLmod show boost             # 5
+     runLmod load boost/1.47.1      # 6
+     runLmod list                   # 7
+     runLmod show boost             # 8
+     runLmod show boost/1.49.0      # 9
+     runLmod use $(testDir)/mf/Core #10
+     runLmod show a                 #11
+
 
 
      cat _stdout.[0-9][0-9] > _stdout.orig

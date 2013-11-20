@@ -1,12 +1,4 @@
---------------------------------------------------------------------------
--- Lmod License
---------------------------------------------------------------------------
---
---  Lmod is licensed under the terms of the MIT license reproduced below.
---  This means that Lua is free software and can be used for both academic
---  and commercial purposes at absolutely no cost.
---
---  ----------------------------------------------------------------------
+------------------------------------------------------------------------
 --
 --  Copyright (C) 2008-2013 Robert McLay
 --

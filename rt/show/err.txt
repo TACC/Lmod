@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.1.6 (5.1.6-1-g6040705) 2013-09-06 19:17
+Modules based on Lua: Version 5.2 5.2-11-g1bd718f 2013-11-16 13:22
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -71,3 +71,15 @@ lua ProjectDIR/src/lmod.in.lua bash show boost/1.49.0
    ProjectDIR/mf/Core/boost/1.49.0.lua:
 setenv("TACC_BOOST_DIR","/opt/apps/boost/1.49.0")
 add_property("arch","offload")
+===========================
+step 10
+lua ProjectDIR/src/lmod.in.lua bash use ProjectDIR/rt/show/mf/Core
+===========================
+===========================
+step 11
+lua ProjectDIR/src/lmod.in.lua bash show a
+===========================
+   ProjectDIR/rt/show/mf/Core/a/1.0.lua:
+conflict("A","B")
+prereq_any("C","D","E")
+prereq("F")
