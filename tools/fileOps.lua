@@ -265,7 +265,13 @@ function abspath (path, localDir)
    local dir    = dirname(path)
    local ival   = lfs.chdir(dir)
 
-   dir          = lfs.currentdir() or dir
+   local cdir   = lfs.currentdir()
+   if (cdir == nil) then
+      dbg.print("lfs.currentdir(): is nil")
+   end
+
+   dir          = cdir or dir
+   
 
    path = pathJoin(dir, barefilename(path))
    local result = path
