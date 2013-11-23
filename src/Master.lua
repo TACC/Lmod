@@ -873,9 +873,9 @@ end
 --                if matches the search criteria.  It also adds any
 --                properties such as default or anything from [[propT]].
 
-local function availEntry(defaultOnly, terse, szA, searchA, sn, name,
+local function availEntry(defaultOnly, terse, mpath, szA, searchA, sn, name,
                           f, defaultModuleT, dbT, legendT, a)
-   dbg.start("Master:availEntry(defaultOnly, terse, szA, searchA, "..
+   dbg.start("Master:availEntry(defaultOnly, terse, mpath, szA, searchA, "..
                                "sn, name, f, defaultModuleT, dbT, legendT, a)")
 
    dbg.print("sn:" ,sn, ", name: ", name,", defaultOnly: ",defaultOnly,
@@ -893,6 +893,10 @@ local function availEntry(defaultOnly, terse, szA, searchA, sn, name,
          local s = searchA[i]
          if (name:find(s, 1, true) or name:find(s) or
              sn:find(s, 1, true)   or sn:find(s)) then
+            found = true
+            break
+         end
+         if (mpath:find(s,1,true) or mpath:find(s)) then
             found = true
             break
          end
@@ -998,18 +1002,18 @@ local function availDir(defaultOnly, terse, searchA, mpath, locationT, availT,
       local szA            = #versionA
       if (szA == 0) then
          local fn = versionA[0].file
-         availEntry(defaultOnly, terse, szA, searchA, sn, sn, fn,
+         availEntry(defaultOnly, terse, mpath, szA, searchA, sn, sn, fn,
                     defaultModuleT, dbT, legendT, a)
       else
          if (terse) then
             -- Print out directory (e.g. gcc) for tab-completion
-            availEntry(defaultOnly, terse, szA, searchA, sn, sn, "",
+            availEntry(defaultOnly, terse, mpath, szA, searchA, sn, sn, "",
                        defaultModuleT, dbT, legendT, a)
          end
          for i = 1, #versionA do
             local name = pathJoin(sn, versionA[i].version)
             local f    = versionA[i].file
-            availEntry(defaultOnly, terse, szA, searchA, sn, name,
+            availEntry(defaultOnly, terse, mpath, szA, searchA, sn, name,
                        f, defaultModuleT, dbT, legendT, a)
          end
       end
