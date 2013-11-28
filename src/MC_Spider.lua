@@ -162,7 +162,7 @@ function M.whatis(self,s)
    if (moduleT[path].whatis == nil) then
       moduleT[path].whatis ={}
    end
-   moduleT[path].whatis[#moduleT[path].whatis+1] = s
+   moduleT[path].whatis[#moduleT[path].whatis+1] = string.gsub(s, '"', '\\"')
    dbg.fini()
    return true
 end
