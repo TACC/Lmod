@@ -1,0 +1,37 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   Set of GNU Core Utils with Mutil 1.76.6 Patches. Mutil provides mcp and msum, which are drop-in replacements for cp and md5sum that utilize multiple types of parallelism to achieve maximum
+copy and checksum performance on clustered file systems 
+Multi-threading is used to ensure that nodes are kept as busy as
+possible.  Read/write parallelism allows individual operations of a
+single copy to be overlapped using asynchronous I/O.  Multi-node
+cooperation allows different nodes to take part in the same
+copy/checksum.  Split file processing allows multiple threads to
+operate concurrently on the same file.  Finally, hash trees allow
+inherently serial checksums to be performed in parallel.
+}
+}
+
+module-whatis {Set of Lore Utils with Mutil 1.76.6 Patches. https://github.com/NASAHackTO/mutil/tree/master/mutil-1.76.6}
+
+set root    /net/gmi.oeaw.ac.at/software/mendel/29_04_2013/software/mutil/1.76.6
+
+conflict    mutil
+
+if { ![is-loaded goolf/1.4.10] } {
+    module load goolf/1.4.10
+}
+
+
+prepend-path	LD_LIBRARY_PATH		$root/lib
+prepend-path	MANPATH		$root/share/man
+prepend-path	PATH		$root/bin
+prepend-path	PATH		$root/sbin
+prepend-path	PKG_CONFIG_PATH		$root/lib/pkgconfig
+
+setenv	EBROOTUTILMINLINUX		"$root"
+setenv	EBVERSIONUTILMINLINUX		"2.22.2"
+
+
+# built with EasyBuild version 1.3.0

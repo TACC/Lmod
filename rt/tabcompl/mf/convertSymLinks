@@ -1,0 +1,52 @@
+#!/usr/bin/env lua
+-- -*- lua -*-
+
+require("strict")
+require("string_split")
+require("fileOps")
+local Dbg    = require("Dbg")
+local lfs    = require("lfs")
+local posix  = require("posix")
+
+function buildLink(path)
+   local i, j = path:find("/all/")
+   local link = "../../all/" .. path:sub(j+1, -1)
+   return link
+end
+
+
+function convertSymlink(path)
+
+   for file in lfs.dir(path) do
+      if (file ~= "." and file ~= "..") then
+         local f    = path .. "/" .. file
+         local attr = lfs.symlinkattributes(f)
+         if (attr and type(attr) == "table" and attr.mode == "directory") then
+            convertSymlink(f)
+         elseif (attr.mode == "link") then
+            local rl   = posix.readlink(f)
+            local link = buildLink(rl)
+            posix.unlink(f)
+            local cmd  = "ln -s " .. link .. " " .. f
+            print(cmd)
+            os.execute(cmd)
+         end
+      end
+   end
+end
+
+function main()
+
+   for i = 1, #arg do
+      local dir  = arg[i]
+      local attr = lfs.attributes(dir)
+      if (attr and type(attr) == "table" and attr.mode == "directory") then
+         convertSymlink(dir)
+      end
+   end
+
+
+end
+
+
+main()

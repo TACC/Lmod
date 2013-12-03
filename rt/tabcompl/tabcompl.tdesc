@@ -18,7 +18,13 @@ testdescript = {
 
      unsetMT
      initStdEnvVars
-     MODULEPATH=$(testDir)/mf;     export MODULEPATH
+     MODULEPATH_ROOT=$(testDir)/mf;     export MODULEPATH_ROOT
+
+     export MODULEPATH="$MODULEPATH_ROOT/base"
+     for i in bio compiler data debugger devel lang lib math \
+              mpi numlib perf system toolchain tools vis; do
+       MODULEPATH="$MODULEPATH:$MODULEPATH_ROOT/$i"
+     done
 
      numStep=0
      COUNT=0
@@ -41,10 +47,8 @@ EOF
      T0=`EPOCH`
      runLmod -t avail           # 2
      T1=`EPOCH`
-     RT=`builtin echo "$T1 - $T0" | bc -q`
-     echo "RT: $RT"
-
-     
+     RT=`echo "$T1 - $T0" | bc -q`
+     echo "--%%-- RT: $RT" > _stderr.orig
 
 
      HOME_ORIG=$HOME
@@ -53,7 +57,7 @@ EOF
      joinBase64Results -bash _stdout.orig _stdout.new
      cleanUp _stdout.new out.txt
 
-     cat _stderr.[0-9][0-9] > _stderr.orig
+     cat _stderr.[0-9][0-9] >> _stderr.orig
      cleanUp _stderr.orig err.txt
 
      rm -f $(cmdResultFn)
