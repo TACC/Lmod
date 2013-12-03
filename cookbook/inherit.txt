@@ -1,0 +1,73 @@
+
+
+
+
+I now think I understand the question.  Suppose a user has their own version of a parallel library (say fftw3) and there is a system version of fftw3 as well.  The user creates a fftw3 module for intel and mvapich2.  Then then the user unloads mvapich2 for openmpi.  If the mvapich2 unloads and the openmpi loading module prepends then it will be in front of the users's personal path.  It is likely that the system module of intel/openmpi of fftw3 will be found before the users.
+
+If I have understood the question, then Lmod is helping the user out.  There is no way that the user's version of fftw3 build by intel/mvapich2 should be used with a build of intel/openmpi it just won't work correctly and maybe very hard to debug.   
+
+The solution to this problem has come up last summer on the mailing list.  The solution is "inherit()".   Essentially,  a user wanting to test their own version of a parallel library has to build a separate version of all the combinations they wish to test.  So if you have two compilers and two mpi stacks, the user will have to build all four version (IF THEY WISH TO TEST ALL COMBINATIONS).  If they only wish to test one version then a single directory and module will do.
+
+The user who wants to use the module hierarchy for personal parallel libraries has to copy compiler and mpi modules into their own hierarchy.   They can copy the system modules directly or they can use "inherit()" function.  A user copies the compiler module into a personal module tree and adds their personal compiler module path and then does the same thing with the mpi stack.  Finally they need to create module MPI directory for their parallel library or application.
+
+The advantage of using "inherit()" is that the Lmod is "copying" over the system compiler module for you, so if the text of the compiler or mpi module changes you'll get the latest version.   Below is the write-up that I gave last summer with corrections:
+
+-------------------------------------------------------------------------------------------------------------------------------
+To use this personal hierarchy, you do:
+
+    $ module use $PERSONAL_HIERARCHY
+
+Where that is the location on the system.  If you use what I describe below then its:
+
+    export PERSONAL_HIERARCHY=/work/xxxx/username/opt/apps/Core
+
+I like to explain things in the way that the Lmod website explains the hierarchy.  So if you make  MROOT be:
+
+    MROOT=$WORK/opt/apps/modulefiles
+
+and you create the directories:
+
+   $MROOT/Core,   $MROOT/Compiler,  $MROOT/MPI
+
+then you create:
+
+   $MROOT/Core/intel/x.lua
+
+Where x.lua matches the name(s) of the current intel name.  So if TACC has an intel compiler module named 13.1.3.163.  Then yours will be
+
+   $MROOT/Core/intel/13.1.3.163.lua
+
+In that file is:
+
+   local   fn      = myFileName()
+   local  MROOT    = fn:gsub("/Core/.*$","")
+   local  fullName = "intel/13_1"
+   inherit()
+   prepend_path("MODULEPATH", pathJoin(MROOT,"Compiler",fullName))
+
+The whole point of this file is to place your hierarchy in tandem the TACC hierarchy.  The first 2 lines use myFileName() to figure out what MROOT is based on the module location.  Then next two lines add to MODULEPATH.   The inherit() function loads the same named module that is also in MODULEPATH.  So it will load the system "intel/13.1.3.163" module.
+
+
+You then do the same thing for impi and mvapich2.  The mvapich2 module has the same version as the system one (say 1.9a2) and goes in:
+
+    $MROOT/Compiler/intel/13_1/mvapich2/1.9a2.lua
+
+and in this file is:
+
+  local  fn    = myFileName()
+  local  MROOT = fn:gsub("/Compiler/.*$","")
+  local  full  = "intel/13_1/mvapich2/1_9"
+  inherit()
+  prepend_path("MODULEPATH",pathJoin(MROOT,full)
+
+You have the same file for impi that matches the system name.  Finally your "p4est/dev.lua" goes in 
+
+   $MROOT/MPI/intel/13_1/mvapich2/1_9/p4est/dev.lua
+
+and 
+
+   $MROOT/MPI/intel/13_1/impi/xxx/p4est/dev.lua
+
+The only thing to remember is that when the system (i.e.) TACC installs a new compiler or mpi stack you'll need to match it.  But since the intel compiler and mpi stack modulefiles relatively version independent, all you need to is copy the file to the new name.   You do not have to use this particular naming scheme for the hierarchy but I like this one because all the modulefiles are under one directory tree.  The way that TACC does it the modulefiles are spread all over.
+
+I hope this helps,  I guess the answer is a little complicated.  Please feel free to ask for more details if I have not been clear.
