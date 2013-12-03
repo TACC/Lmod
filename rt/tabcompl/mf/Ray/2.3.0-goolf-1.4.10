@@ -1,0 +1,29 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   Ray -- Parallel genome assemblies for parallel DNA sequencing. Ray assembles reads obtained with new sequencing technologies (Illumina, 454, SOLiD) using MPI 2.2 -- a message passing inferface standard. - Homepage: http://sourceforge.net/projects/denovoassembler/
+    }
+}
+
+module-whatis {Ray -- Parallel genome assemblies for parallel DNA sequencing. Ray assembles reads obtained with new sequencing technologies (Illumina, 454, SOLiD) using MPI 2.2 -- a message passing inferface standard. - Homepage: http://sourceforge.net/projects/denovoassembler/}
+
+set root    /net/gmi.oeaw.ac.at/software/mendel/29_04_2013/software/Ray/2.3.0-goolf-1.4.10
+
+conflict    Ray
+
+if { ![is-loaded goolf/1.4.10] } {
+    module load goolf/1.4.10
+}
+
+if { ![is-loaded zlib/1.2.8-goolf-1.4.10] } {
+    module load zlib/1.2.8-goolf-1.4.10
+}
+
+prepend-path	PATH		$root/bin
+
+setenv	EBROOTRAY		"$root"
+setenv	EBVERSIONRAY		"2.3.0"
+setenv	EBDEVELRAY		"$root/easybuild/Ray-2.3.0-goolf-1.4.10-easybuild-devel"
+
+
+# built with EasyBuild version 1.8.2

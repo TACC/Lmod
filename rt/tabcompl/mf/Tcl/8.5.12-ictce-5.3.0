@@ -1,0 +1,30 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   Tcl (Tool Command Language) is a very powerful but easy to learn dynamic programming language,
+ suitable for a very wide range of uses, including web and desktop applications, networking, administration, testing and many more. - Homepage: http://www.tcl.tk/
+    }
+}
+
+module-whatis {Tcl (Tool Command Language) is a very powerful but easy to learn dynamic programming language,
+ suitable for a very wide range of uses, including web and desktop applications, networking, administration, testing and many more. - Homepage: http://www.tcl.tk/}
+
+set root    /net/gmi.oeaw.ac.at/software/mendel/29_04_2013/software/Tcl/8.5.12-ictce-5.3.0
+
+conflict    Tcl
+
+if { ![is-loaded ictce/5.3.0] } {
+    module load ictce/5.3.0
+}
+
+prepend-path	CPATH		$root/include
+prepend-path	LD_LIBRARY_PATH		$root/lib
+prepend-path	MANPATH		$root/man
+prepend-path	PATH		$root/bin
+
+setenv	EBROOTTCL		"$root"
+setenv	EBVERSIONTCL		"8.5.12"
+setenv	EBDEVELTCL		"$root/easybuild/Tcl-8.5.12-ictce-5.3.0-easybuild-devel"
+
+
+# built with EasyBuild version 1.8.2

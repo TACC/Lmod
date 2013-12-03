@@ -72,6 +72,11 @@ buildDbT ()
    $LUA_EXEC $projectDir/src/spider.in.lua -o dbT     "$@"
 }
 
+EPOCH()
+{
+   $LUA_EXEC $projectDir/src/epoch.in.lua
+}  
+
 initStdEnvVars()
 {
   unset LIBPATH

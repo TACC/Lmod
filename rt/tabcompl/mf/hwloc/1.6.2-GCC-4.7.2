@@ -1,0 +1,39 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   The Portable Hardware Locality (hwloc) software package provides a portable abstraction
+  (across OS, versions, architectures, ...) of the hierarchical topology of modern architectures, including
+ NUMA memory nodes, sockets, shared caches, cores and simultaneous multithreading. It also gathers various
+ system attributes such as cache and memory information as well as the locality of I/O devices such as
+ network interfaces, InfiniBand HCAs or GPUs. It primarily aims at helping applications with gathering
+ information about modern computing hardware so as to exploit it accordingly and efficiently. - Homepage: http://www.open-mpi.org/projects/hwloc/
+}
+}
+
+module-whatis {The Portable Hardware Locality (hwloc) software package provides a portable abstraction
+  (across OS, versions, architectures, ...) of the hierarchical topology of modern architectures, including
+ NUMA memory nodes, sockets, shared caches, cores and simultaneous multithreading. It also gathers various
+ system attributes such as cache and memory information as well as the locality of I/O devices such as
+ network interfaces, InfiniBand HCAs or GPUs. It primarily aims at helping applications with gathering
+ information about modern computing hardware so as to exploit it accordingly and efficiently. - Homepage: http://www.open-mpi.org/projects/hwloc/}
+
+set root    /net/gmi.oeaw.ac.at/software/mendel/29_04_2013/software/hwloc/1.6.2-GCC-4.7.2
+
+conflict    hwloc
+
+if { ![is-loaded GCC/4.7.2] } {
+    module load GCC/4.7.2
+}
+
+prepend-path	CPATH		$root/include
+prepend-path	LD_LIBRARY_PATH		$root/lib
+prepend-path	MANPATH		$root/share/man
+prepend-path	PATH		$root/bin
+prepend-path	PKG_CONFIG_PATH		$root/lib/pkgconfig
+
+setenv	EBROOTHWLOC		"$root"
+setenv	EBVERSIONHWLOC		"1.6.2"
+setenv	EBDEVELHWLOC		"$root/easybuild/hwloc-1.6.2-GCC-4.7.2-easybuild-devel"
+
+
+# built with EasyBuild version 1.3.0

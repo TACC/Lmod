@@ -1,0 +1,31 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   Download, build, install, upgrade, and uninstall Python packages -- easily! - Homepage: http://pypi.python.org/pypi/setuptools/
+    }
+}
+
+module-whatis {Download, build, install, upgrade, and uninstall Python packages -- easily! - Homepage: http://pypi.python.org/pypi/setuptools/}
+
+set root    /net/gmi.oeaw.ac.at/software/mendel/29_04_2013/software/setuptools/0.6c11-goolf-1.4.10-Python-2.7.3
+
+conflict    setuptools
+
+if { ![is-loaded goolf/1.4.10] } {
+    module load goolf/1.4.10
+}
+
+if { ![is-loaded Python/2.7.3-goolf-1.4.10] } {
+    module load Python/2.7.3-goolf-1.4.10
+}
+
+prepend-path	LD_LIBRARY_PATH		$root/lib
+prepend-path	PATH		$root/bin
+
+setenv	EBROOTSETUPTOOLS		"$root"
+setenv	EBVERSIONSETUPTOOLS		"0.6c11"
+setenv	EBDEVELSETUPTOOLS		"$root/easybuild/setuptools-0.6c11-goolf-1.4.10-Python-2.7.3-easybuild-devel"
+
+prepend-path	PYTHONPATH		$root/lib/python2.7/site-packages
+
+# built with EasyBuild version 1.8.2

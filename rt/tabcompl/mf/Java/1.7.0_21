@@ -1,0 +1,28 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   Java Platform, Standard Edition (Java SE) lets you develop and deploy
+ Java applications on desktops and servers. - Homepage: http://java.com/
+}
+}
+
+module-whatis {Java Platform, Standard Edition (Java SE) lets you develop and deploy
+ Java applications on desktops and servers. - Homepage: http://java.com/}
+
+set root    /net/gmi.oeaw.ac.at/software/mendel/29_04_2013/software/Java/1.7.0_21
+
+conflict    Java
+
+prepend-path	CPATH		$root/include
+prepend-path	LD_LIBRARY_PATH		$root/lib
+prepend-path	MANPATH		$root/man
+prepend-path	PATH		$root/bin
+
+setenv	EBROOTJAVA		"$root"
+setenv	EBVERSIONJAVA		"1.7.0_21"
+setenv	EBDEVELJAVA		"$root/easybuild/Java-1.7.0_21-easybuild-devel"
+
+prepend-path	PATH		$root/
+setenv	JAVA_HOME		"$root"
+
+# built with EasyBuild version 1.6.0dev

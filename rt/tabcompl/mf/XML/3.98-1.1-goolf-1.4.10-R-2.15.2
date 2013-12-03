@@ -1,0 +1,39 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   This package provides many approaches for both reading and creating XML (and HTML) documents
+(including DTDs), both local and accessible via HTTP or FTP. It also offers access to an XPath interpreter. - Homepage: http://cran.r-project.org/web/packages/XML
+    }
+}
+
+module-whatis {This package provides many approaches for both reading and creating XML (and HTML) documents
+(including DTDs), both local and accessible via HTTP or FTP. It also offers access to an XPath interpreter. - Homepage: http://cran.r-project.org/web/packages/XML}
+
+set root    /net/gmi.oeaw.ac.at/software/mendel/29_04_2013/software/XML/3.98-1.1-goolf-1.4.10-R-2.15.2
+
+conflict    XML
+
+if { ![is-loaded goolf/1.4.10] } {
+    module load goolf/1.4.10
+}
+
+if { ![is-loaded R/2.15.2-goolf-1.4.10] } {
+    module load R/2.15.2-goolf-1.4.10
+}
+
+if { ![is-loaded libxml2/2.9.0-goolf-1.4.10] } {
+    module load libxml2/2.9.0-goolf-1.4.10
+}
+
+if { ![is-loaded zlib/1.2.7-goolf-1.4.10] } {
+    module load zlib/1.2.7-goolf-1.4.10
+}
+
+
+setenv	EBROOTXML		"$root"
+setenv	EBVERSIONXML		"3.98-1.1"
+setenv	EBDEVELXML		"$root/easybuild/XML-3.98-1.1-goolf-1.4.10-R-2.15.2-easybuild-devel"
+
+prepend-path	R_LIBS		$root/
+
+# built with EasyBuild version 1.8.2

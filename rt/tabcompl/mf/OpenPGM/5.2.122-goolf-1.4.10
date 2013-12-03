@@ -1,0 +1,35 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   OpenPGM is an open source implementation of the Pragmatic General Multicast (PGM)
+specification in RFC 3208 available at www.ietf.org. PGM is a reliable and scalable multicast protocol
+that enables receivers to detect loss, request retransmission of lost data, or notify an application
+of unrecoverable loss. PGM is a receiver-reliable protocol, which means the receiver is responsible
+for ensuring all data is received, absolving the sender of reception responsibility. - Homepage: http://code.google.com/p/openpgm/
+}
+}
+
+module-whatis {OpenPGM is an open source implementation of the Pragmatic General Multicast (PGM)
+specification in RFC 3208 available at www.ietf.org. PGM is a reliable and scalable multicast protocol
+that enables receivers to detect loss, request retransmission of lost data, or notify an application
+of unrecoverable loss. PGM is a receiver-reliable protocol, which means the receiver is responsible
+for ensuring all data is received, absolving the sender of reception responsibility. - Homepage: http://code.google.com/p/openpgm/}
+
+set root    /net/gmi.oeaw.ac.at/software/mendel/29_04_2013/software/OpenPGM/5.2.122-goolf-1.4.10
+
+conflict    OpenPGM
+
+if { ![is-loaded goolf/1.4.10] } {
+    module load goolf/1.4.10
+}
+
+prepend-path	CPATH		$root/include
+prepend-path	LD_LIBRARY_PATH		$root/lib
+prepend-path	PKG_CONFIG_PATH		$root/lib/pkgconfig
+
+setenv	EBROOTOPENPGM		"$root"
+setenv	EBVERSIONOPENPGM		"5.2.122"
+setenv	EBDEVELOPENPGM		"$root/easybuild/OpenPGM-5.2.122-goolf-1.4.10-easybuild-devel"
+
+
+# built with EasyBuild version 1.3.0

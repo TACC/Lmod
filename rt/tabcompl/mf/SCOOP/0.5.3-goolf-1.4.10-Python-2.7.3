@@ -1,0 +1,40 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   SCOOP (Scalable COncurrent Operations in Python) is a distributed task module
+allowing concurrent parallel programming on various environments, from heterogeneous grids to supercomputers. - Homepage: http://code.google.com/p/scoop/
+    }
+}
+
+module-whatis {SCOOP (Scalable COncurrent Operations in Python) is a distributed task module
+allowing concurrent parallel programming on various environments, from heterogeneous grids to supercomputers. - Homepage: http://code.google.com/p/scoop/}
+
+set root    /net/gmi.oeaw.ac.at/software/mendel/29_04_2013/software/SCOOP/0.5.3-goolf-1.4.10-Python-2.7.3
+
+conflict    SCOOP
+
+if { ![is-loaded goolf/1.4.10] } {
+    module load goolf/1.4.10
+}
+
+if { ![is-loaded Python/2.7.3-goolf-1.4.10] } {
+    module load Python/2.7.3-goolf-1.4.10
+}
+
+if { ![is-loaded Greenlet/0.4.1-goolf-1.4.10-Python-2.7.3] } {
+    module load Greenlet/0.4.1-goolf-1.4.10-Python-2.7.3
+}
+
+if { ![is-loaded PyZMQ/2.2.0.1-goolf-1.4.10-Python-2.7.3-zmq2] } {
+    module load PyZMQ/2.2.0.1-goolf-1.4.10-Python-2.7.3-zmq2
+}
+
+prepend-path	LD_LIBRARY_PATH		$root/lib
+
+setenv	EBROOTSCOOP		"$root"
+setenv	EBVERSIONSCOOP		"0.5.3"
+setenv	EBDEVELSCOOP		"$root/easybuild/SCOOP-0.5.3-goolf-1.4.10-Python-2.7.3-easybuild-devel"
+
+prepend-path	PYTHONPATH		$root/lib/python2.7/site-packages
+
+# built with EasyBuild version 1.8.2

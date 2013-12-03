@@ -1,0 +1,25 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   MUSCLE is a program for creating multiple alignments of amino acid or nucleotide
+sequences. A range of options is provided that give you the choice of optimizing accuracy, speed,
+or some compromise between the two. - Homepage: http://drive5.com/muscle/
+    }
+}
+
+module-whatis {MUSCLE is a program for creating multiple alignments of amino acid or nucleotide
+sequences. A range of options is provided that give you the choice of optimizing accuracy, speed,
+or some compromise between the two. - Homepage: http://drive5.com/muscle/}
+
+set root    /net/gmi.oeaw.ac.at/software/mendel/29_04_2013/software/MUSCLE/3.8.31-i86linux64
+
+conflict    MUSCLE
+
+
+setenv	EBROOTMUSCLE		"$root"
+setenv	EBVERSIONMUSCLE		"3.8.31"
+setenv	EBDEVELMUSCLE		"$root/easybuild/MUSCLE-3.8.31-i86linux64-easybuild-devel"
+
+prepend-path	PATH		$root/
+
+# built with EasyBuild version 1.8.2

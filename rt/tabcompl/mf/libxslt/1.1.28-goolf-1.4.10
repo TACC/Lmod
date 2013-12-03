@@ -1,0 +1,40 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   Libxslt is the XSLT C library developed for the GNOME project (but usable
+outside of the Gnome platform). - Homepage: http://xmlsoft.org/
+    }
+}
+
+module-whatis {Libxslt is the XSLT C library developed for the GNOME project (but usable
+outside of the Gnome platform). - Homepage: http://xmlsoft.org/}
+
+set root    /net/gmi.oeaw.ac.at/software/mendel/29_04_2013/software/libxslt/1.1.28-goolf-1.4.10
+
+conflict    libxslt
+
+if { ![is-loaded goolf/1.4.10] } {
+    module load goolf/1.4.10
+}
+
+if { ![is-loaded zlib/1.2.7-goolf-1.4.10] } {
+    module load zlib/1.2.7-goolf-1.4.10
+}
+
+if { ![is-loaded libxml2/2.9.1-goolf-1.4.10] } {
+    module load libxml2/2.9.1-goolf-1.4.10
+}
+
+prepend-path	ACLOCAL_PATH		$root/share/aclocal
+prepend-path	CPATH		$root/include
+prepend-path	LD_LIBRARY_PATH		$root/lib
+prepend-path	MANPATH		$root/share/man
+prepend-path	PATH		$root/bin
+prepend-path	PKG_CONFIG_PATH		$root/lib/pkgconfig
+
+setenv	EBROOTLIBXSLT		"$root"
+setenv	EBVERSIONLIBXSLT		"1.1.28"
+setenv	EBDEVELLIBXSLT		"$root/easybuild/libxslt-1.1.28-goolf-1.4.10-easybuild-devel"
+
+
+# built with EasyBuild version 1.8.2

@@ -1,0 +1,41 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   The greenlet package is a spin-off of Stackless, a version of CPython that
+supports micro-threads called tasklets. Tasklets run pseudo-concurrently (typically in a single
+or a few OS-level threads) and are synchronized with data exchanges on channels.
+A greenlet, on the other hand, is a still more primitive notion of micro-thread with no implicit
+scheduling; coroutines, in other words. This is useful when you want to control exactly when your code runs.
+ - Homepage: https://github.com/python-greenlet/greenlet
+    }
+}
+
+module-whatis {The greenlet package is a spin-off of Stackless, a version of CPython that
+supports micro-threads called tasklets. Tasklets run pseudo-concurrently (typically in a single
+or a few OS-level threads) and are synchronized with data exchanges on channels.
+A greenlet, on the other hand, is a still more primitive notion of micro-thread with no implicit
+scheduling; coroutines, in other words. This is useful when you want to control exactly when your code runs.
+ - Homepage: https://github.com/python-greenlet/greenlet}
+
+set root    /net/gmi.oeaw.ac.at/software/mendel/29_04_2013/software/Greenlet/0.4.1-goolf-1.4.10-Python-2.7.3
+
+conflict    Greenlet
+
+if { ![is-loaded goolf/1.4.10] } {
+    module load goolf/1.4.10
+}
+
+if { ![is-loaded Python/2.7.3-goolf-1.4.10] } {
+    module load Python/2.7.3-goolf-1.4.10
+}
+
+prepend-path	CPATH		$root/include
+prepend-path	LD_LIBRARY_PATH		$root/lib
+
+setenv	EBROOTGREENLET		"$root"
+setenv	EBVERSIONGREENLET		"0.4.1"
+setenv	EBDEVELGREENLET		"$root/easybuild/Greenlet-0.4.1-goolf-1.4.10-Python-2.7.3-easybuild-devel"
+
+prepend-path	PYTHONPATH		$root/lib/python2.7/site-packages
+
+# built with EasyBuild version 1.8.2

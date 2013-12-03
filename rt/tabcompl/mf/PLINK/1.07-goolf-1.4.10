@@ -1,0 +1,29 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   plink-1.07-src: Whole-genome association analysis toolset - Homepage: http://pngu.mgh.harvard.edu/~purcell/plink/
+}
+}
+
+module-whatis {plink-1.07-src: Whole-genome association analysis toolset - Homepage: http://pngu.mgh.harvard.edu/~purcell/plink/}
+
+set root    /net/gmi.oeaw.ac.at/software/mendel/29_04_2013/software/PLINK/1.07-goolf-1.4.10
+
+conflict    PLINK
+
+if { ![is-loaded goolf/1.4.10] } {
+    module load goolf/1.4.10
+}
+
+if { ![is-loaded zlib/1.2.8-goolf-1.4.10] } {
+    module load zlib/1.2.8-goolf-1.4.10
+}
+
+prepend-path	PATH		$root/bin
+
+setenv	EBROOTPLINK		"$root"
+setenv	EBVERSIONPLINK		"1.07"
+setenv	EBDEVELPLINK		"$root/easybuild/PLINK-1.07-goolf-1.4.10-easybuild-devel"
+
+
+# built with EasyBuild version 1.6.0

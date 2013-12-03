@@ -1,0 +1,32 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   CMake, the cross-platform, open-source build system.
+ CMake is a family of tools designed to build, test and package software. - Homepage: http://www.cmake.org
+}
+}
+
+module-whatis {CMake, the cross-platform, open-source build system.
+ CMake is a family of tools designed to build, test and package software. - Homepage: http://www.cmake.org}
+
+set root    /net/gmi.oeaw.ac.at/software/mendel/29_04_2013/software/CMake/2.8.11-goolf-1.4.10
+
+conflict    CMake
+
+if { ![is-loaded goolf/1.4.10] } {
+    module load goolf/1.4.10
+}
+
+if { ![is-loaded ncurses/5.9-goolf-1.4.10] } {
+    module load ncurses/5.9-goolf-1.4.10
+}
+
+prepend-path	MANPATH		$root/man
+prepend-path	PATH		$root/bin
+
+setenv	EBROOTCMAKE		"$root"
+setenv	EBVERSIONCMAKE		"2.8.11"
+setenv	EBDEVELCMAKE		"$root/easybuild/CMake-2.8.11-goolf-1.4.10-easybuild-devel"
+
+
+# built with EasyBuild version 1.6.0dev

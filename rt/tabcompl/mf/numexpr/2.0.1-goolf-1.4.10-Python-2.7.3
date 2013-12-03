@@ -1,0 +1,40 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   The numexpr package evaluates multiple-operator array expressions many times faster than NumPy can.
+ It accepts the expression as a string, analyzes it, rewrites it more efficiently, and compiles it on the fly into
+ code for its internal virtual machine (VM). Due to its integrated just-in-time (JIT) compiler, it does not require a
+ compiler at runtime. - Homepage: http://code.google.com/p/numexpr/
+}
+}
+
+module-whatis {The numexpr package evaluates multiple-operator array expressions many times faster than NumPy can.
+ It accepts the expression as a string, analyzes it, rewrites it more efficiently, and compiles it on the fly into
+ code for its internal virtual machine (VM). Due to its integrated just-in-time (JIT) compiler, it does not require a
+ compiler at runtime. - Homepage: http://code.google.com/p/numexpr/}
+
+set root    /net/gmi.oeaw.ac.at/software/mendel/29_04_2013/software/numexpr/2.0.1-goolf-1.4.10-Python-2.7.3
+
+conflict    numexpr
+
+if { ![is-loaded goolf/1.4.10] } {
+    module load goolf/1.4.10
+}
+
+if { ![is-loaded Python/2.7.3-goolf-1.4.10] } {
+    module load Python/2.7.3-goolf-1.4.10
+}
+
+if { ![is-loaded HDF5/1.8.7-goolf-1.4.10] } {
+    module load HDF5/1.8.7-goolf-1.4.10
+}
+
+prepend-path	LD_LIBRARY_PATH		$root/lib
+
+setenv	EBROOTNUMEXPR		"$root"
+setenv	EBVERSIONNUMEXPR		"2.0.1"
+setenv	EBDEVELNUMEXPR		"$root/easybuild/numexpr-2.0.1-goolf-1.4.10-Python-2.7.3-easybuild-devel"
+
+prepend-path	PYTHONPATH		$root/lib/python2.7/site-packages
+
+# built with EasyBuild version 1.3.0

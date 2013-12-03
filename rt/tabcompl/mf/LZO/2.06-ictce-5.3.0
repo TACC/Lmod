@@ -1,0 +1,26 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   LZO-2.06: Portable lossless data compression library - Homepage: http://www.oberhumer.com/opensource/lzo/
+}
+}
+
+module-whatis {LZO-2.06: Portable lossless data compression library - Homepage: http://www.oberhumer.com/opensource/lzo/}
+
+set root    /net/gmi.oeaw.ac.at/software/mendel/29_04_2013/software/LZO/2.06-ictce-5.3.0
+
+conflict    LZO
+
+if { ![is-loaded ictce/5.3.0] } {
+    module load ictce/5.3.0
+}
+
+prepend-path	CPATH		$root/include
+prepend-path	LD_LIBRARY_PATH		$root/lib
+
+setenv	EBROOTLZO		"$root"
+setenv	EBVERSIONLZO		"2.06"
+setenv	EBDEVELLZO		"$root/easybuild/LZO-2.06-ictce-5.3.0-easybuild-devel"
+
+
+# built with EasyBuild version 1.6.0dev

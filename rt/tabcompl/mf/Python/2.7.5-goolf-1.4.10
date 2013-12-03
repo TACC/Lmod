@@ -1,0 +1,46 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   Python is a programming language that lets you work more quickly and integrate your systems more effectively. - Homepage: http://python.org/
+}
+}
+
+module-whatis {Python is a programming language that lets you work more quickly and integrate your systems more effectively. - Homepage: http://python.org/}
+
+set root    /net/gmi.oeaw.ac.at/software/mendel/29_04_2013/software/Python/2.7.5-goolf-1.4.10
+
+conflict    Python
+
+if { ![is-loaded goolf/1.4.10] } {
+    module load goolf/1.4.10
+}
+
+if { ![is-loaded bzip2/1.0.6-goolf-1.4.10] } {
+    module load bzip2/1.0.6-goolf-1.4.10
+}
+
+if { ![is-loaded zlib/1.2.8-goolf-1.4.10] } {
+    module load zlib/1.2.8-goolf-1.4.10
+}
+
+if { ![is-loaded libreadline/6.2-goolf-1.4.10] } {
+    module load libreadline/6.2-goolf-1.4.10
+}
+
+if { ![is-loaded ncurses/5.9-goolf-1.4.10] } {
+    module load ncurses/5.9-goolf-1.4.10
+}
+
+prepend-path	CPATH		$root/include
+prepend-path	LD_LIBRARY_PATH		$root/lib
+prepend-path	MANPATH		$root/share/man
+prepend-path	PATH		$root/bin
+prepend-path	PKG_CONFIG_PATH		$root/lib/pkgconfig
+
+setenv	EBROOTPYTHON		"$root"
+setenv	EBVERSIONPYTHON		"2.7.5"
+setenv	EBDEVELPYTHON		"$root/easybuild/Python-2.7.5-goolf-1.4.10-easybuild-devel"
+
+setenv	EBEXTSLISTPYTHON		"setuptools-0.6c11,nose-1.3.0,numpy-1.7.0,scipy-0.12.0,mpi4py-1.3,paycheck-1.0.2,argparse-1.2.1,lockfile-0.9.1,Cython-0.19.1"
+
+# built with EasyBuild version 1.6.0dev

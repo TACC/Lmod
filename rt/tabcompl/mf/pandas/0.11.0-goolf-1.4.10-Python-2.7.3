@@ -1,0 +1,32 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   pandas is an open source, BSD-licensed library providing high-performance, easy-to-use data structures
+and data analysis tools for the Python programming language. - Homepage: http://pypi.python.org/pypi/pandas/
+}
+}
+
+module-whatis {pandas is an open source, BSD-licensed library providing high-performance, easy-to-use data structures
+and data analysis tools for the Python programming language. - Homepage: http://pypi.python.org/pypi/pandas/}
+
+set root    /net/gmi.oeaw.ac.at/software/mendel/29_04_2013/software/pandas/0.11.0-goolf-1.4.10-Python-2.7.3
+
+conflict    pandas
+
+if { ![is-loaded goolf/1.4.10] } {
+    module load goolf/1.4.10
+}
+
+if { ![is-loaded Python/2.7.3-goolf-1.4.10] } {
+    module load Python/2.7.3-goolf-1.4.10
+}
+
+prepend-path	LD_LIBRARY_PATH		$root/lib
+
+setenv	EBROOTPANDAS		"$root"
+setenv	EBVERSIONPANDAS		"0.11.0"
+setenv	EBDEVELPANDAS		"$root/easybuild/pandas-0.11.0-goolf-1.4.10-Python-2.7.3-easybuild-devel"
+
+prepend-path	PYTHONPATH		$root/lib/python2.7/site-packages
+
+# built with EasyBuild version 1.6.0dev

@@ -1,0 +1,37 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   bbFTP is a file transfer software. It implements its own transfer protocol,
+  which is optimized for large files (larger than 2GB) and secure as it does not read the
+  password in a file and encrypts the connection information. bbFTP main features are:
+  * Encoded username and password at connection * SSH and Certificate authentication modules
+  * Multi-stream transfer * Big windows as defined in RFC1323 * On-the-fly data compression
+  * Automatic retry * Customizable time-outs * Transfer simulation
+  * AFS authentication integration * RFIO interface - Homepage: http://doc.in2p3.fr/bbftp/
+}
+}
+
+module-whatis {bbFTP is a file transfer software. It implements its own transfer protocol,
+  which is optimized for large files (larger than 2GB) and secure as it does not read the
+  password in a file and encrypts the connection information. bbFTP main features are:
+  * Encoded username and password at connection * SSH and Certificate authentication modules
+  * Multi-stream transfer * Big windows as defined in RFC1323 * On-the-fly data compression
+  * Automatic retry * Customizable time-outs * Transfer simulation
+  * AFS authentication integration * RFIO interface - Homepage: http://doc.in2p3.fr/bbftp/}
+
+set root    /net/gmi.oeaw.ac.at/software/mendel/29_04_2013/software/bbFTP/3.2.0-goolf-1.4.10
+
+conflict    bbFTP
+
+if { ![is-loaded goolf/1.4.10] } {
+    module load goolf/1.4.10
+}
+
+prepend-path	PATH		$root/bin
+
+setenv	EBROOTBBFTP		"$root"
+setenv	EBVERSIONBBFTP		"3.2.0"
+setenv	EBDEVELBBFTP		"$root/easybuild/bbFTP-3.2.0-goolf-1.4.10-easybuild-devel"
+
+
+# built with EasyBuild version 1.3.0

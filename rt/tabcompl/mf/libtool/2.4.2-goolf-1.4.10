@@ -1,0 +1,30 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   GNU libtool is a generic library support script. Libtool hides the complexity of using shared libraries
+behind a consistent, portable interface. - Homepage: http://www.gnu.org/software/libtool
+}
+}
+
+module-whatis {GNU libtool is a generic library support script. Libtool hides the complexity of using shared libraries
+behind a consistent, portable interface. - Homepage: http://www.gnu.org/software/libtool}
+
+set root    /net/gmi.oeaw.ac.at/software/mendel/29_04_2013/software/libtool/2.4.2-goolf-1.4.10
+
+conflict    libtool
+
+if { ![is-loaded goolf/1.4.10] } {
+    module load goolf/1.4.10
+}
+
+prepend-path	CPATH		$root/include
+prepend-path	LD_LIBRARY_PATH		$root/lib
+prepend-path	MANPATH		$root/share/man
+prepend-path	PATH		$root/bin
+
+setenv	EBROOTLIBTOOL		"$root"
+setenv	EBVERSIONLIBTOOL		"2.4.2"
+setenv	EBDEVELLIBTOOL		"$root/easybuild/libtool-2.4.2-goolf-1.4.10-easybuild-devel"
+
+
+# built with EasyBuild version 1.3.0

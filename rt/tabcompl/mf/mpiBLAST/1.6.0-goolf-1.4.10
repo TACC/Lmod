@@ -1,0 +1,33 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   mpiBLAST is a freely available, open-source, parallel implementation of NCBI BLAST.
+  By efficiently utilizing distributed computational resources through database fragmentation,
+  query segmentation, intelligent scheduling, and parallel I/O, mpiBLAST improves NCBI BLAST
+  performance by several orders of magnitude while scaling to hundreds of processors.
+  mpiBLAST is also portable across many different platforms and operating systems. - Homepage: http://www.mpiblast.org/
+}
+}
+
+module-whatis {mpiBLAST is a freely available, open-source, parallel implementation of NCBI BLAST.
+  By efficiently utilizing distributed computational resources through database fragmentation,
+  query segmentation, intelligent scheduling, and parallel I/O, mpiBLAST improves NCBI BLAST
+  performance by several orders of magnitude while scaling to hundreds of processors.
+  mpiBLAST is also portable across many different platforms and operating systems. - Homepage: http://www.mpiblast.org/}
+
+set root    /net/gmi.oeaw.ac.at/software/mendel/29_04_2013/software/mpiBLAST/1.6.0-goolf-1.4.10
+
+conflict    mpiBLAST
+
+if { ![is-loaded goolf/1.4.10] } {
+    module load goolf/1.4.10
+}
+
+prepend-path	PATH		$root/bin
+
+setenv	EBROOTMPIBLAST		"$root"
+setenv	EBVERSIONMPIBLAST		"1.6.0"
+setenv	EBDEVELMPIBLAST		"$root/easybuild/mpiBLAST-1.6.0-goolf-1.4.10-easybuild-devel"
+
+
+# built with EasyBuild version 1.6.0

@@ -1,0 +1,34 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   Set of Linux utilities - Homepage: http://www.kernel.org/pub/linux/utils/util-linux
+}
+}
+
+module-whatis {Set of Linux utilities - Homepage: http://www.kernel.org/pub/linux/utils/util-linux}
+
+set root    /net/gmi.oeaw.ac.at/software/mendel/29_04_2013/software/util-linux/2.22.2-goolf-1.4.10
+
+conflict    util-linux
+
+if { ![is-loaded goolf/1.4.10] } {
+    module load goolf/1.4.10
+}
+
+if { ![is-loaded ncurses/5.9-goolf-1.4.10] } {
+    module load ncurses/5.9-goolf-1.4.10
+}
+
+prepend-path	CPATH		$root/include
+prepend-path	LD_LIBRARY_PATH		$root/lib
+prepend-path	MANPATH		$root/share/man
+prepend-path	PATH		$root/bin
+prepend-path	PATH		$root/sbin
+prepend-path	PKG_CONFIG_PATH		$root/lib/pkgconfig
+
+setenv	EBROOTUTILMINLINUX		"$root"
+setenv	EBVERSIONUTILMINLINUX		"2.22.2"
+setenv	EBDEVELUTILMINLINUX		"$root/easybuild/util-linux-2.22.2-goolf-1.4.10-easybuild-devel"
+
+
+# built with EasyBuild version 1.3.0

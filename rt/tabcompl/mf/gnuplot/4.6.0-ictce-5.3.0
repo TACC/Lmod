@@ -1,0 +1,26 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   gnuplot-4.6.0: Portable interactive, function plotting utility - Homepage: http://gnuplot.sourceforge.net/
+}
+}
+
+module-whatis {gnuplot-4.6.0: Portable interactive, function plotting utility - Homepage: http://gnuplot.sourceforge.net/}
+
+set root    /net/gmi.oeaw.ac.at/software/mendel/29_04_2013/software/gnuplot/4.6.0-ictce-5.3.0
+
+conflict    gnuplot
+
+if { ![is-loaded ictce/5.3.0] } {
+    module load ictce/5.3.0
+}
+
+prepend-path	MANPATH		$root/share/man
+prepend-path	PATH		$root/bin
+
+setenv	EBROOTGNUPLOT		"$root"
+setenv	EBVERSIONGNUPLOT		"4.6.0"
+setenv	EBDEVELGNUPLOT		"$root/easybuild/gnuplot-4.6.0-ictce-5.3.0-easybuild-devel"
+
+
+# built with EasyBuild version 1.6.0dev

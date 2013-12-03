@@ -1,0 +1,29 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   Bison is a general-purpose parser generator that converts an annotated context-free grammar
+into a deterministic LR or generalized LR (GLR) parser employing LALR(1) parser tables. - Homepage: http://www.gnu.org/software/bison
+}
+}
+
+module-whatis {Bison is a general-purpose parser generator that converts an annotated context-free grammar
+into a deterministic LR or generalized LR (GLR) parser employing LALR(1) parser tables. - Homepage: http://www.gnu.org/software/bison}
+
+set root    /net/gmi.oeaw.ac.at/software/mendel/29_04_2013/software/Bison/2.5-goolf-1.4.10
+
+conflict    Bison
+
+if { ![is-loaded goolf/1.4.10] } {
+    module load goolf/1.4.10
+}
+
+prepend-path	LD_LIBRARY_PATH		$root/lib
+prepend-path	MANPATH		$root/share/man
+prepend-path	PATH		$root/bin
+
+setenv	EBROOTBISON		"$root"
+setenv	EBVERSIONBISON		"2.5"
+setenv	EBDEVELBISON		"$root/easybuild/Bison-2.5-goolf-1.4.10-easybuild-devel"
+
+
+# built with EasyBuild version 1.3.0

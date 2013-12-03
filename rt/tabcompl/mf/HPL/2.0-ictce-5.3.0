@@ -1,0 +1,29 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   HPL is a software package that solves a (random) dense linear system in double precision (64 bits) arithmetic 
+ on distributed-memory computers. It can thus be regarded as a portable as well as freely available implementation of the 
+ High Performance Computing Linpack Benchmark. - Homepage: http://www.netlib.org/benchmark/hpl/
+}
+}
+
+module-whatis {HPL is a software package that solves a (random) dense linear system in double precision (64 bits) arithmetic 
+ on distributed-memory computers. It can thus be regarded as a portable as well as freely available implementation of the 
+ High Performance Computing Linpack Benchmark. - Homepage: http://www.netlib.org/benchmark/hpl/}
+
+set root    /net/gmi.oeaw.ac.at/software/mendel/29_04_2013/software/HPL/2.0-ictce-5.3.0
+
+conflict    HPL
+
+if { ![is-loaded ictce/5.3.0] } {
+    module load ictce/5.3.0
+}
+
+prepend-path	PATH		$root/bin
+
+setenv	EBROOTHPL		"$root"
+setenv	EBVERSIONHPL		"2.0"
+setenv	EBDEVELHPL		"$root/easybuild/HPL-2.0-ictce-5.3.0-easybuild-devel"
+
+
+# built with EasyBuild version 1.4.0

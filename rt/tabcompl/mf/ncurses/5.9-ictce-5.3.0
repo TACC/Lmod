@@ -1,0 +1,32 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   The Ncurses (new curses) library is a free software emulation of curses in System V Release 4.0,
+ and more. It uses Terminfo format, supports pads and color and multiple highlights and forms characters and
+ function-key mapping, and has all the other SYSV-curses enhancements over BSD Curses. - Homepage: http://www.gnu.org/software/ncurses/
+}
+}
+
+module-whatis {The Ncurses (new curses) library is a free software emulation of curses in System V Release 4.0,
+ and more. It uses Terminfo format, supports pads and color and multiple highlights and forms characters and
+ function-key mapping, and has all the other SYSV-curses enhancements over BSD Curses. - Homepage: http://www.gnu.org/software/ncurses/}
+
+set root    /net/gmi.oeaw.ac.at/software/mendel/29_04_2013/software/ncurses/5.9-ictce-5.3.0
+
+conflict    ncurses
+
+if { ![is-loaded ictce/5.3.0] } {
+    module load ictce/5.3.0
+}
+
+prepend-path	CPATH		$root/include
+prepend-path	LD_LIBRARY_PATH		$root/lib
+prepend-path	MANPATH		$root/man
+prepend-path	PATH		$root/bin
+
+setenv	EBROOTNCURSES		"$root"
+setenv	EBVERSIONNCURSES		"5.9"
+setenv	EBDEVELNCURSES		"$root/easybuild/ncurses-5.9-ictce-5.3.0-easybuild-devel"
+
+
+# built with EasyBuild version 1.4.0

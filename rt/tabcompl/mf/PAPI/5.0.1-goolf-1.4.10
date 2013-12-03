@@ -1,0 +1,38 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   PAPI provides the tool designer and application engineer with a consistent interface and
+methodology for use of the performance counter hardware found in most major microprocessors. PAPI enables
+software engineers to see, in near real time, the relation between software performance and processor events.
+ 
+In addition Component PAPI provides access to a collection of components
+that expose performance measurement opportunites across the hardware and software stack. - Homepage: http://icl.cs.utk.edu/projects/papi/
+}
+}
+
+module-whatis {PAPI provides the tool designer and application engineer with a consistent interface and
+methodology for use of the performance counter hardware found in most major microprocessors. PAPI enables
+software engineers to see, in near real time, the relation between software performance and processor events.
+ 
+In addition Component PAPI provides access to a collection of components
+that expose performance measurement opportunites across the hardware and software stack. - Homepage: http://icl.cs.utk.edu/projects/papi/}
+
+set root    /net/gmi.oeaw.ac.at/software/mendel/29_04_2013/software/PAPI/5.0.1-goolf-1.4.10
+
+conflict    PAPI
+
+if { ![is-loaded goolf/1.4.10] } {
+    module load goolf/1.4.10
+}
+
+prepend-path	CPATH		$root/include
+prepend-path	LD_LIBRARY_PATH		$root/lib
+prepend-path	MANPATH		$root/man
+prepend-path	PATH		$root/bin
+
+setenv	EBROOTPAPI		"$root"
+setenv	EBVERSIONPAPI		"5.0.1"
+setenv	EBDEVELPAPI		"$root/easybuild/PAPI-5.0.1-goolf-1.4.10-easybuild-devel"
+
+
+# built with EasyBuild version 1.3.0

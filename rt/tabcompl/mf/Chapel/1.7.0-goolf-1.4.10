@@ -1,0 +1,38 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {    Chapel is an emerging parallel programming language whose design and development
+is being led by Cray Inc. Chapel is designed to improve the productivity of high-end computer users
+while also serving as a portable parallel programming model that can be used on commodity clusters
+or desktop multicore systems. Chapel strives to vastly improve the programmability of large-scale
+parallel computers while matching or beating the performance and portability of current programming
+models like MPI. - Homepage: http://chapel.cray.com
+}
+}
+
+module-whatis { Chapel is an emerging parallel programming language whose design and development
+is being led by Cray Inc. Chapel is designed to improve the productivity of high-end computer users
+while also serving as a portable parallel programming model that can be used on commodity clusters
+or desktop multicore systems. Chapel strives to vastly improve the programmability of large-scale
+parallel computers while matching or beating the performance and portability of current programming
+models like MPI. - Homepage: http://chapel.cray.com}
+
+set root    /net/gmi.oeaw.ac.at/software/mendel/29_04_2013/software/Chapel/1.7.0-goolf-1.4.10
+
+conflict    Chapel
+
+if { ![is-loaded goolf/1.4.10] } {
+    module load goolf/1.4.10
+}
+
+prepend-path	LD_LIBRARY_PATH		$root/lib
+prepend-path	LD_LIBRARY_PATH		$root/lib/linux64
+prepend-path	PATH		$root/bin
+prepend-path	PATH		$root/bin/linux64
+
+setenv	EBROOTCHAPEL		"$root"
+setenv	EBVERSIONCHAPEL		"1.7.0"
+setenv	EBDEVELCHAPEL		"$root/easybuild/Chapel-1.7.0-goolf-1.4.10-easybuild-devel"
+
+
+# built with EasyBuild version 1.6.0dev

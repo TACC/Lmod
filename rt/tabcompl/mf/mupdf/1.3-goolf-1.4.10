@@ -1,0 +1,27 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   The renderer in MuPDF is tailored for high quality anti-aliased graphics. It renders text with metrics and spacing accurate to within fractions of a pixel for the highest fidelity in reproducing the look of a printed page on screen.
+MuPDF is also small, fast, and yet complete. It supports PDF 1.7 with transparency, encryption, hyperlinks, annotations, searching and more. It also reads XPS and OpenXPS documents. MuPDF is written modularly, so features can be added on by integrators if they so desire.Since the 1.2 release of MuPDF, we optionally support interactive features such as form form filling, javascript and transitions. - Homepage: http://code.google.com/p/mupdf/
+    }
+}
+
+module-whatis {The renderer in MuPDF is tailored for high quality anti-aliased graphics. It renders text with metrics and spacing accurate to within fractions of a pixel for the highest fidelity in reproducing the look of a printed page on screen.
+MuPDF is also small, fast, and yet complete. It supports PDF 1.7 with transparency, encryption, hyperlinks, annotations, searching and more. It also reads XPS and OpenXPS documents. MuPDF is written modularly, so features can be added on by integrators if they so desire.Since the 1.2 release of MuPDF, we optionally support interactive features such as form form filling, javascript and transitions. - Homepage: http://code.google.com/p/mupdf/}
+
+set root    /net/gmi.oeaw.ac.at/software/mendel/29_04_2013/software/mupdf/1.3-goolf-1.4.10
+
+conflict    mupdf
+
+if { ![is-loaded goolf/1.4.10] } {
+    module load goolf/1.4.10
+}
+
+prepend-path	PATH		$root/bin
+
+setenv	EBROOTMUPDF		"$root"
+setenv	EBVERSIONMUPDF		"1.3"
+setenv	EBDEVELMUPDF		"$root/easybuild/mupdf-1.3-goolf-1.4.10-easybuild-devel"
+
+
+# built with EasyBuild version 1.8.2

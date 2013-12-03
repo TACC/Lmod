@@ -1,0 +1,27 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   Intel VTune Amplifier XE 2013 is the premier performance profiler for C, C++, C#, Fortran, Assembly and Jav. - Homepage: http://software.intel.com/en-us/intel-vtune-amplifier-xe
+}
+}
+
+module-whatis {Intel VTune Amplifier XE 2013 is the premier performance profiler for C, C++, C#, Fortran, Assembly and Jav. - Homepage: http://software.intel.com/en-us/intel-vtune-amplifier-xe}
+
+set root    /net/gmi.oeaw.ac.at/software/mendel/29_04_2013/software/VTune/2013_update6
+
+conflict    VTune
+
+prepend-path	CPATH		$root/include
+prepend-path	FPATH		$root/include
+prepend-path	LD_LIBRARY_PATH		$root/lib64
+prepend-path	LIBRARY_PATH		$root/lib64
+prepend-path	MANPATH		$root/man
+prepend-path	PATH		$root/bin64
+
+setenv	EBROOTVTUNE		"$root"
+setenv	EBVERSIONVTUNE		"2013_update6"
+setenv	EBDEVELVTUNE		"$root/easybuild/VTune-2013_update6-easybuild-devel"
+
+prepend-path	INTEL_LICENSE_FILE		/net/gmi.oeaw.ac.at/software/mendel/easybuild-home/licenses/intel/license.lic
+
+# built with EasyBuild version 1.4.0

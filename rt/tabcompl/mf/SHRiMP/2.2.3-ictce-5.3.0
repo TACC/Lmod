@@ -1,0 +1,31 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   SHRiMP is a software package for aligning genomic reads against a target genome.
+ It was primarily developed with the multitudinous short reads of next generation sequencing machines in mind,
+ as well as Applied Biosystem's colourspace genomic representation. - Homepage: http://compbio.cs.toronto.edu/shrimp/
+}
+}
+
+module-whatis {SHRiMP is a software package for aligning genomic reads against a target genome.
+ It was primarily developed with the multitudinous short reads of next generation sequencing machines in mind,
+ as well as Applied Biosystem's colourspace genomic representation. - Homepage: http://compbio.cs.toronto.edu/shrimp/}
+
+set root    /net/gmi.oeaw.ac.at/software/mendel/29_04_2013/software/SHRiMP/2.2.3-ictce-5.3.0
+
+conflict    SHRiMP
+
+if { ![is-loaded ictce/5.3.0] } {
+    module load ictce/5.3.0
+}
+
+prepend-path	PATH		$root/bin
+prepend-path	PATH		$root/utils
+
+setenv	EBROOTSHRIMP		"$root"
+setenv	EBVERSIONSHRIMP		"2.2.3"
+setenv	EBDEVELSHRIMP		"$root/easybuild/SHRiMP-2.2.3-ictce-5.3.0-easybuild-devel"
+
+setenv	SHRIMP_FOLDER		"$root"
+
+# built with EasyBuild version 1.4.0

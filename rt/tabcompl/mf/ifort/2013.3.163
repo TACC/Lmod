@@ -1,0 +1,29 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   Fortran compiler from Intel - Homepage: http://software.intel.com/en-us/intel-compilers/
+}
+}
+
+module-whatis {Fortran compiler from Intel - Homepage: http://software.intel.com/en-us/intel-compilers/}
+
+set root    /net/gmi.oeaw.ac.at/software/mendel/29_04_2013/software/ifort/2013.3.163
+
+conflict    ifort
+
+prepend-path	IDB_HOME		$root/bin/intel64
+prepend-path	LD_LIBRARY_PATH		$root/compiler/lib
+prepend-path	LD_LIBRARY_PATH		$root/compiler/lib/intel64
+prepend-path	MANPATH		$root/man
+prepend-path	MANPATH		$root/man/en_US
+prepend-path	PATH		$root/bin
+prepend-path	PATH		$root/bin/intel64
+
+setenv	EBROOTIFORT		"$root"
+setenv	EBVERSIONIFORT		"2013.3.163"
+setenv	EBDEVELIFORT		"$root/easybuild/ifort-2013.3.163-easybuild-devel"
+
+prepend-path	INTEL_LICENSE_FILE		/net/gmi.oeaw.ac.at/software/mendel/easybuild-home/licenses/intel/license.lic
+prepend-path	NLSPATH		$root/idb/intel64/locale/%l_%t/%N
+
+# built with EasyBuild version 1.4.0

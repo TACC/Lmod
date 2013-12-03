@@ -1,0 +1,45 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   GNU libmatheval is a library (callable from C and Fortran) to parse
+ and evaluate symbolic expressions input as text. - Homepage: http://www.gnu.org/software/libmatheval/
+}
+}
+
+module-whatis {GNU libmatheval is a library (callable from C and Fortran) to parse
+ and evaluate symbolic expressions input as text. - Homepage: http://www.gnu.org/software/libmatheval/}
+
+set root    /net/gmi.oeaw.ac.at/software/mendel/29_04_2013/software/libmatheval/1.1.8-goolf-1.4.10
+
+conflict    libmatheval
+
+if { ![is-loaded goolf/1.4.10] } {
+    module load goolf/1.4.10
+}
+
+if { ![is-loaded flex/2.5.35-goolf-1.4.10] } {
+    module load flex/2.5.35-goolf-1.4.10
+}
+
+if { ![is-loaded Bison/2.5-goolf-1.4.10] } {
+    module load Bison/2.5-goolf-1.4.10
+}
+
+if { ![is-loaded byacc/20120526-goolf-1.4.10] } {
+    module load byacc/20120526-goolf-1.4.10
+}
+
+if { ![is-loaded guile/1.8.8-goolf-1.4.10] } {
+    module load guile/1.8.8-goolf-1.4.10
+}
+
+prepend-path	CPATH		$root/include
+prepend-path	LD_LIBRARY_PATH		$root/lib
+prepend-path	PKG_CONFIG_PATH		$root/lib/pkgconfig
+
+setenv	EBROOTLIBMATHEVAL		"$root"
+setenv	EBVERSIONLIBMATHEVAL		"1.1.8"
+setenv	EBDEVELLIBMATHEVAL		"$root/easybuild/libmatheval-1.1.8-goolf-1.4.10-easybuild-devel"
+
+
+# built with EasyBuild version 1.3.0

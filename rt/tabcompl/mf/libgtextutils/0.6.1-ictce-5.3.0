@@ -1,0 +1,27 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   ligtextutils is a dependency of fastx-toolkit and is provided via the same upstream - Homepage: http://hannonlab.cshl.edu/fastx_toolkit/
+}
+}
+
+module-whatis {ligtextutils is a dependency of fastx-toolkit and is provided via the same upstream - Homepage: http://hannonlab.cshl.edu/fastx_toolkit/}
+
+set root    /net/gmi.oeaw.ac.at/software/mendel/29_04_2013/software/libgtextutils/0.6.1-ictce-5.3.0
+
+conflict    libgtextutils
+
+if { ![is-loaded ictce/5.3.0] } {
+    module load ictce/5.3.0
+}
+
+prepend-path	CPATH		$root/include
+prepend-path	LD_LIBRARY_PATH		$root/lib
+prepend-path	PKG_CONFIG_PATH		$root/lib/pkgconfig
+
+setenv	EBROOTLIBGTEXTUTILS		"$root"
+setenv	EBVERSIONLIBGTEXTUTILS		"0.6.1"
+setenv	EBDEVELLIBGTEXTUTILS		"$root/easybuild/libgtextutils-0.6.1-ictce-5.3.0-easybuild-devel"
+
+
+# built with EasyBuild version 1.4.0

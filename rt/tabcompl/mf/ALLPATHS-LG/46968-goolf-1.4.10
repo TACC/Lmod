@@ -1,0 +1,25 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   ALLPATHS-LG, the new short read genome assembler. - Homepage: http://www.broadinstitute.org/software/allpaths-lg/blog/
+}
+}
+
+module-whatis {ALLPATHS-LG, the new short read genome assembler. - Homepage: http://www.broadinstitute.org/software/allpaths-lg/blog/}
+
+set root    /net/gmi.oeaw.ac.at/software/mendel/29_04_2013/software/ALLPATHS-LG/46968-goolf-1.4.10
+
+conflict    ALLPATHS-LG
+
+if { ![is-loaded goolf/1.4.10] } {
+    module load goolf/1.4.10
+}
+
+prepend-path	PATH		$root/bin
+
+setenv	EBROOTALLPATHSMINLG		"$root"
+setenv	EBVERSIONALLPATHSMINLG		"46968"
+setenv	EBDEVELALLPATHSMINLG		"$root/easybuild/ALLPATHS-LG-46968-goolf-1.4.10-easybuild-devel"
+
+
+# built with EasyBuild version 1.6.0dev

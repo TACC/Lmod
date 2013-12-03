@@ -1,0 +1,50 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   Intel Math Kernel Library is a library of highly optimized,
+ extensively threaded math routines for science, engineering, and financial
+ applications that require maximum performance. Core math functions include
+ BLAS, LAPACK, ScaLAPACK, Sparse Solvers, Fast Fourier Transforms, Vector Math, and more. - Homepage: http://software.intel.com/en-us/intel-mkl/
+}
+}
+
+module-whatis {Intel Math Kernel Library is a library of highly optimized,
+ extensively threaded math routines for science, engineering, and financial
+ applications that require maximum performance. Core math functions include
+ BLAS, LAPACK, ScaLAPACK, Sparse Solvers, Fast Fourier Transforms, Vector Math, and more. - Homepage: http://software.intel.com/en-us/intel-mkl/}
+
+set root    /net/gmi.oeaw.ac.at/software/mendel/29_04_2013/software/imkl/11.0.3.163
+
+conflict    imkl
+
+if { ![is-loaded icc/2013.3.163] } {
+    module load icc/2013.3.163
+}
+
+if { ![is-loaded ifort/2013.3.163] } {
+    module load ifort/2013.3.163
+}
+
+if { ![is-loaded impi/4.1.0.030] } {
+    module load impi/4.1.0.030
+}
+
+prepend-path	CPATH		$root/mkl/include
+prepend-path	CPATH		$root/mkl/include/fftw
+prepend-path	FPATH		$root/mkl/include
+prepend-path	FPATH		$root/mkl/include/fftw
+prepend-path	LD_LIBRARY_PATH		$root/mkl/lib/intel64
+prepend-path	LIBRARY_PATH		$root/mkl/lib/intel64
+prepend-path	PATH		$root/bin
+prepend-path	PATH		$root/mkl/bin
+prepend-path	PATH		$root/mkl/bin/intel64
+
+setenv	EBROOTIMKL		"$root"
+setenv	EBVERSIONIMKL		"11.0.3.163"
+setenv	EBDEVELIMKL		"$root/easybuild/imkl-11.0.3.163-easybuild-devel"
+
+prepend-path	INTEL_LICENSE_FILE		/net/gmi.oeaw.ac.at/software/mendel/easybuild-home/licenses/intel/license.lic
+prepend-path	NLSPATH		$root/idb/intel64/locale/%l_%t/%N
+setenv	MKLROOT		$root
+
+# built with EasyBuild version 1.4.0

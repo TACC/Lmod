@@ -1,0 +1,25 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   ClustalW2 is a general purpose multiple sequence alignment program for DNA or proteins. - Homepage: http://www.ebi.ac.uk/Tools/msa/clustalw2/
+}
+}
+
+module-whatis {ClustalW2 is a general purpose multiple sequence alignment program for DNA or proteins. - Homepage: http://www.ebi.ac.uk/Tools/msa/clustalw2/}
+
+set root    /net/gmi.oeaw.ac.at/software/mendel/29_04_2013/software/ClustalW2/2.1-goolf-1.4.10
+
+conflict    ClustalW2
+
+if { ![is-loaded goolf/1.4.10] } {
+    module load goolf/1.4.10
+}
+
+prepend-path	PATH		$root/bin
+
+setenv	EBROOTCLUSTALW2		"$root"
+setenv	EBVERSIONCLUSTALW2		"2.1"
+setenv	EBDEVELCLUSTALW2		"$root/easybuild/ClustalW2-2.1-goolf-1.4.10-easybuild-devel"
+
+
+# built with EasyBuild version 1.3.0

@@ -1,0 +1,29 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   A short read assember for metagenomics - Homepage: http://metavelvet.dna.bio.keio.ac.jp/
+}
+}
+
+module-whatis {A short read assember for metagenomics - Homepage: http://metavelvet.dna.bio.keio.ac.jp/}
+
+set root    /net/gmi.oeaw.ac.at/software/mendel/29_04_2013/software/MetaVelvet/1.2.01-goolf-1.4.10
+
+conflict    MetaVelvet
+
+if { ![is-loaded goolf/1.4.10] } {
+    module load goolf/1.4.10
+}
+
+if { ![is-loaded Velvet/1.2.07-goolf-1.4.10] } {
+    module load Velvet/1.2.07-goolf-1.4.10
+}
+
+prepend-path	PATH		$root/bin
+
+setenv	EBROOTMETAVELVET		"$root"
+setenv	EBVERSIONMETAVELVET		"1.2.01"
+setenv	EBDEVELMETAVELVET		"$root/easybuild/MetaVelvet-1.2.01-goolf-1.4.10-easybuild-devel"
+
+
+# built with EasyBuild version 1.6.0dev

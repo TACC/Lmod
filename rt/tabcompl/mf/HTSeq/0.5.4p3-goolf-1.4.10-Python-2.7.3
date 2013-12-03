@@ -1,0 +1,39 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   HTSeq is a Python package that provides infrastructure to process data from high-throughput sequencing assays. - Homepage: http://www-huber.embl.de/users/anders/HTSeq/
+}
+}
+
+module-whatis {HTSeq is a Python package that provides infrastructure to process data from high-throughput sequencing assays. - Homepage: http://www-huber.embl.de/users/anders/HTSeq/}
+
+set root    /net/gmi.oeaw.ac.at/software/mendel/29_04_2013/software/HTSeq/0.5.4p3-goolf-1.4.10-Python-2.7.3
+
+conflict    HTSeq
+
+if { ![is-loaded goolf/1.4.10] } {
+    module load goolf/1.4.10
+}
+
+if { ![is-loaded Python/2.7.3-goolf-1.4.10] } {
+    module load Python/2.7.3-goolf-1.4.10
+}
+
+if { ![is-loaded numpy/1.6.2-goolf-1.4.10-Python-2.7.3] } {
+    module load numpy/1.6.2-goolf-1.4.10-Python-2.7.3
+}
+
+if { ![is-loaded matplotlib/1.1.1-goolf-1.4.10-Python-2.7.3] } {
+    module load matplotlib/1.1.1-goolf-1.4.10-Python-2.7.3
+}
+
+prepend-path	LD_LIBRARY_PATH		$root/lib
+prepend-path	PATH		$root/bin
+
+setenv	EBROOTHTSEQ		"$root"
+setenv	EBVERSIONHTSEQ		"0.5.4p3"
+setenv	EBDEVELHTSEQ		"$root/easybuild/HTSeq-0.5.4p3-goolf-1.4.10-Python-2.7.3-easybuild-devel"
+
+prepend-path	PYTHONPATH		$root/lib/python2.7/site-packages
+
+# built with EasyBuild version 1.6.0dev

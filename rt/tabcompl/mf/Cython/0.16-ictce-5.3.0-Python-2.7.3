@@ -1,0 +1,33 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   The Cython language makes writing C extensions for the Python language as easy as Python itself.
+ Cython is a source code translator based on the well-known Pyrex, but supports more cutting edge functionality and optimizations. - Homepage: http://pypi.python.org/pypi/Cython/
+}
+}
+
+module-whatis {The Cython language makes writing C extensions for the Python language as easy as Python itself.
+ Cython is a source code translator based on the well-known Pyrex, but supports more cutting edge functionality and optimizations. - Homepage: http://pypi.python.org/pypi/Cython/}
+
+set root    /net/gmi.oeaw.ac.at/software/mendel/29_04_2013/software/Cython/0.16-ictce-5.3.0-Python-2.7.3
+
+conflict    Cython
+
+if { ![is-loaded ictce/5.3.0] } {
+    module load ictce/5.3.0
+}
+
+if { ![is-loaded Python/2.7.3-ictce-5.3.0] } {
+    module load Python/2.7.3-ictce-5.3.0
+}
+
+prepend-path	LD_LIBRARY_PATH		$root/lib
+prepend-path	PATH		$root/bin
+
+setenv	EBROOTCYTHON		"$root"
+setenv	EBVERSIONCYTHON		"0.16"
+setenv	EBDEVELCYTHON		"$root/easybuild/Cython-0.16-ictce-5.3.0-Python-2.7.3-easybuild-devel"
+
+prepend-path	PYTHONPATH		$root/lib/python2.7/site-packages
+
+# built with EasyBuild version 1.6.0dev

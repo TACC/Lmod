@@ -1,0 +1,37 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   SAM (Sequence Alignment/Map) format is a generic format
+for storing large nucleotide sequence alignments. - Homepage: http://samtools.sourceforge.net/
+}
+}
+
+module-whatis {SAM (Sequence Alignment/Map) format is a generic format
+for storing large nucleotide sequence alignments. - Homepage: http://samtools.sourceforge.net/}
+
+set root    /net/gmi.oeaw.ac.at/software/mendel/29_04_2013/software/SAMtools/0.1.18-ictce-5.3.0
+
+conflict    SAMtools
+
+if { ![is-loaded ictce/5.3.0] } {
+    module load ictce/5.3.0
+}
+
+if { ![is-loaded ncurses/5.9-ictce-5.3.0] } {
+    module load ncurses/5.9-ictce-5.3.0
+}
+
+if { ![is-loaded zlib/1.2.7-ictce-5.3.0] } {
+    module load zlib/1.2.7-ictce-5.3.0
+}
+
+prepend-path	CPATH		$root/include
+prepend-path	LD_LIBRARY_PATH		$root/lib
+prepend-path	PATH		$root/bin
+
+setenv	EBROOTSAMTOOLS		"$root"
+setenv	EBVERSIONSAMTOOLS		"0.1.18"
+setenv	EBDEVELSAMTOOLS		"$root/easybuild/SAMtools-0.1.18-ictce-5.3.0-easybuild-devel"
+
+
+# built with EasyBuild version 1.4.0

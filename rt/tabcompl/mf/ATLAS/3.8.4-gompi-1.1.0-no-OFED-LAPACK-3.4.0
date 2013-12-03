@@ -1,0 +1,32 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   ATLAS (Automatically Tuned Linear Algebra Software) is the application of
+ the AEOS (Automated Empirical Optimization of Software) paradigm, with the present emphasis 
+ on the Basic Linear Algebra Subprograms (BLAS), a widely used, performance-critical, linear 
+ algebra kernel library. - Homepage: http://math-atlas.sourceforge.net
+}
+}
+
+module-whatis {ATLAS (Automatically Tuned Linear Algebra Software) is the application of
+ the AEOS (Automated Empirical Optimization of Software) paradigm, with the present emphasis 
+ on the Basic Linear Algebra Subprograms (BLAS), a widely used, performance-critical, linear 
+ algebra kernel library. - Homepage: http://math-atlas.sourceforge.net}
+
+set root    /net/gmi.oeaw.ac.at/software/mendel/29_04_2013/software/ATLAS/3.8.4-gompi-1.1.0-no-OFED-LAPACK-3.4.0
+
+conflict    ATLAS
+
+if { ![is-loaded gompi/1.1.0-no-OFED] } {
+    module load gompi/1.1.0-no-OFED
+}
+
+prepend-path	CPATH		$root/include
+prepend-path	LD_LIBRARY_PATH		$root/lib
+
+setenv	EBROOTATLAS		"$root"
+setenv	EBVERSIONATLAS		"3.8.4"
+setenv	EBDEVELATLAS		"$root/easybuild/ATLAS-3.8.4-gompi-1.1.0-no-OFED-LAPACK-3.4.0-easybuild-devel"
+
+
+# built with EasyBuild version 1.3.0

@@ -1,0 +1,25 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   Sequence assembler for very short reads - Homepage: http://www.ebi.ac.uk/~zerbino/velvet/
+}
+}
+
+module-whatis {Sequence assembler for very short reads - Homepage: http://www.ebi.ac.uk/~zerbino/velvet/}
+
+set root    /net/gmi.oeaw.ac.at/software/mendel/29_04_2013/software/Velvet/1.2.07-goolf-1.4.10
+
+conflict    Velvet
+
+if { ![is-loaded goolf/1.4.10] } {
+    module load goolf/1.4.10
+}
+
+prepend-path	PATH		$root/bin
+
+setenv	EBROOTVELVET		"$root"
+setenv	EBVERSIONVELVET		"1.2.07"
+setenv	EBDEVELVELVET		"$root/easybuild/Velvet-1.2.07-goolf-1.4.10-easybuild-devel"
+
+
+# built with EasyBuild version 1.3.0

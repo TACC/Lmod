@@ -1,0 +1,33 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   BBCP is an alternative to Gridftp when transferring large amounts of data,
+ capable of breaking up your transfer into multiple simultaneous transferring streams,
+ thereby transferring data much faster than single-streaming utilities such as SCP and SFTP.
+ See details at http://pcbunn.cithep.caltech.edu/bbcp/using_bbcp.htm
+ or http://www.nics.tennessee.edu/computing-resources/data-transfer/bbcp - Homepage: http://www.slac.stanford.edu/~abh/bbcp/
+}
+}
+
+module-whatis {BBCP is an alternative to Gridftp when transferring large amounts of data,
+ capable of breaking up your transfer into multiple simultaneous transferring streams,
+ thereby transferring data much faster than single-streaming utilities such as SCP and SFTP.
+ See details at http://pcbunn.cithep.caltech.edu/bbcp/using_bbcp.htm
+ or http://www.nics.tennessee.edu/computing-resources/data-transfer/bbcp - Homepage: http://www.slac.stanford.edu/~abh/bbcp/}
+
+set root    /net/gmi.oeaw.ac.at/software/mendel/29_04_2013/software/bbcp/12.01.30.00.0-goalf-1.1.0-no-OFEDamd64_linux26
+
+conflict    bbcp
+
+if { ![is-loaded goalf/1.1.0-no-OFED] } {
+    module load goalf/1.1.0-no-OFED
+}
+
+
+setenv	EBROOTBBCP		"$root"
+setenv	EBVERSIONBBCP		"12.01.30.00.0"
+setenv	EBDEVELBBCP		"$root/easybuild/bbcp-12.01.30.00.0-goalf-1.1.0-no-OFEDamd64_linux26-easybuild-devel"
+
+prepend-path	PATH		$root/
+
+# built with EasyBuild version 1.3.0

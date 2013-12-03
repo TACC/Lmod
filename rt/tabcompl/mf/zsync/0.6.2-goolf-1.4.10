@@ -1,0 +1,26 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   zsync-0.6.2: Optimising file distribution program, a 1-to-many rsync - Homepage: http://zsync.moria.org.uk/
+}
+}
+
+module-whatis {zsync-0.6.2: Optimising file distribution program, a 1-to-many rsync - Homepage: http://zsync.moria.org.uk/}
+
+set root    /net/gmi.oeaw.ac.at/software/mendel/29_04_2013/software/zsync/0.6.2-goolf-1.4.10
+
+conflict    zsync
+
+if { ![is-loaded goolf/1.4.10] } {
+    module load goolf/1.4.10
+}
+
+prepend-path	MANPATH		$root/share/man
+prepend-path	PATH		$root/bin
+
+setenv	EBROOTZSYNC		"$root"
+setenv	EBVERSIONZSYNC		"0.6.2"
+setenv	EBDEVELZSYNC		"$root/easybuild/zsync-0.6.2-goolf-1.4.10-easybuild-devel"
+
+
+# built with EasyBuild version 1.3.0

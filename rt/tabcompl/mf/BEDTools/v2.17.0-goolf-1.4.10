@@ -1,0 +1,29 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   The BEDTools utilities allow one to address common genomics tasks such as finding feature overlaps and computing coverage. The utilities are largely based on four widely-used file formats: BED, GFF/GTF, VCF, and SAM/BAM. Using BEDTools, one can develop sophisticated pipelines that answer complicated research questions by streaming several BEDTools together. The following are examples of common questions that one can address with BEDTools. - Homepage: http://code.google.com/p/bedtools/
+}
+}
+
+module-whatis {The BEDTools utilities allow one to address common genomics tasks such as finding feature overlaps and computing coverage. The utilities are largely based on four widely-used file formats: BED, GFF/GTF, VCF, and SAM/BAM. Using BEDTools, one can develop sophisticated pipelines that answer complicated research questions by streaming several BEDTools together. The following are examples of common questions that one can address with BEDTools. - Homepage: http://code.google.com/p/bedtools/}
+
+set root    /net/gmi.oeaw.ac.at/software/mendel/29_04_2013/software/BEDTools/v2.17.0-goolf-1.4.10
+
+conflict    BEDTools
+
+if { ![is-loaded goolf/1.4.10] } {
+    module load goolf/1.4.10
+}
+
+if { ![is-loaded zlib/1.2.8-goolf-1.4.10] } {
+    module load zlib/1.2.8-goolf-1.4.10
+}
+
+prepend-path	PATH		$root/bin
+
+setenv	EBROOTBEDTOOLS		"$root"
+setenv	EBVERSIONBEDTOOLS		"v2.17.0"
+setenv	EBDEVELBEDTOOLS		"$root/easybuild/BEDTools-v2.17.0-goolf-1.4.10-easybuild-devel"
+
+
+# built with EasyBuild version 1.6.0

@@ -1,0 +1,41 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   BFAST facilitates the fast and accurate mapping of short reads to reference sequences.
+ Some advantages of BFAST include:
+ 1) Speed: enables billions of short reads to be mapped quickly. 
+ 2) Accuracy: A priori probabilities for mapping reads with defined set of variants. 
+ 3) An easy way to measurably tune accuracy at the expense of speed. - Homepage: http://bfast.sourceforge.net/
+}
+}
+
+module-whatis {BFAST facilitates the fast and accurate mapping of short reads to reference sequences.
+ Some advantages of BFAST include:
+ 1) Speed: enables billions of short reads to be mapped quickly. 
+ 2) Accuracy: A priori probabilities for mapping reads with defined set of variants. 
+ 3) An easy way to measurably tune accuracy at the expense of speed. - Homepage: http://bfast.sourceforge.net/}
+
+set root    /net/gmi.oeaw.ac.at/software/mendel/29_04_2013/software/BFAST/0.7.0a-goolf-1.4.10
+
+conflict    BFAST
+
+if { ![is-loaded goolf/1.4.10] } {
+    module load goolf/1.4.10
+}
+
+if { ![is-loaded bzip2/1.0.6-goolf-1.4.10] } {
+    module load bzip2/1.0.6-goolf-1.4.10
+}
+
+if { ![is-loaded zlib/1.2.8-goolf-1.4.10] } {
+    module load zlib/1.2.8-goolf-1.4.10
+}
+
+prepend-path	PATH		$root/bin
+
+setenv	EBROOTBFAST		"$root"
+setenv	EBVERSIONBFAST		"0.7.0a"
+setenv	EBDEVELBFAST		"$root/easybuild/BFAST-0.7.0a-goolf-1.4.10-easybuild-devel"
+
+
+# built with EasyBuild version 1.6.0

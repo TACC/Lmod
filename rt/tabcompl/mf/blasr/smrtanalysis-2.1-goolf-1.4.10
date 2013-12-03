@@ -1,0 +1,29 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   BLASR (Basic Local Alignment with Successive Refinement) rapidly maps reads to genomes by finding the highest scoring local alignment or set of local alignments between the read and the genome. Optimized for PacBio's extraordinarily long reads and taking advantage of rich quality values, BLASR maps reads rapidly with high accuracy. - Homepage: https://github.com/PacificBiosciences/blasr
+    }
+}
+
+module-whatis {BLASR (Basic Local Alignment with Successive Refinement) rapidly maps reads to genomes by finding the highest scoring local alignment or set of local alignments between the read and the genome. Optimized for PacBio's extraordinarily long reads and taking advantage of rich quality values, BLASR maps reads rapidly with high accuracy. - Homepage: https://github.com/PacificBiosciences/blasr}
+
+set root    /net/gmi.oeaw.ac.at/software/mendel/29_04_2013/software/blasr/smrtanalysis-2.1-goolf-1.4.10
+
+conflict    blasr
+
+if { ![is-loaded goolf/1.4.10] } {
+    module load goolf/1.4.10
+}
+
+if { ![is-loaded HDF5/1.8.9-goolf-1.4.10] } {
+    module load HDF5/1.8.9-goolf-1.4.10
+}
+
+prepend-path	PATH		$root/bin
+
+setenv	EBROOTBLASR		"$root"
+setenv	EBVERSIONBLASR		"smrtanalysis-2.1"
+setenv	EBDEVELBLASR		"$root/easybuild/blasr-smrtanalysis-2.1-goolf-1.4.10-easybuild-devel"
+
+
+# built with EasyBuild version 1.8.2

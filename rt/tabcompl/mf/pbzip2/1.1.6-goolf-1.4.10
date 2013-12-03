@@ -1,0 +1,29 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   PBZIP2 is a parallel implementation of the bzip2 block-sorting file compressor that uses pthreads and achieves near-linear speedup on SMP machines. The output of this version is fully compatible with bzip2 v1.0.2 or newer (ie: anything compressed with pbzip2 can be decompressed with bzip2). - Homepage: http://compression.ca/pbzip2/
+}
+}
+
+module-whatis {PBZIP2 is a parallel implementation of the bzip2 block-sorting file compressor that uses pthreads and achieves near-linear speedup on SMP machines. The output of this version is fully compatible with bzip2 v1.0.2 or newer (ie: anything compressed with pbzip2 can be decompressed with bzip2). - Homepage: http://compression.ca/pbzip2/}
+
+set root    /net/gmi.oeaw.ac.at/software/mendel/29_04_2013/software/pbzip2/1.1.6-goolf-1.4.10
+
+conflict    pbzip2
+
+if { ![is-loaded goolf/1.4.10] } {
+    module load goolf/1.4.10
+}
+
+if { ![is-loaded bzip2/1.0.6-goolf-1.4.10] } {
+    module load bzip2/1.0.6-goolf-1.4.10
+}
+
+prepend-path	PATH		$root/bin
+
+setenv	EBROOTPBZIP2		"$root"
+setenv	EBVERSIONPBZIP2		"1.1.6"
+setenv	EBDEVELPBZIP2		"$root/easybuild/pbzip2-1.1.6-goolf-1.4.10-easybuild-devel"
+
+
+# built with EasyBuild version 1.6.0

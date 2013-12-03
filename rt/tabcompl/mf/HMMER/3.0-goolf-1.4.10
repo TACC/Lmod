@@ -1,0 +1,39 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   HMMER is used for searching sequence databases for homologs of protein sequences,
+  and for making protein sequence alignments. It implements methods using probabilistic models
+  called profile hidden Markov models (profile HMMs).  Compared to BLAST, FASTA, and other
+  sequence alignment and database search tools based on older scoring methodology,
+  HMMER aims to be significantly more accurate and more able to detect remote homologs
+  because of the strength of its underlying mathematical models. In the past, this strength
+  came at significant computational expense, but in the new HMMER3 project, HMMER is now
+  essentially as fast as BLAST. - Homepage: http://hmmer.janelia.org/
+}
+}
+
+module-whatis {HMMER is used for searching sequence databases for homologs of protein sequences,
+  and for making protein sequence alignments. It implements methods using probabilistic models
+  called profile hidden Markov models (profile HMMs).  Compared to BLAST, FASTA, and other
+  sequence alignment and database search tools based on older scoring methodology,
+  HMMER aims to be significantly more accurate and more able to detect remote homologs
+  because of the strength of its underlying mathematical models. In the past, this strength
+  came at significant computational expense, but in the new HMMER3 project, HMMER is now
+  essentially as fast as BLAST. - Homepage: http://hmmer.janelia.org/}
+
+set root    /net/gmi.oeaw.ac.at/software/mendel/29_04_2013/software/HMMER/3.0-goolf-1.4.10
+
+conflict    HMMER
+
+if { ![is-loaded goolf/1.4.10] } {
+    module load goolf/1.4.10
+}
+
+prepend-path	PATH		$root/bin
+
+setenv	EBROOTHMMER		"$root"
+setenv	EBVERSIONHMMER		"3.0"
+setenv	EBDEVELHMMER		"$root/easybuild/HMMER-3.0-goolf-1.4.10-easybuild-devel"
+
+
+# built with EasyBuild version 1.3.0

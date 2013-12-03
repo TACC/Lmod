@@ -1,0 +1,74 @@
+-- -*- lua -*-
+local testName="tabcompl"
+testdescript = {
+   owner   = "rtm",
+   product = "modules",
+   description = [[
+	 Test initial module load
+   ]],
+   keywords = {testName },
+
+   active = 1,
+   testName = testName,
+   job_submit_method = "INTERACTIVE",
+
+   runScript = [[
+
+     . $(projectDir)/rt/common_funcs.sh
+
+     unsetMT
+     initStdEnvVars
+     MODULEPATH=$(testDir)/mf;     export MODULEPATH
+
+     numStep=0
+     COUNT=0
+     HOME_ORIG=`(cd $HOME; /bin/pwd)`
+     HOME=`pwd`;                        export HOME
+     RTM_SETTARG_CMD=":";               export RTM_SETTARG_CMD
+
+     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d cacheDir
+
+     mkdir cacheDir
+     buildModuleT $MODULEPATH > cacheDir/moduleT.lua
+     cp $(projectDir)/init/.lmodrc.lua .
+     cat > fn << EOF
+$(outputDir)/cacheDir: $(outputDir)/last_update
+EOF
+     $LUA_EXEC $(projectDir)/src/spiderCacheSupport.in.lua --descriptFn fn >> .lmodrc.lua
+     touch last_update
+
+     runLmod --version          # 1
+     T0=`EPOCH`
+     runLmod -t avail           # 2
+     T1=`EPOCH`
+     RT=`builtin echo "$T1 - $T0" | bc -q`
+     echo "RT: $RT"
+
+     
+
+
+     HOME_ORIG=$HOME
+
+     cat _stdout.[0-9][0-9] > _stdout.orig
+     joinBase64Results -bash _stdout.orig _stdout.new
+     cleanUp _stdout.new out.txt
+
+     cat _stderr.[0-9][0-9] > _stderr.orig
+     cleanUp _stderr.orig err.txt
+
+     rm -f $(cmdResultFn)
+     wrapperDiff -r $(cmdResultFn) $(testDir)/out.txt out.txt
+     wrapperDiff -r $(cmdResultFn) $(testDir)/err.txt err.txt
+     testFinish -c $(cmdResultFn) -r $(resultFn) -t $(runtimeFn)
+   ]],
+
+
+   blessScript = [[
+         # perform what is needed
+   ]],
+
+   tests = {
+      { id='t1'},
+   },
+
+}

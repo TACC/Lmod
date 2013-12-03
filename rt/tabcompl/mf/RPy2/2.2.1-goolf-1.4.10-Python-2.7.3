@@ -1,0 +1,34 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   RPy is a very simple, yet robust, Python interface to the R Programming Language.	 It can manage all kinds of R objects and can execute arbitrary R functions (including the graphic functions).	All errors from the R language are converted to Python exceptions.	 Any module installed for the R system can be used from within Python - Homepage: http://rpy.sourceforge.net/
+}
+}
+
+module-whatis {RPy is a very simple, yet robust, Python interface to the R Programming Language.	 It can manage all kinds of R objects and can execute arbitrary R functions (including the graphic functions).	All errors from the R language are converted to Python exceptions.	 Any module installed for the R system can be used from within Python - Homepage: http://rpy.sourceforge.net/}
+
+set root    /net/gmi.oeaw.ac.at/software/mendel/29_04_2013/software/RPy2/2.2.1-goolf-1.4.10-Python-2.7.3
+
+conflict    RPy2
+
+if { ![is-loaded goolf/1.4.10] } {
+    module load goolf/1.4.10
+}
+
+if { ![is-loaded Python/2.7.3-goolf-1.4.10] } {
+    module load Python/2.7.3-goolf-1.4.10
+}
+
+if { ![is-loaded R/2.15.2-goolf-1.4.10] } {
+    module load R/2.15.2-goolf-1.4.10
+}
+
+prepend-path	LD_LIBRARY_PATH		$root/lib
+
+setenv	EBROOTRPY2		"$root"
+setenv	EBVERSIONRPY2		"2.2.1"
+setenv	EBDEVELRPY2		"$root/easybuild/RPy2-2.2.1-goolf-1.4.10-Python-2.7.3-easybuild-devel"
+
+prepend-path	PYTHONPATH		$root/lib/python2.7/site-packages
+
+# built with EasyBuild version 1.6.0dev

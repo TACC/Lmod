@@ -1,0 +1,31 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   dadi implements a method for demographic inference from genetic data, based on a diffusion approximation to the allele frequency spectrum. One of dadi's main benefits is speed: fitting a two-population model typically takes around 10 minutes, and run time is independent of the number of SNPs in your data set. dadi is also flexible, handling up to three simultaneous populations, with arbitrary timecourses for population size and migration, plus the possibility of admixture and population-specific selection. The code is young but has already been used in several publications. - Homepage: https://code.google.com/d/dadi/
+}
+}
+
+module-whatis {dadi implements a method for demographic inference from genetic data, based on a diffusion approximation to the allele frequency spectrum. One of dadi's main benefits is speed: fitting a two-population model typically takes around 10 minutes, and run time is independent of the number of SNPs in your data set. dadi is also flexible, handling up to three simultaneous populations, with arbitrary timecourses for population size and migration, plus the possibility of admixture and population-specific selection. The code is young but has already been used in several publications. - Homepage: https://code.google.com/d/dadi/}
+
+set root    /net/gmi.oeaw.ac.at/software/mendel/29_04_2013/software/dadi/1.6.3-goolf-1.4.10-Python-2.7.3
+
+conflict    dadi
+
+if { ![is-loaded goolf/1.4.10] } {
+    module load goolf/1.4.10
+}
+
+if { ![is-loaded Python/2.7.3-goolf-1.4.10] } {
+    module load Python/2.7.3-goolf-1.4.10
+}
+
+prepend-path	LD_LIBRARY_PATH		$root/lib
+prepend-path	PATH		$root/bin
+
+setenv	EBROOTDADI		"$root"
+setenv	EBVERSIONDADI		"1.6.3"
+setenv	EBDEVELDADI		"$root/easybuild/dadi-1.6.3-goolf-1.4.10-Python-2.7.3-easybuild-devel"
+
+prepend-path	PYTHONPATH		$root/lib/python2.7/site-packages
+
+# built with EasyBuild version 1.6.0

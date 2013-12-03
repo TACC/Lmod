@@ -1,0 +1,29 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   A short read assember for metagenomics - Homepage: http://metavelvet.dna.bio.keio.ac.jp/
+}
+}
+
+module-whatis {A short read assember for metagenomics - Homepage: http://metavelvet.dna.bio.keio.ac.jp/}
+
+set root    /net/gmi.oeaw.ac.at/software/mendel/29_04_2013/software/MetaVelvet/1.2.01-ictce-5.3.0
+
+conflict    MetaVelvet
+
+if { ![is-loaded ictce/5.3.0] } {
+    module load ictce/5.3.0
+}
+
+if { ![is-loaded Velvet/1.2.07-ictce-5.3.0] } {
+    module load Velvet/1.2.07-ictce-5.3.0
+}
+
+prepend-path	PATH		$root/bin
+
+setenv	EBROOTMETAVELVET		"$root"
+setenv	EBVERSIONMETAVELVET		"1.2.01"
+setenv	EBDEVELMETAVELVET		"$root/easybuild/MetaVelvet-1.2.01-ictce-5.3.0-easybuild-devel"
+
+
+# built with EasyBuild version 1.6.0dev

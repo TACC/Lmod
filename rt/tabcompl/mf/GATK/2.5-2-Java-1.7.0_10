@@ -1,0 +1,32 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   The Genome Analysis Toolkit or GATK is a software package developed at the Broad Institute 
+ to analyse next-generation resequencing data. The toolkit offers a wide variety of tools,
+ with a primary focus on variant discovery and genotyping as well as strong emphasis on 
+ data quality assurance. Its robust architecture, powerful processing engine and 
+ high-performance computing features make it capable of taking on projects of any size. - Homepage: http://www.broadinstitute.org/gatk/
+}
+}
+
+module-whatis {The Genome Analysis Toolkit or GATK is a software package developed at the Broad Institute 
+ to analyse next-generation resequencing data. The toolkit offers a wide variety of tools,
+ with a primary focus on variant discovery and genotyping as well as strong emphasis on 
+ data quality assurance. Its robust architecture, powerful processing engine and 
+ high-performance computing features make it capable of taking on projects of any size. - Homepage: http://www.broadinstitute.org/gatk/}
+
+set root    /net/gmi.oeaw.ac.at/software/mendel/29_04_2013/software/GATK/2.5-2-Java-1.7.0_10
+
+conflict    GATK
+
+if { ![is-loaded Java/1.7.0_10] } {
+    module load Java/1.7.0_10
+}
+
+
+setenv	EBROOTGATK		"$root"
+setenv	EBVERSIONGATK		"2.5-2"
+setenv	EBDEVELGATK		"$root/easybuild/GATK-2.5-2-Java-1.7.0_10-easybuild-devel"
+
+
+# built with EasyBuild version 1.6.0dev

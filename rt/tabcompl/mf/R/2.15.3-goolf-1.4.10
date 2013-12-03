@@ -1,0 +1,44 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   R is a free software environment for statistical computing and graphics. - Homepage: http://www.r-project.org/
+}
+}
+
+module-whatis {R is a free software environment for statistical computing and graphics. - Homepage: http://www.r-project.org/}
+
+set root    /net/gmi.oeaw.ac.at/software/mendel/29_04_2013/software/R/2.15.3-goolf-1.4.10
+
+conflict    R
+
+if { ![is-loaded goolf/1.4.10] } {
+    module load goolf/1.4.10
+}
+
+if { ![is-loaded libreadline/6.2-goolf-1.4.10] } {
+    module load libreadline/6.2-goolf-1.4.10
+}
+
+if { ![is-loaded ncurses/5.9-goolf-1.4.10] } {
+    module load ncurses/5.9-goolf-1.4.10
+}
+
+if { ![is-loaded libpng/1.6.2-goolf-1.4.10] } {
+    module load libpng/1.6.2-goolf-1.4.10
+}
+
+if { ![is-loaded Java/1.7.0_21] } {
+    module load Java/1.7.0_21
+}
+
+prepend-path	LD_LIBRARY_PATH		$root/lib64
+prepend-path	MANPATH		$root/share/man
+prepend-path	PATH		$root/bin
+
+setenv	EBROOTR		"$root"
+setenv	EBVERSIONR		"2.15.3"
+setenv	EBDEVELR		"$root/easybuild/R-2.15.3-goolf-1.4.10-easybuild-devel"
+
+setenv	EBEXTSLISTR		"base-,datasets-,graphics-,grDevices-,grid-,methods-,splines-,stats-,stats4-,tools-,utils-,Rmpi-0.5-9,irace-1.03,rJava-0.9-4,lattice-0.20-15,RColorBrewer-1.0-5,latticeExtra-0.6-24,Matrix-1.0-12,png-0.1-4,Rcpp-0.10.3,quadprog-1.5-5,BB-2013.4-1,rlecuyer-0.3-3,snow-0.3-12,MASS-7.3-23,class-7.3-5,e1071-1.6-1,nnet-7.3-6,car-2.0-17,colorspace-1.2-2,robustbase-0.9-7,sp-0.9-91,vcd-1.2-13,snowfall-1.84-4,logistf-1.10,Rserve-0.6-1,akima-0.5-10,bitops-1.0-5,boot-1.3-7,cluster-1.14.4,coda-0.16-1,codetools-0.2-8,DBI-0.2-7,foreign-0.8-54,nlme-3.1-108,survival-2.37-4,gam-1.08,gamlss.data-4.2-0,gamlss.dist-4.2-0,gamlss-4.2-0,gamlss.tr-4.1-0,hwriter-1.3,KernSmooth-2.23-10,zoo-1.7-9,lmtest-0.9-31,mgcv-1.7-23,mnormt-1.4-5,mvtnorm-0.9-9994,numDeriv-2012.9-1,pscl-1.04.4,rpart-4.1-1,RSQLite-0.11.3,sandwich-2.2-10,sfsmisc-1.0-23,spatial-7.3-5,VGAM-0.9-1,waveslim-1.7.1,xtable-1.7-1,profileModel-0.5-8,brglm-0.5-7,deSolve-1.10-6,odesolve-0.9-9,tseriesChaos-0.1-11,tseries-0.10-32,neuRosim-0.2-10,fastICA-1.1-16,R.methodsS3-1.4.2,R.oo-1.13.0,R.matlab-1.7.0,Rniftilib-0.0-32,BiocGenerics-0.6.0,Biobase-2.20.0,IRanges-1.18.1,AnnotationDbi-1.22.6,Biostrings-2.28.0,GenomicRanges-1.12.4,BSgenome-1.28.0,zlibbioc-1.6.0,Rsamtools-1.12.3,ShortRead-1.18.0,graph-1.38.2,igraph0-0.5.7"
+
+# built with EasyBuild version 1.6.0dev

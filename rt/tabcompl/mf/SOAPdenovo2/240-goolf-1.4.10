@@ -1,0 +1,25 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   SOAPdenovo is a novel short-read assembly method that can build a de novo draft assembly for human-sized genomes. The program is specially designed to assemble Illumina short reads. It creates new opportunities for building reference sequences and carrying out accurate analyses of unexplored genomes in a cost effective way. SOAPdenovo2 is the successor of SOAPdenovo. - Homepage: http://www.gigasciencejournal.com/content/1/1/18/
+    }
+}
+
+module-whatis {SOAPdenovo is a novel short-read assembly method that can build a de novo draft assembly for human-sized genomes. The program is specially designed to assemble Illumina short reads. It creates new opportunities for building reference sequences and carrying out accurate analyses of unexplored genomes in a cost effective way. SOAPdenovo2 is the successor of SOAPdenovo. - Homepage: http://www.gigasciencejournal.com/content/1/1/18/}
+
+set root    /net/gmi.oeaw.ac.at/software/mendel/29_04_2013/software/SOAPdenovo2/240-goolf-1.4.10
+
+conflict    SOAPdenovo2
+
+if { ![is-loaded goolf/1.4.10] } {
+    module load goolf/1.4.10
+}
+
+prepend-path	PATH		$root/bin
+
+setenv	EBROOTSOAPDENOVO2		"$root"
+setenv	EBVERSIONSOAPDENOVO2		"240"
+setenv	EBDEVELSOAPDENOVO2		"$root/easybuild/SOAPdenovo2-240-goolf-1.4.10-easybuild-devel"
+
+
+# built with EasyBuild version 1.8.2

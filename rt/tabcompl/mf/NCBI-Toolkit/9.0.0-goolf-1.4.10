@@ -1,0 +1,39 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   The NCBI Toolkit is a collection of utilities developed for the
+  production and distribution of GenBank, Entrez, BLAST, and related services
+  by the National Center for Biotechnology Information. - Homepage: http://www.ncbi.nlm.nih.gov/toolkit
+}
+}
+
+module-whatis {The NCBI Toolkit is a collection of utilities developed for the
+  production and distribution of GenBank, Entrez, BLAST, and related services
+  by the National Center for Biotechnology Information. - Homepage: http://www.ncbi.nlm.nih.gov/toolkit}
+
+set root    /net/gmi.oeaw.ac.at/software/mendel/29_04_2013/software/NCBI-Toolkit/9.0.0-goolf-1.4.10
+
+conflict    NCBI-Toolkit
+
+if { ![is-loaded goolf/1.4.10] } {
+    module load goolf/1.4.10
+}
+
+if { ![is-loaded Boost/1.51.0-goolf-1.4.10] } {
+    module load Boost/1.51.0-goolf-1.4.10
+}
+
+if { ![is-loaded zlib/1.2.8-goolf-1.4.10] } {
+    module load zlib/1.2.8-goolf-1.4.10
+}
+
+prepend-path	CPATH		$root/include
+prepend-path	LD_LIBRARY_PATH		$root/lib
+prepend-path	PATH		$root/bin
+
+setenv	EBROOTNCBIMINTOOLKIT		"$root"
+setenv	EBVERSIONNCBIMINTOOLKIT		"9.0.0"
+setenv	EBDEVELNCBIMINTOOLKIT		"$root/easybuild/NCBI-Toolkit-9.0.0-goolf-1.4.10-easybuild-devel"
+
+
+# built with EasyBuild version 1.6.0

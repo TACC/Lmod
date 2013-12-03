@@ -1,0 +1,32 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   GNU gperf is a perfect hash function generator. For a given list of strings, it produces a hash
+function and hash table, in form of C or C++ code, for looking up a value depending on the input string. The hash
+function is perfect, which means that the hash table has no collisions, and the hash table lookup needs a single
+string comparison only. - Homepage: http://www.gnu.org/software/gperf/
+}
+}
+
+module-whatis {GNU gperf is a perfect hash function generator. For a given list of strings, it produces a hash
+function and hash table, in form of C or C++ code, for looking up a value depending on the input string. The hash
+function is perfect, which means that the hash table has no collisions, and the hash table lookup needs a single
+string comparison only. - Homepage: http://www.gnu.org/software/gperf/}
+
+set root    /net/gmi.oeaw.ac.at/software/mendel/29_04_2013/software/gperf/3.0.4-goolf-1.4.10
+
+conflict    gperf
+
+if { ![is-loaded goolf/1.4.10] } {
+    module load goolf/1.4.10
+}
+
+prepend-path	MANPATH		$root/share/man
+prepend-path	PATH		$root/bin
+
+setenv	EBROOTGPERF		"$root"
+setenv	EBVERSIONGPERF		"3.0.4"
+setenv	EBDEVELGPERF		"$root/easybuild/gperf-3.0.4-goolf-1.4.10-easybuild-devel"
+
+
+# built with EasyBuild version 1.6.0dev

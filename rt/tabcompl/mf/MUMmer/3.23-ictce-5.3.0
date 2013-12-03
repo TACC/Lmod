@@ -1,0 +1,28 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   MUMmer is a system for rapidly aligning entire genomes, whether in complete or draft form. AMOS makes use of it. - Homepage: http://mummer.sourceforge.net/
+}
+}
+
+module-whatis {MUMmer is a system for rapidly aligning entire genomes, whether in complete or draft form. AMOS makes use of it. - Homepage: http://mummer.sourceforge.net/}
+
+set root    /net/gmi.oeaw.ac.at/software/mendel/29_04_2013/software/MUMmer/3.23-ictce-5.3.0
+
+conflict    MUMmer
+
+if { ![is-loaded ictce/5.3.0] } {
+    module load ictce/5.3.0
+}
+
+prepend-path	PATH		$root/bin
+
+setenv	EBROOTMUMMER		"$root"
+setenv	EBVERSIONMUMMER		"3.23"
+setenv	EBDEVELMUMMER		"$root/easybuild/MUMmer-3.23-ictce-5.3.0-easybuild-devel"
+
+prepend-path	PATH		$root/bin
+prepend-path	PATH		$root/bin/aux_bin
+prepend-path	PERL5LIB		$root/bin/scripts
+
+# built with EasyBuild version 1.6.0dev

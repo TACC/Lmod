@@ -1,0 +1,33 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   GDB-7.5.1: The GNU Project Debugger - Homepage: http://www.gnu.org/software/gdb/gdb.html
+}
+}
+
+module-whatis {GDB-7.5.1: The GNU Project Debugger - Homepage: http://www.gnu.org/software/gdb/gdb.html}
+
+set root    /net/gmi.oeaw.ac.at/software/mendel/29_04_2013/software/GDB/7.5.1-goolf-1.4.10
+
+conflict    GDB
+
+if { ![is-loaded goolf/1.4.10] } {
+    module load goolf/1.4.10
+}
+
+if { ![is-loaded ncurses/5.9-goolf-1.4.10] } {
+    module load ncurses/5.9-goolf-1.4.10
+}
+
+prepend-path	CPATH		$root/include
+prepend-path	LD_LIBRARY_PATH		$root/lib
+prepend-path	LD_LIBRARY_PATH		$root/lib64
+prepend-path	MANPATH		$root/share/man
+prepend-path	PATH		$root/bin
+
+setenv	EBROOTGDB		"$root"
+setenv	EBVERSIONGDB		"7.5.1"
+setenv	EBDEVELGDB		"$root/easybuild/GDB-7.5.1-goolf-1.4.10-easybuild-devel"
+
+
+# built with EasyBuild version 1.3.0

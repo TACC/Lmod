@@ -1,0 +1,28 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   Glimmer is a system for finding genes in microbial DNA, especially
+the genomes of bacteria, archaea, and viruses. - Homepage: http://www.cbcb.umd.edu/software/glimmer/
+    }
+}
+
+module-whatis {Glimmer is a system for finding genes in microbial DNA, especially
+the genomes of bacteria, archaea, and viruses. - Homepage: http://www.cbcb.umd.edu/software/glimmer/}
+
+set root    /net/gmi.oeaw.ac.at/software/mendel/29_04_2013/software/GLIMMER/3.02b-goolf-1.4.10
+
+conflict    GLIMMER
+
+if { ![is-loaded goolf/1.4.10] } {
+    module load goolf/1.4.10
+}
+
+prepend-path	LD_LIBRARY_PATH		$root/lib
+prepend-path	PATH		$root/bin
+
+setenv	EBROOTGLIMMER		"$root"
+setenv	EBVERSIONGLIMMER		"3.02b"
+setenv	EBDEVELGLIMMER		"$root/easybuild/GLIMMER-3.02b-goolf-1.4.10-easybuild-devel"
+
+
+# built with EasyBuild version 1.8.2

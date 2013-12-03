@@ -1,0 +1,31 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   Fast, memory-efficient, pythonic (and command-line) access to fasta sequence files. - Homepage: https://pypi.python.org/pypi/pyfasta/
+    }
+}
+
+module-whatis {Fast, memory-efficient, pythonic (and command-line) access to fasta sequence files. - Homepage: https://pypi.python.org/pypi/pyfasta/}
+
+set root    /net/gmi.oeaw.ac.at/software/mendel/29_04_2013/software/pyfasta/0.5.1-goolf-1.4.10-Python-2.7.3
+
+conflict    pyfasta
+
+if { ![is-loaded goolf/1.4.10] } {
+    module load goolf/1.4.10
+}
+
+if { ![is-loaded Python/2.7.3-goolf-1.4.10] } {
+    module load Python/2.7.3-goolf-1.4.10
+}
+
+prepend-path	LD_LIBRARY_PATH		$root/lib
+prepend-path	PATH		$root/bin
+
+setenv	EBROOTPYFASTA		"$root"
+setenv	EBVERSIONPYFASTA		"0.5.1"
+setenv	EBDEVELPYFASTA		"$root/easybuild/pyfasta-0.5.1-goolf-1.4.10-Python-2.7.3-easybuild-devel"
+
+prepend-path	PYTHONPATH		$root/lib/python2.7/site-packages
+
+# built with EasyBuild version 1.8.2

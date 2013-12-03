@@ -1,0 +1,34 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   pkg-config is a helper tool used when compiling applications and libraries. It helps you insert the
+correct compiler options on the command line so an application can use  
+gcc -o test test.c `pkg-config --libs --cflags glib-2.0`
+for instance, rather than hard-coding values on where to find glib (or other libraries).
+ - Homepage: http://www.freedesktop.org/wiki/Software/pkg-config/
+}
+}
+
+module-whatis {pkg-config is a helper tool used when compiling applications and libraries. It helps you insert the
+correct compiler options on the command line so an application can use  
+gcc -o test test.c `pkg-config --libs --cflags glib-2.0`
+for instance, rather than hard-coding values on where to find glib (or other libraries).
+ - Homepage: http://www.freedesktop.org/wiki/Software/pkg-config/}
+
+set root    /net/gmi.oeaw.ac.at/software/mendel/29_04_2013/software/pkg-config/0.27.1-goolf-1.4.10
+
+conflict    pkg-config
+
+if { ![is-loaded goolf/1.4.10] } {
+    module load goolf/1.4.10
+}
+
+prepend-path	MANPATH		$root/share/man
+prepend-path	PATH		$root/bin
+
+setenv	EBROOTPKGMINCONFIG		"$root"
+setenv	EBVERSIONPKGMINCONFIG		"0.27.1"
+setenv	EBDEVELPKGMINCONFIG		"$root/easybuild/pkg-config-0.27.1-goolf-1.4.10-easybuild-devel"
+
+
+# built with EasyBuild version 1.3.0

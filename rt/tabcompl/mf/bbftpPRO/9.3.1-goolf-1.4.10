@@ -1,0 +1,32 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   bbftpPRO is a data transfer program - as opposed to ordinary file transfer programs,
+  capable of transferring arbitrary data over LAN/WANs at parallel speed. bbftpPRO has been started
+  at the Particle Physics Dept. of Weizmann Institute of Science as an enhancement of bbftp,
+  developed at IN2P3, ref: http://doc.in2p3.fr/bbftp/ - Homepage: http://bbftppro.myftp.org/
+}
+}
+
+module-whatis {bbftpPRO is a data transfer program - as opposed to ordinary file transfer programs,
+  capable of transferring arbitrary data over LAN/WANs at parallel speed. bbftpPRO has been started
+  at the Particle Physics Dept. of Weizmann Institute of Science as an enhancement of bbftp,
+  developed at IN2P3, ref: http://doc.in2p3.fr/bbftp/ - Homepage: http://bbftppro.myftp.org/}
+
+set root    /net/gmi.oeaw.ac.at/software/mendel/29_04_2013/software/bbftpPRO/9.3.1-goolf-1.4.10
+
+conflict    bbftpPRO
+
+if { ![is-loaded goolf/1.4.10] } {
+    module load goolf/1.4.10
+}
+
+prepend-path	MANPATH		$root/share/man
+prepend-path	PATH		$root/bin
+
+setenv	EBROOTBBFTPPRO		"$root"
+setenv	EBVERSIONBBFTPPRO		"9.3.1"
+setenv	EBDEVELBBFTPPRO		"$root/easybuild/bbftpPRO-9.3.1-goolf-1.4.10-easybuild-devel"
+
+
+# built with EasyBuild version 1.3.0

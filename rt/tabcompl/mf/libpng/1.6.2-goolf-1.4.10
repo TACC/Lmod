@@ -1,0 +1,33 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   libpng is the official PNG reference library - Homepage: http://www.libpng.org/pub/png/libpng.html
+}
+}
+
+module-whatis {libpng is the official PNG reference library - Homepage: http://www.libpng.org/pub/png/libpng.html}
+
+set root    /net/gmi.oeaw.ac.at/software/mendel/29_04_2013/software/libpng/1.6.2-goolf-1.4.10
+
+conflict    libpng
+
+if { ![is-loaded goolf/1.4.10] } {
+    module load goolf/1.4.10
+}
+
+if { ![is-loaded zlib/1.2.5-goolf-1.4.10] } {
+    module load zlib/1.2.5-goolf-1.4.10
+}
+
+prepend-path	CPATH		$root/include
+prepend-path	LD_LIBRARY_PATH		$root/lib
+prepend-path	MANPATH		$root/share/man
+prepend-path	PATH		$root/bin
+prepend-path	PKG_CONFIG_PATH		$root/lib/pkgconfig
+
+setenv	EBROOTLIBPNG		"$root"
+setenv	EBVERSIONLIBPNG		"1.6.2"
+setenv	EBDEVELLIBPNG		"$root/easybuild/libpng-1.6.2-goolf-1.4.10-easybuild-devel"
+
+
+# built with EasyBuild version 1.6.0dev

@@ -1,0 +1,25 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   Picard comprises Java-based command-line utilities that manipulate SAM files, and a Java API (SAM-JDK) for creating new programs that read and write SAM files. Both SAM text format and SAM binary (BAM) format are supported. - Homepage: http://picard.sourceforge.net/
+}
+}
+
+module-whatis {Picard comprises Java-based command-line utilities that manipulate SAM files, and a Java API (SAM-JDK) for creating new programs that read and write SAM files. Both SAM text format and SAM binary (BAM) format are supported. - Homepage: http://picard.sourceforge.net/}
+
+set root    /net/gmi.oeaw.ac.at/software/mendel/29_04_2013/software/Picard/1.81-goalf-1.1.0-no-OFED
+
+conflict    Picard
+
+if { ![is-loaded goalf/1.1.0-no-OFED] } {
+    module load goalf/1.1.0-no-OFED
+}
+
+
+setenv	EBROOTPICARD		"$root"
+setenv	EBVERSIONPICARD		"1.81"
+setenv	EBDEVELPICARD		"$root/easybuild/Picard-1.81-goalf-1.1.0-no-OFED-easybuild-devel"
+
+prepend-path	PATH		$root/
+
+# built with EasyBuild version 1.4.0

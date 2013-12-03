@@ -1,0 +1,29 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   This is an MPI 3.0 implementation.  It is based on MPICH2 and MVICH. - Homepage: http://mvapich.cse.ohio-state.edu/overview/mvapich2/
+}
+}
+
+module-whatis {This is an MPI 3.0 implementation.  It is based on MPICH2 and MVICH. - Homepage: http://mvapich.cse.ohio-state.edu/overview/mvapich2/}
+
+set root    /net/gmi.oeaw.ac.at/software/mendel/29_04_2013/software/MVAPICH2/1.9-GCC-4.7.2
+
+conflict    MVAPICH2
+
+if { ![is-loaded GCC/4.7.2] } {
+    module load GCC/4.7.2
+}
+
+prepend-path	CPATH		$root/include
+prepend-path	LD_LIBRARY_PATH		$root/lib
+prepend-path	MANPATH		$root/share/man
+prepend-path	PATH		$root/bin
+prepend-path	PKG_CONFIG_PATH		$root/lib/pkgconfig
+
+setenv	EBROOTMVAPICH2		"$root"
+setenv	EBVERSIONMVAPICH2		"1.9"
+setenv	EBDEVELMVAPICH2		"$root/easybuild/MVAPICH2-1.9-GCC-4.7.2-easybuild-devel"
+
+
+# built with EasyBuild version 1.3.0

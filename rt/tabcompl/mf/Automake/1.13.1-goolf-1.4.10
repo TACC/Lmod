@@ -1,0 +1,32 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   Automake is a tool for automatically generating `Makefile.in' files compliant with the GNU Coding Standards. Automake requires the use of Autoconf.
+ - Homepage: http://www.gnu.org/software/automake/
+}
+}
+
+module-whatis {Automake is a tool for automatically generating `Makefile.in' files compliant with the GNU Coding Standards. Automake requires the use of Autoconf.
+ - Homepage: http://www.gnu.org/software/automake/}
+
+set root    /net/gmi.oeaw.ac.at/software/mendel/29_04_2013/software/Automake/1.13.1-goolf-1.4.10
+
+conflict    Automake
+
+if { ![is-loaded goolf/1.4.10] } {
+    module load goolf/1.4.10
+}
+
+if { ![is-loaded Autoconf/2.69-goolf-1.4.10] } {
+    module load Autoconf/2.69-goolf-1.4.10
+}
+
+prepend-path	MANPATH		$root/share/man
+prepend-path	PATH		$root/bin
+
+setenv	EBROOTAUTOMAKE		"$root"
+setenv	EBVERSIONAUTOMAKE		"1.13.1"
+setenv	EBDEVELAUTOMAKE		"$root/easybuild/Automake-1.13.1-goolf-1.4.10-easybuild-devel"
+
+
+# built with EasyBuild version 1.3.0

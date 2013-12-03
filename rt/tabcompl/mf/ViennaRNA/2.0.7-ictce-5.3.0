@@ -1,0 +1,31 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   The Vienna RNA Package consists of a C code library and several
+stand-alone programs for the prediction and comparison of RNA secondary structures. - Homepage: http://www.tbi.univie.ac.at/~ronny/RNA/vrna2.html
+}
+}
+
+module-whatis {The Vienna RNA Package consists of a C code library and several
+stand-alone programs for the prediction and comparison of RNA secondary structures. - Homepage: http://www.tbi.univie.ac.at/~ronny/RNA/vrna2.html}
+
+set root    /net/gmi.oeaw.ac.at/software/mendel/29_04_2013/software/ViennaRNA/2.0.7-ictce-5.3.0
+
+conflict    ViennaRNA
+
+if { ![is-loaded ictce/5.3.0] } {
+    module load ictce/5.3.0
+}
+
+prepend-path	CPATH		$root/include
+prepend-path	LD_LIBRARY_PATH		$root/lib
+prepend-path	MANPATH		$root/share/man
+prepend-path	PATH		$root/bin
+prepend-path	PKG_CONFIG_PATH		$root/lib/pkgconfig
+
+setenv	EBROOTVIENNARNA		"$root"
+setenv	EBVERSIONVIENNARNA		"2.0.7"
+setenv	EBDEVELVIENNARNA		"$root/easybuild/ViennaRNA-2.0.7-ictce-5.3.0-easybuild-devel"
+
+
+# built with EasyBuild version 1.4.0

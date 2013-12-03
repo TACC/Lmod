@@ -1,0 +1,33 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   Oases is a de novo transcriptome assembler designed to produce transcripts from
+short read sequencing technologies, such as Illumina, SOLiD, or 454 in the absence of any genomic
+assembly. - Homepage: http://www.ebi.ac.uk/~zerbino/oases/
+}
+}
+
+module-whatis {Oases is a de novo transcriptome assembler designed to produce transcripts from
+short read sequencing technologies, such as Illumina, SOLiD, or 454 in the absence of any genomic
+assembly. - Homepage: http://www.ebi.ac.uk/~zerbino/oases/}
+
+set root    /net/gmi.oeaw.ac.at/software/mendel/29_04_2013/software/Oases/0.2.08-goolf-1.4.10
+
+conflict    Oases
+
+if { ![is-loaded goolf/1.4.10] } {
+    module load goolf/1.4.10
+}
+
+if { ![is-loaded zlib/1.2.8-goolf-1.4.10] } {
+    module load zlib/1.2.8-goolf-1.4.10
+}
+
+prepend-path	PATH		$root/bin
+
+setenv	EBROOTOASES		"$root"
+setenv	EBVERSIONOASES		"0.2.08"
+setenv	EBDEVELOASES		"$root/easybuild/Oases-0.2.08-goolf-1.4.10-easybuild-devel"
+
+
+# built with EasyBuild version 1.6.0

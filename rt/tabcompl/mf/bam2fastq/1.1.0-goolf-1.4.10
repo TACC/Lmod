@@ -1,0 +1,33 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   The BAM format is an efficient method for storing and sharing data 
+ from modern, highly parallel sequencers. While primarily used for storing alignment information, 
+ BAMs can (and frequently do) store unaligned reads as well.  - Homepage: http://www.hudsonalpha.org/gsl/information/software/bam2fastq
+}
+}
+
+module-whatis {The BAM format is an efficient method for storing and sharing data 
+ from modern, highly parallel sequencers. While primarily used for storing alignment information, 
+ BAMs can (and frequently do) store unaligned reads as well.  - Homepage: http://www.hudsonalpha.org/gsl/information/software/bam2fastq}
+
+set root    /net/gmi.oeaw.ac.at/software/mendel/29_04_2013/software/bam2fastq/1.1.0-goolf-1.4.10
+
+conflict    bam2fastq
+
+if { ![is-loaded goolf/1.4.10] } {
+    module load goolf/1.4.10
+}
+
+if { ![is-loaded zlib/1.2.7-goolf-1.4.10] } {
+    module load zlib/1.2.7-goolf-1.4.10
+}
+
+prepend-path	PATH		$root/bin
+
+setenv	EBROOTBAM2FASTQ		"$root"
+setenv	EBVERSIONBAM2FASTQ		"1.1.0"
+setenv	EBDEVELBAM2FASTQ		"$root/easybuild/bam2fastq-1.1.0-goolf-1.4.10-easybuild-devel"
+
+
+# built with EasyBuild version 1.6.0dev

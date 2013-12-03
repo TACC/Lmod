@@ -1,0 +1,28 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   The GNU Compiler Collection includes front ends for C, C++, Objective-C, Fortran,
+    Java, and Ada, as well as libraries for these languages (libstdc++, libgcj,...). - Homepage: http://gcc.gnu.org/
+}
+}
+
+module-whatis {The GNU Compiler Collection includes front ends for C, C++, Objective-C, Fortran,
+    Java, and Ada, as well as libraries for these languages (libstdc++, libgcj,...). - Homepage: http://gcc.gnu.org/}
+
+set root    /net/gmi.oeaw.ac.at/software/mendel/29_04_2013/software/GCC/4.7.2
+
+conflict    GCC
+
+prepend-path	CPATH		$root/include
+prepend-path	LD_LIBRARY_PATH		$root/lib
+prepend-path	LD_LIBRARY_PATH		$root/lib64
+prepend-path	LD_LIBRARY_PATH		$root/lib/gcc/x86_64-unknown-linux-gnu/4.7.2
+prepend-path	MANPATH		$root/share/man
+prepend-path	PATH		$root/bin
+
+setenv	EBROOTGCC		"$root"
+setenv	EBVERSIONGCC		"4.7.2"
+setenv	EBDEVELGCC		"$root/easybuild/GCC-4.7.2-easybuild-devel"
+
+
+# built with EasyBuild version 1.3.0

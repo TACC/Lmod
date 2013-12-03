@@ -1,0 +1,36 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   ScientificPython is a collection of Python modules for scientific computing.
+It contains support for geometry, mathematical functions, statistics, physical units, IO, visualization,
+and parallelization. - Homepage: https://sourcesup.cru.fr/projects/scientific-py/
+}
+}
+
+module-whatis {ScientificPython is a collection of Python modules for scientific computing.
+It contains support for geometry, mathematical functions, statistics, physical units, IO, visualization,
+and parallelization. - Homepage: https://sourcesup.cru.fr/projects/scientific-py/}
+
+set root    /net/gmi.oeaw.ac.at/software/mendel/29_04_2013/software/ScientificPython/2.8-goolf-1.4.10-Python-2.7.3
+
+conflict    ScientificPython
+
+if { ![is-loaded goolf/1.4.10] } {
+    module load goolf/1.4.10
+}
+
+if { ![is-loaded Python/2.7.3-goolf-1.4.10] } {
+    module load Python/2.7.3-goolf-1.4.10
+}
+
+prepend-path	CPATH		$root/include
+prepend-path	LD_LIBRARY_PATH		$root/lib
+prepend-path	PATH		$root/bin
+
+setenv	EBROOTSCIENTIFICPYTHON		"$root"
+setenv	EBVERSIONSCIENTIFICPYTHON		"2.8"
+setenv	EBDEVELSCIENTIFICPYTHON		"$root/easybuild/ScientificPython-2.8-goolf-1.4.10-Python-2.7.3-easybuild-devel"
+
+prepend-path	PYTHONPATH		$root/lib/python2.7/site-packages
+
+# built with EasyBuild version 1.3.0

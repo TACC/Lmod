@@ -1,0 +1,29 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   LAPACK is written in Fortran90 and provides routines for solving systems of
+ simultaneous linear equations, least-squares solutions of linear systems of equations, eigenvalue
+ problems, and singular value problems. - Homepage: http://www.netlib.org/lapack/
+}
+}
+
+module-whatis {LAPACK is written in Fortran90 and provides routines for solving systems of
+ simultaneous linear equations, least-squares solutions of linear systems of equations, eigenvalue
+ problems, and singular value problems. - Homepage: http://www.netlib.org/lapack/}
+
+set root    /net/gmi.oeaw.ac.at/software/mendel/29_04_2013/software/LAPACK/3.4.0-gompi-1.1.0-no-OFED
+
+conflict    LAPACK
+
+if { ![is-loaded gompi/1.1.0-no-OFED] } {
+    module load gompi/1.1.0-no-OFED
+}
+
+prepend-path	LD_LIBRARY_PATH		$root/lib
+
+setenv	EBROOTLAPACK		"$root"
+setenv	EBVERSIONLAPACK		"3.4.0"
+setenv	EBDEVELLAPACK		"$root/easybuild/LAPACK-3.4.0-gompi-1.1.0-no-OFED-easybuild-devel"
+
+
+# built with EasyBuild version 1.3.0

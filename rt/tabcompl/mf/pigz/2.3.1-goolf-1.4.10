@@ -1,0 +1,29 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   pigz, which stands for parallel implementation of gzip, is a fully functional replacement for gzip that exploits multiple processors and multiple cores to the hilt when compressing data. pigz was written by Mark Adler, and uses the zlib and pthread libraries. To compile and use pigz, please read the README file in the source code distribution. - Homepage: http://zlib.net/pigz
+}
+}
+
+module-whatis {pigz, which stands for parallel implementation of gzip, is a fully functional replacement for gzip that exploits multiple processors and multiple cores to the hilt when compressing data. pigz was written by Mark Adler, and uses the zlib and pthread libraries. To compile and use pigz, please read the README file in the source code distribution. - Homepage: http://zlib.net/pigz}
+
+set root    /net/gmi.oeaw.ac.at/software/mendel/29_04_2013/software/pigz/2.3.1-goolf-1.4.10
+
+conflict    pigz
+
+if { ![is-loaded goolf/1.4.10] } {
+    module load goolf/1.4.10
+}
+
+if { ![is-loaded zlib/1.2.8-goolf-1.4.10] } {
+    module load zlib/1.2.8-goolf-1.4.10
+}
+
+prepend-path	PATH		$root/bin
+
+setenv	EBROOTPIGZ		"$root"
+setenv	EBVERSIONPIGZ		"2.3.1"
+setenv	EBDEVELPIGZ		"$root/easybuild/pigz-2.3.1-goolf-1.4.10-easybuild-devel"
+
+
+# built with EasyBuild version 1.6.0

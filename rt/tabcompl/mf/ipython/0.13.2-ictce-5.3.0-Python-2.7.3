@@ -1,0 +1,32 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   The IPython project provides an enhanced interactive environment that includes, among other features, support for data visualization and facilities for distributed and parallel computation. - Homepage: http://ipython.org/index.html
+}
+}
+
+module-whatis {The IPython project provides an enhanced interactive environment that includes, among other features, support for data visualization and facilities for distributed and parallel computation. - Homepage: http://ipython.org/index.html}
+
+set root    /net/gmi.oeaw.ac.at/software/mendel/29_04_2013/software/ipython/0.13.2-ictce-5.3.0-Python-2.7.3
+
+conflict    ipython
+
+if { ![is-loaded ictce/5.3.0] } {
+    module load ictce/5.3.0
+}
+
+if { ![is-loaded Python/2.7.3-ictce-5.3.0] } {
+    module load Python/2.7.3-ictce-5.3.0
+}
+
+prepend-path	LD_LIBRARY_PATH		$root/lib
+prepend-path	MANPATH		$root/share/man
+prepend-path	PATH		$root/bin
+
+setenv	EBROOTIPYTHON		"$root"
+setenv	EBVERSIONIPYTHON		"0.13.2"
+setenv	EBDEVELIPYTHON		"$root/easybuild/ipython-0.13.2-ictce-5.3.0-Python-2.7.3-easybuild-devel"
+
+prepend-path	PYTHONPATH		$root/lib/python2.7/site-packages
+
+# built with EasyBuild version 1.6.0dev

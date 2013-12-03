@@ -1,0 +1,46 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   ZeroMQ looks like an embeddable networking library but acts like a concurrency framework.
+It gives you sockets that carry atomic messages across various transports like in-process,
+inter-process, TCP, and multicast. You can connect sockets N-to-N with patterns like fanout,
+pub-sub, task distribution, and request-reply. It's fast enough to be the fabric for clustered
+products. Its asynchronous I/O model gives you scalable multicore applications, built as asynchronous
+message-processing tasks. It has a score of language APIs and runs on most operating systems. - Homepage: http://www.zeromq.org/
+}
+}
+
+module-whatis {ZeroMQ looks like an embeddable networking library but acts like a concurrency framework.
+It gives you sockets that carry atomic messages across various transports like in-process,
+inter-process, TCP, and multicast. You can connect sockets N-to-N with patterns like fanout,
+pub-sub, task distribution, and request-reply. It's fast enough to be the fabric for clustered
+products. Its asynchronous I/O model gives you scalable multicore applications, built as asynchronous
+message-processing tasks. It has a score of language APIs and runs on most operating systems. - Homepage: http://www.zeromq.org/}
+
+set root    /net/gmi.oeaw.ac.at/software/mendel/29_04_2013/software/ZeroMQ/2.2.0-goolf-1.4.10
+
+conflict    ZeroMQ
+
+if { ![is-loaded goolf/1.4.10] } {
+    module load goolf/1.4.10
+}
+
+if { ![is-loaded OpenPGM/5.2.122-goolf-1.4.10] } {
+    module load OpenPGM/5.2.122-goolf-1.4.10
+}
+
+if { ![is-loaded util-linux/2.22.2-goolf-1.4.10] } {
+    module load util-linux/2.22.2-goolf-1.4.10
+}
+
+prepend-path	CPATH		$root/include
+prepend-path	LD_LIBRARY_PATH		$root/lib
+prepend-path	MANPATH		$root/share/man
+prepend-path	PKG_CONFIG_PATH		$root/lib/pkgconfig
+
+setenv	EBROOTZEROMQ		"$root"
+setenv	EBVERSIONZEROMQ		"2.2.0"
+setenv	EBDEVELZEROMQ		"$root/easybuild/ZeroMQ-2.2.0-goolf-1.4.10-easybuild-devel"
+
+
+# built with EasyBuild version 1.3.0

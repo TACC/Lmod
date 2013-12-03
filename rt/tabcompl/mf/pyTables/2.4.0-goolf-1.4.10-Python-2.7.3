@@ -1,0 +1,55 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   PyTables is a package for managing hierarchical datasets and designed to efficiently and easily cope
+ with extremely large amounts of data. PyTables is built on top of the HDF5 library, using the Python language and the
+ NumPy package. It features an object-oriented interface that, combined with C extensions for the performance-critical
+ parts of the code (generated using Cython), makes it a fast, yet extremely easy to use tool for interactively browse,
+ process and search very large amounts of data. One important feature of PyTables is that it optimizes memory and disk
+ resources so that data takes much less space (specially if on-flight compression is used) than other solutions such as
+ relational or object oriented databases. - Homepage: http://www.pytables.org/moin
+}
+}
+
+module-whatis {PyTables is a package for managing hierarchical datasets and designed to efficiently and easily cope
+ with extremely large amounts of data. PyTables is built on top of the HDF5 library, using the Python language and the
+ NumPy package. It features an object-oriented interface that, combined with C extensions for the performance-critical
+ parts of the code (generated using Cython), makes it a fast, yet extremely easy to use tool for interactively browse,
+ process and search very large amounts of data. One important feature of PyTables is that it optimizes memory and disk
+ resources so that data takes much less space (specially if on-flight compression is used) than other solutions such as
+ relational or object oriented databases. - Homepage: http://www.pytables.org/moin}
+
+set root    /net/gmi.oeaw.ac.at/software/mendel/29_04_2013/software/pyTables/2.4.0-goolf-1.4.10-Python-2.7.3
+
+conflict    pyTables
+
+if { ![is-loaded goolf/1.4.10] } {
+    module load goolf/1.4.10
+}
+
+if { ![is-loaded Python/2.7.3-goolf-1.4.10] } {
+    module load Python/2.7.3-goolf-1.4.10
+}
+
+if { ![is-loaded numexpr/2.0.1-goolf-1.4.10-Python-2.7.3] } {
+    module load numexpr/2.0.1-goolf-1.4.10-Python-2.7.3
+}
+
+if { ![is-loaded HDF5/1.8.7-goolf-1.4.10] } {
+    module load HDF5/1.8.7-goolf-1.4.10
+}
+
+if { ![is-loaded Cython/0.16-goolf-1.4.10-Python-2.7.3] } {
+    module load Cython/0.16-goolf-1.4.10-Python-2.7.3
+}
+
+prepend-path	LD_LIBRARY_PATH		$root/lib
+prepend-path	PATH		$root/bin
+
+setenv	EBROOTPYTABLES		"$root"
+setenv	EBVERSIONPYTABLES		"2.4.0"
+setenv	EBDEVELPYTABLES		"$root/easybuild/pyTables-2.4.0-goolf-1.4.10-Python-2.7.3-easybuild-devel"
+
+prepend-path	PYTHONPATH		$root/lib/python2.7/site-packages
+
+# built with EasyBuild version 1.3.0

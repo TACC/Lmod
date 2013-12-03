@@ -1,0 +1,31 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   BamTools provides both a programmer's API and an end-user's toolkit for handling BAM files. - Homepage: https://github.com/pezmaster31/bamtools
+}
+}
+
+module-whatis {BamTools provides both a programmer's API and an end-user's toolkit for handling BAM files. - Homepage: https://github.com/pezmaster31/bamtools}
+
+set root    /net/gmi.oeaw.ac.at/software/mendel/29_04_2013/software/BamTools/2.2.3-goolf-1.4.10
+
+conflict    BamTools
+
+if { ![is-loaded goolf/1.4.10] } {
+    module load goolf/1.4.10
+}
+
+if { ![is-loaded zlib/1.2.8-goolf-1.4.10] } {
+    module load zlib/1.2.8-goolf-1.4.10
+}
+
+prepend-path	CPATH		$root/include
+prepend-path	LD_LIBRARY_PATH		$root/lib
+prepend-path	PATH		$root/bin
+
+setenv	EBROOTBAMTOOLS		"$root"
+setenv	EBVERSIONBAMTOOLS		"2.2.3"
+setenv	EBDEVELBAMTOOLS		"$root/easybuild/BamTools-2.2.3-goolf-1.4.10-easybuild-devel"
+
+
+# built with EasyBuild version 1.6.0

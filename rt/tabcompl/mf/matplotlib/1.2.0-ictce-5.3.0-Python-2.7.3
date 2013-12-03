@@ -1,0 +1,46 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   matplotlib is a python 2D plotting library which produces publication quality figures in a variety of
+ hardcopy formats and interactive environments across platforms. matplotlib can be used in python scripts, the python
+ and ipython shell, web application servers, and six graphical user interface toolkits. - Homepage: http://matplotlib.org
+}
+}
+
+module-whatis {matplotlib is a python 2D plotting library which produces publication quality figures in a variety of
+ hardcopy formats and interactive environments across platforms. matplotlib can be used in python scripts, the python
+ and ipython shell, web application servers, and six graphical user interface toolkits. - Homepage: http://matplotlib.org}
+
+set root    /net/gmi.oeaw.ac.at/software/mendel/29_04_2013/software/matplotlib/1.2.0-ictce-5.3.0-Python-2.7.3
+
+conflict    matplotlib
+
+if { ![is-loaded ictce/5.3.0] } {
+    module load ictce/5.3.0
+}
+
+if { ![is-loaded Python/2.7.3-ictce-5.3.0] } {
+    module load Python/2.7.3-ictce-5.3.0
+}
+
+if { ![is-loaded zlib/1.2.7-ictce-5.3.0] } {
+    module load zlib/1.2.7-ictce-5.3.0
+}
+
+if { ![is-loaded freetype/2.4.10-ictce-5.3.0] } {
+    module load freetype/2.4.10-ictce-5.3.0
+}
+
+if { ![is-loaded libpng/1.5.13-ictce-5.3.0] } {
+    module load libpng/1.5.13-ictce-5.3.0
+}
+
+prepend-path	LD_LIBRARY_PATH		$root/lib
+
+setenv	EBROOTMATPLOTLIB		"$root"
+setenv	EBVERSIONMATPLOTLIB		"1.2.0"
+setenv	EBDEVELMATPLOTLIB		"$root/easybuild/matplotlib-1.2.0-ictce-5.3.0-Python-2.7.3-easybuild-devel"
+
+prepend-path	PYTHONPATH		$root/lib/python2.7/site-packages
+
+# built with EasyBuild version 1.6.0dev

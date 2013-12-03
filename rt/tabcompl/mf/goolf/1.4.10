@@ -1,0 +1,42 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   GNU Compiler Collection (GCC) based compiler toolchain, including
+ OpenMPI for MPI support, OpenBLAS (BLAS and LAPACK support), FFTW and ScaLAPACK. - Homepage: (none)
+}
+}
+
+module-whatis {GNU Compiler Collection (GCC) based compiler toolchain, including
+ OpenMPI for MPI support, OpenBLAS (BLAS and LAPACK support), FFTW and ScaLAPACK. - Homepage: (none)}
+
+set root    /net/gmi.oeaw.ac.at/software/mendel/29_04_2013/software/goolf/1.4.10
+
+conflict    goolf
+
+if { ![is-loaded GCC/4.7.2] } {
+    module load GCC/4.7.2
+}
+
+if { ![is-loaded OpenMPI/1.6.4-GCC-4.7.2] } {
+    module load OpenMPI/1.6.4-GCC-4.7.2
+}
+
+if { ![is-loaded OpenBLAS/0.2.6-gompi-1.4.10-LAPACK-3.4.2] } {
+    module load OpenBLAS/0.2.6-gompi-1.4.10-LAPACK-3.4.2
+}
+
+if { ![is-loaded FFTW/3.3.3-gompi-1.4.10] } {
+    module load FFTW/3.3.3-gompi-1.4.10
+}
+
+if { ![is-loaded ScaLAPACK/2.0.2-gompi-1.4.10-OpenBLAS-0.2.6-LAPACK-3.4.2] } {
+    module load ScaLAPACK/2.0.2-gompi-1.4.10-OpenBLAS-0.2.6-LAPACK-3.4.2
+}
+
+
+setenv	EBROOTGOOLF		"$root"
+setenv	EBVERSIONGOOLF		"1.4.10"
+setenv	EBDEVELGOOLF		"$root/easybuild/goolf-1.4.10-easybuild-devel"
+
+
+# built with EasyBuild version 1.3.0

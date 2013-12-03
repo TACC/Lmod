@@ -1,0 +1,34 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   Python bindings for ZeroMQ - Homepage: http://www.zeromq.org/bindings:python
+    }
+}
+
+module-whatis {Python bindings for ZeroMQ - Homepage: http://www.zeromq.org/bindings:python}
+
+set root    /net/gmi.oeaw.ac.at/software/mendel/29_04_2013/software/PyZMQ/2.2.0.1-goolf-1.4.10-Python-2.7.3-zmq2
+
+conflict    PyZMQ
+
+if { ![is-loaded goolf/1.4.10] } {
+    module load goolf/1.4.10
+}
+
+if { ![is-loaded Python/2.7.3-goolf-1.4.10] } {
+    module load Python/2.7.3-goolf-1.4.10
+}
+
+if { ![is-loaded ZeroMQ/2.2.0-goolf-1.4.10] } {
+    module load ZeroMQ/2.2.0-goolf-1.4.10
+}
+
+prepend-path	LD_LIBRARY_PATH		$root/lib
+
+setenv	EBROOTPYZMQ		"$root"
+setenv	EBVERSIONPYZMQ		"2.2.0.1"
+setenv	EBDEVELPYZMQ		"$root/easybuild/PyZMQ-2.2.0.1-goolf-1.4.10-Python-2.7.3-zmq2-easybuild-devel"
+
+prepend-path	PYTHONPATH		$root/lib/python2.7/site-packages
+
+# built with EasyBuild version 1.8.2

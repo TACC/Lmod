@@ -1,0 +1,30 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   The Intel(R) MPI Library for Linux* OS is a multi-fabric message
+ passing library based on ANL MPICH2 and OSU MVAPICH2. The Intel MPI Library for
+ Linux OS implements the Message Passing Interface, version 2 (MPI-2) specification. - Homepage: http://software.intel.com/en-us/intel-mpi-library/
+}
+}
+
+module-whatis {The Intel(R) MPI Library for Linux* OS is a multi-fabric message
+ passing library based on ANL MPICH2 and OSU MVAPICH2. The Intel MPI Library for
+ Linux OS implements the Message Passing Interface, version 2 (MPI-2) specification. - Homepage: http://software.intel.com/en-us/intel-mpi-library/}
+
+set root    /net/gmi.oeaw.ac.at/software/mendel/29_04_2013/software/impi/4.1.0.030
+
+conflict    impi
+
+prepend-path	LD_LIBRARY_PATH		$root/lib
+prepend-path	LD_LIBRARY_PATH		$root/lib64
+prepend-path	PATH		$root/bin
+prepend-path	PATH		$root/bin64
+
+setenv	EBROOTIMPI		"$root"
+setenv	EBVERSIONIMPI		"4.1.0.030"
+setenv	EBDEVELIMPI		"$root/easybuild/impi-4.1.0.030-easybuild-devel"
+
+prepend-path	INTEL_LICENSE_FILE		/net/gmi.oeaw.ac.at/software/mendel/easybuild-home/licenses/intel/license.lic
+setenv	I_MPI_ROOT		$root
+
+# built with EasyBuild version 1.3.0

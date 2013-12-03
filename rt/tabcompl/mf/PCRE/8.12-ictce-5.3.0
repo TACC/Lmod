@@ -1,0 +1,31 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   The PCRE library is a set of functions that implement regular expression pattern matching using the same syntax
+ and semantics as Perl 5. - Homepage: http://www.pcre.org/
+}
+}
+
+module-whatis {The PCRE library is a set of functions that implement regular expression pattern matching using the same syntax
+ and semantics as Perl 5. - Homepage: http://www.pcre.org/}
+
+set root    /net/gmi.oeaw.ac.at/software/mendel/29_04_2013/software/PCRE/8.12-ictce-5.3.0
+
+conflict    PCRE
+
+if { ![is-loaded ictce/5.3.0] } {
+    module load ictce/5.3.0
+}
+
+prepend-path	CPATH		$root/include
+prepend-path	LD_LIBRARY_PATH		$root/lib
+prepend-path	MANPATH		$root/share/man
+prepend-path	PATH		$root/bin
+prepend-path	PKG_CONFIG_PATH		$root/lib/pkgconfig
+
+setenv	EBROOTPCRE		"$root"
+setenv	EBVERSIONPCRE		"8.12"
+setenv	EBDEVELPCRE		"$root/easybuild/PCRE-8.12-ictce-5.3.0-easybuild-devel"
+
+
+# built with EasyBuild version 1.6.0dev

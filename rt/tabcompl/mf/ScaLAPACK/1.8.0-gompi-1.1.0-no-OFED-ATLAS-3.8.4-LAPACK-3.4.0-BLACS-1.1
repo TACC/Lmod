@@ -1,0 +1,40 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   The ScaLAPACK (or Scalable LAPACK) library includes a subset of LAPACK routines
+ redesigned for distributed memory MIMD parallel computers. - Homepage: http://www.netlib.org/scalapack/
+}
+}
+
+module-whatis {The ScaLAPACK (or Scalable LAPACK) library includes a subset of LAPACK routines
+ redesigned for distributed memory MIMD parallel computers. - Homepage: http://www.netlib.org/scalapack/}
+
+set root    /net/gmi.oeaw.ac.at/software/mendel/29_04_2013/software/ScaLAPACK/1.8.0-gompi-1.1.0-no-OFED-ATLAS-3.8.4-LAPACK-3.4.0-BLACS-1.1
+
+conflict    ScaLAPACK
+
+if { ![is-loaded gompi/1.1.0-no-OFED] } {
+    module load gompi/1.1.0-no-OFED
+}
+
+if { ![is-loaded ATLAS/3.8.4-gompi-1.1.0-no-OFED-LAPACK-3.4.0] } {
+    module load ATLAS/3.8.4-gompi-1.1.0-no-OFED-LAPACK-3.4.0
+}
+
+if { ![is-loaded LAPACK/3.4.0-gompi-1.1.0-no-OFED] } {
+    module load LAPACK/3.4.0-gompi-1.1.0-no-OFED
+}
+
+if { ![is-loaded BLACS/1.1-gompi-1.1.0-no-OFED] } {
+    module load BLACS/1.1-gompi-1.1.0-no-OFED
+}
+
+prepend-path	CPATH		$root/include
+prepend-path	LD_LIBRARY_PATH		$root/lib
+
+setenv	EBROOTSCALAPACK		"$root"
+setenv	EBVERSIONSCALAPACK		"1.8.0"
+setenv	EBDEVELSCALAPACK		"$root/easybuild/ScaLAPACK-1.8.0-gompi-1.1.0-no-OFED-ATLAS-3.8.4-LAPACK-3.4.0-BLACS-1.1-easybuild-devel"
+
+
+# built with EasyBuild version 1.3.0

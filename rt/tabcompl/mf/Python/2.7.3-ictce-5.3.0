@@ -1,0 +1,46 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   Python is a programming language that lets you work more quickly and integrate your systems more effectively. - Homepage: http://python.org/
+}
+}
+
+module-whatis {Python is a programming language that lets you work more quickly and integrate your systems more effectively. - Homepage: http://python.org/}
+
+set root    /net/gmi.oeaw.ac.at/software/mendel/29_04_2013/software/Python/2.7.3-ictce-5.3.0
+
+conflict    Python
+
+if { ![is-loaded ictce/5.3.0] } {
+    module load ictce/5.3.0
+}
+
+if { ![is-loaded bzip2/1.0.6-ictce-5.3.0] } {
+    module load bzip2/1.0.6-ictce-5.3.0
+}
+
+if { ![is-loaded zlib/1.2.7-ictce-5.3.0] } {
+    module load zlib/1.2.7-ictce-5.3.0
+}
+
+if { ![is-loaded libreadline/6.2-ictce-5.3.0] } {
+    module load libreadline/6.2-ictce-5.3.0
+}
+
+if { ![is-loaded ncurses/5.9-ictce-5.3.0] } {
+    module load ncurses/5.9-ictce-5.3.0
+}
+
+prepend-path	CPATH		$root/include
+prepend-path	LD_LIBRARY_PATH		$root/lib
+prepend-path	MANPATH		$root/share/man
+prepend-path	PATH		$root/bin
+prepend-path	PKG_CONFIG_PATH		$root/lib/pkgconfig
+
+setenv	EBROOTPYTHON		"$root"
+setenv	EBVERSIONPYTHON		"2.7.3"
+setenv	EBDEVELPYTHON		"$root/easybuild/Python-2.7.3-ictce-5.3.0-easybuild-devel"
+
+setenv	EBEXTSLISTPYTHON		"setuptools-0.6c11,nose-1.1.2,numpy-1.6.1,scipy-0.10.1,paycheck-1.0.2,argparse-1.2.1,lockfile-0.9.1,Cython-0.17.2"
+
+# built with EasyBuild version 1.6.0dev

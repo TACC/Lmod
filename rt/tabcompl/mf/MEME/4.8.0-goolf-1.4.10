@@ -1,0 +1,46 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   The MEME Suite allows you to: * discover motifs using MEME, DREME (DNA only) or
+  GLAM2 on groups of related DNA or protein sequences, * search sequence databases with motifs using
+  MAST, FIMO, MCAST or GLAM2SCAN, * compare a motif to all motifs in a database of motifs, * associate
+  motifs with Gene Ontology terms via their putative target genes, and * analyse motif enrichment
+  using SpaMo or CentriMo. - Homepage: http://meme.nbcr.net/
+    }
+}
+
+module-whatis {The MEME Suite allows you to: * discover motifs using MEME, DREME (DNA only) or
+  GLAM2 on groups of related DNA or protein sequences, * search sequence databases with motifs using
+  MAST, FIMO, MCAST or GLAM2SCAN, * compare a motif to all motifs in a database of motifs, * associate
+  motifs with Gene Ontology terms via their putative target genes, and * analyse motif enrichment
+  using SpaMo or CentriMo. - Homepage: http://meme.nbcr.net/}
+
+set root    /net/gmi.oeaw.ac.at/software/mendel/29_04_2013/software/MEME/4.8.0-goolf-1.4.10
+
+conflict    MEME
+
+if { ![is-loaded goolf/1.4.10] } {
+    module load goolf/1.4.10
+}
+
+if { ![is-loaded libxml2/2.9.1-goolf-1.4.10] } {
+    module load libxml2/2.9.1-goolf-1.4.10
+}
+
+if { ![is-loaded libxslt/1.1.28-goolf-1.4.10] } {
+    module load libxslt/1.1.28-goolf-1.4.10
+}
+
+if { ![is-loaded zlib/1.2.7-goolf-1.4.10] } {
+    module load zlib/1.2.7-goolf-1.4.10
+}
+
+prepend-path	LD_LIBRARY_PATH		$root/lib
+prepend-path	PATH		$root/bin
+
+setenv	EBROOTMEME		"$root"
+setenv	EBVERSIONMEME		"4.8.0"
+setenv	EBDEVELMEME		"$root/easybuild/MEME-4.8.0-goolf-1.4.10-easybuild-devel"
+
+
+# built with EasyBuild version 1.8.2

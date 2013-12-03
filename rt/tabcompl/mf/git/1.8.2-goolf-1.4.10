@@ -1,0 +1,38 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   Git is a free and open source distributed version control system designed
+to handle everything from small to very large projects with speed and efficiency. - Homepage: http://git-scm.com/
+}
+}
+
+module-whatis {Git is a free and open source distributed version control system designed
+to handle everything from small to very large projects with speed and efficiency. - Homepage: http://git-scm.com/}
+
+set root    /net/gmi.oeaw.ac.at/software/mendel/29_04_2013/software/git/1.8.2-goolf-1.4.10
+
+conflict    git
+
+if { ![is-loaded goolf/1.4.10] } {
+    module load goolf/1.4.10
+}
+
+if { ![is-loaded cURL/7.29.0-goolf-1.4.10] } {
+    module load cURL/7.29.0-goolf-1.4.10
+}
+
+if { ![is-loaded expat/2.1.0-goolf-1.4.10] } {
+    module load expat/2.1.0-goolf-1.4.10
+}
+
+prepend-path	LD_LIBRARY_PATH		$root/lib
+prepend-path	LD_LIBRARY_PATH		$root/lib64
+prepend-path	MANPATH		$root/share/man
+prepend-path	PATH		$root/bin
+
+setenv	EBROOTGIT		"$root"
+setenv	EBVERSIONGIT		"1.8.2"
+setenv	EBDEVELGIT		"$root/easybuild/git-1.8.2-goolf-1.4.10-easybuild-devel"
+
+
+# built with EasyBuild version 1.6.0dev

@@ -1,0 +1,43 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   R is a free software environment for statistical computing and graphics. - Homepage: http://www.r-project.org/
+}
+}
+
+module-whatis {R is a free software environment for statistical computing and graphics. - Homepage: http://www.r-project.org/}
+
+set root    /net/gmi.oeaw.ac.at/software/mendel/29_04_2013/software/R/3.0.0-goolf-1.4.10-bare
+
+conflict    R
+
+if { ![is-loaded goolf/1.4.10] } {
+    module load goolf/1.4.10
+}
+
+if { ![is-loaded libreadline/6.2-goolf-1.4.10] } {
+    module load libreadline/6.2-goolf-1.4.10
+}
+
+if { ![is-loaded ncurses/5.9-goolf-1.4.10] } {
+    module load ncurses/5.9-goolf-1.4.10
+}
+
+if { ![is-loaded libpng/1.5.13-goolf-1.4.10] } {
+    module load libpng/1.5.13-goolf-1.4.10
+}
+
+if { ![is-loaded Java/1.7.0_10] } {
+    module load Java/1.7.0_10
+}
+
+prepend-path	LD_LIBRARY_PATH		$root/lib64
+prepend-path	MANPATH		$root/share/man
+prepend-path	PATH		$root/bin
+
+setenv	EBROOTR		"$root"
+setenv	EBVERSIONR		"3.0.0"
+setenv	EBDEVELR		"$root/easybuild/R-3.0.0-goolf-1.4.10-bare-easybuild-devel"
+
+
+# built with EasyBuild version 1.3.0

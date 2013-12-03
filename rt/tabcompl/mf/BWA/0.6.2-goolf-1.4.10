@@ -1,0 +1,31 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   Burrows-Wheeler Aligner (BWA) is an efficient program that aligns
+relatively short nucleotide sequences against a long reference sequence such as the human genome. - Homepage: http://bio-bwa.sourceforge.net/
+}
+}
+
+module-whatis {Burrows-Wheeler Aligner (BWA) is an efficient program that aligns
+relatively short nucleotide sequences against a long reference sequence such as the human genome. - Homepage: http://bio-bwa.sourceforge.net/}
+
+set root    /net/gmi.oeaw.ac.at/software/mendel/29_04_2013/software/BWA/0.6.2-goolf-1.4.10
+
+conflict    BWA
+
+if { ![is-loaded goolf/1.4.10] } {
+    module load goolf/1.4.10
+}
+
+if { ![is-loaded zlib/1.2.7-goolf-1.4.10] } {
+    module load zlib/1.2.7-goolf-1.4.10
+}
+
+prepend-path	PATH		$root/bin
+
+setenv	EBROOTBWA		"$root"
+setenv	EBVERSIONBWA		"0.6.2"
+setenv	EBDEVELBWA		"$root/easybuild/BWA-0.6.2-goolf-1.4.10-easybuild-devel"
+
+
+# built with EasyBuild version 1.3.0

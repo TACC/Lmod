@@ -1,0 +1,26 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   A programmer-oriented testing framework for Java. - Homepage: http://sourceforge.net/projects/junit
+}
+}
+
+module-whatis {A programmer-oriented testing framework for Java. - Homepage: http://sourceforge.net/projects/junit}
+
+set root    /net/gmi.oeaw.ac.at/software/mendel/29_04_2013/software/JUnit/4.10-Java-1.7.0_10
+
+conflict    JUnit
+
+if { ![is-loaded Java/1.7.0_10] } {
+    module load Java/1.7.0_10
+}
+
+
+setenv	EBROOTJUNIT		"$root"
+setenv	EBVERSIONJUNIT		"4.10"
+setenv	EBDEVELJUNIT		"$root/easybuild/JUnit-4.10-Java-1.7.0_10-easybuild-devel"
+
+prepend-path	PATH		$root/
+prepend-path	CLASSPATH		$root/junit-4.10.jar
+
+# built with EasyBuild version 1.3.0

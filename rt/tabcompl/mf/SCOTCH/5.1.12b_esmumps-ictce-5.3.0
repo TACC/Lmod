@@ -1,0 +1,30 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   Software package and libraries for sequential and parallel graph partitioning,
+ static mapping, and sparse matrix block ordering, and sequential mesh and hypergraph partitioning. - Homepage: http://www.labri.fr/perso/pelegrin/scotch/
+}
+}
+
+module-whatis {Software package and libraries for sequential and parallel graph partitioning,
+ static mapping, and sparse matrix block ordering, and sequential mesh and hypergraph partitioning. - Homepage: http://www.labri.fr/perso/pelegrin/scotch/}
+
+set root    /net/gmi.oeaw.ac.at/software/mendel/29_04_2013/software/SCOTCH/5.1.12b_esmumps-ictce-5.3.0
+
+conflict    SCOTCH
+
+if { ![is-loaded ictce/5.3.0] } {
+    module load ictce/5.3.0
+}
+
+prepend-path	CPATH		$root/include
+prepend-path	LD_LIBRARY_PATH		$root/lib
+prepend-path	MANPATH		$root/man
+prepend-path	PATH		$root/bin
+
+setenv	EBROOTSCOTCH		"$root"
+setenv	EBVERSIONSCOTCH		"5.1.12b_esmumps"
+setenv	EBDEVELSCOTCH		"$root/easybuild/SCOTCH-5.1.12b_esmumps-ictce-5.3.0-easybuild-devel"
+
+
+# built with EasyBuild version 1.4.0

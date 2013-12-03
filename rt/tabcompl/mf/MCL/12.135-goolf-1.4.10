@@ -1,0 +1,34 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   The MCL algorithm is short for the Markov Cluster Algorithm, a fast and
+  scalable unsupervised cluster algorithm for networks (also known as graphs) based on
+  simulation of (stochastic) flow in graphs. The algorithm was invented/discovered by
+  Stijn van Dongen at the Centre for Mathematics and Computer Science (also known as CWI)
+  in the Netherlands. MCL has been applied in a number of different domains, mostly in bioinformatics. - Homepage: http://micans.org/mcl/
+}
+}
+
+module-whatis {The MCL algorithm is short for the Markov Cluster Algorithm, a fast and
+  scalable unsupervised cluster algorithm for networks (also known as graphs) based on
+  simulation of (stochastic) flow in graphs. The algorithm was invented/discovered by
+  Stijn van Dongen at the Centre for Mathematics and Computer Science (also known as CWI)
+  in the Netherlands. MCL has been applied in a number of different domains, mostly in bioinformatics. - Homepage: http://micans.org/mcl/}
+
+set root    /net/gmi.oeaw.ac.at/software/mendel/29_04_2013/software/MCL/12.135-goolf-1.4.10
+
+conflict    MCL
+
+if { ![is-loaded goolf/1.4.10] } {
+    module load goolf/1.4.10
+}
+
+prepend-path	MANPATH		$root/share/man
+prepend-path	PATH		$root/bin
+
+setenv	EBROOTMCL		"$root"
+setenv	EBVERSIONMCL		"12.135"
+setenv	EBDEVELMCL		"$root/easybuild/MCL-12.135-goolf-1.4.10-easybuild-devel"
+
+
+# built with EasyBuild version 1.3.0

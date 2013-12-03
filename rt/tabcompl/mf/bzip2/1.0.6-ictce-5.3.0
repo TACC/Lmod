@@ -1,0 +1,32 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   bzip2 is a freely available, patent free, high-quality data compressor. It typically
+ compresses files to within 10% to 15% of the best available techniques (the PPM family of statistical
+ compressors), whilst being around twice as fast at compression and six times faster at decompression. - Homepage: http://www.bzip.org/
+}
+}
+
+module-whatis {bzip2 is a freely available, patent free, high-quality data compressor. It typically
+ compresses files to within 10% to 15% of the best available techniques (the PPM family of statistical
+ compressors), whilst being around twice as fast at compression and six times faster at decompression. - Homepage: http://www.bzip.org/}
+
+set root    /net/gmi.oeaw.ac.at/software/mendel/29_04_2013/software/bzip2/1.0.6-ictce-5.3.0
+
+conflict    bzip2
+
+if { ![is-loaded ictce/5.3.0] } {
+    module load ictce/5.3.0
+}
+
+prepend-path	CPATH		$root/include
+prepend-path	LD_LIBRARY_PATH		$root/lib
+prepend-path	MANPATH		$root/man
+prepend-path	PATH		$root/bin
+
+setenv	EBROOTBZIP2		"$root"
+setenv	EBVERSIONBZIP2		"1.0.6"
+setenv	EBDEVELBZIP2		"$root/easybuild/bzip2-1.0.6-ictce-5.3.0-easybuild-devel"
+
+
+# built with EasyBuild version 1.4.0

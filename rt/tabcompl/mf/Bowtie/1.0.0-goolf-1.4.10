@@ -1,0 +1,29 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   Bowtie is an ultrafast, memory-efficient short read aligner.
+It aligns short DNA sequences (reads) to the human genome.
+ - Homepage: http://bowtie-bio.sourceforge.net/index.shtml
+}
+}
+
+module-whatis {Bowtie is an ultrafast, memory-efficient short read aligner.
+It aligns short DNA sequences (reads) to the human genome.
+ - Homepage: http://bowtie-bio.sourceforge.net/index.shtml}
+
+set root    /net/gmi.oeaw.ac.at/software/mendel/29_04_2013/software/Bowtie/1.0.0-goolf-1.4.10
+
+conflict    Bowtie
+
+if { ![is-loaded goolf/1.4.10] } {
+    module load goolf/1.4.10
+}
+
+prepend-path	PATH		$root/bin
+
+setenv	EBROOTBOWTIE		"$root"
+setenv	EBVERSIONBOWTIE		"1.0.0"
+setenv	EBDEVELBOWTIE		"$root/easybuild/Bowtie-1.0.0-goolf-1.4.10-easybuild-devel"
+
+
+# built with EasyBuild version 1.4.0

@@ -1,0 +1,31 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   The BLACS (Basic Linear Algebra Communication Subprograms) project is
+ an ongoing investigation whose purpose is to create a linear algebra oriented message passing interface
+ that may be implemented efficiently and uniformly across a large range of distributed memory platforms. - Homepage: http://www.netlib.org/blacs/
+}
+}
+
+module-whatis {The BLACS (Basic Linear Algebra Communication Subprograms) project is
+ an ongoing investigation whose purpose is to create a linear algebra oriented message passing interface
+ that may be implemented efficiently and uniformly across a large range of distributed memory platforms. - Homepage: http://www.netlib.org/blacs/}
+
+set root    /net/gmi.oeaw.ac.at/software/mendel/29_04_2013/software/BLACS/1.1-gompi-1.1.0-no-OFED
+
+conflict    BLACS
+
+if { ![is-loaded gompi/1.1.0-no-OFED] } {
+    module load gompi/1.1.0-no-OFED
+}
+
+prepend-path	CPATH		$root/include
+prepend-path	LD_LIBRARY_PATH		$root/lib
+prepend-path	PATH		$root/bin
+
+setenv	EBROOTBLACS		"$root"
+setenv	EBVERSIONBLACS		"1.1"
+setenv	EBDEVELBLACS		"$root/easybuild/BLACS-1.1-gompi-1.1.0-no-OFED-easybuild-devel"
+
+
+# built with EasyBuild version 1.3.0
