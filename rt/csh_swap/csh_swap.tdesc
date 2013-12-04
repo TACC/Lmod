@@ -1,12 +1,4 @@
 -- -*- lua -*-
-inactiveTbl = { Darwin = 1, }
-local function isActive()
-   require("posix")
-   local homeDir = os.getenv("HOME")
-   local osName  = posix.uname("%s")
-   return ((not inactiveTbl[osName]) and (homeDir == "/home/mclay"))
-end
-
 testdescript = {
    owner   = "rtm",
    product = "modules",
@@ -150,7 +142,11 @@ EOF
      unset SHELL_STARTUP_DEBUG
      chmod +x $(testName).csh
 
+     HOME_ORIG=$HOME
+     HOME=`pwd`; export HOME
+
      ./$(testName).csh > _stderr.orig 2>&1
+     HOME=$HOME_ORIG
 
      joinBase64Results -csh  _stdout.orig _stdout.new
      cleanUp _stdout.new  out.txt
