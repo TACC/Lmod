@@ -1,0 +1,5 @@
+try_load("cluster-paths")
+try_load("intel")
+try_load("mvapich2")
+try_load("gzip")
+try_load("tar")

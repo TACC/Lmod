@@ -521,11 +521,13 @@ function M.load(mA)
                    "\" as it is already loaded\n")
          local mcp_old = mcp
          mcp           = MCP
+         dbg.print("Setting mcp to ", mcp:name(),"\n")
          local ma      = {}
          ma[1]         = mA[i]
          mcp:unload(ma)
          local aa = mcp:load(ma)
          mcp           = mcp_old
+         dbg.print("Setting mcp to ", mcp:name(),"\n")
          loaded = aa[1]
       elseif (fn) then
          dbg.print("Master:loading: \"",moduleName,"\" from f: \"",fn,"\"\n")
@@ -585,7 +587,7 @@ function M.refresh()
    end
 
    mcp = mcp_old
-   dbg.print("Resetting mcp to : ",mcp:name(),"\n")
+   dbg.print("Setting mcp to : ",mcp:name(),"\n")
    dbg.fini("Master:refresh")
 end
 
@@ -603,6 +605,7 @@ function M.reloadAll()
 
    local mcp_old = mcp
    mcp = MCP
+   dbg.print("Setting mcp to ", mcp:name(),"\n")
 
    local same = true
    local a    = mt:list("userName","any")
@@ -661,7 +664,7 @@ function M.reloadAll()
    end
 
    mcp = mcp_old
-   dbg.print("Resetting mpc to ", mcp:name(),"\n")
+   dbg.print("Setting mpc to ", mcp:name(),"\n")
    dbg.fini("Master:reloadAll")
    return same
 end
@@ -687,6 +690,7 @@ function M.unload(mA)
    local mcp_old = mcp
 
    mcp = MasterControl.build("unload")
+   dbg.print("Setting mcp to ", mcp:name(),"\n")
    for i = 1, #mA do
       local mname      = mA[i]
       local moduleName = mname:usrName()
@@ -734,7 +738,7 @@ function M.unload(mA)
    end
 
    mcp = mcp_old
-   dbg.print("Resetting mcp to ", mcp:name(),"\n")
+   dbg.print("Setting mcp to ", mcp:name(),"\n")
    dbg.fini("Master:unload")
    return a
 end   

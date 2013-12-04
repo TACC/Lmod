@@ -343,6 +343,7 @@ function Load_Usr(...)
 
    local mcp_old = mcp
    mcp           = MCP
+   dbg.print("Setting mcp to ", mcp:name(),"\n")
    local b       = mcp:load_usr(lA)
    mcp           = mcp_old
 
@@ -719,6 +720,7 @@ function Swap(...)
    local mA      = {}
    local mcp_old = mcp
    mcp           = MCP
+   dbg.print("Setting mcp to ", mcp:name(),"\n")
    mA[1]         = mname
    mcp:unload(mA)
    mA[1]         = MName:new("load",b)
@@ -735,6 +737,7 @@ function Swap(...)
    local usrN  = (not masterTbl().latest) and b or mt:fullName(sn)
    mt:userLoad(sn,usrN)
    mcp = mcp_old
+   dbg.print("Setting mcp to ", mcp:name(),"\n")
    dbg.fini("Swap")
 end
 

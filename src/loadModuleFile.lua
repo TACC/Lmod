@@ -59,6 +59,9 @@ function loadModuleFile(t)
       local f = io.open(t.file)
       if (f) then
          whole = f:read("*all")
+         dbg.start("ModuleFile")
+         dbg.print(whole)
+         dbg.fini()
          f:close()
       end
    else

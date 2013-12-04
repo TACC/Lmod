@@ -218,6 +218,7 @@ tags:
             -e 's|./TAGS||g'                                     \
             -e 's|./makefile||g'                                 \
             -e 's|./configure$$||g'                              \
+            -e 's|/.DS_Store$$||g'                               \
             -e 's|.*\.tgz$$||g'                                  \
             -e 's|.*\.tar\.gz$$||g'                              \
             -e 's|.*\.tar\.bz2$$||g'                             \

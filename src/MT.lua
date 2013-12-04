@@ -770,6 +770,7 @@ function M.getMTfromFile(self,t)
    end
    MCP.load(mcp,mA)
    mcp = mcp_old
+   dbg.print("Setting mcp to ", mcp:name(),"\n")
 
    -----------------------------------------------------------------------
    -- Now check to see that all requested modules got loaded.
