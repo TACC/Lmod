@@ -1,10 +1,3 @@
-
-If you are going to be at SC'13 in Denver this year there will be
-an informal BoF at the TACC booth Wednesday 11/20/13 at 12:00noon to 12:30pm.
-Or you can email me if you wish to chat there at other times.
-
-
-
 Lmod Version 5.2:
 Features:
   a) Modulefiles can mix load commands and setenv's and still be saved and restored.
