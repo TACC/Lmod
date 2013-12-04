@@ -37,6 +37,8 @@ testdescript = {
      runLmod save               # 6
      runLmod purge              # 7
      runLmod restore            # 8
+     runLmod list               # 9
+
      
 
      

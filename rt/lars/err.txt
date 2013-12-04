@@ -1,0 +1,49 @@
+===========================
+step 1
+lua ProjectDIR/src/lmod.in.lua bash --version
+===========================
+Modules based on Lua: Version 5.2 5.2-19-g700fdde 2013-11-16 13:22
+    by Robert McLay mclay@tacc.utexas.edu
+===========================
+step 2
+lua ProjectDIR/src/lmod.in.lua bash load TACC
+===========================
+===========================
+step 3
+lua ProjectDIR/src/lmod.in.lua bash list
+===========================
+Currently Loaded Modules:
+  1) TACC         3) Linux     5) cluster-paths      7) mvapich2/1.9a2
+  2) TACC-paths   4) cluster   6) intel/13.0.2.146
+===========================
+step 4
+lua ProjectDIR/src/lmod.in.lua bash swap mvapich2 impi
+===========================
+===========================
+step 5
+lua ProjectDIR/src/lmod.in.lua bash list
+===========================
+Currently Loaded Modules:
+  1) TACC         3) Linux     5) cluster-paths      7) impi/4.1
+  2) TACC-paths   4) cluster   6) intel/13.0.2.146
+===========================
+step 6
+lua ProjectDIR/src/lmod.in.lua bash save
+===========================
+Saved current collection of modules to: default
+===========================
+step 7
+lua ProjectDIR/src/lmod.in.lua bash purge
+===========================
+===========================
+step 8
+lua ProjectDIR/src/lmod.in.lua bash restore
+===========================
+Restoring modules to user's default
+===========================
+step 9
+lua ProjectDIR/src/lmod.in.lua bash list
+===========================
+Currently Loaded Modules:
+  1) TACC         3) Linux     5) cluster-paths      7) impi/4.1
+  2) TACC-paths   4) cluster   6) intel/13.0.2.146

@@ -760,7 +760,7 @@ function M.getMTfromFile(self,t)
 
    local MName   = _G.MName
    local mcp_old = mcp
-   local mcp     = MasterControl.build("mgrload")
+   mcp           = MasterControl.build("mgrload")
 
    local mA        = {}
    for i = 1, #activeA do
