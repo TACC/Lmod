@@ -16,7 +16,7 @@ VERSION_SRC	  	 := src/Version.lua
 LUA_INCLUDE       	 := @LUA_INCLUDE@
 UPDATE_SYSTEM_FN  	 := @UPDATE_SYSTEM_FN@
 GIT_PROG                 := @PATH_TO_GIT@
-GIT_VERSION              := $(shell if [ -n "$(GIT_PROG)" ]; then lmodV=`git describe --always`; echo "($$lmodV)"; fi)
+GIT_VERSION              := $(shell if [ -n "$(GIT_PROG)" -a -d .git ]; then lmodV=`git describe --always`; echo "($$lmodV)"; else echo "@git@"; fi)
 prefix		  	 := @prefix@
 package		  	 := lmod
 version		  	 := $(shell cd ./src; $(PATH_TO_LUA)/lua -e "V=require('Version'); print(V.tag())")
@@ -36,7 +36,7 @@ DIRLIST		  	 := $(DESTDIR)$(LIBEXEC) $(DESTDIR)$(TOOLS) $(DESTDIR)$(SETTARG)    
 
 STANDALONE_PRGM   	 := src/lmod.in.lua src/addto.in.lua src/getmt.in.lua src/processMT.in.lua   \
                             src/spider.in.lua src/processModuleUsage.in.lua src/reportUsers.in.lua   \
-                            src/clearMT_cmd.in.lua src/ml_cmd.in.lua src/spiderCacheSupport.in.lua
+                            src/clearMT_cmd.in.lua src/ml_cmd.in.lua src/spiderCacheSupport.in.lua 
 SHELL_INIT	  	 := bash.in csh.in ksh.in tcsh.in zsh.in sh.in perl.in                       \
                             env_modules_python.py.in lmod_bash_completions .lmodrc.lua
 SHELL_INIT	  	 := $(patsubst %, init/%, $(SHELL_INIT))
