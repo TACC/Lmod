@@ -1,0 +1,36 @@
+===========================
+step 1
+lua ProjectDIR/src/lmod.in.lua bash --version
+===========================
+===========================
+step 2
+lua ProjectDIR/src/lmod.in.lua bash load genesis
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/genesis/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/genesis/mf/Core";
+export MODULEPATH;
+CPUTYPE="x86_64";
+export CPUTYPE;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/genesis/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/genesis/mf/Core";
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/genesis/mf/Core",},family={},inactive={},mT={genesis={["FN"]="ProjectDIR/rt/genesis/mf/Core/genesis/1.0.lua",["default"]=1,["fullName"]="genesis/1.0",["loadOrder"]=1,propT={},["short"]="genesis",["status"]="active",},},mpathA={"ProjectDIR/rt/genesis/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/genesis/mf/Core",["version"]=2,}';
+export _ModuleTable_;
+===========================
+step 3
+lua ProjectDIR/src/lmod.in.lua bash load common
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/genesis/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/genesis/mf/Core";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/genesis/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/genesis/mf/Core";
+export MODULEPATH;
+TESTTEST="x86_64";
+export TESTTEST;
+_ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/genesis/mf/Core",},family={},inactive={},mT={common={["FN"]="ProjectDIR/rt/genesis/mf/Core/common.lua",["default"]=0,["fullName"]="common",["loadOrder"]=2,propT={},["short"]="common",["status"]="active",},genesis={["FN"]="ProjectDIR/rt/genesis/mf/Core/genesis/1.0.lua",["default"]=1,["fullName"]="genesis/1.0",["loadOrder"]=1,propT={},["short"]="genesis",["status"]="active",},},mpathA={"ProjectDIR/rt/genesis/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/genesis/mf/Core",["version"]=2,}';
+export _ModuleTable_;

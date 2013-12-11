@@ -1,0 +1,61 @@
+-- -*- lua -*-
+local testName = "genesis"
+
+testdescript = {
+   owner   = "rtm",
+   product = "modules",
+   description = [[
+	 Test genesis
+   ]],
+   keywords = {testName },
+
+   active = 1,
+   testName = testName,
+   job_submit_method = "INTERACTIVE",
+
+   runScript = [[
+
+     . $(projectDir)/rt/common_funcs.sh
+
+     unsetMT
+     initStdEnvVars
+     MODULEPATH_ROOT=$(testDir)/mf;    export MODULEPATH_ROOT
+     MODULEPATH=$MODULEPATH_ROOT/Core; export MODULEPATH
+     LMOD_PACKAGE_PATH=$(testDir);     export LMOD_PACKAGE_PATH
+     numStep=0
+     COUNT=0
+     ORIG_HOME=`(cd $HOME; /bin/pwd)`
+     HOME=`/bin/pwd`
+
+
+     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d
+
+     runLmod --version              # 1
+     runLmod load genesis           # 2
+     runLmod load common            # 3
+
+
+     HOME=$ORIG_HOME
+     cat _stdout.[0-9][0-9] > _stdout.orig
+     joinBase64Results  -bash  _stdout.orig _stdout.new
+     cleanUp _stdout.new out.txt
+
+     cat _stderr.[0-9][0-9] > _stderr.orig
+     cleanUp _stderr.orig err.txt
+
+     rm -f $(cmdResultFn)
+     wrapperDiff -r $(cmdResultFn) $(testDir)/out.txt out.txt
+     wrapperDiff -r $(cmdResultFn) $(testDir)/err.txt err.txt
+     testFinish -c $(cmdResultFn) -r $(resultFn) -t $(runtimeFn)
+   ]],
+
+
+   blessScript = [[
+         # perform what is needed
+   ]],
+
+   tests = {
+      { id='t1'},
+   },
+
+}
