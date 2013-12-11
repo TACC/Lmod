@@ -1,3 +1,7 @@
+Lmod Version 5.2.1:
+Bug Fix:
+  The "make install" now works and doesn't complain about not being a git repository.
+
 Lmod Version 5.2:
 Features:
   a) Modulefiles can mix load commands and setenv's and still be saved and restored.
