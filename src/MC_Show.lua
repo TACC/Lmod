@@ -148,7 +148,7 @@ function M.unload(self, mA)
 end
 
 function M.always_load(self, mA)
-   io.stderr:write(ShowCmd("always_load", mA))
+   io.stderr:write(ShowCmdA("always_load", mA))
 end
 
 function M.always_unload(self, mA)
