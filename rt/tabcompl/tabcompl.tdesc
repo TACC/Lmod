@@ -48,7 +48,19 @@ EOF
      runLmod -t avail           # 2
      T1=`EPOCH`
      RT=`echo "$T1 - $T0" | bc -q`
-     echo "--%%-- RT: $RT" > _stderr.orig
+     echo "--%%-- Avail RT: $RT" > _stderr.orig
+
+     T0=`EPOCH`
+     runLmod load mupdf         # 3
+     T1=`EPOCH`
+     RT=`echo "$T1 - $T0" | bc -q`
+     echo "--%%-- Load RT: $RT" >> _stderr.orig
+
+     T0=`EPOCH`
+     runLmod --ignore_cache load mupdf # 4
+     T1=`EPOCH`
+     RT=`echo "$T1 - $T0" | bc -q`
+     echo "--%%-- Load RT: $RT" >> _stderr.orig
 
 
      HOME_ORIG=$HOME
