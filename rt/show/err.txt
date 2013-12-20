@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.2 5.2-11-g1bd718f 2013-11-16 13:22
+Modules based on Lua: Version 5.2.2 5.2.2-2-g8845f39 2013-12-12 15:40
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -83,3 +83,6 @@ lua ProjectDIR/src/lmod.in.lua bash show a
 conflict("A","B")
 prereq_any("C","D","E")
 prereq("F")
+load("G")
+always_load("G")
+always_unload("H")

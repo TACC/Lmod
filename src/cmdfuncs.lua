@@ -316,6 +316,7 @@ end
 --              it won't get the swap message.
 
 function Load_Usr(...)
+   LMOD_IGNORE_CACHE = true
    local master = Master:master()
    local mt     = MT:mt()
 

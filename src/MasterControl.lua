@@ -163,6 +163,7 @@ function M.load_usr(self, mA)
    return a
 end
 function M.load(self, mA)
+   LMOD_IGNORE_CACHE = true
    local master = Master:master()
 
    if (dbg.active()) then
