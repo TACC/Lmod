@@ -98,9 +98,42 @@ local function mustLoad(mA)
    end
 
    if (#aa > 0) then
-      local s = concatTbl(aa, ", ")
-      mcp:report("Did not find: ",s,"\n\n",
-                 "Try: \"module spider ", concatTbl(bb," "),"\"\n" )
+      local luaprog = "@path_to_lua@/lua"
+      if (luaprog:sub(1,1) == "@") then
+         luaprog = findInPath("lua")
+      end
+      local cmdA = {}
+      cmdA[#cmdA+1] = luaprog 
+      cmdA[#cmdA+1] = pathJoin(cmdDir(),"lmod")
+      cmdA[#cmdA+1] = "bash"
+      cmdA[#cmdA+1] = "spider"
+      local count   = #cmdA
+
+      local uA = {}  -- unknown names
+      local kA = {}  -- known modules
+      
+
+      for i = 1, #bb do
+         cmdA[count+1] = bb[i]
+         cmdA[count+2] = "2> /dev/null"
+         local cmd     = concatTbl(cmdA," ")
+         local result  = capture(cmd)
+         if (result:find("\nfalse")) then
+             uA[#uA+1] = bb[i]
+         else
+             kA[#uA+1] = bb[i]
+         end
+      end
+
+      if (#uA > 0) then
+         mcp:warning("The following module(s) are completely unknown: ", concatTbl(uA, " "),"\n")
+      end
+
+      if (#kA > 0) then
+         local known = concatTbl(kA, " ")
+         mcp:warning("These module(s) exist but can not be loaded currently.\n\n",
+                     "   Try \"module spider ", known,"\"\n\n")
+      end
    end
 end
 
