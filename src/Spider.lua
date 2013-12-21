@@ -643,6 +643,7 @@ function M.spiderSearch(dbT, searchName, help)
    end
 
    if (not found) then
+      setWarningFlag()
       io.stderr:write("Unable to find: \"",searchName,"\"\n")
    end
    dbg.fini("Spider:spiderSearch")
