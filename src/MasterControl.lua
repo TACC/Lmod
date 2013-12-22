@@ -104,7 +104,7 @@ local function mustLoad(mA)
       end
       local cmdA = {}
       cmdA[#cmdA+1] = luaprog 
-      cmdA[#cmdA+1] = pathJoin(cmdDir(),"lmod")
+      cmdA[#cmdA+1] = pathJoin(cmdDir(),cmdName())
       cmdA[#cmdA+1] = "bash"
       cmdA[#cmdA+1] = "spider"
       local count   = #cmdA

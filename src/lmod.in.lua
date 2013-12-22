@@ -53,6 +53,7 @@ local i,j = LuaCommandName:find(".*/")
 local LuaCommandName_dir = "./"
 if (i) then
    LuaCommandName_dir = LuaCommandName:sub(1,j)
+   LuaCommandName     = LuaCommandName:sub(j+1)
 end
 
 package.path = LuaCommandName_dir .. "../tools/?.lua;" ..
@@ -74,6 +75,10 @@ end
 
 function cmdDir()
    return LuaCommandName_dir
+end
+
+function cmdName()
+   return LuaCommandName
 end
 
 local getenv = os.getenv

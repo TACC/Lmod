@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.2.2 5.2.2-5-g028cb88 2013-12-12 15:40
+Modules based on Lua: Version 5.2.2 5.2.2-9-gb65be43 2013-12-12 15:40
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -30,8 +30,8 @@ Currently Loaded Modules:
 step 6
 lua ProjectDIR/src/lmod.in.lua bash load M4
 ===========================
-Lmod has detected the following error: These module(s) exist but cannot be loaded currently:
-atleast("b","1.5")
+Lmod has detected the following error: 
+These module(s) exist but cannot be loaded currently: atleast("b","1.5")
    Try: "module spider b"
 While processing the following module(s):
 Module fullname  Module Filename
@@ -103,8 +103,8 @@ Currently Loaded Modules:
 step 17
 lua ProjectDIR/src/lmod.in.lua bash load M8
 ===========================
-Lmod has detected the following error: These module(s) exist but cannot be loaded currently:
-between("c","1.5","1.7")
+Lmod has detected the following error: 
+These module(s) exist but cannot be loaded currently: between("c","1.5","1.7")
    Try: "module spider c"
 While processing the following module(s):
 Module fullname  Module Filename
