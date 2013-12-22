@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.2 5.2-14-g3bb2e62 2013-11-16 13:22
+Modules based on Lua: Version 5.2.2 5.2.2-5-g028cb88 2013-12-12 15:40
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -100,8 +100,9 @@ any of the "keys".
 step 15
 lua ProjectDIR/src/lmod.in.lua bash load boost/1.57.0
 ===========================
-Lmod has detected the following error: Did not find: boost/1.57.0
-Try: "module spider boost/1.57.0"
+Lmod has detected the following error: These module(s) exist but cannot be loaded currently:
+boost/1.57.0
+   Try: "module spider boost/1.57.0"
 ===========================
 step 16
 lua ProjectDIR/src/lmod.in.lua bash load alex
@@ -165,8 +166,9 @@ Currently Loaded Modules:
 step 24
 lua ProjectDIR/src/lmod.in.lua bash load DoNotExist
 ===========================
-Lmod has detected the following error: Did not find: DoNotExist
-Try: "module spider DoNotExist"
+Lmod has detected the following error: These module(s) exist but cannot be loaded currently:
+DoNotExist
+   Try: "module spider DoNotExist"
 ===========================
 step 25
 lua ProjectDIR/src/lmod.in.lua bash list

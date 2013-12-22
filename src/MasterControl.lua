@@ -110,7 +110,9 @@ local function mustLoad(mA)
       local count   = #cmdA
 
       local uA = {}  -- unknown names
-      local kA = {}  -- known modules
+      local kA = {}  -- known modules (show)
+      local kB = {}  -- known modules (usrName)
+
       
 
       for i = 1, #bb do
@@ -119,20 +121,22 @@ local function mustLoad(mA)
          local cmd     = concatTbl(cmdA," ")
          local result  = capture(cmd)
          if (result:find("\nfalse")) then
-             uA[#uA+1] = bb[i]
+            uA[#uA+1] = aa[i]
          else
-             kA[#uA+1] = bb[i]
+            kA[#kA+1] = aa[i]
+            kB[#kB+1] = bb[i]
          end
       end
 
       if (#uA > 0) then
-         mcp:warning("The following module(s) are completely unknown: ", concatTbl(uA, " "),"\n")
+         mcp:report("The following module(s) are completely unknown: ", concatTbl(uA, " "),"\n")
       end
 
       if (#kA > 0) then
-         local known = concatTbl(kA, " ")
-         mcp:warning("These module(s) exist but can not be loaded currently.\n\n",
-                     "   Try \"module spider ", known,"\"\n\n")
+         local known = concatTbl(kB, " ")
+         mcp:report("These module(s) exist but cannot be loaded currently:\n",
+                     concatTbl(kA,", "),
+                     "\n\n   Try: \"module spider ", known,"\"\n\n")
       end
    end
 end
