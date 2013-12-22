@@ -131,13 +131,13 @@ local function mustLoad(mA)
       local a = {}
 
       if (#uA > 0) then
-         a[#a+1] = "The following module(s) are completely unknown: "
+         a[#a+1] = "\nThe following module(s) are completely unknown: "
          a[#a+1] = concatTbl(uA, " ")
          a[#a+1] = "\n"
       end
 
       if (#kA > 0) then
-         a[#a+1] = "These module(s) exist but cannot be loaded currently:\n"
+         a[#a+1] = "\nThese module(s) exist but cannot be loaded currently:"
          a[#a+1] = concatTbl(kA,", ")
          a[#a+1] = "\n\n   Try: \"module spider "
          a[#a+1] = concatTbl(kB, " ")
