@@ -128,15 +128,24 @@ local function mustLoad(mA)
          end
       end
 
+      local a = {}
+
       if (#uA > 0) then
-         mcp:report("The following module(s) are completely unknown: ", concatTbl(uA, " "),"\n")
+         a[#a+1] = "The following module(s) are completely unknown: "
+         a[#a+1] = concatTbl(uA, " ")
+         a[#a+1] = "\n"
       end
 
       if (#kA > 0) then
-         local known = concatTbl(kB, " ")
-         mcp:report("These module(s) exist but cannot be loaded currently:\n",
-                     concatTbl(kA,", "),
-                     "\n\n   Try: \"module spider ", known,"\"\n\n")
+         a[#a+1] = "These module(s) exist but cannot be loaded currently:\n"
+         a[#a+1] = concatTbl(kA,", ")
+         a[#a+1] = "\n\n   Try: \"module spider "
+         a[#a+1] = concatTbl(kB, " ")
+         a[#a+1] = "\"\n\n"
+      end
+
+      if (#a > 0) then
+         mcp:report(concatTbl(a,""))
       end
    end
 end
