@@ -29,10 +29,10 @@
 --               produce left or right justified columns.   The interface
 --               is:
 --                   local bt = BeautifulTbl:new{tbl = a,
---                                               column = TermWidth() - 1,
---                                               wrap   = true,
---                                               justifyT = {"L", "R", "R"},
---                                               length   = <len function>}
+--                                               column  = TermWidth() - 1,
+--                                               wrap    = true,
+--                                               justify = "LRR",
+--                                               length  = <len function>}
 --
 --                   io.stderr:write(bt:build_tbl())
 --------------------------------------------------------------------------
@@ -92,7 +92,7 @@ function M.new(self, t)
    self.__index  = self
 
    o.length   = o.len or strlen
-   o.justifyT = t.justifyT or {}
+   o.justify  = t.justify or concatTbl(t.justifyT or {}, "")
    o.tbl      = o:__build_tbl(tbl)
    o.column   = o.column  or 0
    o.wrapped  = o.wrapped or false
@@ -133,13 +133,15 @@ function M.__build_tbl(self,tblIn)
    end
 
    -- Build justifyT
-   local maxnc = #columnCnt
-   self.maxnc  = maxnc
+   local maxnc   = #columnCnt
+   self.maxnc    = maxnc
+   local justify = self.justify
+   justify       = justify .. string.rep("l", maxnc - length(justify))
+   justify       = justify:lower()
    for icol = 1, maxnc do
-      local s             = (self.justifyT[icol] or ""):lower():sub(1,1)
-      justifyT[icol]      = (s == "r") and "r" or "l"
-      self.justifyT[icol] = justifyT[icol]
+      justifyT[icol]      = (justify:sub(icol,icol) == "r") and "r" or "l"
    end
+   self.justifyT = justifyT
 
 
    -- Left or right justify every entry in tbl, except for
@@ -168,6 +170,7 @@ function M.__build_tbl(self,tblIn)
    end
 
    self.columnCnt = columnCnt
+   self.justifyT  = justifyT
    return tbl
 end
 
@@ -175,11 +178,11 @@ end
 -- Build "Beautiful Table" from internal table.
 
 function M.build_tbl(self)
-   local length = self.length
-   
-   local width  = 0
-   local colgap = self.gap
-   local simple = true
+   local length   = self.length
+   local justifyT = self.justifyT
+   local width    = 0
+   local colgap   = self.gap
+   local simple   = true
    if (self.wrapped and self.column > 0) then
       for i = 1, #self.columnCnt-1 do
          width = width + self.columnCnt[i] + colgap
@@ -212,16 +215,17 @@ function M.build_tbl(self)
    -- that is word wrapped.  Any short rows are copied straight
    -- across.
 
-   self.column = self.column - 1
-   local gap   = self.column - width
-   local fill  = string.rep(" ",width)
+   local column = self.column - 1
+   local gap    = column - width
+   local fill   = string.rep(" ",width)
+   local line   = ""
 
    -- printing a wrapped last column
    local maxnc  = self.maxnc
    local maxnc1 = maxnc - 1
-   for j = 1, #tt do
+   for irow = 1, #tt do
       local aa  = {}
-      local t   = tt[j]
+      local t   = tt[irow]
       local nc  = #t
       local nc1 = min(nc, maxnc1)
       
@@ -231,28 +235,40 @@ function M.build_tbl(self)
       end
 
       -- Now word wrap last column.
+      local aaa = {}
       if (nc == maxnc) then
          local icnt = width
-         local s = t[#t] or ""
-         for w in s:split("%s+") do
-            local wlen = length(w)+1
-            if (w == "") then
+         local s    = t[#t] or ""
+         for word in s:split("%s+") do
+            local wlen = length(word)+1
+            if (word == "") then
                wlen = 0
-            elseif (icnt + wlen < self.column or wlen > gap) then
-               aa[#aa+1] = w .. " "
+            elseif (icnt + wlen < column or wlen > gap) then
+               aaa[#aaa+1] = word .. " "
             else
-               aa[#aa]   = aa[#aa]:gsub("%s+$","")
+               aaa[#aaa] = aaa[#aaa]:gsub("%s+$","")
+               line      = concatTbl(aaa,"")
+               if (justifyT[#justifyT] == "r") then
+                  aa[#aa+1] = string.rep(" ",gap - length(line))
+               end
+               aa[#aa+1] = line
                aa[#aa+1] = "\n"
                a[#a + 1] = concatTbl(aa,"")
                aa        = {}
+               aaa       = {}
                aa[1]     = fill
+               aaa[1]    = word .. " "
                icnt      = width
-               aa[2]     = w .. " "
             end
             icnt = icnt + wlen
          end
       end
-      aa[#aa]   = (aa[#aa] or ""):gsub("%s+$","")
+      aaa[#aaa] = (aaa[#aaa] or ""):gsub("%s+$","")
+      line      = concatTbl(aaa,"")
+      if (justifyT[#justifyT] == "r") then
+         aa[#aa+1] = string.rep(" ",gap - length(line))
+      end
+      aa[#aa+1] = line
       aa[#aa+1] = "\n"
       a[#a + 1] = concatTbl(aa,"")
    end
