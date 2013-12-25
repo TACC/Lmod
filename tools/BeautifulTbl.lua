@@ -170,7 +170,6 @@ function M.__build_tbl(self,tblIn)
    end
 
    self.columnCnt = columnCnt
-   self.justifyT  = justifyT
    return tbl
 end
 
