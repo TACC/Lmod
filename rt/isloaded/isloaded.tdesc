@@ -25,12 +25,12 @@ testdescript = {
 
      rm -fr _stderr.* _stdout.* err.* out.* .lmod.d
 
-     runLmod --version           # 1
-     runLmod load PrgEnv         # 2
-     runLmod use  $(testDir)/mf  # 3
-     runLmod load isloaded       # 4
-     runLmod del  isloaded       # 5
-
+     runLmod --version                # 1
+     runLmod load PrgEnv              # 2
+     runLmod use  $(testDir)/mf/Core  # 3
+     runLmod load foo/1.0             # 4
+     runLmod load isloaded            # 5
+     runLmod del  isloaded            # 6  
 
      cat _stdout.[0-9][0-9] > _stdout.orig
      joinBase64Results  -bash  _stdout.orig _stdout.new

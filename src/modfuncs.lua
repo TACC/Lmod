@@ -440,8 +440,11 @@ end
 function isloaded(m)
    local mt = MT:mt()
    if (not validateStringArgs("isloaded",m)) then return false end
-   local mname = MName:new("mt", m)
-   return mt:have(mname:sn(),"active")
+   local mname = MName:new("load", m)
+   if (m == mname:sn()) then
+      return mt:have(mname:sn(),"active")
+   end
+   return (m == mt:fullName(mname:sn()))
 end
 
 function isPending(m)
