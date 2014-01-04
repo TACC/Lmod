@@ -7,8 +7,8 @@ This module loads the intel compiler path and environment variables
 ------------------------------------------------------------------------
 -- Intel Compilers support
 ------------------------------------------------------------------------
-local pkgName      = "intel"
-local version      = 13.0
+local pkgName      = myModuleName()
+local version      = myModuleVersion()
 local pkgNameVer   = pathJoin(pkgName,version)
 
 local composer_xe  = "composer_xe_2013"
@@ -16,7 +16,7 @@ local VTune_ex     = "vtune_amplifier_xe_2013"
 local inspector_xe = "inspector_xe_2013"
 local full_xe      = "composer_xe_2013.0.079"
 
-local LMODarch     = os.getenv("LMOD_arch")
+local LMODarch     = os.getenv("LMOD_arch") or "x86_64"
 local tbl          = { i686 = "ia32",  x86_64 = "intel64" }
 local linuxT       = { i686 = "i386",  x86_64 = "x86_64"  }
 local binT         = { i686 = "bin32", x86_64 = "bin64"  }

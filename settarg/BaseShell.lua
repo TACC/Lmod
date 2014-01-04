@@ -110,7 +110,7 @@ function M.expand(self, tbl)
 end
 
 function M.expandSTT(self, vstr)
-   dbg.start("BaseShell:expandSTT(vstr)")
+   dbg.start{"BaseShell:expandSTT(vstr)"}
    local vv      = encode64(vstr)
    local a       = {}
    local vlen    = vv:len()

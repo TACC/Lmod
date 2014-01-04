@@ -81,7 +81,7 @@ function M.new(self,t)
       o   = t
    end
 
-   dbg.start("ColumnTable:new()")
+   dbg.start{"ColumnTable:new()"}
    setmetatable(o, self)
    self.__index  = self
    local width  = 80
@@ -137,7 +137,7 @@ end
 -- ColumnTable:__entry_width2(): compute [[szA]] array for a 2-D column.
 
 function M.__entry_width2(self, t, szA)
-   dbg.start("ColumnTable:__entry_width2()")
+   dbg.start{"ColumnTable:__entry_width2()"}
    local imin      = huge
    local imax      = 0
    local length    = self.length
@@ -219,7 +219,7 @@ function M.__columnSum2(self, istart, iend)
       maxV  = maxV + maxA[idim]
    end
    
-   --dbg.print("is: ",istart," ie: ",iend, " maxV: ",maxV, " sum: ",sum)
+   --dbg.print{"is: ",istart," ie: ",iend, " maxV: ",maxV, " sum: ",sum}
    --dbg.printA{name = "maxA", a = maxA}
    return maxV, maxA
 end
@@ -276,7 +276,7 @@ end
 -- Compute the number of rows and columns that will fit.
 
 function M.__number_of_columns_rows(self,t)
-   dbg.start("ColumnTable:__number_of_columns_rows()")
+   dbg.start{"ColumnTable:__number_of_columns_rows()"}
    local floor  = math.floor
    local ceil   = math.ceil
    local gap    = self.gap
@@ -289,7 +289,7 @@ function M.__number_of_columns_rows(self,t)
    -- Compute length of each entry in table t
    -------------------------------------------------------------------------
    local imin, imax = self:__entry_width(t, szA)
-   dbg.print("width: ",self.term_width," imin: ",imin," imax: ",imax,"\n")
+   dbg.print{"width: ",self.term_width," imin: ",imin," imax: ",imax,"\n"}
 
    -------------------------------------------------------------------------
    -- Quit early if max width in table t is bigger than the number of
@@ -301,7 +301,7 @@ function M.__number_of_columns_rows(self,t)
       self.columnCnt  = {}
       self.columnCntI = {}
       self.columnCnt[1], self.columnCntI[1] = self:__columnSum(1,sz)
-      dbg.print("imax >= self.term_width\n")
+      dbg.print{"imax >= self.term_width\n"}
       dbg.fini()
       return
    end
@@ -340,7 +340,7 @@ function M.__number_of_columns_rows(self,t)
 	 sum = sum + columnCnt[icol]
       end
 
-      dbg.print("ncols: ",ncols, " sum: ",sum," twidth: ",self.term_width,"\n")
+      dbg.print{"ncols: ",ncols, " sum: ",sum," twidth: ",self.term_width,"\n"}
 
       if (sum < self.term_width) then
          results = ncols
@@ -363,7 +363,7 @@ function M.__number_of_columns_rows(self,t)
       istart = istart + nrows
    end
    
-   dbg.print("ncols: ",ncols,"\n")
+   dbg.print{"ncols: ",ncols,"\n"}
    dbg.printA{name="columnCnt",  a=columnCnt}
    dbg.printA{name="columnCntI", a=columnCntI}
 

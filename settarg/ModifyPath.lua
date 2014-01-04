@@ -50,7 +50,7 @@ function ModifyPath()
       w_targ    = ":"
    end
 
-   dbg.start("ModifyPath()")
+   dbg.start{"ModifyPath()"}
 
    w_oldTarg = escape(w_oldTarg)
 
@@ -61,10 +61,10 @@ function ModifyPath()
          path = w_targ .. path
       end
          
-      dbg.print("(1) path: ",path,"\n")
+      dbg.print{"(1) path: ",path,"\n"}
    else
       path = w_path:gsub(w_oldTarg,w_targ)
-      dbg.print("(2) path:",path,"\n")
+      dbg.print{"(2) path:",path,"\n"}
    end
 
    if (path:sub(1,1) == ':') then

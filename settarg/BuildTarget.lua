@@ -69,9 +69,9 @@ function M.default_MACH()
 end
 
 function M.default_OS()
-   dbg.start("BuildTarget:default_OS()")
+   dbg.start{"BuildTarget:default_OS()"}
    local name = getUname().osName
-   dbg.print("name: ",name,"\n")
+   dbg.print{"name: ",name,"\n"}
    dbg.fini("BuildTarget:default_OS")
    return name
 end
@@ -106,7 +106,7 @@ end
 
 
 function M.default_BUILD_SCENARIO(tbl)
-   dbg.start("BuildTarget:default_BUILD_SCENARIO()")
+   dbg.start{"BuildTarget:default_BUILD_SCENARIO()"}
    local masterTbl        = masterTbl()
    local BuildScenarioTbl = masterTbl.BuildScenarioTbl
    local stt              = STT:stt() 
@@ -115,7 +115,7 @@ function M.default_BUILD_SCENARIO(tbl)
    -- First look to see if there is TARG_BUILD_SCENARIO_STATE
    local v = stt:getBuildScenarioState()
    if (v ~= "unknown") then
-      dbg.print("STATE: ",v,"\n")
+      dbg.print{"STATE: ",v,"\n"}
       dbg.fini("BuildTarget:default_BUILD_SCENARIO")
       return v
    end
@@ -129,7 +129,7 @@ function M.default_BUILD_SCENARIO(tbl)
    while (true) do
       v = BuildScenarioTbl[hostname]
       if (v) then
-         dbg.print("hostname: ", hostname," v: ",v,"\n")
+         dbg.print{"hostname: ", hostname," v: ",v,"\n"}
          dbg.fini("BuildTarget:default_BUILD_SCENARIO")
          stt:setBuildScenarioState(v)
          return v
@@ -144,7 +144,7 @@ function M.default_BUILD_SCENARIO(tbl)
    v = BuildScenarioTbl[t.machName] or BuildScenarioTbl[t.machFamilyName] or
        BuildScenarioTbl.default
    if (v) then
-      dbg.print("machName v: ",v,"\n")
+      dbg.print{"machName v: ",v,"\n"}
       stt:setBuildScenarioState(v)
       dbg.fini("BuildTarget:default_BUILD_SCENARIO")
       return v
@@ -152,13 +152,13 @@ function M.default_BUILD_SCENARIO(tbl)
 
    v = "empty"
    stt:setBuildScenarioState(v)
-   dbg.print("default v: ",v,"\n")
+   dbg.print{"default v: ",v,"\n"}
    dbg.fini("BuildTarget:default_BUILD_SCENARIO")
    return v
 end
 
 local function string2Tbl(s,tbl)
-   dbg.start("string2Tbl(\"",s,"\", tbl)")
+   dbg.start{"string2Tbl(\"",s,"\", tbl)"}
    local stt           = STT:stt()
    local stringKindTbl = masterTbl().stringKindTbl
    for v in s:split("%s+") do
@@ -166,7 +166,7 @@ local function string2Tbl(s,tbl)
       if (kindT == nil) then
          if (v ~= "") then
             stt:add2ExtraT(v)
-            dbg.print("Adding \"",v,"\" to TARG_EXTRA\n")
+            dbg.print{"Adding \"",v,"\" to TARG_EXTRA\n"}
          end
       else
          for kind in pairs(kindT) do
@@ -174,7 +174,7 @@ local function string2Tbl(s,tbl)
             if (K == "TARG_BUILD_SCENARIO") then
                stt:setBuildScenarioState(v)
             end
-            dbg.print("v: ",v," kind: ",kind," K: ",K,"\n")
+            dbg.print{"v: ",v," kind: ",kind," K: ",K,"\n"}
             tbl[K] = v
          end
       end
@@ -183,7 +183,7 @@ local function string2Tbl(s,tbl)
 end
 
 function M.buildTbl(targetTbl)
-   dbg.start("BuildTarget.buildTbl(targetTbl)")
+   dbg.start{"BuildTarget.buildTbl(targetTbl)"}
    local tbl = {}
    local stt = STT:stt()
 
@@ -198,7 +198,7 @@ function M.buildTbl(targetTbl)
          else
             v = ''
          end
-         dbg.print("ss: ", ss," v: ",v,"\n")
+         dbg.print{"ss: ", ss," v: ",v,"\n"}
       end
       tbl[key] = v
    end
@@ -259,7 +259,7 @@ local function readDotFiles()
    local TargPathLoc    = "first"
 
    for _, fn  in ipairs(a) do
-      dbg.print("fn: ",fn,"\n")
+      dbg.print{"fn: ",fn,"\n"}
       local f = io.open(fn,"r")
       if (f) then
          local whole  = f:read("*all")
@@ -286,7 +286,7 @@ local function readDotFiles()
          end
 
          for k,v in pairs(systemG.BuildScenarioTbl) do
-            dbg.print("BS: k: ",k," v: ",v,"\n")
+            dbg.print{"BS: k: ",k," v: ",v,"\n"}
             MethodMstrTbl[k] = v
          end
 
@@ -295,7 +295,7 @@ local function readDotFiles()
          end
 
          for k,v in pairs(systemG.TitleTbl) do
-            dbg.print("Title: k: ",k," v: ",v,"\n")
+            dbg.print{"Title: k: ",k," v: ",v,"\n"}
             TitleMstrTbl[k] = v
          end
 
@@ -331,7 +331,7 @@ end
 
 function M.exec(shell)
    local name        = shell:name() or "unknown"
-   dbg.start("BuildTarget.exec(\"",name,")")
+   dbg.start{"BuildTarget.exec(\"",name,")"}
    local masterTbl   = masterTbl()
    local envVarsTbl  = {}
    local target      = masterTbl.target or getenv('TARGET') or ''
@@ -358,7 +358,7 @@ function M.exec(shell)
 
    tbl.TARG_BUILD_SCENARIO       = stt:getBuildScenario()
 
-   dbg.print("BUILD_SCENARIO_STATE: ",stt:getBuildScenarioState(),"\n")
+   dbg.print{"BUILD_SCENARIO_STATE: ",stt:getBuildScenarioState(),"\n"}
 
    -- Remove options from TARG_EXTRA
 
@@ -382,7 +382,7 @@ function M.exec(shell)
          if (familyTbl[v]) then
             local value    = entry:gsub("-.*","")
             envVarsTbl[KK] = value
-            dbg.print("envVarsTbl[",KK,"]: ",value,"\n")
+            dbg.print{"envVarsTbl[",KK,"]: ",value,"\n"}
          end
       end
    end

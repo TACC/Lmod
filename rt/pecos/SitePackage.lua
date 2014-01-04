@@ -29,7 +29,7 @@ function edit_derived_modulepaths(derived_mod_dir, newmodname, newmodversion)
          local inner_find = capture( "find "..newmoddir.." -type d -name modulefiles" )
          for modfilesdir in string.gmatch(inner_find, "[^\n]+") do
 
-            dbg.print("modfilesdir: ",modfilesdir,"\n")
+            dbg.print{"modfilesdir: ",modfilesdir,"\n"}
             -- Load module files directories that we have all
             -- prerequisites for
             if (mode() == "load" or mode() == "spider") then
@@ -42,7 +42,7 @@ function edit_derived_modulepaths(derived_mod_dir, newmodname, newmodversion)
                      local fullName = pathJoin(modname, modversion)
                      local mt       = MT:mt()
                      local status   = mt:getStatus(fullName)
-                     dbg.print("module: ",fullName, " status: ", status,"\n")
+                     dbg.print{"module: ",fullName, " status: ", status,"\n"}
                      if (( fullName ~= newFullName) and
                          not (isloaded(fullName) or isPending(fullName))) then
                         have_all_modules = false

@@ -267,7 +267,7 @@ function abspath (path, localDir)
 
    local cdir   = lfs.currentdir()
    if (cdir == nil) then
-      dbg.print("lfs.currentdir(): is nil")
+      dbg.print{"lfs.currentdir(): is nil"}
    end
 
    dir          = cdir or dir

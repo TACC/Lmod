@@ -98,7 +98,7 @@ s_mtA = {}
 --                   They typically load other modules but not always.
 
 local function locationTblDir(mpath, path, prefix, locationT, availT)
-   --dbg.start("locationTblDir(",mpath,",",path,",",prefix,")")
+   --dbg.start{"locationTblDir(",mpath,",",path,",",prefix,")"}
    local attr = lfs.attributes(path)
    if (not attr or type(attr) ~= "table" or attr.mode ~= "directory"
        or not posix.access(path,"x")) then
@@ -130,7 +130,7 @@ local function locationTblDir(mpath, path, prefix, locationT, availT)
    end
 
 
-   --dbg.print("#dirA: ",#dirA,"\n")
+   --dbg.print{"#dirA: ",#dirA,"\n"}
 
    if (#dirA > 0 or prefix == '') then
       --------------------------------------------------------------------------
@@ -174,7 +174,7 @@ local function locationTblDir(mpath, path, prefix, locationT, availT)
       for i = 1, #vA do
          a[i] = {version = vA[i][2], file = vA[i][3]}
       end
-      --dbg.print("Adding ",prefix," to availT, #a: ",#a,"\n")
+      --dbg.print{"Adding ",prefix," to availT, #a: ",#a,"\n"}
       availT[prefix] = a
    end
    --dbg.fini("locationTblDir")
@@ -187,8 +187,8 @@ end
 
 
 local function buildLocWmoduleT(mpath, moduleT, mpathT, lT, availT)
-   dbg.start("MT:buildLocWmoduleT(mpath, moduleT, mpathA, lT, availT)")
-   dbg.print("mpath: ", mpath,"\n")
+   dbg.start{"MT:buildLocWmoduleT(mpath, moduleT, mpathA, lT, availT)"}
+   dbg.print{"mpath: ", mpath,"\n"}
 
    local availEntryT = availT[mpath]
 
@@ -253,7 +253,7 @@ end
 --                   }
 
 local function buildAllLocWmoduleT(moduleT, mpathA, locationT, availT)
-   --dbg.start("MT:buildAllLocWmoduleT(moduleT, mpathA, locationT, availT)")
+   --dbg.start{"MT:buildAllLocWmoduleT(moduleT, mpathA, locationT, availT)"}
 
 
    -----------------------------------------------------------------------
@@ -365,7 +365,7 @@ end
 
 local function build_locationTbl(mpathA)
 
-   dbg.start("MT:build_locationTbl(mpathA)")
+   dbg.start{"MT:build_locationTbl(mpathA)"}
    local locationT = {}
    local availT    = {}
 
@@ -378,7 +378,7 @@ local function build_locationTbl(mpathA)
    local cache     = _G.Cache:cache()
    local moduleT   = cache:build(fast)
 
-   dbg.print("moduleT: ", not (not moduleT),"\n")
+   dbg.print{"moduleT: ", not (not moduleT),"\n"}
 
    if (moduleT) then
       buildAllLocWmoduleT(moduleT, mpathA, locationT, availT)
@@ -391,23 +391,23 @@ local function build_locationTbl(mpathA)
    end
 
    if (dbg.active()) then
-      dbg.print("availT: \n")
+      dbg.print{"availT: \n"}
       for mpath, vv in pairs(availT) do
-         dbg.print("  mpath: ", mpath,":\n")
+         dbg.print{"  mpath: ", mpath,":\n"}
 
          for sn , v in pairsByKeys(vv) do
-            dbg.print("    ",sn,":")
+            dbg.print{"    ",sn,":"}
             for i = 1, #v do
                io.stderr:write(" ",v[i].version,",")
             end
             io.stderr:write("\n")
          end
       end
-      dbg.print("locationT: \n")
+      dbg.print{"locationT: \n"}
       for sn, vv in pairs(locationT) do
-         dbg.print("  sn: ", sn,":\n")
+         dbg.print{"  sn: ", sn,":\n"}
          for i = 1, #vv do
-            dbg.print("    ",vv[i].file,"\n")
+            dbg.print{"    ",vv[i].file,"\n"}
          end
       end
    end
@@ -438,7 +438,7 @@ end
 -- MT:new(): local ctor for MT.  It uses [[s]] to be the initial value.
 
 local function new(self, s)
-   dbg.start("MT:new()")
+   dbg.start{"MT:new()"}
    local o            = {}
 
    o.c_rebuildTime    = false
@@ -466,12 +466,12 @@ local function new(self, s)
    local currentMPATH  = getenv(ModulePath)
    o.systemBaseMPATH   = path_regularize(currentMPATH)
 
-   dbg.print("systemBaseMPATH: \"", currentMPATH, "\"\n")
+   dbg.print{"systemBaseMPATH: \"", currentMPATH, "\"\n"}
    if (not s) then
-      dbg.print("setting systemBaseMPATH: ", currentMPATH, "\n")
+      dbg.print{"setting systemBaseMPATH: ", currentMPATH, "\n"}
       varTbl[DfltModPath] = Var:new(DfltModPath, currentMPATH)
       o:buildBaseMpathA(currentMPATH)
-      dbg.print("Initializing ", DfltModPath, ":", currentMPATH, "\n")
+      dbg.print{"Initializing ", DfltModPath, ":", currentMPATH, "\n"}
    else
       assert(load(s))()
       local _ModuleTable_ = systemG._ModuleTable_
@@ -490,10 +490,10 @@ local function new(self, s)
       end
       o._MPATH = concatTbl(o.mpathA,":")
       local baseMPATH = concatTbl(o.baseMpathA,":")
-      dbg.print("baseMPATH: ", baseMPATH, "\n")
+      dbg.print{"baseMPATH: ", baseMPATH, "\n"}
 
       if (_ModuleTable_.systemBaseMPATH == nil) then
-         dbg.print("setting self.systemBaseMPATH to baseMPATH\n")
+         dbg.print{"setting self.systemBaseMPATH to baseMPATH\n"}
 	 o.systemBaseMPATH = path_regularize(baseMPATH)
          o._MPATH = o.systemBaseMPATH
       end
@@ -501,13 +501,13 @@ local function new(self, s)
       -- Compare MODULEPATH from environment versus ModuleTable
       if (currentMPATH == nil or currentMPATH == o._MPATH) then
          varTbl[DfltModPath] = Var:new(DfltModPath, baseMPATH)
-         dbg.print("buildBaseMpathA(",baseMPATH,")\n")
+         dbg.print{"buildBaseMpathA(",baseMPATH,")\n"}
          o:buildBaseMpathA(baseMPATH)
       else
-         dbg.print("currentMPATH:        ",currentMPATH,"\n")
-         dbg.print("_MPATH:              ",o._MPATH,"\n")
-         dbg.print("o.systemBaseMPATH:   ",o.systemBaseMPATH,"\n")
-         dbg.print("baseMPATH:           ",o.systemBaseMPATH,"\n")
+         dbg.print{"currentMPATH:        ",currentMPATH,"\n"}
+         dbg.print{"_MPATH:              ",o._MPATH,"\n"}
+         dbg.print{"o.systemBaseMPATH:   ",o.systemBaseMPATH,"\n"}
+         dbg.print{"baseMPATH:           ",o.systemBaseMPATH,"\n"}
          if (o.systemBaseMPATH == currentMPATH) then
             o:resolveMpathChanges(currentMPATH, baseMPATH)
          end
@@ -515,7 +515,7 @@ local function new(self, s)
    end
    o.inactive         = {}
 
-   dbg.print("(2) systemBaseMPATH: ",o.systemBaseMPATH,"\n")
+   dbg.print{"(2) systemBaseMPATH: ",o.systemBaseMPATH,"\n"}
 
    dbg.fini("MT:new")
    return o
@@ -573,7 +573,7 @@ function M.getShortTime(self)
 end
 
 function M.setRebuildTime(self, long, short)
-   dbg.start("MT:setRebuildTime(long: ",long,", short: ",short,")")
+   dbg.start{"MT:setRebuildTime(long: ",long,", short: ",short,")"}
    self.c_rebuildTime = long
    self.c_shortTime   = short
    dbg.fini("MT:setRebuildTime")
@@ -583,7 +583,7 @@ end
 -- setupMPATH(): Build locationTbl and availT based on new MODULEPATH.
 
 local function setupMPATH(self,mpath)
-   dbg.start("MT:setupMPATH(self,mpath: \"",mpath,"\")")
+   dbg.start{"MT:setupMPATH(self,mpath: \"",mpath,"\")"}
    self._same = self:sameMPATH(mpath)
    if (not self._same) then
       self:buildMpathA(mpath)
@@ -600,18 +600,18 @@ end
 
 function M.mt(self)
    if (not s_mt) then
-      dbg.start("mt()")
+      dbg.start{"mt()"}
       s_mt               = new(self, getMT())
       s_mtA[#s_mtA+1]    = s_mt
-      dbg.print("Original s_mtA[",#s_mtA,"]: ",tostring(s_mtA[#s_mtA]),"\n")
+      dbg.print{"Original s_mtA[",#s_mtA,"]: ",tostring(s_mtA[#s_mtA]),"\n"}
       M.cloneMT(self)   -- Save original MT in stack
       varTbl[ModulePath] = Var:new(ModulePath, getenv(ModulePath))
       setupMPATH(s_mt, varTbl[ModulePath]:expand())
-      dbg.print("s_mt._same: ",s_mt._same, "\n")
+      dbg.print{"s_mt._same: ",s_mt._same, "\n"}
       if (not s_mt._same) then
          s_mt:reloadAllModules()
       end
-      dbg.print("s_mt: ",tostring(s_mt), " s_mtA[",#s_mtA,"]: ",tostring(s_mtA[#s_mtA]),"\n")
+      dbg.print{"s_mt: ",tostring(s_mt), " s_mtA[",#s_mtA,"]: ",tostring(s_mtA[#s_mtA]),"\n"}
       dbg.fini("mt")
    end
    return s_mt
@@ -622,11 +622,11 @@ end
 
 local dcT = {function_immutable = true, metatable_immutable = true}
 function M.cloneMT()
-   --dbg.start("MT.cloneMT()")
+   --dbg.start{"MT.cloneMT()"}
    local mt = deepcopy(s_mt, dcT)
    mt:pushMT()
    s_mt = mt
-   --dbg.print("Now using s_mtA[",#s_mtA,"]: ",tostring(s_mt),"\n")
+   --dbg.print{"Now using s_mtA[",#s_mtA,"]: ",tostring(s_mt),"\n"}
    --dbg.fini("MT.cloneMT")
 end
 
@@ -641,9 +641,9 @@ end
 -- MT:popMT(): Pop the stack and set [[s_mt]] to be the current value.
 
 function M.popMT()
-   dbg.start("MT.popMT()")
+   dbg.start{"MT.popMT()"}
    s_mt = s_mtA[#s_mtA-1]
-   dbg.print("Now using s_mtA[",#s_mtA-1,"]: ",tostring(s_mt),"\n")
+   dbg.print{"Now using s_mtA[",#s_mtA-1,"]: ",tostring(s_mt),"\n"}
    s_mtA[#s_mtA] = nil    -- mark for garage collection
    dbg.fini("MT.popMT")
 end
@@ -653,9 +653,9 @@ end
 -- MT:origMT(): Return the original MT from bottom of stack.
 
 function M.origMT()
-   dbg.start("MT.origMT()")
-   dbg.print("Original s_mtA[1]: ",tostring(s_mtA[1]),"\n")
-   dbg.print("s_mtA[1].shortTime: ",s_mtA[1].shortTime,"\n")
+   dbg.start{"MT.origMT()"}
+   dbg.print{"Original s_mtA[1]: ",tostring(s_mtA[1]),"\n"}
+   dbg.print{"s_mtA[1].shortTime: ",s_mtA[1].shortTime,"\n"}
    dbg.fini("MT.origMT")
    return s_mtA[1]
 end
@@ -677,7 +677,7 @@ end
 
 
 function M.getMTfromFile(self,t)
-   dbg.start("mt:getMTfromFile(",t.fn,")")
+   dbg.start{"mt:getMTfromFile(",t.fn,")"}
    local f              = io.open(t.fn,"r")
    local msg            = t.msg
    local collectionName = t.name
@@ -704,12 +704,12 @@ function M.getMTfromFile(self,t)
    local activeA = l_mt:list("userName","active")
 
    local savedBaseMPATH = concatTbl(l_mt.baseMpathA,":")
-   dbg.print("Saved baseMPATH: ",savedBaseMPATH,"\n")
+   dbg.print{"Saved baseMPATH: ",savedBaseMPATH,"\n"}
    varTbl[ModulePath] = Var:new(ModulePath,mpath)
-   dbg.print("(1) varTbl[ModulePath]:expand(): ",varTbl[ModulePath]:expand(),"\n")
+   dbg.print{"(1) varTbl[ModulePath]:expand(): ",varTbl[ModulePath]:expand(),"\n"}
    local force = true
    Purge(force)
-   dbg.print("(2) varTbl[ModulePath]:expand(): ",mpath,"\n")
+   dbg.print{"(2) varTbl[ModulePath]:expand(): ",mpath,"\n"}
 
    ------------------------------------------------------------
    -- If the new system has changed report it, fix MODULEPATH by
@@ -717,8 +717,8 @@ function M.getMTfromFile(self,t)
    --    2) append the new system basePATH
    -- This way the MODULEPATH is correctly updated to the new
    -- baseMPATH
-   dbg.print("self.systemBaseMPATH: ",self.systemBaseMPATH,"\n")
-   dbg.print("l_mt.systemBaseMPATH: ",l_mt.systemBaseMPATH,"\n")
+   dbg.print{"self.systemBaseMPATH: ",self.systemBaseMPATH,"\n"}
+   dbg.print{"l_mt.systemBaseMPATH: ",l_mt.systemBaseMPATH,"\n"}
    if (self.systemBaseMPATH ~= l_mt.systemBaseMPATH) then
       LmodWarning("The system MODULEPATH has changed: ",
                   "Please rebuild your saved collection.\n")
@@ -731,9 +731,9 @@ function M.getMTfromFile(self,t)
    -- Clear MT and load modules from saved modules stored in
    -- "t" from above.
    local sbMP = self.systemBaseMPATH
-   dbg.print("mt (self): ", tostring(self), "\n")
+   dbg.print{"mt (self): ", tostring(self), "\n"}
    s_mt = new(self,nil)
-   dbg.print("(1) s_mt: ", tostring(s_mt), "\n")
+   dbg.print{"(1) s_mt: ", tostring(s_mt), "\n"}
    s_mt:pushMT()
 
    ------------------------------------------------------------
@@ -770,7 +770,7 @@ function M.getMTfromFile(self,t)
    end
    MCP.load(mcp,mA)
    mcp = mcp_old
-   dbg.print("Setting mcp to ", mcp:name(),"\n")
+   dbg.print{"Setting mcp to ", mcp:name(),"\n"}
 
    -----------------------------------------------------------------------
    -- Now check to see that all requested modules got loaded.
@@ -779,20 +779,20 @@ function M.getMTfromFile(self,t)
       LmodWarning("You have no modules loaded because the collection \"",a,
                      "\" is empty!\n")
    end
-   dbg.print("#activeA: ",#activeA,"\n")
+   dbg.print{"#activeA: ",#activeA,"\n"}
    local activeT = {}
 
    for i = 1,#activeA do
       local entry = activeA[i]
       local sn    = entry.sn
-      dbg.print("activeA: i:",i,", sn: ",sn,", name: ",entry.name,"\n")
+      dbg.print{"activeA: i:",i,", sn: ",sn,", name: ",entry.name,"\n"}
       activeT[sn] = entry
    end
 
    local aa = {}
    for sn, v in pairs(t) do
       if (not activeT[sn]) then
-         dbg.print("did not find activeT sn: ",sn,"\n")
+         dbg.print{"did not find activeT sn: ",sn,"\n"}
          aa[#aa+1] = v.name
          t[sn]     = nil -- do not need to check hash for a non-existant module
       end
@@ -836,7 +836,7 @@ function M.getMTfromFile(self,t)
       varTbl[n] = Var:new(n,"1")
    end
       
-   dbg.print("baseMpathA: ",concatTbl(self.baseMpathA,":"),"\n")
+   dbg.print{"baseMpathA: ",concatTbl(self.baseMpathA,":"),"\n"}
    dbg.fini("MT:getMTfromFile")
    return true
 end
@@ -844,7 +844,7 @@ end
 --------------------------------------------------------------------------
 -- resolveMpathChanges: Handle when MODULEPATH is changed outside of Lmod
 function M.resolveMpathChanges(self, currentMPATH, baseMPATH)
-   dbg.start("MT:resolveMpathChanges(currentMPATH, baseMPATH)")
+   dbg.start{"MT:resolveMpathChanges(currentMPATH, baseMPATH)"}
    local usrMpathA  = path2pathA(currentMPATH)
    local mpathA     = self.mpathA
    local kU         = #usrMpathA
@@ -866,7 +866,7 @@ function M.resolveMpathChanges(self, currentMPATH, baseMPATH)
       kU = kU - 1
    end
 
-   dbg.print("mU: ",mU,", mM: ",mM,"\n")
+   dbg.print{"mU: ",mU,", mM: ",mM,"\n"}
    if ( mM ~= 0) then
       local a = {}
       a[#a+1] = "The environment MODULEPATH has been changed in unexpected ways.\n"
@@ -886,8 +886,8 @@ function M.resolveMpathChanges(self, currentMPATH, baseMPATH)
       varTbl[ModulePath]  = Var:new(ModulePath, currentMPATH)
       self:buildBaseMpathA(dmp)
 
-      dbg.print("currentMPATH: ",currentMPATH,"\n")
-      dbg.print("MPATH:        ",concatTbl(self.mpathA,":"),"\n")
+      dbg.print{"currentMPATH: ",currentMPATH,"\n"}
+      dbg.print{"MPATH:        ",concatTbl(self.mpathA,":"),"\n"}
    end
    dbg.fini("MT:resolveMpathChanges")
 end
@@ -918,14 +918,14 @@ function M.beginOP(self)
    if (self._changePATH == true) then
       self._changePATHCount = self._changePATHCount + 1
    end
-   --dbg.print("MT:beginOP: self._changePATH: ",self._changePATH, " count: ",self._changePATHCount,"\n")
+   --dbg.print{"MT:beginOP: self._changePATH: ",self._changePATH, " count: ",self._changePATHCount,"\n"}
 end
 
 function M.endOP(self)
    if (self._changePATH == true) then
       self._changePATHCount = max(self._changePATHCount - 1, 0)
    end
-   --dbg.print("MT:endOP: self._changePATH: ",self._changePATH, " count: ",self._changePATHCount,"\n")
+   --dbg.print{"MT:endOP: self._changePATH: ",self._changePATH, " count: ",self._changePATHCount,"\n"}
 end
 
 function M.zombieState(self)
@@ -1040,16 +1040,16 @@ end
    
 
 function M.reloadAllModules(self)
-   dbg.start("MT:reloadAllModules()")
+   dbg.start{"MT:reloadAllModules()"}
    local master = _G.Master:master()
-   dbg.print("after init call to Master:master()\n")
+   dbg.print{"after init call to Master:master()\n"}
    local count  = 0
    local ncount = 5
 
    local changed = false
    local done    = false
    while (not done) do
-      dbg.print("Calling master:reloadAll()\n")
+      dbg.print{"Calling master:reloadAll()\n"}
       local same  = master:reloadAll()
       if (not same) then
          changed = true
@@ -1073,9 +1073,9 @@ end
 --  MT:add(): Adds a module to MT.
 
 function M.add(self, t, status)
-   dbg.start("MT:add(t,",status,")")
-   dbg.print("MT:add:  short: ",t.modName,", full: ",t.modFullName,"\n")
-   dbg.print("MT:add: fn: ",t.fn,", default: ",t.default,"\n")
+   dbg.start{"MT:add(t,",status,")"}
+   dbg.print{"MT:add:  short: ",t.modName,", full: ",t.modFullName,"\n"}
+   dbg.print{"MT:add: fn: ",t.fn,", default: ",t.default,"\n"}
    local loadOrder
    if (status == "inactive") then
       loadOrder = -1
@@ -1083,7 +1083,7 @@ function M.add(self, t, status)
       s_loadOrder = s_loadOrder + 1
       loadOrder   = s_loadOrder
    end
-   dbg.print("MT:add: loadOrder: ",loadOrder,"\n")
+   dbg.print{"MT:add: loadOrder: ",loadOrder,"\n"}
    local mT = self.mT
    mT[t.modName] = { fullName  = t.modFullName,
                      short     = t.modName,
@@ -1207,7 +1207,7 @@ function M.setStatus(self, sn, status)
    if (entry ~= nil) then
       entry.status = status
    end
-   dbg.print("MT:setStatus(",sn,",",status,")\n")
+   dbg.print{"MT:setStatus(",sn,",",status,")\n"}
 end
 
 function M.getStatus(self, sn)
@@ -1412,7 +1412,7 @@ end
 
 function M.setHashSum(self)
    local mT   = self.mT
-   dbg.start("MT:setHashSum()")
+   dbg.start{"MT:setHashSum()"}
 
    local chsA   = { "computeHashSum", "computeHashSum.in.lua", }
    local cmdSum = false
@@ -1459,7 +1459,7 @@ function M.setHashSum(self)
          a[#a + 1]  = v.short
          a[#a + 1]  = v.FN
          local cmd  = concatTbl(a," ")
-         dbg.print("cmd: ", cmd,"\n")
+         dbg.print{"cmd: ", cmd,"\n"}
          local s    = capture(cmd)
          v.hash     = s:sub(1,-2)
       end
@@ -1471,7 +1471,7 @@ end
 function M.reportKeys(self)
    local mT  = self.mT
    for k,v in pairs(mT) do
-      dbg.print("MT:reportKeys(): Key: ",k, ", status: ",v.status,"\n")
+      dbg.print{"MT:reportKeys(): Key: ",k, ", status: ",v.status,"\n"}
    end
 end
 
@@ -1506,7 +1506,7 @@ end
 
 
 function M.add_property(self, sn, name, value)
-   dbg.start("MT:add_property(\"",sn,"\", \"",name,"\", \"",value,"\")")
+   dbg.start{"MT:add_property(\"",sn,"\", \"",name,"\", \"",value,"\")"}
 
    local mT    = self.mT
    local entry = mT[sn]
@@ -1548,7 +1548,7 @@ end
 -- MT:remove_property() remove a property to an active module.
 
 function M.remove_property(self, sn, name, value)
-   dbg.start("MT:remove_property(\"",sn,"\", \"",name,"\", \"",value,"\")")
+   dbg.start{"MT:remove_property(\"",sn,"\", \"",name,"\", \"",value,"\")"}
 
    local mT    = self.mT
    local entry = mT[sn]
@@ -1589,7 +1589,7 @@ end
 -- MT:list_property(): What it says.
 
 function M.list_property(self, idx, sn, style, legendT)
-   --dbg.start("MT:list_property(\"",sn,"\", \"",style,"\")")
+   --dbg.start{"MT:list_property(\"",sn,"\", \"",style,"\")"}
    local mT    = self.mT
    local entry = mT[sn]
 
@@ -1625,7 +1625,7 @@ end
 --                Lmod will not report that mvapich2 has been reloaded.
 
 function M.userLoad(self, sn,usrName)
-   dbg.start("MT:userLoad(",sn,")")
+   dbg.start{"MT:userLoad(",sn,")"}
    local loadT  = self._loadT
    loadT[sn]    = usrName
    dbg.fini("MT:userLoad")
@@ -1640,10 +1640,10 @@ end
 function M.reportChanges(self)
    local master = systemG.Master:master()
 
-   dbg.start("MT:reportChanges()")
+   dbg.start{"MT:reportChanges()"}
 
    if (not master.shell:isActive()) then
-      dbg.print("Expansion is inactive\n")
+      dbg.print{"Expansion is inactive\n"}
       dbg.fini("MT:reportChanges")
       return
    end
@@ -1713,8 +1713,8 @@ end
 --                   removed.
 
 function M.serializeTbl(self, state)
-   dbg.print("self: ",tostring(self),"\n")
-   dbg.print("s_mt: ",tostring(s_mt),"\n")
+   dbg.print{"self: ",tostring(self),"\n"}
+   dbg.print{"s_mt: ",tostring(s_mt),"\n"}
 
    s_mt.activeSize = self:setLoadOrder()
 

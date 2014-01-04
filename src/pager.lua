@@ -67,7 +67,7 @@ end
 --             pager has been chosen.
 
 function usePager(f, ...)
-   dbg.start("usePager()")
+   dbg.start{"usePager()"}
    local p = io.popen(s_pager .. " 1>&2" ,"w")
    local s = concatTbl({...},"")
    p:write(s)

@@ -120,7 +120,7 @@ function main()
       dbg:activateDebug(1)
    end
 
-   dbg.start("main()")
+   dbg.start{"main()"}
 
    ------------------------------------------------------------
    -- Read list of module files from input argument

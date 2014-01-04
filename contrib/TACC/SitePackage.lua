@@ -49,7 +49,7 @@ Pkg = PkgBase.build("PkgTACC")
 
 
 local function load_hook(t)
-   dbg.start("load_hook()")
+   dbg.start{"load_hook()"}
    ------------------------------------------------------------------------
    -- Exit out if regular (not a batch job)
    ------------------------------------------------------------------------
@@ -78,7 +78,7 @@ local function load_hook(t)
    -- it is zero.  So write record.
    ------------------------------------------------------------------------
 
-   dbg.print("fullName: ",t.modFullName,"\n")
+   dbg.print{"fullName: ",t.modFullName,"\n"}
    local moduleInfoT = { modFullName=t.modFullName, fn=t.fn}
    local s           = serializeTbl{name="moduleInfoT", value=moduleInfoT}
    local uuid        = UUIDString(os.time())

@@ -65,7 +65,7 @@ function Python.expandVar(self, k, v, vType)
    lineA[#lineA + 1] = "';\n"
    local line        = concatTbl(lineA,"")
    stdout:write(line)
-   dbg.print(   line)
+   dbg.print{   line}
 end
 
 function Python.unset(self, k, vType)
@@ -78,7 +78,7 @@ function Python.unset(self, k, vType)
    lineA[#lineA + 1] = "']\n"
    local line        = concatTbl(lineA,"")
    stdout:write(line)
-   dbg.print(   line)
+   dbg.print{   line}
 end
 
 return Python

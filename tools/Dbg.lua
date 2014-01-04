@@ -34,24 +34,24 @@
 --    require("Dbg")
 --    function a()
 --       local dbg   = Dbg:dbg()
---       dbg.start(2,"a")
---       dbg.print("In a","\n")
+--       dbg.start{2,"a"}
+--       dbg.print{"In a","\n"}
 --       b()
 --       dbg.fini()
 --    end
 --
 --    function b()
 --       local dbg   = Dbg:dbg()
---       dbg.start(2,"b")
---       dbg.print("In b","\n")
+--       dbg.start{2,"b"}
+--       dbg.print{"In b","\n"}
 --       c()
 --       dbg.fini()
 --    end
 --
 --    function c()
 --       local dbg   = Dbg:dbg()
---       dbg.start(3,"c")
---       dbg.print(1,"In c","\n")
+--       dbg.start{3,"c"}
+--       dbg.print{1,"In c","\n"}
 --       dbg.fini()
 --    end
 --
@@ -60,7 +60,7 @@
 --       local dbg   = Dbg:dbg()
 --       dbg:activateDebug(level)
 --
---       dbg.start(2,"main")
+--       dbg.start{2,"main"}
 --       a()
 --       dbg.fini()
 --    end
@@ -181,40 +181,28 @@ end
 function M.Quiet()
 end
 
-local function extractVPL(...)
-   local vpl = s_vpl
-   local firstV = select(1,...)
-   if (type(firstV) == "number") then
-      vpl = firstV
-   end
+local function extractVPL(t)
+   local vpl = t.level or s_vpl
    return vpl
 end
 
-local function startExtractVPL(...)
-   local vpl = s_vpl
-   local firstV = select(1,...)
-   if (type(firstV) == "number") then
-      vpl = firstV
-   end
+local function startExtractVPL(t)
+   local vpl = t.level or s_vpl
    s_levelA[#s_levelA+1] = vpl
    return vpl
 end
 
-function M.Start(...)
-   s_vpl = startExtractVPL(...)
-   if (s_vpl <= s_currentLevel) then
-      io.stderr:write(s_indentString)
-      local arg = { n = select('#', ...), ...}
-      local is  = 1
-      if (type(arg[1]) == "number") then
-         is = 2
-      end
-      for i = is, arg.n do
-         io.stderr:write(tostring(arg[i]))
-      end
-      io.stderr:write("{\n")
-      changeIndentLevel(1)
+function M.Start(t)
+   s_vpl = startExtractVPL(t)
+   if (s_vpl > s_currentLevel) then return end
+
+   io.stderr:write(s_indentString)
+   for i = 1, #t do
+      io.stderr:write(tostring(t[i]))
    end
+   io.stderr:write("{\n")
+   changeIndentLevel(1)
+
 end
 
 function M.Empty()
@@ -227,10 +215,6 @@ end
 
 function M.Fini(s)
    local vpl = s_vpl
-   if (#s_levelA > 1) then
-      remove(s_levelA)  -- remove last entry in table
-   end
-   s_vpl = s_levelA[#s_levelA]
 
    if (vpl <= s_currentLevel) then
       s_indentLevel  = max(0, s_indentLevel - 1)
@@ -241,6 +225,11 @@ function M.Fini(s)
          io.stderr:write(s_indentString,"}\n")
       end
    end
+
+   if (#s_levelA > 1) then
+      remove(s_levelA)  -- remove last entry in table
+   end
+   s_vpl = s_levelA[#s_levelA]
 end
 
 function M.Warning(...)
@@ -272,16 +261,15 @@ function M.warningCalled()
 end
 
 
-function M.Debug(...)
-   local vpl = extractVPL(...)
+function M.Debug(t)
+   local vpl = extractVPL(t)
    if (vpl > s_currentLevel) then
       return
    end
 
    io.stderr:write(s_indentString)
-   local arg = { n = select("#", ...), ...}
-   for i = 1, arg.n do
-      local v = arg[i]
+   for i = 1, #t do
+      local v = t[i]
       if (type(v) == "table") then
 	 prtTbl(v)
       elseif (i == 1 and type(v) == 'number') then
@@ -305,7 +293,6 @@ function M.Debug(...)
    end
 end
 
-   
 
 function M.TextA(t)
    local a  = t.a

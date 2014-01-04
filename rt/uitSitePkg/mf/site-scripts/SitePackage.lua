@@ -27,7 +27,7 @@ local function getdirectory(p)
 end
 
 function checkRestrictedGroup(pkg, group)
-   dbg.start("checkRestrictedGroup(pkg, \"",tostring(group),"\")")
+   dbg.start{"checkRestrictedGroup(pkg, \"",tostring(group),"\")"}
    if (mode() ~= "load") then
       dbg.fini("checkRestrictedGroup")
       return true
@@ -53,7 +53,7 @@ function checkRestrictedGroup(pkg, group)
 end
 
 function logUsage(pkg)
-   dbg.start("logUsage(pkg)")
+   dbg.start{"logUsage(pkg)"}
    if (mode() ~= "load") then
       dbg.fini("logUsage")
       return true
@@ -61,7 +61,7 @@ function logUsage(pkg)
    local user = os.getenv("USER")
    local jobid = os.getenv("PBS_JOBID")
    local msg = ""
-   dbg.print("user: ",user," jobid: ",jobid,"\n")
+   dbg.print{"user: ",user," jobid: ",jobid,"\n"}
    if jobid == nil then
       msg = string.format("user=%s,app=%s", user, pkg.id)
    else
@@ -132,7 +132,7 @@ function loadPkgDefaults()
     local whole
     local fn
     local f
-    dbg.start("loadPkgDefaults()")
+    dbg.start{"loadPkgDefaults()"}
 
     pkg.name              = myModuleName()
     pkg.version           = myModuleVersion()
@@ -147,7 +147,7 @@ function loadPkgDefaults()
     pkg.help              = ""
 
 
-    dbg.print("name: ", pkg.name, " version: ", pkg.version, " id: ",pkg.id,"\n")
+    dbg.print{"name: ", pkg.name, " version: ", pkg.version, " id: ",pkg.id,"\n"}
 
     fn = pathJoin(defaultsDir, pkg.name .. ".lua")
     f  = io.open(fn)

@@ -91,7 +91,7 @@ local function new(self, t)
    setmetatable(o,self)
    self.__index = self
 
-   dbg.start("Cache:new()")
+   dbg.start{"Cache:new()"}
 
    scDescriptT = getSCDescriptT()
 
@@ -99,7 +99,7 @@ local function new(self, t)
 
    local systemEpoch = epoch() - ancient
 
-   dbg.print("#scDescriptT: ",#scDescriptT, "\n")
+   dbg.print{"#scDescriptT: ",#scDescriptT, "\n"}
    for j  = 1, #scDescriptT  do
       local entry = scDescriptT[j]
       local t     = {}
@@ -118,7 +118,7 @@ local function new(self, t)
          local dir  = pathJoin(entry.dir ,a[i])
          local attr = lfs.attributes(dir) or {}
          if (attr.mode == "directory") then
-            dbg.print("Adding: dir: ",dir,", timestamp: ",lastUpdate, "\n")
+            dbg.print{"Adding: dir: ",dir,", timestamp: ",lastUpdate, "\n"}
             scDirA[#scDirA+1] =
                { file   = pathJoin(dir, "moduleT.lua"),     fileT = "system",
                  backup = pathJoin(dir, "moduleT.old.lua"),
@@ -160,7 +160,7 @@ end
 --                processed.
 
 function M.cache(self, t)
-   dbg.start("Cache:cache()")
+   dbg.start{"Cache:cache()"}
    if (not s_cache) then
       s_cache   = new(self, t)
    end
@@ -180,7 +180,7 @@ function M.cache(self, t)
       if (attr.mode == "directory") then
          mDT[path]        = mDT[path]        or -1
          moduleDirT[path] = moduleDirT[path] or false
-         dbg.print("moduleDirT[",path,"]: ",moduleDirT[path], "\n")
+         dbg.print{"moduleDirT[",path,"]: ",moduleDirT[path], "\n"}
       end
    end
 
@@ -194,10 +194,10 @@ end
 --                  and updates moduleT and moduleDirT.
 
 local function readCacheFile(self, cacheFileA)
-   dbg.start("Cache:readCacheFile(cacheFileA)")
+   dbg.start{"Cache:readCacheFile(cacheFileA)"}
    local dirsRead  = 0
    if (masterTbl().ignoreCache or LMOD_IGNORE_CACHE) then
-      dbg.print("LMOD_IGNORE_CACHE is true\n")
+      dbg.print{"LMOD_IGNORE_CACHE is true\n"}
       dbg.fini("Cache:readCacheFile")
       return dirsRead
    end
@@ -209,7 +209,7 @@ local function readCacheFile(self, cacheFileA)
    local moduleDirA = self.moduleDirA
    local moduleT    = self.moduleT
 
-   dbg.print("#cacheFileA: ",#cacheFileA,"\n")
+   dbg.print{"#cacheFileA: ",#cacheFileA,"\n"}
    for i = 1,#cacheFileA do
       local f     = cacheFileA[i].file
       local found = false
@@ -224,14 +224,14 @@ local function readCacheFile(self, cacheFileA)
       end
 
       if (not found) then
-         dbg.print("Did not find: ",f,"\n")
+         dbg.print{"Did not find: ",f,"\n"}
       else
-         dbg.print("cacheFile found: ",f,"\n")
+         dbg.print{"cacheFile found: ",f,"\n"}
 
          -- Check Time
 
          local diff         = attr.modification - cacheFileA[i].timestamp
-         dbg.print("timeDiff: ",diff,"\n")
+         dbg.print{"timeDiff: ",diff,"\n"}
 
          -- Read in cache file if not out of date.
          if (diff >= 0) then
@@ -241,9 +241,9 @@ local function readCacheFile(self, cacheFileA)
 
             local version = (rawget(_G,"moduleT") or {}).version or 0
 
-            dbg.print("version: ",version,"\n")
+            dbg.print{"version: ",version,"\n"}
             if (version < Cversion) then
-               dbg.print("Ignoring old style cache file!\n")
+               dbg.print{"Ignoring old style cache file!\n"}
             else
                local G_moduleT = _G.moduleT
                for k, v in pairs(G_moduleT) do
@@ -251,7 +251,7 @@ local function readCacheFile(self, cacheFileA)
                      local dirTime = mDT[k] or 0
                      if (mDT[k] and attr.modification > dirTime) then
                         k             = path_regularize(k)
-                        dbg.print("saving directory: ",k," from cache file: ",f,"\n")
+                        dbg.print{"saving directory: ",k," from cache file: ",f,"\n"}
                         mDT[k]        = attr.modification
                         moduleDirT[k] = true
                         moduleT[k]    = v
@@ -303,7 +303,7 @@ end
 function M.build(self, fast)
    local mt = MT:mt()
 
-   dbg.start("Cache:build(fast=", fast,")")
+   dbg.start{"Cache:build(fast=", fast,")"}
    local masterTbl = masterTbl()
 
    
@@ -324,14 +324,14 @@ function M.build(self, fast)
    for k, v in pairs(moduleDirT) do
       numMDT = numMDT + 1
       if (not v) then
-         dbg.print("rebuilding cache for directory: ",k,"\n")
+         dbg.print{"rebuilding cache for directory: ",k,"\n"}
          dirA[#dirA+1] = k
       end
    end
 
    local dirsRead = sysDirsRead + usrDirsRead
    if (dirsRead == 0 and fast and numMDT == #dirA) then
-      dbg.print("Fast and dirsRead: ",dirsRead,"\n")
+      dbg.print{"Fast and dirsRead: ",dirsRead,"\n"}
       dbg.fini("Cache:build")
       return nil
    end
@@ -340,9 +340,9 @@ function M.build(self, fast)
    local buildModuleT  = (#dirA > 0)
    local userModuleT   = {}
    local moduleT       = self.moduleT
-   dbg.print("buildModuleT: ",buildModuleT,"\n")
+   dbg.print{"buildModuleT: ",buildModuleT,"\n"}
 
-   dbg.print("mt: ", tostring(mt), "\n")
+   dbg.print{"mt: ", tostring(mt), "\n"}
    
    local short    = mt:getShortTime()
    if (not buildModuleT) then
@@ -354,7 +354,7 @@ function M.build(self, fast)
                         ((not short) or (short > shortTime)) and
                         (not self.quiet)
                        )
-      dbg.print("short: ", short, " shortTime: ", shortTime,"\n")
+      dbg.print{"short: ", short, " shortTime: ", shortTime,"\n"}
 
       local cTimer = CTimer:cTimer("Rebuilding cache, please wait ...",
                                    Threshold, prtRbMsg)
@@ -367,9 +367,9 @@ function M.build(self, fast)
       local t2 = epoch()
 
       mcp           = mcp_old
-      dbg.print("Setting mpc to ", mcp:name(),"\n")
+      dbg.print{"Setting mpc to ", mcp:name(),"\n"}
 
-      dbg.print("t2-t1: ",t2-t1, " shortTime: ", shortTime, "\n")
+      dbg.print{"t2-t1: ",t2-t1, " shortTime: ", shortTime, "\n"}
 
       local r = {}
       hook.apply("writeCache",r)
@@ -399,7 +399,7 @@ function M.build(self, fast)
             newShortTime = short
          end
          mt:setRebuildTime(ancient, newShortTime)
-         dbg.print("mt: ", tostring(mt), "\n")
+         dbg.print{"mt: ", tostring(mt), "\n"}
          doneMsg = " (not written to file) done"
       else
          mkdir_recursive(self.usrCacheDir)
@@ -412,21 +412,21 @@ function M.build(self, fast)
             f:write(s0,s1,s2)
             f:close()
          end
-         dbg.print("Wrote: ",userModuleTFN,"\n")
+         dbg.print{"Wrote: ",userModuleTFN,"\n"}
          local buildT   = t2-t1
          local ancient2 = math.min(buildT * 120, ancient)
 
          mt:setRebuildTime(ancient2, buildT)
-         dbg.print("mt: ", tostring(mt), "\n")
+         dbg.print{"mt: ", tostring(mt), "\n"}
          doneMsg = " (written to file) done."
       end
       cTimer:done(doneMsg)
-      dbg.print("Transfer from userModuleT to moduleT\n")
+      dbg.print{"Transfer from userModuleT to moduleT\n"}
       for k, v in pairs(userModuleT) do
-         dbg.print("k: ",k,"\n")
+         dbg.print{"k: ",k,"\n"}
          moduleT[k] = userModuleT[k]
       end
-      dbg.print("Show that these directories have been walked\n")
+      dbg.print{"Show that these directories have been walked\n"}
       t2 = epoch()
       for i = 1,#dirA do
          local k = dirA[i]
@@ -440,7 +440,7 @@ function M.build(self, fast)
       local diff   = os.time() - attr.modification
       if (diff > ancient) then
          posix.unlink(userModuleTFN);
-         dbg.print("Deleted: ",userModuleTFN,"\n")
+         dbg.print{"Deleted: ",userModuleTFN,"\n"}
       end
    end
    local T2 = epoch()

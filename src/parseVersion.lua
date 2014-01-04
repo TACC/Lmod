@@ -74,7 +74,7 @@ replaceT = {
 
 function parseVersion(versionStr)
 
-   --dbg.start("parseVersion(",versionStr,")")
+   --dbg.start{"parseVersion(",versionStr,")"}
    versionStr = versionStr or ""
 
    local vA = {}
@@ -106,7 +106,7 @@ function parseVersion(versionStr)
       vA[#vA+1] = part
    end
 
-   --dbg.print("versionStr: ",versionStr," results: ",concatTbl(vA,"."),"\n")
+   --dbg.print{"versionStr: ",versionStr," results: ",concatTbl(vA,"."),"\n"}
    --dbg.fini()
    return concatTbl(vA,".")
 end
@@ -138,7 +138,7 @@ function parseVersionParts(versionStr)
             return "*zfinal"
          end
 
-         --dbg.print("s:sub(ipos,-1): ",s:sub(ipos,-1),"\n")
+         --dbg.print{"s:sub(ipos,-1): ",s:sub(ipos,-1),"\n"}
 
          -- grab all numbers and pad to nine places with zeros
          i,j = s:find("^%d+",ipos)

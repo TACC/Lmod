@@ -93,7 +93,7 @@ end
 
 function Spider_append_path(kind, name, value)
    if (name == "MODULEPATH") then
-      dbg.start(kind,"(MODULEPATH=\"",name,"\", value=\"",value,"\")")
+      dbg.start{kind,"(MODULEPATH=\"",name,"\", value=\"",value,"\")"}
       processNewModulePATH(value)
       dbg.fini(kind)
    elseif (name == "PATH") then
@@ -105,7 +105,7 @@ end
 
 function processNewModulePATH(value)
    if (value == nil) then return end
-   dbg.start("processNewModulePATH(value=\"",value,"\")")
+   dbg.start{"processNewModulePATH(value=\"",value,"\")"}
 
    local masterTbl   = masterTbl()
    local moduleStack = masterTbl.moduleStack
@@ -117,14 +117,14 @@ function processNewModulePATH(value)
 
    for v in value:split(":") do
       v = path_regularize(v)
-      dbg.print("v: ", v,"\n")
+      dbg.print{"v: ", v,"\n"}
       local path    = moduleStack[iStack].path
       local full    = moduleStack[iStack].full
       local moduleT = moduleStack[iStack].moduleT
       iStack        = iStack+1
       moduleStack[iStack] = {path = path, full = full,
                              moduleT = moduleT[path].children, fn= v}
-      dbg.print("Top of Stack: ",iStack, " Full: ", full, " file: ", path, "\n")
+      dbg.print{"Top of Stack: ",iStack, " Full: ", full, " file: ", path, "\n"}
       moduleT[path].children[v] = {}
       moduleT[path].children.version = Cversion
       M.findModulesInDir(0,v, v, "", moduleT[path].children[v])
@@ -139,17 +139,17 @@ end
 ------------------------------------------------------------
 
 local function versionFile(path)
-   dbg.start("versionFile(",path,")")
+   dbg.start{"versionFile(",path,")"}
    local f       = io.open(path,"r")
    if (not f)                        then
-      dbg.print("could not find: ",path,"\n")
+      dbg.print{"could not find: ",path,"\n"}
       dbg.fini("versionFile")
       return nil
    end
    local s       = f:read("*line")
    f:close()
    if (not s:find("^#%%Module"))      then
-      dbg.print("could not find: #%Module\n")
+      dbg.print{"could not find: #%Module\n"}
       dbg.fini("versionFile")
       return nil
    end
@@ -161,7 +161,7 @@ end
 local function findMarkedDefault(mpath, path)
    local mt       = MT:mt()
    local localDir = true
-   dbg.start("Spider:findMarkedDefault(",mpath,", ", path,")")
+   dbg.start{"Spider:findMarkedDefault(",mpath,", ", path,")"}
 
    --if (prefix == "") then
    --   dbg.fini("Spider:findMarkedDefault")
@@ -180,7 +180,7 @@ local function findMarkedDefault(mpath, path)
                local fn = vf .. ".lua"
                local f  = pathJoin(path,fn)
                default  = abspath(f,localDir)
-               dbg.print("(2) f: ",f," default: ", default, "\n")
+               dbg.print{"(2) f: ",f," default: ", default, "\n"}
             end
          end
       end
@@ -188,7 +188,7 @@ local function findMarkedDefault(mpath, path)
    if (default) then
       default = abspath(default, localDir)
    end
-   dbg.print("(4) default: \"",default,"\"\n")
+   dbg.print{"(4) default: \"",default,"\"\n"}
 
    dbg.fini("Spider:findMarkedDefault")
    return default
@@ -228,12 +228,12 @@ function M.findModulesInDir(level, mpath, path, prefix, moduleT)
 
    --if (level == 0) then
    --   t1   = epoch()
-   --   dbg.print("t1: ",t1,"\n")
+   --   dbg.print{"t1: ",t1,"\n"}
    --end
    local attr = lfs.attributes(path)
    if (not attr or  type(attr) ~= "table" or attr.mode ~= "directory" or
        not posix.access(path,"rx")) then
-      dbg.print("Directory: ",path," is non-existant or is not readable\n")
+      dbg.print{"Directory: ",path," is non-existant or is not readable\n"}
       dbg.fini("findModulesInDir")
       return
    end
@@ -270,10 +270,10 @@ function M.findModulesInDir(level, mpath, path, prefix, moduleT)
          if (not attr or not readable) then
             -- do nothing for this case
          elseif (readable and attr.mode == 'file' and file ~= "default") then
-            dbg.print("mnameT[",full,"].file: ",f,"\n")
+            dbg.print{"mnameT[",full,"].file: ",f,"\n"}
             mnameT[full] = {file=f, mpath = mpath}
          elseif (attr.mode == "directory" and file:sub(1,1) ~= ".") then
-            dbg.print("dirA: f:", f,"\n")
+            dbg.print{"dirA: f:", f,"\n"}
             dirA[#dirA + 1] = { fn = f, mname = full }
          end
       end
@@ -287,13 +287,13 @@ function M.findModulesInDir(level, mpath, path, prefix, moduleT)
          local sn   = k
          moduleT[v.file] = registerModuleT(full, sn, v.file, nil)
          moduleStack[iStack] = {path= v.file, sn = sn, full = full, moduleT = moduleT, fn = v.file}
-         dbg.print("Top of Stack: ",iStack, " Full: ", full, " file: ", v.file, "\n")
+         dbg.print{"Top of Stack: ",iStack, " Full: ", full, " file: ", v.file, "\n"}
 
          local t = {fn = v.file, modFullName = k, modName = sn, default = true, hash = 0}
          mt:add(t,"pending")
          loadModuleFile{file=v.file, shell=shellN, reportErr=true}
          mt:setStatus(t.modName,"active")
-         dbg.print("Saving: Full: ", k, " Name: ", k, " file: ",v.file,"\n")
+         dbg.print{"Saving: Full: ", k, " Name: ", k, " file: ",v.file,"\n"}
       end
       for i = 1, #dirA do
          M.findModulesInDir(level+1,mpath, dirA[i].fn, dirA[i].mname .. '/', moduleT)
@@ -304,19 +304,19 @@ function M.findModulesInDir(level, mpath, path, prefix, moduleT)
          local sn   = shortName(full)
          moduleT[v.file] = registerModuleT(full, sn, v.file, markedDefault)
          moduleStack[iStack] = {path=v.file, sn = sn, full = full, moduleT = moduleT, fn = v.file}
-         dbg.print("Top of Stack: ",iStack, " Full: ", full, " file: ", v.file, "\n")
+         dbg.print{"Top of Stack: ",iStack, " Full: ", full, " file: ", v.file, "\n"}
          local t = {fn = v.file, modFullName = full, modName = sn, default = 0, hash = 0}
          mt:add(t,"pending")
          loadModuleFile{file=v.file, shell=shellN, reportErr=true}
          mt:setStatus(t.modName,"active")
-         dbg.print("Saving: Full: ", full, " Name: ", sn, " file: ",v.file,"\n")
+         dbg.print{"Saving: Full: ", full, " Name: ", sn, " file: ",v.file,"\n"}
       end
    end
    dbg.fini("findModulesInDir")
 end
 
 function M.findAllModules(moduleDirA, moduleT)
-   dbg.start("Spider:findAllModules(",concatTbl(moduleDirA,", "),")")
+   dbg.start{"Spider:findAllModules(",concatTbl(moduleDirA,", "),")"}
 
    if (next(moduleT) == nil) then
       moduleT.version = Cversion
@@ -355,19 +355,19 @@ function M.findAllModules(moduleDirA, moduleT)
 end
 
 function M.buildSpiderDB(a, moduleT, dbT)
-   dbg.start("Spider.buildSpiderDB({",concatTbl(a,","),"},moduleT, dbT)")
+   dbg.start{"Spider.buildSpiderDB({",concatTbl(a,","),"},moduleT, dbT)"}
 
-   dbg.print("moduleT.version: ",moduleT.version,"\n")
+   dbg.print{"moduleT.version: ",moduleT.version,"\n"}
 
    local version = moduleT.version or 0
 
    if ( version < Cversion) then
       LmodError("old version moduleT\n")
    else
-      dbg.print("Current version moduleT.\n")
+      dbg.print{"Current version moduleT.\n"}
       for mpath, v in pairs(moduleT) do
          if (type(v) == "table") then
-            dbg.print("mpath: ",mpath, "\n")
+            dbg.print{"mpath: ",mpath, "\n"}
             M.singleSpiderDB(a,v, dbT)
          end
       end
@@ -376,9 +376,9 @@ function M.buildSpiderDB(a, moduleT, dbT)
 end
 
 function M.singleSpiderDB(a, moduleT, dbT)
-   dbg.start("Spider.singleSpiderDB({",concatTbl(a,","),"},moduleT, dbT)")
+   dbg.start{"Spider.singleSpiderDB({",concatTbl(a,","),"},moduleT, dbT)"}
    for path, value in pairs(moduleT) do
-      dbg.print("path: ",path,"\n")
+      dbg.print{"path: ",path,"\n"}
       local nameL = value.name_lower or value.name:lower()
       dbT[nameL]  = dbT[nameL] or {}
       local t     = dbT[nameL]
@@ -414,17 +414,17 @@ function M.singleSpiderDB(a, moduleT, dbT)
 end
 
 function M.searchSpiderDB(strA, a, moduleT, dbT)
-   dbg.start("Spider:searchSpiderDB({",concatTbl(a,","),"},moduleT, dbT)")
+   dbg.start{"Spider:searchSpiderDB({",concatTbl(a,","),"},moduleT, dbT)"}
 
    local version = moduleT.version or 0
 
    if (version < Cversion) then
       LmodError("old version moduleT.\n")
    else
-      dbg.print("Current version moduleT\n")
+      dbg.print{"Current version moduleT\n"}
       for mpath, v in pairsByKeys(moduleT) do
          if (type(v) == "table") then
-            dbg.print("mpath: ",mpath, "\n")
+            dbg.print{"mpath: ",mpath, "\n"}
             M.singleSearchSpiderDB(strA, a, v, dbT)
          end
       end
@@ -433,7 +433,7 @@ function M.searchSpiderDB(strA, a, moduleT, dbT)
 end
 
 function M.singleSearchSpiderDB(strA, a, moduleT, dbT)
-   dbg.start("Spider.singleSearchSpiderDB()")
+   dbg.start{"Spider.singleSearchSpiderDB()"}
 
    for path, value in pairsByKeys(moduleT) do
       local nameL   = value.name_lower or ""
@@ -452,7 +452,7 @@ function M.singleSearchSpiderDB(strA, a, moduleT, dbT)
          local str = strA[i]:lower()
          if (nameL:find(str,1,true)   or nameL:find(str)    or
              whatisS:find(str,1,true) or whatisS:find(str)) then
-            dbg.print("found txt in nameL: ",nameL,"\n")
+            dbg.print{"found txt in nameL: ",nameL,"\n"}
             found = true
             break
          end
@@ -485,7 +485,7 @@ function M.Level0(dbT)
    local terse     = masterTbl.terse
 
    if (terse) then
-      dbg.start("Spider:Level0()")
+      dbg.start{"Spider:Level0()"}
       local t  = {}
       for kk, vv in pairs(dbT) do
          for k, v in pairs(vv) do
@@ -603,7 +603,7 @@ local function countEntries(t, searchName)
 end
 
 function M.spiderSearch(dbT, searchName, help)
-   dbg.start("Spider:spiderSearch(dbT,\"",searchName,"\")")
+   dbg.start{"Spider:spiderSearch(dbT,\"",searchName,"\")"}
    local found = false
    local A  = {}
    A[1]     = searchName:lower()
@@ -617,7 +617,7 @@ function M.spiderSearch(dbT, searchName, help)
       local searchL = A[i]
       local T = dbT[searchL]
       if (T) then
-         dbg.print("Found exact match: searchL: ",searchL,"\n")
+         dbg.print{"Found exact match: searchL: ",searchL,"\n"}
          local s = M._Level1(searchL, T, searchName, help)
          if (s) then
             a[#a+1] = s
@@ -632,7 +632,7 @@ function M.spiderSearch(dbT, searchName, help)
             local searchL = A[i]
             if (k:find(searchL,1,true) or k:find(searchL)) then
                found = true
-               dbg.print("Found inexact match: searchL: ",searchL,", k: ",k,"\n")
+               dbg.print{"Found inexact match: searchL: ",searchL,", k: ",k,"\n"}
                local s = M._Level1(k, v, searchName, help)
                if (s) then
                   a[#a+1] = s
@@ -651,11 +651,11 @@ function M.spiderSearch(dbT, searchName, help)
 end
 
 function M._Level1(key, T, searchName, help)
-   dbg.start("Spider:_Level1(",key,", T,\"",searchName,"\",help)")
+   dbg.start{"Spider:_Level1(",key,", T,\"",searchName,"\",help)"}
    local term_width = TermWidth() - 4
 
    if (T == nil) then
-      dbg.print("No entry called: \"",searchName, "\" in dbT\n")
+      dbg.print{"No entry called: \"",searchName, "\" in dbT\n"}
       dbg.fini("Spider:_Level1")
       return ""
    end
@@ -664,7 +664,7 @@ function M._Level1(key, T, searchName, help)
    dbg.print("Number of entries: ",cnt ," name count: ",nameCnt,
              " full count: ",fullCnt, " full: ", full, "\n")
 
-   dbg.print("key: \"",key,"\" searchName: \"",searchName,"\"\n")
+   dbg.print{"key: \"",key,"\" searchName: \"",searchName,"\"\n"}
 
    --if ((key:len() < searchName:len() and fullCnt == 0 ) or
    --    (cnt == 0 and fullCnt == 0)) then
@@ -737,7 +737,7 @@ function M._Level1(key, T, searchName, help)
 end
 
 function M._Level2(T, searchName, full)
-   dbg.start("Spider:_Level2(T,\"",searchName,"\", \"",full,"\")")
+   dbg.start{"Spider:_Level2(T,\"",searchName,"\", \"",full,"\")"}
    local a  = {}
    local ia = 0
    local b  = {}
@@ -762,7 +762,7 @@ function M._Level2(T, searchName, full)
    full = full or ""
    local fullL = full:lower()
    for k,v in pairs(T) do
-      dbg.print("vv.full: ",v.full," searchName: ",searchName," k: ",k," full:", full,"\n")
+      dbg.print{"vv.full: ",v.full," searchName: ",searchName," k: ",k," full:", full,"\n"}
       local vfullL = v.full_lower or v.full:lower()
       if (vfullL == mnameL or vfullL == fullL) then
          if (tt == nil) then

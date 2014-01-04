@@ -55,13 +55,13 @@ Csh.my_name = 'csh'
 function Csh.alias(self, k, v)
    if (v == "" ) then
       stdout:write("unalias ",k,";\n")
-      dbg.print(   "unalias ",k,";\n")
+      dbg.print{   "unalias ",k,";\n"}
    else
       v = v:gsub("%$%*","\\!*")
       v = v:gsub("%$([0-9])", "\\!:%1")
       v = v:gsub(";%s","")
       stdout:write("alias ",k," '",v,"';\n")
-      dbg.print(   "alias ",k," '",v,"';\n")
+      dbg.print{   "alias ",k," '",v,"';\n"}
    end
 end
 
@@ -95,7 +95,7 @@ function Csh.expandVar(self, k, v, vType)
    lineA[#lineA + 1] = "\";\n"
    local  line       = concatTbl(lineA,"")
    stdout:write(line)
-   dbg.print(   line)
+   dbg.print{   line}
 end
 
 --------------------------------------------------------------------------
@@ -112,7 +112,7 @@ function Csh.unset(self, k, vType)
    lineA[#lineA + 1] = ";\n"
    local line = concatTbl(lineA,"")
    stdout:write(line)
-   dbg.print(   line)
+   dbg.print{   line}
 end
 
 return Csh

@@ -48,7 +48,7 @@ function M.name(self)
 end
 
 function M._build_pkgBase(self,level)
-   dbg.start("Pkg:_build_pkgBase()")
+   dbg.start{"Pkg:_build_pkgBase()"}
    local pkgNameVer = self._pkgNameVer
    local pkgRoot    = self._pkgRoot
    local a          = {}
@@ -66,7 +66,7 @@ function M._build_pkgBase(self,level)
 end   
 
 function M.moduleDir(self)
-   dbg.start("Pkg:moduleDir()")
+   dbg.start{"Pkg:moduleDir()"}
    local level = self.level or 0
    local a     = {}
    a[#a+1]     = os.getenv("MODULEPATH_ROOT")

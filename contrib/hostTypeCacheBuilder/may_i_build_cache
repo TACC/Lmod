@@ -28,7 +28,7 @@ function main()
    if (masterTbl.debug) then
       dbg:activateDebug(1)
    end
-   dbg.start("May_I_build_cache", concatTbl(arg," "),")")
+   dbg.start{"May_I_build_cache", concatTbl(arg," "),")"}
    local attr       = lfs.attributes(masterTbl.systemUpdateFn)
    local hostType   = "system"
    local lastUpdate = 0
@@ -41,7 +41,7 @@ function main()
       f:close()
    end
 
-   dbg.print("hostType: ",hostType,"\n")
+   dbg.print{"hostType: ",hostType,"\n"}
 
    local sysCacheTime = 0
    local sysCacheFile = pathJoin(masterTbl.cacheDir, hostType,"moduleT.lua")
@@ -50,7 +50,7 @@ function main()
       sysCacheTime = attr.modification
    end
 
-   dbg.print("sysCacheTime - lastUpdate: ",sysCacheTime - lastUpdate,"\n")
+   dbg.print{"sysCacheTime - lastUpdate: ",sysCacheTime - lastUpdate,"\n"}
 
    ------------------------------------------------------------------------
    -- If system update is older than cache file then do not rebuild
@@ -70,7 +70,7 @@ function main()
    local hostA = clusterDescriptT.hostType[hostType]
    local hostT = {}
    for i = 1,#hostA do
-      dbg.print("hostA[",i,"]: ",hostA[i])
+      dbg.print{"hostA[",i,"]: ",hostA[i]}
       hostT[hostA[i]] = i
    end
 
@@ -81,7 +81,7 @@ function main()
    myHostName = posix.uname("%n")
    local hostIdx = -1
    while(true) do
-      dbg.print("myHostName: ",myHostName,"\n")
+      dbg.print{"myHostName: ",myHostName,"\n"}
       if (hostT[myHostName]) then
          hostIdx = hostT[myHostName]
          break
@@ -93,7 +93,7 @@ function main()
       myHostName = myHostName:sub(1,j-1)
    end
 
-   dbg.print("hostIdx: ",hostIdx,"\n")
+   dbg.print{"hostIdx: ",hostIdx,"\n"}
 
    ------------------------------------------------------------------------
    -- If I'm not in hostT then I'm not responible for building cache file.
@@ -120,7 +120,7 @@ function main()
    for idx = hostIdx-1, 1, -1 do
       local cmd    = pingCmd .. hostA[idx] .. "> /dev/null 2>&1"
       local result = os.execute(cmd)
-      dbg.print("idx: ",idx," host: ",hostA[idx], " result: ",result,"\n")
+      dbg.print{"idx: ",idx," host: ",hostA[idx], " result: ",result,"\n"}
       if (result == 0) then
          print("no")
          dbg.fini()

@@ -111,10 +111,10 @@ end
 --                     actual expansion to standard out (io.stdout).
 
 function M.expand(self, tbl)
-   dbg.start("BaseShell:expand(tbl)")
+   dbg.start{"BaseShell:expand(tbl)"}
 
    if ( not self._active) then
-      dbg.print("expand is not active\n")
+      dbg.print{"expand is not active\n"}
       dbg.fini("BaseShell:expand")
       return
    end
@@ -147,7 +147,7 @@ end
 --                        won't be taxed to much.
 
 function M.expandMT(self, vstr)
-   dbg.start("BaseShell:expandMT(vstr)")
+   dbg.start{"BaseShell:expandMT(vstr)"}
    local vv      = encode64(vstr)
    local a       = {}
    local vlen    = vv:len()

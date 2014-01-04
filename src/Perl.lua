@@ -64,12 +64,12 @@ function Perl.expandVar(self, k, v, vType)
    lineA[#lineA + 1] = "\";\n"
    local line        = concatTbl(lineA,"")
    stdout:write(line)
-   dbg.print(   line)
+   dbg.print{   line}
 end
 
 function Perl.unset(self, k, vType)
    stdout:write("delete $ENV{",k,"};\n")
-   dbg.print(   "delete $ENV{",k,"};\n")
+   dbg.print{   "delete $ENV{",k,"};\n"}
 end
 
 return Perl

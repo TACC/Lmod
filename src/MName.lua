@@ -268,11 +268,11 @@ end
 --                  version is nil if not known.
 
 function M.version(self)
-   dbg.start("MName:version()")
-   dbg.print("sType:   ", self._sType,"\n")
-   dbg.print("sn:      ", self._sn,"\n")
-   dbg.print("name:    ", self._name,"\n")
-   dbg.print("version: ", self._version,"\n")
+   dbg.start{"MName:version()"}
+   dbg.print{"sType:   ", self._sType,"\n"}
+   dbg.print{"sn:      ", self._sn,"\n"}
+   dbg.print{"name:    ", self._name,"\n"}
+   dbg.print{"version: ", self._version,"\n"}
    if ((self._sn and self._sn == self._name) and
        (self._sType == "load" or self._sType == "userName")) then
       dbg.fini("MName:version")
@@ -292,7 +292,7 @@ end
 
 local function followDefault(path)
    if (path == nil) then return nil end
-   dbg.start("followDefault(path=\"",path,"\")")
+   dbg.start{"followDefault(path=\"",path,"\")"}
    local attr = lfs.symlinkattributes(path)
    local result = path
    if (attr == nil) then
@@ -318,7 +318,7 @@ local function followDefault(path)
       end
       result = concatTbl(a,"/")
    end
-   dbg.print("result: ",result,"\n")
+   dbg.print{"result: ",result,"\n"}
    dbg.fini("followDefault")
    return result
 end
@@ -326,8 +326,8 @@ end
 local searchExtT = { ".lua", ''}
 
 function M.find_exact_match(self, pathA)
-   dbg.start("MName:find_exact_match(pathA, t)")
-   dbg.print("UserName: ", self:usrName(), "\n")
+   dbg.start{"MName:find_exact_match(pathA, t)"}
+   dbg.print{"UserName: ", self:usrName(), "\n"}
    local t        = { fn = nil, modFullName = nil, modName = nil, default = 0}
    local found    = false
    local result   = nil
@@ -358,8 +358,8 @@ function M.find_exact_match(self, pathA)
       if (found) then
          local _, j = result:find(mpath, 1, true)
          fullName  = result:sub(j+2):gsub("%.lua$","")
-         dbg.print("fullName: ",fullName,"\n")
-         dbg.print("found:", found, " fn: ",fn,"\n")
+         dbg.print{"fullName: ",fullName,"\n"}
+         dbg.print{"found:", found, " fn: ",fn,"\n"}
          break
       end
    end
@@ -380,8 +380,8 @@ end
 searchDefaultT = { "/default", "/.version" }
 
 function M.find_marked_default(self, pathA)
-   dbg.start("MName:find_marked_default(pathA, t)")
-   dbg.print("UserName: ", self:usrName(), "\n")
+   dbg.start{"MName:find_marked_default(pathA, t)"}
+   dbg.print{"UserName: ", self:usrName(), "\n"}
    local t        = { fn = nil, modFullName = nil, modName = nil, default = 0}
    local found    = false
    local result   = nil
@@ -429,7 +429,7 @@ function M.find_marked_default(self, pathA)
       if (found) then
          local _, j = result:find(mpath, 1, true)
          fullName  = result:sub(j+2):gsub("%.lua$","")
-         dbg.print("fullName: ",fullName,", fn: ",fn,"\n")
+         dbg.print{"fullName: ",fullName,", fn: ",fn,"\n"}
          break
       end
    end
@@ -450,12 +450,12 @@ function M.find_marked_default(self, pathA)
 end
 
 function M.find_latest(self, pathA)
-   dbg.start("MName:find_latest(pathA, t)")
+   dbg.start{"MName:find_latest(pathA, t)"}
    local found     = false
    local t         = { fn = nil, modFullName = nil, modName = nil, default = 0}
    local usrName   = self:usrName()
    local sn        = self:sn()
-   dbg.print("UserName: ", self:usrName(), ", sn: ",sn,"\n")
+   dbg.print{"UserName: ", self:usrName(), ", sn: ",sn,"\n"}
    if (sn ~= usrName) then
       dbg.fini("MName:find_latest")
       return found, t
@@ -486,7 +486,7 @@ function M.find_latest(self, pathA)
 end
 
 function M.find_marked_default_between(self, pathA)
-   dbg.start("MName:find_marked_default_between(pathA, t)")
+   dbg.start{"MName:find_marked_default_between(pathA, t)"}
 
    local t     = { fn = nil, modFullName = nil, modName = nil, default = 0}
    local found = false
@@ -508,8 +508,8 @@ function M.find_marked_default_between(self, pathA)
 end
 
 function M.find_between(self, pathA)
-   dbg.start("MName:find_between(pathA, t)")
-   dbg.print("UserName: ", self:usrName(), "\n")
+   dbg.start{"MName:find_between(pathA, t)"}
+   dbg.print{"UserName: ", self:usrName(), "\n"}
 
    local t     = { fn = nil, modFullName = nil, modName = nil, default = 0}
    local found = false
@@ -556,18 +556,18 @@ end
 
 
 function M.find(self)
-   dbg.start("MName:find(",self:usrName(),")")
+   dbg.start{"MName:find(",self:usrName(),")"}
    local t        = { fn = nil, modFullName = nil, modName = nil, default = 0}
    local mt       = MT:mt()
    local fullName = ""
    local modName  = ""
    local sn       = self:sn()
    local Master   = Master
-   dbg.print("MName:find sn: ",sn,"\n")
+   dbg.print{"MName:find sn: ",sn,"\n"}
 
    local pathA = mt:locationTbl(sn)
    if (pathA == nil or #pathA == 0) then
-      dbg.print("did not find key: \"",sn,"\" in mt:locationTbl()\n")
+      dbg.print{"did not find key: \"",sn,"\" in mt:locationTbl()\n"}
       dbg.fini("MName:find")
       return t
    end
@@ -577,13 +577,13 @@ function M.find(self)
    for i = 1, #stepA do
       local func = stepA[i]
       found, t   = func(self, pathA)
-      dbg.print("(1) t.fn: ", t.fn, "\n")
+      dbg.print{"(1) t.fn: ", t.fn, "\n"}
       if (found) then
          break
       end
    end
 
-   dbg.print("(2) t.fn: ", t.fn, "\n")
+   dbg.print{"(2) t.fn: ", t.fn, "\n"}
 
    dbg.fini("MName:find")
    return t

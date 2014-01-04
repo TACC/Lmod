@@ -72,7 +72,7 @@ function main()
       dbg:activateDebug(1)
    end
 
-   dbg.start("processMT()")
+   dbg.start{"processMT()"}
 
    local outputFh  = io.open(optionTbl.fn,"a")
 
@@ -86,7 +86,7 @@ function main()
    local nusers = line:match("(%d+)")
    local pb     = ProgressBar:new{stream = io.stdout, max = nusers, barWidth=100}
 
-   dbg.print("nusers: ",nusers,"\n")
+   dbg.print{"nusers: ",nusers,"\n"}
 
    local iuser = 0
    for userName, homeDir in processPWRec(passwd) do
@@ -98,7 +98,7 @@ function main()
 
       local dir  = pathJoin(homeDir,".lmod.d",USER_SAVE_DIR_NAME)
       local attr = lfs.attributes(dir)
-      dbg.print("user: ",iuser," userName: ",userName," dir: ",dir,"\n")
+      dbg.print{"user: ",iuser," userName: ",userName," dir: ",dir,"\n"}
       if ( attr and attr.mode == "directory") then
          for file in lfs.dir(dir) do
             if (file:sub(-4,-1) == ".lua") then

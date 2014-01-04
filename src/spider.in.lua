@@ -111,7 +111,7 @@ local function add2map(entry, tbl, rmapT, kind)
 end
 
 local function rptList(moduleDirA, moduleT, dbT)
-   dbg.start("rptList(moduleDirA, moduleT, dbT)")
+   dbg.start{"rptList(moduleDirA, moduleT, dbT)"}
    local tbl = {}
    Spider.listModules(moduleT, tbl)
    for k in pairsByKeys(tbl) do
@@ -121,7 +121,7 @@ local function rptList(moduleDirA, moduleT, dbT)
 end
 
 local function rptModuleT(moduleDirA, moduleT, dbT)
-   dbg.start("rptModuleT(moduleDirA, moduleT,dbT)")
+   dbg.start{"rptModuleT(moduleDirA, moduleT,dbT)"}
    local s1 = serializeTbl{name="defaultMpathA",value=moduleDirA,indent=true}
    local s2 = serializeTbl{name="moduleT",      value=moduleT,   indent=true}
    io.stdout:write(s1,s2,"\n")
@@ -129,7 +129,7 @@ local function rptModuleT(moduleDirA, moduleT, dbT)
 end
 
 local function rptReverseMapT(moduleDirA, moduleT, dbT)
-   dbg.start("rptReverseMapT(moduleDirA, moduleT, dbT)")
+   dbg.start{"rptReverseMapT(moduleDirA, moduleT, dbT)"}
    local reverseMapT = {}
 
    for kkk,vvv in pairs(dbT) do
@@ -148,14 +148,14 @@ local function rptReverseMapT(moduleDirA, moduleT, dbT)
 end
 
 local function rptSoftwarePageJson(moduleDirA, moduleT, dbT)
-   dbg.start("rptSoftwarePageJson(moduleDirA, moduleT, dbT)")
+   dbg.start{"rptSoftwarePageJson(moduleDirA, moduleT, dbT)"}
    local spA = softwarePage(dbT)
    print(json.encode(spA))
    dbg.fini("rptSoftwarePageJson")
 end
 
 local function rptSoftwarePageLua(moduleDirA, moduleT, dbT)
-   dbg.start("rptSoftwarePageLua(moduleDirA, moduleT, dbT)")
+   dbg.start{"rptSoftwarePageLua(moduleDirA, moduleT, dbT)"}
    local spA = softwarePage(dbT)
    local s   = serializeTbl{name="spA",      value=spA,   indent=true}
    print(s)
@@ -163,21 +163,21 @@ local function rptSoftwarePageLua(moduleDirA, moduleT, dbT)
 end
 
 local function rptSoftwarePageXml(moduleDirA, moduleT, dbT)
-   dbg.start("rptSoftwarePageXml(moduleDirA, moduleT, dbT)")
+   dbg.start{"rptSoftwarePageXml(moduleDirA, moduleT, dbT)"}
    local xmlStr = xmlSoftwarePage(dbT)
    print(xmlStr)
    dbg.fini("rptSoftwarePageXml")
 end
 
 local function rptDbT(moduleDirA, moduleT, dbT)
-   dbg.start("rptDbT(moduleDirA, moduleT, dbT)")
+   dbg.start{"rptDbT(moduleDirA, moduleT, dbT)"}
    local s = serializeTbl{name="dbT",      value=dbT,   indent=true}
    print(s)
    dbg.fini("rptDbT")
 end
 
 local function rptDbTJson(moduleDirA, moduleT, dbT)
-   dbg.start("rptDbTJson(moduleDirA, moduleT, dbT)")
+   dbg.start{"rptDbTJson(moduleDirA, moduleT, dbT)"}
    print(json.encode(dbT))
    dbg.fini("rptDbTJson")
 end
@@ -205,7 +205,7 @@ function main()
       dbg:activateDebug(1)
    end
 
-   dbg.start("Spider main()")
+   dbg.start{"Spider main()"}
    MCP = MasterControl.build("spider")
    mcp = MasterControl.build("spider")
 
@@ -241,13 +241,13 @@ function main()
                       package.cpath
    end
 
-   dbg.print("lmodPath:", lmodPath,"\n")
+   dbg.print{"lmodPath:", lmodPath,"\n"}
    require("SitePackage")
    Spider.findAllModules(moduleDirA, moduleT)
 
    if (dbg.active()) then
       for k,v in pairs(moduleT) do
-         dbg.print("k: ",k,"\n")
+         dbg.print{"k: ",k,"\n"}
       end
    end
 
@@ -466,7 +466,7 @@ end
 
 
 function localSoftware(xml, name, t)
-   dbg.start("localSoftware(xml,",name,",t)")
+   dbg.start{"localSoftware(xml,",name,",t)"}
 
    local root = xml.new("LocalSoftware")
 
@@ -498,17 +498,17 @@ function localSoftware(xml, name, t)
    local Name = xml.new("Type")
    Name[1]    = value
    root:append(Name)
-   dbg.print("Type: ",value,"\n")
+   dbg.print{"Type: ",value,"\n"}
 
    local Name = xml.new("Domain")
    Name[1]    = domain
    root:append(Name)
-   dbg.print("domain: ",domain,"\n")
+   dbg.print{"domain: ",domain,"\n"}
 
    local Name = xml.new("Name")
    Name[1]    = name
    root:append(Name)
-   dbg.print("name: ",name,"\n")
+   dbg.print{"name: ",name,"\n"}
 
    local Description = xml.new("Description")
    Description[1]    = t.Description

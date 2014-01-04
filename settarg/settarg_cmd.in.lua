@@ -81,7 +81,7 @@ function main()
    if (masterTbl.debug) then
       dbg:activateDebug(1)
    end
-   dbg.start("settarg()")
+   dbg.start{"settarg()"}
 
    -- Error out if there are spaces in command line arguments
    for i = 1,#masterTbl.pargs do

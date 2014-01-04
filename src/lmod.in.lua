@@ -127,6 +127,7 @@ local dbg          = require("Dbg"):dbg()
 local Timer        = require("Timer")
 local Version      = require("Version")
 local concatTbl    = table.concat
+local max          = math.max
 local unpack       = unpack or table.unpack
 local timer        = Timer:timer()
 
@@ -134,12 +135,12 @@ function set_duplication()
    local dups = LMOD_DUPLICATE_PATHS
    dups       = dups:lower()
    if (dups == "yes") then
-      dbg.print("Allowing duplication in paths\n")
+      dbg.print{"Allowing duplication in paths\n"}
       allow_dups = function (dupsIn)
          return dupsIn
       end
    else
-      dbg.print("No duplication allowed in paths\n")
+      dbg.print{"No duplication allowed in paths\n"}
       allow_dups = function (dupsIn)
          return false
       end
@@ -313,7 +314,7 @@ local function localvar(localvarA)
             varTbl[k] = Var:new(k)
          end
          local vv = v:sub(i+1)
-         dbg.print("setLocal(\"",k,"\", \"",vv,"\")\n")
+         dbg.print{"setLocal(\"",k,"\", \"",vv,"\")\n"}
          varTbl[k]:setLocal(vv)
       end
    end
@@ -467,12 +468,13 @@ function main()
 
    localvar(masterTbl.localvarA)
 
-   if (masterTbl.debug or masterTbl.dbglvl) then
-      dbg:activateDebug(masterTbl.dbglvl or 1)
+   if (masterTbl.debug > 0 or masterTbl.dbglvl) then
+      local dbgLevel = max(masterTbl.debug, masterTbl.dbglvl or 1)
+      dbg:activateDebug(dbgLevel)
    end
-   dbg.start("lmod(", arg_str,")")
-   dbg.print("Lmod Version: ",Version.name(),"\n")
-   dbg.print("package.path: ",package.path,"\n")
+   dbg.start{"lmod(", arg_str,")"}
+   dbg.print{"Lmod Version: ",Version.name(),"\n"}
+   dbg.print{"package.path: ",package.path,"\n"}
    set_duplication()     -- Chose how to handle duplicate entries in a path.
    readRC()
 
@@ -499,9 +501,9 @@ function main()
                       package.cpath
    end
 
-   dbg.print("lmodPath: ", lmodPath,"\n")
+   dbg.print{"lmodPath: ", lmodPath,"\n"}
    require("SitePackage")
-   dbg.print("epoch_type: ",epoch_type,"\n")
+   dbg.print{"epoch_type: ",epoch_type,"\n"}
 
    local cmdName = masterTbl.pargs[1]
    table.remove(masterTbl.pargs,1)
@@ -576,7 +578,7 @@ function main()
    if (cmdTbl[cmdName]) then
       local cmd = cmdTbl[cmdName].cmd
       cmdName   = cmdTbl[cmdName].name
-      dbg.print("cmd name: ", cmdName,"\n")
+      dbg.print{"cmd name: ", cmdName,"\n"}
       cmd(unpack(masterTbl.pargs))
    end
 
@@ -589,7 +591,7 @@ function main()
       mt:reportChanges()
    end
 
-   dbg.print("mt: ",tostring(mt),"\n")
+   dbg.print{"mt: ",tostring(mt),"\n"}
    -- Store the Module table in "_ModuleTable_" env. var.
    local n        = mt:name()
    local oldValue = getMT() or ""
@@ -598,7 +600,7 @@ function main()
    if (oldValue ~= value) then
       varTbl[n] = Var:new(n)
       varTbl[n]:set(value)
-      dbg.print("Writing out _ModuleTable_\n")
+      dbg.print{"Writing out _ModuleTable_\n"}
    end
    dbg.fini("Lmod")
 

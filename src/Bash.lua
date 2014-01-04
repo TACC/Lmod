@@ -55,11 +55,11 @@ Bash.my_name      = "bash"
 function Bash.alias(self, k, v)
    if (v == "") then
       stdout:write("unalias ",k," 2> /dev/null;\n")
-      dbg.print(   "unalias ",k," 2> /dev/null;\n")
+      dbg.print{   "unalias ",k," 2> /dev/null;\n"}
    else
       v = v:gsub(";%s*$","")
       stdout:write("alias ",k,"='",v,"';\n")
-      dbg.print(   "alias ",k,"='",v,"';\n")
+      dbg.print{   "alias ",k,"='",v,"';\n"}
    end
 end
 
@@ -71,11 +71,11 @@ end
 function Bash.shellFunc(self, k, v)
    if (v == "") then
       stdout:write("unset -f ",k," 2> /dev/null;\n")
-      dbg.print(   "unset -f ",k," 2> /dev/null;\n")
+      dbg.print{   "unset -f ",k," 2> /dev/null;\n"}
    else
       local func = v[1]:gsub(";%s*$","")
       stdout:write(k,"() { ",func,"; };\n")
-      dbg.print(   k,"() { ",func,"; };\n")
+      dbg.print{   k,"() { ",func,"; };\n"}
    end
 end
 
@@ -85,7 +85,7 @@ end
 --                   syntax
 
 function Bash.expandVar(self, k, v, vType)
-   dbg.print("Key: ", k, " type(value): ", type(v)," value: ",v,"\n")
+   dbg.print{"Key: ", k, " type(value): ", type(v)," value: ",v,"\n"}
    local lineA       = {}
    v                 = doubleQuoteEscaped(tostring(v))
    lineA[#lineA + 1] = k
@@ -99,7 +99,7 @@ function Bash.expandVar(self, k, v, vType)
    end
    local line = concatTbl(lineA,"")
    stdout:write(line)
-   dbg.print(   line)
+   dbg.print{   line}
 end
 
 --------------------------------------------------------------------------
@@ -107,7 +107,7 @@ end
 
 function Bash.unset(self, k, vType)
    stdout:write("unset ",k,";\n")
-   dbg.print(   "unset ",k,";\n")
+   dbg.print{   "unset ",k,";\n"}
 end
 
 

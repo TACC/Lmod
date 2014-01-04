@@ -97,7 +97,7 @@ function main()
    if (masterTbl.debug) then
       dbg:activateDebug(1, tonumber(masterTbl.indentLevel))
    end
-   dbg.start("computeHashSum()")
+   dbg.start{"computeHashSum()"}
 
    setenv_lmod_version() -- push Lmod version info into env for modulefiles.
    build_epoch()         -- build the epoch function
@@ -115,7 +115,7 @@ function main()
          package.cpath
    end
 
-   dbg.print("lmodPath: \"", lmodPath,"\"\n")
+   dbg.print{"lmodPath: \"", lmodPath,"\"\n"}
    require("SitePackage")
 
    MCP           = MasterControl.build("computeHash","load")
@@ -140,7 +140,7 @@ function main()
    local result = capture(HashSum .. " " .. fn)
    os.remove(fn)
    local i,j = result:find(" ")
-   dbg.print("hash value: ",result:sub(1,i-1),"\n")
+   dbg.print{"hash value: ",result:sub(1,i-1),"\n"}
    print (result:sub(1,i-1))
    dbg.fini("computeHashSum")
 end

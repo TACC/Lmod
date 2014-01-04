@@ -63,7 +63,7 @@ local unpack       = unpack or table.unpack
 local function Access(mode, ...)
    local master    = Master:master()
    local masterTbl = masterTbl()
-   dbg.start("Access(", concatTbl({...},", "),")")
+   dbg.start{"Access(", concatTbl({...},", "),")"}
    mcp = MasterControl.build("access", mode)
    mcp.accessMode(mode,true)
 
@@ -120,7 +120,7 @@ end
 
 function GetDefault(a)
    a          = a or "default"
-   dbg.start("GetDefault(",a,")")
+   dbg.start{"GetDefault(",a,")"}
 
    local path = pathJoin(os.getenv("HOME"), ".lmod.d", a)
    local mt   = MT:mt()
@@ -151,7 +151,7 @@ end
 
 
 function Keyword(...)
-   dbg.start("Keyword(",concatTbl({...},","),")")
+   dbg.start{"Keyword(",concatTbl({...},","),")"}
 
    local master  = Master:master()
    local cache   = Cache:cache()
@@ -183,7 +183,7 @@ end
 
 
 function List(...)
-   dbg.start("List(...)")
+   dbg.start{"List(...)"}
    local masterTbl = masterTbl()
    local mt = MT:mt()
    local totalA = mt:list("userName","any")
@@ -296,7 +296,7 @@ function Load_Try(...)
    local master = Master:master()
    local mt     = MT:mt()
 
-   dbg.start("Load_Try(",concatTbl({...},", "),")")
+   dbg.start{"Load_Try(",concatTbl({...},", "),")"}
    deactivateWarning()
    Load_Usr(...)
    activateWarning()
@@ -320,7 +320,7 @@ function Load_Usr(...)
    local master = Master:master()
    local mt     = MT:mt()
 
-   dbg.start("Load_Usr(",concatTbl({...},", "),")")
+   dbg.start{"Load_Usr(",concatTbl({...},", "),")"}
    local uA = {}
    local lA = {}
    local arg = pack(...)
@@ -344,7 +344,7 @@ function Load_Usr(...)
 
    local mcp_old = mcp
    mcp           = MCP
-   dbg.print("Setting mcp to ", mcp:name(),"\n")
+   dbg.print{"Setting mcp to ", mcp:name(),"\n"}
    local b       = mcp:load_usr(lA)
    mcp           = mcp_old
 
@@ -355,7 +355,7 @@ function Load_Usr(...)
       local sn    = mname:sn()
       if (mt:have(sn, "active")) then
          local usrN  = (not masterTbl().latest) and mname:usrName() or mt:fullName(sn)
-         dbg.print("Karl registration: ",sn," user: ", usrN,"\n")
+         dbg.print{"Karl registration: ",sn," user: ", usrN,"\n"}
          
          ------------------------------------------------------
          -- Register user loads so that Karl will be happy.
@@ -383,7 +383,7 @@ function Purge(force)
    for i = 1, #totalA do
       mA[#mA+1] = MName:new("mt",totalA[i])
    end
-   dbg.start("Purge(",concatTbl(totalA,", "),")")
+   dbg.start{"Purge(",concatTbl(totalA,", "),")"}
 
    MCP:unload_usr(mA,force)
    
@@ -398,7 +398,7 @@ end
 --              lmod-save directory.  This command should probably go away.
 
 function RecordCmd()
-   dbg.start("RecordCmd()")
+   dbg.start{"RecordCmd()"}
    local mt   = MT:mt()
    local s    = serializeTbl{indent=true, name="_ModuleTable_",
                              value=_ModuleTable_}
@@ -427,7 +427,7 @@ end
 
 
 function Refresh()
-   dbg.start("Refresh()")
+   dbg.start{"Refresh()"}
    local master  = Master:master()
    master:refresh()
    dbg.fini("Refresh")
@@ -440,10 +440,10 @@ end
 --           and this command is the same as a purge.
 
 function Reset(msg)
-   dbg.start("Reset()")
+   dbg.start{"Reset()"}
    Purge()
    local default = os.getenv("LMOD_SYSTEM_DEFAULT_MODULES") or ""
-   dbg.print("default: \"",default,"\"\n")
+   dbg.print{"default: \"",default,"\"\n"}
 
    default = default:trim()
    default = default:gsub(" *, *",":")
@@ -463,7 +463,7 @@ function Reset(msg)
 
    local a = {}
    for m in default:split(":") do
-      dbg.print("m: ",m,"\n")
+      dbg.print{"m: ",m,"\n"}
       a[#a + 1] = m
    end
    if (#a > 0) then
@@ -478,7 +478,7 @@ end
 --            Otherwise do a "Reset()"
 
 function Restore(a)
-   dbg.start("Restore(",a,")")
+   dbg.start{"Restore(",a,")"}
 
    local msg
    local path
@@ -535,7 +535,7 @@ function Save(...)
    local mt        = MT:mt()
    local a         = select(1, ...) or "default"
    local path      = pathJoin(os.getenv("HOME"), LMODdir)
-   dbg.start("Save(",concatTbl({...},", "),")")
+   dbg.start{"Save(",concatTbl({...},", "),")"}
 
    if (a == "system") then
       LmodWarning("The named collection 'system' is reserved. Please choose another name.\n")
@@ -644,7 +644,7 @@ end
 
 function Show(...)
    local master = Master:master()
-   dbg.start("Show(", concatTbl({...},", "),")")
+   dbg.start{"Show(", concatTbl({...},", "),")"}
 
    mcp = MasterControl.build("show")
    local borderStr = border(0)
@@ -664,7 +664,7 @@ end
 --              level 1 or level 2 report on particular modules.
 
 function SpiderCmd(...)
-   dbg.start("SpiderCmd(", concatTbl({...},", "),")")
+   dbg.start{"SpiderCmd(", concatTbl({...},", "),")"}
    local cache   = Cache:cache()
    local moduleT = cache:build()
    local dbT     = {}
@@ -704,7 +704,7 @@ function Swap(...)
    local b = select(2, ...) or ""
    local s = {}
 
-   dbg.start("Swap(",concatTbl({...},", "),")")
+   dbg.start{"Swap(",concatTbl({...},", "),")"}
 
    local n = select("#", ...)
    if (n ~= 2) then
@@ -721,7 +721,7 @@ function Swap(...)
    local mA      = {}
    local mcp_old = mcp
    mcp           = MCP
-   dbg.print("Setting mcp to ", mcp:name(),"\n")
+   dbg.print{"Setting mcp to ", mcp:name(),"\n"}
    mA[1]         = mname
    mcp:unload(mA)
    mA[1]         = MName:new("load",b)
@@ -738,7 +738,7 @@ function Swap(...)
    local usrN  = (not masterTbl().latest) and b or mt:fullName(sn)
    mt:userLoad(sn,usrN)
    mcp = mcp_old
-   dbg.print("Setting mcp to ", mcp:name(),"\n")
+   dbg.print{"Setting mcp to ", mcp:name(),"\n"}
    dbg.fini("Swap")
 end
 
@@ -746,7 +746,7 @@ end
 --  TableList(): list the loaded modules in a lua table
 
 function TableList()
-   dbg.start("TableList()")
+   dbg.start{"TableList()"}
    local mt = MT:mt()
 
    local t = {}
@@ -755,7 +755,7 @@ function TableList()
       local mname   = MName:new("mt",v)
       local sn      = mname:sn()
       local version = mname:version()
-      dbg.print("sn: ",sn,", version: ",version,"\n")
+      dbg.print{"sn: ",sn,", version: ",version,"\n"}
       t[sn] = version
    end
    local s = serializeTbl{name="activeList",indent=true, value=t}
@@ -780,7 +780,7 @@ function Use(...)
    local mt  = MT:mt()
    local a = {}
    local op = MCP.prepend_path
-   dbg.start("Use(", concatTbl({...},", "),")")
+   dbg.start{"Use(", concatTbl({...},", "),")"}
 
    local arg = pack(...)
    for i = 1, arg.n do
@@ -814,7 +814,7 @@ end
 
 function UnUse(...)
    local mt  = MT:mt()
-   dbg.start("UnUse(", concatTbl({...},", "),")")
+   dbg.start{"UnUse(", concatTbl({...},", "),")"}
    local arg = pack(...)
    for i = 1, arg.n do
       local v = arg[i]
@@ -830,7 +830,7 @@ end
 --  UnLoad():  unload all requested modules
 
 function UnLoad(...)
-   dbg.start("UnLoad(",concatTbl({...},", "),")")
+   dbg.start{"UnLoad(",concatTbl({...},", "),")"}
    MCP:unload_usr(MName:buildA("mt", ...))
    dbg.fini("UnLoad")
 end

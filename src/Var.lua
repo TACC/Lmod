@@ -156,7 +156,7 @@ function M.prt(self,title)
    dbg.print ("imax:  \"", self.imax, "\"\n")
    dbg.print ("value: \"", self.value,"\"\n")
    if (not self.tbl or type(self.tbl) ~= "table" or next(self.tbl) == nil) then
-      dbg.print("tbl is empty\n")
+      dbg.print{"tbl is empty\n"}
       return
    end
    for k,v in pairs(self.tbl) do
@@ -175,7 +175,7 @@ end
 
 local function chkMP(name)
    if (name == ModulePath) then
-      dbg.print("calling reEvalModulePath()\n")
+      dbg.print{"calling reEvalModulePath()\n"}
       local mt = systemG.MT:mt()
 
       mt:changePATH()

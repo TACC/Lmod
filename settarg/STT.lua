@@ -57,7 +57,7 @@ local function stt_version()
 end
 
 local function new(self, s)
-   dbg.start("STT:new(s)")
+   dbg.start{"STT:new(s)"}
    local o   = {}
 
    if (not s) then
@@ -79,7 +79,7 @@ local function new(self, s)
       end
    end
 
-   dbg.print("buildScenarioState: ",o.buildScenarioState,"\n")
+   dbg.print{"buildScenarioState: ",o.buildScenarioState,"\n"}
 
 
    setmetatable(o, self)
@@ -107,12 +107,12 @@ function M.getBuildScenarioState(self)
 end
 
 function M.setBuildScenarioState(self, scenario)
-   dbg.print("Setting BS: ",scenario, "\n")
+   dbg.print{"Setting BS: ",scenario, "\n"}
    self.buildScenarioState = scenario
 end
 
 function M.getEXTRA(self)
-   dbg.start("STT:getEXTRA()")
+   dbg.start{"STT:getEXTRA()"}
    local extraT  = self.extraT
    local a = {}
    for k in pairsByKeys(extraT) do
@@ -123,7 +123,7 @@ function M.getEXTRA(self)
 end
    
 function M.removeFromExtra(self, remA)
-   dbg.start("STT:removeFromExtra(remA)")
+   dbg.start{"STT:removeFromExtra(remA)"}
    local extraT = self.extraT
    for i = 1,#remA do
       extraT[remA[i]] = nil
@@ -157,7 +157,7 @@ end
 
 function M.stt(self)
    if (not s_stt) then
-      dbg.start("STT:stt()")
+      dbg.start{"STT:stt()"}
       s_stt = new(self, getSTT())
       dbg.fini("STT:stt")
    end

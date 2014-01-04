@@ -61,7 +61,7 @@ function M.new(self, t)
    setmetatable(o,self)
    self.__index = self
 
-   dbg.start("PkgBase:new()")
+   dbg.start{"PkgBase:new()"}
    for k, v in pairs(t) do
       o[k] = v
    end
@@ -87,7 +87,7 @@ function M.new(self, t)
 end
 
 function M.setPkgInfo(self)
-   dbg.start("PkgBase:setPkgInfo()")
+   dbg.start{"PkgBase:setPkgInfo()"}
    whatis("Name: "    .. self:pkgDisplayName())
    whatis("Version: " .. self:pkgVersion())
 
@@ -116,7 +116,7 @@ local stdT = { DIR = "", BIN = "bin", LIB = "lib",
 
 
 function M.setStandardPaths(self, ...)
-   dbg.start("PkgBase:setStandardPaths()")
+   dbg.start{"PkgBase:setStandardPaths()"}
    local siteName = hook.apply("SiteName"):upper()
    local base     = self:pkgBase()
    local pkgNameU = self:pkgDisplayName():upper()

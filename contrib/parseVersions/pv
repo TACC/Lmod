@@ -80,7 +80,7 @@ replaceT = {
 
 function parseVersion(versionStr)
 
-   dbg.start("parseVersion(",versionStr,")")
+   dbg.start{"parseVersion(",versionStr,")"}
 
    local vA = {}
    for part in parseVersionParts(versionStr) do
@@ -103,7 +103,7 @@ function parseVersion(versionStr)
             end
          end
       end
-      dbg.print("idx: ", #vA+1, " (2) part: ",part,"\n")
+      dbg.print{"idx: ", #vA+1, " (2) part: ",part,"\n"}
       vA[#vA+1] = part
    end
 
@@ -135,7 +135,7 @@ function parseVersionParts(versionStr)
             return "*zfinal"
          end
 
-         --dbg.print("s:sub(ipos,-1): ",s:sub(ipos,-1),"\n")
+         --dbg.print{"s:sub(ipos,-1): ",s:sub(ipos,-1),"\n"}
 
          -- grab all numbers and pad to nine places with zeros
          i,j = s:find("^%d+",ipos)
@@ -215,7 +215,7 @@ function main()
 
    --dbg:activateDebug(1)
 
-   dbg.start("main()")
+   dbg.start{"main()"}
    local versionA = { "2.4", "2.4-1", "2.4.1", "2.4a1", "2.4dev1", "2.4rc1", "2.4rc2",
                       "2.4.0.0", "2.4beta2","2.4.0.0.1",
                       "3.2","3.2-cxx","3.3-cmplx","3.3-cxx", "3.3","3.2-shared","3.2-static",

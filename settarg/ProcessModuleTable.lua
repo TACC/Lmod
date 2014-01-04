@@ -48,7 +48,7 @@ local function buildTargetName(name, defaultFlag, fullName)
 end
 
 function processModuleTable(mt_string, targetTbl, tbl)
-   dbg.start("processModuleTable(mt_string, targetTbl, tbl)")
+   dbg.start{"processModuleTable(mt_string, targetTbl, tbl)"}
    if (mt_string == nil) then return end
    assert(load(mt_string))()
    local mt        = systemG._ModuleTable_
@@ -65,7 +65,7 @@ function processModuleTable(mt_string, targetTbl, tbl)
                targetTbl[key] = -1
                local K = "TARG_" .. key:upper()
                tbl[K] = buildTargetName(sn, v.default, v.fullName)
-               dbg.print("V2: K: ",K, " tbl[K]: ",tbl[K],"\n")
+               dbg.print{"V2: K: ",K, " tbl[K]: ",tbl[K],"\n"}
             end
          end
       end
@@ -73,7 +73,7 @@ function processModuleTable(mt_string, targetTbl, tbl)
 
    for k in pairs(targetTbl) do
       if (targetTbl[k] ~= -1) then
-         dbg.print("Clearing k: ",k," targetTbl[k]: ", tostring(targetTbl[k]), "\n")
+         dbg.print{"Clearing k: ",k," targetTbl[k]: ", tostring(targetTbl[k]), "\n"}
          local K = "TARG_" .. k:upper()
          tbl[K] = false
       end

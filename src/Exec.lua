@@ -58,7 +58,7 @@ end
 
 function M.exec(self)
    if (not s_exec) then
-      dbg.start("Exec:exec()")
+      dbg.start{"Exec:exec()"}
       s_exec = new(self)
       dbg.fini("Exec:exec")
    end

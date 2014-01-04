@@ -92,7 +92,7 @@ function M.options(self, usage)
    cmdlineParser:add_option{
       name   = {"-D"},
       dest   = "debug",
-      action = "store_true",
+      action = "count",
       help   = "Program tracing written to stderr",
    }
 

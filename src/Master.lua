@@ -92,7 +92,7 @@ local numSrchLatest = 2
 
 local function followDefault(path)
    if (path == nil) then return nil end
-   dbg.start("followDefault(path=\"",path,"\")")
+   dbg.start{"followDefault(path=\"",path,"\")"}
    local attr = lfs.symlinkattributes(path)
    local result = path
    if (attr == nil) then
@@ -118,7 +118,7 @@ local function followDefault(path)
       end
       result = concatTbl(a,"/")
    end
-   dbg.print("result: ",result,"\n")
+   dbg.print{"result: ",result,"\n"}
    dbg.fini("followDefault")
    return result
 end
@@ -137,7 +137,7 @@ end
 
 
 local function find_inherit_module(fullModuleName, oldFn)
-   dbg.start("find_inherit_module(",fullModuleName,",",oldFn, ")")
+   dbg.start{"find_inherit_module(",fullModuleName,",",oldFn, ")"}
 
    local t        = {fn = nil, modFullName = nil, modName = nil, default = 0}
    local mt       = systemG.MT:mt()
@@ -160,12 +160,12 @@ local function find_inherit_module(fullModuleName, oldFn)
       local mpath  = vv.mpath
       fn           = pathJoin(vv.file, mname:version())
       result       = nil
-      dbg.print("ii: ",ii," mpath: ",mpath," vv.file: ",vv.file," fn: ",fn,"\n")
+      dbg.print{"ii: ",ii," mpath: ",mpath," vv.file: ",vv.file," fn: ",fn,"\n"}
       for i = 1, #searchTbl do
          local f        = fn .. searchTbl[i]
          local attr     = lfs.attributes(f)
          local readable = posix.access(f,"r")
-         dbg.print('(1) fn: ',fn," f: ",f,"\n")
+         dbg.print{'(1) fn: ',fn," f: ",f,"\n"}
          if (readable and attr and attr.mode == "file") then
             result = f
             rstripped = result:gsub("%.lua$","")
@@ -173,7 +173,7 @@ local function find_inherit_module(fullModuleName, oldFn)
          end
       end
 
-      dbg.print("(2) result: ", result, " foundOld: ", foundOld,"\n")
+      dbg.print{"(2) result: ", result, " foundOld: ", foundOld,"\n"}
       if (foundOld) then
          break
       end
@@ -183,10 +183,10 @@ local function find_inherit_module(fullModuleName, oldFn)
          foundOld = true
          result = nil
       end
-      dbg.print("(3) result: ", result, " foundOld: ", foundOld,"\n")
+      dbg.print{"(3) result: ", result, " foundOld: ", foundOld,"\n"}
    end
 
-   dbg.print("fullModuleName: ",fullModuleName, " fn: ", result,"\n")
+   dbg.print{"fullModuleName: ",fullModuleName, " fn: ", result,"\n"}
    t.modFullName = fullModuleName
    t.fn          = result
    dbg.fini("find_inherit_module")
@@ -221,21 +221,21 @@ end
 
 
 --local function find_module_file(mname)
---   dbg.start("Master:find_module_file(",mname:usrName(),")")
+--   dbg.start{"Master:find_module_file(",mname:usrName(),")"}
 --
 --   local t        = { fn = nil, modFullName = nil, modName = nil, default = 0}
 --   local mt       = MT:mt()
 --   local fullName = ""
 --   local modName  = ""
 --   local sn       = mname:sn()
---   dbg.print("f_m_f sn: ",sn,"\n")
+--   dbg.print{"f_m_f sn: ",sn,"\n"}
 --
 --   -- Get all directories that contain the shortname [[sn]].  If none exist
 --   -- then the module does not exist => exit
 --
 --   local pathA = mt:locationTbl(sn)
 --   if (pathA == nil or #pathA == 0) then
---      dbg.print("did not find key: \"",sn,"\" in mt:locationTbl()\n")
+--      dbg.print{"did not find key: \"",sn,"\" in mt:locationTbl()\n"}
 --      dbg.fini("Master:find_module_file")
 --      return t
 --   end
@@ -273,10 +273,10 @@ end
 --            result    = f
 --            found     = true
 --         end
---         dbg.print('(1) fn: ',fn,", found: ",found,", v: ",v,", f: ",f,"\n")
+--         dbg.print{'(1) fn: ',fn,", found: ",found,", v: ",v,", f: ",f,"\n"}
 --         if (found and v == '/default') then
 --            result    = followDefault(result)
---            dbg.print("(2) result: ",result, " f: ", f, "\n")
+--            dbg.print{"(2) result: ",result, " f: ", f, "\n"}
 --            t.default = 1
 --         elseif (found and v == '/.version') then
 --            local vf = M.versionFile(result)
@@ -290,14 +290,14 @@ end
 --         if (found) then
 --            local _,j = result:find(mpath,1,true)
 --            fullName  = result:sub(j+2):gsub("%.lua$","")
---            dbg.print("fullName: ",fullName,"\n")
+--            dbg.print{"fullName: ",fullName,"\n"}
 --            break
 --         end
 --      end
 --      if (found) then break end
 --   end
 --
---   dbg.print("found:", found, " fn: ",fn,"\n")
+--   dbg.print{"found:", found, " fn: ",fn,"\n"}
 --
 --   if (not found) then
 --      local vv    = pathA[1]
@@ -313,7 +313,7 @@ end
 --         found = true
 --         local _, j = result:find(mpath,1,true)
 --         fullName   = result:sub(j+2):gsub("%.lua$","")
---         dbg.print("lastFileInDir mpath: ", mpath," fullName: ",fullName,"\n")
+--         dbg.print{"lastFileInDir mpath: ", mpath," fullName: ",fullName,"\n"}
 --      end
 --   end
 --
@@ -334,7 +334,7 @@ end
 -- Master:master() - Singleton Ctor.
 
 function M.master(self, safe)
-   dbg.start("Master:master(safe: ",safe,")")
+   dbg.start{"Master:master(safe: ",safe,")"}
    if (next(s_master) == nil) then
       MT       = systemG.MT
       s_master = new(self, safe)
@@ -428,7 +428,7 @@ end
 --                    is going to do has already been done.
 
 --function M.fakeload(mA)
---   dbg.start("Master:fakeload(mA)")
+--   dbg.start{"Master:fakeload(mA)"}
 --   local a   = {}
 --   local mt  = MT:mt()
 --   for i = 1,#mA do
@@ -453,7 +453,7 @@ end
 --                         instead of copying.
 
 function M.inheritModule()
-   dbg.start("Master:inherit()")
+   dbg.start{"Master:inherit()"}
 
    local mt      = MT:mt()
    local shellN  = s_master.shell:name()
@@ -463,21 +463,21 @@ function M.inheritModule()
    local sn      = mStack:sn()
    local mFull   = mStack:fullName()
 
-   dbg.print("myFn:  ", myFn,"\n")
-   dbg.print("mFull: ", mFull,"\n")
+   dbg.print{"myFn:  ", myFn,"\n"}
+   dbg.print{"mFull: ", mFull,"\n"}
 
    local fnI     
    
    if (mode() == "unload") then
-      dbg.print("here before pop\n")
+      dbg.print{"here before pop\n"}
       fnI = mt:popInheritFn(sn)
-      dbg.print("fnI: ",fnI,"\n")
+      dbg.print{"fnI: ",fnI,"\n"}
    else
       local t = find_inherit_module(mFull,myFn)
       fnI = t.fn
    end
 
-   dbg.print("fn: ", fnI,"\n")
+   dbg.print{"fn: ", fnI,"\n"}
    if (fnI == nil) then
       LmodError("Failed to inherit: ",mFull,"\n")
    else
@@ -505,7 +505,7 @@ function M.load(mA)
    local mt     = MT:mt()
    local a      = {}
 
-   dbg.start("Master:load(mA)")
+   dbg.start{"Master:load(mA)"}
 
    a   = {}
    for i  = 1,#mA do
@@ -515,22 +515,22 @@ function M.load(mA)
       local loaded     = false
       local t          = mname:find()
       local fn         = t.fn
-      dbg.print("fn: ", t.fn,"\n")
+      dbg.print{"fn: ", t.fn,"\n"}
       if (mt:have(sn,"active")) then
          dbg.print("Master:load reload module: \"",moduleName,
                    "\" as it is already loaded\n")
          local mcp_old = mcp
          mcp           = MCP
-         dbg.print("Setting mcp to ", mcp:name(),"\n")
+         dbg.print{"Setting mcp to ", mcp:name(),"\n"}
          local ma      = {}
          ma[1]         = mA[i]
          mcp:unload(ma)
          local aa = mcp:load(ma)
          mcp           = mcp_old
-         dbg.print("Setting mcp to ", mcp:name(),"\n")
+         dbg.print{"Setting mcp to ", mcp:name(),"\n"}
          loaded = aa[1]
       elseif (fn) then
-         dbg.print("Master:loading: \"",moduleName,"\" from f: \"",fn,"\"\n")
+         dbg.print{"Master:loading: \"",moduleName,"\" from f: \"",fn,"\"\n"}
          local mList = concatTbl(mt:list("both","active"),":")
          mt:add(t, "pending")
 	 mt:beginOP()
@@ -538,9 +538,9 @@ function M.load(mA)
 	 loadModuleFile{file=fn, shell = shellN, mList = mList, reportErr=true}
          mStack:pop()
 	 mt:endOP()
-         dbg.print("Making ", t.modName, " active\n")
+         dbg.print{"Making ", t.modName, " active\n"}
          mt:setStatus(sn, "active")
-         dbg.print("Marked: ",t.modFullName," as loaded\n")
+         dbg.print{"Marked: ",t.modFullName," as loaded\n"}
          loaded = true
          hook.apply("load",t)
       end
@@ -548,7 +548,7 @@ function M.load(mA)
    end
 
    if (M.safeToUpdate() and mt:safeToCheckZombies() and mStack:empty()) then
-      dbg.print("Master:load calling reloadAll()\n")
+      dbg.print{"Master:load calling reloadAll()\n"}
       M.reloadAll()
    end
    dbg.fini("Master:load")
@@ -569,7 +569,7 @@ function M.refresh()
    local shellN  = s_master.shell:name()
    local mcp_old = mcp
    mcp           = MasterControl.build("refresh","load")
-   dbg.start("Master:refresh()")
+   dbg.start{"Master:refresh()"}
 
    local activeA = mt:list("short","active")
 
@@ -580,14 +580,14 @@ function M.refresh()
       local full    = mt:fullName(sn)
       local mList   = concatTbl(mt:list("both","active"),":")
       mStack:push(full, usrName, sn, fn)
-      dbg.print("loading: ",sn," fn: ", fn,"\n")
+      dbg.print{"loading: ",sn," fn: ", fn,"\n"}
       loadModuleFile{file = fn, shell = shellN, mList = mList,
                      reportErr=true}
       mStack:pop()
    end
 
    mcp = mcp_old
-   dbg.print("Setting mcp to : ",mcp:name(),"\n")
+   dbg.print{"Setting mcp to : ",mcp:name(),"\n"}
    dbg.fini("Master:refresh")
 end
 
@@ -601,11 +601,11 @@ end
 
 function M.reloadAll()
    local mt   = MT:mt()
-   dbg.start("Master:reloadAll()")
+   dbg.start{"Master:reloadAll()"}
 
    local mcp_old = mcp
    mcp = MCP
-   dbg.print("Setting mcp to ", mcp:name(),"\n")
+   dbg.print{"Setting mcp to ", mcp:name(),"\n"}
 
    local same = true
    local a    = mt:list("userName","any")
@@ -613,8 +613,8 @@ function M.reloadAll()
       local v = a[i]
       local sn = v.sn
       if (mt:have(sn, "active")) then
-         dbg.print("module sn: ",sn," is active\n")
-         dbg.print("userName:  ",v.name,"\n")
+         dbg.print{"module sn: ",sn," is active\n"}
+         dbg.print{"userName:  ",v.name,"\n"}
          local mname    = MName:new("userName", v.name)
          local t        = mname:find()
          local fn       = mt:fileName(sn)
@@ -623,30 +623,30 @@ function M.reloadAll()
          if (t.fn ~= fn) then
             dbg.print("Master:reloadAll t.fn: \"",t.fn or "nil","\"",
                       " mt:fileName(sn): \"",fn or "nil","\"\n")
-            dbg.print("Master:reloadAll Unloading module: \"",sn,"\"\n")
+            dbg.print{"Master:reloadAll Unloading module: \"",sn,"\"\n"}
             local ma = {}
             ma[1] = mname
             mcp:unload(ma)
-            dbg.print("Master:reloadAll Loading module: \"",userName or "nil","\"\n")
+            dbg.print{"Master:reloadAll Loading module: \"",userName or "nil","\"\n"}
             local loadA = mcp:load(ma)
             dbg.print("Master:reloadAll: fn: \"",fn or "nil",
                       "\" mt:fileName(sn): \"", tostring(mt:fileName(sn)), "\"\n")
             if (loadA[1] and fn ~= mt:fileName(sn)) then
                same = false
-               dbg.print("Master:reloadAll module: ",fullName," marked as reloaded\n")
+               dbg.print{"Master:reloadAll module: ",fullName," marked as reloaded\n"}
             end
          end
       else
-         dbg.print("module sn: ", sn, " is inactive\n")
+         dbg.print{"module sn: ", sn, " is inactive\n"}
          local fn    = mt:fileName(sn)
          local name  = v.name          -- This name is short for default and
                                        -- Full for specific version.
-         dbg.print("Master:reloadAll Loading module: \"", name, "\"\n")
+         dbg.print{"Master:reloadAll Loading module: \"", name, "\"\n"}
          local ma    = {}
          ma[1]       = MName:new("load",name)
          local aa = mcp:load(ma)
          if (aa[1] and fn ~= mt:fileName(sn)) then
-            dbg.print("Master:reloadAll module: ", name, " marked as reloaded\n")
+            dbg.print{"Master:reloadAll module: ", name, " marked as reloaded\n"}
          end
          same = not aa[1]
       end
@@ -658,13 +658,13 @@ function M.reloadAll()
       local sn = v.sn
       if (not mt:have(sn, "active")) then
          local t = { modFullName = v.full, modName = sn, default = v.defaultFlg}
-         dbg.print("Master:reloadAll module: ", sn, " marked as inactive\n")
+         dbg.print{"Master:reloadAll module: ", sn, " marked as inactive\n"}
          mt:add(t, "inactive")
       end
    end
 
    mcp = mcp_old
-   dbg.print("Setting mpc to ", mcp:name(),"\n")
+   dbg.print{"Setting mpc to ", mcp:name(),"\n"}
    dbg.fini("Master:reloadAll")
    return same
 end
@@ -685,24 +685,24 @@ function M.unload(mA)
    local mt     = MT:mt()
    local a      = {}
    local shellN = s_master.shell:name()
-   dbg.start("Master:unload(mA)")
+   dbg.start{"Master:unload(mA)"}
 
    local mcp_old = mcp
 
    mcp = MasterControl.build("unload")
-   dbg.print("Setting mcp to ", mcp:name(),"\n")
+   dbg.print{"Setting mcp to ", mcp:name(),"\n"}
    for i = 1, #mA do
       local mname      = mA[i]
       local moduleName = mname:usrName()
       local sn         = mname:sn()
-      dbg.print("Trying to unload: ", moduleName, " sn: ", sn,"\n")
+      dbg.print{"Trying to unload: ", moduleName, " sn: ", sn,"\n"}
 
       if (mt:have(sn,"inactive")) then
-         dbg.print("Removing inactive module: ", moduleName, "\n")
+         dbg.print{"Removing inactive module: ", moduleName, "\n"}
          mt:remove(sn)
          a[#a + 1] = true
       elseif (mt:have(sn,"active")) then
-         dbg.print("Mark ", moduleName, " as pending\n")
+         dbg.print{"Mark ", moduleName, " as pending\n"}
          mt:setStatus(sn,"pending")
          local mList          = concatTbl(mt:list("both","active"),":")
          local f              = mt:fileName(sn)
@@ -710,35 +710,35 @@ function M.unload(mA)
          local isSticky       = mt:haveProperty(sn, "lmod", "sticky")
          if (isSticky) then
             mt:addStickyA(sn)
-            dbg.print("sn: ", sn, " Sticky: ",isSticky,"\n")
+            dbg.print{"sn: ", sn, " Sticky: ",isSticky,"\n"}
          end
 
-         dbg.print("Master:unload: \"",fullModuleName,"\" from f: ",f,"\n")
+         dbg.print{"Master:unload: \"",fullModuleName,"\" from f: ",f,"\n"}
          mt:beginOP()
-         dbg.print("changePATH: ", mt._changePATHCount, "\n")
+         dbg.print{"changePATH: ", mt._changePATHCount, "\n"}
          mStack:push(fullModuleName, moduleName, sn, f)
 	 loadModuleFile{file=f, mList=mList, shell=shellN, reportErr=false}
          mStack:pop()
          mt:endOP()
-         dbg.print("changePATH: ", mt._changePATHCount, "\n")
-         dbg.print("calling mt:remove(\"",sn,"\")\n")
+         dbg.print{"changePATH: ", mt._changePATHCount, "\n"}
+         dbg.print{"calling mt:remove(\"",sn,"\")\n"}
          mt:remove(sn)
          a[#a + 1] = true
       else
          a[#a + 1] = false
       end
    end
-   dbg.print("changePATH: ", mt._changePATHCount, " Zombie state: ",mt:zombieState(),
-             " mStack:empty(): ",mStack:empty(),"\n")
+   dbg.print{"changePATH: ", mt._changePATHCount, " Zombie state: ",mt:zombieState(),
+             " mStack:empty(): ",mStack:empty(),"\n"}
    if (M.safeToUpdate() and mt:safeToCheckZombies() and mStack:empty()) then
-      dbg.print("In unload calling Master.reload\n")
+      dbg.print{"In unload calling Master.reload\n"}
       M.reloadAll()
-      dbg.print("changePATH: ", mt._changePATHCount, " Zombie state: ",mt:zombieState(),
-                " mStack:empty(): ",mStack:empty(),"\n")
+      dbg.print{"changePATH: ", mt._changePATHCount, " Zombie state: ",mt:zombieState(),
+                " mStack:empty(): ",mStack:empty(),"\n"}
    end
 
    mcp = mcp_old
-   dbg.print("Setting mcp to ", mcp:name(),"\n")
+   dbg.print{"Setting mcp to ", mcp:name(),"\n"}
    dbg.fini("Master:unload")
    return a
 end   
@@ -746,7 +746,7 @@ end
 
 function M.reload_sticky(self, force)
 
-   dbg.start("Master:reload_sticky()")
+   dbg.start{"Master:reload_sticky()"}
    -- Try to reload any sticky modules.
    if (masterTbl().force or force) then
       dbg.fini("Master:reload_sticky")
@@ -800,17 +800,17 @@ end
 --                       of "ModulesVersion" is.
 
 function M.versionFile(path)
-   dbg.start("Master:versionFile(",path,")")
+   dbg.start{"Master:versionFile(",path,")"}
    local f       = io.open(path,"r")
    if (not f)                        then
-      dbg.print("could not find: ",path,"\n")
+      dbg.print{"could not find: ",path,"\n"}
       dbg.fini("Master:versionFile")
       return nil
    end
    local s       = f:read("*line")
    f:close()
    if (not s:find("^#%%Module"))      then
-      dbg.print("could not find: #%Module\n")
+      dbg.print{"could not find: #%Module\n"}
       dbg.fini("Master:versionFile")
       return nil
    end
@@ -829,7 +829,7 @@ end
 --                [[mpath]].
 
 local function findDefault(mpath, sn, versionA)
-   dbg.start("Master.findDefault(mpath=\"",mpath,"\", "," sn=\"",sn,"\")")
+   dbg.start{"Master.findDefault(mpath=\"",mpath,"\", "," sn=\"",sn,"\")"}
    local mt   = MT:mt()
    local t    = {}
    
@@ -847,14 +847,14 @@ local function findDefault(mpath, sn, versionA)
             marked = true
             local f = pathJoin(path,vf)
             default = abspath(f,localDir)
-            --dbg.print("(1) f: ",f," default: ", default, "\n")
+            --dbg.print{"(1) f: ",f," default: ", default, "\n"}
             if (default == nil) then
                local fn = vf .. ".lua"
                local f  = pathJoin(path,fn)
                default  = abspath(f,localDir)
-               dbg.print("(2) f: ",f," default: ", default, "\n")
+               dbg.print{"(2) f: ",f," default: ", default, "\n"}
             end
-            --dbg.print("(3) default: ", default, "\n")
+            --dbg.print{"(3) default: ", default, "\n"}
          end
       end
    end
@@ -862,7 +862,7 @@ local function findDefault(mpath, sn, versionA)
    if (not default) then
       default = abspath(versionA[#versionA].file, localDir)
    end
-   dbg.print("default: ", default,"\n")
+   dbg.print{"default: ", default,"\n"}
 
    t.default     = default
    t.marked      = marked
@@ -915,7 +915,7 @@ local function availEntry(defaultOnly, terse, mpath, szA, searchA, sn, name,
    end
 
    if (not found) then
-      dbg.print("Not found\n")
+      dbg.print{"Not found\n"}
       dbg.fini("Master:availEntry")
       return
    end
@@ -923,7 +923,7 @@ local function availEntry(defaultOnly, terse, mpath, szA, searchA, sn, name,
    local mname   = MName:new("load", name)
    local version = mname:version() or ""
    if (version:sub(1,1) == ".") then
-      dbg.print("Not printing a dot modulefile\n")
+      dbg.print{"Not printing a dot modulefile\n"}
       dbg.fini("Master:availEntry")
       return
    end
@@ -954,18 +954,18 @@ local function availEntry(defaultOnly, terse, mpath, szA, searchA, sn, name,
          dflt = Default
          legendT[Default] = "Default Module"
       end
-      dbg.print("dflt: ",dflt,"\n")
+      dbg.print{"dflt: ",dflt,"\n"}
       local aa    = {}
       local propT = {}
       local sn    = mname:sn()
       local entry = dbT[sn]
       if (entry) then
-         dbg.print("Found dbT[sn]\n")
+         dbg.print{"Found dbT[sn]\n"}
          if (entry[f]) then
             propT =  entry[f].propT or {}
          end
       else
-         dbg.print("Did not find dbT[sn]\n")
+         dbg.print{"Did not find dbT[sn]\n"}
       end
       local resultA = colorizePropA("short", name, propT, legendT)
       aa[#aa + 1] = '  '
@@ -993,14 +993,14 @@ local function availDir(defaultOnly, terse, searchA, mpath, locationT, availT,
    local mt      = MT:mt()
    if (not attr or type(attr) ~= "table" or attr.mode ~= "directory"
        or not posix.access(mpath,"x")) then
-      dbg.print("Skipping non-existant directory: ", mpath,"\n")
+      dbg.print{"Skipping non-existant directory: ", mpath,"\n"}
       dbg.fini("Master.availDir")
       return
    end
 
 
    for sn, versionA in pairsByKeys(availT) do
-      dbg.print("sn: ",sn,"\n")
+      dbg.print{"sn: ",sn,"\n"}
       local defaultModuleT = locationT[sn].default
       local aa             = {}
       local szA            = #versionA
@@ -1056,7 +1056,7 @@ end
 -- Master:avail(): Report the available modules with properties and 
 --                 defaults.  Run results through pager.
 function M.avail(argA)
-   dbg.start("Master.avail(",concatTbl(argA,", "),")")
+   dbg.start{"Master.avail(",concatTbl(argA,", "),")"}
    local mt        = MT:mt()
    local mpathA    = mt:module_pathA()
    local twidth    = TermWidth()
@@ -1085,10 +1085,10 @@ function M.avail(argA)
    local defaultOnly = optionTbl.defaultOnly or masterTbl.defaultOnly
    local terse       = optionTbl.terse       or masterTbl.terse
 
-   dbg.print("locationT: ",tostring(locationT),"\n")
+   dbg.print{"locationT: ",tostring(locationT),"\n"}
 
    if (terse) then
-      dbg.print("doing --terse\n")
+      dbg.print{"doing --terse\n"}
       for ii = 1, #mpathA do
          local mpath = mpathA[ii]
          local a     = {}

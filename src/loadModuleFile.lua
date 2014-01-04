@@ -43,8 +43,8 @@ local concatTbl = table.concat
 -- loadModuleFile(t): read a modulefile in via sandbox_run
 
 function loadModuleFile(t)
-   dbg.start("loadModuleFile()")
-   dbg.print("t.file: ",t.file,"\n")
+   dbg.start{"loadModuleFile()"}
+   dbg.print{"t.file: ",t.file,"\n"}
    dbg.flush()
 
    local full    = myModuleFullName()
@@ -59,8 +59,8 @@ function loadModuleFile(t)
       local f = io.open(t.file)
       if (f) then
          whole = f:read("*all")
-         dbg.start("ModuleFile")
-         dbg.print(whole)
+         dbg.start{"ModuleFile"}
+         dbg.print{whole}
          dbg.fini()
          f:close()
       end
