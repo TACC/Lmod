@@ -285,7 +285,7 @@ function M.Debug(t)
          else
             local s = v:sub(1,idx)
             io.stderr:write(s)
-            M.Debug(v:sub(idx+1))
+            M.Debug{v:sub(idx+1)}
          end
       end
    end

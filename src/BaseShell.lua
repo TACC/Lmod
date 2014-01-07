@@ -175,8 +175,7 @@ function M.expandMT(self, vstr)
 
    if (dbg.active()) then
       local mt     = MT:mt()
-      local blank  = " "
-      local indent = blank:rep(dbg.indentLevel()*2)
+      local indent = dbg.indent()
       local s      = serializeTbl{indent=true, name="_ModuleTable_",
                              value=mt}
       for line in s:split("\n") do
