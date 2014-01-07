@@ -364,8 +364,8 @@ end
 
 function M.remove_path(self, name, value, sep, where)
    sep = sep or ":"
-   dbg.start("MasterControl:remove_path(\"",name,"\", \"",value,"\",\"",
-             sep,"\", \"",where,"\")")
+   dbg.start{"MasterControl:remove_path(\"",name,"\", \"",value,"\",\"",
+             sep,"\", \"",where,"\")"}
 
    if (varTbl[name] == nil) then
       varTbl[name] = Var:new(name,nil, sep)
@@ -392,8 +392,8 @@ end
 -------------------------------------------------------------------
 
 function M.setenv(self, name, value, respect)
-   dbg.start("MasterControl:setenv(\"",name,"\", \"",value,"\", \"",
-              respect,")")
+   dbg.start{"MasterControl:setenv(\"",name,"\", \"",value,"\", \"",
+              respect,")"}
    
    if (respect and getenv(name)) then
       dbg.print{"Respecting old value"}

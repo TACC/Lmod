@@ -910,8 +910,8 @@ function M.changePATH(self)
       self._changePATHCount = self._changePATHCount + 1
    end
    self._changePATH = true
-   --dbg.print("MT:changePATH: self._changePATH: ",self._changePATH,
-   --          " count: ",self._changePATHCount,"\n")
+   --dbg.print{"MT:changePATH: self._changePATH: ",self._changePATH,
+   --          " count: ",self._changePATHCount,"\n"}
  end
 
 function M.beginOP(self)

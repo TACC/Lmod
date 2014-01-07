@@ -272,8 +272,6 @@ function M.Debug(t)
       local v = t[i]
       if (type(v) == "table") then
 	 prtTbl(v)
-      elseif (i == 1 and type(v) == 'number') then
-         -- do nothing
       else
          if (type(v) ~= "string") then
             v = tostring(v)

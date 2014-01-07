@@ -223,8 +223,8 @@ end
 
 function M.findModulesInDir(level, mpath, path, prefix, moduleT)
    local t1
-   dbg.start("findModulesInDir(level= ",level,", mpath=\"",mpath,"\", path=\"",path,
-             "\", prefix=\"",prefix,"\")")
+   dbg.start{"findModulesInDir(level= ",level,", mpath=\"",mpath,"\", path=\"",path,
+             "\", prefix=\"",prefix,"\")"}
 
    --if (level == 0) then
    --   t1   = epoch()
@@ -589,7 +589,7 @@ local function countEntries(t, searchName)
          if (not full) then
             full = v.full
          end
-         if (v.name_lower:find(searchL)) then
+         if (v.name_lower:find(searchL,1, true) or v.name_lower:find(searchL)) then
             nameCnt = nameCnt + 1
             full  = v.full
          end
@@ -661,9 +661,8 @@ function M._Level1(key, T, searchName, help)
    end
 
    local cnt, nameCnt, fullCnt, full = countEntries(T, searchName)
-   dbg.print("Number of entries: ",cnt ," name count: ",nameCnt,
-             " full count: ",fullCnt, " full: ", full, "\n")
-
+   dbg.print{"Number of entries: ",cnt ," name count: ",nameCnt,
+             " full count: ",fullCnt, " full: ", full, "\n"}
    dbg.print{"key: \"",key,"\" searchName: \"",searchName,"\"\n"}
 
    --if ((key:len() < searchName:len() and fullCnt == 0 ) or

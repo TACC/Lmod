@@ -374,8 +374,8 @@ function M.build(self, fast)
       local r = {}
       hook.apply("writeCache",r)
 
-      dbg.print("self.dontWrite: ", self.dontWrite, ", r.dontWriteCache: ",
-                r.dontWriteCache, "\n")
+      dbg.print{"self.dontWrite: ", self.dontWrite, ", r.dontWriteCache: ",
+                r.dontWriteCache, "\n"}
 
       local dontWrite = self.dontWrite or r.dontWriteCache
 

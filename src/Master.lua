@@ -323,8 +323,8 @@ end
 --   t.fn          = result
 --   t.modFullName = fullName
 --   t.modName     = sn
---   dbg.print("modName: ",sn," fn: ", result," modFullName: ", fullName,
---             " default: ",t.default,"\n")
+--   dbg.print{"modName: ",sn," fn: ", result," modFullName: ", fullName,
+--             " default: ",t.default,"\n"}
 --   dbg.fini("Master:find_module_file")
 --   return t
 --end
@@ -517,8 +517,8 @@ function M.load(mA)
       local fn         = t.fn
       dbg.print{"fn: ", t.fn,"\n"}
       if (mt:have(sn,"active")) then
-         dbg.print("Master:load reload module: \"",moduleName,
-                   "\" as it is already loaded\n")
+         dbg.print{"Master:load reload module: \"",moduleName,
+                   "\" as it is already loaded\n"}
          local mcp_old = mcp
          mcp           = MCP
          dbg.print{"Setting mcp to ", mcp:name(),"\n"}
@@ -621,16 +621,16 @@ function M.reloadAll()
          local fullName = t.modFullName
          local userName = v.name
          if (t.fn ~= fn) then
-            dbg.print("Master:reloadAll t.fn: \"",t.fn or "nil","\"",
-                      " mt:fileName(sn): \"",fn or "nil","\"\n")
+            dbg.print{"Master:reloadAll t.fn: \"",t.fn or "nil","\"",
+                      " mt:fileName(sn): \"",fn or "nil","\"\n"}
             dbg.print{"Master:reloadAll Unloading module: \"",sn,"\"\n"}
             local ma = {}
             ma[1] = mname
             mcp:unload(ma)
             dbg.print{"Master:reloadAll Loading module: \"",userName or "nil","\"\n"}
             local loadA = mcp:load(ma)
-            dbg.print("Master:reloadAll: fn: \"",fn or "nil",
-                      "\" mt:fileName(sn): \"", tostring(mt:fileName(sn)), "\"\n")
+            dbg.print{"Master:reloadAll: fn: \"",fn or "nil",
+                      "\" mt:fileName(sn): \"", tostring(mt:fileName(sn)), "\"\n"}
             if (loadA[1] and fn ~= mt:fileName(sn)) then
                same = false
                dbg.print{"Master:reloadAll module: ",fullName," marked as reloaded\n"}
@@ -879,11 +879,11 @@ end
 
 local function availEntry(defaultOnly, terse, mpath, szA, searchA, sn, name,
                           f, defaultModuleT, dbT, legendT, a)
-   dbg.start("Master:availEntry(defaultOnly, terse, mpath, szA, searchA, "..
-                               "sn, name, f, defaultModuleT, dbT, legendT, a)")
+   dbg.start{"Master:availEntry(defaultOnly, terse, mpath, szA, searchA, "..
+                                "sn, name, f, defaultModuleT, dbT, legendT, a)"}
 
-   dbg.print("sn:" ,sn, ", name: ", name,", defaultOnly: ",defaultOnly,
-             ", szA: ",szA,"\n")
+   dbg.print{"sn:" ,sn, ", name: ", name,", defaultOnly: ",defaultOnly,
+             ", szA: ",szA,"\n"}
    local dflt     = ""
    local sCount   = #searchA
    local found    = false
@@ -907,8 +907,8 @@ local function availEntry(defaultOnly, terse, mpath, szA, searchA, sn, name,
       end
    end
 
-   dbg.print("defaultOnly: ",defaultOnly, ", defaultModuleT.fn: ",defaultModuleT.fn,
-             ", f: ",f,", abspath(f, localdir): ",abspath(f, localdir),"\n")
+   dbg.print{"defaultOnly: ",defaultOnly, ", defaultModuleT.fn: ",defaultModuleT.fn,
+             ", f: ",f,", abspath(f, localdir): ",abspath(f, localdir),"\n"}
 
    if (defaultOnly and defaultModuleT.fn ~= abspath(f, localdir)) then
       found = false
@@ -941,12 +941,12 @@ local function availEntry(defaultOnly, terse, mpath, szA, searchA, sn, name,
          a[#a+1] = name
       end
    else
-      dbg.print("defaultModuleT.fn: ",defaultModuleT.fn,
+      dbg.print{"defaultModuleT.fn: ",defaultModuleT.fn,
                 ", kind: ", defaultModuleT.kind,
                 ", num: ",  defaultModuleT.num,
                 ", f: ", f,
                 ", abspath(f, localdir): ",abspath(f, localdir),
-                "\n")
+                "\n"}
       
 
       if ((defaultModuleT.fn == abspath(f, localdir)) and
@@ -986,9 +986,9 @@ end
 
 local function availDir(defaultOnly, terse, searchA, mpath, locationT, availT,
                         dbT, a, legendT)
-   dbg.start("Master.availDir(defaultOnly= ",defaultOnly,", terse= ",terse,
+   dbg.start{"Master.availDir(defaultOnly= ",defaultOnly,", terse= ",terse,
              ", searchA=(",concatTbl(searchA,", "), "), mpath= \"",mpath,"\", ",
-             ",locationT, availT, dbT, a, legendT)")
+             ",locationT, availT, dbT, a, legendT)"}
    local attr    = lfs.attributes(mpath)
    local mt      = MT:mt()
    if (not attr or type(attr) ~= "table" or attr.mode ~= "directory"

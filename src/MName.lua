@@ -369,8 +369,8 @@ function M.find_exact_match(self, pathA)
       t.fn          = result
       t.modFullName = fullName
       t.modName     = sn
-      dbg.print("modName: ",sn," fn: ", result," modFullName: ", fullName,
-                " default: ",t.default,"\n")
+      dbg.print{"modName: ",sn," fn: ", result," modFullName: ", fullName,
+                " default: ",t.default,"\n"}
    end
 
    dbg.fini("MName:find_exact_match")
@@ -440,8 +440,8 @@ function M.find_marked_default(self, pathA)
       t.fn          = result
       t.modFullName = fullName
       t.modName     = self:sn()
-      dbg.print("modName: ",sn," fn: ", result," modFullName: ", fullName,
-                " default: ",t.default,"\n")
+      dbg.print{"modName: ",sn," fn: ", result," modFullName: ", fullName,
+                " default: ",t.default,"\n"}
    end
 
    dbg.print ("(3) .version: t.fn: ", t.fn,"\n")
@@ -477,8 +477,8 @@ function M.find_latest(self, pathA)
       t.default     = 1
       t.fn          = file
       t.modName     = sn
-      dbg.print("modName: ",sn," fn: ", file," modFullName: ", t.modFullName,
-                " default: ",t.default,"\n")
+      dbg.print{"modName: ",sn," fn: ", file," modFullName: ", t.modFullName,
+                " default: ",t.default,"\n"}
    end
 
    dbg.fini("MName:find_latest")
