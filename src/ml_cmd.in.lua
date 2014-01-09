@@ -97,7 +97,7 @@ function main()
       ["--localvar"]=1, ["--terse"] = 0, ["-t"] = 0, ["--latest"] = 0,
       ["--versoin"]=0, ["--ver"]=0, ["--v"]=0, ["-v"]=0,['--config'] = 0,
       ["--mt"] = 0, ["--ignore_cache"] = 0, ["--dumpversion"] = 0,
-      ["--force"] = 0,
+      ["--force"] = 0,['-w'] = 1, ['--width'] = 1,
    }
 
    local translateT = {
