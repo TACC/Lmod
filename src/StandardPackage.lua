@@ -91,8 +91,7 @@ end
 hook.register("msgHook",msg)
 
 local function bannerWidth(width)
-   return min(width, 80)
-   --return width
+   return width
 end
 
 hook.register("bannerWidth",bannerWidth)

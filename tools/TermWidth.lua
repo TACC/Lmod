@@ -45,7 +45,7 @@ function TermWidth()
    if (s_width) then
       return s_width
    end
-   s_DFLT  = s_DFLT
+   s_DFLT  = tonumber(getenv("LMOD_TERM_WIDTH")) or s_DFLT
    s_width = s_DFLT
    if (getenv("TERM") and term and term.isatty(io.stderr)) then
       s_width = tonumber(capture("tput cols 2> /dev/null")) or s_DFLT

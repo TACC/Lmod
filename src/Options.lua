@@ -154,6 +154,13 @@ function M.options(self, usage)
    }
 
    cmdlineParser:add_option{
+      name   = {"-w","--width"},
+      dest   = "twidth",
+      action = "store",
+      help   = "Use this as max term width",
+   }
+
+   cmdlineParser:add_option{
       name   = {"-v","--version"},
       dest   = "version",
       action = "store_true",
@@ -222,6 +229,12 @@ function M.options(self, usage)
    if (masterTbl.cmdHelp or pargs[1] == "help" ) then
       masterTbl.cmdHelpMsg   = cmdlineParser:buildHelpMsg()
    end
+
+   if (optionTbl.twidth) then
+      setenv("LMOD_TERM_WIDTH",tostring(optionTbl.twidth))
+   end
+      
+
 
    if (optionTbl.expert) then
       setenv("LMOD_EXPERT","1")
