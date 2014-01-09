@@ -10,6 +10,7 @@ _module()
     '(-t --terse)'{--terse,-t}'[display avail, list and spider output in short format]'	\
     '(-d --default)'{--default,-d}'[List default modules only when used with avail]'   	\
     '(-D --debug)'{--debug,-D}'[Send program tracing information to stderr]'           	\
+    '(-w --width)'{--width,-w}'[use given width for max term width]'                  	\
     '(-q --quiet)'{--quiet,-q}'[disable verbose messages]'                             	\
     '--ignore_cache[Treat the cache file(s) as out-of-date]'                            \
     '*::module command:_module_command'
