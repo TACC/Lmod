@@ -44,10 +44,10 @@ require("TermWidth")
 require("utils")
 local BeautifulTbl = require('BeautifulTbl')
 local ColumnTable  = require('ColumnTable')
-local dbg          = require("Dbg"):dbg()
 local MName        = require("MName")
 local Spider       = require("Spider")
 local concatTbl    = table.concat
+local dbg          = require("Dbg"):dbg()
 local getenv       = os.getenv
 local hook         = require("Hook")
 local posix        = require("posix")
@@ -137,7 +137,7 @@ function Help(...)
    prtHdr = function()
       local twidth    = TermWidth()
       local middleStr = "Module Specific Help for \"" .. ModuleName .. "\""
-      local title     = bannerStr(twidth, middleStr)
+      local title     = banner:bannerStr(middleStr)
       io.stderr:write("\n")
       io.stderr:write(title, "\n")
    end
@@ -162,14 +162,14 @@ function Keyword(...)
    local a = {}
    local ia = 0
 
-   local banner = border(0)
+   local border = banner:border(0)
 
    ia = ia+1; a[ia] = "\n"
-   ia = ia+1; a[ia] = banner
+   ia = ia+1; a[ia] = border
    ia = ia+1; a[ia] = "The following modules match your search criteria: \""
    ia = ia+1; a[ia] = concatTbl({...},"\", \"")
    ia = ia+1; a[ia] = "\"\n"
-   ia = ia+1; a[ia] = banner
+   ia = ia+1; a[ia] = border
    ia = ia+1; a[ia] = "\n"
 
    Spider.Level0Helper(dbT,a)
@@ -647,7 +647,7 @@ function Show(...)
    dbg.start{"Show(", concatTbl({...},", "),")"}
 
    mcp = MasterControl.build("show")
-   local borderStr = border(0)
+   local borderStr = banner:border(2)
 
    prtHdr       = function()
                      io.stderr:write(borderStr)

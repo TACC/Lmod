@@ -49,13 +49,14 @@ require("pager")
 local M = {}
 
 local CTimer       = require("CTimer")
-local dbg          = require("Dbg"):dbg()
-local timer        = require("Timer"):timer()
 local concatTbl    = table.concat
+local dbg          = require("Dbg"):dbg()
 local lfs          = require("lfs")
+local max          = math.max
 local posix        = require("posix")
 local systemG      = _G
 local gettimeofday = posix.gettimeofday
+local timer        = require("Timer"):timer()
 
 local function nothing()
 end
@@ -510,13 +511,13 @@ function M.Level0(dbT)
 
 
    local ia     = 0
-   local banner = border(0)
+   local border = banner:border(0)
 
 
    ia = ia+1; a[ia] = "\n"
-   ia = ia+1; a[ia] = banner
+   ia = ia+1; a[ia] = border
    ia = ia+1; a[ia] = "The following is a list of the modules currently available:\n"
-   ia = ia+1; a[ia] = banner
+   ia = ia+1; a[ia] = border
 
    M.Level0Helper(dbT,a)
 
@@ -563,15 +564,15 @@ function M.Level0Helper(dbT,a)
       end
       ia = ia + 1; a[ia] = "\n"
    end
-   local banner = border(0)
-   ia = ia+1; a[ia] = banner
+   local border = banner:border(0)
+   ia = ia+1; a[ia] = border
    ia = ia+1; a[ia] = "To learn more about a package enter:\n\n"
    ia = ia+1; a[ia] = "   $ module spider Foo\n\n"
    ia = ia+1; a[ia] = "where \"Foo\" is the name of a module\n\n"
    ia = ia+1; a[ia] = "To find detailed information about a particular package you\n"
    ia = ia+1; a[ia] = "must enter the version if there is more than one version:\n\n"
    ia = ia+1; a[ia] = "   $ module spider Foo/11.1\n"
-   ia = ia+1; a[ia] = banner
+   ia = ia+1; a[ia] = border
 
 end
 
@@ -681,7 +682,7 @@ function M._Level1(key, T, searchName, help)
 
 
 
-   local banner = border(2)
+   local border = banner:border(2)
    local VersionT = {}
    local exampleV = nil
    local key = nil
@@ -704,9 +705,9 @@ function M._Level1(key, T, searchName, help)
    local ia = 0
 
    ia = ia + 1; a[ia] = "\n"
-   ia = ia + 1; a[ia] = banner
+   ia = ia + 1; a[ia] = border
    ia = ia + 1; a[ia] = "  " .. key .. ":\n"
-   ia = ia + 1; a[ia] = banner
+   ia = ia + 1; a[ia] = border
    if (Description) then
       ia = ia + 1; a[ia] = "    Description:\n"
       ia = ia + 1; a[ia] = fillWords("      ",Description,term_width)
@@ -720,14 +721,14 @@ function M._Level1(key, T, searchName, help)
 
    if (help) then
       ia = ia + 1; a[ia] = "\n"
-      ia = ia + 1; a[ia] = banner
+      ia = ia + 1; a[ia] = border
       ia = ia + 1; a[ia] = "  To find detailed information about "
       ia = ia + 1; a[ia] = key
       ia = ia + 1; a[ia] = " please enter the full name.\n  For example:\n\n"
       ia = ia + 1; a[ia] = "     $ module spider "
       ia = ia + 1; a[ia] = exampleV
       ia = ia + 1; a[ia] = "\n"
-      ia = ia + 1; a[ia] = banner
+      ia = ia + 1; a[ia] = border
    end
 
    dbg.fini("Spider:_Level1")
@@ -747,7 +748,7 @@ function M._Level2(T, searchName, full)
 
    local term_width = TermWidth() - 4
    local tt = nil
-   local banner = border(2)
+   local border = banner:border(2)
    local availT = {
       "\n    This module can be loaded directly: module load " .. full .. "\n",
       "\n    This module can only be loaded through the following modules:\n",
@@ -767,11 +768,11 @@ function M._Level2(T, searchName, full)
          if (tt == nil) then
             tt = v
             ia = ia + 1; a[ia] = "\n"
-            ia = ia + 1; a[ia] = banner
+            ia = ia + 1; a[ia] = border
             ia = ia + 1; a[ia] = "  " .. tt.name .. ": "
             ia = ia + 1; a[ia] = tt.full
             ia = ia + 1; a[ia] = "\n"
-            ia = ia + 1; a[ia] = banner
+            ia = ia + 1; a[ia] = border
             if (tt.Description) then
                ia = ia + 1; a[ia] = "    Description:\n"
                ia = ia + 1; a[ia] = fillWords("      ",tt.Description, term_width)

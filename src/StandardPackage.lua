@@ -39,6 +39,7 @@ Pkg          = PkgBase.build("Pkg")
 local hook   = require("Hook")
 local getenv = os.getenv
 local lfs    = require("lfs")
+local min    = math.min
 local posix  = require("posix")
 
 local function parse_updateFn_hook(updateSystemFn, t)
@@ -86,7 +87,15 @@ local function msg(kind, a)
 end
 
 
+
 hook.register("msgHook",msg)
+
+local function bannerWidth(width)
+   return min(width, 80)
+   --return width
+end
+
+hook.register("bannerWidth",bannerWidth)
 
 
 sandbox_registration { Pkg = Pkg }

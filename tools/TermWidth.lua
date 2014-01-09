@@ -35,6 +35,7 @@ local capture = capture or function (s) return nil end
 local getenv  = os.getenv
 local term    = false
 local s_width = false
+local min     = math.min
 local s_DFLT  = 80
 if (pcall(require,"term")) then
    term = require("term")
@@ -44,12 +45,15 @@ function TermWidth()
    if (s_width) then
       return s_width
    end
-   s_DFLT  = tonumber(getenv("LMOD_TERM_WIDTH")) or s_DFLT
+   s_DFLT  = s_DFLT
    s_width = s_DFLT
    if (getenv("TERM") and term and term.isatty(io.stderr)) then
       s_width = tonumber(capture("tput cols 2> /dev/null")) or s_DFLT
    end
 
+   local maxW = tonumber(getenv("LMOD_TERM_WIDTH")) or math.huge
+
+   s_width = min(maxW, s_width)
 
    s_width = (s_width > 30) and s_width or 30
 

@@ -32,50 +32,74 @@
 --
 --------------------------------------------------------------------------
 
+
 --------------------------------------------------------------------------
--- Hook: A way for client sites to register functions that are defined in
---       SitePackage.lua 
---
+-- Banner: Control the banner and border functions:
+--------------------------------------------------------------------------
+
 
 require("strict")
+require("TermWidth")
+local M         = {}
+local concatTbl = table.concat
+local dbg       = require("Dbg"):dbg()
+local floor     = math.floor
+local hook      = require("Hook")
+local max       = math.max
+local rep       = string.rep
 
-local M={}
+local s_bannerT = false
 
-local validT =
-{
-      ['load']       = false,  -- This load hook is called after a
-                               -- modulefile is loaded.
-      parse_updateFn = false,  -- This hook returns the time on the 
-                               -- timestamp file.
-      writeCache     = false,  -- This hook return whether a cache 
-                               -- should be written.
-      SiteName       = false,  -- Hook to specify Site Name
-                               -- It is used to generate family
-                               -- prefix:  site_FAMILY_
-      msgHook        = false,  -- Hook to print messages after:
-                               -- avail, list, spider
-      bannerWidth    = false,  -- Hook to control banner width
-}
 
---------------------------------------------------------------------------
--- Hook:register(): Checks for a valid hook name and stores it if valid.
-
-function M.register(name, func)
-   if (validT[name] ~= nil) then
-      validT[name] = func
-   else
-      io.stderr:write("Unknown hook: ", tostring(name),"\n")
-   end
-
+local function new(self)
+   local o = {}
+   setmetatable(o,self)
+   self.__index = self
+   local twidth = TermWidth()
+   o.__termwidth = hook.apply("bannerWidth", twidth)
+   o.__nspacesG  = 0
+   o.__borderG   = false
+   return o
 end
 
---------------------------------------------------------------------------
--- Hook:apply():  If a valid hook function has been registered then apply
---                it.
 
-function M.apply(name, ...)
-   if (validT[name]) then
-      return validT[name](...)
+function M.banner(self)
+   if (not s_bannerT) then
+      s_bannerT = new(self)
    end
+
+   return s_bannerT
 end
+
+function M.width(self)
+   return self.__termwidth
+end
+
+function M.border(self, nspaces)
+   if (not self.__borderG or nspaces ~= self.__nspacesG) then
+      self.__nspacesG = nspaces
+      local myWidth   = self:width() - 4 - nspaces
+      local a = {}
+      a[1] = rep("  ", nspaces)
+      a[2] = rep('-', myWidth)
+      a[3] = "\n"
+      self.__borderG  =  concatTbl(a,"")
+   end
+   return self.__borderG 
+end
+
+function M.bannerStr(self, str)
+   local a       = {}
+   local myWidth = self:width()
+   local len     = str:len() + 2
+   local lcount  = floor((myWidth - len)/2)
+   local rcount  = myWidth - lcount - len
+   a[#a+1] = rep("-",lcount)
+   a[#a+1] = " "
+   a[#a+1] = str
+   a[#a+1] = " "
+   a[#a+1] = rep("-",rcount)
+   return concatTbl(a,"")
+end
+
 return M

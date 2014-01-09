@@ -169,12 +169,11 @@ function M.report(self)
       b[#b+1]  = "\n"
    end
 
-   local twidth = TermWidth()
-   local banner = rep("-", twidth - 2)
+   local border = banner:border(2)
    local str    = " Lmod Property Table: "
-   b[#b+1]  = banner
+   b[#b+1]  = border
    b[#b+1]  = str
-   b[#b+1]  = banner
+   b[#b+1]  = border
    b[#b+1]  = "\n"
    b[#b+1]  = serializeTbl{ indent = true, name="propT", value = getPropT() }
    b[#b+1]  = "\n"

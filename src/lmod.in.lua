@@ -40,6 +40,7 @@ Pager           = "@path_to_pager@"
 s_prependBlock  = "@prepend_block@"
 prepend_order   = false
 allow_dups      = false
+banner          = false
 ------------------------------------------------------------------------
 -- Extract directory location of "lmod" command and add it
 -- to the lua search path
@@ -123,7 +124,7 @@ Exec          = require("Exec")
 
 local BeautifulTbl = require('BeautifulTbl')
 local dbg          = require("Dbg"):dbg()
-
+local Banner       = require("Banner")
 local Timer        = require("Timer")
 local Version      = require("Version")
 local concatTbl    = table.concat
@@ -189,7 +190,7 @@ function Usage()
       return s_Usage
    end
    local website = colorize("red","http://www.tacc.utexas.edu/tacc-projects/lmod")
-   local line    = border(0)
+   local line    = banner:border(2)
    local a = {}
    a[#a+1] = { "module [options] sub-command [args ...]" }
    a[#a+1] = { "" }
@@ -505,6 +506,7 @@ function main()
    require("SitePackage")
    dbg.print{"epoch_type: ",epoch_type,"\n"}
 
+   banner        = Banner:banner()
    local cmdName = masterTbl.pargs[1]
    table.remove(masterTbl.pargs,1)
 

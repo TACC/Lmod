@@ -55,13 +55,13 @@ require("utils")
 
 local BeautifulTbl = require('BeautifulTbl')
 local ColumnTable  = require('ColumnTable')
-local dbg          = require("Dbg"):dbg()
 local Default      = '(D)'
 local M            = {}
 local MName        = require("MName")
 local ModuleStack  = require("ModuleStack")
 local Optiks       = require("Optiks")
 local Spider       = require("Spider")
+local dbg          = require("Dbg"):dbg()
 local hook         = require("Hook")
 local lfs          = require('lfs')
 local posix        = require("posix")
@@ -1110,7 +1110,7 @@ function M.avail(argA)
       availDir(defaultOnly, terse, searchA, mpath, locationT, availT[mpath], dbT, a, legendT)
       if (next(a)) then
          aa[#aa+1] = "\n"
-         aa[#aa+1] = bannerStr(twidth, mpath)
+         aa[#aa+1] = banner:bannerStr(mpath)
          aa[#aa+1] = "\n"
          local ct  = ColumnTable:new{tbl=a, gap=1, len=length}
          aa[#aa+1] = ct:build_tbl()

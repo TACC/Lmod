@@ -69,38 +69,38 @@ function argsPack(...)
 end
 local pack        = (_VERSION == "Lua 5.1") and argsPack or table.pack
 
+----------------------------------------------------------------------------
+---- bannerStr(): This function builds a banner string that is centered
+----              and has dashes on the left and right side.
+--
+--function bannerStr(width, str)
+--   local a       = {}
+--   local len     = str:len() + 2
+--   local lcount  = floor((width - len)/2)
+--   local rcount  = width - lcount - len
+--   a[#a+1] = rep("-",lcount)
+--   a[#a+1] = " "
+--   a[#a+1] = str
+--   a[#a+1] = " "
+--   a[#a+1] = rep("-",rcount)
+--   return concatTbl(a,"")
+--end
+--
 --------------------------------------------------------------------------
--- bannerStr(): This function builds a banner string that is centered
---              and has dashes on the left and right side.
-
-function bannerStr(width, str)
-   local a       = {}
-   local len     = str:len() + 2
-   local lcount  = floor((width - len)/2)
-   local rcount  = width - lcount - len
-   a[#a+1] = rep("-",lcount)
-   a[#a+1] = " "
-   a[#a+1] = str
-   a[#a+1] = " "
-   a[#a+1] = rep("-",rcount)
-   return concatTbl(a,"")
-end
-
-------------------------------------------------------------------------
--- border(); Build a border string of nspace leading spaces followed 
---           by "-"'s to exactly 4 spaces before the end of the terminal.
-
-local rep=string.rep
-borderG = nil
-nspacesG = 0
-function border(nspaces)
-   if (not borderG or nspaces ~= nspacesG) then
-      nspacesG = nspaces
-      local term_width = TermWidth() - 4
-      borderG = rep(" ",nspaces) .. rep("-", term_width) .. "\n"
-   end
-   return borderG
-end
+---- border(); Build a border string of nspace leading spaces followed 
+----           by "-"'s to exactly 4 spaces before the end of the terminal.
+--
+--local rep=string.rep
+--borderG = nil
+--nspacesG = 0
+--function border(nspaces)
+--   if (not borderG or nspaces ~= nspacesG) then
+--      nspacesG = nspaces
+--      local term_width = TermWidth() - 4
+--      borderG = rep(" ",nspaces) .. rep("-", term_width) .. "\n"
+--   end
+--   return borderG
+--end
 
 --------------------------------------------------------------------------
 -- epoch(): return the number of seconds (and maybe partial seconds) since
