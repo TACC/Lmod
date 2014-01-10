@@ -16,6 +16,7 @@ echo
 echo '----------------------------------- SUMMARY ----------------------------------'
 echo
 echo "Package version............................." : Lmod-$LmodV
+echo "Package version (git) ......................" : $lmodV
 echo
 echo "LUA_INCLUDE................................." : $LUA_INCLUDE
 echo "Lua executable.............................." : $luaprog

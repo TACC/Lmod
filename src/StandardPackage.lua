@@ -70,6 +70,7 @@ Use "module keyword key1 key2 ..." to search for all possible modules matching a
    list  = [[
 ]],
    spider = [[
+To use the old modules that Julius Caesar used, please run the command: \"use_old_decrepit_modules\"
 ]],
 }
 
