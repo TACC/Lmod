@@ -41,7 +41,7 @@ require("strict")
 --
 -- plain() is there when users or writing to a file. The point is that
 --         there is no colorization added to the string.
---                        
+--
 
 
 Foreground = "\027".."[1;"

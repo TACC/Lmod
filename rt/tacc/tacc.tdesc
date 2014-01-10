@@ -37,7 +37,7 @@ testdescript = {
      runLmod list                  # 9
      runLmod --latest swap pgi pgi #10
      runLmod list                  #11
-     runLmod unload cluster        #12 
+     runLmod unload cluster        #12
      runLmod purge                 #13
 
      PATH=$ORIGPATH

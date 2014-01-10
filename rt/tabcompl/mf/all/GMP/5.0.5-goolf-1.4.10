@@ -1,12 +1,12 @@
 #%Module
 
 proc ModulesHelp { } {
-    puts stderr {   GMP is a free library for arbitrary precision arithmetic, 
+    puts stderr {   GMP is a free library for arbitrary precision arithmetic,
 operating on signed integers, rational numbers, and floating point numbers.  - Homepage: http://gmplib.org/
 }
 }
 
-module-whatis {GMP is a free library for arbitrary precision arithmetic, 
+module-whatis {GMP is a free library for arbitrary precision arithmetic,
 operating on signed integers, rational numbers, and floating point numbers.  - Homepage: http://gmplib.org/}
 
 set root    /net/gmi.oeaw.ac.at/software/mendel/29_04_2013/software/GMP/5.0.5-goolf-1.4.10

@@ -1,7 +1,7 @@
 -- -*- lua -*-
 local help = [[
 The pmetis module defines the following environment variables:
-TACC_PMETIS_DIR, TACC_PMETIS_DOC, TACC_PMETIS_BIN, 
+TACC_PMETIS_DIR, TACC_PMETIS_DOC, TACC_PMETIS_BIN,
 TACC_PMETIS_LIB, and TACC_PMETIS_INC for the location
 of the ParMetis distribution, documentation, binaries,
 libraries, and include files.

@@ -13,9 +13,9 @@ local pkg = Pkg:new{Category     = "System Environment/Base",
                     level        = 1,
                     help         = helpMsg
 }
-                     
+
 pkg:setStandardPaths("LIB","INC")
 
 add_property("arch","mic")
 
-             
+

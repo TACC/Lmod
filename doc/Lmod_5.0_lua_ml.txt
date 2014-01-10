@@ -31,7 +31,7 @@ One advantage that Lmod provides is that a center can support multiple compilers
    $ module swap intel gcc
 
    Due to MODULEPATH change(s) the following have been reloaded:
-     1) boost/1.53.0 
+     1) boost/1.53.0
 
 Lmod offers many other user safety features that prevent loading two versions of the same module or two different compilers at the same time (unless the user chooses expert mode).  There are many new features that 5.0 provides over earlier versions such as:
 

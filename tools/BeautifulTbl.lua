@@ -110,7 +110,7 @@ end
 --                  Each entry in the table is copied to an internal
 --                  table and left or right justified (depending on
 --                  justifyT).
-   
+
 
 function M.__build_tbl(self,tblIn)
    local length    = self.length
@@ -151,7 +151,7 @@ function M.__build_tbl(self,tblIn)
       local a    = tblIn[irow]
       local numC = #a
       local b    = {}
-      
+
 
       for icol = 1, #a do
          local v = tostring(a[icol])
@@ -227,7 +227,7 @@ function M.build_tbl(self)
       local t   = tt[irow]
       local nc  = #t
       local nc1 = min(nc, maxnc1)
-      
+
       -- For the current row copy every column but last.
       for i = 1, nc1 do
          aa[#aa+1] = t[i]

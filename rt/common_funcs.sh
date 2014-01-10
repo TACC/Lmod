@@ -75,7 +75,7 @@ buildDbT ()
 EPOCH()
 {
    $LUA_EXEC $projectDir/src/epoch.in.lua
-}  
+}
 
 initStdEnvVars()
 {
@@ -102,7 +102,7 @@ initStdEnvVars()
   PATH_to_SHA1=`findcmd --pathOnly sha1sum`
   LUA_EXEC=$PATH_to_LUA/lua
 
-  
+
   export PATH=$projectDir/src:$PATH_to_LUA:$PATH_to_TM:$PATH_to_SHA1:/usr/bin:/bin
 
 }

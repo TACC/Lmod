@@ -36,7 +36,7 @@ DIRLIST		  	 := $(DESTDIR)$(LIBEXEC) $(DESTDIR)$(TOOLS) $(DESTDIR)$(SETTARG)    
 
 STANDALONE_PRGM   	 := src/lmod.in.lua src/addto.in.lua src/getmt.in.lua src/processMT.in.lua   \
                             src/spider.in.lua src/processModuleUsage.in.lua src/reportUsers.in.lua   \
-                            src/clearMT_cmd.in.lua src/ml_cmd.in.lua src/spiderCacheSupport.in.lua 
+                            src/clearMT_cmd.in.lua src/ml_cmd.in.lua src/spiderCacheSupport.in.lua
 SHELL_INIT	  	 := bash.in csh.in ksh.in tcsh.in zsh.in sh.in perl.in                       \
                             env_modules_python.py.in lmod_bash_completions .lmodrc.lua
 SHELL_INIT	  	 := $(patsubst %, init/%, $(SHELL_INIT))
@@ -73,7 +73,7 @@ all:
 	@echo done
 
 pre-install: $(DIRLIST) shell_init startup spiderCacheSupport libexec \
-             Inst_Tools Inst_Settarg Inst_Lmod_MF pkgs other_tools 
+             Inst_Tools Inst_Settarg Inst_Lmod_MF pkgs other_tools
 
 install: pre-install  zsh_tab_funcs
 	$(RM) $(DESTDIR)$(PKG)

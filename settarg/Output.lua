@@ -39,5 +39,5 @@ function Output(shell)
    local envVarsTbl = masterTbl.envVarsTbl
 
    shell:expand(envVarsTbl)
-   
+
 end

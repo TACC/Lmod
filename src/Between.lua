@@ -58,7 +58,7 @@ function M.show(self)
    a[#a+1] = ")"
    return concatTbl(a,"")
 end
-   
+
 function M.prereq(self)
    local result  = false
    local mt      = MT:mt()
@@ -78,7 +78,7 @@ function M.prereq(self)
       end
    end
    return result
-end   
+end
 
 function M.steps()
    return s_steps

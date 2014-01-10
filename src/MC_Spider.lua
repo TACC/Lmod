@@ -89,7 +89,7 @@ function M.myFileName(self)
 end
 
 --------------------------------------------------------------------------
--- MC_Spider:myModuleFullName(): use the moduleStack to return the full 
+-- MC_Spider:myModuleFullName(): use the moduleStack to return the full
 --                               name of the module.  This is typically
 --                               name/version.  For Spider we assume that
 --                               the user name is the full name.
@@ -105,7 +105,7 @@ M.myModuleUsrName = M.myModuleFullName
 
 --------------------------------------------------------------------------
 -- MC_Spider:myModuleName(): use the moduleStack to return the short
---                           name of the module.  
+--                           name of the module.
 
 function M.myModuleName(self)
    local masterTbl   = masterTbl()

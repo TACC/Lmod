@@ -26,7 +26,7 @@ local cmd     = "eval `" .. settarg_cmd .. " -s " .. myShell .. " --destroy`"
 execute{cmd=cmd, modeA = {"unload"}}
 
 
-local helpMsg = [[ 
+local helpMsg = [[
 The settarg module dynamically and automatically updates "$TARG" and a
 host of other environment variables. These new environment variables
 encapsulate the state of the modules loaded.

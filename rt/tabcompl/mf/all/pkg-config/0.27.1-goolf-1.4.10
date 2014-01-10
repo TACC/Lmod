@@ -2,7 +2,7 @@
 
 proc ModulesHelp { } {
     puts stderr {   pkg-config is a helper tool used when compiling applications and libraries. It helps you insert the
-correct compiler options on the command line so an application can use  
+correct compiler options on the command line so an application can use
 gcc -o test test.c `pkg-config --libs --cflags glib-2.0`
 for instance, rather than hard-coding values on where to find glib (or other libraries).
  - Homepage: http://www.freedesktop.org/wiki/Software/pkg-config/
@@ -10,7 +10,7 @@ for instance, rather than hard-coding values on where to find glib (or other lib
 }
 
 module-whatis {pkg-config is a helper tool used when compiling applications and libraries. It helps you insert the
-correct compiler options on the command line so an application can use  
+correct compiler options on the command line so an application can use
 gcc -o test test.c `pkg-config --libs --cflags glib-2.0`
 for instance, rather than hard-coding values on where to find glib (or other libraries).
  - Homepage: http://www.freedesktop.org/wiki/Software/pkg-config/}

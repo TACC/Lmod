@@ -109,8 +109,8 @@ function M.default_BUILD_SCENARIO(tbl)
    dbg.start{"BuildTarget:default_BUILD_SCENARIO()"}
    local masterTbl        = masterTbl()
    local BuildScenarioTbl = masterTbl.BuildScenarioTbl
-   local stt              = STT:stt() 
-   
+   local stt              = STT:stt()
+
    -------------------------------------------------------
    -- First look to see if there is TARG_BUILD_SCENARIO_STATE
    local v = stt:getBuildScenarioState()
@@ -119,7 +119,7 @@ function M.default_BUILD_SCENARIO(tbl)
       dbg.fini("BuildTarget:default_BUILD_SCENARIO")
       return v
    end
-   
+
 
    -------------------------------------------------------
    -- Search over hostname first
@@ -219,10 +219,10 @@ function M.buildTbl(targetTbl)
    tbl.TARG_HOST       = M.default_HOST()
    targetTbl.host      = -1
 
-   -- Clear 
+   -- Clear
    stt:clearEnv(tbl, targetTbl)
 
-   local a = {"build_scenario","mach", "extra",} 
+   local a = {"build_scenario","mach", "extra",}
    for _,v in ipairs(a) do
       if (targetTbl[v]) then
          targetTbl[v] = -1
@@ -235,7 +235,7 @@ end
 
 local function readDotFiles()
    local masterTbl = masterTbl()
-   
+
    -------------------------------------------------------
    -- Load system then user default table.
 
@@ -280,7 +280,7 @@ local function readDotFiles()
          end
 
          TargPathLoc = systemG.TargPathLoc
-         
+
          for k,v in pairs(systemG.SettargDirTemplate) do
             SettargDirTmpl[k] = v
          end
@@ -351,7 +351,7 @@ function M.exec(shell)
    end
 
    local tbl = M.buildTbl(targetTbl)
-   
+
    string2Tbl(concatTbl(masterTbl.pargs," ") or '',tbl)
    processModuleTable(shell:getMT(ModuleTable), targetTbl, tbl)
 

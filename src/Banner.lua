@@ -85,7 +85,7 @@ function M.border(self, nspaces)
       a[3] = "\n"
       self.__borderG  =  concatTbl(a,"")
    end
-   return self.__borderG 
+   return self.__borderG
 end
 
 function M.bannerStr(self, str)

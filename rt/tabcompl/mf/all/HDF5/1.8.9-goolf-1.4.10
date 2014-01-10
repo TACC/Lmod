@@ -1,12 +1,12 @@
 #%Module
 
 proc ModulesHelp { } {
-    puts stderr {   HDF5 is a unique technology suite that makes possible the management of 
+    puts stderr {   HDF5 is a unique technology suite that makes possible the management of
 extremely large and complex data collections. - Homepage: http://www.hdfgroup.org/HDF5/
 }
 }
 
-module-whatis {HDF5 is a unique technology suite that makes possible the management of 
+module-whatis {HDF5 is a unique technology suite that makes possible the management of
 extremely large and complex data collections. - Homepage: http://www.hdfgroup.org/HDF5/}
 
 set root    /net/gmi.oeaw.ac.at/software/mendel/29_04_2013/software/HDF5/1.8.9-goolf-1.4.10

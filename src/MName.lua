@@ -115,7 +115,7 @@ end
 --              "load" for modules to be loaded (available) or it is
 --              already loaded.  Knowing the short name it is possible to
 --              figure out the version (if one exists).  If the module name
---              doesn't exist then the short name (sn) and version are set 
+--              doesn't exist then the short name (sn) and version are set
 --              to false.  The last argument is "action".  Normally this
 --              argument is nil, which implies the value is "match".  Other
 --              choices are "atleast", ...
@@ -163,7 +163,7 @@ function M.new(self, sType, name, action, is, ie)
    end
 
    o._actName = action
-      
+
    return o
 end
 
@@ -334,7 +334,7 @@ function M.find_exact_match(self, pathA)
    local fullName = ""
    local modName  = ""
    local sn       = self:sn()
-   
+
    for ii = 1, #pathA do
       local vv    = pathA[ii]
       local mpath = vv.mpath
@@ -347,7 +347,7 @@ function M.find_exact_match(self, pathA)
          local f        = fn .. v
          local attr     = lfs.attributes(f)
          local readable = posix.access(f,"r")
-         
+
          if (readable and attr and attr.mode == "file") then
             result = f
             found  = true
@@ -364,7 +364,7 @@ function M.find_exact_match(self, pathA)
       end
    end
 
-   
+
    if (found) then
       t.fn          = result
       t.modFullName = fullName
@@ -389,7 +389,7 @@ function M.find_marked_default(self, pathA)
    local modName  = ""
    local Master   = Master
    local sn       = self:sn()
-   
+
    for ii = 1, #pathA do
       local vv    = pathA[ii]
       local mpath = vv.mpath
@@ -402,7 +402,7 @@ function M.find_marked_default(self, pathA)
          local f        = fn .. v
          local attr     = lfs.attributes(f)
          local readable = posix.access(f,"r")
-         
+
          if (readable and attr and attr.mode == "file") then
             result = f
             if (v == "/default") then
@@ -435,7 +435,7 @@ function M.find_marked_default(self, pathA)
    end
 
    dbg.print ("(2) .version: t.fn: ", t.fn,"\n")
-   
+
    if (found) then
       t.fn          = result
       t.modFullName = fullName
@@ -466,7 +466,7 @@ function M.find_latest(self, pathA)
    local fullName  = ""
    local modName   = ""
    local Master    = Master
-   
+
 
    result          = lastFileInPathA(pathA)
    if (result) then
@@ -502,7 +502,7 @@ function M.find_marked_default_between(self, pathA)
       t.default = 0
       t.fn      = nil
    end
-   
+
    dbg.fini("MName:find_marked_default_between")
    return found, t
 end
@@ -530,12 +530,12 @@ function M.find_between(self, pathA)
    local idx        = false
    for i = #a, 1, -1 do
       local v = a[i]
-      if (left <= v.pv and v.pv <= right) then  
+      if (left <= v.pv and v.pv <= right) then
          idx = i
          break
       end
    end
-   
+
    if (idx ) then
       local v       = a[idx]
       t.fn          = v.file
@@ -571,7 +571,7 @@ function M.find(self)
       dbg.fini("MName:find")
       return t
    end
-   
+
    local found = false
    local stepA = self:steps()
    for i = 1, #stepA do

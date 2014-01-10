@@ -11,7 +11,7 @@ everyone has to pass that.
 
 ** default match ( either /default or /.version )
 
-** latest 
+** latest
 
 
 * Latest Rules:

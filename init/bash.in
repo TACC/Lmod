@@ -15,8 +15,8 @@ export LMOD_DIR
 #  The second command is the settarg command.  Normally LMOD_SETTARG_CMD
 #  is undefined or is ":".  Either way the eval does nothing.  When the
 #  settarg module is loaded, it defines LMOD_SETTARG_CMD.  The settarg
-#  command knows how to read the ModuleTable that Lmod maintains and 
-#  generates a series of env. vars that describe the current state of 
+#  command knows how to read the ModuleTable that Lmod maintains and
+#  generates a series of env. vars that describe the current state of
 #  loaded modules.  So if one is on a x86_64 linux computer with gcc/4.7.2
 #  and openmpi/1.6.3 loaded, then settarg will assign:
 #
@@ -53,8 +53,8 @@ if [ "${LMOD_SETTARG_CMD:-:}" != ":" ]; then
     eval $(${LMOD_SETTARG_CMD:-:} -s sh "$@" )
   }
   alias cdt="cd $TARG"
-fi 
-  
+fi
+
 
 
 
@@ -87,16 +87,16 @@ if [ "$PS1" ]; then
   if [ -n "$LMOD_SETTARG_SUPPORT" -a "$LMOD_SETTARG_SUPPORT" != no ]; then
     xSetTitleLmod()
     {
-      builtin echo -n -e "\033]2;$1\007"; 
+      builtin echo -n -e "\033]2;$1\007";
     }
     SET_TITLE_BAR=:
-    
+
     case $TERM in
       xterm*)
         SET_TITLE_BAR=xSetTitleLmod
         ;;
     esac
-   
+
     SHOST=${SHOST-${HOSTNAME%%.*}}
     precmd()
     {

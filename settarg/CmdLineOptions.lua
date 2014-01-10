@@ -66,7 +66,7 @@ function  M.options(self)
    local Optiks = require("Optiks")
 
    local masterTbl     = masterTbl()
-   local usage         = "Usage: settarg [options] [dbg|opt|...] [anything_else]" 
+   local usage         = "Usage: settarg [options] [dbg|opt|...] [anything_else]"
    local versionStr    = format("Lmod settarg %s",version())
    local cmdlineParser = Optiks:new{usage=usage}
 
@@ -84,7 +84,7 @@ function  M.options(self)
       help   = "Print version info and quit",
    }
 
-   cmdlineParser:add_option{ 
+   cmdlineParser:add_option{
       name    = {'-s','--shell'},
       dest    = 'shell',
       action  = 'store',
@@ -92,55 +92,55 @@ function  M.options(self)
       default = 'bash',
    }
 
-   cmdlineParser:add_option{ 
+   cmdlineParser:add_option{
       name   = {'-D','--debug'},
       dest   = 'debug',
       action = 'store_true',
    }
 
-   cmdlineParser:add_option{ 
+   cmdlineParser:add_option{
       name   = {'-t','--target'},
       dest   = 'target',
       action = 'store',
       type   = 'string',
    }
 
-   cmdlineParser:add_option{ 
+   cmdlineParser:add_option{
       name   = {'-p','--purge'},
       dest   = 'purgeFlag',
       action = 'store_true',
       help   = "purge all extra fields",
    }
 
-   cmdlineParser:add_option{ 
+   cmdlineParser:add_option{
       name   = {'--destroy'},
       dest   = 'destroyFlag',
       action = 'store_true',
       help   = "Obliterate all settarg environment variables",
    }
 
-   cmdlineParser:add_option{ 
+   cmdlineParser:add_option{
       name   = {'--report'},
       dest   = 'report',
       action = 'store_true',
       help   = "Report the settarg configuration table ",
    }
 
-   cmdlineParser:add_option{ 
+   cmdlineParser:add_option{
       name   = {'--stt'},
       dest   = 'stt',
       action = 'store_true',
       help   = "Report the settarg table in the environment",
    }
 
-   cmdlineParser:add_option{ 
+   cmdlineParser:add_option{
       name   = {'-r', '--remove'},
       dest   = 'remOptions',
       action = 'append',
       type   = 'string',
    }
 
-   cmdlineParser:add_option{ 
+   cmdlineParser:add_option{
       name   = {'--no_cpu_model'},
       dest   = 'noCpuModel',
       action = 'store_true',
@@ -152,7 +152,7 @@ function  M.options(self)
       masterTbl[v] = optionTbl[v]
    end
    masterTbl.pargs = pargs
-   
+
    masterTbl.cmdHelpMsg      = ""
    if (masterTbl.cmdHelp or pargs[1] == "help" ) then
       masterTbl.cmdHelpMsg   = cmdlineParser:buildHelpMsg()

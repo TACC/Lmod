@@ -1,12 +1,12 @@
 #%Module
 
 proc ModulesHelp { } {
-    puts stderr {   PAML is a package of programs for phylogenetic 
+    puts stderr {   PAML is a package of programs for phylogenetic
  analyses of DNA or protein sequences using maximum likelihood. - Homepage: http://abacus.gene.ucl.ac.uk/software/paml.html
     }
 }
 
-module-whatis {PAML is a package of programs for phylogenetic 
+module-whatis {PAML is a package of programs for phylogenetic
  analyses of DNA or protein sequences using maximum likelihood. - Homepage: http://abacus.gene.ucl.ac.uk/software/paml.html}
 
 set root    /net/gmi.oeaw.ac.at/software/mendel/29_04_2013/software/PAML/4.7-goolf-1.4.10

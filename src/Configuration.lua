@@ -62,23 +62,23 @@ local function locatePkg(pkg)
    end
    return result
 end
-   
+
 
 local function new(self)
    local o = {}
    setmetatable(o,self)
    self.__index = self
-   
+
    local locSitePkg = locatePkg("SitePackage") or "unknown"
 
    if (locSitePkg ~= "unknown") then
-      local std_sha1 = "2c2c49b67c4b8310273480360552eaa69713a462"
-      
+      local std_sha1 = "585f316f7243cc31b4dc847268518d7ff750b475"
+
       local HashSum = "@path_to_hashsum@"
       if (HashSum:sub(1,1) == "@") then
          HashSum = findInPath("sha1sum")
       end
-      
+
       local result = capture(HashSum .. " " .. locSitePkg)
       result       = result:gsub(" .*","")
       if (result == std_sha1) then
@@ -100,7 +100,7 @@ local function new(self)
    local uname           = capture("uname -a")
 
    local tbl = {}
-   tbl.prefix     = { doc = "Lmod prefix"                 , value = "@PREFIX@",           }  
+   tbl.prefix     = { doc = "Lmod prefix"                 , value = "@PREFIX@",           }
    tbl.dupPaths   = { doc = "Allow duplicate paths"       , value = LMOD_DUPLICATE_PATHS, }
    tbl.path_lua   = { doc = "Path to Lua"                 , value = "@path_to_lua@",      }
    tbl.path_pager = { doc = "Path to Pager"               , value = "@path_to_pager@",    }
@@ -135,7 +135,7 @@ function M.report(self)
    local tbl = self.tbl
    a[#a+1]   = {"Description", "Value", }
    a[#a+1]   = {"-----------", "-----", }
-   
+
    for k, v in pairsByKeys(tbl) do
       a[#a+1] = {v.doc, v.value }
    end
@@ -144,7 +144,7 @@ function M.report(self)
    local bt = BeautifulTbl:new{tbl=a}
    b[#b+1]  = bt:build_tbl()
    b[#b+1]  = "\n"
-   
+
    local rcFileA = getRCFileA()
    if (#rcFileA) then
       b[#b+1] = "Active RC file(s):"
@@ -153,7 +153,7 @@ function M.report(self)
          b[#b+1] = rcFileA[i]
       end
       b[#b+1]  = "\n"
-   end         
+   end
 
 
    local scDescriptT = getSCDescriptT()
@@ -170,7 +170,7 @@ function M.report(self)
    end
 
    local border = banner:border(2)
-   local str    = " Lmod Property Table: "
+   local str    = " Lmod Property Table:"
    b[#b+1]  = border
    b[#b+1]  = str
    b[#b+1]  = border
@@ -183,7 +183,7 @@ end
 return M
 
 
-   
+
 
 
 

@@ -28,7 +28,7 @@ testdescript = {
 
      rm -fr _stderr.* _stdout.* err.* out.* .lmod.d
 
-     m1=" 
+     m1="
          "
 
 

@@ -56,7 +56,7 @@ neat:
 
 clean: neat
 	$(RM) $(OBJS)
-clobber: clean 
+clobber: clean
 	$(RM) $(EXEC)
 	$(RM) -r $(TARG) $(TARGET_PREFIX)
 

@@ -55,7 +55,7 @@ function M._build_pkgBase(self,level)
    a[#a+1]          = pkgRoot
    if (level > 0) then
       local hierA   = hierarchyA(pkgNameVer,level)
-  
+
       for i = level,1,-1 do
          a[#a+1]    = hierA[i]:gsub("/","-"):gsub("%.","_")
       end
@@ -63,7 +63,7 @@ function M._build_pkgBase(self,level)
    a[#a+1] = pkgNameVer
    dbg.fini("Pkg:_build_pkgBase")
    return pathJoin(unpack(a))
-end   
+end
 
 function M.moduleDir(self)
    dbg.start{"Pkg:moduleDir()"}

@@ -29,7 +29,7 @@ testdescript = {
      runLmod load   junk                  # 3
      runLmod list                         # 4
      runLmod unload junk                  # 5
-     runLmod load junk2                   # 6   
+     runLmod load junk2                   # 6
      runLmod use $(testDir)/pmf/core      # 7
      runLmod load intel                   # 8
      runLmod load mpich                   # 9
@@ -41,7 +41,7 @@ testdescript = {
      runLmod purge                        #15
 
 
-     
+
 
      cat _stdout.[0-9][0-9] > _stdout.orig
      joinBase64Results  -bash  _stdout.orig _stdout.new

@@ -77,7 +77,7 @@ function STError(...)
    end
    io.stderr:write("\n")
 end
-   
+
 
 function getSTT()
    local a    = {}

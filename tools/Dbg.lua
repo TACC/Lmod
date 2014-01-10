@@ -294,7 +294,7 @@ end
 
 function M.TextA(t)
    local a  = t.a
-   
+
    io.stderr:write(s_indentString)
    if (#a == 0) then
       io.stderr:write(t.name,": (empty)\n")

@@ -48,7 +48,7 @@ _module() {
 	opts="-d -D -h -q -t -v -w --expert --help  --quiet --terse --version --default --width"
 
 	case "$prev" in
-	add|load|try-load) 
+	add|load|try-load)
                         COMPREPLY=( $(compgen -W "$(_module_not_yet_loaded)" -- "$cur") );;
         spider)         COMPREPLY=( $(compgen -W "$(_module_spider)" -- "$cur") );;
 	rm|remove|unload|switch|swap)

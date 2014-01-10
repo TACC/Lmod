@@ -186,7 +186,7 @@ if test $IntLuaV -lt 5001 -o $IntLuaV -gt 5002; then
   echo "Error: Lmod requires versions 5.1 or 5.2, You have: $LuaV"
   exit 1
 fi
-  
+
 echo "... $LuaV"
 
 PATH_TO_LUA=$(dirname $luaprog)

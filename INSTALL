@@ -131,7 +131,7 @@ E) There are two ways to install Lmod
    "/opt/apps/lmod/5.0" or whatever version of Lmod you are installing.
 
    The install target does two more things:
-   
+
       1) It installs the zsh tab completions function in a system location such
          as /usr/share/zsh/site-functions.
       2) It makes the sym-link between version and "lmod".

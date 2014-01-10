@@ -21,7 +21,7 @@ endif
 EXEC := $(O_DIR)hello
 SRC  := main.c hello.c
 
-OBJS := $(O_DIR)main.o $(O_DIR)hello.o 
+OBJS := $(O_DIR)main.o $(O_DIR)hello.o
 
 all: $(O_DIR) $(EXEC)
 

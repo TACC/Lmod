@@ -132,7 +132,7 @@ end
 --                        MODULEPATH.  This routine does a similar search
 --                        for the module.  It searches for the original
 --                        module in pathA and then searches again.  Only
---                        after finding the same named module does it 
+--                        after finding the same named module does it
 --                        return.
 
 
@@ -350,7 +350,7 @@ end
 --                            If the user gives the short name and it is
 --                            loaded then that version is used not the default
 --                            module file for the one named.  Otherwise
---                            find_module_file is used.  
+--                            find_module_file is used.
 
 local function access_find_module_file(mname)
    local mt    = MT:mt()
@@ -395,8 +395,8 @@ function M.access(self, ...)
       if (fn and isFile(fn)) then
          prtHdr()
          mStack:push(full, moduleName, mname:sn(), fn)
-         
-         local mList = concatTbl(mt:list("both","active"),":") 
+
+         local mList = concatTbl(mt:list("both","active"),":")
 
 	 loadModuleFile{file=fn,help=help, shell=shellN, mList = mList,
                         reportErr=true}
@@ -421,7 +421,7 @@ end
 -- Master:fakeload()  Loading a user collection has its problems.  A meta
 --                    module or manager module (one that loads other
 --                    modules) is not actually loaded.  Instead it is
---                    "fake" loaded.  That is it is added to the Module 
+--                    "fake" loaded.  That is it is added to the Module
 --                    Table.  The reasons for this are complicated but
 --                    since all manager modules only load and do not set
 --                    anything then all the action that a manager module
@@ -466,8 +466,8 @@ function M.inheritModule()
    dbg.print{"myFn:  ", myFn,"\n"}
    dbg.print{"mFull: ", mFull,"\n"}
 
-   local fnI     
-   
+   local fnI
+
    if (mode() == "unload") then
       dbg.print{"here before pop\n"}
       fnI = mt:popInheritFn(sn)
@@ -593,8 +593,8 @@ end
 
 --------------------------------------------------------------------------
 -- Master:reloadAll(): Loop over all modules in MT to see if they still
---                     can be seen.  We check every active module to see 
---                     if the file associated with loaded module is the 
+--                     can be seen.  We check every active module to see
+--                     if the file associated with loaded module is the
 --                     same as [[find_module_file()]] reports.  If not
 --                     then it is unloaded and an attempt is made to reload
 --                     it.  Each inactive module is re-loaded if possible.
@@ -741,8 +741,8 @@ function M.unload(mA)
    dbg.print{"Setting mcp to ", mcp:name(),"\n"}
    dbg.fini("Master:unload")
    return a
-end   
- 
+end
+
 
 function M.reload_sticky(self, force)
 
@@ -832,7 +832,7 @@ local function findDefault(mpath, sn, versionA)
    dbg.start{"Master.findDefault(mpath=\"",mpath,"\", "," sn=\"",sn,"\")"}
    local mt   = MT:mt()
    local t    = {}
-   
+
    local marked   = false
    local localDir = true
    local path     = pathJoin(mpath,sn)
@@ -929,7 +929,7 @@ local function availEntry(defaultOnly, terse, mpath, szA, searchA, sn, name,
    end
 
 
-   
+
    if (terse) then
       -- Print out directory (e.g. gcc) for tab-completion
       -- But only print it out when reporting defaultOnly.
@@ -947,7 +947,7 @@ local function availEntry(defaultOnly, terse, mpath, szA, searchA, sn, name,
                 ", f: ", f,
                 ", abspath(f, localdir): ",abspath(f, localdir),
                 "\n"}
-      
+
 
       if ((defaultModuleT.fn == abspath(f, localdir)) and
           (defaultModuleT.num > 1) and not defaultOnly ) then
@@ -1053,7 +1053,7 @@ local function availOptions(argA)
 end
 
 --------------------------------------------------------------------------
--- Master:avail(): Report the available modules with properties and 
+-- Master:avail(): Report the available modules with properties and
 --                 defaults.  Run results through pager.
 function M.avail(argA)
    dbg.start{"Master.avail(",concatTbl(argA,", "),")"}
@@ -1070,7 +1070,7 @@ function M.avail(argA)
    if (baseMpath == nil or baseMpath == '') then
      LmodError("avail is not possible, MODULEPATH is not set.\n")
    end
-   
+
 
    Spider.buildSpiderDB({"default"}, moduleT, dbT)
 

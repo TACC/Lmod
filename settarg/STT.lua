@@ -121,7 +121,7 @@ function M.getEXTRA(self)
    dbg.fini("STT:getEXTRA")
    return concatTbl(a,"_")
 end
-   
+
 function M.removeFromExtra(self, remA)
    dbg.start{"STT:removeFromExtra(remA)"}
    local extraT = self.extraT

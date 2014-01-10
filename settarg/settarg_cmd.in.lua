@@ -74,7 +74,7 @@ require("serializeTbl")
 
 function main()
    local masterTbl   = masterTbl()
-   
+
    masterTbl.execDir = cmdDir()
 
    CmdLineOptions:options()
@@ -122,7 +122,7 @@ function main()
       dbg.fini("settarg")
       return
    end
-      
+
    if (masterTbl.stt) then
       local stt = STT:stt()
       local s   = stt:serializeTbl("pretty")

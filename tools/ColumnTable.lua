@@ -27,7 +27,7 @@
 --------------------------------------------------------------------------
 -- ColumnTable: This class is takes a array of strings and produced
 --              a multi-column output.  Standard usage is:
--- 
+--
 --     local ct = ColumnTable:new{tbl=a, gap=2}
 --     io.stderr:write(ct:build_tbl())
 --------------------------------------------------------------------------
@@ -218,7 +218,7 @@ function M.__columnSum2(self, istart, iend)
       end
       maxV  = maxV + maxA[idim]
    end
-   
+
    --dbg.print{"is: ",istart," ie: ",iend, " maxV: ",maxV, " sum: ",sum}
    --dbg.printA{name = "maxA", a = maxA}
    return maxV, maxA
@@ -362,7 +362,7 @@ function M.__number_of_columns_rows(self,t)
       columnCnt[icol], columnCntI[icol] = self:__columnSum(istart,iend)
       istart = istart + nrows
    end
-   
+
    dbg.print{"ncols: ",ncols,"\n"}
    dbg.printA{name="columnCnt",  a=columnCnt}
    dbg.printA{name="columnCntI", a=columnCntI}

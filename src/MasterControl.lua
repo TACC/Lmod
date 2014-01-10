@@ -103,7 +103,7 @@ local function mustLoad(mA)
          luaprog = findInPath("lua")
       end
       local cmdA = {}
-      cmdA[#cmdA+1] = luaprog 
+      cmdA[#cmdA+1] = luaprog
       cmdA[#cmdA+1] = pathJoin(cmdDir(),cmdName())
       cmdA[#cmdA+1] = "bash"
       cmdA[#cmdA+1] = "spider"
@@ -113,7 +113,7 @@ local function mustLoad(mA)
       local kA = {}  -- known modules (show)
       local kB = {}  -- known modules (usrName)
 
-      
+
 
       for i = 1, #bb do
          cmdA[count+1] = bb[i]
@@ -321,7 +321,7 @@ function M.fake_load(self,mA)
       dbg.start{"MasterControl:fake_load(mA={"..s.."})"}
    end
    dbg.fini("MasterControl:fake_load")
-end   
+end
 
 
 -------------------------------------------------------------------
@@ -394,7 +394,7 @@ end
 function M.setenv(self, name, value, respect)
    dbg.start{"MasterControl:setenv(\"",name,"\", \"",value,"\", \"",
               respect,")"}
-   
+
    if (respect and getenv(name)) then
       dbg.print{"Respecting old value"}
       dbg.fini("MasterControl:setenv")
@@ -417,7 +417,7 @@ function M.unsetenv(self, name, value, respect)
       dbg.fini("MasterControl:unsetenv")
       return
    end
-      
+
    if (varTbl[name] == nil) then
       varTbl[name] = Var:new(name)
    end
@@ -887,7 +887,7 @@ function M.execute(self, t)
       end
    end
    dbg.fini("MasterControl:execute")
-end   
+end
 
 
 -------------------------------------------------------------------

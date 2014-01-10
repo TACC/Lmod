@@ -7,28 +7,28 @@
 export SETTARG_CMD=$SETTARG_DIR/settarg_cmd
 eval $( $SETTARG_DIR/_FixModuleCmd "$(type module)" )
 
-settarg()  
-{ 
+settarg()
+{
   eval `$SETTARG_CMD --shell sh $*`
 }
-dbg()      
+dbg()
 {
   settarg $* dbg
 }
-opt() 
-{ 
+opt()
+{
   settarg $* opt
 }
-mdbg() 
-{ 
+mdbg()
+{
   settarg $* mdbg
 }
-gopt()      
-{ 
+gopt()
+{
   settarg $* gopt
 }
-chk()      
-{ 
+chk()
+{
   settarg $* chk
 }
 targ()
@@ -47,5 +47,5 @@ cdt()
 
 PATH=$SETTARG_DIR:$PATH
 
-settarg 
+settarg
 

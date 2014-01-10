@@ -38,20 +38,20 @@ echo "Full Settarg support........................" : $SETTARG
 
 echo
 echo '------------------------------------------------------------------------------'
-echo 
+echo
 echo '******************************************************************************'
-echo 
-echo Lmod overwrites the env var BASH_ENV to make the module command available in 
+echo
+echo Lmod overwrites the env var BASH_ENV to make the module command available in
 echo bash scripts.  If your site does not set BASH_ENV then you can ignore the
 echo comments below.
 echo
-echo If your site already uses BASH_ENV to point to a site specific script, please 
+echo If your site already uses BASH_ENV to point to a site specific script, please
 echo consider sourcing Lmod\'s init/bash from your site\'s file.
 echo
 echo BASH_ENV is defined both in:
 echo "   $prefix/lmod/$LmodV/init/profile"
 echo "   $prefix/lmod/$LmodV/init/cshrc"
-echo 
+echo
 echo '******************************************************************************'
 
 

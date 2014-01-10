@@ -45,7 +45,7 @@ testdescript = {
      mkdir -p $HOME/.lmod.d/.cache
      buildModuleT $LMOD_DEFAULT_MODULEPATH > $HOME/.lmod.d/.cache/moduleT.lua
      runLmod spider                                                           #12
-     
+
 
      HOME=$ORIG_HOME
 

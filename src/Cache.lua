@@ -40,7 +40,7 @@ require("cmdfuncs")
 require("utils")
 --------------------------------------------------------------------------
 -- Cache: This class reads all the cache files in.  It will on occasion
---        write a user cache file.  This is a singleton class.  
+--        write a user cache file.  This is a singleton class.
 --
 -- Rules: The rules about when to trust a cache file or not also when to
 --        write a cache file out in the user directory.
@@ -82,7 +82,7 @@ local timer   = require("Timer"):timer()
 -- new(): This singleton construct reads the scDescriptT table that can be
 --        defined in the .lmodrc.lua.  Typically this table, if it exists
 --        by the configure script.  If it does not then scDescriptT will
---        be an array with zero entries.  This ctor finds all the system 
+--        be an array with zero entries.  This ctor finds all the system
 --        and user directories where cache files are stored.  It also
 --        figure out the timestamps.
 
@@ -306,19 +306,19 @@ function M.build(self, fast)
    dbg.start{"Cache:build(fast=", fast,")"}
    local masterTbl = masterTbl()
 
-   
+
    local T1 = epoch()
    local sysDirsRead = 0
    if (not masterTbl.checkSyntax) then
       sysDirsRead = readCacheFile(self, self.systemDirA)
    end
-      
+
    ------------------------------------------------------------------------
    -- Read user cache file if it exists and is not out-of-date.
-      
+
    local moduleDirT  = self.moduleDirT
    local usrDirsRead = readCacheFile(self, self.usrCacheDirA)
-      
+
    local dirA   = {}
    local numMDT = 0
    for k, v in pairs(moduleDirT) do
@@ -343,7 +343,7 @@ function M.build(self, fast)
    dbg.print{"buildModuleT: ",buildModuleT,"\n"}
 
    dbg.print{"mt: ", tostring(mt), "\n"}
-   
+
    local short    = mt:getShortTime()
    if (not buildModuleT) then
       ancient = _G.ancient or ancient

@@ -252,7 +252,7 @@ uname -a
 Active RC file(s):
 ProjectDIR/init/.lmodrc.lua
 OutputDIR/.lmodrc.lua
- Lmod Property Table: 
+ Lmod Property Table:
 propT = {
   arch = {
     displayT = {

@@ -2,15 +2,15 @@
 
 proc ModulesHelp { } {
     puts stderr {   ATLAS (Automatically Tuned Linear Algebra Software) is the application of
- the AEOS (Automated Empirical Optimization of Software) paradigm, with the present emphasis 
- on the Basic Linear Algebra Subprograms (BLAS), a widely used, performance-critical, linear 
+ the AEOS (Automated Empirical Optimization of Software) paradigm, with the present emphasis
+ on the Basic Linear Algebra Subprograms (BLAS), a widely used, performance-critical, linear
  algebra kernel library. - Homepage: http://math-atlas.sourceforge.net
 }
 }
 
 module-whatis {ATLAS (Automatically Tuned Linear Algebra Software) is the application of
- the AEOS (Automated Empirical Optimization of Software) paradigm, with the present emphasis 
- on the Basic Linear Algebra Subprograms (BLAS), a widely used, performance-critical, linear 
+ the AEOS (Automated Empirical Optimization of Software) paradigm, with the present emphasis
+ on the Basic Linear Algebra Subprograms (BLAS), a widely used, performance-critical, linear
  algebra kernel library. - Homepage: http://math-atlas.sourceforge.net}
 
 set root    /net/gmi.oeaw.ac.at/software/mendel/29_04_2013/software/ATLAS/3.8.4-gompi-1.1.0-no-OFED-LAPACK-3.4.0

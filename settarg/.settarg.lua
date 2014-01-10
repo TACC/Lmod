@@ -1,6 +1,6 @@
 -- -*- lua -*-
 
-BuildScenarioTbl = { 
+BuildScenarioTbl = {
    default                = "empty",
 }
 
@@ -34,7 +34,7 @@ ModuleTbl = {
    file_io            = { "hdf5", "phdf5" },
 }
 
-TargetList = { "mach", "build_scenario", "compiler", "mpi"} 
+TargetList = { "mach", "build_scenario", "compiler", "mpi"}
 
 SettargDirTemplate = { "$SETTARG_TAG1", "/", "$SETTARG_TAG2", "$TARG_SUMMARY" }
 

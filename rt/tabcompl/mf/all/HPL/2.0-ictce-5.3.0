@@ -1,14 +1,14 @@
 #%Module
 
 proc ModulesHelp { } {
-    puts stderr {   HPL is a software package that solves a (random) dense linear system in double precision (64 bits) arithmetic 
- on distributed-memory computers. It can thus be regarded as a portable as well as freely available implementation of the 
+    puts stderr {   HPL is a software package that solves a (random) dense linear system in double precision (64 bits) arithmetic
+ on distributed-memory computers. It can thus be regarded as a portable as well as freely available implementation of the
  High Performance Computing Linpack Benchmark. - Homepage: http://www.netlib.org/benchmark/hpl/
 }
 }
 
-module-whatis {HPL is a software package that solves a (random) dense linear system in double precision (64 bits) arithmetic 
- on distributed-memory computers. It can thus be regarded as a portable as well as freely available implementation of the 
+module-whatis {HPL is a software package that solves a (random) dense linear system in double precision (64 bits) arithmetic
+ on distributed-memory computers. It can thus be regarded as a portable as well as freely available implementation of the
  High Performance Computing Linpack Benchmark. - Homepage: http://www.netlib.org/benchmark/hpl/}
 
 set root    /net/gmi.oeaw.ac.at/software/mendel/29_04_2013/software/HPL/2.0-ictce-5.3.0

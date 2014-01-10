@@ -1,5 +1,5 @@
 -- -*- lua -*-
-local help = 
+local help =
 [[
 This module loads the intel compiler path and environment variables
 

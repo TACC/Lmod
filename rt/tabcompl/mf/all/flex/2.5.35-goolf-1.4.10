@@ -1,12 +1,12 @@
 #%Module
 
 proc ModulesHelp { } {
-    puts stderr {   Flex (Fast Lexical Analyzer) is a tool for generating scanners. A scanner, 
+    puts stderr {   Flex (Fast Lexical Analyzer) is a tool for generating scanners. A scanner,
 sometimes called a tokenizer, is a program which recognizes lexical patterns in text. - Homepage: http://flex.sourceforge.net/
 }
 }
 
-module-whatis {Flex (Fast Lexical Analyzer) is a tool for generating scanners. A scanner, 
+module-whatis {Flex (Fast Lexical Analyzer) is a tool for generating scanners. A scanner,
 sometimes called a tokenizer, is a program which recognizes lexical patterns in text. - Homepage: http://flex.sourceforge.net/}
 
 set root    /net/gmi.oeaw.ac.at/software/mendel/29_04_2013/software/flex/2.5.35-goolf-1.4.10

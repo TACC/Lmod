@@ -335,7 +335,7 @@ end
 function prereq(...)
    dbg.start{"prereq(",concatTbl({...},", "),")"}
    if (not validateModules("prereq", ...)) then return end
-   
+
    mcp:prereq(MName:buildA("load", ...))
    dbg.fini("prereq")
 end
@@ -428,7 +428,7 @@ function execute(t)
    local b = mcp:execute(t)
    dbg.fini("execute")
    return b
-end   
+end
 
 function mode()
    dbg.start{"mode()"}
@@ -517,7 +517,7 @@ function hierarchyA(pkgName, levels)
    local b = {}
    local n = #a
 
-   
+
    for i = 1, levels do
       local bb = {}
       for j = 1, numEntries do

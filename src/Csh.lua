@@ -47,7 +47,7 @@ local Csh	  = inheritsFrom(BaseShell)
 Csh.my_name = 'csh'
 
 --------------------------------------------------------------------------
--- Csh:alias(): Either define or undefine a Csh shell alias. Remove any 
+-- Csh:alias(): Either define or undefine a Csh shell alias. Remove any
 --              trailing semicolons in module definition.  Then add it back
 --              in.  This way there is one and only one semicolon at the
 --              end.

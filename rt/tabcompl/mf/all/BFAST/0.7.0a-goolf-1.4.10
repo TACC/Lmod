@@ -3,16 +3,16 @@
 proc ModulesHelp { } {
     puts stderr {   BFAST facilitates the fast and accurate mapping of short reads to reference sequences.
  Some advantages of BFAST include:
- 1) Speed: enables billions of short reads to be mapped quickly. 
- 2) Accuracy: A priori probabilities for mapping reads with defined set of variants. 
+ 1) Speed: enables billions of short reads to be mapped quickly.
+ 2) Accuracy: A priori probabilities for mapping reads with defined set of variants.
  3) An easy way to measurably tune accuracy at the expense of speed. - Homepage: http://bfast.sourceforge.net/
 }
 }
 
 module-whatis {BFAST facilitates the fast and accurate mapping of short reads to reference sequences.
  Some advantages of BFAST include:
- 1) Speed: enables billions of short reads to be mapped quickly. 
- 2) Accuracy: A priori probabilities for mapping reads with defined set of variants. 
+ 1) Speed: enables billions of short reads to be mapped quickly.
+ 2) Accuracy: A priori probabilities for mapping reads with defined set of variants.
  3) An easy way to measurably tune accuracy at the expense of speed. - Homepage: http://bfast.sourceforge.net/}
 
 set root    /net/gmi.oeaw.ac.at/software/mendel/29_04_2013/software/BFAST/0.7.0a-goolf-1.4.10

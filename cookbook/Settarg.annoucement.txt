@@ -93,7 +93,7 @@ When mpich/3.0.4 is also loaded you get:
 The TARG variable reports the state of the modules.  By default the
 TARG variable is:
 
- TARG =   _ + ${TARG_MACH}     + _ + ${TARG_BUILD_SCENARIO} + 
+ TARG =   _ + ${TARG_MACH}     + _ + ${TARG_BUILD_SCENARIO} +
           _ + ${TARG_COMPILER} + _ + ${TARG_MPI}
 
 where "+" means string concatation.  If one of the above variables

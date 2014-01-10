@@ -1,14 +1,14 @@
 #%Module
 
 proc ModulesHelp { } {
-    puts stderr {   The BAM format is an efficient method for storing and sharing data 
- from modern, highly parallel sequencers. While primarily used for storing alignment information, 
+    puts stderr {   The BAM format is an efficient method for storing and sharing data
+ from modern, highly parallel sequencers. While primarily used for storing alignment information,
  BAMs can (and frequently do) store unaligned reads as well.  - Homepage: http://www.hudsonalpha.org/gsl/information/software/bam2fastq
 }
 }
 
-module-whatis {The BAM format is an efficient method for storing and sharing data 
- from modern, highly parallel sequencers. While primarily used for storing alignment information, 
+module-whatis {The BAM format is an efficient method for storing and sharing data
+ from modern, highly parallel sequencers. While primarily used for storing alignment information,
  BAMs can (and frequently do) store unaligned reads as well.  - Homepage: http://www.hudsonalpha.org/gsl/information/software/bam2fastq}
 
 set root    /home/xyzzy/.local/easybuild/software/bam2fastq/1.1.0-goolf-1.4.10

@@ -87,7 +87,7 @@ local pack        = (_VERSION == "Lua 5.1") and argsPack or table.pack
 --end
 --
 --------------------------------------------------------------------------
----- border(); Build a border string of nspace leading spaces followed 
+---- border(); Build a border string of nspace leading spaces followed
 ----           by "-"'s to exactly 4 spaces before the end of the terminal.
 --
 --local rep=string.rep
@@ -129,7 +129,7 @@ function build_epoch()
          return os.time() - T0
       end
    end
-end   
+end
 
 --------------------------------------------------------------------------
 -- expert(): Are we in expert mode?
@@ -167,7 +167,7 @@ s_ignoreT = {
    ['.git']      = true,
    ['.svn']      = true,
    ['.hg']       = true,
-   ['.bzr']      = true,   
+   ['.bzr']      = true,
 }
 
 
@@ -230,7 +230,7 @@ function allVersions(pathA, n)
       end
    end
    return a
-end   
+end
 
 ---------------------------------------------------------------------------
 -- lastFileInPathA(path): This function finds the latest version of a package
@@ -288,9 +288,9 @@ end
 --
 --               Typically the separator is a colon but it can be
 --               anything.  Some env. vars (such as TEXINPUTS and
---               LUA_PATH) use "::" or ";;" to mean that the 
+--               LUA_PATH) use "::" or ";;" to mean that the
 --               specified values are prepended to the system ones.
---               To handle that, the path component is converted to 
+--               To handle that, the path component is converted to
 --               a single space.  This single space is later removed
 --               when expanding.
 
@@ -415,7 +415,7 @@ function readRC()
       s_readRC = true
       return
    end
-   
+
    declare("propT",       false)
    declare("scDescriptT", false)
 
@@ -427,7 +427,7 @@ function readRC()
          s_rcFileA[#s_rcFileA+1] = abspath(f)
          fh:close()
       end
-      local propT       = _G.propT or {} 
+      local propT       = _G.propT or {}
       local scDescriptT = _G.scDescriptT   or {}
       for k,v in pairs(propT) do
          s_propT[k] = v

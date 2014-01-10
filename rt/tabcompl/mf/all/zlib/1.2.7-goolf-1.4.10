@@ -1,14 +1,14 @@
 #%Module
 
 proc ModulesHelp { } {
-    puts stderr {   zlib is designed to be a free, general-purpose, legally unencumbered -- that is, 
-not covered by any patents -- lossless data-compression library for use on virtually any 
+    puts stderr {   zlib is designed to be a free, general-purpose, legally unencumbered -- that is,
+not covered by any patents -- lossless data-compression library for use on virtually any
 computer hardware and operating system. - Homepage: http://www.zlib.net/
 }
 }
 
-module-whatis {zlib is designed to be a free, general-purpose, legally unencumbered -- that is, 
-not covered by any patents -- lossless data-compression library for use on virtually any 
+module-whatis {zlib is designed to be a free, general-purpose, legally unencumbered -- that is,
+not covered by any patents -- lossless data-compression library for use on virtually any
 computer hardware and operating system. - Homepage: http://www.zlib.net/}
 
 set root    /net/gmi.oeaw.ac.at/software/mendel/29_04_2013/software/zlib/1.2.7-goolf-1.4.10

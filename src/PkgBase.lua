@@ -53,7 +53,7 @@ end
 s_MdirA = { [0] = "Compiler",
             [1] = "MPI",
 }
-           
+
 SITE_PACKAGE_ROOT = os.getenv("SITE_PACKAGE_ROOT") or "/opt/apps"
 
 function M.new(self, t)
@@ -74,12 +74,12 @@ function M.new(self, t)
    o._pkgNameVer    = pkgNameVer
    o._display_name  = o.display_name or pkgName
    o._pkgRoot       = o.pkgRoot or SITE_PACKAGE_ROOT
-   
+
    local level      = o.level or 0
 
    local a          = {}
    a[#a+1]          = o._pkgRoot
-  
+
    o._pkgBase       = o:_build_pkgBase(level)
    o:setPkgInfo()
    dbg.fini("PkgBase:new")
@@ -92,7 +92,7 @@ function M.setPkgInfo(self)
    whatis("Version: " .. self:pkgVersion())
 
    local keyA = {"Category", "Description", "URL", "Keywords", "License"}
-   
+
    for i = 1, #keyA do
       local k = keyA[i]
       local v = self[k]

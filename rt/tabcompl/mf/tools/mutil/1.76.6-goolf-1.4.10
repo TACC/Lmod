@@ -2,7 +2,7 @@
 
 proc ModulesHelp { } {
     puts stderr {   Set of GNU Core Utils with Mutil 1.76.6 Patches. Mutil provides mcp and msum, which are drop-in replacements for cp and md5sum that utilize multiple types of parallelism to achieve maximum
-copy and checksum performance on clustered file systems 
+copy and checksum performance on clustered file systems
 Multi-threading is used to ensure that nodes are kept as busy as
 possible.  Read/write parallelism allows individual operations of a
 single copy to be overlapped using asynchronous I/O.  Multi-node

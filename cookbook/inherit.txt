@@ -4,7 +4,7 @@
 
 I now think I understand the question.  Suppose a user has their own version of a parallel library (say fftw3) and there is a system version of fftw3 as well.  The user creates a fftw3 module for intel and mvapich2.  Then then the user unloads mvapich2 for openmpi.  If the mvapich2 unloads and the openmpi loading module prepends then it will be in front of the users's personal path.  It is likely that the system module of intel/openmpi of fftw3 will be found before the users.
 
-If I have understood the question, then Lmod is helping the user out.  There is no way that the user's version of fftw3 build by intel/mvapich2 should be used with a build of intel/openmpi it just won't work correctly and maybe very hard to debug.   
+If I have understood the question, then Lmod is helping the user out.  There is no way that the user's version of fftw3 build by intel/mvapich2 should be used with a build of intel/openmpi it just won't work correctly and maybe very hard to debug.
 
 The solution to this problem has come up last summer on the mailing list.  The solution is "inherit()".   Essentially,  a user wanting to test their own version of a parallel library has to build a separate version of all the combinations they wish to test.  So if you have two compilers and two mpi stacks, the user will have to build all four version (IF THEY WISH TO TEST ALL COMBINATIONS).  If they only wish to test one version then a single directory and module will do.
 
@@ -60,11 +60,11 @@ and in this file is:
   inherit()
   prepend_path("MODULEPATH",pathJoin(MROOT,full)
 
-You have the same file for impi that matches the system name.  Finally your "p4est/dev.lua" goes in 
+You have the same file for impi that matches the system name.  Finally your "p4est/dev.lua" goes in
 
    $MROOT/MPI/intel/13_1/mvapich2/1_9/p4est/dev.lua
 
-and 
+and
 
    $MROOT/MPI/intel/13_1/impi/xxx/p4est/dev.lua
 

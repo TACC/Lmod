@@ -123,7 +123,7 @@ local function outputTblHelper(indentIdx, name, T, a, level)
          break
       end
    end
-   
+
    local twidth = TermWidth()
    local w      = 0
    if (isArray) then

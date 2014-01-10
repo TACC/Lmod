@@ -26,7 +26,7 @@
 
 --------------------------------------------------------------------------
 -- Capture:  use io.popen to open a pipe to collect the output of a
---           command.  
+--           command.
 
 require("strict")
 

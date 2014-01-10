@@ -39,9 +39,9 @@ testdescript = {
      runLmod restore            # 8
      runLmod list               # 9
 
-     
 
-     
+
+
 
 
      HOME_ORIG=$HOME

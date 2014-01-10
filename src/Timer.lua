@@ -65,16 +65,16 @@ function M.report(self)
    local a   = {}
    a[#a + 1] = { "Name", "Count", "T Time", "Ave Time" }
    a[#a + 1] = { "----", "-----", "------", "--------" }
-   
+
    local t = self.tbl
-   
+
    --for k, v in pairsByKeys(t, function(a,b)
    --                           return a.accT < b.accT
    --                           end) do
    for k, v in pairs(t) do
       a[#a+1] = { k, v.count, v.accT, v.accT/v.count }
    end
-   
+
    local bt = BeautifulTbl:new{tbl = a, justifyT = {"Left", "Right", "Right", "Right"}}
    return bt:build_tbl()
 end

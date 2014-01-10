@@ -2,7 +2,7 @@
 # -*- shell-script -*-
 
 ########################################################################
-#  Create a system cache file 
+#  Create a system cache file
 #
 #   This creates the system cache file for module spider.
 ########################################################################
@@ -93,7 +93,7 @@ b=$(getModifyTime $cacheFile)
 # if the cache file is out-of-date then rebuild the cache files for the local
 # directories
 if [ $a -ge $b ]; then
-  buildNewDB $CacheDir  moduleT 
-  buildNewDB $RmapDir   reverseMapT  
+  buildNewDB $CacheDir  moduleT
+  buildNewDB $RmapDir   reverseMapT
 fi
 

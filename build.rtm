@@ -11,7 +11,7 @@ make_install()
     $SUDO $MAKE pre-install $MAKE_EXTRA
     $SUDO rm -f $BASE_DIR/lmod/EXPERIMENTAL
     $SUDO ln -s $PKG_VERSION $BASE_DIR/lmod/EXPERIMENTAL
-  fi    
+  fi
 }
 
 runMe()
@@ -120,7 +120,7 @@ command -v remake 2>&1 > /dev/null
 if [ "$?" = 0 ]; then
   MAKE=remake
 fi
-    
+
 cmdA=("-$MAKE distclean"
       "./configure --prefix=$BASE_DIR --with-ancient=86401 --with-shortTime=10.3 --with-settarg=FULL --with-duplicatePaths=yes $EXTRA"
       "make_install"

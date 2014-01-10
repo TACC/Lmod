@@ -35,7 +35,7 @@
 --------------------------------------------------------------------------
 -- MT: This class controls the ModuleTable.  The ModuleTable is how Lmod
 --     communicates what modules are loaded or inactive and so on between
---     module commands. 
+--     module commands.
 
 
 
@@ -153,7 +153,7 @@ local function locationTblDir(mpath, path, prefix, locationT, availT)
    elseif (next(mnameT) ~= nil) then
       ------------------------------------------------------------------------
       -- If here, then there are no directories and this is not a top level
-      -- directory. So any files found here are versions for the module.  
+      -- directory. So any files found here are versions for the module.
       -- The "name" of the module is the "prefix".
 
       local a           = locationT[prefix] or {}
@@ -195,7 +195,7 @@ local function buildLocWmoduleT(mpath, moduleT, mpathT, lT, availT)
    for f, vv in pairs(moduleT) do
 
       --------------------------------------------------------------------
-      -- 
+      --
 
       local defaultModule = false
       local sn            = vv.name
@@ -243,7 +243,7 @@ end
 --
 --  When sn is a meta module then
 --   availT[mpath][sn][0] = {version=..., file=..., parseV=...,
---                           markedDefault=T/F}, 
+--                           markedDefault=T/F},
 --
 --   locationT[sn] = {
 --                    default = {fn=, num=,
@@ -317,12 +317,12 @@ local function buildAllLocWmoduleT(moduleT, mpathA, locationT, availT)
 
    -- Use both locationT and availT to find the default modulefile
    -- and store it in locationT.
-   
+
    for sn, pathA in pairs(locationT) do
       local found = false
       for ii = 1, #pathA do
          local mpath    = pathA[ii].mpath
-         local versionA = availT[mpath][sn] 
+         local versionA = availT[mpath][sn]
          for i = 1, #versionA do
             local v = versionA[i]
             if (v.markedDefault) then
@@ -353,7 +353,7 @@ local function buildAllLocWmoduleT(moduleT, mpathA, locationT, availT)
          locationT[sn].default = {fn = fn, kind = "last", num = sum}
       end
    end
-         
+
    --dbg.fini("MT:buildAllLocWmoduleT")
 end
 
@@ -806,7 +806,7 @@ function M.getMTfromFile(self,t)
    end
 
    --------------------------------------------------------------------------
-   -- Check that the hash sums match between collection and current values. 
+   -- Check that the hash sums match between collection and current values.
 
    aa = {}
    s_mt:setHashSum()
@@ -835,7 +835,7 @@ function M.getMTfromFile(self,t)
       local n = "__LMOD_DEFAULT_MODULES_LOADED__"
       varTbl[n] = Var:new(n,"1")
    end
-      
+
    dbg.print{"baseMpathA: ",concatTbl(self.baseMpathA,":"),"\n"}
    dbg.fini("MT:getMTfromFile")
    return true
@@ -1037,7 +1037,7 @@ function M.clearLocationAvailT(self)
    self._locationTbl = false
    self._availT      = false
 end
-   
+
 
 function M.reloadAllModules(self)
    dbg.start{"MT:reloadAllModules()"}

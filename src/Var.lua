@@ -52,7 +52,7 @@
 --   self.tbl["/u/bin"]   = { 1, 3 }
 --   self.tbl["/u/l/bin"] = { 2 }
 --
--- Obviously the each key is the path.  The values are a weight that 
+-- Obviously the each key is the path.  The values are a weight that
 -- represents where it will appear when expanded back into a path-like
 -- environment variable.  If "/u/l/bin" is removed then there will be a
 -- gap in the values.  Each time a path is prepended it inserts a lower
@@ -244,7 +244,7 @@ end
 
 --------------------------------------------------------------------------
 -- Var:pop(): Remove the top value and return the second value or nil if
---            none are left. 
+--            none are left.
 
 function M.pop(self)
    local imin   = self.imin
@@ -405,7 +405,7 @@ end
 --------------------------------------------------------------------------
 -- Master:expand(): Expand the value into a string.   Obviously non-path
 --                  types are simply returned.
--- 
+--
 --                  It is a two step process to expand the path variables.
 --                  First table (self.tbl) is flipped where now the indices
 --                  are the keys and the paths are the values.  This creates

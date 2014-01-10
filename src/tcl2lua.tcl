@@ -589,7 +589,7 @@ proc execute-modulefile {modfile } {
 	interp alias $slave is-loaded {} is-loaded
 	interp alias $slave module {} module
         interp alias $slave setPutMode {} setPutMode
-        interp alias $slave puts {} myPuts 
+        interp alias $slave puts {} myPuts
 	interp alias $slave module-info {} module-info
 	interp alias $slave module-whatis {} module-whatis
 	interp alias $slave set-alias {} set-alias

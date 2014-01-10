@@ -70,7 +70,7 @@ function loadModuleFile(t)
       local s      = t.mList or ""
       local A      = {}
       A[#A + 1]    = "-l"
-      A[#A + 1]    = "\"" .. s .. "\"" 
+      A[#A + 1]    = "\"" .. s .. "\""
       A[#A + 1]    = "-f"
       A[#A + 1]    = full
       A[#A + 1]    = "-u"
@@ -85,7 +85,7 @@ function loadModuleFile(t)
       a[#a + 1]	   = concatTbl(A," ")
       a[#a + 1]	   = t.file
       local cmd    = concatTbl(a," ")
-      whole        = capture(cmd) 
+      whole        = capture(cmd)
    end
 
    -- Use the sandbox to evaluate modulefile text.
@@ -99,7 +99,7 @@ function loadModuleFile(t)
    -- report any errors
    if (not status and t.reportErr) then
       local n = usrName or ""
-      
+
       LmodError("Unable to load module: ",n,"\n    ",t.file,": ", msg,"\n")
    end
    dbg.fini("loadModuleFile")

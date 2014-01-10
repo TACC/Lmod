@@ -1,7 +1,7 @@
 Lmod Version 5.2.3:
 Bug Fixes:
   a) Prereq now works with a version.
-  b) The function "always_load" works with show. 
+  b) The function "always_load" works with show.
   c) The "make install" now works and doesn't complain about not being a git repository.
 
 Lmod Version 5.2:
@@ -18,7 +18,7 @@ Features:
      This only works in Lua module files, and works on all load functions:
      load, always_load.
   c) In Lua modulefiles you can modify prereq function behavior:
-        prereq(atleast("a","1.2"))      -- Module "a" must be version 1.2 
+        prereq(atleast("a","1.2"))      -- Module "a" must be version 1.2
                                         -- or higher.
         prereq(between("b","1.2","1.4") -- Module "b" must be version between
                                         -- 1.2 and 1.4.
@@ -48,7 +48,7 @@ Bug Fixes:
     The function convertToCanonical() knows how to deal with alpha, beta,
     and rc version and the function LmodVersion() returns the current
     version of Lmod.
-     
+
 
 Lmod Version 5.1.1:
 Bug Fixes and internal improvements
@@ -94,7 +94,7 @@ automatically updates "$TARG" and a host of other environment
 variables. These new environment variables encapsulate the state of
 the modules loaded.
 
-                        *** NOTE **** 
+                        *** NOTE ****
 
 Please note that settarg feature is optional and is implemented as a
 module.  If and only if the settarg module is loaded you get the new
@@ -133,7 +133,7 @@ title bar reflect the dynamic state of your modules. You can
 abbreviate items mentioned in the titlebar.  I have found this
 combination of settarg and Lmod to be a powerful development
 tool. Even if this workflow is not yours, you may find parts of this
-useful. 
+useful.
 
 For a more complete tour of settargs features see:
 contrib/settarg/Settarg.txt and the Make example in

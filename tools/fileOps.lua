@@ -271,7 +271,7 @@ function abspath (path, localDir)
    end
 
    dir          = cdir or dir
-   
+
 
    path = pathJoin(dir, barefilename(path))
    local result = path

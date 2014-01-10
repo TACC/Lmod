@@ -356,7 +356,7 @@ function Load_Usr(...)
       if (mt:have(sn, "active")) then
          local usrN  = (not masterTbl().latest) and mname:usrName() or mt:fullName(sn)
          dbg.print{"Karl registration: ",sn," user: ", usrN,"\n"}
-         
+
          ------------------------------------------------------
          -- Register user loads so that Karl will be happy.
          mt:userLoad(sn,usrN)
@@ -386,7 +386,7 @@ function Purge(force)
    dbg.start{"Purge(",concatTbl(totalA,", "),")"}
 
    MCP:unload_usr(mA,force)
-   
+
    -- Make Default Path be the new MODULEPATH
    mt:buildMpathA(mt:getBaseMPATH())
 

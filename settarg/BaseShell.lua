@@ -38,7 +38,7 @@ require("inherits")
 
 local M            = {}
 local dbg          = require("Dbg"):dbg()
-local STT          = require("STT")         
+local STT          = require("STT")
 local base64       = require("base64")
 local concatTbl    = table.concat
 local decode64     = base64.decode64
@@ -148,6 +148,6 @@ function M.expandSTT(self, vstr)
    end
 
    dbg.fini("BaseShell:expandSTT")
-end   
+end
 
 return M

@@ -22,7 +22,7 @@ function build_epoch()
          return os.time()
       end
    end
-end   
+end
 
 function main()
    build_epoch()

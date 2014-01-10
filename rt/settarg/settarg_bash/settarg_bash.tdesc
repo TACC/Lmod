@@ -35,13 +35,13 @@ testdescript = {
      rm -fr _stderr.* _stdout.* err.* out.* .lmod.d
 
      runLmod --version                              # 1
-     runLmod load settarg                           # 2    
+     runLmod load settarg                           # 2
      runMe lua $(projectDir)/settarg/settarg_cmd.in.lua -s bash --no_cpu_model dbg       # 3
      SETTARG_TAG1="obj";                   export SETTARG_TAG1
      SETTARG_TAG2="__";                    export SETTARG_TAG2
      runMe lua $(projectDir)/settarg/settarg_cmd.in.lua -s bash --no_cpu_model opt       # 4
      runMe lua $(projectDir)/settarg/settarg_cmd.in.lua -s bash --no_cpu_model empty     # 5
-     runLmod load gcc mpich                         # 6 
+     runLmod load gcc mpich                         # 6
      runMe lua $(projectDir)/settarg/settarg_cmd.in.lua -s bash --no_cpu_model           # 7
      runMe lua $(projectDir)/settarg/settarg_cmd.in.lua -s bash --no_cpu_model f_f       # 8
      runMe lua $(projectDir)/settarg/settarg_cmd.in.lua -s bash --no_cpu_model b:b       # 9

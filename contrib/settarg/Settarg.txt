@@ -67,7 +67,7 @@ This is a common set of variables generated or used by settarg.
                          debuggable executable.  Where as "opt" might
                          mean to build a fully optimized build.  To
                          clear this field use "empty"
-                         
+
 
 4) TARG_OS, TARG_OS_FAMILY: These are the OS name and family.  These
                             variables are always defined even if there
@@ -84,7 +84,7 @@ This is a common set of variables generated or used by settarg.
                  how this gets built.
 
 8) TARG_TITLE_BAR:  This contains everything in TARG_SUMMARY but it is
-                    abbreviated to fit the space available.  
+                    abbreviated to fit the space available.
 
 8) TARG:  This variable contains all the "interesting" items.  How is
           put together is described later.
@@ -105,7 +105,7 @@ default TARG_BUILD_SCENARIO will be "opt".  Similarily, any host with
 "foo.bar.edu" will have a default scenario of "dbg".
 
 ------------------------------------------------------------------------
-BuildScenarioTbl = { 
+BuildScenarioTbl = {
    default             = "empty",
    ["tacc.utexas.edu"] = "opt",
    ["foo.bar.edu"]     = "dbg",
@@ -174,7 +174,7 @@ SETTARG_TAG2 followed by TARG_SUMMARY.  Both "TAG" variables have to
 be set in the environment.  Here we have assumed that SETTARG_TAG1 is
 "OBJ" and SETTARG_TAG2 is "_".  This leads to TARG being:
 
-    TARG=OBJ/_x86_64_06_2d_dbg_gcc-4.6.3_openmpi-1.6.3   
+    TARG=OBJ/_x86_64_06_2d_dbg_gcc-4.6.3_openmpi-1.6.3
 
 
 The NoFamilyList is an array of categories that do not get the FAMILY
@@ -197,7 +197,7 @@ at the end of your PATH when TargPathLoc = "last".  If TargPathLoc is
 controlling where TARG goes in your path are slightly more
 complicated.  TargPathLoc controls where $TARG is placed in your path
 when TARG was not there before.  After the first time TARG is added to
-your path, TARG maintains its relative location.  
+your path, TARG maintains its relative location.
 
 Finally, HostnameTbl tells settarg how to extract an entry from the
 full hostname to be used as TARG_HOST.  If your host has multiple
