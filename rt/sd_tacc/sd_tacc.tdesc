@@ -1,7 +1,7 @@
 -- -*- lua -*-
 inactiveTbl = { Darwin = 1, }
 local function isActive()
-   require("posix")
+   local posix  = require("posix")
    local osName = posix.uname("%s")
    return (not inactiveTbl[osName])
 end

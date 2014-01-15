@@ -80,4 +80,3 @@ function M.report(self)
 end
 
 return M
-

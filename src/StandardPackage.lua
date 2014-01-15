@@ -40,7 +40,6 @@ local hook   = require("Hook")
 local getenv = os.getenv
 local lfs    = require("lfs")
 local min    = math.min
-local posix  = require("posix")
 
 local function parse_updateFn_hook(updateSystemFn, t)
    local attr = lfs.attributes(updateSystemFn)

@@ -40,6 +40,7 @@ local Dbg    = require("Dbg")
 local dbg    = Dbg:dbg()
 PkgBase      = require("PkgBase")
 local hook   = require("Hook")
+local lfs    = require("lfs")
 local getenv = os.getenv
 local posix  = require("posix")
 

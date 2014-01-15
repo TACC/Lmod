@@ -297,8 +297,6 @@ BaseShell          = require("BaseShell")
 local Options      = require("Options")
 local Spider       = require("Spider")
 local Var          = require("Var")
-local lfs          = require("lfs")
-local posix        = require("posix")
 
 function None()
    print ("None")

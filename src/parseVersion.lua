@@ -169,4 +169,3 @@ function parseVersionParts(versionStr)
          return "*" .. (replaceT[results] or results)
       end
 end
-

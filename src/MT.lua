@@ -58,7 +58,7 @@ require("deepcopy")
 require("utils")
 
 local Var          = require('Var')
-local lfs          = require('lfs')
+local lfs          = require("lfs")
 local dbg          = require('Dbg'):dbg()
 local ColumnTable  = require('ColumnTable')
 local hook         = require("Hook")

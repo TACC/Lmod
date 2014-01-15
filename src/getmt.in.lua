@@ -63,7 +63,6 @@ require("capture")
 require("utils")
 build_epoch()               -- build the epoch function
 _ModuleTable_  = ""
-local posix    = require("posix")
 local Optiks   = require("Optiks")
 local lfs      = require("lfs")
 local cmd      = abspath(arg[0])

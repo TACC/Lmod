@@ -50,6 +50,7 @@ local concatTbl    = table.concat
 local dbg          = require("Dbg"):dbg()
 local getenv       = os.getenv
 local hook         = require("Hook")
+local lfs          = require("lfs")
 local posix        = require("posix")
 local pack         = (_VERSION == "Lua 5.1") and argsPack or table.pack
 local unpack       = unpack or table.unpack
@@ -842,4 +843,3 @@ function Whatis(...)
    prtHdr    = dbg.quiet
    Access("whatis",...)
 end
-

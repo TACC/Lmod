@@ -243,5 +243,3 @@ local function run5_2(untrusted_code)
 end
 
 sandbox_run = (_VERSION == "Lua 5.1") and run5_1 or run5_2
-
-

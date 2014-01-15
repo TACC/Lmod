@@ -65,6 +65,7 @@ require("inherits")
 local M      = {}
 local MT     = require("MT")
 local dbg    = require("Dbg"):dbg()
+local lfs    = require("lfs")
 local huge   = math.huge
 local pack   = (_VERSION == "Lua 5.1") and argsPack or table.pack
 local posix  = require("posix")
@@ -589,7 +590,4 @@ function M.find(self)
    return t
 end
 
-
 return M
-
-

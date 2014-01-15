@@ -63,7 +63,7 @@ local Optiks       = require("Optiks")
 local Spider       = require("Spider")
 local dbg          = require("Dbg"):dbg()
 local hook         = require("Hook")
-local lfs          = require('lfs')
+local lfs          = require("lfs")
 local posix        = require("posix")
 local pack         = (_VERSION == "Lua 5.1") and argsPack or table.pack
 

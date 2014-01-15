@@ -88,4 +88,3 @@ function plain(c, ...)
    end
    return concatTbl(a,"")
 end
-
