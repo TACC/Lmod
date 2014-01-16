@@ -234,8 +234,6 @@ function M.options(self, usage)
       setenv("LMOD_TERM_WIDTH",tostring(optionTbl.twidth))
    end
 
-
-
    if (optionTbl.expert) then
       setenv("LMOD_EXPERT","1")
    end

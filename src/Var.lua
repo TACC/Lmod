@@ -150,23 +150,23 @@ end
 -- Var:prt() This member function is here just when debugging.
 
 function M.prt(self,title)
-   dbg.print (title,"\n")
-   dbg.print ("name:  \"", self.name, "\"\n")
-   dbg.print ("imin:  \"", self.imin, "\"\n")
-   dbg.print ("imax:  \"", self.imax, "\"\n")
-   dbg.print ("value: \"", self.value,"\"\n")
+   dbg.print {title,"\n"}
+   dbg.print {"name:  \"", self.name, "\"\n"}
+   dbg.print {"imin:  \"", self.imin, "\"\n"}
+   dbg.print {"imax:  \"", self.imax, "\"\n"}
+   dbg.print {"value: \"", self.value,"\"\n"}
    if (not self.tbl or type(self.tbl) ~= "table" or next(self.tbl) == nil) then
       dbg.print{"tbl is empty\n"}
       return
    end
    for k,v in pairs(self.tbl) do
-      dbg.print ("   \"",k,"\":")
+      dbg.print {"   \"",k,"\":"}
       for ii = 1,#v do
          io.stderr:write(" ",v[ii])
       end
-      dbg.print ("\n")
+      dbg.print {"\n"}
    end
-   dbg.print ("\n")
+   dbg.print {"\n"}
 end
 
 --------------------------------------------------------------------------
