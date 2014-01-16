@@ -420,7 +420,7 @@ function M.find_marked_default(self, pathA)
                   t           = mname:find()
                   t.default   = 1
                   result      = t.fn
-                  dbg.print ("(1) .version: t.fn: ", t.fn,"\n")
+                  dbg.print {"(1) .version: t.fn: ", t.fn,"\n"}
                   found       = true
                   break;
                end
@@ -435,7 +435,7 @@ function M.find_marked_default(self, pathA)
       end
    end
 
-   dbg.print ("(2) .version: t.fn: ", t.fn,"\n")
+   dbg.print {"(2) .version: t.fn: ", t.fn,"\n"}
 
    if (found) then
       t.fn          = result
@@ -445,7 +445,7 @@ function M.find_marked_default(self, pathA)
                 " default: ",t.default,"\n"}
    end
 
-   dbg.print ("(3) .version: t.fn: ", t.fn,"\n")
+   dbg.print {"(3) .version: t.fn: ", t.fn,"\n"}
    dbg.fini("MName:find_marked_default")
    return found, t
 end
