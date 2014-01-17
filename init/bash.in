@@ -56,9 +56,6 @@ if [ "${LMOD_SETTARG_CMD:-:}" != ":" ]; then
 fi
 
 
-
-
-
 ########################################################################
 #  ml is a shorthand tool for people who can't type moduel, err, module
 #  It is also a combination command:
@@ -79,6 +76,14 @@ clearMT()
 {
   eval $($LMOD_DIR/clearMT_cmd bash)
 }
+
+########################################################################
+#  export important Lmod shell functions to sub-shells (for bash only)
+
+if [ -n "$BASH_VERSION" ]; then
+  export -f ml clearMT module
+fi
+
 
 ########################################################################
 #  The following make the action of the settarg available to the titlebar
