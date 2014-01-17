@@ -130,7 +130,7 @@ AC_ARG_WITH(allow_tcl_mfiles,
     AC_MSG_RESULT([ALLOW_TCL_MFILES==$withval])
     AC_DEFINE_UNQUOTED(ALLOW_TCL_MFILES, "$withval")dnl
     ,
-    withval="YES"
+    withval="yes"
     AC_MSG_RESULT([ALLOW_TCL_MFILES=$withval])
     ALLOW_TCL_MFILES="$withval"
     AC_DEFINE_UNQUOTED(ALLOW_TCL_MFILES, "$withval"))dnl

@@ -1962,7 +1962,7 @@ $as_echo "ALLOW_TCL_MFILES==$withval" >&6; }
 _ACEOF
 
 else
-  withval="YES"
+  withval="yes"
     { $as_echo "$as_me:${as_lineno-$LINENO}: result: ALLOW_TCL_MFILES=$withval" >&5
 $as_echo "ALLOW_TCL_MFILES=$withval" >&6; }
     ALLOW_TCL_MFILES="$withval"
