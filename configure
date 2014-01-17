@@ -596,6 +596,7 @@ PATH_TO_GIT
 PATH_TO_LUA
 PATH_TO_PAGER
 SETTARG
+ALLOW_TCL_MFILES
 COLORIZE
 DUPLICATE_PATHS
 PREPEND_BLOCK
@@ -657,6 +658,7 @@ with_updateSystemFn
 with_prependBlock
 with_duplicatePaths
 with_colorize
+with_allow_tcl_mfiles
 with_settarg
 with_lua_include
 '
@@ -1294,6 +1296,7 @@ Optional Packages:
                           Allow multiple directories in path like variables
                           [[NO]]
   --with-colorize=ans     allow for colorized output [[YES]]
+  --allow-tcl-mfiles=ans  Allow TCL modulefiles [[YES]]
   --with-settarg=ans      startup files fully support settarg [[NO]]
   --with-lua-include=[path]
                           specify path the lua header files
@@ -1943,6 +1946,28 @@ $as_echo "COLORIZE=$withval" >&6; }
     COLORIZE="$withval"
     cat >>confdefs.h <<_ACEOF
 #define COLORIZE "$withval"
+_ACEOF
+
+fi
+
+
+
+# Check whether --with-allow_tcl_mfiles was given.
+if test "${with_allow_tcl_mfiles+set}" = set; then :
+  withval=$with_allow_tcl_mfiles; ALLOW_TCL_MFILES="$withval"
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: ALLOW_TCL_MFILES==$withval" >&5
+$as_echo "ALLOW_TCL_MFILES==$withval" >&6; }
+    cat >>confdefs.h <<_ACEOF
+#define ALLOW_TCL_MFILES "$withval"
+_ACEOF
+
+else
+  withval="YES"
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: ALLOW_TCL_MFILES=$withval" >&5
+$as_echo "ALLOW_TCL_MFILES=$withval" >&6; }
+    ALLOW_TCL_MFILES="$withval"
+    cat >>confdefs.h <<_ACEOF
+#define ALLOW_TCL_MFILES "$withval"
 _ACEOF
 
 fi
@@ -3546,6 +3571,7 @@ echo "Prepending multiple dirs (NORMAL / REVERSED)" : $PREPEND_BLOCK
 echo "Colorized output supported.................." : $COLORIZE
 echo "File that is touched when system is updated." : $UPDATE_SYSTEM_FN
 echo "Allow duplicate entry in PATHs.............." : $DUPLICATE_PATHS
+echo "Allow tcl modulefiles......................." : $ALLOW_TCL_MFILES
 echo "ZSH Tab Completion Functions Site Directory." : $ZSH_SITE_FUNCTIONS_DIR
 echo "Use Dot files in ~/.lmod.d.................." : $USE_DOT_FILES
 echo "Full Settarg support........................" : $SETTARG
