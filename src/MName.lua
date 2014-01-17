@@ -62,15 +62,15 @@ require("strict")
 require("utils")
 require("inherits")
 
-local M      = {}
-local MT     = require("MT")
-local dbg    = require("Dbg"):dbg()
-local lfs    = require("lfs")
-local huge   = math.huge
-local pack   = (_VERSION == "Lua 5.1") and argsPack or table.pack
-local posix  = require("posix")
-local sort   = table.sort
-MName        = M
+local M           = {}
+local MT          = require("MT")
+local dbg         = require("Dbg"):dbg()
+local lfs         = require("lfs")
+local huge        = math.huge
+local pack        = (_VERSION == "Lua 5.1") and argsPack or table.pack
+local posix       = require("posix")
+local sort        = table.sort
+MName             = M
 --------------------------------------------------------------------------
 -- shorten(): This function allows for taking the name and remove one
 --            level at a time.  Lmod rules require that if a module is
@@ -294,8 +294,10 @@ end
 local function followDefault(path)
    if (path == nil) then return nil end
    dbg.start{"followDefault(path=\"",path,"\")"}
-   local attr = lfs.symlinkattributes(path)
-   local result = path
+   local attr      = lfs.symlinkattributes(path)
+   local result    = path
+   local accept_fn = accept_fn
+
    if (attr == nil) then
       result = nil
    elseif (attr.mode == "link") then
@@ -321,20 +323,23 @@ local function followDefault(path)
    end
    dbg.print{"result: ",result,"\n"}
    dbg.fini("followDefault")
+   if (not accept_fn(result)) then
+      result = false
+   end
    return result
 end
-
-local searchExtT = { ".lua", ''}
 
 function M.find_exact_match(self, pathA)
    dbg.start{"MName:find_exact_match(pathA, t)"}
    dbg.print{"UserName: ", self:usrName(), "\n"}
-   local t        = { fn = nil, modFullName = nil, modName = nil, default = 0}
-   local found    = false
-   local result   = nil
-   local fullName = ""
-   local modName  = ""
-   local sn       = self:sn()
+   local t          = { fn = nil, modFullName = nil, modName = nil, default = 0}
+   local found      = false
+   local result     = nil
+   local fullName   = ""
+   local modName    = ""
+   local sn         = self:sn()
+   local searchExtT = accept_extT()
+   local numExts    = #searchExtT
 
    for ii = 1, #pathA do
       local vv    = pathA[ii]
@@ -343,7 +348,7 @@ function M.find_exact_match(self, pathA)
       found       = false
       result      = nil
 
-      for i = 1, 2 do
+      for i = 1, numExts do
          local v        = searchExtT[i]
          local f        = fn .. v
          local attr     = lfs.attributes(f)
@@ -383,13 +388,14 @@ searchDefaultT = { "/default", "/.version" }
 function M.find_marked_default(self, pathA)
    dbg.start{"MName:find_marked_default(pathA, t)"}
    dbg.print{"UserName: ", self:usrName(), "\n"}
-   local t        = { fn = nil, modFullName = nil, modName = nil, default = 0}
-   local found    = false
-   local result   = nil
-   local fullName = ""
-   local modName  = ""
-   local Master   = Master
-   local sn       = self:sn()
+   local accept_fn = accept_fn
+   local t         = { fn = nil, modFullName = nil, modName = nil, default = 0}
+   local found     = false
+   local result    = nil
+   local fullName  = ""
+   local modName   = ""
+   local Master    = Master
+   local sn        = self:sn()
 
    for ii = 1, #pathA do
       local vv    = pathA[ii]
@@ -415,7 +421,7 @@ function M.find_marked_default(self, pathA)
                end
             elseif (v == "/.version") then
                local vf = Master.versionFile(result)
-               if (vf) then
+               if (vf and accept_fn(vf)) then
                   local mname = M.new(self, "load", pathJoin(sn, vf))
                   t           = mname:find()
                   t.default   = 1

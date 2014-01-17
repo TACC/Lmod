@@ -69,43 +69,11 @@ function argsPack(...)
 end
 local pack        = (_VERSION == "Lua 5.1") and argsPack or table.pack
 
-----------------------------------------------------------------------------
----- bannerStr(): This function builds a banner string that is centered
-----              and has dashes on the left and right side.
---
---function bannerStr(width, str)
---   local a       = {}
---   local len     = str:len() + 2
---   local lcount  = floor((width - len)/2)
---   local rcount  = width - lcount - len
---   a[#a+1] = rep("-",lcount)
---   a[#a+1] = " "
---   a[#a+1] = str
---   a[#a+1] = " "
---   a[#a+1] = rep("-",rcount)
---   return concatTbl(a,"")
---end
---
---------------------------------------------------------------------------
----- border(); Build a border string of nspace leading spaces followed
-----           by "-"'s to exactly 4 spaces before the end of the terminal.
---
---local rep=string.rep
---borderG = nil
---nspacesG = 0
---function border(nspaces)
---   if (not borderG or nspaces ~= nspacesG) then
---      nspacesG = nspaces
---      local term_width = TermWidth() - 4
---      borderG = rep(" ",nspaces) .. rep("-", term_width) .. "\n"
---   end
---   return borderG
---end
 
 --------------------------------------------------------------------------
--- epoch(): return the number of seconds (and maybe partial seconds) since
---          Jan 1, 1970 12:00:00 Midnight G.M.T (Zulu)
-
+-- build_epoch(): This function builds the "epoch" function.  
+--                The epoch function returns the number of seconds since
+--                Jan 1, 1970, UTC
 
 function build_epoch()
    if (posix.gettimeofday) then
@@ -127,6 +95,33 @@ function build_epoch()
       epoch_type = "os.time"
       epoch = function()
          return os.time() - T0
+      end
+   end
+end
+
+--------------------------------------------------------------------------
+-- build_accept_functions(): Create the accept functions to allow or ignore
+--                           TCL files.
+
+function build_accept_functions()
+   local allow_tcl = LMOD_ALLOW_TCL_MFILES:lower()
+
+   if (allow_tcl == "no") then
+      dbg.print{"Ignoring TCL Files\n"}
+      _G.accept_fn = function (fn)
+         return fn:find("%.lua$")
+      end
+      _G.accept_extT = function ()
+         return { '.lua' }
+      end
+
+   else
+      dbg.print{"Accepting TCL Files\n"}
+      _G.accept_fn = function (fn)
+         return true
+      end
+      _G.accept_extT = function ()
+         return { '.lua', '' }
       end
    end
 end
@@ -210,6 +205,7 @@ function allVersions(pathA, n)
    local count     = 0
    local a         = {}
    local n         = n or #pathA
+   local accept_fn = accept_fn
 
    for i = 1, n do
       local vv   = pathA[i]
@@ -219,7 +215,7 @@ function allVersions(pathA, n)
          for v in lfs.dir(path) do
             local f = pathJoin(path, v)
             attr    = lfs.attributes(f)
-            local readable = posix.access(f,"r")
+            local readable = posix.access(f,"r") and accept_fn(f)
             if (readable and v:sub(1,1) ~= "." and attr.mode == 'file'
                 and v:sub(-1,-1) ~= '~') then
                v       = v:gsub("%.lua$","")

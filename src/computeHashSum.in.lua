@@ -99,8 +99,9 @@ function main()
    end
    dbg.start{"computeHashSum()"}
 
-   setenv_lmod_version() -- push Lmod version info into env for modulefiles.
-   build_epoch()         -- build the epoch function
+   setenv_lmod_version()    -- push Lmod version info into env for modulefiles.
+   build_epoch()            -- build the epoch function
+   build_accept_functions() -- Accept or ignore TCL modulefiles.
 
    require("StandardPackage")
    local lmodPath = os.getenv("LMOD_PACKAGE_PATH") or ""

@@ -248,10 +248,11 @@ function M.findModulesInDir(level, mpath, path, prefix, moduleT)
    local dirA            = {}
    local ignoreT         = ignoreFileT()
    local cTimer          = CTimer:cTimer()
+   local accept_fn       = accept_fn
 
    for file in lfs.dir(path) do
       if (not ignoreT[file] and file:sub(-1,-1) ~= "~" and
-          file:sub(1,8) ~= ".version" ) then
+          file:sub(1,8) ~= ".version") then
          local f        = pathJoin(path,file)
          local readable = posix.access(f,"r")
          local full     = pathJoin(prefix, file):gsub("%.lua","")
@@ -270,7 +271,7 @@ function M.findModulesInDir(level, mpath, path, prefix, moduleT)
 
          if (not attr or not readable) then
             -- do nothing for this case
-         elseif (readable and attr.mode == 'file' and file ~= "default") then
+         elseif (readable and attr.mode == 'file' and file ~= "default" and accept_fn(file)) then
             dbg.print{"mnameT[",full,"].file: ",f,"\n"}
             mnameT[full] = {file=f, mpath = mpath}
          elseif (attr.mode == "directory" and file:sub(1,1) ~= ".") then

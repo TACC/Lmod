@@ -210,7 +210,8 @@ function main()
    mcp = MasterControl.build("spider")
 
    readRC()
-   build_epoch() -- build the epoch function
+   build_epoch()            -- build the epoch function
+   build_accept_functions() -- functions to accept or ignore TCL mfiles
    local cache = Cache:cache{dontWrite = true, quiet = true}
 
    ------------------------------------------------------------------------
@@ -218,7 +219,7 @@ function main()
    colorize = plain
 
    setenv_lmod_version() -- push Lmod version info into env for modulefiles.
-
+   
    ------------------------------------------------------------------------
    --  The StandardPackage is where Lmod registers hooks.  Sites may
    --  override the hook functions in SitePackage.

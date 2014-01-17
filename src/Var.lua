@@ -85,6 +85,7 @@ require("strict")
 require("string_split")
 require("pairsByKeys")
 require("utils")
+local allow_dups    = allow_dups
 local dbg           = require("Dbg"):dbg()
 local ModulePath    = ModulePath
 local concatTbl     = table.concat

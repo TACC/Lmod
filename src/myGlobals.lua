@@ -74,6 +74,13 @@ varTbl      = {}
 Cversion      = 3
 
 ------------------------------------------------------------------------
+-- LMOD_ALLOW_TCL_MFILES:  Allow Lmod to read TCL based modules.
+------------------------------------------------------------------------
+
+LMOD_ALLOW_TCL_MFILES = os.getenv("LMOD_ALLOW_TCL_MFILES") or
+                        "@allow_tcl_mfiles@"
+
+------------------------------------------------------------------------
 -- LMOD_DUPLICATE_PATHS:  Allow the same path to be stored in PATH like
 --                       vars like PATH, LD_LIBRARY_PATH, etc
 ------------------------------------------------------------------------
@@ -251,6 +258,14 @@ GIT_VERSION = "@git_version@"
 ------------------------------------------------------------------------
 epoch      = false
 epoch_type = false
+
+--------------------------------------------------------------------------
+-- Accept functions: Allow or ignore TCL mfiles
+--------------------------------------------------------------------------
+accept_fn       = false
+accept_extT     = false
+
+
 
 PkgBase = false
 PkgLmod = false

@@ -123,6 +123,18 @@ AC_ARG_WITH(colorize,
     COLORIZE="$withval"
     AC_DEFINE_UNQUOTED(COLORIZE, "$withval"))dnl
 
+AC_SUBST(ALLOW_TCL_MFILES)
+AC_ARG_WITH(allow_tcl_mfiles,
+    AC_HELP_STRING([--allow-tcl-mfiles=ans],[Allow TCL modulefiles [[YES]]]),
+    ALLOW_TCL_MFILES="$withval"
+    AC_MSG_RESULT([ALLOW_TCL_MFILES==$withval])
+    AC_DEFINE_UNQUOTED(ALLOW_TCL_MFILES, "$withval")dnl
+    ,
+    withval="YES"
+    AC_MSG_RESULT([ALLOW_TCL_MFILES=$withval])
+    ALLOW_TCL_MFILES="$withval"
+    AC_DEFINE_UNQUOTED(ALLOW_TCL_MFILES, "$withval"))dnl
+
 AC_SUBST(SETTARG)
 AC_ARG_WITH(settarg,
     AC_HELP_STRING([--with-settarg=ans],[startup files fully support settarg [[NO]]]),

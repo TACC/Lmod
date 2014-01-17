@@ -41,6 +41,7 @@ s_prependBlock  = "@prepend_block@"
 prepend_order   = false
 allow_dups      = false
 banner          = false
+
 ------------------------------------------------------------------------
 -- Extract directory location of "lmod" command and add it
 -- to the lua search path
@@ -133,8 +134,7 @@ local unpack       = unpack or table.unpack
 local timer        = Timer:timer()
 
 function set_duplication()
-   local dups = LMOD_DUPLICATE_PATHS
-   dups       = dups:lower()
+   local dups = LMOD_DUPLICATE_PATHS:lower()
    if (dups == "yes") then
       dbg.print{"Allowing duplication in paths\n"}
       allow_dups = function (dupsIn)
@@ -335,6 +335,7 @@ ModuleFn   = ""
 
 
 function main()
+   local epoch        = epoch
    local t1           = epoch()
    local loadTbl      = { name = "load",        checkMPATH = true,  cmd = Load_Usr    }
    local tryAddTbl    = { name = "try-add",     checkMPATH = true,  cmd = Load_Try    }
@@ -474,9 +475,9 @@ function main()
    dbg.start{"lmod(", arg_str,")"}
    dbg.print{"Lmod Version: ",Version.name(),"\n"}
    dbg.print{"package.path: ",package.path,"\n"}
-   set_duplication()     -- Chose how to handle duplicate entries in a path.
+   set_duplication()         -- Chose how to handle duplicate entries in a path.
+   build_accept_functions()  -- build the accept functions to allow or ignore TCL mfiles
    readRC()
-
 
    ------------------------------------------------------------------------
    --  The StandardPackage is where Lmod registers hooks.  Sites may
