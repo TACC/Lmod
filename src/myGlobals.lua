@@ -265,6 +265,10 @@ epoch_type = false
 accept_fn       = false
 accept_extT     = false
 
+------------------------------------------------------------------------
+-- allow dups function: allow for duplicate entries in PATH like vars.
+------------------------------------------------------------------------
+allow_dups      = false
 
 
 PkgBase = false

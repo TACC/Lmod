@@ -39,7 +39,6 @@ BaseShell       = {}
 Pager           = "@path_to_pager@"
 s_prependBlock  = "@prepend_block@"
 prepend_order   = false
-allow_dups      = false
 banner          = false
 
 ------------------------------------------------------------------------

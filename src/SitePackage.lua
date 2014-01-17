@@ -79,6 +79,3 @@
 --  function as "module_requires_group".  The key is the name used in the modulefile and
 --  the right is what the function is called in SitePackage.lua.  The names can be the
 --  same.
-
-
-

@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.2.3 5.2.3-6-gc3e8646 2014-01-02 14:09
+Modules based on Lua: Version 5.2.4 5.2.4-9-g7ca4ed4 2014-01-09 16:59
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -106,7 +106,7 @@ The following guides are at http://www.tacc.utexas.edu/tacc-projects/lmod
   User Guide                 - How to use.
   Advance User Guide         - How to create you own modules.
   System Administrator Guide - How to install Lmod on your own system.
-Modules based on Lua: Version 5.2.3 5.2.3-6-gc3e8646 2014-01-02 14:09
+Modules based on Lua: Version 5.2.4 5.2.4-9-g7ca4ed4 2014-01-09 16:59
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 3
@@ -210,7 +210,7 @@ The following guides are at http://www.tacc.utexas.edu/tacc-projects/lmod
   User Guide                 - How to use.
   Advance User Guide         - How to create you own modules.
   System Administrator Guide - How to install Lmod on your own system.
-Modules based on Lua: Version 5.2.3 5.2.3-6-gc3e8646 2014-01-02 14:09
+Modules based on Lua: Version 5.2.4 5.2.4-9-g7ca4ed4 2014-01-09 16:59
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 4
@@ -230,9 +230,10 @@ Version 9
 step 5
 lua ProjectDIR/src/lmod.in.lua bash --config
 ===========================
-Modules based on Lua: Version 5.2.3 5.2.3-6-gc3e8646 2014-01-02 14:09
+Modules based on Lua: Version 5.2.4 5.2.4-9-g7ca4ed4 2014-01-09 16:59
     by Robert McLay mclay@tacc.utexas.edu
 Description                  Value
+Allow TCL modulefiles        @allow_tcl_mfiles@
 User cache valid time(sec)   @ancient@
 Colorize Lmod                yes
 Using dotfiles               @use_dot_files@
