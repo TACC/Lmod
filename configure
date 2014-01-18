@@ -658,7 +658,7 @@ with_updateSystemFn
 with_prependBlock
 with_duplicatePaths
 with_colorize
-with_allow_tcl_mfiles
+with_tcl
 with_settarg
 with_lua_include
 '
@@ -1296,7 +1296,7 @@ Optional Packages:
                           Allow multiple directories in path like variables
                           [[NO]]
   --with-colorize=ans     allow for colorized output [[YES]]
-  --allow-tcl-mfiles=ans  Allow TCL modulefiles [[YES]]
+  --with-tcl=ans          Allow TCL modulefiles [[YES]]
   --with-settarg=ans      startup files fully support settarg [[NO]]
   --with-lua-include=[path]
                           specify path the lua header files
@@ -1952,9 +1952,9 @@ fi
 
 
 
-# Check whether --with-allow_tcl_mfiles was given.
-if test "${with_allow_tcl_mfiles+set}" = set; then :
-  withval=$with_allow_tcl_mfiles; ALLOW_TCL_MFILES="$withval"
+# Check whether --with-tcl was given.
+if test "${with_tcl+set}" = set; then :
+  withval=$with_tcl; ALLOW_TCL_MFILES="$withval"
     { $as_echo "$as_me:${as_lineno-$LINENO}: result: ALLOW_TCL_MFILES==$withval" >&5
 $as_echo "ALLOW_TCL_MFILES==$withval" >&6; }
     cat >>confdefs.h <<_ACEOF

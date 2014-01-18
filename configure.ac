@@ -124,8 +124,8 @@ AC_ARG_WITH(colorize,
     AC_DEFINE_UNQUOTED(COLORIZE, "$withval"))dnl
 
 AC_SUBST(ALLOW_TCL_MFILES)
-AC_ARG_WITH(allow_tcl_mfiles,
-    AC_HELP_STRING([--allow-tcl-mfiles=ans],[Allow TCL modulefiles [[YES]]]),
+AC_ARG_WITH(tcl,
+    AC_HELP_STRING([--with-tcl=ans],[Allow TCL modulefiles [[YES]]]),
     ALLOW_TCL_MFILES="$withval"
     AC_MSG_RESULT([ALLOW_TCL_MFILES==$withval])
     AC_DEFINE_UNQUOTED(ALLOW_TCL_MFILES, "$withval")dnl
