@@ -37,6 +37,12 @@ testdescript = {
      runLmod --version                                      # 1
      runLmod avail                                          # 2
      runLmod spider                                         # 3
+     runLmod load   PrgEnv                                  # 4
+     runLmod unload PrgEnv                                  # 5
+     buildModuleT $LMOD_DEFAULT_MODULEPATH > $HOME/.lmod.d/.cache/moduleT.lua
+     runLmod load   PrgEnv                                  # 6
+
+
      
 
      HOME=$ORIG_HOME

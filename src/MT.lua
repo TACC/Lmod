@@ -121,8 +121,8 @@ local function locationTblDir(mpath, path, prefix, locationT, availT)
          if (not readable or not attr) then
             -- do nothing for non-readable or non-existant files
          elseif (attr.mode == 'file' and file ~= "default") then
-            local mname = pathJoin(prefix, file):gsub("%.lua","")
-            mnameT[mname] = {file=f, mpath = mpath}
+            local mname = pathJoin(prefix, file):gsub("%.lua$","")
+            mnameT[mname] = {file=f:gsub("%.lua$",""), mpath = mpath}
          elseif (attr.mode == "directory" and file:sub(1,1) ~= ".") then
             dirA[#dirA + 1] = { fullName = f, mname = pathJoin(prefix, file) }
          end

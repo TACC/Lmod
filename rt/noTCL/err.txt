@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.2.4 5.2.4-9-g7ca4ed4 2014-01-09 16:59
+Modules based on Lua: Version 5.2.4 5.2.4-15-g2787664 2014-01-09 16:59
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -60,3 +60,15 @@ where "Foo" is the name of a module
 To find detailed information about a particular package you
 must enter the version if there is more than one version:
    $ module spider Foo/11.1
+===========================
+step 4
+lua ProjectDIR/src/lmod.in.lua bash load PrgEnv
+===========================
+===========================
+step 5
+lua ProjectDIR/src/lmod.in.lua bash unload PrgEnv
+===========================
+===========================
+step 6
+lua ProjectDIR/src/lmod.in.lua bash load PrgEnv
+===========================
