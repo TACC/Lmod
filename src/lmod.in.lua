@@ -538,8 +538,10 @@ function main()
    if (masterTbl.config) then
       local Configuration = require("Configuration")
       local configuration = Configuration:configuration()
-      io.stderr:write(version())
-      io.stderr:write(configuration:report(),"\n")
+      local a = {}
+      a[1] = version()
+      a[2] = configuration:report()
+      pcall(pager,io.stderr,concatTbl(a,""))
       os.exit(0)
    end
 

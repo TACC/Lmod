@@ -333,13 +333,30 @@ end
 --                       Blah Blah Blah
 --
 
+function findAdminFn()
+   local readable    = "no"
+   local adminFn     = getenv("LMOD_ADMIN_FILE") or pathJoin(cmdDir(),"../../etc/admin.list")
+   local dirName, fn = splitFileName(adminFn)
+   local cwd         = posix.getcwd()
+   posix.chdir(dirName)
+   dirName = posix.getcwd()
+   adminFn = pathJoin(dirName, fn)
+   posix.chdir(cwd)
+   if (posix.access(adminFn, 'r')) then
+      readable = "yes"
+   end
+   
+   return adminFn, readable
+end
+
+
 function readAdmin()
 
    -- If there is anything in [[adminT]] then return because
    -- this routine has already read in the file.
    if (next (adminT)) then return end
 
-   local adminFn = getenv("LMOD_ADMIN_FILE") or pathJoin(cmdDir(),"../../etc/admin.list")
+   local adminFn = findAdminFn()
    local f       = io.open(adminFn,"r")
 
    -- Put something in adminT so that this routine will not be
