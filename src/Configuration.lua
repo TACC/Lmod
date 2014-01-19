@@ -120,8 +120,8 @@ local function new(self)
    tbl.pkg        = { doc = "Pkg Class name"              , value = pkgName,               }
    tbl.sitePkg    = { doc = "Site Pkg location"           , value = locSitePkg,            }
    tbl.uname      = { doc = "uname -a"                    , value = uname,                 }
-   tbl.Z01_admin  = { doc = "Admin file"                  , value = adminFn,               }
-   tbl.Z02_admin  = { doc = "Does Admin file exist"       , value = tostring(readable),    }
+   tbl.z01_admin  = { doc = "Admin file"                  , value = adminFn,               }
+   tbl.z02_admin  = { doc = "Does Admin file exist"       , value = tostring(readable),    }
    tbl.luaV       = { doc = "Lua Version"                 , value = _VERSION,              }
 
    o.tbl = tbl
