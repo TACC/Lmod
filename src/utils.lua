@@ -337,13 +337,15 @@ function findAdminFn()
    local readable    = "no"
    local adminFn     = getenv("LMOD_ADMIN_FILE") or pathJoin(cmdDir(),"../../etc/admin.list")
    local dirName, fn = splitFileName(adminFn)
-   local cwd         = posix.getcwd()
-   posix.chdir(dirName)
-   dirName = posix.getcwd()
-   adminFn = pathJoin(dirName, fn)
-   posix.chdir(cwd)
-   if (posix.access(adminFn, 'r')) then
-      readable = "yes"
+   if (isDir(dirName)) then
+      local cwd      = posix.getcwd()
+      posix.chdir(dirName)
+      dirName = posix.getcwd()
+      adminFn = pathJoin(dirName, fn)
+      posix.chdir(cwd)
+      if (posix.access(adminFn, 'r')) then
+         readable = "yes"
+      end
    end
    
    return adminFn, readable
