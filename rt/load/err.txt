@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.2.2 5.2.2-9-gb65be43 2013-12-12 15:40
+Modules based on Lua: Version 5.2.4 5.2.4-21-g014b3d4 2014-01-09 16:59
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -98,20 +98,34 @@ Use "module keyword key1 key2 ..." to search for all possible modules matching
 any of the "keys".
 ===========================
 step 15
+lua ProjectDIR/src/lmod.in.lua bash unload boost
+===========================
+===========================
+step 16
+lua ProjectDIR/src/lmod.in.lua bash load boost/1.33.0
+===========================
+Lmod has detected the following error: 
+The following module(s) are completely unknown: boost/1.33.0
+===========================
+step 17
 lua ProjectDIR/src/lmod.in.lua bash load boost/1.57.0
 ===========================
 Lmod has detected the following error: 
 The following module(s) are completely unknown: boost/1.57.0
 ===========================
-step 16
+step 18
+lua ProjectDIR/src/lmod.in.lua bash load boost
+===========================
+===========================
+step 19
 lua ProjectDIR/src/lmod.in.lua bash load alex
 ===========================
 ===========================
-step 17
+step 20
 lua ProjectDIR/src/lmod.in.lua bash --latest load rtm_intel
 ===========================
 ===========================
-step 18
+step 21
 lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
 Currently Loaded Modules:
@@ -122,15 +136,15 @@ Currently Loaded Modules:
   Where:
    (o):  built for offload to the MIC only
 ===========================
-step 19
+step 22
 lua ProjectDIR/src/lmod.in.lua bash use ProjectDIR/rt/load/mf/Share
 ===========================
 ===========================
-step 20
+step 23
 lua ProjectDIR/src/lmod.in.lua bash use -a ProjectDIR/rt/load/mf/Scratch
 ===========================
 ===========================
-step 21
+step 24
 lua ProjectDIR/src/lmod.in.lua bash avail A B
 ===========================
 ProjectDIR/rt/load/mf/Share
@@ -147,11 +161,11 @@ Use "module spider" to find all possible modules.
 Use "module keyword key1 key2 ..." to search for all possible modules matching
 any of the "keys".
 ===========================
-step 22
+step 25
 lua ProjectDIR/src/lmod.in.lua bash load A B
 ===========================
 ===========================
-step 23
+step 26
 lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
 Currently Loaded Modules:
@@ -162,13 +176,13 @@ Currently Loaded Modules:
   Where:
    (o):  built for offload to the MIC only
 ===========================
-step 24
+step 27
 lua ProjectDIR/src/lmod.in.lua bash load DoesNotExist
 ===========================
 Lmod has detected the following error: 
 The following module(s) are completely unknown: DoesNotExist
 ===========================
-step 25
+step 28
 lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
 Currently Loaded Modules:
@@ -179,7 +193,7 @@ Currently Loaded Modules:
   Where:
    (o):  built for offload to the MIC only
 ===========================
-step 26
+step 29
 lua ProjectDIR/src/lmod.in.lua bash tablelist
 ===========================
 activeList = {
@@ -197,7 +211,7 @@ activeList = {
   ["unix"] = "unix",
 }
 ===========================
-step 27
+step 30
 lua ProjectDIR/src/lmod.in.lua bash avail
 ===========================
 ProjectDIR/rt/load/mf/Share
@@ -229,7 +243,7 @@ Use "module spider" to find all possible modules.
 Use "module keyword key1 key2 ..." to search for all possible modules matching
 any of the "keys".
 ===========================
-step 28
+step 31
 lua ProjectDIR/src/lmod.in.lua bash avail C
 ===========================
 ProjectDIR/mf/Compiler/intel/10.1
@@ -255,11 +269,11 @@ Use "module spider" to find all possible modules.
 Use "module keyword key1 key2 ..." to search for all possible modules matching
 any of the "keys".
 ===========================
-step 29
+step 32
 lua ProjectDIR/src/lmod.in.lua bash load C
 ===========================
 ===========================
-step 30
+step 33
 lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
 Currently Loaded Modules:

@@ -232,6 +232,30 @@ MODULEPATH="ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/Core:ProjectDIR/mf/B
 export MODULEPATH;
 ===========================
 step 15
+lua ProjectDIR/src/lmod.in.lua bash unload boost
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/load/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/load/mf/Core";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/load/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/load/mf/Core";
+export MODULEPATH;
+unset TACC_BOOST_DIR;
+_ModuleTable_='_ModuleTable_={["activeSize"]=7,baseMpathA={"ProjectDIR/mf/Core","ProjectDIR/mf/Beta","ProjectDIR/rt/load/mf/Core",},family={["compiler"]="intel",},inactive={},mT={PrgEnv={["FN"]="ProjectDIR/mf/Core/PrgEnv.lua",["default"]=0,["fullName"]="PrgEnv",["loadOrder"]=2,propT={},["short"]="PrgEnv",["status"]="active",},admin={["FN"]="ProjectDIR/mf/Core/admin/admin-1.0.lua",["default"]=1,["fullName"]="admin/admin-1.0",["loadOrder"]=1,propT={},["short"]="admin",["status"]="active",},gotoblas={["FN"]="ProjectDIR/mf/Compiler/intel/10.1/gotoblas/1.32.lua",["default"]=1,["fullName"]="gotoblas/1.32",["loadOrder"]=7,propT={},["short"]="gotoblas",["status"]="active",},intel={["FN"]="ProjectDIR/mf/Core/intel/intel.lua",["default"]=1,["fullName"]="intel/intel",["loadOrder"]=6,propT={},["short"]="intel",["status"]="active",},["local"]={["FN"]="ProjectDIR/mf/Core/local/local.lua",["default"]=1,["fullName"]="local/local",["loadOrder"]=4,propT={},["short"]="local",["status"]="active",},noweb={["FN"]="ProjectDIR/mf/Core/noweb/2.10c.lua",["default"]=1,["fullName"]="noweb/2.10c",["loadOrder"]=5,propT={},["short"]="noweb",["status"]="active",},unix={["FN"]="ProjectDIR/mf/Core/unix/unix.lua",["default"]=1,["fullName"]="unix/unix",["loadOrder"]=3,propT={},["short"]="unix",["status"]="active",},},mpathA={"ProjectDIR/mf/Compiler/intel/10.1","ProjectDIR/mf/Core","ProjectDIR/mf/Beta","ProjectDIR/rt/load/mf/Core",},["systemBaseMPATH"]="ProjectDIR/mf/Core:ProjectDIR/mf/Beta",["version"]=2,}';
+export _ModuleTable_;
+===========================
+step 16
+lua ProjectDIR/src/lmod.in.lua bash load boost/1.33.0
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/load/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/load/mf/Core";
+export MODULEPATH;
+false
+===========================
+step 17
 lua ProjectDIR/src/lmod.in.lua bash load boost/1.57.0
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/load/mf/Core";
@@ -240,7 +264,23 @@ MODULEPATH="ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/Core:ProjectDIR/mf/B
 export MODULEPATH;
 false
 ===========================
-step 16
+step 18
+lua ProjectDIR/src/lmod.in.lua bash load boost
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/load/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/load/mf/Core";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/load/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/load/mf/Core";
+export MODULEPATH;
+TACC_BOOST_DIR="/opt/apps/boost/1.49.0";
+export TACC_BOOST_DIR;
+_ModuleTable_='_ModuleTable_={["activeSize"]=8,baseMpathA={"ProjectDIR/mf/Core","ProjectDIR/mf/Beta","ProjectDIR/rt/load/mf/Core",},family={["compiler"]="intel",},inactive={},mT={PrgEnv={["FN"]="ProjectDIR/mf/Core/PrgEnv.lua",["default"]=0,["fullName"]="PrgEnv",["loadOrder"]=2,propT={},["short"]="PrgEnv",["status"]="active",},admin={["FN"]="ProjectDIR/mf/Core/admin/admin-1.0.lua",["default"]=1,["fullName"]="admin/admin-1.0",["loadOrder"]=1,propT={},["short"]="admin",["status"]="active",},boost={["FN"]="ProjectDIR/mf/Core/boost/1.49.0.lua",["default"]=1,["fullName"]="boost/1.49.0",["loadOrder"]=8,propT={arch={["offload"]=1,},},["short"]="boost",["status"]="active",},gotoblas={["FN"]="ProjectDIR/mf/Compiler/intel/10.1/gotoblas/1.32.lua",["default"]=1,["fullName"]="gotoblas/1.32",["loadOrder"]=7,propT={},["short"]="gotoblas",["status"]="active",},intel={["FN"]="ProjectDIR/mf/Core/intel/intel.lua",["default"]=1,["fullName"]="intel/intel",["loadOrder"]=6,propT={},["short"]="intel",["status"]="active",},["local"]={["FN"]="ProjectDIR/mf/Core/local/local.lua",["default"]=1,["fullName"]="local/local",["loadOrder"]=4,propT={},["short"]="local",["status"]="active",},noweb={["FN"]="ProjectDIR/mf/Core/noweb/2.10c.lua",["default"]=1,["fullName"]="noweb/2.10c",["loadOrder"]=5,propT={},["short"]="noweb",["status"]="active",},unix={["FN"]="ProjectDIR/mf/Core/unix/unix.lua",["default"]=1,["fullName"]="unix/unix",["loadOrder"]=3,propT={},["short"]="unix",["status"]="active",},},mpathA={"ProjectDIR/mf/Compiler/intel/10.1","ProjectDIR/mf/Core","ProjectDIR/mf/Beta","ProjectDIR/rt/load/mf/Core",},["systemBaseMPATH"]="ProjectDIR/mf/Core:ProjectDIR/mf/Beta",["version"]=2,}';
+export _ModuleTable_;
+===========================
+step 19
 lua ProjectDIR/src/lmod.in.lua bash load alex
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/load/mf/Core";
@@ -256,7 +296,7 @@ export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["activeSize"]=9,baseMpathA={"ProjectDIR/mf/Core","ProjectDIR/mf/Beta","ProjectDIR/rt/load/mf/Core",},family={["compiler"]="intel",},inactive={},mT={PrgEnv={["FN"]="ProjectDIR/mf/Core/PrgEnv.lua",["default"]=0,["fullName"]="PrgEnv",["loadOrder"]=2,propT={},["short"]="PrgEnv",["status"]="active",},admin={["FN"]="ProjectDIR/mf/Core/admin/admin-1.0.lua",["default"]=1,["fullName"]="admin/admin-1.0",["loadOrder"]=1,propT={},["short"]="admin",["status"]="active",},alex={["FN"]="ProjectDIR/rt/load/mf/Core/alex/2.0.lua",["default"]=1,["fullName"]="alex/2.0",["loadOrder"]=9,propT={},["short"]="alex",["status"]="active",},boost={["FN"]="ProjectDIR/mf/Core/boost/1.49.0.lua",["default"]=1,["fullName"]="boost/1.49.0",["loadOrder"]=8,propT={arch={["offload"]=1,},},["short"]="boost",["status"]="active",},gotoblas={["FN"]="ProjectDIR/mf/Compiler/intel/10.1/gotoblas/1.32.lua",["default"]=1,["fullName"]="gotoblas/1.32",["loadOrder"]=7,propT={},["short"]="gotoblas",["status"]="active",},intel={["FN"]="ProjectDIR/mf/Core/intel/intel.lua",["default"]=1,["fullName"]="intel/intel",["loadOrder"]=6,propT={},["short"]="intel",["status"]="active",},["local"]={["FN"]="ProjectDIR/mf/Core/local/local.lua",["default"]=1,["fullName"]="local/local",["loadOrder"]=4,propT={},["short"]="local",["status"]="active",},noweb={["FN"]="ProjectDIR/mf/Core/noweb/2.10c.lua",["default"]=1,["fullName"]="noweb/2.10c",["loadOrder"]=5,propT={},["short"]="noweb",["status"]="active",},unix={["FN"]="ProjectDIR/mf/Core/unix/unix.lua",["default"]=1,["fullName"]="unix/unix",["loadOrder"]=3,propT={},["short"]="unix",["status"]="active",},},mpathA={"ProjectDIR/mf/Compiler/intel/10.1","ProjectDIR/mf/Core","ProjectDIR/mf/Beta","ProjectDIR/rt/load/mf/Core",},["systemBaseMPATH"]="ProjectDIR/mf/Core:ProjectDIR/mf/Beta",["version"]=2,}';
 export _ModuleTable_;
 ===========================
-step 17
+step 20
 lua ProjectDIR/src/lmod.in.lua bash --latest load rtm_intel
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/load/mf/Core";
@@ -272,7 +312,7 @@ export RTM_INTEL_VERSION;
 _ModuleTable_='_ModuleTable_={["activeSize"]=10,baseMpathA={"ProjectDIR/mf/Core","ProjectDIR/mf/Beta","ProjectDIR/rt/load/mf/Core",},family={["compiler"]="intel",},inactive={},mT={PrgEnv={["FN"]="ProjectDIR/mf/Core/PrgEnv.lua",["default"]=0,["fullName"]="PrgEnv",["loadOrder"]=2,propT={},["short"]="PrgEnv",["status"]="active",},admin={["FN"]="ProjectDIR/mf/Core/admin/admin-1.0.lua",["default"]=1,["fullName"]="admin/admin-1.0",["loadOrder"]=1,propT={},["short"]="admin",["status"]="active",},alex={["FN"]="ProjectDIR/rt/load/mf/Core/alex/2.0.lua",["default"]=1,["fullName"]="alex/2.0",["loadOrder"]=9,propT={},["short"]="alex",["status"]="active",},boost={["FN"]="ProjectDIR/mf/Core/boost/1.49.0.lua",["default"]=1,["fullName"]="boost/1.49.0",["loadOrder"]=8,propT={arch={["offload"]=1,},},["short"]="boost",["status"]="active",},gotoblas={["FN"]="ProjectDIR/mf/Compiler/intel/10.1/gotoblas/1.32.lua",["default"]=1,["fullName"]="gotoblas/1.32",["loadOrder"]=7,propT={},["short"]="gotoblas",["status"]="active",},intel={["FN"]="ProjectDIR/mf/Core/intel/intel.lua",["default"]=1,["fullName"]="intel/intel",["loadOrder"]=6,propT={},["short"]="intel",["status"]="active",},["local"]={["FN"]="ProjectDIR/mf/Core/local/local.lua",["default"]=1,["fullName"]="local/local",["loadOrder"]=4,propT={},["short"]="local",["status"]="active",},noweb={["FN"]="ProjectDIR/mf/Core/noweb/2.10c.lua",["default"]=1,["fullName"]="noweb/2.10c",["loadOrder"]=5,propT={},["short"]="noweb",["status"]="active",},rtm_intel={["FN"]="ProjectDIR/rt/load/mf/Core/rtm_intel/12.1.lua",["default"]=1,["fullName"]="rtm_intel/12.1",["loadOrder"]=10,propT={},["short"]="rtm_intel",["status"]="active",},unix={["FN"]="ProjectDIR/mf/Core/unix/unix.lua",["default"]=1,["fullName"]="unix/unix",["loadOrder"]=3,propT={},["short"]="unix",["status"]="active",},},mpathA={"ProjectDIR/mf/Compiler/intel/10.1","ProjectDIR/mf/Core","ProjectDIR/mf/Beta","ProjectDIR/rt/load/mf/Core",},["systemBaseMPATH"]="ProjectDIR/mf/Core:ProjectDIR/mf/Beta",["version"]=2,}';
 export _ModuleTable_;
 ===========================
-step 18
+step 21
 lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/load/mf/Core";
@@ -284,7 +324,7 @@ export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/load/mf/Core";
 export MODULEPATH;
 ===========================
-step 19
+step 22
 lua ProjectDIR/src/lmod.in.lua bash use ProjectDIR/rt/load/mf/Share
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/load/mf/Core";
@@ -298,7 +338,7 @@ export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["activeSize"]=10,baseMpathA={"ProjectDIR/rt/load/mf/Share","ProjectDIR/mf/Core","ProjectDIR/mf/Beta","ProjectDIR/rt/load/mf/Core",},family={["compiler"]="intel",},inactive={},mT={PrgEnv={["FN"]="ProjectDIR/mf/Core/PrgEnv.lua",["default"]=0,["fullName"]="PrgEnv",["loadOrder"]=2,propT={},["short"]="PrgEnv",["status"]="active",},admin={["FN"]="ProjectDIR/mf/Core/admin/admin-1.0.lua",["default"]=1,["fullName"]="admin/admin-1.0",["loadOrder"]=1,propT={},["short"]="admin",["status"]="active",},alex={["FN"]="ProjectDIR/rt/load/mf/Core/alex/2.0.lua",["default"]=1,["fullName"]="alex/2.0",["loadOrder"]=9,propT={},["short"]="alex",["status"]="active",},boost={["FN"]="ProjectDIR/mf/Core/boost/1.49.0.lua",["default"]=1,["fullName"]="boost/1.49.0",["loadOrder"]=8,propT={arch={["offload"]=1,},},["short"]="boost",["status"]="active",},gotoblas={["FN"]="ProjectDIR/mf/Compiler/intel/10.1/gotoblas/1.32.lua",["default"]=1,["fullName"]="gotoblas/1.32",["loadOrder"]=7,propT={},["short"]="gotoblas",["status"]="active",},intel={["FN"]="ProjectDIR/mf/Core/intel/intel.lua",["default"]=1,["fullName"]="intel/intel",["loadOrder"]=6,propT={},["short"]="intel",["status"]="active",},["local"]={["FN"]="ProjectDIR/mf/Core/local/local.lua",["default"]=1,["fullName"]="local/local",["loadOrder"]=4,propT={},["short"]="local",["status"]="active",},noweb={["FN"]="ProjectDIR/mf/Core/noweb/2.10c.lua",["default"]=1,["fullName"]="noweb/2.10c",["loadOrder"]=5,propT={},["short"]="noweb",["status"]="active",},rtm_intel={["FN"]="ProjectDIR/rt/load/mf/Core/rtm_intel/12.1.lua",["default"]=1,["fullName"]="rtm_intel/12.1",["loadOrder"]=10,propT={},["short"]="rtm_intel",["status"]="active",},unix={["FN"]="ProjectDIR/mf/Core/unix/unix.lua",["default"]=1,["fullName"]="unix/unix",["loadOrder"]=3,propT={},["short"]="unix",["status"]="active",},},mpathA={"ProjectDIR/rt/load/mf/Share","ProjectDIR/mf/Compiler/intel/10.1","ProjectDIR/mf/Core","ProjectDIR/mf/Beta","ProjectDIR/rt/load/mf/Core",},["systemBaseMPATH"]="ProjectDIR/mf/Core:ProjectDIR/mf/Beta",["version"]=2,}';
 export _ModuleTable_;
 ===========================
-step 20
+step 23
 lua ProjectDIR/src/lmod.in.lua bash use -a ProjectDIR/rt/load/mf/Scratch
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/load/mf/Share:ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/load/mf/Core";
@@ -312,7 +352,7 @@ export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["activeSize"]=10,baseMpathA={"ProjectDIR/rt/load/mf/Share","ProjectDIR/mf/Core","ProjectDIR/mf/Beta","ProjectDIR/rt/load/mf/Core","ProjectDIR/rt/load/mf/Scratch",},family={["compiler"]="intel",},inactive={},mT={PrgEnv={["FN"]="ProjectDIR/mf/Core/PrgEnv.lua",["default"]=0,["fullName"]="PrgEnv",["loadOrder"]=2,propT={},["short"]="PrgEnv",["status"]="active",},admin={["FN"]="ProjectDIR/mf/Core/admin/admin-1.0.lua",["default"]=1,["fullName"]="admin/admin-1.0",["loadOrder"]=1,propT={},["short"]="admin",["status"]="active",},alex={["FN"]="ProjectDIR/rt/load/mf/Core/alex/2.0.lua",["default"]=1,["fullName"]="alex/2.0",["loadOrder"]=9,propT={},["short"]="alex",["status"]="active",},boost={["FN"]="ProjectDIR/mf/Core/boost/1.49.0.lua",["default"]=1,["fullName"]="boost/1.49.0",["loadOrder"]=8,propT={arch={["offload"]=1,},},["short"]="boost",["status"]="active",},gotoblas={["FN"]="ProjectDIR/mf/Compiler/intel/10.1/gotoblas/1.32.lua",["default"]=1,["fullName"]="gotoblas/1.32",["loadOrder"]=7,propT={},["short"]="gotoblas",["status"]="active",},intel={["FN"]="ProjectDIR/mf/Core/intel/intel.lua",["default"]=1,["fullName"]="intel/intel",["loadOrder"]=6,propT={},["short"]="intel",["status"]="active",},["local"]={["FN"]="ProjectDIR/mf/Core/local/local.lua",["default"]=1,["fullName"]="local/local",["loadOrder"]=4,propT={},["short"]="local",["status"]="active",},noweb={["FN"]="ProjectDIR/mf/Core/noweb/2.10c.lua",["default"]=1,["fullName"]="noweb/2.10c",["loadOrder"]=5,propT={},["short"]="noweb",["status"]="active",},rtm_intel={["FN"]="ProjectDIR/rt/load/mf/Core/rtm_intel/12.1.lua",["default"]=1,["fullName"]="rtm_intel/12.1",["loadOrder"]=10,propT={},["short"]="rtm_intel",["status"]="active",},unix={["FN"]="ProjectDIR/mf/Core/unix/unix.lua",["default"]=1,["fullName"]="unix/unix",["loadOrder"]=3,propT={},["short"]="unix",["status"]="active",},},mpathA={"ProjectDIR/rt/load/mf/Share","ProjectDIR/mf/Compiler/intel/10.1","ProjectDIR/mf/Core","ProjectDIR/mf/Beta","ProjectDIR/rt/load/mf/Core","ProjectDIR/rt/load/mf/Scratch",},["systemBaseMPATH"]="ProjectDIR/mf/Core:ProjectDIR/mf/Beta",["version"]=2,}';
 export _ModuleTable_;
 ===========================
-step 21
+step 24
 lua ProjectDIR/src/lmod.in.lua bash avail A B
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/load/mf/Share:ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/load/mf/Core:ProjectDIR/rt/load/mf/Scratch";
@@ -324,7 +364,7 @@ export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/load/mf/Share:ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/load/mf/Core:ProjectDIR/rt/load/mf/Scratch";
 export MODULEPATH;
 ===========================
-step 22
+step 25
 lua ProjectDIR/src/lmod.in.lua bash load A B
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/load/mf/Share:ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/load/mf/Core:ProjectDIR/rt/load/mf/Scratch";
@@ -342,41 +382,8 @@ export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["activeSize"]=12,baseMpathA={"ProjectDIR/rt/load/mf/Share","ProjectDIR/mf/Core","ProjectDIR/mf/Beta","ProjectDIR/rt/load/mf/Core","ProjectDIR/rt/load/mf/Scratch",},family={["compiler"]="intel",},inactive={},mT={A={["FN"]="ProjectDIR/rt/load/mf/Scratch/A/1.1.1.lua",["default"]=1,["fullName"]="A/1.1.1",["loadOrder"]=11,propT={},["short"]="A",["status"]="active",},B={["FN"]="ProjectDIR/rt/load/mf/Scratch/B/1.4.lua",["default"]=1,["fullName"]="B/1.4",["loadOrder"]=12,propT={},["short"]="B",["status"]="active",},PrgEnv={["FN"]="ProjectDIR/mf/Core/PrgEnv.lua",["default"]=0,["fullName"]="PrgEnv",["loadOrder"]=2,propT={},["short"]="PrgEnv",["status"]="active",},admin={["FN"]="ProjectDIR/mf/Core/admin/admin-1.0.lua",["default"]=1,["fullName"]="admin/admin-1.0",["loadOrder"]=1,propT={},["short"]="admin",["status"]="active",},alex={["FN"]="ProjectDIR/rt/load/mf/Core/alex/2.0.lua",["default"]=1,["fullName"]="alex/2.0",["loadOrder"]=9,propT={},["short"]="alex",["status"]="active",},boost={["FN"]="ProjectDIR/mf/Core/boost/1.49.0.lua",["default"]=1,["fullName"]="boost/1.49.0",["loadOrder"]=8,propT={arch={["offload"]=1,},},["short"]="boost",["status"]="active",},gotoblas={["FN"]="ProjectDIR/mf/Compiler/intel/10.1/gotoblas/1.32.lua",["default"]=1,["fullName"]="gotoblas/1.32",["loadOrder"]=7,propT={},["short"]="gotoblas",["status"]="active",},intel={["FN"]="ProjectDIR/mf/Core/intel/intel.lua",["default"]=1,["fullName"]="intel/intel",["loadOrder"]=6,propT={},["short"]="intel",["status"]="active",},["local"]={["FN"]="ProjectDIR/mf/Core/local/local.lua",["default"]=1,["fullName"]="local/local",["loadOrder"]=4,propT={},["short"]="local",["status"]="active",},noweb={["FN"]="ProjectDIR/mf/Core/noweb/2.10c.lua",["default"]=1,["fullName"]="noweb/2.10c",["loadOrder"]=5,propT={},["short"]="noweb",["status"]="active",},rtm_intel={["FN"]="ProjectDIR/rt/load/mf/Core/rtm_intel/12.1.lua",["default"]=1,["fullName"]="rtm_intel/12.1",["loadOrder"]=10,propT={},["short"]="rtm_intel",["status"]="active",},unix={["FN"]="ProjectDIR/mf/Core/unix/unix.lua",["default"]=1,["fullName"]="unix/unix",["loadOrder"]=3,propT={},["short"]="unix",["status"]="active",},},mpathA={"ProjectDIR/rt/load/mf/Share","ProjectDIR/mf/Compiler/intel/10.1","ProjectDIR/mf/Core","ProjectDIR/mf/Beta","ProjectDIR/rt/load/mf/Core","ProjectDIR/rt/load/mf/Scratch",},["systemBaseMPATH"]="ProjectDIR/mf/Core:ProjectDIR/mf/Beta",["version"]=2,}';
 export _ModuleTable_;
 ===========================
-step 23
-lua ProjectDIR/src/lmod.in.lua bash list
-===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/load/mf/Share:ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/load/mf/Core:ProjectDIR/rt/load/mf/Scratch";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/load/mf/Share:ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/load/mf/Core:ProjectDIR/rt/load/mf/Scratch";
-export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/load/mf/Share:ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/load/mf/Core:ProjectDIR/rt/load/mf/Scratch";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/load/mf/Share:ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/load/mf/Core:ProjectDIR/rt/load/mf/Scratch";
-export MODULEPATH;
-===========================
-step 24
-lua ProjectDIR/src/lmod.in.lua bash load DoesNotExist
-===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/load/mf/Share:ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/load/mf/Core:ProjectDIR/rt/load/mf/Scratch";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/load/mf/Share:ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/load/mf/Core:ProjectDIR/rt/load/mf/Scratch";
-export MODULEPATH;
-false
-===========================
-step 25
-lua ProjectDIR/src/lmod.in.lua bash list
-===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/load/mf/Share:ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/load/mf/Core:ProjectDIR/rt/load/mf/Scratch";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/load/mf/Share:ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/load/mf/Core:ProjectDIR/rt/load/mf/Scratch";
-export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/load/mf/Share:ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/load/mf/Core:ProjectDIR/rt/load/mf/Scratch";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/load/mf/Share:ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/load/mf/Core:ProjectDIR/rt/load/mf/Scratch";
-export MODULEPATH;
-===========================
 step 26
-lua ProjectDIR/src/lmod.in.lua bash tablelist
+lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/load/mf/Share:ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/load/mf/Core:ProjectDIR/rt/load/mf/Scratch";
 export LMOD_DEFAULT_MODULEPATH;
@@ -388,19 +395,16 @@ MODULEPATH="ProjectDIR/rt/load/mf/Share:ProjectDIR/mf/Compiler/intel/10.1:Projec
 export MODULEPATH;
 ===========================
 step 27
-lua ProjectDIR/src/lmod.in.lua bash avail
+lua ProjectDIR/src/lmod.in.lua bash load DoesNotExist
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/load/mf/Share:ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/load/mf/Core:ProjectDIR/rt/load/mf/Scratch";
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/load/mf/Share:ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/load/mf/Core:ProjectDIR/rt/load/mf/Scratch";
 export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/load/mf/Share:ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/load/mf/Core:ProjectDIR/rt/load/mf/Scratch";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/load/mf/Share:ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/load/mf/Core:ProjectDIR/rt/load/mf/Scratch";
-export MODULEPATH;
+false
 ===========================
 step 28
-lua ProjectDIR/src/lmod.in.lua bash avail C
+lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/load/mf/Share:ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/load/mf/Core:ProjectDIR/rt/load/mf/Scratch";
 export LMOD_DEFAULT_MODULEPATH;
@@ -412,6 +416,42 @@ MODULEPATH="ProjectDIR/rt/load/mf/Share:ProjectDIR/mf/Compiler/intel/10.1:Projec
 export MODULEPATH;
 ===========================
 step 29
+lua ProjectDIR/src/lmod.in.lua bash tablelist
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/load/mf/Share:ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/load/mf/Core:ProjectDIR/rt/load/mf/Scratch";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/load/mf/Share:ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/load/mf/Core:ProjectDIR/rt/load/mf/Scratch";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/load/mf/Share:ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/load/mf/Core:ProjectDIR/rt/load/mf/Scratch";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/load/mf/Share:ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/load/mf/Core:ProjectDIR/rt/load/mf/Scratch";
+export MODULEPATH;
+===========================
+step 30
+lua ProjectDIR/src/lmod.in.lua bash avail
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/load/mf/Share:ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/load/mf/Core:ProjectDIR/rt/load/mf/Scratch";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/load/mf/Share:ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/load/mf/Core:ProjectDIR/rt/load/mf/Scratch";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/load/mf/Share:ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/load/mf/Core:ProjectDIR/rt/load/mf/Scratch";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/load/mf/Share:ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/load/mf/Core:ProjectDIR/rt/load/mf/Scratch";
+export MODULEPATH;
+===========================
+step 31
+lua ProjectDIR/src/lmod.in.lua bash avail C
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/load/mf/Share:ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/load/mf/Core:ProjectDIR/rt/load/mf/Scratch";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/load/mf/Share:ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/load/mf/Core:ProjectDIR/rt/load/mf/Scratch";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/load/mf/Share:ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/load/mf/Core:ProjectDIR/rt/load/mf/Scratch";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/load/mf/Share:ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/load/mf/Core:ProjectDIR/rt/load/mf/Scratch";
+export MODULEPATH;
+===========================
+step 32
 lua ProjectDIR/src/lmod.in.lua bash load C
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/load/mf/Share:ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/load/mf/Core:ProjectDIR/rt/load/mf/Scratch";
@@ -427,7 +467,7 @@ export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["activeSize"]=13,baseMpathA={"ProjectDIR/rt/load/mf/Share","ProjectDIR/mf/Core","ProjectDIR/mf/Beta","ProjectDIR/rt/load/mf/Core","ProjectDIR/rt/load/mf/Scratch",},family={["compiler"]="intel",},inactive={},mT={A={["FN"]="ProjectDIR/rt/load/mf/Scratch/A/1.1.1.lua",["default"]=1,["fullName"]="A/1.1.1",["loadOrder"]=11,propT={},["short"]="A",["status"]="active",},B={["FN"]="ProjectDIR/rt/load/mf/Scratch/B/1.4.lua",["default"]=1,["fullName"]="B/1.4",["loadOrder"]=12,propT={},["short"]="B",["status"]="active",},C={["FN"]="ProjectDIR/rt/load/mf/Core/C/1.8.5.lua",["default"]=1,["fullName"]="C/1.8.5",["loadOrder"]=13,propT={},["short"]="C",["status"]="active",},PrgEnv={["FN"]="ProjectDIR/mf/Core/PrgEnv.lua",["default"]=0,["fullName"]="PrgEnv",["loadOrder"]=2,propT={},["short"]="PrgEnv",["status"]="active",},admin={["FN"]="ProjectDIR/mf/Core/admin/admin-1.0.lua",["default"]=1,["fullName"]="admin/admin-1.0",["loadOrder"]=1,propT={},["short"]="admin",["status"]="active",},alex={["FN"]="ProjectDIR/rt/load/mf/Core/alex/2.0.lua",["default"]=1,["fullName"]="alex/2.0",["loadOrder"]=9,propT={},["short"]="alex",["status"]="active",},boost={["FN"]="ProjectDIR/mf/Core/boost/1.49.0.lua",["default"]=1,["fullName"]="boost/1.49.0",["loadOrder"]=8,propT={arch={["offload"]=1,},},["short"]="boost",["status"]="active",},gotoblas={["FN"]="ProjectDIR/mf/Compiler/intel/10.1/gotoblas/1.32.lua",["default"]=1,["fullName"]="gotoblas/1.32",["loadOrder"]=7,propT={},["short"]="gotoblas",["status"]="active",},intel={["FN"]="ProjectDIR/mf/Core/intel/intel.lua",["default"]=1,["fullName"]="intel/intel",["loadOrder"]=6,propT={},["short"]="intel",["status"]="active",},["local"]={["FN"]="ProjectDIR/mf/Core/local/local.lua",["default"]=1,["fullName"]="local/local",["loadOrder"]=4,propT={},["short"]="local",["status"]="active",},noweb={["FN"]="ProjectDIR/mf/Core/noweb/2.10c.lua",["default"]=1,["fullName"]="noweb/2.10c",["loadOrder"]=5,propT={},["short"]="noweb",["status"]="active",},rtm_intel={["FN"]="ProjectDIR/rt/load/mf/Core/rtm_intel/12.1.lua",["default"]=1,["fullName"]="rtm_intel/12.1",["loadOrder"]=10,propT={},["short"]="rtm_intel",["status"]="active",},unix={["FN"]="ProjectDIR/mf/Core/unix/unix.lua",["default"]=1,["fullName"]="unix/unix",["loadOrder"]=3,propT={},["short"]="unix",["status"]="active",},},mpathA={"ProjectDIR/rt/load/mf/Share","ProjectDIR/mf/Compiler/intel/10.1","ProjectDIR/mf/Core","ProjectDIR/mf/Beta","ProjectDIR/rt/load/mf/Core","ProjectDIR/rt/load/mf/Scratch",},["systemBaseMPATH"]="ProjectDIR/mf/Core:ProjectDIR/mf/Beta",["version"]=2,}';
 export _ModuleTable_;
 ===========================
-step 30
+step 33
 lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/load/mf/Share:ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/load/mf/Core:ProjectDIR/rt/load/mf/Scratch";

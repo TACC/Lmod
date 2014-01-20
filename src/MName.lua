@@ -331,7 +331,8 @@ end
 
 function M.find_exact_match(self, pathA)
    dbg.start{"MName:find_exact_match(pathA, t)"}
-   dbg.print{"UserName: ", self:usrName(), "\n"}
+   local usrName    = self:usrName()
+   dbg.print{"UserName: ", usrName , "\n"}
    local t          = { fn = nil, modFullName = nil, modName = nil, default = 0}
    local found      = false
    local result     = nil
@@ -377,6 +378,8 @@ function M.find_exact_match(self, pathA)
       t.modName     = sn
       dbg.print{"modName: ",sn," fn: ", result," modFullName: ", fullName,
                 " default: ",t.default,"\n"}
+   else
+      dbg.print{"Did not find: ",usrName,"\n"}
    end
 
    dbg.fini("MName:find_exact_match")
@@ -387,7 +390,8 @@ searchDefaultT = { "/default", "/.version" }
 
 function M.find_marked_default(self, pathA)
    dbg.start{"MName:find_marked_default(pathA, t)"}
-   dbg.print{"UserName: ", self:usrName(), "\n"}
+   local usrName   = self:usrName()
+   local sn        = self:sn()
    local accept_fn = accept_fn
    local t         = { fn = nil, modFullName = nil, modName = nil, default = 0}
    local found     = false
@@ -395,8 +399,14 @@ function M.find_marked_default(self, pathA)
    local fullName  = ""
    local modName   = ""
    local Master    = Master
-   local sn        = self:sn()
 
+   dbg.print{"usrName: ", usrName, "\n"}
+   dbg.print{"sn:      ", sn, "\n"}
+   if (sn ~= usrName) then
+      dbg.print{"Sn and user name do not match\n"}
+      return found, t
+   end
+      
    for ii = 1, #pathA do
       local vv    = pathA[ii]
       local mpath = vv.mpath
@@ -462,8 +472,10 @@ function M.find_latest(self, pathA)
    local t         = { fn = nil, modFullName = nil, modName = nil, default = 0}
    local usrName   = self:usrName()
    local sn        = self:sn()
-   dbg.print{"UserName: ", self:usrName(), ", sn: ",sn,"\n"}
+   dbg.print{"usrName: ", usrName, "\n"}
+   dbg.print{"sn:      ", sn, "\n"}
    if (sn ~= usrName) then
+      dbg.print{"Sn and user name do not match\n"}
       dbg.fini("MName:find_latest")
       return found, t
    end
