@@ -89,11 +89,4 @@ end
 
 hook.register("msgHook",msg)
 
-local function bannerWidth(width)
-   return width
-end
-
-hook.register("bannerWidth",bannerWidth)
-
-
 sandbox_registration { Pkg = Pkg }

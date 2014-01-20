@@ -55,14 +55,14 @@ function M.show(self)
 end
 
 function M.prereq(self)
-   dbg.start{"Latest:prereq()"}
+   dbg.start{"MN_Latest:prereq()"}
    local result = false
    local mt     = MT:mt()
    local sn     = self:sn()
    local pathA  = mt:locationTbl(sn)
    if (pathA == nil or #pathA == 0) then
       dbg.print{"pathA has no entries\n"}
-      dbg.fini("Latest:prereq")
+      dbg.fini("MN_Latest:prereq")
       return result
    end
 
@@ -71,10 +71,10 @@ function M.prereq(self)
    local sv       = mt:Version(sn)
    if (sv ~= version) then
       dbg.print{"version loaded is not latest: version: ",version, ", sv: ", sv,"\n"}
-      dbg.fini("Latest:prereq")
+      dbg.fini("MN_Latest:prereq")
       return self:show()
    end
-   dbg.fini("Latest:prereq")
+   dbg.fini("MN_Latest:prereq")
    return result
 end
 

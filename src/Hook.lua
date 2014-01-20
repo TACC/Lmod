@@ -54,7 +54,6 @@ local validT =
                                -- prefix:  site_FAMILY_
       msgHook        = false,  -- Hook to print messages after:
                                -- avail, list, spider
-      bannerWidth    = false,  -- Hook to control banner width
 }
 
 --------------------------------------------------------------------------

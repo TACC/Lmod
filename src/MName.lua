@@ -125,9 +125,9 @@ s_findT = false
 function M.new(self, sType, name, action, is, ie)
 
    if (not s_findT) then
-      local Match    = require("Match")
-      local Latest   = require("Latest")
-      local Between  = require("Between")
+      local Match    = require("MN_Match")
+      local Latest   = require("MN_Latest")
+      local Between  = require("MN_Between")
 
       local findT   = {}
       findT["match"]   = Match

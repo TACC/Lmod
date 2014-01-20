@@ -24,6 +24,7 @@ version		  	 := $(shell cd ./src; $(PATH_TO_LUA)/lua -e "V=require('Version'); p
 PKG		  	 := $(prefix)/$(package)/$(package)
 LIB		  	 := $(prefix)/$(package)/$(version)/lib
 LIBEXEC		  	 := $(prefix)/$(package)/$(version)/libexec
+SHELLS                   := $(prefix)/$(package)/$(version)/shells
 TOOLS                    := $(prefix)/$(package)/$(version)/tools
 SETTARG                  := $(prefix)/$(package)/$(version)/settarg
 INIT		  	 := $(prefix)/$(package)/$(version)/init
@@ -32,6 +33,7 @@ LMOD_MF_SOURCE           := MF/*.version.lua
 SETTARG_SOURCE           := settarg/*.lua  settarg/.settarg.lua  settarg/targ.in
 
 DIRLIST		  	 := $(DESTDIR)$(LIBEXEC) $(DESTDIR)$(TOOLS) $(DESTDIR)$(SETTARG)             \
+                            $(DESTDIR)$(SHELLS)                                                      \
                             $(DESTDIR)$(INIT) $(DESTDIR)$(LIB) $(DESTDIR)$(LMOD_MF)
 
 
@@ -74,7 +76,7 @@ all:
 	@echo done
 
 pre-install: $(DIRLIST) shell_init startup spiderCacheSupport libexec \
-             Inst_Tools Inst_Settarg Inst_Lmod_MF pkgs other_tools
+             Inst_Tools Inst_Shells Inst_Settarg Inst_Lmod_MF pkgs other_tools
 
 install: pre-install  zsh_tab_funcs
 	$(RM) $(DESTDIR)$(PKG)
@@ -246,6 +248,9 @@ libexec:  $(lua_code)
 
 Inst_Tools: tools/*.lua
 	$(MAKE) FILELIST="$^" DIRLOC=$(DESTDIR)$(TOOLS) __installMe
+
+Inst_Shells: shells/*.lua
+	$(MAKE) FILELIST="$^" DIRLOC=$(DESTDIR)$(SHELLS) __installMe
 
 Inst_Settarg: $(SETTARG_SOURCE)
 	$(MAKE) FILELIST="$^" DIRLOC=$(DESTDIR)$(SETTARG) __installMe

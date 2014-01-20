@@ -48,8 +48,10 @@ local cmd_dir = "./"
 if (i) then
    cmd_dir = cmd:sub(1,j)
 end
-package.path = cmd_dir .. "../tools/?.lua;" ..
-               cmd_dir .. "?.lua;"       .. package.path
+package.path = cmd_dir .. "../tools/?.lua;"  ..
+               cmd_dir .. "../shells/?.lua;" ..
+               cmd_dir .. "?.lua;"           ..
+               package.path
 
 function cmdDir()
    return cmd_dir

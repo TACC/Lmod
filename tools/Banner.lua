@@ -44,7 +44,6 @@ local M         = {}
 local concatTbl = table.concat
 local dbg       = require("Dbg"):dbg()
 local floor     = math.floor
-local hook      = require("Hook")
 local max       = math.max
 local rep       = string.rep
 
@@ -54,9 +53,8 @@ local s_bannerT = false
 local function new(self)
    local o = {}
    setmetatable(o,self)
-   self.__index = self
-   local twidth = TermWidth()
-   o.__termwidth = hook.apply("bannerWidth", twidth)
+   self.__index  = self
+   o.__termwidth = TermWidth()
    o.__nspacesG  = 0
    o.__borderG   = false
    return o
