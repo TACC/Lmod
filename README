@@ -1,3 +1,7 @@
+Lmod Version 5.2.4:
+Feature:
+  a) Lmod can be configured to ignore TCL module files.
+
 Lmod Version 5.2.3:
 Bug Fixes:
   a) Prereq now works with a version.
