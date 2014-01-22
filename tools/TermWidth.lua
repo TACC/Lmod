@@ -48,7 +48,16 @@ function TermWidth()
    s_DFLT  = tonumber(getenv("LMOD_TERM_WIDTH")) or s_DFLT
    s_width = s_DFLT
    if (getenv("TERM") and term and term.isatty(io.stderr)) then
-      s_width = tonumber(capture("tput cols 2> /dev/null")) or s_DFLT
+      local r_c = capture("stty size 2> /dev/null")
+      local i, j, row, column = r_c:find('(%d+)%s+(%d+)')
+      if (i) then
+         s_width = tonumber(column) or s_DFLT
+      else
+         local result = os.execute("tput cols 2> /dev/null")
+         if (result) then
+            s_width = tonumber(capture("tput cols")) or s_DFLT
+         end
+      end
    end
 
    local maxW = tonumber(getenv("LMOD_TERM_WIDTH")) or math.huge
