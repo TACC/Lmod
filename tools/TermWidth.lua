@@ -41,6 +41,34 @@ if (pcall(require,"term")) then
    term = require("term")
 end
 
+local function askSystem(width)
+
+   ------------------------------------------------------------
+   -- (1) try stty size
+   local r_c = capture("stty size 2> /dev/null")
+   local i, j, rows, columns = r_c:find('(%d+)%s+(%d+)')
+   if (i) then
+      return tonumber(columns)
+   end
+
+   -----------------------------------------------------------
+   -- (2) Try env var COLUMNS
+   columns = getenv("COLUMNS")
+   if (columns) then
+      return tonumber(columns)
+   end
+
+   -----------------------------------------------------------
+   -- (3) Try tput cols
+   local result = os.execute("tput cols 2> /dev/null")
+   if (result) then
+      return tonumber(capture("tput cols"))
+   end
+
+   return width
+end
+   
+
 function TermWidth()
    if (s_width) then
       return s_width
@@ -48,16 +76,7 @@ function TermWidth()
    s_DFLT  = tonumber(getenv("LMOD_TERM_WIDTH")) or s_DFLT
    s_width = s_DFLT
    if (getenv("TERM") and term and term.isatty(io.stderr)) then
-      local r_c = capture("stty size 2> /dev/null")
-      local i, j, row, column = r_c:find('(%d+)%s+(%d+)')
-      if (i) then
-         s_width = tonumber(column) or s_DFLT
-      else
-         local result = os.execute("tput cols 2> /dev/null")
-         if (result) then
-            s_width = tonumber(capture("tput cols")) or s_DFLT
-         end
-      end
+      s_width = askSystem(s_width)
    end
 
    local maxW = tonumber(getenv("LMOD_TERM_WIDTH")) or math.huge
