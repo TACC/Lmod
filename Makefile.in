@@ -118,7 +118,7 @@ __installMe:
                mname=$${bareN%%.*};                                        \
 	       : echo "DIRLOC: $(DIRLOC)/$$mname";                         \
 	       mkdir -p $(DIRLOC)/$$mname;                                 \
-               mv $(DIRLOC)/$$fn $(DIRLOC)/$$mname/$$mname.lua;            \
+               mv $(DIRLOC)/$$fn $(DIRLOC)/$$mname/$(version).lua;         \
             fi;                                                            \
         done
 
@@ -173,10 +173,11 @@ _distContrib:
 	cp -r $(CONTRIB) $(DistD)/contrib
 
 _distSrc:
-	mkdir $(DistD)/src $(DistD)/tools $(DistD)/settarg
+	mkdir $(DistD)/src $(DistD)/tools $(DistD)/settarg $(DistD)/shells
 	cp $(lua_code) $(ComputeHashSum) $(STANDALONE_PRGM) $(DistD)/src
 	cp tools/*.lua $(DistD)/tools
 	cp $(SETTARG_SOURCE) $(DistD)/settarg
+	cp shells/*.lua $(DistD)/shells
 
 _distVersion:
 	perl -p -i -e 's/\@git\@/$(GIT_VERSION)/g' $(DistD)/src/Version.lua
