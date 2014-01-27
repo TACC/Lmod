@@ -521,6 +521,11 @@ function main()
       checkMPATH = cmdTbl[cmdName].checkMPATH
    end
 
+   if (LMOD_RTM_TESTING) then
+      os.exit(0)
+   end
+
+
    -- dumpversion and quit if requested.
 
    if (masterTbl.dumpversion) then
