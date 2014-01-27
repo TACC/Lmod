@@ -279,7 +279,7 @@ end
 
 
 
-CmdLineUsage = "module [options] sub-command [args ...]"
+CmdLineUsage = "Usage: module [options] sub-command [args ...]"
 
 
 function version()
