@@ -6,15 +6,15 @@ pushenv("LMOD_SETTARG_CMD", settarg_cmd)
 set_shell_function("settarg", 'eval $($LMOD_SETTARG_CMD -s sh "$@")',
                               'eval `$LMOD_SETTARG_CMD  -s csh $*`' )
 
-set_alias("cdt", "cd $TARG")
-set_shell_function("targ",        'builtin echo $TARG', 'echo $TARG')
 set_shell_function("gettargdir",  'builtin echo $TARG', 'echo $TARG')
 
 local respect = "true"
 setenv("SETTARG_TAG1", "OBJ", respect )
 setenv("SETTARG_TAG2", "_"  , respect )
 
-if ((os.getenv("LMOD_SETTARG_SUPPORT") or ""):lower() == "full") then
+if ((os.getenv("LMOD_SETTARG_SUPPORT") or ""):lower() ~= "no") then
+   set_alias("cdt", "cd $TARG")
+   set_shell_function("targ",  'builtin echo $TARG', 'echo $TARG')
    set_shell_function("dbg",   'settarg "$@" dbg',   'settarg $* dbg')
    set_shell_function("empty", 'settarg "$@" empty', 'settarg $* empty')
    set_shell_function("opt",   'settarg "$@" opt',   'settarg $* opt')
