@@ -49,7 +49,7 @@ ZSH_FUNCS                := init/zsh/_ml init/zsh/_module
 STARTUP		  	 := profile.in cshrc.in
 STARTUP		  	 := $(patsubst %, init/%, $(STARTUP))
 
-MAIN_DIR	  	 := Makefile.in INSTALL configure README_lua_modulefiles.txt
+MAIN_DIR	  	 := Makefile.in INSTALL configure README_lua_modulefiles.txt README README.old
 
 CONTRIB_DIRS           	 :=  \
                              bash_patch                        \
@@ -228,6 +228,15 @@ tags:
             -e 's|.*\.tar\.gz$$||g'                              \
             -e 's|.*\.tar\.bz2$$||g'                             \
             -e 's|.*\.csv$$||g'                                  \
+	    -e 's|.*\.aux$$||g'                                  \
+	    -e 's|.*\.fdb_latexmk$$||g'                          \
+	    -e 's|.*\.fls$$||g'                                  \
+	    -e 's|.*\.nav$$||g'                                  \
+	    -e 's|.*\.out$$||g'                                  \
+	    -e 's|.*\.pdf$$||g'                                  \
+	    -e 's|.*\.snm$$||g'                                  \
+	    -e 's|.*\.toc$$||g'                                  \
+	    -e 's|.*\.vrb$$||g'                                  \
             -e 's|^#.*||g'                                       \
             -e 's|/#.*||g'                                       \
             -e 's|\.#.*||g'                                      \

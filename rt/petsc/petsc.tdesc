@@ -52,7 +52,7 @@ testdescript = {
      rm -f $(cmdResultFn)
      wrapperDiff -r $(cmdResultFn) $(testDir)/out.txt out.txt
      wrapperDiff -r $(cmdResultFn) $(testDir)/err.txt err.txt
-     testFinish -c $(cmdResultFn) -r $(resultFn) -t $(runtimeFn)
+     testFinish -r $(resultFn) -t $(runtimeFn) $(cmdResultFn)
    ]],
 
 
