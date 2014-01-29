@@ -116,7 +116,7 @@ local function mustLoad(mA)
 
 
       for i = 1, #bb do
-         cmdA[count+1] = bb[i]
+         cmdA[count+1] = "'^"..bb[i].."$'"
          cmdA[count+2] = "2> /dev/null"
          local cmd     = concatTbl(cmdA," ")
          local result  = capture(cmd)
