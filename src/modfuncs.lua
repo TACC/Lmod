@@ -440,18 +440,26 @@ end
 function isloaded(m)
    local mt = MT:mt()
    if (not validateStringArgs("isloaded",m)) then return false end
-   local mname = MName:new("load", m)
-   if (m == mname:sn()) then
-      return mt:have(mname:sn(),"active")
+   local mname     = MName:new("load", m)
+   local sn_active = mt:have(mname:sn(),"active")
+   if (not sn_active) then
+      return isPending(m)
    end
-   return (m == mt:fullName(mname:sn()))
+   if (m == mname:sn()) then
+      return  sn_active
+   end
+   return (m == mt:fullName(mname:sn())) and sn_active
 end
 
 function isPending(m)
    local mt = MT:mt()
    if (not validateStringArgs("isPending",m)) then return false end
    local mname = MName:new("mt", m)
-   return mt:have(mname:sn(),"pending")
+   local sn_pending = mt:have(mname:sn(),"pending")
+   if (m == mname:sn()) then
+      return sn_pending
+   end
+   return (m == mt:fullName(mname:sn())) and sn_pending
 end
 
 function LmodVersion()

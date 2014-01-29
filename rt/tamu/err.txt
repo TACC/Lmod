@@ -1,0 +1,66 @@
+===========================
+step 1
+lua ProjectDIR/src/lmod.in.lua bash --version
+===========================
+Modules based on Lua: Version 5.2.4 5.2.4-25-g2d62ca1 2014-01-09 16:59
+    by Robert McLay mclay@tacc.utexas.edu
+===========================
+step 2
+lua ProjectDIR/src/lmod.in.lua bash spider
+===========================
+The following is a list of the modules currently available:
+  uapp: uapp/3.0
+  ucc: ucc/1.0, ucc/9.0
+  umpi: umpi/2.0
+To learn more about a package enter:
+   $ module spider Foo
+where "Foo" is the name of a module
+To find detailed information about a particular package you
+must enter the version if there is more than one version:
+   $ module spider Foo/11.1
+===========================
+step 3
+lua ProjectDIR/src/lmod.in.lua bash load ucc/1.0
+===========================
+Module ucc/1.0 loaded
+===========================
+step 4
+lua ProjectDIR/src/lmod.in.lua bash avail
+===========================
+ProjectDIR/rt/tamu/mf/Compiler/ucc/1.0
+   umpi/2.0
+ProjectDIR/rt/tamu/mf/Core
+   ucc/1.0    ucc/9.0   (D)
+  Where:
+   (D):  Default Module
+Use "module spider" to find all possible modules.
+Use "module keyword key1 key2 ..." to search for all possible modules matching
+any of the "keys".
+===========================
+step 5
+lua ProjectDIR/src/lmod.in.lua bash load umpi uapp
+===========================
+Module umpi/2.0 loaded
+Module uapp/3.0 loaded
+===========================
+step 6
+lua ProjectDIR/src/lmod.in.lua bash avail
+===========================
+ProjectDIR/rt/tamu/mf/MPI/ucc/1.0/umpi/2.0
+   uapp/3.0
+ProjectDIR/rt/tamu/mf/Compiler/ucc/1.0
+   umpi/2.0
+ProjectDIR/rt/tamu/mf/Core
+   ucc/1.0    ucc/9.0   (D)
+  Where:
+   (D):  Default Module
+Use "module spider" to find all possible modules.
+Use "module keyword key1 key2 ..." to search for all possible modules matching
+any of the "keys".
+===========================
+step 7
+lua ProjectDIR/src/lmod.in.lua bash spider uapp
+===========================
+  uapp: uapp/3.0
+    This module can only be loaded through the following modules:
+      ucc/1.0, umpi/2.0
