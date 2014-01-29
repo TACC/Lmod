@@ -18,7 +18,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/tamu/m
 export _ModuleTable_;
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash load ucc/1.0
+lua ProjectDIR/src/lmod.in.lua bash load ucc/9.0
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/tamu/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -28,11 +28,11 @@ LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/tamu/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
 LMOD_FAMILY_COMPILER="ucc";
 export LMOD_FAMILY_COMPILER;
-MODULEPATH="ProjectDIR/rt/tamu/mf/Compiler/ucc/1.0:ProjectDIR/rt/tamu/mf/Core";
+MODULEPATH="ProjectDIR/rt/tamu/mf/Compiler/ucc/9.0:ProjectDIR/rt/tamu/mf/Core";
 export MODULEPATH;
 TACC_FAMILY_COMPILER="ucc";
 export TACC_FAMILY_COMPILER;
-_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/tamu/mf/Core",},family={["Compiler"]="ucc",},inactive={},mT={ucc={["FN"]="ProjectDIR/rt/tamu/mf/Core/ucc/1.0.lua",["default"]=0,["fullName"]="ucc/1.0",["loadOrder"]=1,propT={},["short"]="ucc",["status"]="active",},},mpathA={"ProjectDIR/rt/tamu/mf/Compiler/ucc/1.0","ProjectDIR/rt/tamu/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/tamu/mf/Core",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/tamu/mf/Core",},family={["Compiler"]="ucc",},inactive={},mT={ucc={["FN"]="ProjectDIR/rt/tamu/mf/Core/ucc/9.0.lua",["default"]=0,["fullName"]="ucc/9.0",["loadOrder"]=1,propT={},["short"]="ucc",["status"]="active",},},mpathA={"ProjectDIR/rt/tamu/mf/Compiler/ucc/9.0","ProjectDIR/rt/tamu/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/tamu/mf/Core",["version"]=2,}';
 export _ModuleTable_;
 ===========================
 step 4
@@ -40,29 +40,29 @@ lua ProjectDIR/src/lmod.in.lua bash avail
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/tamu/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/tamu/mf/Compiler/ucc/1.0:ProjectDIR/rt/tamu/mf/Core";
+MODULEPATH="ProjectDIR/rt/tamu/mf/Compiler/ucc/9.0:ProjectDIR/rt/tamu/mf/Core";
 export MODULEPATH;
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/tamu/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/tamu/mf/Compiler/ucc/1.0:ProjectDIR/rt/tamu/mf/Core";
+MODULEPATH="ProjectDIR/rt/tamu/mf/Compiler/ucc/9.0:ProjectDIR/rt/tamu/mf/Core";
 export MODULEPATH;
 ===========================
 step 5
-lua ProjectDIR/src/lmod.in.lua bash load umpi uapp
+lua ProjectDIR/src/lmod.in.lua bash load umpi
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/tamu/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/tamu/mf/Compiler/ucc/1.0:ProjectDIR/rt/tamu/mf/Core";
+MODULEPATH="ProjectDIR/rt/tamu/mf/Compiler/ucc/9.0:ProjectDIR/rt/tamu/mf/Core";
 export MODULEPATH;
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/tamu/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
 LMOD_FAMILY_MPI="umpi";
 export LMOD_FAMILY_MPI;
-MODULEPATH="ProjectDIR/rt/tamu/mf/MPI/ucc/1.0/umpi/2.0:ProjectDIR/rt/tamu/mf/Compiler/ucc/1.0:ProjectDIR/rt/tamu/mf/Core";
+MODULEPATH="ProjectDIR/rt/tamu/mf/MPI/ucc/9.0/umpi/8.1:ProjectDIR/rt/tamu/mf/Compiler/ucc/9.0:ProjectDIR/rt/tamu/mf/Core";
 export MODULEPATH;
 TACC_FAMILY_MPI="umpi";
 export TACC_FAMILY_MPI;
-_ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/tamu/mf/Core",},family={["Compiler"]="ucc",["MPI"]="umpi",},inactive={},mT={uapp={["FN"]="ProjectDIR/rt/tamu/mf/MPI/ucc/1.0/umpi/2.0/uapp/3.0.lua",["default"]=1,["fullName"]="uapp/3.0",["loadOrder"]=3,propT={},["short"]="uapp",["status"]="active",},ucc={["FN"]="ProjectDIR/rt/tamu/mf/Core/ucc/1.0.lua",["default"]=0,["fullName"]="ucc/1.0",["loadOrder"]=1,propT={},["short"]="ucc",["status"]="active",},umpi={["FN"]="ProjectDIR/rt/tamu/mf/Compiler/ucc/1.0/umpi/2.0.lua",["default"]=1,["fullName"]="umpi/2.0",["loadOrder"]=2,propT={},["short"]="umpi",["status"]="active",},},mpathA={"ProjectDIR/rt/tamu/mf/MPI/ucc/1.0/umpi/2.0","ProjectDIR/rt/tamu/mf/Compiler/ucc/1.0","ProjectDIR/rt/tamu/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/tamu/mf/Core",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/tamu/mf/Core",},family={["Compiler"]="ucc",["MPI"]="umpi",},inactive={},mT={ucc={["FN"]="ProjectDIR/rt/tamu/mf/Core/ucc/9.0.lua",["default"]=0,["fullName"]="ucc/9.0",["loadOrder"]=1,propT={},["short"]="ucc",["status"]="active",},umpi={["FN"]="ProjectDIR/rt/tamu/mf/Compiler/ucc/9.0/umpi/8.1.lua",["default"]=1,["fullName"]="umpi/8.1",["loadOrder"]=2,propT={},["short"]="umpi",["status"]="active",},},mpathA={"ProjectDIR/rt/tamu/mf/MPI/ucc/9.0/umpi/8.1","ProjectDIR/rt/tamu/mf/Compiler/ucc/9.0","ProjectDIR/rt/tamu/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/tamu/mf/Core",["version"]=2,}';
 export _ModuleTable_;
 ===========================
 step 6
@@ -70,21 +70,59 @@ lua ProjectDIR/src/lmod.in.lua bash avail
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/tamu/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/tamu/mf/MPI/ucc/1.0/umpi/2.0:ProjectDIR/rt/tamu/mf/Compiler/ucc/1.0:ProjectDIR/rt/tamu/mf/Core";
+MODULEPATH="ProjectDIR/rt/tamu/mf/MPI/ucc/9.0/umpi/8.1:ProjectDIR/rt/tamu/mf/Compiler/ucc/9.0:ProjectDIR/rt/tamu/mf/Core";
 export MODULEPATH;
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/tamu/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/tamu/mf/MPI/ucc/1.0/umpi/2.0:ProjectDIR/rt/tamu/mf/Compiler/ucc/1.0:ProjectDIR/rt/tamu/mf/Core";
+MODULEPATH="ProjectDIR/rt/tamu/mf/MPI/ucc/9.0/umpi/8.1:ProjectDIR/rt/tamu/mf/Compiler/ucc/9.0:ProjectDIR/rt/tamu/mf/Core";
 export MODULEPATH;
 ===========================
 step 7
+lua ProjectDIR/src/lmod.in.lua bash load uapp
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/tamu/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/tamu/mf/MPI/ucc/9.0/umpi/8.1:ProjectDIR/rt/tamu/mf/Compiler/ucc/9.0:ProjectDIR/rt/tamu/mf/Core";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/tamu/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/tamu/mf/MPI/ucc/9.0/umpi/8.1:ProjectDIR/rt/tamu/mf/Compiler/ucc/9.0:ProjectDIR/rt/tamu/mf/Core";
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/tamu/mf/Core",},family={["Compiler"]="ucc",["MPI"]="umpi",},inactive={},mT={uapp={["FN"]="ProjectDIR/rt/tamu/mf/MPI/ucc/9.0/umpi/8.1/uapp/7.1.8.1.lua",["default"]=1,["fullName"]="uapp/7.1.8.1",["loadOrder"]=3,propT={},["short"]="uapp",["status"]="active",},ucc={["FN"]="ProjectDIR/rt/tamu/mf/Core/ucc/9.0.lua",["default"]=0,["fullName"]="ucc/9.0",["loadOrder"]=1,propT={},["short"]="ucc",["status"]="active",},umpi={["FN"]="ProjectDIR/rt/tamu/mf/Compiler/ucc/9.0/umpi/8.1.lua",["default"]=1,["fullName"]="umpi/8.1",["loadOrder"]=2,propT={},["short"]="umpi",["status"]="active",},},mpathA={"ProjectDIR/rt/tamu/mf/MPI/ucc/9.0/umpi/8.1","ProjectDIR/rt/tamu/mf/Compiler/ucc/9.0","ProjectDIR/rt/tamu/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/tamu/mf/Core",["version"]=2,}';
+export _ModuleTable_;
+===========================
+step 8
+lua ProjectDIR/src/lmod.in.lua bash avail
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/tamu/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/tamu/mf/MPI/ucc/9.0/umpi/8.1:ProjectDIR/rt/tamu/mf/Compiler/ucc/9.0:ProjectDIR/rt/tamu/mf/Core";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/tamu/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/tamu/mf/MPI/ucc/9.0/umpi/8.1:ProjectDIR/rt/tamu/mf/Compiler/ucc/9.0:ProjectDIR/rt/tamu/mf/Core";
+export MODULEPATH;
+===========================
+step 9
 lua ProjectDIR/src/lmod.in.lua bash spider uapp
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/tamu/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/tamu/mf/MPI/ucc/1.0/umpi/2.0:ProjectDIR/rt/tamu/mf/Compiler/ucc/1.0:ProjectDIR/rt/tamu/mf/Core";
+MODULEPATH="ProjectDIR/rt/tamu/mf/MPI/ucc/9.0/umpi/8.1:ProjectDIR/rt/tamu/mf/Compiler/ucc/9.0:ProjectDIR/rt/tamu/mf/Core";
 export MODULEPATH;
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/tamu/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/tamu/mf/MPI/ucc/1.0/umpi/2.0:ProjectDIR/rt/tamu/mf/Compiler/ucc/1.0:ProjectDIR/rt/tamu/mf/Core";
+MODULEPATH="ProjectDIR/rt/tamu/mf/MPI/ucc/9.0/umpi/8.1:ProjectDIR/rt/tamu/mf/Compiler/ucc/9.0:ProjectDIR/rt/tamu/mf/Core";
+export MODULEPATH;
+===========================
+step 10
+lua ProjectDIR/src/lmod.in.lua bash spider uapp/7.0.8.1
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/tamu/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/tamu/mf/MPI/ucc/9.0/umpi/8.1:ProjectDIR/rt/tamu/mf/Compiler/ucc/9.0:ProjectDIR/rt/tamu/mf/Core";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/tamu/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/tamu/mf/MPI/ucc/9.0/umpi/8.1:ProjectDIR/rt/tamu/mf/Compiler/ucc/9.0:ProjectDIR/rt/tamu/mf/Core";
 export MODULEPATH;

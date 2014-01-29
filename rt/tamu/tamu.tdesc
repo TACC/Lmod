@@ -32,11 +32,14 @@ testdescript = {
 
      runLmod --version              # 1
      runLmod spider                 # 2
-     runLmod load ucc/1.0           # 3
+     runLmod load ucc/9.0           # 3
      runLmod avail                  # 4
-     runLmod load umpi uapp         # 5
+     runLmod load umpi              # 5
      runLmod avail                  # 6
-     runLmod spider uapp            # 7
+     runLmod load uapp              # 7
+     runLmod avail                  # 8
+     runLmod spider uapp            # 9
+     runLmod spider uapp/7.0.8.1    #10
      
 
 
