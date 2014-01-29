@@ -279,7 +279,7 @@ end
 
 
 
-CmdLineUsage = "module [options] sub-command [args ...]"
+CmdLineUsage = "Usage: module [options] sub-command [args ...]"
 
 
 function version()
@@ -520,6 +520,11 @@ function main()
    if (cmdTbl[cmdName] ) then
       checkMPATH = cmdTbl[cmdName].checkMPATH
    end
+
+   if (LMOD_RTM_TESTING) then
+      os.exit(0)
+   end
+
 
    -- dumpversion and quit if requested.
 

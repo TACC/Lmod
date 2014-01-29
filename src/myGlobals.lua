@@ -93,6 +93,13 @@ LMOD_IGNORE_CACHE = (LMOD_IGNORE_CACHE:trim() ~= "0")
 
 
 ------------------------------------------------------------------------
+-- LMOD_RTM_TESTING: If set then the author is testing Lmod
+------------------------------------------------------------------------
+
+LMOD_RTM_TESTING = os.getenv("LMOD_RTM_TESTING")
+
+
+------------------------------------------------------------------------
 -- defaultMpathA: The array of paths that are hold the default
 --                (non-hierarchical) MODULEPATH
 ------------------------------------------------------------------------
