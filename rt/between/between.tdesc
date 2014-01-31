@@ -49,6 +49,7 @@ testdescript = {
      runLmod purge                  #18
      runLmod load M9                #19
      runLmod list                   #20
+     runLmod show M9                #21
 
      HOME=$ORIG_HOME
      cat _stdout.[0-9][0-9] > _stdout.orig

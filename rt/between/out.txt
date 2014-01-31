@@ -259,3 +259,15 @@ LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/between/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/between/mf/Core";
 export MODULEPATH;
+===========================
+step 21
+lua ProjectDIR/src/lmod.in.lua bash show M9
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/between/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/between/mf/Core";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/between/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/between/mf/Core";
+export MODULEPATH;

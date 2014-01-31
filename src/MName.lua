@@ -570,7 +570,7 @@ function M.find_between(self, pathA)
 end
 
 function M.show(self)
-   return self:usrName()
+   return '"' .. self:usrName() .. '"'
 end
 
 

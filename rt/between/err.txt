@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.2.2 5.2.2-9-gb65be43 2013-12-12 15:40
+Modules based on Lua: Version 5.2.5 5.2.5-10-g6b1462b 2014-01-26 07:24
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -123,3 +123,10 @@ lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
 Currently Loaded Modules:
   1) M9   2) b/1.4
+===========================
+step 21
+lua ProjectDIR/src/lmod.in.lua bash show M9
+===========================
+   ProjectDIR/rt/between/mf/Core/M9.lua:
+load(latest("b"))
+prereq(latest("b"))
