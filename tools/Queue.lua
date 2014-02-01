@@ -18,6 +18,10 @@ function M.push(self, value)
    self[last] = value
 end
 
+function M.status(self)
+   return self.first, self.last
+end
+
 function M.pop(self)
    local first = self.first
    if (first > self.last) then
@@ -26,7 +30,7 @@ function M.pop(self)
    local value = self[first]
    self[first] = nil               -- to allow garbage collection
    self.first  = first + 1
-   return value
+   return value, first-1
 end
 
 function M.isempty(self)

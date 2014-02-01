@@ -57,7 +57,7 @@ local posix        = require("posix")
 local systemG      = _G
 local gettimeofday = posix.gettimeofday
 local timer        = require("Timer"):timer()
-
+local queue        = require("Queue"):new()
 local function nothing()
 end
 
@@ -128,7 +128,9 @@ function processNewModulePATH(value)
       dbg.print{"Top of Stack: ",iStack, " Full: ", full, " file: ", path, "\n"}
       moduleT[path].children[v] = {}
       moduleT[path].children.version = Cversion
-      M.findModulesInDir(0,v, v, "", moduleT[path].children[v])
+      queue:push({mpath=v, path=v, prefix="", moduleT=moduleT[path].children[v]})
+      dbg.print{"RTMQ pushing dir:", v, " on queue\n"}
+      --M.findModulesInDir(v, v, "", moduleT[path].children[v])
       moduleStack[iStack] = nil
    end
 
@@ -222,9 +224,9 @@ local function registerModuleT(full, sn, f, markedDefault)
 end
 
 
-function M.findModulesInDir(level, mpath, path, prefix, moduleT)
+function M.findModulesInDir(mpath, path, prefix, moduleT)
    local t1
-   dbg.start{"findModulesInDir(level= ",level,", mpath=\"",mpath,"\", path=\"",path,
+   dbg.start{"findModulesInDir(mpath=\"",mpath,"\", path=\"",path,
              "\", prefix=\"",prefix,"\")"}
 
    --if (level == 0) then
@@ -298,7 +300,16 @@ function M.findModulesInDir(level, mpath, path, prefix, moduleT)
          dbg.print{"Saving: Full: ", k, " Name: ", k, " file: ",v.file,"\n"}
       end
       for i = 1, #dirA do
-         M.findModulesInDir(level+1,mpath, dirA[i].fn, dirA[i].mname .. '/', moduleT)
+         dbg.print{"RTMQ pushing dir: ",dirA[i].fn, " on queue\n"}
+         queue:push({mpath=mpath, path=dirA[i].fn, prefix = dirA[i].mname .. '/',
+                     moduleT = moduleT})
+      end
+
+      while (not queue:isempty()) do
+         local t = queue:pop()
+         dbg.print{"RTMQ Running: ", t.path, " from queue\n"}
+         
+         M.findModulesInDir(t.mpath, t.path, t.prefix, t.moduleT)
       end
    else
       local markedDefault   = findMarkedDefault(mpath, path)
@@ -345,7 +356,7 @@ function M.findAllModules(moduleDirA, moduleT)
           posix.access(mpath,"rx") and moduleDirT[v] == nil) then
          moduleDirT[v] = 1
          moduleT[v]    = {}
-         M.findModulesInDir(0, v, v, "", moduleT[v])
+         M.findModulesInDir(v, v, "", moduleT[v])
       end
    end
    os.exit     = exit
