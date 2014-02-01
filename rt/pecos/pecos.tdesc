@@ -11,7 +11,7 @@ testdescript = {
    testName = testName,
    keywords = { testName },
 
-   active = false,
+   active = true,
    job_submit_method = "INTERACTIVE",
 
    runScript = [[

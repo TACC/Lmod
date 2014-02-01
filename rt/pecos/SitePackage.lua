@@ -1,6 +1,6 @@
 require("strict")
 require("escape")
-local Dbg        = require("Dbg"):dbg()
+local dbg        = require("Dbg"):dbg()
 local SYSTEM_DIR = os.getenv("SYSTEM_DIR")
 local MROOT      = os.getenv("MODULEPATH_ROOT")
 
@@ -37,7 +37,7 @@ function edit_derived_modulepaths(derived_mod_dir, newmodname, newmodversion)
                if (systemType == SYSTEM_DIR) then
                   -- Each directory name pair is a prerequisite module
                   local have_all_modules = true
-                  for modname, modversion in string.gfind(modlist, "([^/]+)/([^/]+)") do
+                  for modname, modversion in modlist:gmatch("([^/]+)/([^/]+)") do
                      local fullName = pathJoin(modname, modversion)
                      local mt       = MT:mt()
                      local status   = mt:getStatus(fullName)
@@ -60,25 +60,26 @@ function edit_derived_modulepaths(derived_mod_dir, newmodname, newmodversion)
          end
       end
    end
-   dbg.fini()
+   dbg.fini("edit_derived_modulepaths")
 end
 
 
 -- Add all applicable derived modulepaths when loading
 -- a new derived_mod_dir
 function edit_new_derived_modulepaths(derived_mod_dir)
+   dbg.start{"edit_new_derived_modulepaths(",derived_mod_dir,")"}
 
    -- Find every parent directory for this module version
    local inner_find = capture( "find "..derived_mod_dir.." -type d -name modulefiles" )
 
-   for modfilesdir in string.gmatch(inner_find, "[^\n]+") do
+   for modfilesdir in inner_find:gmatch("[^\n]+") do
 
       -- Load module files directories that we have all
       -- prerequisites for
       if (mode() == "load" or mode() == "spider") then
          -- Each directory name pair is a prerequisite module
          local have_all_modules = true
-         for modname, modversion in string.gfind(modlist, "([^/]+)/([^/]+)") do
+         for modname, modversion in modlist:gmatch("([^/]+)/([^/]+)") do
             if (not isloaded(modname.."/"..modversion)) then
                have_all_modules = false
                break
@@ -94,4 +95,8 @@ function edit_new_derived_modulepaths(derived_mod_dir)
          prepend_path( "MODULEPATH", modfilesdir )
       end
    end
+   dbg.fini("edit_new_derived_modulepaths")
 end
+
+sandbox_registration { edit_derived_modulepaths     = edit_derived_modulepaths,
+                       edit_new_derived_modulepaths = edit_new_derived_modulepaths, }
