@@ -32,6 +32,9 @@ testdescript = {
 
      rm -rf _stderr.* _stdout.* err.* out.* .lmod.d
 
+     cp $(projectDir)/init/.lmodrc.lua .
+     mkdir -p $HOME/.lmod.d/.cache
+     buildModuleT $MODULEPATH > $HOME/.lmod.d/.cache/moduleT.lua
      runLmod --version            # 1
      runLmod spider               # 2
      runLmod spider grvy          # 3

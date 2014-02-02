@@ -57,7 +57,6 @@ local posix        = require("posix")
 local systemG      = _G
 local gettimeofday = posix.gettimeofday
 local timer        = require("Timer"):timer()
-local queue        = require("Queue"):new()
 local function nothing()
 end
 
@@ -128,9 +127,7 @@ function processNewModulePATH(value)
       dbg.print{"Top of Stack: ",iStack, " Full: ", full, " file: ", path, "\n"}
       moduleT[path].children[v] = {}
       moduleT[path].children.version = Cversion
-      queue:push({mpath=v, path=v, prefix="", moduleT=moduleT[path].children[v]})
-      dbg.print{"RTMQ pushing dir:", v, " on queue\n"}
-      --M.findModulesInDir(v, v, "", moduleT[path].children[v])
+      M.findModulesInDir(v, v, "", moduleT[path].children[v])
       moduleStack[iStack] = nil
    end
 
@@ -300,16 +297,7 @@ function M.findModulesInDir(mpath, path, prefix, moduleT)
          dbg.print{"Saving: Full: ", k, " Name: ", k, " file: ",v.file,"\n"}
       end
       for i = 1, #dirA do
-         dbg.print{"RTMQ pushing dir: ",dirA[i].fn, " on queue\n"}
-         queue:push({mpath=mpath, path=dirA[i].fn, prefix = dirA[i].mname .. '/',
-                     moduleT = moduleT})
-      end
-
-      while (not queue:isempty()) do
-         local t = queue:pop()
-         dbg.print{"RTMQ Running: ", t.path, " from queue\n"}
-         
-         M.findModulesInDir(t.mpath, t.path, t.prefix, t.moduleT)
+         M.findModulesInDir(mpath, dirA[i].fn, dirA[i].mname .. '/', moduleT)
       end
    else
       local markedDefault   = findMarkedDefault(mpath, path)

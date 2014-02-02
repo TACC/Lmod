@@ -1,26 +1,60 @@
 ===========================
 step 1
+lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 4.1.4 2012-12-04 14:14
+Modules based on Lua: Version 5.2.5 5.2.5-13-g4edb67c 2014-01-26 07:24
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
-===========================
-===========================
-step 3
-===========================
-===========================
-step 4
+lua ProjectDIR/src/lmod.in.lua bash spider
 ===========================
 The following is a list of the modules currently available:
   boost: boost/1.51.0
   gcc: gcc/4.6
     GCC Compiler Family (C/C++/Fortran for x86_64)
+  grvy: grvy/0.32.0
   mpich2: mpich2/1.5
   openmpi: openmpi/1.6
+  phdf5: phdf5/1.8.9
 To learn more about a package enter:
    $ module spider Foo
 where "Foo" is the name of a module
 To find detailed information about a particular package you
 must enter the version if there is more than one version:
    $ module spider Foo/11.1
+===========================
+step 3
+lua ProjectDIR/src/lmod.in.lua bash spider grvy
+===========================
+  grvy: grvy/0.32.0
+    This module can only be loaded through the following modules:
+      gcc/4.6
+      gcc/4.6, boost/1.51.0
+      gcc/4.6, mpich2/1.5
+    Help:
+      The grvy module file defines the following environment variables:
+      GRVY_DIR, GRVY_LIB, and GRVY_INC for the location of the 
+      grvy distribution.
+      To use the grvy library, compile the source code with the option:
+      -I$GRVY_INC 
+      and add the following options to the link step: 
+      -L$GRVY_LIB -lgrvy
+      Version 0.32.0, compiled with gcc 4.6 compilers.
+===========================
+step 4
+lua ProjectDIR/src/lmod.in.lua bash load gcc
+===========================
+===========================
+step 5
+lua ProjectDIR/src/lmod.in.lua bash load boost mpich2
+===========================
+===========================
+step 6
+lua ProjectDIR/src/lmod.in.lua bash load grvy
+===========================
+===========================
+step 7
+lua ProjectDIR/src/lmod.in.lua bash list
+===========================
+Currently Loaded Modules:
+  1) gcc/4.6   2) boost/1.51.0   3) mpich2/1.5   4) grvy/0.32.0
