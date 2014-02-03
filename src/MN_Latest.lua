@@ -54,28 +54,66 @@ function M.show(self)
    return concatTbl(a,"")
 end
 
-function M.prereq(self)
-   dbg.start{"MN_Latest:prereq()"}
-   local result = false
-   local mt     = MT:mt()
-   local sn     = self:sn()
-   local pathA  = mt:locationTbl(sn)
+local function latestVersion(self)
+   local mt    = MT:mt()
+   local sn    = self:sn()
+   local pathA = mt:locationTbl(sn)
    if (pathA == nil or #pathA == 0) then
-      dbg.print{"pathA has no entries\n"}
-      dbg.fini("MN_Latest:prereq")
-      return result
+      return false
    end
 
    local found, t = self:find_latest(pathA)
-   local version  = extractVersion(t.modFullName, sn)
-   local sv       = mt:Version(sn)
-   if (sv ~= version) then
-      dbg.print{"version loaded is not latest: version: ",version, ", sv: ", sv,"\n"}
-      dbg.fini("MN_Latest:prereq")
+   return extractVersion(t.modFullName, sn)
+end
+
+
+function M.prereq(self)
+   dbg.start{"MN_Latest:prereq()"}
+   local mt    = MT:mt()
+   local sn    = self:sn()
+   if (not mt:have(sn, "active")) then
       return self:show()
    end
-   dbg.fini("MN_Latest:prereq")
-   return result
+
+   local version = latestVersion(self)
+   if (not version) then
+      return self:show()
+   end
+   local sv    = mt:Version(sn)
+   if (sv ~= version) then
+      return self:show()
+   end
+   return false
+end
+
+function M.isloaded(self)
+   local mt    = MT:mt()
+   local sn    = self:sn()
+   if (not mt:have(sn, "active")) then
+      return self:isPending()
+   end
+   local version = latestVersion(self)
+   if (not version) then
+      return false
+   end
+   local mt = MT:mt()
+   local sv = mt:Version(self:sn())
+   return sv == version
+end
+
+function M.isPending(self)
+   local mt = MT:mt()
+   local sn = self:sn()
+   if (not mt:have(sn, "pending")) then
+      return false
+   end
+   local version = latestVersion(self)
+   if (not version) then
+      return false
+   end
+   local mt = MT:mt()
+   local sv = mt:Version(self:sn())
+   return sv == version
 end
 
 function M.steps()

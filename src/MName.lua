@@ -106,6 +106,33 @@ function M.prereq(self)
    return result
 end
 
+function M.isloaded(self)
+   local mt        = MT:mt()
+   local sn        = self:sn()
+   local sn_active = mt:have(sn, "active")
+   if (not sn_active) then
+      return self:isPending()
+   end
+   local usrName   = self:usrName()
+   if (usrName == sn) then
+      return sn_active
+   end
+   return (usrName == mt:fullName(sn)) and sn_active
+end
+
+function M.isPending(self)
+   local mt         = MT:mt()
+   local sn         = self:sn()
+   local sn_pending = mt:have(sn,"pending")
+   local usrName    = self:usrName()
+   if (usrName == sn) then
+      return sn_pending
+   end
+   return (usrName == mt:fullName(sn)) and sn_pending
+   
+end
+
+
 function M.action(self)
    return self._action
 end

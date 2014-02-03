@@ -66,19 +66,45 @@ function M.prereq(self)
    local usrName = self:usrName()
 
    if (not mt:have(sn,"active")) then
-      result = self:show()
-   else
-      local left  = parseVersion(self._is)
-      local right = parseVersion(self._ie)
-      local full  = mt:fullName(sn)
-      local pv    = parseVersion(mt:Version(sn))
+      return self:show()
+   end
+   local left  = parseVersion(self._is)
+   local right = parseVersion(self._ie)
+   local full  = mt:fullName(sn)
+   local pv    = parseVersion(mt:Version(sn))
 
-      if (pv < left or pv > right) then
-         result = self:show()
-      end
+   if (pv < left or pv > right) then
+      result = self:show()
    end
    return result
 end
+
+function M.isloaded(self)
+   local mt        = MT:mt()
+   local sn        = self:sn()
+   if (not mt:have(sn,"active")) then
+      return self:isPending()
+   end
+   local left  = parseVersion(self._is)
+   local right = parseVersion(self._ie)
+   local full  = mt:fullName(sn)
+   local pv    = parseVersion(mt:Version(sn))
+   return (left <= pv and pv <= right)
+end
+
+function M.isPending(self)
+   local mt        = MT:mt()
+   local sn        = self:sn()
+   if (not mt:have(sn,"pending")) then
+      return false
+   end
+   local left  = parseVersion(self._is)
+   local right = parseVersion(self._ie)
+   local full  = mt:fullName(sn)
+   local pv    = parseVersion(mt:Version(sn))
+   return (left <= pv and pv <= right)
+end
+
 
 function M.steps()
    return s_steps
