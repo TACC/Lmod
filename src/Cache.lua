@@ -129,10 +129,15 @@ local function new(self, t)
       end
    end
 
+   local usrModuleT = hook.apply("groupName","moduleT.lua")
+
    local usrCacheDirA = {
+      { file = pathJoin(usrCacheDir, usrModuleT), fileT = "your",
+        timestamp = systemEpoch
+      },
       { file = pathJoin(usrCacheDir, "moduleT.lua"), fileT = "your",
         timestamp = systemEpoch
-      }
+      },
    }
 
    t              = t or {}
@@ -140,7 +145,7 @@ local function new(self, t)
    o.mDT          = {}
    o.usrCacheDir  = usrCacheDir
    o.usrCacheDirA = usrCacheDirA
-   o.usrModuleTFN = pathJoin(usrCacheDir,"moduleT.lua")
+   o.usrModuleTFN = pathJoin(usrCacheDir,usrModuleT)
    o.systemDirA   = scDirA
    o.dontWrite    = t.dontWrite or false
    o.quiet        = t.quiet     or false
@@ -377,7 +382,7 @@ function M.build(self, fast)
       dbg.print{"self.dontWrite: ", self.dontWrite, ", r.dontWriteCache: ",
                 r.dontWriteCache, "\n"}
 
-      local dontWrite = self.dontWrite or r.dontWriteCache
+      local dontWrite = self.dontWrite or r.dontWriteCache or LMOD_IGNORE_CACHE
 
       local doneMsg = " done."
 

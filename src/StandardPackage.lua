@@ -34,12 +34,15 @@ require("strict")
 require("TermWidth")
 require("fillWords")
 require("string_split")
-PkgBase      = require("PkgBase")
-Pkg          = PkgBase.build("Pkg")
-local hook   = require("Hook")
-local getenv = os.getenv
-local lfs    = require("lfs")
-local min    = math.min
+require("fileOps")
+PkgBase         = require("PkgBase")
+Pkg             = PkgBase.build("Pkg")
+local concatTbl = table.concat
+local hook      = require("Hook")
+local getenv    = os.getenv
+local lfs       = require("lfs")
+local min       = math.min
+local posix     = require("posix")
 
 local function parse_updateFn_hook(updateSystemFn, t)
    local attr = lfs.attributes(updateSystemFn)
@@ -88,5 +91,21 @@ end
 
 
 hook.register("msgHook",msg)
+
+
+local function groupName(fn)
+   local base = removeExt(fn)
+   local ext  = extname(fn)
+   local a    = {}
+   a[#a + 1]  = base
+   a[#a + 1]  = "."
+   a[#a + 1]  = posix.uname("%m")
+   a[#a + 1]  = '_'
+   a[#a + 1]  = posix.uname("%s")
+   a[#a + 1]  = ext
+   return concatTbl(a,"")
+end
+
+hook.register("groupName",groupName)
 
 sandbox_registration { Pkg = Pkg }

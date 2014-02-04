@@ -222,12 +222,6 @@ end
 usrCacheDir   = pathJoin(os.getenv("HOME"),".lmod.d",USER_CACHE_DIR_NAME)
 usrSaveDir    = pathJoin(os.getenv("HOME"),".lmod.d",USER_SAVE_DIR_NAME)
 usrSBatchDir  = pathJoin(os.getenv("HOME"),".lmod.d",USER_SBATCH_DIR_NAME)
-------------------------------------------------------------------------
--- usrCacheFileA: Array of user cache files
-------------------------------------------------------------------------
-usrCacheFileA = {
-      { file = pathJoin(usrCacheDir,   "moduleT.lua"),     fileT = "your"  },
-   }
 
 ------------------------------------------------------------------------
 -- updateSystemFn: The system file that is touched everytime the system

@@ -54,6 +54,9 @@ local validT =
                                -- prefix:  site_FAMILY_
       msgHook        = false,  -- Hook to print messages after:
                                -- avail, list, spider
+      groupName      = false,  -- This hook adds the arch and os name
+                               -- to moduleT.lua to make it safe on
+                               -- shared filesystems.
 }
 
 --------------------------------------------------------------------------

@@ -1,9 +1,17 @@
 # -*- lua -*-
 propT = {
+   state = {
+      validT = { experimental = 1, testing = 1, obsolete = 1 },
+      displayT = {
+         experimental  = { short = "(E)",  long = "(E)",     color = "blue",  doc = "Experimental", },
+         testing       = { short = "(T)",  long = "(T)",     color = "green", doc = "Testing", },
+         obsolete      = { short = "(O)",  long = "(O)",     color = "red",   doc = "Obsolete", },
+      },
+   },
    lmod = {
       validT = { sticky = 1 },
       displayT = {
-         sticky = { short = "(S)",  long = "(S)",   color = "red", doc = "Module is Sticky, requires --force to unload or purge",  },
+         sticky = { short = "(S)",  long = "(S)",   color = "red",   doc = "Module is Sticky, requires --force to unload or purge",  },
       },
    },
    arch = {
