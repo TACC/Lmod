@@ -175,21 +175,21 @@ s_haveWarnings = true
 ------------------------------------------------------------------------
 -- ancient:  the time in seconds when the cache file is considered old
 ------------------------------------------------------------------------
-ancient = os.getenv("LMOD_ANCIENT_TIME") or tonumber("@ancient@") or 86400
+ancient = tonumber(os.getenv("LMOD_ANCIENT_TIME")) or tonumber("@ancient@") or 86400
 
 ------------------------------------------------------------------------
 -- shortTime: the time in seconds when building the cache file is quick
 --            enough to be computed every time rather than cached.
 ------------------------------------------------------------------------
 
-shortTime = os.getenv("LMOD_SHORT_TIME") or tonumber("@short_time@") or 10.0
+shortTime = tonumber(os.getenv("LMOD_SHORT_TIME")) or tonumber("@short_time@") or 10.0
 
 
 ------------------------------------------------------------------------
 -- Threshold:  The amount of time to wait before printing the cache
 --             rebuild message.  (It has to be 1 second or greater).
 ------------------------------------------------------------------------
-Threshold = os.getenv("LMOD_THRESHOLD") or 1
+Threshold = tonumber(os.getenv("LMOD_THRESHOLD")) or 1
 
 ------------------------------------------------------------------------
 -- shortLifeCache: If building the cache file is fast then shorten the

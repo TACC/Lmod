@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.2 5.2-14-g3bb2e62 2013-11-16 13:22
+Modules based on Lua: Version 5.2.5 5.2.5-16-g5c900f7 2014-01-26 07:24
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -13,21 +13,20 @@ step 3
 lua ProjectDIR/src/lmod.in.lua bash avail
 ===========================
 ProjectDIR/mf/Compiler/intel/10.1
-   gotoblas/1.31          gotoblas/1.33    openmpi/1.2.6
-   gotoblas/1.32   (D)    mpich2/1.0.7
+   gotoblas/1.31        gotoblas/1.33    openmpi/1.2.6
+   gotoblas/1.32 (D)    mpich2/1.0.7
 ProjectDIR/mf/Core
-   PrgEnv                      git/1.7.4              junk/d/3.0
-   admin/admin-1.0             git/1.7.4.3     (D)    local/local
-   alex/1.0                    gotoblas/1.20          multi/multi
-   boost/1.46.0                gotoblas/1.26          noweb/2.10c
-   boost/1.47.1                gotoblas/1.30          parmetis/3.1 (m)
-   boost/1.49.0    (o)  (D)    intel/intel            unix/unix
-   gcc/4.2.3                   junk/a/c/1.0
-   git/1.6.3.1                 junk/b/c/2.0
+   PrgEnv                     git/1.7.4             junk/d/3.0
+   admin/admin-1.0            git/1.7.4.3    (D)    local/local
+   alex/1.0                   gotoblas/1.20         multi/multi
+   boost/1.46.0               gotoblas/1.26         noweb/2.10c
+   boost/1.47.1               gotoblas/1.30         parmetis/3.1 (m)
+   boost/1.49.0    (o) (D)    intel/intel           unix/unix
+   gcc/4.2.3                  junk/a/c/1.0
+   git/1.6.3.1                junk/b/c/2.0
 ProjectDIR/rt/avail/mf/Core
-   bar/1.4-dbg          baz/1.4       (D)    local/1.1
-   bar/1.4       (D)    foo/1.4-dbg          local/1.2   (D)
-   baz/1.4-dbg          foo/1.4       (D)
+   bar/1.4-dbg        baz/1.4-dbg        foo/1.4-dbg        local/1.1
+   bar/1.4     (D)    baz/1.4     (D)    foo/1.4     (D)    local/1.2 (D)
   Where:
    (D):  Default Module
    (m):  built for host and native MIC
@@ -40,21 +39,20 @@ step 4
 lua ProjectDIR/src/lmod.in.lua bash avail gcc intel p a j m
 ===========================
 ProjectDIR/mf/Compiler/intel/10.1
-   gotoblas/1.31          gotoblas/1.33    openmpi/1.2.6
-   gotoblas/1.32   (D)    mpich2/1.0.7
+   gotoblas/1.31        gotoblas/1.33    openmpi/1.2.6
+   gotoblas/1.32 (D)    mpich2/1.0.7
 ProjectDIR/mf/Core
-   PrgEnv                      git/1.7.4              junk/d/3.0
-   admin/admin-1.0             git/1.7.4.3     (D)    local/local
-   alex/1.0                    gotoblas/1.20          multi/multi
-   boost/1.46.0                gotoblas/1.26          noweb/2.10c
-   boost/1.47.1                gotoblas/1.30          parmetis/3.1 (m)
-   boost/1.49.0    (o)  (D)    intel/intel            unix/unix
-   gcc/4.2.3                   junk/a/c/1.0
-   git/1.6.3.1                 junk/b/c/2.0
+   PrgEnv                     git/1.7.4             junk/d/3.0
+   admin/admin-1.0            git/1.7.4.3    (D)    local/local
+   alex/1.0                   gotoblas/1.20         multi/multi
+   boost/1.46.0               gotoblas/1.26         noweb/2.10c
+   boost/1.47.1               gotoblas/1.30         parmetis/3.1 (m)
+   boost/1.49.0    (o) (D)    intel/intel           unix/unix
+   gcc/4.2.3                  junk/a/c/1.0
+   git/1.6.3.1                junk/b/c/2.0
 ProjectDIR/rt/avail/mf/Core
-   bar/1.4-dbg          baz/1.4       (D)    local/1.1
-   bar/1.4       (D)    foo/1.4-dbg          local/1.2   (D)
-   baz/1.4-dbg          foo/1.4       (D)
+   bar/1.4-dbg        baz/1.4-dbg        foo/1.4-dbg        local/1.1
+   bar/1.4     (D)    baz/1.4     (D)    foo/1.4     (D)    local/1.2 (D)
   Where:
    (D):  Default Module
    (m):  built for host and native MIC
@@ -71,18 +69,17 @@ step 6
 lua ProjectDIR/src/lmod.in.lua bash avail
 ===========================
 ProjectDIR/mf/Core
-   PrgEnv                      git/1.7.4              junk/d/3.0
-   admin/admin-1.0             git/1.7.4.3     (D)    local/local
-   alex/1.0                    gotoblas/1.20          multi/multi
-   boost/1.46.0                gotoblas/1.26   (D)    noweb/2.10c
-   boost/1.47.1                gotoblas/1.30          parmetis/3.1 (m)
-   boost/1.49.0    (o)  (D)    intel/intel            unix/unix
-   gcc/4.2.3                   junk/a/c/1.0
-   git/1.6.3.1                 junk/b/c/2.0
+   PrgEnv                     git/1.7.4             junk/d/3.0
+   admin/admin-1.0            git/1.7.4.3    (D)    local/local
+   alex/1.0                   gotoblas/1.20         multi/multi
+   boost/1.46.0               gotoblas/1.26  (D)    noweb/2.10c
+   boost/1.47.1               gotoblas/1.30         parmetis/3.1 (m)
+   boost/1.49.0    (o) (D)    intel/intel           unix/unix
+   gcc/4.2.3                  junk/a/c/1.0
+   git/1.6.3.1                junk/b/c/2.0
 ProjectDIR/rt/avail/mf/Core
-   bar/1.4-dbg          baz/1.4       (D)    local/1.1
-   bar/1.4       (D)    foo/1.4-dbg          local/1.2   (D)
-   baz/1.4-dbg          foo/1.4       (D)
+   bar/1.4-dbg        baz/1.4-dbg        foo/1.4-dbg        local/1.1
+   bar/1.4     (D)    baz/1.4     (D)    foo/1.4     (D)    local/1.2 (D)
   Where:
    (D):  Default Module
    (m):  built for host and native MIC
@@ -200,7 +197,7 @@ step 13
 lua ProjectDIR/src/lmod.in.lua bash avail local
 ===========================
 ProjectDIR/rt/avail/mf/Core2
-   local   (D)
+   local (D)
 ProjectDIR/mf/Core
    local/local
 ProjectDIR/rt/avail/mf/Core
@@ -215,19 +212,19 @@ step 14
 lua ProjectDIR/src/lmod.in.lua bash --ignore_cache avail
 ===========================
 ProjectDIR/rt/avail/mf/Core2
-   local   (D)
+   local (D)
 ProjectDIR/mf/Core
-   PrgEnv                      git/1.7.4              junk/d/3.0
-   admin/admin-1.0             git/1.7.4.3     (D)    local/local
-   alex/1.0                    gotoblas/1.20          multi/multi
-   boost/1.46.0                gotoblas/1.26   (D)    noweb/2.10c
-   boost/1.47.1                gotoblas/1.30          parmetis/3.1 (m)
-   boost/1.49.0    (o)  (D)    intel/intel            unix/unix
-   gcc/4.2.3                   junk/a/c/1.0
-   git/1.6.3.1                 junk/b/c/2.0
+   PrgEnv                     git/1.7.4             junk/d/3.0
+   admin/admin-1.0            git/1.7.4.3    (D)    local/local
+   alex/1.0                   gotoblas/1.20         multi/multi
+   boost/1.46.0               gotoblas/1.26  (D)    noweb/2.10c
+   boost/1.47.1               gotoblas/1.30         parmetis/3.1 (m)
+   boost/1.49.0    (o) (D)    intel/intel           unix/unix
+   gcc/4.2.3                  junk/a/c/1.0
+   git/1.6.3.1                junk/b/c/2.0
 ProjectDIR/rt/avail/mf/Core
-   bar/1.4-dbg          baz/1.4-dbg          foo/1.4-dbg          local/1.1
-   bar/1.4       (D)    baz/1.4       (D)    foo/1.4       (D)    local/1.2
+   bar/1.4-dbg        baz/1.4-dbg        foo/1.4-dbg        local/1.1
+   bar/1.4     (D)    baz/1.4     (D)    foo/1.4     (D)    local/1.2
   Where:
    (D):  Default Module
    (m):  built for host and native MIC
