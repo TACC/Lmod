@@ -298,9 +298,13 @@ end
 function M.version(self)
    dbg.start{"MName:version()"}
    dbg.print{"sType:   ", self._sType,"\n"}
+   if (self._sn == false) then
+      lazyEval(self)
+   end
    dbg.print{"sn:      ", self._sn,"\n"}
    dbg.print{"name:    ", self._name,"\n"}
    dbg.print{"version: ", self._version,"\n"}
+      
    if ((self._sn and self._sn == self._name) and
        (self._sType == "load" or self._sType == "userName")) then
       dbg.fini("MName:version")

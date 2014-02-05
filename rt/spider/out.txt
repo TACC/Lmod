@@ -40,6 +40,8 @@ LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/spi
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/spider/mf/Core";
 export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/mf/Core","ProjectDIR/mf/Beta","ProjectDIR/rt/spider/mf/Core",},family={},inactive={},mT={},mpathA={"ProjectDIR/mf/Core","ProjectDIR/mf/Beta","ProjectDIR/rt/spider/mf/Core",},["systemBaseMPATH"]="ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/spider/mf/Core",["version"]=2,}';
+export _ModuleTable_;
 ===========================
 step 5
 lua ProjectDIR/src/lmod.in.lua bash spider mpich2
@@ -134,5 +136,3 @@ LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/spi
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/spider/mf/Core";
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/mf/Core","ProjectDIR/mf/Beta","ProjectDIR/rt/spider/mf/Core",},family={},inactive={},mT={},mpathA={"ProjectDIR/mf/Core","ProjectDIR/mf/Beta","ProjectDIR/rt/spider/mf/Core",},["systemBaseMPATH"]="ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/spider/mf/Core",["version"]=2,}';
-export _ModuleTable_;

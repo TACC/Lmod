@@ -46,6 +46,8 @@ LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/tamu/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/tamu/mf/Compiler/ucc/9.0:ProjectDIR/rt/tamu/mf/Core";
 export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/tamu/mf/Core",},family={["Compiler"]="ucc",},inactive={},mT={ucc={["FN"]="ProjectDIR/rt/tamu/mf/Core/ucc/9.0.lua",["default"]=0,["fullName"]="ucc/9.0",["loadOrder"]=1,propT={},["short"]="ucc",["status"]="active",},},mpathA={"ProjectDIR/rt/tamu/mf/Compiler/ucc/9.0","ProjectDIR/rt/tamu/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/tamu/mf/Core",["version"]=2,}';
+export _ModuleTable_;
 ===========================
 step 5
 lua ProjectDIR/src/lmod.in.lua bash load umpi

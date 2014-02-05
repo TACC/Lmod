@@ -792,8 +792,8 @@ local function availEntry(defaultOnly, terse, mpath, szA, searchA, sn, name,
       dbg.print{"dflt: ",dflt,"\n"}
       local aa    = {}
       local propT = {}
-      local sn    = mname:sn()
-      local entry = dbT[sn]
+      local snL   = mname:sn():lower()
+      local entry = dbT[snL]
       if (entry) then
          dbg.print{"Found dbT[sn]\n"}
          if (entry[f]) then

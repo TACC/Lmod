@@ -28,6 +28,8 @@ LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/vasp/mf:ProjectDIR/mf/Core:ProjectDIR/mf/
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/vasp/mf:ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/MPI/intel/10.1/openmpi/1.2.6";
 export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/vasp/mf","ProjectDIR/mf/Core","ProjectDIR/mf/Compiler/intel/10.1","ProjectDIR/mf/MPI/intel/10.1/openmpi/1.2.6",},family={},inactive={},mT={},mpathA={"ProjectDIR/rt/vasp/mf","ProjectDIR/mf/Core","ProjectDIR/mf/Compiler/intel/10.1","ProjectDIR/mf/MPI/intel/10.1/openmpi/1.2.6",},["systemBaseMPATH"]="ProjectDIR/rt/vasp/mf:ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/MPI/intel/10.1/openmpi/1.2.6",["version"]=2,}';
+export _ModuleTable_;
 ===========================
 step 4
 lua ProjectDIR/src/lmod.in.lua bash help vasp
