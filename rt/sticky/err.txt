@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.2rc1 5.2rc1 2013-10-27 09:20
+Modules based on Lua: Version 5.2.5 5.2.5-16-g5c900f7 2014-01-26 07:24
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -42,9 +42,10 @@ step 7
 lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
 Currently Loaded Modules:
-  1) std/1.0 (m) (S)   2) gcc/4.6   3) boost/1.53.0  (S)
+  1) std/1.0 (m) (S)   2) gcc/4.6   3) boost/1.53.0  (S) (T)
   Where:
    (S):  Module is Sticky, requires --force to unload or purge
+   (T):  Testing
    (m):  built for host and native MIC
 ===========================
 step 8
@@ -102,7 +103,7 @@ step 17
 lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
 Currently Loaded Modules:
-  1) StdEnv  (S)   2) a/1.0   3) b/1.1
+  1) StdEnv (S)   2) a/1.0   3) b/1.1
   Where:
    (S):  Module is Sticky, requires --force to unload or purge
 ===========================
@@ -114,7 +115,7 @@ step 19
 lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
 Currently Loaded Modules:
-  1) StdEnv  (S)   2) a/1.0   3) b/1.1
+  1) StdEnv (S)   2) a/1.0   3) b/1.1
   Where:
    (S):  Module is Sticky, requires --force to unload or purge
 ===========================
@@ -126,7 +127,7 @@ step 21
 lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
 Currently Loaded Modules:
-  1) StdEnv  (S)
+  1) StdEnv (S)
   Where:
    (S):  Module is Sticky, requires --force to unload or purge
 ===========================
@@ -141,7 +142,7 @@ step 23
 lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
 Currently Loaded Modules:
-  1) StdEnv  (S)   2) a/1.0   3) b/1.1
+  1) StdEnv (S)   2) a/1.0   3) b/1.1
   Where:
    (S):  Module is Sticky, requires --force to unload or purge
 ===========================
@@ -163,7 +164,7 @@ step 27
 lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
 Currently Loaded Modules:
-  1) StdEnv  (S)   2) a/1.0   3) b/1.1
+  1) StdEnv (S)   2) a/1.0   3) b/1.1
   Where:
    (S):  Module is Sticky, requires --force to unload or purge
 ===========================
@@ -176,7 +177,7 @@ step 29
 lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
 Currently Loaded Modules:
-  1) StdEnv  (S)   2) a/1.0   3) b/1.1
+  1) StdEnv (S)   2) a/1.0   3) b/1.1
   Where:
    (S):  Module is Sticky, requires --force to unload or purge
 ===========================
@@ -192,7 +193,9 @@ step 32
 lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
 Currently Loaded Modules:
-  1) M1   2) c/1.7   3) d/1.8
+  1) M1 (O)   2) c/1.7   3) d/1.8
+  Where:
+   (O):  Obsolete
 ===========================
 step 33
 lua ProjectDIR/src/lmod.in.lua bash save
@@ -208,7 +211,9 @@ step 35
 lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
 Currently Loaded Modules:
-  1) M1   2) c/1.7   3) d/1.8
+  1) M1 (O)   2) c/1.7   3) d/1.8
+  Where:
+   (O):  Obsolete
 ===========================
 step 36
 lua ProjectDIR/src/lmod.in.lua bash --force purge
@@ -222,7 +227,9 @@ step 38
 lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
 Currently Loaded Modules:
-  1) M1   2) c/1.7   3) d/1.8
+  1) M1 (O)   2) c/1.7   3) d/1.8
+  Where:
+   (O):  Obsolete
 ===========================
 step 39
 lua ProjectDIR/src/lmod.in.lua bash save
@@ -238,4 +245,6 @@ step 41
 lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
 Currently Loaded Modules:
-  1) M1   2) c/1.7   3) d/1.8
+  1) M1 (O)   2) c/1.7   3) d/1.8
+  Where:
+   (O):  Obsolete

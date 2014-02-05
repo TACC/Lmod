@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.1.7 (5.1.7-6-g44e9c16) 2013-09-28 18:49
+Modules based on Lua: Version 5.2.5 5.2.5-16-g5c900f7 2014-01-26 07:24
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -13,19 +13,19 @@ step 3
 lua ProjectDIR/src/lmod.in.lua bash avail
 ===========================
 ProjectDIR/mf/MPI/intel/10.1/openmpi/1.2.6
-   parmetis/3.1 (m)  (D)    petsc/3.2    phdf5/1.8.2    phdf5/1.8.10   (D)
+   parmetis/3.1 (m) (D)    petsc/3.2    phdf5/1.8.2    phdf5/1.8.10  (D)
 ProjectDIR/mf/Compiler/intel/10.1
-   gotoblas/1.31          gotoblas/1.33    openmpi/1.2.6
-   gotoblas/1.32   (D)    mpich2/1.0.7
+   gotoblas/1.31        gotoblas/1.33    openmpi/1.2.6
+   gotoblas/1.32 (D)    mpich2/1.0.7
 ProjectDIR/mf/Core
-   PrgEnv                      git/1.7.4              junk/d/3.0
-   admin/admin-1.0             git/1.7.4.3     (D)    local/local
-   alex/1.0                    gotoblas/1.20          multi/multi
-   boost/1.46.0                gotoblas/1.26          noweb/2.10c
-   boost/1.47.1                gotoblas/1.30          parmetis/3.1 (m)
-   boost/1.49.0    (o)  (D)    intel/intel            unix/unix
-   gcc/4.2.3                   junk/a/c/1.0
-   git/1.6.3.1                 junk/b/c/2.0
+   PrgEnv                     git/1.7.4             junk/d/3.0
+   admin/admin-1.0            git/1.7.4.3    (D)    local/local
+   alex/1.0                   gotoblas/1.20         multi/multi
+   boost/1.46.0               gotoblas/1.26         noweb/2.10c
+   boost/1.47.1               gotoblas/1.30         parmetis/3.1 (m)
+   boost/1.49.0    (o) (D)    intel/intel           unix/unix
+   gcc/4.2.3                  junk/a/c/1.0
+   git/1.6.3.1                junk/b/c/2.0
   Where:
    (D):  Default Module
    (m):  built for host and native MIC

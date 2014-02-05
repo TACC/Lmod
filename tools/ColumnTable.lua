@@ -99,12 +99,49 @@ function M.new(self,t)
       o.__entry_width = M.__entry_width2
       o.__display     = M.__display2
       o.__columnSum   = M.__columnSum2
+      tbl             = o:__clearEmptyColumns2D(tbl)
+      o.dim           = sizeMe(tbl)
    end
    o:__number_of_columns_rows(tbl)
    o.tbl        = tbl
    o.prt        = t.prt or io.write
    dbg.fini()
    return o
+end
+
+function M.__clearEmptyColumns2D(self, tbl)
+   local colA = {}
+   local length = self.length
+
+   for irow = 1, #tbl do
+      local a = tbl[irow]
+      for icol = 1, #a do
+         colA[icol] = max(colA[icol] or 0, length(a[icol]))
+      end
+   end
+
+   local movA   = {}
+   local icount = 0
+   for icol = 1, #colA do
+      icount  = icount + 1
+      if (colA[icol] > 0) then
+         movA[#movA+1] = icount
+      end
+   end
+
+   local numActiveCol = #movA
+   
+   local tt = {}
+
+   for irow = 1, #tbl do
+      tt[#tt+1] = {}
+      local aa = tt[#tt]
+      local a  = tbl[irow]
+      for icol = 1, numActiveCol do
+         aa[#aa+1] = a[movA[icol]]
+      end
+   end
+   return tt
 end
 
 function M.print_tbl(self)
@@ -350,7 +387,7 @@ function M.__number_of_columns_rows(self,t)
 
    local istart = 1
    local iskip  = nrows - 1
-   local ncols  = results
+   local ncols  = results or 1
    local nrows  = math.ceil(sz/ncols)
    self.ncols   = math.ceil(sz/nrows)
    self.nrows   = nrows

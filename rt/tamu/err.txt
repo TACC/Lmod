@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.2.5 5.2.5-6-g9f98000 2014-01-26 07:24
+Modules based on Lua: Version 5.2.5 5.2.5-16-g5c900f7 2014-01-26 07:24
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -28,9 +28,9 @@ step 4
 lua ProjectDIR/src/lmod.in.lua bash avail
 ===========================
 ProjectDIR/rt/tamu/mf/Compiler/ucc/9.0
-   umpi/8.0    umpi/8.1   (D)
+   umpi/8.0    umpi/8.1 (D)
 ProjectDIR/rt/tamu/mf/Core
-   ucc/1.0    ucc/9.0   (D)
+   ucc/1.0    ucc/9.0 (D)
   Where:
    (D):  Default Module
 Use "module spider" to find all possible modules.
@@ -46,11 +46,11 @@ step 6
 lua ProjectDIR/src/lmod.in.lua bash avail
 ===========================
 ProjectDIR/rt/tamu/mf/MPI/ucc/9.0/umpi/8.1
-   uapp/7.0.8.1    uapp/7.1.8.1   (D)
+   uapp/7.0.8.1    uapp/7.1.8.1 (D)
 ProjectDIR/rt/tamu/mf/Compiler/ucc/9.0
-   umpi/8.0    umpi/8.1   (D)
+   umpi/8.0    umpi/8.1 (D)
 ProjectDIR/rt/tamu/mf/Core
-   ucc/1.0    ucc/9.0   (D)
+   ucc/1.0    ucc/9.0 (D)
   Where:
    (D):  Default Module
 Use "module spider" to find all possible modules.
@@ -66,11 +66,11 @@ step 8
 lua ProjectDIR/src/lmod.in.lua bash avail
 ===========================
 ProjectDIR/rt/tamu/mf/MPI/ucc/9.0/umpi/8.1
-   uapp/7.0.8.1    uapp/7.1.8.1   (D)
+   uapp/7.0.8.1    uapp/7.1.8.1 (D)
 ProjectDIR/rt/tamu/mf/Compiler/ucc/9.0
-   umpi/8.0    umpi/8.1   (D)
+   umpi/8.0    umpi/8.1 (D)
 ProjectDIR/rt/tamu/mf/Core
-   ucc/1.0    ucc/9.0   (D)
+   ucc/1.0    ucc/9.0 (D)
   Where:
    (D):  Default Module
 Use "module spider" to find all possible modules.

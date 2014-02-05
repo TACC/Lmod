@@ -2,17 +2,16 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.1.0 (5.1.0-22-g0a3a5fa) 2013-07-10 22:01
+Modules based on Lua: Version 5.2.5 5.2.5-16-g5c900f7 2014-01-26 07:24
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
 lua ProjectDIR/src/lmod.in.lua bash avail
 ===========================
 ProjectDIR/mf/TACC
-   Linux         cluster          globus/4.0.7        (D)
-   TACC          cluster-paths    mvapich1/mvapich1
-   TACC-paths    cluster.orig     pgi/7.1             (D)
-   TACC.orig     globus/4.0.1     pgi/7.2-5
+   Linux         TACC.orig        cluster.orig        mvapich1/mvapich1
+   TACC          cluster          globus/4.0.1        pgi/7.1           (D)
+   TACC-paths    cluster-paths    globus/4.0.7 (D)    pgi/7.2-5
   Where:
    (D):  Default Module
 Use "module spider" to find all possible modules.
