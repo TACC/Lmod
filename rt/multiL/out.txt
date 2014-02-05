@@ -28,6 +28,8 @@ LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/multiL/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/multiL/mf/Core";
 export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/multiL/mf/Core",},family={},inactive={},mT={},mpathA={"ProjectDIR/rt/multiL/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/multiL/mf/Core",["version"]=2,}';
+export _ModuleTable_;
 ===========================
 step 4
 lua ProjectDIR/src/lmod.in.lua bash load cmplr/gcc
@@ -58,6 +60,8 @@ LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/multiL/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/multiL/mf/cmplr/gcc/4.7:ProjectDIR/rt/multiL/mf/Core";
 export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/multiL/mf/Core",},family={["compiler"]="cmplr/gcc",},inactive={},mT={["cmplr/gcc"]={["FN"]="ProjectDIR/rt/multiL/mf/Core/cmplr/gcc/4.7.2.lua",["default"]=1,["fullName"]="cmplr/gcc/4.7.2",["loadOrder"]=1,propT={},["short"]="cmplr/gcc",["status"]="active",},},mpathA={"ProjectDIR/rt/multiL/mf/cmplr/gcc/4.7","ProjectDIR/rt/multiL/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/multiL/mf/Core",["version"]=2,}';
+export _ModuleTable_;
 ===========================
 step 6
 lua ProjectDIR/src/lmod.in.lua bash load mpi/mpich2
@@ -104,6 +108,8 @@ LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/multiL/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/multiL/mf/mpi/mpich2/1.5/cmplr/gcc/4.7:ProjectDIR/rt/multiL/mf/cmplr/gcc/4.7:ProjectDIR/rt/multiL/mf/Core";
 export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/multiL/mf/Core",},family={["MPI"]="mpi/mpich2",["compiler"]="cmplr/gcc",},inactive={},mT={["cmplr/gcc"]={["FN"]="ProjectDIR/rt/multiL/mf/Core/cmplr/gcc/4.7.2.lua",["default"]=1,["fullName"]="cmplr/gcc/4.7.2",["loadOrder"]=1,propT={},["short"]="cmplr/gcc",["status"]="active",},["mpi/mpich2"]={["FN"]="ProjectDIR/rt/multiL/mf/cmplr/gcc/4.7/mpi/mpich2/1.5.2.lua",["default"]=1,["fullName"]="mpi/mpich2/1.5.2",["loadOrder"]=2,propT={},["short"]="mpi/mpich2",["status"]="active",},["parLib/petsc"]={["FN"]="ProjectDIR/rt/multiL/mf/mpi/mpich2/1.5/cmplr/gcc/4.7/parLib/petsc/3.3.lua",["default"]=1,["fullName"]="parLib/petsc/3.3",["loadOrder"]=3,propT={},["short"]="parLib/petsc",["status"]="active",},},mpathA={"ProjectDIR/rt/multiL/mf/mpi/mpich2/1.5/cmplr/gcc/4.7","ProjectDIR/rt/multiL/mf/cmplr/gcc/4.7","ProjectDIR/rt/multiL/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/multiL/mf/Core",["version"]=2,}';
+export _ModuleTable_;
 ===========================
 step 9
 lua ProjectDIR/src/lmod.in.lua bash avail
@@ -116,6 +122,8 @@ LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/multiL/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/multiL/mf/mpi/mpich2/1.5/cmplr/gcc/4.7:ProjectDIR/rt/multiL/mf/cmplr/gcc/4.7:ProjectDIR/rt/multiL/mf/Core";
 export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/multiL/mf/Core",},family={["MPI"]="mpi/mpich2",["compiler"]="cmplr/gcc",},inactive={},mT={["cmplr/gcc"]={["FN"]="ProjectDIR/rt/multiL/mf/Core/cmplr/gcc/4.7.2.lua",["default"]=1,["fullName"]="cmplr/gcc/4.7.2",["loadOrder"]=1,propT={},["short"]="cmplr/gcc",["status"]="active",},["mpi/mpich2"]={["FN"]="ProjectDIR/rt/multiL/mf/cmplr/gcc/4.7/mpi/mpich2/1.5.2.lua",["default"]=1,["fullName"]="mpi/mpich2/1.5.2",["loadOrder"]=2,propT={},["short"]="mpi/mpich2",["status"]="active",},["parLib/petsc"]={["FN"]="ProjectDIR/rt/multiL/mf/mpi/mpich2/1.5/cmplr/gcc/4.7/parLib/petsc/3.3.lua",["default"]=1,["fullName"]="parLib/petsc/3.3",["loadOrder"]=3,propT={},["short"]="parLib/petsc",["status"]="active",},},mpathA={"ProjectDIR/rt/multiL/mf/mpi/mpich2/1.5/cmplr/gcc/4.7","ProjectDIR/rt/multiL/mf/cmplr/gcc/4.7","ProjectDIR/rt/multiL/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/multiL/mf/Core",["version"]=2,}';
+export _ModuleTable_;
 ===========================
 step 10
 lua ProjectDIR/src/lmod.in.lua bash unload cmplr/gcc
@@ -195,6 +203,8 @@ LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/multiL/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/multiL/mf/mpi/mpich2/1.5/cmplr/intel/13.1:ProjectDIR/rt/multiL/mf/cmplr/intel/13.1:ProjectDIR/rt/multiL/mf/Core";
 export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/multiL/mf/Core",},family={["MPI"]="mpi/mpich2",["compiler"]="cmplr/intel",},inactive={},mT={["cmplr/intel"]={["FN"]="ProjectDIR/rt/multiL/mf/Core/cmplr/intel/13.1.lua",["default"]=1,["fullName"]="cmplr/intel/13.1",["loadOrder"]=1,propT={},["short"]="cmplr/intel",["status"]="active",},["mpi/mpich2"]={["FN"]="ProjectDIR/rt/multiL/mf/cmplr/intel/13.1/mpi/mpich2/1.5.2.lua",["default"]=1,["fullName"]="mpi/mpich2/1.5.2",["loadOrder"]=2,propT={},["short"]="mpi/mpich2",["status"]="active",},["parLib/petsc"]={["FN"]="ProjectDIR/rt/multiL/mf/mpi/mpich2/1.5/cmplr/intel/13.1/parLib/petsc/3.3.lua",["default"]=1,["fullName"]="parLib/petsc/3.3",["loadOrder"]=3,propT={},["short"]="parLib/petsc",["status"]="active",},},mpathA={"ProjectDIR/rt/multiL/mf/mpi/mpich2/1.5/cmplr/intel/13.1","ProjectDIR/rt/multiL/mf/cmplr/intel/13.1","ProjectDIR/rt/multiL/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/multiL/mf/Core",["version"]=2,}';
+export _ModuleTable_;
 ===========================
 step 14
 lua ProjectDIR/src/lmod.in.lua bash unload cmplr/intel/13.1
@@ -226,6 +236,8 @@ LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/multiL/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/multiL/mf/Core";
 export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/multiL/mf/Core",},family={},inactive={},mT={["mpi/mpich2"]={["default"]=1,["fullName"]="mpi/mpich2/1.5.2",["loadOrder"]=-1,propT={},["short"]="mpi/mpich2",["status"]="inactive",},["parLib/petsc"]={["default"]=1,["fullName"]="parLib/petsc/3.3",["loadOrder"]=-1,propT={},["short"]="parLib/petsc",["status"]="inactive",},},mpathA={"ProjectDIR/rt/multiL/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/multiL/mf/Core",["version"]=2,}';
+export _ModuleTable_;
 ===========================
 step 16
 lua ProjectDIR/src/lmod.in.lua bash load cmplr/intel/13.1
@@ -262,3 +274,5 @@ LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/multiL/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/multiL/mf/mpi/mpich2/1.5/cmplr/intel/13.1:ProjectDIR/rt/multiL/mf/cmplr/intel/13.1:ProjectDIR/rt/multiL/mf/Core";
 export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/multiL/mf/Core",},family={["MPI"]="mpi/mpich2",["compiler"]="cmplr/intel",},inactive={},mT={["cmplr/intel"]={["FN"]="ProjectDIR/rt/multiL/mf/Core/cmplr/intel/13.1.lua",["default"]=0,["fullName"]="cmplr/intel/13.1",["loadOrder"]=1,propT={},["short"]="cmplr/intel",["status"]="active",},["mpi/mpich2"]={["FN"]="ProjectDIR/rt/multiL/mf/cmplr/intel/13.1/mpi/mpich2/1.5.2.lua",["default"]=1,["fullName"]="mpi/mpich2/1.5.2",["loadOrder"]=2,propT={},["short"]="mpi/mpich2",["status"]="active",},["parLib/petsc"]={["FN"]="ProjectDIR/rt/multiL/mf/mpi/mpich2/1.5/cmplr/intel/13.1/parLib/petsc/3.3.lua",["default"]=1,["fullName"]="parLib/petsc/3.3",["loadOrder"]=3,propT={},["short"]="parLib/petsc",["status"]="active",},},mpathA={"ProjectDIR/rt/multiL/mf/mpi/mpich2/1.5/cmplr/intel/13.1","ProjectDIR/rt/multiL/mf/cmplr/intel/13.1","ProjectDIR/rt/multiL/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/multiL/mf/Core",["version"]=2,}';
+export _ModuleTable_;

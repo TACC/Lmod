@@ -28,6 +28,8 @@ LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/TACC";
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/TACC";
 export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/mf/Core","ProjectDIR/mf/TACC",},family={},inactive={},mT={},mpathA={"ProjectDIR/mf/Core","ProjectDIR/mf/TACC",},["systemBaseMPATH"]="ProjectDIR/mf/Core:ProjectDIR/mf/TACC",["version"]=2,}';
+export _ModuleTable_;
 ===========================
 step 4
 lua ProjectDIR/src/lmod.in.lua bash load PrgEnv

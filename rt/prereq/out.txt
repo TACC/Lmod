@@ -39,6 +39,8 @@ LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/prereq/mf";
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/prereq/mf";
 export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/prereq/mf",},family={},inactive={},mT={petsc={["FN"]="ProjectDIR/rt/prereq/mf/petsc/3.1.0",["default"]=1,["fullName"]="petsc/3.1.0",["loadOrder"]=1,propT={},["short"]="petsc",["status"]="active",},},mpathA={"ProjectDIR/rt/prereq/mf",},["systemBaseMPATH"]="ProjectDIR/rt/prereq/mf",["version"]=2,}';
+export _ModuleTable_;
 ===========================
 step 5
 lua ProjectDIR/src/lmod.in.lua bash unload petsc

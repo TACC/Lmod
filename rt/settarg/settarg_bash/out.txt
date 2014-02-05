@@ -488,6 +488,8 @@ LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/settarg/settarg_bash/../mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/settarg/settarg_bash/../mf/MPI/gcc/4.7/mpich/3.0:ProjectDIR/rt/settarg/settarg_bash/../mf/Compiler/gcc/4.7:ProjectDIR/rt/settarg/settarg_bash/../mf/Core";
 export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/settarg/settarg_bash/../mf/Core",},family={["MPI"]="mpich",["compiler"]="gcc",},inactive={},mT={gcc={["FN"]="ProjectDIR/rt/settarg/settarg_bash/../mf/Core/gcc/4.7.2.lua",["default"]=1,["fullName"]="gcc/4.7.2",["loadOrder"]=2,propT={},["short"]="gcc",["status"]="active",},mpich={["FN"]="ProjectDIR/rt/settarg/settarg_bash/../mf/Compiler/gcc/4.7/mpich/3.0.4.lua",["default"]=1,["fullName"]="mpich/3.0.4",["loadOrder"]=3,propT={},["short"]="mpich",["status"]="active",},settarg={["FN"]="ProjectDIR/rt/settarg/settarg_bash/../mf/Core/settarg/1.0.lua",["default"]=1,["fullName"]="settarg/1.0",["loadOrder"]=1,propT={},["short"]="settarg",["status"]="active",},},mpathA={"ProjectDIR/rt/settarg/settarg_bash/../mf/MPI/gcc/4.7/mpich/3.0","ProjectDIR/rt/settarg/settarg_bash/../mf/Compiler/gcc/4.7","ProjectDIR/rt/settarg/settarg_bash/../mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/settarg/settarg_bash/../mf/Core",["version"]=2,}';
+export _ModuleTable_;
 ===========================
 step 17
 lua ProjectDIR/src/lmod.in.lua bash unload settarg

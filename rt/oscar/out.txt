@@ -34,6 +34,8 @@ LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/oscar/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/oscar/mf/Oscar:ProjectDIR/rt/oscar/mf/Core";
 export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=4,baseMpathA={"ProjectDIR/rt/oscar/mf/Core",},family={},inactive={},mT={a={["FN"]="ProjectDIR/rt/oscar/mf/Oscar/a",["default"]=0,["fullName"]="a",["loadOrder"]=2,propT={},["short"]="a",["status"]="active",},b={["FN"]="ProjectDIR/rt/oscar/mf/Oscar/b",["default"]=0,["fullName"]="b",["loadOrder"]=3,propT={},["short"]="b",["status"]="active",},c={["FN"]="ProjectDIR/rt/oscar/mf/Oscar/c",["default"]=0,["fullName"]="c",["loadOrder"]=4,propT={},["short"]="c",["status"]="active",},oscar={["FN"]="ProjectDIR/rt/oscar/mf/Core/oscar.lua",["default"]=0,["fullName"]="oscar",["loadOrder"]=1,propT={},["short"]="oscar",["status"]="active",},},mpathA={"ProjectDIR/rt/oscar/mf/Oscar","ProjectDIR/rt/oscar/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/oscar/mf/Core",["version"]=2,}';
+export _ModuleTable_;
 ===========================
 step 4
 lua ProjectDIR/src/lmod.in.lua bash list
@@ -46,3 +48,5 @@ LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/oscar/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/oscar/mf/Oscar:ProjectDIR/rt/oscar/mf/Core";
 export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=4,baseMpathA={"ProjectDIR/rt/oscar/mf/Core",},family={},inactive={},mT={a={["FN"]="ProjectDIR/rt/oscar/mf/Oscar/a",["default"]=0,["fullName"]="a",["loadOrder"]=2,propT={},["short"]="a",["status"]="active",},b={["FN"]="ProjectDIR/rt/oscar/mf/Oscar/b",["default"]=0,["fullName"]="b",["loadOrder"]=3,propT={},["short"]="b",["status"]="active",},c={["FN"]="ProjectDIR/rt/oscar/mf/Oscar/c",["default"]=0,["fullName"]="c",["loadOrder"]=4,propT={},["short"]="c",["status"]="active",},oscar={["FN"]="ProjectDIR/rt/oscar/mf/Core/oscar.lua",["default"]=0,["fullName"]="oscar",["loadOrder"]=1,propT={},["short"]="oscar",["status"]="active",},},mpathA={"ProjectDIR/rt/oscar/mf/Oscar","ProjectDIR/rt/oscar/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/oscar/mf/Core",["version"]=2,}';
+export _ModuleTable_;

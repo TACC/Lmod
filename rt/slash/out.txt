@@ -32,3 +32,5 @@ LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/mf/Core";
 export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/mf/Core",},family={},inactive={},mT={admin={["FN"]="ProjectDIR/mf/Core/admin/admin-1.0.lua",["default"]=1,["fullName"]="admin/admin-1.0",["loadOrder"]=1,propT={},["short"]="admin",["status"]="active",},},mpathA={"ProjectDIR/mf/Core",},["systemBaseMPATH"]="ProjectDIR/mf/Core",["version"]=2,}';
+export _ModuleTable_;

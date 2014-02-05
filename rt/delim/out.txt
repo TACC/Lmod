@@ -84,6 +84,8 @@ RTM_LUA_CPATH=";;";
 export RTM_LUA_CPATH;
 RTM_LUA_PATH=";;";
 export RTM_LUA_PATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/delim/mf/Core",},family={},inactive={},mT={init_lua={["FN"]="ProjectDIR/rt/delim/mf/Core/init_lua/5.1.4.lua",["default"]=1,["fullName"]="init_lua/5.1.4",["loadOrder"]=1,propT={},["short"]="init_lua",["status"]="active",},},mpathA={"ProjectDIR/rt/delim/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/delim/mf/Core",["version"]=2,}';
+export _ModuleTable_;
 ===========================
 step 7
 lua ProjectDIR/src/lmod.in.lua bash load luaposix
@@ -114,6 +116,8 @@ LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/delim/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/delim/mf/Core";
 export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/delim/mf/Core",},family={},inactive={},mT={init_lua={["FN"]="ProjectDIR/rt/delim/mf/Core/init_lua/5.1.4.lua",["default"]=1,["fullName"]="init_lua/5.1.4",["loadOrder"]=1,propT={},["short"]="init_lua",["status"]="active",},luaposix={["FN"]="ProjectDIR/rt/delim/mf/Core/luaposix/1.0.lua",["default"]=1,["fullName"]="luaposix/1.0",["loadOrder"]=2,propT={},["short"]="luaposix",["status"]="active",},},mpathA={"ProjectDIR/rt/delim/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/delim/mf/Core",["version"]=2,}';
+export _ModuleTable_;
 ===========================
 step 9
 lua ProjectDIR/src/lmod.in.lua bash unload init_lua luaposix
@@ -142,6 +146,8 @@ LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/delim/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/delim/mf/Core";
 export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/delim/mf/Core",},family={},inactive={},mT={},mpathA={"ProjectDIR/rt/delim/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/delim/mf/Core",["version"]=2,}';
+export _ModuleTable_;
 false
 ===========================
 step 11

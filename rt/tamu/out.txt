@@ -78,6 +78,8 @@ LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/tamu/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/tamu/mf/MPI/ucc/9.0/umpi/8.1:ProjectDIR/rt/tamu/mf/Compiler/ucc/9.0:ProjectDIR/rt/tamu/mf/Core";
 export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/tamu/mf/Core",},family={["Compiler"]="ucc",["MPI"]="umpi",},inactive={},mT={ucc={["FN"]="ProjectDIR/rt/tamu/mf/Core/ucc/9.0.lua",["default"]=0,["fullName"]="ucc/9.0",["loadOrder"]=1,propT={},["short"]="ucc",["status"]="active",},umpi={["FN"]="ProjectDIR/rt/tamu/mf/Compiler/ucc/9.0/umpi/8.1.lua",["default"]=1,["fullName"]="umpi/8.1",["loadOrder"]=2,propT={},["short"]="umpi",["status"]="active",},},mpathA={"ProjectDIR/rt/tamu/mf/MPI/ucc/9.0/umpi/8.1","ProjectDIR/rt/tamu/mf/Compiler/ucc/9.0","ProjectDIR/rt/tamu/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/tamu/mf/Core",["version"]=2,}';
+export _ModuleTable_;
 ===========================
 step 7
 lua ProjectDIR/src/lmod.in.lua bash load uapp
@@ -104,6 +106,8 @@ LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/tamu/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/tamu/mf/MPI/ucc/9.0/umpi/8.1:ProjectDIR/rt/tamu/mf/Compiler/ucc/9.0:ProjectDIR/rt/tamu/mf/Core";
 export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/tamu/mf/Core",},family={["Compiler"]="ucc",["MPI"]="umpi",},inactive={},mT={uapp={["FN"]="ProjectDIR/rt/tamu/mf/MPI/ucc/9.0/umpi/8.1/uapp/7.1.8.1.lua",["default"]=1,["fullName"]="uapp/7.1.8.1",["loadOrder"]=3,propT={},["short"]="uapp",["status"]="active",},ucc={["FN"]="ProjectDIR/rt/tamu/mf/Core/ucc/9.0.lua",["default"]=0,["fullName"]="ucc/9.0",["loadOrder"]=1,propT={},["short"]="ucc",["status"]="active",},umpi={["FN"]="ProjectDIR/rt/tamu/mf/Compiler/ucc/9.0/umpi/8.1.lua",["default"]=1,["fullName"]="umpi/8.1",["loadOrder"]=2,propT={},["short"]="umpi",["status"]="active",},},mpathA={"ProjectDIR/rt/tamu/mf/MPI/ucc/9.0/umpi/8.1","ProjectDIR/rt/tamu/mf/Compiler/ucc/9.0","ProjectDIR/rt/tamu/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/tamu/mf/Core",["version"]=2,}';
+export _ModuleTable_;
 ===========================
 step 9
 lua ProjectDIR/src/lmod.in.lua bash spider uapp
@@ -116,6 +120,8 @@ LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/tamu/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/tamu/mf/MPI/ucc/9.0/umpi/8.1:ProjectDIR/rt/tamu/mf/Compiler/ucc/9.0:ProjectDIR/rt/tamu/mf/Core";
 export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/tamu/mf/Core",},family={["Compiler"]="ucc",["MPI"]="umpi",},inactive={},mT={uapp={["FN"]="ProjectDIR/rt/tamu/mf/MPI/ucc/9.0/umpi/8.1/uapp/7.1.8.1.lua",["default"]=1,["fullName"]="uapp/7.1.8.1",["loadOrder"]=3,propT={},["short"]="uapp",["status"]="active",},ucc={["FN"]="ProjectDIR/rt/tamu/mf/Core/ucc/9.0.lua",["default"]=0,["fullName"]="ucc/9.0",["loadOrder"]=1,propT={},["short"]="ucc",["status"]="active",},umpi={["FN"]="ProjectDIR/rt/tamu/mf/Compiler/ucc/9.0/umpi/8.1.lua",["default"]=1,["fullName"]="umpi/8.1",["loadOrder"]=2,propT={},["short"]="umpi",["status"]="active",},},mpathA={"ProjectDIR/rt/tamu/mf/MPI/ucc/9.0/umpi/8.1","ProjectDIR/rt/tamu/mf/Compiler/ucc/9.0","ProjectDIR/rt/tamu/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/tamu/mf/Core",["version"]=2,}';
+export _ModuleTable_;
 ===========================
 step 10
 lua ProjectDIR/src/lmod.in.lua bash spider uapp/7.0.8.1
@@ -128,3 +134,5 @@ LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/tamu/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/tamu/mf/MPI/ucc/9.0/umpi/8.1:ProjectDIR/rt/tamu/mf/Compiler/ucc/9.0:ProjectDIR/rt/tamu/mf/Core";
 export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/tamu/mf/Core",},family={["Compiler"]="ucc",["MPI"]="umpi",},inactive={},mT={uapp={["FN"]="ProjectDIR/rt/tamu/mf/MPI/ucc/9.0/umpi/8.1/uapp/7.1.8.1.lua",["default"]=1,["fullName"]="uapp/7.1.8.1",["loadOrder"]=3,propT={},["short"]="uapp",["status"]="active",},ucc={["FN"]="ProjectDIR/rt/tamu/mf/Core/ucc/9.0.lua",["default"]=0,["fullName"]="ucc/9.0",["loadOrder"]=1,propT={},["short"]="ucc",["status"]="active",},umpi={["FN"]="ProjectDIR/rt/tamu/mf/Compiler/ucc/9.0/umpi/8.1.lua",["default"]=1,["fullName"]="umpi/8.1",["loadOrder"]=2,propT={},["short"]="umpi",["status"]="active",},},mpathA={"ProjectDIR/rt/tamu/mf/MPI/ucc/9.0/umpi/8.1","ProjectDIR/rt/tamu/mf/Compiler/ucc/9.0","ProjectDIR/rt/tamu/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/tamu/mf/Core",["version"]=2,}';
+export _ModuleTable_;

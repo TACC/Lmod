@@ -38,6 +38,8 @@ LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/mixed/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/mixed/mf/Core:ProjectDIR/rt/mixed/mf/Compilers/intel14.0:ProjectDIR/rt/mixed/mf/MPI/intel14.0/openmpi1.6";
 export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/mixed/mf/Core",},family={["MPI"]="mpi/openmpi",["compilers"]="compilers/intel",},inactive={},mT={StdEnv={["FN"]="ProjectDIR/rt/mixed/mf/Core/StdEnv.lua",["default"]=0,["fullName"]="StdEnv",["loadOrder"]=1,propT={lmod={["sticky"]=1,},},["short"]="StdEnv",["status"]="active",},["compilers/intel"]={["FN"]="ProjectDIR/rt/mixed/mf/Core/compilers/intel/14.0.0.lua",["default"]=0,["fullName"]="compilers/intel/14.0.0",["loadOrder"]=2,propT={},["short"]="compilers/intel",["status"]="active",},["mpi/openmpi"]={["FN"]="ProjectDIR/rt/mixed/mf/Compilers/intel14.0/mpi/openmpi/1.6.5.lua",["default"]=0,["fullName"]="mpi/openmpi/1.6.5",["loadOrder"]=3,propT={},["short"]="mpi/openmpi",["status"]="active",},},mpathA={"ProjectDIR/rt/mixed/mf/Core","ProjectDIR/rt/mixed/mf/Compilers/intel14.0","ProjectDIR/rt/mixed/mf/MPI/intel14.0/openmpi1.6",},["systemBaseMPATH"]="ProjectDIR/rt/mixed/mf/Core",["version"]=2,}';
+export _ModuleTable_;
 ===========================
 step 4
 lua ProjectDIR/src/lmod.in.lua bash restore
@@ -60,6 +62,8 @@ TACC_FAMILY_COMPILERS="compilers/intel";
 export TACC_FAMILY_COMPILERS;
 TACC_FAMILY_MPI="mpi/openmpi";
 export TACC_FAMILY_MPI;
+_ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/mixed/mf/Core",},family={["MPI"]="mpi/openmpi",["compilers"]="compilers/intel",},inactive={},mT={StdEnv={["FN"]="ProjectDIR/rt/mixed/mf/Core/StdEnv.lua",["default"]=0,["fullName"]="StdEnv",["loadOrder"]=1,propT={lmod={["sticky"]=1,},},["short"]="StdEnv",["status"]="active",},["compilers/intel"]={["FN"]="ProjectDIR/rt/mixed/mf/Core/compilers/intel/14.0.0.lua",["default"]=0,["fullName"]="compilers/intel/14.0.0",["loadOrder"]=2,propT={},["short"]="compilers/intel",["status"]="active",},["mpi/openmpi"]={["FN"]="ProjectDIR/rt/mixed/mf/Compilers/intel14.0/mpi/openmpi/1.6.5.lua",["default"]=0,["fullName"]="mpi/openmpi/1.6.5",["loadOrder"]=3,propT={},["short"]="mpi/openmpi",["status"]="active",},},mpathA={"ProjectDIR/rt/mixed/mf/Core","ProjectDIR/rt/mixed/mf/Compilers/intel14.0","ProjectDIR/rt/mixed/mf/MPI/intel14.0/openmpi1.6",},["systemBaseMPATH"]="ProjectDIR/rt/mixed/mf/Core",["version"]=2,}';
+export _ModuleTable_;
 __LMOD_DEFAULT_MODULES_LOADED__="1";
 export __LMOD_DEFAULT_MODULES_LOADED__;
 ===========================
@@ -74,6 +78,8 @@ LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/mixed/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/mixed/mf/Core:ProjectDIR/rt/mixed/mf/Compilers/intel14.0:ProjectDIR/rt/mixed/mf/MPI/intel14.0/openmpi1.6";
 export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/mixed/mf/Core",},family={["MPI"]="mpi/openmpi",["compilers"]="compilers/intel",},inactive={},mT={StdEnv={["FN"]="ProjectDIR/rt/mixed/mf/Core/StdEnv.lua",["default"]=0,["fullName"]="StdEnv",["loadOrder"]=1,propT={lmod={["sticky"]=1,},},["short"]="StdEnv",["status"]="active",},["compilers/intel"]={["FN"]="ProjectDIR/rt/mixed/mf/Core/compilers/intel/14.0.0.lua",["default"]=0,["fullName"]="compilers/intel/14.0.0",["loadOrder"]=2,propT={},["short"]="compilers/intel",["status"]="active",},["mpi/openmpi"]={["FN"]="ProjectDIR/rt/mixed/mf/Compilers/intel14.0/mpi/openmpi/1.6.5.lua",["default"]=0,["fullName"]="mpi/openmpi/1.6.5",["loadOrder"]=3,propT={},["short"]="mpi/openmpi",["status"]="active",},},mpathA={"ProjectDIR/rt/mixed/mf/Core","ProjectDIR/rt/mixed/mf/Compilers/intel14.0","ProjectDIR/rt/mixed/mf/MPI/intel14.0/openmpi1.6",},["systemBaseMPATH"]="ProjectDIR/rt/mixed/mf/Core",["version"]=2,}';
+export _ModuleTable_;
 ===========================
 step 6
 lua ProjectDIR/src/lmod.in.lua bash avail

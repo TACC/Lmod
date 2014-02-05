@@ -28,6 +28,8 @@ LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/colorize/mf";
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/colorize/mf";
 export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/colorize/mf",},family={},inactive={},mT={},mpathA={"ProjectDIR/rt/colorize/mf",},["systemBaseMPATH"]="ProjectDIR/rt/colorize/mf",["version"]=2,}';
+export _ModuleTable_;
 ===========================
 step 4
 lua ProjectDIR/src/lmod.in.lua bash avail
@@ -40,6 +42,8 @@ LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/colorize/mf";
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/colorize/mf";
 export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/colorize/mf",},family={},inactive={},mT={},mpathA={"ProjectDIR/rt/colorize/mf",},["systemBaseMPATH"]="ProjectDIR/rt/colorize/mf",["version"]=2,}';
+export _ModuleTable_;
 ===========================
 step 5
 lua ProjectDIR/src/lmod.in.lua bash avail
@@ -52,6 +56,8 @@ LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/colorize/mf";
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/colorize/mf";
 export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/colorize/mf",},family={},inactive={},mT={},mpathA={"ProjectDIR/rt/colorize/mf",},["systemBaseMPATH"]="ProjectDIR/rt/colorize/mf",["version"]=2,}';
+export _ModuleTable_;
 ===========================
 step 6
 lua ProjectDIR/src/lmod.in.lua bash avail
@@ -64,6 +70,8 @@ LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/colorize/mf";
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/colorize/mf";
 export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/colorize/mf",},family={},inactive={},mT={},mpathA={"ProjectDIR/rt/colorize/mf",},["systemBaseMPATH"]="ProjectDIR/rt/colorize/mf",["version"]=2,}';
+export _ModuleTable_;
 ===========================
 step 7
 lua ProjectDIR/src/lmod.in.lua bash avail
@@ -76,6 +84,8 @@ LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/colorize/mf";
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/colorize/mf";
 export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/colorize/mf",},family={},inactive={},mT={},mpathA={"ProjectDIR/rt/colorize/mf",},["systemBaseMPATH"]="ProjectDIR/rt/colorize/mf",["version"]=2,}';
+export _ModuleTable_;
 ===========================
 step 8
 lua ProjectDIR/src/lmod.in.lua bash avail
@@ -88,3 +98,5 @@ LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/colorize/mf";
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/colorize/mf";
 export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/colorize/mf",},family={},inactive={},mT={},mpathA={"ProjectDIR/rt/colorize/mf",},["systemBaseMPATH"]="ProjectDIR/rt/colorize/mf",["version"]=2,}';
+export _ModuleTable_;
