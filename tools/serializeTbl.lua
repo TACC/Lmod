@@ -50,9 +50,10 @@ require("TermWidth")
 
 local function nsformat(value)
    if (type(value) == 'string') then
-      if (string.find(value,"\n")) then
+      if (value:find("\n")) then
 	 value = "[[\n" .. value .. "\n]]"
       else
+         value = value:gsub('"','\\"')
 	 value = "\"" .. value .. "\""
       end
    elseif (type(value) == 'boolean') then

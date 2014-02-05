@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.2.2 5.2.2-5-g028cb88 2013-12-12 15:40
+Modules based on Lua: Version 5.2.5 5.2.5-19-g329e179 2014-01-26 07:24
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -20,6 +20,15 @@ The following is a list of the modules currently available:
   git: git/1.6.3.1, git/1.7.4, git/1.7.4.3
   gotoblas: gotoblas/1.20, gotoblas/1.26, gotoblas/1.30, gotoblas/1.30-beta, ...
     Blas Level 1, 2, 3 routines
+  greenlet: greenlet/0.4.0
+    The greenlet package is a spin-off of Stackless, a version of CPython
+    that supports micro-threads called "tasklets". Tasklets run
+    pseudo-concurrently (typically in a single or a few OS-level threads)
+    and are synchronized with data exchanges on "channels". A "greenlet",
+    on the other hand, is a still more primitive notion of micro-thread
+    with no implicit scheduling; coroutines, in other words. This is useful
+    when you want to control exactly when your code runs. - Homepage:
+    https://github.com/python-greenlet/greenlet
   intel: intel/intel
   junk/a/c: junk/a/c/1.0
   junk/b/c: junk/b/c/2.0
@@ -71,6 +80,8 @@ gotoblas/1.30-beta
 gotoblas/1.31
 gotoblas/1.32
 gotoblas/1.33
+greenlet/
+greenlet/0.4.0
 intel/
 intel/intel
 junk/a/c/
@@ -175,6 +186,15 @@ The following is a list of the modules currently available:
   git: git/1.6.3.1, git/1.7.4, git/1.7.4.3
   gotoblas: gotoblas/1.20, gotoblas/1.26, gotoblas/1.30, gotoblas/1.30-beta, ...
     Blas Level 1, 2, 3 routines
+  greenlet: greenlet/0.4.0
+    The greenlet package is a spin-off of Stackless, a version of CPython
+    that supports micro-threads called "tasklets". Tasklets run
+    pseudo-concurrently (typically in a single or a few OS-level threads)
+    and are synchronized with data exchanges on "channels". A "greenlet",
+    on the other hand, is a still more primitive notion of micro-thread
+    with no implicit scheduling; coroutines, in other words. This is useful
+    when you want to control exactly when your code runs. - Homepage:
+    https://github.com/python-greenlet/greenlet
   intel: intel/intel
   junk/a/c: junk/a/c/1.0
   junk/b/c: junk/b/c/2.0
