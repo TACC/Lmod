@@ -168,6 +168,13 @@ function M.options(self, usage)
    }
 
    cmdlineParser:add_option{
+      name   = {"-x","--exact"},
+      dest   = "exact",
+      action = "store_true",
+      help   = "If set then perform case sensitive search for list and avail",
+   }
+
+   cmdlineParser:add_option{
       name   = {"--dumpversion"},
       dest   = "dumpversion",
       action = "store_true",
