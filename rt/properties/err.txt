@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.1.0 (5.1.0-22-g0a3a5fa) 2013-07-10 22:01
+Modules based on Lua: Version 5.2.5 5.2.5-21-geecdc9c 2014-01-26 07:24
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -10,10 +10,18 @@ lua ProjectDIR/src/lmod.in.lua bash use -a ProjectDIR/rt/properties/mf/Core
 ===========================
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash load PrgEnv
+lua ProjectDIR/src/lmod.in.lua bash use -a ProjectDIR/rt/properties/mf/bio
 ===========================
 ===========================
 step 4
+lua ProjectDIR/src/lmod.in.lua bash use -a ProjectDIR/rt/properties/mf/cae
+===========================
+===========================
+step 5
+lua ProjectDIR/src/lmod.in.lua bash load PrgEnv
+===========================
+===========================
+step 6
 lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
 Currently Loaded Modules:
@@ -24,3 +32,22 @@ Currently Loaded Modules:
    (@):  built natively for MIC and GPU and offload to the MIC
    (m):  built for host and native MIC
    (o):  built for offload to the MIC only
+===========================
+step 7
+lua ProjectDIR/src/lmod.in.lua bash avail
+===========================
+ProjectDIR/rt/properties/mf/Core
+   PrgEnv    a/1.0    b/1.0 (m)    c/1.0 (o)    d/1.0 (@)    mkl/10.3
+ProjectDIR/rt/properties/mf/bio
+   goolfc/2.7.10/GROMACS/4.6.5 (E)
+ProjectDIR/rt/properties/mf/cae
+   iomkl/14.0.1/OpenFOAM/2.2.2 (T)
+  Where:
+   (@):  built natively for MIC and GPU and offload to the MIC
+   (E):  Experimental
+   (T):  Testing
+   (m):  built for host and native MIC
+   (o):  built for offload to the MIC only
+Use "module spider" to find all possible modules.
+Use "module keyword key1 key2 ..." to search for all possible modules matching
+any of the "keys".

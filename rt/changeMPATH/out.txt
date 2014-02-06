@@ -46,6 +46,8 @@ LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/Core";
 export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=6,baseMpathA={"ProjectDIR/mf/Core",},family={["compiler"]="intel",},inactive={},mT={PrgEnv={["FN"]="ProjectDIR/mf/Core/PrgEnv.lua",["default"]=0,["fullName"]="PrgEnv",["loadOrder"]=2,propT={},["short"]="PrgEnv",["status"]="active",},admin={["FN"]="ProjectDIR/mf/Core/admin/admin-1.0.lua",["default"]=1,["fullName"]="admin/admin-1.0",["loadOrder"]=1,propT={},["short"]="admin",["status"]="active",},intel={["FN"]="ProjectDIR/mf/Core/intel/intel.lua",["default"]=1,["fullName"]="intel/intel",["loadOrder"]=5,propT={},["short"]="intel",["status"]="active",},["local"]={["FN"]="ProjectDIR/mf/Core/local/local.lua",["default"]=1,["fullName"]="local/local",["loadOrder"]=4,propT={},["short"]="local",["status"]="active",},noweb={["FN"]="ProjectDIR/mf/Core/noweb/2.10c.lua",["default"]=1,["fullName"]="noweb/2.10c",["loadOrder"]=6,propT={},["short"]="noweb",["status"]="active",},unix={["FN"]="ProjectDIR/mf/Core/unix/unix.lua",["default"]=1,["fullName"]="unix/unix",["loadOrder"]=3,propT={},["short"]="unix",["status"]="active",},},mpathA={"ProjectDIR/mf/Compiler/intel/10.1","ProjectDIR/mf/Core",},["systemBaseMPATH"]="ProjectDIR/mf/Core",["version"]=2,}';
+export _ModuleTable_;
 ===========================
 step 4
 lua ProjectDIR/src/lmod.in.lua bash purge
@@ -153,6 +155,8 @@ LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/changeMPATH/mf/Core:ProjectDIR/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/rt/changeMPATH/mf/Core:ProjectDIR/mf/Core";
 export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=6,baseMpathA={"ProjectDIR/rt/changeMPATH/mf/Core","ProjectDIR/mf/Core",},family={["compiler"]="intel",},inactive={},mT={PrgEnv={["FN"]="ProjectDIR/mf/Core/PrgEnv.lua",["default"]=0,["fullName"]="PrgEnv",["loadOrder"]=2,propT={},["short"]="PrgEnv",["status"]="active",},admin={["FN"]="ProjectDIR/rt/changeMPATH/mf/Core/admin/admin-1.0.lua",["default"]=1,["fullName"]="admin/admin-1.0",["loadOrder"]=1,propT={},["short"]="admin",["status"]="active",},intel={["FN"]="ProjectDIR/mf/Core/intel/intel.lua",["default"]=1,["fullName"]="intel/intel",["loadOrder"]=5,propT={},["short"]="intel",["status"]="active",},["local"]={["FN"]="ProjectDIR/mf/Core/local/local.lua",["default"]=1,["fullName"]="local/local",["loadOrder"]=4,propT={},["short"]="local",["status"]="active",},noweb={["FN"]="ProjectDIR/mf/Core/noweb/2.10c.lua",["default"]=1,["fullName"]="noweb/2.10c",["loadOrder"]=6,propT={},["short"]="noweb",["status"]="active",},unix={["FN"]="ProjectDIR/mf/Core/unix/unix.lua",["default"]=1,["fullName"]="unix/unix",["loadOrder"]=3,propT={},["short"]="unix",["status"]="active",},},mpathA={"ProjectDIR/mf/Compiler/intel/10.1","ProjectDIR/rt/changeMPATH/mf/Core","ProjectDIR/mf/Core",},["systemBaseMPATH"]="ProjectDIR/mf/Core",["version"]=2,}';
+export _ModuleTable_;
 ===========================
 step 10
 lua ProjectDIR/src/lmod.in.lua bash save default
@@ -165,6 +169,8 @@ LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/changeMPATH/mf/Core:ProjectDIR/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/rt/changeMPATH/mf/Core:ProjectDIR/mf/Core";
 export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=6,baseMpathA={"ProjectDIR/rt/changeMPATH/mf/Core","ProjectDIR/mf/Core",},family={["compiler"]="intel",},inactive={},mT={PrgEnv={["FN"]="ProjectDIR/mf/Core/PrgEnv.lua",["default"]=0,["fullName"]="PrgEnv",["loadOrder"]=2,propT={},["short"]="PrgEnv",["status"]="active",},admin={["FN"]="ProjectDIR/rt/changeMPATH/mf/Core/admin/admin-1.0.lua",["default"]=1,["fullName"]="admin/admin-1.0",["loadOrder"]=1,propT={},["short"]="admin",["status"]="active",},intel={["FN"]="ProjectDIR/mf/Core/intel/intel.lua",["default"]=1,["fullName"]="intel/intel",["loadOrder"]=5,propT={},["short"]="intel",["status"]="active",},["local"]={["FN"]="ProjectDIR/mf/Core/local/local.lua",["default"]=1,["fullName"]="local/local",["loadOrder"]=4,propT={},["short"]="local",["status"]="active",},noweb={["FN"]="ProjectDIR/mf/Core/noweb/2.10c.lua",["default"]=1,["fullName"]="noweb/2.10c",["loadOrder"]=6,propT={},["short"]="noweb",["status"]="active",},unix={["FN"]="ProjectDIR/mf/Core/unix/unix.lua",["default"]=1,["fullName"]="unix/unix",["loadOrder"]=3,propT={},["short"]="unix",["status"]="active",},},mpathA={"ProjectDIR/mf/Compiler/intel/10.1","ProjectDIR/rt/changeMPATH/mf/Core","ProjectDIR/mf/Core",},["systemBaseMPATH"]="ProjectDIR/mf/Core",["version"]=2,}';
+export _ModuleTable_;
 ===========================
 step 11
 lua ProjectDIR/src/lmod.in.lua bash purge
@@ -235,6 +241,8 @@ LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/changeMPATH/mf/Core:ProjectDIR/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/rt/changeMPATH/mf/Core:ProjectDIR/mf/Core";
 export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=6,baseMpathA={"ProjectDIR/rt/changeMPATH/mf/Core","ProjectDIR/mf/Core",},family={["compiler"]="intel",},inactive={},mT={PrgEnv={["FN"]="ProjectDIR/mf/Core/PrgEnv.lua",["default"]=0,["fullName"]="PrgEnv",["loadOrder"]=2,propT={},["short"]="PrgEnv",["status"]="active",},admin={["FN"]="ProjectDIR/rt/changeMPATH/mf/Core/admin/admin-1.0.lua",["default"]=1,["fullName"]="admin/admin-1.0",["loadOrder"]=1,propT={},["short"]="admin",["status"]="active",},intel={["FN"]="ProjectDIR/mf/Core/intel/intel.lua",["default"]=1,["fullName"]="intel/intel",["loadOrder"]=5,propT={},["short"]="intel",["status"]="active",},["local"]={["FN"]="ProjectDIR/mf/Core/local/local.lua",["default"]=1,["fullName"]="local/local",["loadOrder"]=4,propT={},["short"]="local",["status"]="active",},noweb={["FN"]="ProjectDIR/mf/Core/noweb/2.10c.lua",["default"]=1,["fullName"]="noweb/2.10c",["loadOrder"]=6,propT={},["short"]="noweb",["status"]="active",},unix={["FN"]="ProjectDIR/mf/Core/unix/unix.lua",["default"]=1,["fullName"]="unix/unix",["loadOrder"]=3,propT={},["short"]="unix",["status"]="active",},},mpathA={"ProjectDIR/mf/Compiler/intel/10.1","ProjectDIR/rt/changeMPATH/mf/Core","ProjectDIR/mf/Core",},["systemBaseMPATH"]="ProjectDIR/mf/Core",["version"]=2,}';
+export _ModuleTable_;
 ===========================
 step 14
 lua ProjectDIR/src/lmod.in.lua bash save foo
@@ -247,3 +255,5 @@ LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/changeMPATH/mf/Core:ProjectDIR/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/rt/changeMPATH/mf/Core:ProjectDIR/mf/Core";
 export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=6,baseMpathA={"ProjectDIR/rt/changeMPATH/mf/Core","ProjectDIR/mf/Core",},family={["compiler"]="intel",},inactive={},mT={PrgEnv={["FN"]="ProjectDIR/mf/Core/PrgEnv.lua",["default"]=0,["fullName"]="PrgEnv",["loadOrder"]=2,propT={},["short"]="PrgEnv",["status"]="active",},admin={["FN"]="ProjectDIR/rt/changeMPATH/mf/Core/admin/admin-1.0.lua",["default"]=1,["fullName"]="admin/admin-1.0",["loadOrder"]=1,propT={},["short"]="admin",["status"]="active",},intel={["FN"]="ProjectDIR/mf/Core/intel/intel.lua",["default"]=1,["fullName"]="intel/intel",["loadOrder"]=5,propT={},["short"]="intel",["status"]="active",},["local"]={["FN"]="ProjectDIR/mf/Core/local/local.lua",["default"]=1,["fullName"]="local/local",["loadOrder"]=4,propT={},["short"]="local",["status"]="active",},noweb={["FN"]="ProjectDIR/mf/Core/noweb/2.10c.lua",["default"]=1,["fullName"]="noweb/2.10c",["loadOrder"]=6,propT={},["short"]="noweb",["status"]="active",},unix={["FN"]="ProjectDIR/mf/Core/unix/unix.lua",["default"]=1,["fullName"]="unix/unix",["loadOrder"]=3,propT={},["short"]="unix",["status"]="active",},},mpathA={"ProjectDIR/mf/Compiler/intel/10.1","ProjectDIR/rt/changeMPATH/mf/Core","ProjectDIR/mf/Core",},["systemBaseMPATH"]="ProjectDIR/mf/Core",["version"]=2,}';
+export _ModuleTable_;

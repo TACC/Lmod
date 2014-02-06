@@ -1589,7 +1589,7 @@ end
 -- MT:list_property(): What it says.
 
 function M.list_property(self, idx, sn, style, legendT)
-   --dbg.start{"MT:list_property(\"",sn,"\", \"",style,"\")"}
+   dbg.start{"MT:list_property(\"",sn,"\", \"",style,"\")"}
    local mT    = self.mT
    local entry = mT[sn]
 
@@ -1605,7 +1605,7 @@ function M.list_property(self, idx, sn, style, legendT)
    table.insert(resultA, 1, cstr)
 
    local tLen = resultA[1]:len() + resultA[2]:len() + tostring(resultA[3]):len()
-   --dbg.fini("MT:list_property")
+   dbg.fini("MT:list_property")
    return resultA
 end
 

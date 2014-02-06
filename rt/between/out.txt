@@ -32,6 +32,8 @@ LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/between/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/between/mf/Core";
 export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/between/mf/Core",},family={},inactive={},mT={M1={["FN"]="ProjectDIR/rt/between/mf/Core/M1.lua",["default"]=0,["fullName"]="M1",["loadOrder"]=1,propT={},["short"]="M1",["status"]="active",},a={["FN"]="ProjectDIR/rt/between/mf/Core/a/1.2.lua",["default"]=1,["fullName"]="a/1.2",["loadOrder"]=2,propT={},["short"]="a",["status"]="active",},b={["FN"]="ProjectDIR/rt/between/mf/Core/b/1.1.lua",["default"]=1,["fullName"]="b/1.1",["loadOrder"]=3,propT={},["short"]="b",["status"]="active",},},mpathA={"ProjectDIR/rt/between/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/between/mf/Core",["version"]=2,}';
+export _ModuleTable_;
 ===========================
 step 4
 lua ProjectDIR/src/lmod.in.lua bash load M2
@@ -62,6 +64,8 @@ LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/between/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/between/mf/Core";
 export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=4,baseMpathA={"ProjectDIR/rt/between/mf/Core",},family={},inactive={},mT={M1={["FN"]="ProjectDIR/rt/between/mf/Core/M1.lua",["default"]=0,["fullName"]="M1",["loadOrder"]=1,propT={},["short"]="M1",["status"]="active",},M2={["FN"]="ProjectDIR/rt/between/mf/Core/M2.lua",["default"]=0,["fullName"]="M2",["loadOrder"]=2,propT={},["short"]="M2",["status"]="active",},a={["FN"]="ProjectDIR/rt/between/mf/Core/a/1.4.lua",["default"]=0,["fullName"]="a/1.4",["loadOrder"]=3,propT={},["short"]="a",["status"]="active",},b={["FN"]="ProjectDIR/rt/between/mf/Core/b/1.4.lua",["default"]=0,["fullName"]="b/1.4",["loadOrder"]=4,propT={},["short"]="b",["status"]="active",},},mpathA={"ProjectDIR/rt/between/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/between/mf/Core",["version"]=2,}';
+export _ModuleTable_;
 ===========================
 step 6
 lua ProjectDIR/src/lmod.in.lua bash load M4
@@ -83,6 +87,8 @@ LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/between/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/between/mf/Core";
 export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=4,baseMpathA={"ProjectDIR/rt/between/mf/Core",},family={},inactive={},mT={M1={["FN"]="ProjectDIR/rt/between/mf/Core/M1.lua",["default"]=0,["fullName"]="M1",["loadOrder"]=1,propT={},["short"]="M1",["status"]="active",},M2={["FN"]="ProjectDIR/rt/between/mf/Core/M2.lua",["default"]=0,["fullName"]="M2",["loadOrder"]=2,propT={},["short"]="M2",["status"]="active",},a={["FN"]="ProjectDIR/rt/between/mf/Core/a/1.4.lua",["default"]=0,["fullName"]="a/1.4",["loadOrder"]=3,propT={},["short"]="a",["status"]="active",},b={["FN"]="ProjectDIR/rt/between/mf/Core/b/1.4.lua",["default"]=0,["fullName"]="b/1.4",["loadOrder"]=4,propT={},["short"]="b",["status"]="active",},},mpathA={"ProjectDIR/rt/between/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/between/mf/Core",["version"]=2,}';
+export _ModuleTable_;
 ===========================
 step 8
 lua ProjectDIR/src/lmod.in.lua bash load M5
@@ -113,6 +119,8 @@ LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/between/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/between/mf/Core";
 export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=6,baseMpathA={"ProjectDIR/rt/between/mf/Core",},family={},inactive={},mT={M1={["FN"]="ProjectDIR/rt/between/mf/Core/M1.lua",["default"]=0,["fullName"]="M1",["loadOrder"]=1,propT={},["short"]="M1",["status"]="active",},M2={["FN"]="ProjectDIR/rt/between/mf/Core/M2.lua",["default"]=0,["fullName"]="M2",["loadOrder"]=2,propT={},["short"]="M2",["status"]="active",},M5={["FN"]="ProjectDIR/rt/between/mf/Core/M5.lua",["default"]=0,["fullName"]="M5",["loadOrder"]=4,propT={},["short"]="M5",["status"]="active",},a={["FN"]="ProjectDIR/rt/between/mf/Core/a/1.4.lua",["default"]=0,["fullName"]="a/1.4",["loadOrder"]=3,propT={},["short"]="a",["status"]="active",},b={["FN"]="ProjectDIR/rt/between/mf/Core/b/1.1.lua",["default"]=1,["fullName"]="b/1.1",["loadOrder"]=5,propT={},["short"]="b",["status"]="active",},c={["FN"]="ProjectDIR/rt/between/mf/Core/c/1.4.lua",["default"]=0,["fullName"]="c/1.4",["loadOrder"]=6,propT={},["short"]="c",["status"]="active",},},mpathA={"ProjectDIR/rt/between/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/between/mf/Core",["version"]=2,}';
+export _ModuleTable_;
 ===========================
 step 10
 lua ProjectDIR/src/lmod.in.lua bash load -a M6
@@ -175,6 +183,8 @@ LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/between/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/between/mf/Core";
 export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=7,baseMpathA={"ProjectDIR/rt/between/mf/Core",},family={},inactive={},mT={M1={["FN"]="ProjectDIR/rt/between/mf/Core/M1.lua",["default"]=0,["fullName"]="M1",["loadOrder"]=1,propT={},["short"]="M1",["status"]="active",},M2={["FN"]="ProjectDIR/rt/between/mf/Core/M2.lua",["default"]=0,["fullName"]="M2",["loadOrder"]=2,propT={},["short"]="M2",["status"]="active",},M5={["FN"]="ProjectDIR/rt/between/mf/Core/M5.lua",["default"]=0,["fullName"]="M5",["loadOrder"]=3,propT={},["short"]="M5",["status"]="active",},M6={["FN"]="ProjectDIR/rt/between/mf/Core/M6.lua",["default"]=0,["fullName"]="M6",["loadOrder"]=7,propT={},["short"]="M6",["status"]="active",},a={["FN"]="ProjectDIR/rt/between/mf/Core/a/1.4.lua",["default"]=0,["fullName"]="a/1.4",["loadOrder"]=6,propT={},["short"]="a",["status"]="active",},b={["FN"]="ProjectDIR/rt/between/mf/Core/b/1.1.lua",["default"]=1,["fullName"]="b/1.1",["loadOrder"]=4,propT={},["short"]="b",["status"]="active",},c={["FN"]="ProjectDIR/rt/between/mf/Core/c/1.4.lua",["default"]=0,["fullName"]="c/1.4",["loadOrder"]=5,propT={},["short"]="c",["status"]="active",},},mpathA={"ProjectDIR/rt/between/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/between/mf/Core",["version"]=2,}';
+export _ModuleTable_;
 ===========================
 step 15
 lua ProjectDIR/src/lmod.in.lua bash load M7
@@ -205,6 +215,8 @@ LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/between/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/between/mf/Core";
 export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=8,baseMpathA={"ProjectDIR/rt/between/mf/Core",},family={},inactive={},mT={M1={["FN"]="ProjectDIR/rt/between/mf/Core/M1.lua",["default"]=0,["fullName"]="M1",["loadOrder"]=1,propT={},["short"]="M1",["status"]="active",},M2={["FN"]="ProjectDIR/rt/between/mf/Core/M2.lua",["default"]=0,["fullName"]="M2",["loadOrder"]=2,propT={},["short"]="M2",["status"]="active",},M5={["FN"]="ProjectDIR/rt/between/mf/Core/M5.lua",["default"]=0,["fullName"]="M5",["loadOrder"]=3,propT={},["short"]="M5",["status"]="active",},M6={["FN"]="ProjectDIR/rt/between/mf/Core/M6.lua",["default"]=0,["fullName"]="M6",["loadOrder"]=5,propT={},["short"]="M6",["status"]="active",},M7={["FN"]="ProjectDIR/rt/between/mf/Core/M7.lua",["default"]=0,["fullName"]="M7",["loadOrder"]=6,propT={},["short"]="M7",["status"]="active",},a={["FN"]="ProjectDIR/rt/between/mf/Core/a/1.2.lua",["default"]=1,["fullName"]="a/1.2",["loadOrder"]=7,propT={},["short"]="a",["status"]="active",},b={["FN"]="ProjectDIR/rt/between/mf/Core/b/1.4.lua",["default"]=0,["fullName"]="b/1.4",["loadOrder"]=8,propT={},["short"]="b",["status"]="active",},c={["FN"]="ProjectDIR/rt/between/mf/Core/c/1.4.lua",["default"]=0,["fullName"]="c/1.4",["loadOrder"]=4,propT={},["short"]="c",["status"]="active",},},mpathA={"ProjectDIR/rt/between/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/between/mf/Core",["version"]=2,}';
+export _ModuleTable_;
 ===========================
 step 17
 lua ProjectDIR/src/lmod.in.lua bash load M8
@@ -259,6 +271,8 @@ LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/between/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/between/mf/Core";
 export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/between/mf/Core",},family={},inactive={},mT={M9={["FN"]="ProjectDIR/rt/between/mf/Core/M9.lua",["default"]=0,["fullName"]="M9",["loadOrder"]=1,propT={},["short"]="M9",["status"]="active",},b={["FN"]="ProjectDIR/rt/between/mf/Core/b/1.4.lua",["default"]=1,["fullName"]="b/1.4",["loadOrder"]=2,propT={},["short"]="b",["status"]="active",},},mpathA={"ProjectDIR/rt/between/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/between/mf/Core",["version"]=2,}';
+export _ModuleTable_;
 ===========================
 step 21
 lua ProjectDIR/src/lmod.in.lua bash show M9
@@ -271,3 +285,5 @@ LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/between/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/between/mf/Core";
 export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/between/mf/Core",},family={},inactive={},mT={M9={["FN"]="ProjectDIR/rt/between/mf/Core/M9.lua",["default"]=0,["fullName"]="M9",["loadOrder"]=1,propT={},["short"]="M9",["status"]="active",},b={["FN"]="ProjectDIR/rt/between/mf/Core/b/1.4.lua",["default"]=1,["fullName"]="b/1.4",["loadOrder"]=2,propT={},["short"]="b",["status"]="active",},},mpathA={"ProjectDIR/rt/between/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/between/mf/Core",["version"]=2,}';
+export _ModuleTable_;

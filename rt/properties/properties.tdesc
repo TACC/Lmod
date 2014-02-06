@@ -27,11 +27,18 @@ testdescript = {
      rm -fr .lmod.d .lmodrc.lua
 
      cp $(projectDir)/init/.lmodrc.lua .
+     mkdir -p .lmod.d/.cache
 
      runLmod --version                  # 1
      runLmod use -a $(testDir)/mf/Core  # 2
-     runLmod load PrgEnv                # 3
-     runLmod list                       # 4
+     runLmod use -a $(testDir)/mf/bio   # 3
+     runLmod use -a $(testDir)/mf/cae   # 4
+     runLmod load PrgEnv                # 5
+     runLmod list                       # 6
+     buildModuleT   $LMOD_DEFAULT_MODULEPATH > ~/.lmod.d/.cache/moduleT.lua
+     buildDbT $LMOD_DEFAULT_MODULEPATH > ~/.lmod.d/.cache/dbT.lua
+     runLmod avail                      # 7
+
 
      HOME=$ORIG_HOME
 

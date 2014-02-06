@@ -604,12 +604,9 @@ function main()
    local n        = mt:name()
    local oldValue = getMT() or ""
    local value    = mt:serializeTbl()
+   varTbl[n] = Var:new(n)
+   varTbl[n]:set(value)
 
-   if (oldValue ~= value) then
-      varTbl[n] = Var:new(n)
-      varTbl[n]:set(value)
-      dbg.print{"Writing out _ModuleTable_\n"}
-   end
    dbg.fini("Lmod")
 
    -- Output all newly created path and variables.
