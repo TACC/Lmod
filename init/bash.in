@@ -78,14 +78,6 @@ clearMT()
 }
 
 ########################################################################
-#  export important Lmod shell functions to sub-shells (for bash only)
-
-if [ -n "$BASH_VERSION" ]; then
-  export -f ml clearMT module
-fi
-
-
-########################################################################
 #  The following make the action of the settarg available to the titlebar
 #  for both xterm's and screen but only for interactive shells.
 if [ "$PS1" ]; then
