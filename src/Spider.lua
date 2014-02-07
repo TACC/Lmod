@@ -450,9 +450,8 @@ function M.singleSearchSpiderDB(strA, a, moduleT, dbT)
 
       local found = false
       for i = 1,#strA do
-         local str = strA[i]:lower()
-         if (nameL:find(str,1,true)   or nameL:find(str)    or
-             whatisS:find(str,1,true) or whatisS:find(str)) then
+         local str = escape(strA[i]:lower())
+         if (nameL:find(str) or whatisS:find(str)) then
             dbg.print{"found txt in nameL: ",nameL,"\n"}
             found = true
             break
@@ -582,7 +581,7 @@ local function countEntries(t, searchName)
    local nameCnt = 0
    local fullCnt = 0
    local full    = false
-   local searchL = (searchName or ""):lower()
+   local searchL = escape((searchName or ""):lower())
    for k,v in pairs(t) do
       local version = extractVersion(v.full, v.name) or ""
       if (version:sub(1,1) ~= ".") then
@@ -590,7 +589,7 @@ local function countEntries(t, searchName)
          if (not full) then
             full = v.full
          end
-         if (v.name_lower:find(searchL,1, true) or v.name_lower:find(searchL)) then
+         if (v.name_lower:find(searchL)) then
             nameCnt = nameCnt + 1
             full  = v.full
          end
@@ -607,10 +606,10 @@ function M.spiderSearch(dbT, searchName, help)
    dbg.start{"Spider:spiderSearch(dbT,\"",searchName,"\")"}
    local found = false
    local A  = {}
-   A[1]     = searchName:lower()
+   A[1]     = escape(searchName:lower())
    local sn = shortName(searchName):lower()
    if (sn ~= A[1]) then
-      A[2]  = sn
+      A[2]  = escape(sn)
    end
 
    local a     = {}
@@ -631,7 +630,7 @@ function M.spiderSearch(dbT, searchName, help)
       for k, v in pairsByKeys(dbT) do
          for i = 1, #A do
             local searchL = A[i]
-            if (k:find(searchL,1,true) or k:find(searchL)) then
+            if (k:find(searchL)) then
                found = true
                dbg.print{"Found inexact match: searchL: ",searchL,", k: ",k,"\n"}
                local s = M._Level1(k, v, searchName, help)

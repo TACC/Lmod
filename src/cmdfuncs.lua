@@ -203,8 +203,18 @@ function List(...)
 
    if (wanted.n == 0) then
       wanted[1] = ".*"
+      wanted.n  = 1
    else
       msg2 = " Matching: " .. table.concat(wanted," or ")
+      if (masterTbl.exact) then
+         for i = 1, wanted.n do
+            wanted[i] = escape(wanted[i])
+         end
+      else
+         for i = 1, wanted.n do
+            wanted[i] = caseIndependent(wanted[i])
+         end
+      end
    end
 
    if (masterTbl.terse) then
@@ -212,9 +222,9 @@ function List(...)
          local mname = MName:new("mt",activeA[i])
          local sn    = mname:sn()
          local full  = mt:fullName(sn)
-         for j = 1, #wanted do
+         for j = 1, wanted.n do
             local p = wanted[j]
-            if (full:find(p,1,true) or full:find(p)) then
+            if (full:find(p)) then
                io.stderr:write(full,"\n")
             end
          end
@@ -230,9 +240,9 @@ function List(...)
       local mname = MName:new("mt",activeA[i])
       local sn    = mname:sn()
       local full  = mt:fullName(sn)
-      for j = 1, #wanted do
+      for j = 1, wanted.n do
          local p = wanted[j]
-         if (full:find(p,1,true) or full:find(p)) then
+         if (full:find(p)) then
             kk = kk + 1
             a[#a + 1] = mt:list_property(kk, sn, "short", legendT)
          end
@@ -263,9 +273,9 @@ function List(...)
       local v = totalA[i]
       if (not mt:have(v.sn,"active")) then
          local name = v.name
-         for j = 1, #wanted do
+         for j = 1, wanted.n do
             local p = wanted[j]
-            if (name:find(p,1,true) or name:find(p)) then
+            if (name:find(p)) then
                kk      = kk + 1
                a[#a+1] = {"  " .. tostring(kk).. ")" , name}
             end
