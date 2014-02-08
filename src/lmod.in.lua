@@ -226,9 +226,9 @@ function Usage()
    a[#a+1] = { "--------------------" }
    a[#a+1] = { "  All searching (spider, list, avail, keyword) support regular expressions:"}
    a[#a+1] = { "" }
-   a[#a+1] = { "  spider", "'^p'",  "Finds all the modules that start with `p' or `P'"}
-   a[#a+1] = { "  spider", "mpi",   "Finds all modules that have \"mpi\" in their name."}
-   a[#a+1] = { "  spider", "'mpi$", "Finds all modules that end with \"mpi\" in their name."}
+   a[#a+1] = { "  spider -r ", "'^p'",  "Finds all the modules that start with `p' or `P'"}
+   a[#a+1] = { "  spider -r ", "mpi",   "Finds all modules that have \"mpi\" in their name."}
+   a[#a+1] = { "  spider -r ", "'mpi$", "Finds all modules that end with \"mpi\" in their name."}
    a[#a+1] = { "" }
    a[#a+1] = { "Handling a collection of modules:"}
    a[#a+1] = { "--------------------------------" }

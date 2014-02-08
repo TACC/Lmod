@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.2.5 5.2.5-21-geecdc9c 2014-01-26 07:24
+Modules based on Lua: Version 5.2.5 5.2.5-26-gc47c20b 2014-01-26 07:24
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -77,17 +77,17 @@ step 15
 lua ProjectDIR/src/lmod.in.lua bash spider
 ===========================
 The following is a list of the modules currently available:
+  Linux: Linux
+  TACC: TACC
+  TACC_symbols: TACC_symbols
   a: a/a
   cluster: cluster
   cluster_symbols: cluster_symbols
   globus: globus/4.0.1, globus/4.0.7
     Globus Software Package
-  Linux: Linux
   mvapich1: mvapich1/mvapich1
     MPI-1 implementation for InfiniBand
   pgi: pgi/7.1, pgi/7.2-5
-  TACC: TACC
-  TACC_symbols: TACC_symbols
 To learn more about a package enter:
    $ module spider Foo
 where "Foo" is the name of a module

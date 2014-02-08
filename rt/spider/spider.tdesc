@@ -38,13 +38,14 @@ testdescript = {
 
      runLmod spider mpich2me                                                  # 8
      runLmod spider R                                                         # 9
-     runLmod spider '^R'                                                      #10
-     runLmod spider mpich2/1.0.5                                              #11
+     runLmod -r spider '^R'                                                   #10
+     runLmod -r spider '^[Rr]'                                                #11
+     runLmod spider mpich2/1.0.5                                              #12
 
 
      mkdir -p $HOME/.lmod.d/.cache
      buildModuleT $LMOD_DEFAULT_MODULEPATH > $HOME/.lmod.d/.cache/moduleT.lua
-     runLmod spider                                                           #12
+     runLmod spider                                                           #13
 
 
      HOME=$ORIG_HOME

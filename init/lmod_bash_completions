@@ -1,5 +1,5 @@
 _module_avail() {
-	@PKG@/libexec/lmod bash -t -x avail  2>&1 > /dev/null | sed ' /:$/d; s#/*$##g;'
+	@PKG@/libexec/lmod bash -t avail  2>&1 > /dev/null | sed ' /:$/d; s#/*$##g;'
 }
 
 _module_spider() {
@@ -7,11 +7,11 @@ _module_spider() {
 }
 
 _module_loaded_modules() {
-	@PKG@/libexec/lmod bash -t -x list  2>&1 > /dev/null | sed ' /^ *$/d; /:$/d; s#/*$##g;'
+	@PKG@/libexec/lmod bash -t list  2>&1 > /dev/null | sed ' /^ *$/d; /:$/d; s#/*$##g;'
 }
 
 _module_loaded_modules_negated() {
-	@PKG@/libexec/lmod bash -t -x list  2>&1 > /dev/null | sed ' /^ *$/d; /:$/d; s#/*$##g; s|^|-|g;'
+	@PKG@/libexec/lmod bash -t list  2>&1 > /dev/null | sed ' /^ *$/d; /:$/d; s#/*$##g; s|^|-|g;'
 }
 
 _module_not_yet_loaded() {
@@ -45,7 +45,7 @@ _module() {
 	cmds="add avail delete help keyword list load purge rm restore save show spider swap \
 	      unload unuse update use whatis"
 
-	opts="-d -D -h -q -t -v -w --expert --help  --quiet --terse --version --default --width -x --exact"
+	opts="-d -D -h -q -t -v -w --expert --help  --quiet --terse --version --default --width -r --regexp --mt"
 
 	case "$prev" in
 	add|load|try-load)
@@ -83,7 +83,7 @@ _ml() {
   cmds="add avail delete help keyword list load purge rm restore save sl show spider swap unload \
         unuse update use whatis"
 
-  opts="-d -D -h -q -t -v -w --expert --help  --quiet --terse --version --default --Verbose --width -x --exact"
+  opts="-d -D -h -q -t -v -w --expert --help  --quiet --terse --version --default --Verbose --width -r --regexp --mt"
 
   #echo 2  >> $HOME/t/ml.log
 
