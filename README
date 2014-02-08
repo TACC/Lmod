@@ -1,3 +1,13 @@
+Lmod Version 5.3:
+Features:
+   a) Searching for avail, spider and list are case-insensitive.
+      Lua regexp searching now requires a "-r" option
+   b) The modulefile function isloaded() now can take atleast, between and latest:
+        isloaded(atleast("Foo","1.2"))
+Bug Fix:
+   a) Quotes inside a whatis or help message are properly escaped.
+
+
 Lmod Version 5.2.4:
 Feature:
   a) Lmod can be configured to ignore TCL module files.
