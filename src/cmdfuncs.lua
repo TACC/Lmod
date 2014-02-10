@@ -356,19 +356,19 @@ function Load_Usr(...)
    mcp           = mcp_old
 
 
-   local aa = {}
-   for i = 1,#lA do
-      local mname = lA[i]
-      local sn    = mname:sn()
-      if (mt:have(sn, "active")) then
-         local usrN  = (not masterTbl().latest) and mname:usrName() or mt:fullName(sn)
-         dbg.print{"Karl registration: ",sn," user: ", usrN,"\n"}
-
-         ------------------------------------------------------
-         -- Register user loads so that Karl will be happy.
-         mt:userLoad(sn,usrN)
-      end
-   end
+   --local aa = {}
+   --for i = 1,#lA do
+   --   local mname = lA[i]
+   --   local sn    = mname:sn()
+   --   if (mt:have(sn, "active")) then
+   --      local usrN  = (not masterTbl().latest) and mname:usrName() or mt:fullName(sn)
+   --      dbg.print{"Karl registration: ",sn," user: ", usrN,"\n"}
+   --
+   --      ------------------------------------------------------
+   --      -- Register user loads so that Karl will be happy.
+   --      --mt:userLoad(sn,usrN)
+   --   end
+   --end
 
    dbg.fini("Load_Usr")
    return b
