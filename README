@@ -6,7 +6,7 @@ Features:
         isloaded(atleast("Foo","1.2"))
 Bug Fix:
    a) Quotes inside a whatis or help message are properly escaped.
-
+   b) Better handling of nested modules by fixing load order.
 
 Lmod Version 5.2.4:
 Feature:
