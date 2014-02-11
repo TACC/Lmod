@@ -12,8 +12,9 @@ _module()
     '(-D --debug)'{--debug,-D}'[Send program tracing information to stderr]'           	\
     '(-w --width)'{--width,-w}'[use given width for max term width]'                  	\
     '(-q --quiet)'{--quiet,-q}'[disable verbose messages]'                             	\
-    '(-x --exact)'{--exact,-x}'[exact case matching]'                                   \
+    '(-r --regexp)'{--regexp,-r}'[lua regular expression matching]'                     \
     '--ignore_cache[Treat the cache file(s) as out-of-date]'                            \
+    '--mt[show module table]'                                                           \
     '*::module command:_module_command'
 }
 

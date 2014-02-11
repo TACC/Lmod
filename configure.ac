@@ -135,6 +135,18 @@ AC_ARG_WITH(tcl,
     ALLOW_TCL_MFILES="$withval"
     AC_DEFINE_UNQUOTED(ALLOW_TCL_MFILES, "$withval"))dnl
 
+AC_SUBST(MPATH_AVAIL)
+AC_ARG_WITH(mpathSearch,
+    AC_HELP_STRING([--with-mpathSearch=ans],[include modulepath directory name in avail searching [[NO]]]),
+    MPATH_AVAIL="$withval"
+    AC_MSG_RESULT([MPATH_AVAIL==$withval])
+    AC_DEFINE_UNQUOTED(MPATH_AVAIL, "$withval")dnl
+    ,
+    withval="no"
+    AC_MSG_RESULT([MPATH_AVAIL=$withval])
+    MPATH_AVAIL="$withval"
+    AC_DEFINE_UNQUOTED(MPATH_AVAIL, "$withval"))dnl
+
 AC_SUBST(SETTARG)
 AC_ARG_WITH(settarg,
     AC_HELP_STRING([--with-settarg=ans],[startup files fully support settarg [[NO]]]),

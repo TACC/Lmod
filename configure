@@ -596,6 +596,7 @@ PATH_TO_GIT
 PATH_TO_LUA
 PATH_TO_PAGER
 SETTARG
+MPATH_AVAIL
 ALLOW_TCL_MFILES
 COLORIZE
 DUPLICATE_PATHS
@@ -659,6 +660,7 @@ with_prependBlock
 with_duplicatePaths
 with_colorize
 with_tcl
+with_mpathSearch
 with_settarg
 with_lua_include
 '
@@ -1297,6 +1299,8 @@ Optional Packages:
                           [[NO]]
   --with-colorize=ans     allow for colorized output [[YES]]
   --with-tcl=ans          Allow TCL modulefiles [[YES]]
+  --with-mpathSearch=ans  include modulepath directory name in avail searching
+                          [[NO]]
   --with-settarg=ans      startup files fully support settarg [[NO]]
   --with-lua-include=[path]
                           specify path the lua header files
@@ -1968,6 +1972,28 @@ $as_echo "ALLOW_TCL_MFILES=$withval" >&6; }
     ALLOW_TCL_MFILES="$withval"
     cat >>confdefs.h <<_ACEOF
 #define ALLOW_TCL_MFILES "$withval"
+_ACEOF
+
+fi
+
+
+
+# Check whether --with-mpathSearch was given.
+if test "${with_mpathSearch+set}" = set; then :
+  withval=$with_mpathSearch; MPATH_AVAIL="$withval"
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: MPATH_AVAIL==$withval" >&5
+$as_echo "MPATH_AVAIL==$withval" >&6; }
+    cat >>confdefs.h <<_ACEOF
+#define MPATH_AVAIL "$withval"
+_ACEOF
+
+else
+  withval="no"
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: MPATH_AVAIL=$withval" >&5
+$as_echo "MPATH_AVAIL=$withval" >&6; }
+    MPATH_AVAIL="$withval"
+    cat >>confdefs.h <<_ACEOF
+#define MPATH_AVAIL "$withval"
 _ACEOF
 
 fi

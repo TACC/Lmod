@@ -168,10 +168,10 @@ function M.options(self, usage)
    }
 
    cmdlineParser:add_option{
-      name   = {"-x","--exact"},
-      dest   = "exact",
+      name   = {"-r","--regexp"},
+      dest   = "regexp",
       action = "store_true",
-      help   = "If set then perform case sensitive search for list and avail",
+      help   = "use regular expression match",
    }
 
    cmdlineParser:add_option{

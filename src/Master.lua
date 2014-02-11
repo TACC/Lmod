@@ -737,10 +737,10 @@ local function availEntry(defaultOnly, terse, mpath, szA, searchA, sn, name,
             found = true
             break
          end
-         --if (mpath:find(s,1,true) or mpath:find(s)) then
-         --   found = true
-         --   break
-         --end
+         if (LMOD_MPATH_AVAIL ~= "no" and mpath:find(s)) then
+           found = true
+           break
+         end
       end
    end
 
@@ -794,8 +794,8 @@ local function availEntry(defaultOnly, terse, mpath, szA, searchA, sn, name,
       dbg.print{"dflt: ",dflt,"\n"}
       local aa    = {}
       local propT = {}
-      local snL   = mname:sn():lower()
-      local entry = dbT[snL]
+      local sn    = mname:sn()
+      local entry = dbT[sn]
       if (entry) then
          dbg.print{"Found dbT[sn]\n"}
          if (entry[f]) then
@@ -908,10 +908,6 @@ function M.avail(argA)
      LmodError("avail is not possible, MODULEPATH is not set.\n")
    end
 
-      
-
-
-
    Spider.buildSpiderDB({"default"}, moduleT, dbT)
 
    local legendT   = {}
@@ -921,20 +917,11 @@ function M.avail(argA)
    local aa        = {}
 
    local optionTbl, searchA = availOptions(argA)
-   dbg.print{"RTM QRST\n"}
-
-   if (masterTbl.exact) then
-      for i = 1, #searchA do
-         searchA[i] = escape(searchA[i])
-      end
-      dbg.print{"exact:", searchA[1],"\n"}
-   else
+   if (not masterTbl.regexp) then
       for i = 1, #searchA do
          searchA[i] = caseIndependent(searchA[i])
       end
-      dbg.print{"case Free:", searchA[1],"\n"}
    end
-   dbg.print{"RTM QRST end\n"}
    local defaultOnly = optionTbl.defaultOnly or masterTbl.defaultOnly
    local terse       = optionTbl.terse       or masterTbl.terse
 
@@ -959,7 +946,6 @@ function M.avail(argA)
 
    for _,mpath in ipairs(mpathA) do
       local a = {}
-
       availDir(defaultOnly, terse, searchA, mpath, locationT, availT[mpath], dbT, a, legendT)
       if (next(a)) then
          aa[#aa+1] = "\n"
