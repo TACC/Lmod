@@ -735,10 +735,10 @@ local function availEntry(defaultOnly, terse, mpath, szA, searchA, sn, name,
             found = true
             break
          end
-         --if (mpath:find(s,1,true) or mpath:find(s)) then
-         --   found = true
-         --   break
-         --end
+         if (LMOD_MPATH_AVAIL ~= "no" and mpath:find(s)) then
+           found = true
+           break
+         end
       end
    end
 

@@ -33,6 +33,7 @@
 --------------------------------------------------------------------------
 
 require("fileOps")
+local getenv = os.getenv
 
 ------------------------------------------------------------------------
 -- The global variables for Lmod:
@@ -74,10 +75,20 @@ varTbl      = {}
 Cversion      = 3
 
 ------------------------------------------------------------------------
+-- LMOD_AVAIL_MPATH:  Include MODULEPATH in avail search
+------------------------------------------------------------------------
+
+LMOD_MPATH_AVAIL = (getenv("LMOD_MPATH_AVAIL") or
+                       "@mpath_avail@"):lower()
+if (LMOD_MPATH_AVAIL:sub(1,1) == "@") then
+   LMOD_MPATH_AVAIL = "no"
+end
+
+------------------------------------------------------------------------
 -- LMOD_ALLOW_TCL_MFILES:  Allow Lmod to read TCL based modules.
 ------------------------------------------------------------------------
 
-LMOD_ALLOW_TCL_MFILES = os.getenv("LMOD_ALLOW_TCL_MFILES") or
+LMOD_ALLOW_TCL_MFILES = getenv("LMOD_ALLOW_TCL_MFILES") or
                         "@allow_tcl_mfiles@"
 
 ------------------------------------------------------------------------
@@ -85,18 +96,21 @@ LMOD_ALLOW_TCL_MFILES = os.getenv("LMOD_ALLOW_TCL_MFILES") or
 --                       vars like PATH, LD_LIBRARY_PATH, etc
 ------------------------------------------------------------------------
 
-LMOD_DUPLICATE_PATHS = os.getenv("LMOD_DUPLICATE_PATHS") or "@duplicate_paths@"
+LMOD_DUPLICATE_PATHS = getenv("LMOD_DUPLICATE_PATHS") or "@duplicate_paths@"
+   
 
 
-LMOD_IGNORE_CACHE = os.getenv("LMOD_IGNORE_CACHE") or "0"
+LMOD_IGNORE_CACHE = getenv("LMOD_IGNORE_CACHE") or "0"
 LMOD_IGNORE_CACHE = (LMOD_IGNORE_CACHE:trim() ~= "0")
+
+
 
 
 ------------------------------------------------------------------------
 -- LMOD_RTM_TESTING: If set then the author is testing Lmod
 ------------------------------------------------------------------------
 
-LMOD_RTM_TESTING = os.getenv("LMOD_RTM_TESTING")
+LMOD_RTM_TESTING = getenv("LMOD_RTM_TESTING")
 
 
 ------------------------------------------------------------------------
@@ -175,21 +189,21 @@ s_haveWarnings = true
 ------------------------------------------------------------------------
 -- ancient:  the time in seconds when the cache file is considered old
 ------------------------------------------------------------------------
-ancient = tonumber(os.getenv("LMOD_ANCIENT_TIME")) or tonumber("@ancient@") or 86400
+ancient = tonumber(getenv("LMOD_ANCIENT_TIME")) or tonumber("@ancient@") or 86400
 
 ------------------------------------------------------------------------
 -- shortTime: the time in seconds when building the cache file is quick
 --            enough to be computed every time rather than cached.
 ------------------------------------------------------------------------
 
-shortTime = tonumber(os.getenv("LMOD_SHORT_TIME")) or tonumber("@short_time@") or 10.0
+shortTime = tonumber(getenv("LMOD_SHORT_TIME")) or tonumber("@short_time@") or 10.0
 
 
 ------------------------------------------------------------------------
 -- Threshold:  The amount of time to wait before printing the cache
 --             rebuild message.  (It has to be 1 second or greater).
 ------------------------------------------------------------------------
-Threshold = tonumber(os.getenv("LMOD_THRESHOLD")) or 1
+Threshold = tonumber(getenv("LMOD_THRESHOLD")) or 1
 
 ------------------------------------------------------------------------
 -- shortLifeCache: If building the cache file is fast then shorten the
@@ -200,7 +214,7 @@ shortLifeCache = ancient/12
 ------------------------------------------------------------------------
 -- sysCacheDir:  The system directory location.
 ------------------------------------------------------------------------
-sysCacheDirs    = os.getenv("LMOD_SPIDER_CACHE_DIRS") or "@cacheDirs@"
+sysCacheDirs    = getenv("LMOD_SPIDER_CACHE_DIRS") or "@cacheDirs@"
 
 ------------------------------------------------------------------------
 -- USE_DOT_FILES: Use ~/.lmod.d/.cache or ~/.lmod.d/__cache__
@@ -219,9 +233,9 @@ if ( USE_DOT_FILES:lower() == "no" ) then
   USER_SAVE_DIR_NAME   = "__save__"
   USER_SBATCH_DIR_NAME = "__saveBatch__"
 end
-usrCacheDir   = pathJoin(os.getenv("HOME"),".lmod.d",USER_CACHE_DIR_NAME)
-usrSaveDir    = pathJoin(os.getenv("HOME"),".lmod.d",USER_SAVE_DIR_NAME)
-usrSBatchDir  = pathJoin(os.getenv("HOME"),".lmod.d",USER_SBATCH_DIR_NAME)
+usrCacheDir   = pathJoin(getenv("HOME"),".lmod.d",USER_CACHE_DIR_NAME)
+usrSaveDir    = pathJoin(getenv("HOME"),".lmod.d",USER_SAVE_DIR_NAME)
+usrSBatchDir  = pathJoin(getenv("HOME"),".lmod.d",USER_SBATCH_DIR_NAME)
 
 ------------------------------------------------------------------------
 -- updateSystemFn: The system file that is touched everytime the system
