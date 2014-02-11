@@ -22,6 +22,7 @@ GIT_VERSION              := $(shell if [ -n "$(GIT_PROG)" -a -d .git ]; then lmo
 prefix		  	 := @prefix@
 package		  	 := lmod
 version		  	 := $(shell cd ./src; $(PATH_TO_LUA)/lua -e "V=require('Version'); print(V.tag())")
+PKGV		  	 := $(prefix)/$(package)/$(version)
 PKG		  	 := $(prefix)/$(package)/$(package)
 LIB		  	 := $(prefix)/$(package)/$(version)/lib
 LIBEXEC		  	 := $(prefix)/$(package)/$(version)/libexec
@@ -113,6 +114,7 @@ __installMe:
 	        -e 's|@cacheDirs@|$(SPIDER_CACHE_DIRS)|g'             	   \
 	        -e 's|@updateSystemFn@|$(UPDATE_SYSTEM_FN)|g'         	   \
 	        -e 's|@modulepath_root@|$(MODULEPATH_ROOT)|g'         	   \
+                -e 's|@PKGV@|$(PKGV)|g'                                    \
                 -e 's|@PKG@|$(PKG)|g'         < $$i > $(DIRLOC)/$$fn; 	   \
             [ "$$ext" = "in.lua" -o "$$ext" = "tcl" -o "$$ext" = "in" ] && \
                chmod +x $(DIRLOC)/$$fn;                                    \

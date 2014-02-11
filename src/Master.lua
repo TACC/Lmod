@@ -415,11 +415,13 @@ function M.refresh()
       local usrName = mt:usrName(sn)
       local full    = mt:fullName(sn)
       local mList   = concatTbl(mt:list("both","active"),":")
-      mStack:push(full, usrName, sn, fn)
-      dbg.print{"loading: ",sn," fn: ", fn,"\n"}
-      loadModuleFile{file = fn, shell = shellN, mList = mList,
-                     reportErr=true}
-      mStack:pop()
+      if (isFile(fn)) then
+         mStack:push(full, usrName, sn, fn)
+         dbg.print{"loading: ",sn," fn: ", fn,"\n"}
+         loadModuleFile{file = fn, shell = shellN, mList = mList,
+                        reportErr=true}
+         mStack:pop()
+      end
    end
 
    mcp = mcp_old
