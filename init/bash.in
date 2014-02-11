@@ -52,7 +52,6 @@ if [ "${LMOD_SETTARG_CMD:-:}" != ":" ]; then
   settarg () {
     eval $(${LMOD_SETTARG_CMD:-:} -s sh "$@" )
   }
-  alias cdt="cd $TARG"
 fi
 
 
