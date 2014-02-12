@@ -52,6 +52,7 @@ require("string_trim")
 require("fillWords")
 require("loadModuleFile")
 require("utils")
+require("caseIndependent")
 
 local BeautifulTbl = require('BeautifulTbl')
 local ColumnTable  = require('ColumnTable')
@@ -414,11 +415,13 @@ function M.refresh()
       local usrName = mt:usrName(sn)
       local full    = mt:fullName(sn)
       local mList   = concatTbl(mt:list("both","active"),":")
-      mStack:push(full, usrName, sn, fn)
-      dbg.print{"loading: ",sn," fn: ", fn,"\n"}
-      loadModuleFile{file = fn, shell = shellN, mList = mList,
-                     reportErr=true}
-      mStack:pop()
+      if (isFile(fn)) then
+         mStack:push(full, usrName, sn, fn)
+         dbg.print{"loading: ",sn," fn: ", fn,"\n"}
+         loadModuleFile{file = fn, shell = shellN, mList = mList,
+                        reportErr=true}
+         mStack:pop()
+      end
    end
 
    mcp = mcp_old
@@ -730,14 +733,13 @@ local function availEntry(defaultOnly, terse, mpath, szA, searchA, sn, name,
    else
       for i = 1, sCount do
          local s = searchA[i]
-         if (name:find(s, 1, true) or name:find(s) or
-             sn:find(s, 1, true)   or sn:find(s)) then
+         if (name:find(s) or sn:find(s)) then
             found = true
             break
          end
-         if (mpath:find(s,1,true) or mpath:find(s)) then
-            found = true
-            break
+         if (LMOD_MPATH_AVAIL ~= "no" and mpath:find(s)) then
+           found = true
+           break
          end
       end
    end
@@ -792,8 +794,8 @@ local function availEntry(defaultOnly, terse, mpath, szA, searchA, sn, name,
       dbg.print{"dflt: ",dflt,"\n"}
       local aa    = {}
       local propT = {}
-      local snL   = mname:sn():lower()
-      local entry = dbT[snL]
+      local sn    = mname:sn()
+      local entry = dbT[sn]
       if (entry) then
          dbg.print{"Found dbT[sn]\n"}
          if (entry[f]) then
@@ -906,7 +908,6 @@ function M.avail(argA)
      LmodError("avail is not possible, MODULEPATH is not set.\n")
    end
 
-
    Spider.buildSpiderDB({"default"}, moduleT, dbT)
 
    local legendT   = {}
@@ -916,7 +917,11 @@ function M.avail(argA)
    local aa        = {}
 
    local optionTbl, searchA = availOptions(argA)
-
+   if (not masterTbl.regexp) then
+      for i = 1, #searchA do
+         searchA[i] = caseIndependent(searchA[i])
+      end
+   end
    local defaultOnly = optionTbl.defaultOnly or masterTbl.defaultOnly
    local terse       = optionTbl.terse       or masterTbl.terse
 
@@ -941,7 +946,6 @@ function M.avail(argA)
 
    for _,mpath in ipairs(mpathA) do
       local a = {}
-
       availDir(defaultOnly, terse, searchA, mpath, locationT, availT[mpath], dbT, a, legendT)
       if (next(a)) then
          aa[#aa+1] = "\n"

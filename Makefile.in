@@ -6,6 +6,7 @@ ZSH_SITE_FUNCTIONS_DIR   := @ZSH_SITE_FUNCTIONS_DIR@
 SPIDER_CACHE_DESCRIPT_FN := @SPIDER_CACHE_DESCRIPT_FN@
 ANCIENT           	 := @ANCIENT@
 ALLOW_TCL_MFILES         := @ALLOW_TCL_MFILES@
+MPATH_AVAIL              := @MPATH_AVAIL@
 DUPLICATE_PATHS          := @DUPLICATE_PATHS@
 SHORT_TIME        	 := @SHORT_TIME@
 SPIDER_CACHE_DIRS 	 := @SPIDER_CACHE_DIRS@
@@ -21,6 +22,7 @@ GIT_VERSION              := $(shell if [ -n "$(GIT_PROG)" -a -d .git ]; then lmo
 prefix		  	 := @prefix@
 package		  	 := lmod
 version		  	 := $(shell cd ./src; $(PATH_TO_LUA)/lua -e "V=require('Version'); print(V.tag())")
+PKGV		  	 := $(prefix)/$(package)/$(version)
 PKG		  	 := $(prefix)/$(package)/$(package)
 LIB		  	 := $(prefix)/$(package)/$(version)/lib
 LIBEXEC		  	 := $(prefix)/$(package)/$(version)/libexec
@@ -107,10 +109,12 @@ __installMe:
 	        -e 's|@colorize@|$(COLORIZE)|g'                       	   \
 	        -e 's|@duplicate_paths@|$(DUPLICATE_PATHS)|g'      	   \
 	        -e 's|@allow_tcl_mfiles@|$(ALLOW_TCL_MFILES)|g'      	   \
+	        -e 's|@mpath_avail@|$(MPATH_AVAIL)|g'            	   \
 	        -e 's|@short_time@|$(SHORT_TIME)|g'                   	   \
 	        -e 's|@cacheDirs@|$(SPIDER_CACHE_DIRS)|g'             	   \
 	        -e 's|@updateSystemFn@|$(UPDATE_SYSTEM_FN)|g'         	   \
 	        -e 's|@modulepath_root@|$(MODULEPATH_ROOT)|g'         	   \
+                -e 's|@PKGV@|$(PKGV)|g'                                    \
                 -e 's|@PKG@|$(PKG)|g'         < $$i > $(DIRLOC)/$$fn; 	   \
             [ "$$ext" = "in.lua" -o "$$ext" = "tcl" -o "$$ext" = "in" ] && \
                chmod +x $(DIRLOC)/$$fn;                                    \

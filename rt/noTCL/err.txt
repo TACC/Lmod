@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.2.5 5.2.5-21-geecdc9c 2014-01-26 07:24
+Modules based on Lua: Version 5.3rc2 5.3rc2-4-g988883e 2014-02-11 07:47
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -30,6 +30,8 @@ step 3
 lua ProjectDIR/src/lmod.in.lua bash spider
 ===========================
 The following is a list of the modules currently available:
+  PrgEnv: PrgEnv
+  TACC-paths: TACC-paths
   admin: admin/admin-1.0
   alex: alex/1.0
   boost: boost/1.46.0, boost/1.47.1, boost/1.49.0
@@ -51,8 +53,6 @@ The following is a list of the modules currently available:
     Parallel graph partitioning and fill-reduction matrix ordering routines
   petsc: petsc/3.1, petsc/3.2
   phdf5: phdf5/1.8.10, phdf5/1.8.2, phdf5/1.8.9
-  PrgEnv: PrgEnv
-  TACC-paths: TACC-paths
   unix: unix/unix
 To learn more about a package enter:
    $ module spider Foo

@@ -168,6 +168,13 @@ function M.options(self, usage)
    }
 
    cmdlineParser:add_option{
+      name   = {"-r","--regexp"},
+      dest   = "regexp",
+      action = "store_true",
+      help   = "use regular expression match",
+   }
+
+   cmdlineParser:add_option{
       name   = {"--dumpversion"},
       dest   = "dumpversion",
       action = "store_true",

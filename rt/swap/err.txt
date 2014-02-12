@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.2.5 5.2.5-21-geecdc9c 2014-01-26 07:24
+Modules based on Lua: Version 5.3rc2 5.3rc2-4-g988883e 2014-02-11 07:47
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -46,8 +46,8 @@ step 5
 lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
 Currently Loaded Modules:
-  1) admin/admin-1.0   3) unix/unix     5) noweb/2.10c
-  2) PrgEnv            4) local/local   6) parmetis/3.1 (m)
+  1) admin/admin-1.0   3) local/local   5) PrgEnv
+  2) unix/unix         4) noweb/2.10c   6) parmetis/3.1 (m)
   Where:
    (m):  built for host and native MIC
 Inactive Modules:
@@ -65,8 +65,8 @@ step 7
 lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
 Currently Loaded Modules:
-  1) admin/admin-1.0   3) unix/unix     5) noweb/2.10c   7) openmpi/1.2.6
-  2) PrgEnv            4) local/local   6) gcc/4.2.3     8) parmetis/3.1  (m)
+  1) admin/admin-1.0   3) local/local   5) PrgEnv      7) openmpi/1.2.6
+  2) unix/unix         4) noweb/2.10c   6) gcc/4.2.3   8) parmetis/3.1  (m)
   Where:
    (m):  built for host and native MIC
 ===========================
@@ -84,9 +84,9 @@ step 10
 lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
 Currently Loaded Modules:
-  1) admin/admin-1.0   4) local/local   7) openmpi/1.2.6      10) petsc/3.2
-  2) PrgEnv            5) noweb/2.10c   8) parmetis/3.1  (m)
-  3) unix/unix         6) intel/intel   9) phdf5/1.8.2
+  1) admin/admin-1.0   4) noweb/2.10c   7) openmpi/1.2.6      10) petsc/3.2
+  2) unix/unix         5) PrgEnv        8) parmetis/3.1  (m)
+  3) local/local       6) intel/intel   9) phdf5/1.8.2
   Where:
    (m):  built for host and native MIC
 ===========================
@@ -102,10 +102,10 @@ step 12
 lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
 Currently Loaded Modules:
-  1) admin/admin-1.0   5) noweb/2.10c    9) phdf5/1.8.2
-  2) PrgEnv            6) intel/intel   10) parmetis/4.0.1 (m)
-  3) unix/unix         7) mpich2/1.0.7
-  4) local/local       8) petsc/3.1
+  1) admin/admin-1.0   5) PrgEnv         9) phdf5/1.8.2
+  2) unix/unix         6) intel/intel   10) parmetis/4.0.1 (m)
+  3) local/local       7) mpich2/1.0.7
+  4) noweb/2.10c       8) petsc/3.1
   Where:
    (m):  built for host and native MIC
 ===========================
@@ -121,9 +121,9 @@ step 14
 lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
 Currently Loaded Modules:
-  1) admin/admin-1.0   4) local/local   7) openmpi/1.2.6  10) parmetis/3.1 (m)
-  2) PrgEnv            5) noweb/2.10c   8) petsc/3.2
-  3) unix/unix         6) intel/intel   9) phdf5/1.8.2
+  1) admin/admin-1.0   4) noweb/2.10c   7) openmpi/1.2.6  10) parmetis/3.1 (m)
+  2) unix/unix         5) PrgEnv        8) petsc/3.2
+  3) local/local       6) intel/intel   9) phdf5/1.8.2
   Where:
    (m):  built for host and native MIC
 ===========================
@@ -137,9 +137,9 @@ step 16
 lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
 Currently Loaded Modules:
-  1) admin/admin-1.0   4) local/local   7) openmpi/1.2.6      10) phdf5/1.8.10
-  2) PrgEnv            5) noweb/2.10c   8) petsc/3.2
-  3) unix/unix         6) intel/intel   9) parmetis/3.1  (m)
+  1) admin/admin-1.0   4) noweb/2.10c   7) openmpi/1.2.6      10) phdf5/1.8.10
+  2) unix/unix         5) PrgEnv        8) petsc/3.2
+  3) local/local       6) intel/intel   9) parmetis/3.1  (m)
   Where:
    (m):  built for host and native MIC
 ===========================
@@ -154,10 +154,10 @@ step 18
 lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
 Currently Loaded Modules:
-  1) admin/admin-1.0   5) noweb/2.10c    9) phdf5/1.8.9
-  2) PrgEnv            6) intel/intel   10) parmetis/4.0.1 (m)
-  3) unix/unix         7) mpich2/1.0.7
-  4) local/local       8) petsc/3.1
+  1) admin/admin-1.0   5) PrgEnv         9) phdf5/1.8.9
+  2) unix/unix         6) intel/intel   10) parmetis/4.0.1 (m)
+  3) local/local       7) mpich2/1.0.7
+  4) noweb/2.10c       8) petsc/3.1
   Where:
    (m):  built for host and native MIC
 ===========================
@@ -173,8 +173,8 @@ step 20
 lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
 Currently Loaded Modules:
-  1) admin/admin-1.0   3) unix/unix     5) noweb/2.10c   7) parmetis/3.1 (m)
-  2) PrgEnv            4) local/local   6) intel/intel
+  1) admin/admin-1.0   3) local/local   5) PrgEnv        7) parmetis/3.1 (m)
+  2) unix/unix         4) noweb/2.10c   6) intel/intel
   Where:
    (m):  built for host and native MIC
 Inactive Modules:

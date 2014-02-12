@@ -203,8 +203,14 @@ function List(...)
 
    if (wanted.n == 0) then
       wanted[1] = ".*"
+      wanted.n  = 1
    else
       msg2 = " Matching: " .. table.concat(wanted," or ")
+      if (not masterTbl.regexp) then
+         for i = 1, wanted.n do
+            wanted[i] = caseIndependent(wanted[i])
+         end
+      end
    end
 
    if (masterTbl.terse) then
@@ -212,9 +218,9 @@ function List(...)
          local mname = MName:new("mt",activeA[i])
          local sn    = mname:sn()
          local full  = mt:fullName(sn)
-         for j = 1, #wanted do
+         for j = 1, wanted.n do
             local p = wanted[j]
-            if (full:find(p,1,true) or full:find(p)) then
+            if (full:find(p)) then
                io.stderr:write(full,"\n")
             end
          end
@@ -230,9 +236,9 @@ function List(...)
       local mname = MName:new("mt",activeA[i])
       local sn    = mname:sn()
       local full  = mt:fullName(sn)
-      for j = 1, #wanted do
+      for j = 1, wanted.n do
          local p = wanted[j]
-         if (full:find(p,1,true) or full:find(p)) then
+         if (full:find(p)) then
             kk = kk + 1
             a[#a + 1] = mt:list_property(kk, sn, "short", legendT)
          end
@@ -263,9 +269,9 @@ function List(...)
       local v = totalA[i]
       if (not mt:have(v.sn,"active")) then
          local name = v.name
-         for j = 1, #wanted do
+         for j = 1, wanted.n do
             local p = wanted[j]
-            if (name:find(p,1,true) or name:find(p)) then
+            if (name:find(p)) then
                kk      = kk + 1
                a[#a+1] = {"  " .. tostring(kk).. ")" , name}
             end
@@ -348,21 +354,6 @@ function Load_Usr(...)
    dbg.print{"Setting mcp to ", mcp:name(),"\n"}
    local b       = mcp:load_usr(lA)
    mcp           = mcp_old
-
-
-   local aa = {}
-   for i = 1,#lA do
-      local mname = lA[i]
-      local sn    = mname:sn()
-      if (mt:have(sn, "active")) then
-         local usrN  = (not masterTbl().latest) and mname:usrName() or mt:fullName(sn)
-         dbg.print{"Karl registration: ",sn," user: ", usrN,"\n"}
-
-         ------------------------------------------------------
-         -- Register user loads so that Karl will be happy.
-         mt:userLoad(sn,usrN)
-      end
-   end
 
    dbg.fini("Load_Usr")
    return b
@@ -666,10 +657,12 @@ end
 
 function SpiderCmd(...)
    dbg.start{"SpiderCmd(", concatTbl({...},", "),")"}
-   local cache   = Cache:cache()
-   local moduleT = cache:build()
+   local cache     = Cache:cache()
+   local moduleT   = cache:build()
+   local masterTbl = masterTbl()
    local dbT     = {}
    local s
+   local srch
    Spider.buildSpiderDB({"default"},moduleT, dbT)
 
    local arg = pack(...)
@@ -679,10 +672,10 @@ function SpiderCmd(...)
    else
       local a    = {}
       local help = false
-      for i = 1, arg.n do
-         if (i == arg.n) then help = true end
+      for i = 1, arg.n-1 do
          a[#a+1] = Spider.spiderSearch(dbT, arg[i], help)
       end
+      a[#a+1] = Spider.spiderSearch(dbT, arg[arg.n], true)
       s = concatTbl(a,"\n")
    end
    local a = {}

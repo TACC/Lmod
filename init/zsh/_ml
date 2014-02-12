@@ -16,6 +16,7 @@ _ml()
     '(-w --width)'{--width,-w}'[use given width for max term width]'
     '(-q --quiet)'{--quiet,-q}'[disable verbose messages]'
     '--mt[display the module table]'
+    '(-r --regexp)'{--regexp,-r}'[lua regular expression matching]'
     '--ignore_cache[Treat the cache file(s) as out-of-date]'
     '--Verbose[show generated module command]'
     )

@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.2.5 5.2.5-21-geecdc9c 2014-01-26 07:24
+Modules based on Lua: Version 5.3rc2 5.3rc2-4-g988883e 2014-02-11 07:47
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -23,7 +23,7 @@ step 5
 lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
 Currently Loaded Modules:
-  1) StdEnv (S)   2) compilers/intel/14.0.0   3) mpi/openmpi/1.6.5
+  1) compilers/intel/14.0.0   2) mpi/openmpi/1.6.5   3) StdEnv (S)
   Where:
    (S):  Module is Sticky, requires --force to unload or purge
 ===========================

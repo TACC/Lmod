@@ -1079,9 +1079,6 @@ function M.add(self, t, status)
    local loadOrder
    if (status == "inactive") then
       loadOrder = -1
-   else
-      s_loadOrder = s_loadOrder + 1
-      loadOrder   = s_loadOrder
    end
    dbg.print{"MT:add: loadOrder: ",loadOrder,"\n"}
    local mT = self.mT
@@ -1206,6 +1203,10 @@ function M.setStatus(self, sn, status)
    local entry = mT[sn]
    if (entry ~= nil) then
       entry.status = status
+      if (status == "active") then
+         s_loadOrder     = s_loadOrder + 1
+         entry.loadOrder = s_loadOrder
+      end
    end
    dbg.print{"MT:setStatus(",sn,",",status,")\n"}
 end

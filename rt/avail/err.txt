@@ -42,21 +42,16 @@ ProjectDIR/mf/Compiler/intel/10.1
    gotoblas/1.31        gotoblas/1.33    openmpi/1.2.6
    gotoblas/1.32 (D)    mpich2/1.0.7
 ProjectDIR/mf/Core
-   PrgEnv                     git/1.7.4             junk/d/3.0
-   admin/admin-1.0            git/1.7.4.3    (D)    local/local
-   alex/1.0                   gotoblas/1.20         multi/multi
-   boost/1.46.0               gotoblas/1.26         noweb/2.10c
-   boost/1.47.1               gotoblas/1.30         parmetis/3.1 (m)
-   boost/1.49.0    (o) (D)    intel/intel           unix/unix
-   gcc/4.2.3                  junk/a/c/1.0
-   git/1.6.3.1                junk/b/c/2.0
+   PrgEnv             gotoblas/1.20    junk/a/c/1.0    multi/multi
+   admin/admin-1.0    gotoblas/1.26    junk/b/c/2.0    parmetis/3.1 (m)
+   alex/1.0           gotoblas/1.30    junk/d/3.0
+   gcc/4.2.3          intel/intel      local/local
 ProjectDIR/rt/avail/mf/Core
-   bar/1.4-dbg        baz/1.4-dbg        foo/1.4-dbg        local/1.1
-   bar/1.4     (D)    baz/1.4     (D)    foo/1.4     (D)    local/1.2 (D)
+   bar/1.4-dbg        baz/1.4-dbg        local/1.1
+   bar/1.4     (D)    baz/1.4     (D)    local/1.2 (D)
   Where:
    (D):  Default Module
    (m):  built for host and native MIC
-   (o):  built for offload to the MIC only
 Use "module spider" to find all possible modules.
 Use "module keyword key1 key2 ..." to search for all possible modules matching
 any of the "keys".

@@ -41,10 +41,12 @@ require("strict")
 require("string_split")
 require("string_trim")
 require("fileOps")
+require("escape")
 require("fillWords")
 require("capture")
 require("pairsByKeys")
 require("pager")
+require("caseIndependent")
 
 local M = {}
 
@@ -380,9 +382,9 @@ function M.singleSpiderDB(a, moduleT, dbT)
    dbg.start{"Spider.singleSpiderDB({",concatTbl(a,","),"},moduleT, dbT)"}
    for path, value in pairs(moduleT) do
       dbg.print{"path: ",path,"\n"}
-      local nameL = value.name_lower or value.name:lower()
-      dbT[nameL]  = dbT[nameL] or {}
-      local t     = dbT[nameL]
+      local name  = value.name
+      dbT[name]   = dbT[name] or {}
+      local t     = dbT[name]
 
       for k, v in pairs(value) do
          if (t[path] == nil) then
@@ -437,23 +439,21 @@ function M.singleSearchSpiderDB(strA, a, moduleT, dbT)
    dbg.start{"Spider.singleSearchSpiderDB()"}
 
    for path, value in pairsByKeys(moduleT) do
-      local nameL   = value.name_lower or ""
+      local name    = value.name or ""
       local full    = value.full
-      local fullL   = value.full_lower or full:lower()
       local whatisT = value.whatis or {}
       local whatisS = concatTbl(whatisT,"\n")
 
-      if (dbT[nameL] == nil) then
-         dbT[nameL] = {}
+      if (dbT[name] == nil) then
+         dbT[name] = {}
       end
-      local t = dbT[nameL]
+      local t = dbT[name]
 
       local found = false
       for i = 1,#strA do
          local str = strA[i]:lower()
-         if (nameL:find(str,1,true)   or nameL:find(str)    or
-             whatisS:find(str,1,true) or whatisS:find(str)) then
-            dbg.print{"found txt in nameL: ",nameL,"\n"}
+         if (name:find(str) or whatisS:find(str)) then
+            dbg.print{"found txt in name: ",name,"\n"}
             found = true
             break
          end
@@ -582,7 +582,7 @@ local function countEntries(t, searchName)
    local nameCnt = 0
    local fullCnt = 0
    local full    = false
-   local searchL = (searchName or ""):lower()
+   local search  = (searchName or "")
    for k,v in pairs(t) do
       local version = extractVersion(v.full, v.name) or ""
       if (version:sub(1,1) ~= ".") then
@@ -590,11 +590,11 @@ local function countEntries(t, searchName)
          if (not full) then
             full = v.full
          end
-         if (v.name_lower:find(searchL,1, true) or v.name_lower:find(searchL)) then
+         if (v.name:find(search)) then
             nameCnt = nameCnt + 1
             full  = v.full
          end
-         if (v.full_lower == searchL) then
+         if (v.full == search) then
             fullCnt = fullCnt + 1
             full  = v.full
          end
@@ -605,21 +605,29 @@ end
 
 function M.spiderSearch(dbT, searchName, help)
    dbg.start{"Spider:spiderSearch(dbT,\"",searchName,"\")"}
-   local found = false
+   local found     = false
+   local masterTbl = masterTbl()
+
    local A  = {}
-   A[1]     = searchName:lower()
-   local sn = shortName(searchName):lower()
-   if (sn ~= A[1]) then
-      A[2]  = sn
+   A[1]     = { orig = searchName, pattern = searchName }
+   local sn = shortName(searchName)
+   if (sn ~= A[1].orig) then
+      A[2]  = { orig = sn, pattern = sn }
+   end
+
+   if (not masterTbl.regexp) then
+      for i = 1, #A do
+         A[i].pattern = caseIndependent(A[i].pattern)
+      end
    end
 
    local a     = {}
    for i = 1, #A do
-      local searchL = A[i]
-      local T = dbT[searchL]
+      local search = A[i].orig
+      local T = dbT[search]
       if (T) then
-         dbg.print{"Found exact match: searchL: ",searchL,"\n"}
-         local s = M._Level1(searchL, T, searchName, help)
+         dbg.print{"Found exact match: search: ",search,"\n"}
+         local s = M._Level1(search, T, searchName, help)
          if (s) then
             a[#a+1] = s
          end
@@ -630,10 +638,10 @@ function M.spiderSearch(dbT, searchName, help)
    if (not found) then
       for k, v in pairsByKeys(dbT) do
          for i = 1, #A do
-            local searchL = A[i]
-            if (k:find(searchL,1,true) or k:find(searchL)) then
+            local search = A[i].pattern
+            if (k:find(search)) then
                found = true
-               dbg.print{"Found inexact match: searchL: ",searchL,", k: ",k,"\n"}
+               dbg.print{"Found inexact match: search: ",search,", k: ",k,"\n"}
                local s = M._Level1(k, v, searchName, help)
                if (s) then
                   a[#a+1] = s
@@ -679,8 +687,6 @@ function M._Level1(key, T, searchName, help)
       dbg.fini("Spider:_Level1")
       return s
    end
-
-
 
    local border = banner:border(2)
    local VersionT = {}

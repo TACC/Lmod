@@ -52,7 +52,7 @@ testdescript = {
      runLmod list                                           # 21
      runLmod use    $testDir/mf/Share                       # 22
      runLmod use -a $testDir/mf/Scratch                     # 23
-     runLmod avail A B                                      # 24
+     runLmod -r avail A B                                   # 24
      runLmod load  A B                                      # 25
      runLmod list                                           # 26
      runLmod load  DoesNotExist                             # 27
