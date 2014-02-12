@@ -143,6 +143,13 @@ end
 
 --- Load family functions ----
 
+---help_topic{kind="modfuncs",
+---           name="load",
+---           examples="load('name'); load('name/1.2'); load(atleast('name','3.2'))",
+---           descript= [[the load function loads a module via its name]]
+---}
+
+
 function load_module(...)
    dbg.start{"load_module(",concatTbl({...},", "),")"}
    if (not validateModules("load",...)) then return {} end

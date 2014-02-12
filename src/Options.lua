@@ -83,11 +83,19 @@ function M.options(self, usage)
    }
 
    cmdlineParser:add_option{
-      name   = {"-h","-?","--help"},
+      name   = {"-h","-?","-H","--help"},
       dest   = "cmdHelp",
       action = "store_true",
       help   = "This help message",
    }
+
+   cmdlineParser:add_option{
+      name   = {"--topic"},
+      dest   = "topic",
+      action = "store",
+      help   = "help topics: modfuncs envvars",
+   }
+
 
    cmdlineParser:add_option{
       name   = {"-D"},
