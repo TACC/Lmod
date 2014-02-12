@@ -12,6 +12,7 @@ _module()
     '(-D --debug)'{--debug,-D}'[Send program tracing information to stderr]'           	\
     '(-w --width)'{--width,-w}'[use given width for max term width]'                  	\
     '(-q --quiet)'{--quiet,-q}'[disable verbose messages]'                             	\
+    '--mt[display the module table]'                                                    \
     '--ignore_cache[Treat the cache file(s) as out-of-date]'                            \
     '*::module command:_module_command'
 }
