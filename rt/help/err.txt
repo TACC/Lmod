@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.3rc2 5.3rc2 2014-02-11 07:47
+Modules based on Lua: Version 5.3rc3 5.3rc3-3-g89f7205 2014-02-11 17:26
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -10,7 +10,8 @@ lua ProjectDIR/src/lmod.in.lua bash --help
 ===========================
 Usage: module [options] sub-command [args ...]
 Options:
-  -h -? --help                  This help message
+  -h -? -H --help               This help message
+  --topic=topic                 help topics: modfuncs envvars
   -D                            Program tracing written to stderr
   --debug=dbglvl                Program tracing written to stderr
   -d --default                  List default modules only when used with
@@ -107,7 +108,7 @@ The following guides are at http://www.tacc.utexas.edu/tacc-projects/lmod
   User Guide                 - How to use.
   Advance User Guide         - How to create you own modules.
   System Administrator Guide - How to install Lmod on your own system.
-Modules based on Lua: Version 5.3rc2 5.3rc2 2014-02-11 07:47
+Modules based on Lua: Version 5.3rc3 5.3rc3-3-g89f7205 2014-02-11 17:26
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 3
@@ -115,7 +116,8 @@ lua ProjectDIR/src/lmod.in.lua bash help
 ===========================
 Usage: module [options] sub-command [args ...]
 Options:
-  -h -? --help                  This help message
+  -h -? -H --help               This help message
+  --topic=topic                 help topics: modfuncs envvars
   -D                            Program tracing written to stderr
   --debug=dbglvl                Program tracing written to stderr
   -d --default                  List default modules only when used with
@@ -212,7 +214,7 @@ The following guides are at http://www.tacc.utexas.edu/tacc-projects/lmod
   User Guide                 - How to use.
   Advance User Guide         - How to create you own modules.
   System Administrator Guide - How to install Lmod on your own system.
-Modules based on Lua: Version 5.3rc2 5.3rc2 2014-02-11 07:47
+Modules based on Lua: Version 5.3rc3 5.3rc3-3-g89f7205 2014-02-11 17:26
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 4
@@ -232,12 +234,12 @@ Version 9
 step 5
 lua ProjectDIR/src/lmod.in.lua bash --config
 ===========================
-Modules based on Lua: Version 5.3rc2 5.3rc2 2014-02-11 07:47
+Modules based on Lua: Version 5.3rc3 5.3rc3-3-g89f7205 2014-02-11 17:26
     by Robert McLay mclay@tacc.utexas.edu
 Description                      Value
 Allow TCL modulefiles            @allow_tcl_mfiles@
 User cache valid time(sec)       @ancient@
-Colorize Lmod                    yes
+Colorize Lmod                    @colorize@
 Using dotfiles                   @use_dot_files@
 Allow duplicate paths            @duplicate_paths@
 Include modulepath dir in avail  no

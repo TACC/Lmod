@@ -53,7 +53,7 @@ local VTune_ex     = "vtune_amplifier_xe_2013"
 local inspector_xe = "inspector_xe_2013"
 local full_xe      = "composer_xe_2013.2.146"
 
-local LMODarch     = os.getenv("LMOD_arch")
+local LMODarch     = "x86_64"
 local tbl          = { i686 = "ia32",  x86_64 = "intel64" }
 local linuxT       = { i686 = "i386",  x86_64 = "x86_64"  }
 local binT         = { i686 = "bin32", x86_64 = "bin64"  }
