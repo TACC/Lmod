@@ -58,7 +58,7 @@ function logUsage(pkg)
       dbg.fini("logUsage")
       return true
    end
-   local user = os.getenv("USER")
+   local user  = os.getenv("USER")
    local jobid = os.getenv("PBS_JOBID")
    local msg = ""
    dbg.print{"user: ",user," jobid: ",jobid,"\n"}
@@ -69,7 +69,7 @@ function logUsage(pkg)
                           user, pkg.id, jobid)
    end
    local cmd = "logger -t lmod -p local0.info " .. msg
-   os.execute(cmd)
+   --os.execute(cmd)
    dbg.fini("logUsage")
 end
 
