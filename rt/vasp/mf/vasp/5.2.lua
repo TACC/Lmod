@@ -31,7 +31,7 @@ VASP team that they are registered users under that licenses
 Scan a copy the license and send to hliu@tacc.utexas.edu
 ]]
 
-local group = "G-802400"
+local group = "#$%$#@@!"
 local grps  = capture("groups")
 local found = false
 for g in grps:split("[ \n]") do
