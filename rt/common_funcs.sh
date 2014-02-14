@@ -33,8 +33,8 @@ cleanUp ()
 }
 runBase ()
 {
-   COUNT=`expr $COUNT + 1`
-   numStep=`expr $numStep + 1`
+   COUNT=$(($COUNT + 1))
+   numStep=$(($numStep+1))
    NUM=`printf "%02d" $numStep`
    echo "===========================" >  _stderr.$NUM
    echo "step $COUNT"                 >> _stderr.$NUM
@@ -46,7 +46,7 @@ runBase ()
    echo "$@"                          >> _stdout.$NUM
    echo "===========================" >> _stdout.$NUM
 
-   numStep=`expr $numStep + 1`
+   numStep=$(($numStep+1))
    NUM=`printf "%02d" $numStep`
    "$@" > _stdout.$NUM 2>> _stderr.$NUM
 }
@@ -132,7 +132,7 @@ unsetMT ()
        last=$_ModuleTable_Sz_
        unset _ModuleTable_Sz_
    fi
-   for i in `seq 1 $last`; do
+   for ((i=1; i<=last; i++)); do
       num=`printf %03d $i`
       eval j="\$_ModuleTable${num}_"
       if [ -z "$j" ]; then
@@ -151,7 +151,7 @@ unsetSTT ()
        last=$_SettargTable_Sz_
        unset _SettargTable_Sz_
    fi
-   for i in `seq 1 $last`; do
+   for ((i=1; i<=last; i++)); do
       num=`printf %03d $i`
       eval j="\$_SettargTable${num}_"
       if [ -z "$j" ]; then
