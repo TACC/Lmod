@@ -813,7 +813,7 @@ function M._Level2(self, T, searchName, full, possibleA)
 
    local term_width = TermWidth() - 4
    local tt = nil
-   local border = banner:border(2)
+   local border = banner:border(0)
    local availT = {
       "\n    This module can be loaded directly: module load " .. full .. "\n",
       "\n    This module can only be loaded through the following modules:\n",
