@@ -690,7 +690,7 @@ function M.spiderSearch(self, dbT, searchName, help)
       io.stderr:write("Unable to find: \"",searchName,"\"\n")
 
       if (escape(searchName) ~= searchName) then
-         io.stderr:write("\nRegular Expression require: module -r spider ",searchName,"\"\n")
+         io.stderr:write("\nRegular Expressions require: module -r spider '",searchName,"'\"\n")
       end
          
 
