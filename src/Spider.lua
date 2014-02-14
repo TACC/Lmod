@@ -764,7 +764,7 @@ function M._Level1(self, searchPat, key, T, searchName, possibleA, help)
       local num = #possibleA
       for ja = 1, num do
          b[#b+1] = possibleA[ja]
-         sum     = sum + possibleA[ja]:len()
+         sum     = sum + possibleA[ja]:len() + 2
          if (sum > term_width - 7 and ja < num - 1) then
             b[#b+1] = "..."
             break
