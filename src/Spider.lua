@@ -859,11 +859,11 @@ function M._Level2(self, T, searchName, full, possibleA)
 
             if (#possibleA > 0) then
                local b   = {}
-               local sum = 0
+               local sum = 17
                local num = #possibleA
                for ja = 1, num do
                   b[#b+1] = possibleA[ja]
-                  sum     = sum + possibleA[ja]:len()
+                  sum     = sum + possibleA[ja]:len() + 2
                   if (sum > term_width - 7 and ja < num - 1) then
                      b[#b+1] = "..."
                      break
