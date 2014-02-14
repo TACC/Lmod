@@ -760,12 +760,12 @@ function M._Level1(self, searchPat, key, T, searchName, possibleA, help)
 
    if (#possibleA > 0) then
       local b   = {}
-      local sum = 0
+      local sum = 17
       local num = #possibleA
       for ja = 1, num do
          b[#b+1] = possibleA[ja]
          sum     = sum + possibleA[ja]:len() + 2
-         if (sum > term_width - 7 and ja < num - 1) then
+         if (sum > term_width and ja < num - 1) then
             b[#b+1] = "..."
             break
          end
