@@ -694,7 +694,7 @@ function M.spiderSearch(self, dbT, searchName, help)
 end
 
 function M._Level1(self, searchPat, key, T, searchName, possibleA, help)
-   dbg.start{"Spider:_Level1(",searchPat, key,", T,\"",searchName,"\",help)"}
+   dbg.start{"Spider:_Level1(",searchPat,", ", key,", T,\"",searchName,"\",help)"}
    local term_width = TermWidth() - 4
 
    if (T == nil) then
@@ -717,7 +717,7 @@ function M._Level1(self, searchPat, key, T, searchName, possibleA, help)
    end
 
    if (cnt == 1 or nameCnt == 1 or fullCnt > 0) then
-      local s = self:_Level2(T, searchName, full)
+      local s = self:_Level2(T, searchName, full, possibleA)
       dbg.fini("Spider:_Level1")
       return s
    end
@@ -775,8 +775,6 @@ function M._Level1(self, searchPat, key, T, searchName, possibleA, help)
       ia = ia + 1; a[ia] = "\n"
    end
 
-
-
    if (help) then
       ia = ia + 1; a[ia] = "\n"
       local name = self:getExactMatch()
@@ -803,8 +801,8 @@ function M._Level1(self, searchPat, key, T, searchName, possibleA, help)
 
 end
 
-function M._Level2(self, T, searchName, full)
-   dbg.start{"Spider:_Level2(T,\"",searchName,"\", \"",full,"\")"}
+function M._Level2(self, T, searchName, full, possibleA)
+   dbg.start{"Spider:_Level2(T,\"",searchName,"\", \"",full,"\",possibleA)"}
    local a  = {}
    local ia = 0
    local b  = {}
@@ -858,6 +856,34 @@ function M._Level2(self, T, searchName, full)
                end
                ia = ia + 1; a[ia] = "\n"
             end
+
+            if (#possibleA > 0) then
+               local b   = {}
+               local sum = 0
+               local num = #possibleA
+               for ja = 1, num do
+                  b[#b+1] = possibleA[ja]
+                  sum     = sum + possibleA[ja]:len()
+                  if (sum > term_width - 7 and ja < num - 1) then
+                     b[#b+1] = "..."
+                     break
+                  end
+               end
+               ia = ia + 1; a[ia] = "\n     Other possible modules matches:\n        "
+               ia = ia + 1; a[ia] = concatTbl(b,", ")
+               ia = ia + 1; a[ia] = "\n"
+            end
+
+            ia = ia + 1; a[ia] = "\n"
+            local name = self:getExactMatch()
+            if (name) then
+               ia = ia + 1; a[ia] = border
+               ia = ia + 1; a[ia] = "  To find other possible module matches do:\n"
+               ia = ia + 1; a[ia] = "      module -r spider '.*"
+               ia = ia + 1; a[ia] = name
+               ia = ia + 1; a[ia] = ".*'\n\n"
+            end
+
             ia = ia + 1; a[ia] = "Avail Title goes here.  This should never be seen\n"
             titleIdx = ia
          end
