@@ -140,8 +140,10 @@ function main()
          moduleDirA[#moduleDirA+1] = path
       end
       local moduleT = {}
-      Spider.findAllModules(moduleDirA, moduleT)
-      Spider.dictModule(moduleT, moduleD)
+      local spider  = Spider:new()
+
+      spider:findAllModules(moduleDirA, moduleT)
+      spider:dictModule(moduleT, moduleD)
    else
       print ("Must specify either --file or --modulepath")
       dbg.fini()

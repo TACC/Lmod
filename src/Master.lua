@@ -908,7 +908,8 @@ function M.avail(argA)
      LmodError("avail is not possible, MODULEPATH is not set.\n")
    end
 
-   Spider.buildSpiderDB({"default"}, moduleT, dbT)
+   local spider    = Spider:new()
+   spider:buildSpiderDB({"default"}, moduleT, dbT)
 
    local legendT   = {}
    local availT    = mt:availT()

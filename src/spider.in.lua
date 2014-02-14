@@ -115,7 +115,8 @@ end
 local function rptList(moduleDirA, moduleT, dbT)
    dbg.start{"rptList(moduleDirA, moduleT, dbT)"}
    local tbl = {}
-   Spider.listModules(moduleT, tbl)
+   local spider = Spider:new()
+   spider:listModules(moduleT, tbl)
    for k in pairsByKeys(tbl) do
       print(k)
    end
@@ -246,7 +247,8 @@ function main()
 
    dbg.print{"lmodPath:", lmodPath,"\n"}
    require("SitePackage")
-   Spider.findAllModules(moduleDirA, moduleT)
+   local spider = Spider:new()
+   spider:findAllModules(moduleDirA, moduleT)
 
    if (dbg.active()) then
       for k,v in pairs(moduleT) do
@@ -255,7 +257,7 @@ function main()
    end
 
    local dbT = {}
-   Spider.buildSpiderDB({"default"}, moduleT, dbT)
+   spider:buildSpiderDB({"default"}, moduleT, dbT)
 
    -- This interpT converts user outputstyle into a function call.
 

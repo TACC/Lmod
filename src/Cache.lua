@@ -367,8 +367,9 @@ function M.build(self, fast)
       local mcp_old = mcp
       mcp           = MasterControl.build("spider")
 
+      local spider  = Spider:new()
       local t1 = epoch()
-      Spider.findAllModules(dirA, userModuleT)
+      spider:findAllModules(dirA, userModuleT)
       local t2 = epoch()
 
       mcp           = mcp_old

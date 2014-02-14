@@ -140,6 +140,23 @@ end
 --module("Spider")
 ------------------------------------------------------------
 
+function M.new(self)
+   local o = {}
+   setmetatable(o,self)
+   self.__index = self
+   self.__name  = false
+   return o
+end
+
+function M.setExactMatch(self, name)
+   self.__name  = name
+end
+
+function M.getExactMatch(self)
+   return self.__name
+end
+
+
 local function versionFile(path)
    dbg.start{"versionFile(",path,")"}
    local f       = io.open(path,"r")
@@ -318,7 +335,7 @@ function M.findModulesInDir(mpath, path, prefix, moduleT)
    dbg.fini("findModulesInDir")
 end
 
-function M.findAllModules(moduleDirA, moduleT)
+function M.findAllModules(self, moduleDirA, moduleT)
    dbg.start{"Spider:findAllModules(",concatTbl(moduleDirA,", "),")"}
 
    if (next(moduleT) == nil) then
@@ -357,8 +374,8 @@ function M.findAllModules(moduleDirA, moduleT)
    dbg.fini("Spider:findAllModules")
 end
 
-function M.buildSpiderDB(a, moduleT, dbT)
-   dbg.start{"Spider.buildSpiderDB({",concatTbl(a,","),"},moduleT, dbT)"}
+function M.buildSpiderDB(self, a, moduleT, dbT)
+   dbg.start{"Spider:buildSpiderDB({",concatTbl(a,","),"},moduleT, dbT)"}
 
    dbg.print{"moduleT.version: ",moduleT.version,"\n"}
 
@@ -371,15 +388,15 @@ function M.buildSpiderDB(a, moduleT, dbT)
       for mpath, v in pairs(moduleT) do
          if (type(v) == "table") then
             dbg.print{"mpath: ",mpath, "\n"}
-            M.singleSpiderDB(a,v, dbT)
+            self:singleSpiderDB(a,v, dbT)
          end
       end
    end
-   dbg.fini("Spider.buildSpiderDB")
+   dbg.fini("Spider:buildSpiderDB")
 end
 
-function M.singleSpiderDB(a, moduleT, dbT)
-   dbg.start{"Spider.singleSpiderDB({",concatTbl(a,","),"},moduleT, dbT)"}
+function M.singleSpiderDB(self, a, moduleT, dbT)
+   dbg.start{"Spider:singleSpiderDB({",concatTbl(a,","),"},moduleT, dbT)"}
    for path, value in pairs(moduleT) do
       dbg.print{"path: ",path,"\n"}
       local name  = value.name
@@ -409,14 +426,14 @@ function M.singleSpiderDB(a, moduleT, dbT)
       t[path].parent = parent
       if (next(value.children)) then
          a[#a+1] = t[path].full
-         M.buildSpiderDB(a, value.children, dbT)
+         self:buildSpiderDB(a, value.children, dbT)
          a[#a]   = nil
       end
    end
-   dbg.fini("Spider.singleSpiderDB")
+   dbg.fini("Spider:singleSpiderDB")
 end
 
-function M.searchSpiderDB(strA, a, moduleT, dbT)
+function M.searchSpiderDB(self, strA, a, moduleT, dbT)
    dbg.start{"Spider:searchSpiderDB({",concatTbl(a,","),"},moduleT, dbT)"}
 
    local version = moduleT.version or 0
@@ -428,15 +445,15 @@ function M.searchSpiderDB(strA, a, moduleT, dbT)
       for mpath, v in pairsByKeys(moduleT) do
          if (type(v) == "table") then
             dbg.print{"mpath: ",mpath, "\n"}
-            M.singleSearchSpiderDB(strA, a, v, dbT)
+            self:singleSearchSpiderDB(strA, a, v, dbT)
          end
       end
    end
    dbg.fini("Spider:searchSpiderDB")
 end
 
-function M.singleSearchSpiderDB(strA, a, moduleT, dbT)
-   dbg.start{"Spider.singleSearchSpiderDB()"}
+function M.singleSearchSpiderDB(self, strA, a, moduleT, dbT)
+   dbg.start{"Spider:singleSearchSpiderDB()"}
 
    for path, value in pairsByKeys(moduleT) do
       local name    = value.name or ""
@@ -473,14 +490,14 @@ function M.singleSearchSpiderDB(strA, a, moduleT, dbT)
       end
       if (next(value.children)) then
          a[#a+1] = full
-         M.searchSpiderDB(strA, a, value.children, dbT)
+         self:searchSpiderDB(strA, a, value.children, dbT)
          a[#a]   = nil
       end
    end
-   dbg.fini("Spider.singleSearchSpiderDB")
+   dbg.fini("Spider:singleSearchSpiderDB")
 end
 
-function M.Level0(dbT)
+function M.Level0(self, dbT)
    local a         = {}
    local masterTbl = masterTbl()
    local terse     = masterTbl.terse
@@ -519,12 +536,12 @@ function M.Level0(dbT)
    ia = ia+1; a[ia] = "The following is a list of the modules currently available:\n"
    ia = ia+1; a[ia] = border
 
-   M.Level0Helper(dbT,a)
+   self:Level0Helper(dbT,a)
 
    return concatTbl(a,"")
 end
 
-function M.Level0Helper(dbT,a)
+function M.Level0Helper(self, dbT,a)
    local t          = {}
    local term_width = TermWidth() - 4
 
@@ -603,7 +620,7 @@ local function countEntries(t, searchName)
    return count, nameCnt, fullCnt, full
 end
 
-function M.spiderSearch(dbT, searchName, help)
+function M.spiderSearch(self, dbT, searchName, help)
    dbg.start{"Spider:spiderSearch(dbT,\"",searchName,"\")"}
    local found     = false
    local masterTbl = masterTbl()
@@ -626,14 +643,31 @@ function M.spiderSearch(dbT, searchName, help)
       local search = A[i].orig
       local T = dbT[search]
       if (T) then
+         local possibleA = {}
+         local ja        = 0
+         for k, v in pairsByKeys(dbT) do
+            for j = 1, #A do
+               local searchPat = A[j].pattern
+               if (k:find(searchPat) and k ~= search) then
+                  ja = ja + 1; possibleA[ja] = k
+               end
+            end
+         end
+
+         if (ja > 0) then
+            self:setExactMatch(searchName)
+         end
+
          dbg.print{"Found exact match: search: ",search,"\n"}
-         local s = M._Level1(search, T, searchName, help)
+         local s     = self:_Level1(search, T, searchName, possibleA, help)
          if (s) then
             a[#a+1] = s
          end
          found = true
       end
    end
+
+
 
    if (not found) then
       for k, v in pairsByKeys(dbT) do
@@ -642,7 +676,7 @@ function M.spiderSearch(dbT, searchName, help)
             if (k:find(search)) then
                found = true
                dbg.print{"Found inexact match: search: ",search,", k: ",k,"\n"}
-               local s = M._Level1(k, v, searchName, help)
+               local s = self:_Level1(k, v, searchName, {}, help)
                if (s) then
                   a[#a+1] = s
                end
@@ -659,7 +693,7 @@ function M.spiderSearch(dbT, searchName, help)
    return concatTbl(a,"")
 end
 
-function M._Level1(key, T, searchName, help)
+function M._Level1(self, key, T, searchName, possibleA, help)
    dbg.start{"Spider:_Level1(",key,", T,\"",searchName,"\",help)"}
    local term_width = TermWidth() - 4
 
@@ -683,12 +717,12 @@ function M._Level1(key, T, searchName, help)
    end
 
    if (cnt == 1 or nameCnt == 1 or fullCnt > 0) then
-      local s = M._Level2(T, searchName, full)
+      local s = self:_Level2(T, searchName, full)
       dbg.fini("Spider:_Level1")
       return s
    end
 
-   local border = banner:border(2)
+   local border = banner:border(0)
    local VersionT = {}
    local exampleV = nil
    local key = nil
@@ -718,15 +752,42 @@ function M._Level1(key, T, searchName, help)
       ia = ia + 1; a[ia] = "    Description:\n"
       ia = ia + 1; a[ia] = fillWords("      ",Description,term_width)
       ia = ia + 1; a[ia] = "\n\n"
-
    end
    ia = ia + 1; a[ia] = "     Versions:\n"
    for k, v in pairsByKeys(VersionT) do
       ia = ia + 1; a[ia] = "        " .. k .. "\n"
    end
 
+   if (#possibleA > 0) then
+      local b   = {}
+      local sum = 0
+      local num = #possibleA
+      for ja = 1, num do
+         b[#b+1] = possibleA[ja]
+         sum     = sum + possibleA[ja]:len()
+         if (sum > term_width - 7 and ja < num - 1) then
+            b[#b+1] = "..."
+            break
+         end
+      end
+      ia = ia + 1; a[ia] = "\n     Other possible modules matches:\n        "
+      ia = ia + 1; a[ia] = concatTbl(b,", ")
+      ia = ia + 1; a[ia] = "\n"
+   end
+
+
+
    if (help) then
       ia = ia + 1; a[ia] = "\n"
+      local name = self:getExactMatch()
+      if (name) then
+         ia = ia + 1; a[ia] = border
+         ia = ia + 1; a[ia] = "  To find other possible module matches do:\n"
+         ia = ia + 1; a[ia] = "      module -r spider '.*"
+         ia = ia + 1; a[ia] = name
+         ia = ia + 1; a[ia] = ".*'\n\n"
+      end
+
       ia = ia + 1; a[ia] = border
       ia = ia + 1; a[ia] = "  To find detailed information about "
       ia = ia + 1; a[ia] = key
@@ -742,7 +803,7 @@ function M._Level1(key, T, searchName, help)
 
 end
 
-function M._Level2(T, searchName, full)
+function M._Level2(self, T, searchName, full)
    dbg.start{"Spider:_Level2(T,\"",searchName,"\", \"",full,"\")"}
    local a  = {}
    local ia = 0
@@ -859,39 +920,39 @@ function M._Level2(T, searchName, full)
    return concatTbl(a,"")
 end
 
-function M.listModules(moduleT, tbl)
+function M.listModules(self, moduleT, tbl)
    if (moduleT.version == nil) then
-      M.listModulesHelper(moduleT, tbl)
+      self:listModulesHelper(moduleT, tbl)
    else
       for mpath, v in pairs(moduleT) do
          if (type(v) == "table") then
-            M.listModulesHelper(v, tbl)
+            self:listModulesHelper(v, tbl)
          end
       end
    end
 end
 
-function M.listModulesHelper(moduleT, tbl)
+function M.listModulesHelper(self, moduleT, tbl)
    for kk,vv in pairs(moduleT) do
       tbl[vv.path] = 1
       if (next(vv.children)) then
          for k, v in pairs(vv.children) do
             if (type(v) == "table") then
-               M.listModulesHelper(v, tbl)
+               self:listModulesHelper(v, tbl)
             end
          end
       end
    end
 end
 
-function M.dictModules(T,tbl)
+function M.dictModules(self, T,tbl)
    for kk,vv in pairs(T) do
       kk      = kk:gsub(".lua$","")
       tbl[kk] = 0
       if (next(vv.children)) then
          for k, v in pairs(vv.children) do
             if (type(v) == "table") then
-               M.dictModules(v, tbl)
+               self:dictModules(v, tbl)
             end
          end
       end

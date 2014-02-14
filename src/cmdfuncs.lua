@@ -159,7 +159,8 @@ function Keyword(...)
    local moduleT = cache:build()
    local s
    local dbT = {}
-   Spider.searchSpiderDB({...},{"default"},moduleT, dbT)
+   local spider = Spider:new()
+   spider:searchSpiderDB({...},{"default"},moduleT, dbT)
    local a = {}
    local ia = 0
 
@@ -173,7 +174,7 @@ function Keyword(...)
    ia = ia+1; a[ia] = border
    ia = ia+1; a[ia] = "\n"
 
-   Spider.Level0Helper(dbT,a)
+   spider:Level0Helper(dbT,a)
    pcall(pager,io.stderr,concatTbl(a,""))
 
    dbg.fini("Keyword")
@@ -663,19 +664,20 @@ function SpiderCmd(...)
    local dbT     = {}
    local s
    local srch
-   Spider.buildSpiderDB({"default"},moduleT, dbT)
+   local spider    = Spider:new()
+   spider:buildSpiderDB({"default"},moduleT, dbT)
 
    local arg = pack(...)
 
    if (arg.n < 1) then
-      s = Spider.Level0(dbT)
+      s = spider:Level0(dbT)
    else
       local a    = {}
       local help = false
       for i = 1, arg.n-1 do
-         a[#a+1] = Spider.spiderSearch(dbT, arg[i], help)
+         a[#a+1] = spider:spiderSearch(dbT, arg[i], help)
       end
-      a[#a+1] = Spider.spiderSearch(dbT, arg[arg.n], true)
+      a[#a+1] = spider:spiderSearch(dbT, arg[arg.n], true)
       s = concatTbl(a,"\n")
    end
    local a = {}
