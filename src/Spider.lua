@@ -688,6 +688,12 @@ function M.spiderSearch(self, dbT, searchName, help)
    if (not found) then
       setWarningFlag()
       io.stderr:write("Unable to find: \"",searchName,"\"\n")
+
+      if (escape(searchName) ~= searchName) then
+         io.stderr:write("\nRegular Expression require: module -r spider ",searchName,"\"\n")
+      end
+         
+
    end
    dbg.fini("Spider:spiderSearch")
    return concatTbl(a,"")
