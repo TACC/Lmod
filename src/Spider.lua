@@ -659,7 +659,7 @@ function M.spiderSearch(self, dbT, searchName, help)
          end
 
          dbg.print{"Found exact match: search: ",search,"\n"}
-         local s     = self:_Level1(search, T, searchName, possibleA, help)
+         local s     = self:_Level1(A[i].pattern, search, T, searchName, possibleA, help)
          if (s) then
             a[#a+1] = s
          end
@@ -676,7 +676,7 @@ function M.spiderSearch(self, dbT, searchName, help)
             if (k:find(search)) then
                found = true
                dbg.print{"Found inexact match: search: ",search,", k: ",k,"\n"}
-               local s = self:_Level1(k, v, searchName, {}, help)
+               local s = self:_Level1(A[i].pattern, k, v, searchName, {}, help)
                if (s) then
                   a[#a+1] = s
                end
@@ -693,8 +693,8 @@ function M.spiderSearch(self, dbT, searchName, help)
    return concatTbl(a,"")
 end
 
-function M._Level1(self, key, T, searchName, possibleA, help)
-   dbg.start{"Spider:_Level1(",key,", T,\"",searchName,"\",help)"}
+function M._Level1(self, searchPat, key, T, searchName, possibleA, help)
+   dbg.start{"Spider:_Level1(",searchPat, key,", T,\"",searchName,"\",help)"}
    local term_width = TermWidth() - 4
 
    if (T == nil) then
@@ -703,7 +703,7 @@ function M._Level1(self, key, T, searchName, possibleA, help)
       return ""
    end
 
-   local cnt, nameCnt, fullCnt, full = countEntries(T, searchName)
+   local cnt, nameCnt, fullCnt, full = countEntries(T, searchPat)
    dbg.print{"Number of entries: ",cnt ," name count: ",nameCnt,
              " full count: ",fullCnt, " full: ", full, "\n"}
    dbg.print{"key: \"",key,"\" searchName: \"",searchName,"\"\n"}

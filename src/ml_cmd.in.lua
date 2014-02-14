@@ -145,6 +145,7 @@ function main()
    local verbose  = false
    local oldStyle = false
    local show     = false
+   local cmdFound = false
 
    for _,v in ipairs(arg) do
       local done = false
@@ -184,9 +185,10 @@ function main()
       end
 
       local cmd = lmodCmdT[v]
-      if (not done and cmd) then
+      if (not done and cmd and not cmdFound) then
          cmdA[#cmdA + 1] = cmd
          done            = true
+         cmdFound        = true
       end
 
       if (not done) then
