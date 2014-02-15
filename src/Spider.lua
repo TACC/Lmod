@@ -883,7 +883,6 @@ function M._Level2(self, T, searchName, full, possibleA)
             ia = ia + 1; a[ia] = "\n"
             local name = self:getExactMatch()
             if (name) then
-               ia = ia + 1; a[ia] = border
                ia = ia + 1; a[ia] = "  To find other possible module matches do:\n"
                ia = ia + 1; a[ia] = "      module -r spider '.*"
                ia = ia + 1; a[ia] = name
