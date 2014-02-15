@@ -880,15 +880,6 @@ function M._Level2(self, T, searchName, full, possibleA)
                ia = ia + 1; a[ia] = "\n"
             end
 
-            ia = ia + 1; a[ia] = "\n"
-            local name = self:getExactMatch()
-            if (name) then
-               ia = ia + 1; a[ia] = "  To find other possible module matches do:\n"
-               ia = ia + 1; a[ia] = "      module -r spider '.*"
-               ia = ia + 1; a[ia] = name
-               ia = ia + 1; a[ia] = ".*'\n\n"
-            end
-
             ia = ia + 1; a[ia] = "Avail Title goes here.  This should never be seen\n"
             titleIdx = ia
          end
@@ -941,6 +932,16 @@ function M._Level2(self, T, searchName, full, possibleA)
          ia = ia + 1; a[ia] = s
          ia = ia + 1; a[ia] = "\n"
       end
+   end
+
+   ia = ia + 1; a[ia] = "\n"
+   local name = self:getExactMatch()
+   if (name) then
+      ia = ia + 1; a[ia] = border
+      ia = ia + 1; a[ia] = "  To find other possible module matches do:\n"
+      ia = ia + 1; a[ia] = "      module -r spider '.*"
+      ia = ia + 1; a[ia] = name
+      ia = ia + 1; a[ia] = ".*'\n\n"
    end
 
    if (tt == nil) then
