@@ -4,6 +4,14 @@ Features:
       Lua regexp searching now requires a "-r" option
    b) The modulefile function isloaded() now can take atleast, between and latest:
         isloaded(atleast("Foo","1.2"))
+   c) Spider searching improved.  When an exact match is found Lmod reports other
+      possible matches:
+
+     R: R/2.1.5
+       Other possible modules matches:
+          PrgEnv, greenlet, parmetis, r
+
+
 Bug Fix:
    a) Quotes inside a whatis or help message are properly escaped.
    b) Better handling of nested modules by fixing load order.
