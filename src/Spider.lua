@@ -700,7 +700,7 @@ function M.spiderSearch(self, dbT, searchName, help)
 end
 
 function M._Level1(self, searchPat, key, T, searchName, possibleA, help)
-   dbg.start{"Spider:_Level1(",searchPat,", ", key,", T,\"",searchName,"\",help)"}
+   dbg.start{"Spider:_Level1(",searchPat,", ", key,", T,\"",searchName,"\",help=",help,")"}
    local term_width = TermWidth() - 4
 
    if (T == nil) then
