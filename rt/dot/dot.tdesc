@@ -36,14 +36,19 @@ testdescript = {
      runLmod list                  # 5
      runLmod purge                 # 6
      buildModuleT $LMOD_DEFAULT_MODULEPATH > $HOME/.lmod.d/.cache/moduleT.lua
+     buildDbT     $LMOD_DEFAULT_MODULEPATH > $HOME/.lmod.d/.cache/dbT.lua
      runLmod spider                # 7
      runLmod spider b              # 8
      runLmod spider b/.2.0         # 9
-     runLmod spider a              #10
-     runLmod spider a/.1.0         #11
-     runLmod avail                 #12
-     runLmod load a/.1.0 b/.2.0    #13
-     runLmod list                  #14
+     runLmod spider b/1.0          #10
+     runLmod spider B              #11
+     runLmod spider B/1.0          #12
+     runLmod spider B/.2.0         #13
+     runLmod spider a              #14
+     runLmod spider a/.1.0         #15
+     runLmod avail                 #16
+     runLmod load a/.1.0 b/.2.0    #17
+     runLmod list                  #18
 
 
      HOME=$ORIG_HOME

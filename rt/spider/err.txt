@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.2.5 5.2.5-26-gc47c20b 2014-01-26 07:24
+Modules based on Lua: Version 5.3rc3 5.3rc3-22-g9c51131 2014-02-11 17:26
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -153,7 +153,11 @@ step 9
 lua ProjectDIR/src/lmod.in.lua bash spider R
 ===========================
   R: R/2.1.5
+     Other possible modules matches:
+        PrgEnv, greenlet, parmetis, r
     This module can be loaded directly: module load R/2.1.5
+  To find other possible module matches do:
+      module -r spider '.*R.*'
 ===========================
 step 10
 lua ProjectDIR/src/lmod.in.lua bash -r spider ^R

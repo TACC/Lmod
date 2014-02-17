@@ -594,29 +594,39 @@ function M.Level0Helper(self, dbT,a)
 end
 
 
-local function countEntries(t, searchName)
+local function countEntries(t, sn, searchPat, searchName)
+   dbg.start{"countEntries(t,\"",sn,"\", \"", searchPat,"\", \"",searchName,"\")"}
    local count   = 0
    local nameCnt = 0
    local fullCnt = 0
    local full    = false
-   local search  = (searchName or "")
+   local search  = (searchPat or "")
+   local searchV = extractVersion(searchName, sn)
    for k,v in pairs(t) do
       local version = extractVersion(v.full, v.name) or ""
+      dbg.print{"version: ",version, ", searchV: ",searchV,"\n"}
       if (version:sub(1,1) ~= ".") then
          count = count + 1
-         if (not full) then
+         if (not full and not searchV) then
             full = v.full
+            dbg.print{"(1) setting full: ",full,"\n"}
          end
          if (v.name:find(search)) then
             nameCnt = nameCnt + 1
-            full  = v.full
+            dbg.print{"(2) nameCnt\n"}
+            if (not searchV or version == searchV) then
+               full  = v.full
+               dbg.print{"(2) setting full: ",full,"\n"}
+            end
          end
-         if (v.full == search) then
+         if (v.full == searchName) then
             fullCnt = fullCnt + 1
             full  = v.full
+            dbg.print{"(3) setting full: ",full,"\n"}
          end
       end
    end
+   dbg.fini("countEntries")
    return count, nameCnt, fullCnt, full
 end
 
@@ -709,14 +719,14 @@ function M._Level1(self, searchPat, key, T, searchName, possibleA, help)
       return ""
    end
 
-   local cnt, nameCnt, fullCnt, full = countEntries(T, searchPat)
+   local cnt, nameCnt, fullCnt, full = countEntries(T, key, searchPat, searchName)
    dbg.print{"Number of entries: ",cnt ," name count: ",nameCnt,
              " full count: ",fullCnt, " full: ", full, "\n"}
    dbg.print{"key: \"",key,"\" searchName: \"",searchName,"\"\n"}
 
    --if ((key:len() < searchName:len() and fullCnt == 0 ) or
    --    (cnt == 0 and fullCnt == 0)) then
-   if (nameCnt == 0 and fullCnt == 0) then
+   if ((nameCnt == 0 and fullCnt == 0) or (not full)) then
       LmodSystemError("Unable to find: \"",searchName,"\"")
       dbg.fini("Spider:_Level1")
       return ""

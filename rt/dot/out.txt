@@ -114,25 +114,35 @@ export MODULEPATH;
 false
 ===========================
 step 10
-lua ProjectDIR/src/lmod.in.lua bash spider a
+lua ProjectDIR/src/lmod.in.lua bash spider b/1.0
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/dot/mf";
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/dot/mf";
 export MODULEPATH;
-false
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/dot/mf";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/dot/mf";
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/dot/mf",},family={},inactive={},mT={},mpathA={"ProjectDIR/rt/dot/mf",},["systemBaseMPATH"]="ProjectDIR/rt/dot/mf",["version"]=2,}';
+export _ModuleTable_;
 ===========================
 step 11
-lua ProjectDIR/src/lmod.in.lua bash spider a/.1.0
+lua ProjectDIR/src/lmod.in.lua bash spider B
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/dot/mf";
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/dot/mf";
 export MODULEPATH;
-false
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/dot/mf";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/dot/mf";
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/dot/mf",},family={},inactive={},mT={},mpathA={"ProjectDIR/rt/dot/mf",},["systemBaseMPATH"]="ProjectDIR/rt/dot/mf",["version"]=2,}';
+export _ModuleTable_;
 ===========================
 step 12
-lua ProjectDIR/src/lmod.in.lua bash avail
+lua ProjectDIR/src/lmod.in.lua bash spider B/1.0
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/dot/mf";
 export LMOD_DEFAULT_MODULEPATH;
@@ -146,6 +156,47 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/dot/mf
 export _ModuleTable_;
 ===========================
 step 13
+lua ProjectDIR/src/lmod.in.lua bash spider B/.2.0
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/dot/mf";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/dot/mf";
+export MODULEPATH;
+false
+===========================
+step 14
+lua ProjectDIR/src/lmod.in.lua bash spider a
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/dot/mf";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/dot/mf";
+export MODULEPATH;
+false
+===========================
+step 15
+lua ProjectDIR/src/lmod.in.lua bash spider a/.1.0
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/dot/mf";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/dot/mf";
+export MODULEPATH;
+false
+===========================
+step 16
+lua ProjectDIR/src/lmod.in.lua bash avail
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/dot/mf";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/dot/mf";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/dot/mf";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/dot/mf";
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/dot/mf",},family={},inactive={},mT={},mpathA={"ProjectDIR/rt/dot/mf",},["systemBaseMPATH"]="ProjectDIR/rt/dot/mf",["version"]=2,}';
+export _ModuleTable_;
+===========================
+step 17
 lua ProjectDIR/src/lmod.in.lua bash load a/.1.0 b/.2.0
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/dot/mf";
@@ -163,7 +214,7 @@ export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/dot/mf",},family={},inactive={},mT={a={["FN"]="ProjectDIR/rt/dot/mf/a/.1.0.lua",["default"]=0,["fullName"]="a/.1.0",["loadOrder"]=1,propT={},["short"]="a",["status"]="active",},b={["FN"]="ProjectDIR/rt/dot/mf/b/.2.0.lua",["default"]=0,["fullName"]="b/.2.0",["loadOrder"]=2,propT={},["short"]="b",["status"]="active",},},mpathA={"ProjectDIR/rt/dot/mf",},["systemBaseMPATH"]="ProjectDIR/rt/dot/mf",["version"]=2,}';
 export _ModuleTable_;
 ===========================
-step 14
+step 18
 lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/dot/mf";

@@ -145,6 +145,17 @@ function extractVersion(full, sn)
    if (not full or not sn) then
       return nil
    end
+
+   local i, j = full:find('.*/')
+
+   if (not i) then
+      return nil
+   end
+
+
+   full = full:sub(1,j):lower() .. full:sub(j+1,-1)
+   sn   = sn:lower()
+
    local pat     = '^' .. escape(sn) .. '/?'
    local version = full:gsub(pat,"")
    if (version == "") then
