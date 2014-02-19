@@ -755,6 +755,11 @@ function M.getMTfromFile(self,t)
    setupMPATH(s_mt, savedBaseMPATH)
    varTbl[DfltModPath] = Var:new(DfltModPath,savedBaseMPATH)
 
+   
+   -----------------------------------------------------------------------
+   -- Save the shortTime found from Module Collection file:
+   s_mt.c_shortTime = l_mt.c_shortTime
+
    -----------------------------------------------------------------------
    -- Load all modules: use Mgrload load for all modules
 
