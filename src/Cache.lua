@@ -176,7 +176,7 @@ function M.cache(self, t)
    local baseMpath = mt:getBaseMPATH()
 
    -- Since this function can get called many time, we need to only recompute
-   -- Directories we have not yet seen
+   -- on the directories we have not yet seen.
 
    local mDT        = s_cache.mDT
    local moduleDirT = s_cache.moduleDirT
@@ -252,6 +252,7 @@ local function readCacheFile(self, cacheFileA)
             else
                local G_moduleT = _G.moduleT
                for k, v in pairs(G_moduleT) do
+                  dbg.print{"moduleT dir: ", k,"\n"}
                   if ( k:sub(1,1) == '/' ) then
                      local dirTime = mDT[k] or 0
                      if (mDT[k] and attr.modification > dirTime) then
