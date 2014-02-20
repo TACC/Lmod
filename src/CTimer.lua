@@ -34,9 +34,8 @@
 
 require("strict")
 require("utils")
-local Dbg     = require("Dbg")
 local M       = {}
-local dbg     = Dbg:dbg()
+local dbg     = require("Dbg"):dbg()
 
 s_cTimer = false
 
@@ -62,11 +61,14 @@ end
 
 function M.test(self)
    if (self.state == "init") then
+      dbg.start{"CTimer:test()"}
       local delta = epoch() - self.start
+      dbg.print{"delta: ",delta,"\n"}
       if (delta > self.threshold) then
          io.stderr:write(self.msg)
          self.state = "activeMsg"
       end
+      dbg.fini("CTimer:test")
    end
 end
 

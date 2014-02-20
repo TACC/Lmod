@@ -360,6 +360,8 @@ function M.build(self, fast)
                         (not self.quiet)
                        )
       dbg.print{"short: ", short, " shortTime: ", shortTime,"\n"}
+      dbg.print{"expert: ",masterTbl.expert,", initial: ", masterTbl.initial,"\n"}
+      dbg.print{"prtRbMsg: ",prtRbMsg,", quiet: ",self.quiet,"\n"}
 
       local cTimer = CTimer:cTimer("Rebuilding cache, please wait ...",
                                    Threshold, prtRbMsg)
