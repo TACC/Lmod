@@ -1,3 +1,13 @@
+Lmod Version 5.3.1:
+Feature:
+   a) added tool "sh_to_modulefile" to convert a bash shell script into
+      a lua based shell script.:
+
+   $ sh_to_modulefile -o intel-14.0.2.lua  /a/intel/bin/iccvars.sh intel64
+
+   note that you can give argument to the shell script.
+   
+
 Lmod Version 5.3:
 Features:
    a) Searching for avail, spider and list are case-insensitive.
