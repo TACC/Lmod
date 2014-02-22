@@ -39,7 +39,7 @@ require("strict")
 require("inherits")
 require("serializeTbl")
 require("string_split")
-
+require("quote")
 local M            = {}
 
 local dbg          = require("Dbg"):dbg()

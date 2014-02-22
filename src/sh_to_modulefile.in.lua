@@ -48,6 +48,8 @@ require("strict")
 require("string_split")
 require("serializeTbl")
 require("pairsByKeys")
+require("fileOps")
+MF_Base = require("MF_Base")
 
 local Version   = "0.0"
 local dbg       = require("Dbg"):dbg()
@@ -199,18 +201,27 @@ function main()
       os.exit(0)
    end
 
+   local LuaCmd = "@path_to_lua@/lua"
+
+   if (LuaCmd:sub(1,1) == "@") then
+      LuaCmd = findInPath("lua")
+   end
+
+
    local oldEnvT = posix.getenv()
    local fn      = os.tmpname()
    local cmdA    = {
       "/bin/bash", "--noprofile","--norc","-c",
-      "\". " ..concatTbl(pargs," ") .. '; ' .. program .. " --saveEnv ".. fn .. "\""
+      "\". " ..concatTbl(pargs," ") .. '; '.. LuaCmd .. " " .. program .. " --saveEnv ".. fn .. "\""
    }
    
    os.execute(concatTbl(cmdA," "))
    
+   local factory = MF_Base:build("Lmod")
+
    assert(loadfile(fn))()
 
-   local s = concatTbl(process(ignoreT, oldEnvT, envT),"\n")
+   local s = concatTbl(factory:process(ignoreT, oldEnvT, envT),"\n")
    if (masterTbl.outFn) then
       f = io.open(masterTbl.outFn,"w")
       f:write(s)
@@ -219,41 +230,6 @@ function main()
       print(s)
    end
 end
-
-function process(ignoreT, oldEnvT, envT)
-
-   dbg.start{"process(ignoreT, oldEnvT, envT)"}
-   local a = {}
-
-   for k, v in pairsByKeys(envT) do
-      dbg.print{"k: ", k, ", v: ", v, ", oldV: ",oldEnvT[k],"\n"}
-      if (not ignoreT[k]) then
-         local oldV = oldEnvT[k]
-         if (not oldV) then
-            a[#a+1] = "setenv(\"" .. k .. "\",\"" .. v .. "\")"
-         else
-            local oldA = path2pathA(oldV)
-            local newA = path2pathA(v)
-            local idx  = indexPath(oldV, oldA, v, newA)
-            if (idx < 0) then
-               a[#a+1] = "setenv(\"" .. k .. "\",\"" .. v .. "\")"
-            else
-               newA = splice(newA, idx, #oldA + idx - 1)
-               for i = idx-1, 1, -1 do
-                  a[#a+1] = "prepend_path(\"" .. k .. "\",\"" .. newA[i] .. "\")"
-               end
-               for i = idx, #newA do
-                  a[#a+1] = "append_path(\"" .. k .. "\",\"" .. newA[i] .. "\")"
-               end
-            end
-         end
-      end
-   end
-                  
-   dbg.fini("process")
-   return a
-end
-
 
 function options()
    local masterTbl     = masterTbl()
