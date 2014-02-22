@@ -230,20 +230,20 @@ function process(ignoreT, oldEnvT, envT)
       if (not ignoreT[k]) then
          local oldV = oldEnvT[k]
          if (not oldV) then
-            a[#a+1] = "setenv(\"" .. k .. "\",\"" .. v .. ")"
+            a[#a+1] = "setenv(\"" .. k .. "\",\"" .. v .. "\")"
          else
             local oldA = path2pathA(oldV)
             local newA = path2pathA(v)
             local idx  = indexPath(oldV, oldA, v, newA)
             if (idx < 0) then
-               a[#a+1] = "setenv(\"" .. k .. "\",\"" .. v .. ")"
+               a[#a+1] = "setenv(\"" .. k .. "\",\"" .. v .. "\")"
             else
                newA = splice(newA, idx, #oldA + idx - 1)
                for i = idx-1, 1, -1 do
-                  a[#a+1] = "prepend_path(\"" .. k .. "\",\"" .. newA[i] .. ")"
+                  a[#a+1] = "prepend_path(\"" .. k .. "\",\"" .. newA[i] .. "\")"
                end
                for i = idx, #newA do
-                  a[#a+1] = "append_path(\"" .. k .. "\",\"" .. newA[i] .. ")"
+                  a[#a+1] = "append_path(\"" .. k .. "\",\"" .. newA[i] .. "\")"
                end
             end
          end
