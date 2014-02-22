@@ -55,24 +55,6 @@ local huge         = math.huge
 local min          = math.min
 local pairsByKeys  = pairsByKeys
 
---------------------------------------------------------------------------
--- Simple string conversion routines doing what they say.
-
-function doubleQuoteEscaped(s)
-   s = s:gsub('"','\\"')
-   return s
-end
-
-function singleQuoteEscaped(s)
-   s = s:gsub("'","\\'")
-   return s
-end
-
-function atSymbolEscaped(s)
-   s = s:gsub('@','\\@')
-   return s
-end
-
 
 --------------------------------------------------------------------------
 -- BaseShell Member functions:
