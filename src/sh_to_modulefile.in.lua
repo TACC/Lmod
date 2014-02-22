@@ -1,4 +1,48 @@
-#!/usr/bin/lua
+#!@path_to_lua@/lua
+-- -*- lua -*-
+--------------------------------------------------------------------------
+-- Lmod License
+--------------------------------------------------------------------------
+--
+--  Lmod is licensed under the terms of the MIT license reproduced below.
+--  This means that Lmod is free software and can be used for both academic
+--  and commercial purposes at absolutely no cost.
+--
+--  ----------------------------------------------------------------------
+--
+--  Copyright (C) 2008-2014 Robert McLay
+--
+--  Permission is hereby granted, free of charge, to any person obtaining
+--  a copy of this software and associated documentation files (the
+--  "Software"), to deal in the Software without restriction, including
+--  without limitation the rights to use, copy, modify, merge, publish,
+--  distribute, sublicense, and/or sell copies of the Software, and to
+--  permit persons to whom the Software is furnished to do so, subject
+--  to the following conditions:
+--
+--  The above copyright notice and this permission notice shall be
+--  included in all copies or substantial portions of the Software.
+--
+--  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+--  EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+--  OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+--  NONINFRINGEMENT.  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS
+--  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN
+--  ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+--  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+--  THE SOFTWARE.
+--
+--------------------------------------------------------------------------
+
+local program = arg[0]
+
+local i,j = program:find(".*/")
+local cmd_dir = "./"
+if (i) then
+   cmd_dir = program:sub(1,j)
+end
+package.path = cmd_dir .. "../tools/?.lua;" ..
+               cmd_dir .. "?.lua;"       .. package.path
 
 require("strict")
 require("string_split")
@@ -21,14 +65,11 @@ local ignoreA = {
    "_", "ENV2", "OLDPWD", "PS1","PS2", "PRINTER", "TTY", "TZ",
 }
 
-
-
 function masterTbl()
    return s_master
 end
 
 function wrtEnv(fn)
-
    local envT = posix.getenv()
    local s    = serializeTbl{name="envT", value = envT, indent = true}
    local f    = io.open(fn,"w")
@@ -37,7 +78,6 @@ function wrtEnv(fn)
       f:close()
    end
 end
-
 
 function splice(a, is, ie)
    local b = {}
@@ -140,8 +180,6 @@ end
 function main()
    ------------------------------------------------------------------------
    -- evaluate command line arguments
-   local program = arg[0]
-
    options()
    local masterTbl = masterTbl()
    local pargs     = masterTbl.pargs
@@ -219,7 +257,7 @@ end
 
 function options()
    local masterTbl     = masterTbl()
-   local usage         = "Usage: "
+   local usage         = "Usage: sh_to_modulefile [options] bash_shell_script [script_options]"
    local cmdlineParser = Optiks:new{usage=usage, version=Version}
 
 
@@ -233,11 +271,13 @@ function options()
       name   = {'--saveEnv'},
       dest   = 'saveEnvFn',
       action = 'store',
+      help   = "Internal use only",
    }
    cmdlineParser:add_option{ 
       name   = {'-o','--output'},
       dest   = 'outFn',
       action = 'store',
+      help   = "output modulefile",
    }
    local optionTbl, pargs = cmdlineParser:parse(arg)
 
