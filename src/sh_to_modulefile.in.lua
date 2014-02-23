@@ -49,6 +49,7 @@ require("string_split")
 require("serializeTbl")
 require("pairsByKeys")
 require("fileOps")
+require("capture")
 MF_Base = require("MF_Base")
 
 local Version   = "0.0"
@@ -59,14 +60,33 @@ local getenv    = posix.getenv
 local setenv    = posix.setenv
 local concatTbl = table.concat
 local s_master  = {}
+local load      = (_VERSION == "Lua 5.1") and loadstring or load
+
 envT            = false
 
+
+
+local keepT     = {
+   ['HOME']            = 'keep',
+   ['USER']            = 'keep',
+   ['LD_LIBRARY_PATH'] = 'keep',
+   ['LUA_CPATH']       = 'keep',
+   ['LUA_PATH']        = 'keep',
+   ['PATH']            = 'neat',
+}
+
+local execT = {
+   gcc    = 'keep',
+   lua    = 'keep',
+   python = 'keep',
+}
 
 local ignoreA = {
    "BASH_ENV", "COLUMNS", "DISPLAY", "ENV", "HOME", "LINES", "LOGNAME", "PWD", "SHELL",
    "SHLVL", "LC_ALL", "SSH_ASKPASS", "SSH_CLIENT", "SSH_CONNECTION", "SSH_TTY", "TERM",
    "USER", "EDITOR", "HISTFILE", "HISTSIZE", "MAILER", "PAGER", "REPLYTO", "VISUAL",
-   "_", "ENV2", "OLDPWD", "PS1","PS2", "PRINTER", "TTY", "TZ",
+   "_", "ENV2", "OLDPWD", "PS1","PS2", "PRINTER", "TTY", "TZ", "GROUP", "HOSTTYPE",
+   "MACHTYPE", "OSTYPE","REMOTEHOST", "VENDOR"
 }
 
 function masterTbl()
@@ -76,10 +96,14 @@ end
 function wrtEnv(fn)
    local envT = posix.getenv()
    local s    = serializeTbl{name="envT", value = envT, indent = true}
-   local f    = io.open(fn,"w")
-   if (f) then
-      f:write(s,"\n")
-      f:close()
+   if (fn == "-") then
+      io.stdout:write(s)
+   else
+      local f    = io.open(fn,"w")
+      if (f) then
+         f:write(s,"\n")
+         f:close()
+      end
    end
 end
 
@@ -144,7 +168,8 @@ local function cleanPath(v)
    for execName in pairs(execT) do
       local cmd = findInPath(execName, myPath)
       if (cmd ~= '') then
-         local p = path_regularize(dirname(cmd))
+         local dir = dirname(cmd):gsub("/+$","")
+         local p = path_regularize(dir)
          pathT[p].keep = true
       end
    end
@@ -231,21 +256,6 @@ function indexPath(old, oldA, new, newA)
 
 end
 
-local keepT     = {
-   ['HOME']            = 'keep',
-   ['USER']            = 'keep',
-   ['LD_LIBRARY_PATH'] = 'keep',
-   ['LUA_CPATH']       = 'keep',
-   ['LUA_PATH']        = 'keep',
-   ['PATH']            = 'neat',
-}
-
-local execT = {
-   gcc    = 'keep',
-   lua    = 'keep',
-   python = 'keep',
-}
-
 function cleanEnv()
    local envT = getenv()
 
@@ -294,28 +304,33 @@ function main()
    end
 
    local oldEnvT = getenv()
-   local fn      = os.tmpname()
    local cmdA    = false
 
    if(masterTbl.inStyle:lower() == "csh") then
       cmdA    = {
          "csh", "-f","-c",
-         "\". " ..concatTbl(pargs," ") .. '>& /dev/null; '.. LuaCmd .. " " .. program .. " --saveEnv ".. fn .. "\""
+         "\"source " ..concatTbl(pargs," ") .. '>& /dev/null; '.. LuaCmd .. " " .. program .. " --saveEnv -\""
       }
    else -- Assume bash unless told otherwise
       cmdA    = {
          "bash", "--noprofile","--norc","-c",
-         "\". " ..concatTbl(pargs," ") .. '>/dev/null 2>&1; '.. LuaCmd .. " " .. program .. " --saveEnv ".. fn .. "\""
+         "\". " ..concatTbl(pargs," ") .. '>/dev/null 2>&1; '.. LuaCmd .. " " .. program .. " --saveEnv -\""
       }
    end
       
-   os.execute(concatTbl(cmdA," "))
+   local s = capture(concatTbl(cmdA," "))
    
+   local f = io.open("s.log","w")
+   f:write(s)
+   f:close()
+   
+   
+
    local factory = MF_Base.build(masterTbl.style)
 
-   assert(loadfile(fn))()
+   assert(load(s))()
 
-   local s = concatTbl(factory:process(ignoreT, oldEnvT, envT),"\n")
+   s = concatTbl(factory:process(ignoreT, oldEnvT, envT),"\n")
    if (masterTbl.outFn) then
       f = io.open(masterTbl.outFn,"w")
       f:write(s)

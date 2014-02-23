@@ -131,4 +131,4 @@ cmdA=("-$MAKE distclean"
 
 runMe "${cmdA[@]}"
 
-rm -rf /tmp/mclay_build$$
+rm -rf /tmp/{stampede,ls4,longhorn}.build.$$ 
