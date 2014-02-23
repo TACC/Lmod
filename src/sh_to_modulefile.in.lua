@@ -36,11 +36,12 @@
 
 --------------------------------------------------------------------------
 --  sh_to_modulefile :
---     takes shell scripts (either bash or csh) and converts them to a
---     modulefile (either Lua or TCL).  This program is a "new" but it is
---     based on many design elements from env2: sourceforge.net/projects/env2
---     The program "env2" also converts shells to modulefiles but it does many
---     other conversions as well.
+--     This program takes shell scripts (either bash or csh) and converts 
+--     them to a modulefile (either Lua or TCL).  This program is a "new"
+--     but it is based on many design elements from sourceforge.net/projects/env2.
+--     The program "env2" also converts shells to modulefiles but it does 
+--     other conversions as well.  This program is more limited it just does
+--     conversions from 
 
 --------------------------------------------------------------------------
 --  Basic design:
@@ -49,8 +50,20 @@
 --     b) create an output factory:  MF_Lmod or MF_TCL to generate the
 --        output modulefile style.
 --     c) Process the before environment with the after environment and
---        generate the appropriate setenv's, "prepend_path's and append_path's
---        to convert from the old env to the new.
+--        generate the appropriate setenv's, prepend_path's and 
+--        append_path's to convert from the old env to the new.
+
+--------------------------------------------------------------------------
+--  Tricks:
+--     The main problem with doing this is find the overlap in path-like
+--     variables.  Suppose you have:
+--          PATH="b:c:d"
+--     and the result after sourcing the shell script is:
+--          PATH="a:b:c:d:e"
+--     This program finds the overlap starting with "b" and then can
+--     report that "a" needs to be prepended and "e" needs to be appended.
+
+
 
 
 
@@ -85,8 +98,6 @@ local load      = (_VERSION == "Lua 5.1") and loadstring or load
 
 envT            = false
 
-
-
 local keepT     = {
    ['HOME']            = 'keep',
    ['USER']            = 'keep',
@@ -100,6 +111,8 @@ local execT = {
    gcc    = 'keep',
    lua    = 'keep',
    python = 'keep',
+   csh    = 'keep',
+   bash   = 'keep',
 }
 
 local ignoreA = {
@@ -107,7 +120,7 @@ local ignoreA = {
    "SHLVL", "LC_ALL", "SSH_ASKPASS", "SSH_CLIENT", "SSH_CONNECTION", "SSH_TTY", "TERM",
    "USER", "EDITOR", "HISTFILE", "HISTSIZE", "MAILER", "PAGER", "REPLYTO", "VISUAL",
    "_", "ENV2", "OLDPWD", "PS1","PS2", "PRINTER", "TTY", "TZ", "GROUP", "HOSTTYPE",
-   "MACHTYPE", "OSTYPE","REMOTEHOST", "VENDOR",
+   "MACHTYPE", "OSTYPE","REMOTEHOST", "VENDOR","HOST",
 }
 
 function masterTbl()
