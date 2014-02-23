@@ -55,6 +55,8 @@ local Version   = "0.0"
 local dbg       = require("Dbg"):dbg()
 local Optiks    = require("Optiks")
 local posix     = require("posix")
+local getenv    = posix.getenv
+local setenv    = posix.setenv
 local concatTbl = table.concat
 local s_master  = {}
 envT            = false
@@ -121,6 +123,57 @@ function path2pathA(path)
    return pathA
 end
 
+local function cleanPath(v)
+
+   local pathT  = {}
+   local pathA  = {}
+
+   local idx = 0
+   for path in v:split(':') do
+      idx = idx + 1
+      path = path_regularize(path)
+      if (pathT[path] == nil) then
+         pathT[path]     = { idx = idx, keep = false }
+         pathA[#pathA+1] = path
+      end
+   end
+
+   local myPath = concatTbl(pathA,':')
+   pathA        = {}
+
+   for execName in pairs(execT) do
+      local cmd = findInPath(execName, myPath)
+      if (cmd ~= '') then
+         local p = path_regularize(dirname(cmd))
+         pathT[p].keep = true
+      end
+   end
+         
+   for path in pairs(pathT) do
+      if (v:find('^/usr/')) then
+         pathT[path].keep = true
+      end
+   end
+
+   -- Step 1: Make a sparse array with path as values
+   local t = {}
+
+   for k, v in pairs(pathT) do
+      if (v.keep) then
+         t[v.idx] = k
+      end
+   end
+
+   -- Step 2: Use pairsByKeys to copy paths into pathA in correct order
+   local n = 0
+   for _, v in pairsByKeys(t) do
+      n = n + 1
+      pathA[n] = v
+   end
+
+   -- Step 3: rebuild path
+   return concatTbl(pathA,':')
+end
 
 function indexPath(old, oldA, new, newA)
    dbg.start{"indexPath(",old, ", ", new,")"}
@@ -178,6 +231,35 @@ function indexPath(old, oldA, new, newA)
 
 end
 
+local keepT     = {
+   ['HOME']            = 'keep',
+   ['USER']            = 'keep',
+   ['LD_LIBRARY_PATH'] = 'keep',
+   ['LUA_CPATH']       = 'keep',
+   ['LUA_PATH']        = 'keep',
+   ['PATH']            = 'neat',
+}
+
+local execT = {
+   gcc    = 'keep',
+   lua    = 'keep',
+   python = 'keep',
+}
+
+function cleanEnv()
+   local envT = getenv()
+
+   for k, v in pairs(envT) do
+      local keep = keepT[k]
+      if (not keep) then
+         setenv(k, nil, true)
+      elseif (keep == 'neat') then
+         setenv(k, cleanPath(v), true)
+      end
+   end
+end
+   
+
 
 function main()
    ------------------------------------------------------------------------
@@ -207,17 +289,29 @@ function main()
       LuaCmd = findInPath("lua")
    end
 
+   if (masterTbl.cleanEnv) then
+      cleanEnv()
+   end
 
-   local oldEnvT = posix.getenv()
+   local oldEnvT = getenv()
    local fn      = os.tmpname()
-   local cmdA    = {
-      "/bin/bash", "--noprofile","--norc","-c",
-      "\". " ..concatTbl(pargs," ") .. '; '.. LuaCmd .. " " .. program .. " --saveEnv ".. fn .. "\""
-   }
-   
+   local cmdA    = false
+
+   if(masterTbl.inStyle:lower() == "csh") then
+      cmdA    = {
+         "csh", "-f","-c",
+         "\". " ..concatTbl(pargs," ") .. '>& /dev/null; '.. LuaCmd .. " " .. program .. " --saveEnv ".. fn .. "\""
+      }
+   else -- Assume bash unless told otherwise
+      cmdA    = {
+         "bash", "--noprofile","--norc","-c",
+         "\". " ..concatTbl(pargs," ") .. '>/dev/null 2>&1; '.. LuaCmd .. " " .. program .. " --saveEnv ".. fn .. "\""
+      }
+   end
+      
    os.execute(concatTbl(cmdA," "))
    
-   local factory = MF_Base:build("Lmod")
+   local factory = MF_Base.build(masterTbl.style)
 
    assert(loadfile(fn))()
 
@@ -249,11 +343,35 @@ function options()
       action = 'store',
       help   = "Internal use only",
    }
+
+   cmdlineParser:add_option{ 
+      name   = {'--cleanEnv'},
+      dest   = 'cleanEnv',
+      action = 'store_true',
+      help   = "Create a sterile user environment before analyzing",
+   }
+
    cmdlineParser:add_option{ 
       name   = {'-o','--output'},
       dest   = 'outFn',
       action = 'store',
       help   = "output modulefile",
+   }
+
+   cmdlineParser:add_option{ 
+      name    = {'--to'},
+      dest    = 'style',
+      action  = 'store',
+      help    = "Output style: either TCL or Lmod",
+      default = "Lmod",
+   }
+
+   cmdlineParser:add_option{ 
+      name    = {'--from'},
+      dest    = 'inStyle',
+      action  = 'store',
+      help    = "Input style: either bash or csh",
+      default = "bash",
    }
    local optionTbl, pargs = cmdlineParser:parse(arg)
 
