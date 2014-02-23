@@ -34,6 +34,27 @@
 --
 --------------------------------------------------------------------------
 
+--------------------------------------------------------------------------
+--  sh_to_modulefile :
+--     takes shell scripts (either bash or csh) and converts them to a
+--     modulefile (either Lua or TCL).  This program is a "new" but it is
+--     based on many design elements from env2: sourceforge.net/projects/env2
+--     The program "env2" also converts shells to modulefiles but it does many
+--     other conversions as well.
+
+--------------------------------------------------------------------------
+--  Basic design:
+--     a) capture the output of the supplied script and use this program
+--        to generate a lua table of the Environment.
+--     b) create an output factory:  MF_Lmod or MF_TCL to generate the
+--        output modulefile style.
+--     c) Process the before environment with the after environment and
+--        generate the appropriate setenv's, "prepend_path's and append_path's
+--        to convert from the old env to the new.
+
+
+
+
 local program = arg[0]
 
 local i,j = program:find(".*/")
@@ -377,7 +398,7 @@ function options()
       name    = {'--to'},
       dest    = 'style',
       action  = 'store',
-      help    = "Output style: either TCL or Lmod",
+      help    = "Output style: either TCL or Lmod. (default: Lmod)",
       default = "Lmod",
    }
 
@@ -385,7 +406,7 @@ function options()
       name    = {'--from'},
       dest    = 'inStyle',
       action  = 'store',
-      help    = "Input style: either bash or csh",
+      help    = "Input style: either bash or csh. (default: bash)",
       default = "bash",
    }
    local optionTbl, pargs = cmdlineParser:parse(arg)
