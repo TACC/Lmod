@@ -1,4 +1,4 @@
-LMOD_SETTARG_SUPPORT     := $(shell echo "@SETTARG@"       | tr '[:upper:]' '[:lower:]')
+LMOD_FULL_SETTARG_SUPPORT := $(shell echo "@SETTARG@"       | tr '[:upper:]' '[:lower:]')
 USE_DOT_FILES            := $(shell echo "@USE_DOT_FILES@" | tr '[:upper:]' '[:lower:]')
 PREPEND_BLOCK     	 := $(shell echo "@PREPEND_BLOCK@" | tr '[:upper:]' '[:lower:]')
 COLORIZE          	 := $(shell echo "@COLORIZE@"      | tr '[:upper:]' '[:lower:]')
@@ -102,7 +102,7 @@ __installMe:
 	        -e 's|@path_to_lua@|$(PATH_TO_LUA)|g'                 	   \
 	        -e 's|@path_to_hashsum@|$(PATH_TO_HASHSUM)|g'         	   \
 	        -e 's|@path_to_pager@|$(PATH_TO_PAGER)|g'             	   \
-                -e 's|@lmod_settarg_support@|$(LMOD_SETTARG_SUPPORT)|g'    \
+                -e 's|@lmod_full_settarg_support@|$(LMOD_FULL_SETTARG_SUPPORT)|g' \
                 -e 's|@use_dot_files@|$(USE_DOT_FILES)|g'             	   \
                 -e 's|@git@|$(GIT_VERSION)|g'                              \
 	        -e 's|@ancient@|$(ANCIENT)|g'                         	   \

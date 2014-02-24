@@ -32,7 +32,7 @@ unset postfix
 unset histchar
 
 
-if ( $?prompt && $?tcsh && "$LMOD_SETTARG_SUPPORT" != no ) then
+if ( $?prompt && $?tcsh && "$LMOD_FULL_SETTARG_SUPPORT" != no ) then
    alias cwdcmd 'eval `$LMOD_SETTARG_CMD -s csh`'
 
    switch ($TERM)

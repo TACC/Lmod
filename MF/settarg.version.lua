@@ -12,7 +12,7 @@ local respect = "true"
 setenv("SETTARG_TAG1", "OBJ", respect )
 setenv("SETTARG_TAG2", "_"  , respect )
 
-if ((os.getenv("LMOD_SETTARG_SUPPORT") or ""):lower() ~= "no") then
+if ((os.getenv("LMOD_FULL_SETTARG_SUPPORT") or ""):lower() ~= "no") then
    set_alias("cdt", "cd $TARG")
    set_shell_function("targ",  'builtin echo $TARG', 'echo $TARG')
    set_shell_function("dbg",   'settarg "$@" dbg',   'settarg $* dbg')

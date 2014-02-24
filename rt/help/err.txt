@@ -251,7 +251,7 @@ Path to Pager                    @path_to_pager@
 Pkg Class name                   Pkg
 Lmod prefix                      @PREFIX@
 Prepend order                    @prepend_block@
-Supporting Full Settarg Use      @lmod_settarg_support@
+Supporting Full Settarg Use      @lmod_full_settarg_support@
 Write cache after (sec)          @short_time@
 Site Pkg location                standard
 uname -a

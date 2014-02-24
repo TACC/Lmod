@@ -93,7 +93,7 @@ local function new(self)
    else
       lmod_version = lmod_version:gsub("[)(]","")
    end
-   local settarg_support = "@lmod_settarg_support@"
+   local settarg_support = "@lmod_full_settarg_support@"
    local pkgName         = Pkg.name() or "unknown"
    local lmod_colorize   = getenv("LMOD_COLORIZE") or "@colorize@"
    local scDescriptT     = getSCDescriptT()

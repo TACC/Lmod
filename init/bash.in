@@ -80,7 +80,7 @@ clearMT()
 #  The following make the action of the settarg available to the titlebar
 #  for both xterm's and screen but only for interactive shells.
 if [ "$PS1" ]; then
-  if [ -n "$LMOD_SETTARG_SUPPORT" -a "$LMOD_SETTARG_SUPPORT" != no ]; then
+  if [ -n "$LMOD_FULL_SETTARG_SUPPORT" -a "$LMOD_FULL_SETTARG_SUPPORT" != no ]; then
     xSetTitleLmod()
     {
       builtin echo -n -e "\033]2;$1\007";
