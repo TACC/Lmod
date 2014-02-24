@@ -42,6 +42,7 @@ require("fileOps")
 require("string_split")
 require("string_trim")
 require("parseVersion")
+require("capture")
 
 local Version   = require("Version")
 local base64    = require("base64")
