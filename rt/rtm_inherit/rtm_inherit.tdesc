@@ -1,0 +1,65 @@
+-- -*- lua -*-
+local testName = "rtm_inherit"
+testdescript = {
+   owner   = "rtm",
+   product = "modules",
+   description = [[
+	 Test initial module load
+   ]],
+   keywords = { testName },
+
+   active = true,
+   testName = testName,
+   job_submit_method = "INTERACTIVE",
+
+   runScript = [[
+
+     . $(projectDir)/rt/common_funcs.sh
+
+     unsetMT
+     initStdEnvVars
+     MODULEPATH_ROOT=$(testDir)/mf;         export MODULEPATH_ROOT
+     RTM_MODULEPATH_ROOT=$(testDir)/rtm_mf; export RTM_MODULEPATH_ROOT
+
+     export MODULEPATH=$(testDir)/rtm_mf/Core:$(testDir)/mf/Core
+
+
+     
+
+     numStep=0
+     COUNT=0
+     HOME_ORIG=`(cd $HOME; /bin/pwd)`
+     HOME=`pwd`;                        export HOME
+     RTM_SETTARG_CMD=":";               export RTM_SETTARG_CMD
+
+     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d
+
+     runLmod --version        # 1
+     runLmod avail            # 2
+     runLmod load intel       # 3
+
+     HOME_ORIG=$HOME
+
+     cat _stdout.[0-9][0-9] > _stdout.orig
+     joinBase64Results -bash _stdout.orig _stdout.new
+     cleanUp _stdout.new out.txt
+
+     cat _stderr.[0-9][0-9] > _stderr.orig
+     cleanUp _stderr.orig err.txt
+
+     rm -f $(cmdResultFn)
+     wrapperDiff -r $(cmdResultFn) $(testDir)/out.txt out.txt
+     wrapperDiff -r $(cmdResultFn) $(testDir)/err.txt err.txt
+     testFinish -r $(resultFn) -t $(runtimeFn) $(cmdResultFn)
+   ]],
+
+
+   blessScript = [[
+         # perform what is needed
+   ]],
+
+   tests = {
+      { id='t1'},
+   },
+
+}
