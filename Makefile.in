@@ -1,77 +1,77 @@
 LMOD_FULL_SETTARG_SUPPORT := $(shell echo "@SETTARG@"       | tr '[:upper:]' '[:lower:]')
-USE_DOT_FILES            := $(shell echo "@USE_DOT_FILES@" | tr '[:upper:]' '[:lower:]')
-PREPEND_BLOCK     	 := $(shell echo "@PREPEND_BLOCK@" | tr '[:upper:]' '[:lower:]')
-COLORIZE          	 := $(shell echo "@COLORIZE@"      | tr '[:upper:]' '[:lower:]')
-ZSH_SITE_FUNCTIONS_DIR   := @ZSH_SITE_FUNCTIONS_DIR@
-SPIDER_CACHE_DESCRIPT_FN := @SPIDER_CACHE_DESCRIPT_FN@
-ANCIENT           	 := @ANCIENT@
-ALLOW_TCL_MFILES         := @ALLOW_TCL_MFILES@
-MPATH_AVAIL              := @MPATH_AVAIL@
-DUPLICATE_PATHS          := @DUPLICATE_PATHS@
-SHORT_TIME        	 := @SHORT_TIME@
-SPIDER_CACHE_DIRS 	 := @SPIDER_CACHE_DIRS@
-PATH_TO_HASHSUM   	 := @PATH_TO_HASHSUM@
-PATH_TO_LUA	  	 := @PATH_TO_LUA@
-PATH_TO_PAGER	  	 := @PATH_TO_PAGER@
-MODULEPATH_ROOT   	 := @MODULEPATH_ROOT@
-VERSION_SRC	  	 := src/Version.lua
-LUA_INCLUDE       	 := @LUA_INCLUDE@
-UPDATE_SYSTEM_FN  	 := @UPDATE_SYSTEM_FN@
-GIT_PROG                 := @PATH_TO_GIT@
-GIT_VERSION              := $(shell if [ -n "$(GIT_PROG)" -a -d .git ]; then lmodV=`git describe --always`; echo "($$lmodV)"; else echo "@git@"; fi)
-prefix		  	 := @prefix@
-package		  	 := lmod
-version		  	 := $(shell cd ./src; $(PATH_TO_LUA)/lua -e "V=require('Version'); print(V.tag())")
-PKGV		  	 := $(prefix)/$(package)/$(version)
-PKG		  	 := $(prefix)/$(package)/$(package)
-LIB		  	 := $(prefix)/$(package)/$(version)/lib
-LIBEXEC		  	 := $(prefix)/$(package)/$(version)/libexec
-SHELLS                   := $(prefix)/$(package)/$(version)/shells
-TOOLS                    := $(prefix)/$(package)/$(version)/tools
-SETTARG                  := $(prefix)/$(package)/$(version)/settarg
-INIT		  	 := $(prefix)/$(package)/$(version)/init
-LMOD_MF 	  	 := $(prefix)/$(package)/$(version)/modulefiles/Core
-LMOD_MF_SOURCE           := MF/*.version.lua
-SETTARG_SOURCE           := settarg/*.lua  settarg/.settarg.lua  settarg/targ.in
+USE_DOT_FILES             := $(shell echo "@USE_DOT_FILES@" | tr '[:upper:]' '[:lower:]')
+PREPEND_BLOCK     	  := $(shell echo "@PREPEND_BLOCK@" | tr '[:upper:]' '[:lower:]')
+COLORIZE          	  := $(shell echo "@COLORIZE@"      | tr '[:upper:]' '[:lower:]')
+ZSH_SITE_FUNCTIONS_DIR    := @ZSH_SITE_FUNCTIONS_DIR@
+SPIDER_CACHE_DESCRIPT_FN  := @SPIDER_CACHE_DESCRIPT_FN@
+ANCIENT           	  := @ANCIENT@
+ALLOW_TCL_MFILES          := @ALLOW_TCL_MFILES@
+MPATH_AVAIL               := @MPATH_AVAIL@
+DUPLICATE_PATHS           := @DUPLICATE_PATHS@
+SHORT_TIME        	  := @SHORT_TIME@
+SPIDER_CACHE_DIRS 	  := @SPIDER_CACHE_DIRS@
+PATH_TO_HASHSUM   	  := @PATH_TO_HASHSUM@
+PATH_TO_LUA	  	  := @PATH_TO_LUA@
+PATH_TO_PAGER	  	  := @PATH_TO_PAGER@
+MODULEPATH_ROOT   	  := @MODULEPATH_ROOT@
+VERSION_SRC	  	  := src/Version.lua
+LUA_INCLUDE       	  := @LUA_INCLUDE@
+UPDATE_SYSTEM_FN  	  := @UPDATE_SYSTEM_FN@
+GIT_PROG                  := @PATH_TO_GIT@
+GIT_VERSION               := $(shell if [ -n "$(GIT_PROG)" -a -d .git ]; then lmodV=`git describe --always`; echo "($$lmodV)"; else echo "@git@"; fi)
+prefix		  	  := @prefix@
+package		  	  := lmod
+version		  	  := $(shell cd ./src; $(PATH_TO_LUA)/lua -e "V=require('Version'); print(V.tag())")
+PKGV		  	  := $(prefix)/$(package)/$(version)
+PKG		  	  := $(prefix)/$(package)/$(package)
+LIB		  	  := $(prefix)/$(package)/$(version)/lib
+LIBEXEC		  	  := $(prefix)/$(package)/$(version)/libexec
+SHELLS                    := $(prefix)/$(package)/$(version)/shells
+TOOLS                     := $(prefix)/$(package)/$(version)/tools
+SETTARG                   := $(prefix)/$(package)/$(version)/settarg
+INIT		  	  := $(prefix)/$(package)/$(version)/init
+LMOD_MF 	  	  := $(prefix)/$(package)/$(version)/modulefiles/Core
+LMOD_MF_SOURCE            := MF/*.version.lua
+SETTARG_SOURCE            := settarg/*.lua  settarg/.settarg.lua  settarg/targ.in
 
-DIRLIST		  	 := $(DESTDIR)$(LIBEXEC) $(DESTDIR)$(TOOLS) $(DESTDIR)$(SETTARG)             \
-                            $(DESTDIR)$(SHELLS)                                                      \
-                            $(DESTDIR)$(INIT) $(DESTDIR)$(LIB) $(DESTDIR)$(LMOD_MF)
+DIRLIST		  	  := $(DESTDIR)$(LIBEXEC) $(DESTDIR)$(TOOLS) $(DESTDIR)$(SETTARG)             \
+                             $(DESTDIR)$(SHELLS)                                                      \
+                             $(DESTDIR)$(INIT) $(DESTDIR)$(LIB) $(DESTDIR)$(LMOD_MF)
 
 
-STANDALONE_PRGM   	 := src/lmod.in.lua src/addto.in.lua src/getmt.in.lua src/processMT.in.lua   \
-                            src/spider.in.lua src/processModuleUsage.in.lua src/reportUsers.in.lua   \
-                            src/clearMT_cmd.in.lua src/ml_cmd.in.lua src/spiderCacheSupport.in.lua   \
-                            src/sh_to_modulefile.in.lua
-SHELL_INIT	  	 := bash.in csh.in ksh.in tcsh.in zsh.in sh.in perl.in                       \
-                            env_modules_python.py.in lmod_bash_completions .lmodrc.lua
-SHELL_INIT	  	 := $(patsubst %, init/%, $(SHELL_INIT))
+STANDALONE_PRGM   	  := src/lmod.in.lua src/addto.in.lua src/getmt.in.lua src/processMT.in.lua   \
+                             src/spider.in.lua src/processModuleUsage.in.lua src/reportUsers.in.lua   \
+                             src/clearMT_cmd.in.lua src/ml_cmd.in.lua src/spiderCacheSupport.in.lua   \
+                             src/sh_to_modulefile.in.lua
+SHELL_INIT	  	  := bash.in csh.in ksh.in tcsh.in zsh.in sh.in perl.in                       \
+                             env_modules_python.py.in lmod_bash_completions .lmodrc.lua
+SHELL_INIT	  	  := $(patsubst %, init/%, $(SHELL_INIT))
 
-ZSH_FUNCS                := init/zsh/_ml init/zsh/_module
+ZSH_FUNCS                 := init/zsh/_ml init/zsh/_module
 
-STARTUP		  	 := profile.in cshrc.in
-STARTUP		  	 := $(patsubst %, init/%, $(STARTUP))
+STARTUP		  	  := profile.in cshrc.in
+STARTUP		  	  := $(patsubst %, init/%, $(STARTUP))
 
-MAIN_DIR	  	 := Makefile.in INSTALL configure README_lua_modulefiles.txt README README.old
+MAIN_DIR	  	  := Makefile.in INSTALL configure README_lua_modulefiles.txt README README.old
 
-CONTRIB_DIRS           	 :=  \
-                             bash_patch                        \
-                             BuildSystemCacheFile              \
-                             converting_shell_to_module_files  \
-                             hook                              \
-                             parseVersions                     \
-	                     settarg                           \
-                             SitePackage                       \
-                             TACC                              \
-                             tricky_modulefiles
+CONTRIB_DIRS           	  :=  \
+                              bash_patch                        \
+                              BuildSystemCacheFile              \
+                              converting_shell_to_module_files  \
+                              hook                              \
+                              parseVersions                     \
+	                      settarg                           \
+                              SitePackage                       \
+                              TACC                              \
+                              tricky_modulefiles
 
-CONTRIB                  := $(patsubst %, contrib/%, $(CONTRIB_DIRS))
-lua_code	  	 := $(filter-out %.in.lua, $(wildcard src/*.lua))                         \
-                            $(wildcard src/*.tcl)
-VDATE		  	 := $(shell date +'%F %H:%M')
+CONTRIB                   := $(patsubst %, contrib/%, $(CONTRIB_DIRS))
+lua_code	  	  := $(filter-out %.in.lua, $(wildcard src/*.lua))                         \
+                             $(wildcard src/*.tcl)
+VDATE		  	  := $(shell date +'%F %H:%M')
 
-ComputeHashSum    	 := src/computeHashSum.in.lua
-spiderCacheSupportCMD    := lua src/spiderCacheSupport.in.lua
+ComputeHashSum    	  := src/computeHashSum.in.lua
+spiderCacheSupportCMD     := lua src/spiderCacheSupport.in.lua
 
 .PHONY: test pkgs
 

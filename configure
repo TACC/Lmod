@@ -2405,16 +2405,18 @@ PATH_TO_ZSH=$ZSH
 
 if test -n "$PATH_TO_ZSH" ; then
   cat > conftest.zsh << 'EOF'
-for dir in $fpath ; do
-  case $dir in
-    */site-functions)
-      echo $dir;;
-  esac
-done
+  for dir in $fpath ; do
+    case $dir in
+      */site-functions)
+        echo $dir >&2
+        ;;
+    esac
+  done
 EOF
 
    chmod +x conftest.zsh
-   ZSH_SITE_FUNCTIONS_DIR=`$PATH_TO_ZSH -f ./conftest.zsh`
+   ZSH_SITE_FUNCTIONS_DIR=`$PATH_TO_ZSH -f ./conftest.zsh 2>&1 >/dev/null`
+   rm conftest.zsh
 fi
 
 ac_config_files="$ac_config_files makefile:Makefile.in"
