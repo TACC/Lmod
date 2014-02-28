@@ -60,7 +60,6 @@ require("utils")
 local Spider = require("Spider")
 local Optiks = require("Optiks")
 local dbg    = require("Dbg"):dbg()
-require("VarDump")
 
 min = math.min
 max = math.max

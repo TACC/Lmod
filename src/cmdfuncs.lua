@@ -640,7 +640,7 @@ function Show(...)
    dbg.start{"Show(", concatTbl({...},", "),")"}
 
    mcp = MasterControl.build("show")
-   local borderStr = banner:border(2)
+   local borderStr = banner:border(0)
 
    prtHdr       = function()
                      io.stderr:write(borderStr)
