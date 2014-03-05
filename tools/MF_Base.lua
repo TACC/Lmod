@@ -66,14 +66,15 @@ s_mfT = false
 
 function M.build(kind)
    if (not s_mfT) then
-      local MF_Lmod = require("MF_Lmod")
+      local MF_Lua  = require("MF_Lua")
       local MF_TCL  = require("MF_TCL")
       s_mfT         = {}
-      s_mfT["lmod"] = MF_Lmod
+      s_mfT["lmod"] = MF_Lua
+      s_mfT["lua"]  = MF_Lua
       s_mfT["tcl"]  = MF_TCL
    end
    kind = (kind or ""):lower()
-   local mkind = s_mfT[kind] or s_mfT['lmod']
+   local mkind = s_mfT[kind] or s_mfT['lua']
    return mkind:create()
 end
 

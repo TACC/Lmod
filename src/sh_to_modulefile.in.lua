@@ -411,8 +411,8 @@ function options()
       name    = {'--to'},
       dest    = 'style',
       action  = 'store',
-      help    = "Output style: either TCL or Lmod. (default: Lmod)",
-      default = "Lmod",
+      help    = "Output style: either TCL or Lua. (default: Lua)",
+      default = "Lua",
    }
 
    cmdlineParser:add_option{ 
