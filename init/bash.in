@@ -1,8 +1,10 @@
 #!/bin/bash
 # -*- shell-script -*-
 
+LMOD_PKG=@PKG@
 LMOD_DIR=@PKG@/libexec/
 LMOD_CMD=@PKG@/libexec/lmod
+export LMOD_PKG
 export LMOD_CMD
 export LMOD_DIR
 

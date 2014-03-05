@@ -1,9 +1,12 @@
 #!/bin/bash
 # -*- shell-script -*-
 
-LMOD_DIR=@PKG@/libexec/
-LMOD_CMD=@PKG@/libexec/lmod
+LMOD_PKG="@PKG@"
+LMOD_DIR="@PKG@/libexec/"
+LMOD_CMD="@PKG@/libexec/lmod"
 export LMOD_CMD
+export LMOD_PKG
+export LMOD_DIR
 module()
 {
   eval `$LMOD_CMD bash "$@"`
@@ -13,4 +16,16 @@ export LMOD_DIR
 clearMT()
 {
   eval $($LMOD_DIR/clearMT_cmd bash)
+}
+
+########################################################################
+#  ml is a shorthand tool for people who can't type moduel, err, module
+#  It is also a combination command:
+#     ml            -> module list
+#     ml gcc        -> module load gcc
+#     ml -gcc intel -> module unload gcc; module load intel
+#  It does much more do: "ml --help" for more information.
+ml()
+{
+  eval $($LMOD_DIR/ml_cmd "$@")
 }

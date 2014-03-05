@@ -1,6 +1,7 @@
 #!/bin/csh
 setenv LMOD_CMD "@PKG@/libexec/lmod"
 setenv LMOD_DIR "@PKG@/libexec"
+setenv LMOD_PKG "@PKG@"
 
 set prefix  = ""
 set midfix  = ""
