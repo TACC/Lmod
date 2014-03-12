@@ -210,6 +210,7 @@ local function buildLocWmoduleT(mpath, moduleT, mpathT, lT, availT)
       local version   = extractVersion(vv.full, sn)
 
       if (version) then
+         dbg.print{"%%%RTM%%% f: ",f,", version: ",version,", markedDefault: ", vv.markedDefault,"\n"}
          local parseV = parseVersion(version)
          a[parseV]    = { version = version, file = f, parseV = parseV,
                           markedDefault = vv.markedDefault}

@@ -322,6 +322,7 @@ function M.findModulesInDir(mpath, path, prefix, moduleT)
       local markedDefault   = findMarkedDefault(mpath, path)
       for full,v in pairs(mnameT) do
          local sn   = shortName(full)
+         dbg.print{"%%%RTM%%% init moduleT: v.file:",v.file,", sn: ",sn,", markedDefault: ",markedDefault,"\n"}
          moduleT[v.file] = registerModuleT(full, sn, v.file, markedDefault)
          moduleStack[iStack] = {path=v.file, sn = sn, full = full, moduleT = moduleT, fn = v.file}
          dbg.print{"Top of Stack: ",iStack, " Full: ", full, " file: ", v.file, "\n"}
