@@ -1,4 +1,5 @@
 local version = "13.1"
+setenv("INTEL_KIND","SYSTEM")
 whatis("Name: Intel Compiler")
 whatis("Version: ".. version)
 whatis("Category: compiler, runtime support")

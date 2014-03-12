@@ -417,6 +417,37 @@ function M.find_exact_match(self, pathA)
    return found, t
 end
 
+
+
+--------------------------------------------------------------------------
+-- followDotVersion(): This local function takes the file pointed to by the 
+--                     .version file and looks to see if that file exists
+--                     in the current mpath directory.  Note that this file
+--                     might have a .lua extension.
+
+local function followDotVersion(mpath, sn, version)
+   local accept_fn  = accept_fn
+   local fn         = pathJoin(mpath, sn, version)
+   local searchExtT = accept_extT()
+   local numExts    = #searchExtT
+   local result     = nil
+
+   for i = 1, numExts do
+      local v        = searchExtT[i]
+      local f        = fn .. v
+      local attr     = lfs.attributes(f)
+      local readable = posix.access(f,"r")
+
+      if (readable and attr and attr.mode == "file") then
+         result = f
+         break
+      end
+   end
+
+   return result
+end
+
+
 searchDefaultT = { "/default", "/.version" }
 
 function M.find_marked_default(self, pathA)
@@ -463,13 +494,14 @@ function M.find_marked_default(self, pathA)
             elseif (v == "/.version") then
                local vf = Master.versionFile(result)
                if (vf and accept_fn(vf)) then
-                  local mname = M.new(self, "load", pathJoin(sn, vf))
-                  t           = mname:find()
-                  t.default   = 1
-                  result      = t.fn
-                  dbg.print {"(1) .version: t.fn: ", t.fn,"\n"}
-                  found       = true
-                  break;
+                  result = followDotVersion(mpath, sn, vf)
+                  if (result) then
+                     t.default = 1
+                     t.fn      = result
+                     dbg.print {"(1) .version: result: ", result,"\n"}
+                     found     = true
+                     break;
+                  end
                end
             end
          end
@@ -483,8 +515,6 @@ function M.find_marked_default(self, pathA)
       end
    end
 
-   dbg.print {"(2) .version: t.fn: ", t.fn,"\n"}
-
    if (found) then
       t.fn          = result
       t.modFullName = fullName
@@ -493,7 +523,6 @@ function M.find_marked_default(self, pathA)
                 " default: ",t.default,"\n"}
    end
 
-   dbg.print {"(3) .version: t.fn: ", t.fn,"\n"}
    dbg.fini("MName:find_marked_default")
    return found, t
 end
