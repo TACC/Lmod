@@ -1,0 +1,4 @@
+#%Module#####################################################################
+
+
+set-alias module_alias {eval `$LMOD_DIR/lmod bash "$@"`}

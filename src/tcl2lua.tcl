@@ -410,9 +410,15 @@ proc append-path { var val } {
         cmdargs "append_path" $var $val
     }
 }
+proc doubleQuoteEscaped {text} {
+    regsub -all "\"" $text "\\\"" text
+    return $text
+}
+
 proc cmdargs { cmd args } {
     foreach arg $args {
-        lappend cmdArgsL "\"$arg\""
+	set val [doubleQuoteEscaped $arg]
+        lappend cmdArgsL "\"$val\""
     }
     set cmdArgs [join $cmdArgsL ","]
     puts stdout "$cmd\($cmdArgs\)"

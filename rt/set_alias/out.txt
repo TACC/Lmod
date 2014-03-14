@@ -18,6 +18,7 @@ VARIABLE="1";
 export VARIABLE;
 _ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/set_alias/mf",},family={},inactive={},mT={test1={["FN"]="ProjectDIR/rt/set_alias/mf/test1/1.0.lua",["default"]=1,["fullName"]="test1/1.0",["loadOrder"]=1,propT={},["short"]="test1",["status"]="active",},},mpathA={"ProjectDIR/rt/set_alias/mf",},["systemBaseMPATH"]="ProjectDIR/rt/set_alias/mf",["version"]=2,}';
 export _ModuleTable_;
+alias rtm_ml='eval $($LMOD_CMD bash "$@")';
 alias somealias='1';
 ===========================
 step 3
@@ -35,6 +36,7 @@ VARIABLE="2";
 export VARIABLE;
 _ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/set_alias/mf",},family={},inactive={},mT={test2={["FN"]="ProjectDIR/rt/set_alias/mf/test2/2.0.lua",["default"]=1,["fullName"]="test2/2.0",["loadOrder"]=1,propT={},["short"]="test2",["status"]="active",},},mpathA={"ProjectDIR/rt/set_alias/mf",},["systemBaseMPATH"]="ProjectDIR/rt/set_alias/mf",["version"]=2,}';
 export _ModuleTable_;
+unalias rtm_ml 2> /dev/null;
 alias somealias='2';
 ===========================
 step 4
@@ -68,6 +70,7 @@ VARIABLE="1";
 export VARIABLE;
 _ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/set_alias/mf",},family={},inactive={},mT={test1={["FN"]="ProjectDIR/rt/set_alias/mf/test1/1.0.lua",["default"]=1,["fullName"]="test1/1.0",["loadOrder"]=1,propT={},["short"]="test1",["status"]="active",},},mpathA={"ProjectDIR/rt/set_alias/mf",},["systemBaseMPATH"]="ProjectDIR/rt/set_alias/mf",["version"]=2,}';
 export _ModuleTable_;
+alias rtm_ml='eval $($LMOD_CMD bash "$@")';
 alias somealias='1';
 ===========================
 step 6
@@ -84,3 +87,18 @@ export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/set_alias/mf",},family={},inactive={},mT={sfunc={["FN"]="ProjectDIR/rt/set_alias/mf/sfunc/1.0.lua",["default"]=1,["fullName"]="sfunc/1.0",["loadOrder"]=2,propT={},["short"]="sfunc",["status"]="active",},test1={["FN"]="ProjectDIR/rt/set_alias/mf/test1/1.0.lua",["default"]=1,["fullName"]="test1/1.0",["loadOrder"]=1,propT={},["short"]="test1",["status"]="active",},},mpathA={"ProjectDIR/rt/set_alias/mf",},["systemBaseMPATH"]="ProjectDIR/rt/set_alias/mf",["version"]=2,}';
 export _ModuleTable_;
 ml() { eval $($LMOD_DIR/ml_cmd "$@"); };
+===========================
+step 7
+lua ProjectDIR/src/lmod.in.lua bash load alias
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/set_alias/mf";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/set_alias/mf";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/set_alias/mf";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/set_alias/mf";
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/set_alias/mf",},family={},inactive={},mT={alias={["FN"]="ProjectDIR/rt/set_alias/mf/alias/1.0",["default"]=1,["fullName"]="alias/1.0",["loadOrder"]=3,propT={},["short"]="alias",["status"]="active",},sfunc={["FN"]="ProjectDIR/rt/set_alias/mf/sfunc/1.0.lua",["default"]=1,["fullName"]="sfunc/1.0",["loadOrder"]=2,propT={},["short"]="sfunc",["status"]="active",},test1={["FN"]="ProjectDIR/rt/set_alias/mf/test1/1.0.lua",["default"]=1,["fullName"]="test1/1.0",["loadOrder"]=1,propT={},["short"]="test1",["status"]="active",},},mpathA={"ProjectDIR/rt/set_alias/mf",},["systemBaseMPATH"]="ProjectDIR/rt/set_alias/mf",["version"]=2,}';
+export _ModuleTable_;
+alias module_alias='eval `$LMOD_DIR/lmod bash "$@"`';
