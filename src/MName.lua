@@ -493,7 +493,7 @@ function M.find_marked_default(self, pathA)
                end
             elseif (v == "/.version") then
                local vf = Master.versionFile(result)
-               if (vf and accept_fn(vf)) then
+               if (vf) then
                   result = followDotVersion(mpath, sn, vf)
                   if (result) then
                      t.default = 1
