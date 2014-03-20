@@ -870,9 +870,7 @@ end
 
 --------------------------------------------------------------------------
 -- MasterControl:execute() - place a string that will be executed when
---                           the output from Lmod eval'ed.  Note this command
---                           makes the module a worker-bee module and not a
---                           manager module.
+--                           the output from Lmod eval'ed.  
 
 function M.execute(self, t)
    dbg.start{"MasterControl:execute(t)"}
