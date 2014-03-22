@@ -227,13 +227,16 @@ end
 local function registerModuleT(full, sn, f, markedDefault)
    local t = {}
 
+   local localdir  = true
+
+   local fabs      = abspath(f, localdir)
    t.path          = f
    t.name          = sn
    t.name_lower    = sn:lower()
    t.full          = full
    t.full_lower    = full:lower()
    t.epoch         = posix.stat(f, "mtime")
-   t.markedDefault = (f == markedDefault)
+   t.markedDefault = (fabs == markedDefault)
    t.children      = {}
 
    return t
