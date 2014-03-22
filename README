@@ -1,3 +1,8 @@
+Lmod Version 5.3.2:
+Bug Fix:
+   a) Fixed problem with symlink directories and picking the right default.
+   b) Fixed a bug where .version did not find the right default.
+
 Lmod Version 5.3.1:
 Feature:
    a) added tool "sh_to_modulefile" to convert a bash shell script into
