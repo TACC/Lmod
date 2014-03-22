@@ -13,7 +13,16 @@
 ########################################################################
 
 LMOD_DIR=/opt/apps/lmod/lmod/libexec
-BASE_MODULE_PATH=/opt/apps/modulefiles:/opt/modulefiles
+
+
+# Chose the path that forms the "Core" module list:
+
+# BASE_MODULE_PATH=/opt/apps/modulefiles:/opt/modulefiles
+# BASE_MODULE_PATH=/opt/apps/modulefilesCore
+
+if [ -z "$BASE_MODULE_PATH" ]; then
+  echo "No BASE_MODULE_PATH defined: exiting"
+fi
 
 ADMIN_ranger="/share/moduleData"
 ADMIN_ls4="/home1/moduleData"
@@ -24,7 +33,12 @@ nlocal=${nlocal%.tacc.utexas.edu}
 first=${nlocal%%.*}
 SYSHOST=${nlocal#*.}
 
-eval "ADMIN_DIR=\$ADMIN_$SYSHOST"
+# eval "ADMIN_DIR=\$ADMIN_$SYSHOST"
+
+if [ -z "$ADMIN_DIR" ]; then
+  echo "No ADMIN_DIR defined: exiting"
+fi
+
 
 CacheDir=$ADMIN_DIR/cacheDir
 RmapDir=$ADMIN_DIR/reverseMapD
