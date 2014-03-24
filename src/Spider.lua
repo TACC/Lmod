@@ -182,11 +182,6 @@ local function findMarkedDefault(mpath, path)
    local localDir = true
    dbg.start{"Spider:findMarkedDefault(",mpath,", ", path,")"}
 
-   --if (prefix == "") then
-   --   dbg.fini("Spider:findMarkedDefault")
-   --   return nil
-   --end
-
    local default = abspath(path .. "/default", localDir)
    if (default == nil) then
       local vFn = abspath(pathJoin(path,".version"), localDir)
