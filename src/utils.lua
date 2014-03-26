@@ -478,28 +478,59 @@ function getRCFileA()
    return s_rcFileA
 end
 
+local function arg2str(v)
+   if (v == nil) then return v end
+   local s = tostring(v)
+   if (type(v) ~= "boolean") then
+      s = "\"".. s .."\""
+   end
+   return s
+end
+
 --------------------------------------------------------------------------
 -- ShowCmdStr(): Build a string of what the command would be. Used by
 --               MC_Show and MC_ComputeHash.
 
 function ShowCmdStr(name, ...)
-   local a = {}
-   local arg = pack(...)
-   for i = 1, arg.n do
-      local v = arg[i]
-      local s = tostring(v)
-      if (v ~= nil) then
-         if (type(v) ~= "boolean") then
-            s = "\"".. s .."\""
-         end
+   local a       = {}
+   local arg     = pack(...)
+   local n       = arg.n
+   local t       = arg
+   local hasKeys = false
+   local left    = "("
+   local right   = ")\n"
+   if (arg.n == 1 and type(arg[1]) == "table") then
+      t       = arg[1]
+      n       = #t
+      hasKeys = true
+   end
+   for i = 1, n do
+      local s = arg2str(t[i])
+      if (s ~= nil) then
          a[#a + 1] = s
       end
    end
+
+   if (hasKeys) then
+      hasKeys = false
+      for k,v in pairs(t) do
+         if (type(k) ~= "number") then
+            hasKeys = true
+            a[#a+1] = k.."="..arg2str(v)
+         end
+      end
+   end
+
+   if (hasKeys) then
+      left    = "{"
+      right   = "}\n"
+   end
+
    local b = {}
    b[#b+1] = name
-   b[#b+1] = "("
+   b[#b+1] = left
    b[#b+1] = concatTbl(a,",")
-   b[#b+1] = ")\n"
+   b[#b+1] = right 
    return concatTbl(b,"")
 end
 

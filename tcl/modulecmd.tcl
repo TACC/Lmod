@@ -19,7 +19,7 @@ set flag_default_mf 1 ;# Report default modulefiles and version alias
 set g_user "advanced" ;# usermode were running as
 set g_trace 0 ;# not implemented yet
 set g_tracepat "-.*" ;# not implemented yet
-set g_def_seperator ":" ;# Default path seperator
+set g_def_separator ":" ;# Default path separator
 
 # Change this to your support email address...
 set contact "root@localhost"
@@ -578,21 +578,21 @@ proc unsetenv {var {val {}}} {
 ########################################################################
 # path fiddling
 
-proc getReferenceCountArray {var seperator} {
-    global env g_force g_def_seperator
+proc getReferenceCountArray {var separator} {
+    global env g_force g_def_separator
 
     set sharevar "${var}_modshare"
     set modshareok 1
     if {[info exists env($sharevar)]} {
 	if {[info exists env($var)]} {
-	    set modsharelist [split $env($sharevar) $g_def_seperator]
+	    set modsharelist [split $env($sharevar) $g_def_separator]
 	    if {[expr {[llength $modsharelist] % 2}] == 0} {
 		array set countarr $modsharelist
 
 		# sanity check the modshare list
 		array set fixers {}
 		array set usagearr {}
-		foreach dir [split $env($var) $seperator] {
+		foreach dir [split $env($var) $separator] {
 		    set usagearr($dir) 1
 		}
 		foreach path [array names countarr] {
@@ -638,7 +638,7 @@ proc getReferenceCountArray {var seperator} {
 
     if {$modshareok == 0 && [info exists env($var)]} {
 	array set countarr {}
-	foreach dir [split $env($var) $seperator] {
+	foreach dir [split $env($var) $separator] {
 	    set countarr($dir) 1
 	}
     }
@@ -646,10 +646,10 @@ proc getReferenceCountArray {var seperator} {
 }
 
 
-proc unload-path {var path seperator} {
-    global g_stateEnvVars env g_force g_def_seperator
+proc unload-path {var path separator} {
+    global g_stateEnvVars env g_force g_def_separator
 
-    array set countarr [getReferenceCountArray $var $seperator]
+    array set countarr [getReferenceCountArray $var $separator]
 
     # Don't worry about dealing with this variable if it is already scheduled\
       for deletion
@@ -657,7 +657,7 @@ proc unload-path {var path seperator} {
 	return {}
     }
 
-    foreach dir [split $path $seperator] {
+    foreach dir [split $path $separator] {
         set doit 0
 
 	if {[info exists countarr($dir)]} {
@@ -672,7 +672,7 @@ proc unload-path {var path seperator} {
 
 	if {$doit || $g_force} {
 	    if {[info exists env($var)]} {
-		set dirs [split $env($var) $seperator]
+		set dirs [split $env($var) $separator]
 		set newpath ""
 		foreach elem $dirs {
 		    if {$elem != $dir} {
@@ -683,7 +683,7 @@ proc unload-path {var path seperator} {
 		    unset-env $var
 		    set g_stateEnvVars($var) "del"
 		} else {
-		    set env($var) [join $newpath $seperator]
+		    set env($var) [join $newpath $separator]
 		    set g_stateEnvVars($var) "new"
 		}
 	    }
@@ -692,7 +692,7 @@ proc unload-path {var path seperator} {
 
     set sharevar "${var}_modshare"
     if {[array size countarr] > 0} {
-	set env($sharevar) [join [array get countarr] $g_def_seperator]
+	set env($sharevar) [join [array get countarr] $g_def_separator]
 	set g_stateEnvVars($sharevar) "new"
     } else {
 	unset-env $sharevar
@@ -701,16 +701,16 @@ proc unload-path {var path seperator} {
     return {}
 }
 
-proc add-path {var path pos seperator} {
-    global env g_stateEnvVars g_def_seperator
+proc add-path {var path pos separator} {
+    global env g_stateEnvVars g_def_separator
 
     set sharevar "${var}_modshare"
-    array set countarr [getReferenceCountArray $var $seperator]
+    array set countarr [getReferenceCountArray $var $separator]
 
     if {$pos == "prepend"} {
-	set pathelems [reverseList [split $path $seperator]]
+	set pathelems [reverseList [split $path $separator]]
     } else {
-	set pathelems [split $path $seperator]
+	set pathelems [split $path $separator]
     }
     foreach dir $pathelems {
 	if {[info exists countarr($dir)]} {
@@ -719,10 +719,10 @@ proc add-path {var path pos seperator} {
 	} else {
 	    if {[info exists env($var)]} {
 		if {$pos == "prepend"} {
-		    set env($var) "$dir$seperator$env($var)"
+		    set env($var) "$dir$separator$env($var)"
 		}\
 		elseif {$pos == "append"} {
-		    set env($var) "$env($var)$seperator$dir"
+		    set env($var) "$env($var)$separator$dir"
 		} else {
 		    error "add-path doesn't support $pos"
 		}
@@ -734,30 +734,30 @@ proc add-path {var path pos seperator} {
     }
 
 
-    set env($sharevar) [join [array get countarr] $g_def_seperator]
+    set env($sharevar) [join [array get countarr] $g_def_separator]
     set g_stateEnvVars($var) "new"
     set g_stateEnvVars($sharevar) "new"
     return {}
 }
 
 proc prepend-path {var path args} {
-    global g_def_seperator
+    global g_def_separator
 
     set mode [currentMode]
 
     if {[string match $var "-delim"]} {
-        set seperator $path
+        set separator $path
         set var [lindex $args 0]
         set path [lindex $args 1]
     } else {
-        set seperator $g_def_seperator
+        set separator $g_def_separator 
     }
 
     if {$mode == "load"} {
-	add-path $var $path "prepend" $seperator
+	add-path $var $path "prepend" $separator 
     }\
     elseif {$mode == "unload"} {
-	unload-path $var $path $seperator
+	unload-path $var $path $separator
     }\
     elseif {$mode == "display"} {
 	report "prepend-path\t$var\t$path\t$seperator"

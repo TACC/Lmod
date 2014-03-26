@@ -331,9 +331,16 @@ LMOD_MP_T = {}
 
 LMOD_MP_T[ModulePath]  = true
 LMOD_MP_T[DfltModPath] = true
-function M.prepend_path(self, name, value, sep, nodups)
-   sep = sep or ":"
-   dbg.start{"MasterControl:prepend_path(\"",name,"\", \"",value,"\",\"",sep,"\")"}
+function M.prepend_path(self, t)
+   local sep      = t.delim or ":"
+   local name     = t[1]
+   local value    = t[2]
+   local nodups   = t.nodups
+   local priority = t.priority or 0
+   dbg.start{"MasterControl:prepend_path{\"",name,"\", \"",value,
+             "\", delim=\"",sep,"\", nodups=\"",nodups,
+             "\", priority=",priority,
+             "}"}
 
    if (varTbl[name] == nil) then
       varTbl[name] = Var:new(name, nil, sep)
@@ -347,9 +354,17 @@ function M.prepend_path(self, name, value, sep, nodups)
    dbg.fini("MasterControl:prepend_path")
 end
 
-function M.append_path(self, name, value, sep, nodups)
-   sep = sep or ":"
-   dbg.start{"MasterControl:append_path(\"",name,"\", \"",value,"\",\"",sep,"\")"}
+--function M.append_path(self, name, value, sep, nodups)
+function M.append_path(self, t)
+   local sep      = t.delim or ":"
+   local name     = t[1]
+   local value    = t[2]
+   local nodups   = t.nodups
+   local priority = t.priority or 0
+   dbg.start{"MasterControl:append_path{\"",name,"\", \"",value,
+             "\", delim=\"",sep,"\", nodups=\"",nodups,
+             "\", priority=",priority,
+             "}"}
 
    if (varTbl[name] == nil) then
       varTbl[name] = Var:new(name, nil, sep)
@@ -362,10 +377,18 @@ function M.append_path(self, name, value, sep, nodups)
    dbg.fini("MasterControl:append_path")
 end
 
-function M.remove_path(self, name, value, sep, where)
-   sep = sep or ":"
-   dbg.start{"MasterControl:remove_path(\"",name,"\", \"",value,"\",\"",
-             sep,"\", \"",where,"\")"}
+function M.remove_path(self, t)
+   local sep      = t.delim or ":"
+   local name     = t[1]
+   local value    = t[2]
+   local nodups   = t.nodups
+   local priority = t.priority or 0
+   local where    = t.where
+   dbg.start{"MasterControl:remove_path{\"",name,"\", \"",value,
+             "\", delim=\"",sep,"\", nodups=\"",nodups,
+             "\", priority=",priority,
+             "\", where=",where,
+             "}"}
 
    if (varTbl[name] == nil) then
       varTbl[name] = Var:new(name,nil, sep)
@@ -374,17 +397,19 @@ function M.remove_path(self, name, value, sep, where)
    dbg.fini("MasterControl:remove_path")
 end
 
-function M.remove_path_first(self, name, value, sep)
-   M.remove_path(self, name, value, sep, "first")
+function M.remove_path_first(self, t)
+   t.where = "first"
+   M.remove_path(self, t)
 end
 
-function M.remove_path_last(self, name, value, sep)
-   M.remove_path(self, name, value, sep, "last")
+function M.remove_path_last(self, t)
+   t.where = "last"
+   M.remove_path(self, t)
 end
 
 
-function M.bad_remove_path(self, name,value)
-   LmodWarning("Refusing remove a path element variable while unloading: \"",name,"\"\n")
+function M.bad_remove_path(self, t)
+   LmodWarning("Refusing remove a path element variable while unloading: \"",t[1],"\"\n")
 end
 
 -------------------------------------------------------------------

@@ -93,19 +93,19 @@ function M.always_unload(self, mA)
    A[#A+1] = ShowCmdA("always_load", mA)
 end
 
-function M.prepend_path(self, name, value, sep)
+function M.prepend_path(self, t)
    if (name ~= "MODULEPATH") then return end
-   ShowCmd("prepend_path", name, value, sep)
+   ShowCmd("prepend_path", t[1], t[2], t.sep)
 end
 
-function M.append_path(self, name, value, sep)
+function M.append_path(self, t)
    if (name ~= "MODULEPATH") then return end
-   ShowCmd("append_path", name, value, sep)
+   ShowCmd("append_path", t[1], t[2], t.sep)
 end
 
-function M.remove_path(self, name, value, sep)
+function M.remove_path(self, t)
    if (name ~= "MODULEPATH") then return end
-   ShowCmd("remove_path", name, value, sep)
+   ShowCmd("remove_path", t[1], t[2], t.sep)
 end
 
 function M.load(self, mA)

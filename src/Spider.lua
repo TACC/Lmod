@@ -93,7 +93,9 @@ function processPATH(value)
    moduleT[path].pathA = pathA
 end
 
-function Spider_append_path(kind, name, value)
+function Spider_append_path(kind, t)
+   local name  = t[1]
+   local value = t[2]
    if (name == "MODULEPATH") then
       dbg.start{kind,"(MODULEPATH=\"",name,"\", value=\"",value,"\")"}
       processNewModulePATH(value)

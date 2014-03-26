@@ -45,7 +45,7 @@ MC_Show.my_name    = "MC_Show"
 MC_Show.report     = MasterControl.warning
 
 local M            = MC_Show
-local Dbg          = require("Dbg")
+local dbg          = require("Dbg"):dbg()
 local concatTbl    = table.concat
 M.accessMode       = MasterControl.quiet
 M.myFileName       = MasterControl.myFileName
@@ -72,15 +72,17 @@ function M.help(self, ...)
 end
 
 function M.whatis(self, value)
+   dbg.print{"starting whatis\n"}
    ShowCmd("whatis", value)
+   dbg.print{"ending whatis\n"}
 end
 
 function M.execute(self, t)
    io.stderr:write("execute{cmd=\"",t.cmd,"\", modeA={\"",concatTbl(t.modeA, "\", \""),"\"}}\n")
 end
 
-function M.prepend_path(self, ...)
-   ShowCmd("prepend_path", ...)
+function M.prepend_path(self, t)
+   ShowCmd("prepend_path", t)
 end
 
 function M.add_property(self, name,value)
@@ -107,8 +109,8 @@ function M.unset_alias(self, name)
    ShowCmd("unset_alias",name)
 end
 
-function M.append_path(self, ...)
-   ShowCmd("append_path", ...)
+function M.append_path(self, t)
+   ShowCmd("append_path", t)
 end
 
 function M.setenv(self, name,value)
@@ -119,8 +121,8 @@ function M.unsetenv(self, name,value)
    ShowCmd("unsetenv", name, value)
 end
 
-function M.remove_path(self, name,value)
-   ShowCmd("remove_path", name, value)
+function M.remove_path(self, t)
+   ShowCmd("remove_path", t)
 end
 
 function M.load(self, mA)

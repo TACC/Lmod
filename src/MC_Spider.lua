@@ -193,9 +193,9 @@ end
 --------------------------------------------------------------------------
 -- MC_Spider:prepend_path(): Pass-thru to Spider_append_path().
 
-function M.prepend_path(self,...)
-   dbg.start{"MC_Spider:prepend_path(...)"}
-   Spider_append_path("prepend",...)
+function M.prepend_path(self,t)
+   dbg.start{"MC_Spider:prepend_path(t)"}
+   Spider_append_path("prepend",t)
    dbg.fini()
    return true
 
@@ -204,9 +204,9 @@ end
 --------------------------------------------------------------------------
 -- MC_Spider:append_path(): Pass-thru to Spider_append_path().
 
-function M.append_path(self,...)
-   dbg.start{"MC_Spider:append_path(...)"}
-   Spider_append_path("append",...)
+function M.append_path(self,t)
+   dbg.start{"MC_Spider:append_path(t)"}
+   Spider_append_path("append",t)
    dbg.fini()
    return true
 end

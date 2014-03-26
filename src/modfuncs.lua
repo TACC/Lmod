@@ -54,6 +54,7 @@ require("parseVersion")
 require("utils")
 
 local dbg         = require("Dbg"):dbg()
+local max         = math.max
 local MName       = require("MName")
 local ModuleStack = require("ModuleStack")
 local Version     = require("Version")
@@ -83,6 +84,20 @@ local function validateStringArgs(cmdName, ...)
    local arg = pack(...)
    for i = 1, arg.n do
       local v = arg[i]
+      if (type(v) ~= "string") then
+         local fn = myFileName()
+         mcp:report("Syntax error in file: ",fn, "\n with command: ",
+                   cmdName, " One or more arguments are not strings\n")
+         return false
+      end
+   end
+   return true
+end
+
+local function validateStringTable(n, cmdName, t)
+   n = max(n,#t)
+   for i = 1, n do
+      local v = t[i]
       if (type(v) ~= "string") then
          local fn = myFileName()
          mcp:report("Syntax error in file: ",fn, "\n with command: ",
@@ -231,27 +246,43 @@ end
 
 --- PATH functions ---
 
-function prepend_path(...)
-   dbg.start{"prepend_path(",concatTbl({...},", "),")"}
-   if (not validateStringArgs("prepend_path",...)) then return end
+local function convert2table(...)
+   local arg = pack(...)
+   local t   = {}
+   if (arg.n == 1) then
+      t = arg[1]
+   else
+      t[1]    = arg[1]
+      t[2]    = arg[2]
+      t.delim = arg[3]
+   end
+   return t
+end
 
-   mcp:prepend_path(...)
+function prepend_path(...)
+   local t = convert2table(...)
+   dbg.start{"prepend_path(",concatTbl(t,", "),")"}
+   if (not validateStringTable(2, "prepend_path",t)) then return end
+
+   mcp:prepend_path(t)
    dbg.fini("prepend_path")
 end
 
 function append_path(...)
-   dbg.start{"append_path(",concatTbl({...},", "),")"}
-   if (not validateStringArgs("append_path",...)) then return end
+   local t = convert2table(...)
+   dbg.start{"append_path(",concatTbl(t,", "),")"}
+   if (not validateStringTable(2, "append_path",t)) then return end
 
-   mcp:append_path(...)
+   mcp:append_path(t)
    dbg.fini("append_path")
 end
 
 function remove_path(...)
-   dbg.start{"remove_path(",concatTbl({...},", "),")"}
-   if (not validateStringArgs("remove_path",...)) then return end
+   local t = convert2table(...)
+   dbg.start{"remove_path(",concatTbl(t,", "),")"}
+   if (not validateStringTable(2, "remove_path",t)) then return end
 
-   mcp:remove_path(...)
+   mcp:remove_path(t)
    dbg.fini("remove_path")
 end
 

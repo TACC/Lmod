@@ -792,8 +792,8 @@ function Use(...)
    for _,v in ipairs(a) do
       v = abspath(v)
       if (v) then
-         op(MCP, ModulePath,  v, ":", nodups)
-         op(MCP, DfltModPath, v, ":", nodups)
+         op(MCP, { ModulePath,  v, delim = ":", nodups=nodups })
+         op(MCP, { DfltModPath, v, delim = ":", nodups=nodups })
       end
    end
 
