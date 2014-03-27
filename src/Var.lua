@@ -89,11 +89,11 @@ local dbg           = require("Dbg"):dbg()
 local ModulePath    = ModulePath
 local concatTbl     = table.concat
 local getenv        = os.getenv
+local min           = math.min
 local huge          = math.huge
 local posix         = require("posix")
 local setenv        = posix.setenv
 local systemG       = _G
-
 
 local M = {}
 
@@ -150,23 +150,25 @@ end
 -- Var:prt() This member function is here just when debugging.
 
 function M.prt(self,title)
-   dbg.print {title,"\n"}
-   dbg.print {"name:  \"", self.name, "\"\n"}
-   dbg.print {"imin:  \"", self.imin, "\"\n"}
-   dbg.print {"imax:  \"", self.imax, "\"\n"}
-   dbg.print {"value: \"", self.value,"\"\n"}
+   dbg.start{"Var:prt(",title,")"}
+   dbg.print{"name:  \"", self.name, "\"\n"}
+   dbg.print{"imin:  \"", self.imin, "\"\n"}
+   dbg.print{"imax:  \"", self.imax, "\"\n"}
+   dbg.print{"value: \"", self.value,"\"\n"}
    if (not self.tbl or type(self.tbl) ~= "table" or next(self.tbl) == nil) then
       dbg.print{"tbl is empty\n"}
+      dbg.fini ("Var:prt")
       return
    end
-   for k,v in pairs(self.tbl) do
-      dbg.print {"   \"",k,"\":"}
-      for ii = 1,#v do
-         io.stderr:write(" ",v[ii])
+   for k,vA in pairs(self.tbl) do
+      dbg.print{"   \"",k,"\":"}
+      for ii = 1,#vA do
+         io.stderr:write(" ",tostring(vA[ii]))
       end
-      dbg.print {"\n"}
+      dbg.print{"\n"}
    end
-   dbg.print {"\n"}
+   dbg.print{"\n"}
+   dbg.fini ("Var:prt")
 end
 
 --------------------------------------------------------------------------
@@ -251,7 +253,9 @@ function M.pop(self)
    local min2   = math.huge
    local result = nil
 
-   if (dbg.active()) then self:prt("(1) Var:pop()") end
+   if (dbg.active()) then
+      self:prt("(1) Var:pop()")
+   end
 
    for k, idxA in pairs(self.tbl) do
       local v = idxA[1]
@@ -310,7 +314,7 @@ function M.prepend(self, value, nodups)
    local insertFunc    = nodups and unique or first
 
    local tbl  = self.tbl
-   local imin = self.imin
+   local imin = min(self.imin, 0)
    for i = is, ie, iskip do
       local path = pathA[i]
       imin       = imin - 1
@@ -319,7 +323,7 @@ function M.prepend(self, value, nodups)
       chkMP(self.name)
    end
    self.imin = imin
-
+   
    local v    = self:expand()
    self.value = v
    setenv(self.name, v, true)
@@ -423,9 +427,9 @@ function M.expand(self)
    local sep     = self.sep
 
    -- Step 1: Make a sparse array with path as values
-   for k, v in pairs(self.tbl) do
-      for ii = 1,#v do
-         t[v[ii]] = k
+   for k, vA in pairs(self.tbl) do
+      for ii = 1,#vA do
+         t[vA[ii]] = k
       end
    end
 
