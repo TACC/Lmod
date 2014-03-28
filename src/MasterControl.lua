@@ -346,7 +346,6 @@ function M.prepend_path(self, t)
       varTbl[name] = Var:new(name, nil, sep)
    end
 
-
    -- Do not allow dups on MODULEPATH like env vars.
    nodups = LMOD_MP_T[name] or nodups
 

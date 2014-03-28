@@ -95,6 +95,12 @@ local posix         = require("posix")
 local setenv        = posix.setenv
 local systemG       = _G
 
+local base64       = require("base64")
+local concatTbl    = table.concat
+local decode64     = base64.decode64
+local encode64     = base64.encode64
+
+
 local M = {}
 
 --------------------------------------------------------------------------
@@ -117,7 +123,7 @@ local function extract(self)
 
       for i,v in ipairs(pathA) do
          local a    = pathTbl[v] or {}
-         a[#a + 1]  = i
+         a[#a + 1]  = {i,1}
          pathTbl[v] = a
          imax       = i
       end
@@ -161,9 +167,9 @@ function M.prt(self,title)
       return
    end
    for k,vA in pairs(self.tbl) do
-      dbg.print{"   \"",k,"\":"}
+      dbg.print{"   \"",decode64(k),"\":"}
       for ii = 1,#vA do
-         io.stderr:write(" ",tostring(vA[ii]))
+         io.stderr:write(" {",tostring(vA[ii][1]), ", ",tostring(vA[ii][2]),"} ")
       end
       dbg.print{"\n"}
    end
@@ -258,17 +264,17 @@ function M.pop(self)
    end
 
    for k, idxA in pairs(self.tbl) do
-      local v = idxA[1]
-      if (idxA[1] == imin) then
+      local v = idxA[1][1]
+      if (v == imin) then
          self.tbl[k] = removeFirst(idxA)
-         v = idxA[1] or huge
+         v = v or huge
+         break
       end
       if (v < min2) then
          min2   = v
          result = k
       end
    end
-
    if (min2 < huge) then
       self.imin = min2
    end
@@ -287,17 +293,17 @@ end
 --     last():   dups allowed, call by append.
 
 local function unique(a, value)
-   a = { value }
+   a = { {value,1}  }
    return a
 end
 
 local function first(a, value)
-   table.insert(a,1, value)
+   table.insert(a,1, {value, 1})
    return a
 end
 
 local function last(a, value)
-   a[#a+1] = value
+   a[#a+1] = {value, 1}
    return a
 end
 
@@ -429,7 +435,11 @@ function M.expand(self)
    -- Step 1: Make a sparse array with path as values
    for k, vA in pairs(self.tbl) do
       for ii = 1,#vA do
-         t[vA[ii]] = k
+         local pair     = vA[ii]
+         local value    = pair[1]
+         local priority = pair[2]
+         local idx      = value*priority
+         t[idx] = k
       end
    end
 
