@@ -95,12 +95,6 @@ local posix         = require("posix")
 local setenv        = posix.setenv
 local systemG       = _G
 
-local base64       = require("base64")
-local concatTbl    = table.concat
-local decode64     = base64.decode64
-local encode64     = base64.encode64
-
-
 local M = {}
 
 --------------------------------------------------------------------------
@@ -123,7 +117,7 @@ local function extract(self)
 
       for i,v in ipairs(pathA) do
          local a    = pathTbl[v] or {}
-         a[#a + 1]  = {i,1}
+         a[#a + 1]  = {i,0}
          pathTbl[v] = a
          imax       = i
       end
@@ -167,7 +161,7 @@ function M.prt(self,title)
       return
    end
    for k,vA in pairs(self.tbl) do
-      dbg.print{"   \"",decode64(k),"\":"}
+      dbg.print{"   \"",k,"\":"}
       for ii = 1,#vA do
          io.stderr:write(" {",tostring(vA[ii][1]), ", ",tostring(vA[ii][2]),"} ")
       end
@@ -230,7 +224,7 @@ whereT = {
 --               to push the new value into the current environment so that
 --               any modules loaded will also know the new value.
 
-function M.remove(self, value, where)
+function M.remove(self, value, where, priority)
    if (value == nil) then return end
 
    where = allow_dups(true) and where or "all"
@@ -312,7 +306,7 @@ end
 -- Var:prepend(): Prepend an entry into a path. [[nodups]] controls
 --                policies on duplication by setting [[insertFunc]].
 
-function M.prepend(self, value, nodups)
+function M.prepend(self, value, nodups, priority)
    if (value == nil) then return end
 
    local pathA         = path2pathA(value, self.sep)
@@ -339,7 +333,7 @@ end
 -- Var:append(): Append an entry into a path. [[nodups]] controls
 --               policies on duplication by setting [[insertFunc]].
 
-function M.append(self, value, nodups)
+function M.append(self, value, nodups, priority)
    if (value == nil) then return end
    nodups           = not allow_dups(not nodups)
    local pathA      = path2pathA(value, self.sep)
@@ -438,7 +432,7 @@ function M.expand(self)
          local pair     = vA[ii]
          local value    = pair[1]
          local priority = pair[2]
-         local idx      = value*priority
+         local idx      = value + priority
          t[idx] = k
       end
    end

@@ -349,7 +349,7 @@ function M.prepend_path(self, t)
    -- Do not allow dups on MODULEPATH like env vars.
    nodups = LMOD_MP_T[name] or nodups
 
-   varTbl[name]:prepend(tostring(value), nodups)
+   varTbl[name]:prepend(tostring(value), nodups, priority)
    dbg.fini("MasterControl:prepend_path")
 end
 
@@ -372,7 +372,7 @@ function M.append_path(self, t)
    -- Do not allow dups on MODULEPATH like env vars.
    nodups = LMOD_MP_T[name] or nodups
 
-   varTbl[name]:append(tostring(value), nodups)
+   varTbl[name]:append(tostring(value), nodups, priority)
    dbg.fini("MasterControl:append_path")
 end
 
@@ -392,7 +392,7 @@ function M.remove_path(self, t)
    if (varTbl[name] == nil) then
       varTbl[name] = Var:new(name,nil, sep)
    end
-   varTbl[name]:remove(tostring(value), where)
+   varTbl[name]:remove(tostring(value), where, priority)
    dbg.fini("MasterControl:remove_path")
 end
 
