@@ -1,0 +1,4 @@
+#%Module#####################################################################
+
+prepend-path --delim ":" RTM_PATH /top/dog100 100
+prepend-path RTM_PATH /top/dog0

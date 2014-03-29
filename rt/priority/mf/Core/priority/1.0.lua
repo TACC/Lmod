@@ -1,2 +1,2 @@
-prepend_path{"RTM_PATH","/top/dog", priority=10}
+prepend_path{"RTM_PATH","/top/dog10", priority=10}
 

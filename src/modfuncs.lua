@@ -105,10 +105,19 @@ local function validateStringTable(n, cmdName, t)
          return false
       end
    end
-   if (t.priority ~= nil and t.priority < 1) then
-      local fn = myFileName()
-      mcp:report("Syntax error in file: ",fn, "\n with command: ",
-                 cmdName, " priority must be greater than 1\n")
+   if (t.priority ~= nil) then
+      local valid = false
+      if (t.priority == 0) then
+         valid = true
+      elseif (t.priority >= 10) then
+         valid = true
+      end
+      
+      if (not valid) then
+         local fn = myFileName()
+         mcp:report("Syntax error in file: ",fn, "\n with command: ",
+                    cmdName, " priority must be equal to or greater than 10\n")
+      end
    end
       
    return true
@@ -262,6 +271,7 @@ local function convert2table(...)
       t[2]    = arg[2]
       t.delim = arg[3]
    end
+   t.priority = tonumber(t.priority or "0")
    return t
 end
 

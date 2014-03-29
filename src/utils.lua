@@ -491,6 +491,12 @@ end
 -- ShowCmdStr(): Build a string of what the command would be. Used by
 --               MC_Show and MC_ComputeHash.
 
+defaultsT = {
+   delim    = ":",
+   priority = "0",
+}
+
+
 function ShowCmdStr(name, ...)
    local a       = {}
    local arg     = pack(...)
@@ -515,8 +521,11 @@ function ShowCmdStr(name, ...)
       hasKeys = false
       for k,v in pairs(t) do
          if (type(k) ~= "number") then
-            hasKeys = true
-            a[#a+1] = k.."="..arg2str(v)
+            local strV = tostring(v)
+            if (defaultsT[k] ~= strV) then
+               hasKeys = true
+               a[#a+1] = k.."="..arg2str(v)
+            end
          end
       end
    end

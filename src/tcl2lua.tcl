@@ -375,16 +375,60 @@ proc pushenv { var val } {
     set g_varsT($var) $val
     cmdargs "pushenv" $var $val
 }
+
 proc prepend-path { var val args} {
     if {[string match $var "-delim"] || [string match $var "-d"] || [string match $var "--delim"]} {
         set separator $val
-        set var [lindex $args 0]
-        set val [lindex $args 1]
-        cmdargs "prepend_path" $var $val $separator
+        set var      [lindex $args 0]
+        set val      [lindex $args 1]
+        set priority [lindex $args 2]
     } else {
-        cmdargs "prepend_path" $var $val
+        set priority [lindex $args 0]
+        set separator ":"
     }
+    if {[ string match $priority ""]} {
+        set priority 0
+    }
+    output-path-foo "prepend_path" $var $val $separator $priority
 }
+    
+proc append-path { var val args} {
+    if {[string match $var "-delim"] || [string match $var "-d"] || [string match $var "--delim"]} {
+        set separator $val
+        set var      [lindex $args 0]
+        set val      [lindex $args 1]
+        set priority [lindex $args 2]
+    } else {
+        set priority [lindex $args 0]
+        set separator ":"
+    }
+    if {[ string match $priority ""]} {
+        set priority 0
+    }
+    output-path-foo "append_path" $var $val $separator $priority
+}
+    
+proc remove-path { var val args} {
+    if {[string match $var "-delim"] || [string match $var "-d"] || [string match $var "--delim"]} {
+        set separator $val
+        set var      [lindex $args 0]
+        set val      [lindex $args 1]
+        set priority [lindex $args 2]
+    } else {
+        set priority [lindex $args 0]
+        set separator ":"
+    }
+    if {[ string match $priority ""]} {
+        set priority 0
+    }
+    output-path-foo "remove_path" $var $val $separator $priority
+}
+    
+proc output-path-foo { cmd var val separator priority } {
+    puts stdout "$cmd\{\"$var\",\"$val\",delim=\"$separator\",priority=\"$priority\"\}"
+}
+
+
 proc set-alias { var val } {
     cmdargs "set_alias" $var $val
 }
@@ -400,26 +444,6 @@ proc remove-property { var val } {
     cmdargs "remove_property" $var $val
 }
 
-proc append-path { var val } {
-    if {[string match $var "-delim"] || [string match $var "-d"] || [string match $var "--delim"]} {
-        set separator $val
-        set var [lindex $args 0]
-        set val [lindex $args 1]
-        cmdargs "append_path" $var $val $separator
-    } else {
-        cmdargs "append_path" $var $val
-    }
-}
-proc remove-path { var val } {
-    if {[string match $var "-delim"] || [string match $var "-d"] || [string match $var "--delim"]} {
-        set separator $val
-        set var [lindex $args 0]
-        set val [lindex $args 1]
-        cmdargs "remove_path" $var $val $separator
-    } else {
-        cmdargs "remove_path" $var $val
-    }
-}
 proc doubleQuoteEscaped {text} {
     regsub -all "\"" $text "\\\"" text
     return $text
