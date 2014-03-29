@@ -86,6 +86,10 @@ end
 
 function Bash.expandVar(self, k, v, vType)
    local lineA       = {}
+   if (v == false or v == "") then
+      self:unset(k,vType)
+      return
+   end
    v                 = doubleQuoteEscaped(tostring(v))
    lineA[#lineA + 1] = k
    lineA[#lineA + 1] = "=\""

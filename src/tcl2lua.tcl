@@ -410,6 +410,16 @@ proc append-path { var val } {
         cmdargs "append_path" $var $val
     }
 }
+proc remove-path { var val } {
+    if {[string match $var "-delim"] || [string match $var "-d"] || [string match $var "--delim"]} {
+        set separator $val
+        set var [lindex $args 0]
+        set val [lindex $args 1]
+        cmdargs "remove_path" $var $val $separator
+    } else {
+        cmdargs "remove_path" $var $val
+    }
+}
 proc doubleQuoteEscaped {text} {
     regsub -all "\"" $text "\\\"" text
     return $text

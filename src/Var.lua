@@ -486,7 +486,7 @@ function M.expand(self)
          local priority = pair[2]
          local idx      = value + factor*priority
          t[idx]         = k
-         if (priority > 0) then
+         if (abs(priority) > 0) then
             prT[k] = priority
          end
       end
@@ -527,10 +527,14 @@ function M.expand(self)
    end
 
    local priorityStrT = {}
-   if (next(prT) ~= nil) then
-      local env_name = envPrtyName .. self.name
-      sA = {}
-      for k,priority in pair(prT) do
+   local env_name = envPrtyName .. self.name
+   if (next(prT) == nil) then
+      if (getenv(env_name)) then
+         priorityStrT[env_name] = false
+      end
+   else
+      local sA = {}
+      for k,priority in pairs(prT) do
          sA[#sA+1] = k .. ':' .. tostring(priority)
       end
       priorityStrT[env_name] = concatTbl(sA,';')
@@ -538,7 +542,5 @@ function M.expand(self)
 
    return pathStr, "path", priorityStrT
 end
-
-
 
 return M
