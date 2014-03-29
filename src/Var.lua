@@ -85,17 +85,48 @@ require("strict")
 require("string_split")
 require("pairsByKeys")
 require("utils")
+local abs           = math.abs
+local ceil          = math.ceil
 local dbg           = require("Dbg"):dbg()
 local ModulePath    = ModulePath
 local concatTbl     = table.concat
 local getenv        = os.getenv
 local min           = math.min
+local max           = math.max
+local pow           = math.pow
+local log10         = math.log10
 local huge          = math.huge
 local posix         = require("posix")
 local setenv        = posix.setenv
 local systemG       = _G
+local envPrtyName   = "__LMOD_PRIORITY_"
 
 local M = {}
+
+local function build_priorityT(self)
+   local value   = getenv(envPrtyName .. self.name)
+   if (value == nil) then
+      return {}
+   end
+
+   local t = {}
+   local a = false
+   for outer in value:split(";") do
+      local istate = 0
+      for entry in outer:split(":") do
+         istate = istate + 1
+         if (istate == 1) then
+            t[entry] = {}
+            a        = t[entry]
+         else
+            a[#a+1]  = entry
+         end
+      end
+   end
+   return t
+end
+
+
 
 --------------------------------------------------------------------------
 -- extract(): The ctor uses this routine to initialize the variable to be
@@ -105,19 +136,25 @@ local M = {}
 --            "path".  Other functions work similarly.
 
 local function extract(self)
-   local myValue = self.value or getenv(self.name) or ""
-   local pathTbl = {}
-   local imax    = 0
-   local imin    = 1
-   local pathA   = {}
-   local sep     = self.sep
+   local myValue   = self.value or getenv(self.name) or ""
+   local pathTbl   = {}
+   local imax      = 0
+   local imin      = 1
+   local pathA     = {}
+   local sep       = self.sep
+   local priorityT = build_priorityT(self)
 
    if (myValue ~= '') then
       pathA = path2pathA(myValue, sep)
 
       for i,v in ipairs(pathA) do
-         local a    = pathTbl[v] or {}
-         a[#a + 1]  = {i,0}
+         local a        = pathTbl[v] or {}
+         local priority = 0
+         local vA       = priorityT[v]
+         if (vA) then
+            priority = vA[1]
+         end
+         a[#a + 1]  = {i,priority}
          pathTbl[v] = a
          imax       = i
       end
@@ -167,6 +204,7 @@ function M.prt(self,title)
       end
       dbg.print{"\n"}
    end
+
    dbg.print{"\n"}
    dbg.fini ("Var:prt")
 end
@@ -192,11 +230,11 @@ end
 --     removeFirst(): dups allowed, called when reversing prepend_path
 --     removeLast():  dups allowed, called when reversing append_path
 
-local function removeAll(a)
+local function removeAll(a, priority)
    return nil
 end
 
-local function removeFirst(a)
+local function removeFirst(a, priority)
    table.remove(a,1)
    if (next(a) == nil) then
       a = nil
@@ -204,7 +242,7 @@ local function removeFirst(a)
    return a
 end
 
-local function removeLast(a)
+local function removeLast(a, priority)
    a[#a] = nil
    if (next(a) == nil) then
       a = nil
@@ -224,6 +262,12 @@ whereT = {
 --               to push the new value into the current environment so that
 --               any modules loaded will also know the new value.
 
+--------------------------------------------------------------------------
+--  Report an error/warning when removing a path element without the
+--  same priority
+--------------------------------------------------------------------------
+
+
 function M.remove(self, value, where, priority)
    if (value == nil) then return end
 
@@ -235,7 +279,7 @@ function M.remove(self, value, where, priority)
    for i = 1, #pathA do
       local path = pathA[i]
       if (tbl[path]) then
-         tbl[path] = remFunc(self.tbl[path])
+         tbl[path] = remFunc(self.tbl[path], priority)
          chkMP(self.name)
       end
    end
@@ -280,38 +324,40 @@ function M.pop(self)
 end
 
 --------------------------------------------------------------------------
--- The following three local functions implement the dup/no_dup
--- functionality:
---     unique(): no dups allowed
---     first():  dups allowed, call by prepend.
---     last():   dups allowed, call by append.
+-- insertFunc(): insert index into table with priority.  If nodup or this
+--               particular path entry has a priority then there is only
+--               one entry in the path.  Otherwise insert [[idx]] at
+--               beginning for prepends and at the end for appends.
 
-local function unique(a, value)
-   a = { {value,1}  }
+local function insertFunc(a, idx, isPrepend, nodups, priority)
+   if (nodups or priority > 0) then
+      a = { {idx,priority}  }
+   elseif (isPrepend) then
+      table.insert(a,1, {idx, priority})
+   else
+      a[#a+1] = {idx, priority}
+   end
    return a
 end
-
-local function first(a, value)
-   table.insert(a,1, {value, 1})
-   return a
-end
-
-local function last(a, value)
-   a[#a+1] = {value, 1}
-   return a
-end
-
 
 --------------------------------------------------------------------------
 -- Var:prepend(): Prepend an entry into a path. [[nodups]] controls
 --                policies on duplication by setting [[insertFunc]].
 
+--------------------------------------------------------------------------
+--  Report an error/warning when appending/prepending a path element 
+--  without the same priority
+--------------------------------------------------------------------------
+
+
+
 function M.prepend(self, value, nodups, priority)
    if (value == nil) then return end
 
+   priority            = priority or 0
    local pathA         = path2pathA(value, self.sep)
    local is, ie, iskip = prepend_order(#pathA)
-   local insertFunc    = nodups and unique or first
+   local isPrepend     = true
 
    local tbl  = self.tbl
    local imin = min(self.imin, 0)
@@ -319,7 +365,7 @@ function M.prepend(self, value, nodups, priority)
       local path = pathA[i]
       imin       = imin - 1
       local a    = tbl[path] or {}
-      tbl[path]  = insertFunc(a, imin)
+      tbl[path]  = insertFunc(a, imin, isPrepend, nodups, priority)
       chkMP(self.name)
    end
    self.imin = imin
@@ -337,7 +383,7 @@ function M.append(self, value, nodups, priority)
    if (value == nil) then return end
    nodups           = not allow_dups(not nodups)
    local pathA      = path2pathA(value, self.sep)
-   local insertFunc = nodups and unique or last
+   local isPrepend  = false
 
    local tbl  = self.tbl
    local imax = self.imax
@@ -345,7 +391,7 @@ function M.append(self, value, nodups, priority)
       local path = pathA[i]
       imax       = imax + 1
       local a    = tbl[path] or {}
-      tbl[path]  = insertFunc(a, imax)
+      tbl[path]  = insertFunc(a, imax, isPrepend, nodups, priority)
       chkMP(self.name)
    end
    self.imax  = imax
@@ -418,13 +464,19 @@ end
 
 function M.expand(self)
    if (self.type ~= 'path') then
-      return self.value, self.type
+      return self.value, self.type, {}
    end
 
    local t       = {}
    local pathA   = {}
    local pathStr = ""
    local sep     = self.sep
+   local factor  = 1
+   local prT     = {}
+   local maxV    = max(abs(self.imin), self.imax) + 1
+   local factor  = math.pow(10,ceil(log10(maxV)+1))
+   local resultA = {}
+   
 
    -- Step 1: Make a sparse array with path as values
    for k, vA in pairs(self.tbl) do
@@ -432,8 +484,11 @@ function M.expand(self)
          local pair     = vA[ii]
          local value    = pair[1]
          local priority = pair[2]
-         local idx      = value + priority
-         t[idx] = k
+         local idx      = value + factor*priority
+         t[idx]         = k
+         if (priority > 0) then
+            prT[k] = priority
+         end
       end
    end
 
@@ -470,7 +525,20 @@ function M.expand(self)
          pathStr = pathStr:gsub('::+',":")
       end
    end
-   return pathStr, self.type
+
+   local priorityStrT = {}
+   if (next(prT) ~= nil) then
+      local env_name = envPrtyName .. self.name
+      sA = {}
+      for k,priority in pair(prT) do
+         sA[#sA+1] = k .. ':' .. tostring(priority)
+      end
+      priorityStrT[env_name] = concatTbl(sA,';')
+   end
+
+   return pathStr, "path", priorityStrT
 end
+
+
 
 return M

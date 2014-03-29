@@ -67,6 +67,8 @@ require("utils")
 
 local M            = {}
 local BeautifulTbl = require("BeautifulTbl")
+local abs          = math.abs
+local max          = math.max
 local dbg          = require("Dbg"):dbg()
 local Exec         = require("Exec")
 local MName        = require("MName")
@@ -336,7 +338,7 @@ function M.prepend_path(self, t)
    local name     = t[1]
    local value    = t[2]
    local nodups   = t.nodups
-   local priority = t.priority or 0
+   local priority = (-1)*(t.priority or 0)
    dbg.start{"MasterControl:prepend_path{\"",name,"\", \"",value,
              "\", delim=\"",sep,"\", nodups=\"",nodups,
              "\", priority=",priority,

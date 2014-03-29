@@ -105,6 +105,12 @@ local function validateStringTable(n, cmdName, t)
          return false
       end
    end
+   if (t.priority ~= nil and t.priority < 1) then
+      local fn = myFileName()
+      mcp:report("Syntax error in file: ",fn, "\n with command: ",
+                 cmdName, " priority must be greater than 1\n")
+   end
+      
    return true
 end
 

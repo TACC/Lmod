@@ -103,7 +103,12 @@ function M.expand(self, tbl)
 
 
    for k,v in pairsByKeys(tbl) do
-      local vstr,vType = v:expand()
+      local vstr, vType, priorityStrT = v:expand()
+      if (next(priorityStrT)) then
+         for prtyKey,prtyStr in pairs(priorityStrT) do
+            self:expandVar(prtyKey,prtyStr,"path")
+         end
+      end
       if (vType == "alias") then
          self:alias(k,vstr)
       elseif (vType == "shell_function") then
