@@ -230,31 +230,29 @@ end
 --     removeFirst(): dups allowed, called when reversing prepend_path
 --     removeLast():  dups allowed, called when reversing append_path
 
-local function removeAll(a, priority)
-   return nil
-end
 
-local function removeFirst(a, priority)
-   table.remove(a,1)
-   if (next(a) == nil) then
-      a = nil
+local function remFunc(a, where, priority)
+   if (where == "all" or abs(priority) >= 0) then
+      local oldPriority = 0
+      if (next(a) ~= nil) then
+         oldPriority = tonumber(a[1][2])
+      end
+      if (oldPriority == priority) then
+         a = nil
+      end
+   elseif (where == "first" ) then
+      table.remove(a,1)
+      if (next(a) == nil) then
+         a = nil
+      end
+   elseif (where == "last" ) then
+      a[#a] = nil
+      if (next(a) == nil) then
+         a = nil
+      end
    end
    return a
 end
-
-local function removeLast(a, priority)
-   a[#a] = nil
-   if (next(a) == nil) then
-      a = nil
-   end
-   return a
-end
-
-whereT = {
-   all    = removeAll,
-   first  = removeFirst,
-   last   = removeLast,
-}
 
 --------------------------------------------------------------------------
 -- Var:remove(): remove an entry in a path.  The remove action depends on
@@ -270,16 +268,19 @@ whereT = {
 
 function M.remove(self, value, where, priority)
    if (value == nil) then return end
+   priority = priority or 0
 
+   if (where == "first") then
+      priority = - priority
+   end
    where = allow_dups(true) and where or "all"
-   local remFunc = whereT[where] or removeAll
    local pathA   = path2pathA(value, self.sep)
    local tbl     = self.tbl
 
    for i = 1, #pathA do
       local path = pathA[i]
       if (tbl[path]) then
-         tbl[path] = remFunc(self.tbl[path], priority)
+         tbl[path] = remFunc(self.tbl[path], where, priority)
          chkMP(self.name)
       end
    end
@@ -304,7 +305,7 @@ function M.pop(self)
    for k, idxA in pairs(self.tbl) do
       local v = idxA[1][1]
       if (v == imin) then
-         self.tbl[k] = removeFirst(idxA)
+         self.tbl[k] = remFunc(idxA, "first", 0)
          v = v or huge
          break
       end
@@ -330,8 +331,23 @@ end
 --               beginning for prepends and at the end for appends.
 
 local function insertFunc(a, idx, isPrepend, nodups, priority)
-   if (nodups or priority > 0) then
-      a = { {idx,priority}  }
+   if (nodups or abs(priority) > 0) then
+      if (priority == 0) then
+         return { {idx,priority}  }
+      end
+
+      local oldPriority = 0
+      if (next(a) ~= nil) then
+         oldPriority = a[1][2]
+      end
+
+      if (priority < 0) then
+         if (priority <= oldPriority) then
+            return { {idx,priority}  }
+         end
+      elseif (oldPriority > 0 and priority > oldPriority) then
+         return { {idx,priority}  }
+      end
    elseif (isPrepend) then
       table.insert(a,1, {idx, priority})
    else
@@ -348,7 +364,6 @@ end
 --  Report an error/warning when appending/prepending a path element 
 --  without the same priority
 --------------------------------------------------------------------------
-
 
 
 function M.prepend(self, value, nodups, priority)
@@ -382,6 +397,7 @@ end
 function M.append(self, value, nodups, priority)
    if (value == nil) then return end
    nodups           = not allow_dups(not nodups)
+   priority         = tonumber(priority or "0")
    local pathA      = path2pathA(value, self.sep)
    local isPrepend  = false
 

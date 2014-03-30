@@ -40,7 +40,7 @@ setenv 	        PURGE 	    168
 setenv          NAME        $N
 setenv          USER_SHELL  $S
 
-prepend-path    MANPATH     /usr/share/man:/usr/X11R6/man:/opt/ganglia/man:/opt/rocks/man:/usr/kerberos/man:/usr/man 1000
+prepend-path    MANPATH     /usr/share/man:/usr/X11R6/man:/opt/ganglia/man:/opt/rocks/man:/usr/kerberos/man:/usr/man
 
 # ;;; Local Variables: ***
 # ;;; mode:tcl ***
