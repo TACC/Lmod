@@ -47,6 +47,7 @@ require("capture")
 require("pairsByKeys")
 require("pager")
 require("caseIndependent")
+require("utils")
 
 local M = {}
 
@@ -158,26 +159,6 @@ function M.getExactMatch(self)
    return self.__name
 end
 
-
-local function versionFile(path)
-   dbg.start{"versionFile(",path,")"}
-   local f       = io.open(path,"r")
-   if (not f)                        then
-      dbg.print{"could not find: ",path,"\n"}
-      dbg.fini("versionFile")
-      return nil
-   end
-   local s       = f:read("*line")
-   f:close()
-   if (not s:find("^#%%Module"))      then
-      dbg.print{"could not find: #%Module\n"}
-      dbg.fini("versionFile")
-      return nil
-   end
-   local cmd = pathJoin(cmdDir(),"ModulesVersion.tcl") .. " " .. path
-   dbg.fini("versionFile")
-   return capture(cmd):trim()
-end
 
 local function findMarkedDefault(mpath, path)
    local mt       = MT:mt()

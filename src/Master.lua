@@ -66,7 +66,8 @@ local dbg          = require("Dbg"):dbg()
 local hook         = require("Hook")
 local lfs          = require("lfs")
 local posix        = require("posix")
-local pack         = (_VERSION == "Lua 5.1") and argsPack or table.pack
+local pack         = (_VERSION == "Lua 5.1") and argsPack   or table.pack
+local load         = (_VERSION == "Lua 5.1") and loadstring or load
 
 ------------------------------------------------------------------------
 -- Master:new() a private ctor that is used to construct a singleton.
@@ -630,32 +631,54 @@ function M.reload_sticky(self, force)
    dbg.fini("Master:reload_sticky")
 end
 
---------------------------------------------------------------------------
--- Master:versionFile(): This routine is given the absolute path to a
---                       .version file.  It checks to make sure that it is
---                       a valid TCL file.  It then uses the
---                       ModulesVersion.tcl script to return what the value
---                       of "ModulesVersion" is.
-
-function M.versionFile(path)
-   dbg.start{"Master:versionFile(",path,")"}
-   local f       = io.open(path,"r")
-   if (not f)                        then
-      dbg.print{"could not find: ",path,"\n"}
-      dbg.fini("Master:versionFile")
-      return nil
-   end
-   local s       = f:read("*line")
-   f:close()
-   if (not s:find("^#%%Module"))      then
-      dbg.print{"could not find: #%Module\n"}
-      dbg.fini("Master:versionFile")
-      return nil
-   end
-   local cmd = pathJoin(cmdDir(),"ModulesVersion.tcl") .. " " .. path
-   dbg.fini("Master:versionFile")
-   return capture(cmd):trim()
-end
+----------------------------------------------------------------------------
+---- Master:versionFile(): This routine is given the absolute path to a
+----                       .version file.  It checks to make sure that it is
+----                       a valid TCL file.  It then uses the
+----                       ModulesVersion.tcl script to return what the value
+----                       of "ModulesVersion" is.
+--
+--modV = false
+--function M.versionFile(path)
+--   dbg.start{"Master:versionFile(",path,")"}
+--   local f       = io.open(path,"r")
+--   if (not f)                        then
+--      dbg.print{"could not find: ",path,"\n"}
+--      dbg.fini("Master:versionFile")
+--      return nil
+--   end
+--   local s       = f:read("*line")
+--   f:close()
+--   if (not s:find("^#%%Module"))      then
+--      dbg.print{"could not find: #%Module\n"}
+--      dbg.fini("Master:versionFile")
+--      return nil
+--   end
+--   local cmd = pathJoin(cmdDir(),"ModulesVersion.tcl") .. " " .. path
+--   local s = capture(cmd):trim()
+--   assert(load(s))()
+--   local version = modV.version
+--   if (modV.date ~= "***") then
+--     local a = {}
+--     for s in modV.date:split("/") do
+--        a[#a + 1] = tonumber(s)
+--     end
+--
+--     local epoch   = os.time{year = a[1], month = a[2], day = a[3]}
+--     local current = os.time()
+--
+--     if (epoch < current) then
+--        LmodMessage("The default version for module \"",myModuleName(),
+--                    "\" is changing on ", t.date, " from ",modV.version,
+--                    " to ", modV.newVersion,"\n")
+--        version = t.version
+--     else
+--        version = t.newVersion
+--     end
+--   end
+--   dbg.fini("Master:versionFile")
+--   return version
+--end
 
 --------------------------------------------------------------------------
 --  All these routines in this block to the end are part of "avail"
@@ -680,7 +703,7 @@ local function findDefault(mpath, sn, versionA)
    else
       local vFn = abspath(pathJoin(path,".version"), localDir)
       if (isFile(vFn)) then
-         local vf = M.versionFile(vFn)
+         local vf = versionFile(vFn)
          if (vf) then
             marked = true
             local f = pathJoin(path,vf)
