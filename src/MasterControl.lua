@@ -482,8 +482,10 @@ function M.pushenv(self, name, value)
 
    v   = tostring(value)
    v64 = encode64(value)
+   local nodups  = false
+   local priority = 0
 
-   varTbl[stackName]:prepend(v64)
+   varTbl[stackName]:prepend(v64, nodups, priority)
 
    if (varTbl[name] == nil) then
       varTbl[name] = Var:new(name)
@@ -505,6 +507,7 @@ function M.popenv(self, name, value)
    end
 
    dbg.print{"stackName: ", stackName, " pop()\n"}
+
    local v64 = varTbl[stackName]:pop()
    local v   = nil
    if (v64) then

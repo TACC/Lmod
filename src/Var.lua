@@ -197,7 +197,7 @@ function M.prt(self,title)
       dbg.fini ("Var:prt")
       return
    end
-   for k,vA in pairs(self.tbl) do
+   for k,vA in pairsByKeys(self.tbl) do
       dbg.print{"   \"",k,"\":"}
       for ii = 1,#vA do
          io.stderr:write(" {",tostring(vA[ii][1]), ", ",tostring(vA[ii][2]),"} ")
@@ -232,7 +232,7 @@ end
 
 
 local function remFunc(a, where, priority)
-   if (where == "all" or abs(priority) >= 0) then
+   if (where == "all" or abs(priority) > 0) then
       local oldPriority = 0
       if (next(a) ~= nil) then
          oldPriority = tonumber(a[1][2])
@@ -273,6 +273,7 @@ function M.remove(self, value, where, priority)
    if (where == "first") then
       priority = - priority
    end
+
    where = allow_dups(true) and where or "all"
    local pathA   = path2pathA(value, self.sep)
    local tbl     = self.tbl
@@ -295,7 +296,7 @@ end
 
 function M.pop(self)
    local imin   = self.imin
-   local min2   = math.huge
+   local min2   = huge
    local result = nil
 
    if (dbg.active()) then
@@ -304,20 +305,24 @@ function M.pop(self)
 
    for k, idxA in pairs(self.tbl) do
       local v = idxA[1][1]
+      dbg.print{"v: ",v,", imin: ",imin,", min2: ",min2,"\n"}
       if (v == imin) then
          self.tbl[k] = remFunc(idxA, "first", 0)
          v = v or huge
-         break
       end
       if (v < min2) then
          min2   = v
          result = k
       end
    end
+   dbg.print{"imin: ",imin,", min2: ",min2,"\n"}
    if (min2 < huge) then
       self.imin = min2
    end
 
+   if (dbg.active()) then
+      self:prt("(2) Var:pop()")
+   end
    local v    = self:expand()
    self.value = v
    setenv(self.name, v, true)

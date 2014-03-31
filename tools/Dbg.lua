@@ -155,6 +155,17 @@ function M.activateDebug(self, level, indentLevel)
       if (s_indentLevel > 0) then
          s_indentString     = blank:rep(s_indentLevel*2)
       end
+   else 
+      self.print      = M.Quiet
+      self.printA     = M.Quiet
+      self.textA      = M.Quiet
+      self.start      = M.Quiet
+      self.fini       = M.Quiet
+      self.warning    = M.Warning
+      self.error      = M.Error
+      self.quiet      = M.Quiet
+      self.indent     = M.Empty
+      self.is_active  = false
    end
 end
 

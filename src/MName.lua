@@ -507,7 +507,7 @@ function M.find_marked_default(self, pathA)
          end
       end
       if (found) then
-         dbg.print{"%%RTM%% result: ",result,", mpath: ",mpath,"\n"}
+         dbg.print{"result: ",result,", mpath: ",mpath,"\n"}
          local _, j = result:find(mpath, 1, true)
          fullName  = result:sub(j+2):gsub("%.lua$","")
          dbg.print{"fullName: ",fullName,", fn: ",fn,"\n"}
