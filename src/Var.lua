@@ -308,7 +308,7 @@ function M.pop(self)
       dbg.print{"v: ",v,", imin: ",imin,", min2: ",min2,"\n"}
       if (v == imin) then
          self.tbl[k] = remFunc(idxA, "first", 0)
-         v = v or huge
+         v = huge
       end
       if (v < min2) then
          min2   = v

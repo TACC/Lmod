@@ -31,16 +31,18 @@ testdescript = {
      runLmod --version        # 1
      runLmod load intel       # 2
      runLmod load mpich       # 3
-     runLmod unload mpich     # 4
-     runLmod unload intel     # 5
-     runLmod load intel mpich # 6
+     runLmod load clang       # 4
+     runLmod unload clang     # 5
+     runLmod unload mpich     # 6
      runLmod unload intel     # 7
-     runLmod load intel       # 8
-     runLmod load settarg     # 9
-     runLmod unload settarg   #10
+     runLmod load intel mpich # 8
+     runLmod unload intel     # 9
+     runLmod load intel       # 0
+     runLmod load settarg     #11
+     runLmod unload settarg   #12
 
-     runLmod save             #11
-     runLmod restore          #12
+     runLmod save             #13
+     runLmod restore          #14
 
      HOME_ORIG=$HOME
 
