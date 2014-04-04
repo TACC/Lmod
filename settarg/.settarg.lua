@@ -19,13 +19,14 @@ TitleTbl = {
    mpich2                 = "M2",
    intel                  = "I",
    gcc                    = "G",
+   clang                  = "C",
    tau                    = 'Tau',
 }
 
 ModuleTbl = {
    build_scenario     = { "mdbg", "dbg", "opt", "gopt", "empty"},
    mpi                = { "mpich", "mpich2", "openmpi", "mvapich2", "impi"},
-   compiler           = { "intel", "pgi", "gcc", "sun",},
+   compiler           = { "intel", "pgi", "gcc", "sun",'clang'},
    blas               = { "gotoblas", "mkl",},
    solver             = { "petsc","trilinos"},
    pointer_validation = { "mudflap", "mudflapth","dmalloc"},
