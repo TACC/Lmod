@@ -290,12 +290,13 @@ end
 --                   modulefile as the user requested.
 
 function M.access(self, ...)
-   local mt     = MT:mt()
-   local mStack = ModuleStack:moduleStack()
-   local prtHdr = systemG.prtHdr
-   local a      = {}
-   local shellN = s_master.shell:name()
-   local help   = (systemG.help ~= dbg.quiet) and "-h" or nil
+   local masterTbl = masterTbl()
+   local mt        = MT:mt()
+   local mStack    = ModuleStack:moduleStack()
+   local prtHdr    = systemG.prtHdr
+   local a         = {}
+   local shellN    = s_master.shell:name()
+   local help      = (systemG.help ~= dbg.quiet) and "-h" or nil
    local result, t
    io.stderr:write("\n")
 
@@ -308,14 +309,21 @@ function M.access(self, ...)
       systemG.ModuleName = full
       if (fn and isFile(fn)) then
          prtHdr()
-         mStack:push(full, moduleName, mname:sn(), fn)
-
-         local mList = concatTbl(mt:list("both","active"),":")
-
-	 loadModuleFile{file=fn,help=help, shell=shellN, mList = mList,
+         if (masterTbl.rawDisplay) then
+            local f     = open(fn, "r")
+            local whole = f:read("*all")
+            io.stderr:write(whole)
+            f.close()
+         else
+            mStack:push(full, moduleName, mname:sn(), fn)
+            
+            local mList = concatTbl(mt:list("both","active"),":")
+            
+            loadModuleFile{file=fn,help=help, shell=shellN, mList = mList,
                         reportErr=true}
-         mStack:pop()
-         io.stderr:write("\n")
+            mStack:pop()
+            io.stderr:write("\n")
+         end
       else
          a[#a+1] = moduleName
       end

@@ -162,6 +162,13 @@ function M.options(self, usage)
    }
 
    cmdlineParser:add_option{
+      name   = {"--raw"},
+      dest   = "rawDisplay",
+      action = "store_true",
+      help   = "Print modulefile in raw output",
+   }
+
+   cmdlineParser:add_option{
       name   = {"-w","--width"},
       dest   = "twidth",
       action = "store",
