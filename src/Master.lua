@@ -310,10 +310,10 @@ function M.access(self, ...)
       if (fn and isFile(fn)) then
          prtHdr()
          if (masterTbl.rawDisplay) then
-            local f     = open(fn, "r")
+            local f     = io.open(fn, "r")
             local whole = f:read("*all")
             io.stderr:write(whole)
-            f.close()
+            f:close()
          else
             mStack:push(full, moduleName, mname:sn(), fn)
             
