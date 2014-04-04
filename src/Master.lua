@@ -62,6 +62,7 @@ local MName        = require("MName")
 local ModuleStack  = require("ModuleStack")
 local Optiks       = require("Optiks")
 local Spider       = require("Spider")
+local Var          = require("Var")
 local dbg          = require("Dbg"):dbg()
 local hook         = require("Hook")
 local lfs          = require("lfs")
@@ -195,6 +196,53 @@ local function find_inherit_module(fullModuleName, oldFn)
    return t
 end
 
+--------------------------------------------------------------------------
+-- registerLoaded(): This function marks a module name as loaded and saves
+--                   it to LOADEDMODULES and _LMFILES_.   This is only for
+--                   compatibility with TCL/C module.
+local function registerLoaded(full, fn)
+   local modList  = "LOADEDMODULES"
+   local modFn    = "_LMFILES_"
+   local nodups   = true
+   local priority = 0
+   local sep      = ":"
+   if (varTbl[modList] == nil) then
+      varTbl[modList] = Var:new(modList, nil, sep)
+   end
+
+   varTbl[modList]:append(full, nodups, priority)
+
+
+   if (varTbl[modFn] == nil) then
+      varTbl[modFn] = Var:new(modFn, nil, sep)
+   end
+
+   varTbl[modFn]:append(fn, nodups, priority)
+end
+
+--------------------------------------------------------------------------
+-- registerUnloaded(): This function marks a module name as unloaded and 
+--                     saves it to LOADEDMODULES and _LMFILES_.   This is
+--                     only for compatibility with TCL/C module.
+local function registerUnloaded(full, fn)
+   local modList  = "LOADEDMODULES"
+   local modFn    = "_LMFILES_"
+   local where    = "all"
+   local sep      = ":"
+   local priority = 0
+   if (varTbl[modList] == nil) then
+      varTbl[modList] = Var:new(modList, nil, sep)
+   end
+
+   varTbl[modList]:remove(full, where, priority)
+
+
+   if (varTbl[modFn] == nil) then
+      varTbl[modFn] = Var:new(modFn, nil, sep)
+   end
+
+   varTbl[modFn]:remove(fn, where, priority)
+end
 
 --------------------------------------------------------------------------
 -- Master:master() - Singleton Ctor.
@@ -377,6 +425,7 @@ function M.load(mA)
 	 mt:endOP()
          dbg.print{"Making ", t.modName, " active\n"}
          mt:setStatus(sn, "active")
+         registerLoaded(t.modFullName, fn)
          dbg.print{"Marked: ",t.modFullName," as loaded\n"}
          loaded = true
          hook.apply("load",t)
@@ -539,6 +588,7 @@ function M.unload(mA)
       if (mt:have(sn,"inactive")) then
          dbg.print{"Removing inactive module: ", moduleName, "\n"}
          mt:remove(sn)
+         registerUnloaded(mt:fullName(sn), mt:fileName(sn))
          a[#a + 1] = true
       elseif (mt:have(sn,"active")) then
          dbg.print{"Mark ", moduleName, " as pending\n"}
@@ -562,6 +612,7 @@ function M.unload(mA)
          dbg.print{"changePATH: ", mt._changePATHCount, "\n"}
          dbg.print{"calling mt:remove(\"",sn,"\")\n"}
          mt:remove(sn)
+         registerUnloaded(fullModuleName, f)
          a[#a + 1] = true
       else
          a[#a + 1] = false

@@ -20,8 +20,12 @@ C="1.0";
 export C;
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/refresh/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
+LOADEDMODULES="a/1.0:b/1.0:c/1.0";
+export LOADEDMODULES;
 MODULEPATH="ProjectDIR/rt/refresh/mf/Core";
 export MODULEPATH;
+_LMFILES_="ProjectDIR/rt/refresh/mf/Core/a/1.0.lua:ProjectDIR/rt/refresh/mf/Core/b/1.0.lua:ProjectDIR/rt/refresh/mf/Core/c/1.0.lua";
+export _LMFILES_;
 _ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/refresh/mf/Core",},family={},inactive={},mT={a={["FN"]="ProjectDIR/rt/refresh/mf/Core/a/1.0.lua",["default"]=1,["fullName"]="a/1.0",["loadOrder"]=1,propT={},["short"]="a",["status"]="active",},b={["FN"]="ProjectDIR/rt/refresh/mf/Core/b/1.0.lua",["default"]=1,["fullName"]="b/1.0",["loadOrder"]=2,propT={},["short"]="b",["status"]="active",},c={["FN"]="ProjectDIR/rt/refresh/mf/Core/c/1.0.lua",["default"]=1,["fullName"]="c/1.0",["loadOrder"]=3,propT={},["short"]="c",["status"]="active",},},mpathA={"ProjectDIR/rt/refresh/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/refresh/mf/Core",["version"]=2,}';
 export _ModuleTable_;
 ===========================

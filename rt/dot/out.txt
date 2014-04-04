@@ -42,8 +42,12 @@ A="0.1";
 export A;
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/dot/mf";
 export LMOD_DEFAULT_MODULEPATH;
+LOADEDMODULES="a/.1.0";
+export LOADEDMODULES;
 MODULEPATH="ProjectDIR/rt/dot/mf";
 export MODULEPATH;
+_LMFILES_="ProjectDIR/rt/dot/mf/a/.1.0.lua";
+export _LMFILES_;
 _ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/dot/mf",},family={},inactive={},mT={a={["FN"]="ProjectDIR/rt/dot/mf/a/.1.0.lua",["default"]=0,["fullName"]="a/.1.0",["loadOrder"]=1,propT={},["short"]="a",["status"]="active",},},mpathA={"ProjectDIR/rt/dot/mf",},["systemBaseMPATH"]="ProjectDIR/rt/dot/mf",["version"]=2,}';
 export _ModuleTable_;
 ===========================
@@ -71,8 +75,10 @@ export MODULEPATH;
 unset A;
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/dot/mf";
 export LMOD_DEFAULT_MODULEPATH;
+unset LOADEDMODULES;
 MODULEPATH="ProjectDIR/rt/dot/mf";
 export MODULEPATH;
+unset _LMFILES_;
 _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/dot/mf",},family={},inactive={},mT={},mpathA={"ProjectDIR/rt/dot/mf",},["systemBaseMPATH"]="ProjectDIR/rt/dot/mf",["version"]=2,}';
 export _ModuleTable_;
 ===========================
@@ -209,8 +215,12 @@ B="0.2";
 export B;
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/dot/mf";
 export LMOD_DEFAULT_MODULEPATH;
+LOADEDMODULES="a/.1.0:b/.2.0";
+export LOADEDMODULES;
 MODULEPATH="ProjectDIR/rt/dot/mf";
 export MODULEPATH;
+_LMFILES_="ProjectDIR/rt/dot/mf/a/.1.0.lua:ProjectDIR/rt/dot/mf/b/.2.0.lua";
+export _LMFILES_;
 _ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/dot/mf",},family={},inactive={},mT={a={["FN"]="ProjectDIR/rt/dot/mf/a/.1.0.lua",["default"]=0,["fullName"]="a/.1.0",["loadOrder"]=1,propT={},["short"]="a",["status"]="active",},b={["FN"]="ProjectDIR/rt/dot/mf/b/.2.0.lua",["default"]=0,["fullName"]="b/.2.0",["loadOrder"]=2,propT={},["short"]="b",["status"]="active",},},mpathA={"ProjectDIR/rt/dot/mf",},["systemBaseMPATH"]="ProjectDIR/rt/dot/mf",["version"]=2,}';
 export _ModuleTable_;
 ===========================

@@ -12,12 +12,16 @@ MODULEPATH="ProjectDIR/rt/conflict/mf";
 export MODULEPATH;
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/conflict/mf";
 export LMOD_DEFAULT_MODULEPATH;
+LOADEDMODULES="a:b";
+export LOADEDMODULES;
 MODULEPATH="ProjectDIR/rt/conflict/mf";
 export MODULEPATH;
 TEST_A="1";
 export TEST_A;
 TEST_B="1";
 export TEST_B;
+_LMFILES_="ProjectDIR/rt/conflict/mf/a.lua:ProjectDIR/rt/conflict/mf/b.lua";
+export _LMFILES_;
 _ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/conflict/mf",},family={},inactive={},mT={a={["FN"]="ProjectDIR/rt/conflict/mf/a.lua",["default"]=0,["fullName"]="a",["loadOrder"]=1,propT={},["short"]="a",["status"]="active",},b={["FN"]="ProjectDIR/rt/conflict/mf/b.lua",["default"]=0,["fullName"]="b",["loadOrder"]=2,propT={},["short"]="b",["status"]="active",},},mpathA={"ProjectDIR/rt/conflict/mf",},["systemBaseMPATH"]="ProjectDIR/rt/conflict/mf",["version"]=2,}';
 export _ModuleTable_;
 ===========================

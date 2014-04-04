@@ -26,6 +26,8 @@ LMOD_FAMILY_COMPILER="intel";
 export LMOD_FAMILY_COMPILER;
 LMOD_FAMILY_MPI="mvapich2";
 export LMOD_FAMILY_MPI;
+LOADEDMODULES="intel/13.1:mvapich2/1.9";
+export LOADEDMODULES;
 MANPATH="/opt/apps/intel-13_1/mvapich2/1.9/man:/opt/apps/intel/13.1/composer_xe_2013.2.146/man/en_US";
 export MANPATH;
 MODULEPATH="ProjectDIR/rt/petsc/mf/MPI/intel/13.1/mvapich2/1.9:ProjectDIR/rt/petsc/mf/Compiler/intel/13.1:ProjectDIR/rt/petsc/mf/Core";
@@ -42,6 +44,8 @@ TACC_FAMILY_COMPILER="intel";
 export TACC_FAMILY_COMPILER;
 TACC_FAMILY_MPI="mvapich2";
 export TACC_FAMILY_MPI;
+_LMFILES_="ProjectDIR/rt/petsc/mf/Core/intel/13.1.lua:ProjectDIR/rt/petsc/mf/Compiler/intel/13.1/mvapich2/1.9.lua";
+export _LMFILES_;
 _ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/petsc/mf/Core",},family={["MPI"]="mvapich2",["compiler"]="intel",},inactive={},mT={intel={["FN"]="ProjectDIR/rt/petsc/mf/Core/intel/13.1.lua",["default"]=1,["fullName"]="intel/13.1",["loadOrder"]=1,propT={},["short"]="intel",["status"]="active",},mvapich2={["FN"]="ProjectDIR/rt/petsc/mf/Compiler/intel/13.1/mvapich2/1.9.lua",["default"]=1,["fullName"]="mvapich2/1.9",["loadOrder"]=2,propT={},["short"]="mvapich2",["status"]="active",},},mpathA={"ProjectDIR/rt/petsc/mf/MPI/intel/13.1/mvapich2/1.9","ProjectDIR/rt/petsc/mf/Compiler/intel/13.1","ProjectDIR/rt/petsc/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/petsc/mf/Core",["version"]=2,}';
 export _ModuleTable_;
 ===========================

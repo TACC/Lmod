@@ -30,6 +30,8 @@ LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
 LMOD_FAMILY_COMPILER="intel";
 export LMOD_FAMILY_COMPILER;
+LOADEDMODULES="admin/admin-1.0:intel/intel";
+export LOADEDMODULES;
 MANPATH="/vol/local/intel/mkl/mkl/man:/vol/local/intel/idb/idb/man:/vol/local/intel/fc/fc/man:/vol/local/intel/cc/cc/man";
 export MANPATH;
 MKL_DIR="/vol/local/intel/mkl/mkl/lib/lib";
@@ -42,5 +44,7 @@ PATH="/vol/local/intel/idb/idb/bin:/vol/local/intel/fc/fc/bin:/vol/local/intel/c
 export PATH;
 TACC_FAMILY_COMPILER="intel";
 export TACC_FAMILY_COMPILER;
+_LMFILES_="ProjectDIR/mf/Core/admin/admin-1.0.lua:ProjectDIR/mf/Core/intel/intel.lua";
+export _LMFILES_;
 _ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/mf/Core",},family={["compiler"]="intel",},inactive={},mT={admin={["FN"]="ProjectDIR/mf/Core/admin/admin-1.0.lua",["default"]=1,["fullName"]="admin/admin-1.0",["loadOrder"]=1,propT={},["short"]="admin",["status"]="active",},intel={["FN"]="ProjectDIR/mf/Core/intel/intel.lua",["default"]=1,["fullName"]="intel/intel",["loadOrder"]=2,propT={},["short"]="intel",["status"]="active",},},mpathA={"ProjectDIR/mf/Compiler/intel/10.1","ProjectDIR/mf/Core",},["systemBaseMPATH"]="ProjectDIR/mf/Core",["version"]=2,}';
 export _ModuleTable_;

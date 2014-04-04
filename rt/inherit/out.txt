@@ -30,8 +30,12 @@ JUNK_SYSTEM="1.0";
 export JUNK_SYSTEM;
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/inherit/mf/Linux:ProjectDIR/rt/inherit/mf/Core:ProjectDIR/rt/inherit/mf/Core2";
 export LMOD_DEFAULT_MODULEPATH;
+LOADEDMODULES="junk/1.0";
+export LOADEDMODULES;
 MODULEPATH="ProjectDIR/rt/inherit/mf/Linux:ProjectDIR/rt/inherit/mf/Core:ProjectDIR/rt/inherit/mf/Core2";
 export MODULEPATH;
+_LMFILES_="ProjectDIR/rt/inherit/mf/Linux/junk/1.0.lua";
+export _LMFILES_;
 _ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/inherit/mf/Linux","ProjectDIR/rt/inherit/mf/Core","ProjectDIR/rt/inherit/mf/Core2",},family={},inactive={},mT={junk={["FN"]="ProjectDIR/rt/inherit/mf/Linux/junk/1.0.lua",["default"]=1,fnI={"ProjectDIR/rt/inherit/mf/Core2/junk/1.0.lua","ProjectDIR/rt/inherit/mf/Core/junk/1.0.lua",},["fullName"]="junk/1.0",["loadOrder"]=1,propT={},["short"]="junk",["status"]="active",},},mpathA={"ProjectDIR/rt/inherit/mf/Linux","ProjectDIR/rt/inherit/mf/Core","ProjectDIR/rt/inherit/mf/Core2",},["systemBaseMPATH"]="ProjectDIR/rt/inherit/mf/Linux:ProjectDIR/rt/inherit/mf/Core:ProjectDIR/rt/inherit/mf/Core2",["version"]=2,}';
 export _ModuleTable_;
 ===========================
@@ -61,8 +65,10 @@ unset JUNK_LINUX;
 unset JUNK_SYSTEM;
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/inherit/mf/Linux:ProjectDIR/rt/inherit/mf/Core:ProjectDIR/rt/inherit/mf/Core2";
 export LMOD_DEFAULT_MODULEPATH;
+unset LOADEDMODULES;
 MODULEPATH="ProjectDIR/rt/inherit/mf/Linux:ProjectDIR/rt/inherit/mf/Core:ProjectDIR/rt/inherit/mf/Core2";
 export MODULEPATH;
+unset _LMFILES_;
 _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/inherit/mf/Linux","ProjectDIR/rt/inherit/mf/Core","ProjectDIR/rt/inherit/mf/Core2",},family={},inactive={},mT={},mpathA={"ProjectDIR/rt/inherit/mf/Linux","ProjectDIR/rt/inherit/mf/Core","ProjectDIR/rt/inherit/mf/Core2",},["systemBaseMPATH"]="ProjectDIR/rt/inherit/mf/Linux:ProjectDIR/rt/inherit/mf/Core:ProjectDIR/rt/inherit/mf/Core2",["version"]=2,}';
 export _ModuleTable_;
 ===========================
@@ -102,12 +108,16 @@ LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/inherit/pmf/core:ProjectDIR/rt/inherit/mf
 export LMOD_DEFAULT_MODULEPATH;
 LMOD_FAMILY_COMPILER="intel";
 export LMOD_FAMILY_COMPILER;
+LOADEDMODULES="intel/13.1.3";
+export LOADEDMODULES;
 MODULEPATH="ProjectDIR/rt/inherit/pmf/compiler/intel/13.1:ProjectDIR/rt/inherit/mf/Compiler/intel/13.1:ProjectDIR/rt/inherit/pmf/core:ProjectDIR/rt/inherit/mf/Linux:ProjectDIR/rt/inherit/mf/Core:ProjectDIR/rt/inherit/mf/Core2";
 export MODULEPATH;
 PERSONAL_intel="13.1.3";
 export PERSONAL_intel;
 TACC_FAMILY_COMPILER="intel";
 export TACC_FAMILY_COMPILER;
+_LMFILES_="ProjectDIR/rt/inherit/pmf/core/intel/13.1.3.lua";
+export _LMFILES_;
 _ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/inherit/pmf/core","ProjectDIR/rt/inherit/mf/Linux","ProjectDIR/rt/inherit/mf/Core","ProjectDIR/rt/inherit/mf/Core2",},family={["Compiler"]="intel",},inactive={},mT={intel={["FN"]="ProjectDIR/rt/inherit/pmf/core/intel/13.1.3.lua",["default"]=1,fnI={"ProjectDIR/rt/inherit/mf/Core/intel/13.1.3.lua",},["fullName"]="intel/13.1.3",["loadOrder"]=1,propT={},["short"]="intel",["status"]="active",},},mpathA={"ProjectDIR/rt/inherit/pmf/compiler/intel/13.1","ProjectDIR/rt/inherit/mf/Compiler/intel/13.1","ProjectDIR/rt/inherit/pmf/core","ProjectDIR/rt/inherit/mf/Linux","ProjectDIR/rt/inherit/mf/Core","ProjectDIR/rt/inherit/mf/Core2",},["systemBaseMPATH"]="ProjectDIR/rt/inherit/mf/Linux:ProjectDIR/rt/inherit/mf/Core:ProjectDIR/rt/inherit/mf/Core2",["version"]=2,}';
 export _ModuleTable_;
 ===========================
@@ -122,6 +132,8 @@ LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/inherit/pmf/core:ProjectDIR/rt/inherit/mf
 export LMOD_DEFAULT_MODULEPATH;
 LMOD_FAMILY_MPI="mpich";
 export LMOD_FAMILY_MPI;
+LOADEDMODULES="intel/13.1.3:mpich/3.0.4";
+export LOADEDMODULES;
 MANPATH="/opt/apps/intel-13_1/mpich/3.0.4/man";
 export MANPATH;
 MODULEPATH="ProjectDIR/rt/inherit/pmf/mpi/intel/13.1/mpich/3.0:ProjectDIR/rt/inherit/mf/MPI/intel/13.1/mpich/3.0:ProjectDIR/rt/inherit/pmf/compiler/intel/13.1:ProjectDIR/rt/inherit/mf/Compiler/intel/13.1:ProjectDIR/rt/inherit/pmf/core:ProjectDIR/rt/inherit/mf/Linux:ProjectDIR/rt/inherit/mf/Core:ProjectDIR/rt/inherit/mf/Core2";
@@ -142,6 +154,8 @@ TACC_MPICH_LIB="/opt/apps/intel-13_1/mpich/3.0.4/lib";
 export TACC_MPICH_LIB;
 TACC_MPICH_MAN="/opt/apps/intel-13_1/mpich/3.0.4/man";
 export TACC_MPICH_MAN;
+_LMFILES_="ProjectDIR/rt/inherit/pmf/core/intel/13.1.3.lua:ProjectDIR/rt/inherit/pmf/compiler/intel/13.1/mpich/3.0.4.lua";
+export _LMFILES_;
 _ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/inherit/pmf/core","ProjectDIR/rt/inherit/mf/Linux","ProjectDIR/rt/inherit/mf/Core","ProjectDIR/rt/inherit/mf/Core2",},family={["Compiler"]="intel",["MPI"]="mpich",},inactive={},mT={intel={["FN"]="ProjectDIR/rt/inherit/pmf/core/intel/13.1.3.lua",["default"]=1,fnI={"ProjectDIR/rt/inherit/mf/Core/intel/13.1.3.lua",},["fullName"]="intel/13.1.3",["loadOrder"]=1,propT={},["short"]="intel",["status"]="active",},mpich={["FN"]="ProjectDIR/rt/inherit/pmf/compiler/intel/13.1/mpich/3.0.4.lua",["default"]=1,fnI={"ProjectDIR/rt/inherit/mf/Compiler/intel/13.1/mpich/3.0.4.lua",},["fullName"]="mpich/3.0.4",["loadOrder"]=2,propT={},["short"]="mpich",["status"]="active",},},mpathA={"ProjectDIR/rt/inherit/pmf/mpi/intel/13.1/mpich/3.0","ProjectDIR/rt/inherit/mf/MPI/intel/13.1/mpich/3.0","ProjectDIR/rt/inherit/pmf/compiler/intel/13.1","ProjectDIR/rt/inherit/mf/Compiler/intel/13.1","ProjectDIR/rt/inherit/pmf/core","ProjectDIR/rt/inherit/mf/Linux","ProjectDIR/rt/inherit/mf/Core","ProjectDIR/rt/inherit/mf/Core2",},["systemBaseMPATH"]="ProjectDIR/rt/inherit/mf/Linux:ProjectDIR/rt/inherit/mf/Core:ProjectDIR/rt/inherit/mf/Core2",["version"]=2,}';
 export _ModuleTable_;
 ===========================
@@ -154,10 +168,14 @@ MODULEPATH="ProjectDIR/rt/inherit/pmf/mpi/intel/13.1/mpich/3.0:ProjectDIR/rt/inh
 export MODULEPATH;
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/inherit/pmf/core:ProjectDIR/rt/inherit/mf/Linux:ProjectDIR/rt/inherit/mf/Core:ProjectDIR/rt/inherit/mf/Core2";
 export LMOD_DEFAULT_MODULEPATH;
+LOADEDMODULES="intel/13.1.3:mpich/3.0.4:p4est/1.0";
+export LOADEDMODULES;
 MODULEPATH="ProjectDIR/rt/inherit/pmf/mpi/intel/13.1/mpich/3.0:ProjectDIR/rt/inherit/mf/MPI/intel/13.1/mpich/3.0:ProjectDIR/rt/inherit/pmf/compiler/intel/13.1:ProjectDIR/rt/inherit/mf/Compiler/intel/13.1:ProjectDIR/rt/inherit/pmf/core:ProjectDIR/rt/inherit/mf/Linux:ProjectDIR/rt/inherit/mf/Core:ProjectDIR/rt/inherit/mf/Core2";
 export MODULEPATH;
 P4EST_DIR="/work/12345/aterrel/opt/apps/mpich-3_0/intel-13_1/p4est/1.0";
 export P4EST_DIR;
+_LMFILES_="ProjectDIR/rt/inherit/pmf/core/intel/13.1.3.lua:ProjectDIR/rt/inherit/pmf/compiler/intel/13.1/mpich/3.0.4.lua:ProjectDIR/rt/inherit/pmf/mpi/intel/13.1/mpich/3.0/p4est/1.0.lua";
+export _LMFILES_;
 _ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/inherit/pmf/core","ProjectDIR/rt/inherit/mf/Linux","ProjectDIR/rt/inherit/mf/Core","ProjectDIR/rt/inherit/mf/Core2",},family={["Compiler"]="intel",["MPI"]="mpich",},inactive={},mT={intel={["FN"]="ProjectDIR/rt/inherit/pmf/core/intel/13.1.3.lua",["default"]=1,fnI={"ProjectDIR/rt/inherit/mf/Core/intel/13.1.3.lua",},["fullName"]="intel/13.1.3",["loadOrder"]=1,propT={},["short"]="intel",["status"]="active",},mpich={["FN"]="ProjectDIR/rt/inherit/pmf/compiler/intel/13.1/mpich/3.0.4.lua",["default"]=1,fnI={"ProjectDIR/rt/inherit/mf/Compiler/intel/13.1/mpich/3.0.4.lua",},["fullName"]="mpich/3.0.4",["loadOrder"]=2,propT={},["short"]="mpich",["status"]="active",},p4est={["FN"]="ProjectDIR/rt/inherit/pmf/mpi/intel/13.1/mpich/3.0/p4est/1.0.lua",["default"]=1,["fullName"]="p4est/1.0",["loadOrder"]=3,propT={},["short"]="p4est",["status"]="active",},},mpathA={"ProjectDIR/rt/inherit/pmf/mpi/intel/13.1/mpich/3.0","ProjectDIR/rt/inherit/mf/MPI/intel/13.1/mpich/3.0","ProjectDIR/rt/inherit/pmf/compiler/intel/13.1","ProjectDIR/rt/inherit/mf/Compiler/intel/13.1","ProjectDIR/rt/inherit/pmf/core","ProjectDIR/rt/inherit/mf/Linux","ProjectDIR/rt/inherit/mf/Core","ProjectDIR/rt/inherit/mf/Core2",},["systemBaseMPATH"]="ProjectDIR/rt/inherit/mf/Linux:ProjectDIR/rt/inherit/mf/Core:ProjectDIR/rt/inherit/mf/Core2",["version"]=2,}';
 export _ModuleTable_;
 ===========================
@@ -188,6 +206,8 @@ LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/inherit/pmf/core:ProjectDIR/rt/inherit/mf
 export LMOD_DEFAULT_MODULEPATH;
 LMOD_FAMILY_MPI="openmpi";
 export LMOD_FAMILY_MPI;
+LOADEDMODULES="intel/13.1.3:openmpi/1.6.5:p4est/1.0";
+export LOADEDMODULES;
 MANPATH="man:/opt/apps/intel-13_1/openmpi/1.6.5/man";
 export MANPATH;
 MODULEPATH="ProjectDIR/rt/inherit/pmf/mpi/intel/13.1/openmpi/1.6:ProjectDIR/rt/inherit/mf/MPI/intel/13.1/openmpi/1.6:ProjectDIR/rt/inherit/pmf/compiler/intel/13.1:ProjectDIR/rt/inherit/mf/Compiler/intel/13.1:ProjectDIR/rt/inherit/pmf/core:ProjectDIR/rt/inherit/mf/Linux:ProjectDIR/rt/inherit/mf/Core:ProjectDIR/rt/inherit/mf/Core2";
@@ -217,6 +237,8 @@ TACC_OPENMPI_LIB="/opt/apps/intel-13_1/openmpi/1.6.5/lib";
 export TACC_OPENMPI_LIB;
 TACC_OPENMPI_MAN="/opt/apps/intel-13_1/openmpi/1.6.5/man";
 export TACC_OPENMPI_MAN;
+_LMFILES_="ProjectDIR/rt/inherit/pmf/core/intel/13.1.3.lua:ProjectDIR/rt/inherit/pmf/compiler/intel/13.1/openmpi/1.6.5.lua:ProjectDIR/rt/inherit/pmf/mpi/intel/13.1/openmpi/1.6/p4est/1.0.lua";
+export _LMFILES_;
 _ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/inherit/pmf/core","ProjectDIR/rt/inherit/mf/Linux","ProjectDIR/rt/inherit/mf/Core","ProjectDIR/rt/inherit/mf/Core2",},family={["Compiler"]="intel",["MPI"]="openmpi",},inactive={},mT={intel={["FN"]="ProjectDIR/rt/inherit/pmf/core/intel/13.1.3.lua",["default"]=1,fnI={"ProjectDIR/rt/inherit/mf/Core/intel/13.1.3.lua",},["fullName"]="intel/13.1.3",["loadOrder"]=1,propT={},["short"]="intel",["status"]="active",},openmpi={["FN"]="ProjectDIR/rt/inherit/pmf/compiler/intel/13.1/openmpi/1.6.5.lua",["default"]=1,fnI={"ProjectDIR/rt/inherit/mf/Compiler/intel/13.1/openmpi/1.6.5.lua",},["fullName"]="openmpi/1.6.5",["loadOrder"]=2,propT={},["short"]="openmpi",["status"]="active",},p4est={["FN"]="ProjectDIR/rt/inherit/pmf/mpi/intel/13.1/openmpi/1.6/p4est/1.0.lua",["default"]=1,["fullName"]="p4est/1.0",["loadOrder"]=3,propT={},["short"]="p4est",["status"]="active",},},mpathA={"ProjectDIR/rt/inherit/pmf/mpi/intel/13.1/openmpi/1.6","ProjectDIR/rt/inherit/mf/MPI/intel/13.1/openmpi/1.6","ProjectDIR/rt/inherit/pmf/compiler/intel/13.1","ProjectDIR/rt/inherit/mf/Compiler/intel/13.1","ProjectDIR/rt/inherit/pmf/core","ProjectDIR/rt/inherit/mf/Linux","ProjectDIR/rt/inherit/mf/Core","ProjectDIR/rt/inherit/mf/Core2",},["systemBaseMPATH"]="ProjectDIR/rt/inherit/mf/Linux:ProjectDIR/rt/inherit/mf/Core:ProjectDIR/rt/inherit/mf/Core2",["version"]=2,}';
 export _ModuleTable_;
 ===========================
@@ -238,6 +260,8 @@ LMOD_FAMILY_COMPILER="gcc";
 export LMOD_FAMILY_COMPILER;
 LMOD_FAMILY_MPI="openmpi";
 export LMOD_FAMILY_MPI;
+LOADEDMODULES="gcc/4.7.3:openmpi/1.6.5:p4est/1.0";
+export LOADEDMODULES;
 MANPATH="man:/opt/apps/gcc-4_7/openmpi/1.6.5/man";
 export MANPATH;
 MODULEPATH="ProjectDIR/rt/inherit/pmf/mpi/gcc/4.7/openmpi/1.6:ProjectDIR/rt/inherit/mf/MPI/gcc/4.7/openmpi/1.6:ProjectDIR/rt/inherit/pmf/compiler/gcc/4.7:ProjectDIR/rt/inherit/mf/Compiler/gcc/4.7:ProjectDIR/rt/inherit/pmf/core:ProjectDIR/rt/inherit/mf/Linux:ProjectDIR/rt/inherit/mf/Core:ProjectDIR/rt/inherit/mf/Core2";
@@ -267,6 +291,8 @@ TACC_OPENMPI_LIB="/opt/apps/gcc-4_7/openmpi/1.6.5/lib";
 export TACC_OPENMPI_LIB;
 TACC_OPENMPI_MAN="/opt/apps/gcc-4_7/openmpi/1.6.5/man";
 export TACC_OPENMPI_MAN;
+_LMFILES_="ProjectDIR/rt/inherit/pmf/core/gcc/4.7.3.lua:ProjectDIR/rt/inherit/pmf/compiler/gcc/4.7/openmpi/1.6.5.lua:ProjectDIR/rt/inherit/pmf/mpi/gcc/4.7/openmpi/1.6/p4est/1.0.lua";
+export _LMFILES_;
 _ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/inherit/pmf/core","ProjectDIR/rt/inherit/mf/Linux","ProjectDIR/rt/inherit/mf/Core","ProjectDIR/rt/inherit/mf/Core2",},family={["Compiler"]="gcc",["MPI"]="openmpi",},inactive={},mT={gcc={["FN"]="ProjectDIR/rt/inherit/pmf/core/gcc/4.7.3.lua",["default"]=1,fnI={"ProjectDIR/rt/inherit/mf/Core/gcc/4.7.3.lua",},["fullName"]="gcc/4.7.3",["loadOrder"]=1,propT={},["short"]="gcc",["status"]="active",},openmpi={["FN"]="ProjectDIR/rt/inherit/pmf/compiler/gcc/4.7/openmpi/1.6.5.lua",["default"]=1,fnI={"ProjectDIR/rt/inherit/mf/Compiler/gcc/4.7/openmpi/1.6.5.lua",},["fullName"]="openmpi/1.6.5",["loadOrder"]=2,propT={},["short"]="openmpi",["status"]="active",},p4est={["FN"]="ProjectDIR/rt/inherit/pmf/mpi/gcc/4.7/openmpi/1.6/p4est/1.0.lua",["default"]=1,["fullName"]="p4est/1.0",["loadOrder"]=3,propT={},["short"]="p4est",["status"]="active",},},mpathA={"ProjectDIR/rt/inherit/pmf/mpi/gcc/4.7/openmpi/1.6","ProjectDIR/rt/inherit/mf/MPI/gcc/4.7/openmpi/1.6","ProjectDIR/rt/inherit/pmf/compiler/gcc/4.7","ProjectDIR/rt/inherit/mf/Compiler/gcc/4.7","ProjectDIR/rt/inherit/pmf/core","ProjectDIR/rt/inherit/mf/Linux","ProjectDIR/rt/inherit/mf/Core","ProjectDIR/rt/inherit/mf/Core2",},["systemBaseMPATH"]="ProjectDIR/rt/inherit/mf/Linux:ProjectDIR/rt/inherit/mf/Core:ProjectDIR/rt/inherit/mf/Core2",["version"]=2,}';
 export _ModuleTable_;
 ===========================
@@ -297,6 +323,7 @@ LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/inherit/pmf/core:ProjectDIR/rt/inherit/mf
 export LMOD_DEFAULT_MODULEPATH;
 unset LMOD_FAMILY_COMPILER;
 unset LMOD_FAMILY_MPI;
+unset LOADEDMODULES;
 unset MANPATH;
 MODULEPATH="ProjectDIR/rt/inherit/pmf/core:ProjectDIR/rt/inherit/mf/Linux:ProjectDIR/rt/inherit/mf/Core:ProjectDIR/rt/inherit/mf/Core2";
 export MODULEPATH;
@@ -313,5 +340,6 @@ unset TACC_OPENMPI_BIN;
 unset TACC_OPENMPI_DIR;
 unset TACC_OPENMPI_LIB;
 unset TACC_OPENMPI_MAN;
+unset _LMFILES_;
 _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/inherit/pmf/core","ProjectDIR/rt/inherit/mf/Linux","ProjectDIR/rt/inherit/mf/Core","ProjectDIR/rt/inherit/mf/Core2",},family={},inactive={},mT={},mpathA={"ProjectDIR/rt/inherit/pmf/core","ProjectDIR/rt/inherit/mf/Linux","ProjectDIR/rt/inherit/mf/Core","ProjectDIR/rt/inherit/mf/Core2",},["systemBaseMPATH"]="ProjectDIR/rt/inherit/mf/Linux:ProjectDIR/rt/inherit/mf/Core:ProjectDIR/rt/inherit/mf/Core2",["version"]=2,}';
 export _ModuleTable_;

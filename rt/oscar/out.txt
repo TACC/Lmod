@@ -12,6 +12,8 @@ MODULEPATH="ProjectDIR/rt/oscar/mf/Core";
 export MODULEPATH;
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/oscar/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
+LOADEDMODULES="a:b:c:oscar";
+export LOADEDMODULES;
 MODULEPATH="ProjectDIR/rt/oscar/mf/Oscar:ProjectDIR/rt/oscar/mf/Core";
 export MODULEPATH;
 RTM_A="a";
@@ -20,6 +22,8 @@ RTM_B="b";
 export RTM_B;
 RTM_C="c";
 export RTM_C;
+_LMFILES_="ProjectDIR/rt/oscar/mf/Oscar/a:ProjectDIR/rt/oscar/mf/Oscar/b:ProjectDIR/rt/oscar/mf/Oscar/c:ProjectDIR/rt/oscar/mf/Core/oscar.lua";
+export _LMFILES_;
 _ModuleTable_='_ModuleTable_={["activeSize"]=4,baseMpathA={"ProjectDIR/rt/oscar/mf/Core",},family={},inactive={},mT={a={["FN"]="ProjectDIR/rt/oscar/mf/Oscar/a",["default"]=0,["fullName"]="a",["loadOrder"]=1,propT={},["short"]="a",["status"]="active",},b={["FN"]="ProjectDIR/rt/oscar/mf/Oscar/b",["default"]=0,["fullName"]="b",["loadOrder"]=2,propT={},["short"]="b",["status"]="active",},c={["FN"]="ProjectDIR/rt/oscar/mf/Oscar/c",["default"]=0,["fullName"]="c",["loadOrder"]=3,propT={},["short"]="c",["status"]="active",},oscar={["FN"]="ProjectDIR/rt/oscar/mf/Core/oscar.lua",["default"]=0,["fullName"]="oscar",["loadOrder"]=4,propT={},["short"]="oscar",["status"]="active",},},mpathA={"ProjectDIR/rt/oscar/mf/Oscar","ProjectDIR/rt/oscar/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/oscar/mf/Core",["version"]=2,}';
 export _ModuleTable_;
 ===========================
