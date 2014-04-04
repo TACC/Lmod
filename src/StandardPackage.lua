@@ -61,8 +61,6 @@ local function site_name_hook()
 end
 
 
-
-
 hook.register("SiteName",site_name_hook)
 
 local msgT = {
@@ -94,11 +92,20 @@ hook.register("msgHook",msg)
 
 
 local function groupName(fn)
-   local base = removeExt(fn)
-   local ext  = extname(fn)
+   local base  = removeExt(fn)
+   local ext   = extname(fn)
+   local sname = getenv("LMOD_SYSTEM_NAME")
+
+   if (sname) then
+      sname = sname .."_"
+   else
+      sname = ""
+   end
+
    local a    = {}
    a[#a + 1]  = base
    a[#a + 1]  = "."
+   a[#a + 1]  = sname
    a[#a + 1]  = posix.uname("%m")
    a[#a + 1]  = '_'
    a[#a + 1]  = posix.uname("%s")
