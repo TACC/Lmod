@@ -335,7 +335,7 @@ function Load_Usr(...)
    for i = 1, arg.n do
       local v = arg[i]
       if (v:sub(1,1) == "-") then
-         uA[#uA+1] = MName:new("load", v:sub(2))
+         uA[#uA+1] = MName:new("mt", v:sub(2))
       else
          if (v:sub(1,1) == "+") then
             v = v:sub(2)
@@ -347,7 +347,7 @@ function Load_Usr(...)
    end
 
    if (#uA > 0) then
-      MCP:unload(uA)
+      MCP:unload_usr(uA)
    end
 
    local mcp_old = mcp

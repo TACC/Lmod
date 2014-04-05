@@ -78,7 +78,7 @@ function M.moduleDir(self)
          a[#a+1] = hierA[i]
       end
    end
-   local pkgV = self._pkgVersion:match("([0-9]+%.[0-9]+)%.?")
+   local pkgV = self._pkgVersion:match("(%d+%.%d+)%.?")
 
    a[#a+1]    = pathJoin(self._pkgName,pkgV)
    local mdir = pathJoin(unpack(a))

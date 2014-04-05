@@ -165,7 +165,7 @@ function M.options(self, usage)
       name   = {"--raw"},
       dest   = "rawDisplay",
       action = "store_true",
-      help   = "Print modulefile in raw output",
+      help   = "Print modulefile in raw output when used with show",
    }
 
    cmdlineParser:add_option{

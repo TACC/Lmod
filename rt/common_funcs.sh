@@ -97,6 +97,7 @@ initStdEnvVars()
   unset LMOD_SYSTEM_DEFAULT_MODULES
   unset LMOD_TERM_WIDTH
   unset PYTHONPATH
+  unset LMOD_COLORIZE
   export LMOD_PREPEND_BLOCK=yes
   PATH_to_LUA=`findcmd --pathOnly lua`
   PATH_to_TM=`findcmd --pathOnly tm`
