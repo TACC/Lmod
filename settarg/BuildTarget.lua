@@ -35,7 +35,7 @@
 require("strict")
 require("getUname")
 require("string_split")
-require("string_trim")
+require("string_utils")
 require("fileOps")
 require("utils")
 require("ProcessModuleTable")

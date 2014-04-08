@@ -29,7 +29,7 @@
 
 require("strict")
 require("string_split")
-require("string_trim")
+require("string_utils")
 
 local concatTbl = table.concat
 

@@ -34,7 +34,7 @@
 
 require("strict")
 require("myGlobals")
-require("string_trim")
+require("string_utils")
 require("fileOps")
 require("cmdfuncs")
 require("utils")

@@ -291,7 +291,7 @@ end
 
 require("serializeTbl")
 require("string_split")
-require("string_trim")
+require("string_utils")
 
 BaseShell          = require("BaseShell")
 local Options      = require("Options")

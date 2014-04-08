@@ -29,7 +29,7 @@
 
 
 require("strict")
-require("string_trim")
+require("string_utils")
 require("string_split")
 local posix     = require("posix")
 local lfs       = require("lfs")

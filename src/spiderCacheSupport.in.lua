@@ -59,7 +59,7 @@ require("strict")
 require("utils")
 require("fileOps")
 require("string_split")
-require("string_trim")
+require("string_utils")
 require("serializeTbl")
 
 

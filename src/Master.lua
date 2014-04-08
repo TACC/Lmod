@@ -48,7 +48,7 @@ local removeEntry        = table.remove
 
 require("TermWidth")
 require("fileOps")
-require("string_trim")
+require("string_utils")
 require("fillWords")
 require("loadModuleFile")
 require("utils")
