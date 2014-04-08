@@ -138,19 +138,7 @@ Due to MODULEPATH changes the follow modules have been reloaded:
   \end{itemize}
 \end{frame}
 
-
-
-\begin{frame}{TACC Environment}
-  \begin{itemize}
-    \item TACC: Texas Advanced Computing Center
-    \item Ranger: 62K cores, 580Tflops, 779 Packages
-    \item Lonestar: 22K Cores, 302Tflops, 162 Packages
-    \item Longhorn: 256 Node, 512 GPUs, 158 Packages
-    \item My Work Laptop: 98 Packages.
-  \end{itemize}
-\end{frame}
-
-\begin{frame}{Enviroment Modules}
+\begin{frame}{Environment Modules}
   \begin{itemize}
     \item The ``module'' command ``loads'' a package.
     \item It adds directories to \texttt{PATH} or \texttt{LD\_LIBRARY\_PATH} and
@@ -190,7 +178,7 @@ Due to MODULEPATH changes the follow modules have been reloaded:
   \end{itemize}
 \end{frame}
 
-\begin{frame}{Enviroment Modules History}
+\begin{frame}{Environment Modules History}
   \begin{itemize}
     \item Paper described modules in 1991 (Furlani).
     \item Cray used modules on Unicos mid-1990's.
@@ -199,7 +187,7 @@ Due to MODULEPATH changes the follow modules have been reloaded:
   \end{itemize}
 \end{frame}
 
-\begin{frame}{Enviroment Modules History (II)}
+\begin{frame}{Environment Modules History (II)}
   \begin{itemize}
     \item At some point Environment Modules was rewritten in a TCL/C combination.
     \item Another module system called CMOD:
@@ -212,7 +200,7 @@ Due to MODULEPATH changes the follow modules have been reloaded:
 
 \begin{frame}{How could modules possibly work?}
   \begin{itemize}
-    \item Child processes inherit the parents enviroment.
+    \item Child processes inherit the parents environment.
     \item Not the other way around.
     \item So how does this work?
   \end{itemize}
@@ -320,7 +308,7 @@ Due to MODULEPATH changes the follow modules have been reloaded:
         \item ``mvapich/1.2-intel-11.1''
         \item ``PETSc/4.1-mvapich-1.2-intel-11.1''
         \item Changing compilers means unloading all three modules
-        \item Reloading new compiler, mpi, PETSc modules.
+        \item Reloading new compiler, MPI, PETSc modules.
         \item Not loading correct modules $\Rightarrow$ Mysterious Failures!
         \item Onus of package compatibility on users! 
       \end{itemize}
@@ -331,10 +319,10 @@ Due to MODULEPATH changes the follow modules have been reloaded:
 \begin{frame}{Hierarchical Naming Schemes}
   \begin{itemize}
     \item Store modules under one tree: \texttt{/opt/apps/modulefiles}
-    \item One strategy is to use subdirectories:
+    \item One strategy is to use sub-directories:
       \begin{itemize}
         \item Core: Regular packages: apps, compilers, git
-        \item Compiler: Packages that depend on compiler: boost, mpi
+        \item Compiler: Packages that depend on compiler: boost, MPI
         \item MPI: Packages that depend on MPI/Compiler: PETSc, TAU
       \end{itemize}
 
@@ -353,7 +341,7 @@ Due to MODULEPATH changes the follow modules have been reloaded:
       \end{itemize}
     \item Loading an MPI module adds to the \texttt{MODULEPATH}:
       \begin{itemize}
-        \item Users can load MPI libraries that match the mpi/compiler pairing.
+        \item Users can load MPI libraries that match the MPI/compiler pairing.
       \end{itemize}
   \end{itemize}
 \end{frame}
@@ -446,8 +434,8 @@ Due to MODULEPATH changes the follow modules have been reloaded:
     \item But swapping compilers or MPI stack $\Rightarrow$ complicated!
     \item For Parallel libraries like PETSc:
       \begin{itemize}
-        \item Users must unload PETSc, mpi, compiler
-        \item Reload compiler, mpi, PETSc
+        \item Users must unload PETSc, MPI, compiler
+        \item Reload compiler, MPI, PETSc
         \item Nobody got this right!
       \end{itemize}
     \item Solution: Yet another Environment Module System: \texttt{Lmod}
@@ -462,7 +450,7 @@ Due to MODULEPATH changes the follow modules have been reloaded:
     \item Simple yet powerful with:
       \begin{itemize}
         \item Functions are first class objects.
-        \item Simpifies loading/unloading of modules.
+        \item Simplifies loading/unloading of modules.
         \item Tables combine array and hash seamlessly.
       \end{itemize}
   \end{itemize}
@@ -861,7 +849,7 @@ endif
     \item We want bash interactive non-login shells to behave the same
       as login shells.
     \item Fortran 90 program typically need ``\texttt{ulimit -s unlimited}''
-    \item MPI invokes an interative non-login, non-prompt shell on
+    \item MPI invokes an interactive non-login, non-prompt shell on
       every node.
     \item bash users were not getting ``\texttt{ulimit -s unlimited}''
       from system /etc/profile.d/*.sh
@@ -877,7 +865,7 @@ endif
       {\color{blue}\texttt{export LMOD\_SYSTEM\_DEFAULT\_MODULES=TACC}}\\
       {\color{blue}\texttt{module --initial\_load restore}}
     \item Most users get the ``TACC'' set of modules
-    \item We load standard tools, a compiler, and an mpi implementation.
+    \item We load standard tools, a compiler, and an MPI implementation.
     \item Users can replace the default via ``{\color{blue}\texttt{module save}}''
   \end{itemize}
 \end{frame}
@@ -891,7 +879,7 @@ endif
     \item Uninstalling a package removes both the software and the
       module that access it.
     \item We use a single parameterized RPM spec file to build all
-      compiler/mpi pairings.
+      compiler/MPI pairings.
   \end{itemize}
 \end{frame}
 
@@ -914,7 +902,7 @@ endif
   \begin{itemize}
     \item Lmod can be tested even though your site runs TCL/C modules.
     \item Make sure that Lua and lua-posix and lua-filesytem are installed
-    \item Otherwize install lua-5.1.4.8.tar.gz from lmod.sf.net
+    \item Otherwise install lua-5.1.4.8.tar.gz from lmod.sf.net
     \item Install Lua, Install Lmod in your account.
   \end{itemize}
 \end{frame}
@@ -1090,7 +1078,7 @@ fi
 \end{frame}
 
 \begin{frame}[fragile]
-    \frametitle{Module Properities (I)}
+    \frametitle{Module Proprieties (I)}
   \begin{itemize}
     \item Modules can have properties
     \item At TACC, we have MIC, and GPU accelerators.
@@ -1128,7 +1116,7 @@ fi
 \end{frame}
 
 \begin{frame}[fragile]
-    \frametitle{Module Properities (III): Sticky}
+    \frametitle{Module Properties (III): Sticky}
   \begin{itemize}
     \item A module can be sticky.
     \item It requires ``\texttt{--force}'' to unload or purge.
@@ -1304,7 +1292,7 @@ $ cd OBJ
   \end{itemize}
 \end{frame}
 
-\begin{frame}{Spider Cache Dissdvantages}
+\begin{frame}{Spider Cache Disadvantages}
   \begin{itemize}
     \item There is only one: Keeping it up-to-date.
     \item If Lmod sees a valid cache file it assumes it is correct.
@@ -1330,16 +1318,75 @@ $ cd OBJ
       \end{itemize}
     \item Using rpm or dpkg or similar to install software:
       \begin{itemize}
-        \item Wrap rpm or dpkg to update the timestamp file
+        \item Wrap rpm or dpkg to update the time-stamp file
         \item A cron job to rebuild the cache when necessary
       \end{itemize}
     \item Others?
   \end{itemize}
 \end{frame}
 
+\begin{frame}{Inherit}
+  \begin{itemize}
+    \item Imagine you are developer of a parallel library
+    \item You are on a system deploying a software hierarchy
+    \item How to take advantage of the system supplied layout?
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Inherit (II)}
+  \begin{itemize}
+    \item Create a personal hierarchy for each compiler and MPI stack
+      you want to test against. 
+    \item Then copy each system compiler and MPI modulefile into your
+      personal hierarchy.
+    \item Then add a \texttt{prepend\_path("MODULEPATH",...)} at the
+      end.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Inherit Compiler Module }
+  \begin{itemize}
+    \item Or you can ``inherit'' the same named module in the hierarchy.
+    \item For a compiler modulefile it can be:
+    {\small
+\begin{verbatim}
+inherit()
+local MyMRoot = os.getenv("MY_MODULE_ROOT")
+local compN   = myModuleName()
+local compV   = myModuleVersion():match("(%d+%.%d+)%.?")
+prepend_path("MODULEPATH", pathJoin(myMRoot,
+                                   "Compiler",compN,compV)
+\end{verbatim}
+}
+    \item Using \texttt{\$MY\_MODULE\_ROOT/Compiler/C/CV}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Inherit MPI Module }
+  \begin{itemize}
+    \item Or you can ``inherit'' the same named module in the hierarchy.
+    \item For a compiler modulefile it can be:
+    {\small
+\begin{verbatim}
+inherit()
+local MyMRoot  = os.getenv("MY_MODULE_ROOT")
+local pkgName  = myModuleName()
+local pkgV     = myModuleVersion():match("(%d+%.%d+)%.?")
+local hierA    = hierarchyA(pkgName,1)
+local comp     = hierA[1]
+prepend_path("MODULEPATH", pathJoin(myMRoot,
+                          "Compiler",comp, pkgName, pkgV)
+\end{verbatim}
+}
+    \item Using \texttt{\$MY\_MODULE\_ROOT/Compiler/C/CV/M/MV}
+  \end{itemize}
+\end{frame}
+
 \section{Lessons learned and Conclusions}
 
-\begin{frame}{Lessions Learned}
+\begin{frame}{Lessons Learned}
   \begin{itemize}
     \item A very small percentage of Lmod users join the mailing list.
     \item Able support many requests for features but not all.
@@ -1375,7 +1422,7 @@ $ cd OBJ
   \begin{itemize}
     \item A suite of 60+ tests each with many steps.
     \item No release without passing all those tests.
-    \item These tests make Lmod refactoring much easier.
+    \item These tests make Lmod re-factoring much easier.
     \item The github repo is generally safe.
   \end{itemize}
 \end{frame}
@@ -1423,8 +1470,8 @@ $ cd OBJ
   \begin{itemize}
     \item At TACC, your build environment and your submit environment
       must match.
-    \item checkExec does an ldd of your executable looking for particular mpi libraries.
-    \item It then uses the ``reverse map'' to map mpi library to mpi
+    \item checkExec does an ldd of your executable looking for particular MPI libraries.
+    \item It then uses the ``reverse map'' to map MPI library to MPI
       module and compiler module.
     \item It also extract your current environment to see if they match.
     \item It generates a warning if they don't.
@@ -1447,15 +1494,33 @@ $ cd OBJ
     \item Alpha users soon, Beta users summer of 2014.
   \end{itemize}
 \end{frame}
+\begin{frame}{Future Plans}
+  \begin{itemize}
+    \item Make Lmod available as rpm and debian packages.
+    \item How to deal with libraries and applications that do not fit
+      neatly into the hierarchy.
+    \item \texttt{libmesh} http://libmesh.sourceforge.net/
+      \begin{itemize}
+        \item is a framework for solving 1D, 2D, 3D grid
+          in parallel with support for AMR.
+        \item It depends on boost, petsc, trilinos, grvy, ...
+        \item If you are a developer how do you test it against
+          multiple version of boost, petsc, etc.
+        \item I'm still thinking about how to handle this ``Matrix'' dependency.
+      \end{itemize}
+    \item 
+  \end{itemize}
+\end{frame}
 
 \begin{frame}{Conclusions}
   \begin{itemize}
     \item Download source from: lmod.sourceforge.net (lmod.sf.net)
     \item Github repo: https://github.com/TACC/lmod.git
-    \item Docupmentation: www.tacc.utexas.edu/tacc-projects/lmod
+    \item Documentation: www.tacc.utexas.edu/tacc-projects/lmod
     \item Mailing list: lmod-users@lists.sourceforge.net
   \end{itemize}
 \end{frame}
+
 
 \begin{frame}{Projects to work on here}
   \begin{itemize}
