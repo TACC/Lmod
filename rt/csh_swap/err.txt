@@ -1,7 +1,7 @@
 ===========================
 step 0
 ===========================
-Modules based on Lua: Version 5.3rc2 5.3rc2-4-g988883e 2014-02-11 07:47
+Modules based on Lua: Version 5.3.4 5.3.4-18-g8278865 2014-03-28 15:37
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 1
