@@ -248,7 +248,9 @@ for i in posix lfs; do
   fi
 done
 
-rm luaModuleAvailable
+
+
+
 if test -n "$missingModules" ; then
   echo ""
   echo ""
@@ -259,6 +261,43 @@ if test -n "$missingModules" ; then
 fi
 
 echo "... yes"
+
+printf "checking for lua modules: term"
+
+missingModules=""
+for i in term; do
+  $luaprog luaModuleAvailable $i 2> /dev/null
+  if test "$?" != 0 ; then
+    missingModules="$missingModules $i"
+  fi
+done
+
+if test -n "$missingModules" ; then
+  echo "... no"
+else
+  AC_SUBST(HAVE_LUA_TERM,yes)
+  echo "... yes"
+fi
+
+printf "checking for lua modules: json"
+
+missingModules=""
+for i in json; do
+  $luaprog luaModuleAvailable $i 2> /dev/null
+  if test "$?" != 0 ; then
+    missingModules="$missingModules $i"
+  fi
+done
+
+if test -n "$missingModules" ; then
+  echo "... no"
+else
+  AC_SUBST(HAVE_LUA_JSON,yes)
+  echo "... yes"
+fi
+  
+
+rm luaModuleAvailable
 
 AC_SUBST(LUA_INCLUDE)
 

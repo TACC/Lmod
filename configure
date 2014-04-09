@@ -589,6 +589,8 @@ ZSH
 ZSH_SITE_FUNCTIONS_DIR
 pkgConfig
 LUA_INCLUDE
+HAVE_LUA_JSON
+HAVE_LUA_TERM
 luaprog
 pager
 PATH_TO_HASHSUM
@@ -2274,7 +2276,9 @@ for i in posix lfs; do
   fi
 done
 
-rm luaModuleAvailable
+
+
+
 if test -n "$missingModules" ; then
   echo ""
   echo ""
@@ -2285,6 +2289,45 @@ if test -n "$missingModules" ; then
 fi
 
 echo "... yes"
+
+printf "checking for lua modules: term"
+
+missingModules=""
+for i in term; do
+  $luaprog luaModuleAvailable $i 2> /dev/null
+  if test "$?" != 0 ; then
+    missingModules="$missingModules $i"
+  fi
+done
+
+if test -n "$missingModules" ; then
+  echo "... no"
+else
+  HAVE_LUA_TERM=yes
+
+  echo "... yes"
+fi
+
+printf "checking for lua modules: json"
+
+missingModules=""
+for i in json; do
+  $luaprog luaModuleAvailable $i 2> /dev/null
+  if test "$?" != 0 ; then
+    missingModules="$missingModules $i"
+  fi
+done
+
+if test -n "$missingModules" ; then
+  echo "... no"
+else
+  HAVE_LUA_JSON=yes
+
+  echo "... yes"
+fi
+
+
+rm luaModuleAvailable
 
 
 
@@ -3603,6 +3646,8 @@ echo "Allow tcl modulefiles......................." : $ALLOW_TCL_MFILES
 echo "ZSH Tab Completion Functions Site Directory." : $ZSH_SITE_FUNCTIONS_DIR
 echo "Use Dot files in ~/.lmod.d.................." : $USE_DOT_FILES
 echo "Full Settarg support........................" : $SETTARG
+echo "Have lua-term..............................." : $HAVE_LUA_TERM
+echo "Have lua-json..............................." : $HAVE_LUA_JSON
 
 echo
 echo '------------------------------------------------------------------------------'

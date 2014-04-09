@@ -120,6 +120,8 @@ local function new(self)
    tbl.mpath_root = { doc = "MODULEPATH_ROOT"                 , value = "@modulepath_root@",   }
    tbl.pkg        = { doc = "Pkg Class name"                  , value = pkgName,               }
    tbl.sitePkg    = { doc = "Site Pkg location"               , value = locSitePkg,            }
+   tbl.lua_term   = { doc = "System lua-term"                 , value = "@have_lua_term@",     }
+   tbl.lua_json   = { doc = "System lua_json"                 , value = "@have_lua_json@",     }
    tbl.uname      = { doc = "uname -a"                        , value = uname,                 }
    tbl.z01_admin  = { doc = "Admin file"                      , value = adminFn,               }
    tbl.z02_admin  = { doc = "Does Admin file exist"           , value = tostring(readable),    }

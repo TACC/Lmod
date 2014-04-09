@@ -1,3 +1,15 @@
+HAVE_LUA_TERM             := @HAVE_LUA_TERM@
+ifneq ($(HAVE_LUA_TERM),yes)
+  PKGS := pkgs
+  LIB  := $(prefix)/$(package)/$(version)/lib
+endif
+
+TOOL_SRC                  := $(wildcard tools/*.lua)
+HAVE_LUA_JSON             := @HAVE_LUA_JSON@
+ifeq ($(HAVE_LUA_JSON),yes)
+  TOOL_SRC                := $(filter-out tools/json.lua, $(TOOL_SRC))
+endif
+
 LMOD_FULL_SETTARG_SUPPORT := $(shell echo "@SETTARG@"       | tr '[:upper:]' '[:lower:]')
 USE_DOT_FILES             := $(shell echo "@USE_DOT_FILES@" | tr '[:upper:]' '[:lower:]')
 PREPEND_BLOCK     	  := $(shell echo "@PREPEND_BLOCK@" | tr '[:upper:]' '[:lower:]')
@@ -24,7 +36,6 @@ package		  	  := lmod
 version		  	  := $(shell cd ./src; $(PATH_TO_LUA)/lua -e "V=require('Version'); print(V.tag())")
 PKGV		  	  := $(prefix)/$(package)/$(version)
 PKG		  	  := $(prefix)/$(package)/$(package)
-LIB		  	  := $(prefix)/$(package)/$(version)/lib
 LIBEXEC		  	  := $(prefix)/$(package)/$(version)/libexec
 SHELLS                    := $(prefix)/$(package)/$(version)/shells
 TOOLS                     := $(prefix)/$(package)/$(version)/tools
@@ -52,7 +63,8 @@ ZSH_FUNCS                 := init/zsh/_ml init/zsh/_module
 STARTUP		  	  := profile.in cshrc.in
 STARTUP		  	  := $(patsubst %, init/%, $(STARTUP))
 
-MAIN_DIR	  	  := Makefile.in INSTALL configure README_lua_modulefiles.txt README README.old
+MAIN_DIR	  	  := Makefile.in INSTALL configure README_lua_modulefiles.txt \
+                             README README.old
 
 CONTRIB_DIRS           	  :=  \
                               bash_patch                        \
@@ -66,7 +78,7 @@ CONTRIB_DIRS           	  :=  \
                               tricky_modulefiles
 
 CONTRIB                   := $(patsubst %, contrib/%, $(CONTRIB_DIRS))
-lua_code	  	  := $(filter-out %.in.lua, $(wildcard src/*.lua))                         \
+lua_code	  	  := $(filter-out %.in.lua, $(wildcard src/*.lua))   \
                              $(wildcard src/*.tcl)
 VDATE		  	  := $(shell date +'%F %H:%M')
 
@@ -79,7 +91,7 @@ all:
 	@echo done
 
 pre-install: $(DIRLIST) shell_init startup spiderCacheSupport libexec \
-             Inst_Tools Inst_Shells Inst_Settarg Inst_Lmod_MF pkgs other_tools
+             Inst_Tools Inst_Shells Inst_Settarg Inst_Lmod_MF $(PKGS) other_tools
 
 install: pre-install  zsh_tab_funcs
 	$(RM) $(DESTDIR)$(PKG)
@@ -105,6 +117,8 @@ __installMe:
                 -e 's|@lmod_full_settarg_support@|$(LMOD_FULL_SETTARG_SUPPORT)|g' \
                 -e 's|@use_dot_files@|$(USE_DOT_FILES)|g'             	   \
                 -e 's|@git@|$(GIT_VERSION)|g'                              \
+                -e 's|@have_lua_term@|$(HAVE_LUA_TERM)|g'                  \
+                -e 's|@have_lua_json@|$(HAVE_LUA_JSON)|g'                  \
 	        -e 's|@ancient@|$(ANCIENT)|g'                         	   \
 	        -e 's|@prepend_block@|$(PREPEND_BLOCK)|g'             	   \
 	        -e 's|@colorize@|$(COLORIZE)|g'                       	   \
@@ -261,7 +275,7 @@ tags:
 libexec:  $(lua_code)
 	$(MAKE) FILELIST="$^" DIRLOC=$(DESTDIR)$(LIBEXEC) __installMe
 
-Inst_Tools: tools/*.lua
+Inst_Tools: $(TOOL_SRC)
 	$(MAKE) FILELIST="$^" DIRLOC=$(DESTDIR)$(TOOLS) __installMe
 
 Inst_Shells: shells/*.lua

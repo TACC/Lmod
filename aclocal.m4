@@ -36,6 +36,8 @@ echo "Allow tcl modulefiles......................." : $ALLOW_TCL_MFILES
 echo "ZSH Tab Completion Functions Site Directory." : $ZSH_SITE_FUNCTIONS_DIR
 echo "Use Dot files in ~/.lmod.d.................." : $USE_DOT_FILES
 echo "Full Settarg support........................" : $SETTARG
+echo "Have lua-term..............................." : $HAVE_LUA_TERM
+echo "Have lua-json..............................." : $HAVE_LUA_JSON
 
 echo
 echo '------------------------------------------------------------------------------'
