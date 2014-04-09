@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.3.4 5.3.4-19-ga42ce74 2014-03-28 15:37
+Modules based on Lua: Version 5.3.4 5.3.4-24-g0be500e 2014-03-28 15:37
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -110,7 +110,7 @@ The following guides are at http://www.tacc.utexas.edu/tacc-projects/lmod
   User Guide                 - How to use.
   Advance User Guide         - How to create you own modules.
   System Administrator Guide - How to install Lmod on your own system.
-Modules based on Lua: Version 5.3.4 5.3.4-19-ga42ce74 2014-03-28 15:37
+Modules based on Lua: Version 5.3.4 5.3.4-24-g0be500e 2014-03-28 15:37
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 3
@@ -218,7 +218,7 @@ The following guides are at http://www.tacc.utexas.edu/tacc-projects/lmod
   User Guide                 - How to use.
   Advance User Guide         - How to create you own modules.
   System Administrator Guide - How to install Lmod on your own system.
-Modules based on Lua: Version 5.3.4 5.3.4-19-ga42ce74 2014-03-28 15:37
+Modules based on Lua: Version 5.3.4 5.3.4-24-g0be500e 2014-03-28 15:37
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 4
@@ -238,7 +238,7 @@ Version 9
 step 5
 lua ProjectDIR/src/lmod.in.lua bash --config
 ===========================
-Modules based on Lua: Version 5.3.4 5.3.4-19-ga42ce74 2014-03-28 15:37
+Modules based on Lua: Version 5.3.4 5.3.4-24-g0be500e 2014-03-28 15:37
     by Robert McLay mclay@tacc.utexas.edu
 Description                      Value
 Allow TCL modulefiles            @allow_tcl_mfiles@
@@ -246,6 +246,8 @@ User cache valid time(sec)       @ancient@
 Colorize Lmod                    @colorize@
 Using dotfiles                   @use_dot_files@
 Allow duplicate paths            @duplicate_paths@
+System lua_json                  @have_lua_json@
+System lua-term                  @have_lua_term@
 Include modulepath dir in avail  no
 MODULEPATH_ROOT                  @modulepath_root@
 number of cache dirs             0
