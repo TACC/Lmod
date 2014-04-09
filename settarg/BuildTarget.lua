@@ -34,7 +34,6 @@
 
 require("strict")
 require("getUname")
-require("string_split")
 require("string_utils")
 require("fileOps")
 require("utils")
@@ -239,7 +238,7 @@ local function readDotFiles()
    -------------------------------------------------------
    -- Load system then user default table.
 
-   local a = { pathJoin(masterTbl.execDir,".settarg.lua"),
+   local a = { pathJoin(masterTbl.execDir,"settarg_rc.lua"),
                pathJoin(getenv('HOME') or '',".settarg.lua"),
    }
 

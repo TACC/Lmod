@@ -2,7 +2,7 @@
 -- -*- lua -*-
 
 require("strict")
-require("string_split")
+require("string_utils")
 require("fileOps")
 local Dbg    = require("Dbg")
 local lfs    = require("lfs")

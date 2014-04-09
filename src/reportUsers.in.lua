@@ -47,7 +47,6 @@ package.path = cmd_dir .. "../tools/?.lua;"  ..
                package.path
 
 require("strict")
-require("string_split")
 require("string_utils")
 require("pairsByKeys")
 local Optiks = require("Optiks")

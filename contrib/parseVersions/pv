@@ -35,7 +35,7 @@
 --------------------------------------------------------------------------
 
 require("strict")
-require("string_split")
+require("string_utils")
 require("VarDump")
 local BeautifulTbl = require("BeautifulTbl")
 local Dbg          = require("Dbg")

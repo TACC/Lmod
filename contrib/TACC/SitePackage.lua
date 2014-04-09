@@ -34,7 +34,6 @@
 require("strict")
 require("serializeTbl")
 require("myGlobals")
-require("string_split")
 require("string_utils")
 local Dbg    = require("Dbg")
 local dbg    = Dbg:dbg()

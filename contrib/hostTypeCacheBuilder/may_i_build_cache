@@ -4,7 +4,7 @@
 Version = "0.1"
 
 require("strict")
-require("string_split")
+require("string_utils")
 require("declare")
 require("fileOps")
 local Dbg       = require("Dbg")

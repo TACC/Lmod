@@ -162,7 +162,7 @@ Version 4.0:
      add_property("arch","value1")
      add_property("arch","value2")
 
-     See .lmodrc.lua for how to setup your properties.
+     See lmodrc.lua for how to setup your properties.
 
   4) Lmod now knows if stderr is connected to a terminal or not.
      This means that the pager (and the color output of properties)

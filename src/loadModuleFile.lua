@@ -35,7 +35,7 @@
 require("strict")
 require("fileOps")
 require("sandbox")
-require("string_split")
+require("string_utils")
 local dbg       = require("Dbg"):dbg()
 local concatTbl = table.concat
 

@@ -47,7 +47,7 @@ package.path = LuaCommandName_dir .. "../tools/?.lua;" ..
                LuaCommandName_dir .. "?.lua;"       .. package.path
 
 require("strict")
-require("string_split")
+require("string_utils")
 local concatTbl = table.concat
 local function quoteWrap(a)
    return "'" .. tostring(a) .. "'"

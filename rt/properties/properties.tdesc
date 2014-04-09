@@ -26,7 +26,7 @@ testdescript = {
      rm -f  _stderr.* _stdout.* err.* out.*
      rm -fr .lmod.d .lmodrc.lua
 
-     cp $(projectDir)/init/.lmodrc.lua .
+     cp $(projectDir)/init/lmodrc.lua .lmodrc.lua
      mkdir -p .lmod.d/.cache
 
      runLmod --version                  # 1

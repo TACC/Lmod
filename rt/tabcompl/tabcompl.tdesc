@@ -32,11 +32,11 @@ testdescript = {
      HOME=`pwd`;                        export HOME
      RTM_SETTARG_CMD=":";               export RTM_SETTARG_CMD
 
-     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d cacheDir
+     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d cacheDir .lmodrc.lua 
 
      mkdir cacheDir
      buildModuleT $MODULEPATH > cacheDir/moduleT.lua
-     cp $(projectDir)/init/.lmodrc.lua .
+     cp $(projectDir)/init/lmodrc.lua .lmodrc.lua 
      cat > fn << EOF
 $(outputDir)/cacheDir: $(outputDir)/last_update
 EOF

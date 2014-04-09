@@ -49,7 +49,7 @@ package.path = cmd_dir .. "../tools/?.lua;" ..
                cmd_dir .. "?.lua;"       .. package.path
 
 require("strict")
-require("string_split")
+require("string_utils")
 require("serializeTbl")
 local base64    = require("base64")
 local concatTbl = table.concat

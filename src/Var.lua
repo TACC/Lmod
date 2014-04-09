@@ -82,7 +82,7 @@
 -- correctly independent of site policy towards duplicates
 
 require("strict")
-require("string_split")
+require("string_utils")
 require("pairsByKeys")
 require("utils")
 local abs           = math.abs

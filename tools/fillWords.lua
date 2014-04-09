@@ -28,7 +28,6 @@
 -- fillWords(): Pass in [[line]] and convert text to fit space.
 
 require("strict")
-require("string_split")
 require("string_utils")
 
 local concatTbl = table.concat

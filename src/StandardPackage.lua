@@ -33,7 +33,7 @@
 require("strict")
 require("TermWidth")
 require("fillWords")
-require("string_split")
+require("string_utils")
 require("fileOps")
 PkgBase         = require("PkgBase")
 Pkg             = PkgBase.build("Pkg")

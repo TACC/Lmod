@@ -39,7 +39,6 @@
 
 require("strict")
 require("fileOps")
-require("string_split")
 require("string_utils")
 require("parseVersion")
 require("capture")
@@ -431,8 +430,8 @@ end
 
 local s_readRC     = false
 RCFileA = {
-   pathJoin(cmdDir(),"../init/.lmodrc.lua"),
-   pathJoin(cmdDir(),"../../etc/.lmodrc.lua"),
+   pathJoin(cmdDir(),"../init/lmodrc.lua"),
+   pathJoin(cmdDir(),"../../etc/lmodrc.lua"),
    pathJoin(getenv("HOME"),".lmodrc.lua"),
    os.getenv("LMOD_RC"),
 }

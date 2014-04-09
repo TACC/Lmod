@@ -262,7 +262,7 @@ uname -a
 Admin file                       ProjectDIR/src/../../etc/admin.list
 Does Admin file exist            no
 Active RC file(s):
-ProjectDIR/init/.lmodrc.lua
+ProjectDIR/init/lmodrc.lua
 OutputDIR/.lmodrc.lua
  Lmod Property Table:
 propT = {

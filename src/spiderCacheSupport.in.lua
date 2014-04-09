@@ -58,7 +58,6 @@ local lfs    = require("lfs")
 require("strict")
 require("utils")
 require("fileOps")
-require("string_split")
 require("string_utils")
 require("serializeTbl")
 

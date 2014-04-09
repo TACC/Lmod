@@ -28,7 +28,7 @@ testdescript = {
      rm -f  _stderr.* _stdout.* err.* out.*
      rm -fr .lmod.d .lmodrc.lua
 
-     cp $(testDir)/.lmodrc.lua .
+     cp $(testDir)/.lmodrc.lua .lmodrc.lua
 
      runMe lua $(projectDir)/src/lmod.in.lua bash --version                  # 1
      export LMOD_COLORIZE=FORCE

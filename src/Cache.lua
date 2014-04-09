@@ -80,7 +80,7 @@ local timer   = require("Timer"):timer()
 
 --------------------------------------------------------------------------
 -- new(): This singleton construct reads the scDescriptT table that can be
---        defined in the .lmodrc.lua.  Typically this table, if it exists
+--        defined in the lmodrc.lua.  Typically this table, if it exists
 --        by the configure script.  If it does not then scDescriptT will
 --        be an array with zero entries.  This ctor finds all the system
 --        and user directories where cache files are stored.  It also

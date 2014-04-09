@@ -25,8 +25,8 @@ testdescript = {
      HOME=`/bin/pwd`
      unset TERM
 
-     rm -fr _stderr.*  _stdout.* out.* err.* .lmod.d
-     cp $(projectDir)/init/.lmodrc.lua .
+     rm -fr _stderr.*  _stdout.* out.* err.* .lmod.d .lmodrc.lua
+     cp $(projectDir)/init/lmodrc.lua .lmodrc.lua
 
 
      runLmod --version                # 1

@@ -50,7 +50,7 @@ local sort         = table.sort
 local systemG      = _G
 local unpack       = unpack or table.unpack
 
-require("string_split")
+require("string_utils")
 require("fileOps")
 require("serializeTbl")
 require("parseVersion")

@@ -290,7 +290,6 @@ function version()
 end
 
 require("serializeTbl")
-require("string_split")
 require("string_utils")
 
 BaseShell          = require("BaseShell")

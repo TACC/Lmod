@@ -79,7 +79,7 @@ package.path = cmd_dir .. "../tools/?.lua;" ..
                cmd_dir .. "?.lua;"       .. package.path
 
 require("strict")
-require("string_split")
+require("string_utils")
 require("serializeTbl")
 require("pairsByKeys")
 require("fileOps")

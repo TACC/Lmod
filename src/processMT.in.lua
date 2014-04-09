@@ -52,7 +52,7 @@ package.path = cmd_dir .. "../tools/?.lua;"  ..
 
 require("strict")
 require("fileOps")
-require("string_split")
+require("string_utils")
 require("myGlobals")
 require("declare")
 

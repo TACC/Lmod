@@ -30,7 +30,7 @@ testdescript = {
      COUNT=0
      HOME_ORIG=`(cd $HOME; /bin/pwd)`
      HOME=`pwd`;                           export HOME
-     cp $(projectDir)/settarg/.settarg.lua  .
+     cp $(projectDir)/settarg/settarg_rc.lua  .settarg.lua
 
      rm -fr _stderr.* _stdout.* err.* out.* .lmod.d
 

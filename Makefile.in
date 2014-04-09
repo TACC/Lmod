@@ -32,7 +32,7 @@ SETTARG                   := $(prefix)/$(package)/$(version)/settarg
 INIT		  	  := $(prefix)/$(package)/$(version)/init
 LMOD_MF 	  	  := $(prefix)/$(package)/$(version)/modulefiles/Core
 LMOD_MF_SOURCE            := MF/*.version.lua
-SETTARG_SOURCE            := settarg/*.lua  settarg/.settarg.lua  settarg/targ.in
+SETTARG_SOURCE            := settarg/*.lua  settarg/targ.in
 
 DIRLIST		  	  := $(DESTDIR)$(LIBEXEC) $(DESTDIR)$(TOOLS) $(DESTDIR)$(SETTARG)             \
                              $(DESTDIR)$(SHELLS)                                                      \
@@ -44,7 +44,7 @@ STANDALONE_PRGM   	  := src/lmod.in.lua src/addto.in.lua src/getmt.in.lua src/pr
                              src/clearMT_cmd.in.lua src/ml_cmd.in.lua src/spiderCacheSupport.in.lua   \
                              src/sh_to_modulefile.in.lua
 SHELL_INIT	  	  := bash.in csh.in ksh.in tcsh.in zsh.in sh.in perl.in                       \
-                             env_modules_python.py.in lmod_bash_completions .lmodrc.lua
+                             env_modules_python.py.in lmod_bash_completions lmodrc.lua
 SHELL_INIT	  	  := $(patsubst %, init/%, $(SHELL_INIT))
 
 ZSH_FUNCS                 := init/zsh/_ml init/zsh/_module
@@ -140,7 +140,7 @@ spiderCacheSupport:
 	$(spiderCacheSupportCMD) --cacheDirs "$(SPIDER_CACHE_DIRS)"          \
 	                         --updateFn  "$(UPDATE_SYSTEM_FN)"           \
                                  --descriptFn "$(SPIDER_CACHE_DESCRIPT_FN)"  \
-                                 >> $(DESTDIR)$(INIT)/.lmodrc.lua;
+                                 >> $(DESTDIR)$(INIT)/lmodrc.lua;
 
 src/computeHashSum: $(ComputeHashSum)
 	$(MAKE) FILELIST="$^" DIRLOC="src"                __installMe

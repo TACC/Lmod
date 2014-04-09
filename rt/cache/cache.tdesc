@@ -26,9 +26,8 @@ testdescript = {
      HOME_ORIG=`(cd $HOME; /bin/pwd)`
      HOME=`pwd`;                       export HOME
 
-     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d cacheDir
-
-     cp $(projectDir)/init/.lmodrc.lua .
+     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d cacheDir .lmodrc.lua
+     cp $(projectDir)/init/lmodrc.lua .lmodrc.lua
 
      cat > fn << EOF
 $(outputDir)/cacheDir: $(outputDir)/last_update

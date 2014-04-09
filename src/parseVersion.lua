@@ -33,7 +33,7 @@
 --------------------------------------------------------------------------
 
 require("strict")
-require("string_split")
+require("string_utils")
 local dbg          = require("Dbg"):dbg()
 local concatTbl    = table.concat
 

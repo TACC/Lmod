@@ -38,7 +38,6 @@
 
 require("TermWidth")
 require("strict")
-require("string_split")
 require("string_utils")
 require("fileOps")
 require("escape")

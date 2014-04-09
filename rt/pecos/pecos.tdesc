@@ -30,9 +30,9 @@ testdescript = {
      ORIG_HOME=`(cd $HOME; /bin/pwd)`
      HOME=`/bin/pwd`
 
-     rm -rf _stderr.* _stdout.* err.* out.* .lmod.d
+     rm -rf _stderr.* _stdout.* err.* out.* .lmod.d .lmodrc.lua
 
-     cp $(projectDir)/init/.lmodrc.lua .
+     cp $(projectDir)/init/lmodrc.lua .lmodrc.lua 
      mkdir -p $HOME/.lmod.d/.cache
      buildModuleT $MODULEPATH > $HOME/.lmod.d/.cache/moduleT.lua
      runLmod --version            # 1
