@@ -1,4 +1,3 @@
-SHELL                     := /bin/bash
 HAVE_LUA_TERM             := @HAVE_LUA_TERM@
 ifneq ($(HAVE_LUA_TERM),yes)
   PKGS := pkgs
