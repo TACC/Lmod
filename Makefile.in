@@ -1,3 +1,4 @@
+SHELL                     := /bin/bash
 HAVE_LUA_TERM             := @HAVE_LUA_TERM@
 ifneq ($(HAVE_LUA_TERM),yes)
   PKGS := pkgs
@@ -25,6 +26,7 @@ SPIDER_CACHE_DIRS 	  := @SPIDER_CACHE_DIRS@
 PATH_TO_HASHSUM   	  := @PATH_TO_HASHSUM@
 PATH_TO_LUA	  	  := @PATH_TO_LUA@
 PATH_TO_PAGER	  	  := @PATH_TO_PAGER@
+PATH_TO_TCLSH             := @PATH_TO_TCLSH@
 MODULEPATH_ROOT   	  := @MODULEPATH_ROOT@
 VERSION_SRC	  	  := src/Version.lua
 LUA_INCLUDE       	  := @LUA_INCLUDE@
@@ -113,6 +115,7 @@ __installMe:
            sed  -e 's|@PREFIX@|$(prefix)|g'                            	   \
 	        -e 's|@path_to_lua@|$(PATH_TO_LUA)|g'                 	   \
 	        -e 's|@path_to_hashsum@|$(PATH_TO_HASHSUM)|g'         	   \
+	        -e 's|^#!/usr/bin/env tclsh$$|#!$(PATH_TO_TCLSH)|g'    	   \
 	        -e 's|@path_to_pager@|$(PATH_TO_PAGER)|g'             	   \
                 -e 's|@lmod_full_settarg_support@|$(LMOD_FULL_SETTARG_SUPPORT)|g' \
                 -e 's|@use_dot_files@|$(USE_DOT_FILES)|g'             	   \

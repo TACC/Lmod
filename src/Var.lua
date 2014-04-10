@@ -555,7 +555,7 @@ function M.expand(self)
       end
    else
       local sA = {}
-      for k,priority in pairs(prT) do
+      for k,priority in pairsByKeys(prT) do
          sA[#sA+1] = k .. ':' .. tostring(priority)
       end
       priorityStrT[env_name] = concatTbl(sA,';')
