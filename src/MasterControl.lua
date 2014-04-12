@@ -289,9 +289,6 @@ function M.unload(self, mA)
    end
 
    local aa     = master.unload(mA)
-
-
-
    dbg.fini("MasterControl:unload")
    return aa
 end
