@@ -141,11 +141,12 @@ local function mustLoad(mA)
       end
 
       if (#kA > 0) then
-         a[#a+1] = "\nThese module(s) exist but cannot be loaded currently: "
+         a[#a+1] = "\nThese module(s) exist but cannot be loaded as requested: "
          a[#a+1] = concatTbl(kA,", ")
          a[#a+1] = "\n\n   Try: \"module spider "
          a[#a+1] = concatTbl(kB, " ")
-         a[#a+1] = "\"\n\n"
+         a[#a+1] = "\" to see how to load the module(s)."
+         a[#a+1] = "\n\n"
       end
 
       if (#a > 0) then
