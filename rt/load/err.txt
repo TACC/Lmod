@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.3.4 5.3.4-11-g6b74389 2014-03-28 15:37
+Modules based on Lua: Version 5.3.4 5.3.4-32-gc9f67d5 2014-03-28 15:37
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -104,13 +104,15 @@ step 16
 lua ProjectDIR/src/lmod.in.lua bash load boost/1.33.0
 ===========================
 Lmod has detected the following error: 
-The following module(s) are completely unknown: "boost/1.33.0"
+The following module(s) are unknown: "boost/1.33.0"
+   Please check the spelling or version number. Also try "module spider ..."
 ===========================
 step 17
 lua ProjectDIR/src/lmod.in.lua bash load boost/1.57.0
 ===========================
 Lmod has detected the following error: 
-The following module(s) are completely unknown: "boost/1.57.0"
+The following module(s) are unknown: "boost/1.57.0"
+   Please check the spelling or version number. Also try "module spider ..."
 ===========================
 step 18
 lua ProjectDIR/src/lmod.in.lua bash load boost
@@ -177,7 +179,8 @@ step 27
 lua ProjectDIR/src/lmod.in.lua bash load DoesNotExist
 ===========================
 Lmod has detected the following error: 
-The following module(s) are completely unknown: "DoesNotExist"
+The following module(s) are unknown: "DoesNotExist"
+   Please check the spelling or version number. Also try "module spider ..."
 ===========================
 step 28
 lua ProjectDIR/src/lmod.in.lua bash list
