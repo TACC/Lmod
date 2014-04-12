@@ -39,6 +39,7 @@ require("fileOps")
 require("pairsByKeys")
 require("serializeTbl")
 require("utils")
+require("string_utils")
 local BeautifulTbl = require('BeautifulTbl')
 local Version      = require("Version")
 local concatTbl    = table.concat
