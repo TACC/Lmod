@@ -599,10 +599,14 @@ local function countEntries(t, sn, searchPat, searchName)
                dbg.print{"(2) setting full: ",full,"\n"}
             end
          end
-         if (v.full:find(searchName)) then
-            fullCnt = fullCnt + 1
-            full  = v.full
-            dbg.print{"(3) setting full: ",full,"\n"}
+         local i, j = v.full:find(searchName)
+         if (i) then
+            local flen = v.full:len()
+            if (flen == j - i + 1) then
+               fullCnt = fullCnt + 1
+               full  = v.full
+               dbg.print{"(3) setting full: ",full,"\n"}
+            end
          end
       end
    end
