@@ -1,3 +1,60 @@
+Lmod Version 5.4:
+Features:
+   a) prepend_path now supports a priority.  This means that no matter when
+      a module is loaded a path will pushed to be first:
+
+      	 prepend_path{"PATH","/first",priority=100}  -- lua
+      	 prepend-path  PATH   /first           100   #  tcl
+
+      
+      Note the use of {} braces for lua. The braces are only required when
+      specifying the priority, otherwise parens work fine.  Priority works 
+      for append_path as well.  It just pushes paths to the right end.  By 
+      default, a path has a priority of zero.  Paths will a priority of 100
+      are grouped together. Paths with a priority of 1000 are grouped 
+      together to the left of the paths with a priority of 100.  The priority
+      for prepend_path are useful for wrappers.  The priority for append_path
+      is great for catch-alls.
+   b) Lmod now generates "LOADEDMODULES" and "_LMFILES_" to match TCL/C env.
+      modules.
+   c) Lmod now purges modules in reverse order that the module were loaded.
+      This helps when reading Cray modulefiles.
+   d) Lmod ships with lua-term and JSON4lua but will use the system lua-term
+      and lua-json if available.
+   e) added "--raw" to "module --raw show module".  This just prints out the
+      "raw" modulefile.
+   f) Lmod now adds the env. var LMOD_SYSTEM_NAME to the user cache file. So
+      if LMOD_SYSTEM_NAME is Bar and on a intel system the cache file will be
+      ~/.lmod.d/.cache/moduleT.Bar_x86_64.lua
+   g) To match TCL/C modules, the reverse of the module file commands
+      remove_path, unload, etc now does nothing rather-than producing an
+      error.
+   h) Support for a .version file with time to change the default:
+
+           #%Module1.0##################################################
+           set ModulesVersion        "1.4.3"
+           set NewModulesVersion     "1.6.5"
+           set NewModulesVersionDate "2014/04/25"
+
+      Note that the date is in yyyy/mm/dd format. This way it is neither an
+      American or European format.
+   i) To support both rpm and debian package rules, the system .settarg.lua
+      file is renamed to settarg_rc.lua.  The .lmodrc.lua file has been
+      renamed to lmodrc.lua.   User versions of these files remains the same:
+      ".settarg.lua" and ".lmodrc.lua".
+
+Bug Fixes:
+   a) There was a bug with avail and spider where it would not find modules
+      with a dash.  This was fixed between version 5.2.3 and now.
+   b) There was a bug with "module -r spider "^phdf5/1.8.12$" where it would 
+      say that the module wasn't there and yet it was.  This has been fixed.
+   c) Improved the wording of "module load foo/1.2" when foo/1.2 existed and
+      when it didn't.  (Thanks to Alex Moskalenko for the fix)
+   d) Lmod would do wrong when "module unload gcc mpich".  It would make
+      mpich inactive.  This is fixed. 
+   e) Fixed bug where if there is a symbolic link to the modulefile it wouldn't 
+      mark the default module correctly.
+
 Lmod Version 5.3.2:
 Bug Fix:
    a) Fixed problem with symlink directories and picking the right default.
@@ -39,7 +96,8 @@ Lmod Version 5.2.3:
 Bug Fixes:
   a) Prereq now works with a version.
   b) The function "always_load" works with show.
-  c) The "make install" now works and doesn't complain about not being a git repository.
+  c) The "make install" now works and doesn't complain about not being a
+     git repository.
 
 Lmod Version 5.2:
 Features:
