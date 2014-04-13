@@ -30,14 +30,20 @@ testdescript = {
      rm -fr _stderr.* _stdout.* err.* out.* .lmod.d
 
      runLmod --version                     # 1
-     runLmod load clang openmpi  parmetis  # 2
-     runLmod avail                         # 3
-     runLmod load -clang -openmpi          # 4
-     runLmod list                          # 5
-     runLmod load gcc mpich                # 6
-     runLmod list                          # 5
-
-
+     runLmod load parmetis                 # 2
+     runLmod load parmetis/4.0.3           # 3
+     runLmod load parmetis/11.0            # 4
+     runLmod load clang openmpi  parmetis  # 5
+     runLmod avail                         # 6
+     runLmod load -clang -openmpi          # 7
+     runLmod list                          # 8 
+     runLmod load gcc mpich                # 9 
+     runLmod list                          #10
+     runLmod load ben                      #11
+     runLmod load ben/0.1                  #12
+     runLmod load fbr                      #13
+     runLmod list                          #14
+     
      HOME=$ORIG_HOME
      cat _stdout.[0-9][0-9] > _stdout.orig
      joinBase64Results  -bash  _stdout.orig _stdout.new

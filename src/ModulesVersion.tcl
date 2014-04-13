@@ -10,10 +10,10 @@ proc main {argv} {
       set version $ModuleVersion
     }
     if {[info exists NewModulesVersionDate]} {
-      set date NewModulesVersionDate
+      set date $NewModulesVersionDate
     }
     if {[info exists NewModulesVersion]} {
-      set newVersion NewModulesVersionDate
+      set newVersion $NewModulesVersion
     }
     puts stdout "modV=\{ version=\"$version\", date=\"$date\", newVersion=\"$newVersion\"\}"
 }
