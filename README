@@ -1,3 +1,6 @@
+Lmod Version 5.4.1:
+   Added License file to tar ball.
+
 Lmod Version 5.4:
 Features:
    a) prepend_path now supports a priority.  This means that no matter when
