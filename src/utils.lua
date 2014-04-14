@@ -605,25 +605,26 @@ function versionFile(path)
    if (modV.date ~= "***") then
      local a = {}
      for s in modV.date:split("/") do
-        a[#a + 1] = tonumber(s)
+        a[#a + 1] = tonumber(s) or 0
      end
 
      if (a[1] < 2000 or a[2] > 12) then
-        LmodMessage("The date is written in the wrong format:  Please use YYYY/MM/DD.")
+        LmodMessage("The date is written in the wrong format: \"",modV.date,
+                    "\".  Please use YYYY/MM/DD.")
      end
 
-     local epoch   = os.time{year = a[1], month = a[2], day = a[3]}
-     local current = os.time()
-
-     if (epoch < current) then
+     local epoch   = os.time{year = a[1], month = a[2], day = a[3]} or 0
+     local current = os.time() 
+     if (current < epoch) then
         LmodMessage("The default version for module \"",myModuleName(),
-                    "\" is changing on ", t.date, " from ",modV.version,
+                    "\" is changing on ", modV.date, " from ",modV.version,
                     " to ", modV.newVersion,"\n")
-        version = t.version
+        version = modV.version
      else
-        version = t.newVersion
+        version = modV.newVersion
      end
    end
+   dbg.print{"version: ",version,"\n"}
    dbg.fini("versionFile")
    return version
 end

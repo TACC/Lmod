@@ -373,7 +373,7 @@ function Purge(force)
    end
 
    local mA = {}
-   for i = 1, #totalA do
+   for i = #totalA,1,-1 do
       mA[#mA+1] = MName:new("mt",totalA[i])
    end
    dbg.start{"Purge(",concatTbl(totalA,", "),")"}

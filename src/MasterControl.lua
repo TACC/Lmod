@@ -62,6 +62,7 @@
 -- MasterControl
 require("strict")
 require("TermWidth")
+require("escape")
 require("inherits")
 require("utils")
 
@@ -118,7 +119,7 @@ local function mustLoad(mA)
 
 
       for i = 1, #bb do
-         cmdA[count+1] = "'^"..bb[i].."$'"
+         cmdA[count+1] = "'^" .. escape(bb[i]) .. "$'"
          cmdA[count+2] = "2> /dev/null"
          local cmd     = concatTbl(cmdA," ")
          local result  = capture(cmd)
@@ -133,17 +134,19 @@ local function mustLoad(mA)
       local a = {}
 
       if (#uA > 0) then
-         a[#a+1] = "\nThe following module(s) are completely unknown: "
+         a[#a+1] = "\nThe following module(s) are unknown: "
          a[#a+1] = concatTbl(uA, " ")
-         a[#a+1] = "\n"
+         a[#a+1] = "\n\n   Please check the spelling or version number. "
+         a[#a+1] = "Also try \"module spider ...\"\n"
       end
 
       if (#kA > 0) then
-         a[#a+1] = "\nThese module(s) exist but cannot be loaded currently: "
+         a[#a+1] = "\nThese module(s) exist but cannot be loaded as requested: "
          a[#a+1] = concatTbl(kA,", ")
          a[#a+1] = "\n\n   Try: \"module spider "
          a[#a+1] = concatTbl(kB, " ")
-         a[#a+1] = "\"\n\n"
+         a[#a+1] = "\" to see how to load the module(s)."
+         a[#a+1] = "\n\n"
       end
 
       if (#a > 0) then
@@ -287,9 +290,6 @@ function M.unload(self, mA)
    end
 
    local aa     = master.unload(mA)
-
-
-
    dbg.fini("MasterControl:unload")
    return aa
 end

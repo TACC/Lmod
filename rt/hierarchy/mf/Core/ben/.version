@@ -1,0 +1,4 @@
+#%Module1.0###########################################################
+set ModulesVersion        "0.1"
+set NewModulesVersion     "1.0"
+set NewModulesVersionDate "2014/04/01"
