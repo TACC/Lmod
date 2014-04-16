@@ -28,7 +28,7 @@ if ( ! $?MODULEPATH_ROOT ) then
     setenv LMOD_SETTARG_CMD     :
     setenv LMOD_COLORIZE        @colorize@
     setenv LMOD_PREPEND_BLOCK   @prepend_block@
-    setenv MODULEPATH_ROOT      "@PREFIX@/modulefiles"
+    setenv MODULEPATH_ROOT      "@modulepath_root@"
     setenv MODULEPATH           `@PKG@/libexec/addto --append MODULEPATH $MODULEPATH_ROOT/$LMOD_sys $MODULEPATH_ROOT/Core`
     setenv MODULEPATH           `@PKG@/libexec/addto --append MODULEPATH @PKG@/modulefiles/Core`
     setenv BASH_ENV @PKG@/init/bash
