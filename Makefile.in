@@ -59,7 +59,7 @@ STARTUP		  	  := profile.in cshrc.in
 STARTUP		  	  := $(patsubst %, init/%, $(STARTUP))
 
 MAIN_DIR	  	  := Makefile.in INSTALL configure README_lua_modulefiles.txt \
-                             README README.old
+                             README README.old License
 
 CONTRIB_DIRS           	  :=  \
                               bash_patch                        \
