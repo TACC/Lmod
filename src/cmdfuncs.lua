@@ -41,6 +41,7 @@ require("myGlobals")
 require("string_utils")
 require("escape")
 require("TermWidth")
+require("fileOps")
 require("utils")
 local BeautifulTbl = require('BeautifulTbl')
 local ColumnTable  = require('ColumnTable')
@@ -88,6 +89,7 @@ end
 -- "__" are ignored.
 
 local function findNamedCollections(a,path)
+   if (not isDir(path)) then return end
    for file in lfs.dir(path) do
       if (file:sub(1,1) ~= "." and file:sub(-1) ~= "~" and
           file:sub(1,2) ~= "__") then
@@ -480,7 +482,7 @@ function Restore(a)
    if (sname == nil) then
       sname   = ""
    else
-      msgTail = " For system: \"".. sname .. "\""
+      msgTail = ", for system: \"".. sname .. "\""
       sname   = "." .. sname
    end
 
@@ -544,7 +546,7 @@ function Save(...)
    if (sname == nil) then
       sname   = ""
    else
-      msgTail = " For system: \"".. sname .. "\""
+      msgTail = ", for system: \"".. sname .. "\""
       sname   = "." .. sname
    end
 
@@ -632,6 +634,8 @@ function SaveList(...)
       io.stderr:write("Named collection list:\n")
       local ct = ColumnTable:new{tbl=a,gap=0}
       io.stderr:write(ct:build_tbl(),"\n")
+   else
+      io.stderr:write("No Named collections.\n")
    end
 end
 

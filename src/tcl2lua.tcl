@@ -518,8 +518,13 @@ proc setPutMode { value } {
     set putMode $value
 }
 
-proc myPuts { stream msg } {
+proc myPuts { stream { msg "" } } {
     global putMode
+
+    if { $msg eq "" } {
+	set msg    $stream
+	set stream "stdout"
+    }
     if {$putMode != "inHelp"} {
         if { ($stream == "stdout") || ($stream == "stderr") } {
             puts stdout "LmodMessage(\"$msg\")"
