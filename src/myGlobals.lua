@@ -75,6 +75,13 @@ varTbl      = {}
 Cversion      = 3
 
 ------------------------------------------------------------------------
+-- LMOD_SYSTEM_NAME:  When on a shared file system, use this to
+--                    form the cache name and collection names.       
+------------------------------------------------------------------------
+
+LMOD_SYSTEM_NAME = getenv("LMOD_SYSTEM_NAME")
+
+------------------------------------------------------------------------
 -- LMOD_AVAIL_MPATH:  Include MODULEPATH in avail search
 ------------------------------------------------------------------------
 

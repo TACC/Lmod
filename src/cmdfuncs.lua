@@ -475,14 +475,23 @@ function Restore(a)
 
    local msg
    local path
+   local sname   = LMOD_SYSTEM_NAME
+   local msgTail = ""
+   if (sname == nil) then
+      sname   = ""
+   else
+      msgTail = " For system: \"".. sname .. "\""
+      sname   = "." .. sname
+   end
+
 
    if (a == nil) then
-      path = pathJoin(os.getenv("HOME"), ".lmod.d", "default")
+      path = pathJoin(os.getenv("HOME"), ".lmod.d", "default" .. sname)
       if (not isFile(path)) then
          a = "system"
       end
    elseif (a ~= "system") then
-      path = pathJoin(os.getenv("HOME"), ".lmod.d", a)
+      path = pathJoin(os.getenv("HOME"), ".lmod.d", a .. sname)
       if (not isFile(path)) then
          LmodError(" User module collection: \"",a,"\" does not exist.\n",
                    " Try \"module savelist\" for possible choices.\n")
@@ -492,10 +501,10 @@ function Restore(a)
    local masterTbl = masterTbl()
 
    if (a == "system" ) then
-      msg = "system default"
+      msg = "system default" .. msgTail
    else
       a   = a or "default"
-      msg = "user's "..a
+      msg = "user's ".. a .. msgTail
    end
 
    if (masterTbl.initial) then
@@ -530,6 +539,15 @@ function Save(...)
    local path      = pathJoin(os.getenv("HOME"), LMODdir)
    dbg.start{"Save(",concatTbl({...},", "),")"}
 
+   local msgTail = ""
+   local sname   = LMOD_SYSTEM_NAME
+   if (sname == nil) then
+      sname   = ""
+   else
+      msgTail = " For system: \"".. sname .. "\""
+      sname   = "." .. sname
+   end
+
    if (a == "system") then
       LmodWarning("The named collection 'system' is reserved. Please choose another name.\n")
       dbg.fini("Save")
@@ -561,7 +579,7 @@ function Save(...)
    if (not attr) then
       mkdir_recursive(path)
    end
-   path = pathJoin(path, a)
+   path = pathJoin(path, a .. sname)
    if (isFile(path)) then
       os.rename(path, path .. "~")
    end
@@ -569,7 +587,8 @@ function Save(...)
    serializeTbl{name=mt:name(), value=mt, fn = path, indent = true}
    mt:hideHash()
    if (not expert()) then
-      io.stderr:write("Saved current collection of modules to: ",a,"\n")
+      io.stderr:write("Saved current collection of modules to: ",a,
+                      msgTail, "\n")
    end
    dbg.fini("Save")
 end

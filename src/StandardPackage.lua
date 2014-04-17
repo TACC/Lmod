@@ -94,7 +94,7 @@ hook.register("msgHook",msg)
 local function groupName(fn)
    local base  = removeExt(fn)
    local ext   = extname(fn)
-   local sname = getenv("LMOD_SYSTEM_NAME")
+   local sname = LMOD_SYSTEM_NAME
 
    if (sname) then
       sname = sname .."_"
