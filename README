@@ -1,3 +1,17 @@
+Lmod Version 5.4.2:
+Feature:
+   a) Sites with common home file system can use named collections that are
+      differentiated by LMOD_SYSTEM_NAME.   This means that if the environment
+      variable LMOD_SYSTEM_NAME is set to "foo" then the default collection will
+      be saved to and restored from "default.foo".  Other named collections work
+      the same way.
+
+Bug Fix:
+   a) TCL modules can now have:
+        puts "message"
+      as well.
+      
+
 Lmod Version 5.4.1:
    Added License file to tar ball.
 
