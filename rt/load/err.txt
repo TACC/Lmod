@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.3.4 5.3.4-32-gc9f67d5 2014-03-28 15:37
+Modules based on Lua: Version 5.4.2 5.4.2-1-g55f6b50 2014-04-17 16:26
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -67,8 +67,8 @@ ProjectDIR/mf/Core
 ProjectDIR/mf/Beta
    gotoblas/1.30-beta
 ProjectDIR/rt/load/mf/Core
-   A/1.0    A/1.2 (D)    B/1.1   (D)    alex/2.0       (D)    rtm_intel/12.1
-   A/1.1    B/1.0        C/1.8.5        rtm_intel/11.1 (D)
+   A/1.0    A/1.2 (D)    B/1.1   (D)    D/1.0           rtm_intel/11.1 (D)
+   A/1.1    B/1.0        C/1.8.5        alex/2.0 (D)    rtm_intel/12.1
   Where:
    (D):  Default Module
    (m):  built for host and native MIC
@@ -88,7 +88,7 @@ ProjectDIR/mf/Core
    boost/1.49.0    (o)    junk/a/c/1.0    multi/multi
    gcc/4.2.3              junk/b/c/2.0    noweb/2.10c
 ProjectDIR/rt/load/mf/Core
-   A/1.2    B/1.1    C/1.8.5    alex/2.0    rtm_intel/11.1
+   A/1.2    B/1.1    C/1.8.5    D/1.0    alex/2.0    rtm_intel/11.1
   Where:
    (m):  built for host and native MIC
    (o):  built for offload to the MIC only
@@ -123,29 +123,33 @@ lua ProjectDIR/src/lmod.in.lua bash load alex
 ===========================
 ===========================
 step 20
-lua ProjectDIR/src/lmod.in.lua bash --latest load rtm_intel
+lua ProjectDIR/src/lmod.in.lua bash load D
 ===========================
 ===========================
 step 21
+lua ProjectDIR/src/lmod.in.lua bash --latest load rtm_intel
+===========================
+===========================
+step 22
 lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
 Currently Loaded Modules:
   1) admin/admin-1.0   5) PrgEnv              9) alex/2.0
-  2) unix/unix         6) intel/intel        10) rtm_intel/12.1
-  3) local/local       7) gotoblas/1.32
+  2) unix/unix         6) intel/intel        10) D/1.0
+  3) local/local       7) gotoblas/1.32      11) rtm_intel/12.1
   4) noweb/2.10c       8) boost/1.49.0  (o)
   Where:
    (o):  built for offload to the MIC only
 ===========================
-step 22
+step 23
 lua ProjectDIR/src/lmod.in.lua bash use ProjectDIR/rt/load/mf/Share
 ===========================
 ===========================
-step 23
+step 24
 lua ProjectDIR/src/lmod.in.lua bash use -a ProjectDIR/rt/load/mf/Scratch
 ===========================
 ===========================
-step 24
+step 25
 lua ProjectDIR/src/lmod.in.lua bash -r avail A B
 ===========================
 ProjectDIR/rt/load/mf/Share
@@ -160,45 +164,46 @@ Use "module spider" to find all possible modules.
 Use "module keyword key1 key2 ..." to search for all possible modules matching
 any of the "keys".
 ===========================
-step 25
+step 26
 lua ProjectDIR/src/lmod.in.lua bash load A B
 ===========================
 ===========================
-step 26
+step 27
 lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
 Currently Loaded Modules:
-  1) admin/admin-1.0   5) PrgEnv              9) alex/2.0
-  2) unix/unix         6) intel/intel        10) rtm_intel/12.1
-  3) local/local       7) gotoblas/1.32      11) A/1.1.1
-  4) noweb/2.10c       8) boost/1.49.0  (o)  12) B/1.4
+  1) admin/admin-1.0   5) PrgEnv              9) alex/2.0        13) B/1.4
+  2) unix/unix         6) intel/intel        10) D/1.0
+  3) local/local       7) gotoblas/1.32      11) rtm_intel/12.1
+  4) noweb/2.10c       8) boost/1.49.0  (o)  12) A/1.1.1
   Where:
    (o):  built for offload to the MIC only
 ===========================
-step 27
+step 28
 lua ProjectDIR/src/lmod.in.lua bash load DoesNotExist
 ===========================
 Lmod has detected the following error: 
 The following module(s) are unknown: "DoesNotExist"
    Please check the spelling or version number. Also try "module spider ..."
 ===========================
-step 28
+step 29
 lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
 Currently Loaded Modules:
-  1) admin/admin-1.0   5) PrgEnv              9) alex/2.0
-  2) unix/unix         6) intel/intel        10) rtm_intel/12.1
-  3) local/local       7) gotoblas/1.32      11) A/1.1.1
-  4) noweb/2.10c       8) boost/1.49.0  (o)  12) B/1.4
+  1) admin/admin-1.0   5) PrgEnv              9) alex/2.0        13) B/1.4
+  2) unix/unix         6) intel/intel        10) D/1.0
+  3) local/local       7) gotoblas/1.32      11) rtm_intel/12.1
+  4) noweb/2.10c       8) boost/1.49.0  (o)  12) A/1.1.1
   Where:
    (o):  built for offload to the MIC only
 ===========================
-step 29
+step 30
 lua ProjectDIR/src/lmod.in.lua bash tablelist
 ===========================
 activeList = {
   ["A"] = "1.1.1",
   ["B"] = "1.4",
+  ["D"] = "1.0",
   ["PrgEnv"] = "",
   ["admin"] = "admin-1.0",
   ["alex"] = "2.0",
@@ -211,7 +216,7 @@ activeList = {
   ["unix"] = "unix",
 }
 ===========================
-step 30
+step 31
 lua ProjectDIR/src/lmod.in.lua bash avail
 ===========================
 ProjectDIR/rt/load/mf/Share
@@ -231,8 +236,8 @@ ProjectDIR/mf/Core
 ProjectDIR/mf/Beta
    gotoblas/1.30-beta
 ProjectDIR/rt/load/mf/Core
-   A/1.0    A/1.2    B/1.1      alex/2.0       (D)    rtm_intel/12.1
-   A/1.1    B/1.0    C/1.8.5    rtm_intel/11.1 (D)
+   A/1.0    A/1.2    B/1.1      D/1.0           rtm_intel/11.1 (D)
+   A/1.1    B/1.0    C/1.8.5    alex/2.0 (D)    rtm_intel/12.1
 ProjectDIR/rt/load/mf/Scratch
    A/1.1.1 (D)    B/1.0    B/1.4 (D)
   Where:
@@ -243,7 +248,7 @@ Use "module spider" to find all possible modules.
 Use "module keyword key1 key2 ..." to search for all possible modules matching
 any of the "keys".
 ===========================
-step 31
+step 32
 lua ProjectDIR/src/lmod.in.lua bash avail C
 ===========================
 ProjectDIR/mf/Compiler/intel/10.1
@@ -256,17 +261,17 @@ Use "module spider" to find all possible modules.
 Use "module keyword key1 key2 ..." to search for all possible modules matching
 any of the "keys".
 ===========================
-step 32
+step 33
 lua ProjectDIR/src/lmod.in.lua bash load C
 ===========================
 ===========================
-step 33
+step 34
 lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
 Currently Loaded Modules:
-  1) admin/admin-1.0   5) PrgEnv              9) alex/2.0        13) C/1.8.5
-  2) unix/unix         6) intel/intel        10) rtm_intel/12.1
-  3) local/local       7) gotoblas/1.32      11) A/1.1.1
-  4) noweb/2.10c       8) boost/1.49.0  (o)  12) B/1.4
+  1) admin/admin-1.0   5) PrgEnv              9) alex/2.0        13) B/1.4
+  2) unix/unix         6) intel/intel        10) D/1.0           14) C/1.8.5
+  3) local/local       7) gotoblas/1.32      11) rtm_intel/12.1
+  4) noweb/2.10c       8) boost/1.49.0  (o)  12) A/1.1.1
   Where:
    (o):  built for offload to the MIC only

@@ -6,3 +6,4 @@ local pkg = Pkg:new{Category     = "base",
                     help         = "help",
 }
 setenv("C_VERSION",pkg:pkgVersion())
+

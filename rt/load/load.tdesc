@@ -48,20 +48,21 @@ testdescript = {
      runLmod load boost/1.57.0                              # 17
      runLmod load boost                                     # 18
      runLmod load alex                                      # 19
-     runLmod --latest load rtm_intel                        # 20
-     runLmod list                                           # 21
-     runLmod use    $testDir/mf/Share                       # 22
-     runLmod use -a $testDir/mf/Scratch                     # 23
-     runLmod -r avail A B                                   # 24
-     runLmod load  A B                                      # 25
-     runLmod list                                           # 26
-     runLmod load  DoesNotExist                             # 27
-     runLmod list                                           # 28
-     runLmod tablelist                                      # 29
-     runLmod avail                                          # 30
-     runLmod avail C                                        # 31
-     runLmod load C                                         # 32
-     runLmod list                                           # 33
+     runLmod load D                                         # 20
+     runLmod --latest load rtm_intel                        # 21
+     runLmod list                                           # 22
+     runLmod use    $testDir/mf/Share                       # 23
+     runLmod use -a $testDir/mf/Scratch                     # 24
+     runLmod -r avail A B                                   # 25
+     runLmod load  A B                                      # 26
+     runLmod list                                           # 27
+     runLmod load  DoesNotExist                             # 28
+     runLmod list                                           # 29
+     runLmod tablelist                                      # 30
+     runLmod avail                                          # 31
+     runLmod avail C                                        # 32
+     runLmod load C                                         # 33
+     runLmod list                                           # 34
 
      HOME=$ORIG_HOME
      cat _stdout.[0-9][0-9] > _stdout.orig
