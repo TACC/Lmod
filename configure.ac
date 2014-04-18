@@ -165,7 +165,7 @@ AC_SUBST(PATH_TO_LUA)
 AC_SUBST(PATH_TO_GIT)
 AC_SUBST(PATH_TO_HASHSUM)
 AC_PATH_PROG(PATH_TO_GIT, git, "")
-AC_PATH_PROG(PATH_TO_TCLSH, tclsh, "")
+AC_PATH_PROG(PATH_TO_TCLSH, tclsh, [/usr/bin/env tclsh])
 AC_PATH_PROGS(PATH_TO_HASHSUM, [sha1sum] [md5sum], "")
 AC_PATH_PROG(pager,[more], "")
 PATH_TO_PAGER=$pager

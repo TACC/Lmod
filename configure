@@ -2096,7 +2096,7 @@ done
   done
 IFS=$as_save_IFS
 
-  test -z "$ac_cv_path_PATH_TO_TCLSH" && ac_cv_path_PATH_TO_TCLSH=""""
+  test -z "$ac_cv_path_PATH_TO_TCLSH" && ac_cv_path_PATH_TO_TCLSH="/usr/bin/env tclsh"
   ;;
 esac
 fi
