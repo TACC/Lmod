@@ -1,4 +1,4 @@
-Lmod Version 5.4.3:
+Lmod Version 5.5:
 Bug Fixes:
    a) Configuring on a system where tclsh is not found is handled better.
    b) When doing module avail where MODULEPATH points only to non-existant
