@@ -986,8 +986,8 @@ function M.avail(argA)
    local dbT       = {}
 
    local baseMpath = mt:getBaseMPATH()
-   if (baseMpath == nil or baseMpath == '') then
-     LmodError("avail is not possible, MODULEPATH is not set.\n")
+   if (baseMpath == nil or baseMpath == '' or next(moduleT) == nil) then
+     LmodError("avail is not possible, MODULEPATH is not set or not set with valid paths.\n")
    end
 
    local spider    = Spider:new()

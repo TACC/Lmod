@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.3.1 5.3.1-21-gb2e400c 2014-02-22 08:33
+Modules based on Lua: Version 5.4.2 5.4.2-2-g425bd83 2014-04-17 16:26
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -243,4 +243,4 @@ lua ProjectDIR/src/lmod.in.lua bash purge
 step 16
 lua ProjectDIR/src/lmod.in.lua bash avail
 ===========================
-Lmod has detected the following error: avail is not possible, MODULEPATH is not set.
+Lmod has detected the following error: avail is not possible, MODULEPATH is not set or not set with valid paths.

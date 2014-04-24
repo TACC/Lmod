@@ -359,6 +359,11 @@ function M.buildSpiderDB(self, a, moduleT, dbT)
 
    dbg.print{"moduleT.version: ",moduleT.version,"\n"}
 
+   if (next(moduleT) == nil) then
+      dbg.fini("Spider:buildSpiderDB")
+      return
+   end
+
    local version = moduleT.version or 0
 
    if ( version < Cversion) then
