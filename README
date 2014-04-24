@@ -1,3 +1,10 @@
+Lmod Version 5.4.3:
+Bug Fixes:
+   a) Configuring on a system where tclsh is not found is handled better.
+   b) When doing module avail where MODULEPATH points only to non-existant
+      path it now reports that Lmod can not do a module avail.
+
+
 Lmod Version 5.4.2:
 Feature:
    a) Sites with common home file system can use named collections that are
