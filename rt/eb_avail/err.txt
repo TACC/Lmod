@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.4.2 5.4.2-2-g425bd83 2014-04-17 16:26
+Modules based on Lua: Version 5.5rc1 5.5rc1-1-g384eb71 2014-04-24 17:42
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -11,15 +11,15 @@ lua ProjectDIR/src/lmod.in.lua bash avail
 Lmod has detected the following error: avail is not possible, MODULEPATH is not set or not set with valid paths.
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash avail
+lua ProjectDIR/src/lmod.in.lua bash -t avail
 ===========================
-Use "module spider" to find all possible modules.
-Use "module keyword key1 key2 ..." to search for all possible modules matching
-any of the "keys".
 ===========================
 step 4
 lua ProjectDIR/src/lmod.in.lua bash avail
 ===========================
-Use "module spider" to find all possible modules.
-Use "module keyword key1 key2 ..." to search for all possible modules matching
-any of the "keys".
+Lmod has detected the following error: avail is not possible, MODULEPATH is not set or not set with valid paths.
+===========================
+step 5
+lua ProjectDIR/src/lmod.in.lua bash avail
+===========================
+Lmod has detected the following error: avail is not possible, MODULEPATH is not set or not set with valid paths.

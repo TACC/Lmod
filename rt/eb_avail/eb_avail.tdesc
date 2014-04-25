@@ -34,13 +34,15 @@ testdescript = {
      runLmod --version                  # 1
      runLmod avail                      # 2
 
+     runLmod -t avail                   # 3
+
      unsetMT
      export MODULEPATH=$(testDir)/mf/Core:$(testDir)/not/there/yet
-     runLmod avail                      # 3
+     runLmod avail                      # 4
 
      unsetMT
      export MODULEPATH=$(testDir)/not/there/yet:$(testDir)/mf/Core
-     runLmod avail                      # 4
+     runLmod avail                      # 5
      
 
 

@@ -985,8 +985,17 @@ function M.avail(argA)
    local moduleT   = cache:build()
    local dbT       = {}
 
+   local optionTbl, searchA = availOptions(argA)
+   if (not masterTbl.regexp) then
+      for i = 1, #searchA do
+         searchA[i] = caseIndependent(searchA[i])
+      end
+   end
+   local defaultOnly = optionTbl.defaultOnly or masterTbl.defaultOnly
+   local terse       = optionTbl.terse       or masterTbl.terse
+
    local baseMpath = mt:getBaseMPATH()
-   if (baseMpath == nil or baseMpath == '' or next(moduleT) == nil) then
+   if (not terse and (baseMpath == nil or baseMpath == '' or next(moduleT) == nil)) then
      LmodError("avail is not possible, MODULEPATH is not set or not set with valid paths.\n")
    end
 
@@ -999,14 +1008,6 @@ function M.avail(argA)
 
    local aa        = {}
 
-   local optionTbl, searchA = availOptions(argA)
-   if (not masterTbl.regexp) then
-      for i = 1, #searchA do
-         searchA[i] = caseIndependent(searchA[i])
-      end
-   end
-   local defaultOnly = optionTbl.defaultOnly or masterTbl.defaultOnly
-   local terse       = optionTbl.terse       or masterTbl.terse
 
    dbg.print{"locationT: ",tostring(locationT),"\n"}
 
