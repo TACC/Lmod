@@ -1,9 +1,7 @@
 --------------------------------------------------------------------------
 -- This function is described in the book: Programming in Lua by
 -- Roberto Ierusalimschy.  It has been updated for Lua 5.1.
---
--- This function returns an iterator.  The point of this function
--- to be able to walk a table where the keys are sorted.
+-- distributed under the Lua license: http://www.lua.org/license.html
 
 require("strict")
 local sort = table.sort
