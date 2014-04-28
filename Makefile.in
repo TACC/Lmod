@@ -316,8 +316,8 @@ world_update:
 
 gittag:
         ifneq ($(TAG),)
-	  @git status -s > /tmp/lmod$$$$;                                            \
-          if [ -s /tmp/lmod$$$$ ]; then                                              \
+	  @git status -s > /tmp/gittag$$$$;                                          \
+          if [ -s /tmp/gittag$$$$ ]; then                                            \
 	    echo "All files not checked in => try again";                            \
 	  else                                                                       \
 	    $(RM)                                                    $(VERSION_SRC); \
@@ -338,7 +338,7 @@ gittag:
             git tag -a $(TAG) -m 'Setting TAG_VERSION to $(TAG)'                   ; \
 	    git push --tags                                                        ; \
           fi;                                                                        \
-          rm -f /tmp/lmod$$$$
+          rm -f /tmp/gittag$$$$
         else
 	  @echo "To git tag do: make gittag TAG=?"
         endif

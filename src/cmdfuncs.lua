@@ -835,10 +835,11 @@ function UnUse(...)
    local mt  = MT:mt()
    dbg.start{"UnUse(", concatTbl({...},", "),")"}
    local arg = pack(...)
+   local nodups = true
    for i = 1, arg.n do
       local v = arg[i]
-      MCP:remove_path( ModulePath,v)
-      MCP:remove_path( DfltModPath,v)
+      MCP:remove_path{ ModulePath,  v, delim=":", nodups = true}
+      MCP:remove_path{ DfltModPath, v, delim=":", nodups = true}
    end
    mt:buildBaseMpathA(varTbl[DfltModPath]:expand())
    mt:reloadAllModules()
