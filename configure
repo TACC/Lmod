@@ -601,8 +601,6 @@ PATH_TO_TCLSH
 SETTARG
 MPATH_AVAIL
 ALLOW_TCL_MFILES
-COLORIZE
-DUPLICATE_PATHS
 PREPEND_BLOCK
 UPDATE_SYSTEM_FN
 SPIDER_CACHE_DESCRIPT_FN
@@ -611,6 +609,9 @@ USE_DOT_FILES
 SHORT_TIME
 ANCIENT
 MODULEPATH_ROOT
+COLORIZE
+CASE_INDEPENDENT_SORTING
+DUPLICATE_PATHS
 target_alias
 host_alias
 build_alias
@@ -652,6 +653,9 @@ SHELL'
 ac_subst_files=''
 ac_user_opts='
 enable_option_checking
+with_duplicatePaths
+with_caseIndependentSorting
+with_colorize
 with_module_root_path
 with_ancient
 with_shortTime
@@ -660,8 +664,6 @@ with_spiderCacheDir
 with_spiderCacheDescript
 with_updateSystemFn
 with_prependBlock
-with_duplicatePaths
-with_colorize
 with_tcl
 with_mpathSearch
 with_settarg
@@ -1276,6 +1278,13 @@ if test -n "$ac_init_help"; then
 Optional Packages:
   --with-PACKAGE[=ARG]    use PACKAGE [ARG=yes]
   --without-PACKAGE       do not use PACKAGE (same as --with-PACKAGE=no)
+  --with-duplicatePaths=ans
+                          Allow multiple directories in path like variables
+                          [[NO]]
+  --with-caseIndependentSorting=ans
+                          Make avail and spider use case independent sorting
+                          [[NO]]
+  --with-colorize=ans     allow for colorized output [[YES]]
   --with-module-root-path=<path>
                           use module root path=<path> [[PREFIX/modulefiles]]
   --with-ancient=num_secs How long to wait before rebuilding spider cache
@@ -1297,10 +1306,6 @@ Optional Packages:
                           updated [[]]
   --with-prependBlock=ans Treat multiple directories passed to prepend in
                           normal order/ not reversed [[NORMAL]]
-  --with-duplicatePaths=ans
-                          Allow multiple directories in path like variables
-                          [[NO]]
-  --with-colorize=ans     allow for colorized output [[YES]]
   --with-tcl=ans          Allow TCL modulefiles [[YES]]
   --with-mpathSearch=ans  include modulepath directory name in avail searching
                           [[NO]]
@@ -1739,6 +1744,73 @@ ac_compiler_gnu=$ac_cv_c_compiler_gnu
 
 
 
+
+
+# Check whether --with-duplicatePaths was given.
+if test "${with_duplicatePaths+set}" = set; then :
+  withval=$with_duplicatePaths; DUPLICATE_PATHS="$withval"
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: DUPLICATE_PATHS=$with_duplicatePaths" >&5
+$as_echo "DUPLICATE_PATHS=$with_duplicatePaths" >&6; }
+    cat >>confdefs.h <<_ACEOF
+#define DUPLICATE_PATHS "$with_duplicatePaths"
+_ACEOF
+
+else
+  withval="NO"
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: DUPLICATE_PATHS=$withval" >&5
+$as_echo "DUPLICATE_PATHS=$withval" >&6; }
+    DUPLICATE_PATHS="$withval"
+    cat >>confdefs.h <<_ACEOF
+#define DUPLICATE_PATHS "$withval"
+_ACEOF
+
+fi
+
+
+
+# Check whether --with-caseIndependentSorting was given.
+if test "${with_caseIndependentSorting+set}" = set; then :
+  withval=$with_caseIndependentSorting; CASE_INDEPENDENT_SORTING="$withval"
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: CASE_INDEPENDENT_SORTING=$with_caseIndependentSorting" >&5
+$as_echo "CASE_INDEPENDENT_SORTING=$with_caseIndependentSorting" >&6; }
+    cat >>confdefs.h <<_ACEOF
+#define CASE_INDEPENDENT_SORTING "$with_caseIndependentSorting"
+_ACEOF
+
+else
+  withval="NO"
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: CASE_INDEPENDENT_SORTING=$withval" >&5
+$as_echo "CASE_INDEPENDENT_SORTING=$withval" >&6; }
+    CASE_INDEPENDENT_SORTING="$withval"
+    cat >>confdefs.h <<_ACEOF
+#define CASE_INDEPENDENT_SORTING "$withval"
+_ACEOF
+
+fi
+
+
+
+# Check whether --with-colorize was given.
+if test "${with_colorize+set}" = set; then :
+  withval=$with_colorize; COLORIZE="$withval"
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: COLORIZE=$with_colorize" >&5
+$as_echo "COLORIZE=$with_colorize" >&6; }
+    cat >>confdefs.h <<_ACEOF
+#define COLORIZE "$with_colorize"
+_ACEOF
+
+else
+  withval="YES"
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: COLORIZE=$withval" >&5
+$as_echo "COLORIZE=$withval" >&6; }
+    COLORIZE="$withval"
+    cat >>confdefs.h <<_ACEOF
+#define COLORIZE "$withval"
+_ACEOF
+
+fi
+
+
 # Check whether --with-module-root-path was given.
 if test "${with_module_root_path+set}" = set; then :
   withval=$with_module_root_path; MODULEPATH_ROOT="$withval"
@@ -1913,49 +1985,6 @@ _ACEOF
 
 fi
 
-
-
-# Check whether --with-duplicatePaths was given.
-if test "${with_duplicatePaths+set}" = set; then :
-  withval=$with_duplicatePaths; DUPLICATE_PATHS="$withval"
-    { $as_echo "$as_me:${as_lineno-$LINENO}: result: DUPLICATE_PATHS=$with_duplicatePaths" >&5
-$as_echo "DUPLICATE_PATHS=$with_duplicatePaths" >&6; }
-    cat >>confdefs.h <<_ACEOF
-#define DUPLICATE_PATHS "$with_duplicatePaths"
-_ACEOF
-
-else
-  withval="NO"
-    { $as_echo "$as_me:${as_lineno-$LINENO}: result: DUPLICATE_PATHS=$withval" >&5
-$as_echo "DUPLICATE_PATHS=$withval" >&6; }
-    DUPLICATE_PATHS="$withval"
-    cat >>confdefs.h <<_ACEOF
-#define DUPLICATE_PATHS "$withval"
-_ACEOF
-
-fi
-
-
-
-# Check whether --with-colorize was given.
-if test "${with_colorize+set}" = set; then :
-  withval=$with_colorize; COLORIZE="$withval"
-    { $as_echo "$as_me:${as_lineno-$LINENO}: result: COLORIZE=$with_colorize" >&5
-$as_echo "COLORIZE=$with_colorize" >&6; }
-    cat >>confdefs.h <<_ACEOF
-#define COLORIZE "$with_colorize"
-_ACEOF
-
-else
-  withval="YES"
-    { $as_echo "$as_me:${as_lineno-$LINENO}: result: COLORIZE=$withval" >&5
-$as_echo "COLORIZE=$withval" >&6; }
-    COLORIZE="$withval"
-    cat >>confdefs.h <<_ACEOF
-#define COLORIZE "$withval"
-_ACEOF
-
-fi
 
 
 

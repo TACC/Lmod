@@ -131,8 +131,8 @@ end
 -- case_independent_cmp(): What it says.
 
 function case_independent_cmp(a,b)
-   a_lower = a:lower()
-   b_lower = b:lower()
+   local a_lower = a:lower()
+   local b_lower = b:lower()
 
    if (a_lower  == b_lower ) then
       return a < b

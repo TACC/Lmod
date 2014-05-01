@@ -801,22 +801,29 @@ function Use(...)
    local op = MCP.prepend_path
    dbg.start{"Use(", concatTbl({...},", "),")"}
 
-   local arg = pack(...)
-   for i = 1, arg.n do
-      local v = arg[i]
+   local arg      = pack(...)
+   local iarg     = 1
+   local priority = 0
+
+   while (iarg <= arg.n) do
+      local v = arg[iarg]
       local w = v:lower()
       if (w == "-a" or w == "--append" ) then
          op = MCP.append_path
+      elseif (w == "--priority") then
+         iarg     = iarg + 1
+         priority = tonumber(arg[iarg])
       else
          a[#a + 1] = v
       end
+      iarg = iarg + 1
    end
    local nodups = true
    for _,v in ipairs(a) do
       v = abspath(v)
       if (v) then
-         op(MCP, { ModulePath,  v, delim = ":", nodups=nodups })
-         op(MCP, { DfltModPath, v, delim = ":", nodups=nodups })
+         op(MCP, { ModulePath,  v, delim = ":", nodups=nodups, priority=priority })
+         op(MCP, { DfltModPath, v, delim = ":", nodups=nodups, priority=priority })
       end
    end
 
