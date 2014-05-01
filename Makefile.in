@@ -8,6 +8,7 @@ LMOD_FULL_SETTARG_SUPPORT := $(shell echo "@SETTARG@"       | tr '[:upper:]' '[:
 USE_DOT_FILES             := $(shell echo "@USE_DOT_FILES@" | tr '[:upper:]' '[:lower:]')
 PREPEND_BLOCK     	  := $(shell echo "@PREPEND_BLOCK@" | tr '[:upper:]' '[:lower:]')
 COLORIZE          	  := $(shell echo "@COLORIZE@"      | tr '[:upper:]' '[:lower:]')
+CASE_INDEPENDENT_SORTING  := @CASE_INDEPENDENT_SORTING@
 ZSH_SITE_FUNCTIONS_DIR    := @ZSH_SITE_FUNCTIONS_DIR@
 SPIDER_CACHE_DESCRIPT_FN  := @SPIDER_CACHE_DESCRIPT_FN@
 ANCIENT           	  := @ANCIENT@
@@ -117,6 +118,7 @@ __installMe:
 	        -e 's|@path_to_hashsum@|$(PATH_TO_HASHSUM)|g'         	   \
 	        -e 's|^#!/usr/bin/env tclsh$$|#!$(PATH_TO_TCLSH)|g'    	   \
 	        -e 's|@path_to_pager@|$(PATH_TO_PAGER)|g'             	   \
+	        -e 's|@case_independent_sorting@|$(CASE_INDEPENDENT_SORTING)|g' \
                 -e 's|@lmod_full_settarg_support@|$(LMOD_FULL_SETTARG_SUPPORT)|g' \
                 -e 's|@use_dot_files@|$(USE_DOT_FILES)|g'             	   \
                 -e 's|@git@|$(GIT_VERSION)|g'                              \
@@ -301,8 +303,8 @@ distclean: clobber
 	$(RM) makefile config.status
 
 world_update:
-	@git status -s > /tmp/lmod$$$$;                                            \
-        if [ -s /tmp/lmod$$$$ ]; then                                              \
+	@git status -s > /tmp/git_st_$$$$;                                         \
+        if [ -s /tmp/git_st_$$$$ ]; then                                           \
             echo "All files not checked in => try again";                          \
         else                                                                       \
             git push github;                                                       \
@@ -310,14 +312,14 @@ world_update:
             git push sf;                                                           \
             git push --tags sf;                                                    \
         fi;                                                                        \
-        rm -f /tmp/lmod$$$$
+        rm -f /tmp/git_st_$$$$
 
 
 
 gittag:
         ifneq ($(TAG),)
-	  @git status -s > /tmp/gittag$$$$;                                          \
-          if [ -s /tmp/gittag$$$$ ]; then                                            \
+	  @git status -s > /tmp/git_st_$$$$;                                         \
+          if [ -s /tmp/git_st_$$$$ ]; then                                           \
 	    echo "All files not checked in => try again";                            \
 	  else                                                                       \
 	    $(RM)                                                    $(VERSION_SRC); \
@@ -338,7 +340,7 @@ gittag:
             git tag -a $(TAG) -m 'Setting TAG_VERSION to $(TAG)'                   ; \
 	    git push --tags                                                        ; \
           fi;                                                                        \
-          rm -f /tmp/gittag$$$$
+          rm -f /tmp/git_st_$$$$
         else
 	  @echo "To git tag do: make gittag TAG=?"
         endif

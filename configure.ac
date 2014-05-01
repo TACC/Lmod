@@ -3,6 +3,43 @@ dnl This is for lmod
 
 AC_INIT(Makefile.in)
 AC_PREFIX_DEFAULT(/usr/local)
+
+AC_SUBST(DUPLICATE_PATHS)
+AC_ARG_WITH(duplicatePaths,
+    AC_HELP_STRING([--with-duplicatePaths=ans],[Allow multiple directories in path like variables [[NO]]]),
+    DUPLICATE_PATHS="$withval"
+    AC_MSG_RESULT([DUPLICATE_PATHS=$with_duplicatePaths])
+    AC_DEFINE_UNQUOTED(DUPLICATE_PATHS,"$with_duplicatePaths")dnl
+    ,
+    withval="NO"
+    AC_MSG_RESULT([DUPLICATE_PATHS=$withval])
+    DUPLICATE_PATHS="$withval"
+    AC_DEFINE_UNQUOTED(DUPLICATE_PATHS, "$withval"))dnl
+
+AC_SUBST(CASE_INDEPENDENT_SORTING)
+AC_ARG_WITH(caseIndependentSorting,
+    AC_HELP_STRING([--with-caseIndependentSorting=ans],[Make avail and spider use case independent sorting [[NO]]]),
+    CASE_INDEPENDENT_SORTING="$withval"
+    AC_MSG_RESULT([CASE_INDEPENDENT_SORTING=$with_caseIndependentSorting])
+    AC_DEFINE_UNQUOTED(CASE_INDEPENDENT_SORTING,"$with_caseIndependentSorting")dnl
+    ,
+    withval="NO"
+    AC_MSG_RESULT([CASE_INDEPENDENT_SORTING=$withval])
+    CASE_INDEPENDENT_SORTING="$withval"
+    AC_DEFINE_UNQUOTED(CASE_INDEPENDENT_SORTING, "$withval"))dnl
+
+AC_SUBST(COLORIZE)
+AC_ARG_WITH(colorize,
+    AC_HELP_STRING([--with-colorize=ans],[allow for colorized output [[YES]]]),
+    COLORIZE="$withval"
+    AC_MSG_RESULT([COLORIZE=$with_colorize])
+    AC_DEFINE_UNQUOTED(COLORIZE, "$with_colorize")dnl
+    ,
+    withval="YES"
+    AC_MSG_RESULT([COLORIZE=$withval])
+    COLORIZE="$withval"
+    AC_DEFINE_UNQUOTED(COLORIZE, "$withval"))dnl
+
 AC_SUBST(MODULEPATH_ROOT)dnl
 AC_ARG_WITH(module-root-path,
     AC_HELP_STRING([--with-module-root-path=<path>],[use module root path=<path> [[PREFIX/modulefiles]]]),
@@ -99,29 +136,6 @@ AC_ARG_WITH(prependBlock,
     PREPEND_BLOCK="$withval"
     AC_DEFINE_UNQUOTED(PREPEND_BLOCK, "$withval"))dnl
 
-AC_SUBST(DUPLICATE_PATHS)
-AC_ARG_WITH(duplicatePaths,
-    AC_HELP_STRING([--with-duplicatePaths=ans],[Allow multiple directories in path like variables [[NO]]]),
-    DUPLICATE_PATHS="$withval"
-    AC_MSG_RESULT([DUPLICATE_PATHS=$with_duplicatePaths])
-    AC_DEFINE_UNQUOTED(DUPLICATE_PATHS,"$with_duplicatePaths")dnl
-    ,
-    withval="NO"
-    AC_MSG_RESULT([DUPLICATE_PATHS=$withval])
-    DUPLICATE_PATHS="$withval"
-    AC_DEFINE_UNQUOTED(DUPLICATE_PATHS, "$withval"))dnl
-
-AC_SUBST(COLORIZE)
-AC_ARG_WITH(colorize,
-    AC_HELP_STRING([--with-colorize=ans],[allow for colorized output [[YES]]]),
-    COLORIZE="$withval"
-    AC_MSG_RESULT([COLORIZE=$with_colorize])
-    AC_DEFINE_UNQUOTED(COLORIZE, "$with_colorize")dnl
-    ,
-    withval="YES"
-    AC_MSG_RESULT([COLORIZE=$withval])
-    COLORIZE="$withval"
-    AC_DEFINE_UNQUOTED(COLORIZE, "$withval"))dnl
 
 AC_SUBST(ALLOW_TCL_MFILES)
 AC_ARG_WITH(tcl,

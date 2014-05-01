@@ -93,6 +93,7 @@ _ml() {
     rm|remove|unload|swap)
                     COMPREPLY=( $(compgen -W "$(_module_loaded_modules)" -- "$cur") );;
     unuse)	    COMPREPLY=( $(IFS=: compgen -W "${MODULEPATH}" -- "$cur") );;
+    use|*-a*)	;;			# let readline handle the completion
     help|show|whatis)
                     COMPREPLY=( $(compgen -W "$(_module_avail)" -- "$cur") );;
 
