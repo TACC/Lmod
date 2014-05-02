@@ -75,6 +75,15 @@ varTbl      = {}
 Cversion      = 3
 
 ------------------------------------------------------------------------
+-- LMOD_CASE_INDEPENDENT_SORTING :  make avail and spider use case
+--                                  independent sorting.
+------------------------------------------------------------------------
+
+
+LMOD_CASE_INDEPENDENT_SORTING = getenv("LMOD_CASE_INDEPENDENT_SORTING") or
+                                "@case_independent_sorting@"
+
+------------------------------------------------------------------------
 -- LMOD_SYSTEM_NAME:  When on a shared file system, use this to
 --                    form the cache name and collection names.       
 ------------------------------------------------------------------------
@@ -221,6 +230,8 @@ shortLifeCache = ancient/12
 -- sysCacheDir:  The system directory location.
 ------------------------------------------------------------------------
 sysCacheDirs    = getenv("LMOD_SPIDER_CACHE_DIRS") or "@cacheDirs@"
+
+
 
 ------------------------------------------------------------------------
 -- USE_DOT_FILES: Use ~/.lmod.d/.cache or ~/.lmod.d/__cache__

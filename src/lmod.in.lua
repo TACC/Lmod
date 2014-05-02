@@ -57,9 +57,9 @@ if (i) then
    LuaCommandName     = LuaCommandName:sub(j+1)
 end
 
-package.path = LuaCommandName_dir .. "../tools/?.lua;"  ..
+package.path = LuaCommandName_dir .. "?.lua;"       ..
+               LuaCommandName_dir .. "../tools/?.lua;"  ..
                LuaCommandName_dir .. "../shells/?.lua;" ..
-               LuaCommandName_dir .. "?.lua;"       ..
                LuaCommandName_dir .. "?/init.lua;"  ..
                package.path
 

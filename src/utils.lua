@@ -128,6 +128,20 @@ function build_accept_functions()
 end
 
 --------------------------------------------------------------------------
+-- case_independent_cmp(): What it says.
+
+function case_independent_cmp(a,b)
+   local a_lower = a:lower()
+   local b_lower = b:lower()
+
+   if (a_lower  == b_lower ) then
+      return a < b
+   else
+      return a_lower < b_lower
+   end
+end
+
+--------------------------------------------------------------------------
 -- expert(): Are we in expert mode?
 local __expert = false
 function expert()

@@ -103,30 +103,31 @@ local function new(self)
    local adminFn, readable = findAdminFn()
 
    local tbl = {}
-   tbl.prefix     = { doc = "Lmod prefix"                     , value = "@PREFIX@",            }
-   tbl.dupPaths   = { doc = "Allow duplicate paths"           , value = LMOD_DUPLICATE_PATHS,  }
-   tbl.path_lua   = { doc = "Path to Lua"                     , value = "@path_to_lua@",       }
-   tbl.path_pager = { doc = "Path to Pager"                   , value = "@path_to_pager@",     }
-   tbl.path_hash  = { doc = "Path to HashSum"                 , value = "@path_to_hashsum@",   }
-   tbl.settarg    = { doc = "Supporting Full Settarg Use"     , value = settarg_support,       }
-   tbl.dot_files  = { doc = "Using dotfiles"                  , value = "@use_dot_files@",     }
-   tbl.numSC      = { doc = "number of cache dirs"            , value = numSC,                 }
-   tbl.lmodV      = { doc = "Lmod version"                    , value = lmod_version,          }
-   tbl.ancient    = { doc = "User cache valid time(sec)"      , value = "@ancient@",           }
-   tbl.short_tm   = { doc = "Write cache after (sec)"         , value = "@short_time@",        }
-   tbl.prpnd_blk  = { doc = "Prepend order"                   , value = "@prepend_block@",     }
-   tbl.colorize   = { doc = "Colorize Lmod"                   , value = lmod_colorize,         }
-   tbl.allowTCL   = { doc = "Allow TCL modulefiles"           , value = LMOD_ALLOW_TCL_MFILES, }
-   tbl.mpath_av   = { doc = "Include modulepath dir in avail" , value = LMOD_MPATH_AVAIL,      }
-   tbl.mpath_root = { doc = "MODULEPATH_ROOT"                 , value = "@modulepath_root@",   }
-   tbl.pkg        = { doc = "Pkg Class name"                  , value = pkgName,               }
-   tbl.sitePkg    = { doc = "Site Pkg location"               , value = locSitePkg,            }
-   tbl.lua_term   = { doc = "System lua-term"                 , value = "@have_lua_term@",     }
-   tbl.lua_json   = { doc = "System lua_json"                 , value = "@have_lua_json@",     }
-   tbl.uname      = { doc = "uname -a"                        , value = uname,                 }
-   tbl.z01_admin  = { doc = "Admin file"                      , value = adminFn,               }
-   tbl.z02_admin  = { doc = "Does Admin file exist"           , value = tostring(readable),    }
-   tbl.luaV       = { doc = "Lua Version"                     , value = _VERSION,              }
+   tbl.prefix     = { doc = "Lmod prefix"                     , value = "@PREFIX@",                    }
+   tbl.dupPaths   = { doc = "Allow duplicate paths"           , value = LMOD_DUPLICATE_PATHS,          }
+   tbl.path_lua   = { doc = "Path to Lua"                     , value = "@path_to_lua@",               }
+   tbl.path_pager = { doc = "Path to Pager"                   , value = "@path_to_pager@",             }
+   tbl.path_hash  = { doc = "Path to HashSum"                 , value = "@path_to_hashsum@",           }
+   tbl.settarg    = { doc = "Supporting Full Settarg Use"     , value = settarg_support,               }
+   tbl.dot_files  = { doc = "Using dotfiles"                  , value = "@use_dot_files@",             }
+   tbl.numSC      = { doc = "number of cache dirs"            , value = numSC,                         }
+   tbl.lmodV      = { doc = "Lmod version"                    , value = lmod_version,                  }
+   tbl.ancient    = { doc = "User cache valid time(sec)"      , value = "@ancient@",                   }
+   tbl.short_tm   = { doc = "Write cache after (sec)"         , value = "@short_time@",                }
+   tbl.prpnd_blk  = { doc = "Prepend order"                   , value = "@prepend_block@",             }
+   tbl.colorize   = { doc = "Colorize Lmod"                   , value = lmod_colorize,                 }
+   tbl.allowTCL   = { doc = "Allow TCL modulefiles"           , value = LMOD_ALLOW_TCL_MFILES,         }
+   tbl.mpath_av   = { doc = "Include modulepath dir in avail" , value = LMOD_MPATH_AVAIL,              }
+   tbl.mpath_root = { doc = "MODULEPATH_ROOT"                 , value = "@modulepath_root@",           }
+   tbl.pkg        = { doc = "Pkg Class name"                  , value = pkgName,                       }
+   tbl.sitePkg    = { doc = "Site Pkg location"               , value = locSitePkg,                    }
+   tbl.lua_term   = { doc = "System lua-term"                 , value = "@have_lua_term@",             }
+   tbl.lua_json   = { doc = "System lua_json"                 , value = "@have_lua_json@",             }
+   tbl.uname      = { doc = "uname -a"                        , value = uname,                         }
+   tbl.z01_admin  = { doc = "Admin file"                      , value = adminFn,                       }
+   tbl.z02_admin  = { doc = "Does Admin file exist"           , value = tostring(readable),            }
+   tbl.luaV       = { doc = "Lua Version"                     , value = _VERSION,                      }       
+   tbl.case       = { doc = "Case Independent Sorting"        , value = LMOD_CASE_INDEPENDENT_SORTING, }
 
    o.tbl = tbl
    return o

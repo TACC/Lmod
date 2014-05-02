@@ -544,9 +544,10 @@ function M.Level0Helper(self, dbT,a)
       end
    end
 
-   local ia = #a
-
-   for k,v in pairsByKeys(t) do
+   local ia  = #a
+   local cmp = (LMOD_CASE_INDEPENDENT_SORTING:lower():sub(1,1) == "y") and 
+               case_independent_cmp or nil
+   for k,v in pairsByKeys(t,cmp) do
       local len = 0
       ia = ia + 1; a[ia] = "  " .. v.name .. ":"
       len = len + a[ia]:len()

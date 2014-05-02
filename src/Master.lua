@@ -917,8 +917,10 @@ local function availDir(defaultOnly, terse, searchA, mpath, locationT, availT,
       return
    end
 
+   local cmp = (LMOD_CASE_INDEPENDENT_SORTING:lower():sub(1,1) == "y") and 
+               case_independent_cmp or nil
 
-   for sn, versionA in pairsByKeys(availT) do
+   for sn, versionA in pairsByKeys(availT,cmp) do
       dbg.print{"sn: ",sn,"\n"}
       local defaultModuleT = locationT[sn].default
       local aa             = {}

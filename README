@@ -1,4 +1,9 @@
 Lmod Version 5.5:
+Feature:
+   a) priorities can now be used with "module use":
+      $ module use --priority 100 /path/to/modulefiles
+   
+
 Bug Fixes:
    a) Configuring on a system where tclsh is not found is handled better.
    b) When doing module avail where MODULEPATH points only to non-existant
