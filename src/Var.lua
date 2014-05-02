@@ -343,7 +343,7 @@ local function insertFunc(a, idx, isPrepend, nodups, priority)
 
       local oldPriority = 0
       if (next(a) ~= nil) then
-         oldPriority = a[1][2]
+         oldPriority = tonumber(a[1][2])
       end
 
       if (priority < 0) then

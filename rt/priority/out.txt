@@ -4,17 +4,65 @@ lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash load priority
+lua ProjectDIR/src/lmod.in.lua bash use --priority 100 ProjectDIR/rt/priority/mf/RTM
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/priority/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/priority/mf/Core";
 export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/priority/mf/Core";
+__LMOD_PRIORITY_LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/priority/mf/RTM:-100";
+export __LMOD_PRIORITY_LMOD_DEFAULT_MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/priority/mf/RTM:ProjectDIR/rt/priority/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+__LMOD_PRIORITY_MODULEPATH="ProjectDIR/rt/priority/mf/RTM:-100";
+export __LMOD_PRIORITY_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/priority/mf/RTM:ProjectDIR/rt/priority/mf/Core";
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/priority/mf/RTM","ProjectDIR/rt/priority/mf/Core",},family={},inactive={},mT={},mpathA={"ProjectDIR/rt/priority/mf/RTM","ProjectDIR/rt/priority/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/priority/mf/Core",["version"]=2,}';
+export _ModuleTable_;
+===========================
+step 3
+lua ProjectDIR/src/lmod.in.lua bash use --priority 100 ProjectDIR/rt/priority/mf/RTM
+===========================
+__LMOD_PRIORITY_LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/priority/mf/RTM:-100";
+export __LMOD_PRIORITY_LMOD_DEFAULT_MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/priority/mf/RTM:ProjectDIR/rt/priority/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+__LMOD_PRIORITY_MODULEPATH="ProjectDIR/rt/priority/mf/RTM:-100";
+export __LMOD_PRIORITY_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/priority/mf/RTM:ProjectDIR/rt/priority/mf/Core";
+export MODULEPATH;
+__LMOD_PRIORITY_LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/priority/mf/RTM:-100";
+export __LMOD_PRIORITY_LMOD_DEFAULT_MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/priority/mf/RTM:ProjectDIR/rt/priority/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+__LMOD_PRIORITY_MODULEPATH="ProjectDIR/rt/priority/mf/RTM:-100";
+export __LMOD_PRIORITY_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/priority/mf/RTM:ProjectDIR/rt/priority/mf/Core";
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/priority/mf/RTM","ProjectDIR/rt/priority/mf/Core",},family={},inactive={},mT={},mpathA={"ProjectDIR/rt/priority/mf/RTM","ProjectDIR/rt/priority/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/priority/mf/Core",["version"]=2,}';
+export _ModuleTable_;
+===========================
+step 4
+lua ProjectDIR/src/lmod.in.lua bash load priority
+===========================
+__LMOD_PRIORITY_LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/priority/mf/RTM:-100";
+export __LMOD_PRIORITY_LMOD_DEFAULT_MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/priority/mf/RTM:ProjectDIR/rt/priority/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+__LMOD_PRIORITY_MODULEPATH="ProjectDIR/rt/priority/mf/RTM:-100";
+export __LMOD_PRIORITY_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/priority/mf/RTM:ProjectDIR/rt/priority/mf/Core";
+export MODULEPATH;
+__LMOD_PRIORITY_LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/priority/mf/RTM:-100";
+export __LMOD_PRIORITY_LMOD_DEFAULT_MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/priority/mf/RTM:ProjectDIR/rt/priority/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
 LOADEDMODULES="priority/1.0";
 export LOADEDMODULES;
-MODULEPATH="ProjectDIR/rt/priority/mf/Core";
+__LMOD_PRIORITY_MODULEPATH="ProjectDIR/rt/priority/mf/RTM:-100";
+export __LMOD_PRIORITY_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/priority/mf/RTM:ProjectDIR/rt/priority/mf/Core";
 export MODULEPATH;
 __LMOD_PRIORITY_RTM_PATH="/top/dog10:-10";
 export __LMOD_PRIORITY_RTM_PATH;
@@ -22,21 +70,29 @@ RTM_PATH="/top/dog10";
 export RTM_PATH;
 _LMFILES_="ProjectDIR/rt/priority/mf/Core/priority/1.0.lua";
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/priority/mf/Core",},family={},inactive={},mT={priority={["FN"]="ProjectDIR/rt/priority/mf/Core/priority/1.0.lua",["default"]=1,["fullName"]="priority/1.0",["loadOrder"]=1,propT={},["short"]="priority",["status"]="active",},},mpathA={"ProjectDIR/rt/priority/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/priority/mf/Core",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/priority/mf/RTM","ProjectDIR/rt/priority/mf/Core",},family={},inactive={},mT={priority={["FN"]="ProjectDIR/rt/priority/mf/Core/priority/1.0.lua",["default"]=1,["fullName"]="priority/1.0",["loadOrder"]=1,propT={},["short"]="priority",["status"]="active",},},mpathA={"ProjectDIR/rt/priority/mf/RTM","ProjectDIR/rt/priority/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/priority/mf/Core",["version"]=2,}';
 export _ModuleTable_;
 ===========================
-step 3
+step 5
 lua ProjectDIR/src/lmod.in.lua bash load a
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/priority/mf/Core";
+__LMOD_PRIORITY_LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/priority/mf/RTM:-100";
+export __LMOD_PRIORITY_LMOD_DEFAULT_MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/priority/mf/RTM:ProjectDIR/rt/priority/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/priority/mf/Core";
+__LMOD_PRIORITY_MODULEPATH="ProjectDIR/rt/priority/mf/RTM:-100";
+export __LMOD_PRIORITY_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/priority/mf/RTM:ProjectDIR/rt/priority/mf/Core";
 export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/priority/mf/Core";
+__LMOD_PRIORITY_LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/priority/mf/RTM:-100";
+export __LMOD_PRIORITY_LMOD_DEFAULT_MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/priority/mf/RTM:ProjectDIR/rt/priority/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
 LOADEDMODULES="priority/1.0:a/1.0";
 export LOADEDMODULES;
-MODULEPATH="ProjectDIR/rt/priority/mf/Core";
+__LMOD_PRIORITY_MODULEPATH="ProjectDIR/rt/priority/mf/RTM:-100";
+export __LMOD_PRIORITY_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/priority/mf/RTM:ProjectDIR/rt/priority/mf/Core";
 export MODULEPATH;
 __LMOD_PRIORITY_RTM_PATH="/top/dog10:-10";
 export __LMOD_PRIORITY_RTM_PATH;
@@ -44,21 +100,29 @@ RTM_PATH="/top/dog10:/d/e/f:/a/b/c";
 export RTM_PATH;
 _LMFILES_="ProjectDIR/rt/priority/mf/Core/priority/1.0.lua:ProjectDIR/rt/priority/mf/Core/a/1.0.lua";
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/priority/mf/Core",},family={},inactive={},mT={a={["FN"]="ProjectDIR/rt/priority/mf/Core/a/1.0.lua",["default"]=1,["fullName"]="a/1.0",["loadOrder"]=2,propT={},["short"]="a",["status"]="active",},priority={["FN"]="ProjectDIR/rt/priority/mf/Core/priority/1.0.lua",["default"]=1,["fullName"]="priority/1.0",["loadOrder"]=1,propT={},["short"]="priority",["status"]="active",},},mpathA={"ProjectDIR/rt/priority/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/priority/mf/Core",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/priority/mf/RTM","ProjectDIR/rt/priority/mf/Core",},family={},inactive={},mT={a={["FN"]="ProjectDIR/rt/priority/mf/Core/a/1.0.lua",["default"]=1,["fullName"]="a/1.0",["loadOrder"]=2,propT={},["short"]="a",["status"]="active",},priority={["FN"]="ProjectDIR/rt/priority/mf/Core/priority/1.0.lua",["default"]=1,["fullName"]="priority/1.0",["loadOrder"]=1,propT={},["short"]="priority",["status"]="active",},},mpathA={"ProjectDIR/rt/priority/mf/RTM","ProjectDIR/rt/priority/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/priority/mf/Core",["version"]=2,}';
 export _ModuleTable_;
 ===========================
-step 4
+step 6
 lua ProjectDIR/src/lmod.in.lua bash load tdog
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/priority/mf/Core";
+__LMOD_PRIORITY_LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/priority/mf/RTM:-100";
+export __LMOD_PRIORITY_LMOD_DEFAULT_MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/priority/mf/RTM:ProjectDIR/rt/priority/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/priority/mf/Core";
+__LMOD_PRIORITY_MODULEPATH="ProjectDIR/rt/priority/mf/RTM:-100";
+export __LMOD_PRIORITY_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/priority/mf/RTM:ProjectDIR/rt/priority/mf/Core";
 export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/priority/mf/Core";
+__LMOD_PRIORITY_LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/priority/mf/RTM:-100";
+export __LMOD_PRIORITY_LMOD_DEFAULT_MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/priority/mf/RTM:ProjectDIR/rt/priority/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
 LOADEDMODULES="priority/1.0:a/1.0:tdog/1.0";
 export LOADEDMODULES;
-MODULEPATH="ProjectDIR/rt/priority/mf/Core";
+__LMOD_PRIORITY_MODULEPATH="ProjectDIR/rt/priority/mf/RTM:-100";
+export __LMOD_PRIORITY_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/priority/mf/RTM:ProjectDIR/rt/priority/mf/Core";
 export MODULEPATH;
 __LMOD_PRIORITY_RTM_PATH="/top/dog10:-10;/top/dog100:-100";
 export __LMOD_PRIORITY_RTM_PATH;
@@ -66,35 +130,51 @@ RTM_PATH="/top/dog100:/top/dog10:/top/dog0:/d/e/f:/a/b/c";
 export RTM_PATH;
 _LMFILES_="ProjectDIR/rt/priority/mf/Core/priority/1.0.lua:ProjectDIR/rt/priority/mf/Core/a/1.0.lua:ProjectDIR/rt/priority/mf/Core/tdog/1.0";
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/priority/mf/Core",},family={},inactive={},mT={a={["FN"]="ProjectDIR/rt/priority/mf/Core/a/1.0.lua",["default"]=1,["fullName"]="a/1.0",["loadOrder"]=2,propT={},["short"]="a",["status"]="active",},priority={["FN"]="ProjectDIR/rt/priority/mf/Core/priority/1.0.lua",["default"]=1,["fullName"]="priority/1.0",["loadOrder"]=1,propT={},["short"]="priority",["status"]="active",},tdog={["FN"]="ProjectDIR/rt/priority/mf/Core/tdog/1.0",["default"]=1,["fullName"]="tdog/1.0",["loadOrder"]=3,propT={},["short"]="tdog",["status"]="active",},},mpathA={"ProjectDIR/rt/priority/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/priority/mf/Core",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/priority/mf/RTM","ProjectDIR/rt/priority/mf/Core",},family={},inactive={},mT={a={["FN"]="ProjectDIR/rt/priority/mf/Core/a/1.0.lua",["default"]=1,["fullName"]="a/1.0",["loadOrder"]=2,propT={},["short"]="a",["status"]="active",},priority={["FN"]="ProjectDIR/rt/priority/mf/Core/priority/1.0.lua",["default"]=1,["fullName"]="priority/1.0",["loadOrder"]=1,propT={},["short"]="priority",["status"]="active",},tdog={["FN"]="ProjectDIR/rt/priority/mf/Core/tdog/1.0",["default"]=1,["fullName"]="tdog/1.0",["loadOrder"]=3,propT={},["short"]="tdog",["status"]="active",},},mpathA={"ProjectDIR/rt/priority/mf/RTM","ProjectDIR/rt/priority/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/priority/mf/Core",["version"]=2,}';
 export _ModuleTable_;
 ===========================
-step 5
+step 7
 lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/priority/mf/Core";
+__LMOD_PRIORITY_LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/priority/mf/RTM:-100";
+export __LMOD_PRIORITY_LMOD_DEFAULT_MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/priority/mf/RTM:ProjectDIR/rt/priority/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/priority/mf/Core";
+__LMOD_PRIORITY_MODULEPATH="ProjectDIR/rt/priority/mf/RTM:-100";
+export __LMOD_PRIORITY_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/priority/mf/RTM:ProjectDIR/rt/priority/mf/Core";
 export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/priority/mf/Core";
+__LMOD_PRIORITY_LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/priority/mf/RTM:-100";
+export __LMOD_PRIORITY_LMOD_DEFAULT_MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/priority/mf/RTM:ProjectDIR/rt/priority/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/priority/mf/Core";
+__LMOD_PRIORITY_MODULEPATH="ProjectDIR/rt/priority/mf/RTM:-100";
+export __LMOD_PRIORITY_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/priority/mf/RTM:ProjectDIR/rt/priority/mf/Core";
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/priority/mf/Core",},family={},inactive={},mT={a={["FN"]="ProjectDIR/rt/priority/mf/Core/a/1.0.lua",["default"]=1,["fullName"]="a/1.0",["loadOrder"]=2,propT={},["short"]="a",["status"]="active",},priority={["FN"]="ProjectDIR/rt/priority/mf/Core/priority/1.0.lua",["default"]=1,["fullName"]="priority/1.0",["loadOrder"]=1,propT={},["short"]="priority",["status"]="active",},tdog={["FN"]="ProjectDIR/rt/priority/mf/Core/tdog/1.0",["default"]=1,["fullName"]="tdog/1.0",["loadOrder"]=3,propT={},["short"]="tdog",["status"]="active",},},mpathA={"ProjectDIR/rt/priority/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/priority/mf/Core",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/priority/mf/RTM","ProjectDIR/rt/priority/mf/Core",},family={},inactive={},mT={a={["FN"]="ProjectDIR/rt/priority/mf/Core/a/1.0.lua",["default"]=1,["fullName"]="a/1.0",["loadOrder"]=2,propT={},["short"]="a",["status"]="active",},priority={["FN"]="ProjectDIR/rt/priority/mf/Core/priority/1.0.lua",["default"]=1,["fullName"]="priority/1.0",["loadOrder"]=1,propT={},["short"]="priority",["status"]="active",},tdog={["FN"]="ProjectDIR/rt/priority/mf/Core/tdog/1.0",["default"]=1,["fullName"]="tdog/1.0",["loadOrder"]=3,propT={},["short"]="tdog",["status"]="active",},},mpathA={"ProjectDIR/rt/priority/mf/RTM","ProjectDIR/rt/priority/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/priority/mf/Core",["version"]=2,}';
 export _ModuleTable_;
 ===========================
-step 6
+step 8
 lua ProjectDIR/src/lmod.in.lua bash unload priority
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/priority/mf/Core";
+__LMOD_PRIORITY_LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/priority/mf/RTM:-100";
+export __LMOD_PRIORITY_LMOD_DEFAULT_MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/priority/mf/RTM:ProjectDIR/rt/priority/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/priority/mf/Core";
+__LMOD_PRIORITY_MODULEPATH="ProjectDIR/rt/priority/mf/RTM:-100";
+export __LMOD_PRIORITY_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/priority/mf/RTM:ProjectDIR/rt/priority/mf/Core";
 export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/priority/mf/Core";
+__LMOD_PRIORITY_LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/priority/mf/RTM:-100";
+export __LMOD_PRIORITY_LMOD_DEFAULT_MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/priority/mf/RTM:ProjectDIR/rt/priority/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
 LOADEDMODULES="a/1.0:tdog/1.0";
 export LOADEDMODULES;
-MODULEPATH="ProjectDIR/rt/priority/mf/Core";
+__LMOD_PRIORITY_MODULEPATH="ProjectDIR/rt/priority/mf/RTM:-100";
+export __LMOD_PRIORITY_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/priority/mf/RTM:ProjectDIR/rt/priority/mf/Core";
 export MODULEPATH;
 __LMOD_PRIORITY_RTM_PATH="/top/dog100:-100";
 export __LMOD_PRIORITY_RTM_PATH;
@@ -102,33 +182,49 @@ RTM_PATH="/top/dog100:/top/dog0:/d/e/f:/a/b/c";
 export RTM_PATH;
 _LMFILES_="ProjectDIR/rt/priority/mf/Core/a/1.0.lua:ProjectDIR/rt/priority/mf/Core/tdog/1.0";
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/priority/mf/Core",},family={},inactive={},mT={a={["FN"]="ProjectDIR/rt/priority/mf/Core/a/1.0.lua",["default"]=1,["fullName"]="a/1.0",["loadOrder"]=1,propT={},["short"]="a",["status"]="active",},tdog={["FN"]="ProjectDIR/rt/priority/mf/Core/tdog/1.0",["default"]=1,["fullName"]="tdog/1.0",["loadOrder"]=2,propT={},["short"]="tdog",["status"]="active",},},mpathA={"ProjectDIR/rt/priority/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/priority/mf/Core",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/priority/mf/RTM","ProjectDIR/rt/priority/mf/Core",},family={},inactive={},mT={a={["FN"]="ProjectDIR/rt/priority/mf/Core/a/1.0.lua",["default"]=1,["fullName"]="a/1.0",["loadOrder"]=1,propT={},["short"]="a",["status"]="active",},tdog={["FN"]="ProjectDIR/rt/priority/mf/Core/tdog/1.0",["default"]=1,["fullName"]="tdog/1.0",["loadOrder"]=2,propT={},["short"]="tdog",["status"]="active",},},mpathA={"ProjectDIR/rt/priority/mf/RTM","ProjectDIR/rt/priority/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/priority/mf/Core",["version"]=2,}';
 export _ModuleTable_;
 ===========================
-step 7
+step 9
 lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/priority/mf/Core";
+__LMOD_PRIORITY_LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/priority/mf/RTM:-100";
+export __LMOD_PRIORITY_LMOD_DEFAULT_MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/priority/mf/RTM:ProjectDIR/rt/priority/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/priority/mf/Core";
+__LMOD_PRIORITY_MODULEPATH="ProjectDIR/rt/priority/mf/RTM:-100";
+export __LMOD_PRIORITY_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/priority/mf/RTM:ProjectDIR/rt/priority/mf/Core";
 export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/priority/mf/Core";
+__LMOD_PRIORITY_LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/priority/mf/RTM:-100";
+export __LMOD_PRIORITY_LMOD_DEFAULT_MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/priority/mf/RTM:ProjectDIR/rt/priority/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/priority/mf/Core";
+__LMOD_PRIORITY_MODULEPATH="ProjectDIR/rt/priority/mf/RTM:-100";
+export __LMOD_PRIORITY_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/priority/mf/RTM:ProjectDIR/rt/priority/mf/Core";
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/priority/mf/Core",},family={},inactive={},mT={a={["FN"]="ProjectDIR/rt/priority/mf/Core/a/1.0.lua",["default"]=1,["fullName"]="a/1.0",["loadOrder"]=1,propT={},["short"]="a",["status"]="active",},tdog={["FN"]="ProjectDIR/rt/priority/mf/Core/tdog/1.0",["default"]=1,["fullName"]="tdog/1.0",["loadOrder"]=2,propT={},["short"]="tdog",["status"]="active",},},mpathA={"ProjectDIR/rt/priority/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/priority/mf/Core",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/priority/mf/RTM","ProjectDIR/rt/priority/mf/Core",},family={},inactive={},mT={a={["FN"]="ProjectDIR/rt/priority/mf/Core/a/1.0.lua",["default"]=1,["fullName"]="a/1.0",["loadOrder"]=1,propT={},["short"]="a",["status"]="active",},tdog={["FN"]="ProjectDIR/rt/priority/mf/Core/tdog/1.0",["default"]=1,["fullName"]="tdog/1.0",["loadOrder"]=2,propT={},["short"]="tdog",["status"]="active",},},mpathA={"ProjectDIR/rt/priority/mf/RTM","ProjectDIR/rt/priority/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/priority/mf/Core",["version"]=2,}';
 export _ModuleTable_;
 ===========================
-step 8
+step 10
 lua ProjectDIR/src/lmod.in.lua bash show tdog
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/priority/mf/Core";
+__LMOD_PRIORITY_LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/priority/mf/RTM:-100";
+export __LMOD_PRIORITY_LMOD_DEFAULT_MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/priority/mf/RTM:ProjectDIR/rt/priority/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/priority/mf/Core";
+__LMOD_PRIORITY_MODULEPATH="ProjectDIR/rt/priority/mf/RTM:-100";
+export __LMOD_PRIORITY_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/priority/mf/RTM:ProjectDIR/rt/priority/mf/Core";
 export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/priority/mf/Core";
+__LMOD_PRIORITY_LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/priority/mf/RTM:-100";
+export __LMOD_PRIORITY_LMOD_DEFAULT_MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/priority/mf/RTM:ProjectDIR/rt/priority/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/priority/mf/Core";
+__LMOD_PRIORITY_MODULEPATH="ProjectDIR/rt/priority/mf/RTM:-100";
+export __LMOD_PRIORITY_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/priority/mf/RTM:ProjectDIR/rt/priority/mf/Core";
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/priority/mf/Core",},family={},inactive={},mT={a={["FN"]="ProjectDIR/rt/priority/mf/Core/a/1.0.lua",["default"]=1,["fullName"]="a/1.0",["loadOrder"]=1,propT={},["short"]="a",["status"]="active",},tdog={["FN"]="ProjectDIR/rt/priority/mf/Core/tdog/1.0",["default"]=1,["fullName"]="tdog/1.0",["loadOrder"]=2,propT={},["short"]="tdog",["status"]="active",},},mpathA={"ProjectDIR/rt/priority/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/priority/mf/Core",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/priority/mf/RTM","ProjectDIR/rt/priority/mf/Core",},family={},inactive={},mT={a={["FN"]="ProjectDIR/rt/priority/mf/Core/a/1.0.lua",["default"]=1,["fullName"]="a/1.0",["loadOrder"]=1,propT={},["short"]="a",["status"]="active",},tdog={["FN"]="ProjectDIR/rt/priority/mf/Core/tdog/1.0",["default"]=1,["fullName"]="tdog/1.0",["loadOrder"]=2,propT={},["short"]="tdog",["status"]="active",},},mpathA={"ProjectDIR/rt/priority/mf/RTM","ProjectDIR/rt/priority/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/priority/mf/Core",["version"]=2,}';
 export _ModuleTable_;
