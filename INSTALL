@@ -111,11 +111,22 @@ D) As an example here is my configuration line:
      ./configure --prefix=/opt/apps --with-spiderCacheDir=/opt/moduleData/cacheDir \
                  --with-updateSystemFn=/opt/moduleData/system.txt
 
-  The system spider cache will stored in /opt/moduleData/cacheDir.
-  And the system update file will be in /opt/moduleData/system.txt
+   The system spider cache will stored in /opt/moduleData/cacheDir.
+   And the system update file will be in /opt/moduleData/system.txt
+
+E) In the init directory there are "profile.in" and "cshrc.in" templates.  The
+   path to lua will automatically be generated.  The templates assume that your
+   modulefiles are located in @PREFIX@/modulefiles/$LMOD_sys and
+   @PREFIX@/modulefiles/Core, where @PREFIX@ is the path specified on the
+   ./configure --prefix command
 
 
-E) There are two ways to install Lmod
+   *****************************************************************************
+   Obviously you will want to modify the profile.in and cshrc.in files to suit
+   your system.
+   *****************************************************************************
+
+F) There are two ways to install Lmod
 
       $ make pre-install
 
@@ -138,18 +149,6 @@ E) There are two ways to install Lmod
 
          /opt/apps/lmod/lmod => /opt/apps/lmod/5.0
 
-
-F) In the setup directory there are "profile.in" and "cshrc.in" templates.  The
-   path to lua will automatically be generated.  The templates assume that your
-   modulefiles are located in @PREFIX@/modulefiles/$LMOD_sys and
-   @PREFIX@/modulefiles/Core, where @PREFIX@ is the path specified on the
-   ./configure --prefix command
-
-
-   *****************************************************************************
-   Obviously you will want to modify the profile.in and cshrc.in files to suit
-   your system.
-   *****************************************************************************
 
 
 G) You can write your module files in either lua or TCL.  Modulefiles with the lua
