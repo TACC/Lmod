@@ -30,14 +30,16 @@ testdescript = {
 
      rm -fr _stderr.* _stdout.* err.* out.* .lmod.d
 
-     runLmod --version              # 1
-     runLmod load priority          # 2
-     runLmod load a                 # 3
-     runLmod load tdog              # 4
-     runLmod list                   # 5
-     runLmod unload priority        # 6
-     runLmod list                   # 7
-     runLmod show tdog              # 8
+     runLmod --version                            # 1
+     runLmod use --priority 100 $(testDir)/mf/RTM # 2
+     runLmod use --priority 100 $(testDir)/mf/RTM # 3
+     runLmod load priority                        # 4           
+     runLmod load a                               # 5
+     runLmod load tdog                            # 6
+     runLmod list                                 # 7
+     runLmod unload priority                      # 8
+     runLmod list                                 # 9
+     runLmod show tdog                            #10
 
      HOME=$ORIG_HOME
      cat _stdout.[0-9][0-9] > _stdout.orig
