@@ -2,6 +2,7 @@ Lmod Version 5.5.1:
 Bug Fixes:
    a) Fixed bug where setting the priority twice caused an error. This is now
       fixed.
+   b) A meta module that starts with "." will not seen by avail and spider.
 
 Lmod Version 5.5:
 Feature:

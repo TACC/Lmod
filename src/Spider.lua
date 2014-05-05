@@ -225,10 +225,6 @@ function M.findModulesInDir(mpath, path, prefix, moduleT)
    dbg.start{"findModulesInDir(mpath=\"",mpath,"\", path=\"",path,
              "\", prefix=\"",prefix,"\")"}
 
-   --if (level == 0) then
-   --   t1   = epoch()
-   --   dbg.print{"t1: ",t1,"\n"}
-   --end
    local attr = lfs.attributes(path)
    if (not attr or  type(attr) ~= "table" or attr.mode ~= "directory" or
        not posix.access(path,"rx")) then
@@ -269,7 +265,8 @@ function M.findModulesInDir(mpath, path, prefix, moduleT)
 
          if (not attr or not readable) then
             -- do nothing for this case
-         elseif (readable and attr.mode == 'file' and file ~= "default" and accept_fn(file)) then
+         elseif (readable and attr.mode == 'file' and file ~= "default" and accept_fn(file) and
+                 full:sub(1,1) ~= ".") then
             dbg.print{"mnameT[",full,"].file: ",f,"\n"}
             mnameT[full] = {file=f, mpath = mpath}
          elseif (attr.mode == "directory" and file:sub(1,1) ~= ".") then

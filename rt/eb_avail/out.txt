@@ -33,7 +33,12 @@ LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/eb_avail/mf/Core:ProjectDIR/rt/eb_avail/n
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/eb_avail/mf/Core:ProjectDIR/rt/eb_avail/not/there/yet";
 export MODULEPATH;
-false
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/eb_avail/mf/Core:ProjectDIR/rt/eb_avail/not/there/yet";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/eb_avail/mf/Core:ProjectDIR/rt/eb_avail/not/there/yet";
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/eb_avail/mf/Core","ProjectDIR/rt/eb_avail/not/there/yet",},family={},inactive={},mT={},mpathA={"ProjectDIR/rt/eb_avail/mf/Core","ProjectDIR/rt/eb_avail/not/there/yet",},["systemBaseMPATH"]="ProjectDIR/rt/eb_avail/mf/Core:ProjectDIR/rt/eb_avail/not/there/yet",["version"]=2,}';
+export _ModuleTable_;
 ===========================
 step 5
 lua ProjectDIR/src/lmod.in.lua bash avail
@@ -42,4 +47,32 @@ LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/eb_avail/not/there/yet:ProjectDIR/rt/eb_a
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/eb_avail/not/there/yet:ProjectDIR/rt/eb_avail/mf/Core";
 export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/eb_avail/not/there/yet:ProjectDIR/rt/eb_avail/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/eb_avail/not/there/yet:ProjectDIR/rt/eb_avail/mf/Core";
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/eb_avail/not/there/yet","ProjectDIR/rt/eb_avail/mf/Core",},family={},inactive={},mT={},mpathA={"ProjectDIR/rt/eb_avail/not/there/yet","ProjectDIR/rt/eb_avail/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/eb_avail/not/there/yet:ProjectDIR/rt/eb_avail/mf/Core",["version"]=2,}';
+export _ModuleTable_;
+===========================
+step 6
+lua ProjectDIR/src/lmod.in.lua bash avail
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/eb_avail/not/there/yet";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/eb_avail/not/there/yet";
+export MODULEPATH;
 false
+===========================
+step 7
+lua ProjectDIR/src/lmod.in.lua bash spider
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/eb_avail/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/eb_avail/mf/Core";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/eb_avail/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/eb_avail/mf/Core";
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/eb_avail/mf/Core",},family={},inactive={},mT={},mpathA={"ProjectDIR/rt/eb_avail/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/eb_avail/mf/Core",["version"]=2,}';
+export _ModuleTable_;
