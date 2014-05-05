@@ -334,15 +334,15 @@ LMOD_MP_T = {}
 LMOD_MP_T[ModulePath]  = true
 LMOD_MP_T[DfltModPath] = true
 function M.prepend_path(self, t)
+   dbg.start{"MasterControl:prepend_path(t)"}
    local sep      = t.delim or ":"
    local name     = t[1]
    local value    = t[2]
    local nodups   = t.nodups
    local priority = (-1)*(t.priority or 0)
-   dbg.start{"MasterControl:prepend_path{\"",name,"\", \"",value,
+   dbg.print{"name:\"",name,"\", value: \"",value,
              "\", delim=\"",sep,"\", nodups=\"",nodups,
-             "\", priority=",priority,
-             "}"}
+             "\", priority=",priority,"\n"}
 
    if (varTbl[name] == nil) then
       varTbl[name] = Var:new(name, nil, sep)

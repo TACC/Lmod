@@ -1,5 +1,5 @@
 -- -*- lua -*-
-local testName = "eb"
+local testName = "eb_avail"
 
 testdescript = {
    owner   = "rtm",
