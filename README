@@ -1,3 +1,8 @@
+Lmod Version 5.5.1:
+Bug Fixes:
+   a) Fixed bug where setting the priority twice caused an error. This is now
+      fixed.
+
 Lmod Version 5.5:
 Feature:
    a) priorities can now be used with "module use":
