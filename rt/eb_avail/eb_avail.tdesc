@@ -44,6 +44,9 @@ testdescript = {
      export MODULEPATH=$(testDir)/not/there/yet:$(testDir)/mf/Core
      runLmod avail                      # 5
      
+     unsetMT
+     export MODULEPATH=$(testDir)/not/there/yet
+     runLmod avail                      # 6     
 
 
      HOME=$ORIG_HOME
