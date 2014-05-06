@@ -1,4 +1,7 @@
 PATH_TO_SRC               := @PATH_TO_SRC@
+ifeq ($(PATH_TO_SRC),@PATH_TO_SRC@)
+  PATH_TO_SRC             := ./
+endif
 TOOL_SRC                  := $(wildcard $(PATH_TO_SRC)/tools/*.lua)
 HAVE_LUA_JSON             := @HAVE_LUA_JSON@
 ifeq ($(HAVE_LUA_JSON),yes)
