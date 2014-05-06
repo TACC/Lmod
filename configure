@@ -593,7 +593,6 @@ HAVE_LUA_JSON
 HAVE_LUA_TERM
 luaprog
 pager
-PATH_TO_SRC
 PATH_TO_HASHSUM
 PATH_TO_GIT
 PATH_TO_LUA
@@ -1205,7 +1204,6 @@ for ac_var in $ac_precious_vars; do
   eval ac_cv_env_${ac_var}_set=\${${ac_var}+set}
   eval ac_cv_env_${ac_var}_value=\$${ac_var}
 done
-PATH_TO_SRC=$srcdir
 
 #
 # Report the --help message.
@@ -2298,11 +2296,11 @@ done
 printf "checking for valid Lua version"
 
 LuaV=$( $luaprog -e 'print(_VERSION)' | sed -e 's/Lua //' )
-LmodV=$( LUA_PATH="$srcdir/src/?.lua" && $luaprog  -e 'v=require("Version"); s=v.name():gsub(" .*","");print(s)')
+LmodV=$( $luaprog  -e 'v=require("src/Version"); s=v.name():gsub(" .*","");print(s)')
 if test -n $PATH_TO_GIT -a -d .git ; then
   lmodV=$($PATH_TO_GIT describe)
 else
-  lmodV=$( LUA_PATH="$srcdir/src/?.lua" && $luaprog -e 'v=require("Version"); s=v.git():gsub(" .*","");print(s)')
+  lmodV=$($luaprog -e 'v=require("src/Version"); s=v.git():gsub(" .*","");print(s)')
 fi
 
 IntLuaV=$( $luaprog  -e "_,_,M,m=_VERSION:gsub('Lua%s+',''):find('(%d+)%.(%d)'); print(M*1000+m)")
@@ -3742,7 +3740,7 @@ echo '**************************************************************************
 
 
 echo
-echo Configure complete, now type \'make\' and then \'make install\'.
+echo Configure complete, now type \'make install\'.
 echo
 
 

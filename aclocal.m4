@@ -59,7 +59,7 @@ echo '**************************************************************************
 
 
 echo
-echo Configure complete, now type \'make\' and then \'make install\'.
+echo Configure complete, now type \'make install\'.
 echo
 
 ])
