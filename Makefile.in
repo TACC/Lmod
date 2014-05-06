@@ -177,7 +177,7 @@ zsh_tab_funcs: $(ZSH_FUNCS)
           cp $^ $(prefix)$(ZSH_SITE_FUNCTIONS_DIR);                \
         fi
 
-makefile: Makefile.in config.status
+makefile: $(PATH_TO_SRC)/Makefile.in config.status
 	./config.status $@
 
 config.status:
