@@ -131,8 +131,7 @@ local function rptModuleT(moduleDirA, moduleT, dbT)
    dbg.fini("rptModuleT")
 end
 
-local function rptReverseMapT(moduleDirA, moduleT, dbT)
-   dbg.start{"rptReverseMapT(moduleDirA, moduleT, dbT)"}
+local function buildReverseMapT(moduleDirA, moduleT, dbT)
    local reverseMapT = {}
 
    for kkk,vvv in pairs(dbT) do
@@ -145,9 +144,24 @@ local function rptReverseMapT(moduleDirA, moduleT, dbT)
          end
       end
    end
-   local s  = serializeTbl{name="reverseMapT",      value=reverseMapT,   indent=true}
+   return reverseMapT
+end
+
+
+local function rptReverseMapT(moduleDirA, moduleT, dbT)
+   dbg.start{"rptReverseMapT(moduleDirA, moduleT, dbT)"}
+   local reverseMapT = buildReverseMapT(moduleDirA, moduleT, dbT)
+   local s           = serializeTbl{name="reverseMapT",
+                                    value=reverseMapT,   indent=true}
    print(s)
    dbg.fini("rptReverseMapT")
+end
+
+local function rptReverseMapTJson(moduleDirA, moduleT, dbT)
+   dbg.start{"rptReverseMapTJson(moduleDirA, moduleT, dbT)"}
+   local reverseMapT = buildReverseMapT(moduleDirA, moduleT, dbT)
+   print(json.encode(s))
+   dbg.fini("rptReverseMapTJson")
 end
 
 local function rptSoftwarePageJson(moduleDirA, moduleT, dbT)
@@ -270,6 +284,8 @@ function main()
       softwarePageLua  = rptSoftwarePageLua,
       reverseMapT      = rptReverseMapT,
       reverseMap       = rptReverseMapT,
+      jsonReverseMapT  = rptReverseMapTJson,
+      jsonReverseMap   = rptReverseMapTJson,
       ["spider-json"]  = rptDbTJson,
       dbT              = rptDbT,
    }
@@ -370,8 +386,8 @@ function options()
       action = 'store',
       default = "list",
       help    = "Output Style: list, moduleT, dbT, reverseMapT, "..
-                "spider, spider-json, softwarePage, jsonSoftwarePage, "..
-                "xmlSoftwarePage"
+                "jsonReverseMapT, spider, spider-json, softwarePage, "..
+                "jsonSoftwarePage, xmlSoftwarePage"
    }
 
    cmdlineParser:add_option{
