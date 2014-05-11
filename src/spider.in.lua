@@ -160,7 +160,7 @@ end
 local function rptReverseMapTJson(moduleDirA, moduleT, dbT)
    dbg.start{"rptReverseMapTJson(moduleDirA, moduleT, dbT)"}
    local reverseMapT = buildReverseMapT(moduleDirA, moduleT, dbT)
-   print(json.encode(s))
+   print(json.encode(reverseMapT))
    dbg.fini("rptReverseMapTJson")
 end
 
