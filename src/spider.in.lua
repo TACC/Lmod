@@ -302,7 +302,7 @@ function main()
    -- grap function and run with it.
    local func = interpT[masterTbl.outputStyle]
    if (func) then
-      func(moduleDirA, moduleT, dbT)
+      func(moduleDirA, moduleT, masterTbl.timestampFn, dbT)
    end
 end
 
