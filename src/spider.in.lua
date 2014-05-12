@@ -112,8 +112,8 @@ local function add2map(entry, tbl, rmapT, kind)
    end
 end
 
-local function rptList(moduleDirA, moduleT, dbT)
-   dbg.start{"rptList(moduleDirA, moduleT, dbT)"}
+local function rptList(moduleDirA, moduleT, timestampFn, dbT)
+   dbg.start{"rptList(moduleDirA, moduleT, timestampFn, dbT)"}
    local tbl = {}
    local spider = Spider:new()
    spider:listModules(moduleT, tbl)
@@ -123,11 +123,13 @@ local function rptList(moduleDirA, moduleT, dbT)
    dbg.fini("rptList")
 end
 
-local function rptModuleT(moduleDirA, moduleT, dbT)
-   dbg.start{"rptModuleT(moduleDirA, moduleT,dbT)"}
-   local s1 = serializeTbl{name="defaultMpathA",value=moduleDirA,indent=true}
-   local s2 = serializeTbl{name="moduleT",      value=moduleT,   indent=true}
-   io.stdout:write(s1,s2,"\n")
+local function rptModuleT(moduleDirA, moduleT, timestampFn, dbT)
+   dbg.start{"rptModuleT(moduleDirA, moduleT, timestampFn, dbT)"}
+   local ts = { timestampFn }
+   local s1 = serializeTbl{name="timestampFn",   value=ts,         indent=true}
+   local s2 = serializeTbl{name="defaultMpathA", value=moduleDirA, indent=true}
+   local s3 = serializeTbl{name="moduleT",       value=moduleT,    indent=true}
+   io.stdout:write(s1,s2,s3,"\n")
    dbg.fini("rptModuleT")
 end
 
@@ -148,52 +150,59 @@ local function buildReverseMapT(moduleDirA, moduleT, dbT)
 end
 
 
-local function rptReverseMapT(moduleDirA, moduleT, dbT)
-   dbg.start{"rptReverseMapT(moduleDirA, moduleT, dbT)"}
+local function rptReverseMapT(moduleDirA, moduleT, timestampFn, dbT)
+   dbg.start{"rptReverseMapT(moduleDirA, moduleT, timestampFn, dbT)"}
+   local ts          = { timestampFn }
    local reverseMapT = buildReverseMapT(moduleDirA, moduleT, dbT)
-   local s           = serializeTbl{name="reverseMapT",
+   local s1          = serializeTbl{name="timestampFn",   value=ts,
+                                    indent=true}
+   local s2          = serializeTbl{name="reverseMapT",
                                     value=reverseMapT,   indent=true}
-   print(s)
+   io.stdout:write(s1,s2,"\n")
    dbg.fini("rptReverseMapT")
 end
 
-local function rptReverseMapTJson(moduleDirA, moduleT, dbT)
-   dbg.start{"rptReverseMapTJson(moduleDirA, moduleT, dbT)"}
+local function rptReverseMapTJson(moduleDirA, moduleT, timestampFn, dbT)
+   dbg.start{"rptReverseMapTJson(moduleDirA, moduleT, timestampFn, dbT)"}
    local reverseMapT = buildReverseMapT(moduleDirA, moduleT, dbT)
-   print(json.encode(reverseMapT))
+   local t           = { timestampFn = timestampFn,
+                         reverseMapT = reverseMapT}
+   print(json.encode(t))
    dbg.fini("rptReverseMapTJson")
 end
 
-local function rptSoftwarePageJson(moduleDirA, moduleT, dbT)
-   dbg.start{"rptSoftwarePageJson(moduleDirA, moduleT, dbT)"}
+local function rptSoftwarePageJson(moduleDirA, moduleT, timestampFn, dbT)
+   dbg.start{"rptSoftwarePageJson(moduleDirA, moduleT, timestampFn, dbT)"}
    local spA = softwarePage(dbT)
    print(json.encode(spA))
    dbg.fini("rptSoftwarePageJson")
 end
 
-local function rptSoftwarePageLua(moduleDirA, moduleT, dbT)
-   dbg.start{"rptSoftwarePageLua(moduleDirA, moduleT, dbT)"}
+local function rptSoftwarePageLua(moduleDirA, moduleT, timestampFn, dbT)
+   dbg.start{"rptSoftwarePageLua(moduleDirA, moduleT, timestampFn, dbT)"}
    local spA = softwarePage(dbT)
    local s   = serializeTbl{name="spA",      value=spA,   indent=true}
    print(s)
    dbg.fini("rptSoftwarePageLua")
 end
 
-local function rptSoftwarePageXml(moduleDirA, moduleT, dbT)
-   dbg.start{"rptSoftwarePageXml(moduleDirA, moduleT, dbT)"}
+local function rptSoftwarePageXml(moduleDirA, moduleT, timestampFn, dbT)
+   dbg.start{"rptSoftwarePageXml(moduleDirA, moduleT, timestampFn, dbT)"}
    local xmlStr = xmlSoftwarePage(dbT)
    print(xmlStr)
    dbg.fini("rptSoftwarePageXml")
 end
 
-local function rptDbT(moduleDirA, moduleT, dbT)
-   dbg.start{"rptDbT(moduleDirA, moduleT, dbT)"}
-   local s = serializeTbl{name="dbT",      value=dbT,   indent=true}
-   print(s)
+local function rptDbT(moduleDirA, moduleT, timestampFn, dbT)
+   dbg.start{"rptDbT(moduleDirA, moduleT, timestampFn, dbT)"}
+   local ts = { timestampFn }
+   local s1 = serializeTbl{name="timestampFn",   value=ts,         indent=true}
+   local s2 = serializeTbl{name="dbT",      value=dbT,   indent=true}
+   io.stdout:write(s1,s2,"\n")
    dbg.fini("rptDbT")
 end
 
-local function rptDbTJson(moduleDirA, moduleT, dbT)
+local function rptDbTJson(moduleDirA, moduleT, timestampFn, dbT)
    dbg.start{"rptDbTJson(moduleDirA, moduleT, dbT)"}
    print(json.encode(dbT))
    dbg.fini("rptDbTJson")
@@ -381,14 +390,23 @@ function options()
    }
 
    cmdlineParser:add_option{
-      name   = {'-o','--output'},
-      dest   = 'outputStyle',
-      action = 'store',
+      name    = {'-o','--output'},
+      dest    = 'outputStyle',
+      action  = 'store',
       default = "list",
       help    = "Output Style: list, moduleT, dbT, reverseMapT, "..
                 "jsonReverseMapT, spider, spider-json, softwarePage, "..
                 "jsonSoftwarePage, xmlSoftwarePage"
    }
+
+   cmdlineParser:add_option{
+      name    = {'--timestampFn'},
+      dest    = 'timestampFn',
+      action  = 'store',
+      default = false,
+      help    = "Absolute path to the timestamp file"
+   }
+
 
    cmdlineParser:add_option{
       name   = {'-n','--no_recursion'},
