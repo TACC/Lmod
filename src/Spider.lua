@@ -58,6 +58,7 @@ local max          = math.max
 local posix        = require("posix")
 local systemG      = _G
 local gettimeofday = posix.gettimeofday
+local sort         = table.sort
 local timer        = require("Timer"):timer()
 local function nothing()
 end
@@ -405,6 +406,8 @@ function M.singleSpiderDB(self, a, moduleT, dbT)
       if (not found) then
          parent[#parent+1] = entry
       end
+      sort(parent)
+
       t[path].parent = parent
       if (next(value.children)) then
          a[#a+1] = t[path].full
