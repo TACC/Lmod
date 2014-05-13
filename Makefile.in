@@ -44,12 +44,13 @@ TOOLS                     := $(prefix)/$(package)/$(version)/tools
 SETTARG                   := $(prefix)/$(package)/$(version)/settarg
 INIT		  	  := $(prefix)/$(package)/$(version)/init
 LMOD_MF 	  	  := $(prefix)/$(package)/$(version)/modulefiles/Core
-LMOD_MF_SOURCE            := $(PATH_TO_SRC)/MF/*.version.lua
-SETTARG_SOURCE            := $(PATH_TO_SRC)/settarg/*.lua $(PATH_TO_SRC)/settarg/targ.in
+LMOD_MF_SOURCE            := MF/*.version.lua
+SETTARG_SOURCE            := settarg/*.lua  settarg/targ.in
 
-DIRLIST		  	  := $(LIBEXEC) $(TOOLS) $(SETTARG)             \
-                             $(SHELLS)                                                      \
-                             $(INIT) $(LIB) $(LMOD_MF)
+DIRLIST		  	  := $(DESTDIR)$(LIBEXEC) $(DESTDIR)$(TOOLS) $(DESTDIR)$(SETTARG)             \
+                             $(DESTDIR)$(SHELLS)                                                      \
+                             $(DESTDIR)$(INIT) $(DESTDIR)$(LIB) $(DESTDIR)$(LMOD_MF)
+
 
 STANDALONE_PRGM   	  := src/lmod.in.lua src/addto.in.lua src/getmt.in.lua src/processMT.in.lua   \
                              src/spider.in.lua src/processModuleUsage.in.lua src/reportUsers.in.lua   \
@@ -104,8 +105,8 @@ pre-install: $(DIRLIST) shell_init startup spiderCacheSupport libexec \
              Inst_Tools Inst_Shells Inst_Settarg Inst_Lmod_MF $(PKGS) other_tools
 
 install: pre-install  zsh_tab_funcs
-	$(RM) $(PKG)
-	ln -s $(version) $(PKG)
+	$(RM) $(DESTDIR)$(PKG)
+	ln -s $(version) $(DESTDIR)$(PKG)
 
 echo:
 	@echo Version: $(version)
@@ -154,19 +155,19 @@ __installMe:
         done
 
 shell_init: $(SHELL_INIT)
-	$(MAKE) FILELIST="$^" DIRLOC=$(INIT)    __installMe
+	$(MAKE) FILELIST="$^" DIRLOC=$(DESTDIR)$(INIT)    __installMe
 
 startup: $(STARTUP)
-	$(MAKE) FILELIST="$^" DIRLOC=$(INIT)    __installMe
+	$(MAKE) FILELIST="$^" DIRLOC=$(DESTDIR)$(INIT)    __installMe
 
 other_tools: $(ComputeHashSum) $(STANDALONE_PRGM)
-	$(MAKE) FILELIST="$^" DIRLOC=$(LIBEXEC) __installMe
+	$(MAKE) FILELIST="$^" DIRLOC=$(DESTDIR)$(LIBEXEC) __installMe
 
 spiderCacheSupport:
 	$(spiderCacheSupportCMD) --cacheDirs "$(SPIDER_CACHE_DIRS)"          \
 	                         --updateFn  "$(UPDATE_SYSTEM_FN)"           \
                                  --descriptFn "$(SPIDER_CACHE_DESCRIPT_FN)"  \
-                                 >> $(INIT)/lmodrc.lua;
+                                 >> $(DESTDIR)$(INIT)/lmodrc.lua;
 
 src/computeHashSum: $(ComputeHashSum)
 	$(MAKE) FILELIST="$^" DIRLOC="$(prefix)/src"                __installMe
@@ -174,12 +175,12 @@ src/computeHashSum: $(ComputeHashSum)
 
 pkgs:
 	cd $(PATH_TO_SRC)/pkgs; \
-        $(MAKE) LUA_INC=$(LUA_INCLUDE)  LIB=$(LIB) \
-                SHARE=$(LIBEXEC) install
+        $(MAKE) LUA_INC=$(LUA_INCLUDE)  LIB=$(DESTDIR)$(LIB) \
+                SHARE=$(DESTDIR)$(LIBEXEC) install
 
 zsh_tab_funcs: $(ZSH_FUNCS)
 	-if [ -n "$(ZSH_SITE_FUNCTIONS_DIR)" ]; then \
-          cp $^ $(prefix)$(ZSH_SITE_FUNCTIONS_DIR);                \
+          cp $^ $(DESTDIR)$(ZSH_SITE_FUNCTIONS_DIR);                \
         fi
 
 makefile: $(PATH_TO_SRC)/Makefile.in config.status
@@ -189,62 +190,62 @@ config.status:
 	./config.status --recheck
 
 dist:
-	$(MAKE) _dist
+	$(MAKE) DistD=DIST _dist
 
 _dist: _distMkDir _distMainDir _distSrc _distSetup _distSetupZsh \
        _distVersion _distPkgs _distMF    _distContrib _distTar
 
 _distMkDir:
-	$(RM) -r $(prefix)
-	mkdir -p $(prefix)
+	$(RM) -r $(DistD)
+	mkdir $(DistD)
 
 
 _distContrib:
-	mkdir $(prefix)/contrib
-	cp -r $(CONTRIB) $(prefix)/contrib
+	mkdir $(DistD)/contrib
+	cp -r $(CONTRIB) $(DistD)/contrib
 
 _distSrc:
-	mkdir $(prefix)/src $(prefix)/tools $(prefix)/settarg $(prefix)/shells
-	cp $(lua_code) $(ComputeHashSum) $(STANDALONE_PRGM) $(prefix)/src
-	cp $(PATH_TO_SRC)/tools/*.lua $(prefix)/tools
-	cp $(SETTARG_SOURCE) $(prefix)/settarg
-	cp $(PATH_TO_SRC)/shells/*.lua $(prefix)/shells
+	mkdir $(DistD)/src $(DistD)/tools $(DistD)/settarg $(DistD)/shells
+	cp $(lua_code) $(ComputeHashSum) $(STANDALONE_PRGM) $(DistD)/src
+	cp tools/*.lua $(DistD)/tools
+	cp $(SETTARG_SOURCE) $(DistD)/settarg
+	cp shells/*.lua $(DistD)/shells
 
 _distVersion:
-	perl -p -i -e 's/\@git\@/$(GIT_VERSION)/g' $(PATH_TO_SRC)/src/Version.lua
+	perl -p -i -e 's/\@git\@/$(GIT_VERSION)/g' $(DistD)/src/Version.lua
 
 _distPkgs:
-	mkdir $(prefix)/pkgs
-	cp -r $(PATH_TO_SRC)/pkgs/* $(prefix)/pkgs
+	mkdir $(DistD)/pkgs
+	cp -r pkgs/* $(DistD)/pkgs
 
 _distSetup:
-	mkdir $(prefix)/init
-	cp $(SHELL_INIT) $(STARTUP) $(prefix)/init
+	mkdir $(DistD)/init
+	cp $(SHELL_INIT) $(STARTUP) $(DistD)/init
 
 _distSetupZsh:
-	mkdir $(prefix)/init/zsh
-	cp $(ZSH_FUNCS) $(prefix)/init/zsh
+	mkdir $(DistD)/init/zsh
+	cp $(ZSH_FUNCS) $(DistD)/init/zsh
 
 
 
 _distMainDir:
-	cd $(PATH_TO_SRC) && cp $(MAIN_DIR) $(prefix)
+	cp $(MAIN_DIR) $(DistD)
 
 _distMF:
-	mkdir $(prefix)/MF
-	cp -r $(PATH_TO_SRC)/MF $(prefix)/
+	mkdir $(DistD)/MF
+	cp -r MF $(DistD)/
 
 _distTar:
 	echo "Lmod"-$(version) > .fname;                		   \
 	$(RM) -r `cat .fname` `cat .fname`.tar*;         		   \
-	mv ${prefix} `cat .fname`;                            		   \
+	mv ${DistD} `cat .fname`;                            		   \
 	tar chf `cat .fname`.tar `cat .fname`;           		   \
 	bzip2 `cat .fname`.tar;                           		   \
 	rm -rf `cat .fname` .fname;
 
 
 test:
-	cd $(prefix)/rt; unset TMFuncPATH; tm .
+	cd rt; unset TMFuncPATH; tm .
 
 tags:
 	find . \( -regex '.*~$$\|.*/\.git\|.*/\.git/' -prune \)  \
@@ -285,24 +286,24 @@ tags:
 
 
 libexec:  $(lua_code)
-	$(MAKE) FILELIST="$^" DIRLOC=$(LIBEXEC) __installMe
+	$(MAKE) FILELIST="$^" DIRLOC=$(DESTDIR)$(LIBEXEC) __installMe
 
 Inst_Tools: $(TOOL_SRC)
-	$(MAKE) FILELIST="$^" DIRLOC=$(TOOLS) __installMe
+	$(MAKE) FILELIST="$^" DIRLOC=$(DESTDIR)$(TOOLS) __installMe
 
 Inst_Shells: $(PATH_TO_SRC)/shells/*.lua
-	$(MAKE) FILELIST="$^" DIRLOC=$(SHELLS) __installMe
+	$(MAKE) FILELIST="$^" DIRLOC=$(DESTDIR)$(SHELLS) __installMe
 
 Inst_Settarg: $(SETTARG_SOURCE)
-	$(MAKE) FILELIST="$^" DIRLOC=$(SETTARG) __installMe
+	$(MAKE) FILELIST="$^" DIRLOC=$(DESTDIR)$(SETTARG) __installMe
 
 
 Inst_Lmod_MF: $(LMOD_MF_SOURCE)
-	$(MAKE) FILELIST="$^" DIRLOC=$(LMOD_MF) __installMe
+	$(MAKE) FILELIST="$^" DIRLOC=$(DESTDIR)$(LMOD_MF) __installMe
 
 clean:
 	$(RM) config.log
-	cd $(PATH_TO_SRC)/pkgs; $(MAKE) LIB=$(LIB) SHARE=$(LIBEXEC) clean
+	cd $(PATH_TO_SRC)/pkgs; $(MAKE) LIB=$(DESTDIR)$(LIB) SHARE=$(DESTDIR)$(LIBEXEC) clean
 
 clobber: clean
 
