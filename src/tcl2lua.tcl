@@ -169,6 +169,8 @@ proc ::cmdline::getKnownOptions {arglistVar optlist {usage options:}} {
     return [array get result]
 }
 
+
+
 # ::cmdline::GetOptionDefaults --
 #
 #	This internal procdure processes the option list (that was passed to
@@ -319,15 +321,43 @@ proc ::cmdline::getArgv0 {} {
     return [file rootname $name]
 }
 
+set g_modeStack {}
+
+proc currentMode {} {
+    global g_modeStack
+
+    set mode [lindex $g_modeStack end]
+    return $mode
+}
+
+proc pushMode {mode} {
+    global g_modeStack
+
+    lappend g_modeStack $mode
+}
+
+proc popMode {} {
+    global g_modeStack
+
+    set len [llength $g_modeStack]
+    set len [expr {$len - 2}]
+    set g_modeStack [lrange $g_modeStack 0 $len]
+}
+
+
 proc module-info {what {more {}}} {
     global g_fullName g_usrName g_shellName
     switch -- $what {
     "mode" {
-        if {$more == "load" } {
-            return 1
-        } else {
-            return 0
-        }
+	if {$more != ""} {
+	    if {$mode == $more} {
+		return 1
+	    } else {
+		return 0
+	    }
+	} else {
+	    return $mode
+	}
     }
     "shell" {
         return $g_shellName
@@ -673,7 +703,9 @@ proc execute-modulefile {modfile } {
 }
 
 proc main { modfile } {
+    pushMode "load"
     execute-modulefile $modfile
+    popMode
 }
 
 global g_loadT g_help
