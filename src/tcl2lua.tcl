@@ -358,6 +358,7 @@ proc module-whatis { msg } {
 }
 
 proc setenv { var val } {
+    set env ($var) $val
     if {[string match $var "-respect"] || [string match $var "-r"] || [string match $var "--respect"]} {
         set respect "true"
         set var [lindex $args 0]
