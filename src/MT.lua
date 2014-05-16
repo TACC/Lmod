@@ -328,7 +328,8 @@ local function buildAllLocWmoduleT(moduleT, mpathA, locationT, availT)
             if (v.markedDefault) then
                local num = math.max(#versionA, #pathA)
                local fn  = abspath(v.file, true)
-               locationT[sn].default = {fn = fn, kind="marked", num = num}
+               --locationT[sn].default = {fn = fn, kind="marked", num = num}
+               locationT[sn].default = {fn = v.file, kind="marked", num = num}
                found = true
                break
             end
@@ -349,7 +350,8 @@ local function buildAllLocWmoduleT(moduleT, mpathA, locationT, availT)
             end
             sum = sum + num
          end
-         local fn              = abspath(lastValue.file, true)
+         --local fn              = abspath(lastValue.file, true)
+         local fn              = lastValue.file
          locationT[sn].default = {fn = fn, kind = "last", num = sum}
       end
    end

@@ -304,6 +304,7 @@ function main()
    if (func) then
       func(moduleDirA, moduleT, masterTbl.timestampFn, dbT)
    end
+   dbg.fini()
 end
 
 function softwarePage(dbT)

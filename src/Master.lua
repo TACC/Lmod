@@ -829,7 +829,8 @@ local function availEntry(defaultOnly, terse, mpath, szA, searchA, sn, name,
    dbg.print{"defaultOnly: ",defaultOnly, ", defaultModuleT.fn: ",defaultModuleT.fn,
              ", f: ",f,", abspath(f, localdir): ",abspath(f, localdir),"\n"}
 
-   if (defaultOnly and defaultModuleT.fn ~= abspath(f, localdir)) then
+   --if (defaultOnly and defaultModuleT.fn ~= abspath(f, localdir)) then
+   if (defaultOnly and defaultModuleT.fn ~= f) then
       found = false
    end
 
@@ -868,7 +869,8 @@ local function availEntry(defaultOnly, terse, mpath, szA, searchA, sn, name,
                 "\n"}
 
 
-      if ((defaultModuleT.fn == abspath(f, localdir)) and
+      --if ((defaultModuleT.fn == abspath(f, localdir)) and
+      if ((defaultModuleT.fn == f) and
           (defaultModuleT.num > 1) and not defaultOnly ) then
          dflt = Default
          legendT[Default] = "Default Module"
