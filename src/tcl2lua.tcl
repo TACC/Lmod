@@ -321,6 +321,7 @@ proc ::cmdline::getArgv0 {} {
 
 proc module-info {what {more {}}} {
     global g_fullName g_usrName g_shellName
+    set mode [currentMode]
     switch -- $what {
     "mode" {
         if {$more == "load" } {
