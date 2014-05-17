@@ -620,6 +620,7 @@ function main()
       io.stderr:write(timer:report(),"\n")
    end
 
+   dbg.print{"warningFlag: ", getWarningFlag(),"\n"}
 
    if (getWarningFlag() and not expert() ) then
       LmodErrorExit()

@@ -681,9 +681,14 @@ function haveWarnings()
    return s_haveWarnings
 end
 
+function clearWarningFlag()
+   s_warning = false
+end
+
 function setWarningFlag()
    s_warning = true
 end
+
 function getWarningFlag()
    return s_warning
 end

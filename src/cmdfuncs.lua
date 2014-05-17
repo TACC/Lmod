@@ -371,6 +371,7 @@ function Purge(force)
    local totalA  = mt:list("short","any")
 
    if (#totalA < 1) then
+      clearWarningFlag()
       return
    end
 
@@ -385,6 +386,9 @@ function Purge(force)
    -- Make Default Path be the new MODULEPATH
    mt:buildMpathA(mt:getBaseMPATH())
 
+   -- A purge should not set the warning flag.
+   clearWarningFlag()
+   dbg.print{"warningFlag: ", getWarningFlag(),"\n"}
    dbg.fini("Purge")
 end
 

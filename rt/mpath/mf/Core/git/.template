@@ -1,0 +1,9 @@
+#%Module1.0
+
+# for Tcl script use only
+set name [lindex [split [ module-info name ] / ] 0 ]
+set version [lindex [split [ module-info name ] / ] 1 ]
+set root $env(HOME)/local/$name/$version
+
+prepend-path PATH    $root/bin
+prepend-path MANPATH $root/man

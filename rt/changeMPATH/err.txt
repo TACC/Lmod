@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.3rc2 5.3rc2-4-g988883e 2014-02-11 07:47
+Modules based on Lua: Version 5.5.2 5.5.2-1-g267c89a 2014-05-16 10:27
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -30,6 +30,10 @@ The system default contains no modules
 step 6
 lua ProjectDIR/src/lmod.in.lua bash purge
 ===========================
+Lmod Warning: The environment MODULEPATH has been changed in unexpected ways.
+Lmod is unable to use given MODULEPATH. It is using: 
+    "ProjectDIR/rt/changeMPATH/mf/Core:ProjectDIR/mf/Core".
+Please use "module use ..." to change MODULEPATH instead.
 ===========================
 step 7
 lua ProjectDIR/src/lmod.in.lua bash use ProjectDIR/rt/changeMPATH/mf/Core

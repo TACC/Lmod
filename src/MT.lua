@@ -439,7 +439,7 @@ end
 ------------------------------------------------------------------------
 -- MT:new(): local ctor for MT.  It uses [[s]] to be the initial value.
 
-local function new(self, s)
+local function new(self, s, restore)
    dbg.start{"MT:new()"}
    local o            = {}
 
@@ -468,7 +468,8 @@ local function new(self, s)
    local currentMPATH  = getenv(ModulePath)
    o.systemBaseMPATH   = path_regularize(currentMPATH)
 
-   dbg.print{"systemBaseMPATH: \"", currentMPATH, "\"\n"}
+   dbg.print{"systemBaseMPATH:       \"", currentMPATH, "\"\n"}
+   dbg.print{"(1) o.systemBaseMPATH: \"", o.systemBaseMPATH, "\"\n"}
    if (not s) then
       dbg.print{"setting systemBaseMPATH: ", currentMPATH, "\n"}
       varTbl[DfltModPath] = Var:new(DfltModPath, currentMPATH)
@@ -492,6 +493,7 @@ local function new(self, s)
       end
       o._MPATH = concatTbl(o.mpathA,":")
       local baseMPATH = concatTbl(o.baseMpathA,":")
+      dbg.print{"(2) o.systemBaseMPATH: \"", o.systemBaseMPATH, "\"\n"}
       dbg.print{"baseMPATH: ", baseMPATH, "\n"}
 
       if (_ModuleTable_.systemBaseMPATH == nil) then
@@ -510,7 +512,7 @@ local function new(self, s)
          dbg.print{"_MPATH:              ",o._MPATH,"\n"}
          dbg.print{"o.systemBaseMPATH:   ",o.systemBaseMPATH,"\n"}
          dbg.print{"baseMPATH:           ",o.systemBaseMPATH,"\n"}
-         if (o.systemBaseMPATH == currentMPATH) then
+         if (o.systemBaseMPATH ~= currentMPATH and not restore) then
             o:resolveMpathChanges(currentMPATH, baseMPATH)
          end
       end
@@ -697,11 +699,12 @@ function M.getMTfromFile(self,t)
    -- Save module name in hash table "t"
    -- with Hash Sum as value
 
-   local l_mt   = new(self, s)
-   local mpath  = l_mt._MPATH
-   local t      = {}
-   local a      = {}  -- list of "worker-bee" modules
-   local m      = {}  -- list of "manager"    modules
+   local restore = true
+   local l_mt    = new(self, s, restore)
+   local mpath   = l_mt._MPATH
+   local t       = {}
+   local a       = {}  -- list of "worker-bee" modules
+   local m       = {}  -- list of "manager"    modules
 
    local activeA = l_mt:list("userName","active")
 
