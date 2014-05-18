@@ -1,0 +1,23 @@
+#%Module1.0#####################################################################
+#
+# $Id: base-modules.spec 1934 2013-10-12 14:10:48Z karl $
+#############################################################################
+
+proc ModulesHelp { } {
+puts stderr "The TACC modulefile defines the default paths and environment"
+puts stderr "variables needed to use the local software and utilities"
+puts stderr "available, placing them after the vendor-supplied"
+puts stderr "paths in PATH and MANPATH.:"
+}
+
+#
+# Load system specific modules or cluster module
+#
+
+if [ expr [ module-info mode load ] || [module-info mode display ] ] {
+   module load cluster
+}
+
+if [ module-info mode remove ] {
+   module del cluster
+}

@@ -1,0 +1,72 @@
+-- -*- lua -*-
+local testName = "hash_try_load"
+
+testdescript = {
+   owner   = "rtm",
+   product = "modules",
+   description = [[
+
+   ]],
+   keywords = {testName },
+
+   active   = true,
+   testName = testName,
+   job_submit_method = "INTERACTIVE",
+
+   runScript = [[
+
+     . $(projectDir)/rt/common_funcs.sh
+
+     unsetMT
+     initStdEnvVars
+     export MODULEPATH_ROOT=$(outputDir)/mf
+     export MODULEPATH=$MODULEPATH_ROOT/Core
+     numStep=0
+     COUNT=0
+     ORIG_HOME=`(cd $HOME; /bin/pwd)`
+     HOME=`/bin/pwd`
+
+
+     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d mf/Core
+     mkdir -p mf/Core
+     cp $(testDir)/cluster $(testDir)/TACC mf/Core
+
+     runLmod --version                     # 1
+     runLmod load TACC                     # 2
+     runLmod save                          # 3
+     runLmod purge                         # 4
+     unsetMT
+     runLmod restore                       # 5
+     sed -e "s/##%%##//g" < mf/Core/cluster > mf/Core/cluster.new
+     mv mf/Core/cluster.new mf/Core/cluster
+     runLmod purge                         # 6
+     unsetMT
+     runLmod restore                       # 7
+
+
+     
+     HOME=$ORIG_HOME
+     cat _stdout.[0-9][0-9] > _stdout.orig
+     joinBase64Results  -bash  _stdout.orig _stdout.new
+     cleanUp _stdout.new out.txt
+
+     cat _stderr.[0-9][0-9] > _stderr.orig
+     cleanUp _stderr.orig err.txt
+
+     rm -f $(cmdResultFn)
+     wrapperDiff -r $(cmdResultFn) $(testDir)/out.txt out.txt
+     wrapperDiff -r $(cmdResultFn) $(testDir)/err.txt err.txt
+     testFinish -r $(resultFn) -t $(runtimeFn) $(cmdResultFn)
+   ]],
+
+
+   blessScript = [[
+         # perform what is needed
+   ]],
+
+   tests = {
+      { id='t1'},
+   },
+
+}
+

@@ -37,8 +37,6 @@
 --     communicates what modules are loaded or inactive and so on between
 --     module commands.
 
-
-
 require("strict")
 _ModuleTable_      = ""
 local DfltModPath  = DfltModPath
@@ -702,11 +700,22 @@ function M.getMTfromFile(self,t)
    local restore = true
    local l_mt    = new(self, s, restore)
    local mpath   = l_mt._MPATH
-   local t       = {}
-   local a       = {}  -- list of "worker-bee" modules
-   local m       = {}  -- list of "manager"    modules
 
    local activeA = l_mt:list("userName","active")
+
+   ---------------------------------------------
+   -- If any module specified in the "default" file
+   -- is a default then use the short name.  This way
+   -- getting the modules from the "getdefault" specified
+   -- file will work even when the defaults have changed.
+   local t = {}
+
+   for i = 1,#activeA do
+      local      sn = activeA[i].sn
+      t[sn]         = l_mt:getHash(sn)
+      dbg.print{"sn: ",sn,", hash: ", t[sn], "\n"}
+   end
+
 
    local savedBaseMPATH = concatTbl(l_mt.baseMpathA,":")
    dbg.print{"Saved baseMPATH: ",savedBaseMPATH,"\n"}
@@ -786,8 +795,8 @@ function M.getMTfromFile(self,t)
    -- Now check to see that all requested modules got loaded.
    activeA = s_mt:list("userName","active")
    if (#activeA == 0 ) then
-      LmodWarning("You have no modules loaded because the collection \"",a,
-                     "\" is empty!\n")
+      LmodWarning("You have no modules loaded because the collection \"",
+                  collectionName, "\" is empty!\n")
    end
    dbg.print{"#activeA: ",#activeA,"\n"}
    local activeT = {}
@@ -821,8 +830,9 @@ function M.getMTfromFile(self,t)
    aa = {}
    s_mt:setHashSum()
    for sn, v  in pairs(t) do
-      if(v.hash ~= s_mt:getHash(sn)) then
-         aa[#aa + 1] = v.name
+      dbg.print{"HASH sn: ",sn, ", t hash: ",v, "s hash: ", s_mt:getHash(sn), "\n"}
+      if(v ~= s_mt:getHash(sn)) then
+         aa[#aa + 1] = sn
       end
    end
 
@@ -1244,14 +1254,6 @@ function M.have(self, sn, status)
    return ((status == "any") or (status == entry.status))
 end
 
-function M.getHash(self, sn)
-   local mT    = self.mT
-   local entry = mT[sn]
-   if (entry == nil) then
-      return nil
-   end
-   return entry.hash
-end
 
 function M.hideHash(self)
    local mT   = self.mT

@@ -1,0 +1,40 @@
+#%Module1.0#####################################################################
+#
+# Cluster local environment module file 		
+#
+# $Id: base-modules.spec 1934 2013-10-12 14:10:48Z karl $
+#############################################################################
+
+proc ModulesHelp { } {
+puts stderr "The cluster modulefile loads other modules files that setup the"
+puts stderr "enviroment variables needed to use the local software and utilities"
+}
+
+set sys        [uname sysname]
+set os         [uname release]
+set mach       [uname machine]
+set node       [uname node]
+set hostname   [info hostname]
+
+#
+# Load Desired Modules
+#
+
+if { [ expr [module-info mode load] || [module-info mode display] ] } {
+
+	module try-add cluster-paths
+	module try-add intel
+	module try-add mvapich2
+	module try-add gzip
+	module try-add tar
+##%%##	module try-add xalt
+}
+
+if [ module-info mode remove ] {
+	module del cluster-paths
+	module del mvapich2
+	module del intel
+	module del gzip
+	module del tar
+##%%##	module del xalt
+}
