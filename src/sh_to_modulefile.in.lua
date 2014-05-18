@@ -84,6 +84,7 @@ require("serializeTbl")
 require("pairsByKeys")
 require("fileOps")
 require("capture")
+require("utils")
 MF_Base = require("MF_Base")
 
 local Version   = "0.0"

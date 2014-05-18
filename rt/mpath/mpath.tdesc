@@ -33,8 +33,11 @@ testdescript = {
      runLmod avail                         # 2
      MODULEPATH=$MODULEPATH_ROOT/RTM:$MODULEPATH
      runLmod avail                         # 3
-     MODULEPATH=$MODULEPATH_ROOT/Core:$MODULEPATH
-     runLmod avail                         # 3
+     unsetMT
+     MODULEPATH=$MODULEPATH_ROOT/Core
+     runLmod avail                         # 4
+     MODULEPATH=$MODULEPATH_ROOT/Core:$MODULEPATH_ROOT/RTM
+     runLmod avail                         # 5
 
      
      HOME=$ORIG_HOME

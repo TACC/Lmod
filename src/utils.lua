@@ -254,6 +254,62 @@ function allVersions(pathA, n)
    return a
 end
 
+function indexPath(old, oldA, new, newA)
+   dbg.start{"indexPath(",old, ", ", new,")"}
+   local oldN = #oldA
+   local newN = #newA
+   local idxM = newN - oldN + 1
+
+   dbg.print{"oldN: ",oldN,", newN: ",newN,"\n"}
+
+   if (oldN >= newN or newN == 1) then
+      if (old == new) then
+         dbg.fini("(1) indexPath")
+         return 1
+      end
+      dbg.fini("(2) indexPath")
+      return -1
+   end
+
+   local icnt = 1
+
+   local idxO = 1
+   local idxN = 1
+
+   while (true) do
+      local oldEntry = oldA[idxO]
+      local newEntry = newA[idxN]
+
+      icnt = icnt + 1
+      if (icnt > 5) then
+         break
+      end
+
+
+      if (oldEntry == newEntry) then
+         idxO = idxO + 1
+         idxN = idxN + 1
+
+         if (idxO > oldN) then break end
+      else
+         idxN = idxN + 2 - idxO
+         idxO = 1
+         if (idxN > idxM) then
+            dbg.fini("indexPath")
+            return -1
+         end
+      end
+   end
+
+   idxN = idxN - idxO + 1
+
+   dbg.print{"idxN: ", idxN, "\n"}
+
+   dbg.fini("indexPath")
+   return idxN
+
+end
+
 ---------------------------------------------------------------------------
 -- lastFileInPathA(path): This function finds the latest version of a package
 --                        in the directory "path".  It uses the parseVersion()
