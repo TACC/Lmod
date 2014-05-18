@@ -1,4 +1,4 @@
-Lmod Version 5.5.2:
+Lmod Version 5.5.3:
 Bug Fixes:
    a) Lmod is supposed to error out if the modules in a named
       collection changed in a way such that the loaded modules would be
@@ -9,6 +9,7 @@ Bug Fixes:
       directory.
    d) Lmod now correctly handles "module-info mode" command in tcl
       modulefiles.
+   e) tcl2lua.sh improvements to supports Cray modules.
 
 Lmod Version 5.5.1:
 Bug Fixes:
