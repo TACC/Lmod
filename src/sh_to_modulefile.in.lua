@@ -63,11 +63,6 @@
 --     This program finds the overlap starting with "b" and then can
 --     report that "a" needs to be prepended and "e" needs to be appended.
 
-
-
-
-
-
 local program = arg[0]
 
 local i,j = program:find(".*/")
@@ -79,6 +74,11 @@ package.path = cmd_dir .. "../tools/?.lua;" ..
                cmd_dir .. "?.lua;"       .. package.path
 
 require("strict")
+
+function cmdDir()
+   return cmd_dir
+end
+
 require("string_utils")
 require("serializeTbl")
 require("pairsByKeys")

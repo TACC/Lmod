@@ -62,6 +62,11 @@ runLmod ()
    eval `cat _stdout.$NUM`
 }
 
+runSh2MF ()
+{
+   runBase $LUA_EXEC $projectDir/src/sh_to_modulefile.in.lua "$@"
+}
+
 buildModuleT ()
 {
    $LUA_EXEC $projectDir/src/spider.in.lua -o moduleT "$@"
