@@ -34,13 +34,24 @@ export _ModuleTable_;
 step 4
 lua ProjectDIR/src/lmod.in.lua bash avail
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/mpath/mf/Core:ProjectDIR/rt/mpath/mf/RTM:ProjectDIR/rt/mpath/mf/Core";
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/mpath/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/mpath/mf/Core:ProjectDIR/rt/mpath/mf/RTM:ProjectDIR/rt/mpath/mf/Core";
+MODULEPATH="ProjectDIR/rt/mpath/mf/Core";
 export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/mpath/mf/Core:ProjectDIR/rt/mpath/mf/RTM:ProjectDIR/rt/mpath/mf/Core";
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/mpath/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/mpath/mf/Core:ProjectDIR/rt/mpath/mf/RTM:ProjectDIR/rt/mpath/mf/Core";
+MODULEPATH="ProjectDIR/rt/mpath/mf/Core";
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/mpath/mf/Core","ProjectDIR/rt/mpath/mf/RTM","ProjectDIR/rt/mpath/mf/Core",},family={},inactive={},mT={},mpathA={"ProjectDIR/rt/mpath/mf/Core","ProjectDIR/rt/mpath/mf/RTM","ProjectDIR/rt/mpath/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/mpath/mf/Core",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/mpath/mf/Core",},family={},inactive={},mT={},mpathA={"ProjectDIR/rt/mpath/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/mpath/mf/Core",["version"]=2,}';
 export _ModuleTable_;
+===========================
+step 5
+lua ProjectDIR/src/lmod.in.lua bash avail
+===========================
+MODULEPATH="ProjectDIR/rt/mpath/mf/Core:ProjectDIR/rt/mpath/mf/RTM";
+export MODULEPATH;
+MODULEPATH="ProjectDIR/rt/mpath/mf/Core:ProjectDIR/rt/mpath/mf/RTM";
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/mpath/mf/Core",},family={},inactive={},mT={},mpathA={"ProjectDIR/rt/mpath/mf/Core","ProjectDIR/rt/mpath/mf/RTM",},["systemBaseMPATH"]="ProjectDIR/rt/mpath/mf/Core",["version"]=2,}';
+export _ModuleTable_;
+false

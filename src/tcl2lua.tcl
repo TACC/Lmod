@@ -34,7 +34,7 @@
 #
 #------------------------------------------------------------------------
 
-global g_loadT g_varsT g_fullName g_usrName g_shellName
+global g_loadT g_varsT g_fullName g_usrName g_shellName g_mode
 namespace eval ::cmdline {
     namespace export getArgv0 getopt getKnownOpt getfiles getoptions \
 	    getKnownOptions usage
@@ -706,7 +706,8 @@ proc execute-modulefile {modfile } {
 }
 
 proc main { modfile } {
-    pushMode "load"
+    global g_mode
+    pushMode $g_mode
     execute-modulefile $modfile
     popMode
 }
@@ -717,6 +718,7 @@ set options {
             {l.arg   ""     "loaded list"}
             {h              "print ModulesHelp command"}
             {f.arg   "???"  "module full name"}
+            {m.arg   "load" "mode: load unload display"}
             {s.arg   "bash" "shell name"}
             {u.arg   "???"  "module specified name"}
 }
@@ -732,4 +734,5 @@ foreach m [split $params(l) ":"] {
 set g_fullName  $params(f)
 set g_usrName   $params(u)
 set g_shellName $params(s)
+set g_mode      $params(m)
 eval main $argv
