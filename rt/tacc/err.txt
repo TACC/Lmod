@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.3rc2 5.3rc2-4-g988883e 2014-02-11 07:47
+Modules based on Lua: Version 5.5.2 5.5.2-7-gc5ec75f 2014-05-16 10:27
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -87,4 +87,23 @@ lua ProjectDIR/src/lmod.in.lua bash unload cluster
 ===========================
 step 13
 lua ProjectDIR/src/lmod.in.lua bash purge
+===========================
+===========================
+step 14
+lua ProjectDIR/src/lmod.in.lua bash use ProjectDIR/rt/tacc/mf/Core
+===========================
+===========================
+step 15
+lua ProjectDIR/src/lmod.in.lua bash show gatk
+===========================
+   ProjectDIR/rt/tacc/mf/Core/gatk/1.0:
+prepend_path("PATH","/opt/apps/gatk/1.0/bin")
+===========================
+step 16
+lua ProjectDIR/src/lmod.in.lua bash load gatk
+===========================
+To execute GATK run: java -jar /opt/apps/gatk/1.0/java/GenomeAnalysisTK.jar
+===========================
+step 17
+lua ProjectDIR/src/lmod.in.lua bash unload gatk
 ===========================

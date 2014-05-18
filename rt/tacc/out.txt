@@ -331,3 +331,69 @@ unset SYSTEM;
 unset _LMFILES_;
 _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/mf/TACC",},family={},inactive={},mT={},mpathA={"ProjectDIR/mf/TACC",},["systemBaseMPATH"]="ProjectDIR/mf/TACC",["version"]=2,}';
 export _ModuleTable_;
+===========================
+step 14
+lua ProjectDIR/src/lmod.in.lua bash use ProjectDIR/rt/tacc/mf/Core
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/TACC";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/mf/TACC";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/tacc/mf/Core:ProjectDIR/mf/TACC";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/tacc/mf/Core:ProjectDIR/mf/TACC";
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/tacc/mf/Core","ProjectDIR/mf/TACC",},family={},inactive={},mT={},mpathA={"ProjectDIR/rt/tacc/mf/Core","ProjectDIR/mf/TACC",},["systemBaseMPATH"]="ProjectDIR/mf/TACC",["version"]=2,}';
+export _ModuleTable_;
+===========================
+step 15
+lua ProjectDIR/src/lmod.in.lua bash show gatk
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/tacc/mf/Core:ProjectDIR/mf/TACC";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/tacc/mf/Core:ProjectDIR/mf/TACC";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/tacc/mf/Core:ProjectDIR/mf/TACC";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/tacc/mf/Core:ProjectDIR/mf/TACC";
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/tacc/mf/Core","ProjectDIR/mf/TACC",},family={},inactive={},mT={},mpathA={"ProjectDIR/rt/tacc/mf/Core","ProjectDIR/mf/TACC",},["systemBaseMPATH"]="ProjectDIR/mf/TACC",["version"]=2,}';
+export _ModuleTable_;
+===========================
+step 16
+lua ProjectDIR/src/lmod.in.lua bash load gatk
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/tacc/mf/Core:ProjectDIR/mf/TACC";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/tacc/mf/Core:ProjectDIR/mf/TACC";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/tacc/mf/Core:ProjectDIR/mf/TACC";
+export LMOD_DEFAULT_MODULEPATH;
+LOADEDMODULES="gatk/1.0";
+export LOADEDMODULES;
+MODULEPATH="ProjectDIR/rt/tacc/mf/Core:ProjectDIR/mf/TACC";
+export MODULEPATH;
+PATH="/opt/apps/gatk/1.0/bin:ProjectDIR/src:PATH_to_TM:/bin";
+export PATH;
+_LMFILES_="ProjectDIR/rt/tacc/mf/Core/gatk/1.0";
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/tacc/mf/Core","ProjectDIR/mf/TACC",},family={},inactive={},mT={gatk={["FN"]="ProjectDIR/rt/tacc/mf/Core/gatk/1.0",["default"]=1,["fullName"]="gatk/1.0",["loadOrder"]=1,propT={},["short"]="gatk",["status"]="active",},},mpathA={"ProjectDIR/rt/tacc/mf/Core","ProjectDIR/mf/TACC",},["systemBaseMPATH"]="ProjectDIR/mf/TACC",["version"]=2,}';
+export _ModuleTable_;
+===========================
+step 17
+lua ProjectDIR/src/lmod.in.lua bash unload gatk
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/tacc/mf/Core:ProjectDIR/mf/TACC";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/tacc/mf/Core:ProjectDIR/mf/TACC";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/tacc/mf/Core:ProjectDIR/mf/TACC";
+export LMOD_DEFAULT_MODULEPATH;
+unset LOADEDMODULES;
+MODULEPATH="ProjectDIR/rt/tacc/mf/Core:ProjectDIR/mf/TACC";
+export MODULEPATH;
+PATH="ProjectDIR/src:PATH_to_TM:/bin";
+export PATH;
+unset _LMFILES_;
+_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/tacc/mf/Core","ProjectDIR/mf/TACC",},family={},inactive={},mT={},mpathA={"ProjectDIR/rt/tacc/mf/Core","ProjectDIR/mf/TACC",},["systemBaseMPATH"]="ProjectDIR/mf/TACC",["version"]=2,}';
+export _ModuleTable_;
