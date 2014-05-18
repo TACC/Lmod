@@ -69,10 +69,13 @@ function loadModuleFile(t)
       -- Capture results into [[whole]] string.
       local s      = t.mList or ""
       local A      = {}
+      local mode   = mcp:tcl_mode()
       A[#A + 1]    = "-l"
       A[#A + 1]    = "\"" .. s .. "\""
       A[#A + 1]    = "-f"
       A[#A + 1]    = full
+      A[#A + 1]    = "-m"
+      A[#A + 1]    = mode
       A[#A + 1]    = "-u"
       A[#A + 1]    = usrName
       A[#A + 1]    = "-s"

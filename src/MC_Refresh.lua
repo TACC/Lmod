@@ -44,6 +44,7 @@ require("strict")
 local MC_Refresh       = inheritsFrom(MasterControl)
 local M                = MC_Refresh
 M.my_name              = "MC_Refresh"
+M.my_tcl_mode          = "load"
 M.always_load          = MasterControl.quiet
 M.always_unload        = MasterControl.quiet
 M.add_property         = MasterControl.quiet

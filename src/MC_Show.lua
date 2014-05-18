@@ -39,20 +39,21 @@
 
 require("strict")
 require("utils")
-local pack         = (_VERSION == "Lua 5.1") and argsPack or table.pack
-MC_Show            = inheritsFrom(MasterControl)
-MC_Show.my_name    = "MC_Show"
-MC_Show.report     = MasterControl.warning
+local pack          = (_VERSION == "Lua 5.1") and argsPack or table.pack
+MC_Show             = inheritsFrom(MasterControl)
+MC_Show.my_name     = "MC_Show"
+MC_Show.my_tcl_mode = "display"
+MC_Show.report      = MasterControl.warning
 
-local M            = MC_Show
-local dbg          = require("Dbg"):dbg()
-local concatTbl    = table.concat
-M.accessMode       = MasterControl.quiet
-M.myFileName       = MasterControl.myFileName
-M.myModuleFullName = MasterControl.myModuleFullName
-M.myModuleName     = MasterControl.myModuleName
-M.myModuleVersion  = MasterControl.myModuleVersion
-M.myModuleUsrName  = MasterControl.myModuleUsrName
+local M             = MC_Show
+local dbg           = require("Dbg"):dbg()
+local concatTbl     = table.concat
+M.accessMode        = MasterControl.quiet
+M.myFileName        = MasterControl.myFileName
+M.myModuleFullName  = MasterControl.myModuleFullName
+M.myModuleName      = MasterControl.myModuleName
+M.myModuleVersion   = MasterControl.myModuleVersion
+M.myModuleUsrName   = MasterControl.myModuleUsrName
 
 local function ShowCmd(name,...)
    io.stderr:write(ShowCmdStr(name, ...))

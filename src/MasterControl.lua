@@ -167,6 +167,10 @@ function M.name(self)
    return self.my_name
 end
 
+function M.tcl_mode(self)
+   return self.my_tcl_mode
+end
+
 
 local function valid_name(nameTbl, name)
    if (not nameTbl[name]) then

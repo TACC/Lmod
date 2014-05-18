@@ -52,12 +52,13 @@
 require("strict")
 require("utils")
 
-MC_ComputeHash         = inheritsFrom(MasterControl)
-MC_ComputeHash.my_name = "MC_ComputeHash"
-local M                = MC_ComputeHash
-local dbg              = require("Dbg"):dbg()
-local concatTbl        = table.concat
-local A                = ComputeModuleResultsA
+MC_ComputeHash             = inheritsFrom(MasterControl)
+MC_ComputeHash.my_name     = "MC_ComputeHash"
+MC_ComputeHash.my_tcl_mode = "load"
+local M                    = MC_ComputeHash
+local dbg                  = require("Dbg"):dbg()
+local concatTbl            = table.concat
+local A                    = ComputeModuleResultsA
 
 function ShowCmd(name, ...)
    A[#A+1] = ShowCmdStr(name, ...)

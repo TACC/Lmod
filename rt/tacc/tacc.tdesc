@@ -26,19 +26,24 @@ testdescript = {
 
      rm -fr _stderr.* _stdout.* err.* out.* .lmod.d
 
-     runLmod --version             # 1
-     runLmod avail                 # 2
-     runLmod load TACC             # 3
-     runLmod help mvapich1         # 4
-     runLmod list                  # 5
-     runLmod --latest load pgi     # 6
-     runLmod list                  # 7
-     runLmod load pgi              # 8
-     runLmod list                  # 9
-     runLmod --latest swap pgi pgi #10
-     runLmod list                  #11
-     runLmod unload cluster        #12
-     runLmod purge                 #13
+     runLmod --version              # 1
+     runLmod avail                  # 2
+     runLmod load TACC              # 3
+     runLmod help mvapich1          # 4
+     runLmod list                   # 5
+     runLmod --latest load pgi      # 6
+     runLmod list                   # 7
+     runLmod load pgi               # 8
+     runLmod list                   # 9
+     runLmod --latest swap pgi pgi  #10
+     runLmod list                   #11
+     runLmod unload cluster         #12
+     runLmod purge                  #13
+     runLmod use $(testDir)/mf/Core #14
+     runLmod show gatk              #15
+     runLmod load gatk              #16
+     runLmod unload gatk            #17
+     
 
      PATH=$ORIGPATH
      export PATH

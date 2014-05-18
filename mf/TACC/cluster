@@ -40,6 +40,7 @@ if [ module-info mode remove ] {
 	module del mvapich1
 	module del pgi
         module del cluster-paths
+        module del globus
 }
 
 #############################################################################

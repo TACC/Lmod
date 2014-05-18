@@ -512,7 +512,12 @@ proc tryloadcmd { args } {
     eval cmdargs "try_load" $args
 }
 proc unload { args } {
-    eval cmdargs "unload" $args
+    set mode [currentMode]
+    set cmdName "unload"
+    if {$mode == "remove"} {
+        set cmdName "load"
+    }
+    eval cmdargs $cmdName $args
 }
 proc prereq { args } {
     eval cmdargs "prereq" $args
@@ -544,7 +549,6 @@ proc unuse { args } {
     foreach path $args {
 	eval cmdargs "remove_path" MODULEPATH $path
     }
-
 }
 
 proc setPutMode { value } {
@@ -718,7 +722,7 @@ set options {
             {l.arg   ""     "loaded list"}
             {h              "print ModulesHelp command"}
             {f.arg   "???"  "module full name"}
-            {m.arg   "load" "mode: load unload display"}
+            {m.arg   "load" "mode: load remove display"}
             {s.arg   "bash" "shell name"}
             {u.arg   "???"  "module specified name"}
 }

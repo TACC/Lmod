@@ -1,0 +1,7 @@
+#%Module#####################################################################
+
+if [ module-info mode load ] { 
+    puts stderr     "To execute GATK run: java -jar /opt/apps/gatk/1.0/java/GenomeAnalysisTK.jar"
+}
+
+prepend-path PATH /opt/apps/gatk/1.0/bin

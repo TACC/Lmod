@@ -44,6 +44,7 @@ local dbg              = require("Dbg"):dbg()
 local format           = string.format
 local getenv           = os.getenv
 M.my_name              = "MC_Load"
+M.my_tcl_mode          = "load"
 M.always_load          = MasterControl.load_usr
 M.always_unload        = MasterControl.unload
 M.add_property         = MasterControl.add_property
