@@ -598,7 +598,6 @@ function main()
       mt:reportChanges()
    end
 
-   dbg.print{"mt: ",tostring(mt),"\n"}
    -- Store the Module table in "_ModuleTable_" env. var.
    local n        = mt:name()
    local oldValue = getMT() or ""

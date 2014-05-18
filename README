@@ -1,3 +1,15 @@
+Lmod Version 5.5.2:
+Bug Fixes:
+   a) Lmod is supposed to error out if the modules in a named
+      collection changed in a way such that the loaded modules would be
+      different from loading directly.  This is fixed.
+   b) This version correctly handles prepending to the MODULEPATH outside
+      of Lmod
+   c) Lmod now correctly handles symlinks to a template in the same
+      directory.
+   d) Lmod now correctly handles "module-info mode" command in tcl
+      modulefiles.
+
 Lmod Version 5.5.1:
 Bug Fixes:
    a) Fixed bug where setting the priority twice caused an error. This is now

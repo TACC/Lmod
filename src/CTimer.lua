@@ -61,7 +61,7 @@ end
 
 function M.test(self)
    if (self.state == "init") then
-      dbg.start{"CTimer:test()"}
+      dbg.start{"CTimer:test()", level=2}
       local delta = epoch() - self.start
       dbg.print{"delta: ",delta,"\n"}
       if (delta > self.threshold) then

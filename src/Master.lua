@@ -826,8 +826,12 @@ local function availEntry(defaultOnly, terse, mpath, szA, searchA, sn, name,
       end
    end
 
+   local f_orig = f
+   local d, bn  = splitFileName(f)
+   f            = pathJoin(abspath(d),bn)
+
    dbg.print{"defaultOnly: ",defaultOnly, ", defaultModuleT.fn: ",defaultModuleT.fn,
-             ", f: ",f,", abspath(f, localdir): ",abspath(f, localdir),"\n"}
+             ", f_orig: ",f_orig,", f: ", f, "\n"}
 
    --if (defaultOnly and defaultModuleT.fn ~= abspath(f, localdir)) then
    if (defaultOnly and defaultModuleT.fn ~= f) then
@@ -864,8 +868,8 @@ local function availEntry(defaultOnly, terse, mpath, szA, searchA, sn, name,
       dbg.print{"defaultModuleT.fn: ",defaultModuleT.fn,
                 ", kind: ", defaultModuleT.kind,
                 ", num: ",  defaultModuleT.num,
-                ", f: ", f,
-                ", abspath(f, localdir): ",abspath(f, localdir),
+                ", f_orig: ", f_orig,
+                ", f: ",f,
                 "\n"}
 
 
@@ -882,8 +886,8 @@ local function availEntry(defaultOnly, terse, mpath, szA, searchA, sn, name,
       local entry = dbT[sn]
       if (entry) then
          dbg.print{"Found dbT[sn]\n"}
-         if (entry[f]) then
-            propT =  entry[f].propT or {}
+         if (entry[f_orig]) then
+            propT =  entry[f_orig].propT or {}
          end
       else
          dbg.print{"Did not find dbT[sn]\n"}
@@ -1011,9 +1015,6 @@ function M.avail(argA)
    local locationT = mt:locationTbl()
 
    local aa        = {}
-
-
-   dbg.print{"locationT: ",tostring(locationT),"\n"}
 
    if (terse) then
       dbg.print{"doing --terse\n"}

@@ -354,8 +354,8 @@ end
 
 function M.buildSpiderDB(self, a, moduleT, dbT)
    dbg.start{"Spider:buildSpiderDB({",concatTbl(a,","),"},moduleT, dbT)"}
-
    dbg.print{"moduleT.version: ",moduleT.version,"\n"}
+   local Pairs = dbg.active() and pairsByKeys or pairs
 
    if (next(moduleT) == nil) then
       dbg.fini("Spider:buildSpiderDB")
@@ -368,7 +368,7 @@ function M.buildSpiderDB(self, a, moduleT, dbT)
       LmodError("old version moduleT\n")
    else
       dbg.print{"Current version moduleT.\n"}
-      for mpath, v in pairs(moduleT) do
+      for mpath, v in Pairs(moduleT) do
          if (type(v) == "table") then
             dbg.print{"mpath: ",mpath, "\n"}
             self:singleSpiderDB(a,v, dbT)
@@ -380,7 +380,8 @@ end
 
 function M.singleSpiderDB(self, a, moduleT, dbT)
    dbg.start{"Spider:singleSpiderDB({",concatTbl(a,","),"},moduleT, dbT)"}
-   for path, value in pairs(moduleT) do
+   local Pairs = dbg.active() and pairsByKeys or pairs
+   for path, value in Pairs(moduleT) do
       dbg.print{"path: ",path,"\n"}
       local name  = value.name
       dbT[name]   = dbT[name] or {}
