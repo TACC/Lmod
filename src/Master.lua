@@ -756,7 +756,7 @@ local function findDefault(mpath, sn, versionA)
    local marked   = false
    local localDir = true
    local path     = abspath(pathJoin(mpath,sn))
-   local default  = abspath(pathJoin(path, "default"), localdir)
+   local default  = abspath_localdir(pathJoin(path, "default"))
    if (not isFile(default)) then
       marked   = true
    else

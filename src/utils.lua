@@ -61,6 +61,57 @@ local T0        = os.time()
 local load      = (_VERSION == "Lua 5.1") and loadstring or load
 
 --------------------------------------------------------------------------
+-- abspath(): find true path through symlinks.
+
+function abspath_localdir (path)
+   if (path == nil) then return nil end
+   local cwd = lfs.currentdir()
+   path = path:trim()
+
+   if (path:sub(1,1) ~= '/') then
+      path = pathJoin(cwd,path)
+   end
+
+   local dir    = dirname(path)
+   local ival   = lfs.chdir(dir)
+
+   local cdir   = lfs.currentdir()
+   if (cdir == nil) then
+      dbg.print{"lfs.currentdir(): is nil"}
+   end
+
+   dir          = cdir or dir
+
+
+   path = pathJoin(dir, barefilename(path))
+   local result = path
+
+   local attr = lfs.symlinkattributes(path)
+   if (attr == nil) then
+      lfs.chdir(cwd)
+      return nil
+   elseif (attr.mode == "link") then
+      local rl = posix.readlink(path)
+      dbg.print{"path: ",path,", rl: ",rl,"\n"}
+      if (not rl) then
+         lfs.chdir(cwd)
+         return nil
+      end
+      if (rl:sub(1,1) == "/" or rl:sub(1,3) == "../") then
+         lfs.chdir(cwd)
+         return result
+      end
+      if (rl:sub(1,1) == ".") then
+         lfs.chdir(cwd)
+         return result
+      end
+      result = abspath_localdir(rl)
+   end
+   lfs.chdir(cwd)
+   return result
+end
+
+--------------------------------------------------------------------------
 -- argsPack():  This is 5.1 Lua function to cover the table.pack function
 --              that is in Lua 5.2 and later.
 

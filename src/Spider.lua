@@ -173,13 +173,13 @@ local function findMarkedDefault(mpath, path)
    end
    local localdir = true
    local default  = pathJoin(path, "default")
-   default        = abspath(default,localdir)
+   default        = abspath_localdir(default)
    if (default == nil) then
       local dfltA = {"/.modulerc", "/.version"}
       local vf    = false
       for i = 1, #dfltA do
          local n   = dfltA[i]
-         local vFn = abspath(pathJoin(path, n),localdir)
+         local vFn = abspath_localdir(pathJoin(path, n))
          if (isFile(vFn)) then
             vf = versionFile(n, sn, vFn)
             break
@@ -187,16 +187,16 @@ local function findMarkedDefault(mpath, path)
       end
       if (vf) then
          local f = pathJoin(path,vf)
-         default = abspath(f, localdir)
+         default = abspath_localdir(f)
          if (default == nil) then
             local fn = vf .. ".lua"
             local f  = pathJoin(path,fn)
-            default  = abspath(f, localdir)
+            default  = abspath_localdir(f)
          end
       end
    end
    if (default) then
-      default = abspath(default, localdir)
+      default = abspath_localdir(default)
    end
    dbg.print{"(4) default: \"",default,"\"\n"}
 
