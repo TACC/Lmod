@@ -755,32 +755,37 @@ local function findDefault(mpath, sn, versionA)
 
    local marked   = false
    local localDir = true
-   local path     = pathJoin(mpath,sn)
-   local default  = abspath(pathJoin(path, "default"), localDir)
-   if (default) then
+   local path     = abspath(pathJoin(mpath,sn))
+   local default  = abspath(pathJoin(path, "default"), localdir)
+   if (not isFile(default)) then
       marked   = true
    else
-      local vFn = abspath(pathJoin(path,".version"), localDir)
-      if (isFile(vFn)) then
-         local vf = versionFile(vFn)
-         if (vf) then
-            marked = true
-            local f = pathJoin(path,vf)
-            default = abspath(f,localDir)
-            --dbg.print{"(1) f: ",f," default: ", default, "\n"}
-            if (default == nil) then
-               local fn = vf .. ".lua"
-               local f  = pathJoin(path,fn)
-               default  = abspath(f,localDir)
-               dbg.print{"(2) f: ",f," default: ", default, "\n"}
-            end
-            --dbg.print{"(3) default: ", default, "\n"}
+      local dfltA = {"/.modulerc", "/.version" }
+      local vf    = false
+      for i = 1, #dfltA do
+         local n   = dfltA[i]
+         local vFn = pathJoin(path,n)
+         if (isFile(vFn)) then
+            vf = versionFile(n, sn, vFn)
+            break;
          end
+      end
+      if (vf) then
+         marked = true
+         default     = pathJoin(path,vf)
+         --dbg.print{"(1) f: ",f," default: ", default, "\n"}
+         if (default == nil) then
+            local fn = vf .. ".lua"
+            default  = pathJoin(path,fn)
+            dbg.print{"(2) f: ",f," default: ", default, "\n"}
+         end
+         --dbg.print{"(3) default: ", default, "\n"}
       end
    end
 
    if (not default) then
-      default = abspath(versionA[#versionA].file, localDir)
+      local d, bn = splitFileName(versionA[#versionA].file)
+      default     = pathjoin(abspath(d), bn)
    end
    dbg.print{"default: ", default,"\n"}
 

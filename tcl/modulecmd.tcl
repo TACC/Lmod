@@ -338,8 +338,7 @@ proc module-version {args} {
 
 	if {$base != ""} {
 	    if {[string match $version "default"]} {
-		# If we see more than one default for the same module, just\
-		  keep the first
+		# If we see more than one default for the same module, just keep the first
 		if {![info exists g_moduleDefault($module_name)]} {
 		    set g_moduleDefault($base) $aliasversion
 		    if {$g_debug} {

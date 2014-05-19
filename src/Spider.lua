@@ -164,26 +164,39 @@ local function findMarkedDefault(mpath, path)
    local mt       = MT:mt()
    local localDir = true
    dbg.start{"Spider:findMarkedDefault(",mpath,", ", path,")"}
-
-   local default = abspath(path .. "/default", localDir)
+   mpath         = abspath(mpath)
+   path          = abspath(path)
+   local i,j     = path:find(mpath)
+   local sn      = ""
+   if (j and path:sub(j+1,j+1) == '/') then
+      sn = path:sub(j+2)
+   end
+   local localdir = true
+   local default  = pathJoin(path, "default")
+   default        = abspath(default,localdir)
    if (default == nil) then
-      local vFn = abspath(pathJoin(path,".version"), localDir)
-      if (isFile(vFn)) then
-         local vf = versionFile(vFn)
-         if (vf) then
-            local f = pathJoin(path,vf)
-            default = abspath(f,localDir)
-            if (default == nil) then
-               local fn = vf .. ".lua"
-               local f  = pathJoin(path,fn)
-               default  = abspath(f,localDir)
-               dbg.print{"(2) f: ",f," default: ", default, "\n"}
-            end
+      local dfltA = {"/.modulerc", "/.version"}
+      local vf    = false
+      for i = 1, #dfltA do
+         local n   = dfltA[i]
+         local vFn = abspath(pathJoin(path, n),localdir)
+         if (isFile(vFn)) then
+            vf = versionFile(n, sn, vFn)
+            break
+         end
+      end
+      if (vf) then
+         local f = pathJoin(path,vf)
+         default = abspath(f, localdir)
+         if (default == nil) then
+            local fn = vf .. ".lua"
+            local f  = pathJoin(path,fn)
+            default  = abspath(f, localdir)
          end
       end
    end
    if (default) then
-      default = abspath(default, localDir)
+      default = abspath(default, localdir)
    end
    dbg.print{"(4) default: \"",default,"\"\n"}
 

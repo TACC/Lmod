@@ -645,16 +645,53 @@ function UUIDString(epoch)
 
    return uuid
 end
+modV = false
 
+function moduleRCFile(current, path)
+   dbg.start{"moduleRCFile(",path,")"}
+   local f       = io.open(path,"r")
+   if (not f)                        then
+      dbg.print{"could not find: ",path,"\n"}
+      dbg.fini("moduleRCFile")
+      return nil
+   end
+   local s       = f:read("*line")
+   f:close()
+   if (not s:find("^#%%Module"))      then
+      dbg.print{"could not find: #%Module\n"}
+      dbg.fini("moduleRCFile")
+      return nil
+   end
+   local cmd = pathJoin(cmdDir(),"RC2lua.tcl") .. " " .. path
+   local s = capture(cmd):trim()
+   assert(load(s))()
+   local version = false
+   for i = 1,#modV do
+      local entry = modV[i]
+      if (entry.module_version == "default") then
+         local name = entry.module_name
+         local i, j = name:find(current)
+         local nLen = name:len()
+         if (j+1 < nLen and name:sub(j+1,j+1) == '/') then
+            version = name:sub(j+2)
+            break
+         end
+      end
+   end
+
+   dbg.print{"version: ",version,"\n"}
+   dbg.fini("moduleRCFile")
+   return version
+   
+end
 --------------------------------------------------------------------------
 -- versionFile(): This routine is given the absolute path to a .version 
 --                file.  It checks to make sure that it is a valid TCL
 --                file.  It then uses the ModulesVersion.tcl script to 
 --                return what the value of "ModulesVersion" is.
 
-modV = false
-function versionFile(path)
-   dbg.start{"versionFile(",path,")"}
+function versionFile(v, sn, path)
+   dbg.start{"versionFile(v: ",v,", sn: ",sn,", path: ",path,")"}
    local f       = io.open(path,"r")
    if (not f)                        then
       dbg.print{"could not find: ",path,"\n"}
@@ -668,31 +705,51 @@ function versionFile(path)
       dbg.fini("versionFile")
       return nil
    end
-   local cmd = pathJoin(cmdDir(),"ModulesVersion.tcl") .. " " .. path
-   local s = capture(cmd):trim()
-   assert(load(s))()
-   local version = modV.version
-   if (modV.date ~= "***") then
-     local a = {}
-     for s in modV.date:split("/") do
-        a[#a + 1] = tonumber(s) or 0
-     end
+   local version = false
 
-     if (a[1] < 2000 or a[2] > 12) then
-        LmodMessage("The date is written in the wrong format: \"",modV.date,
-                    "\".  Please use YYYY/MM/DD.")
-     end
-
-     local epoch   = os.time{year = a[1], month = a[2], day = a[3]} or 0
-     local current = os.time() 
-     if (current < epoch) then
-        LmodMessage("The default version for module \"",myModuleName(),
-                    "\" is changing on ", modV.date, " from ",modV.version,
-                    " to ", modV.newVersion,"\n")
-        version = modV.version
-     else
-        version = modV.newVersion
-     end
+   if (v == "/.modulerc") then
+      local cmd = pathJoin(cmdDir(),"RC2lua.tcl") .. " " .. path
+      local s = capture(cmd):trim()
+      assert(load(s))()
+      for i = 1,#modV do
+         local entry = modV[i]
+         if (entry.module_version == "default") then
+            local name = entry.module_name
+            local i, j = name:find(sn)
+            local nLen = name:len()
+            if (j+1 < nLen and name:sub(j+1,j+1) == '/') then
+               version = name:sub(j+2)
+               break
+            end
+         end
+      end
+   elseif (v == "/.version") then
+      local cmd = pathJoin(cmdDir(),"ModulesVersion.tcl") .. " " .. path
+      local s = capture(cmd):trim()
+      assert(load(s))()
+      version = modV.version
+      if (modV.date ~= "***") then
+         local a = {}
+         for s in modV.date:split("/") do
+            a[#a + 1] = tonumber(s) or 0
+         end
+         
+         if (a[1] < 2000 or a[2] > 12) then
+            LmodMessage("The date is written in the wrong format: \"",modV.date,
+                        "\".  Please use YYYY/MM/DD.")
+         end
+         
+         local epoch   = os.time{year = a[1], month = a[2], day = a[3]} or 0
+         local current = os.time() 
+         if (current < epoch) then
+            LmodMessage("The default version for module \"",myModuleName(),
+                        "\" is changing on ", modV.date, " from ",modV.version,
+                        " to ", modV.newVersion,"\n")
+            version = modV.version
+         else
+            version = modV.newVersion
+         end
+      end
    end
    dbg.print{"version: ",version,"\n"}
    dbg.fini("versionFile")

@@ -448,7 +448,7 @@ local function followDotVersion(mpath, sn, version)
 end
 
 
-searchDefaultT = { "/default", "/.version" }
+searchDefaultT = { "/default", "/.modulerc", "/.version" }
 
 function M.find_marked_default(self, pathA)
    dbg.start{"MName:find_marked_default(pathA, t)"}
@@ -476,7 +476,7 @@ function M.find_marked_default(self, pathA)
       found       = false
       result      = nil
 
-      for i = 1, 2 do
+      for i = 1, 3 do
          local v        = searchDefaultT[i]
          local f        = fn .. v
          local attr     = lfs.attributes(f)
@@ -491,8 +491,8 @@ function M.find_marked_default(self, pathA)
                   found  = true
                   break
                end
-            elseif (v == "/.version") then
-               local vf = versionFile(result)
+            elseif (v == "/.modulerc" or v == "/.version") then
+               local vf = versionFile(v, sn, result)
                if (vf) then
                   result = followDotVersion(mpath, sn, vf)
                   if (result) then
