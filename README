@@ -10,7 +10,8 @@ Bug Fixes:
    b) This version correctly handles prepending to the MODULEPATH outside
       of Lmod
    c) Lmod now correctly handles symlinks to a template in the same
-      directory.
+      directory.  Lmod also support the three ways to mark a default
+      with this setup as well.
    d) Lmod now correctly handles "module-info mode" command in tcl
       modulefiles.
    e) tcl2lua.sh improvements to supports Cray modules.
