@@ -1,4 +1,8 @@
 Lmod Version 5.5.3:
+Feature:
+   a) Support for .modulerc in modulefile directory only.  This file can
+      be used to specify the default module only.  No support for System
+      .modulerc or user ~/.modulerc
 Bug Fixes:
    a) Lmod is supposed to error out if the modules in a named
       collection changed in a way such that the loaded modules would be
