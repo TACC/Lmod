@@ -30,7 +30,7 @@ testdescript = {
 
      runLmod --version                     # 1
      mkdir -p $HOME/.lmod.d/.cache
-     buildModuleT -D $MODULEPATH > $HOME/.lmod.d/.cache/moduleT.lua
+     buildModuleT $MODULEPATH > $HOME/.lmod.d/.cache/moduleT.lua
      runLmod avail                         # 2
      
      HOME=$ORIG_HOME

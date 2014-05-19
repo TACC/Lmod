@@ -2,14 +2,16 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.5.2 5.5.2 2014-05-16 10:27
+Modules based on Lua: Version 5.5.3rc1 5.5.3rc1-3-gcca5251 2014-05-18 13:35
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
 lua ProjectDIR/src/lmod.in.lua bash avail
 ===========================
 ProjectDIR/rt/lnk_same_dir/mf
-   git/1.8.2    git/1.8.4    git/1.8.5 (D)
+   a/3.1        b/2.1        c/5.2        c/8.2        git/1.8.5 (D)
+   a/3.2 (D)    b/2.3 (D)    c/6.2 (D)    git/1.8.2
+   a/3.3        b/2.5        c/7.2        git/1.8.4
   Where:
    (D):  Default Module
 Use "module spider" to find all possible modules.

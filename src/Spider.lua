@@ -218,9 +218,7 @@ end
 local function registerModuleT(full, sn, f, markedDefault)
    local t = {}
 
-   local localdir  = true
-
-   local fabs      = abspath(f, localdir)
+   local fabs      = abspath_localdir(f)
    t.path          = f
    t.name          = sn
    t.name_lower    = sn:lower()
