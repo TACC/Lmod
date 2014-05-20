@@ -77,6 +77,11 @@ buildDbT ()
    $LUA_EXEC $projectDir/src/spider.in.lua -o dbT     "$@"
 }
 
+buildRmapT ()
+{
+   $LUA_EXEC $projectDir/src/spider.in.lua -o reverseMapT "$@"
+}
+
 EPOCH()
 {
    $LUA_EXEC $projectDir/src/epoch.in.lua
