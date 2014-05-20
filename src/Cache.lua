@@ -416,11 +416,13 @@ function M.build(self, fast)
          local s1 = "ancient = " .. tostring(math.floor(ancient)) .."\n"
          local s2 = serializeTbl{name="moduleT",      value=userModuleT,
                                  indent=true}
+         os.rename(userModuleTFN, userModuleTFN .. "~")
          local f  = io.open(userModuleTFN,"w")
          if (f) then
             f:write(s0,s1,s2)
             f:close()
          end
+         posix.unlink(userModuleTFN .. "~")
          dbg.print{"Wrote: ",userModuleTFN,"\n"}
          local buildT   = t2-t1
          local ancient2 = math.min(buildT * 120, ancient)
