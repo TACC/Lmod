@@ -8,8 +8,8 @@ local pkgVersion   = fullVersion:match('(%d+%.%d+)%.?')
 local mroot        = os.getenv("MODULEPATH_ROOT")
 local base         = pathJoin("/opt/apps",compiler_dir,name, fullVersion)
 
-prepend_path("MODULEPATH",      pathJoin(mroot, "MPI", compiler_dir, name, pkgVersion))
-prepend_path("PATH"             pathJoin(base,"bin"))
+prepend_path("PATH",            pathJoin(base,"bin"))
 prepend_path("LD_LIBRARY_PATH", pathJoin(base,"lib"))
+prepend_path("MODULEPATH",      pathJoin(mroot, "MPI", compiler_dir, name, pkgVersion))
 
 family("MPI")

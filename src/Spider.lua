@@ -102,9 +102,13 @@ function Spider_append_path(kind, t)
       processNewModulePATH(value)
       dbg.fini(kind)
    elseif (name == "PATH") then
+      dbg.start{kind, "(PATH: \"",name,"\", value=\"",value,"\")"}
       processPATH(value)
+      dbg.fini(kind)
    elseif (name == "LD_LIBRARY_PATH") then
+      dbg.start{kind, "(LD_LIBRARY_PATH: \"",name,"\", value=\"",value,"\")"}
       processLPATH(value)
+      dbg.fini(kind)
    end
 end
 
