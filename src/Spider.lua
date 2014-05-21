@@ -261,8 +261,14 @@ function M.findModulesInDir(mpath, path, prefix, moduleT)
    local accept_fn       = accept_fn
 
    for file in lfs.dir(path) do
-      if (not ignoreT[file] and file:sub(-1,-1) ~= "~" and
-          file:sub(1,8) ~= ".version") then
+      local firstChar = file:sub(1,1)
+      local lastChar  = file:sub(-1,-1)
+      if (not ignoreT[file] and lastChar ~= "~" and
+          file:sub(1,8) ~= ".version"           and
+          file:sub(1,9) ~= ".modulerc"          and
+          firstChar ~= '#' and lastChar ~= '#'  and
+          file:sub(1,2) ~= ".#" 
+         ) then
          local f        = pathJoin(path,file)
          local readable = posix.access(f,"r")
          local full     = pathJoin(prefix, file):gsub("%.lua","")
