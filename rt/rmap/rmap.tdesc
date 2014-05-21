@@ -20,7 +20,9 @@ testdescript = {
      unsetMT
      initStdEnvVars
      export MODULEPATH_ROOT=$(testDir)/mf
-     export MODULEPATH=$(testDir)/mf/Core
+     export MODULEPATH=$MODULEPATH_ROOT/Core
+     export APPS_DIR=$(testDir)/apps
+     
      numStep=0
      COUNT=0
      ORIG_HOME=`(cd $HOME; /bin/pwd)`
@@ -31,15 +33,9 @@ testdescript = {
 
      runLmod --version                     # 1
      mkdir -p $HOME/.lmod.d/.cache
-     buildModuleT -D $MODULEPATH > $HOME/.lmod.d/.cache/moduleT.lua
-     buildDbT     $MODULEPATH > $HOME/.lmod.d/.cache/dbT.lua
-     buildRmapT   $MODULEPATH > $HOME/.lmod.d/.cache/rmapT.lua
+     runBase buildRmapT $MODULEPATH        # 2
+     runLmod spider                        # 3
      
-     runLmod spider                        # 2
-
-     
-
-
      HOME=$ORIG_HOME
      cat _stdout.[0-9][0-9] > _stdout.orig
      joinBase64Results  -bash  _stdout.orig _stdout.new

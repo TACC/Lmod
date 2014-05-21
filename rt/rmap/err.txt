@@ -1,0 +1,23 @@
+===========================
+step 1
+lua ProjectDIR/src/lmod.in.lua bash --version
+===========================
+Modules based on Lua: Version 5.5.3rc2 5.5.3rc2-13-g4a7ece3 2014-05-19 11:33
+    by Robert McLay mclay@tacc.utexas.edu
+===========================
+step 2
+buildRmapT ProjectDIR/rt/rmap/mf/Core
+===========================
+===========================
+step 3
+lua ProjectDIR/src/lmod.in.lua bash spider
+===========================
+The following is a list of the modules currently available:
+  impi: impi/4.1
+  intel: intel/13.1, intel/14.0.1
+To learn more about a package enter:
+   $ module spider Foo
+where "Foo" is the name of a module
+To find detailed information about a particular package you
+must enter the version if there is more than one version:
+   $ module spider Foo/11.1

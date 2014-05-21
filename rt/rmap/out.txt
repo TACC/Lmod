@@ -1,0 +1,69 @@
+===========================
+step 1
+lua ProjectDIR/src/lmod.in.lua bash --version
+===========================
+===========================
+step 2
+buildRmapT ProjectDIR/rt/rmap/mf/Core
+===========================
+timestampFn = {
+  false,
+}
+reverseMapT = {
+  ["ProjectDIR/rt/rmap/apps/intel-13_1/impi/4.1/bin"] = {
+    flavor = {
+      "default:intel/14.0.1", "default:intel/13.1",
+    },
+    ["kind"] = "bin",
+    ["pkg"] = "impi/4.1",
+  },
+  ["ProjectDIR/rt/rmap/apps/intel-13_1/impi/4.1/lib"] = {
+    flavor = {
+      "default:intel/14.0.1", "default:intel/13.1",
+    },
+    ["kind"] = "lib",
+    ["pkg"] = "impi/4.1",
+  },
+  ["ProjectDIR/rt/rmap/apps/intel/13.1/bin"] = {
+    flavor = {
+      "default",
+    },
+    ["kind"] = "bin",
+    ["pkg"] = "intel/13.1",
+  },
+  ["ProjectDIR/rt/rmap/apps/intel/13.1/lib"] = {
+    flavor = {
+      "default",
+    },
+    ["kind"] = "lib",
+    ["pkg"] = "intel/13.1",
+  },
+  ["ProjectDIR/rt/rmap/apps/intel/14.0.1/bin"] = {
+    flavor = {
+      "default",
+    },
+    ["kind"] = "bin",
+    ["pkg"] = "intel/14.0.1",
+  },
+  ["ProjectDIR/rt/rmap/apps/intel/14.0.1/lib"] = {
+    flavor = {
+      "default",
+    },
+    ["kind"] = "lib",
+    ["pkg"] = "intel/14.0.1",
+  },
+}
+===========================
+step 3
+lua ProjectDIR/src/lmod.in.lua bash spider
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/rmap/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/rmap/mf/Core";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/rmap/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/rmap/mf/Core";
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/rmap/mf/Core",},family={},inactive={},mT={},mpathA={"ProjectDIR/rt/rmap/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/rmap/mf/Core",["version"]=2,}';
+export _ModuleTable_;
