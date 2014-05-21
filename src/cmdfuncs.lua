@@ -47,6 +47,7 @@ local BeautifulTbl = require('BeautifulTbl')
 local ColumnTable  = require('ColumnTable')
 local MName        = require("MName")
 local Spider       = require("Spider")
+local Version      = require("Version")
 local concatTbl    = table.concat
 local dbg          = require("Dbg"):dbg()
 local getenv       = os.getenv
@@ -570,17 +571,6 @@ function Save(...)
       return
    end
 
-   --local aa = mt:safeToSave()
-   --
-   --if (#aa > 0) then
-   --   LmodWarning("Unable to save module state as a \"default\"\n",
-   --               "The following module(s):\n",
-   --               "  ",concatTbl(aa,", "),"\n",
-   --               "mix load statements with setting of environment variables.\n")
-   --   dbg.fini("Save")
-   --   return
-   --end
-
    local attr = lfs.attributes(path)
    if (not attr) then
       mkdir_recursive(path)
@@ -590,7 +580,16 @@ function Save(...)
       os.rename(path, path .. "~")
    end
    mt:setHashSum()
-   serializeTbl{name=mt:name(), value=mt, fn = path, indent = true}
+
+   local f  = io.open(path,"w")
+   if (f) then
+      f:write("-- -*- lua -*-\n")
+      f:write("-- created: ",os.date()," --\n")
+      local s0 = "-- Lmod ".. Version.name() .. "\n"
+      local s1 = serializeTbl{name=mt:name(), value=mt, indent = true}
+      f:write(s0,s1)
+      f:close()
+   end
    mt:hideHash()
    if (not expert()) then
       io.stderr:write("Saved current collection of modules to: ",a,
