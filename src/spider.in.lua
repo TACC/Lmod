@@ -107,7 +107,12 @@ local function add2map(entry, tbl, rmapT, kind)
       path = path_regularize(path)
       if (keepThisPath(path) and attr and attr.mode == "directory") then
          path = abspath(path)
-         rmapT[path] = {pkg=entry.full, flavor=entry.parent, kind=kind}
+         local t       = rmapT[path] or {pkg=entry.full, kind = kind, flavorT = {}}
+         local flavorT = t.flavorT
+         for i = 1, #entry.parent do
+            flavorT[entry.parent[i]] = true
+         end
+         rmapT[path] = t
       end
    end
 end
@@ -145,6 +150,16 @@ local function buildReverseMapT(moduleDirA, moduleT, dbT)
             add2map(entry, entry.lpathA, reverseMapT,"lib")
          end
       end
+   end
+
+   for kk, vv in pairs(reverseMapT) do
+      local flavor = {}
+      local flavorT = vv.flavorT
+      for k, v in pairs(flavorT) do
+         flavor[#flavor+1] = v
+      end
+      vv.flavorT = nil
+      vv.flavor  = flavor
    end
    return reverseMapT
 end
