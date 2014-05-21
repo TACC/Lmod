@@ -156,7 +156,7 @@ local function buildReverseMapT(moduleDirA, moduleT, dbT)
       local flavor = {}
       local flavorT = vv.flavorT
       for k, v in pairs(flavorT) do
-         flavor[#flavor+1] = v
+         flavor[#flavor+1] = k
       end
       vv.flavorT = nil
       vv.flavor  = flavor
