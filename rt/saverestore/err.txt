@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.3rc2 5.3rc2-4-g988883e 2014-02-11 07:47
+Modules based on Lua: Version 5.5.3rc2 5.5.3rc2-12-g80b343e 2014-05-19 11:33
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -96,3 +96,22 @@ where "Foo" is the name of a module
 To find detailed information about a particular package you
 must enter the version if there is more than one version:
    $ module spider Foo/11.1
+===========================
+step 16
+lua ProjectDIR/src/lmod.in.lua bash purge
+===========================
+===========================
+step 17
+lua ProjectDIR/src/lmod.in.lua bash restore stdenv
+===========================
+Restoring modules to user's stdenv
+===========================
+step 18
+lua ProjectDIR/src/lmod.in.lua bash restore stdenv
+===========================
+Restoring modules to user's stdenv
+Lmod Warning: The following modules have changed: StdEnv
+Lmod Warning: Please re-create this collection.
+Restoring modules to system default
+The system default contains no modules
+  (env var: LMOD_SYSTEM_DEFAULT_MODULES is empty)

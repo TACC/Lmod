@@ -1,0 +1,56 @@
+-- -*- lua -*-
+-- created: Wed May 21 11:25:48 2014 --
+-- Lmod 5.5.3rc2 (5.5.3rc2-12-g80b343e) 2014-05-19 11:33
+_ModuleTable_ = {
+  ["activeSize"] = 3,
+  baseMpathA = {
+    "@outputDir@/Core",
+  },
+  ["c_rebuildTime"] = 7200.0833333333,
+  ["c_shortTime"] = 0.140782,
+  family = {
+    ["compiler"] = "gcc",
+  },
+  inactive = {
+      },
+  mT = {
+    StdEnv = {
+      ["FN"] = "@outputDir@/Core/StdEnv.lua",
+      ["default"] = 0,
+      ["fullName"] = "StdEnv",
+      ["hash"] = "f3811e630c011ee05abec9e24e17d23c199bfaa9",
+      ["loadOrder"] = 3,
+      propT = {
+              },
+      ["short"] = "StdEnv",
+      ["status"] = "active",
+    },
+    b = {
+      ["FN"] = "@outputDir@/Core/b/3.3",
+      ["default"] = 1,
+      ["fullName"] = "b/3.3",
+      ["hash"] = "da39a3ee5e6b4b0d3255bfef95601890afd80709",
+      ["loadOrder"] = 2,
+      propT = {
+              },
+      ["short"] = "b",
+      ["status"] = "active",
+    },
+    gcc = {
+      ["FN"] = "@outputDir@/Core/gcc/4.8.2.lua",
+      ["default"] = 1,
+      ["fullName"] = "gcc/4.8.2",
+      ["hash"] = "649eba7dacac8f2fa7a37398f52ade0d6b800f30",
+      ["loadOrder"] = 1,
+      propT = {
+              },
+      ["short"] = "gcc",
+      ["status"] = "active",
+    },
+  },
+  mpathA = {
+    "/opt/apps/modulefiles/Compiler/gcc/4.8", "@outputDir@/Core",
+  },
+  ["systemBaseMPATH"] = "@outputDir@/Core",
+  ["version"] = 2,
+}

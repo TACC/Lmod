@@ -33,7 +33,7 @@ testdescript = {
      COUNT=0;
      numStep=0;
 
-     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d
+     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d Core
 
      LMOD_PACKAGE_PATH=$(testDir);      export LMOD_PACKAGE_PATH
      runLmod --version               # 1
@@ -56,6 +56,17 @@ testdescript = {
      runLmod list                    #14
      runLmod spider                  #15
 
+     runLmod purge                   #16
+     unsetMT
+     MODULEPATH=$(outputDir)/Core
+     cp -r $(testDir)/Core $(outputDir)
+     sed -e 's|@outputDir@|$(outputDir)|g'  < $(testDir)/.lmod.d/stdenv > $(outputDir)/.lmod.d/stdenv
+     runLmod restore stdenv          #17
+     sed -e 's/--#%#//g'  < $(outputDir)/Core/StdEnv.lua > $(outputDir)/Core/StdEnv.new
+     mv $(outputDir)/Core/StdEnv.new $(outputDir)/Core/StdEnv.lua
+     runLmod restore stdenv          #18
+
+     
 
 
      HOME=$HOME_ORIG
