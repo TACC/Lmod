@@ -373,7 +373,7 @@ local function build_locationTbl(mpathA)
    local Pairs     = dbg.active() and pairsByKeys or pairs
 
    if (varTbl[ModulePath] == nil or varTbl[ModulePath]:expand() == "") then
-      dbg.print("MODULEPATH is undefined\n")
+      dbg.print{"MODULEPATH is undefined\n"}
       dbg.fini("MT:build_locationTbl")
       return {}, {}
    end
