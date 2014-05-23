@@ -373,7 +373,9 @@ local function build_locationTbl(mpathA)
    local Pairs     = dbg.active() and pairsByKeys or pairs
 
    if (varTbl[ModulePath] == nil or varTbl[ModulePath]:expand() == "") then
-      LmodError("MODULEPATH is undefined\n")
+      dbg.print("MODULEPATH is undefined\n")
+      dbg.fini("MT:build_locationTbl")
+      return {}, {}
    end
 
    local fast      = true
@@ -1079,7 +1081,8 @@ function M.reloadAllModules(self)
       end
       count       = count + 1
       if (count > ncount) then
-         LmodError("ReLoading more than ", ncount, " times-> exiting.\n")
+         dbg.print{"ReLoading more than ", ncount, " times-> exiting.\n"}
+         return
       end
       done = self:sameMPATH(varTbl[ModulePath]:expand())
    end
@@ -1089,7 +1092,7 @@ function M.reloadAllModules(self)
       LmodError("MODULEPATH has changed: run \"module update\" to repair.\n")
    end
    dbg.fini("MT:reloadAllModules")
-   return not changed
+   return
 end
 
 --------------------------------------------------------------------------

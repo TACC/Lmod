@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.5rc3 5.5rc3 2014-04-28 16:07
+Modules based on Lua: Version 5.5.3rc2 5.5.3rc2-15-g5df69ba 2014-05-19 11:33
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -11,4 +11,16 @@ lua ProjectDIR/src/lmod.in.lua bash use ProjectDIR/rt/use_unuse/mf/RTM
 ===========================
 step 3
 lua ProjectDIR/src/lmod.in.lua bash unuse ProjectDIR/rt/use_unuse/mf/RTM
+===========================
+===========================
+step 4
+lua ProjectDIR/src/lmod.in.lua bash unuse ProjectDIR/rt/use_unuse/mf/RTM
+===========================
+===========================
+step 5
+lua ProjectDIR/src/lmod.in.lua bash use ProjectDIR/rt/use_unuse/mf/RTM2
+===========================
+===========================
+step 6
+lua ProjectDIR/src/lmod.in.lua bash unuse ProjectDIR/rt/use_unuse/mf/RTM2
 ===========================

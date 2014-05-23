@@ -73,6 +73,7 @@ local max          = math.max
 local dbg          = require("Dbg"):dbg()
 local Exec         = require("Exec")
 local MName        = require("MName")
+local ModulePath   = ModulePath
 local ModuleStack  = require("ModuleStack")
 local Var          = require("Var")
 local base64       = require("base64")
@@ -211,6 +212,8 @@ end
 -- Load / Unload functions
 -------------------------------------------------------------------
 function M.load_usr(self, mA)
+   
+
    local a = self:load(mA)
    if (haveWarnings()) then
       mustLoad(mA)
@@ -218,6 +221,10 @@ function M.load_usr(self, mA)
    return a
 end
 function M.load(self, mA)
+   if (varTbl[ModulePath] == nil or varTbl[ModulePath]:expand() == "") then
+      LmodError("MODULEPATH is undefined\n")
+   end
+
    LMOD_IGNORE_CACHE = true
    local master = Master:master()
 

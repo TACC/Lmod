@@ -30,3 +30,35 @@ MODULEPATH="ProjectDIR/rt/use_unuse/mf/Core";
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/use_unuse/mf/Core",},family={},inactive={},mT={},mpathA={"ProjectDIR/rt/use_unuse/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/use_unuse/mf/Core",["version"]=2,}';
 export _ModuleTable_;
+===========================
+step 4
+lua ProjectDIR/src/lmod.in.lua bash unuse ProjectDIR/rt/use_unuse/mf/RTM
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/use_unuse/mf/RTM";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/use_unuse/mf/RTM";
+export MODULEPATH;
+unset LMOD_DEFAULT_MODULEPATH;
+unset MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"",},family={},inactive={},mT={},mpathA={"",},["systemBaseMPATH"]="ProjectDIR/rt/use_unuse/mf/RTM",["version"]=2,}';
+export _ModuleTable_;
+===========================
+step 5
+lua ProjectDIR/src/lmod.in.lua bash use ProjectDIR/rt/use_unuse/mf/RTM2
+===========================
+unset LMOD_DEFAULT_MODULEPATH;
+unset MODULEPATH;
+unset LMOD_DEFAULT_MODULEPATH;
+unset MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"",},family={},inactive={},mT={},mpathA={"",},["version"]=2,}';
+export _ModuleTable_;
+===========================
+step 6
+lua ProjectDIR/src/lmod.in.lua bash unuse ProjectDIR/rt/use_unuse/mf/RTM2
+===========================
+unset LMOD_DEFAULT_MODULEPATH;
+unset MODULEPATH;
+unset LMOD_DEFAULT_MODULEPATH;
+unset MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"",},family={},inactive={},mT={},mpathA={"",},["systemBaseMPATH"]="",["version"]=2,}';
+export _ModuleTable_;
