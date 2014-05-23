@@ -353,11 +353,18 @@ function Load_Usr(...)
       MCP:unload_usr(uA)
    end
 
-   local mcp_old = mcp
-   mcp           = MCP
-   dbg.print{"Setting mcp to ", mcp:name(),"\n"}
-   local b       = mcp:load_usr(lA)
-   mcp           = mcp_old
+   local b
+   if (#lA > 0) then
+      if (varTbl[ModulePath] == nil or varTbl[ModulePath]:expand() == "") then
+         LmodWarning("MODULEPATH is undefined\n")
+      end
+
+      local mcp_old = mcp
+      mcp           = MCP
+      dbg.print{"Setting mcp to ", mcp:name(),"\n"}
+      b             = mcp:load_usr(lA)
+      mcp           = mcp_old
+   end
 
    dbg.fini("Load_Usr")
    return b

@@ -25,18 +25,23 @@ testdescript = {
 
      rm -fr _stderr.* _stdout.* err.* out.* .lmod.d
 
-     runLmod --version                # 1
-     runLmod use   $(testDir)/mf/RTM  # 2
-     runLmod unuse $(testDir)/mf/RTM  # 3
+     runLmod --version                   # 1
+     runLmod load a
+     runLmod unuse $(testDir)/mf/Core    # 2
+
+     runLmod use   $(testDir)/mf/RTM     # 3
+     runLmod unuse $(testDir)/mf/RTM     # 4
 
      unsetMT
      export MODULEPATH=$(testDir)/mf/RTM
-     runLmod unuse $(testDir)/mf/RTM  # 4
+     runLmod unuse $(testDir)/mf/RTM     # 5
 
      unsetMT
      runLmod use $(testDir)/mf/RTM2
-     runLmod unuse $(testDir)/mf/RTM2  # 5
+     runLmod unuse $(testDir)/mf/RTM2    # 6
      
+     
+
 
      cat _stdout.[0-9][0-9] > _stdout.orig
      joinBase64Results -bash _stdout.orig _stdout.new
