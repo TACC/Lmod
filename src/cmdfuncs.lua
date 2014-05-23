@@ -193,7 +193,7 @@ function List(...)
    local mt = MT:mt()
    local totalA = mt:list("userName","any")
    if (#totalA < 1) then
-      LmodWarning("No modules installed\n")
+      LmodWarning("No modules loaded\n")
       dbg.fini("List")
       return
    end
