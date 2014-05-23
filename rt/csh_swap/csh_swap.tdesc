@@ -25,7 +25,7 @@ testdescript = {
 
 
 cat > $(testName).csh << EOF
-#!/bin/tcsh
+#!/bin/tcsh -f
 
      lua $(projectDir)/src/lmod.in.lua csh purge > _stdclr.00
      eval \`cat _stdclr.00\`
