@@ -1,8 +1,13 @@
-Lmod Version 5.5.3:
-Feature:
-   a) Support for .modulerc in modulefile directory only.  This file can
-      be used to specify the default module only.  No support for System
-      .modulerc or user ~/.modulerc
+Lmod Version 5.6rc1:
+Major Bug Fix:
+   Two bugs I have un-earthed cancelled each other all related to saved
+   collections.  The upshot is that many users will have get a message
+   that they have to rebuild their collection because the modules have
+   changed.  This isn't true but they will have to anyway.  I now have
+   tests which will guard against this from happening  again.  I
+   apologize  for this bug.
+
+
 Bug Fixes:
    a) Lmod is supposed to error out if the modules in a named
       collection changed in a way such that the loaded modules would be
@@ -15,6 +20,11 @@ Bug Fixes:
    d) Lmod now correctly handles "module-info mode" command in tcl
       modulefiles.
    e) tcl2lua.sh improvements to supports Cray modules.
+
+Feature:
+   a) Support for .modulerc in modulefile directory only.  This file can
+      be used to specify the default module only.  No support for System
+      .modulerc or user ~/.modulerc
 
 Lmod Version 5.5.1:
 Bug Fixes:
