@@ -221,10 +221,6 @@ function M.load_usr(self, mA)
    return a
 end
 function M.load(self, mA)
-   if (varTbl[ModulePath] == nil or varTbl[ModulePath]:expand() == "") then
-      LmodError("MODULEPATH is undefined\n")
-   end
-
    LMOD_IGNORE_CACHE = true
    local master = Master:master()
 
@@ -399,7 +395,7 @@ function M.remove_path(self, t)
    dbg.start{"MasterControl:remove_path{\"",name,"\", \"",value,
              "\", delim=\"",sep,"\", nodups=\"",nodups,
              "\", priority=",priority,
-             "\", where=",where,
+             ", where=",where,
              "}"}
 
    if (varTbl[name] == nil) then
