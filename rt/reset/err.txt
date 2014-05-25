@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.3rc2 5.3rc2-4-g988883e 2014-02-11 07:47
+Modules based on Lua: Version 5.6rc1 5.6rc1-7-gd862d10 2014-05-22 21:13
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -16,7 +16,7 @@ lua ProjectDIR/src/lmod.in.lua bash purge
 step 4
 lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
-Lmod Warning: No modules installed
+Lmod Warning: No modules loaded
 ===========================
 step 5
 lua ProjectDIR/src/lmod.in.lua bash load admin PrgEnv openmpi parmetis

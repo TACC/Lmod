@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.5rc3 5.5rc3-2-g33bacd2 2014-04-28 16:07
+Modules based on Lua: Version 5.6rc1 5.6rc1-7-gd862d10 2014-05-22 21:13
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -16,13 +16,14 @@ Options:
   --debug=dbglvl                Program tracing written to stderr
   -d --default                  List default modules only when used with
                                 avail
-  -q --quiet --expert           Do not print out warnings
+  -q --quiet                    Do not print out warnings
+  --expert                      Expert mode
   -t --terse                    Write out in machine readable format for
                                 commands: list, avail, spider, savelist
   --initial_load                loading Lmod for first time in a user shell
   --latest                      Load latest (ignore default)
   --ignore_cache                Treat the cache file(s) as out-of-date
-  --novice                      Turn off expert flag
+  --novice                      Turn off expert and quiet flag
   --raw                         Print modulefile in raw output when used
                                 with show
   -w twidth --width=twidth      Use this as max term width
@@ -110,7 +111,7 @@ The following guides are at http://www.tacc.utexas.edu/tacc-projects/lmod
   User Guide                 - How to use.
   Advance User Guide         - How to create you own modules.
   System Administrator Guide - How to install Lmod on your own system.
-Modules based on Lua: Version 5.5rc3 5.5rc3-2-g33bacd2 2014-04-28 16:07
+Modules based on Lua: Version 5.6rc1 5.6rc1-7-gd862d10 2014-05-22 21:13
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 3
@@ -124,13 +125,14 @@ Options:
   --debug=dbglvl                Program tracing written to stderr
   -d --default                  List default modules only when used with
                                 avail
-  -q --quiet --expert           Do not print out warnings
+  -q --quiet                    Do not print out warnings
+  --expert                      Expert mode
   -t --terse                    Write out in machine readable format for
                                 commands: list, avail, spider, savelist
   --initial_load                loading Lmod for first time in a user shell
   --latest                      Load latest (ignore default)
   --ignore_cache                Treat the cache file(s) as out-of-date
-  --novice                      Turn off expert flag
+  --novice                      Turn off expert and quiet flag
   --raw                         Print modulefile in raw output when used
                                 with show
   -w twidth --width=twidth      Use this as max term width
@@ -218,7 +220,7 @@ The following guides are at http://www.tacc.utexas.edu/tacc-projects/lmod
   User Guide                 - How to use.
   Advance User Guide         - How to create you own modules.
   System Administrator Guide - How to install Lmod on your own system.
-Modules based on Lua: Version 5.5rc3 5.5rc3-2-g33bacd2 2014-04-28 16:07
+Modules based on Lua: Version 5.6rc1 5.6rc1-7-gd862d10 2014-05-22 21:13
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 4
@@ -238,7 +240,7 @@ Version 9
 step 5
 lua ProjectDIR/src/lmod.in.lua bash --config
 ===========================
-Modules based on Lua: Version 5.5rc3 5.5rc3-2-g33bacd2 2014-04-28 16:07
+Modules based on Lua: Version 5.6rc1 5.6rc1-7-gd862d10 2014-05-22 21:13
     by Robert McLay mclay@tacc.utexas.edu
 Description                      Value
 Allow TCL modulefiles            @allow_tcl_mfiles@

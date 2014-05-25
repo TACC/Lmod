@@ -230,7 +230,7 @@ function M.load(self, mA)
    end
 
    local a = master.load(mA)
-   if (not expert()) then
+   if (not quiet()) then
 
       local mt      = MT:mt()
       local t       = {}
@@ -673,7 +673,7 @@ function M.error(self, ...)
 end
 
 function M.warning(self, ...)
-   if (not expert() and  haveWarnings()) then
+   if (not quiet() and  haveWarnings()) then
       io.stderr:write("\n",colorize("red", "Lmod Warning: "))
       local arg = pack(...)
       for i = 1, arg.n do
@@ -828,7 +828,7 @@ function M.family(self, name)
 
    dbg.print{"mt:setfamily(\"",name,"\",\"",sn,"\")\n"}
    local oldName = mt:setfamily(name,sn)
-   if (oldName ~= nil and oldName ~= sn and not expert() ) then
+   if (oldName ~= nil and oldName ~= sn and not quiet() ) then
       LmodError("You can only have one ",name," module loaded at a time.\n",
                 "You already have ", oldName," loaded.\n",
                 "To correct the situation, please enter the following command:\n\n",

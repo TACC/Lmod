@@ -1063,7 +1063,7 @@ function M.avail(argA)
    end
 
 
-   if (not expert()) then
+   if (not quiet()) then
       aa = hook.apply("msgHook", "avail", aa)
    end
    pcall(pager,io.stderr,concatTbl(aa,""))

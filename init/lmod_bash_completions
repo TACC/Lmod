@@ -45,7 +45,7 @@ _module() {
 	cmds="add avail delete help keyword list load purge rm restore save show spider swap \
 	      unload unuse update use whatis"
 
-	opts="-d -D -h -q -t -v -w --expert --help  --quiet --terse --version --default --width -r --regexp --mt"
+	opts="-d -D -h -q -t -v -w --expert --quiet --help  --quiet --terse --version --default --width -r --regexp --mt"
 
 	case "$prev" in
 	add|load|try-load)
@@ -83,7 +83,7 @@ _ml() {
   cmds="add avail delete help keyword list load purge rm restore save sl show spider swap unload \
         unuse update use whatis"
 
-  opts="-d -D -h -q -t -v -w --expert --help  --quiet --terse --version --default --Verbose --width -r --regexp --mt"
+  opts="-d -D -h -q -t -v -w --expert --quiet --help  --quiet --terse --version --default --Verbose --width -r --regexp --mt"
 
   #echo 2  >> $HOME/t/ml.log
 

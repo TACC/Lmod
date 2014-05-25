@@ -355,13 +355,13 @@ function M.build(self, fast)
       ancient = _G.ancient or ancient
       mt:setRebuildTime(ancient, short)
    else
-      local prtRbMsg = ((not masterTbl.expert)               and
+      local prtRbMsg = ((not quiet())                        and
                         (not masterTbl.initial)              and
                         ((not short) or (short > shortTime)) and
                         (not self.quiet)
                        )
       dbg.print{"short: ", short, " shortTime: ", shortTime,"\n", level=2}
-      dbg.print{"expert: ",masterTbl.expert,", initial: ", masterTbl.initial,"\n"}
+      dbg.print{"quiet: ",quiet(),", initial: ", masterTbl.initial,"\n"}
       dbg.print{"prtRbMsg: ",prtRbMsg,", quiet: ",self.quiet,"\n"}
 
       local cTimer = CTimer:cTimer("Rebuilding cache, please wait ...",

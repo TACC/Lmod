@@ -598,7 +598,7 @@ function Save(...)
       f:close()
    end
    mt:hideHash()
-   if (not expert()) then
+   if (not quiet()) then
       io.stderr:write("Saved current collection of modules to: ",a,
                       msgTail, "\n")
    end

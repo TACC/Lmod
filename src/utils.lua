@@ -192,6 +192,7 @@ function case_independent_cmp(a,b)
    end
 end
 
+
 --------------------------------------------------------------------------
 -- expert(): Are we in expert mode?
 local __expert = false
@@ -200,6 +201,16 @@ function expert()
       __expert = getenv("LMOD_EXPERT")
    end
    return __expert
+end
+
+--------------------------------------------------------------------------
+-- quiet(): Are we in quiet mode?
+local __quiet = false
+function quiet()
+   if (__quiet == false) then
+      __quiet = getenv("LMOD_QUIET")
+   end
+   return __quiet
 end
 
 --------------------------------------------------------------------------

@@ -119,10 +119,17 @@ function M.options(self, usage)
    }
 
    cmdlineParser:add_option{
-      name   = {"-q","--quiet","--expert"},
-      dest   = "expert",
+      name   = {"-q","--quiet"},
+      dest   = "quiet",
       action = "store_true",
       help   = "Do not print out warnings",
+   }
+
+   cmdlineParser:add_option{
+      name   = {"--expert"},
+      dest   = "expert",
+      action = "store_true",
+      help   = "Expert mode",
    }
 
    cmdlineParser:add_option{
@@ -158,7 +165,7 @@ function M.options(self, usage)
       name   = {"--novice"},
       dest   = "novice",
       action = "store_true",
-      help   = "Turn off expert flag",
+      help   = "Turn off expert and quiet flag",
    }
 
    cmdlineParser:add_option{
@@ -257,11 +264,17 @@ function M.options(self, usage)
    end
 
    if (optionTbl.expert) then
-      setenv("LMOD_EXPERT","1")
+      setenv("LMOD_EXPERT", "1")
+      setenv("LMOD_QUIET",  "1")
+   end
+
+   if (optionTbl.quiet) then
+      setenv("LMOD_QUIET","1")
    end
 
    if (optionTbl.novice) then
       setenv("LMOD_EXPERT", nil)
+      setenv("LMOD_QUIET",  nil)
    end
 end
 

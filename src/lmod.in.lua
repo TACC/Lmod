@@ -597,7 +597,7 @@ function main()
    mt = MT:mt()
 
    -- Report any changes (worth reporting from original MT)
-   if (not expert()) then
+   if (not quiet()) then
       mt:reportChanges()
    end
 
@@ -622,9 +622,7 @@ function main()
       io.stderr:write(timer:report(),"\n")
    end
 
-   dbg.print{"warningFlag: ", getWarningFlag(),"\n"}
-
-   if (getWarningFlag() and not expert() ) then
+   if (getWarningFlag() and not quiet() ) then
       LmodErrorExit()
    end
 end
