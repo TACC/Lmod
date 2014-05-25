@@ -222,3 +222,73 @@ MODULEPATH="ProjectDIR/rt/hierarchy/mf/MPI/gcc/14.27/mpich/17.200:ProjectDIR/rt/
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["activeSize"]=5,baseMpathA={"ProjectDIR/rt/hierarchy/mf/Core",},family={["MPI"]="mpich",["compiler"]="gcc",},inactive={},mT={ben={["FN"]="ProjectDIR/rt/hierarchy/mf/Core/ben/0.1.lua",["default"]=0,["fullName"]="ben/0.1",["loadOrder"]=4,propT={},["short"]="ben",["status"]="active",},fbr={["FN"]="ProjectDIR/rt/hierarchy/mf/Core/fbr/1.0.lua",["default"]=1,["fullName"]="fbr/1.0",["loadOrder"]=5,propT={},["short"]="fbr",["status"]="active",},gcc={["FN"]="ProjectDIR/rt/hierarchy/mf/Core/gcc/14.27.3.lua",["default"]=1,["fullName"]="gcc/14.27.3",["loadOrder"]=1,propT={},["short"]="gcc",["status"]="active",},mpich={["FN"]="ProjectDIR/rt/hierarchy/mf/Compiler/gcc/14.27/mpich/17.200.3.lua",["default"]=1,["fullName"]="mpich/17.200.3",["loadOrder"]=2,propT={},["short"]="mpich",["status"]="active",},parmetis={["FN"]="ProjectDIR/rt/hierarchy/mf/MPI/gcc/14.27/mpich/17.200/parmetis/4.0.3.lua",["default"]=1,["fullName"]="parmetis/4.0.3",["loadOrder"]=3,propT={},["short"]="parmetis",["status"]="active",},},mpathA={"ProjectDIR/rt/hierarchy/mf/MPI/gcc/14.27/mpich/17.200","ProjectDIR/rt/hierarchy/mf/Compiler/gcc/14.27","ProjectDIR/rt/hierarchy/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/hierarchy/mf/Core",["version"]=2,}';
 export _ModuleTable_;
+===========================
+step 15
+lua ProjectDIR/src/lmod.in.lua bash unload fbr
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/hierarchy/mf/MPI/gcc/14.27/mpich/17.200:ProjectDIR/rt/hierarchy/mf/Compiler/gcc/14.27:ProjectDIR/rt/hierarchy/mf/Core";
+export MODULEPATH;
+unset FBR_VERSION;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+LOADEDMODULES="gcc/14.27.3:mpich/17.200.3:parmetis/4.0.3:ben/0.1";
+export LOADEDMODULES;
+MODULEPATH="ProjectDIR/rt/hierarchy/mf/MPI/gcc/14.27/mpich/17.200:ProjectDIR/rt/hierarchy/mf/Compiler/gcc/14.27:ProjectDIR/rt/hierarchy/mf/Core";
+export MODULEPATH;
+_LMFILES_="ProjectDIR/rt/hierarchy/mf/Core/gcc/14.27.3.lua:ProjectDIR/rt/hierarchy/mf/Compiler/gcc/14.27/mpich/17.200.3.lua:ProjectDIR/rt/hierarchy/mf/MPI/gcc/14.27/mpich/17.200/parmetis/4.0.3.lua:ProjectDIR/rt/hierarchy/mf/Core/ben/0.1.lua";
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={["activeSize"]=4,baseMpathA={"ProjectDIR/rt/hierarchy/mf/Core",},family={["MPI"]="mpich",["compiler"]="gcc",},inactive={},mT={ben={["FN"]="ProjectDIR/rt/hierarchy/mf/Core/ben/0.1.lua",["default"]=0,["fullName"]="ben/0.1",["loadOrder"]=4,propT={},["short"]="ben",["status"]="active",},gcc={["FN"]="ProjectDIR/rt/hierarchy/mf/Core/gcc/14.27.3.lua",["default"]=1,["fullName"]="gcc/14.27.3",["loadOrder"]=1,propT={},["short"]="gcc",["status"]="active",},mpich={["FN"]="ProjectDIR/rt/hierarchy/mf/Compiler/gcc/14.27/mpich/17.200.3.lua",["default"]=1,["fullName"]="mpich/17.200.3",["loadOrder"]=2,propT={},["short"]="mpich",["status"]="active",},parmetis={["FN"]="ProjectDIR/rt/hierarchy/mf/MPI/gcc/14.27/mpich/17.200/parmetis/4.0.3.lua",["default"]=1,["fullName"]="parmetis/4.0.3",["loadOrder"]=3,propT={},["short"]="parmetis",["status"]="active",},},mpathA={"ProjectDIR/rt/hierarchy/mf/MPI/gcc/14.27/mpich/17.200","ProjectDIR/rt/hierarchy/mf/Compiler/gcc/14.27","ProjectDIR/rt/hierarchy/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/hierarchy/mf/Core",["version"]=2,}';
+export _ModuleTable_;
+===========================
+step 16
+lua ProjectDIR/src/lmod.in.lua bash load clang
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/hierarchy/mf/MPI/gcc/14.27/mpich/17.200:ProjectDIR/rt/hierarchy/mf/Compiler/gcc/14.27:ProjectDIR/rt/hierarchy/mf/Core";
+export MODULEPATH;
+false
+===========================
+step 17
+lua ProjectDIR/src/lmod.in.lua bash --expert load clang
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/hierarchy/mf/MPI/gcc/14.27/mpich/17.200:ProjectDIR/rt/hierarchy/mf/Compiler/gcc/14.27:ProjectDIR/rt/hierarchy/mf/Core";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+LMOD_FAMILY_COMPILER="clang";
+export LMOD_FAMILY_COMPILER;
+LMOD_FAMILY_MPI="mpich";
+export LMOD_FAMILY_MPI;
+LOADEDMODULES="gcc/14.27.3:ben/0.1:clang/4.2.1:mpich/17.200.3:parmetis/4.0.3";
+export LOADEDMODULES;
+MODULEPATH="ProjectDIR/rt/hierarchy/mf/MPI/clang/4.2/mpich/17.200:ProjectDIR/rt/hierarchy/mf/Compiler/clang/4.2:ProjectDIR/rt/hierarchy/mf/Compiler/gcc/14.27:ProjectDIR/rt/hierarchy/mf/Core";
+export MODULEPATH;
+MYNAME="parmetis";
+export MYNAME;
+TACC_FAMILY_COMPILER="clang";
+export TACC_FAMILY_COMPILER;
+TACC_FAMILY_MPI="mpich";
+export TACC_FAMILY_MPI;
+_LMFILES_="ProjectDIR/rt/hierarchy/mf/Core/gcc/14.27.3.lua:ProjectDIR/rt/hierarchy/mf/Core/ben/0.1.lua:ProjectDIR/rt/hierarchy/mf/Core/clang/4.2.1.lua:ProjectDIR/rt/hierarchy/mf/Compiler/clang/4.2/mpich/17.200.3.lua:ProjectDIR/rt/hierarchy/mf/MPI/clang/4.2/mpich/17.200/parmetis/4.0.3.lua";
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={["activeSize"]=5,baseMpathA={"ProjectDIR/rt/hierarchy/mf/Core",},family={["MPI"]="mpich",["compiler"]="clang",},inactive={},mT={ben={["FN"]="ProjectDIR/rt/hierarchy/mf/Core/ben/0.1.lua",["default"]=0,["fullName"]="ben/0.1",["loadOrder"]=2,propT={},["short"]="ben",["status"]="active",},clang={["FN"]="ProjectDIR/rt/hierarchy/mf/Core/clang/4.2.1.lua",["default"]=1,["fullName"]="clang/4.2.1",["loadOrder"]=3,propT={},["short"]="clang",["status"]="active",},gcc={["FN"]="ProjectDIR/rt/hierarchy/mf/Core/gcc/14.27.3.lua",["default"]=1,["fullName"]="gcc/14.27.3",["loadOrder"]=1,propT={},["short"]="gcc",["status"]="active",},mpich={["FN"]="ProjectDIR/rt/hierarchy/mf/Compiler/clang/4.2/mpich/17.200.3.lua",["default"]=1,["fullName"]="mpich/17.200.3",["loadOrder"]=4,propT={},["short"]="mpich",["status"]="active",},parmetis={["FN"]="ProjectDIR/rt/hierarchy/mf/MPI/clang/4.2/mpich/17.200/parmetis/4.0.3.lua",["default"]=1,["fullName"]="parmetis/4.0.3",["loadOrder"]=5,propT={},["short"]="parmetis",["status"]="active",},},mpathA={"ProjectDIR/rt/hierarchy/mf/MPI/clang/4.2/mpich/17.200","ProjectDIR/rt/hierarchy/mf/Compiler/clang/4.2","ProjectDIR/rt/hierarchy/mf/Compiler/gcc/14.27","ProjectDIR/rt/hierarchy/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/hierarchy/mf/Core",["version"]=2,}';
+export _ModuleTable_;
+===========================
+step 18
+lua ProjectDIR/src/lmod.in.lua bash list
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/hierarchy/mf/MPI/clang/4.2/mpich/17.200:ProjectDIR/rt/hierarchy/mf/Compiler/clang/4.2:ProjectDIR/rt/hierarchy/mf/Compiler/gcc/14.27:ProjectDIR/rt/hierarchy/mf/Core";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/hierarchy/mf/MPI/clang/4.2/mpich/17.200:ProjectDIR/rt/hierarchy/mf/Compiler/clang/4.2:ProjectDIR/rt/hierarchy/mf/Compiler/gcc/14.27:ProjectDIR/rt/hierarchy/mf/Core";
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=5,baseMpathA={"ProjectDIR/rt/hierarchy/mf/Core",},family={["MPI"]="mpich",["compiler"]="clang",},inactive={},mT={ben={["FN"]="ProjectDIR/rt/hierarchy/mf/Core/ben/0.1.lua",["default"]=0,["fullName"]="ben/0.1",["loadOrder"]=2,propT={},["short"]="ben",["status"]="active",},clang={["FN"]="ProjectDIR/rt/hierarchy/mf/Core/clang/4.2.1.lua",["default"]=1,["fullName"]="clang/4.2.1",["loadOrder"]=3,propT={},["short"]="clang",["status"]="active",},gcc={["FN"]="ProjectDIR/rt/hierarchy/mf/Core/gcc/14.27.3.lua",["default"]=1,["fullName"]="gcc/14.27.3",["loadOrder"]=1,propT={},["short"]="gcc",["status"]="active",},mpich={["FN"]="ProjectDIR/rt/hierarchy/mf/Compiler/clang/4.2/mpich/17.200.3.lua",["default"]=1,["fullName"]="mpich/17.200.3",["loadOrder"]=4,propT={},["short"]="mpich",["status"]="active",},parmetis={["FN"]="ProjectDIR/rt/hierarchy/mf/MPI/clang/4.2/mpich/17.200/parmetis/4.0.3.lua",["default"]=1,["fullName"]="parmetis/4.0.3",["loadOrder"]=5,propT={},["short"]="parmetis",["status"]="active",},},mpathA={"ProjectDIR/rt/hierarchy/mf/MPI/clang/4.2/mpich/17.200","ProjectDIR/rt/hierarchy/mf/Compiler/clang/4.2","ProjectDIR/rt/hierarchy/mf/Compiler/gcc/14.27","ProjectDIR/rt/hierarchy/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/hierarchy/mf/Core",["version"]=2,}';
+export _ModuleTable_;

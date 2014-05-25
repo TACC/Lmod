@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.4 5.4 2014-04-13 11:05
+Modules based on Lua: Version 5.6rc1 5.6rc1-8-gc9eade2 2014-05-22 21:13
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -85,7 +85,7 @@ The following have been reloaded with a version change:
 step 13
 lua ProjectDIR/src/lmod.in.lua bash load fbr
 ===========================
-The date is written in the wrong format: "04/01/2014".  Please use YYYY/MM/DD.
+fbr: The date is written in the wrong format: "04/01/2014".  Please use YYYY/MM/DD.
 ===========================
 step 14
 lua ProjectDIR/src/lmod.in.lua bash list
@@ -93,3 +93,30 @@ lua ProjectDIR/src/lmod.in.lua bash list
 Currently Loaded Modules:
   1) gcc/14.27.3      3) parmetis/4.0.3   5) fbr/1.0
   2) mpich/17.200.3   4) ben/0.1
+===========================
+step 15
+lua ProjectDIR/src/lmod.in.lua bash unload fbr
+===========================
+===========================
+step 16
+lua ProjectDIR/src/lmod.in.lua bash load clang
+===========================
+Lmod has detected the following error: You can only have one compiler module loaded at a time.
+You already have gcc loaded.
+To correct the situation, please enter the following command:
+  module swap gcc clang/4.2.1
+Please submit a consulting ticket if you require additional assistance.
+While processing the following module(s):
+Module fullname  Module Filename
+clang/4.2.1      ProjectDIR/rt/hierarchy/mf/Core/clang/4.2.1.lua
+===========================
+step 17
+lua ProjectDIR/src/lmod.in.lua bash --expert load clang
+===========================
+===========================
+step 18
+lua ProjectDIR/src/lmod.in.lua bash list
+===========================
+Currently Loaded Modules:
+  1) gcc/14.27.3   3) clang/4.2.1      5) parmetis/4.0.3
+  2) ben/0.1       4) mpich/17.200.3
