@@ -797,8 +797,9 @@ function versionFile(v, sn, path)
          end
          
          if (a[1] < 2000 or a[2] > 12) then
-            LmodMessage("The date is written in the wrong format: \"",modV.date,
-                        "\".  Please use YYYY/MM/DD.")
+            LmodMessage("The .version file for \"",sn,
+                        "\" has the date is written in the wrong format: \"",
+                        modV.date,"\".  Please use YYYY/MM/DD.")
          end
          
          local epoch   = os.time{year = a[1], month = a[2], day = a[3]} or 0
