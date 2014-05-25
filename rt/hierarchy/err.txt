@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.6rc1 5.6rc1-8-gc9eade2 2014-05-22 21:13
+Modules based on Lua: Version 5.6rc1 5.6rc1-12-g8ed6a7e 2014-05-22 21:13
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -85,7 +85,7 @@ The following have been reloaded with a version change:
 step 13
 lua ProjectDIR/src/lmod.in.lua bash load fbr
 ===========================
-fbr: The date is written in the wrong format: "04/01/2014".  Please use YYYY/MM/DD.
+The .version file for "fbr" has the date is written in the wrong format: "04/01/2014".  Please use YYYY/MM/DD.
 ===========================
 step 14
 lua ProjectDIR/src/lmod.in.lua bash list
