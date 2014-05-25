@@ -690,57 +690,8 @@ function M.reload_sticky(self, force)
    dbg.fini("Master:reload_sticky")
 end
 
-----------------------------------------------------------------------------
----- Master:versionFile(): This routine is given the absolute path to a
-----                       .version file.  It checks to make sure that it is
-----                       a valid TCL file.  It then uses the
-----                       ModulesVersion.tcl script to return what the value
-----                       of "ModulesVersion" is.
---
---modV = false
---function M.versionFile(path)
---   dbg.start{"Master:versionFile(",path,")"}
---   local f       = io.open(path,"r")
---   if (not f)                        then
---      dbg.print{"could not find: ",path,"\n"}
---      dbg.fini("Master:versionFile")
---      return nil
---   end
---   local s       = f:read("*line")
---   f:close()
---   if (not s:find("^#%%Module"))      then
---      dbg.print{"could not find: #%Module\n"}
---      dbg.fini("Master:versionFile")
---      return nil
---   end
---   local cmd = pathJoin(cmdDir(),"ModulesVersion.tcl") .. " " .. path
---   local s = capture(cmd):trim()
---   assert(load(s))()
---   local version = modV.version
---   if (modV.date ~= "***") then
---     local a = {}
---     for s in modV.date:split("/") do
---        a[#a + 1] = tonumber(s)
---     end
---
---     local epoch   = os.time{year = a[1], month = a[2], day = a[3]}
---     local current = os.time()
---
---     if (epoch < current) then
---        LmodMessage("The default version for module \"",myModuleName(),
---                    "\" is changing on ", t.date, " from ",modV.version,
---                    " to ", modV.newVersion,"\n")
---        version = t.version
---     else
---        version = t.newVersion
---     end
---   end
---   dbg.fini("Master:versionFile")
---   return version
---end
-
 --------------------------------------------------------------------------
---  All these routines in this block to the end are part of "avail"
+--  All these routines from here to the end are part of "avail"
 --------------------------------------------------------------------------
 
 
