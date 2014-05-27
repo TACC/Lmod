@@ -176,7 +176,8 @@ end
 ---help_topic{kind="modfuncs",
 ---           name="load",
 ---           examples="load('name'); load('name/1.2'); load(atleast('name','3.2'))",
----           descript= [[the load function loads a module via its name]]
+---           descript= [[the load function loads a module via its name.  When a module
+---                       is unloaded.  this command causes the module to unloaded.]]
 ---}
 
 
@@ -189,6 +190,16 @@ function load_module(...)
    return b
 end
 
+---help_topic{kind="modfuncs",
+---           name="try_load",
+---           examples="try_load('name'); try_load('name/1.2'); try_load(atleast('name','3.2'))",
+---           descript= [[the load function loads a module via its name.  If it doesn't
+---                       exist then no error is produced. When a module is unloaded.  this
+---                       command causes the module to unloaded]]
+---}
+
+
+
 function try_load(...)
    dbg.start{"try_load(",concatTbl({...},", "),")"}
    if (not validateModules("try_load",...)) then return {} end
@@ -200,6 +211,14 @@ end
 
 try_add = try_load
 
+---help_topic{kind="modfuncs",
+---           name="unload",
+---           examples="unload('name'); unload('name/1.2')",
+---           descript= [[the unload function unloads a module via its name. No error is 
+---                       produced if the module is not already loaded.  When a module is
+---                       unloaded, this command does nothing.]]
+---}
+
 function unload(...)
    dbg.start{"unload(",concatTbl({...},", "),")"}
    if (not validateStringArgs("unload",...)) then return {} end
@@ -210,6 +229,13 @@ function unload(...)
 end
 
 
+---help_topic{kind="modfuncs",
+---           name="always_load",
+---           examples="always_load('name'); always_load('name/1.2'); always_load(atleast('name','3.2'))",
+---           descript= [[the always_load function a module via its name. Loading a module containing
+---                       this command loads,   It does nothing when unloading a module.]]
+---}
+
 function always_load(...)
    dbg.start{"always_load(",concatTbl({...},", "),")"}
    if (not validateModules("always_load",...)) then return {} end
@@ -218,6 +244,12 @@ function always_load(...)
    dbg.fini("always_load")
    return b
 end
+
+---help_topic{kind="modfuncs",
+---           name="always_unload",
+---           examples="always_unload('name'); always_load('name/1.2')",
+---           descript= [[This behaves the same as unload.]]
+---}
 
 function always_unload(...)
    dbg.start{"always_unload(",concatTbl({...},", "),")"}
