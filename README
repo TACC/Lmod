@@ -1,4 +1,4 @@
-Lmod Version 5.6rc1:
+Lmod Version 5.6
 Major Bug Fix:
    Two bugs I have un-earthed cancelled each other all related to saved
    collections.  The upshot is that many users will have get a message
