@@ -48,7 +48,6 @@ MODULEPATH="ProjectDIR/rt/colosse/mf/MPI/intel14.0/openmpi1.6.5:ProjectDIR/rt/co
 export MODULEPATH;
 OMPI_MCA_plm_rsh_num_concurrent="960";
 export OMPI_MCA_plm_rsh_num_concurrent;
-unset __LMOD_PRIORITY_PATH;
 PATH="/software6/mpi/openmpi/1.6.5_intel/bin:/software6/compilers/intel/composer_xe_2013_sp1/bin:/software6/apps/buildtools/20140527/bin:/software6/apps/moab/moab/bin:ProjectDIR/src:PATH_to_TM:/bin";
 export PATH;
 TACC_FAMILY_COMPILERS="compilers/intel";

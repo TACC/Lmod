@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.6 5.6-1-gf1ef37e 2014-05-27 15:15
+Modules based on Lua: Version 5.6 5.6-2-gf049c5b 2014-05-27 15:15
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -21,6 +21,10 @@ Currently Loaded Modules:
 step 4
 lua ProjectDIR/src/lmod.in.lua bash purge
 ===========================
+The following modules were not unloaded:
+   (Use "module --force purge" to unload all):
+  1) apps/buildtools   3) mpi/openmpi   5) apps/moab
+  2) compilers/intel   4) StdEnv
 ===========================
 step 5
 lua ProjectDIR/src/lmod.in.lua bash avail

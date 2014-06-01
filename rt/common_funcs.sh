@@ -111,6 +111,7 @@ initStdEnvVars()
   unset LMOD_COLORIZE
   unset _LMFILES_
   unset LOADEDMODULES
+  unset __LMOD_PRIORITY_PATH
   export LMOD_PREPEND_BLOCK=yes
   PATH_to_LUA=`findcmd --pathOnly lua`
   PATH_to_TM=`findcmd --pathOnly tm`
