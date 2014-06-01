@@ -657,7 +657,7 @@ function M.reload_sticky(self, force)
    local stickyA  = mt:getStickyA()
    local mcp_old  = mcp
    mcp            = MCP
-   dbg.print{"#stickyA: ",#stickyA,"\n"}
+   local reload   = false
    for i = 1, #stickyA do
       local entry = stickyA[i]
       local mname = MName:new("entryT",entry)
@@ -671,13 +671,13 @@ function M.reload_sticky(self, force)
       if (not mt:have(sn,"active")) then
          local j     = #unstuckA+1
          unstuckA[j] = { string.format("%3d)",j) , mname:usrName() }
+      else
+         reload = true
       end
    end
    mcp = mcp_old
 
-   
-
-   if (#stickyA - #unstuckA > 0) then
+   if (reload) then
       io.stderr:write("\nThe following modules were not unloaded:\n")
       io.stderr:write("   (Use \"module --force purge\" to unload all):\n\n")
       local b  = mt:list("fullName","active")
