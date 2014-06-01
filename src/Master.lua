@@ -680,7 +680,7 @@ function M.reload_sticky(self, force)
    if (#stickyA - #unstuckA > 0) then
       io.stderr:write("\nThe following modules were not unloaded:\n")
       io.stderr:write("   (Use \"module --force purge\" to unload all):\n\n")
-      local b  = mt:list("short","active")
+      local b  = mt:list("fullName","active")
       local a  = {}
       for i = 1, #b do
          a[#a+1] = {"  " .. tostring(i) .. ")", b[i] }
