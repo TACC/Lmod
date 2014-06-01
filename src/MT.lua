@@ -478,6 +478,7 @@ local function new(self, s, restore)
       o:buildBaseMpathA(currentMPATH)
       dbg.print{"Initializing ", DfltModPath, ":", currentMPATH, "\n"}
    else
+      dbg.print{"s: ",s,"\n"}
       assert(load(s))()
       local _ModuleTable_ = systemG._ModuleTable_
 
@@ -494,6 +495,7 @@ local function new(self, s, restore)
          s_loadOrder = icount
       end
       o._MPATH = concatTbl(o.mpathA,":")
+      dbg.print{"(1) o._MPATH: ",o._MPATH,"\n"}
       local baseMPATH = concatTbl(o.baseMpathA,":")
       dbg.print{"(2) o.systemBaseMPATH: \"", o.systemBaseMPATH, "\"\n"}
       dbg.print{"baseMPATH: ", baseMPATH, "\n"}
@@ -512,9 +514,8 @@ local function new(self, s, restore)
       else
          dbg.print{"currentMPATH:        ",currentMPATH,"\n"}
          dbg.print{"_MPATH:              ",o._MPATH,"\n"}
-         dbg.print{"o.systemBaseMPATH:   ",o.systemBaseMPATH,"\n"}
          dbg.print{"baseMPATH:           ",o.systemBaseMPATH,"\n"}
-         if (o.systemBaseMPATH ~= currentMPATH and not restore) then
+         if (o._MPATH ~= currentMPATH and not restore) then
             o:resolveMpathChanges(currentMPATH, baseMPATH)
          end
       end

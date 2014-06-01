@@ -392,7 +392,7 @@ function Purge(force)
    MCP:unload_usr(mA,force)
 
    -- Make Default Path be the new MODULEPATH
-   mt:buildMpathA(mt:getBaseMPATH())
+   -- mt:buildMpathA(mt:getBaseMPATH())
 
    -- A purge should not set the warning flag.
    clearWarningFlag()

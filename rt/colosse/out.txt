@@ -1,0 +1,149 @@
+===========================
+step 1
+lua ProjectDIR/src/lmod.in.lua bash --version
+===========================
+===========================
+step 2
+lua ProjectDIR/src/lmod.in.lua bash load StdEnv
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/colosse/mf/Core:ProjectDIR/rt/colosse/mf/Core-colosse";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/colosse/mf/Core:ProjectDIR/rt/colosse/mf/Core-colosse";
+export MODULEPATH;
+AR="/software6/compilers/intel/composer_xe_2013_sp1/bin/xiar";
+export AR;
+CC="/software6/compilers/intel/composer_xe_2013_sp1/bin/icc";
+export CC;
+CPATH="/software6/mpi/openmpi/1.6.5_intel/include:/software6/apps/buildtools/20140527/include";
+export CPATH;
+CXX="/software6/compilers/intel/composer_xe_2013_sp1/bin/icpc";
+export CXX;
+F77="/software6/compilers/intel/composer_xe_2013_sp1/bin/ifort";
+export F77;
+FC="/software6/compilers/intel/composer_xe_2013_sp1/bin/ifort";
+export FC;
+INTEL_LICENSE_FILE="28519@10.225.3.12";
+export INTEL_LICENSE_FILE;
+LD="/software6/compilers/intel/composer_xe_2013_sp1/bin/xild";
+export LD;
+LD_LIBRARY_PATH="/software6/mpi/openmpi/1.6.5_intel/lib:/software6/compilers/intel/composer_xe_2013_sp1/lib/intel64:/software6/apps/buildtools/20140527/lib64:/software6/apps/buildtools/20140527/lib";
+export LD_LIBRARY_PATH;
+LIBRARY_PATH="/software6/mpi/openmpi/1.6.5_intel/lib:/software6/compilers/intel/composer_xe_2013_sp1/lib/intel64:/software6/apps/buildtools/20140527/lib64:/software6/apps/buildtools/20140527/lib";
+export LIBRARY_PATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/colosse/mf/Core:ProjectDIR/rt/colosse/mf/Core-colosse";
+export LMOD_DEFAULT_MODULEPATH;
+LMOD_FAMILY_COMPILERS="compilers/intel";
+export LMOD_FAMILY_COMPILERS;
+LMOD_FAMILY_MOAB="apps/moab";
+export LMOD_FAMILY_MOAB;
+LMOD_FAMILY_MPI="mpi/openmpi";
+export LMOD_FAMILY_MPI;
+LOADEDMODULES="apps/moab:apps/buildtools/20140527:compilers/intel/14.0:mpi/openmpi/1.6.5:StdEnv";
+export LOADEDMODULES;
+MANPATH="/software6/mpi/openmpi/1.6.5_intel/share/man:/software6/compilers/intel/composer_xe_2013_sp1/man/en_US:/software6/apps/buildtools/20140527/share/man:/software6/apps/moab/moab/share/man";
+export MANPATH;
+MOABHOMEDIR="/software6/apps/moab/config_colosse";
+export MOABHOMEDIR;
+MODULEPATH="ProjectDIR/rt/colosse/mf/MPI/intel14.0/openmpi1.6.5:ProjectDIR/rt/colosse/mf/Compilers/intel14.0:ProjectDIR/rt/colosse/mf/Core:ProjectDIR/rt/colosse/mf/Core-colosse";
+export MODULEPATH;
+OMPI_MCA_plm_rsh_num_concurrent="960";
+export OMPI_MCA_plm_rsh_num_concurrent;
+unset __LMOD_PRIORITY_PATH;
+PATH="/software6/mpi/openmpi/1.6.5_intel/bin:/software6/compilers/intel/composer_xe_2013_sp1/bin:/software6/apps/buildtools/20140527/bin:/software6/apps/moab/moab/bin:ProjectDIR/src:PATH_to_TM:/bin";
+export PATH;
+TACC_FAMILY_COMPILERS="compilers/intel";
+export TACC_FAMILY_COMPILERS;
+TACC_FAMILY_MOAB="apps/moab";
+export TACC_FAMILY_MOAB;
+TACC_FAMILY_MPI="mpi/openmpi";
+export TACC_FAMILY_MPI;
+_LMFILES_="ProjectDIR/rt/colosse/mf/Core-colosse/apps/moab.lua:ProjectDIR/rt/colosse/mf/Core/apps/buildtools/20140527.lua:ProjectDIR/rt/colosse/mf/Core-colosse/compilers/intel/14.0.lua:ProjectDIR/rt/colosse/mf/Compilers/intel14.0/mpi/openmpi/1.6.5.lua:ProjectDIR/rt/colosse/mf/Core/StdEnv.lua";
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={["activeSize"]=5,baseMpathA={"ProjectDIR/rt/colosse/mf/Core","ProjectDIR/rt/colosse/mf/Core-colosse",},family={["compilers"]="compilers/intel",["moab"]="apps/moab",["mpi"]="mpi/openmpi",},inactive={},mT={StdEnv={["FN"]="ProjectDIR/rt/colosse/mf/Core/StdEnv.lua",["default"]=0,["fullName"]="StdEnv",["loadOrder"]=5,propT={lmod={["sticky"]=1,},},["short"]="StdEnv",["status"]="active",},["apps/buildtools"]={["FN"]="ProjectDIR/rt/colosse/mf/Core/apps/buildtools/20140527.lua",["default"]=1,["fullName"]="apps/buildtools/20140527",["loadOrder"]=2,propT={},["short"]="apps/buildtools",["status"]="active",},["apps/moab"]={["FN"]="ProjectDIR/rt/colosse/mf/Core-colosse/apps/moab.lua",["default"]=0,["fullName"]="apps/moab",["loadOrder"]=1,propT={lmod={["sticky"]=1,},},["short"]="apps/moab",["status"]="active",},["compilers/intel"]={["FN"]="ProjectDIR/rt/colosse/mf/Core-colosse/compilers/intel/14.0.lua",["default"]=1,["fullName"]="compilers/intel/14.0",["loadOrder"]=3,propT={},["short"]="compilers/intel",["status"]="active",},["mpi/openmpi"]={["FN"]="ProjectDIR/rt/colosse/mf/Compilers/intel14.0/mpi/openmpi/1.6.5.lua",["default"]=0,["fullName"]="mpi/openmpi/1.6.5",["loadOrder"]=4,propT={},["short"]="mpi/openmpi",["status"]="active",},},mpathA={"ProjectDIR/rt/colosse/mf/MPI/intel14.0/openmpi1.6.5","ProjectDIR/rt/colosse/mf/Compilers/intel14.0","ProjectDIR/rt/colosse/mf/Core","ProjectDIR/rt/colosse/mf/Core-colosse",},["systemBaseMPATH"]="ProjectDIR/rt/colosse/mf/Core:ProjectDIR/rt/colosse/mf/Core-colosse",["version"]=2,}';
+export _ModuleTable_;
+===========================
+step 3
+lua ProjectDIR/src/lmod.in.lua bash list
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/colosse/mf/Core:ProjectDIR/rt/colosse/mf/Core-colosse";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/colosse/mf/MPI/intel14.0/openmpi1.6.5:ProjectDIR/rt/colosse/mf/Compilers/intel14.0:ProjectDIR/rt/colosse/mf/Core:ProjectDIR/rt/colosse/mf/Core-colosse";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/colosse/mf/Core:ProjectDIR/rt/colosse/mf/Core-colosse";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/colosse/mf/MPI/intel14.0/openmpi1.6.5:ProjectDIR/rt/colosse/mf/Compilers/intel14.0:ProjectDIR/rt/colosse/mf/Core:ProjectDIR/rt/colosse/mf/Core-colosse";
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=5,baseMpathA={"ProjectDIR/rt/colosse/mf/Core","ProjectDIR/rt/colosse/mf/Core-colosse",},family={["compilers"]="compilers/intel",["moab"]="apps/moab",["mpi"]="mpi/openmpi",},inactive={},mT={StdEnv={["FN"]="ProjectDIR/rt/colosse/mf/Core/StdEnv.lua",["default"]=0,["fullName"]="StdEnv",["loadOrder"]=5,propT={lmod={["sticky"]=1,},},["short"]="StdEnv",["status"]="active",},["apps/buildtools"]={["FN"]="ProjectDIR/rt/colosse/mf/Core/apps/buildtools/20140527.lua",["default"]=1,["fullName"]="apps/buildtools/20140527",["loadOrder"]=2,propT={},["short"]="apps/buildtools",["status"]="active",},["apps/moab"]={["FN"]="ProjectDIR/rt/colosse/mf/Core-colosse/apps/moab.lua",["default"]=0,["fullName"]="apps/moab",["loadOrder"]=1,propT={lmod={["sticky"]=1,},},["short"]="apps/moab",["status"]="active",},["compilers/intel"]={["FN"]="ProjectDIR/rt/colosse/mf/Core-colosse/compilers/intel/14.0.lua",["default"]=1,["fullName"]="compilers/intel/14.0",["loadOrder"]=3,propT={},["short"]="compilers/intel",["status"]="active",},["mpi/openmpi"]={["FN"]="ProjectDIR/rt/colosse/mf/Compilers/intel14.0/mpi/openmpi/1.6.5.lua",["default"]=0,["fullName"]="mpi/openmpi/1.6.5",["loadOrder"]=4,propT={},["short"]="mpi/openmpi",["status"]="active",},},mpathA={"ProjectDIR/rt/colosse/mf/MPI/intel14.0/openmpi1.6.5","ProjectDIR/rt/colosse/mf/Compilers/intel14.0","ProjectDIR/rt/colosse/mf/Core","ProjectDIR/rt/colosse/mf/Core-colosse",},["systemBaseMPATH"]="ProjectDIR/rt/colosse/mf/Core:ProjectDIR/rt/colosse/mf/Core-colosse",["version"]=2,}';
+export _ModuleTable_;
+===========================
+step 4
+lua ProjectDIR/src/lmod.in.lua bash purge
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/colosse/mf/Core:ProjectDIR/rt/colosse/mf/Core-colosse";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/colosse/mf/MPI/intel14.0/openmpi1.6.5:ProjectDIR/rt/colosse/mf/Compilers/intel14.0:ProjectDIR/rt/colosse/mf/Core:ProjectDIR/rt/colosse/mf/Core-colosse";
+export MODULEPATH;
+AR="/software6/compilers/intel/composer_xe_2013_sp1/bin/xiar";
+export AR;
+CC="/software6/compilers/intel/composer_xe_2013_sp1/bin/icc";
+export CC;
+CPATH="/software6/mpi/openmpi/1.6.5_intel/include:/software6/apps/buildtools/20140527/include";
+export CPATH;
+CXX="/software6/compilers/intel/composer_xe_2013_sp1/bin/icpc";
+export CXX;
+F77="/software6/compilers/intel/composer_xe_2013_sp1/bin/ifort";
+export F77;
+FC="/software6/compilers/intel/composer_xe_2013_sp1/bin/ifort";
+export FC;
+INTEL_LICENSE_FILE="28519@10.225.3.12";
+export INTEL_LICENSE_FILE;
+LD="/software6/compilers/intel/composer_xe_2013_sp1/bin/xild";
+export LD;
+LD_LIBRARY_PATH="/software6/mpi/openmpi/1.6.5_intel/lib:/software6/compilers/intel/composer_xe_2013_sp1/lib/intel64:/software6/apps/buildtools/20140527/lib64:/software6/apps/buildtools/20140527/lib";
+export LD_LIBRARY_PATH;
+LIBRARY_PATH="/software6/mpi/openmpi/1.6.5_intel/lib:/software6/compilers/intel/composer_xe_2013_sp1/lib/intel64:/software6/apps/buildtools/20140527/lib64:/software6/apps/buildtools/20140527/lib";
+export LIBRARY_PATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/colosse/mf/Core:ProjectDIR/rt/colosse/mf/Core-colosse";
+export LMOD_DEFAULT_MODULEPATH;
+LMOD_FAMILY_COMPILERS="compilers/intel";
+export LMOD_FAMILY_COMPILERS;
+LMOD_FAMILY_MOAB="apps/moab";
+export LMOD_FAMILY_MOAB;
+LMOD_FAMILY_MPI="mpi/openmpi";
+export LMOD_FAMILY_MPI;
+LOADEDMODULES="apps/buildtools/20140527:compilers/intel/14.0:mpi/openmpi/1.6.5:StdEnv:apps/moab";
+export LOADEDMODULES;
+MANPATH="/software6/apps/moab/moab/share/man:/software6/mpi/openmpi/1.6.5_intel/share/man:/software6/compilers/intel/composer_xe_2013_sp1/man/en_US:/software6/apps/buildtools/20140527/share/man";
+export MANPATH;
+MOABHOMEDIR="/software6/apps/moab/config_colosse";
+export MOABHOMEDIR;
+MODULEPATH="ProjectDIR/rt/colosse/mf/MPI/intel14.0/openmpi1.6.5:ProjectDIR/rt/colosse/mf/Compilers/intel14.0:ProjectDIR/rt/colosse/mf/Core:ProjectDIR/rt/colosse/mf/Core-colosse";
+export MODULEPATH;
+OMPI_MCA_plm_rsh_num_concurrent="960";
+export OMPI_MCA_plm_rsh_num_concurrent;
+PATH="/software6/apps/moab/moab/bin:/software6/mpi/openmpi/1.6.5_intel/bin:/software6/compilers/intel/composer_xe_2013_sp1/bin:/software6/apps/buildtools/20140527/bin:ProjectDIR/src:PATH_to_TM:/bin";
+export PATH;
+TACC_FAMILY_COMPILERS="compilers/intel";
+export TACC_FAMILY_COMPILERS;
+TACC_FAMILY_MOAB="apps/moab";
+export TACC_FAMILY_MOAB;
+TACC_FAMILY_MPI="mpi/openmpi";
+export TACC_FAMILY_MPI;
+_LMFILES_="ProjectDIR/rt/colosse/mf/Core/apps/buildtools/20140527.lua:ProjectDIR/rt/colosse/mf/Core-colosse/compilers/intel/14.0.lua:ProjectDIR/rt/colosse/mf/Compilers/intel14.0/mpi/openmpi/1.6.5.lua:ProjectDIR/rt/colosse/mf/Core/StdEnv.lua:ProjectDIR/rt/colosse/mf/Core-colosse/apps/moab.lua";
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={["activeSize"]=5,baseMpathA={"ProjectDIR/rt/colosse/mf/Core","ProjectDIR/rt/colosse/mf/Core-colosse",},family={["compilers"]="compilers/intel",["moab"]="apps/moab",["mpi"]="mpi/openmpi",},inactive={},mT={StdEnv={["FN"]="ProjectDIR/rt/colosse/mf/Core/StdEnv.lua",["default"]=0,["fullName"]="StdEnv",["loadOrder"]=4,propT={lmod={["sticky"]=1,},},["short"]="StdEnv",["status"]="active",},["apps/buildtools"]={["FN"]="ProjectDIR/rt/colosse/mf/Core/apps/buildtools/20140527.lua",["default"]=1,["fullName"]="apps/buildtools/20140527",["loadOrder"]=1,propT={},["short"]="apps/buildtools",["status"]="active",},["apps/moab"]={["FN"]="ProjectDIR/rt/colosse/mf/Core-colosse/apps/moab.lua",["default"]=0,["fullName"]="apps/moab",["loadOrder"]=5,propT={lmod={["sticky"]=1,},},["short"]="apps/moab",["status"]="active",},["compilers/intel"]={["FN"]="ProjectDIR/rt/colosse/mf/Core-colosse/compilers/intel/14.0.lua",["default"]=1,["fullName"]="compilers/intel/14.0",["loadOrder"]=2,propT={},["short"]="compilers/intel",["status"]="active",},["mpi/openmpi"]={["FN"]="ProjectDIR/rt/colosse/mf/Compilers/intel14.0/mpi/openmpi/1.6.5.lua",["default"]=0,["fullName"]="mpi/openmpi/1.6.5",["loadOrder"]=3,propT={},["short"]="mpi/openmpi",["status"]="active",},},mpathA={"ProjectDIR/rt/colosse/mf/MPI/intel14.0/openmpi1.6.5","ProjectDIR/rt/colosse/mf/Compilers/intel14.0","ProjectDIR/rt/colosse/mf/Core","ProjectDIR/rt/colosse/mf/Core-colosse",},["systemBaseMPATH"]="ProjectDIR/rt/colosse/mf/Core:ProjectDIR/rt/colosse/mf/Core-colosse",["version"]=2,}';
+export _ModuleTable_;
+===========================
+step 5
+lua ProjectDIR/src/lmod.in.lua bash avail
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/colosse/mf/Core:ProjectDIR/rt/colosse/mf/Core-colosse";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/colosse/mf/MPI/intel14.0/openmpi1.6.5:ProjectDIR/rt/colosse/mf/Compilers/intel14.0:ProjectDIR/rt/colosse/mf/Core:ProjectDIR/rt/colosse/mf/Core-colosse";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/colosse/mf/Core:ProjectDIR/rt/colosse/mf/Core-colosse";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/colosse/mf/MPI/intel14.0/openmpi1.6.5:ProjectDIR/rt/colosse/mf/Compilers/intel14.0:ProjectDIR/rt/colosse/mf/Core:ProjectDIR/rt/colosse/mf/Core-colosse";
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=5,baseMpathA={"ProjectDIR/rt/colosse/mf/Core","ProjectDIR/rt/colosse/mf/Core-colosse",},family={["compilers"]="compilers/intel",["moab"]="apps/moab",["mpi"]="mpi/openmpi",},inactive={},mT={StdEnv={["FN"]="ProjectDIR/rt/colosse/mf/Core/StdEnv.lua",["default"]=0,["fullName"]="StdEnv",["loadOrder"]=4,propT={lmod={["sticky"]=1,},},["short"]="StdEnv",["status"]="active",},["apps/buildtools"]={["FN"]="ProjectDIR/rt/colosse/mf/Core/apps/buildtools/20140527.lua",["default"]=1,["fullName"]="apps/buildtools/20140527",["loadOrder"]=1,propT={},["short"]="apps/buildtools",["status"]="active",},["apps/moab"]={["FN"]="ProjectDIR/rt/colosse/mf/Core-colosse/apps/moab.lua",["default"]=0,["fullName"]="apps/moab",["loadOrder"]=5,propT={lmod={["sticky"]=1,},},["short"]="apps/moab",["status"]="active",},["compilers/intel"]={["FN"]="ProjectDIR/rt/colosse/mf/Core-colosse/compilers/intel/14.0.lua",["default"]=1,["fullName"]="compilers/intel/14.0",["loadOrder"]=2,propT={},["short"]="compilers/intel",["status"]="active",},["mpi/openmpi"]={["FN"]="ProjectDIR/rt/colosse/mf/Compilers/intel14.0/mpi/openmpi/1.6.5.lua",["default"]=0,["fullName"]="mpi/openmpi/1.6.5",["loadOrder"]=3,propT={},["short"]="mpi/openmpi",["status"]="active",},},mpathA={"ProjectDIR/rt/colosse/mf/MPI/intel14.0/openmpi1.6.5","ProjectDIR/rt/colosse/mf/Compilers/intel14.0","ProjectDIR/rt/colosse/mf/Core","ProjectDIR/rt/colosse/mf/Core-colosse",},["systemBaseMPATH"]="ProjectDIR/rt/colosse/mf/Core:ProjectDIR/rt/colosse/mf/Core-colosse",["version"]=2,}';
+export _ModuleTable_;

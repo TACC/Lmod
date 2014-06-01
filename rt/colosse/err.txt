@@ -1,0 +1,49 @@
+===========================
+step 1
+lua ProjectDIR/src/lmod.in.lua bash --version
+===========================
+Modules based on Lua: Version 5.6 5.6-1-gf1ef37e 2014-05-27 15:15
+    by Robert McLay mclay@tacc.utexas.edu
+===========================
+step 2
+lua ProjectDIR/src/lmod.in.lua bash load StdEnv
+===========================
+===========================
+step 3
+lua ProjectDIR/src/lmod.in.lua bash list
+===========================
+Currently Loaded Modules:
+  1) apps/moab                (S)   3) compilers/intel/14.0   5) StdEnv (S)
+  2) apps/buildtools/20140527       4) mpi/openmpi/1.6.5
+  Where:
+   (S):  Module is Sticky, requires --force to unload or purge
+===========================
+step 4
+lua ProjectDIR/src/lmod.in.lua bash purge
+===========================
+===========================
+step 5
+lua ProjectDIR/src/lmod.in.lua bash avail
+===========================
+ProjectDIR/rt/colosse/mf/MPI/intel14.0/openmpi1.6.5
+   apps/erne/1.4.3                    apps/ray/2.3.0
+   apps/gromacs/4.0.7                 libs/alugrid/1.52
+   apps/gromacs/4.6.3          (D)    libs/boost/1.55.0
+   apps/lammps/20131207               libs/fftw/3.3.3
+   apps/mrbayes/3.2.2                 libs/netcdf/4.3.0
+   apps/namd/2.9                      libs/parmetis/4.0.3
+   apps/openfoam/2.2.2                libs/petsc/3.4.3
+   apps/paraview/4.1.0                libs/phdf5/1.8.11
+   apps/quantum-espresso/5.0.3
+ProjectDIR/rt/colosse/mf/Compilers/intel14.0
+   mpi/mvapich2/1.9    mpi/openmpi/1.6.5 (D)    mpi/openmpi/1.8.1
+ProjectDIR/rt/colosse/mf/Core
+   StdEnv (S)    apps/buildtools/20140527
+ProjectDIR/rt/colosse/mf/Core-colosse
+   apps/lua/5.1.4.6    apps/moab (S)    compilers/intel/14.0
+  Where:
+   (D):  Default Module
+   (S):  Module is Sticky, requires --force to unload or purge
+Use "module spider" to find all possible modules.
+Use "module keyword key1 key2 ..." to search for all possible modules matching
+any of the "keys".

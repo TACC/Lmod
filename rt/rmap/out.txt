@@ -12,14 +12,14 @@ timestampFn = {
 reverseMapT = {
   ["ProjectDIR/rt/rmap/apps/intel-13_1/impi/4.1/bin"] = {
     flavor = {
-      "default:intel/14.0.1", "default:intel/13.1",
+      "default:intel/13.1", "default:intel/14.0.1",
     },
     ["kind"] = "bin",
     ["pkg"] = "impi/4.1",
   },
   ["ProjectDIR/rt/rmap/apps/intel-13_1/impi/4.1/lib"] = {
     flavor = {
-      "default:intel/14.0.1", "default:intel/13.1",
+      "default:intel/13.1", "default:intel/14.0.1",
     },
     ["kind"] = "lib",
     ["pkg"] = "impi/4.1",

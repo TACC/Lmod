@@ -159,6 +159,7 @@ local function buildReverseMapT(moduleDirA, moduleT, dbT)
          flavor[#flavor+1] = k
       end
       vv.flavorT = nil
+      sort(flavor)
       vv.flavor  = flavor
    end
    return reverseMapT
