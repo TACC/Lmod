@@ -109,6 +109,7 @@ initStdEnvVars()
   unset LMOD_TERM_WIDTH
   unset PYTHONPATH
   unset LMOD_COLORIZE
+  unset LMOD_OPTIONS
   unset _LMFILES_
   unset LOADEDMODULES
   unset __LMOD_PRIORITY_PATH

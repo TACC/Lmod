@@ -80,6 +80,7 @@ function M.options(self, usage)
                                      error   = LmodWarning,
                                      exit    = nothing,
                                      prt     = prt,
+                                     envArg  = os.getenv("LMOD_OPTIONS"),
    }
 
    cmdlineParser:add_option{

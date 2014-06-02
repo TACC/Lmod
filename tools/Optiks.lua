@@ -90,12 +90,14 @@ function M.new(self, t)
    self.argNames  = {}
    self.optA      = {}
 
+   local envArg   = nil
    local usage    = t
    local version  = nil
    if (type(t) == "table") then
       usage    = t.usage
       ProgName = t.progName
       version  = t.version
+      envArg   = t.envArg
 
       Error    = t.error or Error
       Prt      = t.prt or Prt
@@ -114,6 +116,7 @@ function M.new(self, t)
    o.prtEnd   = PrtEnd
    o.usage    = usage
    o.version  = version
+   o.envArg   = envArg
    if (usage == nil) then
       local cmd  = arg[0]
       local i,j  = cmd:find(".*/")
@@ -277,6 +280,55 @@ function M.printHelp(self)
 end
 
 
+function M.parseEnvArg(self)
+   local optA   = {}
+   local optStr = self.envArg
+   if (optStr == nil) then
+      return optA
+   end
+
+   local done   = false
+
+   local idx    = 1
+   local len    = optStr:len()
+   local i, j, k, q, c
+   
+   while (not done) do
+      while (true) do
+         -- remove leading spaces
+         j, k = optStr:find("%s+",idx)
+         if (k) then
+            idx = k + 1
+         end
+         if (idx > len) then
+            done = true
+            break
+         end
+
+         -- look for a quoted string
+         c = optStr:sub(idx,idx)
+         if (c == "\"" or c == "'") then
+            q             = c
+            j             = optStr:find(q,idx+1) or 0
+            optA[#optA+1] = optStr:sub(idx+1, j-1)
+            done          = (j == 0)
+            break
+         end
+
+         -- find end of argument
+         i = optStr:find("%s",idx) or 0
+         optA[#optA+1] = optStr:sub(idx, i-1)
+         if (i == 0) then
+            done = true
+            break
+         end
+         idx = i
+      end
+   end
+   return optA
+end
+
+
 function M.parse(self, argIn)
 
    ------------------------------------------------------------
@@ -301,13 +353,18 @@ function M.parse(self, argIn)
    end
 
 
+   local argA = self:parseEnvArg()
+   for i = 1,#argIn do
+      argA[#argA+1] = argIn[i]
+   end
+
    local noProcess = nil
    local parg      = {}
-   local argTbl    = {[0] = argIn[0]}
+   local argTbl    = {[0] = argA[0]}
    self:setDefaults(argTbl)
-   while (argIn[1]) do
-      local key = argIn[1]
-      table.remove(argIn,1)
+   while (argA[1]) do
+      local key = argA[1]
+      table.remove(argA,1)
       local _, _, dash, optName = key:find("^(%-%-?)([^=-][^=]*)")
       local _, _, arg           = key:find("=(.*)")
       if (key == "--") then
@@ -316,7 +373,7 @@ function M.parse(self, argIn)
          table.insert(parg, key)
          noProcess = 1
       else
-         self:parseOpt(optName, arg, argIn, argTbl)
+         self:parseOpt(optName, arg, argA, argTbl)
       end
    end
    if (argTbl.Optiks_help) then
