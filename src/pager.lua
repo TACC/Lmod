@@ -80,7 +80,7 @@ end
 
 function buildPager()
    local func  = bypassPager
-   local pager = os.getenv("PAGER") or Pager
+   local pager = LMOD_PAGER or os.getenv("PAGER") or Pager
    s_pager     = findInPath(pager)
    if (s_pager and s_pager ~= "") then
       func     = usePager
