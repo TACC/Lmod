@@ -66,6 +66,13 @@ testdescript = {
      mv $(outputDir)/Core/StdEnv.new $(outputDir)/Core/StdEnv.lua
      runLmod restore stdenv          #18
 
+     runLmod purge                   #19
+     runLmod use $(testDir)/PREREQ   #20
+     runLmod load M T A              #21
+     runLmod list                    #22
+     runLmod save                    #23
+     runLmod restore                 #24
+     runLmod list                    #25
      
 
 

@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.5.3rc2 5.5.3rc2-12-g80b343e 2014-05-19 11:33
+Modules based on Lua: Version 5.6.1 5.6.1 2014-06-04 13:52
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -105,13 +105,1195 @@ step 17
 lua ProjectDIR/src/lmod.in.lua bash restore stdenv
 ===========================
 Restoring modules to user's stdenv
+Lmod Warning: The following modules have changed: gcc
+Lmod Warning: Please re-create this collection.
+Restoring modules to system default
+The system default contains no modules
+  (env var: LMOD_SYSTEM_DEFAULT_MODULES is empty)
 ===========================
 step 18
 lua ProjectDIR/src/lmod.in.lua bash restore stdenv
 ===========================
 Restoring modules to user's stdenv
-Lmod Warning: The following modules have changed: StdEnv
+Lmod Warning: The following modules have changed: gcc, StdEnv
 Lmod Warning: Please re-create this collection.
 Restoring modules to system default
 The system default contains no modules
   (env var: LMOD_SYSTEM_DEFAULT_MODULES is empty)
+===========================
+step 19
+lua ProjectDIR/src/lmod.in.lua bash purge
+===========================
+===========================
+step 20
+lua ProjectDIR/src/lmod.in.lua bash use ProjectDIR/rt/saverestore/PREREQ
+===========================
+===========================
+step 21
+lua ProjectDIR/src/lmod.in.lua bash load M T A
+===========================
+===========================
+step 22
+lua ProjectDIR/src/lmod.in.lua bash list
+===========================
+Currently Loaded Modules:
+  1) M/7.2.6   2) T/4.2.6   3) A/1.0
+===========================
+step 23
+lua ProjectDIR/src/lmod.in.lua bash -D save
+===========================
+Description                      Value
+Allow TCL modulefiles            @allow_tcl_mfiles@
+User cache valid time(sec)       @ancient@
+Case Independent Sorting         @case_independent_sorting@
+Colorize Lmod                    @colorize@
+Using dotfiles                   @use_dot_files@
+Allow duplicate paths            @duplicate_paths@
+System lua_json                  @have_lua_json@
+System lua-term                  @have_lua_term@
+Include modulepath dir in avail  no
+MODULEPATH_ROOT                  @modulepath_root@
+number of cache dirs             0
+Path to HashSum                  @path_to_hashsum@
+Path to Lua                      @path_to_lua@
+Path to Pager                    @path_to_pager@
+Pkg Class name                   Pkg
+Lmod prefix                      @PREFIX@
+Prepend order                    @prepend_block@
+Supporting Full Settarg Use      @lmod_full_settarg_support@
+Write cache after (sec)          @short_time@
+Site Pkg location                ProjectDIR/rt/saverestore/SitePackage.lua
+uname -a
+Admin file                       ProjectDIR/src/../../etc/admin.list
+Does Admin file exist            no
+Active RC file(s):
+ProjectDIR/init/lmodrc.lua
+ Lmod Property Table:
+propT = {
+  arch = {
+    displayT = {
+      gpu = {
+        ["color"] = "red",
+        ["doc"] = "built for GPU",
+        ["long"] = "(g)",
+        ["short"] = "(g)",
+      },
+      ["gpu:mic"] = {
+        ["color"] = "red",
+        ["doc"] = "built natively for MIC and GPU",
+        ["long"] = "(g,m)",
+        ["short"] = "(gm)",
+      },
+      ["gpu:mic:offload"] = {
+        ["color"] = "red",
+        ["doc"] = "built natively for MIC and GPU and offload to the MIC",
+        ["long"] = "(g,m,o)",
+        ["short"] = "(@)",
+      },
+      mic = {
+        ["color"] = "blue",
+        ["doc"] = "built for host and native MIC",
+        ["long"] = "(m)",
+        ["short"] = "(m)",
+      },
+      ["mic:offload"] = {
+        ["color"] = "blue",
+        ["doc"] = "built for host, native MIC and offload to the MIC",
+        ["long"] = "(m,o)",
+        ["short"] = "(*)",
+      },
+      offload = {
+        ["color"] = "blue",
+        ["doc"] = "built for offload to the MIC only",
+        ["long"] = "(o)",
+        ["short"] = "(o)",
+      },
+    },
+    validT = {
+      ["gpu"] = 1,
+      ["mic"] = 1,
+      ["offload"] = 1,
+    },
+  },
+  lmod = {
+    displayT = {
+      sticky = {
+        ["color"] = "red",
+        ["doc"] = "Module is Sticky, requires --force to unload or purge",
+        ["long"] = "(S)",
+        ["short"] = "(S)",
+      },
+    },
+    validT = {
+      ["sticky"] = 1,
+    },
+  },
+  state = {
+    displayT = {
+      experimental = {
+        ["color"] = "blue",
+        ["doc"] = "Experimental",
+        ["long"] = "(E)",
+        ["short"] = "(E)",
+      },
+      obsolete = {
+        ["color"] = "red",
+        ["doc"] = "Obsolete",
+        ["long"] = "(O)",
+        ["short"] = "(O)",
+      },
+      testing = {
+        ["color"] = "green",
+        ["doc"] = "Testing",
+        ["long"] = "(T)",
+        ["short"] = "(T)",
+      },
+    },
+    validT = {
+      ["experimental"] = 1,
+      ["obsolete"] = 1,
+      ["testing"] = 1,
+    },
+  },
+}
+lmod(-D save){
+  Lmod Version: 5.6.1 5.6.1 2014-06-04 13:52
+  package.path: ProjectDIR/rt/saverestore/?.lua;ProjectDIR/rt/saverestore/?/init.lua;ProjectDIR/src/?.lua;ProjectDIR/src/../tools/?.lua;ProjectDIR/src/../shells/?.lua;ProjectDIR/src/?/init.lua;/opt/apps/luarocks/rocks/share/lua/5.2/?.lua;/opt/apps/luarocks/luarocks/share/lua/5.2/?.lua;/opt/apps/luatools/5.2.2/share/lua/5.2/?.lua;/usr/local/share/lua/5.2/?.lua;/usr/local/share/lua/5.2/?/init.lua;/usr/local/lib/lua/5.2/?.lua;/usr/local/lib/lua/5.2/?/init.lua;/usr/share/lua/5.2/?.lua;/usr/share/lua/5.2/?/init.lua;./?.lua;
+  Master:master(safe: false){
+  } Master:master
+  mt(){
+    MT:new(){
+      systemBaseMPATH:       "ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core"
+      (1) o.systemBaseMPATH: "ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core"
+      s: _ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/saverestore/PREREQ","OutputDIR/Core",},["c_rebuildTime"]=false,["c_shortTime"]=0.140782,family={["resourcemgr"]="T",["scheduler"]="M",},inactive={},mT={A={["FN"]="ProjectDIR/rt/saverestore/PREREQ/A/1.0.lua",["default"]=1,["fullName"]="A/1.0",["loadOrder"]=3,propT={},["short"]="A",["status"]="active",},M={["FN"]="ProjectDIR/rt/saverestore/PREREQ/M/7.2.6.lua",["default"]=1,["fullName"]="M/7.2.6",["loadOrder"]=1,propT={},["short"]="M",["status"]="active",},T={["FN"]="ProjectDIR/rt/saverestore/PREREQ/T/4.2.6.lua",["default"]=1,["fullName"]="T/4.2.6",["loadOrder"]=2,propT={},["short"]="T",["status"]="active",},},mpathA={"ProjectDIR/rt/saverestore/PREREQ","OutputDIR/Core",},["systemBaseMPATH"]="OutputDIR/Core",["version"]=2,}
+      (1) o._MPATH: ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core
+      (2) o.systemBaseMPATH: "OutputDIR/Core"
+      baseMPATH: ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core
+      buildBaseMpathA(ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core)
+      (2) systemBaseMPATH: OutputDIR/Core
+    } MT:new
+    MT:setupMPATH(self,mpath: "ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core"){
+    } MT:setupMPATH
+    s_mt._same: true
+  } mt
+  BaseShell:expand(tbl){
+    LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
+    export LMOD_DEFAULT_MODULEPATH;
+    MODULEPATH="ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
+    export MODULEPATH;
+  } BaseShell:expand
+  cmd name: save
+  Save(){
+    MT:setHashSum(){
+      cmd: lua ProjectDIR/src/computeHashSum.in.lua --indentLevel 4 -D --fullName A/1.0 --usrName A --sn A ProjectDIR/rt/saverestore/PREREQ/A/1.0.lua
+      capture(lua ProjectDIR/src/computeHashSum.in.lua --indentLevel 4 -D --fullName A/1.0 --usrName A --sn A ProjectDIR/rt/saverestore/PREREQ/A/1.0.lua){
+        computeHashSum(){
+          Accepting TCL Files
+          lmodPath: "ProjectDIR/rt/saverestore"
+          MasterControl:_setMode("load"){
+          } MasterControl:_setMode
+          Setting mcp to MC_ComputeHash
+          MasterControl:_setMode("load"){
+          } MasterControl:_setMode
+          Setting mcp to MC_ComputeHash
+          loadModuleFile(){
+            t.file: ProjectDIR/rt/saverestore/PREREQ/A/1.0.lua
+            ModuleFile{
+              prereq("M")
+            }
+            prereq(M){
+              cmd: prereq arg.n: 1
+            } prereq
+          } loadModuleFile
+          Text to Hash: (empty)
+          capture(/usr/bin/sha1sum /tmp/lua_qw8F7g){
+          } capture
+          hash value: da39a3ee5e6b4b0d3255bfef95601890afd80709
+        } computeHashSum
+      } capture
+      cmd: lua ProjectDIR/src/computeHashSum.in.lua --indentLevel 4 -D --fullName T/4.2.6 --usrName T --sn T ProjectDIR/rt/saverestore/PREREQ/T/4.2.6.lua
+      capture(lua ProjectDIR/src/computeHashSum.in.lua --indentLevel 4 -D --fullName T/4.2.6 --usrName T --sn T ProjectDIR/rt/saverestore/PREREQ/T/4.2.6.lua){
+        computeHashSum(){
+          Accepting TCL Files
+          lmodPath: "ProjectDIR/rt/saverestore"
+          MasterControl:_setMode("load"){
+          } MasterControl:_setMode
+          Setting mcp to MC_ComputeHash
+          MasterControl:_setMode("load"){
+          } MasterControl:_setMode
+          Setting mcp to MC_ComputeHash
+          loadModuleFile(){
+            t.file: ProjectDIR/rt/saverestore/PREREQ/T/4.2.6.lua
+            ModuleFile{
+              family("resourcemgr")
+              whatis("Loads the T resource manager into environment")
+              local base = "/apps/T"
+              prepend_path("PATH",pathJoin(base,"bin"))
+              prepend_path("PATH",pathJoin(base,"sbin"))
+              prepend_path("LD_LIBRARY_PATH",pathJoin(base,"lib"))
+              prepend_path("MANPATH",pathJoin(base,"share/man"))
+            }
+            family(resourcemgr){
+            } family
+            whatis(Loads the T resource manager into environment){
+            } whatis
+            prepend_path(PATH, /apps/T/bin){
+            } prepend_path
+            prepend_path(PATH, /apps/T/sbin){
+            } prepend_path
+            prepend_path(LD_LIBRARY_PATH, /apps/T/lib){
+            } prepend_path
+            prepend_path(MANPATH, /apps/T/share/man){
+            } prepend_path
+          } loadModuleFile
+          Text to Hash: (empty)
+          capture(/usr/bin/sha1sum /tmp/lua_xybrNg){
+          } capture
+          hash value: da39a3ee5e6b4b0d3255bfef95601890afd80709
+        } computeHashSum
+      } capture
+      cmd: lua ProjectDIR/src/computeHashSum.in.lua --indentLevel 4 -D --fullName M/7.2.6 --usrName M --sn M ProjectDIR/rt/saverestore/PREREQ/M/7.2.6.lua
+      capture(lua ProjectDIR/src/computeHashSum.in.lua --indentLevel 4 -D --fullName M/7.2.6 --usrName M --sn M ProjectDIR/rt/saverestore/PREREQ/M/7.2.6.lua){
+        computeHashSum(){
+          Accepting TCL Files
+          lmodPath: "ProjectDIR/rt/saverestore"
+          MasterControl:_setMode("load"){
+          } MasterControl:_setMode
+          Setting mcp to MC_ComputeHash
+          MasterControl:_setMode("load"){
+          } MasterControl:_setMode
+          Setting mcp to MC_ComputeHash
+          loadModuleFile(){
+            t.file: ProjectDIR/rt/saverestore/PREREQ/M/7.2.6.lua
+            ModuleFile{
+              family("scheduler")
+              local base = "/apps/M"
+              prepend_path("PATH",pathJoin(base,"bin"))
+              prepend_path("PATH",pathJoin(base,"sbin"))
+              prepend_path("MANPATH",pathJoin(base,"share/man"))
+            }
+            family(scheduler){
+            } family
+            prepend_path(PATH, /apps/M/bin){
+            } prepend_path
+            prepend_path(PATH, /apps/M/sbin){
+            } prepend_path
+            prepend_path(MANPATH, /apps/M/share/man){
+            } prepend_path
+          } loadModuleFile
+          Text to Hash: (empty)
+          capture(/usr/bin/sha1sum /tmp/lua_oMfTnj){
+          } capture
+          hash value: da39a3ee5e6b4b0d3255bfef95601890afd80709
+        } computeHashSum
+      } capture
+    } MT:setHashSum
+Saved current collection of modules to: default
+  } Save
+  Master:master(safe: nil){
+  } Master:master
+  MT:reportChanges(){
+    MT.origMT(){
+    } MT.origMT
+  } MT:reportChanges
+} Lmod
+BaseShell:expand(tbl){
+  LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
+  export LMOD_DEFAULT_MODULEPATH;
+  MODULEPATH="ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
+  export MODULEPATH;
+  BaseShell:expandMT(vstr){
+    _ModuleTable001_="X01vZHVsZVRhYmxlXz17WyJhY3RpdmVTaXplIl09MyxiYXNlTXBhdGhBPXsiL2hvbWUvbWNsYXkvdy9sbW9kL3J0L3NhdmVyZXN0b3JlL1BSRVJFUSIsIi9ob21lL21jbGF5L3cvbG1vZC9ydC9zYXZlcmVzdG9yZS90MS94ODZfNjRfMDZfMWFfZGJnX2ludGVsLTE0LjAuMl9tcGljaC0zLjAuNC0yMDE0XzA2XzA0XzE3XzMxXzQ0LUxpbnV4LXg4Nl82NC1zYXZlcmVzdG9yZS9Db3JlIix9LFsiY19yZWJ1aWxkVGltZSJdPWZhbHNlLFsiY19zaG9ydFRpbWUiXT0wLjE0MDc4MixmYW1pbHk9e1sicmVzb3VyY2VtZ3IiXT0iVCIsWyJzY2hlZHVsZXIiXT0iTSIsfSxpbmFjdGl2ZT17fSxtVD17QT17WyJGTiJdPSIvaG9tZS9tY2xheS93L2xtb2QvcnQvc2F2ZXJlc3RvcmUvUFJFUkVR";
+    export _ModuleTable001_;
+    _ModuleTable002_="L0EvMS4wLmx1YSIsWyJkZWZhdWx0Il09MSxbImZ1bGxOYW1lIl09IkEvMS4wIixbImxvYWRPcmRlciJdPTMscHJvcFQ9e30sWyJzaG9ydCJdPSJBIixbInN0YXR1cyJdPSJhY3RpdmUiLH0sTT17WyJGTiJdPSIvaG9tZS9tY2xheS93L2xtb2QvcnQvc2F2ZXJlc3RvcmUvUFJFUkVRL00vNy4yLjYubHVhIixbImRlZmF1bHQiXT0xLFsiZnVsbE5hbWUiXT0iTS83LjIuNiIsWyJsb2FkT3JkZXIiXT0xLHByb3BUPXt9LFsic2hvcnQiXT0iTSIsWyJzdGF0dXMiXT0iYWN0aXZlIix9LFQ9e1siRk4iXT0iL2hvbWUvbWNsYXkvdy9sbW9kL3J0L3NhdmVyZXN0b3JlL1BSRVJFUS9ULzQuMi42Lmx1YSIsWyJkZWZhdWx0Il09MSxbImZ1bGxOYW1lIl09IlQvNC4yLjYiLFsibG9hZE9yZGVy";
+    export _ModuleTable002_;
+    _ModuleTable003_="Il09Mixwcm9wVD17fSxbInNob3J0Il09IlQiLFsic3RhdHVzIl09ImFjdGl2ZSIsfSx9LG1wYXRoQT17Ii9ob21lL21jbGF5L3cvbG1vZC9ydC9zYXZlcmVzdG9yZS9QUkVSRVEiLCIvaG9tZS9tY2xheS93L2xtb2QvcnQvc2F2ZXJlc3RvcmUvdDEveDg2XzY0XzA2XzFhX2RiZ19pbnRlbC0xNC4wLjJfbXBpY2gtMy4wLjQtMjAxNF8wNl8wNF8xN18zMV80NC1MaW51eC14ODZfNjQtc2F2ZXJlc3RvcmUvQ29yZSIsfSxbInN5c3RlbUJhc2VNUEFUSCJdPSIvaG9tZS9tY2xheS93L2xtb2QvcnQvc2F2ZXJlc3RvcmUvdDEveDg2XzY0XzA2XzFhX2RiZ19pbnRlbC0xNC4wLjJfbXBpY2gtMy4wLjQtMjAxNF8wNl8wNF8xN18zMV80NC1MaW51eC14ODZfNjQtc2F2ZXJlc3RvcmUvQ29y";
+    export _ModuleTable003_;
+    _ModuleTable004_="ZSIsWyJ2ZXJzaW9uIl09Mix9";
+    export _ModuleTable004_;
+    _ModuleTable_Sz_="4";
+    export _ModuleTable_Sz_;
+    _ModuleTable_ = {
+      ["activeSize"] = 3,
+      baseMpathA = {
+        "ProjectDIR/rt/saverestore/PREREQ", "OutputDIR/Core",
+      },
+      ["c_rebuildTime"] = false,
+      ["c_shortTime"] = 0.140782,
+      family = {
+        ["resourcemgr"] = "T",
+        ["scheduler"] = "M",
+      },
+      inactive = {
+          },
+      mT = {
+        A = {
+          ["FN"] = "ProjectDIR/rt/saverestore/PREREQ/A/1.0.lua",
+          ["default"] = 1,
+          ["fullName"] = "A/1.0",
+          ["loadOrder"] = 3,
+          propT = {
+                  },
+          ["short"] = "A",
+          ["status"] = "active",
+        },
+        M = {
+          ["FN"] = "ProjectDIR/rt/saverestore/PREREQ/M/7.2.6.lua",
+          ["default"] = 1,
+          ["fullName"] = "M/7.2.6",
+          ["loadOrder"] = 1,
+          propT = {
+                  },
+          ["short"] = "M",
+          ["status"] = "active",
+        },
+        T = {
+          ["FN"] = "ProjectDIR/rt/saverestore/PREREQ/T/4.2.6.lua",
+          ["default"] = 1,
+          ["fullName"] = "T/4.2.6",
+          ["loadOrder"] = 2,
+          propT = {
+                  },
+          ["short"] = "T",
+          ["status"] = "active",
+        },
+      },
+      mpathA = {
+        "ProjectDIR/rt/saverestore/PREREQ", "OutputDIR/Core",
+      },
+      ["systemBaseMPATH"] = "OutputDIR/Core",
+      ["version"] = 2,
+    }
+  } BaseShell:expandMT
+} BaseShell:expand
+Exec:exec(){
+} Exec:exec
+===========================
+step 24
+lua ProjectDIR/src/lmod.in.lua bash -D restore
+===========================
+Description                      Value
+Allow TCL modulefiles            @allow_tcl_mfiles@
+User cache valid time(sec)       @ancient@
+Case Independent Sorting         @case_independent_sorting@
+Colorize Lmod                    @colorize@
+Using dotfiles                   @use_dot_files@
+Allow duplicate paths            @duplicate_paths@
+System lua_json                  @have_lua_json@
+System lua-term                  @have_lua_term@
+Include modulepath dir in avail  no
+MODULEPATH_ROOT                  @modulepath_root@
+number of cache dirs             0
+Path to HashSum                  @path_to_hashsum@
+Path to Lua                      @path_to_lua@
+Path to Pager                    @path_to_pager@
+Pkg Class name                   Pkg
+Lmod prefix                      @PREFIX@
+Prepend order                    @prepend_block@
+Supporting Full Settarg Use      @lmod_full_settarg_support@
+Write cache after (sec)          @short_time@
+Site Pkg location                ProjectDIR/rt/saverestore/SitePackage.lua
+uname -a
+Admin file                       ProjectDIR/src/../../etc/admin.list
+Does Admin file exist            no
+Active RC file(s):
+ProjectDIR/init/lmodrc.lua
+ Lmod Property Table:
+propT = {
+  arch = {
+    displayT = {
+      gpu = {
+        ["color"] = "red",
+        ["doc"] = "built for GPU",
+        ["long"] = "(g)",
+        ["short"] = "(g)",
+      },
+      ["gpu:mic"] = {
+        ["color"] = "red",
+        ["doc"] = "built natively for MIC and GPU",
+        ["long"] = "(g,m)",
+        ["short"] = "(gm)",
+      },
+      ["gpu:mic:offload"] = {
+        ["color"] = "red",
+        ["doc"] = "built natively for MIC and GPU and offload to the MIC",
+        ["long"] = "(g,m,o)",
+        ["short"] = "(@)",
+      },
+      mic = {
+        ["color"] = "blue",
+        ["doc"] = "built for host and native MIC",
+        ["long"] = "(m)",
+        ["short"] = "(m)",
+      },
+      ["mic:offload"] = {
+        ["color"] = "blue",
+        ["doc"] = "built for host, native MIC and offload to the MIC",
+        ["long"] = "(m,o)",
+        ["short"] = "(*)",
+      },
+      offload = {
+        ["color"] = "blue",
+        ["doc"] = "built for offload to the MIC only",
+        ["long"] = "(o)",
+        ["short"] = "(o)",
+      },
+    },
+    validT = {
+      ["gpu"] = 1,
+      ["mic"] = 1,
+      ["offload"] = 1,
+    },
+  },
+  lmod = {
+    displayT = {
+      sticky = {
+        ["color"] = "red",
+        ["doc"] = "Module is Sticky, requires --force to unload or purge",
+        ["long"] = "(S)",
+        ["short"] = "(S)",
+      },
+    },
+    validT = {
+      ["sticky"] = 1,
+    },
+  },
+  state = {
+    displayT = {
+      experimental = {
+        ["color"] = "blue",
+        ["doc"] = "Experimental",
+        ["long"] = "(E)",
+        ["short"] = "(E)",
+      },
+      obsolete = {
+        ["color"] = "red",
+        ["doc"] = "Obsolete",
+        ["long"] = "(O)",
+        ["short"] = "(O)",
+      },
+      testing = {
+        ["color"] = "green",
+        ["doc"] = "Testing",
+        ["long"] = "(T)",
+        ["short"] = "(T)",
+      },
+    },
+    validT = {
+      ["experimental"] = 1,
+      ["obsolete"] = 1,
+      ["testing"] = 1,
+    },
+  },
+}
+lmod(-D restore){
+  Lmod Version: 5.6.1 5.6.1 2014-06-04 13:52
+  package.path: ProjectDIR/rt/saverestore/?.lua;ProjectDIR/rt/saverestore/?/init.lua;ProjectDIR/src/?.lua;ProjectDIR/src/../tools/?.lua;ProjectDIR/src/../shells/?.lua;ProjectDIR/src/?/init.lua;/opt/apps/luarocks/rocks/share/lua/5.2/?.lua;/opt/apps/luarocks/luarocks/share/lua/5.2/?.lua;/opt/apps/luatools/5.2.2/share/lua/5.2/?.lua;/usr/local/share/lua/5.2/?.lua;/usr/local/share/lua/5.2/?/init.lua;/usr/local/lib/lua/5.2/?.lua;/usr/local/lib/lua/5.2/?/init.lua;/usr/share/lua/5.2/?.lua;/usr/share/lua/5.2/?/init.lua;./?.lua;
+  Master:master(safe: false){
+  } Master:master
+  mt(){
+    MT:new(){
+      systemBaseMPATH:       "ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core"
+      (1) o.systemBaseMPATH: "ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core"
+      s: _ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/saverestore/PREREQ","OutputDIR/Core",},["c_rebuildTime"]=false,["c_shortTime"]=0.140782,family={["resourcemgr"]="T",["scheduler"]="M",},inactive={},mT={A={["FN"]="ProjectDIR/rt/saverestore/PREREQ/A/1.0.lua",["default"]=1,["fullName"]="A/1.0",["loadOrder"]=3,propT={},["short"]="A",["status"]="active",},M={["FN"]="ProjectDIR/rt/saverestore/PREREQ/M/7.2.6.lua",["default"]=1,["fullName"]="M/7.2.6",["loadOrder"]=1,propT={},["short"]="M",["status"]="active",},T={["FN"]="ProjectDIR/rt/saverestore/PREREQ/T/4.2.6.lua",["default"]=1,["fullName"]="T/4.2.6",["loadOrder"]=2,propT={},["short"]="T",["status"]="active",},},mpathA={"ProjectDIR/rt/saverestore/PREREQ","OutputDIR/Core",},["systemBaseMPATH"]="OutputDIR/Core",["version"]=2,}
+      (1) o._MPATH: ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core
+      (2) o.systemBaseMPATH: "OutputDIR/Core"
+      baseMPATH: ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core
+      buildBaseMpathA(ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core)
+      (2) systemBaseMPATH: OutputDIR/Core
+    } MT:new
+    MT:setupMPATH(self,mpath: "ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core"){
+    } MT:setupMPATH
+    s_mt._same: true
+  } mt
+  BaseShell:expand(tbl){
+    LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
+    export LMOD_DEFAULT_MODULEPATH;
+    MODULEPATH="ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
+    export MODULEPATH;
+  } BaseShell:expand
+  cmd name: restore
+  Restore(nil){
+    mt:getMTfromFile(OutputDIR/.lmod.d/default){
+Restoring modules to user's default
+      MT:new(){
+        systemBaseMPATH:       "ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core"
+        (1) o.systemBaseMPATH: "ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core"
+        s: -- -*- lua -*-
+        -- created: Wed Jun  4 17:32:34 2014 --
+        -- Lmod 5.6.1 5.6.1 2014-06-04 13:52
+        _ModuleTable_ = {
+          ["activeSize"] = 3,
+          baseMpathA = {
+            "ProjectDIR/rt/saverestore/PREREQ", "OutputDIR/Core",
+          },
+          ["c_rebuildTime"] = false,
+          ["c_shortTime"] = 0.140782,
+          family = {
+            ["resourcemgr"] = "T",
+            ["scheduler"] = "M",
+          },
+          inactive = {
+              },
+          mT = {
+            A = {
+              ["FN"] = "ProjectDIR/rt/saverestore/PREREQ/A/1.0.lua",
+              ["default"] = 1,
+              ["fullName"] = "A/1.0",
+              ["hash"] = "da39a3ee5e6b4b0d3255bfef95601890afd80709",
+              ["loadOrder"] = 3,
+              propT = {
+                      },
+              ["short"] = "A",
+              ["status"] = "active",
+            },
+            M = {
+              ["FN"] = "ProjectDIR/rt/saverestore/PREREQ/M/7.2.6.lua",
+              ["default"] = 1,
+              ["fullName"] = "M/7.2.6",
+              ["hash"] = "da39a3ee5e6b4b0d3255bfef95601890afd80709",
+              ["loadOrder"] = 1,
+              propT = {
+                      },
+              ["short"] = "M",
+              ["status"] = "active",
+            },
+            T = {
+              ["FN"] = "ProjectDIR/rt/saverestore/PREREQ/T/4.2.6.lua",
+              ["default"] = 1,
+              ["fullName"] = "T/4.2.6",
+              ["hash"] = "da39a3ee5e6b4b0d3255bfef95601890afd80709",
+              ["loadOrder"] = 2,
+              propT = {
+                      },
+              ["short"] = "T",
+              ["status"] = "active",
+            },
+          },
+          mpathA = {
+            "ProjectDIR/rt/saverestore/PREREQ", "OutputDIR/Core",
+          },
+          ["systemBaseMPATH"] = "OutputDIR/Core",
+          ["version"] = 2,
+        }
+        (1) o._MPATH: ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core
+        (2) o.systemBaseMPATH: "OutputDIR/Core"
+        baseMPATH: ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core
+        buildBaseMpathA(ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core)
+        (2) systemBaseMPATH: OutputDIR/Core
+      } MT:new
+      sn: M, hash: da39a3ee5e6b4b0d3255bfef95601890afd80709
+      sn: T, hash: da39a3ee5e6b4b0d3255bfef95601890afd80709
+      sn: A, hash: da39a3ee5e6b4b0d3255bfef95601890afd80709
+      Saved baseMPATH: ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core
+      (1) varTbl[ModulePath]:expand(): ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core
+      Master:master(safe: nil){
+      } Master:master
+      Purge(M, T, A){
+        MasterControl:unload_usr(mA){
+          Master:master(safe: nil){
+          } Master:master
+          MasterControl:unload(mA={A, T, M}){
+            Master:unload(mA){
+              MasterControl:_setMode("unload"){
+              } MasterControl:_setMode
+              Setting mcp to MC_Unload
+              Setting mcp to MC_Unload
+              Trying to unload: A sn: A
+              Mark A as pending
+              MT:setStatus(A,pending)
+              Master:unload: "A/1.0" from f: ProjectDIR/rt/saverestore/PREREQ/A/1.0.lua
+              changePATH: 0
+              loadModuleFile(){
+                t.file: ProjectDIR/rt/saverestore/PREREQ/A/1.0.lua
+                ModuleFile{
+                  prereq("M")
+                }
+                prereq(M){
+                  cmd: prereq arg.n: 1
+                } prereq
+              } loadModuleFile
+              changePATH: 0
+              calling mt:remove("A")
+              Trying to unload: T sn: T
+              Mark T as pending
+              MT:setStatus(T,pending)
+              Master:unload: "T/4.2.6" from f: ProjectDIR/rt/saverestore/PREREQ/T/4.2.6.lua
+              changePATH: 0
+              loadModuleFile(){
+                t.file: ProjectDIR/rt/saverestore/PREREQ/T/4.2.6.lua
+                ModuleFile{
+                  family("resourcemgr")
+                  whatis("Loads the T resource manager into environment")
+                  local base = "/apps/T"
+                  prepend_path("PATH",pathJoin(base,"bin"))
+                  prepend_path("PATH",pathJoin(base,"sbin"))
+                  prepend_path("LD_LIBRARY_PATH",pathJoin(base,"lib"))
+                  prepend_path("MANPATH",pathJoin(base,"share/man"))
+                }
+                family(resourcemgr){
+                  MasterControl:unset_family(resourcemgr){
+                    mt:unsetfamily("resourcemgr")
+                    MasterControl:unsetenv("LMOD_FAMILY_RESOURCEMGR", ""){
+                    } MasterControl:unsetenv
+                    MasterControl:unsetenv("TACC_FAMILY_RESOURCEMGR", ""){
+                    } MasterControl:unsetenv
+                  } MasterControl:unset_family
+                } family
+                whatis(Loads the T resource manager into environment){
+                } whatis
+                prepend_path(PATH, /apps/T/bin){
+                  MasterControl:remove_path{"PATH", "/apps/T/bin", delim=":", nodups="nil", priority=0, where=first}{
+                  } MasterControl:remove_path
+                } prepend_path
+                prepend_path(PATH, /apps/T/sbin){
+                  MasterControl:remove_path{"PATH", "/apps/T/sbin", delim=":", nodups="nil", priority=0, where=first}{
+                  } MasterControl:remove_path
+                } prepend_path
+                prepend_path(LD_LIBRARY_PATH, /apps/T/lib){
+                  MasterControl:remove_path{"LD_LIBRARY_PATH", "/apps/T/lib", delim=":", nodups="nil", priority=0, where=first}{
+                  } MasterControl:remove_path
+                } prepend_path
+                prepend_path(MANPATH, /apps/T/share/man){
+                  MasterControl:remove_path{"MANPATH", "/apps/T/share/man", delim=":", nodups="nil", priority=0, where=first}{
+                  } MasterControl:remove_path
+                } prepend_path
+              } loadModuleFile
+              changePATH: 0
+              calling mt:remove("T")
+              Trying to unload: M sn: M
+              Mark M as pending
+              MT:setStatus(M,pending)
+              Master:unload: "M/7.2.6" from f: ProjectDIR/rt/saverestore/PREREQ/M/7.2.6.lua
+              changePATH: 0
+              loadModuleFile(){
+                t.file: ProjectDIR/rt/saverestore/PREREQ/M/7.2.6.lua
+                ModuleFile{
+                  family("scheduler")
+                  local base = "/apps/M"
+                  prepend_path("PATH",pathJoin(base,"bin"))
+                  prepend_path("PATH",pathJoin(base,"sbin"))
+                  prepend_path("MANPATH",pathJoin(base,"share/man"))
+                }
+                family(scheduler){
+                  MasterControl:unset_family(scheduler){
+                    mt:unsetfamily("scheduler")
+                    MasterControl:unsetenv("LMOD_FAMILY_SCHEDULER", ""){
+                    } MasterControl:unsetenv
+                    MasterControl:unsetenv("TACC_FAMILY_SCHEDULER", ""){
+                    } MasterControl:unsetenv
+                  } MasterControl:unset_family
+                } family
+                prepend_path(PATH, /apps/M/bin){
+                  MasterControl:remove_path{"PATH", "/apps/M/bin", delim=":", nodups="nil", priority=0, where=first}{
+                  } MasterControl:remove_path
+                } prepend_path
+                prepend_path(PATH, /apps/M/sbin){
+                  MasterControl:remove_path{"PATH", "/apps/M/sbin", delim=":", nodups="nil", priority=0, where=first}{
+                  } MasterControl:remove_path
+                } prepend_path
+                prepend_path(MANPATH, /apps/M/share/man){
+                  MasterControl:remove_path{"MANPATH", "/apps/M/share/man", delim=":", nodups="nil", priority=0, where=first}{
+                  } MasterControl:remove_path
+                } prepend_path
+              } loadModuleFile
+              changePATH: 0
+              calling mt:remove("M")
+              changePATH: 0 Zombie state: false mStack:empty(): true
+              Setting mcp to MC_Load
+            } Master:unload
+          } MasterControl:unload
+          Master:master(safe: nil){
+          } Master:master
+          Master:reload_sticky(){
+          } Master:reload_sticky
+        } MasterControl:unload_usr
+        warningFlag: false
+      } Purge
+      (2) varTbl[ModulePath]:expand(): ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core
+      self.systemBaseMPATH: OutputDIR/Core
+      l_mt.systemBaseMPATH: OutputDIR/Core
+      MT:new(){
+        systemBaseMPATH:       "ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core"
+        (1) o.systemBaseMPATH: "ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core"
+        setting systemBaseMPATH: ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core
+        Initializing LMOD_DEFAULT_MODULEPATH:ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core
+        (2) systemBaseMPATH: ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core
+      } MT:new
+      MT:setupMPATH(self,mpath: "ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core"){
+      } MT:setupMPATH
+      MasterControl:_setMode("mgrload"){
+      } MasterControl:_setMode
+      Setting mcp to MC_MgrLoad
+      Master:master(safe: nil){
+      } Master:master
+      MasterControl:load(mA={M, T, A}){
+        Master:load(mA){
+          MT:build_locationTbl(mpathA){
+            Cache:cache(){
+              Cache:new(){
+                #scDescriptT: 0
+              } Cache.new
+            } Cache:cache
+            Cache:build(fast=true){
+              Cache:readCacheFile(cacheFileA){
+                LMOD_IGNORE_CACHE is true
+              } Cache:readCacheFile
+              Cache:readCacheFile(cacheFileA){
+                LMOD_IGNORE_CACHE is true
+              } Cache:readCacheFile
+              rebuilding cache for directory: ProjectDIR/rt/saverestore/PREREQ
+              rebuilding cache for directory: OutputDIR/Core
+              Fast and dirsRead: 0
+            } Cache:build
+            moduleT: false
+            availT: 
+              mpath: ProjectDIR/rt/saverestore/PREREQ:
+                A: 1.0,
+                M: 7.2.6,
+                T: 4.2.6,
+              mpath: OutputDIR/Core:
+                StdEnv:
+                a: .template, 1.0, 2.0, 3.0,
+                b: .template, 3.1, 3.2, 3.3,
+                gcc: 4.8.2,
+            locationT: 
+              sn: A:
+                ProjectDIR/rt/saverestore/PREREQ/A
+              sn: M:
+                ProjectDIR/rt/saverestore/PREREQ/M
+              sn: StdEnv:
+                OutputDIR/Core/StdEnv
+              sn: T:
+                ProjectDIR/rt/saverestore/PREREQ/T
+              sn: a:
+                OutputDIR/Core/a
+              sn: b:
+                OutputDIR/Core/b
+              sn: gcc:
+                OutputDIR/Core/gcc
+          } MT:build_locationTbl
+          MName:find(M){
+            MName:find sn: M
+            MName:find_exact_match(pathA, t){
+              UserName: M
+              MName:version(){
+                sType:   load
+                sn:      M
+                name:    M
+                version: nil
+              } MName:version
+              Did not find: M
+            } MName:find_exact_match
+            (1) t.fn: nil
+            MName:find_marked_default(pathA, t){
+              usrName: M
+              sn:      M
+            } MName:find_marked_default
+            (1) t.fn: nil
+            MName:find_latest(pathA, t){
+              usrName: M
+              sn:      M
+              modName: M fn: ProjectDIR/rt/saverestore/PREREQ/M/7.2.6.lua modFullName: M/7.2.6 default: 1
+            } MName:find_latest
+            (1) t.fn: ProjectDIR/rt/saverestore/PREREQ/M/7.2.6.lua
+            (2) t.fn: ProjectDIR/rt/saverestore/PREREQ/M/7.2.6.lua
+          } MName:find
+          fn: ProjectDIR/rt/saverestore/PREREQ/M/7.2.6.lua
+          Master:loading: "M" from f: "ProjectDIR/rt/saverestore/PREREQ/M/7.2.6.lua"
+          MT:add(t,pending){
+            MT:add:  short: M, full: M/7.2.6
+            MT:add: fn: ProjectDIR/rt/saverestore/PREREQ/M/7.2.6.lua, default: 1
+            MT:add: loadOrder: nil
+          } MT:add
+          loadModuleFile(){
+            t.file: ProjectDIR/rt/saverestore/PREREQ/M/7.2.6.lua
+            ModuleFile{
+              family("scheduler")
+              local base = "/apps/M"
+              prepend_path("PATH",pathJoin(base,"bin"))
+              prepend_path("PATH",pathJoin(base,"sbin"))
+              prepend_path("MANPATH",pathJoin(base,"share/man"))
+            }
+            family(scheduler){
+              MasterControl:family(scheduler){
+                mt:setfamily("scheduler","M")
+                MasterControl:setenv("LMOD_FAMILY_SCHEDULER", "M", "nil){
+                } MasterControl:setenv
+                MasterControl:setenv("TACC_FAMILY_SCHEDULER", "M", "nil){
+                } MasterControl:setenv
+              } MasterControl:family
+            } family
+            prepend_path(PATH, /apps/M/bin){
+              MasterControl:prepend_path(t){
+                name:"PATH", value: "/apps/M/bin", delim=":", nodups="nil", priority=-0
+              } MasterControl:prepend_path
+            } prepend_path
+            prepend_path(PATH, /apps/M/sbin){
+              MasterControl:prepend_path(t){
+                name:"PATH", value: "/apps/M/sbin", delim=":", nodups="nil", priority=-0
+              } MasterControl:prepend_path
+            } prepend_path
+            prepend_path(MANPATH, /apps/M/share/man){
+              MasterControl:prepend_path(t){
+                name:"MANPATH", value: "/apps/M/share/man", delim=":", nodups="nil", priority=-0
+              } MasterControl:prepend_path
+            } prepend_path
+          } loadModuleFile
+          Making M active
+          MT:setStatus(M,active)
+          Marked: M/7.2.6 as loaded
+          MName:find(T){
+            MName:find sn: T
+            MName:find_exact_match(pathA, t){
+              UserName: T
+              MName:version(){
+                sType:   load
+                sn:      T
+                name:    T
+                version: nil
+              } MName:version
+              Did not find: T
+            } MName:find_exact_match
+            (1) t.fn: nil
+            MName:find_marked_default(pathA, t){
+              usrName: T
+              sn:      T
+            } MName:find_marked_default
+            (1) t.fn: nil
+            MName:find_latest(pathA, t){
+              usrName: T
+              sn:      T
+              modName: T fn: ProjectDIR/rt/saverestore/PREREQ/T/4.2.6.lua modFullName: T/4.2.6 default: 1
+            } MName:find_latest
+            (1) t.fn: ProjectDIR/rt/saverestore/PREREQ/T/4.2.6.lua
+            (2) t.fn: ProjectDIR/rt/saverestore/PREREQ/T/4.2.6.lua
+          } MName:find
+          fn: ProjectDIR/rt/saverestore/PREREQ/T/4.2.6.lua
+          Master:loading: "T" from f: "ProjectDIR/rt/saverestore/PREREQ/T/4.2.6.lua"
+          MT:add(t,pending){
+            MT:add:  short: T, full: T/4.2.6
+            MT:add: fn: ProjectDIR/rt/saverestore/PREREQ/T/4.2.6.lua, default: 1
+            MT:add: loadOrder: nil
+          } MT:add
+          loadModuleFile(){
+            t.file: ProjectDIR/rt/saverestore/PREREQ/T/4.2.6.lua
+            ModuleFile{
+              family("resourcemgr")
+              whatis("Loads the T resource manager into environment")
+              local base = "/apps/T"
+              prepend_path("PATH",pathJoin(base,"bin"))
+              prepend_path("PATH",pathJoin(base,"sbin"))
+              prepend_path("LD_LIBRARY_PATH",pathJoin(base,"lib"))
+              prepend_path("MANPATH",pathJoin(base,"share/man"))
+            }
+            family(resourcemgr){
+              MasterControl:family(resourcemgr){
+                mt:setfamily("resourcemgr","T")
+                MasterControl:setenv("LMOD_FAMILY_RESOURCEMGR", "T", "nil){
+                } MasterControl:setenv
+                MasterControl:setenv("TACC_FAMILY_RESOURCEMGR", "T", "nil){
+                } MasterControl:setenv
+              } MasterControl:family
+            } family
+            whatis(Loads the T resource manager into environment){
+            } whatis
+            prepend_path(PATH, /apps/T/bin){
+              MasterControl:prepend_path(t){
+                name:"PATH", value: "/apps/T/bin", delim=":", nodups="nil", priority=-0
+              } MasterControl:prepend_path
+            } prepend_path
+            prepend_path(PATH, /apps/T/sbin){
+              MasterControl:prepend_path(t){
+                name:"PATH", value: "/apps/T/sbin", delim=":", nodups="nil", priority=-0
+              } MasterControl:prepend_path
+            } prepend_path
+            prepend_path(LD_LIBRARY_PATH, /apps/T/lib){
+              MasterControl:prepend_path(t){
+                name:"LD_LIBRARY_PATH", value: "/apps/T/lib", delim=":", nodups="nil", priority=-0
+              } MasterControl:prepend_path
+            } prepend_path
+            prepend_path(MANPATH, /apps/T/share/man){
+              MasterControl:prepend_path(t){
+                name:"MANPATH", value: "/apps/T/share/man", delim=":", nodups="nil", priority=-0
+              } MasterControl:prepend_path
+            } prepend_path
+          } loadModuleFile
+          Making T active
+          MT:setStatus(T,active)
+          Marked: T/4.2.6 as loaded
+          MName:find(A){
+            MName:find sn: A
+            MName:find_exact_match(pathA, t){
+              UserName: A
+              MName:version(){
+                sType:   load
+                sn:      A
+                name:    A
+                version: nil
+              } MName:version
+              Did not find: A
+            } MName:find_exact_match
+            (1) t.fn: nil
+            MName:find_marked_default(pathA, t){
+              usrName: A
+              sn:      A
+            } MName:find_marked_default
+            (1) t.fn: nil
+            MName:find_latest(pathA, t){
+              usrName: A
+              sn:      A
+              modName: A fn: ProjectDIR/rt/saverestore/PREREQ/A/1.0.lua modFullName: A/1.0 default: 1
+            } MName:find_latest
+            (1) t.fn: ProjectDIR/rt/saverestore/PREREQ/A/1.0.lua
+            (2) t.fn: ProjectDIR/rt/saverestore/PREREQ/A/1.0.lua
+          } MName:find
+          fn: ProjectDIR/rt/saverestore/PREREQ/A/1.0.lua
+          Master:loading: "A" from f: "ProjectDIR/rt/saverestore/PREREQ/A/1.0.lua"
+          MT:add(t,pending){
+            MT:add:  short: A, full: A/1.0
+            MT:add: fn: ProjectDIR/rt/saverestore/PREREQ/A/1.0.lua, default: 1
+            MT:add: loadOrder: nil
+          } MT:add
+          loadModuleFile(){
+            t.file: ProjectDIR/rt/saverestore/PREREQ/A/1.0.lua
+            ModuleFile{
+              prereq("M")
+            }
+            prereq(M){
+              cmd: prereq arg.n: 1
+              MasterControl:prereq(mA){
+                MName:version(){
+                  sType:   load
+                  sn:      M
+                  name:    M
+                  version: nil
+                } MName:version
+                number found: 0
+              } MasterControl:prereq
+            } prereq
+          } loadModuleFile
+          Making A active
+          MT:setStatus(A,active)
+          Marked: A/1.0 as loaded
+        } Master:load
+      } MasterControl:load
+      Setting mcp to MC_Load
+      #activeA: 3
+      activeA: i:1, sn: M, name: M
+      activeA: i:2, sn: T, name: T
+      activeA: i:3, sn: A, name: A
+      MT:setHashSum(){
+        cmd: lua ProjectDIR/src/computeHashSum.in.lua --indentLevel 5 -D --fullName M/7.2.6 --usrName M --sn M ProjectDIR/rt/saverestore/PREREQ/M/7.2.6.lua
+        capture(lua ProjectDIR/src/computeHashSum.in.lua --indentLevel 5 -D --fullName M/7.2.6 --usrName M --sn M ProjectDIR/rt/saverestore/PREREQ/M/7.2.6.lua){
+          computeHashSum(){
+            Accepting TCL Files
+            lmodPath: "ProjectDIR/rt/saverestore"
+            MasterControl:_setMode("load"){
+            } MasterControl:_setMode
+            Setting mcp to MC_ComputeHash
+            MasterControl:_setMode("load"){
+            } MasterControl:_setMode
+            Setting mcp to MC_ComputeHash
+            loadModuleFile(){
+              t.file: ProjectDIR/rt/saverestore/PREREQ/M/7.2.6.lua
+              ModuleFile{
+                family("scheduler")
+                local base = "/apps/M"
+                prepend_path("PATH",pathJoin(base,"bin"))
+                prepend_path("PATH",pathJoin(base,"sbin"))
+                prepend_path("MANPATH",pathJoin(base,"share/man"))
+              }
+              family(scheduler){
+              } family
+              prepend_path(PATH, /apps/M/bin){
+              } prepend_path
+              prepend_path(PATH, /apps/M/sbin){
+              } prepend_path
+              prepend_path(MANPATH, /apps/M/share/man){
+              } prepend_path
+            } loadModuleFile
+            Text to Hash: (empty)
+            capture(/usr/bin/sha1sum /tmp/lua_MxOVWp){
+            } capture
+            hash value: da39a3ee5e6b4b0d3255bfef95601890afd80709
+          } computeHashSum
+        } capture
+        cmd: lua ProjectDIR/src/computeHashSum.in.lua --indentLevel 5 -D --fullName A/1.0 --usrName A --sn A ProjectDIR/rt/saverestore/PREREQ/A/1.0.lua
+        capture(lua ProjectDIR/src/computeHashSum.in.lua --indentLevel 5 -D --fullName A/1.0 --usrName A --sn A ProjectDIR/rt/saverestore/PREREQ/A/1.0.lua){
+          computeHashSum(){
+            Accepting TCL Files
+            lmodPath: "ProjectDIR/rt/saverestore"
+            MasterControl:_setMode("load"){
+            } MasterControl:_setMode
+            Setting mcp to MC_ComputeHash
+            MasterControl:_setMode("load"){
+            } MasterControl:_setMode
+            Setting mcp to MC_ComputeHash
+            loadModuleFile(){
+              t.file: ProjectDIR/rt/saverestore/PREREQ/A/1.0.lua
+              ModuleFile{
+                prereq("M")
+              }
+              prereq(M){
+                cmd: prereq arg.n: 1
+              } prereq
+            } loadModuleFile
+            Text to Hash: (empty)
+            capture(/usr/bin/sha1sum /tmp/lua_Rlo6ps){
+            } capture
+            hash value: da39a3ee5e6b4b0d3255bfef95601890afd80709
+          } computeHashSum
+        } capture
+        cmd: lua ProjectDIR/src/computeHashSum.in.lua --indentLevel 5 -D --fullName T/4.2.6 --usrName T --sn T ProjectDIR/rt/saverestore/PREREQ/T/4.2.6.lua
+        capture(lua ProjectDIR/src/computeHashSum.in.lua --indentLevel 5 -D --fullName T/4.2.6 --usrName T --sn T ProjectDIR/rt/saverestore/PREREQ/T/4.2.6.lua){
+          computeHashSum(){
+            Accepting TCL Files
+            lmodPath: "ProjectDIR/rt/saverestore"
+            MasterControl:_setMode("load"){
+            } MasterControl:_setMode
+            Setting mcp to MC_ComputeHash
+            MasterControl:_setMode("load"){
+            } MasterControl:_setMode
+            Setting mcp to MC_ComputeHash
+            loadModuleFile(){
+              t.file: ProjectDIR/rt/saverestore/PREREQ/T/4.2.6.lua
+              ModuleFile{
+                family("resourcemgr")
+                whatis("Loads the T resource manager into environment")
+                local base = "/apps/T"
+                prepend_path("PATH",pathJoin(base,"bin"))
+                prepend_path("PATH",pathJoin(base,"sbin"))
+                prepend_path("LD_LIBRARY_PATH",pathJoin(base,"lib"))
+                prepend_path("MANPATH",pathJoin(base,"share/man"))
+              }
+              family(resourcemgr){
+              } family
+              whatis(Loads the T resource manager into environment){
+              } whatis
+              prepend_path(PATH, /apps/T/bin){
+              } prepend_path
+              prepend_path(PATH, /apps/T/sbin){
+              } prepend_path
+              prepend_path(LD_LIBRARY_PATH, /apps/T/lib){
+              } prepend_path
+              prepend_path(MANPATH, /apps/T/share/man){
+              } prepend_path
+            } loadModuleFile
+            Text to Hash: (empty)
+            capture(/usr/bin/sha1sum /tmp/lua_LlkeMw){
+            } capture
+            hash value: da39a3ee5e6b4b0d3255bfef95601890afd80709
+          } computeHashSum
+        } capture
+      } MT:setHashSum
+      HASH sn: M, t hash: da39a3ee5e6b4b0d3255bfef95601890afd80709s hash: da39a3ee5e6b4b0d3255bfef95601890afd80709
+      HASH sn: A, t hash: da39a3ee5e6b4b0d3255bfef95601890afd80709s hash: da39a3ee5e6b4b0d3255bfef95601890afd80709
+      HASH sn: T, t hash: da39a3ee5e6b4b0d3255bfef95601890afd80709s hash: da39a3ee5e6b4b0d3255bfef95601890afd80709
+      baseMpathA: ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core
+    } MT:getMTfromFile
+  } Restore
+  Master:master(safe: nil){
+  } Master:master
+  MT:reportChanges(){
+    MT.origMT(){
+    } MT.origMT
+  } MT:reportChanges
+} Lmod
+BaseShell:expand(tbl){
+  LD_LIBRARY_PATH="/apps/T/lib";
+  export LD_LIBRARY_PATH;
+  LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
+  export LMOD_DEFAULT_MODULEPATH;
+  LMOD_FAMILY_RESOURCEMGR="T";
+  export LMOD_FAMILY_RESOURCEMGR;
+  LMOD_FAMILY_SCHEDULER="M";
+  export LMOD_FAMILY_SCHEDULER;
+  LOADEDMODULES="M/7.2.6:T/4.2.6:A/1.0";
+  export LOADEDMODULES;
+  MANPATH="/apps/T/share/man:/apps/M/share/man";
+  export MANPATH;
+  MODULEPATH="ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
+  export MODULEPATH;
+  PATH="/apps/T/sbin:/apps/T/bin:/apps/M/sbin:/apps/M/bin:ProjectDIR/src:PATH_to_TM:/bin";
+  export PATH;
+  TACC_FAMILY_RESOURCEMGR="T";
+  export TACC_FAMILY_RESOURCEMGR;
+  TACC_FAMILY_SCHEDULER="M";
+  export TACC_FAMILY_SCHEDULER;
+  _LMFILES_="ProjectDIR/rt/saverestore/PREREQ/M/7.2.6.lua:ProjectDIR/rt/saverestore/PREREQ/T/4.2.6.lua:ProjectDIR/rt/saverestore/PREREQ/A/1.0.lua";
+  export _LMFILES_;
+  BaseShell:expandMT(vstr){
+    _ModuleTable001_="X01vZHVsZVRhYmxlXz17WyJhY3RpdmVTaXplIl09MyxiYXNlTXBhdGhBPXsiL2hvbWUvbWNsYXkvdy9sbW9kL3J0L3NhdmVyZXN0b3JlL1BSRVJFUSIsIi9ob21lL21jbGF5L3cvbG1vZC9ydC9zYXZlcmVzdG9yZS90MS94ODZfNjRfMDZfMWFfZGJnX2ludGVsLTE0LjAuMl9tcGljaC0zLjAuNC0yMDE0XzA2XzA0XzE3XzMxXzQ0LUxpbnV4LXg4Nl82NC1zYXZlcmVzdG9yZS9Db3JlIix9LFsiY19yZWJ1aWxkVGltZSJdPWZhbHNlLFsiY19zaG9ydFRpbWUiXT0wLjE0MDc4MixmYW1pbHk9e1sicmVzb3VyY2VtZ3IiXT0iVCIsWyJzY2hlZHVsZXIiXT0iTSIsfSxpbmFjdGl2ZT17fSxtVD17QT17WyJGTiJdPSIvaG9tZS9tY2xheS93L2xtb2QvcnQvc2F2ZXJlc3RvcmUvUFJFUkVR";
+    export _ModuleTable001_;
+    _ModuleTable002_="L0EvMS4wLmx1YSIsWyJkZWZhdWx0Il09MSxbImZ1bGxOYW1lIl09IkEvMS4wIixbImxvYWRPcmRlciJdPTMscHJvcFQ9e30sWyJzaG9ydCJdPSJBIixbInN0YXR1cyJdPSJhY3RpdmUiLH0sTT17WyJGTiJdPSIvaG9tZS9tY2xheS93L2xtb2QvcnQvc2F2ZXJlc3RvcmUvUFJFUkVRL00vNy4yLjYubHVhIixbImRlZmF1bHQiXT0xLFsiZnVsbE5hbWUiXT0iTS83LjIuNiIsWyJsb2FkT3JkZXIiXT0xLHByb3BUPXt9LFsic2hvcnQiXT0iTSIsWyJzdGF0dXMiXT0iYWN0aXZlIix9LFQ9e1siRk4iXT0iL2hvbWUvbWNsYXkvdy9sbW9kL3J0L3NhdmVyZXN0b3JlL1BSRVJFUS9ULzQuMi42Lmx1YSIsWyJkZWZhdWx0Il09MSxbImZ1bGxOYW1lIl09IlQvNC4yLjYiLFsibG9hZE9yZGVy";
+    export _ModuleTable002_;
+    _ModuleTable003_="Il09Mixwcm9wVD17fSxbInNob3J0Il09IlQiLFsic3RhdHVzIl09ImFjdGl2ZSIsfSx9LG1wYXRoQT17Ii9ob21lL21jbGF5L3cvbG1vZC9ydC9zYXZlcmVzdG9yZS9QUkVSRVEiLCIvaG9tZS9tY2xheS93L2xtb2QvcnQvc2F2ZXJlc3RvcmUvdDEveDg2XzY0XzA2XzFhX2RiZ19pbnRlbC0xNC4wLjJfbXBpY2gtMy4wLjQtMjAxNF8wNl8wNF8xN18zMV80NC1MaW51eC14ODZfNjQtc2F2ZXJlc3RvcmUvQ29yZSIsfSxbInN5c3RlbUJhc2VNUEFUSCJdPSIvaG9tZS9tY2xheS93L2xtb2QvcnQvc2F2ZXJlc3RvcmUvdDEveDg2XzY0XzA2XzFhX2RiZ19pbnRlbC0xNC4wLjJfbXBpY2gtMy4wLjQtMjAxNF8wNl8wNF8xN18zMV80NC1MaW51eC14ODZfNjQtc2F2ZXJlc3RvcmUvQ29y";
+    export _ModuleTable003_;
+    _ModuleTable004_="ZSIsWyJ2ZXJzaW9uIl09Mix9";
+    export _ModuleTable004_;
+    _ModuleTable_Sz_="4";
+    export _ModuleTable_Sz_;
+    _ModuleTable_ = {
+      ["activeSize"] = 3,
+      baseMpathA = {
+        "ProjectDIR/rt/saverestore/PREREQ", "OutputDIR/Core",
+      },
+      ["c_rebuildTime"] = false,
+      ["c_shortTime"] = 0.140782,
+      family = {
+        ["resourcemgr"] = "T",
+        ["scheduler"] = "M",
+      },
+      inactive = {
+          },
+      mT = {
+        A = {
+          ["FN"] = "ProjectDIR/rt/saverestore/PREREQ/A/1.0.lua",
+          ["default"] = 1,
+          ["fullName"] = "A/1.0",
+          ["loadOrder"] = 3,
+          propT = {
+                  },
+          ["short"] = "A",
+          ["status"] = "active",
+        },
+        M = {
+          ["FN"] = "ProjectDIR/rt/saverestore/PREREQ/M/7.2.6.lua",
+          ["default"] = 1,
+          ["fullName"] = "M/7.2.6",
+          ["loadOrder"] = 1,
+          propT = {
+                  },
+          ["short"] = "M",
+          ["status"] = "active",
+        },
+        T = {
+          ["FN"] = "ProjectDIR/rt/saverestore/PREREQ/T/4.2.6.lua",
+          ["default"] = 1,
+          ["fullName"] = "T/4.2.6",
+          ["loadOrder"] = 2,
+          propT = {
+                  },
+          ["short"] = "T",
+          ["status"] = "active",
+        },
+      },
+      mpathA = {
+        "ProjectDIR/rt/saverestore/PREREQ", "OutputDIR/Core",
+      },
+      ["systemBaseMPATH"] = "OutputDIR/Core",
+      ["version"] = 2,
+    }
+  } BaseShell:expandMT
+  __LMOD_DEFAULT_MODULES_LOADED__="1";
+  export __LMOD_DEFAULT_MODULES_LOADED__;
+} BaseShell:expand
+Exec:exec(){
+} Exec:exec
+===========================
+step 25
+lua ProjectDIR/src/lmod.in.lua bash list
+===========================
+Currently Loaded Modules:
+  1) M/7.2.6   2) T/4.2.6   3) A/1.0

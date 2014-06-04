@@ -84,6 +84,12 @@ M.unset_alias          = MasterControl.quiet
 M.unset_shell_function = MasterControl.quiet
 M.unsetenv             = MasterControl.quiet
 M.whatis               = MasterControl.quiet
+M.family               = MasterControl.quiet
+M.prereq               = MasterControl.quiet
+M.prereq_any           = MasterControl.quiet
+M.conflict             = MasterControl.quiet
+M.error                = MasterControl.quiet
+M.message              = MasterControl.quiet
 
 
 function M.always_load(self, mA)
@@ -91,7 +97,7 @@ function M.always_load(self, mA)
 end
 
 function M.always_unload(self, mA)
-   A[#A+1] = ShowCmdA("always_load", mA)
+   A[#A+1] = ShowCmdA("always_unload", mA)
 end
 
 function M.prepend_path(self, t)
@@ -130,32 +136,9 @@ function M.inherit(self, ...)
    ShowCmd("inherit",...)
 end
 
-function M.family(self, ...)
-   ShowCmd("family",...)
-end
-
 function M.unload(self, mA)
    A[#A+1] = ShowCmdA("unload", mA)
 end
 
-function M.prereq(self, ...)
-   ShowCmd("prereq",...)
-end
-
-function M.conflict(self, ...)
-   ShowCmd("conflict",...)
-end
-
-function M.prereq_any(self, ...)
-   ShowCmd("prereq_any",...)
-end
-
-function M.error(self, ...)
-   ShowCmd("LmodError", ...)
-end
-
-function M.message(self, ...)
-   ShowCmd("LmodMessage", ...)
-end
 
 return M
