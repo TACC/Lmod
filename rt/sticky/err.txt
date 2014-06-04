@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.6 5.6-6-g33e4976 2014-05-27 15:15
+Modules based on Lua: Version 5.6 5.6-9-gd0a9c1b 2014-05-27 15:15
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -64,7 +64,7 @@ lua ProjectDIR/src/lmod.in.lua bash --force purge
 step 10
 lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
-Lmod Warning: No modules loaded
+No modules loaded
 ===========================
 step 11
 lua ProjectDIR/src/lmod.in.lua bash load std
@@ -93,7 +93,7 @@ lua ProjectDIR/src/lmod.in.lua bash --force rm std
 step 15
 lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
-Lmod Warning: No modules loaded
+No modules loaded
 ===========================
 step 16
 lua ProjectDIR/src/lmod.in.lua bash load StdEnv

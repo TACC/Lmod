@@ -687,6 +687,9 @@ end
 
 
 function M.message(self, ...)
+   if (quiet()) then
+      return
+   end
    local arg = pack(...)
    for i = 1, arg.n do
       io.stderr:write(tostring(arg[i]))

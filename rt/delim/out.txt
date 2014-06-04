@@ -170,7 +170,6 @@ MODULEPATH="ProjectDIR/rt/delim/mf/Core";
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/delim/mf/Core",},family={},inactive={},mT={},mpathA={"ProjectDIR/rt/delim/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/delim/mf/Core",["version"]=2,}';
 export _ModuleTable_;
-false
 ===========================
 step 11
 lua ProjectDIR/src/lmod.in.lua bash load ncarIntel

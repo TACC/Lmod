@@ -153,7 +153,6 @@ MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/sticky/mf/Core",},family={},inactive={},mT={},mpathA={"ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",["version"]=2,}';
 export _ModuleTable_;
-false
 ===========================
 step 11
 lua ProjectDIR/src/lmod.in.lua bash load std
@@ -239,7 +238,6 @@ MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/sticky/mf/Core",},family={},inactive={},mT={},mpathA={"ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",["version"]=2,}';
 export _ModuleTable_;
-false
 ===========================
 step 16
 lua ProjectDIR/src/lmod.in.lua bash load StdEnv

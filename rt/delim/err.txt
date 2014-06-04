@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.6rc1 5.6rc1-7-gd862d10 2014-05-22 21:13
+Modules based on Lua: Version 5.6 5.6-9-gd0a9c1b 2014-05-27 15:15
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -42,7 +42,7 @@ lua ProjectDIR/src/lmod.in.lua bash unload init_lua luaposix
 step 10
 lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
-Lmod Warning: No modules loaded
+No modules loaded
 ===========================
 step 11
 lua ProjectDIR/src/lmod.in.lua bash load ncarIntel
