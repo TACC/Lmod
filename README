@@ -1,3 +1,15 @@
+Lmod Version 5.6.1
+Features:
+   a) The environment variable LMOD_OPTIONS can be use to specify
+      command line options to LMOD:  export LMOD_OPTIONS="--quiet"
+   b) The environment variable LMOD_PAGER can use to specify the pager
+      that Lmod will use, otherwise PAGER is used or "more"
+   c) the -q or --quiet option suppresses messages and warnings (but not
+      errors).
+Bug Fix:
+   a) Executing "module list" when there no modules loaded is a message
+      and not a warning.
+   
 Lmod Version 5.6
 Major Bug Fix:
    Two bugs I have un-earthed cancelled each other all related to saved
