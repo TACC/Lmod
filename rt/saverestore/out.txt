@@ -526,7 +526,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/savere
 export _ModuleTable_;
 ===========================
 step 23
-lua ProjectDIR/src/lmod.in.lua bash -D save
+lua ProjectDIR/src/lmod.in.lua bash save
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -540,7 +540,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/savere
 export _ModuleTable_;
 ===========================
 step 24
-lua ProjectDIR/src/lmod.in.lua bash -D restore
+lua ProjectDIR/src/lmod.in.lua bash restore
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
 export LMOD_DEFAULT_MODULEPATH;
