@@ -1,3 +1,12 @@
+Lmod Version 5.6.2
+Bug Fixes:
+   a) LMOD_EXPERT is now also turns on quiet mode.  It was removed
+      accidently in 5.6.1 and is now restored.
+   b) Lmod had a bug where it tracked prereq, conflict and family
+      commands in module collections where it didn't need to.
+      This means that some users will have to rebuild their module
+      collections when they shouldn't have to.  
+      
 Lmod Version 5.6.1
 Features:
    a) The environment variable LMOD_OPTIONS can be use to specify
