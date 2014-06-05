@@ -208,7 +208,7 @@ end
 local __quiet = false
 function quiet()
    if (__quiet == false) then
-      __quiet = getenv("LMOD_QUIET")
+      __quiet = getenv("LMOD_QUIET") or getenv("LMOD_EXPERT")
    end
    return __quiet
 end
