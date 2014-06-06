@@ -94,12 +94,33 @@ function csh_setenv(name, value)
    io.stdout:write(concatTbl(a,""))
 end
 
-
+function python_setenv(name, value)
+   local a = {}
+   if (value == "") then
+      a[#a + 1] = "os.environ['"
+      a[#a + 1] = name
+      a[#a + 1] = "'] = ''\n"
+      a[#a + 1] = "del os.environ['"
+      a[#a + 1] = name
+      a[#a + 1] = "']\n"
+   else
+      a[#a + 1] = "os.environ['"
+      a[#a + 1] = name
+      a[#a + 1] = "'] = '"
+      a[#a + 1] = value
+      a[#a + 1] = "';\n"
+   end
+   io.stdout:write(concatTbl(a,""))
+end
 
 function main()
    local setenv = bash_export
    if ( arg[1] == "csh" ) then
       setenv = csh_setenv
+   end
+
+   if ( arg[1] == "python" ) then
+      setenv = python_setenv
    end
 
    for i = 1, huge do
