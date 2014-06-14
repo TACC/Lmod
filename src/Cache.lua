@@ -175,7 +175,7 @@ function M.cache(self, t)
    local mt        = MT:mt()
    local baseMpath = mt:getBaseMPATH()
 
-   -- Since this function can get called many time, we need to only recompute
+   -- Since this function can get called many times, we need to only recompute
    -- on the directories we have not yet seen.
 
    local mDT        = s_cache.mDT
