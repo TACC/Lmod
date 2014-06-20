@@ -95,24 +95,40 @@ s_mtA = {}
 --                   Meta-modules are modulefiles that are not versioned.
 --                   They typically load other modules but not always.
 
+local defaultFnT = {
+   default       = 1,
+   ['.modulerc'] = 2,
+   ['.version']  = 3,
+}
+
+
 local function locationTblDir(mpath, path, prefix, locationT, availT)
-   --dbg.start{"locationTblDir(",mpath,",",path,",",prefix,")"}
+   -- dbg.start{"locationTblDir(",mpath,",",path,",",prefix,")"}
    local attr = lfs.attributes(path)
    if (not attr or type(attr) ~= "table" or attr.mode ~= "directory"
        or not posix.access(path,"x")) then
+      -- dbg.fini("locationTblDir")
       return
    end
 
-   local mnameT = {}
-   local dirA   = {}
-
+   local mnameT     = {}
+   local dirA       = {}
+   local defaultFn  = false
+   local defaultIdx = 1000000  -- default idx must be bigger than index for .version
    -----------------------------------------------------------------------------
    -- Read every relevant file in a directory.  Copy directory names into dirA.
    -- Copy files into mnameT.
    local ignoreT = ignoreFileT()
 
    for file in lfs.dir(path) do
-      if (not ignoreT[file] and file:sub(-1,-1) ~= "~" and file:sub(1,8) ~= ".version") then
+      local idx      = defaultFnT[file] or defaultIdx
+      local fileDflt = file:sub(1,8)
+      if (idx < defaultIdx) then
+         defaultIdx = idx
+         defaultFn  = pathJoin(abspath(path),file)
+      elseif (ignoreT[file] or file:sub(-1,-1) == "~" or ignoreT[fileDflt]) then
+         -- nothing happens here
+      else
          local f = pathJoin(path,file)
          attr    = lfs.attributes(f) or {}
          local readable = posix.access(f,"r")
@@ -127,9 +143,6 @@ local function locationTblDir(mpath, path, prefix, locationT, availT)
       end
    end
 
-
-   --dbg.print{"#dirA: ",#dirA,"\n"}
-
    if (#dirA > 0 or prefix == '') then
       --------------------------------------------------------------------------
       -- If prefix is '' then this directory in directly under MODULEPATH so
@@ -138,10 +151,20 @@ local function locationTblDir(mpath, path, prefix, locationT, availT)
 
       -- Copy any meta-modules into the array stored at locationT[k].
       for k,v in pairs(mnameT) do
-         local a      = locationT[k] or {}
+         --dbg.print{"k: ",k,"\n"}
+         local a      = locationT[k] 
+         if (a == nil) then
+            local d, f = splitFileName(v.file)
+            f          = f:gsub("%.lua$","")
+            f          = pathJoin(abspath(d),f)
+            a          = {}
+            a.default  = {fn=f, kind="last", num = 1}
+         end
          a[#a+1]      = v
          locationT[k] = a
          availT[k]    = {}
+         availT[k][0] = v
+         
       end
 
       -- For any directories found recursively call locationDir to process.
@@ -156,6 +179,7 @@ local function locationTblDir(mpath, path, prefix, locationT, availT)
 
       local a           = locationT[prefix] or {}
       a[#a+1]           = {file = path, mpath = mpath}
+      local numPathA    = #a
       locationT[prefix] = a
       availT[prefix]    = {}
       local vA          = {}
@@ -174,9 +198,37 @@ local function locationTblDir(mpath, path, prefix, locationT, availT)
       end
       --dbg.print{"Adding ",prefix," to availT, #a: ",#a,"\n"}
       availT[prefix] = a
+      --dbg.print{"prefix: ",prefix,", defaultFn: ",defaultFn, "\n"}
+
+      if (defaultFn) then
+         local d, v = splitFileName(defaultFn)
+         v          = "/" .. v
+         if (v == "/default") then
+            defaultFn = abspath_localdir(defaultFn):gsub("%.lua$","")
+         else
+            v         = versionFile(v, prefix, defaultFn, true)
+            defaultFn = pathJoin(abspath(d),v):gsub("%.lua$","")
+         end
+         --local fn = defaultFn .. ".lua"
+         --if (isFile(fn)) then
+         --   defaultFn = fn
+         --end
+         local num = max(#vA, numPathA)
+         locationT[prefix].default = {fn = defaultFn, kind="marked", num = #vA}
+      else
+         local d = abspath(pathJoin(mpath, prefix))
+         defaultFn = pathJoin(d, a[#a].version):gsub("%.lua$","")
+         --local fn = defaultFn .. ".lua"
+         --if (isFile(fn)) then
+         --   defaultFn = fn
+         --end
+         locationT[prefix].default = {fn = defaultFn, kind="last", num = #vA}
+      end
    end
-   --dbg.fini("locationTblDir")
+   -- dbg.fini("locationTblDir")
 end
+
+
 
 --------------------------------------------------------------------------
 -- buildLocWmoduleT(): This local function walks a single directory in
@@ -225,7 +277,6 @@ local function buildLocWmoduleT(mpath, moduleT, mpathT, lT, availT)
    end
    dbg.fini("MT:buildLocWmoduleT")
 end
-
 
 --------------------------------------------------------------------------
 -- buildAllLocWmoduleT(): This routine walks moduleT for all directories
@@ -324,11 +375,10 @@ local function buildAllLocWmoduleT(moduleT, mpathA, locationT, availT)
          for i = 1, #versionA do
             local v = versionA[i]
             if (v.markedDefault) then
-               local num  = math.max(#versionA, #pathA)
+               local num  = max(#versionA, #pathA)
                local d, f = splitFileName(v.file)
                local fn   = pathJoin(abspath(d), f)
                locationT[sn].default = {fn = fn, kind="marked", num = num}
-               --locationT[sn].default = {fn = v.file, kind="marked", num = num}
                found = true
                break
             end
@@ -399,7 +449,7 @@ local function build_locationTbl(mpathA)
       for mpath, vv in Pairs(availT) do
          dbg.print{"  mpath: ", mpath,":\n"}
 
-         for sn , v in pairsByKeys(vv) do
+         for sn , v in Pairs(vv) do
             dbg.print{"    ",sn,":"}
             for i = 1, #v do
                io.stderr:write(" ",v[i].version,",")
@@ -412,6 +462,9 @@ local function build_locationTbl(mpathA)
          dbg.print{"  sn: ", sn,":\n"}
          for i = 1, #vv do
             dbg.print{"    ",vv[i].file,"\n"}
+         end
+         if (vv.default) then
+            dbg.print{"    ",vv.default.kind," Default: ",vv.default.fn,"\n"}
          end
       end
    end

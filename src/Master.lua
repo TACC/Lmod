@@ -791,10 +791,11 @@ local function availEntry(defaultOnly, terse, mpath, szA, searchA, sn, name,
 
    local f_orig = f
    local d, bn  = splitFileName(f)
-   f            = pathJoin(abspath(d),bn)
+   local d2     = abspath(d)
+   f            = pathJoin(d2,bn)
 
    dbg.print{"defaultOnly: ",defaultOnly, ", defaultModuleT.fn: ",defaultModuleT.fn,
-             ", f_orig: ",f_orig,", f: ", f, "\n"}
+             ", f_orig: ",f_orig,", f: ", f,", d: ", d,", d2: ", d2, "\n"}
 
    --if (defaultOnly and defaultModuleT.fn ~= abspath(f, localdir)) then
    if (defaultOnly and defaultModuleT.fn ~= f) then
@@ -895,7 +896,8 @@ local function availDir(defaultOnly, terse, searchA, mpath, locationT, availT,
       local aa             = {}
       local szA            = #versionA
       if (szA == 0) then
-         local fn = versionA[0].file
+         local fn    = versionA[0].file
+         dbg.print{"fn: ",fn,"\n"}
          availEntry(defaultOnly, terse, mpath, szA, searchA, sn, sn, fn,
                     defaultModuleT, dbT, legendT, a)
       else
@@ -952,10 +954,6 @@ function M.avail(argA)
    local twidth    = TermWidth()
    local masterTbl = masterTbl()
 
-   local cache     = Cache:cache{quiet = masterTbl.terse}
-   local moduleT   = cache:build()
-   local dbT       = {}
-
    local optionTbl, searchA = availOptions(argA)
    if (not masterTbl.regexp) then
       for i = 1, #searchA do
@@ -964,23 +962,13 @@ function M.avail(argA)
    end
    local defaultOnly = optionTbl.defaultOnly or masterTbl.defaultOnly
    local terse       = optionTbl.terse       or masterTbl.terse
-
-   local baseMpath = mt:getBaseMPATH()
-   if (not terse and (baseMpath == nil or baseMpath == '' or next(moduleT) == nil)) then
-     LmodError("avail is not possible, MODULEPATH is not set or not set with valid paths.\n")
-   end
-
-   local spider    = Spider:new()
-   spider:buildSpiderDB({"default"}, moduleT, dbT)
-
-   local legendT   = {}
-   local availT    = mt:availT()
-   local locationT = mt:locationTbl()
-
-   local aa        = {}
+   local legendT     = {}
+   local dbT         = {}
 
    if (terse) then
       dbg.print{"doing --terse\n"}
+      local availT    = mt:availT()
+      local locationT = mt:locationTbl()
       for ii = 1, #mpathA do
          local mpath = mpathA[ii]
          local a     = {}
@@ -995,6 +983,23 @@ function M.avail(argA)
       dbg.fini("Master:avail")
       return
    end
+
+   local cache     = Cache:cache{quiet = masterTbl.terse}
+   local moduleT   = cache:build()
+
+   local baseMpath = mt:getBaseMPATH()
+   if (not terse and (baseMpath == nil or baseMpath == '' or next(moduleT) == nil)) then
+     LmodError("avail is not possible, MODULEPATH is not set or not set with valid paths.\n")
+   end
+
+   local spider    = Spider:new()
+   spider:buildSpiderDB({"default"}, moduleT, dbT)
+
+   local availT    = mt:availT()
+   local locationT = mt:locationTbl()
+
+   local aa        = {}
+
 
    for _,mpath in ipairs(mpathA) do
       local a = {}

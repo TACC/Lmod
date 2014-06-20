@@ -241,16 +241,21 @@ function extractVersion(full, sn)
    return version
 end
 
-
+-- This table must be include file names that are 8 characters or less.
+-- The MT:locationTblDir routine uses it.
 s_ignoreT = {
    ['.']         = true,
    ['..']        = true,
    ['CVS']       = true,
-   ['.DS_Store'] = true,
    ['.git']      = true,
    ['.svn']      = true,
    ['.hg']       = true,
    ['.bzr']      = true,
+   ['.moduler']  = true,
+   ['.DS_Stor']  = true,
+   ['.version']  = true,
+   ['.DS_Store'] = true,
+   ['.modulerc'] = true,
 }
 
 
@@ -752,7 +757,7 @@ end
 --                file.  It then uses the ModulesVersion.tcl script to 
 --                return what the value of "ModulesVersion" is.
 
-function versionFile(v, sn, path)
+function versionFile(v, sn, path, ignoreErrors)
    dbg.start{"versionFile(v: ",v,", sn: ",sn,", path: ",path,")"}
    local f       = io.open(path,"r")
    if (not f)                        then
@@ -796,7 +801,7 @@ function versionFile(v, sn, path)
             a[#a + 1] = tonumber(s) or 0
          end
          
-         if (a[1] < 2000 or a[2] > 12) then
+         if (not ignoreErrors and (a[1] < 2000 or a[2] > 12 )) then
             LmodMessage("The .version file for \"",sn,
                         "\" has the date is written in the wrong format: \"",
                         modV.date,"\".  Please use YYYY/MM/DD.")
@@ -805,9 +810,11 @@ function versionFile(v, sn, path)
          local epoch   = os.time{year = a[1], month = a[2], day = a[3]} or 0
          local current = os.time() 
          if (current < epoch) then
-            LmodMessage("The default version for module \"",myModuleName(),
-                        "\" is changing on ", modV.date, " from ",modV.version,
-                        " to ", modV.newVersion,"\n")
+            if (not ignoreErrors) then
+               LmodMessage("The default version for module \"",myModuleName(),
+                           "\" is changing on ", modV.date, " from ",modV.version,
+                           " to ", modV.newVersion,"\n")
+            end
             version = modV.version
          else
             version = modV.newVersion
