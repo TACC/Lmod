@@ -40,6 +40,18 @@ AC_ARG_WITH(colorize,
     COLORIZE="$withval"
     AC_DEFINE_UNQUOTED(COLORIZE, "$withval"))dnl
 
+AC_SUBST(REDIRECT)
+AC_ARG_WITH(redirect,
+    AC_HELP_STRING([--with-redirect=ans],[redirect messages to stdout [[NO]]]),
+    REDIRECT="$withval"
+    AC_MSG_RESULT([REDIRECT=$with_redirect])
+    AC_DEFINE_UNQUOTED(REDIRECT, "$with_redirect")dnl
+    ,
+    withval="NO"
+    AC_MSG_RESULT([REDIRECT=$withval])
+    REDIRECT="$withval"
+    AC_DEFINE_UNQUOTED(REDIRECT, "$withval"))dnl
+
 AC_SUBST(MODULEPATH_ROOT)dnl
 AC_ARG_WITH(module-root-path,
     AC_HELP_STRING([--with-module-root-path=<path>],[use module root path=<path> [[PREFIX/modulefiles]]]),

@@ -10,6 +10,7 @@ ifeq ($(HAVE_LUA_JSON),yes)
   TOOL_SRC                := $(filter-out $(PATH_TO_SRC)/tools/json.lua, $(TOOL_SRC))
 endif
 
+REDIRECT_ERR_TO_OUT       := @REDIRECT@
 LMOD_FULL_SETTARG_SUPPORT := $(shell echo "@SETTARG@"       | tr '[:upper:]' '[:lower:]')
 USE_DOT_FILES             := $(shell echo "@USE_DOT_FILES@" | tr '[:upper:]' '[:lower:]')
 PREPEND_BLOCK     	  := $(shell echo "@PREPEND_BLOCK@" | tr '[:upper:]' '[:lower:]')
@@ -47,14 +48,16 @@ LMOD_MF 	  	  := $(prefix)/$(package)/$(version)/modulefiles/Core
 LMOD_MF_SOURCE            := MF/*.version.lua
 SETTARG_SOURCE            := settarg/*.lua  settarg/targ.in
 
-DIRLIST		  	  := $(DESTDIR)$(LIBEXEC) $(DESTDIR)$(TOOLS) $(DESTDIR)$(SETTARG)             \
-                             $(DESTDIR)$(SHELLS)                                                      \
+DIRLIST		  	  := $(DESTDIR)$(LIBEXEC) $(DESTDIR)$(TOOLS) $(DESTDIR)$(SETTARG) \
+                             $(DESTDIR)$(SHELLS)                                          \
                              $(DESTDIR)$(INIT) $(DESTDIR)$(LIB) $(DESTDIR)$(LMOD_MF)
 
 
-STANDALONE_PRGM   	  := src/lmod.in.lua src/addto.in.lua src/getmt.in.lua src/processMT.in.lua   \
-                             src/spider.in.lua src/processModuleUsage.in.lua src/reportUsers.in.lua   \
-                             src/clearMT_cmd.in.lua src/ml_cmd.in.lua src/spiderCacheSupport.in.lua   \
+STANDALONE_PRGM   	  := src/lmod.in.lua src/addto.in.lua src/getmt.in.lua      \
+                             src/processMT.in.lua src/spider.in.lua                 \
+                             src/processModuleUsage.in.lua src/reportUsers.in.lua   \
+                             src/clearMT_cmd.in.lua src/ml_cmd.in.lua               \
+                             src/spiderCacheSupport.in.lua                          \
                              src/sh_to_modulefile.in.lua
 STANDALONE_PRGM           := $(patsubst %, $(PATH_TO_SRC)/%, $(STANDALONE_PRGM))
 SHELL_INIT	  	  := bash.in csh.in ksh.in tcsh.in zsh.in sh.in perl.in                       \
@@ -69,6 +72,8 @@ STARTUP		  	  := $(patsubst %, $(PATH_TO_SRC)/init/%, $(STARTUP))
 
 MAIN_DIR	  	  := Makefile.in INSTALL configure README_lua_modulefiles.txt \
                              README README.old License
+
+C_PROGS                   := module_output_redirect
 
 CONTRIB_DIRS           	  :=  \
                               bash_patch                        \
@@ -95,14 +100,22 @@ ifneq ($(HAVE_LUA_TERM),yes)
   LIB  := $(prefix)/$(package)/$(version)/lib
 endif
 
+ifneq ($(REDIRECT_ERR_TO_OUT),NO)
+   BASH_ERR_TO_OUT=2>\&1
+   TCSH_ERR_TO_OUT=$$LMOD_DIR/module_output_redirect
+else
+   BASH_ERR_TO_OUT=
+   TCSH_ERR_TO_OUT=
+endif
 
 .PHONY: test pkgs
 
-all:
+all: $(C_PROGS)
 	@echo done
 
 pre-install: $(DIRLIST) shell_init startup spiderCacheSupport libexec \
-             Inst_Tools Inst_Shells Inst_Settarg Inst_Lmod_MF $(PKGS) other_tools
+             Inst_Tools Inst_Shells Inst_Settarg Inst_Lmod_MF         \
+             c_progs_install $(PKGS) other_tools $(C_PROGS)
 
 install: pre-install  zsh_tab_funcs
 	$(RM) $(DESTDIR)$(PKG)
@@ -111,6 +124,15 @@ install: pre-install  zsh_tab_funcs
 echo:
 	@echo Version: $(version)
 
+
+module_output_redirect: module_output_redirect.o
+	$(LINK.c) -o $@ $^
+
+module_output_redirect.o: $(PATH_TO_SRC)/c_src/module_output_redirect.c
+	$(COMPILE.c) -c $^
+
+c_progs_install:
+	cp $(C_PROGS) $(DESTDIR)$(LIBEXEC)
 
 $(DIRLIST) :
 	mkdir -p $@
@@ -125,6 +147,8 @@ __installMe:
 	        -e 's|@path_to_lua@|$(PATH_TO_LUA)|g'                 	   \
 	        -e 's|@path_to_hashsum@|$(PATH_TO_HASHSUM)|g'         	   \
 	        -e 's|^#!/usr/bin/env tclsh$$|#!$(PATH_TO_TCLSH)|g'    	   \
+	        -e 's|@bash_err_to_out@|$(BASH_ERR_TO_OUT)|g'         	   \
+	        -e 's|@tcsh_err_to_out@|$(TCSH_ERR_TO_OUT)|g'         	   \
 	        -e 's|@path_to_pager@|$(PATH_TO_PAGER)|g'             	   \
 	        -e 's|@case_independent_sorting@|$(CASE_INDEPENDENT_SORTING)|g' \
                 -e 's|@lmod_full_settarg_support@|$(LMOD_FULL_SETTARG_SUPPORT)|g' \
@@ -179,8 +203,11 @@ pkgs:
                 SHARE=$(DESTDIR)$(LIBEXEC) install
 
 zsh_tab_funcs: $(ZSH_FUNCS)
-	-if [ -n "$(ZSH_SITE_FUNCTIONS_DIR)" ]; then \
-          cp $^ $(DESTDIR)$(ZSH_SITE_FUNCTIONS_DIR);                \
+	-if [ -n "$(ZSH_SITE_FUNCTIONS_DIR)" ]; then         \
+          cp $^ $(DESTDIR)$(ZSH_SITE_FUNCTIONS_DIR);         \
+	  if [ "$$?" -ne 0 ]; then                           \
+            echo "The above error can be ignored";           \
+          fi;                                                \
         fi
 
 makefile: $(PATH_TO_SRC)/Makefile.in config.status
@@ -302,10 +329,11 @@ Inst_Lmod_MF: $(LMOD_MF_SOURCE)
 	$(MAKE) FILELIST="$^" DIRLOC=$(DESTDIR)$(LMOD_MF) __installMe
 
 clean:
-	$(RM) config.log
+	$(RM) config.log *.o
 	cd $(PATH_TO_SRC)/pkgs; $(MAKE) LIB=$(DESTDIR)$(LIB) SHARE=$(DESTDIR)$(LIBEXEC) clean
 
 clobber: clean
+	$(RM) $(C_PROGS)
 
 distclean: clobber
 	$(RM) makefile config.status

@@ -609,6 +609,7 @@ USE_DOT_FILES
 SHORT_TIME
 ANCIENT
 MODULEPATH_ROOT
+REDIRECT
 COLORIZE
 CASE_INDEPENDENT_SORTING
 DUPLICATE_PATHS
@@ -656,6 +657,7 @@ enable_option_checking
 with_duplicatePaths
 with_caseIndependentSorting
 with_colorize
+with_redirect
 with_module_root_path
 with_ancient
 with_shortTime
@@ -1285,6 +1287,7 @@ Optional Packages:
                           Make avail and spider use case independent sorting
                           [[NO]]
   --with-colorize=ans     allow for colorized output [[YES]]
+  --with-redirect=ans     redirect messages to stdout [[NO]]
   --with-module-root-path=<path>
                           use module root path=<path> [[PREFIX/modulefiles]]
   --with-ancient=num_secs How long to wait before rebuilding spider cache
@@ -1806,6 +1809,28 @@ $as_echo "COLORIZE=$withval" >&6; }
     COLORIZE="$withval"
     cat >>confdefs.h <<_ACEOF
 #define COLORIZE "$withval"
+_ACEOF
+
+fi
+
+
+
+# Check whether --with-redirect was given.
+if test "${with_redirect+set}" = set; then :
+  withval=$with_redirect; REDIRECT="$withval"
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: REDIRECT=$with_redirect" >&5
+$as_echo "REDIRECT=$with_redirect" >&6; }
+    cat >>confdefs.h <<_ACEOF
+#define REDIRECT "$with_redirect"
+_ACEOF
+
+else
+  withval="NO"
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: REDIRECT=$withval" >&5
+$as_echo "REDIRECT=$withval" >&6; }
+    REDIRECT="$withval"
+    cat >>confdefs.h <<_ACEOF
+#define REDIRECT "$withval"
 _ACEOF
 
 fi
