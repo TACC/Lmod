@@ -113,9 +113,9 @@ endif
 all: $(C_PROGS)
 	@echo done
 
-pre-install: $(DIRLIST) shell_init startup spiderCacheSupport libexec \
-             Inst_Tools Inst_Shells Inst_Settarg Inst_Lmod_MF         \
-             c_progs_install $(PKGS) other_tools $(C_PROGS)
+pre-install: $(DIRLIST) $(C_PROGS) shell_init startup libexec spiderCacheSupport \
+             Inst_Tools Inst_Shells Inst_Settarg Inst_Lmod_MF c_progs_install    \
+             $(PKGS) other_tools 
 
 install: pre-install  zsh_tab_funcs
 	$(RM) $(DESTDIR)$(PKG)
