@@ -33,7 +33,7 @@
 --------------------------------------------------------------------------
 
 require("fileOps")
-require("posix")
+local posix  = require("posix")
 local getenv = os.getenv
 local setenv = posix.setenv
 ------------------------------------------------------------------------
