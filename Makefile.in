@@ -138,44 +138,44 @@ $(DIRLIST) :
 	mkdir -p $@
 
 __installMe:
-	-for i in $(FILELIST); do                                     	   \
-           bareN=$${i##*/};                                           	   \
-           fn=$${bareN%%.in*};                                        	   \
-           ext=$${bareN#*.};                                          	   \
-	   : echo "DIRLOC/fn: $(DIRLOC)/$$fn";                             \
-           sed  -e 's|@PREFIX@|$(prefix)|g'                            	   \
-	        -e 's|@path_to_lua@|$(PATH_TO_LUA)|g'                 	   \
-	        -e 's|@path_to_hashsum@|$(PATH_TO_HASHSUM)|g'         	   \
-	        -e 's|^#!/usr/bin/env tclsh$$|#!$(PATH_TO_TCLSH)|g'    	   \
-	        -e 's|@bash_err_to_out@|$(BASH_ERR_TO_OUT)|g'         	   \
-	        -e 's|@tcsh_err_to_out@|$(TCSH_ERR_TO_OUT)|g'         	   \
-	        -e 's|@path_to_pager@|$(PATH_TO_PAGER)|g'             	   \
-	        -e 's|@case_independent_sorting@|$(CASE_INDEPENDENT_SORTING)|g' \
+	-for i in $(FILELIST); do                                     	   	  \
+           bareN=$${i##*/};                                           	   	  \
+           fn=$${bareN%%.in*};                                        	   	  \
+           ext=$${bareN#*.};                                          	   	  \
+	   : echo "DIRLOC/fn: $(DIRLOC)/$$fn";                             	  \
+           sed  -e 's|@PREFIX@|$(prefix)|g'                            	   	  \
+	        -e 's|@path_to_lua@|$(PATH_TO_LUA)|g'                 	   	  \
+	        -e 's|@path_to_hashsum@|$(PATH_TO_HASHSUM)|g'         	   	  \
+	        -e 's|^#!/usr/bin/env tclsh$$|#!$(PATH_TO_TCLSH)|g'    	   	  \
+	        -e 's|@bash_err_to_out@|$(BASH_ERR_TO_OUT)|g'         	   	  \
+	        -e 's|@tcsh_err_to_out@|$(TCSH_ERR_TO_OUT)|g'         	   	  \
+	        -e 's|@path_to_pager@|$(PATH_TO_PAGER)|g'             	   	  \
+	        -e 's|@case_independent_sorting@|$(CASE_INDEPENDENT_SORTING)|g'   \
                 -e 's|@lmod_full_settarg_support@|$(LMOD_FULL_SETTARG_SUPPORT)|g' \
-                -e 's|@use_dot_files@|$(USE_DOT_FILES)|g'             	   \
-                -e 's|@git@|$(GIT_VERSION)|g'                              \
-                -e 's|@have_lua_term@|$(HAVE_LUA_TERM)|g'                  \
-                -e 's|@have_lua_json@|$(HAVE_LUA_JSON)|g'                  \
-	        -e 's|@ancient@|$(ANCIENT)|g'                         	   \
-	        -e 's|@prepend_block@|$(PREPEND_BLOCK)|g'             	   \
-	        -e 's|@colorize@|$(COLORIZE)|g'                       	   \
-	        -e 's|@duplicate_paths@|$(DUPLICATE_PATHS)|g'      	   \
-	        -e 's|@allow_tcl_mfiles@|$(ALLOW_TCL_MFILES)|g'      	   \
-	        -e 's|@mpath_avail@|$(MPATH_AVAIL)|g'            	   \
-	        -e 's|@short_time@|$(SHORT_TIME)|g'                   	   \
-	        -e 's|@cacheDirs@|$(SPIDER_CACHE_DIRS)|g'             	   \
-	        -e 's|@updateSystemFn@|$(UPDATE_SYSTEM_FN)|g'         	   \
-	        -e 's|@modulepath_root@|$(MODULEPATH_ROOT)|g'         	   \
-                -e 's|@PKGV@|$(PKGV)|g'                                    \
-                -e 's|@PKG@|$(PKG)|g'         < $$i > $(DIRLOC)/$$fn; 	   \
-            [ "$$ext" = "in.lua" -o "$$ext" = "tcl" -o "$$ext" = "in" ] && \
-               chmod +x $(DIRLOC)/$$fn;                                    \
-            if [ "$$ext" = "version.lua" ]; then                           \
-               mname=$${bareN%%.*};                                        \
-	       : echo "DIRLOC: $(DIRLOC)/$$mname";                         \
-	       mkdir -p $(DIRLOC)/$$mname;                                 \
-               mv $(DIRLOC)/$$fn $(DIRLOC)/$$mname/$(version).lua;         \
-            fi;                                                            \
+                -e 's|@use_dot_files@|$(USE_DOT_FILES)|g'             	   	  \
+                -e 's|@git@|$(GIT_VERSION)|g'                              	  \
+                -e 's|@have_lua_term@|$(HAVE_LUA_TERM)|g'                  	  \
+                -e 's|@have_lua_json@|$(HAVE_LUA_JSON)|g'                  	  \
+	        -e 's|@ancient@|$(ANCIENT)|g'                         	   	  \
+	        -e 's|@prepend_block@|$(PREPEND_BLOCK)|g'             	   	  \
+	        -e 's|@colorize@|$(COLORIZE)|g'                       	   	  \
+	        -e 's|@duplicate_paths@|$(DUPLICATE_PATHS)|g'      	   	  \
+	        -e 's|@allow_tcl_mfiles@|$(ALLOW_TCL_MFILES)|g'      	   	  \
+	        -e 's|@mpath_avail@|$(MPATH_AVAIL)|g'            	   	  \
+	        -e 's|@short_time@|$(SHORT_TIME)|g'                   	   	  \
+	        -e 's|@cacheDirs@|$(SPIDER_CACHE_DIRS)|g'             	   	  \
+	        -e 's|@updateSystemFn@|$(UPDATE_SYSTEM_FN)|g'         	   	  \
+	        -e 's|@modulepath_root@|$(MODULEPATH_ROOT)|g'         	   	  \
+                -e 's|@PKGV@|$(PKGV)|g'                                    	  \
+                -e 's|@PKG@|$(PKG)|g'         < $$i > $(DIRLOC)/$$fn; 	   	  \
+            [ "$$ext" = "in.lua" -o "$$ext" = "tcl" -o "$$ext" = "in" ] && 	  \
+               chmod +x $(DIRLOC)/$$fn;                                    	  \
+            if [ "$$ext" = "version.lua" ]; then                           	  \
+               mname=$${bareN%%.*};                                        	  \
+	       : echo "DIRLOC: $(DIRLOC)/$$mname";                         	  \
+	       mkdir -p $(DIRLOC)/$$mname;                                 	  \
+               mv $(DIRLOC)/$$fn $(DIRLOC)/$$mname/$(version).lua;         	  \
+            fi;                                                            	  \
         done
 
 shell_init: $(SHELL_INIT)
