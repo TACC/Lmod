@@ -74,7 +74,7 @@ EOF
 
 
 case $SYSHOST in
-  rios | mijo | jedrik | vato | vmijo | devo)
+  rios | mijo | jedrik | vato | vmijo | devo | lmod-test)
     SUDO="sudo"
     base="/opt/apps"
     ADMIN_DIR=/opt/moduleData
@@ -87,7 +87,7 @@ case $SYSHOST in
     fi
     ;;
 
-  ls4 | longhorn | stampede)
+  ls4 | maverick | stampede)
     base="$HOME/l/pkg"
     ADMIN_DIR="$HOME/a/moduleData"
     UPDATE_FN=$ADMIN_DIR/system.txt
