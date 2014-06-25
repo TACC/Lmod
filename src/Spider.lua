@@ -112,6 +112,8 @@ function Spider_append_path(kind, t)
    end
 end
 
+local modulepathT = {}
+
 function processNewModulePATH(value)
    if (value == nil) then return end
    dbg.start{"processNewModulePATH(value=\"",value,"\")"}
@@ -130,14 +132,22 @@ function processNewModulePATH(value)
       local path    = moduleStack[iStack].path
       local full    = moduleStack[iStack].full
       local moduleT = moduleStack[iStack].moduleT
-      iStack        = iStack+1
-      moduleStack[iStack] = {path = path, full = full,
-                             moduleT = moduleT[path].children, fn= v}
-      dbg.print{"Top of Stack: ",iStack, " Full: ", full, " file: ", path, "\n"}
-      moduleT[path].children[v] = {}
-      moduleT[path].children.version = Cversion
-      M.findModulesInDir(v, v, "", moduleT[path].children[v])
-      moduleStack[iStack] = nil
+      dbg.print{"path: ",path,"\n"}
+      if ( modulepathT[v] ) then
+         moduleT[path].children[v]      = modulepathT[v]
+         moduleT[path].children.version = Cversion
+      else
+         iStack              = iStack+1
+         moduleStack[iStack] = {path = path, full = full,
+                                moduleT = moduleT[path].children, fn= v}
+         dbg.print{"Top of Stack: ",iStack, " Full: ", full, " file: ", path, "\n"}
+         moduleT[path].children[v] = {}
+         moduleT[path].children.version = Cversion
+         M.findModulesInDir(v, v, "", moduleT[path].children[v])
+         modulepathT[v]      = true
+         moduleStack[iStack] = nil
+         modulepathT[v]      = moduleT[path].children[v]
+      end
    end
 
    dbg.fini("processNewModulePATH")
