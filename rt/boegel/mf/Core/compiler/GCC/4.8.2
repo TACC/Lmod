@@ -1,0 +1,32 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   The GNU Compiler Collection includes front ends for C, C++, Objective-C, Fortran, Java, and Ada,
+ as well as libraries for these languages (libstdc++, libgcj,...). - Homepage: http://gcc.gnu.org/
+    }
+}
+
+module-whatis {Description: The GNU Compiler Collection includes front ends for C, C++, Objective-C, Fortran, Java, and Ada,
+ as well as libraries for these languages (libstdc++, libgcj,...). - Homepage: http://gcc.gnu.org/}
+
+set mproot           "MODULEPATH_ROOT"
+set modulepath_root  $env($mproot)
+set pkg_root         /tmp/software/Core/compiler/GCC/4.8.2
+
+conflict    GCC
+prepend-path	MODULEPATH		$modulepath_root/Compiler/GCC/4.8.2/mpi
+prepend-path	MODULEPATH		$modulepath_root/Compiler/GCC/4.8.2/system
+
+prepend-path	CPATH		        $pkg_root/include
+prepend-path	LD_LIBRARY_PATH		$pkg_root/lib
+prepend-path	LD_LIBRARY_PATH		$pkg_root/lib/gcc/x86_64-apple-darwin13.2.0/4.8.2
+prepend-path	LIBRARY_PATH		$pkg_root/lib
+prepend-path	MANPATH		        $pkg_root/share/man
+prepend-path	PATH		        $pkg_root/bin
+
+setenv	EBROOTGCC		"$pkg_root"
+setenv	EBVERSIONGCC		"4.8.2"
+setenv	EBDEVELGCC		"$pkg_root/easybuild/Core-compiler-GCC-4.8.2-easybuild-devel"
+
+
+# Built with EasyBuild version 1.14.0dev-r4d45b9cf29ea5c904d6c10aa11f84051aa856a59

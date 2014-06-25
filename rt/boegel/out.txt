@@ -1,0 +1,142 @@
+===========================
+step 1
+lua ProjectDIR/src/lmod.in.lua bash --version
+===========================
+===========================
+step 2
+lua ProjectDIR/src/lmod.in.lua bash load gompi
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/boegel/mf/Core/toolchain";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/boegel/mf/Core/toolchain";
+export MODULEPATH;
+CPATH="/tmp/software/Compiler/GCC/4.8.2/mpi/OpenMPI/1.6.5-no-OFED/include:/tmp/software/Compiler/GCC/4.8.2/system/hwloc/1.8.1/include:/tmp/software/Core/compiler/GCC/4.8.2/include";
+export CPATH;
+EBDEVELGCC="/tmp/software/Core/compiler/GCC/4.8.2/easybuild/Core-compiler-GCC-4.8.2-easybuild-devel";
+export EBDEVELGCC;
+EBDEVELGOMPI="/tmp/software/Core/toolchain/gompi/1.5.14-no-OFED/easybuild/Core-toolchain-gompi-1.5.14-no-OFED-easybuild-devel";
+export EBDEVELGOMPI;
+EBDEVELHWLOC="/tmp/software/Compiler/GCC/4.8.2/system/hwloc/1.8.1/easybuild/Compiler-GCC-4.8.2-system-hwloc-1.8.1-easybuild-devel";
+export EBDEVELHWLOC;
+EBDEVELOPENMPI="/tmp/software/Compiler/GCC/4.8.2/mpi/OpenMPI/1.6.5-no-OFED/easybuild/Compiler-GCC-4.8.2-mpi-OpenMPI-1.6.5-no-OFED-easybuild-devel";
+export EBDEVELOPENMPI;
+EBROOTGCC="/tmp/software/Core/compiler/GCC/4.8.2";
+export EBROOTGCC;
+EBROOTGOMPI="/tmp/software/Core/toolchain/gompi/1.5.14-no-OFED";
+export EBROOTGOMPI;
+EBROOTHWLOC="/tmp/software/Compiler/GCC/4.8.2/system/hwloc/1.8.1";
+export EBROOTHWLOC;
+EBROOTOPENMPI="/tmp/software/Compiler/GCC/4.8.2/mpi/OpenMPI/1.6.5-no-OFED";
+export EBROOTOPENMPI;
+EBVERSIONGCC="4.8.2";
+export EBVERSIONGCC;
+EBVERSIONGOMPI="1.5.14";
+export EBVERSIONGOMPI;
+EBVERSIONHWLOC="1.8.1";
+export EBVERSIONHWLOC;
+EBVERSIONOPENMPI="1.6.5";
+export EBVERSIONOPENMPI;
+LD_LIBRARY_PATH="/tmp/software/Compiler/GCC/4.8.2/mpi/OpenMPI/1.6.5-no-OFED/lib:/tmp/software/Compiler/GCC/4.8.2/system/hwloc/1.8.1/lib:/tmp/software/Core/compiler/GCC/4.8.2/lib/gcc/x86_64-apple-darwin13.2.0/4.8.2:/tmp/software/Core/compiler/GCC/4.8.2/lib";
+export LD_LIBRARY_PATH;
+LIBRARY_PATH="/tmp/software/Compiler/GCC/4.8.2/mpi/OpenMPI/1.6.5-no-OFED/lib:/tmp/software/Compiler/GCC/4.8.2/system/hwloc/1.8.1/lib:/tmp/software/Core/compiler/GCC/4.8.2/lib";
+export LIBRARY_PATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/boegel/mf/Core/toolchain";
+export LMOD_DEFAULT_MODULEPATH;
+LOADEDMODULES="GCC/4.8.2:hwloc/1.8.1:OpenMPI/1.6.5-no-OFED:gompi/1.5.14-no-OFED";
+export LOADEDMODULES;
+MANPATH="/tmp/software/Compiler/GCC/4.8.2/mpi/OpenMPI/1.6.5-no-OFED/share/man:/tmp/software/Compiler/GCC/4.8.2/system/hwloc/1.8.1/share/man:/tmp/software/Core/compiler/GCC/4.8.2/share/man";
+export MANPATH;
+MODULEPATH="ProjectDIR/rt/boegel/mf/MPI/GCC/4.8.2/OpenMPI/1.6.5-no-OFED/mpi:ProjectDIR/rt/boegel/mf/Compiler/GCC/4.8.2/system:ProjectDIR/rt/boegel/mf/Compiler/GCC/4.8.2/mpi:ProjectDIR/rt/boegel/mf/Core/compiler:ProjectDIR/rt/boegel/mf/Core/toolchain";
+export MODULEPATH;
+PATH="/tmp/software/Compiler/GCC/4.8.2/mpi/OpenMPI/1.6.5-no-OFED/bin:/tmp/software/Compiler/GCC/4.8.2/system/hwloc/1.8.1/bin:/tmp/software/Core/compiler/GCC/4.8.2/bin:ProjectDIR/src:PATH_to_TM:/bin";
+export PATH;
+PKG_CONFIG_PATH="/tmp/software/Compiler/GCC/4.8.2/mpi/OpenMPI/1.6.5-no-OFED/lib/pkgconfig:/tmp/software/Compiler/GCC/4.8.2/system/hwloc/1.8.1/lib/pkgconfig";
+export PKG_CONFIG_PATH;
+_LMFILES_="ProjectDIR/rt/boegel/mf/Core/compiler/GCC/4.8.2:ProjectDIR/rt/boegel/mf/Compiler/GCC/4.8.2/system/hwloc/1.8.1:ProjectDIR/rt/boegel/mf/Compiler/GCC/4.8.2/mpi/OpenMPI/1.6.5-no-OFED:ProjectDIR/rt/boegel/mf/Core/toolchain/gompi/1.5.14-no-OFED";
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={["activeSize"]=4,baseMpathA={"ProjectDIR/rt/boegel/mf/Core/toolchain",},family={},inactive={},mT={GCC={["FN"]="ProjectDIR/rt/boegel/mf/Core/compiler/GCC/4.8.2",["default"]=0,["fullName"]="GCC/4.8.2",["loadOrder"]=1,propT={},["short"]="GCC",["status"]="active",},OpenMPI={["FN"]="ProjectDIR/rt/boegel/mf/Compiler/GCC/4.8.2/mpi/OpenMPI/1.6.5-no-OFED",["default"]=0,["fullName"]="OpenMPI/1.6.5-no-OFED",["loadOrder"]=3,propT={},["short"]="OpenMPI",["status"]="active",},gompi={["FN"]="ProjectDIR/rt/boegel/mf/Core/toolchain/gompi/1.5.14-no-OFED",["default"]=1,["fullName"]="gompi/1.5.14-no-OFED",["loadOrder"]=4,propT={},["short"]="gompi",["status"]="active",},hwloc={["FN"]="ProjectDIR/rt/boegel/mf/Compiler/GCC/4.8.2/system/hwloc/1.8.1",["default"]=0,["fullName"]="hwloc/1.8.1",["loadOrder"]=2,propT={},["short"]="hwloc",["status"]="active",},},mpathA={"ProjectDIR/rt/boegel/mf/MPI/GCC/4.8.2/OpenMPI/1.6.5-no-OFED/mpi","ProjectDIR/rt/boegel/mf/Compiler/GCC/4.8.2/system","ProjectDIR/rt/boegel/mf/Compiler/GCC/4.8.2/mpi","ProjectDIR/rt/boegel/mf/Core/compiler","ProjectDIR/rt/boegel/mf/Core/toolchain",},["systemBaseMPATH"]="ProjectDIR/rt/boegel/mf/Core/toolchain",["version"]=2,}';
+export _ModuleTable_;
+===========================
+step 3
+lua ProjectDIR/src/lmod.in.lua bash list
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/boegel/mf/Core/toolchain";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/boegel/mf/MPI/GCC/4.8.2/OpenMPI/1.6.5-no-OFED/mpi:ProjectDIR/rt/boegel/mf/Compiler/GCC/4.8.2/system:ProjectDIR/rt/boegel/mf/Compiler/GCC/4.8.2/mpi:ProjectDIR/rt/boegel/mf/Core/compiler:ProjectDIR/rt/boegel/mf/Core/toolchain";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/boegel/mf/Core/toolchain";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/boegel/mf/MPI/GCC/4.8.2/OpenMPI/1.6.5-no-OFED/mpi:ProjectDIR/rt/boegel/mf/Compiler/GCC/4.8.2/system:ProjectDIR/rt/boegel/mf/Compiler/GCC/4.8.2/mpi:ProjectDIR/rt/boegel/mf/Core/compiler:ProjectDIR/rt/boegel/mf/Core/toolchain";
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=4,baseMpathA={"ProjectDIR/rt/boegel/mf/Core/toolchain",},family={},inactive={},mT={GCC={["FN"]="ProjectDIR/rt/boegel/mf/Core/compiler/GCC/4.8.2",["default"]=0,["fullName"]="GCC/4.8.2",["loadOrder"]=1,propT={},["short"]="GCC",["status"]="active",},OpenMPI={["FN"]="ProjectDIR/rt/boegel/mf/Compiler/GCC/4.8.2/mpi/OpenMPI/1.6.5-no-OFED",["default"]=0,["fullName"]="OpenMPI/1.6.5-no-OFED",["loadOrder"]=3,propT={},["short"]="OpenMPI",["status"]="active",},gompi={["FN"]="ProjectDIR/rt/boegel/mf/Core/toolchain/gompi/1.5.14-no-OFED",["default"]=1,["fullName"]="gompi/1.5.14-no-OFED",["loadOrder"]=4,propT={},["short"]="gompi",["status"]="active",},hwloc={["FN"]="ProjectDIR/rt/boegel/mf/Compiler/GCC/4.8.2/system/hwloc/1.8.1",["default"]=0,["fullName"]="hwloc/1.8.1",["loadOrder"]=2,propT={},["short"]="hwloc",["status"]="active",},},mpathA={"ProjectDIR/rt/boegel/mf/MPI/GCC/4.8.2/OpenMPI/1.6.5-no-OFED/mpi","ProjectDIR/rt/boegel/mf/Compiler/GCC/4.8.2/system","ProjectDIR/rt/boegel/mf/Compiler/GCC/4.8.2/mpi","ProjectDIR/rt/boegel/mf/Core/compiler","ProjectDIR/rt/boegel/mf/Core/toolchain",},["systemBaseMPATH"]="ProjectDIR/rt/boegel/mf/Core/toolchain",["version"]=2,}';
+export _ModuleTable_;
+===========================
+step 4
+lua ProjectDIR/src/lmod.in.lua bash avail
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/boegel/mf/Core/toolchain";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/boegel/mf/MPI/GCC/4.8.2/OpenMPI/1.6.5-no-OFED/mpi:ProjectDIR/rt/boegel/mf/Compiler/GCC/4.8.2/system:ProjectDIR/rt/boegel/mf/Compiler/GCC/4.8.2/mpi:ProjectDIR/rt/boegel/mf/Core/compiler:ProjectDIR/rt/boegel/mf/Core/toolchain";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/boegel/mf/Core/toolchain";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/boegel/mf/MPI/GCC/4.8.2/OpenMPI/1.6.5-no-OFED/mpi:ProjectDIR/rt/boegel/mf/Compiler/GCC/4.8.2/system:ProjectDIR/rt/boegel/mf/Compiler/GCC/4.8.2/mpi:ProjectDIR/rt/boegel/mf/Core/compiler:ProjectDIR/rt/boegel/mf/Core/toolchain";
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=4,baseMpathA={"ProjectDIR/rt/boegel/mf/Core/toolchain",},family={},inactive={},mT={GCC={["FN"]="ProjectDIR/rt/boegel/mf/Core/compiler/GCC/4.8.2",["default"]=0,["fullName"]="GCC/4.8.2",["loadOrder"]=1,propT={},["short"]="GCC",["status"]="active",},OpenMPI={["FN"]="ProjectDIR/rt/boegel/mf/Compiler/GCC/4.8.2/mpi/OpenMPI/1.6.5-no-OFED",["default"]=0,["fullName"]="OpenMPI/1.6.5-no-OFED",["loadOrder"]=3,propT={},["short"]="OpenMPI",["status"]="active",},gompi={["FN"]="ProjectDIR/rt/boegel/mf/Core/toolchain/gompi/1.5.14-no-OFED",["default"]=1,["fullName"]="gompi/1.5.14-no-OFED",["loadOrder"]=4,propT={},["short"]="gompi",["status"]="active",},hwloc={["FN"]="ProjectDIR/rt/boegel/mf/Compiler/GCC/4.8.2/system/hwloc/1.8.1",["default"]=0,["fullName"]="hwloc/1.8.1",["loadOrder"]=2,propT={},["short"]="hwloc",["status"]="active",},},mpathA={"ProjectDIR/rt/boegel/mf/MPI/GCC/4.8.2/OpenMPI/1.6.5-no-OFED/mpi","ProjectDIR/rt/boegel/mf/Compiler/GCC/4.8.2/system","ProjectDIR/rt/boegel/mf/Compiler/GCC/4.8.2/mpi","ProjectDIR/rt/boegel/mf/Core/compiler","ProjectDIR/rt/boegel/mf/Core/toolchain",},["systemBaseMPATH"]="ProjectDIR/rt/boegel/mf/Core/toolchain",["version"]=2,}';
+export _ModuleTable_;
+===========================
+step 5
+lua ProjectDIR/src/lmod.in.lua bash -t avail
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/boegel/mf/Core/toolchain";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/boegel/mf/MPI/GCC/4.8.2/OpenMPI/1.6.5-no-OFED/mpi:ProjectDIR/rt/boegel/mf/Compiler/GCC/4.8.2/system:ProjectDIR/rt/boegel/mf/Compiler/GCC/4.8.2/mpi:ProjectDIR/rt/boegel/mf/Core/compiler:ProjectDIR/rt/boegel/mf/Core/toolchain";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/boegel/mf/Core/toolchain";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/boegel/mf/MPI/GCC/4.8.2/OpenMPI/1.6.5-no-OFED/mpi:ProjectDIR/rt/boegel/mf/Compiler/GCC/4.8.2/system:ProjectDIR/rt/boegel/mf/Compiler/GCC/4.8.2/mpi:ProjectDIR/rt/boegel/mf/Core/compiler:ProjectDIR/rt/boegel/mf/Core/toolchain";
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=4,baseMpathA={"ProjectDIR/rt/boegel/mf/Core/toolchain",},family={},inactive={},mT={GCC={["FN"]="ProjectDIR/rt/boegel/mf/Core/compiler/GCC/4.8.2",["default"]=0,["fullName"]="GCC/4.8.2",["loadOrder"]=1,propT={},["short"]="GCC",["status"]="active",},OpenMPI={["FN"]="ProjectDIR/rt/boegel/mf/Compiler/GCC/4.8.2/mpi/OpenMPI/1.6.5-no-OFED",["default"]=0,["fullName"]="OpenMPI/1.6.5-no-OFED",["loadOrder"]=3,propT={},["short"]="OpenMPI",["status"]="active",},gompi={["FN"]="ProjectDIR/rt/boegel/mf/Core/toolchain/gompi/1.5.14-no-OFED",["default"]=1,["fullName"]="gompi/1.5.14-no-OFED",["loadOrder"]=4,propT={},["short"]="gompi",["status"]="active",},hwloc={["FN"]="ProjectDIR/rt/boegel/mf/Compiler/GCC/4.8.2/system/hwloc/1.8.1",["default"]=0,["fullName"]="hwloc/1.8.1",["loadOrder"]=2,propT={},["short"]="hwloc",["status"]="active",},},mpathA={"ProjectDIR/rt/boegel/mf/MPI/GCC/4.8.2/OpenMPI/1.6.5-no-OFED/mpi","ProjectDIR/rt/boegel/mf/Compiler/GCC/4.8.2/system","ProjectDIR/rt/boegel/mf/Compiler/GCC/4.8.2/mpi","ProjectDIR/rt/boegel/mf/Core/compiler","ProjectDIR/rt/boegel/mf/Core/toolchain",},["systemBaseMPATH"]="ProjectDIR/rt/boegel/mf/Core/toolchain",["version"]=2,}';
+export _ModuleTable_;
+===========================
+step 6
+lua ProjectDIR/src/lmod.in.lua bash use ProjectDIR/rt/boegel/mf/Core/Broken
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/boegel/mf/Core/toolchain";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/boegel/mf/MPI/GCC/4.8.2/OpenMPI/1.6.5-no-OFED/mpi:ProjectDIR/rt/boegel/mf/Compiler/GCC/4.8.2/system:ProjectDIR/rt/boegel/mf/Compiler/GCC/4.8.2/mpi:ProjectDIR/rt/boegel/mf/Core/compiler:ProjectDIR/rt/boegel/mf/Core/toolchain";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/boegel/mf/Core/Broken:ProjectDIR/rt/boegel/mf/Core/toolchain";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/boegel/mf/Core/Broken:ProjectDIR/rt/boegel/mf/MPI/GCC/4.8.2/OpenMPI/1.6.5-no-OFED/mpi:ProjectDIR/rt/boegel/mf/Compiler/GCC/4.8.2/system:ProjectDIR/rt/boegel/mf/Compiler/GCC/4.8.2/mpi:ProjectDIR/rt/boegel/mf/Core/compiler:ProjectDIR/rt/boegel/mf/Core/toolchain";
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=4,baseMpathA={"ProjectDIR/rt/boegel/mf/Core/Broken","ProjectDIR/rt/boegel/mf/Core/toolchain",},family={},inactive={},mT={GCC={["FN"]="ProjectDIR/rt/boegel/mf/Core/compiler/GCC/4.8.2",["default"]=0,["fullName"]="GCC/4.8.2",["loadOrder"]=1,propT={},["short"]="GCC",["status"]="active",},OpenMPI={["FN"]="ProjectDIR/rt/boegel/mf/Compiler/GCC/4.8.2/mpi/OpenMPI/1.6.5-no-OFED",["default"]=0,["fullName"]="OpenMPI/1.6.5-no-OFED",["loadOrder"]=3,propT={},["short"]="OpenMPI",["status"]="active",},gompi={["FN"]="ProjectDIR/rt/boegel/mf/Core/toolchain/gompi/1.5.14-no-OFED",["default"]=1,["fullName"]="gompi/1.5.14-no-OFED",["loadOrder"]=4,propT={},["short"]="gompi",["status"]="active",},hwloc={["FN"]="ProjectDIR/rt/boegel/mf/Compiler/GCC/4.8.2/system/hwloc/1.8.1",["default"]=0,["fullName"]="hwloc/1.8.1",["loadOrder"]=2,propT={},["short"]="hwloc",["status"]="active",},},mpathA={"ProjectDIR/rt/boegel/mf/Core/Broken","ProjectDIR/rt/boegel/mf/MPI/GCC/4.8.2/OpenMPI/1.6.5-no-OFED/mpi","ProjectDIR/rt/boegel/mf/Compiler/GCC/4.8.2/system","ProjectDIR/rt/boegel/mf/Compiler/GCC/4.8.2/mpi","ProjectDIR/rt/boegel/mf/Core/compiler","ProjectDIR/rt/boegel/mf/Core/toolchain",},["systemBaseMPATH"]="ProjectDIR/rt/boegel/mf/Core/toolchain",["version"]=2,}';
+export _ModuleTable_;
+===========================
+step 7
+lua ProjectDIR/src/lmod.in.lua bash avail
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/boegel/mf/Core/Broken:ProjectDIR/rt/boegel/mf/Core/toolchain";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/boegel/mf/Core/Broken:ProjectDIR/rt/boegel/mf/MPI/GCC/4.8.2/OpenMPI/1.6.5-no-OFED/mpi:ProjectDIR/rt/boegel/mf/Compiler/GCC/4.8.2/system:ProjectDIR/rt/boegel/mf/Compiler/GCC/4.8.2/mpi:ProjectDIR/rt/boegel/mf/Core/compiler:ProjectDIR/rt/boegel/mf/Core/toolchain";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/boegel/mf/Core/Broken:ProjectDIR/rt/boegel/mf/Core/toolchain";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/boegel/mf/Core/Broken:ProjectDIR/rt/boegel/mf/MPI/GCC/4.8.2/OpenMPI/1.6.5-no-OFED/mpi:ProjectDIR/rt/boegel/mf/Compiler/GCC/4.8.2/system:ProjectDIR/rt/boegel/mf/Compiler/GCC/4.8.2/mpi:ProjectDIR/rt/boegel/mf/Core/compiler:ProjectDIR/rt/boegel/mf/Core/toolchain";
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=4,baseMpathA={"ProjectDIR/rt/boegel/mf/Core/Broken","ProjectDIR/rt/boegel/mf/Core/toolchain",},family={},inactive={},mT={GCC={["FN"]="ProjectDIR/rt/boegel/mf/Core/compiler/GCC/4.8.2",["default"]=0,["fullName"]="GCC/4.8.2",["loadOrder"]=1,propT={},["short"]="GCC",["status"]="active",},OpenMPI={["FN"]="ProjectDIR/rt/boegel/mf/Compiler/GCC/4.8.2/mpi/OpenMPI/1.6.5-no-OFED",["default"]=0,["fullName"]="OpenMPI/1.6.5-no-OFED",["loadOrder"]=3,propT={},["short"]="OpenMPI",["status"]="active",},gompi={["FN"]="ProjectDIR/rt/boegel/mf/Core/toolchain/gompi/1.5.14-no-OFED",["default"]=1,["fullName"]="gompi/1.5.14-no-OFED",["loadOrder"]=4,propT={},["short"]="gompi",["status"]="active",},hwloc={["FN"]="ProjectDIR/rt/boegel/mf/Compiler/GCC/4.8.2/system/hwloc/1.8.1",["default"]=0,["fullName"]="hwloc/1.8.1",["loadOrder"]=2,propT={},["short"]="hwloc",["status"]="active",},},mpathA={"ProjectDIR/rt/boegel/mf/Core/Broken","ProjectDIR/rt/boegel/mf/MPI/GCC/4.8.2/OpenMPI/1.6.5-no-OFED/mpi","ProjectDIR/rt/boegel/mf/Compiler/GCC/4.8.2/system","ProjectDIR/rt/boegel/mf/Compiler/GCC/4.8.2/mpi","ProjectDIR/rt/boegel/mf/Core/compiler","ProjectDIR/rt/boegel/mf/Core/toolchain",},["systemBaseMPATH"]="ProjectDIR/rt/boegel/mf/Core/toolchain",["version"]=2,}';
+export _ModuleTable_;
+===========================
+step 8
+lua ProjectDIR/src/lmod.in.lua bash -t avail
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/boegel/mf/Core/Broken:ProjectDIR/rt/boegel/mf/Core/toolchain";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/boegel/mf/Core/Broken:ProjectDIR/rt/boegel/mf/MPI/GCC/4.8.2/OpenMPI/1.6.5-no-OFED/mpi:ProjectDIR/rt/boegel/mf/Compiler/GCC/4.8.2/system:ProjectDIR/rt/boegel/mf/Compiler/GCC/4.8.2/mpi:ProjectDIR/rt/boegel/mf/Core/compiler:ProjectDIR/rt/boegel/mf/Core/toolchain";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/boegel/mf/Core/Broken:ProjectDIR/rt/boegel/mf/Core/toolchain";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/boegel/mf/Core/Broken:ProjectDIR/rt/boegel/mf/MPI/GCC/4.8.2/OpenMPI/1.6.5-no-OFED/mpi:ProjectDIR/rt/boegel/mf/Compiler/GCC/4.8.2/system:ProjectDIR/rt/boegel/mf/Compiler/GCC/4.8.2/mpi:ProjectDIR/rt/boegel/mf/Core/compiler:ProjectDIR/rt/boegel/mf/Core/toolchain";
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=4,baseMpathA={"ProjectDIR/rt/boegel/mf/Core/Broken","ProjectDIR/rt/boegel/mf/Core/toolchain",},family={},inactive={},mT={GCC={["FN"]="ProjectDIR/rt/boegel/mf/Core/compiler/GCC/4.8.2",["default"]=0,["fullName"]="GCC/4.8.2",["loadOrder"]=1,propT={},["short"]="GCC",["status"]="active",},OpenMPI={["FN"]="ProjectDIR/rt/boegel/mf/Compiler/GCC/4.8.2/mpi/OpenMPI/1.6.5-no-OFED",["default"]=0,["fullName"]="OpenMPI/1.6.5-no-OFED",["loadOrder"]=3,propT={},["short"]="OpenMPI",["status"]="active",},gompi={["FN"]="ProjectDIR/rt/boegel/mf/Core/toolchain/gompi/1.5.14-no-OFED",["default"]=1,["fullName"]="gompi/1.5.14-no-OFED",["loadOrder"]=4,propT={},["short"]="gompi",["status"]="active",},hwloc={["FN"]="ProjectDIR/rt/boegel/mf/Compiler/GCC/4.8.2/system/hwloc/1.8.1",["default"]=0,["fullName"]="hwloc/1.8.1",["loadOrder"]=2,propT={},["short"]="hwloc",["status"]="active",},},mpathA={"ProjectDIR/rt/boegel/mf/Core/Broken","ProjectDIR/rt/boegel/mf/MPI/GCC/4.8.2/OpenMPI/1.6.5-no-OFED/mpi","ProjectDIR/rt/boegel/mf/Compiler/GCC/4.8.2/system","ProjectDIR/rt/boegel/mf/Compiler/GCC/4.8.2/mpi","ProjectDIR/rt/boegel/mf/Core/compiler","ProjectDIR/rt/boegel/mf/Core/toolchain",},["systemBaseMPATH"]="ProjectDIR/rt/boegel/mf/Core/toolchain",["version"]=2,}';
+export _ModuleTable_;

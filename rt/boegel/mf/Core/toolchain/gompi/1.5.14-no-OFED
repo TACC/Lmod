@@ -1,0 +1,35 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   GNU Compiler Collection (GCC) based compiler toolchain,
+ including OpenMPI for MPI support. - Homepage: (none)
+    }
+}
+
+module-whatis {Description: GNU Compiler Collection (GCC) based compiler toolchain,
+ including OpenMPI for MPI support. - Homepage: (none)}
+
+set mproot           "MODULEPATH_ROOT"
+set modulepath_root  $env($mproot)
+
+set pkg_root    /tmp/software/Core/toolchain/gompi/1.5.14-no-OFED
+
+conflict    gompi
+prepend-path	MODULEPATH		$modulepath_root/Core/compiler
+#prepend-path	MODULEPATH		$modulepath_root/Core/toolchain
+
+if { ![is-loaded GCC/4.8.2] } {
+    module load GCC/4.8.2
+}
+
+if { ![is-loaded OpenMPI/1.6.5-no-OFED] } {
+    module load OpenMPI/1.6.5-no-OFED
+}
+
+
+setenv	EBROOTGOMPI		"$pkg_root"
+setenv	EBVERSIONGOMPI		"1.5.14"
+setenv	EBDEVELGOMPI		"$pkg_root/easybuild/Core-toolchain-gompi-1.5.14-no-OFED-easybuild-devel"
+
+
+# Built with EasyBuild version 1.14.0dev-r4d45b9cf29ea5c904d6c10aa11f84051aa856a59
