@@ -1,0 +1,36 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   FFTW is a C subroutine library for computing the discrete Fourier transform (DFT)
+ in one or more dimensions, of arbitrary input size, and of both real and complex data. - Homepage: http://www.fftw.org
+    }
+}
+
+module-whatis {Description: FFTW is a C subroutine library for computing the discrete Fourier transform (DFT)
+ in one or more dimensions, of arbitrary input size, and of both real and complex data. - Homepage: http://www.fftw.org}
+
+set root    /tmp/software/MPI/GCC/4.8.2/OpenMPI/1.6.5-no-OFED/numlib/FFTW/3.3.4
+
+conflict    FFTW
+
+if { ![is-loaded GCC/4.8.2] } {
+    module load GCC/4.8.2
+}
+
+if { ![is-loaded OpenMPI/1.6.5-no-OFED] } {
+    module load OpenMPI/1.6.5-no-OFED
+}
+
+prepend-path	CPATH		$root/include
+prepend-path	LD_LIBRARY_PATH		$root/lib
+prepend-path	LIBRARY_PATH		$root/lib
+prepend-path	MANPATH		$root/share/man
+prepend-path	PATH		$root/bin
+prepend-path	PKG_CONFIG_PATH		$root/lib/pkgconfig
+
+setenv	EBROOTFFTW		"$root"
+setenv	EBVERSIONFFTW		"3.3.4"
+setenv	EBDEVELFFTW		"$root/easybuild/MPI-GCC-4.8.2-OpenMPI-1.6.5-no-OFED-numlib-FFTW-3.3.4-easybuild-devel"
+
+
+# Built with EasyBuild version 1.14.0dev-r4e5df8235cdf01562734965b521020dac8606490

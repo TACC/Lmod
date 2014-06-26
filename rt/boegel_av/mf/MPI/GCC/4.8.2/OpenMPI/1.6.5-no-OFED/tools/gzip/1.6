@@ -1,0 +1,42 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   gzip (GNU zip) is a popular data compression program as a replacement for compress - Homepage: http://www.gnu.org/software/gzip/
+    }
+}
+
+module-whatis {Description: gzip (GNU zip) is a popular data compression program as a replacement for compress - Homepage: http://www.gnu.org/software/gzip/}
+
+set root    /tmp/software/MPI/GCC/4.8.2/OpenMPI/1.6.5-no-OFED/tools/gzip/1.6
+
+conflict    gzip
+
+if { ![is-loaded GCC/4.8.2] } {
+    module load GCC/4.8.2
+}
+
+if { ![is-loaded OpenMPI/1.6.5-no-OFED] } {
+    module load OpenMPI/1.6.5-no-OFED
+}
+
+if { ![is-loaded OpenBLAS/0.2.8-LAPACK-3.5.0] } {
+    module load OpenBLAS/0.2.8-LAPACK-3.5.0
+}
+
+if { ![is-loaded FFTW/3.3.4] } {
+    module load FFTW/3.3.4
+}
+
+if { ![is-loaded ScaLAPACK/2.0.2-OpenBLAS-0.2.8-LAPACK-3.5.0] } {
+    module load ScaLAPACK/2.0.2-OpenBLAS-0.2.8-LAPACK-3.5.0
+}
+
+prepend-path	MANPATH		$root/share/man
+prepend-path	PATH		$root/bin
+
+setenv	EBROOTGZIP		"$root"
+setenv	EBVERSIONGZIP		"1.6"
+setenv	EBDEVELGZIP		"$root/easybuild/MPI-GCC-4.8.2-OpenMPI-1.6.5-no-OFED-tools-gzip-1.6-easybuild-devel"
+
+
+# Built with EasyBuild version 1.14.0dev-r4e5df8235cdf01562734965b521020dac8606490

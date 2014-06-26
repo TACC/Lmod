@@ -1,0 +1,37 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   The ScaLAPACK (or Scalable LAPACK) library includes a subset of LAPACK routines
+ redesigned for distributed memory MIMD parallel computers. - Homepage: http://www.netlib.org/scalapack/
+    }
+}
+
+module-whatis {Description: The ScaLAPACK (or Scalable LAPACK) library includes a subset of LAPACK routines
+ redesigned for distributed memory MIMD parallel computers. - Homepage: http://www.netlib.org/scalapack/}
+
+set root    /tmp/software/MPI/GCC/4.8.2/OpenMPI/1.6.5-no-OFED/numlib/ScaLAPACK/2.0.2-OpenBLAS-0.2.8-LAPACK-3.5.0
+
+conflict    ScaLAPACK
+
+if { ![is-loaded OpenBLAS/0.2.8-LAPACK-3.5.0] } {
+    module load OpenBLAS/0.2.8-LAPACK-3.5.0
+}
+
+if { ![is-loaded GCC/4.8.2] } {
+    module load GCC/4.8.2
+}
+
+if { ![is-loaded OpenMPI/1.6.5-no-OFED] } {
+    module load OpenMPI/1.6.5-no-OFED
+}
+
+prepend-path	CPATH		$root/include
+prepend-path	LD_LIBRARY_PATH		$root/lib
+prepend-path	LIBRARY_PATH		$root/lib
+
+setenv	EBROOTSCALAPACK		"$root"
+setenv	EBVERSIONSCALAPACK		"2.0.2"
+setenv	EBDEVELSCALAPACK		"$root/easybuild/MPI-GCC-4.8.2-OpenMPI-1.6.5-no-OFED-numlib-ScaLAPACK-2.0.2-OpenBLAS-0.2.8-LAPACK-3.5.0-easybuild-devel"
+
+
+# Built with EasyBuild version 1.14.0dev-r4e5df8235cdf01562734965b521020dac8606490
