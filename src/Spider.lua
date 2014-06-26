@@ -147,6 +147,7 @@ function processNewModulePATH(value)
          modulepathT[v]      = true
          moduleStack[iStack] = nil
          modulepathT[v]      = moduleT[path].children[v]
+         iStack              = iStack - 1
       end
    end
 
