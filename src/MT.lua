@@ -103,11 +103,11 @@ local defaultFnT = {
 
 
 local function locationTblDir(mpath, path, prefix, locationT, availT)
-   -- dbg.start{"locationTblDir(",mpath,",",path,",",prefix,")"}
+   dbg.start{"locationTblDir(",mpath,",",path,",",prefix,")"}
    local attr = lfs.attributes(path)
    if (not attr or type(attr) ~= "table" or attr.mode ~= "directory"
        or not posix.access(path,"x")) then
-      -- dbg.fini("locationTblDir")
+      dbg.fini("locationTblDir")
       return
    end
 
@@ -121,24 +121,31 @@ local function locationTblDir(mpath, path, prefix, locationT, availT)
    local ignoreT = ignoreFileT()
 
    for file in lfs.dir(path) do
-      local idx      = defaultFnT[file] or defaultIdx
-      local fileDflt = file:sub(1,8)
+      local idx       = defaultFnT[file] or defaultIdx
       if (idx < defaultIdx) then
          defaultIdx = idx
          defaultFn  = pathJoin(abspath(path),file)
-      elseif (ignoreT[file] or file:sub(-1,-1) == "~" or ignoreT[fileDflt]) then
-         -- nothing happens here
       else
-         local f = pathJoin(path,file)
-         attr    = lfs.attributes(f) or {}
-         local readable = posix.access(f,"r")
-         if (not readable or not attr) then
-            -- do nothing for non-readable or non-existant files
-         elseif (attr.mode == 'file' and file ~= "default") then
-            local mname = pathJoin(prefix, file):gsub("%.lua$","")
-            mnameT[mname] = {file=f:gsub("%.lua$",""), mpath = mpath}
-         elseif (attr.mode == "directory" and file:sub(1,1) ~= ".") then
-            dirA[#dirA + 1] = { fullName = f, mname = pathJoin(prefix, file) }
+         local fileDflt  = file:sub(1,8)
+         local firstChar = file:sub(1,1)
+         local lastChar  = file:sub(-1,-1)
+         local firstTwo  = file:sub(1,2)
+         
+         if (ignoreT[file]    or lastChar == '~' or ignoreT[fileDflt] or
+             firstChar == '#' or lastChar == '#' or firstTwo == '.#') then
+            -- nothing happens here
+         else
+            local f = pathJoin(path,file)
+            attr    = lfs.attributes(f) or {}
+            local readable = posix.access(f,"r")
+            if (not readable or not attr) then
+               -- do nothing for non-readable or non-existant files
+            elseif (attr.mode == 'file' and file ~= "default") then
+               local mname = pathJoin(prefix, file):gsub("%.lua$","")
+               mnameT[mname] = {file=f:gsub("%.lua$",""), mpath = mpath}
+            elseif (attr.mode == "directory" and file:sub(1,1) ~= ".") then
+               dirA[#dirA + 1] = { fullName = f, mname = pathJoin(prefix, file) }
+            end
          end
       end
    end
@@ -155,8 +162,7 @@ local function locationTblDir(mpath, path, prefix, locationT, availT)
          local a      = locationT[k] 
          if (a == nil) then
             local d, f = splitFileName(v.file)
-            f          = f:gsub("%.lua$","")
-            f          = pathJoin(abspath(d),f)
+            f          = pathJoin(abspath(d),f:gsub("%.lua$",""))
             a          = {}
             a.default  = {fn=f, kind="last", num = 1}
          end
@@ -209,19 +215,11 @@ local function locationTblDir(mpath, path, prefix, locationT, availT)
             v         = versionFile(v, prefix, defaultFn, true)
             defaultFn = pathJoin(abspath(d),v):gsub("%.lua$","")
          end
-         --local fn = defaultFn .. ".lua"
-         --if (isFile(fn)) then
-         --   defaultFn = fn
-         --end
          local num = max(#vA, numPathA)
          locationT[prefix].default = {fn = defaultFn, kind="marked", num = #vA}
       else
          local d = abspath(pathJoin(mpath, prefix))
          defaultFn = pathJoin(d, a[#a].version):gsub("%.lua$","")
-         --local fn = defaultFn .. ".lua"
-         --if (isFile(fn)) then
-         --   defaultFn = fn
-         --end
          locationT[prefix].default = {fn = defaultFn, kind="last", num = #vA}
       end
    end
@@ -296,7 +294,7 @@ end
 --
 --   locationT[sn] = {
 --                    default = {fn=, num=,
---                               type=[last,marked] }
+--                               kind=[last,marked] }
 --                    {mpath=..., file=..., fullFn=...},
 --                    {mpath=..., file=..., fullFn=...},
 --                   }
@@ -444,6 +442,32 @@ local function build_locationTbl(mpathA)
       end
    end
 
+   --local oldLocationT = locationT
+   --
+   --locationT = {}
+   --for i = 1, #mpathA do
+   --   local defaultFn   = false
+   --   local defaultKind = false
+   --   local mpath       = mpathA[i]
+   --   local vv          = availT[mpath]
+   --   for sn, v = pairs(vv) do
+   --      local a        = locationT[sn]           
+   --      if (a) then
+   --         local defaultEntry = a.default
+   --         defaultKind        = defaultEntry.kind
+   --      else
+   --         a = {}
+   --      end
+   --      a = {mpath = mpath, file = pathJoin(mpath,sn) }
+   --
+   --      for 
+   --      if (defaultKind ~= "marked") then
+   --         if (v.markedDefault) then
+   --            defaultFn = v.
+   --   
+   --      a = locationT[sn] or {}
+   --      v = {mpath=mpath, f
+         
    if (dbg.active()) then
       dbg.print{"availT: \n"}
       for mpath, vv in Pairs(availT) do
