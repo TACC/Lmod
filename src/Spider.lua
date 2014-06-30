@@ -234,6 +234,7 @@ local function registerModuleT(full, sn, f, markedDefault)
    local t = {}
 
    local fabs      = abspath_localdir(f)
+   dbg.print{"registerModuleT f: ",f,", fabs: ",fabs,", dflt: ",markedDefault,"\n"}
    t.path          = f
    t.name          = sn
    t.name_lower    = sn:lower()
