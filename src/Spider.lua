@@ -1013,7 +1013,7 @@ end
 
 function M.dictModules(self, T,tbl)
    for kk,vv in pairs(T) do
-      kk      = kk:gsub(".lua$","")
+      kk      = kk:gsub("%.lua$","")
       tbl[kk] = 0
       if (next(vv.children)) then
          for k, v in pairs(vv.children) do

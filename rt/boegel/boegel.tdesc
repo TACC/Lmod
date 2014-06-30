@@ -34,9 +34,16 @@ testdescript = {
      runLmod list                                # 3
      runLmod avail                               # 4
      runLmod -t avail                            # 5
-     runLmod use $MODULEPATH_ROOT/Core/Broken    # 6
-     runLmod avail                               # 7
-     runLmod -t avail                            # 8
+     runLmod purge                               # 6
+     unsetMT
+     MODULEPATH=$MODULEPATH_ROOT/Core/compiler   # 7
+     runLmod load GCC                            # 8
+     runLmod avail                               # 9
+     unsetMT
+     unset MODULEPATH
+     runLmod use $MODULEPATH_ROOT/Core/Broken    #10
+     runLmod avail                               #11
+     runLmod -t avail                            #12
 
 
      HOME=$ORIG_HOME

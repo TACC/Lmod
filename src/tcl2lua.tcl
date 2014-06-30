@@ -383,7 +383,13 @@ proc module-info {what {more {}}} {
     }
 }
 
-proc module-whatis { msg } {
+proc module-whatis { args } {
+    set msg ""
+    foreach item $args {
+       append msg $item
+       append msg " "
+    }
+
     regsub -all {[\n]} $msg  " " msg2
     puts stdout "whatis(\[\[$msg2\]\])"
 }
