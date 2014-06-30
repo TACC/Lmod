@@ -318,7 +318,7 @@ function M.findModulesInDir(mpath, path, prefix, moduleT)
             elseif (attr.mode == 'file' and file ~= "default" and accept_fn(file) and
                  full:sub(1,1) ~= '.') then
                dbg.print{"mnameT[",full,"].file: ",f,"\n"}
-               mnameT[full] = {file=f:gsub("%.lua$",""), mpath = mpath}
+               mnameT[full] = {fn=f, canonical=f:gsub("%.lua$",""), mpath = mpath}
             elseif (attr.mode == "directory" and file:sub(1,1) ~= ".") then
                dbg.print{"dirA: f:", f,"\n"}
                dirA[#dirA + 1] = { fullName = f, mname = full }
@@ -333,15 +333,15 @@ function M.findModulesInDir(mpath, path, prefix, moduleT)
       for k,v in pairs(mnameT) do
          local full = k
          local sn   = k
-         moduleT[v.file] = registerModuleT(full, sn, v.file, nil)
-         moduleStack[iStack] = {path= v.file, sn = sn, full = full, moduleT = moduleT, fn = v.file}
-         dbg.print{"Top of Stack: ",iStack, " Full: ", full, " file: ", v.file, "\n"}
+         moduleT[v.fn] = registerModuleT(full, sn, v.fn, nil)
+         moduleStack[iStack] = {path= v.fn, sn = sn, full = full, moduleT = moduleT, fn = v.fn}
+         dbg.print{"Top of Stack: ",iStack, " Full: ", full, " fn: ", v.fn, "\n"}
 
-         local t = {fn = v.file, modFullName = k, modName = sn, default = true, hash = 0}
+         local t = {fn = v.fn, modFullName = k, modName = sn, default = true, hash = 0}
          mt:add(t,"pending")
-         loadModuleFile{file=v.file, shell=shellN, reportErr=true}
+         loadModuleFile{file=v.fn, shell=shellN, reportErr=true}
          mt:setStatus(t.modName,"active")
-         dbg.print{"Saving: Full: ", k, " Name: ", k, " file: ",v.file,"\n"}
+         dbg.print{"Saving: Full: ", k, " Name: ", k, " file: ",v.fn,"\n"}
       end
       for i = 1, #dirA do
          M.findModulesInDir(mpath, dirA[i].fullName, dirA[i].mname .. '/', moduleT)
@@ -361,16 +361,16 @@ function M.findModulesInDir(mpath, path, prefix, moduleT)
       dbg.print{"(2) defaultFn: ",defaultFn,"\n"}
       for full,v in pairs(mnameT) do
          local sn   = shortName(full)
-         dbg.print{"(3) defaultFn: ",defaultFn,", v.file: ",v.file,"\n"}
-         moduleT[v.file] = registerModuleT(full, sn, v.file, defaultFn)
-         moduleStack[iStack] = {path=v.file, sn = sn, full = full, moduleT = moduleT,
-                                fn = v.file}
-         dbg.print{"Top of Stack: ",iStack, " Full: ", full, " file: ", v.file, "\n"}
-         local t = {fn = v.file, modFullName = full, modName = sn, default = 0, hash = 0}
+         dbg.print{"(3) defaultFn: ",defaultFn,", v.fn: ",v.canonical,"\n"}
+         moduleT[v.fn] = registerModuleT(full, sn, v.canonical, defaultFn)
+         moduleStack[iStack] = {path=v.fn, sn = sn, full = full, moduleT = moduleT,
+                                fn = v.fn}
+         dbg.print{"Top of Stack: ",iStack, " Full: ", full, " fn: ", v.fn, "\n"}
+         local t = {fn = v.fn, modFullName = full, modName = sn, default = 0, hash = 0}
          mt:add(t,"pending")
-         loadModuleFile{file=v.file, shell=shellN, reportErr=true}
+         loadModuleFile{file=v.fn, shell=shellN, reportErr=true}
          mt:setStatus(t.modName,"active")
-         dbg.print{"Saving: Full: ", full, " Name: ", sn, " file: ",v.file,"\n"}
+         dbg.print{"Saving: Full: ", full, " Name: ", sn, " fn: ",v.fn,"\n"}
       end
    end
    dbg.fini("findModulesInDir")

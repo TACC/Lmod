@@ -156,7 +156,7 @@ local function locationTblDir(mpath, path, prefix, locationT, availT)
                -- do nothing for non-readable or non-existant files
             elseif (attr.mode == 'file' and file ~= "default" and accept_fn(file) and
                     full:sub(1,1) ~= '.') then
-               mnameT[full] = {file=f:gsub("%.lua$",""), mpath = mpath}
+               mnameT[full] = {fn = f, canonical=f:gsub("%.lua$",""), mpath = mpath}
             elseif (attr.mode == "directory" and file:sub(1,1) ~= ".") then
                dirA[#dirA + 1] = { fullName = f, mname = full}
             end
@@ -175,8 +175,8 @@ local function locationTblDir(mpath, path, prefix, locationT, availT)
          --dbg.print{"k: ",k,"\n"}
          local a      = locationT[k] 
          if (a == nil) then
-            local d, f = splitFileName(v.file)
-            f          = pathJoin(abspath(d),f):gsub("%.lua$","")
+            local d, f = splitFileName(v.canonical)
+            f          = pathJoin(abspath(d),f)
             a          = {}
             a.default  = {fn=f, kind="last", num = 1}
          end
@@ -209,7 +209,7 @@ local function locationTblDir(mpath, path, prefix, locationT, availT)
       for full, v in pairs(mnameT) do
          local version = full:gsub(".*/","")
          local parseV  = parseVersion(version)
-         vA[#vA+1]     = {parseV, version, v.file}
+         vA[#vA+1]     = {parseV, version, v.fn}
       end
       sort(vA, function(a,b) return a[1] < b[1] end )
       local a = {}
