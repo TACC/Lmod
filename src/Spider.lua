@@ -234,6 +234,11 @@ local function registerModuleT(full, sn, f, markedDefault)
    local t = {}
 
    local fabs      = abspath_localdir(f)
+   if (not fabs) then
+      fabs = abspath_localdir(f..".lua"):gsub("%.lua$","")
+   end
+   dbg.print{"registerModuleT f: ",f,", fabs: ",fabs,", dflt: ",markedDefault,"\n"}
+
    t.path          = f
    t.name          = sn
    t.name_lower    = sn:lower()
@@ -246,6 +251,11 @@ local function registerModuleT(full, sn, f, markedDefault)
    return t
 end
 
+local defaultFnT = {
+   default       = 1,
+   ['.modulerc'] = 2,
+   ['.version']  = 3,
+}
 
 function M.findModulesInDir(mpath, path, prefix, moduleT)
    local t1
@@ -260,51 +270,59 @@ function M.findModulesInDir(mpath, path, prefix, moduleT)
       return
    end
 
-   local shellN          = "bash"
-   local masterTbl       = masterTbl()
-   local moduleStack     = masterTbl.moduleStack
-   local iStack          = #moduleStack
-   local mt              = MT:mt()
-   local mnameT          = {}
-   local dirA            = {}
-   local ignoreT         = ignoreFileT()
-   local cTimer          = CTimer:cTimer()
-   local accept_fn       = accept_fn
+   local shellN      = "bash"
+   local masterTbl   = masterTbl()
+   local moduleStack = masterTbl.moduleStack
+   local iStack      = #moduleStack
+   local mt          = MT:mt()
+   local mnameT      = {}
+   local dirA        = {}
+   local ignoreT     = ignoreFileT()
+   local cTimer      = CTimer:cTimer()
+   local accept_fn   = accept_fn
+   local defaultFn   = false
+   local defaultIdx  = 1000000  -- default idx must be bigger than index for .version
 
    for file in lfs.dir(path) do
-      local firstChar = file:sub(1,1)
-      local lastChar  = file:sub(-1,-1)
-      if (not ignoreT[file] and lastChar ~= "~" and
-          file:sub(1,8) ~= ".version"           and
-          file:sub(1,9) ~= ".modulerc"          and
-          firstChar ~= '#' and lastChar ~= '#'  and
-          file:sub(1,2) ~= ".#" 
-         ) then
-         local f        = pathJoin(path,file)
-         local readable = posix.access(f,"r")
-         local full     = pathJoin(prefix, file):gsub("%.lua","")
-         attr           = lfs.attributes(f)
+      local idx       = defaultFnT[file] or defaultIdx
+      if (idx < defaultIdx) then
+         defaultIdx = idx
+         defaultFn  = pathJoin(abspath(path),file)
+      else
+         local fileDflt  = file:sub(1,8)
+         local firstChar = file:sub(1,1)
+         local lastChar  = file:sub(-1,-1)
+         local firstTwo  = file:sub(1,2)
+         if (ignoreT[file]    or lastChar == '~' or ignoreT[fileDflt] or
+             firstChar == '#' or lastChar == '#' or firstTwo == '.#') then
+            -- nothing happens here
+         else
+            local f        = pathJoin(path,file)
+            local readable = posix.access(f,"r")
+            local full     = pathJoin(prefix, file):gsub("%.lua","")
+            attr           = lfs.attributes(f)
 
-         ------------------------------------------------------------
-         -- Since cache files are build by root but read by users
-         -- make sure that any user can read a file owned by root.
+            ------------------------------------------------------------
+            -- Since cache files are build by root but read by users
+            -- make sure that any user can read a file owned by root.
 
-         if (readable) then
-            local st    = posix.stat(f)
-            if (st.uid == 0 and not st.mode:find("......r..")) then
-               readable = false
+            if (readable) then
+               local st    = posix.stat(f)
+               if (st.uid == 0 and not st.mode:find("......r..")) then
+                  readable = false
+               end
             end
-         end
 
-         if (not attr or not readable) then
-            -- do nothing for this case
-         elseif (readable and attr.mode == 'file' and file ~= "default" and accept_fn(file) and
-                 full:sub(1,1) ~= ".") then
-            dbg.print{"mnameT[",full,"].file: ",f,"\n"}
-            mnameT[full] = {file=f, mpath = mpath}
-         elseif (attr.mode == "directory" and file:sub(1,1) ~= ".") then
-            dbg.print{"dirA: f:", f,"\n"}
-            dirA[#dirA + 1] = { fn = f, mname = full }
+            if (not readable or not attr) then
+               -- do nothing for non-readable or non-existant files
+            elseif (attr.mode == 'file' and file ~= "default" and accept_fn(file) and
+                 full:sub(1,1) ~= '.') then
+               dbg.print{"mnameT[",full,"].file: ",f,"\n"}
+               mnameT[full] = {file=f:gsub("%.lua$",""), mpath = mpath}
+            elseif (attr.mode == "directory" and file:sub(1,1) ~= ".") then
+               dbg.print{"dirA: f:", f,"\n"}
+               dirA[#dirA + 1] = { fullName = f, mname = full }
+            end
          end
       end
    end
@@ -326,14 +344,27 @@ function M.findModulesInDir(mpath, path, prefix, moduleT)
          dbg.print{"Saving: Full: ", k, " Name: ", k, " file: ",v.file,"\n"}
       end
       for i = 1, #dirA do
-         M.findModulesInDir(mpath, dirA[i].fn, dirA[i].mname .. '/', moduleT)
+         M.findModulesInDir(mpath, dirA[i].fullName, dirA[i].mname .. '/', moduleT)
       end
    else
-      local markedDefault   = findMarkedDefault(mpath, path)
+      dbg.print{"(1) defaultFn: ",defaultFn,"\n"}
+      if (defaultFn) then
+         local d, v = splitFileName(defaultFn)
+         v          = "/" .. v
+         if (v == "/default") then
+            defaultFn = abspath_localdir(defaultFn):gsub("%.lua$","")
+         else
+            v         = versionFile(v, prefix, defaultFn, true)
+            defaultFn = pathJoin(abspath(d),v):gsub("%.lua$","")
+         end
+      end
+      dbg.print{"(2) defaultFn: ",defaultFn,"\n"}
       for full,v in pairs(mnameT) do
          local sn   = shortName(full)
-         moduleT[v.file] = registerModuleT(full, sn, v.file, markedDefault)
-         moduleStack[iStack] = {path=v.file, sn = sn, full = full, moduleT = moduleT, fn = v.file}
+         dbg.print{"(3) defaultFn: ",defaultFn,", v.file: ",v.file,"\n"}
+         moduleT[v.file] = registerModuleT(full, sn, v.file, defaultFn)
+         moduleStack[iStack] = {path=v.file, sn = sn, full = full, moduleT = moduleT,
+                                fn = v.file}
          dbg.print{"Top of Stack: ",iStack, " Full: ", full, " file: ", v.file, "\n"}
          local t = {fn = v.file, modFullName = full, modName = sn, default = 0, hash = 0}
          mt:add(t,"pending")

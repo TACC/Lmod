@@ -103,14 +103,15 @@ local defaultFnT = {
 
 
 local function locationTblDir(mpath, path, prefix, locationT, availT)
-   dbg.start{"locationTblDir(",mpath,",",path,",",prefix,")"}
+   --dbg.start{"locationTblDir(",mpath,",",path,",",prefix,")"}
    local attr = lfs.attributes(path)
    if (not attr or type(attr) ~= "table" or attr.mode ~= "directory"
        or not posix.access(path,"x")) then
-      dbg.fini("locationTblDir")
+      --dbg.fini("locationTblDir")
       return
    end
 
+   local accept_fn  = accept_fn
    local mnameT     = {}
    local dirA       = {}
    local defaultFn  = false
@@ -135,16 +136,29 @@ local function locationTblDir(mpath, path, prefix, locationT, availT)
              firstChar == '#' or lastChar == '#' or firstTwo == '.#') then
             -- nothing happens here
          else
-            local f = pathJoin(path,file)
-            attr    = lfs.attributes(f) or {}
+            local f        = pathJoin(path,file)
+            attr           = lfs.attributes(f) or {}
             local readable = posix.access(f,"r")
+            local full     = pathJoin(prefix, file):gsub("%.lua","")
+
+            ------------------------------------------------------------
+            -- Since cache files are build by root but read by users
+            -- make sure that any user can read a file owned by root.
+
+            if (readable) then
+               local st    = posix.stat(f)
+               if (st.uid == 0 and not st.mode:find("......r..")) then
+                  readable = false
+               end
+            end
+
             if (not readable or not attr) then
                -- do nothing for non-readable or non-existant files
-            elseif (attr.mode == 'file' and file ~= "default") then
-               local mname = pathJoin(prefix, file):gsub("%.lua$","")
-               mnameT[mname] = {file=f:gsub("%.lua$",""), mpath = mpath}
+            elseif (attr.mode == 'file' and file ~= "default" and accept_fn(file) and
+                    full:sub(1,1) ~= '.') then
+               mnameT[full] = {file=f:gsub("%.lua$",""), mpath = mpath}
             elseif (attr.mode == "directory" and file:sub(1,1) ~= ".") then
-               dirA[#dirA + 1] = { fullName = f, mname = pathJoin(prefix, file) }
+               dirA[#dirA + 1] = { fullName = f, mname = full}
             end
          end
       end
@@ -162,7 +176,7 @@ local function locationTblDir(mpath, path, prefix, locationT, availT)
          local a      = locationT[k] 
          if (a == nil) then
             local d, f = splitFileName(v.file)
-            f          = pathJoin(abspath(d),f:gsub("%.lua$",""))
+            f          = pathJoin(abspath(d),f):gsub("%.lua$","")
             a          = {}
             a.default  = {fn=f, kind="last", num = 1}
          end
@@ -200,7 +214,7 @@ local function locationTblDir(mpath, path, prefix, locationT, availT)
       sort(vA, function(a,b) return a[1] < b[1] end )
       local a = {}
       for i = 1, #vA do
-         a[i] = {version = vA[i][2], file = vA[i][3]}
+         a[i] = {version = vA[i][2], file = vA[i][3], parseV=vA[i][1]}
       end
       --dbg.print{"Adding ",prefix," to availT, #a: ",#a,"\n"}
       availT[prefix] = a
@@ -216,6 +230,8 @@ local function locationTblDir(mpath, path, prefix, locationT, availT)
             defaultFn = pathJoin(abspath(d),v):gsub("%.lua$","")
          end
          local num = max(#vA, numPathA)
+         dbg.print{"#vA: ",#vA,", numPathA: ",numPathA,", num: ",num,"\n"}
+         availT[prefix].default    = {fn = defaultFn, kind="marked", num = num}
          locationT[prefix].default = {fn = defaultFn, kind="marked", num = #vA}
       else
          local d = abspath(pathJoin(mpath, prefix))
@@ -223,7 +239,7 @@ local function locationTblDir(mpath, path, prefix, locationT, availT)
          locationT[prefix].default = {fn = defaultFn, kind="last", num = #vA}
       end
    end
-   -- dbg.fini("locationTblDir")
+   --dbg.fini("locationTblDir")
 end
 
 
@@ -334,14 +350,22 @@ local function buildAllLocWmoduleT(moduleT, mpathA, locationT, availT)
    for mpath, vvv in pairs(availT) do
       for sn, vv in pairs(vvv) do
          local aa = {}
+         local defaultT = false
          for parseV, v in pairsByKeys(vv) do
+            
             if (parseV == 0) then
                aa[0] = v
             else
                aa[#aa + 1] = v
             end
+            if (v.markedDefault) then
+               defaultT = {kind="marked", fn = v.file}
+            end
          end
          availT[mpath][sn] = aa
+         if (defaultT) then
+            availT[mpath][sn].default = defaultT
+         end
       end
    end
 
@@ -442,31 +466,86 @@ local function build_locationTbl(mpathA)
       end
    end
 
-   --local oldLocationT = locationT
-   --
-   --locationT = {}
-   --for i = 1, #mpathA do
-   --   local defaultFn   = false
-   --   local defaultKind = false
-   --   local mpath       = mpathA[i]
-   --   local vv          = availT[mpath]
-   --   for sn, v = pairs(vv) do
-   --      local a        = locationT[sn]           
-   --      if (a) then
-   --         local defaultEntry = a.default
-   --         defaultKind        = defaultEntry.kind
-   --      else
-   --         a = {}
-   --      end
-   --      a = {mpath = mpath, file = pathJoin(mpath,sn) }
-   --
-   --      for 
-   --      if (defaultKind ~= "marked") then
-   --         if (v.markedDefault) then
-   --            defaultFn = v.
-   --   
-   --      a = locationT[sn] or {}
-   --      v = {mpath=mpath, f
+   local oldLocationT = locationT
+   
+   locationT = {}
+   for i = 1, #mpathA do
+      local defaultEntry = false
+      local defaultFn    = false
+      local defaultKind  = false
+      local parseV       = false
+      local numVersions  = false   
+      local mpath        = mpathA[i]
+      local vv           = availT[mpath]
+      for sn, v in pairs(vv) do
+         dbg.print{"sn: ",sn,"\n"}
+         for k,value in pairs(v) do
+            dbg.print{"  k: ",k,"\n"}
+            for key, v2 in pairs(value) do
+               dbg.print{"    key: ",key,", value: ",v2,"\n"}
+            end
+            dbg.print{"\n"}
+         end
+
+         dbg.print{"(1) parseV: \"",parseV,"\"\n"}
+         local a         = locationT[sn]           
+         if (a) then
+            defaultEntry = a.default
+            defaultKind  = defaultEntry.kind
+            parseV       = defaultEntry.parseV
+            defaultFn    = defaultEntry.fn
+            numVersions  = defaultEntry.numVersions
+            dbg.print{"(2) parseV: \"",parseV,"\"\n"}
+         else
+            a            = {}
+            defaultEntry = {}
+            defaultKind  = "unknown"
+            defaultFn    = false
+            parseV       = " "
+            numVersions  = 0
+            dbg.print{"(3) parseV: \"",parseV,"\"\n"}
+         end
+         local value = {mpath = mpath, file = pathJoin(mpath,sn)}
+
+         local changed = false
+
+         if (defaultKind ~= "marked") then
+            if (v.default) then
+               defaultFn   = v.default.fn
+               defaultKind = "marked"
+               changed     = true
+            end
+         end
+         dbg.print{"(4) parseV: \"",parseV,"\"\n"}
+         if (defaultKind ~= "marked") then
+            local numV   = #v
+            local entry  = v[numV]
+            local pv     = entry.parseV 
+            numVersions  = numVersions + numV
+            dbg.print{"numV: ",numV,", pv: ",pv,", parseV: ",parseV,", sn: ",sn,"\n"}
+            if (numV == 0 or pv > parseV) then
+               defaultKind = "last"
+               parseV      = pv
+               dbg.print{"(5) parseV: \"",parseV,"\"\n"}
+               defaultFn   = entry.file
+               changed     = true
+            end
+         end
+         if (changed) then
+            defaultEntry.kind   = defaultKind
+            defaultEntry.parseV = parseV or " "
+            dbg.print{"(6) parseV: \"",parseV,"\"\n"}
+            defaultEntry.fn     = defaultFn
+         end
+         defaultEntry.numVersions = numVersions
+         defaultEntry.num         = max(numVersions, #a+1)
+         
+         a[#a+1]               = value
+         locationT[sn]         = a
+         locationT[sn].default = defaultEntry
+         
+      end
+   end
          
    if (dbg.active()) then
       dbg.print{"availT: \n"}

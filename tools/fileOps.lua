@@ -194,7 +194,7 @@ function pathJoin(...)
       if (v and v ~= '') then
          local vType = type(v)
          if (vType ~= "string") then
-            msg = "bad argument #" .. i .." (string expected, got " .. vType .. " instead)\n"
+            local msg = "bad argument #" .. i .." (string expected, got " .. vType .. " instead)\n"
             assert(vType ~= "string", msg)
          end
       	 v = v:trim()
