@@ -162,7 +162,7 @@ local function locationTblDir(mpath, path, prefix, locationT, availT)
          local a      = locationT[k] 
          if (a == nil) then
             local d, f = splitFileName(v.file)
-            f          = pathJoin(abspath(d),f:gsub("%.lua$",""))
+            f          = pathJoin(abspath(d),f):gsub("%.lua$","")
             a          = {}
             a.default  = {fn=f, kind="last", num = 1}
          end
@@ -238,9 +238,10 @@ local function buildLocWmoduleT(mpath, moduleT, mpathT, lT, availT)
    dbg.start{"MT:buildLocWmoduleT(mpath, moduleT, mpathA, lT, availT)"}
    dbg.print{"mpath: ", mpath,"\n"}
 
+   local Pairs       = dbg.active() and pairsByKeys or pairs
    local availEntryT = availT[mpath]
 
-   for f, vv in pairs(moduleT) do
+   for f, vv in Pairs(moduleT) do
 
       --------------------------------------------------------------------
       --
@@ -308,6 +309,7 @@ local function buildAllLocWmoduleT(moduleT, mpathA, locationT, availT)
    -- that exist.
 
 
+   local Pairs  = dbg.active() and pairsByKeys or pairs
    local mpathT = {}
    local lT     = {}  -- temporary locationT
    for i = 1,#mpathA do
@@ -321,7 +323,7 @@ local function buildAllLocWmoduleT(moduleT, mpathA, locationT, availT)
 
    -----------------------------------------------------------------------
    -- For each directory in [[mpathT]] process that table in [[moduleT]]
-   for mpath in pairs(mpathT) do
+   for mpath in Pairs(mpathT) do
       local mpmT = moduleT[mpath]
       if (mpmT) then
          buildLocWmoduleT(mpath, mpmT, mpathT, lT, availT)
@@ -331,8 +333,8 @@ local function buildAllLocWmoduleT(moduleT, mpathA, locationT, availT)
    -----------------------------------------------------------------------
    -- Rebuild [[availT]] to have the versions in parseVersion order.
 
-   for mpath, vvv in pairs(availT) do
-      for sn, vv in pairs(vvv) do
+   for mpath, vvv in Pairs(availT) do
+      for sn, vv in Pairs(vvv) do
          local aa = {}
          for parseV, v in pairsByKeys(vv) do
             if (parseV == 0) then
@@ -347,9 +349,9 @@ local function buildAllLocWmoduleT(moduleT, mpathA, locationT, availT)
 
    -----------------------------------------------------------------------
    -- Sort [[locationT]] as well.
-   for sn, vv in pairs(lT) do
+   for sn, vv in Pairs(lT) do
       local a = {}
-      for mpath, v in pairs(vv) do
+      for mpath, v in Pairs(vv) do
          a[#a + 1] = {mpathT[mpath], v}
       end
       sort(a, function (x,y) return x[1] < y[1] end)
@@ -365,7 +367,7 @@ local function buildAllLocWmoduleT(moduleT, mpathA, locationT, availT)
    -- Use both locationT and availT to find the default modulefile
    -- and store it in locationT.
 
-   for sn, pathA in pairs(locationT) do
+   for sn, pathA in Pairs(locationT) do
       local found = false
       for ii = 1, #pathA do
          local mpath    = pathA[ii].mpath

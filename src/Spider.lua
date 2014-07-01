@@ -178,7 +178,7 @@ end
 local function findMarkedDefault(mpath, path)
    local mt       = MT:mt()
    local localDir = true
-   dbg.start{"Spider:findMarkedDefault(",mpath,", ", path,")"}
+   --dbg.start{"Spider:findMarkedDefault(",mpath,", ", path,")"}
    mpath         = abspath(mpath)
    path          = abspath(path)
    local i,j     = path:find(mpath)
@@ -188,7 +188,7 @@ local function findMarkedDefault(mpath, path)
    end
    local localdir = true
    local default  = pathJoin(path, "default")
-   default        = abspath_localdir(default)
+   default        = abspath_localdir(default) 
    if (default == nil) then
       local dfltA = {"/.modulerc", "/.version"}
       local vf    = false
@@ -213,10 +213,10 @@ local function findMarkedDefault(mpath, path)
    if (default) then
       default = abspath_localdir(default)
    end
-   dbg.print{"(4) default: \"",default,"\"\n"}
+   --dbg.print{"(4) default: \"",default,"\"\n"}
 
-   dbg.fini("Spider:findMarkedDefault")
-   return default
+   --dbg.fini("Spider:findMarkedDefault")
+   return default or false
 end
 
 
@@ -253,7 +253,8 @@ function M.findModulesInDir(mpath, path, prefix, moduleT)
    dbg.start{"findModulesInDir(mpath=\"",mpath,"\", path=\"",path,
              "\", prefix=\"",prefix,"\")"}
 
-   local attr = lfs.attributes(path)
+   local Pairs = dbg.active() and pairsByKeys or pairs
+   local attr  = lfs.attributes(path)
    if (not attr or  type(attr) ~= "table" or attr.mode ~= "directory" or
        not posix.access(path,"rx")) then
       dbg.print{"Directory: ",path," is non-existant or is not readable\n"}
@@ -313,12 +314,12 @@ function M.findModulesInDir(mpath, path, prefix, moduleT)
    cTimer:test()
 
    if (#dirA > 0 or prefix == '') then
-      for k,v in pairs(mnameT) do
+      for k,v in Pairs(mnameT) do
          local full = k
          local sn   = k
          moduleT[v.file] = registerModuleT(full, sn, v.file, nil)
          moduleStack[iStack] = {path= v.file, sn = sn, full = full, moduleT = moduleT, fn = v.file}
-         dbg.print{"Top of Stack: ",iStack, " Full: ", full, " file: ", v.file, "\n"}
+         dbg.print{"Top of Stack: ",iStack, " Full: ", full, " fn: ", v.file, "\n"}
 
          local t = {fn = v.file, modFullName = k, modName = sn, default = true, hash = 0}
          mt:add(t,"pending")
@@ -331,16 +332,18 @@ function M.findModulesInDir(mpath, path, prefix, moduleT)
       end
    else
       local markedDefault   = findMarkedDefault(mpath, path)
-      for full,v in pairs(mnameT) do
+      dbg.print{"defaultFn: ",markedDefault,"\n"}
+      for full,v in Pairs(mnameT) do
          local sn   = shortName(full)
+         dbg.print{"(3) defaultFn: ",markedDefault,", v.fn: ",v.file,"\n"}
          moduleT[v.file] = registerModuleT(full, sn, v.file, markedDefault)
          moduleStack[iStack] = {path=v.file, sn = sn, full = full, moduleT = moduleT, fn = v.file}
-         dbg.print{"Top of Stack: ",iStack, " Full: ", full, " file: ", v.file, "\n"}
+         dbg.print{"Top of Stack: ",iStack, " Full: ", full, " fn: ", v.file, "\n"}
          local t = {fn = v.file, modFullName = full, modName = sn, default = 0, hash = 0}
          mt:add(t,"pending")
          loadModuleFile{file=v.file, shell=shellN, reportErr=true}
          mt:setStatus(t.modName,"active")
-         dbg.print{"Saving: Full: ", full, " Name: ", sn, " file: ",v.file,"\n"}
+         dbg.print{"Saving: Full: ", full, " Name: ", sn, " fn: ",v.file,"\n"}
       end
    end
    dbg.fini("findModulesInDir")
@@ -388,7 +391,6 @@ end
 function M.buildSpiderDB(self, a, moduleT, dbT)
    dbg.start{"Spider:buildSpiderDB({",concatTbl(a,","),"},moduleT, dbT)"}
    dbg.print{"moduleT.version: ",moduleT.version,"\n"}
-   local Pairs = dbg.active() and pairsByKeys or pairs
 
    if (next(moduleT) == nil) then
       dbg.fini("Spider:buildSpiderDB")
@@ -401,6 +403,7 @@ function M.buildSpiderDB(self, a, moduleT, dbT)
       LmodError("old version moduleT\n")
    else
       dbg.print{"Current version moduleT.\n"}
+      local Pairs = dbg.active() and pairsByKeys or pairs
       for mpath, v in Pairs(moduleT) do
          if (type(v) == "table") then
             dbg.print{"mpath: ",mpath, "\n"}

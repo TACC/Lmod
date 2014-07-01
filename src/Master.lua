@@ -831,7 +831,7 @@ local function availEntry(defaultOnly, terse, mpath, szA, searchA, sn, name,
    else
       dbg.print{"defaultModuleT.fn: ",defaultModuleT.fn,
                 ", kind: ", defaultModuleT.kind,
-                ", num: ",  defaultModuleT.num,
+                ", num: ",  defaultModuleT.num > 1,
                 ", f_orig: ", f_orig,
                 ", f: ",f,
                 "\n"}
