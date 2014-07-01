@@ -270,6 +270,7 @@ function M.findModulesInDir(mpath, path, prefix, moduleT)
       return
    end
 
+   local Pairs       = dbg.active() and pairsByKeys or pairs
    local shellN      = "bash"
    local masterTbl   = masterTbl()
    local moduleStack = masterTbl.moduleStack
@@ -330,7 +331,7 @@ function M.findModulesInDir(mpath, path, prefix, moduleT)
    cTimer:test()
 
    if (#dirA > 0 or prefix == '') then
-      for k,v in pairs(mnameT) do
+      for k,v in Pairs(mnameT) do
          local full = k
          local sn   = k
          moduleT[v.fn] = registerModuleT(full, sn, v.fn, nil)
@@ -347,22 +348,27 @@ function M.findModulesInDir(mpath, path, prefix, moduleT)
          M.findModulesInDir(mpath, dirA[i].fullName, dirA[i].mname .. '/', moduleT)
       end
    else
-      dbg.print{"(1) defaultFn: ",defaultFn,"\n"}
       if (defaultFn) then
          local d, v = splitFileName(defaultFn)
          v          = "/" .. v
          if (v == "/default") then
-            defaultFn = abspath_localdir(defaultFn):gsub("%.lua$","")
+            defaultFn = abspath_localdir(defaultFn)
          else
-            v         = versionFile(v, prefix, defaultFn, true)
-            defaultFn = pathJoin(abspath(d),v):gsub("%.lua$","")
+            local sn  = prefix:gsub("/+$","")
+            v         = versionFile(v, sn, defaultFn, true)
+            local f   = pathJoin(abspath(d),v)
+            defaultFn = abspath_localdir(f)
+            if (defaultFn == nil) then
+               f      = f .. ".lua"
+               defaultFn = abspath_localdir(f)
+            end
          end
       end
-      dbg.print{"(2) defaultFn: ",defaultFn,"\n"}
-      for full,v in pairs(mnameT) do
+      dbg.print{"defaultFn: ",defaultFn,"\n"}
+      for full,v in Pairs(mnameT) do
          local sn   = shortName(full)
-         dbg.print{"(3) defaultFn: ",defaultFn,", v.fn: ",v.canonical,"\n"}
-         moduleT[v.fn] = registerModuleT(full, sn, v.canonical, defaultFn)
+         dbg.print{"(3) defaultFn: ",defaultFn,", v.fn: ",v.fn,"\n"}
+         moduleT[v.fn] = registerModuleT(full, sn, v.fn, defaultFn)
          moduleStack[iStack] = {path=v.fn, sn = sn, full = full, moduleT = moduleT,
                                 fn = v.fn}
          dbg.print{"Top of Stack: ",iStack, " Full: ", full, " fn: ", v.fn, "\n"}

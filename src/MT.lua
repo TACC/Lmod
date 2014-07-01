@@ -253,10 +253,10 @@ end
 local function buildLocWmoduleT(mpath, moduleT, mpathT, lT, availT)
    dbg.start{"MT:buildLocWmoduleT(mpath, moduleT, mpathA, lT, availT)"}
    dbg.print{"mpath: ", mpath,"\n"}
-
+   local Pairs       = dbg.active() and pairsByKeys or pairs
    local availEntryT = availT[mpath]
 
-   for f, vv in pairs(moduleT) do
+   for f, vv in Pairs(moduleT) do
 
       --------------------------------------------------------------------
       --
@@ -324,6 +324,7 @@ local function buildAllLocWmoduleT(moduleT, mpathA, locationT, availT)
    -- that exist.
 
 
+   local Pairs  = dbg.active() and pairsByKeys or pairs
    local mpathT = {}
    local lT     = {}  -- temporary locationT
    for i = 1,#mpathA do
@@ -337,7 +338,7 @@ local function buildAllLocWmoduleT(moduleT, mpathA, locationT, availT)
 
    -----------------------------------------------------------------------
    -- For each directory in [[mpathT]] process that table in [[moduleT]]
-   for mpath in pairs(mpathT) do
+   for mpath in Pairs(mpathT) do
       local mpmT = moduleT[mpath]
       if (mpmT) then
          buildLocWmoduleT(mpath, mpmT, mpathT, lT, availT)
@@ -347,8 +348,8 @@ local function buildAllLocWmoduleT(moduleT, mpathA, locationT, availT)
    -----------------------------------------------------------------------
    -- Rebuild [[availT]] to have the versions in parseVersion order.
 
-   for mpath, vvv in pairs(availT) do
-      for sn, vv in pairs(vvv) do
+   for mpath, vvv in Pairs(availT) do
+      for sn, vv in Pairs(vvv) do
          local aa = {}
          local defaultT = false
          for parseV, v in pairsByKeys(vv) do
@@ -371,9 +372,9 @@ local function buildAllLocWmoduleT(moduleT, mpathA, locationT, availT)
 
    -----------------------------------------------------------------------
    -- Sort [[locationT]] as well.
-   for sn, vv in pairs(lT) do
+   for sn, vv in Pairs(lT) do
       local a = {}
-      for mpath, v in pairs(vv) do
+      for mpath, v in Pairs(vv) do
          a[#a + 1] = {mpathT[mpath], v}
       end
       sort(a, function (x,y) return x[1] < y[1] end)
@@ -389,7 +390,7 @@ local function buildAllLocWmoduleT(moduleT, mpathA, locationT, availT)
    -- Use both locationT and availT to find the default modulefile
    -- and store it in locationT.
 
-   for sn, pathA in pairs(locationT) do
+   for sn, pathA in Pairs(locationT) do
       local found = false
       for ii = 1, #pathA do
          local mpath    = pathA[ii].mpath
@@ -478,16 +479,16 @@ local function build_locationTbl(mpathA)
       local mpath        = mpathA[i]
       local vv           = availT[mpath]
       for sn, v in pairs(vv) do
-         dbg.print{"sn: ",sn,"\n"}
-         for k,value in pairs(v) do
-            dbg.print{"  k: ",k,"\n"}
-            for key, v2 in pairs(value) do
-               dbg.print{"    key: ",key,", value: ",v2,"\n"}
-            end
-            dbg.print{"\n"}
-         end
+         --dbg.print{"sn: ",sn,"\n"}
+         --for k,value in pairs(v) do
+         --   dbg.print{"  k: ",k,"\n"}
+         --   for key, v2 in pairs(value) do
+         --      dbg.print{"    key: ",key,", value: ",v2,"\n"}
+         --   end
+         --   dbg.print{"\n"}
+         --end
 
-         dbg.print{"(1) parseV: \"",parseV,"\"\n"}
+         --dbg.print{"(1) parseV: \"",parseV,"\"\n"}
          local a         = locationT[sn]           
          if (a) then
             defaultEntry = a.default
@@ -495,7 +496,7 @@ local function build_locationTbl(mpathA)
             parseV       = defaultEntry.parseV
             defaultFn    = defaultEntry.fn
             numVersions  = defaultEntry.numVersions
-            dbg.print{"(2) parseV: \"",parseV,"\"\n"}
+            --dbg.print{"(2) parseV: \"",parseV,"\"\n"}
          else
             a            = {}
             defaultEntry = {}
@@ -503,7 +504,7 @@ local function build_locationTbl(mpathA)
             defaultFn    = false
             parseV       = " "
             numVersions  = 0
-            dbg.print{"(3) parseV: \"",parseV,"\"\n"}
+            --dbg.print{"(3) parseV: \"",parseV,"\"\n"}
          end
          local value = {mpath = mpath, file = pathJoin(mpath,sn)}
 
@@ -516,17 +517,17 @@ local function build_locationTbl(mpathA)
                changed     = true
             end
          end
-         dbg.print{"(4) parseV: \"",parseV,"\"\n"}
+         --dbg.print{"(4) parseV: \"",parseV,"\"\n"}
          if (defaultKind ~= "marked") then
             local numV   = #v
             local entry  = v[numV]
             local pv     = entry.parseV 
             numVersions  = numVersions + numV
-            dbg.print{"numV: ",numV,", pv: ",pv,", parseV: ",parseV,", sn: ",sn,"\n"}
+            --dbg.print{"numV: ",numV,", pv: ",pv,", parseV: ",parseV,", sn: ",sn,"\n"}
             if (numV == 0 or pv > parseV) then
                defaultKind = "last"
                parseV      = pv
-               dbg.print{"(5) parseV: \"",parseV,"\"\n"}
+               --dbg.print{"(5) parseV: \"",parseV,"\"\n"}
                defaultFn   = entry.file
                changed     = true
             end
@@ -534,7 +535,7 @@ local function build_locationTbl(mpathA)
          if (changed) then
             defaultEntry.kind   = defaultKind
             defaultEntry.parseV = parseV or " "
-            dbg.print{"(6) parseV: \"",parseV,"\"\n"}
+            --dbg.print{"(6) parseV: \"",parseV,"\"\n"}
             defaultEntry.fn     = defaultFn
          end
          defaultEntry.numVersions = numVersions

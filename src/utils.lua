@@ -92,7 +92,7 @@ function abspath_localdir (path)
       return nil
    elseif (attr.mode == "link") then
       local rl = posix.readlink(path)
-      dbg.print{"path: ",path,", rl: ",rl,"\n"}
+      --dbg.print{"path: ",path,", rl: ",rl,"\n"}
       if (not rl) then
          lfs.chdir(cwd)
          return nil
