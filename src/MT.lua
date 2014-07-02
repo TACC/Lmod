@@ -224,10 +224,15 @@ local function locationTblDir(mpath, path, prefix, locationT, availT)
          local d, v = splitFileName(defaultFn)
          v          = "/" .. v
          if (v == "/default") then
-            defaultFn = abspath_localdir(defaultFn):gsub("%.lua$","")
+            defaultFn = abspath_localdir(defaultFn)
          else
             v         = versionFile(v, prefix, defaultFn, true)
-            defaultFn = pathJoin(abspath(d),v):gsub("%.lua$","")
+            d         = abspath(d)
+            local f   = pathJoin(d,v)
+            defaultFn = abspath_localdir(f)
+            if (defaultFn == nil) then
+               defaultFn = abspath_localdir(pathJoin(d,v .. ".lua"))
+            end
          end
          local num = max(#vA, numPathA)
          --dbg.print{"#vA: ",#vA,", numPathA: ",numPathA,", num: ",num,"\n"}
@@ -300,12 +305,12 @@ end
 --                        and locationT is sorted as well.
 --
 --   availT[mpath][sn] = {
---                         {version=..., file=..., parseV=...,
+--                         {version=..., fn=..., parseV=...,
 --                           markedDefault=T/F},
 --                       }
 --
 --  When sn is a meta module then
---   availT[mpath][sn][0] = {version=..., file=..., parseV=...,
+--   availT[mpath][sn][0] = {version=..., fn=..., parseV=...,
 --                           markedDefault=T/F},
 --
 --   locationT[sn] = {
