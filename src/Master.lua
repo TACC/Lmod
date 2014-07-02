@@ -896,7 +896,7 @@ local function availDir(defaultOnly, terse, searchA, mpath, locationT, availT,
       local aa             = {}
       local szA            = #versionA
       if (szA == 0) then
-         local fn    = versionA[0].file
+         local fn    = versionA[0].fn
          dbg.print{"fn: ",fn,"\n"}
          availEntry(defaultOnly, terse, mpath, szA, searchA, sn, sn, fn,
                     defaultModuleT, dbT, legendT, a)
@@ -908,7 +908,7 @@ local function availDir(defaultOnly, terse, searchA, mpath, locationT, availT,
          end
          for i = 1, #versionA do
             local name = pathJoin(sn, versionA[i].version)
-            local f    = versionA[i].file
+            local f    = versionA[i].fn
             availEntry(defaultOnly, terse, mpath, szA, searchA, sn, name,
                        f, defaultModuleT, dbT, legendT, a)
          end
