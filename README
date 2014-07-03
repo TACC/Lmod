@@ -1,3 +1,8 @@
+Lmod Version 5.6.3
+Bug Fixes:
+   a) Lmod now correctly handles prepending multiple directories to
+      MODULEPATH in one prepend_path.
+
 Lmod Version 5.6.2
 Bug Fixes:
    a) LMOD_EXPERT is now also turns on quiet mode.  It was removed
