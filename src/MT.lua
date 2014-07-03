@@ -103,11 +103,11 @@ local defaultFnT = {
 
 
 local function locationTblDir(mpath, path, prefix, locationT, availT)
-   dbg.start{"locationTblDir(",mpath,",",path,",",prefix,")"}
+   --dbg.start{"locationTblDir(",mpath,",",path,",",prefix,")"}
    local attr = lfs.attributes(path)
    if (not attr or type(attr) ~= "table" or attr.mode ~= "directory"
        or not posix.access(path,"x")) then
-      dbg.fini("locationTblDir")
+      --dbg.fini("locationTblDir")
       return
    end
 
