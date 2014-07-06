@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.6.1 5.6.1-1-g34654eb 2014-06-04 13:52
+Modules based on Lua: Version 5.6.3 5.6.3-16-gae1c2b2 2014-06-23 05:28
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -86,9 +86,9 @@ The following is a list of the modules currently available:
   cluster: cluster
   cluster_symbols: cluster_symbols
   globus: globus/4.0.1, globus/4.0.7
-    Globus Software Package
+    Globus Software Package 
   mvapich1: mvapich1/mvapich1
-    MPI-1 implementation for InfiniBand
+    MPI-1 implementation for InfiniBand 
   pgi: pgi/7.1, pgi/7.2-5
 To learn more about a package enter:
    $ module spider Foo

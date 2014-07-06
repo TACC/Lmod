@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.5.3rc2 5.5.3rc2-3-g85b03ef 2014-05-19 11:33
+Modules based on Lua: Version 5.6.3 5.6.3-15-g4c9b8cd 2014-06-23 05:28
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -25,10 +25,10 @@ ProjectDIR/mf/Core
    gcc/4.2.3                  junk/a/c/1.0
    git/1.6.3.1                junk/b/c/2.0
 ProjectDIR/rt/avail/mf/Core
-   bar/1.4-dbg        foo/1.4-dbg        local/1.3  (D)    ucc/14.0.2
-   bar/1.4     (D)    foo/1.4     (D)    local/1.4
-   baz/1.4-dbg        local/1.1          ucc/12.1.5
-   baz/1.4     (D)    local/1.2          ucc/13.1.2 (D)
+   bar/1.4-dbg        foo/1.4-dbg        local/1.1        ucc/12.1.5
+   bar/1.4     (D)    foo/1.4     (D)    local/1.2        ucc/13.1.2 (D)
+   baz/1.4-dbg        git/1.7.4.1        local/1.3 (D)    ucc/14.0.2
+   baz/1.4     (D)    git/1.7.4.2        local/1.4
   Where:
    (D):  Default Module
    (m):  built for host and native MIC
@@ -75,10 +75,10 @@ ProjectDIR/mf/Core
    gcc/4.2.3                  junk/a/c/1.0
    git/1.6.3.1                junk/b/c/2.0
 ProjectDIR/rt/avail/mf/Core
-   bar/1.4-dbg        foo/1.4-dbg        local/1.3  (D)    ucc/14.0.2
-   bar/1.4     (D)    foo/1.4     (D)    local/1.4
-   baz/1.4-dbg        local/1.1          ucc/12.1.5
-   baz/1.4     (D)    local/1.2          ucc/13.1.2 (D)
+   bar/1.4-dbg        foo/1.4-dbg        local/1.1        ucc/12.1.5
+   bar/1.4     (D)    foo/1.4     (D)    local/1.2        ucc/13.1.2 (D)
+   baz/1.4-dbg        git/1.7.4.1        local/1.3 (D)    ucc/14.0.2
+   baz/1.4     (D)    git/1.7.4.2        local/1.4
   Where:
    (D):  Default Module
    (m):  built for host and native MIC
@@ -138,6 +138,9 @@ baz/1.4
 foo/
 foo/1.4-dbg
 foo/1.4
+git/
+git/1.7.4.1
+git/1.7.4.2
 local/
 local/1.1
 local/1.2
@@ -182,6 +185,10 @@ git/
 git/1.6.3.1
 git/1.7.4
 git/1.7.4.3
+ProjectDIR/rt/avail/mf/Core:
+git/
+git/1.7.4.1
+git/1.7.4.2
 ===========================
 step 10
 lua ProjectDIR/src/lmod.in.lua bash -t -d avail git
@@ -229,10 +236,10 @@ ProjectDIR/mf/Core
    gcc/4.2.3                  junk/a/c/1.0
    git/1.6.3.1                junk/b/c/2.0
 ProjectDIR/rt/avail/mf/Core
-   bar/1.4-dbg        foo/1.4-dbg        local/1.3  (D)    ucc/14.0.2
-   bar/1.4     (D)    foo/1.4     (D)    local/1.4
-   baz/1.4-dbg        local/1.1          ucc/12.1.5
-   baz/1.4     (D)    local/1.2          ucc/13.1.2 (D)
+   bar/1.4-dbg        foo/1.4-dbg        local/1.1        ucc/12.1.5
+   bar/1.4     (D)    foo/1.4     (D)    local/1.2        ucc/13.1.2 (D)
+   baz/1.4-dbg        git/1.7.4.1        local/1.3 (D)    ucc/14.0.2
+   baz/1.4     (D)    git/1.7.4.2        local/1.4
   Where:
    (D):  Default Module
    (m):  built for host and native MIC

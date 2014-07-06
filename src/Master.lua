@@ -793,12 +793,17 @@ local function availEntry(defaultOnly, terse, mpath, szA, searchA, sn, name,
    local d, bn  = splitFileName(f)
    local d2     = abspath(d)
    f            = pathJoin(d2,bn)
+   local fabs   = abspath_localdir(f)
 
    dbg.print{"defaultOnly: ",defaultOnly, ", defaultModuleT.fn: ",defaultModuleT.fn,
-             ", f_orig: ",f_orig,", f: ", f,", d: ", d,", d2: ", d2, "\n"}
+             ", f_orig: ",f_orig,", f: ", f,", d: ", d,", d2: ", d2, ", fabs: ",fabs,"\n"}
+
+   local isDefault = (defaultModuleT.fn == f_orig or defaultModuleT.fn == fabs)
+
+   dbg.print{"isDefault: ",isDefault, "\n"}
 
    --if (defaultOnly and defaultModuleT.fn ~= abspath(f, localdir)) then
-   if (defaultOnly and defaultModuleT.fn ~= f) then
+   if (defaultOnly and not isDefault ) then
       found = false
    end
 
@@ -815,7 +820,6 @@ local function availEntry(defaultOnly, terse, mpath, szA, searchA, sn, name,
       dbg.fini("Master:availEntry")
       return
    end
-
 
 
    if (terse) then
@@ -838,8 +842,7 @@ local function availEntry(defaultOnly, terse, mpath, szA, searchA, sn, name,
 
 
       --if ((defaultModuleT.fn == abspath(f, localdir)) and
-      if ((defaultModuleT.fn == f) and
-          (defaultModuleT.num > 1) and not defaultOnly ) then
+      if ((isDefault) and (defaultModuleT.num > 1) and not defaultOnly ) then
          dflt = Default
          legendT[Default] = "Default Module"
       end
@@ -896,7 +899,7 @@ local function availDir(defaultOnly, terse, searchA, mpath, locationT, availT,
       local aa             = {}
       local szA            = #versionA
       if (szA == 0) then
-         local fn    = versionA[0].file
+         local fn    = versionA[0].fn
          dbg.print{"fn: ",fn,"\n"}
          availEntry(defaultOnly, terse, mpath, szA, searchA, sn, sn, fn,
                     defaultModuleT, dbT, legendT, a)
@@ -908,7 +911,7 @@ local function availDir(defaultOnly, terse, searchA, mpath, locationT, availT,
          end
          for i = 1, #versionA do
             local name = pathJoin(sn, versionA[i].version)
-            local f    = versionA[i].file
+            local f    = versionA[i].fn
             availEntry(defaultOnly, terse, mpath, szA, searchA, sn, name,
                        f, defaultModuleT, dbT, legendT, a)
          end
