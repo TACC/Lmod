@@ -125,7 +125,8 @@ local function locationTblDir(mpath, path, prefix, locationT, availT)
       local idx       = defaultFnT[file] or defaultIdx
       if (idx < defaultIdx) then
          defaultIdx = idx
-         defaultFn  = pathJoin(abspath(path),file)
+         --defaultFn  = pathJoin(abspath(path),file)
+         defaultFn  = pathJoin(path,file)
       else
          local fileDflt  = file:sub(1,8)
          local firstChar = file:sub(1,1)
@@ -175,10 +176,11 @@ local function locationTblDir(mpath, path, prefix, locationT, availT)
          --dbg.print{"k: ",k,"\n"}
          local a      = locationT[k] 
          if (a == nil) then
-            local d, f = splitFileName(v.canonical)
-            f          = pathJoin(abspath(d),f)
+            --local d, f = splitFileName(v.canonical)
+            --f          = pathJoin(abspath(d),f)
+            --f          = pathJoin(d,f)
             a          = {}
-            a.default  = {fn=f, kind="last", num = 1}
+            a.default  = {fn=v.fn, kind="last", num = 1}
          end
          a[#a+1]      = v
          locationT[k] = a
@@ -227,7 +229,7 @@ local function locationTblDir(mpath, path, prefix, locationT, availT)
             defaultFn = abspath_localdir(defaultFn)
          else
             v         = versionFile(v, prefix, defaultFn, true)
-            d         = abspath(d)
+            --d         = abspath(d)
             local f   = pathJoin(d,v)
             defaultFn = abspath_localdir(f)
             if (defaultFn == nil) then
@@ -239,8 +241,9 @@ local function locationTblDir(mpath, path, prefix, locationT, availT)
          availT[prefix].default    = {fn = defaultFn, kind="marked", num = num}
          locationT[prefix].default = {fn = defaultFn, kind="marked", num = #vA}
       else
-         local d = abspath(pathJoin(mpath, prefix))
-         defaultFn = pathJoin(d, a[#a].version):gsub("%.lua$","")
+         --local d = abspath(pathJoin(mpath, prefix))
+         local d = pathJoin(mpath, prefix)
+         defaultFn = pathJoin(d, a[#a].version)
          locationT[prefix].default = {fn = defaultFn, kind="last", num = #vA}
       end
    end
@@ -482,7 +485,8 @@ local function build_locationTbl(mpathA)
       local parseV       = false
       local numVersions  = false   
       local mpath        = mpathA[i]
-      local vv           = availT[mpath]
+      local vv           = availT[mpath] or {}
+      dbg.print{"mpath: ",mpath,"\n"}
       for sn, v in pairs(vv) do
          dbg.print{"sn: ",sn,"\n"}
          for k,value in pairs(v) do
@@ -535,7 +539,8 @@ local function build_locationTbl(mpathA)
                parseV      = pv
                dbg.print{"(5) parseV: \"",parseV,"\"\n"}
                local d,f   = splitFileName(entry.fn)
-               defaultFn   = pathJoin(abspath(d),f)
+               --defaultFn   = pathJoin(abspath(d),f)
+               defaultFn   = pathJoin(d,f)
                changed     = true
             end
          end

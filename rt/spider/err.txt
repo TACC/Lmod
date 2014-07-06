@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.3.4 5.3.4-15-g210e571 2014-03-28 15:37
+Modules based on Lua: Version 5.6.3 5.6.3-16-gae1c2b2 2014-06-23 05:28
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -30,7 +30,7 @@ The following is a list of the modules currently available:
     on the other hand, is a still more primitive notion of micro-thread
     with no implicit scheduling; coroutines, in other words. This is useful
     when you want to control exactly when your code runs. - Homepage:
-    https://github.com/python-greenlet/greenlet
+    https://github.com/python-greenlet/greenlet 
   intel: intel/intel
   is-dyna: is-dyna/1.0
   junk/a/c: junk/a/c/1.0
@@ -208,7 +208,7 @@ The following is a list of the modules currently available:
     on the other hand, is a still more primitive notion of micro-thread
     with no implicit scheduling; coroutines, in other words. This is useful
     when you want to control exactly when your code runs. - Homepage:
-    https://github.com/python-greenlet/greenlet
+    https://github.com/python-greenlet/greenlet 
   intel: intel/intel
   is-dyna: is-dyna/1.0
   junk/a/c: junk/a/c/1.0

@@ -285,10 +285,12 @@ function M.findModulesInDir(mpath, path, prefix, moduleT)
    local defaultIdx  = 1000000  -- default idx must be bigger than index for .version
 
    for file in lfs.dir(path) do
+      dbg.print{"file: ",file,", path: ",path,"\n"}
       local idx       = defaultFnT[file] or defaultIdx
       if (idx < defaultIdx) then
          defaultIdx = idx
-         defaultFn  = pathJoin(abspath(path),file)
+         defaultFn  = pathJoin(path,file)
+         dbg.print{"(1) defaultFn: ",defaultFn,", file: ",file,"\n"}
       else
          local fileDflt  = file:sub(1,8)
          local firstChar = file:sub(1,1)
@@ -352,11 +354,13 @@ function M.findModulesInDir(mpath, path, prefix, moduleT)
          local d, v = splitFileName(defaultFn)
          v          = "/" .. v
          if (v == "/default") then
+            dbg.print{"(2a) defaultFn: ",defaultFn,"\n"}
             defaultFn = abspath_localdir(defaultFn)
+            dbg.print{"(2b) defaultFn: ",defaultFn,"\n"}
          else
             local sn  = prefix:gsub("/+$","")
             v         = versionFile(v, sn, defaultFn, true)
-            local f   = pathJoin(abspath(d),v)
+            local f   = pathJoin(d,v)
             defaultFn = abspath_localdir(f)
             if (defaultFn == nil) then
                f      = f .. ".lua"
