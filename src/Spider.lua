@@ -237,8 +237,6 @@ local function registerModuleT(full, sn, f, markedDefault)
    if (not fabs) then
       fabs = abspath_localdir(f..".lua"):gsub("%.lua$","")
    end
-   dbg.print{"registerModuleT f: ",f,", fabs: ",fabs,", dflt: ",markedDefault,"\n"}
-
    t.path          = f
    t.name          = sn
    t.name_lower    = sn:lower()
@@ -354,9 +352,7 @@ function M.findModulesInDir(mpath, path, prefix, moduleT)
          local d, v = splitFileName(defaultFn)
          v          = "/" .. v
          if (v == "/default") then
-            dbg.print{"(2a) defaultFn: ",defaultFn,"\n"}
             defaultFn = abspath_localdir(defaultFn)
-            dbg.print{"(2b) defaultFn: ",defaultFn,"\n"}
          else
             local sn  = prefix:gsub("/+$","")
             v         = versionFile(v, sn, defaultFn, true)
@@ -371,7 +367,6 @@ function M.findModulesInDir(mpath, path, prefix, moduleT)
       dbg.print{"defaultFn: ",defaultFn,"\n"}
       for full,v in Pairs(mnameT) do
          local sn   = shortName(full)
-         dbg.print{"(3) defaultFn: ",defaultFn,", v.fn: ",v.fn,"\n"}
          moduleT[v.fn] = registerModuleT(full, sn, v.fn, defaultFn)
          moduleStack[iStack] = {path=v.fn, sn = sn, full = full, moduleT = moduleT,
                                 fn = v.fn}
