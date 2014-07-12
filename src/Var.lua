@@ -213,7 +213,7 @@ end
 -- chkMP(): This function is called to let Lmod know that the MODULEPATH
 --          has changed.
 
-local function chkMP(name)
+local function chkMP(name, adding)
    if (name == ModulePath) then
       dbg.print{"calling reEvalModulePath()\n"}
       local mt = systemG.MT:mt()
@@ -277,12 +277,13 @@ function M.remove(self, value, where, priority)
    where = allow_dups(true) and where or "all"
    local pathA   = path2pathA(value, self.sep)
    local tbl     = self.tbl
+   local adding  = false    
 
    for i = 1, #pathA do
       local path = pathA[i]
       if (tbl[path]) then
          tbl[path] = remFunc(self.tbl[path], where, priority)
-         chkMP(self.name)
+         chkMP(self.name,adding)
       end
    end
    local v    = self:expand()
@@ -378,6 +379,7 @@ function M.prepend(self, value, nodups, priority)
    local pathA         = path2pathA(value, self.sep)
    local is, ie, iskip = prepend_order(#pathA)
    local isPrepend     = true
+   local adding        = true
 
    local tbl  = self.tbl
    local imin = min(self.imin, 0)
@@ -386,7 +388,7 @@ function M.prepend(self, value, nodups, priority)
       imin       = imin - 1
       local a    = tbl[path] or {}
       tbl[path]  = insertFunc(a, imin, isPrepend, nodups, priority)
-      chkMP(self.name)
+      chkMP(self.name, adding)
    end
    self.imin = imin
    
@@ -405,6 +407,7 @@ function M.append(self, value, nodups, priority)
    priority         = tonumber(priority or "0")
    local pathA      = path2pathA(value, self.sep)
    local isPrepend  = false
+   local adding     = true
 
    local tbl  = self.tbl
    local imax = self.imax
@@ -413,7 +416,7 @@ function M.append(self, value, nodups, priority)
       imax       = imax + 1
       local a    = tbl[path] or {}
       tbl[path]  = insertFunc(a, imax, isPrepend, nodups, priority)
-      chkMP(self.name)
+      chkMP(self.name, adding)
    end
    self.imax  = imax
    local v    = self:expand()
