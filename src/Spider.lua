@@ -284,7 +284,7 @@ function M.findModulesInDir(mpath, path, prefix, moduleT)
       for k,v in Pairs(mnameT) do
          local full = k
          local sn   = k
-          moduleT[v.fn] = registerModuleT(full, sn, v.fn, nil)
+         moduleT[v.fn] = registerModuleT(full, sn, v.fn, nil)
          moduleStack[iStack] = {path= v.fn, sn = sn, full = full, moduleT = moduleT, fn = v.fn}
          dbg.print{"Top of Stack: ",iStack, " Full: ", full, " fn: ", v.fn, "\n"}
 
