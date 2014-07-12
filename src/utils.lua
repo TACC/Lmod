@@ -850,6 +850,87 @@ end
 
 
 --------------------------------------------------------------------------
+-- walk_directory_for_mf:
+--     Walk a single directory for modulefiles and defaults:
+--     Inputs:
+--         mpath:
+--         path:
+--         prefix:
+--     Outputs:
+--         dirA:
+--         mnameT:
+--     Returns:
+--         defaultFn:
+
+local defaultFnT = {
+   default       = 1,
+   ['.modulerc'] = 2,
+   ['.version']  = 3,
+}
+
+function walk_directory_for_mf(mpath, path, prefix, dirA, mnameT)
+   --dbg.start{"walk_directory_for_mf(",mpath,", ",path,", ",prefix,", dirA, mnameT)"}
+   local attr = lfs.attributes(path)
+   if (not attr or type(attr) ~= "table" or attr.mode ~= "directory"
+       or not posix.access(path,"x")) then
+      dbg.fini("walk_directory_for_mf")
+      return false
+   end
+
+   local accept_fn  = accept_fn
+   local defaultFn  = false
+   local defaultIdx = 1000000  -- default idx must be bigger than index for .version
+   -----------------------------------------------------------------------------
+   -- Read every relevant file in a directory.  Copy directory names into dirA.
+   -- Copy files into mnameT.
+   local ignoreT   = ignoreFileT()
+
+   for file in lfs.dir(path) do
+      local idx       = defaultFnT[file] or defaultIdx
+      if (idx < defaultIdx) then
+         defaultIdx = idx
+         defaultFn  = pathJoin(path,file)
+      else
+         local fileDflt  = file:sub(1,8)
+         local firstChar = file:sub(1,1)
+         local lastChar  = file:sub(-1,-1)
+         local firstTwo  = file:sub(1,2)
+         
+         if (not (ignoreT[file]    or lastChar == '~' or ignoreT[fileDflt] or
+                  firstChar == '#' or lastChar == '#' or firstTwo == '.#')) then
+            local f        = pathJoin(path,file)
+            attr           = lfs.attributes(f) or {}
+            local readable = posix.access(f,"r")
+            local full     = pathJoin(prefix, file):gsub("%.lua","")
+            
+            ------------------------------------------------------------
+            -- Since cache files are build by root but read by users
+            -- make sure that any user can read a file owned by root.
+
+            if (readable) then
+               local st    = posix.stat(f)
+               if (st.uid == 0 and not st.mode:find("......r..")) then
+                  readable = false
+               end
+            end
+            
+            if (not readable or not attr) then
+               -- do nothing for non-readable or non-existant files
+            elseif (attr.mode == 'file' and file ~= "default" and accept_fn(file) and
+                    full:sub(1,1) ~= '.') then
+               mnameT[full] = {fn = f, canonical=f:gsub("%.lua$",""), mpath = mpath}
+            elseif (attr.mode == "directory" and file:sub(1,1) ~= ".") then
+               dirA[#dirA + 1] = { fullName = f, mname = full}
+            end
+         end
+      end
+   end
+
+   dbg.fini("walk_directory_for_mf")
+   return defaultFn
+end
+
+--------------------------------------------------------------------------
 -- Deal with warnings
 
 function activateWarning()

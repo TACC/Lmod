@@ -95,75 +95,11 @@ s_mtA = {}
 --                   Meta-modules are modulefiles that are not versioned.
 --                   They typically load other modules but not always.
 
-local defaultFnT = {
-   default       = 1,
-   ['.modulerc'] = 2,
-   ['.version']  = 3,
-}
-
-
 local function locationTblDir(mpath, path, prefix, availT)
-   --dbg.start{"locationTblDir(",mpath,",",path,",",prefix,")"}
-   local attr = lfs.attributes(path)
-   if (not attr or type(attr) ~= "table" or attr.mode ~= "directory"
-       or not posix.access(path,"x")) then
-      --dbg.fini("locationTblDir")
-      return
-   end
 
-   local accept_fn  = accept_fn
    local mnameT     = {}
    local dirA       = {}
-   local defaultFn  = false
-   local defaultIdx = 1000000  -- default idx must be bigger than index for .version
-   -----------------------------------------------------------------------------
-   -- Read every relevant file in a directory.  Copy directory names into dirA.
-   -- Copy files into mnameT.
-   local ignoreT = ignoreFileT()
-
-   for file in lfs.dir(path) do
-      local idx       = defaultFnT[file] or defaultIdx
-      if (idx < defaultIdx) then
-         defaultIdx = idx
-         --defaultFn  = pathJoin(abspath(path),file)
-         defaultFn  = pathJoin(path,file)
-      else
-         local fileDflt  = file:sub(1,8)
-         local firstChar = file:sub(1,1)
-         local lastChar  = file:sub(-1,-1)
-         local firstTwo  = file:sub(1,2)
-         
-         if (ignoreT[file]    or lastChar == '~' or ignoreT[fileDflt] or
-             firstChar == '#' or lastChar == '#' or firstTwo == '.#') then
-            -- nothing happens here
-         else
-            local f        = pathJoin(path,file)
-            attr           = lfs.attributes(f) or {}
-            local readable = posix.access(f,"r")
-            local full     = pathJoin(prefix, file):gsub("%.lua","")
-
-            ------------------------------------------------------------
-            -- Since cache files are build by root but read by users
-            -- make sure that any user can read a file owned by root.
-
-            if (readable) then
-               local st    = posix.stat(f)
-               if (st.uid == 0 and not st.mode:find("......r..")) then
-                  readable = false
-               end
-            end
-
-            if (not readable or not attr) then
-               -- do nothing for non-readable or non-existant files
-            elseif (attr.mode == 'file' and file ~= "default" and accept_fn(file) and
-                    full:sub(1,1) ~= '.') then
-               mnameT[full] = {fn = f, canonical=f:gsub("%.lua$",""), mpath = mpath}
-            elseif (attr.mode == "directory" and file:sub(1,1) ~= ".") then
-               dirA[#dirA + 1] = { fullName = f, mname = full}
-            end
-         end
-      end
-   end
+   local defaultFn  = walk_directory_for_mf(mpath, path, prefix, dirA, mnameT)
 
    if (#dirA > 0 or prefix == '') then
       --------------------------------------------------------------------------
