@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.6.3 5.6.3-31-g9a166b2 2014-06-23 05:28
+Modules based on Lua: Version 5.6.3 5.6.3-32-g0ceda56 2014-06-23 05:28
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -71,10 +71,10 @@ boost/1.47.1
 boost/1.49.0
 bwa/
 bwa/0.7.1
-bwa/0.7.10
 bwa/0.7.2
-bwa/0.7.9
 bwa/0.7.9a
+bwa/0.7.9
+bwa/0.7.10
 gcc/
 gcc/4.2.3
 git/
@@ -84,8 +84,8 @@ git/1.7.4.3
 gotoblas/
 gotoblas/1.20
 gotoblas/1.26
-gotoblas/1.30
 gotoblas/1.30-beta
+gotoblas/1.30
 gotoblas/1.31
 gotoblas/1.32
 gotoblas/1.33
@@ -118,9 +118,9 @@ petsc/
 petsc/3.1
 petsc/3.2
 phdf5/
-phdf5/1.8.10
 phdf5/1.8.2
 phdf5/1.8.9
+phdf5/1.8.10
 r/
 r/2.1.5
 unix/
@@ -195,6 +195,20 @@ lua ProjectDIR/src/lmod.in.lua bash spider is-dyna
     This module can be loaded directly: module load is-dyna/1.0
 ===========================
 step 14
+lua ProjectDIR/src/lmod.in.lua bash spider bwa
+===========================
+  bwa:
+     Versions:
+        bwa/0.7.1
+        bwa/0.7.2
+        bwa/0.7.9a
+        bwa/0.7.9
+        bwa/0.7.10
+  To find detailed information about bwa please enter the full name.
+  For example:
+     $ module spider bwa/0.7.9a
+===========================
+step 15
 lua ProjectDIR/src/lmod.in.lua bash spider
 ===========================
 The following is a list of the modules currently available:

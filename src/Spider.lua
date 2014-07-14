@@ -518,7 +518,8 @@ function M.Level0(self, dbT)
                else
                   -- print out directory name (e.g. gcc) for tab completion.
                   t[v.name] = v.name .. "/"
-                  t[v.full] = v.full
+                  local key = v.name .. "/" .. parseVersion(version)
+                  t[key]    = v.full
                end
             end
          end
@@ -756,7 +757,8 @@ function M._Level1(self, searchPat, key, T, searchName, possibleA, help)
          if (VersionT[k] == nil) then
             key              = v.name
             Description      = v.Description
-            VersionT[v.full] = 1
+            local kk         = v.name .. "/" .. parseVersion(version)
+            VersionT[kk]     = v.full
             exampleV         = v.full
          else
             VersionT[v.full] = 1
@@ -778,7 +780,7 @@ function M._Level1(self, searchPat, key, T, searchName, possibleA, help)
    end
    ia = ia + 1; a[ia] = "     Versions:\n"
    for k, v in pairsByKeys(VersionT) do
-      ia = ia + 1; a[ia] = "        " .. k .. "\n"
+      ia = ia + 1; a[ia] = "        " .. v .. "\n"
    end
 
    if (#possibleA > 0) then

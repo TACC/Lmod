@@ -42,11 +42,12 @@ testdescript = {
      runLmod -r spider '^[Rr]'                                                #11
      runLmod spider mpich2/1.0.5                                              #12
      runLmod spider is-dyna                                                   #13
+     runLmod spider bwa                                                       #14
 
 
      mkdir -p $HOME/.lmod.d/.cache
      buildModuleT $LMOD_DEFAULT_MODULEPATH > $HOME/.lmod.d/.cache/moduleT.lua
-     runLmod spider                                                           #14
+     runLmod spider                                                           #15
 
 
      HOME=$ORIG_HOME
