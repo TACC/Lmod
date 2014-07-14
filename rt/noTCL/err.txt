@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.3rc2 5.3rc2-4-g988883e 2014-02-11 07:47
+Modules based on Lua: Version 5.6.3 5.6.3-31-g9a166b2 2014-06-23 05:28
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -52,7 +52,7 @@ The following is a list of the modules currently available:
   parmetis: parmetis/3.1, parmetis/4.0.1
     Parallel graph partitioning and fill-reduction matrix ordering routines
   petsc: petsc/3.1, petsc/3.2
-  phdf5: phdf5/1.8.10, phdf5/1.8.2, phdf5/1.8.9
+  phdf5: phdf5/1.8.2, phdf5/1.8.9, phdf5/1.8.10
   unix: unix/unix
 To learn more about a package enter:
    $ module spider Foo

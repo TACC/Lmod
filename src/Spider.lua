@@ -555,10 +555,8 @@ function M.Level0Helper(self, dbT,a)
          if ((version or ""):sub(1,1) ~= ".") then
             if (t[kk] == nil) then
                t[kk] = { Description = v.Description, Versions = { }, name = v.name}
-               t[kk].Versions[v.full] = 1
-            else
-               t[kk].Versions[v.full] = 1
             end
+            t[kk].Versions[parseVersion(version)] = v.full
          end
       end
    end
@@ -570,8 +568,8 @@ function M.Level0Helper(self, dbT,a)
       local len = 0
       ia = ia + 1; a[ia] = "  " .. v.name .. ":"
       len = len + a[ia]:len()
-      for kk,_ in pairsByKeys(v.Versions) do
-         ia = ia + 1; a[ia] = " " .. kk; len = len + a[ia]:len() + 1
+      for kk,full in pairsByKeys(v.Versions) do
+         ia = ia + 1; a[ia] = " " .. full; len = len + a[ia]:len() + 1
          if (len > term_width) then
             a[ia] = " ..."
             ia = ia + 1; a[ia] = ","
