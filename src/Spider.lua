@@ -754,14 +754,12 @@ function M._Level1(self, searchPat, key, T, searchName, possibleA, help)
    for k, v in pairsByKeys(T) do
       local version = extractVersion(v.full, v.name) or ""
       if (version:sub(1,1) ~= ".") then
-         if (VersionT[k] == nil) then
+         local kk            = v.name .. "/" .. parseVersion(version)
+         if (VersionT[kk] == nil) then
             key              = v.name
             Description      = v.Description
-            local kk         = v.name .. "/" .. parseVersion(version)
             VersionT[kk]     = v.full
             exampleV         = v.full
-         else
-            VersionT[v.full] = 1
          end
       end
    end
