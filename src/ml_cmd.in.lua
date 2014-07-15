@@ -98,7 +98,8 @@ function main()
       ["--versoin"]=0, ["--ver"]=0, ["--v"]=0, ["-v"]=0,['--config'] = 0,
       ["--mt"] = 0, ["--ignore_cache"] = 0, ["--dumpversion"] = 0,
       ["--force"] = 0,['-w'] = 1, ['--width'] = 1, ['-r'] = 0,
-      ['--regexp'] = 0, ['--raw'] = 0,["-q"] = 0, ["-quiet"] = 0,
+      ['--regexp'] = 0, ['--raw'] = 0,["-q"] = 0, ["--quiet"] = 0,
+      ["--timer"] = 0,
    }
 
    local translateT = {
