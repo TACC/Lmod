@@ -316,6 +316,11 @@ accept_extT     = false
 ------------------------------------------------------------------------
 allow_dups      = false
 
+------------------------------------------------------------------------
+-- When building the reverseMapT use the preloaded modules
+------------------------------------------------------------------------
+Use_Preload     = false
+
 
 PkgBase = false
 PkgLmod = false

@@ -57,6 +57,7 @@ local lfs          = require("lfs")
 local max          = math.max
 local posix        = require("posix")
 local systemG      = _G
+local getenv       = os.getenv
 local gettimeofday = posix.gettimeofday
 local sort         = table.sort
 local timer        = require("Timer"):timer()
@@ -174,52 +175,6 @@ function M.getExactMatch(self)
    return self.__name
 end
 
-
---local function findMarkedDefault(mpath, path)
---   local mt       = MT:mt()
---   local localDir = true
---   --dbg.start{"Spider:findMarkedDefault(",mpath,", ", path,")"}
---   mpath         = abspath(mpath)
---   path          = abspath(path)
---   local i,j     = path:find(mpath)
---   local sn      = ""
---   if (j and path:sub(j+1,j+1) == '/') then
---      sn = path:sub(j+2)
---   end
---   local localdir = true
---   local default  = pathJoin(path, "default")
---   default        = abspath_localdir(default) 
---   if (default == nil) then
---      local dfltA = {"/.modulerc", "/.version"}
---      local vf    = false
---      for i = 1, #dfltA do
---         local n   = dfltA[i]
---         local vFn = abspath_localdir(pathJoin(path, n))
---         if (isFile(vFn)) then
---            vf = versionFile(n, sn, vFn)
---            break
---         end
---      end
---      if (vf) then
---         local f = pathJoin(path,vf)
---         default = abspath_localdir(f)
---         if (default == nil) then
---            local fn = vf .. ".lua"
---            local f  = pathJoin(path,fn)
---            default  = abspath_localdir(f)
---         end
---      end
---   end
---   if (default) then
---      default = abspath_localdir(default)
---   end
---   --dbg.print{"(4) default: \"",default,"\"\n"}
---
---   --dbg.fini("Spider:findMarkedDefault")
---   return default or false
---end
-
-
 --------------------------------------------------------------------------
 -- Keep this function.  Yes this function is not safe with c/n/v name
 -- schemes but it is O.K. The places that this function is used in this
@@ -277,6 +232,23 @@ function M.findModulesInDir(mpath, path, prefix, moduleT)
    local mnameT      = {}
    local dirA        = {}
    local defaultFn   = walk_directory_for_mf(mpath, path, prefix, dirA, mnameT)
+
+   --------------------------------------------------------------------------
+   -- Build the list of modules loaded before spider was run:
+   local mList = ""
+   if (Use_Preload) then
+      local a = {}
+      mList   = getenv("LOADEDMODULES") or ""
+      for mod in mList:split(":") do
+         local i = mod:find("/[^/]*$")
+         if (i) then
+            a[#a+1] = mod:sub(1,i-1)
+         end
+         a[#a+1] = mod
+      end
+      mList = concatTbl(a,":")
+   end
+
    
    cTimer:test()
 
@@ -290,7 +262,7 @@ function M.findModulesInDir(mpath, path, prefix, moduleT)
 
          local t = {fn = v.fn, modFullName = k, modName = sn, default = true, hash = 0}
          mt:add(t,"pending")
-         loadModuleFile{file=v.fn, shell=shellN, reportErr=true}
+         loadModuleFile{file=v.fn, shell=shellN, reportErr=true, mList = mList}
          mt:setStatus(t.modName,"active")
          dbg.print{"Saving: Full: ", k, " Name: ", k, " file: ",v.fn,"\n"}
       end
@@ -323,7 +295,7 @@ function M.findModulesInDir(mpath, path, prefix, moduleT)
          dbg.print{"Top of Stack: ",iStack, " Full: ", full, " fn: ", v.fn, "\n"}
          local t = {fn = v.fn, modFullName = full, modName = sn, default = 0, hash = 0}
          mt:add(t,"pending")
-         loadModuleFile{file=v.fn, shell=shellN, reportErr=true}
+         loadModuleFile{file=v.fn, shell=shellN, reportErr=true, mList = mList}
          mt:setStatus(t.modName,"active")
          dbg.print{"Saving: Full: ", full, " Name: ", sn, " fn: ",v.fn,"\n"}
       end

@@ -432,6 +432,14 @@ function options()
       default = false,
    }
 
+   cmdlineParser:add_option{
+      name    = {'--preload'},
+      dest    = 'preload',
+      action  = 'store_true',
+      default = false,
+      help    = "Use preloaded modules to build reverseMapT"
+   }
+
    local optionTbl, pargs = cmdlineParser:parse(arg)
 
    for v in pairs(optionTbl) do
@@ -439,6 +447,7 @@ function options()
    end
    masterTbl.pargs = pargs
 
+   Use_Preload = masterTbl.preload
 end
 
 function xmlSoftwarePage(dbT)
