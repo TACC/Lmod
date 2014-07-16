@@ -562,24 +562,55 @@ proc setPutMode { value } {
     set putMode $value
 }
 
-proc myPuts { stream { msg "" } } {
+proc myPuts args {
     global putMode
-
-    if { $msg eq "" } {
-	set msg    $stream
-	set stream "stdout"
+    foreach {a b c} $args break
+    set nonewline 0
+    switch [llength $args] {
+        1 {
+            set channel stdout
+            set text $a
+        }
+        2 {
+            if {[string equal $a -nonewline]} {
+                set nonewline 1
+                set channel stdout
+            } else {
+                set channel $a
+            }
+            set text $b
+        }
+        3 {
+            if {[string equal $a -nonewline]} {
+                set nonewline 1
+                set channel $b
+            } elseif {[string equal $b -nonewline]} {
+                set nonewline 1
+                set channel $a
+            } else {
+                error {puts ?-nonewline? ?channel? text}
+            }
+            set text $c
+        }
+        default {
+            error {puts ?-nonewline? ?channel? text}
+        }
     }
     if {$putMode != "inHelp"} {
-        if { ($stream == "stdout") || ($stream == "stderr") } {
-            puts stdout "LmodMessage(\"$msg\")"
-        } else {
-            puts $stream "$msg"
+        if { ($channel == "stdout") || ($channel == "stderr") } {
+            set channel "stdout"
+            set text "LmodMessage(\"$text\")"
         }
     } else {
-        puts stdout "$msg"
+        set channel  "stdout"
     }
+    if { $nonewline == 1 } {
+        puts -nonewline $channel $text
+    } else {
+        puts $channel $text
+    }
+        
 }
-
 
 proc uname {what} {
     global unameCache tcl_platform
