@@ -40,6 +40,7 @@ require("pairsByKeys")
 require("serializeTbl")
 require("utils")
 require("string_utils")
+require("colorize")
 local BeautifulTbl = require('BeautifulTbl')
 local Version      = require("Version")
 local concatTbl    = table.concat
@@ -94,13 +95,14 @@ local function new(self)
    else
       lmod_version = lmod_version:gsub("[)(]","")
    end
-   local settarg_support = "@lmod_full_settarg_support@"
-   local pkgName         = Pkg.name() or "unknown"
-   local lmod_colorize   = getenv("LMOD_COLORIZE") or "@colorize@"
-   local scDescriptT     = getSCDescriptT()
-   local numSC           = #scDescriptT
-   local uname           = capture("uname -a")
+   local settarg_support   = "@lmod_full_settarg_support@"
+   local pkgName           = Pkg.name() or "unknown"
+   local lmod_colorize     = getenv("LMOD_COLORIZE") or "@colorize@"
+   local scDescriptT       = getSCDescriptT()
+   local numSC             = #scDescriptT
+   local uname             = capture("uname -a")
    local adminFn, readable = findAdminFn()
+   local activeTerm        = haveTermSupport() and "true" or colorize("red","false")
 
    local tbl = {}
    tbl.prefix     = { doc = "Lmod prefix"                     , value = "@PREFIX@",                    }
@@ -123,6 +125,7 @@ local function new(self)
    tbl.sitePkg    = { doc = "Site Pkg location"               , value = locSitePkg,                    }
    tbl.lua_term   = { doc = "System lua-term"                 , value = "@have_lua_term@",             }
    tbl.lua_json   = { doc = "System lua_json"                 , value = "@have_lua_json@",             }
+   tbl.lua_term_A = { doc = "Active lua-term"                 , value = activeTerm,                    }
    tbl.uname      = { doc = "uname -a"                        , value = uname,                         }
    tbl.z01_admin  = { doc = "Admin file"                      , value = adminFn,                       }
    tbl.z02_admin  = { doc = "Does Admin file exist"           , value = tostring(readable),            }

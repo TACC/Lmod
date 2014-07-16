@@ -69,6 +69,11 @@ local function askSystem(width)
 end
    
 
+function haveTermSupport()
+   return (not (not term))
+end
+
+
 function TermWidth()
    if (s_width) then
       return s_width
