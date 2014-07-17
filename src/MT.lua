@@ -235,8 +235,8 @@ end
 --                    {mpath=..., file=..., fullFn=...},
 --                   }
 
-local function buildAllLocWmoduleT(moduleT, mpathA, availT)
-   --dbg.start{"MT:buildAllLocWmoduleT(moduleT, mpathA, availT)"}
+local function buildAllLocWmoduleT(moduleT, mpathA, availT, adding, pathEntry)
+   --dbg.start{"MT:buildAllLocWmoduleT(moduleT, mpathA, availT, adding, pathEntry)"}
 
 
    -----------------------------------------------------------------------
@@ -300,7 +300,7 @@ end
 --                      it exists or use [[locationTblDir]] to walk the
 --                      directories.
 
-local function build_locationTbl(mpathA)
+local function build_locationTbl(mpathA, adding, pathEntry)
 
    dbg.start{"MT:build_locationTbl(mpathA)"}
    local locationT = {}
@@ -320,7 +320,7 @@ local function build_locationTbl(mpathA)
    dbg.print{"moduleT: ", not (not moduleT),"\n"}
 
    if (moduleT) then
-      buildAllLocWmoduleT(moduleT, mpathA, availT)
+      buildAllLocWmoduleT(moduleT, mpathA, availT, adding, pathEntry)
    else
       for i = 1, #mpathA do
          local mpath = mpathA[i]
@@ -1069,9 +1069,9 @@ function M.getBaseMPATH(self)
    return concatTbl(self.baseMpathA,":")
 end
 
-function M.reEvalModulePath(self)
+function M.reEvalModulePath(self, adding, pathEntry)
    self:buildMpathA(varTbl[ModulePath]:expand())
-   self._locationTbl, self._availT = build_locationTbl(self.mpathA)
+   self._locationTbl, self._availT = build_locationTbl(self.mpathA, adding, pathEntry)
 end
 
 function M.clearLocationAvailT(self)

@@ -213,7 +213,7 @@ end
 -- chkMP(): This function is called to let Lmod know that the MODULEPATH
 --          has changed.
 
-local function chkMP(name, adding)
+local function chkMP(name, adding, pathEntry)
    if (name == ModulePath) then
       dbg.print{"calling reEvalModulePath()\n"}
       local mt = systemG.MT:mt()
@@ -283,7 +283,7 @@ function M.remove(self, value, where, priority)
       local path = pathA[i]
       if (tbl[path]) then
          tbl[path] = remFunc(self.tbl[path], where, priority)
-         chkMP(self.name,adding)
+         chkMP(self.name,adding,path)
       end
    end
    local v    = self:expand()
@@ -388,7 +388,7 @@ function M.prepend(self, value, nodups, priority)
       imin       = imin - 1
       local a    = tbl[path] or {}
       tbl[path]  = insertFunc(a, imin, isPrepend, nodups, priority)
-      chkMP(self.name, adding)
+      chkMP(self.name, adding,path)
    end
    self.imin = imin
    
@@ -416,7 +416,7 @@ function M.append(self, value, nodups, priority)
       imax       = imax + 1
       local a    = tbl[path] or {}
       tbl[path]  = insertFunc(a, imax, isPrepend, nodups, priority)
-      chkMP(self.name, adding)
+      chkMP(self.name, adding, path)
    end
    self.imax  = imax
    local v    = self:expand()
