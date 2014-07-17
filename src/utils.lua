@@ -869,10 +869,11 @@ local defaultFnT = {
 }
 
 function walk_directory_for_mf(mpath, path, prefix, dirA, mnameT)
-   --dbg.start{"walk_directory_for_mf(",mpath,", ",path,", ",prefix,", dirA, mnameT)"}
+   dbg.start{"walk_directory_for_mf(",mpath,", ",path,", ",prefix,", dirA, mnameT)"}
    local attr = lfs.attributes(path)
    if (not attr or type(attr) ~= "table" or attr.mode ~= "directory"
        or not posix.access(path,"x")) then
+      dbg.print{"Path: ",path," does not exist\n"}
       dbg.fini("walk_directory_for_mf")
       return false
    end
