@@ -219,7 +219,7 @@ local function chkMP(name, adding, pathEntry)
       local mt = systemG.MT:mt()
 
       mt:changePATH()
-      mt:reEvalModulePath()
+      mt:reEvalModulePath(adding, pathEntry)
    end
 end
 

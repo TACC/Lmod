@@ -236,8 +236,8 @@ end
 --                   }
 
 local function buildAllLocWmoduleT(moduleT, mpathA, availT, adding, pathEntry)
-   --dbg.start{"MT:buildAllLocWmoduleT(moduleT, mpathA, availT, adding, pathEntry)"}
-
+   dbg.start{"MT:buildAllLocWmoduleT(moduleT, mpathA, availT, adding: ",
+             adding,", pathEntry: ",pathEntry,")"}
 
    -----------------------------------------------------------------------
    -- Initialize [[mpathT]] and [[availT]] for directories in [[mpathA]]
@@ -289,27 +289,149 @@ local function buildAllLocWmoduleT(moduleT, mpathA, availT, adding, pathEntry)
       end
    end
 
-   -- Use both locationT and availT to find the default modulefile
-   -- and store it in locationT.
-   --dbg.fini("MT:buildAllLocWmoduleT")
+   dbg.fini("MT:buildAllLocWmoduleT")
 end
 
 
 --------------------------------------------------------------------------
--- build_locationTbl(): Build [[locationT]] either by using [[moduleT]] if
+-- columnList(): Generate a columeTable with a title.
+
+local function columnList(stream, msg, a)
+   local t = {}
+   sort(a)
+   for i = 1, #a do
+      local cstr = string.format("%3d) ",i)
+      t[#t + 1] = cstr .. tostring(a[i])
+   end
+   stream:write(msg)
+   local ct = ColumnTable:new{tbl=t}
+   stream:write(ct:build_tbl(),"\n")
+end
+
+local function mt_version()
+   return 2
+end
+
+------------------------------------------------------------------------
+-- MT:new(): local ctor for MT.  It uses [[s]] to be the initial value.
+
+local function new(self, s, restore)
+   dbg.start{"MT:new()"}
+   local o            = {}
+
+   o.c_rebuildTime    = false
+   o.c_shortTime      = false
+   o.mT               = {}
+   o.version          = mt_version()
+   o.family           = {}
+   o.mpathA           = {}
+   o.baseMpathA       = {}
+   o._same            = true
+   o._MPATH           = ""
+   o._locationTbl     = false
+   o._availT          = false
+   o._loadT           = {}
+   o._stickyA         = {}
+
+   o._changePATH      = false
+   o._changePATHCount = 0
+
+   setmetatable(o,self)
+   self.__index = self
+
+   local active, total
+
+   local currentMPATH  = getenv(ModulePath)
+   o.systemBaseMPATH   = path_regularize(currentMPATH)
+
+   dbg.print{"systemBaseMPATH:       \"", currentMPATH, "\"\n"}
+   dbg.print{"(1) o.systemBaseMPATH: \"", o.systemBaseMPATH, "\"\n"}
+   if (not s) then
+      dbg.print{"setting systemBaseMPATH: ", currentMPATH, "\n"}
+      varTbl[DfltModPath] = Var:new(DfltModPath, currentMPATH)
+      o:buildBaseMpathA(currentMPATH)
+      dbg.print{"Initializing ", DfltModPath, ":", currentMPATH, "\n"}
+   else
+      dbg.print{"s: ",s,"\n"}
+      assert(load(s))()
+      local _ModuleTable_ = systemG._ModuleTable_
+
+      if (_ModuleTable_.version == 1) then
+         s_loadOrder = o:convertMT(_ModuleTable_)
+      else
+         for k,v in pairs(_ModuleTable_) do
+            o[k] = v
+         end
+         local icount = 0
+         for k in pairs(o.mT) do
+            icount = icount + 1
+         end
+         s_loadOrder = icount
+      end
+      o._MPATH = concatTbl(o.mpathA,":")
+      dbg.print{"(1) o._MPATH: ",o._MPATH,"\n"}
+      local baseMPATH = concatTbl(o.baseMpathA,":")
+      dbg.print{"(2) o.systemBaseMPATH: \"", o.systemBaseMPATH, "\"\n"}
+      dbg.print{"baseMPATH: ", baseMPATH, "\n"}
+
+      if (_ModuleTable_.systemBaseMPATH == nil) then
+         dbg.print{"setting self.systemBaseMPATH to baseMPATH\n"}
+	 o.systemBaseMPATH = path_regularize(baseMPATH)
+         o._MPATH = o.systemBaseMPATH
+      end
+      -----------------------------------------------------------------
+      -- Compare MODULEPATH from environment versus ModuleTable
+      if (currentMPATH == nil or currentMPATH == o._MPATH) then
+         varTbl[DfltModPath] = Var:new(DfltModPath, baseMPATH)
+         dbg.print{"buildBaseMpathA(",baseMPATH,")\n"}
+         o:buildBaseMpathA(baseMPATH)
+      else
+         dbg.print{"currentMPATH:        ",currentMPATH,"\n"}
+         dbg.print{"_MPATH:              ",o._MPATH,"\n"}
+         dbg.print{"baseMPATH:           ",o.systemBaseMPATH,"\n"}
+         if (o._MPATH ~= currentMPATH and not restore) then
+            o:resolveMpathChanges(currentMPATH, baseMPATH)
+         end
+      end
+   end
+   o.inactive         = {}
+
+   dbg.print{"(2) systemBaseMPATH: ",o.systemBaseMPATH,"\n"}
+
+   dbg.fini("MT:new")
+   return o
+end
+
+--------------------------------------------------------------------------
+-- _build_locationTbl(): Build [[locationT]] either by using [[moduleT]] if
 --                      it exists or use [[locationTblDir]] to walk the
 --                      directories.
 
-local function build_locationTbl(mpathA, adding, pathEntry)
+function M._build_locationTbl(self, mpathA, adding, pathEntry)
 
-   dbg.start{"MT:build_locationTbl(mpathA)"}
+   dbg.start{"MT:_build_locationTbl(mpathA, adding: ", adding,
+             ", pathEntry: \"",pathEntry,"\")"}
+
+
+   --if (adding == false and pathEntry) then
+   --   dbg.print{"starting availT\n"}
+   --   
+   --   local availT = self._availT
+   --   for k in pairs(availT) do
+   --      dbg.print{"availT: k: ",k,"\n"}
+   --   end
+   --   dbg.print{"Ending printing of keys of availT\n"}
+   --end
+   
+
+
    local locationT = {}
    local availT    = {}
    local Pairs     = dbg.active() and pairsByKeys or pairs
 
    if (varTbl[ModulePath] == nil or varTbl[ModulePath]:expand() == "") then
       dbg.print{"MODULEPATH is undefined\n"}
-      dbg.fini("MT:build_locationTbl")
+      dbg.fini("MT:_build_locationTbl")
       return {}, {}
    end
 
@@ -430,117 +552,8 @@ local function build_locationTbl(mpathA, adding, pathEntry)
          end
       end
    end
-   dbg.fini("MT:build_locationTbl")
+   dbg.fini("MT:_build_locationTbl")
    return locationT, availT
-end
-
---------------------------------------------------------------------------
--- columnList(): Generate a columeTable with a title.
-
-local function columnList(stream, msg, a)
-   local t = {}
-   sort(a)
-   for i = 1, #a do
-      local cstr = string.format("%3d) ",i)
-      t[#t + 1] = cstr .. tostring(a[i])
-   end
-   stream:write(msg)
-   local ct = ColumnTable:new{tbl=t}
-   stream:write(ct:build_tbl(),"\n")
-end
-
-local function mt_version()
-   return 2
-end
-
-------------------------------------------------------------------------
--- MT:new(): local ctor for MT.  It uses [[s]] to be the initial value.
-
-local function new(self, s, restore)
-   dbg.start{"MT:new()"}
-   local o            = {}
-
-   o.c_rebuildTime    = false
-   o.c_shortTime      = false
-   o.mT               = {}
-   o.version          = mt_version()
-   o.family           = {}
-   o.mpathA           = {}
-   o.baseMpathA       = {}
-   o._same            = true
-   o._MPATH           = ""
-   o._locationTbl     = false
-   o._availT          = false
-   o._loadT           = {}
-   o._stickyA         = {}
-
-   o._changePATH      = false
-   o._changePATHCount = 0
-
-   setmetatable(o,self)
-   self.__index = self
-
-   local active, total
-
-   local currentMPATH  = getenv(ModulePath)
-   o.systemBaseMPATH   = path_regularize(currentMPATH)
-
-   dbg.print{"systemBaseMPATH:       \"", currentMPATH, "\"\n"}
-   dbg.print{"(1) o.systemBaseMPATH: \"", o.systemBaseMPATH, "\"\n"}
-   if (not s) then
-      dbg.print{"setting systemBaseMPATH: ", currentMPATH, "\n"}
-      varTbl[DfltModPath] = Var:new(DfltModPath, currentMPATH)
-      o:buildBaseMpathA(currentMPATH)
-      dbg.print{"Initializing ", DfltModPath, ":", currentMPATH, "\n"}
-   else
-      dbg.print{"s: ",s,"\n"}
-      assert(load(s))()
-      local _ModuleTable_ = systemG._ModuleTable_
-
-      if (_ModuleTable_.version == 1) then
-         s_loadOrder = o:convertMT(_ModuleTable_)
-      else
-         for k,v in pairs(_ModuleTable_) do
-            o[k] = v
-         end
-         local icount = 0
-         for k in pairs(o.mT) do
-            icount = icount + 1
-         end
-         s_loadOrder = icount
-      end
-      o._MPATH = concatTbl(o.mpathA,":")
-      dbg.print{"(1) o._MPATH: ",o._MPATH,"\n"}
-      local baseMPATH = concatTbl(o.baseMpathA,":")
-      dbg.print{"(2) o.systemBaseMPATH: \"", o.systemBaseMPATH, "\"\n"}
-      dbg.print{"baseMPATH: ", baseMPATH, "\n"}
-
-      if (_ModuleTable_.systemBaseMPATH == nil) then
-         dbg.print{"setting self.systemBaseMPATH to baseMPATH\n"}
-	 o.systemBaseMPATH = path_regularize(baseMPATH)
-         o._MPATH = o.systemBaseMPATH
-      end
-      -----------------------------------------------------------------
-      -- Compare MODULEPATH from environment versus ModuleTable
-      if (currentMPATH == nil or currentMPATH == o._MPATH) then
-         varTbl[DfltModPath] = Var:new(DfltModPath, baseMPATH)
-         dbg.print{"buildBaseMpathA(",baseMPATH,")\n"}
-         o:buildBaseMpathA(baseMPATH)
-      else
-         dbg.print{"currentMPATH:        ",currentMPATH,"\n"}
-         dbg.print{"_MPATH:              ",o._MPATH,"\n"}
-         dbg.print{"baseMPATH:           ",o.systemBaseMPATH,"\n"}
-         if (o._MPATH ~= currentMPATH and not restore) then
-            o:resolveMpathChanges(currentMPATH, baseMPATH)
-         end
-      end
-   end
-   o.inactive         = {}
-
-   dbg.print{"(2) systemBaseMPATH: ",o.systemBaseMPATH,"\n"}
-
-   dbg.fini("MT:new")
-   return o
 end
 
 --------------------------------------------------------------------------
@@ -1031,7 +1044,8 @@ end
 
 function M.locationTbl(self, key)
    if (not self._locationTbl) then
-      self._locationTbl, self._availT = build_locationTbl(self.mpathA)
+      self._locationTbl, self._availT = self:_build_locationTbl(self.mpathA)
+      dbg.print{"set self._availT\n"}
    end
    if (key == nil) then
       return self._locationTbl
@@ -1041,7 +1055,8 @@ end
 
 function M.availT(self)
    if (not self._availT) then
-      self._locationTbl, self._availT = build_locationTbl(self.mpathA)
+      self._locationTbl, self._availT = self:_build_locationTbl(self.mpathA)
+      dbg.print{"set self._availT\n"}
    end
    return self._availT
 end
@@ -1070,11 +1085,15 @@ function M.getBaseMPATH(self)
 end
 
 function M.reEvalModulePath(self, adding, pathEntry)
+   dbg.start{"MT:reEvalModulePath(adding: ",adding,", pathEntry: ",pathEntry,")"}
    self:buildMpathA(varTbl[ModulePath]:expand())
-   self._locationTbl, self._availT = build_locationTbl(self.mpathA, adding, pathEntry)
+   self._locationTbl, self._availT = self:_build_locationTbl(self.mpathA, adding, pathEntry)
+   dbg.print{"set self._availT\n"}
+   dbg.fini("MT:reEvalModulePath")
 end
 
 function M.clearLocationAvailT(self)
+   dbg.print{"Calling MT:clearLocationAvailT(self)\n"}
    self._locationTbl = false
    self._availT      = false
 end
