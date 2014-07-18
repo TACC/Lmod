@@ -412,44 +412,46 @@ function M._build_locationTbl(self, mpathA, adding, pathEntry)
    dbg.start{"MT:_build_locationTbl(mpathA, adding: ", adding,
              ", pathEntry: \"",pathEntry,"\")"}
 
-
-   --if (adding == false and pathEntry) then
-   --   dbg.print{"starting availT\n"}
-   --   
-   --   local availT = self._availT
-   --   for k in pairs(availT) do
-   --      dbg.print{"availT: k: ",k,"\n"}
-   --   end
-   --   dbg.print{"Ending printing of keys of availT\n"}
-   --end
-   
-
-
-   local locationT = {}
-   local availT    = {}
-   local Pairs     = dbg.active() and pairsByKeys or pairs
-
    if (varTbl[ModulePath] == nil or varTbl[ModulePath]:expand() == "") then
       dbg.print{"MODULEPATH is undefined\n"}
       dbg.fini("MT:_build_locationTbl")
       return {}, {}
    end
 
-   local fast      = true
-   local cache     = _G.Cache:cache()
-   local moduleT   = cache:build(fast)
-
-   dbg.print{"moduleT: ", not (not moduleT),"\n"}
-
-   if (moduleT) then
-      buildAllLocWmoduleT(moduleT, mpathA, availT, adding, pathEntry)
-   else
-      for i = 1, #mpathA do
-         local mpath = mpathA[i]
-         availT[mpath] = {}
-         locationTblDir(mpath, mpath, "", availT[mpath])
+   local Pairs        = dbg.active() and pairsByKeys or pairs
+   local locationT    = {}
+   local availT       = {}
+   local mustWalkDirs = true
+   if (type (self._availT) == "table" and adding == false and pathEntry) then
+      availT = self._availT
+      if (availT[pathEntry]) then
+         mustWalkDirs      = false
+         availT[pathEntry] = nil
+         dbg.print{"Fast removal of directory: ",pathEntry,"\n"}
       end
    end
+   
+
+   if (mustWalkDirs) then
+      local fast      = true
+      local cache     = _G.Cache:cache()
+      local moduleT   = cache:build(fast)
+      
+      dbg.print{"moduleT: ", not (not moduleT),"\n"}
+
+      if (moduleT) then
+         buildAllLocWmoduleT(moduleT, mpathA, availT, adding, pathEntry)
+      else
+         for i = 1, #mpathA do
+            local mpath = mpathA[i]
+            availT[mpath] = {}
+            locationTblDir(mpath, mpath, "", availT[mpath])
+         end
+      end
+   end
+
+   --------------------------------------------------------------------------
+   -- Use availT to build locationT
 
    for i = 1, #mpathA do
       local defaultEntry = false

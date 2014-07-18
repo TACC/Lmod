@@ -50,6 +50,8 @@ testdescript = {
      runLmod purge                         #21
      runLmod load gcc mpich                #22
      runLmod unload mpich gcc              #23
+     runLmod load gcc mpich                #24
+     runLmod unload mpich gcc              #25
      
      
      HOME=$ORIG_HOME

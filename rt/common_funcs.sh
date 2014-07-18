@@ -24,6 +24,7 @@ cleanUp ()
        -e "s|$projectDir|ProjectDIR|g"                    \
        -e "s| *\-\-\-\-* *||g"                            \
        -e "s|\-%%\-.*||g"                                 \
+       -e "/^Active lua-term.*/d"                         \
        -e "/Rebuilding cache.*done/d"                     \
        -e "/Using your spider cache file/d"               \
        -e "/^_ModuleTable_Sz_=.*$/d"                      \

@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.6rc1 5.6rc1-12-g8ed6a7e 2014-05-22 21:13
+Modules based on Lua: Version 5.6.3 5.6.3-41-gfb250e7 2014-06-23 05:28
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -120,3 +120,23 @@ lua ProjectDIR/src/lmod.in.lua bash list
 Currently Loaded Modules:
   1) gcc/14.27.3   3) clang/4.2.1      5) parmetis/4.0.3
   2) ben/0.1       4) mpich/17.200.3
+===========================
+step 19
+lua ProjectDIR/src/lmod.in.lua bash purge
+===========================
+===========================
+step 20
+lua ProjectDIR/src/lmod.in.lua bash load gcc mpich
+===========================
+===========================
+step 21
+lua ProjectDIR/src/lmod.in.lua bash unload mpich gcc
+===========================
+===========================
+step 22
+lua ProjectDIR/src/lmod.in.lua bash load gcc mpich
+===========================
+===========================
+step 23
+lua ProjectDIR/src/lmod.in.lua bash unload mpich gcc
+===========================

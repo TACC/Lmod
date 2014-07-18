@@ -251,7 +251,6 @@ Using dotfiles                   @use_dot_files@
 Allow duplicate paths            @duplicate_paths@
 System lua_json                  @have_lua_json@
 System lua-term                  @have_lua_term@
-Active lua-term                  true
 Include modulepath dir in avail  no
 MODULEPATH_ROOT                  @modulepath_root@
 number of cache dirs             0
