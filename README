@@ -1,3 +1,25 @@
+Lmod Version 5.7
+Features:
+   a) Lmod is now more efficient when loading and unloading
+      modulefiles that modify MODULEPATH when there is no
+      cache file.
+   b) Lmod now reports that lua-term is active or not when
+      "module --config". This is there so that if Lmod is
+      built on a system that as a system lua-term on one and
+      is installed on a different system that doesn't.
+   c) module spider now reports module version in "parseVersion" 
+      order. (i.e 0.7.10 is newer than 0.7.2)
+   d) Internally Lmod sets LC_ALL=C so that a user's Locale does
+      not effect its behavior.
+
+Bug Fixes:
+   a) Lmod can now handle TCL modulefiles that use
+      "puts --nonewline ..."
+   b) TCL whatis with multiple arguments is no correctly handled.
+   c) Changed require("posix")  to local posix=require("posix")
+
+
+
 Lmod Version 5.6.3
 Bug Fixes:
    a) Lmod now correctly handles prepending multiple directories to
