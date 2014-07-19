@@ -77,25 +77,25 @@ s_mt = false
 s_mtA = {}
 
 --------------------------------------------------------------------------
--- locationTblDir(): This local function walks a single directory to find
---                   all the modulefiles in that directory.  This function
---                   is used when moduleT is not available.  The naming
---                   rule is implemented here:
---                     (1) If a file is a member of a path in MODULEPATH
---                         then it is a meta-module.
---                     (2) If a file is a sub-directory of MODULEPATH, then
---                         and there are no subdirectories (excluding
---                         '.' and '..' of course), then these files are
---                         version files and the names are the directory
---                         (or directories) between the path in MODULEPATH
---                         and here.
---                     (3) If a file is in a directory with subdirectories
---                         then that file is a meta-module.
+-- buildAvailT(): This local function walks a single directory to find
+--                all the modulefiles in that directory.  This function
+--                is used when moduleT is not available.  The naming
+--                rule is implemented here:
+--                  (1) If a file is a member of a path in MODULEPATH
+--                      then it is a meta-module.
+--                  (2) If a file is a sub-directory of MODULEPATH, then
+--                      and there are no subdirectories (excluding
+--                      '.' and '..' of course), then these files are
+--                      version files and the names are the directory
+--                      (or directories) between the path in MODULEPATH
+--                      and here.
+--                  (3) If a file is in a directory with subdirectories
+--                      then that file is a meta-module.
 --
---                   Meta-modules are modulefiles that are not versioned.
---                   They typically load other modules but not always.
+--                Meta-modules are modulefiles that are not versioned.
+--                They typically load other modules but not always.
 
-local function locationTblDir(mpath, path, prefix, availT)
+local function buildAvailT(mpath, path, prefix, availT)
 
    local mnameT     = {}
    local dirA       = {}
@@ -113,9 +113,9 @@ local function locationTblDir(mpath, path, prefix, availT)
          availT[k][0] = v
       end
 
-      -- For any directories found recursively call locationDir to process.
+      -- For any directories found recursively call buildAvailT to process.
       for i = 1, #dirA do
-         locationTblDir(mpath, dirA[i].fullName,  dirA[i].mname, availT)
+         buildAvailT(mpath, dirA[i].fullName,  dirA[i].mname, availT)
       end
    elseif (next(mnameT) ~= nil) then
       ------------------------------------------------------------------------
@@ -138,9 +138,7 @@ local function locationTblDir(mpath, path, prefix, availT)
       for i = 1, #vA do
          a[i] = {version = vA[i][2], fn = vA[i][3], parseV=vA[i][1]}
       end
-      --dbg.print{"Adding ",prefix," to availT, #a: ",#a,"\n"}
       availT[prefix] = a
-      --dbg.print{"prefix: ",prefix,", defaultFn: ",defaultFn, "\n"}
 
       if (defaultFn) then
          local d, v = splitFileName(defaultFn)
@@ -157,15 +155,12 @@ local function locationTblDir(mpath, path, prefix, availT)
             end
          end
          local num = #vA
-         --dbg.print{"#vA: ",#vA,", numPathA: ",numPathA,", num: ",num,"\n"}
          availT[prefix].default    = {fn = defaultFn, kind="marked", num = num}
       else
-         --local d = abspath(pathJoin(mpath, prefix))
          local d = pathJoin(mpath, prefix)
          defaultFn = pathJoin(d, a[#a].version)
       end
    end
-   --dbg.fini("locationTblDir")
 end
 
 
@@ -404,7 +399,7 @@ end
 
 --------------------------------------------------------------------------
 -- _build_locationTbl(): Build [[locationT]] either by using [[moduleT]] if
---                      it exists or use [[locationTblDir]] to walk the
+--                      it exists or use [[buildAvailT]] to walk the
 --                      directories.
 
 function M._build_locationTbl(self, mpathA, adding, pathEntry)
@@ -445,7 +440,7 @@ function M._build_locationTbl(self, mpathA, adding, pathEntry)
          for i = 1, #mpathA do
             local mpath = mpathA[i]
             availT[mpath] = {}
-            locationTblDir(mpath, mpath, "", availT[mpath])
+            buildAvailT(mpath, mpath, "", availT[mpath])
          end
       end
    end
@@ -865,7 +860,7 @@ function M.getMTfromFile(self,t)
 
    aa = {}
    s_mt:setHashSum()
-   for sn, v  in pairs(t) do
+   for sn, v  in pairsByKeys(t) do
       dbg.print{"HASH sn: ",sn, ", t hash: ",v, "s hash: ", s_mt:getHash(sn), "\n"}
       if(v ~= s_mt:getHash(sn)) then
          aa[#aa + 1] = sn

@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.6.3 5.6.3-16-gae1c2b2 2014-06-23 05:28
+Modules based on Lua: Version 5.6.3 5.6.3-42-g743f1f7 2014-06-23 05:28
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -115,7 +115,7 @@ step 18
 lua ProjectDIR/src/lmod.in.lua bash restore stdenv
 ===========================
 Restoring modules to user's stdenv
-Lmod Warning: The following modules have changed: gcc, StdEnv
+Lmod Warning: The following modules have changed: StdEnv, gcc
 Lmod Warning: Please re-create this collection.
 Restoring modules to system default
 The system default contains no modules
