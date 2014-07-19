@@ -417,15 +417,16 @@ function M._build_locationTbl(self, mpathA, adding, pathEntry)
    local locationT    = {}
    local availT       = {}
    local mustWalkDirs = true
-   if (type (self._availT) == "table" and adding == false and pathEntry) then
-      availT = self._availT
-      if (availT[pathEntry]) then
-         mustWalkDirs      = false
-         availT[pathEntry] = nil
-         dbg.print{"Fast removal of directory: ",pathEntry,"\n"}
+   if (type (self._availT) == "table") then
+      if (adding == false and pathEntry) then
+         availT = self._availT
+         if (availT[pathEntry]) then
+            mustWalkDirs      = false
+            availT[pathEntry] = nil
+            dbg.print{"Fast removal of directory: ",pathEntry,"\n"}
+         end
       end
    end
-   
 
    if (mustWalkDirs) then
       local fast      = true
@@ -437,10 +438,13 @@ function M._build_locationTbl(self, mpathA, adding, pathEntry)
       if (moduleT) then
          buildAllLocWmoduleT(moduleT, mpathA, availT, adding, pathEntry)
       else
+         availT = self._availT or {}
          for i = 1, #mpathA do
             local mpath = mpathA[i]
-            availT[mpath] = {}
-            buildAvailT(mpath, mpath, "", availT[mpath])
+            if ( availT[mpath] == nil) then
+               availT[mpath] = {}
+               buildAvailT(mpath, mpath, "", availT[mpath])
+            end
          end
       end
    end
