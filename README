@@ -15,10 +15,8 @@ Features:
 Bug Fixes:
    a) Lmod can now handle TCL modulefiles that use
       "puts --nonewline ..."
-   b) TCL whatis with multiple arguments is no correctly handled.
+   b) TCL whatis with multiple arguments is now correctly handled.
    c) Changed require("posix")  to local posix=require("posix")
-
-
 
 Lmod Version 5.6.3
 Bug Fixes:
