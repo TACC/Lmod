@@ -3,6 +3,8 @@ dnl This is for lmod
 
 AC_INIT(Makefile.in)
 AC_PREFIX_DEFAULT(/usr/local)
+AC_PROG_CC
+
 
 AC_SUBST(DUPLICATE_PATHS)
 AC_ARG_WITH(duplicatePaths,

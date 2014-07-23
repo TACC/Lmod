@@ -1,3 +1,4 @@
+CC                        := @CC@
 PATH_TO_SRC               := @PATH_TO_SRC@
 path_to_src               := PATH_TO_SRC
 ifeq ($(PATH_TO_SRC),@$(path_to_src)@)

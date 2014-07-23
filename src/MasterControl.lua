@@ -212,8 +212,6 @@ end
 -- Load / Unload functions
 -------------------------------------------------------------------
 function M.load_usr(self, mA)
-   
-
    local a = self:load(mA)
    if (haveWarnings()) then
       mustLoad(mA)
