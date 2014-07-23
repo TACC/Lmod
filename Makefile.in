@@ -130,7 +130,7 @@ module_output_redirect: module_output_redirect.o
 	$(LINK.c) -o $@ $^
 
 module_output_redirect.o: $(PATH_TO_SRC)/c_src/module_output_redirect.c
-	$(COMPILE.c) -c $^
+	$(COMPILE.c) $^
 
 c_progs_install:
 	cp $(C_PROGS) $(DESTDIR)$(LIBEXEC)
@@ -201,7 +201,7 @@ src/computeHashSum: $(ComputeHashSum)
 pkgs:
 	cd $(PATH_TO_SRC)/pkgs; \
         $(MAKE) LUA_INC=$(LUA_INCLUDE)  LIB=$(DESTDIR)$(LIB) \
-                SHARE=$(DESTDIR)$(LIBEXEC) install
+                SHARE=$(DESTDIR)$(LIBEXEC) CC=$(CC) install
 
 zsh_tab_funcs: $(ZSH_FUNCS)
 	-if [ -n "$(ZSH_SITE_FUNCTIONS_DIR)" ]; then         \
