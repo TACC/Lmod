@@ -99,15 +99,15 @@ function Spider_append_path(kind, t)
    local name  = t[1]
    local value = t[2]
    if (name == "MODULEPATH") then
-      dbg.start{kind,"(MODULEPATH=\"",name,"\", value=\"",value,"\")"}
+      dbg.start{kind, "(\"",name, "\" = \"", value, "\")"}
       processNewModulePATH(value)
       dbg.fini(kind)
    elseif (name == "PATH") then
-      dbg.start{kind, "(PATH: \"",name,"\", value=\"",value,"\")"}
+      dbg.start{kind, "(\"",name, "\" = \"", value, "\")"}
       processPATH(value)
       dbg.fini(kind)
-   elseif (name == "LD_LIBRARY_PATH") then
-      dbg.start{kind, "(LD_LIBRARY_PATH: \"",name,"\", value=\"",value,"\")"}
+   elseif (name == "LD_LIBRARY_PATH" or name == "CRAY_LD_LIBRARY_PATH" ) then
+      dbg.start{kind, "(\"",name, "\" = \"", value, "\")"}
       processLPATH(value)
       dbg.fini(kind)
    end
