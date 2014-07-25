@@ -28,6 +28,7 @@ if [ -z "$USER_IS_ROOT" ]; then
     export MODULESHOME=@PKG@
 
     export BASH_ENV=$MODULESHOME/init/bash
+    export MANPATH=$(@PKG@/libexec/addto MANPATH @PKG@/share/man)
   fi
 
   . @PKG@/init/bash >/dev/null # Module Support

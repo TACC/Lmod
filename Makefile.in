@@ -46,13 +46,13 @@ TOOLS                     := $(prefix)/$(package)/$(version)/tools
 SETTARG                   := $(prefix)/$(package)/$(version)/settarg
 INIT		  	  := $(prefix)/$(package)/$(version)/init
 LMOD_MF 	  	  := $(prefix)/$(package)/$(version)/modulefiles/Core
+MAN_PAGES                 := $(prefix)/$(package)/$(version)/share/man/cat1
 LMOD_MF_SOURCE            := MF/*.version.lua
 SETTARG_SOURCE            := settarg/*.lua  settarg/targ.in
 
 DIRLIST		  	  := $(DESTDIR)$(LIBEXEC) $(DESTDIR)$(TOOLS) $(DESTDIR)$(SETTARG) \
-                             $(DESTDIR)$(SHELLS)                                          \
-                             $(DESTDIR)$(INIT) $(DESTDIR)$(LIB) $(DESTDIR)$(LMOD_MF)
-
+                             $(DESTDIR)$(SHELLS) $(DESTDIR)$(INIT) $(DESTDIR)$(LIB)       \
+                             $(DESTDIR)$(LMOD_MF) $(DESTDIR)$(MAN_PAGES)
 
 STANDALONE_PRGM   	  := src/lmod.in.lua src/addto.in.lua src/getmt.in.lua      \
                              src/processMT.in.lua src/spider.in.lua                 \
@@ -109,14 +109,15 @@ else
    TCSH_ERR_TO_OUT=
 endif
 
-.PHONY: test pkgs
+.PHONY: test pkgs man_pages
 
 all: $(C_PROGS)
 	@echo done
 
 pre-install: $(DIRLIST) $(C_PROGS) shell_init startup libexec spiderCacheSupport \
              Inst_Tools Inst_Shells Inst_Settarg Inst_Lmod_MF c_progs_install    \
-             $(PKGS) other_tools 
+             $(PKGS) other_tools man_pages
+
 
 install: pre-install  zsh_tab_funcs
 	$(RM) $(DESTDIR)$(PKG)
@@ -125,6 +126,8 @@ install: pre-install  zsh_tab_funcs
 echo:
 	@echo Version: $(version)
 
+man_pages:
+	$(PATH_TO_LUA)/lua $(PATH_TO_SRC)/src/lmod.in.lua bash --help >/dev/null 2> $(DESTDIR)$(MAN_PAGES)/module.1
 
 module_output_redirect: module_output_redirect.o
 	$(LINK.c) -o $@ $^
