@@ -619,8 +619,10 @@ function M.unload(mA)
          mt:endOP()
          dbg.print{"changePATH: ", mt._changePATHCount, "\n"}
          dbg.print{"calling mt:remove(\"",sn,"\")\n"}
+         local t = {fn = mt:fileName(sn), modFullName = mt:fullName(sn) }
          mt:remove(sn)
          registerUnloaded(fullModuleName, f)
+         hook.apply("unload",t)
          a[#a + 1] = true
       else
          a[#a + 1] = false

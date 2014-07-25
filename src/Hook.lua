@@ -45,6 +45,8 @@ local validT =
 {
       ['load']       = false,  -- This load hook is called after a
                                -- modulefile is loaded.
+      unload         = false,  -- This unload hook is called after a
+                               -- modulefile is unloaded.
       parse_updateFn = false,  -- This hook returns the time on the
                                -- timestamp file.
       writeCache     = false,  -- This hook return whether a cache
