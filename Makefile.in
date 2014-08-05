@@ -74,7 +74,8 @@ STARTUP		  	  := $(patsubst %, $(PATH_TO_SRC)/init/%, $(STARTUP))
 MAIN_DIR	  	  := Makefile.in INSTALL configure README_lua_modulefiles.txt \
                              README README.old License
 
-C_PROGS                   := module_output_redirect
+ifneq ($(REDIRECT_ERR_TO_OUT),NO)
+endif
 
 CONTRIB_DIRS           	  :=  \
                               bash_patch                        \
@@ -102,11 +103,10 @@ ifneq ($(HAVE_LUA_TERM),yes)
 endif
 
 ifneq ($(REDIRECT_ERR_TO_OUT),NO)
-   BASH_ERR_TO_OUT=2>\&1
-   TCSH_ERR_TO_OUT=$$LMOD_DIR/module_output_redirect
-else
-   BASH_ERR_TO_OUT=
-   TCSH_ERR_TO_OUT=
+   C_PROGS         := module_output_redirect
+   C_PROGS_INSTALL := c_progs_install
+   BASH_ERR_TO_OUT := 2>\&1
+   TCSH_ERR_TO_OUT := $$LMOD_DIR/module_output_redirect
 endif
 
 .PHONY: test pkgs man_pages
@@ -115,9 +115,8 @@ all: $(C_PROGS)
 	@echo done
 
 pre-install: $(DIRLIST) $(C_PROGS) shell_init startup libexec spiderCacheSupport \
-             Inst_Tools Inst_Shells Inst_Settarg Inst_Lmod_MF c_progs_install    \
+             Inst_Tools Inst_Shells Inst_Settarg Inst_Lmod_MF $(C_PROGS_INSTALL) \
              $(PKGS) other_tools man_pages
-
 
 install: pre-install  zsh_tab_funcs
 	$(RM) $(DESTDIR)$(PKG)
