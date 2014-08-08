@@ -65,6 +65,7 @@ local unpack       = unpack or table.unpack
 
 local function Access(mode, ...)
    local master    = Master:master()
+   local shell     = master.shell
    local masterTbl = masterTbl()
    dbg.start{"Access(", concatTbl({...},", "),")"}
    mcp = MasterControl.build("access", mode)
@@ -72,8 +73,7 @@ local function Access(mode, ...)
 
    local n = select('#',...)
    if (n < 1) then
-      pcall(pager, io.stderr, masterTbl.cmdHelpMsg, "\n", Usage(), "\n",
-            version())
+      shell:echo(masterTbl.cmdHelpMsg, "\n", Usage(), "\n", version())
       dbg.fini("Access")
       return
    end
@@ -158,6 +158,7 @@ function Keyword(...)
    dbg.start{"Keyword(",concatTbl({...},","),")"}
 
    local master  = Master:master()
+   local shell   = master.shell
    local cache   = Cache:cache()
    local moduleT = cache:build()
    local s
@@ -178,7 +179,8 @@ function Keyword(...)
    ia = ia+1; a[ia] = "\n"
 
    spider:Level0Helper(dbT,a)
-   pcall(pager,io.stderr,concatTbl(a,""))
+   
+   shell:echo(concatTbl(a,""))
 
    dbg.fini("Keyword")
 end
@@ -626,6 +628,7 @@ function SaveList(...)
    local masterTbl = masterTbl()
    local a         = {}
    local b         = {}
+   local shell     = Master:master().shell
 
    findNamedCollections(b,path)
    if (masterTbl.terse) then
@@ -651,10 +654,13 @@ function SaveList(...)
       a[#a+1] = cstr .. name
    end
 
+   local b = {}
    if (#a > 0) then
-      io.stderr:write("Named collection list:\n")
+      b[#b+1]  = "Named collection list:\n"
       local ct = ColumnTable:new{tbl=a,gap=0}
-      io.stderr:write(ct:build_tbl(),"\n")
+      b[#b+1]  = ct:build_tbl()
+      b[#b+1]  = "\n"
+      shell:echo(concatTbl(b,""))
    else
       io.stderr:write("No Named collections.\n")
    end
@@ -703,6 +709,7 @@ end
 function SpiderCmd(...)
    dbg.start{"SpiderCmd(", concatTbl({...},", "),")"}
    local cache     = Cache:cache()
+   local shell     = Master:master().shell
    local moduleT   = cache:build()
    local masterTbl = masterTbl()
    local dbT     = {}
@@ -728,7 +735,7 @@ function SpiderCmd(...)
    a[#a+1] = s
    a = hook.apply("msgHook","spider",a)
 
-   pcall(pager,io.stderr, concatTbl(a,""), "\n")
+   shell:echo(concatTbl(a,""), "\n")
    dbg.fini("SpiderCmd")
 end
 

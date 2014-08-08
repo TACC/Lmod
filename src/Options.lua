@@ -246,6 +246,13 @@ function M.options(self, usage)
       help   = "force removal of a sticky module or save an empty collection",
    }
 
+   cmdlineParser:add_option{
+      name   = {"--redirect" },
+      dest   = "redirect",
+      action = "store_true",
+      help   = "Send the output of list, avail, spider to stdout (not stderr)",
+   }
+
    local optionTbl, pargs = cmdlineParser:parse(arg)
    local masterTbl        = masterTbl()
    masterTbl.pargs        = pargs
@@ -276,6 +283,10 @@ function M.options(self, usage)
    if (optionTbl.novice) then
       setenv("LMOD_EXPERT", nil)
       setenv("LMOD_QUIET",  nil)
+   end
+
+   if (optionTbl.redirect) then
+      LMOD_REDIRECT = "yes"
    end
 end
 
