@@ -955,6 +955,7 @@ end
 function M.avail(argA)
    dbg.start{"Master.avail(",concatTbl(argA,", "),")"}
    local mt        = MT:mt()
+   local shell     = s_master.shell
    local mpathA    = mt:module_pathA()
    local twidth    = TermWidth()
    local masterTbl = masterTbl()
@@ -1034,7 +1035,7 @@ function M.avail(argA)
    if (not quiet()) then
       aa = hook.apply("msgHook", "avail", aa)
    end
-   pcall(pager,io.stderr,concatTbl(aa,""))
+   shell:echo(concatTbl(aa,""))
    dbg.fini("Master.avail")
 end
 
