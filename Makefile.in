@@ -11,7 +11,7 @@ ifeq ($(HAVE_LUA_JSON),yes)
   TOOL_SRC                := $(filter-out $(PATH_TO_SRC)/tools/json.lua, $(TOOL_SRC))
 endif
 
-REDIRECT_ERR_TO_OUT       := @REDIRECT@
+REDIRECT                  := @REDIRECT@
 LMOD_FULL_SETTARG_SUPPORT := $(shell echo "@SETTARG@"       | tr '[:upper:]' '[:lower:]')
 USE_DOT_FILES             := $(shell echo "@USE_DOT_FILES@" | tr '[:upper:]' '[:lower:]')
 PREPEND_BLOCK     	  := $(shell echo "@PREPEND_BLOCK@" | tr '[:upper:]' '[:lower:]')
@@ -74,9 +74,6 @@ STARTUP		  	  := $(patsubst %, $(PATH_TO_SRC)/init/%, $(STARTUP))
 MAIN_DIR	  	  := Makefile.in INSTALL configure README_lua_modulefiles.txt \
                              README README.old License
 
-ifneq ($(REDIRECT_ERR_TO_OUT),NO)
-endif
-
 CONTRIB_DIRS           	  :=  \
                               bash_patch                        \
                               BuildSystemCacheFile              \
@@ -102,12 +99,12 @@ ifneq ($(HAVE_LUA_TERM),yes)
   LIB  := $(prefix)/$(package)/$(version)/lib
 endif
 
-ifneq ($(REDIRECT_ERR_TO_OUT),NO)
-   C_PROGS         := module_output_redirect
-   C_PROGS_INSTALL := c_progs_install
-   BASH_ERR_TO_OUT := 2>\&1
-   TCSH_ERR_TO_OUT := $$LMOD_DIR/module_output_redirect
-endif
+#ifneq ($(REDIRECT),NO)
+#   C_PROGS         := module_output_redirect
+#   C_PROGS_INSTALL := c_progs_install
+#   BASH_ERR_TO_OUT := 2>\&1
+#   TCSH_ERR_TO_OUT := $$LMOD_DIR/module_output_redirect
+#endif
 
 .PHONY: test pkgs man_pages
 
@@ -159,6 +156,7 @@ __installMe:
                 -e 's|@git@|$(GIT_VERSION)|g'                              	  \
                 -e 's|@have_lua_term@|$(HAVE_LUA_TERM)|g'                  	  \
                 -e 's|@have_lua_json@|$(HAVE_LUA_JSON)|g'                  	  \
+	        -e 's|@redirect@|$(REDIRECT)|g'                       	   	  \
 	        -e 's|@ancient@|$(ANCIENT)|g'                         	   	  \
 	        -e 's|@prepend_block@|$(PREPEND_BLOCK)|g'             	   	  \
 	        -e 's|@colorize@|$(COLORIZE)|g'                       	   	  \

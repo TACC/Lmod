@@ -177,9 +177,17 @@ end
 
 
 function M.echo(self, ...)
-   local arg = pack(...)
-   for i = 1, arg.n do
-      io.stderr:write(arg[i])
+   if (LMOD_REDIRECT == "no") then
+      pcall(pager,io.stderr,...)
+   else
+      local arg = pack(...)
+      for i = 1, arg.n do
+         local whole=arg[i]
+         for line in whole:split("\n") do
+            line = line:gsub("\"","\"'\"'\""):gsub(" ","\" \"")
+            io.stdout:write("echo \"",line,"\";\n")
+         end
+      end
    end
 end
 

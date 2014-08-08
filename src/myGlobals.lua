@@ -92,6 +92,14 @@ LMOD_CASE_INDEPENDENT_SORTING = getenv("LMOD_CASE_INDEPENDENT_SORTING") or
                                 "@case_independent_sorting@"
 
 ------------------------------------------------------------------------
+-- LMOD_REDIRECT:  Send messages to stdout instead of stderr
+------------------------------------------------------------------------
+LMOD_REDIRECT = (getenv("LMOD_REDIRECT") or "@redirect@"):lower()
+if (LMOD_REDIRECT:sub(1,1) == "@") then
+   LMOD_REDIRECT = "no"
+end
+
+------------------------------------------------------------------------
 -- LMOD_SYSTEM_NAME:  When on a shared file system, use this to
 --                    form the cache name and collection names.       
 ------------------------------------------------------------------------

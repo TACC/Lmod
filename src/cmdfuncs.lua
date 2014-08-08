@@ -204,6 +204,7 @@ function List(...)
    local msg     = "Currently Loaded Modules"
    local activeA = mt:list("short","active")
    local a       = {}
+   local b       = {}
    local msg2    = ":"
 
    if (wanted.n == 0) then
@@ -226,7 +227,7 @@ function List(...)
          for j = 1, wanted.n do
             local p = wanted[j]
             if (full:find(p)) then
-               shell:echo(full,"\n")
+               io.stderr:write(full,"\n")
             end
          end
       end
@@ -234,7 +235,11 @@ function List(...)
       return
    end
 
-   shell:echo("\n",msg,msg2,"\n")
+   b[#b+1] = "\n"
+   b[#b+1] = msg
+   b[#b+1] = msg2
+   b[#b+1] = "\n"
+
    local kk = 0
    local legendT = {}
    for i = 1, #activeA do
@@ -251,21 +256,23 @@ function List(...)
    end
 
    if (kk == 0) then
-      shell:echo("  None found.\n")
+      b[#b+1] = "  None found.\n"
    else
       local ct = ColumnTable:new{tbl=a, gap=0, len=length}
-      shell:echo(ct:build_tbl(),"\n")
+      b[#b+1] = ct:build_tbl()
+      b[#b+1] = "\n"
    end
 
    if (next(legendT)) then
       local term_width = TermWidth()
-      shell:echo("\n  Where:\n")
+      b[#b+1] = "\n  Where:\n"
       a = {}
       for k, v in pairsByKeys(legendT) do
          a[#a+1] = { "   " .. k ..":", v}
       end
       local bt = BeautifulTbl:new{tbl=a, column = term_width-1}
-      shell:echo(bt:build_tbl(),"\n")
+      b[#b+1] = bt:build_tbl()
+      b[#b+1] = "\n"
    end
    a = {}
    kk = 0
@@ -285,17 +292,20 @@ function List(...)
    end
 
    if (#a > 0) then
-      shell:echo("\nInactive Modules",msg2,"\n")
+      b[#b+1] = "\nInactive Modules"
+      b[#b+1] = msg2
+      b[#b+1] = "\n"
       local ct = ColumnTable:new{tbl=a,gap=0}
-      shell:echo(ct:build_tbl(),"\n")
+      b[#b+1] = ct:build_tbl()
+      b[#b+1] = "\n"
    end
 
    local aa = {}
    aa = hook.apply("msgHook","list",aa)
    if (#aa > 0) then
-      shell:echo(concatTbl(aa,""))
+      b[#b+1] = concatTbl(aa,"")
    end
-
+   shell:echo(concatTbl(b,""))
    dbg.fini("List")
 end
 
