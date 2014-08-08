@@ -190,6 +190,7 @@ end
 function List(...)
    dbg.start{"List(...)"}
    local masterTbl = masterTbl()
+   local shell     = Master:master().shell
    local mt = MT:mt()
    local totalA = mt:list("userName","any")
    if (#totalA < 1) then
@@ -225,7 +226,7 @@ function List(...)
          for j = 1, wanted.n do
             local p = wanted[j]
             if (full:find(p)) then
-               io.stderr:write(full,"\n")
+               shell:echo(full,"\n")
             end
          end
       end
@@ -233,7 +234,7 @@ function List(...)
       return
    end
 
-   io.stderr:write("\n",msg,msg2,"\n")
+   shell:echo("\n",msg,msg2,"\n")
    local kk = 0
    local legendT = {}
    for i = 1, #activeA do
@@ -250,21 +251,21 @@ function List(...)
    end
 
    if (kk == 0) then
-      io.stderr:write("  None found.\n")
+      shell:echo("  None found.\n")
    else
       local ct = ColumnTable:new{tbl=a, gap=0, len=length}
-      io.stderr:write(ct:build_tbl(),"\n")
+      shell:echo(ct:build_tbl(),"\n")
    end
 
    if (next(legendT)) then
       local term_width = TermWidth()
-      io.stderr:write("\n  Where:\n")
+      shell:echo("\n  Where:\n")
       a = {}
       for k, v in pairsByKeys(legendT) do
          a[#a+1] = { "   " .. k ..":", v}
       end
       local bt = BeautifulTbl:new{tbl=a, column = term_width-1}
-      io.stderr:write(bt:build_tbl(),"\n")
+      shell:echo(bt:build_tbl(),"\n")
    end
    a = {}
    kk = 0
@@ -284,15 +285,15 @@ function List(...)
    end
 
    if (#a > 0) then
-      io.stderr:write("\nInactive Modules",msg2,"\n")
+      shell:echo("\nInactive Modules",msg2,"\n")
       local ct = ColumnTable:new{tbl=a,gap=0}
-      io.stderr:write(ct:build_tbl(),"\n")
+      shell:echo(ct:build_tbl(),"\n")
    end
 
    local aa = {}
    aa = hook.apply("msgHook","list",aa)
    if (#aa > 0) then
-      io.stderr:write(concatTbl(aa,""))
+      shell:echo(concatTbl(aa,""))
    end
 
    dbg.fini("List")

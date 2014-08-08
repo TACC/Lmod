@@ -39,6 +39,7 @@ require("strict")
 require("inherits")
 require("serializeTbl")
 require("string_utils")
+require("utils")
 require("quote")
 local M            = {}
 
@@ -53,6 +54,7 @@ local format       = string.format
 local getenv       = os.getenv
 local huge         = math.huge
 local min          = math.min
+local pack         = (_VERSION == "Lua 5.1") and argsPack   or table.pack
 local pairsByKeys  = pairsByKeys
 
 
@@ -174,6 +176,12 @@ function M.expandMT(self, vstr)
 end
 
 
+function M.echo(self, ...)
+   local arg = pack(...)
+   for i = 1, arg.n do
+      io.stderr:write(arg[i])
+   end
+end
 
 
 --------------------------------------------------------------------------
