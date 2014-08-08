@@ -1,3 +1,13 @@
+Lmod Version 5.7.2
+Features:
+   a) This version supports (an optional) sending the output of avail, list,
+      spider and keyword stdout instead of stderr.  This available as a
+      configure option, an environment variable (LMOD_REDIRECT=yes) or
+      module --redirect avail.
+
+      Note that if you use this option the internal pager is off
+
+   
 Lmod Version 5.7
 Features:
    a) Lmod is now more efficient when loading and unloading
