@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.4.2 5.4.2-1-g55f6b50 2014-04-17 16:26
+Modules based on Lua: Version 5.7.2 5.7.2-1-g3d12131 2014-08-08 14:31
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -275,3 +275,9 @@ Currently Loaded Modules:
   4) noweb/2.10c       8) boost/1.49.0  (o)  12) A/1.1.1
   Where:
    (o):  built for offload to the MIC only
+===========================
+step 35
+lua ProjectDIR/src/lmod.in.lua bash load rtm_intel
+===========================
+The following have been reloaded with a version change:
+  1) rtm_intel/12.1 => rtm_intel/11.1

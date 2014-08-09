@@ -368,7 +368,9 @@ function Load_Usr(...)
 
    local b
    if (#lA > 0) then
-      if (varTbl[ModulePath] == nil or varTbl[ModulePath]:expand() == "") then
+      if (varTbl[ModulePath] == nil or
+             varTbl[ModulePath]:expand() == false or
+             varTbl[ModulePath]:expand() == "" ) then
          LmodWarning("MODULEPATH is undefined\n")
       end
 

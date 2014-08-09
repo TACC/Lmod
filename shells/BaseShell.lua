@@ -115,7 +115,7 @@ function M.expand(self, tbl)
          self:alias(k,vstr)
       elseif (vType == "shell_function") then
          self:shellFunc(k,vstr)
-      elseif (vstr == "") then
+      elseif (not vstr) then
          self:unset(k, vType)
       elseif (k == "_ModuleTable_") then
          self:expandMT(vstr)

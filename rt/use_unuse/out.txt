@@ -35,7 +35,7 @@ unset LMOD_DEFAULT_MODULEPATH;
 unset LOADEDMODULES;
 unset MODULEPATH;
 unset _LMFILES_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"",},family={},inactive={},mT={a={["default"]=1,["fullName"]="a/1.0",["loadOrder"]=-1,propT={},["short"]="a",["status"]="inactive",},},mpathA={"",},["systemBaseMPATH"]="ProjectDIR/rt/use_unuse/mf/Core",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={},family={},inactive={},mT={a={["default"]=1,["fullName"]="a/1.0",["loadOrder"]=-1,propT={},["short"]="a",["status"]="inactive",},},mpathA={},["systemBaseMPATH"]="ProjectDIR/rt/use_unuse/mf/Core",["version"]=2,}';
 export _ModuleTable_;
 ===========================
 step 4
@@ -59,7 +59,7 @@ MODULEPATH="ProjectDIR/rt/use_unuse/mf/RTM";
 export MODULEPATH;
 unset LMOD_DEFAULT_MODULEPATH;
 unset MODULEPATH;
-_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"",},family={},inactive={},mT={a={["default"]=1,["fullName"]="a/1.0",["loadOrder"]=-1,propT={},["short"]="a",["status"]="inactive",},},mpathA={"",},["systemBaseMPATH"]="ProjectDIR/rt/use_unuse/mf/Core",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={},family={},inactive={},mT={a={["default"]=1,["fullName"]="a/1.0",["loadOrder"]=-1,propT={},["short"]="a",["status"]="inactive",},},mpathA={},["systemBaseMPATH"]="ProjectDIR/rt/use_unuse/mf/Core",["version"]=2,}';
 export _ModuleTable_;
 ===========================
 step 6
@@ -71,7 +71,7 @@ MODULEPATH="ProjectDIR/rt/use_unuse/mf/RTM";
 export MODULEPATH;
 unset LMOD_DEFAULT_MODULEPATH;
 unset MODULEPATH;
-_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"",},family={},inactive={},mT={},mpathA={"",},["systemBaseMPATH"]="ProjectDIR/rt/use_unuse/mf/RTM",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={},family={},inactive={},mT={},mpathA={},["systemBaseMPATH"]="ProjectDIR/rt/use_unuse/mf/RTM",["version"]=2,}';
 export _ModuleTable_;
 ===========================
 step 7
@@ -81,7 +81,7 @@ unset LMOD_DEFAULT_MODULEPATH;
 unset MODULEPATH;
 unset LMOD_DEFAULT_MODULEPATH;
 unset MODULEPATH;
-_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"",},family={},inactive={},mT={},mpathA={"",},["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={},family={},inactive={},mT={},mpathA={},["version"]=2,}';
 export _ModuleTable_;
 ===========================
 step 8
@@ -91,5 +91,5 @@ unset LMOD_DEFAULT_MODULEPATH;
 unset MODULEPATH;
 unset LMOD_DEFAULT_MODULEPATH;
 unset MODULEPATH;
-_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"",},family={},inactive={},mT={},mpathA={"",},["systemBaseMPATH"]="",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={},family={},inactive={},mT={},mpathA={},["systemBaseMPATH"]="",["version"]=2,}';
 export _ModuleTable_;

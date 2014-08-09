@@ -136,7 +136,7 @@ end
 --            "path".  Other functions work similarly.
 
 local function extract(self)
-   local myValue   = self.value or getenv(self.name) or ""
+   local myValue   = self.value or getenv(self.name)
    local pathTbl   = {}
    local imax      = 0
    local imin      = 1
@@ -144,7 +144,7 @@ local function extract(self)
    local sep       = self.sep
    local priorityT = build_priorityT(self)
 
-   if (myValue ~= '') then
+   if (myValue and myValue ~= '') then
       pathA = path2pathA(myValue, sep)
 
       for i,v in ipairs(pathA) do
@@ -288,6 +288,7 @@ function M.remove(self, value, where, priority)
    end
    local v    = self:expand()
    self.value = v
+   if (not v) then v = nil end
    setenv(self.name, v, true)
 end
 
@@ -326,6 +327,7 @@ function M.pop(self)
    end
    local v    = self:expand()
    self.value = v
+   if (not v) then v = nil end
    setenv(self.name, v, true)
    return result
 end
@@ -421,6 +423,7 @@ function M.append(self, value, nodups, priority)
    self.imax  = imax
    local v    = self:expand()
    self.value = v
+   if (not v) then v = nil end
    setenv(self.name, v, true)
 end
 
@@ -428,35 +431,38 @@ end
 -- Master: The following are simple set/unset functions.
 
 function M.set(self,value)
-   self.value = value or ''
+   if (not value) then value = false end
+   self.value = value 
    self.type  = 'var'
-   if (value == '') then value = nil end
+   if (value == false) then value = nil end
    setenv(self.name, value, true)
 end
 
 function M.unset(self)
-   self.value = ''
+   self.value = false
    self.type  = 'var'
    setenv(self.name, nil, true)
 end
 
 function M.setLocal(self,value)
+   if (not value) then value = false end
    self.value = value
    self.type  = 'local_var'
 end
 
 function M.unsetLocal(self,value)
-   self.value = ''
+   self.value = false
    self.type  = 'local_var'
 end
 
 function M.setAlias(self,value)
+   if (not value) then value = false end
    self.value = value
    self.type  = 'alias'
 end
 
 function M.unsetAlias(self,value)
-   self.value = ''
+   self.value = false
    self.type  = 'alias'
 end
 
@@ -466,7 +472,7 @@ function M.setShellFunction(self,bash_func,csh_func)
 end
 
 function M.unsetShellFunction(self,bash_func,csh_func)
-   self.value = ''
+   self.value = false
    self.type  = 'shell_function'
 end
 
@@ -493,17 +499,17 @@ function M.expand(self)
 
    local t       = {}
    local pathA   = {}
-   local pathStr = ""
+   local pathStr = false
    local sep     = self.sep
    local factor  = 1
    local prT     = {}
    local maxV    = max(abs(self.imin), self.imax) + 1
    local factor  = math.pow(10,ceil(log10(maxV)+1))
    local resultA = {}
-   
+   local tbl     = self.tbl
 
    -- Step 1: Make a sparse array with path as values
-   for k, vA in pairs(self.tbl) do
+   for k, vA in pairs(tbl) do
       for ii = 1,#vA do
          local pair     = vA[ii]
          local value    = pair[1]
@@ -563,6 +569,8 @@ function M.expand(self)
       end
       priorityStrT[env_name] = concatTbl(sA,';')
    end
+   
+   if (next(tbl) == nil) then pathStr = false end
 
    return pathStr, "path", priorityStrT
 end

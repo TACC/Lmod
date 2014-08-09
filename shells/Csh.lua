@@ -53,7 +53,7 @@ Csh.my_name = 'csh'
 --              end.
 
 function Csh.alias(self, k, v)
-   if (v == "" ) then
+   if (not v ) then
       stdout:write("unalias ",k,";\n")
       dbg.print{   "unalias ",k,";\n"}
    else

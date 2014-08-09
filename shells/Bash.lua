@@ -53,7 +53,7 @@ Bash.my_name      = "bash"
 --               one and only one semicolon at the end.
 
 function Bash.alias(self, k, v)
-   if (v == "") then
+   if (not v) then
       stdout:write("unalias ",k," 2> /dev/null;\n")
       dbg.print{   "unalias ",k," 2> /dev/null;\n"}
    else
@@ -69,7 +69,7 @@ end
 --                   one and only one semicolon at the end.
 
 function Bash.shellFunc(self, k, v)
-   if (v == "") then
+   if (not v) then
       stdout:write("unset -f ",k," 2> /dev/null;\n")
       dbg.print{   "unset -f ",k," 2> /dev/null;\n"}
    else
@@ -86,10 +86,6 @@ end
 
 function Bash.expandVar(self, k, v, vType)
    local lineA       = {}
-   if (v == false or v == "") then
-      self:unset(k,vType)
-      return
-   end
    v                 = doubleQuoteEscaped(tostring(v))
    lineA[#lineA + 1] = k
    lineA[#lineA + 1] = "=\""
