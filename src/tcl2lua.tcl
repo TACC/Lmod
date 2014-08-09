@@ -545,9 +545,9 @@ proc use { args } {
 	    set path_cmd "prepend_path"
 	} else {
             #puts stderr "path: $path"
-            if {[file isdirectory $path]} {
+            #if {[file isdirectory $path]} {
                 eval cmdargs $path_cmd MODULEPATH $path
-            }
+            #}
 	}
     }
 }

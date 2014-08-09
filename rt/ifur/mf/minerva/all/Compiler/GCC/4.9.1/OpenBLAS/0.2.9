@@ -1,0 +1,24 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   OpenBLAS is an optimized BLAS library based on GotoBLAS2 1.13 BSD version. - Homepage: http://xianyi.github.com/OpenBLAS/
+    }
+}
+
+module-whatis {Description: OpenBLAS is an optimized BLAS library based on GotoBLAS2 1.13 BSD version. - Homepage: http://xianyi.github.com/OpenBLAS/}
+
+set root    /csc/minerva/2.1/software/Compiler/GCC/4.9.1/OpenBLAS/0.2.9
+
+conflict    OpenBLAS
+
+prepend-path	CPATH		$root/include
+prepend-path	LD_LIBRARY_PATH		$root/lib
+prepend-path	LIBRARY_PATH		$root/lib
+prepend-path	PATH		$root/bin
+
+setenv	EBROOTOPENBLAS		"$root"
+setenv	EBVERSIONOPENBLAS		"0.2.9"
+setenv	EBDEVELOPENBLAS		"$root/easybuild/Compiler-GCC-4.9.1-OpenBLAS-0.2.9-easybuild-devel"
+
+
+# Built with EasyBuild version 1.14.0

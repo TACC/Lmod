@@ -1,0 +1,26 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   GNU Compiler Collection (GCC) based compiler toolchain,
+ including OpenMPI for MPI support. - Homepage: (none)
+    }
+}
+
+module-whatis {Description: GNU Compiler Collection (GCC) based compiler toolchain,
+ including OpenMPI for MPI support. - Homepage: (none)}
+
+set root    /csc/minerva/2.1/software/Core/gompi/2.9.11
+
+conflict    gompi
+
+module load GCC/4.9.1
+
+module load OpenMPI/1.8.1
+
+
+setenv	EBROOTGOMPI		"$root"
+setenv	EBVERSIONGOMPI		"2.9.11"
+setenv	EBDEVELGOMPI		"$root/easybuild/Core-gompi-2.9.11-easybuild-devel"
+
+
+# Built with EasyBuild version 1.14.0

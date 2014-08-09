@@ -54,6 +54,7 @@ require("utils")
 
 MC_ComputeHash             = inheritsFrom(MasterControl)
 MC_ComputeHash.my_name     = "MC_ComputeHash"
+MC_ComputeHash.my_sType    = "load"
 MC_ComputeHash.my_tcl_mode = "load"
 local M                    = MC_ComputeHash
 local dbg                  = require("Dbg"):dbg()

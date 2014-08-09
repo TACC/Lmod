@@ -1,0 +1,31 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   The OpenSSL Project is a collaborative effort to develop a robust, commercial-grade, full-featured,
+ and Open Source toolchain implementing the Secure Sockets Layer (SSL v2/v3) and Transport Layer Security (TLS v1) 
+ protocols as well as a full-strength general purpose cryptography library.  - Homepage: http://www.openssl.org/
+    }
+}
+
+module-whatis {Description: The OpenSSL Project is a collaborative effort to develop a robust, commercial-grade, full-featured,
+ and Open Source toolchain implementing the Secure Sockets Layer (SSL v2/v3) and Transport Layer Security (TLS v1) 
+ protocols as well as a full-strength general purpose cryptography library.  - Homepage: http://www.openssl.org/}
+
+set root    /csc/minerva/2.1/software/Compiler/GCC/4.9.1/OpenSSL/1.0.1f
+
+conflict    OpenSSL
+
+module load zlib/1.2.8
+
+prepend-path	CPATH		$root/include
+prepend-path	LD_LIBRARY_PATH		$root/lib
+prepend-path	LIBRARY_PATH		$root/lib
+prepend-path	PATH		$root/bin
+prepend-path	PKG_CONFIG_PATH		$root/lib/pkgconfig
+
+setenv	EBROOTOPENSSL		"$root"
+setenv	EBVERSIONOPENSSL		"1.0.1f"
+setenv	EBDEVELOPENSSL		"$root/easybuild/Compiler-GCC-4.9.1-OpenSSL-1.0.1f-easybuild-devel"
+
+
+# Built with EasyBuild version 1.14.0

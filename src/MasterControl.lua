@@ -168,6 +168,10 @@ function M.name(self)
    return self.my_name
 end
 
+function M.MNameType(self)
+   return self.my_sType
+end
+
 function M.tcl_mode(self)
    return self.my_tcl_mode
 end
@@ -424,7 +428,7 @@ end
 
 function M.setenv(self, name, value, respect)
    dbg.start{"MasterControl:setenv(\"",name,"\", \"",value,"\", \"",
-              respect,")"}
+              respect,"\")"}
 
    if (respect and getenv(name)) then
       dbg.print{"Respecting old value"}

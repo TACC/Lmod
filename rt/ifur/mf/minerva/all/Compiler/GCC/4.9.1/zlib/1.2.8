@@ -1,0 +1,29 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr {   zlib is designed to be a free, general-purpose, legally unencumbered -- that is, 
+not covered by any patents -- lossless data-compression library for use on virtually any 
+computer hardware and operating system. - Homepage: http://www.zlib.net/
+    }
+}
+
+module-whatis {Description: zlib is designed to be a free, general-purpose, legally unencumbered -- that is, 
+not covered by any patents -- lossless data-compression library for use on virtually any 
+computer hardware and operating system. - Homepage: http://www.zlib.net/}
+
+set root    /csc/minerva/2.1/software/Compiler/GCC/4.9.1/zlib/1.2.8
+
+conflict    zlib
+
+prepend-path	CPATH		$root/include
+prepend-path	LD_LIBRARY_PATH		$root/lib
+prepend-path	LIBRARY_PATH		$root/lib
+prepend-path	MANPATH		$root/share/man
+prepend-path	PKG_CONFIG_PATH		$root/lib/pkgconfig
+
+setenv	EBROOTZLIB		"$root"
+setenv	EBVERSIONZLIB		"1.2.8"
+setenv	EBDEVELZLIB		"$root/easybuild/Compiler-GCC-4.9.1-zlib-1.2.8-easybuild-devel"
+
+
+# Built with EasyBuild version 1.14.0

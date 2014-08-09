@@ -43,6 +43,7 @@ require("strict")
 
 MC_Unload              = inheritsFrom(MasterControl)
 MC_Unload.my_name      = "MC_Unload"
+MC_Unload.my_sType     = "mt"
 MC_Unload.my_tcl_mode  = "remove"
 
 local M                = MC_Unload

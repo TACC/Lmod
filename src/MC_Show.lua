@@ -42,6 +42,7 @@ require("utils")
 local pack          = (_VERSION == "Lua 5.1") and argsPack or table.pack
 MC_Show             = inheritsFrom(MasterControl)
 MC_Show.my_name     = "MC_Show"
+MC_Show.my_sType    = "load"
 MC_Show.my_tcl_mode = "display"
 MC_Show.report      = MasterControl.warning
 

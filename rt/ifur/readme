@@ -1,0 +1,3 @@
+ifur: with "ml GCC; ml OpenMPI; ml Python; ml rm Python", what's your final "ml" output you end up with?
+ <_boegel_> ifur: what you *should* end up with, is still having GCC/OpenMPI loaded, but I don't think that's the case, right?
+ <ifur> 3) bzip2/1.0.6 4) zlib/1.2.8  5) OpenSSL/1.0.1f 6) OpenBLAS/0.2.9 7) numactl/2.0.9 9) OpenMPI/1.8.1
