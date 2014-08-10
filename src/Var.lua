@@ -179,6 +179,7 @@ function M.new(self, name, value, sep)
    o.name       = name
    o.sep        = sep or ":"
    extract(o)
+   if (not value) then value = nil end
    setenv(name, value, true)
    return o
 end
@@ -396,6 +397,7 @@ function M.prepend(self, value, nodups, priority)
    
    local v    = self:expand()
    self.value = v
+   if (not v) then v = nil end
    setenv(self.name, v, true)
 end
 
@@ -434,7 +436,7 @@ function M.set(self,value)
    if (not value) then value = false end
    self.value = value 
    self.type  = 'var'
-   if (value == false) then value = nil end
+   if (not value) then value = nil end
    setenv(self.name, value, true)
 end
 
