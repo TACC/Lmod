@@ -264,7 +264,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=13,baseMpathA={"ProjectDIR/rt/ifur/
 export _ModuleTable_;
 ===========================
 step 8
-lua ProjectDIR/src/lmod.in.lua bash -D unload Python
+lua ProjectDIR/src/lmod.in.lua bash unload Python
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/ifur/mf/core";
 export LMOD_DEFAULT_MODULEPATH;
