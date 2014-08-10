@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.7.3 5.7.3-2-gd97ada1 2014-08-09 11:25
+Modules based on Lua: Version 5.7.3 5.7.3-3-gd6a5f54 2014-08-09 11:25
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -29,8 +29,7 @@ step 5
 lua ProjectDIR/src/lmod.in.lua bash avail
 ===========================
 ProjectDIR/rt/ifur/mf/minerva/all/Compiler/GCC/4.9.1
-   OpenBLAS/0.2.9    OpenSSL/1.0.1f    hwloc/1.9        zlib/1.2.8
-   OpenMPI/1.8.1     bzip2/1.0.6       numactl/2.0.9
+   OpenBLAS/0.2.9    OpenMPI/1.8.1    zlib/1.2.8
 ProjectDIR/rt/ifur/mf/minerva/all/Core
    GCC/4.9.1    gompi/2.9.11    goolf/2.9.11
 ProjectDIR/rt/ifur/mf/core
