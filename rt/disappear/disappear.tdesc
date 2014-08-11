@@ -1,5 +1,5 @@
 -- -*- lua -*-
-local testName = "ifur"
+local testName = "disappear"
 
 testdescript = {
    owner   = "rtm",
@@ -19,26 +19,25 @@ testdescript = {
 
      unsetMT
      initStdEnvVars
-     export MODULEPATH_ROOT=$(testDir)/mf
-     export MODULEPATH=$MODULEPATH_ROOT/core
+     export MODULEPATH=$(outputDir)/mf
      numStep=0
      COUNT=0
      ORIG_HOME=`(cd $HOME; /bin/pwd)`
      HOME=`/bin/pwd`
 
-     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d .lmodrc.lua
+     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d .lmodrc.lua mf
      cp $(projectDir)/init/lmodrc.lua .lmodrc.lua
 
+     mkdir -p mf
+     cp $(testDir)/mf/abc.lua mf
+     
+
      runLmod --version                # 1
-     runLmod load stdenv              # 2
-     runLmod avail                    # 3
-     runLmod load GCC                 # 4
-     runLmod avail                    # 5
-     runLmod load OpenMPI             # 6
-     runLmod load Python              # 7
-     runLmod list                     # 8
-     runLmod unload Python            # 9
-     runLmod list                     #10
+     runLmod load   abc               # 2
+     runLmod list                     # 3
+     rm $MODULEPATH/abc.lua
+     runLmod unload abc               # 4
+     runLmod list                     # 5
      
 
      HOME=$ORIG_HOME

@@ -5,7 +5,7 @@ Features:
       configure option, an environment variable (LMOD_REDIRECT=yes) or
       module --redirect avail.
 
-      Note that if you use this option the internal pager is off
+      Note that if you use this option the internal pager is off.
 
    
 Lmod Version 5.7

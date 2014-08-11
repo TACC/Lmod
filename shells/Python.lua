@@ -54,6 +54,10 @@ function Python.shellFunc(self, k, v)
    -- do nothing: shell functions do not make sense in a python script
 end
 
+function Python.echo(self,...)
+   self:_echo(...)
+end
+
 function Python.expandVar(self, k, v, vType)
    local lineA = {}
    v = singleQuoteEscaped(v)

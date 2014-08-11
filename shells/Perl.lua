@@ -53,6 +53,10 @@ function Perl.shellFunc(self, k, v)
    -- do nothing: shell functions do not make sense in a perl script.
 end
 
+function Perl.echo(self,...)
+   self:_echo(...)
+end
+
 function Perl.expandVar(self, k, v, vType)
    local lineA = {}
    v = atSymbolEscaped(doubleQuoteEscaped(tostring(v)))
