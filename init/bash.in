@@ -3,7 +3,7 @@
 
 
 LMOD_PKG=@PKG@
-LMOD_DIR=@PKG@/libexec/
+LMOD_DIR=@PKG@/libexec
 LMOD_CMD=@PKG@/libexec/lmod
 MODULESHOME=@PKG@
 export LMOD_PKG
