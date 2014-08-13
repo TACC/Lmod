@@ -216,6 +216,20 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=7,baseMpathA={"ProjectDIR/rt/ifur/m
 export _ModuleTable_;
 ===========================
 step 8
+lua ProjectDIR/src/lmod.in.lua bash list
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/ifur/mf/core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/ifur/mf/minerva/all/MPI/GCC/4.9.1/OpenMPI/1.8.1:ProjectDIR/rt/ifur/mf/minerva/all/Compiler/GCC/4.9.1:ProjectDIR/rt/ifur/mf/minerva/all/Core:ProjectDIR/rt/ifur/mf/core";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/ifur/mf/core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/ifur/mf/minerva/all/MPI/GCC/4.9.1/OpenMPI/1.8.1:ProjectDIR/rt/ifur/mf/minerva/all/Compiler/GCC/4.9.1:ProjectDIR/rt/ifur/mf/minerva/all/Core:ProjectDIR/rt/ifur/mf/core";
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=7,baseMpathA={"ProjectDIR/rt/ifur/mf/core",},family={["easybuild"]="easybuild",},inactive={},mT={GCC={["FN"]="ProjectDIR/rt/ifur/mf/minerva/all/Core/GCC/4.9.1",["default"]=0,["fullName"]="GCC/4.9.1",["loadOrder"]=3,propT={},["short"]="GCC",["status"]="active",},OpenBLAS={["FN"]="ProjectDIR/rt/ifur/mf/minerva/all/Compiler/GCC/4.9.1/OpenBLAS/0.2.9",["default"]=0,["fullName"]="OpenBLAS/0.2.9",["loadOrder"]=5,propT={},["short"]="OpenBLAS",["status"]="active",},OpenMPI={["FN"]="ProjectDIR/rt/ifur/mf/minerva/all/Compiler/GCC/4.9.1/OpenMPI/1.8.1",["default"]=0,["fullName"]="OpenMPI/1.8.1",["loadOrder"]=4,propT={},["short"]="OpenMPI",["status"]="active",},Python={["FN"]="ProjectDIR/rt/ifur/mf/minerva/all/MPI/GCC/4.9.1/OpenMPI/1.8.1/Python/2.7.8",["default"]=1,["fullName"]="Python/2.7.8",["loadOrder"]=7,propT={},["short"]="Python",["status"]="active",},easybuild={["FN"]="ProjectDIR/rt/ifur/mf/core/easybuild/defaults.lua",["default"]=0,["fullName"]="easybuild/defaults",["loadOrder"]=1,propT={},["short"]="easybuild",["status"]="active",},stdenv={["FN"]="ProjectDIR/rt/ifur/mf/core/stdenv.lua",["default"]=0,["fullName"]="stdenv",["loadOrder"]=2,propT={lmod={["sticky"]=1,},},["short"]="stdenv",["status"]="active",},zlib={["FN"]="ProjectDIR/rt/ifur/mf/minerva/all/Compiler/GCC/4.9.1/zlib/1.2.8",["default"]=0,["fullName"]="zlib/1.2.8",["loadOrder"]=6,propT={},["short"]="zlib",["status"]="active",},},mpathA={"ProjectDIR/rt/ifur/mf/minerva/all/MPI/GCC/4.9.1/OpenMPI/1.8.1","ProjectDIR/rt/ifur/mf/minerva/all/Compiler/GCC/4.9.1","ProjectDIR/rt/ifur/mf/minerva/all/Core","ProjectDIR/rt/ifur/mf/core",},["systemBaseMPATH"]="ProjectDIR/rt/ifur/mf/core",["version"]=2,}';
+export _ModuleTable_;
+===========================
+step 9
 lua ProjectDIR/src/lmod.in.lua bash unload Python
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/ifur/mf/core";
@@ -256,7 +270,7 @@ export _LMFILES_;
 _ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/ifur/mf/core",},family={["easybuild"]="easybuild",},inactive={},mT={easybuild={["FN"]="ProjectDIR/rt/ifur/mf/core/easybuild/defaults.lua",["default"]=0,["fullName"]="easybuild/defaults",["loadOrder"]=1,propT={},["short"]="easybuild",["status"]="active",},stdenv={["FN"]="ProjectDIR/rt/ifur/mf/core/stdenv.lua",["default"]=0,["fullName"]="stdenv",["loadOrder"]=2,propT={lmod={["sticky"]=1,},},["short"]="stdenv",["status"]="active",},},mpathA={"ProjectDIR/rt/ifur/mf/minerva/all/Core","ProjectDIR/rt/ifur/mf/core",},["systemBaseMPATH"]="ProjectDIR/rt/ifur/mf/core",["version"]=2,}';
 export _ModuleTable_;
 ===========================
-step 9
+step 10
 lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/ifur/mf/core";

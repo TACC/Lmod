@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.7.3 5.7.3-3-gd6a5f54 2014-08-09 11:25
+Modules based on Lua: Version 5.7.3 5.7.3-7-gd80b11b 2014-08-09 11:25
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -48,10 +48,20 @@ lua ProjectDIR/src/lmod.in.lua bash load Python
 ===========================
 ===========================
 step 8
+lua ProjectDIR/src/lmod.in.lua bash list
+===========================
+Currently Loaded Modules:
+  1) easybuild/defaults       4) OpenMPI/1.8.1    7) Python/2.7.8
+  2) stdenv             (S)   5) OpenBLAS/0.2.9
+  3) GCC/4.9.1                6) zlib/1.2.8
+  Where:
+   (S):  Module is Sticky, requires --force to unload or purge
+===========================
+step 9
 lua ProjectDIR/src/lmod.in.lua bash unload Python
 ===========================
 ===========================
-step 9
+step 10
 lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
 Currently Loaded Modules:

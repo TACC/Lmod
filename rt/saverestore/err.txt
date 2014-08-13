@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.6.3 5.6.3-42-g743f1f7 2014-06-23 05:28
+Modules based on Lua: Version 5.7.3 5.7.3-7-gd80b11b 2014-08-09 11:25
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -105,8 +105,14 @@ step 17
 lua ProjectDIR/src/lmod.in.lua bash restore stdenv
 ===========================
 Restoring modules to user's stdenv
-Lmod Warning: The following modules have changed: gcc
-Lmod Warning: Please re-create this collection.
+Lmod Warning: The following modules in your  collection have changed: "gcc".
+Your collection needs to be rebuilt or removed.
+You can read about module collections here:
+  www.tacc.utexas.edu/tacc-projects/lmod/user-guide/loading-modules
+To rebuilt the collection: load the modules you wish then do:
+  $ module save 
+If you nolonger want this module collection do:
+  rm ~/.lmod.d/
 Restoring modules to system default
 The system default contains no modules
   (env var: LMOD_SYSTEM_DEFAULT_MODULES is empty)
@@ -115,8 +121,14 @@ step 18
 lua ProjectDIR/src/lmod.in.lua bash restore stdenv
 ===========================
 Restoring modules to user's stdenv
-Lmod Warning: The following modules have changed: StdEnv, gcc
-Lmod Warning: Please re-create this collection.
+Lmod Warning: The following modules in your  collection have changed: "StdEnv", "gcc".
+Your collection needs to be rebuilt or removed.
+You can read about module collections here:
+  www.tacc.utexas.edu/tacc-projects/lmod/user-guide/loading-modules
+To rebuilt the collection: load the modules you wish then do:
+  $ module save 
+If you nolonger want this module collection do:
+  rm ~/.lmod.d/
 Restoring modules to system default
 The system default contains no modules
   (env var: LMOD_SYSTEM_DEFAULT_MODULES is empty)

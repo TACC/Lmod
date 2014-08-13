@@ -504,29 +504,37 @@ function Restore(a)
 
    local msg
    local path
+   local myName  = "default"
    local sname   = LMOD_SYSTEM_NAME
    local msgTail = ""
    if (sname == nil) then
       sname   = ""
+      myName  = "(empty)"
    else
       msgTail = ", for system: \"".. sname .. "\""
       sname   = "." .. sname
    end
 
 
+   dbg.print{"(1) myName: ",myName,"\n"}
    if (a == nil) then
       path = pathJoin(os.getenv("HOME"), ".lmod.d", "default" .. sname)
       if (not isFile(path)) then
          a = "system"
+         myName = a 
+      else
+         myName = "default"
       end
    elseif (a ~= "system") then
-      path = pathJoin(os.getenv("HOME"), ".lmod.d", a .. sname)
+      myName = sname
+      path   = pathJoin(os.getenv("HOME"), ".lmod.d", a .. sname)
       if (not isFile(path)) then
          LmodError(" User module collection: \"",a,"\" does not exist.\n",
                    " Try \"module savelist\" for possible choices.\n")
       end
    end
 
+   dbg.print{"(2) myName: ",myName,"\n"}
    local masterTbl = masterTbl()
 
    if (a == "system" ) then
@@ -540,12 +548,14 @@ function Restore(a)
       msg = false
    end
 
+   dbg.print{"(3) myName: ",myName,"\n"}
 
    if (a == "system" ) then
       Reset(msg)
    else
       local mt      = MT:mt()
-      local results = mt:getMTfromFile{fn=path, name=a, msg=msg} or Reset(true)
+      dbg.print{"(4) myName: ",myName,"\n"}
+      local results = mt:getMTfromFile{fn=path, name=myName, msg=msg} or Reset(true)
    end
 
    dbg.fini("Restore")
