@@ -99,21 +99,13 @@ ifneq ($(HAVE_LUA_TERM),yes)
   LIB  := $(prefix)/$(package)/$(version)/lib
 endif
 
-#ifneq ($(REDIRECT),NO)
-#   C_PROGS         := module_output_redirect
-#   C_PROGS_INSTALL := c_progs_install
-#   BASH_ERR_TO_OUT := 2>\&1
-#   TCSH_ERR_TO_OUT := $$LMOD_DIR/module_output_redirect
-#endif
-
 .PHONY: test pkgs man_pages
 
-all: $(C_PROGS)
+all: 
 	@echo done
 
-pre-install: $(DIRLIST) $(C_PROGS) shell_init startup libexec spiderCacheSupport \
-             Inst_Tools Inst_Shells Inst_Settarg Inst_Lmod_MF $(C_PROGS_INSTALL) \
-             $(PKGS) other_tools man_pages
+pre-install: $(DIRLIST) shell_init startup libexec spiderCacheSupport Inst_Tools \
+             Inst_Shells Inst_Settarg Inst_Lmod_MF $(PKGS) other_tools man_pages
 
 install: pre-install  zsh_tab_funcs
 	$(RM) $(DESTDIR)$(PKG)
@@ -124,15 +116,6 @@ echo:
 
 man_pages:
 	$(PATH_TO_LUA)/lua $(PATH_TO_SRC)/src/lmod.in.lua bash --help >/dev/null 2> $(DESTDIR)$(MAN_PAGES)/module.1
-
-module_output_redirect: module_output_redirect.o
-	$(LINK.c) -o $@ $^
-
-module_output_redirect.o: $(PATH_TO_SRC)/c_src/module_output_redirect.c
-	$(COMPILE.c) $^
-
-c_progs_install:
-	cp $(C_PROGS) $(DESTDIR)$(LIBEXEC)
 
 $(DIRLIST) :
 	mkdir -p $@
@@ -335,7 +318,6 @@ clean:
 	cd $(PATH_TO_SRC)/pkgs; $(MAKE) LIB=$(DESTDIR)$(LIB) SHARE=$(DESTDIR)$(LIBEXEC) clean
 
 clobber: clean
-	$(RM) $(C_PROGS)
 
 distclean: clobber
 	$(RM) makefile config.status
