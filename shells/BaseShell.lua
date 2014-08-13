@@ -191,6 +191,12 @@ function M.echo(self, ...)
    end
 end
 
+function M._echo(self, ...)
+   local arg = pack(...)
+   for i = 1, arg.n do
+      io.stderr:write(arg[i])
+   end
+end
 
 --------------------------------------------------------------------------
 -- valid_shell:  returns the valid shell name if it is in the shellTbl or

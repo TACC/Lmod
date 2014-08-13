@@ -873,8 +873,12 @@ function M.getMTfromFile(self,t)
 
 
    if (#aa > 0) then
-      LmodWarning("The following modules have changed: ", concatTbl(aa,", "),"\n")
-      LmodWarning("Please re-create this collection.\n")
+      LmodWarning("The following modules in your ",t.msg,
+                  " collection have changed: ", concatTbl(aa,", ")," and must be rebuilt.\n")
+      LmodMessage("You can read about module collections here:\n")
+      LmodMessage("  www.tacc.utexas.edu/tacc-projects/lmod/user-guide/loading-modules\n\n")
+      LmodMessage("If you nolonger want this module collection do:")
+      LmodMessage("  rm ~/.lmod.d/",t.msg,"\n")
       return false
    end
 
