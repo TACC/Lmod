@@ -872,15 +872,13 @@ function M.getMTfromFile(self,t)
    end
 
    if (#aa > 0) then
-      LmodWarning("The following modules in your ",collectionName,
+      LmodWarning("One or more modules in your ",collectionName,
                   " collection have changed: \"", concatTbl(aa,"\", \""),"\".")
-      LmodMessage("Your collection needs to be rebuilt or removed.")
-      LmodMessage("You can read about module collections here:")
-      LmodMessage("  www.tacc.utexas.edu/tacc-projects/lmod/user-guide/loading-modules\n")
-      LmodMessage("To rebuilt the collection: load the modules you wish then do:")
+      LmodMessage("To rebuild the collection: load the modules you wish then do:")
       LmodMessage("  $ module save ",collectionName)
       LmodMessage("If you nolonger want this module collection do:")
       LmodMessage("  rm ~/.lmod.d/",collectionName,"\n")
+      LmodMessage("For more information execute 'module help' or see www.tacc.utexas.edu/tacc-projects/lmod/user-guide/loading-modules\n")
       return false
    end
 
