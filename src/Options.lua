@@ -46,7 +46,7 @@ Error = nil
 local dbg          = require("Dbg"):dbg()
 local format       = string.format
 local posix        = require("posix")
-local setenv       = posix.setenv
+local setenv_posix = posix.setenv
 local stderr       = io.stderr
 local systemG      = _G
 
@@ -268,21 +268,21 @@ function M.options(self, usage)
    end
 
    if (optionTbl.twidth) then
-      setenv("LMOD_TERM_WIDTH",tostring(optionTbl.twidth))
+      setenv_posix("LMOD_TERM_WIDTH",tostring(optionTbl.twidth))
    end
 
    if (optionTbl.expert) then
-      setenv("LMOD_EXPERT", "1")
-      setenv("LMOD_QUIET",  "1")
+      setenv_posix("LMOD_EXPERT", "1")
+      setenv_posix("LMOD_QUIET",  "1")
    end
 
    if (optionTbl.quiet) then
-      setenv("LMOD_QUIET","1")
+      setenv_posix("LMOD_QUIET","1")
    end
 
    if (optionTbl.novice) then
-      setenv("LMOD_EXPERT", nil)
-      setenv("LMOD_QUIET",  nil)
+      setenv_posix("LMOD_EXPERT", nil)
+      setenv_posix("LMOD_QUIET",  nil)
    end
 
    if (optionTbl.redirect) then

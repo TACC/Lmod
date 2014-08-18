@@ -43,22 +43,23 @@ require("string_utils")
 require("parseVersion")
 require("capture")
 
-local Version   = require("Version")
-local base64    = require("base64")
-local dbg       = require("Dbg"):dbg()
-local lfs       = require("lfs")
-local posix     = require("posix")
+local Version      = require("Version")
+local base64       = require("base64")
+local dbg          = require("Dbg"):dbg()
+local lfs          = require("lfs")
+local posix        = require("posix")
+local setenv_posix = posix.setenv
 
-local concatTbl = table.concat
-local decode64  = base64.decode64
-local floor     = math.floor
-local format    = string.format
-local getenv    = os.getenv
-local huge      = math.huge
+local concatTbl    = table.concat
+local decode64     = base64.decode64
+local floor        = math.floor
+local format       = string.format
+local getenv       = os.getenv
+local huge         = math.huge
 
-local rep       = string.rep
-local T0        = os.time()
-local load      = (_VERSION == "Lua 5.1") and loadstring or load
+local rep          = string.rep
+local T0           = os.time()
+local load         = (_VERSION == "Lua 5.1") and loadstring or load
 
 --------------------------------------------------------------------------
 -- abspath(): find true path through symlinks.
@@ -836,7 +837,7 @@ function setenv_lmod_version()
 
    local versionStr = Version.tag()
 
-   posix.setenv("LMOD_VERSION",versionStr, true)
+   setenv_posix("LMOD_VERSION",versionStr, true)
    local numA = {}
 
    for s in versionStr:split("%.") do
@@ -844,7 +845,7 @@ function setenv_lmod_version()
    end
 
    for i = 1, #nameA do
-      posix.setenv(nameA[i],numA[i] or "0", true)
+      setenv_posix(nameA[i],numA[i] or "0", true)
    end
 end
 

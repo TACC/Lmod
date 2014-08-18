@@ -97,7 +97,7 @@ local pow           = math.pow
 local log10         = math.log10
 local huge          = math.huge
 local posix         = require("posix")
-local setenv        = posix.setenv
+local setenv_posix  = posix.setenv
 local systemG       = _G
 local envPrtyName   = "__LMOD_PRIORITY_"
 
@@ -180,7 +180,7 @@ function M.new(self, name, value, sep)
    o.sep        = sep or ":"
    extract(o)
    if (not value) then value = nil end
-   setenv(name, value, true)
+   setenv_posix(name, value, true)
    return o
 end
 
@@ -290,7 +290,7 @@ function M.remove(self, value, where, priority)
    local v    = self:expand()
    self.value = v
    if (not v) then v = nil end
-   setenv(self.name, v, true)
+   setenv_posix(self.name, v, true)
 end
 
 --------------------------------------------------------------------------
@@ -329,7 +329,7 @@ function M.pop(self)
    local v    = self:expand()
    self.value = v
    if (not v) then v = nil end
-   setenv(self.name, v, true)
+   setenv_posix(self.name, v, true)
    return result
 end
 
@@ -398,7 +398,7 @@ function M.prepend(self, value, nodups, priority)
    local v    = self:expand()
    self.value = v
    if (not v) then v = nil end
-   setenv(self.name, v, true)
+   setenv_posix(self.name, v, true)
 end
 
 --------------------------------------------------------------------------
@@ -426,7 +426,7 @@ function M.append(self, value, nodups, priority)
    local v    = self:expand()
    self.value = v
    if (not v) then v = nil end
-   setenv(self.name, v, true)
+   setenv_posix(self.name, v, true)
 end
 
 --------------------------------------------------------------------------
@@ -437,13 +437,13 @@ function M.set(self,value)
    self.value = value 
    self.type  = 'var'
    if (not value) then value = nil end
-   setenv(self.name, value, true)
+   setenv_posix(self.name, value, true)
 end
 
 function M.unset(self)
    self.value = false
    self.type  = 'var'
-   setenv(self.name, nil, true)
+   setenv_posix(self.name, nil, true)
 end
 
 function M.setLocal(self,value)

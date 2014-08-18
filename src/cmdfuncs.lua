@@ -516,7 +516,6 @@ function Restore(a)
    end
 
 
-   dbg.print{"(1) myName: ",myName,"\n"}
    if (a == nil) then
       path = pathJoin(os.getenv("HOME"), ".lmod.d", "default" .. sname)
       if (not isFile(path)) then
@@ -534,7 +533,6 @@ function Restore(a)
       end
    end
 
-   dbg.print{"(2) myName: ",myName,"\n"}
    local masterTbl = masterTbl()
 
    if (a == "system" ) then
@@ -548,13 +546,10 @@ function Restore(a)
       msg = false
    end
 
-   dbg.print{"(3) myName: ",myName,"\n"}
-
    if (a == "system" ) then
       Reset(msg)
    else
       local mt      = MT:mt()
-      dbg.print{"(4) myName: ",myName,"\n"}
       local results = mt:getMTfromFile{fn=path, name=myName, msg=msg} or Reset(true)
    end
 

@@ -33,9 +33,9 @@
 --------------------------------------------------------------------------
 
 require("fileOps")
-local posix  = require("posix")
-local getenv = os.getenv
-local setenv = posix.setenv
+local posix        = require("posix")
+local getenv       = os.getenv
+local setenv_posix = posix.setenv
 ------------------------------------------------------------------------
 -- The global variables for Lmod:
 ------------------------------------------------------------------------
@@ -45,7 +45,7 @@ local setenv = posix.setenv
 -- Internally Lmod uses LC_ALL -> "C" so that the user environment won't
 -- break things.
 ------------------------------------------------------------------------
-setenv("LC_ALL","C",true)
+setenv_posix("LC_ALL","C",true)
 
 ------------------------------------------------------------------------
 -- ModulePath: The name of the environment variable which contains the

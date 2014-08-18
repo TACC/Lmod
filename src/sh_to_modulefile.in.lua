@@ -87,19 +87,18 @@ require("capture")
 require("utils")
 MF_Base = require("MF_Base")
 
-local Version   = "0.0"
-local dbg       = require("Dbg"):dbg()
-local Optiks    = require("Optiks")
-local posix     = require("posix")
-local getenv    = posix.getenv
-local setenv    = posix.setenv
-local concatTbl = table.concat
-local s_master  = {}
-local load      = (_VERSION == "Lua 5.1") and loadstring or load
+local Version      = "0.0"
+local dbg          = require("Dbg"):dbg()
+local Optiks       = require("Optiks")
+local posix        = require("posix")
+local getenv_posix = posix.getenv
+local setenv_posix = posix.setenv
+local concatTbl    = table.concat
+local s_master     = {}
+local load         = (_VERSION == "Lua 5.1") and loadstring or load
+envT               = false
 
-envT            = false
-
-local keepT     = {
+local keepT = {
    ['HOME']            = 'keep',
    ['USER']            = 'keep',
    ['LD_LIBRARY_PATH'] = 'keep',
@@ -129,7 +128,7 @@ function masterTbl()
 end
 
 function wrtEnv(fn)
-   local envT = posix.getenv()
+   local envT = getenv_posix()
    local s    = serializeTbl{name="envT", value = envT, indent = true}
    if (fn == "-") then
       io.stdout:write(s)
@@ -292,14 +291,14 @@ function indexPath(old, oldA, new, newA)
 end
 
 function cleanEnv()
-   local envT = getenv()
+   local envT = getenv_posix()
 
    for k, v in pairs(envT) do
       local keep = keepT[k]
       if (not keep) then
-         setenv(k, nil, true)
+         setenv_posix(k, nil, true)
       elseif (keep == 'neat') then
-         setenv(k, cleanPath(v), true)
+         setenv_posix(k, cleanPath(v), true)
       end
    end
 end
@@ -338,7 +337,7 @@ function main()
       cleanEnv()
    end
 
-   local oldEnvT = getenv()
+   local oldEnvT = getenv_posix()
    local cmdA    = false
 
    if(masterTbl.inStyle:lower() == "csh") then
