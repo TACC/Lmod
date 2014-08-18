@@ -174,6 +174,7 @@ function main()
    for i = 1, #envVarA do
       local v = envVarA[i]
       if (not valueT[v]) then
+         if (v == false) then v = "" end
          newA[#newA+1] = v
       end
    end
@@ -184,10 +185,10 @@ function main()
    for i = 1, #valueA do
       local v = valueA[i]
       if (v == false) then v = "" end
-      insert(envVarA, v)
+      insert(newA, v)
    end
 
-   io.stdout:write(concat(envVarA,sep),"\n")
+   io.stdout:write(concat(newA,sep),"\n")
 end
 
 
