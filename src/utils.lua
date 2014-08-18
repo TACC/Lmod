@@ -467,6 +467,16 @@ function path2pathA(path, sep)
       pathA[#pathA + 1] = path_regularize(v)
    end
 
+   local n = #pathA
+   local i = n
+   while (pathA[i] == "") do
+      i = i - 1
+   end
+   i = i + 2
+   for j = i, n do
+      pathA[j] = nil
+   end
+
    return pathA
 end
 

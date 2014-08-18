@@ -536,6 +536,18 @@ function M.expand(self)
       pathA[n] = v
    end
 
+   
+   -- Step 2.1: Remove extra trailing empty strings, keep only one.
+
+   local i = n 
+   while (pathA[i] == "") do
+      i = i - 1
+   end
+   i = i + 2
+   for j = i, n do
+      pathA[j] = nil
+   end
+
    -- Step 3: convert pathA array into "sep" separated string.
    --         Also Handle "" at end of "path"
    if (n == 1 and pathA[1] == "") then
