@@ -42,7 +42,7 @@
 --
 -- The way this works is that this class sets most Lmod functions to be
 -- quiet.  Mainly any loads, or changes to MODULEPATH generate output.
--- This output is collect into the array [[ComputeModuleResultsA]].
+-- This output is collect into the array [[ShowResultsA]].
 -- Then the command computeHashSum takes that array output and computes
 -- either mdsum or sha1sum of the text.   When a collection is stored,
 -- this hash sum is computed.  When a collection is reloaded the hash sum
@@ -59,9 +59,9 @@ MC_ComputeHash.my_tcl_mode = "load"
 local M                    = MC_ComputeHash
 local dbg                  = require("Dbg"):dbg()
 local concatTbl            = table.concat
-local A                    = ComputeModuleResultsA
+local A                    = ShowResultsA
 
-function ShowCmd(name, ...)
+local function ShowCmd(name, ...)
    A[#A+1] = ShowCmdStr(name, ...)
 end
 

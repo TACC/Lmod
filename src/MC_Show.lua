@@ -46,6 +46,7 @@ MC_Show.my_sType    = "load"
 MC_Show.my_tcl_mode = "display"
 MC_Show.report      = MasterControl.warning
 
+local A             = ShowResultsA
 local M             = MC_Show
 local dbg           = require("Dbg"):dbg()
 local concatTbl     = table.concat
@@ -57,16 +58,21 @@ M.myModuleVersion   = MasterControl.myModuleVersion
 M.myModuleUsrName   = MasterControl.myModuleUsrName
 
 local function ShowCmd(name,...)
-   io.stderr:write(ShowCmdStr(name, ...))
+   A[#A+1] = ShowCmdStr(name, ...)
 end
 
 local function Show_help(...)
    local arg = pack(...)
    local a   = {}
+   local b   = {}
+   a[#a+1]   = "help("
    for i = 1,arg.n do
-      a[#a + 1] = "[[".. arg[i] .."]]"
+      b[#b + 1] = "[[".. arg[i] .."]]"
    end
-   io.stderr:write("help(",concatTbl(a,", "),")\n")
+   a[#a+1]   = concatTbl(b,", ")
+   a[#a+1]   = ")\n"
+
+   A[#A+1]   = concatTbl(a,"")
 end
 
 function M.help(self, ...)
@@ -74,13 +80,17 @@ function M.help(self, ...)
 end
 
 function M.whatis(self, value)
-   dbg.print{"starting whatis\n"}
    ShowCmd("whatis", value)
-   dbg.print{"ending whatis\n"}
 end
 
 function M.execute(self, t)
-   io.stderr:write("execute{cmd=\"",t.cmd,"\", modeA={\"",concatTbl(t.modeA, "\", \""),"\"}}\n")
+   local a = {}
+   a[#a+1] = "execute{cmd=\""
+   a[#a+1] = t.cmd
+   a[#a+1] = "\", modeA={\""
+   a[#a+1] = concatTbl(t.modeA, "\", \"")
+   a[#a+1] = "\"}}\n"
+   A[#A+1] = concatTbl(a,"")
 end
 
 function M.prepend_path(self, t)
@@ -128,13 +138,13 @@ function M.remove_path(self, t)
 end
 
 function M.load(self, mA)
-   io.stderr:write(ShowCmdA("load",mA))
+   A[#A+1] = ShowCmdA("load",mA)
 end
 
 M.load_usr = M.load
 
 function M.try_load(self, mA)
-   io.stderr:write(ShowCmdA("try_load",mA))
+   A[#A+1] = ShowCmdA("try_load",mA)
 end
 
 M.try_add = M.try_load
@@ -148,31 +158,27 @@ function M.family(self, ...)
 end
 
 function M.unload(self, mA)
-   io.stderr:write(ShowCmdA("unload", mA))
+   A[#A+1] = ShowCmdA("unload",mA)
 end
 
 function M.always_load(self, mA)
-   io.stderr:write(ShowCmdA("always_load", mA))
+   A[#A+1] = ShowCmdA("always_load",mA)
 end
 
 function M.always_unload(self, mA)
-   io.stderr:write(ShowCmdA("always_unload", mA))
-end
-
-function M.unload(self, mA)
-   io.stderr:write(ShowCmdA("unload", mA))
+   A[#A+1] = ShowCmdA("always_unload",mA)
 end
 
 function M.prereq(self, mA)
-   io.stderr:write(ShowCmdA("prereq",mA))
+   A[#A+1] = ShowCmdA("prereq",mA)
 end
 
 function M.prereq_any(self, mA)
-   io.stderr:write(ShowCmdA("prereq_any",mA))
+   A[#A+1] = ShowCmdA("prereq_any",mA)
 end
 
 function M.conflict(self, mA)
-   io.stderr:write(ShowCmdA("conflict",mA))
+   A[#A+1] = ShowCmdA("conflict",mA)
 end
 
 function M.set_shell_function(self, ...)

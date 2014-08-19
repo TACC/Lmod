@@ -45,6 +45,7 @@ MC_Access.my_sType    = "load"
 MC_Access.my_tcl_mode = "display"
 concatTbl             = table.concat
 
+local A               = ShowResultsA
 local M               = MC_Access
 
 M.accessT = { help = false, whatis = false}
@@ -63,9 +64,9 @@ function M.help(self, ...)
    local arg = { n = select('#', ...), ...}
    if (M.accessT.help == true) then
       for i = 1, arg.n do
-         io.stderr:write(tostring(arg[i]))
+         A[#A+1] = arg[i]
       end
-      io.stderr:write("\n")
+      A[#A+1] = "\n"
    end
 end
 
@@ -83,7 +84,9 @@ function M.whatis(self, msg)
          nblnks = l + 2
       end
       local prefix = nm .. string.rep(" ",nblnks) .. ": "
-      io.stderr:write(prefix, msg, "\n")
+      A[#A+1] = prefix
+      A[#A+1] = msg
+      A[#A+1] = "\n"
    end
 end
 

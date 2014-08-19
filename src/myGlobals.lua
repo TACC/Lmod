@@ -194,10 +194,10 @@ require("capture")
 adminT         = {}
 
 ------------------------------------------------------------------------
--- ComputeModuleResultsA: A place where the generated module file
---                        is written to when computing the sha1sum
+-- ShowResultsA: A place where the generated module file is written to
+--               when forming a show and computing a sha1sum
 ------------------------------------------------------------------------
-ComputeModuleResultsA = {}
+ShowResultsA = {}
 
 ------------------------------------------------------------------------
 -- colorize:  It is a colorizer when connected to a term and plain when not

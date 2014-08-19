@@ -142,8 +142,11 @@ function Help(...)
       local twidth    = TermWidth()
       local middleStr = "Module Specific Help for \"" .. ModuleName .. "\""
       local title     = banner:bannerStr(middleStr)
-      io.stderr:write("\n")
-      io.stderr:write(title, "\n")
+      local a         = {}
+      a[#a+1]         = "\n"
+      a[#a+1]         = title
+      a[#a+1]         = "\n"
+      return concatTbl(a,"")
    end
 
    Access("help",...)
@@ -700,9 +703,13 @@ function Show(...)
    local borderStr = banner:border(0)
 
    prtHdr       = function()
-                     io.stderr:write(borderStr)
-                     io.stderr:write("   ",ModuleFn,":\n")
-                     io.stderr:write(borderStr)
+                     local a = {}  
+                     a[#a+1] = borderStr
+                     a[#a+1] = "   "
+                     a[#a+1] = ModuleFn
+                     a[#a+1] = ":\n"
+                     a[#a+1] = borderStr
+                     return concatTbl(a,"")
                   end
    master:access(...)
    dbg.fini("Show")
@@ -719,7 +726,7 @@ function SpiderCmd(...)
    local shell     = Master:master().shell
    local moduleT   = cache:build()
    local masterTbl = masterTbl()
-   local dbT     = {}
+   local dbT       = {}
    local s
    local srch
    local spider    = Spider:new()
@@ -736,13 +743,18 @@ function SpiderCmd(...)
          a[#a+1] = spider:spiderSearch(dbT, arg[i], help)
       end
       a[#a+1] = spider:spiderSearch(dbT, arg[arg.n], true)
-      s = concatTbl(a,"\n")
+      s = concatTbl(a,"")
    end
-   local a = {}
-   a[#a+1] = s
-   a = hook.apply("msgHook","spider",a)
 
-   shell:echo(concatTbl(a,""), "\n")
+   if (masterTbl.terse) then
+      io.stderr:write(s,"\n")
+   else
+      local a = {}
+      a[#a+1] = s
+      a = hook.apply("msgHook","spider",a)
+      s = concatTbl(a,"")
+      shell:echo(s)
+   end
    dbg.fini("SpiderCmd")
 end
 
@@ -901,6 +913,6 @@ end
 --  Whatis(): Run whatis on all request modules given the the command line.
 
 function Whatis(...)
-   prtHdr    = dbg.quiet
+   prtHdr    = function () return "" end
    Access("whatis",...)
 end

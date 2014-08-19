@@ -291,6 +291,7 @@ end
 
 function M.access(self, ...)
    local masterTbl = masterTbl()
+   local shell     = s_master.shell
    local mt        = MT:mt()
    local mStack    = ModuleStack:moduleStack()
    local prtHdr    = systemG.prtHdr
@@ -298,7 +299,8 @@ function M.access(self, ...)
    local shellN    = s_master.shell:name()
    local help      = (systemG.help ~= dbg.quiet) and "-h" or nil
    local result, t
-   io.stderr:write("\n")
+   local A         = ShowResultsA
+   dbg.print{"RTM(1) #A:",#A,"\n"}
 
    local arg = pack(...)
    for i = 1, arg.n do
@@ -308,12 +310,13 @@ function M.access(self, ...)
       systemG.ModuleFn   = fn
       systemG.ModuleName = full
       if (fn and isFile(fn)) then
-         prtHdr()
+         A[#A+1] = prtHdr()
+         dbg.print{"RTM(2) #A:",#A,"\n"}
          if (masterTbl.rawDisplay) then
             local f     = io.open(fn, "r")
             local whole = f:read("*all")
-            io.stderr:write(whole)
             f:close()
+            A[#A+1]     = whole
          else
             mStack:push(full, moduleName, mname:sn(), fn)
             
@@ -322,12 +325,16 @@ function M.access(self, ...)
             loadModuleFile{file=fn,help=help, shell=shellN, mList = mList,
                         reportErr=true}
             mStack:pop()
-            io.stderr:write("\n")
+            A[#A+1] = "\n"
+            dbg.print{"RTM(3) #A:",#A,"\n"}
          end
       else
          a[#a+1] = moduleName
       end
    end
+
+   shell:echo(concatTbl(A,""))
+
 
    if (#a > 0) then
       setWarningFlag()

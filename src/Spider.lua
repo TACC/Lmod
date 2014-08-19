@@ -718,10 +718,11 @@ function M._Level1(self, searchPat, key, T, searchName, possibleA, help)
       return s
    end
 
-   local border = banner:border(0)
-   local VersionT = {}
-   local exampleV = nil
-   local key = nil
+   local masterTbl   = masterTbl()
+   local border      = banner:border(0)
+   local VersionT    = {}
+   local exampleV    = nil
+   local key         = nil
    local Description = nil
    for k, v in pairsByKeys(T) do
       local version = extractVersion(v.full, v.name) or ""
@@ -738,6 +739,13 @@ function M._Level1(self, searchPat, key, T, searchName, possibleA, help)
 
    local a  = {}
    local ia = 0
+
+   if (masterTbl.terse) then
+      for k, v in pairsByKeys(VersionT) do
+         ia = ia + 1; a[ia] = v .. "\n"
+      end
+      return concatTbl(a,"")
+   end
 
    ia = ia + 1; a[ia] = "\n"
    ia = ia + 1; a[ia] = border

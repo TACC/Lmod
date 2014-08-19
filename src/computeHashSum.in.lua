@@ -128,8 +128,8 @@ function main()
    mStack:push(masterTbl.fullName, masterTbl.usrName, masterTbl.sn, f)
    loadModuleFile{file=f, shell=shellN, reportErr=true}
    mStack:pop()
-   local s = concatTbl(ComputeModuleResultsA,"")
-   dbg.textA{name="Text to Hash",a=ComputeModuleResultsA}
+   local s = concatTbl(ShowResultsA,"")
+   dbg.textA{name="Text to Hash",a=ShowResultsA}
 
    if (masterTbl.verbose) then
       io.stderr:write(s)
