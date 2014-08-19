@@ -1,3 +1,14 @@
+Lmod Version 5.7.4
+Feature/Bug fixes:
+   a) Improved support for redirecting output to stdout.  Now show,
+      help will write to stdout if LMOD_REDIRECT=yes.
+   b) module show unknown will set the return error code if "unknown"
+      doesn't exist.
+   c) "module --terse spider phdf5" will now produce a terse output.
+   d) a module file can do setenv("FOO","") and set the env.var to an
+      empty string
+   e) Support for empty strings "" in paths better supported.
+
 Lmod Version 5.7.2
 Features:
    a) This version supports (an optional) sending the output of avail, list,
