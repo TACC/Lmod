@@ -330,6 +330,7 @@ function M.access(self, ...)
    end
 
    if (#a > 0) then
+      setWarningFlag()
       io.stderr:write("Failed to find the following module(s):  \"",
                       concatTbl(a,"\", \""),"\" in your MODULEPATH\n")
       io.stderr:write("Try: \n",
