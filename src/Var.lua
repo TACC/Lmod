@@ -547,7 +547,7 @@ function M.expand(self)
    for j = i, n do
       pathA[j] = nil
    end
-
+   n = #pathA
    -- Step 3: convert pathA array into "sep" separated string.
    --         Also Handle "" at end of "path"
    if (n == 1 and pathA[1] == "") then
