@@ -11,6 +11,7 @@ ifeq ($(HAVE_LUA_JSON),yes)
   TOOL_SRC                := $(filter-out $(PATH_TO_SRC)/tools/json.lua, $(TOOL_SRC))
 endif
 
+export IGNORE_DIRS        := $(shell $(PATH_TO_SRC)/src/ignore_dirs_converter @IGNORE_DIRS@)
 REDIRECT                  := @REDIRECT@
 LMOD_FULL_SETTARG_SUPPORT := $(shell echo "@SETTARG@"       | tr '[:upper:]' '[:lower:]')
 USE_DOT_FILES             := $(shell echo "@USE_DOT_FILES@" | tr '[:upper:]' '[:lower:]')
@@ -113,6 +114,7 @@ install: pre-install  zsh_tab_funcs
 
 echo:
 	@echo Version: $(version)
+	@echo IGNORE_DIRS: $(IGNORE_DIRS)
 
 man_pages:
 	$(PATH_TO_LUA)/lua $(PATH_TO_SRC)/src/lmod.in.lua bash --help >/dev/null 2> $(DESTDIR)$(MAN_PAGES)/module.1
@@ -137,6 +139,7 @@ __installMe:
                 -e 's|@lmod_full_settarg_support@|$(LMOD_FULL_SETTARG_SUPPORT)|g' \
                 -e 's|@use_dot_files@|$(USE_DOT_FILES)|g'             	   	  \
                 -e 's|@git@|$(GIT_VERSION)|g'                              	  \
+                -e 's|--@ignore_dirs@--|$(IGNORE_DIRS)|g'                         \
                 -e 's|@have_lua_term@|$(HAVE_LUA_TERM)|g'                  	  \
                 -e 's|@have_lua_json@|$(HAVE_LUA_JSON)|g'                  	  \
 	        -e 's|@redirect@|$(REDIRECT)|g'                       	   	  \

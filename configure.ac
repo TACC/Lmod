@@ -1,6 +1,7 @@
 dnl Process this file with autoconf to produce a configure script.
 dnl This is for lmod
 
+
 AC_INIT(Makefile.in)
 AC_PREFIX_DEFAULT(/usr/local)
 AC_PROG_CC
@@ -186,6 +187,20 @@ AC_ARG_WITH(settarg,
     AC_MSG_RESULT([SETTARG=$withval])
     SETTARG="$withval"
     AC_DEFINE_UNQUOTED(SETTARG, "$withval"))dnl
+
+DFLT_IGNORE_DIRS="CVS,.svn,.git,.hg,.bzr"
+
+AC_SUBST(IGNORE_DIRS)
+AC_ARG_WITH(ignoreDirs,
+    AC_HELP_STRING([--with-ignoreDirs=ans],[list of directories to ignore [[CVS,.svn,.git,.hg,.bzr]]]),
+    IGNORE_DIRS="$withval"
+    AC_MSG_RESULT([IGNORE_DIRS=$with_ignoreDirs])
+    AC_DEFINE_UNQUOTED(IGNORE_DIRS, "$with_ignoreDirs")dnl
+    ,
+    withval="$DFLT_IGNORE_DIRS"
+    AC_MSG_RESULT([IGNORE_DIRS=$withval])
+    IGNORE_DIRS="$withval"
+    AC_DEFINE_UNQUOTED(IGNORE_DIRS, "$withval"))dnl
 
 AC_SUBST(PATH_TO_TCLSH)
 AC_SUBST(PATH_TO_PAGER)

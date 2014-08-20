@@ -247,16 +247,13 @@ end
 s_ignoreT = {
    ['.']         = true,
    ['..']        = true,
-   ['CVS']       = true,
-   ['.git']      = true,
-   ['.svn']      = true,
-   ['.hg']       = true,
-   ['.bzr']      = true,
    ['.moduler']  = true,
-   ['.DS_Stor']  = true,
    ['.version']  = true,
-   ['.DS_Store'] = true,
    ['.modulerc'] = true,
+   ['.DS_Stor']  = true,
+   ['.DS_Store'] = true,
+
+   --@ignore_dirs@--
 }
 
 

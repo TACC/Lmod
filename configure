@@ -598,6 +598,7 @@ PATH_TO_GIT
 PATH_TO_LUA
 PATH_TO_PAGER
 PATH_TO_TCLSH
+IGNORE_DIRS
 SETTARG
 MPATH_AVAIL
 ALLOW_TCL_MFILES
@@ -676,6 +677,7 @@ with_prependBlock
 with_tcl
 with_mpathSearch
 with_settarg
+with_ignoreDirs
 with_lua_include
 '
       ac_precious_vars='build_alias
@@ -1325,6 +1327,8 @@ Optional Packages:
   --with-mpathSearch=ans  include modulepath directory name in avail searching
                           [[NO]]
   --with-settarg=ans      startup files fully support settarg [[NO]]
+  --with-ignoreDirs=ans   list of directories to ignore
+                          [[CVS,.svn,.git,.hg,.bzr]]
   --with-lua-include=[path]
                           specify path the lua header files
 
@@ -2925,6 +2929,30 @@ $as_echo "SETTARG=$withval" >&6; }
     SETTARG="$withval"
     cat >>confdefs.h <<_ACEOF
 #define SETTARG "$withval"
+_ACEOF
+
+fi
+
+DFLT_IGNORE_DIRS="CVS,.svn,.git,.hg,.bzr"
+
+
+
+# Check whether --with-ignoreDirs was given.
+if test "${with_ignoreDirs+set}" = set; then :
+  withval=$with_ignoreDirs; IGNORE_DIRS="$withval"
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: IGNORE_DIRS=$with_ignoreDirs" >&5
+$as_echo "IGNORE_DIRS=$with_ignoreDirs" >&6; }
+    cat >>confdefs.h <<_ACEOF
+#define IGNORE_DIRS "$with_ignoreDirs"
+_ACEOF
+
+else
+  withval="$DFLT_IGNORE_DIRS"
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: IGNORE_DIRS=$withval" >&5
+$as_echo "IGNORE_DIRS=$withval" >&6; }
+    IGNORE_DIRS="$withval"
+    cat >>confdefs.h <<_ACEOF
+#define IGNORE_DIRS "$withval"
 _ACEOF
 
 fi
