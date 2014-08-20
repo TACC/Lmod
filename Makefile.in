@@ -216,12 +216,11 @@ _distContrib:
 	cp -r $(CONTRIB) $(DistD)/contrib
 
 _distSrc:
-	mkdir $(DistD)/src $(DistD)/tools $(DistD)/settarg $(DistD)/shells $(DistD)/c_src
+	mkdir $(DistD)/src $(DistD)/tools $(DistD)/settarg $(DistD)/shells 
 	cp $(lua_code) $(ComputeHashSum) $(STANDALONE_PRGM) $(DistD)/src
 	cp tools/*.lua $(DistD)/tools
 	cp $(SETTARG_SOURCE) $(DistD)/settarg
 	cp shells/*.lua $(DistD)/shells
-	cp c_src/*.c    $(DistD)/c_src
 
 _distVersion:
 	perl -p -i -e 's/\@git\@/$(GIT_VERSION)/g' $(DistD)/src/Version.lua
