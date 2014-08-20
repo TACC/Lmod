@@ -188,11 +188,11 @@ AC_ARG_WITH(settarg,
     SETTARG="$withval"
     AC_DEFINE_UNQUOTED(SETTARG, "$withval"))dnl
 
-DFLT_IGNORE_DIRS="CVS,.svn,.git,.hg,.bzr"
+DFLT_IGNORE_DIRS=".svn,.git,.hg,.bzr"
 
 AC_SUBST(IGNORE_DIRS)
 AC_ARG_WITH(ignoreDirs,
-    AC_HELP_STRING([--with-ignoreDirs=ans],[list of directories to ignore [[CVS,.svn,.git,.hg,.bzr]]]),
+    AC_HELP_STRING([--with-ignoreDirs=ans],[list of directories to ignore [[.svn,.git,.hg,.bzr]]]),
     IGNORE_DIRS="$withval"
     AC_MSG_RESULT([IGNORE_DIRS=$with_ignoreDirs])
     AC_DEFINE_UNQUOTED(IGNORE_DIRS, "$with_ignoreDirs")dnl
