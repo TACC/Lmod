@@ -1327,8 +1327,7 @@ Optional Packages:
   --with-mpathSearch=ans  include modulepath directory name in avail searching
                           [[NO]]
   --with-settarg=ans      startup files fully support settarg [[NO]]
-  --with-ignoreDirs=ans   list of directories to ignore
-                          [[CVS,.svn,.git,.hg,.bzr]]
+  --with-ignoreDirs=ans   list of directories to ignore [[.svn,.git,.hg,.bzr]]
   --with-lua-include=[path]
                           specify path the lua header files
 
@@ -2933,7 +2932,7 @@ _ACEOF
 
 fi
 
-DFLT_IGNORE_DIRS="CVS,.svn,.git,.hg,.bzr"
+DFLT_IGNORE_DIRS=".svn,.git,.hg,.bzr"
 
 
 
