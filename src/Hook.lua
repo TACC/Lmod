@@ -59,6 +59,7 @@ local validT =
       groupName      = false,  -- This hook adds the arch and os name
                                -- to moduleT.lua to make it safe on
                                -- shared filesystems.
+      avail          = false,  -- Map directory names to labels
 }
 
 --------------------------------------------------------------------------

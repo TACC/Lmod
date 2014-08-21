@@ -460,20 +460,7 @@ function M._build_locationTbl(self, mpathA, adding, pathEntry)
       local numVersions  = false   
       local mpath        = mpathA[i]
       local vv           = availT[mpath] or {}
-      dbg.print{"mpath: ",mpath,"\n"}
       for sn, v in pairs(vv) do
-
-         if (dbg.active()) then
-            dbg.print{"sn: ",sn,"\n"}
-            for k,value in pairs(v) do
-               dbg.print{"  k: ",k,"\n"}
-               for key, v2 in pairs(value) do
-                  dbg.print{"    key: ",key,", value: ",v2,"\n"}
-               end
-               dbg.print{"\n"}
-            end
-         end
-
          local a         = locationT[sn]           
          local numV      = #v
          if (a) then
