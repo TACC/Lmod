@@ -909,7 +909,7 @@ local function availDir(defaultOnly, terse, searchA, label, locationT, availT,
       if (szA == 0 and versionA.hidden == 0) then
          local fn    = versionA[0].fn
          dbg.print{"fn: ",fn,"\n"}
-         availEntry(defaultOnly, terse, mpath, szA, searchA, sn, sn, fn,
+         availEntry(defaultOnly, terse, label, szA, searchA, sn, sn, fn,
                     defaultModuleT, dbT, legendT, a)
       else
          if (terse and szA > 0) then
@@ -1024,7 +1024,7 @@ function M.avail(argA)
 
    hook.apply("avail",labelT)
 
-   local label2mathT = {}
+   local label2mpathT = {}
 
    for i = 1, #mpathA do
       local mpath = mpathA[i]
@@ -1035,11 +1035,29 @@ function M.avail(argA)
          label2mpathT[label] = a
       end
    end
+
+   if (dbg.active()) then
+      for label, vA in pairs(label2mpathT) do
+         dbg.print{"label: ",label,":",}
+         for i = 1, #vA do
+            io.stderr:write(" ",tostring(vA[i]))
+         end
+         io.stderr:write("\n")
+      end
+   end
+                            
+         
+
+
+
    local orderA = {}
    for label, vA in pairs(label2mpathT) do
       orderA[#orderA + 1] = {vA[1], label}
    end
    sort(orderA, function(a,b) return a[1] < b[1] end )
+
+
+
 
 
    local aa        = {}
