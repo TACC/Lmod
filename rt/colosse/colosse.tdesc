@@ -20,6 +20,7 @@ testdescript = {
      unsetMT
      initStdEnvVars
 
+     export LMOD_PACKAGE_PATH=$(testDir)
      export MODULEPATH_ROOT=$(testDir)/mf
      export MODULEPATH=$(testDir)/mf/Core:$(testDir)/mf/Core-colosse
      numStep=0

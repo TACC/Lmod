@@ -1,13 +1,15 @@
 require("strict")
 local hook = require("Hook")
+local dbg  = require("Dbg"):dbg()
 
 local mapT = {
-   ['/Compilers/'] = "Your compiler dependent modules"
-   ['/Core.*']     = "Core Modules"
+   ['/Compilers/'] = "Your compiler dependent modules",
+   ['/Core.*']     = "Core Modules",
 }
 
 
 function avail_hook(t)
+   dbg.print{"avail hook called\n"}
    for k,v in pairs(t) do
       for pat,label in pairs(mapT) do
          if (k:find(pat)) then
