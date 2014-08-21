@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.6.3 5.6.3-15-g4c9b8cd 2014-06-23 05:28
+Modules based on Lua: Version 5.7.4 5.7.4-6-g14be90b 2014-08-19 19:39
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -88,6 +88,31 @@ Use "module keyword key1 key2 ..." to search for all possible modules matching
 any of the "keys".
 ===========================
 step 7
+lua ProjectDIR/src/lmod.in.lua bash --show_hidden avail
+===========================
+ProjectDIR/mf/Core
+   PrgEnv                     git/1.7.4             junk/d/3.0
+   admin/admin-1.0            git/1.7.4.3    (D)    local/local
+   alex/1.0                   gotoblas/1.20         multi/multi
+   boost/1.46.0               gotoblas/1.26  (D)    noweb/2.10c
+   boost/1.47.1               gotoblas/1.30         parmetis/3.1 (m)
+   boost/1.49.0    (o) (D)    intel/intel           unix/unix
+   gcc/4.2.3                  junk/a/c/1.0
+   git/1.6.3.1                junk/b/c/2.0
+ProjectDIR/rt/avail/mf/Core
+   bar/1.4-dbg        foo/1.4-dbg        hidden/.1.0        local/1.4
+   bar/1.4     (D)    foo/1.4     (D)    local/1.1          ucc/12.1.5
+   baz/1.4-dbg        git/1.7.4.1        local/1.2          ucc/13.1.2 (D)
+   baz/1.4     (D)    git/1.7.4.2        local/1.3   (D)    ucc/14.0.2
+  Where:
+   (D):  Default Module
+   (m):  built for host and native MIC
+   (o):  built for offload to the MIC only
+Use "module spider" to find all possible modules.
+Use "module keyword key1 key2 ..." to search for all possible modules matching
+any of the "keys".
+===========================
+step 8
 lua ProjectDIR/src/lmod.in.lua bash -t avail
 ===========================
 ProjectDIR/mf/Core:
@@ -151,7 +176,72 @@ ucc/12.1.5
 ucc/13.1.2
 ucc/14.0.2
 ===========================
-step 8
+step 9
+lua ProjectDIR/src/lmod.in.lua bash -t --show_hidden avail
+===========================
+ProjectDIR/mf/Core:
+PrgEnv
+admin/
+admin/admin-1.0
+alex/
+alex/1.0
+boost/
+boost/1.46.0
+boost/1.47.1
+boost/1.49.0
+gcc/
+gcc/4.2.3
+git/
+git/1.6.3.1
+git/1.7.4
+git/1.7.4.3
+gotoblas/
+gotoblas/1.20
+gotoblas/1.26
+gotoblas/1.30
+intel/
+intel/intel
+junk/a/c/
+junk/a/c/1.0
+junk/b/c/
+junk/b/c/2.0
+junk/d/
+junk/d/3.0
+local/
+local/local
+multi/
+multi/multi
+noweb/
+noweb/2.10c
+parmetis/
+parmetis/3.1
+unix/
+unix/unix
+ProjectDIR/rt/avail/mf/Core:
+bar/
+bar/1.4-dbg
+bar/1.4
+baz/
+baz/1.4-dbg
+baz/1.4
+foo/
+foo/1.4-dbg
+foo/1.4
+git/
+git/1.7.4.1
+git/1.7.4.2
+hidden/.1.0
+local/
+local/1.1
+local/1.2
+local/1.3
+local/1.4
+ucc/
+ucc/12.1.5
+ucc/13.1.2
+ucc/14.0.2
+===========================
+step 10
 lua ProjectDIR/src/lmod.in.lua bash -t -d avail
 ===========================
 ProjectDIR/mf/Core:
@@ -177,7 +267,7 @@ foo/1.4
 local/1.3
 ucc/13.1.2
 ===========================
-step 9
+step 11
 lua ProjectDIR/src/lmod.in.lua bash -t avail git
 ===========================
 ProjectDIR/mf/Core:
@@ -190,23 +280,23 @@ git/
 git/1.7.4.1
 git/1.7.4.2
 ===========================
-step 10
+step 12
 lua ProjectDIR/src/lmod.in.lua bash -t -d avail git
 ===========================
 ProjectDIR/mf/Core:
 git/1.7.4.3
 ===========================
-step 11
+step 13
 lua ProjectDIR/src/lmod.in.lua bash -t avail git/1.7.4.3
 ===========================
 ProjectDIR/mf/Core:
 git/1.7.4.3
 ===========================
-step 12
+step 14
 lua ProjectDIR/src/lmod.in.lua bash use ProjectDIR/rt/avail/mf/Core2
 ===========================
 ===========================
-step 13
+step 15
 lua ProjectDIR/src/lmod.in.lua bash avail local
 ===========================
 ProjectDIR/rt/avail/mf/Core2
@@ -221,7 +311,7 @@ Use "module spider" to find all possible modules.
 Use "module keyword key1 key2 ..." to search for all possible modules matching
 any of the "keys".
 ===========================
-step 14
+step 16
 lua ProjectDIR/src/lmod.in.lua bash --ignore_cache avail
 ===========================
 ProjectDIR/rt/avail/mf/Core2
@@ -248,11 +338,11 @@ Use "module spider" to find all possible modules.
 Use "module keyword key1 key2 ..." to search for all possible modules matching
 any of the "keys".
 ===========================
-step 15
+step 17
 lua ProjectDIR/src/lmod.in.lua bash purge
 ===========================
 ===========================
-step 16
+step 18
 lua ProjectDIR/src/lmod.in.lua bash avail
 ===========================
 Lmod has detected the following error: avail is not possible, MODULEPATH is not set or not set with valid paths.

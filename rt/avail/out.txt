@@ -102,7 +102,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/mf/Core",
 export _ModuleTable_;
 ===========================
 step 7
-lua ProjectDIR/src/lmod.in.lua bash -t avail
+lua ProjectDIR/src/lmod.in.lua bash --show_hidden avail
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/rt/avail/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -116,7 +116,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/mf/Core",
 export _ModuleTable_;
 ===========================
 step 8
-lua ProjectDIR/src/lmod.in.lua bash -t -d avail
+lua ProjectDIR/src/lmod.in.lua bash -t avail
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/rt/avail/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -130,7 +130,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/mf/Core",
 export _ModuleTable_;
 ===========================
 step 9
-lua ProjectDIR/src/lmod.in.lua bash -t avail git
+lua ProjectDIR/src/lmod.in.lua bash -t --show_hidden avail
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/rt/avail/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -144,7 +144,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/mf/Core",
 export _ModuleTable_;
 ===========================
 step 10
-lua ProjectDIR/src/lmod.in.lua bash -t -d avail git
+lua ProjectDIR/src/lmod.in.lua bash -t -d avail
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/rt/avail/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -158,7 +158,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/mf/Core",
 export _ModuleTable_;
 ===========================
 step 11
-lua ProjectDIR/src/lmod.in.lua bash -t avail git/1.7.4.3
+lua ProjectDIR/src/lmod.in.lua bash -t avail git
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/rt/avail/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -172,6 +172,34 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/mf/Core",
 export _ModuleTable_;
 ===========================
 step 12
+lua ProjectDIR/src/lmod.in.lua bash -t -d avail git
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/rt/avail/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/rt/avail/mf/Core";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/rt/avail/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/rt/avail/mf/Core";
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/mf/Core","ProjectDIR/rt/avail/mf/Core",},family={},inactive={},mT={},mpathA={"ProjectDIR/mf/Core","ProjectDIR/rt/avail/mf/Core",},["systemBaseMPATH"]="ProjectDIR/mf/Core:ProjectDIR/rt/avail/mf/Core",["version"]=2,}';
+export _ModuleTable_;
+===========================
+step 13
+lua ProjectDIR/src/lmod.in.lua bash -t avail git/1.7.4.3
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/rt/avail/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/rt/avail/mf/Core";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/rt/avail/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/rt/avail/mf/Core";
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/mf/Core","ProjectDIR/rt/avail/mf/Core",},family={},inactive={},mT={},mpathA={"ProjectDIR/mf/Core","ProjectDIR/rt/avail/mf/Core",},["systemBaseMPATH"]="ProjectDIR/mf/Core:ProjectDIR/rt/avail/mf/Core",["version"]=2,}';
+export _ModuleTable_;
+===========================
+step 14
 lua ProjectDIR/src/lmod.in.lua bash use ProjectDIR/rt/avail/mf/Core2
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/rt/avail/mf/Core";
@@ -185,7 +213,7 @@ export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/avail/mf/Core2","ProjectDIR/mf/Core","ProjectDIR/rt/avail/mf/Core",},family={},inactive={},mT={},mpathA={"ProjectDIR/rt/avail/mf/Core2","ProjectDIR/mf/Core","ProjectDIR/rt/avail/mf/Core",},["systemBaseMPATH"]="ProjectDIR/mf/Core:ProjectDIR/rt/avail/mf/Core",["version"]=2,}';
 export _ModuleTable_;
 ===========================
-step 13
+step 15
 lua ProjectDIR/src/lmod.in.lua bash avail local
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/avail/mf/Core2:ProjectDIR/mf/Core:ProjectDIR/rt/avail/mf/Core";
@@ -199,7 +227,7 @@ export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/avail/mf/Core2","ProjectDIR/mf/Core","ProjectDIR/rt/avail/mf/Core",},family={},inactive={},mT={},mpathA={"ProjectDIR/rt/avail/mf/Core2","ProjectDIR/mf/Core","ProjectDIR/rt/avail/mf/Core",},["systemBaseMPATH"]="ProjectDIR/mf/Core:ProjectDIR/rt/avail/mf/Core",["version"]=2,}';
 export _ModuleTable_;
 ===========================
-step 14
+step 16
 lua ProjectDIR/src/lmod.in.lua bash --ignore_cache avail
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/avail/mf/Core2:ProjectDIR/mf/Core:ProjectDIR/rt/avail/mf/Core";
@@ -213,7 +241,7 @@ export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/avail/mf/Core2","ProjectDIR/mf/Core","ProjectDIR/rt/avail/mf/Core",},family={},inactive={},mT={},mpathA={"ProjectDIR/rt/avail/mf/Core2","ProjectDIR/mf/Core","ProjectDIR/rt/avail/mf/Core",},["systemBaseMPATH"]="ProjectDIR/mf/Core:ProjectDIR/rt/avail/mf/Core",["version"]=2,}';
 export _ModuleTable_;
 ===========================
-step 15
+step 17
 lua ProjectDIR/src/lmod.in.lua bash purge
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/avail/mf/Core2:ProjectDIR/mf/Core:ProjectDIR/rt/avail/mf/Core";
@@ -227,7 +255,7 @@ export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/avail/mf/Core2","ProjectDIR/mf/Core","ProjectDIR/rt/avail/mf/Core",},family={},inactive={},mT={},mpathA={"ProjectDIR/rt/avail/mf/Core2","ProjectDIR/mf/Core","ProjectDIR/rt/avail/mf/Core",},["systemBaseMPATH"]="ProjectDIR/mf/Core:ProjectDIR/rt/avail/mf/Core",["version"]=2,}';
 export _ModuleTable_;
 ===========================
-step 16
+step 18
 lua ProjectDIR/src/lmod.in.lua bash avail
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/avail/mf/Core2:ProjectDIR/mf/Core:ProjectDIR/rt/avail/mf/Core";

@@ -111,7 +111,10 @@ local function buildAvailT(mpath, path, prefix, availT)
       for k,v in pairs(mnameT) do
          availT[k]    = {}
          availT[k][0] = v
+         availT[k].total  = 0
+         availT[k].hidden = 0
       end
+      
 
       -- For any directories found recursively call buildAvailT to process.
       for i = 1, #dirA do
@@ -135,11 +138,18 @@ local function buildAvailT(mpath, path, prefix, availT)
       end
       sort(vA, function(a,b) return a[1] < b[1] end )
       local a = {}
-      for i = 1, #vA do
-         a[i] = {version = vA[i][2], fn = vA[i][3], parseV=vA[i][1]}
+      local total  = #vA
+      local hidden = 0
+      for i = 1, total do
+         local version = vA[i][2]
+         a[i] = {version = version, fn = vA[i][3], parseV=vA[i][1]}
+         if (version:sub(1,1) == ".") then hidden = hidden + 1 end
       end
+      a.total  = total
+      a.hidden = hidden
       availT[prefix] = a
 
+      dbg.print{"availT[",prefix,"].total: ",a.total,"\n"}
       if (defaultFn) then
          local d, v = splitFileName(defaultFn)
          v          = "/" .. v
@@ -413,6 +423,7 @@ function M._build_locationTbl(self, mpathA, adding, pathEntry)
       return {}, {}
    end
 
+   local hidden       = not masterTbl().show_hidden
    local Pairs        = dbg.active() and pairsByKeys or pairs
    local locationT    = {}
    local availT       = {}
@@ -462,7 +473,19 @@ function M._build_locationTbl(self, mpathA, adding, pathEntry)
       local vv           = availT[mpath] or {}
       for sn, v in pairs(vv) do
          local a         = locationT[sn]           
-         local numV      = #v
+         local total     = #v
+         local hidden    = 0
+
+         if (hidden) then
+            for i = 1,total do
+               if (v[i].version:sub(1,1) == ".") then
+                  hidden = hidden + 1
+               end
+            end
+         end
+         v.total  = total
+         v.hidden = hidden
+
          if (a) then
             defaultEntry = a.default
             defaultKind  = defaultEntry.kind
@@ -486,14 +509,14 @@ function M._build_locationTbl(self, mpathA, adding, pathEntry)
                defaultFn   = v.default.fn
                defaultKind = "marked"
                changed     = true
-               numVersions = numVersions + numV
+               numVersions = numVersions + total
             end
          end
          if (defaultKind ~= "marked") then
-            local entry  = v[numV]
+            local entry  = v[total]
             local pv     = entry.parseV 
-            numVersions  = numVersions + numV
-            if (numV == 0 or pv > parseV) then
+            numVersions  = numVersions + total
+            if (total == 0 or pv > parseV) then
                defaultKind = "last"
                parseV      = pv
                defaultFn   = entry.fn
@@ -522,7 +545,7 @@ function M._build_locationTbl(self, mpathA, adding, pathEntry)
          dbg.print{"  mpath: ", mpath,":\n"}
 
          for sn , v in Pairs(vv) do
-            dbg.print{"    ",sn,":"}
+            dbg.print{"    ",sn,"(t: ",v.total,", h: ",v.hidden,"):"}
             for i = 1, #v do
                io.stderr:write(" ",v[i].version,",")
             end

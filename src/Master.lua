@@ -777,11 +777,12 @@ local function availEntry(defaultOnly, terse, mpath, szA, searchA, sn, name,
 
    dbg.print{"sn:" ,sn, ", name: ", name,", defaultOnly: ",defaultOnly,
              ", szA: ",szA,"\n"}
-   local dflt     = ""
-   local sCount   = #searchA
-   local found    = false
-   local localdir = true
-   local mt       = MT:mt()
+   local dflt        = ""
+   local sCount      = #searchA
+   local found       = false
+   local localdir    = true
+   local hidden      = not masterTbl().show_hidden
+   local mt          = MT:mt()
 
    if (sCount == 0) then
       found = true
@@ -825,7 +826,7 @@ local function availEntry(defaultOnly, terse, mpath, szA, searchA, sn, name,
 
    local mname   = MName:new("load", name)
    local version = mname:version() or ""
-   if (version:sub(1,1) == "." or sn:sub(1,1) == ".") then
+   if (hidden and version:sub(1,1) == "." or sn:sub(1,1) == ".") then
       dbg.print{"Not printing a dot modulefile\n"}
       dbg.fini("Master:availEntry")
       return
@@ -907,14 +908,14 @@ local function availDir(defaultOnly, terse, searchA, mpath, locationT, availT,
       dbg.print{"sn: ",sn,"\n"}
       local defaultModuleT = locationT[sn].default
       local aa             = {}
-      local szA            = #versionA
-      if (szA == 0) then
+      local szA            = versionA.total - versionA.hidden
+      if (szA == 0 and versionA.hidden == 0) then
          local fn    = versionA[0].fn
          dbg.print{"fn: ",fn,"\n"}
          availEntry(defaultOnly, terse, mpath, szA, searchA, sn, sn, fn,
                     defaultModuleT, dbT, legendT, a)
       else
-         if (terse) then
+         if (terse and szA > 0) then
             -- Print out directory (e.g. gcc) for tab-completion
             availEntry(defaultOnly, terse, mpath, szA, searchA, sn, sn, "",
                        defaultModuleT, dbT, legendT, a)

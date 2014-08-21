@@ -253,6 +253,20 @@ function M.options(self, usage)
       help   = "Send the output of list, avail, spider to stdout (not stderr)",
    }
 
+   cmdlineParser:add_option{
+      name   = {"--no_redirect" },
+      dest   = "redirect_off",
+      action = "store_true",
+      help   = "Force output of list, avail and spider to stderr",
+   }
+
+   cmdlineParser:add_option{
+      name   = {"--show_hidden" },
+      dest   = "show_hidden",
+      action = "store_true",
+      help   = "Avail and spider will report hidden modules",
+   }
+
    local optionTbl, pargs = cmdlineParser:parse(arg)
    local masterTbl        = masterTbl()
    masterTbl.pargs        = pargs
@@ -287,6 +301,10 @@ function M.options(self, usage)
 
    if (optionTbl.redirect) then
       LMOD_REDIRECT = "yes"
+   end
+
+   if (optionTbl.redirect_off) then
+      LMOD_REDIRECT = "no"
    end
 end
 
