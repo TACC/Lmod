@@ -267,6 +267,13 @@ function M.options(self, usage)
       help   = "Avail and spider will report hidden modules",
    }
 
+   cmdlineParser:add_option{
+      name   = {"--spider_timeout" },
+      dest   = "timeout",
+      action = "store",
+      help   = "a timeout for spider",
+   }
+
    local optionTbl, pargs = cmdlineParser:parse(arg)
    local masterTbl        = masterTbl()
    masterTbl.pargs        = pargs
@@ -282,21 +289,22 @@ function M.options(self, usage)
    end
 
    if (optionTbl.twidth) then
-      setenv_posix("LMOD_TERM_WIDTH",tostring(optionTbl.twidth))
-   end
-
-   if (optionTbl.expert) then
-      setenv_posix("LMOD_EXPERT", "1")
-      setenv_posix("LMOD_QUIET",  "1")
-   end
-
-   if (optionTbl.quiet) then
-      setenv_posix("LMOD_QUIET","1")
+      setenv_posix("LMOD_TERM_WIDTH",tostring(optionTbl.twidth),true)
    end
 
    if (optionTbl.novice) then
-      setenv_posix("LMOD_EXPERT", nil)
-      setenv_posix("LMOD_QUIET",  nil)
+      setenv_posix("LMOD_EXPERT", nil,true)
+      setenv_posix("LMOD_QUIET",  nil,true)
+   end
+
+   if (optionTbl.expert) then
+      dbg.print{"RTM LMOD_EXPERT 1\n"}
+      setenv_posix("LMOD_EXPERT", "1",true)
+      setenv_posix("LMOD_QUIET",  "1",true)
+   end
+
+   if (optionTbl.quiet) then
+      setenv_posix("LMOD_QUIET","1",true)
    end
 
    if (optionTbl.redirect) then

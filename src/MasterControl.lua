@@ -118,17 +118,20 @@ local function mustLoad(mA)
       local kB = {}  -- known modules (usrName)
 
 
-
-      for i = 1, #bb do
-         cmdA[count+1] = "'^" .. escape(bb[i]) .. "$'"
-         cmdA[count+2] = "2> /dev/null"
-         local cmd     = concatTbl(cmdA," ")
-         local result  = capture(cmd)
-         if (result:find("\nfalse")) then
-            uA[#uA+1] = aa[i]
-         else
-            kA[#kA+1] = aa[i]
-            kB[#kB+1] = bb[i]
+      if (expert()) then
+         uA = aa
+      else
+         for i = 1, #bb do
+            cmdA[count+1] = "'^" .. escape(bb[i]) .. "$'"
+            cmdA[count+2] = "2> /dev/null"
+            local cmd     = concatTbl(cmdA," ")
+            local result  = capture(cmd)
+            if (result:find("\nfalse")) then
+               uA[#uA+1] = aa[i]
+            else
+               kA[#kA+1] = aa[i]
+               kB[#kB+1] = bb[i]
+            end
          end
       end
 
@@ -832,6 +835,7 @@ function M.family(self, name)
    end
 
    dbg.print{"mt:setfamily(\"",name,"\",\"",sn,"\")\n"}
+   dbg.print{"expert(): ",expert(),"\n"}
    local oldName = mt:setfamily(name,sn)
    if (oldName ~= nil and oldName ~= sn and not expert() ) then
       LmodError("You can only have one ",name," module loaded at a time.\n",
