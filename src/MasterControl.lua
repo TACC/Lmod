@@ -118,17 +118,20 @@ local function mustLoad(mA)
       local kB = {}  -- known modules (usrName)
 
 
-
-      for i = 1, #bb do
-         cmdA[count+1] = "'^" .. escape(bb[i]) .. "$'"
-         cmdA[count+2] = "2> /dev/null"
-         local cmd     = concatTbl(cmdA," ")
-         local result  = capture(cmd)
-         if (result:find("\nfalse")) then
-            uA[#uA+1] = aa[i]
-         else
-            kA[#kA+1] = aa[i]
-            kB[#kB+1] = bb[i]
+      if (expert()) then
+         uA = aa
+      else
+         for i = 1, #bb do
+            cmdA[count+1] = "'^" .. escape(bb[i]) .. "$'"
+            cmdA[count+2] = "2> /dev/null"
+            local cmd     = concatTbl(cmdA," ")
+            local result  = capture(cmd)
+            if (result:find("\nfalse")) then
+               uA[#uA+1] = aa[i]
+            else
+               kA[#kA+1] = aa[i]
+               kB[#kB+1] = bb[i]
+            end
          end
       end
 

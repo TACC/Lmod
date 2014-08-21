@@ -36,19 +36,21 @@ testdescript = {
      runLmod avail gcc intel p a j m  # 4
      runLmod unload intel             # 5
      runLmod avail                    # 6
-     runLmod -t    avail              # 7
-     runLmod -t -d avail              # 8
-     runLmod -t    avail git          # 9
-     runLmod -t -d avail git          #10
-     runLmod -t    avail git/1.7.4.3  #11
-     runLmod use $(testDir)/mf/Core2  #12
-     runLmod avail local              #13
-     runLmod --ignore_cache avail     #14
+     runLmod --show_hidden avail      # 7
+     runLmod -t    avail              # 8
+     runLmod -t --show_hidden avail   # 9
+     runLmod -t -d avail              # 0
+     runLmod -t    avail git          #11
+     runLmod -t -d avail git          #12
+     runLmod -t    avail git/1.7.4.3  #13
+     runLmod use $(testDir)/mf/Core2  #14
+     runLmod avail local              #15
+     runLmod --ignore_cache avail     #16
 
-     runLmod purge                    #15
+     runLmod purge                    #17
      unsetMT
      unset MODULEPATH
-     runLmod avail                    #16
+     runLmod avail                    #18
 
 
      HOME=$ORIG_HOME
