@@ -835,7 +835,6 @@ function M.family(self, name)
    end
 
    dbg.print{"mt:setfamily(\"",name,"\",\"",sn,"\")\n"}
-   dbg.print{"expert(): ",expert(),"\n"}
    local oldName = mt:setfamily(name,sn)
    if (oldName ~= nil and oldName ~= sn and not expert() ) then
       LmodError("You can only have one ",name," module loaded at a time.\n",

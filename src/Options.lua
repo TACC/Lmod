@@ -298,7 +298,6 @@ function M.options(self, usage)
    end
 
    if (optionTbl.expert) then
-      dbg.print{"RTM LMOD_EXPERT 1\n"}
       setenv_posix("LMOD_EXPERT", "1",true)
       setenv_posix("LMOD_QUIET",  "1",true)
    end
