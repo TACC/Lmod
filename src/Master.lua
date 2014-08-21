@@ -770,9 +770,9 @@ end
 --                if matches the search criteria.  It also adds any
 --                properties such as default or anything from [[propT]].
 
-local function availEntry(defaultOnly, terse, mpath, szA, searchA, sn, name,
+local function availEntry(defaultOnly, terse, label, szA, searchA, sn, name,
                           f, defaultModuleT, dbT, legendT, a)
-   dbg.start{"Master:availEntry(defaultOnly, terse, mpath, szA, searchA, "..
+   dbg.start{"Master:availEntry(defaultOnly, terse, label, szA, searchA, "..
                                 "sn, name, f, defaultModuleT, dbT, legendT, a)"}
 
    dbg.print{"sn:" ,sn, ", name: ", name,", defaultOnly: ",defaultOnly,
@@ -793,7 +793,7 @@ local function availEntry(defaultOnly, terse, mpath, szA, searchA, sn, name,
             found = true
             break
          end
-         if (LMOD_MPATH_AVAIL ~= "no" and mpath:find(s)) then
+         if (LMOD_MPATH_AVAIL ~= "no" and label:find(s)) then
            found = true
            break
          end
@@ -887,16 +887,13 @@ end
 --             [[availEntry]].
 
 
-local function availDir(defaultOnly, terse, searchA, mpath, locationT, availT,
+local function availDir(defaultOnly, terse, searchA, label, locationT, availT,
                         dbT, a, legendT)
    dbg.start{"Master.availDir(defaultOnly= ",defaultOnly,", terse= ",terse,
-             ", searchA=(",concatTbl(searchA,", "), "), mpath= \"",mpath,"\", ",
+             ", searchA=(",concatTbl(searchA,", "), "), label= \"",label,"\", ",
              ",locationT, availT, dbT, a, legendT)"}
-   local attr    = lfs.attributes(mpath)
-   local mt      = MT:mt()
-   if (not attr or type(attr) ~= "table" or attr.mode ~= "directory"
-       or not posix.access(mpath,"x")) then
-      dbg.print{"Skipping non-existant directory: ", mpath,"\n"}
+   if (availT == nil) then
+      dbg.print{"(1) Skipping non-existant directory: ", label,"\n"}
       dbg.fini("Master.availDir")
       return
    end
@@ -917,13 +914,13 @@ local function availDir(defaultOnly, terse, searchA, mpath, locationT, availT,
       else
          if (terse and szA > 0) then
             -- Print out directory (e.g. gcc) for tab-completion
-            availEntry(defaultOnly, terse, mpath, szA, searchA, sn, sn, "",
+            availEntry(defaultOnly, terse, label, szA, searchA, sn, sn, "",
                        defaultModuleT, dbT, legendT, a)
          end
          for i = 1, #versionA do
             local name = pathJoin(sn, versionA[i].version)
             local f    = versionA[i].fn
-            availEntry(defaultOnly, terse, mpath, szA, searchA, sn, name,
+            availEntry(defaultOnly, terse, label, szA, searchA, sn, name,
                        f, defaultModuleT, dbT, legendT, a)
          end
       end
@@ -1012,16 +1009,48 @@ function M.avail(argA)
 
    local availT    = mt:availT()
    local locationT = mt:locationTbl()
+   
+   --------------------------------------------------------------------------
+   -- call hook to see if site wants to relabel and re-organize avail layout
+
+   local labelT    = {}
+
+   for i = 1, #mpathA do
+      local mpath = mpathA[i]
+      if ( availT[mpath] ~= nil) then
+         labelT[mpath] = mpath
+      end
+   end
+
+   hook.apply("avail",labelT)
+
+   local label2mathT = {}
+
+   for i = 1, #mpathA do
+      local mpath = mpathA[i]
+      if ( availT[mpath] ~= nil) then
+         local label = labelT[mpath]
+         local a     = label2mpathT[label] or {}
+         table.insert(a,1,i)
+         label2mpathT[label] = a
+      end
+   end
+   local orderA = {}
+   for label, vA in pairs(label2mpathT) do
+      orderA[#orderA + 1] = {vA[1], label}
+   end
+   sort(orderA, function(a,b) return a[1] < b[1] end )
+
 
    local aa        = {}
 
-
    for _,mpath in ipairs(mpathA) do
-      local a = {}
-      availDir(defaultOnly, terse, searchA, mpath, locationT, availT[mpath], dbT, a, legendT)
+      local a     = {}
+      local label = labelT[mpath]
+      availDir(defaultOnly, terse, searchA, label, locationT, availT[mpath], dbT, a, legendT)
       if (next(a)) then
          aa[#aa+1] = "\n"
-         aa[#aa+1] = banner:bannerStr(mpath)
+         aa[#aa+1] = banner:bannerStr(label)
          aa[#aa+1] = "\n"
          local ct  = ColumnTable:new{tbl=a, gap=1, len=length}
          aa[#aa+1] = ct:build_tbl()
