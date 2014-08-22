@@ -1031,7 +1031,7 @@ function M.avail(argA)
       if ( availT[mpath] ~= nil) then
          local label = labelT[mpath]
          local a     = label2mpathT[label] or {}
-         table.insert(a,1,i)
+         a[#a+1]     = i
          label2mpathT[label] = a
       end
    end
@@ -1045,10 +1045,6 @@ function M.avail(argA)
          io.stderr:write("\n")
       end
    end
-                            
-         
-
-
 
    local orderA = {}
    for label, vA in pairs(label2mpathT) do
@@ -1056,16 +1052,39 @@ function M.avail(argA)
    end
    sort(orderA, function(a,b) return a[1] < b[1] end )
 
+   if (dbg.active()) then
+      for j = 1, #orderA do
+         dbg.print{j,", orderA: idx: ",orderA[j][1],", label: ",orderA[j][2],"\n"}
+      end
+   end
 
-
-
+   local availNT = {}
+   for j = 1, #orderA do
+      local label    = orderA[j][2]
+      local a        = label2mpathT[label]
+      availNT[label] = {}
+      for i = 1, #a do
+         local mpath = mpathA[a[i]]
+         for k,v in pairs(availT[mpath]) do
+            if (availNT[label][k] == nil) then
+               availNT[label][k] = v
+            else
+               local vA = availNT[label][k]
+               for iv = 1,#v do
+                  vA[#vA+1] = v[iv]
+               end
+               sort(vA, function(a,b) return a.parseV < b.parseV end)
+            end
+         end
+      end
+   end
 
    local aa        = {}
 
-   for _,mpath in ipairs(mpathA) do
+   for j = 1, #orderA do
       local a     = {}
-      local label = labelT[mpath]
-      availDir(defaultOnly, terse, searchA, label, locationT, availT[mpath], dbT, a, legendT)
+      local label = orderA[j][2]
+      availDir(defaultOnly, terse, searchA, label, locationT, availNT[label], dbT, a, legendT)
       if (next(a)) then
          aa[#aa+1] = "\n"
          aa[#aa+1] = banner:bannerStr(label)
