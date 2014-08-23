@@ -365,15 +365,20 @@ function M.build(self, fast)
       dbg.print{"prtRbMsg: ",prtRbMsg,", quiet: ",self.quiet,"\n"}
 
       local cTimer = CTimer:cTimer("Rebuilding cache, please wait ...",
-                                   Threshold, prtRbMsg)
+                                   Threshold, prtRbMsg, masterTbl.timeout)
 
       local mcp_old = mcp
       mcp           = MasterControl.build("spider")
 
       local spider  = Spider:new()
-      local t1 = epoch()
-      spider:findAllModules(dirA, userModuleT)
-      local t2 = epoch()
+
+      local t1      = epoch()
+      local st, msg = pcall(Spider.findAllModules, spider, dirA, userModuleT)
+      if (not st) then
+         if (msg) then io.stderr:write("Msg: ",msg,'\n') end
+         LmodSystemError("Spider searched timed out\n")
+      end
+      local t2      = epoch()
 
       mcp           = mcp_old
       dbg.print{"Setting mpc to ", mcp:name(),"\n"}

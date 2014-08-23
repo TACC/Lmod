@@ -272,6 +272,7 @@ function M.options(self, usage)
       dest   = "timeout",
       action = "store",
       help   = "a timeout for spider",
+      default = 0.0
    }
 
    local optionTbl, pargs = cmdlineParser:parse(arg)

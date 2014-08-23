@@ -82,7 +82,7 @@ local decode64     = base64.decode64
 local encode64     = base64.encode64
 local getenv       = os.getenv
 local pack         = (_VERSION == "Lua 5.1") and argsPack or table.pack
-
+local Exit         = os.exit
 ------------------------------------------------------------------------
 --module ('MasterControl')
 ------------------------------------------------------------------------
@@ -110,7 +110,7 @@ local function mustLoad(mA)
       cmdA[#cmdA+1] = luaprog
       cmdA[#cmdA+1] = pathJoin(cmdDir(),cmdName())
       cmdA[#cmdA+1] = "bash"
-      cmdA[#cmdA+1] = "-r spider"
+      cmdA[#cmdA+1] = "-r --spider_timeout 2.0 spider"
       local count   = #cmdA
 
       local uA = {}  -- unknown names
@@ -658,7 +658,7 @@ end
 
 function LmodErrorExit()
    io.stdout:write("false\n")
-   os.exit(1)
+   Exit(1)
 end
 
 function LmodSystemError(...)

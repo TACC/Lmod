@@ -39,30 +39,36 @@ local dbg     = require("Dbg"):dbg()
 
 s_cTimer = false
 
-local function new(self, msg, threshold, active)
+local function new(self, msg, threshold, active, timeout)
    local o = {}
    setmetatable(o,self)
    self.__index = self
 
+   timeout     = tonumber(timeout or -1.0)
    o.state     = active and "init" or "dead"
    o.start     = epoch()
    o.msg       = msg
    o.threshold = threshold
-
+   o.timeout   = (timeout > 1.0e-8) and timeout or -1.0
    return o
 end
 
-function M.cTimer(self, msg, threshold, active)
+function M.cTimer(self, msg, threshold, active, timeout)
    if (not s_cTimer) then
-      s_cTimer = new(self, msg, threshold, active)
+      s_cTimer = new(self, msg, threshold, active, timeout)
    end
    return s_cTimer
 end
 
 function M.test(self)
+   local delta   = epoch() - self.start
+   local timeout = self.timeout
+   if (timeout > 0 and delta > timeout) then
+      error()
+   end
+
    if (self.state == "init") then
       dbg.start{"CTimer:test()", level=2}
-      local delta = epoch() - self.start
       dbg.print{"delta: ",delta,"\n"}
       if (delta > self.threshold) then
          io.stderr:write(self.msg)
