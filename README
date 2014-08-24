@@ -1,3 +1,20 @@
+Lmod Version 5.7.5:
+Feature/Bug fixes:
+   a) "module use" and "ml use" now will work with tab completion
+      under bash. (It worked before for zsh).
+   b) New option, --spider_timeout sec is added.  Reason: When
+      Lmod can not load a module, it does a module spider to
+      see if the module exists but isn't loadable.  Now Lmod
+      doesn't do the spider when in LMOD_EXPERT mode.  It also
+      times out after 2 seconds.  If Lmod can't tell you quickly
+      if a module exists, why do it.
+   c) New configuration option --with-ignoreDirs.  By default
+      Lmod will ignore directories named .svn, .git, .hg and .bzr
+      in the Module directories. If you use CVS, RCS or SCCS to
+      source control your modulefiles, you will need configure
+      Lmod to know about those directories.
+
+
 Lmod Version 5.7.4
 Feature/Bug fixes:
    a) Improved support for redirecting output to stdout.  Now show,
