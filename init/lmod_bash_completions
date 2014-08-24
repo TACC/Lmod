@@ -54,7 +54,7 @@ _module() {
 	rm|remove|unload|switch|swap)
 			COMPREPLY=( $(      compgen -W "$(_module_loaded_modules)" -- "$cur") );;
 	unuse)		COMPREPLY=( $(IFS=: compgen -W "${MODULEPATH}" -- "$cur") );;
-	use|*-a*)	;;			# let readline handle the completion
+	use|*-a*)	_filedir -d || return 0;;
 	help|show|whatis)
 			COMPREPLY=( $(compgen -W "$(_module_avail)" -- "$cur") );;
 	*) if test $COMP_CWORD -gt 2
@@ -93,7 +93,7 @@ _ml() {
     rm|remove|unload|swap)
                     COMPREPLY=( $(compgen -W "$(_module_loaded_modules)" -- "$cur") );;
     unuse)	    COMPREPLY=( $(IFS=: compgen -W "${MODULEPATH}" -- "$cur") );;
-    use|*-a*)	;;			# let readline handle the completion
+    use|*-a*)       _filedir -d || return 0;;
     help|show|whatis)
                     COMPREPLY=( $(compgen -W "$(_module_avail)" -- "$cur") );;
 
