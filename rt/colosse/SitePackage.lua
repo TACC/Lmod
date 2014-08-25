@@ -2,12 +2,6 @@ require("strict")
 local hook = require("Hook")
 local dbg  = require("Dbg"):dbg()
 
-local mapT = {
-   ['/Compilers/'] = "Your compiler dependent modules",
-   ['/Core.*']     = "Core Modules",
-}
-
-
 local mapT =
 {
    grouped = {
