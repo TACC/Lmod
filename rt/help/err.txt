@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.7.4.1 5.7.4.1 2014-08-21 15:32
+Modules based on Lua: Version 5.7.4.2 5.7.4.2-6-g6647912 2014-08-21 20:16
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -10,41 +10,46 @@ lua ProjectDIR/src/lmod.in.lua bash --help
 ===========================
 Usage: module [options] sub-command [args ...]
 Options:
-  -h -? -H --help               This help message
-  --topic=topic                 help topics: modfuncs envvars
-  -D                            Program tracing written to stderr
-  --debug=dbglvl                Program tracing written to stderr
-  -d --default                  List default modules only when used with
-                                avail
-  -q --quiet                    Do not print out warnings
-  --expert                      Expert mode
-  -t --terse                    Write out in machine readable format for
-                                commands: list, avail, spider, savelist
-  --initial_load                loading Lmod for first time in a user shell
-  --latest                      Load latest (ignore default)
-  --ignore_cache                Treat the cache file(s) as out-of-date
-  --novice                      Turn off expert and quiet flag
-  --raw                         Print modulefile in raw output when used
-                                with show
-  -w twidth --width=twidth      Use this as max term width
-  -v --version                  Print version info and quit
-  -r --regexp                   use regular expression match
-  --dumpversion                 Dump version in a machine readable way and
-                                quit
-  --localvar=localvarA          local variables needed to be set after this
-                                commands execution
-  --check_syntax --checkSyntax  Checking module command syntax: do not load
-  --config                      Report Lmod Configuration
-  --mt                          Report Module Table State
-  --timer                       report run times
-  --force                       force removal of a sticky module or save an
-                                empty collection
-  --redirect                    Send the output of list, avail, spider to
-                                stdout (not stderr)
-  --no_redirect                 Force output of list, avail and spider to
-                                stderr
-  --show_hidden                 Avail and spider will report hidden modules
-  --spider_timeout=timeout      a timeout for spider
+  -h -? -H --help                   This help message
+  -s availStyle --style=availStyle  Site controlled avail style: system
+                                    (default: system)
+  -D                                Program tracing written to stderr
+  --debug=dbglvl                    Program tracing written to stderr
+  -d --default                      List default modules only when used with
+                                    avail
+  -q --quiet                        Do not print out warnings
+  --topic=topic                     help topics: modfuncs envvars
+  --expert                          Expert mode
+  -t --terse                        Write out in machine readable format for
+                                    commands: list, avail, spider, savelist
+  --initial_load                    loading Lmod for first time in a user
+                                    shell
+  --latest                          Load latest (ignore default)
+  --ignore_cache                    Treat the cache file(s) as out-of-date
+  --novice                          Turn off expert and quiet flag
+  --raw                             Print modulefile in raw output when used
+                                    with show
+  -w twidth --width=twidth          Use this as max term width
+  -v --version                      Print version info and quit
+  -r --regexp                       use regular expression match
+  --dumpversion                     Dump version in a machine readable way
+                                    and quit
+  --localvar=localvarA              local variables needed to be set after
+                                    this commands execution
+  --check_syntax --checkSyntax      Checking module command syntax: do not
+                                    load
+  --config                          Report Lmod Configuration
+  --mt                              Report Module Table State
+  --timer                           report run times
+  --force                           force removal of a sticky module or save
+                                    an empty collection
+  --redirect                        Send the output of list, avail, spider
+                                    to stdout (not stderr)
+  --no_redirect                     Force output of list, avail and spider
+                                    to stderr
+  --show_hidden                     Avail and spider will report hidden
+                                    modules
+  --spider_timeout=timeout          a timeout for spider
 module [options] sub-command [args ...]
 Help sub-commands:
   help                              prints this message
@@ -117,7 +122,7 @@ The following guides are at http://www.tacc.utexas.edu/tacc-projects/lmod
   User Guide                 - How to use.
   Advance User Guide         - How to create you own modules.
   System Administrator Guide - How to install Lmod on your own system.
-Modules based on Lua: Version 5.7.4.1 5.7.4.1 2014-08-21 15:32
+Modules based on Lua: Version 5.7.4.2 5.7.4.2-6-g6647912 2014-08-21 20:16
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 3
@@ -125,41 +130,46 @@ lua ProjectDIR/src/lmod.in.lua bash help
 ===========================
 Usage: module [options] sub-command [args ...]
 Options:
-  -h -? -H --help               This help message
-  --topic=topic                 help topics: modfuncs envvars
-  -D                            Program tracing written to stderr
-  --debug=dbglvl                Program tracing written to stderr
-  -d --default                  List default modules only when used with
-                                avail
-  -q --quiet                    Do not print out warnings
-  --expert                      Expert mode
-  -t --terse                    Write out in machine readable format for
-                                commands: list, avail, spider, savelist
-  --initial_load                loading Lmod for first time in a user shell
-  --latest                      Load latest (ignore default)
-  --ignore_cache                Treat the cache file(s) as out-of-date
-  --novice                      Turn off expert and quiet flag
-  --raw                         Print modulefile in raw output when used
-                                with show
-  -w twidth --width=twidth      Use this as max term width
-  -v --version                  Print version info and quit
-  -r --regexp                   use regular expression match
-  --dumpversion                 Dump version in a machine readable way and
-                                quit
-  --localvar=localvarA          local variables needed to be set after this
-                                commands execution
-  --check_syntax --checkSyntax  Checking module command syntax: do not load
-  --config                      Report Lmod Configuration
-  --mt                          Report Module Table State
-  --timer                       report run times
-  --force                       force removal of a sticky module or save an
-                                empty collection
-  --redirect                    Send the output of list, avail, spider to
-                                stdout (not stderr)
-  --no_redirect                 Force output of list, avail and spider to
-                                stderr
-  --show_hidden                 Avail and spider will report hidden modules
-  --spider_timeout=timeout      a timeout for spider
+  -h -? -H --help                   This help message
+  -s availStyle --style=availStyle  Site controlled avail style: system
+                                    (default: system)
+  -D                                Program tracing written to stderr
+  --debug=dbglvl                    Program tracing written to stderr
+  -d --default                      List default modules only when used with
+                                    avail
+  -q --quiet                        Do not print out warnings
+  --topic=topic                     help topics: modfuncs envvars
+  --expert                          Expert mode
+  -t --terse                        Write out in machine readable format for
+                                    commands: list, avail, spider, savelist
+  --initial_load                    loading Lmod for first time in a user
+                                    shell
+  --latest                          Load latest (ignore default)
+  --ignore_cache                    Treat the cache file(s) as out-of-date
+  --novice                          Turn off expert and quiet flag
+  --raw                             Print modulefile in raw output when used
+                                    with show
+  -w twidth --width=twidth          Use this as max term width
+  -v --version                      Print version info and quit
+  -r --regexp                       use regular expression match
+  --dumpversion                     Dump version in a machine readable way
+                                    and quit
+  --localvar=localvarA              local variables needed to be set after
+                                    this commands execution
+  --check_syntax --checkSyntax      Checking module command syntax: do not
+                                    load
+  --config                          Report Lmod Configuration
+  --mt                              Report Module Table State
+  --timer                           report run times
+  --force                           force removal of a sticky module or save
+                                    an empty collection
+  --redirect                        Send the output of list, avail, spider
+                                    to stdout (not stderr)
+  --no_redirect                     Force output of list, avail and spider
+                                    to stderr
+  --show_hidden                     Avail and spider will report hidden
+                                    modules
+  --spider_timeout=timeout          a timeout for spider
 module [options] sub-command [args ...]
 Help sub-commands:
   help                              prints this message
@@ -232,7 +242,7 @@ The following guides are at http://www.tacc.utexas.edu/tacc-projects/lmod
   User Guide                 - How to use.
   Advance User Guide         - How to create you own modules.
   System Administrator Guide - How to install Lmod on your own system.
-Modules based on Lua: Version 5.7.4.1 5.7.4.1 2014-08-21 15:32
+Modules based on Lua: Version 5.7.4.2 5.7.4.2-6-g6647912 2014-08-21 20:16
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 4
@@ -252,7 +262,7 @@ Version 9
 step 5
 lua ProjectDIR/src/lmod.in.lua bash --config
 ===========================
-Modules based on Lua: Version 5.7.4.1 5.7.4.1 2014-08-21 15:32
+Modules based on Lua: Version 5.7.4.2 5.7.4.2-6-g6647912 2014-08-21 20:16
     by Robert McLay mclay@tacc.utexas.edu
 Description                      Value
 Allow TCL modulefiles            @allow_tcl_mfiles@

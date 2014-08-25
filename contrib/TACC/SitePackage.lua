@@ -100,8 +100,10 @@ end
 buildHostsT = {
    ["build.stampede.tacc.utexas.edu"]    = 1,
    ["c560-904.stampede.tacc.utexas.edu"] = 1,
+   ["c560-903.stampede.tacc.utexas.edu"] = 1,
+   ["c560-902.stampede.tacc.utexas.edu"] = 1,
+   ["c560-901.stampede.tacc.utexas.edu"] = 1,
    ["build.ls4.tacc.utexas.edu"]         = 1,
-   ["build.longhorn"]                    = 1,
 }
 
 --------------------------------------------------------------------------
@@ -140,6 +142,40 @@ local function parse_updateFn_hook(updateSystemFn, t)
    end
    t.hostType = t.nodeType or "unknown"
 end
+
+local mapT =
+{
+   grouped = {
+      ['/opt/modulefile']      = "Core Modules",
+      ['/opt/apps/modulefile'] = "Core Modules",
+      ['/opt/apps/xsede/.*']   = "XSEDE Core modules",
+      ['/mvapich2']            = "MVAPICH2 Dependent Modules",
+      ['/opt/apps/intel.*']    = "Intel Compiler Dependent Modules",
+   },
+}
+
+
+
+function avail_hook(t)
+   dbg.print{"avail hook called\n"}
+   local availStyle = masterTbl().availStyle
+   local styleT     = mapT[availStyle]
+   if (not availStyle or availStyle == "system" or styleT == nil) then
+      return
+   end
+   
+
+   for k,v in pairs(t) do
+      for pat,label in pairs(styleT) do
+         if (k:find(pat)) then
+            t[k] = label
+            break
+         end
+      end
+   end
+end
+
+
 
 hook.register("load",           load_hook)
 hook.register("parse_updateFn", parse_updateFn_hook)

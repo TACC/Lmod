@@ -8,15 +8,26 @@ local mapT = {
 }
 
 
+local mapT =
+{
+   grouped = {
+      ['/Compilers/'] = "Your compiler dependent modules",
+      ['/Core.*']     = "Core Modules",
+   },
+}
+
+
+
 function avail_hook(t)
    local availStyle = masterTbl().availStyle
-   if (not availStyle) then
+   dbg.print{"avail hook called: availStyle: ",availStyle,"\n"}
+   local styleT     = mapT[availStyle]
+   if (not availStyle or availStyle == "system" or styleT == nil) then
       return
    end
-
-   dbg.print{"avail hook called\n"}
+   
    for k,v in pairs(t) do
-      for pat,label in pairs(mapT) do
+      for pat,label in pairs(styleT) do
          if (k:find(pat)) then
             t[k] = label
             break

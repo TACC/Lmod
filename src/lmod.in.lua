@@ -463,9 +463,6 @@ function main()
    set_prepend_order()    -- Chose prepend_path order normal/reverse
    setenv_lmod_version()  -- Push Lmod version into environment
 
-   Options:options(CmdLineUsage)
-
-   localvar(masterTbl.localvarA)
 
    set_duplication()         -- Chose how to handle duplicate entries in a path.
    build_accept_functions()  -- build the accept functions to allow or ignore TCL mfiles
@@ -493,9 +490,13 @@ function main()
                       package.cpath
    end
 
+
    dbg.print{"lmodPath: ", lmodPath,"\n"}
    require("SitePackage")
    dbg.print{"epoch_type: ",epoch_type,"\n"}
+
+   Options:options(CmdLineUsage)
+   localvar(masterTbl.localvarA)
 
    banner        = Banner:banner()
    local cmdName = masterTbl.pargs[1]

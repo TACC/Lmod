@@ -152,6 +152,24 @@ LMOD_RTM_TESTING = getenv("LMOD_RTM_TESTING")
 
 
 ------------------------------------------------------------------------
+-- LMOD_AVAIL_STYLE: Used by the avail hook to control how avail output
+--                   is handled.   This is a colon separated list of
+--                   names.  Note that the default choice is marked by 
+--                   angle brackets:  A:B:<C> ==> C is the default.
+--                   If no angle brackets are specified then the first
+--                   entry is the default (i.e. A:B:C => A is default.
+------------------------------------------------------------------------
+
+LMOD_AVAIL_STYLE = getenv("LMOD_AVAIL_STYLE") or "<system>"
+if (LMOD_AVAIL_STYLE == "") then
+   LMOD_AVAIL_STYLE = "<system>"
+end
+
+
+
+
+
+------------------------------------------------------------------------
 -- defaultMpathA: The array of paths that are hold the default
 --                (non-hierarchical) MODULEPATH
 ------------------------------------------------------------------------

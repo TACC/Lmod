@@ -73,15 +73,28 @@ end
 function M.options(self, usage)
 
    local Optiks = require("Optiks")
-
    s_options = new(self)
-
    local cmdlineParser  = Optiks:new{usage   = usage,
                                      error   = LmodWarning,
                                      exit    = nothing,
                                      prt     = prt,
                                      envArg  = os.getenv("LMOD_OPTIONS"),
    }
+
+   local styleA       = {}
+   local icnt         = 0
+   local defaultStyle = "system"
+   
+   for s in LMOD_AVAIL_STYLE:split(":") do
+      icnt = icnt + 1
+      if (s:sub(1,1) == "<" and s:sub(-1,-1) == ">") then
+         s            = s:sub(2,-2)
+         defaultStyle = s
+      elseif (icnt == 1) then
+         defaultStyle = s
+      end
+      styleA[icnt] = s
+   end
 
    cmdlineParser:add_option{
       name   = {"-h","-?","-H","--help"},
@@ -91,10 +104,11 @@ function M.options(self, usage)
    }
 
    cmdlineParser:add_option{
-      name   = {"-s","--style"},
-      dest   = "availStyle",
-      action = "store",
-      help   = "Site controlled avail style",
+      name    = {"-s","--style"},
+      dest    = "availStyle",
+      action  = "store",
+      default = defaultStyle,
+      help    = "Site controlled avail style: "..concatTbl(styleA," ").." (default: "..defaultStyle..")"
    }
 
 
