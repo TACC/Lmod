@@ -9,6 +9,11 @@ local mapT = {
 
 
 function avail_hook(t)
+   local availStyle = masterTbl().availStyle
+   if (not availStyle) then
+      return
+   end
+
    dbg.print{"avail hook called\n"}
    for k,v in pairs(t) do
       for pat,label in pairs(mapT) do

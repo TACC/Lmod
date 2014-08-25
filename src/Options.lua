@@ -91,10 +91,10 @@ function M.options(self, usage)
    }
 
    cmdlineParser:add_option{
-      name   = {"--topic"},
-      dest   = "topic",
+      name   = {"-s","--style"},
+      dest   = "availStyle",
       action = "store",
-      help   = "help topics: modfuncs envvars",
+      help   = "Site controlled avail style",
    }
 
 
@@ -124,6 +124,13 @@ function M.options(self, usage)
       dest   = "quiet",
       action = "store_true",
       help   = "Do not print out warnings",
+   }
+
+   cmdlineParser:add_option{
+      name   = {"--topic"},
+      dest   = "topic",
+      action = "store",
+      help   = "help topics: modfuncs envvars",
    }
 
    cmdlineParser:add_option{

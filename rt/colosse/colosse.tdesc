@@ -33,7 +33,8 @@ testdescript = {
      runLmod load StdEnv                   # 2
      runLmod list                          # 3
      runLmod purge                         # 4
-     runLmod avail                         # 5
+     runLmod        avail                  # 5
+     runLmod -s yes avail                  # 6
      
      HOME=$ORIG_HOME
      cat _stdout.[0-9][0-9] > _stdout.orig
