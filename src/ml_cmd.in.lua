@@ -100,7 +100,7 @@ function main()
       ["--force"] = 0,['-w'] = 1, ['--width'] = 1, ['-r'] = 0,
       ['--regexp'] = 0, ['--raw'] = 0,["-q"] = 0, ["--quiet"] = 0,
       ["--timer"] = 0, ["--redirect"] = 0, ["--no_redirect"] = 0,
-      ["--spider_timeout"] = 1,
+      ["--spider_timeout"] = 1, ['-s'] = 1, ['--style'] = 1,
    }
 
    local translateT = {
