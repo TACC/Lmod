@@ -1,5 +1,5 @@
 -- -*- lua -*-
-local testName = "colosse"
+local testName = "helios"
 
 testdescript = {
    owner   = "rtm",
@@ -22,7 +22,7 @@ testdescript = {
 
      export LMOD_PACKAGE_PATH=$(testDir)
      export MODULEPATH_ROOT=$(testDir)/mf
-     export MODULEPATH=$(testDir)/mf/Core:$(testDir)/mf/Core-colosse
+     export MODULEPATH=$(testDir)/mf/Core:$(testDir)/mf/Core-helios
      numStep=0
      COUNT=0
      ORIG_HOME=`(cd $HOME; /bin/pwd)`
