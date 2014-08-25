@@ -177,6 +177,7 @@ end
 
 
 
+hook.register("avail",          avail_hook)
 hook.register("load",           load_hook)
 hook.register("parse_updateFn", parse_updateFn_hook)
 hook.register("writeCache",     writeCache_hook)

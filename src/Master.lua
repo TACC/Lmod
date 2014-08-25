@@ -955,6 +955,84 @@ local function availOptions(argA)
 
 end
 
+local function regroup_avail_blocks(availStyle, mpathA, availT)
+   --------------------------------------------------------------------------
+   -- call hook to see if site wants to relabel and re-organize avail layout
+
+   if (availStyle == "system") then
+      return mpathA, availT
+   end
+
+
+   local labelT    = {}
+
+   for i = 1, #mpathA do
+      local mpath = mpathA[i]
+      if ( availT[mpath] ~= nil) then
+         labelT[mpath] = mpath
+      end
+   end
+
+   hook.apply("avail",labelT)
+
+   local label2mpathT = {}
+
+   for i = 1, #mpathA do
+      local mpath = mpathA[i]
+      if ( availT[mpath] ~= nil) then
+         local label = labelT[mpath]
+         local a     = label2mpathT[label] or {}
+         a[#a+1]     = i
+         label2mpathT[label] = a
+      end
+   end
+
+   if (dbg.active()) then
+      for label, vA in pairs(label2mpathT) do
+         dbg.print{"label: ",label,":",}
+         for i = 1, #vA do
+            io.stderr:write(" ",tostring(vA[i]))
+         end
+         io.stderr:write("\n")
+      end
+   end
+
+   local orderA = {}
+   for label, vA in pairs(label2mpathT) do
+      orderA[#orderA + 1] = {vA[1], label}
+   end
+   sort(orderA, function(a,b) return a[1] < b[1] end )
+
+   if (dbg.active()) then
+      for j = 1, #orderA do
+         dbg.print{j,", orderA: idx: ",orderA[j][1],", label: ",orderA[j][2],"\n"}
+      end
+   end
+
+   local availNT = {}
+   local labelA  = {}
+   for j = 1, #orderA do
+      local label    = orderA[j][2]
+      local a        = label2mpathT[label]
+      labelA[j]      = label
+      availNT[label] = {}
+      for i = 1, #a do
+         local mpath = mpathA[a[i]]
+         for k,v in pairs(availT[mpath]) do
+            if (availNT[label][k] == nil) then
+               availNT[label][k] = v
+            else
+               local vA = availNT[label][k]
+               for iv = 1,#v do
+                  vA[#vA+1] = v[iv]
+               end
+               sort(vA, function(a,b) return a.parseV < b.parseV end)
+            end
+         end
+      end
+   end
+   return labelA, availNT
+end
 --------------------------------------------------------------------------
 -- Master:avail(): Report the available modules with properties and
 --                 defaults.  Run results through pager.
@@ -1004,87 +1082,25 @@ function M.avail(argA)
      LmodError("avail is not possible, MODULEPATH is not set or not set with valid paths.\n")
    end
 
-   local spider    = Spider:new()
+   local spider     = Spider:new()
    spider:buildSpiderDB({"default"}, moduleT, dbT)
 
-   local availT    = mt:availT()
-   local locationT = mt:locationTbl()
-   
+   local labelA     = false
+   local availT     = mt:availT()
+   local locationT  = mt:locationTbl()
+   local availStyle = masterTbl.availStyle
+
    --------------------------------------------------------------------------
    -- call hook to see if site wants to relabel and re-organize avail layout
 
-   local labelT    = {}
-
-   for i = 1, #mpathA do
-      local mpath = mpathA[i]
-      if ( availT[mpath] ~= nil) then
-         labelT[mpath] = mpath
-      end
-   end
-
-   hook.apply("avail",labelT)
-
-   local label2mpathT = {}
-
-   for i = 1, #mpathA do
-      local mpath = mpathA[i]
-      if ( availT[mpath] ~= nil) then
-         local label = labelT[mpath]
-         local a     = label2mpathT[label] or {}
-         a[#a+1]     = i
-         label2mpathT[label] = a
-      end
-   end
-
-   if (dbg.active()) then
-      for label, vA in pairs(label2mpathT) do
-         dbg.print{"label: ",label,":",}
-         for i = 1, #vA do
-            io.stderr:write(" ",tostring(vA[i]))
-         end
-         io.stderr:write("\n")
-      end
-   end
-
-   local orderA = {}
-   for label, vA in pairs(label2mpathT) do
-      orderA[#orderA + 1] = {vA[1], label}
-   end
-   sort(orderA, function(a,b) return a[1] < b[1] end )
-
-   if (dbg.active()) then
-      for j = 1, #orderA do
-         dbg.print{j,", orderA: idx: ",orderA[j][1],", label: ",orderA[j][2],"\n"}
-      end
-   end
-
-   local availNT = {}
-   for j = 1, #orderA do
-      local label    = orderA[j][2]
-      local a        = label2mpathT[label]
-      availNT[label] = {}
-      for i = 1, #a do
-         local mpath = mpathA[a[i]]
-         for k,v in pairs(availT[mpath]) do
-            if (availNT[label][k] == nil) then
-               availNT[label][k] = v
-            else
-               local vA = availNT[label][k]
-               for iv = 1,#v do
-                  vA[#vA+1] = v[iv]
-               end
-               sort(vA, function(a,b) return a.parseV < b.parseV end)
-            end
-         end
-      end
-   end
+   labelA, availT  = regroup_avail_blocks(availStyle, mpathA, availT)
 
    local aa        = {}
 
-   for j = 1, #orderA do
+   for j = 1, #labelA do
       local a     = {}
-      local label = orderA[j][2]
-      availDir(defaultOnly, terse, searchA, label, locationT, availNT[label], dbT, a, legendT)
+      local label = labelA[j]
+      availDir(defaultOnly, terse, searchA, label, locationT, availT[label], dbT, a, legendT)
       if (next(a)) then
          aa[#aa+1] = "\n"
          aa[#aa+1] = banner:bannerStr(label)
