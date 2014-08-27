@@ -349,30 +349,38 @@ function M.parse(self, argIn)
       }
    end
 
+   ------------------------------------------------------------------------
+   -- Copy env var string and command line args into a
 
    local a = self:parseEnvArg()
    for i = 1,#argIn do
       a[#a+1] = argIn[i]
    end
 
+   ------------------------------------------------------------------------
+   -- split any single letter options grouped together.  So "-tdw=60" 
+   -- becomes: "-t -d -w=60"
+
    local argA = {}
    for i = 1,#a do
       local v = a[i]
-      argA[#argA+1] = v
-      -- Fix this so that it stops at the end of the string or
-      -- an "=".
-
-      --if (v:find("^%-%w+")) then
-      --   local n = v:len()
-      --   for j = 2,n do
-      --      argA[#argA+1] = "-"..v:sub(j,j)
-      --   end
-      --else
-      --   argA[#argA+1] = v
-      --end
+      if (v:find("^%-%w+")) then
+         local vLen    = v:len()
+         local current = v:sub(2,2)
+         for j = 2,vLen do
+            local nxt  = v:sub(j+1,j+1)
+            if (nxt ~= "=") then
+               argA[#argA+1] = "-"..current
+            else
+               argA[#argA+1] = "-"..v:sub(j,-1)
+               break
+            end
+            current = nxt
+         end
+      else
+         argA[#argA+1] = v
+      end
    end
-      
-
 
    local noProcess = nil
    local parg      = {}
