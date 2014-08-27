@@ -138,13 +138,10 @@ function M.new(self, t)
 end
 
 function M.add_option(self, myTable)
-   local opt   = Option:new(myTable)
-
-   local names = opt:optionNames()
-
+   local opt           = Option:new(myTable)
+   local names         = opt:optionNames()
    local systemDefault = opt.table.system
-
-   local safeToAdd = true
+   local safeToAdd     = true
 
    for i,v in ipairs(names) do
       local _, _, dash, key = v:find("^(%-%-?)([^=-][^=]*)")

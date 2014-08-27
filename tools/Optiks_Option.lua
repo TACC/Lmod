@@ -52,7 +52,15 @@ validTypes =   { number = 1,
 
 
 function M.optionNames(self)
-   return self.table.name
+   local a = self.table.name
+   local b = {}
+   for i = 1,#a do
+      b[#b+1] = a[i]
+      if (a[i]:find("_")) then
+         b[#b+1] = a[i]:gsub("_","-")
+      end
+   end
+   return b
 end
 
 function M.bless(self)
