@@ -352,34 +352,9 @@ function M.parse(self, argIn)
    ------------------------------------------------------------------------
    -- Copy env var string and command line args into a
 
-   local a = self:parseEnvArg()
+   local argA = self:parseEnvArg()
    for i = 1,#argIn do
-      a[#a+1] = argIn[i]
-   end
-
-   ------------------------------------------------------------------------
-   -- split any single letter options grouped together.  So "-tdw=60" 
-   -- becomes: "-t -d -w=60"
-
-   local argA = {}
-   for i = 1,#a do
-      local v = a[i]
-      if (v:find("^%-%w+")) then
-         local vLen    = v:len()
-         local current = v:sub(2,2)
-         for j = 2,vLen do
-            local nxt  = v:sub(j+1,j+1)
-            if (nxt ~= "=") then
-               argA[#argA+1] = "-"..current
-            else
-               argA[#argA+1] = "-"..v:sub(j,-1)
-               break
-            end
-            current = nxt
-         end
-      else
-         argA[#argA+1] = v
-      end
+      argA[#argA+1] = argIn[i]
    end
 
    local noProcess = nil
@@ -389,6 +364,29 @@ function M.parse(self, argIn)
    while (argA[1]) do
       local key = argA[1]
       table.remove(argA,1)
+      -------------------------------------------------------------------
+      -- split any single letter options grouped together.  So "-tdw=60" 
+      -- becomes: "-t -d -w=60"
+      if (not noProcess and key:find("^%-%w+")) then
+         local a       = {}
+         local keyLen  = key:len()
+         local current = key:sub(2,2)
+         for j = 2,keyLen do
+            local nxt = key:sub(j+1,j+1)
+            if (nxt ~= "=") then
+               a[#a+1] = "-"..current
+            else
+               a[#a+1] = "-"..key:sub(j,-1)
+               break
+            end
+            current = nxt
+         end
+         key = a[1]
+         for i = #a,2,-1 do
+            table.insert(argA,1,a[i])
+         end
+      end
+
       local _, _, dash, optName = key:find("^(%-%-?)([^=-][^=]*)")
       local _, _, arg           = key:find("=(.*)")
       if (key == "--") then

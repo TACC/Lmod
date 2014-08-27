@@ -92,15 +92,29 @@ function main()
    --           number of arguments the option requires
 
    local lmodOptT = {
-      ["-?"] = 0, ["-h"] = 0, ["--help"] = 0, ["-d"]=0, ["--version"]=0,
-      ["--old_style"] = 0, ["--expert"]=0, ["--novice"]=0, ["-D"]=0,
-      ["--localvar"]=1, ["--terse"] = 0, ["-t"] = 0, ["--latest"] = 0,
-      ["--versoin"]=0, ["--ver"]=0, ["--v"]=0, ["-v"]=0,['--config'] = 0,
-      ["--mt"] = 0, ["--ignore_cache"] = 0, ["--dumpversion"] = 0,
-      ["--force"] = 0,['-w'] = 1, ['--width'] = 1, ['-r'] = 0,
-      ['--regexp'] = 0, ['--raw'] = 0,["-q"] = 0, ["--quiet"] = 0,
-      ["--timer"] = 0, ["--redirect"] = 0, ["--no_redirect"] = 0,
-      ["--spider_timeout"] = 1, ['-s'] = 1, ['--style'] = 1,
+      ["--old_style"] = 0,
+      ["-D"]=0,
+      ["-?"] = 0, ["-h"] = 0, ["--help"] = 0, ["-H"] = 0,
+      ["--default"]=0,  ["-d"]=0,
+      ["--dumpversion"] = 0,
+      ["--expert"]=0,   ["--novice"]=0, 
+      ["--force"] = 0,
+      ["--ignore_cache"] = 0,  ["--ignore-cache"] = 0,
+      ["--initial_load"] = 0,  ["--initial-load"] = 0,
+      ["--latest"] = 0,
+      ["--localvar"]=1,
+      ["--mt"] = 0,
+      ["--quiet"] = 0,  ["-q"] = 0, 
+      ["--redirect"] = 0, ["--no_redirect"] = 0, ["--no-redirect"] = 0,
+      ["--spider_timeout"] = 1,       ["--spider-timeout"] = 1,
+      ["--terse"] = 0,  ["-t"] = 0, 
+      ["--timer"] = 0, 
+      ["--version"]=0,  ["--versoin"]=0, ["--ver"]=0, ["--v"]=0, ["-v"]=0,
+      ['--config'] = 0,
+      ['--raw'] = 0,
+      ['--regexp'] = 0, ['-r'] = 0,
+      ['--style'] = 1,  ['-s'] = 1, 
+      ['--width'] = 1,  ['-w'] = 1, 
    }
 
    local translateT = {
