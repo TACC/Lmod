@@ -384,14 +384,18 @@ if test -n "$PATH_TO_ZSH" ; then
   for dir in $fpath ; do
     case $dir in
       */site-functions)
-        echo $dir >&2
+        echo $dir
         ;;      
     esac
   done
 EOF
 
    chmod +x conftest.zsh
-   ZSH_SITE_FUNCTIONS_DIR=`$PATH_TO_ZSH -f ./conftest.zsh 2>&1 >/dev/null`
+   ZSH_SITE_FUNCTIONS_DIR=`$PATH_TO_ZSH -f ./conftest.zsh 2> /dev/null`
+   if test ! -d "$ZSH_SITE_FUNCTIONS_DIR" ; then
+     ZSH_SITE_FUNCTIONS_DIR=/dev/null
+   fi
+
    rm conftest.zsh
 fi
 
