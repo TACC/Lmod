@@ -51,6 +51,9 @@ validTypes =   { number = 1,
                }
 
 
+--------------------------------------------------------------------------
+-- Treat option with underscores the same as ones with dashes.
+
 function M.optionNames(self)
    local a = self.table.name
    local b = {}

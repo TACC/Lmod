@@ -350,10 +350,29 @@ function M.parse(self, argIn)
    end
 
 
-   local argA = self:parseEnvArg()
+   local a = self:parseEnvArg()
    for i = 1,#argIn do
-      argA[#argA+1] = argIn[i]
+      a[#a+1] = argIn[i]
    end
+
+   local argA = {}
+   for i = 1,#a do
+      local v = a[i]
+      argA[#argA+1] = v
+      -- Fix this so that it stops at the end of the string or
+      -- an "=".
+
+      --if (v:find("^%-%w+")) then
+      --   local n = v:len()
+      --   for j = 2,n do
+      --      argA[#argA+1] = "-"..v:sub(j,j)
+      --   end
+      --else
+      --   argA[#argA+1] = v
+      --end
+   end
+      
+
 
    local noProcess = nil
    local parg      = {}
