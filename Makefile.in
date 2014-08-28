@@ -353,7 +353,6 @@ gittag:
             echo '   if (s == "@" .. "git@") then s = "" end'     >> $(VERSION_SRC); \
             echo '   return s'                                    >> $(VERSION_SRC); \
             echo 'end'                                            >> $(VERSION_SRC); \
-	    echo 'function M.git()  return "@git@"    end'        >> $(VERSION_SRC); \
 	    echo 'function M.date() return "$(VDATE)" end'        >> $(VERSION_SRC); \
 	    echo 'function M.name()'                              >> $(VERSION_SRC); \
             echo '  local a = {}'                                 >> $(VERSION_SRC); \
