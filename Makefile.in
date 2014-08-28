@@ -114,6 +114,7 @@ install: pre-install  zsh_tab_funcs
 
 echo:
 	@echo Version: $(version)
+	@echo GIT_VERSION: $(GIT_VERSION)
 	@echo IGNORE_DIRS: $(IGNORE_DIRS)
 
 man_pages:
@@ -226,7 +227,7 @@ _distSrc:
 	cp shells/*.lua $(DistD)/shells
 
 _distVersion:
-	perl -p -i -e 's/\@git\@/$(GIT_VERSION)/g' $(DistD)/src/Version.lua
+	perl -p -i -e 's/@git[@]/$(GIT_VERSION)/g' $(DistD)/src/Version.lua
 
 _distPkgs:
 	mkdir $(DistD)/pkgs
