@@ -884,7 +884,7 @@ function M.getMTfromFile(self,t)
    if (#aa > 0) then
       LmodWarning("One or more modules in your ",collectionName,
                   " collection have changed: \"", concatTbl(aa,"\", \""),"\".")
-      LmodMessage("To rebuild the collection: load the modules you wish then do:")
+      LmodMessage("To rebuild the collection, load the modules you wish then do:")
       LmodMessage("  $ module save ",collectionName)
       LmodMessage("If you nolonger want this module collection do:")
       LmodMessage("  rm ~/.lmod.d/",collectionName,"\n")
