@@ -3201,7 +3201,7 @@ printf "checking for valid Lua version"
 
 LuaV=$( $luaprog -e 'print(_VERSION)' | sed -e 's/Lua //' )
 LmodV=$( $luaprog  -e 'v=require("src/Version"); s=v.name():gsub(" .*","");print(s)')
-if test -n $PATH_TO_GIT -a -d .git ; then
+if test -n "$PATH_TO_GIT" -a -d .git ; then
   lmodV=$($PATH_TO_GIT describe)
 else
   lmodV=$($luaprog -e 'v=require("src/Version"); s=v.git():gsub(" .*","");print(s)')
