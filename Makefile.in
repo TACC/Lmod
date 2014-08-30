@@ -193,6 +193,7 @@ pkgs:
 zsh_tab_funcs: $(ZSH_FUNCS)
 	-if [ -n "$(ZSH_SITE_FUNCTIONS_DIR)" ]; then                \
           cp $^ $(DESTDIR)$(ZSH_SITE_FUNCTIONS_DIR)  2> /dev/null;  \
+	  true
         fi
 
 makefile: $(PATH_TO_SRC)/Makefile.in config.status
