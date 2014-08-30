@@ -886,7 +886,7 @@ function M.getMTfromFile(self,t)
                   " collection have changed: \"", concatTbl(aa,"\", \""),"\".")
       LmodMessage("To rebuild the collection, load the modules you wish then do:")
       LmodMessage("  $ module save ",collectionName)
-      LmodMessage("If you nolonger want this module collection do:")
+      LmodMessage("If you no longer want this module collection do:")
       LmodMessage("  rm ~/.lmod.d/",collectionName,"\n")
       LmodMessage("For more information execute 'module help' or see www.tacc.utexas.edu/tacc-projects/lmod/user-guide/loading-modules\n")
       return false
