@@ -13,7 +13,32 @@ Feature/Bug fixes:
       in the Module directories. If you use CVS, RCS or SCCS to
       source control your modulefiles, you will need configure
       Lmod to know about those directories.
+   d) New avail hook added.  You can regroup the output of avail.
+      The avail hook gets a table of current directories that avail
+      will list.  Your routine can relabel them.  The input looks
+      like this:
 
+         t = {
+	    ['/path/to/IntelCmp/mfiles'] = "/path/to/IntelCmp/mfiles"
+	    ['/path/to/core/mfiles']     = "/path/to/core/mfiles"
+	 }
+	    
+      Your routine can relabel and change the labels
+
+         t = {
+	    ['/path/to/IntelCmp/mfiles'] = "Compiler Dependent"
+	    ['/path/to/core/mfiles']     = "Core Modules"
+	 }
+      You can also group them
+         t = {
+	    ['/path/to/IntelCmp/mfiles'] = "Modules"
+	    ['/path/to/core/mfiles']     = "Modules"
+	 }
+      In the last case intel modules and core modules will be 
+      grouped together.
+   e) Better handling of zsh tab completion files.  Lmod will
+      continue to install even when a site's zsh setup is
+      broken.
 
 Lmod Version 5.7.4
 Feature/Bug fixes:
