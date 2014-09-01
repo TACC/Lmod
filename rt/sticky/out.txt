@@ -694,3 +694,63 @@ MODULEPATH="ProjectDIR/rt/sticky/mf/Shared:ProjectDIR/rt/sticky/mf/Core";
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/sticky/mf/Core",},family={},inactive={},mT={M1={["FN"]="ProjectDIR/rt/sticky/mf/Core/M1.lua",["default"]=0,["fullName"]="M1",["loadOrder"]=1,propT={state={["obsolete"]=1,},},["short"]="M1",["status"]="active",},},mpathA={"ProjectDIR/rt/sticky/mf/Shared","ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",["version"]=2,}';
 export _ModuleTable_;
+===========================
+step 42
+lua ProjectDIR/src/lmod.in.lua bash --force purge
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/sticky/mf/Shared:ProjectDIR/rt/sticky/mf/Core";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+unset LOADEDMODULES;
+MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
+export MODULEPATH;
+unset _LMFILES_;
+_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/sticky/mf/Core",},family={},inactive={},mT={},mpathA={"ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",["version"]=2,}';
+export _ModuleTable_;
+===========================
+step 43
+lua ProjectDIR/src/lmod.in.lua bash reset
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
+export MODULEPATH;
+A_VERSION="1.0";
+export A_VERSION;
+B_VERSION="1.1";
+export B_VERSION;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+LOADEDMODULES="a/1.0:b/1.1:StdEnv";
+export LOADEDMODULES;
+MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
+export MODULEPATH;
+_LMFILES_="ProjectDIR/rt/sticky/mf/Core/a/1.0.lua:ProjectDIR/rt/sticky/mf/Core/b/1.1.lua:ProjectDIR/rt/sticky/mf/Core/StdEnv.lua";
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/sticky/mf/Core",},family={},inactive={},mT={StdEnv={["FN"]="ProjectDIR/rt/sticky/mf/Core/StdEnv.lua",["default"]=0,["fullName"]="StdEnv",["loadOrder"]=3,propT={lmod={["sticky"]=1,},},["short"]="StdEnv",["status"]="active",},a={["FN"]="ProjectDIR/rt/sticky/mf/Core/a/1.0.lua",["default"]=1,["fullName"]="a/1.0",["loadOrder"]=1,propT={},["short"]="a",["status"]="active",},b={["FN"]="ProjectDIR/rt/sticky/mf/Core/b/1.1.lua",["default"]=1,["fullName"]="b/1.1",["loadOrder"]=2,propT={},["short"]="b",["status"]="active",},},mpathA={"ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",["version"]=2,}';
+export _ModuleTable_;
+===========================
+step 44
+lua ProjectDIR/src/lmod.in.lua bash reset
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
+export MODULEPATH;
+A_VERSION="1.0";
+export A_VERSION;
+B_VERSION="1.1";
+export B_VERSION;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+LOADEDMODULES="a/1.0:b/1.1:StdEnv";
+export LOADEDMODULES;
+MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
+export MODULEPATH;
+_LMFILES_="ProjectDIR/rt/sticky/mf/Core/a/1.0.lua:ProjectDIR/rt/sticky/mf/Core/b/1.1.lua:ProjectDIR/rt/sticky/mf/Core/StdEnv.lua";
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/sticky/mf/Core",},family={},inactive={},mT={StdEnv={["FN"]="ProjectDIR/rt/sticky/mf/Core/StdEnv.lua",["default"]=0,["fullName"]="StdEnv",["loadOrder"]=3,propT={lmod={["sticky"]=1,},},["short"]="StdEnv",["status"]="active",},a={["FN"]="ProjectDIR/rt/sticky/mf/Core/a/1.0.lua",["default"]=1,["fullName"]="a/1.0",["loadOrder"]=1,propT={},["short"]="a",["status"]="active",},b={["FN"]="ProjectDIR/rt/sticky/mf/Core/b/1.1.lua",["default"]=1,["fullName"]="b/1.1",["loadOrder"]=2,propT={},["short"]="b",["status"]="active",},},mpathA={"ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",["version"]=2,}';
+export _ModuleTable_;

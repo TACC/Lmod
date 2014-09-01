@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.6 5.6-9-gd0a9c1b 2014-05-27 15:15
+Modules based on Lua: Version 5.7.5  2014-09-01 09:24
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -248,3 +248,17 @@ Currently Loaded Modules:
   1) M1 (O)
   Where:
    (O):  Obsolete
+===========================
+step 42
+lua ProjectDIR/src/lmod.in.lua bash --force purge
+===========================
+===========================
+step 43
+lua ProjectDIR/src/lmod.in.lua bash reset
+===========================
+Restoring modules to system default
+===========================
+step 44
+lua ProjectDIR/src/lmod.in.lua bash reset
+===========================
+Restoring modules to system default

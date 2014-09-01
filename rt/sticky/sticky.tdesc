@@ -70,8 +70,10 @@ testdescript = {
      runLmod save               #39
      runLmod restore            #40
      runLmod list               #41
-
-
+     export LMOD_SYSTEM_DEFAULT_MODULES=StdEnv
+     runLmod --force purge      #42
+     runLmod reset              #43
+     runLmod reset              #44
 
      HOME_ORIG=$HOME
 

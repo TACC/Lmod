@@ -466,7 +466,8 @@ end
 
 function Reset(msg)
    dbg.start{"Reset()"}
-   Purge()
+   local force = true
+   Purge(force)
    local default = os.getenv("LMOD_SYSTEM_DEFAULT_MODULES") or ""
    dbg.print{"default: \"",default,"\"\n"}
 
