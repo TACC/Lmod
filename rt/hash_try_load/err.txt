@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.7.3.1 5.7.3.1 2014-08-13 16:43
+Modules based on Lua: Version 5.7.5  2014-09-01 09:24
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -32,9 +32,9 @@ lua ProjectDIR/src/lmod.in.lua bash restore
 ===========================
 Restoring modules to user's default
 Lmod Warning: One or more modules in your default collection have changed: "cluster".
-To rebuild the collection: load the modules you wish then do:
+To rebuild the collection, load the modules you wish then do:
   $ module save default
-If you nolonger want this module collection do:
+If you no longer want this module collection do:
   rm ~/.lmod.d/default
 For more information execute 'module help' or see www.tacc.utexas.edu/tacc-projects/lmod/user-guide/loading-modules
 Restoring modules to system default
