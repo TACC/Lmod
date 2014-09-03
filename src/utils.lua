@@ -58,7 +58,6 @@ local getenv       = os.getenv
 local huge         = math.huge
 
 local rep          = string.rep
-local T0           = os.time()
 local load         = (_VERSION == "Lua 5.1") and loadstring or load
 
 --------------------------------------------------------------------------
@@ -135,19 +134,19 @@ function build_epoch()
          epoch_type = "posix.gettimeofday() (1)"
          epoch = function()
             local t = posix.gettimeofday()
-            return (t.sec - T0) + t.usec*1.0e-6
+            return t.sec + t.usec*1.0e-6
          end
       else
          epoch_type = "posix.gettimeofday() (2)"
          epoch = function()
             local t1, t2 = posix.gettimeofday()
-            return (t1 - T0) + t2*1.0e-6
+            return t1 + t2*1.0e-6
          end
       end
    else
       epoch_type = "os.time"
       epoch = function()
-         return os.time() - T0
+         return os.time()
       end
    end
 end
