@@ -60,13 +60,12 @@ end
 
 function Python.expandVar(self, k, v, vType)
    local lineA = {}
-   v = singleQuoteEscaped(v)
 
-   lineA[#lineA + 1] = "os.environ['"
-   lineA[#lineA + 1] = k
-   lineA[#lineA + 1] = "'] = '"
-   lineA[#lineA + 1] = v
-   lineA[#lineA + 1] = "';\n"
+   lineA[#lineA + 1] = 'os.environ['
+   lineA[#lineA + 1] = doubleQuoteString(k)
+   lineA[#lineA + 1] = '] = '
+   lineA[#lineA + 1] = doubleQuoteString(v)
+   lineA[#lineA + 1] = ';\n'
    local line        = concatTbl(lineA,"")
    stdout:write(line)
    dbg.print{   line}

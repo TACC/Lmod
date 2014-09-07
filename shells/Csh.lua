@@ -79,20 +79,20 @@ end
 
 function Csh.expandVar(self, k, v, vType)
    local lineA       = {}
-   local middle      = ' "'
+   local middle      = ' '
    v                 = tostring(v)
    v                 = v:gsub("!","\\!")
-   v                 = doubleQuoteEscaped(v)
+   v                 = doubleQuoteString(v)
    if (vType == "local_var") then
       lineA[#lineA + 1] = "set "
-      middle            = "=\""
+      middle            = "="
    else
       lineA[#lineA + 1] = "setenv "
    end
    lineA[#lineA + 1] = k
    lineA[#lineA + 1] = middle
    lineA[#lineA + 1] = v
-   lineA[#lineA + 1] = "\";\n"
+   lineA[#lineA + 1] = ";\n"
    local  line       = concatTbl(lineA,"")
    stdout:write(line)
    dbg.print{   line}

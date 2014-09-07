@@ -275,6 +275,8 @@ function getMT()
    local mtSz = getenv("_ModuleTable_Sz_") or huge
    local s    = nil
 
+   --io.stderr:write("mtSz: ",tostring(mtSz),"\n")
+
    for i = 1, mtSz do
       local name = format("_ModuleTable%03d_",i)
       local v    = getenv(name)

@@ -86,11 +86,11 @@ end
 
 function Bash.expandVar(self, k, v, vType)
    local lineA       = {}
-   v                 = doubleQuoteEscaped(tostring(v))
+   v                 = doubleQuoteString(v)
    lineA[#lineA + 1] = k
-   lineA[#lineA + 1] = "=\""
+   lineA[#lineA + 1] = "="
    lineA[#lineA + 1] = v
-   lineA[#lineA + 1] = "\";\n"
+   lineA[#lineA + 1] = ";\n"
    if (vType ~= "local_var") then
       lineA[#lineA + 1] = "export "
       lineA[#lineA + 1] = k

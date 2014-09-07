@@ -27,10 +27,14 @@
 --------------------------------------------------------------------------
 -- Simple string conversion routines doing what they say.
 
-function doubleQuoteEscaped(s)
-   if (s == nil) then return s end
-   s = s:gsub('"','\\"')
-   return s
+--- Wrap input string with double quotes
+-- @param  s Input string
+-- @return A string surrounded with double quotes internal double quotes backslashed
+function doubleQuoteString(s)
+   if (type(s) ~= 'string') then 
+      s = tostring(s)
+   end
+   return ('%q'):format(s)
 end
 
 function singleQuoteEscaped(s)
