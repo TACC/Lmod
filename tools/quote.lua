@@ -33,8 +33,10 @@
 function doubleQuoteString(s)
    if (type(s) ~= 'string') then 
       s = tostring(s)
+   else
+      s = ('%q'):format(s)
    end
-   return ('%q'):format(s)
+   return s
 end
 
 function singleQuoteEscaped(s)
