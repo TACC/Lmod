@@ -24,8 +24,7 @@
 --
 --------------------------------------------------------------------------
 
---------------------------------------------------------------------------
--- Simple string conversion routines doing what they say.
+require("strict")
 
 --- Wrap input string with double quotes
 -- @param  s Input string
@@ -39,12 +38,9 @@ function doubleQuoteString(s)
    return s
 end
 
-function singleQuoteEscaped(s)
-   if (s == nil) then return s end
-   s = s:gsub("'","\\'")
-   return s
-end
-
+--- Escape @ character in input string.
+-- @param  s Input string.
+-- @return   An escaped @ in output.
 function atSymbolEscaped(s)
    if (s == nil) then return s end
    s = s:gsub('@','\\@')
