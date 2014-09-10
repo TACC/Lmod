@@ -35,8 +35,9 @@ local lfs       = require("lfs")
 local concatTbl = table.concat
 
 --------------------------------------------------------------------------
--- findInPath(): find the absolute path to an executable.
-
+--- find the absolute path to an executable.
+-- @string exec Name of executable
+-- @string path The path to use. If nil then use env PATH.
 function findInPath(exec, path)
    local result  = ""
    if ( exec == nil) then return result end
@@ -69,9 +70,8 @@ function findInPath(exec, path)
 end
 
 ------------------------------------------------------------------------
--- isDir(): Return true if path is a directory.  Note that a symlink to
---          a directory is not a directory.
-
+--- Return true if path is a directory.  Note that a symlink to a directory is not a directory.
+-- @string d A file path
 function isDir(d)
    if (d == nil) then return false end
    local t = posix.stat(d,"type")
@@ -82,8 +82,8 @@ function isDir(d)
 end
 
 --------------------------------------------------------------------------
--- isFile(): Return true if file exists is and is a file or link.
-
+--- Return true if file exists is and is a file or link.
+-- @param fn A file path
 function isFile(fn)
    if (fn == nil) then return false end
    local t = posix.stat(fn,"type")
@@ -94,8 +94,8 @@ function isFile(fn)
 end
 
 --------------------------------------------------------------------------
--- isExec(): Returns true if file is readable and executable.
-
+--- Returns true if file is readable and executable.
+--  @param fn A file path
 function isExec(fn)
    if (fn == nil) then return false end
    local result = posix.access(fn,"rx")
@@ -103,9 +103,8 @@ function isExec(fn)
 end
 
 --------------------------------------------------------------------------
--- dirname(): Return the directory part of path. Will return "./" if path
---            is without a directory.
-
+--- Return the directory part of path. Will return "./" if path is without a directory.
+--  @param path A file path
 function dirname(path)
    if (path == nil) then return nil end
    local result
@@ -119,8 +118,8 @@ function dirname(path)
 end
 
 --------------------------------------------------------------------------
--- extname(): Return the extension of a file or "" if there is none.
-
+--- Return the extension of a file or "" if there is none.
+--  @param path A file path
 function extname(path)
    if (path == nil) then return nil end
    local result
@@ -135,7 +134,8 @@ function extname(path)
 end
 
 --------------------------------------------------------------------------
--- removeExt(): Remove extension from path.
+--- Remove extension from path.
+--  @param path A file path
 
 function removeExt(path)
    if (path == nil) then return nil end
