@@ -126,7 +126,8 @@ function GetDefault(a)
    a          = a or "default"
    dbg.start{"GetDefault(",a,")"}
 
-   local path = pathJoin(os.getenv("HOME"), ".lmod.d", a)
+   local sname = (LMOD_SYSTEM_NAME == nil) and "" or "." .. LMOD_SYSTEM_NAME 
+   local path = pathJoin(os.getenv("HOME"), ".lmod.d", a .. sname)
    local mt   = MT:mt()
    mt:getMTfromFile{fn=path, name=a}
    dbg.fini("GetDefault")
@@ -519,7 +520,6 @@ function Restore(a)
       sname   = "." .. sname
    end
 
-
    if (a == nil) then
       path = pathJoin(os.getenv("HOME"), ".lmod.d", "default" .. sname)
       if (not isFile(path)) then
@@ -546,7 +546,7 @@ function Restore(a)
       msg = "user's ".. a .. msgTail
    end
 
-   if (masterTbl.initial) then
+   if (masterTbl.quiet and masterTbl.initial) then
       msg = false
    end
 
