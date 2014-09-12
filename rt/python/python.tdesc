@@ -24,7 +24,7 @@ testdescript = {
      numStep=0
      COUNT=0
      HOME=`(cd $HOME; /bin/pwd)`
-
+     rm -rf init
      mkdir init
      sed -e 's|@PKG@/libexec/lmod|lua $(projectDir)/src/lmod.in.lua|g' \
               < $(projectDir)/init/env_modules_python.py.in > init/env_modules_python.py

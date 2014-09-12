@@ -546,7 +546,7 @@ function Restore(a)
       msg = "user's ".. a .. msgTail
    end
 
-   if (masterTbl.quiet and masterTbl.initial) then
+   if (masterTbl.quiet or masterTbl.initial) then
       msg = false
    end
 
@@ -554,7 +554,7 @@ function Restore(a)
       Reset(msg)
    else
       local mt      = MT:mt()
-      local results = mt:getMTfromFile{fn=path, name=myName, msg=msg} or Reset(true)
+      local results = mt:getMTfromFile{fn=path, name=myName, msg=msg} or Reset(msg)
    end
 
    dbg.fini("Restore")

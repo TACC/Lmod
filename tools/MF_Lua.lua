@@ -49,24 +49,21 @@ MF_Lmod.my_name   = "Lmod"
 -- MF_Lmod:setenv(): generate string for setenv write in Lua.
 
 function MF_Lmod.setenv(self, k, v)
-   v = doubleQuoteEscaped(v)
-   return "setenv(\"" .. k .. "\",\"" .. v .. "\")"
+   return "setenv(" .. doubleQuoteString(k) .. "," .. doubleQuoteString(v) .. ")"
 end
 
 --------------------------------------------------------------------------
 -- MF_Lmod:prepend_path(): generate string for prepend_path write in Lua.
 
 function MF_Lmod.prepend_path(self, k, v)
-   v = doubleQuoteEscaped(v)
-   return "prepend_path(\"" .. k .. "\",\"" .. v .. "\")"
+   return "prepend_path(" .. doubleQuoteString(k) .. "," .. doubleQuoteString(v) .. ")"
 end
 
 --------------------------------------------------------------------------
 -- MF_Lmod:append_path(): generate string for prepend_path write in Lua.
 
 function MF_Lmod.append_path(self, k, v)
-   v = doubleQuoteEscaped(v)
-   return "append_path(\"" .. k .. "\",\"" .. v .. "\")"
+   return "append_path(" .. doubleQuoteString(k) .. "," .. doubleQuoteString(v) .. ")"
 end
 
 return MF_Lmod

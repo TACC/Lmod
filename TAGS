@@ -303,28 +303,28 @@ local function Access(66,2916
 local function findNamedCollections(92,3717
 function Avail(112,4362
 function GetDefault(125,4826
-function Help(139,5269
-function Keyword(160,5841
-function List(195,6709
-function Load_Try(322,9801
-function Load_Usr(345,10722
-function Purge(394,11912
-function RecordCmd(425,12737
-function Refresh(454,13559
-function Reset(467,14032
-function Restore(506,15089
-function Save(573,17056
-function SaveList(636,18867
-function SearchCmd(683,20031
-function Show(699,20636
-function SpiderCmd(724,21473
-function Swap(769,22711
-function TableList(815,23942
-function Update(836,24525
-function Use(846,24860
-function UnUse(889,26080
-function UnLoad(907,26627
-function Whatis(916,26920
+function Help(140,5356
+function Keyword(161,5928
+function List(196,6796
+function Load_Try(323,9888
+function Load_Usr(346,10809
+function Purge(395,11999
+function RecordCmd(426,12824
+function Refresh(455,13646
+function Reset(468,14119
+function Restore(507,15176
+function Save(573,17143
+function SaveList(636,18954
+function SearchCmd(683,20118
+function Show(699,20723
+function SpiderCmd(724,21560
+function Swap(769,22798
+function TableList(815,24029
+function Update(836,24612
+function Use(846,24947
+function UnUse(889,26167
+function UnLoad(907,26714
+function Whatis(916,27007
 
 src/MT.lua,2651
 function M.name(70,2716
@@ -421,32 +421,32 @@ function quiet(209,6342
 function extractVersion(221,6734
 function ignoreFileT(259,7466
 function getMT(273,7917
-function allVersions(290,8271
-function indexPath(321,9228
-function lastFileInPathA(385,10703
-function length(410,11311
-function masterTbl(420,11624
-function path2pathA(439,12473
-function findAdminFn(492,13607
-function readAdmin(511,14107
-function readRC(583,16091
-function getPropT(613,16749
-function getSCDescriptT(617,16792
-function getRCFileA(621,16847
-local function arg2str(625,16894
-function ShowCmdStr(644,17311
-function ShowCmdA(690,18267
-function UUIDString(709,18691
-function moduleRCFile(724,19151
-function versionFile(767,20547
-function setenv_lmod_version(838,22998
-function walk_directory_for_mf(878,23835
-function activateWarning(944,26512
-function deactivateWarning(948,26569
-function haveWarnings(952,26629
-function clearWarningFlag(956,26683
-function setWarningFlag(960,26737
-function getWarningFlag(964,26788
+function allVersions(292,8323
+function indexPath(323,9280
+function lastFileInPathA(387,10755
+function length(412,11363
+function masterTbl(422,11676
+function path2pathA(441,12525
+function findAdminFn(494,13659
+function readAdmin(513,14159
+function readRC(585,16143
+function getPropT(615,16801
+function getSCDescriptT(619,16844
+function getRCFileA(623,16899
+local function arg2str(627,16946
+function ShowCmdStr(646,17363
+function ShowCmdA(692,18319
+function UUIDString(711,18743
+function moduleRCFile(726,19203
+function versionFile(769,20599
+function setenv_lmod_version(840,23050
+function walk_directory_for_mf(880,23887
+function activateWarning(946,26564
+function deactivateWarning(950,26621
+function haveWarnings(954,26681
+function clearWarningFlag(958,26735
+function setWarningFlag(962,26789
+function getWarningFlag(966,26840
 
 src/processModuleUsage.in.lua,234
 function cmdDir(49,1989
@@ -545,9 +545,9 @@ function M.expand(497,16261
 
 src/Version.lua,90
 function M.tag(3,31
-function M.git(4,72
-function M.date(10,221
-function M.name(11,269
+function M.git(4,70
+function M.date(10,218
+function M.name(11,266
 
 src/ModuleStack.lua,279
 local function new(67,2808
@@ -908,8 +908,8 @@ function M.build_tbl(417,12045
 
 tools/MF_Lua.lua,110
 function MF_Lmod.setenv(51,2188
-function MF_Lmod.prepend_path(59,2460
-function MF_Lmod.append_path(67,2743
+function MF_Lmod.prepend_path(58,2461
+function MF_Lmod.append_path(65,2745
 
 tools/deepcopy.lua,54
 function isDefined(92,4140
@@ -920,19 +920,19 @@ function string:trim(31,1443
 function string:split(46,1856
 
 tools/fileOps.lua,376
-function findInPath(40,1700
-function isDir(75,2536
-function isFile(87,2830
-function isExec(99,3141
-function dirname(109,3451
-function extname(124,3815
-function removeExt(140,4188
-function barefilename(156,4586
-function splitFileName(171,4951
-function pathJoin(189,5412
-function mkdir_recursive(231,6452
-function abspath 255,6953
-function path_regularize(301,8057
+function findInPath(41,1780
+function isDir(75,2620
+function isFile(87,2929
+function isExec(99,3256
+function dirname(108,3569
+function extname(123,3950
+function removeExt(140,4339
+function barefilename(156,4737
+function splitFileName(171,5102
+function pathJoin(189,5563
+function mkdir_recursive(231,6603
+function abspath 255,7104
+function path_regularize(301,8208
 
 tools/declare.lua,54
 function declare(32,1546
@@ -999,10 +999,9 @@ function inheritsFrom(31,1499
 tools/fillWords.lua,28
 function fillWords(35,1510
 
-tools/quote.lua,108
-function doubleQuoteEscaped(30,1431
-function singleQuoteEscaped(36,1539
-function atSymbolEscaped(42,1647
+tools/quote.lua,70
+function doubleQuoteString(32,1468
+function atSymbolEscaped(44,1717
 
 tools/json.lua,435
 function encode 64,2476
@@ -10702,19 +10701,19 @@ function Python.alias(49,2187
 function Python.shellFunc(53,2287
 function Python.echo(57,2401
 function Python.expandVar(61,2456
-function Python.unset(75,2793
+function Python.unset(74,2798
 
 shells/Bash.lua,125
 function Bash.alias(55,2379
 function Bash.shellFunc(71,2954
 function Bash.expandVar(87,3439
-function Bash.unset(107,4018
+function Bash.unset(107,4003
 
 shells/Csh.lua,121
 function Csh.alias(55,2402
 function Csh.shellFunc(72,2935
 function Csh.expandVar(80,3187
-function Csh.unset(104,3881
+function Csh.unset(104,3875
 
 shells/BaseShell.lua,327
 function M.name(68,2780
@@ -10734,7 +10733,7 @@ function Perl.alias(48,2140
 function Perl.shellFunc(52,2237
 function Perl.echo(56,2348
 function Perl.expandVar(60,2401
-function Perl.unset(74,2754
+function Perl.unset(74,2740
 
 shells/Bare.lua,30
 function Bare.expand(44,1887
