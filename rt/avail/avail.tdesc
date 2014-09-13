@@ -39,7 +39,7 @@ testdescript = {
      runLmod --show_hidden avail      # 7
      runLmod -t    avail              # 8
      runLmod -t --show_hidden avail   # 9
-     runLmod -t -d avail              # 0
+     runLmod -t -d avail              #10
      runLmod -t    avail git          #11
      runLmod -t -d avail git          #12
      runLmod -t    avail git/1.7.4.3  #13
