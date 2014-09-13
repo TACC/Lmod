@@ -196,7 +196,7 @@ zsh_tab_funcs: $(ZSH_FUNCS)
 	  true;                                                     \
         fi
 
-makefile: $(PATH_TO_SRC)/Makefile.in config.status
+makefile: $(PATH_TO_SRC)/Makefile.in ./config.status
 	./config.status $@
 
 config.status:
