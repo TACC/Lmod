@@ -50,6 +50,7 @@ local rep       = string.rep
 local s_bannerT = false
 
 
+
 local function new(self)
    local o = {}
    setmetatable(o,self)
@@ -60,6 +61,9 @@ local function new(self)
    return o
 end
 
+--- A Banner singleton class
+-- This singleton class constructs a banner object.
+-- @return a banner object singleton
 
 function M.banner(self)
    if (not s_bannerT) then
@@ -69,10 +73,15 @@ function M.banner(self)
    return s_bannerT
 end
 
+--- Access function return the current terminal width.
+-- @return the current termwidth
+
 function M.width(self)
    return self.__termwidth
 end
 
+--- Member function to register a number spaces between term width and banner.
+-- @param nspaces the number of spaces to the left of the banner.
 function M.border(self, nspaces)
    if (not self.__borderG or nspaces ~= self.__nspacesG) then
       self.__nspacesG = nspaces
@@ -86,6 +95,8 @@ function M.border(self, nspaces)
    return self.__borderG
 end
 
+--- Member function to output the banner itself with str in the middle.
+-- @param str input string.
 function M.bannerStr(self, str)
    local a       = {}
    local myWidth = self:width()
@@ -100,4 +111,5 @@ function M.bannerStr(self, str)
    return concatTbl(a,"")
 end
 
+---- finis -----
 return M
