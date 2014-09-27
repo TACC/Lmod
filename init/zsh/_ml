@@ -166,23 +166,23 @@ _ml_spider_list()
 
 _ml_unload()
 {
-  _module_loaded_modules
+  _ml_loaded_modules
   compadd "$@" -a -- _loaded_modules
 }
 
 _ml_help()
 {
-  _module_available_modules
+  _ml_available_modules
   compadd "$@" -a -- _available_modules
 }
 
 _ml_swap()
 {
   if [[ $words[$CURRENT-1] == "swap" ]]; then
-    _module_loaded_modules
+    _ml_loaded_modules
     compadd "$@" -a -- _loaded_modules
   else
-    _module_available_modules
+    _ml_available_modules
     compadd "$@" -a -- _available_modules
   fi
 }
@@ -218,7 +218,7 @@ _ml_unuse()
 # Completion function for whatis
 _ml_whatis()
 {
-  _module_available_modules
+  _ml_available_modules
   compadd "$@" -a -- _available_modules
 }
 
