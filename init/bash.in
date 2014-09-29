@@ -53,9 +53,9 @@ module()
   [ $? = 0 ] && eval $(${LMOD_SETTARG_CMD:-:} -s sh)
 }
 
-if [ -n "$BASH_VERSION" ]; then
-  export -f module
-fi
+#if [ -n "$BASH_VERSION" ]; then
+#  export -f module
+#fi
 
 
 if [ "${LMOD_SETTARG_CMD:-:}" != ":" ]; then
