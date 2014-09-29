@@ -1,3 +1,24 @@
+--------------------------------------------------------------------------
+-- This class is takes a array of strings and produced a multi-column output.
+-- Standard usage is:
+--
+--     local ct = ColumnTable:new{tbl=a, gap=2}
+--     io.stderr:write(ct:build_tbl())
+--
+-- Basic architecture of this class is:
+--
+--    1.  Use TermWidth to find the width available
+--    2.  Chose helper routine depending on if the input table is 1 or 2-D.
+--    3.  Compute the size of each row in szA and the min (imin) and max
+--        (imax) size for the column.
+--    4.  Use imin to compute the maximum number of columns possible.
+--    5.  Compute actual number columns that will fit.
+--    6.  Knowing the number of rows and columns, build the table.
+--
+-- @classmod ColumnTable 
+
+require("strict")
+
 ------------------------------------------------------------------------
 --
 --  Copyright (C) 2008-2014 Robert McLay
@@ -24,23 +45,6 @@
 --
 --------------------------------------------------------------------------
 
---------------------------------------------------------------------------
--- ColumnTable: This class is takes a array of strings and produced
---              a multi-column output.  Standard usage is:
---
---     local ct = ColumnTable:new{tbl=a, gap=2}
---     io.stderr:write(ct:build_tbl())
---------------------------------------------------------------------------
--- Basic architecture of this class is:
---   a) Use TermWidth to find the width available
---   b) Chose helper routine depending on if the input table is 1 or 2-D.
---   c) Compute the size of each row in szA and the min (imin) and max
---      (imax) size for the column.
---   d) Use imin to compute the maximum number of columns possible.
---   e) Compute actual number columns that will fit.
---   f) Knowing the number of rows and columns, build the table.
-
-require("strict")
 require("TermWidth")
 require("Dbg")
 local concatTbl = table.concat
@@ -55,8 +59,10 @@ M = { gap = 3, innerGap = 1 }
 local blank = ' '
 
 --------------------------------------------------------------------------
--- sizeMe and sizeMeHelper() : compute the number of dimension in input
---                             tbl.
+-- A recursive function to return the number of entries the current
+-- dimension
+-- @param a input array.
+-- @param dim size of a in each dimension.
 local function sizeMeHelper(a,dim)
    if (type (a) == "table") then
       dim[#dim+1] = #a
@@ -64,6 +70,10 @@ local function sizeMeHelper(a,dim)
    end
 end
 
+--------------------------------------------------------------------------
+-- compute the number of dimension in input table.
+-- @param a
+-- @return an array with the number of entries of a in each dimension
 local function sizeMe(a)
    local dim = {}
    sizeMeHelper(a,dim)
@@ -71,8 +81,9 @@ local function sizeMe(a)
 end
 
 --------------------------------------------------------------------------
--- ColumnTable:new(): Compute the actual number of rows and columns that
---                    will fit.
+-- Ctor to compute the actual number of rows and columns that will fit.
+-- @param self ColumnTable object
+-- @param t input table.
 function M.new(self,t)
    local tbl = t
    local o   = {}
@@ -92,24 +103,29 @@ function M.new(self,t)
    o.length        = o.len or strlen
    o.term_width    = width
    o.dim           = sizeMe(tbl)
-   o.__entry_width = M.__entry_width1
-   o.__display     = M.__display1
-   o.__columnSum   = M.__columnSum1
+   o._entry_width  = M._entry_width1
+   o._display      = M._display1
+   o._columnSum    = M._columnSum1
    if (#o.dim == 2) then
-      o.__entry_width = M.__entry_width2
-      o.__display     = M.__display2
-      o.__columnSum   = M.__columnSum2
-      tbl             = o:__clearEmptyColumns2D(tbl)
+      o._entry_width  = M._entry_width2
+      o._display      = M._display2
+      o._columnSum    = M._columnSum2
+      tbl             = o:_clearEmptyColumns2D(tbl)
       o.dim           = sizeMe(tbl)
    end
-   o:__number_of_columns_rows(tbl)
+   o:_number_of_columns_rows(tbl)
    o.tbl        = tbl
    o.prt        = t.prt or io.write
    dbg.fini()
    return o
 end
 
-function M.__clearEmptyColumns2D(self, tbl)
+--------------------------------------------------------------------------
+-- This clears empty columns for 2-D tables.
+-- @param self ColumnTable object
+-- @param tbl input table.
+-- @return cleaned up table.
+function M._clearEmptyColumns2D(self, tbl)
    local colA = {}
    local length = self.length
 
@@ -144,16 +160,14 @@ function M.__clearEmptyColumns2D(self, tbl)
    return tt
 end
 
-function M.print_tbl(self)
-   local prt = self.prt
-   local s   = self:build_tbl()
-   prt(s,"\n")
-end
-
 --------------------------------------------------------------------------
--- ColumnTable:__entry_width1(): compute [[szA]] array for a 1-D column.
-
-function M.__entry_width1(self, t, szA)
+-- compute [[szA]] array for a 1-D column.
+-- @param self ColumnTable object
+-- @param t    input table
+-- @param szA  1-D size array
+-- @return min length in szA array.
+-- @return max length in szA array.
+function M._entry_width1(self, t, szA)
    local imin   = huge
    local imax   = 0
 
@@ -171,10 +185,14 @@ end
 
 
 --------------------------------------------------------------------------
--- ColumnTable:__entry_width2(): compute [[szA]] array for a 2-D column.
-
-function M.__entry_width2(self, t, szA)
-   dbg.start{"ColumnTable:__entry_width2()"}
+-- compute [[szA]] array for a 2-D column.
+-- @param self ColumnTable object
+-- @param t    input table
+-- @param szA  2-D size array
+-- @return min length in szA array.
+-- @return max length in szA array.
+function M._entry_width2(self, t, szA)
+   dbg.start{"ColumnTable:_entry_width2()"}
    local imin      = huge
    local imax      = 0
    local length    = self.length
@@ -214,11 +232,13 @@ function M.__entry_width2(self, t, szA)
 end
 
 --------------------------------------------------------------------------
--- ColumnTable:__columnSum1(): Use szA to compute max width for a given
---                             column range for a 1-D array.
-
-
-function M.__columnSum1(self, istart, iend)
+-- Use szA to compute max width for a given column range for a 1-D array.
+-- @param self ColumnTable object
+-- @param istart index to start at in 1-D array.
+-- @param iend   index to end at in 1-D array.
+-- @return max column width
+-- @return An array with the max length in direction
+function M._columnSum1(self, istart, iend)
    local szA  = self.szA
    local maxV = 0
    for i = istart, iend do
@@ -228,10 +248,13 @@ function M.__columnSum1(self, istart, iend)
 end
 
 --------------------------------------------------------------------------
--- ColumnTable:__columnSum2(): Use szA to compute max width for a given
---                             column range for a 2-D array.
-
-function M.__columnSum2(self, istart, iend)
+-- Use szA to compute max width for a given column range for a 2-D array.
+-- @param self ColumnTable object
+-- @param istart index to start at in 2-D array.
+-- @param iend   index to end at in 2-D array.
+-- @return max column width
+-- @return An array with the max length in direction
+function M._columnSum2(self, istart, iend)
    local szA  = self.szA
    local dim2 = self.dim[2]
    local maxA = {}
@@ -262,9 +285,12 @@ function M.__columnSum2(self, istart, iend)
 end
 
 --------------------------------------------------------------------------
--- ColumnTable:__display1(): Pad string with trailing spaces to get to
---                           correct width for a 1-D array
-function M.__display1(self, i, icol)
+-- Pad string with trailing spaces to get to correct width for a 1-D array
+-- @param self ColumnTable object
+-- @param i the i'th entry to pad in self.tbl
+-- @param icol in the column
+-- @return s padded entry.
+function M._display1(self, i, icol)
    local width = self.columnCnt[icol]
    local szA   = self.szA
    local s     = self.tbl[i] .. blank:rep(width-szA[i])
@@ -272,9 +298,12 @@ function M.__display1(self, i, icol)
 end
 
 --------------------------------------------------------------------------
--- ColumnTable:__display2(): Pad string with trailing spaces to get to
---                           correct width for a 2-D array
-function M.__display2(self,i, icol)
+-- Pad string with trailing spaces to get to correct width for a 2-D array
+-- @param self ColumnTable object
+-- @param i the i'th entry to pad in self.tbl
+-- @param icol in the column
+-- @return s padded entry.
+function M._display2(self,i, icol)
    local width    = self.columnCnt[icol]
    local widthA   = self.columnCntI[icol]
    local dim2     = self.dim[2]
@@ -311,9 +340,10 @@ end
 
 --------------------------------------------------------------------------
 -- Compute the number of rows and columns that will fit.
-
-function M.__number_of_columns_rows(self,t)
-   dbg.start{"ColumnTable:__number_of_columns_rows()"}
+-- @param self ColumnTable object
+-- @param t input table
+function M._number_of_columns_rows(self,t)
+   dbg.start{"ColumnTable:_number_of_columns_rows()"}
    local floor  = math.floor
    local ceil   = math.ceil
    local gap    = self.gap
@@ -325,7 +355,7 @@ function M.__number_of_columns_rows(self,t)
    -------------------------------------------------------------------------
    -- Compute length of each entry in table t
    -------------------------------------------------------------------------
-   local imin, imax = self:__entry_width(t, szA)
+   local imin, imax = self:_entry_width(t, szA)
    dbg.print{"width: ",self.term_width," imin: ",imin," imax: ",imax,"\n"}
 
    -------------------------------------------------------------------------
@@ -337,7 +367,7 @@ function M.__number_of_columns_rows(self,t)
       self.nrows      = sz
       self.columnCnt  = {}
       self.columnCntI = {}
-      self.columnCnt[1], self.columnCntI[1] = self:__columnSum(1,sz)
+      self.columnCnt[1], self.columnCntI[1] = self:_columnSum(1,sz)
       dbg.print{"imax >= self.term_width\n"}
       dbg.fini()
       return
@@ -368,7 +398,7 @@ function M.__number_of_columns_rows(self,t)
       local iskip  = nrows - 1
       for icol = 1, ncols do
          local iend = min(istart + iskip, sz)
-         columnCnt[icol], columnCntI[icol] = self:__columnSum(istart,iend)
+         columnCnt[icol], columnCntI[icol] = self:_columnSum(istart,iend)
          istart = istart + nrows
       end
 
@@ -396,7 +426,7 @@ function M.__number_of_columns_rows(self,t)
    columnCntI   = {}
    for icol = 1, ncols do
       local iend = min(istart + iskip, sz)
-      columnCnt[icol], columnCntI[icol] = self:__columnSum(istart,iend)
+      columnCnt[icol], columnCntI[icol] = self:_columnSum(istart,iend)
       istart = istart + nrows
    end
 
@@ -411,9 +441,9 @@ end
 
 
 --------------------------------------------------------------------------
--- ColumnTable:build_tbl(): Use actual number of rows in columns that will
---                          fit and generate the table.
-
+-- Use actual number of rows in columns that will fit and generate the table.
+-- @param self ColumnTable object
+-- @return string that is the ColumnTable.
 function M.build_tbl(self)
    local a         = {}
    local columnCnt = self.columnCnt
@@ -425,12 +455,12 @@ function M.build_tbl(self)
       for icol = 1, ncols - 1 do
 	 local loc = irow + (icol - 1) * self.nrows
 	 if (loc <= self.sz ) then
-	    t[icol] = self:__display(loc, icol)
+	    t[icol] = self:_display(loc, icol)
 	 end
       end
       local loc = irow + (ncols - 1) * nrows
       if (loc <= self.sz ) then
-	 t[self.ncols] = self:__display(loc, ncols)
+	 t[self.ncols] = self:_display(loc, ncols)
       end
       local s = concatTbl(t,''):gsub("%s+$","")
       a[#a+1] = s
@@ -438,4 +468,5 @@ function M.build_tbl(self)
    return concatTbl(a,"\n")
 end
 
+---- finis -----
 return M

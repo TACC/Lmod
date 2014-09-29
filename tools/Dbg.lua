@@ -1,3 +1,46 @@
+-------------------------------------------------------------------------
+-- This is a debug printing class.  The point is to add these debug print
+-- statement permanently and use command line options to turn these print
+-- stmts on when necessary.
+--
+-- Test code for using  Dbg.lua
+--    require("strict")
+--    local dbg = require("Dbg"):dbg()
+--    function a()
+--       dbg.start{2,"a"}
+--       dbg.print{"In a","\n"}
+--       b()
+--       dbg.fini()
+--    end
+--
+--    function b()
+--       dbg.start{2,"b"}
+--       dbg.print{"In b","\n"}
+--       c()
+--       dbg.fini()
+--    end
+--
+--    function c()
+--       dbg.start{3,"c"}
+--       dbg.print{1,"In c","\n"}
+--       dbg.fini()
+--    end
+--
+--    function main()
+--       local level = 10
+--       dbg:activateDebug(level)
+--
+--       dbg.start{2,"main"}
+--       a()
+--       dbg.fini()
+--    end
+--
+--    main()
+--
+-- @classmod Dbg
+
+require("strict")
+
 ------------------------------------------------------------------------
 --
 --  Copyright (C) 2008-2014 Robert McLay
@@ -23,58 +66,11 @@
 --  THE SOFTWARE.
 --
 --------------------------------------------------------------------------
-
-
-
--------------------------------------------------------------------------
---   Test code for using  Dbg.lua
--------------------------------------------------------------------------
-
---    require("strict")
---    require("Dbg")
---    function a()
---       local dbg   = Dbg:dbg()
---       dbg.start{2,"a"}
---       dbg.print{"In a","\n"}
---       b()
---       dbg.fini()
---    end
---
---    function b()
---       local dbg   = Dbg:dbg()
---       dbg.start{2,"b"}
---       dbg.print{"In b","\n"}
---       c()
---       dbg.fini()
---    end
---
---    function c()
---       local dbg   = Dbg:dbg()
---       dbg.start{3,"c"}
---       dbg.print{1,"In c","\n"}
---       dbg.fini()
---    end
---
---    function main()
---       local level = 10
---       local dbg   = Dbg:dbg()
---       dbg:activateDebug(level)
---
---       dbg.start{2,"main"}
---       a()
---       dbg.fini()
---    end
---
---    main()
-
 local blank        = " "
 local huge         = math.huge
 local max          = math.max
 local remove       = table.remove
 
-require("strict")
-
---module("Dbg")
 local M = {}
 
 s_dbg           = nil
@@ -112,19 +108,22 @@ local function new(self)
    local o = {}
    setmetatable(o,self)
    self.__index = self
-   o.print      = M.Quiet
-   o.printA     = M.Quiet
-   o.textA      = M.Quiet
-   o.start      = M.Quiet
-   o.fini       = M.Quiet
-   o.warning    = M.Warning
-   o.error      = M.Error
-   o.quiet      = M.Quiet
-   o.indent     = M.Empty
+   o.print      = M._quiet
+   o.printA     = M._quiet
+   o.textA      = M._quiet
+   o.start      = M._quiet
+   o.fini       = M._quiet
+   o.warning    = M._warning
+   o.error      = M._error
+   o.quiet      = M._quiet
+   o.indent     = M._zeroIndent
    o.is_active  = false
    return o
 end
 
+--------------------------------------------------------------------------
+-- Singleton ctor for class
+-- @param self Dbg object.
 function M.dbg(self)
    if (s_dbg == nil) then
       s_dbg = new(self)
@@ -132,22 +131,33 @@ function M.dbg(self)
    return s_dbg
 end
 
+--------------------------------------------------------------------------
+-- Add a name (e.g. a program name) to the warning and error routines.
+-- This is a class static function.
+-- @param prefix the input name to prefix the error or warning message.
 function M.set_prefix(prefix)
    s_prefix = prefix .. " "
 end
 
+--------------------------------------------------------------------------
+-- Activate debug print statements.
+-- @param self Dbg object.
+-- @param[opt] level A zero means printing start and end of routines w/o prints
+-- A one or greater include printing.
+-- @param[opt] indentLevel indent level.  Mainly used when passing indent level
+-- to a subprogram.
 function M.activateDebug(self, level, indentLevel)
    level = tonumber(level) or 1
    if (level == 0) then
-      self.start            = M.Start
-      self.fini             = M.Fini
+      self.start            = M._start
+      self.fini             = M._fini
    elseif (level > 0) then
-      self.print            = M.Debug
-      self.printA           = M.PrintA
-      self.textA            = M.TextA
-      self.start            = M.Start
-      self.fini             = M.Fini
-      self.indent           = M.Indent
+      self.print            = M._print
+      self.printA           = M._printA
+      self.textA            = M._textA
+      self.start            = M._start
+      self.fini             = M._fini
+      self.indent           = M._indent
       s_isActive            = true
       s_currentLevel        = level
       s_levelA[#s_levelA+1] = level
@@ -156,42 +166,56 @@ function M.activateDebug(self, level, indentLevel)
          s_indentString     = blank:rep(s_indentLevel*2)
       end
    else 
-      self.print      = M.Quiet
-      self.printA     = M.Quiet
-      self.textA      = M.Quiet
-      self.start      = M.Quiet
-      self.fini       = M.Quiet
-      self.warning    = M.Warning
-      self.error      = M.Error
-      self.quiet      = M.Quiet
-      self.indent     = M.Empty
+      self.print      = M._quiet
+      self.printA     = M._quiet
+      self.textA      = M._quiet
+      self.start      = M._quiet
+      self.fini       = M._quiet
+      self.warning    = M._warning
+      self.error      = M._error
+      self.quiet      = M._quiet
+      self.indent     = M._zeroIndent
       self.is_active  = false
    end
 end
 
+--------------------------------------------------------------------------
+-- Returns indent level
 function M.indentLevel()
    return s_indentLevel
 end
 
+--------------------------------------------------------------------------
+-- Returns is active flag
 function M.active()
    return s_isActive
 end
 
+--------------------------------------------------------------------------
+-- Returns current level
 function M.currentLevel(level)
    s_currentLevel = level or 1
 end
 
+--------------------------------------------------------------------------
+-- Deactivate Warings
 function M.deactivateWarning(self)
-   self.warning = M.Quiet
+   self.warning = M._quiet
 end
 
+--------------------------------------------------------------------------
+-- Activate Warings
 function M.activateWarning(self)
-   self.warning = M.Warning
+   self.warning = M._warning
 end
 
-function M.Quiet()
+--------------------------------------------------------------------------
+-- Quiet function
+function M._quiet()
 end
 
+--------------------------------------------------------------------------
+-- extract the verbosity level
 local function extractVPL(t)
    local vpl = t.level or s_vpl
    return vpl
@@ -203,7 +227,9 @@ local function startExtractVPL(t)
    return vpl
 end
 
-function M.Start(t)
+--------------------------------------------------------------------------
+-- Start of a routine
+function M._start(t)
    s_vpl = startExtractVPL(t)
    if (s_vpl > s_currentLevel) then return end
 
@@ -216,15 +242,22 @@ function M.Start(t)
 
 end
 
-function M.Empty()
+--------------------------------------------------------------------------
+-- Zero indent.
+
+function M._zeroIndent()
    return ""
 end
 
-function M.Indent()
+--------------------------------------------------------------------------
+-- Return the current indent string.
+function M._indent()
    return blank:rep(s_indentLevel*2)
 end
 
-function M.Fini(s)
+--------------------------------------------------------------------------
+-- End of a routine
+function M._fini(s)
    local vpl = s_vpl
 
    if (vpl <= s_currentLevel) then
@@ -243,7 +276,10 @@ function M.Fini(s)
    s_vpl = s_levelA[#s_levelA]
 end
 
-function M.Warning(...)
+--------------------------------------------------------------------------
+-- Print a warning message and mark class static variable to remember that
+-- a warning was called.
+function M._warning(...)
    io.stderr:write("\n",s_prefix,"Warning: ")
    local arg = pack(...)
    for i = 1, arg.n do
@@ -252,7 +288,9 @@ function M.Warning(...)
    s_warningCalled = true
 end
 
-function M.Error(...)
+--------------------------------------------------------------------------
+-- Print error message and quit.
+function M._error(...)
    io.stderr:write("\n",s_prefix,"Error: ")
    local arg = pack(...)
    for i = 1, arg.n do
@@ -262,17 +300,25 @@ function M.Error(...)
    errorExit()
 end
 
+
+--------------------------------------------------------------------------
+-- Error exit
 function M.errorExit()
    io.stdout:write("false\n")
    os.exit(1)
 end
 
+--------------------------------------------------------------------------
+-- Report true if a warning was called.
 function M.warningCalled()
    return s_warningCalled
 end
 
+------------------------------------------------------------------------
+-- The debug print statement
+-- @param t input table.
 
-function M.Debug(t)
+function M._print(t)
    local vpl = extractVPL(t)
    if (vpl > s_currentLevel) then
       return
@@ -296,14 +342,18 @@ function M.Debug(t)
          else
             local s = v:sub(1,idx)
             io.stderr:write(s)
-            M.Debug{v:sub(idx+1)}
+            M._print{v:sub(idx+1)}
          end
       end
    end
 end
 
 
-function M.TextA(t)
+--------------------------------------------------------------------------
+-- Write a indented text block.
+-- @param t input string table array.  t.name is the string name t.a
+-- is the array of strings.
+function M._textA(t)
    local a  = t.a
 
    io.stderr:write(s_indentString)
@@ -321,8 +371,10 @@ function M.TextA(t)
    changeIndentLevel(-1)
 end
 
-
-function M.PrintA(t)
+--------------------------------------------------------------------------
+-- Print an array
+-- @param t input array.
+function M._printA(t)
    local a    = t.a
    if (type(a[1]) == "table") then
       M._print2D(t)
@@ -338,6 +390,9 @@ function M.PrintA(t)
    io.stderr:write("\n")
 end
 
+--------------------------------------------------------------------------
+-- Print 2d array.
+-- @param t input 2-D array.
 function M._print2D(t)
    local name = t.name
    local A    = t.a
@@ -353,9 +408,11 @@ function M._print2D(t)
    end
 end
 
-
+--------------------------------------------------------------------------
+-- flush the output to stderr.
 function M.flush()
    io.stderr:flush()
 end
 
+---- finis -----
 return M

@@ -1,3 +1,8 @@
+--- A function to return canonical version strings.
+-- @module parseVersion
+
+require("strict")
+
 --------------------------------------------------------------------------
 -- Lmod License
 --------------------------------------------------------------------------
@@ -32,45 +37,48 @@
 --
 --------------------------------------------------------------------------
 
-require("strict")
 require("string_utils")
 local dbg          = require("Dbg"):dbg()
 local concatTbl    = table.concat
 
+--- replacement table for version parts
 replaceT = {
-   pre     = "c",
-   preview = "c",
-   ['-']   = "zfinal-",
-   ['-p']  = "zfinal-",
-   p       = "zfinal-",
-   rc      = "c",
-   dev     = "@",
+   pre     = "c",         -- marked as a candidate version
+   preview = "c",         -- marked as a candidate version
+   ['-']   = "zfinal-",   -- marked as a patched version
+   ['-p']  = "zfinal-",   -- marked as a patched version
+   p       = "zfinal-",   -- marked as a patched version
+   rc      = "c",         -- marked as a candidate version
+   dev     = "@",         -- marked as a development version
 }
 
-------------------------------------------------------------------------
--- The returned value will be an array of string. Numeric portions of the
+--------------------------------------------------------------------------
+--- The returned value will be an array of string. Numeric portions of the
 -- version are padded to 9 digits so they will compare numerically, but
 -- without relying on how numbers compare relative to strings. Dots are dropped,
 -- but dashes are retained. Trailing zeros between alpha segments or dashes
 -- are suppressed, so that e.g. "2.4.0" is considered the same as "2.4".
 -- Alphanumeric parts are lower-cased.
-
+--
 -- The algorithm assumes that strings like "-" and any alpha string that
 -- alphabetically follows "final" represents a "patch level". So, "2.4-1"
 -- is assumed to be a branch or patch of "2.4", and therefore "2.4.1" is
 -- considered newer than "2.4-1", which in turn is newer than "2.4".  Also
 -- 2.4p2 and 2.4-p2 are considered to be the same as 2.4-2.
-
+--
 -- Strings like "a", "b", "c", "alpha", "beta", "candidate" and so on
 -- (that come before "final" alphabetically) are assumed to be pre-release
 -- versions, so that the version "2.4" is considered newer than "2.4a1".
 -- Any "-" characters preceding a pre-release indicator are removed.
-
+--
 -- Finally, to handle miscellaneous cases, the strings "pre", "preview",
 -- and "rc" are treated as if they were "c", i.e. as though they were
 -- release candidates, and therefore are not as new as a version string
 -- that does not contain them. And the string "dev" is treated as if it
 -- were an "@" sign; that is, a version coming before even "a" or "alpha".
+--
+-- @param versionStr A version string
+-- @return canonical version string suitable for comparison
 
 function parseVersion(versionStr)
 
@@ -112,9 +120,9 @@ function parseVersion(versionStr)
 end
 
 --------------------------------------------------------------------------
--- parseVersionParts() Return the iterator return the next piece of the
---                     version.
-
+--- Return the iterator return the next piece of the version.
+-- @param  versionStr A version string.
+-- @return iterator over parts of the version string.
 function parseVersionParts(versionStr)
    local s     = versionStr:lower()
    local s_end = s:len()
