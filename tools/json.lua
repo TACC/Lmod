@@ -113,8 +113,8 @@ end
 
 --- Decodes a JSON string and returns the decoded value as a Lua data structure / value.
 -- @param s The string to scan.
--- @param [startPos] Optional starting position where the JSON string is located. Defaults to 1.
--- @param Lua object, number The object that was scanned, as a Lua table / string / number / boolean or nil,
+-- @param[opt] startPos Optional starting position where the JSON string is located. Defaults to 1.
+-- Lua object, number The object that was scanned, as a Lua table / string / number / boolean or nil,
 -- and the position of the first character after
 -- the scanned JSON object.
 function decode(s, startPos)
@@ -186,8 +186,8 @@ end
 
 --- Scans a comment and discards the comment.
 -- Returns the position of the next character following the comment.
--- @param string s The JSON string to scan.
--- @param int startPos The starting position of the comment
+-- @param s The JSON string to scan.
+-- @param startPos The starting position of the comment
 function decode_scanComment(s, startPos)
   base.assert( string.sub(s,startPos,startPos+1)=='/*', "decode_scanComment called but comment does not start at position " .. startPos)
   local endPos = string.find(s,'*/',startPos+2)

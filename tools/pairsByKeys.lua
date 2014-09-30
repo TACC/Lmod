@@ -2,9 +2,15 @@
 -- This function is described in the book: Programming in Lua by
 -- Roberto Ierusalimschy.  It has been updated for Lua 5.1.
 -- distributed under the Lua license: http://www.lua.org/license.html
+-- @module pairsByKeys
 
 require("strict")
 local sort = table.sort
+
+------------------------------------------------------------------------
+-- Return an iterator where the keys are sorted.
+-- @param t input table
+-- @param[opt] f sort function
 function pairsByKeys (t, f)
    local a = {}
    local n = 0

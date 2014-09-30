@@ -89,10 +89,10 @@
     FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
     DEALINGS IN THE SOFTWARE.
 ]]
-function isDefined(name)
+local function isDefined(name)
    return (rawget(_G, name) ~= nil)
 end
-function declare(name, initval)
+local function declare(name, initval)
    rawset(_G, name, initval or false)
 end
 
