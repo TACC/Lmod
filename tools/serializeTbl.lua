@@ -1,3 +1,20 @@
+--------------------------------------------------------------------------
+-- This collection of routines are used to convert a table into a string.
+-- This string is valid lua code. Note that this will only work for "DAG"
+-- and not loops. There are more general solutions available but the
+-- output less attractive.  Since Lmod tables are DAG's this works fine.
+--
+-- Typical usage:
+--   Write to a file:
+--      serializeTbl{indent=true, name="SomeName", value=luaTable,
+--                   fn = "/path/to/file"}
+--   Generate String:
+--      s = serializeTbl{indent=true, name="SomeName", value=luaTable}
+--
+-- @module serializeTbl
+
+require("strict")
+
 ------------------------------------------------------------------------
 --
 --  Copyright (C) 2008-2014 Robert McLay
@@ -24,29 +41,13 @@
 --
 --------------------------------------------------------------------------
 
---------------------------------------------------------------------------
--- serializeTbl: This collection of routines are used to convert a
---               table into a string.  This string is valid lua code.
---               Note that this will only work for "DAG" and not loops.
---               There are more general solutions available but the
---               output less attractive.  Since Lmod tables are DAG's
---               this works fine.
---
--- Typical usage:
---   Write to a file:
---      serializeTbl{indent=true, name="SomeName", value=luaTable,
---                   fn = "/path/to/file"}
---   Generate String:
---      s = serializeTbl{indent=true, name="SomeName", value=luaTable}
---
-require("strict")
 require("fileOps")
 require("pairsByKeys")
 require("TermWidth")
 
 --------------------------------------------------------------------------
--- nsformat(): Convert the string value into a quoted string of some kind
---             and boolean into true/false.
+-- Convert the string value into a quoted string of some kind and boolean
+-- into true/false.
 
 local function nsformat(value)
    if (type(value) == 'string') then
@@ -67,9 +68,8 @@ local function nsformat(value)
 end
 
 --------------------------------------------------------------------------
--- outputTblHelper():  This is the work-horse for this collections.  It is
---                     used recursively for subtables.  It also ignores
---                     keys that start with "_".
+-- This is the work-horse for this collections.  It is recursively for
+-- sub-tables.  It also ignores keys that start with "_".
 
 local function outputTblHelper(indentIdx, name, T, a, level)
 
@@ -170,9 +170,9 @@ local function outputTblHelper(indentIdx, name, T, a, level)
 end
 
 --------------------------------------------------------------------------
--- serializeTbl(): The interface routine for this file.  Note that
---                 it returns a string if no file name is given.
-
+-- The interface routine for this file.  Note that it returns a string 
+-- if no file name is given.
+-- @param options input table.
 function serializeTbl(options)
    local a         = {}
    local n         = options.name

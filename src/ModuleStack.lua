@@ -49,7 +49,6 @@
 --  is not used when in spider mode.
 
 
-require("escape")
 require("strict")
 ModuleStack = { }
 

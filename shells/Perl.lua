@@ -59,7 +59,7 @@ end
 
 function Perl.expandVar(self, k, v, vType)
    local lineA = {}
-   v = atSymbolEscaped(doubleQuoteString(v))
+   v = v:doubleQuoteString():atSymbolEscaped()
 
    lineA[#lineA + 1] = '$ENV{'
    lineA[#lineA + 1] = k

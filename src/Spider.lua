@@ -40,7 +40,6 @@ require("TermWidth")
 require("strict")
 require("string_utils")
 require("fileOps")
-require("escape")
 require("fillWords")
 require("capture")
 require("pairsByKeys")
@@ -682,8 +681,9 @@ function M.spiderSearch(self, dbT, searchName, help)
       setWarningFlag()
       io.stderr:write("Unable to find: \"",searchName,"\"\n")
 
-      if (escape(searchName) ~= searchName) then
-         io.stderr:write("\nRegular Expressions require:\n   $ module -r spider '",searchName,"'\n")
+      if (searchName:escape() ~= searchName) then
+         io.stderr:write("\nRegular Expressions require:\n   $ module -r spider '",
+                         searchName,"'\n")
       end
          
 

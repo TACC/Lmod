@@ -40,7 +40,6 @@ require("inherits")
 require("serializeTbl")
 require("string_utils")
 require("utils")
-require("quote")
 local M            = {}
 
 local dbg          = require("Dbg"):dbg()

@@ -62,9 +62,9 @@ function Python.expandVar(self, k, v, vType)
    local lineA = {}
 
    lineA[#lineA + 1] = 'os.environ['
-   lineA[#lineA + 1] = doubleQuoteString(k)
+   lineA[#lineA + 1] = k:doubleQuoteString()
    lineA[#lineA + 1] = '] = '
-   lineA[#lineA + 1] = doubleQuoteString(v)
+   lineA[#lineA + 1] = v:doubleQuoteString()
    lineA[#lineA + 1] = ';\n'
    local line        = concatTbl(lineA,"")
    stdout:write(line)

@@ -33,7 +33,7 @@
 --------------------------------------------------------------------------
 
 require("strict")
-require("escape")
+require("string_utils")
 local dbg = require("Dbg"):dbg()
 function ModifyPath()
    local masterTbl   = masterTbl()
@@ -52,7 +52,7 @@ function ModifyPath()
 
    dbg.start{"ModifyPath()"}
 
-   w_oldTarg = escape(w_oldTarg)
+   w_oldTarg = w_oldTarg:escape()
 
    if (w_oldTarg == '::' or w_path:find(w_oldTarg) == nil) then
       if (targPathLoc == "last") then

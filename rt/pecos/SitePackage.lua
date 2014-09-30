@@ -1,5 +1,5 @@
 require("strict")
-require("escape")
+require("string_util")
 local dbg        = require("Dbg"):dbg()
 local SYSTEM_DIR = os.getenv("SYSTEM_DIR")
 local MROOT      = os.getenv("MODULEPATH_ROOT")
@@ -13,8 +13,8 @@ function edit_derived_modulepaths(derived_mod_dir, newmodname, newmodversion)
 
    -- Escape special characters so that the module name and module
    -- version can be used in Lua patterns
-   local escmodname    = escape(newmodname)
-   local escmodversion = escape(newmodversion)
+   local escmodname    = newmodname:escape()
+   local escmodversion = newmodversion:escape()
    local newFullName   = pathJoin(newmodname, newmodversion)
    local myMode        = mode()
 

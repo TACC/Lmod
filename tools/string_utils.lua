@@ -40,9 +40,9 @@ function string.trim(self)
    if (ja == nil) then
       return ""
    end
-   local  jb = self:find("%s+$") or 0
-   local  s  = self:sub(ja,jb-1)
-   return s
+   local  jb   = self:find("%s+$") or 0
+   local  self = self:sub(ja,jb-1)
+   return self
 end
 
 --------------------------------------------------------------------------
@@ -67,7 +67,7 @@ end
 --------------------------------------------------------------------------
 -- Form a case independent search string pattern.
 -- @param self input string
-
+-- @return case independent search string pattern.
 function string.caseIndependent(self)
    local slen = self:len()
    local a    = {}
@@ -82,4 +82,44 @@ function string.caseIndependent(self)
       end
    end
    return concatTbl(a,"")
+end
+
+--------------------------------------------------------------------------
+-- Wrap input string with double quotes
+-- @param  self Input string
+-- @return A string surrounded with double quotes internal double quotes backslashed
+function string.doubleQuoteString(self)
+   if (type(self) ~= 'string') then 
+      self = tostring(self)
+   else
+      self = ('%q'):format(self)
+   end
+   return self
+end
+
+--------------------------------------------------------------------------
+-- Escape @ character in input string.
+-- @param  self Input string.
+-- @return   An escaped @ in output.
+function string.atSymbolEscaped(self)
+   if (self == nil) then return self end
+   self = self:gsub('@','\\@')
+   return self
+end
+
+isLua51 = _VERSION:match('5%.1$')
+
+--------------------------------------------------------------------------
+-- Convert a search string that may have special regular expression and
+-- quote them.  This is very useful when trying to match version numbers
+-- like "2.4-1" where you want "." and "-" to treated as normal characters
+-- and not regular expression ones.
+-- @param  self Input string.
+-- @return escaped string.
+function string.escape(self)
+    local res = self:gsub('[%-%.%+%[%]%(%)%$%^%%%?%*]','%%%1')
+    if isLua51 then
+        res = res:gsub('%z','%%z')
+    end
+    return res
 end

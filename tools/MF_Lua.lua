@@ -52,7 +52,7 @@ MF_Lmod.my_name   = "Lmod"
 -- @param k key
 -- @param v value
 function MF_Lmod.setenv(self, k, v)
-   return "setenv(" .. doubleQuoteString(k) .. "," .. doubleQuoteString(v) .. ")"
+   return "setenv(" .. k:doubleQuoteString() .. "," .. v:doubleQuoteString() .. ")"
 end
 
 --------------------------------------------------------------------------
@@ -62,7 +62,7 @@ end
 -- @param v value
 
 function MF_Lmod.prepend_path(self, k, v)
-   return "prepend_path(" .. doubleQuoteString(k) .. "," .. doubleQuoteString(v) .. ")"
+   return "prepend_path(" .. k:doubleQuoteString() .. "," .. v:doubleQuoteString() .. ")"
 end
 
 --------------------------------------------------------------------------
@@ -72,7 +72,7 @@ end
 -- @param v value
 
 function MF_Lmod.append_path(self, k, v)
-   return "append_path(" .. doubleQuoteString(k) .. "," .. doubleQuoteString(v) .. ")"
+   return "append_path(" .. k:doubleQuoteString() .. "," .. v:doubleQuoteString() .. ")"
 end
 
 return MF_Lmod

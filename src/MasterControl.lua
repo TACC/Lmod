@@ -62,7 +62,7 @@
 -- MasterControl
 require("strict")
 require("TermWidth")
-require("escape")
+require("string_utils")
 require("inherits")
 require("utils")
 
@@ -122,7 +122,7 @@ local function mustLoad(mA)
          uA = aa
       else
          for i = 1, #bb do
-            cmdA[count+1] = "'^" .. escape(bb[i]) .. "$'"
+            cmdA[count+1] = "'^" .. bb[i]:escape() .. "$'"
             cmdA[count+2] = "2> /dev/null"
             local cmd     = concatTbl(cmdA," ")
             local result  = capture(cmd)

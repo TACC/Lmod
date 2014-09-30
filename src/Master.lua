@@ -52,7 +52,6 @@ require("string_utils")
 require("fillWords")
 require("loadModuleFile")
 require("utils")
-require("string_utils")
 
 local BeautifulTbl = require('BeautifulTbl')
 local ColumnTable  = require('ColumnTable')
