@@ -1,3 +1,9 @@
+--------------------------------------------------------------------------
+-- Function taken from Programming in Lua: These functions allow us to
+-- define a global variable inside a function or check to see if it is
+-- defined as a global variable.
+-- @module declare
+
 ------------------------------------------------------------------------
 --
 --  Copyright (C) 2008-2014 Robert McLay
@@ -24,14 +30,19 @@
 --
 --------------------------------------------------------------------------
 
+
 --------------------------------------------------------------------------
--- Function taken from Programming in Lua: These functions allow us to
--- define a global variable inside a function or check to see if it is
--- defined as a global variable.
+-- Declares a string whos value becomes a global variable.
+-- @param name A string
+-- @param initval initial value
 
 function declare(name, initval)
    rawset(_G, name, initval or false)
 end
+
+--------------------------------------------------------------------------
+-- Is the value of the string a global variable.
+-- @param name A string.
 
 function isDefined(name)
    return (rawget(_G, name) ~= nil)
