@@ -40,7 +40,6 @@ require("TermWidth")
 require("strict")
 require("string_utils")
 require("fileOps")
-require("fillWords")
 require("capture")
 require("pairsByKeys")
 require("pager")
@@ -553,7 +552,7 @@ function M.Level0Helper(self, dbT,a)
       end
       a[ia] = "\n"  -- overwrite the last comma
       if (v.Description) then
-         ia = ia + 1; a[ia] = fillWords("    ",v.Description, term_width)
+         ia = ia + 1; a[ia] = v.Description:fillWords("    ", term_width)
          ia = ia + 1; a[ia] = "\n"
       end
       ia = ia + 1; a[ia] = "\n"
@@ -756,7 +755,7 @@ function M._Level1(self, searchPat, key, T, searchName, possibleA, help)
    ia = ia + 1; a[ia] = border
    if (Description) then
       ia = ia + 1; a[ia] = "    Description:\n"
-      ia = ia + 1; a[ia] = fillWords("      ",Description,term_width)
+      ia = ia + 1; a[ia] = Description:fillWords("      ",term_width)
       ia = ia + 1; a[ia] = "\n\n"
    end
    ia = ia + 1; a[ia] = "     Versions:\n"
@@ -846,7 +845,7 @@ function M._Level2(self, T, searchName, full, possibleA)
             ia = ia + 1; a[ia] = border
             if (tt.Description) then
                ia = ia + 1; a[ia] = "    Description:\n"
-               ia = ia + 1; a[ia] = fillWords("      ",tt.Description, term_width)
+               ia = ia + 1; a[ia] = tt.Description:fillWords("      ", term_width)
                ia = ia + 1; a[ia] = "\n"
             end
             if (tt.propT ) then
@@ -855,7 +854,7 @@ function M._Level2(self, T, searchName, full, possibleA)
                   if (tt.propT[kk]) then
                      for kkk in pairs(tt.propT[kk]) do
                         if (vv.displayT[kkk]) then
-                           ia = ia + 1; a[ia] = fillWords("      ",vv.displayT[kkk].doc, term_width)
+                           ia = ia + 1; a[ia] = vv.displayT[kkk].doc:fillWords("      ", term_width)
                         end
                      end
                   end

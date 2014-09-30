@@ -650,7 +650,7 @@ local function msg(lead, ...)
    arg[1] = lead .. arg[1]
    local whole = concatTbl(arg,"")
    for s in whole:split("\n") do
-      io.stderr:write(fillWords("",s, twidth),"\n")
+      io.stderr:write(s:fillWords("", twidth),"\n")
    end
    io.stderr:write("\n")
    moduleStackTraceBack()

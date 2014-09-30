@@ -1,4 +1,11 @@
 ------------------------------------------------------------------------
+-- This class contains the Option objects.  There is one of these objects
+-- for each option specified by Optiks:add_option.
+-- @classmod Optiks_Option
+
+require("strict")
+
+------------------------------------------------------------------------
 --
 --  Copyright (C) 2008-2014 Robert McLay
 --
@@ -25,7 +32,6 @@
 --------------------------------------------------------------------------
 
 -- Option.lua
-require("strict")
 local Optiks_Error=Optiks_Error
 local M = {}
 
@@ -52,8 +58,10 @@ validTypes =   { number = 1,
 
 
 --------------------------------------------------------------------------
+-- Find all the option names associated with this option.
 -- Treat option with underscores the same as ones with dashes.
-
+-- @param self Optiks_option object.
+-- @return an array of option names
 function M.optionNames(self)
    local a = self.table.name
    local b = {}
@@ -65,6 +73,12 @@ function M.optionNames(self)
    end
    return b
 end
+
+--------------------------------------------------------------------------
+-- Test newly build option to see if it is valid.
+-- @param self Optiks_option object.
+-- @return non-zero means an error
+-- @return error message.
 
 function M.bless(self)
    local errStr = ""
@@ -98,7 +112,12 @@ function M.bless(self)
    return ierr, errStr
 end
 
-function M.setDefault(self,argTbl)
+--------------------------------------------------------------------------
+-- Set the default for each option
+-- @param self Optiks_option object.
+-- @param argTbl The argument table.
+
+function M.setDefault(self, argTbl)
    local t          = self.table
    if     (t.action == "store_true" ) then argTbl[t.dest] = false
    elseif (t.action == "store_false") then argTbl[t.dest] = true
@@ -109,6 +128,10 @@ function M.setDefault(self,argTbl)
 end
 
 
+--------------------------------------------------------------------------
+-- Ctor for class
+-- @param self Optiks_option object.
+-- @param myTable option table.
 function M.new(self, myTable)
    local o = {}
    setmetatable(o, self)

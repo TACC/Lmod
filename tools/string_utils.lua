@@ -123,3 +123,31 @@ function string.escape(self)
     end
     return res
 end
+
+--------------------------------------------------------------------------
+-- Pass in *line* and convert text to fit space.
+-- @param self Input string
+-- @param indent A number of spaces use to indent each line
+-- @param width terminal width.
+-- @return filled and wrap block of lines.
+function string.fillWords(self, indent, width)
+   local a   = {}
+   local ia  = 0
+   local len = 0
+
+   ia = ia + 1; a[ia] = indent; len = len + indent:len()
+
+   for word in self:split("[ \n]+") do
+      local wlen = word:len()
+      if (wlen + len >= width) then
+         a[ia] = a[ia]:trim()
+         ia = ia + 1; a[ia] = "\n";
+         ia = ia + 1; a[ia] = indent; len = indent:len()
+      end
+      ia = ia + 1; a[ia] = word;
+      ia = ia + 1; a[ia] = " ";
+      len = len + wlen + 1
+   end
+   a[ia] = a[ia]:trim()
+   return concatTbl(a,"")
+end

@@ -33,7 +33,7 @@ require("strict")
 
 --------------------------------------------------------------------------
 -- Inherit from Base Class.
--- @param baseClase A lua base class object.
+-- @param baseClass A lua base class object.
 -- @return derived class object
 function inheritsFrom( baseClass )
 
