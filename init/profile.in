@@ -28,6 +28,13 @@ if [ -z "$USER_IS_ROOT" ]; then
     export MODULESHOME=@PKG@
 
     export BASH_ENV=$MODULESHOME/init/bash
+
+    #
+    # If MANPATH is empty, Lmod is adding a trailing ":" so that
+    # the system MANPATH will be found
+    if [ -z "$MANPATH" ]; then
+      export MANPATH=:
+    fi
     export MANPATH=$(@PKG@/libexec/addto MANPATH @PKG@/share/man)
   fi
 
