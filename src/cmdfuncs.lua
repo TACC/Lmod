@@ -220,7 +220,7 @@ function List(...)
       msg2 = " Matching: " .. table.concat(wanted," or ")
       if (not masterTbl.regexp) then
          for i = 1, wanted.n do
-            wanted[i] = caseIndependent(wanted[i])
+            wanted[i] = wanted[i]:caseIndependent()
          end
       end
    end

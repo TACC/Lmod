@@ -1,4 +1,10 @@
-------------------------------------------------------------------------
+--------------------------------------------------------------------------
+-- More string utilities.
+-- @classmod string
+
+require("strict")
+
+--------------------------------------------------------------------------
 --
 --  Copyright (C) 2008-2014 Robert McLay
 --
@@ -24,11 +30,12 @@
 --
 --------------------------------------------------------------------------
 
---------------------------------------------------------------------------
--- string:trim(): remove leading and trailing spaces.
 
-require("strict")
-function string:trim()
+--------------------------------------------------------------------------
+-- remove leading and trailing spaces.
+-- @param self input string
+
+function string.trim(self)
    local ja = self:find("%S")
    if (ja == nil) then
       return ""
@@ -39,11 +46,12 @@ function string:trim()
 end
 
 --------------------------------------------------------------------------
--- string:split():  An iterator to loop split a pieces.  This code is
---                  from the lua-users.org/lists/lua-l/2006-12/msg00414.html
---
+-- An iterator to loop split a pieces.  This code is from the
+-- lua-users.org/lists/lua-l/2006-12/msg00414.html
+-- @param self input string
+-- @param pat pattern to split on.
 
-function string:split(pat)
+function string.split(self, pat)
    pat  = pat or "%s+"
    local st, g = 1, self:gmatch("()("..pat..")")
    local function getter(self, segs, seps, sep, cap1, ...)
@@ -54,4 +62,24 @@ function string:split(pat)
       if st then return getter(self, st, g()) end
    end
    return splitter, self
+end
+
+--------------------------------------------------------------------------
+-- Form a case independent search string pattern.
+-- @param self input string
+
+function string.caseIndependent(self)
+   local slen = self:len()
+   local a    = {}
+   for i = 1, slen do
+      local c = self:sub(i,i)
+      if (c:find("%a")) then
+         a[#a+1] = '['..c:upper()..c:lower()..']'
+      elseif (c:find('[%-%.%+%[%]%(%)%$%^%%%?%*]')) then
+         a[#a+1] = '%'..c
+      else
+         a[#a+1] = c
+      end
+   end
+   return concatTbl(a,"")
 end

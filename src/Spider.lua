@@ -45,7 +45,6 @@ require("fillWords")
 require("capture")
 require("pairsByKeys")
 require("pager")
-require("caseIndependent")
 require("utils")
 
 local M = {}
@@ -628,7 +627,7 @@ function M.spiderSearch(self, dbT, searchName, help)
 
    if (not masterTbl.regexp) then
       for i = 1, #A do
-         A[i].pattern = caseIndependent(A[i].pattern)
+         A[i].pattern = A[i].pattern:caseIndependent()
       end
    end
 

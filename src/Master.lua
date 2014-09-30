@@ -52,7 +52,7 @@ require("string_utils")
 require("fillWords")
 require("loadModuleFile")
 require("utils")
-require("caseIndependent")
+require("string_utils")
 
 local BeautifulTbl = require('BeautifulTbl')
 local ColumnTable  = require('ColumnTable')
@@ -1047,7 +1047,7 @@ function M.avail(argA)
    local optionTbl, searchA = availOptions(argA)
    if (not masterTbl.regexp) then
       for i = 1, #searchA do
-         searchA[i] = caseIndependent(searchA[i])
+         searchA[i] = searchA[i]:caseIndependent()
       end
    end
    local defaultOnly = optionTbl.defaultOnly or masterTbl.defaultOnly
