@@ -1,3 +1,20 @@
+--------------------------------------------------------------------------
+-- This class generates a progress bar.  To use do:
+--
+--       local pb = ProgressBar:new{stream = io.stdout, max = N, barWidth=100}
+--       for i = 1, N do
+--          pb:progress(i)
+--          -- stuff you want to show progress on.
+--       end
+--
+-- The design is to model a football field.
+-- The total size is given to the ctor.  There is a "+" for every 10%
+-- in progress and "|" at 50 and 100%.
+--
+-- @classmod ProgressBar
+
+require("strict")
+
 ------------------------------------------------------------------------
 --
 --  Copyright (C) 2008-2014 Robert McLay
@@ -24,27 +41,18 @@
 --
 --------------------------------------------------------------------------
 
---------------------------------------------------------------------------
--- ProgressBar(): This class generates a progress bar.  To use do:
---
---       local pb = ProgressBar:new{stream = io.stdout, max = N, barWidth=100}
---       for i = 1, N do
---          pb:progress(i)
---          -- stuff you want to show progress on.
---       end
-
---------------------------------------------------------------------------
--- The design (if I can be so bold (;->)) is to model a football field.
--- The total size is given to the ctor.  There is a "+" for every 10%
--- in progress and "|" at 50 and 100%.
 
 
-require("strict")
 local dbg   = require("Dbg"):dbg()
 local M     = { barWidth = 50 }
 local floor = math.floor
 s_symbolT   = {}
 
+
+--------------------------------------------------------------------------
+-- Ctor for class
+-- @param self ProgressBar object
+-- @param t input table
 function M.new(self, t)
    local tbl = t
    local o = {}
@@ -73,6 +81,10 @@ function M.new(self, t)
    return o
 end
 
+--------------------------------------------------------------------------
+-- Prints out progress
+-- @param self ProgressBar object
+-- @param i the index counter.
 function M.progress(self,i)
    local j = floor(i/self.max*100)
    local k = floor((i+1)/self.max*100)
@@ -91,6 +103,9 @@ function M.progress(self,i)
    end
 end
 
+--------------------------------------------------------------------------
+-- Reports finish of progress bar.
+-- @param self ProgressBar object
 function M.fini(self)
    self.stream:write("\n")
 end

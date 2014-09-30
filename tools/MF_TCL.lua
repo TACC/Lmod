@@ -1,4 +1,11 @@
 --------------------------------------------------------------------------
+-- This is a derived class from MF_Base.  This classes knows how
+-- to expand the environment variables into TCL syntax.
+-- @classmod MF_TCL
+
+require("strict")
+
+--------------------------------------------------------------------------
 -- Lmod License
 --------------------------------------------------------------------------
 --
@@ -37,7 +44,6 @@
 --          to expand the environment variables into TCL syntax.
 
 
-require("strict")
 
 
 local MF_TCL     = inheritsFrom(MF_Base)
@@ -46,21 +52,28 @@ local concatTbl  = table.concat
 MF_TCL.my_name   = "TCL"
 
 --------------------------------------------------------------------------
--- MF_TCL:setenv(): generate string for setenv write in TCL.
-
+-- generate string for setenv write in TCL.
+-- @param self MF_Lua object
+-- @param k key
+-- @param v value
 function MF_TCL.setenv(self, k, v)
    return "setenv ".. k .. " {" .. v .. "};"
 end
 
 --------------------------------------------------------------------------
--- MF_TCL:prepend_path(): generate string for prepend_path write in TCL.
-
+-- generate string for prepend_path write in TCL.
+-- @param self MF_Lua object
+-- @param k key
+-- @param v value
 function MF_TCL.prepend_path(self, k, v)
    return "prepend-path ".. k .. " {" .. v .. "};"
 end
 
 --------------------------------------------------------------------------
--- MF_TCL:append_path(): generate string for prepend_path write in TCL.
+-- generate string for append_path write in TCL.
+-- @param self MF_Lua object
+-- @param k key
+-- @param v value
 
 function MF_TCL.append_path(self, k, v)
    return "append-path ".. k .. " {" .. v .. "};"

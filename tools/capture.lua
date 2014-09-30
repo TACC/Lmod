@@ -1,3 +1,9 @@
+--------------------------------------------------------------------------
+-- use io.popen to open a pipe to collect the output of a command.
+-- @module capture
+
+require("strict")
+
 ------------------------------------------------------------------------
 --
 --  Copyright (C) 2008-2014 Robert McLay
@@ -24,14 +30,14 @@
 --
 --------------------------------------------------------------------------
 
---------------------------------------------------------------------------
--- Capture:  use io.popen to open a pipe to collect the output of a
---           command.
-
-require("strict")
 
 local dbg   = require("Dbg"):dbg()
 local posix = require("posix")
+
+--------------------------------------------------------------------------
+-- Capture stdout from *cmd*
+-- @param cmd a string that contains a unix command.
+
 function capture(cmd)
    dbg.start{"capture(",cmd,")"}
    dbg.print{"cwd: ",posix.getcwd(),"\n",level=2}

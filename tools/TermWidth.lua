@@ -1,3 +1,12 @@
+--------------------------------------------------------------------------
+-- Use tput cols to find the number of columns.  Then check
+-- stderr to see if it is connected to a tty.  If not then
+-- use 80 columns wide as default.
+--
+-- @module TermWidth
+
+require("strict")
+
 -----------------------------------------------------------------------
 --
 --  Copyright (C) 2008-2014 Robert McLay
@@ -24,12 +33,7 @@
 --
 --------------------------------------------------------------------------
 
---------------------------------------------------------------------------
--- TermWidth(): Use tput cols to find the number of columns.  Then check
---              stderr to see if it is connected to a tty.  If not then
---              use 80 columns wide as default.
 
-require("strict")
 require("capture")
 local capture = capture or function (s) return nil end
 local getenv  = os.getenv
@@ -41,25 +45,25 @@ if (pcall(require,"term")) then
    term = require("term")
 end
 
+------------------------------------------------------------------------
+-- Ask system for width.
+
 local function askSystem(width)
 
-   ------------------------------------------------------------
-   -- (1) try stty size
+   -- try stty size
    local r_c = capture("stty size 2> /dev/null")
    local i, j, rows, columns = r_c:find('(%d+)%s+(%d+)')
    if (i) then
       return tonumber(columns)
    end
 
-   -----------------------------------------------------------
-   -- (2) Try env var COLUMNS
+   -- Try env var COLUMNS
    columns = getenv("COLUMNS")
    if (columns) then
       return tonumber(columns)
    end
 
-   -----------------------------------------------------------
-   -- (3) Try tput cols
+   -- Try tput cols
    local result = os.execute("tput cols 2> /dev/null")
    if (result) then
       return tonumber(capture("tput cols"))
@@ -68,11 +72,15 @@ local function askSystem(width)
    return width
 end
    
+--------------------------------------------------------------------------
+-- Return true/false if the *term* interface exists.
 
 function haveTermSupport()
    return (not (not term))
 end
 
+--------------------------------------------------------------------------
+-- Returns the number of columns to use as the terminal width.
 
 function TermWidth()
    if (s_width) then

@@ -66,7 +66,7 @@ function MF_Lmod.prepend_path(self, k, v)
 end
 
 --------------------------------------------------------------------------
--- generate string for prepend_path write in Lua.
+-- generate string for append_path write in Lua.
 -- @param self MF_Lua object
 -- @param k key
 -- @param v value
