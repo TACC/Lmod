@@ -1,4 +1,10 @@
 ------------------------------------------------------------------------
+-- Command line options parsing class
+-- @classmod Optiks
+
+require("strict")
+
+------------------------------------------------------------------------
 --
 --  Copyright (C) 2008-2014 Robert McLay
 --
@@ -24,14 +30,14 @@
 --
 --------------------------------------------------------------------------
 
--- Optiks.lua
-
 local function argsPack(...)
    local arg = { n = select ("#", ...), ...}
    return arg
 end
 local pack        = (_VERSION == "Lua 5.1") and argsPack or table.pack
 
+--------------------------------------------------------------------------
+-- Error routine for when option parsing fails
 function Optiks_Error(...)
    io.stderr:write("\n",ProgName,"Error: ")
    local arg = pack(...)
@@ -46,7 +52,6 @@ function Optiks_Exit(v)
    os.exit(v)
 end
 
-require("strict")
 require("TermWidth")
 require("declare")
 
@@ -83,6 +88,10 @@ end
 
 icnt = 0
 
+--------------------------------------------------------------------------
+-- Ctor for option parsing class.
+-- @param self Optiks object
+-- @param t input table
 function M.new(self, t)
    local o = {}
    setmetatable(o, self)
@@ -137,6 +146,10 @@ function M.new(self, t)
    return o
 end
 
+--------------------------------------------------------------------------
+-- Add an option.
+-- @param self Optiks object
+-- @param myTable table of argument to construct option.
 function M.add_option(self, myTable)
    local opt           = Option:new(myTable)
    local names         = opt:optionNames()
@@ -162,10 +175,21 @@ function M.add_option(self, myTable)
    end
 end
 
-function M.getValue(self, arg, argIn, o, optName)
+--------------------------------------------------------------------------
+-- Get the value from command line (private).  If the *eq\_arg* is non-nil
+-- then use it.  (--foo=eq\_arg).  Otherwise get the next argument and remove
+-- it from *argIn*.  If the type is number then convert it.  Otherwise store
+-- a string.
+-- @param self Optiks object
+-- @param eq_arg The equal arg. (i.e. --foo=eq\_arg)
+-- @param argIn The current list of command line arguments
+-- @param o Optiks_Option object.
+-- @param optName the option name.
+-- @return the command line value.
+function M._getValue(self, eq_arg, argIn, o, optName)
    local result
-   if (arg) then
-      result = arg
+   if (eq_arg) then
+      result = eq_arg
    else
       result = argIn[1]
       if (result == nil) then
@@ -179,33 +203,77 @@ function M.getValue(self, arg, argIn, o, optName)
    return result
 end
 
-
-function M.store(self, arg, argIn, argTbl, o, optName)
-   return self:getValue(arg,argIn, o, optName)
+--------------------------------------------------------------------------
+-- Store the value from command line 
+-- @param self Optiks object
+-- @param eq_arg The equal arg. (i.e. --foo=eq\_arg)
+-- @param argIn The current list of command line arguments
+-- @param argTbl The table results of parsing the command line.
+-- @param o Optiks_Option object.
+-- @param optName the option name.
+-- @return the value from command line.
+function M.store(self, eq_arg, argIn, argTbl, o, optName)
+   return self:_getValue(eq_arg,argIn, o, optName)
 end
 
-function M.store_true(self, arg, argIn, argTbl, o, optName)
+--------------------------------------------------------------------------
+-- Store true from command line 
+-- @param self Optiks object
+-- @param eq_arg The equal arg. (i.e. --foo=eq\_arg)
+-- @param argIn The current list of command line arguments
+-- @param argTbl The table results of parsing the command line.
+-- @param o Optiks_Option object.
+-- @param optName the option name.
+-- @return true
+function M.store_true(self, eq_arg, argIn, argTbl, o, optName)
    return true
 end
 
-function M.append(self, arg, argIn, argTbl, o, optName)
-   local result = self:getValue(arg, argIn, o, optName)
+--------------------------------------------------------------------------
+-- Append the command line argument to array.
+-- @param eq_arg The equal arg. (i.e. --foo=eq\_arg)
+-- @param argIn The current list of command line arguments
+-- @param argTbl The table results of parsing the command line.
+-- @param o Optiks_Option object.
+-- @param optName the option name.
+-- @return the value from command line.
+function M.append(self, eq_arg, argIn, argTbl, o, optName)
+   local result = self:_getValue(eq_arg, argIn, o, optName)
 
    table.insert(argTbl[o.dest], result)
 
    return argTbl[o.dest]
 end
 
-function M.store_false(self, arg, argIn, argTbl, o, optName)
+--------------------------------------------------------------------------
+-- Store false from command line 
+-- @param self Optiks object
+-- @param eq_arg The equal arg. (i.e. --foo=eq\_arg)
+-- @param argIn The current list of command line arguments
+-- @param o Optiks_Option object.
+-- @param optName the option name.
+-- @return false
+function M.store_false(self, eq_arg, argIn, argTbl, o, optName)
    return false
 end
 
-function M.count(self, arg, argIn, argTbl, o, optName)
+--------------------------------------------------------------------------
+-- Count the number of times this argument has been given.
+-- @param self Optiks object
+-- @param eq_arg The equal arg. (i.e. --foo=eq\_arg)
+-- @param argIn The current list of command line arguments
+-- @param o Optiks_Option object.
+-- @param optName the option name.
+-- @return the count.
+function M.count(self, eq_arg, argIn, argTbl, o, optName)
    return argTbl[o.dest] + 1
 end
 
------------------------------------------------------------
--- Display functions
+--------------------------------------------------------------------------
+-- Display a store option
+-- @param self Optiks object
+-- @param opt Optiks_Option object.
+-- @return string description of option.
 
 function M.display_store(self, opt)
    local a    = {}
@@ -222,6 +290,11 @@ function M.display_store(self, opt)
    return table.concat(a," ")
 end
 
+--------------------------------------------------------------------------
+-- Display a flag option
+-- @param self Optiks object
+-- @param opt Optiks_Option object.
+-- @return string description of option.
 function M.display_flag(self, opt)
    local a = {}
    for _,v in ipairs(opt.name) do
@@ -230,28 +303,47 @@ function M.display_flag(self, opt)
    return table.concat(a," ")
 end
 
+--------------------------------------------------------------------------
+-- Display a count option
+-- @param self Optiks object
+-- @param opt Optiks_Option object.
+-- @return string description of option.
 function M.display_count(self, opt)
    return self:display_flag(opt)
 end
 
+--------------------------------------------------------------------------
+-- Set the defaults for 
+-- @param self Optiks object.
+-- @param argTbl The table results of parsing the command line.
 function M.setDefaults(self, argTbl)
    for i,v in ipairs(self.optA) do
       v:setDefault(argTbl)
    end
 end
 
------------------------------------------------------------
--- The Big Kahuna: This does all the work
+--------------------------------------------------------------------------
+-- This routine is the Big Kahuna. This does all the work of parsing
+-- Append the command line argument to array.
+-- @param self Optiks object
+-- @param optName the option name.
+-- @param eq\_arg The equal arg. (i.e. --foo=eq\_arg)
+-- @param argIn The current list of command line arguments
+-- @param argTbl The table results of parsing the command line.
 
-function M.parseOpt(self, optName, arg, argIn, argTbl)
+function M.parseOpt(self, optName, eq_arg, argIn, argTbl)
    local o = self.argNames[optName]
    if (o ~= nil) then
-      argTbl[o.dest] = self[o.action](self, arg, argIn, argTbl, o, optName)
+      argTbl[o.dest] = self[o.action](self, eq_arg, argIn, argTbl, o, optName)
    else
       Error("Unknown Option: \"" .. optName .. "\"\n")
    end
 end
 
+--------------------------------------------------------------------------
+-- Build the help message.
+-- @param self Optiks object
+-- @return the string result of the help message.
 function M.buildHelpMsg(self)
    local term_width  = TermWidth()
    local b = {}
@@ -271,12 +363,20 @@ function M.buildHelpMsg(self)
    return concatTbl(b,"")
 end
 
+
+--------------------------------------------------------------------------
+-- Print the help message  via the *prt* routine.
+-- @param self Optiks object
 function M.printHelp(self)
    self.prt(self:buildHelpMsg())
    self.exit(0)
 end
 
 
+--------------------------------------------------------------------------
+-- Parse an environment variable before parsing the command line.
+-- @param self Optiks object.
+-- @return an array of options.
 function M.parseEnvArg(self)
    local optA   = {}
    local optStr = self.envArg
@@ -326,6 +426,12 @@ function M.parseEnvArg(self)
 end
 
 
+--------------------------------------------------------------------------
+-- Parse the command line arguments.
+-- @param self Optiks object
+-- @param argIn The command line arguments.
+-- @return the argTbl results of parsing the command line options
+-- @return the positional arguments.
 function M.parse(self, argIn)
 
    ------------------------------------------------------------
@@ -388,14 +494,14 @@ function M.parse(self, argIn)
       end
 
       local _, _, dash, optName = key:find("^(%-%-?)([^=-][^=]*)")
-      local _, _, arg           = key:find("=(.*)")
+      local _, _, eq_arg        = key:find("=(.*)")
       if (key == "--") then
          noProcess = 1
       elseif (dash == nil or noProcess) then
          table.insert(parg, key)
          noProcess = 1
       else
-         self:parseOpt(optName, arg, argA, argTbl)
+         self:parseOpt(optName, eq_arg, argA, argTbl)
       end
    end
    if (argTbl.Optiks_help) then
