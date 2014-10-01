@@ -231,6 +231,7 @@ end
 
 --------------------------------------------------------------------------
 -- Append the command line argument to array.
+-- @param self Optiks object
 -- @param eq_arg The equal arg. (i.e. --foo=eq\_arg)
 -- @param argIn The current list of command line arguments
 -- @param argTbl The table results of parsing the command line.
@@ -250,6 +251,7 @@ end
 -- @param self Optiks object
 -- @param eq_arg The equal arg. (i.e. --foo=eq\_arg)
 -- @param argIn The current list of command line arguments
+-- @param argTbl The table results of parsing the command line.
 -- @param o Optiks_Option object.
 -- @param optName the option name.
 -- @return false
@@ -262,6 +264,7 @@ end
 -- @param self Optiks object
 -- @param eq_arg The equal arg. (i.e. --foo=eq\_arg)
 -- @param argIn The current list of command line arguments
+-- @param argTbl The table results of parsing the command line.
 -- @param o Optiks_Option object.
 -- @param optName the option name.
 -- @return the count.
@@ -327,7 +330,7 @@ end
 -- Append the command line argument to array.
 -- @param self Optiks object
 -- @param optName the option name.
--- @param eq\_arg The equal arg. (i.e. --foo=eq\_arg)
+-- @param eq_arg The equal arg. (i.e. --foo=eq\_arg)
 -- @param argIn The current list of command line arguments
 -- @param argTbl The table results of parsing the command line.
 

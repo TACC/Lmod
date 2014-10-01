@@ -1,4 +1,10 @@
 --------------------------------------------------------------------------
+-- This class is a singleton to act as a timer.
+-- @classmod CTimer
+
+require("strict")
+
+--------------------------------------------------------------------------
 -- Lmod License
 --------------------------------------------------------------------------
 --
@@ -32,7 +38,6 @@
 --
 --------------------------------------------------------------------------
 
-require("strict")
 require("utils")
 local M       = {}
 local dbg     = require("Dbg"):dbg()
@@ -53,6 +58,14 @@ local function new(self, msg, threshold, active, timeout)
    return o
 end
 
+--------------------------------------------------------------------------
+-- Singleton Class builder
+-- @param self A CTimer object
+-- @param msg stored message
+-- @param threshold Threshold before message is printed.
+-- @param active Active state
+-- @param timeout A timeout (if positive) when an error will be reported.
+-- @return A CTimer singleton object.
 function M.cTimer(self, msg, threshold, active, timeout)
    if (not s_cTimer) then
       s_cTimer = new(self, msg, threshold, active, timeout)
@@ -60,6 +73,9 @@ function M.cTimer(self, msg, threshold, active, timeout)
    return s_cTimer
 end
 
+--------------------------------------------------------------------------
+-- Check the time.  Print message if change from start passes the threshold.
+-- @param self A CTimer object
 function M.test(self)
    local delta   = epoch() - self.start
    local timeout = self.timeout
@@ -78,6 +94,9 @@ function M.test(self)
    end
 end
 
+--------------------------------------------------------------------------
+-- Quit timer
+-- @param self A CTimer object
 function M.done(self,endMsg)
    if (self.state == "activeMsg") then
       io.stderr:write(endMsg,"\n")
