@@ -52,6 +52,7 @@
 require("strict")
 require("parseVersion")
 require("utils")
+require("string_utils")
 
 local dbg         = require("Dbg"):dbg()
 local max         = math.max
@@ -297,6 +298,7 @@ end
 local function convert2table(...)
    local arg = pack(...)
    local t   = {}
+   arg[1] = arg[1]:trim()
    if (arg.n == 1) then
       t = arg[1]
    else
