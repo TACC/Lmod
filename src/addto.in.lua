@@ -1,6 +1,19 @@
 #!@path_to_lua@/lua
 -- -*- lua -*-
 
+-----------------------------------------------------------------
+-- addto:  Add to a path like environment variable.
+--
+-- Standard usage is Bash:
+--
+-- $ unset FOO
+-- $ export FOO=$(addto --append FOO a b c)
+-- $ echo "   FOO: %$FOO%"
+--     FOO: %a:b:c%
+-- $ export FOO=$(addto --append FOO d e f); echo "   FOO: %$FOO%"
+--     FOO: %a:b:c:d:e:f%
+-- @script addto
+
 --------------------------------------------------------------------------
 -- Lmod License
 --------------------------------------------------------------------------
@@ -35,17 +48,6 @@
 --
 --------------------------------------------------------------------------
 
------------------------------------------------------------------
--- addto:  Add to a path like environment variable.
---
--- Standard usage is Bash:
---
--- $ unset FOO
--- $ export FOO=$(addto --append FOO a b c)
--- $ echo "   FOO: %$FOO%"
---     FOO: %a:b:c%
--- $ export FOO=$(addto --append FOO d e f); echo "   FOO: %$FOO%"
---     FOO: %a:b:c:d:e:f%
 
 local cmd = arg[0]
 

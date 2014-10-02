@@ -96,7 +96,8 @@ end
 
 --------------------------------------------------------------------------
 -- Quit timer
--- @param self A CTimer object
+-- @param self A CTimer object.
+-- @param endMsg ending message.
 function M.done(self,endMsg)
    if (self.state == "activeMsg") then
       io.stderr:write(endMsg,"\n")

@@ -166,6 +166,10 @@ __installMe:
             fi;                                                            	  \
         done
 
+generate_doc:
+	ldoc .
+
+
 shell_init: $(SHELL_INIT)
 	$(MAKE) FILELIST="$^" DIRLOC=$(DESTDIR)$(INIT)    __installMe
 

@@ -2,6 +2,12 @@
 -- -*- lua -*-
 
 --------------------------------------------------------------------------
+-- The main program for Lmod.
+-- @script lmod
+
+require("strict")
+
+--------------------------------------------------------------------------
 -- Lmod License
 --------------------------------------------------------------------------
 --
@@ -67,7 +73,6 @@ package.cpath = LuaCommandName_dir .. "../lib/?.so;"..
                 package.cpath
 
 
-require("strict")
 require("myGlobals")
 
 local term     = false

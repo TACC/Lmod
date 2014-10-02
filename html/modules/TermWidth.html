@@ -1,0 +1,187 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Lmod Documentation</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>Lmod</h1>
+
+<ul>
+  <li><a href="../index.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Functions">Functions</a></li>
+</ul>
+
+
+<h2>Modules</h2>
+<ul class="$(kind=='Topics' and '' or 'nowrap'">
+  <li><a href="../modules/SitePackage.html">SitePackage</a></li>
+  <li><a href="../modules/StandardPackage.html">StandardPackage</a></li>
+  <li><strong>TermWidth</strong></li>
+  <li><a href="../modules/capture.html">capture</a></li>
+  <li><a href="../modules/cmdfuncs.html">cmdfuncs</a></li>
+  <li><a href="../modules/colorize.html">colorize</a></li>
+  <li><a href="../modules/declare.html">declare</a></li>
+  <li><a href="../modules/fileOps.html">fileOps</a></li>
+  <li><a href="../modules/inherits.html">inherits</a></li>
+  <li><a href="../modules/json.html">json</a></li>
+  <li><a href="../modules/loadModuleFile.html">loadModuleFile</a></li>
+  <li><a href="../modules/modfuncs.html">modfuncs</a></li>
+  <li><a href="../modules/myGlobals.html">myGlobals</a></li>
+  <li><a href="../modules/pager.html">pager</a></li>
+  <li><a href="../modules/pairsByKeys.html">pairsByKeys</a></li>
+  <li><a href="../modules/parseVersion.html">parseVersion</a></li>
+  <li><a href="../modules/sandbox.html">sandbox</a></li>
+  <li><a href="../modules/serializeTbl.html">serializeTbl</a></li>
+  <li><a href="../modules/utils.html">utils</a></li>
+</ul>
+<h2>Scripts</h2>
+<ul class="$(kind=='Topics' and '' or 'nowrap'">
+  <li><a href="../scripts/addto.html">addto</a></li>
+  <li><a href="../scripts/clearMT_cmd.html">clearMT_cmd</a></li>
+  <li><a href="../scripts/computeHashSum.html">computeHashSum</a></li>
+  <li><a href="../scripts/getmt.html">getmt</a></li>
+  <li><a href="../scripts/lmod.html">lmod</a></li>
+  <li><a href="../scripts/ml.html">ml</a></li>
+  <li><a href="../scripts/processMT.html">processMT</a></li>
+  <li><a href="../scripts/processModuleUsage.html">processModuleUsage</a></li>
+  <li><a href="../scripts/reportUsers.html">reportUsers</a></li>
+  <li><a href="../scripts/sh_to_modulefile.html">sh_to_modulefile</a></li>
+  <li><a href="../scripts/spider.html">spider</a></li>
+  <li><a href="../scripts/spiderCacheSupport.html">spiderCacheSupport</a></li>
+</ul>
+<h2>Classes</h2>
+<ul class="$(kind=='Topics' and '' or 'nowrap'">
+  <li><a href="../classes/Banner.html">Banner</a></li>
+  <li><a href="../classes/BeautifulTbl.html">BeautifulTbl</a></li>
+  <li><a href="../classes/CTimer.html">CTimer</a></li>
+  <li><a href="../classes/Cache.html">Cache</a></li>
+  <li><a href="../classes/ColumnTable.html">ColumnTable</a></li>
+  <li><a href="../classes/Configuration.html">Configuration</a></li>
+  <li><a href="../classes/Dbg.html">Dbg</a></li>
+  <li><a href="../classes/Exec.html">Exec</a></li>
+  <li><a href="../classes/Hook.html">Hook</a></li>
+  <li><a href="../classes/MC_Access.html">MC_Access</a></li>
+  <li><a href="../classes/MC_ComputeHash.html">MC_ComputeHash</a></li>
+  <li><a href="../classes/MC_Load.html">MC_Load</a></li>
+  <li><a href="../classes/MC_MgrLoad.html">MC_MgrLoad</a></li>
+  <li><a href="../classes/MC_Refresh.html">MC_Refresh</a></li>
+  <li><a href="../classes/MC_Show.html">MC_Show</a></li>
+  <li><a href="../classes/MC_Spider.html">MC_Spider</a></li>
+  <li><a href="../classes/MC_Unload.html">MC_Unload</a></li>
+  <li><a href="../classes/MF_Base.html">MF_Base</a></li>
+  <li><a href="../classes/MF_Lua.html">MF_Lua</a></li>
+  <li><a href="../classes/MF_TCL.html">MF_TCL</a></li>
+  <li><a href="../classes/MN_Between.html">MN_Between</a></li>
+  <li><a href="../classes/MN_Latest.html">MN_Latest</a></li>
+  <li><a href="../classes/MN_Match.html">MN_Match</a></li>
+  <li><a href="../classes/MName.html">MName</a></li>
+  <li><a href="../classes/MT.html">MT</a></li>
+  <li><a href="../classes/Master.html">Master</a></li>
+  <li><a href="../classes/MasterControl.html">MasterControl</a></li>
+  <li><a href="../classes/ModuleStack.html">ModuleStack</a></li>
+  <li><a href="../classes/Optiks.html">Optiks</a></li>
+  <li><a href="../classes/Optiks_Option.html">Optiks_Option</a></li>
+  <li><a href="../classes/Options.html">Options</a></li>
+  <li><a href="../classes/Pkg.html">Pkg</a></li>
+  <li><a href="../classes/PkgBase.html">PkgBase</a></li>
+  <li><a href="../classes/PkgTACC.html">PkgTACC</a></li>
+  <li><a href="../classes/ProgressBar.html">ProgressBar</a></li>
+  <li><a href="../classes/Spider.html">Spider</a></li>
+  <li><a href="../classes/Timer.html">Timer</a></li>
+  <li><a href="../classes/Var.html">Var</a></li>
+  <li><a href="../classes/string.html">string</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Module <code>TermWidth</code></h1>
+<p>Use tput cols to find the number of columns.</p>
+<p>  Then check
+ stderr to see if it is connected to a tty.  If not then
+ use 80 columns wide as default.
+</p>
+
+
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#haveTermSupport">haveTermSupport ()</a></td>
+	<td class="summary">Return true/false if the *term* interface exists.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#TermWidth">TermWidth ()</a></td>
+	<td class="summary">Returns the number of columns to use as the terminal width.</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2><a name="Functions"></a>Functions</h2>
+    <dl class="function">
+    <dt>
+    <a name = "haveTermSupport"></a>
+    <strong>haveTermSupport ()</strong>
+    </dt>
+    <dd>
+    Return true/false if the *term* interface exists.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "TermWidth"></a>
+    <strong>TermWidth ()</strong>
+    </dt>
+    <dd>
+    Returns the number of columns to use as the terminal width.
+
+
+
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.2</a></i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>

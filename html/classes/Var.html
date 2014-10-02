@@ -1,0 +1,427 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Lmod Documentation</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>Lmod</h1>
+
+<ul>
+  <li><a href="../index.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Methods">Methods</a></li>
+</ul>
+
+
+<h2>Classes</h2>
+<ul class="$(kind=='Topics' and '' or 'nowrap'">
+  <li><a href="../classes/Banner.html">Banner</a></li>
+  <li><a href="../classes/BeautifulTbl.html">BeautifulTbl</a></li>
+  <li><a href="../classes/CTimer.html">CTimer</a></li>
+  <li><a href="../classes/Cache.html">Cache</a></li>
+  <li><a href="../classes/ColumnTable.html">ColumnTable</a></li>
+  <li><a href="../classes/Configuration.html">Configuration</a></li>
+  <li><a href="../classes/Dbg.html">Dbg</a></li>
+  <li><a href="../classes/Exec.html">Exec</a></li>
+  <li><a href="../classes/Hook.html">Hook</a></li>
+  <li><a href="../classes/MC_Access.html">MC_Access</a></li>
+  <li><a href="../classes/MC_ComputeHash.html">MC_ComputeHash</a></li>
+  <li><a href="../classes/MC_Load.html">MC_Load</a></li>
+  <li><a href="../classes/MC_MgrLoad.html">MC_MgrLoad</a></li>
+  <li><a href="../classes/MC_Refresh.html">MC_Refresh</a></li>
+  <li><a href="../classes/MC_Show.html">MC_Show</a></li>
+  <li><a href="../classes/MC_Spider.html">MC_Spider</a></li>
+  <li><a href="../classes/MC_Unload.html">MC_Unload</a></li>
+  <li><a href="../classes/MF_Base.html">MF_Base</a></li>
+  <li><a href="../classes/MF_Lua.html">MF_Lua</a></li>
+  <li><a href="../classes/MF_TCL.html">MF_TCL</a></li>
+  <li><a href="../classes/MN_Between.html">MN_Between</a></li>
+  <li><a href="../classes/MN_Latest.html">MN_Latest</a></li>
+  <li><a href="../classes/MN_Match.html">MN_Match</a></li>
+  <li><a href="../classes/MName.html">MName</a></li>
+  <li><a href="../classes/MT.html">MT</a></li>
+  <li><a href="../classes/Master.html">Master</a></li>
+  <li><a href="../classes/MasterControl.html">MasterControl</a></li>
+  <li><a href="../classes/ModuleStack.html">ModuleStack</a></li>
+  <li><a href="../classes/Optiks.html">Optiks</a></li>
+  <li><a href="../classes/Optiks_Option.html">Optiks_Option</a></li>
+  <li><a href="../classes/Options.html">Options</a></li>
+  <li><a href="../classes/Pkg.html">Pkg</a></li>
+  <li><a href="../classes/PkgBase.html">PkgBase</a></li>
+  <li><a href="../classes/PkgTACC.html">PkgTACC</a></li>
+  <li><a href="../classes/ProgressBar.html">ProgressBar</a></li>
+  <li><a href="../classes/Spider.html">Spider</a></li>
+  <li><a href="../classes/Timer.html">Timer</a></li>
+  <li><strong>Var</strong></li>
+  <li><a href="../classes/string.html">string</a></li>
+</ul>
+<h2>Modules</h2>
+<ul class="$(kind=='Topics' and '' or 'nowrap'">
+  <li><a href="../modules/SitePackage.html">SitePackage</a></li>
+  <li><a href="../modules/StandardPackage.html">StandardPackage</a></li>
+  <li><a href="../modules/TermWidth.html">TermWidth</a></li>
+  <li><a href="../modules/capture.html">capture</a></li>
+  <li><a href="../modules/cmdfuncs.html">cmdfuncs</a></li>
+  <li><a href="../modules/colorize.html">colorize</a></li>
+  <li><a href="../modules/declare.html">declare</a></li>
+  <li><a href="../modules/fileOps.html">fileOps</a></li>
+  <li><a href="../modules/inherits.html">inherits</a></li>
+  <li><a href="../modules/json.html">json</a></li>
+  <li><a href="../modules/loadModuleFile.html">loadModuleFile</a></li>
+  <li><a href="../modules/modfuncs.html">modfuncs</a></li>
+  <li><a href="../modules/myGlobals.html">myGlobals</a></li>
+  <li><a href="../modules/pager.html">pager</a></li>
+  <li><a href="../modules/pairsByKeys.html">pairsByKeys</a></li>
+  <li><a href="../modules/parseVersion.html">parseVersion</a></li>
+  <li><a href="../modules/sandbox.html">sandbox</a></li>
+  <li><a href="../modules/serializeTbl.html">serializeTbl</a></li>
+  <li><a href="../modules/utils.html">utils</a></li>
+</ul>
+<h2>Scripts</h2>
+<ul class="$(kind=='Topics' and '' or 'nowrap'">
+  <li><a href="../scripts/addto.html">addto</a></li>
+  <li><a href="../scripts/clearMT_cmd.html">clearMT_cmd</a></li>
+  <li><a href="../scripts/computeHashSum.html">computeHashSum</a></li>
+  <li><a href="../scripts/getmt.html">getmt</a></li>
+  <li><a href="../scripts/lmod.html">lmod</a></li>
+  <li><a href="../scripts/ml.html">ml</a></li>
+  <li><a href="../scripts/processMT.html">processMT</a></li>
+  <li><a href="../scripts/processModuleUsage.html">processModuleUsage</a></li>
+  <li><a href="../scripts/reportUsers.html">reportUsers</a></li>
+  <li><a href="../scripts/sh_to_modulefile.html">sh_to_modulefile</a></li>
+  <li><a href="../scripts/spider.html">spider</a></li>
+  <li><a href="../scripts/spiderCacheSupport.html">spiderCacheSupport</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Class <code>Var</code></h1>
+<p>This class is manages the hash table that stores the "environment"
+ variables that Lmod controls.</p>
+<p>  Each instant of Var holds a single
+ environment variable, path, local variable, shell function or alias.
+ This class is at the core of Lmod.  Lmod is all about controlling
+ the user environment and this is where Lmod does this.
+<p> The other point of this class is to check to see when MODULEPATH
+ has changed.
+</p>
+
+
+<h2><a href="#Methods">Methods</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#Var:new">Var:new (self, name, value, sep)</a></td>
+	<td class="summary">Var:new():  The ctor for this class.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Var:prt">Var:prt (self, title)</a></td>
+	<td class="summary">Var:prt() This member function is here just when debugging.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Var:remove">Var:remove (self, value, where, priority)</a></td>
+	<td class="summary">Report an error/warning when removing a path element without the
+  same priority</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Var:pop">Var:pop (self)</a></td>
+	<td class="summary">Var:pop(): Remove the top value and return the second value or nil if
+            none are left.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Var:prepend">Var:prepend (self, value, nodups, priority)</a></td>
+	<td class="summary">Report an error/warning when appending/prepending a path element
+  without the same priority</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Var:append">Var:append (self, value, nodups, priority)</a></td>
+	<td class="summary">Var:append(): Append an entry into a path.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Var:set">Var:set (self, value)</a></td>
+	<td class="summary">Master: The following are simple set/unset functions.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Var:myType">Var:myType (self)</a></td>
+	<td class="summary">Master:myType() - return the var type.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Var:expand">Var:expand (self)</a></td>
+	<td class="summary">Master:expand(): Expand the value into a string.</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2><a name="Methods"></a>Methods</h2>
+    <dl class="function">
+    <dt>
+    <a name = "Var:new"></a>
+    <strong>Var:new (self, name, value, sep)</strong>
+    </dt>
+    <dd>
+    Var:new():  The ctor for this class.   It uses extract to build its
+             initial value from the environment.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+
+        </li>
+        <li><span class="parameter">name</span>
+
+        </li>
+        <li><span class="parameter">value</span>
+
+        </li>
+        <li><span class="parameter">sep</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Var:prt"></a>
+    <strong>Var:prt (self, title)</strong>
+    </dt>
+    <dd>
+    Var:prt() This member function is here just when debugging.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+
+        </li>
+        <li><span class="parameter">title</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Var:remove"></a>
+    <strong>Var:remove (self, value, where, priority)</strong>
+    </dt>
+    <dd>
+    Report an error/warning when removing a path element without the
+  same priority
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+
+        </li>
+        <li><span class="parameter">value</span>
+
+        </li>
+        <li><span class="parameter">where</span>
+
+        </li>
+        <li><span class="parameter">priority</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Var:pop"></a>
+    <strong>Var:pop (self)</strong>
+    </dt>
+    <dd>
+    Var:pop(): Remove the top value and return the second value or nil if
+            none are left.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Var:prepend"></a>
+    <strong>Var:prepend (self, value, nodups, priority)</strong>
+    </dt>
+    <dd>
+    Report an error/warning when appending/prepending a path element
+  without the same priority
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+
+        </li>
+        <li><span class="parameter">value</span>
+
+        </li>
+        <li><span class="parameter">nodups</span>
+
+        </li>
+        <li><span class="parameter">priority</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Var:append"></a>
+    <strong>Var:append (self, value, nodups, priority)</strong>
+    </dt>
+    <dd>
+    Var:append(): Append an entry into a path.  [[nodups]] controls
+               policies on duplication by setting [[insertFunc]].
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+
+        </li>
+        <li><span class="parameter">value</span>
+
+        </li>
+        <li><span class="parameter">nodups</span>
+
+        </li>
+        <li><span class="parameter">priority</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Var:set"></a>
+    <strong>Var:set (self, value)</strong>
+    </dt>
+    <dd>
+    Master: The following are simple set/unset functions.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+
+        </li>
+        <li><span class="parameter">value</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Var:myType"></a>
+    <strong>Var:myType (self)</strong>
+    </dt>
+    <dd>
+    Master:myType() - return the var type.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Var:expand"></a>
+    <strong>Var:expand (self)</strong>
+    </dt>
+    <dd>
+    Master:expand(): Expand the value into a string.    Obviously non-path
+                  types are simply returned.
+<p>                  It is a two step process to expand the path variables.
+                  First table (self.tbl) is flipped where now the indices
+                  are the keys and the paths are the values.  This creates
+                  [[t]] with integer keys with possible gaps.  Then second
+                  loop uses pairByKeys to pick keys from lowest to highest.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.2</a></i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>

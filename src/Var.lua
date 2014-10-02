@@ -1,4 +1,18 @@
 --------------------------------------------------------------------------
+-- This class is manages the hash table that stores the "environment"
+-- variables that Lmod controls.  Each instant of Var holds a single
+-- environment variable, path, local variable, shell function or alias.
+-- This class is at the core of Lmod.  Lmod is all about controlling
+-- the user environment and this is where Lmod does this.
+--
+-- The other point of this class is to check to see when MODULEPATH
+-- has changed.
+--
+-- @classmod Var
+
+require("strict")
+
+--------------------------------------------------------------------------
 -- Lmod License
 --------------------------------------------------------------------------
 --
@@ -32,15 +46,6 @@
 --
 --------------------------------------------------------------------------
 
---------------------------------------------------------------------------
--- Var:  This class is manages the hash table that stores the "environment"
---       variables that Lmod controls.  Each instant of Var holds a single
---       environment variable, path, local variable, shell function or alias.
---       This class is at the core of Lmod.  Lmod is all about controlling
---       the user environment and this is where Lmod does this.
---
---       The other point of this class is to check to see when MODULEPATH
---       has changed.
 
 --------------------------------------------------------------------------
 -- PATH Variables:
@@ -81,7 +86,6 @@
 -- do not allow duplicates.  Then the Var:pop() member function will work
 -- correctly independent of site policy towards duplicates
 
-require("strict")
 require("string_utils")
 require("pairsByKeys")
 require("utils")

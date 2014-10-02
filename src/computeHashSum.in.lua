@@ -1,5 +1,11 @@
 #!@path_to_lua@/lua
 -- -*- lua -*-
+
+--------------------------------------------------------------------------
+-- Fixme
+-- @script computeHashSum 
+
+require("strict")
 --------------------------------------------------------------------------
 -- Lmod License
 --------------------------------------------------------------------------
@@ -56,7 +62,6 @@ Version = "1.0"
 HashSum = "@path_to_hashsum@"
 
 require("myGlobals")
-require("strict")
 require("utils")
 
 require("fileOps")

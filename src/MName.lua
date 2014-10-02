@@ -6,7 +6,7 @@
 --  The "MT:locationTbl()" knows the 3 components for modules that
 --  can be loaded.  On the other hand, "MT:exists()" knows for
 --  modules that are already loaded.
-
+--
 --  The problem is when a user gives a module name on the command
 --  line.  It can be the short name or the full name.  The trouble
 --  is that if the user gives "foo/bar" as a module name, it is
@@ -24,7 +24,7 @@
 --  Another consideration is that Lmod only allows for one "name"
 --  to be loaded at a time.
 --
--- @classmod MName
+--  @classmod MName
 
 require("strict")
 
@@ -75,15 +75,15 @@ local posix       = require("posix")
 local sort        = table.sort
 MName             = M
 --------------------------------------------------------------------------
--- shorten(): This function allows for taking the name and remove one
---            level at a time.  Lmod rules require that if a module is
---            loaded or available, that the "short" name is either
---            the name given or one level removed.  So checking for
---            a "a/b/c/d" then the short name is either "a/b/c/d" or
---            "a/b/c".  It can't be "a/b" and the version be "c/d".
---            In other words, the "version" can only be one component,
---            not a directory/file.  This function can only be called
---            with level = 0 or 1.
+-- This function allows for taking the name and remove one
+-- level at a time.  Lmod rules require that if a module is
+-- loaded or available, that the "short" name is either
+-- the name given or one level removed.  So checking for
+-- a "a/b/c/d" then the short name is either "a/b/c/d" or
+-- "a/b/c".  It can't be "a/b" and the version be "c/d".
+-- In other words, the "version" can only be one component,
+-- not a directory/file.  This function can only be called
+-- with level = 0 or 1.
 
 local function shorten(name, level)
    if (level == 0) then

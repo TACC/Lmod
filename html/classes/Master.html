@@ -1,0 +1,402 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Lmod Documentation</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>Lmod</h1>
+
+<ul>
+  <li><a href="../index.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Tables">Tables</a></li>
+<li><a href="#Methods">Methods</a></li>
+</ul>
+
+
+<h2>Classes</h2>
+<ul class="$(kind=='Topics' and '' or 'nowrap'">
+  <li><a href="../classes/Banner.html">Banner</a></li>
+  <li><a href="../classes/BeautifulTbl.html">BeautifulTbl</a></li>
+  <li><a href="../classes/CTimer.html">CTimer</a></li>
+  <li><a href="../classes/Cache.html">Cache</a></li>
+  <li><a href="../classes/ColumnTable.html">ColumnTable</a></li>
+  <li><a href="../classes/Configuration.html">Configuration</a></li>
+  <li><a href="../classes/Dbg.html">Dbg</a></li>
+  <li><a href="../classes/Exec.html">Exec</a></li>
+  <li><a href="../classes/Hook.html">Hook</a></li>
+  <li><a href="../classes/MC_Access.html">MC_Access</a></li>
+  <li><a href="../classes/MC_ComputeHash.html">MC_ComputeHash</a></li>
+  <li><a href="../classes/MC_Load.html">MC_Load</a></li>
+  <li><a href="../classes/MC_MgrLoad.html">MC_MgrLoad</a></li>
+  <li><a href="../classes/MC_Refresh.html">MC_Refresh</a></li>
+  <li><a href="../classes/MC_Show.html">MC_Show</a></li>
+  <li><a href="../classes/MC_Spider.html">MC_Spider</a></li>
+  <li><a href="../classes/MC_Unload.html">MC_Unload</a></li>
+  <li><a href="../classes/MF_Base.html">MF_Base</a></li>
+  <li><a href="../classes/MF_Lua.html">MF_Lua</a></li>
+  <li><a href="../classes/MF_TCL.html">MF_TCL</a></li>
+  <li><a href="../classes/MN_Between.html">MN_Between</a></li>
+  <li><a href="../classes/MN_Latest.html">MN_Latest</a></li>
+  <li><a href="../classes/MN_Match.html">MN_Match</a></li>
+  <li><a href="../classes/MName.html">MName</a></li>
+  <li><a href="../classes/MT.html">MT</a></li>
+  <li><strong>Master</strong></li>
+  <li><a href="../classes/MasterControl.html">MasterControl</a></li>
+  <li><a href="../classes/ModuleStack.html">ModuleStack</a></li>
+  <li><a href="../classes/Optiks.html">Optiks</a></li>
+  <li><a href="../classes/Optiks_Option.html">Optiks_Option</a></li>
+  <li><a href="../classes/Options.html">Options</a></li>
+  <li><a href="../classes/Pkg.html">Pkg</a></li>
+  <li><a href="../classes/PkgBase.html">PkgBase</a></li>
+  <li><a href="../classes/PkgTACC.html">PkgTACC</a></li>
+  <li><a href="../classes/ProgressBar.html">ProgressBar</a></li>
+  <li><a href="../classes/Spider.html">Spider</a></li>
+  <li><a href="../classes/Timer.html">Timer</a></li>
+  <li><a href="../classes/Var.html">Var</a></li>
+  <li><a href="../classes/string.html">string</a></li>
+</ul>
+<h2>Modules</h2>
+<ul class="$(kind=='Topics' and '' or 'nowrap'">
+  <li><a href="../modules/SitePackage.html">SitePackage</a></li>
+  <li><a href="../modules/StandardPackage.html">StandardPackage</a></li>
+  <li><a href="../modules/TermWidth.html">TermWidth</a></li>
+  <li><a href="../modules/capture.html">capture</a></li>
+  <li><a href="../modules/cmdfuncs.html">cmdfuncs</a></li>
+  <li><a href="../modules/colorize.html">colorize</a></li>
+  <li><a href="../modules/declare.html">declare</a></li>
+  <li><a href="../modules/fileOps.html">fileOps</a></li>
+  <li><a href="../modules/inherits.html">inherits</a></li>
+  <li><a href="../modules/json.html">json</a></li>
+  <li><a href="../modules/loadModuleFile.html">loadModuleFile</a></li>
+  <li><a href="../modules/modfuncs.html">modfuncs</a></li>
+  <li><a href="../modules/myGlobals.html">myGlobals</a></li>
+  <li><a href="../modules/pager.html">pager</a></li>
+  <li><a href="../modules/pairsByKeys.html">pairsByKeys</a></li>
+  <li><a href="../modules/parseVersion.html">parseVersion</a></li>
+  <li><a href="../modules/sandbox.html">sandbox</a></li>
+  <li><a href="../modules/serializeTbl.html">serializeTbl</a></li>
+  <li><a href="../modules/utils.html">utils</a></li>
+</ul>
+<h2>Scripts</h2>
+<ul class="$(kind=='Topics' and '' or 'nowrap'">
+  <li><a href="../scripts/addto.html">addto</a></li>
+  <li><a href="../scripts/clearMT_cmd.html">clearMT_cmd</a></li>
+  <li><a href="../scripts/computeHashSum.html">computeHashSum</a></li>
+  <li><a href="../scripts/getmt.html">getmt</a></li>
+  <li><a href="../scripts/lmod.html">lmod</a></li>
+  <li><a href="../scripts/ml.html">ml</a></li>
+  <li><a href="../scripts/processMT.html">processMT</a></li>
+  <li><a href="../scripts/processModuleUsage.html">processModuleUsage</a></li>
+  <li><a href="../scripts/reportUsers.html">reportUsers</a></li>
+  <li><a href="../scripts/sh_to_modulefile.html">sh_to_modulefile</a></li>
+  <li><a href="../scripts/spider.html">spider</a></li>
+  <li><a href="../scripts/spiderCacheSupport.html">spiderCacheSupport</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Class <code>Master</code></h1>
+<p>This class is responsible for actively managing the actions of
+ Lmod.</p>
+<p>  It is responsible finding and loading or unloading a
+ modulefile.  It is also responsible for reloading modules when
+ the module path changes.  Finally it is responsible for finding
+ modulefiles for "avail"
+</p>
+
+
+<h2><a href="#Tables">Tables</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#Master.s_master">Master.s_master</a></td>
+	<td class="summary">a private ctor that is used to construct a singleton.</td>
+	</tr>
+</table>
+<h2><a href="#Methods">Methods</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#Master:master">Master:master (self, safe)</a></td>
+	<td class="summary">Singleton Ctor.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Master:access">Master:access (self, ...)</a></td>
+	<td class="summary">This member function is engine that runs the user
+ commands "help", "whatis" and "show".</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Master:inheritModule">Master:inheritModule ()</a></td>
+	<td class="summary">Load the module that has the same name as the
+ one on the top of mStack.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Master:load">Master:load (mA)</a></td>
+	<td class="summary">Load all requested modules.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Master:refresh">Master:refresh ()</a></td>
+	<td class="summary">Loop over all active modules and reload each one.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Master:reloadAll">Master:reloadAll ()</a></td>
+	<td class="summary">Loop over all modules in MT to see if they still
+ can be seen.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Master:safeToUpdate">Master:safeToUpdate ()</a></td>
+	<td class="summary">Master:safeToUpdate() - [[safe]] is set during ctor.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Master:unload">Master:unload (mA)</a></td>
+	<td class="summary">Master:unload() - unload modulefile(s) via the module names.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Master:avail">Master:avail (argA)</a></td>
+	<td class="summary">Report the available modules with properties and
+ defaults.</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2><a name="Tables"></a>Tables</h2>
+    <dl class="function">
+    <dt>
+    <a name = "Master.s_master"></a>
+    <strong>Master.s_master</strong>
+    </dt>
+    <dd>
+    a private ctor that is used to construct a singleton.
+
+
+
+
+
+
+
+</dd>
+</dl>
+    <h2><a name="Methods"></a>Methods</h2>
+    <dl class="function">
+    <dt>
+    <a name = "Master:master"></a>
+    <strong>Master:master (self, safe)</strong>
+    </dt>
+    <dd>
+    Singleton Ctor.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+
+        </li>
+        <li><span class="parameter">safe</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Master:access"></a>
+    <strong>Master:access (self, ...)</strong>
+    </dt>
+    <dd>
+    This member function is engine that runs the user
+ commands "help", "whatis" and "show".   In each case
+ mcp is set to MC_Access, MC_Access and MC_Show,
+ respectively.  Using that value of mcp, the
+ modulefile is found and evaluated by loadModuleFile.
+ This causes the help, or whatis or showing the
+ modulefile as the user requested.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+
+        </li>
+        <li><span class="parameter">...</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Master:inheritModule"></a>
+    <strong>Master:inheritModule ()</strong>
+    </dt>
+    <dd>
+    Load the module that has the same name as the
+ one on the top of mStack.   This way a user
+ can "inherit" the contents of a system module
+ instead of copying.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Master:load"></a>
+    <strong>Master:load (mA)</strong>
+    </dt>
+    <dd>
+    Load all requested modules.   Each module is unloaded
+ if it is currently loaded.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">mA</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Master:refresh"></a>
+    <strong>Master:refresh ()</strong>
+    </dt>
+    <dd>
+    Loop over all active modules and reload each one.
+ Since only the "shell" functions are active and all
+ other Lmod functions are inactive because mcp is now
+ MC_Refresh, there is no need to unload and reload the
+ modulefiles.  Just call loadModuleFile() to redefine
+ the aliases/shell functions in a subshell.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Master:reloadAll"></a>
+    <strong>Master:reloadAll ()</strong>
+    </dt>
+    <dd>
+    Loop over all modules in MT to see if they still
+ can be seen.   We check every active module to see
+ if the file associated with loaded module is the
+ same as [[find_module_file()]] reports.  If not
+ then it is unloaded and an attempt is made to reload
+ it.  Each inactive module is re-loaded if possible.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Master:safeToUpdate"></a>
+    <strong>Master:safeToUpdate ()</strong>
+    </dt>
+    <dd>
+    Master:safeToUpdate() - [[safe]] is set during ctor.  It is controlled
+                         by the command table in lmod.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Master:unload"></a>
+    <strong>Master:unload (mA)</strong>
+    </dt>
+    <dd>
+    Master:unload() - unload modulefile(s) via the module names.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">mA</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Master:avail"></a>
+    <strong>Master:avail (argA)</strong>
+    </dt>
+    <dd>
+    Report the available modules with properties and
+ defaults.   Run results through pager.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">argA</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.2</a></i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>

@@ -1,0 +1,591 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Lmod Documentation</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>Lmod</h1>
+
+<ul>
+  <li><a href="../index.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Functions">Functions</a></li>
+<li><a href="#Tables">Tables</a></li>
+</ul>
+
+
+<h2>Modules</h2>
+<ul class="$(kind=='Topics' and '' or 'nowrap'">
+  <li><a href="../modules/SitePackage.html">SitePackage</a></li>
+  <li><a href="../modules/StandardPackage.html">StandardPackage</a></li>
+  <li><a href="../modules/TermWidth.html">TermWidth</a></li>
+  <li><a href="../modules/capture.html">capture</a></li>
+  <li><a href="../modules/cmdfuncs.html">cmdfuncs</a></li>
+  <li><a href="../modules/colorize.html">colorize</a></li>
+  <li><a href="../modules/declare.html">declare</a></li>
+  <li><a href="../modules/fileOps.html">fileOps</a></li>
+  <li><a href="../modules/inherits.html">inherits</a></li>
+  <li><a href="../modules/json.html">json</a></li>
+  <li><a href="../modules/loadModuleFile.html">loadModuleFile</a></li>
+  <li><a href="../modules/modfuncs.html">modfuncs</a></li>
+  <li><a href="../modules/myGlobals.html">myGlobals</a></li>
+  <li><a href="../modules/pager.html">pager</a></li>
+  <li><a href="../modules/pairsByKeys.html">pairsByKeys</a></li>
+  <li><a href="../modules/parseVersion.html">parseVersion</a></li>
+  <li><a href="../modules/sandbox.html">sandbox</a></li>
+  <li><a href="../modules/serializeTbl.html">serializeTbl</a></li>
+  <li><strong>utils</strong></li>
+</ul>
+<h2>Scripts</h2>
+<ul class="$(kind=='Topics' and '' or 'nowrap'">
+  <li><a href="../scripts/addto.html">addto</a></li>
+  <li><a href="../scripts/clearMT_cmd.html">clearMT_cmd</a></li>
+  <li><a href="../scripts/computeHashSum.html">computeHashSum</a></li>
+  <li><a href="../scripts/getmt.html">getmt</a></li>
+  <li><a href="../scripts/lmod.html">lmod</a></li>
+  <li><a href="../scripts/ml.html">ml</a></li>
+  <li><a href="../scripts/processMT.html">processMT</a></li>
+  <li><a href="../scripts/processModuleUsage.html">processModuleUsage</a></li>
+  <li><a href="../scripts/reportUsers.html">reportUsers</a></li>
+  <li><a href="../scripts/sh_to_modulefile.html">sh_to_modulefile</a></li>
+  <li><a href="../scripts/spider.html">spider</a></li>
+  <li><a href="../scripts/spiderCacheSupport.html">spiderCacheSupport</a></li>
+</ul>
+<h2>Classes</h2>
+<ul class="$(kind=='Topics' and '' or 'nowrap'">
+  <li><a href="../classes/Banner.html">Banner</a></li>
+  <li><a href="../classes/BeautifulTbl.html">BeautifulTbl</a></li>
+  <li><a href="../classes/CTimer.html">CTimer</a></li>
+  <li><a href="../classes/Cache.html">Cache</a></li>
+  <li><a href="../classes/ColumnTable.html">ColumnTable</a></li>
+  <li><a href="../classes/Configuration.html">Configuration</a></li>
+  <li><a href="../classes/Dbg.html">Dbg</a></li>
+  <li><a href="../classes/Exec.html">Exec</a></li>
+  <li><a href="../classes/Hook.html">Hook</a></li>
+  <li><a href="../classes/MC_Access.html">MC_Access</a></li>
+  <li><a href="../classes/MC_ComputeHash.html">MC_ComputeHash</a></li>
+  <li><a href="../classes/MC_Load.html">MC_Load</a></li>
+  <li><a href="../classes/MC_MgrLoad.html">MC_MgrLoad</a></li>
+  <li><a href="../classes/MC_Refresh.html">MC_Refresh</a></li>
+  <li><a href="../classes/MC_Show.html">MC_Show</a></li>
+  <li><a href="../classes/MC_Spider.html">MC_Spider</a></li>
+  <li><a href="../classes/MC_Unload.html">MC_Unload</a></li>
+  <li><a href="../classes/MF_Base.html">MF_Base</a></li>
+  <li><a href="../classes/MF_Lua.html">MF_Lua</a></li>
+  <li><a href="../classes/MF_TCL.html">MF_TCL</a></li>
+  <li><a href="../classes/MN_Between.html">MN_Between</a></li>
+  <li><a href="../classes/MN_Latest.html">MN_Latest</a></li>
+  <li><a href="../classes/MN_Match.html">MN_Match</a></li>
+  <li><a href="../classes/MName.html">MName</a></li>
+  <li><a href="../classes/MT.html">MT</a></li>
+  <li><a href="../classes/Master.html">Master</a></li>
+  <li><a href="../classes/MasterControl.html">MasterControl</a></li>
+  <li><a href="../classes/ModuleStack.html">ModuleStack</a></li>
+  <li><a href="../classes/Optiks.html">Optiks</a></li>
+  <li><a href="../classes/Optiks_Option.html">Optiks_Option</a></li>
+  <li><a href="../classes/Options.html">Options</a></li>
+  <li><a href="../classes/Pkg.html">Pkg</a></li>
+  <li><a href="../classes/PkgBase.html">PkgBase</a></li>
+  <li><a href="../classes/PkgTACC.html">PkgTACC</a></li>
+  <li><a href="../classes/ProgressBar.html">ProgressBar</a></li>
+  <li><a href="../classes/Spider.html">Spider</a></li>
+  <li><a href="../classes/Timer.html">Timer</a></li>
+  <li><a href="../classes/Var.html">Var</a></li>
+  <li><a href="../classes/string.html">string</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Module <code>utils</code></h1>
+<p>This is the file that has miscellaneous utility functions.</p>
+<p></p>
+
+
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#abspath_localdir">abspath_localdir (path)</a></td>
+	<td class="summary">find true path through symlinks.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#argsPack">argsPack (...)</a></td>
+	<td class="summary">This is 5.1 Lua function to cover the table.pack function
+ that is in Lua 5.2 and later.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#build_epoch">build_epoch ()</a></td>
+	<td class="summary">This function builds the "epoch" function.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#build_accept_functions">build_accept_functions ()</a></td>
+	<td class="summary">Create the accept functions to allow or ignore TCL files.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#case_independent_cmp">case_independent_cmp (a, b)</a></td>
+	<td class="summary">What it says.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#extractVersion">extractVersion (full, sn)</a></td>
+	<td class="summary">Compare the full name of a modulefile with the
+ shortname.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#getMT">getMT ()</a></td>
+	<td class="summary">Ask the environment for the _ModuleTable_ value.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#lastFileInPathA">lastFileInPathA (pathA, n)</a></td>
+	<td class="summary">This function finds the latest version of a package
+ in the directory "path".</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#length">length (s)</a></td>
+	<td class="summary">compute the length of a string and ignore any string
+ colorization.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#path2pathA">path2pathA (path, sep)</a></td>
+	<td class="summary">This function takes a path like variable and breaks
+ it up into an array.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#findAdminFn">findAdminFn ()</a></td>
+	<td class="summary">Read the admin.list file.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#UUIDString">UUIDString (epoch)</a></td>
+	<td class="summary">Unique string that combines the current time/date
+ with a uuid id string.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#versionFile">versionFile (v, sn, path, ignoreErrors)</a></td>
+	<td class="summary">This routine is given the absolute path to a .version
+ file.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#setenv_lmod_version">setenv_lmod_version ()</a></td>
+	<td class="summary">Push the Lmod Version into the environment</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#activateWarning">activateWarning ()</a></td>
+	<td class="summary">Deal with warnings</td>
+	</tr>
+</table>
+<h2><a href="#Tables">Tables</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#s_masterTbl">s_masterTbl</a></td>
+	<td class="summary">Manage the Master Hash Table.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#defaultsT">defaultsT</a></td>
+	<td class="summary">Build a string of what the command would be.</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2><a name="Functions"></a>Functions</h2>
+    <dl class="function">
+    <dt>
+    <a name = "abspath_localdir"></a>
+    <strong>abspath_localdir (path)</strong>
+    </dt>
+    <dd>
+    find true path through symlinks.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">path</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "argsPack"></a>
+    <strong>argsPack (...)</strong>
+    </dt>
+    <dd>
+    This is 5.1 Lua function to cover the table.pack function
+ that is in Lua 5.2 and later.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">...</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "build_epoch"></a>
+    <strong>build_epoch ()</strong>
+    </dt>
+    <dd>
+    This function builds the "epoch" function.
+ The epoch function returns the number of seconds since
+ Jan 1, 1970, UTC
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "build_accept_functions"></a>
+    <strong>build_accept_functions ()</strong>
+    </dt>
+    <dd>
+    Create the accept functions to allow or ignore TCL files.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "case_independent_cmp"></a>
+    <strong>case_independent_cmp (a, b)</strong>
+    </dt>
+    <dd>
+    What it says.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">a</span>
+
+        </li>
+        <li><span class="parameter">b</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "extractVersion"></a>
+    <strong>extractVersion (full, sn)</strong>
+    </dt>
+    <dd>
+    Compare the full name of a modulefile with the
+ shortname.  Return nil if the shortname and full name
+ are the same.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">full</span>
+
+        </li>
+        <li><span class="parameter">sn</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "getMT"></a>
+    <strong>getMT ()</strong>
+    </dt>
+    <dd>
+    Ask the environment for the _ModuleTable_ value.
+ It is uuencoded and broken into pieces so that the
+ quotes and parens won't confuse the shell's poor little
+ brain.  The number of pieces are stored in the global
+ env. variable _ModuleTable_Sz_.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "lastFileInPathA"></a>
+    <strong>lastFileInPathA (pathA, n)</strong>
+    </dt>
+    <dd>
+    This function finds the latest version of a package
+ in the directory "path".   It uses the parseVersion()
+ function to decide which version is the most recent.
+ It is not a lexigraphical search but uses rules built
+ into parseVersion().
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">pathA</span>
+
+        </li>
+        <li><span class="parameter">n</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "length"></a>
+    <strong>length (s)</strong>
+    </dt>
+    <dd>
+    compute the length of a string and ignore any string
+ colorization.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">s</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "path2pathA"></a>
+    <strong>path2pathA (path, sep)</strong>
+    </dt>
+    <dd>
+    This function takes a path like variable and breaks
+ it up into an array.   Each path component is
+ standandized by path_regularize().  This function
+ removes leading and trailing spaces and duplicate '/'
+ etc.
+<p> Typically the separator is a colon but it can be
+ anything.  Some env. vars (such as TEXINPUTS and
+ LUA_PATH) use "::" or ";;" to mean that the
+ specified values are prepended to the system ones.
+ To handle that, the path component is converted to
+ a single space.  This single space is later removed
+ when expanding.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">path</span>
+
+        </li>
+        <li><span class="parameter">sep</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "findAdminFn"></a>
+    <strong>findAdminFn ()</strong>
+    </dt>
+    <dd>
+    Read the admin.list file.   It is a Key value pairing of module names
+  and a message.  The module names can be either the full name or the file
+  name.  The message can be multi-line.  A blank line is signifies the
+  end of the message.
+<p>  /path/to/modulefile: Blah Blah Blah
+                       Blah Blah Blah
+<p>  module/version:      Blah Blah Blah
+                       Blah Blah Blah
+
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "UUIDString"></a>
+    <strong>UUIDString (epoch)</strong>
+    </dt>
+    <dd>
+    Unique string that combines the current time/date
+ with a uuid id string.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">epoch</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "versionFile"></a>
+    <strong>versionFile (v, sn, path, ignoreErrors)</strong>
+    </dt>
+    <dd>
+    This routine is given the absolute path to a .version
+ file.   It checks to make sure that it is a valid TCL
+ file.  It then uses the ModulesVersion.tcl script to
+ return what the value of "ModulesVersion" is.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">v</span>
+
+        </li>
+        <li><span class="parameter">sn</span>
+
+        </li>
+        <li><span class="parameter">path</span>
+
+        </li>
+        <li><span class="parameter">ignoreErrors</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "setenv_lmod_version"></a>
+    <strong>setenv_lmod_version ()</strong>
+    </dt>
+    <dd>
+    Push the Lmod Version into the environment
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "activateWarning"></a>
+    <strong>activateWarning ()</strong>
+    </dt>
+    <dd>
+    Deal with warnings
+
+
+
+
+
+
+
+</dd>
+</dl>
+    <h2><a name="Tables"></a>Tables</h2>
+    <dl class="function">
+    <dt>
+    <a name = "s_masterTbl"></a>
+    <strong>s_masterTbl</strong>
+    </dt>
+    <dd>
+    Manage the Master Hash Table.   The command line arguments
+ and the ModuleStack (when using Spider) are stored here.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "defaultsT"></a>
+    <strong>defaultsT</strong>
+    </dt>
+    <dd>
+    Build a string of what the command would be.  Used by
+ MC_Show and MC_ComputeHash.
+
+
+    <h3>Fields:</h3>
+    <ul>
+        <li><span class="parameter">delim</span>
+
+        </li>
+        <li><span class="parameter">priority</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.2</a></i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>

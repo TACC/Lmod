@@ -1,4 +1,10 @@
 --------------------------------------------------------------------------
+-- Fixme
+-- @module colorize
+
+require("strict")
+
+--------------------------------------------------------------------------
 -- Lmod License
 --------------------------------------------------------------------------
 --
@@ -34,15 +40,6 @@
 
 require("strict")
 
-------------------------------------------------------------------------
--- Colorize functions:  The full_colorize() function takes an array of
---                      strings and wraps the ANSI color start and
---                      stop and produces a single string.
---
--- plain() is there when users or writing to a file. The point is that
---         there is no colorization added to the string.
---
-
 
 Foreground = "\027".."[1;"
 colorT =
@@ -58,6 +55,11 @@ colorT =
 }
 local concatTbl = table.concat
 
+------------------------------------------------------------------------
+-- The full_colorize() function takes an array of
+-- strings and wraps the ANSI color start and
+-- stop and produces a single string.
+--
 function full_colorize(color, ... )
    local arg = { n = select('#', ...), ...}
    if (color == nil or arg.n < 1) then
@@ -77,6 +79,9 @@ function full_colorize(color, ... )
    return concatTbl(a,"")
 end
 
+--------------------------------------------------------------------------
+-- This is there when users or writing to a file. The point is that
+-- there is no colorization added to the string.
 function plain(c, ...)
    local arg = { n = select('#', ...), ...}
    if (arg.n < 1) then

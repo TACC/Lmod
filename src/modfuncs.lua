@@ -1,4 +1,23 @@
 --------------------------------------------------------------------------
+-- All the functions that are "Lmod" functions are in
+-- this file.  Since the behavior of many of the Lmod functions (such as
+-- setenv) function when the user is doing a load, unload, show, many of
+-- these function they do the following:
+--
+--     a) They validate their arguments.
+--     b) mcp:<function>(...)
+--
+-- The variable mcp is the master control program object.  It gets
+-- constructed in the various modes Lmod gets run in.  The modes include
+-- load, unload, show, etc.  See MC_Load.lua and the other MC_*.lua files
+-- As well as the base class MasterControl.lua for more details.
+--
+-- See tools/Dbg.lua for details on how this debugging tool works.
+-- @module modfuncs
+
+require("strict")
+
+--------------------------------------------------------------------------
 -- Lmod License
 --------------------------------------------------------------------------
 --
@@ -32,24 +51,6 @@
 --
 --------------------------------------------------------------------------
 
---------------------------------------------------------------------------
--- modfuncs.lua:  All the functions that are "Lmod" functions are in
--- this file.  Since the behavior of many of the Lmod functions (such as
--- setenv) function when the user is doing a load, unload, show, many of
--- these function they do the following:
---
---     a) They validate their arguments.
---     b) mcp:<function>(...)
---
--- The variable mcp is the master control program object.  It gets
--- constructed in the various modes Lmod gets run in.  The modes include
--- load, unload, show, etc.  See MC_Load.lua and the other MC_*.lua files
--- As well as the base class MasterControl.lua for more details.
-
--- See tools/Dbg.lua for details on how this debugging tool works.
---------------------------------------------------------------------------
-
-require("strict")
 require("parseVersion")
 require("utils")
 require("string_utils")

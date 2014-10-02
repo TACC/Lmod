@@ -1,0 +1,429 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Lmod Documentation</title>
+    <link rel="stylesheet" href="ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>Lmod</h1>
+
+
+
+
+<h2>Modules</h2>
+<ul class="$(kind=='Topics' and '' or 'nowrap'">
+  <li><a href="modules/SitePackage.html">SitePackage</a></li>
+  <li><a href="modules/StandardPackage.html">StandardPackage</a></li>
+  <li><a href="modules/TermWidth.html">TermWidth</a></li>
+  <li><a href="modules/capture.html">capture</a></li>
+  <li><a href="modules/cmdfuncs.html">cmdfuncs</a></li>
+  <li><a href="modules/colorize.html">colorize</a></li>
+  <li><a href="modules/declare.html">declare</a></li>
+  <li><a href="modules/fileOps.html">fileOps</a></li>
+  <li><a href="modules/inherits.html">inherits</a></li>
+  <li><a href="modules/json.html">json</a></li>
+  <li><a href="modules/loadModuleFile.html">loadModuleFile</a></li>
+  <li><a href="modules/modfuncs.html">modfuncs</a></li>
+  <li><a href="modules/myGlobals.html">myGlobals</a></li>
+  <li><a href="modules/pager.html">pager</a></li>
+  <li><a href="modules/pairsByKeys.html">pairsByKeys</a></li>
+  <li><a href="modules/parseVersion.html">parseVersion</a></li>
+  <li><a href="modules/sandbox.html">sandbox</a></li>
+  <li><a href="modules/serializeTbl.html">serializeTbl</a></li>
+  <li><a href="modules/utils.html">utils</a></li>
+</ul>
+<h2>Scripts</h2>
+<ul class="$(kind=='Topics' and '' or 'nowrap'">
+  <li><a href="scripts/addto.html">addto</a></li>
+  <li><a href="scripts/clearMT_cmd.html">clearMT_cmd</a></li>
+  <li><a href="scripts/computeHashSum.html">computeHashSum</a></li>
+  <li><a href="scripts/getmt.html">getmt</a></li>
+  <li><a href="scripts/lmod.html">lmod</a></li>
+  <li><a href="scripts/ml.html">ml</a></li>
+  <li><a href="scripts/processMT.html">processMT</a></li>
+  <li><a href="scripts/processModuleUsage.html">processModuleUsage</a></li>
+  <li><a href="scripts/reportUsers.html">reportUsers</a></li>
+  <li><a href="scripts/sh_to_modulefile.html">sh_to_modulefile</a></li>
+  <li><a href="scripts/spider.html">spider</a></li>
+  <li><a href="scripts/spiderCacheSupport.html">spiderCacheSupport</a></li>
+</ul>
+<h2>Classes</h2>
+<ul class="$(kind=='Topics' and '' or 'nowrap'">
+  <li><a href="classes/Banner.html">Banner</a></li>
+  <li><a href="classes/BeautifulTbl.html">BeautifulTbl</a></li>
+  <li><a href="classes/CTimer.html">CTimer</a></li>
+  <li><a href="classes/Cache.html">Cache</a></li>
+  <li><a href="classes/ColumnTable.html">ColumnTable</a></li>
+  <li><a href="classes/Configuration.html">Configuration</a></li>
+  <li><a href="classes/Dbg.html">Dbg</a></li>
+  <li><a href="classes/Exec.html">Exec</a></li>
+  <li><a href="classes/Hook.html">Hook</a></li>
+  <li><a href="classes/MC_Access.html">MC_Access</a></li>
+  <li><a href="classes/MC_ComputeHash.html">MC_ComputeHash</a></li>
+  <li><a href="classes/MC_Load.html">MC_Load</a></li>
+  <li><a href="classes/MC_MgrLoad.html">MC_MgrLoad</a></li>
+  <li><a href="classes/MC_Refresh.html">MC_Refresh</a></li>
+  <li><a href="classes/MC_Show.html">MC_Show</a></li>
+  <li><a href="classes/MC_Spider.html">MC_Spider</a></li>
+  <li><a href="classes/MC_Unload.html">MC_Unload</a></li>
+  <li><a href="classes/MF_Base.html">MF_Base</a></li>
+  <li><a href="classes/MF_Lua.html">MF_Lua</a></li>
+  <li><a href="classes/MF_TCL.html">MF_TCL</a></li>
+  <li><a href="classes/MN_Between.html">MN_Between</a></li>
+  <li><a href="classes/MN_Latest.html">MN_Latest</a></li>
+  <li><a href="classes/MN_Match.html">MN_Match</a></li>
+  <li><a href="classes/MName.html">MName</a></li>
+  <li><a href="classes/MT.html">MT</a></li>
+  <li><a href="classes/Master.html">Master</a></li>
+  <li><a href="classes/MasterControl.html">MasterControl</a></li>
+  <li><a href="classes/ModuleStack.html">ModuleStack</a></li>
+  <li><a href="classes/Optiks.html">Optiks</a></li>
+  <li><a href="classes/Optiks_Option.html">Optiks_Option</a></li>
+  <li><a href="classes/Options.html">Options</a></li>
+  <li><a href="classes/Pkg.html">Pkg</a></li>
+  <li><a href="classes/PkgBase.html">PkgBase</a></li>
+  <li><a href="classes/PkgTACC.html">PkgTACC</a></li>
+  <li><a href="classes/ProgressBar.html">ProgressBar</a></li>
+  <li><a href="classes/Spider.html">Spider</a></li>
+  <li><a href="classes/Timer.html">Timer</a></li>
+  <li><a href="classes/Var.html">Var</a></li>
+  <li><a href="classes/string.html">string</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+
+  <h2>Lmod: A lua based environment module system</h2>
+
+<h2>Modules</h2>
+<table class="module_list">
+	<tr>
+		<td class="name"  nowrap><a href="modules/SitePackage.html">SitePackage</a></td>
+		<td class="summary">Fixme</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="modules/StandardPackage.html">StandardPackage</a></td>
+		<td class="summary">Fixme</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="modules/TermWidth.html">TermWidth</a></td>
+		<td class="summary">Use tput cols to find the number of columns.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="modules/capture.html">capture</a></td>
+		<td class="summary">use io.popen to open a pipe to collect the output of a command.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="modules/cmdfuncs.html">cmdfuncs</a></td>
+		<td class="summary">The all the user commands are implemented here.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="modules/colorize.html">colorize</a></td>
+		<td class="summary">Fixme</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="modules/declare.html">declare</a></td>
+		<td class="summary">These functions allow us to define or check a global variable
+ inside a function.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="modules/fileOps.html">fileOps</a></td>
+		<td class="summary">A collection of useful file operations.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="modules/inherits.html">inherits</a></td>
+		<td class="summary">Create a new class that inherits from a [[baseClass]]</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="modules/json.html">json</a></td>
+		<td class="summary">JSON4Lua: JSON encoding / decoding support for the Lua language.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="modules/loadModuleFile.html">loadModuleFile</a></td>
+		<td class="summary">Fixme</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="modules/modfuncs.html">modfuncs</a></td>
+		<td class="summary">All the functions that are "Lmod" functions are in
+ this file.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="modules/myGlobals.html">myGlobals</a></td>
+		<td class="summary">Fixme</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="modules/pager.html">pager</a></td>
+		<td class="summary">Fixme</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="modules/pairsByKeys.html">pairsByKeys</a></td>
+		<td class="summary">Return an iterator where the keys are sorted.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="modules/parseVersion.html">parseVersion</a></td>
+		<td class="summary">A function to return canonical version strings.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="modules/sandbox.html">sandbox</a></td>
+		<td class="summary">Modulefiles are "loaded" in a sandbox.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="modules/serializeTbl.html">serializeTbl</a></td>
+		<td class="summary">This collection of routines are used to convert a table into a string.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="modules/utils.html">utils</a></td>
+		<td class="summary">This is the file that has miscellaneous utility functions.</td>
+	</tr>
+</table>
+<h2>Scripts</h2>
+<table class="module_list">
+	<tr>
+		<td class="name"  nowrap><a href="scripts/addto.html">addto</a></td>
+		<td class="summary">addto:  Add to a path like environment variable.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="scripts/clearMT_cmd.html">clearMT_cmd</a></td>
+		<td class="summary">Fixme</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="scripts/computeHashSum.html">computeHashSum</a></td>
+		<td class="summary">Fixme</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="scripts/getmt.html">getmt</a></td>
+		<td class="summary">Fixme</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="scripts/lmod.html">lmod</a></td>
+		<td class="summary">The main program for Lmod.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="scripts/ml.html">ml</a></td>
+		<td class="summary">Fixme</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="scripts/processMT.html">processMT</a></td>
+		<td class="summary">Fixme</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="scripts/processModuleUsage.html">processModuleUsage</a></td>
+		<td class="summary">Fixme</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="scripts/reportUsers.html">reportUsers</a></td>
+		<td class="summary">Fixme</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="scripts/sh_to_modulefile.html">sh_to_modulefile</a></td>
+		<td class="summary">This program takes shell scripts (either bash or csh) and converts
+ them to a modulefile (either Lua or TCL).</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="scripts/spider.html">spider</a></td>
+		<td class="summary">Use command name to add the command directory to the package.path</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="scripts/spiderCacheSupport.html">spiderCacheSupport</a></td>
+		<td class="summary">Fixme</td>
+	</tr>
+</table>
+<h2>Classes</h2>
+<table class="module_list">
+	<tr>
+		<td class="name"  nowrap><a href="classes/Banner.html">Banner</a></td>
+		<td class="summary">This handle banners used in Lmod.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="classes/BeautifulTbl.html">BeautifulTbl</a></td>
+		<td class="summary">This class is responsible for taking column data and produce left or
+ right justified columns.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="classes/CTimer.html">CTimer</a></td>
+		<td class="summary">This class is a singleton to act as a timer.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="classes/Cache.html">Cache</a></td>
+		<td class="summary">This class reads all the cache files in.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="classes/ColumnTable.html">ColumnTable</a></td>
+		<td class="summary">This class is takes a array of strings and produced a multi-column output.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="classes/Configuration.html">Configuration</a></td>
+		<td class="summary">Fix me</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="classes/Dbg.html">Dbg</a></td>
+		<td class="summary">This is a debug printing class.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="classes/Exec.html">Exec</a></td>
+		<td class="summary">This class holds a array of strings.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="classes/Hook.html">Hook</a></td>
+		<td class="summary">A way for client sites to register functions that are defined in
+ SitePackage.lua</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="classes/MC_Access.html">MC_Access</a></td>
+		<td class="summary">Access is the MCP mode that handles help message or whatis messages.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="classes/MC_ComputeHash.html">MC_ComputeHash</a></td>
+		<td class="summary">This class is used to detect when a module file changes
+ in a way that will tell the user that their collection
+ of modules has to be reformed.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="classes/MC_Load.html">MC_Load</a></td>
+		<td class="summary">Loading a module causes all the commands to act in the positive.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="classes/MC_MgrLoad.html">MC_MgrLoad</a></td>
+		<td class="summary">fixme</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="classes/MC_Refresh.html">MC_Refresh</a></td>
+		<td class="summary">Setup for refresh mode.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="classes/MC_Show.html">MC_Show</a></td>
+		<td class="summary">This derived class of MasterControl just prints ever module
+ command.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="classes/MC_Spider.html">MC_Spider</a></td>
+		<td class="summary">This derived class of MasterControl is how Spider reads
+ in modulefiles.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="classes/MC_Unload.html">MC_Unload</a></td>
+		<td class="summary">When unloading all the positive actions of a module are reversed.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="classes/MF_Base.html">MF_Base</a></td>
+		<td class="summary">This the base class for Module file output.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="classes/MF_Lua.html">MF_Lua</a></td>
+		<td class="summary">This is a derived class from MF_Base.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="classes/MF_TCL.html">MF_TCL</a></td>
+		<td class="summary">This is a derived class from MF_Base.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="classes/MN_Between.html">MN_Between</a></td>
+		<td class="summary">fix me</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="classes/MN_Latest.html">MN_Latest</a></td>
+		<td class="summary">fix me</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="classes/MN_Match.html">MN_Match</a></td>
+		<td class="summary">fix me</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="classes/MName.html">MName</a></td>
+		<td class="summary">This class manages module names.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="classes/MT.html">MT</a></td>
+		<td class="summary">This class controls the ModuleTable.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="classes/Master.html">Master</a></td>
+		<td class="summary">This class is responsible for actively managing the actions of
+ Lmod.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="classes/MasterControl.html">MasterControl</a></td>
+		<td class="summary">MasterControl is the base class for all the MC_Load, MC_Unload derived
+  classes.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="classes/ModuleStack.html">ModuleStack</a></td>
+		<td class="summary">ModuleStack class:  This is a singleton class that is use to keep
+  track of the modules that are currently loaded.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="classes/Optiks.html">Optiks</a></td>
+		<td class="summary">Command line options parsing class</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="classes/Optiks_Option.html">Optiks_Option</a></td>
+		<td class="summary">This class contains the Option objects.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="classes/Options.html">Options</a></td>
+		<td class="summary">Options: This class is the main options parser for Lmod.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="classes/Pkg.html">Pkg</a></td>
+		<td class="summary">Fixme</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="classes/PkgBase.html">PkgBase</a></td>
+		<td class="summary">Fixme</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="classes/PkgTACC.html">PkgTACC</a></td>
+		<td class="summary">Fixme</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="classes/ProgressBar.html">ProgressBar</a></td>
+		<td class="summary">This class generates a progress bar.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="classes/Spider.html">Spider</a></td>
+		<td class="summary">Fixme</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="classes/Timer.html">Timer</a></td>
+		<td class="summary">Fixme</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="classes/Var.html">Var</a></td>
+		<td class="summary">This class is manages the hash table that stores the "environment"
+ variables that Lmod controls.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="classes/string.html">string</a></td>
+		<td class="summary">More string utilities.</td>
+	</tr>
+</table>
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.2</a></i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>

@@ -1,4 +1,17 @@
 --------------------------------------------------------------------------
+-- Modulefiles are "loaded" in a sandbox.  That is when the module
+-- file is evaluated, it can only run a limited set of functions.
+-- This file provides for a default list of functions that can be
+-- run.  There is also a sandbox_registration so that sites using
+-- SitePackage can register their functions. Finally there are two
+-- versions of run function one for Lua 5.1 and another for Lua 5.2
+-- The appropriate version is assigned to [[sandbox_run]].
+--
+-- @module sandbox
+
+require("strict")
+
+--------------------------------------------------------------------------
 -- Lmod License
 --------------------------------------------------------------------------
 --
@@ -32,16 +45,6 @@
 --
 --------------------------------------------------------------------------
 
---------------------------------------------------------------------------
--- Sandbox: Modulefiles are "loaded" in a sandbox.  That is when the module
---          file is evaluated, it can only run a limited set of functions.
---          This file provides for a default list of functions that can be
---          run.  There is also a sandbox_registration so that sites using
---          SitePackage can register their functions. Finally there are two
---          versions of run function one for Lua 5.1 and another for Lua 5.2
---          The appropriate version is assigned to [[sandbox_run]].
-
-require("strict")
 require("fileOps")
 require("capture")
 require("cmdfuncs")

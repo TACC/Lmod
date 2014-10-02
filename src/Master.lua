@@ -73,7 +73,7 @@ local pack         = (_VERSION == "Lua 5.1") and argsPack   or table.pack
 local load         = (_VERSION == "Lua 5.1") and loadstring or load
 
 ------------------------------------------------------------------------
--- Master:new() a private ctor that is used to construct a singleton.
+-- a private ctor that is used to construct a singleton.
 
 s_master = {}
 
@@ -91,9 +91,9 @@ local numSearch     = 4
 local numSrchLatest = 2
 
 --------------------------------------------------------------------------
--- followDefault(): This local function is used to find a default file
---                  that maybe in symbolic link chain. This returns
---                  the absolute path.
+-- This local function is used to find a default file
+-- that maybe in symbolic link chain. This returns
+-- the absolute path.
 
 local function followDefault(path)
    if (path == nil) then return nil end
@@ -129,16 +129,16 @@ local function followDefault(path)
 end
 
 --------------------------------------------------------------------------
--- find_inherit_module(): This local function is very similar to
---                        [[find_module_file]].  The idea is that
---                        an advanced user wants to inherit a compiler
---                        module and/or an mpi stack module.  They want
---                        to inherit the system compiler but add to the
---                        MODULEPATH.  This routine does a similar search
---                        for the module.  It searches for the original
---                        module in pathA and then searches again.  Only
---                        after finding the same named module does it
---                        return.
+-- This local function is very similar to
+-- [[find_module_file]].  The idea is that
+-- an advanced user wants to inherit a compiler
+-- module and/or an mpi stack module.  They want
+-- to inherit the system compiler but add to the
+-- MODULEPATH.  This routine does a similar search
+-- for the module.  It searches for the original
+-- module in pathA and then searches again.  Only
+-- after finding the same named module does it
+-- return.
 
 
 local function find_inherit_module(fullModuleName, oldFn)
@@ -199,9 +199,9 @@ local function find_inherit_module(fullModuleName, oldFn)
 end
 
 --------------------------------------------------------------------------
--- registerLoaded(): This function marks a module name as loaded and saves
---                   it to LOADEDMODULES and _LMFILES_.   This is only for
---                   compatibility with TCL/C module.
+-- This function marks a module name as loaded and saves
+-- it to LOADEDMODULES and _LMFILES_.   This is only for
+-- compatibility with TCL/C module.
 local function registerLoaded(full, fn)
    local modList  = "LOADEDMODULES"
    local modFn    = "_LMFILES_"
@@ -223,9 +223,9 @@ local function registerLoaded(full, fn)
 end
 
 --------------------------------------------------------------------------
--- registerUnloaded(): This function marks a module name as unloaded and 
---                     saves it to LOADEDMODULES and _LMFILES_.   This is
---                     only for compatibility with TCL/C module.
+-- This function marks a module name as unloaded and 
+-- saves it to LOADEDMODULES and _LMFILES_.   This is
+-- only for compatibility with TCL/C module.
 local function registerUnloaded(full, fn)
    local modList  = "LOADEDMODULES"
    local modFn    = "_LMFILES_"
@@ -247,7 +247,7 @@ local function registerUnloaded(full, fn)
 end
 
 --------------------------------------------------------------------------
--- Master:master() - Singleton Ctor.
+-- Singleton Ctor.
 
 function M.master(self, safe)
    dbg.start{"Master:master(safe: ",safe,")"}
@@ -261,12 +261,12 @@ end
 
 
 --------------------------------------------------------------------------
--- access_find_module_file(): This local function returns the name of the
---                            filename and the full name of the module file.
---                            If the user gives the short name and it is
---                            loaded then that version is used not the default
---                            module file for the one named.  Otherwise
---                            find_module_file is used.
+-- This local function returns the name of the
+-- filename and the full name of the module file.
+-- If the user gives the short name and it is
+-- loaded then that version is used not the default
+-- module file for the one named.  Otherwise
+-- find_module_file is used.
 
 local function access_find_module_file(mname)
    local mt    = MT:mt()
@@ -283,13 +283,13 @@ local function access_find_module_file(mname)
 end
 
 --------------------------------------------------------------------------
--- Master:access():  This member function is engine that runs the user
---                   commands "help", "whatis" and "show".  In each case
---                   mcp is set to MC_Access, MC_Access and MC_Show,
---                   respectively.  Using that value of mcp, the
---                   modulefile is found and evaluated by loadModuleFile.
---                   This causes the help, or whatis or showing the
---                   modulefile as the user requested.
+-- This member function is engine that runs the user
+-- commands "help", "whatis" and "show".  In each case
+-- mcp is set to MC_Access, MC_Access and MC_Show,
+-- respectively.  Using that value of mcp, the
+-- modulefile is found and evaluated by loadModuleFile.
+-- This causes the help, or whatis or showing the
+-- modulefile as the user requested.
 
 function M.access(self, ...)
    local masterTbl = masterTbl()
@@ -350,10 +350,10 @@ function M.access(self, ...)
 end
 
 --------------------------------------------------------------------------
--- Master:inheritModule(): load the module that has the same name as the
---                         one on the top of mStack.  This way a user
---                         can "inherit" the contents of a system module
---                         instead of copying.
+-- Load the module that has the same name as the
+-- one on the top of mStack.  This way a user
+-- can "inherit" the contents of a system module
+-- instead of copying.
 
 function M.inheritModule()
    dbg.start{"Master:inherit()"}
@@ -399,8 +399,8 @@ function M.inheritModule()
 end
 
 --------------------------------------------------------------------------
--- Master:load(): Load all requested modules.  Each module is unloaded
---                if it is currently loaded.
+-- Load all requested modules.  Each module is unloaded
+-- if it is currently loaded.
 
 function M.load(mA)
    local mStack = ModuleStack:moduleStack()
@@ -460,12 +460,12 @@ function M.load(mA)
 end
 
 --------------------------------------------------------------------------
--- Master:refresh() - Loop over all active modules and reload each one.
---                    Since only the "shell" functions are active and all
---                    other Lmod functions are inactive because mcp is now
---                    MC_Refresh, there is no need to unload and reload the
---                    modulefiles.  Just call loadModuleFile() to redefine
---                    the aliases/shell functions in a subshell.
+-- Loop over all active modules and reload each one.
+-- Since only the "shell" functions are active and all
+-- other Lmod functions are inactive because mcp is now
+-- MC_Refresh, there is no need to unload and reload the
+-- modulefiles.  Just call loadModuleFile() to redefine
+-- the aliases/shell functions in a subshell.
 
 function M.refresh()
    local mStack  = ModuleStack:moduleStack()
@@ -498,12 +498,12 @@ function M.refresh()
 end
 
 --------------------------------------------------------------------------
--- Master:reloadAll(): Loop over all modules in MT to see if they still
---                     can be seen.  We check every active module to see
---                     if the file associated with loaded module is the
---                     same as [[find_module_file()]] reports.  If not
---                     then it is unloaded and an attempt is made to reload
---                     it.  Each inactive module is re-loaded if possible.
+-- Loop over all modules in MT to see if they still
+-- can be seen.  We check every active module to see
+-- if the file associated with loaded module is the
+-- same as [[find_module_file()]] reports.  If not
+-- then it is unloaded and an attempt is made to reload
+-- it.  Each inactive module is re-loaded if possible.
 
 function M.reloadAll()
    local mt   = MT:mt()
@@ -715,8 +715,8 @@ end
 
 
 --------------------------------------------------------------------------
--- findDefault(): Find the default module for the current directory
---                [[mpath]].
+-- Find the default module for the current directory
+-- [[mpath]].
 
 local function findDefault(mpath, sn, versionA)
    dbg.start{"Master.findDefault(mpath=\"",mpath,"\", "," sn=\"",sn,"\")"}
@@ -768,9 +768,9 @@ local function findDefault(mpath, sn, versionA)
 end
 
 --------------------------------------------------------------------------
---  availEntry(): This routine is handed a single entry.  It check to see
---                if matches the search criteria.  It also adds any
---                properties such as default or anything from [[propT]].
+--  This routine is handed a single entry.  It check to see
+--  if matches the search criteria.  It also adds any
+--  properties such as default or anything from [[propT]].
 
 local function availEntry(defaultOnly, terse, label, szA, searchA, sn, name,
                           f, defaultModuleT, dbT, legendT, a)
@@ -885,9 +885,7 @@ end
 
 
 ---------------------------------------------------------------------------
--- availDir(): Handle a single directory and collect any entries through
---             [[availEntry]].
-
+-- Handle a single directory and collect any entries through *availEntry*
 
 local function availDir(defaultOnly, terse, searchA, label, locationT, availT,
                         dbT, a, legendT)
@@ -931,10 +929,10 @@ local function availDir(defaultOnly, terse, searchA, label, locationT, availT,
 end
 
 --------------------------------------------------------------------------
--- availOptions(): "module avail " takes options that are given here.
---                 Note that these are also available with the Lmod
---                 options. So "module -t avail" and "module avail -t" are
---                 the same thing.
+-- "module avail " takes options that are given here.
+-- Note that these are also available with the Lmod
+-- options. So "module -t avail" and "module avail -t" are
+-- the same thing.
 
 local function availOptions(argA)
    local usage = "Usage: module avail [options] search1 search2 ..."
@@ -1036,8 +1034,8 @@ local function regroup_avail_blocks(availStyle, mpathA, availT)
    return labelA, availNT
 end
 --------------------------------------------------------------------------
--- Master:avail(): Report the available modules with properties and
---                 defaults.  Run results through pager.
+-- Report the available modules with properties and
+-- defaults.  Run results through pager.
 function M.avail(argA)
    dbg.start{"Master.avail(",concatTbl(argA,", "),")"}
    local mt        = MT:mt()

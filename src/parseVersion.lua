@@ -1,4 +1,5 @@
---- A function to return canonical version strings.
+--------------------------------------------------------------------------
+-- A function to return canonical version strings.
 -- @module parseVersion
 
 require("strict")

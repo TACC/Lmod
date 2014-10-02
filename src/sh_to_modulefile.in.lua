@@ -1,5 +1,38 @@
 #!@path_to_lua@/lua
 -- -*- lua -*-
+
+--------------------------------------------------------------------------
+-- This program takes shell scripts (either bash or csh) and converts 
+-- them to a modulefile (either Lua or TCL).  This program is a "new"
+-- but it is based on many design elements from sourceforge.net/projects/env2.
+-- The program "env2" also converts shells to modulefiles but it does 
+-- other conversions as well.  This program is more limited it just does
+-- conversions from scripts to tcl or lua modules.
+--
+--  Basic design:
+--     a) capture the output of the supplied script and use this program
+--        to generate a lua table of the Environment.
+--     b) create an output factory:  MF_Lmod or MF_TCL to generate the
+--        output modulefile style.
+--     c) Process the before environment with the after environment and
+--        generate the appropriate setenv's, prepend_path's and 
+--        append_path's to convert from the old env to the new.
+--
+--
+--  Tricks:
+--     The main problem with doing this is find the overlap in path-like
+--     variables.  Suppose you have:
+--          PATH="b:c:d"
+--     and the result after sourcing the shell script is:
+--          PATH="a:b:c:d:e"
+--     This program finds the overlap starting with "b" and then can
+--     report that "a" needs to be prepended and "e" needs to be appended.
+--
+-- @script sh_to_modulefile
+
+require("strict")
+
+
 --------------------------------------------------------------------------
 -- Lmod License
 --------------------------------------------------------------------------
@@ -36,32 +69,6 @@
 
 --------------------------------------------------------------------------
 --  sh_to_modulefile :
---     This program takes shell scripts (either bash or csh) and converts 
---     them to a modulefile (either Lua or TCL).  This program is a "new"
---     but it is based on many design elements from sourceforge.net/projects/env2.
---     The program "env2" also converts shells to modulefiles but it does 
---     other conversions as well.  This program is more limited it just does
---     conversions from 
-
---------------------------------------------------------------------------
---  Basic design:
---     a) capture the output of the supplied script and use this program
---        to generate a lua table of the Environment.
---     b) create an output factory:  MF_Lmod or MF_TCL to generate the
---        output modulefile style.
---     c) Process the before environment with the after environment and
---        generate the appropriate setenv's, prepend_path's and 
---        append_path's to convert from the old env to the new.
-
---------------------------------------------------------------------------
---  Tricks:
---     The main problem with doing this is find the overlap in path-like
---     variables.  Suppose you have:
---          PATH="b:c:d"
---     and the result after sourcing the shell script is:
---          PATH="a:b:c:d:e"
---     This program finds the overlap starting with "b" and then can
---     report that "a" needs to be prepended and "e" needs to be appended.
 
 local program = arg[0]
 

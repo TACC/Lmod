@@ -1,0 +1,275 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Lmod Documentation</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>Lmod</h1>
+
+<ul>
+  <li><a href="../index.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Functions">Functions</a></li>
+<li><a href="#Tables">Tables</a></li>
+</ul>
+
+
+<h2>Modules</h2>
+<ul class="$(kind=='Topics' and '' or 'nowrap'">
+  <li><a href="../modules/SitePackage.html">SitePackage</a></li>
+  <li><a href="../modules/StandardPackage.html">StandardPackage</a></li>
+  <li><a href="../modules/TermWidth.html">TermWidth</a></li>
+  <li><a href="../modules/capture.html">capture</a></li>
+  <li><a href="../modules/cmdfuncs.html">cmdfuncs</a></li>
+  <li><a href="../modules/colorize.html">colorize</a></li>
+  <li><a href="../modules/declare.html">declare</a></li>
+  <li><a href="../modules/fileOps.html">fileOps</a></li>
+  <li><a href="../modules/inherits.html">inherits</a></li>
+  <li><a href="../modules/json.html">json</a></li>
+  <li><a href="../modules/loadModuleFile.html">loadModuleFile</a></li>
+  <li><a href="../modules/modfuncs.html">modfuncs</a></li>
+  <li><a href="../modules/myGlobals.html">myGlobals</a></li>
+  <li><a href="../modules/pager.html">pager</a></li>
+  <li><a href="../modules/pairsByKeys.html">pairsByKeys</a></li>
+  <li><strong>parseVersion</strong></li>
+  <li><a href="../modules/sandbox.html">sandbox</a></li>
+  <li><a href="../modules/serializeTbl.html">serializeTbl</a></li>
+  <li><a href="../modules/utils.html">utils</a></li>
+</ul>
+<h2>Scripts</h2>
+<ul class="$(kind=='Topics' and '' or 'nowrap'">
+  <li><a href="../scripts/addto.html">addto</a></li>
+  <li><a href="../scripts/clearMT_cmd.html">clearMT_cmd</a></li>
+  <li><a href="../scripts/computeHashSum.html">computeHashSum</a></li>
+  <li><a href="../scripts/getmt.html">getmt</a></li>
+  <li><a href="../scripts/lmod.html">lmod</a></li>
+  <li><a href="../scripts/ml.html">ml</a></li>
+  <li><a href="../scripts/processMT.html">processMT</a></li>
+  <li><a href="../scripts/processModuleUsage.html">processModuleUsage</a></li>
+  <li><a href="../scripts/reportUsers.html">reportUsers</a></li>
+  <li><a href="../scripts/sh_to_modulefile.html">sh_to_modulefile</a></li>
+  <li><a href="../scripts/spider.html">spider</a></li>
+  <li><a href="../scripts/spiderCacheSupport.html">spiderCacheSupport</a></li>
+</ul>
+<h2>Classes</h2>
+<ul class="$(kind=='Topics' and '' or 'nowrap'">
+  <li><a href="../classes/Banner.html">Banner</a></li>
+  <li><a href="../classes/BeautifulTbl.html">BeautifulTbl</a></li>
+  <li><a href="../classes/CTimer.html">CTimer</a></li>
+  <li><a href="../classes/Cache.html">Cache</a></li>
+  <li><a href="../classes/ColumnTable.html">ColumnTable</a></li>
+  <li><a href="../classes/Configuration.html">Configuration</a></li>
+  <li><a href="../classes/Dbg.html">Dbg</a></li>
+  <li><a href="../classes/Exec.html">Exec</a></li>
+  <li><a href="../classes/Hook.html">Hook</a></li>
+  <li><a href="../classes/MC_Access.html">MC_Access</a></li>
+  <li><a href="../classes/MC_ComputeHash.html">MC_ComputeHash</a></li>
+  <li><a href="../classes/MC_Load.html">MC_Load</a></li>
+  <li><a href="../classes/MC_MgrLoad.html">MC_MgrLoad</a></li>
+  <li><a href="../classes/MC_Refresh.html">MC_Refresh</a></li>
+  <li><a href="../classes/MC_Show.html">MC_Show</a></li>
+  <li><a href="../classes/MC_Spider.html">MC_Spider</a></li>
+  <li><a href="../classes/MC_Unload.html">MC_Unload</a></li>
+  <li><a href="../classes/MF_Base.html">MF_Base</a></li>
+  <li><a href="../classes/MF_Lua.html">MF_Lua</a></li>
+  <li><a href="../classes/MF_TCL.html">MF_TCL</a></li>
+  <li><a href="../classes/MN_Between.html">MN_Between</a></li>
+  <li><a href="../classes/MN_Latest.html">MN_Latest</a></li>
+  <li><a href="../classes/MN_Match.html">MN_Match</a></li>
+  <li><a href="../classes/MName.html">MName</a></li>
+  <li><a href="../classes/MT.html">MT</a></li>
+  <li><a href="../classes/Master.html">Master</a></li>
+  <li><a href="../classes/MasterControl.html">MasterControl</a></li>
+  <li><a href="../classes/ModuleStack.html">ModuleStack</a></li>
+  <li><a href="../classes/Optiks.html">Optiks</a></li>
+  <li><a href="../classes/Optiks_Option.html">Optiks_Option</a></li>
+  <li><a href="../classes/Options.html">Options</a></li>
+  <li><a href="../classes/Pkg.html">Pkg</a></li>
+  <li><a href="../classes/PkgBase.html">PkgBase</a></li>
+  <li><a href="../classes/PkgTACC.html">PkgTACC</a></li>
+  <li><a href="../classes/ProgressBar.html">ProgressBar</a></li>
+  <li><a href="../classes/Spider.html">Spider</a></li>
+  <li><a href="../classes/Timer.html">Timer</a></li>
+  <li><a href="../classes/Var.html">Var</a></li>
+  <li><a href="../classes/string.html">string</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Module <code>parseVersion</code></h1>
+<p>A function to return canonical version strings.</p>
+<p></p>
+
+
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#parseVersion">parseVersion (versionStr)</a></td>
+	<td class="summary">The returned value will be an array of string.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#parseVersionParts">parseVersionParts (versionStr)</a></td>
+	<td class="summary">Return the iterator return the next piece of the version.</td>
+	</tr>
+</table>
+<h2><a href="#Tables">Tables</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#replaceT">replaceT</a></td>
+	<td class="summary">replacement table for version parts</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2><a name="Functions"></a>Functions</h2>
+    <dl class="function">
+    <dt>
+    <a name = "parseVersion"></a>
+    <strong>parseVersion (versionStr)</strong>
+    </dt>
+    <dd>
+    The returned value will be an array of string.  Numeric portions of the
+ version are padded to 9 digits so they will compare numerically, but
+ without relying on how numbers compare relative to strings. Dots are dropped,
+ but dashes are retained. Trailing zeros between alpha segments or dashes
+ are suppressed, so that e.g. "2.4.0" is considered the same as "2.4".
+ Alphanumeric parts are lower-cased.
+<p> The algorithm assumes that strings like "-" and any alpha string that
+ alphabetically follows "final" represents a "patch level". So, "2.4-1"
+ is assumed to be a branch or patch of "2.4", and therefore "2.4.1" is
+ considered newer than "2.4-1", which in turn is newer than "2.4".  Also
+ 2.4p2 and 2.4-p2 are considered to be the same as 2.4-2.
+<p> Strings like "a", "b", "c", "alpha", "beta", "candidate" and so on
+ (that come before "final" alphabetically) are assumed to be pre-release
+ versions, so that the version "2.4" is considered newer than "2.4a1".
+ Any "-" characters preceding a pre-release indicator are removed.
+<p> Finally, to handle miscellaneous cases, the strings "pre", "preview",
+ and "rc" are treated as if they were "c", i.e. as though they were
+ release candidates, and therefore are not as new as a version string
+ that does not contain them. And the string "dev" is treated as if it
+ were an "@" sign; that is, a version coming before even "a" or "alpha".
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">versionStr</span>
+         A version string
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        canonical version string suitable for comparison
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "parseVersionParts"></a>
+    <strong>parseVersionParts (versionStr)</strong>
+    </dt>
+    <dd>
+    Return the iterator return the next piece of the version.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">versionStr</span>
+         A version string.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        iterator over parts of the version string.
+    </ol>
+
+
+
+
+</dd>
+</dl>
+    <h2><a name="Tables"></a>Tables</h2>
+    <dl class="function">
+    <dt>
+    <a name = "replaceT"></a>
+    <strong>replaceT</strong>
+    </dt>
+    <dd>
+    replacement table for version parts
+
+
+    <h3>Fields:</h3>
+    <ul>
+        <li><span class="parameter">pre</span>
+        marked as a candidate version
+        </li>
+        <li><span class="parameter">preview</span>
+        marked as a candidate version
+        </li>
+        <li><span class="parameter">[</span>
+        marked as a patched version marked as a patched version
+        </li>
+        <li><span class="parameter">[</span>
+        marked as a patched version marked as a patched version
+        </li>
+        <li><span class="parameter">p</span>
+        marked as a patched version
+        </li>
+        <li><span class="parameter">rc</span>
+        marked as a candidate version
+        </li>
+        <li><span class="parameter">dev</span>
+        marked as a development version
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.2</a></i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>

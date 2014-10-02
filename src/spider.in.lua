@@ -1,5 +1,12 @@
 #!@path_to_lua@/lua
 -- -*- lua -*-
+
+--------------------------------------------------------------------------
+-- Use command name to add the command directory to the package.path
+-- @script spider
+
+require("strict")
+
 --------------------------------------------------------------------------
 -- Lmod License
 --------------------------------------------------------------------------
@@ -34,9 +41,6 @@
 --
 --------------------------------------------------------------------------
 
-------------------------------------------------------------------------
--- Use command name to add the command directory to the package.path
-------------------------------------------------------------------------
 local LuaCommandName = arg[0]
 local i,j = LuaCommandName:find(".*/")
 local LuaCommandName_dir = "./"
@@ -53,7 +57,6 @@ function cmdDir()
 end
 
 require("myGlobals")
-require("strict")
 require("utils")
 require("colorize")
 require("serializeTbl")

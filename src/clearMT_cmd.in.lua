@@ -2,6 +2,12 @@
 -- -*- lua -*-
 
 --------------------------------------------------------------------------
+-- Fixme
+-- @script clearMT_cmd
+
+require("strict")
+
+--------------------------------------------------------------------------
 -- Lmod License
 --------------------------------------------------------------------------
 --
@@ -35,10 +41,6 @@
 --
 --------------------------------------------------------------------------
 
---------------------------------------------------------------------------
--- getmt:  prints to screen what the value of the ModuleTable is.
---         optionly it writes the state of the ModuleTable is to a
---         dated file.
 
 
 local cmd = arg[0]
@@ -50,7 +52,6 @@ end
 package.path = cmd_dir .. "../tools/?.lua;" ..
                cmd_dir .. "?.lua;"       .. package.path
 
-require("strict")
 require("fileOps")
 
 local concatTbl    = table.concat

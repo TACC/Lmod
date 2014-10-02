@@ -1,0 +1,919 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Lmod Documentation</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>Lmod</h1>
+
+<ul>
+  <li><a href="../index.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Tables">Tables</a></li>
+<li><a href="#Fields">Fields</a></li>
+<li><a href="#Methods">Methods</a></li>
+</ul>
+
+
+<h2>Classes</h2>
+<ul class="$(kind=='Topics' and '' or 'nowrap'">
+  <li><a href="../classes/Banner.html">Banner</a></li>
+  <li><a href="../classes/BeautifulTbl.html">BeautifulTbl</a></li>
+  <li><a href="../classes/CTimer.html">CTimer</a></li>
+  <li><a href="../classes/Cache.html">Cache</a></li>
+  <li><a href="../classes/ColumnTable.html">ColumnTable</a></li>
+  <li><a href="../classes/Configuration.html">Configuration</a></li>
+  <li><a href="../classes/Dbg.html">Dbg</a></li>
+  <li><a href="../classes/Exec.html">Exec</a></li>
+  <li><a href="../classes/Hook.html">Hook</a></li>
+  <li><a href="../classes/MC_Access.html">MC_Access</a></li>
+  <li><a href="../classes/MC_ComputeHash.html">MC_ComputeHash</a></li>
+  <li><a href="../classes/MC_Load.html">MC_Load</a></li>
+  <li><a href="../classes/MC_MgrLoad.html">MC_MgrLoad</a></li>
+  <li><a href="../classes/MC_Refresh.html">MC_Refresh</a></li>
+  <li><a href="../classes/MC_Show.html">MC_Show</a></li>
+  <li><a href="../classes/MC_Spider.html">MC_Spider</a></li>
+  <li><a href="../classes/MC_Unload.html">MC_Unload</a></li>
+  <li><a href="../classes/MF_Base.html">MF_Base</a></li>
+  <li><a href="../classes/MF_Lua.html">MF_Lua</a></li>
+  <li><a href="../classes/MF_TCL.html">MF_TCL</a></li>
+  <li><a href="../classes/MN_Between.html">MN_Between</a></li>
+  <li><a href="../classes/MN_Latest.html">MN_Latest</a></li>
+  <li><a href="../classes/MN_Match.html">MN_Match</a></li>
+  <li><a href="../classes/MName.html">MName</a></li>
+  <li><strong>MT</strong></li>
+  <li><a href="../classes/Master.html">Master</a></li>
+  <li><a href="../classes/MasterControl.html">MasterControl</a></li>
+  <li><a href="../classes/ModuleStack.html">ModuleStack</a></li>
+  <li><a href="../classes/Optiks.html">Optiks</a></li>
+  <li><a href="../classes/Optiks_Option.html">Optiks_Option</a></li>
+  <li><a href="../classes/Options.html">Options</a></li>
+  <li><a href="../classes/Pkg.html">Pkg</a></li>
+  <li><a href="../classes/PkgBase.html">PkgBase</a></li>
+  <li><a href="../classes/PkgTACC.html">PkgTACC</a></li>
+  <li><a href="../classes/ProgressBar.html">ProgressBar</a></li>
+  <li><a href="../classes/Spider.html">Spider</a></li>
+  <li><a href="../classes/Timer.html">Timer</a></li>
+  <li><a href="../classes/Var.html">Var</a></li>
+  <li><a href="../classes/string.html">string</a></li>
+</ul>
+<h2>Modules</h2>
+<ul class="$(kind=='Topics' and '' or 'nowrap'">
+  <li><a href="../modules/SitePackage.html">SitePackage</a></li>
+  <li><a href="../modules/StandardPackage.html">StandardPackage</a></li>
+  <li><a href="../modules/TermWidth.html">TermWidth</a></li>
+  <li><a href="../modules/capture.html">capture</a></li>
+  <li><a href="../modules/cmdfuncs.html">cmdfuncs</a></li>
+  <li><a href="../modules/colorize.html">colorize</a></li>
+  <li><a href="../modules/declare.html">declare</a></li>
+  <li><a href="../modules/fileOps.html">fileOps</a></li>
+  <li><a href="../modules/inherits.html">inherits</a></li>
+  <li><a href="../modules/json.html">json</a></li>
+  <li><a href="../modules/loadModuleFile.html">loadModuleFile</a></li>
+  <li><a href="../modules/modfuncs.html">modfuncs</a></li>
+  <li><a href="../modules/myGlobals.html">myGlobals</a></li>
+  <li><a href="../modules/pager.html">pager</a></li>
+  <li><a href="../modules/pairsByKeys.html">pairsByKeys</a></li>
+  <li><a href="../modules/parseVersion.html">parseVersion</a></li>
+  <li><a href="../modules/sandbox.html">sandbox</a></li>
+  <li><a href="../modules/serializeTbl.html">serializeTbl</a></li>
+  <li><a href="../modules/utils.html">utils</a></li>
+</ul>
+<h2>Scripts</h2>
+<ul class="$(kind=='Topics' and '' or 'nowrap'">
+  <li><a href="../scripts/addto.html">addto</a></li>
+  <li><a href="../scripts/clearMT_cmd.html">clearMT_cmd</a></li>
+  <li><a href="../scripts/computeHashSum.html">computeHashSum</a></li>
+  <li><a href="../scripts/getmt.html">getmt</a></li>
+  <li><a href="../scripts/lmod.html">lmod</a></li>
+  <li><a href="../scripts/ml.html">ml</a></li>
+  <li><a href="../scripts/processMT.html">processMT</a></li>
+  <li><a href="../scripts/processModuleUsage.html">processModuleUsage</a></li>
+  <li><a href="../scripts/reportUsers.html">reportUsers</a></li>
+  <li><a href="../scripts/sh_to_modulefile.html">sh_to_modulefile</a></li>
+  <li><a href="../scripts/spider.html">spider</a></li>
+  <li><a href="../scripts/spiderCacheSupport.html">spiderCacheSupport</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Class <code>MT</code></h1>
+<p>This class controls the ModuleTable.</p>
+<p>  The ModuleTable is how Lmod
+ communicates what modules are loaded or inactive and so on between
+ module commands.
+</p>
+
+
+<h2><a href="#Tables">Tables</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#MT.aa">MT.aa</a></td>
+	<td class="summary">Check that the hash sums match between collection and current values.</td>
+	</tr>
+</table>
+<h2><a href="#Fields">Fields</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#MT._ModuleTable_">MT._ModuleTable_</a></td>
+	<td class="summary">Lmod License
+<p>
+  Lmod is licensed under the terms of the MIT license reproduced below.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#s_mt.systemBaseMPATH">s_mt.systemBaseMPATH</a></td>
+	<td class="summary">This is a hack.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#s_mt.c_shortTime">s_mt.c_shortTime</a></td>
+	<td class="summary">Save the shortTime found from Module Collection file:</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MT.activeA">MT.activeA</a></td>
+	<td class="summary">Now check to see that all requested modules got loaded.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MT.s_familyA">MT.s_familyA</a></td>
+	<td class="summary">Get/Set functions for family.</td>
+	</tr>
+</table>
+<h2><a href="#Methods">Methods</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#MT:_build_locationTbl">MT:_build_locationTbl (self, mpathA, adding, pathEntry)</a></td>
+	<td class="summary">_build_locationTbl(): Build [[locationT]] either by using [[moduleT]] if
+                      it exists or use [[buildAvailT]] to walk the
+                      directories.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MT:convertMT">MT:convertMT (self, v1)</a></td>
+	<td class="summary">MT:convertMT() - Translate a version 1 MT into current version.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MT:getRebuildTime">MT:getRebuildTime (self)</a></td>
+	<td class="summary">Get/Set functions for shortTime and rebuild time for cache.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MT:mt">MT:mt (self)</a></td>
+	<td class="summary">MT:mt(): Public access to MT function.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MT:pushMT">MT:pushMT (self)</a></td>
+	<td class="summary">MT:pushMT(): push self on stack.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MT:popMT">MT:popMT ()</a></td>
+	<td class="summary">MT:popMT(): Pop the stack and set [[s_mt]] to be the current value.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MT:origMT">MT:origMT ()</a></td>
+	<td class="summary">MT:origMT(): Return the original MT from bottom of stack.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MT:getMTfromFile">MT:getMTfromFile (self, t)</a></td>
+	<td class="summary">MT:getMTfromFile(): Read in a user collection of modules and make it
+                     the new value of [[s_mt]].</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MT:resolveMpathChanges">MT:resolveMpathChanges (self, currentMPATH, baseMPATH)</a></td>
+	<td class="summary">resolveMpathChanges: Handle when MODULEPATH is changed outside of Lmod</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MT:changePATH">MT:changePATH (self)</a></td>
+	<td class="summary">These routine are used to decide when it is safe to reload modules.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MT:locationTbl">MT:locationTbl (self, key)</a></td>
+	<td class="summary">Simple Get/Set functions.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MT:add">MT:add (self, t, status)</a></td>
+	<td class="summary">MT:add(): Adds a module to MT.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MT:list">MT:list (self, kind, status)</a></td>
+	<td class="summary">MT:list(): Return a array of modules currently in MT.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MT:userName">MT:userName (self, sn)</a></td>
+	<td class="summary">Simple Get/Set functions for entries in MT.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MT:setHashSum">MT:setHashSum (self)</a></td>
+	<td class="summary">MT:setHashSum(): Use [[computeHashSum]] to compute hash for each active
+                  module in MT.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MT:add_property">MT:add_property (self, sn, name, value)</a></td>
+	<td class="summary">MT:add_property() add a property to an active module.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MT:remove_property">MT:remove_property (self, sn, name, value)</a></td>
+	<td class="summary">MT:remove_property() remove a property to an active module.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MT:list_property">MT:list_property (self, idx, sn, style, legendT)</a></td>
+	<td class="summary">MT:list_property(): What it says.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MT:userLoad">MT:userLoad (self, sn, usrName)</a></td>
+	<td class="summary">MT:userLoad(): Mark a module as having been loaded by user request.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MT:reportChanges">MT:reportChanges (self)</a></td>
+	<td class="summary">MT:reportChanges(): Compare the original MT with the current one.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MT:serializeTbl">MT:serializeTbl (self, state)</a></td>
+	<td class="summary">MT:serializeTbl(): A wrapper for serializeTbl and all the white space
+                   removed.</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2><a name="Tables"></a>Tables</h2>
+    <dl class="function">
+    <dt>
+    <a name = "MT.aa"></a>
+    <strong>MT.aa</strong>
+    </dt>
+    <dd>
+    Check that the hash sums match between collection and current values.
+
+
+
+
+
+
+
+</dd>
+</dl>
+    <h2><a name="Fields"></a>Fields</h2>
+    <dl class="function">
+    <dt>
+    <a name = "MT._ModuleTable_"></a>
+    <strong>MT._ModuleTable_</strong>
+    </dt>
+    <dd>
+    Lmod License
+<p>
+  Lmod is licensed under the terms of the MIT license reproduced below.
+  This means that Lmod is free software and can be used for both academic
+  and commercial purposes at absolutely no cost.
+<p>  ----------------------------------------------------------------------
+<p>  Copyright (C) 2008-2014 Robert McLay
+<p>  Permission is hereby granted, free of charge, to any person obtaining
+  a copy of this software and associated documentation files (the
+  "Software"), to deal in the Software without restriction, including
+  without limitation the rights to use, copy, modify, merge, publish,
+  distribute, sublicense, and/or sell copies of the Software, and to
+  permit persons to whom the Software is furnished to do so, subject
+  to the following conditions:
+<p>  The above copyright notice and this permission notice shall be
+  included in all copies or substantial portions of the Software.
+<p>  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+  EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+  OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+  NONINFRINGEMENT.  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS
+  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN
+  ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+  THE SOFTWARE.
+<p>
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "s_mt.systemBaseMPATH"></a>
+    <strong>s_mt.systemBaseMPATH</strong>
+    </dt>
+    <dd>
+    This is a hack.   The system base MODULEPATH is set when
+ the very first run of Lmod.  If there is no ModuleTable in the
+ environment then MODULEPATH is used to set the system base MPATH.
+ It is detected when a new MT is constructed and the MT is nil.
+ Well the line above this comment is also constructing a MT where
+ the module table in the environment value is ignored.  So this
+ hack is here to make sure that the value of the system Base MPATH
+ remains what is was.  There should be a better way to do this
+ but I can't think of one at the moment.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "s_mt.c_shortTime"></a>
+    <strong>s_mt.c_shortTime</strong>
+    </dt>
+    <dd>
+    Save the shortTime found from Module Collection file:
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "MT.activeA"></a>
+    <strong>MT.activeA</strong>
+    </dt>
+    <dd>
+    Now check to see that all requested modules got loaded.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "MT.s_familyA"></a>
+    <strong>MT.s_familyA</strong>
+    </dt>
+    <dd>
+    Get/Set functions for family.
+
+
+
+
+
+
+
+</dd>
+</dl>
+    <h2><a name="Methods"></a>Methods</h2>
+    <dl class="function">
+    <dt>
+    <a name = "MT:_build_locationTbl"></a>
+    <strong>MT:_build_locationTbl (self, mpathA, adding, pathEntry)</strong>
+    </dt>
+    <dd>
+    _build_locationTbl(): Build [[locationT]] either by using [[moduleT]] if
+                      it exists or use [[buildAvailT]] to walk the
+                      directories.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+
+        </li>
+        <li><span class="parameter">mpathA</span>
+
+        </li>
+        <li><span class="parameter">adding</span>
+
+        </li>
+        <li><span class="parameter">pathEntry</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "MT:convertMT"></a>
+    <strong>MT:convertMT (self, v1)</strong>
+    </dt>
+    <dd>
+    MT:convertMT() - Translate a version 1 MT into current version.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+
+        </li>
+        <li><span class="parameter">v1</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "MT:getRebuildTime"></a>
+    <strong>MT:getRebuildTime (self)</strong>
+    </dt>
+    <dd>
+    Get/Set functions for shortTime and rebuild time for cache.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "MT:mt"></a>
+    <strong>MT:mt (self)</strong>
+    </dt>
+    <dd>
+    MT:mt(): Public access to MT function.   For the most part this is a
+          singleton class.  The trouble is that there is a stack of
+          MT on certain occations.  So this member function will construct
+          one, then clone itself.  This way there is an original one for
+          later comparison.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "MT:pushMT"></a>
+    <strong>MT:pushMT (self)</strong>
+    </dt>
+    <dd>
+    MT:pushMT(): push self on stack.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "MT:popMT"></a>
+    <strong>MT:popMT ()</strong>
+    </dt>
+    <dd>
+    MT:popMT(): Pop the stack and set [[s_mt]] to be the current value.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "MT:origMT"></a>
+    <strong>MT:origMT ()</strong>
+    </dt>
+    <dd>
+    MT:origMT(): Return the original MT from bottom of stack.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "MT:getMTfromFile"></a>
+    <strong>MT:getMTfromFile (self, t)</strong>
+    </dt>
+    <dd>
+    MT:getMTfromFile(): Read in a user collection of modules and make it
+                     the new value of [[s_mt]].   This routine is probably
+                     too complicated by half.  The idea is that we read
+                     the collection to get the list of modules requested.
+                     We also need the base MODULEPATH as a replacement.
+<p>  To complicate things we must check for:
+    a) make sure that the hash values are the same between old and new.
+    b) make sure that the system base path has not changed.  To detect this
+       there are now two base modulepaths.  The system base modulepath is
+       the one when there is no _ModuleTable_ in the environment.  Then there
+       is a second one which contains any module use commands by the user.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+
+        </li>
+        <li><span class="parameter">t</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "MT:resolveMpathChanges"></a>
+    <strong>MT:resolveMpathChanges (self, currentMPATH, baseMPATH)</strong>
+    </dt>
+    <dd>
+    resolveMpathChanges: Handle when MODULEPATH is changed outside of Lmod
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+
+        </li>
+        <li><span class="parameter">currentMPATH</span>
+
+        </li>
+        <li><span class="parameter">baseMPATH</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "MT:changePATH"></a>
+    <strong>MT:changePATH (self)</strong>
+    </dt>
+    <dd>
+    These routine are used to decide when it is safe to reload modules.
+ The idea is that when there is a change in MODULEPATH, MT:changePATH
+ is called. Every time a module is loaded MT:beginOP() is called.
+ Afterwards MT:endOP() is called.  The routine MT:safeToCheckZombies()
+ returns true when the count is zero and self._changePATH is also true.
+ It then changes self._changePATH to nil so future calls to
+ safeToCheckZombies will be false.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "MT:locationTbl"></a>
+    <strong>MT:locationTbl (self, key)</strong>
+    </dt>
+    <dd>
+    Simple Get/Set functions.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+
+        </li>
+        <li><span class="parameter">key</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "MT:add"></a>
+    <strong>MT:add (self, t, status)</strong>
+    </dt>
+    <dd>
+    MT:add(): Adds a module to MT.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+
+        </li>
+        <li><span class="parameter">t</span>
+
+        </li>
+        <li><span class="parameter">status</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "MT:list"></a>
+    <strong>MT:list (self, kind, status)</strong>
+    </dt>
+    <dd>
+    MT:list(): Return a array of modules currently in MT.   The list is
+            always sorted in loadOrder.
+<p> There are three kinds of returns for this member function.
+    mt:list("userName",...) returns an object containing an table
+                            which has the short, full, etc.
+    mt:list("both",...) returns the short and full name of
+    mt:list(... , ...) returns a simply array of names.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+
+        </li>
+        <li><span class="parameter">kind</span>
+
+        </li>
+        <li><span class="parameter">status</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "MT:userName"></a>
+    <strong>MT:userName (self, sn)</strong>
+    </dt>
+    <dd>
+    Simple Get/Set functions for entries in MT.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+
+        </li>
+        <li><span class="parameter">sn</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "MT:setHashSum"></a>
+    <strong>MT:setHashSum (self)</strong>
+    </dt>
+    <dd>
+    MT:setHashSum(): Use [[computeHashSum]] to compute hash for each active
+                  module in MT.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "MT:add_property"></a>
+    <strong>MT:add_property (self, sn, name, value)</strong>
+    </dt>
+    <dd>
+    MT:add_property() add a property to an active module.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+
+        </li>
+        <li><span class="parameter">sn</span>
+
+        </li>
+        <li><span class="parameter">name</span>
+
+        </li>
+        <li><span class="parameter">value</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "MT:remove_property"></a>
+    <strong>MT:remove_property (self, sn, name, value)</strong>
+    </dt>
+    <dd>
+    MT:remove_property() remove a property to an active module.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+
+        </li>
+        <li><span class="parameter">sn</span>
+
+        </li>
+        <li><span class="parameter">name</span>
+
+        </li>
+        <li><span class="parameter">value</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "MT:list_property"></a>
+    <strong>MT:list_property (self, idx, sn, style, legendT)</strong>
+    </dt>
+    <dd>
+    MT:list_property(): What it says.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+
+        </li>
+        <li><span class="parameter">idx</span>
+
+        </li>
+        <li><span class="parameter">sn</span>
+
+        </li>
+        <li><span class="parameter">style</span>
+
+        </li>
+        <li><span class="parameter">legendT</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "MT:userLoad"></a>
+    <strong>MT:userLoad (self, sn, usrName)</strong>
+    </dt>
+    <dd>
+    MT:userLoad(): Mark a module as having been loaded by user request.
+                This is used by MT:reportChanges() to not print. So
+                if a user does this:
+                   $ module swap mvapich2 mvapich2/1.9
+                Lmod will not report that mvapich2 has been reloaded.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+
+        </li>
+        <li><span class="parameter">sn</span>
+
+        </li>
+        <li><span class="parameter">usrName</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "MT:reportChanges"></a>
+    <strong>MT:reportChanges (self)</strong>
+    </dt>
+    <dd>
+    MT:reportChanges(): Compare the original MT with the current one.
+                     Report any modules that have become inactive or
+                     active.  Or report that a module has swapped or a
+                     version has changed.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "MT:serializeTbl"></a>
+    <strong>MT:serializeTbl (self, state)</strong>
+    </dt>
+    <dd>
+    MT:serializeTbl(): A wrapper for serializeTbl and all the white space
+                   removed.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+
+        </li>
+        <li><span class="parameter">state</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.2</a></i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>

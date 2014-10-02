@@ -1,4 +1,23 @@
 --------------------------------------------------------------------------
+--  ModuleStack class:  This is a singleton class that is use to keep
+--  track of the modules that are currently loaded.  It has two jobs:
+--
+--     a) Remember the name and filename for each module that is being
+--        loaded.
+--     b) Keep track of whether a module is a manager or worker bee.
+--        A manager module is also a meta-module.  This means it loads
+--        other modules.  A worker-bee module does not.
+--
+--  This is important to know because a module that does both loads and
+--  changes the environment can not be stored in a user defined
+--  collective.  This is how myModuleFullName() and myFileName() gets
+--  their value.  Note that is stack is used for normal operations but
+--  is not used when in spider mode.
+-- @classmod ModuleStack
+
+require("strict")
+
+--------------------------------------------------------------------------
 -- Lmod License
 --------------------------------------------------------------------------
 --
@@ -32,30 +51,10 @@
 --
 --------------------------------------------------------------------------
 
---------------------------------------------------------------------------
---  ModuleStack class:  This is a singleton class that is use to keep
---  track of the modules that are currently loaded.  It has two jobs:
---
---     a) Remember the name and filename for each module that is being
---        loaded.
---     b) Keep track of whether a module is a manager or worker bee.
---        A manager module is also a meta-module.  This means it loads
---        other modules.  A worker-bee module does not.
---
---  This is important to know because a module that does both loads and
---  changes the environment can not be stored in a user defined
---  collective.  This is how myModuleFullName() and myFileName() gets
---  their value.  Note that is stack is used for normal operations but
---  is not used when in spider mode.
-
-
-require("strict")
-ModuleStack = { }
 
 local dbg          = require("Dbg"):dbg()
 local remove       = table.remove
 
---module("ModuleStack")
 local M = {}
 
 s_moduleStack = {}

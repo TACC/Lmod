@@ -1,4 +1,34 @@
 --------------------------------------------------------------------------
+--  MasterControl is the base class for all the MC_Load, MC_Unload derived
+--  classes.  It has the Factory build member function as well as the
+--  functions that execute the commands from the modulefiles.  It may be
+--  helpful to understand the flow of control:
+--
+--    0. An MCP object is constructed (load, unload, show, help, etc)
+--    1. A modulefile is read and evaluated.
+--    2. A function in modfuncs is called.
+--    3. These modfuncs call a member function of the mcp object.
+--    4. All these member functions are implemented here.
+--
+--  So for example if the mcp object is a load version then
+--  when a modulefile calls setenv then the steps are:
+--    a) setenv(...) is called in modfuncs
+--    b) This calls mcp:setenv(...)
+--    c) the mcp load version connects it to MasterControl:setenv
+-- 
+--  Suppose a user is requesting to unload a module which contains a
+--  setenv command.
+--    0. An MCP unload object is constructed.
+--    1. The module file is read and evaluated
+--    2. The setenv function in modfuncs is called
+--    3. The unload MCP objects maps this to MasterControl:unsetenv
+--    4. The users' environment variable is unset.
+--
+-- @classmod MasterControl
+
+require("strict")
+
+--------------------------------------------------------------------------
 -- Lmod License
 --------------------------------------------------------------------------
 --
@@ -32,35 +62,6 @@
 --
 --------------------------------------------------------------------------
 
---------------------------------------------------------------------------
---  MasterControl is the base class for all the MC_Load, MC_Unload derived
---  classes.  It has the Factory build member function as well as the
---  functions that execute the commands from the modulefiles.  It may be
---  helpful to understand the flow of control:
-
---  0) An MCP object is constructed (load, unload, show, help, etc)
---  1) A modulefile is read and evaluated.
---  2) A function in modfuncs is called.
---  3) These modfuncs call a member function of the mcp object.
---  4) All these member functions are implemented here.
-
---  So for example if the mcp object is a load version then
---  when a modulefile calls setenv then the steps are:
---  a) setenv(...) is called in modfuncs
---  b) This calls mcp:setenv(...)
---  c) the mcp load version connects it to MasterControl:setenv
-
---  Suppose a user is requesting to unload a module which contains a
---  setenv command.
---  0) An MCP unload object is constructed.
---  1) The module file is read and evaluated
---  2) The setenv function in modfuncs is called
---  3) The unload MCP objects maps this to MasterControl:unsetenv
---  4) The users' environment variable is unset.
---------------------------------------------------------------------------
-
--- MasterControl
-require("strict")
 require("TermWidth")
 require("string_utils")
 require("inherits")
@@ -83,9 +84,6 @@ local encode64     = base64.encode64
 local getenv       = os.getenv
 local pack         = (_VERSION == "Lua 5.1") and argsPack or table.pack
 local Exit         = os.exit
-------------------------------------------------------------------------
---module ('MasterControl')
-------------------------------------------------------------------------
 
 local function mustLoad(mA)
    local aa = {}

@@ -1,0 +1,424 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Lmod Documentation</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>Lmod</h1>
+
+<ul>
+  <li><a href="../index.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Functions">Functions</a></li>
+<li><a href="#Tables">Tables</a></li>
+<li><a href="#Fields">Fields</a></li>
+</ul>
+
+
+<h2>Modules</h2>
+<ul class="$(kind=='Topics' and '' or 'nowrap'">
+  <li><a href="../modules/SitePackage.html">SitePackage</a></li>
+  <li><a href="../modules/StandardPackage.html">StandardPackage</a></li>
+  <li><a href="../modules/TermWidth.html">TermWidth</a></li>
+  <li><a href="../modules/capture.html">capture</a></li>
+  <li><a href="../modules/cmdfuncs.html">cmdfuncs</a></li>
+  <li><a href="../modules/colorize.html">colorize</a></li>
+  <li><a href="../modules/declare.html">declare</a></li>
+  <li><a href="../modules/fileOps.html">fileOps</a></li>
+  <li><a href="../modules/inherits.html">inherits</a></li>
+  <li><a href="../modules/json.html">json</a></li>
+  <li><a href="../modules/loadModuleFile.html">loadModuleFile</a></li>
+  <li><a href="../modules/modfuncs.html">modfuncs</a></li>
+  <li><a href="../modules/myGlobals.html">myGlobals</a></li>
+  <li><a href="../modules/pager.html">pager</a></li>
+  <li><a href="../modules/pairsByKeys.html">pairsByKeys</a></li>
+  <li><a href="../modules/parseVersion.html">parseVersion</a></li>
+  <li><strong>sandbox</strong></li>
+  <li><a href="../modules/serializeTbl.html">serializeTbl</a></li>
+  <li><a href="../modules/utils.html">utils</a></li>
+</ul>
+<h2>Scripts</h2>
+<ul class="$(kind=='Topics' and '' or 'nowrap'">
+  <li><a href="../scripts/addto.html">addto</a></li>
+  <li><a href="../scripts/clearMT_cmd.html">clearMT_cmd</a></li>
+  <li><a href="../scripts/computeHashSum.html">computeHashSum</a></li>
+  <li><a href="../scripts/getmt.html">getmt</a></li>
+  <li><a href="../scripts/lmod.html">lmod</a></li>
+  <li><a href="../scripts/ml.html">ml</a></li>
+  <li><a href="../scripts/processMT.html">processMT</a></li>
+  <li><a href="../scripts/processModuleUsage.html">processModuleUsage</a></li>
+  <li><a href="../scripts/reportUsers.html">reportUsers</a></li>
+  <li><a href="../scripts/sh_to_modulefile.html">sh_to_modulefile</a></li>
+  <li><a href="../scripts/spider.html">spider</a></li>
+  <li><a href="../scripts/spiderCacheSupport.html">spiderCacheSupport</a></li>
+</ul>
+<h2>Classes</h2>
+<ul class="$(kind=='Topics' and '' or 'nowrap'">
+  <li><a href="../classes/Banner.html">Banner</a></li>
+  <li><a href="../classes/BeautifulTbl.html">BeautifulTbl</a></li>
+  <li><a href="../classes/CTimer.html">CTimer</a></li>
+  <li><a href="../classes/Cache.html">Cache</a></li>
+  <li><a href="../classes/ColumnTable.html">ColumnTable</a></li>
+  <li><a href="../classes/Configuration.html">Configuration</a></li>
+  <li><a href="../classes/Dbg.html">Dbg</a></li>
+  <li><a href="../classes/Exec.html">Exec</a></li>
+  <li><a href="../classes/Hook.html">Hook</a></li>
+  <li><a href="../classes/MC_Access.html">MC_Access</a></li>
+  <li><a href="../classes/MC_ComputeHash.html">MC_ComputeHash</a></li>
+  <li><a href="../classes/MC_Load.html">MC_Load</a></li>
+  <li><a href="../classes/MC_MgrLoad.html">MC_MgrLoad</a></li>
+  <li><a href="../classes/MC_Refresh.html">MC_Refresh</a></li>
+  <li><a href="../classes/MC_Show.html">MC_Show</a></li>
+  <li><a href="../classes/MC_Spider.html">MC_Spider</a></li>
+  <li><a href="../classes/MC_Unload.html">MC_Unload</a></li>
+  <li><a href="../classes/MF_Base.html">MF_Base</a></li>
+  <li><a href="../classes/MF_Lua.html">MF_Lua</a></li>
+  <li><a href="../classes/MF_TCL.html">MF_TCL</a></li>
+  <li><a href="../classes/MN_Between.html">MN_Between</a></li>
+  <li><a href="../classes/MN_Latest.html">MN_Latest</a></li>
+  <li><a href="../classes/MN_Match.html">MN_Match</a></li>
+  <li><a href="../classes/MName.html">MName</a></li>
+  <li><a href="../classes/MT.html">MT</a></li>
+  <li><a href="../classes/Master.html">Master</a></li>
+  <li><a href="../classes/MasterControl.html">MasterControl</a></li>
+  <li><a href="../classes/ModuleStack.html">ModuleStack</a></li>
+  <li><a href="../classes/Optiks.html">Optiks</a></li>
+  <li><a href="../classes/Optiks_Option.html">Optiks_Option</a></li>
+  <li><a href="../classes/Options.html">Options</a></li>
+  <li><a href="../classes/Pkg.html">Pkg</a></li>
+  <li><a href="../classes/PkgBase.html">PkgBase</a></li>
+  <li><a href="../classes/PkgTACC.html">PkgTACC</a></li>
+  <li><a href="../classes/ProgressBar.html">ProgressBar</a></li>
+  <li><a href="../classes/Spider.html">Spider</a></li>
+  <li><a href="../classes/Timer.html">Timer</a></li>
+  <li><a href="../classes/Var.html">Var</a></li>
+  <li><a href="../classes/string.html">string</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Module <code>sandbox</code></h1>
+<p>Modulefiles are "loaded" in a sandbox.</p>
+<p>  That is when the module
+ file is evaluated, it can only run a limited set of functions.
+ This file provides for a default list of functions that can be
+ run.  There is also a sandbox_registration so that sites using
+ SitePackage can register their functions. Finally there are two
+ versions of run function one for Lua 5.1 and another for Lua 5.2
+ The appropriate version is assigned to [[sandbox_run]].
+</p>
+
+
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#sandbox_registration">sandbox_registration (t)</a></td>
+	<td class="summary">sandbox_registration(): Sites should call this function if they have
+                         functions inside their SitePackage.lua file for
+                         any functions that they want that are callable
+                         via their modulefiles.</td>
+	</tr>
+</table>
+<h2><a href="#Tables">Tables</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#sandbox_env">sandbox_env</a></td>
+	<td class="summary">Table containing valid functions for modulefiles.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#lfs">lfs</a></td>
+	<td class="summary">lfs functions</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#posix">posix</a></td>
+	<td class="summary">posix functions</td>
+	</tr>
+</table>
+<h2><a href="#Fields">Fields</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#capture">capture</a></td>
+	<td class="summary">Misc functions</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#_VERSION">_VERSION</a></td>
+	<td class="summary">Misc System Values</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2><a name="Functions"></a>Functions</h2>
+    <dl class="function">
+    <dt>
+    <a name = "sandbox_registration"></a>
+    <strong>sandbox_registration (t)</strong>
+    </dt>
+    <dd>
+    sandbox_registration(): Sites should call this function if they have
+                         functions inside their SitePackage.lua file for
+                         any functions that they want that are callable
+                         via their modulefiles.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">t</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+</dl>
+    <h2><a name="Tables"></a>Tables</h2>
+    <dl class="function">
+    <dt>
+    <a name = "sandbox_env"></a>
+    <strong>sandbox_env</strong>
+    </dt>
+    <dd>
+    Table containing valid functions for modulefiles.
+
+
+    <h3>Fields:</h3>
+    <ul>
+        <li><span class="parameter">require</span>
+
+        </li>
+        <li><span class="parameter">ipairs</span>
+
+        </li>
+        <li><span class="parameter">next</span>
+
+        </li>
+        <li><span class="parameter">pairs</span>
+
+        </li>
+        <li><span class="parameter">pcall</span>
+
+        </li>
+        <li><span class="parameter">tonumber</span>
+
+        </li>
+        <li><span class="parameter">tostring</span>
+
+        </li>
+        <li><span class="parameter">type</span>
+
+        </li>
+        <li><span class="parameter">unpack</span>
+
+        </li>
+        <li><span class="parameter">string</span>
+
+        </li>
+        <li><span class="parameter">char</span>
+
+        </li>
+        <li><span class="parameter">find</span>
+
+        </li>
+        <li><span class="parameter">format</span>
+
+        </li>
+        <li><span class="parameter">gmatch</span>
+
+        </li>
+        <li><span class="parameter">gsub</span>
+
+        </li>
+        <li><span class="parameter">len</span>
+
+        </li>
+        <li><span class="parameter">lower</span>
+
+        </li>
+        <li><span class="parameter">match</span>
+
+        </li>
+        <li><span class="parameter">rep</span>
+
+        </li>
+        <li><span class="parameter">reverse</span>
+
+        </li>
+        <li><span class="parameter">sub</span>
+
+        </li>
+        <li><span class="parameter">upper</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "lfs"></a>
+    <strong>lfs</strong>
+    </dt>
+    <dd>
+    lfs functions
+
+
+    <h3>Fields:</h3>
+    <ul>
+        <li><span class="parameter">attributes</span>
+
+        </li>
+        <li><span class="parameter">chdir</span>
+
+        </li>
+        <li><span class="parameter">lock_dir</span>
+
+        </li>
+        <li><span class="parameter">currentdir</span>
+
+        </li>
+        <li><span class="parameter">dir</span>
+
+        </li>
+        <li><span class="parameter">lock</span>
+
+        </li>
+        <li><span class="parameter">mkdir</span>
+
+        </li>
+        <li><span class="parameter">rmdir</span>
+
+        </li>
+        <li><span class="parameter">rmdir</span>
+
+        </li>
+        <li><span class="parameter">setmode</span>
+
+        </li>
+        <li><span class="parameter">symlinkattributes</span>
+
+        </li>
+        <li><span class="parameter">touch</span>
+
+        </li>
+        <li><span class="parameter">unlock</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "posix"></a>
+    <strong>posix</strong>
+    </dt>
+    <dd>
+    posix functions
+
+
+    <h3>Fields:</h3>
+    <ul>
+        <li><span class="parameter">uname</span>
+
+        </li>
+        <li><span class="parameter">setenv</span>
+
+        </li>
+        <li><span class="parameter">hostid</span>
+
+        </li>
+        <li><span class="parameter">open</span>
+
+        </li>
+        <li><span class="parameter">openlog</span>
+
+        </li>
+        <li><span class="parameter">closelog</span>
+
+        </li>
+        <li><span class="parameter">syslog</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+</dl>
+    <h2><a name="Fields"></a>Fields</h2>
+    <dl class="function">
+    <dt>
+    <a name = "capture"></a>
+    <strong>capture</strong>
+    </dt>
+    <dd>
+    Misc functions
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "_VERSION"></a>
+    <strong>_VERSION</strong>
+    </dt>
+    <dd>
+    Misc System Values
+
+
+
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.2</a></i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>

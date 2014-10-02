@@ -1,4 +1,16 @@
 --------------------------------------------------------------------------
+-- Options: This class is the main options parser for Lmod.  It defines
+--          the options it supports and uses Optiks to parse the command
+--          line.  All options values are copied to [[masterTbl]] and
+--          positional arguments are copied to [[masterTbl.pargs]].
+--          The command usage string is retrieved into
+--          [[masterTbl.cmdHelpMsg]].
+--
+-- @classmod Options
+
+require("strict")
+
+--------------------------------------------------------------------------
 -- Lmod License
 --------------------------------------------------------------------------
 --
@@ -31,16 +43,6 @@
 --  THE SOFTWARE.
 --
 --------------------------------------------------------------------------
-
---------------------------------------------------------------------------
--- Options: This class is the main options parser for Lmod.  It defines
---          the options it supports and uses Optiks to parse the command
---          line.  All options values are copied to [[masterTbl]] and
---          positional arguments are copied to [[masterTbl.pargs]].
---          The command usage string is retrieved into
---          [[masterTbl.cmdHelpMsg]].
-
-require("strict")
 
 Error = nil
 local dbg          = require("Dbg"):dbg()
