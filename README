@@ -1,10 +1,10 @@
 Lmod Version 5.8
-Feature/Bug fixes:
+Features/Bug fixes:
    a) The init/bash.in and init/cshrc add a trailing colon to
       MANPATH if it is empty
    b) Fixes bug in ml tab completion for zsh.
    c) setenv, prepend_path, etc now trim any leading or trailing
-      blanks around name: prepend_path("MANPATH ","/opt/apps/...")
+      blanks around name: prepend_path(" MANPATH ","/opt/apps/...")
       is now the same as prepend_path("MANPATH","/opt/apps/...")
    d) the module command (and not ml) support combining of single
       letter options.  "module -dw=60 avail" is the same as
@@ -12,7 +12,7 @@ Feature/Bug fixes:
 
 
 Lmod Version 5.7.5:
-Feature/Bug fixes:
+Features/Bug fixes:
    a) "module use" and "ml use" now will work with tab completion
       under bash. (It worked before for zsh).
    b) New option, --spider_timeout sec is added.  Reason: When
@@ -54,7 +54,7 @@ Feature/Bug fixes:
       broken.
 
 Lmod Version 5.7.4
-Feature/Bug fixes:
+Features/Bug fixes:
    a) Improved support for redirecting output to stdout.  Now show,
       and help will write to stdout if LMOD_REDIRECT=yes.
    b) module show unknown will set the return error code if "unknown"

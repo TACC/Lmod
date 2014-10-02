@@ -1,4 +1,13 @@
 --------------------------------------------------------------------------
+-- This class controls the ModuleTable.  The ModuleTable is how Lmod
+-- communicates what modules are loaded or inactive and so on between
+-- module commands.
+--
+-- @classmod MT
+
+require("strict")
+
+--------------------------------------------------------------------------
 -- Lmod License
 --------------------------------------------------------------------------
 --
@@ -32,12 +41,6 @@
 --
 --------------------------------------------------------------------------
 
---------------------------------------------------------------------------
--- MT: This class controls the ModuleTable.  The ModuleTable is how Lmod
---     communicates what modules are loaded or inactive and so on between
---     module commands.
-
-require("strict")
 _ModuleTable_      = ""
 local DfltModPath  = DfltModPath
 local ModulePath   = ModulePath

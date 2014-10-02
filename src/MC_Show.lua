@@ -1,4 +1,12 @@
 --------------------------------------------------------------------------
+-- This derived class of MasterControl just prints ever module
+-- command.
+--
+-- @classmod MC_Show
+
+require("strict")
+
+--------------------------------------------------------------------------
 -- Lmod License
 --------------------------------------------------------------------------
 --
@@ -32,12 +40,8 @@
 --
 --------------------------------------------------------------------------
 
---------------------------------------------------------------------------
--- MC_Show: This derived class of MasterControl just prints ever module
---          command.
 
 
-require("strict")
 require("utils")
 local pack          = (_VERSION == "Lua 5.1") and argsPack or table.pack
 MC_Show             = inheritsFrom(MasterControl)

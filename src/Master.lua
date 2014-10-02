@@ -1,4 +1,15 @@
 --------------------------------------------------------------------------
+-- This class is responsible for actively managing the actions of
+-- Lmod.  It is responsible finding and loading or unloading a
+-- modulefile.  It is also responsible for reloading modules when
+-- the module path changes.  Finally it is responsible for finding
+-- modulefiles for "avail"
+--
+-- @classmod Master
+
+require("strict")
+
+--------------------------------------------------------------------------
 -- Lmod License
 --------------------------------------------------------------------------
 --
@@ -32,14 +43,7 @@
 --
 --------------------------------------------------------------------------
 
---------------------------------------------------------------------------
--- Master: This class is responsible for actively managing the actions of
---         Lmod.  It is responsible finding and loading or unloading a
---         modulefile.  It is also responsible for reloading modules when
---         the module path changes.  Finally it is responsible for finding
---         modulefiles for "avail"
 
-require("strict")
 local concatTbl          = table.concat
 local getenv             = os.getenv
 local sort               = table.sort

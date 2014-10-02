@@ -1,4 +1,33 @@
 --------------------------------------------------------------------------
+--------------------------------------------------------------------------
+-- This class reads all the cache files in.  It will on occasion
+-- write a user cache file.  This is a singleton class.
+--
+-- Rules: The rules about when to trust a cache file or not also when to
+-- write a cache file out in the user directory.
+--
+--   0.   Cache files are trusted to know what module files are in the
+--        MODULEPATH.  This means that if one adds a modulefile WITHOUT
+--        updating the cache, LMOD DOES NOT KNOW ABOUT IT!!!.  This is
+--        not a bug but a feature.
+--
+--   1.   A cache file can have a system timestamp associated with it.
+--        If it does then as long as the cache file is the same or newer
+--        then the timestamp then it is good forever.
+--   2.   A cache file without a timestamp is considered good for no more
+--        than "ancient" seconds old.  It is whatever was configured with
+--        Lmod. Typically "ancient" is 86400 seconds or 24 hours.
+--   3.   Modulefiles under system control can (should?) have a timestamp
+--        associated with but personal modulefiles typically do not.
+--   4.   Any PATH in MODULEPATH that are not covered by any modulefiles
+--        are walked.  If the time associated with building the cache file
+--        is short then no user cache file is written. Short is typically
+--        10 seconds and it is set at configure time.
+-- @classmod Cache
+
+require("strict")
+
+--------------------------------------------------------------------------
 -- Lmod License
 --------------------------------------------------------------------------
 --
@@ -32,38 +61,11 @@
 --
 --------------------------------------------------------------------------
 
-require("strict")
 require("myGlobals")
 require("string_utils")
 require("fileOps")
 require("cmdfuncs")
 require("utils")
---------------------------------------------------------------------------
--- Cache: This class reads all the cache files in.  It will on occasion
---        write a user cache file.  This is a singleton class.
---
--- Rules: The rules about when to trust a cache file or not also when to
---        write a cache file out in the user directory.
---
-------------------------------------------------------------------------
--->   0)  Cache files are trusted to know what module files are in the
--->       MODULEPATH.  This means that if one adds a modulefile WITHOUT
--->       updating the cache, LMOD DOES NOT KNOW ABOUT IT!!!.  This is
--->       not a bug but a feature.
-------------------------------------------------------------------------
---
---    1)  A cache file can have a system timestamp associated with it.
---        If it does then as long as the cache file is the same or newer
---        then the timestamp then it is good forever.
---    2)  A cache file without a timestamp is considered good for no more
---        than "ancient" seconds old.  It is whatever was configured with
---        Lmod. Typically "ancient" is 86400 seconds or 24 hours.
---    3)  Modulefiles under system control can (should?) have a timestamp
---        associated with but personal modulefiles typically do not.
---    4)  Any PATH in MODULEPATH that are not covered by any modulefiles
---        are walked.  If the time associated with building the cache file
---        is short then no user cache file is written. Short is typically
---        10 seconds and it is set at configure time.
 
 
 
@@ -79,12 +81,12 @@ local s_cache = false
 local timer   = require("Timer"):timer()
 
 --------------------------------------------------------------------------
--- new(): This singleton construct reads the scDescriptT table that can be
---        defined in the lmodrc.lua.  Typically this table, if it exists
---        by the configure script.  If it does not then scDescriptT will
---        be an array with zero entries.  This ctor finds all the system
---        and user directories where cache files are stored.  It also
---        figure out the timestamps.
+-- This singleton construct reads the scDescriptT table that can be
+-- defined in the lmodrc.lua.  Typically this table, if it exists
+-- by the configure script.  If it does not then scDescriptT will
+-- be an array with zero entries.  This ctor finds all the system
+-- and user directories where cache files are stored.  It also
+-- figure out the timestamps.
 
 local function new(self, t)
    local o = {}
@@ -157,12 +159,12 @@ local function new(self, t)
 end
 
 --------------------------------------------------------------------------
--- Cache:cache(): This is the front-end to the singleton ctor.  It
---                (obviously) constructs the static s_cache var once
---                then serves s_cache to subsequent callers.  Since
---                the MODULEPATH can change during execution, we set
---                moduleDirT[path] to -1 for any we have not already
---                processed.
+-- This is the front-end to the singleton ctor.  It
+-- (obviously) constructs the static s_cache var once
+-- then serves s_cache to subsequent callers.  Since
+-- the MODULEPATH can change during execution, we set
+-- moduleDirT[path] to -1 for any we have not already
+-- processed.
 
 function M.cache(self, t)
    dbg.start{"Cache:cache()"}
@@ -194,9 +196,9 @@ function M.cache(self, t)
 end
 
 --------------------------------------------------------------------------
--- readCacheFile(): This routine finds and reads in a cache file.  If it
---                  finds a cache file is simply does a "loadfile" on it
---                  and updates moduleT and moduleDirT.
+-- This routine finds and reads in a cache file.  If it
+-- finds a cache file is simply does a "loadfile" on it
+-- and updates moduleT and moduleDirT.
 
 local function readCacheFile(self, cacheFileA)
    dbg.start{"Cache:readCacheFile(cacheFileA)"}
@@ -277,33 +279,33 @@ local function readCacheFile(self, cacheFileA)
 end
 
 --------------------------------------------------------------------------
--- Cache:build(): This is the client code interface to getting the cache
---                files.  It is also responsible for writing the user cache
---                file if it takes to long to build the cache data.  If the
---                data already exists from previous calls then it just
---                re-used.  If there are any directories that are not known
---                then this function call on Spider:findAllModules() to build
---                the cache data that is not known.
+-- This is the client code interface to getting the cache
+-- files.  It is also responsible for writing the user cache
+-- file if it takes to long to build the cache data.  If the
+-- data already exists from previous calls then it just
+-- re-used.  If there are any directories that are not known
+-- then this function call on Spider:findAllModules() to build
+-- the cache data that is not known.
 --
---                If the time to rebuild the cache is quick (time < short) then
---                the build time is recorded in the ModuleTable.  That way if
---                it is quick, Lmod will report that it is rebuilding the spider
---                cache the first time but not any other times during a login
---                session.
+-- If the time to rebuild the cache is quick (time < short) then
+-- the build time is recorded in the ModuleTable.  That way if
+-- it is quick, Lmod will report that it is rebuilding the spider
+-- cache the first time but not any other times during a login
+-- session.
 --
---                There is a hook function "writeCache" that gets called.
---                There may be times when the cache file should never be written.
---                For example, if you have a build machine where packages
---                and modulefiles are being generated at random times then
---                the cache file could be out-of-date.  So instead of trying
---                to rebuild the cache file every second, just do not write it
---                and live with slightly slower response time from Lmod.
+-- There is a hook function "writeCache" that gets called.
+-- There may be times when the cache file should never be written.
+-- For example, if you have a build machine where packages
+-- and modulefiles are being generated at random times then
+-- the cache file could be out-of-date.  So instead of trying
+-- to rebuild the cache file every second, just do not write it
+-- and live with slightly slower response time from Lmod.
 
---                The "fast" option.  Lmod starts up in "fast" mode.
---                This mode means that Lmod will try to read any cache files
---                if it finds none, it doesn't try to build them, instead
---                Lmod will walk only the directories in MODULEPATH and not
---                spider everything.
+-- The "fast" option.  Lmod starts up in "fast" mode.
+-- This mode means that Lmod will try to read any cache files
+-- if it finds none, it doesn't try to build them, instead
+-- Lmod will walk only the directories in MODULEPATH and not
+-- spider everything.
 
 
 function M.build(self, fast)

@@ -1,4 +1,14 @@
 --------------------------------------------------------------------------
+-- This derived class of MasterControl is how Spider reads
+-- in modulefiles.  It uses masterTbl() to hold the moduleStack.
+-- It looks for adding paths to MODULEPATH.  It also keeps track
+-- of properties.
+--
+-- @classmod MC_Spider
+
+require("strict")
+
+--------------------------------------------------------------------------
 -- Lmod License
 --------------------------------------------------------------------------
 --
@@ -32,14 +42,7 @@
 --
 --------------------------------------------------------------------------
 
---------------------------------------------------------------------------
--- MC_Spider: This derived class of MasterControl is how Spider reads
---            in modulefiles.  It uses masterTbl() to hold the moduleStack.
---            It looks for adding paths to MODULEPATH.  It also keeps track
---            of properties.
 
-
-require("strict")
 require("utils")
 
 local dbg              = require("Dbg"):dbg()

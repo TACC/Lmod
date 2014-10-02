@@ -1,4 +1,11 @@
 --------------------------------------------------------------------------
+-- Access is the MCP mode that handles help message or whatis messages.
+-- almost all other module commands are ignored.
+-- @classmod MC_Access
+
+require("strict")
+
+--------------------------------------------------------------------------
 -- Lmod License
 --------------------------------------------------------------------------
 --

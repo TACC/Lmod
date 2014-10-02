@@ -1,4 +1,10 @@
 --------------------------------------------------------------------------
+-- A way for client sites to register functions that are defined in
+-- SitePackage.lua
+-- @classmod Hook
+
+require("strict")
+--------------------------------------------------------------------------
 -- Lmod License
 --------------------------------------------------------------------------
 --
@@ -32,12 +38,6 @@
 --
 --------------------------------------------------------------------------
 
---------------------------------------------------------------------------
--- Hook: A way for client sites to register functions that are defined in
---       SitePackage.lua
---
-
-require("strict")
 
 local M={}
 

@@ -1,4 +1,11 @@
 --------------------------------------------------------------------------
+-- This class holds a array of strings. These are commands that
+-- the module file  can execute after all the environment variables
+-- have been reported.
+-- @classmod Exec
+require("strict")
+
+--------------------------------------------------------------------------
 -- Lmod License
 --------------------------------------------------------------------------
 --
@@ -32,12 +39,7 @@
 --
 --------------------------------------------------------------------------
 
---------------------------------------------------------------------------
--- Exec:  This class holds a array of strings. These are commands that
---        the module file  can execute after all the environment variables
---        have been reported.
 
-require("strict")
 require("utils")
 local dbg           = require("Dbg"):dbg()
 local concatTbl     = table.concat

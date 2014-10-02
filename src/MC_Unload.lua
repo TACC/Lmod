@@ -1,4 +1,13 @@
 --------------------------------------------------------------------------
+-- When unloading all the positive actions of a module are reversed. So
+-- a "setenv()" becomes an unset and so forth.  Note that reversing an
+-- unload or an unsetenv command is a no-op.
+--
+-- @classmod MC_Unload
+
+require("strict")
+
+--------------------------------------------------------------------------
 -- Lmod License
 --------------------------------------------------------------------------
 --
@@ -31,15 +40,6 @@
 --  THE SOFTWARE.
 --
 --------------------------------------------------------------------------
-
---------------------------------------------------------------------------
--- When unloading all the positive actions of a module are reversed. So
--- a "setenv()" becomes an unset and so forth.  Note that reversing an
--- unload or an unsetenv command is a no-op.
-
-
-
-require("strict")
 
 MC_Unload              = inheritsFrom(MasterControl)
 MC_Unload.my_name      = "MC_Unload"

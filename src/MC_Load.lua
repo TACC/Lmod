@@ -1,4 +1,10 @@
 --------------------------------------------------------------------------
+-- Loading a module causes all the commands to act in the positive.
+-- @classmod MC_Load
+
+require("strict")
+
+--------------------------------------------------------------------------
 -- Lmod License
 --------------------------------------------------------------------------
 --
@@ -36,7 +42,6 @@
 -- Loading a module causes all the commands to act in the positive.
 
 
-require("strict")
 
 local MC_Load          = inheritsFrom(MasterControl)
 local M                = MC_Load
