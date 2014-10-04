@@ -299,11 +299,12 @@ end
 local function convert2table(...)
    local arg = pack(...)
    local t   = {}
-   local aa  = arg[1]:trim()
-   if (arg.n == 1) then
-      t = aa
+
+   if (arg.n == 1 and type(arg[1]) == "table" ) then
+      t = arg[1]
+      t[1] = t[1]:trim()
    else
-      t[1]    = aa
+      t[1]    = arg[1]:trim()
       t[2]    = arg[2]
       t.delim = arg[3]
    end
