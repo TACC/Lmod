@@ -205,7 +205,6 @@ end
 -- @param self a Cache object
 -- @param cacheFileA An array of cache files to read and process.
 -- @return the number of directories read.
-
 local function readCacheFile(self, cacheFileA)
    dbg.start{"Cache:readCacheFile(cacheFileA)"}
    local dirsRead  = 0
@@ -314,8 +313,7 @@ end
 -- spider everything.
 --
 -- @param self a Cache object
-
-
+-- @param fast if true then only read cache files, do not build them.
 function M.build(self, fast)
    dbg.start{"Cache:build(fast=", fast,")"}
    local Pairs = dbg.active() and pairsByKeys or pairs
