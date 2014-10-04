@@ -79,7 +79,8 @@ local function new(self)
 
    if (locSitePkg ~= "unknown") then
 
-      local std_sha1 = "15fea255d00cc957ce2431cfe3a888349a8bb4ef"
+
+      local std_sha1 = "038082232d235d9f9278975749eafe791a206a87"
 
       local HashSum = "@path_to_hashsum@"
       if (HashSum:sub(1,1) == "@") then

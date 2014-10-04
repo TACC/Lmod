@@ -150,6 +150,11 @@
 	<td class="name" nowrap><a href="#Cache:cache">Cache:cache (self, t)</a></td>
 	<td class="summary">This is the front-end to the singleton ctor.</td>
 	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Cache:build">Cache:build (self, fast)</a></td>
+	<td class="summary">This is the client code interface to getting the cache
+ files.</td>
+	</tr>
 </table>
 
 <br/>
@@ -174,10 +179,62 @@
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">self</span>
-
+         a Cache object
         </li>
         <li><span class="parameter">t</span>
+         A table with possible dontWrite and quiet entries.
+        </li>
+    </ul>
 
+    <h3>Returns:</h3>
+    <ol>
+
+        A singleton Cache object.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Cache:build"></a>
+    <strong>Cache:build (self, fast)</strong>
+    </dt>
+    <dd>
+    This is the client code interface to getting the cache
+ files.   It is also responsible for writing the user cache
+ file if it takes to long to build the cache data.  If the
+ data already exists from previous calls then it just
+ re-used.  If there are any directories that are not known
+ then this function call on Spider:findAllModules() to build
+ the cache data that is not known.
+<p> If the time to rebuild the cache is quick (time < short) then
+ the build time is recorded in the ModuleTable.  That way if
+ it is quick, Lmod will report that it is rebuilding the spider
+ cache the first time but not any other times during a login
+ session.
+<p> There is a hook function "writeCache" that gets called.
+ There may be times when the cache file should never be written.
+ For example, if you have a build machine where packages
+ and modulefiles are being generated at random times then
+ the cache file could be out-of-date.  So instead of trying
+ to rebuild the cache file every second, just do not write it
+ and live with slightly slower response time from Lmod.
+<p> The "fast" option.  Lmod starts up in "fast" mode.
+ This mode means that Lmod will try to read any cache files
+ if it finds none, it doesn't try to build them, instead
+ Lmod will walk only the directories in MODULEPATH and not
+ spider everything.
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+         a Cache object
+        </li>
+        <li><span class="parameter">fast</span>
+         if true then only read cache files, do not build them.
         </li>
     </ul>
 
