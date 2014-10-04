@@ -87,7 +87,8 @@ local timer   = require("Timer"):timer()
 -- be an array with zero entries.  This ctor finds all the system
 -- and user directories where cache files are stored.  It also
 -- figure out the timestamps.
-
+-- @param self A Cache object
+-- @param t A table with possible dontWrite and quiet entries.
 local function new(self, t)
    local o = {}
    setmetatable(o,self)
@@ -104,16 +105,16 @@ local function new(self, t)
    dbg.print{"#scDescriptT: ",#scDescriptT, "\n"}
    for j  = 1, #scDescriptT  do
       local entry = scDescriptT[j]
-      local t     = {}
+      local tt    = {}
       if (entry.timestamp) then
-         hook.apply("parse_updateFn", entry.timestamp, t)
+         hook.apply("parse_updateFn", entry.timestamp, tt)
       end
 
-      local lastUpdate = t.lastUpdateEpoch or systemEpoch
+      local lastUpdate = tt.lastUpdateEpoch or systemEpoch
 
       local a = {}
-      if (t.hostType and t.hostType ~= "") then
-         a[#a+1] = t.hostType
+      if (tt.hostType and tt.hostType ~= "") then
+         a[#a+1] = tt.hostType
       end
       a[#a+1] = ""
       for i = 1,#a do
@@ -165,7 +166,9 @@ end
 -- the MODULEPATH can change during execution, we set
 -- moduleDirT[path] to -1 for any we have not already
 -- processed.
-
+-- @param self a Cache object
+-- @param t A table with possible dontWrite and quiet entries.
+-- @return A singleton Cache object.
 function M.cache(self, t)
    dbg.start{"Cache:cache()"}
    if (not s_cache) then
@@ -199,6 +202,9 @@ end
 -- This routine finds and reads in a cache file.  If it
 -- finds a cache file is simply does a "loadfile" on it
 -- and updates moduleT and moduleDirT.
+-- @param self a Cache object
+-- @param cacheFileA An array of cache files to read and process.
+-- @return the number of directories read.
 
 local function readCacheFile(self, cacheFileA)
    dbg.start{"Cache:readCacheFile(cacheFileA)"}
@@ -300,12 +306,14 @@ end
 -- the cache file could be out-of-date.  So instead of trying
 -- to rebuild the cache file every second, just do not write it
 -- and live with slightly slower response time from Lmod.
-
+--
 -- The "fast" option.  Lmod starts up in "fast" mode.
 -- This mode means that Lmod will try to read any cache files
 -- if it finds none, it doesn't try to build them, instead
 -- Lmod will walk only the directories in MODULEPATH and not
 -- spider everything.
+--
+-- @param self a Cache object
 
 
 function M.build(self, fast)

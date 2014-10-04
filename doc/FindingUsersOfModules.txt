@@ -27,8 +27,8 @@ used particular modules.
 
 
 4. On Stampede go to /home1/moduleData/moduleUsage.
-   On Longhorn go to /share/tacc_admin/moduleUsage.
    On Lonestar go to /home1/tacc_admin/moduleUsage.
+   On Maverick go to /home/moduleData/moduleUsage.
 
 5. To generate a new list of modules do
 
