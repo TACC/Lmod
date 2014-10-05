@@ -1,5 +1,3 @@
-This is a core dump of the internal structure of Lmod.
-
 It may be helpful to follow the actions and routines that handle a module load.
 This will be explained from the outer most level and will work inward.
 
@@ -34,7 +32,7 @@ by *loading* the foo module.
 
 ##Level 1:
 
-This level is to start with "/path/to/lmod bash 'load' 'foo'".
+This level is starts with "/path/to/lmod bash 'load' 'foo'".
 
 The lmod.lua script is the entry point to the Lmod complex.  The main steps are:
 
@@ -74,7 +72,8 @@ in C-shell.  So Lmod serializes the table similarily to what is shown above but 
 spaces and newlines removed.  Then that text is base64 encoded and stored in variables named
 _ModuleTable001_, _ModuleTable002_, etc in blocks of 256 characters.  When Lmod starts, it
 grabs those env. vars and puts them together to base64 decodes them to recover the current
-state of the modules loaded.
+state of the modules loaded.  So when Level 0 stated that the export statement was created
+by Lmod, it left out that the Module Table was also printed out.
 
 To see the current module table you can do:
 
@@ -82,17 +81,54 @@ To see the current module table you can do:
 
 ## Level 2
 
-The command line actions are in src/cmdfuncs.lua  Similarily, functions specified in module
+The command line actions are in src/cmdfuncs.lua.  Similarily, functions specified in module
 files are in src/modfuncs.lua.  Explain why they are similar but not the same and maintained
 separately.
 
 ## Level 3
 
-Explain how MasterControl Class works.
-Explain the positive action in module files.
-Explain all the ways that modulefiles are "executed" or evaluated.
-  (load, unload, show, help, whatis).
-Explain the stack based nature that mcp uses to manages the evaluation of modulefiles.
+When a module is loaded, the actions are treated in a positive way.  They generally say
+
+    setenv("ABC","DEF")
+    prepend_path("PATH", "/path/to/add")
+    
+So loading this module would set **ABC** and prepend to the **PATH** variable.  When a module is
+unloaded the *setenv* and *prepend\_path* actions are reversed.  So when these modulefiles
+are interpreted the action of the functions depends on which mode.  There are several modes
+among then are **load**, **unload**, **show** and **help**.
+
+When implementing a module file interpreter, one could have a single *setenv* function which
+checked the mode to decide which action to implement (e.g. load, unload, print or no-op).
+Instead Lmod uses an object oriented approach by using an factory to build an object which
+performs the action in the desired direction.  The program maintains a global variable
+*mcp* which first built in lmod.lua:
+
+    mcp = MasterControl.build("load")
+
+This builds an object which places actions in the positive.  When a user requests an unload,
+then the program builds:
+
+    mcp = MasterControl.build("unload")
+
+This places the action in the negative direction.  An *setenv* or *prepend\_path* will unset
+a global variable or remove an entry from a path. 
+
+Another way that module files are interpreted is for show.  A *mcp* is built by:
+
+    mcp = MasterControl.build("show")
+
+This changes the modulefile actions to converted into print statements.  There are several
+other modes that treat the actions of modulefiles differently.  The way that this is
+implemented is that there is base class MasterControl (in src/MasterControl.lua) which
+implements the functions a single positive and another in negative directions.  There is
+a member load function and another member unload function.  When building the **load** version
+of *mcp* the member setenv function points to the MasterControl.setenv function.  This can
+be seen in src/MC_Load.lua
+
+When building the **unload** version the setenv member function points to
+MasterControl.unsetenv function as seen in src/MC_Unload.lua.  It is the construction
+of the **load**, **unload**, **show**, etc versions of *mcp*  that changes the
+interpretation of the modulefile function.
 
 ## Level 4
 
@@ -112,7 +148,7 @@ Explain how the sandbox works and why it is important.
 *How Lmod supports both sending messages stderr but will support sending module list, avail,
   etc to stdout.
 *hooks?
-
+* 
 
 
 

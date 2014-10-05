@@ -133,9 +133,7 @@
 
 <div id="content">
 
-    This is a core dump of the internal structure of Lmod.</p>
-
-<p>It may be helpful to follow the actions and routines that handle a module load.
+    It may be helpful to follow the actions and routines that handle a module load.
 This will be explained from the outer most level and will work inward.</p>
 
 <p><a name="Level_0_"></a></p>
@@ -241,18 +239,66 @@ state of the modules loaded.</p>
 <p><a name="Level_2"></a></p>
 <h2>Level 2</h2>
 
-<p>The command line actions are in src/cmdfuncs.lua  Similarily, functions specified in module
+<p>The command line actions are in src/cmdfuncs.lua.  Similarily, functions specified in module
 files are in src/modfuncs.lua.  Explain why they are similar but not the same and maintained
 separately.</p>
 
 <p><a name="Level_3"></a></p>
 <h2>Level 3</h2>
 
-<p>Explain how MasterControl Class works.
-Explain the positive action in module files.
-Explain all the ways that modulefiles are "executed" or evaluated.
-  (load, unload, show, help, whatis).
-Explain the stack based nature that mcp uses to manages the evaluation of modulefiles.</p>
+<p>When a module is loaded, the actions are treated in a positive way.  They generally say</p>
+
+
+<pre>
+setenv(<span class="string">"ABC"</span>,<span class="string">"DEF"</span>)
+prepend_path(<span class="string">"PATH"</span>, <span class="string">"/path/to/add"</span>)
+</pre>
+
+<p>So loading this module would set <strong>ABC</strong> and prepend to the <strong>PATH</strong> variable.  When a module is
+unloaded the <em>setenv</em> and <em>prepend_path</em> actions are reversed.  So when these modulefiles
+are interpreted the action of the functions depends on which mode.  There are several modes
+among then are <strong>load</strong>, <strong>unload</strong>, <strong>show</strong> and <strong>help</strong>.</p>
+
+<p>When implementing a module file interpreter, one could have a single <em>setenv</em> function which
+checked the mode to decide which action to implement (e.g. load, unload, print or no-op).
+Instead Lmod uses an object oriented approach by using an factory to build an object which
+performs the action in the desired direction.  The program maintains a global variable
+<em>mcp</em> which first built in lmod.lua:</p>
+
+
+<pre>
+mcp = MasterControl.build(<span class="string">"load"</span>)
+</pre>
+
+<p>This builds an object which places actions in the positive.  When a user requests an unload,
+then the program builds:</p>
+
+
+<pre>
+mcp = MasterControl.build(<span class="string">"unload"</span>)
+</pre>
+
+<p>This places the action in the negative direction.  An <em>setenv</em> or <em>prepend_path</em> will unset
+a global variable or remove an entry from a path. </p>
+
+<p>Another way that module files are interpreted is for show.  A <em>mcp</em> is built by:</p>
+
+
+<pre>
+mcp = MasterControl.build(<span class="string">"show"</span>)
+</pre>
+
+<p>This changes the modulefile actions to converted into print statements.  There are several
+other modes that treat the actions of modulefiles differently.  The way that this is
+implemented is that there is base class MasterControl (in src/MasterControl.lua) which
+implements the functions a single positive and another in negative directions.  There is
+a member load function and another member unload function.  When building the <strong>load</strong> version
+of <em>mcp</em> the member setenv function points to the MasterControl.setenv function.  This can
+be seen in src/MC_Load.lua</p>
+
+<p>When building the <strong>unload</strong> version the setenv member function points to MasterControl.unsetenv
+function.  It is the construction of the <strong>load</strong>, <strong>unload</strong>, <strong>show</strong>, etc versions of <em>mcp</em>
+that changes the interpretation of the modulefile function.</p>
 
 <p><a name="Level_4"></a></p>
 <h2>Level 4</h2>
@@ -276,6 +322,7 @@ Explain the stack based nature that mcp uses to manages the evaluation of module
 *How Lmod supports both sending messages stderr but will support sending module list, avail,
   etc to stdout.
 *hooks?
+*
 
 </div> <!-- id="content" -->
 </div> <!-- id="main" -->
