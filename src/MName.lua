@@ -345,7 +345,7 @@ end
 
 --------------------------------------------------------------------------
 -- This is used to find a default file that maybe in symbolic link chain. 
--- @param self A MName object
+-- @param path a file path.
 -- @return This returns the absolute path.
 local function followDefault(path)
    if (path == nil) then return nil end

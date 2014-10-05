@@ -630,6 +630,8 @@ end
 --------------------------------------------------------------------------
 -- Record the long and short time.
 -- @param self An MT object.
+-- @param long The long time before rebuilting user cache.
+-- @param short The short time before rebuilting user cache.
 function M.setRebuildTime(self, long, short)
    dbg.start{"MT:setRebuildTime(long: ",long,", short: ",short,")",level=2}
    self.c_rebuildTime = long

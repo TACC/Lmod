@@ -30,6 +30,17 @@
   <li><a href="../index.html">Index</a></li>
 </ul>
 
+<h2>Contents</h2>
+<ul>
+<li><a href="#Level_0_">Level 0: </a></li>
+<li><a href="#Level_1_">Level 1: </a></li>
+<li><a href="#Level_2">Level 2 </a></li>
+<li><a href="#Level_3">Level 3 </a></li>
+<li><a href="#Level_4">Level 4 </a></li>
+<li><a href="#Level_5">Level 5 </a></li>
+<li><a href="#Level_6">Level 6 </a></li>
+<li><a href="#Other_possible_topics">Other possible topics </a></li>
+</ul>
 
 
 <h2>Topics</h2>
@@ -127,7 +138,8 @@
 <p>It may be helpful to follow the actions and routines that handle a module load.
 This will be explained from the outer most level and will work inward.</p>
 
-<h1>Level 0:</h1>
+<p><a name="Level_0_"></a></p>
+<h2>Level 0:</h2>
 
 <p>To start with a bash user enters a "module load foo".  Let assume that the foo module
 contains:</p>
@@ -171,7 +183,8 @@ point here is that the <em>lmod</em> command generates text which is a simple sh
 the module shell function evaluates.  This is how the user's environment has changed
 by <em>loading</em> the foo module.  </p>
 
-<h1>Level 1:</h1>
+<p><a name="Level_1_"></a></p>
+<h2>Level 1:</h2>
 
 <p>This level is to start with "/path/to/lmod bash 'load' 'foo'".</p>
 
@@ -191,7 +204,78 @@ as setting the *FOO_VERSION* variable to "1.0".</p>
 
 <p>The other data structure built is <em>MT</em>.  This is the module table.  It is a lua table
 and it contains a list of the module loaded, what is the filename for the module and
-other information.
+other information.  This table is the only way Lmod knows the state of the loaded modules
+between invocations.</p>
+
+<p>In step 4, Lmod reports the key value pairs in <em>varTbl</em> and the current value of <em>MT</em>
+and generates simple program to be evaluated.  The new key value pairs are written as
+bash, csh, python or perl script depending on what the first argument to the lmod
+command is.</p>
+
+<p>The module table is a lua table and looks like:</p>
+
+
+<pre>
+mt = {
+  activeSize=<span class="number">1</span>,
+  mT= {
+    foo = {
+       FN=<span class="string">"/path/to/foo/1.0.lua"</span>,
+       ...
+       }
+   }
+}
+</pre>
+
+<p>With the mix of quotes and commas it is difficult something like that directly, especially
+in C-shell.  So Lmod serializes the table similarily to what is shown above but without
+spaces and newlines removed.  Then that text is base64 encoded and stored in variables named
+<em>ModuleTable001</em>, <em>ModuleTable002</em>, etc in blocks of 256 characters.  When Lmod starts, it
+grabs those env. vars and puts them together to base64 decodes them to recover the current
+state of the modules loaded.</p>
+
+<p>To see the current module table you can do:</p>
+
+<p>   $ module --mt</p>
+
+<p><a name="Level_2"></a></p>
+<h2>Level 2</h2>
+
+<p>The command line actions are in src/cmdfuncs.lua  Similarily, functions specified in module
+files are in src/modfuncs.lua.  Explain why they are similar but not the same and maintained
+separately.</p>
+
+<p><a name="Level_3"></a></p>
+<h2>Level 3</h2>
+
+<p>Explain how MasterControl Class works.
+Explain the positive action in module files.
+Explain all the ways that modulefiles are "executed" or evaluated.
+  (load, unload, show, help, whatis).
+Explain the stack based nature that mcp uses to manages the evaluation of modulefiles.</p>
+
+<p><a name="Level_4"></a></p>
+<h2>Level 4</h2>
+
+<p>Explain MName and the load and prereq modifiers work MN_*.</p>
+
+<p><a name="Level_5"></a></p>
+<h2>Level 5</h2>
+
+<p>Explain how the spider cache works.</p>
+
+<p><a name="Level_6"></a></p>
+<h2>Level 6</h2>
+
+<p>Explain how the sandbox works and why it is important.</p>
+
+<p><a name="Other_possible_topics"></a></p>
+<h2>Other possible topics</h2>
+
+<p>*Master.lua
+*How Lmod supports both sending messages stderr but will support sending module list, avail,
+  etc to stdout.
+*hooks?
 
 </div> <!-- id="content" -->
 </div> <!-- id="main" -->
