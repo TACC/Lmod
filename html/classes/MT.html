@@ -121,6 +121,7 @@
 <ul class="$(kind=='Topics' and '' or 'nowrap'">
   <li><a href="../topics/01-introduction.md.html">01-introduction</a></li>
   <li><a href="../topics/02-sys-admin-guide.md.html">02-sys-admin-guide</a></li>
+  <li><a href="../topics/03-internal-working.md.html">03-internal-working</a></li>
 </ul>
 
 </div>
@@ -128,7 +129,8 @@
 <div id="content">
 
 <h1>Class <code>MT</code></h1>
-<p>This class controls the ModuleTable.</p>
+<p>FIX ME
+ This class controls the ModuleTable.</p>
 <p>  The ModuleTable is how Lmod
  communicates what modules are loaded or inactive and so on between
  module commands.</p>
@@ -171,48 +173,53 @@
 <table class="function_list">
 	<tr>
 	<td class="name" nowrap><a href="#MT:_build_locationTbl">MT:_build_locationTbl (self, mpathA, adding, pathEntry)</a></td>
-	<td class="summary">
-<p><em>build</em>locationTbl(): Build [[locationT]] either by using [[moduleT]] if</p>
-<pre><code>                  it exists or use [[buildAvailT]] to walk the
-                  directories.
-</code></pre>
-</td>
+	<td class="summary">Build <em>locationT</em> either by using <em>moduleT</em> if it exists or use
+ <em>buildAvailT</em> to walk the directories.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#MT:convertMT">MT:convertMT (self, v1)</a></td>
-	<td class="summary">MT:convertMT() - Translate a version 1 MT into current version.</td>
+	<td class="summary">Translate a version 1 MT into current version.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#MT:getRebuildTime">MT:getRebuildTime (self)</a></td>
-	<td class="summary">Get/Set functions for shortTime and rebuild time for cache.</td>
+	<td class="summary">Return the rebuild time.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MT:getShortTime">MT:getShortTime (self)</a></td>
+	<td class="summary">Return the shortTime time.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MT:setRebuildTime">MT:setRebuildTime (self)</a></td>
+	<td class="summary">Record the long and short time.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#MT:mt">MT:mt (self)</a></td>
-	<td class="summary">MT:mt(): Public access to MT function.</td>
+	<td class="summary">Public access to MT function.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MT:cloneMT">MT:cloneMT ()</a></td>
+	<td class="summary">deepcopy and push on stack</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#MT:pushMT">MT:pushMT (self)</a></td>
-	<td class="summary">MT:pushMT(): push self on stack.</td>
+	<td class="summary">push self on stack.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#MT:popMT">MT:popMT ()</a></td>
-	<td class="summary">MT:popMT(): Pop the stack and set [[s_mt]] to be the current value.</td>
+	<td class="summary">Pop the stack and set <em>s_mt</em> to be the current value.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#MT:origMT">MT:origMT ()</a></td>
-	<td class="summary">MT:origMT(): Return the original MT from bottom of stack.</td>
+	<td class="summary">Return the original MT from bottom of stack.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#MT:getMTfromFile">MT:getMTfromFile (self, t)</a></td>
-	<td class="summary">
-<p>MT:getMTfromFile(): Read in a user collection of modules and make it</p>
-<pre><code>                 the new value of [[s_mt]].
-</code></pre>
-</td>
+	<td class="summary">Read in a user collection of modules and make it
+ the new value of [[s_mt]].</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#MT:resolveMpathChanges">MT:resolveMpathChanges (self, currentMPATH, baseMPATH)</a></td>
-	<td class="summary">resolveMpathChanges: Handle when MODULEPATH is changed outside of Lmod</td>
+	<td class="summary">Handle when MODULEPATH is changed outside of Lmod</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#MT:changePATH">MT:changePATH (self)</a></td>
@@ -410,20 +417,14 @@
     <strong>MT:_build_locationTbl (self, mpathA, adding, pathEntry)</strong>
     </dt>
     <dd>
-
-<p><em>build</em>locationTbl(): Build [[locationT]] either by using [[moduleT]] if</p>
-<pre><code>                  it exists or use [[buildAvailT]] to walk the
-                  directories.
-</code></pre>
-
+    Build <em>locationT</em> either by using <em>moduleT</em> if it exists or use
+ <em>buildAvailT</em> to walk the directories.
 
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">self</span>
-
-
-
+         An MT object
         </li>
         <li><span class="parameter">mpathA</span>
 
@@ -442,6 +443,13 @@
         </li>
     </ul>
 
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+        The locationT table.</li>
+        <li>
+        The availT table.</li>
+    </ol>
 
 
 
@@ -452,23 +460,24 @@
     <strong>MT:convertMT (self, v1)</strong>
     </dt>
     <dd>
-    MT:convertMT() - Translate a version 1 MT into current version.
+    Translate a version 1 MT into current version.
 
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">self</span>
-
-
-
+         An MT object.
         </li>
         <li><span class="parameter">v1</span>
-
-
-
+         A version 1 MT object.
         </li>
     </ul>
 
+    <h3>Returns:</h3>
+    <ol>
+
+        A new version of MT object.
+    </ol>
 
 
 
@@ -479,15 +488,53 @@
     <strong>MT:getRebuildTime (self)</strong>
     </dt>
     <dd>
-    Get/Set functions for shortTime and rebuild time for cache.
+    Return the rebuild time.
 
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">self</span>
+         An MT object.
+        </li>
+    </ul>
 
 
 
+
+
+</dd>
+    <dt>
+    <a name = "MT:getShortTime"></a>
+    <strong>MT:getShortTime (self)</strong>
+    </dt>
+    <dd>
+    Return the shortTime time.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+         An MT object.
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "MT:setRebuildTime"></a>
+    <strong>MT:setRebuildTime (self)</strong>
+    </dt>
+    <dd>
+    Record the long and short time.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+         An MT object.
         </li>
     </ul>
 
@@ -501,24 +548,38 @@
     <strong>MT:mt (self)</strong>
     </dt>
     <dd>
-
-<p>MT:mt(): Public access to MT function.   For the most part this is a</p>
-<pre><code>      singleton class.  The trouble is that there is a stack of
-      MT on certain occations.  So this member function will construct
-      one, then clone itself.  This way there is an original one for
-      later comparison.
-</code></pre>
-
+    Public access to MT function.   For the most part this is a
+ singleton class.  The trouble is that there is a stack of
+ MT on certain occations.  So this member function will construct
+ one, then clone itself.  This way there is an original one for
+ later comparison.
 
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">self</span>
-
-
-
+         An MT object
         </li>
     </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        An MT object.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "MT:cloneMT"></a>
+    <strong>MT:cloneMT ()</strong>
+    </dt>
+    <dd>
+    deepcopy and push on stack
+
+
 
 
 
@@ -530,15 +591,13 @@
     <strong>MT:pushMT (self)</strong>
     </dt>
     <dd>
-    MT:pushMT(): push self on stack.
+    push self on stack.
 
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">self</span>
-
-
-
+         An MT object.
         </li>
     </ul>
 
@@ -552,7 +611,7 @@
     <strong>MT:popMT ()</strong>
     </dt>
     <dd>
-    MT:popMT(): Pop the stack and set [[s_mt]] to be the current value.
+    Pop the stack and set <em>s_mt</em> to be the current value.
 
 
 
@@ -566,7 +625,7 @@
     <strong>MT:origMT ()</strong>
     </dt>
     <dd>
-    MT:origMT(): Return the original MT from bottom of stack.
+    Return the original MT from bottom of stack.
 
 
 
@@ -581,19 +640,18 @@
     </dt>
     <dd>
 
-<p>MT:getMTfromFile(): Read in a user collection of modules and make it</p>
-<pre><code>                 the new value of [[s_mt]].   This routine is probably
-                 too complicated by half.  The idea is that we read
-                 the collection to get the list of modules requested.
-                 We also need the base MODULEPATH as a replacement.
-</code></pre>
+<p>Read in a user collection of modules and make it
+ the new value of [[s_mt]].   This routine is probably
+ too complicated by half.  The idea is that we read
+ the collection to get the list of modules requested.
+ We also need the base MODULEPATH as a replacement.</p>
 
-<p>  To complicate things we must check for:</p>
-<pre><code>a) make sure that the hash values are the same between old and new.
-b) make sure that the system base path has not changed.  To detect this
-   there are now two base modulepaths.  The system base modulepath is
-   the one when there is no _ModuleTable_ in the environment.  Then there
-   is a second one which contains any module use commands by the user.
+<p> To complicate things we must check for:</p>
+<pre><code>1.  make sure that the hash values are the same between old and new.
+2.  make sure that the system base path has not changed.  To detect this
+    there are now two base modulepaths.  The system base modulepath is
+    the one when there is no _ModuleTable_ in the environment.  Then there
+    is a second one which contains any module use commands by the user.
 </code></pre>
 
 
@@ -601,17 +659,18 @@ b) make sure that the system base path has not changed.  To detect this
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">self</span>
-
-
-
+         An MT object
         </li>
         <li><span class="parameter">t</span>
-
-
-
+         A table containing the collection filename and the collection name.
         </li>
     </ul>
 
+    <h3>Returns:</h3>
+    <ol>
+
+        True or false.
+    </ol>
 
 
 
@@ -622,25 +681,19 @@ b) make sure that the system base path has not changed.  To detect this
     <strong>MT:resolveMpathChanges (self, currentMPATH, baseMPATH)</strong>
     </dt>
     <dd>
-    resolveMpathChanges: Handle when MODULEPATH is changed outside of Lmod
+    Handle when MODULEPATH is changed outside of Lmod
 
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">self</span>
-
-
-
+         An MT object.
         </li>
         <li><span class="parameter">currentMPATH</span>
-
-
-
+         Current MODULEPATH
         </li>
         <li><span class="parameter">baseMPATH</span>
-
-
-
+         original MODULEPATH
         </li>
     </ul>
 

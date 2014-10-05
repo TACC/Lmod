@@ -119,6 +119,7 @@
 <ul class="$(kind=='Topics' and '' or 'nowrap'">
   <li><a href="../topics/01-introduction.md.html">01-introduction</a></li>
   <li><a href="../topics/02-sys-admin-guide.md.html">02-sys-admin-guide</a></li>
+  <li><a href="../topics/03-internal-working.md.html">03-internal-working</a></li>
 </ul>
 
 </div>
@@ -168,15 +169,23 @@
 	<td class="summary">Check to see if the isPending module is pending.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#MName:new">MName:new (self, sType, name, action, is, ie)</a></td>
+	<td class="name" nowrap><a href="#MName:action">MName:action (self)</a></td>
+	<td class="summary">Returns the "action", It can be "match", "between" or "latest".</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MName:new">MName:new (self, sType, name[, action[, is[, ie]]])</a></td>
 	<td class="summary">This ctor takes "sType" to lookup in either the
  locationTbl() or the exists() depending on whether it is
  "load" for modules to be loaded (available) or it is
  already loaded.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#MName:buildA">MName:buildA (self, sType, ...)</a></td>
+	<td class="name" nowrap><a href="#MName:buildA">MName:buildA (self, sType)</a></td>
 	<td class="summary">Return an array of MName objects</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MName:convert2stringA">MName:convert2stringA (self)</a></td>
+	<td class="summary">Convert an array of MName objects into a string.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#MName:sn">MName:sn (self)</a></td>
@@ -189,6 +198,35 @@
 	<tr>
 	<td class="name" nowrap><a href="#MName:version">MName:version (self)</a></td>
 	<td class="summary">Return the version for the module.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MName:find_exact_match">MName:find_exact_match (self, pathA)</a></td>
+	<td class="summary">Look for the module name via an exact match.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MName:find_marked_default">MName:find_marked_default (self, pathA)</a></td>
+	<td class="summary">Look for the module name via a marked default.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MName:find_latest">MName:find_latest (self, pathA)</a></td>
+	<td class="summary">Look for the module name via the "latest" version.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MName:find_marked_default_between">MName:find_marked_default_between (self, pathA)</a></td>
+	<td class="summary">Look for the module name where the version is "between" and is a marked
+ default.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MName:find_between">MName:find_between (self, pathA)</a></td>
+	<td class="summary">Look for the module name where the version is "between".</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MName:show">MName:show (self)</a></td>
+	<td class="summary">Return the string of the user name of the module.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MName:find">MName:find (self)</a></td>
+	<td class="summary">Find the module based on the "steps" each class has registered.</td>
 	</tr>
 </table>
 
@@ -259,8 +297,28 @@
 
 </dd>
     <dt>
+    <a name = "MName:action"></a>
+    <strong>MName:action (self)</strong>
+    </dt>
+    <dd>
+    Returns the "action", It can be "match", "between" or "latest".
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+         A MName object
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
     <a name = "MName:new"></a>
-    <strong>MName:new (self, sType, name, action, is, ie)</strong>
+    <strong>MName:new (self, sType, name[, action[, is[, ie]]])</strong>
     </dt>
     <dd>
     This ctor takes "sType" to lookup in either the
@@ -280,32 +338,28 @@
          A MName object
         </li>
         <li><span class="parameter">sType</span>
-
-
-
+         The type which can be "entryT", "load", "mt"
         </li>
         <li><span class="parameter">name</span>
-
-
-
+         The name of the module.
         </li>
         <li><span class="parameter">action</span>
-
-
-
+         The matching action if not nil it can be
+ "atleast", "between" or "latest".
         </li>
         <li><span class="parameter">is</span>
-
-
-
+         start version.
         </li>
         <li><span class="parameter">ie</span>
-
-
-
+         end version.
         </li>
     </ul>
 
+    <h3>Returns:</h3>
+    <ol>
+
+        An MName object
+    </ol>
 
 
 
@@ -313,7 +367,7 @@
 </dd>
     <dt>
     <a name = "MName:buildA"></a>
-    <strong>MName:buildA (self, sType, ...)</strong>
+    <strong>MName:buildA (self, sType)</strong>
     </dt>
     <dd>
     Return an array of MName objects
@@ -322,19 +376,35 @@
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">self</span>
-
-
-
+         A MName object
         </li>
         <li><span class="parameter">sType</span>
-
-
-
+         The type which can be "entryT", "load", "mt"
         </li>
-        <li><span class="parameter">...</span>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        An array of MName objects.
+    </ol>
 
 
 
+
+</dd>
+    <dt>
+    <a name = "MName:convert2stringA"></a>
+    <strong>MName:convert2stringA (self)</strong>
+    </dt>
+    <dd>
+    Convert an array of MName objects into a string.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+         A MName object
         </li>
     </ul>
 
@@ -354,9 +424,7 @@
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">self</span>
-
-
-
+         A MName object
         </li>
     </ul>
 
@@ -377,9 +445,7 @@
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">self</span>
-
-
-
+         A MName object
         </li>
     </ul>
 
@@ -400,12 +466,206 @@
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">self</span>
-
-
-
+         A MName object
         </li>
     </ul>
 
+
+
+
+
+</dd>
+    <dt>
+    <a name = "MName:find_exact_match"></a>
+    <strong>MName:find_exact_match (self, pathA)</strong>
+    </dt>
+    <dd>
+    Look for the module name via an exact match.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+         A MName object
+        </li>
+        <li><span class="parameter">pathA</span>
+         An array of paths to search
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+        True or false</li>
+        <li>
+        A table describing the module if found.</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "MName:find_marked_default"></a>
+    <strong>MName:find_marked_default (self, pathA)</strong>
+    </dt>
+    <dd>
+    Look for the module name via a marked default.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+         A MName object
+        </li>
+        <li><span class="parameter">pathA</span>
+         An array of paths to search
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+        True or false</li>
+        <li>
+        A table describing the module if found.</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "MName:find_latest"></a>
+    <strong>MName:find_latest (self, pathA)</strong>
+    </dt>
+    <dd>
+    Look for the module name via the "latest" version.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+         A MName object
+        </li>
+        <li><span class="parameter">pathA</span>
+         An array of paths to search
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+        True or false</li>
+        <li>
+        A table describing the module if found.</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "MName:find_marked_default_between"></a>
+    <strong>MName:find_marked_default_between (self, pathA)</strong>
+    </dt>
+    <dd>
+    Look for the module name where the version is "between" and is a marked
+ default.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+         A MName object
+        </li>
+        <li><span class="parameter">pathA</span>
+         An array of paths to search
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+        True or false</li>
+        <li>
+        A table describing the module if found.</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "MName:find_between"></a>
+    <strong>MName:find_between (self, pathA)</strong>
+    </dt>
+    <dd>
+    Look for the module name where the version is "between".
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+         A MName object
+        </li>
+        <li><span class="parameter">pathA</span>
+         An array of paths to search
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+        True or false</li>
+        <li>
+        A table describing the module if found.</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "MName:show"></a>
+    <strong>MName:show (self)</strong>
+    </dt>
+    <dd>
+    Return the string of the user name of the module.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+         A MName object
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "MName:find"></a>
+    <strong>MName:find (self)</strong>
+    </dt>
+    <dd>
+    Find the module based on the "steps" each class has registered.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+         A MName object
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        A table describing the module.
+    </ol>
 
 
 

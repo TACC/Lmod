@@ -1,4 +1,5 @@
 --------------------------------------------------------------------------
+-- FIX ME
 -- This class controls the ModuleTable.  The ModuleTable is how Lmod
 -- communicates what modules are loaded or inactive and so on between
 -- module commands.
@@ -80,23 +81,23 @@ s_mt = false
 s_mtA = {}
 
 --------------------------------------------------------------------------
--- buildAvailT(): This local function walks a single directory to find
---                all the modulefiles in that directory.  This function
---                is used when moduleT is not available.  The naming
---                rule is implemented here:
---                  (1) If a file is a member of a path in MODULEPATH
---                      then it is a meta-module.
---                  (2) If a file is a sub-directory of MODULEPATH, then
---                      and there are no subdirectories (excluding
---                      '.' and '..' of course), then these files are
---                      version files and the names are the directory
---                      (or directories) between the path in MODULEPATH
---                      and here.
---                  (3) If a file is in a directory with subdirectories
---                      then that file is a meta-module.
+-- This local function walks a single directory to find
+-- all the modulefiles in that directory.  This function
+-- is used when moduleT is not available.  The naming
+-- rule is implemented here:
+--   (1) If a file is a member of a path in MODULEPATH
+--       then it is a meta-module.
+--   (2) If a file is a sub-directory of MODULEPATH, then
+--       and there are no subdirectories (excluding
+--       '.' and '..' of course), then these files are
+--       version files and the names are the directory
+--       (or directories) between the path in MODULEPATH
+--       and here.
+--   (3) If a file is in a directory with subdirectories
+--       then that file is a meta-module.
 --
---                Meta-modules are modulefiles that are not versioned.
---                They typically load other modules but not always.
+-- Meta-modules are modulefiles that are not versioned.
+-- They typically load other modules but not always.
 
 local function buildAvailT(mpath, path, prefix, availT)
 
@@ -179,11 +180,9 @@ end
 
 
 --------------------------------------------------------------------------
--- buildLocWmoduleT(): This local function walks a single directory in
---                     moduleT.  This routine fills in availT[mpath} and
---                     the local copy of the locationT "lT".
-
-
+-- This local function walks a single directory in
+-- moduleT.  This routine fills in availT[mpath} and
+-- the local copy of the locationT "lT".
 local function buildLocWmoduleT(mpath, moduleT, mpathT, availT)
    dbg.start{"MT:buildLocWmoduleT(mpath, moduleT, mpathA, availT)"}
    dbg.print{"mpath: ", mpath,"\n"}
@@ -221,28 +220,28 @@ local function buildLocWmoduleT(mpath, moduleT, mpathT, availT)
 end
 
 --------------------------------------------------------------------------
--- buildAllLocWmoduleT(): This routine walks moduleT for all directories
---                        stored there. Once all the directories have been
---                        traversed by [[buildLocWmoduleT]], [[availT]] is
---                        rebuilt to have the entries in parseVersion order
---                        and locationT is sorted as well.
+-- This routine walks moduleT for all directories
+-- stored there. Once all the directories have been
+-- traversed by [[buildLocWmoduleT]], [[availT]] is
+-- rebuilt to have the entries in parseVersion order
+-- and locationT is sorted as well.
 --
---   availT[mpath][sn] = {
---                         {version=..., fn=..., parseV=...,
+--    availT[mpath][sn] = {
+--                          {version=..., fn=..., parseV=...,
 --                           markedDefault=T/F},
---                       }
+--                        }
 --
---  When sn is a meta module then
---   availT[mpath][sn][0] = {version=..., fn=..., parseV=...,
+-- When sn is a meta module then
+--
+--    availT[mpath][sn][0] = {version=..., fn=..., parseV=...,
 --                           markedDefault=T/F},
 --
---   locationT[sn] = {
---                    default = {fn=, num=,
---                               kind=[last,marked] }
---                    {mpath=..., file=..., fullFn=...},
---                    {mpath=..., file=..., fullFn=...},
---                   }
-
+--    locationT[sn] = {
+--                     default = {fn=, num=,
+--                                kind=[last,marked] }
+--                     {mpath=..., file=..., fullFn=...},
+--                     {mpath=..., file=..., fullFn=...},
+--                    }
 local function buildAllLocWmoduleT(moduleT, mpathA, availT, adding, pathEntry)
    dbg.start{"MT:buildAllLocWmoduleT(moduleT, mpathA, availT, adding: ",
              adding,", pathEntry: ",pathEntry,")"}
@@ -302,8 +301,7 @@ end
 
 
 --------------------------------------------------------------------------
--- columnList(): Generate a columeTable with a title.
-
+-- Generate a columeTable with a title.
 local function columnList(stream, msg, a)
    local t = {}
    sort(a)
@@ -321,8 +319,7 @@ local function mt_version()
 end
 
 ------------------------------------------------------------------------
--- MT:new(): local ctor for MT.  It uses [[s]] to be the initial value.
-
+-- local ctor for MT.  It uses [[s]] to be the initial value.
 local function new(self, s, restore)
    dbg.start{"MT:new()"}
    local o            = {}
@@ -411,10 +408,14 @@ local function new(self, s, restore)
 end
 
 --------------------------------------------------------------------------
--- _build_locationTbl(): Build [[locationT]] either by using [[moduleT]] if
---                      it exists or use [[buildAvailT]] to walk the
---                      directories.
-
+-- Build *locationT* either by using *moduleT* if it exists or use
+-- *buildAvailT* to walk the directories.
+-- @param self An MT object
+-- @param mpathA
+-- @param adding
+-- @param pathEntry
+-- @return The locationT table.
+-- @return The availT table.
 function M._build_locationTbl(self, mpathA, adding, pathEntry)
 
    dbg.start{"MT:_build_locationTbl(mpathA, adding: ", adding,
@@ -571,8 +572,10 @@ function M._build_locationTbl(self, mpathA, adding, pathEntry)
 end
 
 --------------------------------------------------------------------------
--- MT:convertMT() - Translate a version 1 MT into current version.
-
+-- Translate a version 1 MT into current version.
+-- @param self An MT object.
+-- @param v1 A version 1 MT object.
+-- @return A new version of MT object.
 function M.convertMT(self, v1)
    local active = v1.active
    local a      = active.Loaded
@@ -611,16 +614,22 @@ function M.convertMT(self, v1)
 end
 
 --------------------------------------------------------------------------
--- Get/Set functions for shortTime and rebuild time for cache.
-
+-- Return the rebuild time.
+-- @param self An MT object.
 function M.getRebuildTime(self)
    return self.c_rebuildTime
 end
 
+--------------------------------------------------------------------------
+-- Return the shortTime time.
+-- @param self An MT object.
 function M.getShortTime(self)
    return self.c_shortTime
 end
 
+--------------------------------------------------------------------------
+-- Record the long and short time.
+-- @param self An MT object.
 function M.setRebuildTime(self, long, short)
    dbg.start{"MT:setRebuildTime(long: ",long,", short: ",short,")",level=2}
    self.c_rebuildTime = long
@@ -629,8 +638,9 @@ function M.setRebuildTime(self, long, short)
 end
 
 --------------------------------------------------------------------------
--- setupMPATH(): Build locationTbl and availT based on new MODULEPATH.
-
+-- Build locationTbl and availT based on new MODULEPATH.
+-- @param self An MT object.
+-- @param mpath the MODULEPATH.
 local function setupMPATH(self,mpath)
    dbg.start{"MT:setupMPATH(self,mpath: \"",mpath,"\")"}
    self._same = self:sameMPATH(mpath)
@@ -641,12 +651,13 @@ local function setupMPATH(self,mpath)
 end
 
 --------------------------------------------------------------------------
--- MT:mt(): Public access to MT function.  For the most part this is a
---          singleton class.  The trouble is that there is a stack of
---          MT on certain occations.  So this member function will construct
---          one, then clone itself.  This way there is an original one for
---          later comparison.
-
+-- Public access to MT function.  For the most part this is a
+-- singleton class.  The trouble is that there is a stack of
+-- MT on certain occations.  So this member function will construct
+-- one, then clone itself.  This way there is an original one for
+-- later comparison.
+-- @param self An MT object
+-- @return An MT object.
 function M.mt(self)
    if (not s_mt) then
       dbg.start{"mt()"}
@@ -667,10 +678,10 @@ function M.mt(self)
    return s_mt
 end
 
---------------------------------------------------------------------------
--- MT:cloneMT(): deepcopy and push on stack
 
 local dcT = {function_immutable = true, metatable_immutable = true}
+--------------------------------------------------------------------------
+-- deepcopy and push on stack
 function M.cloneMT()
    --dbg.start{"MT.cloneMT()"}
    local mt = deepcopy(s_mt, dcT)
@@ -681,15 +692,14 @@ function M.cloneMT()
 end
 
 --------------------------------------------------------------------------
--- MT:pushMT(): push self on stack.
-
+-- push self on stack.
+-- @param self An MT object.
 function M.pushMT(self)
    s_mtA[#s_mtA+1] = self
 end
 
 --------------------------------------------------------------------------
--- MT:popMT(): Pop the stack and set [[s_mt]] to be the current value.
-
+-- Pop the stack and set *s\_mt* to be the current value.
 function M.popMT()
    dbg.start{"MT.popMT()"}
    s_mt = s_mtA[#s_mtA-1]
@@ -700,8 +710,7 @@ end
 
 
 --------------------------------------------------------------------------
--- MT:origMT(): Return the original MT from bottom of stack.
-
+-- Return the original MT from bottom of stack.
 function M.origMT()
    dbg.start{"MT.origMT()"}
    dbg.print{"Original s_mtA[1]: ",tostring(s_mtA[1]),"\n", level=2}
@@ -712,20 +721,21 @@ end
 
 
 --------------------------------------------------------------------------
--- MT:getMTfromFile(): Read in a user collection of modules and make it
---                     the new value of [[s_mt]].  This routine is probably
---                     too complicated by half.  The idea is that we read
---                     the collection to get the list of modules requested.
---                     We also need the base MODULEPATH as a replacement.
+-- Read in a user collection of modules and make it
+-- the new value of [[s_mt]].  This routine is probably
+-- too complicated by half.  The idea is that we read
+-- the collection to get the list of modules requested.
+-- We also need the base MODULEPATH as a replacement.
 --
---  To complicate things we must check for:
---    a) make sure that the hash values are the same between old and new.
---    b) make sure that the system base path has not changed.  To detect this
---       there are now two base modulepaths.  The system base modulepath is
---       the one when there is no _ModuleTable_ in the environment.  Then there
---       is a second one which contains any module use commands by the user.
-
-
+-- To complicate things we must check for:
+--    1.  make sure that the hash values are the same between old and new.
+--    2.  make sure that the system base path has not changed.  To detect this
+--        there are now two base modulepaths.  The system base modulepath is
+--        the one when there is no _ModuleTable_ in the environment.  Then there
+--        is a second one which contains any module use commands by the user.
+-- @param self An MT object
+-- @param t A table containing the collection filename and the collection name.
+-- @return True or false.
 function M.getMTfromFile(self,t)
    dbg.start{"mt:getMTfromFile(",t.fn,")"}
    local f              = io.open(t.fn,"r")
@@ -914,7 +924,10 @@ function M.getMTfromFile(self,t)
 end
 
 --------------------------------------------------------------------------
--- resolveMpathChanges: Handle when MODULEPATH is changed outside of Lmod
+-- Handle when MODULEPATH is changed outside of Lmod
+-- @param self An MT object.
+-- @param currentMPATH Current MODULEPATH
+-- @param baseMPATH original MODULEPATH
 function M.resolveMpathChanges(self, currentMPATH, baseMPATH)
    dbg.start{"MT:resolveMpathChanges(currentMPATH, baseMPATH)"}
    local usrMpathA  = path2pathA(currentMPATH)

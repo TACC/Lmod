@@ -32,20 +32,11 @@
 
 
 
-<h2>Scripts</h2>
+<h2>Topics</h2>
 <ul class="$(kind=='Topics' and '' or 'nowrap'">
-  <li><a href="../scripts/addto.html">addto</a></li>
-  <li><a href="../scripts/clearMT_cmd.html">clearMT_cmd</a></li>
-  <li><a href="../scripts/computeHashSum.html">computeHashSum</a></li>
-  <li><a href="../scripts/getmt.html">getmt</a></li>
-  <li><a href="../scripts/lmod.html">lmod</a></li>
-  <li><a href="../scripts/ml.html">ml</a></li>
-  <li><a href="../scripts/processMT.html">processMT</a></li>
-  <li><a href="../scripts/processModuleUsage.html">processModuleUsage</a></li>
-  <li><a href="../scripts/reportUsers.html">reportUsers</a></li>
-  <li><strong>sh_to_modulefile</strong></li>
-  <li><a href="../scripts/spider.html">spider</a></li>
-  <li><a href="../scripts/spiderCacheSupport.html">spiderCacheSupport</a></li>
+  <li><a href="../topics/01-introduction.md.html">01-introduction</a></li>
+  <li><a href="../topics/02-sys-admin-guide.md.html">02-sys-admin-guide</a></li>
+  <li><strong>03-internal-working</strong></li>
 </ul>
 <h2>Modules</h2>
 <ul class="$(kind=='Topics' and '' or 'nowrap'">
@@ -68,6 +59,21 @@
   <li><a href="../modules/sandbox.html">sandbox</a></li>
   <li><a href="../modules/serializeTbl.html">serializeTbl</a></li>
   <li><a href="../modules/utils.html">utils</a></li>
+</ul>
+<h2>Scripts</h2>
+<ul class="$(kind=='Topics' and '' or 'nowrap'">
+  <li><a href="../scripts/addto.html">addto</a></li>
+  <li><a href="../scripts/clearMT_cmd.html">clearMT_cmd</a></li>
+  <li><a href="../scripts/computeHashSum.html">computeHashSum</a></li>
+  <li><a href="../scripts/getmt.html">getmt</a></li>
+  <li><a href="../scripts/lmod.html">lmod</a></li>
+  <li><a href="../scripts/ml.html">ml</a></li>
+  <li><a href="../scripts/processMT.html">processMT</a></li>
+  <li><a href="../scripts/processModuleUsage.html">processModuleUsage</a></li>
+  <li><a href="../scripts/reportUsers.html">reportUsers</a></li>
+  <li><a href="../scripts/sh_to_modulefile.html">sh_to_modulefile</a></li>
+  <li><a href="../scripts/spider.html">spider</a></li>
+  <li><a href="../scripts/spiderCacheSupport.html">spiderCacheSupport</a></li>
 </ul>
 <h2>Classes</h2>
 <ul class="$(kind=='Topics' and '' or 'nowrap'">
@@ -111,57 +117,81 @@
   <li><a href="../classes/Var.html">Var</a></li>
   <li><a href="../classes/string.html">string</a></li>
 </ul>
-<h2>Topics</h2>
-<ul class="$(kind=='Topics' and '' or 'nowrap'">
-  <li><a href="../topics/01-introduction.md.html">01-introduction</a></li>
-  <li><a href="../topics/02-sys-admin-guide.md.html">02-sys-admin-guide</a></li>
-  <li><a href="../topics/03-internal-working.md.html">03-internal-working</a></li>
-</ul>
 
 </div>
 
 <div id="content">
 
-<h1>Script <code>sh_to_modulefile</code></h1>
-<p>This program takes shell scripts (either bash or csh) and converts
- them to a modulefile (either Lua or TCL).</p>
-<p>
-<p>  This program is a "new"
- but it is based on many design elements from sourceforge.net/projects/env2.
- The program "env2" also converts shells to modulefiles but it does
- other conversions as well.  This program is more limited it just does
- conversions from scripts to tcl or lua modules.</p>
+    This is a core dump of the internal structure of Lmod.</p>
 
-<p>  Basic design:</p>
-<pre><code> a) capture the output of the supplied script and use this program
-    to generate a lua table of the Environment.
- b) create an output factory:  MF_Lmod or MF_TCL to generate the
-    output modulefile style.
- c) Process the before environment with the after environment and
-    generate the appropriate setenv's, prepend_path's and
-    append_path's to convert from the old env to the new.
-</code></pre>
+<p>It may be helpful to follow the actions and routines that handle a module load.
+This will be explained from the outer most level and will work inward.</p>
+
+<h1>Level 0:</h1>
+
+<p>To start with a bash user enters a "module load foo".  Let assume that the foo module
+contains:</p>
 
 
-<p>  Tricks:</p>
-<pre><code> The main problem with doing this is find the overlap in path-like
- variables.  Suppose you have:
-      PATH="b:c:d"
- and the result after sourcing the shell script is:
-      PATH="a:b:c:d:e"
- This program finds the overlap starting with "b" and then can
- report that "a" needs to be prepended and "e" needs to be appended.
-</code></pre>
+<pre>
+setenv (<span class="string">"FOO_VERSION"</span>,<span class="string">"1.0"</span>)
+</pre>
 
-</p>
+<p>and the module command is defined as</p>
 
 
+<pre>
+<span class="global">module</span> () { eval $(/path/to/lmod bash <span class="string">"$@"</span>); }
+</pre>
 
-<br/>
-<br/>
+<p>The user command translates to</p>
 
 
+<pre>
+eval $( /path/to/lmod bash <span class="string">"load"</span> <span class="string">"foo"</span> )
+</pre>
 
+<p>And the command</p>
+
+
+<pre>
+/path/to/lmod/bash <span class="string">"load"</span> <span class="string">"foo"</span>
+</pre>
+
+<p>generates in its simplest form (hiding many details, explained later)</p>
+
+
+<pre>
+export FOO_VERSION=<span class="number">1.0</span>;
+</pre>
+
+<p>Which when evaluated sets FOO_VERSION to be "1.0" in the environment.  This is the basic
+way that modules have work and has nothing to do with the internals of Lmod.  The main
+point here is that the <em>lmod</em> command generates text which is a simple shell program which
+the module shell function evaluates.  This is how the user's environment has changed
+by <em>loading</em> the foo module.  </p>
+
+<h1>Level 1:</h1>
+
+<p>This level is to start with "/path/to/lmod bash 'load' 'foo'".</p>
+
+<p>The lmod.lua script is the entry point to the Lmod complex.  The main steps are:</p>
+
+
+<pre>
+<span class="number">1.</span>  Parse Command line arguments
+<span class="number">2.</span>  Find the action the user requested (e.g. <span class="global">load</span> the foo <span class="global">module</span>).
+<span class="number">3.</span>  Invoke the action.
+<span class="number">4.</span>  Output the changes.
+</pre>
+
+<p>Invoking the action builds two data structures <em>varTbl</em> and <em>MT</em>.  The <em>varTbl</em> is an
+array of environment variable that the actions like loading a module will change such
+as setting the *FOO_VERSION* variable to "1.0".</p>
+
+<p>The other data structure built is <em>MT</em>.  This is the module table.  It is a lua table
+and it contains a list of the module loaded, what is the filename for the module and
+other information.
 
 </div> <!-- id="content" -->
 </div> <!-- id="main" -->
