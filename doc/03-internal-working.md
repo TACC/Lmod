@@ -24,7 +24,7 @@ generates in its simplest form (hiding many details, explained later)
 
     export FOO_VERSION=1.0;
 
-Which when evaluated sets FOO_VERSION to be "1.0" in the environment.  This is the basic
+Which when evaluated sets **FOO\_VERSION** to be "1.0" in the environment.  This is the basic
 way that modules have work and has nothing to do with the internals of Lmod.  The main
 point here is that the *lmod* command generates text which is a simple shell program which
 the module shell function evaluates.  This is how the user's environment has changed
@@ -32,7 +32,7 @@ by *loading* the foo module.
 
 ##Level 1:
 
-This level is starts with "/path/to/lmod bash 'load' 'foo'".
+This level is starts with */path/to/lmod bash 'load' 'foo'*
 
 The lmod.lua script is the entry point to the Lmod complex.  The main steps are:
 
@@ -43,7 +43,7 @@ The lmod.lua script is the entry point to the Lmod complex.  The main steps are:
 
 Invoking the action builds two data structures *varTbl* and *MT*.  The *varTbl* is an
 array of environment variable that the actions like loading a module will change such
-as setting the *FOO_VERSION* variable to "1.0".
+as setting the **FOO\_VERSION** variable to "1.0".
 
 The other data structure built is *MT*.  This is the module table.  It is a lua table
 and it contains a list of the module loaded, what is the filename for the module and
@@ -95,7 +95,7 @@ When a module is loaded, the actions are treated in a positive way.  They genera
 So loading this module would set **ABC** and prepend to the **PATH** variable.  When a module is
 unloaded the *setenv* and *prepend\_path* actions are reversed.  So when these modulefiles
 are interpreted the action of the functions depends on which mode.  There are several modes
-among then are **load**, **unload**, **show** and **help**.
+among them are **load**, **unload**, **show** and **help**.
 
 When implementing a module file interpreter, one could have a single *setenv* function which
 checked the mode to decide which action to implement (e.g. load, unload, print or no-op).
@@ -110,7 +110,7 @@ then the program builds:
 
     mcp = MasterControl.build("unload")
 
-This places the action in the negative direction.  An *setenv* or *prepend\_path* will unset
+This places the actions in the negative direction.  An *setenv* or *prepend\_path* will unset
 a global variable or remove an entry from a path. 
 
 Another way that module files are interpreted is for show.  A *mcp* is built by:
@@ -123,10 +123,10 @@ implemented is that there is base class MasterControl (in src/MasterControl.lua)
 implements the functions a single positive and another in negative directions.  There is
 a member load function and another member unload function.  When building the **load** version
 of *mcp* the member setenv function points to the MasterControl.setenv function.  This can
-be seen in src/MC_Load.lua
+be seen in src/MC\_Load.lua
 
 When building the **unload** version the setenv member function points to
-MasterControl.unsetenv function as seen in src/MC_Unload.lua.  It is the construction
+MasterControl.unsetenv function as seen in src/MC\_Unload.lua.  It is the construction
 of the **load**, **unload**, **show**, etc versions of *mcp*  that changes the
 interpretation of the modulefile function.
 

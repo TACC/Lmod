@@ -175,7 +175,7 @@ eval $( /path/to/lmod bash <span class="string">"load"</span> <span class="strin
 export FOO_VERSION=<span class="number">1.0</span>;
 </pre>
 
-<p>Which when evaluated sets FOO_VERSION to be "1.0" in the environment.  This is the basic
+<p>Which when evaluated sets <strong>FOO_VERSION</strong> to be "1.0" in the environment.  This is the basic
 way that modules have work and has nothing to do with the internals of Lmod.  The main
 point here is that the <em>lmod</em> command generates text which is a simple shell program which
 the module shell function evaluates.  This is how the user's environment has changed
@@ -184,7 +184,7 @@ by <em>loading</em> the foo module.  </p>
 <p><a name="Level_1_"></a></p>
 <h2>Level 1:</h2>
 
-<p>This level is to start with "/path/to/lmod bash 'load' 'foo'".</p>
+<p>This level is starts with <em>/path/to/lmod bash 'load' 'foo'</em></p>
 
 <p>The lmod.lua script is the entry point to the Lmod complex.  The main steps are:</p>
 
@@ -198,7 +198,7 @@ by <em>loading</em> the foo module.  </p>
 
 <p>Invoking the action builds two data structures <em>varTbl</em> and <em>MT</em>.  The <em>varTbl</em> is an
 array of environment variable that the actions like loading a module will change such
-as setting the *FOO_VERSION* variable to "1.0".</p>
+as setting the <strong>FOO_VERSION</strong> variable to "1.0".</p>
 
 <p>The other data structure built is <em>MT</em>.  This is the module table.  It is a lua table
 and it contains a list of the module loaded, what is the filename for the module and
@@ -230,7 +230,8 @@ in C-shell.  So Lmod serializes the table similarily to what is shown above but 
 spaces and newlines removed.  Then that text is base64 encoded and stored in variables named
 <em>ModuleTable001</em>, <em>ModuleTable002</em>, etc in blocks of 256 characters.  When Lmod starts, it
 grabs those env. vars and puts them together to base64 decodes them to recover the current
-state of the modules loaded.</p>
+state of the modules loaded.  So when Level 0 stated that the export statement was created
+by Lmod, it left out that the Module Table was also printed out.</p>
 
 <p>To see the current module table you can do:</p>
 
@@ -257,7 +258,7 @@ prepend_path(<span class="string">"PATH"</span>, <span class="string">"/path/to/
 <p>So loading this module would set <strong>ABC</strong> and prepend to the <strong>PATH</strong> variable.  When a module is
 unloaded the <em>setenv</em> and <em>prepend_path</em> actions are reversed.  So when these modulefiles
 are interpreted the action of the functions depends on which mode.  There are several modes
-among then are <strong>load</strong>, <strong>unload</strong>, <strong>show</strong> and <strong>help</strong>.</p>
+among them are <strong>load</strong>, <strong>unload</strong>, <strong>show</strong> and <strong>help</strong>.</p>
 
 <p>When implementing a module file interpreter, one could have a single <em>setenv</em> function which
 checked the mode to decide which action to implement (e.g. load, unload, print or no-op).
@@ -278,7 +279,7 @@ then the program builds:</p>
 mcp = MasterControl.build(<span class="string">"unload"</span>)
 </pre>
 
-<p>This places the action in the negative direction.  An <em>setenv</em> or <em>prepend_path</em> will unset
+<p>This places the actions in the negative direction.  An <em>setenv</em> or <em>prepend_path</em> will unset
 a global variable or remove an entry from a path. </p>
 
 <p>Another way that module files are interpreted is for show.  A <em>mcp</em> is built by:</p>
@@ -296,9 +297,10 @@ a member load function and another member unload function.  When building the <s
 of <em>mcp</em> the member setenv function points to the MasterControl.setenv function.  This can
 be seen in src/MC_Load.lua</p>
 
-<p>When building the <strong>unload</strong> version the setenv member function points to MasterControl.unsetenv
-function.  It is the construction of the <strong>load</strong>, <strong>unload</strong>, <strong>show</strong>, etc versions of <em>mcp</em>
-that changes the interpretation of the modulefile function.</p>
+<p>When building the <strong>unload</strong> version the setenv member function points to
+MasterControl.unsetenv function as seen in src/MC_Unload.lua.  It is the construction
+of the <strong>load</strong>, <strong>unload</strong>, <strong>show</strong>, etc versions of <em>mcp</em>  that changes the
+interpretation of the modulefile function.</p>
 
 <p><a name="Level_4"></a></p>
 <h2>Level 4</h2>
