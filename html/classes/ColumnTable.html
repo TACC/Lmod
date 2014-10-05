@@ -128,17 +128,24 @@
 <h1>Class <code>ColumnTable</code></h1>
 <p>This class is takes a array of strings and produced a multi-column output.</p>
 <p>
- Standard usage is:
-<p>     local ct = ColumnTable:new{tbl=a, gap=2}
-     io.stderr:write(ct:build_tbl())
-<p> Basic architecture of this class is:
-<p>    1.  Use TermWidth to find the width available
-    2.  Chose helper routine depending on if the input table is 1 or 2-D.
-    3.  Compute the size of each row in szA and the min (imin) and max
-        (imax) size for the column.
-    4.  Use imin to compute the maximum number of columns possible.
-    5.  Compute actual number columns that will fit.
-    6.  Knowing the number of rows and columns, build the table.
+
+<p> Standard usage is:</p>
+
+<pre><code> local ct = ColumnTable:new{tbl=a, gap=2}
+ io.stderr:write(ct:build_tbl())
+</code></pre>
+
+<p> Basic architecture of this class is:</p>
+
+<pre><code>1.  Use TermWidth to find the width available
+2.  Chose helper routine depending on if the input table is 1 or 2-D.
+3.  Compute the size of each row in szA and the min (imin) and max
+    (imax) size for the column.
+4.  Use imin to compute the maximum number of columns possible.
+5.  Compute actual number columns that will fit.
+6.  Knowing the number of rows and columns, build the table.
+</code></pre>
+
 </p>
 
 
@@ -257,7 +264,10 @@
          ColumnTable object
         </li>
         <li><span class="parameter">t</span>
-            input table
+
+<pre><code>input table
+</code></pre>
+
         </li>
         <li><span class="parameter">szA</span>
           1-D size array
@@ -290,7 +300,10 @@
          ColumnTable object
         </li>
         <li><span class="parameter">t</span>
-            input table
+
+<pre><code>input table
+</code></pre>
+
         </li>
         <li><span class="parameter">szA</span>
           2-D size array

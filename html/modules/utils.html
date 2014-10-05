@@ -128,7 +128,9 @@
 
 <h1>Module <code>utils</code></h1>
 <p>This is the file that has miscellaneous utility functions.</p>
-<p></p>
+<p>
+
+</p>
 
 
 <h2><a href="#Functions">Functions</a></h2>
@@ -161,7 +163,7 @@
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#getMT">getMT ()</a></td>
-	<td class="summary">Ask the environment for the _ModuleTable_ value.</td>
+	<td class="summary">Ask the environment for the <em>ModuleTable</em> value.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#lastFileInPathA">lastFileInPathA (pathA, n)</a></td>
@@ -231,6 +233,8 @@
     <ul>
         <li><span class="parameter">path</span>
 
+
+
         </li>
     </ul>
 
@@ -252,6 +256,8 @@
     <ul>
         <li><span class="parameter">...</span>
 
+
+
         </li>
     </ul>
 
@@ -265,7 +271,7 @@
     <strong>build_epoch ()</strong>
     </dt>
     <dd>
-    This function builds the "epoch" function.
+    This function builds the "epoch" function. <br/>
  The epoch function returns the number of seconds since
  Jan 1, 1970, UTC
 
@@ -302,8 +308,12 @@
     <ul>
         <li><span class="parameter">a</span>
 
+
+
         </li>
         <li><span class="parameter">b</span>
+
+
 
         </li>
     </ul>
@@ -327,8 +337,12 @@
     <ul>
         <li><span class="parameter">full</span>
 
+
+
         </li>
         <li><span class="parameter">sn</span>
+
+
 
         </li>
     </ul>
@@ -343,11 +357,11 @@
     <strong>getMT ()</strong>
     </dt>
     <dd>
-    Ask the environment for the _ModuleTable_ value.
+    Ask the environment for the <em>ModuleTable</em> value.
  It is uuencoded and broken into pieces so that the
  quotes and parens won't confuse the shell's poor little
  brain.  The number of pieces are stored in the global
- env. variable _ModuleTable_Sz_.
+ env. variable <em>ModuleTable</em>Sz_.
 
 
 
@@ -372,8 +386,12 @@
     <ul>
         <li><span class="parameter">pathA</span>
 
+
+
         </li>
         <li><span class="parameter">n</span>
+
+
 
         </li>
     </ul>
@@ -396,6 +414,8 @@
     <ul>
         <li><span class="parameter">s</span>
 
+
+
         </li>
     </ul>
 
@@ -413,7 +433,8 @@
  it up into an array.   Each path component is
  standandized by path_regularize().  This function
  removes leading and trailing spaces and duplicate '/'
- etc.
+ etc.</p>
+
 <p> Typically the separator is a colon but it can be
  anything.  Some env. vars (such as TEXINPUTS and
  LUA_PATH) use "::" or ";;" to mean that the
@@ -427,8 +448,12 @@
     <ul>
         <li><span class="parameter">path</span>
 
+
+
         </li>
         <li><span class="parameter">sep</span>
+
+
 
         </li>
     </ul>
@@ -443,14 +468,20 @@
     <strong>findAdminFn ()</strong>
     </dt>
     <dd>
-    Read the admin.list file.   It is a Key value pairing of module names
+
+<p>Read the admin.list file.   It is a Key value pairing of module names
   and a message.  The module names can be either the full name or the file
   name.  The message can be multi-line.  A blank line is signifies the
-  end of the message.
-<p>  /path/to/modulefile: Blah Blah Blah
-                       Blah Blah Blah
-<p>  module/version:      Blah Blah Blah
-                       Blah Blah Blah
+  end of the message.</p>
+
+<p>  /path/to/modulefile: Blah Blah Blah</p>
+<pre><code>                   Blah Blah Blah
+</code></pre>
+
+<p>  module/version:      Blah Blah Blah</p>
+<pre><code>                   Blah Blah Blah
+</code></pre>
+
 
 
 
@@ -472,6 +503,8 @@
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">epoch</span>
+
+
 
         </li>
     </ul>
@@ -496,14 +529,22 @@
     <ul>
         <li><span class="parameter">v</span>
 
+
+
         </li>
         <li><span class="parameter">sn</span>
+
+
 
         </li>
         <li><span class="parameter">path</span>
 
+
+
         </li>
         <li><span class="parameter">ignoreErrors</span>
+
+
 
         </li>
     </ul>
@@ -565,15 +606,19 @@
     </dt>
     <dd>
     Build a string of what the command would be.  Used by
- MC_Show and MC_ComputeHash.
+ MC<em>Show and MC</em>ComputeHash.
 
 
     <h3>Fields:</h3>
     <ul>
         <li><span class="parameter">delim</span>
 
+
+
         </li>
         <li><span class="parameter">priority</span>
+
+
 
         </li>
     </ul>

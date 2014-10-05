@@ -1,5 +1,6 @@
 --------------------------------------------------------------------------
--- fix me
+-- This derived class of MName handles the latest modifiers for both
+-- prereq and load.
 --
 -- @classmod MN_Latest
 
@@ -51,6 +52,9 @@ local s_steps = {
    MName.find_latest,
 }
 
+--------------------------------------------------------------------------
+-- Show the latest modifier.
+-- @param self A MName object
 function M.show(self)
    local a = {}
    a[#a+1] = self._actName
@@ -60,6 +64,9 @@ function M.show(self)
    return concatTbl(a,"")
 end
 
+--------------------------------------------------------------------------
+-- Find the latest version for module.
+-- @param self A MName object
 local function latestVersion(self)
    local mt    = MT:mt()
    local sn    = self:sn()
@@ -73,6 +80,9 @@ local function latestVersion(self)
 end
 
 
+--------------------------------------------------------------------------
+-- Do a prereq check to see if version is latest one.
+-- @param self A MName object.
 function M.prereq(self)
    dbg.start{"MN_Latest:prereq()"}
    local mt    = MT:mt()
@@ -92,6 +102,9 @@ function M.prereq(self)
    return false
 end
 
+--------------------------------------------------------------------------
+-- Check to see if the currently loaded module is the latest.
+-- @param self A MName object.
 function M.isloaded(self)
    local mt    = MT:mt()
    local sn    = self:sn()
@@ -107,6 +120,9 @@ function M.isloaded(self)
    return sv == version
 end
 
+--------------------------------------------------------------------------
+-- Check to see if the isPending module is the latest.
+-- @param self A MName object.
 function M.isPending(self)
    local mt = MT:mt()
    local sn = self:sn()
@@ -122,6 +138,8 @@ function M.isPending(self)
    return sv == version
 end
 
+--------------------------------------------------------------------------
+-- Return the steps used in the Latest class.
 function M.steps()
    return s_steps
 end

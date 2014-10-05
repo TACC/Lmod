@@ -127,37 +127,46 @@
 
 <h1>Class <code>Dbg</code></h1>
 <p>This is a debug printing class.</p>
+<p>
 <p>  The point is to add these debug print
  statement permanently and use command line options to turn these print
- stmts on when necessary.
-<p> Test code for using  Dbg.lua
-    require("strict")
-    local dbg = require("Dbg"):dbg()
-    function a()
-       dbg.start{2,"a"}
-       dbg.print{"In a","\n"}
-       b()
-       dbg.fini()
-    end
-<p>    function b()
-       dbg.start{2,"b"}
-       dbg.print{"In b","\n"}
-       c()
-       dbg.fini()
-    end
-<p>    function c()
-       dbg.start{3,"c"}
-       dbg.print{1,"In c","\n"}
-       dbg.fini()
-    end
-<p>    function main()
-       local level = 10
-       dbg:activateDebug(level)
-<p>       dbg.start{2,"main"}
-       a()
-       dbg.fini()
-    end
-<p>    main()
+ stmts on when necessary.</p>
+
+<p> Test code for using  Dbg.lua</p>
+<pre><code>require("strict")
+local dbg = require("Dbg"):dbg()
+function a()
+   dbg.start{2,"a"}
+   dbg.print{"In a","\n"}
+   b()
+   dbg.fini()
+end
+
+function b()
+   dbg.start{2,"b"}
+   dbg.print{"In b","\n"}
+   c()
+   dbg.fini()
+end
+
+function c()
+   dbg.start{3,"c"}
+   dbg.print{1,"In c","\n"}
+   dbg.fini()
+end
+
+function main()
+   local level = 10
+   dbg:activateDebug(level)
+
+   dbg.start{2,"main"}
+   a()
+   dbg.fini()
+end
+
+main()
+</code></pre>
+
 </p>
 
 
@@ -369,6 +378,8 @@
     <ul>
         <li><span class="parameter">level</span>
 
+
+
         </li>
     </ul>
 
@@ -389,6 +400,8 @@
     <ul>
         <li><span class="parameter">self</span>
 
+
+
         </li>
     </ul>
 
@@ -408,6 +421,8 @@
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">self</span>
+
+
 
         </li>
     </ul>
@@ -442,6 +457,8 @@
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">t</span>
+
+
 
         </li>
     </ul>
@@ -491,6 +508,8 @@
     <ul>
         <li><span class="parameter">s</span>
 
+
+
         </li>
     </ul>
 
@@ -512,6 +531,8 @@
     <ul>
         <li><span class="parameter">...</span>
 
+
+
         </li>
     </ul>
 
@@ -531,6 +552,8 @@
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">...</span>
+
+
 
         </li>
     </ul>

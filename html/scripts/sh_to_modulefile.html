@@ -124,28 +124,34 @@
 <h1>Script <code>sh_to_modulefile</code></h1>
 <p>This program takes shell scripts (either bash or csh) and converts
  them to a modulefile (either Lua or TCL).</p>
+<p>
 <p>  This program is a "new"
  but it is based on many design elements from sourceforge.net/projects/env2.
  The program "env2" also converts shells to modulefiles but it does
  other conversions as well.  This program is more limited it just does
- conversions from scripts to tcl or lua modules.
-<p>  Basic design:
-     a) capture the output of the supplied script and use this program
-        to generate a lua table of the Environment.
-     b) create an output factory:  MF_Lmod or MF_TCL to generate the
-        output modulefile style.
-     c) Process the before environment with the after environment and
-        generate the appropriate setenv's, prepend_path's and
-        append_path's to convert from the old env to the new.
-<p>
-  Tricks:
-     The main problem with doing this is find the overlap in path-like
-     variables.  Suppose you have:
-          PATH="b:c:d"
-     and the result after sourcing the shell script is:
-          PATH="a:b:c:d:e"
-     This program finds the overlap starting with "b" and then can
-     report that "a" needs to be prepended and "e" needs to be appended.
+ conversions from scripts to tcl or lua modules.</p>
+
+<p>  Basic design:</p>
+<pre><code> a) capture the output of the supplied script and use this program
+    to generate a lua table of the Environment.
+ b) create an output factory:  MF_Lmod or MF_TCL to generate the
+    output modulefile style.
+ c) Process the before environment with the after environment and
+    generate the appropriate setenv's, prepend_path's and
+    append_path's to convert from the old env to the new.
+</code></pre>
+
+
+<p>  Tricks:</p>
+<pre><code> The main problem with doing this is find the overlap in path-like
+ variables.  Suppose you have:
+      PATH="b:c:d"
+ and the result after sourcing the shell script is:
+      PATH="a:b:c:d:e"
+ This program finds the overlap starting with "b" and then can
+ report that "a" needs to be prepended and "e" needs to be appended.
+</code></pre>
+
 </p>
 
 

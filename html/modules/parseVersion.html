@@ -128,7 +128,9 @@
 
 <h1>Module <code>parseVersion</code></h1>
 <p>A function to return canonical version strings.</p>
-<p></p>
+<p>
+
+</p>
 
 
 <h2><a href="#Functions">Functions</a></h2>
@@ -166,22 +168,24 @@
  without relying on how numbers compare relative to strings. Dots are dropped,
  but dashes are retained. Trailing zeros between alpha segments or dashes
  are suppressed, so that e.g. "2.4.0" is considered the same as "2.4".
- Alphanumeric parts are lower-cased.
+ Alphanumeric parts are lower-cased.</p>
+
 <p> The algorithm assumes that strings like "-" and any alpha string that
  alphabetically follows "final" represents a "patch level". So, "2.4-1"
  is assumed to be a branch or patch of "2.4", and therefore "2.4.1" is
  considered newer than "2.4-1", which in turn is newer than "2.4".  Also
- 2.4p2 and 2.4-p2 are considered to be the same as 2.4-2.
+ 2.4p2 and 2.4-p2 are considered to be the same as 2.4-2.</p>
+
 <p> Strings like "a", "b", "c", "alpha", "beta", "candidate" and so on
  (that come before "final" alphabetically) are assumed to be pre-release
  versions, so that the version "2.4" is considered newer than "2.4a1".
- Any "-" characters preceding a pre-release indicator are removed.
+ Any "-" characters preceding a pre-release indicator are removed.</p>
+
 <p> Finally, to handle miscellaneous cases, the strings "pre", "preview",
  and "rc" are treated as if they were "c", i.e. as though they were
  release candidates, and therefore are not as new as a version string
  that does not contain them. And the string "dev" is treated as if it
  were an "@" sign; that is, a version coming before even "a" or "alpha".
-
 
 
     <h3>Parameters:</h3>

@@ -32,7 +32,6 @@
 
 <h2>Contents</h2>
 <ul>
-<li><a href="#Fields">Fields</a></li>
 <li><a href="#Methods">Methods</a></li>
 </ul>
 
@@ -134,36 +133,47 @@
   figures out what the "name", "full name" and "version" are.
   The "MT:locationTbl()" knows the 3 components for modules that
   can be loaded.  On the other hand, "MT:exists()" knows for
-  modules that are already loaded.
+  modules that are already loaded.</p>
+
 <p>  The problem is when a user gives a module name on the command
   line.  It can be the short name or the full name.  The trouble
   is that if the user gives "foo/bar" as a module name, it is
   quite possible that "foo" is the name and "bar" is the version
   or "foo/bar" is the short name.  The only way to know is to
-  consult either choice above.
+  consult either choice above.</p>
+
 <p>  Yet another problem is that a module that is loaded may not be
   in the module may not be available to load because the
   MODULEPATH has changed.  Or if you are loading a module then it
   must be in the locationTbl.  So clients using this class must
   specify to the ctor that the name of the module is one that will
-  be loaded or one that has been loaded.
+  be loaded or one that has been loaded.</p>
+
 <p>  Another consideration is that Lmod only allows for one "name"
-  to be loaded at a time.
-</p>
+  to be loaded at a time.</p>
 
 
-<h2><a href="#Fields">Fields</a></h2>
+<h2><a href="#Methods">Methods</a></h2>
 <table class="function_list">
 	<tr>
-	<td class="name" nowrap><a href="#MName.s_findT">MName.s_findT</a></td>
+	<td class="name" nowrap><a href="#MName:prereq">MName:prereq (self)</a></td>
+	<td class="summary">Do a prereq check to see name and/or version is loaded.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MName:isloaded">MName:isloaded (self)</a></td>
+	<td class="summary">Check to see if this object is loaded.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MName:isPending">MName:isPending (self)</a></td>
+	<td class="summary">Check to see if the isPending module is pending.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MName:new">MName:new (self, sType, name, action, is, ie)</a></td>
 	<td class="summary">This ctor takes "sType" to lookup in either the
  locationTbl() or the exists() depending on whether it is
  "load" for modules to be loaded (available) or it is
  already loaded.</td>
 	</tr>
-</table>
-<h2><a href="#Methods">Methods</a></h2>
-<table class="function_list">
 	<tr>
 	<td class="name" nowrap><a href="#MName:buildA">MName:buildA (self, sType, ...)</a></td>
 	<td class="summary">Return an array of MName objects</td>
@@ -186,11 +196,71 @@
 <br/>
 
 
-    <h2><a name="Fields"></a>Fields</h2>
+    <h2><a name="Methods"></a>Methods</h2>
     <dl class="function">
     <dt>
-    <a name = "MName.s_findT"></a>
-    <strong>MName.s_findT</strong>
+    <a name = "MName:prereq"></a>
+    <strong>MName:prereq (self)</strong>
+    </dt>
+    <dd>
+    Do a prereq check to see name and/or version is loaded.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+         A MName object
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "MName:isloaded"></a>
+    <strong>MName:isloaded (self)</strong>
+    </dt>
+    <dd>
+    Check to see if this object is loaded.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+         A MName object
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "MName:isPending"></a>
+    <strong>MName:isPending (self)</strong>
+    </dt>
+    <dd>
+    Check to see if the isPending module is pending.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+         A MName object
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "MName:new"></a>
+    <strong>MName:new (self, sType, name, action, is, ie)</strong>
     </dt>
     <dd>
     This ctor takes "sType" to lookup in either the
@@ -204,15 +274,43 @@
  choices are "atleast", ...
 
 
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+         A MName object
+        </li>
+        <li><span class="parameter">sType</span>
+
+
+
+        </li>
+        <li><span class="parameter">name</span>
+
+
+
+        </li>
+        <li><span class="parameter">action</span>
+
+
+
+        </li>
+        <li><span class="parameter">is</span>
+
+
+
+        </li>
+        <li><span class="parameter">ie</span>
+
+
+
+        </li>
+    </ul>
 
 
 
 
 
 </dd>
-</dl>
-    <h2><a name="Methods"></a>Methods</h2>
-    <dl class="function">
     <dt>
     <a name = "MName:buildA"></a>
     <strong>MName:buildA (self, sType, ...)</strong>
@@ -225,11 +323,17 @@
     <ul>
         <li><span class="parameter">self</span>
 
+
+
         </li>
         <li><span class="parameter">sType</span>
 
+
+
         </li>
         <li><span class="parameter">...</span>
+
+
 
         </li>
     </ul>
@@ -250,6 +354,8 @@
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">self</span>
+
+
 
         </li>
     </ul>
@@ -272,6 +378,8 @@
     <ul>
         <li><span class="parameter">self</span>
 
+
+
         </li>
     </ul>
 
@@ -292,6 +400,8 @@
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">self</span>
+
+
 
         </li>
     </ul>

@@ -130,13 +130,17 @@
  this file.</p>
 <p>  Since the behavior of many of the Lmod functions (such as
  setenv) function when the user is doing a load, unload, show, many of
- these function they do the following:
-<p>     a) They validate their arguments.
-     b) mcp:<function>(...)
+ these function they do the following:</p>
+
+<pre><code> a) They validate their arguments.
+ b) mcp:&lt;function&gt;(...)
+</code></pre>
+
 <p> The variable mcp is the master control program object.  It gets
  constructed in the various modes Lmod gets run in.  The modes include
- load, unload, show, etc.  See MC_Load.lua and the other MC_*.lua files
- As well as the base class MasterControl.lua for more details.
+ load, unload, show, etc.  See MC<em>Load.lua and the other MC</em>*.lua files
+ As well as the base class MasterControl.lua for more details.</p>
+
 <p> See tools/Dbg.lua for details on how this debugging tool works.</p>
 
 
@@ -144,39 +148,52 @@
 <table class="function_list">
 	<tr>
 	<td class="name" nowrap><a href="#load_module">load_module (...)</a></td>
-	<td class="summary">help_topic{kind="modfuncs",
-           name="load",
-           examples="load('name'); load('name/1.2'); load(atleast('name','3.2'))",
-           descript= [[the load function loads a module via its name.</td>
+	<td class="summary">
+<p>help_topic{kind="modfuncs",</p>
+<pre><code>       name="load",
+       examples="load('name'); load('name/1.2'); load(atleast('name','3.2'))",
+       descript= [[the load function loads a module via its name.
+</code></pre>
+</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#try_load">try_load (...)</a></td>
-	<td class="summary">help_topic{kind="modfuncs",
-           name="try_load",
-           examples="try_load('name'); try_load('name/1.2'); try_load(atleast('name','3.2'))",
-           descript= [[the load function loads a module via its name.</td>
+	<td class="summary">
+<p>help_topic{kind="modfuncs",</p>
+<pre><code>       name="try_load",
+       examples="try_load('name'); try_load('name/1.2'); try_load(atleast('name','3.2'))",
+       descript= [[the load function loads a module via its name.
+</code></pre>
+</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#unload">unload (...)</a></td>
-	<td class="summary">help_topic{kind="modfuncs",
-           name="unload",
-           examples="unload('name'); unload('name/1.2')",
-           descript= [[the unload function unloads a module via its name.</td>
+	<td class="summary">
+<p>help_topic{kind="modfuncs",</p>
+<pre><code>       name="unload",
+       examples="unload('name'); unload('name/1.2')",
+       descript= [[the unload function unloads a module via its name.
+</code></pre>
+</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#always_load">always_load (...)</a></td>
-	<td class="summary">help_topic{kind="modfuncs",
-           name="always_load",
-           examples="always_load('name'); always_load('name/1.2'); always_load(atleast('name','3.2'))",
-           descript= [[the always_load function a module via its name.</td>
+	<td class="summary">
+<p>help_topic{kind="modfuncs",</p>
+<pre><code>       name="always_load",
+       examples="always_load('name'); always_load('name/1.2'); always_load(atleast('name','3.2'))",
+       descript= [[the always_load function a module via its name.
+</code></pre>
+</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#always_unload">always_unload (...)</a></td>
-	<td class="summary">help_topic{kind="modfuncs",
-           name="always_unload",
-           examples="always_unload('name'); always_load('name/1.2')",
-           descript= [[This behaves the same as unload.]]
-}</td>
+	<td class="summary">help_topic{kind="modfuncs",</p>
+<pre><code>       name="always_unload",
+       examples="always_unload('name'); always_load('name/1.2')",
+       descript= [[This behaves the same as unload.]]
+</code></pre>
+<p>}</td>
 	</tr>
 </table>
 
@@ -191,17 +208,20 @@
     <strong>load_module (...)</strong>
     </dt>
     <dd>
-    help_topic{kind="modfuncs",
-           name="load",
-           examples="load('name'); load('name/1.2'); load(atleast('name','3.2'))",
-           descript= [[the load function loads a module via its name.   When a module
-                       is unloaded.  this command causes the module to unloaded.]]
-}
+    help_topic{kind="modfuncs",</p>
+<pre><code>       name="load",
+       examples="load('name'); load('name/1.2'); load(atleast('name','3.2'))",
+       descript= [[the load function loads a module via its name.   When a module
+                   is unloaded.  this command causes the module to unloaded.]]
+</code></pre>
+<p>}
 
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">...</span>
+
+
 
         </li>
     </ul>
@@ -216,18 +236,21 @@
     <strong>try_load (...)</strong>
     </dt>
     <dd>
-    help_topic{kind="modfuncs",
-           name="try_load",
-           examples="try_load('name'); try_load('name/1.2'); try_load(atleast('name','3.2'))",
-           descript= [[the load function loads a module via its name.   If it doesn't
-                       exist then no error is produced. When a module is unloaded.  this
-                       command causes the module to unloaded]]
-}
+    help_topic{kind="modfuncs",</p>
+<pre><code>       name="try_load",
+       examples="try_load('name'); try_load('name/1.2'); try_load(atleast('name','3.2'))",
+       descript= [[the load function loads a module via its name.   If it doesn't
+                   exist then no error is produced. When a module is unloaded.  this
+                   command causes the module to unloaded]]
+</code></pre>
+<p>}
 
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">...</span>
+
+
 
         </li>
     </ul>
@@ -242,18 +265,21 @@
     <strong>unload (...)</strong>
     </dt>
     <dd>
-    help_topic{kind="modfuncs",
-           name="unload",
-           examples="unload('name'); unload('name/1.2')",
-           descript= [[the unload function unloads a module via its name.  No error is
-                       produced if the module is not already loaded.  When a module is
-                       unloaded, this command does nothing.]]
-}
+    help_topic{kind="modfuncs",</p>
+<pre><code>       name="unload",
+       examples="unload('name'); unload('name/1.2')",
+       descript= [[the unload function unloads a module via its name.  No error is
+                   produced if the module is not already loaded.  When a module is
+                   unloaded, this command does nothing.]]
+</code></pre>
+<p>}
 
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">...</span>
+
+
 
         </li>
     </ul>
@@ -268,17 +294,20 @@
     <strong>always_load (...)</strong>
     </dt>
     <dd>
-    help_topic{kind="modfuncs",
-           name="always_load",
-           examples="always_load('name'); always_load('name/1.2'); always_load(atleast('name','3.2'))",
-           descript= [[the always_load function a module via its name.  Loading a module containing
-                       this command loads,   It does nothing when unloading a module.]]
-}
+    help_topic{kind="modfuncs",</p>
+<pre><code>       name="always_load",
+       examples="always_load('name'); always_load('name/1.2'); always_load(atleast('name','3.2'))",
+       descript= [[the always_load function a module via its name.  Loading a module containing
+                   this command loads,   It does nothing when unloading a module.]]
+</code></pre>
+<p>}
 
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">...</span>
+
+
 
         </li>
     </ul>
@@ -293,16 +322,19 @@
     <strong>always_unload (...)</strong>
     </dt>
     <dd>
-    help_topic{kind="modfuncs",
-           name="always_unload",
-           examples="always_unload('name'); always_load('name/1.2')",
-           descript= [[This behaves the same as unload.]]
-}
+    help_topic{kind="modfuncs",</p>
+<pre><code>       name="always_unload",
+       examples="always_unload('name'); always_load('name/1.2')",
+       descript= [[This behaves the same as unload.]]
+</code></pre>
+<p>}
 
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">...</span>
+
+
 
         </li>
     </ul>

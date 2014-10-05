@@ -95,6 +95,9 @@ local function shorten(name, level)
    return name:sub(1,j)
 end
 
+--------------------------------------------------------------------------
+-- Do a prereq check to see name and/or version is loaded.
+-- @param self A MName object
 function M.prereq(self)
    local result  = false
    local mt      = MT:mt()
@@ -109,6 +112,9 @@ function M.prereq(self)
    return result
 end
 
+--------------------------------------------------------------------------
+-- Check to see if this object is loaded.
+-- @param self A MName object
 function M.isloaded(self)
    local mt        = MT:mt()
    local sn        = self:sn()
@@ -123,6 +129,9 @@ function M.isloaded(self)
    return (usrName == mt:fullName(sn)) and sn_active
 end
 
+--------------------------------------------------------------------------
+-- Check to see if the isPending module is pending.
+-- @param self A MName object
 function M.isPending(self)
    local mt         = MT:mt()
    local sn         = self:sn()
@@ -132,14 +141,15 @@ function M.isPending(self)
       return sn_pending
    end
    return (usrName == mt:fullName(sn)) and sn_pending
-   
 end
-
-
+--------------------------------------------------------------------------
+-- Returns the "action", It can be "match", "between" or "latest".
+-- @param self A MName object
 function M.action(self)
    return self._action
 end
 
+s_findT = false
 --------------------------------------------------------------------------
 -- This ctor takes "sType" to lookup in either the
 -- locationTbl() or the exists() depending on whether it is
@@ -150,8 +160,15 @@ end
 -- to false.  The last argument is "action".  Normally this
 -- argument is nil, which implies the value is "match".  Other
 -- choices are "atleast", ...
-
-s_findT = false
+--
+-- @param self A MName object
+-- @param sType The type which can be "entryT", "load", "mt"
+-- @param name The name of the module.
+-- @param[opt] action The matching action if not nil it can be
+-- "atleast", "between" or "latest".
+-- @param[opt] is start version.
+-- @param[opt] ie end version.
+-- @return An MName object
 function M.new(self, sType, name, action, is, ie)
 
    if (not s_findT) then
@@ -189,9 +206,7 @@ function M.new(self, sType, name, action, is, ie)
    o._ie       = ie or tostring(1234567890)
    o._range    = {}
    o._range[1] = is
-   if (ie ) then
-      o._range[2] = ie
-   end
+   o._range[2] = ie -- This can be nil and that is O.K.
 
    o._actName = action
 
@@ -200,7 +215,9 @@ end
 
 --------------------------------------------------------------------------
 -- Return an array of MName objects
-
+-- @param self A MName object
+-- @param sType The type which can be "entryT", "load", "mt"
+-- @return An array of MName objects.
 function M.buildA(self,sType, ...)
    local arg = pack(...)
    local a = {}
@@ -216,6 +233,9 @@ function M.buildA(self,sType, ...)
    return a
 end
 
+--------------------------------------------------------------------------
+-- Convert an array of MName objects into a string.
+-- @param self A MName object
 function M.convert2stringA(self, ...)
    local arg = pack(...)
    local a = {}
@@ -239,6 +259,9 @@ function M.convert2stringA(self, ...)
    return a
 end
 
+--------------------------------------------------------------------------
+-- Based on *sType* finish constructing the MName object.
+-- @param self A MName object
 local function lazyEval(self)
    local sType = self._sType
    if (sType == "entryT") then
@@ -277,7 +300,7 @@ end
 
 --------------------------------------------------------------------------
 -- Return the short name
-
+-- @param self A MName object
 function M.sn(self)
    if (not self._sn) then
       lazyEval(self)
@@ -289,7 +312,7 @@ end
 --------------------------------------------------------------------------
 -- Return the user specified name.  It could be the
 -- short name or the full name.
-
+-- @param self A MName object
 function M.usrName(self)
    return self._name
 end
@@ -297,7 +320,7 @@ end
 --------------------------------------------------------------------------
 -- Return the version for the module.  Note that the
 -- version is nil if not known.
-
+-- @param self A MName object
 function M.version(self)
    dbg.start{"MName:version()"}
    dbg.print{"sType:   ", self._sType,"\n"}
@@ -321,10 +344,9 @@ function M.version(self)
 end
 
 --------------------------------------------------------------------------
--- This local function is used to find a default file
--- that maybe in symbolic link chain. This returns
--- the absolute path.
-
+-- This is used to find a default file that maybe in symbolic link chain. 
+-- @param self A MName object
+-- @return This returns the absolute path.
 local function followDefault(path)
    if (path == nil) then return nil end
    dbg.start{"followDefault(path=\"",path,"\")"}
@@ -363,6 +385,12 @@ local function followDefault(path)
    return result
 end
 
+--------------------------------------------------------------------------
+-- Look for the module name via an exact match.
+-- @param self A MName object
+-- @param pathA An array of paths to search
+-- @return True or false
+-- @return A table describing the module if found.
 function M.find_exact_match(self, pathA)
    dbg.start{"MName:find_exact_match(pathA, t)"}
    local usrName    = self:usrName()
@@ -453,6 +481,12 @@ end
 
 searchDefaultT = { "/default", "/.modulerc", "/.version" }
 
+--------------------------------------------------------------------------
+-- Look for the module name via a marked default.
+-- @param self A MName object
+-- @param pathA An array of paths to search
+-- @return True or false
+-- @return A table describing the module if found.
 function M.find_marked_default(self, pathA)
    dbg.start{"MName:find_marked_default(pathA, t)"}
    local usrName   = self:usrName()
@@ -530,6 +564,12 @@ function M.find_marked_default(self, pathA)
    return found, t
 end
 
+--------------------------------------------------------------------------
+-- Look for the module name via the "latest" version.
+-- @param self A MName object
+-- @param pathA An array of paths to search
+-- @return True or false
+-- @return A table describing the module if found.
 function M.find_latest(self, pathA)
    dbg.start{"MName:find_latest(pathA, t)"}
    local found     = false
@@ -568,6 +608,13 @@ function M.find_latest(self, pathA)
    return found, t
 end
 
+--------------------------------------------------------------------------
+-- Look for the module name where the version is "between" and is a marked
+-- default.
+-- @param self A MName object
+-- @param pathA An array of paths to search
+-- @return True or false
+-- @return A table describing the module if found.
 function M.find_marked_default_between(self, pathA)
    dbg.start{"MName:find_marked_default_between(pathA, t)"}
 
@@ -590,6 +637,12 @@ function M.find_marked_default_between(self, pathA)
    return found, t
 end
 
+--------------------------------------------------------------------------
+-- Look for the module name where the version is "between".
+-- @param self A MName object
+-- @param pathA An array of paths to search
+-- @return True or false
+-- @return A table describing the module if found.
 function M.find_between(self, pathA)
    dbg.start{"MName:find_between(pathA, t)"}
    dbg.print{"UserName: ", self:usrName(), "\n"}
@@ -633,11 +686,18 @@ function M.find_between(self, pathA)
    return found, t
 end
 
+--------------------------------------------------------------------------
+-- Return the string of the user name of the module.
+-- @param self A MName object
 function M.show(self)
    return '"' .. self:usrName() .. '"'
 end
 
 
+--------------------------------------------------------------------------
+-- Find the module based on the "steps" each class has registered.
+-- @param self A MName object
+-- @return A table describing the module.
 function M.find(self)
    dbg.start{"MName:find(",self:usrName(),")"}
    local t        = { fn = nil, modFullName = nil, modName = nil, default = 0}

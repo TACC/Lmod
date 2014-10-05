@@ -131,10 +131,10 @@
 <p>  Each instant of Var holds a single
  environment variable, path, local variable, shell function or alias.
  This class is at the core of Lmod.  Lmod is all about controlling
- the user environment and this is where Lmod does this.
+ the user environment and this is where Lmod does this.</p>
+
 <p> The other point of this class is to check to see when MODULEPATH
- has changed.
-</p>
+ has changed.</p>
 
 
 <h2><a href="#Methods">Methods</a></h2>
@@ -154,8 +154,11 @@
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#Var:pop">Var:pop (self)</a></td>
-	<td class="summary">Var:pop(): Remove the top value and return the second value or nil if
-            none are left.</td>
+	<td class="summary">
+<p>Var:pop(): Remove the top value and return the second value or nil if</p>
+<pre><code>        none are left.
+</code></pre>
+</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#Var:prepend">Var:prepend (self, value, nodups, priority)</a></td>
@@ -191,22 +194,33 @@
     <strong>Var:new (self, name, value, sep)</strong>
     </dt>
     <dd>
-    Var:new():  The ctor for this class.   It uses extract to build its
-             initial value from the environment.
+
+<p>Var:new():  The ctor for this class.   It uses extract to build its</p>
+<pre><code>         initial value from the environment.
+</code></pre>
+
 
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">self</span>
 
+
+
         </li>
         <li><span class="parameter">name</span>
+
+
 
         </li>
         <li><span class="parameter">value</span>
 
+
+
         </li>
         <li><span class="parameter">sep</span>
+
+
 
         </li>
     </ul>
@@ -228,8 +242,12 @@
     <ul>
         <li><span class="parameter">self</span>
 
+
+
         </li>
         <li><span class="parameter">title</span>
+
+
 
         </li>
     </ul>
@@ -252,14 +270,22 @@
     <ul>
         <li><span class="parameter">self</span>
 
+
+
         </li>
         <li><span class="parameter">value</span>
+
+
 
         </li>
         <li><span class="parameter">where</span>
 
+
+
         </li>
         <li><span class="parameter">priority</span>
+
+
 
         </li>
     </ul>
@@ -274,13 +300,18 @@
     <strong>Var:pop (self)</strong>
     </dt>
     <dd>
-    Var:pop(): Remove the top value and return the second value or nil if
-            none are left.
+
+<p>Var:pop(): Remove the top value and return the second value or nil if</p>
+<pre><code>        none are left.
+</code></pre>
+
 
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">self</span>
+
+
 
         </li>
     </ul>
@@ -303,14 +334,22 @@
     <ul>
         <li><span class="parameter">self</span>
 
+
+
         </li>
         <li><span class="parameter">value</span>
+
+
 
         </li>
         <li><span class="parameter">nodups</span>
 
+
+
         </li>
         <li><span class="parameter">priority</span>
+
+
 
         </li>
     </ul>
@@ -325,22 +364,33 @@
     <strong>Var:append (self, value, nodups, priority)</strong>
     </dt>
     <dd>
-    Var:append(): Append an entry into a path.  [[nodups]] controls
-               policies on duplication by setting [[insertFunc]].
+
+<p>Var:append(): Append an entry into a path.  [[nodups]] controls</p>
+<pre><code>           policies on duplication by setting [[insertFunc]].
+</code></pre>
+
 
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">self</span>
 
+
+
         </li>
         <li><span class="parameter">value</span>
+
+
 
         </li>
         <li><span class="parameter">nodups</span>
 
+
+
         </li>
         <li><span class="parameter">priority</span>
+
+
 
         </li>
     </ul>
@@ -362,8 +412,12 @@
     <ul>
         <li><span class="parameter">self</span>
 
+
+
         </li>
         <li><span class="parameter">value</span>
+
+
 
         </li>
     </ul>
@@ -385,6 +439,8 @@
     <ul>
         <li><span class="parameter">self</span>
 
+
+
         </li>
     </ul>
 
@@ -398,18 +454,24 @@
     <strong>Var:expand (self)</strong>
     </dt>
     <dd>
-    Master:expand(): Expand the value into a string.    Obviously non-path
-                  types are simply returned.
-<p>                  It is a two step process to expand the path variables.
-                  First table (self.tbl) is flipped where now the indices
-                  are the keys and the paths are the values.  This creates
-                  [[t]] with integer keys with possible gaps.  Then second
-                  loop uses pairByKeys to pick keys from lowest to highest.
+
+<p>Master:expand(): Expand the value into a string.    Obviously non-path</p>
+<pre><code>              types are simply returned.
+
+              It is a two step process to expand the path variables.
+              First table (self.tbl) is flipped where now the indices
+              are the keys and the paths are the values.  This creates
+              [[t]] with integer keys with possible gaps.  Then second
+              loop uses pairByKeys to pick keys from lowest to highest.
+</code></pre>
+
 
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">self</span>
+
+
 
         </li>
     </ul>

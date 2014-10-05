@@ -127,29 +127,36 @@
 <div id="content">
 
 <h1>Class <code>MasterControl</code></h1>
-<p>MasterControl is the base class for all the MC_Load, MC_Unload derived
+<p>MasterControl is the base class for all the MC<em>Load, MC</em>Unload derived
   classes.</p>
+<p>
 <p>  It has the Factory build member function as well as the
   functions that execute the commands from the modulefiles.  It may be
-  helpful to understand the flow of control:
-<p>    0. An MCP object is constructed (load, unload, show, help, etc)
-    1. A modulefile is read and evaluated.
-    2. A function in modfuncs is called.
-    3. These modfuncs call a member function of the mcp object.
-    4. All these member functions are implemented here.
-<p>  So for example if the mcp object is a load version then
-  when a modulefile calls setenv then the steps are:
-    a) setenv(...) is called in modfuncs
-    b) This calls mcp:setenv(...)
-    c) the mcp load version connects it to MasterControl:setenv
+  helpful to understand the flow of control:</p>
 
-  Suppose a user is requesting to unload a module which contains a
-  setenv command.
-    0. An MCP unload object is constructed.
-    1. The module file is read and evaluated
-    2. The setenv function in modfuncs is called
-    3. The unload MCP objects maps this to MasterControl:unsetenv
-    4. The users' environment variable is unset.
+<pre><code>0. An MCP object is constructed (load, unload, show, help, etc)
+1. A modulefile is read and evaluated.
+2. A function in modfuncs is called.
+3. These modfuncs call a member function of the mcp object.
+4. All these member functions are implemented here.
+</code></pre>
+
+<p>  So for example if the mcp object is a load version then
+  when a modulefile calls setenv then the steps are:</p>
+<pre><code>a) setenv(...) is called in modfuncs
+b) This calls mcp:setenv(...)
+c) the mcp load version connects it to MasterControl:setenv
+</code></pre>
+
+<p>  Suppose a user is requesting to unload a module which contains a
+  setenv command.</p>
+<pre><code>0. An MCP unload object is constructed.
+1. The module file is read and evaluated
+2. The setenv function in modfuncs is called
+3. The unload MCP objects maps this to MasterControl:unsetenv
+4. The users' environment variable is unset.
+</code></pre>
+
 </p>
 
 
@@ -192,8 +199,11 @@
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#MasterControl:execute">MasterControl:execute (self, t)</a></td>
-	<td class="summary">MasterControl:execute() - place a string that will be executed when
-                           the output from Lmod eval'ed.</td>
+	<td class="summary">
+<p>MasterControl:execute() - place a string that will be executed when</p>
+<pre><code>                       the output from Lmod eval'ed.
+</code></pre>
+</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#MasterControl:quiet">MasterControl:quiet (self, ...)</a></td>
@@ -236,8 +246,12 @@
     <ul>
         <li><span class="parameter">self</span>
 
+
+
         </li>
         <li><span class="parameter">mA</span>
+
+
 
         </li>
     </ul>
@@ -259,14 +273,22 @@
     <ul>
         <li><span class="parameter">self</span>
 
+
+
         </li>
         <li><span class="parameter">name</span>
+
+
 
         </li>
         <li><span class="parameter">value</span>
 
+
+
         </li>
         <li><span class="parameter">respect</span>
+
+
 
         </li>
     </ul>
@@ -288,11 +310,17 @@
     <ul>
         <li><span class="parameter">self</span>
 
+
+
         </li>
         <li><span class="parameter">name</span>
 
+
+
         </li>
         <li><span class="parameter">value</span>
+
+
 
         </li>
     </ul>
@@ -314,11 +342,17 @@
     <ul>
         <li><span class="parameter">self</span>
 
+
+
         </li>
         <li><span class="parameter">name</span>
 
+
+
         </li>
         <li><span class="parameter">value</span>
+
+
 
         </li>
     </ul>
@@ -340,14 +374,22 @@
     <ul>
         <li><span class="parameter">self</span>
 
+
+
         </li>
         <li><span class="parameter">name</span>
+
+
 
         </li>
         <li><span class="parameter">bash_function</span>
 
+
+
         </li>
         <li><span class="parameter">csh_function</span>
+
+
 
         </li>
     </ul>
@@ -369,11 +411,17 @@
     <ul>
         <li><span class="parameter">self</span>
 
+
+
         </li>
         <li><span class="parameter">name</span>
 
+
+
         </li>
         <li><span class="parameter">value</span>
+
+
 
         </li>
     </ul>
@@ -395,8 +443,12 @@
     <ul>
         <li><span class="parameter">self</span>
 
+
+
         </li>
         <li><span class="parameter">mA</span>
+
+
 
         </li>
     </ul>
@@ -411,16 +463,23 @@
     <strong>MasterControl:execute (self, t)</strong>
     </dt>
     <dd>
-    MasterControl:execute() - place a string that will be executed when
-                           the output from Lmod eval'ed.
+
+<p>MasterControl:execute() - place a string that will be executed when</p>
+<pre><code>                       the output from Lmod eval'ed.
+</code></pre>
+
 
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">self</span>
 
+
+
         </li>
         <li><span class="parameter">t</span>
+
+
 
         </li>
     </ul>
@@ -441,6 +500,8 @@
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">self</span>
+
+
 
         </li>
         <li><span class="parameter">...</span>

@@ -128,15 +128,20 @@
 <h1>Module <code>serializeTbl</code></h1>
 <p>This collection of routines are used to convert a table into a string.</p>
 <p>
- This string is valid lua code. Note that this will only work for "DAG"
+
+<p> This string is valid lua code. Note that this will only work for "DAG"
  and not loops. There are more general solutions available but the
- output less attractive.  Since Lmod tables are DAG's this works fine.
+ output less attractive.  Since Lmod tables are DAG's this works fine.</p>
+
 <p> Typical usage:
-   Write to a file:
-      serializeTbl{indent=true, name="SomeName", value=luaTable,
-                   fn = "/path/to/file"}
-   Generate String:
-      s = serializeTbl{indent=true, name="SomeName", value=luaTable}
+   Write to a file:</p>
+<pre><code>  serializeTbl{indent=true, name="SomeName", value=luaTable,
+               fn = "/path/to/file"}
+</code></pre>
+<p>   Generate String:</p>
+<pre><code>  s = serializeTbl{indent=true, name="SomeName", value=luaTable}
+</code></pre>
+
 </p>
 
 

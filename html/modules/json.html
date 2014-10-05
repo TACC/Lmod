@@ -127,29 +127,33 @@
 
 <h1>Module <code>json</code></h1>
 <p>JSON4Lua: JSON encoding / decoding support for the Lua language.</p>
-<p>
- json Module.
+<p> json Module.
  Author: Craig Mason-Jones
  Homepage: http://json.luaforge.net/
  Version: 0.9.40
  This module is released under the MIT License (MIT).
- Please see LICENCE.txt for details.
+ Please see LICENCE.txt for details.</p>
+
 <p> USAGE:
  This module exposes two functions:
-   encode(o)
-     Returns the table / string / boolean / number / nil / json.null value as a JSON-encoded string.
-   decode(json_string)
-     Returns a Lua object populated with the data encoded in the JSON string json_string.
+   encode(o)</p>
+<pre><code> Returns the table / string / boolean / number / nil / json.null value as a JSON-encoded string.
+</code></pre>
+<p>   decode(json_string)</p>
+<pre><code> Returns a Lua object populated with the data encoded in the JSON string json_string.
+</code></pre>
+
 <p> REQUIREMENTS:
-   compat-5.1 if using Lua 5.0
+   compat-5.1 if using Lua 5.0</p>
+
 <p> CHANGELOG
-   0.9.20 Introduction of local Lua functions for private functions (removed _ function prefix).
-          Fixed Lua 5.1 compatibility issues.
-   		Introduced json.null to have null values in associative arrays.
-          encode() performance improvement (more than 50%) through table.concat rather than ..
-          Introduced decode ability to ignore /**/ comments in the JSON string.
-   0.9.10 Fix to array encoding / decoding to correctly manage nil/null values in arrays.
-</p>
+   0.9.20 Introduction of local Lua functions for private functions (removed _ function prefix).</p>
+<pre><code>      Fixed Lua 5.1 compatibility issues.
+    Introduced json.null to have null values in associative arrays.
+      encode() performance improvement (more than 50%) through table.concat rather than ..
+      Introduced decode ability to ignore /**/ comments in the JSON string.
+</code></pre>
+<p>   0.9.10 Fix to array encoding / decoding to correctly manage nil/null values in arrays.</p>
 
 
 <h2><a href="#Functions">Functions</a></h2>

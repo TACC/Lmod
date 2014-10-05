@@ -132,21 +132,23 @@
 <p>  That is when the module
  file is evaluated, it can only run a limited set of functions.
  This file provides for a default list of functions that can be
- run.  There is also a sandbox_registration so that sites using
+ run.  There is also a sandbox<em>registration so that sites using
  SitePackage can register their functions. Finally there are two
  versions of run function one for Lua 5.1 and another for Lua 5.2
- The appropriate version is assigned to [[sandbox_run]].
-</p>
+ The appropriate version is assigned to [[sandbox</em>run]].</p>
 
 
 <h2><a href="#Functions">Functions</a></h2>
 <table class="function_list">
 	<tr>
 	<td class="name" nowrap><a href="#sandbox_registration">sandbox_registration (t)</a></td>
-	<td class="summary">sandbox_registration(): Sites should call this function if they have
-                         functions inside their SitePackage.lua file for
-                         any functions that they want that are callable
-                         via their modulefiles.</td>
+	<td class="summary">
+<p>sandbox_registration(): Sites should call this function if they have</p>
+<pre><code>                     functions inside their SitePackage.lua file for
+                     any functions that they want that are callable
+                     via their modulefiles.
+</code></pre>
+</td>
 	</tr>
 </table>
 <h2><a href="#Tables">Tables</a></h2>
@@ -187,15 +189,20 @@
     <strong>sandbox_registration (t)</strong>
     </dt>
     <dd>
-    sandbox_registration(): Sites should call this function if they have
-                         functions inside their SitePackage.lua file for
-                         any functions that they want that are callable
-                         via their modulefiles.
+
+<p>sandbox_registration(): Sites should call this function if they have</p>
+<pre><code>                     functions inside their SitePackage.lua file for
+                     any functions that they want that are callable
+                     via their modulefiles.
+</code></pre>
+
 
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">t</span>
+
+
 
         </li>
     </ul>
@@ -220,68 +227,112 @@
     <ul>
         <li><span class="parameter">require</span>
 
+
+
         </li>
         <li><span class="parameter">ipairs</span>
+
+
 
         </li>
         <li><span class="parameter">next</span>
 
+
+
         </li>
         <li><span class="parameter">pairs</span>
+
+
 
         </li>
         <li><span class="parameter">pcall</span>
 
+
+
         </li>
         <li><span class="parameter">tonumber</span>
+
+
 
         </li>
         <li><span class="parameter">tostring</span>
 
+
+
         </li>
         <li><span class="parameter">type</span>
+
+
 
         </li>
         <li><span class="parameter">unpack</span>
 
+
+
         </li>
         <li><span class="parameter">string</span>
+
+
 
         </li>
         <li><span class="parameter">char</span>
 
+
+
         </li>
         <li><span class="parameter">find</span>
+
+
 
         </li>
         <li><span class="parameter">format</span>
 
+
+
         </li>
         <li><span class="parameter">gmatch</span>
+
+
 
         </li>
         <li><span class="parameter">gsub</span>
 
+
+
         </li>
         <li><span class="parameter">len</span>
+
+
 
         </li>
         <li><span class="parameter">lower</span>
 
+
+
         </li>
         <li><span class="parameter">match</span>
+
+
 
         </li>
         <li><span class="parameter">rep</span>
 
+
+
         </li>
         <li><span class="parameter">reverse</span>
+
+
 
         </li>
         <li><span class="parameter">sub</span>
 
+
+
         </li>
         <li><span class="parameter">upper</span>
+
+
 
         </li>
     </ul>
@@ -303,41 +354,67 @@
     <ul>
         <li><span class="parameter">attributes</span>
 
+
+
         </li>
         <li><span class="parameter">chdir</span>
+
+
 
         </li>
         <li><span class="parameter">lock_dir</span>
 
+
+
         </li>
         <li><span class="parameter">currentdir</span>
+
+
 
         </li>
         <li><span class="parameter">dir</span>
 
+
+
         </li>
         <li><span class="parameter">lock</span>
+
+
 
         </li>
         <li><span class="parameter">mkdir</span>
 
-        </li>
-        <li><span class="parameter">rmdir</span>
+
 
         </li>
         <li><span class="parameter">rmdir</span>
+
+
+
+        </li>
+        <li><span class="parameter">rmdir</span>
+
+
 
         </li>
         <li><span class="parameter">setmode</span>
 
+
+
         </li>
         <li><span class="parameter">symlinkattributes</span>
+
+
 
         </li>
         <li><span class="parameter">touch</span>
 
+
+
         </li>
         <li><span class="parameter">unlock</span>
+
+
 
         </li>
     </ul>
@@ -359,23 +436,37 @@
     <ul>
         <li><span class="parameter">uname</span>
 
+
+
         </li>
         <li><span class="parameter">setenv</span>
+
+
 
         </li>
         <li><span class="parameter">hostid</span>
 
+
+
         </li>
         <li><span class="parameter">open</span>
+
+
 
         </li>
         <li><span class="parameter">openlog</span>
 
+
+
         </li>
         <li><span class="parameter">closelog</span>
 
+
+
         </li>
         <li><span class="parameter">syslog</span>
+
+
 
         </li>
     </ul>

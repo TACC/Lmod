@@ -132,8 +132,7 @@
 <p>  It is responsible finding and loading or unloading a
  modulefile.  It is also responsible for reloading modules when
  the module path changes.  Finally it is responsible for finding
- modulefiles for "avail"
-</p>
+ modulefiles for "avail"</p>
 
 
 <h2><a href="#Tables">Tables</a></h2>
@@ -222,8 +221,12 @@
     <ul>
         <li><span class="parameter">self</span>
 
+
+
         </li>
         <li><span class="parameter">safe</span>
+
+
 
         </li>
     </ul>
@@ -240,7 +243,7 @@
     <dd>
     This member function is engine that runs the user
  commands "help", "whatis" and "show".   In each case
- mcp is set to MC_Access, MC_Access and MC_Show,
+ mcp is set to MC<em>Access, MC</em>Access and MC_Show,
  respectively.  Using that value of mcp, the
  modulefile is found and evaluated by loadModuleFile.
  This causes the help, or whatis or showing the
@@ -251,8 +254,12 @@
     <ul>
         <li><span class="parameter">self</span>
 
+
+
         </li>
         <li><span class="parameter">...</span>
+
+
 
         </li>
     </ul>
@@ -292,6 +299,8 @@
     <ul>
         <li><span class="parameter">mA</span>
 
+
+
         </li>
     </ul>
 
@@ -327,7 +336,7 @@
     Loop over all modules in MT to see if they still
  can be seen.   We check every active module to see
  if the file associated with loaded module is the
- same as [[find_module_file()]] reports.  If not
+ same as [[find<em>module</em>file()]] reports.  If not
  then it is unloaded and an attempt is made to reload
  it.  Each inactive module is re-loaded if possible.
 
@@ -343,8 +352,11 @@
     <strong>Master:safeToUpdate ()</strong>
     </dt>
     <dd>
-    Master:safeToUpdate() - [[safe]] is set during ctor.  It is controlled
-                         by the command table in lmod.
+
+<p>Master:safeToUpdate() - [[safe]] is set during ctor.  It is controlled</p>
+<pre><code>                     by the command table in lmod.
+</code></pre>
+
 
 
 
@@ -364,6 +376,8 @@
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">mA</span>
+
+
 
         </li>
     </ul>
@@ -385,6 +399,8 @@
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">argA</span>
+
+
 
         </li>
     </ul>

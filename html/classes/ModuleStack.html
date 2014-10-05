@@ -128,12 +128,15 @@
 <h1>Class <code>ModuleStack</code></h1>
 <p>ModuleStack class:  This is a singleton class that is use to keep
   track of the modules that are currently loaded.</p>
-<p>  It has two jobs:
-<p>     a) Remember the name and filename for each module that is being
-        loaded.
-     b) Keep track of whether a module is a manager or worker bee.
-        A manager module is also a meta-module.  This means it loads
-        other modules.  A worker-bee module does not.
+<p>  It has two jobs:</p>
+
+<pre><code> a) Remember the name and filename for each module that is being
+    loaded.
+ b) Keep track of whether a module is a manager or worker bee.
+    A manager module is also a meta-module.  This means it loads
+    other modules.  A worker-bee module does not.
+</code></pre>
+
 <p>  This is important to know because a module that does both loads and
   changes the environment can not be stored in a user defined
   collective.  This is how myModuleFullName() and myFileName() gets
@@ -153,8 +156,11 @@
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#ModuleStack:pop">ModuleStack:pop (self)</a></td>
-	<td class="summary">ModuleStack:pop(): pop the module off the stack when loading is
-                    complete.</td>
+	<td class="summary">
+<p>ModuleStack:pop(): pop the module off the stack when loading is</p>
+<pre><code>                complete.
+</code></pre>
+</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#ModuleStack:empty">ModuleStack:empty (self)</a></td>
@@ -162,28 +168,43 @@
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#ModuleStack:fullName">ModuleStack:fullName (self)</a></td>
-	<td class="summary">ModuleStack:fullName(): return the full module name for modulefile at
-                         the top of the stack.</td>
+	<td class="summary">
+<p>ModuleStack:fullName(): return the full module name for modulefile at</p>
+<pre><code>                     the top of the stack.
+</code></pre>
+</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#ModuleStack:sn">ModuleStack:sn (self)</a></td>
-	<td class="summary">ModuleStack:sn(): return the short module name for modulefile at
-                   the top of the stack.</td>
+	<td class="summary">
+<p>ModuleStack:sn(): return the short module name for modulefile at</p>
+<pre><code>               the top of the stack.
+</code></pre>
+</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#ModuleStack:usrName">ModuleStack:usrName (self)</a></td>
-	<td class="summary">ModuleStack:usrName(): return the name specified by the user for
-                        modulefile at the top of the stack.</td>
+	<td class="summary">
+<p>ModuleStack:usrName(): return the name specified by the user for</p>
+<pre><code>                    modulefile at the top of the stack.
+</code></pre>
+</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#ModuleStack:version">ModuleStack:version (self)</a></td>
-	<td class="summary">ModuleStack:version(): return the module version for modulefile at
-                        the top of the stack.</td>
+	<td class="summary">
+<p>ModuleStack:version(): return the module version for modulefile at</p>
+<pre><code>                    the top of the stack.
+</code></pre>
+</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#ModuleStack:fileName">ModuleStack:fileName (self)</a></td>
-	<td class="summary">ModuleStack:fileName(): return the file name for modulefile at
-                         the top of the stack.</td>
+	<td class="summary">
+<p>ModuleStack:fileName(): return the file name for modulefile at</p>
+<pre><code>                     the top of the stack.
+</code></pre>
+</td>
 	</tr>
 </table>
 
@@ -205,6 +226,8 @@
     <ul>
         <li><span class="parameter">self</span>
 
+
+
         </li>
     </ul>
 
@@ -225,17 +248,27 @@
     <ul>
         <li><span class="parameter">self</span>
 
+
+
         </li>
         <li><span class="parameter">full</span>
+
+
 
         </li>
         <li><span class="parameter">usrName</span>
 
+
+
         </li>
         <li><span class="parameter">sn</span>
 
+
+
         </li>
         <li><span class="parameter">fn</span>
+
+
 
         </li>
     </ul>
@@ -250,13 +283,18 @@
     <strong>ModuleStack:pop (self)</strong>
     </dt>
     <dd>
-    ModuleStack:pop(): pop the module off the stack when loading is
-                    complete.
+
+<p>ModuleStack:pop(): pop the module off the stack when loading is</p>
+<pre><code>                complete.
+</code></pre>
+
 
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">self</span>
+
+
 
         </li>
     </ul>
@@ -278,6 +316,8 @@
     <ul>
         <li><span class="parameter">self</span>
 
+
+
         </li>
     </ul>
 
@@ -291,13 +331,18 @@
     <strong>ModuleStack:fullName (self)</strong>
     </dt>
     <dd>
-    ModuleStack:fullName(): return the full module name for modulefile at
-                         the top of the stack.
+
+<p>ModuleStack:fullName(): return the full module name for modulefile at</p>
+<pre><code>                     the top of the stack.
+</code></pre>
+
 
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">self</span>
+
+
 
         </li>
     </ul>
@@ -312,13 +357,18 @@
     <strong>ModuleStack:sn (self)</strong>
     </dt>
     <dd>
-    ModuleStack:sn(): return the short module name for modulefile at
-                   the top of the stack.
+
+<p>ModuleStack:sn(): return the short module name for modulefile at</p>
+<pre><code>               the top of the stack.
+</code></pre>
+
 
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">self</span>
+
+
 
         </li>
     </ul>
@@ -333,13 +383,18 @@
     <strong>ModuleStack:usrName (self)</strong>
     </dt>
     <dd>
-    ModuleStack:usrName(): return the name specified by the user for
-                        modulefile at the top of the stack.
+
+<p>ModuleStack:usrName(): return the name specified by the user for</p>
+<pre><code>                    modulefile at the top of the stack.
+</code></pre>
+
 
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">self</span>
+
+
 
         </li>
     </ul>
@@ -354,13 +409,18 @@
     <strong>ModuleStack:version (self)</strong>
     </dt>
     <dd>
-    ModuleStack:version(): return the module version for modulefile at
-                        the top of the stack.
+
+<p>ModuleStack:version(): return the module version for modulefile at</p>
+<pre><code>                    the top of the stack.
+</code></pre>
+
 
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">self</span>
+
+
 
         </li>
     </ul>
@@ -375,13 +435,18 @@
     <strong>ModuleStack:fileName (self)</strong>
     </dt>
     <dd>
-    ModuleStack:fileName(): return the file name for modulefile at
-                         the top of the stack.
+
+<p>ModuleStack:fileName(): return the file name for modulefile at</p>
+<pre><code>                     the top of the stack.
+</code></pre>
+
 
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">self</span>
+
+
 
         </li>
     </ul>

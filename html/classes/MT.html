@@ -131,8 +131,7 @@
 <p>This class controls the ModuleTable.</p>
 <p>  The ModuleTable is how Lmod
  communicates what modules are loaded or inactive and so on between
- module commands.
-</p>
+ module commands.</p>
 
 
 <h2><a href="#Tables">Tables</a></h2>
@@ -146,9 +145,10 @@
 <table class="function_list">
 	<tr>
 	<td class="name" nowrap><a href="#MT._ModuleTable_">MT._ModuleTable_</a></td>
-	<td class="summary">Lmod License
-<p>
-  Lmod is licensed under the terms of the MIT license reproduced below.</td>
+	<td class="summary">Lmod License</p>
+
+
+<p>  Lmod is licensed under the terms of the MIT license reproduced below.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#s_mt.systemBaseMPATH">s_mt.systemBaseMPATH</a></td>
@@ -171,9 +171,12 @@
 <table class="function_list">
 	<tr>
 	<td class="name" nowrap><a href="#MT:_build_locationTbl">MT:_build_locationTbl (self, mpathA, adding, pathEntry)</a></td>
-	<td class="summary">_build_locationTbl(): Build [[locationT]] either by using [[moduleT]] if
-                      it exists or use [[buildAvailT]] to walk the
-                      directories.</td>
+	<td class="summary">
+<p><em>build</em>locationTbl(): Build [[locationT]] either by using [[moduleT]] if</p>
+<pre><code>                  it exists or use [[buildAvailT]] to walk the
+                  directories.
+</code></pre>
+</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#MT:convertMT">MT:convertMT (self, v1)</a></td>
@@ -201,8 +204,11 @@
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#MT:getMTfromFile">MT:getMTfromFile (self, t)</a></td>
-	<td class="summary">MT:getMTfromFile(): Read in a user collection of modules and make it
-                     the new value of [[s_mt]].</td>
+	<td class="summary">
+<p>MT:getMTfromFile(): Read in a user collection of modules and make it</p>
+<pre><code>                 the new value of [[s_mt]].
+</code></pre>
+</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#MT:resolveMpathChanges">MT:resolveMpathChanges (self, currentMPATH, baseMPATH)</a></td>
@@ -230,8 +236,11 @@
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#MT:setHashSum">MT:setHashSum (self)</a></td>
-	<td class="summary">MT:setHashSum(): Use [[computeHashSum]] to compute hash for each active
-                  module in MT.</td>
+	<td class="summary">
+<p>MT:setHashSum(): Use [[computeHashSum]] to compute hash for each active</p>
+<pre><code>              module in MT.
+</code></pre>
+</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#MT:add_property">MT:add_property (self, sn, name, value)</a></td>
@@ -255,8 +264,11 @@
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#MT:serializeTbl">MT:serializeTbl (self, state)</a></td>
-	<td class="summary">MT:serializeTbl(): A wrapper for serializeTbl and all the white space
-                   removed.</td>
+	<td class="summary">
+<p>MT:serializeTbl(): A wrapper for serializeTbl and all the white space</p>
+<pre><code>               removed.
+</code></pre>
+</td>
 	</tr>
 </table>
 
@@ -288,22 +300,28 @@
     <strong>MT._ModuleTable_</strong>
     </dt>
     <dd>
-    Lmod License
-<p>
-  Lmod is licensed under the terms of the MIT license reproduced below.
+    Lmod License</p>
+
+
+<p>  Lmod is licensed under the terms of the MIT license reproduced below.
   This means that Lmod is free software and can be used for both academic
-  and commercial purposes at absolutely no cost.
-<p>  ----------------------------------------------------------------------
-<p>  Copyright (C) 2008-2014 Robert McLay
+  and commercial purposes at absolutely no cost.</p>
+
+<hr/>
+
+<p>  Copyright (C) 2008-2014 Robert McLay</p>
+
 <p>  Permission is hereby granted, free of charge, to any person obtaining
   a copy of this software and associated documentation files (the
   "Software"), to deal in the Software without restriction, including
   without limitation the rights to use, copy, modify, merge, publish,
   distribute, sublicense, and/or sell copies of the Software, and to
   permit persons to whom the Software is furnished to do so, subject
-  to the following conditions:
+  to the following conditions:</p>
+
 <p>  The above copyright notice and this permission notice shall be
-  included in all copies or substantial portions of the Software.
+  included in all copies or substantial portions of the Software.</p>
+
 <p>  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
   EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
   OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
@@ -312,7 +330,6 @@
   ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
   CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
   THE SOFTWARE.
-<p>
 
 
 
@@ -393,23 +410,34 @@
     <strong>MT:_build_locationTbl (self, mpathA, adding, pathEntry)</strong>
     </dt>
     <dd>
-    _build_locationTbl(): Build [[locationT]] either by using [[moduleT]] if
-                      it exists or use [[buildAvailT]] to walk the
-                      directories.
+
+<p><em>build</em>locationTbl(): Build [[locationT]] either by using [[moduleT]] if</p>
+<pre><code>                  it exists or use [[buildAvailT]] to walk the
+                  directories.
+</code></pre>
+
 
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">self</span>
 
+
+
         </li>
         <li><span class="parameter">mpathA</span>
+
+
 
         </li>
         <li><span class="parameter">adding</span>
 
+
+
         </li>
         <li><span class="parameter">pathEntry</span>
+
+
 
         </li>
     </ul>
@@ -431,8 +459,12 @@
     <ul>
         <li><span class="parameter">self</span>
 
+
+
         </li>
         <li><span class="parameter">v1</span>
+
+
 
         </li>
     </ul>
@@ -454,6 +486,8 @@
     <ul>
         <li><span class="parameter">self</span>
 
+
+
         </li>
     </ul>
 
@@ -467,16 +501,21 @@
     <strong>MT:mt (self)</strong>
     </dt>
     <dd>
-    MT:mt(): Public access to MT function.   For the most part this is a
-          singleton class.  The trouble is that there is a stack of
-          MT on certain occations.  So this member function will construct
-          one, then clone itself.  This way there is an original one for
-          later comparison.
+
+<p>MT:mt(): Public access to MT function.   For the most part this is a</p>
+<pre><code>      singleton class.  The trouble is that there is a stack of
+      MT on certain occations.  So this member function will construct
+      one, then clone itself.  This way there is an original one for
+      later comparison.
+</code></pre>
+
 
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">self</span>
+
+
 
         </li>
     </ul>
@@ -497,6 +536,8 @@
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">self</span>
+
+
 
         </li>
     </ul>
@@ -539,25 +580,34 @@
     <strong>MT:getMTfromFile (self, t)</strong>
     </dt>
     <dd>
-    MT:getMTfromFile(): Read in a user collection of modules and make it
-                     the new value of [[s_mt]].   This routine is probably
-                     too complicated by half.  The idea is that we read
-                     the collection to get the list of modules requested.
-                     We also need the base MODULEPATH as a replacement.
-<p>  To complicate things we must check for:
-    a) make sure that the hash values are the same between old and new.
-    b) make sure that the system base path has not changed.  To detect this
-       there are now two base modulepaths.  The system base modulepath is
-       the one when there is no _ModuleTable_ in the environment.  Then there
-       is a second one which contains any module use commands by the user.
+
+<p>MT:getMTfromFile(): Read in a user collection of modules and make it</p>
+<pre><code>                 the new value of [[s_mt]].   This routine is probably
+                 too complicated by half.  The idea is that we read
+                 the collection to get the list of modules requested.
+                 We also need the base MODULEPATH as a replacement.
+</code></pre>
+
+<p>  To complicate things we must check for:</p>
+<pre><code>a) make sure that the hash values are the same between old and new.
+b) make sure that the system base path has not changed.  To detect this
+   there are now two base modulepaths.  The system base modulepath is
+   the one when there is no _ModuleTable_ in the environment.  Then there
+   is a second one which contains any module use commands by the user.
+</code></pre>
+
 
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">self</span>
 
+
+
         </li>
         <li><span class="parameter">t</span>
+
+
 
         </li>
     </ul>
@@ -579,11 +629,17 @@
     <ul>
         <li><span class="parameter">self</span>
 
+
+
         </li>
         <li><span class="parameter">currentMPATH</span>
 
+
+
         </li>
         <li><span class="parameter">baseMPATH</span>
+
+
 
         </li>
     </ul>
@@ -602,14 +658,16 @@
  The idea is that when there is a change in MODULEPATH, MT:changePATH
  is called. Every time a module is loaded MT:beginOP() is called.
  Afterwards MT:endOP() is called.  The routine MT:safeToCheckZombies()
- returns true when the count is zero and self._changePATH is also true.
- It then changes self._changePATH to nil so future calls to
+ returns true when the count is zero and self.<em>changePATH is also true.
+ It then changes self.</em>changePATH to nil so future calls to
  safeToCheckZombies will be false.
 
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">self</span>
+
+
 
         </li>
     </ul>
@@ -631,8 +689,12 @@
     <ul>
         <li><span class="parameter">self</span>
 
+
+
         </li>
         <li><span class="parameter">key</span>
+
+
 
         </li>
     </ul>
@@ -654,11 +716,17 @@
     <ul>
         <li><span class="parameter">self</span>
 
+
+
         </li>
         <li><span class="parameter">t</span>
 
+
+
         </li>
         <li><span class="parameter">status</span>
+
+
 
         </li>
     </ul>
@@ -673,24 +741,35 @@
     <strong>MT:list (self, kind, status)</strong>
     </dt>
     <dd>
-    MT:list(): Return a array of modules currently in MT.   The list is
-            always sorted in loadOrder.
-<p> There are three kinds of returns for this member function.
-    mt:list("userName",...) returns an object containing an table
-                            which has the short, full, etc.
-    mt:list("both",...) returns the short and full name of
-    mt:list(... , ...) returns a simply array of names.
+
+<p>MT:list(): Return a array of modules currently in MT.   The list is</p>
+<pre><code>        always sorted in loadOrder.
+</code></pre>
+
+<p> There are three kinds of returns for this member function.</p>
+<pre><code>mt:list("userName",...) returns an object containing an table
+                        which has the short, full, etc.
+mt:list("both",...) returns the short and full name of
+mt:list(... , ...) returns a simply array of names.
+</code></pre>
+
 
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">self</span>
 
+
+
         </li>
         <li><span class="parameter">kind</span>
 
+
+
         </li>
         <li><span class="parameter">status</span>
+
+
 
         </li>
     </ul>
@@ -712,8 +791,12 @@
     <ul>
         <li><span class="parameter">self</span>
 
+
+
         </li>
         <li><span class="parameter">sn</span>
+
+
 
         </li>
     </ul>
@@ -728,13 +811,18 @@
     <strong>MT:setHashSum (self)</strong>
     </dt>
     <dd>
-    MT:setHashSum(): Use [[computeHashSum]] to compute hash for each active
-                  module in MT.
+
+<p>MT:setHashSum(): Use [[computeHashSum]] to compute hash for each active</p>
+<pre><code>              module in MT.
+</code></pre>
+
 
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">self</span>
+
+
 
         </li>
     </ul>
@@ -756,14 +844,22 @@
     <ul>
         <li><span class="parameter">self</span>
 
+
+
         </li>
         <li><span class="parameter">sn</span>
+
+
 
         </li>
         <li><span class="parameter">name</span>
 
+
+
         </li>
         <li><span class="parameter">value</span>
+
+
 
         </li>
     </ul>
@@ -785,14 +881,22 @@
     <ul>
         <li><span class="parameter">self</span>
 
+
+
         </li>
         <li><span class="parameter">sn</span>
+
+
 
         </li>
         <li><span class="parameter">name</span>
 
+
+
         </li>
         <li><span class="parameter">value</span>
+
+
 
         </li>
     </ul>
@@ -814,17 +918,27 @@
     <ul>
         <li><span class="parameter">self</span>
 
+
+
         </li>
         <li><span class="parameter">idx</span>
+
+
 
         </li>
         <li><span class="parameter">sn</span>
 
+
+
         </li>
         <li><span class="parameter">style</span>
 
+
+
         </li>
         <li><span class="parameter">legendT</span>
+
+
 
         </li>
     </ul>
@@ -839,22 +953,31 @@
     <strong>MT:userLoad (self, sn, usrName)</strong>
     </dt>
     <dd>
-    MT:userLoad(): Mark a module as having been loaded by user request.
-                This is used by MT:reportChanges() to not print. So
-                if a user does this:
-                   $ module swap mvapich2 mvapich2/1.9
-                Lmod will not report that mvapich2 has been reloaded.
+
+<p>MT:userLoad(): Mark a module as having been loaded by user request. </p>
+<pre><code>            This is used by MT:reportChanges() to not print. So
+            if a user does this:
+               $ module swap mvapich2 mvapich2/1.9
+            Lmod will not report that mvapich2 has been reloaded.
+</code></pre>
+
 
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">self</span>
 
+
+
         </li>
         <li><span class="parameter">sn</span>
 
+
+
         </li>
         <li><span class="parameter">usrName</span>
+
+
 
         </li>
     </ul>
@@ -869,15 +992,20 @@
     <strong>MT:reportChanges (self)</strong>
     </dt>
     <dd>
-    MT:reportChanges(): Compare the original MT with the current one.
-                     Report any modules that have become inactive or
-                     active.  Or report that a module has swapped or a
-                     version has changed.
+
+<p>MT:reportChanges(): Compare the original MT with the current one. </p>
+<pre><code>                 Report any modules that have become inactive or
+                 active.  Or report that a module has swapped or a
+                 version has changed.
+</code></pre>
+
 
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">self</span>
+
+
 
         </li>
     </ul>
@@ -892,16 +1020,23 @@
     <strong>MT:serializeTbl (self, state)</strong>
     </dt>
     <dd>
-    MT:serializeTbl(): A wrapper for serializeTbl and all the white space
-                   removed.
+
+<p>MT:serializeTbl(): A wrapper for serializeTbl and all the white space</p>
+<pre><code>               removed.
+</code></pre>
+
 
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">self</span>
 
+
+
         </li>
         <li><span class="parameter">state</span>
+
+
 
         </li>
     </ul>

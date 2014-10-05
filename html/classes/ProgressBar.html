@@ -127,16 +127,18 @@
 
 <h1>Class <code>ProgressBar</code></h1>
 <p>This class generates a progress bar.</p>
-<p>  To use do:
-<p>       local pb = ProgressBar:new{stream = io.stdout, max = N, barWidth=100}
-       for i = 1, N do
-          pb:progress(i)
-          -- stuff you want to show progress on.
-       end
+<p>  To use do:</p>
+
+<pre><code>   local pb = ProgressBar:new{stream = io.stdout, max = N, barWidth=100}
+   for i = 1, N do
+      pb:progress(i)
+      -- stuff you want to show progress on.
+   end
+</code></pre>
+
 <p> The design is to model a football field.
  The total size is given to the ctor.  There is a "+" for every 10%
- in progress and "|" at 50 and 100%.
-</p>
+ in progress and "|" at 50 and 100%.</p>
 
 
 <h2><a href="#Methods">Methods</a></h2>

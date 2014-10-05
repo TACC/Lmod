@@ -124,13 +124,19 @@
 <h1>Script <code>addto</code></h1>
 <p>addto:  Add to a path like environment variable.</p>
 <p>
-<p> Standard usage is Bash:
+
+
+<p> Standard usage is Bash:</p>
+
 <p> $ unset FOO
  $ export FOO=$(addto --append FOO a b c)
- $ echo "   FOO: %$FOO%"
-     FOO: %a:b:c%
- $ export FOO=$(addto --append FOO d e f); echo "   FOO: %$FOO%"
-     FOO: %a:b:c:d:e:f%</p>
+ $ echo "   FOO: %$FOO%"</p>
+<pre><code> FOO: %a:b:c%
+</code></pre>
+<p> $ export FOO=$(addto --append FOO d e f); echo "   FOO: %$FOO%"</p>
+<pre><code> FOO: %a:b:c:d:e:f%
+</code></pre>
+</p>
 
 
 
