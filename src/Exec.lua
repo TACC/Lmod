@@ -58,6 +58,10 @@ local function new(self)
    return o
 end
 
+--------------------------------------------------------------------------
+-- The Exec Singleton Ctor.
+-- @param self A Exec object
+-- @return a Exec Singleton object.
 function M.exec(self)
    if (not s_exec) then
       dbg.start{"Exec:exec()"}
@@ -67,6 +71,9 @@ function M.exec(self)
    return s_exec
 end
 
+--------------------------------------------------------------------------
+-- Register the command strings.
+-- @param self A Exec object
 function M.register(self, ...)
    local arg = { n = select('#',...), ...}
    local a   = self.a
@@ -78,6 +85,10 @@ function M.register(self, ...)
    end
 end
 
+--------------------------------------------------------------------------
+-- Send the registered commands to stdout so that they can be evalated
+-- by the module command.
+-- @param self A Exec object
 function M.expand(self)
    local a = self.a
 

@@ -115,6 +115,11 @@
   <li><a href="../scripts/spider.html">spider</a></li>
   <li><a href="../scripts/spiderCacheSupport.html">spiderCacheSupport</a></li>
 </ul>
+<h2>Topics</h2>
+<ul class="$(kind=='Topics' and '' or 'nowrap'">
+  <li><a href="../topics/01-introduction.md.html">01-introduction</a></li>
+  <li><a href="../topics/02-sys-admin-guide.md.html">02-sys-admin-guide</a></li>
+</ul>
 
 </div>
 
@@ -130,15 +135,15 @@
 <table class="function_list">
 	<tr>
 	<td class="name" nowrap><a href="#MC_Access:accessMode">MC_Access:accessMode (mode, value)</a></td>
-	<td class="summary">MC_Access:accessMode():  Set access mode to either help or whatis</td>
+	<td class="summary">Set access mode to either help or whatis</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#MC_Access:help">MC_Access:help (self, ...)</a></td>
-	<td class="summary">MC_Access:help(): print Help message when assessT is in help mode</td>
+	<td class="name" nowrap><a href="#MC_Access:help">MC_Access:help (self)</a></td>
+	<td class="summary">print Help message when assessT is in help mode</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#MC_Access:whatis">MC_Access:whatis (self, msg)</a></td>
-	<td class="summary">MC_Access:whatis(): print whatis message when assessT is whatis mode.</td>
+	<td class="summary">print whatis message when assessT is whatis mode.</td>
 	</tr>
 </table>
 
@@ -153,16 +158,16 @@
     <strong>MC_Access:accessMode (mode, value)</strong>
     </dt>
     <dd>
-    MC_Access:accessMode():  Set access mode to either help or whatis
+    Set access mode to either help or whatis
 
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">mode</span>
-
+         The type of access: help, or whatis.
         </li>
         <li><span class="parameter">value</span>
-
+         Either true or false
         </li>
     </ul>
 
@@ -173,19 +178,16 @@
 </dd>
     <dt>
     <a name = "MC_Access:help"></a>
-    <strong>MC_Access:help (self, ...)</strong>
+    <strong>MC_Access:help (self)</strong>
     </dt>
     <dd>
-    MC_Access:help(): print Help message when assessT is in help mode
+    print Help message when assessT is in help mode
 
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">self</span>
-
-        </li>
-        <li><span class="parameter">...</span>
-
+         MC_Access object
         </li>
     </ul>
 
@@ -199,16 +201,16 @@
     <strong>MC_Access:whatis (self, msg)</strong>
     </dt>
     <dd>
-    MC_Access:whatis(): print whatis message when assessT is whatis mode.
+    print whatis message when assessT is whatis mode.
 
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">self</span>
-
+         A MC_Access object.
         </li>
         <li><span class="parameter">msg</span>
-
+         The message string.
         </li>
     </ul>
 

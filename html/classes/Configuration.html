@@ -30,6 +30,10 @@
   <li><a href="../index.html">Index</a></li>
 </ul>
 
+<h2>Contents</h2>
+<ul>
+<li><a href="#Methods">Methods</a></li>
+</ul>
 
 
 <h2>Classes</h2>
@@ -111,21 +115,90 @@
   <li><a href="../scripts/spider.html">spider</a></li>
   <li><a href="../scripts/spiderCacheSupport.html">spiderCacheSupport</a></li>
 </ul>
+<h2>Topics</h2>
+<ul class="$(kind=='Topics' and '' or 'nowrap'">
+  <li><a href="../topics/01-introduction.md.html">01-introduction</a></li>
+  <li><a href="../topics/02-sys-admin-guide.md.html">02-sys-admin-guide</a></li>
+</ul>
 
 </div>
 
 <div id="content">
 
 <h1>Class <code>Configuration</code></h1>
-<p>Fix me</p>
+<p>Report how a site has configured Lmod.</p>
 <p></p>
 
 
+<h2><a href="#Methods">Methods</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#Configuration:configuration">Configuration:configuration (self)</a></td>
+	<td class="summary">A Configuration Singleton Ctor.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Configuration:report">Configuration:report (self)</a></td>
+	<td class="summary">Report the current configuration.</td>
+	</tr>
+</table>
 
 <br/>
 <br/>
 
 
+    <h2><a name="Methods"></a>Methods</h2>
+    <dl class="function">
+    <dt>
+    <a name = "Configuration:configuration"></a>
+    <strong>Configuration:configuration (self)</strong>
+    </dt>
+    <dd>
+    A Configuration Singleton Ctor.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+         A Configuration object.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        A Configuration Singleton.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Configuration:report"></a>
+    <strong>Configuration:report (self)</strong>
+    </dt>
+    <dd>
+    Report the current configuration.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+         A Configuration object
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        the configuration report as a single string.
+    </ol>
+
+
+
+
+</dd>
+</dl>
 
 
 </div> <!-- id="content" -->

@@ -32,7 +32,6 @@
 
 <h2>Contents</h2>
 <ul>
-<li><a href="#Fields">Fields</a></li>
 <li><a href="#Methods">Methods</a></li>
 </ul>
 
@@ -116,6 +115,11 @@
   <li><a href="../scripts/spider.html">spider</a></li>
   <li><a href="../scripts/spiderCacheSupport.html">spiderCacheSupport</a></li>
 </ul>
+<h2>Topics</h2>
+<ul class="$(kind=='Topics' and '' or 'nowrap'">
+  <li><a href="../topics/01-introduction.md.html">01-introduction</a></li>
+  <li><a href="../topics/02-sys-admin-guide.md.html">02-sys-admin-guide</a></li>
+</ul>
 
 </div>
 
@@ -130,38 +134,26 @@
 </p>
 
 
-<h2><a href="#Fields">Fields</a></h2>
-<table class="function_list">
-	<tr>
-	<td class="name" nowrap><a href="#MC_Spider.s_pat">MC_Spider.s_pat</a></td>
-	<td class="summary">MC_Spider:setenv(): Track "TACC_.*_LIB" environment variables or
-                     whatever the site is called.</td>
-	</tr>
-</table>
 <h2><a href="#Methods">Methods</a></h2>
 <table class="function_list">
 	<tr>
 	<td class="name" nowrap><a href="#MC_Spider:myFileName">MC_Spider:myFileName (self)</a></td>
-	<td class="summary">MC_Spider:myFileName(): use the moduleStack to return the filename
-                         of the modulefile.</td>
+	<td class="summary">use the moduleStack to return the filename of the modulefile.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#MC_Spider:myModuleFullName">MC_Spider:myModuleFullName (self)</a></td>
-	<td class="summary">MC_Spider:myModuleFullName(): use the moduleStack to return the full
-                               name of the module.</td>
+	<td class="summary">Use the moduleStack to return the full name of the module.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#MC_Spider:myModuleName">MC_Spider:myModuleName (self)</a></td>
-	<td class="summary">MC_Spider:myModuleName(): use the moduleStack to return the short
-                           name of the module.</td>
+	<td class="summary">Use the moduleStack to return the short name of the module.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#MC_Spider:myModuleVersion">MC_Spider:myModuleVersion (self)</a></td>
-	<td class="summary">MC_Spider:myModuleName(): use the moduleStack to return the version
-                           of the module.</td>
+	<td class="summary">Use the moduleStack to return the version of the module.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#MC_Spider:help">MC_Spider:help (self, ...)</a></td>
+	<td class="name" nowrap><a href="#MC_Spider:help">MC_Spider:help (self)</a></td>
 	<td class="summary">MC_Spider:help(): Collect the help message into moduleT</td>
 	</tr>
 	<tr>
@@ -169,20 +161,25 @@
 	<td class="summary">MC_Spider:whatis(): Collect the whatis messages into moduleT</td>
 	</tr>
 	<tr>
+	<td class="name" nowrap><a href="#MC_Spider:setenv">MC_Spider:setenv (self, name, value)</a></td>
+	<td class="summary">Track "TACC_.*_LIB" environment variables or whatever the site is
+ called.</td>
+	</tr>
+	<tr>
 	<td class="name" nowrap><a href="#MC_Spider:prepend_path">MC_Spider:prepend_path (self, t)</a></td>
-	<td class="summary">MC_Spider:prepend_path(): Pass-thru to Spider_append_path().</td>
+	<td class="summary">Pass-thru to Spider_append_path().</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#MC_Spider:append_path">MC_Spider:append_path (self, t)</a></td>
-	<td class="summary">MC_Spider:append_path(): Pass-thru to Spider_append_path().</td>
+	<td class="summary">Pass-thru to Spider_append_path().</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#MC_Spider:is_spider">MC_Spider:is_spider (self)</a></td>
-	<td class="summary">MC_Spider:is_spider: always return true.</td>
+	<td class="summary">Always return true.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#MC_Spider:add_property">MC_Spider:add_property (self, name, value)</a></td>
-	<td class="summary">MC_Spider:add_property: Copy the property to moduleT</td>
+	<td class="summary">Copy the property to moduleT</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#MC_Spider:remove_property">MC_Spider:remove_property (self, name, value)</a></td>
@@ -194,24 +191,6 @@
 <br/>
 
 
-    <h2><a name="Fields"></a>Fields</h2>
-    <dl class="function">
-    <dt>
-    <a name = "MC_Spider.s_pat"></a>
-    <strong>MC_Spider.s_pat</strong>
-    </dt>
-    <dd>
-    MC_Spider:setenv(): Track "TACC_.*_LIB" environment variables or
-                     whatever the site is called.
-
-
-
-
-
-
-
-</dd>
-</dl>
     <h2><a name="Methods"></a>Methods</h2>
     <dl class="function">
     <dt>
@@ -219,14 +198,13 @@
     <strong>MC_Spider:myFileName (self)</strong>
     </dt>
     <dd>
-    MC_Spider:myFileName(): use the moduleStack to return the filename
-                         of the modulefile.
+    use the moduleStack to return the filename of the modulefile.
 
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">self</span>
-
+         A MasterControl object.
         </li>
     </ul>
 
@@ -240,16 +218,15 @@
     <strong>MC_Spider:myModuleFullName (self)</strong>
     </dt>
     <dd>
-    MC_Spider:myModuleFullName(): use the moduleStack to return the full
-                               name of the module.   This is typically
-                               name/version.  For Spider we assume that
-                               the user name is the full name.
+    Use the moduleStack to return the full name of the module.   This is
+ typically name/version.  For Spider we assume that the user name is
+ the full name.
 
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">self</span>
-
+         A MasterControl object.
         </li>
     </ul>
 
@@ -263,14 +240,13 @@
     <strong>MC_Spider:myModuleName (self)</strong>
     </dt>
     <dd>
-    MC_Spider:myModuleName(): use the moduleStack to return the short
-                           name of the module.
+    Use the moduleStack to return the short name of the module.
 
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">self</span>
-
+         A MasterControl object.
         </li>
     </ul>
 
@@ -284,15 +260,14 @@
     <strong>MC_Spider:myModuleVersion (self)</strong>
     </dt>
     <dd>
-    MC_Spider:myModuleName(): use the moduleStack to return the version
-                           of the module.   For meta modules the version
-                           will be ""
+    Use the moduleStack to return the version of the module.   For meta
+ modules the version will be "".
 
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">self</span>
-
+         A MasterControl object.
         </li>
     </ul>
 
@@ -303,7 +278,7 @@
 </dd>
     <dt>
     <a name = "MC_Spider:help"></a>
-    <strong>MC_Spider:help (self, ...)</strong>
+    <strong>MC_Spider:help (self)</strong>
     </dt>
     <dd>
     MC_Spider:help(): Collect the help message into moduleT
@@ -312,10 +287,7 @@
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">self</span>
-
-        </li>
-        <li><span class="parameter">...</span>
-
+         A MasterControl object.
         </li>
     </ul>
 
@@ -335,10 +307,37 @@
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">self</span>
-
+         A MasterControl object.
         </li>
         <li><span class="parameter">s</span>
+         whatis string.
+        </li>
+    </ul>
 
+
+
+
+
+</dd>
+    <dt>
+    <a name = "MC_Spider:setenv"></a>
+    <strong>MC_Spider:setenv (self, name, value)</strong>
+    </dt>
+    <dd>
+    Track "TACC_.*_LIB" environment variables or whatever the site is
+ called.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+         A MasterControl object.
+        </li>
+        <li><span class="parameter">name</span>
+         the environment variable name.
+        </li>
+        <li><span class="parameter">value</span>
+         the environment variable value.
         </li>
     </ul>
 
@@ -352,16 +351,16 @@
     <strong>MC_Spider:prepend_path (self, t)</strong>
     </dt>
     <dd>
-    MC_Spider:prepend_path(): Pass-thru to Spider_append_path().
+    Pass-thru to Spider_append_path().
 
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">self</span>
-
+         A MasterControl object.
         </li>
         <li><span class="parameter">t</span>
-
+         input table.
         </li>
     </ul>
 
@@ -375,16 +374,16 @@
     <strong>MC_Spider:append_path (self, t)</strong>
     </dt>
     <dd>
-    MC_Spider:append_path(): Pass-thru to Spider_append_path().
+    Pass-thru to Spider_append_path().
 
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">self</span>
-
+         A MasterControl object.
         </li>
         <li><span class="parameter">t</span>
-
+         input table.
         </li>
     </ul>
 
@@ -398,13 +397,13 @@
     <strong>MC_Spider:is_spider (self)</strong>
     </dt>
     <dd>
-    MC_Spider:is_spider: always return true.
+    Always return true.
 
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">self</span>
-
+         A MasterControl object.
         </li>
     </ul>
 
@@ -418,19 +417,19 @@
     <strong>MC_Spider:add_property (self, name, value)</strong>
     </dt>
     <dd>
-    MC_Spider:add_property: Copy the property to moduleT
+    Copy the property to moduleT
 
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">self</span>
-
+         A MasterControl object.
         </li>
         <li><span class="parameter">name</span>
-
+         the property name.
         </li>
         <li><span class="parameter">value</span>
-
+         the value.
         </li>
     </ul>
 
@@ -450,13 +449,13 @@
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">self</span>
-
+         A MasterControl object.
         </li>
         <li><span class="parameter">name</span>
-
+         the of the property.
         </li>
         <li><span class="parameter">value</span>
-
+         the value.
         </li>
     </ul>
 

@@ -63,8 +63,9 @@ local validT =
 }
 
 --------------------------------------------------------------------------
--- Hook:register(): Checks for a valid hook name and stores it if valid.
-
+-- Checks for a valid hook name and stores it if valid.
+-- @param name The name of the hook.
+-- @param func The function to store with it.
 function M.register(name, func)
    if (validT[name] ~= nil) then
       validT[name] = func
@@ -75,9 +76,9 @@ function M.register(name, func)
 end
 
 --------------------------------------------------------------------------
--- Hook:apply():  If a valid hook function has been registered then apply
---                it.
-
+-- If a valid hook function has been registered then apply it.
+-- @param name The name of the hook.
+-- @return the results of the hook if it exists.
 function M.apply(name, ...)
    if (validT[name]) then
       return validT[name](...)

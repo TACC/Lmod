@@ -81,11 +81,9 @@ M.unset_shell_function = MasterControl.quiet
 M.usrload              = MasterControl.quiet
 M.warning              = MasterControl.warning
 
-
 --------------------------------------------------------------------------
--- MC_Spider:myFileName(): use the moduleStack to return the filename
---                         of the modulefile.
-
+-- use the moduleStack to return the filename of the modulefile.
+-- @param self A MasterControl object.
 function M.myFileName(self)
    local masterTbl   = masterTbl()
    local moduleStack = masterTbl.moduleStack
@@ -94,11 +92,10 @@ function M.myFileName(self)
 end
 
 --------------------------------------------------------------------------
--- MC_Spider:myModuleFullName(): use the moduleStack to return the full
---                               name of the module.  This is typically
---                               name/version.  For Spider we assume that
---                               the user name is the full name.
-
+-- Use the moduleStack to return the full name of the module.  This is
+-- typically name/version.  For Spider we assume that the user name is
+-- the full name.
+-- @param self A MasterControl object.
 function M.myModuleFullName(self)
    local masterTbl   = masterTbl()
    local moduleStack = masterTbl.moduleStack
@@ -109,9 +106,8 @@ end
 M.myModuleUsrName = M.myModuleFullName
 
 --------------------------------------------------------------------------
--- MC_Spider:myModuleName(): use the moduleStack to return the short
---                           name of the module.
-
+-- Use the moduleStack to return the short name of the module.
+-- @param self A MasterControl object.
 function M.myModuleName(self)
    local masterTbl   = masterTbl()
    local moduleStack = masterTbl.moduleStack
@@ -120,10 +116,9 @@ function M.myModuleName(self)
 end
 
 --------------------------------------------------------------------------
--- MC_Spider:myModuleName(): use the moduleStack to return the version
---                           of the module.  For meta modules the version
---                           will be ""
-
+-- Use the moduleStack to return the version of the module.  For meta
+-- modules the version will be "".
+-- @param self A MasterControl object.
 function M.myModuleVersion(self)
    local masterTbl   = masterTbl()
    local moduleStack = masterTbl.moduleStack
@@ -135,7 +130,7 @@ end
 
 --------------------------------------------------------------------------
 -- MC_Spider:help(): Collect the help message into moduleT
-
+-- @param self A MasterControl object.
 function M.help(self,...)
    dbg.start{"MC_Spider:help(...)"}
    local masterTbl    = masterTbl()
@@ -150,7 +145,8 @@ end
 
 --------------------------------------------------------------------------
 -- MC_Spider:whatis(): Collect the whatis messages into moduleT
-
+-- @param self A MasterControl object.
+-- @param s whatis string.
 function M.whatis(self,s)
    dbg.start{"MC_Spider:whatis(...)"}
    local masterTbl   = masterTbl()
@@ -172,11 +168,13 @@ function M.whatis(self,s)
    return true
 end
 
---------------------------------------------------------------------------
--- MC_Spider:setenv(): Track "TACC_.*_LIB" environment variables or
---                     whatever the site is called.
-
 s_pat = false
+--------------------------------------------------------------------------
+-- Track "TACC_.*_LIB" environment variables or whatever the site is
+-- called.
+-- @param self A MasterControl object.
+-- @param name the environment variable name.
+-- @param value the environment variable value.
 function M.setenv(self, name, value)
    dbg.start{"MC_Spider:setenv(name, value)"}
 
@@ -196,8 +194,9 @@ function M.setenv(self, name, value)
 end
 
 --------------------------------------------------------------------------
--- MC_Spider:prepend_path(): Pass-thru to Spider_append_path().
-
+-- Pass-thru to Spider_append_path().
+-- @param self A MasterControl object.
+-- @param t input table.
 function M.prepend_path(self,t)
    dbg.start{"MC_Spider:prepend_path(t)"}
    Spider_append_path("prepend",t)
@@ -207,8 +206,9 @@ function M.prepend_path(self,t)
 end
 
 --------------------------------------------------------------------------
--- MC_Spider:append_path(): Pass-thru to Spider_append_path().
-
+-- Pass-thru to Spider_append_path().
+-- @param self A MasterControl object.
+-- @param t input table.
 function M.append_path(self,t)
    dbg.start{"MC_Spider:append_path(t)"}
    Spider_append_path("append",t)
@@ -217,8 +217,8 @@ function M.append_path(self,t)
 end
 
 --------------------------------------------------------------------------
--- MC_Spider:is_spider: always return true.
-
+-- Always return true.
+-- @param self A MasterControl object.
 function M.is_spider(self)
    dbg.start{"MC_Spider:is_spider()"}
    dbg.fini()
@@ -226,8 +226,10 @@ function M.is_spider(self)
 end
 
 --------------------------------------------------------------------------
--- MC_Spider:add_property: Copy the property to moduleT
-
+-- Copy the property to moduleT
+-- @param self A MasterControl object.
+-- @param name the property name.
+-- @param value the value.
 function M.add_property(self, name, value)
    dbg.start{"MC_Spider:add_property(name=\"",name,"\", value=\"",value,"\")"}
    local masterTbl     = masterTbl()
@@ -245,8 +247,10 @@ end
 
 --------------------------------------------------------------------------
 -- MC_Spider:remove_property: Remove the property to moduleT
-
-function M.remove_property(self,name, value)
+-- @param self A MasterControl object.
+-- @param name the of the property.
+-- @param value the value.
+function M.remove_property(self, name, value)
    dbg.start{"MC_Spider:remove_property(name=\"",name,"\", value=\"",value,"\")"}
    local masterTbl     = masterTbl()
    local moduleStack   = masterTbl.moduleStack

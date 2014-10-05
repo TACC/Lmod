@@ -30,6 +30,10 @@
   <li><a href="../index.html">Index</a></li>
 </ul>
 
+<h2>Contents</h2>
+<ul>
+<li><a href="#Methods">Methods</a></li>
+</ul>
 
 
 <h2>Classes</h2>
@@ -111,6 +115,11 @@
   <li><a href="../scripts/spider.html">spider</a></li>
   <li><a href="../scripts/spiderCacheSupport.html">spiderCacheSupport</a></li>
 </ul>
+<h2>Topics</h2>
+<ul class="$(kind=='Topics' and '' or 'nowrap'">
+  <li><a href="../topics/01-introduction.md.html">01-introduction</a></li>
+  <li><a href="../topics/02-sys-admin-guide.md.html">02-sys-admin-guide</a></li>
+</ul>
 
 </div>
 
@@ -123,11 +132,96 @@
  have been reported.</p>
 
 
+<h2><a href="#Methods">Methods</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#Exec:exec">Exec:exec (self)</a></td>
+	<td class="summary">The Exec Singleton Ctor.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Exec:register">Exec:register (self)</a></td>
+	<td class="summary">Register the command strings.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Exec:expand">Exec:expand (self)</a></td>
+	<td class="summary">Send the registered commands to stdout so that they can be evalated
+ by the module command.</td>
+	</tr>
+</table>
 
 <br/>
 <br/>
 
 
+    <h2><a name="Methods"></a>Methods</h2>
+    <dl class="function">
+    <dt>
+    <a name = "Exec:exec"></a>
+    <strong>Exec:exec (self)</strong>
+    </dt>
+    <dd>
+    The Exec Singleton Ctor.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+         A Exec object
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        a Exec Singleton object.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Exec:register"></a>
+    <strong>Exec:register (self)</strong>
+    </dt>
+    <dd>
+    Register the command strings.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+         A Exec object
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Exec:expand"></a>
+    <strong>Exec:expand (self)</strong>
+    </dt>
+    <dd>
+    Send the registered commands to stdout so that they can be evalated
+ by the module command.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+         A Exec object
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+</dl>
 
 
 </div> <!-- id="content" -->

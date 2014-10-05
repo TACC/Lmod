@@ -30,6 +30,10 @@
   <li><a href="../index.html">Index</a></li>
 </ul>
 
+<h2>Contents</h2>
+<ul>
+<li><a href="#Methods">Methods</a></li>
+</ul>
 
 
 <h2>Classes</h2>
@@ -111,6 +115,11 @@
   <li><a href="../scripts/spider.html">spider</a></li>
   <li><a href="../scripts/spiderCacheSupport.html">spiderCacheSupport</a></li>
 </ul>
+<h2>Topics</h2>
+<ul class="$(kind=='Topics' and '' or 'nowrap'">
+  <li><a href="../topics/01-introduction.md.html">01-introduction</a></li>
+  <li><a href="../topics/02-sys-admin-guide.md.html">02-sys-admin-guide</a></li>
+</ul>
 
 </div>
 
@@ -122,11 +131,719 @@
 <p></p>
 
 
+<h2><a href="#Methods">Methods</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#MC_Show:help">MC_Show:help (self)</a></td>
+	<td class="summary">Print help command.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MC_Show:whatis">MC_Show:whatis (self, value)</a></td>
+	<td class="summary">Print whatis command.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MC_Show:execute">MC_Show:execute (self, t)</a></td>
+	<td class="summary">Print execute command.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MC_Show:prepend_path">MC_Show:prepend_path (self, t)</a></td>
+	<td class="summary">Print prepend_path command.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MC_Show:add_property">MC_Show:add_property (self, name, value)</a></td>
+	<td class="summary">Print add_property command.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MC_Show:remove_property">MC_Show:remove_property (self, name, value)</a></td>
+	<td class="summary">Print set_alias command.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MC_Show:message">MC_Show:message (self)</a></td>
+	<td class="summary">Print message command.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MC_Show:set_alias">MC_Show:set_alias (self, name, value)</a></td>
+	<td class="summary">Print set_alias command.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MC_Show:pushenv">MC_Show:pushenv (self, name, value)</a></td>
+	<td class="summary">Print pushenv command.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MC_Show:unset_alias">MC_Show:unset_alias (self, name)</a></td>
+	<td class="summary">Print unset_alias command.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MC_Show:append_path">MC_Show:append_path (self, t)</a></td>
+	<td class="summary">Print append_path command.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MC_Show:setenv">MC_Show:setenv (self, name, value)</a></td>
+	<td class="summary">Print setenv command.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MC_Show:unsetenv">MC_Show:unsetenv (self, name, value)</a></td>
+	<td class="summary">Print unsetenv command.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MC_Show:remove_path">MC_Show:remove_path (self, t)</a></td>
+	<td class="summary">Print remove_path command.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MC_Show:load">MC_Show:load (self, mA)</a></td>
+	<td class="summary">Print load command.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MC_Show:try_load">MC_Show:try_load (self, mA)</a></td>
+	<td class="summary">Print try_load command.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MC_Show:inherit">MC_Show:inherit (self)</a></td>
+	<td class="summary">Print inherit command.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MC_Show:family">MC_Show:family (self)</a></td>
+	<td class="summary">Print family command.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MC_Show:unload">MC_Show:unload (self, mA)</a></td>
+	<td class="summary">Print unload command.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MC_Show:always_load">MC_Show:always_load (self, mA)</a></td>
+	<td class="summary">Print alway_load command.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MC_Show:always_unload">MC_Show:always_unload (self, mA)</a></td>
+	<td class="summary">Print always_unload command.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MC_Show:prereq">MC_Show:prereq (self, mA)</a></td>
+	<td class="summary">Print prereq command.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MC_Show:prereq_any">MC_Show:prereq_any (self, mA)</a></td>
+	<td class="summary">Print prereq_any command.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MC_Show:conflict">MC_Show:conflict (self, mA)</a></td>
+	<td class="summary">Print conflict command.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MC_Show:set_shell_function">MC_Show:set_shell_function (self)</a></td>
+	<td class="summary">Print set shell function</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MC_Show:unset_shell_function">MC_Show:unset_shell_function (self)</a></td>
+	<td class="summary">Print unset shell function</td>
+	</tr>
+</table>
 
 <br/>
 <br/>
 
 
+    <h2><a name="Methods"></a>Methods</h2>
+    <dl class="function">
+    <dt>
+    <a name = "MC_Show:help"></a>
+    <strong>MC_Show:help (self)</strong>
+    </dt>
+    <dd>
+    Print help command.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+         A MasterControl object
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "MC_Show:whatis"></a>
+    <strong>MC_Show:whatis (self, value)</strong>
+    </dt>
+    <dd>
+    Print whatis command.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+         A MasterControl object
+        </li>
+        <li><span class="parameter">value</span>
+         the whatis string.
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "MC_Show:execute"></a>
+    <strong>MC_Show:execute (self, t)</strong>
+    </dt>
+    <dd>
+    Print execute command.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+         A MasterControl object.
+        </li>
+        <li><span class="parameter">t</span>
+         Input table describing shell command.
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "MC_Show:prepend_path"></a>
+    <strong>MC_Show:prepend_path (self, t)</strong>
+    </dt>
+    <dd>
+    Print prepend_path command.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+         A MasterControl object
+        </li>
+        <li><span class="parameter">t</span>
+         input table
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "MC_Show:add_property"></a>
+    <strong>MC_Show:add_property (self, name, value)</strong>
+    </dt>
+    <dd>
+    Print add_property command.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+         A MasterControl object.
+        </li>
+        <li><span class="parameter">name</span>
+         the environment variable name.
+        </li>
+        <li><span class="parameter">value</span>
+         the environment variable value.
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "MC_Show:remove_property"></a>
+    <strong>MC_Show:remove_property (self, name, value)</strong>
+    </dt>
+    <dd>
+    Print set_alias command.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+         A MasterControl object.
+        </li>
+        <li><span class="parameter">name</span>
+         the environment variable name.
+        </li>
+        <li><span class="parameter">value</span>
+         the environment variable value.
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "MC_Show:message"></a>
+    <strong>MC_Show:message (self)</strong>
+    </dt>
+    <dd>
+    Print message command.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+         A MasterControl object.
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "MC_Show:set_alias"></a>
+    <strong>MC_Show:set_alias (self, name, value)</strong>
+    </dt>
+    <dd>
+    Print set_alias command.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+         A MasterControl object.
+        </li>
+        <li><span class="parameter">name</span>
+         the environment variable name.
+        </li>
+        <li><span class="parameter">value</span>
+         the environment variable value.
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "MC_Show:pushenv"></a>
+    <strong>MC_Show:pushenv (self, name, value)</strong>
+    </dt>
+    <dd>
+    Print pushenv command.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+         A MasterControl object.
+        </li>
+        <li><span class="parameter">name</span>
+         the environment variable name.
+        </li>
+        <li><span class="parameter">value</span>
+         the environment variable value.
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "MC_Show:unset_alias"></a>
+    <strong>MC_Show:unset_alias (self, name)</strong>
+    </dt>
+    <dd>
+    Print unset_alias command.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+         A MasterControl object
+        </li>
+        <li><span class="parameter">name</span>
+         the environment variable name.
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "MC_Show:append_path"></a>
+    <strong>MC_Show:append_path (self, t)</strong>
+    </dt>
+    <dd>
+    Print append_path command.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+         A MasterControl object
+        </li>
+        <li><span class="parameter">t</span>
+         input table
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "MC_Show:setenv"></a>
+    <strong>MC_Show:setenv (self, name, value)</strong>
+    </dt>
+    <dd>
+    Print setenv command.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+         A MasterControl object.
+        </li>
+        <li><span class="parameter">name</span>
+         the environment variable name.
+        </li>
+        <li><span class="parameter">value</span>
+         the environment variable value.
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "MC_Show:unsetenv"></a>
+    <strong>MC_Show:unsetenv (self, name, value)</strong>
+    </dt>
+    <dd>
+    Print unsetenv command.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+         A MasterControl object.
+        </li>
+        <li><span class="parameter">name</span>
+         the environment variable name.
+        </li>
+        <li><span class="parameter">value</span>
+         the environment variable value.
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "MC_Show:remove_path"></a>
+    <strong>MC_Show:remove_path (self, t)</strong>
+    </dt>
+    <dd>
+    Print remove_path command.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+         A MasterControl object
+        </li>
+        <li><span class="parameter">t</span>
+         input table
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "MC_Show:load"></a>
+    <strong>MC_Show:load (self, mA)</strong>
+    </dt>
+    <dd>
+    Print load command.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+         A MasterControl object
+        </li>
+        <li><span class="parameter">mA</span>
+         An array of module names (MName objects)
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "MC_Show:try_load"></a>
+    <strong>MC_Show:try_load (self, mA)</strong>
+    </dt>
+    <dd>
+    Print try_load command.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+         A MasterControl object
+        </li>
+        <li><span class="parameter">mA</span>
+         An array of module names (MName objects)
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "MC_Show:inherit"></a>
+    <strong>MC_Show:inherit (self)</strong>
+    </dt>
+    <dd>
+    Print inherit command.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+         A MasterControl object
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "MC_Show:family"></a>
+    <strong>MC_Show:family (self)</strong>
+    </dt>
+    <dd>
+    Print family command.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+         A MasterControl object
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "MC_Show:unload"></a>
+    <strong>MC_Show:unload (self, mA)</strong>
+    </dt>
+    <dd>
+    Print unload command.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+         A MasterControl object
+        </li>
+        <li><span class="parameter">mA</span>
+         An array of module names (MName objects)
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "MC_Show:always_load"></a>
+    <strong>MC_Show:always_load (self, mA)</strong>
+    </dt>
+    <dd>
+    Print alway_load command.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+         A MasterControl object
+        </li>
+        <li><span class="parameter">mA</span>
+         An array of module names (MName objects)
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "MC_Show:always_unload"></a>
+    <strong>MC_Show:always_unload (self, mA)</strong>
+    </dt>
+    <dd>
+    Print always_unload command.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+         A MasterControl object
+        </li>
+        <li><span class="parameter">mA</span>
+         An array of module names (MName objects)
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "MC_Show:prereq"></a>
+    <strong>MC_Show:prereq (self, mA)</strong>
+    </dt>
+    <dd>
+    Print prereq command.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+         A MasterControl object
+        </li>
+        <li><span class="parameter">mA</span>
+         An array of module names (MName objects)
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "MC_Show:prereq_any"></a>
+    <strong>MC_Show:prereq_any (self, mA)</strong>
+    </dt>
+    <dd>
+    Print prereq_any command.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+         A MasterControl object
+        </li>
+        <li><span class="parameter">mA</span>
+         An array of module names (MName objects)
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "MC_Show:conflict"></a>
+    <strong>MC_Show:conflict (self, mA)</strong>
+    </dt>
+    <dd>
+    Print conflict command.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+         A MasterControl object
+        </li>
+        <li><span class="parameter">mA</span>
+         An array of module names (MName objects)
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "MC_Show:set_shell_function"></a>
+    <strong>MC_Show:set_shell_function (self)</strong>
+    </dt>
+    <dd>
+    Print set shell function
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+         A MasterControl object
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "MC_Show:unset_shell_function"></a>
+    <strong>MC_Show:unset_shell_function (self)</strong>
+    </dt>
+    <dd>
+    Print unset shell function
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+         A MasterControl object
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+</dl>
 
 
 </div> <!-- id="content" -->

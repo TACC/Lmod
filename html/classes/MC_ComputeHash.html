@@ -30,6 +30,10 @@
   <li><a href="../index.html">Index</a></li>
 </ul>
 
+<h2>Contents</h2>
+<ul>
+<li><a href="#Methods">Methods</a></li>
+</ul>
 
 
 <h2>Classes</h2>
@@ -111,6 +115,11 @@
   <li><a href="../scripts/spider.html">spider</a></li>
   <li><a href="../scripts/spiderCacheSupport.html">spiderCacheSupport</a></li>
 </ul>
+<h2>Topics</h2>
+<ul class="$(kind=='Topics' and '' or 'nowrap'">
+  <li><a href="../topics/01-introduction.md.html">01-introduction</a></li>
+  <li><a href="../topics/02-sys-admin-guide.md.html">02-sys-admin-guide</a></li>
+</ul>
 
 </div>
 
@@ -126,7 +135,7 @@
  current is considered no-longer valid.
 <p> The way this works is that this class sets most Lmod functions to be
  quiet.  Mainly any loads, or changes to MODULEPATH generate output.
- This output is collect into the array [[ShowResultsA]].
+ This output is collect into the array *ShowResultsA*.
  Then the command computeHashSum takes that array output and computes
  either mdsum or sha1sum of the text.   When a collection is stored,
  this hash sum is computed.  When a collection is reloaded the hash sum
@@ -134,11 +143,284 @@
  the collection is no longer valid.</p>
 
 
+<h2><a href="#Methods">Methods</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#MC_ComputeHash:always_load">MC_ComputeHash:always_load (self, mA)</a></td>
+	<td class="summary">Print always_load and arguments</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MC_ComputeHash:always_unload">MC_ComputeHash:always_unload (self, mA)</a></td>
+	<td class="summary">Print always_unload and arguments</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MC_ComputeHash:prepend_path">MC_ComputeHash:prepend_path (self, t)</a></td>
+	<td class="summary">Print prepend_path command iff the env var.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MC_ComputeHash:append_path">MC_ComputeHash:append_path (self, t)</a></td>
+	<td class="summary">Print append_path command iff the env var.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MC_ComputeHash:remove_path">MC_ComputeHash:remove_path (self, t)</a></td>
+	<td class="summary">Print remove_path command iff the env var.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MC_ComputeHash:load">MC_ComputeHash:load (self, mA)</a></td>
+	<td class="summary">Print load command.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MC_ComputeHash:load_usr">MC_ComputeHash:load_usr (self, mA)</a></td>
+	<td class="summary">Print load command.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MC_ComputeHash:try_load">MC_ComputeHash:try_load (self, mA)</a></td>
+	<td class="summary">Print try_load command.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MC_ComputeHash:inherit">MC_ComputeHash:inherit (self)</a></td>
+	<td class="summary">Print the inherit command.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MC_ComputeHash:unload">MC_ComputeHash:unload (self, mA)</a></td>
+	<td class="summary">Print the unload command.</td>
+	</tr>
+</table>
 
 <br/>
 <br/>
 
 
+    <h2><a name="Methods"></a>Methods</h2>
+    <dl class="function">
+    <dt>
+    <a name = "MC_ComputeHash:always_load"></a>
+    <strong>MC_ComputeHash:always_load (self, mA)</strong>
+    </dt>
+    <dd>
+    Print always_load and arguments
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+         A MasterControl object
+        </li>
+        <li><span class="parameter">mA</span>
+         An array of module names (MName objects)
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "MC_ComputeHash:always_unload"></a>
+    <strong>MC_ComputeHash:always_unload (self, mA)</strong>
+    </dt>
+    <dd>
+    Print always_unload and arguments
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+         A MasterControl object
+        </li>
+        <li><span class="parameter">mA</span>
+         An array of module names (MName objects)
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "MC_ComputeHash:prepend_path"></a>
+    <strong>MC_ComputeHash:prepend_path (self, t)</strong>
+    </dt>
+    <dd>
+    Print prepend_path command iff the env var.  is MODULEPATH.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+         A MasterControl object
+        </li>
+        <li><span class="parameter">t</span>
+         input table
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "MC_ComputeHash:append_path"></a>
+    <strong>MC_ComputeHash:append_path (self, t)</strong>
+    </dt>
+    <dd>
+    Print append_path command iff the env var.  is MODULEPATH.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+         A MasterControl object
+        </li>
+        <li><span class="parameter">t</span>
+         input table
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "MC_ComputeHash:remove_path"></a>
+    <strong>MC_ComputeHash:remove_path (self, t)</strong>
+    </dt>
+    <dd>
+    Print remove_path command iff the env var.  is MODULEPATH.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+         A MasterControl object
+        </li>
+        <li><span class="parameter">t</span>
+         input table
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "MC_ComputeHash:load"></a>
+    <strong>MC_ComputeHash:load (self, mA)</strong>
+    </dt>
+    <dd>
+    Print load command.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+         A MasterControl object
+        </li>
+        <li><span class="parameter">mA</span>
+         An array of module names (MName objects)
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "MC_ComputeHash:load_usr"></a>
+    <strong>MC_ComputeHash:load_usr (self, mA)</strong>
+    </dt>
+    <dd>
+    Print load command.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+         A MasterControl object
+        </li>
+        <li><span class="parameter">mA</span>
+         An array of module names (MName objects)
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "MC_ComputeHash:try_load"></a>
+    <strong>MC_ComputeHash:try_load (self, mA)</strong>
+    </dt>
+    <dd>
+    Print try_load command.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+         A MasterControl object
+        </li>
+        <li><span class="parameter">mA</span>
+         An array of module names (MName objects)
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "MC_ComputeHash:inherit"></a>
+    <strong>MC_ComputeHash:inherit (self)</strong>
+    </dt>
+    <dd>
+    Print the inherit command.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+         A MasterControl object
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "MC_ComputeHash:unload"></a>
+    <strong>MC_ComputeHash:unload (self, mA)</strong>
+    </dt>
+    <dd>
+    Print the unload command.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+         A MasterControl object
+        </li>
+        <li><span class="parameter">mA</span>
+         An array of module names (MName objects)
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+</dl>
 
 
 </div> <!-- id="content" -->

@@ -38,11 +38,6 @@ require("strict")
 --
 --------------------------------------------------------------------------
 
---------------------------------------------------------------------------
--- Loading a module causes all the commands to act in the positive.
-
-
-
 local MC_Load          = inheritsFrom(MasterControl)
 local M                = MC_Load
 local dbg              = require("Dbg"):dbg()

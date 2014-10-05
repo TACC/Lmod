@@ -5,3 +5,4 @@ dir = 'html'
 use_markdown_titles = true
 sort_modules = true
 file = { "tools", "src",  }
+topics = {"doc/01-introduction.md", "doc/02-sys-admin-guide.md"}

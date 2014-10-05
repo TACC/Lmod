@@ -1,5 +1,6 @@
 --------------------------------------------------------------------------
--- fixme
+-- This is used to load all modulefiles when doing module collection
+-- restore.
 -- @classmod MC_MgrLoad
 
 require("strict")

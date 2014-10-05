@@ -58,15 +58,16 @@ local M               = MC_Access
 M.accessT = { help = false, whatis = false}
 
 --------------------------------------------------------------------------
--- MC_Access:accessMode():  Set access mode to either help or whatis
-
+-- Set access mode to either help or whatis
+-- @param mode The type of access: help, or whatis.
+-- @param value Either true or false
 function M.accessMode(mode, value)
    M.accessT[mode] = value
 end
 
 --------------------------------------------------------------------------
--- MC_Access:help(): print Help message when assessT is in help mode
-
+-- print Help message when assessT is in help mode
+-- @param self MC_Access object
 function M.help(self, ...)
    local arg = { n = select('#', ...), ...}
    if (M.accessT.help == true) then
@@ -78,8 +79,9 @@ function M.help(self, ...)
 end
 
 --------------------------------------------------------------------------
--- MC_Access:whatis(): print whatis message when assessT is whatis mode.
-
+-- print whatis message when assessT is whatis mode.
+-- @param self A MC_Access object.
+-- @param msg The message string.
 function M.whatis(self, msg)
    if (M.accessT.whatis) then
       local nm     = ModuleName or ""

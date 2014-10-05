@@ -115,6 +115,11 @@
   <li><a href="../scripts/spider.html">spider</a></li>
   <li><a href="../scripts/spiderCacheSupport.html">spiderCacheSupport</a></li>
 </ul>
+<h2>Topics</h2>
+<ul class="$(kind=='Topics' and '' or 'nowrap'">
+  <li><a href="../topics/01-introduction.md.html">01-introduction</a></li>
+  <li><a href="../topics/02-sys-admin-guide.md.html">02-sys-admin-guide</a></li>
+</ul>
 
 </div>
 
@@ -130,12 +135,11 @@
 <table class="function_list">
 	<tr>
 	<td class="name" nowrap><a href="#Hook:register">Hook:register (name, func)</a></td>
-	<td class="summary">Hook:register(): Checks for a valid hook name and stores it if valid.</td>
+	<td class="summary">Checks for a valid hook name and stores it if valid.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#Hook:apply">Hook:apply (name, ...)</a></td>
-	<td class="summary">Hook:apply():  If a valid hook function has been registered then apply
-                it.</td>
+	<td class="name" nowrap><a href="#Hook:apply">Hook:apply (name)</a></td>
+	<td class="summary">If a valid hook function has been registered then apply it.</td>
 	</tr>
 </table>
 
@@ -150,16 +154,16 @@
     <strong>Hook:register (name, func)</strong>
     </dt>
     <dd>
-    Hook:register(): Checks for a valid hook name and stores it if valid.
+    Checks for a valid hook name and stores it if valid.
 
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">name</span>
-
+         The name of the hook.
         </li>
         <li><span class="parameter">func</span>
-
+         The function to store with it.
         </li>
     </ul>
 
@@ -170,23 +174,24 @@
 </dd>
     <dt>
     <a name = "Hook:apply"></a>
-    <strong>Hook:apply (name, ...)</strong>
+    <strong>Hook:apply (name)</strong>
     </dt>
     <dd>
-    Hook:apply():  If a valid hook function has been registered then apply
-                it.
+    If a valid hook function has been registered then apply it.
 
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">name</span>
-
-        </li>
-        <li><span class="parameter">...</span>
-
+         The name of the hook.
         </li>
     </ul>
 
+    <h3>Returns:</h3>
+    <ol>
+
+        the results of the hook if it exists.
+    </ol>
 
 
 

@@ -79,14 +79,25 @@ local function Show_help(...)
    A[#A+1]   = concatTbl(a,"")
 end
 
+--------------------------------------------------------------------------
+-- Print help command.
+-- @param self A MasterControl object
 function M.help(self, ...)
    Show_help(...)
 end
 
+--------------------------------------------------------------------------
+-- Print whatis command.
+-- @param self A MasterControl object
+-- @param value the whatis string.
 function M.whatis(self, value)
    ShowCmd("whatis", value)
 end
 
+--------------------------------------------------------------------------
+-- Print execute command.
+-- @param self A MasterControl object.
+-- @param t Input table describing shell command.
 function M.execute(self, t)
    local a = {}
    a[#a+1] = "execute{cmd=\""
@@ -97,98 +108,191 @@ function M.execute(self, t)
    A[#A+1] = concatTbl(a,"")
 end
 
+--------------------------------------------------------------------------
+-- Print prepend_path command.
+-- @param self A MasterControl object
+-- @param t input table
 function M.prepend_path(self, t)
    ShowCmd("prepend_path", t)
 end
 
+--------------------------------------------------------------------------
+-- Print add_property command.
+-- @param self A MasterControl object.
+-- @param name the environment variable name.
+-- @param value the environment variable value.
 function M.add_property(self, name,value)
    ShowCmd("add_property", name, value)
 end
 
+--------------------------------------------------------------------------
+-- Print set_alias command.
+-- @param self A MasterControl object.
+-- @param name the environment variable name.
+-- @param value the environment variable value.
 function M.remove_property(self, name,value)
    ShowCmd("remove_property", name, value)
 end
 
+--------------------------------------------------------------------------
+-- Print message command.
+-- @param self A MasterControl object.
 function M.message(self, ...)
    ShowCmd("LmodMessage", ...)
 end
 
+--------------------------------------------------------------------------
+-- Print set_alias command.
+-- @param self A MasterControl object.
+-- @param name the environment variable name.
+-- @param value the environment variable value.
 function M.set_alias(self, name,value)
    ShowCmd("set_alias", name, value)
 end
 
+--------------------------------------------------------------------------
+-- Print pushenv command.
+-- @param self A MasterControl object.
+-- @param name the environment variable name.
+-- @param value the environment variable value.
 function M.pushenv(self, name,value)
    ShowCmd("pushenv", name, value)
 end
 
+--------------------------------------------------------------------------
+-- Print unset_alias command.
+-- @param self A MasterControl object
+-- @param name the environment variable name.
 function M.unset_alias(self, name)
    ShowCmd("unset_alias",name)
 end
 
+--------------------------------------------------------------------------
+-- Print append_path command.
+-- @param self A MasterControl object
+-- @param t input table
 function M.append_path(self, t)
    ShowCmd("append_path", t)
 end
 
+--------------------------------------------------------------------------
+-- Print setenv command.
+-- @param self A MasterControl object.
+-- @param name the environment variable name.
+-- @param value the environment variable value.
 function M.setenv(self, name,value)
    ShowCmd("setenv", name, value)
 end
 
+--------------------------------------------------------------------------
+-- Print unsetenv command.
+-- @param self A MasterControl object.
+-- @param name the environment variable name.
+-- @param value the environment variable value.
 function M.unsetenv(self, name,value)
    ShowCmd("unsetenv", name, value)
 end
 
+--------------------------------------------------------------------------
+-- Print remove_path command.
+-- @param self A MasterControl object
+-- @param t input table
 function M.remove_path(self, t)
    ShowCmd("remove_path", t)
 end
 
+--------------------------------------------------------------------------
+-- Print load command.
+-- @param self A MasterControl object
+-- @param mA An array of module names (MName objects)
 function M.load(self, mA)
    A[#A+1] = ShowCmdA("load",mA)
 end
 
 M.load_usr = M.load
 
+--------------------------------------------------------------------------
+-- Print try_load command.
+-- @param self A MasterControl object
+-- @param mA An array of module names (MName objects)
 function M.try_load(self, mA)
    A[#A+1] = ShowCmdA("try_load",mA)
 end
 
 M.try_add = M.try_load
 
+--------------------------------------------------------------------------
+-- Print inherit command.
+-- @param self A MasterControl object
 function M.inherit(self, ...)
    ShowCmd("inherit",...)
 end
 
+--------------------------------------------------------------------------
+-- Print family command.
+-- @param self A MasterControl object
 function M.family(self, ...)
    ShowCmd("family",...)
 end
 
+--------------------------------------------------------------------------
+-- Print unload command.
+-- @param self A MasterControl object
+-- @param mA An array of module names (MName objects)
 function M.unload(self, mA)
    A[#A+1] = ShowCmdA("unload",mA)
 end
 
+--------------------------------------------------------------------------
+-- Print alway_load command.
+-- @param self A MasterControl object
+-- @param mA An array of module names (MName objects)
 function M.always_load(self, mA)
    A[#A+1] = ShowCmdA("always_load",mA)
 end
 
+--------------------------------------------------------------------------
+-- Print always_unload command.
+-- @param self A MasterControl object
+-- @param mA An array of module names (MName objects)
 function M.always_unload(self, mA)
    A[#A+1] = ShowCmdA("always_unload",mA)
 end
 
+--------------------------------------------------------------------------
+-- Print prereq command.
+-- @param self A MasterControl object
+-- @param mA An array of module names (MName objects)
 function M.prereq(self, mA)
    A[#A+1] = ShowCmdA("prereq",mA)
 end
 
+--------------------------------------------------------------------------
+-- Print prereq_any command.
+-- @param self A MasterControl object
+-- @param mA An array of module names (MName objects)
 function M.prereq_any(self, mA)
    A[#A+1] = ShowCmdA("prereq_any",mA)
 end
 
+--------------------------------------------------------------------------
+-- Print conflict command.
+-- @param self A MasterControl object
+-- @param mA An array of module names (MName objects)
 function M.conflict(self, mA)
    A[#A+1] = ShowCmdA("conflict",mA)
 end
 
+--------------------------------------------------------------------------
+-- Print set shell function
+-- @param self A MasterControl object
 function M.set_shell_function(self, ...)
    ShowCmd("set_shell_function", ...)
 end
 
+--------------------------------------------------------------------------
+-- Print unset shell function
+-- @param self A MasterControl object
 function M.unset_shell_function(self, ...)
    ShowCmd("set_shell_function", ...)
 end
