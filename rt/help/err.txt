@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.7.4.2 5.7.4.2-6-g6647912 2014-08-21 20:16
+Modules based on Lua: Version 5.7.6  2014-09-08 17:11
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -122,7 +122,7 @@ The following guides are at http://www.tacc.utexas.edu/tacc-projects/lmod
   User Guide                 - How to use.
   Advance User Guide         - How to create you own modules.
   System Administrator Guide - How to install Lmod on your own system.
-Modules based on Lua: Version 5.7.4.2 5.7.4.2-6-g6647912 2014-08-21 20:16
+Modules based on Lua: Version 5.7.6  2014-09-08 17:11
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 3
@@ -242,7 +242,7 @@ The following guides are at http://www.tacc.utexas.edu/tacc-projects/lmod
   User Guide                 - How to use.
   Advance User Guide         - How to create you own modules.
   System Administrator Guide - How to install Lmod on your own system.
-Modules based on Lua: Version 5.7.4.2 5.7.4.2-6-g6647912 2014-08-21 20:16
+Modules based on Lua: Version 5.7.6  2014-09-08 17:11
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 4
@@ -262,32 +262,32 @@ Version 9
 step 5
 lua ProjectDIR/src/lmod.in.lua bash --config
 ===========================
-Modules based on Lua: Version 5.7.4.2 5.7.4.2-6-g6647912 2014-08-21 20:16
+Modules based on Lua: Version 5.7.6  2014-09-08 17:11
     by Robert McLay mclay@tacc.utexas.edu
-Description                      Value
-Allow TCL modulefiles            @allow_tcl_mfiles@
-User cache valid time(sec)       @ancient@
-Case Independent Sorting         @case_independent_sorting@
-Colorize Lmod                    @colorize@
-Using dotfiles                   @use_dot_files@
-Allow duplicate paths            @duplicate_paths@
-System lua_json                  @have_lua_json@
-System lua-term                  @have_lua_term@
-Include modulepath dir in avail  no
-MODULEPATH_ROOT                  @modulepath_root@
-number of cache dirs             0
-Path to HashSum                  @path_to_hashsum@
-Path to Lua                      @path_to_lua@
-Path to Pager                    @path_to_pager@
-Pkg Class name                   Pkg
-Lmod prefix                      @PREFIX@
-Prepend order                    @prepend_block@
-Supporting Full Settarg Use      @lmod_full_settarg_support@
-Write cache after (sec)          @short_time@
-Site Pkg location                standard
+Description                    Value
+Allow TCL modulefiles          @allow_tcl_mfiles@
+User cache valid time(sec)     @ancient@
+Case Independent Sorting       @case_independent_sorting@
+Colorize Lmod                  @colorize@
+Using dotfiles                 @use_dot_files@
+Allow duplicate paths          @duplicate_paths@
+System lua_json                @have_lua_json@
+System lua-term                @have_lua_term@
+avail: Include modulepath dir  no
+MODULEPATH_ROOT                @modulepath_root@
+number of cache dirs           0
+Path to HashSum                @path_to_hashsum@
+Path to Lua                    @path_to_lua@
+Path to Pager                  @path_to_pager@
+Pkg Class name                 Pkg
+Lmod prefix                    @PREFIX@
+Prepend order                  @prepend_block@
+Supporting Full Settarg Use    @lmod_full_settarg_support@
+Write cache after (sec)        @short_time@
+Site Pkg location              standard
 uname -a
-Admin file                       ProjectDIR/src/../../etc/admin.list
-Does Admin file exist            no
+Admin file                     ProjectDIR/src/../../etc/admin.list
+Does Admin file exist          no
 Active RC file(s):
 ProjectDIR/init/lmodrc.lua
 OutputDIR/.lmodrc.lua

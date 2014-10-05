@@ -386,6 +386,13 @@ local function followDefault(path)
 end
 
 --------------------------------------------------------------------------
+-- Build the initial table for reporting a module file location.
+-- @return the initial table.
+local function module_locationT()
+   return { fn = nil, modFullName = nil, modName = nil, default = 0}
+end
+
+--------------------------------------------------------------------------
 -- Look for the module name via an exact match.
 -- @param self A MName object
 -- @param pathA An array of paths to search
@@ -395,7 +402,7 @@ function M.find_exact_match(self, pathA)
    dbg.start{"MName:find_exact_match(pathA, t)"}
    local usrName    = self:usrName()
    dbg.print{"UserName: ", usrName , "\n"}
-   local t          = { fn = nil, modFullName = nil, modName = nil, default = 0}
+   local t          = module_locationT()
    local found      = false
    local result     = nil
    local fullName   = ""
@@ -492,7 +499,7 @@ function M.find_marked_default(self, pathA)
    local usrName   = self:usrName()
    local sn        = self:sn()
    local accept_fn = accept_fn
-   local t         = { fn = nil, modFullName = nil, modName = nil, default = 0}
+   local t         = module_locationT()
    local found     = false
    local result    = nil
    local fullName  = ""
@@ -573,7 +580,7 @@ end
 function M.find_latest(self, pathA)
    dbg.start{"MName:find_latest(pathA, t)"}
    local found     = false
-   local t         = { fn = nil, modFullName = nil, modName = nil, default = 0}
+   local t         = module_locationT()
    local usrName   = self:usrName()
    local sn        = self:sn()
    dbg.print{"usrName: ", usrName, "\n"}
@@ -618,7 +625,7 @@ end
 function M.find_marked_default_between(self, pathA)
    dbg.start{"MName:find_marked_default_between(pathA, t)"}
 
-   local t     = { fn = nil, modFullName = nil, modName = nil, default = 0}
+   local t     = module_locationT()
    local found = false
 
    found, t = self:find_marked_default(pathA, t)
@@ -647,7 +654,7 @@ function M.find_between(self, pathA)
    dbg.start{"MName:find_between(pathA, t)"}
    dbg.print{"UserName: ", self:usrName(), "\n"}
 
-   local t     = { fn = nil, modFullName = nil, modName = nil, default = 0}
+   local t     = module_locationT()
    local found = false
    local a     = allVersions(pathA)
 
@@ -700,7 +707,7 @@ end
 -- @return A table describing the module.
 function M.find(self)
    dbg.start{"MName:find(",self:usrName(),")"}
-   local t        = { fn = nil, modFullName = nil, modName = nil, default = 0}
+   local t        = module_locationT()
    local mt       = MT:mt()
    local fullName = ""
    local modName  = ""
