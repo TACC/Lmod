@@ -133,13 +133,13 @@
 
 <div id="content">
 
-    It may be helpful to follow the actions and routines that handle a module load.
-This will be explained from the outer most level and will work inward.</p>
+    It may be helpful to follow the actions and routines that manage a module load.
+We'll work top down, starting from the outer level and work inward.</p>
 
 <p><a name="Level_0_"></a></p>
 <h2>Level 0:</h2>
 
-<p>To start with a bash user enters a "module load foo".  Let assume that the foo module
+<p>A bash user begins by executing "module load foo".  Let's assume that the foo module
 contains:</p>
 
 
@@ -175,18 +175,17 @@ eval $( /path/to/lmod bash <span class="string">"load"</span> <span class="strin
 export FOO_VERSION=<span class="number">1.0</span>;
 </pre>
 
-<p>Which when evaluated sets <strong>FOO_VERSION</strong> to be "1.0" in the environment.  This is the basic
-way that modules have work and has nothing to do with the internals of Lmod.  The main
-point here is that the <em>lmod</em> command generates text which is a simple shell program which
-the module shell function evaluates.  This is how the user's environment has changed
-by <em>loading</em> the foo module.  </p>
+<p>When evaluated, this sets <strong>FOO_VERSION</strong> to be "1.0" in the environment.  This is the basic
+idea behind Lmod and all other module systems. The main point is that the <em>lmod</em> command
+generates text. This text is a simple shell program which the module shell function evaluates.
+This is how <em>loading</em> the foo module changes the user's environment.</p>
 
 <p><a name="Level_1_"></a></p>
 <h2>Level 1:</h2>
 
 <p>This level is starts with <em>/path/to/lmod bash 'load' 'foo'</em></p>
 
-<p>The lmod.lua script is the entry point to the Lmod complex.  The main steps are:</p>
+<p>The <em>lmod.lua</em> script is the entry point to the Lmod complex.  The main steps are:</p>
 
 
 <pre>
@@ -197,13 +196,13 @@ by <em>loading</em> the foo module.  </p>
 </pre>
 
 <p>Invoking the action builds two data structures <em>varTbl</em> and <em>MT</em>.  The <em>varTbl</em> is an
-array of environment variable that the actions like loading a module will change such
-as setting the <strong>FOO_VERSION</strong> variable to "1.0".</p>
+array of environment variable that the actions like loading a module will change. Level 0
+described such as action: setting the <strong>FOO_VERSION</strong> variable to "1.0".</p>
 
-<p>The other data structure built is <em>MT</em>.  This is the module table.  It is a lua table
-and it contains a list of the module loaded, what is the filename for the module and
-other information.  This table is the only way Lmod knows the state of the loaded modules
-between invocations.</p>
+<p>The other data structure is <em>MT</em>.  This is the module table.  It is a Lua table
+contains a list of the module loaded, what is the filename for these modules and
+other information.  This table is the only way Lmod knows the state of the loaded
+modules between invocations.</p>
 
 <p>In step 4, Lmod reports the key value pairs in <em>varTbl</em> and the current value of <em>MT</em>
 and generates simple program to be evaluated.  The new key value pairs are written as
@@ -225,13 +224,12 @@ mt = {
 }
 </pre>
 
-<p>With the mix of quotes and commas it is difficult something like that directly, especially
-in C-shell.  So Lmod serializes the table similarily to what is shown above but without
-spaces and newlines removed.  Then that text is base64 encoded and stored in variables named
-<em>ModuleTable001</em>, <em>ModuleTable002</em>, etc in blocks of 256 characters.  When Lmod starts, it
-grabs those env. vars and puts them together to base64 decodes them to recover the current
-state of the modules loaded.  So when Level 0 stated that the export statement was created
-by Lmod, it left out that the Module Table was also printed out.</p>
+<p>With the mix of quotes and commas, it is difficult something like that directly, especially
+in C-shell.  So Lmod serializes the table, but with spaces and newlines removed.
+Then that text is base64 encoded and stored in variables named <em>ModuleTable001</em>,
+<em>ModuleTable002</em>, etc in blocks of 256 characters.  When Lmod starts, it
+grabs those environment variables and puts them together  and then executes a base64
+decodes them to recover the current state of the modules loaded.  </p>
 
 <p>To see the current module table you can do:</p>
 
@@ -247,7 +245,8 @@ separately.</p>
 <p><a name="Level_3"></a></p>
 <h2>Level 3</h2>
 
-<p>When a module is loaded, the actions are treated in a positive way.  They generally say</p>
+<p>Modulefiles are written to describe the actions necessary to load the module.  For example,
+a modulefile might say.</p>
 
 
 <pre>
@@ -255,8 +254,9 @@ setenv(<span class="string">"ABC"</span>,<span class="string">"DEF"</span>)
 prepend_path(<span class="string">"PATH"</span>, <span class="string">"/path/to/add"</span>)
 </pre>
 
-<p>So loading this module would set <strong>ABC</strong> and prepend to the <strong>PATH</strong> variable.  When a module is
-unloaded the <em>setenv</em> and <em>prepend_path</em> actions are reversed.  So when these modulefiles
+<p>So loading this module would set <strong>ABC</strong> and prepend to the <strong>PATH</strong> variable.  This is the
+positive direction. On the flip side, when a module is unloaded, the <em>setenv</em> and
+<em>prepend_path</em> actions are reversed or in the negative direction.  So when these modulefiles
 are interpreted the action of the functions depends on which mode.  There are several modes
 among them are <strong>load</strong>, <strong>unload</strong>, <strong>show</strong> and <strong>help</strong>.</p>
 
@@ -279,7 +279,7 @@ then the program builds:</p>
 mcp = MasterControl.build(<span class="string">"unload"</span>)
 </pre>
 
-<p>This places the actions in the negative direction.  An <em>setenv</em> or <em>prepend_path</em> will unset
+<p>This places the actions in the negative direction; that is an <em>setenv</em> or <em>prepend_path</em> will unset
 a global variable or remove an entry from a path. </p>
 
 <p>Another way that module files are interpreted is for show.  A <em>mcp</em> is built by:</p>

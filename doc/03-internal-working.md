@@ -1,9 +1,9 @@
-It may be helpful to follow the actions and routines that handle a module load.
-This will be explained from the outer most level and will work inward.
+It may be helpful to follow the actions and routines that manage a module load.
+We'll work top down, starting from the outer level and work inward.
 
 ##Level 0:
 
-To start with a bash user enters a "module load foo".  Let assume that the foo module
+A bash user begins by executing "module load foo".  Let's assume that the foo module
 contains:
 
     setenv ("FOO_VERSION","1.0")
@@ -24,17 +24,16 @@ generates in its simplest form (hiding many details, explained later)
 
     export FOO_VERSION=1.0;
 
-Which when evaluated sets **FOO\_VERSION** to be "1.0" in the environment.  This is the basic
-way that modules have work and has nothing to do with the internals of Lmod.  The main
-point here is that the *lmod* command generates text which is a simple shell program which
-the module shell function evaluates.  This is how the user's environment has changed
-by *loading* the foo module.  
+When evaluated, this sets **FOO\_VERSION** to be "1.0" in the environment.  This is the basic
+idea behind Lmod and all other module systems. The main point is that the *lmod* command
+generates text. This text is a simple shell program which the module shell function evaluates.
+This is how *loading* the foo module changes the user's environment.
 
 ##Level 1:
 
 This level is starts with */path/to/lmod bash 'load' 'foo'*
 
-The lmod.lua script is the entry point to the Lmod complex.  The main steps are:
+The *lmod.lua* script is the entry point to the Lmod complex.  The main steps are:
 
     1.  Parse Command line arguments
     2.  Find the action the user requested (e.g. load the foo module).
@@ -42,13 +41,13 @@ The lmod.lua script is the entry point to the Lmod complex.  The main steps are:
     4.  Output the changes.
 
 Invoking the action builds two data structures *varTbl* and *MT*.  The *varTbl* is an
-array of environment variable that the actions like loading a module will change such
-as setting the **FOO\_VERSION** variable to "1.0".
+array of environment variable that the actions like loading a module will change. Level 0
+described such as action: setting the **FOO\_VERSION** variable to "1.0".
 
-The other data structure built is *MT*.  This is the module table.  It is a lua table
-and it contains a list of the module loaded, what is the filename for the module and
-other information.  This table is the only way Lmod knows the state of the loaded modules
-between invocations.
+The other data structure is *MT*.  This is the module table.  It is a Lua table
+contains a list of the module loaded, what is the filename for these modules and
+other information.  This table is the only way Lmod knows the state of the loaded
+modules between invocations.
 
 In step 4, Lmod reports the key value pairs in *varTbl* and the current value of *MT*
 and generates simple program to be evaluated.  The new key value pairs are written as
@@ -67,13 +66,12 @@ The module table is a lua table and looks like:
        }
     }
 
-With the mix of quotes and commas it is difficult something like that directly, especially
-in C-shell.  So Lmod serializes the table similarily to what is shown above but without
-spaces and newlines removed.  Then that text is base64 encoded and stored in variables named
-_ModuleTable001_, _ModuleTable002_, etc in blocks of 256 characters.  When Lmod starts, it
-grabs those env. vars and puts them together to base64 decodes them to recover the current
-state of the modules loaded.  So when Level 0 stated that the export statement was created
-by Lmod, it left out that the Module Table was also printed out.
+With the mix of quotes and commas, it is difficult something like that directly, especially
+in C-shell.  So Lmod serializes the table, but with spaces and newlines removed.
+Then that text is base64 encoded and stored in variables named _ModuleTable001_,
+_ModuleTable002_, etc in blocks of 256 characters.  When Lmod starts, it
+grabs those environment variables and puts them together  and then executes a base64
+decodes them to recover the current state of the modules loaded.  
 
 To see the current module table you can do:
 
@@ -87,13 +85,15 @@ separately.
 
 ## Level 3
 
-When a module is loaded, the actions are treated in a positive way.  They generally say
+Modulefiles are written to describe the actions necessary to load the module.  For example,
+a modulefile might say.
 
     setenv("ABC","DEF")
     prepend_path("PATH", "/path/to/add")
     
-So loading this module would set **ABC** and prepend to the **PATH** variable.  When a module is
-unloaded the *setenv* and *prepend\_path* actions are reversed.  So when these modulefiles
+So loading this module would set **ABC** and prepend to the **PATH** variable.  This is the
+positive direction. On the flip side, when a module is unloaded, the *setenv* and
+*prepend\_path* actions are reversed or in the negative direction.  So when these modulefiles
 are interpreted the action of the functions depends on which mode.  There are several modes
 among them are **load**, **unload**, **show** and **help**.
 
@@ -110,7 +110,7 @@ then the program builds:
 
     mcp = MasterControl.build("unload")
 
-This places the actions in the negative direction.  An *setenv* or *prepend\_path* will unset
+This places the actions in the negative direction; that is an *setenv* or *prepend\_path* will unset
 a global variable or remove an entry from a path. 
 
 Another way that module files are interpreted is for show.  A *mcp* is built by:
