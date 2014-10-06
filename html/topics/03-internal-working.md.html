@@ -224,12 +224,13 @@ mt = {
 }
 </pre>
 
-<p>With the mix of quotes and commas, it is difficult something like that directly, especially
-in C-shell.  So Lmod serializes the table, but with spaces and newlines removed.
-Then that text is base64 encoded and stored in variables named <em>ModuleTable001</em>,
-<em>ModuleTable002</em>, etc in blocks of 256 characters.  When Lmod starts, it
-grabs those environment variables and puts them together  and then executes a base64
-decodes them to recover the current state of the modules loaded.  </p>
+<p>With the mix of quotes and commas, it is difficult to store something like that
+directly, especially in C-shell.  So Lmod serializes the table, but with spaces
+and newlines removed. Then that text is base64 encoded and stored in variables
+named <em>ModuleTable001</em>, <em>ModuleTable002</em>, etc in blocks of 256 characters.  When
+Lmod starts, it grabs those environment variables and puts them together  and
+then executes a base64 decodes them to recover the current state of the modules
+loaded.  </p>
 
 <p>To see the current module table you can do:</p>
 
@@ -237,6 +238,7 @@ decodes them to recover the current state of the modules loaded.  </p>
 
 <p><a name="Level_2"></a></p>
 <h2>Level 2</h2>
+
 
 <p>The command line actions are in src/cmdfuncs.lua.  Similarily, functions specified in module
 files are in src/modfuncs.lua.  Explain why they are similar but not the same and maintained

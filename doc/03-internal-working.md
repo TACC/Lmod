@@ -66,18 +66,20 @@ The module table is a lua table and looks like:
        }
     }
 
-With the mix of quotes and commas, it is difficult something like that directly, especially
-in C-shell.  So Lmod serializes the table, but with spaces and newlines removed.
-Then that text is base64 encoded and stored in variables named _ModuleTable001_,
-_ModuleTable002_, etc in blocks of 256 characters.  When Lmod starts, it
-grabs those environment variables and puts them together  and then executes a base64
-decodes them to recover the current state of the modules loaded.  
+With the mix of quotes and commas, it is difficult to store something like that
+directly, especially in C-shell.  So Lmod serializes the table, but with spaces
+and newlines removed. Then that text is base64 encoded and stored in variables
+named _ModuleTable001_, _ModuleTable002_, etc in blocks of 256 characters.  When
+Lmod starts, it grabs those environment variables and puts them together  and
+then executes a base64 decodes them to recover the current state of the modules
+loaded.  
 
 To see the current module table you can do:
 
    $ module --mt
 
 ## Level 2
+
 
 The command line actions are in src/cmdfuncs.lua.  Similarily, functions specified in module
 files are in src/modfuncs.lua.  Explain why they are similar but not the same and maintained
