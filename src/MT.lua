@@ -1,5 +1,4 @@
 --------------------------------------------------------------------------
--- FIX ME
 -- This class controls the ModuleTable.  The ModuleTable is how Lmod
 -- communicates what modules are loaded or inactive and so on between
 -- module commands.
@@ -320,7 +319,7 @@ end
 
 ------------------------------------------------------------------------
 -- local ctor for MT.  It uses [[s]] to be the initial value.
-local function new(self, s, restore)
+local function new(self, s, restoreFn)
    dbg.start{"MT:new()"}
    local o            = {}
 
@@ -358,8 +357,26 @@ local function new(self, s, restore)
       dbg.print{"Initializing ", DfltModPath, ":", currentMPATH, "\n"}
    else
       dbg.print{"s: ",s,"\n"}
-      assert(load(s))()
+      local func, msg = load(s)
+      local status
+      if (func) then
+         status, msg = pcall(func)
+      else
+         status = false
+      end
+
       local _ModuleTable_ = systemG._ModuleTable_
+
+      if (not status or type(_ModuleTable_) ~= "table" ) then
+         if (restoreFn) then
+            LmodError("The module collection file is corrupt, please remove: ",
+                      restoreFn,"\n")
+         else
+            LmodError("The module table stored in the environment is corrupt.\n",
+                      "please execute the command \" clearMT\" and reload your modules.\n")
+         end
+      end
+
 
       if (_ModuleTable_.version == 1) then
          s_loadOrder = o:convertMT(_ModuleTable_)
@@ -394,7 +411,7 @@ local function new(self, s, restore)
          dbg.print{"currentMPATH:        ",currentMPATH,"\n"}
          dbg.print{"_MPATH:              ",o._MPATH,"\n"}
          dbg.print{"baseMPATH:           ",o.systemBaseMPATH,"\n"}
-         if (o._MPATH ~= currentMPATH and not restore) then
+         if (o._MPATH ~= currentMPATH and not restoreFn) then
             o:resolveMpathChanges(currentMPATH, baseMPATH)
          end
       end
@@ -757,11 +774,11 @@ function M.getMTfromFile(self,t)
    -- Save module name in hash table "t"
    -- with Hash Sum as value
 
-   local restore = true
-   local l_mt    = new(self, s, restore)
-   local mpath   = l_mt._MPATH
+   local restoreFn = t.fn
+   local l_mt      = new(self, s, restoreFn)
+   local mpath     = l_mt._MPATH
 
-   local activeA = l_mt:list("userName","active")
+   local activeA   = l_mt:list("userName","active")
 
    ---------------------------------------------
    -- If any module specified in the "default" file
