@@ -6,9 +6,12 @@ Features/Bug fixes:
    c) setenv, prepend_path, etc now trim any leading or trailing
       blanks around name: prepend_path(" MANPATH ","/opt/apps/...")
       is now the same as prepend_path("MANPATH","/opt/apps/...")
-   d) the module command (and not ml) support combining of single
+   d) The module command (and not ml) support combining of single
       letter options.  "module -dw=60 avail" is the same as
       "module -d -w=60 avail".
+   e) If a module collection file gets corrupted, Lmod now reports
+      that the collection file is corrupted and tells the user to
+      remove it.
 
 
 Lmod Version 5.7.5:

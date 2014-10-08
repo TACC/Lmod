@@ -5,8 +5,6 @@
 -- Fixme
 -- @script clearMT_cmd
 
-require("strict")
-
 --------------------------------------------------------------------------
 -- Lmod License
 --------------------------------------------------------------------------
@@ -52,6 +50,7 @@ end
 package.path = cmd_dir .. "../tools/?.lua;" ..
                cmd_dir .. "?.lua;"       .. package.path
 
+require("strict")
 require("fileOps")
 
 local concatTbl    = table.concat

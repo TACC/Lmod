@@ -5,8 +5,6 @@
 -- Fixme
 -- @script getmt
 
-require("strict")
-
 --------------------------------------------------------------------------
 -- Lmod License
 --------------------------------------------------------------------------
@@ -46,6 +44,7 @@ require("strict")
 --         optionly it writes the state of the ModuleTable is to a
 --         dated file.
 --
+require("strict")
 local cmd = arg[0]
 
 local i,j = cmd:find(".*/")

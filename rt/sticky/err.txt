@@ -256,9 +256,9 @@ lua ProjectDIR/src/lmod.in.lua bash --force purge
 step 43
 lua ProjectDIR/src/lmod.in.lua bash reset
 ===========================
-Restoring modules to system default
+Resetting modules to system default
 ===========================
 step 44
 lua ProjectDIR/src/lmod.in.lua bash reset
 ===========================
-Restoring modules to system default
+Resetting modules to system default
