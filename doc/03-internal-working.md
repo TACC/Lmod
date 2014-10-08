@@ -80,15 +80,8 @@ To see the current module table you can do:
 
 ## Level 2
 
-
-The command line actions are in src/cmdfuncs.lua.  Similarily, functions specified in module
-files are in src/modfuncs.lua.  Explain why they are similar but not the same and maintained
-separately.
-
-## Level 3
-
-Modulefiles are written to describe the actions necessary to load the module.  For example,
-a modulefile might say.
+Modulefiles are written with actions necessary to load the module.  For example,
+a modulefile might say:
 
     setenv("ABC","DEF")
     prepend_path("PATH", "/path/to/add")
@@ -112,8 +105,8 @@ then the program builds:
 
     mcp = MasterControl.build("unload")
 
-This places the actions in the negative direction; that is an *setenv* or *prepend\_path* will unset
-a global variable or remove an entry from a path. 
+This places the actions in the negative direction; that is an *setenv* or *prepend\_path*
+will unset a global variable or remove an entry from a path. 
 
 Another way that module files are interpreted is for show.  A *mcp* is built by:
 
@@ -132,9 +125,45 @@ MasterControl.unsetenv function as seen in src/MC\_Unload.lua.  It is the constr
 of the **load**, **unload**, **show**, etc versions of *mcp*  that changes the
 interpretation of the modulefile function.
 
-## Level 4
+## Level 3
 
-Explain MName and the load and prereq modifiers work MN_*.
+To be explicit with what the Level 2 described in theory, let's start with a modulefile
+that has:
+
+    setenv("ABC","DEF")
+
+The *loadModulefile()* function reads in the module file and evaluates the lua functions
+in the file.  Please note that if a module file is written in TCL it is converted by
+*loadModulefile()* to be lua functions.  The *setenv()* function in src/modfuncs.lua.
+At the core all the *setenv()* function does is take the arguments it was called with
+and it calls *mcp:setenv(...)*
+
+     function setenv(...)
+        mcp:setenv(...)
+     end
+
+The ... is the way that lua describes a variable number of argument.  If the user has
+requested a load then *mcp* has been constructed as an MC\_Load derived class.  This means
+that *mcp:setenv()* is actually a call to *MasterControl:setenv(...)*.  Where as if the
+user requested to unload the module, the *mcp* variable would have been built as an
+MC_Unload object and the *mcp:setenv()* function is connected to
+*MasterControl:unsetenv(...)*.
+
+
+## Level 2
+
+Users specify a single action on the command line **load**, **unload**, **list**, etc.  
+Lmod takes those actions and calls a routine in src/cmdfuncs.lua.  So if a user requests
+a load.  This means that the *Load_Usr* function will be called.  This calls mcp:load()
+function which is described in some detail in Level 3.  Eventually, this calls the
+*loadModulefile()* function which reads the modulefile and evaluates as a lua program.
+Note that TCL modules are converted inside of *loadModulefile()* to be lua functions.
+The evaluation of 
+
+
+The command line actions are in src/cmdfuncs.lua.  Similarily, functions specified in module
+files are in src/modfuncs.lua.  Explain why they are similar but not the same and maintained
+separately.
 
 ## Level 5
 
