@@ -356,7 +356,7 @@ local function new(self, s, restoreFn)
       o:buildBaseMpathA(currentMPATH)
       dbg.print{"Initializing ", DfltModPath, ":", currentMPATH, "\n"}
    else
-      dbg.print{"s: ",s,"\n"}
+      systemG._ModuleTable_ = false
       local func, msg = load(s)
       local status
       if (func) then
@@ -369,7 +369,7 @@ local function new(self, s, restoreFn)
 
       if (not status or type(_ModuleTable_) ~= "table" ) then
          if (restoreFn) then
-            LmodError("The module collection file is corrupt, please remove: ",
+            LmodError("The module collection file is corrupt. Please remove: ",
                       restoreFn,"\n")
          else
             LmodError("The module table stored in the environment is corrupt.\n",
@@ -775,6 +775,7 @@ function M.getMTfromFile(self,t)
    -- with Hash Sum as value
 
    local restoreFn = t.fn
+   dbg.print{"s: \"",s,"\"\n"}
    local l_mt      = new(self, s, restoreFn)
    local mpath     = l_mt._MPATH
 

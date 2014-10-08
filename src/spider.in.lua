@@ -5,8 +5,6 @@
 -- Use command name to add the command directory to the package.path
 -- @script spider
 
-require("strict")
-
 --------------------------------------------------------------------------
 -- Lmod License
 --------------------------------------------------------------------------
@@ -56,6 +54,7 @@ function cmdDir()
    return LuaCommandName_dir
 end
 
+require("strict")
 require("myGlobals")
 require("utils")
 require("colorize")

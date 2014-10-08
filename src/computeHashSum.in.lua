@@ -5,7 +5,6 @@
 -- Fixme
 -- @script computeHashSum 
 
-require("strict")
 --------------------------------------------------------------------------
 -- Lmod License
 --------------------------------------------------------------------------
@@ -61,6 +60,7 @@ end
 Version = "1.0"
 HashSum = "@path_to_hashsum@"
 
+require("strict")
 require("myGlobals")
 require("utils")
 

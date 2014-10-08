@@ -23,7 +23,7 @@ lua ProjectDIR/src/lmod.in.lua bash restore
 ===========================
 Restoring modules to user's default
 Lmod Warning: The system MODULEPATH has changed: Please rebuild your saved collection.
-Restoring modules to system default
+Resetting modules to system default
 The system default contains no modules
   (env var: LMOD_SYSTEM_DEFAULT_MODULES is empty)
 ===========================

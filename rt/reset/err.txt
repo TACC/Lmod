@@ -34,7 +34,7 @@ Currently Loaded Modules:
 step 7
 lua ProjectDIR/src/lmod.in.lua bash restore system
 ===========================
-Restoring modules to system default
+Resetting modules to system default
 ===========================
 step 8
 lua ProjectDIR/src/lmod.in.lua bash list

@@ -476,7 +476,7 @@ function Reset(msg)
    default = default:gsub(" +",":")
 
    if (msg ~= false) then
-      io.stderr:write("Restoring modules to system default\n")
+      io.stderr:write("Resetting modules to system default\n")
    end
 
    if (default == "") then

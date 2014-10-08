@@ -272,6 +272,7 @@ build_tags:
                -o -type f > file_list.1
 	sed -e 's|.*/.git.*||g'                                  \
             -e 's|.*/rt/.*/t1/.*||g'                             \
+            -e 's|.*/html/.*$$||g'                               \
             -e 's|./TAGS||g'                                     \
             -e 's|./makefile||g'                                 \
             -e 's|./configure$$||g'                              \

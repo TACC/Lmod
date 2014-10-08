@@ -5,8 +5,6 @@
 -- Fixme
 -- @script ml 
 
-require("strict")
-
 --------------------------------------------------------------------------
 -- Lmod License
 --------------------------------------------------------------------------
@@ -53,6 +51,7 @@ end
 package.path = LuaCommandName_dir .. "../tools/?.lua;" ..
                LuaCommandName_dir .. "?.lua;"       .. package.path
 
+require("strict")
 require("string_utils")
 local concatTbl = table.concat
 local function quoteWrap(a)
