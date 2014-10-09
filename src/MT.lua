@@ -1163,7 +1163,8 @@ end
 
 --------------------------------------------------------------------------
 -- Build internal array and string from passed in mpath.
--- @param An MT object
+-- @param self An MT object
+-- @param mpath string of the MODULEPATH
 function M.buildMpathA(self, mpath)
    local mpathA = path2pathA(mpath)
    self.mpathA = mpathA
@@ -1172,18 +1173,24 @@ end
 
 --------------------------------------------------------------------------
 -- Build internal array for base MODULEPATH.
--- @param An MT object
+-- @param self An MT object
+-- @param mpath string of the MODULEPATH
 function M.buildBaseMpathA(self, mpath)
    self.baseMpathA = path2pathA(mpath)
 end
 
 --------------------------------------------------------------------------
 -- Return the string version of base MODULEPATH
--- @param An MT object
+-- @param self An MT object
 function M.getBaseMPATH(self)
    return concatTbl(self.baseMpathA,":")
 end
 
+--------------------------------------------------------------------------
+-- Force a re-evaluation of the internal copies of *locationT* and *availT*.
+-- @param self An MT object
+-- @param adding 
+-- @param pathEntry
 function M.reEvalModulePath(self, adding, pathEntry)
    dbg.start{"MT:reEvalModulePath(adding: ",adding,", pathEntry: ",pathEntry,")"}
    self:buildMpathA(varTbl[ModulePath]:expand())
@@ -1192,6 +1199,9 @@ function M.reEvalModulePath(self, adding, pathEntry)
    dbg.fini("MT:reEvalModulePath")
 end
 
+--------------------------------------------------------------------------
+-- Clear the internal copies of *locationT* and *availT*
+-- @param self An MT object
 function M.clearLocationAvailT(self)
    dbg.print{"Calling MT:clearLocationAvailT(self)\n"}
    self._locationTbl = false
@@ -1199,6 +1209,9 @@ function M.clearLocationAvailT(self)
 end
 
 
+--------------------------------------------------------------------------
+-- Reload all modules. 
+-- @param self An MT object
 function M.reloadAllModules(self)
    dbg.start{"MT:reloadAllModules()"}
    local master = _G.Master:master()
@@ -1231,8 +1244,10 @@ function M.reloadAllModules(self)
 end
 
 --------------------------------------------------------------------------
---  MT:add(): Adds a module to MT.
-
+-- Adds a module to MT.
+-- @param self An MT object
+-- @param t
+-- @param status
 function M.add(self, t, status)
    dbg.start{"MT:add(t,",status,")"}
    dbg.print{"MT:add:  short: ",t.modName,", full: ",t.modFullName,"\n"}
@@ -1258,15 +1273,18 @@ function M.add(self, t, status)
 end
 
 --------------------------------------------------------------------------
--- MT:list(): Return a array of modules currently in MT.  The list is
---            always sorted in loadOrder.
+-- Return a array of modules currently in MT.  The list is
+-- always sorted in loadOrder.
 --
 -- There are three kinds of returns for this member function.
 --    mt:list("userName",...) returns an object containing an table
 --                            which has the short, full, etc.
 --    mt:list("both",...) returns the short and full name of
 --    mt:list(... , ...) returns a simply array of names.
-
+-- @param self An MT object
+-- @param kind
+-- @param status
+-- @return An array of modules matching the kind and status
 function M.list(self, kind, status)
    local mT   = self.mT
    local icnt = 0
@@ -1335,9 +1353,13 @@ function M.list(self, kind, status)
 end
 
 --------------------------------------------------------------------------
--- Simple Get/Set functions for entries in MT.
-
-function M.userName(self, sn)
+-- Return the name of the module that user requested.  It will be short
+-- name if the user requested the default.  Otherwise, it will be the
+-- full name.
+-- @param self An MT object
+-- @param sn the short module name
+-- @return the name of the module.
+function M.usrName(self, sn)
    local mT    = self.mT
    local entry = mT[sn]
    if (entry == nil) then
@@ -1350,6 +1372,11 @@ function M.userName(self, sn)
    return entry.fullName
 end
 
+--------------------------------------------------------------------------
+-- Return the filename associated with the *sn*. 
+-- @param self An MT object
+-- @param sn the short module name
+-- @return The filename.
 function M.fileName(self, sn)
    local mT    = self.mT
    local entry = mT[sn]
@@ -1359,6 +1386,12 @@ function M.fileName(self, sn)
    return entry.FN
 end
 
+--------------------------------------------------------------------------
+-- Set the status.  Typically either *pending* or *active*.
+-- @param self An MT object.
+-- @param sn the short module name.
+-- @param status The status.
+-- @return The filename.
 function M.setStatus(self, sn, status)
    local mT    = self.mT
    local entry = mT[sn]
@@ -1372,6 +1405,12 @@ function M.setStatus(self, sn, status)
    dbg.print{"MT:setStatus(",sn,",",status,")\n"}
 end
 
+--------------------------------------------------------------------------
+-- Get the current status.  Typically either *pending* or *active*.
+-- @param self An MT object.
+-- @param sn the short module name.
+-- @param status The status.
+-- @return The status
 function M.getStatus(self, sn)
    local mT    = self.mT
    local entry = mT[sn]
@@ -1381,11 +1420,22 @@ function M.getStatus(self, sn)
    return nil
 end
 
+--------------------------------------------------------------------------
+-- Does the *sn* exist?
+-- @param self An MT object.
+-- @param sn the short module name.
+-- @return existance.
 function M.exists(self, sn)
    local mT    = self.mT
    return (mT[sn] ~= nil)
 end
 
+--------------------------------------------------------------------------
+-- Does the *sn* exist with a particular *status*.
+-- @param self An MT object.
+-- @param sn the short module name.
+-- @param status The status.
+-- @return existance.
 function M.have(self, sn, status)
    local mT    = self.mT
    local entry = mT[sn]
@@ -1396,6 +1446,9 @@ function M.have(self, sn, status)
 end
 
 
+--------------------------------------------------------------------------
+-- Remove the computed hash values from each entry in the module table.
+-- @param self An MT object.
 function M.hideHash(self)
    local mT   = self.mT
    for k,v in pairs(mT) do
@@ -1405,6 +1458,10 @@ function M.hideHash(self)
    end
 end
 
+--------------------------------------------------------------------------
+-- Mark *sn* entry as being default.
+-- @param self An MT object.
+-- @param sn the short module name.
 function M.markDefault(self, sn)
    local mT    = self.mT
    local entry = mT[sn]
@@ -1413,6 +1470,10 @@ function M.markDefault(self, sn)
    end
 end
 
+--------------------------------------------------------------------------
+-- Mark *sn* entry as being default.
+-- @param self An MT object.
+-- @param sn the short module name.
 function M.default(self, sn)
    local mT    = self.mT
    local entry = mT[sn]
@@ -1420,13 +1481,6 @@ function M.default(self, sn)
       return nil
    end
    return (entry.default ~= 0)
-end
-
-function M.usrName(self,sn)
-   if (self:default(sn)) then
-      return sn
-   end
-   return self:fullName(sn)
 end
 
 function M.setLoadOrder(self)
@@ -1884,7 +1938,7 @@ function M.addStickyA(self, sn)
    local a        = self._stickyA
    local entry    = self.mT[sn]
    local default  = entry.default
-   local userName = self:userName(sn)
+   local userName = self:usrName(sn)
    local fullName = (default == 1 ) and sn or entry.fullName
 
    a[#a+1] = {sn = sn, FN = entry.FN, fullName = fullName,
