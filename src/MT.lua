@@ -1,4 +1,5 @@
 --------------------------------------------------------------------------
+-- Fixme.
 -- This class controls the ModuleTable.  The ModuleTable is how Lmod
 -- communicates what modules are loaded or inactive and so on between
 -- module commands.
@@ -921,7 +922,8 @@ function M.getMTfromFile(self,t)
       LmodMessage("  $ module save ",collectionName)
       LmodMessage("If you no longer want this module collection do:")
       LmodMessage("  rm ~/.lmod.d/",collectionName,"\n")
-      LmodMessage("For more information execute 'module help' or see www.tacc.utexas.edu/tacc-projects/lmod/user-guide/loading-modules\n")
+      LmodMessage("For more information execute 'module help' or " ..
+                  "see www.tacc.utexas.edu/tacc-projects/lmod/user-guide/loading-modules\n")
       return false
    end
 
@@ -1007,8 +1009,7 @@ end
 -- returns true when the count is zero and self._changePATH is also true.
 -- It then changes self._changePATH to nil so future calls to
 -- safeToCheckZombies will be false.
-
-
+-- @param self An MT object
 function M.changePATH(self)
    if (not self._changePATH) then
       assert(self._changePATHCount == 0)
@@ -1019,6 +1020,9 @@ function M.changePATH(self)
    --          " count: ",self._changePATHCount,"\n"}
  end
 
+--------------------------------------------------------------------------
+-- Begin operation.  Used in conjunction with *MT:changePATH()*
+-- @param self An MT object
 function M.beginOP(self)
    if (self._changePATH == true) then
       self._changePATHCount = self._changePATHCount + 1
@@ -1026,6 +1030,9 @@ function M.beginOP(self)
    --dbg.print{"MT:beginOP: self._changePATH: ",self._changePATH, " count: ",self._changePATHCount,"\n"}
 end
 
+--------------------------------------------------------------------------
+-- End operation.  Used in conjunction with *MT:changePATH()*
+-- @param self An MT object
 function M.endOP(self)
    if (self._changePATH == true) then
       self._changePATHCount = max(self._changePATHCount - 1, 0)
@@ -1033,10 +1040,16 @@ function M.endOP(self)
    --dbg.print{"MT:endOP: self._changePATH: ",self._changePATH, " count: ",self._changePATHCount,"\n"}
 end
 
+--------------------------------------------------------------------------
+-- Return if in zombie state.
+-- @param self An MT object
 function M.zombieState(self)
    return self._changePATHCount == 0 and self._changePATH
 end
 
+--------------------------------------------------------------------------
+-- Report if clear of zombies.
+-- @param self An MT object
 function M.safeToCheckZombies(self)
    local result = self._changePATHCount == 0 and self._changePATH
    local s      = (result) and "true" or "nil"
@@ -1046,10 +1059,9 @@ function M.safeToCheckZombies(self)
    return result
 end
 
---------------------------------------------------------------------------
--- Get/Set functions for family.
-
 s_familyA = false
+--------------------------------------------------------------------------
+-- Build the name of the *family* env. variable.
 local function buildFamilyPrefix()
    if (not s_familyA) then
       s_familyA    = {}
@@ -1063,6 +1075,11 @@ local function buildFamilyPrefix()
 end
 
 
+--------------------------------------------------------------------------
+-- Set the family
+-- @param self An MT object
+-- @param familyNm 
+-- @param nName
 function M.setfamily(self,familyNm,mName)
    local results = self.family[familyNm]
    self.family[familyNm] = mName
@@ -1074,6 +1091,10 @@ function M.setfamily(self,familyNm,mName)
    return results
 end
 
+--------------------------------------------------------------------------
+-- Unset the family
+-- @param self An MT object
+-- @param familyNm 
 function M.unsetfamily(self,familyNm)
    local familyA = buildFamilyPrefix()
    for i = 1,#familyA do
@@ -1083,6 +1104,10 @@ function M.unsetfamily(self,familyNm)
    self.family[familyNm] = nil
 end
 
+--------------------------------------------------------------------------
+-- Get the family
+-- @param self An MT object
+-- @param familyNm 
 function M.getfamily(self,familyNm)
    if (familyNm == nil) then
       return self.family
@@ -1091,8 +1116,12 @@ function M.getfamily(self,familyNm)
 end
 
 --------------------------------------------------------------------------
--- Simple Get/Set functions.
-
+-- Return the locations for a particular key or the whole location table
+-- for a nil key.
+-- @param self An MT object
+-- @param key
+-- @return for a nil key return the whole location table, otherwise return the
+-- the location for the specified key
 function M.locationTbl(self, key)
    if (not self._locationTbl) then
       self._locationTbl, self._availT = self:_build_locationTbl(self.mpathA)
@@ -1104,6 +1133,9 @@ function M.locationTbl(self, key)
    return self._locationTbl[key]
 end
 
+--------------------------------------------------------------------------
+-- Return the *availT* table.
+-- @param self An MT object
 function M.availT(self)
    if (not self._availT) then
       self._locationTbl, self._availT = self:_build_locationTbl(self.mpathA)
@@ -1112,25 +1144,42 @@ function M.availT(self)
    return self._availT
 end
 
+--------------------------------------------------------------------------
+-- Is *mpath* the same as the internal value.
+-- @param self An MT object
+-- @param mpath A MODULEPATH string value.
+-- @return True if the same at the internal value.
 function M.sameMPATH(self, mpath)
    return self._MPATH == mpath
 end
 
+--------------------------------------------------------------------------
+-- Return an array of path elements from the internal value.
+-- @param self An MT object
+-- @return an array of path elements from the internal value.
 function M.module_pathA(self)
    return self.mpathA
 end
 
+--------------------------------------------------------------------------
+-- Build internal array and string from passed in mpath.
+-- @param An MT object
 function M.buildMpathA(self, mpath)
    local mpathA = path2pathA(mpath)
    self.mpathA = mpathA
    self._MPATH = concatTbl(mpathA,":")
 end
 
+--------------------------------------------------------------------------
+-- Build internal array for base MODULEPATH.
+-- @param An MT object
 function M.buildBaseMpathA(self, mpath)
    self.baseMpathA = path2pathA(mpath)
 end
 
-
+--------------------------------------------------------------------------
+-- Return the string version of base MODULEPATH
+-- @param An MT object
 function M.getBaseMPATH(self)
    return concatTbl(self.baseMpathA,":")
 end
