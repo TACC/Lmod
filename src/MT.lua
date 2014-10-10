@@ -1,5 +1,4 @@
 --------------------------------------------------------------------------
--- Fixme.
 -- This class controls the ModuleTable.  The ModuleTable is how Lmod
 -- communicates what modules are loaded or inactive and so on between
 -- module commands.
@@ -1483,6 +1482,10 @@ function M.default(self, sn)
    return (entry.default ~= 0)
 end
 
+--------------------------------------------------------------------------
+-- Set the load order by using MT:list()
+-- @param self An MT object.
+-- @return the number of entries in *mT*
 function M.setLoadOrder(self)
    local a  = self:list("short","active")
    local mT = self.mT
@@ -1495,6 +1498,11 @@ function M.setLoadOrder(self)
    return sz
 end
 
+--------------------------------------------------------------------------
+-- Return the full name of the module including version if it exists.
+-- @param self An MT object.
+-- @param sn The short name
+-- @return the full name.
 function M.fullName(self, sn)
    local mT    = self.mT
    local entry = mT[sn]
@@ -1504,6 +1512,11 @@ function M.fullName(self, sn)
    return entry.fullName
 end
 
+--------------------------------------------------------------------------
+-- Return the version of a module or "" if it doesn't.
+-- @param self An MT object.
+-- @param sn The short name
+-- @return the version.
 function M.Version(self, sn)
    local full = self:fullName(sn)
    if (not full) then
@@ -1518,24 +1531,11 @@ function M.Version(self, sn)
    return full:sub(j+1,-1)
 end
 
-function M.short(self, sn)
-   local mT    = self.mT
-   local entry = mT[sn]
-   if (entry == nil) then
-      return nil
-   end
-   return entry.short
-end
-
-function M.getHash(self, sn)
-   local mT    = self.mT
-   local entry = mT[sn]
-   if (entry == nil) then
-      return nil
-   end
-   return entry.hash
-end
-
+--------------------------------------------------------------------------
+-- Clear the hash value.
+-- @param self An MT object.
+-- @param sn The short name.
+-- @return The hash value.
 function M.hideHash(self)
    local mT   = self.mT
    for k,v in pairs(mT) do
@@ -1545,79 +1545,23 @@ function M.hideHash(self)
    end
 end
 
-function M.markDefault(self, sn)
-   local mT    = self.mT
-   local entry = mT[sn]
-   if (entry ~= nil) then
-      mT[sn].default = 1
-   end
-end
-
-function M.default(self, sn)
+--------------------------------------------------------------------------
+-- Get the hash value for the entry. 
+-- @param self An MT object.
+-- @param sn The short name.
+-- @return The hash value.
+function M.getHash(self, sn)
    local mT    = self.mT
    local entry = mT[sn]
    if (entry == nil) then
       return nil
    end
-   return (entry.default ~= 0)
+   return entry.hash
 end
-
-function M.usrName(self,sn)
-   if (self:default(sn)) then
-      return sn
-   end
-   return self:fullName(sn)
-end
-
-function M.setLoadOrder(self)
-   local a  = self:list("short","active")
-   local mT = self.mT
-   local sz = #a
-
-   for i = 1,sz do
-      local sn = a[i]
-      mT[sn].loadOrder = i
-   end
-   return sz
-end
-
-function M.fullName(self, sn)
-   local mT    = self.mT
-   local entry = mT[sn]
-   if (entry == nil) then
-      return nil
-   end
-   return entry.fullName
-end
-
-function M.Version(self, sn)
-   local full = self:fullName(sn)
-   if (not full) then
-      return full
-   end
-
-   local i, j = full:find(".*/")
-   if (not j) then
-      return ""
-   end
-
-   return full:sub(j+1,-1)
-end
-
-function M.short(self, sn)
-   local mT    = self.mT
-   local entry = mT[sn]
-   if (entry == nil) then
-      return nil
-   end
-   return entry.short
-end
-
 
 --------------------------------------------------------------------------
--- MT:setHashSum(): Use [[computeHashSum]] to compute hash for each active
---                  module in MT.
-
+-- Use *computeHashSum* to compute hash for each active module in MT.
+-- @param self An MT object.
 function M.setHashSum(self)
    local mT   = self.mT
    dbg.start{"MT:setHashSum()"}
@@ -1676,6 +1620,9 @@ function M.setHashSum(self)
 end
 
 
+--------------------------------------------------------------------------
+-- A debug routine to report the module short name and status.
+-- @param self An MT object.
 function M.reportKeys(self)
    local mT  = self.mT
    for k,v in pairs(mT) do
@@ -1684,6 +1631,11 @@ function M.reportKeys(self)
 end
 
 
+--------------------------------------------------------------------------
+-- Push the inheritance file into a stack.
+-- @param self An MT object.
+-- @param sn the short name.
+-- @param fn the file name.
 function M.pushInheritFn(self,sn,fn)
    local mT    = self.mT
    local fnI   = mT[sn].fnI or {}
@@ -1691,6 +1643,12 @@ function M.pushInheritFn(self,sn,fn)
    mT[sn].fnI  = fnI
 end
 
+--------------------------------------------------------------------------
+-- Pop the inheritance file from the stack.
+-- @param self An MT object.
+-- @param sn the short name.
+-- @param fn the file name.
+-- @return the filename on top of the stack.
 function M.popInheritFn(self,sn)
    local mT   = self.mT
    local fn   = nil
@@ -1704,15 +1662,21 @@ function M.popInheritFn(self,sn)
    return fn
 end
 
+--------------------------------------------------------------------------
+-- Clear the entry for *sn* from the module table.
+-- @param self An MT object.
+-- @param sn The short name.
 function M.remove(self, sn)
    local mT  = self.mT
    mT[sn]    = nil
 end
 
 --------------------------------------------------------------------------
--- MT:add_property() add a property to an active module.
-
-
+-- add a property to an active module.
+-- @param self An MT object.
+-- @param sn The short name
+-- @param name the property name
+-- @param value the value for the property name.
 function M.add_property(self, sn, name, value)
    dbg.start{"MT:add_property(\"",sn,"\", \"",name,"\", \"",value,"\")"}
 
@@ -1753,8 +1717,11 @@ function M.add_property(self, sn, name, value)
 end
 
 --------------------------------------------------------------------------
--- MT:remove_property() remove a property to an active module.
-
+-- Remove a property to an active module.
+-- @param self An MT object.
+-- @param sn The short name
+-- @param name the property name
+-- @param value the value for the property name.
 function M.remove_property(self, sn, name, value)
    dbg.start{"MT:remove_property(\"",sn,"\", \"",name,"\", \"",value,"\")"}
 
@@ -1794,8 +1761,12 @@ function M.remove_property(self, sn, name, value)
 end
 
 --------------------------------------------------------------------------
--- MT:list_property(): What it says.
-
+-- List the property
+-- @param self An MT object.
+-- @param idx The index in the list.
+-- @param sn The short name
+-- @param style How to colorize.
+-- @param legendT The legend table.
 function M.list_property(self, idx, sn, style, legendT)
    dbg.start{"MT:list_property(\"",sn,"\", \"",style,"\")"}
    local mT    = self.mT
@@ -1817,6 +1788,12 @@ function M.list_property(self, idx, sn, style, legendT)
    return resultA
 end
 
+--------------------------------------------------------------------------
+-- Return the value of this property or nil.
+-- @param self An MT object.
+-- @param sn The short name.
+-- @param propName The property name.
+-- @param propValue The property value.
 function M.haveProperty(self, sn, propName, propValue)
    local entry = self.mT[sn]
    if (entry == nil or entry.propT == nil or entry.propT[propName] == nil ) then
@@ -1826,13 +1803,15 @@ function M.haveProperty(self, sn, propName, propValue)
 end
 
 --------------------------------------------------------------------------
--- MT:userLoad(): Mark a module as having been loaded by user request.
---                This is used by MT:reportChanges() to not print. So
---                if a user does this:
---                   $ module swap mvapich2 mvapich2/1.9
---                Lmod will not report that mvapich2 has been reloaded.
-
-function M.userLoad(self, sn,usrName)
+-- Mark a module as having been loaded by user request.
+-- This is used by MT:reportChanges() to not print. So
+-- if a user does this:
+--      $ module swap mvapich2 mvapich2/1.9
+-- Lmod will not report that mvapich2 has been reloaded.
+-- @param self An MT object.
+-- @param sn The short name.
+-- @param usrName The name the user specified for the module.
+function M.userLoad(self, sn, usrName)
    dbg.start{"MT:userLoad(",sn,")"}
    local loadT  = self._loadT
    loadT[sn]    = usrName
@@ -1840,11 +1819,11 @@ function M.userLoad(self, sn,usrName)
 end
 
 --------------------------------------------------------------------------
--- MT:reportChanges(): Compare the original MT with the current one.
---                     Report any modules that have become inactive or
---                     active.  Or report that a module has swapped or a
---                     version has changed.
-
+-- Compare the original MT with the current one.
+-- Report any modules that have become inactive or
+-- active.  Or report that a module has swapped or a
+-- version has changed.
+-- @param self An MT object.
 function M.reportChanges(self)
    local master = systemG.Master:master()
 
@@ -1917,23 +1896,29 @@ function M.reportChanges(self)
 end
 
 --------------------------------------------------------------------------
--- MT:serializeTbl(): A wrapper for serializeTbl and all the white space
---                   removed.
-
+-- A wrapper for serializeTbl.
+-- @param self An MT object.
+-- @param state If true then return serialized table indented, otherwise
+-- extra spaces removed.
+-- @return The serialized table.
 function M.serializeTbl(self, state)
    dbg.print{"self: ",tostring(self),"\n", level=2}
    dbg.print{"s_mt: ",tostring(s_mt),"\n", level=2}
 
    s_mt.activeSize = self:setLoadOrder()
 
-   if (not state) then
+   if (state) then
+      return _G.serializeTbl{ indent=true, name=s_mt:name(), value=s_mt}
+   else
       local s = _G.serializeTbl{ indent=false, name=s_mt:name(), value=s_mt}
       return s:gsub("%s+","")
-   else
-      return _G.serializeTbl{ indent=true, name=s_mt:name(), value=s_mt}
    end
 end
 
+--------------------------------------------------------------------------
+-- Mark a module as sticky.
+-- @param self An MT object.
+-- @param sn the short name
 function M.addStickyA(self, sn)
    local a        = self._stickyA
    local entry    = self.mT[sn]
@@ -1945,6 +1930,9 @@ function M.addStickyA(self, sn)
               userName = userName }
 end
 
+--------------------------------------------------------------------------
+-- Return the array of sticky modules.
+-- @param self An MT object.
 function M.getStickyA(self)
    return self._stickyA
 end
