@@ -1,4 +1,5 @@
 --------------------------------------------------------------------------
+-- fixme.
 -- This class is responsible for actively managing the actions of
 -- Lmod.  It is responsible finding and loading or unloading a
 -- modulefile.  It is also responsible for reloading modules when
