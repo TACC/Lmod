@@ -53,12 +53,13 @@ end
 local pack        = (_VERSION == "Lua 5.1") and argsPack or table.pack
 
 function findFileInTree(fn)
-   local cwd = posix.getcwd()
-   local wd  = cwd
-
-   while (wd ~= "/" and not posix.access(fn,"r")) do
+   local cwd  = posix.getcwd()
+   local wd   = cwd
+   local prev = " "
+   while (wd ~= "/" and wd ~= prev and not posix.access(fn,"r")) do
       posix.chdir("..")
-      wd = posix.getcwd()
+      prev = wd
+      wd   = posix.getcwd()
    end
 
    posix.chdir(cwd)
