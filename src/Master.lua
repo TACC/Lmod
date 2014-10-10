@@ -95,7 +95,6 @@ local numSrchLatest = 2
 -- This local function is used to find a default file
 -- that maybe in symbolic link chain. This returns
 -- the absolute path.
-
 local function followDefault(path)
    if (path == nil) then return nil end
    dbg.start{"followDefault(path=\"",path,"\")"}
@@ -140,8 +139,6 @@ end
 -- module in pathA and then searches again.  Only
 -- after finding the same named module does it
 -- return.
-
-
 local function find_inherit_module(fullModuleName, oldFn)
    dbg.start{"find_inherit_module(",fullModuleName,",",oldFn, ")"}
 
@@ -249,7 +246,8 @@ end
 
 --------------------------------------------------------------------------
 -- Singleton Ctor.
-
+-- @param self A Master object.
+-- @param safe A flag.
 function M.master(self, safe)
    dbg.start{"Master:master(safe: ",safe,")"}
    if (next(s_master) == nil) then
@@ -268,7 +266,7 @@ end
 -- loaded then that version is used not the default
 -- module file for the one named.  Otherwise
 -- find_module_file is used.
-
+-- @param mname A MName object
 local function access_find_module_file(mname)
    local mt    = MT:mt()
    local sn    = mname:sn()
@@ -291,7 +289,7 @@ end
 -- modulefile is found and evaluated by loadModuleFile.
 -- This causes the help, or whatis or showing the
 -- modulefile as the user requested.
-
+-- @param self A Master object.
 function M.access(self, ...)
    local masterTbl = masterTbl()
    local shell     = s_master.shell
@@ -303,7 +301,6 @@ function M.access(self, ...)
    local help      = (systemG.help ~= dbg.quiet) and "-h" or nil
    local result, t
    local A         = ShowResultsA
-   dbg.print{"RTM(1) #A:",#A,"\n"}
 
    local arg = pack(...)
    for i = 1, arg.n do
@@ -355,7 +352,6 @@ end
 -- one on the top of mStack.  This way a user
 -- can "inherit" the contents of a system module
 -- instead of copying.
-
 function M.inheritModule()
    dbg.start{"Master:inherit()"}
 
@@ -402,7 +398,8 @@ end
 --------------------------------------------------------------------------
 -- Load all requested modules.  Each module is unloaded
 -- if it is currently loaded.
-
+-- @param mA An array of MName objects.
+-- @return An array of true/false values indicating success or not.
 function M.load(mA)
    local mStack = ModuleStack:moduleStack()
    local shellN = s_master.shell:name()
@@ -467,7 +464,6 @@ end
 -- MC_Refresh, there is no need to unload and reload the
 -- modulefiles.  Just call loadModuleFile() to redefine
 -- the aliases/shell functions in a subshell.
-
 function M.refresh()
    local mStack  = ModuleStack:moduleStack()
    local mt      = MT:mt()
@@ -505,7 +501,6 @@ end
 -- same as [[find_module_file()]] reports.  If not
 -- then it is unloaded and an attempt is made to reload
 -- it.  Each inactive module is re-loaded if possible.
-
 function M.reloadAll()
    local mt   = MT:mt()
    dbg.start{"Master:reloadAll()"}
@@ -577,16 +572,16 @@ function M.reloadAll()
 end
 
 --------------------------------------------------------------------------
--- Master:safeToUpdate() - [[safe]] is set during ctor. It is controlled
---                         by the command table in lmod.
-
+-- *safe* is set during ctor. It is controlled by the command table in lmod.
+-- @return the internal safe flag.
 function M.safeToUpdate()
    return s_master.safe
 end
 
 --------------------------------------------------------------------------
--- Master:unload() - unload modulefile(s) via the module names.
-
+-- Unload modulefile(s) via the module names.
+-- @param mA An array of MName objects.
+-- @return An array of true/false values indicating success or not.
 function M.unload(mA)
    local mStack = ModuleStack:moduleStack()
    local mt     = MT:mt()
@@ -655,6 +650,10 @@ function M.unload(mA)
 end
 
 
+--------------------------------------------------------------------------
+-- Once the purge or unload happens, the sticky modules are reloaded.
+-- @param self A Master object
+-- @param force If true then don't reload.
 function M.reload_sticky(self, force)
 
    dbg.start{"Master:reload_sticky()"}
@@ -716,9 +715,11 @@ end
 
 
 --------------------------------------------------------------------------
--- Find the default module for the current directory
--- [[mpath]].
-
+-- Find the default module for the current directory *mpath*.
+-- @param mpath A single directory that is part of MODULEPATH
+-- @param sn The short name.
+-- @param versionA An array of versions for *sn*.
+-- @return A table describing the default.
 local function findDefault(mpath, sn, versionA)
    dbg.start{"Master.findDefault(mpath=\"",mpath,"\", "," sn=\"",sn,"\")"}
    local mt   = MT:mt()
