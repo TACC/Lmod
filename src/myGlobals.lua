@@ -41,6 +41,16 @@ require("fileOps")
 local posix        = require("posix")
 local getenv       = os.getenv
 local setenv_posix = posix.setenv
+
+local function initialize(lmod_name, sed_name)
+   local value = (getenv(lmod_name) or sed_name):lower()
+   if (value:sub(1,1) == "@") then
+      value = "no"
+   end
+   return value
+end
+
+
 ------------------------------------------------------------------------
 -- The global variables for Lmod:
 ------------------------------------------------------------------------
@@ -99,10 +109,7 @@ LMOD_CASE_INDEPENDENT_SORTING = getenv("LMOD_CASE_INDEPENDENT_SORTING") or
 ------------------------------------------------------------------------
 -- LMOD_REDIRECT:  Send messages to stdout instead of stderr
 ------------------------------------------------------------------------
-LMOD_REDIRECT = (getenv("LMOD_REDIRECT") or "@redirect@"):lower()
-if (LMOD_REDIRECT:sub(1,1) == "@") then
-   LMOD_REDIRECT = "no"
-end
+LMOD_REDIRECT = initialize("LMOD_REDIRECT", "@redirect@")
 
 ------------------------------------------------------------------------
 -- LMOD_SYSTEM_NAME:  When on a shared file system, use this to
@@ -112,14 +119,16 @@ end
 LMOD_SYSTEM_NAME = getenv("LMOD_SYSTEM_NAME")
 
 ------------------------------------------------------------------------
+-- LMOD_AUTO_SWAP:  Swap instead of Error 
+------------------------------------------------------------------------
+
+LMOD_AUTO_SWAP   = initialize("LMOD_AUTO_SWAP","@auto_swap@")
+
+------------------------------------------------------------------------
 -- LMOD_AVAIL_MPATH:  Include MODULEPATH in avail search
 ------------------------------------------------------------------------
 
-LMOD_MPATH_AVAIL = (getenv("LMOD_MPATH_AVAIL") or
-                       "@mpath_avail@"):lower()
-if (LMOD_MPATH_AVAIL:sub(1,1) == "@") then
-   LMOD_MPATH_AVAIL = "no"
-end
+LMOD_MPATH_AVAIL = initialize("LMOD_MPATH_AVAIL", "@mpath_avail@")
 
 ------------------------------------------------------------------------
 -- LMOD_ALLOW_TCL_MFILES:  Allow Lmod to read TCL based modules.
@@ -169,10 +178,6 @@ LMOD_AVAIL_STYLE = getenv("LMOD_AVAIL_STYLE") or "<system>"
 if (LMOD_AVAIL_STYLE == "") then
    LMOD_AVAIL_STYLE = "<system>"
 end
-
-
-
-
 
 ------------------------------------------------------------------------
 -- defaultMpathA: The array of paths that are hold the default

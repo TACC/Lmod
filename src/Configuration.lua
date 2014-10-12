@@ -121,6 +121,7 @@ local function new(self)
    tbl.dot_files  = { k = "Using dotfiles"                , v = "@use_dot_files@",      }
    tbl.numSC      = { k = "number of cache dirs"          , v = numSC,                  }
    tbl.lmodV      = { k = "Lmod version"                  , v = lmod_version,           }
+   tbl.autoSwap   = { k = "Auto swapping"                 , v = "@auto_swap@",          }
    tbl.ancient    = { k = "User cache valid time(sec)"    , v = "@ancient@",            }
    tbl.short_tm   = { k = "Write cache after (sec)"       , v = "@short_time@",         }
    tbl.prpnd_blk  = { k = "Prepend order"                 , v = "@prepend_block@",      }

@@ -43,6 +43,18 @@ AC_ARG_WITH(colorize,
     COLORIZE="$withval"
     AC_DEFINE_UNQUOTED(COLORIZE, "$withval"))dnl
 
+AC_SUBST(AUTO_SWAP)
+AC_ARG_WITH(autoSwap,
+    AC_HELP_STRING([--with-autoSwap=ans],[Allow auto swapping of compiler etc. [[YES]]]),
+    AUTO_SWAP="$withval"
+    AC_MSG_RESULT([AUTO_SWAP=$with_autoSwap])
+    AC_DEFINE_UNQUOTED(AUTO_SWAP, "$with_autoSwap")dnl
+    ,
+    withval="NO"
+    AC_MSG_RESULT([AUTO_SWAP=$withval])
+    AUTO_SWAP="$withval"
+    AC_DEFINE_UNQUOTED(AUTO_SWAP, "$withval"))dnl
+
 AC_SUBST(REDIRECT)
 AC_ARG_WITH(redirect,
     AC_HELP_STRING([--with-redirect=ans],[redirect messages to stdout [[NO]]]),

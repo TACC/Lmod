@@ -611,6 +611,7 @@ SHORT_TIME
 ANCIENT
 MODULEPATH_ROOT
 REDIRECT
+AUTO_SWAP
 COLORIZE
 CASE_INDEPENDENT_SORTING
 DUPLICATE_PATHS
@@ -665,6 +666,7 @@ enable_option_checking
 with_duplicatePaths
 with_caseIndependentSorting
 with_colorize
+with_autoSwap
 with_redirect
 with_module_root_path
 with_ancient
@@ -1301,6 +1303,7 @@ Optional Packages:
                           Make avail and spider use case independent sorting
                           [[NO]]
   --with-colorize=ans     allow for colorized output [[YES]]
+  --with-autoSwap=ans     Allow auto swapping of compiler etc. [[YES]]
   --with-redirect=ans     redirect messages to stdout [[NO]]
   --with-module-root-path=<path>
                           use module root path=<path> [[PREFIX/modulefiles]]
@@ -2664,6 +2667,28 @@ $as_echo "COLORIZE=$withval" >&6; }
     COLORIZE="$withval"
     cat >>confdefs.h <<_ACEOF
 #define COLORIZE "$withval"
+_ACEOF
+
+fi
+
+
+
+# Check whether --with-autoSwap was given.
+if test "${with_autoSwap+set}" = set; then :
+  withval=$with_autoSwap; AUTO_SWAP="$withval"
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: AUTO_SWAP=$with_autoSwap" >&5
+$as_echo "AUTO_SWAP=$with_autoSwap" >&6; }
+    cat >>confdefs.h <<_ACEOF
+#define AUTO_SWAP "$with_autoSwap"
+_ACEOF
+
+else
+  withval="NO"
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: AUTO_SWAP=$withval" >&5
+$as_echo "AUTO_SWAP=$withval" >&6; }
+    AUTO_SWAP="$withval"
+    cat >>confdefs.h <<_ACEOF
+#define AUTO_SWAP "$withval"
 _ACEOF
 
 fi

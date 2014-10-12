@@ -85,6 +85,10 @@ local getenv       = os.getenv
 local pack         = (_VERSION == "Lua 5.1") and argsPack or table.pack
 local Exit         = os.exit
 
+--------------------------------------------------------------------------
+--
+-- @param mA
+
 local function mustLoad(mA)
    local aa = {}
    local bb = {}
@@ -833,14 +837,27 @@ function M.family(self, name)
    end
 
    dbg.print{"mt:setfamily(\"",name,"\",\"",sn,"\")\n"}
-   local oldName = mt:setfamily(name,sn)
+   local oldName = mt:getfamily(name)
    if (oldName ~= nil and oldName ~= sn and not expert() ) then
-      LmodError("You can only have one ",name," module loaded at a time.\n",
-                "You already have ", oldName," loaded.\n",
-                "To correct the situation, please enter the following command:\n\n",
-                "  module swap ",oldName, " ", mFull,"\n\n",
-                "Please submit a consulting ticket if you require additional assistance.\n")
+      if (LMOD_AUTO_SWAP ~= "no") then
+         local old_mname = MName:new("mt", oldName)
+         LmodMessage("\nLmod is automatically swapping \"", mt:fullName(oldName),
+                     "\" for \"", mname:usrName(),"\"\n" )
+         local mcp_old = mcp
+         mcp           = MCP
+         dbg.print{"Setting mcp to ", mcp:name(),"\n"}
+         mcp:unload_usr{ old_mname }
+         mcp           = mcp_old
+         dbg.print{"Setting mcp to ", mcp:name(),"\n"}
+      else
+         LmodError("You can only have one ",name," module loaded at a time.\n",
+                   "You already have ", oldName," loaded.\n",
+                   "To correct the situation, please enter the following command:\n\n",
+                   "  module swap ",oldName, " ", mFull,"\n\n",
+                   "Please submit a consulting ticket if you require additional assistance.\n")
+      end
    end
+   mt:setfamily(name,sn)
    dbg.fini("MasterControl:family")
 end
 

@@ -1,5 +1,4 @@
 --------------------------------------------------------------------------
--- fixme.
 -- This class is responsible for actively managing the actions of
 -- Lmod.  It is responsible finding and loading or unloading a
 -- modulefile.  It is also responsible for reloading modules when
@@ -770,10 +769,21 @@ local function findDefault(mpath, sn, versionA)
 end
 
 --------------------------------------------------------------------------
---  This routine is handed a single entry.  It check to see
---  if matches the search criteria.  It also adds any
---  properties such as default or anything from [[propT]].
-
+-- This routine is handed a single entry.  It check to see
+-- if matches the search criteria.  It also adds any
+-- properties such as default or anything from [[propT]].
+-- @param defaultOnly
+-- @param terse
+-- @param label
+-- @param szA
+-- @param searchA
+-- @param sn
+-- @param name
+-- @param f
+-- @param defaultModuleT
+-- @param dbT
+-- @param legendT
+-- @param a
 local function availEntry(defaultOnly, terse, label, szA, searchA, sn, name,
                           f, defaultModuleT, dbT, legendT, a)
    dbg.start{"Master:availEntry(defaultOnly, terse, label, szA, searchA, "..
@@ -888,7 +898,15 @@ end
 
 ---------------------------------------------------------------------------
 -- Handle a single directory and collect any entries through *availEntry*
-
+-- @param defaultOnly
+-- @param terse
+-- @param searchA
+-- @param label
+-- @param locationT
+-- @param availT
+-- @param dbT
+-- @param a
+-- @param legendT
 local function availDir(defaultOnly, terse, searchA, label, locationT, availT,
                         dbT, a, legendT)
    dbg.start{"Master.availDir(defaultOnly= ",defaultOnly,", terse= ",terse,
@@ -935,7 +953,7 @@ end
 -- Note that these are also available with the Lmod
 -- options. So "module -t avail" and "module avail -t" are
 -- the same thing.
-
+-- @param argA
 local function availOptions(argA)
    local usage = "Usage: module avail [options] search1 search2 ..."
    local cmdlineParser = Optiks:new{usage=usage, version=""}
@@ -957,6 +975,11 @@ local function availOptions(argA)
 
 end
 
+--------------------------------------------------------------------------
+--
+-- @param availStyle
+-- @param mpathA
+-- @param availT
 local function regroup_avail_blocks(availStyle, mpathA, availT)
    --------------------------------------------------------------------------
    -- call hook to see if site wants to relabel and re-organize avail layout
@@ -1038,6 +1061,7 @@ end
 --------------------------------------------------------------------------
 -- Report the available modules with properties and
 -- defaults.  Run results through pager.
+-- @param argA User requested search terms.
 function M.avail(argA)
    dbg.start{"Master.avail(",concatTbl(argA,", "),")"}
    local mt        = MT:mt()
