@@ -50,7 +50,7 @@ AC_ARG_WITH(autoSwap,
     AC_MSG_RESULT([AUTO_SWAP=$with_autoSwap])
     AC_DEFINE_UNQUOTED(AUTO_SWAP, "$with_autoSwap")dnl
     ,
-    withval="NO"
+    withval="YES"
     AC_MSG_RESULT([AUTO_SWAP=$withval])
     AUTO_SWAP="$withval"
     AC_DEFINE_UNQUOTED(AUTO_SWAP, "$withval"))dnl

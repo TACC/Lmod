@@ -85,24 +85,15 @@ local getenv       = os.getenv
 local remove       = table.remove
 local pack         = (_VERSION == "Lua 5.1") and argsPack or table.pack
 local Exit         = os.exit
-local s_moduleStack = {}
+local s_moduleStk  = {}
+local s_loadT      = {}
 --------------------------------------------------------------------------
 --
 -- @param mA
 
-local function mustLoad(mA)
-   local aa = {}
-   local bb = {}
+local function mustLoad()
 
-   local mt = MT:mt()
-   for i = 1, #mA do
-      local mname = mA[i]
-      local sn    = mname:sn()
-      if (not mt:have(sn, "active")) then
-         aa[#aa+1] = mname:show()
-         bb[#bb+1] = mname:usrName()
-      end
-   end
+   local aa, bb = mcp.familyLoaded()
 
    if (#aa > 0) then
       local luaprog = "@path_to_lua@/lua"
@@ -223,9 +214,10 @@ end
 -- Load / Unload functions
 -------------------------------------------------------------------
 function M.load_usr(self, mA)
+   self.familyLoadRegister(mA)
    local a = self:load(mA)
    if (haveWarnings()) then
-      mustLoad(mA)
+      mustLoad()
    end
    return a
 end
@@ -822,7 +814,71 @@ function M.prereq_any(self, mA)
 end
 
 
+--------------------------------------------------------------------------
+-- Remember the user's requested load array into an internal table.
+-- @param mA The array of MName objects.
+function M.familyLoadRegister(mA)
+   s_loadT = {}
+   for i = 1, #mA do
+      local mname = mA[i]
+      local sn    = mname:sn()
+      s_loadT[sn] = mname
+   end
+end
 
+--------------------------------------------------------------------------
+-- Check the currently loaded table modules to see if any didn't get
+-- loaded.
+-- @return An array of descripted name of missing modules.
+-- @return An array of the user names of missing modules.
+function M.familyLoaded()
+   local mt        = MT:mt()
+
+   local aa = {}
+   local bb = {}
+
+   for sn, mname in pairs(s_loadT) do
+      if (not mt:have(sn, "active")) then
+         aa[#aa+1] = mname:show()
+         bb[#bb+1] = mname:usrName()
+      end
+   end
+         
+   return aa, bb
+end
+
+------------------------------------------------------------------------
+-- Save away the modules that are in the same family.
+-- @param oldName The old module name that is getting pushed out by *sn*.
+-- @param sn The new module name.
+function M.familyStackPush(oldName, sn)
+   local mt         = MT:mt()
+   s_loadT[oldName] = nil
+   s_moduleStk[#s_moduleStk+1] = { oldName, mt:fullName(oldName)}
+   s_moduleStk[#s_moduleStk+1] = { sn,      mt:fullName(sn)}
+end
+
+--------------------------------------------------------------------------
+-- Pop the top value off the stack.
+-- @return the top value on the stack.
+function M.familyStackPop()
+   local value = s_moduleStk[#s_moduleStk]
+   remove(s_moduleStk)
+   return value
+end
+
+--------------------------------------------------------------------------
+-- Check for an empty stack.
+-- @return True if the stack is empty.
+function M.familyStackEmpty()
+   return (next(s_moduleStk) == nil)
+end
+
+--------------------------------------------------------------------------
+-- Process the family function.  The name of the module is found by the
+-- *ModuleStack*.
+-- @param self A MasterControl object
+-- @param name The name of the family
 function M.family(self, name)
    local mt        = MT:mt()
    local mStack    = ModuleStack:moduleStack()
@@ -843,8 +899,7 @@ function M.family(self, name)
    if (oldName ~= nil and oldName ~= sn and not expert() ) then
       if (LMOD_AUTO_SWAP ~= "no") then
          dbg.print{"RTM Fmly Push sn: ",sn,", oldName: ",oldName,"\n"}
-         self.familyStackPush({sn,      mt:fullName(sn)})
-         self.familyStackPush({oldName, mt:fullName(oldName)})
+         self.familyStackPush(oldName, sn)
       else
          LmodError("You can only have one ",name," module loaded at a time.\n",
                    "You already have ", oldName," loaded.\n",
@@ -942,19 +997,8 @@ function M.execute(self, t)
    dbg.fini("MasterControl:execute")
 end
 
-function M.familyStackPush(name)
-   s_moduleStack[#s_moduleStack+1] = name
-end
 
-function M.familyStackPop()
-   local value = s_moduleStack[#s_moduleStack]
-   remove(s_moduleStack)
-   return value
-end
 
-function M.familyStackEmpty()
-   return (next(s_moduleStack) == nil)
-end
 
 -------------------------------------------------------------------
 -- Quiet Functions

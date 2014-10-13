@@ -118,7 +118,7 @@ function loadModuleFile(t)
          local   a       = mcp.familyStackPop()
          local   sn      = a[1]
          fullA[#fullA+1] = a[2]
-         mA[#mA+1]    = MName:new("load", sn) 
+         mA[#mA+1]    = MName:new("mt", sn) 
          dbg.print{"RTM F unloading ", fullA[#fullA], "\n"}
       end
 
