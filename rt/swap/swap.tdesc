@@ -54,6 +54,9 @@ testdescript = {
      runLmod load intel mpich2                  # 24
      runLmod load gcc openmpi                   # 25
      runLmod load intel gcc                     # 26
+     runLmod purge                              # 26
+     runLmod load gcc                           # 27
+     runLmod load intel gcc                     # 28
 
      
      

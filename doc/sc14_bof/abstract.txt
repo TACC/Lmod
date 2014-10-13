@@ -1,0 +1,10 @@
+Title: Transitioning to Lmod.
+
+This talk will focus on transitioning to Lmod from other Environment
+Module Systems and how easy it is to start using Lmod.  The first part
+will discuss how to start testing Lmod on your system and how to
+deploy it in a gradual way.  Then we will discuss features of Lmod
+that can enhance your users' and support teams experience.  Finally,
+we will talk the software hierarchy and what it can do for you.
+
+
