@@ -47,6 +47,16 @@ testdescript = {
      runLmod list                               # 18
      runLmod unload mpich2                      # 19
      runLmod list                               # 20
+     export LMOD_AUTO_SWAP=true
+     runLmod load mpich2                        # 21
+     runLmod load openmpi                       # 22
+     runLmod load gcc                           # 23
+     runLmod load intel mpich2                  # 24
+     runLmod load gcc openmpi                   # 25
+     runLmod load intel gcc                     # 26
+
+     
+     
 
 
 

@@ -12,4 +12,4 @@ prepend_path('PATH',            pathJoin(mpihome,"bin"))
 prepend_path('LD_LIBRARY_PATH', pathJoin(mpihome,"lib"))
 prepend_path('MANPATH',         pathJoin(mpihome,"man"))
 setenv(      'MPIHOME',         mpihome)
-
+family("MPI")

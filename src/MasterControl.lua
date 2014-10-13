@@ -82,9 +82,10 @@ local concatTbl    = table.concat
 local decode64     = base64.decode64
 local encode64     = base64.encode64
 local getenv       = os.getenv
+local remove       = table.remove
 local pack         = (_VERSION == "Lua 5.1") and argsPack or table.pack
 local Exit         = os.exit
-
+local s_moduleStack = {}
 --------------------------------------------------------------------------
 --
 -- @param mA
@@ -212,6 +213,7 @@ function M.build(name,mode)
 
    local o                = valid_name(nameTbl, name):create()
    o:_setMode(mode or name)
+   
 
    dbg.print{"Setting mcp to ", o:name(),"\n"}
    return o
@@ -840,15 +842,9 @@ function M.family(self, name)
    local oldName = mt:getfamily(name)
    if (oldName ~= nil and oldName ~= sn and not expert() ) then
       if (LMOD_AUTO_SWAP ~= "no") then
-         local old_mname = MName:new("mt", oldName)
-         LmodMessage("\nLmod is automatically swapping \"", mt:fullName(oldName),
-                     "\" for \"", mname:usrName(),"\"\n" )
-         local mcp_old = mcp
-         mcp           = MCP
-         dbg.print{"Setting mcp to ", mcp:name(),"\n"}
-         mcp:unload_usr{ old_mname }
-         mcp           = mcp_old
-         dbg.print{"Setting mcp to ", mcp:name(),"\n"}
+         dbg.print{"RTM Fmly Push sn: ",sn,", oldName: ",oldName,"\n"}
+         self.familyStackPush({sn,      mt:fullName(sn)})
+         self.familyStackPush({oldName, mt:fullName(oldName)})
       else
          LmodError("You can only have one ",name," module loaded at a time.\n",
                    "You already have ", oldName," loaded.\n",
@@ -946,6 +942,19 @@ function M.execute(self, t)
    dbg.fini("MasterControl:execute")
 end
 
+function M.familyStackPush(name)
+   s_moduleStack[#s_moduleStack+1] = name
+end
+
+function M.familyStackPop()
+   local value = s_moduleStack[#s_moduleStack]
+   remove(s_moduleStack)
+   return value
+end
+
+function M.familyStackEmpty()
+   return (next(s_moduleStack) == nil)
+end
 
 -------------------------------------------------------------------
 -- Quiet Functions

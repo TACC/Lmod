@@ -267,6 +267,7 @@ Modules based on Lua: Version 5.7.6  2014-09-08 17:11
 Description                    Value
 Allow TCL modulefiles          @allow_tcl_mfiles@
 User cache valid time(sec)     @ancient@
+Auto swapping                  @auto_swap@
 Case Independent Sorting       @case_independent_sorting@
 Colorize Lmod                  @colorize@
 Using dotfiles                 @use_dot_files@
