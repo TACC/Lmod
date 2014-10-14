@@ -38,6 +38,7 @@ echo "Use Dot files in ~/.lmod.d.................." : $USE_DOT_FILES
 echo "Full Settarg support........................" : $SETTARG
 echo "Have lua-term..............................." : $HAVE_LUA_TERM
 echo "Have lua-json..............................." : $HAVE_LUA_JSON
+echo "Support Auto Swap when using families......." : $AUTO_SWAP
 
 echo
 echo '------------------------------------------------------------------------------'

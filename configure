@@ -2683,7 +2683,7 @@ $as_echo "AUTO_SWAP=$with_autoSwap" >&6; }
 _ACEOF
 
 else
-  withval="NO"
+  withval="YES"
     { $as_echo "$as_me:${as_lineno-$LINENO}: result: AUTO_SWAP=$withval" >&5
 $as_echo "AUTO_SWAP=$withval" >&6; }
     AUTO_SWAP="$withval"
@@ -4652,6 +4652,7 @@ echo "Use Dot files in ~/.lmod.d.................." : $USE_DOT_FILES
 echo "Full Settarg support........................" : $SETTARG
 echo "Have lua-term..............................." : $HAVE_LUA_TERM
 echo "Have lua-json..............................." : $HAVE_LUA_JSON
+echo "Support Auto Swap when using families......." : $AUTO_SWAP
 
 echo
 echo '------------------------------------------------------------------------------'
