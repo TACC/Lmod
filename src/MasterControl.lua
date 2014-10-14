@@ -816,15 +816,19 @@ end
 
 --------------------------------------------------------------------------
 -- Remember the user's requested load array into an internal table.
+-- This is tricky because the module mnames in the *mA* array may not be
+-- findable yet (e.g. module load mpich petsc).  The only thing we know
+-- is the usrName from the command
+-- line.  So we use the *usrName* to be the key and not *sn*.
 -- @param mA The array of MName objects.
 function M.familyLoadRegister(mA)
    dbg.start{"familyLoadRegister(mA)"}
    s_loadT = {}
    for i = 1, #mA do
-      local mname = mA[i]
-      local sn    = mname:sn()
-      s_loadT[sn] = mname
-      dbg.print{"sn: ",sn,"\n"}
+      local mname      = mA[i]
+      local usrName    = mname:usrName()
+      s_loadT[usrName] = mname
+      dbg.print{"usrName: ",usrName,"\n"}
    end
    dbg.fini("familyLoadRegister")
 end
@@ -840,10 +844,11 @@ function M.familyLoaded()
    local aa = {}
    local bb = {}
 
-   for sn, mname in pairs(s_loadT) do
+   for usrName, mname in pairs(s_loadT) do
+      local sn = mname:sn()
       if (not mt:have(sn, "active")) then
          aa[#aa+1] = mname:show()
-         bb[#bb+1] = mname:usrName()
+         bb[#bb+1] = usrName
       end
    end
          
@@ -855,9 +860,12 @@ end
 -- @param oldName The old module name that is getting pushed out by *sn*.
 -- @param sn The new module name.
 function M.familyStackPush(oldName, sn)
-   dbg.start{"familyStackPush(",oldName", ", sn,")"}
-   local mt         = MT:mt()
-   s_loadT[oldName] = nil
+   dbg.start{"familyStackPush(",oldName,", ", sn,")"}
+   local mt             = MT:mt()
+   local old_usrName    = mt:usrName(oldName)
+   dbg.print{"removing old sn: ",oldName,",old usrName: ",old_usrName,"\n"}
+
+   s_loadT[old_usrName] = nil
    s_moduleStk[#s_moduleStk+1] = { oldName, mt:fullName(oldName)}
    s_moduleStk[#s_moduleStk+1] = { sn,      mt:fullName(sn)}
    dbg.fini("familyStackPush")
