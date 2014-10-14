@@ -818,12 +818,15 @@ end
 -- Remember the user's requested load array into an internal table.
 -- @param mA The array of MName objects.
 function M.familyLoadRegister(mA)
+   dbg.start{"familyLoadRegister(mA)"}
    s_loadT = {}
    for i = 1, #mA do
       local mname = mA[i]
       local sn    = mname:sn()
       s_loadT[sn] = mname
+      dbg.print{"sn: ",sn,"\n"}
    end
+   dbg.fini("familyLoadRegister")
 end
 
 --------------------------------------------------------------------------
@@ -852,10 +855,12 @@ end
 -- @param oldName The old module name that is getting pushed out by *sn*.
 -- @param sn The new module name.
 function M.familyStackPush(oldName, sn)
+   dbg.start{"familyStackPush(",oldName", ", sn,")"}
    local mt         = MT:mt()
    s_loadT[oldName] = nil
    s_moduleStk[#s_moduleStk+1] = { oldName, mt:fullName(oldName)}
    s_moduleStk[#s_moduleStk+1] = { sn,      mt:fullName(sn)}
+   dbg.fini("familyStackPush")
 end
 
 --------------------------------------------------------------------------
