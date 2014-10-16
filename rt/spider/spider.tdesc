@@ -44,8 +44,6 @@ testdescript = {
      runLmod spider mpich2/1.0.5                                              #12
      runLmod spider is-dyna                                                   #13
      runLmod spider bwa                                                       #14
-     runLmod load cmplrs/intel/14.0
-     runLmod avail
      runLmod spider gromacs                                                   #15
      runLmod spider apps/gromacs                                              #16
 
