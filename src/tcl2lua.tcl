@@ -394,7 +394,7 @@ proc module-whatis { args } {
     puts stdout "whatis(\[\[$msg2\]\])"
 }
 
-proc setenv { var val } {
+proc setenv { var val args } {
     global env
     set env($var) $val
     if {[string match $var "-respect"] || [string match $var "-r"] || [string match $var "--respect"]} {
