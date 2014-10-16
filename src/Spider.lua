@@ -657,9 +657,9 @@ function M.spiderSearch(self, dbT, searchName, help)
          dbg.print{"Found exact match: search: ",search,"\n"}
          local s     = self:_Level1(A[i].pattern, search, T, searchName, possibleA, help)
          if (s) then
+            found   = true
             a[#a+1] = s
          end
-         found = true
       end
    end
 
@@ -670,11 +670,11 @@ function M.spiderSearch(self, dbT, searchName, help)
          for i = 1, #A do
             local search = A[i].pattern
             if (k:find(search)) then
-               found = true
                dbg.print{"Found inexact match: search: ",search,", k: ",k,"\n"}
                local s = self:_Level1(A[i].pattern, k, v, searchName, {}, help)
                if (s) then
                   a[#a+1] = s
+                  found = true
                end
             end
          end
@@ -683,14 +683,7 @@ function M.spiderSearch(self, dbT, searchName, help)
 
    if (not found) then
       setWarningFlag()
-      io.stderr:write("Unable to find: \"",searchName,"\"\n")
-
-      if (searchName:escape() ~= searchName) then
-         io.stderr:write("\nRegular Expressions require:\n   $ module -r spider '",
-                         searchName,"'\n")
-      end
-         
-
+      LmodSystemError("Unable to find: \"",searchName,"\"\n")
    end
    dbg.fini("Spider:spiderSearch")
    return concatTbl(a,"")
@@ -704,7 +697,7 @@ function M._Level1(self, searchPat, key, T, searchName, possibleA, help)
    if (T == nil) then
       dbg.print{"No entry called: \"",searchName, "\" in dbT\n"}
       dbg.fini("Spider:_Level1")
-      return ""
+      return false
    end
 
    local cnt, nameCnt, fullCnt, full = countEntries(T, key, searchPat, searchName, hidden)
@@ -715,9 +708,9 @@ function M._Level1(self, searchPat, key, T, searchName, possibleA, help)
    --if ((key:len() < searchName:len() and fullCnt == 0 ) or
    --    (cnt == 0 and fullCnt == 0)) then
    if ((nameCnt == 0 and fullCnt == 0) or (not full)) then
-      LmodSystemError("Unable to find: \"",searchName,"\"")
+      dbg.print{"did not to find: \"",searchName,"\"\n"}
       dbg.fini("Spider:_Level1")
-      return ""
+      return false
    end
 
    if (cnt == 1 or nameCnt == 1 or fullCnt > 0) then

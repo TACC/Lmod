@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.6.3 5.6.3-32-g0ceda56 2014-06-23 05:28
+Modules based on Lua: Version 5.8rc1  2014-10-14 15:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -17,8 +17,11 @@ The following is a list of the modules currently available:
   R: R/2.1.5
   admin: admin/admin-1.0
   alex: alex/1.0
+  apps: apps/moabdev
+  apps/gromacs: apps/gromacs/4.0.7, apps/gromacs/4.6.3
   boost: boost/1.46.0, boost/1.47.1, boost/1.49.0
   bwa: bwa/0.7.1, bwa/0.7.2, bwa/0.7.9a, bwa/0.7.9, bwa/0.7.10
+  cmplrs/intel: cmplrs/intel/14.0
   gcc: gcc/4.2.3
   git: git/1.6.3.1, git/1.7.4, git/1.7.4.3
   gotoblas: gotoblas/1.20, gotoblas/1.26, gotoblas/1.30-beta, gotoblas/1.30, ...
@@ -38,6 +41,7 @@ The following is a list of the modules currently available:
   junk/b/c: junk/b/c/2.0
   junk/d: junk/d/3.0
   local: local/local
+  mpi/openmpi: mpi/openmpi/1.6.5
   mpich2: mpich2/1.0.7
   multi: multi/multi
   noweb: noweb/2.10c
@@ -65,6 +69,11 @@ admin/
 admin/admin-1.0
 alex/
 alex/1.0
+apps/
+apps/moabdev
+apps/gromacs/
+apps/gromacs/4.0.7
+apps/gromacs/4.6.3
 boost/
 boost/1.46.0
 boost/1.47.1
@@ -75,6 +84,8 @@ bwa/0.7.2
 bwa/0.7.9a
 bwa/0.7.9
 bwa/0.7.10
+cmplrs/intel/
+cmplrs/intel/14.0
 gcc/
 gcc/4.2.3
 git/
@@ -103,6 +114,8 @@ junk/d/
 junk/d/3.0
 local/
 local/local
+mpi/openmpi/
+mpi/openmpi/1.6.5
 mpich2/
 mpich2/1.0.7
 multi/
@@ -157,14 +170,14 @@ lua ProjectDIR/src/lmod.in.lua bash spider parmetis/3.1
 step 8
 lua ProjectDIR/src/lmod.in.lua bash spider mpich2me
 ===========================
-Unable to find: "mpich2me"
+Lmod has detected the following error: Unable to find: "mpich2me"
 ===========================
 step 9
 lua ProjectDIR/src/lmod.in.lua bash spider R
 ===========================
   R: R/2.1.5
      Other possible modules matches:
-        PrgEnv, greenlet, parmetis, r
+        PrgEnv, apps/gromacs, cmplrs/intel, greenlet, parmetis, r
     This module can be loaded directly: module load R/2.1.5
   To find other possible module matches do:
       module -r spider '.*R.*'
@@ -209,6 +222,32 @@ lua ProjectDIR/src/lmod.in.lua bash spider bwa
      $ module spider bwa/0.7.9a
 ===========================
 step 15
+lua ProjectDIR/src/lmod.in.lua bash spider gromacs
+===========================
+  apps/gromacs:
+     Versions:
+        apps/gromacs/4.0.7
+        apps/gromacs/4.6.3
+  To find detailed information about apps/gromacs please enter the full name.
+  For example:
+     $ module spider apps/gromacs/4.6.3
+===========================
+step 16
+lua ProjectDIR/src/lmod.in.lua bash spider apps/gromacs
+===========================
+  apps/gromacs:
+     Versions:
+        apps/gromacs/4.0.7
+        apps/gromacs/4.6.3
+     Other possible modules matches:
+        apps
+  To find other possible module matches do:
+      module -r spider '.*apps/gromacs.*'
+  To find detailed information about apps/gromacs please enter the full name.
+  For example:
+     $ module spider apps/gromacs/4.6.3
+===========================
+step 17
 lua ProjectDIR/src/lmod.in.lua bash spider
 ===========================
 The following is a list of the modules currently available:
@@ -216,8 +255,11 @@ The following is a list of the modules currently available:
   R: R/2.1.5
   admin: admin/admin-1.0
   alex: alex/1.0
+  apps: apps/moabdev
+  apps/gromacs: apps/gromacs/4.0.7, apps/gromacs/4.6.3
   boost: boost/1.46.0, boost/1.47.1, boost/1.49.0
   bwa: bwa/0.7.1, bwa/0.7.2, bwa/0.7.9a, bwa/0.7.9, bwa/0.7.10
+  cmplrs/intel: cmplrs/intel/14.0
   gcc: gcc/4.2.3
   git: git/1.6.3.1, git/1.7.4, git/1.7.4.3
   gotoblas: gotoblas/1.20, gotoblas/1.26, gotoblas/1.30-beta, gotoblas/1.30, ...
@@ -237,6 +279,7 @@ The following is a list of the modules currently available:
   junk/b/c: junk/b/c/2.0
   junk/d: junk/d/3.0
   local: local/local
+  mpi/openmpi: mpi/openmpi/1.6.5
   mpich2: mpich2/1.0.7
   multi: multi/multi
   noweb: noweb/2.10c
@@ -253,3 +296,29 @@ where "Foo" is the name of a module
 To find detailed information about a particular package you
 must enter the version if there is more than one version:
    $ module spider Foo/11.1
+===========================
+step 18
+lua ProjectDIR/src/lmod.in.lua bash spider gromacs
+===========================
+  apps/gromacs:
+     Versions:
+        apps/gromacs/4.0.7
+        apps/gromacs/4.6.3
+  To find detailed information about apps/gromacs please enter the full name.
+  For example:
+     $ module spider apps/gromacs/4.6.3
+===========================
+step 19
+lua ProjectDIR/src/lmod.in.lua bash spider apps/gromacs
+===========================
+  apps/gromacs:
+     Versions:
+        apps/gromacs/4.0.7
+        apps/gromacs/4.6.3
+     Other possible modules matches:
+        apps
+  To find other possible module matches do:
+      module -r spider '.*apps/gromacs.*'
+  To find detailed information about apps/gromacs please enter the full name.
+  For example:
+     $ module spider apps/gromacs/4.6.3
