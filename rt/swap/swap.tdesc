@@ -57,7 +57,7 @@ testdescript = {
      runLmod purge                              # 26
      runLmod load gcc                           # 27
      runLmod load intel gcc                     # 28
-
+     runLmod swap gcc                           # 29
      
      
 

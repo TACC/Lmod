@@ -244,3 +244,7 @@ lua ProjectDIR/src/lmod.in.lua bash load intel gcc
 ===========================
 Lmod is automatically replacing "intel/intel" with "gcc/4.2.3"
 Lmod is automatically replacing "gcc/4.2.3" with "intel/intel"
+===========================
+step 30
+lua ProjectDIR/src/lmod.in.lua bash swap gcc
+===========================

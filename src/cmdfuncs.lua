@@ -774,7 +774,7 @@ function Swap(...)
 
    local n = select("#", ...)
    if (n ~= 2) then
-      LmodError("Wrong number of arguments to swap.\n")
+      b = a
    end
 
    local mt    = MT:mt()
