@@ -94,6 +94,7 @@ local numSrchLatest = 2
 -- This local function is used to find a default file
 -- that maybe in symbolic link chain. This returns
 -- the absolute path.
+-- @param path A directory path
 local function followDefault(path)
    if (path == nil) then return nil end
    dbg.start{"followDefault(path=\"",path,"\")"}
