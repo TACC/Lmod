@@ -13,6 +13,9 @@ Features/Bug fixes:
    f) If a module collection file gets corrupted, Lmod now reports
       that the collection file is corrupted and tells the user to
       remove it.
+   g) Lmod now support "module swap <name>" which is exactly the
+      same as "module load <name>".  The module <name> is unloaded
+      and then reloaded.
 
 
 Lmod Version 5.7.5:
