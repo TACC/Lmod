@@ -12,7 +12,7 @@ and the module command is defined as
 
     module () { eval $(/path/to/lmod bash "$@"); }
 
-The user command translates to
+The executed *module command translates to
 
     eval $( /path/to/lmod bash "load" "foo" )
 
@@ -31,7 +31,7 @@ This is how *loading* the foo module changes the user's environment.
 
 ##Level 1:
 
-This level is starts with */path/to/lmod bash 'load' 'foo'*
+This level starts with */path/to/lmod bash 'load' 'foo'*
 
 The *lmod.lua* script is the entry point to the Lmod complex.  The main steps are:
 
@@ -41,16 +41,16 @@ The *lmod.lua* script is the entry point to the Lmod complex.  The main steps ar
     4.  Output the changes.
 
 Invoking the action builds two data structures *varTbl* and *MT*.  The *varTbl* is an
-array of environment variable that the actions like loading a module will change. Level 0
+array of environment variables that the actions like loading a module will change. Level 0
 described such as action: setting the **FOO\_VERSION** variable to "1.0".
 
 The other data structure is *MT*.  This is the module table.  It is a Lua table
-contains a list of the module loaded, what is the filename for these modules and
-other information.  This table is the only way Lmod knows the state of the loaded
+that contains a list of the loaded modules, what the filename is for these modules and
+other information.  This table is the only way that Lmod knows the state of the loaded
 modules between invocations.
 
 In step 4, Lmod reports the key value pairs in *varTbl* and the current value of *MT*
-and generates simple program to be evaluated.  The new key value pairs are written as
+and generates a simple program to be evaluated.  The new key value pairs are written as
 bash, csh, python or perl script depending on what the first argument to the lmod
 command is.
 
@@ -76,19 +76,19 @@ loaded.
 
 To see the current module table you can do:
 
-   $ module --mt
+    $ module --mt
 
 ## Level 2
 
 Modulefiles are written with actions necessary to load the module.  For example,
-a modulefile might say:
+a module file might say:
 
     setenv("ABC","DEF")
     prepend_path("PATH", "/path/to/add")
     
-So loading this module would set **ABC** and prepend to the **PATH** variable.  This is the
+So loading this module would define **$ABC** and prepend to the **$PATH** variable.  This is the
 positive direction. On the flip side, when a module is unloaded, the *setenv* and
-*prepend\_path* actions are reversed or in the negative direction.  So when these modulefiles
+*prepend\_path* actions are reversed or in the negative direction.  So when these module files
 are interpreted the action of the functions depends on which mode.  There are several modes
 among them are **load**, **unload**, **show** and **help**.
 
@@ -108,26 +108,26 @@ then the program builds:
 This places the actions in the negative direction; that is an *setenv* or *prepend\_path*
 will unset a global variable or remove an entry from a path. 
 
-Another way that module files are interpreted is for show.  A *mcp* is built by:
+Another way that module files are interpreted is for show, with *mcp*:
 
     mcp = MasterControl.build("show")
 
-This changes the modulefile actions to converted into print statements.  There are several
-other modes that treat the actions of modulefiles differently.  The way that this is
+This changes the module file actions to be converted into print statements.  There are several
+other modes that treat the actions of module files differently.  The way that this is
 implemented is that there is base class MasterControl (in src/MasterControl.lua) which
-implements the functions a single positive and another in negative directions.  There is
-a member load function and another member unload function.  When building the **load** version
+implements the functions in both positive and negative directions.  There is
+a member function *load and another member function *unload.  When building the **load** version
 of *mcp* the member setenv function points to the MasterControl.setenv function.  This can
-be seen in src/MC\_Load.lua
+be seen in src/MC\_Load.lua.
 
 When building the **unload** version the setenv member function points to
 MasterControl.unsetenv function as seen in src/MC\_Unload.lua.  It is the construction
 of the **load**, **unload**, **show**, etc versions of *mcp*  that changes the
-interpretation of the modulefile function.
+interpretation of the module file function.
 
 ## Level 3
 
-To be explicit with what the Level 2 described in theory, let's start with a modulefile
+To be explicit with what the Level 2 described in theory, let's start with a module file
 that has:
 
     setenv("ABC","DEF")
@@ -156,7 +156,7 @@ Users specify a single action on the command line **load**, **unload**, **list**
 Lmod takes those actions and calls a routine in src/cmdfuncs.lua.  So if a user requests
 a load.  This means that the *Load_Usr* function will be called.  This calls mcp:load()
 function which is described in some detail in Level 3.  Eventually, this calls the
-*loadModulefile()* function which reads the modulefile and evaluates as a lua program.
+*loadModulefile()* function which reads the module file and evaluates as a lua program.
 Note that TCL modules are converted inside of *loadModulefile()* to be lua functions.
 The evaluation of 
 
