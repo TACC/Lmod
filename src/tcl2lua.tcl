@@ -733,7 +733,7 @@ proc execute-modulefile {modfile } {
             set end   "\]\])"
             setPutMode "inHelp"
             puts stdout $start
-	    catch { ModulesHelp }
+	    catch { ModulesHelp } errMsg
             puts stdout $end
             setPutMode "normal"
         }
