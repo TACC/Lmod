@@ -60,7 +60,9 @@ echo
 echo '******************************************************************************'
 echo
 
-if test "$EXPORT_MODULE" != no -a "$EXPORT_MODULE" != NO; then
+a=$(echo $EXPORT_MODULE | tr ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz)
+
+if test "$a" != no; then
   echo
   echo '******************************************************************************'
   echo

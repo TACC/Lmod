@@ -599,7 +599,7 @@ proc myPuts args {
     if {$putMode != "inHelp"} {
         if { ($channel == "stdout") || ($channel == "stderr") } {
             set channel "stdout"
-            set text "LmodMessage(\"$text\")"
+            set text "LmodMessage(\[\[$text\]\])"
         }
     } else {
         set channel  "stdout"
