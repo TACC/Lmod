@@ -181,6 +181,10 @@ local function valid_name(nameTbl, name)
    return nameTbl[name]
 end
 
+--------------------------------------------------------------------------
+-- The Factory builder for the MasterControl Class
+-- @param name the name of the derived object.
+-- @param[opt] mode An optional mode for building the *access* object.
 function M.build(name,mode)
 
    local nameTbl          = {}
@@ -210,9 +214,12 @@ function M.build(name,mode)
    return o
 end
 
+
 -------------------------------------------------------------------
--- Load / Unload functions
--------------------------------------------------------------------
+--
+-- @param self A MasterControl object
+-- @param mA A array of MName objects.
+-- @return An array of statuses
 function M.load_usr(self, mA)
    self.familyLoadRegister(mA)
    local a = self:load(mA)
@@ -221,6 +228,12 @@ function M.load_usr(self, mA)
    end
    return a
 end
+
+-------------------------------------------------------------------
+--
+-- @param self A MasterControl object
+-- @param mA A array of MName objects.
+-- @return An array of statuses
 function M.load(self, mA)
    LMOD_IGNORE_CACHE = true
    local master = Master:master()
@@ -281,6 +294,10 @@ function M.load(self, mA)
    return a
 end
 
+-------------------------------------------------------------------
+--
+-- @param self A MasterControl object
+-- @param mA A array of MName objects.
 function M.try_load(self, mA)
    dbg.start{"MasterControl:try_load(mA)"}
    deactivateWarning()
@@ -288,6 +305,11 @@ function M.try_load(self, mA)
    dbg.fini("MasterControl:try_load")
 end
 
+-------------------------------------------------------------------
+--
+-- @param self A MasterControl object
+-- @param mA A array of MName objects.
+-- @return an array of statuses
 function M.unload(self, mA)
    local master = Master:master()
    local mt     = MT:mt()
@@ -302,6 +324,12 @@ function M.unload(self, mA)
    return aa
 end
 
+-------------------------------------------------------------------
+--
+-- @param self A MasterControl object
+-- @param mA A array of MName objects.
+-- @param force
+-- @return an array of statuses
 function M.unload_usr(self, mA, force)
    dbg.start{"MasterControl:unload_usr(mA)"}
 
@@ -313,6 +341,11 @@ function M.unload_usr(self, mA, force)
 end
 
 
+-------------------------------------------------------------------
+--
+-- @param self A MasterControl object
+-- @param mA A array of MName objects.
+-- @return an array of statuses
 function M.bad_unload(self,mA)
    local a   = {}
 
@@ -324,6 +357,10 @@ function M.bad_unload(self,mA)
 end
 
 
+-------------------------------------------------------------------
+--
+-- @param self A MasterControl object
+-- @param mA A array of MName objects.
 function M.fake_load(self,mA)
 
    if (dbg.active()) then

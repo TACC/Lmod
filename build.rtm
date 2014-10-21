@@ -84,6 +84,7 @@ case $SYSHOST in
 
     if [ "$SYSHOST" == "mijo" ]; then
       MAKE_EXTRA="LUA_PATH=$LUA_PATH LUA_CPATH=$LUA_CPATH"
+      EXTRA="$EXTRA --with-exportedModuleCmd=no"
     fi
     ;;
 

@@ -39,6 +39,7 @@ echo "Full Settarg support........................" : $SETTARG
 echo "Have lua-term..............................." : $HAVE_LUA_TERM
 echo "Have lua-json..............................." : $HAVE_LUA_JSON
 echo "Support Auto Swap when using families......." : $AUTO_SWAP
+echo "Export the module shell function in Bash...." : $EXPORT_MODULE
 
 echo
 echo '------------------------------------------------------------------------------'
@@ -57,7 +58,29 @@ echo "   $prefix/lmod/$LmodV/init/profile"
 echo "   $prefix/lmod/$LmodV/init/cshrc"
 echo
 echo '******************************************************************************'
+echo
 
+if test "$EXPORT_MODULE" != no -a "$EXPORT_MODULE" != NO; then
+  echo
+  echo '******************************************************************************'
+  echo
+  echo Lmod is exporting the module command for Bash users.  Some sites may have some
+  echo problems.  You have two choices:
+  echo 
+  echo "   1.  You configure Lmod not to export the module command."
+  echo "   2.  You can filter out the exported functions in the users environment during"
+  echo "       job submission"
+  echo
+  echo If there is a way to do step 2, please try to do so.  Otherwise do step 1.
+  echo The advantage of exporting the module command is that it is defined in /bin/sh scripts.
+  echo Because Lmod defines BASH_ENV to point to init/bash, it will be defined for /bin/bash
+  echo "scripts.  The trouble is that users have to remember to put #!/bin/bash at the first"
+  echo line of their shell script to make that work.    We used to see tickets where users
+  echo "would submit jobs as /bin/sh scripts and wonder why the module command did not work."
+  echo
+  echo '******************************************************************************'
+  echo
+fi
 
 echo
 echo Configure complete, now type \'make install\'.
