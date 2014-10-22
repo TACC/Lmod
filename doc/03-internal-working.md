@@ -142,7 +142,7 @@ and it calls *mcp:setenv(...)*
         mcp:setenv(...)
      end
 
-The ... is the way that lua describes a variable number of argument.  If the user has
+The ... is the way that Lua describes a variable number of argument.  If the user has
 requested a load then *mcp* has been constructed as an MC\_Load derived class.  This means
 that *mcp:setenv()* is actually a call to *MasterControl:setenv(...)*.  Where as if the
 user requested to unload the module, the *mcp* variable would have been built as an

@@ -30,22 +30,22 @@ testdescript = {
 
      cp $(testDir)/.lmodrc.lua .lmodrc.lua
 
-     runMe lua $(projectDir)/src/lmod.in.lua bash --version                  # 1
+     runLmod --version                  # 1
      export LMOD_COLORIZE=FORCE
      export LMOD_TERM_WIDTH=59
-     runMe lua $(projectDir)/src/lmod.in.lua bash avail                      # 2
+     runLmod avail                      # 2
      export LMOD_TERM_WIDTH=71
-     runMe lua $(projectDir)/src/lmod.in.lua bash avail                      # 3
+     runLmod avail                      # 3
      export LMOD_TERM_WIDTH=76
-     runMe lua $(projectDir)/src/lmod.in.lua bash avail                      # 4
+     runLmod avail                      # 4
      export LMOD_TERM_WIDTH=85
-     runMe lua $(projectDir)/src/lmod.in.lua bash avail                      # 5
+     runLmod avail                      # 5
      export LMOD_TERM_WIDTH=97
-     runMe lua $(projectDir)/src/lmod.in.lua bash avail                      # 6
+     runLmod avail                      # 6
      export LMOD_TERM_WIDTH=108
-     runMe lua $(projectDir)/src/lmod.in.lua bash avail                      # 6
+     runLmod avail                      # 7
      export LMOD_TERM_WIDTH=119
-     runMe lua $(projectDir)/src/lmod.in.lua bash avail                      # 6
+     runLmod avail                      # 8
 
      HOME=$ORIG_HOME
 
