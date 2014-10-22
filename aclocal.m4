@@ -67,8 +67,9 @@ if test "$a" != no; then
   echo '******************************************************************************'
   echo
   echo Lmod is exporting the module command for Bash users.  Some sites may have some
-  echo problems.  You have two choices:
+  echo "problems.  You have some options:
   echo 
+  echo "   0.  Make sure that all your machines have shellshock bash patch."
   echo "   1.  You configure Lmod not to export the module command."
   echo "   2.  You can filter out the exported functions in the users environment during"
   echo "       job submission"
