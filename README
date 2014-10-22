@@ -16,6 +16,8 @@ Features/Bug fixes:
    g) Lmod now support "module swap <name>" which is exactly the
       same as "module load <name>".  The module <name> is unloaded
       and then reloaded.
+   h) Sites can configure for exporting the module shell function
+      in bash or not.
 
 
 Lmod Version 5.7.5:

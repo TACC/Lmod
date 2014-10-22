@@ -55,6 +55,18 @@ AC_ARG_WITH(autoSwap,
     AUTO_SWAP="$withval"
     AC_DEFINE_UNQUOTED(AUTO_SWAP, "$withval"))dnl
 
+AC_SUBST(EXPORT_MODULE)
+AC_ARG_WITH(exportedModuleCmd,
+    AC_HELP_STRING([--with-exportedModuleCmd=ans],[Export the module command. [[YES]]]),
+    EXPORT_MODULE="$withval"
+    AC_MSG_RESULT([EXPORT_MODULE=$with_exportedModuleCmd])
+    AC_DEFINE_UNQUOTED(EXPORT_MODULE, "$with_exportedModuleCmd")dnl
+    ,
+    withval="YES"
+    AC_MSG_RESULT([EXPORT_MODULE=$withval])
+    EXPORT_MODULE="$withval"
+    AC_DEFINE_UNQUOTED(EXPORT_MODULE, "$withval"))dnl
+
 AC_SUBST(REDIRECT)
 AC_ARG_WITH(redirect,
     AC_HELP_STRING([--with-redirect=ans],[redirect messages to stdout [[NO]]]),
