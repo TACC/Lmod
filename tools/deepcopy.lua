@@ -1,5 +1,4 @@
 --[[ deepcopy.lua
-
     Deep-copy function for Lua - v0.2
     ==============================
       - Does not overflow the stack.
