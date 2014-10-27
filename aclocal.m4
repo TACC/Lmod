@@ -74,15 +74,17 @@ if test "$a" != no; then
   echo If that does not fix things then you have two choices:
   echo 
   echo "   1.  You configure Lmod not to export the module command."
-  echo "   2.  You can filter out the exported functions in the users environment during"
-  echo "       job submission"
+  echo "   2.  You can filter out the exported functions in the users environment"
+  echo "       during job submission"
   echo
   echo If there is a way to do step 2, please try to do so.  Otherwise do step 1.
-  echo The advantage of exporting the module command is that it is defined in /bin/sh scripts.
-  echo Because Lmod defines BASH_ENV to point to init/bash, it will be defined for /bin/bash
-  echo "scripts.  The trouble is that users have to remember to put #!/bin/bash at the first"
-  echo line of their shell script to make that work.    We used to see tickets where users
-  echo "would submit jobs as /bin/sh scripts and wonder why the module command did not work."
+  echo The advantage of exporting the module command is that it is defined in 
+  echo /bin/sh scripts. Because Lmod defines BASH_ENV to point to init/bash, 
+  echo "it will be defined for /bin/bash scripts.  The trouble is that users"
+  echo "have to remember to put #!/bin/bash at the first line of their shell"
+  echo script to make that work.    We used to see tickets where users would
+  echo submit jobs as /bin/sh scripts and wonder why the module command did
+  echo not work.
   echo
   echo '******************************************************************************'
   echo
@@ -90,8 +92,10 @@ fi
 
 echo
 echo Configure complete, Now do:
-echo "     \'make install\'.      A complete install"
-echo "     \'make pre-install\'   Install everything but the symbolic link"
+echo 
+echo "    $ make install       # -> A complete install"
+echo or
+echo "    $ make pre-install   # -> Install everything but the symbolic link"
 echo
 
 ])
