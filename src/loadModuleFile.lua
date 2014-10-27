@@ -125,7 +125,7 @@ function loadModuleFile(t)
       LmodMessage("\nLmod is automatically replacing \"", fullA[2],
                   "\" with \"", fullA[1], "\"\n" )
       local mcp_old = mcp
-      mcp           = MCP
+      mcp           = MasterControl.build("unload")
       dbg.print{"Setting mcp to ", mcp:name(),"\n"}
       mcp:unload_usr(mA)
       mcp           = mcp_old
