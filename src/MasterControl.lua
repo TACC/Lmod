@@ -87,10 +87,10 @@ local pack         = (_VERSION == "Lua 5.1") and argsPack or table.pack
 local Exit         = os.exit
 local s_moduleStk  = {}
 local s_loadT      = {}
---------------------------------------------------------------------------
---
--- @param mA
 
+--------------------------------------------------------------------------
+-- Check list of modules requested from user to see if they got loaded.
+-- If not found check with spider to see if a module can be loaded.
 local function mustLoad()
 
    local aa, bb = mcp.familyLoaded()
@@ -153,6 +153,9 @@ local function mustLoad()
    end
 end
 
+--------------------------------------------------------------------------
+-- Build a list of user names based on mA.
+-- @param mA List of MName objects
 local function mAList(mA)
    local a = {}
    for i = 1, #mA do
@@ -161,28 +164,38 @@ local function mAList(mA)
    return concatTbl(a, ", ")
 end
 
+--------------------------------------------------------------------------
+-- Return the name of the derived MC object. 
+-- @param self A MasterControl object
 function M.name(self)
    return self.my_name
 end
 
+--------------------------------------------------------------------------
+-- Return the sType.
+-- @param self A MasterControl object
 function M.MNameType(self)
    return self.my_sType
 end
 
+--------------------------------------------------------------------------
+-- Return the tcl_mode.
+-- @param self A MasterControl object
 function M.tcl_mode(self)
    return self.my_tcl_mode
 end
 
 
+--------------------------------------------------------------------------
+-- Convert MC name to MC Object.
+-- @param nameTbl Name to MC object table.
+-- @param name    Name of an MC objects.
 local function valid_name(nameTbl, name)
-   if (not nameTbl[name]) then
-      return nameTbl.default
-   end
-   return nameTbl[name]
+   return nameTbl[name] or nameTbl.default
 end
 
 --------------------------------------------------------------------------
--- The Factory builder for the MasterControl Class
+-- The Factory builder for the MasterControl Class.
 -- @param name the name of the derived object.
 -- @param[opt] mode An optional mode for building the *access* object.
 function M.build(name,mode)
@@ -216,7 +229,8 @@ end
 
 
 -------------------------------------------------------------------
---
+-- Load a list of modules.  Check to see if the user requested
+-- modules were actually loaded.
 -- @param self A MasterControl object
 -- @param mA A array of MName objects.
 -- @return An array of statuses
@@ -230,7 +244,8 @@ function M.load_usr(self, mA)
 end
 
 -------------------------------------------------------------------
---
+-- Load a list of modules. Check to see if there are any admin
+-- messages.
 -- @param self A MasterControl object
 -- @param mA A array of MName objects.
 -- @return An array of statuses
@@ -295,7 +310,7 @@ function M.load(self, mA)
 end
 
 -------------------------------------------------------------------
---
+-- Load a list of module but ignore any warnings.
 -- @param self A MasterControl object
 -- @param mA A array of MName objects.
 function M.try_load(self, mA)
@@ -306,7 +321,7 @@ function M.try_load(self, mA)
 end
 
 -------------------------------------------------------------------
---
+-- Unload a list modules.
 -- @param self A MasterControl object
 -- @param mA A array of MName objects.
 -- @return an array of statuses
@@ -320,16 +335,18 @@ function M.unload(self, mA)
    end
 
    local aa     = master.unload(mA)
-   dbg.fini("MasterControl:unload")
+   if (dbg.active()) then
+      dbg.fini("MasterControl:unload")
+   end
    return aa
 end
 
 -------------------------------------------------------------------
---
+-- Unload a user requested list of modules.
 -- @param self A MasterControl object
 -- @param mA A array of MName objects.
--- @param force
--- @return an array of statuses
+-- @param force if true then do not reload sticky modules.
+-- @return an array of statuses.
 function M.unload_usr(self, mA, force)
    dbg.start{"MasterControl:unload_usr(mA)"}
 
@@ -342,32 +359,16 @@ end
 
 
 -------------------------------------------------------------------
---
--- @param self A MasterControl object
--- @param mA A array of MName objects.
--- @return an array of statuses
-function M.bad_unload(self,mA)
-   local a   = {}
-
-   dbg.start{"MasterControl.bad_unload(mA)"}
-
-   LmodWarning("Stubbornly refusing to unload module(s) during an unload\n")
-
-   dbg.fini("MasterControl.bad_unload")
-end
-
-
--------------------------------------------------------------------
---
+-- This load is used by Manager Load to ignore load inside a
+-- module.
 -- @param self A MasterControl object
 -- @param mA A array of MName objects.
 function M.fake_load(self,mA)
-
    if (dbg.active()) then
       local s = mAList(mA)
       dbg.start{"MasterControl:fake_load(mA={"..s.."})"}
+      dbg.fini("MasterControl:fake_load")
    end
-   dbg.fini("MasterControl:fake_load")
 end
 
 
@@ -378,6 +379,12 @@ LMOD_MP_T = {}
 
 LMOD_MP_T[ModulePath]  = true
 LMOD_MP_T[DfltModPath] = true
+
+
+-------------------------------------------------------------------
+-- Prepend to a path like variable.
+-- @param self A MasterControl object
+-- @param t A table containing { name, value, nodups=v1, priority=v2}
 function M.prepend_path(self, t)
    dbg.start{"MasterControl:prepend_path(t)"}
    local sep      = t.delim or ":"
@@ -400,7 +407,10 @@ function M.prepend_path(self, t)
    dbg.fini("MasterControl:prepend_path")
 end
 
---function M.append_path(self, name, value, sep, nodups)
+--------------------------------------------------------------------------
+-- Append to a path like variable.
+-- @param self A MasterControl object
+-- @param t A table containing { name, value, nodups=v1, priority=v2}
 function M.append_path(self, t)
    local sep      = t.delim or ":"
    local name     = t[1]
@@ -423,6 +433,10 @@ function M.append_path(self, t)
    dbg.fini("MasterControl:append_path")
 end
 
+--------------------------------------------------------------------------
+-- Remove an entry from a path like variable.
+-- @param self A MasterControl object
+-- @param t A table containing { name, value, nodups=v1, priority=v2, where=v3}
 function M.remove_path(self, t)
    local sep      = t.delim or ":"
    local name     = t[1]
@@ -443,25 +457,36 @@ function M.remove_path(self, t)
    dbg.fini("MasterControl:remove_path")
 end
 
+--------------------------------------------------------------------------
+-- Remove an entry from a path-like variable.  This version is the reverse
+-- of a prepend_path.
+-- @param self A MasterControl object
+-- @param t A table containing { name, value, nodups=v1, priority=v2}
 function M.remove_path_first(self, t)
    t.where = "first"
    M.remove_path(self, t)
 end
 
+-- Remove an entry from a path-like variable.  This version is the reverse
+-- of a append_path.
+-- @param self A MasterControl object
+-- @param t A table containing { name, value, nodups=v1, priority=v2}
 function M.remove_path_last(self, t)
    t.where = "last"
    M.remove_path(self, t)
 end
 
 
-function M.bad_remove_path(self, t)
-   LmodWarning("Refusing remove a path element variable while unloading: \"",t[1],"\"\n")
-end
-
 -------------------------------------------------------------------
 -- Setenv / Unsetenv Functions
 -------------------------------------------------------------------
 
+--------------------------------------------------------------------------
+-- Set an environment variable.
+-- @param self A MasterControl object.
+-- @param name the environment variable name.
+-- @param value the environment variable value.
+-- @param respect If true, then respect the old value.
 function M.setenv(self, name, value, respect)
    dbg.start{"MasterControl:setenv(\"",name,"\", \"",value,"\", \"",
               respect,"\")"}
@@ -480,6 +505,12 @@ function M.setenv(self, name, value, respect)
    dbg.fini("MasterControl:setenv")
 end
 
+--------------------------------------------------------------------------
+-- Unset an environment variable.
+-- @param self A MasterControl object.
+-- @param name the environment variable name.
+-- @param value the environment variable value.
+-- @param respect If true, then respect the old value.
 function M.unsetenv(self, name, value, respect)
    dbg.start{"MasterControl:unsetenv(\"",name,"\", \"",value,"\")"}
 
@@ -494,10 +525,6 @@ function M.unsetenv(self, name, value, respect)
    end
    varTbl[name]:unset()
    dbg.fini("MasterControl:unsetenv")
-end
-
-function M.bad_unsetenv(self, name, value)
-   LmodWarning("Refusing unsetenv variable while unloading: \"",name,"\"\n")
 end
 
 -------------------------------------------------------------------
