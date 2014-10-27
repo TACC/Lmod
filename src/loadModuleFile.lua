@@ -122,8 +122,8 @@ function loadModuleFile(t)
          dbg.print{"RTM F unloading ", fullA[#fullA], "\n"}
       end
 
-      LmodMessage("\nLmod is automatically replacing \"", fullA[1],
-                  "\" with \"", fullA[2], "\"\n" )
+      LmodMessage("\nLmod is automatically replacing \"", fullA[2],
+                  "\" with \"", fullA[1], "\"\n" )
       local mcp_old = mcp
       mcp           = MCP
       dbg.print{"Setting mcp to ", mcp:name(),"\n"}
