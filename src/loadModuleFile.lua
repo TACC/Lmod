@@ -111,26 +111,5 @@ function loadModuleFile(t)
       LmodError("Unable to load module: ",n,"\n    ",t.file,": ", msg,"\n")
    end
 
-   if (not mcp.familyStackEmpty()) then
-      local fullA   = {}
-      local mA      = {}
-      while (not mcp.familyStackEmpty()) do
-         local   a       = mcp.familyStackPop()
-         local   sn      = a[1]
-         fullA[#fullA+1] = a[2]
-         mA[#mA+1]    = MName:new("mt", sn) 
-         dbg.print{"RTM F unloading ", fullA[#fullA], "\n"}
-      end
-
-      LmodMessage("\nLmod is automatically replacing \"", fullA[2],
-                  "\" with \"", fullA[1], "\"\n" )
-      local mcp_old = mcp
-      mcp           = MasterControl.build("unload")
-      dbg.print{"Setting mcp to ", mcp:name(),"\n"}
-      mcp:unload_usr(mA)
-      mcp           = mcp_old
-      dbg.print{"Setting mcp to ", mcp:name(),"\n"}
-      loadModuleFile(t)      
-   end
    dbg.fini("loadModuleFile")
 end

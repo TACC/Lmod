@@ -445,6 +445,23 @@ function M.load(mA)
          dbg.print{"Marked: ",t.modFullName," as loaded\n"}
          loaded = true
          hook.apply("load",t)
+
+         if (not mcp.familyStackEmpty()) then
+            local fullA   = {}
+            local m2A     = {}
+            while (not mcp.familyStackEmpty()) do
+               local   b       = mcp.familyStackPop()
+               local   sn      = b[1]
+               fullA[#fullA+1] = b[2]
+               m2A[#m2A+1]     = MName:new("mt", sn) 
+               dbg.print{"RTM F unloading ", fullA[#fullA], ", sn: ",sn,"\n"}
+            end
+
+            LmodMessage("\nLmod is automatically replacing \"", fullA[2],
+                        "\" with \"", fullA[1], "\"\n" )
+            mcp:unload_usr(m2A)
+            mcp:load_usr{mname}
+         end
       end
       a[#a+1] = loaded
    end
