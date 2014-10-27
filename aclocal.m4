@@ -89,7 +89,9 @@ if test "$a" != no; then
 fi
 
 echo
-echo Configure complete, now type \'make install\'.
+echo Configure complete, Now do:
+echo "     \'make install\'.      A complete install"
+echo "     \'make pre-install\'   Install everything but the symbolic link"
 echo
 
 ])
