@@ -416,7 +416,7 @@ function M.load(mA)
       local loaded     = false
       local t          = mname:find()
       local fn         = t.fn
-      dbg.print{"fn: ", t.fn,"\n"}
+      dbg.print{"Master:load: i: ",i,", sn: ", sn, ", fn: ", t.fn,"\n"}
       if (mt:have(sn,"active")) then
          dbg.print{"Master:load reload module: \"",moduleName,
                    "\" as it is already loaded\n"}
@@ -445,31 +445,32 @@ function M.load(mA)
          dbg.print{"Marked: ",t.modFullName," as loaded\n"}
          loaded = true
          hook.apply("load",t)
-
-         if (not mcp.familyStackEmpty()) then
-            local fullA   = {}
-            local m2A     = {}
-            while (not mcp.familyStackEmpty()) do
-               local   b       = mcp.familyStackPop()
-               local   sn      = b[1]
-               fullA[#fullA+1] = b[2]
-               m2A[#m2A+1]     = MName:new("mt", sn) 
-               dbg.print{"RTM F unloading ", fullA[#fullA], ", sn: ",sn,"\n"}
-            end
-
-            LmodMessage("\nLmod is automatically replacing \"", fullA[2],
-                        "\" with \"", fullA[1], "\"\n" )
-            mcp:unload_usr(m2A)
-            mcp:load_usr{mname}
-         end
       end
       a[#a+1] = loaded
+      if (not mcp.familyStackEmpty()) then
+         local b = {}
+         while (not mcp.familyStackEmpty()) do
+            local   b_old, b_new = mcp.familyStackPop()
+            LmodMessage("\nLmod is automatically replacing \"", b_old[2],
+                        "\" with \"", b_new[2], "\"\n" )
+            local umA   = {MName:new("mt",   b_old[1]) , MName:new("mt",   b_new[1]) }
+            local lmA   = {MName:new("load", b_new[1])}
+            b[#b+1]     = {umA = umA, lmA = lmA}
+         end
+
+         for i = 1,#b do
+            mcp:unload_usr(b[i].umA)
+            mcp:load_usr(b[i].lmA)
+         end
+      end
    end
+
 
    if (M.safeToUpdate() and mt:safeToCheckZombies() and mStack:empty()) then
       dbg.print{"Master:load calling reloadAll()\n"}
       M.reloadAll()
    end
+
    dbg.fini("Master:load")
    return a
 end

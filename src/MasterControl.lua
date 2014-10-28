@@ -679,6 +679,11 @@ end
 -- Property Functions
 -------------------------------------------------------------------
 
+--------------------------------------------------------------------------
+-- Set a property value
+-- @param self A MasterControl Object.
+-- @param name A property name
+-- @param value A property value.
 function M.add_property(self, name, value)
    local mStack  = ModuleStack:moduleStack()
    local mFull   = mStack:fullName()
@@ -687,6 +692,11 @@ function M.add_property(self, name, value)
    mt:add_property(mname:sn(), name, value)
 end
 
+--------------------------------------------------------------------------
+-- Unset a property value
+-- @param self A MasterControl Object.
+-- @param name A property name
+-- @param value A property value.
 function M.remove_property(self, name, value)
    local mStack  = ModuleStack:moduleStack()
    local mFull   = mStack:fullName()
@@ -954,12 +964,14 @@ function M.familyStackPush(oldName, sn)
 end
 
 --------------------------------------------------------------------------
--- Pop the top value off the stack.
--- @return the top value on the stack.
+-- Pop the top two value off the stack.
+-- @return the top two value on the stack.
 function M.familyStackPop()
-   local value = s_moduleStk[#s_moduleStk]
+   local valueN = s_moduleStk[#s_moduleStk]
    remove(s_moduleStk)
-   return value
+   local valueO = s_moduleStk[#s_moduleStk]
+   remove(s_moduleStk)
+   return valueO, valueN
 end
 
 --------------------------------------------------------------------------
