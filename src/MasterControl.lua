@@ -198,6 +198,7 @@ end
 -- The Factory builder for the MasterControl Class.
 -- @param name the name of the derived object.
 -- @param[opt] mode An optional mode for building the *access* object.
+-- @return A derived MasterControl Object.
 function M.build(name,mode)
 
    local nameTbl          = {}
@@ -522,7 +523,7 @@ function M.unsetenv(self, name, value, respect)
 
    if (varTbl[name] == nil) then
       varTbl[name] = Var:new(name)
-uu   end
+   end
    varTbl[name]:unset()
    dbg.fini("MasterControl:unsetenv")
 end
@@ -608,10 +609,12 @@ function M.popenv(self, name, value)
 end
 
 
--------------------------------------------------------------------
--- Alias Functions
--------------------------------------------------------------------
-
+--------------------------------------------------------------------------
+-- Set a shell alias.  This function can handle a single value for both
+-- bash and C-shell.
+-- @param self A MasterControl Object.
+-- @param name the environment variable name.
+-- @param value the environment variable value.
 function M.set_alias(self, name, value)
    dbg.start{"MasterControl:set_alias(\"",name,"\", \"",value,"\")"}
 
@@ -623,6 +626,11 @@ function M.set_alias(self, name, value)
    dbg.fini("MasterControl:set_alias")
 end
 
+--------------------------------------------------------------------------
+-- Unset a shell alias. 
+-- @param self A MasterControl Object.
+-- @param name the environment variable name.
+-- @param value the environment variable value.
 function M.unset_alias(self, name, value)
    dbg.start{"MasterControl:unset_alias(\"",name,"\", \"",value,"\")"}
 
@@ -633,14 +641,12 @@ function M.unset_alias(self, name, value)
    dbg.fini("MasterControl:unset_alias")
 end
 
-function M.bad_unset_alias(self, name)
-   LmodWarning("Refusing unset an alias while unloading: \"",name,"\"\n")
-end
 
--------------------------------------------------------------------
--- Shell Routine Functions
--------------------------------------------------------------------
-
+--------------------------------------------------------------------------
+-- Set a shell function for bash and a csh alias.
+-- @param self A MasterControl Object.
+-- @param name the environment variable name.
+-- @param value the environment variable value.
 function M.set_shell_function(self, name, bash_function, csh_function)
    dbg.start{"MasterControl:set_shell_function(\"",name,"\", \"",bash_function,"\"",
              "\", \"",csh_function,"\""}
@@ -653,6 +659,11 @@ function M.set_shell_function(self, name, bash_function, csh_function)
    dbg.fini("MasterControl:set_shell_function")
 end
 
+--------------------------------------------------------------------------
+-- Unset a shell function for bash and a csh alias.
+-- @param self A MasterControl Object.
+-- @param name the environment variable name.
+-- @param value the environment variable value.
 function M.unset_shell_function(self, name, bash_function, csh_function)
    dbg.start{"MasterControl:unset_shell_function(\"",name,"\", \"",bash_function,"\"",
              "\", \"",csh_function,"\""}
@@ -662,10 +673,6 @@ function M.unset_shell_function(self, name, bash_function, csh_function)
    end
    varTbl[name]:unsetShellFunction()
    dbg.fini("MasterControl:unset_shell_function")
-end
-
-function M.bad_unset_shell_function(self, name, bash_function, csh_function)
-   LmodWarning("Refusing unset a shell function while unloading: \"",name,"\"\n")
 end
 
 -------------------------------------------------------------------
