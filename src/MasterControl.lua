@@ -522,7 +522,7 @@ function M.unsetenv(self, name, value, respect)
 
    if (varTbl[name] == nil) then
       varTbl[name] = Var:new(name)
-   end
+uu   end
    varTbl[name]:unset()
    dbg.fini("MasterControl:unsetenv")
 end
@@ -531,6 +531,11 @@ end
 -- stack: push and pop
 -------------------------------------------------------------------
 
+--------------------------------------------------------------------------
+-- Set an environment variable and remember previous values in a stack.
+-- @param self A MasterControl object.
+-- @param name the environment variable name.
+-- @param value the environment variable value.
 function M.pushenv(self, name, value)
    dbg.start{"MasterControl:pushenv(\"",name,"\", \"",value,"\")"}
 
@@ -567,6 +572,12 @@ function M.pushenv(self, name, value)
    dbg.fini("MasterControl:pushenv")
 end
 
+--------------------------------------------------------------------------
+-- The reverse action of pushenv.  It pops the old value off of the stack
+-- and set the *name* to the previous value from the stack.
+-- @param self A MasterControl object.
+-- @param name the environment variable name.
+-- @param value the environment variable value.
 function M.popenv(self, name, value)
    dbg.start{"MasterControl:popenv(\"",name,"\", \"",value,"\")"}
 
