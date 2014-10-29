@@ -2,10 +2,10 @@
 # -*- shell-script -*-
 
 
-LMOD_PKG=@PKG@
-LMOD_DIR=@PKG@/libexec
-LMOD_CMD=@PKG@/libexec/lmod
-MODULESHOME=@PKG@
+LMOD_PKG=@PKGV@
+LMOD_DIR=@PKGV@/libexec
+LMOD_CMD=@PKGV@/libexec/lmod
+MODULESHOME=@PKGV@
 export LMOD_PKG
 export LMOD_CMD
 export LMOD_DIR
@@ -73,6 +73,7 @@ fi
 #     ml gcc        -> module load gcc
 #     ml -gcc intel -> module unload gcc; module load intel
 #  It does much more do: "ml --help" for more information.
+
 ml()
 {
   eval $($LMOD_DIR/ml_cmd "$@")
@@ -120,6 +121,6 @@ fi
 ########################################################################
 #  Make tab completions available to bash users.
 
-if [ ${BASH_VERSINFO:-0} -ge 3 ] && [ -r  @PKG@/init/lmod_bash_completions ] && [ "$PS1" ]; then
- . @PKG@/init/lmod_bash_completions
+if [ ${BASH_VERSINFO:-0} -ge 3 ] && [ -r  @PKGV@/init/lmod_bash_completions ] && [ "$PS1" ]; then
+ . @PKGV@/init/lmod_bash_completions
 fi

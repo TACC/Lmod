@@ -705,14 +705,9 @@ function M.remove_property(self, name, value)
    mt:remove_property(mname:sn(), name, value)
 end
 
-function M.bad_remove_property(self, name, value)
-   LmodWarning("Refusing to remove a property while unloading: \"",name,"\"\n")
-end
 
--------------------------------------------------------------------
--- Message/Error  Functions
--------------------------------------------------------------------
-
+--------------------------------------------------------------------------
+-- Report the modulefiles stack for error report.
 local function moduleStackTraceBack()
    local mStack = ModuleStack:moduleStack()
    if (mStack:empty()) then return end
@@ -731,6 +726,8 @@ local function moduleStackTraceBack()
                    bt:build_tbl(),"\n")
 end
 
+--------------------------------------------------------------------------
+-- 
 local function msg(lead, ...)
    local twidth = TermWidth()
    local arg = { n = select('#', ...), ...}
