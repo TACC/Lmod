@@ -1,8 +1,8 @@
 #!/bin/csh
-setenv LMOD_CMD    "@PKG@/libexec/lmod"
-setenv LMOD_DIR    "@PKG@/libexec"
-setenv LMOD_PKG    "@PKG@"
-setenv MODULESHOME "@PKG@"
+setenv LMOD_CMD    "@PKGV@/libexec/lmod"
+setenv LMOD_DIR    "@PKGV@/libexec"
+setenv LMOD_PKG    "@PKGV@"
+setenv MODULESHOME "@PKGV@"
 
 set prefix  = ""
 set midfix  = ""
