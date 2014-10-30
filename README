@@ -61,6 +61,9 @@ Features/Bug fixes:
    e) Better handling of zsh tab completion files.  Lmod will
       continue to install even when a site's zsh setup is
       broken.
+   f) New option, --show_hidden, has been added. This is used
+      with avail to show "hidden" modulefiles.  That is module
+      files that start with a "."
 
 Lmod Version 5.7.4
 Features/Bug fixes:
