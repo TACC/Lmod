@@ -727,25 +727,14 @@ local function moduleStackTraceBack()
 end
 
 --------------------------------------------------------------------------
--- 
-local function msg(lead, ...)
-   local twidth = TermWidth()
-   local arg = { n = select('#', ...), ...}
-   io.stderr:write("\n")
-   arg[1] = lead .. arg[1]
-   local whole = concatTbl(arg,"")
-   for s in whole:split("\n") do
-      io.stderr:write(s:fillWords("", twidth),"\n")
-   end
-   io.stderr:write("\n")
-   moduleStackTraceBack()
-end
-
+-- Write "false" to stdout and exit.
 function LmodErrorExit()
    io.stdout:write("false\n")
    Exit(1)
 end
 
+--------------------------------------------------------------------------
+-- Print msgs, traceback then exit.
 function LmodSystemError(...)
    io.stderr:write("\n", colorize("red", "Lmod has detected the following error: "))
    local arg = pack(...)
@@ -758,10 +747,16 @@ function LmodSystemError(...)
 end
 
 
+--------------------------------------------------------------------------
+-- Print msgs, traceback then exit.
+-- @param self A MasterControl object.
 function M.error(self, ...)
    LmodSystemError(...)
 end
 
+--------------------------------------------------------------------------
+-- Print msgs, traceback then set warning flag.
+-- @param self A MasterControl object.
 function M.warning(self, ...)
    if (not quiet() and  haveWarnings()) then
       io.stderr:write("\n",colorize("red", "Lmod Warning: "))
@@ -776,6 +771,9 @@ function M.warning(self, ...)
 end
 
 
+--------------------------------------------------------------------------
+-- Print msgs to stderr.
+-- @param self A MasterControl object.
 function M.message(self, ...)
    if (quiet()) then
       return
@@ -788,10 +786,11 @@ function M.message(self, ...)
 end
 
 
--------------------------------------------------------------------
--- Misc Functions
--------------------------------------------------------------------
 
+--------------------------------------------------------------------------
+-- Check the prereq from *mA*.
+-- @param self A MasterControl object.
+-- @param mA An array of MNname objects.
 function M.prereq(self, mA)
    local mt        = MT:mt()
    local a         = {}
@@ -824,6 +823,10 @@ function M.prereq(self, mA)
    dbg.fini("MasterControl:prereq")
 end
 
+--------------------------------------------------------------------------
+-- Check the conflicts from *mA*.
+-- @param self A MasterControl object.
+-- @param mA An array of MNname objects.
 function M.conflict(self, mA)
    dbg.start{"MasterControl:conflict(mA)"}
 
@@ -864,6 +867,11 @@ function M.conflict(self, mA)
    dbg.fini("MasterControl:conflict")
 end
 
+--------------------------------------------------------------------------
+-- Check the prereq from *mA*.  If any of them are acceptable then return.
+-- otherwise error out.
+-- @param self A MasterControl object.
+-- @param mA An array of MNname objects.
 function M.prereq_any(self, mA)
    local mt        = MT:mt()
    local a         = {}

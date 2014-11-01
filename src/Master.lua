@@ -454,7 +454,7 @@ function M.load(mA)
             LmodMessage("\nLmod is automatically replacing \"", b_old[2],
                         "\" with \"", b_new[2], "\"\n" )
             local umA   = {MName:new("mt",   b_old[1]) , MName:new("mt",   b_new[1]) }
-            local lmA   = {MName:new("load", b_new[1])}
+            local lmA   = {MName:new("load", b_new[2])}
             b[#b+1]     = {umA = umA, lmA = lmA}
          end
 
