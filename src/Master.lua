@@ -460,7 +460,7 @@ function M.load(mA)
 
          for i = 1,#b do
             mcp:unload_usr(b[i].umA)
-            mcp:load_usr(b[i].lmA)
+            mcp:load(b[i].lmA)
          end
       end
    end

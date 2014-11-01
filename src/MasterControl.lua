@@ -91,7 +91,7 @@ local s_loadT      = {}
 --------------------------------------------------------------------------
 -- Check list of modules requested from user to see if they got loaded.
 -- If not found check with spider to see if a module can be loaded.
-local function mustLoad()
+function M.mustLoad()
 
    local aa, bb = mcp.familyLoaded()
 
@@ -238,9 +238,6 @@ end
 function M.load_usr(self, mA)
    self.familyLoadRegister(mA)
    local a = self:load(mA)
-   if (haveWarnings()) then
-      mustLoad()
-   end
    return a
 end
 
@@ -915,18 +912,18 @@ end
 -- Remember the user's requested load array into an internal table.
 -- This is tricky because the module mnames in the *mA* array may not be
 -- findable yet (e.g. module load mpich petsc).  The only thing we know
--- is the usrName from the command
--- line.  So we use the *usrName* to be the key and not *sn*.
+-- is the usrName from the command line.  So we use the *usrName* to be
+-- the key and not *sn*.
 -- @param mA The array of MName objects.
 function M.familyLoadRegister(mA)
    dbg.start{"familyLoadRegister(mA)"}
-   s_loadT = {}
    for i = 1, #mA do
       local mname      = mA[i]
       local usrName    = mname:usrName()
       s_loadT[usrName] = mname
       dbg.print{"usrName: ",usrName,"\n"}
    end
+
    dbg.fini("familyLoadRegister")
 end
 
@@ -936,6 +933,7 @@ end
 -- @return An array of descripted name of missing modules.
 -- @return An array of the user names of missing modules.
 function M.familyLoaded()
+   dbg.start{"MC:familyLoaded()"}
    local mt        = MT:mt()
 
    local aa = {}
@@ -943,12 +941,14 @@ function M.familyLoaded()
 
    for usrName, mname in pairs(s_loadT) do
       local sn = mname:sn()
+      dbg.print{"usrName: ",usrName, " is ", not not mt:have(sn, "active"), "\n"}
       if (not mt:have(sn, "active")) then
          aa[#aa+1] = mname:show()
          bb[#bb+1] = usrName
       end
    end
          
+   dbg.fini("MC:familyLoaded")
    return aa, bb
 end
 
@@ -965,6 +965,7 @@ function M.familyStackPush(oldName, sn)
    s_loadT[old_usrName] = nil
    s_moduleStk[#s_moduleStk+1] = { oldName, mt:fullName(oldName)}
    s_moduleStk[#s_moduleStk+1] = { sn,      mt:fullName(sn)}
+
    dbg.fini("familyStackPush")
 end
 
