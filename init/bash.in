@@ -74,10 +74,12 @@ fi
 #     ml -gcc intel -> module unload gcc; module load intel
 #  It does much more do: "ml --help" for more information.
 
+
+unalias ml > /dev/null 2>&1
 ml()
 {
   eval $($LMOD_DIR/ml_cmd "$@")
-}
+} 
 
 ########################################################################
 #  clearMT removes the ModuleTable from your environment.  It is rarely
