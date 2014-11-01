@@ -111,6 +111,7 @@ pre-install: $(DIRLIST) shell_init startup libexec spiderCacheSupport Inst_Tools
              Inst_Shells Inst_Settarg Inst_Lmod_MF $(PKGS) other_tools man_pages
 
 install: pre-install  zsh_tab_funcs
+	$(MAKE) PKGV=$(PKG) shell_init
 	$(RM) $(DESTDIR)$(PKG)
 	ln -s $(version) $(DESTDIR)$(PKG)
 
