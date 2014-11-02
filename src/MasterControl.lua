@@ -963,9 +963,10 @@ function M.familyStackPush(oldName, sn)
    dbg.print{"removing old sn: ",oldName,",old usrName: ",old_usrName,"\n"}
 
    s_loadT[old_usrName] = nil
-   s_moduleStk[#s_moduleStk+1] = { oldName, mt:fullName(oldName)}
-   s_moduleStk[#s_moduleStk+1] = { sn,      mt:fullName(sn)}
-
+   s_moduleStk[#s_moduleStk+1] = { sn=oldName, fullName = mt:fullName(oldName),
+                                   usrName = mt:usrName(oldName)}
+   s_moduleStk[#s_moduleStk+1] = { sn=sn,      fullName = mt:fullName(sn),
+                                   usrName = mt:usrName(sn)}
    dbg.fini("familyStackPush")
 end
 

@@ -437,24 +437,24 @@ function M.load(mA)
 	 mt:beginOP()
          mStack:push(t.modFullName, moduleName, sn, fn)
 	 loadModuleFile{file=fn, shell = shellN, mList = mList, reportErr=true}
+         mt:setStatus(sn, "active")
+         hook.apply("load",t)
          mStack:pop()
 	 mt:endOP()
          dbg.print{"Making ", t.modName, " active\n"}
-         mt:setStatus(sn, "active")
          registerLoaded(t.modFullName, fn)
          dbg.print{"Marked: ",t.modFullName," as loaded\n"}
          loaded = true
-         hook.apply("load",t)
       end
       a[#a+1] = loaded
       if (not mcp.familyStackEmpty()) then
          local b = {}
          while (not mcp.familyStackEmpty()) do
             local   b_old, b_new = mcp.familyStackPop()
-            LmodMessage("\nLmod is automatically replacing \"", b_old[2],
-                        "\" with \"", b_new[2], "\"\n" )
-            local umA   = {MName:new("mt",   b_old[1]) , MName:new("mt",   b_new[1]) }
-            local lmA   = {MName:new("load", b_new[2])}
+            LmodMessage("\nLmod is automatically replacing \"", b_old.fullName,
+                        "\" with \"", b_new.fullName, "\"\n" )
+            local umA   = {MName:new("mt",   b_old.sn) , MName:new("mt",   b_new.sn) }
+            local lmA   = {MName:new("load", b_new.usrName)}
             b[#b+1]     = {umA = umA, lmA = lmA}
          end
 

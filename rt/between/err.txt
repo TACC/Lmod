@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.3.4 5.3.4-32-gc9f67d5 2014-03-28 15:37
+Modules based on Lua: Version 5.8rc2  2014-10-17 07:32
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -33,10 +33,6 @@ lua ProjectDIR/src/lmod.in.lua bash load M4
 Lmod has detected the following error: 
 These module(s) exist but cannot be loaded as requested: atleast("b","1.5")
    Try: "module spider b" to see how to load the module(s).
-While processing the following module(s):
-Module fullname  Module Filename
-M3               ProjectDIR/rt/between/mf/Core/M3.lua
-M4               ProjectDIR/rt/between/mf/Core/M4.lua
 ===========================
 step 7
 lua ProjectDIR/src/lmod.in.lua bash list
@@ -110,9 +106,6 @@ lua ProjectDIR/src/lmod.in.lua bash load M8
 Lmod has detected the following error: 
 These module(s) exist but cannot be loaded as requested: between("c","1.5","1.7")
    Try: "module spider c" to see how to load the module(s).
-While processing the following module(s):
-Module fullname  Module Filename
-M8               ProjectDIR/rt/between/mf/Core/M8.lua
 ===========================
 step 18
 lua ProjectDIR/src/lmod.in.lua bash purge

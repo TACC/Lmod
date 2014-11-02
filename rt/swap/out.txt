@@ -919,3 +919,12 @@ _LMFILES_="ProjectDIR/mf/Core/gcc/4.2.3.lua";
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/mf/Core",},family={["compiler"]="gcc",},inactive={},mT={gcc={["FN"]="ProjectDIR/mf/Core/gcc/4.2.3.lua",["default"]=1,["fullName"]="gcc/4.2.3",["loadOrder"]=1,propT={},["short"]="gcc",["status"]="active",},},mpathA={"ProjectDIR/mf/Compiler/gcc/4.2.3","ProjectDIR/mf/Core",},["systemBaseMPATH"]="ProjectDIR/mf/Core",["version"]=2,}';
 export _ModuleTable_;
+===========================
+step 31
+lua ProjectDIR/src/lmod.in.lua bash load intel unknown
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/mf/Compiler/gcc/4.2.3:ProjectDIR/mf/Core";
+export MODULEPATH;
+false
