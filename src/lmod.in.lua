@@ -540,6 +540,18 @@ function main()
       os.exit(0)
    end
 
+   -- gitversion and quit if requested.
+   if (masterTbl.gitversion) then
+      local gitV = Version.git()
+      if (not gitV) then
+         gitV = Version.tag()
+      else
+         gitV = gitV:match('%((.*)%)')
+      end
+      io.stderr:write(gitV,"\n")
+      os.exit(0)
+   end
+
    -- print version and quit if requested.
    if (masterTbl.version) then
       io.stderr:write(version())

@@ -221,6 +221,13 @@ function M.options(self, usage)
    }
 
    cmdlineParser:add_option{
+      name   = {"--gitversion"},
+      dest   = "gitversion",
+      action = "store_true",
+      help   = "Dump git version in a machine readable way and quit",
+   }
+
+   cmdlineParser:add_option{
       name   = {"--dumpversion"},
       dest   = "dumpversion",
       action = "store_true",
