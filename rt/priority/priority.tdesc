@@ -5,7 +5,7 @@ local testName = "priority"
 testdescript = {
    owner   = "rtm",
    product = "modules",
-   description = [[ 
+   description = [[
 	 Test always_load, always_unload
    ]],
    keywords = {testName },
@@ -33,7 +33,7 @@ testdescript = {
      runLmod --version                            # 1
      runLmod use --priority 100 $(testDir)/mf/RTM # 2
      runLmod use --priority 100 $(testDir)/mf/RTM # 3
-     runLmod load priority                        # 4           
+     runLmod load priority                        # 4
      runLmod load a                               # 5
      runLmod load tdog                            # 6
      runLmod list                                 # 7

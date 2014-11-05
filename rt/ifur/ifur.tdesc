@@ -39,7 +39,7 @@ testdescript = {
      runLmod list                     # 8
      runLmod unload Python            # 9
      runLmod list                     #10
-     
+
 
      HOME=$ORIG_HOME
      cat _stdout.[0-9][0-9] > _stdout.orig

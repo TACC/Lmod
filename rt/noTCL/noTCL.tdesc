@@ -31,8 +31,8 @@ testdescript = {
      ORIG_HOME=`(cd $HOME; /bin/pwd)`
      HOME=`/bin/pwd`
 
-     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d .lmodrc.lua 
-     cp $(projectDir)/init/lmodrc.lua .lmodrc.lua 
+     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d .lmodrc.lua
+     cp $(projectDir)/init/lmodrc.lua .lmodrc.lua
 
      runLmod --version                                      # 1
      runLmod avail                                          # 2
@@ -43,7 +43,7 @@ testdescript = {
      runLmod load   PrgEnv                                  # 6
 
 
-     
+
 
      HOME=$ORIG_HOME
      cat _stdout.[0-9][0-9] > _stdout.orig

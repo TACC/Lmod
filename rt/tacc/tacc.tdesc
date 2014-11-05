@@ -43,7 +43,7 @@ testdescript = {
      runLmod show gatk              #15
      runLmod load gatk              #16
      runLmod unload gatk            #17
-     
+
 
      PATH=$ORIGPATH
      export PATH

@@ -41,7 +41,7 @@ testdescript = {
      runLmod restore default        # 5
      runLmod restore broken         # 6
 
-     
+
 
 
      HOME=$ORIG_HOME

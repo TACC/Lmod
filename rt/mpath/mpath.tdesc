@@ -39,7 +39,7 @@ testdescript = {
      MODULEPATH=$MODULEPATH_ROOT/Core:$MODULEPATH_ROOT/RTM
      runLmod avail                         # 5
 
-     
+
      HOME=$ORIG_HOME
      cat _stdout.[0-9][0-9] > _stdout.orig
      joinBase64Results  -bash  _stdout.orig _stdout.new

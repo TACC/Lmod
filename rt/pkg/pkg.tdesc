@@ -29,7 +29,7 @@ testdescript = {
      HOME=`/bin/pwd`
 
      rm -fr _stderr.* _stdout.* err.* out.* .lmod.d .lmodrc.lua .
-     cp $(projectDir)/init/.lmodrc.lua lmodrc.lua 
+     cp $(projectDir)/init/.lmodrc.lua lmodrc.lua
 
      runLmod --version            # 1
      runLmod load gcc mpich       # 2

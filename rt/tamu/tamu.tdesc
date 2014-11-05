@@ -40,7 +40,7 @@ testdescript = {
      runLmod avail                  # 8
      runLmod spider uapp            # 9
      runLmod spider uapp/7.0.8.1    #10
-     
+
 
 
      HOME=$ORIG_HOME

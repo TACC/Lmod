@@ -30,7 +30,7 @@ testdescript = {
 
      mkdir -p mf
      cp $(testDir)/mf/abc.lua mf
-     
+
 
      runLmod --version                # 1
      runLmod load   abc               # 2
@@ -38,7 +38,7 @@ testdescript = {
      rm $MODULEPATH/abc.lua
      runLmod unload abc               # 4
      runLmod list                     # 5
-     
+
 
      HOME=$ORIG_HOME
      cat _stdout.[0-9][0-9] > _stdout.orig

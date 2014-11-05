@@ -24,7 +24,7 @@ testdescript = {
      ORIG_HOME=`(cd $HOME; /bin/pwd)`
      HOME=`/bin/pwd`
 
-     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d .lmodrc.lua 
+     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d .lmodrc.lua
      cp $(projectDir)/init/lmodrc.lua .lmodrc.lua
 
      runLmod --version                          #  1
@@ -59,7 +59,7 @@ testdescript = {
      runLmod load intel gcc                     # 29
      runLmod swap gcc                           # 30
      runLmod load intel unknown                 # 31
-     
+
 
 
 

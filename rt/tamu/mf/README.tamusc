@@ -4,16 +4,16 @@ SitePackage.lua
 
   Defines some locally written functions used in the new modules.
 
-Core/ 
+Core/
 
   These are modules that require no specific compiler or MPI implementation to
   be loaded.  These include modules built using the native compiler (gcc-4.1.2).
-  At present, the new standard dictates All modules in this directory should be 
+  At present, the new standard dictates All modules in this directory should be
   stored in:
 
     Core/[application name]/[application version].lua
 
-  Note that there is no multilevel hierarchy (e.g. intel/compilers/11.1.072) and 
+  Note that there is no multilevel hierarchy (e.g. intel/compilers/11.1.072) and
   instead a simpler hierarchy (e.g. intel_cc/11.1.072). This is to make it easier
   to develop tools for maintaining the module tree.
 
@@ -29,9 +29,9 @@ Compiler/
 MPI/
   These are modules that require a specific compiler and a specific MPI implementation.
   Modules here should be stored in:
-       
+
     MPI/[compiler name]/[compiler version]/[MPI name]/[MPI version]/[application name]/[application version].lua
-      
+
   Again, note strict adherence to the hierarchy (no multi-level modules)
 
 Linux/

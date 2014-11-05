@@ -19,7 +19,7 @@ function avail_hook(t)
    if (not availStyle or availStyle == "system" or styleT == nil) then
       return
    end
-   
+
    for k,v in pairs(t) do
       for pat,label in pairs(styleT) do
          if (k:find(pat)) then

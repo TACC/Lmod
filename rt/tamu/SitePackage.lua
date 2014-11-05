@@ -10,7 +10,7 @@ function prereq_version(pr_name)
    if (not isloaded(pr_name)) then
       dbg.print{"isloaded(",pr_name,") is false\n"}
       dbg.fini("prereq_version")
-      return nil 
+      return nil
    end
    local mname = MName:new("mt", pr_name)
    local v     = mname:version()
