@@ -170,7 +170,7 @@ local function outputTblHelper(indentIdx, name, T, a, level)
 end
 
 --------------------------------------------------------------------------
--- The interface routine for this file.  Note that it returns a string 
+-- The interface routine for this file.  Note that it returns a string
 -- if no file name is given.
 -- @param options input table.
 function serializeTbl(options)

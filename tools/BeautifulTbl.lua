@@ -106,7 +106,7 @@ function M.new(self, t)
 end
 
 --------------------------------------------------------------------------
--- This is a private member function that client codes should not use.  
+-- This is a private member function that client codes should not use.
 -- It figures out the max size of each column.  Then adds spaces to
 -- make each column be justified.  By default all columns are
 -- left-justified. To get write right-justified, the client code must

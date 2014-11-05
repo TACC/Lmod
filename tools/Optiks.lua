@@ -204,7 +204,7 @@ function M._getValue(self, eq_arg, argIn, o, optName)
 end
 
 --------------------------------------------------------------------------
--- Store the value from command line 
+-- Store the value from command line
 -- @param self Optiks object
 -- @param eq_arg The equal arg. (i.e. --foo=eq\_arg)
 -- @param argIn The current list of command line arguments
@@ -217,7 +217,7 @@ function M.store(self, eq_arg, argIn, argTbl, o, optName)
 end
 
 --------------------------------------------------------------------------
--- Store true from command line 
+-- Store true from command line
 -- @param self Optiks object
 -- @param eq_arg The equal arg. (i.e. --foo=eq\_arg)
 -- @param argIn The current list of command line arguments
@@ -247,7 +247,7 @@ function M.append(self, eq_arg, argIn, argTbl, o, optName)
 end
 
 --------------------------------------------------------------------------
--- Store false from command line 
+-- Store false from command line
 -- @param self Optiks object
 -- @param eq_arg The equal arg. (i.e. --foo=eq\_arg)
 -- @param argIn The current list of command line arguments
@@ -316,7 +316,7 @@ function M.display_count(self, opt)
 end
 
 --------------------------------------------------------------------------
--- Set the defaults for 
+-- Set the defaults for
 -- @param self Optiks object.
 -- @param argTbl The table results of parsing the command line.
 function M.setDefaults(self, argTbl)
@@ -392,7 +392,7 @@ function M.parseEnvArg(self)
    local idx    = 1
    local len    = optStr:len()
    local i, j, k, q, c
-   
+
    while (not done) do
       while (true) do
          -- remove leading spaces
@@ -474,7 +474,7 @@ function M.parse(self, argIn)
       local key = argA[1]
       table.remove(argA,1)
       -------------------------------------------------------------------
-      -- split any single letter options grouped together.  So "-tdw=60" 
+      -- split any single letter options grouped together.  So "-tdw=60"
       -- becomes: "-t -d -w=60"
       if (not noProcess and key:find("^%-%w+")) then
          local a       = {}

@@ -2,10 +2,10 @@
 -- -*- lua -*-
 
 --------------------------------------------------------------------------
--- This program takes shell scripts (either bash or csh) and converts 
+-- This program takes shell scripts (either bash or csh) and converts
 -- them to a modulefile (either Lua or TCL).  This program is a "new"
 -- but it is based on many design elements from sourceforge.net/projects/env2.
--- The program "env2" also converts shells to modulefiles but it does 
+-- The program "env2" also converts shells to modulefiles but it does
 -- other conversions as well.  This program is more limited it just does
 -- conversions from scripts to tcl or lua modules.
 --
@@ -15,7 +15,7 @@
 --     b) create an output factory:  MF_Lmod or MF_TCL to generate the
 --        output modulefile style.
 --     c) Process the before environment with the after environment and
---        generate the appropriate setenv's, prepend_path's and 
+--        generate the appropriate setenv's, prepend_path's and
 --        append_path's to convert from the old env to the new.
 --
 --
@@ -211,7 +211,7 @@ local function cleanPath(v)
          pathT[p].keep = true
       end
    end
-         
+
    for path in pairs(pathT) do
       if (v:find('^/usr/')) then
          pathT[path].keep = true
@@ -306,7 +306,7 @@ function cleanEnv()
       end
    end
 end
-   
+
 
 
 function main()
@@ -325,7 +325,7 @@ function main()
       dbg:activateDebug(masterTbl.debug)
    end
 
-   
+
    if (masterTbl.saveEnvFn) then
       wrtEnv(masterTbl.saveEnvFn)
       os.exit(0)
@@ -355,14 +355,14 @@ function main()
          "\". " ..concatTbl(pargs," ") .. '>/dev/null 2>&1; '.. LuaCmd .. " " .. program .. " --saveEnv -\""
       }
    end
-      
+
    local s = capture(concatTbl(cmdA," "))
-   
+
    local f = io.open("s.log","w")
    f:write(s)
    f:close()
-   
-   
+
+
 
    local factory = MF_Base.build(masterTbl.style)
 
@@ -390,28 +390,28 @@ function options()
       action = "count",
       help   = "Program tracing written to stderr",
    }
-   cmdlineParser:add_option{ 
+   cmdlineParser:add_option{
       name   = {'--saveEnv'},
       dest   = 'saveEnvFn',
       action = 'store',
       help   = "Internal use only",
    }
 
-   cmdlineParser:add_option{ 
+   cmdlineParser:add_option{
       name   = {'--cleanEnv'},
       dest   = 'cleanEnv',
       action = 'store_true',
       help   = "Create a sterile user environment before analyzing",
    }
 
-   cmdlineParser:add_option{ 
+   cmdlineParser:add_option{
       name   = {'-o','--output'},
       dest   = 'outFn',
       action = 'store',
       help   = "output modulefile",
    }
 
-   cmdlineParser:add_option{ 
+   cmdlineParser:add_option{
       name    = {'--to'},
       dest    = 'style',
       action  = 'store',
@@ -419,7 +419,7 @@ function options()
       default = "Lua",
    }
 
-   cmdlineParser:add_option{ 
+   cmdlineParser:add_option{
       name    = {'--from'},
       dest    = 'inStyle',
       action  = 'store',

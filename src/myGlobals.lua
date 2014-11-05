@@ -113,13 +113,13 @@ LMOD_REDIRECT = initialize("LMOD_REDIRECT", "@redirect@")
 
 ------------------------------------------------------------------------
 -- LMOD_SYSTEM_NAME:  When on a shared file system, use this to
---                    form the cache name and collection names.       
+--                    form the cache name and collection names.
 ------------------------------------------------------------------------
 
 LMOD_SYSTEM_NAME = getenv("LMOD_SYSTEM_NAME")
 
 ------------------------------------------------------------------------
--- LMOD_AUTO_SWAP:  Swap instead of Error 
+-- LMOD_AUTO_SWAP:  Swap instead of Error
 ------------------------------------------------------------------------
 
 LMOD_AUTO_SWAP   = initialize("LMOD_AUTO_SWAP","@auto_swap@")
@@ -143,7 +143,7 @@ LMOD_ALLOW_TCL_MFILES = getenv("LMOD_ALLOW_TCL_MFILES") or
 ------------------------------------------------------------------------
 
 LMOD_DUPLICATE_PATHS = getenv("LMOD_DUPLICATE_PATHS") or "@duplicate_paths@"
-   
+
 
 
 LMOD_IGNORE_CACHE = getenv("LMOD_IGNORE_CACHE") or "0"
@@ -168,7 +168,7 @@ LMOD_RTM_TESTING = getenv("LMOD_RTM_TESTING")
 ------------------------------------------------------------------------
 -- LMOD_AVAIL_STYLE: Used by the avail hook to control how avail output
 --                   is handled.   This is a colon separated list of
---                   names.  Note that the default choice is marked by 
+--                   names.  Note that the default choice is marked by
 --                   angle brackets:  A:B:<C> ==> C is the default.
 --                   If no angle brackets are specified then the first
 --                   entry is the default (i.e. A:B:C => A is default.

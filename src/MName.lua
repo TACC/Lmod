@@ -330,7 +330,7 @@ function M.version(self)
    dbg.print{"sn:      ", self._sn,"\n"}
    dbg.print{"name:    ", self._name,"\n"}
    dbg.print{"version: ", self._version,"\n"}
-      
+
    if ((self._sn and self._sn == self._name) and
        (self._sType == "load" or self._sType == "userName")) then
       dbg.fini("MName:version")
@@ -344,7 +344,7 @@ function M.version(self)
 end
 
 --------------------------------------------------------------------------
--- This is used to find a default file that maybe in symbolic link chain. 
+-- This is used to find a default file that maybe in symbolic link chain.
 -- @param path a file path.
 -- @return This returns the absolute path.
 local function followDefault(path)
@@ -458,7 +458,7 @@ end
 
 
 --------------------------------------------------------------------------
--- This local function takes the file pointed to by the 
+-- This local function takes the file pointed to by the
 -- .version file and looks to see if that file exists
 -- in the current mpath directory.  Note that this file
 -- might have a .lua extension.
@@ -512,7 +512,7 @@ function M.find_marked_default(self, pathA)
       dbg.print{"Sn and user name do not match\n"}
       return found, t
    end
-      
+
    for ii = 1, #pathA do
       local vv    = pathA[ii]
       local mpath = vv.mpath

@@ -137,4 +137,4 @@ cmdA=("$SUDO  rm -rf $BASE_DIR/$pkgName/orig"
 
 runMe "${cmdA[@]}"
 
-rm -rf /tmp/{stampede,ls4,longhorn}.build.$$ 
+rm -rf /tmp/{stampede,ls4,longhorn}.build.$$

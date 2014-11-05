@@ -114,14 +114,14 @@ local function validateStringTable(n, cmdName, t)
       elseif (t.priority >= 10) then
          valid = true
       end
-      
+
       if (not valid) then
          local fn = myFileName()
          mcp:report("Syntax error in file: ",fn, "\n with command: ",
                     cmdName, " priority must be equal to or greater than 10\n")
       end
    end
-      
+
    return true
 end
 
@@ -217,7 +217,7 @@ try_add = try_load
 ---help_topic{kind="modfuncs",
 ---           name="unload",
 ---           examples="unload('name'); unload('name/1.2')",
----           descript= [[the unload function unloads a module via its name. No error is 
+---           descript= [[the unload function unloads a module via its name. No error is
 ---                       produced if the module is not already loaded.  When a module is
 ---                       unloaded, this command does nothing.]]
 ---}

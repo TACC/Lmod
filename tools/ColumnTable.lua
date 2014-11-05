@@ -15,7 +15,7 @@
 --    5.  Compute actual number columns that will fit.
 --    6.  Knowing the number of rows and columns, build the table.
 --
--- @classmod ColumnTable 
+-- @classmod ColumnTable
 
 require("strict")
 
@@ -146,7 +146,7 @@ function M._clearEmptyColumns2D(self, tbl)
    end
 
    local numActiveCol = #movA
-   
+
    local tt = {}
 
    for irow = 1, #tbl do
@@ -253,7 +253,7 @@ function M._columnSum1(self, istart, iend)
    local szA     = self.szA
    local maxVprt = 0
    local maxVwrt = 0
-   
+
    for i = istart, iend do
       maxVprt = max(maxVprt, szA[i].prt)
       maxVwrt = max(maxVwrt, szA[i].wrt)

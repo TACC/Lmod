@@ -124,7 +124,7 @@ local pack        = (_VERSION == "Lua 5.1") and argsPack or table.pack
 
 
 --------------------------------------------------------------------------
--- This function builds the "epoch" function.  
+-- This function builds the "epoch" function.
 -- The epoch function returns the number of seconds since
 -- Jan 1, 1970, UTC
 
@@ -505,7 +505,7 @@ function findAdminFn()
          readable = "yes"
       end
    end
-   
+
    return adminFn, readable
 end
 
@@ -685,7 +685,7 @@ function ShowCmdStr(name, ...)
    b[#b+1] = name
    b[#b+1] = left
    b[#b+1] = concatTbl(a,",")
-   b[#b+1] = right 
+   b[#b+1] = right
    return concatTbl(b,"")
 end
 
@@ -758,12 +758,12 @@ function moduleRCFile(current, path)
    dbg.print{"version: ",version,"\n"}
    dbg.fini("moduleRCFile")
    return version
-   
+
 end
 --------------------------------------------------------------------------
--- This routine is given the absolute path to a .version 
+-- This routine is given the absolute path to a .version
 -- file.  It checks to make sure that it is a valid TCL
--- file.  It then uses the ModulesVersion.tcl script to 
+-- file.  It then uses the ModulesVersion.tcl script to
 -- return what the value of "ModulesVersion" is.
 
 function versionFile(v, sn, path, ignoreErrors)
@@ -809,15 +809,15 @@ function versionFile(v, sn, path, ignoreErrors)
          for s in modV.date:split("/") do
             a[#a + 1] = tonumber(s) or 0
          end
-         
+
          if (not ignoreErrors and (a[1] < 2000 or a[2] > 12 )) then
             LmodMessage("The .version file for \"",sn,
                         "\" has the date is written in the wrong format: \"",
                         modV.date,"\".  Please use YYYY/MM/DD.")
          end
-         
+
          local epoch   = os.time{year = a[1], month = a[2], day = a[3]} or 0
-         local current = os.time() 
+         local current = os.time()
          if (current < epoch) then
             if (not ignoreErrors) then
                LmodMessage("The default version for module \"",myModuleName(),
@@ -905,14 +905,14 @@ function walk_directory_for_mf(mpath, path, prefix, dirA, mnameT)
          local firstChar = file:sub(1,1)
          local lastChar  = file:sub(-1,-1)
          local firstTwo  = file:sub(1,2)
-         
+
          if (not (ignoreT[file]    or lastChar == '~' or ignoreT[fileDflt] or
                   firstChar == '#' or lastChar == '#' or firstTwo == '.#')) then
             local f        = pathJoin(path,file)
             attr           = lfs.attributes(f) or {}
             local readable = posix.access(f,"r")
             local full     = pathJoin(prefix, file):gsub("%.lua","")
-            
+
             ------------------------------------------------------------
             -- Since cache files are build by root but read by users
             -- make sure that any user can read a file owned by root.
@@ -923,7 +923,7 @@ function walk_directory_for_mf(mpath, path, prefix, dirA, mnameT)
                   readable = false
                end
             end
-            
+
             if (not readable or not attr) then
                -- do nothing for non-readable or non-existant files
             elseif (attr.mode == 'file' and file ~= "default" and accept_fn(file) and

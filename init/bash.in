@@ -79,7 +79,7 @@ unalias ml > /dev/null 2>&1
 ml()
 {
   eval $($LMOD_DIR/ml_cmd "$@")
-} 
+}
 
 ########################################################################
 #  clearMT removes the ModuleTable from your environment.  It is rarely

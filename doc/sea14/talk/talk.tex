@@ -62,21 +62,21 @@
 \begin{alltt}
 \$ {\color{blue} module avail}
 ------------------ /opt/apps/modulefiles/MPI/intel/12.0/mpich2/1.4 ------------------
-  petsc/3.1 (default)    petsc/3.1-debug    pmetis/4.0    tau/2.20.3  
+  petsc/3.1 (default)    petsc/3.1-debug    pmetis/4.0    tau/2.20.3
 
 ------------------- /opt/apps/modulefiles/Compiler/intel/12.0 -----------------------
-  boost/1.45.0              gotoblas2/1.13          openmpi/1.4.3  
-  boost/1.46.0              mpich2/1.3.2            openmpi/1.5.1  
-  boost/1.46.1 (default)    mpich2/1.4 (default)    openmpi/1.5.3 (default)  
+  boost/1.45.0              gotoblas2/1.13          openmpi/1.4.3
+  boost/1.46.0              mpich2/1.3.2            openmpi/1.5.1
+  boost/1.46.1 (default)    mpich2/1.4 (default)    openmpi/1.5.3 (default)
 
 -------------------------- /opt/apps/modulefiles/Core -------------------------------
-  PrgEnv               intel/11.1               papi/4.1.4  
+  PrgEnv               intel/11.1               papi/4.1.4
   admin/admin-1.0      intel/12.0 (default)     scite/2.28
-  ddt/ddt              lmod/lmod                tex/2010  
-  dmalloc/dmalloc      local/local (default)    unix/unix (default)                       
-  fdepend/1.2          mkl/mkl                  visit/visit  
-  gcc/4.4              noweb/2.11b             
-  gcc/4.5 (default)                     
+  ddt/ddt              lmod/lmod                tex/2010
+  dmalloc/dmalloc      local/local (default)    unix/unix (default)
+  fdepend/1.2          mkl/mkl                  visit/visit
+  gcc/4.4              noweb/2.11b
+  gcc/4.5 (default)
 \end{alltt}
     }
 \end{frame}
@@ -142,7 +142,7 @@ Due to MODULEPATH changes the follow modules have been reloaded:
   \begin{itemize}
     \item The ``module'' command ``loads'' a package.
     \item It adds directories to \texttt{PATH} or \texttt{LD\_LIBRARY\_PATH} and
-      sets other  Variables. 
+      sets other  Variables.
     \item ``\texttt{module unload} \emph{package}'' removes all packages
       changes: \texttt{PATH}, \texttt{LD\_LIBRARY\_PATH}, unset vars.
     \item A module file is a text file containing shell-independent commands:
@@ -193,7 +193,7 @@ Due to MODULEPATH changes the follow modules have been reloaded:
     \item Another module system called CMOD:
       www.lysator.liu.se/cmod/ (1997-1998)
     \item www.modules.org: TCL/C Module files written in TCL (Late '90s - now)
-    \item A pure TCL based module system: www.modules.org (? - now) 
+    \item A pure TCL based module system: www.modules.org (? - now)
     \item Lmod: Lua Based Environment Module System (2008 - now) (lmod.sf.net)
   \end{itemize}
 \end{frame}
@@ -287,7 +287,7 @@ Due to MODULEPATH changes the follow modules have been reloaded:
     \item Compilers: GCC 4.5, Intel 11.1
     \item MPI Implementations: MVAPICH 1.2, Openmpi 1.5
     \item MPI Solver package: PETSc 4.1
-    \item 4 versions of PETSc: 2 Compilers $\times$ 2 MPI 
+    \item 4 versions of PETSc: 2 Compilers $\times$ 2 MPI
   \end{itemize}
 \end{frame}
 
@@ -310,7 +310,7 @@ Due to MODULEPATH changes the follow modules have been reloaded:
         \item Changing compilers means unloading all three modules
         \item Reloading new compiler, MPI, PETSc modules.
         \item Not loading correct modules $\Rightarrow$ Mysterious Failures!
-        \item Onus of package compatibility on users! 
+        \item Onus of package compatibility on users!
       \end{itemize}
   \end{itemize}
 \end{frame}
@@ -385,14 +385,14 @@ Due to MODULEPATH changes the follow modules have been reloaded:
         \item Modulefile: \texttt{{\color{blue}\$M}/Compiler/gcc/4.5/openmpi/1.5}
         \item Modulefile adds \texttt{{\color{blue}\$M}/MPI/gcc/4.5/openmpi/1.5}
           to \texttt{MODULEPATH} \\
-      \end{itemize}          
+      \end{itemize}
     \item Openmpi 1.5 with intel 11.1
       \begin{itemize}
         \item Package: \texttt{/opt/apps/intel-11\_1/openmpi/1.5}
         \item Modulefile: \texttt{{\color{blue}\$M}/Compiler/intel/11.1/openmpi/1.5}
         \item Modulefile adds \texttt{\$M/MPI/intel/11.1/openmpi/1.5}
           to \texttt{MODULEPATH}
-          
+
       \end{itemize}
   \end{itemize}
 \end{frame}
@@ -464,7 +464,7 @@ Due to MODULEPATH changes the follow modules have been reloaded:
     \item It tries to activate any inactive modules.
     \item It remembers inactive modules.
     \item It continues to attempt to activate any inactive modules on
-      future invocations. 
+      future invocations.
   \end{itemize}
 \end{frame}
 
@@ -930,7 +930,7 @@ fi
 \begin{frame}[fragile]
     \frametitle{Opt-in Testing}
   \begin{itemize}
-    \item You and others can then opt-in 
+    \item You and others can then opt-in
     {\small
 \begin{verbatim}
     if [ -d $HOME/.lmod.d ]; then
@@ -1175,7 +1175,7 @@ fi
 \begin{frame}[fragile]
     \frametitle{prepend\_path() takes priorities}
   \begin{itemize}
-    \item When you need to push a path to the front of the line do: 
+    \item When you need to push a path to the front of the line do:
     {\small
 \begin{verbatim}
    prepend_path{"PATH","/usr/local/first",
@@ -1336,7 +1336,7 @@ $ cd OBJ
 \begin{frame}{Inherit (II)}
   \begin{itemize}
     \item Create a personal hierarchy for each compiler and MPI stack
-      you want to test against. 
+      you want to test against.
     \item Then copy each system compiler and MPI modulefile into your
       personal hierarchy.
     \item Then add a \texttt{prepend\_path("MODULEPATH",...)} at the
@@ -1508,7 +1508,7 @@ prepend_path("MODULEPATH", pathJoin(myMRoot,
           multiple version of boost, petsc, etc.
         \item I'm still thinking about how to handle this ``Matrix'' dependency.
       \end{itemize}
-    \item 
+    \item
   \end{itemize}
 \end{frame}
 

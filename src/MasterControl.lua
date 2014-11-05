@@ -15,7 +15,7 @@
 --    a) setenv(...) is called in modfuncs
 --    b) This calls mcp:setenv(...)
 --    c) the mcp load version connects it to MasterControl:setenv
--- 
+--
 --  Suppose a user is requesting to unload a module which contains a
 --  setenv command.
 --    0. An MCP unload object is constructed.
@@ -165,7 +165,7 @@ local function mAList(mA)
 end
 
 --------------------------------------------------------------------------
--- Return the name of the derived MC object. 
+-- Return the name of the derived MC object.
 -- @param self A MasterControl object
 function M.name(self)
    return self.my_name
@@ -222,7 +222,7 @@ function M.build(name,mode)
 
    local o                = valid_name(nameTbl, name):create()
    o:_setMode(mode or name)
-   
+
 
    dbg.print{"Setting mcp to ", o:name(),"\n"}
    return o
@@ -624,7 +624,7 @@ function M.set_alias(self, name, value)
 end
 
 --------------------------------------------------------------------------
--- Unset a shell alias. 
+-- Unset a shell alias.
 -- @param self A MasterControl Object.
 -- @param name the environment variable name.
 -- @param value the environment variable value.
@@ -947,7 +947,7 @@ function M.familyLoaded()
          bb[#bb+1] = usrName
       end
    end
-         
+
    dbg.fini("MC:familyLoaded")
    return aa, bb
 end
@@ -1094,7 +1094,7 @@ end
 
 --------------------------------------------------------------------------
 -- MasterControl:execute() - place a string that will be executed when
---                           the output from Lmod eval'ed.  
+--                           the output from Lmod eval'ed.
 
 function M.execute(self, t)
    dbg.start{"MasterControl:execute(t)"}

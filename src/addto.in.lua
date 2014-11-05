@@ -108,7 +108,7 @@ function myClean(cleanFlg)
                    path = path:sub(1,-2)
                 end
                 if (path == "") then path = false end
-                return path 
+                return path
              end
    else
       return function (path)
@@ -153,7 +153,7 @@ function main()
    for i = 1,#pargs do
       valueA[i] = cleanPath(pargs[i])
    end
-   
+
 
    ------------------------------------------------------------------------
    -- Convert empty string envVar values into false and clean path if requested
@@ -183,7 +183,7 @@ function main()
 
    ------------------------------------------------------------------------
    -- Insert/append new entries with magic insert function.
-   
+
    for i = 1, #valueA do
       local v = valueA[i]
       if (v == false) then v = "" end

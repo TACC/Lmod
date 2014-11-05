@@ -363,7 +363,7 @@ else
   AC_SUBST(HAVE_LUA_JSON,yes)
   echo "... yes"
 fi
-  
+
 
 rm luaModuleAvailable
 
@@ -409,7 +409,7 @@ if test -n "$PATH_TO_ZSH" ; then
     case $dir in
       */site-functions)
         echo $dir
-        ;;      
+        ;;
     esac
   done
 EOF

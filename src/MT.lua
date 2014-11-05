@@ -117,7 +117,7 @@ local function buildAvailT(mpath, path, prefix, availT)
          availT[k].total  = 0
          availT[k].hidden = 0
       end
-      
+
 
       -- For any directories found recursively call buildAvailT to process.
       for i = 1, #dirA do
@@ -278,7 +278,7 @@ local function buildAllLocWmoduleT(moduleT, mpathA, availT, adding, pathEntry)
          local aa = {}
          local defaultT = false
          for parseV, v in pairsByKeys(vv) do
-            
+
             if (parseV == 0) then
                aa[0] = v
             else
@@ -464,7 +464,7 @@ function M._build_locationTbl(self, mpathA, adding, pathEntry)
       local fast      = true
       local cache     = _G.Cache:cache()
       local moduleT   = cache:build(fast)
-      
+
       dbg.print{"moduleT: ", not (not moduleT),"\n"}
 
       if (moduleT) then
@@ -489,11 +489,11 @@ function M._build_locationTbl(self, mpathA, adding, pathEntry)
       local defaultFn    = false
       local defaultKind  = false
       local parseV       = false
-      local numVersions  = false   
+      local numVersions  = false
       local mpath        = mpathA[i]
       local vv           = availT[mpath] or {}
       for sn, v in pairs(vv) do
-         local a         = locationT[sn]           
+         local a         = locationT[sn]
          local total     = #v
          local hidden    = 0
 
@@ -535,7 +535,7 @@ function M._build_locationTbl(self, mpathA, adding, pathEntry)
          end
          if (defaultKind ~= "marked") then
             local entry  = v[total]
-            local pv     = entry.parseV 
+            local pv     = entry.parseV
             numVersions  = numVersions + total
             if (total == 0 or pv > parseV) then
                defaultKind = "last"
@@ -552,14 +552,14 @@ function M._build_locationTbl(self, mpathA, adding, pathEntry)
          defaultEntry.numVersions = numVersions
          defaultEntry.num         = max(numVersions, #a+1)
          --dbg.print{"sn: ",sn,", numVersions: ",numVersions,", #a+1: ",#a+1," ,dfltFn: ",defaultFn,"\n"}
-         
+
          a[#a+1]               = value
          locationT[sn]         = a
          locationT[sn].default = defaultEntry
-         
+
       end
    end
-         
+
    if (dbg.active()) then
       dbg.print{"availT: \n"}
       for mpath, vv in Pairs(availT) do
@@ -847,7 +847,7 @@ function M.getMTfromFile(self,t)
    setupMPATH(s_mt, savedBaseMPATH)
    varTbl[DfltModPath] = Var:new(DfltModPath,savedBaseMPATH)
 
-   
+
    -----------------------------------------------------------------------
    -- Save the shortTime found from Module Collection file:
    s_mt.c_shortTime = l_mt.c_shortTime
@@ -1077,7 +1077,7 @@ end
 --------------------------------------------------------------------------
 -- Set the family
 -- @param self An MT object
--- @param familyNm 
+-- @param familyNm
 -- @param nName
 function M.setfamily(self,familyNm,mName)
    local results = self.family[familyNm]
@@ -1093,7 +1093,7 @@ end
 --------------------------------------------------------------------------
 -- Unset the family
 -- @param self An MT object
--- @param familyNm 
+-- @param familyNm
 function M.unsetfamily(self,familyNm)
    local familyA = buildFamilyPrefix()
    for i = 1,#familyA do
@@ -1106,7 +1106,7 @@ end
 --------------------------------------------------------------------------
 -- Get the family
 -- @param self An MT object
--- @param familyNm 
+-- @param familyNm
 function M.getfamily(self,familyNm)
    if (familyNm == nil) then
       return self.family
@@ -1188,7 +1188,7 @@ end
 --------------------------------------------------------------------------
 -- Force a re-evaluation of the internal copies of *locationT* and *availT*.
 -- @param self An MT object
--- @param adding 
+-- @param adding
 -- @param pathEntry
 function M.reEvalModulePath(self, adding, pathEntry)
    dbg.start{"MT:reEvalModulePath(adding: ",adding,", pathEntry: ",pathEntry,")"}
@@ -1209,7 +1209,7 @@ end
 
 
 --------------------------------------------------------------------------
--- Reload all modules. 
+-- Reload all modules.
 -- @param self An MT object
 function M.reloadAllModules(self)
    dbg.start{"MT:reloadAllModules()"}
@@ -1372,7 +1372,7 @@ function M.usrName(self, sn)
 end
 
 --------------------------------------------------------------------------
--- Return the filename associated with the *sn*. 
+-- Return the filename associated with the *sn*.
 -- @param self An MT object
 -- @param sn the short module name
 -- @return The filename.
@@ -1546,7 +1546,7 @@ function M.hideHash(self)
 end
 
 --------------------------------------------------------------------------
--- Get the hash value for the entry. 
+-- Get the hash value for the entry.
 -- @param self An MT object.
 -- @param sn The short name.
 -- @return The hash value.

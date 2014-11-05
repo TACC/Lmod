@@ -71,7 +71,7 @@ local function askSystem(width)
 
    return width
 end
-   
+
 --------------------------------------------------------------------------
 -- Return true/false if the *term* interface exists.
 

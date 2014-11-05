@@ -749,11 +749,11 @@ proc prepend-path {var path args} {
         set var [lindex $args 0]
         set path [lindex $args 1]
     } else {
-        set separator $g_def_separator 
+        set separator $g_def_separator
     }
 
     if {$mode == "load"} {
-	add-path $var $path "prepend" $separator 
+	add-path $var $path "prepend" $separator
     }\
     elseif {$mode == "unload"} {
 	unload-path $var $path $separator

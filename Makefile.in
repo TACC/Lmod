@@ -104,7 +104,7 @@ endif
 
 .PHONY: test pkgs man_pages
 
-all: 
+all:
 	@echo done
 
 pre-install: $(DIRLIST) shell_init startup libexec spiderCacheSupport Inst_Tools \
@@ -227,7 +227,7 @@ _distContrib:
 	cp -r $(CONTRIB) $(DistD)/contrib
 
 _distSrc:
-	mkdir $(DistD)/src $(DistD)/tools $(DistD)/settarg $(DistD)/shells 
+	mkdir $(DistD)/src $(DistD)/tools $(DistD)/settarg $(DistD)/shells
 	cp $(lua_code) $(ComputeHashSum) $(STANDALONE_PRGM) $(DistD)/src
 	cp tools/*.lua $(DistD)/tools
 	cp $(SETTARG_SOURCE) $(DistD)/settarg

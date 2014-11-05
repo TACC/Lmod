@@ -251,7 +251,7 @@ function M.findModulesInDir(mpath, path, prefix, moduleT)
       mList = concatTbl(a,":")
    end
 
-   
+
    cTimer:test()
 
    if (#dirA > 0 or prefix == '') then
@@ -540,7 +540,7 @@ function M.Level0Helper(self, dbT,a)
    end
 
    local ia  = #a
-   local cmp = (LMOD_CASE_INDEPENDENT_SORTING:lower():sub(1,1) == "y") and 
+   local cmp = (LMOD_CASE_INDEPENDENT_SORTING:lower():sub(1,1) == "y") and
                case_independent_cmp or nil
    for k,v in pairsByKeys(t,cmp) do
       local len = 0
@@ -577,7 +577,7 @@ end
 
 local function countEntries(t, sn, searchPat, searchName, hidden)
    dbg.start{"countEntries(t,\"",sn,"\", \"", searchPat,"\", \"",searchName,"\", ",hidden,")"}
-   
+
    local count   = 0
    local nameCnt = 0
    local fullCnt = 0

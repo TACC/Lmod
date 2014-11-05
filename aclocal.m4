@@ -68,18 +68,18 @@ if test "$a" != no; then
   echo
   echo Lmod is exporting the module command for Bash users.  Some sites may have some
   echo problems.  First:
-  echo 
+  echo
   echo "   0.  Make sure that all your machines have shellshock bash patch."
-  echo 
+  echo
   echo If that does not fix things then you have two choices:
-  echo 
+  echo
   echo "   1.  You configure Lmod not to export the module command."
   echo "   2.  You can filter out the exported functions in the users environment"
   echo "       during job submission"
   echo
   echo If there is a way to do step 2, please try to do so.  Otherwise do step 1.
-  echo The advantage of exporting the module command is that it is defined in 
-  echo /bin/sh scripts. Because Lmod defines BASH_ENV to point to init/bash, 
+  echo The advantage of exporting the module command is that it is defined in
+  echo /bin/sh scripts. Because Lmod defines BASH_ENV to point to init/bash,
   echo "it will be defined for /bin/bash scripts.  The trouble is that users"
   echo "have to remember to put #!/bin/bash at the first line of their shell"
   echo script to make that work.    We used to see tickets where users would
@@ -92,7 +92,7 @@ fi
 
 echo
 echo Configure complete, Now do:
-echo 
+echo
 echo "    $ make install       # -> A complete install"
 echo or
 echo "    $ make pre-install   # -> Install everything but the symbolic link"

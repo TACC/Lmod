@@ -44,7 +44,7 @@ Features/Bug fixes:
 	    ['/path/to/IntelCmp/mfiles'] = "/path/to/IntelCmp/mfiles"
 	    ['/path/to/core/mfiles']     = "/path/to/core/mfiles"
 	 }
-	    
+	
       Your routine can relabel and change the labels
 
          t = {
@@ -56,7 +56,7 @@ Features/Bug fixes:
 	    ['/path/to/IntelCmp/mfiles'] = "Modules"
 	    ['/path/to/core/mfiles']     = "Modules"
 	 }
-      In the last case intel modules and core modules will be 
+      In the last case intel modules and core modules will be
       grouped together.
    e) Better handling of zsh tab completion files.  Lmod will
       continue to install even when a site's zsh setup is
@@ -85,7 +85,7 @@ Features:
 
       Note that if you use this option the internal pager is off.
 
-   
+
 Lmod Version 5.7
 Features:
    a) Lmod is now more efficient when loading and unloading
@@ -95,7 +95,7 @@ Features:
       "module --config". This is there so that if Lmod is
       built on a system that as a system lua-term on one and
       is installed on a different system that doesn't.
-   c) module spider now reports module version in "parseVersion" 
+   c) module spider now reports module version in "parseVersion"
       order. (i.e 0.7.10 is newer than 0.7.2)
    d) Internally Lmod sets LC_ALL=C so that a user's Locale does
       not effect its behavior.
@@ -118,8 +118,8 @@ Bug Fixes:
    b) Lmod had a bug where it tracked prereq, conflict and family
       commands in module collections where it didn't need to.
       This means that some users will have to rebuild their module
-      collections when they shouldn't have to.  
-      
+      collections when they shouldn't have to.
+
 Lmod Version 5.6.1
 Features:
    a) The environment variable LMOD_OPTIONS can be use to specify
@@ -131,7 +131,7 @@ Features:
 Bug Fix:
    a) Executing "module list" when there no modules loaded is a message
       and not a warning.
-   
+
 Lmod Version 5.6
 Major Bug Fix:
    Two bugs I have un-earthed cancelled each other all related to saved
@@ -170,7 +170,7 @@ Lmod Version 5.5:
 Feature:
    a) priorities can now be used with "module use":
       $ module use --priority 100 /path/to/modulefiles
-   
+
 
 Bug Fixes:
    a) Configuring on a system where tclsh is not found is handled better.
@@ -190,7 +190,7 @@ Bug Fix:
    a) TCL modules can now have:
         puts "message"
       as well.
-      
+
 
 Lmod Version 5.4.1:
    Added License file to tar ball.
@@ -203,12 +203,12 @@ Features:
       	 prepend_path{"PATH","/first",priority=100}  -- lua
       	 prepend-path  PATH   /first           100   #  tcl
 
-      
+
       Note the use of {} braces for lua. The braces are only required when
-      specifying the priority, otherwise parens work fine.  Priority works 
-      for append_path as well.  It just pushes paths to the right end.  By 
+      specifying the priority, otherwise parens work fine.  Priority works
+      for append_path as well.  It just pushes paths to the right end.  By
       default, a path has a priority of zero.  Paths will a priority of 100
-      are grouped together. Paths with a priority of 1000 are grouped 
+      are grouped together. Paths with a priority of 1000 are grouped
       together to the left of the paths with a priority of 100.  The priority
       for prepend_path are useful for wrappers.  The priority for append_path
       is great for catch-alls.
@@ -243,13 +243,13 @@ Features:
 Bug Fixes:
    a) There was a bug with avail and spider where it would not find modules
       with a dash.  This was fixed between version 5.2.3 and now.
-   b) There was a bug with "module -r spider "^phdf5/1.8.12$" where it would 
+   b) There was a bug with "module -r spider "^phdf5/1.8.12$" where it would
       say that the module wasn't there and yet it was.  This has been fixed.
    c) Improved the wording of "module load foo/1.2" when foo/1.2 existed and
       when it didn't.  (Thanks to Alex Moskalenko for the fix)
    d) Lmod would do wrong when "module unload gcc mpich".  It would make
-      mpich inactive.  This is fixed. 
-   e) Fixed bug where if there is a symbolic link to the modulefile it wouldn't 
+      mpich inactive.  This is fixed.
+   e) Fixed bug where if there is a symbolic link to the modulefile it wouldn't
       mark the default module correctly.
 
 Lmod Version 5.3.2:
@@ -265,7 +265,7 @@ Feature:
    $ sh_to_modulefile -o intel-14.0.2.lua  /a/intel/bin/iccvars.sh intel64
 
    note that you can give argument to the shell script.
-   
+
 
 Lmod Version 5.3:
 Features:
@@ -273,7 +273,7 @@ Features:
       Lua regexp searching now requires a "-r" option
    b) The modulefile function isloaded() takes atleast, between and latest:
         isloaded(atleast("Foo","1.2"))
-   c) Spider searching improved.  When an exact match is found Lmod reports 
+   c) Spider searching improved.  When an exact match is found Lmod reports
       other possible matches:
 
      R: R/2.1.5

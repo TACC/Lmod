@@ -221,7 +221,7 @@ local function registerLoaded(full, fn)
 end
 
 --------------------------------------------------------------------------
--- This function marks a module name as unloaded and 
+-- This function marks a module name as unloaded and
 -- saves it to LOADEDMODULES and _LMFILES_.   This is
 -- only for compatibility with TCL/C module.
 local function registerUnloaded(full, fn)
@@ -319,9 +319,9 @@ function M.access(self, ...)
             A[#A+1]     = whole
          else
             mStack:push(full, moduleName, mname:sn(), fn)
-            
+
             local mList = concatTbl(mt:list("both","active"),":")
-            
+
             loadModuleFile{file=fn,help=help, shell=shellN, mList = mList,
                         reportErr=true}
             mStack:pop()
@@ -937,7 +937,7 @@ local function availDir(defaultOnly, terse, searchA, label, locationT, availT,
       return
    end
 
-   local cmp = (LMOD_CASE_INDEPENDENT_SORTING:lower():sub(1,1) == "y") and 
+   local cmp = (LMOD_CASE_INDEPENDENT_SORTING:lower():sub(1,1) == "y") and
                case_independent_cmp or nil
 
    for sn, versionA in pairsByKeys(availT,cmp) do

@@ -86,7 +86,7 @@ function M.options(self, usage)
    local styleA       = {}
    local icnt         = 0
    local defaultStyle = "system"
-   
+
    for s in LMOD_AVAIL_STYLE:split(":") do
       icnt = icnt + 1
       if (s:sub(1,1) == "<" and s:sub(-1,-1) == ">") then

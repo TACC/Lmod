@@ -89,7 +89,7 @@ end
 -- @param  self Input string
 -- @return A string surrounded with double quotes internal double quotes backslashed
 function string.doubleQuoteString(self)
-   if (type(self) ~= 'string') then 
+   if (type(self) ~= 'string') then
       self = tostring(self)
    else
       self = ('%q'):format(self)

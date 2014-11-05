@@ -19,7 +19,7 @@ As an example:
 
 
 -----------------------------------------------------------------------
---  As of Feb 22, 2014 there is new command added:  "sh_to_modulefile" 
+--  As of Feb 22, 2014 there is new command added:  "sh_to_modulefile"
 --  which converts bash scripts to lmod modulefiles.  It supports shell
 --  script options.
 -----------------------------------------------------------------------

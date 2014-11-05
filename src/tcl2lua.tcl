@@ -431,7 +431,7 @@ proc prepend-path { var val args} {
     }
     output-path-foo "prepend_path" $var $val $separator $priority
 }
-    
+
 proc append-path { var val args} {
     if {[string match $var "-delim"] || [string match $var "-d"] || [string match $var "--delim"]} {
         set separator $val
@@ -447,7 +447,7 @@ proc append-path { var val args} {
     }
     output-path-foo "append_path" $var $val $separator $priority
 }
-    
+
 proc remove-path { var val args} {
     if {[string match $var "-delim"] || [string match $var "-d"] || [string match $var "--delim"]} {
         set separator $val
@@ -463,7 +463,7 @@ proc remove-path { var val args} {
     }
     output-path-foo "remove_path" $var $val $separator $priority
 }
-    
+
 proc output-path-foo { cmd var val separator priority } {
     puts stdout "$cmd\{\"$var\",\"$val\",delim=\"$separator\",priority=\"$priority\"\}"
 }
@@ -609,7 +609,7 @@ proc myPuts args {
     } else {
         puts $channel $text
     }
-        
+
 }
 
 proc uname {what} {

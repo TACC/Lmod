@@ -125,7 +125,7 @@ function GetDefault(a)
    a          = a or "default"
    dbg.start{"GetDefault(",a,")"}
 
-   local sname = (LMOD_SYSTEM_NAME == nil) and "" or "." .. LMOD_SYSTEM_NAME 
+   local sname = (LMOD_SYSTEM_NAME == nil) and "" or "." .. LMOD_SYSTEM_NAME
    local path = pathJoin(os.getenv("HOME"), ".lmod.d", a .. sname)
    local mt   = MT:mt()
    mt:getMTfromFile{fn=path, name=a}
@@ -182,7 +182,7 @@ function Keyword(...)
    ia = ia+1; a[ia] = "\n"
 
    spider:Level0Helper(dbT,a)
-   
+
    shell:echo(concatTbl(a,""))
 
    dbg.fini("Keyword")
@@ -526,7 +526,7 @@ function Restore(a)
       path = pathJoin(os.getenv("HOME"), ".lmod.d", "default" .. sname)
       if (not isFile(path)) then
          a = "system"
-         myName = a 
+         myName = a
       else
          myName = "default"
       end
@@ -706,7 +706,7 @@ function Show(...)
    local borderStr = banner:border(0)
 
    prtHdr       = function()
-                     local a = {}  
+                     local a = {}
                      a[#a+1] = borderStr
                      a[#a+1] = "   "
                      a[#a+1] = ModuleFn

@@ -282,7 +282,7 @@ function M.remove(self, value, where, priority)
    where = allow_dups(true) and where or "all"
    local pathA   = path2pathA(value, self.sep)
    local tbl     = self.tbl
-   local adding  = false    
+   local adding  = false
 
    for i = 1, #pathA do
       local path = pathA[i]
@@ -374,7 +374,7 @@ end
 --                policies on duplication by setting [[insertFunc]].
 
 --------------------------------------------------------------------------
---  Report an error/warning when appending/prepending a path element 
+--  Report an error/warning when appending/prepending a path element
 --  without the same priority
 --------------------------------------------------------------------------
 
@@ -398,7 +398,7 @@ function M.prepend(self, value, nodups, priority)
       chkMP(self.name, adding,path)
    end
    self.imin = imin
-   
+
    local v    = self:expand()
    self.value = v
    if (not v) then v = nil end
@@ -438,7 +438,7 @@ end
 
 function M.set(self,value)
    if (not value) then value = false end
-   self.value = value 
+   self.value = value
    self.type  = 'var'
    if (not value) then value = nil end
    setenv_posix(self.name, value, true)
@@ -540,10 +540,10 @@ function M.expand(self)
       pathA[n] = v
    end
 
-   
+
    -- Step 2.1: Remove extra trailing empty strings, keep only one.
 
-   local i = n 
+   local i = n
    while (pathA[i] == "") do
       i = i - 1
    end
@@ -587,7 +587,7 @@ function M.expand(self)
       end
       priorityStrT[env_name] = concatTbl(sA,';')
    end
-   
+
    if (next(tbl) == nil) then pathStr = false end
 
    return pathStr, "path", priorityStrT

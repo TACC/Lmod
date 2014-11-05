@@ -112,7 +112,7 @@ function M.process(self, ignoreT, oldEnvT, envT)
          end
       end
    end
-                  
+
    dbg.fini("MF_Base:process")
    return a
 end

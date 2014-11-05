@@ -72,7 +72,7 @@ and newlines removed. Then that text is base64 encoded and stored in variables
 named _ModuleTable001_, _ModuleTable002_, etc in blocks of 256 characters.  When
 Lmod starts, it grabs those environment variables and puts them together  and
 then executes a base64 decodes them to recover the current state of the modules
-loaded.  
+loaded.
 
 To see the current module table you can do:
 
@@ -85,7 +85,7 @@ a module file might say:
 
     setenv("ABC","DEF")
     prepend_path("PATH", "/path/to/add")
-    
+
 So loading this module would define **$ABC** and prepend to the **$PATH** variable.  This is the
 positive direction. On the flip side, when a module is unloaded, the *setenv* and
 *prepend\_path* actions are reversed or in the negative direction.  So when these module files
@@ -106,7 +106,7 @@ then the program builds:
     mcp = MasterControl.build("unload")
 
 This places the actions in the negative direction; that is an *setenv* or *prepend\_path*
-will unset a global variable or remove an entry from a path. 
+will unset a global variable or remove an entry from a path.
 
 Another way that module files are interpreted is for show, with *mcp*:
 
@@ -152,13 +152,13 @@ MC_Unload object and the *mcp:setenv()* function is connected to
 
 ## Level 2
 
-Users specify a single action on the command line **load**, **unload**, **list**, etc.  
+Users specify a single action on the command line **load**, **unload**, **list**, etc.
 Lmod takes those actions and calls a routine in src/cmdfuncs.lua.  So if a user requests
 a load.  This means that the *Load_Usr* function will be called.  This calls mcp:load()
 function which is described in some detail in Level 3.  Eventually, this calls the
 *loadModulefile()* function which reads the module file and evaluates as a lua program.
 Note that TCL modules are converted inside of *loadModulefile()* to be lua functions.
-The evaluation of 
+The evaluation of
 
 
 The command line actions are in src/cmdfuncs.lua.  Similarily, functions specified in module
@@ -179,7 +179,7 @@ Explain how the sandbox works and why it is important.
 *How Lmod supports both sending messages stderr but will support sending module list, avail,
   etc to stdout.
 *hooks?
-* 
+*
 
 
 

@@ -2,7 +2,7 @@ Ways to explain settarg
 
 * What is settarg?
 ** Connected to module loaded
-** Set env. var. automatically.   
+** Set env. var. automatically.
 
 * Beginning Level
 ** just have the module command automatically call settarg
@@ -14,7 +14,7 @@ How would one control the output?  Would there be a settarg module? or
 would it always be on?
 
 * Advanced Level
-** Simply add the settings in the setup files for lmod.  
+** Simply add the settings in the setup files for lmod.
 This will probably have to be a configure option.  Which I don't like
 but there is no good way to do this.
 
@@ -26,7 +26,7 @@ state of the loaded modules, plus the machine architecture
 Plus settarg provides host of environment variables to check various
 states.
 
-You get 
+You get
 
    TARG_COMPILER
    TARG_COMPILER_FAMILY
@@ -38,7 +38,7 @@ This supports a host of tests that can be part of a Makefile or other
 build systems.
 
 Also included is separate executables available at the same time.
-This makes comparing and constrasting easy.  
+This makes comparing and constrasting easy.
 
 * O.K.  I have drunk the Kool-aid and I love this stuff but how am I going to use this at home? At Work?
 
@@ -46,10 +46,10 @@ Well it is easy to install Lmod on personal systems.  But you'd also
 have to install the module files as well.   Easy enough but ...
 
 It is also possible that one sets these variables by hand or in a
-.bashrc or similar file on a system where you only build it one way.  
+.bashrc or similar file on a system where you only build it one way.
 
 Complain to your administrator that they should be using Lmod!!!.
 
 
-* There is a great deal of useful info in the module table.  
+* There is a great deal of useful info in the module table.
 This is one way to make his information available to codes
