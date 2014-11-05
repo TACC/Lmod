@@ -104,6 +104,7 @@ function main()
       ["--dumpversion"] = 0,
       ["--expert"]=0,   ["--novice"]=0,
       ["--force"] = 0,
+      ["--gitversion"] = 0,
       ["--ignore_cache"] = 0,  ["--ignore-cache"] = 0,
       ["--initial_load"] = 0,  ["--initial-load"] = 0,
       ["--latest"] = 0,
