@@ -77,8 +77,10 @@ function processLPATH(value)
    local moduleT        = moduleStack[iStack].moduleT
 
    local lpathA         = moduleT[path].lpathA or {}
-   value                = path_regularize(value)
-   lpathA[value]        = 1
+   for path in value:split(":") do
+      path         = path_regularize(path)
+      lpathA[path] = 1
+   end
    moduleT[path].lpathA = lpathA
 end
 
@@ -92,8 +94,10 @@ function processPATH(value)
    local moduleT       = moduleStack[iStack].moduleT
 
    local pathA         = moduleT[path].pathA or {}
-   value               = path_regularize(value)
-   pathA[value]        = 1
+   for path in value:split(":") do
+      path        = path_regularize(path)
+      pathA[path] = 1
+   end
    moduleT[path].pathA = pathA
 end
 

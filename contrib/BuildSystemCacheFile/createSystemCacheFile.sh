@@ -84,6 +84,11 @@ buildNewDB $CacheDir  moduleT
 
 ########################################################################
 #  Build reverse map (This is optional)
+#  This allows one to map between paths and modules.  
+#
+#  For example: ldd on an executable produces paths to libraries. The
+#  reverse map allows one to map back to modules the executable might be
+#  using.   See tools like XALT:  xalt.sf.net
 ########################################################################
 #buildNewDB $RmapDir   reverseMapT
 
