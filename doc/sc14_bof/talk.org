@@ -1,0 +1,82 @@
+Ideas for SC TACC Booth BoF:
+
+New Features:
+
+* Auto swap
+* New Avail Hook
+* module --show_hidden avail
+* Priority support for prepend_path
+* Full Support for Reading in Cray Modulefiles.
+** This includes full bug for bug support.
+* Better support for Lmod running on shared home file systems.
+* sh_to_modulefile program to convert shell scripts into modulefiles.
+* Speed improvements for certain functions like "module --terse avail"
+* Support for 
+   load(atleast("gcc","4.8"))
+
+
+Transitioning to Lmod
+
+* Lmod is a drop-in replacement for TCL/C based Env. Modules.
+* It is the modern replacement for all the other module systems.
+* It is used around the world 
+   from Norway to Israel to New Zealand, from Stanford to MIT and
+   Harvard, 
+* It works in reading in Cray modulefiles.
+* It read TCL modulefiles.
+
+
+Why bother with replacing your current module system.
+
+* Caching of modulefiles.  
+   faster "module avail"
+* Module collections:
+ 
+   Users can have a default collection as well as named collections.
+
+
+* Family function
+   Means that if you add:
+
+     family Compiler
+
+   to your compiler modulefiles, you'll never have to put an new 
+   conflicit statement in your modulefiles.  User will only be able
+   to load one compiler at a time.  You can have an MPI family
+   independent of "Compiler".
+
+* Support for tracking module usage.
+* New functions:
+
+**  pushenv("CC","gcc")
+
+** Properties can be assigned to modules:
+
+   Mic aware,
+   Category
+   Status
+** Priority paths.
+
+* EasyBuild supports Lmod.
+
+* Allows for transitioning to a hierarchical naming scheme if/when you are ready.
+
+* Actively supported. 
+  Frequent updated.  
+
+* Debian and Fedora packages of Lmod are available.
+
+How to transition to Lmod:
+
+* Install Lmod in your personal account.  
+   Change the definition of the module command to point to the one in
+   your account.  Test.
+
+* Staff opt-in 
+
+   Install Lmod in system location.  Place  /etc/profile.d/z00_lmod.sh
+   Redefine the module command if  ~/.lmod.d  exists.
+
+* Test, then deploy
+
+   
