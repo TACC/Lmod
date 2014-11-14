@@ -7,13 +7,13 @@
 \usepackage{alltt}
 \usepackage{graphicx}
 
-\title{TACC Booth Bof SC-14: Transitioning to Lmod}
+\title{TACC Booth BoF SC-14: Transitioning to Lmod}
 
 
 \author{Robert McLay}
 \institute{The Texas Advanced Computing Center}
 
-\date{November 20, 2012}  %% Use this if you want to fix the date in
+\date{November 18, 2014}  %% Use this if you want to fix the date in
                         %% stone rather than use \today
 
 \newcommand{\bfnabla}{\mbox{\boldmath$\nabla$}}
@@ -34,32 +34,31 @@
 
 \begin{frame}{Transitioning to Lmod}
   \begin{itemize}
-    \item What does Lmod offer.
+    \item What does Lmod offer?
     \item A transition strategy
-    \item New Features.
+    \item New features
   \end{itemize}
 \end{frame}
 
 
 \begin{frame}{Why You Might Want To Switch}
   \begin{itemize}
-    \item Active Development.  Frequent Releases. Bug fixes.
-    \item Vibrant Community.
-    \item It is used from Norway to Isreal to New Zealand.
-    \item From Stanford to MIT to NASA.
-    \item Several advantage w/o changing a single module file
-    \item Debian and Fedora packages available.
-    \item Many more advantages when you want to.
+    \item Active Development;  Frequent Releases; Bug fixes.
+    \item Vibrant Community
+    \item It is used from Norway to Isreal to New Zealand from Stanford to MIT to NASA
+    \item Enjoy many capabilities w/o changing a single module file
+    \item Debian and Fedora packages available
+    \item Many more advantages when you're ready
   \end{itemize}
 \end{frame}
 
 \begin{frame}{Features requiring no changes to modulefiles}
   \begin{itemize}
     \item Reads TCL modulefiles directly (Cray modules supported)
-    \item A few edge cases where TCL/C and Lmod differ.
-    \item Module cache system: Faster avail, spider, etc.
-    \item Module use tracking via load hook.
-    \item User default and named collections of modules.
+    \item User default and named collections of modules
+    \item Module cache system: Faster avail, spider, etc
+    \item Tracking module usage 
+    \item A few edge cases where Env. Modules and Lmod differ
   \end{itemize}
 \end{frame}
 
@@ -67,22 +66,21 @@
   \begin{itemize}
     \item Family function: Prevent users from loading two compilers at
       the same time (experts can override)
-    \item Properties: (Mic aware, Beta, etc)
-    \item Priority Paths
+    \item Properties: (MIC-aware, Beta, etc)
     \item Sticky modules
     \item ...
   \end{itemize}
 \end{frame}
 
-\begin{frame}{Lmod support a software hierarchy}
+\begin{frame}{Lmod supports a software hierarchy}
   \begin{itemize}
-    \item Lmod supports flat layout of modules.
-    \item Some really cool features if you have a software hierarchy.
+    \item Lmod supports flat layout of modules
+    \item Some really cool features if you have a software hierarchy
       \begin{itemize}
-        \item Protecting users from mismatched modules.
-        \item Auto Swapping of Compiler and MPI dependent modules.
+        \item Protecting users from mismatched modules
+        \item Auto Swapping of Compiler and MPI dependent modules
       \end{itemize}
-    \item When you are ready, it will be there.
+    \item When you are ready, it will be there
   \end{itemize}
 \end{frame}
 
@@ -90,25 +88,26 @@
 
 \begin{frame}{A Transition Strategy}
   \begin{itemize}
-    \item Install Lmod in your account.
+    \item Install Lmod in your account
     \item Staff \& Friendly Opt-in Testing
-    \item Deploy to your users with an Opt-out choice.
-    \item Some users can run TCL/C modules.
-    \item Others can run Lmod.
+    \item Deploy to your users with an Opt-out choice
+    \item Some users can run TCL/C modules
+    \item Others can run Lmod
   \end{itemize}
 \end{frame}
 
 \begin{frame}{Personal Testing of Lmod}
   \begin{itemize}
-    \item Install it in your account.
+    \item Install it in your account
       \begin{itemize}
-        \item Figure out the list of module you normal load.
+        \item Figure out the list of modules you normal load
         \item \texttt{\bf \$ module purge;}
         \item Redefine module command to use Lmod
         \item \texttt{\bf \$ module load} \emph{mod1 mod2 ...}\texttt{\bf ;}
       \end{itemize}
-    \item I normally run a personal copy of Lmod in all my accounts.
-    \item Test building a spider cache, module avail,
+    \item I normally run a personal copy of Lmod in all my accounts
+      (including \texttt{\bf darter}, a Cray XC-30)
+    \item Test, build a spider cache, module avail
     \item Module collections, ...
   \end{itemize}
 \end{frame}
@@ -118,19 +117,19 @@
     \item Install Lmod in system location.
     \item Install \emph{/etc/profile/z00\_lmod.sh} to redefine the
       \texttt{\bf module} cmd.
-    \item Load users default modules after (if any)
-    \item Users who have a directory \texttt{$\sim$/.lmod.d} use lmod.
-    \item At TACC we did this for 6 months.
+    \item Load system  default modules (if any) after previous step
+    \item Users who have a directory \texttt{$\sim$/.lmod.d} use lmod
+    \item At TACC we did this for 6 months
   \end{itemize}
 \end{frame}
 
-\begin{frame}{Deploy to your users.}
+\begin{frame}{Deploy}
   \begin{itemize}
-    \item When you are ready, change \emph{/etc/profile/z00\_lmod.sh}.
-    \item Users can opt-out.
-    \item We supported this for another 6 months.
-    \item We broken TCL/C module support when we added family.
-    \item Both transitions generated very few tickets (2 + 2).
+    \item When you are ready, change \emph{/etc/profile/z00\_lmod.sh}
+    \item Users can opt-out
+    \item We supported this for another 6 months
+    \item We broke Env. Module support when we added the family function
+    \item Both transitions generated very few tickets (2 + 2)
   \end{itemize}
 \end{frame}
 
@@ -139,7 +138,7 @@
 
 \begin{frame}{Maxime Boissonneault from Calcul Qu\'{e}bec}
   \begin{itemize}
-      \item Maxime will talk about his experiences with Lmod.
+      \item Maxime will talk about his experiences with Lmod
   \end{itemize}
 \end{frame}
 
@@ -151,8 +150,17 @@
       \item Full support for reading Cray module files.
       \item Better support for running Lmod on shared home file systems.
       \item Priority Path: Some paths are more equal than others.
-      \item \texttt{sh\_to\_modulefile} converts shell scripts into modulefiles.
+      \item \texttt{\bf sh\_to\_modulefile} converts shell scripts into modulefiles.
       \item Support for \texttt{\bf load(atleast("gcc","4.8"))}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Auto swap}
+  \begin{itemize}
+      \item An improvement suggested by Maxime Boissonneault.
+      \item Replace \texttt{\bf module load gcc; module swap gcc intel}
+      \item With \texttt{\bf module load gcc; module load intel}
+      \item Let Lmod figure out that a swap is required and do it for you!
   \end{itemize}
 \end{frame}
 
