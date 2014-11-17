@@ -74,7 +74,7 @@ EOF
 
 
 case $SYSHOST in
-  rios | mijo | jedrik | vato | vmijo | devo | lmod-test)
+  rios | mijo | jedrik | vato | vmijo | devo | xalt-lmod )
     SUDO="sudo"
     base="/opt/apps"
     ADMIN_DIR=/opt/moduleData

@@ -115,7 +115,7 @@
 \begin{frame}{Staff \& Friendly User Testing}
   \begin{itemize}
     \item Install Lmod in system location.
-    \item Install \emph{/etc/profile/z00\_lmod.sh} to redefine the
+    \item Install \emph{/etc/profile.d/z00\_lmod.sh} to redefine the
       \texttt{\bf module} cmd.
     \item Load system  default modules (if any) after previous step
     \item Users who have a directory \texttt{$\sim$/.lmod.d} use lmod
@@ -125,7 +125,7 @@
 
 \begin{frame}{Deploy}
   \begin{itemize}
-    \item When you are ready, change \emph{/etc/profile/z00\_lmod.sh}
+    \item When you are ready, change \emph{/etc/profile.d/z00\_lmod.sh}
     \item Users can opt-out
     \item We supported this for another 6 months
     \item We broke Env. Module support when we added the family function
