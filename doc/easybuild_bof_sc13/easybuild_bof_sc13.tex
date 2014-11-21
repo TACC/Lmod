@@ -7,7 +7,7 @@
 \usepackage{alltt}
 \usepackage{graphicx}
 
-\title{Lmod: An Environment Module System}
+\title{Lmod: A Modern Environment Module System}
 
 
 \author{Robert McLay}
@@ -65,29 +65,47 @@
   \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]
-    \frametitle {Lmod for Developers: settarg}
-    \begin{itemize}
-      \item Provide safety, flexibility and repeatability in a dynamic environment.
-      \item Encapsulates the state of the modules loaded and
-        dynamically updates the state when modules change:
-        {\small
-          \begin{alltt}
-    \$ {\color{red} env | grep '^TARG'}
-    {\color{blue}TARG_BUILD_SCENARIO=dbg
-    TARG=OBJ/_x86_64_dbg_gcc-4.6_mpich-3.0
-    TARG_MPI_FAMILY=mpich
-    TARG_MPI=mpich-3.0}
-    \${\color{red} module swap mpich openmpi; opt; env | grep '^TARG'}
-    {\color{blue}TARG_BUILD_SCENARIO=opt
-    TARG=OBJ/_x86_64_opt_gcc-4.6_openmpi-1.6
-    TARG_MPI=openmpi-1.6
-    TARG_MPI_FAMILY=openmpi}
-          \end{alltt}
-          }
-      \end{itemize}
+%\begin{frame}[fragile]
+%    \frametitle {Lmod for Developers: settarg}
+%    \begin{itemize}
+%      \item Provide safety, flexibility and repeatability in a dynamic environment.
+%      \item Encapsulates the state of the modules loaded and
+%        dynamically updates the state when modules change:
+%        {\small
+%          \begin{alltt}
+%    \$ {\color{red} env | grep '^TARG'}
+%    {\color{blue}TARG_BUILD_SCENARIO=dbg
+%    TARG=OBJ/_x86_64_dbg_gcc-4.6_mpich-3.0
+%    TARG_MPI_FAMILY=mpich
+%    TARG_MPI=mpich-3.0}
+%    \${\color{red} module swap mpich openmpi; opt; env | grep '^TARG'}
+%    {\color{blue}TARG_BUILD_SCENARIO=opt
+%    TARG=OBJ/_x86_64_opt_gcc-4.6_openmpi-1.6
+%    TARG_MPI=openmpi-1.6
+%    TARG_MPI_FAMILY=openmpi}
+%          \end{alltt}
+%          }
+%      \end{itemize}
+%\end{frame}
+
+\begin{frame}{What's new in Lmod}
+  \begin{itemize}
+      \item Full support for reading Cray module files.
+      \item Better support for running Lmod on shared home file systems.
+      \item Priority Path: Some paths are more equal than others.
+      \item \texttt{\bf sh\_to\_modulefile} converts shell scripts into modulefiles.
+      \item Support for \texttt{\bf load(atleast("gcc","4.8"))}
+  \end{itemize}
 \end{frame}
 
+\begin{frame}{Auto swap}
+  \begin{itemize}
+      \item An improvement suggested by Maxime Boissonneault.
+      \item Replace \texttt{\bf module load gcc; module swap gcc intel}
+      \item With \texttt{\bf module load gcc; module load intel}
+      \item Let Lmod figure out that a swap is required and do it for you!
+  \end{itemize}
+\end{frame}
 \begin{frame}{Thanks for your attention!}
   \begin{itemize}
     \item Job Level Analytics BoF Thursday 11/21 @ 12:15 to 1:15pm

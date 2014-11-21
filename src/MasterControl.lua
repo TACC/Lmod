@@ -1026,36 +1026,61 @@ function M.family(self, name)
    dbg.fini("MasterControl:family")
 end
 
+--------------------------------------------------------------------------
+-- Return the user's shell
+-- @param self A MasterControl object
 function M.myShellName(self)
    local master = _G.Master:master()
    return master.shell:name()
 end
 
+--------------------------------------------------------------------------
+-- Return the current file name.
+-- @param self A MasterControl object
 function M.myFileName(self)
    local mStack = ModuleStack:moduleStack()
    return mStack:fileName()
 end
 
+--------------------------------------------------------------------------
+-- Return the full name of the current module.  Typically name/version.
+-- @param self A MasterControl object.
 function M.myModuleFullName(self)
    local mStack = ModuleStack:moduleStack()
    return mStack:fullName()
 end
 
+--------------------------------------------------------------------------
+-- Return the user name of the current module.  This is the name the user
+-- specified.  It could a full name (name/version) or just the name.
+-- @param self A MasterControl object.
 function M.myModuleUsrName(self)
    local mStack = ModuleStack:moduleStack()
    return mStack:usrName()
 end
 
+--------------------------------------------------------------------------
+-- Return the name of the modules.  That is the name of the module w/o a
+-- version.
+-- @param self A MasterControl object
 function M.myModuleName(self)
    local mStack = ModuleStack:moduleStack()
    return mStack:sn()
 end
 
+--------------------------------------------------------------------------
+-- Return the version if any.  If there is no version, for example a meta
+-- module then the version is "".
+-- @param self A MasterControl object
 function M.myModuleVersion(self)
    local mStack = ModuleStack:moduleStack()
    return mStack:version()
 end
 
+--------------------------------------------------------------------------
+-- Unset the family name.
+-- @param self A MasterControl object
+-- @param name A family name.
 function M.unset_family(self, name)
    local mt     = MT:mt()
 
@@ -1065,6 +1090,10 @@ function M.unset_family(self, name)
    dbg.fini("MasterControl:unset_family")
 end
 
+--------------------------------------------------------------------------
+-- Perform a user requested inheritance.  Note that this function remains
+-- the same depending on if it is a load or unload.
+-- @param self A MasterControl object
 function M.inherit(self)
    local master = Master:master()
    dbg.start{"MasterControl:inherit()"}
@@ -1073,18 +1102,28 @@ function M.inherit(self)
    dbg.fini("MasterControl:inherit")
 end
 
+
+--------------------------------------------------------------------------
+-- Return True when in spider mode.  This version is always false.
+-- @param self A MasterControl object
 function M.is_spider(self)
    dbg.start{"MasterControl:is_spider()"}
    dbg.fini("MasterControl:is_spider")
    return false
 end
 
+--------------------------------------------------------------------------
+-- Set the type (or mode) of the current MasterControl object.
+-- @param self A MasterControl object
 function M._setMode(self, mode)
    dbg.start{"MasterControl:_setMode(\"",mode,"\")"}
    self._mode = mode
    dbg.fini("MasterControl:_setMode")
 end
 
+--------------------------------------------------------------------------
+-- Retur the type (or mode) of the current MasterControl object.
+-- @param self A MasterControl object
 function M.mode(self)
    dbg.start{"MasterControl:mode()"}
    dbg.print{"mode: ", self._mode,"\n"}
@@ -1093,9 +1132,9 @@ function M.mode(self)
 end
 
 --------------------------------------------------------------------------
--- MasterControl:execute() - place a string that will be executed when
---                           the output from Lmod eval'ed.
-
+-- Place a string that will be executed when the output from Lmod eval'ed.
+-- @param self A MasterControl object
+-- @param t A table containing A mode array and a command.
 function M.execute(self, t)
    dbg.start{"MasterControl:execute(t)"}
    local a      = t.modeA or {}
@@ -1111,14 +1150,9 @@ function M.execute(self, t)
    dbg.fini("MasterControl:execute")
 end
 
-
-
-
--------------------------------------------------------------------
--- Quiet Functions
--------------------------------------------------------------------
-
-
+--------------------------------------------------------------------------
+-- The quiet function.
+-- @param self A MasterControl object
 function M.quiet(self, ...)
    -- very Quiet !!!
 end

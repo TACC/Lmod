@@ -217,7 +217,7 @@ function M.append_path(self,t)
 end
 
 --------------------------------------------------------------------------
--- Always return true.
+-- Return True when in spider mode.
 -- @param self A MasterControl object.
 function M.is_spider(self)
    dbg.start{"MC_Spider:is_spider()"}
