@@ -56,6 +56,9 @@ local M = {}
 
 s_options = false
 
+--------------------------------------------------------------------------
+-- Private Ctor for Option class.
+-- @param self An Option object
 local function new(self)
    local o = {}
 
@@ -64,14 +67,26 @@ local function new(self)
    return o
 end
 
+--------------------------------------------------------------------------
+-- This function forces the option parser to write to stderr instead of
+-- stdout.
 local function prt(...)
    stderr:write(...)
 end
 
+
+--------------------------------------------------------------------------
+-- This function prevents the option parser from exiting when it finds an
+-- error.
 local function nothing()
 end
 
 
+--------------------------------------------------------------------------
+-- Parse the command line options. Places the options in *masterTbl*,
+-- place the positional arguments in *masterTbl.pargs*
+-- @param self An Option object.
+-- @param usage The program usage string.
 function M.options(self, usage)
 
    local Optiks = require("Optiks")
