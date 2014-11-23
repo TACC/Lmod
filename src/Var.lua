@@ -8,45 +8,6 @@
 -- The other point of this class is to check to see when MODULEPATH
 -- has changed.
 --
--- @classmod Var
-
-require("strict")
-
---------------------------------------------------------------------------
--- Lmod License
---------------------------------------------------------------------------
---
---  Lmod is licensed under the terms of the MIT license reproduced below.
---  This means that Lmod is free software and can be used for both academic
---  and commercial purposes at absolutely no cost.
---
---  ----------------------------------------------------------------------
---
---  Copyright (C) 2008-2014 Robert McLay
---
---  Permission is hereby granted, free of charge, to any person obtaining
---  a copy of this software and associated documentation files (the
---  "Software"), to deal in the Software without restriction, including
---  without limitation the rights to use, copy, modify, merge, publish,
---  distribute, sublicense, and/or sell copies of the Software, and to
---  permit persons to whom the Software is furnished to do so, subject
---  to the following conditions:
---
---  The above copyright notice and this permission notice shall be
---  included in all copies or substantial portions of the Software.
---
---  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
---  EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
---  OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
---  NONINFRINGEMENT.  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS
---  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN
---  ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
---  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
---  THE SOFTWARE.
---
---------------------------------------------------------------------------
-
-
 --------------------------------------------------------------------------
 -- PATH Variables:
 --------------------------------------------------------------------------
@@ -85,6 +46,44 @@ require("strict")
 -- This way prepend will always work as a push even when append and remove
 -- do not allow duplicates.  Then the Var:pop() member function will work
 -- correctly independent of site policy towards duplicates
+--
+-- @classmod Var
+
+require("strict")
+
+--------------------------------------------------------------------------
+-- Lmod License
+--------------------------------------------------------------------------
+--
+--  Lmod is licensed under the terms of the MIT license reproduced below.
+--  This means that Lmod is free software and can be used for both academic
+--  and commercial purposes at absolutely no cost.
+--
+--  ----------------------------------------------------------------------
+--
+--  Copyright (C) 2008-2014 Robert McLay
+--
+--  Permission is hereby granted, free of charge, to any person obtaining
+--  a copy of this software and associated documentation files (the
+--  "Software"), to deal in the Software without restriction, including
+--  without limitation the rights to use, copy, modify, merge, publish,
+--  distribute, sublicense, and/or sell copies of the Software, and to
+--  permit persons to whom the Software is furnished to do so, subject
+--  to the following conditions:
+--
+--  The above copyright notice and this permission notice shall be
+--  included in all copies or substantial portions of the Software.
+--
+--  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+--  EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+--  OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+--  NONINFRINGEMENT.  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS
+--  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN
+--  ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+--  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+--  THE SOFTWARE.
+--
+--------------------------------------------------------------------------
 
 require("string_utils")
 require("pairsByKeys")
@@ -107,6 +106,17 @@ local envPrtyName   = "__LMOD_PRIORITY_"
 
 local M = {}
 
+--------------------------------------------------------------------------
+-- Rebuild the path-like priority table.  So for a PATH with priorities
+-- would have:
+--     __LMOD_PRIORITY_PATH=/a/b/c:-100;/d/e/f:-1000
+-- The entries are separated by semicolons and the key-value pairs
+-- are separated by colons.  The results are a table:
+--
+--     t['/a/b/c'] =  -100
+--     t['/d/e/f'] = -1000
+--
+-- @param self A Var object.
 local function build_priorityT(self)
    local value   = getenv(envPrtyName .. self.name)
    if (value == nil) then
@@ -133,12 +143,11 @@ end
 
 
 --------------------------------------------------------------------------
--- extract(): The ctor uses this routine to initialize the variable to be
---            the value from the environment. This routine assumes that
---            all variables are path like variables here.  Not to worry
---            however, the set function mark the type as "var" and not
---            "path".  Other functions work similarly.
-
+-- The ctor uses this routine to initialize the variable to be
+-- the value from the environment. This routine assumes that
+-- all variables are path like variables here.  Not to worry
+-- however, the set function mark the type as "var" and not
+-- "path".  Other functions work similarly.
 local function extract(self)
    local myValue   = self.value or getenv(self.name)
    local pathTbl   = {}
@@ -172,9 +181,12 @@ local function extract(self)
 end
 
 --------------------------------------------------------------------------
--- Var:new():  The ctor for this class.  It uses extract to build its
---             initial value from the environment.
-
+-- The ctor for this class.  It uses extract to build its
+-- initial value from the environment.
+-- @param self A Var object.
+-- @param name The name of the variable.
+-- @param value The value assigned to the variable.
+-- @param sep The separator character.  (By default it is ":")
 function M.new(self, name, value, sep)
    local o = {}
    setmetatable(o,self)
@@ -189,8 +201,9 @@ function M.new(self, name, value, sep)
 end
 
 --------------------------------------------------------------------------
--- Var:prt() This member function is here just when debugging.
-
+-- This member function is here just when debugging.
+-- @param self A Var object.
+-- @param title A Descriptive title.
 function M.prt(self,title)
    dbg.start{"Var:prt(",title,")"}
    dbg.print{"name:  \"", self.name, "\"\n"}
@@ -215,9 +228,11 @@ function M.prt(self,title)
 end
 
 --------------------------------------------------------------------------
--- chkMP(): This function is called to let Lmod know that the MODULEPATH
---          has changed.
-
+-- This function is called to let Lmod know that the MODULEPATH
+-- has changed.
+-- @param name The variable name
+-- @param adding True if adding to path.
+-- @param pathEntry The new value.
 local function chkMP(name, adding, pathEntry)
    if (name == ModulePath) then
       dbg.print{"calling reEvalModulePath()\n"}
@@ -229,13 +244,10 @@ local function chkMP(name, adding, pathEntry)
 end
 
 --------------------------------------------------------------------------
---  The following three local functions implement the dup/no_dup
---  functionality:
---     removeAll():   no dups allowed
---     removeFirst(): dups allowed, called when reversing prepend_path
---     removeLast():  dups allowed, called when reversing append_path
-
-
+--  This handles removing entries from a path like variable. 
+--  @param a An array of values.
+--  @param where Where to remove and how: {"first", "last", "all"}
+--  @param priority The priority of the path if any (default is zero)
 local function remFunc(a, where, priority)
    if (where == "all" or abs(priority) > 0) then
       local oldPriority = 0
@@ -260,17 +272,14 @@ local function remFunc(a, where, priority)
 end
 
 --------------------------------------------------------------------------
--- Var:remove(): remove an entry in a path.  The remove action depends on
---               "where".  Note that the final action of this routine is
---               to push the new value into the current environment so that
---               any modules loaded will also know the new value.
-
---------------------------------------------------------------------------
---  Report an error/warning when removing a path element without the
---  same priority
---------------------------------------------------------------------------
-
-
+-- Remove an entry in a path.  The remove action depends on
+-- "where".  Note that the final action of this routine is
+-- to push the new value into the current environment so that
+-- any modules loaded will also know the new value.
+-- @param self
+-- @param value
+-- @param where
+-- @param priority
 function M.remove(self, value, where, priority)
    if (value == nil) then return end
    priority = priority or 0

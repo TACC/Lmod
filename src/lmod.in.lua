@@ -130,12 +130,11 @@ Exec          = require("Exec")
 local BeautifulTbl = require('BeautifulTbl')
 local dbg          = require("Dbg"):dbg()
 local Banner       = require("Banner")
-local Timer        = require("Timer")
 local Version      = require("Version")
 local concatTbl    = table.concat
 local max          = math.max
 local unpack       = unpack or table.unpack
-local timer        = Timer:timer()
+local timer        = require("Timer"):timer()
 
 function set_duplication()
    local dups = LMOD_DUPLICATE_PATHS:lower()

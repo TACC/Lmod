@@ -1,5 +1,10 @@
 --------------------------------------------------------------------------
--- Fixme
+-- Timer is a singleton class where the whole program as well as parts
+-- of the program can be timed.  To use simply create:
+--     local timer = require("Timer"):timer()
+--     ...
+--     timer:deltaT("name", t2-t1)
+-- to record.
 -- @classmod Timer
 
 require("strict")
@@ -44,6 +49,9 @@ local M            = {}
 local BeautifulTbl = require("BeautifulTbl")
 s_timer            = {}
 
+--------------------------------------------------------------------------
+-- A private Ctor for the Timer singleton class.
+-- @param self An Timer object.
 local function new(self)
    local o = {}
    setmetatable(o,self)
@@ -52,6 +60,9 @@ local function new(self)
    return o
 end
 
+--------------------------------------------------------------------------
+-- The public interface to the Timer class.
+-- @param self An Timer object.
 function M.timer(self)
    if (next(s_timer) == nil) then
       s_timer = new(self)
@@ -59,6 +70,11 @@ function M.timer(self)
    return s_timer
 end
 
+--------------------------------------------------------------------------
+-- The delta time accumulator.
+-- @param self An Timer object.
+-- @param name The name to accumulate under.
+-- @param deltaT The delta time to be accumulated.
 function M.deltaT(self, name, deltaT)
    local t           = s_timer.tbl[name] or { accT = 0.0, count = 0}
    t.accT            = t.accT  + deltaT
@@ -66,6 +82,9 @@ function M.deltaT(self, name, deltaT)
    s_timer.tbl[name] = t
 end
 
+--------------------------------------------------------------------------
+-- The report function.  It returns a string which are the results.
+-- @param self An Timer object.
 function M.report(self)
    local a   = {}
    a[#a + 1] = { "Name", "Count", "T Time", "Ave Time" }

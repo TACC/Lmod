@@ -1,5 +1,6 @@
---------------------------------------------------------------------------
--- Fixme
+-------------------------------------------------------------------------- 
+-- Spider the class that handles walking the directory tree.  It builds a
+-- table called *moduleT* first.  This needs more description.
 -- @classmod Spider
 
 require("strict")
