@@ -429,7 +429,8 @@ function M._number_of_columns_rows(self,t)
 
       dbg.print{"ncols: ",ncols, " sumWrt: ",sumWrt," sumPrt: ",sumPrt,"\n"}
 
-      if (sumWrt < self.term_width) then
+      local sum = sumPrt
+      if (sum < self.term_width) then
          results = ncols
          break
       end

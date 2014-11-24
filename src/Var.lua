@@ -307,9 +307,9 @@ function M.remove(self, value, where, priority)
 end
 
 --------------------------------------------------------------------------
--- Var:pop(): Remove the top value and return the second value or nil if
---            none are left.
-
+-- Remove the top value and return the second value or nil if
+-- none are left.
+-- @param self A Var object.
 function M.pop(self)
    local imin   = self.imin
    local min2   = huge
@@ -347,10 +347,10 @@ function M.pop(self)
 end
 
 --------------------------------------------------------------------------
--- insertFunc(): insert index into table with priority.  If nodup or this
---               particular path entry has a priority then there is only
---               one entry in the path.  Otherwise insert [[idx]] at
---               beginning for prepends and at the end for appends.
+-- insert index into table with priority.  If nodup or this
+-- particular path entry has a priority then there is only
+-- one entry in the path.  Otherwise insert [[idx]] at
+-- beginning for prepends and at the end for appends.
 
 local function insertFunc(a, idx, isPrepend, nodups, priority)
    if (nodups or abs(priority) > 0) then

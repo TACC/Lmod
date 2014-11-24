@@ -2,23 +2,18 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.8rc2  2014-10-17 07:32
+Modules based on Lua: Version 5.8  2014-11-04 12:46
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
 lua ProjectDIR/src/lmod.in.lua bash avail
 ===========================
 ProjectDIR/rt/colorize/mf
-   StdEnv
-   apps/autoconf/2.69     [1;31m(t)[0m
-   apps/automake/1.14     [1;31m(t)[0m
-   apps/devtools/1.0      [1;31m(t)[0m
-   apps/git/1.8.4.1       [1;31m(t)[0m
-   apps/m4/1.4.17         [1;31m(t)[0m
-   apps/make/3.82         [1;31m(t)[0m
-   compilers/gcc/4.8.1    [1;31m(t)[0m
-   compilers/intel/14.0.0 [1;31m(t)[0m
-   libs/gcc/4.8.1         [1;31m(t)[0m
+   StdEnv                    apps/m4/1.4.17         [1;31m(t)[0m
+   apps/autoconf/2.69 [1;31m(t)[0m    apps/make/3.82         [1;31m(t)[0m
+   apps/automake/1.14 [1;31m(t)[0m    compilers/gcc/4.8.1    [1;31m(t)[0m
+   apps/devtools/1.0  [1;31m(t)[0m    compilers/intel/14.0.0 [1;31m(t)[0m
+   apps/git/1.8.4.1   [1;31m(t)[0m    libs/gcc/4.8.1         [1;31m(t)[0m
   Where:
    [1;31m(t)[0m:  Tools for development
 Use "module spider" to find all possible modules.
@@ -29,16 +24,11 @@ step 3
 lua ProjectDIR/src/lmod.in.lua bash avail
 ===========================
 ProjectDIR/rt/colorize/mf
-   StdEnv
-   apps/autoconf/2.69     [1;31m(t)[0m
-   apps/automake/1.14     [1;31m(t)[0m
-   apps/devtools/1.0      [1;31m(t)[0m
-   apps/git/1.8.4.1       [1;31m(t)[0m
-   apps/m4/1.4.17         [1;31m(t)[0m
-   apps/make/3.82         [1;31m(t)[0m
-   compilers/gcc/4.8.1    [1;31m(t)[0m
-   compilers/intel/14.0.0 [1;31m(t)[0m
-   libs/gcc/4.8.1         [1;31m(t)[0m
+   StdEnv                    apps/m4/1.4.17         [1;31m(t)[0m
+   apps/autoconf/2.69 [1;31m(t)[0m    apps/make/3.82         [1;31m(t)[0m
+   apps/automake/1.14 [1;31m(t)[0m    compilers/gcc/4.8.1    [1;31m(t)[0m
+   apps/devtools/1.0  [1;31m(t)[0m    compilers/intel/14.0.0 [1;31m(t)[0m
+   apps/git/1.8.4.1   [1;31m(t)[0m    libs/gcc/4.8.1         [1;31m(t)[0m
   Where:
    [1;31m(t)[0m:  Tools for development
 Use "module spider" to find all possible modules.
@@ -49,16 +39,11 @@ step 4
 lua ProjectDIR/src/lmod.in.lua bash avail
 ===========================
 ProjectDIR/rt/colorize/mf
-   StdEnv
-   apps/autoconf/2.69     [1;31m(t)[0m
-   apps/automake/1.14     [1;31m(t)[0m
-   apps/devtools/1.0      [1;31m(t)[0m
-   apps/git/1.8.4.1       [1;31m(t)[0m
-   apps/m4/1.4.17         [1;31m(t)[0m
-   apps/make/3.82         [1;31m(t)[0m
-   compilers/gcc/4.8.1    [1;31m(t)[0m
-   compilers/intel/14.0.0 [1;31m(t)[0m
-   libs/gcc/4.8.1         [1;31m(t)[0m
+   StdEnv                    apps/m4/1.4.17         [1;31m(t)[0m
+   apps/autoconf/2.69 [1;31m(t)[0m    apps/make/3.82         [1;31m(t)[0m
+   apps/automake/1.14 [1;31m(t)[0m    compilers/gcc/4.8.1    [1;31m(t)[0m
+   apps/devtools/1.0  [1;31m(t)[0m    compilers/intel/14.0.0 [1;31m(t)[0m
+   apps/git/1.8.4.1   [1;31m(t)[0m    libs/gcc/4.8.1         [1;31m(t)[0m
   Where:
    [1;31m(t)[0m:  Tools for development
 Use "module spider" to find all possible modules.
@@ -69,11 +54,10 @@ step 5
 lua ProjectDIR/src/lmod.in.lua bash avail
 ===========================
 ProjectDIR/rt/colorize/mf
-   StdEnv                    apps/m4/1.4.17         [1;31m(t)[0m
-   apps/autoconf/2.69 [1;31m(t)[0m    apps/make/3.82         [1;31m(t)[0m
-   apps/automake/1.14 [1;31m(t)[0m    compilers/gcc/4.8.1    [1;31m(t)[0m
-   apps/devtools/1.0  [1;31m(t)[0m    compilers/intel/14.0.0 [1;31m(t)[0m
-   apps/git/1.8.4.1   [1;31m(t)[0m    libs/gcc/4.8.1         [1;31m(t)[0m
+   StdEnv                    apps/git/1.8.4.1    [1;31m(t)[0m    compilers/intel/14.0.0 [1;31m(t)[0m
+   apps/autoconf/2.69 [1;31m(t)[0m    apps/m4/1.4.17      [1;31m(t)[0m    libs/gcc/4.8.1         [1;31m(t)[0m
+   apps/automake/1.14 [1;31m(t)[0m    apps/make/3.82      [1;31m(t)[0m
+   apps/devtools/1.0  [1;31m(t)[0m    compilers/gcc/4.8.1 [1;31m(t)[0m
   Where:
    [1;31m(t)[0m:  Tools for development
 Use "module spider" to find all possible modules.
@@ -84,11 +68,10 @@ step 6
 lua ProjectDIR/src/lmod.in.lua bash avail
 ===========================
 ProjectDIR/rt/colorize/mf
-   StdEnv                    apps/m4/1.4.17         [1;31m(t)[0m
-   apps/autoconf/2.69 [1;31m(t)[0m    apps/make/3.82         [1;31m(t)[0m
-   apps/automake/1.14 [1;31m(t)[0m    compilers/gcc/4.8.1    [1;31m(t)[0m
-   apps/devtools/1.0  [1;31m(t)[0m    compilers/intel/14.0.0 [1;31m(t)[0m
-   apps/git/1.8.4.1   [1;31m(t)[0m    libs/gcc/4.8.1         [1;31m(t)[0m
+   StdEnv                    apps/git/1.8.4.1    [1;31m(t)[0m    compilers/intel/14.0.0 [1;31m(t)[0m
+   apps/autoconf/2.69 [1;31m(t)[0m    apps/m4/1.4.17      [1;31m(t)[0m    libs/gcc/4.8.1         [1;31m(t)[0m
+   apps/automake/1.14 [1;31m(t)[0m    apps/make/3.82      [1;31m(t)[0m
+   apps/devtools/1.0  [1;31m(t)[0m    compilers/gcc/4.8.1 [1;31m(t)[0m
   Where:
    [1;31m(t)[0m:  Tools for development
 Use "module spider" to find all possible modules.
@@ -99,11 +82,9 @@ step 7
 lua ProjectDIR/src/lmod.in.lua bash avail
 ===========================
 ProjectDIR/rt/colorize/mf
-   StdEnv                    apps/m4/1.4.17         [1;31m(t)[0m
-   apps/autoconf/2.69 [1;31m(t)[0m    apps/make/3.82         [1;31m(t)[0m
-   apps/automake/1.14 [1;31m(t)[0m    compilers/gcc/4.8.1    [1;31m(t)[0m
-   apps/devtools/1.0  [1;31m(t)[0m    compilers/intel/14.0.0 [1;31m(t)[0m
-   apps/git/1.8.4.1   [1;31m(t)[0m    libs/gcc/4.8.1         [1;31m(t)[0m
+   StdEnv                    apps/devtools/1.0 [1;31m(t)[0m    apps/make/3.82         [1;31m(t)[0m    libs/gcc/4.8.1 [1;31m(t)[0m
+   apps/autoconf/2.69 [1;31m(t)[0m    apps/git/1.8.4.1  [1;31m(t)[0m    compilers/gcc/4.8.1    [1;31m(t)[0m
+   apps/automake/1.14 [1;31m(t)[0m    apps/m4/1.4.17    [1;31m(t)[0m    compilers/intel/14.0.0 [1;31m(t)[0m
   Where:
    [1;31m(t)[0m:  Tools for development
 Use "module spider" to find all possible modules.
@@ -113,10 +94,9 @@ step 8
 lua ProjectDIR/src/lmod.in.lua bash avail
 ===========================
 ProjectDIR/rt/colorize/mf
-   StdEnv                    apps/git/1.8.4.1    [1;31m(t)[0m    compilers/intel/14.0.0 [1;31m(t)[0m
-   apps/autoconf/2.69 [1;31m(t)[0m    apps/m4/1.4.17      [1;31m(t)[0m    libs/gcc/4.8.1         [1;31m(t)[0m
-   apps/automake/1.14 [1;31m(t)[0m    apps/make/3.82      [1;31m(t)[0m
-   apps/devtools/1.0  [1;31m(t)[0m    compilers/gcc/4.8.1 [1;31m(t)[0m
+   StdEnv                    apps/devtools/1.0 [1;31m(t)[0m    apps/make/3.82         [1;31m(t)[0m    libs/gcc/4.8.1 [1;31m(t)[0m
+   apps/autoconf/2.69 [1;31m(t)[0m    apps/git/1.8.4.1  [1;31m(t)[0m    compilers/gcc/4.8.1    [1;31m(t)[0m
+   apps/automake/1.14 [1;31m(t)[0m    apps/m4/1.4.17    [1;31m(t)[0m    compilers/intel/14.0.0 [1;31m(t)[0m
   Where:
    [1;31m(t)[0m:  Tools for development
 Use "module spider" to find all possible modules.
