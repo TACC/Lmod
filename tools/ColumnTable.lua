@@ -429,6 +429,10 @@ function M._number_of_columns_rows(self,t)
 
       dbg.print{"ncols: ",ncols, " sumWrt: ",sumWrt," sumPrt: ",sumPrt,"\n"}
 
+      ----------------------------------------------------------------------
+      -- Use sumPrt to wrap the columns at the number of printed characters.
+      -- Use sumWrt to wrap the columns at the number of written characters.
+
       local sum = sumPrt
       if (sum < self.term_width) then
          results = ncols

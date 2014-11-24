@@ -634,7 +634,7 @@ function M.unset_alias(self, name, value)
    if (varTbl[name] == nil) then
       varTbl[name] = Var:new(name)
    end
-   varTbl[name]:unsetAlias(value)
+   varTbl[name]:unsetAlias()
    dbg.fini("MasterControl:unset_alias")
 end
 

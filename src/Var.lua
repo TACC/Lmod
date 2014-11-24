@@ -276,10 +276,10 @@ end
 -- "where".  Note that the final action of this routine is
 -- to push the new value into the current environment so that
 -- any modules loaded will also know the new value.
--- @param self
--- @param value
--- @param where
--- @param priority
+-- @param self A Var object
+-- @param value The value to remove
+-- @param where where it should be removed from {"first", "last", "all"}
+-- @param priority The priority of the entry.
 function M.remove(self, value, where, priority)
    if (value == nil) then return end
    priority = priority or 0
@@ -351,7 +351,11 @@ end
 -- particular path entry has a priority then there is only
 -- one entry in the path.  Otherwise insert [[idx]] at
 -- beginning for prepends and at the end for appends.
-
+-- @param a Input array of entries in path like variable.
+-- @param idx the index value for the entry.
+-- @param isPrepend True if a prepend.
+-- @param nodups True if no duplications are allowed.
+-- @param priority The priority value.
 local function insertFunc(a, idx, isPrepend, nodups, priority)
    if (nodups or abs(priority) > 0) then
       if (priority == 0) then
@@ -379,15 +383,15 @@ local function insertFunc(a, idx, isPrepend, nodups, priority)
 end
 
 --------------------------------------------------------------------------
--- Var:prepend(): Prepend an entry into a path. [[nodups]] controls
---                policies on duplication by setting [[insertFunc]].
-
---------------------------------------------------------------------------
---  Report an error/warning when appending/prepending a path element
---  without the same priority
---------------------------------------------------------------------------
-
-
+-- Prepend an entry into a path. [[nodups]] controls
+-- policies on duplication by setting [[insertFunc]].
+--
+-- Report an error/warning when appending/prepending a path element
+-- without the same priority
+-- @param self A Var object
+-- @param value The value to prepend
+-- @param nodups True if no duplications are allowed.
+-- @param priority The priority value.
 function M.prepend(self, value, nodups, priority)
    if (value == nil) then return end
 
@@ -415,9 +419,12 @@ function M.prepend(self, value, nodups, priority)
 end
 
 --------------------------------------------------------------------------
--- Var:append(): Append an entry into a path. [[nodups]] controls
---               policies on duplication by setting [[insertFunc]].
-
+-- Append an entry into a path. [[nodups]] controls
+-- policies on duplication by setting [[insertFunc]].
+-- @param self A Var object
+-- @param value The value to prepend
+-- @param nodups True if no duplications are allowed.
+-- @param priority The priority value.
 function M.append(self, value, nodups, priority)
    if (value == nil) then return end
    nodups           = not allow_dups(not nodups)
@@ -443,8 +450,9 @@ function M.append(self, value, nodups, priority)
 end
 
 --------------------------------------------------------------------------
--- Master: The following are simple set/unset functions.
-
+-- Set the environment variable to *value*
+-- @param self A Var object
+-- @param value the value to set.
 function M.set(self,value)
    if (not value) then value = false end
    self.value = value
@@ -453,60 +461,86 @@ function M.set(self,value)
    setenv_posix(self.name, value, true)
 end
 
+--------------------------------------------------------------------------
+-- Unset the environment variable.
+-- @param self A Var object
 function M.unset(self)
    self.value = false
    self.type  = 'var'
    setenv_posix(self.name, nil, true)
 end
 
+--------------------------------------------------------------------------
+-- Set the local variable to *value*
+-- @param self A Var object
+-- @param value the value to set.
 function M.setLocal(self,value)
    if (not value) then value = false end
    self.value = value
    self.type  = 'local_var'
 end
 
+--------------------------------------------------------------------------
+-- Unset the local variable.
+-- @param self A Var object
 function M.unsetLocal(self,value)
    self.value = false
    self.type  = 'local_var'
 end
 
+--------------------------------------------------------------------------
+-- Set the alias.
+-- @param self A Var object.
+-- @param value the text of the alias.
 function M.setAlias(self,value)
    if (not value) then value = false end
    self.value = value
    self.type  = 'alias'
 end
 
-function M.unsetAlias(self,value)
+--------------------------------------------------------------------------
+-- unset the alias.
+-- @param self A Var object.
+function M.unsetAlias(self)
    self.value = false
    self.type  = 'alias'
 end
 
+--------------------------------------------------------------------------
+-- Set a shell function for Bash and C-shell
+-- @param self A Var object.
+-- @param bash_func A bash function string.
+-- @param csh_func A C-shell function string.
 function M.setShellFunction(self,bash_func,csh_func)
    self.value = {bash_func,csh_func}
    self.type  = 'shell_function'
 end
 
-function M.unsetShellFunction(self,bash_func,csh_func)
+--------------------------------------------------------------------------
+-- Unset a shell function for Bash and C-shell
+-- @param self A Var object.
+function M.unsetShellFunction(self)
    self.value = false
    self.type  = 'shell_function'
 end
 
 --------------------------------------------------------------------------
--- Master:myType() - return the var type.
+-- Return the var type.
+-- @param self A Var object.
 function M.myType(self)
    return self.type
 end
 
 --------------------------------------------------------------------------
--- Master:expand(): Expand the value into a string.   Obviously non-path
---                  types are simply returned.
+-- Expand the value into a string.   Obviously non-path
+-- types are simply returned.
 --
---                  It is a two step process to expand the path variables.
---                  First table (self.tbl) is flipped where now the indices
---                  are the keys and the paths are the values.  This creates
---                  [[t]] with integer keys with possible gaps.  Then second
---                  loop uses pairByKeys to pick keys from lowest to highest.
-
+-- It is a two step process to expand the path variables.
+-- First table (self.tbl) is flipped where now the indices
+-- are the keys and the paths are the values.  This creates
+-- [[t]] with integer keys with possible gaps.  Then second
+-- loop uses pairByKeys to pick keys from lowest to highest.
+-- @param self A Var object.
 function M.expand(self)
    if (self.type ~= 'path') then
       return self.value, self.type, {}
