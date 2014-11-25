@@ -1,5 +1,5 @@
 --------------------------------------------------------------------------
--- The all the user commands are implemented here.
+-- The all the user sub-commands are implemented here.
 -- @module cmdfuncs
 
 require("strict")
@@ -57,11 +57,11 @@ local pack         = (_VERSION == "Lua 5.1") and argsPack or table.pack
 local unpack       = unpack or table.unpack
 
 --------------------------------------------------------------------------
--- Access(): Both Help and Whatis functions funnel their actions through
+-- Both Help and Whatis functions funnel their actions through
 -- the Access function. MC_Access defines real functions for both M.help
 -- and M.access.  The mcp.accessMode function activates one or the other
 -- depending on what mode Access is called with.
-
+-- @param mode Whether this function has be called via *Help* or *Whatis*.
 local function Access(mode, ...)
    local master    = Master:master()
    local shell     = master.shell
@@ -83,11 +83,11 @@ local function Access(mode, ...)
 end
 
 --------------------------------------------------------------------------
--- findNamedCollections:  This helper function walks the ~/.lmod.d
--- directory and reports back the list of named collections.
--- Note that names that start with "." or end with "~" or start with
--- "__" are ignored.
-
+-- This helper function walks the ~/.lmod.d directory and reports back
+-- the list of named collections. Note that names that start with "."
+-- or end with "~" or start with "__" are ignored.
+-- @param a An array containing the results.
+-- @param path The Lmod.d directory path.
 local function findNamedCollections(a,path)
    if (not isDir(path)) then return end
    for file in lfs.dir(path) do
@@ -105,9 +105,8 @@ local function findNamedCollections(a,path)
 end
 
 ------------------------------------------------------------------------
--- Avail(): just convert the vararg into an actual array and call
---          master.avail to do the real work.
-
+-- just convert the vararg into an actual array and call
+-- master.avail to do the real work.
 function Avail(...)
    local master = Master:master()
    local arg    = pack(...)
@@ -115,27 +114,25 @@ function Avail(...)
 end
 
 --------------------------------------------------------------------------
--- GetDefault(): get the command line argument and use MT:getMTfromFile()
---               to read the module table from the file and use that
---               collections of module to load.  This routine is deprecated
---               and will be removed.  Use restore instead.
-
-
-function GetDefault(a)
-   a          = a or "default"
-   dbg.start{"GetDefault(",a,")"}
+-- get the command line argument and use MT:getMTfromFile()
+-- to read the module table from the file and use that
+-- collections of module to load.  This routine is deprecated
+-- and will be removed.  Use restore instead.
+-- @param collection The collection name (default="default")
+function GetDefault(collection)
+   collection  = collection or "default"
+   dbg.start{"GetDefault(",collection,")"}
 
    local sname = (LMOD_SYSTEM_NAME == nil) and "" or "." .. LMOD_SYSTEM_NAME
-   local path = pathJoin(os.getenv("HOME"), ".lmod.d", a .. sname)
-   local mt   = MT:mt()
-   mt:getMTfromFile{fn=path, name=a}
+   local path  = pathJoin(os.getenv("HOME"), ".lmod.d", collection .. sname)
+   local mt    = MT:mt()
+   mt:getMTfromFile{fn=path, name=collection}
    dbg.fini("GetDefault")
 end
 
 --------------------------------------------------------------------------
--- Help():  Define the prtHdr function and use the helper function Access()
---          to report the Help message to the user.
-
+-- Define the prtHdr function and use the helper function Access()
+-- to report the Help message to the user.
 function Help(...)
 
    prtHdr = function()
@@ -153,10 +150,8 @@ function Help(...)
 end
 
 --------------------------------------------------------------------------
--- Keyword(): Use the list of user requested keywords to be searched
---            through the spider cache.
-
-
+-- Use the list of user requested keywords to be searched
+-- through the spider cache.
 function Keyword(...)
    dbg.start{"Keyword(",concatTbl({...},","),")"}
 
@@ -189,9 +184,7 @@ function Keyword(...)
 end
 
 --------------------------------------------------------------------------
--- List(): List the loaded modulefile
-
-
+-- List the loaded modulefile
 function List(...)
    dbg.start{"List(...)"}
    local masterTbl = masterTbl()
@@ -316,9 +309,8 @@ end
 
 
 ------------------------------------------------------------------------
--- Load_Try():  load modules from users but do not issue warnings
---              if the module is not there.
-
+-- Load modules from users but do not issue warnings if the module is
+-- not there.
 function Load_Try(...)
    local master = Master:master()
    local mt     = MT:mt()
@@ -331,17 +323,18 @@ function Load_Try(...)
 end
 
 ------------------------------------------------------------------------
--- Load_Usr():  load modules from users.  If a module name has
---              a minus sign in front of it then unload it.  Do that
---              before loading any other modules.  Also if the
---              shortName of a request module is already loaded then
---              unload it.  This way:
---                   $ module load foo/1.1; module load foo/1.3
---              the second load of "foo" will not load it twice.
---              Finally any successful loading of a module is registered
---              with "MT" so that when a user does the above commands
---              it won't get the swap message.
-
+-- Load modules from users.  If a module name has
+-- a minus sign in front of it then unload it.  Do that
+-- before loading any other modules.  Also if the
+-- shortName of a request module is already loaded then
+-- unload it.  This way:
+--
+--      $ module load foo/1.1; module load foo/1.3
+--
+-- the second load of "foo" will not load it twice.
+-- Finally any successful loading of a module is registered
+-- with "MT" so that when a user does the above commands
+-- it won't get the swap message.
 function Load_Usr(...)
    LMOD_IGNORE_CACHE = true
    local master = Master:master()
@@ -392,8 +385,8 @@ function Load_Usr(...)
 end
 
 --------------------------------------------------------------------------
--- Purge():  unload all loaded modules
-
+-- Unload all loaded modules.
+-- @param force If true then sticky modules are unloaded as well.
 function Purge(force)
    local master = Master:master()
    local mt     = MT:mt()
@@ -422,9 +415,8 @@ function Purge(force)
 end
 
 --------------------------------------------------------------------------
--- RecordCmd(): Write the current state of the module table to the
---              lmod-save directory.  This command should probably go away.
-
+-- Write the current state of the module table to the
+-- lmod-save directory.  This command should probably go away.
 function RecordCmd()
    dbg.start{"RecordCmd()"}
    local mt   = MT:mt()
@@ -448,12 +440,10 @@ function RecordCmd()
 end
 
 --------------------------------------------------------------------------
--- Refresh(): reload all loaded modules so that any alias or shell
---            functions are defined.  No other module commands are active.
---            This command exists so that sub-shells will have the aliases
---            defined.
-
-
+-- Reload all loaded modules so that any alias or shell
+-- functions are defined.  No other module commands are active.
+-- This command exists so that sub-shells will have the aliases
+-- defined.
 function Refresh()
    dbg.start{"Refresh()"}
    local master  = Master:master()
@@ -462,11 +452,11 @@ function Refresh()
 end
 
 --------------------------------------------------------------------------
--- Reset():  Reset all module commands back to the system defined default
---           value in env. var. LMOD_SYSTEM_DEFAULT_MODULES.  If that
---           variable is not defined then there are no default modules
---           and this command is the same as a purge.
-
+-- Reset all module commands back to the system defined default
+-- value in env. var. LMOD_SYSTEM_DEFAULT_MODULES.  If that
+-- variable is not defined then there are no default modules
+-- and this command is the same as a purge.
+-- @param msg If true then print resetting message.
 function Reset(msg)
    dbg.start{"Reset()"}
    local force = true
@@ -502,12 +492,12 @@ function Reset(msg)
 end
 
 --------------------------------------------------------------------------
--- Restore(): Restore the state of the user's loaded modules original
---            state. If a user has a "default" then use that collection.
---            Otherwise do a "Reset()"
-
-function Restore(a)
-   dbg.start{"Restore(",a,")"}
+-- Restore the state of the user's loaded modules original
+-- state. If a user has a "default" then use that collection.
+-- Otherwise do a "Reset()"
+-- @param collection The user supplied collection name. If *nil* the use "default"
+function Restore(collection)
+   dbg.start{"Restore(",collection,")"}
 
    local msg
    local path
@@ -522,37 +512,37 @@ function Restore(a)
       sname   = "." .. sname
    end
 
-   if (a == nil) then
+   if (collection == nil) then
       path = pathJoin(os.getenv("HOME"), ".lmod.d", "default" .. sname)
       if (not isFile(path)) then
-         a = "system"
-         myName = a
+         collection = "system"
+         myName = collection
       else
          myName = "default"
       end
-   elseif (a ~= "system") then
+   elseif (collection ~= "system") then
       myName = sname
-      path   = pathJoin(os.getenv("HOME"), ".lmod.d", a .. sname)
+      path   = pathJoin(os.getenv("HOME"), ".lmod.d", collection .. sname)
       if (not isFile(path)) then
-         LmodError(" User module collection: \"",a,"\" does not exist.\n",
+         LmodError(" User module collection: \"",collection,"\" does not exist.\n",
                    " Try \"module savelist\" for possible choices.\n")
       end
    end
 
    local masterTbl = masterTbl()
 
-   if (a == "system" ) then
+   if (collection == "system" ) then
       msg = "system default" .. msgTail
    else
-      a   = a or "default"
-      msg = "user's ".. a .. msgTail
+      collection = collection or "default"
+      msg        = "user's ".. collection .. msgTail
    end
 
    if (masterTbl.quiet or masterTbl.initial) then
       msg = false
    end
 
-   if (a == "system" ) then
+   if (collection == "system" ) then
       Reset(msg)
    else
       local mt      = MT:mt()
@@ -563,15 +553,14 @@ function Restore(a)
 end
 
 --------------------------------------------------------------------------
--- Save(): Save the current list of modules to whatever name the user
---         gave on the command line or "default" if there is none.
---         Note that this function checks to see if any of the currently
---         loaded modules mix load statements with the setting of
---         environment variables.  In that case, Lmod will not save the
---         state of the modules into a collection.  The reasons are
---         complicated but a "manager" module file is "fake" loaded so
---         that any setenv or prepend_path commands will not be executed.
-
+-- Save the current list of modules to whatever name the user
+-- gave on the command line or "default" if there is none.
+-- Note that this function checks to see if any of the currently
+-- loaded modules mix load statements with the setting of
+-- environment variables.  In that case, Lmod will not save the
+-- state of the modules into a collection.  The reasons are
+-- complicated but a "manager" module file is "fake" loaded so
+-- that any setenv or prepend_path commands will not be executed.
 function Save(...)
    local masterTbl = masterTbl()
    local mt        = MT:mt()
@@ -633,8 +622,7 @@ end
 
 
 --------------------------------------------------------------------------
--- SaveList(): report to the user all the named collections he/she has.
-
+-- Report to the user all the named collections he/she has.
 function SaveList(...)
    local mt        = MT:mt()
    local path      = pathJoin(os.getenv("HOME"), LMODdir)
@@ -680,8 +668,7 @@ function SaveList(...)
 end
 
 --------------------------------------------------------------------------
--- SearchCmd(): Point users to either spider or keyword
-
+-- Point users to either spider or keyword
 function SearchCmd(...)
    local s = concatTbl({...}, " ")
    io.stderr:write("\"module search\" does not exist. To list all possible modules do: \n",
@@ -690,14 +677,10 @@ function SearchCmd(...)
                    "   module keyword ",s,"\n")
 end
 
-
-
-
 --------------------------------------------------------------------------
--- Show(): use the show mode of MasterControl to list the active Lmod
---         commands in a module file.  Note that it is always in Lua
---         even if the modulefile is written in TCL.
-
+-- Use the show mode of MasterControl to list the active Lmod
+-- commands in a module file.  Note that it is always in Lua
+-- even if the modulefile is written in TCL.
 function Show(...)
    local master = Master:master()
    dbg.start{"Show(", concatTbl({...},", "),")"}
@@ -719,10 +702,9 @@ function Show(...)
 end
 
 --------------------------------------------------------------------------
--- SpiderCmd(): Do a level 0 spider report if there are no command line
---              arguments.  Otherwise do a spider search to generate a
---              level 1 or level 2 report on particular modules.
-
+-- Do a level 0 spider report if there are no command line
+-- arguments.  Otherwise do a spider search to generate a
+-- level 1 or level 2 report on particular modules.
 function SpiderCmd(...)
    dbg.start{"SpiderCmd(", concatTbl({...},", "),")"}
    local cache     = Cache:cache()
@@ -762,12 +744,10 @@ function SpiderCmd(...)
 end
 
 --------------------------------------------------------------------------
---  Swap(): Swap one module for another.  That is unload the first
---          and load the second.  If the second modulefile is successfully
---          loaded then it is registered with MT so that it won't be
---          reported in a swap message.
-
-
+--  Swap one module for another.  That is unload the first
+--  and load the second.  If the second modulefile is successfully
+--  loaded then it is registered with MT so that it won't be
+--  reported in a swap message.
 function Swap(...)
    local a = select(1, ...) or ""
    local b = select(2, ...) or ""
@@ -812,8 +792,7 @@ function Swap(...)
 end
 
 --------------------------------------------------------------------------
---  TableList(): list the loaded modules in a lua table
-
+--  list the loaded modules in a lua table
 function TableList()
    dbg.start{"TableList()"}
    local mt = MT:mt()
@@ -833,18 +812,16 @@ function TableList()
 end
 
 --------------------------------------------------------------------------
---  Update(): reload all modules.
-
+--  Reload all modules.
 function Update()
    local master = Master:master()
    master:reloadAll()
 end
 
 --------------------------------------------------------------------------
---  Use(): add a directory to MODULEPATH and LMOD_DEFAULT_MODULEPATH.
---         Note that this causes all the modules to be reviewed and
---         possibly reloaded if a module.
-
+--  Add a directory to MODULEPATH and LMOD_DEFAULT_MODULEPATH.
+--  Note that this causes all the modules to be reviewed and
+--  possibly reloaded if a module.
 function Use(...)
    local mt  = MT:mt()
    local a = {}
@@ -884,10 +861,9 @@ function Use(...)
 end
 
 --------------------------------------------------------------------------
---  UnUse(): remove a directory from both MODULEPATH and
---           LMOD_DEFAULT_MODULEPATH.  Note that all currently loaded
---           modules reviewed and possibly reloaded or made inactive.
-
+--  Remove a directory from both MODULEPATH and
+--  LMOD_DEFAULT_MODULEPATH.  Note that all currently loaded
+--  modules reviewed and possibly reloaded or made inactive.
 function UnUse(...)
    local mt  = MT:mt()
    dbg.start{"UnUse(", concatTbl({...},", "),")"}
@@ -904,8 +880,7 @@ function UnUse(...)
 end
 
 --------------------------------------------------------------------------
---  UnLoad():  unload all requested modules
-
+-- Unload all requested modules
 function UnLoad(...)
    dbg.start{"UnLoad(",concatTbl({...},", "),")"}
    MCP:unload_usr(MName:buildA("mt", ...))
@@ -913,8 +888,7 @@ function UnLoad(...)
 end
 
 --------------------------------------------------------------------------
---  Whatis(): Run whatis on all request modules given the the command line.
-
+-- Run whatis on all request modules given the the command line.
 function Whatis(...)
    prtHdr    = function () return "" end
    Access("whatis",...)

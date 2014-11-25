@@ -44,7 +44,6 @@
 --         optionly it writes the state of the ModuleTable is to a
 --         dated file.
 --
-require("strict")
 local cmd = arg[0]
 
 local i,j = cmd:find(".*/")
