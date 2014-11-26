@@ -44,7 +44,7 @@ require("strict")
 --
 --------------------------------------------------------------------------
 
-_G._DEBUG          = false               # required by the new lua posix
+_G._DEBUG          = false               -- Required by the new lua posix
 Error              = nil
 local dbg          = require("Dbg"):dbg()
 local format       = string.format

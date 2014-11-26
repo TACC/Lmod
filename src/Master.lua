@@ -56,7 +56,7 @@ require("string_utils")
 require("loadModuleFile")
 require("utils")
 
-_G._DEBUG          = false               # required by the new lua posix
+_G._DEBUG          = false               -- Required by the new lua posix
 local BeautifulTbl = require('BeautifulTbl')
 local ColumnTable  = require('ColumnTable')
 local Default      = '(D)'

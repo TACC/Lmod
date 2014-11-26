@@ -38,7 +38,7 @@ require("strict")
 require("TermWidth")
 require("string_utils")
 require("fileOps")
-_G._DEBUG       = false               # required by the new lua posix
+_G._DEBUG       = false               -- Required by the new lua posix
 PkgBase         = require("PkgBase")
 Pkg             = PkgBase.build("Pkg")
 local concatTbl = table.concat

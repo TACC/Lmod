@@ -92,7 +92,7 @@ require("utils")
 MF_Base = require("MF_Base")
 
 local Version      = "0.0"
-_G._DEBUG          = false
+_G._DEBUG          = false                 -- Required by luaposix 33
 local dbg          = require("Dbg"):dbg()
 local Optiks       = require("Optiks")
 local posix        = require("posix")
