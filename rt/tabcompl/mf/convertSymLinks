@@ -4,6 +4,7 @@
 require("strict")
 require("string_utils")
 require("fileOps")
+_G._DEBUG    = false               -- Required by the new lua posix
 local Dbg    = require("Dbg")
 local lfs    = require("lfs")
 local posix  = require("posix")

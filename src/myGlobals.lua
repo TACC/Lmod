@@ -38,6 +38,7 @@ require("strict")
 --------------------------------------------------------------------------
 
 require("fileOps")
+_G._DEBUG          = false               -- Required by the new lua posix
 local posix        = require("posix")
 local getenv       = os.getenv
 local setenv_posix = posix.setenv

@@ -68,7 +68,6 @@ require("cmdfuncs")
 require("utils")
 
 
-
 local CTimer  = require("CTimer")
 local dbg     = require("Dbg"):dbg()
 local M       = {}

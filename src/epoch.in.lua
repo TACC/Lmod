@@ -14,6 +14,7 @@ package.path = LuaCommandName_dir .. "../tools/?.lua;"  ..
 
 require("strict")
 local epoch = false
+_G._DEBUG   = false               -- Required by the new lua posix
 local posix = require("posix")
 function build_epoch()
    if (posix.gettimeofday) then

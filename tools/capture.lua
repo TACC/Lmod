@@ -32,6 +32,7 @@ require("strict")
 
 
 local dbg   = require("Dbg"):dbg()
+_G._DEBUG   = false                       -- Required by luaposix 33
 local posix = require("posix")
 
 --------------------------------------------------------------------------

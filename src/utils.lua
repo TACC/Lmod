@@ -44,6 +44,7 @@ require("string_utils")
 require("parseVersion")
 require("capture")
 
+_G._DEBUG          = false               -- Required by the new lua posix
 local Version      = require("Version")
 local base64       = require("base64")
 local dbg          = require("Dbg"):dbg()

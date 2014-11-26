@@ -58,6 +58,7 @@ require("parseVersion")
 require("deepcopy")
 require("utils")
 
+_G._DEBUG          = false               -- Required by the new lua posix
 local Var          = require('Var')
 local lfs          = require("lfs")
 local dbg          = require('Dbg'):dbg()

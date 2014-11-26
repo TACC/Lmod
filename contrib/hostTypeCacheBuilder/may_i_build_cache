@@ -7,6 +7,7 @@ require("strict")
 require("string_utils")
 require("declare")
 require("fileOps")
+_G._DEBUG       = false               -- Required by the new lua posix
 local Dbg       = require("Dbg")
 local Optiks    = require("Optiks")
 local concatTbl = table.concat

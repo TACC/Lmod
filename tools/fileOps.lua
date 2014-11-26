@@ -31,6 +31,7 @@ require("strict")
 --------------------------------------------------------------------------
 
 require("string_utils")
+_G._DEBUG       = false                     -- Required by luaposix 33
 local posix     = require("posix")
 local lfs       = require("lfs")
 local concatTbl = table.concat
