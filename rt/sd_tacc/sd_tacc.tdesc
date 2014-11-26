@@ -1,5 +1,6 @@
 -- -*- lua -*-
 inactiveTbl = { Darwin = 1, }
+_G._DEBUG   = false               # required by the new lua posix
 local function isActive()
    local posix  = require("posix")
    local osName = posix.uname("%s")

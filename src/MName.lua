@@ -65,6 +65,7 @@ require("strict")
 require("utils")
 require("inherits")
 
+_G._DEBUG         = false   # required by the new lua posix
 local M           = {}
 local MT          = require("MT")
 local dbg         = require("Dbg"):dbg()

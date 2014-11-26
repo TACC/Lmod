@@ -68,7 +68,7 @@ require("cmdfuncs")
 require("utils")
 
 
-
+_G._DEBUG     = false               # required by the new lua posix
 local CTimer  = require("CTimer")
 local dbg     = require("Dbg"):dbg()
 local M       = {}

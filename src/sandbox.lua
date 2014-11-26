@@ -50,6 +50,7 @@ require("capture")
 require("cmdfuncs")
 require("modfuncs")
 require("utils")
+_G._DEBUG   = false               # required by the new lua posix
 local posix = require("posix")
 local lfs   = require("lfs")
 

@@ -32,6 +32,7 @@ require("strict")
 
 
 local dbg   = require("Dbg"):dbg()
+_G._DEBUG   = false
 local posix = require("posix")
 
 --------------------------------------------------------------------------

@@ -36,6 +36,7 @@ require("strict")
 
 require("fileOps")
 
+_G._DEBUG       = false               # required by the new lua posix
 local dbg       = require("Dbg"):dbg()
 local base64    = require("base64")
 local concatTbl = table.concat

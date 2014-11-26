@@ -42,6 +42,7 @@ require("string_utils")
 require("TermWidth")
 require("fileOps")
 require("utils")
+_G._DEBUG          = false               # required by the new lua posix
 local BeautifulTbl = require('BeautifulTbl')
 local ColumnTable  = require('ColumnTable')
 local MName        = require("MName")

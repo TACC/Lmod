@@ -35,6 +35,7 @@ require("strict")
 require("serializeTbl")
 require("myGlobals")
 require("string_utils")
+_G._DEBUG    = false               # required by the new lua posix
 local Dbg    = require("Dbg")
 local dbg    = Dbg:dbg()
 PkgBase      = require("PkgBase")

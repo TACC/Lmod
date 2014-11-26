@@ -88,6 +88,7 @@ require("strict")
 require("string_utils")
 require("pairsByKeys")
 require("utils")
+_G._DEBUG           = false               # required by the new lua posix
 local abs           = math.abs
 local ceil          = math.ceil
 local dbg           = require("Dbg"):dbg()

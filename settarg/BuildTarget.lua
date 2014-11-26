@@ -39,6 +39,7 @@ require("fileOps")
 require("utils")
 require("ProcessModuleTable")
 
+_G._DEBUG         = false               # required by the new lua posix
 local dbg         = require("Dbg"):dbg()
 local STT         = require("STT")
 local posix       = require("posix")

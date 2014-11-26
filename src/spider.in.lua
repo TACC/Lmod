@@ -64,6 +64,7 @@ require("fileOps")
 require("modfuncs")
 require("cmdfuncs")
 require("parseVersion")
+_G._DEBUG           = false               # required by the new lua posix
 MasterControl       = require("MasterControl")
 Cache               = require("Cache")
 MT                  = require("MT")

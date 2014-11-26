@@ -34,6 +34,7 @@
 
 require("strict")
 require("capture")
+_G._DEBUG   = false               # required by the new lua posix
 local posix = require("posix")
 
 s_t = {}

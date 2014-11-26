@@ -52,7 +52,7 @@ require("pager")
 require("utils")
 
 local M = {}
-
+_G._DEBUG          = false               # required by the new lua posix
 local CTimer       = require("CTimer")
 local concatTbl    = table.concat
 local dbg          = require("Dbg"):dbg()
