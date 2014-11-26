@@ -117,11 +117,12 @@ isLua51 = _VERSION:match('5%.1$')
 -- @param  self Input string.
 -- @return escaped string.
 function string.escape(self)
-    local res = self:gsub('[%-%.%+%[%]%(%)%$%^%%%?%*]','%%%1')
-    if isLua51 then
-        res = res:gsub('%z','%%z')
-    end
-    return res
+   if (self == nil) then return nil end
+   local res = self:gsub('[%-%.%+%[%]%(%)%$%^%%%?%*]','%%%1')
+   if isLua51 then
+      res = res:gsub('%z','%%z')
+   end
+   return res
 end
 
 --------------------------------------------------------------------------

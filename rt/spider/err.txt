@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.8rc1  2014-10-14 15:00
+Modules based on Lua: Version 5.8  2014-11-04 12:46
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -18,7 +18,7 @@ The following is a list of the modules currently available:
   admin: admin/admin-1.0
   alex: alex/1.0
   apps: apps/moabdev
-  apps/gromacs: apps/gromacs/4.0.7, apps/gromacs/4.6.3
+  apps/gromacs: apps/gromacs/4.0.7, apps/gromacs/4.6.3-debug, ...
   boost: boost/1.46.0, boost/1.47.1, boost/1.49.0
   bwa: bwa/0.7.1, bwa/0.7.2, bwa/0.7.9a, bwa/0.7.9, bwa/0.7.10
   cmplrs/intel: cmplrs/intel/14.0
@@ -73,6 +73,7 @@ apps/
 apps/moabdev
 apps/gromacs/
 apps/gromacs/4.0.7
+apps/gromacs/4.6.3-debug
 apps/gromacs/4.6.3
 boost/
 boost/1.46.0
@@ -227,6 +228,7 @@ lua ProjectDIR/src/lmod.in.lua bash spider gromacs
   apps/gromacs:
      Versions:
         apps/gromacs/4.0.7
+        apps/gromacs/4.6.3-debug
         apps/gromacs/4.6.3
   To find detailed information about apps/gromacs please enter the full name.
   For example:
@@ -238,6 +240,7 @@ lua ProjectDIR/src/lmod.in.lua bash spider apps/gromacs
   apps/gromacs:
      Versions:
         apps/gromacs/4.0.7
+        apps/gromacs/4.6.3-debug
         apps/gromacs/4.6.3
      Other possible modules matches:
         apps
@@ -248,6 +251,20 @@ lua ProjectDIR/src/lmod.in.lua bash spider apps/gromacs
      $ module spider apps/gromacs/4.6.3
 ===========================
 step 17
+lua ProjectDIR/src/lmod.in.lua bash spider apps/gromacs/4.6.3
+===========================
+  apps/gromacs: apps/gromacs/4.6.3
+    This module can only be loaded through the following modules:
+      cmplrs/intel/14.0, mpi/openmpi/1.6.5
+===========================
+step 18
+lua ProjectDIR/src/lmod.in.lua bash spider apps/gromacs/4.6.3-debug
+===========================
+  apps/gromacs: apps/gromacs/4.6.3-debug
+    This module can only be loaded through the following modules:
+      cmplrs/intel/14.0, mpi/openmpi/1.6.5
+===========================
+step 19
 lua ProjectDIR/src/lmod.in.lua bash spider
 ===========================
 The following is a list of the modules currently available:
@@ -256,7 +273,7 @@ The following is a list of the modules currently available:
   admin: admin/admin-1.0
   alex: alex/1.0
   apps: apps/moabdev
-  apps/gromacs: apps/gromacs/4.0.7, apps/gromacs/4.6.3
+  apps/gromacs: apps/gromacs/4.0.7, apps/gromacs/4.6.3-debug, ...
   boost: boost/1.46.0, boost/1.47.1, boost/1.49.0
   bwa: bwa/0.7.1, bwa/0.7.2, bwa/0.7.9a, bwa/0.7.9, bwa/0.7.10
   cmplrs/intel: cmplrs/intel/14.0
@@ -297,23 +314,25 @@ To find detailed information about a particular package you
 must enter the version if there is more than one version:
    $ module spider Foo/11.1
 ===========================
-step 18
+step 20
 lua ProjectDIR/src/lmod.in.lua bash spider gromacs
 ===========================
   apps/gromacs:
      Versions:
         apps/gromacs/4.0.7
+        apps/gromacs/4.6.3-debug
         apps/gromacs/4.6.3
   To find detailed information about apps/gromacs please enter the full name.
   For example:
      $ module spider apps/gromacs/4.6.3
 ===========================
-step 19
+step 21
 lua ProjectDIR/src/lmod.in.lua bash spider apps/gromacs
 ===========================
   apps/gromacs:
      Versions:
         apps/gromacs/4.0.7
+        apps/gromacs/4.6.3-debug
         apps/gromacs/4.6.3
      Other possible modules matches:
         apps
@@ -322,3 +341,17 @@ lua ProjectDIR/src/lmod.in.lua bash spider apps/gromacs
   To find detailed information about apps/gromacs please enter the full name.
   For example:
      $ module spider apps/gromacs/4.6.3
+===========================
+step 22
+lua ProjectDIR/src/lmod.in.lua bash spider apps/gromacs/4.6.3
+===========================
+  apps/gromacs: apps/gromacs/4.6.3
+    This module can only be loaded through the following modules:
+      cmplrs/intel/14.0, mpi/openmpi/1.6.5
+===========================
+step 23
+lua ProjectDIR/src/lmod.in.lua bash spider apps/gromacs/4.6.3-debug
+===========================
+  apps/gromacs: apps/gromacs/4.6.3-debug
+    This module can only be loaded through the following modules:
+      cmplrs/intel/14.0, mpi/openmpi/1.6.5
