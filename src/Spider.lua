@@ -589,7 +589,6 @@ local function countEntries(t, sn, searchPat, searchName, hidden)
    local full    = false
    local search  = (searchPat or "")
    local searchV = extractVersion(searchName, sn)
-   searchName    = searchName:escape()
    dbg.print{"searchName: ",searchName,"\n"}
    for k,v in pairs(t) do
       local version = extractVersion(v.full, v.name) or ""
@@ -608,7 +607,10 @@ local function countEntries(t, sn, searchPat, searchName, hidden)
                dbg.print{"(2) setting full: ",full,"\n"}
             end
          end
-         local i, j = v.full:find(searchName)
+         local i, j = v.full:find(searchName,1,true)
+         if (not i) then
+            i, j = v.full:find(searchName)
+         end
          if (i) then
             local flen = v.full:len()
             if (flen == j - i + 1) then
