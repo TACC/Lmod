@@ -1,5 +1,6 @@
 --------------------------------------------------------------------------
--- Fixme
+-- This module provides two functions.  One implements colorizing the
+-- string and the other produces a plain string.
 -- @module colorize
 
 require("strict")
@@ -39,6 +40,7 @@ require("strict")
 --------------------------------------------------------------------------
 
 require("strict")
+require("utils")
 
 
 Foreground = "\027".."[1;"
@@ -56,12 +58,11 @@ colorT =
 local concatTbl = table.concat
 
 ------------------------------------------------------------------------
--- The full_colorize() function takes an array of
--- strings and wraps the ANSI color start and
+-- Takes an array of strings and wraps the ANSI color start and
 -- stop and produces a single string.
---
+-- @param color The key name for the *colorT* hash table.
 function full_colorize(color, ... )
-   local arg = { n = select('#', ...), ...}
+   local arg = pack(...)
    if (color == nil or arg.n < 1) then
       return plain(color, ...)
    end
@@ -80,10 +81,10 @@ function full_colorize(color, ... )
 end
 
 --------------------------------------------------------------------------
--- This is there when users or writing to a file. The point is that
--- there is no colorization added to the string.
-function plain(c, ...)
-   local arg = { n = select('#', ...), ...}
+-- This prints the array of strings without any colorization.
+-- @param color The key name for the *colorT* hash table.
+function plain(color, ...)
+   local arg = pack(...)
    if (arg.n < 1) then
       return ""
    end

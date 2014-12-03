@@ -118,10 +118,10 @@ end
 -- that is in Lua 5.2 and later.
 
 function argsPack(...)
-   local arg = { n = select ("#", ...), ...}
+   local arg = { n = select("#", ...), ...}
    return arg
 end
-local pack        = (_VERSION == "Lua 5.1") and argsPack or table.pack
+pack     = (_VERSION == "Lua 5.1") and argsPack or table.pack
 
 
 --------------------------------------------------------------------------

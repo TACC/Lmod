@@ -75,7 +75,7 @@ end
 -- Register the command strings.
 -- @param self A Exec object
 function M.register(self, ...)
-   local arg = { n = select('#',...), ...}
+   local arg = pack(...)
    local a   = self.a
 
    for i = 1, arg.n do

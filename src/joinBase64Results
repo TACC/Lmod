@@ -1,6 +1,12 @@
 #!/usr/bin/env lua
 -- -*- lua -*-
 --------------------------------------------------------------------------
+-- The main program for Lmod.
+-- @script lmod
+
+require("strict")
+
+--------------------------------------------------------------------------
 -- Lmod License
 --------------------------------------------------------------------------
 --
@@ -48,7 +54,16 @@ end
 package.path = cmd_dir .. "../tools/?.lua;" ..
                cmd_dir .. "?.lua;"       .. package.path
 
-require("strict")
+--------------------------------------------------------------------------
+-- This is 5.1 Lua function to cover the table.pack function
+-- that is in Lua 5.2 and later.
+
+function argsPack(...)
+   local arg = { n = select("#", ...), ...}
+   return arg
+end
+pack     = (_VERSION == "Lua 5.1") and argsPack or table.pack
+
 require("string_utils")
 require("serializeTbl")
 local base64    = require("base64")
@@ -105,7 +120,7 @@ function sectionEnd(sType,A, a1, a2, a3)
 end
 
 function joinArrays(A,...)
-   local arg = { n = select("#", ...), ...}
+   local arg = pack(...)
    for i = 1, arg.n do
       local b = arg[i]
       for j = 1, #b do

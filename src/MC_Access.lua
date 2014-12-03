@@ -43,7 +43,7 @@ require("strict")
 -- Access is the MCP mode that handles help message or whatis messages.
 -- almost all other module commands are ignored.
 
-require("strict")
+require("utils")
 
 Dbg                   = require("Dbg")
 MC_Access             = inheritsFrom(MasterControl)
@@ -69,7 +69,7 @@ end
 -- print Help message when assessT is in help mode
 -- @param self MC_Access object
 function M.help(self, ...)
-   local arg = { n = select('#', ...), ...}
+   local arg = pack(...)
    if (M.accessT.help == true) then
       for i = 1, arg.n do
          A[#A+1] = arg[i]

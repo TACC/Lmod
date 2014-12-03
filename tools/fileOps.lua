@@ -36,6 +36,11 @@ local posix     = require("posix")
 local lfs       = require("lfs")
 local concatTbl = table.concat
 
+local function argsPack(...)
+   local arg = { n = select("#", ...), ...}
+   return arg
+end
+local pack        = (_VERSION == "Lua 5.1") and argsPack or table.pack
 --------------------------------------------------------------------------
 -- find the absolute path to an executable.
 -- @param exec Name of executable
@@ -196,7 +201,7 @@ end
 
 function pathJoin(...)
    local a = {}
-   local arg = { n = select('#', ...), ...}
+   local arg = pack(...)
    for i = 1, arg.n  do
       local v = arg[i]
       if (v and v ~= '') then
