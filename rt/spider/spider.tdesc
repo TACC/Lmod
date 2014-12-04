@@ -43,21 +43,22 @@ testdescript = {
      runLmod -r spider '^[Rr]'                                                #11
      runLmod spider mpich2/1.0.5                                              #12
      runLmod spider is-dyna                                                   #13
-     runLmod spider bwa                                                       #14
-     runLmod spider gromacs                                                   #15
-     runLmod spider apps/gromacs                                              #16
-     runLmod spider apps/gromacs/4.6.3                                        #17
-     runLmod spider apps/gromacs/4.6.3-debug                                  #18
+     runLmod spider is-dyna/1.0                                               #14
+     runLmod spider bwa                                                       #15
+     runLmod spider gromacs                                                   #16
+     runLmod spider apps/gromacs                                              #17
+     runLmod spider apps/gromacs/4.6.3                                        #18
+     runLmod spider apps/gromacs/4.6.3-debug                                  #19
 
 
 
      mkdir -p $HOME/.lmod.d/.cache
      buildModuleT $LMOD_DEFAULT_MODULEPATH > $HOME/.lmod.d/.cache/moduleT.lua
-     runLmod spider                                                           #19
-     runLmod spider gromacs                                                   #20
-     runLmod spider apps/gromacs                                              #21
-     runLmod spider apps/gromacs/4.6.3                                        #22
-     runLmod spider apps/gromacs/4.6.3-debug                                  #23
+     runLmod spider                                                           #20
+     runLmod spider gromacs                                                   #21
+     runLmod spider apps/gromacs                                              #22
+     runLmod spider apps/gromacs/4.6.3                                        #23
+     runLmod spider apps/gromacs/4.6.3-debug                                  #24
 
 
      HOME=$ORIG_HOME
