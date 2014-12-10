@@ -105,7 +105,7 @@ local function findNamedCollections(a,path)
 end
 
 ------------------------------------------------------------------------
--- just convert the vararg into an actual array and call
+-- Just convert the vararg into an actual array and call
 -- master.avail to do the real work.
 function Avail(...)
    local master = Master:master()
@@ -114,7 +114,7 @@ function Avail(...)
 end
 
 --------------------------------------------------------------------------
--- get the command line argument and use MT:getMTfromFile()
+-- Get the command line argument and use MT:getMTfromFile()
 -- to read the module table from the file and use that
 -- collections of module to load.  This routine is deprecated
 -- and will be removed.  Use restore instead.

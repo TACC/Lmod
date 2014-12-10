@@ -39,6 +39,7 @@ require("strict")
 
 require("strict")
 require("inherits")
+require("utils")
 local M    = {}
 local dbg  = require("Dbg"):dbg()
 local hook = require("Hook")
@@ -123,7 +124,7 @@ function M.setStandardPaths(self, ...)
    local base     = self:pkgBase()
    local pkgNameU = self:pkgDisplayName():upper()
 
-   local arg = { n = select("#", ...), ...}
+   local arg = pack(...)
 
 
    for i = 1, arg.n do

@@ -461,12 +461,11 @@ function M.load(mA)
 
          local force = true
          for i = 1,#b do
-            mcp:unload_usr(b[i].umA,force)
+            mcp:unload_usr(b[i].umA, force)
             mcp:load(b[i].lmA)
          end
       end
    end
-
 
    if (M.safeToUpdate() and mt:safeToCheckZombies() and mStack:empty()) then
       dbg.print{"Master:load calling reloadAll()\n"}
