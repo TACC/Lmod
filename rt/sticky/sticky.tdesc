@@ -75,6 +75,14 @@ testdescript = {
      runLmod reset              #43
      runLmod reset              #44
 
+     runLmod load old           #45
+     runLmod swap old new       #46
+     runLmod list               #47
+     export LMOD_AUTO_SWAP=true
+     runLmod load old           #48
+     runLmod list               #49
+    
+
      HOME_ORIG=$HOME
 
      cat _stdout.[0-9][0-9] > _stdout.orig

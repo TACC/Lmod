@@ -459,8 +459,9 @@ function M.load(mA)
             b[#b+1]     = {umA = umA, lmA = lmA}
          end
 
+         local force = true
          for i = 1,#b do
-            mcp:unload_usr(b[i].umA)
+            mcp:unload_usr(b[i].umA,force)
             mcp:load(b[i].lmA)
          end
       end
