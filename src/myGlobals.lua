@@ -313,6 +313,11 @@ usrSBatchDir  = pathJoin(getenv("HOME"),".lmod.d",USER_SBATCH_DIR_NAME)
 updateSystemFn="@updateSystemFn@"
 
 ------------------------------------------------------------------------
+-- Prepend path block order.
+s_prependBlock  = "@prepend_block@"
+
+
+------------------------------------------------------------------------
 -- s_propT:  Where the property table is stored
 ------------------------------------------------------------------------
 s_propT  = {}

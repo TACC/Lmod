@@ -41,7 +41,6 @@
 
 BaseShell       = {}
 Pager           = "@path_to_pager@"
-s_prependBlock  = "@prepend_block@"
 prepend_order   = false
 banner          = false
 
@@ -79,10 +78,14 @@ if (pcall(require, "term")) then
    term = require("term")
 end
 
+--------------------------------------------------------------------------
+-- Return the path to the Lmod program
 function cmdDir()
    return LuaCommandName_dir
 end
 
+--------------------------------------------------------------------------
+-- Return this program's name.
 function cmdName()
    return LuaCommandName
 end
@@ -90,6 +93,10 @@ end
 local getenv = os.getenv
 local rep    = string.rep
 
+--------------------------------------------------------------------------
+-- Return the *prepend_order* function.  This function control which order
+-- are prepends handled when there are multiple paths passed to a single
+-- call.
 function set_prepend_order()
    local ansT = {
       no      = "reverse",
@@ -136,6 +143,9 @@ local max          = math.max
 local unpack       = unpack or table.unpack
 local timer        = require("Timer"):timer()
 
+--------------------------------------------------------------------------
+-- Return the *allow_dups* function.  This function return true if
+-- duplicates in paths are allowed.
 function set_duplication()
    local dups = LMOD_DUPLICATE_PATHS:lower()
    if (dups == "yes") then
@@ -151,7 +161,8 @@ function set_duplication()
    end
 end
 
-
+--------------------------------------------------------------------------
+-- 
 function colorizePropA(style, moduleName, propT, legendT)
    local resultA      = { moduleName }
    local propDisplayT = getPropT()
@@ -502,7 +513,7 @@ function main()
    localvar(masterTbl.localvarA)
 
    banner        = Banner:banner()
-   local cmdName = masterTbl.pargs[1]
+   local usrCmd = masterTbl.pargs[1]
    table.remove(masterTbl.pargs,1)
 
    if (masterTbl.debug > 0 or masterTbl.dbglvl) then
@@ -523,8 +534,8 @@ function main()
    -- is a valid command:
 
    local checkMPATH = false
-   if (cmdTbl[cmdName] ) then
-      checkMPATH = cmdTbl[cmdName].checkMPATH
+   if (cmdTbl[usrCmd] ) then
+      checkMPATH = cmdTbl[usrCmd].checkMPATH
    end
 
    if (LMOD_RTM_TESTING) then
@@ -595,16 +606,16 @@ function main()
 
    -- Now quit if command is unknown.
 
-   if (cmdTbl[cmdName] == nil) then
+   if (cmdTbl[usrCmd] == nil) then
       io.stderr:write(version())
       io.stderr:write(Usage(),"\n")
       LmodErrorExit()
    end
 
-   if (cmdTbl[cmdName]) then
-      local cmd = cmdTbl[cmdName].cmd
-      cmdName   = cmdTbl[cmdName].name
-      dbg.print{"cmd name: ", cmdName,"\n"}
+   if (cmdTbl[usrCmd]) then
+      local cmd = cmdTbl[usrCmd].cmd
+      usrCmd   = cmdTbl[usrCmd].name
+      dbg.print{"cmd name: ", usrCmd,"\n"}
       cmd(unpack(masterTbl.pargs))
    end
 
