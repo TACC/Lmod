@@ -162,7 +162,13 @@ function set_duplication()
 end
 
 --------------------------------------------------------------------------
--- 
+-- Use the *propT* table to colorize the module name when requested by
+-- *propT*.
+-- @param style How to colorize
+-- @param moduleName The module name
+-- @param propT The property table
+-- @param legendT The legend table.  A key-value pairing of keys to descriptions.
+-- @return An array of colorized strings
 function colorizePropA(style, moduleName, propT, legendT)
    local resultA      = { moduleName }
    local propDisplayT = getPropT()
@@ -197,8 +203,11 @@ function colorizePropA(style, moduleName, propT, legendT)
 end
 
 
-s_Usage = false
 
+
+s_Usage = false
+--------------------------------------------------------------------------
+-- Build the lmod usage message and store in *s_Usage*.
 function Usage()
    if (s_Usage) then
       return s_Usage
@@ -296,6 +305,8 @@ end
 CmdLineUsage = "Usage: module [options] sub-command [args ...]"
 
 
+--------------------------------------------------------------------------
+-- Build the version string.
 function version()
    local v = {}
    v[#v + 1] = "\nModules based on Lua: Version " .. Version.name().."\n"
@@ -311,12 +322,17 @@ local Options      = require("Options")
 local Spider       = require("Spider")
 local Var          = require("Var")
 
+--------------------------------------------------------------------------
+-- A place holder function.  This should never be called.
 function None()
    print ("None")
    FooBar=1
 end
 
 
+--------------------------------------------------------------------------
+-- Register local variables into the *varTbl* table.
+-- @param localvarA
 local function localvar(localvarA)
    for _, v in ipairs(localvarA) do
       local i = v:find("=")
@@ -346,7 +362,8 @@ ModuleName = ""
 ModuleFn   = ""
 
 
-
+--------------------------------------------------------------------------
+-- The main function of Lmod.  The lmod program always starts here.
 function main()
    local epoch        = epoch
    local t1           = epoch()
