@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.6.3 5.6.3-41-gfb250e7 2014-06-23 05:28
+Modules based on Lua: Version 5.8  2014-11-04 12:46
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -34,11 +34,11 @@ step 6
 lua ProjectDIR/src/lmod.in.lua bash avail
 ===========================
 ProjectDIR/rt/hierarchy/mf/MPI/clang/4.2/openmpi/1.8
-   parmetis/4.0.3
+   parmetis/4.0.3    python/2.7.3 (D)
 ProjectDIR/rt/hierarchy/mf/Compiler/clang/4.2
-   mpich/17.200.3    openmpi/1.8.3
+   mpich/17.200.3    openmpi/1.8.3    python/2.7.3
 ProjectDIR/rt/hierarchy/mf/Core
-   ben/0.1        clang/4.2.1    fbr/1.0     (D)
+   ben/0.1        clang/4.2.1    fbr/1.0     (D)    python/2.7.3
    ben/1.0 (D)    fbr/0.1        gcc/14.27.3
   Where:
    (D):  Default Module
@@ -140,3 +140,36 @@ lua ProjectDIR/src/lmod.in.lua bash load gcc mpich
 step 23
 lua ProjectDIR/src/lmod.in.lua bash unload mpich gcc
 ===========================
+===========================
+step 24
+lua ProjectDIR/src/lmod.in.lua bash list
+===========================
+No modules loaded
+===========================
+step 25
+lua ProjectDIR/src/lmod.in.lua bash load python
+===========================
+===========================
+step 26
+lua ProjectDIR/src/lmod.in.lua bash load gcc
+===========================
+Due to MODULEPATH changes the following have been reloaded:
+  1) python/2.7.3
+===========================
+step 27
+lua ProjectDIR/src/lmod.in.lua bash load mpich
+===========================
+Due to MODULEPATH changes the following have been reloaded:
+  1) python/2.7.3
+===========================
+step 28
+lua ProjectDIR/src/lmod.in.lua bash swap gcc clang
+===========================
+Due to MODULEPATH changes the following have been reloaded:
+  1) mpich/17.200.3  2) python/2.7.3
+===========================
+step 29
+lua ProjectDIR/src/lmod.in.lua bash swap mpich openmpi
+===========================
+Due to MODULEPATH changes the following have been reloaded:
+  1) python/2.7.3
