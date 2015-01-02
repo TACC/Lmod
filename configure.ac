@@ -237,6 +237,10 @@ AC_PATH_PROGS(PATH_TO_HASHSUM, [sha1sum] [md5sum], "")
 AC_PATH_PROG(pager,[more], "")
 PATH_TO_PAGER=$pager
 
+AC_SUBST(ORIG_LD_LIBRARY_PATH)
+
+ORIG_LD_LIBRARY_PATH=$LD_LIBRARY_PATH
+
 AC_PATH_PROG(luaprog, lua, "")
 
 if test x$luaprog = "x"; then

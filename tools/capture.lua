@@ -31,26 +31,45 @@ require("strict")
 --------------------------------------------------------------------------
 
 
-local dbg   = require("Dbg"):dbg()
-_G._DEBUG   = false                       -- Required by luaposix 33
-local posix = require("posix")
+local dbg          = require("Dbg"):dbg()
+_G._DEBUG          = false                       -- Required by luaposix 33
+local posix        = require("posix")
+local getenv       = os.getenv
+local setenv_posix = posix.setenv
 
 --------------------------------------------------------------------------
 -- Capture stdout from *cmd*
--- @param cmd a string that contains a unix command.
-
-function capture(cmd)
+-- @param cmd A string that contains a unix command.
+-- @param envT A table that contains environment variables to be set/restored when running *cmd*.
+function capture(cmd, envT)
    dbg.start{"capture(",cmd,")"}
-   dbg.print{"cwd: ",posix.getcwd(),"\n",level=2}
-   local p = io.popen(cmd)
-   if p == nil then
-      return nil
+   if (dbg.active) then
+      dbg.print{"cwd: ",posix.getcwd(),"\n",level=2}
    end
-   local ret = p:read("*all")
-   p:close()
-   dbg.start{"capture output()",level=2}
-   dbg.print{ret}
-   dbg.fini("capture output")
+   
+   local newT = {}
+   envT = envT or {}
+   for k, v in pairs(envT) do
+      newT[k] = getenv(k)
+      setenv_posix(k, v, true)
+   end
+
+   local ret
+   local p   = io.popen(cmd)
+   if (p ~= nil) then
+      ret = p:read("*all")
+      p:close()
+   end
+
+   for k, v in pairs(newT) do
+      setenv_posix(k,v, true)
+   end
+   
+   if (dbg.active()) then
+      dbg.start{"capture output()",level=2}
+      dbg.print{ret}
+      dbg.fini("capture output")
+   end
    dbg.fini("capture")
    return ret
 end

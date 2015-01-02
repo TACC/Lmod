@@ -151,6 +151,10 @@ LMOD_IGNORE_CACHE = getenv("LMOD_IGNORE_CACHE") or "0"
 LMOD_IGNORE_CACHE = (LMOD_IGNORE_CACHE:trim() ~= "0")
 
 
+ORIG_LD_LIBRARY_PATH = "@orig_ld_library_path@"
+if (ORIG_LD_LIBRARY_PATH:sub(1,1) == "@") then
+   ORIG_LD_LIBRARY_PATH = ""
+end
 
 ------------------------------------------------------------------------
 -- LMOD_PAGER: Lmod will use this value of pager if set.
