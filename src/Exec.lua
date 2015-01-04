@@ -41,11 +41,8 @@ require("strict")
 
 
 require("utils")
-local dbg           = require("Dbg"):dbg()
-local concatTbl     = table.concat
-local getenv        = os.getenv
-
-local M = {}
+local dbg  = require("Dbg"):dbg()
+local M    = {}
 
 s_exec = false
 

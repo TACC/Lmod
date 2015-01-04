@@ -60,7 +60,6 @@ MC_ComputeHash.my_sType    = "load"
 MC_ComputeHash.my_tcl_mode = "load"
 local M                    = MC_ComputeHash
 local dbg                  = require("Dbg"):dbg()
-local concatTbl            = table.concat
 local A                    = ShowResultsA
 
 local function ShowCmd(name, ...)

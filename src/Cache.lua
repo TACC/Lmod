@@ -213,11 +213,8 @@ local function readCacheFile(self, cacheFileA)
       return dirsRead
    end
 
-   local mt         = MT:mt()
-
    local moduleDirT = self.moduleDirT
    local mDT        = self.mDT
-   local moduleDirA = self.moduleDirA
    local moduleT    = self.moduleT
 
    dbg.print{"#cacheFileA: ",#cacheFileA,"\n"}
@@ -400,7 +397,7 @@ function M.build(self, fast)
 
       local dontWrite = self.dontWrite or r.dontWriteCache or LMOD_IGNORE_CACHE
 
-      local doneMsg = " done."
+      local doneMsg
 
       if (t2 - t1 < shortTime or dontWrite) then
          ancient = shortLifeCache
@@ -445,7 +442,7 @@ function M.build(self, fast)
       end
       cTimer:done(doneMsg)
       dbg.print{"Transfer from userModuleT to moduleT\n"}
-      for k, v in Pairs(userModuleT) do
+      for k in Pairs(userModuleT) do
          dbg.print{"k: ",k,"\n"}
          moduleT[k] = userModuleT[k]
       end

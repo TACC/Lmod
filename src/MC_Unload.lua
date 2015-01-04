@@ -48,10 +48,6 @@ MC_Unload.my_tcl_mode  = "remove"
 
 local M                = MC_Unload
 local dbg              = require("Dbg"):dbg()
-local format           = string.format
-local getenv           = os.getenv
-
-
 M.always_load          = MasterControl.quiet
 M.always_unload        = MasterControl.unload
 M.add_property         = MasterControl.remove_property

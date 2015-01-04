@@ -51,7 +51,6 @@ local Version      = require("Version")
 local concatTbl    = table.concat
 local dbg          = require('Dbg'):dbg()
 local getenv       = os.getenv
-local rep          = string.rep
 local M            = {}
 
 s_configuration   = false
@@ -166,7 +165,7 @@ function M.report(self)
    a[#a+1]   = {"Description", "Value", }
    a[#a+1]   = {"-----------", "-----", }
 
-   for k, v in pairsByKeys(tbl) do
+   for _, v in pairsByKeys(tbl) do
       a[#a+1] = {v.k, v.v }
    end
 
