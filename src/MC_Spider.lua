@@ -155,7 +155,7 @@ function M.whatis(self,s)
    local path        = moduleStack[iStack].path
    local moduleT     = moduleStack[iStack].moduleT
 
-   local i,j, key, value = s:find('^%s*([^: ]+)%s*:%s*(.*)')
+   local _,_, key, value = s:find('^%s*([^: ]+)%s*:%s*(.*)')
    local k  = KeyT[key]
    if (k) then
       moduleT[path][key] = value

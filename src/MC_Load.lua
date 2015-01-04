@@ -41,8 +41,6 @@ require("strict")
 local MC_Load          = inheritsFrom(MasterControl)
 local M                = MC_Load
 local dbg              = require("Dbg"):dbg()
-local format           = string.format
-local getenv           = os.getenv
 M.my_name              = "MC_Load"
 M.my_sType             = "load"
 M.my_tcl_mode          = "load"
