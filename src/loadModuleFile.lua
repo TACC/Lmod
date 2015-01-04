@@ -41,9 +41,9 @@ require("strict")
 require("fileOps")
 require("sandbox")
 require("string_utils")
-local dbg       = require("Dbg"):dbg()
-local concatTbl = table.concat
-
+require("myGlobals")
+local dbg          = require("Dbg"):dbg()
+local concatTbl    = table.concat
 ------------------------------------------------------------------------
 -- loadModuleFile(t): read a modulefile in via sandbox_run
 
@@ -55,9 +55,9 @@ function loadModuleFile(t)
    local full    = myModuleFullName()
    local usrName = myModuleUsrName()
    local myType  = extname(t.file)
+   local status  = true
    local func
    local msg
-   local status = true
    local whole
    if (myType == ".lua") then
       -- Read in lua module file into a [[whole]] string.
@@ -75,6 +75,7 @@ function loadModuleFile(t)
       local s      = t.mList or ""
       local A      = {}
       local mode   = mcp:tcl_mode()
+      local envT   = {LD_LIBRARY_PATH = ORIG_LD_LIBRARY_PATH }
       A[#A + 1]    = "-l"
       A[#A + 1]    = "\"" .. s .. "\""
       A[#A + 1]    = "-f"
@@ -93,7 +94,7 @@ function loadModuleFile(t)
       a[#a + 1]	   = concatTbl(A," ")
       a[#a + 1]	   = t.file
       local cmd    = concatTbl(a," ")
-      whole        = capture(cmd)
+      whole        = capture(cmd, envT)
    end
 
    -- Use the sandbox to evaluate modulefile text.

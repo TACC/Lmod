@@ -29,6 +29,7 @@ AUTO_SWAP        	  := @AUTO_SWAP@
 SPIDER_CACHE_DIRS 	  := @SPIDER_CACHE_DIRS@
 EXPORT_MODULE             := @EXPORT_MODULE@
 PATH_TO_HASHSUM   	  := @PATH_TO_HASHSUM@
+ORIG_LD_LIBRARY_PATH      := @ORIG_LD_LIBRARY_PATH@
 PATH_TO_LUA	  	  := @PATH_TO_LUA@
 PATH_TO_PAGER	  	  := @PATH_TO_PAGER@
 PATH_TO_TCLSH             := @PATH_TO_TCLSH@
@@ -147,6 +148,7 @@ __installMe:
                 -e 's|@have_lua_term@|$(HAVE_LUA_TERM)|g'                  	  \
                 -e 's|@have_lua_json@|$(HAVE_LUA_JSON)|g'                  	  \
 	        -e 's|@redirect@|$(REDIRECT)|g'                       	   	  \
+	        -e 's|@orig_ld_library_path@|$(ORIG_LD_LIBRARY_PATH)|g'           \
 	        -e 's|@auto_swap@|$(AUTO_SWAP)|g'                      	   	  \
 	        -e 's|@export_module@|$(EXPORT_MODULE)|g'             	   	  \
 	        -e 's|@ancient@|$(ANCIENT)|g'                         	   	  \

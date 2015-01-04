@@ -42,6 +42,7 @@ require("strict")
 require("fileOps")
 require("string_utils")
 require("parseVersion")
+require("myGlobals")
 require("capture")
 
 _G._DEBUG          = false               -- Required by the new lua posix
@@ -739,8 +740,9 @@ function moduleRCFile(current, path)
       dbg.fini("moduleRCFile")
       return nil
    end
-   local cmd = pathJoin(cmdDir(),"RC2lua.tcl") .. " " .. path
-   local s = capture(cmd):trim()
+   local envT = {LD_LIBRARY_PATH = ORIG_LD_LIBRARY_PATH }
+   local cmd  = pathJoin(cmdDir(),"RC2lua.tcl") .. " " .. path
+   local s    = capture(cmd, envT):trim()
    assert(load(s))()
    local version = false
    for i = 1,#modV do
@@ -783,10 +785,11 @@ function versionFile(v, sn, path, ignoreErrors)
       return nil
    end
    local version = false
+   local envT    = {LD_LIBRARY_PATH = ORIG_LD_LIBRARY_PATH }
 
    if (v == "/.modulerc") then
       local cmd = pathJoin(cmdDir(),"RC2lua.tcl") .. " " .. path
-      local s = capture(cmd):trim()
+      local s = capture(cmd, envT):trim()
       assert(load(s))()
       for i = 1,#modV do
          local entry = modV[i]
@@ -802,7 +805,7 @@ function versionFile(v, sn, path, ignoreErrors)
       end
    elseif (v == "/.version") then
       local cmd = pathJoin(cmdDir(),"ModulesVersion.tcl") .. " " .. path
-      local s = capture(cmd):trim()
+      local s = capture(cmd, envT):trim()
       assert(load(s))()
       version = modV.version
       if (modV.date ~= "***") then
