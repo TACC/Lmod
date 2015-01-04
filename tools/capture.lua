@@ -43,7 +43,7 @@ local setenv_posix = posix.setenv
 -- @param envT A table that contains environment variables to be set/restored when running *cmd*.
 function capture(cmd, envT)
    dbg.start{"capture(",cmd,")"}
-   if (dbg.active) then
+   if (dbg.active()) then
       dbg.print{"cwd: ",posix.getcwd(),"\n",level=2}
    end
    
