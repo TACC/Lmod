@@ -870,7 +870,7 @@ function UnUse(...)
    local arg = pack(...)
    local nodups = true
    for i = 1, arg.n do
-      local v = arg[i]
+      local v = abspath(arg[i])
       MCP:remove_path{ ModulePath,  v, delim=":", nodups = true}
       MCP:remove_path{ DfltModPath, v, delim=":", nodups = true}
    end
