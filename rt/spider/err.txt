@@ -166,8 +166,8 @@ lua ProjectDIR/src/lmod.in.lua bash spider parmetis/3.1
       built for host and native MIC
     This module can be loaded directly: module load parmetis/3.1
     Additional variants of this module can also be loaded after the loading the following modules:
-      gcc/4.2.3, openmpi/1.2.6
-      intel/intel, openmpi/1.2.6
+      gcc/4.2.3  openmpi/1.2.6
+      intel/intel  openmpi/1.2.6
 ===========================
 step 8
 lua ProjectDIR/src/lmod.in.lua bash spider mpich2me
@@ -267,14 +267,14 @@ lua ProjectDIR/src/lmod.in.lua bash spider apps/gromacs/4.6.3
 ===========================
   apps/gromacs: apps/gromacs/4.6.3
     This module can only be loaded through the following modules:
-      cmplrs/intel/14.0, mpi/openmpi/1.6.5
+      cmplrs/intel/14.0  mpi/openmpi/1.6.5
 ===========================
 step 19
 lua ProjectDIR/src/lmod.in.lua bash spider apps/gromacs/4.6.3-debug
 ===========================
   apps/gromacs: apps/gromacs/4.6.3-debug
     This module can only be loaded through the following modules:
-      cmplrs/intel/14.0, mpi/openmpi/1.6.5
+      cmplrs/intel/14.0  mpi/openmpi/1.6.5
 ===========================
 step 20
 lua ProjectDIR/src/lmod.in.lua bash spider
@@ -359,11 +359,11 @@ lua ProjectDIR/src/lmod.in.lua bash spider apps/gromacs/4.6.3
 ===========================
   apps/gromacs: apps/gromacs/4.6.3
     This module can only be loaded through the following modules:
-      cmplrs/intel/14.0, mpi/openmpi/1.6.5
+      cmplrs/intel/14.0  mpi/openmpi/1.6.5
 ===========================
 step 24
 lua ProjectDIR/src/lmod.in.lua bash spider apps/gromacs/4.6.3-debug
 ===========================
   apps/gromacs: apps/gromacs/4.6.3-debug
     This module can only be loaded through the following modules:
-      cmplrs/intel/14.0, mpi/openmpi/1.6.5
+      cmplrs/intel/14.0  mpi/openmpi/1.6.5

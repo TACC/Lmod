@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.2.5 5.2.5-21-geecdc9c 2014-01-26 07:24
+Modules based on Lua: Version 5.8  2014-11-04 12:46
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -76,7 +76,7 @@ lua ProjectDIR/src/lmod.in.lua bash spider pet
     Description:
       Numerical library for sparse linear algebra
     This module can only be loaded through the following modules:
-      intel/13.1, mvapich2/1.9
+      intel/13.1  mvapich2/1.9
     Help:
       The petsc module defines the following environment variables:
       TACC_PETSC_DIR, TACC_PETSC_BIN, and
@@ -89,7 +89,7 @@ lua ProjectDIR/src/lmod.in.lua bash spider pet
     Description:
       Numerical library for sparse linear algebra
     This module can only be loaded through the following modules:
-      intel/13.1, mvapich2/1.9
+      intel/13.1  mvapich2/1.9
     Help:
       The petsc module defines the following environment variables:
       TACC_PETSC_DIR, TACC_PETSC_BIN, and
@@ -102,7 +102,7 @@ lua ProjectDIR/src/lmod.in.lua bash spider pet
     Description:
       Numerical library for sparse linear algebra
     This module can only be loaded through the following modules:
-      intel/13.1, mvapich2/1.9
+      intel/13.1  mvapich2/1.9
     Help:
       The petsc module defines the following environment variables:
       TACC_PETSC_DIR, TACC_PETSC_BIN, and
@@ -115,7 +115,7 @@ lua ProjectDIR/src/lmod.in.lua bash spider pet
     Description:
       Numerical library for sparse linear algebra
     This module can only be loaded through the following modules:
-      intel/13.1, mvapich2/1.9
+      intel/13.1  mvapich2/1.9
     Help:
       The petsc module defines the following environment variables:
       TACC_PETSC_DIR, TACC_PETSC_BIN, and
@@ -128,7 +128,7 @@ lua ProjectDIR/src/lmod.in.lua bash spider pet
     Description:
       Numerical library for sparse linear algebra
     This module can only be loaded through the following modules:
-      intel/13.1, mvapich2/1.9
+      intel/13.1  mvapich2/1.9
     Help:
       The petsc module defines the following environment variables:
       TACC_PETSC_DIR, TACC_PETSC_BIN, and
@@ -141,7 +141,7 @@ lua ProjectDIR/src/lmod.in.lua bash spider pet
     Description:
       Numerical library for sparse linear algebra
     This module can only be loaded through the following modules:
-      intel/13.1, mvapich2/1.9
+      intel/13.1  mvapich2/1.9
     Help:
       The petsc module defines the following environment variables:
       TACC_PETSC_DIR, TACC_PETSC_BIN, and
@@ -154,7 +154,7 @@ lua ProjectDIR/src/lmod.in.lua bash spider pet
     Description:
       Numerical library for sparse linear algebra
     This module can only be loaded through the following modules:
-      intel/13.1, mvapich2/1.9
+      intel/13.1  mvapich2/1.9
     Help:
       The petsc module defines the following environment variables:
       TACC_PETSC_DIR, TACC_PETSC_BIN, and
@@ -167,7 +167,7 @@ lua ProjectDIR/src/lmod.in.lua bash spider pet
     Description:
       Numerical library for sparse linear algebra
     This module can only be loaded through the following modules:
-      intel/13.1, mvapich2/1.9
+      intel/13.1  mvapich2/1.9
     Help:
       The petsc module defines the following environment variables:
       TACC_PETSC_DIR, TACC_PETSC_BIN, and
@@ -180,7 +180,7 @@ lua ProjectDIR/src/lmod.in.lua bash spider pet
     Description:
       Numerical library for sparse linear algebra
     This module can only be loaded through the following modules:
-      intel/13.1, mvapich2/1.9
+      intel/13.1  mvapich2/1.9
     Help:
       The petsc module defines the following environment variables:
       TACC_PETSC_DIR, TACC_PETSC_BIN, and
@@ -193,7 +193,7 @@ lua ProjectDIR/src/lmod.in.lua bash spider pet
     Description:
       Numerical library for sparse linear algebra
     This module can only be loaded through the following modules:
-      intel/13.1, mvapich2/1.9
+      intel/13.1  mvapich2/1.9
     Help:
       The petsc module defines the following environment variables:
       TACC_PETSC_DIR, TACC_PETSC_BIN, and
@@ -206,7 +206,7 @@ lua ProjectDIR/src/lmod.in.lua bash spider pet
     Description:
       Numerical library for sparse linear algebra
     This module can only be loaded through the following modules:
-      intel/13.1, mvapich2/1.9
+      intel/13.1  mvapich2/1.9
     Help:
       The petsc module defines the following environment variables:
       TACC_PETSC_DIR, TACC_PETSC_BIN, and
@@ -219,7 +219,7 @@ lua ProjectDIR/src/lmod.in.lua bash spider pet
     Description:
       Numerical library for sparse linear algebra
     This module can only be loaded through the following modules:
-      intel/13.1, mvapich2/1.9
+      intel/13.1  mvapich2/1.9
     Help:
       The petsc module defines the following environment variables:
       TACC_PETSC_DIR, TACC_PETSC_BIN, and
@@ -232,7 +232,7 @@ lua ProjectDIR/src/lmod.in.lua bash spider pet
     Description:
       Numerical library for sparse linear algebra
     This module can only be loaded through the following modules:
-      intel/13.1, mvapich2/1.9
+      intel/13.1  mvapich2/1.9
     Help:
       The petsc module defines the following environment variables:
       TACC_PETSC_DIR, TACC_PETSC_BIN, and

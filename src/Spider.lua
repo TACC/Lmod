@@ -783,7 +783,7 @@ function M._Level1(self, searchPat, key, T, searchName, possibleA, help)
          end
       end
       ia = ia + 1; a[ia] = "\n     Other possible modules matches:\n        "
-      ia = ia + 1; a[ia] = concatTbl(b,", ")
+      ia = ia + 1; a[ia] = concatTbl(b,"  ")
       ia = ia + 1; a[ia] = "\n"
    end
 
@@ -901,7 +901,7 @@ function M._Level2(self, T, searchName, full, possibleA)
             for s in entry:split(":") do
                if (s ~= "default") then
                   b[#b+1] = s
-                  b[#b+1] = ', '
+                  b[#b+1] = '  '
                end
             end
             b[#b] = "\n      "
