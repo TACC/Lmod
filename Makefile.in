@@ -65,9 +65,11 @@ STANDALONE_PRGM   	  := src/lmod.in.lua src/addto.in.lua src/getmt.in.lua      \
                              src/spiderCacheSupport.in.lua                          \
                              src/sh_to_modulefile.in.lua
 STANDALONE_PRGM           := $(patsubst %, $(PATH_TO_SRC)/%, $(STANDALONE_PRGM))
-SHELL_INIT	  	  := bash.in csh.in ksh.in tcsh.in zsh.in sh.in perl.in                       \
-                             env_modules_python.py.in lmod_bash_completions lmodrc.lua
+SHELL_INIT	  	  := bash.in csh.in ksh.in tcsh.in zsh.in sh.in perl.in     \
+                             env_modules_python.py.in lmod_bash_completions
 SHELL_INIT	  	  := $(patsubst %, $(PATH_TO_SRC)/init/%, $(SHELL_INIT))
+LMODRC_INIT               := $(patsubst %, $(PATH_TO_SRC)/init/%, lmodrc.lua)
+
 
 ZSH_FUNCS                 := _ml _module
 ZSH_FUNCS                 := $(patsubst %, $(PATH_TO_SRC)/init/zsh/%, $(ZSH_FUNCS))
@@ -108,8 +110,9 @@ endif
 all:
 	@echo done
 
-pre-install: $(DIRLIST) shell_init startup libexec spiderCacheSupport Inst_Tools \
-             Inst_Shells Inst_Settarg Inst_Lmod_MF $(PKGS) other_tools man_pages
+pre-install: $(DIRLIST) lmodrc_init shell_init startup libexec spiderCacheSupport \
+             Inst_Tools Inst_Shells Inst_Settarg Inst_Lmod_MF $(PKGS) other_tools \
+             man_pages
 
 install: pre-install  zsh_tab_funcs
 	$(MAKE) PKGV=$(PKG) shell_init
@@ -178,6 +181,9 @@ generate_doc:
 
 
 shell_init: $(SHELL_INIT)
+	$(MAKE) FILELIST="$^" DIRLOC=$(DESTDIR)$(INIT)    __installMe
+
+lmodrc_init: $(LMODRC_INIT)
 	$(MAKE) FILELIST="$^" DIRLOC=$(DESTDIR)$(INIT)    __installMe
 
 startup: $(STARTUP)
