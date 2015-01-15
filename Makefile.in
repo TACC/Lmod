@@ -55,7 +55,7 @@ LMOD_MF_SOURCE            := MF/*.version.lua
 SETTARG_SOURCE            := settarg/*.lua  settarg/targ.in
 
 DIRLIST		  	  := $(DESTDIR)$(LIBEXEC) $(DESTDIR)$(TOOLS) $(DESTDIR)$(SETTARG) \
-                             $(DESTDIR)$(SHELLS) $(DESTDIR)$(INIT) $(DESTDIR)$(LIB)       \
+                             $(DESTDIR)$(SHELLS)  $(DESTDIR)$(INIT)  $(DESTDIR)$(LIB)     \
                              $(DESTDIR)$(LMOD_MF) $(DESTDIR)$(MAN_PAGES)
 
 STANDALONE_PRGM   	  := src/lmod.in.lua src/addto.in.lua src/getmt.in.lua      \
