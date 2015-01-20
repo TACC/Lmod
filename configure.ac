@@ -188,6 +188,18 @@ AC_ARG_WITH(tcl,
     ALLOW_TCL_MFILES="$withval"
     AC_DEFINE_UNQUOTED(ALLOW_TCL_MFILES, "$withval"))dnl
 
+AC_SUBST(UGENT_RULE)
+AC_ARG_WITH(ugent,
+    AC_HELP_STRING([--with-ugent=ans],[Special U. Ghent rule: one name rule disabled [[NO]]]),
+    UGENT_RULE="$withval"
+    AC_MSG_RESULT([UGENT_RULE==$withval])
+    AC_DEFINE_UNQUOTED(UGENT_RULE, "$withval")dnl
+    ,
+    withval="no"
+    AC_MSG_RESULT([UGENT_RULE=$withval])
+    UGENT_RULE="$withval"
+    AC_DEFINE_UNQUOTED(UGENT_RULE, "$withval"))dnl
+
 AC_SUBST(MPATH_AVAIL)
 AC_ARG_WITH(mpathSearch,
     AC_HELP_STRING([--with-mpathSearch=ans],[include modulepath directory name in avail searching [[NO]]]),

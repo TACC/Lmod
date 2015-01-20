@@ -43,10 +43,14 @@ local posix        = require("posix")
 local getenv       = os.getenv
 local setenv_posix = posix.setenv
 
-local function initialize(lmod_name, sed_name)
+local function initialize(lmod_name, sed_name, defaultV)
+   local defaultV = defaultV or "no"
    local value = (getenv(lmod_name) or sed_name):lower()
    if (value:sub(1,1) == "@") then
-      value = "no"
+      value = defaultV
+   end
+   if (value ~= "no") then
+      value = "yes"
    end
    return value
 end
@@ -118,6 +122,13 @@ LMOD_REDIRECT = initialize("LMOD_REDIRECT", "@redirect@")
 ------------------------------------------------------------------------
 
 LMOD_SYSTEM_NAME = getenv("LMOD_SYSTEM_NAME")
+
+------------------------------------------------------------------------
+-- LMOD_UGENT_RULE: This env. var requires users to swap out rather than
+--                  using the one name rule. 
+------------------------------------------------------------------------
+
+LMOD_UGENT_RULE = initialize("LMOD_UGENT_RULE", "@ugent_rule@")
 
 ------------------------------------------------------------------------
 -- LMOD_AUTO_SWAP:  Swap instead of Error
