@@ -602,6 +602,7 @@ PATH_TO_TCLSH
 IGNORE_DIRS
 SETTARG
 MPATH_AVAIL
+UGENT_RULE
 ALLOW_TCL_MFILES
 PREPEND_BLOCK
 UPDATE_SYSTEM_FN
@@ -680,6 +681,7 @@ with_spiderCacheDescript
 with_updateSystemFn
 with_prependBlock
 with_tcl
+with_ugent
 with_mpathSearch
 with_settarg
 with_ignoreDirs
@@ -1332,6 +1334,7 @@ Optional Packages:
   --with-prependBlock=ans Treat multiple directories passed to prepend in
                           normal order/ not reversed [[NORMAL]]
   --with-tcl=ans          Allow TCL modulefiles [[YES]]
+  --with-ugent=ans        Special U. Ghent rule: one name rule disabled [[NO]]
   --with-mpathSearch=ans  include modulepath directory name in avail searching
                           [[NO]]
   --with-settarg=ans      startup files fully support settarg [[NO]]
@@ -2936,6 +2939,28 @@ $as_echo "ALLOW_TCL_MFILES=$withval" >&6; }
     ALLOW_TCL_MFILES="$withval"
     cat >>confdefs.h <<_ACEOF
 #define ALLOW_TCL_MFILES "$withval"
+_ACEOF
+
+fi
+
+
+
+# Check whether --with-ugent was given.
+if test "${with_ugent+set}" = set; then :
+  withval=$with_ugent; UGENT_RULE="$withval"
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: UGENT_RULE==$withval" >&5
+$as_echo "UGENT_RULE==$withval" >&6; }
+    cat >>confdefs.h <<_ACEOF
+#define UGENT_RULE "$withval"
+_ACEOF
+
+else
+  withval="no"
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: UGENT_RULE=$withval" >&5
+$as_echo "UGENT_RULE=$withval" >&6; }
+    UGENT_RULE="$withval"
+    cat >>confdefs.h <<_ACEOF
+#define UGENT_RULE "$withval"
 _ACEOF
 
 fi
