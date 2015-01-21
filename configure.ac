@@ -188,17 +188,17 @@ AC_ARG_WITH(tcl,
     ALLOW_TCL_MFILES="$withval"
     AC_DEFINE_UNQUOTED(ALLOW_TCL_MFILES, "$withval"))dnl
 
-AC_SUBST(UGENT_RULE)
-AC_ARG_WITH(ugent,
-    AC_HELP_STRING([--with-ugent=ans],[Special U. Ghent rule: one name rule disabled [[NO]]]),
-    UGENT_RULE="$withval"
-    AC_MSG_RESULT([UGENT_RULE==$withval])
-    AC_DEFINE_UNQUOTED(UGENT_RULE, "$withval")dnl
+AC_SUBST(DISABLE_NAME_AUTOSWAP)
+AC_ARG_WITH(disableNameAutoSwap,
+    AC_HELP_STRING([--with-disableNameAutoSwap=ans],[disable one name rule autoswapping [[NO]]]),
+    DISABLE_NAME_AUTOSWAP="$withval"
+    AC_MSG_RESULT([DISABLE_NAME_AUTOSWAP==$withval])
+    AC_DEFINE_UNQUOTED(DISABLE_NAME_AUTOSWAP, "$withval")dnl
     ,
     withval="no"
-    AC_MSG_RESULT([UGENT_RULE=$withval])
-    UGENT_RULE="$withval"
-    AC_DEFINE_UNQUOTED(UGENT_RULE, "$withval"))dnl
+    AC_MSG_RESULT([DISABLE_NAME_AUTOSWAP=$withval])
+    DISABLE_NAME_AUTOSWAP="$withval"
+    AC_DEFINE_UNQUOTED(DISABLE_NAME_AUTOSWAP, "$withval"))dnl
 
 AC_SUBST(MPATH_AVAIL)
 AC_ARG_WITH(mpathSearch,

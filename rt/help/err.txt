@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.8  2014-11-04 12:46
+Modules based on Lua: Version 5.8.2  2015-01-14 20:55
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -124,7 +124,7 @@ The following guides are at http://www.tacc.utexas.edu/tacc-projects/lmod
   User Guide                 - How to use.
   Advance User Guide         - How to create you own modules.
   System Administrator Guide - How to install Lmod on your own system.
-Modules based on Lua: Version 5.8  2014-11-04 12:46
+Modules based on Lua: Version 5.8.2  2015-01-14 20:55
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 3
@@ -246,7 +246,7 @@ The following guides are at http://www.tacc.utexas.edu/tacc-projects/lmod
   User Guide                 - How to use.
   Advance User Guide         - How to create you own modules.
   System Administrator Guide - How to install Lmod on your own system.
-Modules based on Lua: Version 5.8  2014-11-04 12:46
+Modules based on Lua: Version 5.8.2  2015-01-14 20:55
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 4
@@ -266,7 +266,7 @@ Version 9
 step 5
 lua ProjectDIR/src/lmod.in.lua bash --config
 ===========================
-Modules based on Lua: Version 5.8  2014-11-04 12:46
+Modules based on Lua: Version 5.8.2  2015-01-14 20:55
     by Robert McLay mclay@tacc.utexas.edu
 Description                    Value
 Allow TCL modulefiles          @allow_tcl_mfiles@
@@ -274,6 +274,7 @@ User cache valid time(sec)     @ancient@
 Auto swapping                  @auto_swap@
 Case Independent Sorting       @case_independent_sorting@
 Colorize Lmod                  @colorize@
+Disable Same Name AutoSwap     no
 Using dotfiles                 @use_dot_files@
 Allow duplicate paths          @duplicate_paths@
 Export the module command      @export_module@

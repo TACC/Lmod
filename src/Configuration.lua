@@ -109,6 +109,7 @@ local function new(self)
    local adminFn, readable = findAdminFn()
    local activeTerm        = haveTermSupport() and "true" or colorize("red","false")
    local case_ind_sorting  = LMOD_CASE_INDEPENDENT_SORTING
+   local disable1N         = LMOD_DISABLE_SAME_NAME_AUTOSWAP
 
    local tbl = {}
    tbl.prefix     = { k = "Lmod prefix"                   , v = "@PREFIX@",             }
@@ -121,6 +122,7 @@ local function new(self)
    tbl.numSC      = { k = "number of cache dirs"          , v = numSC,                  }
    tbl.lmodV      = { k = "Lmod version"                  , v = lmod_version,           }
    tbl.autoSwap   = { k = "Auto swapping"                 , v = "@auto_swap@",          }
+   tbl.disable1N  = { k = "Disable Same Name AutoSwap"    , v = disable1N,              }
    tbl.expMCmd    = { k = "Export the module command"     , v = "@export_module@",      }
    tbl.ancient    = { k = "User cache valid time(sec)"    , v = "@ancient@",            }
    tbl.short_tm   = { k = "Write cache after (sec)"       , v = "@short_time@",         }

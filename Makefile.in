@@ -24,7 +24,7 @@ ANCIENT           	  := @ANCIENT@
 ALLOW_TCL_MFILES          := @ALLOW_TCL_MFILES@
 MPATH_AVAIL               := @MPATH_AVAIL@
 DUPLICATE_PATHS           := @DUPLICATE_PATHS@
-UGENT_RULE                := @UGENT_RULE@
+DISABLE_NAME_AUTOSWAP     := @DISABLE_NAME_AUTOSWAP@
 SHORT_TIME        	  := @SHORT_TIME@
 AUTO_SWAP        	  := @AUTO_SWAP@
 SPIDER_CACHE_DIRS 	  := @SPIDER_CACHE_DIRS@
@@ -151,7 +151,7 @@ __installMe:
                 -e 's|--@ignore_dirs@--|$(IGNORE_DIRS)|g'                         \
                 -e 's|@have_lua_term@|$(HAVE_LUA_TERM)|g'                  	  \
                 -e 's|@have_lua_json@|$(HAVE_LUA_JSON)|g'                  	  \
-                -e 's|@ugent_rule@|$(UGENT_RULE)|g'                  	  \
+                -e 's|@disable_name_autoswap@|$(DISABLE_NAME_AUTOSWAP)|g'     	  \
 	        -e 's|@redirect@|$(REDIRECT)|g'                       	   	  \
 	        -e 's|@orig_ld_library_path@|$(ORIG_LD_LIBRARY_PATH)|g'           \
 	        -e 's|@auto_swap@|$(AUTO_SWAP)|g'                      	   	  \

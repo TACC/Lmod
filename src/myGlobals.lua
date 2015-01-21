@@ -124,11 +124,12 @@ LMOD_REDIRECT = initialize("LMOD_REDIRECT", "@redirect@")
 LMOD_SYSTEM_NAME = getenv("LMOD_SYSTEM_NAME")
 
 ------------------------------------------------------------------------
--- LMOD_UGENT_RULE: This env. var requires users to swap out rather than
---                  using the one name rule. 
+-- LMOD_DISABLE_SAME_NAME_AUTOSWAP: This env. var requires users to swap
+--                  out rather than using the one name rule. 
 ------------------------------------------------------------------------
 
-LMOD_UGENT_RULE = initialize("LMOD_UGENT_RULE", "@ugent_rule@")
+LMOD_DISABLE_SAME_NAME_AUTOSWAP = initialize("LMOD_DISABLE_SAME_NAME_AUTOSWAP",
+                                             "@disable_name_autoswap@")
 
 ------------------------------------------------------------------------
 -- LMOD_AUTO_SWAP:  Swap instead of Error

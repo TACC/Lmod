@@ -602,7 +602,7 @@ PATH_TO_TCLSH
 IGNORE_DIRS
 SETTARG
 MPATH_AVAIL
-UGENT_RULE
+DISABLE_NAME_AUTOSWAP
 ALLOW_TCL_MFILES
 PREPEND_BLOCK
 UPDATE_SYSTEM_FN
@@ -681,7 +681,7 @@ with_spiderCacheDescript
 with_updateSystemFn
 with_prependBlock
 with_tcl
-with_ugent
+with_disableNameAutoSwap
 with_mpathSearch
 with_settarg
 with_ignoreDirs
@@ -1334,7 +1334,8 @@ Optional Packages:
   --with-prependBlock=ans Treat multiple directories passed to prepend in
                           normal order/ not reversed [[NORMAL]]
   --with-tcl=ans          Allow TCL modulefiles [[YES]]
-  --with-ugent=ans        Special U. Ghent rule: one name rule disabled [[NO]]
+  --with-disableNameAutoSwap=ans
+                          disable one name rule autoswapping [[NO]]
   --with-mpathSearch=ans  include modulepath directory name in avail searching
                           [[NO]]
   --with-settarg=ans      startup files fully support settarg [[NO]]
@@ -2945,22 +2946,22 @@ fi
 
 
 
-# Check whether --with-ugent was given.
-if test "${with_ugent+set}" = set; then :
-  withval=$with_ugent; UGENT_RULE="$withval"
-    { $as_echo "$as_me:${as_lineno-$LINENO}: result: UGENT_RULE==$withval" >&5
-$as_echo "UGENT_RULE==$withval" >&6; }
+# Check whether --with-disableNameAutoSwap was given.
+if test "${with_disableNameAutoSwap+set}" = set; then :
+  withval=$with_disableNameAutoSwap; DISABLE_NAME_AUTOSWAP="$withval"
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: DISABLE_NAME_AUTOSWAP==$withval" >&5
+$as_echo "DISABLE_NAME_AUTOSWAP==$withval" >&6; }
     cat >>confdefs.h <<_ACEOF
-#define UGENT_RULE "$withval"
+#define DISABLE_NAME_AUTOSWAP "$withval"
 _ACEOF
 
 else
   withval="no"
-    { $as_echo "$as_me:${as_lineno-$LINENO}: result: UGENT_RULE=$withval" >&5
-$as_echo "UGENT_RULE=$withval" >&6; }
-    UGENT_RULE="$withval"
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: DISABLE_NAME_AUTOSWAP=$withval" >&5
+$as_echo "DISABLE_NAME_AUTOSWAP=$withval" >&6; }
+    DISABLE_NAME_AUTOSWAP="$withval"
     cat >>confdefs.h <<_ACEOF
-#define UGENT_RULE "$withval"
+#define DISABLE_NAME_AUTOSWAP "$withval"
 _ACEOF
 
 fi
@@ -4710,6 +4711,7 @@ echo "Have lua-term..............................." : $HAVE_LUA_TERM
 echo "Have lua-json..............................." : $HAVE_LUA_JSON
 echo "Support Auto Swap when using families......." : $AUTO_SWAP
 echo "Export the module shell function in Bash...." : $EXPORT_MODULE
+echo "Disable same name autoswapping.............." : $DISABLE_NAME_AUTOSWAP
 
 echo
 echo '------------------------------------------------------------------------------'

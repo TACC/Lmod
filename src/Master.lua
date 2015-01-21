@@ -421,13 +421,12 @@ function M.load(mA)
       if (mt:have(sn,"active")) then
          dbg.print{"Master:load reload module: \"",moduleName,
                    "\" as it is already loaded\n"}
-         dbg.print{"LMOD_UGENT_RULE: ",LMOD_UGENT_RULE,"\n"}
-         if (LMOD_UGENT_RULE == "yes") then
+         if (LMOD_DISABLE_SAME_NAME_AUTOSWAP == "yes") then
             LmodError("Your site prevents the automatic\n",
                       "unloading modules with same name. To continue you must execute:\n\n",
                       "   $ module unload ",sn,"\n\n",
                       "or you can use the full power of Lmod and set the ",
-                      "environment variable\nLMOD_UGENT_RULE to \"no\""
+                      "environment variable\nLMOD_DISABLE_SAME_NAME_AUTOSWAP to \"no\""
             )
          end
 
