@@ -423,10 +423,13 @@ function M.load(mA)
                    "\" as it is already loaded\n"}
          if (LMOD_DISABLE_SAME_NAME_AUTOSWAP == "yes") then
             LmodError("Your site prevents the automatic\n",
-                      "unloading modules with same name. To continue you must execute:\n\n",
-                      "   $ module unload ",sn,"\n\n",
-                      "or you can use the full power of Lmod and set the ",
-                      "environment variable\nLMOD_DISABLE_SAME_NAME_AUTOSWAP to \"no\""
+                      "swapping of modules with same name.  You must explicitly unload the\n",
+                      "loaded version of \"",sn,"\" before you can load the new one. \n",
+                      "Use swap (or an unload followed by a load) to do this:\n\n",
+                      "   $ module swap ",sn," ",moduleName,"\n",
+                      "\nAlternatively, you can set the environment variable",
+                      "\nLMOD_DISABLE_SAME_NAME_AUTOSWAP to \"no\" to re-enable\n",
+                      "same name autoswapping.\n"
             )
          end
 
