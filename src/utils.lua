@@ -125,6 +125,73 @@ end
 pack     = (_VERSION == "Lua 5.1") and argsPack or table.pack
 
 
+function buildMsg(width, ... )
+   local arg = pack(...)
+   local a   = {}
+   local len = 0
+
+   for idx = 1, arg.n do
+      local block  = arg[idx]
+      local done   = false
+      while (not done) do
+         local hasNL  = false
+         local ja, jb = block:find("\n")
+         local line
+         if (ja) then
+            hasNL = true
+            line  = block:sub(1,ja-1)
+            block = block:sub(ja+1,-1)
+         else
+            done  = true
+            line  = block
+         end
+
+         if (#a > 0 and line:sub(1,1) == '"' and a[#a] == " ") then
+            a[#a] = nil
+         end
+
+         local i,j, lBlnks = line:find("^( +)")
+         local rest        = line
+         if (i) then
+            a[#a+1] = lBlnks
+            len     = len + lBlnks:len()
+            rest    = line:sub(j+1,-1) 
+         end
+         
+         for word in rest:split(" +") do
+            local wlen = word:len()
+            if (wlen + len >= width) then
+               a[#a]     = "\n"
+               len       = 0
+            end
+            if (wlen > 0) then
+               a[#a + 1] = word
+               a[#a + 1] = " "
+            end
+            len = len + wlen + 1
+         end
+         if (hasNL) then
+            local jc = #a+1
+            if (a[#a] == " ") then
+               jc = #a
+            end
+            a[jc] = "\n"
+            len   = 0
+         end
+         if (a[#a] == " ") then
+            a[#a] = nil
+         end
+         local last = a[#a]:sub(-1)
+         if (last ~= '"' and last ~= "\n") then
+            a[#a + 1] = " "
+         end
+      end
+   end
+
+   return concatTbl(a,"")
+end
+
+
 --------------------------------------------------------------------------
 -- This function builds the "epoch" function.
 -- The epoch function returns the number of seconds since
@@ -860,6 +927,10 @@ function setenv_lmod_version()
       setenv_posix(nameA[i],numA[i] or "0", true)
    end
 end
+
+
+
+
 
 
 --------------------------------------------------------------------------

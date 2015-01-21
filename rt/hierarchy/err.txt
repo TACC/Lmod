@@ -2,28 +2,28 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.8  2014-11-04 12:46
+Modules based on Lua: Version 5.8.2  2015-01-14 20:55
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
 lua ProjectDIR/src/lmod.in.lua bash load parmetis
 ===========================
-Lmod has detected the following error: 
-These module(s) exist but cannot be loaded as requested: "parmetis"
+Lmod has detected the following error: These module(s) exist but cannot be
+loaded as requested: "parmetis"
    Try: "module spider parmetis" to see how to load the module(s).
 ===========================
 step 3
 lua ProjectDIR/src/lmod.in.lua bash load parmetis/4.0.3
 ===========================
-Lmod has detected the following error: 
-These module(s) exist but cannot be loaded as requested: "parmetis/4.0.3"
+Lmod has detected the following error: These module(s) exist but cannot be
+loaded as requested: "parmetis/4.0.3"
    Try: "module spider parmetis/4.0.3" to see how to load the module(s).
 ===========================
 step 4
 lua ProjectDIR/src/lmod.in.lua bash load parmetis/11.0
 ===========================
-Lmod has detected the following error: 
-The following module(s) are unknown: "parmetis/11.0"
+Lmod has detected the following error: The following module(s) are unknown:
+"parmetis/11.0"
    Please check the spelling or version number. Also try "module spider ..."
 ===========================
 step 5
@@ -101,10 +101,11 @@ lua ProjectDIR/src/lmod.in.lua bash unload fbr
 step 16
 lua ProjectDIR/src/lmod.in.lua bash load clang
 ===========================
-Lmod has detected the following error: You can only have one compiler module loaded at a time.
-You already have gcc loaded.
+Lmod has detected the following error: You can only have one compiler  module
+loaded at a time.
+You already have gcc  loaded.
 To correct the situation, please enter the following command:
-  module swap gcc clang/4.2.1
+  module swap gcc  clang/4.2.1
 Please submit a consulting ticket if you require additional assistance.
 While processing the following module(s):
 Module fullname  Module Filename

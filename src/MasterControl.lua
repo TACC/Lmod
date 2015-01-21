@@ -132,14 +132,14 @@ function M.mustLoad()
       local a = {}
 
       if (#uA > 0) then
-         a[#a+1] = "\nThe following module(s) are unknown: "
+         a[#a+1] = "The following module(s) are unknown: "
          a[#a+1] = concatTbl(uA, " ")
          a[#a+1] = "\n\n   Please check the spelling or version number. "
          a[#a+1] = "Also try \"module spider ...\"\n"
       end
 
       if (#kA > 0) then
-         a[#a+1] = "\nThese module(s) exist but cannot be loaded as requested: "
+         a[#a+1] = "These module(s) exist but cannot be loaded as requested: "
          a[#a+1] = concatTbl(kA,", ")
          a[#a+1] = "\n\n   Try: \"module spider "
          a[#a+1] = concatTbl(kB, " ")
@@ -733,12 +733,11 @@ end
 --------------------------------------------------------------------------
 -- Print msgs, traceback then exit.
 function LmodSystemError(...)
-   io.stderr:write("\n", colorize("red", "Lmod has detected the following error: "))
-   local arg = pack(...)
-   for i = 1, arg.n do
-      io.stderr:write(tostring(arg[i]))
-   end
-   io.stderr:write("\n")
+   local label  = colorize("red", "Lmod has detected the following error: ")
+   local twidth = TermWidth()
+   local s      = buildMsg(twidth, label, ...)
+   
+   io.stderr:write(s,"\n")
    moduleStackTraceBack()
    LmodErrorExit()
 end

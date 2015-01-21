@@ -422,14 +422,14 @@ function M.load(mA)
          dbg.print{"Master:load reload module: \"",moduleName,
                    "\" as it is already loaded\n"}
          if (LMOD_DISABLE_SAME_NAME_AUTOSWAP == "yes") then
-            LmodError("Your site prevents the automatic\n",
-                      "swapping of modules with same name.  You must explicitly unload the\n",
-                      "loaded version of \"",sn,"\" before you can load the new one. \n",
-                      "Use swap (or an unload followed by a load) to do this:\n\n",
-                      "   $ module swap ",sn," ",moduleName,"\n",
-                      "\nAlternatively, you can set the environment variable",
-                      "\nLMOD_DISABLE_SAME_NAME_AUTOSWAP to \"no\" to re-enable\n",
-                      "same name autoswapping.\n"
+            LmodError("Your site prevents the automatic swapping of modules with same name.",
+                      "You must explicitly unload the loaded version of \"",sn,"\" before",
+                      "you can load the new one. Use swap (or an unload followed by a load)",
+                      "to do this:\n\n",
+                      "   $ module swap ",sn," ",moduleName,"\n\n",
+                      "Alternatively, you can set the environment variable",
+                      "LMOD_DISABLE_SAME_NAME_AUTOSWAP to \"no\" to re-enable",
+                      "same name autoswapping."
             )
          end
 
