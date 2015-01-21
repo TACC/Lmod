@@ -424,8 +424,8 @@ function M.load(mA)
          dbg.print{"LMOD_UGENT_RULE: ",LMOD_UGENT_RULE,"\n"}
          if (LMOD_UGENT_RULE == "yes") then
             LmodError("Your site prevents the automatic\n",
-                      "unloading modules with same name. To continue you must\n\n",
-                      "   module unload ",moduleName,"\n\n",
+                      "unloading modules with same name. To continue you must execute:\n\n",
+                      "   $ module unload ",sn,"\n\n",
                       "or you can use the full power of Lmod and set the ",
                       "environment variable\nLMOD_UGENT_RULE to \"no\""
             )
