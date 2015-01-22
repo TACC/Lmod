@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.5.2 5.5.2-1-g267c89a 2014-05-16 10:27
+Modules based on Lua: Version 5.8.2  2015-01-14 20:55
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -22,7 +22,8 @@ step 5
 lua ProjectDIR/src/lmod.in.lua bash restore
 ===========================
 Restoring modules to user's default
-Lmod Warning: The system MODULEPATH has changed: Please rebuild your saved collection.
+Lmod Warning: The system MODULEPATH has changed: Please rebuild your saved
+collection.
 Resetting modules to system default
 The system default contains no modules
   (env var: LMOD_SYSTEM_DEFAULT_MODULES is empty)
@@ -31,9 +32,9 @@ step 6
 lua ProjectDIR/src/lmod.in.lua bash purge
 ===========================
 Lmod Warning: The environment MODULEPATH has been changed in unexpected ways.
-Lmod is unable to use given MODULEPATH. It is using: 
+Lmod is unable to use given MODULEPATH. It is using:
     "ProjectDIR/rt/changeMPATH/mf/Core:ProjectDIR/mf/Core".
-Please use "module use ..." to change MODULEPATH instead.
+Please use "module use ..." to change MODULEPATH instead. 
 ===========================
 step 7
 lua ProjectDIR/src/lmod.in.lua bash use ProjectDIR/rt/changeMPATH/mf/Core

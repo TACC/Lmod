@@ -755,12 +755,10 @@ end
 -- @param self A MasterControl object.
 function M.warning(self, ...)
    if (not quiet() and  haveWarnings()) then
-      io.stderr:write("\n",colorize("red", "Lmod Warning: "))
-      local arg = pack(...)
-      for i = 1, arg.n do
-         io.stderr:write(tostring(arg[i]))
-      end
-      io.stderr:write("\n")
+      local label  = colorize("red", "Lmod Warning: ")
+      local twidth = TermWidth()
+      local s      = buildMsg(twidth, label, ...)
+      io.stderr:write(s,"\n")
       moduleStackTraceBack()
       setWarningFlag()
    end

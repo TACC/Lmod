@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.5.2 5.5.2-5-gfd8f688 2014-05-16 10:27
+Modules based on Lua: Version 5.8.2  2015-01-14 20:55
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -44,9 +44,9 @@ step 5
 lua ProjectDIR/src/lmod.in.lua bash avail
 ===========================
 Lmod Warning: The environment MODULEPATH has been changed in unexpected ways.
-Lmod is unable to use given MODULEPATH. It is using: 
+Lmod is unable to use given MODULEPATH. It is using:
     "ProjectDIR/rt/mpath/mf/Core".
-Please use "module use ..." to change MODULEPATH instead.
+Please use "module use ..." to change MODULEPATH instead. 
 ProjectDIR/rt/mpath/mf/Core
    git/1.8.2    git/1.8.4    git/1.8.5 (D)
   Where:
