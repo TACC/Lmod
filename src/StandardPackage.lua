@@ -82,11 +82,14 @@ local function msg(kind, a)
    local twidth = TermWidth()
 
    local s      = msgT[kind] or ""
-   for line in s:split("\n") do
+   if (s:len() > 0) then
+      for line in s:split("\n") do
+         a[#a+1] = "\n"
+         a[#a+1] = line:fillWords("",twidth)
+      end
       a[#a+1] = "\n"
-      a[#a+1] = line:fillWords("",twidth)
    end
-   a[#a+1] = "\n\n"
+   a[#a+1] = "\n"
    return a
 end
 

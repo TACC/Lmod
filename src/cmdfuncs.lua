@@ -256,9 +256,11 @@ function List(...)
    if (kk == 0) then
       b[#b+1] = "  None found.\n"
    else
-      local ct = ColumnTable:new{tbl=a, gap=0, len=length}
-      b[#b+1] = ct:build_tbl()
-      b[#b+1] = "\n"
+      if (#a > 0) then
+         local ct = ColumnTable:new{tbl=a, gap=0, len=length}
+         b[#b+1] = ct:build_tbl()
+         b[#b+1] = "\n"
+      end
    end
 
    if (next(legendT)) then
