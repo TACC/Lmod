@@ -272,7 +272,7 @@ function List(...)
       end
       local bt = BeautifulTbl:new{tbl=a, column = term_width-1}
       b[#b+1] = bt:build_tbl()
-      b[#b+1] = "\n"
+      b[#b+1] = "(4)\n"
    end
    a = {}
    kk = 0
@@ -305,6 +305,7 @@ function List(...)
    if (#aa > 0) then
       b[#b+1] = concatTbl(aa,"")
    end
+
    shell:echo(concatTbl(b,""))
    dbg.fini("List")
 end

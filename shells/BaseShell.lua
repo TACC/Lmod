@@ -182,6 +182,9 @@ function M.echo(self, ...)
       local arg = pack(...)
       for i = 1, arg.n do
          local whole=arg[i]
+         if (whole:sub(-1) == "\n") then
+            whole = whole:sub(1,-2)
+         end
          for line in whole:split("\n") do
             line = line:gsub("'","'\"'\"'"):gsub(" ","' '")
             io.stdout:write("echo '",line,"';\n")

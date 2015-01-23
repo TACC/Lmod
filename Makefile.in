@@ -64,7 +64,8 @@ STANDALONE_PRGM   	  := src/lmod.in.lua src/addto.in.lua src/getmt.in.lua      \
                              src/processModuleUsage.in.lua src/reportUsers.in.lua   \
                              src/clearMT_cmd.in.lua src/ml_cmd.in.lua               \
                              src/spiderCacheSupport.in.lua                          \
-                             src/sh_to_modulefile.in.lua
+                             src/sh_to_modulefile.in.lua                            \
+                             src/ignore_dirs_converter
 STANDALONE_PRGM           := $(patsubst %, $(PATH_TO_SRC)/%, $(STANDALONE_PRGM))
 SHELL_INIT	  	  := bash.in csh.in ksh.in tcsh.in zsh.in sh.in perl.in     \
                              env_modules_python.py.in lmod_bash_completions
