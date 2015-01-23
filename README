@@ -1,4 +1,4 @@
-Lmod Version 5.8.3
+Lmod Version 5.8.4
 Features/Bug fixes:
    a) Fixed bug where the system spider cache was ignored.  This bug
       was introduced in 5.8.  It is fixed now.
@@ -7,7 +7,7 @@ Features/Bug fixes:
    c) Removed extra newlines when doing module list.
    d) Correctly handle symlink directories with MODULEPATH.
    e) Improved Spider support where module names have "-"
-   
+   f) Fixed problem where lmodrc.lua was left out in tar ball.
 
 
 Lmod Version 5.8

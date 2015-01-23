@@ -252,7 +252,7 @@ _distPkgs:
 
 _distSetup:
 	mkdir $(DistD)/init
-	cp $(SHELL_INIT) $(STARTUP) $(DistD)/init
+	cp $(SHELL_INIT) $(STARTUP) $(LMODRC_INIT) $(DistD)/init
 
 _distSetupZsh:
 	mkdir $(DistD)/init/zsh
