@@ -27,7 +27,8 @@ testdescript = {
      HOME=`/bin/pwd`
 
 
-     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d build
+     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d build 
+     rm -f  results.csv
 
      runLmod --version              # 1
      LmodV=`$LUA_EXEC $projectDir/src/lmod.in.lua bash --dumpversion 2>&1`
@@ -37,8 +38,15 @@ testdescript = {
      rm -rf $projectDir/Lmod-$LmodV.tar.bz2
      mkdir build; cd build; ../Lmod-$LmodV/configure --prefix=`pwd`/..;
      make install
-     echo status: $?
+     status=$?
+
      cd $outputDir
+     echo status: $status
+     if [ $status -eq 0 ]; then
+        echo "passed, make" >> results.csv
+     else
+        echo "diff, make"   >> results.csv
+     fi
 
 
      LMOD_EXEC=$outputDir/lmod/lmod/libexec/lmod
@@ -55,10 +63,9 @@ testdescript = {
      cat _stderr.[0-9][0-9] > _stderr.orig
      cleanUp _stderr.orig err.txt
 
-     rm -f $(cmdResultFn)
-     wrapperDiff -r $(cmdResultFn) $(testDir)/out.txt out.txt
-     wrapperDiff -r $(cmdResultFn) $(testDir)/err.txt err.txt
-     testFinish -r $(resultFn) -t $(runtimeFn) $(cmdResultFn)
+     wrapperDiff --csv results.csv $(testDir)/out.txt out.txt
+     wrapperDiff --csv results.csv $(testDir)/err.txt err.txt
+     testFinish -r $(resultFn) -t $(runtimeFn) results.csv
    ]],
 
 
