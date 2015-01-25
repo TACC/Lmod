@@ -52,8 +52,8 @@ SETTARG                   := $(prefix)/$(package)/$(version)/settarg
 INIT		  	  := $(prefix)/$(package)/$(version)/init
 LMOD_MF 	  	  := $(prefix)/$(package)/$(version)/modulefiles/Core
 MAN_PAGES                 := $(prefix)/$(package)/$(version)/share/man/cat1
-LMOD_MF_SOURCE            := MF/*.version.lua
-SETTARG_SOURCE            := settarg/*.lua  settarg/targ.in
+LMOD_MF_SOURCE            := $(patsubst %, $(PATH_TO_SRC)/%, MF/*.version.lua)
+SETTARG_SOURCE            := $(patsubst %, $(PATH_TO_SRC)/%, settarg/*.lua  settarg/targ.in)
 
 DIRLIST		  	  := $(DESTDIR)$(LIBEXEC) $(DESTDIR)$(TOOLS) $(DESTDIR)$(SETTARG) \
                              $(DESTDIR)$(SHELLS)  $(DESTDIR)$(INIT)  $(DESTDIR)$(LIB)     \
