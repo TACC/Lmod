@@ -88,7 +88,7 @@ case $SYSHOST in
     fi
     ;;
 
-  ls4 | maverick | stampede)
+  ls4 | maverick | stampede | wrangler)
     base="$HOME/l/pkg"
     ADMIN_DIR="$HOME/a/moduleData"
     UPDATE_FN=$ADMIN_DIR/system.txt
