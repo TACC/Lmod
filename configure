@@ -594,6 +594,7 @@ HAVE_LUA_TERM
 luaprog
 ORIG_LD_LIBRARY_PATH
 pager
+PATH_TO_SRC
 PATH_TO_HASHSUM
 PATH_TO_GIT
 PATH_TO_LUA
@@ -3039,6 +3040,7 @@ fi
 
 
 
+
 # Extract the first word of "git", so it can be a program name with args.
 set dummy git; ac_word=$2
 { $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
@@ -3281,12 +3283,15 @@ done
 
 printf "checking for valid Lua version"
 
+SRCDIR=$( cd $srcdir; pwd)
+PATH_TO_SRC=$SRCDIR
+export LUA_PATH="${SRCDIR}/src/?.lua;$LUA_PATH;;"
 LuaV=$( $luaprog -e 'print(_VERSION)' | sed -e 's/Lua //' )
-LmodV=$( $luaprog  -e 'v=require("src/Version"); s=v.name():gsub(" .*","");print(s)')
+LmodV=$( $luaprog  -e "v=require('Version'); s=v.name():gsub(' .*','');print(s)")
 if test -n "$PATH_TO_GIT" -a -d .git ; then
   lmodV=$($PATH_TO_GIT describe)
 else
-  lmodV=$($luaprog -e 'v=require("src/Version"); s=v.git():gsub(" .*","");print(s)')
+  lmodV=$($luaprog -e "v=require('Version'); s=v.git():gsub(' .*','');print(s)")
 fi
 
 IntLuaV=$( $luaprog  -e "_,_,M,m=_VERSION:gsub('Lua%s+',''):find('(%d+)%.(%d)'); print(M*1000+m)")

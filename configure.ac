@@ -243,6 +243,7 @@ AC_SUBST(PATH_TO_PAGER)
 AC_SUBST(PATH_TO_LUA)
 AC_SUBST(PATH_TO_GIT)
 AC_SUBST(PATH_TO_HASHSUM)
+AC_SUBST(PATH_TO_SRC)
 AC_PATH_PROG(PATH_TO_GIT, git, "")
 AC_PATH_PROG(PATH_TO_TCLSH, tclsh, [/usr/bin/env tclsh])
 AC_PATH_PROGS(PATH_TO_HASHSUM, [sha1sum] [md5sum], "")
@@ -280,12 +281,15 @@ done
 
 printf "checking for valid Lua version"
 
+SRCDIR=$( cd $srcdir; pwd)
+PATH_TO_SRC=$SRCDIR
+export LUA_PATH="${SRCDIR}/src/?.lua;$LUA_PATH;;"
 LuaV=$( $luaprog -e 'print(_VERSION)' | sed -e 's/Lua //' )
-LmodV=$( $luaprog  -e 'v=require("src/Version"); s=v.name():gsub(" .*","");print(s)')
+LmodV=$( $luaprog  -e "v=require('Version'); s=v.name():gsub(' .*','');print(s)")
 if test -n "$PATH_TO_GIT" -a -d .git ; then
   lmodV=$($PATH_TO_GIT describe)
 else
-  lmodV=$($luaprog -e 'v=require("src/Version"); s=v.git():gsub(" .*","");print(s)')
+  lmodV=$($luaprog -e "v=require('Version'); s=v.git():gsub(' .*','');print(s)")
 fi
 
 IntLuaV=$( $luaprog  -e "_,_,M,m=_VERSION:gsub('Lua%s+',''):find('(%d+)%.(%d)'); print(M*1000+m)")

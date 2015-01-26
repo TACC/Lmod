@@ -1,15 +1,15 @@
 -- -*- lua -*-
-local testName = "rmap"
+local testName = "end2end"
 
 testdescript = {
    owner   = "rtm",
    product = "modules",
    description = [[
-	 Test always_load, always_unload
+	 end to end test
    ]],
-   keywords = {testName },
+   keywords = {testName, },
 
-   active   = true,
+   active = 1,
    testName = testName,
    job_submit_method = "INTERACTIVE",
 
@@ -19,22 +19,41 @@ testdescript = {
 
      unsetMT
      initStdEnvVars
-     export MODULEPATH_ROOT=$(testDir)/mf
+     export MODULEPATH_ROOT=$(projectDir)/mf
      export MODULEPATH=$MODULEPATH_ROOT/Core
-     export APPS_DIR=$(testDir)/apps
-
      numStep=0
      COUNT=0
      ORIG_HOME=`(cd $HOME; /bin/pwd)`
      HOME=`/bin/pwd`
 
 
-     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d
+     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d build 
+     rm -f  results.csv
 
-     runLmod --version                     # 1
-     mkdir -p $HOME/.lmod.d/.cache
-     runBase buildRmapT $MODULEPATH        # 2
-     runLmod spider                        # 3
+     runLmod --version              # 1
+     LmodV=`$LUA_EXEC $projectDir/src/lmod.in.lua bash --dumpversion 2>&1`
+     echo LmodV=$LmodV
+     (cd $projectDir; make dist)
+     tar xf $projectDir/Lmod-$LmodV.tar.bz2
+     rm -rf $projectDir/Lmod-$LmodV.tar.bz2
+     mkdir build; cd build; ../Lmod-$LmodV/configure --prefix=`pwd`/..;
+     make install
+     status=$?
+
+     cd $outputDir
+     echo status: $status
+     if [ $status -eq 0 ]; then
+        echo "passed, make" >> results.csv
+     else
+        echo "diff, make"   >> results.csv
+     fi
+
+
+     LMOD_EXEC=$outputDir/lmod/lmod/libexec/lmod
+
+     runMe $LMOD_EXEC --version
+     runMe $LMOD_EXEC load admin
+     runMe $LMOD_EXEC list
 
      HOME=$ORIG_HOME
      cat _stdout.[0-9][0-9] > _stdout.orig
@@ -44,7 +63,6 @@ testdescript = {
      cat _stderr.[0-9][0-9] > _stderr.orig
      cleanUp _stderr.orig err.txt
 
-     rm -f results.csv
      wrapperDiff --csv results.csv $(testDir)/out.txt out.txt
      wrapperDiff --csv results.csv $(testDir)/err.txt err.txt
      testFinish -r $(resultFn) -t $(runtimeFn) results.csv

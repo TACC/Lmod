@@ -33,10 +33,10 @@ testdescript = {
      joinBase64Results  -bash  _stdout.orig _stdout.new
      cleanUp _stdout.new out.txt
 
-     rm -f $(cmdResultFn)
-     wrapperDiff -r $(cmdResultFn) $(testDir)/out.txt out.txt
-     wrapperDiff -r $(cmdResultFn) $(testDir)/err.txt err.txt
-     testFinish -r $(resultFn) -t $(runtimeFn) $(cmdResultFn)
+     rm -f results.csv
+     wrapperDiff --csv results.csv $(testDir)/out.txt out.txt
+     wrapperDiff --csv results.csv $(testDir)/err.txt err.txt
+     testFinish -r $(resultFn) -t $(runtimeFn) results.csv
    ]],
 
 

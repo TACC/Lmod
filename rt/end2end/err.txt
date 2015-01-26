@@ -1,0 +1,22 @@
+===========================
+step 1
+lua ProjectDIR/src/lmod.in.lua bash --version
+===========================
+Modules based on Lua: Version 5.8.5  2015-01-23 15:54
+    by Robert McLay mclay@tacc.utexas.edu
+===========================
+step 2
+OutputDIR/lmod/lmod/libexec/lmod --version
+===========================
+Modules based on Lua: Version 5.8.5 (5.8.5-1-g201a61d) 2015-01-23 15:54
+    by Robert McLay mclay@tacc.utexas.edu
+===========================
+step 3
+OutputDIR/lmod/lmod/libexec/lmod load admin
+===========================
+===========================
+step 4
+OutputDIR/lmod/lmod/libexec/lmod list
+===========================
+Currently Loaded Modules:
+  1) admin/admin-1.0
