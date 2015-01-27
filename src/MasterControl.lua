@@ -852,9 +852,7 @@ function M.conflict(self, mA)
    --   local sn      = mname:sn()
    --   local version = extractVersion(v, sn)
    --   local found   = false
-   --   dbg.print{"sn: ",sn,", usrName: ",v,", version: ",version,"\n"}
    --   if (version) then
-   --      dbg.print{"usrName: ",v,", fullName: ",mt:fullName(sn),"\n"}
    --      found = mt:fullName(sn) == mname:usrName()
    --   else
    --      found = mt:have(sn,"active")
