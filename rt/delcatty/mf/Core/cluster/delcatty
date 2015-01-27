@@ -1,0 +1,24 @@
+#%Module
+
+proc ModulesHelp { } {
+        puts stderr "\tLoads the environment for delcatty - UGent cluster\n"
+}
+
+module-whatis    Loads the environment for delcatty - UGent cluster
+
+conflict	cluster/delcatty
+
+set institutelocal gent
+set institutecluster delcatty
+set archlocal sandybridge
+set oslocal SL6
+
+setenv VSC_INSTITUTE_LOCAL $institutelocal
+setenv VSC_INSTITUTE_CLUSTER $institutecluster
+setenv VSC_ARCH_LOCAL $archlocal
+setenv VSC_OS_LOCAL $oslocal
+
+prepend-path MODULEPATH /apps/$institutelocal/$oslocal/$archlocal/modules/all
+
+setenv PBS_DEFAULT master15.delcatty.gent.vsc
+

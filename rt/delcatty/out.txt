@@ -1,0 +1,32 @@
+===========================
+step 1
+lua ProjectDIR/src/lmod.in.lua bash --version
+===========================
+===========================
+step 2
+lua ProjectDIR/src/lmod.in.lua bash load cluster/delcatty
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/delcatty/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/delcatty/mf/Core";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/delcatty/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+LOADEDMODULES="cluster/delcatty";
+export LOADEDMODULES;
+MODULEPATH="/apps/gent/SL6/sandybridge/modules/all:ProjectDIR/rt/delcatty/mf/Core";
+export MODULEPATH;
+PBS_DEFAULT="master15.delcatty.gent.vsc";
+export PBS_DEFAULT;
+VSC_ARCH_LOCAL="sandybridge";
+export VSC_ARCH_LOCAL;
+VSC_INSTITUTE_CLUSTER="delcatty";
+export VSC_INSTITUTE_CLUSTER;
+VSC_INSTITUTE_LOCAL="gent";
+export VSC_INSTITUTE_LOCAL;
+VSC_OS_LOCAL="SL6";
+export VSC_OS_LOCAL;
+_LMFILES_="ProjectDIR/rt/delcatty/mf/Core/cluster/delcatty";
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/delcatty/mf/Core",},family={},inactive={},mT={cluster={["FN"]="ProjectDIR/rt/delcatty/mf/Core/cluster/delcatty",["default"]=0,["fullName"]="cluster/delcatty",["loadOrder"]=1,propT={},["short"]="cluster",["status"]="active",},},mpathA={"/apps/gent/SL6/sandybridge/modules/all","ProjectDIR/rt/delcatty/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/delcatty/mf/Core",["version"]=2,}';
+export _ModuleTable_;
