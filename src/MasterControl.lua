@@ -839,20 +839,31 @@ function M.conflict(self, mA)
 
    local a = {}
    for i = 1, #mA do
-      local mname   = mA[i]
-      local v       = mname:usrName()
-      local sn      = mname:sn()
-      local version = extractVersion(v, sn)
-      local found   = false
-      if (version) then
-         found = mt:fullName(sn) == mname:usrName()
-      else
-         found = mt:have(sn,"active")
-      end
-      if (found) then
-         a[#a+1] = v
+      local mname = mA[i]
+      local sn    = mname:sn()
+      if (mt:have(sn,"active")) then
+         a[#a+1]  = mname:usrName()
       end
    end
+
+   --for i = 1, #mA do
+   --   local mname   = mA[i]
+   --   local v       = mname:usrName()
+   --   local sn      = mname:sn()
+   --   local version = extractVersion(v, sn)
+   --   local found   = false
+   --   dbg.print{"sn: ",sn,", usrName: ",v,", version: ",version,"\n"}
+   --   if (version) then
+   --      dbg.print{"usrName: ",v,", fullName: ",mt:fullName(sn),"\n"}
+   --      found = mt:fullName(sn) == mname:usrName()
+   --   else
+   --      found = mt:have(sn,"active")
+   --   end
+   --   if (found) then
+   --      a[#a+1] = v
+   --   end
+   --end
+
    if (#a > 0) then
       local s = concatTbl(a," ")
       LmodError("Cannot load module \"",mFull,"\" because these modules are loaded:\n  ",
