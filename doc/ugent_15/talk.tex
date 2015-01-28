@@ -22,7 +22,7 @@
 \author{Robert McLay}
 \institute{The Texas Advanced Computing Center}
 
-\date{November 18, 2014}  %% Use this if you want to fix the date in
+\date{January 28, 2014}  %% Use this if you want to fix the date in
                         %% stone rather than use \today
 
 \newcommand{\bfnabla}{\mbox{\boldmath$\nabla$}}
@@ -102,6 +102,7 @@
     \item Deploy to your users with an Opt-out choice
     \item Some users can run TCL/C modules
     \item Others can run Lmod
+    \item No single user can run both at the same time!
   \end{itemize}
 \end{frame}
 
@@ -109,10 +110,12 @@
   \begin{itemize}
     \item Install it in your account
       \begin{itemize}
-        \item Figure out the list of modules you normal load
+        \item Take current list and remove in reverse order to find
+          required modules
+        \item LMOD\_SYSTEM\_DEFAULT\_MODULES=mod1:mod2:mod3
         \item \texttt{\bf \$ module purge;}
         \item Redefine module command to use Lmod
-        \item \texttt{\bf \$ module load} \emph{mod1 mod2 ...}\texttt{\bf ;}
+        \item \texttt{\bf \$ module restore;} 
       \end{itemize}
     \item I normally run a personal copy of Lmod in all my accounts
       (including \texttt{\bf darter}, a Cray XC-30)
@@ -127,7 +130,7 @@
     \item Install \emph{/etc/profile.d/z00\_lmod.sh} to redefine the
       \texttt{\bf module} cmd.
     \item Load system  default modules (if any) after previous step
-    \item Users who have a file named \texttt{$\sim$/.lmod} use lmod
+    \item Users who have a file named \texttt{$\sim$/.lmod} use Lmod
     \item At TACC we did this for 6 months
   \end{itemize}
 \end{frame}
@@ -188,22 +191,22 @@
     {\tiny
 \begin{alltt}
 {\color{blue}\$ module list}
-Currently Loaded Modules:
-  1) StdEnv  2) gcc/4.5  3) mpich2/1.4  4) petsc/3.1
+    Currently Loaded Modules:
+      1) StdEnv  2) gcc/4.5  3) mpich2/1.4  4) petsc/3.1
 {\color{blue}\$ module unload gcc}
-Inactive Modules:
-  1) mpich2  2) petsc
+    Inactive Modules:
+      1) mpich2  2) petsc
 {\color{blue}\$ module list}
-Currently Loaded Modules:
-  1) StdEnv
-Inactive Modules:
-  1) mpich2  2) petsc
+    Currently Loaded Modules:
+      1) StdEnv
+    Inactive Modules:
+      1) mpich2  2) petsc
 {\color{blue}\$ module load intel}
-Activating Modules:
-  1) mpich2  2) petsc
+    Activating Modules:
+      1) mpich2  2) petsc
 {\color{blue}\$ module swap intel gcc}
-Due to MODULEPATH changes the follow modules have been reloaded:
-  1) mpich2  2) petsc
+    Due to MODULEPATH changes the follow modules have been reloaded:
+      1) mpich2  2) petsc
 \end{alltt}
     }
 \end{frame}
@@ -238,7 +241,7 @@ Due to MODULEPATH changes the follow modules have been reloaded:
   {\tiny
     \begin{alltt}
   1) unix/unix     3) ddt/ddt       5) mpich2/1.5    7) phdf5/1.8.9 {\color{blue}(m)}
-  2) intel/13.0    4) mkl/mkl \color{red}(*)}   6) petsc/3.2     8) StdEnv
+  2) intel/13.0    4) mkl/mkl {\color{red}(*)}   6) petsc/3.2     8) StdEnv
 
   Where:
    {\color{blue}(m)}:  module is build natively for MIC
@@ -268,7 +271,7 @@ Due to MODULEPATH changes the follow modules have been reloaded:
      \item Good News: having a spider cache speeds avail, spider
      \item Bad News: Sites must maintain up-to-date cache file.
      \item Lmod trusts valid system caches for avail and spider.
-     \item Two kinds of caches: User & System 
+     \item Two kinds of caches: User \& System 
   \end{itemize}
 \end{frame}
 
@@ -286,17 +289,55 @@ Due to MODULEPATH changes the follow modules have been reloaded:
      \item Sites can have one or more cache files.
      \item A shared file system $\Rightarrow$ One
        per system
+     \item At TACC: 
+       \begin{itemize}
+          \item Each nodes creates a local system cache
+          \item Master 
+       \end{itemize}
   \end{itemize}
 \end{frame}
 
-\section{Settarg}
 
-\begin{frame}{Settarg History}
+\section{Design ideas behind Lmod \& Settarg}
+
+\begin{frame}{The Design ideas behind Lmod}
   \begin{itemize}
-     \item Started on a shared filesystem
-     \item Wanted easily switch between optimize and debug
-       builds
-     \item Include compiler and mpi and solvers, file I/O styles modules
+     \item Lmod has been design to make me happy!
+     \item It is fast, predictable and powerful.
+     \item Action happen with minimal typing:
+       \begin{itemize}
+          \item ml
+          \item well chosen defaults.      
+          \item Hierarchical module layout
+          \item tab-completion
+          \item never use ``\texttt{\bf swap}''
+          \item don't use category/name/version.
+       \end{itemize}
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}{What are the implications?}
+  \begin{itemize}
+     \item Fast typing of commands
+     \item Use of versions is rare.
+     \item Strong use of autoswapping in three ways:
+       \begin{itemize}
+          \item Auto swapping of the same name: ml zlib
+          \item Swapping of dependent modules MPI, PETSc, etc
+          \item Autoswapping of compilers, mpi stacks.
+       \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Numerical Software development (by me!)}
+  \begin{itemize}
+    \item change between debug, optimize, builds
+    \item change compilers, mpi stacks, solvers, etc
+    \item No ``make clean'' required when changing any of the above
+    \item Make it ease to compare and contrast two different builds
+    \item Integrated with module system
+    \item Easy to know the state
   \end{itemize}
 \end{frame}
 
@@ -305,7 +346,45 @@ Due to MODULEPATH changes the follow modules have been reloaded:
      \item TARG: A family of environment variables that describe the
        build environment.
      \item Makefile can use those variables to control the build.
+     \item Title Bar reports state of TARG
+     \item PATH updated automatically: PATH=./\$TARG:\$PATH
   \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle {settarg}
+    \begin{itemize}
+      \item Provides safety, flexibility and repeatability in a dynamic environment.
+      \item Dynamically updates the state when modules change:
+        {\small
+          \begin{alltt}
+    \$ {\color{red} env | grep '^TARG'}
+    {\color{blue}TARG_BUILD_SCENARIO=dbg
+    TARG=OBJ/_x86_64_dbg_gcc-4.6_mpich-3.0
+    TARG_MPI_FAMILY=mpich
+    TARG_MPI=mpich-3.0}
+    \${\color{red} module swap mpich openmpi; opt; env | grep '^TARG'}
+    {\color{blue}TARG_BUILD_SCENARIO=opt
+    TARG=OBJ/_x86_64_opt_gcc-4.6_openmpi-1.6
+    TARG_MPI=openmpi-1.6
+    TARG_MPI_FAMILY=openmpi}
+          \end{alltt}
+          }
+      \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle {settarg (II)}
+    \begin{itemize}
+      \item Typically TARG is OBJ/\$ARCH\_\$SCENARIO\_\$CMPLR\_\$MPI
+      \item \texttt{TARG=OBJ/\_x86\_64\_dbg\_gcc-4.6\_mpich-3.0}
+      \item User can extend this with user level or directory level
+        specialization.
+      \item \texttt{OBJ/\_x86\_64\_dbg\_intel-14.0\_mpich-3.0\_petsc-3.4}
+      \item A makefile can modified to write generated file into \$TARG.
+      \item Never need to ``\texttt{make clobber}'' when switching
+        scenario, compiler, etc.
+      \end{itemize}
 \end{frame}
 
 % Notes on settarg:
@@ -330,7 +409,6 @@ Due to MODULEPATH changes the follow modules have been reloaded:
 % ** changes the title bar in an xterm.
 
 
-
 \section{What's new in Lmod}
 
 \begin{frame}{What's new in Lmod}
@@ -351,6 +429,7 @@ Due to MODULEPATH changes the follow modules have been reloaded:
       \item Let Lmod figure out that a swap is required and do it for you!
   \end{itemize}
 \end{frame}
+
 
 
 

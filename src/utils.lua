@@ -861,9 +861,10 @@ function versionFile(v, sn, path, ignoreErrors)
       for i = 1,#modV do
          local entry = modV[i]
          if (entry.module_version == "default") then
-            local name = entry.module_name
-            local i, j = name:find(sn)
-            local nLen = name:len()
+            local name  = entry.module_name
+            local snEsc = sn:escape()
+            local i, j  = name:find(snEsc)
+            local nLen  = name:len()
             if (j+1 < nLen and name:sub(j+1,j+1) == '/') then
                version = name:sub(j+2)
                break
