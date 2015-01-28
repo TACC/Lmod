@@ -30,3 +30,37 @@ _LMFILES_="ProjectDIR/rt/delcatty/mf/Core/cluster/delcatty";
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/delcatty/mf/Core",},family={},inactive={},mT={cluster={["FN"]="ProjectDIR/rt/delcatty/mf/Core/cluster/delcatty",["default"]=0,["fullName"]="cluster/delcatty",["loadOrder"]=1,propT={},["short"]="cluster",["status"]="active",},},mpathA={"/apps/gent/SL6/sandybridge/modules/all","ProjectDIR/rt/delcatty/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/delcatty/mf/Core",["version"]=2,}';
 export _ModuleTable_;
+===========================
+step 3
+lua ProjectDIR/src/lmod.in.lua bash load VSC-tools
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/delcatty/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="/apps/gent/SL6/sandybridge/modules/all:ProjectDIR/rt/delcatty/mf/Core";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/delcatty/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+LOADEDMODULES="cluster/delcatty:VSC-tools/1.17";
+export LOADEDMODULES;
+MODULEPATH="/apps/gent/SL6/sandybridge/modules/all:ProjectDIR/rt/delcatty/mf/Core";
+export MODULEPATH;
+VSC-tools_version="1.17";
+export VSC-tools_version;
+_LMFILES_="ProjectDIR/rt/delcatty/mf/Core/cluster/delcatty:ProjectDIR/rt/delcatty/mf/Core/VSC-tools/1.17";
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/delcatty/mf/Core",},family={},inactive={},mT={["VSC-tools"]={["FN"]="ProjectDIR/rt/delcatty/mf/Core/VSC-tools/1.17",["default"]=1,["fullName"]="VSC-tools/1.17",["loadOrder"]=2,propT={},["short"]="VSC-tools",["status"]="active",},cluster={["FN"]="ProjectDIR/rt/delcatty/mf/Core/cluster/delcatty",["default"]=0,["fullName"]="cluster/delcatty",["loadOrder"]=1,propT={},["short"]="cluster",["status"]="active",},},mpathA={"/apps/gent/SL6/sandybridge/modules/all","ProjectDIR/rt/delcatty/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/delcatty/mf/Core",["version"]=2,}';
+export _ModuleTable_;
+===========================
+step 4
+lua ProjectDIR/src/lmod.in.lua bash list
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/delcatty/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="/apps/gent/SL6/sandybridge/modules/all:ProjectDIR/rt/delcatty/mf/Core";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/delcatty/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="/apps/gent/SL6/sandybridge/modules/all:ProjectDIR/rt/delcatty/mf/Core";
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/delcatty/mf/Core",},family={},inactive={},mT={["VSC-tools"]={["FN"]="ProjectDIR/rt/delcatty/mf/Core/VSC-tools/1.17",["default"]=1,["fullName"]="VSC-tools/1.17",["loadOrder"]=2,propT={},["short"]="VSC-tools",["status"]="active",},cluster={["FN"]="ProjectDIR/rt/delcatty/mf/Core/cluster/delcatty",["default"]=0,["fullName"]="cluster/delcatty",["loadOrder"]=1,propT={},["short"]="cluster",["status"]="active",},},mpathA={"/apps/gent/SL6/sandybridge/modules/all","ProjectDIR/rt/delcatty/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/delcatty/mf/Core",["version"]=2,}';
+export _ModuleTable_;

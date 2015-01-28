@@ -8,3 +8,13 @@ Modules based on Lua: Version 5.8.5  2015-01-23 15:54
 step 2
 lua ProjectDIR/src/lmod.in.lua bash load cluster/delcatty
 ===========================
+===========================
+step 3
+lua ProjectDIR/src/lmod.in.lua bash load VSC-tools
+===========================
+===========================
+step 4
+lua ProjectDIR/src/lmod.in.lua bash list
+===========================
+Currently Loaded Modules:
+  1) cluster/delcatty   2) VSC-tools/1.17
