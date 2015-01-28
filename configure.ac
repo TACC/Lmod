@@ -245,7 +245,15 @@ AC_SUBST(PATH_TO_GIT)
 AC_SUBST(PATH_TO_HASHSUM)
 AC_SUBST(PATH_TO_SRC)
 AC_PATH_PROG(PATH_TO_GIT, git, "")
-AC_PATH_PROG(PATH_TO_TCLSH, tclsh, [/usr/bin/env tclsh])
+AC_PATH_PROG(PATH_TO_TCLSH, tclsh, UNKNOWN)
+
+if test "$PATH_TO_TCLSH" = "UNKNOWN" -a "$ALLOW_TCL_MFILES" = yes; then
+  echo 
+  echo "The tclsh program must be in your path. Quitting!"
+  echo 
+  exit
+fi    
+
 AC_PATH_PROGS(PATH_TO_HASHSUM, [sha1sum] [md5sum], "")
 AC_PATH_PROG(pager,[more], "")
 PATH_TO_PAGER=$pager
@@ -260,6 +268,9 @@ if test x$luaprog = "x"; then
   echo The program "lua" must be in your path
   exit
 fi
+
+
+
 
 oldprog=$luaprog
 while test -L $luaprog; do

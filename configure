@@ -3109,7 +3109,7 @@ done
   done
 IFS=$as_save_IFS
 
-  test -z "$ac_cv_path_PATH_TO_TCLSH" && ac_cv_path_PATH_TO_TCLSH="/usr/bin/env tclsh"
+  test -z "$ac_cv_path_PATH_TO_TCLSH" && ac_cv_path_PATH_TO_TCLSH="UNKNOWN"
   ;;
 esac
 fi
@@ -3122,6 +3122,14 @@ else
 $as_echo "no" >&6; }
 fi
 
+
+
+if test "$PATH_TO_TCLSH" = "UNKNOWN" -a "$ALLOW_TCL_MFILES" = yes; then
+  echo
+  echo "The tclsh program must be in your path. Quitting!"
+  echo
+  exit
+fi
 
 for ac_prog in sha1sum md5sum
 do
@@ -3262,6 +3270,9 @@ if test x$luaprog = "x"; then
   echo The program "lua" must be in your path
   exit
 fi
+
+
+
 
 oldprog=$luaprog
 while test -L $luaprog; do
