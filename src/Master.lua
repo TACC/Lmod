@@ -751,54 +751,54 @@ end
 -- @param sn The short name.
 -- @param versionA An array of versions for *sn*.
 -- @return A table describing the default.
-local function findDefault(mpath, sn, versionA)
-   dbg.start{"Master.findDefault(mpath=\"",mpath,"\", "," sn=\"",sn,"\")"}
-   local mt   = MT:mt()
-   local t    = {}
-
-   local marked   = false
-   local localDir = true
-   local path     = abspath(pathJoin(mpath,sn))
-   local default  = abspath_localdir(pathJoin(path, "default"))
-   if (not isFile(default)) then
-      marked   = true
-   else
-      local dfltA = {"/.modulerc", "/.version" }
-      local vf    = false
-      for i = 1, #dfltA do
-         local n   = dfltA[i]
-         local vFn = pathJoin(path,n)
-         if (isFile(vFn)) then
-            vf = versionFile(n, sn, vFn)
-            break;
-         end
-      end
-      if (vf) then
-         marked = true
-         default     = pathJoin(path,vf)
-         --dbg.print{"(1) f: ",f," default: ", default, "\n"}
-         if (default == nil) then
-            local fn = vf .. ".lua"
-            default  = pathJoin(path,fn)
-            dbg.print{"(2) f: ",f," default: ", default, "\n"}
-         end
-         --dbg.print{"(3) default: ", default, "\n"}
-      end
-   end
-
-   if (not default) then
-      local d, bn = splitFileName(versionA[#versionA].file)
-      default     = pathjoin(abspath(d), bn)
-   end
-   dbg.print{"default: ", default,"\n"}
-
-   t.default     = default
-   t.marked      = marked
-   t.numVersions = #versionA
-
-   dbg.fini("Master.findDefault")
-   return t
-end
+--local function findDefault(mpath, sn, versionA)
+--   dbg.start{"Master.findDefault(mpath=\"",mpath,"\", "," sn=\"",sn,"\")"}
+--   local mt   = MT:mt()
+--   local t    = {}
+--
+--   local marked   = false
+--   local localDir = true
+--   local path     = abspath(pathJoin(mpath,sn))
+--   local default  = abspath_localdir(pathJoin(path, "default"))
+--   if (not isFile(default)) then
+--      marked   = true
+--   else
+--      local dfltA = {"/.modulerc", "/.version" }
+--      local vf    = false
+--      for i = 1, #dfltA do
+--         local n   = dfltA[i]
+--         local vFn = pathJoin(path,n)
+--         if (isFile(vFn)) then
+--            vf = versionFile(n, sn, vFn)
+--            break;
+--         end
+--      end
+--      if (vf) then
+--         marked = true
+--         default     = pathJoin(path,vf)
+--         --dbg.print{"(1) f: ",f," default: ", default, "\n"}
+--         if (default == nil) then
+--            local fn = vf .. ".lua"
+--            default  = pathJoin(path,fn)
+--            dbg.print{"(2) f: ",f," default: ", default, "\n"}
+--         end
+--         --dbg.print{"(3) default: ", default, "\n"}
+--      end
+--   end
+--
+--   if (not default) then
+--      local d, bn = splitFileName(versionA[#versionA].file)
+--      default     = pathjoin(abspath(d), bn)
+--   end
+--   dbg.print{"default: ", default,"\n"}
+--
+--   t.default     = default
+--   t.marked      = marked
+--   t.numVersions = #versionA
+--
+--   dbg.fini("Master.findDefault")
+--   return t
+--end
 
 --------------------------------------------------------------------------
 -- This routine is handed a single entry.  It check to see
