@@ -119,6 +119,7 @@ function main()
       ['--config'] = 0,
       ['--raw'] = 0,
       ['--regexp'] = 0, ['-r'] = 0,
+      ['--show_hidden'] = 0, ['--show-hidden'] = 0,
       ['--style'] = 1,  ['-s'] = 1,
       ['--width'] = 1,  ['-w'] = 1,
    }
