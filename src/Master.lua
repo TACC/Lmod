@@ -846,16 +846,17 @@ local function availEntry(defaultOnly, terse, label, szA, searchA, sn, name,
       end
    end
 
-   local f_orig = f
-   local d, bn  = splitFileName(f)
-   local d2     = abspath(d)
-   f            = pathJoin(d2,bn)
-   local fabs   = abspath_localdir(f)
+   --local f_orig = f
+   --local d, bn  = splitFileName(f)
+   --local d2     = abspath(d)
+   --f            = pathJoin(d2,bn)
+   --local fabs   = abspath_localdir(f)
+   --
+   --dbg.print{"defaultOnly: ",defaultOnly, ", defaultModuleT.fn: ",defaultModuleT.fn,
+   --          ", f_orig: ",f_orig,", f: ", f,", d: ", d,", d2: ", d2, ", fabs: ",fabs,"\n"}
 
-   dbg.print{"defaultOnly: ",defaultOnly, ", defaultModuleT.fn: ",defaultModuleT.fn,
-             ", f_orig: ",f_orig,", f: ", f,", d: ", d,", d2: ", d2, ", fabs: ",fabs,"\n"}
-
-   local isDefault = (defaultModuleT.fn == f_orig or defaultModuleT.fn == fabs)
+   --local isDefault = (defaultModuleT.fn == f_orig or defaultModuleT.fn == fabs)
+   local isDefault = (defaultModuleT.fn == f)
 
    dbg.print{"isDefault: ",isDefault, "\n"}
 
@@ -893,7 +894,6 @@ local function availEntry(defaultOnly, terse, label, szA, searchA, sn, name,
       dbg.print{"defaultModuleT.fn: ",defaultModuleT.fn,
                 ", kind: ", defaultModuleT.kind,
                 ", num: ",  defaultModuleT.num > 1,
-                ", f_orig: ", f_orig,
                 ", f: ",f,
                 "\n"}
 
@@ -910,8 +910,8 @@ local function availEntry(defaultOnly, terse, label, szA, searchA, sn, name,
       local entry = dbT[sn]
       if (entry) then
          dbg.print{"Found dbT[sn]\n"}
-         if (entry[f_orig]) then
-            propT =  entry[f_orig].propT or {}
+         if (entry[f]) then
+            propT =  entry[f].propT or {}
          end
       else
          dbg.print{"Did not find dbT[sn]\n"}
