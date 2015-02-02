@@ -395,10 +395,7 @@ else
   echo "... yes"
 fi
 
-
 rm luaModuleAvailable
-
-AC_SUBST(LUA_INCLUDE)
 
 LUA_INCLUDE=$PATH_TO_LUA_DIR/include
 
@@ -429,6 +426,20 @@ if ! test -f $LUA_INCLUDE/lua.h; then
      fi
   done
 fi
+
+if ! test "$HAVE_LUA_TERM" = yes; then 
+  if ! test -f $LUA_INCLUDE/lua.h; then
+    echo 
+    echo Error can not find lua.h which is needed to build lua-term.
+    echo You can either install lua-term or the lua development package.
+    echo Quitting!
+    echo
+    exit 1
+  fi
+fi
+
+    
+
 
 AC_SUBST(ZSH_SITE_FUNCTIONS_DIR)
 AC_PATH_PROG(ZSH, zsh)

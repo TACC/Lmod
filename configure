@@ -588,7 +588,6 @@ LIBOBJS
 ZSH
 ZSH_SITE_FUNCTIONS_DIR
 pkgConfig
-LUA_INCLUDE
 HAVE_LUA_JSON
 HAVE_LUA_TERM
 luaprog
@@ -3399,10 +3398,7 @@ else
   echo "... yes"
 fi
 
-
 rm luaModuleAvailable
-
-
 
 LUA_INCLUDE=$PATH_TO_LUA_DIR/include
 
@@ -3475,6 +3471,20 @@ if ! test -f $LUA_INCLUDE/lua.h; then
      fi
   done
 fi
+
+if ! test "$HAVE_LUA_TERM" = yes; then
+  if ! test -f $LUA_INCLUDE/lua.h; then
+    echo
+    echo Error can not find lua.h which is needed to build lua-term.
+    echo You can either install lua-term or the lua development package.
+    echo Quitting!
+    echo
+    exit 1
+  fi
+fi
+
+
+
 
 
 # Extract the first word of "zsh", so it can be a program name with args.
