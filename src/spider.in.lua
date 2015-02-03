@@ -133,9 +133,9 @@ end
 local function rptModuleT(moduleDirA, moduleT, timestampFn, dbT)
    dbg.start{"rptModuleT(moduleDirA, moduleT, timestampFn, dbT)"}
    local ts = { timestampFn }
-   local s1 = serializeTbl{name="timestampFn",   value=ts,         indent=true}
-   local s2 = serializeTbl{name="defaultMpathA", value=moduleDirA, indent=true}
-   local s3 = serializeTbl{name="moduleT",       value=moduleT,    indent=true}
+   local s1 = serializeTbl{name="timestampFn",   value=ts,         indent=nil}
+   local s2 = serializeTbl{name="defaultMpathA", value=moduleDirA, indent=nil}
+   local s3 = serializeTbl{name="moduleT",       value=moduleT,    indent=nil}
    io.stdout:write(s1,s2,s3,"\n")
    dbg.fini("rptModuleT")
 end

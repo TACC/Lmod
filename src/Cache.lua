@@ -428,8 +428,8 @@ function M.build(self, fast)
          mkdir_recursive(self.usrCacheDir)
          local s0 = "-- Date: " .. os.date("%c",os.time()) .. "\n"
          local s1 = "ancient = " .. tostring(math.floor(ancient)) .."\n"
-         local s2 = serializeTbl{name="moduleT",      value=userModuleT,
-                                 indent=true}
+         local s2 = serializeTbl{name="moduleT",      value=userModuleT}
+--                                 indent=nil}
          os.rename(userModuleTFN, userModuleTFN .. "~")
          local f  = io.open(userModuleTFN,"w")
          if (f) then

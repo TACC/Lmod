@@ -1,3 +1,11 @@
+Lmod Version 5.8.6
+Bug Fixes:
+   a) Fixed a bug several modulefiles where marked as default
+   b) Two different fixes which will improve the speed of
+      reading the the cache file.
+   c) Configure will now abort if either tclsh or lua.h is
+      required but not available.
+      
 Lmod Version 5.8.5
 Features/Bug fixes:
    a) Fixed bug where the system spider cache was ignored.  This bug
@@ -8,7 +16,8 @@ Features/Bug fixes:
    d) Correctly handle symlink directories with MODULEPATH.
    e) Improved Spider support where module names have "-"
    f) Fixed problem where lmodrc.lua was left out in tar ball.
-   g) Fixed problem where src/ignore_dirs_converter was left out in tar ball.
+   g) Fixed problem where src/ignore_dirs_converter was left out
+      in tar ball.
 
 Lmod Version 5.8
 Features/Bug fixes:
