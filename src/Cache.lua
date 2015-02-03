@@ -312,11 +312,17 @@ end
 -- @param fast if true then only read cache files, do not build them.
 function M.build(self, fast)
    dbg.start{"Cache:build(fast=", fast,")"}
+   local moduleT   = self.moduleT
+
+   if (next(moduleT) ~= nil) then
+      dbg.print{"Using pre-built moduleT!\n"}
+      dbg.fini("Cache:build")
+      return moduleT
+   end
+
    local Pairs = dbg.active() and pairsByKeys or pairs
    local mt = MT:mt()
    local masterTbl = masterTbl()
-
-
    local T1 = epoch()
    local sysDirsRead = 0
    if (not masterTbl.checkSyntax) then
@@ -349,7 +355,6 @@ function M.build(self, fast)
    local userModuleTFN = self.usrModuleTFN
    local buildModuleT  = (#dirA > 0)
    local userModuleT   = {}
-   local moduleT       = self.moduleT
    dbg.print{"buildModuleT: ",buildModuleT,"\n"}
 
    dbg.print{"mt: ", tostring(mt), "\n",level=2}
