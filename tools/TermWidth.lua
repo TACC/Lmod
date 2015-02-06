@@ -96,7 +96,7 @@ function TermWidth()
 
    s_width = min(maxW, s_width)
 
-   s_width = (s_width > 30) and s_width or 30
+   s_width = (s_width > 40) and s_width or 40
 
    return s_width
 end

@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.0.1 (5.0.1-48-g540fa7d) 2013-06-18 14:14
+Modules based on Lua: Version 5.8.6  2015-02-03 12:08
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -12,13 +12,13 @@ lua ProjectDIR/src/lmod.in.lua bash use -a ProjectDIR/mf/Core
 step 3
 lua ProjectDIR/src/lmod.in.lua bash load gcc
 ===========================
-Module(s):
+There are messages associated with the following module(s):
 gcc/4.2.3 :
    This is old and you should not be using it.
 ===========================
 step 4
 lua ProjectDIR/src/lmod.in.lua bash load git/1.7.4.3
 ===========================
-Module(s):
+There are messages associated with the following module(s):
 git/1.7.4.3 :
    This version of git has be replaced by new versions.

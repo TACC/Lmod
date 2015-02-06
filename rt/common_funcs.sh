@@ -107,6 +107,7 @@ initStdEnvVars()
   unset LMOD_EXPERT
   unset LMOD_QUIET
   unset LMOD_SYSTEM_DEFAULT_MODULES
+  unset LMOD_ADMIN_FILE
   unset LMOD_TERM_WIDTH
   unset PYTHONPATH
   unset LMOD_COLORIZE

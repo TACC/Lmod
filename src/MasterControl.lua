@@ -247,6 +247,9 @@ end
 -- @param self A MasterControl object
 -- @param mA A array of MName objects.
 -- @return An array of statuses
+
+s_adminT = {}
+
 function M.load(self, mA)
    LMOD_IGNORE_CACHE = true
    local master = Master:master()
@@ -258,9 +261,8 @@ function M.load(self, mA)
 
    local a = master.load(mA)
    if (not quiet()) then
-
       local mt      = MT:mt()
-      local t       = {}
+      local t       = s_adminT
       readAdmin()
       for i = 1, #mA do
          local mname      = mA[i]
@@ -284,29 +286,33 @@ function M.load(self, mA)
          end
       end
 
-      if (next(t)) then
-         local term_width  = TermWidth()
-         if (term_width < 40) then
-            term_width = 80
-         end
-         local bt
-         local a       = {}
-         local border  = string.rep("-", term_width-1)
-         io.stderr:write("\n",border,"\n","Module(s):\n",border,"\n")
-         for k, v in pairs(t) do
-            io.stderr:write("\n",k," :\n")
-            a[1] = { " ", v}
-            bt = BeautifulTbl:new{tbl=a, wrapped=true, column=term_width-1}
-            io.stderr:write(bt:build_tbl(), "\n")
-         end
-         io.stderr:write(border,"\n\n")
-      end
    end
 
    dbg.fini("MasterControl:load")
    return a
 end
 
+-------------------------------------------------------------------
+-- Output any admin message collected from loading.
+function M.reportAdminMsgs()
+   local t = s_adminT
+   if (next(t) ) then
+      local term_width  = TermWidth()
+      local bt
+      local a       = {}
+      local border  = string.rep("-", term_width-1)
+      io.stderr:write("\n",border,"\n",
+                      "There are messages associated with the following module(s):\n",
+                      border,"\n")
+      for k, v in pairs(t) do
+         io.stderr:write("\n",k," :\n")
+         a[1] = { " ", v}
+         bt = BeautifulTbl:new{tbl=a, wrapped=true, column=term_width-1}
+         io.stderr:write(bt:build_tbl(), "\n")
+      end
+      io.stderr:write(border,"\n\n")
+   end
+end
 -------------------------------------------------------------------
 -- Load a list of module but ignore any warnings.
 -- @param self A MasterControl object

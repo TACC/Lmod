@@ -640,6 +640,12 @@ function main()
    -- a new one.
    mt = MT:mt()
 
+   -- Report any admin messages associated with loads
+   -- Note that is safe to run every time.
+   mcp:reportAdminMsgs()
+   
+
+
    -- Report any changes (worth reporting from original MT)
    if (not quiet()) then
       mt:reportChanges()
