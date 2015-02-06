@@ -28,8 +28,8 @@ testdescript = {
 
      numStep=0
      COUNT=0
-     HOME_ORIG=`(cd $HOME; /bin/pwd)`
-     HOME=`pwd`;                        export HOME
+     ORIG_HOME=`(cd $HOME; /bin/pwd)`
+     HOME=$(outputDir)
      RTM_SETTARG_CMD=":";               export RTM_SETTARG_CMD
 
      rm -fr _stderr.* _stdout.* err.* out.* .lmod.d
@@ -38,7 +38,7 @@ testdescript = {
      runLmod avail            # 2
      runLmod load intel       # 3
 
-     HOME_ORIG=$HOME
+     HOME=$ORIG_HOME
 
      cat _stdout.[0-9][0-9] > _stdout.orig
      joinBase64Results -bash _stdout.orig _stdout.new

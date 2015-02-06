@@ -21,8 +21,8 @@ testdescript = {
      MODULEPATH_ROOT=$(testDir)/mf;     export MODULEPATH_ROOT
      numStep=0
      COUNT=0
-     HOME=`(cd $HOME; /bin/pwd)`
-
+     ORIG_HOME=`(cd $HOME; /bin/pwd)`
+     HOME=$(outputDir)
      rm -fr _stderr.* _stdout.* err.* out.* .lmod.d
 
      runLmod --version                   # 1
@@ -40,7 +40,7 @@ testdescript = {
      runLmod use $(testDir)/mf/RTM2
      runLmod unuse $(testDir)/mf/RTM2    # 6
 
-
+     HOME=$ORIG_HOME
 
 
      cat _stdout.[0-9][0-9] > _stdout.orig

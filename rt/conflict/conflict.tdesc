@@ -24,7 +24,7 @@ testdescript = {
      numStep=0
      COUNT=0
      ORIG_HOME=`(cd $HOME; /bin/pwd)`
-     HOME=`/bin/pwd`
+     HOME=$(outputDir)
 
      rm -fr _stderr.* _stdout.* err.* out.* .lmod.d .lmodrc.lua
      cp $(projectDir)/init/lmodrc.lua .lmodrc.lua
@@ -37,6 +37,7 @@ testdescript = {
      runLmod list                                           # 6
 
      HOME=$ORIG_HOME
+
      cat _stdout.[0-9][0-9] > _stdout.orig
      joinBase64Results  -bash  _stdout.orig _stdout.new
      cleanUp _stdout.new out.txt

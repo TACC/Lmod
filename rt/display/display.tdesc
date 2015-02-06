@@ -20,7 +20,8 @@ testdescript = {
      export MODULEPATH_ROOT=$(testDir)/mf
      numStep=0
      COUNT=0
-     HOME=`(cd $HOME; /bin/pwd)`
+     ORIG_HOME=`(cd $HOME; /bin/pwd)`
+     HOME=$(outputDir)
 
      rm -fr _stderr.* _stdout.* err.* out.* .lmod.d
 

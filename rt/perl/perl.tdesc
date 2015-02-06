@@ -23,7 +23,8 @@ testdescript = {
 
      numStep=0
      COUNT=0
-     HOME=`(cd $HOME; /bin/pwd)`
+     ORIG_HOME=`(cd $HOME; /bin/pwd)`
+     HOME=$(outputDir)
 
      mkdir init
      sed -e 's|@PKG@/libexec/lmod|lua $(projectDir)/src/lmod.in.lua|g' \
@@ -49,6 +50,7 @@ EOF
      chmod +x $(testName).pl
      ./$(testName).pl  > _stdout.000 2> _stderr.000
 
+     HOME=$ORIG_HOME
      cleanUp _stdout.000 out.txt
      cleanUp _stderr.000 err.txt
      rm -f results.csv
