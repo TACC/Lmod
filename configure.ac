@@ -241,6 +241,7 @@ AC_ARG_WITH(ignoreDirs,
 AC_SUBST(PATH_TO_TCLSH)
 AC_SUBST(PATH_TO_PAGER)
 AC_SUBST(PATH_TO_LUA)
+AC_SUBST(PATH_TO_LUAC)
 AC_SUBST(PATH_TO_GIT)
 AC_SUBST(PATH_TO_HASHSUM)
 AC_SUBST(PATH_TO_SRC)
@@ -262,14 +263,13 @@ AC_SUBST(ORIG_LD_LIBRARY_PATH)
 
 ORIG_LD_LIBRARY_PATH=$LD_LIBRARY_PATH
 
-AC_PATH_PROG(luaprog, lua, "")
+AC_PATH_PROG(PATH_TO_LUAC, [luac])
+AC_PATH_PROG(luaprog, [lua], "")
 
 if test x$luaprog = "x"; then
   echo The program "lua" must be in your path
   exit
 fi
-
-
 
 
 oldprog=$luaprog

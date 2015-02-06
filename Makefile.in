@@ -32,6 +32,7 @@ SPIDER_CACHE_DIRS 	  := @SPIDER_CACHE_DIRS@
 EXPORT_MODULE             := @EXPORT_MODULE@
 PATH_TO_HASHSUM   	  := @PATH_TO_HASHSUM@
 ORIG_LD_LIBRARY_PATH      := @ORIG_LD_LIBRARY_PATH@
+PATH_TO_LUAC              := @PATH_TO_LUAC@
 PATH_TO_PAGER	  	  := @PATH_TO_PAGER@
 PATH_TO_TCLSH             := @PATH_TO_TCLSH@
 MODULEPATH_ROOT   	  := @MODULEPATH_ROOT@
@@ -150,6 +151,7 @@ __installMe:
                 -e 's|@use_dot_files@|$(USE_DOT_FILES)|g'             	   	  \
                 -e 's|@git@|$(GIT_VERSION)|g'                              	  \
                 -e 's|--@ignore_dirs@--|$(IGNORE_DIRS)|g'                         \
+                -e 's|@path_to_luac@|$(PATH_TO_LUAC)|g'                  	  \
                 -e 's|@have_lua_term@|$(HAVE_LUA_TERM)|g'                  	  \
                 -e 's|@have_lua_json@|$(HAVE_LUA_JSON)|g'                  	  \
                 -e 's|@disable_name_autoswap@|$(DISABLE_NAME_AUTOSWAP)|g'     	  \

@@ -98,10 +98,12 @@ local function new(self, t)
    scDescriptT = getSCDescriptT()
 
    local scDirA = {}
+   local dbDirA = {}
 
    local systemEpoch = epoch() - ancient
 
    dbg.print{"#scDescriptT: ",#scDescriptT, "\n"}
+   local compiled_ext = "luac_"..LuaV
    for j  = 1, #scDescriptT  do
       local entry = scDescriptT[j]
       local tt    = {}
@@ -122,35 +124,65 @@ local function new(self, t)
          if (attr.mode == "directory") then
             dbg.print{"Adding: dir: ",dir,", timestamp: ",lastUpdate, "\n"}
             scDirA[#scDirA+1] =
-               { file   = pathJoin(dir, "moduleT.lua"),     fileT = "system",
-                 backup = pathJoin(dir, "moduleT.old.lua"),
+               { fileA = { pathJoin(dir, "moduleT."     .. compiled_ext),
+                           pathJoin(dir, "moduleT.old." .. compiled_ext),
+                           pathJoin(dir, "moduleT.lua"),
+                           pathJoin(dir, "moduleT.old.lua"),
+                         },
                  timestamp = lastUpdate,
+                 fileT = "system",
+               }
+            dbDirA[#scDirA+1] =
+               { fileA = { pathJoin(dir, "dbT."     .. compiled_ext),
+                           pathJoin(dir, "dbT.old." .. compiled_ext),
+                           pathJoin(dir, "dbT.lua"),
+                           pathJoin(dir, "dbT.old.lua"),
+                         },
+                 timestamp = lastUpdate,
+                 fileT = "system",
                }
             break
          end
       end
    end
 
-   local usrModuleT = hook.apply("groupName","moduleT.lua")
+   local usrModuleT   = hook.apply("groupName","moduleT.lua")
+   local usrModuleT_C = hook.apply("groupName","moduleT."..compiled_ext)
+   local usrDBT       = hook.apply("groupName","dbT.lua")
+   local usrDBT_C     = hook.apply("groupName","dbT."..compiled_ext)
 
-   local usrCacheDirA = {
-      { file = pathJoin(usrCacheDir, usrModuleT), fileT = "your",
-        timestamp = systemEpoch
-      },
-      { file = pathJoin(usrCacheDir, "moduleT.lua"), fileT = "your",
+   local usrModuleTFnA = {
+      { fileA = { pathJoin(usrCacheDir, usrModuleT_C),
+                  pathJoin(usrCacheDir, usrModuleT),
+                  pathJoin(usrCacheDir, "moduleT."..compiled_ext),
+                  pathJoin(usrCacheDir, "moduleT.lua"),
+                },
+        fileT = "your",
         timestamp = systemEpoch
       },
    }
 
-   t              = t or {}
-   o.moduleDirT   = {}
-   o.mDT          = {}
-   o.usrCacheDir  = usrCacheDir
-   o.usrCacheDirA = usrCacheDirA
-   o.usrModuleTFN = pathJoin(usrCacheDir,usrModuleT)
-   o.systemDirA   = scDirA
-   o.dontWrite    = t.dontWrite or false
-   o.quiet        = t.quiet     or false
+   local usrDbTFnA = {
+      { fileA = { pathJoin(usrCacheDir, usrModuleT_C),
+                  pathJoin(usrCacheDir, usrModuleT),
+                  pathJoin(usrCacheDir, "moduleT."..compiled_ext),
+                  pathJoin(usrCacheDir, "moduleT.lua"),
+                },
+        fileT = "your",
+        timestamp = systemEpoch
+      },
+   }
+
+   t               = t or {}
+   o.moduleDirT    = {}
+   o.mDT           = {}
+   o.usrCacheDir   = usrCacheDir
+   o.usrModuleTFnA = usrModuleTFnA
+   o.usrDbTFnA     = usrDbTFnA
+   o.usrModuleTFN  = pathJoin(usrCacheDir,usrModuleT)
+   o.systemDirA    = scDirA
+   o.dontWrite     = t.dontWrite or false
+   o.quiet         = t.quiet     or false
 
    o.moduleT      = {}
    o.moduleDirA   = {}
@@ -204,8 +236,8 @@ end
 -- @param self a Cache object
 -- @param cacheFileA An array of cache files to read and process.
 -- @return the number of directories read.
-local function readCacheFile(self, cacheFileA)
-   dbg.start{"Cache:readCacheFile(cacheFileA)"}
+local function readCacheFile(self, moduleTFnA)
+   dbg.start{"Cache:readCacheFile(moduleTFnA)"}
    local dirsRead  = 0
    if (masterTbl().ignoreCache or LMOD_IGNORE_CACHE) then
       dbg.print{"LMOD_IGNORE_CACHE is true\n"}
@@ -217,58 +249,63 @@ local function readCacheFile(self, cacheFileA)
    local mDT        = self.mDT
    local moduleT    = self.moduleT
 
-   dbg.print{"#cacheFileA: ",#cacheFileA,"\n"}
-   for i = 1,#cacheFileA do
-      local f     = cacheFileA[i].file
+   dbg.print{"#moduleTFnA: ",#moduleTFnA,"\n"}
+   for i = 1,#moduleTFnA do
+      local fileA = moduleTFnA[i].fileA
+      local fn    = false
       local found = false
+      local attr  = false
 
-      local attr = lfs.attributes(f) or {}
-      if (next(attr) ~= nil and attr.size > 0) then
-         found = true
-      elseif (cacheFileA[i].backup) then
-         f     = cacheFileA[i].backup
-         attr  = lfs.attributes(f) or {}
-         found = (next(attr) ~= nil and attr.size > 0)
+      for i = 1,#fileA do
+         fn   = fileA[i]
+         attr = lfs.attributes(fn) or {}
+         if (next(attr) ~= nil and attr.size > 0) then
+            found = true
+            break
+         end
       end
 
       if (not found) then
-         dbg.print{"Did not find: ",f,"\n"}
-      else
-         dbg.print{"cacheFile found: ",f,"\n"}
+         dbg.print{"Did not find: ",fn,"\n"}
+         dbg.fini("Cache:readCacheFile")
+         return 0
+      end
 
-         -- Check Time
+      dbg.print{"cacheFile found: ",fn,"\n"}
 
-         local diff         = attr.modification - cacheFileA[i].timestamp
-         dbg.print{"timeDiff: ",diff,"\n"}
+      -- Check Time
 
-         -- Read in cache file if not out of date.
-         if (diff >= 0) then
+      local diff  = attr.modification - moduleTFnA[i].timestamp
+      local valid = diff >= 0
+      dbg.print{"valid: ",valid,", timeDiff: ",diff,"\n"}
 
-            -- Check for matching default MODULEPATH.
-            assert(loadfile(f))()
+      -- Read in cache file if not out of date.
+      if (valid) then
 
-            local version = (rawget(_G,"moduleT") or {}).version or 0
+         -- Check for matching default MODULEPATH.
+         assert(loadfile(fn))()
 
-            dbg.print{"version: ",version,"\n"}
-            if (version < Cversion) then
-               dbg.print{"Ignoring old style cache file!\n"}
-            else
-               local G_moduleT = _G.moduleT
-               for k, v in pairs(G_moduleT) do
-                  dbg.print{"moduleT dir: ", k,"\n"}
-                  if ( k:sub(1,1) == '/' ) then
-                     local dirTime = mDT[k] or 0
-                     if (mDT[k] and attr.modification > dirTime) then
-                        k             = path_regularize(k)
-                        dbg.print{"saving directory: ",k," from cache file: ",f,"\n"}
-                        mDT[k]        = attr.modification
-                        moduleDirT[k] = true
-                        moduleT[k]    = v
-                        dirsRead      = dirsRead + 1
-                     end
-                  else
-                     moduleT[k] = moduleT[k] or v
+         local version = (rawget(_G,"moduleT") or {}).version or 0
+
+         dbg.print{"version: ",version,"\n"}
+         if (version < Cversion) then
+            dbg.print{"Ignoring old style cache file!\n"}
+         else
+            local G_moduleT = _G.moduleT
+            for k, v in pairs(G_moduleT) do
+               dbg.print{"moduleT dir: ", k,"\n"}
+               if ( k:sub(1,1) == '/' ) then
+                  local dirTime = mDT[k] or 0
+                  if (mDT[k] and attr.modification > dirTime) then
+                     k             = path_regularize(k)
+                     dbg.print{"saving directory: ",k," from cache file: ",fn,"\n"}
+                     mDT[k]        = attr.modification
+                     moduleDirT[k] = true
+                     moduleT[k]    = v
+                     dirsRead      = dirsRead + 1
                   end
+               else
+                  moduleT[k] = moduleT[k] or v
                end
             end
          end
@@ -333,7 +370,7 @@ function M.build(self, fast)
    -- Read user cache file if it exists and is not out-of-date.
 
    local moduleDirT  = self.moduleDirT
-   local usrDirsRead = readCacheFile(self, self.usrCacheDirA)
+   local usrDirsRead = readCacheFile(self, self.usrModuleTFnA)
 
    local dirA   = {}
    local numMDT = 0
@@ -437,6 +474,20 @@ function M.build(self, fast)
          end
          posix.unlink(userModuleTFN .. "~")
          dbg.print{"Wrote: ",userModuleTFN,"\n"}
+         if (LUAC_PATH ~= "") then
+            if (LUAC_PATH:sub(1,1) == "@") then
+               LUAC_PATH="luac"
+            end
+            local ext = ".luac_"..LuaV
+            local fn = userModuleTFN:gsub(".lua$",ext)
+            local a  = {}
+            a[#a+1]  = LUAC_PATH
+            a[#a+1]  = "-o"
+            a[#a+1]  = fn
+            a[#a+1]  = userModuleTFN
+            os.execute(concatTbl(a," "))
+         end
+
          local buildT   = t2-t1
          local ancient2 = math.min(buildT * 120, ancient)
 
