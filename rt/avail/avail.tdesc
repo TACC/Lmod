@@ -19,10 +19,6 @@ testdescript = {
      MODULEPATH_ROOT=$(projectDir)/mf;  export MODULEPATH_ROOT
      MODULEPATH=$(projectDir)/mf//Core:$(testDir)/mf/Core//
      export MODULEPATH
-     numStep=0
-     COUNT=0
-     ORIG_HOME=`(cd $HOME; /bin/pwd)`
-     HOME=$(outputDir)
      unset TERM
 
      rm -fr _stderr.*  _stdout.* out.* err.* .lmod.d .lmodrc.lua

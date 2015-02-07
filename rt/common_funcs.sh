@@ -83,6 +83,46 @@ buildRmapT ()
    $LUA_EXEC $projectDir/src/spider.in.lua -o reverseMapT "$@"
 }
 
+buildNewDB()
+{
+   local DIR=$1
+   local tsfn=$2
+   local file=$3
+   local option=$file
+
+   if [ ! -d $DIR ]; then
+     mkdir -p $DIR
+   fi
+
+
+   local LmodV=$(lua -e 'print((_VERSION:gsub("Lua ","")))')
+   local OLD=$DIR/$file.old.lua
+   local NEW=$DIR/$file.new.lua
+   local RESULT=$DIR/$file.lua
+
+   local OLD_C=$DIR/$file.old.luac_$LmodV
+   local NEW_C=$DIR/$file.new.luac_$LmodV
+   local RESULT_C=$DIR/$file.luac_$LmodV
+
+   rm -f $OLD $NEW
+   $LMOD_DIR/spider --timestampFn $tsfn -o $option $BASE_MODULE_PATH > $NEW
+   if [ "$?" = 0 ]; then
+      chmod 644 $NEW
+      if [ -f $RESULT ]; then
+        cp -p $RESULT $OLD
+      fi
+      mv $NEW $RESULT
+
+      luac -o $NEW_C $RESULT
+
+      chmod 644 $NEW_C
+      if [ -f $RESULT_C ]; then
+        cp -p $RESULT_C $OLD_C
+      fi
+      mv $NEW_C $RESULT_C
+   fi
+}
+
 EPOCH()
 {
    $LUA_EXEC $projectDir/src/epoch.in.lua
@@ -120,7 +160,10 @@ initStdEnvVars()
   PATH_to_TM=`findcmd --pathOnly tm`
   PATH_to_SHA1=`findcmd --pathOnly sha1sum`
   LUA_EXEC=$PATH_to_LUA/lua
-
+  numStep=0
+  COUNT=0
+  ORIG_HOME=`(cd $HOME; /bin/pwd)`
+  HOME=`/bin/pwd`
 
   export PATH=$projectDir/src:$PATH_to_LUA:$PATH_to_TM:$PATH_to_SHA1:/usr/bin:/bin
 

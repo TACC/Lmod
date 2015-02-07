@@ -19,13 +19,8 @@ testdescript = {
      unsetMT
      initStdEnvVars
      MODULEPATH_ROOT=$(projectDir)/mf;  export MODULEPATH_ROOT
-     numStep=0
-     COUNT=0
-     ORIG_HOME=`(cd $HOME; /bin/pwd)`
-     HOME=$(outputDir)
 
      rm -fr _stderr.* _stdout.* err.* out.* .lmod.d
-
 
      runLmod --version                                       # 1
      runLmod use -a $projectDir/mf/Core $projectDir/mf/Beta  # 2

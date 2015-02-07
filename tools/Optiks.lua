@@ -394,7 +394,7 @@ function M.parseEnvArg(self)
    local i, j, k, q, c
 
    while (not done) do
-      while (true) do
+      repeat
          -- remove leading spaces
          j, k = optStr:find("%s+",idx)
          if (k) then
@@ -423,7 +423,7 @@ function M.parseEnvArg(self)
             break
          end
          idx = i
-      end
+      until true
    end
    return optA
 end

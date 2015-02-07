@@ -19,11 +19,6 @@ testdescript = {
      MODULEPATH_ROOT=$(projectDir)/mf;  export MODULEPATH_ROOT
      MODULEPATH=$(projectDir)/mf/Core:$(projectDir)/mf/Compiler/intel/10.1;
      export MODULEPATH
-     numStep=0
-     COUNT=0
-     ORIG_HOME=`(cd $HOME; /bin/pwd)`
-
-     HOME=$(outputDir)
 
      rm -fr _stderr.*  _stdout.* out.* err.* .lmod.d
 

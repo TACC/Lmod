@@ -21,11 +21,6 @@ testdescript = {
      MODULEPATH=$(projectDir)/mf/Core:$(projectDir)/mf/Compiler/intel/10.1:$(projectDir)/mf/MPI/intel/10.1/openmpi/1.2.6;
      MODULEPATH=$(testDir)/mf:$MODULEPATH
      export MODULEPATH
-     COUNT=0
-     numStep=0
-     HOME=`(cd $HOME; /bin/pwd)`
-     ORIG_HOME=$HOME
-     HOME=$(outputDir)
 
      rm -fr _stderr.* _stdout.* err.* out.* .lmod.d
 

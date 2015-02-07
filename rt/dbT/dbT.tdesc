@@ -1,0 +1,79 @@
+-- -*- lua -*-
+local testName = "dbT"
+
+testdescript = {
+   owner   = "rtm",
+   product = "modules",
+   description = [[
+	 Test between
+   ]],
+   keywords = {testName },
+
+   active = 1,
+   testName = testName,
+   job_submit_method = "INTERACTIVE",
+
+   runScript = [[
+
+     . $(projectDir)/rt/common_funcs.sh
+
+     unsetMT
+     initStdEnvVars
+
+     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d c1 c2
+     mkdir c1 c2
+
+     touch c1/system.txt c2/system.txt
+
+     BASE_MODULE_PATH=$(testDir)/mf1/Core
+     buildNewDB c1 c1/system.txt moduleT 
+     buildNewDB c1 c1/system.txt dbT 
+
+     BASE_MODULE_PATH=$(testDir)/mf2/Core
+     buildNewDB c2 c2/system.txt moduleT 
+     buildNewDB c2 c2/system.txt dbT 
+
+     cat > .lmodrc.lua <<EOF
+scDescriptT = {
+  {
+    ["dir"]       = "$(outputDir)/c1",
+    ["timestamp"] = "$(outputDir)/c1/system.txt",
+  },
+  {
+    ["dir"]       = "$(outputDir)/c2",
+    ["timestamp"] = "$(outputDir)/c2/system.txt",
+  },
+} 
+EOF
+
+     export MODULEPATH=$(testDir)/mf2/Core:$(testDir)/mf1/Core
+
+     runLmod --version               # 1
+     runLmod av                      # 2
+     
+
+
+     HOME=$ORIG_HOME
+     cat _stdout.[0-9][0-9] > _stdout.orig
+     joinBase64Results  -bash  _stdout.orig _stdout.new
+     cleanUp _stdout.new out.txt
+
+     cat _stderr.[0-9][0-9] > _stderr.orig
+     cleanUp _stderr.orig err.txt
+
+     rm -f results.csv
+     wrapperDiff --csv results.csv $(testDir)/out.txt out.txt
+     wrapperDiff --csv results.csv $(testDir)/err.txt err.txt
+     testFinish -r $(resultFn) -t $(runtimeFn) results.csv
+   ]],
+
+
+   blessScript = [[
+         # perform what is needed
+   ]],
+
+   tests = {
+      { id='t1'},
+   },
+
+}

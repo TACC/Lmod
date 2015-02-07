@@ -23,12 +23,6 @@ testdescript = {
      export MODULEPATH=$MODULEPATH_ROOT/Core
      export APPS_DIR=$(testDir)/apps
 
-     numStep=0
-     COUNT=0
-     ORIG_HOME=`(cd $HOME; /bin/pwd)`
-     HOME=$(outputDir)
-
-
      rm -fr _stderr.* _stdout.* err.* out.* .lmod.d
 
      runLmod --version                     # 1

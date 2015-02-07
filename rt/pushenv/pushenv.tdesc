@@ -19,11 +19,6 @@ testdescript = {
      initStdEnvVars
      MODULEPATH=$(testDir)/mf/Core;     export MODULEPATH
      MODULEPATH_ROOT=$(testDir)/mf;     export MODULEPATH_ROOT
-
-     numStep=0
-     COUNT=0
-     HOME_ORIG=`(cd $HOME; /bin/pwd)`
-     HOME=$(outputDir)
      RTM_SETTARG_CMD=":";               export RTM_SETTARG_CMD
 
      rm -fr _stderr.* _stdout.* err.* out.* .lmod.d

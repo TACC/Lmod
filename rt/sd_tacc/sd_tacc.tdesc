@@ -27,13 +27,7 @@ testdescript = {
      MODULEPATH=$(projectDir)/mf/TACC;  export MODULEPATH
      MODULEPATH_ROOT=$(projectDir)/mf;  export MODULEPATH_ROOT
 
-     ORIG_HOME=`(cd $HOME; /bin/pwd)`
-     HOME=$(outputDir)
-     COUNT=0;
-     numStep=0;
-
      rm -fr _stderr.* _stdout.* err.* out.* .lmod.d
-
      rm -rf $HOME/.lmod.d
 
      runLmod --version         # 1

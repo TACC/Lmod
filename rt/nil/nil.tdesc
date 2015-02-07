@@ -23,11 +23,6 @@ testdescript = {
      MODULEPATH_ROOT=$(projectDir)/mf;  export MODULEPATH_ROOT
      MODULEPATH=$(testDir)/mf/Core;     export MODULEPATH
 
-     numStep=0
-     COUNT=0
-     ORIG_HOME=`(cd $HOME; /bin/pwd)`
-     HOME=`pwd`
-
      rm -fr _stderr.* _stdout.* err.* out.* .lmod.d
 
      runLmod --version  # 1

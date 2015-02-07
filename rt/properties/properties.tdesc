@@ -18,10 +18,6 @@ testdescript = {
      unsetMT
      initStdEnvVars
      MODULEPATH_ROOT=$(testDir)/mf;     export MODULEPATH_ROOT
-     numStep=0
-     COUNT=0
-     ORIG_HOME=`(cd $HOME; /bin/pwd)`
-     HOME=$(outputDir)
 
      rm -f  _stderr.* _stdout.* err.* out.*
      rm -fr .lmod.d .lmodrc.lua

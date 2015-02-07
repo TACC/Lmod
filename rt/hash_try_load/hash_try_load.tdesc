@@ -21,11 +21,6 @@ testdescript = {
      initStdEnvVars
      export MODULEPATH_ROOT=$(outputDir)/mf
      export MODULEPATH=$MODULEPATH_ROOT/Core
-     numStep=0
-     COUNT=0
-     ORIG_HOME=`(cd $HOME; /bin/pwd)`
-     HOME=$(outputDir)
-
 
      rm -fr _stderr.* _stdout.* err.* out.* .lmod.d mf/Core
      mkdir -p mf/Core

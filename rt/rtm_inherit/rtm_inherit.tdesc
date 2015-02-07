@@ -23,13 +23,6 @@ testdescript = {
 
      export MODULEPATH=$(testDir)/rtm_mf/Core:$(testDir)/mf/Core
 
-
-
-
-     numStep=0
-     COUNT=0
-     ORIG_HOME=`(cd $HOME; /bin/pwd)`
-     HOME=$(outputDir)
      RTM_SETTARG_CMD=":";               export RTM_SETTARG_CMD
 
      rm -fr _stderr.* _stdout.* err.* out.* .lmod.d

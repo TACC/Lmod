@@ -21,11 +21,6 @@ testdescript = {
      MODULEPATH_ROOT=$(projectDir)/mf;  export MODULEPATH_ROOT
      LMOD_DUPLICATE_PATHS=yes;          export LMOD_DUPLICATE_PATHS
 
-     numStep=0
-     COUNT=0
-     ORIG_HOME=`(cd $HOME; /bin/pwd)`
-     HOME=$(outputDir)
-
      rm -fr _stderr.* _stdout.* err.* out.* .lmod.d
 
      runLmod --version         # 1

@@ -22,10 +22,6 @@ testdescript = {
      MODULEPATH=$(testDir)/mf/Core;     export MODULEPATH
      LMOD_PACKAGE_PATH=$(testDir);      export LMOD_PACKAGE_PATH
 
-     ORIG_HOME=`(cd $HOME; /bin/pwd)`
-     HOME=$(outputDir)
-     COUNT=0;
-     numStep=0;
 
      rm -fr _stderr.* _stdout.* err.* out.* .lmod.d
 

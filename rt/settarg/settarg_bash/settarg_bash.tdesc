@@ -26,10 +26,6 @@ testdescript = {
      MODULEPATH_ROOT=$(testDir)/../mf;     export MODULEPATH_ROOT
      TARG_RTM="Is Great";                  export TARG_RTM
 
-     numStep=0
-     COUNT=0
-     ORIG_HOME=`(cd $HOME; /bin/pwd)`
-     HOME=$(outputDir)
      cp $(projectDir)/settarg/settarg_rc.lua  .settarg.lua
 
      rm -fr _stderr.* _stdout.* err.* out.* .lmod.d

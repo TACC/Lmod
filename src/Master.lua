@@ -1132,16 +1132,13 @@ function M.avail(argA)
       return
    end
 
-   local cache     = Cache:cache{quiet = masterTbl.terse}
-   local moduleT   = cache:build()
+   local cache        = Cache:cache{quiet = masterTbl.terse}
+   local moduleT, dbT = cache:build()
 
    local baseMpath = mt:getBaseMPATH()
    if (not terse and (baseMpath == nil or baseMpath == '' or next(moduleT) == nil)) then
      LmodError("avail is not possible, MODULEPATH is not set or not set with valid paths.\n")
    end
-
-   local spider     = Spider:new()
-   spider:buildSpiderDB({"default"}, moduleT, dbT)
 
    local labelA     = false
    local availT     = mt:availT()

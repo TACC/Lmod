@@ -132,7 +132,7 @@ local function new(self, t)
                  timestamp = lastUpdate,
                  fileT = "system",
                }
-            dbDirA[#scDirA+1] =
+            dbDirA[#dbDirA+1] =
                { fileA = { pathJoin(dir, "dbT."     .. compiled_ext),
                            pathJoin(dir, "dbT.old." .. compiled_ext),
                            pathJoin(dir, "dbT.lua"),
@@ -148,8 +148,8 @@ local function new(self, t)
 
    local usrModuleT   = hook.apply("groupName","moduleT.lua")
    local usrModuleT_C = hook.apply("groupName","moduleT."..compiled_ext)
-   local usrDBT       = hook.apply("groupName","dbT.lua")
-   local usrDBT_C     = hook.apply("groupName","dbT."..compiled_ext)
+   local usrDbT       = hook.apply("groupName","dbT.lua")
+   local usrDbT_C     = hook.apply("groupName","dbT."..compiled_ext)
 
    local usrModuleTFnA = {
       { fileA = { pathJoin(usrCacheDir, usrModuleT_C),
@@ -163,10 +163,10 @@ local function new(self, t)
    }
 
    local usrDbTFnA = {
-      { fileA = { pathJoin(usrCacheDir, usrModuleT_C),
-                  pathJoin(usrCacheDir, usrModuleT),
-                  pathJoin(usrCacheDir, "moduleT."..compiled_ext),
-                  pathJoin(usrCacheDir, "moduleT.lua"),
+      { fileA = { pathJoin(usrCacheDir, usrDbT_C),
+                  pathJoin(usrCacheDir, usrDbT),
+                  pathJoin(usrCacheDir, "dbT."..compiled_ext),
+                  pathJoin(usrCacheDir, "dbT.lua"),
                 },
         fileT = "your",
         timestamp = systemEpoch
@@ -181,11 +181,13 @@ local function new(self, t)
    o.usrDbTFnA     = usrDbTFnA
    o.usrModuleTFN  = pathJoin(usrCacheDir,usrModuleT)
    o.systemDirA    = scDirA
+   o.dbTDirA       = dbDirA
    o.dontWrite     = t.dontWrite or false
    o.quiet         = t.quiet     or false
 
-   o.moduleT      = {}
-   o.moduleDirA   = {}
+   o.dbT           = {}
+   o.moduleT       = {}
+   o.moduleDirA    = {}
    dbg.fini("Cache.new")
    return o
 end
@@ -234,7 +236,7 @@ end
 -- finds a cache file is simply does a "loadfile" on it
 -- and updates moduleT and moduleDirT.
 -- @param self a Cache object
--- @param cacheFileA An array of cache files to read and process.
+-- @param moduleTFnA An array of cache files to read and process.
 -- @return the number of directories read.
 local function readCacheFile(self, moduleTFnA)
    dbg.start{"Cache:readCacheFile(moduleTFnA)"}
@@ -250,70 +252,138 @@ local function readCacheFile(self, moduleTFnA)
    local moduleT    = self.moduleT
 
    dbg.print{"#moduleTFnA: ",#moduleTFnA,"\n"}
+
    for i = 1,#moduleTFnA do
-      local fileA = moduleTFnA[i].fileA
-      local fn    = false
-      local found = false
-      local attr  = false
-
-      for i = 1,#fileA do
-         fn   = fileA[i]
-         attr = lfs.attributes(fn) or {}
-         if (next(attr) ~= nil and attr.size > 0) then
-            found = true
-            break
+      repeat 
+         local fileA = moduleTFnA[i].fileA
+         local fn    = false
+         local found = false
+         local attr  = false
+         
+         for i = 1,#fileA do
+            fn   = fileA[i]
+            attr = lfs.attributes(fn) or {}
+            if (next(attr) ~= nil and attr.size > 0) then
+               found = true
+               break
+            end
          end
-      end
 
-      if (not found) then
-         dbg.print{"Did not find: ",fn,"\n"}
-         dbg.fini("Cache:readCacheFile")
-         return 0
-      end
+         if (not found) then
+            dbg.print{"Did not find: ",fn,"\n"}
+            break 
+         end
 
-      dbg.print{"cacheFile found: ",fn,"\n"}
+         dbg.print{"cacheFile found: ",fn,"\n"}
+         
+         -- Check Time
 
-      -- Check Time
+         local diff  = attr.modification - moduleTFnA[i].timestamp
+         local valid = diff >= 0
+         dbg.print{"valid: ",valid,", timeDiff: ",diff,"\n"}
+         if (valid) then
 
-      local diff  = attr.modification - moduleTFnA[i].timestamp
-      local valid = diff >= 0
-      dbg.print{"valid: ",valid,", timeDiff: ",diff,"\n"}
+            -- Check for matching default MODULEPATH.
+            assert(loadfile(fn))()
 
-      -- Read in cache file if not out of date.
-      if (valid) then
+            local version = (rawget(_G,"moduleT") or {}).version or 0
 
-         -- Check for matching default MODULEPATH.
-         assert(loadfile(fn))()
-
-         local version = (rawget(_G,"moduleT") or {}).version or 0
-
-         dbg.print{"version: ",version,"\n"}
-         if (version < Cversion) then
-            dbg.print{"Ignoring old style cache file!\n"}
-         else
-            local G_moduleT = _G.moduleT
-            for k, v in pairs(G_moduleT) do
-               dbg.print{"moduleT dir: ", k,"\n"}
-               if ( k:sub(1,1) == '/' ) then
-                  local dirTime = mDT[k] or 0
-                  if (mDT[k] and attr.modification > dirTime) then
-                     k             = path_regularize(k)
-                     dbg.print{"saving directory: ",k," from cache file: ",fn,"\n"}
-                     mDT[k]        = attr.modification
-                     moduleDirT[k] = true
-                     moduleT[k]    = v
-                     dirsRead      = dirsRead + 1
+            dbg.print{"version: ",version,"\n"}
+            if (version < Cversion) then
+               dbg.print{"Ignoring old style cache file!\n"}
+            else
+               local G_moduleT = _G.moduleT
+               for k, v in pairs(G_moduleT) do
+                  dbg.print{"moduleT dir: ", k,"\n"}
+                  if ( k:sub(1,1) == '/' ) then
+                     local dirTime = mDT[k] or 0
+                     if (mDT[k] and attr.modification > dirTime) then
+                        k             = path_regularize(k)
+                        dbg.print{"saving directory: ",k," from cache file: ",fn,"\n"}
+                        mDT[k]        = attr.modification
+                        moduleDirT[k] = true
+                        moduleT[k]    = v
+                        dirsRead      = dirsRead + 1
+                     end
+                  else
+                     moduleT[k] = moduleT[k] or v
                   end
-               else
-                  moduleT[k] = moduleT[k] or v
                end
             end
          end
-      end
+      until true
    end
 
-   dbg.fini("Cache:readCacheFile")
+   dbg.fini("Cache:readDbT")
    return dirsRead
+end
+
+--------------------------------------------------------------------------
+-- This routine finds and reads in a dbT file.  If it
+-- finds a cache file is simply does a "loadfile" on it
+-- and updates self.dbT
+-- @param self a Cache object
+-- @param dbTFnA An array of cache files to read and process.
+-- @return the number of directories read.
+function readDbT(self, dbTFnA)
+   dbg.start{"Cache:readDbT(dbTFnA)"}
+   if (masterTbl().ignoreCache or LMOD_IGNORE_CACHE) then
+      dbg.print{"LMOD_IGNORE_CACHE is true\n"}
+      dbg.fini("Cache:readDbT")
+      return
+   end
+   
+   local dbT = self.dbT
+   
+   dbg.print{"#dbTFnA: ",#dbTFnA,"\n"}
+   for i = 1,#dbTFnA do
+      repeat 
+         local fileA = dbTFnA[i].fileA
+         local fn    = false
+         local found = false
+         local attr  = false
+
+         for i = 1,#fileA do
+            fn   = fileA[i]
+            attr = lfs.attributes(fn) or {}
+            if (next(attr) ~= nil and attr.size > 0) then
+               found = true
+               break
+            end
+         end
+
+         if (not found) then
+            dbg.print{"Did not find: ",fn,"\n"}
+            break
+         end
+
+         dbg.print{"cacheFile found: ",fn,"\n"}
+
+         -- Check Time
+
+         local diff  = attr.modification - dbTFnA[i].timestamp
+         local valid = diff >= 0
+         dbg.print{"valid: ",valid,", timeDiff: ",diff,"\n"}
+
+         -- Read in cache file if not out of date.
+         if (valid) then
+
+            -- Check for matching default MODULEPATH.
+            assert(loadfile(fn))()
+            
+            local G_dbT = _G.dbT
+            for mname, vv in pairs(G_dbT) do
+               local entry = dbT[mname] or {}
+               for fn, v in pairs(vv) do
+                  entry[fn] = v
+               end
+               dbT[mname] = entry
+            end
+         end
+      until true
+   end
+
+   dbg.fini("Cache:readDbT")
 end
 
 --------------------------------------------------------------------------
@@ -349,12 +419,14 @@ end
 -- @param fast if true then only read cache files, do not build them.
 function M.build(self, fast)
    dbg.start{"Cache:build(fast=", fast,")"}
-   local moduleT   = self.moduleT
+   local moduleT = self.moduleT
+   local dbT     = self.dbT
+   local spider  = Spider:new()
 
    if (next(moduleT) ~= nil) then
       dbg.print{"Using pre-built moduleT!\n"}
       dbg.fini("Cache:build")
-      return moduleT
+      return moduleT, dbT
    end
 
    local Pairs = dbg.active() and pairsByKeys or pairs
@@ -364,6 +436,7 @@ function M.build(self, fast)
    local sysDirsRead = 0
    if (not masterTbl.checkSyntax) then
       sysDirsRead = readCacheFile(self, self.systemDirA)
+      readDbT(self,self.dbTDirA)
    end
 
    ------------------------------------------------------------------------
@@ -371,6 +444,7 @@ function M.build(self, fast)
 
    local moduleDirT  = self.moduleDirT
    local usrDirsRead = readCacheFile(self, self.usrModuleTFnA)
+   readDbT(self,self.usrDbTFnA)
 
    local dirA   = {}
    local numMDT = 0
@@ -415,8 +489,6 @@ function M.build(self, fast)
 
       local mcp_old = mcp
       mcp           = MasterControl.build("spider")
-
-      local spider  = Spider:new()
 
       local t1      = epoch()
       local st, msg = pcall(Spider.findAllModules, spider, dirA, userModuleT)
@@ -507,6 +579,13 @@ function M.build(self, fast)
          local k = dirA[i]
          moduleDirT[k] = t2
       end
+
+   end
+
+
+   -- With a valid moduleT build dbT if necessary:
+   if (next(dbT) == nil) then
+      spider:buildSpiderDB({"default"}, moduleT, dbT)
    end
 
    -- remove user cache file if old
@@ -523,7 +602,7 @@ function M.build(self, fast)
    mt:clearLocationAvailT()
 
    dbg.fini("Cache:build")
-   return moduleT
+   return moduleT, dbT
 end
 
 return M

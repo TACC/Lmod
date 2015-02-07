@@ -19,10 +19,6 @@ testdescript = {
      initStdEnvVars
      ORIGPATH=$PATH
      MODULEPATH=$(testDir)/mf;          export MODULEPATH
-     COUNT=0;
-     numStep=0;
-     ORIG_HOME=`(cd $HOME; /bin/pwd)`
-     HOME=$(outputDir)
 
      rm -fr _stderr.* _stdout.* err.* out.* .lmod.d
 
