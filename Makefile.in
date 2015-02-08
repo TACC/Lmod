@@ -279,6 +279,18 @@ _distTar:
 	rm -rf `cat .fname` .fname;
 
 
+ml_dist:
+	$(MAKE) DistD=DIST _ml_dist
+
+_ml_dist: _distMkDir
+	cp src/ml_cmd.in.lua ML_README.txt $(DistD)
+	echo "ml"-$(version) > .fname;                                     \
+	$(RM) -r `cat .fname` `cat .fname`.tar*;         		   \
+	mv ${DistD} `cat .fname`;                            		   \
+	tar chf `cat .fname`.tar `cat .fname`;           		   \
+	bzip2 `cat .fname`.tar;                           		   \
+	rm -rf `cat .fname` .fname;
+
 test:
 	cd rt; unset TMFuncPATH; tm .
 
