@@ -78,6 +78,7 @@ function usage()
                    "Then this is the same :\n",
                    "    $ module name arg1 arg2 ...\n\n",
                    "In other words you can not load a module named: show swap etc\n")
+
    io.stderr:write("\n\n-----------------------------------------------\n",
                    "  Robert McLay, TACC\n",
                    "     mclay@tacc.utexas.edu\n")
@@ -157,13 +158,11 @@ function main()
       swap="swap", sw="swap", switch="swap",
       tablelist="tablelist",
       ['try-load'] = "try-load",
-      unload="unload", rm = "unload", del = "unload", delete="unload",
-      unuse="unuse",
+      unload="unload", rm = "unload", del = "unload", delete="unload",      unuse="unuse",
       update="update",
       use="use",
       whatis="whatis",
    }
-
    local grab     = 0
    local verbose  = false
    local oldStyle = false
@@ -171,52 +170,49 @@ function main()
    local cmdFound = false
 
    for _,v in ipairs(arg) do
-      local done = false
-      if (grab > 0) then
-         optA[#optA+1] = v
-         grab          = grab - 1
-         done          = true
-      end
+      repeat
+         if (grab > 0) then
+            optA[#optA+1] = v
+            grab          = grab - 1
+            break
+         end
 
-      if (not done and v == "--Verbose") then
-         done    = true
-         verbose = true
-      end
+         if (v == "--Verbose") then
+            verbose = true
+            break
+         end
 
-      if (not done and v == "--old_style") then
-         done     = true
-         oldStyle = true
-      end
+         if (v == "--old_style") then
+            oldStyle = true
+            break
+         end
 
-      if (not done and v == "--show") then
-         done   = true
-         show   = true
-      end
+         if (v == "--show") then
+            show   = true
+            break
+         end
 
-      if (not done and v == "--help" or v == "-?" or v== "-h") then
-         done = true
-         usage()
-         return
-      end
+         if (v == "--help" or v == "-?" or v== "-h") then
+            usage()
+            return
+         end
 
+         local num = lmodOptT[v]
+         if (num) then
+            grab          = num
+            optA[#optA+1] = translateT[v] or v
+            break
+         end
 
-      local num = lmodOptT[v]
-      if (not done and num) then
-         grab          = num
-         optA[#optA+1] = translateT[v] or v
-         done          = true
-      end
+         local cmd = lmodCmdT[v]
+         if (cmd and not cmdFound) then
+            cmdA[#cmdA + 1] = cmd
+            cmdFound        = true
+            break
+         end
 
-      local cmd = lmodCmdT[v]
-      if (not done and cmd and not cmdFound) then
-         cmdA[#cmdA + 1] = cmd
-         done            = true
-         cmdFound        = true
-      end
-
-      if (not done) then
          argA[#argA+1] = v
-      end
+      until true
    end
 
    if (#cmdA > 1) then
