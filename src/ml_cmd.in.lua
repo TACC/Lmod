@@ -42,17 +42,6 @@
 ------------------------------------------------------------------------
 -- Use command name to add the command directory to the package.path
 ------------------------------------------------------------------------
-local LuaCommandName = arg[0]
-local i,j = LuaCommandName:find(".*/")
-local LuaCommandName_dir = "./"
-if (i) then
-   LuaCommandName_dir = LuaCommandName:sub(1,j)
-end
-package.path = LuaCommandName_dir .. "../tools/?.lua;" ..
-               LuaCommandName_dir .. "?.lua;"       .. package.path
-
-require("strict")
-require("string_utils")
 local concatTbl = table.concat
 local function quoteWrap(a)
    return "'" .. tostring(a) .. "'"
