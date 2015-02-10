@@ -1,3 +1,22 @@
+-----------------------
+Update:  Feb. 10, 2015:
+-----------------------
+
+The 5.9 Lmod release and newer now take advantage of compiling the
+moduleT.lua file (and the new dbT.lua) to speed up "module avail".  I
+saw a doubling of speed on an ssd laptop.   On Stampede, I saw a 4
+times speed.  A site that uses an NFS mount of GPFS filesystem also
+saw a time of 4 seconds before to about 1 second now.
+
+This speedup requires "compiling" the moduleT.lua file.  So you'll
+need to update your build system cache file script.  Please see
+createSystemCacheFile.sh in this directory as a prototype of what
+you'll need.
+
+----------
+Original:
+----------
+
 The script in this directory shows one way to build the system cache
 file. Obviously, you will need to taylor this to your site.
 
@@ -25,7 +44,6 @@ then the rules are:
   1) if the file is empty then use the directory specified
   2) Otherwise read the first line in the file to be the hostType
      and combine $CACHEDIR and hostType to be the cache directory.
-
 
 So if
 

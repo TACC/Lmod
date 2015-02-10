@@ -24,11 +24,6 @@ if [ -z "$BASE_MODULE_PATH" ]; then
   echo "No BASE_MODULE_PATH defined: exiting"
 fi
 
-nlocal=$(hostname -f)
-nlocal=${nlocal%.tacc.utexas.edu}
-first=${nlocal%%.*}
-SYSHOST=${nlocal#*.}
-
 # eval "ADMIN_DIR=\$ADMIN_$SYSHOST"
 
 if [ -z "$ADMIN_DIR" ]; then

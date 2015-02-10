@@ -1,3 +1,16 @@
+Lmod Version 5.9
+Feature:
+   a) Several changes to support faster avail with the spider cache.
+      This change requires updating the way the system spider cache
+      is built.  See contrib/BuildSystemCacheFile/README.txt.  On an
+      ssd laptop "ml av" is twice as fast.  On two different HPC system
+      I have seen 4 times speed improvement.
+      
+Bug Fixes:
+   a) Fixed a bug where LUA_INCLUDE was not set.
+
+
+
 Lmod Version 5.8.6
 Bug Fixes:
    a) Fixed a bug several modulefiles where marked as default
