@@ -44,6 +44,7 @@ _ml()
     "load:load a module"
     "try-load:load a module, no warnings if not found"
     "avail:list all available modules"
+    "restore:load a module collection"
     "use:add a directory to MODULEPATH"
     "unuse:remove a directory from MODULEPATH"
     "purge:unload all loaded modules"
@@ -168,6 +169,12 @@ _ml_unload()
 {
   _ml_loaded_modules
   compadd "$@" -a -- _loaded_modules
+}
+
+_ml_restore()
+{
+  _savelist_list=(${$(module -q -t savelist 2>&1 > /dev/null)})
+  compadd "$@" -a -- _savelist_list
 }
 
 _ml_help()

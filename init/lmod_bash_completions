@@ -10,6 +10,10 @@ _module_loaded_modules() {
 	@PKG@/libexec/lmod bash -t list  2>&1 > /dev/null | sed ' /^ *$/d; /:$/d; s#/*$##g;'
 }
 
+_module_savelist() {
+	@PKG@/libexec/lmod bash -t savelist  2>&1 > /dev/null 
+}
+
 _module_loaded_modules_negated() {
 	@PKG@/libexec/lmod bash -t list  2>&1 > /dev/null | sed ' /^ *$/d; /:$/d; s#/*$##g; s|^|-|g;'
 }
@@ -50,6 +54,7 @@ _module() {
 	case "$prev" in
 	add|load|try-load)
                         COMPREPLY=( $(compgen -W "$(_module_not_yet_loaded)" -- "$cur") );;
+        restore)        COMPREPLY=( $(compgen -W "$(_module_savelist)" -- "$cur") );;
         spider)         COMPREPLY=( $(compgen -W "$(_module_spider)" -- "$cur") );;
 	rm|remove|unload|switch|swap)
 			COMPREPLY=( $(      compgen -W "$(_module_loaded_modules)" -- "$cur") );;
@@ -91,6 +96,7 @@ _ml() {
   case "$prev" in
     spider)         COMPREPLY=( $(compgen -W "$(_module_spider)" -- "$cur") );;
     rm|remove|unload|swap)
+    restore)        COMPREPLY=( $(compgen -W "$(_module_savelist)" -- "$cur") );;
                     COMPREPLY=( $(compgen -W "$(_module_loaded_modules)" -- "$cur") );;
     unuse)	    COMPREPLY=( $(IFS=: compgen -W "${MODULEPATH}" -- "$cur") );;
     use|*-a*)       _filedir -d || return 0;;

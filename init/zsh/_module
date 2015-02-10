@@ -40,6 +40,7 @@ _module_command()
     "use:add a directory to MODULEPATH"
     "unuse:remove a directory from MODULEPATH"
     "update:reload all loaded modules"
+    "restore:load a module collection"
     "purge:unload all loaded modules"
     "refresh:refresh all non-persistent components of loaded modules"
     "whatis:display module information"
@@ -91,6 +92,13 @@ _module_spider_list()
 {
   _spider_list=(${$(module -q -t spider 2>&1 > /dev/null)})
 }
+
+_module_restore()
+{
+  _savelist_list=(${$(module -q -t savelist 2>&1 > /dev/null)})
+  compadd "$@" -a -- _savelist_list
+}
+
 
 # Completion function for help
 _module_help()
