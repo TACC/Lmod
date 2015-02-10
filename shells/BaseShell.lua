@@ -219,11 +219,13 @@ local function createShellTbl()
       local Csh          = require('Csh')
       local Bash         = require('Bash')
       local Bare         = require('Bare')
+      local Fish         = require('Fish')
       local Perl         = require('Perl')
       local Python       = require('Python')
       shellTbl["sh"]     = Bash
       shellTbl["bash"]   = Bash
       shellTbl["zsh"]    = Bash
+      shellTbl["fish"]   = Fish
       shellTbl["csh"]    = Csh
       shellTbl["tcsh"]   = Csh
       shellTbl["perl"]   = Perl
