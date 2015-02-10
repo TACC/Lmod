@@ -58,20 +58,13 @@ SYSHOST=${myhost#*.}
 SUDO=""
 
 cat > /tmp/stampede.build.$$ <<EOF
-/tmp/moduleData/cacheDir:/tmp/losf_last_update
-/home1/moduleData/XSEDE/cacheDir:/home1/moduleData/XSEDE/last_update
+$HOME/a/moduleData/cacheDir: $HOME/a/moduleData/losf_last_update
 EOF
 
 cat > /tmp/ls4.build.$$ <<EOF
 $HOME/a/moduleData/cacheDir: $HOME/a/moduleData/losf_last_update
 $HOME/a/moduleData/XSEDE/cacheDir: $HOME/a/moduleData/XSEDE/last_update
 EOF
-
-cat > /tmp/longhorn.build.$$ <<EOF
-$HOME/a/moduleData/cacheDir: $HOME/a/moduleData/losf_last_update
-$HOME/a/moduleData/XSEDE/cacheDir: $HOME/a/moduleData/XSEDE/last_update
-EOF
-
 
 case $SYSHOST in
   rios | mijo | jedrik | vato | vmijo | devo | xalt-lmod )

@@ -24,10 +24,6 @@ if [ -z "$BASE_MODULE_PATH" ]; then
   echo "No BASE_MODULE_PATH defined: exiting"
 fi
 
-ADMIN_ranger="/share/moduleData"
-ADMIN_ls4="/home1/moduleData"
-ADMIN_stampede="/home1/moduleData"
-
 nlocal=$(hostname -f)
 nlocal=${nlocal%.tacc.utexas.edu}
 first=${nlocal%%.*}
@@ -53,21 +49,35 @@ LastUpdateFn=$ADMIN_DIR/system.txt
 buildNewDB()
 {
    local DIR=$1
-   local file=$2
+   local tsfn=$2
+   local file=$3
    local option=$file
 
    local OLD=$DIR/$file.old.lua
    local NEW=$DIR/$file.new.lua
    local RESULT=$DIR/$file.lua
 
+   local OLD_C=$DIR/$file.old.luac_$LuaV
+   local NEW_C=$DIR/$file.new.luac_$LuaV
+   local RESULT_C=$DIR/$file.luac_$LuaV
+
    rm -f $OLD $NEW
-   $LMOD_DIR/spider -o $option $BASE_MODULE_PATH > $NEW
+   $LMOD_DIR/spider --timestampFn $tsfn -o $option $BASE_MODULE_PATH > $NEW
    if [ "$?" = 0 ]; then
       chmod 644 $NEW
       if [ -f $RESULT ]; then
         cp -p $RESULT $OLD
       fi
       mv $NEW $RESULT
+
+      luac -o $NEW_C $RESULT
+
+      chmod 644 $NEW_C
+      if [ -f $RESULT_C ]; then
+        cp -p $RESULT_C $OLD_C
+      fi
+      mv $NEW_C $RESULT_C
+
    fi
 }
 
@@ -79,8 +89,8 @@ cat > $LastUpdateFn <<EOF
 hostType
 EOF
 
-buildNewDB $CacheDir  moduleT
-
+buildNewDB $CacheDir $ADMIN_DIR/system.txt moduleT 
+buildNewDB $CacheDir $ADMIN_DIR/system.txt dbT
 
 ########################################################################
 #  Build reverse map (This is optional)
@@ -90,7 +100,8 @@ buildNewDB $CacheDir  moduleT
 #  reverse map allows one to map back to modules the executable might be
 #  using.   See tools like XALT:  xalt.sf.net
 ########################################################################
-#buildNewDB $RmapDir   reverseMapT
+#buildNewDB $RmapDir  $ADMIN_DIR/system.txt reverseMapT
+
 
 
 
