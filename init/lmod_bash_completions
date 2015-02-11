@@ -97,7 +97,6 @@ _ml() {
     spider)         COMPREPLY=( $(compgen -W "$(_module_spider)" -- "$cur") );;
     rm|remove|unload|swap)
     restore)        COMPREPLY=( $(compgen -W "$(_module_savelist)" -- "$cur") );;
-                    COMPREPLY=( $(compgen -W "$(_module_loaded_modules)" -- "$cur") );;
     unuse)	    COMPREPLY=( $(IFS=: compgen -W "${MODULEPATH}" -- "$cur") );;
     use|*-a*)       _filedir -d || return 0;;
     help|show|whatis)
