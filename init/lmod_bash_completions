@@ -96,6 +96,7 @@ _ml() {
   case "$prev" in
     spider)         COMPREPLY=( $(compgen -W "$(_module_spider)" -- "$cur") );;
     rm|remove|unload|swap)
+                    COMPREPLY=( $(compgen -W "$(_module_not_yet_loaded)" -- "$cur") );;
     restore)        COMPREPLY=( $(compgen -W "$(_module_savelist)" -- "$cur") );;
     unuse)	    COMPREPLY=( $(IFS=: compgen -W "${MODULEPATH}" -- "$cur") );;
     use|*-a*)       _filedir -d || return 0;;

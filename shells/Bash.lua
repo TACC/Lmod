@@ -86,7 +86,7 @@ end
 
 function Bash.expandVar(self, k, v, vType)
    local lineA       = {}
-   v                 = v:doubleQuoteString()
+   v                 = tostring(v):doubleQuoteString()
    lineA[#lineA + 1] = k
    lineA[#lineA + 1] = "="
    lineA[#lineA + 1] = v
