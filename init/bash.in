@@ -103,7 +103,7 @@ if [ "$PS1" ]; then
     }
     SET_TITLE_BAR=:
 
-    case $TERM in
+    case "$TERM" in
       xterm*)
         SET_TITLE_BAR=xSetTitleLmod
         ;;

@@ -38,7 +38,7 @@ if ( ! $?TARG_TITLE_BAR_PAREN ) then
   setenv TARG_TITLE_BAR_PAREN ""
 endif
 
-if ( $?prompt && $?tcsh && "$LMOD_FULL_SETTARG_SUPPORT" != no ) then
+if ( $?TERM && $?prompt && $?tcsh && "$LMOD_FULL_SETTARG_SUPPORT" != no ) then
    alias cwdcmd 'eval `$LMOD_SETTARG_CMD -s csh`'
 
    switch ($TERM)
