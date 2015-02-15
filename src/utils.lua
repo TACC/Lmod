@@ -51,8 +51,8 @@ local base64       = require("base64")
 local dbg          = require("Dbg"):dbg()
 local lfs          = require("lfs")
 local posix        = require("posix")
+local readlink     = posix.readlink
 local setenv_posix = posix.setenv
-
 local concatTbl    = table.concat
 local decode64     = base64.decode64
 local floor        = math.floor
@@ -1020,6 +1020,24 @@ function walk_directory_for_mf(mpath, path, prefix, dirA, mnameT)
    dbg.fini("walk_directory_for_mf")
    return defaultFn
 end
+
+function walk_link(path)
+   local result = path
+   local attr   = lfs.symlinkattributes(path)
+   if (attr == nil) then
+      return nil
+   end
+   
+   if (attr.mode == "link") then
+      local rl = readlink(path)
+      if (not rl) then
+         return nil
+      end
+      return pathJoin(dirname(path),rl)
+   end
+   return path
+end
+
 
 --------------------------------------------------------------------------
 -- Deal with warnings

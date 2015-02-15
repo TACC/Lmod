@@ -101,9 +101,12 @@ s_mtA = {}
 
 local function buildAvailT(mpath, path, prefix, availT)
 
+   dbg.start{"buildAvailT(",mpath,",", path,",", prefix,", availT)"}
    local mnameT     = {}
    local dirA       = {}
    local defaultFn  = walk_directory_for_mf(mpath, path, prefix, dirA, mnameT)
+
+   dbg.print{"defaultFn: ",defaultFn,", path: ",path,"\n"}
 
    if (#dirA > 0 or prefix == '') then
       --------------------------------------------------------------------------
@@ -158,7 +161,7 @@ local function buildAvailT(mpath, path, prefix, availT)
          local d, v = splitFileName(defaultFn)
          v          = "/" .. v
          if (v == "/default") then
-            defaultFn = abspath_localdir(defaultFn)
+            defaultFn = walk_link(defaultFn)
          else
             v         = versionFile(v, prefix, defaultFn, true)
             --d         = abspath(d)
@@ -175,6 +178,7 @@ local function buildAvailT(mpath, path, prefix, availT)
          defaultFn = pathJoin(d, a[#a].version)
       end
    end
+   dbg.fini("buildAvailT")
 end
 
 
@@ -464,7 +468,9 @@ function M._build_locationTbl(self, mpathA, adding, pathEntry)
    if (mustWalkDirs) then
       local fast      = true
       local cache     = _G.Cache:cache()
-      local moduleT   = cache:build(fast)
+      --local moduleT   = cache:build(fast)
+      local moduleT   = false
+      
 
       dbg.print{"moduleT: ", not (not moduleT),"\n"}
 

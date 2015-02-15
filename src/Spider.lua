@@ -281,7 +281,9 @@ function M.findModulesInDir(mpath, path, prefix, moduleT)
          local d, v = splitFileName(defaultFn)
          v          = "/" .. v
          if (v == "/default") then
-            defaultFn = abspath_localdir(defaultFn)
+            dbg.print{"Before defaultfn: ",defaultFn,"\n"}
+            defaultFn = walk_link(defaultFn)
+            dbg.print{"After defaultfn: ",defaultFn,"\n"}
          else
             local sn  = prefix:gsub("/+$","")
             v         = versionFile(v, sn, defaultFn, true)
