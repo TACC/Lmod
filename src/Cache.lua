@@ -266,11 +266,13 @@ local function readCacheFile(self, moduleTFnA)
             if (next(attr) ~= nil and attr.size > 0) then
                found = true
                break
+            else
+               dbg.print{"Did not find: ",fn,"\n"}
             end
          end
 
          if (not found) then
-            dbg.print{"Did not find: ",fn,"\n"}
+            dbg.print{"No cache files found in", moduleDirT, "\n"}
             break 
          end
 
@@ -314,7 +316,7 @@ local function readCacheFile(self, moduleTFnA)
       until true
    end
 
-   dbg.fini("Cache:readDbT")
+   dbg.fini("Cache:readCacheFile")
    return dirsRead
 end
 
@@ -349,11 +351,13 @@ function readDbT(self, dbTFnA)
             if (next(attr) ~= nil and attr.size > 0) then
                found = true
                break
+            else
+               dbg.print{"Did not find: ",fn,"\n"}
             end
          end
 
          if (not found) then
-            dbg.print{"Did not find: ",fn,"\n"}
+            dbg.print{"No cache files found\n"}
             break
          end
 
