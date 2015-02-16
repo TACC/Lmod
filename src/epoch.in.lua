@@ -16,6 +16,10 @@ require("strict")
 local epoch = false
 _G._DEBUG   = false               -- Required by the new lua posix
 local posix = require("posix")
+
+---------------------------------------------------------------------
+-- Build the Epoch function.  This function returns the *epoch*
+-- depending on what version of posix.gettimeofday is installed.
 function build_epoch()
    if (posix.gettimeofday) then
       local x1, x2 = posix.gettimeofday()
@@ -37,6 +41,8 @@ function build_epoch()
    end
 end
 
+--------------------------------------------------------------------------
+-- Build the epoch function and call it.
 function main()
    build_epoch()
    print (epoch())

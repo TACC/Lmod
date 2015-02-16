@@ -1,5 +1,8 @@
 --------------------------------------------------------------------------
--- Fixme
+-- This module is the only file that actually reads and causes the
+-- module file to be evaluated.  If the file name has a ".lua" extension
+-- then it is a Lua modulefile.  Otherwise it is considered to be a TCL
+-- modulefile.
 -- @module loadModuleFile
 
 require("strict")
@@ -46,7 +49,8 @@ local dbg          = require("Dbg"):dbg()
 local concatTbl    = table.concat
 ------------------------------------------------------------------------
 -- loadModuleFile(t): read a modulefile in via sandbox_run
-
+-- @param t The input table naming the file to be loaded plus other
+--          things like the current list of modules and the shell.
 function loadModuleFile(t)
    dbg.start{"loadModuleFile()"}
    dbg.print{"t.file: ",t.file,"\n"}

@@ -1,8 +1,9 @@
 #!/usr/bin/env lua
 -- -*- lua -*-
 --------------------------------------------------------------------------
--- The main program for Lmod.
--- @script lmod
+-- Convert base64 encoded Strings into the module table.  This is used
+-- to generate test results. 
+-- @script joinBase64Results
 
 require("strict")
 
@@ -40,10 +41,6 @@ require("strict")
 --
 --------------------------------------------------------------------------
 
-------------------------------------------------------------------------
--- Extract directory location of this command and add it
--- to the lua search path
-------------------------------------------------------------------------
 local cmd = arg[0]
 
 local i,j = cmd:find(".*/")

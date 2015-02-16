@@ -63,6 +63,10 @@ local Version     = require("Version")
 local _concatTbl  = table.concat
 local pack        = (_VERSION == "Lua 5.1") and argsPack or table.pack
 
+--------------------------------------------------------------------------
+-- Special table concat function that knows about strings and numbers.
+-- @param aa  Input array
+-- @param sep output separator.
 local function concatTbl(aa,sep)
    if (not dbg.active()) then
       return ""
@@ -82,6 +86,9 @@ local function concatTbl(aa,sep)
    return _concatTbl(a, sep)
 end
 
+--------------------------------------------------------------------------
+-- Validate a function with only string arguments.
+-- @param cmdName The command which is getting its arguments validated.
 local function validateStringArgs(cmdName, ...)
    local arg = pack(...)
    for i = 1, arg.n do
@@ -96,6 +103,9 @@ local function validateStringArgs(cmdName, ...)
    return true
 end
 
+--------------------------------------------------------------------------
+-- Validate a function with only string table.
+-- @param cmdName The command which is getting its arguments validated.
 local function validateStringTable(n, cmdName, t)
    n = max(n,#t)
    for i = 1, n do
@@ -125,6 +135,9 @@ local function validateStringTable(n, cmdName, t)
    return true
 end
 
+--------------------------------------------------------------------------
+-- Validate a function with only string module names table.
+-- @param cmdName The command which is getting its arguments validated.
 local function validateModules(cmdName, ...)
    local arg = pack(...)
    dbg.print{"cmd: ",cmdName, " arg.n: ",arg.n,"\n"}
@@ -150,6 +163,9 @@ local function validateModules(cmdName, ...)
    return allGood
 end
 
+--------------------------------------------------------------------------
+-- Validate a function with only string module names table.
+-- @param cmdName The command which is getting its arguments validated.
 local function validateArgsWithValue(cmdName, ...)
    local arg = pack(...)
 
@@ -175,14 +191,9 @@ end
 
 --- Load family functions ----
 
----help_topic{kind="modfuncs",
----           name="load",
----           examples="load('name'); load('name/1.2'); load(atleast('name','3.2'))",
----           descript= [[the load function loads a module via its name.  When a module
----                       is unloaded.  this command causes the module to unloaded.]]
----}
-
-
+--------------------------------------------------------------------------
+--  The load function.  It can be found in the following forms:
+-- "load('name'); load('name/1.2'); load(atleast('name','3.2'))",
 function load_module(...)
    dbg.start{"load_module(",concatTbl({...},", "),")"}
    if (not validateModules("load",...)) then return {} end
@@ -193,16 +204,11 @@ function load_module(...)
    return b
 end
 
----help_topic{kind="modfuncs",
----           name="try_load",
----           examples="try_load('name'); try_load('name/1.2'); try_load(atleast('name','3.2'))",
----           descript= [[the load function loads a module via its name.  If it doesn't
----                       exist then no error is produced. When a module is unloaded.  this
----                       command causes the module to unloaded]]
----}
-
-
-
+--------------------------------------------------------------------------
+--  The try-load function.  It can be found in the following forms:
+-- "try_load('name'); try_load('name/1.2'); try_load(atleast('name','3.2'))",
+-- The only difference between 'load' and 'try_load' is that a 'try_load'
+-- will not produce a warning if the specified modulefile(s) do not exist.
 function try_load(...)
    dbg.start{"try_load(",concatTbl({...},", "),")"}
    if (not validateModules("try_load",...)) then return {} end
@@ -214,14 +220,10 @@ end
 
 try_add = try_load
 
----help_topic{kind="modfuncs",
----           name="unload",
----           examples="unload('name'); unload('name/1.2')",
----           descript= [[the unload function unloads a module via its name. No error is
----                       produced if the module is not already loaded.  When a module is
----                       unloaded, this command does nothing.]]
----}
-
+--------------------------------------------------------------------------
+-- The unload function reads a module file and reverses all the commands
+-- in the modulefile.  It is not an error to unload a module which is
+-- not loaded.
 function unload(...)
    dbg.start{"unload(",concatTbl({...},", "),")"}
    if (not validateStringArgs("unload",...)) then return {} end

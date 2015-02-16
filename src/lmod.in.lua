@@ -45,11 +45,6 @@ prepend_order   = false
 banner          = false
 
 ------------------------------------------------------------------------
--- Extract directory location of "lmod" command and add it
--- to the lua search path
-------------------------------------------------------------------------
-
-------------------------------------------------------------------------
 -- Use command name to add the command directory to the package.path
 ------------------------------------------------------------------------
 local LuaCommandName = arg[0]
@@ -360,7 +355,6 @@ list         = List
 
 ModuleName = ""
 ModuleFn   = ""
-
 
 --------------------------------------------------------------------------
 -- The main function of Lmod.  The lmod program always starts here.

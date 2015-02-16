@@ -2,7 +2,10 @@
 -- -*- lua -*-
 
 --------------------------------------------------------------------------
--- Fixme
+-- This is ml script front end to modules.  You can pretty much do
+-- everything with the ml script that you can do with the module command.
+-- With the "--old_style" option it can be used with the TCL/C module
+-- system.
 -- @script ml
 
 --------------------------------------------------------------------------
@@ -41,7 +44,6 @@
 
 ------------------------------------------------------------------------
 -- Use command name to add the command directory to the package.path
-------------------------------------------------------------------------
 local LuaCommandName = arg[0]
 local i,j = LuaCommandName:find(".*/")
 local LuaCommandName_dir = "./"
@@ -55,10 +57,16 @@ package.path = LuaCommandName_dir .. "../tools/?.lua;" ..
 pcall(require("strict"))
 
 local concatTbl = table.concat
+
+--------------------------------------------------------------------------
+-- Wrap an entity in single quotes.
+-- @param a a entity to wrap in quotes.
 local function quoteWrap(a)
    return "'" .. tostring(a) .. "'"
 end
 
+--------------------------------------------------------------------------
+-- Simple usage message.
 function usage()
    io.stderr:write("\n",
                    "ml: A handy front end for the module command:\n\n",
@@ -87,6 +95,8 @@ end
 
 
 
+--------------------------------------------------------------------------
+-- The main program.  Process options and generate module command.
 function main()
 
    local argA     = {}
@@ -169,6 +179,11 @@ function main()
    local oldStyle = false
    local show     = false
    local cmdFound = false
+
+   --------------------------------------------------------------------------
+   -- Loop over command line options and process each one.  Note that this
+   -- loop uses the for -- repeat ... until true end trick for simulating
+   -- the continue stmt (which doesn't exist in Lua).
 
    for _,v in ipairs(arg) do
       repeat
@@ -273,10 +288,13 @@ function main()
 
    local s = concatTbl(a," ")
 
+   -- print module command to stderr so user can see what
+   -- this command will do.
    if (verbose or show) then
       io.stderr:write(s, "\n")
    end
 
+   -- Output module command 
    if (not show) then
       io.stdout:write(s, "\n")
    end
