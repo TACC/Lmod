@@ -1,3 +1,20 @@
+Lmod Version 5.9.1
+Bug fixes
+   a) The spider cache is now ignored on unloads, show as well as
+      loads.
+   b) Lmod treats symlink directories and files much more quickly.
+      It also means that Lmod DOES NOT resolve two symlink
+      directories pointing to the same place.  It is too expensive
+      to resolve that on parallel file systems.
+   c) Initialization with Csh now works even when $TERM is not
+      set.
+Features:
+   a) The shell script createSystemCacheFile.sh is now takes
+      parameters so that sites can use it directly.  It is now
+      installed in the libexec directory.
+   b) Bash and Zsh tab-completion now support module restore <tab>
+      with the savelist.
+
 Lmod Version 5.9
 Feature:
    a) Several changes to support faster avail with the spider cache.
@@ -8,8 +25,6 @@ Feature:
       
 Bug Fixes:
    a) Fixed a bug where LUA_INCLUDE was not set.
-
-
 
 Lmod Version 5.8.6
 Bug Fixes:
