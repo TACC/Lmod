@@ -256,7 +256,7 @@ function main()
    readRC()
    build_epoch()            -- build the epoch function
    build_accept_functions() -- functions to accept or ignore TCL mfiles
-   local cache = Cache:cache{dontWrite = true, quiet = true}
+   local cache = Cache:cache{dontWrite = true, quiet = true, buildCache = true}
 
    ------------------------------------------------------------------------
    -- do not colorize output from spider

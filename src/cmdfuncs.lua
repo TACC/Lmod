@@ -157,7 +157,7 @@ function Keyword(...)
 
    local master  = Master:master()
    local shell   = master.shell
-   local cache   = Cache:cache()
+   local cache   = Cache:cache{buildCache=true}
    local moduleT = cache:build()
    local s
    local dbT = {}
@@ -710,7 +710,7 @@ end
 -- level 1 or level 2 report on particular modules.
 function SpiderCmd(...)
    dbg.start{"SpiderCmd(", concatTbl({...},", "),")"}
-   local cache       = Cache:cache()
+   local cache       = Cache:cache{buildCache=true}
    local shell       = Master:master().shell
    local masterTbl   = masterTbl()
    local moduleT,dbT = cache:build()

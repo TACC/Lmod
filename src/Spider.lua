@@ -194,11 +194,13 @@ end
 
 local function registerModuleT(full, sn, f, markedDefault)
    local t = {}
-
-   local fabs      = abspath_localdir(f)
-   if (not fabs) then
-      fabs = abspath_localdir(f..".lua"):gsub("%.lua$","")
+   local fabs = false
+   if (isFile(f)) then
+      fabs = f
+   elseif (isFile(f..".lua")) then
+      fabs = f
    end
+
    t.path          = f
    t.name          = sn
    t.name_lower    = sn:lower()
@@ -206,6 +208,8 @@ local function registerModuleT(full, sn, f, markedDefault)
    t.full_lower    = full:lower()
    t.epoch         = posix.stat(f, "mtime")
    t.markedDefault = (fabs == markedDefault)
+   dbg.print{"registerModuleT: f: ",f,", fabs: ",fabs,", dfltFn: ",markedDefault,
+             ", marked: ",t.markedDefault,"\n"}
    t.children      = {}
 
    return t
@@ -293,6 +297,7 @@ function M.findModulesInDir(mpath, path, prefix, moduleT)
                f      = f .. ".lua"
                defaultFn = abspath_localdir(f)
             end
+            dbg.print{"defaultFn: ",defaultFn,", f: ",f,", v: ",v,", sn: ",sn,"\n"}
          end
       end
       dbg.print{"defaultFn: ",defaultFn,"\n"}

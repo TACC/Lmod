@@ -16,3 +16,37 @@ MODULEPATH="ProjectDIR/rt/symlink/mf/Core";
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/symlink/mf/Core",},family={},inactive={},mT={},mpathA={"ProjectDIR/rt/symlink/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/symlink/mf/Core",["version"]=2,}';
 export _ModuleTable_;
+===========================
+step 3
+lua ProjectDIR/src/lmod.in.lua bash load intel
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/symlink/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/symlink/mf/Core";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/symlink/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+LOADEDMODULES="intel/12.1.5";
+export LOADEDMODULES;
+MODULEPATH="ProjectDIR/rt/symlink/mf/Core";
+export MODULEPATH;
+MY_VERSION="12.1.5";
+export MY_VERSION;
+_LMFILES_="ProjectDIR/rt/symlink/mf/Core/intel/12.1.5.lua";
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/symlink/mf/Core",},family={},inactive={},mT={intel={["FN"]="ProjectDIR/rt/symlink/mf/Core/intel/12.1.5.lua",["default"]=1,["fullName"]="intel/12.1.5",["loadOrder"]=1,propT={},["short"]="intel",["status"]="active",},},mpathA={"ProjectDIR/rt/symlink/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/symlink/mf/Core",["version"]=2,}';
+export _ModuleTable_;
+===========================
+step 4
+lua ProjectDIR/src/lmod.in.lua bash list
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/symlink/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/symlink/mf/Core";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/symlink/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/symlink/mf/Core";
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/symlink/mf/Core",},family={},inactive={},mT={intel={["FN"]="ProjectDIR/rt/symlink/mf/Core/intel/12.1.5.lua",["default"]=1,["fullName"]="intel/12.1.5",["loadOrder"]=1,propT={},["short"]="intel",["status"]="active",},},mpathA={"ProjectDIR/rt/symlink/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/symlink/mf/Core",["version"]=2,}';
+export _ModuleTable_;

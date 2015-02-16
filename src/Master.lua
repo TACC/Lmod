@@ -1132,7 +1132,7 @@ function M.avail(argA)
       return
    end
 
-   local cache        = Cache:cache{quiet = masterTbl.terse}
+   local cache        = Cache:cache{quiet = masterTbl.terse, buildCache=true}
    local moduleT, dbT = cache:build()
 
    local baseMpath = mt:getBaseMPATH()

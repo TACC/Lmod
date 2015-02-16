@@ -30,7 +30,7 @@ lua ProjectDIR/src/lmod.in.lua bash avail
  OutputDIR/mf/Compiler/intel/15.0 
    mv2/2.0
  OutputDIR/mf/Core 
-   intel/15.0.2    itac/1.0
+   intel/15.0.2
 Use "module spider" to find all possible modules.
 Use "module keyword key1 key2 ..." to search for all possible modules matching
 any of the "keys".

@@ -183,6 +183,7 @@ local function new(self, t)
    o.systemDirA    = scDirA
    o.dbTDirA       = dbDirA
    o.dontWrite     = t.dontWrite or false
+   o.buildCache    = false
    o.quiet         = t.quiet     or false
 
    o.dbT           = {}
@@ -204,11 +205,18 @@ end
 -- @return A singleton Cache object.
 function M.cache(self, t)
    dbg.start{"Cache:cache()"}
+
    if (not s_cache) then
       s_cache   = new(self, t)
    end
 
-   s_cache.quiet    = (t or {}).quiet or s_cache.quiet
+   t                = t or {}
+   s_cache.quiet    = t.quiet or s_cache.quiet
+   if (t.buildCache) then
+      s_cache.buildCache = t.buildCache
+   end
+
+   dbg.print{"s_cache.buildCache: ",self.buildCache,"\n"}
 
    local mt        = MT:mt()
    local baseMpath = mt:getBaseMPATH()
@@ -426,6 +434,11 @@ function M.build(self, fast)
    local moduleT = self.moduleT
    local dbT     = self.dbT
    local spider  = Spider:new()
+
+   dbg.print{"self.buildCache: ",self.buildCache,"\n"}
+   if (not self.buildCache) then
+      return false, false
+   end
 
    if (next(moduleT) ~= nil) then
       dbg.print{"Using pre-built moduleT!\n"}
