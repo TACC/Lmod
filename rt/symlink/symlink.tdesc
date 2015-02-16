@@ -25,9 +25,10 @@ testdescript = {
      rm -fr _stderr.* _stdout.* err.* out.* .lmod.d
 
      runLmod --version              # 1
-     runLmod avail                  # 2
-     runLmod load intel             # 3
-     runLmod list                   # 4
+     runLmod       avail            # 2
+     runLmod -t -d avail            # 3
+     runLmod load intel             # 4
+     runLmod list                   # 5
 
 
 

@@ -166,11 +166,11 @@ local function buildAvailT(mpath, path, prefix, availT)
             dbg.print{"After defaultFn: ",defaultFn,"\n"}
          else
             v         = versionFile(v, prefix, defaultFn, true)
-            --d         = abspath(d)
             local f   = pathJoin(d,v)
-            defaultFn = abspath_localdir(f)
-            if (defaultFn == nil) then
-               defaultFn = abspath_localdir(pathJoin(d,v .. ".lua"))
+            if (isFile(f)) then
+               defaultFn = f
+            elseif (isFile(f .. ".lua")) then
+               defaultFn = f .. ".lua"
             end
          end
          local num = #vA

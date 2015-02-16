@@ -217,15 +217,15 @@ end
 
 function M.findModulesInDir(mpath, path, prefix, moduleT)
    local t1
-   dbg.start{"findModulesInDir(mpath=\"",mpath,"\", path=\"",path,
+   dbg.start{"Spider:findModulesInDir(mpath=\"",mpath,"\", path=\"",path,
              "\", prefix=\"",prefix,"\")"}
 
    local Pairs = dbg.active() and pairsByKeys or pairs
    local attr  = lfs.attributes(path)
    if (not attr or  type(attr) ~= "table" or attr.mode ~= "directory" or
        not posix.access(path,"rx")) then
-      dbg.print{"Directory: ",path," is non-existant or is not readable\n"}
-      dbg.fini("findModulesInDir")
+      dbg.print{"Directory: ",path," does not exist or is not readable\n"}
+      dbg.fini("Spider:findModulesInDir")
       return
    end
 
@@ -285,17 +285,15 @@ function M.findModulesInDir(mpath, path, prefix, moduleT)
          local d, v = splitFileName(defaultFn)
          v          = "/" .. v
          if (v == "/default") then
-            dbg.print{"Before defaultfn: ",defaultFn,"\n"}
             defaultFn = walk_link(defaultFn)
-            dbg.print{"After defaultfn: ",defaultFn,"\n"}
          else
             local sn  = prefix:gsub("/+$","")
             v         = versionFile(v, sn, defaultFn, true)
             local f   = pathJoin(d,v)
-            defaultFn = abspath_localdir(f)
-            if (defaultFn == nil) then
-               f      = f .. ".lua"
-               defaultFn = abspath_localdir(f)
+            if (isFile(f)) then
+               defaultFn = f
+            elseif (isFile(f .. ".lua")) then
+               defaultFn = f .. ".lua"
             end
             dbg.print{"defaultFn: ",defaultFn,", f: ",f,", v: ",v,", sn: ",sn,"\n"}
          end
@@ -314,7 +312,7 @@ function M.findModulesInDir(mpath, path, prefix, moduleT)
          dbg.print{"Saving: Full: ", full, " Name: ", sn, " fn: ",v.fn,"\n"}
       end
    end
-   dbg.fini("findModulesInDir")
+   dbg.fini("Spider:findModulesInDir")
 end
 
 function M.findAllModules(self, moduleDirA, moduleT)
