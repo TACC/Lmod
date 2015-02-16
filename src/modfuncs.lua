@@ -462,7 +462,7 @@ function prereq(...)
    dbg.start{"prereq(",concatTbl({...},", "),")"}
    if (not validateModules("prereq", ...)) then return end
 
-   mcp:prereq(MName:buildA("mt", ...))
+   mcp:prereq(MName:buildA("load", ...))
    dbg.fini("prereq")
 end
 
@@ -472,7 +472,7 @@ function conflict(...)
    dbg.start{"conflict(",concatTbl({...},", "),")"}
    if (not validateStringArgs("conflict",...)) then return end
 
-   mcp:conflict(MName:buildA("mt",...))
+   mcp:conflict(MName:buildA("load",...))
    dbg.fini()
 end
 
