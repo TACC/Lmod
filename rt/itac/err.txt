@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.9.0.1  2015-02-13 13:57
+Modules based on Lua: Version 5.9.0.2  2015-02-16 07:40
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -36,14 +36,20 @@ Use "module keyword key1 key2 ..." to search for all possible modules matching
 any of the "keys".
 ===========================
 step 5
+lua ProjectDIR/src/lmod.in.lua bash show itac
+===========================
+   OutputDIR/mf/Core/itac/1.0.lua:
+setenv("ITAC_VERSION","1.0")
+===========================
+step 6
 lua ProjectDIR/src/lmod.in.lua bash load itac
 ===========================
 ===========================
-step 6
+step 7
 lua ProjectDIR/src/lmod.in.lua bash unload mv2
 ===========================
 ===========================
-step 7
+step 8
 lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
 Currently Loaded Modules:

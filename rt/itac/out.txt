@@ -58,6 +58,20 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"OutputDIR/mf/Core",}
 export _ModuleTable_;
 ===========================
 step 5
+lua ProjectDIR/src/lmod.in.lua bash show itac
+===========================
+LMOD_DEFAULT_MODULEPATH="OutputDIR/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="OutputDIR/mf/MPI/intel/15.0/mv2/2.0:OutputDIR/mf/Compiler/intel/15.0:OutputDIR/mf/Core";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="OutputDIR/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="OutputDIR/mf/MPI/intel/15.0/mv2/2.0:OutputDIR/mf/Compiler/intel/15.0:OutputDIR/mf/Core";
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"OutputDIR/mf/Core",},family={["MPI"]="mv2",["compiler"]="intel",},inactive={},mT={intel={["FN"]="OutputDIR/mf/Core/intel/15.0.2.lua",["default"]=1,["fullName"]="intel/15.0.2",["loadOrder"]=1,propT={},["short"]="intel",["status"]="active",},mv2={["FN"]="OutputDIR/mf/Compiler/intel/15.0/mv2/2.0.lua",["default"]=1,["fullName"]="mv2/2.0",["loadOrder"]=2,propT={},["short"]="mv2",["status"]="active",},},mpathA={"OutputDIR/mf/MPI/intel/15.0/mv2/2.0","OutputDIR/mf/Compiler/intel/15.0","OutputDIR/mf/Core",},["systemBaseMPATH"]="OutputDIR/mf/Core",["version"]=2,}';
+export _ModuleTable_;
+===========================
+step 6
 lua ProjectDIR/src/lmod.in.lua bash load itac
 ===========================
 LMOD_DEFAULT_MODULEPATH="OutputDIR/mf/Core";
@@ -77,7 +91,7 @@ export _LMFILES_;
 _ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"OutputDIR/mf/Core",},family={["MPI"]="mv2",["compiler"]="intel",},inactive={},mT={intel={["FN"]="OutputDIR/mf/Core/intel/15.0.2.lua",["default"]=1,["fullName"]="intel/15.0.2",["loadOrder"]=1,propT={},["short"]="intel",["status"]="active",},itac={["FN"]="OutputDIR/mf/Core/itac/1.0.lua",["default"]=1,["fullName"]="itac/1.0",["loadOrder"]=3,propT={},["short"]="itac",["status"]="active",},mv2={["FN"]="OutputDIR/mf/Compiler/intel/15.0/mv2/2.0.lua",["default"]=1,["fullName"]="mv2/2.0",["loadOrder"]=2,propT={},["short"]="mv2",["status"]="active",},},mpathA={"OutputDIR/mf/MPI/intel/15.0/mv2/2.0","OutputDIR/mf/Compiler/intel/15.0","OutputDIR/mf/Core",},["systemBaseMPATH"]="OutputDIR/mf/Core",["version"]=2,}';
 export _ModuleTable_;
 ===========================
-step 6
+step 7
 lua ProjectDIR/src/lmod.in.lua bash unload mv2
 ===========================
 LMOD_DEFAULT_MODULEPATH="OutputDIR/mf/Core";
@@ -97,7 +111,7 @@ export _LMFILES_;
 _ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"OutputDIR/mf/Core",},family={["compiler"]="intel",},inactive={},mT={intel={["FN"]="OutputDIR/mf/Core/intel/15.0.2.lua",["default"]=1,["fullName"]="intel/15.0.2",["loadOrder"]=1,propT={},["short"]="intel",["status"]="active",},itac={["FN"]="OutputDIR/mf/Core/itac/1.0.lua",["default"]=1,["fullName"]="itac/1.0",["loadOrder"]=2,propT={},["short"]="itac",["status"]="active",},},mpathA={"OutputDIR/mf/Compiler/intel/15.0","OutputDIR/mf/Core",},["systemBaseMPATH"]="OutputDIR/mf/Core",["version"]=2,}';
 export _ModuleTable_;
 ===========================
-step 7
+step 8
 lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
 LMOD_DEFAULT_MODULEPATH="OutputDIR/mf/Core";
