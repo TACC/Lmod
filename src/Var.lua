@@ -302,8 +302,8 @@ function M.remove(self, value, where, priority)
          chkMP(self.name,adding,path)
       end
    end
-   dbg.print{"where: ",where,", new value: ",v,"\n"}
    local v    = self:expand()
+   dbg.print{"where: ",where,", new value: ",v,"\n"}
    self.value = v
    if (not v) then v = nil end
    setenv_posix(self.name, v, true)
