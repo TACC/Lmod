@@ -291,7 +291,6 @@ function M.remove(self, value, where, priority)
    end
 
    where = allow_dups(true) and where or "all"
-   dbg.print{"where: ",where,"\n"}
    local pathA   = path2pathA(value, self.sep)
    local tbl     = self.tbl
    local adding  = false
@@ -303,6 +302,7 @@ function M.remove(self, value, where, priority)
          chkMP(self.name,adding,path)
       end
    end
+   dbg.print{"where: ",where,", new value: ",v,"\n"}
    local v    = self:expand()
    self.value = v
    if (not v) then v = nil end
