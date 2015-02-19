@@ -52,9 +52,7 @@ local concatTbl    = table.concat
 -- @param t The input table naming the file to be loaded plus other
 --          things like the current list of modules and the shell.
 function loadModuleFile(t)
-   dbg.start{"loadModuleFile()"}
-   dbg.print{"t.file: ",t.file,"\n"}
-   dbg.flush()
+   dbg.start{"loadModuleFile(",t.file,")"}
 
    local full    = myModuleFullName()
    local usrName = myModuleUsrName()

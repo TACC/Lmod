@@ -282,6 +282,7 @@ end
 -- @param where where it should be removed from {"first", "last", "all"}
 -- @param priority The priority of the entry.
 function M.remove(self, value, where, priority)
+   dbg.start{"Var:remove(value: ",value,", where:",where,", priority: ",priority,")"}
    if (value == nil) then return end
    priority = priority or 0
 
@@ -290,6 +291,7 @@ function M.remove(self, value, where, priority)
    end
 
    where = allow_dups(true) and where or "all"
+   dbg.print{"where: ",where,"\n"}
    local pathA   = path2pathA(value, self.sep)
    local tbl     = self.tbl
    local adding  = false
@@ -305,6 +307,7 @@ function M.remove(self, value, where, priority)
    self.value = v
    if (not v) then v = nil end
    setenv_posix(self.name, v, true)
+   dbg.fini("Var:remove")
 end
 
 --------------------------------------------------------------------------
