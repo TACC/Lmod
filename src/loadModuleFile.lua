@@ -77,7 +77,6 @@ function loadModuleFile(t)
       local s      = t.mList or ""
       local A      = {}
       local mode   = mcp:tcl_mode()
-      local envT   = {LD_LIBRARY_PATH = ORIG_LD_LIBRARY_PATH }
       A[#A + 1]    = "-l"
       A[#A + 1]    = "\"" .. s .. "\""
       A[#A + 1]    = "-f"
@@ -96,7 +95,7 @@ function loadModuleFile(t)
       a[#a + 1]	   = concatTbl(A," ")
       a[#a + 1]	   = t.file
       local cmd    = concatTbl(a," ")
-      whole        = capture(cmd, envT)
+      whole        = capture(cmd)
    end
 
    -- Use the sandbox to evaluate modulefile text.

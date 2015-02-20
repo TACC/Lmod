@@ -591,7 +591,6 @@ pkgConfig
 HAVE_LUA_JSON
 HAVE_LUA_TERM
 luaprog
-ORIG_LD_LIBRARY_PATH
 pager
 PATH_TO_SRC
 PATH_TO_HASHSUM
@@ -3222,10 +3221,6 @@ fi
 
 
 PATH_TO_PAGER=$pager
-
-
-
-ORIG_LD_LIBRARY_PATH=$LD_LIBRARY_PATH
 
 # Extract the first word of "luac", so it can be a program name with args.
 set dummy luac; ac_word=$2
