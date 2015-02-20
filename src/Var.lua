@@ -249,7 +249,7 @@ end
 --  @param a An array of values.
 --  @param where Where to remove and how: {"first", "last", "all"}
 --  @param priority The priority of the path if any (default is zero)
-local function remFunc(a, where, priority, nodup)
+local function remFunc(a, where, priority, nodups)
    if (where == "all" or abs(priority) > 0) then
       local oldPriority = 0
       if (next(a) ~= nil) then
