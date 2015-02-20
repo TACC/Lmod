@@ -289,6 +289,9 @@ function M.remove(self, value, where, priority)
    if (where == "first") then
       priority = - priority
    end
+   if (dbg.active() and self.name == "MODULEPATH") then
+      self:prt()
+   end
 
    where = allow_dups(true) and where or "all"
    local pathA   = path2pathA(value, self.sep)
@@ -297,7 +300,9 @@ function M.remove(self, value, where, priority)
 
    for i = 1, #pathA do
       local path = pathA[i]
+      dbg.print{"path: ",path,"\n"}
       if (tbl[path]) then
+         dbg.print{"removing path: ",path,"\n"}
          tbl[path] = remFunc(self.tbl[path], where, priority)
          chkMP(self.name,adding,path)
       end
