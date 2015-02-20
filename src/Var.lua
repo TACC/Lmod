@@ -249,13 +249,13 @@ end
 --  @param a An array of values.
 --  @param where Where to remove and how: {"first", "last", "all"}
 --  @param priority The priority of the path if any (default is zero)
-local function remFunc(a, where, priority)
+local function remFunc(a, where, priority, nodup)
    if (where == "all" or abs(priority) > 0) then
       local oldPriority = 0
       if (next(a) ~= nil) then
          oldPriority = tonumber(a[1][2])
       end
-      if (oldPriority == priority) then
+      if (oldPriority == priority or nodups) then
          a = nil
       end
    elseif (where == "first" ) then
@@ -281,7 +281,8 @@ end
 -- @param value The value to remove
 -- @param where where it should be removed from {"first", "last", "all"}
 -- @param priority The priority of the entry.
-function M.remove(self, value, where, priority)
+-- @param nodup If true then there are no duplicates allowed.
+function M.remove(self, value, where, priority, nodups)
    dbg.start{"Var:remove(value: ",value,", where:",where,", priority: ",priority,")"}
    if (value == nil) then return end
    priority = priority or 0
@@ -303,7 +304,7 @@ function M.remove(self, value, where, priority)
       dbg.print{"path: ",path,"\n"}
       if (tbl[path]) then
          dbg.print{"removing path: ",path,"\n"}
-         tbl[path] = remFunc(self.tbl[path], where, priority)
+         tbl[path] = remFunc(self.tbl[path], where, priority, nodups)
          chkMP(self.name,adding,path)
       end
    end

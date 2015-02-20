@@ -457,7 +457,7 @@ function M.remove_path(self, t)
    if (varTbl[name] == nil) then
       varTbl[name] = Var:new(name,nil, sep)
    end
-   varTbl[name]:remove(tostring(value), where, priority)
+   varTbl[name]:remove(tostring(value), where, priority, nodups)
    dbg.fini("MasterControl:remove_path")
 end
 

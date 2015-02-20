@@ -846,12 +846,11 @@ function Use(...)
       end
       iarg = iarg + 1
    end
-   local nodups = true
    for _,v in ipairs(a) do
       v = abspath(v)
       if (v) then
-         op(MCP, { ModulePath,  v, delim = ":", nodups=nodups, priority=priority })
-         op(MCP, { DfltModPath, v, delim = ":", nodups=nodups, priority=priority })
+         op(MCP, { ModulePath,  v, delim = ":", nodups=true, priority=priority })
+         op(MCP, { DfltModPath, v, delim = ":", nodups=true, priority=priority })
       end
    end
 
