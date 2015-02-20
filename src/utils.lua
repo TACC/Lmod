@@ -875,7 +875,7 @@ function versionFile(v, sn, path, ignoreErrors)
       end
    elseif (v == "/.version") then
       local cmd = pathJoin(cmdDir(),"ModulesVersion.tcl") .. " " .. path
-      local s = capture(cmd, envT):trim()
+      local s = capture(cmd):trim()
       assert(load(s))()
       version = modV.version
       if (modV.date ~= "***") then
