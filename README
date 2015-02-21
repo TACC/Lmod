@@ -14,6 +14,8 @@ Features:
       installed in the libexec directory.
    b) Bash and Zsh tab-completion now support module restore <tab>
       with the savelist.
+   c) The standard setup sets LMOD_VERSION as part of the startup
+      procedure.
 
 Lmod Version 5.9
 Feature:

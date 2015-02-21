@@ -28,6 +28,8 @@ alias clearMT 'eval `'$LMOD_DIR/clearMT_cmd csh'`'
 
 alias ml      'eval `'$LMOD_DIR/ml_cmd' '$histchar'*`'
 
+setenv LMOD_VERSION `module --dumpversion`
+
 unset prefix
 unset midfix
 unset postfix
