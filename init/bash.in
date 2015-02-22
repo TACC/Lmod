@@ -49,11 +49,11 @@ export MODULESHOME
 
 module()
 {
-  eval $($LMOD_CMD bash "$@") @bash_err_to_out@
+  eval $($LMOD_CMD bash "$@") 
   [ $? = 0 ] && eval $(${LMOD_SETTARG_CMD:-:} -s sh)
 }
 
-LMOD_VERSION=$(module --dumpversion)
+LMOD_VERSION="@lmod_version@"
 export LMOD_VERSION
 
 if [ "${LMOD_SETTARG_CMD:-:}" != ":" ]; then
