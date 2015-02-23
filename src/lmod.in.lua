@@ -316,6 +316,7 @@ BaseShell          = require("BaseShell")
 local Options      = require("Options")
 local Spider       = require("Spider")
 local Var          = require("Var")
+local posix        = require("posix")
 
 --------------------------------------------------------------------------
 -- A place holder function.  This should never be called.
@@ -534,6 +535,8 @@ function main()
       dbg:activateDebug(dbgLevel)
    end
    dbg.start{"lmod(", arg_str,")"}
+   dbg.print{"Date: ",os.date(),"\n"}
+   dbg.print{"Hostname: ",posix.uname("%n"),"\n"}
    dbg.print{"Lmod Version: ",Version.name(),"\n"}
    dbg.print{"package.path: ",package.path,"\n"}
 
