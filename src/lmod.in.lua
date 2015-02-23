@@ -535,10 +535,14 @@ function main()
       dbg:activateDebug(dbgLevel)
    end
    dbg.start{"lmod(", arg_str,")"}
-   dbg.print{"Date: ",os.date(),"\n"}
-   dbg.print{"Hostname: ",posix.uname("%n"),"\n"}
-   dbg.print{"Lmod Version: ",Version.name(),"\n"}
-   dbg.print{"package.path: ",package.path,"\n"}
+   if (dbg.active()) then
+      dbg.print{"Date: ",os.date(),"\n"}
+      dbg.print{"Hostname: ",posix.uname("%n"),"\n"}
+      dbg.print{"System: ",posix.uname("%s")," ",posix.uname("%r"),"\n"}
+      dbg.print{"Version: ",posix.uname("%v"),"\n"}
+      dbg.print{"Lmod Version: ",Version.name(),"\n"}
+      dbg.print{"package.path: ",package.path,"\n"}
+   end
 
    ------------------------------------------------------------
    -- Must output local variables even when there is the command
