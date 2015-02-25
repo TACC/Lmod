@@ -590,7 +590,7 @@ function readAdmin()
 
    -- Put something in adminT so that this routine will not be
    -- run again even if the file does not exist.
-   adminT["foo"] = "bar"
+   adminT["%%_foo_%%"] = "bar"
 
    if (f) then
       local whole = f:read("*all") .. "\n"
