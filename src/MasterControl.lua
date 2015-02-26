@@ -300,7 +300,7 @@ function M.reportAdminMsgs()
       local term_width  = TermWidth()
       local bt
       local a       = {}
-      local border  = string.rep("-", term_width-1)
+      local border  = colorize("red",string.rep("-", term_width-1))
       io.stderr:write("\n",border,"\n",
                       "There are messages associated with the following module(s):\n",
                       border,"\n")
