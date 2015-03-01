@@ -65,7 +65,7 @@ local load         = (_VERSION == "Lua 5.1") and loadstring or load
 
 --------------------------------------------------------------------------
 -- find true path through symlinks.
-
+-- @param path A file path
 function abspath_localdir (path)
    if (path == nil) then return nil end
    local cwd = lfs.currentdir()
@@ -117,7 +117,6 @@ end
 --------------------------------------------------------------------------
 -- This is 5.1 Lua function to cover the table.pack function
 -- that is in Lua 5.2 and later.
-
 function argsPack(...)
    local arg = { n = select("#", ...), ...}
    return arg
@@ -125,6 +124,9 @@ end
 pack     = (_VERSION == "Lua 5.1") and argsPack or table.pack
 
 
+--------------------------------------------------------------------------
+-- Generate a message that will fix the available terminal width.
+-- @param width The terminal width
 function buildMsg(width, ... )
    local arg = pack(...)
    local a   = {}
@@ -196,7 +198,6 @@ end
 -- This function builds the "epoch" function.
 -- The epoch function returns the number of seconds since
 -- Jan 1, 1970, UTC
-
 function build_epoch()
    if (posix.gettimeofday) then
       local x1, x2 = posix.gettimeofday()
@@ -222,8 +223,7 @@ function build_epoch()
 end
 
 --------------------------------------------------------------------------
--- Create the accept functions to allow or ignore TCL files.
-
+-- Create the accept functions to allow or ignore TCL modulefiles.
 function build_accept_functions()
    local allow_tcl = LMOD_ALLOW_TCL_MFILES:lower()
 
@@ -248,8 +248,9 @@ function build_accept_functions()
 end
 
 --------------------------------------------------------------------------
--- What it says.
-
+-- Convert both argument to lower case and compare.
+-- @param a input string
+-- @param b input string
 function case_independent_cmp(a,b)
    local a_lower = a:lower()
    local b_lower = b:lower()
@@ -262,9 +263,9 @@ function case_independent_cmp(a,b)
 end
 
 
---------------------------------------------------------------------------
--- Are we in expert mode?
 local __expert = false
+--------------------------------------------------------------------------
+-- Return true if in expert mode.
 function expert()
    if (__expert == false) then
       __expert = getenv("LMOD_EXPERT")
@@ -272,9 +273,9 @@ function expert()
    return __expert
 end
 
---------------------------------------------------------------------------
--- Are we in quiet mode?
 local __quiet = false
+--------------------------------------------------------------------------
+-- Return ture if in quiet mode.
 function quiet()
    if (__quiet == false) then
       __quiet = getenv("LMOD_QUIET") or getenv("LMOD_EXPERT")
@@ -286,7 +287,8 @@ end
 -- Compare the full name of a modulefile with the
 -- shortname. Return nil if the shortname and full name
 -- are the same.
-
+-- @param full full module name
+-- @param sn   short name
 function extractVersion(full, sn)
    if (not full or not sn) then
       return nil
@@ -324,7 +326,8 @@ s_ignoreT = {
    --@ignore_dirs@--
 }
 
-
+--------------------------------------------------------------------------
+-- Return the table of files to ignore when searching for modulefiles.
 function ignoreFileT()
    local fileT = s_ignoreT
    return fileT
@@ -338,7 +341,6 @@ end
 -- quotes and parens won't confuse the shell's poor little
 -- brain.  The number of pieces are stored in the global
 -- env. variable _ModuleTable_Sz_.
-
 function getMT()
    local a    = {}
    local mtSz = getenv("_ModuleTable_Sz_") or huge
@@ -358,6 +360,10 @@ function getMT()
    return s
 end
 
+--------------------------------------------------------------------------
+-- Find all the versions in the pathA or at least *n* of them.
+-- @param pathA  an array of paths.
+-- @param n      a number of paths to check.
 function allVersions(pathA, n)
    local lastKey   = ''
    local lastValue = ''
@@ -451,8 +457,8 @@ end
 -- function to decide which version is the most recent.
 -- It is not a lexigraphical search but uses rules built
 -- into parseVersion().
-
-
+-- @param pathA  an array of paths.
+-- @param n      a number of paths to check.
 function lastFileInPathA(pathA, n)
    local lastKey   = ''
    local lastValue = ''
@@ -477,17 +483,16 @@ end
 --------------------------------------------------------------------------
 -- compute the length of a string and ignore any string
 -- colorization.
-
+-- @param s input string
 function length(s)
    s = s:gsub("\027[^m]+m","")
    return s:len()
 end
 
+s_masterTbl = {}
 --------------------------------------------------------------------------
 -- Manage the Master Hash Table.  The command line arguments
 -- and the ModuleStack (when using Spider) are stored here.
-
-s_masterTbl = {}
 function masterTbl()
    return s_masterTbl
 end
@@ -506,7 +511,9 @@ end
 -- To handle that, the path component is converted to
 -- a single space.  This single space is later removed
 -- when expanding.
-
+-- @param path A string of *sep* separated paths.
+-- @param sep  The separator character.  It is usually
+--             a colon.
 function path2pathA(path, sep)
    sep = sep or ":"
    if (not path) then
@@ -548,18 +555,7 @@ function path2pathA(path, sep)
 end
 
 --------------------------------------------------------------------------
---  Read the admin.list file.  It is a Key value pairing of module names
---  and a message.  The module names can be either the full name or the file
---  name.  The message can be multi-line.  A blank line is signifies the
---  end of the message.
---
---  /path/to/modulefile: Blah Blah Blah
---                       Blah Blah Blah
---
---  module/version:      Blah Blah Blah
---                       Blah Blah Blah
---
-
+-- Find the admin file (or nag message file).
 function findAdminFn()
    local readable    = "no"
    local adminFn     = getenv("LMOD_ADMIN_FILE") or pathJoin(cmdDir(),"../../etc/admin.list")
@@ -579,6 +575,17 @@ function findAdminFn()
 end
 
 
+--------------------------------------------------------------------------
+--  Read the admin.list file.  It is a Key value pairing of module names
+--  and a message.  The module names can be either the full name or the file
+--  name.  The message can be multi-line.  A blank line is signifies the
+--  end of the message.
+--
+--  /path/to/modulefile: Blah Blah Blah
+--                       Blah Blah Blah
+--
+--  module/version:      Blah Blah Blah
+--                       Blah Blah Blah
 function readAdmin()
 
    -- If there is anything in [[adminT]] then return because
