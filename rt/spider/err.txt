@@ -2,11 +2,11 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.8  2014-11-04 12:46
+Modules based on Lua: Version 5.9.0.2  2015-02-19 16:54
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash use -a ProjectDIR/mf/Core ProjectDIR/mf/Beta ProjectDIR/rt/spider/mf/Core
+lua ProjectDIR/src/lmod.in.lua bash use -a ProjectDIR/mf/Core ProjectDIR/mf/Beta ProjectDIR/rt/spider/mf/Core ProjectDIR/rt/spider/mf/Core2
 ===========================
 ===========================
 step 3
