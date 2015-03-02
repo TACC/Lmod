@@ -706,10 +706,15 @@ function getSCDescriptT()
 end
 
 
+--------------------------------------------------------------------------
+-- Return the array of active RC files
 function getRCFileA()
    return s_rcFileA
 end
 
+--------------------------------------------------------------------------
+-- Convert number and string to a quoted string.
+-- @param v input number or string.
 local function arg2str(v)
    if (v == nil) then return v end
    local s = tostring(v)
@@ -728,7 +733,9 @@ defaultsT = {
    priority = "0",
 }
 
-
+--------------------------------------------------------------------------
+-- This routine converts a command into a string.  This is used by MC_Show
+-- @param name Input command name.
 function ShowCmdStr(name, ...)
    local a       = {}
    local arg     = pack(...)
@@ -774,6 +781,7 @@ function ShowCmdStr(name, ...)
    b[#b+1] = right
    return concatTbl(b,"")
 end
+
 
 function ShowCmdA(name, mA)
    local a = {}
@@ -851,7 +859,6 @@ end
 -- file.  It checks to make sure that it is a valid TCL
 -- file.  It then uses the ModulesVersion.tcl script to
 -- return what the value of "ModulesVersion" is.
-
 function versionFile(v, sn, path, ignoreErrors)
    dbg.start{"versionFile(v: ",v,", sn: ",sn,", path: ",path,")"}
    local f       = io.open(path,"r")
