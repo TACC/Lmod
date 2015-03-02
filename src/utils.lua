@@ -395,6 +395,12 @@ function allVersions(pathA, n)
    return a
 end
 
+--------------------------------------------------------------------------
+-- Compare two path arrays.  Return the index where they start to differ.
+-- @param old   Old path as a string
+-- @param oldA  An array of old path entries
+-- @param new   New path as a string
+-- @param newA  An array of new path entries
 function indexPath(old, oldA, new, newA)
    dbg.start{"indexPath(",old, ", ", new,")"}
    local oldN = #oldA
@@ -645,11 +651,6 @@ function readAdmin()
    end
 end
 
---------------------------------------------------------------------------
--- read in the system and possible a user lmod configuration file.
--- The system one is read first.  These provide default value
--- The user one can override the default values.
-
 local s_readRC     = false
 RCFileA = {
    pathJoin(cmdDir(),"../init/lmodrc.lua"),
@@ -658,6 +659,10 @@ RCFileA = {
    os.getenv("LMOD_RC"),
 }
 
+--------------------------------------------------------------------------
+-- Read in the system and possible a user lmod configuration file.
+-- The system one is read first.  These provide default value
+-- The user one can override the default values.
 function readRC()
    dbg.start{"readRC()"}
    if (s_readRC) then
@@ -688,13 +693,18 @@ function readRC()
    dbg.fini("readRC")
 end
 
+--------------------------------------------------------------------------
+-- Return the property table.
 function getPropT()
    return s_propT
 end
 
+--------------------------------------------------------------------------
+-- Return the spider cache description table.
 function getSCDescriptT()
    return s_scDescriptT
 end
+
 
 function getRCFileA()
    return s_rcFileA
