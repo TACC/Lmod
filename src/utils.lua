@@ -783,6 +783,10 @@ function ShowCmdStr(name, ...)
 end
 
 
+--------------------------------------------------------------------------
+-- This routine converts a command into a string.  This is used by MC_Show
+-- @param name Input command name.
+-- @param mA   An array of Module Name objects.
 function ShowCmdA(name, mA)
    local a = {}
    for i = 1, #mA do
@@ -801,7 +805,6 @@ end
 --------------------------------------------------------------------------
 -- Unique string that combines the current time/date
 -- with a uuid id string.
-
 function UUIDString(epoch)
    local ymd  = os.date("*t", epoch)
 
@@ -817,6 +820,10 @@ function UUIDString(epoch)
 end
 modV = false
 
+--------------------------------------------------------------------------
+-- Read in a .modulerc file.
+-- @param current The module name associated with the file.
+-- @param path complete path to .modulerc file
 function moduleRCFile(current, path)
    dbg.start{"moduleRCFile(",path,")"}
    local f       = io.open(path,"r")
@@ -859,6 +866,10 @@ end
 -- file.  It checks to make sure that it is a valid TCL
 -- file.  It then uses the ModulesVersion.tcl script to
 -- return what the value of "ModulesVersion" is.
+-- @param v The version file name: {.modulerc, .version}
+-- @param sn The short name
+-- @param path The path to version file
+-- @param ignoreErrors If true then ignore errors.
 function versionFile(v, sn, path, ignoreErrors)
    dbg.start{"versionFile(v: ",v,", sn: ",sn,", path: ",path,")"}
    local f       = io.open(path,"r")
@@ -960,25 +971,19 @@ end
 
 
 
---------------------------------------------------------------------------
--- walk_directory_for_mf:
---     Walk a single directory for modulefiles and defaults:
---     Inputs:
---         mpath:
---         path:
---         prefix:
---     Outputs:
---         dirA:
---         mnameT:
---     Returns:
---         defaultFn:
-
 local defaultFnT = {
    default       = 1,
    ['.modulerc'] = 2,
    ['.version']  = 3,
 }
-
+--------------------------------------------------------------------------
+-- Walk a single directory for modulefiles and defaults:
+-- @param mpath Input modulepath directory
+-- @param path Input of the current directory.
+-- @param prefix the prefix
+-- @param dirA An array of directories found.
+-- @param mnameT A table of module names found
+-- @return defaultFn the default modulefile.
 function walk_directory_for_mf(mpath, path, prefix, dirA, mnameT)
    dbg.start{"walk_directory_for_mf(",mpath,", ",path,", ",prefix,", dirA, mnameT)"}
    local attr = lfs.attributes(path)
@@ -1042,6 +1047,9 @@ function walk_directory_for_mf(mpath, path, prefix, dirA, mnameT)
    return defaultFn
 end
 
+--------------------------------------------------------------------------
+-- Use readlink to find the link
+-- @param path the path to the module file.
 function walk_link(path)
    local result = path
    local attr   = lfs.symlinkattributes(path)
@@ -1061,28 +1069,37 @@ end
 
 
 --------------------------------------------------------------------------
--- Deal with warnings
-
+-- Allow for the generation of warnings.
 function activateWarning()
    s_haveWarnings = true
 end
 
+--------------------------------------------------------------------------
+-- Disallow the generation of warnings.
 function deactivateWarning()
    s_haveWarnings = false
 end
 
+--------------------------------------------------------------------------
+-- Are the generation of warnings allowed?
 function haveWarnings()
    return s_haveWarnings
 end
 
+--------------------------------------------------------------------------
+-- Reset warning flag to false.
 function clearWarningFlag()
    s_warning = false
 end
 
+--------------------------------------------------------------------------
+-- Set warning flags to true.
 function setWarningFlag()
    s_warning = true
 end
 
+--------------------------------------------------------------------------
+-- Get warning flag value.
 function getWarningFlag()
    return s_warning
 end
