@@ -94,6 +94,9 @@ local ignoreT     = {
    "^/opt/local/bin$",
 }
 
+--------------------------------------------------------------------------
+-- Check path against the *ignoreT* table.  
+-- @param path input path.
 function keepThisPath(path)
    for i = 1, #ignoreT do
       if (path:find(ignoreT[i])) then
@@ -103,6 +106,12 @@ function keepThisPath(path)
    return true
 end
 
+--------------------------------------------------------------------------
+-- 
+-- @param entry
+-- @param tbl
+-- @param rmapT
+-- @param kind
 local function add2map(entry, tbl, rmapT, kind)
    for path in pairs(tbl) do
       local attr = lfs.attributes(path)
