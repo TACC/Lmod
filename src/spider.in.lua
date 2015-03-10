@@ -107,7 +107,7 @@ function keepThisPath(path)
 end
 
 --------------------------------------------------------------------------
--- 
+-- Store an entry in *rmapT*
 -- @param entry
 -- @param tbl
 -- @param rmapT
@@ -128,6 +128,12 @@ local function add2map(entry, tbl, rmapT, kind)
    end
 end
 
+--------------------------------------------------------------------------
+--
+-- @param moduleDirA
+-- @param moduleT
+-- @param timestampFn
+-- @param dbT
 local function rptList(moduleDirA, moduleT, timestampFn, dbT)
    dbg.start{"rptList(moduleDirA, moduleT, timestampFn, dbT)"}
    local tbl = {}
