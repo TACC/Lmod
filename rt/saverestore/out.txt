@@ -414,27 +414,63 @@ LMOD_DEFAULT_MODULEPATH="OutputDIR/Core";
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="OutputDIR/Core";
 export MODULEPATH;
-unset LD_LIBRARY_PATH;
+LD_LIBRARY_PATH="/opt/apps/gcc/4.8.2/lib";
+export LD_LIBRARY_PATH;
 LMOD_DEFAULT_MODULEPATH="OutputDIR/Core";
 export LMOD_DEFAULT_MODULEPATH;
-unset LMOD_FAMILY_COMPILER;
-unset LOADEDMODULES;
-unset MANPATH;
-MODULEPATH="OutputDIR/Core";
+LMOD_FAMILY_COMPILER="gcc";
+export LMOD_FAMILY_COMPILER;
+LOADEDMODULES="gcc/4.8.2:b/3.3:StdEnv";
+export LOADEDMODULES;
+MANPATH="OutputDIR/local/b/3.3/man";
+export MANPATH;
+MODULEPATH="/opt/apps/modulefiles/Compiler/gcc/4.8:OutputDIR/Core";
 export MODULEPATH;
-PATH="ProjectDIR/src:PATH_to_TM:/bin";
+PATH="OutputDIR/local/b/3.3/bin:/opt/apps/gcc/4.8.2/bin:ProjectDIR/src:PATH_to_TM:/bin";
 export PATH;
-unset TACC_FAMILY_COMPILER;
-unset _LMFILES_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"OutputDIR/Core",},family={},inactive={},mT={},mpathA={"OutputDIR/Core",},["systemBaseMPATH"]="OutputDIR/Core",["version"]=2,}';
+TACC_FAMILY_COMPILER="gcc";
+export TACC_FAMILY_COMPILER;
+_LMFILES_="OutputDIR/Core/gcc/4.8.2.lua:OutputDIR/Core/b/3.3:OutputDIR/Core/StdEnv.lua";
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"OutputDIR/Core",},family={["compiler"]="gcc",},inactive={},mT={StdEnv={["FN"]="OutputDIR/Core/StdEnv.lua",["default"]=0,["fullName"]="StdEnv",["hash"]="f3811e630c011ee05abec9e24e17d23c199bfaa9",["loadOrder"]=3,propT={},["short"]="StdEnv",["status"]="active",},b={["FN"]="OutputDIR/Core/b/3.3",["default"]=1,["fullName"]="b/3.3",["hash"]="da39a3ee5e6b4b0d3255bfef95601890afd80709",["loadOrder"]=2,propT={},["short"]="b",["status"]="active",},gcc={["FN"]="OutputDIR/Core/gcc/4.8.2.lua",["default"]=1,["fullName"]="gcc/4.8.2",["hash"]="794ca338ac65be60c9862ade7ef3e1cb55aa1ce9",["loadOrder"]=1,propT={},["short"]="gcc",["status"]="active",},},mpathA={"/opt/apps/modulefiles/Compiler/gcc/4.8","OutputDIR/Core",},["systemBaseMPATH"]="OutputDIR/Core",["version"]=2,}';
 export _ModuleTable_;
+false
 ===========================
 step 18
 lua ProjectDIR/src/lmod.in.lua bash restore stdenv
 ===========================
 LMOD_DEFAULT_MODULEPATH="OutputDIR/Core";
 export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="OutputDIR/Core";
+MODULEPATH="/opt/apps/modulefiles/Compiler/gcc/4.8:OutputDIR/Core";
+export MODULEPATH;
+LD_LIBRARY_PATH="/opt/apps/gcc/4.8.2/lib";
+export LD_LIBRARY_PATH;
+LMOD_DEFAULT_MODULEPATH="OutputDIR/Core";
+export LMOD_DEFAULT_MODULEPATH;
+LMOD_FAMILY_COMPILER="gcc";
+export LMOD_FAMILY_COMPILER;
+LOADEDMODULES="gcc/4.8.2:b/3.3:StdEnv";
+export LOADEDMODULES;
+MANPATH="OutputDIR/local/b/3.3/man";
+export MANPATH;
+MODULEPATH="/opt/apps/modulefiles/Compiler/gcc/4.8:OutputDIR/Core";
+export MODULEPATH;
+PATH="OutputDIR/local/b/3.3/bin:/opt/apps/gcc/4.8.2/bin:ProjectDIR/src:PATH_to_TM:/bin";
+export PATH;
+TACC_FAMILY_COMPILER="gcc";
+export TACC_FAMILY_COMPILER;
+_LMFILES_="OutputDIR/Core/gcc/4.8.2.lua:OutputDIR/Core/b/3.3:OutputDIR/Core/StdEnv.lua";
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"OutputDIR/Core",},family={["compiler"]="gcc",},inactive={},mT={StdEnv={["FN"]="OutputDIR/Core/StdEnv.lua",["default"]=0,["fullName"]="StdEnv",["hash"]="ea7e2e49a0edc61b66c9312333ea1345aaa74afb",["loadOrder"]=3,propT={},["short"]="StdEnv",["status"]="active",},b={["FN"]="OutputDIR/Core/b/3.3",["default"]=1,["fullName"]="b/3.3",["hash"]="da39a3ee5e6b4b0d3255bfef95601890afd80709",["loadOrder"]=2,propT={},["short"]="b",["status"]="active",},gcc={["FN"]="OutputDIR/Core/gcc/4.8.2.lua",["default"]=1,["fullName"]="gcc/4.8.2",["hash"]="794ca338ac65be60c9862ade7ef3e1cb55aa1ce9",["loadOrder"]=1,propT={},["short"]="gcc",["status"]="active",},},mpathA={"/opt/apps/modulefiles/Compiler/gcc/4.8","OutputDIR/Core",},["systemBaseMPATH"]="OutputDIR/Core",["version"]=2,}';
+export _ModuleTable_;
+false
+===========================
+step 19
+lua ProjectDIR/src/lmod.in.lua bash purge
+===========================
+LMOD_DEFAULT_MODULEPATH="OutputDIR/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="/opt/apps/modulefiles/Compiler/gcc/4.8:OutputDIR/Core";
 export MODULEPATH;
 unset LD_LIBRARY_PATH;
 LMOD_DEFAULT_MODULEPATH="OutputDIR/Core";
@@ -448,20 +484,6 @@ PATH="ProjectDIR/src:PATH_to_TM:/bin";
 export PATH;
 unset TACC_FAMILY_COMPILER;
 unset _LMFILES_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"OutputDIR/Core",},family={},inactive={},mT={},mpathA={"OutputDIR/Core",},["systemBaseMPATH"]="OutputDIR/Core",["version"]=2,}';
-export _ModuleTable_;
-===========================
-step 19
-lua ProjectDIR/src/lmod.in.lua bash purge
-===========================
-LMOD_DEFAULT_MODULEPATH="OutputDIR/Core";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="OutputDIR/Core";
-export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="OutputDIR/Core";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="OutputDIR/Core";
-export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"OutputDIR/Core",},family={},inactive={},mT={},mpathA={"OutputDIR/Core",},["systemBaseMPATH"]="OutputDIR/Core",["version"]=2,}';
 export _ModuleTable_;
 ===========================
