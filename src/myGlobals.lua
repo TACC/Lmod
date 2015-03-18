@@ -44,7 +44,7 @@ local getenv       = os.getenv
 local setenv_posix = posix.setenv
 
 local function initialize(lmod_name, sed_name, defaultV)
-   local defaultV = defaultV or "no"
+   local defaultV = (defaultV or "no"):lower()
    local value = (getenv(lmod_name) or sed_name):lower()
    if (value:sub(1,1) == "@") then
       value = defaultV
@@ -115,8 +115,8 @@ LUAC_PATH = "@path_to_luac@"
 ------------------------------------------------------------------------
 
 
-LMOD_CASE_INDEPENDENT_SORTING = getenv("LMOD_CASE_INDEPENDENT_SORTING") or
-                                "@case_independent_sorting@"
+LMOD_CASE_INDEPENDENT_SORTING = initialize("LMOD_CASE_INDEPENDENT_SORTING",
+                                           "@case_independent_sorting@")
 
 ------------------------------------------------------------------------
 -- LMOD_REDIRECT:  Send messages to stdout instead of stderr
@@ -148,7 +148,7 @@ LMOD_PIN_VERSIONS = initialize("LMOD_PIN_VERSIONS", "@pin_versions@")
 -- LMOD_AUTO_SWAP:  Swap instead of Error
 ------------------------------------------------------------------------
 
-LMOD_AUTO_SWAP   = initialize("LMOD_AUTO_SWAP","@auto_swap@")
+LMOD_AUTO_SWAP   = initialize("LMOD_AUTO_SWAP","@auto_swap@","yes")
 
 ------------------------------------------------------------------------
 -- LMOD_AVAIL_MPATH:  Include MODULEPATH in avail search
@@ -160,8 +160,8 @@ LMOD_MPATH_AVAIL = initialize("LMOD_MPATH_AVAIL", "@mpath_avail@")
 -- LMOD_ALLOW_TCL_MFILES:  Allow Lmod to read TCL based modules.
 ------------------------------------------------------------------------
 
-LMOD_ALLOW_TCL_MFILES = getenv("LMOD_ALLOW_TCL_MFILES") or
-                        "@allow_tcl_mfiles@"
+LMOD_ALLOW_TCL_MFILES = initialize("LMOD_ALLOW_TCL_MFILES",
+                                   "@allow_tcl_mfiles@","yes")
 
 ------------------------------------------------------------------------
 -- LMOD_DUPLICATE_PATHS:  Allow the same path to be stored in PATH like

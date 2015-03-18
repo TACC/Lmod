@@ -114,7 +114,7 @@ local function new(self)
    local tbl = {}
    tbl.prefix      = { k = "Lmod prefix"                   , v = "@PREFIX@",           }
    tbl.dupPaths    = { k = "Allow duplicate paths"         , v = LMOD_DUPLICATE_PATHS, }
-   tbl.pin_v       = { k = "Pin Versions in restore"       , v = "@pin_versions@",     }
+   tbl.pin_v       = { k = "Pin Versions in restore"       , v = LMOD_PIN_VERSIONS,    }
    tbl.path_lua    = { k = "Path to Lua"                   , v = "@path_to_lua@",      }
    tbl.path_pager  = { k = "Path to Pager"                 , v = "@path_to_pager@",    }
    tbl.path_hash   = { k = "Path to HashSum"               , v = "@path_to_hashsum@",  }
@@ -122,7 +122,7 @@ local function new(self)
    tbl.dot_files   = { k = "Using dotfiles"                , v = "@use_dot_files@",    }
    tbl.numSC       = { k = "number of cache dirs"          , v = numSC,                }
    tbl.lmodV       = { k = "Lmod version"                  , v = lmod_version,         }
-   tbl.autoSwap    = { k = "Auto swapping"                 , v = "@auto_swap@",        }
+   tbl.autoSwap    = { k = "Auto swapping"                 , v = LMOD_AUTO_SWAP,       }
    tbl.disable1N   = { k = "Disable Same Name AutoSwap"    , v = disable1N,            }
    tbl.expMCmd     = { k = "Export the module command"     , v = "@export_module@",    }
    tbl.ancient     = { k = "User cache valid time(sec)"    , v = "@ancient@",          }
