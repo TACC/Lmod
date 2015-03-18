@@ -786,7 +786,7 @@ function M.getMTfromFile(self,t)
    local l_mt      = new(self, s, restoreFn)
    local mpath     = l_mt._MPATH
 
-   local activeA   = l_mt:list("userName","active")
+   local activeA = l_mt:list("userName","active")
 
    ---------------------------------------------
    -- If any module specified in the "default" file
@@ -866,11 +866,20 @@ function M.getMTfromFile(self,t)
    local mcp_old = mcp
    mcp           = MasterControl.build("mgrload")
 
-   local mA        = {}
+
+   -----------------------------------------------
+   -- Normally we load the user name which means
+   -- that defaults will be followed.  However
+   -- some sites/users wish to use the fullname
+   -- and not follow defaults.
+   local knd = (LMOD_PIN_VERSION == "no") and "name" or "full"
+   local mA  = {}
+   dbg.print{"knd: ",knd,", pin: ",LMOD_PIN_VERSION,"\n"}
+
    for i = 1, #activeA do
-      local entry = activeA[i]
-      local name  = entry.name
-      mA[#mA+1]   = MName:new("load",name)
+      local name = activeA[i][knd]
+      dbg.print{"name: ",name,"\n"}
+      mA[#mA+1]  = MName:new("load",name)
    end
    MCP.load(mcp,mA)
    mcp = mcp_old
@@ -1285,6 +1294,8 @@ end
 -- There are three kinds of returns for this member function.
 --    mt:list("userName",...) returns an object containing an table
 --                            which has the short, full, etc.
+--    mt:list("fullName",...) returns the list modules with their
+--                            fullNames.
 --    mt:list("both",...) returns the short and full name of
 --    mt:list(... , ...) returns a simply array of names.
 -- @param self An MT object

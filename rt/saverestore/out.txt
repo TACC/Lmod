@@ -608,3 +608,158 @@ MODULEPATH="ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/saverestore/PREREQ","OutputDIR/Core",},family={["resourcemgr"]="T",["scheduler"]="M",},inactive={},mT={A={["FN"]="ProjectDIR/rt/saverestore/PREREQ/A/1.0.lua",["default"]=1,["fullName"]="A/1.0",["loadOrder"]=3,propT={},["short"]="A",["status"]="active",},M={["FN"]="ProjectDIR/rt/saverestore/PREREQ/M/7.2.6.lua",["default"]=1,["fullName"]="M/7.2.6",["loadOrder"]=1,propT={},["short"]="M",["status"]="active",},T={["FN"]="ProjectDIR/rt/saverestore/PREREQ/T/4.2.6.lua",["default"]=1,["fullName"]="T/4.2.6",["loadOrder"]=2,propT={},["short"]="T",["status"]="active",},},mpathA={"ProjectDIR/rt/saverestore/PREREQ","OutputDIR/Core",},["systemBaseMPATH"]="OutputDIR/Core",["version"]=2,}';
 export _ModuleTable_;
+===========================
+step 26
+lua ProjectDIR/src/lmod.in.lua bash purge
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
+export MODULEPATH;
+unset LD_LIBRARY_PATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
+export LMOD_DEFAULT_MODULEPATH;
+unset LMOD_FAMILY_RESOURCEMGR;
+unset LMOD_FAMILY_SCHEDULER;
+unset LOADEDMODULES;
+unset MANPATH;
+MODULEPATH="ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
+export MODULEPATH;
+PATH="ProjectDIR/src:PATH_to_TM:/bin";
+export PATH;
+unset TACC_FAMILY_RESOURCEMGR;
+unset TACC_FAMILY_SCHEDULER;
+unset _LMFILES_;
+_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/saverestore/PREREQ","OutputDIR/Core",},family={},inactive={},mT={},mpathA={"ProjectDIR/rt/saverestore/PREREQ","OutputDIR/Core",},["systemBaseMPATH"]="OutputDIR/Core",["version"]=2,}';
+export _ModuleTable_;
+===========================
+step 27
+lua ProjectDIR/src/lmod.in.lua bash load a b
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
+export LMOD_DEFAULT_MODULEPATH;
+LOADEDMODULES="a/2.0:b/3.3";
+export LOADEDMODULES;
+MANPATH="OutputDIR/local/b/3.3/man:OutputDIR/local/a/2.0/man";
+export MANPATH;
+MODULEPATH="ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
+export MODULEPATH;
+PATH="OutputDIR/local/b/3.3/bin:OutputDIR/local/a/2.0/bin:ProjectDIR/src:PATH_to_TM:/bin";
+export PATH;
+_LMFILES_="OutputDIR/Core/a/2.0:OutputDIR/Core/b/3.3";
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/saverestore/PREREQ","OutputDIR/Core",},family={},inactive={},mT={a={["FN"]="OutputDIR/Core/a/2.0",["default"]=1,["fullName"]="a/2.0",["loadOrder"]=1,propT={},["short"]="a",["status"]="active",},b={["FN"]="OutputDIR/Core/b/3.3",["default"]=1,["fullName"]="b/3.3",["loadOrder"]=2,propT={},["short"]="b",["status"]="active",},},mpathA={"ProjectDIR/rt/saverestore/PREREQ","OutputDIR/Core",},["systemBaseMPATH"]="OutputDIR/Core",["version"]=2,}';
+export _ModuleTable_;
+===========================
+step 28
+lua ProjectDIR/src/lmod.in.lua bash save
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/saverestore/PREREQ","OutputDIR/Core",},family={},inactive={},mT={a={["FN"]="OutputDIR/Core/a/2.0",["default"]=1,["fullName"]="a/2.0",["loadOrder"]=1,propT={},["short"]="a",["status"]="active",},b={["FN"]="OutputDIR/Core/b/3.3",["default"]=1,["fullName"]="b/3.3",["loadOrder"]=2,propT={},["short"]="b",["status"]="active",},},mpathA={"ProjectDIR/rt/saverestore/PREREQ","OutputDIR/Core",},["systemBaseMPATH"]="OutputDIR/Core",["version"]=2,}';
+export _ModuleTable_;
+===========================
+step 29
+lua ProjectDIR/src/lmod.in.lua bash restore
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
+export LMOD_DEFAULT_MODULEPATH;
+LOADEDMODULES="a/3.0:b/3.3";
+export LOADEDMODULES;
+MANPATH="OutputDIR/local/b/3.3/man:OutputDIR/local/a/3.0/man";
+export MANPATH;
+MODULEPATH="ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
+export MODULEPATH;
+PATH="OutputDIR/local/b/3.3/bin:OutputDIR/local/a/3.0/bin:ProjectDIR/src:PATH_to_TM:/bin";
+export PATH;
+_LMFILES_="OutputDIR/Core/a/3.0:OutputDIR/Core/b/3.3";
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/saverestore/PREREQ","OutputDIR/Core",},family={},inactive={},mT={a={["FN"]="OutputDIR/Core/a/3.0",["default"]=1,["fullName"]="a/3.0",["loadOrder"]=1,propT={},["short"]="a",["status"]="active",},b={["FN"]="OutputDIR/Core/b/3.3",["default"]=1,["fullName"]="b/3.3",["loadOrder"]=2,propT={},["short"]="b",["status"]="active",},},mpathA={"ProjectDIR/rt/saverestore/PREREQ","OutputDIR/Core",},["systemBaseMPATH"]="OutputDIR/Core",["version"]=2,}';
+export _ModuleTable_;
+__LMOD_DEFAULT_MODULES_LOADED__="1";
+export __LMOD_DEFAULT_MODULES_LOADED__;
+===========================
+step 30
+lua ProjectDIR/src/lmod.in.lua bash list
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/saverestore/PREREQ","OutputDIR/Core",},family={},inactive={},mT={a={["FN"]="OutputDIR/Core/a/3.0",["default"]=1,["fullName"]="a/3.0",["loadOrder"]=1,propT={},["short"]="a",["status"]="active",},b={["FN"]="OutputDIR/Core/b/3.3",["default"]=1,["fullName"]="b/3.3",["loadOrder"]=2,propT={},["short"]="b",["status"]="active",},},mpathA={"ProjectDIR/rt/saverestore/PREREQ","OutputDIR/Core",},["systemBaseMPATH"]="OutputDIR/Core",["version"]=2,}';
+export _ModuleTable_;
+===========================
+step 31
+lua ProjectDIR/src/lmod.in.lua bash purge
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
+export LMOD_DEFAULT_MODULEPATH;
+unset LOADEDMODULES;
+unset MANPATH;
+MODULEPATH="ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
+export MODULEPATH;
+PATH="ProjectDIR/src:PATH_to_TM:/bin";
+export PATH;
+unset _LMFILES_;
+_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/saverestore/PREREQ","OutputDIR/Core",},family={},inactive={},mT={},mpathA={"ProjectDIR/rt/saverestore/PREREQ","OutputDIR/Core",},["systemBaseMPATH"]="OutputDIR/Core",["version"]=2,}';
+export _ModuleTable_;
+===========================
+step 32
+lua ProjectDIR/src/lmod.in.lua bash restore
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
+export LMOD_DEFAULT_MODULEPATH;
+LOADEDMODULES="a/2.0:b/3.3";
+export LOADEDMODULES;
+MANPATH="OutputDIR/local/b/3.3/man:OutputDIR/local/a/2.0/man";
+export MANPATH;
+MODULEPATH="ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
+export MODULEPATH;
+PATH="OutputDIR/local/b/3.3/bin:OutputDIR/local/a/2.0/bin:ProjectDIR/src:PATH_to_TM:/bin";
+export PATH;
+_LMFILES_="OutputDIR/Core/a/2.0:OutputDIR/Core/b/3.3";
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/saverestore/PREREQ","OutputDIR/Core",},family={},inactive={},mT={a={["FN"]="OutputDIR/Core/a/2.0",["default"]=0,["fullName"]="a/2.0",["loadOrder"]=1,propT={},["short"]="a",["status"]="active",},b={["FN"]="OutputDIR/Core/b/3.3",["default"]=0,["fullName"]="b/3.3",["loadOrder"]=2,propT={},["short"]="b",["status"]="active",},},mpathA={"ProjectDIR/rt/saverestore/PREREQ","OutputDIR/Core",},["systemBaseMPATH"]="OutputDIR/Core",["version"]=2,}';
+export _ModuleTable_;
+__LMOD_DEFAULT_MODULES_LOADED__="1";
+export __LMOD_DEFAULT_MODULES_LOADED__;
+===========================
+step 33
+lua ProjectDIR/src/lmod.in.lua bash list
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/saverestore/PREREQ","OutputDIR/Core",},family={},inactive={},mT={a={["FN"]="OutputDIR/Core/a/2.0",["default"]=0,["fullName"]="a/2.0",["loadOrder"]=1,propT={},["short"]="a",["status"]="active",},b={["FN"]="OutputDIR/Core/b/3.3",["default"]=0,["fullName"]="b/3.3",["loadOrder"]=2,propT={},["short"]="b",["status"]="active",},},mpathA={"ProjectDIR/rt/saverestore/PREREQ","OutputDIR/Core",},["systemBaseMPATH"]="OutputDIR/Core",["version"]=2,}';
+export _ModuleTable_;
