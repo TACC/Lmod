@@ -142,7 +142,7 @@ LMOD_DISABLE_SAME_NAME_AUTOSWAP = initialize("LMOD_DISABLE_SAME_NAME_AUTOSWAP",
 -- When restoring, use specified version instead of following the default
 --------------------------------------------------------------------------
 
-LMOD_PIN_VERSION = initialize("LMOD_PIN_VERSION", "@pin_version@")
+LMOD_PIN_VERSIONS = initialize("LMOD_PIN_VERSIONS", "@pin_versions@")
 
 ------------------------------------------------------------------------
 -- LMOD_AUTO_SWAP:  Swap instead of Error

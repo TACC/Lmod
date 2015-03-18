@@ -872,13 +872,11 @@ function M.getMTfromFile(self,t)
    -- that defaults will be followed.  However
    -- some sites/users wish to use the fullname
    -- and not follow defaults.
-   local knd = (LMOD_PIN_VERSION == "no") and "name" or "full"
+   local knd = (LMOD_PIN_VERSIONS == "no") and "name" or "full"
    local mA  = {}
-   dbg.print{"knd: ",knd,", pin: ",LMOD_PIN_VERSION,"\n"}
 
    for i = 1, #activeA do
       local name = activeA[i][knd]
-      dbg.print{"name: ",name,"\n"}
       mA[#mA+1]  = MName:new("load",name)
    end
    MCP.load(mcp,mA)

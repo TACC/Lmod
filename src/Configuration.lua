@@ -114,7 +114,7 @@ local function new(self)
    local tbl = {}
    tbl.prefix      = { k = "Lmod prefix"                   , v = "@PREFIX@",           }
    tbl.dupPaths    = { k = "Allow duplicate paths"         , v = LMOD_DUPLICATE_PATHS, }
-   tbl.pin_version = { k = "Pin Version in restore"        , v = "@pin_version@",      }      
+   tbl.pin_v       = { k = "Pin Versions in restore"       , v = "@pin_versions@",     }
    tbl.path_lua    = { k = "Path to Lua"                   , v = "@path_to_lua@",      }
    tbl.path_pager  = { k = "Path to Pager"                 , v = "@path_to_pager@",    }
    tbl.path_hash   = { k = "Path to HashSum"               , v = "@path_to_hashsum@",  }
