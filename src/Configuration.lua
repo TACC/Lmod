@@ -112,36 +112,36 @@ local function new(self)
    local disable1N         = LMOD_DISABLE_SAME_NAME_AUTOSWAP
 
    local tbl = {}
-   tbl.prefix      = { k = "Lmod prefix"                   , v = "@PREFIX@",           }
-   tbl.dupPaths    = { k = "Allow duplicate paths"         , v = LMOD_DUPLICATE_PATHS, }
-   tbl.pin_v       = { k = "Pin Versions in restore"       , v = LMOD_PIN_VERSIONS,    }
-   tbl.path_lua    = { k = "Path to Lua"                   , v = "@path_to_lua@",      }
-   tbl.path_pager  = { k = "Path to Pager"                 , v = "@path_to_pager@",    }
-   tbl.path_hash   = { k = "Path to HashSum"               , v = "@path_to_hashsum@",  }
-   tbl.settarg     = { k = "Supporting Full Settarg Use"   , v = settarg_support,      }
-   tbl.dot_files   = { k = "Using dotfiles"                , v = "@use_dot_files@",    }
-   tbl.numSC       = { k = "number of cache dirs"          , v = numSC,                }
-   tbl.lmodV       = { k = "Lmod version"                  , v = lmod_version,         }
-   tbl.autoSwap    = { k = "Auto swapping"                 , v = LMOD_AUTO_SWAP,       }
-   tbl.disable1N   = { k = "Disable Same Name AutoSwap"    , v = disable1N,            }
-   tbl.expMCmd     = { k = "Export the module command"     , v = "@export_module@",    }
-   tbl.ancient     = { k = "User cache valid time(sec)"    , v = "@ancient@",          }
-   tbl.short_tm    = { k = "Write cache after (sec)"       , v = "@short_time@",       }
-   tbl.prpnd_blk   = { k = "Prepend order"                 , v = "@prepend_block@",    }
-   tbl.colorize    = { k = "Colorize Lmod"                 , v = lmod_colorize,        }
    tbl.allowTCL    = { k = "Allow TCL modulefiles"         , v = LMOD_ALLOW_TCL_MFILES,}
+   tbl.ancient     = { k = "User cache valid time(sec)"    , v = "@ancient@",          }
+   tbl.autoSwap    = { k = "Auto swapping"                 , v = LMOD_AUTO_SWAP,       }
+   tbl.case        = { k = "Case Independent Sorting"      , v = case_ind_sorting,     }
+   tbl.colorize    = { k = "Colorize Lmod"                 , v = lmod_colorize,        }
+   tbl.disable1N   = { k = "Disable Same Name AutoSwap"    , v = disable1N,            }
+   tbl.dot_files   = { k = "Using dotfiles"                , v = "@use_dot_files@",    }
+   tbl.dupPaths    = { k = "Allow duplicate paths"         , v = LMOD_DUPLICATE_PATHS, }
+   tbl.expMCmd     = { k = "Export the module command"     , v = "@export_module@",    }
+   tbl.lmodV       = { k = "Lmod version"                  , v = lmod_version,         }
+   tbl.luaV        = { k = "Lua Version"                   , v = _VERSION,             }
+   tbl.lua_json    = { k = "System lua_json"               , v = "@have_lua_json@",    }
+   tbl.lua_term    = { k = "System lua-term"               , v = "@have_lua_term@",    }
+   tbl.lua_term_A  = { k = "Active lua-term"               , v = activeTerm,           }
    tbl.mpath_av    = { k = "avail: Include modulepath dir" , v = LMOD_MPATH_AVAIL,     }
    tbl.mpath_root  = { k = "MODULEPATH_ROOT"               , v = "@modulepath_root@",  }
+   tbl.numSC       = { k = "number of cache dirs"          , v = numSC,                }
+   tbl.path_hash   = { k = "Path to HashSum"               , v = "@path_to_hashsum@",  }
+   tbl.path_lua    = { k = "Path to Lua"                   , v = "@path_to_lua@",      }
+   tbl.path_pager  = { k = "Path to Pager"                 , v = "@path_to_pager@",    }
+   tbl.pin_v       = { k = "Pin Versions in restore"       , v = LMOD_PIN_VERSIONS,    }
    tbl.pkg         = { k = "Pkg Class name"                , v = pkgName,              }
+   tbl.prefix      = { k = "Lmod prefix"                   , v = "@PREFIX@",           }
+   tbl.prpnd_blk   = { k = "Prepend order"                 , v = "@prepend_block@",    }
+   tbl.settarg     = { k = "Supporting Full Settarg Use"   , v = settarg_support,      }
+   tbl.short_tm    = { k = "Write cache after (sec)"       , v = "@short_time@",       }
    tbl.sitePkg     = { k = "Site Pkg location"             , v = locSitePkg,           }
-   tbl.lua_term    = { k = "System lua-term"               , v = "@have_lua_term@",    }
-   tbl.lua_json    = { k = "System lua_json"               , v = "@have_lua_json@",    }
-   tbl.lua_term_A  = { k = "Active lua-term"               , v = activeTerm,           }
    tbl.uname       = { k = "uname -a"                      , v = uname,                }
    tbl.z01_admin   = { k = "Admin file"                    , v = adminFn,              }
    tbl.z02_admin   = { k = "Does Admin file exist"         , v = tostring(readable),   }
-   tbl.luaV        = { k = "Lua Version"                   , v = _VERSION,             }
-   tbl.case        = { k = "Case Independent Sorting"      , v = case_ind_sorting,     }
 
    o.tbl = tbl
    return o
