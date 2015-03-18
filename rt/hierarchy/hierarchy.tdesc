@@ -19,6 +19,7 @@ testdescript = {
 
      unsetMT
      initStdEnvVars
+     export LMOD_AUTO_SWAP=no
      MODULEPATH_ROOT=$(testDir)/mf;    export MODULEPATH_ROOT
      MODULEPATH=$MODULEPATH_ROOT/Core; export MODULEPATH
 

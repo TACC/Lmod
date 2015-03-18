@@ -273,10 +273,10 @@ lua ProjectDIR/src/lmod.in.lua bash --config
 Modules based on Lua: Version 5.9.1.1  2015-03-17 21:53
     by Robert McLay mclay@tacc.utexas.edu
 Description                    Value
-Allow TCL modulefiles          @allow_tcl_mfiles@
+Allow TCL modulefiles          yes
 User cache valid time(sec)     @ancient@
-Auto swapping                  @auto_swap@
-Case Independent Sorting       @case_independent_sorting@
+Auto swapping                  yes
+Case Independent Sorting       no
 Colorize Lmod                  @colorize@
 Disable Same Name AutoSwap     no
 Using dotfiles                 @use_dot_files@
@@ -290,7 +290,7 @@ number of cache dirs           0
 Path to HashSum                @path_to_hashsum@
 Path to Lua                    @path_to_lua@
 Path to Pager                  @path_to_pager@
-Pin Versions in restore        @pin_versions@
+Pin Versions in restore        no
 Pkg Class name                 Pkg
 Lmod prefix                    @PREFIX@
 Prepend order                  @prepend_block@
