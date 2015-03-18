@@ -138,6 +138,12 @@ LMOD_SYSTEM_NAME = getenv("LMOD_SYSTEM_NAME")
 LMOD_DISABLE_SAME_NAME_AUTOSWAP = initialize("LMOD_DISABLE_SAME_NAME_AUTOSWAP",
                                              "@disable_name_autoswap@")
 
+--------------------------------------------------------------------------
+-- When restoring, use specified version instead of following the default
+--------------------------------------------------------------------------
+
+LMOD_PIN_VERSION = initialize("LMOD_PIN_VERSION", "@pin_version@")
+
 ------------------------------------------------------------------------
 -- LMOD_AUTO_SWAP:  Swap instead of Error
 ------------------------------------------------------------------------

@@ -238,6 +238,18 @@ AC_ARG_WITH(ignoreDirs,
     IGNORE_DIRS="$withval"
     AC_DEFINE_UNQUOTED(IGNORE_DIRS, "$withval"))dnl
 
+AC_SUBST(PIN_VERSIONS)
+AC_ARG_WITH(pinVersion,
+    AC_HELP_STRING([--with-pinVersion=ans],[Save/Restore will use the current version instead of changing with the default.[[NO]]]),
+    PIN_VERSION="$withval"
+    AC_MSG_RESULT([PIN_VERSION=$with_pinVersion])
+    AC_DEFINE_UNQUOTED(PIN_VERSION, "$with_pinVersion")dnl
+    ,
+    withval="NO"
+    AC_MSG_RESULT([PIN_VERSION=$withval])
+    PIN_VERSION="$withval"
+    AC_DEFINE_UNQUOTED(PIN_VERSION, "$withval"))dnl
+
 AC_SUBST(LUA_INCLUDE)
 AC_SUBST(PATH_TO_TCLSH)
 AC_SUBST(PATH_TO_PAGER)

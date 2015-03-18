@@ -27,6 +27,7 @@ MPATH_AVAIL               := @MPATH_AVAIL@
 DUPLICATE_PATHS           := @DUPLICATE_PATHS@
 DISABLE_NAME_AUTOSWAP     := @DISABLE_NAME_AUTOSWAP@
 SHORT_TIME        	  := @SHORT_TIME@
+PIN_VERSION               := @PIN_VERSION@
 AUTO_SWAP        	  := @AUTO_SWAP@
 SPIDER_CACHE_DIRS 	  := @SPIDER_CACHE_DIRS@
 EXPORT_MODULE             := @EXPORT_MODULE@
@@ -152,6 +153,7 @@ __installMe:
                 -e 's|@have_lua_json@|$(HAVE_LUA_JSON)|g'                  	  \
                 -e 's|@disable_name_autoswap@|$(DISABLE_NAME_AUTOSWAP)|g'     	  \
 	        -e 's|@redirect@|$(REDIRECT)|g'                       	   	  \
+	        -e 's|@pin_version@|$(PIN_VERSION)|g'                 	   	  \
 	        -e 's|@auto_swap@|$(AUTO_SWAP)|g'                      	   	  \
 	        -e 's|@export_module@|$(EXPORT_MODULE)|g'             	   	  \
                 -e 's|@lmod_version@|$(version)|g'               	   	  \

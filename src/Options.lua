@@ -145,6 +145,13 @@ function M.options(self, usage)
    }
 
    cmdlineParser:add_option{
+      name   = {"--pin_version"},
+      dest   = "pinVersion",
+      action = "store",
+      help   = "When doing a restore use specified version, do not follow defaults",
+   }
+
+   cmdlineParser:add_option{
       name   = {"-d","--default"},
       dest   = "defaultOnly",
       action = "store_true",
@@ -359,6 +366,10 @@ function M.options(self, usage)
 
    if (optionTbl.redirect_off) then
       LMOD_REDIRECT = "no"
+   end
+
+   if (optionTbl.pinVersion) then
+      LMOD_PIN_VERSION = "yes"
    end
 end
 
