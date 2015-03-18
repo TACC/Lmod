@@ -9,12 +9,9 @@ Bug fixes
    c) Initialization with Csh now works even when $TERM is not
       set.
 Features:
-   a) The shell script createSystemCacheFile.sh is now takes
-      parameters so that sites can use it directly.  It is now
-      installed in the libexec directory.
-   b) Bash and Zsh tab-completion now support module restore <tab>
+   a) Bash and Zsh tab-completion now support module restore <tab>
       with the savelist.
-   c) The standard setup sets LMOD_VERSION as part of the startup
+   b) The standard setup sets LMOD_VERSION as part of the startup
       procedure.
 
 Lmod Version 5.9

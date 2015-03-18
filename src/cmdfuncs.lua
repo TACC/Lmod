@@ -549,7 +549,10 @@ function Restore(collection)
       Reset(msg)
    else
       local mt      = MT:mt()
-      local results = mt:getMTfromFile{fn=path, name=myName, msg=msg} or Reset(msg)
+      local results = mt:getMTfromFile{fn=path, name=myName, msg=msg}
+      if (not results and collection == "default") then
+         Reset(msg)
+      end
    end
 
    dbg.fini("Restore")
