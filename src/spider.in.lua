@@ -94,6 +94,9 @@ local ignoreT     = {
    "^/opt/local/bin$",
 }
 
+--------------------------------------------------------------------------
+-- Check path against the *ignoreT* table.  
+-- @param path input path.
 function keepThisPath(path)
    for i = 1, #ignoreT do
       if (path:find(ignoreT[i])) then
@@ -103,6 +106,12 @@ function keepThisPath(path)
    return true
 end
 
+--------------------------------------------------------------------------
+-- Store an entry in *rmapT*
+-- @param entry
+-- @param tbl
+-- @param rmapT
+-- @param kind
 local function add2map(entry, tbl, rmapT, kind)
    for path in pairs(tbl) do
       local attr = lfs.attributes(path)
@@ -119,6 +128,12 @@ local function add2map(entry, tbl, rmapT, kind)
    end
 end
 
+--------------------------------------------------------------------------
+--
+-- @param moduleDirA
+-- @param moduleT
+-- @param timestampFn
+-- @param dbT
 local function rptList(moduleDirA, moduleT, timestampFn, dbT)
    dbg.start{"rptList(moduleDirA, moduleT, timestampFn, dbT)"}
    local tbl = {}
@@ -256,7 +271,7 @@ function main()
    readRC()
    build_epoch()            -- build the epoch function
    build_accept_functions() -- functions to accept or ignore TCL mfiles
-   local cache = Cache:cache{dontWrite = true, quiet = true}
+   local cache = Cache:cache{dontWrite = true, quiet = true, buildCache = true}
 
    ------------------------------------------------------------------------
    -- do not colorize output from spider

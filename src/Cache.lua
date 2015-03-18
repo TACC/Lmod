@@ -103,7 +103,15 @@ local function new(self, t)
    local systemEpoch = epoch() - ancient
 
    dbg.print{"#scDescriptT: ",#scDescriptT, "\n"}
-   local compiled_ext = "luac_"..LuaV
+   local CLuaV = 0
+   for s in LuaV:split("%.") do
+      CLuaV = CLuaV*1000+tonumber(s)
+   end
+   CLuaV  = tostring(CLuaV)
+
+
+   local compiled_ext_sys = "luac_"..LuaV
+   local compiled_ext_usr = "luac_"..CLuaV
    for j  = 1, #scDescriptT  do
       local entry = scDescriptT[j]
       local tt    = {}
@@ -124,8 +132,8 @@ local function new(self, t)
          if (attr.mode == "directory") then
             dbg.print{"Adding: dir: ",dir,", timestamp: ",lastUpdate, "\n"}
             scDirA[#scDirA+1] =
-               { fileA = { pathJoin(dir, "moduleT."     .. compiled_ext),
-                           pathJoin(dir, "moduleT.old." .. compiled_ext),
+               { fileA = { pathJoin(dir, "moduleT."     .. compiled_ext_sys),
+                           pathJoin(dir, "moduleT.old." .. compiled_ext_sys),
                            pathJoin(dir, "moduleT.lua"),
                            pathJoin(dir, "moduleT.old.lua"),
                          },
@@ -133,8 +141,8 @@ local function new(self, t)
                  fileT = "system",
                }
             dbDirA[#dbDirA+1] =
-               { fileA = { pathJoin(dir, "dbT."     .. compiled_ext),
-                           pathJoin(dir, "dbT.old." .. compiled_ext),
+               { fileA = { pathJoin(dir, "dbT."     .. compiled_ext_sys),
+                           pathJoin(dir, "dbT.old." .. compiled_ext_sys),
                            pathJoin(dir, "dbT.lua"),
                            pathJoin(dir, "dbT.old.lua"),
                          },
@@ -147,14 +155,14 @@ local function new(self, t)
    end
 
    local usrModuleT   = hook.apply("groupName","moduleT.lua")
-   local usrModuleT_C = hook.apply("groupName","moduleT."..compiled_ext)
+   local usrModuleT_C = hook.apply("groupName","moduleT."..compiled_ext_usr)
    local usrDbT       = hook.apply("groupName","dbT.lua")
-   local usrDbT_C     = hook.apply("groupName","dbT."..compiled_ext)
+   local usrDbT_C     = hook.apply("groupName","dbT."..compiled_ext_usr)
 
    local usrModuleTFnA = {
       { fileA = { pathJoin(usrCacheDir, usrModuleT_C),
                   pathJoin(usrCacheDir, usrModuleT),
-                  pathJoin(usrCacheDir, "moduleT."..compiled_ext),
+                  pathJoin(usrCacheDir, "moduleT."..compiled_ext_usr),
                   pathJoin(usrCacheDir, "moduleT.lua"),
                 },
         fileT = "your",
@@ -165,7 +173,7 @@ local function new(self, t)
    local usrDbTFnA = {
       { fileA = { pathJoin(usrCacheDir, usrDbT_C),
                   pathJoin(usrCacheDir, usrDbT),
-                  pathJoin(usrCacheDir, "dbT."..compiled_ext),
+                  pathJoin(usrCacheDir, "dbT."..compiled_ext_usr),
                   pathJoin(usrCacheDir, "dbT.lua"),
                 },
         fileT = "your",
@@ -183,6 +191,7 @@ local function new(self, t)
    o.systemDirA    = scDirA
    o.dbTDirA       = dbDirA
    o.dontWrite     = t.dontWrite or false
+   o.buildCache    = false
    o.quiet         = t.quiet     or false
 
    o.dbT           = {}
@@ -204,11 +213,18 @@ end
 -- @return A singleton Cache object.
 function M.cache(self, t)
    dbg.start{"Cache:cache()"}
+
    if (not s_cache) then
       s_cache   = new(self, t)
    end
 
-   s_cache.quiet    = (t or {}).quiet or s_cache.quiet
+   t                = t or {}
+   s_cache.quiet    = t.quiet or s_cache.quiet
+   if (t.buildCache) then
+      s_cache.buildCache = t.buildCache
+   end
+
+   dbg.print{"s_cache.buildCache: ",self.buildCache,"\n"}
 
    local mt        = MT:mt()
    local baseMpath = mt:getBaseMPATH()
@@ -426,6 +442,11 @@ function M.build(self, fast)
    local moduleT = self.moduleT
    local dbT     = self.dbT
    local spider  = Spider:new()
+
+   dbg.print{"self.buildCache: ",self.buildCache,"\n"}
+   if (not self.buildCache) then
+      return false, false
+   end
 
    if (next(moduleT) ~= nil) then
       dbg.print{"Using pre-built moduleT!\n"}

@@ -138,6 +138,12 @@ LMOD_SYSTEM_NAME = getenv("LMOD_SYSTEM_NAME")
 LMOD_DISABLE_SAME_NAME_AUTOSWAP = initialize("LMOD_DISABLE_SAME_NAME_AUTOSWAP",
                                              "@disable_name_autoswap@")
 
+--------------------------------------------------------------------------
+-- When restoring, use specified version instead of following the default
+--------------------------------------------------------------------------
+
+LMOD_PIN_VERSIONS = initialize("LMOD_PIN_VERSIONS", "@pin_versions@")
+
 ------------------------------------------------------------------------
 -- LMOD_AUTO_SWAP:  Swap instead of Error
 ------------------------------------------------------------------------
@@ -169,11 +175,6 @@ LMOD_DUPLICATE_PATHS = getenv("LMOD_DUPLICATE_PATHS") or "@duplicate_paths@"
 LMOD_IGNORE_CACHE = getenv("LMOD_IGNORE_CACHE") or "0"
 LMOD_IGNORE_CACHE = (LMOD_IGNORE_CACHE:trim() ~= "0")
 
-
-ORIG_LD_LIBRARY_PATH = "@orig_ld_library_path@"
-if (ORIG_LD_LIBRARY_PATH:sub(1,1) == "@") then
-   ORIG_LD_LIBRARY_PATH = ""
-end
 
 ------------------------------------------------------------------------
 -- LMOD_PAGER: Lmod will use this value of pager if set.

@@ -205,11 +205,11 @@ sandbox_env = {
 }
 
 --------------------------------------------------------------------------
--- sandbox_registration(): Sites should call this function if they have
---                         functions inside their SitePackage.lua file for
---                         any functions that they want that are callable
---                         via their modulefiles.
-
+-- Sites should call this function if they have
+-- functions inside their SitePackage.lua file for
+-- any functions that they want that are callable
+-- via their modulefiles.
+-- @param t A table 
 function sandbox_registration(t)
    if (type(t) ~= "table") then
       LmodError("sandbox_registration: The argument passed is: \"", type(t),
@@ -221,15 +221,12 @@ function sandbox_registration(t)
 end
 
 
---------------------------------------------------------------------------
--- sandbox_run(): Define two version: Lua 5.1 or 5.2.  It is likely that
---                The 5.2 version will be good for many new versions of
---                Lua but time will only tell.
 
+--------------------------------------------------------------------------
 -- This function is what actually "loads" a modulefile with protection
 -- against modulefiles call functions they shouldn't or syntax errors
 -- of any kind.
-
+-- @param untrusted_code A string containing lua code
 
 local function run5_1(untrusted_code)
   if untrusted_code:byte(1) == 27 then return nil, "binary bytecode prohibited" end
@@ -239,11 +236,19 @@ local function run5_1(untrusted_code)
   return pcall(untrusted_function)
 end
 
--- run code under environment [Lua 5.2]
+--------------------------------------------------------------------------
+-- This function is what actually "loads" a modulefile with protection
+-- against modulefiles call functions they shouldn't or syntax errors
+-- of any kind. This run codes under environment [Lua 5.2] or later.
+-- @param untrusted_code A string containing lua code
 local function run5_2(untrusted_code)
   local untrusted_function, message = load(untrusted_code, nil, 't', sandbox_env)
   if not untrusted_function then return nil, message end
   return pcall(untrusted_function)
 end
 
+--------------------------------------------------------------------------
+-- Define two version: Lua 5.1 or 5.2.  It is likely that
+-- The 5.2 version will be good for many new versions of
+-- Lua but time will only tell.
 sandbox_run = (_VERSION == "Lua 5.1") and run5_1 or run5_2

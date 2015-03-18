@@ -38,14 +38,13 @@ testdescript = {
      mkdir -p .lmod.d/.cache
      buildModuleT $LMOD_DEFAULT_MODULEPATH > .lmod.d/.cache/moduleT.lua
      mkdir mf/Core/itac
-     cp $(testDir)/itac-1.0.lua mf/Core/itac/1.0.lua
+     cp $(testDir)/ITAC-1.0.lua mf/Core/itac/1.0.lua
      runLmod --ignore_cache avail    # 3
      runLmod avail                   # 4
-     runLmod load itac               # 5
-     runLmod unload mv2              # 6
-     
-
-
+     runLmod show itac               # 5
+     runLmod load itac               # 6
+     runLmod unload mv2              # 7
+     runLmod list                    # 8
 
      HOME=$ORIG_HOME
      cat _stdout.[0-9][0-9] > _stdout.orig

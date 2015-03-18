@@ -16,3 +16,53 @@ MODULEPATH="ProjectDIR/rt/symlink/mf/Core";
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/symlink/mf/Core",},family={},inactive={},mT={},mpathA={"ProjectDIR/rt/symlink/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/symlink/mf/Core",["version"]=2,}';
 export _ModuleTable_;
+===========================
+step 3
+lua ProjectDIR/src/lmod.in.lua bash -t -d avail
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/symlink/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/symlink/mf/Core";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/symlink/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/symlink/mf/Core";
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/symlink/mf/Core",},family={},inactive={},mT={},mpathA={"ProjectDIR/rt/symlink/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/symlink/mf/Core",["version"]=2,}';
+export _ModuleTable_;
+===========================
+step 4
+lua ProjectDIR/src/lmod.in.lua bash load intel a b boost mv2
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/symlink/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/symlink/mf/Core";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/symlink/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+LOADEDMODULES="intel/12.1.5:a/1.2:b/1.1:boost/1.55.0:mv2/2.1rc2";
+export LOADEDMODULES;
+MODULEPATH="ProjectDIR/rt/symlink/mf/Core";
+export MODULEPATH;
+MY_VERSION="12.1.5";
+export MY_VERSION;
+VERSION="2.1rc2";
+export VERSION;
+_LMFILES_="ProjectDIR/rt/symlink/mf/Core/intel/12.1.5.lua:ProjectDIR/rt/symlink/mf/Core/a/1.2.lua:ProjectDIR/rt/symlink/mf/Core/b/1.1.lua:ProjectDIR/rt/symlink/mf/Core/boost/1.55.0.lua:ProjectDIR/rt/symlink/mf/Core/mv2/2.1rc2.lua";
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={["activeSize"]=5,baseMpathA={"ProjectDIR/rt/symlink/mf/Core",},family={},inactive={},mT={a={["FN"]="ProjectDIR/rt/symlink/mf/Core/a/1.2.lua",["default"]=1,["fullName"]="a/1.2",["loadOrder"]=2,propT={},["short"]="a",["status"]="active",},b={["FN"]="ProjectDIR/rt/symlink/mf/Core/b/1.1.lua",["default"]=1,["fullName"]="b/1.1",["loadOrder"]=3,propT={},["short"]="b",["status"]="active",},boost={["FN"]="ProjectDIR/rt/symlink/mf/Core/boost/1.55.0.lua",["default"]=1,["fullName"]="boost/1.55.0",["loadOrder"]=4,propT={},["short"]="boost",["status"]="active",},intel={["FN"]="ProjectDIR/rt/symlink/mf/Core/intel/12.1.5.lua",["default"]=1,["fullName"]="intel/12.1.5",["loadOrder"]=1,propT={},["short"]="intel",["status"]="active",},mv2={["FN"]="ProjectDIR/rt/symlink/mf/Core/mv2/2.1rc2.lua",["default"]=1,["fullName"]="mv2/2.1rc2",["loadOrder"]=5,propT={},["short"]="mv2",["status"]="active",},},mpathA={"ProjectDIR/rt/symlink/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/symlink/mf/Core",["version"]=2,}';
+export _ModuleTable_;
+===========================
+step 5
+lua ProjectDIR/src/lmod.in.lua bash list
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/symlink/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/symlink/mf/Core";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/symlink/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/symlink/mf/Core";
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=5,baseMpathA={"ProjectDIR/rt/symlink/mf/Core",},family={},inactive={},mT={a={["FN"]="ProjectDIR/rt/symlink/mf/Core/a/1.2.lua",["default"]=1,["fullName"]="a/1.2",["loadOrder"]=2,propT={},["short"]="a",["status"]="active",},b={["FN"]="ProjectDIR/rt/symlink/mf/Core/b/1.1.lua",["default"]=1,["fullName"]="b/1.1",["loadOrder"]=3,propT={},["short"]="b",["status"]="active",},boost={["FN"]="ProjectDIR/rt/symlink/mf/Core/boost/1.55.0.lua",["default"]=1,["fullName"]="boost/1.55.0",["loadOrder"]=4,propT={},["short"]="boost",["status"]="active",},intel={["FN"]="ProjectDIR/rt/symlink/mf/Core/intel/12.1.5.lua",["default"]=1,["fullName"]="intel/12.1.5",["loadOrder"]=1,propT={},["short"]="intel",["status"]="active",},mv2={["FN"]="ProjectDIR/rt/symlink/mf/Core/mv2/2.1rc2.lua",["default"]=1,["fullName"]="mv2/2.1rc2",["loadOrder"]=5,propT={},["short"]="mv2",["status"]="active",},},mpathA={"ProjectDIR/rt/symlink/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/symlink/mf/Core",["version"]=2,}';
+export _ModuleTable_;

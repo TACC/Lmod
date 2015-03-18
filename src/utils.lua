@@ -51,8 +51,8 @@ local base64       = require("base64")
 local dbg          = require("Dbg"):dbg()
 local lfs          = require("lfs")
 local posix        = require("posix")
+local readlink     = posix.readlink
 local setenv_posix = posix.setenv
-
 local concatTbl    = table.concat
 local decode64     = base64.decode64
 local floor        = math.floor
@@ -65,7 +65,7 @@ local load         = (_VERSION == "Lua 5.1") and loadstring or load
 
 --------------------------------------------------------------------------
 -- find true path through symlinks.
-
+-- @param path A file path
 function abspath_localdir (path)
    if (path == nil) then return nil end
    local cwd = lfs.currentdir()
@@ -117,7 +117,6 @@ end
 --------------------------------------------------------------------------
 -- This is 5.1 Lua function to cover the table.pack function
 -- that is in Lua 5.2 and later.
-
 function argsPack(...)
    local arg = { n = select("#", ...), ...}
    return arg
@@ -125,6 +124,9 @@ end
 pack     = (_VERSION == "Lua 5.1") and argsPack or table.pack
 
 
+--------------------------------------------------------------------------
+-- Generate a message that will fix the available terminal width.
+-- @param width The terminal width
 function buildMsg(width, ... )
    local arg = pack(...)
    local a   = {}
@@ -196,7 +198,6 @@ end
 -- This function builds the "epoch" function.
 -- The epoch function returns the number of seconds since
 -- Jan 1, 1970, UTC
-
 function build_epoch()
    if (posix.gettimeofday) then
       local x1, x2 = posix.gettimeofday()
@@ -222,8 +223,7 @@ function build_epoch()
 end
 
 --------------------------------------------------------------------------
--- Create the accept functions to allow or ignore TCL files.
-
+-- Create the accept functions to allow or ignore TCL modulefiles.
 function build_accept_functions()
    local allow_tcl = LMOD_ALLOW_TCL_MFILES:lower()
 
@@ -248,8 +248,9 @@ function build_accept_functions()
 end
 
 --------------------------------------------------------------------------
--- What it says.
-
+-- Convert both argument to lower case and compare.
+-- @param a input string
+-- @param b input string
 function case_independent_cmp(a,b)
    local a_lower = a:lower()
    local b_lower = b:lower()
@@ -262,9 +263,9 @@ function case_independent_cmp(a,b)
 end
 
 
---------------------------------------------------------------------------
--- Are we in expert mode?
 local __expert = false
+--------------------------------------------------------------------------
+-- Return true if in expert mode.
 function expert()
    if (__expert == false) then
       __expert = getenv("LMOD_EXPERT")
@@ -272,9 +273,9 @@ function expert()
    return __expert
 end
 
---------------------------------------------------------------------------
--- Are we in quiet mode?
 local __quiet = false
+--------------------------------------------------------------------------
+-- Return ture if in quiet mode.
 function quiet()
    if (__quiet == false) then
       __quiet = getenv("LMOD_QUIET") or getenv("LMOD_EXPERT")
@@ -286,7 +287,8 @@ end
 -- Compare the full name of a modulefile with the
 -- shortname. Return nil if the shortname and full name
 -- are the same.
-
+-- @param full full module name
+-- @param sn   short name
 function extractVersion(full, sn)
    if (not full or not sn) then
       return nil
@@ -324,7 +326,8 @@ s_ignoreT = {
    --@ignore_dirs@--
 }
 
-
+--------------------------------------------------------------------------
+-- Return the table of files to ignore when searching for modulefiles.
 function ignoreFileT()
    local fileT = s_ignoreT
    return fileT
@@ -338,7 +341,6 @@ end
 -- quotes and parens won't confuse the shell's poor little
 -- brain.  The number of pieces are stored in the global
 -- env. variable _ModuleTable_Sz_.
-
 function getMT()
    local a    = {}
    local mtSz = getenv("_ModuleTable_Sz_") or huge
@@ -358,6 +360,10 @@ function getMT()
    return s
 end
 
+--------------------------------------------------------------------------
+-- Find all the versions in the pathA or at least *n* of them.
+-- @param pathA  an array of paths.
+-- @param n      a number of paths to check.
 function allVersions(pathA, n)
    local lastKey   = ''
    local lastValue = ''
@@ -389,6 +395,12 @@ function allVersions(pathA, n)
    return a
 end
 
+--------------------------------------------------------------------------
+-- Compare two path arrays.  Return the index where they start to differ.
+-- @param old   Old path as a string
+-- @param oldA  An array of old path entries
+-- @param new   New path as a string
+-- @param newA  An array of new path entries
 function indexPath(old, oldA, new, newA)
    dbg.start{"indexPath(",old, ", ", new,")"}
    local oldN = #oldA
@@ -451,8 +463,8 @@ end
 -- function to decide which version is the most recent.
 -- It is not a lexigraphical search but uses rules built
 -- into parseVersion().
-
-
+-- @param pathA  an array of paths.
+-- @param n      a number of paths to check.
 function lastFileInPathA(pathA, n)
    local lastKey   = ''
    local lastValue = ''
@@ -477,17 +489,16 @@ end
 --------------------------------------------------------------------------
 -- compute the length of a string and ignore any string
 -- colorization.
-
+-- @param s input string
 function length(s)
    s = s:gsub("\027[^m]+m","")
    return s:len()
 end
 
+s_masterTbl = {}
 --------------------------------------------------------------------------
 -- Manage the Master Hash Table.  The command line arguments
 -- and the ModuleStack (when using Spider) are stored here.
-
-s_masterTbl = {}
 function masterTbl()
    return s_masterTbl
 end
@@ -506,7 +517,9 @@ end
 -- To handle that, the path component is converted to
 -- a single space.  This single space is later removed
 -- when expanding.
-
+-- @param path A string of *sep* separated paths.
+-- @param sep  The separator character.  It is usually
+--             a colon.
 function path2pathA(path, sep)
    sep = sep or ":"
    if (not path) then
@@ -548,18 +561,7 @@ function path2pathA(path, sep)
 end
 
 --------------------------------------------------------------------------
---  Read the admin.list file.  It is a Key value pairing of module names
---  and a message.  The module names can be either the full name or the file
---  name.  The message can be multi-line.  A blank line is signifies the
---  end of the message.
---
---  /path/to/modulefile: Blah Blah Blah
---                       Blah Blah Blah
---
---  module/version:      Blah Blah Blah
---                       Blah Blah Blah
---
-
+-- Find the admin file (or nag message file).
 function findAdminFn()
    local readable    = "no"
    local adminFn     = getenv("LMOD_ADMIN_FILE") or pathJoin(cmdDir(),"../../etc/admin.list")
@@ -579,6 +581,17 @@ function findAdminFn()
 end
 
 
+--------------------------------------------------------------------------
+--  Read the admin.list file.  It is a Key value pairing of module names
+--  and a message.  The module names can be either the full name or the file
+--  name.  The message can be multi-line.  A blank line is signifies the
+--  end of the message.
+--
+--  /path/to/modulefile: Blah Blah Blah
+--                       Blah Blah Blah
+--
+--  module/version:      Blah Blah Blah
+--                       Blah Blah Blah
 function readAdmin()
 
    -- If there is anything in [[adminT]] then return because
@@ -590,7 +603,7 @@ function readAdmin()
 
    -- Put something in adminT so that this routine will not be
    -- run again even if the file does not exist.
-   adminT["foo"] = "bar"
+   adminT["%%_foo_%%"] = "bar"
 
    if (f) then
       local whole = f:read("*all") .. "\n"
@@ -638,11 +651,6 @@ function readAdmin()
    end
 end
 
---------------------------------------------------------------------------
--- read in the system and possible a user lmod configuration file.
--- The system one is read first.  These provide default value
--- The user one can override the default values.
-
 local s_readRC     = false
 RCFileA = {
    pathJoin(cmdDir(),"../init/lmodrc.lua"),
@@ -651,6 +659,10 @@ RCFileA = {
    os.getenv("LMOD_RC"),
 }
 
+--------------------------------------------------------------------------
+-- Read in the system and possible a user lmod configuration file.
+-- The system one is read first.  These provide default value
+-- The user one can override the default values.
 function readRC()
    dbg.start{"readRC()"}
    if (s_readRC) then
@@ -681,18 +693,28 @@ function readRC()
    dbg.fini("readRC")
 end
 
+--------------------------------------------------------------------------
+-- Return the property table.
 function getPropT()
    return s_propT
 end
 
+--------------------------------------------------------------------------
+-- Return the spider cache description table.
 function getSCDescriptT()
    return s_scDescriptT
 end
 
+
+--------------------------------------------------------------------------
+-- Return the array of active RC files
 function getRCFileA()
    return s_rcFileA
 end
 
+--------------------------------------------------------------------------
+-- Convert number and string to a quoted string.
+-- @param v input number or string.
 local function arg2str(v)
    if (v == nil) then return v end
    local s = tostring(v)
@@ -711,7 +733,9 @@ defaultsT = {
    priority = "0",
 }
 
-
+--------------------------------------------------------------------------
+-- This routine converts a command into a string.  This is used by MC_Show
+-- @param name Input command name.
 function ShowCmdStr(name, ...)
    local a       = {}
    local arg     = pack(...)
@@ -758,6 +782,11 @@ function ShowCmdStr(name, ...)
    return concatTbl(b,"")
 end
 
+
+--------------------------------------------------------------------------
+-- This routine converts a command into a string.  This is used by MC_Show
+-- @param name Input command name.
+-- @param mA   An array of Module Name objects.
 function ShowCmdA(name, mA)
    local a = {}
    for i = 1, #mA do
@@ -776,7 +805,6 @@ end
 --------------------------------------------------------------------------
 -- Unique string that combines the current time/date
 -- with a uuid id string.
-
 function UUIDString(epoch)
    local ymd  = os.date("*t", epoch)
 
@@ -792,6 +820,10 @@ function UUIDString(epoch)
 end
 modV = false
 
+--------------------------------------------------------------------------
+-- Read in a .modulerc file.
+-- @param current The module name associated with the file.
+-- @param path complete path to .modulerc file
 function moduleRCFile(current, path)
    dbg.start{"moduleRCFile(",path,")"}
    local f       = io.open(path,"r")
@@ -807,9 +839,8 @@ function moduleRCFile(current, path)
       dbg.fini("moduleRCFile")
       return nil
    end
-   local envT = {LD_LIBRARY_PATH = ORIG_LD_LIBRARY_PATH }
    local cmd  = pathJoin(cmdDir(),"RC2lua.tcl") .. " " .. path
-   local s    = capture(cmd, envT):trim()
+   local s    = capture(cmd):trim()
    assert(load(s))()
    local version = false
    for i = 1,#modV do
@@ -835,7 +866,10 @@ end
 -- file.  It checks to make sure that it is a valid TCL
 -- file.  It then uses the ModulesVersion.tcl script to
 -- return what the value of "ModulesVersion" is.
-
+-- @param v The version file name: {.modulerc, .version}
+-- @param sn The short name
+-- @param path The path to version file
+-- @param ignoreErrors If true then ignore errors.
 function versionFile(v, sn, path, ignoreErrors)
    dbg.start{"versionFile(v: ",v,", sn: ",sn,", path: ",path,")"}
    local f       = io.open(path,"r")
@@ -852,11 +886,9 @@ function versionFile(v, sn, path, ignoreErrors)
       return nil
    end
    local version = false
-   local envT    = {LD_LIBRARY_PATH = ORIG_LD_LIBRARY_PATH }
-
    if (v == "/.modulerc") then
       local cmd = pathJoin(cmdDir(),"RC2lua.tcl") .. " " .. path
-      local s = capture(cmd, envT):trim()
+      local s = capture(cmd):trim()
       assert(load(s))()
       for i = 1,#modV do
          local entry = modV[i]
@@ -878,7 +910,7 @@ function versionFile(v, sn, path, ignoreErrors)
       end
    elseif (v == "/.version") then
       local cmd = pathJoin(cmdDir(),"ModulesVersion.tcl") .. " " .. path
-      local s = capture(cmd, envT):trim()
+      local s = capture(cmd):trim()
       assert(load(s))()
       version = modV.version
       if (modV.date ~= "***") then
@@ -939,25 +971,19 @@ end
 
 
 
---------------------------------------------------------------------------
--- walk_directory_for_mf:
---     Walk a single directory for modulefiles and defaults:
---     Inputs:
---         mpath:
---         path:
---         prefix:
---     Outputs:
---         dirA:
---         mnameT:
---     Returns:
---         defaultFn:
-
 local defaultFnT = {
    default       = 1,
    ['.modulerc'] = 2,
    ['.version']  = 3,
 }
-
+--------------------------------------------------------------------------
+-- Walk a single directory for modulefiles and defaults:
+-- @param mpath Input modulepath directory
+-- @param path Input of the current directory.
+-- @param prefix the prefix
+-- @param dirA An array of directories found.
+-- @param mnameT A table of module names found
+-- @return defaultFn the default modulefile.
 function walk_directory_for_mf(mpath, path, prefix, dirA, mnameT)
    dbg.start{"walk_directory_for_mf(",mpath,", ",path,", ",prefix,", dirA, mnameT)"}
    local attr = lfs.attributes(path)
@@ -1022,28 +1048,58 @@ function walk_directory_for_mf(mpath, path, prefix, dirA, mnameT)
 end
 
 --------------------------------------------------------------------------
--- Deal with warnings
+-- Use readlink to find the link
+-- @param path the path to the module file.
+function walk_link(path)
+   local result = path
+   local attr   = lfs.symlinkattributes(path)
+   if (attr == nil) then
+      return nil
+   end
+   
+   if (attr.mode == "link") then
+      local rl = readlink(path)
+      if (not rl) then
+         return nil
+      end
+      return pathJoin(dirname(path),rl)
+   end
+   return path
+end
 
+
+--------------------------------------------------------------------------
+-- Allow for the generation of warnings.
 function activateWarning()
    s_haveWarnings = true
 end
 
+--------------------------------------------------------------------------
+-- Disallow the generation of warnings.
 function deactivateWarning()
    s_haveWarnings = false
 end
 
+--------------------------------------------------------------------------
+-- Are the generation of warnings allowed?
 function haveWarnings()
    return s_haveWarnings
 end
 
+--------------------------------------------------------------------------
+-- Reset warning flag to false.
 function clearWarningFlag()
    s_warning = false
 end
 
+--------------------------------------------------------------------------
+-- Set warning flags to true.
 function setWarningFlag()
    s_warning = true
 end
 
+--------------------------------------------------------------------------
+-- Get warning flag value.
 function getWarningFlag()
    return s_warning
 end

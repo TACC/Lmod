@@ -591,7 +591,6 @@ pkgConfig
 HAVE_LUA_JSON
 HAVE_LUA_TERM
 luaprog
-ORIG_LD_LIBRARY_PATH
 pager
 PATH_TO_SRC
 PATH_TO_HASHSUM
@@ -601,6 +600,7 @@ PATH_TO_LUA
 PATH_TO_PAGER
 PATH_TO_TCLSH
 LUA_INCLUDE
+PIN_VERSIONS
 IGNORE_DIRS
 SETTARG
 MPATH_AVAIL
@@ -687,6 +687,7 @@ with_disableNameAutoSwap
 with_mpathSearch
 with_settarg
 with_ignoreDirs
+with_pinVersions
 with_lua_include
 '
       ac_precious_vars='build_alias
@@ -1342,6 +1343,8 @@ Optional Packages:
                           [[NO]]
   --with-settarg=ans      startup files fully support settarg [[NO]]
   --with-ignoreDirs=ans   list of directories to ignore [[.svn,.git,.hg,.bzr]]
+  --with-pinVersions=ans  Save/Restore will use the current version instead of
+                          changing with the default.[[NO]]
   --with-lua-include=[path]
                           specify path the lua header files
 
@@ -3038,6 +3041,28 @@ fi
 
 
 
+# Check whether --with-pinVersions was given.
+if test "${with_pinVersions+set}" = set; then :
+  withval=$with_pinVersions; PIN_VERSIONS="$withval"
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: PIN_VERSIONS=$with_pinVersions" >&5
+$as_echo "PIN_VERSIONS=$with_pinVersions" >&6; }
+    cat >>confdefs.h <<_ACEOF
+#define PIN_VERSIONS "$with_pinVersions"
+_ACEOF
+
+else
+  withval="NO"
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: PIN_VERSIONS=$withval" >&5
+$as_echo "PIN_VERSIONS=$withval" >&6; }
+    PIN_VERSIONS="$withval"
+    cat >>confdefs.h <<_ACEOF
+#define PIN_VERSIONS "$withval"
+_ACEOF
+
+fi
+
+
+
 
 
 
@@ -3222,10 +3247,6 @@ fi
 
 
 PATH_TO_PAGER=$pager
-
-
-
-ORIG_LD_LIBRARY_PATH=$LD_LIBRARY_PATH
 
 # Extract the first word of "luac", so it can be a program name with args.
 set dummy luac; ac_word=$2

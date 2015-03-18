@@ -27,11 +27,11 @@ MPATH_AVAIL               := @MPATH_AVAIL@
 DUPLICATE_PATHS           := @DUPLICATE_PATHS@
 DISABLE_NAME_AUTOSWAP     := @DISABLE_NAME_AUTOSWAP@
 SHORT_TIME        	  := @SHORT_TIME@
+PIN_VERSIONS              := @PIN_VERSIONS@
 AUTO_SWAP        	  := @AUTO_SWAP@
 SPIDER_CACHE_DIRS 	  := @SPIDER_CACHE_DIRS@
 EXPORT_MODULE             := @EXPORT_MODULE@
 PATH_TO_HASHSUM   	  := @PATH_TO_HASHSUM@
-ORIG_LD_LIBRARY_PATH      := @ORIG_LD_LIBRARY_PATH@
 PATH_TO_LUAC              := @PATH_TO_LUAC@
 PATH_TO_PAGER	  	  := @PATH_TO_PAGER@
 PATH_TO_TCLSH             := @PATH_TO_TCLSH@
@@ -142,9 +142,6 @@ __installMe:
            sed  -e 's|@PREFIX@|$(prefix)|g'                            	   	  \
 	        -e 's|@path_to_lua@|$(PATH_TO_LUA)|g'                 	   	  \
 	        -e 's|@path_to_hashsum@|$(PATH_TO_HASHSUM)|g'         	   	  \
-	        -e 's|^#!/usr/bin/env tclsh$$|#!$(PATH_TO_TCLSH)|g'    	   	  \
-	        -e 's|@bash_err_to_out@|$(BASH_ERR_TO_OUT)|g'         	   	  \
-	        -e 's|@tcsh_err_to_out@|$(TCSH_ERR_TO_OUT)|g'         	   	  \
 	        -e 's|@path_to_pager@|$(PATH_TO_PAGER)|g'             	   	  \
 	        -e 's|@case_independent_sorting@|$(CASE_INDEPENDENT_SORTING)|g'   \
                 -e 's|@lmod_full_settarg_support@|$(LMOD_FULL_SETTARG_SUPPORT)|g' \
@@ -156,9 +153,10 @@ __installMe:
                 -e 's|@have_lua_json@|$(HAVE_LUA_JSON)|g'                  	  \
                 -e 's|@disable_name_autoswap@|$(DISABLE_NAME_AUTOSWAP)|g'     	  \
 	        -e 's|@redirect@|$(REDIRECT)|g'                       	   	  \
-	        -e 's|@orig_ld_library_path@|$(ORIG_LD_LIBRARY_PATH)|g'           \
+	        -e 's|@pin_versions@|$(PIN_VERSIONS)|g'                	   	  \
 	        -e 's|@auto_swap@|$(AUTO_SWAP)|g'                      	   	  \
 	        -e 's|@export_module@|$(EXPORT_MODULE)|g'             	   	  \
+                -e 's|@lmod_version@|$(version)|g'               	   	  \
 	        -e 's|@ancient@|$(ANCIENT)|g'                         	   	  \
 	        -e 's|@prepend_block@|$(PREPEND_BLOCK)|g'             	   	  \
 	        -e 's|@colorize@|$(COLORIZE)|g'                       	   	  \

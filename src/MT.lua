@@ -101,9 +101,12 @@ s_mtA = {}
 
 local function buildAvailT(mpath, path, prefix, availT)
 
+   dbg.start{"buildAvailT(",mpath,",", path,",", prefix,", availT)"}
    local mnameT     = {}
    local dirA       = {}
    local defaultFn  = walk_directory_for_mf(mpath, path, prefix, dirA, mnameT)
+
+   dbg.print{"defaultFn: ",defaultFn,", path: ",path,"\n"}
 
    if (#dirA > 0 or prefix == '') then
       --------------------------------------------------------------------------
@@ -158,14 +161,16 @@ local function buildAvailT(mpath, path, prefix, availT)
          local d, v = splitFileName(defaultFn)
          v          = "/" .. v
          if (v == "/default") then
-            defaultFn = abspath_localdir(defaultFn)
+            dbg.print{"Before defaultFn: ",defaultFn,"\n"}
+            defaultFn = walk_link(defaultFn)
+            dbg.print{"After defaultFn: ",defaultFn,"\n"}
          else
             v         = versionFile(v, prefix, defaultFn, true)
-            --d         = abspath(d)
             local f   = pathJoin(d,v)
-            defaultFn = abspath_localdir(f)
-            if (defaultFn == nil) then
-               defaultFn = abspath_localdir(pathJoin(d,v .. ".lua"))
+            if (isFile(f)) then
+               defaultFn = f
+            elseif (isFile(f .. ".lua")) then
+               defaultFn = f .. ".lua"
             end
          end
          local num = #vA
@@ -175,6 +180,7 @@ local function buildAvailT(mpath, path, prefix, availT)
          defaultFn = pathJoin(d, a[#a].version)
       end
    end
+   dbg.fini("buildAvailT")
 end
 
 
@@ -463,7 +469,7 @@ function M._build_locationTbl(self, mpathA, adding, pathEntry)
 
    if (mustWalkDirs) then
       local fast      = true
-      local cache     = _G.Cache:cache()
+      local cache     = _G.Cache:cache{}
       local moduleT   = cache:build(fast)
 
       dbg.print{"moduleT: ", not (not moduleT),"\n"}
@@ -780,7 +786,7 @@ function M.getMTfromFile(self,t)
    local l_mt      = new(self, s, restoreFn)
    local mpath     = l_mt._MPATH
 
-   local activeA   = l_mt:list("userName","active")
+   local activeA = l_mt:list("userName","active")
 
    ---------------------------------------------
    -- If any module specified in the "default" file
@@ -860,11 +866,18 @@ function M.getMTfromFile(self,t)
    local mcp_old = mcp
    mcp           = MasterControl.build("mgrload")
 
-   local mA        = {}
+
+   -----------------------------------------------
+   -- Normally we load the user name which means
+   -- that defaults will be followed.  However
+   -- some sites/users wish to use the fullname
+   -- and not follow defaults.
+   local knd = (LMOD_PIN_VERSIONS == "no") and "name" or "full"
+   local mA  = {}
+
    for i = 1, #activeA do
-      local entry = activeA[i]
-      local name  = entry.name
-      mA[#mA+1]   = MName:new("load",name)
+      local name = activeA[i][knd]
+      mA[#mA+1]  = MName:new("load",name)
    end
    MCP.load(mcp,mA)
    mcp = mcp_old
@@ -1279,6 +1292,8 @@ end
 -- There are three kinds of returns for this member function.
 --    mt:list("userName",...) returns an object containing an table
 --                            which has the short, full, etc.
+--    mt:list("fullName",...) returns the list modules with their
+--                            fullNames.
 --    mt:list("both",...) returns the short and full name of
 --    mt:list(... , ...) returns a simply array of names.
 -- @param self An MT object

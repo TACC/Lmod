@@ -79,6 +79,8 @@ local format   = string.format
 local getenv   = os.getenv
 local load     = (_VERSION == "Lua 5.1") and loadstring or load
 
+--------------------------------------------------------------------------
+-- Save the current value of the module table to a file.
 function main()
 
    local optionTbl = options()
@@ -129,6 +131,8 @@ function main()
    end
 end
 
+--------------------------------------------------------------------------
+-- Parse the command line options.
 function options()
    local usage         = "Usage: getmt [options]"
    local cmdlineParser = Optiks:new{usage=usage, version="1.0"}

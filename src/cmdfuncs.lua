@@ -157,7 +157,7 @@ function Keyword(...)
 
    local master  = Master:master()
    local shell   = master.shell
-   local cache   = Cache:cache()
+   local cache   = Cache:cache{buildCache=true}
    local moduleT = cache:build()
    local s
    local dbT = {}
@@ -549,7 +549,10 @@ function Restore(collection)
       Reset(msg)
    else
       local mt      = MT:mt()
-      local results = mt:getMTfromFile{fn=path, name=myName, msg=msg} or Reset(msg)
+      local results = mt:getMTfromFile{fn=path, name=myName, msg=msg}
+      if (not results and collection == "default") then
+         Reset(msg)
+      end
    end
 
    dbg.fini("Restore")
@@ -710,7 +713,7 @@ end
 -- level 1 or level 2 report on particular modules.
 function SpiderCmd(...)
    dbg.start{"SpiderCmd(", concatTbl({...},", "),")"}
-   local cache       = Cache:cache()
+   local cache       = Cache:cache{buildCache=true}
    local shell       = Master:master().shell
    local masterTbl   = masterTbl()
    local moduleT,dbT = cache:build()
@@ -846,12 +849,11 @@ function Use(...)
       end
       iarg = iarg + 1
    end
-   local nodups = true
    for _,v in ipairs(a) do
       v = abspath(v)
       if (v) then
-         op(MCP, { ModulePath,  v, delim = ":", nodups=nodups, priority=priority })
-         op(MCP, { DfltModPath, v, delim = ":", nodups=nodups, priority=priority })
+         op(MCP, { ModulePath,  v, delim = ":", nodups=true, priority=priority })
+         op(MCP, { DfltModPath, v, delim = ":", nodups=true, priority=priority })
       end
    end
 

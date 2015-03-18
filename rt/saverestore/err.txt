@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.8.2  2015-01-14 20:55
+Modules based on Lua: Version 5.9.1  2015-03-10 14:43
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -111,9 +111,6 @@ To rebuild the collection, load the modules you wish then do:
 If you no longer want this module collection do:
   rm ~/.lmod.d/
 For more information execute 'module help' or see www.tacc.utexas.edu/tacc-projects/lmod/user-guide/loading-modules
-Resetting modules to system default
-The system default contains no modules
-  (env var: LMOD_SYSTEM_DEFAULT_MODULES is empty)
 ===========================
 step 18
 lua ProjectDIR/src/lmod.in.lua bash restore stdenv
@@ -126,9 +123,6 @@ To rebuild the collection, load the modules you wish then do:
 If you no longer want this module collection do:
   rm ~/.lmod.d/
 For more information execute 'module help' or see www.tacc.utexas.edu/tacc-projects/lmod/user-guide/loading-modules
-Resetting modules to system default
-The system default contains no modules
-  (env var: LMOD_SYSTEM_DEFAULT_MODULES is empty)
 ===========================
 step 19
 lua ProjectDIR/src/lmod.in.lua bash purge
@@ -163,3 +157,44 @@ lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
 Currently Loaded Modules:
   1) M/7.2.6   2) T/4.2.6   3) A/1.0
+===========================
+step 26
+lua ProjectDIR/src/lmod.in.lua bash purge
+===========================
+===========================
+step 27
+lua ProjectDIR/src/lmod.in.lua bash load a b
+===========================
+===========================
+step 28
+lua ProjectDIR/src/lmod.in.lua bash save
+===========================
+Saved current collection of modules to: default
+===========================
+step 29
+lua ProjectDIR/src/lmod.in.lua bash restore
+===========================
+Restoring modules to user's default
+The following have been reloaded with a version change:
+  1) a/2.0 => a/3.0
+===========================
+step 30
+lua ProjectDIR/src/lmod.in.lua bash list
+===========================
+Currently Loaded Modules:
+  1) a/3.0   2) b/3.3
+===========================
+step 31
+lua ProjectDIR/src/lmod.in.lua bash purge
+===========================
+===========================
+step 32
+lua ProjectDIR/src/lmod.in.lua bash restore
+===========================
+Restoring modules to user's default
+===========================
+step 33
+lua ProjectDIR/src/lmod.in.lua bash list
+===========================
+Currently Loaded Modules:
+  1) a/2.0   2) b/3.3

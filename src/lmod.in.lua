@@ -45,11 +45,6 @@ prepend_order   = false
 banner          = false
 
 ------------------------------------------------------------------------
--- Extract directory location of "lmod" command and add it
--- to the lua search path
-------------------------------------------------------------------------
-
-------------------------------------------------------------------------
 -- Use command name to add the command directory to the package.path
 ------------------------------------------------------------------------
 local LuaCommandName = arg[0]
@@ -321,6 +316,7 @@ BaseShell          = require("BaseShell")
 local Options      = require("Options")
 local Spider       = require("Spider")
 local Var          = require("Var")
+local posix        = require("posix")
 
 --------------------------------------------------------------------------
 -- A place holder function.  This should never be called.
@@ -360,7 +356,6 @@ list         = List
 
 ModuleName = ""
 ModuleFn   = ""
-
 
 --------------------------------------------------------------------------
 -- The main function of Lmod.  The lmod program always starts here.
@@ -540,8 +535,14 @@ function main()
       dbg:activateDebug(dbgLevel)
    end
    dbg.start{"lmod(", arg_str,")"}
-   dbg.print{"Lmod Version: ",Version.name(),"\n"}
-   dbg.print{"package.path: ",package.path,"\n"}
+   if (dbg.active()) then
+      dbg.print{"Date: ",os.date(),"\n"}
+      dbg.print{"Hostname: ",posix.uname("%n"),"\n"}
+      dbg.print{"System: ",posix.uname("%s")," ",posix.uname("%r"),"\n"}
+      dbg.print{"Version: ",posix.uname("%v"),"\n"}
+      dbg.print{"Lmod Version: ",Version.name(),"\n"}
+      dbg.print{"package.path: ",package.path,"\n"}
+   end
 
    ------------------------------------------------------------
    -- Must output local variables even when there is the command

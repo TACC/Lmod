@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.1.6 (5.1.6-17-ga2413a6) 2013-09-06 19:17
+Modules based on Lua: Version 5.9.0.2  2015-02-19 16:54
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -21,3 +21,8 @@ Lmod reports a LMOD_VERSION
 Lmod reports a LMOD_VERSION_MAJOR
 Lmod reports a LMOD_VERSION_MINOR
 Lmod reports a LMOD_VERSION_SUBMINOR
+===========================
+step 3
+lua ProjectDIR/src/lmod.in.lua bash load b
+===========================
+I am here

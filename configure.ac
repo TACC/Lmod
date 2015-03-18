@@ -238,6 +238,18 @@ AC_ARG_WITH(ignoreDirs,
     IGNORE_DIRS="$withval"
     AC_DEFINE_UNQUOTED(IGNORE_DIRS, "$withval"))dnl
 
+AC_SUBST(PIN_VERSIONS)
+AC_ARG_WITH(pinVersions,
+    AC_HELP_STRING([--with-pinVersions=ans],[Save/Restore will use the current version instead of changing with the default.[[NO]]]),
+    PIN_VERSIONS="$withval"
+    AC_MSG_RESULT([PIN_VERSIONS=$with_pinVersions])
+    AC_DEFINE_UNQUOTED(PIN_VERSIONS, "$with_pinVersions")dnl
+    ,
+    withval="NO"
+    AC_MSG_RESULT([PIN_VERSIONS=$withval])
+    PIN_VERSIONS="$withval"
+    AC_DEFINE_UNQUOTED(PIN_VERSIONS, "$withval"))dnl
+
 AC_SUBST(LUA_INCLUDE)
 AC_SUBST(PATH_TO_TCLSH)
 AC_SUBST(PATH_TO_PAGER)
@@ -259,10 +271,6 @@ fi
 AC_PATH_PROGS(PATH_TO_HASHSUM, [sha1sum] [md5sum], "")
 AC_PATH_PROG(pager,[more], "")
 PATH_TO_PAGER=$pager
-
-AC_SUBST(ORIG_LD_LIBRARY_PATH)
-
-ORIG_LD_LIBRARY_PATH=$LD_LIBRARY_PATH
 
 AC_PATH_PROG(PATH_TO_LUAC, [luac])
 AC_PATH_PROG(luaprog, [lua], "")

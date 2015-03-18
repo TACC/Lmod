@@ -143,6 +143,7 @@ initStdEnvVars()
   unset DYLD_LIBRARY_PATH
   unset MODULEPATH
   unset LMOD_DEFAULT_MODULEPATH
+  unset LMOD_PIN_VERSIONS
   unset MODULEPATH_ROOT
   unset LMOD_EXPERT
   unset LMOD_QUIET

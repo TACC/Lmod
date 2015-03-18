@@ -54,7 +54,7 @@ replaceT = {
 }
 
 --------------------------------------------------------------------------
---- The returned value will be an array of string. Numeric portions of the
+-- The returned value will be an array of string. Numeric portions of the
 -- version are padded to 9 digits so they will compare numerically, but
 -- without relying on how numbers compare relative to strings. Dots are dropped,
 -- but dashes are retained. Trailing zeros between alpha segments or dashes
@@ -121,7 +121,7 @@ function parseVersion(versionStr)
 end
 
 --------------------------------------------------------------------------
---- Return the iterator return the next piece of the version.
+-- Return the iterator return the next piece of the version.
 -- @param  versionStr A version string.
 -- @return iterator over parts of the version string.
 function parseVersionParts(versionStr)

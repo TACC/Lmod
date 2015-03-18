@@ -35,6 +35,9 @@
 --------------------------------------------------------------------------
 local concatTbl = table.concat
 
+--------------------------------------------------------------------------
+-- Trim trailing blanks from a string.
+
 function string:trim()
    local ja = self:find("%S")
    if (ja == nil) then
@@ -45,6 +48,8 @@ function string:trim()
    return s
 end
 
+--------------------------------------------------------------------------
+-- Return iterator generator for spliting a string into pieces.
 function string:split(pat)
    pat  = pat or "%s+"
    local st, g = 1, self:gmatch("()("..pat..")")
@@ -58,12 +63,17 @@ function string:split(pat)
    return splitter, self
 end
 
+--------------------------------------------------------------------------
+-- Wrap *s* 
+-- @param s Input string
+
 function wrapper(s)
    return "[\\\"".. s .. "\\\"] = true, "
 end
 
+--------------------------------------------------------------------------
+-- Convert input list of directories into lua table.
 function main()
-
    local a = {}
    for i=1,#arg do
       local line = arg[i]
@@ -77,10 +87,7 @@ function main()
          end
       end
    end
-
    print(concatTbl(a,""))
-
 end
-
 
 main()

@@ -30,3 +30,37 @@ MODULEPATH="ProjectDIR/rt/defaults/mf/Core";
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/defaults/mf/Core",},family={},inactive={},mT={},mpathA={"ProjectDIR/rt/defaults/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/defaults/mf/Core",["version"]=2,}';
 export _ModuleTable_;
+===========================
+step 4
+lua ProjectDIR/src/lmod.in.lua bash load a b boost mv2
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/defaults/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/defaults/mf/Core";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/defaults/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+LOADEDMODULES="a/1.2:b/1.1:boost/1.55.0:mv2/2.1rc2";
+export LOADEDMODULES;
+MODULEPATH="ProjectDIR/rt/defaults/mf/Core";
+export MODULEPATH;
+VERSION="2.1rc2";
+export VERSION;
+_LMFILES_="ProjectDIR/rt/defaults/mf/Core/a/1.2.lua:ProjectDIR/rt/defaults/mf/Core/b/1.1.lua:ProjectDIR/rt/defaults/mf/Core/boost/1.55.0.lua:ProjectDIR/rt/defaults/mf/Core/mv2/2.1rc2.lua";
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={["activeSize"]=4,baseMpathA={"ProjectDIR/rt/defaults/mf/Core",},family={},inactive={},mT={a={["FN"]="ProjectDIR/rt/defaults/mf/Core/a/1.2.lua",["default"]=1,["fullName"]="a/1.2",["loadOrder"]=1,propT={},["short"]="a",["status"]="active",},b={["FN"]="ProjectDIR/rt/defaults/mf/Core/b/1.1.lua",["default"]=1,["fullName"]="b/1.1",["loadOrder"]=2,propT={},["short"]="b",["status"]="active",},boost={["FN"]="ProjectDIR/rt/defaults/mf/Core/boost/1.55.0.lua",["default"]=1,["fullName"]="boost/1.55.0",["loadOrder"]=3,propT={},["short"]="boost",["status"]="active",},mv2={["FN"]="ProjectDIR/rt/defaults/mf/Core/mv2/2.1rc2.lua",["default"]=1,["fullName"]="mv2/2.1rc2",["loadOrder"]=4,propT={},["short"]="mv2",["status"]="active",},},mpathA={"ProjectDIR/rt/defaults/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/defaults/mf/Core",["version"]=2,}';
+export _ModuleTable_;
+===========================
+step 5
+lua ProjectDIR/src/lmod.in.lua bash list
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/defaults/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/defaults/mf/Core";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/defaults/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/defaults/mf/Core";
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=4,baseMpathA={"ProjectDIR/rt/defaults/mf/Core",},family={},inactive={},mT={a={["FN"]="ProjectDIR/rt/defaults/mf/Core/a/1.2.lua",["default"]=1,["fullName"]="a/1.2",["loadOrder"]=1,propT={},["short"]="a",["status"]="active",},b={["FN"]="ProjectDIR/rt/defaults/mf/Core/b/1.1.lua",["default"]=1,["fullName"]="b/1.1",["loadOrder"]=2,propT={},["short"]="b",["status"]="active",},boost={["FN"]="ProjectDIR/rt/defaults/mf/Core/boost/1.55.0.lua",["default"]=1,["fullName"]="boost/1.55.0",["loadOrder"]=3,propT={},["short"]="boost",["status"]="active",},mv2={["FN"]="ProjectDIR/rt/defaults/mf/Core/mv2/2.1rc2.lua",["default"]=1,["fullName"]="mv2/2.1rc2",["loadOrder"]=4,propT={},["short"]="mv2",["status"]="active",},},mpathA={"ProjectDIR/rt/defaults/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/defaults/mf/Core",["version"]=2,}';
+export _ModuleTable_;

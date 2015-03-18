@@ -2,16 +2,39 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.3.1 5.3.1-25-g284784d 2014-02-22 08:33
+Modules based on Lua: Version 5.9.0.2  2015-02-16 07:40
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
 lua ProjectDIR/src/lmod.in.lua bash avail
 ===========================
 ProjectDIR/rt/symlink/mf/Core
-   intel/12.1.5 (D)    intel/13.1    intel/14.0.2
+   a/1.1        boost/1.55.0 (D)    intel/14.0.2        mv2/2.1
+   a/1.2 (D)    boost/1.56.0        mv2/2.0             mv2/2.2
+   b/1.1 (D)    intel/12.1.5 (D)    mv2/2.1rc1
+   b/1.2        intel/13.1          mv2/2.1rc2   (D)
   Where:
    (D):  Default Module
 Use "module spider" to find all possible modules.
 Use "module keyword key1 key2 ..." to search for all possible modules matching
 any of the "keys".
+===========================
+step 3
+lua ProjectDIR/src/lmod.in.lua bash -t -d avail
+===========================
+ProjectDIR/rt/symlink/mf/Core:
+a/1.2
+b/1.1
+boost/1.55.0
+intel/12.1.5
+mv2/2.1rc2
+===========================
+step 4
+lua ProjectDIR/src/lmod.in.lua bash load intel a b boost mv2
+===========================
+===========================
+step 5
+lua ProjectDIR/src/lmod.in.lua bash list
+===========================
+Currently Loaded Modules:
+  1) intel/12.1.5   2) a/1.2   3) b/1.1   4) boost/1.55.0   5) mv2/2.1rc2

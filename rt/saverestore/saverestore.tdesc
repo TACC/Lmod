@@ -69,8 +69,17 @@ testdescript = {
      runLmod save                    #23
      runLmod restore                 #24
      runLmod list                    #25
-
-
+     runLmod purge                   #26
+     runLmod load a b                #27
+     runLmod save                    #28
+     rm Core/a/default
+     ln -s 3.0 Core/a/default
+     runLmod restore                 #29
+     runLmod list                    #30
+     export LMOD_PIN_VERSIONS=yes
+     runLmod purge                   #31     
+     runLmod restore                 #32
+     runLmod list                    #33
 
      HOME=$ORIG_HOME
      export HOME

@@ -249,13 +249,13 @@ end
 --  @param a An array of values.
 --  @param where Where to remove and how: {"first", "last", "all"}
 --  @param priority The priority of the path if any (default is zero)
-local function remFunc(a, where, priority)
+local function remFunc(a, where, priority, nodups)
    if (where == "all" or abs(priority) > 0) then
       local oldPriority = 0
       if (next(a) ~= nil) then
          oldPriority = tonumber(a[1][2])
       end
-      if (oldPriority == priority) then
+      if (oldPriority == priority or nodups) then
          a = nil
       end
    elseif (where == "first" ) then
@@ -281,12 +281,17 @@ end
 -- @param value The value to remove
 -- @param where where it should be removed from {"first", "last", "all"}
 -- @param priority The priority of the entry.
-function M.remove(self, value, where, priority)
+-- @param nodup If true then there are no duplicates allowed.
+function M.remove(self, value, where, priority, nodups)
+   dbg.start{"Var:remove(value: ",value,", where:",where,", priority: ",priority,")"}
    if (value == nil) then return end
    priority = priority or 0
 
    if (where == "first") then
       priority = - priority
+   end
+   if (dbg.active() and self.name == "MODULEPATH") then
+      self:prt()
    end
 
    where = allow_dups(true) and where or "all"
@@ -296,15 +301,19 @@ function M.remove(self, value, where, priority)
 
    for i = 1, #pathA do
       local path = pathA[i]
+      dbg.print{"path: ",path,"\n"}
       if (tbl[path]) then
-         tbl[path] = remFunc(self.tbl[path], where, priority)
+         dbg.print{"removing path: ",path,"\n"}
+         tbl[path] = remFunc(self.tbl[path], where, priority, nodups)
          chkMP(self.name,adding,path)
       end
    end
    local v    = self:expand()
+   dbg.print{"where: ",where,", new value: ",v,"\n"}
    self.value = v
    if (not v) then v = nil end
    setenv_posix(self.name, v, true)
+   dbg.fini("Var:remove")
 end
 
 --------------------------------------------------------------------------

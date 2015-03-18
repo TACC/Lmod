@@ -1,5 +1,8 @@
 --------------------------------------------------------------------------
--- Fixme
+-- This module controls the pager. There are two ways to use the pager.
+-- If stderr is connected to a term and it is configured for it, stderr
+-- will be run through the pager.  If not bypassPager is used which just
+-- writes all strings to the stream "f".
 -- @module pager
 
 require("strict")
@@ -47,18 +50,12 @@ end
 
 local pack        = (_VERSION == "Lua 5.1") and argsPack or table.pack
 
---------------------------------------------------------------------------
--- Pager: This file provides two ways to use the pager.  If stderr is
---        connected to a term and it is configured for it, stderr will be
---        run through the pager.  If not bypassPager is used which just
---        writes all strings to the stream "f".
-
 s_pager = false
 
 
 --------------------------------------------------------------------------
--- bypassPager(): all input arguments to stream f
-
+-- All input arguments to stream f
+-- @param f A stream object.
 function bypassPager(f, ...)
    local arg = pack(...)
    for i = 1, arg.n do
@@ -67,9 +64,9 @@ function bypassPager(f, ...)
 end
 
 --------------------------------------------------------------------------
--- usePager(): Use pager to present input arguments to user via whatever
---             pager has been chosen.
-
+-- Use pager to present input arguments to user via whatever
+-- pager has been chosen.
+-- @param f A stream object.
 function usePager(f, ...)
    dbg.start{"usePager()"}
    local p = io.popen(s_pager .. " 1>&2" ,"w")
@@ -80,8 +77,7 @@ function usePager(f, ...)
 end
 
 --------------------------------------------------------------------------
--- buildPager(): Return usePager if PAGER exists otherwise,  return bypassPager
-
+-- Return usePager if PAGER exists otherwise,  return bypassPager
 function buildPager()
    local func  = bypassPager
    local pager = LMOD_PAGER or os.getenv("PAGER") or Pager
