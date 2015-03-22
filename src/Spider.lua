@@ -117,6 +117,13 @@ function Spider_append_path(kind, t)
       dbg.start{kind, "(\"",name, "\" = \"", value, "\")"}
       processLPATH(value)
       dbg.fini(kind)
+   elseif (name == "PKG_CONFIG_PATH")  then
+      local i = value:find("/lib/pkgconfig$")
+      if (i) then
+         dbg.start{kind, "(\"",name, "\" = \"", value, "\")"}
+         processLPATH(value:sub(1,i+3))
+         dbg.fini(kind)
+      end
    end
 end
 
