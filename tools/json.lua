@@ -34,11 +34,11 @@ local string = require("string")
 local table = require("table")
 
 local base = _G
-
+local M = {}
 -----------------------------------------------------------------------------
 -- Module declaration
 -----------------------------------------------------------------------------
-module("json")
+--module("json")
 
 -- Public functions
 
@@ -61,7 +61,7 @@ base.load = (base._VERSION == "Lua 5.1") and base.loadstring or base.load
 --- Encodes an arbitrary Lua object / variable.
 -- @param v The Lua object / variable to be JSON encoded.
 -- @return String containing the JSON encoding in internal Lua string format (i.e. not unicode)
-function encode (v)
+function M.encode (v)
   -- Handle nil values
   if v==nil then
     return "null"
@@ -86,12 +86,12 @@ function encode (v)
     local bArray, maxCount = isArray(v)
     if bArray then
       for i = 1,maxCount do
-        table.insert(rval, encode(v[i]))
+        table.insert(rval, M.encode(v[i]))
       end
     else	-- An object, not an array
       for i,j in base.pairs(v) do
         if isEncodable(i) and isEncodable(j) then
-          table.insert(rval, '"' .. encodeString(i) .. '":' .. encode(j))
+          table.insert(rval, '"' .. encodeString(i) .. '":' .. M.encode(j))
         end
       end
     end
@@ -117,7 +117,7 @@ end
 -- Lua object, number The object that was scanned, as a Lua table / string / number / boolean or nil,
 -- and the position of the first character after
 -- the scanned JSON object.
-function decode(s, startPos)
+function M.decode(s, startPos)
   startPos = startPos and startPos or 1
   startPos = decode_scanWhitespace(s,startPos)
   base.assert(startPos<=string.len(s), 'Unterminated JSON encoded object found at position in [' .. s .. ']')

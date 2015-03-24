@@ -68,7 +68,7 @@ sandbox_env = {
   tonumber = tonumber,
   tostring = tostring,
   type     = type,
-  unpack   = unpack or table.unpack,
+  unpack   = (_VERSION == "Lua 5.1") and unpack or table.unpack,
   string   = { byte = string.byte, char = string.char, find = string.find,
                format = string.format, gmatch = string.gmatch, gsub = string.gsub,
                len = string.len, lower = string.lower, match = string.match,

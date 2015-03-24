@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.8.2  2015-01-14 20:55
+Modules based on Lua: Version 5.9.1.1  2015-03-17 21:53
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -24,14 +24,3 @@ ProjectDIR/rt/errHandler/mf/bad_argument/1.0.lua
 While processing the following module(s):
 Module fullname   Module Filename
 bad_argument/1.0  ProjectDIR/rt/errHandler/mf/bad_argument/1.0.lua
-===========================
-step 4
-lua ProjectDIR/src/lmod.in.lua bash load bad_func
-===========================
-Lmod has detected the following error: Unable to load module: bad_func
-     ProjectDIR/rt/errHandler/mf/bad_func/1.0.lua : [string
-"setenv("BAD_FUNC","1.0")..."]:2: attempt to call global 'unknownFunc' (a nil
-value)
-While processing the following module(s):
-Module fullname  Module Filename
-bad_func/1.0     ProjectDIR/rt/errHandler/mf/bad_func/1.0.lua

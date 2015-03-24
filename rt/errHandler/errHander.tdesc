@@ -25,7 +25,6 @@ testdescript = {
      runLmod --version           # 1
      runLmod load bad_syntax     # 2
      runLmod load bad_argument   # 3
-     runLmod load bad_func       # 4
 
      HOME=$ORIG_HOME
 
