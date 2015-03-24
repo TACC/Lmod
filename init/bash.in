@@ -79,7 +79,7 @@ ml()
 }
 
 export_module=$(echo "@export_module@" | tr '[:upper:]' '[:lower:]')
-if [ -n "$BASH_VERSION" -a "$export_module" != no ]; then
+if [ -n "${BASH_VERSION:-}" -a "$export_module" != no ]; then
   export -f module
   export -f ml
 fi
@@ -97,8 +97,8 @@ clearMT()
 ########################################################################
 #  The following make the action of the settarg available to the titlebar
 #  for both xterm's and screen but only for interactive shells.
-if [ "$PS1" ]; then
-  if [ -n "$LMOD_FULL_SETTARG_SUPPORT" -a "$LMOD_FULL_SETTARG_SUPPORT" != no ]; then
+if [ -n "${PS1:-}" ]; then
+  if [ -n "${LMOD_FULL_SETTARG_SUPPORT:-}" -a "$LMOD_FULL_SETTARG_SUPPORT" != no ]; then
     xSetTitleLmod()
     {
       builtin echo -n -e "\033]2;$1\007";
@@ -127,6 +127,6 @@ fi
 ########################################################################
 #  Make tab completions available to bash users.
 
-if [ ${BASH_VERSINFO:-0} -ge 3 ] && [ -r  @PKGV@/init/lmod_bash_completions ] && [ -n "$PS1" ]; then
+if [ ${BASH_VERSINFO:-0} -ge 3 ] && [ -r  @PKGV@/init/lmod_bash_completions ] && [ -n "${PS1:-}" ]; then
  . @PKGV@/init/lmod_bash_completions
 fi

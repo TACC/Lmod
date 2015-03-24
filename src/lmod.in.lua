@@ -135,7 +135,7 @@ local Banner       = require("Banner")
 local Version      = require("Version")
 local concatTbl    = table.concat
 local max          = math.max
-local unpack       = unpack or table.unpack
+local unpack       = (_VERSION == "Lua 5.1") and unpack or table.unpack
 local timer        = require("Timer"):timer()
 
 --------------------------------------------------------------------------

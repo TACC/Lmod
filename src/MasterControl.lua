@@ -304,8 +304,8 @@ function M.reportAdminMsgs()
       io.stderr:write("\n",border,"\n",
                       "There are messages associated with the following module(s):\n",
                       border,"\n")
-      for k, v in pairs(t) do
-         io.stderr:write("\n",k," :\n")
+      for k, v in pairsByKeys(t) do
+         io.stderr:write("\n",k,":\n")
          a[1] = { " ", v}
          bt = BeautifulTbl:new{tbl=a, wrapped=true, column=term_width-1}
          io.stderr:write(bt:build_tbl(), "\n")

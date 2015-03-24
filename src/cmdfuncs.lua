@@ -54,7 +54,7 @@ local hook         = require("Hook")
 local lfs          = require("lfs")
 local posix        = require("posix")
 local pack         = (_VERSION == "Lua 5.1") and argsPack or table.pack
-local unpack       = unpack or table.unpack
+local unpack       = (_VERSION == "Lua 5.1") and unpack or table.unpack
 
 --------------------------------------------------------------------------
 -- Both Help and Whatis functions funnel their actions through

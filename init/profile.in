@@ -6,9 +6,9 @@
 #
 ########################################################################
 
-if [ -z "$USER_IS_ROOT" ]; then
+if [ -z "${USER_IS_ROOT:-}" ]; then
 
-  if [ -z "$MODULEPATH_ROOT" ]; then
+  if [ -z "${MODULEPATH_ROOT:-}" ]; then
     export USER=${USER-${LOGNAME}}  # make sure $USER is set
     export LMOD_sys=`uname`
 
@@ -32,7 +32,7 @@ if [ -z "$USER_IS_ROOT" ]; then
     #
     # If MANPATH is empty, Lmod is adding a trailing ":" so that
     # the system MANPATH will be found
-    if [ -z "$MANPATH" ]; then
+    if [ -z "${MANPATH:-}" ]; then
       export MANPATH=:
     fi
     export MANPATH=$(@PKG@/libexec/addto MANPATH @PKG@/share/man)

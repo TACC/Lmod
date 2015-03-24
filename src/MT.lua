@@ -49,7 +49,7 @@ local getenv       = os.getenv
 local max          = math.max
 local sort         = table.sort
 local systemG      = _G
-local unpack       = unpack or table.unpack
+local unpack       = (_VERSION == "Lua 5.1") and unpack or table.unpack
 
 require("string_utils")
 require("fileOps")

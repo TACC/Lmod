@@ -40,7 +40,6 @@ require("strict")
 require("strict")
 require("inherits")
 
-local unpack = unpack or table.unpack
 local M = inheritsFrom(PkgBase)
 
 function M.name(self)
