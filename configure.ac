@@ -312,10 +312,10 @@ else
   lmodV=$($luaprog -e "v=require('Version'); s=v.git():gsub(' .*','');print(s)")
 fi
 
-IntLuaV=$( $luaprog  -e "_,_,M,m=_VERSION:gsub('Lua%s+',''):find('(%d+)%.(%d)'); print(M*1000+m)")
+IntLuaV=$( $luaprog  -e "_,_,M,m=_VERSION:gsub('Lua%s+',''):find('(%d+)%.(%d)'); print(math.floor(M*1000+m))")
 
-if test $IntLuaV -lt 5001 -o $IntLuaV -gt 5002; then
-  echo "Error: Lmod requires versions 5.1 or 5.2, You have: $LuaV"
+if test $IntLuaV -lt 5001 -o $IntLuaV -gt 5003; then
+  echo "Error: Lmod requires versions 5.1 or 5.2 or 5.3, You have: $LuaV"
   exit 1
 fi
 
