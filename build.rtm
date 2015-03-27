@@ -8,6 +8,7 @@ make_install()
   if [ "$BUILD_TYPE" != "EXPERIMENTAL" ]; then
     $SUDO $MAKE install     $MAKE_EXTRA
   else
+    echo "$SUDO $MAKE pre-install $MAKE_EXTRA"
     $SUDO $MAKE pre-install $MAKE_EXTRA
     $SUDO rm -f $BASE_DIR/lmod/EXPERIMENTAL
     $SUDO ln -s $PKG_VERSION $BASE_DIR/lmod/EXPERIMENTAL
@@ -66,10 +67,8 @@ $HOME/a/moduleData/cacheDir: $HOME/a/moduleData/losf_last_update
 $HOME/a/moduleData/XSEDE/cacheDir: $HOME/a/moduleData/XSEDE/last_update
 EOF
 
-MAKE_VERSION=$(make -v | head -n 1 | sed -e "s/GNU Make //")
-MAKE_A=( $(echo $MAKE_VERSION | tr '.' ' ' ) )
-MAKE_NUM_VER=$((${MAKE_A[0]}*1000 + ${MAKE_A[1]}))
-if [ "$MAKE_NUM_VER" -ge 4000 ]; then
+
+if [ -n "$LUA_PATH" ]; then
    MAKE_EXTRA="LUA_PATH=$LUA_PATH LUA_CPATH=$LUA_CPATH"
 fi    
 

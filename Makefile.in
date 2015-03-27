@@ -101,6 +101,8 @@ VDATE		  	  := $(shell date +'%F %H:%M')
 
 ComputeHashSum    	  := $(PATH_TO_SRC)/src/computeHashSum.in.lua
 spiderCacheSupportCMD     := $(PATH_TO_LUA)/lua $(PATH_TO_SRC)/src/spiderCacheSupport.in.lua
+export L_PATH              =  $(LUA_PATH)
+export L_CPATH             =  $(LUA_CPATH)
 
 HAVE_LUA_TERM             := @HAVE_LUA_TERM@
 ifneq ($(HAVE_LUA_TERM),yes)
@@ -113,7 +115,7 @@ endif
 all:
 	@echo done
 
-pre-install: rtm $(DIRLIST) lmodrc_init shell_init startup libexec spiderCacheSupport \
+pre-install: $(DIRLIST) lmodrc_init shell_init startup libexec spiderCacheSupport \
              Inst_Tools Inst_Shells Inst_Settarg Inst_Lmod_MF $(PKGS) other_tools \
              man_pages
 
@@ -124,8 +126,9 @@ install: pre-install  zsh_tab_funcs
 
 echo:
 	@echo Version: $(version)
-	@echo GIT_VERSION: $(GIT_VERSION)
 	@echo IGNORE_DIRS: $(IGNORE_DIRS)
+	@echo LUA_PATH: $$LUA_PATH
+	@echo L_PATH: "$(L_PATH)"
 
 man_pages:
 	-$(PATH_TO_LUA)/lua $(PATH_TO_SRC)/src/lmod.in.lua bash --help >/dev/null 2> $(DESTDIR)$(MAN_PAGES)/module.1
@@ -371,9 +374,6 @@ world_update:
             git push --tags sf;                                                    \
         fi;                                                                        \
         rm -f /tmp/git_st_$$$$
-
-rtm:
-	@echo "LUA_PATH: $(LUA_PATH)"
 
 gittag:
         ifneq ($(TAG),)
