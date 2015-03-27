@@ -66,6 +66,14 @@ $HOME/a/moduleData/cacheDir: $HOME/a/moduleData/losf_last_update
 $HOME/a/moduleData/XSEDE/cacheDir: $HOME/a/moduleData/XSEDE/last_update
 EOF
 
+MAKE_VERSION=$(make -v | head -n 1 | sed -e "s/GNU Make //")
+MAKE_A=( $(echo $MAKE_VERSION | tr '.' ' ' ) )
+MAKE_NUM_VER=$((${MAKE_A[0]}*1000 + ${MAKE_A[1]}))
+if [ "$MAKE_NUM_VER" -ge 4000 ]; then
+   MAKE_EXTRA="LUA_PATH=$LUA_PATH LUA_CPATH=$LUA_CPATH"
+fi    
+
+
 case $SYSHOST in
   rios | mijo | jedrik | vato | vmijo | devo | xalt-lmod )
     SUDO="sudo"
@@ -76,7 +84,6 @@ case $SYSHOST in
     EXTRA="--with-spiderCacheDir=$CACHEDIRS  --with-updateSystemFn=$UPDATE_FN "
 
     if [ "$SYSHOST" == "mijo" ]; then
-      MAKE_EXTRA="LUA_PATH=$LUA_PATH LUA_CPATH=$LUA_CPATH"
       EXTRA="$EXTRA --with-exportedModuleCmd=no"
     fi
     ;;

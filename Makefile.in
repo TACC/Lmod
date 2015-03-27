@@ -101,8 +101,6 @@ VDATE		  	  := $(shell date +'%F %H:%M')
 
 ComputeHashSum    	  := $(PATH_TO_SRC)/src/computeHashSum.in.lua
 spiderCacheSupportCMD     := $(PATH_TO_LUA)/lua $(PATH_TO_SRC)/src/spiderCacheSupport.in.lua
-L_PATH                    := $(LUA_PATH)
-L_CPATH                   := $(LUA_CPATH)
 
 HAVE_LUA_TERM             := @HAVE_LUA_TERM@
 ifneq ($(HAVE_LUA_TERM),yes)
@@ -198,7 +196,6 @@ other_tools: $(ComputeHashSum) $(STANDALONE_PRGM)
 	$(MAKE) FILELIST="$^" DIRLOC=$(DESTDIR)$(LIBEXEC) __installMe
 
 spiderCacheSupport:
-	LUA_CPATH=$(L_CPATH) LUA_PATH=$(L_PATH)                              \
         $(spiderCacheSupportCMD) --cacheDirs "$(SPIDER_CACHE_DIRS)"          \
 	                         --updateFn  "$(UPDATE_SYSTEM_FN)"           \
                                  --descriptFn "$(SPIDER_CACHE_DESCRIPT_FN)"  \
