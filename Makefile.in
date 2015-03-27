@@ -100,7 +100,9 @@ lua_code	  	  := $(filter-out %.in.lua, $(wildcard $(PATH_TO_SRC)/src/*.lua))   
 VDATE		  	  := $(shell date +'%F %H:%M')
 
 ComputeHashSum    	  := $(PATH_TO_SRC)/src/computeHashSum.in.lua
-spiderCacheSupportCMD     := lua $(PATH_TO_SRC)/src/spiderCacheSupport.in.lua
+spiderCacheSupportCMD     := $(PATH_TO_LUA)/lua $(PATH_TO_SRC)/src/spiderCacheSupport.in.lua
+L_PATH                    := $(LUA_PATH)
+L_CPATH                   := $(LUA_CPATH)
 
 HAVE_LUA_TERM             := @HAVE_LUA_TERM@
 ifneq ($(HAVE_LUA_TERM),yes)
@@ -113,7 +115,7 @@ endif
 all:
 	@echo done
 
-pre-install: $(DIRLIST) lmodrc_init shell_init startup libexec spiderCacheSupport \
+pre-install: rtm $(DIRLIST) lmodrc_init shell_init startup libexec spiderCacheSupport \
              Inst_Tools Inst_Shells Inst_Settarg Inst_Lmod_MF $(PKGS) other_tools \
              man_pages
 
@@ -196,7 +198,8 @@ other_tools: $(ComputeHashSum) $(STANDALONE_PRGM)
 	$(MAKE) FILELIST="$^" DIRLOC=$(DESTDIR)$(LIBEXEC) __installMe
 
 spiderCacheSupport:
-	$(spiderCacheSupportCMD) --cacheDirs "$(SPIDER_CACHE_DIRS)"          \
+	LUA_CPATH=$(L_CPATH) LUA_PATH=$(L_PATH)                              \
+        $(spiderCacheSupportCMD) --cacheDirs "$(SPIDER_CACHE_DIRS)"          \
 	                         --updateFn  "$(UPDATE_SYSTEM_FN)"           \
                                  --descriptFn "$(SPIDER_CACHE_DESCRIPT_FN)"  \
                                  >> $(DESTDIR)$(INIT)/lmodrc.lua;
@@ -372,7 +375,8 @@ world_update:
         fi;                                                                        \
         rm -f /tmp/git_st_$$$$
 
-
+rtm:
+	@echo "LUA_PATH: $(LUA_PATH)"
 
 gittag:
         ifneq ($(TAG),)

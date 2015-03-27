@@ -115,11 +115,14 @@ if [ "$?" = 0 ]; then
   MAKE=remake
 fi
 
+echo LUA_PATH: $LUA_PATH
+
 cmdA=("$SUDO  rm -rf $BASE_DIR/$pkgName/orig"
       "-$SUDO cp -r $BASE_DIR/$pkgName/$PKG_VERSION $BASE_DIR/$pkgName/orig"
       "$SUDO  rm -f $PKG/../$pkgName"
       "-$SUDO ln -s orig $PKG/../$pkgName"
       "-$MAKE distclean"
+      'echo "LUA_PATH: $LUA_PATH"'
       "./configure --prefix=$BASE_DIR --with-ancient=86401 --with-shortTime=10.3 --with-settarg=FULL --with-duplicatePaths=yes $EXTRA"
       "make_install"
       "$EXTRA_CMD"
