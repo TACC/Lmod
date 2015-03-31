@@ -261,7 +261,7 @@ function main()
 
 
    if (masterTbl.debug > 0 or masterTbl.dbglvl) then
-      local dbgLevel = max(masterTbl.debug, masterTbl.dbglvl or 1)
+      local dbgLevel = math.max(masterTbl.debug, masterTbl.dbglvl or 1)
       dbg:activateDebug(dbgLevel)
    end
 
