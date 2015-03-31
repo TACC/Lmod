@@ -459,7 +459,9 @@ if test -n "$PATH_TO_ZSH" ; then
   for dir in $fpath ; do
     case $dir in
       */site-functions)
-        echo $dir
+        if test -d $dir ; then
+          echo $dir
+        fi
         ;;
     esac
   done
