@@ -450,29 +450,34 @@ fi
     
 
 
-AC_SUBST(ZSH_SITE_FUNCTIONS_DIR)
+AC_SUBST(ZSH_SITE_FUNCTIONS_DIRS)
 AC_PATH_PROG(ZSH, zsh)
 PATH_TO_ZSH=$ZSH
 
 if test -n "$PATH_TO_ZSH" ; then
   cat > conftest.zsh << 'EOF'
+  resultA=()
   for dir in $fpath ; do
     case $dir in
       */site-functions)
         if test -d $dir ; then
-          echo $dir
-          break
+          resultA+=($dir)
         fi
         ;;
     esac
   done
+  if test "$#resultA" = 0; then
+     echo "/dev/null"
+  else
+     result=$(printf ":%s" "${resultA@<:@@@:>@}")
+     result=$result@<:@2,$#result@:>@
+     echo $result
+  fi
 EOF
 
    chmod +x conftest.zsh
-   ZSH_SITE_FUNCTIONS_DIR=`$PATH_TO_ZSH -f ./conftest.zsh 2> /dev/null`
-   if test ! -d "$ZSH_SITE_FUNCTIONS_DIR" ; then
-     ZSH_SITE_FUNCTIONS_DIR=/dev/null
-   fi
+
+   ZSH_SITE_FUNCTIONS_DIRS=`$PATH_TO_ZSH -f ./conftest.zsh 2> /dev/null`
 
    rm conftest.zsh
 fi

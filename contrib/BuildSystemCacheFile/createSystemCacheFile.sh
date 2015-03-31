@@ -48,6 +48,10 @@ buildNewDB()
    local file=$3
    local option=$file
 
+   if [ ! -d $DIR ]; then
+     mkdir -p $DIR
+   fi
+
    local OLD=$DIR/$file.old.lua
    local NEW=$DIR/$file.new.lua
    local RESULT=$DIR/$file.lua

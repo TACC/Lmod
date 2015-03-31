@@ -19,7 +19,7 @@ USE_DOT_FILES             := $(shell echo "@USE_DOT_FILES@" | tr '[:upper:]' '[:
 PREPEND_BLOCK     	  := $(shell echo "@PREPEND_BLOCK@" | tr '[:upper:]' '[:lower:]')
 COLORIZE          	  := $(shell echo "@COLORIZE@"      | tr '[:upper:]' '[:lower:]')
 CASE_INDEPENDENT_SORTING  := @CASE_INDEPENDENT_SORTING@
-ZSH_SITE_FUNCTIONS_DIR    := @ZSH_SITE_FUNCTIONS_DIR@
+ZSH_SITE_FUNCTIONS_DIRS   := @ZSH_SITE_FUNCTIONS_DIRS@
 SPIDER_CACHE_DESCRIPT_FN  := @SPIDER_CACHE_DESCRIPT_FN@
 ANCIENT           	  := @ANCIENT@
 ALLOW_TCL_MFILES          := @ALLOW_TCL_MFILES@
@@ -214,8 +214,10 @@ pkgs:
                 SHARE=$(DESTDIR)$(LIBEXEC) CC=$(CC) install
 
 zsh_tab_funcs: $(ZSH_FUNCS)
-	-if [ -n "$(ZSH_SITE_FUNCTIONS_DIR)" ]; then                \
-          cp $^ $(DESTDIR)$(ZSH_SITE_FUNCTIONS_DIR)  2> /dev/null;  \
+	-if [ -n "$(ZSH_SITE_FUNCTIONS_DIRS)" ]; then               \
+          for i in $${ZSH_SITE_FUNCTIONS_DIRS//:/ }; do             \
+            cp $^ $(DESTDIR)$$i  2> /dev/null;                      \
+	  done;                                                     \
 	  true;                                                     \
         fi
 
