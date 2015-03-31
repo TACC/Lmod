@@ -260,8 +260,9 @@ function main()
    end
 
 
-   if (masterTbl.debug) then
-      dbg:activateDebug(1)
+   if (masterTbl.debug > 0 or masterTbl.dbglvl) then
+      local dbgLevel = max(masterTbl.debug, masterTbl.dbglvl or 1)
+      dbg:activateDebug(dbgLevel)
    end
 
    dbg.start{"Spider main()"}
@@ -417,10 +418,17 @@ function options()
    local cmdlineParser = Optiks:new{usage=usage, version="1.0"}
 
    cmdlineParser:add_option{
-      name   = {'-D','--debug'},
+      name   = {'-D'},
       dest   = 'debug',
-      action = 'store_true',
-      default = false,
+      action = 'count',
+      help   = "Program tracing written to stderr",
+   }
+
+   cmdlineParser:add_option{
+      name   = {'--debug'},
+      dest   = 'dbglvl',
+      action = 'store',
+      help   = "Program tracing written to stderr",
    }
 
    cmdlineParser:add_option{
