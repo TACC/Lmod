@@ -3607,8 +3607,8 @@ if test -n "$PATH_TO_ZSH" ; then
   if test "$#resultA" = 0; then
      echo "/dev/null"
   else
-     result=$(printf ":%s" "${resultA[@]}")
-     result=$result[2,$#result]
+     result=$(printf "%s:" "${resultA[@]}") # convert array to colon separated string
+     result=$result[1,-2]                   # remove trailing colon
      echo $result
   fi
 EOF
