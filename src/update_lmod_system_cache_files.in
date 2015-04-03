@@ -252,7 +252,7 @@ run_spider() {
     
     if [ -z "$LMOD_DEBUG" ]; then
       debug "Generating new $cache_type Lmod cache file at $cache_file_path"
-      debug "Running \"spider -o $cache_type $MODULEPATH > $cache_file_path\""
+      debug "Running \"spider -o $cache_type $BASE_MODULEPATH > $cache_file_path\""
       @libexec@/spider -o $cache_type $BASE_MODULEPATH > $cache_file_path
     else
       @libexec@/spider -D -o $cache_type $BASE_MODULEPATH > $cache_file_path 2> ${cache_file_path}.log
@@ -315,3 +315,7 @@ update_cache $LMOD_CACHE_DIR dbT
 if [ $UPDATE_REVERSEMAPT_CACHE -ne 0 ]; then
     update_cache $LMOD_CACHE_DIR/../reverseMapD reverseMapT
 fi
+
+# put new timestamp file in place
+debug "put new timestamp file in place"
+mv ${LMOD_CACHE_TIMESTAMP_FILE}.new $LMOD_CACHE_TIMESTAMP_FILE
