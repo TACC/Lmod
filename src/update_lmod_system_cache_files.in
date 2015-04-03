@@ -112,7 +112,7 @@ print_help() {
     echo "  -r"
     echo "      enable updating reverseMapT cache file (default: only moduleT and dbT cache files)"
     echo "  -J"
-    echo "      enable Lmod debugging of spider command"
+    echo "      enable update jsonReverseMapT cache file"
     echo "  -X"
     echo "      enable Lmod debugging of spider command"
 }
@@ -183,6 +183,8 @@ set_defaults() {
      if [ -z $LMOD_CACHE_TIMESTAMP_FILE ]; then
         LMOD_CACHE_TIMESTAMP_FILE=$ts
      fi
+  else
+     warning "Failed to determine defaults via module --config"
   fi
 }
 
