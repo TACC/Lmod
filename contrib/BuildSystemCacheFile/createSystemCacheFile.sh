@@ -12,8 +12,7 @@
 #  Site Specific Setting
 ########################################################################
 
-LMOD_DIR=/opt/apps/lmod/lmod/libexec
-
+LMOD_DIR=${LMOD_DIR:-/opt/apps/lmod/lmod/libexec}
 
 # Chose the path that forms the "Core" module list:
 
@@ -22,19 +21,30 @@ LMOD_DIR=/opt/apps/lmod/lmod/libexec
 
 if [ -z "$BASE_MODULE_PATH" ]; then
   echo "No BASE_MODULE_PATH defined: exiting"
+  exit 1
 fi
 
 # eval "ADMIN_DIR=\$ADMIN_$SYSHOST"
 
 if [ -z "$ADMIN_DIR" ]; then
   echo "No ADMIN_DIR defined: exiting"
+  exit 2
 fi
 
+LuaC=${LuaC:-luac}
 
-CacheDir=$ADMIN_DIR/cacheDir
-RmapDir=$ADMIN_DIR/reverseMapD
+CacheDir=${CacheDir:-$ADMIN_DIR/cacheDir}
+RmapDir=${RmapDir:-$ADMIN_DIR/reverseMapD}
 
-LastUpdateFn=$ADMIN_DIR/system.txt
+LastUpdateFn=${LastUpdateFn:-$ADMIN_DIR/system.txt}
+
+DbT=${DbT:-$ADMIN_DIR/system.txt}
+ModuleT=${ModuleT:-$ADMIN_DIR/system.txt}
+
+# Set to 1 if you want the reversemap build
+ReverseMap=${ReverseMap:-0}
+ReverseMapT=${ReverseMapT:-$ADMIN_DIR/system.txt}
+
 
 ########################################################################
 #  End Site Specific Setting
@@ -62,21 +72,23 @@ buildNewDB()
 
    rm -f $OLD $NEW
    $LMOD_DIR/spider --timestampFn $tsfn -o $option $BASE_MODULE_PATH > $NEW
-   if [ "$?" = 0 ]; then
+   if [ $? -eq 0 ]; then
       chmod 644 $NEW
       if [ -f $RESULT ]; then
         cp -p $RESULT $OLD
       fi
       mv $NEW $RESULT
 
-      luac -o $NEW_C $RESULT
-
-      chmod 644 $NEW_C
-      if [ -f $RESULT_C ]; then
-        cp -p $RESULT_C $OLD_C
+      $LuaC -o $NEW_C $RESULT
+      if [ $? -eq 0 ]; then
+          chmod 644 $NEW_C
+          if [ -f $RESULT_C ]; then
+              cp -p $RESULT_C $OLD_C
+          fi
+          mv $NEW_C $RESULT_C
+      else
+          echo "Failed to generate compiled lua cache $RESULT from $NEW"
       fi
-      mv $NEW_C $RESULT_C
-
    fi
 }
 
@@ -88,8 +100,8 @@ cat > $LastUpdateFn <<EOF
 hostType
 EOF
 
-buildNewDB $CacheDir $ADMIN_DIR/system.txt moduleT 
-buildNewDB $CacheDir $ADMIN_DIR/system.txt dbT
+buildNewDB $CacheDir $ModuleT moduleT 
+buildNewDB $CacheDir $DbT dbT
 
 ########################################################################
 #  Build reverse map (This is optional)
@@ -99,8 +111,6 @@ buildNewDB $CacheDir $ADMIN_DIR/system.txt dbT
 #  reverse map allows one to map back to modules the executable might be
 #  using.   See tools like XALT:  xalt.sf.net
 ########################################################################
-#buildNewDB $RmapDir  $ADMIN_DIR/system.txt reverseMapT
-
-
-
-
+if [ "$ReverseMap" -eq 1 ]; then
+    buildNewDB $RmapDir $ReverseMapT reverseMapT
+fi
