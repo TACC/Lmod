@@ -288,8 +288,7 @@ new_timestamp
 # update cache files
 update_cache moduleT
 update_cache dbT
-if [ $UPDATE_REVERSEMAPT_CACHE -ne 0 ]
-then
+if [ $UPDATE_REVERSEMAPT_CACHE -ne 0 ]; then
     update_cache reverseMapT
 fi
 
