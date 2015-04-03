@@ -66,6 +66,7 @@ STANDALONE_PRGM   	  := src/lmod.in.lua src/addto.in.lua src/getmt.in.lua      \
                              src/clearMT_cmd.in.lua src/ml_cmd.in.lua               \
                              src/spiderCacheSupport.in.lua                          \
                              src/sh_to_modulefile.in.lua                            \
+	                     src/update_lmod_system_cache_files.in                  \
                              src/ignore_dirs_converter
 STANDALONE_PRGM           := $(patsubst %, $(PATH_TO_SRC)/%, $(STANDALONE_PRGM))
 SHELL_INIT	  	  := bash.in csh.in ksh.in tcsh.in zsh.in sh.in perl.in     \
@@ -156,6 +157,7 @@ __installMe:
                 -e 's|@have_lua_json@|$(HAVE_LUA_JSON)|g'                  	  \
                 -e 's|@disable_name_autoswap@|$(DISABLE_NAME_AUTOSWAP)|g'     	  \
 	        -e 's|@redirect@|$(REDIRECT)|g'                       	   	  \
+	        -e 's|@libexec@|$(LIBEXEC)|g'                       	   	  \
 	        -e 's|@pin_versions@|$(PIN_VERSIONS)|g'                	   	  \
 	        -e 's|@auto_swap@|$(AUTO_SWAP)|g'                      	   	  \
 	        -e 's|@export_module@|$(EXPORT_MODULE)|g'             	   	  \
