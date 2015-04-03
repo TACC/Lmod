@@ -72,7 +72,7 @@ fi
 #  It does much more do: "ml --help" for more information.
 
 
-unalias ml > /dev/null 2>&1 || true
+unalias ml 2> /dev/null || true
 ml()
 {
   eval $($LMOD_DIR/ml_cmd "$@")
