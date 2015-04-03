@@ -68,6 +68,7 @@ LMOD_CACHE_TIMESTAMP_FILE_TXT=
 # update reverseMapT cache file
 UPDATE_REVERSEMAPT_CACHE=0
 
+UPDATE_JSON_RMAPT=0
 #
 # Utility functions
 #
@@ -108,10 +109,10 @@ print_help() {
     echo "      print (this) help and exit"
     echo "  -t"
     echo "      location of Lmod cache timestamp file (default: determine via 'ml --config')"
-    echo "  -T"
-    echo "      contents for Lmod cache timestamp file (defailt: none, empty timestamp file)"
     echo "  -r"
     echo "      enable updating reverseMapT cache file (default: only moduleT and dbT cache files)"
+    echo "  -J"
+    echo "      enable Lmod debugging of spider command"
     echo "  -X"
     echo "      enable Lmod debugging of spider command"
 }
@@ -121,7 +122,7 @@ print_help() {
 parse_cmdline(){
     debug "Parsing command line options..."
     local OPTIND
-    while getopts :d:DhHm:t:T:r:X opt; do
+    while getopts :d:DhHt:rXJ opt; do
         case $opt in
             d)
                 LMOD_CACHE_DIR=$OPTARG
@@ -136,11 +137,14 @@ parse_cmdline(){
             t)
                 LMOD_CACHE_TIMESTAMP_FILE=$OPTARG;
                 ;;
-            T)
-                LMOD_CACHE_TIMESTAMP_FILE_TXT=$OPTARG;
-                ;;
             r)
                 UPDATE_REVERSEMAPT_CACHE=1
+                ;;
+            X)
+                LMOD_DEBUG=1
+                ;;
+            J)
+                UPDATE_JSON_RMAPT=1
                 ;;
             \?)
                 print_help
@@ -212,14 +216,8 @@ new_timestamp() {
     rm -f ${LMOD_CACHE_TIMESTAMP_FILE}.new
 
     debug "Creating Lmod cache timestamp file @ ${LMOD_CACHE_TIMESTAMP_FILE}.new"
-    if [ -z $LMOD_CACHE_TIMESTAMP_FILE_TXT ]; then
-        debug "Creating empty timestamp file at ${LMOD_CACHE_TIMESTAMP_FILE}.new"
-        touch ${LMOD_CACHE_TIMESTAMP_FILE}.new
-    else
-        debug "Creating timestamp file at ${LMOD_CACHE_TIMESTAMP_FILE}.new with following contents:"
-        debug "$LMOD_CACHE_TIMESTAMP_FILE_TXT"
-        echo $LMOD_CACHE_TIMESTAMP_FILE_TXT > ${LMOD_CACHE_TIMESTAMP_FILE}.new
-    fi
+    debug "Creating empty timestamp file at ${LMOD_CACHE_TIMESTAMP_FILE}.new"
+    touch ${LMOD_CACHE_TIMESTAMP_FILE}.new
 }
 
 
@@ -271,7 +269,11 @@ update_cache() {
     cache_dir=$1
     cache_type=$2
     cache_file_name=$cache_dir/${cache_type}
-
+    ext=lua
+    if [ "$cache_type" = "jsonReverseMapT" ]; then
+      ext=json
+    fi
+    
     if [ ! -d  $cache_dir ]; then
        mkdir -p $cache_dir
     fi
@@ -279,14 +281,16 @@ update_cache() {
     debug "Updating $cache_type Lmod cache at $cache_file_name"
 
     # generate new plain-text Lmod cache file (.lua)
-    run_spider $cache_type ${cache_file_name}.new.lua
-    install_new_cache lua ${cache_file_name}
+    run_spider $cache_type ${cache_file_name}.new.$ext
+    install_new_cache $ext ${cache_file_name}
 
-    # also install compiled Lmod cache version
-    # include Lua version in filename of compiled cache, to avoid compatibility issues when Lua is upgraded
-    lua_ver=$(@path_to_lua@/lua -e 'print((_VERSION:gsub("Lua ","")))')
-    @path_to_luac@ -o ${cache_file_name}.new.luac_$lua_ver ${cache_file_name}.lua
-    install_new_cache luac_$lua_ver ${cache_file_name}
+    if [ $cache_type != "jsonReverseMapT" ]; then
+       # also install compiled Lmod cache version
+       # include Lua version in filename of compiled cache, to avoid compatibility issues when Lua is upgraded
+       lua_ver=$(@path_to_lua@/lua -e 'print((_VERSION:gsub("Lua ","")))')
+       @path_to_luac@ -o ${cache_file_name}.new.luac_$lua_ver ${cache_file_name}.lua
+       install_new_cache luac_$lua_ver ${cache_file_name}
+    fi
 }
 
 #########################################################################
@@ -314,6 +318,10 @@ update_cache $LMOD_CACHE_DIR moduleT
 update_cache $LMOD_CACHE_DIR dbT
 if [ $UPDATE_REVERSEMAPT_CACHE -ne 0 ]; then
     update_cache $LMOD_CACHE_DIR/../reverseMapD reverseMapT
+fi
+
+if [ "$UPDATE_JSON_RMAPT" -ne 0 ]; then
+    update_cache $LMOD_CACHE_DIR/../reverseMapD jsonReverseMapT
 fi
 
 # put new timestamp file in place
