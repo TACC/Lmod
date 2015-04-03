@@ -70,7 +70,7 @@ end
 
 function Bash.shellFunc(self, k, v)
    if (not v) then
-      stdout:write("unset -f ",k," 2> /dev/null;\n")
+      stdout:write("unset -f ",k," 2> /dev/null || true;\n")
       dbg.print{   "unset -f ",k," 2> /dev/null;\n"}
    else
       local func = v[1]:gsub(";%s*$","")
