@@ -55,7 +55,7 @@ Bash.my_name      = "bash"
 function Bash.alias(self, k, v)
    if (not v) then
       stdout:write("unalias ",k," 2> /dev/null || true;\n")
-      dbg.print{   "unalias ",k," 2> /dev/null;\n"}
+      dbg.print{   "unalias ",k," 2> /dev/null || true;\n"}
    else
       v = v:gsub(";%s*$","")
       stdout:write("alias ",k,"='",v,"';\n")
@@ -71,7 +71,7 @@ end
 function Bash.shellFunc(self, k, v)
    if (not v) then
       stdout:write("unset -f ",k," 2> /dev/null || true;\n")
-      dbg.print{   "unset -f ",k," 2> /dev/null;\n"}
+      dbg.print{   "unset -f ",k," 2> /dev/null || true;\n"}
    else
       local func = v[1]:gsub(";%s*$","")
       stdout:write(k,"() { ",func,"; };\n")
