@@ -167,24 +167,27 @@ parse_cmdline(){
 # set default values for undefined parameters
 set_defaults() {
     
-  # Get number of cache Dirs:
-  local matchStr="number of cache dirs"
-  numSC=$(module --config 2>&1 | grep "$matchStr" | sed -e "s/$matchStr *//")  
+  if [ -z "${LMOD_CACHE_TIMESTAMP_FILE}" -o -z "${LMOD_CACHE_DIR}" ]; then
+     # Get number of cache Dirs:
+     local matchStr="number of cache dirs"
+     numSC=$(module --config 2>&1 | grep "$matchStr" | sed -e "s/$matchStr *//")  
 
-  if [ "$numSC" = 1 ]; then
-     cacheLine=$(module --config 2>&1 | grep -A 2 "Cache Directory" | tail -1 )
-     dir=$(echo $cacheLine | tr -s ' ' | cut -f1 -d' ')
-     ts=$( echo $cacheLine | tr -s ' ' | cut -f2 -d' ')
+     if [ "$numSC" = 1 ]; then
+        cacheLine=$(module --config 2>&1 | grep -A 2 "Cache Directory" | tail -1 )
+        dir=$(echo $cacheLine | tr -s ' ' | cut -f1 -d' ')
+        ts=$( echo $cacheLine | tr -s ' ' | cut -f2 -d' ')
 
-     if [ -z $LMOD_CACHE_DIR ]; then
-        LMOD_CACHE_DIR=$dir
+        if [ -z $LMOD_CACHE_DIR ]; then
+           LMOD_CACHE_DIR=$dir
+        fi
+
+        if [ -z $LMOD_CACHE_TIMESTAMP_FILE ]; then
+           LMOD_CACHE_TIMESTAMP_FILE=$ts
+        fi
      fi
-
-     if [ -z $LMOD_CACHE_TIMESTAMP_FILE ]; then
-        LMOD_CACHE_TIMESTAMP_FILE=$ts
+     if [ -z "${LMOD_CACHE_TIMESTAMP_FILE}" -o -z "${LMOD_CACHE_DIR}" ]; then
+         warning "Failed to determine defaults via module --config"
      fi
-  else
-     warning "Failed to determine defaults via module --config"
   fi
 }
 

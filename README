@@ -1,3 +1,19 @@
+Lmod Version 5.9.3
+Features:
+   a) Lmod has been ported to Lua 5.3.
+   b) Thanks to Kenneth Hoste, a parameterized script, called
+      update_lmod_system_cache_files, to build system spider caches
+      has been added as part of Lmod. There is no need to modify
+      createSystemCacheFile.sh (in contrib/BuildSystemCacheFile)
+      to suit your site.
+   c) Sites and users now have a choice about restores from a
+      saved collection. Normally Lmod will follow defaults when
+      restoring.  That is if you saved a collection with a default
+      module, Lmod will load the default upon restore, even if the
+      default module has changed.  By configuring Lmod, you can
+      keep the same versions.  Users can control this by setting
+      LMOD_PIN_VERSIONS to true, or --pin_versions.
+
 Lmod Version 5.9.1
 Bug fixes
    a) The spider cache is now ignored on unloads, show as well as
