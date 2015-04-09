@@ -1345,9 +1345,8 @@ Optional Packages:
   --with-ignoreDirs=ans   list of directories to ignore [[.svn,.git,.hg,.bzr]]
   --with-pinVersions=ans  Save/Restore will use the current version instead of
                           changing with the default.[[NO]]
-  --with-lua-include=[path]
-                          specify path the lua header files
-
+  --with-lua_include=ans  Save/Restore will use the current version instead of
+                          changing with the default.[[NO]]
 
 Some influential environment variables:
   CC          C compiler command
@@ -3063,6 +3062,27 @@ fi
 
 
 
+# Check whether --with-lua_include was given.
+if test "${with_lua_include+set}" = set; then :
+  withval=$with_lua_include; LUA_INCLUDE="$withval"
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: LUA_INCLUDE=$with_lua_include" >&5
+$as_echo "LUA_INCLUDE=$with_lua_include" >&6; }
+    cat >>confdefs.h <<_ACEOF
+#define LUA_INCLUDE "$with_lua_include"
+_ACEOF
+
+else
+  withval="NO"
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: LUA_INCLUDE=$withval" >&5
+$as_echo "LUA_INCLUDE=$withval" >&6; }
+    LUA_INCLUDE="$withval"
+    cat >>confdefs.h <<_ACEOF
+#define LUA_INCLUDE "$withval"
+_ACEOF
+
+fi
+
+
 
 
 
@@ -3463,15 +3483,9 @@ fi
 
 rm luaModuleAvailable
 
-LUA_INCLUDE=$PATH_TO_LUA_DIR/include
-
-
-# Check whether --with-lua-include was given.
-if test "${with_lua_include+set}" = set; then :
-  withval=$with_lua_include;
+if ! test -f $LUA_INCLUDE/lua.h; then
+   LUA_INCLUDE=$PATH_TO_LUA_DIR/include
 fi
-
-
 
 if ! test -f $LUA_INCLUDE/lua.h; then
   # Extract the first word of "pkg-config", so it can be a program name with args.

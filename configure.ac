@@ -251,6 +251,17 @@ AC_ARG_WITH(pinVersions,
     AC_DEFINE_UNQUOTED(PIN_VERSIONS, "$withval"))dnl
 
 AC_SUBST(LUA_INCLUDE)
+AC_ARG_WITH(lua_include,
+    AC_HELP_STRING([--with-lua_include=ans],[Save/Restore will use the current version instead of changing with the default.[[NO]]]),
+    LUA_INCLUDE="$withval"
+    AC_MSG_RESULT([LUA_INCLUDE=$with_lua_include])
+    AC_DEFINE_UNQUOTED(LUA_INCLUDE, "$with_lua_include")dnl
+    ,
+    withval="NO"
+    AC_MSG_RESULT([LUA_INCLUDE=$withval])
+    LUA_INCLUDE="$withval"
+    AC_DEFINE_UNQUOTED(LUA_INCLUDE, "$withval"))dnl
+
 AC_SUBST(PATH_TO_TCLSH)
 AC_SUBST(PATH_TO_PAGER)
 AC_SUBST(PATH_TO_LUA)
@@ -406,13 +417,9 @@ fi
 
 rm luaModuleAvailable
 
-LUA_INCLUDE=$PATH_TO_LUA_DIR/include
-
-AC_ARG_WITH([lua-include],
-            [AS_HELP_STRING([--with-lua-include=@<:@path@:>@],
-                            [specify path the lua header files])
-            ])
-
+if ! test -f $LUA_INCLUDE/lua.h; then
+   LUA_INCLUDE=$PATH_TO_LUA_DIR/include
+fi
 
 if ! test -f $LUA_INCLUDE/lua.h; then
   AC_PATH_PROG(pkgConfig, pkg-config, "")
