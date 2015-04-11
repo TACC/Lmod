@@ -95,10 +95,9 @@ local dbg           = require("Dbg"):dbg()
 local ModulePath    = ModulePath
 local concatTbl     = table.concat
 local getenv        = os.getenv
+local log           = math.log
 local min           = math.min
 local max           = math.max
-local pow           = math.pow
-local log10         = math.log10
 local huge          = math.huge
 local posix         = require("posix")
 local setenv_posix  = posix.setenv
@@ -106,6 +105,7 @@ local systemG       = _G
 local envPrtyName   = "__LMOD_PRIORITY_"
 
 local M = {}
+
 
 --------------------------------------------------------------------------
 -- Rebuild the path-like priority table.  So for a PATH with priorities
@@ -563,7 +563,8 @@ function M.expand(self)
    local factor  = 1
    local prT     = {}
    local maxV    = max(abs(self.imin), self.imax) + 1
-   local factor  = math.pow(10,ceil(log10(maxV)+1))
+   local ln10    = log(10)
+   local factor  = 10^ceil(log(maxV)/ln10+1)
    local resultA = {}
    local tbl     = self.tbl
 
@@ -573,7 +574,7 @@ function M.expand(self)
          local pair     = vA[ii]
          local value    = pair[1]
          local priority = pair[2]
-         local idx      = value + factor*priority
+         local idx      = value + ceil(factor*priority)
          t[idx]         = k
          if (abs(priority) > 0) then
             prT[k] = priority

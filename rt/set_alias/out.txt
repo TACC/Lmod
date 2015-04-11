@@ -44,7 +44,7 @@ _LMFILES_="ProjectDIR/rt/set_alias/mf/test2/2.0.lua";
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/set_alias/mf",},family={},inactive={},mT={test2={["FN"]="ProjectDIR/rt/set_alias/mf/test2/2.0.lua",["default"]=1,["fullName"]="test2/2.0",["loadOrder"]=1,propT={},["short"]="test2",["status"]="active",},},mpathA={"ProjectDIR/rt/set_alias/mf",},["systemBaseMPATH"]="ProjectDIR/rt/set_alias/mf",["version"]=2,}';
 export _ModuleTable_;
-unalias rtm_ml 2> /dev/null;
+unalias rtm_ml 2> /dev/null || true;
 alias somealias='2';
 ===========================
 step 4
@@ -63,7 +63,7 @@ unset VARIABLE;
 unset _LMFILES_;
 _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/set_alias/mf",},family={},inactive={},mT={},mpathA={"ProjectDIR/rt/set_alias/mf",},["systemBaseMPATH"]="ProjectDIR/rt/set_alias/mf",["version"]=2,}';
 export _ModuleTable_;
-unalias somealias 2> /dev/null;
+unalias somealias 2> /dev/null || true;
 ===========================
 step 5
 lua ProjectDIR/src/lmod.in.lua bash load test1
