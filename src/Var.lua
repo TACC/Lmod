@@ -97,8 +97,7 @@ local concatTbl     = table.concat
 local getenv        = os.getenv
 local min           = math.min
 local max           = math.max
-local pow           = math.pow
-local log10         = math.log10
+local log           = math.log
 local huge          = math.huge
 local posix         = require("posix")
 local setenv_posix  = posix.setenv
@@ -563,7 +562,7 @@ function M.expand(self)
    local factor  = 1
    local prT     = {}
    local maxV    = max(abs(self.imin), self.imax) + 1
-   local factor  = math.pow(10,ceil(log10(maxV)+1))
+   local factor  = 10^ceil(log(maxV,10)+1)
    local resultA = {}
    local tbl     = self.tbl
 
