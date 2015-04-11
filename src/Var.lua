@@ -103,6 +103,7 @@ local posix         = require("posix")
 local setenv_posix  = posix.setenv
 local systemG       = _G
 local envPrtyName   = "__LMOD_PRIORITY_"
+local ln10_inv      = 1.0/log(10.0)
 
 local M = {}
 
@@ -563,8 +564,7 @@ function M.expand(self)
    local factor  = 1
    local prT     = {}
    local maxV    = max(abs(self.imin), self.imax) + 1
-   local ln10    = log(10)
-   local factor  = 10^ceil(log(maxV)/ln10+1)
+   local factor  = 10^ceil(log(maxV)*ln10_inv+1)
    local resultA = {}
    local tbl     = self.tbl
 
