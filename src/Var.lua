@@ -574,7 +574,7 @@ function M.expand(self)
          local pair     = vA[ii]
          local value    = pair[1]
          local priority = pair[2]
-         local idx      = value + ceil(factor*priority)
+         local idx      = value + factor*priority
          t[idx]         = k
          if (abs(priority) > 0) then
             prT[k] = priority
