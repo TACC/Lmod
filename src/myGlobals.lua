@@ -38,6 +38,7 @@ require("strict")
 --------------------------------------------------------------------------
 
 require("fileOps")
+
 _G._DEBUG          = false               -- Required by the new lua posix
 local posix        = require("posix")
 local getenv       = os.getenv
@@ -61,6 +62,12 @@ end
 ------------------------------------------------------------------------
 
 LuaV = (_VERSION:gsub("Lua ",""))
+
+------------------------------------------------------------------------
+-- Lmod ExitHookArray Object:
+------------------------------------------------------------------------
+
+ExitHookA = require("HookArray")
 
 ------------------------------------------------------------------------
 -- Internally Lmod uses LC_ALL -> "C" so that the user environment won't

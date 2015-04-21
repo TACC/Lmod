@@ -645,8 +645,6 @@ function main()
    -- Note that is safe to run every time.
    mcp:reportAdminMsgs()
    
-
-
    -- Report any changes (worth reporting from original MT)
    if (not quiet()) then
       mt:reportChanges()
@@ -658,6 +656,9 @@ function main()
    local value    = mt:serializeTbl()
    varTbl[n] = Var:new(n)
    varTbl[n]:set(value)
+
+   -- Run any registered function for the Exit Hook
+   ExitHookA.apply()
 
    dbg.fini("Lmod")
 
