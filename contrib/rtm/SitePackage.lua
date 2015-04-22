@@ -34,6 +34,7 @@
 
 require("strict")
 local hook   = require("Hook")
+local uname  = require("posix").uname
 
 -- By using the hook.register function, this function "load_hook" is called
 -- ever time a module is loaded with the file name and the module name.
@@ -57,8 +58,9 @@ function load_hook(t)
    if (mode() ~= "load") then return end
    local user  = os.getenv("USER")
    local sys   = os.getenv("LMOD_sys")
-   local msg   = string.format("user=%s,module=%s,fn=%s",
-                               user, t.modFullName, t.fn)
+   local host  = uname("%n")
+   local msg   = string.format("user=%s,module=%s,fn=%s,host=%s",
+                               user, t.modFullName, t.fn, host)
    local a     = s_msgA
    if (sys == "Linux") then
       a[#a+1] = msg
