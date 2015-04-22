@@ -54,7 +54,7 @@ end
 -- If a valid hook function has been registered then apply it.
 function M.apply()
    if (hookA) then
-      for i in 1, #hookA do
+      for i = 1, #hookA do
          hookA[i]()
       end
    end

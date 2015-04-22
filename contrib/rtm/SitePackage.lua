@@ -56,26 +56,28 @@ function load_hook(t)
 
    if (mode() ~= "load") then return end
    local user  = os.getenv("USER")
-   local jobid = os.getenv("PBS_JOBID") or "unknown"
-   local msg   = string.format("user=%s,module=%s,fn=%s,job=%s",
-                               user, t.modFullName, t.fn, jobid)
+   local sys   = os.getenv("LMOD_sys")
+   local msg   = string.format("user=%s,module=%s,fn=%s",
+                               user, t.modFullName, t.fn)
    local a     = s_msgA
-   a[#a+1] = msg
+   if (sys == "Linux") then
+      a[#a+1] = msg
+   end
 end
 
 hook.register("load",load_hook)
 
 
 
-function reports_loads()
+function report_loads()
 
    local a = s_msgA
    for i = 1,#a do
       local msg = a[i]
-      os.execute("logger -t lmod -p local0.info " .. msg)
+      os.execute("logger -t Lmod -p local0.info " .. msg)
    end
 
 end
 
 
-ExitHookA.register("report_loads")
+ExitHookA.register(report_loads)

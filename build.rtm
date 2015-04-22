@@ -85,6 +85,7 @@ case $SYSHOST in
     if [ "$SYSHOST" == "mijo" ]; then
       EXTRA="$EXTRA --with-exportedModuleCmd=no"
     fi
+    SITE_PKG="contrib/rtm/*.lua"
     ;;
 
   ls4 | maverick | stampede | wrangler)
@@ -92,11 +93,11 @@ case $SYSHOST in
     ADMIN_DIR="$HOME/a/moduleData"
     UPDATE_FN=$ADMIN_DIR/system.txt
 
-    TACC_SYSTEM=1
     if [ $SYSHOST == "stampede" ]; then
       base="$base/$(uname -m)"
     fi
     EXTRA="--with-spiderCacheDescript=/tmp/$SYSHOST.build.$$"
+    SITE_PKG="contrib/TACC/*.lua"
     ;;
 
   *)
@@ -113,8 +114,8 @@ pkgName=lmod
 PKG=$BASE_DIR/$pkgName/$PKG_VERSION
 
 EXTRA_CMD="echo "
-if [ -n "$TACC_SYSTEM" ]; then
-   EXTRA_CMD="cp contrib/TACC/*.lua $PKG/libexec"
+if [ -n "$SITE_PKG" ]; then
+   EXTRA_CMD="$SUDO cp $SITE_PKG $PKG/libexec"
 fi
 
 rm -f config.status config.log
