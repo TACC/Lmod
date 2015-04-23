@@ -56,11 +56,12 @@ function load_hook(t)
    -- This is an example writing to syslogd:
 
    if (mode() ~= "load") then return end
-   local user  = os.getenv("USER")
-   local sys   = os.getenv("LMOD_sys")
-   local host  = uname("%n")
-   local msg   = string.format("user=%s,module=%s,fn=%s,host=%s",
-                               user, t.modFullName, t.fn, host)
+   local user        = os.getenv("USER")
+   local sys         = os.getenv("LMOD_sys")
+   local host        = uname("%n")
+   local currentTime = epoch()
+   local msg         = string.format("user=%s module=%s path=%s host=%s time=%f",
+                                     user, t.modFullName, t.fn, host, currentTime)
    local a     = s_msgA
    if (sys == "Linux") then
       a[#a+1] = msg

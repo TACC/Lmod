@@ -1,0 +1,31 @@
+#!/usr/bin/env python
+# -*- python -*-
+from __future__ import print_function
+import os, sys, re, time
+
+def syshost(name):
+  hostA = name.split('.')
+  idx   = 1
+  if (len(hostA) < 2):
+    idx = 0
+  return hostA[idx]
+
+def main():
+
+  f = open("lmod.log","r")
+  for line in f:
+    line  = line.rstrip("\n")
+    idx   = line.find("Lmod: ")
+    dataT = dict(re.findall(r'(\S+)=(".*?"|\S+)', line[idx+6:]))
+
+    dataT['syshost'] = syshost(dataT['host'])
+
+    for k in dataT:
+      print(k, dataT[k])
+
+
+
+  f.close()
+
+
+if ( __name__ == '__main__'): main()

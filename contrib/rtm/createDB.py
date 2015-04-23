@@ -80,9 +80,11 @@ def main():
         CREATE TABLE `moduleT` (
           `mod_id`        int(11)         NOT NULL auto_increment,
           `path`          varchar(1024)   NOT NULL,
-          `module_name`   varchar(64)     NOT NULL,  
-          `syshost`       varchar(64)     NOT NULL,
-          PRIMARY KEY  (`mod_id`)
+          `module`        varchar(64)     NOT NULL,  
+          `syshost`       varchar(32)     NOT NULL,
+          PRIMARY KEY  (`mod_id`),
+          INDEX  `thekey` (`path`(128), `syshost`)
+          
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8  COLLATE=utf8_general_ci AUTO_INCREMENT=1
         """)
     print("(%d) create moduleT table" % idx ); idx += 1;

@@ -96,3 +96,68 @@ class LMODdb(object):
     return self.__db
 
 
+  def data_to_db(self, dataT):
+    """
+    Store data into database.
+    @param dataT: The data table.
+    """
+
+    query = ""
+    try:
+      conn   = self.connect()
+      query  = "USE "+self.db()
+      conn.query(query)
+      query  = "START TRANSACTION"
+      conn.query(query)
+
+      ##################################################################
+      # Step 1: Find or insert user into userT table
+
+      query = "SELECT user_id from userT where user='%s' " % dataT['user']
+      result = conn.store_result()
+      if (result.num_rows() == 0):
+        #
+        #  No user found, install user in userT table.
+        query   = "INSERT into userT VALUES (NULL,'%s')" % dataT['user']
+        conn.query(query)
+        user_id = conn.insert_id()
+      else:
+        #
+        # User already in userT, get user_id
+        row     = result.fetch_row()
+        user_id = int(row[0][0])
+
+      ##################################################################
+      # Step 2: Find or insert module name and fn into moduleT
+
+      query = "SELECT mod_id from moduleT WHERE path='%s' and syshost='%s' " % (
+        dataT['path'], dataT['syshost'])
+      conn.query(query)
+      result = conn.store_result()
+      if (result.num_rows() > 0):
+        row    = result.fetch_row()
+        mod_id = int(row[0][0])
+      else:
+        query = "INSERT into moduleT VALUES (NULL, '%s', '%s', '%s') " % (
+          dataT['path'], dataT['module'], dataT['syshost'])
+        conn.query(query)
+        mod_id = conn.insert_id()
+
+      ##################################################################
+      # Step 3: Insert new connection between user and module with a
+      #         timestamp into the join_user_module table
+      dateTm = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(float(dataT['time'])))
+      query  = "INSERT into join_user_module VALUES(NULL, '%s', '%s', '%s', '%s') " % (
+        user_id, mod_id, dateTm)
+      conn.query(query)
+
+      ##################################################################
+      # Step 4: Commit everything to db.
+
+      query = "COMMIT"
+      conn.query(query)
+      conn.close()
+
+    except Exception as e:
+      print("data_to_db(): ",e)
+      sys.exit(1)
