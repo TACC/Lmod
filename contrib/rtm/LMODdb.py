@@ -1,6 +1,6 @@
 from __future__ import print_function
 from time       import sleep
-import os, sys, re, base64
+import os, sys, re, base64, time
 dirNm, execName = os.path.split(os.path.realpath(sys.argv[0]))
 sys.path.append(os.path.realpath(dirNm))
 
@@ -113,7 +113,8 @@ class LMODdb(object):
       ##################################################################
       # Step 1: Find or insert user into userT table
 
-      query = "SELECT user_id from userT where user='%s' " % dataT['user']
+      query  = "SELECT user_id from userT where user='%s' " % dataT['user']
+      conn.query(query)
       result = conn.store_result()
       if (result.num_rows() == 0):
         #
@@ -147,7 +148,7 @@ class LMODdb(object):
       # Step 3: Insert new connection between user and module with a
       #         timestamp into the join_user_module table
       dateTm = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(float(dataT['time'])))
-      query  = "INSERT into join_user_module VALUES(NULL, '%s', '%s', '%s', '%s') " % (
+      query  = "INSERT into join_user_module VALUES(NULL, '%s', '%s', '%s') " % (
         user_id, mod_id, dateTm)
       conn.query(query)
 

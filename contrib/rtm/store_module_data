@@ -2,6 +2,7 @@
 # -*- python -*-
 from __future__ import print_function
 import os, sys, re, time
+from LMODdb import LMODdb
 
 def syshost(name):
   hostA = name.split('.')
@@ -12,7 +13,12 @@ def syshost(name):
 
 def main():
 
-  f = open("lmod.log","r")
+  ConfigBaseNm = "lmod_db"
+  ConfigFn     = ConfigBaseNm + ".conf"
+
+  lmod = LMODdb(ConfigFn)
+
+  f = open(sys.argv[1],"r")
   for line in f:
     line  = line.rstrip("\n")
     idx   = line.find("Lmod: ")
@@ -20,9 +26,7 @@ def main():
 
     dataT['syshost'] = syshost(dataT['host'])
 
-    for k in dataT:
-      print(k, dataT[k])
-
+    lmod.data_to_db(dataT)
 
   f.close()
 
