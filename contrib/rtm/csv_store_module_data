@@ -1,0 +1,36 @@
+#!/usr/bin/env python
+# -*- python -*-
+from __future__ import print_function
+import os, sys, re, time, csv, datetime
+
+def convert(s):
+  t1 = datetime.datetime.strptime(s, "%Y_%m_%d_%H_%M_%S")
+  t0 = datetime.datetime(1970,1,1)
+  return (t1 - t0).total_seconds()
+
+def main():
+
+
+  for fn in sys.argv[1:]:
+    f = open(fn,"r")
+    try:
+      reader = csv.reader(f)
+      for row in reader:
+        user    = row[0]
+        epoch   = convert(row[1])
+        num     = len(row)
+        moduleA = []
+        for i in xrange(2,num):
+          idx = row[i].find(":")
+          moduleA.append([row[i][0:idx], row[i][idx+1:]])
+
+        print()
+        for entry in moduleA:
+          print(epoch, user, entry[0], entry[1])
+    finally:
+      f.close()
+
+
+
+
+if ( __name__ == '__main__'): main()
