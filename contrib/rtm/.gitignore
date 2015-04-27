@@ -1,4 +1,5 @@
 *~
 .*~
+*.csv
 .pyc
 lmod_db.conf
