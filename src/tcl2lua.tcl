@@ -409,6 +409,12 @@ proc setenv { var val args } {
     }
 }
 
+proc unsetenv { var {val {}}} {
+    global env  g_varsT
+    unset-env $var
+    cmdargs "unsetenv" $var $val
+}
+
 proc pushenv { var val } {
     global env  g_varsT
     set env($var) $val
@@ -744,6 +750,14 @@ proc execute-modulefile {modfile } {
     }]
     interp delete $slave
     return $errorVal
+}
+
+proc unset-env {var} {
+    global env
+
+    if {[info exists env($var)]} {
+	unset env($var)
+    }
 }
 
 proc main { modfile } {
