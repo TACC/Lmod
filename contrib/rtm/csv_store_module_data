@@ -2,7 +2,9 @@
 # -*- python -*-
 from __future__ import print_function
 import os, sys, re, time, csv, datetime, argparse
-#from LMODdb import LMODdb
+import 
+from LMODdb       import LMODdb
+from progressBar  import ProgressBar
 
 class CmdLineOptions(object):
   """ Command line Options class """
@@ -14,7 +16,7 @@ class CmdLineOptions(object):
   def execute(self):
     """ Specify command line arguments and parse the command line"""
     parser = argparse.ArgumentParser()
-    parser.add_argument("--dbname",      dest='dbname',  action="store",      default = "xalt",    help="xalt")
+    parser.add_argument("--dbname",      dest='dbname',  action="store",      default = "lmod",    help="lmod db name")
     parser.add_argument("--syshost",     dest='syshost', action="store",      default = "unknown", help="syshost")
     parser.add_argument("csvA",          nargs="+",                                                help="csv files to process")
     args = parser.parse_args()
@@ -43,8 +45,14 @@ def main():
     sys.exit(1)
 
 
+  icnt = 0
+  pbar = ProgressBar(maxVal=len(args.csvA))
   for fn in args.csvA:
+    icnt += 1
+    pbar.update(icnt)
     f = open(fn,"r")
+    dataT = {}
+    dataT['syshost'] = args.syshost
     try:
       reader = csv.reader(f)
       for row in reader:
@@ -57,16 +65,15 @@ def main():
           moduleA.append([row[i][0:idx], row[i][idx+1:]])
   
         for entry in moduleA:
-          dataT = {'syshost' : args.syshost,
-                   'time'    : epoch,
-                   'user'    : user,
-                   'module'  : entry[0],
-                   'path'    : entry[1],
-                    }
+          dataT['time'   ] = epoch
+          dataT['user'   ] = user
+          dataT['module' ] = entry[0]
+          dataT['path'   ] = entry[1]
           lmod.data_to_db(dataT)
 
     finally:
       f.close()
+  pbar.fini()
 
 
 
