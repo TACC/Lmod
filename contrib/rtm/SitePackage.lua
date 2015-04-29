@@ -77,7 +77,7 @@ function report_loads()
    local a = s_msgA
    for i = 1,#a do
       local msg = a[i]
-      os.execute("logger -t Lmod -p local0.info " .. msg)
+      os.execute("logger -t ModuleUsageTracking -p local0.info " .. msg)
    end
 
 end

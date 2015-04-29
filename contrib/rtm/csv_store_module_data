@@ -2,7 +2,7 @@
 # -*- python -*-
 from __future__ import print_function
 import os, sys, re, time, csv, datetime, argparse
-import 
+
 from LMODdb       import LMODdb
 from progressBar  import ProgressBar
 
