@@ -48,6 +48,7 @@ Pkg = PkgBase.build("PkgTACC")
 --------------------------------------------------------------------------
 -- load_hook(): Here we record the any modules loaded.
 
+local s_msgA = {}
 
 local function load_hook(t)
    -- the arg t is a table:
