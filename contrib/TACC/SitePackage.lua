@@ -44,8 +44,9 @@ local getenv = os.getenv
 local posix  = require("posix")
 
 Pkg = PkgBase.build("PkgTACC")
+
 --------------------------------------------------------------------------
--- load_hook(): Here we record the any modules loaded during a batch job.
+-- load_hook(): Here we record the any modules loaded.
 
 
 local function load_hook(t)
