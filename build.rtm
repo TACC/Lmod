@@ -85,7 +85,6 @@ case $SYSHOST in
     if [ "$SYSHOST" == "mijo" ]; then
       EXTRA="$EXTRA --with-exportedModuleCmd=no"
     fi
-    SITE_PKG="contrib/rtm/*.lua"
     ;;
 
   ls4 | maverick | stampede | wrangler)
