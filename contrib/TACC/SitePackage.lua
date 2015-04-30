@@ -49,51 +49,28 @@ Pkg = PkgBase.build("PkgTACC")
 
 
 local function load_hook(t)
-   dbg.start{"load_hook()"}
-   ------------------------------------------------------------------------
-   -- Exit out if regular (not a batch job)
-   ------------------------------------------------------------------------
-   if (getenv("ENVIRONMENT") ~= "BATCH") then
-      dbg.fini()
-      return
-   end
+   -- the arg t is a table:
+   --     t.modFullName:  the module full name: (i.e: gcc/4.7.2)
+   --     t.fn:           The file name: (i.e /apps/modulefiles/Core/gcc/4.7.2.lua)
 
-   ------------------------------------------------------------------------
-   -- Exit out if MPI rank is greater than zero
-   ------------------------------------------------------------------------
-   local A = {"PMI_RANK", "PMI_ID", "OMPI_COMM_WORLD_RANK",
-              "OMPI_MCA_ns_nds_vpid"}
+   -- Your site can use this any way that suits.  Here are some possibilities:
+   --  a) Write this information into a file in your users directory (say ~/.lmod.d/.save).
+   --     Then once a day/week/month collect this data.
+   --  b) have this function call syslogd to register that this module was loaded by this
+   --     user
+   --  c) Write the same information directly to some database.
 
+   dbg.start{"load_hook(t)"}
 
-   for i = 1,#A do
-      local my_rank = tonumber(getenv(A[i])) or 0
-      if (my_rank > 0) then
-         dbg.fini()
-         return
-      end
-   end
+   if (mode() ~= "load") then return end
+   local user        = os.getenv("USER")
+   local host        = uname("%n")
+   local currentTime = epoch()
+   local msg         = string.format("user=%s module=%s path=%s host=%s time=%f",
+                                     user, t.modFullName, t.fn, host, currentTime)
+   local a     = s_msgA
+   a[#a+1] = msg
 
-   ------------------------------------------------------------------------
-   -- If here then we are in a BATCH environment and if we have a rank
-   -- it is zero.  So write record.
-   ------------------------------------------------------------------------
-
-   dbg.print{"fullName: ",t.modFullName,"\n"}
-   local moduleInfoT = { modFullName=t.modFullName, fn=t.fn}
-   local s           = serializeTbl{name="moduleInfoT", value=moduleInfoT}
-   local uuid        = UUIDString(os.time())
-   local dirN        = usrSBatchDir
-   local fn          = pathJoin(dirN, uuid .. ".lua")
-
-   if (not isDir(dirN)) then
-      mkdir_recursive(dirN)
-   end
-
-   local f = io.open(fn,"w")
-   if (f) then
-      f:write(s)
-      f:close()
-   end
    dbg.fini()
 end
 
@@ -175,6 +152,17 @@ function avail_hook(t)
    end
 end
 
+local function report_loads()
+
+   local a = s_msgA
+   for i = 1,#a do
+      local msg = a[i]
+      os.execute("logger -t ModuleUsageTracking -p local0.info " .. msg)
+   end
+end
+
+
+ExitHookA.register(report_loads)
 
 
 hook.register("avail",          avail_hook)

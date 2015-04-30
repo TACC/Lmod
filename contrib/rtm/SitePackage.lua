@@ -57,15 +57,12 @@ function load_hook(t)
 
    if (mode() ~= "load") then return end
    local user        = os.getenv("USER")
-   local sys         = os.getenv("LMOD_sys")
    local host        = uname("%n")
    local currentTime = epoch()
    local msg         = string.format("user=%s module=%s path=%s host=%s time=%f",
                                      user, t.modFullName, t.fn, host, currentTime)
    local a     = s_msgA
-   if (sys == "Linux") then
-      a[#a+1] = msg
-   end
+   a[#a+1] = msg
 end
 
 hook.register("load",load_hook)
@@ -74,10 +71,13 @@ hook.register("load",load_hook)
 
 function report_loads()
 
-   local a = s_msgA
-   for i = 1,#a do
-      local msg = a[i]
-      os.execute("logger -t ModuleUsageTracking -p local0.info " .. msg)
+   local sys         = os.getenv("LMOD_sys") or "Linux"
+   if (sys == "Linux") then
+      local a = s_msgA
+      for i = 1,#a do
+         local msg = a[i]
+         os.execute("logger -t ModuleUsageTracking -p local0.info " .. msg)
+      end
    end
 
 end
