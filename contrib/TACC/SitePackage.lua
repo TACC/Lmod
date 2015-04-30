@@ -41,7 +41,7 @@ PkgBase      = require("PkgBase")
 local hook   = require("Hook")
 local lfs    = require("lfs")
 local getenv = os.getenv
-local posix  = require("posix")
+local uname  = require("posix").uname
 
 Pkg = PkgBase.build("PkgTACC")
 
@@ -90,7 +90,7 @@ buildHostsT = {
 
 local function writeCache_hook(t)
    local userName = getenv("USER")
-   local host     = posix.uname("%n")
+   local host     = uname("%n")
 
    if (buildHostsT[host]) then
       t.dontWriteCache = true
