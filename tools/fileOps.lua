@@ -326,5 +326,16 @@ function path_regularize(value)
    if (value == '') then
       value = ' '
    end
-   return value
+   local t = {}
+   for dir in value:split("/") do
+      if (dir:sub(1,2) == ".." and dir:len() == 2) then
+         table.remove(t)
+      elseif (dir:sub(1,1) == "." and dir:len() == 1) then
+         -- no op
+      else
+         t[#t+1] = dir
+      end
+   end
+   local s = concatTbl(t,"/")
+   return s
 end
