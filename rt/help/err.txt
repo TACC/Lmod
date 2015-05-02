@@ -298,7 +298,6 @@ Supporting Full Settarg Use    @lmod_full_settarg_support@
 Write cache after (sec)        @short_time@
 Site Pkg location              standard
 uname -a
-Admin file                     ~/w/etc/admin.list
 Does Admin file exist          no
 Active RC file(s):
 ProjectDIR/init/lmodrc.lua
