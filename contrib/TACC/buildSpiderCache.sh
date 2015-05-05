@@ -159,8 +159,10 @@ if [ "$nodeType" == "master" ]; then
 
   SHARED_DIRS="/home1/apps/intel13/modulefiles"
 
-  buildNewDB $XSEDE_dir/cacheDir     $timeStamp $SHARED_DIRS  moduleT 
-  buildNewDB $XSEDE_dir/cacheDir     $timeStamp $SHARED_DIRS  dbT 
-  buildNewDB $XSEDE_dir/reverseMapD  $timeStamp $SHARED_DIRS  reverseMapT
+  if [ -d "$SHARED_DIRS" ]; then
+    buildNewDB $XSEDE_dir/cacheDir     $timeStamp $SHARED_DIRS  moduleT 
+    buildNewDB $XSEDE_dir/cacheDir     $timeStamp $SHARED_DIRS  dbT 
+    buildNewDB $XSEDE_dir/reverseMapD  $timeStamp $SHARED_DIRS  reverseMapT
+  fi
 
 fi
