@@ -81,6 +81,7 @@ buildNewDB()
    local NEW=$DIR/$file.new.lua
    local RESULT=$DIR/$file.lua
 
+   local LuaV=$(lua -e 'print((_VERSION:gsub("Lua ","")))')
    local OLD_C=$DIR/$file.old.luac_$LuaV
    local NEW_C=$DIR/$file.new.luac_$LuaV
    local RESULT_C=$DIR/$file.luac_$LuaV
