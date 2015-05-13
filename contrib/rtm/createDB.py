@@ -99,7 +99,8 @@ def main():
           `date`          DATETIME       NOT NULL,
           PRIMARY KEY (`join_id`),
           FOREIGN KEY (`user_id`) REFERENCES `userT`(`user_id`),
-          FOREIGN KEY (`mod_id`)  REFERENCES `moduleT`(`mod_id`)
+          FOREIGN KEY (`mod_id`)  REFERENCES `moduleT`(`mod_id`),
+          INDEX `date` (`date`)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8  COLLATE=utf8_general_ci AUTO_INCREMENT=1
         """)
     print("(%d) create join_link_object table" % idx); idx += 1

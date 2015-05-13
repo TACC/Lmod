@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.9.1.1  2015-03-17 21:53
+Modules based on Lua: Version 5.9.4  2015-04-30 10:59
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -126,7 +126,7 @@ The following guides are at http://www.tacc.utexas.edu/tacc-projects/lmod
   User Guide                 - How to use.
   Advance User Guide         - How to create you own modules.
   System Administrator Guide - How to install Lmod on your own system.
-Modules based on Lua: Version 5.9.1.1  2015-03-17 21:53
+Modules based on Lua: Version 5.9.4  2015-04-30 10:59
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 3
@@ -250,7 +250,7 @@ The following guides are at http://www.tacc.utexas.edu/tacc-projects/lmod
   User Guide                 - How to use.
   Advance User Guide         - How to create you own modules.
   System Administrator Guide - How to install Lmod on your own system.
-Modules based on Lua: Version 5.9.1.1  2015-03-17 21:53
+Modules based on Lua: Version 5.9.4  2015-04-30 10:59
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 4
@@ -270,7 +270,7 @@ Version 9
 step 5
 lua ProjectDIR/src/lmod.in.lua bash --config
 ===========================
-Modules based on Lua: Version 5.9.1.1  2015-03-17 21:53
+Modules based on Lua: Version 5.9.4  2015-04-30 10:59
     by Robert McLay mclay@tacc.utexas.edu
 Description                    Value
 Allow TCL modulefiles          yes
@@ -298,7 +298,6 @@ Supporting Full Settarg Use    @lmod_full_settarg_support@
 Write cache after (sec)        @short_time@
 Site Pkg location              standard
 uname -a
-Admin file                     ProjectDIR/src/../../etc/admin.list
 Does Admin file exist          no
 Active RC file(s):
 ProjectDIR/init/lmodrc.lua

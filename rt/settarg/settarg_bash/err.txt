@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.9.3.1  2015-04-09 05:11
+Modules based on Lua: Version 5.9.4  2015-04-30 10:59
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -78,7 +78,7 @@ echo TARG_RTM: Is Great
 step 16
 lua ProjectDIR/src/lmod.in.lua bash show settarg
 ===========================
-   ProjectDIR/rt/settarg/settarg_bash/../mf/Core/settarg/1.0.lua:
+   ProjectDIR/rt/settarg/mf/Core/settarg/1.0.lua:
 setenv("SETTARG_TAG1","OBJ")
 setenv("SETTARG_TAG2","_")
 setenv("LMOD_SETTARG_CMD","lua ProjectDIR/settarg/settarg_cmd.in.lua")

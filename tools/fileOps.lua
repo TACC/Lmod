@@ -325,6 +325,21 @@ function path_regularize(value)
    value = value:gsub("/$","")
    if (value == '') then
       value = ' '
+      return value
    end
+   local t    = {}
+   local icnt = 0
+   for dir in value:split("/") do
+      icnt = icnt + 1
+      if (dir == ".." ) then
+         t[#t] = nil
+      elseif (dir == "." and icnt > 1) then
+         -- no op
+      else
+         t[#t+1] = dir
+      end
+   end
+   value = concatTbl(t,"/")
+
    return value
 end
