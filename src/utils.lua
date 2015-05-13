@@ -966,11 +966,6 @@ function setenv_lmod_version()
    end
 end
 
-
-
-
-
-
 local defaultFnT = {
    default       = 1,
    ['.modulerc'] = 2,
