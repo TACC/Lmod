@@ -37,6 +37,7 @@ testdescript = {
      runLmod load pgi/7.2-5          # 3
      runLmod list                    # 4
      runLmod save default            # 5
+     unset OMP_NUM_THREADS
      runLmod restore                 # 6
      runLmod list                    # 7
      runLmod use $(testDir)/TACC2    # 8
