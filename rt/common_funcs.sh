@@ -132,6 +132,7 @@ EPOCH()
 
 initStdEnvVars()
 {
+  unset OMP_NUM_THREADS
   unset LIBPATH
   unset SHLIB_PATH
   unset INFOPATH
