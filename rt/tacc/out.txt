@@ -397,3 +397,21 @@ export PATH;
 unset _LMFILES_;
 _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/tacc/mf/Core","ProjectDIR/mf/TACC",},family={},inactive={},mT={},mpathA={"ProjectDIR/rt/tacc/mf/Core","ProjectDIR/mf/TACC",},["systemBaseMPATH"]="ProjectDIR/mf/TACC",["version"]=2,}';
 export _ModuleTable_;
+===========================
+step 18
+lua ProjectDIR/src/lmod.in.lua bash load stir
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/tacc/mf/Core:ProjectDIR/mf/TACC";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/tacc/mf/Core:ProjectDIR/mf/TACC";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/tacc/mf/Core:ProjectDIR/mf/TACC";
+export LMOD_DEFAULT_MODULEPATH;
+LOADEDMODULES="stir/2.1";
+export LOADEDMODULES;
+MODULEPATH="ProjectDIR/rt/tacc/mf/Core:ProjectDIR/mf/TACC";
+export MODULEPATH;
+_LMFILES_="ProjectDIR/rt/tacc/mf/Core/stir/2.1";
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/tacc/mf/Core","ProjectDIR/mf/TACC",},family={},inactive={},mT={stir={["FN"]="ProjectDIR/rt/tacc/mf/Core/stir/2.1",["default"]=1,["fullName"]="stir/2.1",["loadOrder"]=1,propT={},["short"]="stir",["status"]="active",},},mpathA={"ProjectDIR/rt/tacc/mf/Core","ProjectDIR/mf/TACC",},["systemBaseMPATH"]="ProjectDIR/mf/TACC",["version"]=2,}';
+export _ModuleTable_;

@@ -1,0 +1,14 @@
+#%Module1.0
+##
+##       STIR
+##
+set version "2.1"
+
+set mod "stir"
+set mod [module-info version $mod]
+puts stderr "mod is $mod\n"
+
+set mod "stir/$version"
+set mod [module-info version $mod]
+puts stderr "mod is $mod\n"
+

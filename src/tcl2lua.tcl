@@ -373,7 +373,14 @@ proc module-info {what {more {}}} {
         return $g_fullName
     }
     "specified" {
-           return $g_usrName
+        return $g_usrName
+    }
+    "version" {
+        regexp {([^/]*)/?(.*)} $more d dir rest
+        if {$rest == ""} {
+            set rest "default"
+        }
+        return "$dir/$rest"
     }
 
     default {
