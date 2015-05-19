@@ -845,7 +845,7 @@ function moduleRCFile(current, path)
    local version = false
    for i = 1,#modV do
       local entry = modV[i]
-      if (entry.module_version == "default") then
+      if (entry.module_versionA[1] == "default") then
          local name = entry.module_name
          local i, j = name:find(current)
          local nLen = name:len()
@@ -892,7 +892,7 @@ function versionFile(v, sn, path, ignoreErrors)
       assert(load(s))()
       for i = 1,#modV do
          local entry = modV[i]
-         if (entry.module_version == "default") then
+         if (entry.module_versionA[1] == "default") then
             local full  = entry.module_name
             version     = extractVersion(full,sn)
             if (version) then

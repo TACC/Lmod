@@ -1,11 +1,22 @@
 #!/usr/bin/env tclsh
 global g_currentModuleName
+proc doubleQuoteEscaped {text} {
+    regsub -all "\"" $text "\\\"" text
+    return $text
+}
+
 proc module-alias {args} {
 }
+
+
 proc module-version {args} {
     set module_name    [lindex $args 0]
-    set module_version [lindex $args 1]
-    puts stdout "\{module_name=\"$module_name\", module_version=\"$module_version\"\},"
+    foreach version [lrange $args 1 end] {
+        set val [doubleQuoteEscaped $version]
+        lappend argL "\"$val\""
+    }
+    set versionA [join $argL ","]
+    puts stdout "\{module_name=\"$module_name\", module_versionA=\{$versionA\}\},"
 }
 
 proc main {mRcFile} {
@@ -13,7 +24,5 @@ proc main {mRcFile} {
     source $mRcFile
     puts stdout "\}"
 }
-
-
 
 eval main $argv
