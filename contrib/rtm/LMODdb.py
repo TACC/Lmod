@@ -5,8 +5,18 @@ dirNm, execName = os.path.split(os.path.realpath(sys.argv[0]))
 sys.path.append(os.path.realpath(dirNm))
 
 import MySQLdb, ConfigParser, getpass
-import warnings
+import warnings, inspect
+from BeautifulTbl import BeautifulTbl
 warnings.filterwarnings("ignore", "Unknown table.*")
+def __LINE__():
+    try:
+        raise Exception
+    except:
+        return sys.exc_info()[2].tb_frame.f_back.f_lineno
+
+def __FILE__():
+    return inspect.currentframe().f_code.co_filename
+
 
 def convertToInt(s):
   """
@@ -162,3 +172,91 @@ class LMODdb(object):
     except Exception as e:
       print("data_to_db(): ",e)
       sys.exit(1)
+
+  def usage(self, sqlPattern, startDate, endDate):
+    query = ""
+    try:
+      conn  = self.connect()
+      query = "USE "+self.db()
+      conn.query(query)
+
+      dateTest = ""
+      if (startDate != "unknown"):
+        dateTest = " and t2.date >= '" + startDate + "'"
+
+      if (startDate != "unknown"):
+        dateTest = dateTest + " and t2.date < '" + endDate + "'"
+
+      if (sqlPattern == "") :
+        sqlPattern == "%"
+
+      query = ("SELECT t1.path, count(distinct(t2.user_id)) as c2 from moduleT as t1, "    +\
+               "join_user_module as t2 where t1.path like '%s' and t1.mod_id = t2.mod_id " +\
+               "%s group by t2.mod_id order by c2 desc") % ( sqlPattern, dateTest )
+
+      conn.query(query)
+      result = conn.store_result()
+
+      numRows = result.num_rows()
+
+      resultA = []
+
+      resultA.append(["Module path", "Distinct Users"])
+      resultA.append(["-----------", "--------------"])
+      for i in xrange(numRows):
+        row = result.fetch_row()
+        resultA.append([row[0][0],row[0][1]])
+
+      conn.close()
+
+      return resultA
+
+        
+    except Exception as e:
+      print("usage(): ",e)
+      sys.exit(1)
+
+  def user(self, sqlPattern, startDate, endDate):
+    query = ""
+    try:
+      conn  = self.connect()
+      query = "USE "+self.db()
+      conn.query(query)
+
+      dateTest = ""
+      if (startDate != "unknown"):
+        dateTest = " and t2.date >= '" + startDate + "'"
+
+      if (startDate != "unknown"):
+        dateTest = dateTest + " and t2.date < '" + endDate + "'"
+
+      if (sqlPattern == "") :
+        sqlPattern == "%"
+
+      query = ("SELECT t1.path, t3.user as c2 from moduleT as t1, join_user_module "  +\
+               "as t2, userT as t3 where t1.path like '%s' and t1.mod_id = t2.mod_id " +\
+               "%s and t3.user_id = t2.user_id group by c2 order by c2") % ( sqlPattern, dateTest )
+
+      conn.query(query)
+      result = conn.store_result()
+
+      numRows = result.num_rows()
+
+      resultA = []
+      resultA.append(["Module path", "User Name"])
+      resultA.append(["-----------", "---------"])
+
+
+      for i in xrange(numRows):
+        row = result.fetch_row()
+        resultA.append([row[0][0],row[0][1]])
+
+      conn.close()
+
+      return resultA
+
+        
+    except Exception as e:
+      print("user(): ",e)
+      sys.exit(1)
+       

@@ -2,7 +2,8 @@
 # -*- python -*-
 from __future__ import print_function
 import os, sys, re, time, datetime, argparse
-from LMODdb import LMODdb
+from LMODdb       import LMODdb
+from BeautifulTbl import BeautifulTbl
 
 class CmdLineOptions(object):
   """ Command line Options class """
@@ -14,9 +15,12 @@ class CmdLineOptions(object):
   def execute(self):
     """ Specify command line arguments and parse the command line"""
     parser = argparse.ArgumentParser()
-    parser.add_argument("--dbname",      dest='dbname',  action="store",      default = "lmod",    help="lmod db name")
-    parser.add_argument("--syshost",     dest='syshost', action="store",      default = "unknown", help="system host name")
-    parser.add_argument("--mfile",       dest='mfile',   action="store",      default = "unknown", help="file containing module filenames")
+    parser.add_argument("--dbname",     dest='dbname',     action="store", default = "lmod",    help="lmod db name")
+    parser.add_argument("--syshost",    dest='syshost',    action="store", default = "unknown", help="system host name")
+    parser.add_argument("--start",      dest='startDate',  action="store", default = "unknown", help="system host name")
+    parser.add_argument("--end",        dest='endDate',    action="store", default = "unknown", help="system host name")
+    parser.add_argument("--sqlPattern", dest='sqlPattern', action="store", default = "/opt/%",  help="sql pattern for matching")
+    parser.add_argument("cmdA",         nargs="+",         help="commands: usage, users")
 
     args = parser.parse_args()
     return args
@@ -33,6 +37,25 @@ def main():
   configFn = dbConfigFn(args.dbname)
   lmod     = LMODdb(configFn)
   
+  if (args.cmdA[0] == "usage"):
+    resultA = lmod.usage(args.sqlPattern, args.startDate, args.endDate)
+    num = len(resultA) - 2 
+
+    bt = BeautifulTbl(tbl=resultA, gap = 4, justify = "lr")
+
+
+  if (args.cmdA[0] == "user"):
+    resultA = lmod.user(args.sqlPattern, args.startDate, args.endDate)
+    num = len(resultA) - 2 
+
+    bt = BeautifulTbl(tbl=resultA, gap = 4, justify = "ll")
+
+  print("\n")
+  print(bt.build_tbl())
+  print("\n\nNumber of entries: ",num)
+    
+
+
   
 
 
