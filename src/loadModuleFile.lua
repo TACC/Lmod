@@ -61,6 +61,17 @@ function loadModuleFile(t)
    local func
    local msg
    local whole
+
+
+
+   -- If the user is requesting an unload, don't complain if the file
+   -- has disappeared.
+
+   if (mode() == "unload" and not isFile(t.file)) then
+      dbg.fini("loadModuleFile")
+      return
+   end
+
    if (myType == ".lua") then
       -- Read in lua module file into a [[whole]] string.
       local f = io.open(t.file)
