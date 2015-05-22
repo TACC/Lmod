@@ -846,6 +846,7 @@ function versionFile(v, sn, path, ignoreErrors)
    end
    local version = false
    if (v == "/.modulerc") then
+      dbg.print{"handle .modulerc file\n"}
       local cmd = pathJoin(cmdDir(),"RC2lua.tcl") .. " " .. path
       local s = capture(cmd):trim()
       assert(load(s))()
@@ -857,14 +858,6 @@ function versionFile(v, sn, path, ignoreErrors)
             if (version) then
                break
             end
-
-            --local snEsc = sn:escape()
-            --local i, j  = name:find(snEsc)
-            --local nLen  = name:len()
-            --if (j+1 < nLen and name:sub(j+1,j+1) == '/') then
-            --   version = name:sub(j+2)
-            --   break
-            --end
          end
       end
    elseif (v == "/.version") then
