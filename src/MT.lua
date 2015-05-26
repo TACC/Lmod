@@ -284,8 +284,9 @@ local function buildAllLocWmoduleT(moduleT, mpathA, availT, adding, pathEntry)
       for sn, vv in Pairs(vvv) do
          local aa = {}
          local defaultT = false
+         dbg.print{"sn: ",sn,"\n"}
          for parseV, v in pairsByKeys(vv) do
-
+            dbg.print{"  v.version: ", v.version, ", parseV: ",parseV,"\n"}
             if (parseV == 0) then
                aa[0] = v
             else
@@ -504,11 +505,9 @@ function M._build_locationTbl(self, mpathA, adding, pathEntry)
          local total     = #v
          local hidden    = 0
 
-         if (hidden) then
-            for i = 1,total do
-               if (v[i].version:sub(1,1) == ".") then
-                  hidden = hidden + 1
-               end
+         for i = 1,total do
+           if (v[i].version:sub(1,1) == ".") then
+               hidden = hidden + 1
             end
          end
          v.total  = total
@@ -543,8 +542,14 @@ function M._build_locationTbl(self, mpathA, adding, pathEntry)
          if (defaultKind ~= "marked") then
             local entry  = v[total]
             local pv     = entry.parseV
-            numVersions  = numVersions + total
-            if (total == 0 or pv > parseV) then
+            local firstC = "x"
+            numVersions  = numVersions + total - hidden
+
+            if (type(entry.version) == "string") then
+               firstC = entry.version:sub(1,1)
+            end
+
+            if ((total == 0 or pv > parseV) and  firstC ~= ".") then
                defaultKind = "last"
                parseV      = pv
                defaultFn   = entry.fn

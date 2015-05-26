@@ -317,6 +317,7 @@ end
 s_ignoreT = {
    ['.']         = true,
    ['..']        = true,
+   ['.lua']      = true,
    ['.moduler']  = true,
    ['.version']  = true,
    ['.modulerc'] = true,

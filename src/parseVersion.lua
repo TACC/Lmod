@@ -131,8 +131,13 @@ function parseVersionParts(versionStr)
    local i,j, results
    return
       function()
-         -- skip over "."
+
+         -- skip over "." unless 
          if (ipos <= s_end and s:sub(ipos,ipos) == ".") then
+            if (ipos == 1) then
+               ipos = ipos + 1
+               return string.format("%09d", 0)
+            end
             ipos = ipos + 1
          end
 
