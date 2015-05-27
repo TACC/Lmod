@@ -1,1 +1,136 @@
-This is the developer, Robert McLay, places his personal SitePackage.lua
+Overview:
+---------
+
+
+Once you have a module system, it can be important to know what
+modules your users are using or not.  This ability collect in some
+fashion has existed for a long time.  What is new here is a complete
+solution: Using syslog to track module usage.  Then collect this data
+into a database.
+
+There are a number of steps but all are easy.  The following is an
+overview.  I am going to explain our setup and point out where you
+site may be different.  In this setup I will be assuming that you are
+using a MySQL database and Rsyslog.
+
+For a cluster it is common to have each node in that cluster to send
+its syslog messages to a single central machine (called master in this
+discussion).  I will be sending the syslog module usage message to a
+separate machine.  That separate machine will collect the module
+tracking data into a file that just contains tracking data.  Finally
+this data is written into the database.
+
+Also provided is a script to analyze the data as shown below:
+
+    $ analyzeLmodDB --sqlPattern '%fftw%' usage --start '2015-01-01 --end '2015-02-01'
+
+    Module path                                         Distinct Users
+    -----------                                         --------------
+    /apps/intel13/mvapich2_1_9/modulefiles/fftw3/3.3.2             151
+    /apps/intel13/mvapich2_1_9/modulefiles/fftw2/2.1.5              62
+    /apps/intel13/impi_4_1/modulefiles/fftw3/3.3.2                  45
+    /apps/intel13/impi_4_1/modulefiles/fftw2/2.1.5                  19
+
+This shows number of users of either fftw module for the first month of
+2015.
+
+
+Detailed Steps:
+---------------
+
+Step 1:
+-------
+
+Use SitePackage.lua to send a message to syslog.  
+
+   --------------------------------------------------------------------------
+   -- load_hook(): Here we record the any modules loaded.
+
+   local s_msgA = {}
+
+   local function load_hook(t)
+      -- the arg t is a table:
+      --     t.modFullName:  the module full name: (i.e: gcc/4.7.2)
+      --     t.fn:           The file name: (i.e /apps/modulefiles/Core/gcc/4.7.2.lua)
+
+
+      if (mode() ~= "load") then return end
+      local msg         = string.format("user=%s module=%s path=%s host=%s time=%f",
+                                        os.getenv("USER"), t.modFullName, t.fn, uname("%n"),
+					epoch())
+      local a           = s_msgA
+      a[#a+1]           = msg
+   end
+
+   hook.register("load",           load_hook)
+
+   local function report_loads()
+      local a = s_msgA
+      for i = 1,#a do
+         local msg = a[i]
+         os.execute("logger -t ModuleUsageTracking -p local0.info " .. msg)
+      end
+   end
+
+   ExitHookA.register(report_loads)
+
+This code uses two "hook" functions.  The first is load_hook. This means that every load will
+saved.  The second hook is called at exit.  If there were no errors then any module loads are
+reported by sending a syslog message with the tag "ModuleUsageTracking"
+
+Step 2:
+-------
+
+Have "master" send the tracking messages to a separate computer.
+
+You can add the following to master's /etc/rsyslog.conf file:
+
+   if $programname contains ‘ModuleUsageTracking’ then @module_usage_tracking
+   &~
+
+Where you "module_usage_tracking" into a real machine name.  Adding this to rsyslog.conf will direct all syslog
+messages to be sent to the "module_usage_tracking" machine.
+
+
+Step 3:
+-------
+
+On the "module_usage_tracking" machine you add to /etc/rsyslog.conf the following:
+
+
+   ...
+
+This write all message tagged with "ModuleUsageTracking" into a file called "moduleUsage.log" and
+only messages so tagged.
+
+Step 4:
+-------
+
+Add the following to logrotate.conf:
+
+   ...
+
+
+This will log rotate the moduleUsage.log.
+
+Step 5:
+-------
+
+a) Install MySQL db.  Then create an account in the database with:
+
+   ...
+
+b) Use the "conf_create" program to create a file containing the access information for the db
+
+c) Create the database by running the createDB.py program
+
+
+Step 6:
+-------
+
+Use the 
+
+
+
+
+
