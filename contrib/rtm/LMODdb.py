@@ -173,7 +173,7 @@ class LMODdb(object):
       print("data_to_db(): ",e)
       sys.exit(1)
 
-  def usage(self, sqlPattern, startDate, endDate):
+  def counts(self, sqlPattern, startDate, endDate):
     query = ""
     try:
       conn  = self.connect()
@@ -213,10 +213,10 @@ class LMODdb(object):
 
         
     except Exception as e:
-      print("usage(): ",e)
+      print("counts(): ",e)
       sys.exit(1)
 
-  def user(self, sqlPattern, startDate, endDate):
+  def usernames(self, sqlPattern, startDate, endDate):
     query = ""
     try:
       conn  = self.connect()
@@ -257,6 +257,47 @@ class LMODdb(object):
 
         
     except Exception as e:
-      print("user(): ",e)
+      print("usernames(): ",e)
       sys.exit(1)
        
+
+  def modules_used_by(self, username, startDate, endDate):
+    query = ""
+    try:
+      conn  = self.connect()
+      query = "USE "+self.db()
+      conn.query(query)
+
+      dateTest = ""
+      if (startDate != "unknown"):
+        dateTest = " and t2.date >= '" + startDate + "'"
+
+      if (startDate != "unknown"):
+        dateTest = dateTest + " and t2.date < '" + endDate + "'"
+
+      query = ("SELECT t1.path c1, t3.user as c2 from moduleT as t1, join_user_module "  +\
+               "as t2, userT as t3 where t3.user = '%s' and t1.mod_id = t2.mod_id " +\
+               "%s and t3.user_id = t2.user_id group by c1 order by c1") % ( username, dateTest )
+
+      conn.query(query)
+      result = conn.store_result()
+
+      numRows = result.num_rows()
+
+      resultA = []
+      resultA.append(["Module path", "User Name"])
+      resultA.append(["-----------", "---------"])
+
+
+      for i in xrange(numRows):
+        row = result.fetch_row()
+        resultA.append([row[0][0],row[0][1]])
+
+      conn.close()
+
+      return resultA
+
+        
+    except Exception as e:
+      print("modules_used_by(): ",e)
+      sys.exit(1)

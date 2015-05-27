@@ -20,7 +20,7 @@ class CmdLineOptions(object):
     parser.add_argument("--start",      dest='startDate',  action="store", default = "unknown", help="system host name")
     parser.add_argument("--end",        dest='endDate',    action="store", default = "unknown", help="system host name")
     parser.add_argument("--sqlPattern", dest='sqlPattern', action="store", default = "/opt/%",  help="sql pattern for matching")
-    parser.add_argument("cmdA",         nargs="+",         help="commands: usage, users")
+    parser.add_argument("cmdA",         nargs="+",         help="commands: counts, usernames, modules_used_by")
 
     args = parser.parse_args()
     return args
@@ -37,15 +37,21 @@ def main():
   configFn = dbConfigFn(args.dbname)
   lmod     = LMODdb(configFn)
   
-  if (args.cmdA[0] == "usage"):
-    resultA = lmod.usage(args.sqlPattern, args.startDate, args.endDate)
+  if (args.cmdA[0] == "counts"):
+    resultA = lmod.counts(args.sqlPattern, args.startDate, args.endDate)
     num = len(resultA) - 2 
 
     bt = BeautifulTbl(tbl=resultA, gap = 4, justify = "lr")
 
 
-  if (args.cmdA[0] == "user"):
-    resultA = lmod.user(args.sqlPattern, args.startDate, args.endDate)
+  if (args.cmdA[0] == "usernames"):
+    resultA = lmod.usernames(args.sqlPattern, args.startDate, args.endDate)
+    num = len(resultA) - 2 
+
+    bt = BeautifulTbl(tbl=resultA, gap = 4, justify = "ll")
+
+  if (args.cmdA[0] == "modules_used_by"):
+    resultA = lmod.modules_used_by(args.sqlPattern, args.startDate, args.endDate)
     num = len(resultA) - 2 
 
     bt = BeautifulTbl(tbl=resultA, gap = 4, justify = "ll")
