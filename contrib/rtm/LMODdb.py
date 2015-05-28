@@ -173,7 +173,7 @@ class LMODdb(object):
       print("data_to_db(): ",e)
       sys.exit(1)
 
-  def counts(self, sqlPattern, startDate, endDate):
+  def counts(self, sqlPattern, syshost, startDate, endDate):
     query = ""
     try:
       conn  = self.connect()
@@ -192,7 +192,8 @@ class LMODdb(object):
 
       query = ("SELECT t1.path, count(distinct(t2.user_id)) as c2 from moduleT as t1, "    +\
                "join_user_module as t2 where t1.path like '%s' and t1.mod_id = t2.mod_id " +\
-               "%s group by t2.mod_id order by c2 desc") % ( sqlPattern, dateTest )
+               "and t1.syshost = '%s' %s group by t2.mod_id order by c2 desc")             %\
+               ( sqlPattern, syshost, dateTest )
 
       conn.query(query)
       result = conn.store_result()
@@ -216,7 +217,7 @@ class LMODdb(object):
       print("counts(): ",e)
       sys.exit(1)
 
-  def usernames(self, sqlPattern, startDate, endDate):
+  def usernames(self, sqlPattern, syshost, startDate, endDate):
     query = ""
     try:
       conn  = self.connect()
@@ -233,9 +234,10 @@ class LMODdb(object):
       if (sqlPattern == "") :
         sqlPattern == "%"
 
-      query = ("SELECT t1.path, t3.user as c2 from moduleT as t1, join_user_module "  +\
+      query = ("SELECT t1.path, t3.user as c2 from moduleT as t1, join_user_module "   +\
                "as t2, userT as t3 where t1.path like '%s' and t1.mod_id = t2.mod_id " +\
-               "%s and t3.user_id = t2.user_id group by c2 order by c2") % ( sqlPattern, dateTest )
+               "and t1.syshost = '%s' %s and t3.user_id = t2.user_id group by c2 order "
+               "by c2") % ( sqlPattern, syshost, dateTest )
 
       conn.query(query)
       result = conn.store_result()
@@ -261,7 +263,7 @@ class LMODdb(object):
       sys.exit(1)
        
 
-  def modules_used_by(self, username, startDate, endDate):
+  def modules_used_by(self, syshost, username, startDate, endDate):
     query = ""
     try:
       conn  = self.connect()
@@ -276,8 +278,9 @@ class LMODdb(object):
         dateTest = dateTest + " and t2.date < '" + endDate + "'"
 
       query = ("SELECT t1.path c1, t3.user as c2 from moduleT as t1, join_user_module "  +\
-               "as t2, userT as t3 where t3.user = '%s' and t1.mod_id = t2.mod_id " +\
-               "%s and t3.user_id = t2.user_id group by c1 order by c1") % ( username, dateTest )
+               "as t2, userT as t3 where t3.user = '%s' and t1.mod_id = t2.mod_id "      +\
+               "and t1.syshost = '%s' %s and t3.user_id = t2.user_id group by c1 order " +\
+               "by c1") % ( username, syshost, dateTest )
 
       conn.query(query)
       result = conn.store_result()
