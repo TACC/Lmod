@@ -192,7 +192,7 @@ class LMODdb(object):
 
       query = ("SELECT t1.path, count(distinct(t2.user_id)) as c2 from moduleT as t1, "    +\
                "join_user_module as t2 where t1.path like '%s' and t1.mod_id = t2.mod_id " +\
-               "and t1.syshost = '%s' %s group by t2.mod_id order by c2 desc")             %\
+               "and t1.syshost like '%s' %s group by t2.mod_id order by c2 desc")             %\
                ( sqlPattern, syshost, dateTest )
 
       conn.query(query)
@@ -234,9 +234,9 @@ class LMODdb(object):
       if (sqlPattern == "") :
         sqlPattern == "%"
 
-      query = ("SELECT t1.path, t3.user as c2 from moduleT as t1, join_user_module "   +\
-               "as t2, userT as t3 where t1.path like '%s' and t1.mod_id = t2.mod_id " +\
-               "and t1.syshost = '%s' %s and t3.user_id = t2.user_id group by c2 order "
+      query = ("SELECT t1.path, t3.user as c2 from moduleT as t1, join_user_module "       +\
+               "as t2, userT as t3 where t1.path like '%s' and t1.mod_id = t2.mod_id "     +\
+               "and t1.syshost like '%s' %s and t3.user_id = t2.user_id group by c2 order "
                "by c2") % ( sqlPattern, syshost, dateTest )
 
       conn.query(query)
@@ -277,9 +277,9 @@ class LMODdb(object):
       if (startDate != "unknown"):
         dateTest = dateTest + " and t2.date < '" + endDate + "'"
 
-      query = ("SELECT t1.path c1, t3.user as c2 from moduleT as t1, join_user_module "  +\
-               "as t2, userT as t3 where t3.user = '%s' and t1.mod_id = t2.mod_id "      +\
-               "and t1.syshost = '%s' %s and t3.user_id = t2.user_id group by c1 order " +\
+      query = ("SELECT t1.path c1, t3.user as c2 from moduleT as t1, join_user_module "     +\
+               "as t2, userT as t3 where t3.user = '%s' and t1.mod_id = t2.mod_id "         +\
+               "and t1.syshost like '%s' %s and t3.user_id = t2.user_id group by c1 order " +\
                "by c1") % ( username, syshost, dateTest )
 
       conn.query(query)

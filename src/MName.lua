@@ -416,6 +416,9 @@ function M.find_exact_match(self, pathA)
       local vv    = pathA[ii]
       local mpath = vv.mpath
       local fn    = pathJoin(vv.file, self:version())
+
+      dbg.print{"mpath: ",mpath,", file: ",vv.file,", fullFn: ",vv.fullFn,"\n"}
+
       found       = false
       result      = nil
 
