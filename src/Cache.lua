@@ -445,6 +445,7 @@ function M.build(self, fast)
 
    dbg.print{"self.buildCache: ",self.buildCache,"\n"}
    if (not self.buildCache) then
+      dbg.fini("Cache:build")
       return false, false
    end
 
