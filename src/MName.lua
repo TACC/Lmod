@@ -413,11 +413,12 @@ function M.find_exact_match(self, pathA)
    local numExts    = #searchExtT
 
    for ii = 1, #pathA do
-      local vv    = pathA[ii]
-      local mpath = vv.mpath
-      local fn    = pathJoin(vv.file, self:version())
+      local vv       = pathA[ii]
+      local mpath    = vv.mpath
+      local versionT = vv.versionT
+      local fn       = pathJoin(vv.file, self:version())
 
-      dbg.print{"mpath: ",mpath,", file: ",vv.file,", fullFn: ",vv.fullFn,"\n"}
+      dbg.print{"mpath: ",mpath,", file: ",vv.file,"\n"}
 
       found       = false
       result      = nil
