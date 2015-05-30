@@ -373,24 +373,12 @@ function allVersions(pathA, n)
    local count     = 0
    local a         = {}
    local n         = n or #pathA
-   local accept_fn = accept_fn
 
    for i = 1, n do
-      local vv   = pathA[i]
-      local path = vv.file
-      local attr = lfs.attributes(path)
-      if (attr and attr.mode == 'directory' and posix.access(path,"x")) then
-         for v in lfs.dir(path) do
-            local f = pathJoin(path, v)
-            attr    = lfs.attributes(f)
-            local readable = posix.access(f,"r") and accept_fn(f)
-            if (readable and v:sub(1,1) ~= "." and attr.mode == 'file'
-                and v:sub(-1,-1) ~= '~') then
-               v       = v:gsub("%.lua$","")
-               local pv = parseVersion(v)
-               a[#a+1] = {version=v, file=f, idx = i, mpath=vv.mpath, pv=pv}
-            end
-         end
+      local vv = pathA[i]
+      for version, fn in pairs(vv.versionT) do
+         local pv = parseVersion(version)
+         a[#a + 1] = {version = version, file = fn, idx = i, mpath = vv.mpath, pv = pv}
       end
    end
    return a

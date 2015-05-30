@@ -35,26 +35,25 @@ testdescript = {
      runLmod list                          # 8
      runLmod load gcc mpich                # 9
      runLmod list                          #10
-     runLmod load ben                      #13
-     runLmod load ben/0.1                  #14
-     runLmod load fbr                      #15
-     runLmod list                          #16
-     runLmod unload fbr                    #17
-     runLmod load clang                    #18
-     runLmod --expert load clang           #19
-     runLmod list                          #20
-     runLmod purge                         #21
+     runLmod load ben                      #11
+     runLmod load ben/0.1                  #12
+     runLmod load fbr                      #13
+     runLmod list                          #14
+     runLmod unload fbr                    #15
+     runLmod load clang                    #16
+     runLmod --expert load clang           #17
+     runLmod list                          #18
+     runLmod purge                         #19
+     runLmod load gcc mpich                #20
+     runLmod unload mpich gcc              #21
      runLmod load gcc mpich                #22
      runLmod unload mpich gcc              #23
-     runLmod load gcc mpich                #24
-     runLmod unload mpich gcc              #25
-     runLmod list                          #26
-     runLmod load python                   #27
-     runLmod load gcc                      #28
-     runLmod load mpich                    #29
-     runLmod swap gcc clang                #30
-     runLmod swap mpich openmpi            #31
-
+     runLmod list                          #24
+     runLmod load python                   #25
+     runLmod load gcc                      #26
+     runLmod load mpich                    #27
+     runLmod swap gcc clang                #28
+     runLmod swap mpich openmpi            #29
 
 
      

@@ -567,9 +567,11 @@ function M._build_locationTbl(self, mpathA, adding, pathEntry)
             end
          end
          if (changed) then
-            defaultEntry.kind   = defaultKind
-            defaultEntry.parseV = parseV or " "
-            defaultEntry.fn     = defaultFn
+            local _, j            = defaultFn:find(mpath,1, true)
+            defaultEntry.fullName = defaultFn:sub(j+2):gsub("%.lua$","")
+            defaultEntry.kind     = defaultKind
+            defaultEntry.parseV   = parseV or " "
+            defaultEntry.fn       = defaultFn
          end
          defaultEntry.numVersions = numVersions
          defaultEntry.num         = max(numVersions, #a+1)
@@ -1162,7 +1164,10 @@ function M.locationTbl(self, key)
    if (key == nil) then
       return self._locationTbl
    end
-   return self._locationTbl[key]
+   if (not self._locationTbl[key]) then
+      return self._locationTbl[key], nil
+   end
+   return self._locationTbl[key], self._locationTbl[key].default
 end
 
 --------------------------------------------------------------------------

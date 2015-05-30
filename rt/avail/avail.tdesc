@@ -48,6 +48,13 @@ testdescript = {
      unset MODULEPATH
      runLmod avail                    #18
 
+     export MODULEPATH=$(testDir)/mf/Core3
+     runLmod avail                    #19
+     runLmod load TACC                #20
+     runLmod load intel/15.0.2        #21
+     runLmod load intel               #22
+
+     
 
      HOME=$ORIG_HOME
 
