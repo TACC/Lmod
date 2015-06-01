@@ -856,13 +856,13 @@ function versionFile(v, sn, path, ignoreErrors)
       version = modV.version
       if (modV.date ~= "***") then
          local a = {}
-         for s in modV.date:split("/") do
+         for s in modV.date:split("[/-]") do
             a[#a + 1] = tonumber(s) or 0
          end
 
          if (not ignoreErrors and (a[1] < 2000 or a[2] > 12 )) then
             LmodMessage("The .version file for \"",sn,
-                        "\" has the date is written in the wrong format: \"",
+                        "\" has the date written in the wrong format: \"",
                         modV.date,"\".  Please use YYYY/MM/DD.")
          end
 
