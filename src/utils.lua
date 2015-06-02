@@ -50,6 +50,7 @@ local Version      = require("Version")
 local base64       = require("base64")
 local dbg          = require("Dbg"):dbg()
 local lfs          = require("lfs")
+local malias       = require("MAlias"):build()
 local posix        = require("posix")
 local readlink     = posix.readlink
 local setenv_posix = posix.setenv
@@ -807,7 +808,7 @@ function UUIDString(epoch)
 
    return uuid
 end
-modV = false
+modA = false
 
 --------------------------------------------------------------------------
 -- This routine is given the absolute path to a .version
@@ -839,16 +840,21 @@ function versionFile(v, sn, path, ignoreErrors)
       local cmd = pathJoin(cmdDir(),"RC2lua.tcl") .. " " .. path
       local s = capture(cmd):trim()
       assert(load(s))()
-      for i = 1,#modV do
-         local entry = modV[i]
-         if (entry.module_versionA[1] == "default") then
-            local full  = entry.module_name
-            version     = extractVersion(full,sn)
-            if (version) then
-               break
-            end
-         end
-      end
+      malias:parseModA(sn, modA)
+      
+      version = malias:getDefaultT(sn) or version
+
+      --for i = 1,#modA do
+      --   local entry = modV[i]
+      --   if (entry.module_versionA[1] == "default") then
+      --      local full  = entry.module_name
+      --      version     = extractVersion(full,sn)
+      --      if (version) then
+      --         break
+      --      end
+      --   end
+      --end
+
    elseif (v == "/.version") then
       local cmd = pathJoin(cmdDir(),"ModulesVersion.tcl") .. " " .. path
       local s = capture(cmd):trim()

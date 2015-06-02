@@ -5,7 +5,8 @@ proc doubleQuoteEscaped {text} {
     return $text
 }
 
-proc module-alias {args} {
+proc module-alias {name mfile} {
+    puts stdout "\{kind=\"module-alias\",name=\"$name\",mfile=\"$mfile\"\},"
 }
 
 
@@ -16,11 +17,11 @@ proc module-version {args} {
         lappend argL "\"$val\""
     }
     set versionA [join $argL ","]
-    puts stdout "\{module_name=\"$module_name\", module_versionA=\{$versionA\}\},"
+    puts stdout "\{kind=\"module-version\",module_name=\"$module_name\", module_versionA=\{$versionA\}\},"
 }
 
 proc main {mRcFile} {
-    puts stdout "modV=\{"
+    puts stdout "modA=\{"
     source $mRcFile
     puts stdout "\}"
 }

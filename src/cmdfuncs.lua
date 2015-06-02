@@ -377,6 +377,7 @@ function Load_Usr(...)
       mcp           = MCP
       dbg.print{"Setting mcp to ", mcp:name(),"\n"}
       b             = mcp:load_usr(lA)
+
       if (haveWarnings()) then
          mcp.mustLoad()
       end

@@ -1,0 +1,28 @@
+===========================
+step 1
+lua ProjectDIR/src/lmod.in.lua bash --version
+===========================
+Modules based on Lua: Version 5.9.5  2015-06-01 10:25
+    by Robert McLay mclay@tacc.utexas.edu
+===========================
+step 2
+lua ProjectDIR/src/lmod.in.lua bash load intel
+===========================
+===========================
+step 3
+lua ProjectDIR/src/lmod.in.lua bash list
+===========================
+Currently Loaded Modules:
+  1) intel/14.0.3
+===========================
+step 4
+lua ProjectDIR/src/lmod.in.lua bash load intel/15
+===========================
+The following have been reloaded with a version change:
+  1) intel/14.0.3 => intel/15.0.2
+===========================
+step 5
+lua ProjectDIR/src/lmod.in.lua bash list
+===========================
+Currently Loaded Modules:
+  1) intel/15.0.2

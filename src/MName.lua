@@ -74,6 +74,7 @@ local huge        = math.huge
 local pack        = (_VERSION == "Lua 5.1") and argsPack or table.pack
 local posix       = require("posix")
 local sort        = table.sort
+local malias      = require("MAlias"):build()
 MName             = M
 --------------------------------------------------------------------------
 -- This function allows for taking the name and remove one
@@ -199,8 +200,7 @@ function M.new(self, sType, name, action, is, ie)
       local t = name
       o._name = t.userName
    else
-      name    = (name or ""):gsub("/+$","")  -- remove any trailing '/'
-      o._name = name
+      o._name = (name or ""):gsub("/+$","")  -- remove any trailing '/'
    end
    o._action   = action
    o._is       = is or ''
@@ -273,6 +273,11 @@ local function lazyEval(self)
    end
 
    local mt   = MT:mt()
+
+   ------------------------------------------------------------------------
+   -- Must resolve user name which might be an alias to a real module name
+
+   self._name = malias:resolve(self._name)
    local name = self._name
    if (sType == "load") then
       for level = 0, 1 do

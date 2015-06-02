@@ -420,7 +420,7 @@ function M.load(mA)
       dbg.print{"Master:load: i: ",i,", sn: ", sn, ", fn: ", t.fn,"\n"}
       if (mt:have(sn,"active")) then
          dbg.print{"Master:load reload module: \"",moduleName,
-                   "\" as it is already loaded\n"}
+                   "\" as sn: \"",sn,"\" is already loaded\n"}
          if (LMOD_DISABLE_SAME_NAME_AUTOSWAP == "yes") then
             LmodError("Your site prevents the automatic swapping of modules with same name.",
                       "You must explicitly unload the loaded version of \"",sn,"\" before",

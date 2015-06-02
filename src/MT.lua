@@ -165,19 +165,21 @@ local function buildAvailT(mpath, path, prefix, availT)
             defaultFn = walk_link(defaultFn)
             dbg.print{"After defaultFn: ",defaultFn,"\n"}
          else
-            v         = versionFile(v, prefix, defaultFn, true)
-            local f   = pathJoin(d,v)
-            if (isFile(f)) then
-               defaultFn = f
-            elseif (isFile(f .. ".lua")) then
-               defaultFn = f .. ".lua"
+            v            = versionFile(v, prefix, defaultFn, true)
+            if (not v) then
+               return
+            else
+               local f   = pathJoin(d,v)
+               dbg.print{"return from versionFile: v: ",v,", f:",f,"\n"}
+               if (isFile(f)) then
+                  defaultFn = f
+               elseif (isFile(f .. ".lua")) then
+                  defaultFn = f .. ".lua"
+               end
             end
          end
          local num = #vA
          availT[prefix].default    = {fn = defaultFn, kind="marked", num = num}
-      else
-         local d = pathJoin(mpath, prefix)
-         defaultFn = pathJoin(d, a[#a].version)
       end
    end
    dbg.fini("buildAvailT")

@@ -1,0 +1,3 @@
+#%Module
+module-version /15.0.2      15.0 15
+module-version intel/14.0.3 14.0 14 default
