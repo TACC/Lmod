@@ -69,6 +69,7 @@ local Var          = require("Var")
 local dbg          = require("Dbg"):dbg()
 local hook         = require("Hook")
 local lfs          = require("lfs")
+local malias       = require("MAlias"):build()
 local posix        = require("posix")
 local pack         = (_VERSION == "Lua 5.1") and argsPack   or table.pack
 local load         = (_VERSION == "Lua 5.1") and loadstring or load
@@ -921,6 +922,15 @@ local function availEntry(defaultOnly, terse, label, szA, searchA, sn, name,
       for i = 1,#resultA do
          aa[#aa+1] = resultA[i]
       end
+      
+      local verMapStr = malias:getMod2VersionT(name)
+      if (verMapStr) then
+         if (dflt == Default) then
+            dflt = "(D:".. verMapStr .. ")"
+         else
+            dflt = "(".. verMapStr .. ")"
+         end
+      end
       aa[#aa + 1] = dflt
       a[#a + 1]   = aa
    end
@@ -1144,6 +1154,8 @@ function M.avail(argA)
    local availT     = mt:availT()
    local locationT  = mt:locationTbl()
    local availStyle = masterTbl.availStyle
+
+   malias:buildMod2VersionT() 
 
    --------------------------------------------------------------------------
    -- call hook to see if site wants to relabel and re-organize avail layout

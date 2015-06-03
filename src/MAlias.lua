@@ -57,6 +57,7 @@ require("strict")
 s_malias     = {} 
 local M      = {}
 local dbg    = require("Dbg"):dbg()
+local concat = table.concat
 local getenv = os.getenv
 --------------------------------------------------------------------------
 -- a private ctor that is used to construct a singleton.
@@ -64,7 +65,7 @@ local getenv = os.getenv
 
 local function new(self)
    local o         = {}
-   o.version2modT  = {}  -- Map a version string to a module fullname
+   o.version2modT  = {}  -- Map a sn/version string to a module fullname
    o.alias2modT    = {}  -- Map an alias string to a module name or alias
    o.defaultT      = {}  -- Map module sn to fullname that is the default.
    o.mod2versionsT = {}  -- Map from full module name to versions.
@@ -136,8 +137,6 @@ s_must_read_global_rc_files = true
 modA = false
 function M.resolve(self, name)
    
-   --dbg.start{"MAlias:resolve(",name,")"}
-
    ------------------------------------------------------------------------
    -- we must guarantees that the directory has been walked.
    local mt = _G.MT:mt()
@@ -161,28 +160,44 @@ function M.resolve(self, name)
       end
    end
 
-   --dbg.print{"name: ",name,"\n"}
    local value = self.alias2modT[name]
-   --dbg.print{"Alias table value: ",value,"\n"}
    if (value ~= nil) then
       name  = value
       value = self:resolve(value)
-      --dbg.print{"(1) resolve: ",value,"\n"}
    end
 
-   --dbg.print{"name: ", name,"\n"}
    value = self.version2modT[name]
-   --dbg.print{"version table value: ",value,", name: ",name,"\n"}
    if (value == nil) then
       value = name
    else
       name  = value
       value = self:resolve(value)
-      --dbg.print{"(2) resolve: ",value,"\n"}
    end
-   --dbg.print{"result: ",value,"\n"}
-   --dbg.fini("MAlias:resolve")
    return value
+end
+
+function M.buildMod2VersionT(self)
+
+   local v2mT = self.version2modT
+   local m2vT = {}
+   local t
+   for k, v in pairs(v2mT) do
+      t       = m2vT[v] or {}
+      t[k]    = true
+      m2vT[v] = t
+   end
+   for modname, vv in pairs(m2vT) do
+      local a = {}
+      for k in pairsByKeys(vv) do
+         a[#a+1] = k:gsub("^.*/","")
+      end
+      m2vT[modname] = concat(a,":")
+   end
+   self.mod2versionT = m2vT
+end
+
+function M.getMod2VersionT(self, key)
+   return self.mod2versionT[key]
 end
 
 return M
