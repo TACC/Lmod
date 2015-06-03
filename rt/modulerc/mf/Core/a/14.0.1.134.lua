@@ -1,1 +1,1 @@
-setenv("Version A",myModuleVersion())
+setenv("Version_A",myModuleVersion())

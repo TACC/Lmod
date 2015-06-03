@@ -26,3 +26,25 @@ lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
 Currently Loaded Modules:
   1) intel/15.0.2
+===========================
+step 6
+lua ProjectDIR/src/lmod.in.lua bash load a14
+===========================
+===========================
+step 7
+lua ProjectDIR/src/lmod.in.lua bash list
+===========================
+Currently Loaded Modules:
+  1) intel/15.0.2   2) a/14.0.1.134
+===========================
+step 8
+lua ProjectDIR/src/lmod.in.lua bash load a13
+===========================
+The following have been reloaded with a version change:
+  1) a/14.0.1.134 => a/13.2.345
+===========================
+step 9
+lua ProjectDIR/src/lmod.in.lua bash list
+===========================
+Currently Loaded Modules:
+  1) intel/15.0.2   2) a/13.2.345

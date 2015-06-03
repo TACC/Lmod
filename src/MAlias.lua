@@ -136,7 +136,7 @@ s_must_read_global_rc_files = true
 modA = false
 function M.resolve(self, name)
    
-   dbg.start{"MAlias:resolve(",name,")"}
+   --dbg.start{"MAlias:resolve(",name,")"}
 
    ------------------------------------------------------------------------
    -- we must guarantees that the directory has been walked.
@@ -161,26 +161,28 @@ function M.resolve(self, name)
       end
    end
 
-   dbg.print{"name: ",name,"\n"}
+   --dbg.print{"name: ",name,"\n"}
    local value = self.alias2modT[name]
-   dbg.print{"Alias table value: ",value,"\n"}
+   --dbg.print{"Alias table value: ",value,"\n"}
    if (value ~= nil) then
       name  = value
-      value = M.resolve(self,value) or value
+      value = self:resolve(value)
       --dbg.print{"(1) resolve: ",value,"\n"}
    end
 
-   dbg.print{"name or value: ",value or name,"\n"}
-   value = self.version2modT[value or name]
-   dbg.print{"version table value: ",value,", name: ",name,"\n"}
-   if (value ~= nil) then
+   --dbg.print{"name: ", name,"\n"}
+   value = self.version2modT[name]
+   --dbg.print{"version table value: ",value,", name: ",name,"\n"}
+   if (value == nil) then
+      value = name
+   else
       name  = value
-      value = M.resolve(self,value) or value
-      dbg.print{"(2) resolve: ",value,"\n"}
+      value = self:resolve(value)
+      --dbg.print{"(2) resolve: ",value,"\n"}
    end
-   dbg.print{"result: ",value or name,"\n"}
-   dbg.fini("MAlias:resolve")
-   return value or name
+   --dbg.print{"result: ",value,"\n"}
+   --dbg.fini("MAlias:resolve")
+   return value
 end
 
 return M

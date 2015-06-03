@@ -70,3 +70,72 @@ MODULEPATH="ProjectDIR/rt/modulerc/mf/Core";
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/modulerc/mf/Core",},family={},inactive={},mT={intel={["FN"]="ProjectDIR/rt/modulerc/mf/Core/intel/15.0.2.lua",["default"]=0,["fullName"]="intel/15.0.2",["loadOrder"]=1,propT={},["short"]="intel",["status"]="active",},},mpathA={"ProjectDIR/rt/modulerc/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/modulerc/mf/Core",["version"]=2,}';
 export _ModuleTable_;
+===========================
+step 6
+lua ProjectDIR/src/lmod.in.lua bash load a14
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/modulerc/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/modulerc/mf/Core";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/modulerc/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+LOADEDMODULES="intel/15.0.2:a/14.0.1.134";
+export LOADEDMODULES;
+MODULEPATH="ProjectDIR/rt/modulerc/mf/Core";
+export MODULEPATH;
+Version_A="14.0.1.134";
+export Version_A;
+_LMFILES_="ProjectDIR/rt/modulerc/mf/Core/intel/15.0.2.lua:ProjectDIR/rt/modulerc/mf/Core/a/14.0.1.134.lua";
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/modulerc/mf/Core",},family={},inactive={},mT={a={["FN"]="ProjectDIR/rt/modulerc/mf/Core/a/14.0.1.134.lua",["default"]=0,["fullName"]="a/14.0.1.134",["loadOrder"]=2,propT={},["short"]="a",["status"]="active",},intel={["FN"]="ProjectDIR/rt/modulerc/mf/Core/intel/15.0.2.lua",["default"]=0,["fullName"]="intel/15.0.2",["loadOrder"]=1,propT={},["short"]="intel",["status"]="active",},},mpathA={"ProjectDIR/rt/modulerc/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/modulerc/mf/Core",["version"]=2,}';
+export _ModuleTable_;
+===========================
+step 7
+lua ProjectDIR/src/lmod.in.lua bash list
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/modulerc/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/modulerc/mf/Core";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/modulerc/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/modulerc/mf/Core";
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/modulerc/mf/Core",},family={},inactive={},mT={a={["FN"]="ProjectDIR/rt/modulerc/mf/Core/a/14.0.1.134.lua",["default"]=0,["fullName"]="a/14.0.1.134",["loadOrder"]=2,propT={},["short"]="a",["status"]="active",},intel={["FN"]="ProjectDIR/rt/modulerc/mf/Core/intel/15.0.2.lua",["default"]=0,["fullName"]="intel/15.0.2",["loadOrder"]=1,propT={},["short"]="intel",["status"]="active",},},mpathA={"ProjectDIR/rt/modulerc/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/modulerc/mf/Core",["version"]=2,}';
+export _ModuleTable_;
+===========================
+step 8
+lua ProjectDIR/src/lmod.in.lua bash load a13
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/modulerc/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/modulerc/mf/Core";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/modulerc/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+LOADEDMODULES="intel/15.0.2:a/13.2.345";
+export LOADEDMODULES;
+MODULEPATH="ProjectDIR/rt/modulerc/mf/Core";
+export MODULEPATH;
+Version="13.2.345";
+export Version;
+unset Version_A;
+_LMFILES_="ProjectDIR/rt/modulerc/mf/Core/intel/15.0.2.lua:ProjectDIR/rt/modulerc/mf/Core/a/13.2.345.lua";
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/modulerc/mf/Core",},family={},inactive={},mT={a={["FN"]="ProjectDIR/rt/modulerc/mf/Core/a/13.2.345.lua",["default"]=0,["fullName"]="a/13.2.345",["loadOrder"]=2,propT={},["short"]="a",["status"]="active",},intel={["FN"]="ProjectDIR/rt/modulerc/mf/Core/intel/15.0.2.lua",["default"]=0,["fullName"]="intel/15.0.2",["loadOrder"]=1,propT={},["short"]="intel",["status"]="active",},},mpathA={"ProjectDIR/rt/modulerc/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/modulerc/mf/Core",["version"]=2,}';
+export _ModuleTable_;
+===========================
+step 9
+lua ProjectDIR/src/lmod.in.lua bash list
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/modulerc/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/modulerc/mf/Core";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/modulerc/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/modulerc/mf/Core";
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/modulerc/mf/Core",},family={},inactive={},mT={a={["FN"]="ProjectDIR/rt/modulerc/mf/Core/a/13.2.345.lua",["default"]=0,["fullName"]="a/13.2.345",["loadOrder"]=2,propT={},["short"]="a",["status"]="active",},intel={["FN"]="ProjectDIR/rt/modulerc/mf/Core/intel/15.0.2.lua",["default"]=0,["fullName"]="intel/15.0.2",["loadOrder"]=1,propT={},["short"]="intel",["status"]="active",},},mpathA={"ProjectDIR/rt/modulerc/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/modulerc/mf/Core",["version"]=2,}';
+export _ModuleTable_;
