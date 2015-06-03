@@ -1,3 +1,9 @@
+Lmod Version 6.0
+Features:
+   a) Full support for global RC files as well as .modulerc files
+
+
+
 Lmod Version 5.9.3
 Features:
    a) Lmod has been ported to Lua 5.3.
