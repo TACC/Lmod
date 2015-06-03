@@ -54,10 +54,10 @@ require("strict")
 --------------------------------------------------------------------------
 
 
-s_malias  = {} 
-local M   = {}
-local dbg = require("Dbg"):dbg()
-
+s_malias     = {} 
+local M      = {}
+local dbg    = require("Dbg"):dbg()
+local getenv = os.getenv
 --------------------------------------------------------------------------
 -- a private ctor that is used to construct a singleton.
 -- @param self A MAlias object.
@@ -121,6 +121,7 @@ function M.parseModA(self, sn, modA)
             end
          end
       elseif (entry.kind == "module-alias") then
+         dbg.print{"name: ",entry.name,", mfile: ", entry.mfile,"\n"}
          self.alias2modT[entry.name] = entry.mfile
       end
    end
@@ -132,31 +133,53 @@ end
 
 s_must_read_global_rc_files = true
 
+modA = false
 function M.resolve(self, name)
    
+   dbg.start{"MAlias:resolve(",name,")"}
+
    ------------------------------------------------------------------------
    -- we must guarantees that the directory has been walked.
    local mt = _G.MT:mt()
    mt:locationTbl() 
 
    ------------------------------------------------------------------------
-   -- Read in system and user RC files here.
+   -- Read in system and user RC files.
    if (s_must_read_global_rc_files) then
       s_must_read_global_rc_files = false
+
+      local fileA = {MODULERCFILE, pathJoin(getenv("HOME"),".modulerc") }
+      for i = 1, #fileA  do
+         local fn = fileA[i]
+         if (isFile(fn)) then
+            local cmd = pathJoin(cmdDir(),"RC2lua.tcl") .. " " .. fn
+            local s   = capture(cmd):trim()
+            modA      = {}
+            assert(load(s))()
+            self:parseModA("", modA)
+         end
+      end
    end
 
-   
-   
-
+   dbg.print{"name: ",name,"\n"}
    local value = self.alias2modT[name]
+   dbg.print{"Alias table value: ",value,"\n"}
    if (value ~= nil) then
-      value = M.resolve(self,value)
+      name  = value
+      value = M.resolve(self,value) or value
+      --dbg.print{"(1) resolve: ",value,"\n"}
    end
 
+   dbg.print{"name or value: ",value or name,"\n"}
    value = self.version2modT[value or name]
+   dbg.print{"version table value: ",value,", name: ",name,"\n"}
    if (value ~= nil) then
-      value = M.resolve(self,value)
+      name  = value
+      value = M.resolve(self,value) or value
+      dbg.print{"(2) resolve: ",value,"\n"}
    end
+   dbg.print{"result: ",value or name,"\n"}
+   dbg.fini("MAlias:resolve")
    return value or name
 end
 

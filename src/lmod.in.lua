@@ -66,6 +66,13 @@ package.cpath = LuaCommandName_dir .. "../lib/?.so;"..
 
 
 require("strict")
+
+--------------------------------------------------------------------------
+-- Return the path to the Lmod program
+function cmdDir()
+   return LuaCommandName_dir
+end
+
 require("myGlobals")
 
 local term     = false
@@ -73,11 +80,6 @@ if (pcall(require, "term")) then
    term = require("term")
 end
 
---------------------------------------------------------------------------
--- Return the path to the Lmod program
-function cmdDir()
-   return LuaCommandName_dir
-end
 
 --------------------------------------------------------------------------
 -- Return this program's name.

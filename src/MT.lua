@@ -167,6 +167,7 @@ local function buildAvailT(mpath, path, prefix, availT)
          else
             v            = versionFile(v, prefix, defaultFn, true)
             if (not v) then
+               dbg.fini("buildAvailT")
                return
             else
                local f   = pathJoin(d,v)

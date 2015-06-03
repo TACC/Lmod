@@ -190,6 +190,8 @@ LMOD_IGNORE_CACHE = (LMOD_IGNORE_CACHE:trim() ~= "0")
 LMOD_PAGER = getenv("LMOD_PAGER")
 
 
+MODULERCFILE = getenv("MODULERCFILE") or pathJoin(cmdDir(),"../../etc/rc")
+
 ------------------------------------------------------------------------
 -- LMOD_RTM_TESTING: If set then the author is testing Lmod
 ------------------------------------------------------------------------

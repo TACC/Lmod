@@ -838,7 +838,7 @@ function versionFile(v, sn, path, ignoreErrors)
    if (v == "/.modulerc") then
       dbg.print{"handle .modulerc file\n"}
       local cmd = pathJoin(cmdDir(),"RC2lua.tcl") .. " " .. path
-      local s = capture(cmd):trim()
+      local s   = capture(cmd):trim()
       assert(load(s))()
       malias:parseModA(sn, modA)
       
