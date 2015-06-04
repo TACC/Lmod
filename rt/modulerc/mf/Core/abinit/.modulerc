@@ -1,0 +1,8 @@
+#%Module
+module-version abinit/6.12.3 6.12
+module-version abinit/6.12 6
+
+module-version abinit/7.4.3 7.4
+module-version abinit/7.4 7
+
+module-version abinit/7 default

@@ -106,7 +106,6 @@ function M.parseModA(self, sn, modA)
             modname = sn .. modname
          end
          dbg.print{"(2) modname: ",modname, "\n"}
-
          local a = entry.module_versionA
          for j = 1, #a do
             version = a[j]
@@ -182,6 +181,7 @@ function M.buildMod2VersionT(self)
    local m2vT = {}
    local t
    for k, v in pairs(v2mT) do
+      v       = self:resolve(v)
       t       = m2vT[v] or {}
       t[k]    = true
       m2vT[v] = t
