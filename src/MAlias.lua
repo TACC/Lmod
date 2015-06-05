@@ -69,6 +69,7 @@ local function new(self)
    o.alias2modT    = {}  -- Map an alias string to a module name or alias
    o.defaultT      = {}  -- Map module sn to fullname that is the default.
    o.mod2versionsT = {}  -- Map from full module name to versions.
+   o.hiddenT       = {}  -- Table of hidden module names.
 
    setmetatable(o,self)
    self.__index = self
@@ -87,7 +88,6 @@ function M.build(self)
    dbg.fini("MAlias:build")
    return s_malias
 end
-
 function M.getDefaultT(self, key)
    local defaultT= self.defaultT
    return defaultT[key]
@@ -124,12 +124,13 @@ function M.parseModA(self, sn, modA)
          dbg.print{"name: ",entry.name,", mfile: ", entry.mfile,"\n"}
          self.alias2modT[entry.name] = entry.mfile
       end
+      elseif (entry.kind == "hidden-module") then
+         dbg.print{"mfile: ", entry.mfile,"\n"}
+         self.hiddenT[entry.mfile] = true
+      end
    end
    dbg.fini("MAlias:parseModA")
 end
-
-
-
 
 s_must_read_global_rc_files = true
 
@@ -173,6 +174,21 @@ function M.resolve(self, name)
       value = self:resolve(value)
    end
    return value
+end
+
+s_must_convert = true
+function M.getHiddenT(self,k)
+   local t = {}
+   if (s_must_convert) then
+      s_must_converted = false
+      
+      local hT = self.hiddenT
+      for k in pairs(hT) do
+         t[self:resolve(k)] = true
+      end
+      self.hiddenT = t
+   end
+   return self.hiddenT[k]
 end
 
 function M.buildMod2VersionT(self)

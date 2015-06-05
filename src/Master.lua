@@ -874,8 +874,9 @@ local function availEntry(defaultOnly, terse, label, szA, searchA, sn, name,
 
    local mname   = MName:new("load", name)
    local version = mname:version() or ""
-   if (hidden and version:sub(1,1) == "." or sn:sub(1,1) == ".") then
-      dbg.print{"Not printing a dot modulefile\n"}
+
+   if (hidden and (version:sub(1,1) == "." or sn:sub(1,1) == "." or sn:find("/%.") or malias:getHiddenT(name))) then
+      dbg.print{"Not printing a dot modulefile: name: ",name,"\n"}
       dbg.fini("Master:availEntry")
       return
    end

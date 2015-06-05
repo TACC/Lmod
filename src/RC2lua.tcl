@@ -9,6 +9,10 @@ proc module-alias {name mfile} {
     puts stdout "\{kind=\"module-alias\",name=\"$name\",mfile=\"$mfile\"\},"
 }
 
+proc hidden-module {mfile} {
+    puts stdout "\{kind=\"hidden-module\", mfile=\"$mfile\"\},"
+}
+
 
 proc module-version {args} {
     set module_name    [lindex $args 0]
