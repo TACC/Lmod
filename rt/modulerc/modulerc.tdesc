@@ -25,7 +25,7 @@ testdescript = {
      HOME=`/bin/pwd`
 
 
-     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d .modulerc
+     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d .modulerc cacheDir
 
      cp $(testDir)/.modulerc .
 
@@ -42,12 +42,32 @@ testdescript = {
      runLmod list                    # 7
      runLmod load a13                # 8
      runLmod list                    # 9
-     runLmod avail                   #10
-     runLmod load abinit/6           #11
-     runLmod list                    #12
-     runLmod load abinit/7           #13
-     runLmod list                    #14
+     runLmod load abinit/6           #10
+     runLmod list                    #11
+     runLmod load abinit/7           #12
+     runLmod list                    #13
+     export LMOD_SHORT_TIME=0
+     runLmod avail                   #14
+     unset LMOD_SHORT_TIME
      runLmod avail                   #15
+     rm -rf .lmod.d
+
+     cat > fn << EOF
+$(outputDir)/cacheDir: $(outputDir)/last_update
+EOF
+
+     lua $(projectDir)/src/spiderCacheSupport.in.lua --descriptFn fn >> .lmodrc.lua
+     mkdir cacheDir
+     touch last_update
+     buildModuleT $LMOD_DEFAULT_MODULEPATH > cacheDir/moduleT.lua
+     runLmod avail                   #16
+     buildDbT $LMOD_DEFAULT_MODULEPATH > cacheDir/dbT.lua
+     runLmod avail                   #17
+
+     
+     
+
+
 
      HOME=$ORIG_HOME
      cat _stdout.[0-9][0-9] > _stdout.orig

@@ -75,6 +75,7 @@ local MT      = require("MT")
 local Spider  = require("Spider")
 local hook    = require("Hook")
 local lfs     = require("lfs")
+local malias  = require("MAlias"):build()
 local posix   = require("posix")
 local s_cache = false
 local timer   = require("Timer"):timer()
@@ -310,6 +311,9 @@ local function readCacheFile(self, moduleTFnA)
             if (version < Cversion) then
                dbg.print{"Ignoring old style cache file!\n"}
             else
+               dbg.print{"importing maliasT\n"}
+               malias:import(_G.maliasT)
+               dbg.print{"importing moduleT\n"}
                local G_moduleT = _G.moduleT
                for k, v in pairs(G_moduleT) do
                   dbg.print{"moduleT dir: ", k,"\n"}
@@ -563,11 +567,12 @@ function M.build(self, fast)
          mkdir_recursive(self.usrCacheDir)
          local s0 = "-- Date: " .. os.date("%c",os.time()) .. "\n"
          local s1 = "ancient = " .. tostring(math.floor(ancient)) .."\n"
-         local s2 = serializeTbl{name="moduleT",      value=userModuleT, indent=true}
+         local s2 = malias:export()
+         local s3 = serializeTbl{name="moduleT",      value=userModuleT, indent=true}
          os.rename(userModuleTFN, userModuleTFN .. "~")
          local f  = io.open(userModuleTFN,"w")
          if (f) then
-            f:write(s0,s1,s2)
+            f:write(s0,s1,s2,s3)
             f:close()
          end
          posix.unlink(userModuleTFN .. "~")

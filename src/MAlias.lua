@@ -53,6 +53,7 @@ require("strict")
 --
 --------------------------------------------------------------------------
 
+require("serializeTbl")
 
 s_malias     = {} 
 local M      = {}
@@ -108,7 +109,7 @@ function M.parseModA(self, sn, modA)
          dbg.print{"(2) modname: ",modname, "\n"}
          local a = entry.module_versionA
          for j = 1, #a do
-            version = a[j]
+            local version = a[j]
             local _, _, short, mversion = modname:find("(.*)/(.*)")
             dbg.print{"j: ",j, ", version: ",version, "\n"}
             if (version == "default") then
@@ -123,7 +124,6 @@ function M.parseModA(self, sn, modA)
       elseif (entry.kind == "module-alias") then
          dbg.print{"name: ",entry.name,", mfile: ", entry.mfile,"\n"}
          self.alias2modT[entry.name] = entry.mfile
-      end
       elseif (entry.kind == "hidden-module") then
          dbg.print{"mfile: ", entry.mfile,"\n"}
          self.hiddenT[entry.mfile] = true
@@ -180,7 +180,7 @@ s_must_convert = true
 function M.getHiddenT(self,k)
    local t = {}
    if (s_must_convert) then
-      s_must_converted = false
+      s_must_convert = false
       
       local hT = self.hiddenT
       for k in pairs(hT) do
@@ -215,5 +215,22 @@ end
 function M.getMod2VersionT(self, key)
    return self.mod2versionT[key]
 end
+
+function M.export(self)
+   local t = { hiddenT      = self.hiddenT,
+               version2modT = self.version2modT,
+               alias2modT   = self.alias2modT,
+   }
+   return serializeTbl{indent = true, name = "maliasT", value = t }
+end
+
+function M.import(self,maliasT)
+   for kk,vv in pairs(maliasT) do
+      for k,v in pairs(vv) do
+         self[kk][k] = v
+      end
+   end
+end
+
 
 return M
