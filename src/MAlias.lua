@@ -126,7 +126,7 @@ function M.parseModA(self, sn, modA)
       elseif (entry.kind == "module-alias") then
          dbg.print{"name: ",entry.name,", mfile: ", entry.mfile,"\n"}
          self.alias2modT[entry.name] = entry.mfile
-      elseif (entry.kind == "hidden-module") then
+      elseif (entry.kind == "hide-version") then
          dbg.print{"mfile: ", entry.mfile,"\n"}
          self.hiddenT[entry.mfile] = true
       end

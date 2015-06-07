@@ -1,3 +1,3 @@
 #%Module
-hidden-module hidden/1.0
-hidden-module hidden/2.0
+hide-version hidden/1.0
+hide-version hidden/2.0
