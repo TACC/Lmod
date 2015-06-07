@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 6.0rc2  2015-06-04 12:53
+Modules based on Lua: Version 6.0rc3  2015-06-06 19:56
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -85,11 +85,11 @@ step 16
 lua ProjectDIR/src/lmod.in.lua bash avail
 ===========================
 ProjectDIR/rt/modulerc/mf/Core
-   a/13.1.23                  arpack/3.1.4
+   a/13.1.23                  arpack/openmpi/3.1.4
    a/13.2.345    (13)         intel/14.0.2
-   a/14.0.1.134  (D:14)       intel/14.0.3 (D:14:14.0)
+   a/14.0.1.134  (D:14)       intel/14.0.3         (D:14:14.0)
    abinit/6.12.3 (6:6.12)     intel/15.0.1
-   abinit/7.4.3  (D:7:7.4)    intel/15.0.2 (15:15.0)
+   abinit/7.4.3  (D:7:7.4)    intel/15.0.2         (15:15.0)
   Where:
    (D):  Default Module
 Use "module spider" to find all possible modules.
@@ -100,11 +100,11 @@ step 17
 lua ProjectDIR/src/lmod.in.lua bash avail
 ===========================
 ProjectDIR/rt/modulerc/mf/Core
-   a/13.1.23                  arpack/3.1.4
+   a/13.1.23                  arpack/openmpi/3.1.4
    a/13.2.345    (13)         intel/14.0.2
-   a/14.0.1.134  (D:14)       intel/14.0.3 (D:14:14.0)
+   a/14.0.1.134  (D:14)       intel/14.0.3         (D:14:14.0)
    abinit/6.12.3 (6:6.12)     intel/15.0.1
-   abinit/7.4.3  (D:7:7.4)    intel/15.0.2 (15:15.0)
+   abinit/7.4.3  (D:7:7.4)    intel/15.0.2         (15:15.0)
   Where:
    (D):  Default Module
 Use "module spider" to find all possible modules.
@@ -115,11 +115,11 @@ step 18
 lua ProjectDIR/src/lmod.in.lua bash avail
 ===========================
 ProjectDIR/rt/modulerc/mf/Core
-   a/13.1.23                  arpack/3.1.4
+   a/13.1.23                  arpack/openmpi/3.1.4
    a/13.2.345    (13)         intel/14.0.2
-   a/14.0.1.134  (D:14)       intel/14.0.3 (D:14:14.0)
+   a/14.0.1.134  (D:14)       intel/14.0.3         (D:14:14.0)
    abinit/6.12.3 (6:6.12)     intel/15.0.1
-   abinit/7.4.3  (D:7:7.4)    intel/15.0.2 (15:15.0)
+   abinit/7.4.3  (D:7:7.4)    intel/15.0.2         (15:15.0)
   Where:
    (D):  Default Module
 Use "module spider" to find all possible modules.
@@ -130,11 +130,11 @@ step 19
 lua ProjectDIR/src/lmod.in.lua bash avail
 ===========================
 ProjectDIR/rt/modulerc/mf/Core
-   a/13.1.23                  arpack/3.1.4
+   a/13.1.23                  arpack/openmpi/3.1.4
    a/13.2.345    (13)         intel/14.0.2
-   a/14.0.1.134  (D:14)       intel/14.0.3 (D:14:14.0)
+   a/14.0.1.134  (D:14)       intel/14.0.3         (D:14:14.0)
    abinit/6.12.3 (6:6.12)     intel/15.0.1
-   abinit/7.4.3  (D:7:7.4)    intel/15.0.2 (15:15.0)
+   abinit/7.4.3  (D:7:7.4)    intel/15.0.2         (15:15.0)
   Where:
    (D):  Default Module
 Use "module spider" to find all possible modules.

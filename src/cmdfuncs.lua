@@ -102,6 +102,7 @@ local function findNamedCollections(a,path)
          end
       end
    end
+   sort(a)
 end
 
 ------------------------------------------------------------------------
