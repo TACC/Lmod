@@ -835,57 +835,14 @@ function versionFile(v, sn, path, ignoreErrors)
       return nil
    end
    local version = false
-   if (v == "/.modulerc") then
-      dbg.print{"handle .modulerc file\n"}
-      local cmd = pathJoin(cmdDir(),"RC2lua.tcl") .. " " .. path
-      local s   = capture(cmd):trim()
-      assert(load(s))()
-      malias:parseModA(sn, modA)
-      
-      version = malias:getDefaultT(sn) or version
+   dbg.print{"handle file: ",v, "\n"}
+   local cmd = pathJoin(cmdDir(),"RC2lua.tcl") .. " " .. path
+   local s   = capture(cmd):trim()
+   assert(load(s))()
+   malias:parseModA(sn, modA)
+   
+   version = malias:getDefaultT(sn) or version
 
-      --for i = 1,#modA do
-      --   local entry = modV[i]
-      --   if (entry.module_versionA[1] == "default") then
-      --      local full  = entry.module_name
-      --      version     = extractVersion(full,sn)
-      --      if (version) then
-      --         break
-      --      end
-      --   end
-      --end
-
-   elseif (v == "/.version") then
-      local cmd = pathJoin(cmdDir(),"ModulesVersion.tcl") .. " " .. path
-      local s = capture(cmd):trim()
-      assert(load(s))()
-      version = modV.version
-      if (modV.date ~= "***") then
-         local a = {}
-         for s in modV.date:split("[/-]") do
-            a[#a + 1] = tonumber(s) or 0
-         end
-
-         if (not ignoreErrors and (a[1] < 2000 or a[2] > 12 )) then
-            LmodMessage("The .version file for \"",sn,
-                        "\" has the date written in the wrong format: \"",
-                        modV.date,"\".  Please use YYYY/MM/DD.")
-         end
-
-         local epoch   = os.time{year = a[1], month = a[2], day = a[3]} or 0
-         local current = os.time()
-         if (current < epoch) then
-            if (not ignoreErrors) then
-               LmodMessage("The default version for module \"",myModuleName(),
-                           "\" is changing on ", modV.date, " from ",modV.version,
-                           " to ", modV.newVersion,"\n")
-            end
-            version = modV.version
-         else
-            version = modV.newVersion
-         end
-      end
-   end
    dbg.print{"version: ",version,"\n"}
    dbg.fini("versionFile")
    return version

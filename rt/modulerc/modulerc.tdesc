@@ -46,10 +46,12 @@ testdescript = {
      runLmod list                    #11
      runLmod load abinit/7           #12
      runLmod list                    #13
+     runLmod load hidden/2.0         #14
+     runLmod list                    #15
      export LMOD_SHORT_TIME=0
-     runLmod avail                   #14
+     runLmod avail                   #16
      unset LMOD_SHORT_TIME
-     runLmod avail                   #15
+     runLmod avail                   #17
      rm -rf .lmod.d
 
      cat > fn << EOF

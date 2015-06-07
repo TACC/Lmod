@@ -90,8 +90,7 @@ function M.build(self)
    return s_malias
 end
 function M.getDefaultT(self, key)
-   local defaultT= self.defaultT
-   return defaultT[key]
+   return self.defaultT[key]
 end
 
 function M.parseModA(self, sn, modA)
@@ -114,13 +113,16 @@ function M.parseModA(self, sn, modA)
             dbg.print{"j: ",j, ", version: ",version, "\n"}
             if (version == "default") then
                dbg.print{"Setting default sn: ",short, ", to version: ",mversion,"\n"}
-               self.defaultT[short]        = mversion
+               self.defaultT[short] = mversion
             else
                local key = short .. "/" .. version
                self.version2modT[key] = modname
                dbg.print{"v2m: key: ",key,": ",modname,"\n"}
             end
          end
+      elseif (entry.kind == "set-default-version") then
+         dbg.print{"version: ",entry.version,"\n"}
+         self.defaultT[sn] = entry.version
       elseif (entry.kind == "module-alias") then
          dbg.print{"name: ",entry.name,", mfile: ", entry.mfile,"\n"}
          self.alias2modT[entry.name] = entry.mfile
