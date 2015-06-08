@@ -10,13 +10,13 @@ into a database.
 There are a number of steps but all are easy.  The following is an
 overview.  I am going to explain our setup and point out where you
 site may be different.  In this setup I will be assuming that you are
-using a MySQL database and Rsyslog.
+using a MySQL database and Rsyslog (version 5.8)
 
-For a cluster it is common to have each node in that cluster to send
+For a cluster, it is common to have each node in that cluster to send
 its syslog messages to a single central machine (called master in this
-discussion).  I will be sending the syslog module usage message to a
-separate machine.  That separate machine will collect the module
-tracking data into a file that just contains tracking data.  Finally
+discussion).  I will be sending the module usage message through syslog 
+to a separate machine.  That separate machine will collect the module
+tracking data into a log file that just contains tracking data.  Finally
 this data is written into the database.
 
 Also provided is a script to analyze the data as shown below:
@@ -30,7 +30,7 @@ Also provided is a script to analyze the data as shown below:
     /apps/intel13/impi_4_1/modulefiles/fftw3/3.3.2                  45
     /apps/intel13/impi_4_1/modulefiles/fftw2/2.1.5                  19
 
-This shows number of users of either fftw module for the first month of
+This shows number of users of any fftw module for the first month of
 2015.
 
 
@@ -84,12 +84,13 @@ Have "master" send the tracking messages to a separate computer.
 
 You can add the following to master's /etc/rsyslog.conf file:
 
-   if $programname contains ‘ModuleUsageTracking’ then @module_usage_tracking:
+   if $programname contains ‘ModuleUsageTracking’ then @module_usage_tracking
    &~
 
 Where you change "module_usage_tracking" into a real machine name.  Adding this to rsyslog.conf will direct all syslog
 messages to be sent to the "module_usage_tracking" machine.
 
+Remember to restart the rsyslog daemon on master.
 
 Step 3:
 -------
@@ -114,6 +115,9 @@ Then in /etc/rsyslog.d/moduleTracking.conf:
 The above commands are in the language of rsyslog version 5.8.  What this says is accept outside syslog messages on port
 514 and if any are tagged with "ModuleUsageTracking" then write them to /var/log/moduleUsage.log
 
+Remember to restart the rsyslog daemon on the "module_usage_tracking" machine.
+
+
 Step 4:
 -------
 
@@ -129,7 +133,8 @@ Create the file /etc/logrotate.d/moduleUsage
     }
 
 
-This will log rotate the moduleUsage.log.
+This will log rotate the moduleUsage.log.  Remember to restart the logrotate daemon.  Note that it will be
+the second day before the log is rotated.  On Centos machines, it seems that the log rotate happens at about 3am.
 
 Step 5:
 -------
@@ -153,11 +158,8 @@ a) Install MySQL db. Create a mysql root password.  Then create an account in th
 
        mysql> quit;
 
-   You will want to change 'test623' to some password.  You'll also probably want to allow access to this database from
-   outside machines as well.
-
-
-     
+   You will want to change 'test623' to some other password.  You'll also probably want to allow access
+   to this database from outside machines as well.
 
 b) Use the "conf_create" program to create a file containing the access information for the db:
 
@@ -168,10 +170,10 @@ b) Use the "conf_create" program to create a file containing the access informat
        Database name: lmod
 
    Where you'll have to fill in the correct name for the database host and password.   This creates a file named
-   lmod_db.conf which is used by createDB.py and analyzeLmodDB programs to access the database.
+   lmod_db.conf which is used by createDB.py, analyzeLmodDB and other programs to access the database.
    
 
-c) Make sure your python knows about the MySQLdb module. 
+c) Make sure your python knows about the MySQLdb module. Please use pip or something similar if it is unavailable.
 
 
 d) Create the database by running the createDB.py program.
@@ -204,15 +206,17 @@ b) I use a cron job to load the moduleUsage.log-* files.   This is the script I 
      fi
    done
 
-Where <path_to_python> has a python that can also import MySQLdb python module
+Where <path_to_python> has a python that can also import MySQLdb python module.  Also you'll probably want to change
+~mclay/load_module_usage to where ever you have the store_module_data program and lmod_db.conf files.
 
-
+I am running this cron job on the "module_usage_tracking" machine at 5am every morning.  This is after the log
+rotation has been done.
 
 
 Step 7:
 -------
 
-Once data is being written to the data base you can now start analyzing the data.  You can use SQL commands directly
+Once data is being written to the database you can now start analyzing the data.  You can use SQL commands directly
 into the MySQL data base or you can use the supplied script:  analyseLmodDB
 
 	% ./analyzeLmodDB --help
@@ -262,3 +266,5 @@ b) usernames:  Report users of a particular pattern:
 c) modules_used_by:  Report the modules used by a particular user:
 
      $ ./analyzeLmodDB --sqlPattern 'mclay' 
+
+Comments? Questions?
