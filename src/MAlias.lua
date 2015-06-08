@@ -90,7 +90,9 @@ function M.build(self)
    return s_malias
 end
 function M.getDefaultT(self, key)
-   return self.defaultT[key]
+   local defaultV = self.defaultT[key]
+   local fullName = self:__resolve(pathJoin(key, defaultV))
+   return fullName:gsub(".*/","")
 end
 
 function M.parseModA(self, sn, modA)
@@ -161,11 +163,14 @@ function M.resolve(self, name)
          end
       end
    end
+   return self:__resolve(name)
+end
 
+function M.__resolve(self, name)
    local value = self.alias2modT[name]
    if (value ~= nil) then
       name  = value
-      value = self:resolve(value)
+      value = self:__resolve(value)
    end
 
    value = self.version2modT[name]
@@ -173,10 +178,13 @@ function M.resolve(self, name)
       value = name
    else
       name  = value
-      value = self:resolve(value)
+      value = self:__resolve(value)
    end
    return value
+
 end
+
+
 
 s_must_convert = true
 function M.getHiddenT(self,k)

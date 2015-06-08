@@ -23,6 +23,7 @@ cleanUp ()
        -e "s|$outputDir|OutputDIR|g"                      \
        -e "s|$projectDir|ProjectDIR|g"                    \
        -e "s|^Admin file.*||g"                            \
+       -e "s|^MODULERCFILE.*||g"                          \
        -e "s|$HOME|~|g"                                   \
        -e "s| *\-\-\-\-* *||g"                            \
        -e "s|\-%%\-.*||g"                                 \
@@ -132,32 +133,33 @@ EPOCH()
 
 initStdEnvVars()
 {
-  unset OMP_NUM_THREADS
-  unset LIBPATH
-  unset SHLIB_PATH
-  unset INFOPATH
-  unset MANPATH
-  unset INCLUDE
   unset CPATH
-  unset INTEL_LICENSE_FILE
-  unset LIBRARY_PATH
-  unset NLSPATH
-  unset LD_LIBRARY_PATH
   unset DYLD_LIBRARY_PATH
-  unset MODULEPATH
+  unset INCLUDE
+  unset INFOPATH
+  unset INTEL_LICENSE_FILE
+  unset LD_LIBRARY_PATH
+  unset LIBPATH
+  unset LIBRARY_PATH
+  unset LMOD_ADMIN_FILE
+  unset LMOD_COLORIZE
   unset LMOD_DEFAULT_MODULEPATH
-  unset LMOD_PIN_VERSIONS
-  unset MODULEPATH_ROOT
   unset LMOD_EXPERT
+  unset LMOD_OPTIONS
+  unset LMOD_PIN_VERSIONS
   unset LMOD_QUIET
   unset LMOD_SYSTEM_DEFAULT_MODULES
-  unset LMOD_ADMIN_FILE
   unset LMOD_TERM_WIDTH
-  unset PYTHONPATH
-  unset LMOD_COLORIZE
-  unset LMOD_OPTIONS
-  unset _LMFILES_
   unset LOADEDMODULES
+  unset MANPATH
+  unset MODULEPATH
+  unset MODULEPATH_ROOT
+  unset MODULERCFILE
+  unset NLSPATH
+  unset OMP_NUM_THREADS
+  unset PYTHONPATH
+  unset SHLIB_PATH
+  unset _LMFILES_
   unset __LMOD_PRIORITY_PATH
   export LMOD_PREPEND_BLOCK=yes
   PATH_to_LUA=`findcmd --pathOnly lua`

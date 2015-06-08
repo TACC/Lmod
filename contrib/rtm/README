@@ -1,7 +1,6 @@
 Overview:
 ---------
 
-
 Once you have a module system, it can be important to know what
 modules your users are using or not.  This ability collect in some
 fashion has existed for a long time.  What is new here is a complete
@@ -22,7 +21,7 @@ this data is written into the database.
 
 Also provided is a script to analyze the data as shown below:
 
-    $ analyzeLmodDB --sqlPattern '%fftw%' usage --start '2015-01-01 --end '2015-02-01'
+    $ analyzeLmodDB --sqlPattern '%fftw%' counts --start '2015-01-01 --end '2015-02-01'
 
     Module path                                         Distinct Users
     -----------                                         --------------
@@ -85,10 +84,10 @@ Have "master" send the tracking messages to a separate computer.
 
 You can add the following to master's /etc/rsyslog.conf file:
 
-   if $programname contains ‘ModuleUsageTracking’ then @module_usage_tracking
+   if $programname contains ‘ModuleUsageTracking’ then @module_usage_tracking:
    &~
 
-Where you "module_usage_tracking" into a real machine name.  Adding this to rsyslog.conf will direct all syslog
+Where you change "module_usage_tracking" into a real machine name.  Adding this to rsyslog.conf will direct all syslog
 messages to be sent to the "module_usage_tracking" machine.
 
 
@@ -98,17 +97,36 @@ Step 3:
 On the "module_usage_tracking" machine you add to /etc/rsyslog.conf the following:
 
 
-   ...
+    # read in include files
+    $IncludeConfig /etc/rsyslog.d/*.conf...
 
-This write all message tagged with "ModuleUsageTracking" into a file called "moduleUsage.log" and
-only messages so tagged.
+Then in /etc/rsyslog.d/moduleTracking.conf:
+
+    $Ruleset remote
+    if $programname contains 'ModuleUsageTracking' then /var/log/moduleUsage.log
+    $Ruleset RSYSLOG_DefaultRuleset
+
+    # provides UDP syslog reception
+    $ModLoad imudp
+    $InputUDPServerBindRuleset remote
+    $UDPServerRun 514
+
+The above commands are in the language of rsyslog version 5.8.  What this says is accept outside syslog messages on port
+514 and if any are tagged with "ModuleUsageTracking" then write them to /var/log/moduleUsage.log
 
 Step 4:
 -------
 
-Add the following to logrotate.conf:
+Create the file /etc/logrotate.d/moduleUsage
 
-   ...
+    /var/log/moduleUsage.log{
+       missingok
+       copytruncate
+       rotate 4
+       daily
+       create 644 root root
+       notifempty
+    }
 
 
 This will log rotate the moduleUsage.log.
@@ -116,21 +134,131 @@ This will log rotate the moduleUsage.log.
 Step 5:
 -------
 
-a) Install MySQL db.  Then create an account in the database with:
+I found the following site helpful in getting the MySQL database setup:
 
-   ...
+    http://zetcode.com/db/mysqlpython/
 
-b) Use the "conf_create" program to create a file containing the access information for the db
+a) Install MySQL db. Create a mysql root password.  Then create an account in the database like this:
 
-c) Create the database by running the createDB.py program
+       $ mysql -u root -p
+       Enter password: 
+
+       mysql> CREATE DATABASE lmod;
+
+       mysql> CREATE USER 'lmod'@'localhost' IDENTIFIED BY 'test623';
+
+       mysql> USE lmod;
+
+       mysql> GRANT ALL ON lmod.* TO 'lmod'@'localhost';
+
+       mysql> quit;
+
+   You will want to change 'test623' to some password.  You'll also probably want to allow access to this database from
+   outside machines as well.
+
+
+     
+
+b) Use the "conf_create" program to create a file containing the access information for the db:
+
+       $ ./conf_create
+       Database host:
+       Database user: lmod
+       Database pass:
+       Database name: lmod
+
+   Where you'll have to fill in the correct name for the database host and password.   This creates a file named
+   lmod_db.conf which is used by createDB.py and analyzeLmodDB programs to access the database.
+   
+
+c) Make sure your python knows about the MySQLdb module. 
+
+
+d) Create the database by running the createDB.py program.
+
+      $ ./createDB.py
+ 
 
 
 Step 6:
 -------
 
-Use the 
+a) If you have more than one cluster and you want to store them in the same database you might want to modify the
+   store_module_data program.  It assumes that host names are of the form: node_name.cluster_name.something.something
+   and the current store_module_data program picks off the second field in the hostname.  If your site names things
+   differently you should modify that routine to match your needs.
+
+
+b) I use a cron job to load the moduleUsage.log-* files.   This is the script I use:
+
+   #!/bin/bash
+
+   # 
+   PATH=<path_to_python>:$PATH
+   cd ~mclay/load_module_usage
+
+   for i in /var/log/moduleUsage.log-*; do
+     ./store_module_data $i
+     if [ "$?" -eq 0 ]; then
+       rm -f $i
+     fi
+   done
+
+Where <path_to_python> has a python that can also import MySQLdb python module
 
 
 
 
+Step 7:
+-------
 
+Once data is being written to the data base you can now start analyzing the data.  You can use SQL commands directly
+into the MySQL data base or you can use the supplied script:  analyseLmodDB
+
+	% ./analyzeLmodDB --help
+	usage: analyzeLmodDB [-h] [--dbname DBNAME] [--syshost SYSHOST]
+	                     [--start STARTDATE] [--end ENDDATE]
+	                     [--sqlPattern SQLPATTERN]
+	                     cmdA [cmdA ...]
+
+	positional arguments:
+	  cmdA                    commands: counts, usernames, modules_used_by
+
+	optional arguments:
+	  -h, --help              show this help message and exit
+	  --dbname DBNAME         lmod db name
+	  --syshost SYSHOST       system host name
+	  --start STARTDATE       start date
+	  --end ENDDATE           end date
+	  --sqlPattern SQLPATTERN sql pattern for matching
+
+There are three kinds of reports this program will report:
+
+a) counts:  Report the number of distinct users of a particular module:
+
+    $ analyzeLmodDB --sqlPattern '%fftw%' counts --start '2015-01-01 --end '2015-02-01'
+
+        Module path                                         Distinct Users
+        -----------                                         --------------
+        /apps/intel13/mvapich2_1_9/modulefiles/fftw3/3.3.2             151
+        /apps/intel13/mvapich2_1_9/modulefiles/fftw2/2.1.5              62
+        /apps/intel13/impi_4_1/modulefiles/fftw3/3.3.2                  45
+        /apps/intel13/impi_4_1/modulefiles/fftw2/2.1.5                  19
+
+b) usernames:  Report users of a particular pattern:
+
+     $ ./analyzeLmodDB --sqlPattern '%/apps/modulefiles/settarg%' usernames
+
+
+     Module path                            User Name
+     -----------                            ---------
+     /opt/apps/modulefiles/settarg/5.8      user1
+     /opt/apps/modulefiles/settarg/5.8      user2
+     /opt/apps/modulefiles/settarg/5.8      user3
+     /opt/apps/modulefiles/settarg/5.8.1    mclay
+     /opt/apps/modulefiles/settarg/5.9.1    user5
+
+
+c) modules_used_by:  Report the modules used by a particular user:
+
+     $ ./analyzeLmodDB --sqlPattern 'mclay' 

@@ -128,6 +128,7 @@ local function new(self)
    tbl.lua_term_A  = { k = "Active lua-term"               , v = activeTerm,           }
    tbl.mpath_av    = { k = "avail: Include modulepath dir" , v = LMOD_MPATH_AVAIL,     }
    tbl.mpath_root  = { k = "MODULEPATH_ROOT"               , v = "@modulepath_root@",  }
+   tbl.modRC       = { k = "MODULERCFILE"                  , v = MODULERCFILE,         }
    tbl.numSC       = { k = "number of cache dirs"          , v = numSC,                }
    tbl.path_hash   = { k = "Path to HashSum"               , v = "@path_to_hashsum@",  }
    tbl.path_lua    = { k = "Path to Lua"                   , v = "@path_to_lua@",      }
