@@ -1,7 +1,18 @@
 Lmod Version 6.0
 Features:
-   a) Full support for global RC files as well as .modulerc files
-
+   a) Full support for global RC files as well as .modulerc files.
+      This means that $MODULERCFILE will be read along with
+      ~/.modulerc. Also .modulerc files are read when they appear
+      in the same directory and the version files (i.e. the same
+      directory as 1.2 or 2.1.lua). One caveat, Setting the default
+      module version in $MODULERCFILE or ~/.modulerc is not
+      supported due Spider cache issues
+   b) Instructions on how to save module usage data to a MySQL
+      database along with scripts to analyze the usage are in
+      contrib/tracking_module_usage/README.
+   c) Adding an exit hook.  This makes for more accurate tracking of
+      module usage. See README above as to why this is a good idea.
+   d) Some minor speed-ups and minimizing of directory tree walking. 
 
 
 Lmod Version 5.9.3
