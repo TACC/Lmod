@@ -67,7 +67,7 @@ require("fileOps")
 require("cmdfuncs")
 require("utils")
 
-
+_G.maliasT    = {}
 local CTimer  = require("CTimer")
 local dbg     = require("Dbg"):dbg()
 local M       = {}
