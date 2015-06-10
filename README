@@ -1,3 +1,12 @@
+Lmod 6.0.1:
+Bug Fixes:
+   a) This version now contains the contrib/tracking_module_usage
+      directory.
+   b) This version fixes a bug when trying to run module avail
+      or module spider with an old cache file.
+      
+
+
 Lmod Version 6.0
 Features:
    a) Full support for global RC files as well as .modulerc files.
