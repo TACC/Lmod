@@ -817,7 +817,7 @@ function M.prereq(self, mA)
    dbg.print{"number found: ",#a,"\n"}
    if (#a > 0) then
       local s = concatTbl(a,", ")
-      LmodError("Cannot load module \"",mFull,"\" without these modules loaded:\n  ",
+      LmodError("Cannot load module \"",mFull,"\" without these module(s) loaded:\n  ",
             s,"\n")
    end
    dbg.fini("MasterControl:prereq")
@@ -870,7 +870,7 @@ function M.conflict(self, mA)
 
    if (#a > 0) then
       local s = concatTbl(a," ")
-      LmodError("Cannot load module \"",mFull,"\" because these modules are loaded:\n  ",
+      LmodError("Cannot load module \"",mFull,"\" because these module(s) are loaded:\n  ",
             s,"\n")
    end
    dbg.fini("MasterControl:conflict")
@@ -913,7 +913,7 @@ function M.prereq_any(self, mA)
 
    if (not found) then
       local s = concatTbl(a," ")
-      LmodError("Cannot load module \"",mFull,"\".  At least one of these modules must be loaded:\n  ",
+      LmodError("Cannot load module \"",mFull,"\".  At least one of these module(s) must be loaded:\n  ",
             concatTbl(a,", "),"\n")
    end
    dbg.fini("MasterControl:prereq_any")
