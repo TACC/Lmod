@@ -454,7 +454,7 @@ function M.singleSearchSpiderDB(self, strA, a, moduleT, dbT)
       local name    = value.name or ""
       local full    = value.full
       local whatisT = value.whatis or {}
-      local whatisS = concatTbl(whatisT,"\n")
+      local whatisS = concatTbl(whatisT,"\n"):lower()
 
       if (dbT[name] == nil) then
          dbT[name] = {}
