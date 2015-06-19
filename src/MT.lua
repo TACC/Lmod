@@ -165,19 +165,22 @@ local function buildAvailT(mpath, path, prefix, availT)
             defaultFn = walk_link(defaultFn)
             dbg.print{"After defaultFn: ",defaultFn,"\n"}
          else
-            v         = versionFile(v, prefix, defaultFn, true)
-            local f   = pathJoin(d,v)
-            if (isFile(f)) then
-               defaultFn = f
-            elseif (isFile(f .. ".lua")) then
-               defaultFn = f .. ".lua"
+            v            = versionFile(v, prefix, defaultFn, true)
+            if (not v) then
+               dbg.fini("buildAvailT")
+               return
+            else
+               local f   = pathJoin(d,v)
+               dbg.print{"return from versionFile: v: ",v,", f:",f,"\n"}
+               if (isFile(f)) then
+                  defaultFn = f
+               elseif (isFile(f .. ".lua")) then
+                  defaultFn = f .. ".lua"
+               end
             end
          end
          local num = #vA
          availT[prefix].default    = {fn = defaultFn, kind="marked", num = num}
-      else
-         local d = pathJoin(mpath, prefix)
-         defaultFn = pathJoin(d, a[#a].version)
       end
    end
    dbg.fini("buildAvailT")
@@ -242,12 +245,6 @@ end
 --    availT[mpath][sn][0] = {version=..., fn=..., parseV=...,
 --                           markedDefault=T/F},
 --
---    locationT[sn] = {
---                     default = {fn=, num=,
---                                kind=[last,marked] }
---                     {mpath=..., file=..., fullFn=...},
---                     {mpath=..., file=..., fullFn=...},
---                    }
 local function buildAllLocWmoduleT(moduleT, mpathA, availT, adding, pathEntry)
    dbg.start{"MT:buildAllLocWmoduleT(moduleT, mpathA, availT, adding: ",
              adding,", pathEntry: ",pathEntry,")"}
@@ -284,8 +281,9 @@ local function buildAllLocWmoduleT(moduleT, mpathA, availT, adding, pathEntry)
       for sn, vv in Pairs(vvv) do
          local aa = {}
          local defaultT = false
+         dbg.print{"sn: ",sn,"\n"}
          for parseV, v in pairsByKeys(vv) do
-
+            dbg.print{"  v.version: ", v.version, ", parseV: ",parseV,"\n"}
             if (parseV == 0) then
                aa[0] = v
             else
@@ -434,6 +432,15 @@ end
 --------------------------------------------------------------------------
 -- Build *locationT* either by using *moduleT* if it exists or use
 -- *buildAvailT* to walk the directories.
+--    locationT[sn] = {
+--                     default = {fn=, num=,
+--                                kind=[last,marked] }
+--                     {mpath=..., file=..., versionT = {}},
+--                     {mpath=..., file=..., versionT = {}},
+--                    }
+-- Where versionT is
+--     versionT[version] = fn
+--
 -- @param self An MT object
 -- @param mpathA
 -- @param adding
@@ -503,10 +510,15 @@ function M._build_locationTbl(self, mpathA, adding, pathEntry)
          local a         = locationT[sn]
          local total     = #v
          local hidden    = 0
+         local versionT  = {}
 
-         if (hidden) then
+         if (total == 0) then
+            versionT[0] = v[0].fn
+         else
             for i = 1,total do
-               if (v[i].version:sub(1,1) == ".") then
+               local version = v[i].version
+               versionT[version] = v[i].fn
+               if (version:sub(1,1) == ".") then
                   hidden = hidden + 1
                end
             end
@@ -522,13 +534,13 @@ function M._build_locationTbl(self, mpathA, adding, pathEntry)
             numVersions  = defaultEntry.numVersions
          else
             a            = {}
-            defaultEntry = {}
+            defaultEntry = {parseV = " ", kind = "unknown", fn = false, numVersions = 0}
             defaultKind  = "unknown"
             defaultFn    = false
             parseV       = " "
             numVersions  = 0
          end
-         local value = {mpath = mpath, file = pathJoin(mpath,sn)}
+         local value = {mpath = mpath, file = pathJoin(mpath,sn), versionT = versionT}
 
          local changed = false
 
@@ -543,8 +555,20 @@ function M._build_locationTbl(self, mpathA, adding, pathEntry)
          if (defaultKind ~= "marked") then
             local entry  = v[total]
             local pv     = entry.parseV
-            numVersions  = numVersions + total
-            if (total == 0 or pv > parseV) then
+            local firstC = "x"
+            numVersions  = numVersions + total - hidden
+
+            if (type(entry.version) == "string") then
+               firstC = entry.version:sub(1,1)
+            end
+
+            if ( (not pv) or (not parseV) or (not firstC)) then
+               dbg.print{"pv: ", pv, ", parseV: ",parseV,", firstC: ",firstC,"\n"}
+               dbg.print{"mpath:   ",mpath,"\n"}
+               dbg.print{"sn:      ",sn,"\n"}
+               dbg.print{"entry.v: ", entry.version,"\n"}
+            end
+            if ((total == 0 or pv > parseV) and  firstC ~= ".") then
                defaultKind = "last"
                parseV      = pv
                defaultFn   = entry.fn
@@ -552,9 +576,11 @@ function M._build_locationTbl(self, mpathA, adding, pathEntry)
             end
          end
          if (changed) then
-            defaultEntry.kind   = defaultKind
-            defaultEntry.parseV = parseV or " "
-            defaultEntry.fn     = defaultFn
+            local _, j            = defaultFn:find(mpath,1, true)
+            defaultEntry.fullName = defaultFn:sub(j+2):gsub("%.lua$","")
+            defaultEntry.kind     = defaultKind
+            defaultEntry.parseV   = parseV or " "
+            defaultEntry.fn       = defaultFn
          end
          defaultEntry.numVersions = numVersions
          defaultEntry.num         = max(numVersions, #a+1)
@@ -584,7 +610,11 @@ function M._build_locationTbl(self, mpathA, adding, pathEntry)
       for sn, vv in Pairs(locationT) do
          dbg.print{"  sn: ", sn,":\n"}
          for i = 1, #vv do
-            dbg.print{"    ",vv[i].file,"\n"}
+            dbg.print{"    file: ",vv[i].file,":"}
+            for version in Pairs(vv[i].versionT) do
+               io.stderr:write(" ",version)
+            end
+            io.stderr:write("\n")
          end
          if (vv.default) then
             dbg.print{"    ",vv.default.kind," Default: ",vv.default.fn,"\n"}
@@ -1143,7 +1173,10 @@ function M.locationTbl(self, key)
    if (key == nil) then
       return self._locationTbl
    end
-   return self._locationTbl[key]
+   if (not self._locationTbl[key]) then
+      return self._locationTbl[key], nil
+   end
+   return self._locationTbl[key], self._locationTbl[key].default
 end
 
 --------------------------------------------------------------------------

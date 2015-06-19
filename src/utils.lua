@@ -50,6 +50,7 @@ local Version      = require("Version")
 local base64       = require("base64")
 local dbg          = require("Dbg"):dbg()
 local lfs          = require("lfs")
+local malias       = require("MAlias"):build()
 local posix        = require("posix")
 local readlink     = posix.readlink
 local setenv_posix = posix.setenv
@@ -317,6 +318,7 @@ end
 s_ignoreT = {
    ['.']         = true,
    ['..']        = true,
+   ['.lua']      = true,
    ['.moduler']  = true,
    ['.version']  = true,
    ['.modulerc'] = true,
@@ -372,24 +374,12 @@ function allVersions(pathA, n)
    local count     = 0
    local a         = {}
    local n         = n or #pathA
-   local accept_fn = accept_fn
 
    for i = 1, n do
-      local vv   = pathA[i]
-      local path = vv.file
-      local attr = lfs.attributes(path)
-      if (attr and attr.mode == 'directory' and posix.access(path,"x")) then
-         for v in lfs.dir(path) do
-            local f = pathJoin(path, v)
-            attr    = lfs.attributes(f)
-            local readable = posix.access(f,"r") and accept_fn(f)
-            if (readable and v:sub(1,1) ~= "." and attr.mode == 'file'
-                and v:sub(-1,-1) ~= '~') then
-               v       = v:gsub("%.lua$","")
-               local pv = parseVersion(v)
-               a[#a+1] = {version=v, file=f, idx = i, mpath=vv.mpath, pv=pv}
-            end
-         end
+      local vv = pathA[i]
+      for version, fn in pairs(vv.versionT) do
+         local pv = parseVersion(version)
+         a[#a + 1] = {version = version, file = fn, idx = i, mpath = vv.mpath, pv = pv}
       end
    end
    return a
@@ -818,49 +808,8 @@ function UUIDString(epoch)
 
    return uuid
 end
-modV = false
+modA = false
 
---------------------------------------------------------------------------
--- Read in a .modulerc file.
--- @param current The module name associated with the file.
--- @param path complete path to .modulerc file
-function moduleRCFile(current, path)
-   dbg.start{"moduleRCFile(",path,")"}
-   local f       = io.open(path,"r")
-   if (not f)                        then
-      dbg.print{"could not find: ",path,"\n"}
-      dbg.fini("moduleRCFile")
-      return nil
-   end
-   local s       = f:read("*line")
-   f:close()
-   if (not s:find("^#%%Module"))      then
-      dbg.print{"could not find: #%Module\n"}
-      dbg.fini("moduleRCFile")
-      return nil
-   end
-   local cmd  = pathJoin(cmdDir(),"RC2lua.tcl") .. " " .. path
-   local s    = capture(cmd):trim()
-   assert(load(s))()
-   local version = false
-   for i = 1,#modV do
-      local entry = modV[i]
-      if (entry.module_version == "default") then
-         local name = entry.module_name
-         local i, j = name:find(current)
-         local nLen = name:len()
-         if (j+1 < nLen and name:sub(j+1,j+1) == '/') then
-            version = name:sub(j+2)
-            break
-         end
-      end
-   end
-
-   dbg.print{"version: ",version,"\n"}
-   dbg.fini("moduleRCFile")
-   return version
-
-end
 --------------------------------------------------------------------------
 -- This routine is given the absolute path to a .version
 -- file.  It checks to make sure that it is a valid TCL
@@ -886,59 +835,14 @@ function versionFile(v, sn, path, ignoreErrors)
       return nil
    end
    local version = false
-   if (v == "/.modulerc") then
-      local cmd = pathJoin(cmdDir(),"RC2lua.tcl") .. " " .. path
-      local s = capture(cmd):trim()
-      assert(load(s))()
-      for i = 1,#modV do
-         local entry = modV[i]
-         if (entry.module_version == "default") then
-            local full  = entry.module_name
-            version     = extractVersion(full,sn)
-            if (version) then
-               break
-            end
+   dbg.print{"handle file: ",v, "\n"}
+   local cmd = pathJoin(cmdDir(),"RC2lua.tcl") .. " " .. path
+   local s   = capture(cmd):trim()
+   assert(load(s))()
+   malias:parseModA(sn, modA)
+   
+   version = malias:getDefaultT(sn) or version
 
-            --local snEsc = sn:escape()
-            --local i, j  = name:find(snEsc)
-            --local nLen  = name:len()
-            --if (j+1 < nLen and name:sub(j+1,j+1) == '/') then
-            --   version = name:sub(j+2)
-            --   break
-            --end
-         end
-      end
-   elseif (v == "/.version") then
-      local cmd = pathJoin(cmdDir(),"ModulesVersion.tcl") .. " " .. path
-      local s = capture(cmd):trim()
-      assert(load(s))()
-      version = modV.version
-      if (modV.date ~= "***") then
-         local a = {}
-         for s in modV.date:split("/") do
-            a[#a + 1] = tonumber(s) or 0
-         end
-
-         if (not ignoreErrors and (a[1] < 2000 or a[2] > 12 )) then
-            LmodMessage("The .version file for \"",sn,
-                        "\" has the date is written in the wrong format: \"",
-                        modV.date,"\".  Please use YYYY/MM/DD.")
-         end
-
-         local epoch   = os.time{year = a[1], month = a[2], day = a[3]} or 0
-         local current = os.time()
-         if (current < epoch) then
-            if (not ignoreErrors) then
-               LmodMessage("The default version for module \"",myModuleName(),
-                           "\" is changing on ", modV.date, " from ",modV.version,
-                           " to ", modV.newVersion,"\n")
-            end
-            version = modV.version
-         else
-            version = modV.newVersion
-         end
-      end
-   end
    dbg.print{"version: ",version,"\n"}
    dbg.fini("versionFile")
    return version

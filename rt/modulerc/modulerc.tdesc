@@ -1,0 +1,94 @@
+-- -*- lua -*-
+local testName = "modulerc"
+
+testdescript = {
+   owner   = "rtm",
+   product = "modules",
+   description = [[
+      Test modulerc
+   ]],
+   keywords = {testName },
+
+   active = 1,
+   testName = testName,
+   job_submit_method = "INTERACTIVE",
+
+   runScript = [[
+
+     . $(projectDir)/rt/common_funcs.sh
+
+     unsetMT
+     initStdEnvVars
+     numStep=0
+     COUNT=0
+     ORIG_HOME=`(cd $HOME; /bin/pwd)`
+     HOME=`/bin/pwd`
+
+
+     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d .modulerc cacheDir
+
+     cp $(testDir)/.modulerc .
+
+     export MODULEPATH_ROOT=$(testDir)/mf
+     export MODULEPATH=$MODULEPATH_ROOT/Core
+
+
+     runLmod --version               # 1
+     runLmod load intel              # 2
+     runLmod list                    # 3
+     runLmod load intel/15           # 4
+     runLmod list                    # 5
+     runLmod load a14                # 6
+     runLmod list                    # 7
+     runLmod load a13                # 8
+     runLmod list                    # 9
+     runLmod load abinit/6           #10
+     runLmod list                    #11
+     runLmod load abinit/7           #12
+     runLmod list                    #13
+     runLmod load hidden/2.0         #14
+     runLmod list                    #15
+     export LMOD_SHORT_TIME=0
+     runLmod avail                   #16
+     unset LMOD_SHORT_TIME
+     runLmod avail                   #17
+     rm -rf .lmod.d
+
+     cat > fn << EOF
+$(outputDir)/cacheDir: $(outputDir)/last_update
+EOF
+
+     lua $(projectDir)/src/spiderCacheSupport.in.lua --descriptFn fn >> .lmodrc.lua
+     mkdir cacheDir
+     touch last_update
+     buildModuleT $LMOD_DEFAULT_MODULEPATH > cacheDir/moduleT.lua
+     runLmod avail                   #16
+     buildDbT $LMOD_DEFAULT_MODULEPATH > cacheDir/dbT.lua
+     runLmod avail                   #17
+
+
+
+     HOME=$ORIG_HOME
+     cat _stdout.[0-9][0-9] > _stdout.orig
+     joinBase64Results  -bash  _stdout.orig _stdout.new
+     cleanUp _stdout.new out.txt
+
+     cat _stderr.[0-9][0-9] > _stderr.orig
+     cleanUp _stderr.orig err.txt
+
+     rm -f results.csv
+     wrapperDiff --csv results.csv $(testDir)/out.txt out.txt
+     wrapperDiff --csv results.csv $(testDir)/err.txt err.txt
+     testFinish -r $(resultFn) -t $(runtimeFn) results.csv
+   ]],
+
+
+   blessScript = [[
+         # perform what is needed
+   ]],
+
+   tests = {
+      { id='t1'},
+   },
+
+}

@@ -19,8 +19,6 @@ testdescript = {
      unsetMT
      initStdEnvVars
      MODULEPATH_ROOT=$(projectDir)/mf;  export MODULEPATH_ROOT
-     LMOD_DEFAULT_MODULEPATH=$MODULEPATH
-     export LMOD_DEFAULT_MODULEPATH
 
      rm -fr _stderr.* _stdout.* err.* out.* .lmod.d .lmodrc.lua
      cp $(projectDir)/init/lmodrc.lua .lmodrc.lua

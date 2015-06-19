@@ -47,7 +47,7 @@ M.my_name       = "between"
 
 
 local s_steps = {
-   MName.find_marked_default_between,
+   MName.find_default_between,
    MName.find_between,
 }
 

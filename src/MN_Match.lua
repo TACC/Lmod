@@ -50,8 +50,7 @@ M.my_name      = "match"
 
 local s_steps = {
    MName.find_exact_match,
-   MName.find_marked_default,
-   MName.find_latest,
+   MName.find_default,
 }
 
 --------------------------------------------------------------------------

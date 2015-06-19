@@ -69,6 +69,7 @@ Cache               = require("Cache")
 MT                  = require("MT")
 Master              = require("Master")
 BaseShell           = require("BaseShell")
+local malias        = require("MAlias"):build()
 local lfs           = require("lfs")
 local json          = require("json")
 local dbg           = require("Dbg"):dbg()
@@ -148,10 +149,11 @@ end
 local function rptModuleT(moduleDirA, moduleT, timestampFn, dbT)
    dbg.start{"rptModuleT(moduleDirA, moduleT, timestampFn, dbT)"}
    local ts = { timestampFn }
+   local s0 = malias:export()
    local s1 = serializeTbl{name="timestampFn",   value=ts,         indent=true}
    local s2 = serializeTbl{name="defaultMpathA", value=moduleDirA, indent=true}
    local s3 = serializeTbl{name="moduleT",       value=moduleT,    indent=true}
-   io.stdout:write(s1,s2,s3,"\n")
+   io.stdout:write(s0,s1,s2,s3,"\n")
    dbg.fini("rptModuleT")
 end
 
@@ -229,9 +231,10 @@ end
 local function rptDbT(moduleDirA, moduleT, timestampFn, dbT)
    dbg.start{"rptDbT(moduleDirA, moduleT, timestampFn, dbT)"}
    local ts = { timestampFn }
+   local s0 = malias:export()
    local s1 = serializeTbl{name="timestampFn",   value=ts,         indent=true}
    local s2 = serializeTbl{name="dbT",      value=dbT,   indent=true}
-   io.stdout:write(s1,s2,"\n")
+   io.stdout:write(s0,s1,s2,"\n")
    dbg.fini("rptDbT")
 end
 

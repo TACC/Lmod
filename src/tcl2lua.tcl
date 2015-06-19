@@ -373,7 +373,14 @@ proc module-info {what {more {}}} {
         return $g_fullName
     }
     "specified" {
-           return $g_usrName
+        return $g_usrName
+    }
+    "version" {
+        regexp {([^/]*)/?(.*)} $more d dir rest
+        if {$rest == ""} {
+            set rest "default"
+        }
+        return "$dir/$rest"
     }
 
     default {
@@ -532,7 +539,7 @@ proc unload { args } {
     eval cmdargs $cmdName $args
 }
 proc prereq { args } {
-    eval cmdargs "prereq" $args
+    eval cmdargs "prereq_any" $args
 }
 proc prereq-any { args } {
     eval cmdargs "prereq_any" $args

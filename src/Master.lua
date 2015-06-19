@@ -69,6 +69,7 @@ local Var          = require("Var")
 local dbg          = require("Dbg"):dbg()
 local hook         = require("Hook")
 local lfs          = require("lfs")
+local malias       = require("MAlias"):build()
 local posix        = require("posix")
 local pack         = (_VERSION == "Lua 5.1") and argsPack   or table.pack
 local load         = (_VERSION == "Lua 5.1") and loadstring or load
@@ -420,7 +421,7 @@ function M.load(mA)
       dbg.print{"Master:load: i: ",i,", sn: ", sn, ", fn: ", t.fn,"\n"}
       if (mt:have(sn,"active")) then
          dbg.print{"Master:load reload module: \"",moduleName,
-                   "\" as it is already loaded\n"}
+                   "\" as sn: \"",sn,"\" is already loaded\n"}
          if (LMOD_DISABLE_SAME_NAME_AUTOSWAP == "yes") then
             LmodError("Your site prevents the automatic swapping of modules with same name.",
                       "You must explicitly unload the loaded version of \"",sn,"\" before",
@@ -873,8 +874,9 @@ local function availEntry(defaultOnly, terse, label, szA, searchA, sn, name,
 
    local mname   = MName:new("load", name)
    local version = mname:version() or ""
-   if (hidden and version:sub(1,1) == "." or sn:sub(1,1) == ".") then
-      dbg.print{"Not printing a dot modulefile\n"}
+
+   if (hidden and (version:sub(1,1) == "." or sn:sub(1,1) == "." or sn:find("/%.") or malias:getHiddenT(name))) then
+      dbg.print{"Not printing a dot modulefile: name: ",name,"\n"}
       dbg.fini("Master:availEntry")
       return
    end
@@ -920,6 +922,15 @@ local function availEntry(defaultOnly, terse, label, szA, searchA, sn, name,
       aa[#aa + 1] = '  '
       for i = 1,#resultA do
          aa[#aa+1] = resultA[i]
+      end
+      
+      local verMapStr = malias:getMod2VersionT(name)
+      if (verMapStr) then
+         if (dflt == Default) then
+            dflt = "(D:".. verMapStr .. ")"
+         else
+            dflt = "(".. verMapStr .. ")"
+         end
       end
       aa[#aa + 1] = dflt
       a[#a + 1]   = aa
@@ -1144,6 +1155,8 @@ function M.avail(argA)
    local availT     = mt:availT()
    local locationT  = mt:locationTbl()
    local availStyle = masterTbl.availStyle
+
+   malias:buildMod2VersionT() 
 
    --------------------------------------------------------------------------
    -- call hook to see if site wants to relabel and re-organize avail layout

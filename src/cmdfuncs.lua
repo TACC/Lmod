@@ -102,6 +102,7 @@ local function findNamedCollections(a,path)
          end
       end
    end
+   table.sort(a)
 end
 
 ------------------------------------------------------------------------
@@ -377,6 +378,7 @@ function Load_Usr(...)
       mcp           = MCP
       dbg.print{"Setting mcp to ", mcp:name(),"\n"}
       b             = mcp:load_usr(lA)
+
       if (haveWarnings()) then
          mcp.mustLoad()
       end

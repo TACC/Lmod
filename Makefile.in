@@ -85,15 +85,19 @@ MAIN_DIR	  	  := Makefile.in INSTALL configure README_lua_modulefiles.txt \
                              README README.old License
 
 CONTRIB_DIRS           	  :=  \
-                              bash_patch                        \
                               BuildSystemCacheFile              \
+                              Deprecating_Modules               \
+                              SitePackage                       \
+                              TACC                              \
+                              bash_patch                        \
                               converting_shell_to_module_files  \
                               hook                              \
                               parseVersions                     \
-	                      settarg                           \
-                              SitePackage                       \
-                              TACC                              \
-                              tricky_modulefiles
+                              settarg                           \
+                              tracking_module_usage             \
+                              tricky_modulefiles                
+
+
 
 CONTRIB                   := $(patsubst %, $(PATH_TO_SRC)/contrib/%, $(CONTRIB_DIRS))
 lua_code	  	  := $(filter-out %.in.lua, $(wildcard $(PATH_TO_SRC)/src/*.lua))   \
@@ -322,6 +326,8 @@ build_tags:
 	    -e 's|.*\.nav$$||g'                                  \
 	    -e 's|.*\.out$$||g'                                  \
 	    -e 's|.*\.pdf$$||g'                                  \
+	    -e 's|.*\.pyc$$||g'                                  \
+	    -e 's|.*\.pyo$$||g'                                  \
 	    -e 's|.*\.snm$$||g'                                  \
 	    -e 's|.*\.toc$$||g'                                  \
 	    -e 's|.*\.vrb$$||g'                                  \

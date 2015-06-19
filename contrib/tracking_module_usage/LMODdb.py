@@ -5,8 +5,18 @@ dirNm, execName = os.path.split(os.path.realpath(sys.argv[0]))
 sys.path.append(os.path.realpath(dirNm))
 
 import MySQLdb, ConfigParser, getpass
-import warnings
+import warnings, inspect
+from BeautifulTbl import BeautifulTbl
 warnings.filterwarnings("ignore", "Unknown table.*")
+def __LINE__():
+    try:
+        raise Exception
+    except:
+        return sys.exc_info()[2].tb_frame.f_back.f_lineno
+
+def __FILE__():
+    return inspect.currentframe().f_code.co_filename
+
 
 def convertToInt(s):
   """
@@ -161,4 +171,136 @@ class LMODdb(object):
 
     except Exception as e:
       print("data_to_db(): ",e)
+      sys.exit(1)
+
+  def counts(self, sqlPattern, syshost, startDate, endDate):
+    query = ""
+    try:
+      conn  = self.connect()
+      query = "USE "+self.db()
+      conn.query(query)
+
+      dateTest = ""
+      if (startDate != "unknown"):
+        dateTest = " and t2.date >= '" + startDate + "'"
+
+      if (startDate != "unknown"):
+        dateTest = dateTest + " and t2.date < '" + endDate + "'"
+
+      if (sqlPattern == "") :
+        sqlPattern == "%"
+
+      query = ("SELECT t1.path, count(distinct(t2.user_id)) as c2 from moduleT as t1, "    +\
+               "join_user_module as t2 where t1.path like '%s' and t1.mod_id = t2.mod_id " +\
+               "and t1.syshost like '%s' %s group by t2.mod_id order by c2 desc")             %\
+               ( sqlPattern, syshost, dateTest )
+
+      conn.query(query)
+      result = conn.store_result()
+
+      numRows = result.num_rows()
+
+      resultA = []
+
+      resultA.append(["Module path", "Distinct Users"])
+      resultA.append(["-----------", "--------------"])
+      for i in xrange(numRows):
+        row = result.fetch_row()
+        resultA.append([row[0][0],row[0][1]])
+
+      conn.close()
+
+      return resultA
+
+        
+    except Exception as e:
+      print("counts(): ",e)
+      sys.exit(1)
+
+  def usernames(self, sqlPattern, syshost, startDate, endDate):
+    query = ""
+    try:
+      conn  = self.connect()
+      query = "USE "+self.db()
+      conn.query(query)
+
+      dateTest = ""
+      if (startDate != "unknown"):
+        dateTest = " and t2.date >= '" + startDate + "'"
+
+      if (startDate != "unknown"):
+        dateTest = dateTest + " and t2.date < '" + endDate + "'"
+
+      if (sqlPattern == "") :
+        sqlPattern == "%"
+
+      query = ("SELECT t1.path, t3.user as c2 from moduleT as t1, join_user_module "       +\
+               "as t2, userT as t3 where t1.path like '%s' and t1.mod_id = t2.mod_id "     +\
+               "and t1.syshost like '%s' %s and t3.user_id = t2.user_id group by c2 order "
+               "by c2") % ( sqlPattern, syshost, dateTest )
+
+      conn.query(query)
+      result = conn.store_result()
+
+      numRows = result.num_rows()
+
+      resultA = []
+      resultA.append(["Module path", "User Name"])
+      resultA.append(["-----------", "---------"])
+
+
+      for i in xrange(numRows):
+        row = result.fetch_row()
+        resultA.append([row[0][0],row[0][1]])
+
+      conn.close()
+
+      return resultA
+
+        
+    except Exception as e:
+      print("usernames(): ",e)
+      sys.exit(1)
+       
+
+  def modules_used_by(self, syshost, username, startDate, endDate):
+    query = ""
+    try:
+      conn  = self.connect()
+      query = "USE "+self.db()
+      conn.query(query)
+
+      dateTest = ""
+      if (startDate != "unknown"):
+        dateTest = " and t2.date >= '" + startDate + "'"
+
+      if (startDate != "unknown"):
+        dateTest = dateTest + " and t2.date < '" + endDate + "'"
+
+      query = ("SELECT t1.path c1, t3.user as c2 from moduleT as t1, join_user_module "     +\
+               "as t2, userT as t3 where t3.user = '%s' and t1.mod_id = t2.mod_id "         +\
+               "and t1.syshost like '%s' %s and t3.user_id = t2.user_id group by c1 order " +\
+               "by c1") % ( username, syshost, dateTest )
+
+      conn.query(query)
+      result = conn.store_result()
+
+      numRows = result.num_rows()
+
+      resultA = []
+      resultA.append(["Module path", "User Name"])
+      resultA.append(["-----------", "---------"])
+
+
+      for i in xrange(numRows):
+        row = result.fetch_row()
+        resultA.append([row[0][0],row[0][1]])
+
+      conn.close()
+
+      return resultA
+
+        
+    except Exception as e:
+      print("modules_used_by(): ",e)
       sys.exit(1)

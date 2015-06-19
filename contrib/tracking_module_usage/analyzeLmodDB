@@ -1,0 +1,69 @@
+#!/usr/bin/env python
+# -*- python -*-
+from __future__ import print_function
+import os, sys, re, time, datetime, argparse
+from LMODdb       import LMODdb
+from BeautifulTbl import BeautifulTbl
+
+class CmdLineOptions(object):
+  """ Command line Options class """
+
+  def __init__(self):
+    """ Empty Ctor """
+    pass
+  
+  def execute(self):
+    """ Specify command line arguments and parse the command line"""
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--dbname",     dest='dbname',     action="store", default = "lmod",    help="lmod db name")
+    parser.add_argument("--syshost",    dest='syshost',    action="store", default = "%",       help="system host name")
+    parser.add_argument("--start",      dest='startDate',  action="store", default = "unknown", help="start date")
+    parser.add_argument("--end",        dest='endDate',    action="store", default = "unknown", help="end date")
+    parser.add_argument("--sqlPattern", dest='sqlPattern', action="store", default = "/opt/%",  help="sql pattern for matching")
+    parser.add_argument("cmdA",         nargs="+",         help="commands: counts, usernames, modules_used_by")
+
+    args = parser.parse_args()
+    return args
+
+def dbConfigFn(dbname):
+  """
+  Build config file name from dbname.
+  @param dbname: db name
+  """
+  return dbname + "_db.conf"
+
+def main():
+  args     = CmdLineOptions().execute()
+  configFn = dbConfigFn(args.dbname)
+  lmod     = LMODdb(configFn)
+  
+  if (args.cmdA[0] == "counts"):
+    resultA = lmod.counts(args.sqlPattern, args.syshost, args.startDate, args.endDate)
+    num = len(resultA) - 2 
+
+    bt = BeautifulTbl(tbl=resultA, gap = 4, justify = "lr")
+
+
+  if (args.cmdA[0] == "usernames"):
+    resultA = lmod.usernames(args.sqlPattern, args.syshost, args.startDate, args.endDate)
+    num = len(resultA) - 2 
+
+    bt = BeautifulTbl(tbl=resultA, gap = 4, justify = "ll")
+
+  if (args.cmdA[0] == "modules_used_by"):
+    resultA = lmod.modules_used_by(args.sqlPattern, args.syshost, args.startDate, args.endDate)
+    num = len(resultA) - 2 
+
+    bt = BeautifulTbl(tbl=resultA, gap = 4, justify = "ll")
+
+  print("\n")
+  print(bt.build_tbl())
+  print("\n\nNumber of entries: ",num)
+    
+
+
+  
+
+
+
+if ( __name__ == '__main__'): main()
