@@ -539,7 +539,7 @@ proc unload { args } {
     eval cmdargs $cmdName $args
 }
 proc prereq { args } {
-    eval cmdargs "prereq" $args
+    eval cmdargs "prereq_any" $args
 }
 proc prereq-any { args } {
     eval cmdargs "prereq_any" $args
