@@ -45,6 +45,8 @@ Use SitePackage.lua to send a message to syslog.
    --------------------------------------------------------------------------
    -- load_hook(): Here we record the any modules loaded.
 
+   local hook   = require("Hook")
+
    local s_msgA = {}
 
    local function load_hook(t)

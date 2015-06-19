@@ -562,6 +562,12 @@ function M._build_locationTbl(self, mpathA, adding, pathEntry)
                firstC = entry.version:sub(1,1)
             end
 
+            if ( (not pv) or (not parseV) or (not firstC)) then
+               dbg.print{"pv: ", pv, ", parseV: ",parseV,", firstC: ",firstC,"\n"}
+               dbg.print{"mpath:   ",mpath,"\n"}
+               dbg.print{"sn:      ",sn,"\n"}
+               dbg.print{"entry.v: ", entry.version,"\n"}
+            end
             if ((total == 0 or pv > parseV) and  firstC ~= ".") then
                defaultKind = "last"
                parseV      = pv
