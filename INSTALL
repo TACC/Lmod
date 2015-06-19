@@ -1,11 +1,17 @@
 ********************************************************************************
 Lmod the lua based module system can be installed with:
 
+
+   Note: Lmod requires Lua 5.1 or 5.2 or 5.3
+
+         ***** Lua 5.0 or 4.0 will NOT work. *****
+
+
 A) You must install lua first.  You have two choices:
 
       1) You can download the latest lua version from  the same place you got
          Lmod and install lua-X.X.X.tar.gz file.  It contains the lua command,
-         lua library and other lua packages that  Lmod requires
+         lua library and other lua packages that Lmod requires.
 
   OR:
 
@@ -21,10 +27,48 @@ A) You must install lua first.  You have two choices:
             liblua5.1-posix0
             lua5.1
 
-      Lmod requires Lua 5.1 or 5.2
+      Note; Centos may require looking the EPEL repo.  At TACC we install the
+      following rpms;
 
-         ***** Lua 5.0 or 4.0 will NOT work. *****
+            $ rpm -qa | grep lua
 
+            lua-posix-5.1.7-1.el6.x86_64
+            lua-5.1.4-4.1.el6.x86_64
+            lua-filesystem-1.4.2-1.el6.x86_64
+            lua-devel-5.1.4-4.1.el6.x86_64
+
+
+  OR:
+      You can use luarocks to install either luaposix and/or luafilesystem.
+
+         $ luarocks install luaposix; luarocks install luafilesystem
+
+      Then you have to make the lua packages installed by luarocks to be known
+      by lua.  On our Centos system, Lua knowns about the following for *.lua
+      files:
+
+        $ lua -e 'print(package.path)'
+        ./?.lua;/usr/share/lua/5.1/?.lua;/usr/share/lua/5.1/?/init.lua;/usr/lib64/lua/5.1/?.lua;/usr/lib64/lua/5.1/?/init.lua;
+
+      and the following for shared libraries:
+
+        $ lua -e 'print(package.cpath)'
+        ./?.so;/usr/lib64/lua/5.1/?.so;/usr/lib64/lua/5.1/loadall.so;
+
+      Where as luarocks can put them somewhere else.  You can see where
+      luarocks puts things by running:
+
+          $ luarocks path
+
+      Assuming that luarocks has installed things in its default location (/usr/local/...)
+      then you'll need to do:
+
+         LUAROCKS_PREFIX=/usr/local
+         export LUA_PATH="$LUAROCKS_PREFIX/share/lua/5.1/?.lua;$LUAROCKS_PREFIX/share/lua/5.1/?/init.lua;;"
+         export LUA_CPATH="$LUAROCKS_PREFIX/lib/lua/5.1/?.so;;"
+
+      Please change LUAROCKS_PREFIX to match your site.  The exporting of LUA_PATH and LUA_CPATH
+      must be done before any module commands.
 
 
 B) Now with version 5.+ of Lmod, it is now very important that sites with large
@@ -102,7 +146,6 @@ C) The program "lua" must be in your path before installing "Lmod".  The
          Sites new to Lmod should allow for duplicate.  Sites that have used Lmod
          for a while should test to see if allowing duplicates leads to different
          behaviour for their users programs.
-
 
 
 D) As an example here is my configuration line:
