@@ -54,6 +54,9 @@ testdescript = {
      runLmod load intel/15.0.2        #21
      runLmod load intel               #22
 
+     runLmod use $(testDir)/mf/Core4  #23
+     runLmod avail                    #24
+     
      
 
      HOME=$ORIG_HOME
