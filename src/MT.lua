@@ -534,7 +534,7 @@ function M._build_locationTbl(self, mpathA, adding, pathEntry)
             numVersions  = defaultEntry.numVersions
          else
             a            = {}
-            defaultEntry = {}
+            defaultEntry = {parseV = " ", kind = "unknown", fn = false, numVersions = 0}
             defaultKind  = "unknown"
             defaultFn    = false
             parseV       = " "
