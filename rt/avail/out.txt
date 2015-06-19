@@ -336,3 +336,31 @@ _LMFILES_="ProjectDIR/rt/avail/mf/Core3/TACC.lua:ProjectDIR/rt/avail/mf/Core3/in
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/avail/mf/Core3",},family={},inactive={},mT={TACC={["FN"]="ProjectDIR/rt/avail/mf/Core3/TACC.lua",["default"]=0,["fullName"]="TACC",["loadOrder"]=1,propT={},["short"]="TACC",["status"]="active",},intel={["FN"]="ProjectDIR/rt/avail/mf/Core3/intel/15.0.1.lua",["default"]=1,["fullName"]="intel/15.0.1",["loadOrder"]=2,propT={},["short"]="intel",["status"]="active",},},mpathA={"ProjectDIR/rt/avail/mf/Core3",},["systemBaseMPATH"]="ProjectDIR/rt/avail/mf/Core3",["version"]=2,}';
 export _ModuleTable_;
+===========================
+step 23
+lua ProjectDIR/src/lmod.in.lua bash use ProjectDIR/rt/avail/mf/Core4
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/avail/mf/Core3";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/avail/mf/Core3";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/avail/mf/Core4:ProjectDIR/rt/avail/mf/Core3";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/avail/mf/Core4:ProjectDIR/rt/avail/mf/Core3";
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/avail/mf/Core4","ProjectDIR/rt/avail/mf/Core3",},family={},inactive={},mT={TACC={["FN"]="ProjectDIR/rt/avail/mf/Core3/TACC.lua",["default"]=0,["fullName"]="TACC",["loadOrder"]=1,propT={},["short"]="TACC",["status"]="active",},intel={["FN"]="ProjectDIR/rt/avail/mf/Core3/intel/15.0.1.lua",["default"]=1,["fullName"]="intel/15.0.1",["loadOrder"]=2,propT={},["short"]="intel",["status"]="active",},},mpathA={"ProjectDIR/rt/avail/mf/Core4","ProjectDIR/rt/avail/mf/Core3",},["systemBaseMPATH"]="ProjectDIR/rt/avail/mf/Core3",["version"]=2,}';
+export _ModuleTable_;
+===========================
+step 24
+lua ProjectDIR/src/lmod.in.lua bash avail
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/avail/mf/Core4:ProjectDIR/rt/avail/mf/Core3";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/avail/mf/Core4:ProjectDIR/rt/avail/mf/Core3";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/avail/mf/Core4:ProjectDIR/rt/avail/mf/Core3";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/avail/mf/Core4:ProjectDIR/rt/avail/mf/Core3";
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/avail/mf/Core4","ProjectDIR/rt/avail/mf/Core3",},family={},inactive={},mT={TACC={["FN"]="ProjectDIR/rt/avail/mf/Core3/TACC.lua",["default"]=0,["fullName"]="TACC",["loadOrder"]=1,propT={},["short"]="TACC",["status"]="active",},intel={["FN"]="ProjectDIR/rt/avail/mf/Core3/intel/15.0.1.lua",["default"]=1,["fullName"]="intel/15.0.1",["loadOrder"]=2,propT={},["short"]="intel",["status"]="active",},},mpathA={"ProjectDIR/rt/avail/mf/Core4","ProjectDIR/rt/avail/mf/Core3",},["systemBaseMPATH"]="ProjectDIR/rt/avail/mf/Core3",["version"]=2,}';
+export _ModuleTable_;
