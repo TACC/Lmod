@@ -10,12 +10,12 @@ module-whatis {Description: The Ncurses (new curses) library is a free software 
 and more. It uses Terminfo format, supports pads and color and multiple highlights and forms characters and
 function-key mapping, and has all the other SYSV-curses enhancements over BSD Curses. - Homepage: http://www.gnu.org/software/ncurses/}
 
-set root /scicore/soft/apps/ncurses/5.9-goolf-1.4.10
+set root /scicore/soft/apps/ncurses/5.9-GCC-4.7.2
 
 conflict ncurses
 
-if { ![ is-loaded goolf/1.4.10 ] } {
-    module load goolf/1.4.10
+if { ![ is-loaded GCC/4.7.2 ] } {
+    module load GCC/4.7.2
 }
 
 prepend-path	CPATH		$root/include
@@ -25,6 +25,6 @@ prepend-path	MANPATH		$root/man
 prepend-path	PATH		$root/bin
 setenv	EBROOTNCURSES		"$root"
 setenv	EBVERSIONNCURSES		"5.9"
-setenv	EBDEVELNCURSES		"$root/easybuild/ncurses-.5.9-goolf-1.4.10-easybuild-devel"
+setenv	EBDEVELNCURSES		"$root/easybuild/ncurses-5.9-GCC-4.7.2-easybuild-devel"
 
 # Built with EasyBuild version 2.1.1
