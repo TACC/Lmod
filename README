@@ -1,3 +1,13 @@
+Lmod 6.1:
+Bug Fixes:
+   a) The command module spider would fail to find a module if a
+      site had the spider cache file dbT.lua files and a user
+      had personal modulefiles. This is now fixed.
+   b) Two or more .version files could confused Lmod.  This
+      is now fixed.
+   c) Lmod can now find UPPER CASE string when doing
+      "module key ..." 
+
 Lmod 6.0.1:
 Bug Fixes:
    a) This version now contains the contrib/tracking_module_usage
@@ -5,7 +15,6 @@ Bug Fixes:
    b) This version fixes a bug when trying to run module avail
       or module spider with an old cache file.
       
-
 
 Lmod Version 6.0
 Features:
