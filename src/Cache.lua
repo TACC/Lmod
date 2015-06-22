@@ -615,7 +615,7 @@ function M.build(self, fast)
 
 
    -- With a valid moduleT build dbT if necessary:
-   if (next(dbT) == nil) then
+   if (next(dbT) == nil or buildModuleT) then
       spider:buildSpiderDB({"default"}, moduleT, dbT)
    end
 
