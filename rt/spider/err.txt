@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.9.0.2  2015-02-19 16:54
+Modules based on Lua: Version 6.0.4  2015-06-19 08:28
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -367,3 +367,13 @@ lua ProjectDIR/src/lmod.in.lua bash spider apps/gromacs/4.6.3-debug
   apps/gromacs: apps/gromacs/4.6.3-debug
     This module can only be loaded through the following modules:
       cmplrs/intel/14.0  mpi/openmpi/1.6.5
+===========================
+step 25
+lua ProjectDIR/src/lmod.in.lua bash use ProjectDIR/rt/spider/mf/Core3
+===========================
+===========================
+step 26
+lua ProjectDIR/src/lmod.in.lua bash spider smrt
+===========================
+  smrt: smrt/2.3
+    This module can be loaded directly: module load smrt/2.3

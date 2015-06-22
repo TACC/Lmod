@@ -312,3 +312,31 @@ MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/spider/mf/Core:P
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/mf/Core","ProjectDIR/mf/Beta","ProjectDIR/rt/spider/mf/Core","ProjectDIR/rt/spider/mf/Core2",},family={},inactive={},mT={},mpathA={"ProjectDIR/mf/Core","ProjectDIR/mf/Beta","ProjectDIR/rt/spider/mf/Core","ProjectDIR/rt/spider/mf/Core2",},["systemBaseMPATH"]="ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/spider/mf/Core:ProjectDIR/rt/spider/mf/Core2",["version"]=2,}';
 export _ModuleTable_;
+===========================
+step 25
+lua ProjectDIR/src/lmod.in.lua bash use ProjectDIR/rt/spider/mf/Core3
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/spider/mf/Core:ProjectDIR/rt/spider/mf/Core2";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/spider/mf/Core:ProjectDIR/rt/spider/mf/Core2";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/spider/mf/Core3:ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/spider/mf/Core:ProjectDIR/rt/spider/mf/Core2";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/spider/mf/Core3:ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/spider/mf/Core:ProjectDIR/rt/spider/mf/Core2";
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/spider/mf/Core3","ProjectDIR/mf/Core","ProjectDIR/mf/Beta","ProjectDIR/rt/spider/mf/Core","ProjectDIR/rt/spider/mf/Core2",},family={},inactive={},mT={},mpathA={"ProjectDIR/rt/spider/mf/Core3","ProjectDIR/mf/Core","ProjectDIR/mf/Beta","ProjectDIR/rt/spider/mf/Core","ProjectDIR/rt/spider/mf/Core2",},["systemBaseMPATH"]="ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/spider/mf/Core:ProjectDIR/rt/spider/mf/Core2",["version"]=2,}';
+export _ModuleTable_;
+===========================
+step 26
+lua ProjectDIR/src/lmod.in.lua bash spider smrt
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/spider/mf/Core3:ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/spider/mf/Core:ProjectDIR/rt/spider/mf/Core2";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/spider/mf/Core3:ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/spider/mf/Core:ProjectDIR/rt/spider/mf/Core2";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/spider/mf/Core3:ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/spider/mf/Core:ProjectDIR/rt/spider/mf/Core2";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/spider/mf/Core3:ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/spider/mf/Core:ProjectDIR/rt/spider/mf/Core2";
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/spider/mf/Core3","ProjectDIR/mf/Core","ProjectDIR/mf/Beta","ProjectDIR/rt/spider/mf/Core","ProjectDIR/rt/spider/mf/Core2",},family={},inactive={},mT={},mpathA={"ProjectDIR/rt/spider/mf/Core3","ProjectDIR/mf/Core","ProjectDIR/mf/Beta","ProjectDIR/rt/spider/mf/Core","ProjectDIR/rt/spider/mf/Core2",},["systemBaseMPATH"]="ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/spider/mf/Core:ProjectDIR/rt/spider/mf/Core2",["version"]=2,}';
+export _ModuleTable_;

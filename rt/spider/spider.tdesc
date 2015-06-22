@@ -50,11 +50,15 @@ testdescript = {
 
      mkdir -p $HOME/.lmod.d/.cache
      buildModuleT $LMOD_DEFAULT_MODULEPATH > $HOME/.lmod.d/.cache/moduleT.lua
+     buildDbT     $LMOD_DEFAULT_MODULEPATH > $HOME/.lmod.d/.cache/dbT.lua
      runLmod spider                                                           #20
      runLmod spider gromacs                                                   #21
      runLmod spider apps/gromacs                                              #22
      runLmod spider apps/gromacs/4.6.3                                        #23
      runLmod spider apps/gromacs/4.6.3-debug                                  #24
+
+     runLmod use $testDir/mf/Core3                                            #25
+     runLmod spider smrt                                                      #26
 
 
      HOME=$ORIG_HOME
