@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>User Guide &mdash; Lmod 6.0 documentation</title>
+    <title>User Guide for Lmod &mdash; Lmod 6.0 documentation</title>
     
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="Lmod 6.0 documentation" href="index.html" />
     <link rel="next" title="The Advanced User Guide" href="advanced.html" />
-    <link rel="prev" title="Welcome to Lmod’s documentation!" href="index.html" />
+    <link rel="prev" title="Lmod: The Modern Environment Module System" href="index.html" />
    
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
@@ -38,20 +38,294 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="user-guide">
-<h1>User Guide<a class="headerlink" href="#user-guide" title="Permalink to this headline">¶</a></h1>
-<p>This is a user guide.</p>
-<div class="section" id="topic-1">
-<h2>Topic 1<a class="headerlink" href="#topic-1" title="Permalink to this headline">¶</a></h2>
-<p>blah blah blah</p>
+  <div class="section" id="user-guide-for-lmod">
+<h1>User Guide for Lmod<a class="headerlink" href="#user-guide-for-lmod" title="Permalink to this headline">¶</a></h1>
+<p>The guide here explains how to use modules. The User&#8217;s tour of the
+module command covers the basic uses of modules. The other sections
+can be read at a later date as issues come up. The Advance user&#8217;s
+guilde is for users needing to create their own modulefiles.</p>
+<div class="section" id="user-s-tour-of-the-module-command">
+<h2>User&#8217;s Tour of the Module Command<a class="headerlink" href="#user-s-tour-of-the-module-command" title="Permalink to this headline">¶</a></h2>
+<p>The module command sets the appropriate environment variable
+independent of the user&#8217;s shell.  Typically the system will load a
+default set of modules.  A user can list the modules loaded by:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ module list
+</pre></div>
 </div>
-<div class="section" id="topic-2">
-<h2>Topic 2<a class="headerlink" href="#topic-2" title="Permalink to this headline">¶</a></h2>
-<p>blah blah blah</p>
+<p>To find out what modules are available to be loaded a user can do:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ module avail
+</pre></div>
 </div>
-<div class="section" id="topic-3">
-<h2>Topic 3<a class="headerlink" href="#topic-3" title="Permalink to this headline">¶</a></h2>
-<p>blah blah blah</p>
+<p>To load packages a user simply does:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ module load package1 package2 ...
+</pre></div>
+</div>
+<p>To unload packages a user does:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ module unload package1 package2 ...
+</pre></div>
+</div>
+<p>A user might wish to change from one compiler to another:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ module swap gcc intel
+</pre></div>
+</div>
+<p>The above command is short for:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ module unload gcc
+$ module load intel
+</pre></div>
+</div>
+<p>If a module is not available then an error message is produced:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ module load packageXYZ
+Warning: Failed to load: packageXYZ
+</pre></div>
+</div>
+<p>It is possible to try to load a module with no error message if it
+does not exist:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ module try-load packageXYZ
+</pre></div>
+</div>
+<p>Modulefiles can contain help messages.  To access a modulefile&#8217;s help
+do:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ module help packageName
+</pre></div>
+</div>
+<p>To get a list of all the commands that module knows about do:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ module help
+</pre></div>
+</div>
+<p>The module avail command has search capabilities:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ module avail cc
+</pre></div>
+</div>
+<p>will list for any modulefile where the name contains the string &#8220;cc&#8221;.</p>
+<p>Modulefiles can have a description section know as &#8220;whatis&#8221;.  It is
+accessed by:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ module whatis pmetis
+pmetis/3.1   : Name: ParMETIS
+pmetis/3.1   : Version: 3.1
+pmetis/3.1   : Category: library, mathematics
+pmetis/3.1   : Description: Parallel graph partitioning..
+</pre></div>
+</div>
+<p>Finally, there is a keyword search tool:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ module keyword word1 word2 ...
+</pre></div>
+</div>
+<p>This will search any help or whatis description for word or wordsgiven on the command line.</p>
+<p>Another way to search for modules is with the &#8220;module spider&#8221; command.
+This command searches the entire list of possible modules.  The
+difference between &#8220;module avail&#8221; and &#8220;module spider&#8221; is explained in
+the &#8220;Module Hierarchy&#8221; and &#8220;Searching for Modules&#8221; section.</p>
+<div class="highlight-python"><div class="highlight"><pre>$ module spider
+</pre></div>
+</div>
+<div class="section" id="safety-features">
+<h3>SAFETY FEATURES<a class="headerlink" href="#safety-features" title="Permalink to this headline">¶</a></h3>
+</div>
+</div>
+<div class="section" id="users-can-only-have-one-version-active">
+<h2>(1): Users can only have one version active.<a class="headerlink" href="#users-can-only-have-one-version-active" title="Permalink to this headline">¶</a></h2>
+<p>If a user does:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ module avail xyz
+
+--------------- /opt/apps/modulefiles ----------------
+xyz/8.1   xyz/11.1 (D)   xyz/12.1
+
+$ module load xyz
+$ module load xyz/12.0
+</pre></div>
+</div>
+<p>The first load command will load the 11.1 version of xyz. In the
+second load, the module command knows that the user already has
+xyz/11.1 loaded so it unloads that and then loads xyz/12.0. This
+protection is only available with Lmod.</p>
+</div>
+<div class="section" id="users-can-only-load-one-compiler-or-mpi-stack-at-a-time">
+<h2>(2) : Users can only load one compiler or MPI stack at a time.<a class="headerlink" href="#users-can-only-load-one-compiler-or-mpi-stack-at-a-time" title="Permalink to this headline">¶</a></h2>
+<p>Lmod provides an additional level of protection.  If each of the
+compiler modulefiles add a line:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">family</span><span class="p">(</span><span class="s">&quot;compiler&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Then Lmod will not load another compiler modulefile.   Another benefit
+of the modulefile family directive is that an environment varible
+&#8220;LMOD_COMPILER_FAMILY&#8221; is assigned the name (and not the
+version). This can be useful specifying different options for
+different compilers. In the High Performance Computing (HPC) world,
+the message passing interface (MPI) libraries are important.  The mpi
+modulefiles can contain a family(&#8220;MPI&#8221;) directive which will prevent
+users from loading more than one MPI implementation at a time.  Also
+the environment variable &#8220;LMOD_FAMILY_MPI&#8221; is defined to the name of
+the mpi library.</p>
+<div class="section" id="module-hierarchy">
+<h3>Module Hierarchy<a class="headerlink" href="#module-hierarchy" title="Permalink to this headline">¶</a></h3>
+<p>Libraries built with one compiler need to be linked with applications
+with the same compiler version. If sites are going to provide
+libraries, then there will be more than one version of the library,
+one for each compiler version. So, whether it is the Boost library or
+an mpi library, there are multiple versions.</p>
+<p>There are two main choices for system administrators. For the XYZ
+library compiled with either the UCC compiler or the GCC compiler,
+there could be the xyz-ucc modulefile and the xyz-gcc module
+file. This get much more complicated when there are multiple versions
+of the XYZ library and different compilers. How does one label the
+various versions of the library and the compiler? Even if one makes
+sense of the version labeling, when a user changes compilers, the user
+will have to remember to unload the xyz-ucc and the ucc modulefiles
+when changing to gcc and xyz-gcc. If users have mismatched modules,
+their programs are going to fail in very mysterious ways.</p>
+<p>A much saner strategy is use a module hierarchy. Each compiler module
+adds to the MODULEPATH a compiler version modulefile directory. Only
+modulefiles that exist in that directory are libraries that have been
+built with that compiler. When a user loads a particular compiler,
+that user only sees modulefile that are valid for that compiler.</p>
+<p>Similarly, applications that use libraries that depend on MPI
+implementations must be built with the same compiler - MPI
+pairing. This leads to modulefile hierarchy. So, as users start with
+the mimimum set of loaded modules, all they will see are compilers,
+not any of the packaages that depend on a compiler. Once they load a
+compiler they will see the modules that depend on that compiler. After
+choosing an MPI implementation, then the modules that depend on that
+compiler-MPI pairing will be available. One of the nice features of
+Lmod is that it handles the hierarchy easily. If a user swaps
+compilers, then Lmod automatically unloads any modules that depends on
+the old compiler and reloads those modules that are dependent on the
+new compiler.</p>
+<div class="highlight-python"><div class="highlight"><pre>$ module list
+
+1) gcc/4.4.5 2) boost/1.45.0
+
+$ module swap gcc ucc
+
+Due to MODULEPATH changes the follow modules have been reloaded: 1) boost
+</pre></div>
+</div>
+<p>If a modulefile is not available with the new compiler, then the module is marked as inactive. Everytime MODULEPATH changes, Lmod attempts to reload any inactive modules.</p>
+</div>
+<div class="section" id="searching-for-modules">
+<h3>Searching For Modules<a class="headerlink" href="#searching-for-modules" title="Permalink to this headline">¶</a></h3>
+<p>When a user enters:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ module avail
+</pre></div>
+</div>
+<p>Lmod reports only the modules that are in the current
+MODULEPATH. Those are the only modules that the user can load. If
+there is a modulefile hierarchy, then a package the user wants may be
+available but not with the current compiler version. Lmod offers a new
+command:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ module spider
+</pre></div>
+</div>
+<p>Which lists all possible modules and not just the modules that can be
+seen in the current MODULEPATH. This command has three modes. The
+first mode is:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ module spider
+
+lmod: lmod/lmod
+Lmod: An Environment Module System
+
+ucc: ucc/11.1, uuc/12.0, ...
+Ucc: the ultimate compiler collection
+
+xyz: xyz/0.19, xyz/0.20, xyz/0.31
+xyz: Solves any x or y or z problem.
+</pre></div>
+</div>
+<p>This is a compact listing of all the possible modules on the
+system. The second mode describes a particular module:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ module spider ucc
+----------------------------------------------------------------------------
+ucc:
+----------------------------------------------------------------------------
+
+Description:
+Ucc: the ultimate compiler collection
+
+Versions:
+ucc/11.1
+ucc/12.0
+</pre></div>
+</div>
+<p>The third mode reports on a particular module version and where it can
+be found:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ module spider parmetis/3.1.1
+----------------------------------------------------------------------------
+parmetis: parmetis/3.1.1
+----------------------------------------------------------------------------
+Description:
+Parallel graph partitioning and fill-reduction matrix ordering routines
+
+This module can be loaded through the following modules:
+ucc/12.0, openmpi/1.4.3
+ucc/11.1, openmpi/1.4.3
+gcc/4.4.5, openmpi/1.4.3
+
+Help:
+The parmetis module defines the following environment variables: ...
+The module parmetis/3.1.1 has been compiled by three different version of the ucc compiler and one MPI implementation.
+</pre></div>
+</div>
+</div>
+<div class="section" id="controlling-modules-during-login">
+<h3>Controlling Modules During Login<a class="headerlink" href="#controlling-modules-during-login" title="Permalink to this headline">¶</a></h3>
+<p>Normally when a user logs in, there are a standard set of modules that
+are automatically loaded. Users can override and add to this standard
+set in two ways. The first is add module commands to their personal
+startup files. The second way is through the &#8220;module save&#8221;
+command.</p>
+<p>To add module commands to users&#8217; startup scripts requires a few
+steps. Bash users can put the module commands in either their
+<code class="docutils literal"><span class="pre">~/.profile</span></code> file or their <code class="docutils literal"><span class="pre">~/.bashrc</span></code> file. It is simpliest to place the
+following in their <code class="docutils literal"><span class="pre">~/.profile</span></code> file:</p>
+<div class="highlight-python"><div class="highlight"><pre>if [ -f ~/.bashrc ]; then
+   .   ~/.bashrc
+fi
+</pre></div>
+</div>
+<p>and place the following in their <code class="docutils literal"><span class="pre">~/.bashrc</span></code> file:</p>
+<div class="highlight-python"><div class="highlight"><pre>if [ -z &quot;$BASHRC_READ&quot; ]; then
+   export BASHRC_READ=1
+   # Place any module commands here
+   # module load git
+fi
+</pre></div>
+</div>
+<p>By wrapping the module command in an if test, the module commands need
+only be read in once. Any sub-shell will inherit the PATH and other
+environment variables automatically. On login shells the <code class="docutils literal"><span class="pre">~/.profile</span></code>
+file is read which, in the above setup, causes the <code class="docutils literal"><span class="pre">~/.bashrc</span></code> file to
+be read. On interactive non-login shells, the <code class="docutils literal"><span class="pre">~/.bashrc</span></code> file is read
+instead. Obviously, having this setup means that module commands need
+only be added in one file and not two.</p>
+<p>Csh users need only specify the module commands in their <code class="docutils literal"><span class="pre">~/.cshrc</span></code> file
+as that file is always sourced:</p>
+<div class="highlight-python"><div class="highlight"><pre>if ( ! $?CSHRC_READ ) then
+   setenv CSHRC_READ 1
+   # Place any module command here
+   # module load git
+endif
+</pre></div>
+</div>
+<p>User defined initial list of login modules:</p>
+<p>Assuming that the system adminstrators have installed Lmod correctly
+their is an second way which is much easier to setup. A user logs in
+with the standard modules loaded. Then the user modifies the default
+setup through the standard module commands:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ module unload XYZ
+$ module swap gcc ucc
+$ module load git
+</pre></div>
+</div>
+<p>Once users have the desired modules load then they issue:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ module save
+</pre></div>
+</div>
+<p>This creates a file called <code class="docutils literal"><span class="pre">~/.lmod.d/default</span></code> which has the list of
+desired modules. Once this is setup a user can issue:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ module restore
+</pre></div>
+</div>
+<p>and only the desired modules will be loaded during login.</p>
+</div>
 </div>
 </div>
 
@@ -63,10 +337,18 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">User Guide</a><ul>
-<li><a class="reference internal" href="#topic-1">Topic 1</a></li>
-<li><a class="reference internal" href="#topic-2">Topic 2</a></li>
-<li><a class="reference internal" href="#topic-3">Topic 3</a></li>
+<li><a class="reference internal" href="#">User Guide for Lmod</a><ul>
+<li><a class="reference internal" href="#user-s-tour-of-the-module-command">User&#8217;s Tour of the Module Command</a><ul>
+<li><a class="reference internal" href="#safety-features">SAFETY FEATURES</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#users-can-only-have-one-version-active">(1): Users can only have one version active.</a></li>
+<li><a class="reference internal" href="#users-can-only-load-one-compiler-or-mpi-stack-at-a-time">(2) : Users can only load one compiler or MPI stack at a time.</a><ul>
+<li><a class="reference internal" href="#module-hierarchy">Module Hierarchy</a></li>
+<li><a class="reference internal" href="#searching-for-modules">Searching For Modules</a></li>
+<li><a class="reference internal" href="#controlling-modules-during-login">Controlling Modules During Login</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -74,7 +356,7 @@
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="index.html" title="previous chapter">Welcome to Lmod&#8217;s documentation!</a></li>
+      <li>Previous: <a href="index.html" title="previous chapter">Lmod: The Modern Environment Module System</a></li>
       <li>Next: <a href="advanced.html" title="next chapter">The Advanced User Guide</a></li>
   </ul></li>
 </ul>

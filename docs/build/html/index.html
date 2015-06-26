@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Welcome to Lmod’s documentation! &mdash; Lmod 6.0 documentation</title>
+    <title>Lmod: The Modern Environment Module System &mdash; Lmod 6.0 documentation</title>
     
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -24,7 +24,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="Lmod 6.0 documentation" href="#" />
-    <link rel="next" title="User Guide" href="user.html" />
+    <link rel="next" title="User Guide for Lmod" href="user.html" />
    
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
@@ -37,13 +37,13 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="welcome-to-lmod-s-documentation">
-<h1>Welcome to Lmod&#8217;s documentation!<a class="headerlink" href="#welcome-to-lmod-s-documentation" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="guide">
-<h2>Guide<a class="headerlink" href="#guide" title="Permalink to this headline">¶</a></h2>
+  <div class="section" id="lmod-the-modern-environment-module-system">
+<h1>Lmod: The Modern Environment Module System<a class="headerlink" href="#lmod-the-modern-environment-module-system" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="guides">
+<h2>Guides<a class="headerlink" href="#guides" title="Permalink to this headline">¶</a></h2>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="user.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="user.html">User Guide for Lmod</a></li>
 <li class="toctree-l1"><a class="reference internal" href="advanced.html">The Advanced User Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sys_admin.html">The System Admin Guide to Lmod</a></li>
 </ul>
@@ -56,6 +56,39 @@
 <dt>System Admin Guide</dt>
 <dd>This is the guide for sys admin who want to install Lmod.</dd>
 </dl>
+</div>
+<div class="section" id="purpose">
+<h2>PURPOSE<a class="headerlink" href="#purpose" title="Permalink to this headline">¶</a></h2>
+<p>Lmod is a Lua based module system that easily handles the MODULEPATH
+Hierarchical problem. Environment Modules provide a convenient way to
+dynamically change the users&#8217; environment through modulefiles. This
+includes easily adding or removing directories to the PATH environment
+variable. Modulefiles for Library packages provide environment
+variables that specify where the library and header files can be
+found.</p>
+</div>
+<div class="section" id="overview">
+<h2>OVERVIEW<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<p>This guide is written to explain what Environment Modules are and why
+they are very useful for both users and system administrators. Lmod is
+an implementation of Environment Modules, much of what is said here is
+true for any environment modules system but there are many features
+which are unique to Lmod.</p>
+<p>Environment Modules provide a convenient way to dynamically change the
+users&#8217; environment through modulefiles. This includes easily adding or
+removing directories to the PATH environment variable.</p>
+<p>A modulefile contains the necessary information to allow a user to run
+a particular application or provide access to a particular
+library. All of this can be done dynamically without logging out and
+back in. Modulefiles for applications modify the user&#8217;s path to make
+access easy. Modulefiles for Library packages provide environment
+variables that specify where the library and header files can be
+found.</p>
+<p>Packages can be loaded and unloaded cleanly through the module
+system. All the popular shells are supported: bash, ksh, csh, tcsh,
+zsh.  Also available for perl and python.</p>
+<p>It is also very easy to switch between different versions of a package
+or remove it.</p>
 </div>
 </div>
 <div class="section" id="indices-and-tables">
@@ -75,8 +108,10 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="#">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Welcome to Lmod&#8217;s documentation!</a><ul>
-<li><a class="reference internal" href="#guide">Guide</a></li>
+<li><a class="reference internal" href="#">Lmod: The Modern Environment Module System</a><ul>
+<li><a class="reference internal" href="#guides">Guides</a></li>
+<li><a class="reference internal" href="#purpose">PURPOSE</a></li>
+<li><a class="reference internal" href="#overview">OVERVIEW</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
@@ -85,7 +120,7 @@
 <h3>Related Topics</h3>
 <ul>
   <li><a href="#">Documentation overview</a><ul>
-      <li>Next: <a href="user.html" title="next chapter">User Guide</a></li>
+      <li>Next: <a href="user.html" title="next chapter">User Guide for Lmod</a></li>
   </ul></li>
 </ul>
 </div>
