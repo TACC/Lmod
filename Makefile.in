@@ -340,6 +340,7 @@ build_tags:
             -e 's|.*\.used$$||g'                                 \
             -e 's|./.*\.log$$||g'                                \
             -e 's|./testreports/.*||g'                           \
+            -e 's|./docs/build/.*||g'                            \
             -e 's|./config\.status$$||g'                         \
             -e 's|.*\~$$||g'                                     \
             -e 's|./file_list\..*||g'                            \
