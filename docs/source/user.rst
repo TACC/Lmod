@@ -1,5 +1,5 @@
 User Guide for Lmod
-^^^^^^^^^^^^^^^^^^^
+--------------------
 
 The guide here explains how to use modules. The User's tour of the
 module command covers the basic uses of modules. The other sections
@@ -86,10 +86,10 @@ the "Module Hierarchy" and "Searching for Modules" section. ::
 
 
 SAFETY FEATURES
----------------
+^^^^^^^^^^^^^^^
 
 (1): Users can only have one version active.
-____________________________________________
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 If a user does: ::
 
@@ -107,7 +107,7 @@ xyz/11.1 loaded so it unloads that and then loads xyz/12.0. This
 protection is only available with Lmod. 
 
 (2) : Users can only load one compiler or MPI stack at a time.
-______________________________________________________________
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Lmod provides an additional level of protection.  If each of the
 compiler modulefiles add a line: ::
@@ -126,7 +126,7 @@ the environment variable "LMOD_FAMILY_MPI" is defined to the name of
 the mpi library.  
 
 Module Hierarchy
-----------------
+^^^^^^^^^^^^^^^^
 
 Libraries built with one compiler need to be linked with applications
 with the same compiler version. If sites are going to provide
@@ -175,7 +175,7 @@ new compiler. ::
 If a modulefile is not available with the new compiler, then the module is marked as inactive. Everytime MODULEPATH changes, Lmod attempts to reload any inactive modules.
 
 Searching For Modules
----------------------
+^^^^^^^^^^^^^^^^^^^^^
 
 When a user enters: ::
 
@@ -239,7 +239,7 @@ be found: ::
    The module parmetis/3.1.1 has been compiled by three different version of the ucc compiler and one MPI implementation.
 
 Controlling Modules During Login
---------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Normally when a user logs in, there are a standard set of modules that
 are automatically loaded. Users can override and add to this standard

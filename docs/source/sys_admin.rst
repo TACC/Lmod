@@ -1,5 +1,303 @@
 The System Admin Guide to Lmod
 ==============================
 
-This is the guide for system administrators to install Lmod.
+Environment modules simplify customizing the users's shell environment
+and it can be done dynamically. Users load modules as they see fit. It
+is completely under their control. Environment Modules or simply
+modules provide a simple contract or interface between the system
+administrators and users. System adminstrators provide modules and
+users get to chose which to load. 
 
+There have been environment module systems for quite a while. See
+http://modules.sourceforge.net/ for a TCL based module system and see
+http://www.lysator.liu.se/cmod for another module system. Here we describe
+Lmod, which is a completely new module system written in Lua. For
+those who have used modules before, Lmod automatically reads TCL
+modulefiles. Lmod has some important features over module system,
+namely a built-in solution to Hierarchical modulefiles and provides
+additional safety features to users as described in the User Guide. 
+
+The hierarchical modulefiles are used to solve the issue of system
+pre-built libraries. User applications using these libraries must be
+built with the same compiler as the libraries. If a site provides more
+than one compiler, then for each compiler version there will be
+separate versions of the libraries. Lmod provides built-in control
+making sure that compilers and pre-built libraries stay matched. The
+rest of the pages here describe how to install lmod, how to provide
+the module command to users during the login process and some
+discussion on how to install optional software and the associated
+modules. 
+
+The goal of installing Lmod is when completed, any user will have the
+module command defined and a preset list of modules will be
+loaded. All without modifying the users startup files (``~/.bashrc``,
+``~/.profile``, ``~/.cshrc``, or ``~/.zshenv``). The module command should be
+available for login shells, interactive shells, and non-interactive
+shells. The command ``ssh YOUR_HOST module list`` should work. This will
+require some understanding of the system startup procedure for various
+shells which is covered here. 
+
+Installing Lmod
+---------------
+
+In this document, it is assumed that all optional software is going to
+be installed in /opt/apps. The installation of Lmod requires
+installing lua as well.  On some system is possible to install Lmod
+directly with your package manager. It is available with recent
+fedora, debian and ubuntu distributions. 
+
+
+Install 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+One choice is to install the lua-X.Y.Z.tar.gz file.  This tar ball
+contains lua and the required libraries. This can be
+downloaded from https://sourceforge.net/projects/lmod/files/ 
+This can be installed using the following commands: ::
+
+    $ tar xf lua-X.Y.Z.tar.gz
+    $ cd lua-X.Y.Z
+    $ ./configure --prefix=/opt/apps/lua/X.Y.Z
+    $ make; make install
+    $ cd /opt/apps/lua; ln -s X.Y.Z lua
+    $ mkdir /usr/local/bin; ln -s /opt/apps/lua/lua/bin/lua /usr/local/bin
+
+The last command is optional, but you will have to somehow put the
+``lua`` command in your path.  Also obviously, please replace X.Y.Z
+with the actual version (say 5.1.4.5)
+
+
+Using Your Package Manager
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+You can use your package manager for your OS to install Lua. You will
+also need the matching packages: lua Filesystem (lfs) and luaposix.
+On Ubuntu Linux, the following packages will work: ::
+
+            liblua5.1-0
+            liblua5.1-0-dev
+            liblua5.1-filesystem-dev
+            liblua5.1-filesystem0
+            liblua5.1-posix-dev
+            liblua5.1-posix0
+            lua5.1
+
+Note; Centos may require looking the EPEL repo.  At TACC we install the
+following rpms: ::
+
+            $ rpm -qa | grep lua
+
+            lua-posix-5.1.7-1.el6.x86_64
+            lua-5.1.4-4.1.el6.x86_64
+            lua-filesystem-1.4.2-1.el6.x86_64
+            lua-devel-5.1.4-4.1.el6.x86_64
+
+
+
+
+
+
+The program "lua" must be in your path before installing "Lmod". The
+configure script won't install Lmod without lua: ::
+
+    $ tar xf Lmod-x.y.z.tar.gz
+    $ cd Lmod-x.y.z
+    $ ./configure --prefix=/opt/apps
+    $ make install
+
+The "``make install``" will install Lmod in ``/opt/apps/lmod/x.y.z``
+and create a link to ``/opt/apps/lmod/lmod``. In the setup directory,
+there are ``profile.in`` and ``cshrc.in`` templates. During the installation
+phase, the path to lua is added and profile and cshrc are written to
+the ``/opt/apps/lmod/lmod/init`` directory. These files assume that your
+modulefiles are going to be located in ``/opt/apps/modulefiles/$LMOD_sys``
+and ``/opt/apps/modulefiles/Core``, where ``$LMOD_sys`` is what the command
+"``uname``" reports, (i.e. Linux, Darwin). The layout of modulefiles is
+discussed later. Obviously you will need to match ``MODULEPATH`` variable
+to where you have your modulefiles located. 
+
+The profile file is Lmod initialization script for the bash, and zsh
+shells and cshrc file is for tcsh and csh shells. Please copy or link
+the profile and cshrc files to ``/etc/profile.d`` ::
+
+    $ ln -s /opt/apps/lmod/lmod/init/profile /etc/profile.d/modules.sh
+    $ ln -s /opt/apps/lmod/lmod/init/cshrc   /etc/profile.d/modules.csh
+
+To test the setup, you just need to login as a user. The module
+command should be set and MODULEPATH should be defined. Bash or Zsh
+users should see something like: ::
+
+     $ type module
+     module ()
+     {
+       eval $($LMOD_CMD bash $*)
+     }
+
+     $ echo $LMOD_CMD
+     /opt/apps/lmod/lmod/libexec/lmod
+
+     $ echo $MODULEPATH
+     /opt/apps/modulefiles/Linux:/opt/apps/modulefiles/Core
+
+Similar for csh users: ::
+
+    % which module
+    module: alias to eval `/opt/apps/lmod/lmod/libexec/lmod tcsh !*`
+
+    % echo $MODULEPATH
+    /opt/apps/modulefiles/Linux:/opt/apps/modulefiles/Core
+
+If you do not see the module alias then please read the next section.
+
+
+Integrating **module** Into Users' Shells
+-----------------------------------------
+
+Bash:
+~~~~~
+
+On login shells, the bash shell first reads ``/etc/profile`` and it 
+should source all the \*.sh files in ``/etc/profile.d``  ::
+
+    if [ -d /etc/profile.d ]; then
+      for i in /etc/profile.d/*.sh; do
+        if [ -r $i ]; then
+          . $i
+        fi
+      done
+    fi  
+
+Similarly, the system BASHRC file should source all the \*.sh files in
+``/etc/profile.d`` as well.  Here is where things can get complicated.
+See the next section for details.
+
+Bash Shell Scripts:
+~~~~~~~~~~~~~~~~~~~
+
+Bash shell scripts do not source any system or user files before
+starting execution. Instead it looks for the environment variable
+BASH_ENV. It treats the contents as a filename and sources it before
+starting a bash script. 
+
+Bash Script Note:
+
+It is important to remember that all bash scripts should start with: ::
+
+    #!/bin/bash
+
+Starting with: ::
+
+    #!/bin/sh
+
+and sh is linked to bash won't define the module command. Bash will
+run those scripts in shell emulation mode and it doesn't source the
+file that BASH_ENV points to. 
+
+Csh:
+~~~~
+
+Csh users have an easier time with the module command setup. The
+system cshrc file is always sourced on every invocation of the
+shell. The system cshrc file it typically called:
+``/etc/csh.cshrc``. This file should source all the \*.csh files in
+``/etc/profile.d``: ::
+
+    if ( -d /etc/profile.d ) then
+      set nonomatch
+      foreach i (/etc/profile.d/*.csh)
+        source $i
+      end
+      unset nonomatch
+    endif
+
+Zsh:
+~~~~
+
+Zsh users have an easy time with the module command setup as well. The
+system zshenv file is sourced on all shell invocations. This system
+file can be in a number of places but is typically in ``/etc/zshenv`` or
+``/etc/zsh/zshenv`` and should have: ::
+
+    if [ -d /etc/profile.d ]; then
+      setopt no_nomatch
+      for i in /etc/profile.d/*.sh; do
+        if [ -r $i ]; then
+          . $i
+        fi
+      setopt nomatch
+      done
+    fi  
+
+Issues with Bash
+----------------
+
+Interactive Non-login shells
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The Bash startup proceedure for interactive non-login shells is
+complicated and varies between Operating Systems. In particular,
+Redhat & Centos distributions of Linux as well as Mac OS X have no
+system bashrc read during startup where as Debian based distributions
+do source a system.  One easy way to tell how bash is set up is to
+execute the following: ::
+
+   $ strings `type -p bash` | grep bashrc
+
+If the entire results of the command is: ::
+
+   ~/.bashrc
+
+then you know that your bash shell doesn't source a system BASHRC
+file.
+
+If you want to have the same behavior between both interactive shell
+(login or non) and your system doesn't source a system bashrc, then
+you have two choices:
+
+#. Patch bash so that it does source a system bashrc.  See
+   ``contrib/bash_patch`` for details on how to do that.
+#. Expect all of your bash users to have the following in their ``~/.bashrc`` ::
+
+       if [ -f /etc/bashrc ]; then
+          . /etc/bashrc
+       fi  
+
+As a side note, we at TACC patched bash for a different reason which
+may apply to your site.  When an MPI job starts, it logs into each
+node with an interactive non-login shell.  When we had no system
+bashrc file, many of our fortron 90 programs failed because they
+required ``ulimit -s unlimited`` which makes the stack size
+unlimited.  By patching bash, we could guarantee that it was set by
+the system on each node.
+
+
+Bash Shell Scripts
+~~~~~~~~~~~~~~~~~~
+
+Bash shell scripts, unlike Csh or Zsh scripts, do not source any
+system or user files.  Instead, if the environment variable,
+``BASH_ENV`` is set and points to a file then this file is sourced
+before the start of bash script.  So by default Lmod sets ``BASH_ENV``
+to point to the bash script which defines the module command.
+
+It may seem counterintuitive but Csh and Zsh users running bash shell
+scripts will want BASH_ENV set so that the module command will work in
+their bash scripts. 
+
+A bash script is one that starts as the very first line: ::
+
+    #!/bin/bash
+
+A script that has nothing special or starts with: ::
+
+    #!/bin/sh
+
+is a shell script.  And even if ``/bin/sh`` points to ``/bin/bash``
+bash runs in a compatibility mode and doesn't honor ``BASH_ENV``.
+
+To combat this Lmod exports the definition of the module command.
+This means that even /bin/sh scripts will have the module command
+defined when run by a Bash User.  However, a Csh or Zsh user running a
+bash script will still need the ``BASH_ENV`` and run bash
+scripts. They won't have the module command defined if they run an sh
+script.
