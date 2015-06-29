@@ -15,6 +15,8 @@ Guides
    05_lua_modulefiles
    06_locating
    07_standard_modules
+   08_hierarchy
+   09_configuring_lmod
 
 User Guide:
    This is the guide for users getting started with Lmod.
@@ -29,12 +31,17 @@ Lua Modulefile Functions:
    The lua functions use in a modulefile.
 
 Locating Modules:
-    How Lmod a module file to load.
+   How Lmod a module file to load.
 
 Providing a Standard Set of Modules
-    Providing your users a way to read their default collection or
-    a system standard.
+   Providing your users a way to read their default collection or
+   a system standard.
 
+Software Hierarchy
+   How to use a Module hierarchy with Lmod.
+
+Configuring Lmod
+   How to configure Lmod to match site expectations.
 
 PURPOSE
 ^^^^^^^
