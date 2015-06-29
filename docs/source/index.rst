@@ -8,18 +8,32 @@ Guides
 .. toctree::
    :maxdepth: 1
 
-   user
-   advanced
-   sys_admin
+   01_user
+   02_advanced
+   03_installing
+   04_FAQ
+   05_lua_modulefiles
+   06_locating
+   07_standard_modules
 
 User Guide:
    This is the guide for users getting started with Lmod.
 
-Advanced User Guide
+Advanced User Guide:
    This is the guide for advanced users wishing to have their own modules.
 
-System Admin Guide
+Installing Lua and Lmod:
    This is the guide for sys admin who want to install Lmod.
+
+Lua Modulefile Functions:
+   The lua functions use in a modulefile.
+
+Locating Modules:
+    How Lmod a module file to load.
+
+Providing a Standard Set of Modules
+    Providing your users a way to read their default collection or
+    a system standard.
 
 
 PURPOSE

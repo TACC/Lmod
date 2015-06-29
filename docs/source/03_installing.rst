@@ -1,5 +1,5 @@
-The System Admin Guide to Lmod
-==============================
+Installing Lua and Lmod
+=======================
 
 Environment modules simplify customizing the users's shell environment
 and it can be done dynamically. Users load modules as they see fit. It
@@ -37,8 +37,8 @@ shells. The command ``ssh YOUR_HOST module list`` should work. This will
 require some understanding of the system startup procedure for various
 shells which is covered here. 
 
-Installing Lmod
----------------
+Installing Lua 
+--------------
 
 In this document, it is assumed that all optional software is going to
 be installed in /opt/apps. The installation of Lmod requires
@@ -47,13 +47,13 @@ directly with your package manager. It is available with recent
 fedora, debian and ubuntu distributions. 
 
 
-Install 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Install lua-X.Y.Z.tar.gz
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 One choice is to install the lua-X.Y.Z.tar.gz file.  This tar ball
 contains lua and the required libraries. This can be
 downloaded from https://sourceforge.net/projects/lmod/files/ 
-This can be installed using the following commands: ::
+This can be installed using the following commands::
 
     $ tar xf lua-X.Y.Z.tar.gz
     $ cd lua-X.Y.Z
@@ -72,60 +72,118 @@ Using Your Package Manager
 
 You can use your package manager for your OS to install Lua. You will
 also need the matching packages: lua Filesystem (lfs) and luaposix.
-On Ubuntu Linux, the following packages will work: ::
+On Ubuntu Linux, the following packages will work::
 
-            liblua5.1-0
-            liblua5.1-0-dev
-            liblua5.1-filesystem-dev
-            liblua5.1-filesystem0
-            liblua5.1-posix-dev
-            liblua5.1-posix0
-            lua5.1
+   liblua5.1-0
+   liblua5.1-0-dev
+   liblua5.1-filesystem-dev
+   liblua5.1-filesystem0
+   liblua5.1-posix-dev
+   liblua5.1-posix0
+   lua5.1
 
 Note; Centos may require looking the EPEL repo.  At TACC we install the
-following rpms: ::
+following rpms::
 
-            $ rpm -qa | grep lua
+   $ rpm -qa | grep lua
 
-            lua-posix-5.1.7-1.el6.x86_64
-            lua-5.1.4-4.1.el6.x86_64
-            lua-filesystem-1.4.2-1.el6.x86_64
-            lua-devel-5.1.4-4.1.el6.x86_64
-
-
+   lua-posix-5.1.7-1.el6.x86_64
+   lua-5.1.4-4.1.el6.x86_64
+   lua-filesystem-1.4.2-1.el6.x86_64
+   lua-devel-5.1.4-4.1.el6.x86_64
 
 
+Using Luarocks
+~~~~~~~~~~~~~~
+
+If you have installed lua but still need luafilesystem and luaposix,
+you can install the ``luarocks`` program from your package manager or
+directly from https://luarocks.org/.  The ``luarocks`` programs can
+install many lua packages including the ones required for Lmod. ::
+
+  $ luarocks install luaposix; luarocks install luafilesystem
+
+Now you have to make the lua packages installed by luarocks to be known
+by lua.  On our Centos system, Lua knowns about the following for \*.lua
+files::
+
+   $ lua -e 'print(package.path)'
+   ./?.lua;/usr/share/lua/5.1/?.lua;/usr/share/lua/5.1/?/init.lua;/usr/lib64/lua/5.1/?.lua;/usr/lib64/lua/5.1/?/init.lua;
+
+and the following for shared libraries::
+
+   $ lua -e 'print(package.cpath)'
+   ./?.so;/usr/lib64/lua/5.1/?.so;/usr/lib64/lua/5.1/loadall.so;
+
+Assuming that luarocks has installed things in its default location (/usr/local/...)
+then you'll need to do::
+
+   LUAROCKS_PREFIX=/usr/local
+   export LUA_PATH="$LUAROCKS_PREFIX/share/lua/5.1/?.lua;$LUAROCKS_PREFIX/share/lua/5.1/?/init.lua;;"
+   export LUA_CPATH="$LUAROCKS_PREFIX/lib/lua/5.1/?.so;;"
+
+Please change LUAROCKS_PREFIX to match your site.  The exporting of
+LUA_PATH and LUA_CPATH must be done before any module commands. It is
+very important that the trailing semicolon are there.  They are
+replaced by the built-in system path.
 
 
-The program "lua" must be in your path before installing "Lmod". The
-configure script won't install Lmod without lua: ::
+Installing Lmod
+---------------
 
-    $ tar xf Lmod-x.y.z.tar.gz
-    $ cd Lmod-x.y.z
+Lmod has a large number of configuration options.  They are discussed
+in the Configuring Lmod Guide.  This section is here will describe how
+to get Lmod installed quickly by using the defaults:
+
+
+.. note ::
+  If you have a large number of modulefiles or a slow parallel
+  filesystem please read the Configure Lmod Guide on how to set-up
+  the spider caching system.  This will greatly speed up ``module
+  avail`` and ``module spider``
+
+To install Lmod, you'll want to carefully read the following.  If you
+want Lmod version X.Y installed in ``/opt/apps/lmod/X.Y``, just do::
+
     $ ./configure --prefix=/opt/apps
     $ make install
 
-The "``make install``" will install Lmod in ``/opt/apps/lmod/x.y.z``
-and create a link to ``/opt/apps/lmod/lmod``. In the setup directory,
-there are ``profile.in`` and ``cshrc.in`` templates. During the installation
-phase, the path to lua is added and profile and cshrc are written to
-the ``/opt/apps/lmod/lmod/init`` directory. These files assume that your
-modulefiles are going to be located in ``/opt/apps/modulefiles/$LMOD_sys``
-and ``/opt/apps/modulefiles/Core``, where ``$LMOD_sys`` is what the command
-"``uname``" reports, (i.e. Linux, Darwin). The layout of modulefiles is
-discussed later. Obviously you will need to match ``MODULEPATH`` variable
-to where you have your modulefiles located. 
+The ``make install`` will install Lmod in ``/opt/apps/lmod/x.y.z``
+and create a link to ``/opt/apps/lmod/lmod``. 
+
+Sites can use::
+
+    $ make pre-install
+
+which does everything but create the symbolic link.
+
+
+In the setup directory, there are ``profile.in`` and ``cshrc.in``
+templates. During the installation phase, the path to lua is added and
+profile and cshrc are written to the ``/opt/apps/lmod/lmod/init``
+directory. These files assume that your modulefiles are going to be
+located in ``/opt/apps/modulefiles/$LMOD_sys`` and
+``/opt/apps/modulefiles/Core``, where ``$LMOD_sys`` is what the
+command "``uname``" reports, (i.e. Linux, Darwin). The layout of
+modulefiles is discussed later. Obviously you will need to match
+``MODULEPATH`` variable to where you have your modulefiles located.
+
+.. note ::
+   Obviously you will want to modify the profile.in and cshrc.in files to suit
+   your system.
+
+
 
 The profile file is Lmod initialization script for the bash, and zsh
 shells and cshrc file is for tcsh and csh shells. Please copy or link
 the profile and cshrc files to ``/etc/profile.d`` ::
 
-    $ ln -s /opt/apps/lmod/lmod/init/profile /etc/profile.d/modules.sh
-    $ ln -s /opt/apps/lmod/lmod/init/cshrc   /etc/profile.d/modules.csh
+    $ ln -s /opt/apps/lmod/lmod/init/profile /etc/profile.d/z00_lmod.sh
+    $ ln -s /opt/apps/lmod/lmod/init/cshrc   /etc/profile.d/z00_lmod.csh
 
 To test the setup, you just need to login as a user. The module
 command should be set and MODULEPATH should be defined. Bash or Zsh
-users should see something like: ::
+users should see something like::
 
      $ type module
      module ()
@@ -139,7 +197,7 @@ users should see something like: ::
      $ echo $MODULEPATH
      /opt/apps/modulefiles/Linux:/opt/apps/modulefiles/Core
 
-Similar for csh users: ::
+Similar for csh users::
 
     % which module
     module: alias to eval `/opt/apps/lmod/lmod/libexec/lmod tcsh !*`
@@ -181,11 +239,11 @@ starting a bash script.
 
 Bash Script Note:
 
-It is important to remember that all bash scripts should start with: ::
+It is important to remember that all bash scripts should start with::
 
     #!/bin/bash
 
-Starting with: ::
+Starting with::
 
     #!/bin/sh
 
@@ -200,7 +258,7 @@ Csh users have an easier time with the module command setup. The
 system cshrc file is always sourced on every invocation of the
 shell. The system cshrc file it typically called:
 ``/etc/csh.cshrc``. This file should source all the \*.csh files in
-``/etc/profile.d``: ::
+``/etc/profile.d``::
 
     if ( -d /etc/profile.d ) then
       set nonomatch
@@ -216,7 +274,7 @@ Zsh:
 Zsh users have an easy time with the module command setup as well. The
 system zshenv file is sourced on all shell invocations. This system
 file can be in a number of places but is typically in ``/etc/zshenv`` or
-``/etc/zsh/zshenv`` and should have: ::
+``/etc/zsh/zshenv`` and should have::
 
     if [ -d /etc/profile.d ]; then
       setopt no_nomatch
@@ -239,11 +297,11 @@ complicated and varies between Operating Systems. In particular,
 Redhat & Centos distributions of Linux as well as Mac OS X have no
 system bashrc read during startup where as Debian based distributions
 do source a system.  One easy way to tell how bash is set up is to
-execute the following: ::
+execute the following::
 
    $ strings `type -p bash` | grep bashrc
 
-If the entire results of the command is: ::
+If the entire results of the command is::
 
    ~/.bashrc
 
@@ -284,11 +342,11 @@ It may seem counterintuitive but Csh and Zsh users running bash shell
 scripts will want BASH_ENV set so that the module command will work in
 their bash scripts. 
 
-A bash script is one that starts as the very first line: ::
+A bash script is one that starts as the very first line::
 
     #!/bin/bash
 
-A script that has nothing special or starts with: ::
+A script that has nothing special or starts with::
 
     #!/bin/sh
 

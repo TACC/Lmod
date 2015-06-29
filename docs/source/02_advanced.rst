@@ -1,5 +1,5 @@
-Lmod: Advanced User Guide
-=========================
+Advanced User Guide
+===================
 
 This advanced guide is for users wishing to create modulefiles for their own software. The reasons are simple:
 
