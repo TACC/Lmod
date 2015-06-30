@@ -17,6 +17,7 @@ Guides
    07_standard_modules
    08_hierarchy
    09_configuring_lmod
+   10_generic_modules
 
 User Guide:
    This is the guide for users getting started with Lmod.
@@ -42,6 +43,8 @@ Software Hierarchy
 
 Configuring Lmod
    How to configure Lmod to match site expectations.
+
+
 
 PURPOSE
 ^^^^^^^
