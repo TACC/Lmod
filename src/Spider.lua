@@ -242,7 +242,6 @@ function M.findModulesInDir(mpath, path, prefix, moduleT)
    local moduleStack = masterTbl.moduleStack
    local iStack      = #moduleStack
    local mt          = MT:mt()
-   local ignoreT     = ignoreFileT()
    local cTimer      = CTimer:cTimer()
    local accept_fn   = accept_fn
    local defaultIdx  = 1000000  -- default idx must be bigger than index for .version
