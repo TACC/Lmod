@@ -304,17 +304,57 @@ with no prompt command, no changing the title bar,9,184
 docs/Makefile,17
 SPHINXOPTS 5,92
 
-docs/source/advanced.rst,30
-Lmod: Advanced User Guide1,0
+docs/source/01_user.rst,36
+       export BASHRC_READ=262,8920
+
+docs/source/02_advanced.rst,24
+Advanced User Guide1,0
+
+docs/source/03_installing.rst,870
+Installing Lua and Lmod1,0
+    $ cd /opt/apps/lua;lua62,2855
+    $ mkdir /usr/local/bin;bin63,2895
+The last command is optional,65,2971
+``lua`` command in your path.  Also obviously,66,3038
+with the actual version 67,3106
+If you have installed lua but still need luafilesystem and luaposix,99,3812
+by lua.  On our Centos system,107,4222
+   ./?.lua;/usr/share/lua/5.1/?.lua;lua111,4338
+   ./?.lua;/usr/share/lua/5.1/?.lua;/usr/share/lua/5.1/?/init.lua;lua111,4338
+   ./?.lua;/usr/share/lua/5.1/?.lua;/usr/share/lua/5.1/?/init.lua;/usr/lib64/lua/5.1/?.lua;lua111,4338
+   ./?.lua;/usr/share/lua/5.1/?.lua;/usr/share/lua/5.1/?/init.lua;/usr/lib64/lua/5.1/?.lua;/usr/lib64/lua/5.1/?/init.lua;lua111,4338
+   ./?.so;/usr/lib64/lua/5.1/?.so;so116,4538
+   ./?.so;/usr/lib64/lua/5.1/?.so;/usr/lib64/lua/5.1/loadall.so;so116,4538
+   LUAROCKS_PREFIX=121,4715
+
+docs/source/04_FAQ.rst,31
+Frequently Asked Questions1,0
+
+docs/source/05_lua_modulefiles.rst,29
+Lua Modulefile Functions1,0
+
+docs/source/06_locating.rst,25
+Locating Modulefiles1,0
+
+docs/source/07_standard_modules.rst,289
+the login proceedure. Once a list of modulefiles have been installed,5,141
+list of directories,7,281
+``/opt/apps/modulefiles/Core/StdEnv.lua``. The name is your choice,8,312
+    load(12,501
+       export __Init_Default_Modules=18,710
+       export LMOD_SYSTEM_DEFAULT_MODULES=19,750
+
+docs/source/08_hierarchy.rst,23
+Software Hierarchy1,0
+
+docs/source/09_configuring_lmod.rst,21
+Configuring Lmod1,0
+
+docs/source/10_generic_modules.rst,20
+Generic Modules1,0
 
 docs/source/index.rst,47
 Lmod: The Modern Environment Module System2,1
-
-docs/source/sys_admin.rst,35
-The System Admin Guide to Lmod1,0
-
-docs/source/user.rst,36
-       export BASHRC_READ=262,8919
 
 init/bash.in,252
 LMOD_PKG=5,37
@@ -11868,17 +11908,17 @@ function M.register(48,2080
 function M.apply(55,2312
 
 src/MAlias.lua,340
-local function new(67,2653
-function M.build(84,3263
-function M.getDefaultT(92,3437
-function M.parseModA(98,3609
-function M.resolve(142,5247
-function M.__resolve(169,6100
-function M.getHiddenT(190,6459
-function M.buildMod2VersionT(204,6733
-function M.getMod2VersionT(225,7184
-function M.export(229,7260
-function M.import(237,7502
+local function new(68,2715
+function M.build(85,3325
+function M.getDefaultT(93,3499
+function M.parseModA(99,3671
+function M.resolve(143,5309
+function M.__resolve(170,6162
+function M.getHiddenT(191,6521
+function M.buildMod2VersionT(205,6795
+function M.getMod2VersionT(226,7246
+function M.export(230,7322
+function M.import(238,7564
 
 src/MC_Access.lua,83
 function M.accessMode(64,2679
