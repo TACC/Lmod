@@ -897,7 +897,7 @@ function keepFile(fn)
       return result
    end
 
-   if (fn:sub(-4,-1) == ".swp") then
+   if (firstChar == "." and fn:sub(-4,-1) == ".swp") then
       return false
    end
 
