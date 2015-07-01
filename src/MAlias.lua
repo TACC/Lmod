@@ -60,6 +60,7 @@ local M      = {}
 local dbg    = require("Dbg"):dbg()
 local concat = table.concat
 local getenv = os.getenv
+local load   = (_VERSION == "Lua 5.1") and loadstring or load
 --------------------------------------------------------------------------
 -- a private ctor that is used to construct a singleton.
 -- @param self A MAlias object.

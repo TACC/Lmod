@@ -1020,11 +1020,14 @@ function M.resolveMpathChanges(self, currentMPATH, baseMPATH)
    if ( mM ~= 0) then
       local a = {}
       a[#a+1] = "The environment MODULEPATH has been changed in unexpected ways.\n"
-      a[#a+1] = "Lmod is unable to use given MODULEPATH. It is using: \n    \""
+      a[#a+1] = "Lmod is unable to use given MODULEPATH. It is using:\n\n\""
       a[#a+1] = concatTbl(mpathA,":")
-      a[#a+1] = "\".\nPlease use \"module use ...\" to change MODULEPATH instead."
+      a[#a+1] = "\".\n\nPlease use \"module use ...\" to change MODULEPATH instead."
 
-      LmodWarning(concatTbl(a,""))
+      local ss = concatTbl(a,"")
+
+
+      LmodWarning(ss)
 
    else
       local a = {}
