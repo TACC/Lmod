@@ -875,6 +875,36 @@ local defaultFnT = {
    ['.modulerc'] = 2,
    ['.version']  = 3,
 }
+
+--------------------------------------------------------------------------
+-- Find exceptable files. Or mark as false files that should be ignored
+-- @param fn input file name
+
+local ignoreT   = ignoreFileT()
+
+--------------------------------------------------------------------------
+-- Find exceptable files. Or mark as false files that should be ignored
+-- @param fn input file name
+function keepFile(fn)
+   local fileDflt  = fn:sub(1,8)
+   local firstChar = fn:sub(1,1)
+   local lastChar  = fn:sub(-1,-1)
+   local firstTwo  = fn:sub(1,2)
+   
+   local result    = not (ignoreT[fn]      or lastChar == '~' or ignoreT[fileDflt] or
+                          firstChar == '#' or lastChar == '#' or firstTwo == '.#')
+   if (not result) then
+      return result
+   end
+
+   if (firstChar == "." and fn:sub(-4,-1) == ".swp") then
+      return false
+   end
+
+   return result
+end
+
+
 --------------------------------------------------------------------------
 -- Walk a single directory for modulefiles and defaults:
 -- @param mpath Input modulepath directory
@@ -912,8 +942,7 @@ function walk_directory_for_mf(mpath, path, prefix, dirA, mnameT)
          local lastChar  = file:sub(-1,-1)
          local firstTwo  = file:sub(1,2)
 
-         if (not (ignoreT[file]    or lastChar == '~' or ignoreT[fileDflt] or
-                  firstChar == '#' or lastChar == '#' or firstTwo == '.#')) then
+         if (keepFile(file))then
             local f        = pathJoin(path,file)
             attr           = lfs.attributes(f) or {}
             local readable = posix.access(f,"r")
