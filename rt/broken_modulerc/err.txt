@@ -19,4 +19,4 @@ step 4
 lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
 Currently Loaded Modules:
-  1) git/2.1   2) hdf5/1.8.15
+  1) git/2.0.3   2) hdf5/1.8.15

@@ -1,2 +1,4 @@
 #%Module
+module-alias   git git/2.0.3
+module-version git  git/2.0
 module-version hdf5 hdf5/1.8.15
