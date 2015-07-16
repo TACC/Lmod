@@ -1,5 +1,5 @@
-Providing A Standard Set Of Modules
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Providing A Standard Set Of Modules for all Users
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Users can be provided with an initial set of modulefiles as part of
 the login proceedure. Once a list of modulefiles have been installed,

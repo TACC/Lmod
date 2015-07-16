@@ -1,5 +1,5 @@
-Advanced User Guide
-===================
+Advanced User Guide for Personal Modulefiles
+============================================
 
 This advanced guide is for users wishing to create modulefiles for their own software. The reasons are simple:
 

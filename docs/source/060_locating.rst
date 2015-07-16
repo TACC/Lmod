@@ -1,5 +1,5 @@
-Locating Modulefiles
-====================
+How Lmod Picks which Modulefiles to Load
+========================================
 
 Lmod uses the following rules to locate a modulefile:
 
@@ -31,7 +31,7 @@ order.  The first way is to make a symbolic link between a file named
 
 A second way to mark a default is with a .modulerc file: ::
     
-    #%Module    
+    #%Module
     module-version ucc/11.1 default
 
 

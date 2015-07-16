@@ -32,8 +32,9 @@ instead of stderr?
 
    Bash and Zsh user can set the environment variable
    ``LMOD_REDIRECT`` to **yes**.  Sites can configure Lmod to work
-   this way by default.  No matter how Lmod is set-up however, this
-   will not work with Tcsh/csh. 
+   this way by default.  However, no matter how Lmod is set-up
+   however, this will not work with tcsh/csh due to limitations of
+   this shell.
 
 Can I ignore the spider cache files when doing ``module avail``?
 
@@ -44,13 +45,14 @@ Can I ignore the spider cache files when doing ``module avail``?
 
 Why doesn't the module command work in shell scripts?
 
- First the script must be a bash script and not a shell script, so
- start the script with #!/bin/bash. The second is that the environment
- variable BASH_ENV must point to a file which defines the module
- command. The simpliest way to is to have BASH_ENV point to
- /opt/apps/lmod/lmod/setup/bash or where ever this file is located on
- your system. This is done by the standard install.  Finally Lmod
- exports the module command for Bash shell users.  
+ It will if the following steps are taken. First the script must be a
+ bash script and not a shell script, so start the script with
+ #!/bin/bash. The second is that the environment variable BASH_ENV
+ must point to a file which defines the module command. The simpliest
+ way to is to have BASH_ENV point to /opt/apps/lmod/lmod/setup/bash or
+ where ever this file is located on your system. This is done by the
+ standard install.  Finally Lmod exports the module command for Bash
+ shell users.
 
 How to I use the initializing shell script that comes with this application with Lmod?
 

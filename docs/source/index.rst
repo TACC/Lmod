@@ -1,49 +1,34 @@
 
-Lmod: The Modern Environment Module System
-==========================================
+Lmod: A New Environment Module System
+=====================================
 
 Guides
 ^^^^^^
 
+This a daunting list of documentation.  However all of this doesn't have to
+be read to use Lmod.  Users should just read the User Guide and
+possibly the FAQ.  Advanced users wishing to have personal modules,
+should read the Advanced user guide and possibly the Lua Modulefile
+Function guide.  System adminstrators should read the Install Lua and
+Lmod as well as the Transitioning to Lmod first.  Other sections can
+be read as needed.
+
+
 .. toctree::
    :maxdepth: 1
 
-   01_user
-   02_advanced
-   03_installing
-   04_FAQ
-   05_lua_modulefiles
-   06_locating
-   07_standard_modules
-   08_hierarchy
-   09_configuring_lmod
-   10_generic_modules
-
-User Guide:
-   This is the guide for users getting started with Lmod.
-
-Advanced User Guide:
-   This is the guide for advanced users wishing to have their own modules.
-
-Installing Lua and Lmod:
-   This is the guide for sys admin who want to install Lmod.
-
-Lua Modulefile Functions:
-   The lua functions use in a modulefile.
-
-Locating Modules:
-   How Lmod a module file to load.
-
-Providing a Standard Set of Modules
-   Providing your users a way to read their default collection or
-   a system standard.
-
-Software Hierarchy
-   How to use a Module hierarchy with Lmod.
-
-Configuring Lmod
-   How to configure Lmod to match site expectations.
-
+   010_user
+   020_advanced
+   030_installing
+   040_FAQ
+   045_transition
+   050_lua_modulefiles
+   060_locating
+   070_standard_modules
+   080_hierarchy
+   090_configuring_lmod
+   095_tcl2lua
+   100_generic_modules
 
 
 PURPOSE
