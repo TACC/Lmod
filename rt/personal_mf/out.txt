@@ -1,0 +1,64 @@
+===========================
+step 1
+lua ProjectDIR/src/lmod.in.lua bash --version
+===========================
+===========================
+step 2
+lua ProjectDIR/src/lmod.in.lua bash use ProjectDIR/rt/personal_mf/.modulefiles
+===========================
+unset LMOD_DEFAULT_MODULEPATH;
+unset MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/personal_mf/.modulefiles";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/personal_mf/.modulefiles";
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/personal_mf/.modulefiles",},family={},inactive={},mT={},mpathA={"ProjectDIR/rt/personal_mf/.modulefiles",},["version"]=2,}';
+export _ModuleTable_;
+===========================
+step 3
+lua ProjectDIR/src/lmod.in.lua bash load git git-annex htop luajit luarocks hdf5/1.8.15
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/personal_mf/.modulefiles";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/personal_mf/.modulefiles";
+export MODULEPATH;
+CMAKE_PREFIX_PATH="/home/pcolberg/usr/centos6-x86_64/hdf5-1.8.15:/home/pcolberg/usr/centos6-x86_64/luajit-2.0.4";
+export CMAKE_PREFIX_PATH;
+CPATH="/home/pcolberg/usr/centos6-x86_64/hdf5-1.8.15/include:/home/pcolberg/usr/centos6-x86_64/luajit-2.0.4/include/luajit-2.0";
+export CPATH;
+LD_LIBRARY_PATH="/home/pcolberg/usr/centos6-x86_64/hdf5-1.8.15/lib:/home/pcolberg/usr/centos6-x86_64/luajit-2.0.4/lib";
+export LD_LIBRARY_PATH;
+LD_RUN_PATH="/home/pcolberg/usr/centos6-x86_64/luajit-2.0.4/lib";
+export LD_RUN_PATH;
+LIBRARY_PATH="/home/pcolberg/usr/centos6-x86_64/hdf5-1.8.15/lib:/home/pcolberg/usr/centos6-x86_64/luajit-2.0.4/lib";
+export LIBRARY_PATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/personal_mf/.modulefiles";
+export LMOD_DEFAULT_MODULEPATH;
+LOADEDMODULES="git/2.4.0:git-annex/5.20150219:htop/1.0.3:luajit/2.0.4:luarocks/2.2.2:hdf5/1.8.15";
+export LOADEDMODULES;
+MANPATH="/home/pcolberg/usr/centos6-x86_64/luajit-2.0.4/share/man:/home/pcolberg/usr/centos6-x86_64/htop-1.0.3/share/man:/home/pcolberg/usr/centos6-x86_64/git-annex-5.20150219/share/man:/home/pcolberg/usr/centos6-x86_64/git-2.4.0/share/man";
+export MANPATH;
+MODULEPATH="ProjectDIR/rt/personal_mf/.modulefiles";
+export MODULEPATH;
+PATH="/home/pcolberg/usr/centos6-x86_64/hdf5-1.8.15/bin:/home/pcolberg/usr/centos6-x86_64/luarocks-2.2.2/bin:/home/pcolberg/usr/centos6-x86_64/luajit-2.0.4/bin:/home/pcolberg/usr/centos6-x86_64/htop-1.0.3/bin:/home/pcolberg/usr/centos6-x86_64/git-annex-5.20150219/bin:/home/pcolberg/usr/centos6-x86_64/git-2.4.0/bin:ProjectDIR/src:PATH_to_TM:/bin";
+export PATH;
+PKG_CONFIG_PATH="/home/pcolberg/usr/centos6-x86_64/luajit-2.0.4/lib/pkgconfig";
+export PKG_CONFIG_PATH;
+_LMFILES_="ProjectDIR/rt/personal_mf/.modulefiles/git/2.4.0.lua:ProjectDIR/rt/personal_mf/.modulefiles/git-annex/5.20150219.lua:ProjectDIR/rt/personal_mf/.modulefiles/htop/1.0.3.lua:ProjectDIR/rt/personal_mf/.modulefiles/luajit/2.0.4.lua:ProjectDIR/rt/personal_mf/.modulefiles/luarocks/2.2.2.lua:ProjectDIR/rt/personal_mf/.modulefiles/hdf5/1.8.15.lua";
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={["activeSize"]=6,baseMpathA={"ProjectDIR/rt/personal_mf/.modulefiles",},family={},inactive={},mT={git={["FN"]="ProjectDIR/rt/personal_mf/.modulefiles/git/2.4.0.lua",["default"]=1,["fullName"]="git/2.4.0",["loadOrder"]=1,propT={},["short"]="git",["status"]="active",},["git-annex"]={["FN"]="ProjectDIR/rt/personal_mf/.modulefiles/git-annex/5.20150219.lua",["default"]=1,["fullName"]="git-annex/5.20150219",["loadOrder"]=2,propT={},["short"]="git-annex",["status"]="active",},hdf5={["FN"]="ProjectDIR/rt/personal_mf/.modulefiles/hdf5/1.8.15.lua",["default"]=0,["fullName"]="hdf5/1.8.15",["loadOrder"]=6,propT={},["short"]="hdf5",["status"]="active",},htop={["FN"]="ProjectDIR/rt/personal_mf/.modulefiles/htop/1.0.3.lua",["default"]=1,["fullName"]="htop/1.0.3",["loadOrder"]=3,propT={},["short"]="htop",["status"]="active",},luajit={["FN"]="ProjectDIR/rt/personal_mf/.modulefiles/luajit/2.0.4.lua",["default"]=1,["fullName"]="luajit/2.0.4",["loadOrder"]=4,propT={},["short"]="luajit",["status"]="active",},luarocks={["FN"]="ProjectDIR/rt/personal_mf/.modulefiles/luarocks/2.2.2.lua",["default"]=1,["fullName"]="luarocks/2.2.2",["loadOrder"]=5,propT={},["short"]="luarocks",["status"]="active",},},mpathA={"ProjectDIR/rt/personal_mf/.modulefiles",},["systemBaseMPATH"]="ProjectDIR/rt/personal_mf/.modulefiles",["version"]=2,}';
+export _ModuleTable_;
+===========================
+step 4
+lua ProjectDIR/src/lmod.in.lua bash list
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/personal_mf/.modulefiles";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/personal_mf/.modulefiles";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/personal_mf/.modulefiles";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/personal_mf/.modulefiles";
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=6,baseMpathA={"ProjectDIR/rt/personal_mf/.modulefiles",},family={},inactive={},mT={git={["FN"]="ProjectDIR/rt/personal_mf/.modulefiles/git/2.4.0.lua",["default"]=1,["fullName"]="git/2.4.0",["loadOrder"]=1,propT={},["short"]="git",["status"]="active",},["git-annex"]={["FN"]="ProjectDIR/rt/personal_mf/.modulefiles/git-annex/5.20150219.lua",["default"]=1,["fullName"]="git-annex/5.20150219",["loadOrder"]=2,propT={},["short"]="git-annex",["status"]="active",},hdf5={["FN"]="ProjectDIR/rt/personal_mf/.modulefiles/hdf5/1.8.15.lua",["default"]=0,["fullName"]="hdf5/1.8.15",["loadOrder"]=6,propT={},["short"]="hdf5",["status"]="active",},htop={["FN"]="ProjectDIR/rt/personal_mf/.modulefiles/htop/1.0.3.lua",["default"]=1,["fullName"]="htop/1.0.3",["loadOrder"]=3,propT={},["short"]="htop",["status"]="active",},luajit={["FN"]="ProjectDIR/rt/personal_mf/.modulefiles/luajit/2.0.4.lua",["default"]=1,["fullName"]="luajit/2.0.4",["loadOrder"]=4,propT={},["short"]="luajit",["status"]="active",},luarocks={["FN"]="ProjectDIR/rt/personal_mf/.modulefiles/luarocks/2.2.2.lua",["default"]=1,["fullName"]="luarocks/2.2.2",["loadOrder"]=5,propT={},["short"]="luarocks",["status"]="active",},},mpathA={"ProjectDIR/rt/personal_mf/.modulefiles",},["systemBaseMPATH"]="ProjectDIR/rt/personal_mf/.modulefiles",["version"]=2,}';
+export _ModuleTable_;

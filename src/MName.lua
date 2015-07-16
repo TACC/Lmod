@@ -277,9 +277,10 @@ local function lazyEval(self)
    ------------------------------------------------------------------------
    -- Must resolve user name which might be an alias to a real module name
 
-   self._name = malias:resolve(self._name)
    local name = self._name
    if (sType == "load") then
+      self._name = malias:resolve(self._name)
+      name       = self._name
       for level = 0, 1 do
          local n = shorten(name, level)
          if (mt:locationTbl(n)) then

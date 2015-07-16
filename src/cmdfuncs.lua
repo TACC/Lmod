@@ -245,6 +245,7 @@ function List(...)
       local mname = MName:new("mt",activeA[i])
       local sn    = mname:sn()
       local full  = mt:fullName(sn)
+      dbg.print{"activeA[i]: ",activeA[i],", sn: ",sn,", full: ",full,"\n"}
       for j = 1, wanted.n do
          local p = wanted[j]
          if (full:find(p)) then

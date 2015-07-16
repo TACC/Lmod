@@ -1,0 +1,3 @@
+#%Module
+module-alias    hdf5               libs/hdf5/1.8.14
+module-version  libs/hdf5/1.8.14   1.8
