@@ -1,0 +1,22 @@
+===========================
+step 1
+lua ProjectDIR/src/lmod.in.lua bash --version
+===========================
+Modules based on Lua: Version 6.0.6  2015-07-16 14:33
+    by Robert McLay mclay@tacc.utexas.edu
+===========================
+step 2
+lua ProjectDIR/src/lmod.in.lua bash use ProjectDIR/rt/broken_modulerc/mf/Core
+===========================
+===========================
+step 3
+lua ProjectDIR/src/lmod.in.lua bash load git hdf5/1.8.15
+===========================
+Lmod Warning: Badly formed module-version line: module-name must be fully
+qualified: hdf5  is not
+===========================
+step 4
+lua ProjectDIR/src/lmod.in.lua bash list
+===========================
+Currently Loaded Modules:
+  1) git/2.1   2) hdf5/1.8.15

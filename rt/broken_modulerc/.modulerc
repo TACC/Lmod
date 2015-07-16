@@ -1,0 +1,2 @@
+#%Module
+module-version hdf5 hdf5/1.8.15

@@ -109,10 +109,16 @@ function M.parseModA(self, sn, modA)
             modname = sn .. modname
          end
          dbg.print{"(2) modname: ",modname, "\n"}
+         local _, _, short, mversion = modname:find("(.*)/(.*)")
+         if (short == nil) then
+            LmodWarning("Badly formed module-version line: module-name must be fully qualified: ",
+                        modname," is not\n")
+            break
+         end
+
          local a = entry.module_versionA
          for j = 1, #a do
             local version = a[j]
-            local _, _, short, mversion = modname:find("(.*)/(.*)")
             dbg.print{"j: ",j, ", version: ",version, "\n"}
             if (version == "default") then
                dbg.print{"Setting default sn: ",short, ", to version: ",mversion,"\n"}
