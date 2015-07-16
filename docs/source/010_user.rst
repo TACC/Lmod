@@ -84,6 +84,42 @@ the "Module Hierarchy" and "Searching for Modules" section. ::
     $ module spider
  
 
+ml: A convenient tool
+---------------------
+
+For those of you who can't type the *mdoule*, *moduel*, err *module*
+command correctly, Lmod has a tool for you.  With **ml** you won't
+have to type the module command again.  The two most common command
+are *module list*and *module load <something>* and **ml** does both::
+
+  $ ml
+
+means *module list*. And::
+
+  $ ml foo
+
+means *module load foo* while::
+
+  $ ml -bar
+
+means *module unload bar*.  It won't come as a surprise that you can
+combine them::
+
+  $ ml foo -bar
+
+means *module unload bar; module load foo*.  You can do all the module
+commands::
+
+  $ ml spider
+  $ ml avail
+  $ ml show foo
+
+If you ever have to load a module name *spider* you can do::
+
+  $ ml load spider
+
+If you are ever force to type the module command instead of **ml**
+then that is a bug and should be reported.
 
 SAFETY FEATURES
 ^^^^^^^^^^^^^^^
