@@ -85,7 +85,7 @@ the "Module Hierarchy" and "Searching for Modules" section. ::
  
 
 ml: A convenient tool
----------------------
+^^^^^^^^^^^^^^^^^^^^^
 
 For those of you who can't type the *mdoule*, *moduel*, err *module*
 command correctly, Lmod has a tool for you.  With **ml** you won't

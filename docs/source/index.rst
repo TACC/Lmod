@@ -30,6 +30,20 @@ be read as needed.
    095_tcl2lua
    100_generic_modules
 
+The following are possible topics:
+
+#. Optional Software layout, two digit rule
+#. Module naming conventions
+#. Spider Cache Theory and Practice
+#. Advanced Topics: priority path, .modulerc tricks, deprecating modules
+#. settarg
+#. SitePackage.lua and hooks
+#. tracking module usage
+#. converting shell scripts into modulefiles
+#. module command and a parallel a file system.
+#. inherit
+#. internal structure of lmod.
+
 
 PURPOSE
 ^^^^^^^
