@@ -910,14 +910,16 @@ local function availEntry(defaultOnly, terse, label, szA, searchA, sn, name,
       local propT = {}
       local sn    = mname:sn()
       local entry = dbT[sn]
-      local am_active = mt.have(mt,sn,"active")
       if (entry) then
          dbg.print{"Found dbT[sn]\n"}
          if (entry[f]) then
             propT =  entry[f].propT or {}
          end
-         if (am_active) then
-            propT["status"] = {active = 1}
+         local activeA = mt:list("userName","active")
+         for i = 1,#activeA do
+            if ( activeA[i].fn == f) then
+               propT["status"] = {active = 1}
+            end
          end
       else
          dbg.print{"Did not find dbT[sn]\n"}
