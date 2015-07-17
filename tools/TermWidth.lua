@@ -64,9 +64,10 @@ local function askSystem(width)
    end
 
    -- Try tput cols
-   local result = os.execute("tput cols > /dev/null 2> /dev/null")
-   if (result) then
-      return tonumber(capture("tput cols"))
+   local result = capture("tput cols 2> /dev/null")
+   i, j, columns = result:find('^(%d+)')
+   if (i)
+      return columns
    end
 
    return width
