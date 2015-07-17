@@ -25,4 +25,10 @@ propT = {
          ["gpu:mic:offload"] = { short = "(@)",  long = "(g,m,o)", color = "red" , doc = "built natively for MIC and GPU and offload to the MIC",},
       },
    },
+   status = {
+      validT = { active = 1, },
+      displayT = {
+         active        = { short = "(A)",  long = "(A)",     color = "yellow", doc = "Active", },
+      },
+   },
 }
