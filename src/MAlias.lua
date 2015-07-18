@@ -104,7 +104,7 @@ function M.parseModA(self, sn, modA)
 
       if (entry.kind == "module-version") then
          local modname = entry.module_name
-         modname       = self:resolve(modname)
+         modname       = self:__resolve(modname)
          dbg.print{"resolve(modname): ",modname, "\n"}
          if (modname:sub(1,1) == '/') then
             modname = sn .. modname
