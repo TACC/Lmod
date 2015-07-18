@@ -1,7 +1,7 @@
 How to Transition to Lmod (or how to test Lmod without installing it for all)
 =============================================================================
 
-In the **Install Lua and Lmod** document, we described how to
+In the :ref:`installing-lmod-label` document, we described how to
 install Lua and Lmod for all.  Sites which are currentingly running
 another environment module system will likely wish to test and then
 transition from their old module system to Lmod. This can be smoothly
