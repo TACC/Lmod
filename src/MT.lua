@@ -1351,8 +1351,9 @@ function M.list(self, kind, status)
             if (v.default ~= 1) then
                nameT = "fullName"
             end
-            local obj = {sn   = v.short,   full       = v.fullName,
-                         name = v[nameT], defaultFlg = v.default }
+            local obj = {sn   = v.short,   full      = v.fullName,
+                         name = v[nameT], defaultFlg = v.default,
+                         fn   = v.FN }
             a[icnt] = { v.loadOrder, v[nameT], obj }
          end
       end
