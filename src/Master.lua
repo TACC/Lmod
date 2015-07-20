@@ -918,7 +918,7 @@ local function availEntry(defaultOnly, terse, label, szA, searchA, sn, name,
          local activeA = mt:list("userName","active")
          for i = 1,#activeA do
             if ( activeA[i].fn == f) then
-               propT["lmod"] = {active = 1}
+               propT["status"] = {active = 1}
             end
          end
       else
