@@ -11,7 +11,7 @@ propT = {
    lmod = {
       validT = { sticky = 1 },
       displayT = {
-         sticky = { short = "(S)",  long = "(S)",   color = "red",   doc = "Module is Sticky, requires --force to unload or purge",  },
+         sticky = { short = "(S)",  long = "(S)",   color = "red",    doc = "Module is Sticky, requires --force to unload or purge",  },
       },
    },
    arch = {
@@ -30,5 +30,5 @@ propT = {
       displayT = {
         active        = { short = "(L)",  long = "(L)",     color = "yellow", doc = "Module is loaded", },
      },
-  },
+   },
 }
