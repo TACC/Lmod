@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.9.4  2015-04-30 10:59
+Modules based on Lua: Version 6.0.6  2015-07-16 14:33
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -126,7 +126,7 @@ The following guides are at https://www.tacc.utexas.edu/research-development/tac
   User Guide                 - How to use.
   Advance User Guide         - How to create you own modules.
   System Administrator Guide - How to install Lmod on your own system.
-Modules based on Lua: Version 5.9.4  2015-04-30 10:59
+Modules based on Lua: Version 6.0.6  2015-07-16 14:33
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 3
@@ -250,7 +250,7 @@ The following guides are at https://www.tacc.utexas.edu/research-development/tac
   User Guide                 - How to use.
   Advance User Guide         - How to create you own modules.
   System Administrator Guide - How to install Lmod on your own system.
-Modules based on Lua: Version 5.9.4  2015-04-30 10:59
+Modules based on Lua: Version 6.0.6  2015-07-16 14:33
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 4
@@ -270,7 +270,7 @@ Version 9
 step 5
 lua ProjectDIR/src/lmod.in.lua bash --config
 ===========================
-Modules based on Lua: Version 5.9.4  2015-04-30 10:59
+Modules based on Lua: Version 6.0.6  2015-07-16 14:33
     by Robert McLay mclay@tacc.utexas.edu
 Description                    Value
 Allow TCL modulefiles          yes
@@ -387,6 +387,19 @@ propT = {
       ["experimental"] = 1,
       ["obsolete"] = 1,
       ["testing"] = 1,
+    },
+  },
+  status = {
+    displayT = {
+      active = {
+        ["color"] = "yellow",
+        ["doc"] = "Module is loaded",
+        ["long"] = "(L)",
+        ["short"] = "(L)",
+      },
+    },
+    validT = {
+      ["active"] = 1,
     },
   },
 }

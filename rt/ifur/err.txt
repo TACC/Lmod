@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.7.3 5.7.3-7-gd80b11b 2014-08-09 11:25
+Modules based on Lua: Version 6.0.6  2015-07-16 14:33
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -15,8 +15,9 @@ lua ProjectDIR/src/lmod.in.lua bash avail
 ProjectDIR/rt/ifur/mf/minerva/all/Core
    GCC/4.9.1    gompi/2.9.11    goolf/2.9.11
 ProjectDIR/rt/ifur/mf/core
-   easybuild/defaults    stdenv (S)
+   easybuild/defaults  (L)    stdenv (S) (L)
   Where:
+   (L):  Module is loaded
    (S):  Module is Sticky, requires --force to unload or purge
 Use "module spider" to find all possible modules.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
@@ -31,10 +32,11 @@ lua ProjectDIR/src/lmod.in.lua bash avail
 ProjectDIR/rt/ifur/mf/minerva/all/Compiler/GCC/4.9.1
    OpenBLAS/0.2.9    OpenMPI/1.8.1    zlib/1.2.8
 ProjectDIR/rt/ifur/mf/minerva/all/Core
-   GCC/4.9.1    gompi/2.9.11    goolf/2.9.11
+   GCC/4.9.1 (L)    gompi/2.9.11    goolf/2.9.11
 ProjectDIR/rt/ifur/mf/core
-   easybuild/defaults    stdenv (S)
+   easybuild/defaults  (L)    stdenv (S) (L)
   Where:
+   (L):  Module is loaded
    (S):  Module is Sticky, requires --force to unload or purge
 Use "module spider" to find all possible modules.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
