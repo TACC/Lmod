@@ -28,7 +28,7 @@ propT = {
    status = {
       validT = { active = 1, },
       displayT = {
-         active        = { short = "(A)",  long = "(A)",     color = "yellow", doc = "Active", },
-      },
-   },
+        active        = { short = "(L)",  long = "(L)",     color = "yellow", doc = "Module is loaded", },
+     },
+  },
 }
