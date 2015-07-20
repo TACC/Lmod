@@ -915,7 +915,12 @@ local function availEntry(defaultOnly, terse, label, szA, searchA, sn, name,
          if (entry[f]) then
             propT =  entry[f].propT or {}
          end
-      else
+         local activeA = mt:list("userName","active")
+         for i = 1,#activeA do
+            if ( activeA[i].fn == f) then
+               propT["status"] = {active = 1}
+            end
+         end      else
          dbg.print{"Did not find dbT[sn]\n"}
       end
       local resultA = colorizePropA("short", name, propT, legendT)
