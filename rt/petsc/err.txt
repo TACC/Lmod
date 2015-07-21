@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.8  2014-11-04 12:46
+Modules based on Lua: Version 6.0.6  2015-07-16 14:33
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -21,9 +21,11 @@ ProjectDIR/rt/petsc/mf/MPI/intel/13.1/mvapich2/1.9
    petsc/petsc/3.3-cxxcomplexdebug    petsc/petsc/petsc/petsc/petsc/3.3
    petsc/petsc/3.3-cxxdebug
 ProjectDIR/rt/petsc/mf/Compiler/intel/13.1
-   mvapich2/1.9
+   mvapich2/1.9 (L)
 ProjectDIR/rt/petsc/mf/Core
-   intel/13.1
+   intel/13.1 (L)
+  Where:
+   (L):  Module is loaded
 Use "module spider" to find all possible modules.
 Use "module keyword key1 key2 ..." to search for all possible modules matching
 any of the "keys".

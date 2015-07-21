@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.8.2  2015-01-14 20:55
+Modules based on Lua: Version 6.0.6  2015-07-16 14:33
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -13,21 +13,25 @@ step 3
 lua ProjectDIR/src/lmod.in.lua bash avail
 ===========================
 ProjectDIR/mf/MPI/intel/10.1/openmpi/1.2.6
-   parmetis/3.1 (m) (D)    petsc/3.2    phdf5/1.8.2    phdf5/1.8.10  (D)
+   parmetis/3.1 (m) (L) (D)    petsc/3.2    phdf5/1.8.2    phdf5/1.8.10   (D)
 ProjectDIR/mf/Compiler/intel/10.1
-   gotoblas/1.31        gotoblas/1.33    openmpi/1.2.6
-   gotoblas/1.32 (D)    mpich2/1.0.7
+   gotoblas/1.31         gotoblas/1.33    openmpi/1.2.6 (L)
+   gotoblas/1.32  (D)    mpich2/1.0.7
 ProjectDIR/mf/Core
-   PrgEnv                     git/1.7.4             junk/d/3.0
-   admin/admin-1.0            git/1.7.4.3    (D)    local/local
-   alex/1.0                   gotoblas/1.20         multi/multi
-   boost/1.46.0               gotoblas/1.26         noweb/2.10c
-   boost/1.47.1               gotoblas/1.30         parmetis/3.1 (m)
-   boost/1.49.0    (o) (D)    intel/intel           unix/unix
-   gcc/4.2.3                  junk/a/c/1.0
-   git/1.6.3.1                junk/b/c/2.0
+   PrgEnv              (L)        gotoblas/1.26
+   admin/admin-1.0     (L)        gotoblas/1.30
+   alex/1.0                       intel/intel       (L)
+   boost/1.46.0                   junk/a/c/1.0
+   boost/1.47.1                   junk/b/c/2.0
+   boost/1.49.0    (o)     (D)    junk/d/3.0
+   gcc/4.2.3                      local/local       (L)
+   git/1.6.3.1                    multi/multi
+   git/1.7.4                      noweb/2.10c       (L)
+   git/1.7.4.3             (D)    parmetis/3.1  (m)
+   gotoblas/1.20                  unix/unix         (L)
   Where:
    (D):  Default Module
+   (L):  Module is loaded
    (m):  built for host and native MIC
    (o):  built for offload to the MIC only
 Use "module spider" to find all possible modules.

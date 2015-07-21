@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.3rc2 5.3rc2-4-g988883e 2014-02-11 07:47
+Modules based on Lua: Version 6.0.6  2015-07-16 14:33
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -37,7 +37,8 @@ step 7
 lua ProjectDIR/src/lmod.in.lua bash avail
 ===========================
 ProjectDIR/rt/properties/mf/Core
-   PrgEnv    a/1.0    b/1.0 (m)    c/1.0 (o)    d/1.0 (@)    mkl/10.3
+   PrgEnv  (L)    b/1.0 (m) (L)    d/1.0    (@) (L)
+   a/1.0   (L)    c/1.0 (o) (L)    mkl/10.3     (L)
 ProjectDIR/rt/properties/mf/bio
    goolfc/2.7.10/GROMACS/4.6.5 (E)
 ProjectDIR/rt/properties/mf/cae
@@ -45,6 +46,7 @@ ProjectDIR/rt/properties/mf/cae
   Where:
    (@):  built natively for MIC and GPU and offload to the MIC
    (E):  Experimental
+   (L):  Module is loaded
    (T):  Testing
    (m):  built for host and native MIC
    (o):  built for offload to the MIC only
