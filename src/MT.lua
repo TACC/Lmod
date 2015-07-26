@@ -826,8 +826,8 @@ function M.getMTfromFile(self,t)
    local t = {}
 
    for i = 1,#activeA do
-      local      sn = activeA[i].sn
-      t[sn]         = l_mt:getHash(sn)
+      local sn = activeA[i].sn
+      t[sn]    = l_mt:getHash(sn)
       dbg.print{"sn: ",sn,", hash: ", t[sn], "\n"}
    end
 
@@ -1351,6 +1351,17 @@ function M.list(self, kind, status)
             if (v.default ~= 1) then
                nameT = "fullName"
             end
+            local obj = {sn   = v.short,   full       = v.fullName,
+                         name = v[nameT], defaultFlg = v.default }
+            a[icnt] = { v.loadOrder, v[nameT], obj }
+         end
+      end
+   elseif (kind == "fullName") then
+      for k,v in pairs(mT) do
+         if ((status == "any" or status == v.status) and
+             (v.status ~= "pending")) then
+            icnt  = icnt + 1
+            local nameT = "fullName"
             local obj = {sn   = v.short,   full       = v.fullName,
                          name = v[nameT], defaultFlg = v.default }
             a[icnt] = { v.loadOrder, v[nameT], obj }
@@ -1945,6 +1956,28 @@ function M.reportChanges(self)
    end
 
    dbg.fini("MT:reportChanges")
+end
+
+--------------------------------------------------------------------------
+-- Report the contents of the collection.
+function M.reportContents(self, t)
+   dbg.start{"mt:reportContents(",t.fn,")"}
+   local f = io.open(t.fn,"r")
+   if (not f) then
+      LmodErrorExit("Unknown collection: ", t.name,"\n")
+   end
+   local s       = f:read("*all")
+   local l_mt    = new(self, s, t.fn)
+   local kind    = (LMOD_PIN_VERSIONS ~= "no") and "fullName" or "userName"
+   local activeA = l_mt:list(kind, "active")
+   local a       = {}
+   for i = 1, #activeA do
+      a[#a+1] = activeA[i].name
+   end
+
+   f:close()
+   dbg.fini("mt:reportContents")
+   return a
 end
 
 --------------------------------------------------------------------------
