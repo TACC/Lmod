@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.8  2014-11-04 12:46
+Modules based on Lua: Version 6.0.6  2015-07-16 14:33
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -30,9 +30,10 @@ lua ProjectDIR/src/lmod.in.lua bash avail
 ProjectDIR/rt/tamu/mf/Compiler/ucc/9.0
    umpi/8.0    umpi/8.1 (D)
 ProjectDIR/rt/tamu/mf/Core
-   ucc/1.0    ucc/9.0 (D)
+   ucc/1.0    ucc/9.0 (L) (D)
   Where:
    (D):  Default Module
+   (L):  Module is loaded
 Use "module spider" to find all possible modules.
 Use "module keyword key1 key2 ..." to search for all possible modules matching
 any of the "keys".
@@ -48,11 +49,12 @@ lua ProjectDIR/src/lmod.in.lua bash avail
 ProjectDIR/rt/tamu/mf/MPI/ucc/9.0/umpi/8.1
    uapp/7.0.8.1    uapp/7.1.8.1 (D)
 ProjectDIR/rt/tamu/mf/Compiler/ucc/9.0
-   umpi/8.0    umpi/8.1 (D)
+   umpi/8.0    umpi/8.1 (L) (D)
 ProjectDIR/rt/tamu/mf/Core
-   ucc/1.0    ucc/9.0 (D)
+   ucc/1.0    ucc/9.0 (L) (D)
   Where:
    (D):  Default Module
+   (L):  Module is loaded
 Use "module spider" to find all possible modules.
 Use "module keyword key1 key2 ..." to search for all possible modules matching
 any of the "keys".
@@ -66,13 +68,14 @@ step 8
 lua ProjectDIR/src/lmod.in.lua bash avail
 ===========================
 ProjectDIR/rt/tamu/mf/MPI/ucc/9.0/umpi/8.1
-   uapp/7.0.8.1    uapp/7.1.8.1 (D)
+   uapp/7.0.8.1    uapp/7.1.8.1 (L) (D)
 ProjectDIR/rt/tamu/mf/Compiler/ucc/9.0
-   umpi/8.0    umpi/8.1 (D)
+   umpi/8.0    umpi/8.1 (L) (D)
 ProjectDIR/rt/tamu/mf/Core
-   ucc/1.0    ucc/9.0 (D)
+   ucc/1.0    ucc/9.0 (L) (D)
   Where:
    (D):  Default Module
+   (L):  Module is loaded
 Use "module spider" to find all possible modules.
 Use "module keyword key1 key2 ..." to search for all possible modules matching
 any of the "keys".

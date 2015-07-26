@@ -11,7 +11,7 @@ propT = {
    lmod = {
       validT = { sticky = 1 },
       displayT = {
-         sticky = { short = "(S)",  long = "(S)",   color = "red",   doc = "Module is Sticky, requires --force to unload or purge",  },
+         sticky = { short = "(S)",  long = "(S)",   color = "red",    doc = "Module is Sticky, requires --force to unload or purge",  },
       },
    },
    arch = {
@@ -24,5 +24,11 @@ propT = {
          ["gpu:mic"]         = { short = "(gm)", long = "(g,m)",   color = "red" , doc = "built natively for MIC and GPU",},
          ["gpu:mic:offload"] = { short = "(@)",  long = "(g,m,o)", color = "red" , doc = "built natively for MIC and GPU and offload to the MIC",},
       },
+   },
+   status = {
+      validT = { active = 1, },
+      displayT = {
+        active        = { short = "(L)",  long = "(L)",     color = "yellow", doc = "Module is loaded", },
+     },
    },
 }

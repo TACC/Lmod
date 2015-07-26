@@ -28,11 +28,11 @@ testdescript = {
      runLmod --version  # 1
      runLmod spider     # 2
 
-     cat _stdout.[0-9][0-9] > _stdout.orig
+     cat _stdout.[0-9][0-9][0-9] > _stdout.orig
      joinBase64Results  -bash  _stdout.orig _stdout.new
      cleanUp _stdout.new out.txt
 
-     cat _stderr.[0-9][0-9] > _stderr.orig
+     cat _stderr.[0-9][0-9][0-9] > _stderr.orig
      cleanUp _stderr.orig err.txt
 
      HOME=$ORIG_HOME

@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.3rc2 5.3rc2-4-g988883e 2014-02-11 07:47
+Modules based on Lua: Version 6.0.6  2015-07-16 14:33
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -31,12 +31,13 @@ step 6
 lua ProjectDIR/src/lmod.in.lua bash avail
 ===========================
 ProjectDIR/rt/mixed/mf/Core
-   StdEnv (S)    compilers/intel/14.0.0
+   StdEnv (S) (L)    compilers/intel/14.0.0  (L)
 ProjectDIR/rt/mixed/mf/Compilers/intel14.0
-   mpi/openmpi/1.6.5
+   mpi/openmpi/1.6.5 (L)
 ProjectDIR/rt/mixed/mf/MPI/intel14.0/openmpi1.6
    libs/phdf5/1.8.11
   Where:
+   (L):  Module is loaded
    (S):  Module is Sticky, requires --force to unload or purge
 Use "module spider" to find all possible modules.
 Use "module keyword key1 key2 ..." to search for all possible modules matching

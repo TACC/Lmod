@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.2.5 5.2.5-21-geecdc9c 2014-01-26 07:24
+Modules based on Lua: Version 6.0.6  2015-07-16 14:33
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -41,7 +41,9 @@ lua ProjectDIR/src/lmod.in.lua bash avail
 ProjectDIR/rt/multiL/mf/cmplr/gcc/4.7
    mpi/mpich2/1.5.2
 ProjectDIR/rt/multiL/mf/Core
-   cmplr/gcc/4.7.2    cmplr/intel/13.1
+   cmplr/gcc/4.7.2 (L)    cmplr/intel/13.1
+  Where:
+   (L):  Module is loaded
 Use "module spider" to find all possible modules.
 Use "module keyword key1 key2 ..." to search for all possible modules matching
 any of the "keys".
@@ -64,11 +66,13 @@ step 9
 lua ProjectDIR/src/lmod.in.lua bash avail
 ===========================
 ProjectDIR/rt/multiL/mf/mpi/mpich2/1.5/cmplr/gcc/4.7
-   parLib/petsc/3.3
+   parLib/petsc/3.3 (L)
 ProjectDIR/rt/multiL/mf/cmplr/gcc/4.7
-   mpi/mpich2/1.5.2
+   mpi/mpich2/1.5.2 (L)
 ProjectDIR/rt/multiL/mf/Core
-   cmplr/gcc/4.7.2    cmplr/intel/13.1
+   cmplr/gcc/4.7.2 (L)    cmplr/intel/13.1
+  Where:
+   (L):  Module is loaded
 Use "module spider" to find all possible modules.
 Use "module keyword key1 key2 ..." to search for all possible modules matching
 any of the "keys".
