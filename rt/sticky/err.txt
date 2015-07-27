@@ -13,10 +13,10 @@ step 3
 lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
 Currently Loaded Modules:
-  1) std/1.0 (m) (S)
+  1) std/1.0 (m,S)
   Where:
-   (S):  Module is Sticky, requires --force to unload or purge
-   (m):  built for host and native MIC
+   S:  Module is Sticky, requires --force to unload or purge
+   m:  built for host and native MIC
 ===========================
 step 4
 lua ProjectDIR/src/lmod.in.lua bash unload std
@@ -29,10 +29,10 @@ step 5
 lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
 Currently Loaded Modules:
-  1) std/1.0 (m) (S)
+  1) std/1.0 (m,S)
   Where:
-   (S):  Module is Sticky, requires --force to unload or purge
-   (m):  built for host and native MIC
+   S:  Module is Sticky, requires --force to unload or purge
+   m:  built for host and native MIC
 ===========================
 step 6
 lua ProjectDIR/src/lmod.in.lua bash load gcc boost
@@ -42,11 +42,11 @@ step 7
 lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
 Currently Loaded Modules:
-  1) std/1.0 (m) (S)   2) gcc/4.6   3) boost/1.53.0  (S) (T)
+  1) std/1.0 (m,S)   2) gcc/4.6   3) boost/1.53.0 (S,T)
   Where:
-   (S):  Module is Sticky, requires --force to unload or purge
-   (T):  Testing
-   (m):  built for host and native MIC
+   S:  Module is Sticky, requires --force to unload or purge
+   T:  Testing
+   m:  built for host and native MIC
 ===========================
 step 8
 lua ProjectDIR/src/lmod.in.lua bash purge
@@ -81,10 +81,10 @@ step 13
 lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
 Currently Loaded Modules:
-  1) std/1.0 (m) (S)
+  1) std/1.0 (m,S)
   Where:
-   (S):  Module is Sticky, requires --force to unload or purge
-   (m):  built for host and native MIC
+   S:  Module is Sticky, requires --force to unload or purge
+   m:  built for host and native MIC
 ===========================
 step 14
 lua ProjectDIR/src/lmod.in.lua bash --force rm std
@@ -105,7 +105,7 @@ lua ProjectDIR/src/lmod.in.lua bash list
 Currently Loaded Modules:
   1) a/1.0   2) b/1.1   3) StdEnv (S)
   Where:
-   (S):  Module is Sticky, requires --force to unload or purge
+   S:  Module is Sticky, requires --force to unload or purge
 ===========================
 step 18
 lua ProjectDIR/src/lmod.in.lua bash load StdEnv
@@ -117,7 +117,7 @@ lua ProjectDIR/src/lmod.in.lua bash list
 Currently Loaded Modules:
   1) a/1.0   2) b/1.1   3) StdEnv (S)
   Where:
-   (S):  Module is Sticky, requires --force to unload or purge
+   S:  Module is Sticky, requires --force to unload or purge
 ===========================
 step 20
 lua ProjectDIR/src/lmod.in.lua bash unload a b
@@ -129,7 +129,7 @@ lua ProjectDIR/src/lmod.in.lua bash list
 Currently Loaded Modules:
   1) StdEnv (S)
   Where:
-   (S):  Module is Sticky, requires --force to unload or purge
+   S:  Module is Sticky, requires --force to unload or purge
 ===========================
 step 22
 lua ProjectDIR/src/lmod.in.lua bash purge
@@ -144,7 +144,7 @@ lua ProjectDIR/src/lmod.in.lua bash list
 Currently Loaded Modules:
   1) a/1.0   2) b/1.1   3) StdEnv (S)
   Where:
-   (S):  Module is Sticky, requires --force to unload or purge
+   S:  Module is Sticky, requires --force to unload or purge
 ===========================
 step 24
 lua ProjectDIR/src/lmod.in.lua bash save
@@ -166,7 +166,7 @@ lua ProjectDIR/src/lmod.in.lua bash list
 Currently Loaded Modules:
   1) a/1.0   2) b/1.1   3) StdEnv (S)
   Where:
-   (S):  Module is Sticky, requires --force to unload or purge
+   S:  Module is Sticky, requires --force to unload or purge
 ===========================
 step 28
 lua ProjectDIR/src/lmod.in.lua bash restore
@@ -179,7 +179,7 @@ lua ProjectDIR/src/lmod.in.lua bash list
 Currently Loaded Modules:
   1) a/1.0   2) b/1.1   3) StdEnv (S)
   Where:
-   (S):  Module is Sticky, requires --force to unload or purge
+   S:  Module is Sticky, requires --force to unload or purge
 ===========================
 step 30
 lua ProjectDIR/src/lmod.in.lua bash --force purge
@@ -195,7 +195,7 @@ lua ProjectDIR/src/lmod.in.lua bash list
 Currently Loaded Modules:
   1) c/1.7   2) d/1.8   3) M1 (O)
   Where:
-   (O):  Obsolete
+   O:  Obsolete
 ===========================
 step 33
 lua ProjectDIR/src/lmod.in.lua bash save
@@ -213,7 +213,7 @@ lua ProjectDIR/src/lmod.in.lua bash list
 Currently Loaded Modules:
   1) M1 (O)
   Where:
-   (O):  Obsolete
+   O:  Obsolete
 ===========================
 step 36
 lua ProjectDIR/src/lmod.in.lua bash --force purge
@@ -229,7 +229,7 @@ lua ProjectDIR/src/lmod.in.lua bash list
 Currently Loaded Modules:
   1) c/1.7   2) d/1.8   3) M1 (O)
   Where:
-   (O):  Obsolete
+   O:  Obsolete
 ===========================
 step 39
 lua ProjectDIR/src/lmod.in.lua bash save
@@ -247,7 +247,7 @@ lua ProjectDIR/src/lmod.in.lua bash list
 Currently Loaded Modules:
   1) M1 (O)
   Where:
-   (O):  Obsolete
+   O:  Obsolete
 ===========================
 step 42
 lua ProjectDIR/src/lmod.in.lua bash --force purge
@@ -277,7 +277,7 @@ lua ProjectDIR/src/lmod.in.lua bash list
 Currently Loaded Modules:
   1) a/1.0   2) b/1.1   3) StdEnv (S)   4) new (S)
   Where:
-   (S):  Module is Sticky, requires --force to unload or purge
+   S:  Module is Sticky, requires --force to unload or purge
 ===========================
 step 48
 lua ProjectDIR/src/lmod.in.lua bash load old
@@ -290,19 +290,19 @@ lua ProjectDIR/src/lmod.in.lua bash list
 Currently Loaded Modules:
   1) a/1.0   2) b/1.1   3) StdEnv (S)   4) old (S)
   Where:
-   (S):  Module is Sticky, requires --force to unload or purge
+   S:  Module is Sticky, requires --force to unload or purge
 ===========================
 step 50
 lua ProjectDIR/src/lmod.in.lua bash avail
 ===========================
 ProjectDIR/rt/sticky/mf/Core
-   M1          (O)        a/1.0    (L)    gcc/4.6         old         (S)  (L)
-   StdEnv  (S)     (L)    b/1.1    (L)    new      (S)    std/1.0 (m) (S)
+   M1     (O)      a/1.0 (L)    gcc/4.6        old     (S,L)
+   StdEnv (S,L)    b/1.1 (L)    new     (S)    std/1.0 (m,S)
   Where:
-   (L):  Module is loaded
-   (O):  Obsolete
-   (S):  Module is Sticky, requires --force to unload or purge
-   (m):  built for host and native MIC
+   L:  Module is loaded
+   O:  Obsolete
+   S:  Module is Sticky, requires --force to unload or purge
+   m:  built for host and native MIC
 Use "module spider" to find all possible modules.
 Use "module keyword key1 key2 ..." to search for all possible modules matching
 any of the "keys".

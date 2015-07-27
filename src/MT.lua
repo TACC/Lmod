@@ -1842,12 +1842,13 @@ function M.list_property(self, idx, sn, style, legendT)
    end
 
    local resultA = colorizePropA(style, entry.fullName, entry.propT, legendT)
+   if (resultA[2]) then
+      resultA[2] = "(" .. resultA[2] .. ")"
+   end
 
    local cstr    = string.format("%3d)",idx)
 
    table.insert(resultA, 1, cstr)
-
-   local tLen = resultA[1]:len() + resultA[2]:len() + tostring(resultA[3]):len()
    dbg.fini("MT:list_property")
    return resultA
 end
@@ -1969,7 +1970,7 @@ function M.reportContents(self, t)
    end
    local s       = f:read("*all")
    local l_mt    = new(self, s, t.fn)
-   local kind    = (LMOD_PIN_VERSIONS ~= "no") and "fullName" or "userName"
+   local kind    = (LMOD_PIN_VERSIONS == "no") and "userName" or "fullName"
    local activeA = l_mt:list(kind, "active")
    local a       = {}
    for i = 1, #activeA do

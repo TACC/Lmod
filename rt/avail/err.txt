@@ -16,24 +16,24 @@ ProjectDIR/mf/Compiler/intel/10.1
    gotoblas/1.31        gotoblas/1.33    openmpi/1.2.6
    gotoblas/1.32 (D)    mpich2/1.0.7
 ProjectDIR/mf/Core
-   PrgEnv                      git/1.7.4                 junk/d/3.0
-   admin/admin-1.0             git/1.7.4.3        (D)    local/local
-   alex/1.0                    gotoblas/1.20             multi/multi
-   boost/1.46.0                gotoblas/1.26             noweb/2.10c
-   boost/1.47.1                gotoblas/1.30             parmetis/3.1 (m)
-   boost/1.49.0    (o)  (D)    intel/intel    (L)        unix/unix
-   gcc/4.2.3                   junk/a/c/1.0
-   git/1.6.3.1                 junk/b/c/2.0
+   PrgEnv                   git/1.7.4            junk/d/3.0
+   admin/admin-1.0          git/1.7.4.3   (D)    local/local
+   alex/1.0                 gotoblas/1.20        multi/multi
+   boost/1.46.0             gotoblas/1.26        noweb/2.10c
+   boost/1.47.1             gotoblas/1.30        parmetis/3.1 (m)
+   boost/1.49.0    (o,D)    intel/intel   (L)    unix/unix
+   gcc/4.2.3                junk/a/c/1.0
+   git/1.6.3.1              junk/b/c/2.0
 ProjectDIR/rt/avail/mf/Core
    bar/1.4-dbg        foo/1.4-dbg        local/1.1        ucc/12.1.5
    bar/1.4     (D)    foo/1.4     (D)    local/1.2        ucc/13.1.2 (D)
    baz/1.4-dbg        git/1.7.4.1        local/1.3 (D)    ucc/14.0.2
    baz/1.4     (D)    git/1.7.4.2        local/1.4
   Where:
-   (D):  Default Module
-   (L):  Module is loaded
-   (m):  built for host and native MIC
-   (o):  built for offload to the MIC only
+   D:  Default Module
+   L:  Module is loaded
+   m:  built for host and native MIC
+   o:  built for offload to the MIC only
 Use "module spider" to find all possible modules.
 Use "module keyword key1 key2 ..." to search for all possible modules matching
 any of the "keys".
@@ -45,17 +45,17 @@ ProjectDIR/mf/Compiler/intel/10.1
    gotoblas/1.31        gotoblas/1.33    openmpi/1.2.6
    gotoblas/1.32 (D)    mpich2/1.0.7
 ProjectDIR/mf/Core
-   PrgEnv             gotoblas/1.20         junk/a/c/1.0    multi/multi
-   admin/admin-1.0    gotoblas/1.26         junk/b/c/2.0    parmetis/3.1 (m)
-   alex/1.0           gotoblas/1.30         junk/d/3.0
-   gcc/4.2.3          intel/intel    (L)    local/local
+   PrgEnv             gotoblas/1.20        junk/a/c/1.0    multi/multi
+   admin/admin-1.0    gotoblas/1.26        junk/b/c/2.0    parmetis/3.1 (m)
+   alex/1.0           gotoblas/1.30        junk/d/3.0
+   gcc/4.2.3          intel/intel   (L)    local/local
 ProjectDIR/rt/avail/mf/Core
    bar/1.4-dbg        baz/1.4-dbg        local/1.1    local/1.3 (D)
    bar/1.4     (D)    baz/1.4     (D)    local/1.2    local/1.4
   Where:
-   (D):  Default Module
-   (L):  Module is loaded
-   (m):  built for host and native MIC
+   D:  Default Module
+   L:  Module is loaded
+   m:  built for host and native MIC
 Use "module spider" to find all possible modules.
 Use "module keyword key1 key2 ..." to search for all possible modules matching
 any of the "keys".
@@ -68,23 +68,23 @@ step 6
 lua ProjectDIR/src/lmod.in.lua bash avail
 ===========================
 ProjectDIR/mf/Core
-   PrgEnv                     git/1.7.4             junk/d/3.0
-   admin/admin-1.0            git/1.7.4.3    (D)    local/local
-   alex/1.0                   gotoblas/1.20         multi/multi
-   boost/1.46.0               gotoblas/1.26  (D)    noweb/2.10c
-   boost/1.47.1               gotoblas/1.30         parmetis/3.1 (m)
-   boost/1.49.0    (o) (D)    intel/intel           unix/unix
-   gcc/4.2.3                  junk/a/c/1.0
-   git/1.6.3.1                junk/b/c/2.0
+   PrgEnv                   git/1.7.4            junk/d/3.0
+   admin/admin-1.0          git/1.7.4.3   (D)    local/local
+   alex/1.0                 gotoblas/1.20        multi/multi
+   boost/1.46.0             gotoblas/1.26 (D)    noweb/2.10c
+   boost/1.47.1             gotoblas/1.30        parmetis/3.1 (m)
+   boost/1.49.0    (o,D)    intel/intel          unix/unix
+   gcc/4.2.3                junk/a/c/1.0
+   git/1.6.3.1              junk/b/c/2.0
 ProjectDIR/rt/avail/mf/Core
    bar/1.4-dbg        foo/1.4-dbg        local/1.1        ucc/12.1.5
    bar/1.4     (D)    foo/1.4     (D)    local/1.2        ucc/13.1.2 (D)
    baz/1.4-dbg        git/1.7.4.1        local/1.3 (D)    ucc/14.0.2
    baz/1.4     (D)    git/1.7.4.2        local/1.4
   Where:
-   (D):  Default Module
-   (m):  built for host and native MIC
-   (o):  built for offload to the MIC only
+   D:  Default Module
+   m:  built for host and native MIC
+   o:  built for offload to the MIC only
 Use "module spider" to find all possible modules.
 Use "module keyword key1 key2 ..." to search for all possible modules matching
 any of the "keys".
@@ -93,23 +93,23 @@ step 7
 lua ProjectDIR/src/lmod.in.lua bash --show_hidden avail
 ===========================
 ProjectDIR/mf/Core
-   PrgEnv                     git/1.7.4             junk/d/3.0
-   admin/admin-1.0            git/1.7.4.3    (D)    local/local
-   alex/1.0                   gotoblas/1.20         multi/multi
-   boost/1.46.0               gotoblas/1.26  (D)    noweb/2.10c
-   boost/1.47.1               gotoblas/1.30         parmetis/3.1 (m)
-   boost/1.49.0    (o) (D)    intel/intel           unix/unix
-   gcc/4.2.3                  junk/a/c/1.0
-   git/1.6.3.1                junk/b/c/2.0
+   PrgEnv                   git/1.7.4            junk/d/3.0
+   admin/admin-1.0          git/1.7.4.3   (D)    local/local
+   alex/1.0                 gotoblas/1.20        multi/multi
+   boost/1.46.0             gotoblas/1.26 (D)    noweb/2.10c
+   boost/1.47.1             gotoblas/1.30        parmetis/3.1 (m)
+   boost/1.49.0    (o,D)    intel/intel          unix/unix
+   gcc/4.2.3                junk/a/c/1.0
+   git/1.6.3.1              junk/b/c/2.0
 ProjectDIR/rt/avail/mf/Core
    bar/1.4-dbg        foo/1.4-dbg        hidden/.1.0        local/1.4
    bar/1.4     (D)    foo/1.4     (D)    local/1.1          ucc/12.1.5
    baz/1.4-dbg        git/1.7.4.1        local/1.2          ucc/13.1.2 (D)
    baz/1.4     (D)    git/1.7.4.2        local/1.3   (D)    ucc/14.0.2
   Where:
-   (D):  Default Module
-   (m):  built for host and native MIC
-   (o):  built for offload to the MIC only
+   D:  Default Module
+   m:  built for host and native MIC
+   o:  built for offload to the MIC only
 Use "module spider" to find all possible modules.
 Use "module keyword key1 key2 ..." to search for all possible modules matching
 any of the "keys".
@@ -308,7 +308,7 @@ ProjectDIR/mf/Core
 ProjectDIR/rt/avail/mf/Core
    local/1.1    local/1.2    local/1.3 (D)    local/1.4
   Where:
-   (D):  Default Module
+   D:  Default Module
 Use "module spider" to find all possible modules.
 Use "module keyword key1 key2 ..." to search for all possible modules matching
 any of the "keys".
@@ -319,23 +319,23 @@ lua ProjectDIR/src/lmod.in.lua bash --ignore_cache avail
 ProjectDIR/rt/avail/mf/Core2
    local
 ProjectDIR/mf/Core
-   PrgEnv                     git/1.7.4             junk/d/3.0
-   admin/admin-1.0            git/1.7.4.3    (D)    local/local
-   alex/1.0                   gotoblas/1.20         multi/multi
-   boost/1.46.0               gotoblas/1.26  (D)    noweb/2.10c
-   boost/1.47.1               gotoblas/1.30         parmetis/3.1 (m)
-   boost/1.49.0    (o) (D)    intel/intel           unix/unix
-   gcc/4.2.3                  junk/a/c/1.0
-   git/1.6.3.1                junk/b/c/2.0
+   PrgEnv                   git/1.7.4            junk/d/3.0
+   admin/admin-1.0          git/1.7.4.3   (D)    local/local
+   alex/1.0                 gotoblas/1.20        multi/multi
+   boost/1.46.0             gotoblas/1.26 (D)    noweb/2.10c
+   boost/1.47.1             gotoblas/1.30        parmetis/3.1 (m)
+   boost/1.49.0    (o,D)    intel/intel          unix/unix
+   gcc/4.2.3                junk/a/c/1.0
+   git/1.6.3.1              junk/b/c/2.0
 ProjectDIR/rt/avail/mf/Core
    bar/1.4-dbg        foo/1.4-dbg        local/1.1        ucc/12.1.5
    bar/1.4     (D)    foo/1.4     (D)    local/1.2        ucc/13.1.2 (D)
    baz/1.4-dbg        git/1.7.4.1        local/1.3 (D)    ucc/14.0.2
    baz/1.4     (D)    git/1.7.4.2        local/1.4
   Where:
-   (D):  Default Module
-   (m):  built for host and native MIC
-   (o):  built for offload to the MIC only
+   D:  Default Module
+   m:  built for host and native MIC
+   o:  built for offload to the MIC only
 Use "module spider" to find all possible modules.
 Use "module keyword key1 key2 ..." to search for all possible modules matching
 any of the "keys".
@@ -356,7 +356,7 @@ lua ProjectDIR/src/lmod.in.lua bash avail
 ProjectDIR/rt/avail/mf/Core3
    TACC    intel/14.0.0    intel/14.0.3    intel/15.0.1 (D)    intel/15.0.2
   Where:
-   (D):  Default Module
+   D:  Default Module
 Use "module spider" to find all possible modules.
 Use "module keyword key1 key2 ..." to search for all possible modules matching
 any of the "keys".
@@ -385,11 +385,11 @@ lua ProjectDIR/src/lmod.in.lua bash avail
 ProjectDIR/rt/avail/mf/Core4
    ncurses/5.9-GCC-4.7.2
 ProjectDIR/rt/avail/mf/Core3
-   TACC         (L)    intel/14.0.3            intel/15.0.2
-   intel/14.0.0        intel/15.0.1 (L) (D)
+   TACC         (L)    intel/14.0.3          intel/15.0.2
+   intel/14.0.0        intel/15.0.1 (L,D)
   Where:
-   (D):  Default Module
-   (L):  Module is loaded
+   D:  Default Module
+   L:  Module is loaded
 Use "module spider" to find all possible modules.
 Use "module keyword key1 key2 ..." to search for all possible modules matching
 any of the "keys".

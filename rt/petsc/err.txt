@@ -25,7 +25,7 @@ ProjectDIR/rt/petsc/mf/Compiler/intel/13.1
 ProjectDIR/rt/petsc/mf/Core
    intel/13.1 (L)
   Where:
-   (L):  Module is loaded
+   L:  Module is loaded
 Use "module spider" to find all possible modules.
 Use "module keyword key1 key2 ..." to search for all possible modules matching
 any of the "keys".

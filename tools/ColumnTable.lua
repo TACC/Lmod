@@ -58,17 +58,6 @@ M = { gap = 3, innerGap = 1 }
 
 local blank = ' '
 
---------------------------------------------------------------------------
--- A recursive function to return the number of entries the current
--- dimension
--- @param a input array.
--- @param dim size of a in each dimension.
-local function sizeMeHelper(a,dim)
-   if (type (a) == "table") then
-      dim[#dim+1] = #a
-      sizeMeHelper(a[1],dim)
-   end
-end
 
 --------------------------------------------------------------------------
 -- compute the number of dimension in input table.
@@ -76,7 +65,15 @@ end
 -- @return an array with the number of entries of a in each dimension
 local function sizeMe(a)
    local dim = {}
-   sizeMeHelper(a,dim)
+   local rows = #a
+   dim[1] = rows
+   if (type(a[1]) == "table") then
+      local cols = 0
+      for i = 1,#a do
+         cols = max(cols,#a[i])
+      end
+      dim[2] = cols
+   end
    return dim
 end
 
@@ -214,8 +211,9 @@ function M._entry_width2(self, t, szA)
    for j = 1, sz do
       local a = t[j]
       local b = {}
-      for i = 1,#a do
-         b[i]    = {prt = length(a[i]),              wrt = a[i]:len()}
+      for i = 1,dim2 do
+         local entry = a[i] or ""
+         b[i]    = {prt = length(entry) or 0,        wrt = entry:len() or 0}
          minA[i] = {prt = min(minA[i].prt,b[i].prt), wrt = min(minA[i].wrt,b[i].wrt)}
          maxA[i] = {prt = max(maxA[i].prt,b[i].prt), wrt = max(maxA[i].wrt,b[i].wrt)}
       end
@@ -280,6 +278,7 @@ function M._columnSum2(self, istart, iend)
    for i = istart, iend do
       local a = szA[i]
       for idim = 1, dim2 do
+         
          maxA[idim].prt = max(maxA[idim].prt, a[idim].prt)
          maxA[idim].wrt = max(maxA[idim].wrt, a[idim].wrt)
       end

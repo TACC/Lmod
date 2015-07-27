@@ -170,6 +170,7 @@ function colorizePropA(style, moduleName, propT, legendT)
    local resultA      = { moduleName }
    local propDisplayT = getPropT()
    local iprop        = 0
+   local pA           = {}
    propT              = propT or {}
 
    for kk,vv in pairsByKeys(propDisplayT) do
@@ -185,20 +186,26 @@ function colorizePropA(style, moduleName, propT, legendT)
 
          table.sort(propA);
          local n = concatTbl(propA,":")
-
          if (vv.displayT[n]) then
             result     = vv.displayT[n][style]
+            if (result:sub( 1, 1) == "(" and result:sub(-1,-1) == ")") then
+               result  = result:sub(2,-2)
+            end
             color      = vv.displayT[n].color
             local k    = colorize(color,result)
             legendT[k] = vv.displayT[n].doc
          end
       end
       local s             = colorize(color,result)
-      resultA[#resultA+1] = s
+      if (result:len() > 0) then
+         pA[#pA+1] = s
+      end
+   end
+   if (#pA > 0) then
+      resultA[#resultA+1] = concatTbl(pA,",")
    end
    return resultA
 end
-
 
 
 
@@ -258,7 +265,7 @@ function Usage()
    a[#a+1] = { "  restore | r", "name",   "Restore modules from \"name\" collection."}
    a[#a+1] = { "  restore",     "system", "Restore module state to system defaults."}
    a[#a+1] = { "  savelist",    "",       "List of saved collections."}
-   a[#a+1] = { "  collection | mcc | cc ",  "name",  "Report the contents of a collection."}
+   a[#a+1] = { "  describe | mcc",  "name",  "Describe the contents of a collection."}
    a[#a+1] = { "" }
    a[#a+1] = { "Deprecated commands:"}
    a[#a+1] = { "--------------------"}
@@ -390,7 +397,7 @@ function main()
    local spiderTbl    = { name = "spider",      checkMPATH = true,  cmd = SpiderCmd     }
    local searchTbl    = { name = "search",      checkMPATH = false, cmd = SearchCmd     }
    local recordTbl    = { name = "record",      checkMPATH = false, cmd = RecordCmd     }
-   local mcTbl        = { name = "collection",  checkMPATH = false, cmd = CollectionLst }
+   local mcTbl        = { name = "describe",    checkMPATH = false, cmd = CollectionLst }
 
    local cmdTbl = {
       ["try-add"]  = tryAddTbl,
@@ -399,7 +406,7 @@ function main()
       apropos      = keywordTbl,
       av           = availTbl,
       avail        = availTbl,
-      collection   = mcTbl,
+      describe     = mcTbl,
       cc           = mcTbl,
       mcc          = mcTbl,
       del          = unloadTbl,
