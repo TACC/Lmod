@@ -7,7 +7,7 @@ function M.git()
    if (s == "("..M.tag()..")") then s = "" end
    return s
 end
-function M.date() return "2015-07-21 14:06" end
+function M.date() return "2015-07-27 08:59" end
 function M.name()
   local a = {}
   a[#a+1] = M.tag()
