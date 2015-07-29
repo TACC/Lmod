@@ -115,6 +115,7 @@ class LMODdb(object):
     query = ""
     try:
       conn   = self.connect()
+      cursor = conn.cursor()
       query  = "USE "+self.db()
       conn.query(query)
       query  = "START TRANSACTION"
@@ -123,14 +124,14 @@ class LMODdb(object):
       ##################################################################
       # Step 1: Find or insert user into userT table
 
-      query  = "SELECT user_id from userT where user='%s' " % dataT['user']
-      conn.query(query)
+      query  = "SELECT user_id from userT where user=%s"
+      cursor.execute(query, (dataT['user']))
       result = conn.store_result()
       if (result.num_rows() == 0):
         #
         #  No user found, install user in userT table.
-        query   = "INSERT into userT VALUES (NULL,'%s')" % dataT['user']
-        conn.query(query)
+        query   = "INSERT into userT VALUES (NULL,%s)"
+        cursor.execute(query,(dataT['user']))
         user_id = conn.insert_id()
       else:
         #
@@ -141,26 +142,23 @@ class LMODdb(object):
       ##################################################################
       # Step 2: Find or insert module name and fn into moduleT
 
-      query = "SELECT mod_id from moduleT WHERE path='%s' and syshost='%s' " % (
-        dataT['path'], dataT['syshost'])
-      conn.query(query)
+      query = "SELECT mod_id from moduleT WHERE path=%s and syshost=%s"
+      cursor.execute(query,(dataT['path'], dataT['syshost']))
       result = conn.store_result()
       if (result.num_rows() > 0):
         row    = result.fetch_row()
         mod_id = int(row[0][0])
       else:
-        query = "INSERT into moduleT VALUES (NULL, '%s', '%s', '%s') " % (
-          dataT['path'], dataT['module'], dataT['syshost'])
-        conn.query(query)
+        query = "INSERT into moduleT VALUES (NULL, %s, %s, %s)" 
+        cursor.execute(query,(dataT['path'], dataT['module'], dataT['syshost']))
         mod_id = conn.insert_id()
 
       ##################################################################
       # Step 3: Insert new connection between user and module with a
       #         timestamp into the join_user_module table
       dateTm = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(float(dataT['time'])))
-      query  = "INSERT into join_user_module VALUES(NULL, '%s', '%s', '%s') " % (
-        user_id, mod_id, dateTm)
-      conn.query(query)
+      query  = "INSERT into join_user_module VALUES(NULL, %s, %s, %s) "
+      cursor.execute(query,(user_id, mod_id, dateTm))
 
       ##################################################################
       # Step 4: Commit everything to db.
@@ -176,8 +174,9 @@ class LMODdb(object):
   def counts(self, sqlPattern, syshost, startDate, endDate):
     query = ""
     try:
-      conn  = self.connect()
-      query = "USE "+self.db()
+      conn   = self.connect()
+      cursor = conn.cursor()
+      query  = "USE "+self.db()
       conn.query(query)
 
       dateTest = ""
@@ -190,12 +189,11 @@ class LMODdb(object):
       if (sqlPattern == "") :
         sqlPattern == "%"
 
-      query = ("SELECT t1.path, count(distinct(t2.user_id)) as c2 from moduleT as t1, "    +\
-               "join_user_module as t2 where t1.path like '%s' and t1.mod_id = t2.mod_id " +\
-               "and t1.syshost like '%s' %s group by t2.mod_id order by c2 desc")             %\
-               ( sqlPattern, syshost, dateTest )
+      query = "SELECT t1.path, count(distinct(t2.user_id)) as c2 from moduleT as t1, "  +\
+              "join_user_module as t2 where t1.path like %s and t1.mod_id = t2.mod_id " +\
+              "and t1.syshost like %s %s group by t2.mod_id order by c2 desc"
 
-      conn.query(query)
+      cursor.execute(query,( sqlPattern, syshost, dateTest ))
       result = conn.store_result()
 
       numRows = result.num_rows()
@@ -220,8 +218,9 @@ class LMODdb(object):
   def usernames(self, sqlPattern, syshost, startDate, endDate):
     query = ""
     try:
-      conn  = self.connect()
-      query = "USE "+self.db()
+      conn   = self.connect()
+      cursor = conn.cursor()
+      query  = "USE "+self.db()
       conn.query(query)
 
       dateTest = ""
@@ -234,12 +233,12 @@ class LMODdb(object):
       if (sqlPattern == "") :
         sqlPattern == "%"
 
-      query = ("SELECT t1.path, t3.user as c2 from moduleT as t1, join_user_module "       +\
-               "as t2, userT as t3 where t1.path like '%s' and t1.mod_id = t2.mod_id "     +\
-               "and t1.syshost like '%s' %s and t3.user_id = t2.user_id group by c2 order "
-               "by c2") % ( sqlPattern, syshost, dateTest )
+      query =  "SELECT t1.path, t3.user as c2 from moduleT as t1, join_user_module "       +\
+               "as t2, userT as t3 where t1.path like  %s  and t1.mod_id = t2.mod_id "     +\
+               "and t1.syshost like  %s  %s and t3.user_id = t2.user_id group by c2 order "+\
+               "by c2"
 
-      conn.query(query)
+      cursor.execute(query, ( sqlPattern, syshost, dateTest ))
       result = conn.store_result()
 
       numRows = result.num_rows()
@@ -266,8 +265,9 @@ class LMODdb(object):
   def modules_used_by(self, syshost, username, startDate, endDate):
     query = ""
     try:
-      conn  = self.connect()
-      query = "USE "+self.db()
+      conn   = self.connect()
+      cursor = conn.cursor()
+      query  = "USE "+self.db()
       conn.query(query)
 
       dateTest = ""
@@ -277,12 +277,12 @@ class LMODdb(object):
       if (startDate != "unknown"):
         dateTest = dateTest + " and t2.date < '" + endDate + "'"
 
-      query = ("SELECT t1.path c1, t3.user as c2 from moduleT as t1, join_user_module "     +\
-               "as t2, userT as t3 where t3.user = '%s' and t1.mod_id = t2.mod_id "         +\
-               "and t1.syshost like '%s' %s and t3.user_id = t2.user_id group by c1 order " +\
-               "by c1") % ( username, syshost, dateTest )
+      query =  "SELECT t1.path c1, t3.user as c2 from moduleT as t1, join_user_module "      +\
+               "as t2, userT as t3 where t3.user =  %s  and t1.mod_id = t2.mod_id "          +\
+               "and t1.syshost like  %s ' %s and t3.user_id = t2.user_id group by c1 order " +\
+               "by c1"
 
-      conn.query(query)
+      cursor.execute(query, ( username, syshost, dateTest ))
       result = conn.store_result()
 
       numRows = result.num_rows()
