@@ -1,5 +1,0 @@
-#%Module1.0#####################################################################
-##
-## Make python 2.7.2 the default
-##
-set ModulesVersion "anaconda"
