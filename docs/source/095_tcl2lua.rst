@@ -45,7 +45,7 @@ When Lmod tries to translate the B modulefile into lua it fails::
    LmodError([[/opt/mfiles/B: (???): can't read "env(SYSTEM_NAME)": no such variable]])
 
 This is because unlike the TCL/C Module system, the **module load
-Centos** command is converted to a command but won't load the module
+Centos** command is converted to a function call but won't load the module
 in time to for the test to be evaluated properly.
 
 The only solution is convert the B modulefile into a Lua modulefile (B.lua)::
