@@ -104,6 +104,7 @@ Handling a collection of modules:
   restore | r         name          Restore modules from "name" collection.
   restore             system        Restore module state to system defaults.
   savelist                          List of saved collections.
+  describe | mcc      name          Describe the contents of a collection.
 Deprecated commands:
   reset                             The same as "restore system"
   getdefault          [name]        load name collection of modules or
@@ -228,6 +229,7 @@ Handling a collection of modules:
   restore | r         name          Restore modules from "name" collection.
   restore             system        Restore module state to system defaults.
   savelist                          List of saved collections.
+  describe | mcc      name          Describe the contents of a collection.
 Deprecated commands:
   reset                             The same as "restore system"
   getdefault          [name]        load name collection of modules or

@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.7.6  2014-09-08 17:11
+Modules based on Lua: Version 6.0.6  2015-07-16 14:33
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -36,7 +36,7 @@ Currently Loaded Modules:
   1) admin/admin-1.0   3) local/local   5) noweb/2.10c   7) openmpi/1.2.6
   2) unix/unix         4) intel/intel   6) PrgEnv        8) parmetis/3.1  (m)
   Where:
-   (m):  built for host and native MIC
+   m:  built for host and native MIC
 ===========================
 step 8
 lua ProjectDIR/src/lmod.in.lua bash purge

@@ -59,7 +59,7 @@ require("utils")
 _G._DEBUG          = false               -- Required by the new lua posix
 local BeautifulTbl = require('BeautifulTbl')
 local ColumnTable  = require('ColumnTable')
-local Default      = '(D)'
+local Default      = 'D'
 local M            = {}
 local MName        = require("MName")
 local ModuleStack  = require("ModuleStack")
@@ -727,7 +727,7 @@ function M.reload_sticky(self, force)
       local b  = mt:list("fullName","active")
       local a  = {}
       for i = 1, #b do
-         a[#a+1] = {"  " .. tostring(i) .. ")", b[i] }
+         a[#a+1] = {"  " .. tostring(i) .. ")", b[i].name }
       end
       local ct = ColumnTable:new{tbl=a, gap=0}
       io.stderr:write(ct:build_tbl(),"\n")
@@ -847,16 +847,6 @@ local function availEntry(defaultOnly, terse, label, szA, searchA, sn, name,
       end
    end
 
-   --local f_orig = f
-   --local d, bn  = splitFileName(f)
-   --local d2     = abspath(d)
-   --f            = pathJoin(d2,bn)
-   --local fabs   = abspath_localdir(f)
-   --
-   --dbg.print{"defaultOnly: ",defaultOnly, ", defaultModuleT.fn: ",defaultModuleT.fn,
-   --          ", f_orig: ",f_orig,", f: ", f,", d: ", d,", d2: ", d2, ", fabs: ",fabs,"\n"}
-
-   --local isDefault = (defaultModuleT.fn == f_orig or defaultModuleT.fn == fabs)
    local isDefault = (defaultModuleT.fn == f)
 
    dbg.print{"isDefault: ",isDefault, "\n"}
@@ -930,15 +920,26 @@ local function availEntry(defaultOnly, terse, label, szA, searchA, sn, name,
          aa[#aa+1] = resultA[i]
       end
       
+      local propStr = aa[3] or ""
       local verMapStr = malias:getMod2VersionT(name)
       if (verMapStr) then
          if (dflt == Default) then
-            dflt = "(D:".. verMapStr .. ")"
+            dflt = "D:".. verMapStr
          else
-            dflt = "(".. verMapStr .. ")"
+            dflt = verMapStr
          end
       end
-      aa[#aa + 1] = dflt
+      local bb = {}
+      if (propStr:len() > 0) then
+         bb[#bb + 1] = propStr
+      end
+      if (dflt:len() > 0) then
+         bb[#bb + 1] = dflt
+      end
+      aa[3] = concatTbl(bb,",")
+      if (aa[3]:len() > 0) then
+         aa[3] = "(".. aa[3] .. ")"
+      end
       a[#a + 1]   = aa
    end
    dbg.fini("Master:availEntry")
@@ -1175,7 +1176,7 @@ function M.avail(argA)
       local a     = {}
       local label = labelA[j]
       availDir(defaultOnly, terse, searchA, label, locationT, availT[label], dbT, a, legendT)
-      if (next(a)) then
+      if (next(a) ~= nil) then
          aa[#aa+1] = "\n"
          aa[#aa+1] = banner:bannerStr(label)
          aa[#aa+1] = "\n"

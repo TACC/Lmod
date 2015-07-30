@@ -115,6 +115,34 @@ function Avail(...)
 end
 
 --------------------------------------------------------------------------
+-- Report the modules in the requested collection
+function CollectionLst(collection)
+   collection  = collection or "default"
+   dbg.start{"CollectionLst(",collection,")"}
+   local masterTbl = masterTbl()
+   local sname     = (LMOD_SYSTEM_NAME == nil) and "" or "." .. LMOD_SYSTEM_NAME
+   local path      = pathJoin(os.getenv("HOME"), ".lmod.d", collection .. sname)
+   local mt        = MT:mt()
+   local a         = mt:reportContents{fn=path, name=collection}
+   local shell     = Master:master().shell
+   if (masterTbl.terse) then
+      for i = 1,#a do
+         io.stderr:write(a[i],"\n")
+      end
+   else
+      shell:echo("Collection \"",collection,"\" contains: \n")
+      local b = {}
+      for i = 1,#a do
+         b[#b+1] = { "   " .. i .. ")", a[i] }
+      end
+      local ct = ColumnTable:new{tbl=b, gap = 0}
+      shell:echo(ct:build_tbl(),"\n")
+   end
+   dbg.fini("CollectionLst")
+end
+
+
+--------------------------------------------------------------------------
 -- Get the command line argument and use MT:getMTfromFile()
 -- to read the module table from the file and use that
 -- collections of module to load.  This routine is deprecated

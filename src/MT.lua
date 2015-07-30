@@ -826,8 +826,8 @@ function M.getMTfromFile(self,t)
    local t = {}
 
    for i = 1,#activeA do
-      local      sn = activeA[i].sn
-      t[sn]         = l_mt:getHash(sn)
+      local sn = activeA[i].sn
+      t[sn]    = l_mt:getHash(sn)
       dbg.print{"sn: ",sn,", hash: ", t[sn], "\n"}
    end
 
@@ -1357,6 +1357,17 @@ function M.list(self, kind, status)
             a[icnt] = { v.loadOrder, v[nameT], obj }
          end
       end
+   elseif (kind == "fullName") then
+      for k,v in pairs(mT) do
+         if ((status == "any" or status == v.status) and
+             (v.status ~= "pending")) then
+            icnt  = icnt + 1
+            local nameT = "fullName"
+            local obj = {sn   = v.short,   full       = v.fullName,
+                         name = v[nameT], defaultFlg = v.default }
+            a[icnt] = { v.loadOrder, v[nameT], obj }
+         end
+      end
    elseif (kind == "both") then
       for k, v in pairs(mT) do
          if ((status == "any" or status == v.status) and
@@ -1831,12 +1842,13 @@ function M.list_property(self, idx, sn, style, legendT)
    end
 
    local resultA = colorizePropA(style, entry.fullName, entry.propT, legendT)
+   if (resultA[2]) then
+      resultA[2] = "(" .. resultA[2] .. ")"
+   end
 
    local cstr    = string.format("%3d)",idx)
 
    table.insert(resultA, 1, cstr)
-
-   local tLen = resultA[1]:len() + resultA[2]:len() + tostring(resultA[3]):len()
    dbg.fini("MT:list_property")
    return resultA
 end
@@ -1946,6 +1958,28 @@ function M.reportChanges(self)
    end
 
    dbg.fini("MT:reportChanges")
+end
+
+--------------------------------------------------------------------------
+-- Report the contents of the collection.
+function M.reportContents(self, t)
+   dbg.start{"mt:reportContents(",t.fn,")"}
+   local f = io.open(t.fn,"r")
+   if (not f) then
+      LmodErrorExit("Unknown collection: ", t.name,"\n")
+   end
+   local s       = f:read("*all")
+   local l_mt    = new(self, s, t.fn)
+   local kind    = (LMOD_PIN_VERSIONS == "no") and "userName" or "fullName"
+   local activeA = l_mt:list(kind, "active")
+   local a       = {}
+   for i = 1, #activeA do
+      a[#a+1] = activeA[i].name
+   end
+
+   f:close()
+   dbg.fini("mt:reportContents")
+   return a
 end
 
 --------------------------------------------------------------------------

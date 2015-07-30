@@ -45,6 +45,9 @@ _module_command()
     "refresh:refresh all non-persistent components of loaded modules"
     "whatis:display module information"
     "keyword:search for a given keyword in modules"
+    "mcc:module collection contents"
+    "collection:module collection contents"
+    "cc:module collection contents"
   )
 
   if (( CURRENT == 1 )); then
@@ -99,6 +102,23 @@ _module_restore()
   compadd "$@" -a -- _savelist_list
 }
 
+_ml_mcc()
+{
+  _savelist_list=(${$(module -q -t savelist 2>&1 > /dev/null)})
+  compadd "$@" -a -- _savelist_list
+}
+
+_ml_collection()
+{
+  _savelist_list=(${$(module -q -t savelist 2>&1 > /dev/null)})
+  compadd "$@" -a -- _savelist_list
+}
+
+_ml_cc()
+{
+  _savelist_list=(${$(module -q -t savelist 2>&1 > /dev/null)})
+  compadd "$@" -a -- _savelist_list
+}
 
 # Completion function for help
 _module_help()

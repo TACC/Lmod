@@ -5,7 +5,7 @@ Lmod: A New Environment Module System
 Guides
 ^^^^^^
 
-This a daunting list of documentation.  However all of this doesn't have to
+This a daunting list.  However all of this doesn't have to
 be read to use Lmod.  Users should just read the User Guide and
 possibly the FAQ.  Advanced users wishing to have personal modules,
 should read the Advanced user guide and possibly the Lua Modulefile

@@ -52,6 +52,9 @@ _ml()
     "whatis:display module information"
     "keyword:search for a given keyword in modules"
     "update:reload all loaded modules"
+    "mcc:module collection contents"
+    "collection:module collection contents"
+    "cc:module collection contents"
   )
 
   for i in $_ml_cmds; do
@@ -150,6 +153,8 @@ _ml_loaded_modules()
   _loaded_modules=(${$(module -q -t list 2>&1 > /dev/null | sed ' /^ *$/d; /:$/d; s#/*$##g;')})
 }
 
+
+
 # Fills the available modules cache
 _ml_available_modules()
 {
@@ -176,6 +181,25 @@ _ml_restore()
   _savelist_list=(${$(module -q -t savelist 2>&1 > /dev/null)})
   compadd "$@" -a -- _savelist_list
 }
+
+_ml_mcc()
+{
+  _savelist_list=(${$(module -q -t savelist 2>&1 > /dev/null)})
+  compadd "$@" -a -- _savelist_list
+}
+
+_ml_collection()
+{
+  _savelist_list=(${$(module -q -t savelist 2>&1 > /dev/null)})
+  compadd "$@" -a -- _savelist_list
+}
+
+_ml_cc()
+{
+  _savelist_list=(${$(module -q -t savelist 2>&1 > /dev/null)})
+  compadd "$@" -a -- _savelist_list
+}
+
 
 _ml_help()
 {

@@ -34,15 +34,15 @@ step 6
 lua ProjectDIR/src/lmod.in.lua bash avail
 ===========================
 ProjectDIR/rt/hierarchy/mf/MPI/clang/4.2/openmpi/1.8
-   parmetis/4.0.3 (L)    python/2.7.3  (D)
+   parmetis/4.0.3 (L)    python/2.7.3 (D)
 ProjectDIR/rt/hierarchy/mf/Compiler/clang/4.2
    mpich/17.200.3    openmpi/1.8.3 (L)    python/2.7.3
 ProjectDIR/rt/hierarchy/mf/Core
-   ben/0.1  (D)    clang/4.2.1 (L)        fbr/1.0        python/2.7.3
-   ben/1.0         fbr/0.1         (D)    gcc/14.27.3
+   ben/0.1 (D)    clang/4.2.1 (L)    fbr/1.0        python/2.7.3
+   ben/1.0        fbr/0.1     (D)    gcc/14.27.3
   Where:
-   (D):  Default Module
-   (L):  Module is loaded
+   D:  Default Module
+   L:  Module is loaded
 Use "module spider" to find all possible modules.
 Use "module keyword key1 key2 ..." to search for all possible modules matching
 any of the "keys".

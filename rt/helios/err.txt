@@ -16,7 +16,7 @@ Currently Loaded Modules:
   1) apps/moab                (S)   3) compilers/intel/14.0   5) StdEnv (S)
   2) apps/buildtools/20140527       4) mpi/openmpi/1.6.5
   Where:
-   (S):  Module is Sticky, requires --force to unload or purge
+   S:  Module is Sticky, requires --force to unload or purge
 ===========================
 step 4
 lua ProjectDIR/src/lmod.in.lua bash purge
@@ -30,16 +30,16 @@ step 5
 lua ProjectDIR/src/lmod.in.lua bash avail
 ===========================
 ProjectDIR/rt/helios/mf/Compilers/intel14.0
-   mpi/mvapich2/1.9    mpi/openmpi/1.6.5 (L) (D)    mpi/openmpi/1.8.1
+   mpi/mvapich2/1.9    mpi/openmpi/1.6.5 (L,D)    mpi/openmpi/1.8.1
 ProjectDIR/rt/helios/mf/Core
-   StdEnv (S) (L)    apps/buildtools/20140527  (L)    foo/1.0
+   StdEnv (S,L)    apps/buildtools/20140527 (L)    foo/1.0
 ProjectDIR/rt/helios/mf/Core-helios
-   apps/lua/5.1.4.6            compilers/intel/14.0  (L)
-   apps/moab        (S) (L)    foo/1.1                   (D)
+   apps/lua/5.1.4.6          compilers/intel/14.0 (L)
+   apps/moab        (S,L)    foo/1.1              (D)
   Where:
-   (D):  Default Module
-   (L):  Module is loaded
-   (S):  Module is Sticky, requires --force to unload or purge
+   D:  Default Module
+   L:  Module is loaded
+   S:  Module is Sticky, requires --force to unload or purge
 Use "module spider" to find all possible modules.
 Use "module keyword key1 key2 ..." to search for all possible modules matching
 any of the "keys".
@@ -48,16 +48,15 @@ step 6
 lua ProjectDIR/src/lmod.in.lua bash -s grouped avail
 ===========================
 Your compiler dependent modules
-   mpi/mvapich2/1.9    mpi/openmpi/1.6.5 (L) (D)    mpi/openmpi/1.8.1
+   mpi/mvapich2/1.9    mpi/openmpi/1.6.5 (L,D)    mpi/openmpi/1.8.1
 Core Modules
-   StdEnv                   (S) (L)    compilers/intel/14.0  (L)
-   apps/buildtools/20140527     (L)    foo/1.0
-   apps/lua/5.1.4.6                    foo/1.1                   (D)
-   apps/moab                (S) (L)
+   StdEnv                   (S,L)    apps/moab            (S,L)    foo/1.1 (D)
+   apps/buildtools/20140527 (L)      compilers/intel/14.0 (L)
+   apps/lua/5.1.4.6                  foo/1.0
   Where:
-   (D):  Default Module
-   (L):  Module is loaded
-   (S):  Module is Sticky, requires --force to unload or purge
+   D:  Default Module
+   L:  Module is loaded
+   S:  Module is Sticky, requires --force to unload or purge
 Use "module spider" to find all possible modules.
 Use "module keyword key1 key2 ..." to search for all possible modules matching
 any of the "keys".
@@ -66,16 +65,15 @@ step 7
 lua ProjectDIR/src/lmod.in.lua bash avail
 ===========================
 Your compiler dependent modules
-   mpi/mvapich2/1.9    mpi/openmpi/1.6.5 (L) (D)    mpi/openmpi/1.8.1
+   mpi/mvapich2/1.9    mpi/openmpi/1.6.5 (L,D)    mpi/openmpi/1.8.1
 Core Modules
-   StdEnv                   (S) (L)    compilers/intel/14.0  (L)
-   apps/buildtools/20140527     (L)    foo/1.0
-   apps/lua/5.1.4.6                    foo/1.1                   (D)
-   apps/moab                (S) (L)
+   StdEnv                   (S,L)    apps/moab            (S,L)    foo/1.1 (D)
+   apps/buildtools/20140527 (L)      compilers/intel/14.0 (L)
+   apps/lua/5.1.4.6                  foo/1.0
   Where:
-   (D):  Default Module
-   (L):  Module is loaded
-   (S):  Module is Sticky, requires --force to unload or purge
+   D:  Default Module
+   L:  Module is loaded
+   S:  Module is Sticky, requires --force to unload or purge
 Use "module spider" to find all possible modules.
 Use "module keyword key1 key2 ..." to search for all possible modules matching
 any of the "keys".

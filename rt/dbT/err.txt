@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.8.6  2015-02-03 12:08
+Modules based on Lua: Version 6.0.6  2015-07-16 14:33
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -13,7 +13,7 @@ ProjectDIR/rt/dbT/mf2/Core
 ProjectDIR/rt/dbT/mf1/Core
    a/1.0    b/1.0    c/1.0
   Where:
-   (D):  Default Module
+   D:  Default Module
 Use "module spider" to find all possible modules.
 Use "module keyword key1 key2 ..." to search for all possible modules matching
 any of the "keys".

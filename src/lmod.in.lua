@@ -170,6 +170,7 @@ function colorizePropA(style, moduleName, propT, legendT)
    local resultA      = { moduleName }
    local propDisplayT = getPropT()
    local iprop        = 0
+   local pA           = {}
    propT              = propT or {}
 
    for kk,vv in pairsByKeys(propDisplayT) do
@@ -185,20 +186,26 @@ function colorizePropA(style, moduleName, propT, legendT)
 
          table.sort(propA);
          local n = concatTbl(propA,":")
-
          if (vv.displayT[n]) then
             result     = vv.displayT[n][style]
+            if (result:sub( 1, 1) == "(" and result:sub(-1,-1) == ")") then
+               result  = result:sub(2,-2)
+            end
             color      = vv.displayT[n].color
             local k    = colorize(color,result)
             legendT[k] = vv.displayT[n].doc
          end
       end
       local s             = colorize(color,result)
-      resultA[#resultA+1] = s
+      if (result:len() > 0) then
+         pA[#pA+1] = s
+      end
+   end
+   if (#pA > 0) then
+      resultA[#resultA+1] = concatTbl(pA,",")
    end
    return resultA
 end
-
 
 
 
@@ -258,6 +265,7 @@ function Usage()
    a[#a+1] = { "  restore | r", "name",   "Restore modules from \"name\" collection."}
    a[#a+1] = { "  restore",     "system", "Restore module state to system defaults."}
    a[#a+1] = { "  savelist",    "",       "List of saved collections."}
+   a[#a+1] = { "  describe | mcc",  "name",  "Describe the contents of a collection."}
    a[#a+1] = { "" }
    a[#a+1] = { "Deprecated commands:"}
    a[#a+1] = { "--------------------"}
@@ -364,30 +372,32 @@ ModuleFn   = ""
 function main()
    local epoch        = epoch
    local t1           = epoch()
-   local loadTbl      = { name = "load",        checkMPATH = true,  cmd = Load_Usr    }
-   local tryAddTbl    = { name = "try-add",     checkMPATH = true,  cmd = Load_Try    }
-   local unloadTbl    = { name = "unload",      checkMPATH = true,  cmd = UnLoad      }
-   local refreshTbl   = { name = "refresh",     checkMPATH = false, cmd = Refresh     }
-   local swapTbl      = { name = "swap",        checkMPATH = true,  cmd = Swap        }
-   local purgeTbl     = { name = "purge",       checkMPATH = true,  cmd = Purge       }
-   local resetTbl     = { name = "reset",       checkMPATH = true,  cmd = Reset       }
-   local availTbl     = { name = "avail",       checkMPATH = false, cmd = Avail       }
-   local listTbl      = { name = "list",        checkMPATH = false, cmd = List        }
-   local tblLstTbl    = { name = "tablelist",   checkMPATH = false, cmd = TableList   }
-   local helpTbl      = { name = "help",        checkMPATH = false, cmd = Help        }
-   local whatisTbl    = { name = "whatis",      checkMPATH = false, cmd = Whatis      }
-   local showTbl      = { name = "show",        checkMPATH = false, cmd = Show        }
-   local useTbl       = { name = "use",         checkMPATH = true,  cmd = Use         }
-   local unuseTbl     = { name = "unuse",       checkMPATH = true,  cmd = UnUse       }
-   local updateTbl    = { name = "update",      checkMPATH = true,  cmd = Update      }
-   local keywordTbl   = { name = "keyword",     checkMPATH = false, cmd = Keyword     }
-   local saveTbl      = { name = "save",        checkMPATH = false, cmd = Save        }
-   local gdTbl        = { name = "getDefault",  checkMPATH = false, cmd = GetDefault  }
-   local restoreTbl   = { name = "restore",     checkMPATH = false, cmd = Restore     }
-   local savelistTbl  = { name = "savelist",    checkMPATH = false, cmd = SaveList    }
-   local spiderTbl    = { name = "spider",      checkMPATH = true,  cmd = SpiderCmd   }
-   local searchTbl    = { name = "search",      checkMPATH = false, cmd = SearchCmd   }
-   local recordTbl    = { name = "record",      checkMPATH = false, cmd = RecordCmd   }
+
+   local loadTbl      = { name = "load",        checkMPATH = true,  cmd = Load_Usr      }
+   local tryAddTbl    = { name = "try-add",     checkMPATH = true,  cmd = Load_Try      }
+   local unloadTbl    = { name = "unload",      checkMPATH = true,  cmd = UnLoad        }
+   local refreshTbl   = { name = "refresh",     checkMPATH = false, cmd = Refresh       }
+   local swapTbl      = { name = "swap",        checkMPATH = true,  cmd = Swap          }
+   local purgeTbl     = { name = "purge",       checkMPATH = true,  cmd = Purge         }
+   local resetTbl     = { name = "reset",       checkMPATH = true,  cmd = Reset         }
+   local availTbl     = { name = "avail",       checkMPATH = false, cmd = Avail         }
+   local listTbl      = { name = "list",        checkMPATH = false, cmd = List          }
+   local tblLstTbl    = { name = "tablelist",   checkMPATH = false, cmd = TableList     }
+   local helpTbl      = { name = "help",        checkMPATH = false, cmd = Help          }
+   local whatisTbl    = { name = "whatis",      checkMPATH = false, cmd = Whatis        }
+   local showTbl      = { name = "show",        checkMPATH = false, cmd = Show          }
+   local useTbl       = { name = "use",         checkMPATH = true,  cmd = Use           }
+   local unuseTbl     = { name = "unuse",       checkMPATH = true,  cmd = UnUse         }
+   local updateTbl    = { name = "update",      checkMPATH = true,  cmd = Update        }
+   local keywordTbl   = { name = "keyword",     checkMPATH = false, cmd = Keyword       }
+   local saveTbl      = { name = "save",        checkMPATH = false, cmd = Save          }
+   local gdTbl        = { name = "getDefault",  checkMPATH = false, cmd = GetDefault    }
+   local restoreTbl   = { name = "restore",     checkMPATH = false, cmd = Restore       }
+   local savelistTbl  = { name = "savelist",    checkMPATH = false, cmd = SaveList      }
+   local spiderTbl    = { name = "spider",      checkMPATH = true,  cmd = SpiderCmd     }
+   local searchTbl    = { name = "search",      checkMPATH = false, cmd = SearchCmd     }
+   local recordTbl    = { name = "record",      checkMPATH = false, cmd = RecordCmd     }
+   local mcTbl        = { name = "describe",    checkMPATH = false, cmd = CollectionLst }
 
    local cmdTbl = {
       ["try-add"]  = tryAddTbl,
@@ -396,6 +406,9 @@ function main()
       apropos      = keywordTbl,
       av           = availTbl,
       avail        = availTbl,
+      describe     = mcTbl,
+      cc           = mcTbl,
+      mcc          = mcTbl,
       del          = unloadTbl,
       delete       = unloadTbl,
       dis          = showTbl,
@@ -626,16 +639,15 @@ function main()
 
    -- Now quit if command is unknown.
 
-   if (cmdTbl[usrCmd] == nil) then
+   local cmdT = cmdTbl[usrCmd]
+
+   if (cmdT == nil) then
       io.stderr:write(version())
       io.stderr:write(Usage(),"\n")
       LmodErrorExit()
-   end
-
-   if (cmdTbl[usrCmd]) then
-      local cmd = cmdTbl[usrCmd].cmd
-      usrCmd   = cmdTbl[usrCmd].name
-      dbg.print{"cmd name: ", usrCmd,"\n"}
+   else
+      local cmd  = cmdT.cmd
+      dbg.print{"cmd name: ", cmdTbl[usrCmd].name,"\n"}
       cmd(unpack(masterTbl.pargs))
    end
 
@@ -646,7 +658,7 @@ function main()
    -- Report any admin messages associated with loads
    -- Note that is safe to run every time.
    mcp:reportAdminMsgs()
-   
+
    -- Report any changes (worth reporting from original MT)
    if (not quiet()) then
       mt:reportChanges()
@@ -656,7 +668,7 @@ function main()
    local n        = mt:name()
    local oldValue = getMT() or ""
    local value    = mt:serializeTbl()
-   varTbl[n] = Var:new(n)
+   varTbl[n]      = Var:new(n)
    varTbl[n]:set(value)
 
    -- Run any registered function for the Exit Hook

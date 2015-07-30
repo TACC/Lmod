@@ -41,6 +41,11 @@ _module_long_arg_list() {
 	done
 }
 
+_module_mcc() {
+	@PKG@/libexec/lmod bash -t collection 2>&1 > /dev/null
+        
+}
+
 _module() {
 	local cur="$2" prev="$3" cmds opts
 
@@ -62,6 +67,9 @@ _module() {
 	use|*-a*)	_filedir -d || return 0;;
 	help|show|whatis)
 			COMPREPLY=( $(compgen -W "$(_module_avail)" -- "$cur") );;
+	collection|cc|mcc)
+			COMPREPLY=( $(compgen -W "$(_module_mcc)" -- "$cur") );;
+	  
 	*) if test $COMP_CWORD -gt 2
 	   then
 		_module_long_arg_list "$cur"

@@ -150,6 +150,7 @@ function main()
 
    local lmodCmdT = {
       avail="avail",  av="avail",
+      describe="describe", mcc="describe",
       getdefault="getdefault", gd="getdefault",
       help="help",
       key="keyword", keyword="keyword",

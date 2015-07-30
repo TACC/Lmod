@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.9.4.1  2015-05-01 17:28
+Modules based on Lua: Version 6.0.6  2015-07-16 14:33
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -13,7 +13,7 @@ ProjectDIR/mf/TACC
    TACC          cluster          globus/4.0.1        pgi/7.1           (D)
    TACC-paths    cluster-paths    globus/4.0.7 (D)    pgi/7.2-5
   Where:
-   (D):  Default Module
+   D:  Default Module
 Use "module spider" to find all possible modules.
 Use "module keyword key1 key2 ..." to search for all possible modules matching
 any of the "keys".
