@@ -126,32 +126,31 @@ class LMODdb(object):
 
       query  = "SELECT user_id from userT where user=%s"
       cursor.execute(query, (dataT['user']))
-      result = conn.store_result()
-      if (result.num_rows() == 0):
+
+      if (cursor.rowcount == 0):
         #
         #  No user found, install user in userT table.
         query   = "INSERT into userT VALUES (NULL,%s)"
         cursor.execute(query,(dataT['user']))
-        user_id = conn.insert_id()
+        user_id = cursor.lastrowid
       else:
         #
         # User already in userT, get user_id
-        row     = result.fetch_row()
-        user_id = int(row[0][0])
+        row     = cursor.fetchone()
+        user_id = int(row[0])
 
       ##################################################################
       # Step 2: Find or insert module name and fn into moduleT
 
       query = "SELECT mod_id from moduleT WHERE path=%s and syshost=%s"
       cursor.execute(query,(dataT['path'], dataT['syshost']))
-      result = conn.store_result()
-      if (result.num_rows() > 0):
-        row    = result.fetch_row()
-        mod_id = int(row[0][0])
+      if (cursor.rowcount > 0):
+        row    = cursor.fetchone()
+        mod_id = int(row[0])
       else:
         query = "INSERT into moduleT VALUES (NULL, %s, %s, %s)" 
         cursor.execute(query,(dataT['path'], dataT['module'], dataT['syshost']))
-        mod_id = conn.insert_id()
+        mod_id = cursor.lastrowid
 
       ##################################################################
       # Step 3: Insert new connection between user and module with a
@@ -194,17 +193,15 @@ class LMODdb(object):
               "and t1.syshost like %s %s group by t2.mod_id order by c2 desc"
 
       cursor.execute(query,( sqlPattern, syshost, dateTest ))
-      result = conn.store_result()
-
-      numRows = result.num_rows()
+      numRows = cursor.rowcount
 
       resultA = []
 
       resultA.append(["Module path", "Distinct Users"])
       resultA.append(["-----------", "--------------"])
       for i in xrange(numRows):
-        row = result.fetch_row()
-        resultA.append([row[0][0],row[0][1]])
+        row = cursor.fetchone()
+        resultA.append([row[0],row[1]])
 
       conn.close()
 
@@ -239,9 +236,7 @@ class LMODdb(object):
                "by c2"
 
       cursor.execute(query, ( sqlPattern, syshost, dateTest ))
-      result = conn.store_result()
-
-      numRows = result.num_rows()
+      numRows = cursor.rowcount
 
       resultA = []
       resultA.append(["Module path", "User Name"])
@@ -249,8 +244,8 @@ class LMODdb(object):
 
 
       for i in xrange(numRows):
-        row = result.fetch_row()
-        resultA.append([row[0][0],row[0][1]])
+        row = cursor.fetchon()
+        resultA.append([row[0],row[1]])
 
       conn.close()
 
@@ -283,9 +278,7 @@ class LMODdb(object):
                "by c1"
 
       cursor.execute(query, ( username, syshost, dateTest ))
-      result = conn.store_result()
-
-      numRows = result.num_rows()
+      numRows = cursor.rowcount
 
       resultA = []
       resultA.append(["Module path", "User Name"])
@@ -293,8 +286,8 @@ class LMODdb(object):
 
 
       for i in xrange(numRows):
-        row = result.fetch_row()
-        resultA.append([row[0][0],row[0][1]])
+        row = cursor.fetchone()
+        resultA.append([row[0],row[1]])
 
       conn.close()
 

@@ -1,0 +1,64 @@
+#%Module1.0#####################################################################
+##
+## impi 4.1.1.036 modulefile
+##
+
+proc ModulesHelp { } {
+        puts stderr "\tUse Intel Cluster Studio XE MPI"
+}
+
+module-whatis "mpi"
+
+set		version		4.1.1.036
+set		app		impi
+set     modstr  [module-info specified]
+set		modroot		/apps/rhel6/intel/impi/$version
+set		itacroot	/apps/rhel6/intel/itac/8.1.0.024
+set		itac		$itacroot/intel64/itac
+
+if { ! [ is-loaded intel ] } {
+	module		load		intel/13.1.1.163
+}
+
+prepend-path    PATH            $itacroot/bin
+prepend-path    PATH            $modroot/bin64
+
+prepend-path	LD_LIBRARY_PATH $itacroot/lib
+prepend-path    LD_LIBRARY_PATH $itac/slib_impi4
+prepend-path	LD_LIBRARY_PATH $modroot/lib64
+prepend-path	CLASSPATH	$itac/lib_impi4
+
+#prepend-path    MANPATH         $modroot/share/man
+
+setenv          I_MPI_ROOT      $modroot
+setenv          MPI_HOME        $modroot/intel64
+setenv		CC		mpiicc
+setenv		CXX		mpiicpc
+setenv		FC		mpiifort
+if { [ regexp {(carter|peregrine1|rice)} [ info hostname ] ] } {
+	setenv		I_MPI_FABRICS	shm:ofa
+} elseif { [ regexp {(conte)} [ info hostname ] ] } {
+    setenv          I_MPI_FABRICS   shm:dapl
+    setenv I_MPI_DAPL_UD                    enable
+    setenv I_MPI_DAPL_UD_PROVIDER           ofa-v2-mlx5_0-1s
+} else {
+	setenv		I_MPI_FABRICS	shm:tcp
+}
+
+
+# For Trace Analyzer and Collector
+
+setenv		VT_ARCH		intel64
+setenv		VT_MPI		impi4
+setenv		VT_ROOT		$itacroot
+setenv		VT_LIB_DIR	$itac/lib_impi4
+setenv		VT_SLIB_DIR	$itac/slib_impi4
+setenv		VT_ADD_LIBS	"-ldwarf -lelf -lvtunwind -lnsl -lm -ldl -lpthread"
+
+#if {[file executable /usr/site/rcac/sbin/log_usage]} {
+#    exec /usr/site/rcac/sbin/log_usage impi	$version
+#}
+#if {[file executable /usr/site/rcac/mod_notifications/notify_user]} {
+#    catch {exec /usr/site/rcac/mod_notifications/notify_user $app $version [ module-info mode ] $modstr } msg
+#    if { [string length $msg ] > 0 } { puts stderr "$msg" }
+#}

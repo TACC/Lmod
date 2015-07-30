@@ -1,0 +1,35 @@
+#%Module1.0#################################################################################
+##
+## petsc-3.4.4 built with impi-4.1.1.036_intel-14.0.2.144
+##
+proc ModulesHelp { } {
+        global app version modroot
+
+        puts stderr "\tpetsc - petsc-3.4.4 built with impi-4.1.1.036_intel-14.0.2.144"
+}
+
+module-whatis   "invoke petsc-3.4.4 built with impi-4.1.1.036_intel-14.0.2.144"
+
+# for Tcl script use only
+set     app             petsc
+set     version         3.4.4_impi-4.1.1.036_intel-14.0.2.144
+set     modroot         /apps/rhel6/$app/$version
+
+
+# Load compiler
+
+module load python
+module load intel/14.0.2.144
+module load impi/4.1.1.036
+
+# For slepc and arpack
+
+setenv          PETSC_DIR           $modroot
+setenv          PETSC_ARCH          linux
+setenv          SLEPC_DIR           /apps/rhel6/slepc/3.4.4_petsc-$version
+prepend-path    LD_LIBRARY_PATH     /apps/rhel6/arpack/64/impi-4.1.1.036_intel-14.0.2.144/lib
+
+
+#if {[file executable /usr/site/rcac/scripts/log_usage]} {
+#    exec /usr/site/rcac/scripts/log_usage $app $version
+#}
