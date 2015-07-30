@@ -244,7 +244,7 @@ class LMODdb(object):
 
 
       for i in xrange(numRows):
-        row = cursor.fetchon()
+        row = cursor.fetchone()
         resultA.append([row[0],row[1]])
 
       conn.close()
