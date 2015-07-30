@@ -190,9 +190,9 @@ class LMODdb(object):
 
       query = "SELECT t1.path, count(distinct(t2.user_id)) as c2 from moduleT as t1, "  +\
               "join_user_module as t2 where t1.path like %s and t1.mod_id = t2.mod_id " +\
-              "and t1.syshost like %s %s group by t2.mod_id order by c2 desc"
+              "and t1.syshost like %s " + dateTest + " group by t2.mod_id order by c2 desc"
 
-      cursor.execute(query,( sqlPattern, syshost, dateTest ))
+      cursor.execute(query,( sqlPattern, syshost))
       numRows = cursor.rowcount
 
       resultA = []
@@ -232,10 +232,10 @@ class LMODdb(object):
 
       query =  "SELECT t1.path, t3.user as c2 from moduleT as t1, join_user_module "       +\
                "as t2, userT as t3 where t1.path like  %s  and t1.mod_id = t2.mod_id "     +\
-               "and t1.syshost like  %s  %s and t3.user_id = t2.user_id group by c2 order "+\
-               "by c2"
+               "and t1.syshost like  %s " + dateTest +" and t3.user_id = t2.user_id "      +\
+               "group by c2 order by c2"
 
-      cursor.execute(query, ( sqlPattern, syshost, dateTest ))
+      cursor.execute(query, ( sqlPattern, syshost))
       numRows = cursor.rowcount
 
       resultA = []
@@ -274,10 +274,10 @@ class LMODdb(object):
 
       query =  "SELECT t1.path c1, t3.user as c2 from moduleT as t1, join_user_module "      +\
                "as t2, userT as t3 where t3.user =  %s  and t1.mod_id = t2.mod_id "          +\
-               "and t1.syshost like  %s ' %s and t3.user_id = t2.user_id group by c1 order " +\
+               "and t1.syshost like %s "+ dataTest + " and t3.user_id = t2.user_id group by c1 order " +\
                "by c1"
 
-      cursor.execute(query, ( username, syshost, dateTest ))
+      cursor.execute(query, ( username, syshost ))
       numRows = cursor.rowcount
 
       resultA = []
