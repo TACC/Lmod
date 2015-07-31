@@ -43,7 +43,7 @@ must be some conventions to make this work.  A suggested way to do
 this is the following:
 
 #. Core modules are placed in `/apps/mfiles/Core`.  These are the
-   comoilers, programs like git and so on.
+   compilers, programs like git and so on.
 #. Core software goes in `/apps/<app-name>/<app-version>`.
    So git version 2.3.4 goes in  `/apps/git/2.3.4`
 #. Compiler-dependent module files go in
@@ -52,7 +52,7 @@ this is the following:
    1.55.0 modulefile built with gcc/4.8.3 would be found in
    `/apps/mfiles/Compiler/gcc/4.8/boost/1.55.0.lua`
 #. Compiler-dependent packages go in
-   `/apps/<compiler-version>/<app-name>/<app-version>.  So the same
+   `/apps/<compiler-version>/<app-name>/<app-version>`.  So the same
    Boost 1.55.0 package built with gcc 4.8.3 would be placed in
    `/apps/gcc-4_8/boost/1.55.0`
 
@@ -79,8 +79,136 @@ need to create a generic boost modulefile::
 The `myModuleFullName()` function returns the full name of the
 module.  So if the module is named **boost/1.55.0** then that is what
 it will return.  If your site use module names like `lib/boost/1.55.0`
-then it will return that correctly as well. The `1` tells Lmod to
-return just one component fromt the path.
+then it will return that correctly as well. The *1* tells Lmod to
+return just one component from the path.  So if the modulefile is
+located at `/apps/mfiles/Compiler/gcc/4.8/boost/1.55.0.lua` then
+`myModuleFullName()` returns **boost/1.55.0** and the `hierarchyA`
+function returns an array with 1 entry.  In this case it returns::
 
-   
+   { "gcc/4.8" }
+
+The rest of the module file then can make use to this result to form
+the paths::
+
+    local pkgName     = myModuleName()
+    local fullVersion = myModuleVersion()
+    local hierA       = hierarchyA(myModuleFullName(),1)
+    local compilerD   = hierA[1]:gsub("/","-"):gsub("%.","_")
+    local base        = pathJoin("/apps",compilerD,pkgName,fullVersion)
+
+    whatis("Name: "..pkgName)
+    whatis("Version "..fullVersion)
+    whatis("Category: library")
+    whatis("Description: Boost provides free peer-reviewed "..
+                        " portable C++ source libraries.")
+    whatis("URL: http://www.boost.org")
+    whatis("Keyword: library, c++")
+
+    setenv("TACC_BOOST_LIB", pathJoin(base,"lib"))
+    setenv("TACC_BOOST_INC", pathJoin(base,"include"))
+
+The important trick is the building of the `compilerD` variable.  It
+converts the `gcc/4.8` into `gcc-4_8`.  This makes the `base` variable
+be: `/apps/gcc-4_8/boost/1.55.0`.
+
+A proposed directory structure of /apps/mfiles/Compiler would be::
+
+
+    .base/    gcc/  intel/
+
+    .base/
+    boost/generic.lua
+
+    gcc/4.8/boost/
+
+    1.55.0.lua ->  ../../../.base/boost/generic.lua
+
+    intel/15.0.2/boost/
+
+    1.55.0.lua -> ../../../.base/boost/generic.lua
+
+In this way the `.base/boost/generic.lua` file will be the source file
+for all the boost version build with gcc and intel compilers.
+
+
+The same technique can be applied for modulefiles for Compiler/MPI
+dependent packages.  In this case, we will create the phdf5
+modulefile.  This a parallel I/O package that allows for Hierarchical
+output.  The modulefile is::
+
+    local pkgName    = myModuleName()
+    local pkgVersion = myModuleVersion()
+    local pkgNameVer = myModuleFullName()
+
+    local hierA      = hierarchyA(pkgNameVer,2)
+    local mpiD       = hierA[1]:gsub("/","-"):gsub("%.","_")
+    local compilerD  = hierA[2]:gsub("/","-"):gsub("%.","_")
+    local base       = pathJoin("/apps", compilerD, mpiD, pkgNameVer)
+
+    setenv(      "TACC_HDF5_DIR",   base)
+    setenv(      "TACC_HDF5_DOC",   pathJoin(base,"doc"))
+    setenv(      "TACC_HDF5_INC",   pathJoin(base,"include"))
+    setenv(      "TACC_HDF5_LIB",   pathJoin(base,"lib"))
+    setenv(      "TACC_HDF5_BIN",   pathJoin(base,"bin"))
+    prepend_path("PATH",            pathJoin(base,"bin"))
+    prepend_path("LD_LIBRARY_PATH", pathJoin(base,"lib"))
+
+    whatis("Name: Parallel HDF5")
+    whatis("Version: " .. pkgVersion)
+    whatis("Category: library, mathematics")
+    whatis("URL: http://www.hdfgroup.org/HDF5")
+    whatis("Description: General purpose library and file format for storing scientific data (parallel I/O version)")
+
+We use the same tricks as before,  It is just that since the module
+for phdf5 built by gcc/4.8.3 and mpich/3.1.2 will be found at
+`/apps/mfiles/MPI/gcc/4.8./mpich/3.1/phdf5/1.8.14.lua` then the
+results of `hierarchyA(pkgNameVer,2)` would be::
+
+    { "mpich/3.1", "gcc/4.8" }
+
+This is because the `hierarchyA` works back up the path two elements
+at a time because the full name of this package is also two elements
+(phdf5/1.8.14).  The `base` variable now becomes::
+
+    /apps/gcc-4_8/mpich-3_1/phdf5/1.8.14
+
+The last type of modulefile that needs to be discussed is a mpi stack
+modulefile such as mpich/3.1.2.  This modulefile is more complicated
+because it has to implement the two digit rule, build the path to the
+package and build the new entry to the **MODULEPATH**.  The modulefile
+is::
+
+    local pkgNameVer   = myModuleFullName()
+    local pkgName      = myModuleName()
+    local fullVersion  = myModuleVersion()
+    local pkgV         = fullVersion:match('(%d+%.%d+)%.?')
+
+    local hierA        = hierarchyA(pkgNameVer,1)
+    local compilerV    = hierA[1]
+    local compilerD    = compilerV:gsub("/","-"):gsub("%.","_")
+    local base         = pathJoin("/apps",compilerD,pkgName,fullVersion)
+    local mpath        = pathJoin("/apps/mfiles/MPI", compilerV, pkgName, pkgV)
+
+    prepend_path("MODULEPATH", mpath)
+    setenv(      "TACC_MPICH_DIR", base)
+    setenv(      "TACC_MPICH_LIB", pathJoin(base,"lib"))
+    setenv(      "TACC_MPICH_BIN", pathJoin(base,"bin"))
+    setenv(      "TACC_MPICH_INC", pathJoin(base,"include"))
+
+    whatis("Name: "..pkgName)
+    whatis("Version "..fullVersion)
+    whatis("Category: mpi")
+    whatis("Description: High-Performance Portable MPI")
+    whatis("URL: http://www.mpich.org")
+
+The **Two Digit** rule implemented by forming the `pkgV` variable. The
+`base` and `mpath` are::
+
+    base  = "/apps/gcc-4_8/mpich-3_1/phdf5/1.8.14"
+    mpath = "/apps/mfiles/MPI/gcc/4.8/mpich/3.1"
+
+The *rt* directory contains all the regression test used by Lmod.  As
+such they contain many examples of modulefiles.  To complement this
+description, the *rt/hierarchy/mf* directory from the source tree
+contains a complete hierarchy.
 
