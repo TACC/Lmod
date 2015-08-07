@@ -227,7 +227,6 @@ function M.findModulesInDir(mpath, path, prefix, moduleT)
    dbg.start{"Spider:findModulesInDir(mpath=\"",mpath,"\", path=\"",path,
              "\", prefix=\"",prefix,"\")"}
 
-   local Pairs = dbg.active() and pairsByKeys or pairs
    local attr  = lfs.attributes(path)
    if (not attr or  type(attr) ~= "table" or attr.mode ~= "directory" or
        not posix.access(path,"rx")) then
@@ -279,7 +278,7 @@ function M.findModulesInDir(mpath, path, prefix, moduleT)
 
          local t = {fn = v.fn, modFullName = k, modName = sn, default = true, hash = 0}
          mt:add(t,"pending")
-         loadModuleFile{file=v.fn, shell=shellN, reportErr=true, mList = mList}
+         loadModuleFile{file=v.fn, shell=shellN, help=true, reportErr=true, mList = mList}
          mt:setStatus(t.modName,"active")
          dbg.print{"Saving: Full: ", k, " Name: ", k, " file: ",v.fn,"\n"}
       end
@@ -313,7 +312,7 @@ function M.findModulesInDir(mpath, path, prefix, moduleT)
          dbg.print{"Top of Stack: ",iStack, " Full: ", full, " fn: ", v.fn, "\n"}
          local t = {fn = v.fn, modFullName = full, modName = sn, default = 0, hash = 0}
          mt:add(t,"pending")
-         loadModuleFile{file=v.fn, shell=shellN, reportErr=true, mList = mList}
+         loadModuleFile{file=v.fn, shell=shellN, help=true, reportErr=true, mList = mList}
          mt:setStatus(t.modName,"active")
          dbg.print{"Saving: Full: ", full, " Name: ", sn, " fn: ",v.fn,"\n"}
       end
