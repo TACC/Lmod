@@ -152,6 +152,7 @@ sandbox_env = {
   myModuleName         = myModuleName,
   myModuleVersion      = myModuleVersion,
   hierarchyA           = hierarchyA,
+  userInGroup          = userInGroup,
 
   -- Normal modulefiles should not use these function(s):
   LmodSystemError      = LmodSystemError,   -- Normal Modulefiles should use

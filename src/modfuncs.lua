@@ -708,3 +708,16 @@ function hierarchyA(pkgName, levels)
 
    return b
 end
+
+function userInGroup(group)
+   local grps   = capture("groups")
+   local found  = false
+   local isRoot = tonumber(capture("id -u")) == 0
+   for g in grps:split("[ \n]") do
+      if (g == group or isRoot)  then
+         found = true
+         break
+      end
+   end
+   return found
+end
