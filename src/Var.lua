@@ -322,6 +322,7 @@ end
 -- none are left.
 -- @param self A Var object.
 function M.pop(self)
+   self.type    = 'path'
    local imin   = self.imin
    local min2   = huge
    local result = nil
@@ -406,6 +407,7 @@ end
 function M.prepend(self, value, nodups, priority)
    if (value == nil) then return end
 
+   self.type           = 'path'
    priority            = priority or 0
    local pathA         = path2pathA(value, self.sep)
    local is, ie, iskip = prepend_order(#pathA)
@@ -443,6 +445,7 @@ function M.append(self, value, nodups, priority)
    local pathA      = path2pathA(value, self.sep)
    local isPrepend  = false
    local adding     = true
+   self.type        = 'path'
 
    local tbl  = self.tbl
    local imax = self.imax
