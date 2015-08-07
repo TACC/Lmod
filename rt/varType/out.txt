@@ -30,7 +30,7 @@ M="B";
 export M;
 MODULEPATH="ProjectDIR/rt/varType/mf";
 export MODULEPATH;
-N="D";
+N="D:C";
 export N;
 _LMFILES_="ProjectDIR/rt/varType/mf/a/1.0.lua";
 export _LMFILES_;
