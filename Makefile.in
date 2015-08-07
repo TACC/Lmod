@@ -327,6 +327,7 @@ build_tags:
 	    -e 's|.*\.out$$||g'                                  \
 	    -e 's|.*\.pdf$$||g'                                  \
 	    -e 's|.*\.pyc$$||g'                                  \
+	    -e 's|.*db\.conf$$||g'                               \
 	    -e 's|.*\.pyo$$||g'                                  \
 	    -e 's|.*\.snm$$||g'                                  \
 	    -e 's|.*\.toc$$||g'                                  \
