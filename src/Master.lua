@@ -313,7 +313,6 @@ function M.access(self, ...)
       systemG.ModuleName = full
       if (fn and isFile(fn)) then
          A[#A+1] = prtHdr()
-         dbg.print{"RTM(2) #A:",#A,"\n"}
          if (masterTbl.rawDisplay) then
             local f     = io.open(fn, "r")
             local whole = f:read("*all")
@@ -328,7 +327,6 @@ function M.access(self, ...)
                         reportErr=true}
             mStack:pop()
             A[#A+1] = "\n"
-            dbg.print{"RTM(3) #A:",#A,"\n"}
          end
       else
          a[#a+1] = moduleName
