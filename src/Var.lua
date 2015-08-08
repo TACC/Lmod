@@ -407,6 +407,10 @@ end
 function M.prepend(self, value, nodups, priority)
    if (value == nil) then return end
 
+   if (self.type ~= 'path') then
+      extract(self)
+   end
+
    self.type           = 'path'
    priority            = priority or 0
    local pathA         = path2pathA(value, self.sep)
@@ -440,12 +444,15 @@ end
 -- @param priority The priority value.
 function M.append(self, value, nodups, priority)
    if (value == nil) then return end
+   if (self.type ~= 'path') then
+      extract(self)
+   end
+   self.type        = 'path'
    nodups           = not allow_dups(not nodups)
    priority         = tonumber(priority or "0")
    local pathA      = path2pathA(value, self.sep)
    local isPrepend  = false
    local adding     = true
-   self.type        = 'path'
 
    local tbl  = self.tbl
    local imax = self.imax

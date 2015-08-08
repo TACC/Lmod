@@ -1,12 +1,12 @@
 -- -*- lua -*-
 
-local testName = "broken_modulerc"
+local testName = "varType"
 
 testdescript = {
    owner   = "rtm",
    product = "modules",
    description = [[
-	 A broken modulerc file.
+	 Test what happens when setenv and prepend_path are used on the same variable
    ]],
    keywords = {testName },
 

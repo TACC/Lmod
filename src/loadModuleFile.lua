@@ -99,7 +99,7 @@ function loadModuleFile(t)
       A[#A + 1]    = "-s"
       A[#A + 1]    = t.shell
       if (t.help) then
-         A[#A + 1] = t.help
+         A[#A + 1] = "-h"
       end
       local a      = {}
       a[#a + 1]	   = pathJoin(cmdDir(),"tcl2lua.tcl")
