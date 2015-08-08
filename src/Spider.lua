@@ -69,37 +69,32 @@ end
 
 KeyT = {Description=1, Name=1, URL=1, Version=1, Category=1, Keyword=1}
 
-function processLPATH(value)
+local function process(kind, value)
    if (value == nil) then return end
-   local masterTbl      = masterTbl()
-   local moduleStack    = masterTbl.moduleStack
-   local iStack         = #moduleStack
-   local path           = moduleStack[iStack].path
-   local moduleT        = moduleStack[iStack].moduleT
+   local masterTbl   = masterTbl()
+   local moduleStack = masterTbl.moduleStack
+   local iStack      = #moduleStack
+   local path        = moduleStack[iStack].path
+   local moduleT     = moduleStack[iStack].moduleT
 
-   local lpathA         = moduleT[path].lpathA or {}
+   local a           = moduleT[path][kind] or {}
    for path in value:split(":") do
       path         = path_regularize(path)
-      lpathA[path] = 1
+      a[path]      = 1
    end
-   moduleT[path].lpathA = lpathA
+   moduleT[path][kind] = a
+end
+
+function processLPATH(value)
+   process("lpathA",value)
 end
 
 function processPATH(value)
-   if (value == nil) then return end
+   process("pathA",value)
+end
 
-   local masterTbl     = masterTbl()
-   local moduleStack   = masterTbl.moduleStack
-   local iStack        = #moduleStack
-   local path          = moduleStack[iStack].path
-   local moduleT       = moduleStack[iStack].moduleT
-
-   local pathA         = moduleT[path].pathA or {}
-   for path in value:split(":") do
-      path        = path_regularize(path)
-      pathA[path] = 1
-   end
-   moduleT[path].pathA = pathA
+function processDIR(value)
+   process("dirA",value)
 end
 
 function Spider_append_path(kind, t)

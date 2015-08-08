@@ -168,26 +168,35 @@ function M.whatis(self,s)
    return true
 end
 
-s_pat = false
+s_patLib = false
+s_patDir = false
 --------------------------------------------------------------------------
--- Track "TACC_.*_LIB" environment variables or whatever the site is
--- called.
+-- Track "TACC_.*_LIB" and TACC_.*_DIR environment variables or whatever
+-- the site is called.
 -- @param self A MasterControl object.
 -- @param name the environment variable name.
 -- @param value the environment variable value.
 function M.setenv(self, name, value)
    dbg.start{"MC_Spider:setenv(name, value)"}
 
-   if (not s_pat) then
-      local a = {}
-      a[#a+1] = "^"
-      a[#a+1] = hook.apply("SiteName")
-      a[#a+1] = "_.*_LIB"
-      s_pat   = concatTbl(a,"")
+   if (not s_patLib) then
+      local a  = {}
+      a[#a+1]  = "^"
+      a[#a+1]  = hook.apply("SiteName")
+      a[#a+1]  = "_.*_LIB"
+      s_patLib = concatTbl(a,"")
+      a        = {}
+      a[#a+1]  = "^"
+      a[#a+1]  = hook.apply("SiteName")
+      a[#a+1]  = "_.*_DIR"
+      s_patDir = concatTbl(a,"")
    end
 
-   if (name:find(s_pat)) then
+   if (name:find(s_patLib)) then
       processLPATH(value)
+   end
+   if (name:find(s_patDir)) then
+      processDIR(value)
    end
    dbg.fini()
    return true
