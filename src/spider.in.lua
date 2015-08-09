@@ -80,7 +80,7 @@ local posix         = require("posix")
 local sort          = table.sort
 
 
-local ignoreT     = {
+local ignoreA     = {
    "^$",
    "^%.$",
    "^%$",
@@ -95,15 +95,44 @@ local ignoreT     = {
    "^/opt/local/bin$",
 }
 
+--      key:  /opt/apps/gcc-4_8/mpich/3.1.1,
+--      path: /opt/apps/gcc-4_8/mpich/3.1.1/lib, i: nil, j: nil
+
+
+
 --------------------------------------------------------------------------
--- Check path against the *ignoreT* table.  
+-- Check path against the *ignoreT* table.  Also it must be "in" dirA if
+-- dirA exists.
 -- @param path input path.
-function keepThisPath(path)
-   for i = 1, #ignoreT do
-      if (path:find(ignoreT[i])) then
+local function keepThisPath2(path, dirA)
+   dbg.start{"keepThisPath(",path,", dirA)"}
+
+   if (dirA) then
+      local match = false
+      for k in pairs(dirA) do
+         local i, j = path:find(k,1,true)
+         dbg.print{"key: \"",k, "\", path: \"",path,"\", i: ",i,", j: ",j,"\n"}
+         if ( i == 1) then
+            match = true
+            break
+         end
+      end
+      if (not match) then
+         dbg.print{"No match\n"}
+         dbg.fini("keepThisPath")
          return false
       end
    end
+
+   for i = 1, #ignoreA do
+      if (path:find(ignoreA[i])) then
+         dbg.print{"In ignore list\n"}
+         dbg.fini("keepThisPath")
+         return false
+      end
+   end
+   dbg.print{"Keep: true\n"}
+   dbg.fini("keepThisPath")
    return true
 end
 
@@ -113,11 +142,10 @@ end
 -- @param tbl
 -- @param rmapT
 -- @param kind
-local function add2map(entry, tbl, rmapT, kind)
+local function add2map(entry, tbl, dirA, rmapT, kind)
    for path in pairs(tbl) do
       local attr = lfs.attributes(path)
-      path = path_regularize(path)
-      if (keepThisPath(path) and attr and attr.mode == "directory") then
+      if (keepThisPath2(path,dirA) and attr and attr.mode == "directory") then
          path = abspath(path)
          local t       = rmapT[path] or {pkg=entry.full, kind = kind, flavorT = {}}
          local flavorT = t.flavorT
@@ -163,10 +191,13 @@ local function buildReverseMapT(moduleDirA, moduleT, dbT)
    for kkk,vvv in pairs(dbT) do
       for kk, entry in pairs(vvv) do
          if (entry.pathA) then
-            add2map(entry, entry.pathA, reverseMapT,"bin")
+            add2map(entry, entry.pathA,  entry.dirA, reverseMapT, "bin")
          end
          if (entry.lpathA) then
-            add2map(entry, entry.lpathA, reverseMapT,"lib")
+            add2map(entry, entry.lpathA, entry.dirA, reverseMapT, "lib")
+         end
+         if (entry.dirA) then
+            add2map(entry, entry.dirA,   entry.dirA, reverseMapT, "dir")
          end
       end
    end
