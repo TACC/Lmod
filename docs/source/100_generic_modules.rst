@@ -37,7 +37,7 @@ Suppose you are interested in a modules where the modules and
 application location are relative.  Suppose that you have $APPS
 directory and below that you have modulefiles and packages and you
 like the modulefiles to figure out the absolute path to where the
-software is.  This can easily done withe the ``myFileName()`` function
+software is.  This can easily done with the ``myFileName()`` function
 and some lua code::
 
      local fn      = myFileName()
