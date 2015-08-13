@@ -30,6 +30,33 @@ the file.  So if the module file is in
 be `/apps/git/2.3.4`.
 
 
+Relative Paths
+~~~~~~~~~~~~~~
+
+Suppose you are interested in a modules where the modules and
+application location are relative.  Suppose that you have $APPS
+directory and below that you have modulefiles and packages and you
+like the modulefiles to figure out the absolute path to where the
+software is.  This can easily done withe the ``myFileName()`` function
+and some lua code::
+
+     local fn      = myFileName()
+     local full    = myModuleFullName()
+     local mdir    = fn:sub(1,fn:find(full,1,true)-2)
+     local appsDir = mdir:gsub("(.*)/","%1")
+     local pkg     = pathJoin(appsDir, full)
+
+So if the modulefile is located at
+``/home/user/apps/mfiles/git/1.2.lua`` then ``mdir`` is
+``/home/user/apps/mfiles/`` and ``appsDir`` is ``/home/user/apps``
+and ``pkg`` is ``/home/user/apps/git/1.2``.
+
+
+
+
+Generic Modules with the Hierarchy
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 This works great for Core modules, It is a little more complicated for
 Compiler or MPI/Compiler dependent modules but quite useful. For a
 concrete example, lets cover how to handle the boost C++ library.
