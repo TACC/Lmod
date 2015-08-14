@@ -224,7 +224,7 @@ class LMODdb(object):
       if (startDate != "unknown"):
         dateTest = " and t2.date >= '" + startDate + "'"
 
-      if (startDate != "unknown"):
+      if (endDate   != "unknown"):
         dateTest = dateTest + " and t2.date < '" + endDate + "'"
 
       if (sqlPattern == "") :

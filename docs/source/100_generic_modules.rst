@@ -33,12 +33,11 @@ be `/apps/git/2.3.4`.
 Relative Paths
 ~~~~~~~~~~~~~~
 
-Suppose you are interested in a modules where the modules and
-application location are relative.  Suppose that you have $APPS
-directory and below that you have modulefiles and packages and you
-like the modulefiles to figure out the absolute path to where the
-software is.  This can easily done with the ``myFileName()`` function
-and some lua code::
+Suppose you are interested in modules where the module and application
+location are relative. Suppose that you have an $APPS directory, and
+below that you have modulefiles and packages, and you would like the
+modulefiles to find the absolute path of the package location. This
+can easily be done with the ``myFileName()`` function and some lua code::
 
      local fn      = myFileName()
      local full    = myModuleFullName()
