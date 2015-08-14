@@ -826,6 +826,9 @@ function M._Level2(self, T, searchName, full, possibleA)
    local c  = {}
    local titleIdx = 0
 
+   local masterTbl = masterTbl()
+   local hidden    = not masterTbl.show_hidden
+
    local propDisplayT = getPropT()
 
    local term_width = TermWidth() - 4
@@ -903,13 +906,28 @@ function M._Level2(self, T, searchName, full, possibleA)
 
          for i = 1, #v.parent do
             local entry = v.parent[i]
+            local d = {}
+            local f = {}
             for s in entry:split(":") do
                if (s ~= "default") then
-                  b[#b+1] = s
-                  b[#b+1] = '  '
+                  for e in s:split("/") do
+                     f[#f+1] = e
+                  end
+                  if (hidden and f[#f] ~= ".") then
+                     d = {}
+                     break
+                  end
+                  d[#d+1] = s
+                  d[#d+1] = '  '
                end
             end
-            b[#b] = "\n      "
+            if (#d > 0) then
+               for k in pairs(d) do
+                  b[#b+1] = k
+               end
+               d = {}
+               b[#b] = "\n      "
+            end
          end
          if (#b > 0) then
             b[#b] = "\n" -- Remove final comma add newline instead
