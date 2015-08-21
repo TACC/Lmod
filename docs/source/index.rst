@@ -2,49 +2,6 @@
 Lmod: A New Environment Module System
 =====================================
 
-Guides
-^^^^^^
-
-This a daunting list.  However all of this doesn't have to
-be read to use Lmod.  Users should just read the User Guide and
-possibly the FAQ.  Advanced users wishing to have personal modules,
-should read the Advanced user guide and possibly the Lua Modulefile
-Function guide.  System adminstrators should read the Install Lua and
-Lmod as well as the Transitioning to Lmod first.  Other sections can
-be read as needed.
-
-
-.. toctree::
-   :maxdepth: 1
-
-   010_user
-   020_advanced
-   030_installing
-   040_FAQ
-   045_transition
-   050_lua_modulefiles
-   060_locating
-   070_standard_modules
-   080_hierarchy
-   090_configuring_lmod
-   095_tcl2lua
-   100_generic_modules
-
-The following are possible topics:
-
-#. Optional Software layout, two digit rule
-#. Module naming conventions
-#. Spider Cache Theory and Practice
-#. Advanced Topics: priority path, .modulerc tricks, deprecating modules
-#. settarg
-#. SitePackage.lua and hooks
-#. tracking module usage
-#. converting shell scripts into modulefiles
-#. module command and a parallel a file system.
-#. inherit
-#. internal structure of lmod.
-
-
 PURPOSE
 ^^^^^^^
 
@@ -83,6 +40,71 @@ zsh.  Also available for perl and python.
 
 It is also very easy to switch between different versions of a package
 or remove it. 
+
+Introduction to Lmod
+^^^^^^^^^^^^^^^^^^^^
+
+If you are new to Lmod then please read the User Guide and possibly
+the Frequently Asked Questions Guide.   Users who wish to read about
+how to have their own personal modules should read the Advanced User Guide.
+
+.. toctree::
+   :maxdepth: 1
+
+   010_user
+   040_FAQ
+   020_advanced
+
+Installing Lmod
+^^^^^^^^^^^^^^^
+
+Anyone wishing to install Lmod on a personal computer or for a system
+should read the Installation Guide as well as the Transitioning to
+Lmod Guide.  The rest of the guides can be read as needed.
+
+.. toctree::
+   :maxdepth: 1
+
+   030_installing
+   045_transition
+   050_lua_modulefiles
+   060_locating
+   070_standard_modules
+
+
+Advanced Topics
+^^^^^^^^^^^^^^^
+
+This is a list of advanced topics.
+
+.. toctree::
+   :maxdepth: 1
+
+
+   080_hierarchy
+   090_configuring_lmod
+   095_tcl2lua
+   100_generic_modules
+
+
+Topics yet to be written
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+The following are possible topics:
+
+#. Optional Software layout, two digit rule
+#. Module naming conventions
+#. Spider Cache Theory and Practice
+#. Advanced Topics: priority path, .modulerc tricks, deprecating modules
+#. settarg
+#. SitePackage.lua and hooks
+#. tracking module usage
+#. converting shell scripts into modulefiles
+#. module command and a parallel a file system.
+#. inherit
+#. internal structure of lmod.
+
+
 
 Indices and tables
 ==================
