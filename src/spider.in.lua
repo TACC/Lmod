@@ -105,7 +105,7 @@ local ignoreA     = {
 -- dirA exists.
 -- @param path input path.
 local function keepThisPath2(path, dirA)
-   dbg.start{"keepThisPath(",path,", dirA)"}
+   dbg.start{"keepThisPath2(",path,", dirA)"}
 
    if (dirA) then
       local match = false
@@ -119,7 +119,7 @@ local function keepThisPath2(path, dirA)
       end
       if (not match) then
          dbg.print{"No match\n"}
-         dbg.fini("keepThisPath")
+         dbg.fini("keepThisPath2")
          return false
       end
    end
@@ -127,12 +127,12 @@ local function keepThisPath2(path, dirA)
    for i = 1, #ignoreA do
       if (path:find(ignoreA[i])) then
          dbg.print{"In ignore list\n"}
-         dbg.fini("keepThisPath")
+         dbg.fini("keepThisPath2")
          return false
       end
    end
    dbg.print{"Keep: true\n"}
-   dbg.fini("keepThisPath")
+   dbg.fini("keepThisPath2")
    return true
 end
 
