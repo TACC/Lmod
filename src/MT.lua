@@ -961,6 +961,8 @@ function M.getMTfromFile(self,t)
    if (#aa > 0) then
       LmodWarning("One or more modules in your ",collectionName,
                   " collection have changed: \"", concatTbl(aa,"\", \""),"\".")
+      LmodMessage("To see the contents of this collection do:")
+      LmodMessage("  $ module describe ",collectionName)
       LmodMessage("To rebuild the collection, load the modules you wish then do:")
       LmodMessage("  $ module save ",collectionName)
       LmodMessage("If you no longer want this module collection do:")

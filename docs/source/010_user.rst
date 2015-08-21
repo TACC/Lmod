@@ -328,13 +328,26 @@ setup through the standard module commands:  ::
       $ module swap gcc ucc
       $ module load git
 
-Once users have the desired modules load then they issue: ::
+Once users have the desired modules load then they issue::
 
       $ module save
 
 This creates a file called ``~/.lmod.d/default`` which has the list of
-desired modules. Once this is setup a user can issue:  ::
+desired modules. Once this is setup a user can issue::
 
       $ module restore
 
-and only the desired modules will be loaded during login.  
+and only the desired modules will be loaded during login.
+
+Users can have as many collections as they like.  They can save to a
+named collection with::
+
+      $ module save <collection_name>
+
+and restore that named collection with::
+  
+      $ module restore <collection_name>
+
+Finally a user can print the contents of a collection with::
+
+      $ module describe <collection_name>
