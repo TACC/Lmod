@@ -69,6 +69,10 @@ LMOD_CACHE_TIMESTAMP_FILE_TXT=
 UPDATE_REVERSEMAPT_CACHE=0
 
 UPDATE_JSON_RMAPT=0
+
+# update dbT cache file (on by default)
+UPDATE_DBT_CACHE=1
+
 #
 # Utility functions
 #
@@ -111,6 +115,8 @@ print_help() {
     echo "      location of Lmod cache timestamp file (default: determine via 'ml --config')"
     echo "  -r"
     echo "      enable updating reverseMapT cache file (default: only moduleT and dbT cache files)"
+    echo "  -m"
+    echo "      moduleT cache update only, disable updating dbT cache file"
     echo "  -J"
     echo "      enable update jsonReverseMapT cache file"
     echo "  -X"
@@ -122,7 +128,7 @@ print_help() {
 parse_cmdline(){
     debug "Parsing command line options..."
     local OPTIND
-    while getopts :d:DhHt:rXJ opt; do
+    while getopts :d:DhmHt:rXJ opt; do
         case $opt in
             d)
                 LMOD_CACHE_DIR=$OPTARG
@@ -139,6 +145,9 @@ parse_cmdline(){
                 ;;
             r)
                 UPDATE_REVERSEMAPT_CACHE=1
+                ;;
+            m)
+                UPDATE_DBT_CACHE=0
                 ;;
             X)
                 LMOD_DEBUG=1
@@ -320,7 +329,9 @@ new_timestamp
 
 # update cache files
 update_cache $LMOD_CACHE_DIR moduleT
-update_cache $LMOD_CACHE_DIR dbT
+if [ $UPDATE_DBT_CACHE -ne 0 ]; then
+    update_cache $LMOD_CACHE_DIR dbT
+fi
 if [ $UPDATE_REVERSEMAPT_CACHE -ne 0 ]; then
     update_cache $LMOD_CACHE_DIR/../reverseMapD reverseMapT
 fi
