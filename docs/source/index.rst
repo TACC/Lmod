@@ -75,8 +75,6 @@ Lmod Guide.  The rest of the guides can be read as needed.
 Advanced Topics
 ^^^^^^^^^^^^^^^
 
-This is a list of advanced topics.
-
 .. toctree::
    :maxdepth: 1
 
