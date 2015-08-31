@@ -75,8 +75,6 @@ Lmod Guide.  The rest of the guides can be read as needed.
 Advanced Topics
 ^^^^^^^^^^^^^^^
 
-This is a list of advanced topics.
-
 .. toctree::
    :maxdepth: 1
 
@@ -85,6 +83,7 @@ This is a list of advanced topics.
    090_configuring_lmod
    095_tcl2lua
    100_generic_modules
+   110_lmod_mpi_parallel_filesystem
 
 
 Topics yet to be written
