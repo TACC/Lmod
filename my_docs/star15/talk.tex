@@ -1,0 +1,274 @@
+%* installation (deps, build/install procedure, making module/ml work)
+%* configuration (either via ./configure at build time, or via 
+%   $LMOD_FOO), most important configure options
+%* setting up the system spider cache: configuring Lmod, updating spider 
+%  cache, difference between system/user spider cache
+%* + all (other) aspects mentioned on slide #26 in this slide deck: 
+%   explained + example :)
+%* what settarg is all about
+
+\documentclass{beamer}
+
+\usetheme[headernav]{TACC} %%Drop the 'headernav' if you don't like
+                           %%the stuff at the top of your slide
+
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{alltt}
+\usepackage{graphicx}
+
+\title{Lmod \& XALT}
+
+
+\author{Robert McLay}
+\institute{The Texas Advanced Computing Center}
+
+\date{Sept. 3, 2015}  %% Use this if you want to fix the date in
+                        %% stone rather than use \today
+
+\newcommand{\bfnabla}{\mbox{\boldmath$\nabla$}}
+\newcommand{\laplacian}[1]{\bfnabla^2 #1}
+\newcommand{\grad}[1]{\bfnabla #1}
+\newcommand{\tgrad}[1]{\bfnabla^T #1}
+\newcommand{\dvg}[1]{\bfnabla \cdot #1}
+\newcommand{\curl}[1]{\bfnabla \times #1}
+\newcommand{\lap}[1]{\bfnabla^2 #1}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\section{Lmod}
+
+\begin{frame}{Lmod \& XALT Outline}
+  \begin{itemize}
+    \item Introduction
+    \item Lmod: Our Env. Module System
+    \item XALT: Track program \& library usage
+    \item Live Demos
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Lmod: Our Module System}
+  \begin{itemize}
+    \item What are Modules?
+    \item A clever idea (not invented here!)
+    \item User Load Only the Packages they want
+    \item Developers can easily switch compilers/mpi
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Why invent Y.A. Module System?}
+  \begin{itemize}
+    \item Many thing right with Original.
+    \item But it was designed before multi-compilers/MPI
+    \item Sites make it work but with herculean efforts
+    \item Lmod can make this work easily.
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Why You Might Want To Switch}
+  \begin{itemize}
+    \item Active Development;  Frequent Releases; Bug fixes.
+    \item Vibrant Community
+    \item It is used from Norway to Isreal to New Zealand from Stanford to MIT to NASA
+    \item Enjoy many capabilities w/o changing a single module file
+    \item Debian and Fedora packages available
+    \item Many more advantages when you're ready
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Features requiring no changes to modulefiles}
+  \begin{itemize}
+    \item Reads TCL modulefiles directly (Cray modules supported)
+    \item User default and named collections of modules
+    \item Module cache system: Faster avail, spider, etc
+    \item Tracking module usage 
+    \item A few edge cases where Env. Modules and Lmod differ
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Features of Lmod with small changes to modulefiles}
+  \begin{itemize}
+    \item Family function: Prevent users from loading two compilers at
+      the same time (experts can override)
+    \item Properties: (MIC-aware, Beta, etc)
+    \item Sticky modules
+    \item ...
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Lmod supports a software hierarchy}
+  \begin{itemize}
+    \item Lmod supports flat layout of modules
+    \item Some really cool features if you have a software hierarchy
+      \begin{itemize}
+        \item Protecting users from mismatched modules
+        \item Auto Swapping of Compiler and MPI dependent modules
+      \end{itemize}
+    \item When you are ready, it will be there
+  \end{itemize}
+\end{frame}
+
+\section{A Transition Strategy}
+
+\begin{frame}{A Transition Strategy}
+  \begin{itemize}
+    \item Install Lua and Lmod in your account
+    \item Staff \& Friendly Opt-in Testing
+    \item Deploy to your users with an Opt-out choice
+    \item Some users can run TCL/C modules (a.k.a. Tmod)
+    \item Others can run Lmod
+    \item No single user can run both at the same time!
+    \item Transistion doc: lmod.readthedocs.org
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Personal Testing of Lmod}
+  \begin{itemize}
+    \item Install it in your account
+      \begin{itemize}
+        \item Take current list and remove in reverse order to find
+          required modules
+        \item LMOD\_SYSTEM\_DEFAULT\_MODULES=mod1:mod2:mod3
+        \item \texttt{\bf \$ module purge;}
+        \item Redefine module command to use Lmod
+        \item \texttt{\bf \$ module restore;} 
+      \end{itemize}
+    \item I normally run a personal copy of Lmod in all my accounts
+      (including \texttt{\bf darter}, a Cray XC-30)
+    \item Test, build a spider cache, module avail
+    \item Module collections, ...
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Staff \& Friendly User Testing}
+  \begin{itemize}
+    \item Install Lmod in system location.
+    \item Install \emph{/etc/profile.d/z00\_lmod.sh} to redefine the
+      \texttt{\bf module} cmd.
+    \item Load system  default modules (if any) after previous step
+    \item Users who have a file named \texttt{$\sim$/.lmod} use Lmod
+    \item At TACC we did this for 6 months
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Deploy}
+  \begin{itemize}
+    \item When you are ready, change \emph{/etc/profile.d/z00\_lmod.sh}
+    \item Users can opt-out
+    \item We supported this for another 6 months
+    \item We broke Env. Module support when we added the family function
+    \item Both transitions generated very few tickets (2 + 2)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Lmod Features}
+  \begin{itemize}
+    \item Support for a Hierarchical Module layout
+    \item Module spider: find all modules
+    \item Caching system for rapid avail and spider
+    \item Support for Properties
+    \item Module collections, output to stdout, proper version sorting
+    \item Reads TCL modulefiles directly (Cray modules supported)
+    \item And so much more...
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Lmod Demo}
+  \begin{itemize}
+    \item ml purge; ml intel/15.0.2 impi phdf5; ml
+    \item ml swap impi mvapich2; ml
+    \item ml av
+    \item ml spider phdf5;
+    \item ml spider phdf5/1.8.14;
+  \end{itemize}
+\end{frame}
+
+\section{XALT}
+
+\begin{frame}{XALT: What runs on the system}
+  \begin{itemize}
+    \item A NSF Funded project: PI: Mark Fahey and Robert McLay
+    \item A Census of what programs and libraries are run
+    \item Running at TACC, NICS, U. Florida, KAUST, ...
+    \item Integrates with TACC-Stats.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Design Goals}
+  \begin{itemize}
+    \item Be extremely light-weight
+    \item Provide provenance data: How?
+    \item How many use a library or application?
+    \item Collect Data into a Database for analysis.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Design: Linker }
+  \begin{itemize}
+    \item The linker (ld) wrapper intercepts the user link line.
+      \begin{itemize}
+        \item Generate assembly code: key-value pairs
+        \item Capture tracemap output from ld
+        \item Transmit collected data in *.json format
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Design: Launcher}
+  \begin{itemize}
+    \item Program Launcher: mpirun, aprun, ibrun ...
+      \begin{itemize}
+        \item Find Executable by parsing command
+        \item Collect executable info, shared libraries, env.
+        \item Transmit collected data in *.json format
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Design: Transmission to DB}
+  \begin{itemize}
+    \item File: collect nightly
+    \item Syslog: Use Syslog filtering
+    \item Direct to DB.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Lmod to XALT connection}
+  \begin{itemize}
+    \item Lmod spider walks entire module tree.
+    \item Can build A Reverse Map from paths to modules
+    \item Can map program \& libraries to modules.
+    \item /opt/apps/i15/mv2\_2\_1/phdf5/1.8.14/lib/libhdf5.so.9
+      $\Rightarrow$ phdf5/1.8.14(intel/15.02:mvapich2/2.1)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{XALT Demo}
+  \begin{itemize}
+    \item Normal Demo
+  \end{itemize}
+\end{frame}
+
+
+\section{Conclusion}
+\begin{frame}{Conclusion}
+  \begin{itemize}
+    \item Lmod:
+      \begin{itemize}
+        \item Source: github.com/TACC/lmod.git, lmod.sf.net
+        \item Documentation: lmod.readthedocs.org
+      \end{itemize}
+    \item XALT:
+      \begin{itemize}
+        \item Source: github.com/Fahey-McLay/xalt.git, xalt.sf.net
+        \item Documentation: doc/*.pdf
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\end{document}
