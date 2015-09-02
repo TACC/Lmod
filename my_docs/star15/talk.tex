@@ -62,7 +62,7 @@
 
 \begin{frame}{Why invent Y.A. Module System?}
   \begin{itemize}
-    \item Many thing right with Original.
+    \item Many thing right with the Original.
     \item But it was designed before multi-compilers/MPI
     \item Sites make it work but with herculean efforts
     \item Lmod can make this work easily.
@@ -227,6 +227,7 @@
         \item Collect executable info, shared libraries, env.
         \item Transmit collected data in *.json format
       \end{itemize}
+    \item In future: This will be handled by the linker phase
   \end{itemize}
 \end{frame}
 
@@ -248,9 +249,24 @@
   \end{itemize}
 \end{frame}
 
+\begin{frame}{Lmod: Priority Path}
+  \begin{itemize}
+    \item Fixed Job Launcher: ibrun, aprun
+    \item Variable Launchers: mpirun, mpiexec
+    \item Priority Path: \\
+      \texttt{prepend\_path\{"PATH", "/opt/apps/xalt/1.0/bin", priority=100\}}
+  \end{itemize}
+\end{frame}
+
 \begin{frame}{XALT Demo}
   \begin{itemize}
-    \item Normal Demo
+    \item Show modules hierarchy
+    \item ml --raw show xalt
+    \item type -a {ld,mpirun}
+    \item Build programs
+    \item Run tests
+    \item Run utf8 program
+    \item Show database results
   \end{itemize}
 \end{frame}
 
