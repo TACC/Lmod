@@ -182,7 +182,7 @@ class LMODdb(object):
       if (startDate != "unknown"):
         dateTest = " and t2.date >= '" + startDate + "'"
 
-      if (startDate != "unknown"):
+      if (endDate != "unknown"):
         dateTest = dateTest + " and t2.date < '" + endDate + "'"
 
       if (sqlPattern == "") :
@@ -269,13 +269,13 @@ class LMODdb(object):
       if (startDate != "unknown"):
         dateTest = " and t2.date >= '" + startDate + "'"
 
-      if (startDate != "unknown"):
+      if (endDate != "unknown"):
         dateTest = dateTest + " and t2.date < '" + endDate + "'"
 
-      query =  "SELECT t1.path c1, t3.user as c2 from moduleT as t1, join_user_module "      +\
+      query =  "SELECT t1.path as c1, t3.user as c2 from moduleT as t1, join_user_module "   +\
                "as t2, userT as t3 where t3.user =  %s  and t1.mod_id = t2.mod_id "          +\
-               "and t1.syshost like %s "+ dateTest + " and t3.user_id = t2.user_id group by c1 order " +\
-               "by c1"
+               "and t1.syshost like %s "+ dateTest + " and t3.user_id = t2.user_id "         +\
+               "group by c1 order by c1"
 
       cursor.execute(query, ( username, syshost ))
       numRows = cursor.rowcount
