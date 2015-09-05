@@ -257,7 +257,7 @@ class LMODdb(object):
       sys.exit(1)
        
 
-  def modules_used_by(self, syshost, username, startDate, endDate):
+  def modules_used_by(self, username, syshost, startDate, endDate):
     query = ""
     try:
       conn   = self.connect()
