@@ -274,7 +274,7 @@ class LMODdb(object):
 
       query =  "SELECT t1.path c1, t3.user as c2 from moduleT as t1, join_user_module "      +\
                "as t2, userT as t3 where t3.user =  %s  and t1.mod_id = t2.mod_id "          +\
-               "and t1.syshost like %s "+ dataTest + " and t3.user_id = t2.user_id group by c1 order " +\
+               "and t1.syshost like %s "+ dateTest + " and t3.user_id = t2.user_id group by c1 order " +\
                "by c1"
 
       cursor.execute(query, ( username, syshost ))
