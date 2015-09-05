@@ -46,6 +46,7 @@ Use SitePackage.lua to send a message to syslog.
    -- load_hook(): Here we record the any modules loaded.
 
    local hook   = require("Hook")
+   local uname  = require("posix").uname
 
    local s_msgA = {}
 
@@ -267,6 +268,6 @@ b) usernames:  Report users of a particular pattern:
 
 c) modules_used_by:  Report the modules used by a particular user:
 
-     $ ./analyzeLmodDB --sqlPattern 'mclay' 
+     $ ./analyzeLmodDB --sqlPattern 'mclay' modules_used_by
 
 Comments? Questions?
