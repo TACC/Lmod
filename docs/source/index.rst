@@ -84,7 +84,8 @@ Advanced Topics
    100_generic_modules
    110_lmod_mpi_parallel_filesystem
    120_shared_home_directories
-
+   130_spider_cache
+   140_deprecating_modules
 
 Topics yet to be written
 ^^^^^^^^^^^^^^^^^^^^^^^^
@@ -93,8 +94,7 @@ The following are possible topics:
 
 #. Optional Software layout, two digit rule
 #. Module naming conventions
-#. Spider Cache Theory and Practice
-#. Advanced Topics: priority path, .modulerc tricks, deprecating modules
+#. Advanced Topics: priority path, .modulerc tricks
 #. settarg
 #. SitePackage.lua and hooks
 #. tracking module usage
