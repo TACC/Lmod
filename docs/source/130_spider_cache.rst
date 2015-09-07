@@ -38,7 +38,7 @@ specified.  You can use "--with-spiderCacheDir=dirs" and
 "--with-updateSystemFn=file" to specify one or more directories with a
 single timestamp file.  If you have multiple directories with multiple
 timestamp files you can use "--with-spiderCacheDescript=file" where the
-contents of the "file" is:
+contents of the "file" is::
 
     cacheDir1:timestamp1
     cacheDir2:timestamp2
