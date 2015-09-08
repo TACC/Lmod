@@ -130,6 +130,11 @@ function CollectionLst(collection)
          io.stderr:write(a[i],"\n")
       end
    else
+      if (#a < 1) then
+         LmodWarning("No collection named \"",collection,"\" found.")
+         dbg.fini("CollectionLst")
+         return
+      end
       shell:echo("Collection \"",collection,"\" contains: \n")
       local b = {}
       for i = 1,#a do

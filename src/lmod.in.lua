@@ -259,17 +259,17 @@ function Usage()
    a[#a+1] = { "" }
    a[#a+1] = { "Handling a collection of modules:"}
    a[#a+1] = { "--------------------------------" }
-   a[#a+1] = { "  save | s",    "",       "Save the current list of modules to a user defined \"default\"."}
+   a[#a+1] = { "  save | s",    "",       "Save the current list of modules to a user defined \"default\" collection."}
    a[#a+1] = { "  save | s",    "name",   "Save the current list of modules to \"name\" collection."}
+   a[#a+1] = { "  reset",     "",        "The same as \"restore system\""}
    a[#a+1] = { "  restore | r", "",       "Restore modules from the user's \"default\" or system default."}
    a[#a+1] = { "  restore | r", "name",   "Restore modules from \"name\" collection."}
    a[#a+1] = { "  restore",     "system", "Restore module state to system defaults."}
    a[#a+1] = { "  savelist",    "",       "List of saved collections."}
-   a[#a+1] = { "  describe | mcc",  "name",  "Describe the contents of a collection."}
+   a[#a+1] = { "  describe | mcc",  "name",  "Describe the contents of a module collection."}
    a[#a+1] = { "" }
    a[#a+1] = { "Deprecated commands:"}
    a[#a+1] = { "--------------------"}
-   a[#a+1] = { "  reset",     "",        "The same as \"restore system\""}
    a[#a+1] = { "  getdefault", "[name]", "load name collection of modules or "..
                                          "user's \"default\" if no name given."}
    a[#a+1] = { "",            "",        "===> Use \"restore\" instead  <===="}
