@@ -26,7 +26,7 @@ Sites running Lmod have three choices:
    then I recommend you do the following.  Have the install proceedure run
    the update_lmod_system_cache_files scrpt.  This will create file
    called "system.txt"  which marks the time that the system was last
-   updated, so Lmod knows that    the cache is still good.
+   updated, so Lmod knows that the cache is still good.
 
 #. Or you can run the update_lmod_system_cache_files script say every
    30 mins.  This way the cache file is up-to-date.  No new module
@@ -45,4 +45,18 @@ contents of the "file" is::
 
 lines starting with '#' and blank lines are ignored.  Also note that a
 single timestamp file can be used with multiple cache directories.
+
+How to decide how many system cache directories to have
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+It is about which machines "owns" which modulefiles. At TACC, we have
+two different locations of files.  Most of our modulefiles are stored
+on a local disk.  Some others are stored in a shared location.  So in
+our case Lmod sees two cache directories.  Each node builds a spider
+cache of the modulefiles it "owns" and a single mode (we call it
+master) builds a cache for the shared location.
+
+
+What directories to specify?
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 

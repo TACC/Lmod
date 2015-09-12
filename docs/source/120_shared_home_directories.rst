@@ -30,7 +30,23 @@ A separate system spider cache is really the only way to go.
 Otherwise a "module spider" will report modules that don't exist on
 the current cluster.  If you have a separate install of Lmod on each
 cluster then you can specify the location of system cache at configure
-time.  If you don't you can use the "LMOD_RC" environment to specify
-the location of the lmodrc.lua file 
+time.  If you don't, you can use the "LMOD_RC" environment to specify
+the location of the lmodrc.lua file uniquely on each cluster.
+
+Lmod knows about the system spider cache from the lmodrc.lua file.  If
+you install separate instances of Lmod on each cluster, Lmod builds
+the scDescriptT table for you.  Otherwise you can modify lmodrc.lua to
+point to the system cache by adding scDescriptT to the end of the file::
+
+   scDescriptT = {
+     {
+       ["dir"] = "<location of your system cache directory>,
+       ["timestamp"] = "<location of your timestamp file",
+     },
+   }
+
+Where you have fill in the location of both the system cache directory
+and timestamp file.
+
 
 
