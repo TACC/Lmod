@@ -394,7 +394,7 @@ function M.prepend_path(self, t)
    local sep      = t.delim or ":"
    local name     = t[1]
    local value    = t[2]
-   local nodups   = t.nodups
+   local nodups   = not allow_dups( not t.nodups)
    local priority = (-1)*(t.priority or 0)
    dbg.print{"name:\"",name,"\", value: \"",value,
              "\", delim=\"",sep,"\", nodups=\"",nodups,
