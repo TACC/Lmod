@@ -113,7 +113,6 @@ local function new(self)
 
    local tbl = {}
    tbl.allowTCL    = { k = "Allow TCL modulefiles"         , v = LMOD_ALLOW_TCL_MFILES,}
-   tbl.ancient     = { k = "User cache valid time(sec)"    , v = "@ancient@",          }
    tbl.autoSwap    = { k = "Auto swapping"                 , v = LMOD_AUTO_SWAP,       }
    tbl.case        = { k = "Case Independent Sorting"      , v = case_ind_sorting,     }
    tbl.colorize    = { k = "Colorize Lmod"                 , v = lmod_colorize,        }
@@ -138,7 +137,9 @@ local function new(self)
    tbl.prefix      = { k = "Lmod prefix"                   , v = "@PREFIX@",           }
    tbl.prpnd_blk   = { k = "Prepend order"                 , v = "@prepend_block@",    }
    tbl.settarg     = { k = "Supporting Full Settarg Use"   , v = settarg_support,      }
-   tbl.short_tm    = { k = "Write cache after (sec)"       , v = "@short_time@",       }
+   tbl.tm_ancient  = { k = "User cache valid time(sec)"    , v = "@ancient@",          }
+   tbl.tm_short    = { k = "Write cache after (sec)"       , v = "@short_time@",       }
+   tbl.tm_threshold= { k = "Threshold (sec)"               , v = Threshold,            }
    tbl.sitePkg     = { k = "Site Pkg location"             , v = locSitePkg,           }
    tbl.uname       = { k = "uname -a"                      , v = uname,                }
    tbl.z01_admin   = { k = "Admin file"                    , v = adminFn,              }

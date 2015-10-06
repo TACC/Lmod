@@ -278,7 +278,6 @@ Modules based on Lua: Version 6.0.10  2015-09-04 20:23
     by Robert McLay mclay@tacc.utexas.edu
 Description                    Value
 Allow TCL modulefiles          yes
-User cache valid time(sec)     @ancient@
 Auto swapping                  yes
 Case Independent Sorting       no
 Colorize Lmod                  @colorize@
@@ -299,8 +298,10 @@ Pkg Class name                 Pkg
 Lmod prefix                    @PREFIX@
 Prepend order                  @prepend_block@
 Supporting Full Settarg Use    @lmod_full_settarg_support@
-Write cache after (sec)        @short_time@
 Site Pkg location              standard
+User cache valid time(sec)     @ancient@
+Write cache after (sec)        @short_time@
+Threshold (sec)                1
 uname -a
 Does Admin file exist          no
 Active RC file(s):

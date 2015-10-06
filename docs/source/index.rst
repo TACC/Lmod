@@ -90,8 +90,6 @@ Advanced Topics
 Topics yet to be written
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
-The following are possible topics:
-
 #. Optional Software layout, two digit rule
 #. Module naming conventions
 #. Advanced Topics: priority path, .modulerc tricks
