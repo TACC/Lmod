@@ -172,11 +172,11 @@ LMOD_ALLOW_TCL_MFILES = initialize("LMOD_ALLOW_TCL_MFILES",
 
 ------------------------------------------------------------------------
 -- LMOD_DUPLICATE_PATHS:  Allow the same path to be stored in PATH like
---                       vars like PATH, LD_LIBRARY_PATH, etc
+--                        vars like PATH, LD_LIBRARY_PATH, etc
 ------------------------------------------------------------------------
 
-LMOD_DUPLICATE_PATHS = getenv("LMOD_DUPLICATE_PATHS") or "@duplicate_paths@"
-
+LMOD_DUPLICATE_PATHS = initialize("LMOD_DUPLICATE_PATHS",
+                                  "@duplicate_paths@", "no")
 
 
 LMOD_IGNORE_CACHE = getenv("LMOD_IGNORE_CACHE") or "0"
