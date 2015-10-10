@@ -107,6 +107,16 @@ function string.atSymbolEscaped(self)
    return self
 end
 
+--------------------------------------------------------------------------
+-- Escape $ character in input string.
+-- @param  self Input string.
+-- @return   An escaped $ in output.
+function string.dollarSymbolEscaped(self)
+   if (self == nil) then return self end
+   self = self:gsub('%$', '\\$')
+   return self
+end
+
 isLua51 = _VERSION:match('5%.1$')
 
 --------------------------------------------------------------------------

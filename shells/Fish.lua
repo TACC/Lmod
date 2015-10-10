@@ -86,7 +86,7 @@ end
 
 function Fish.expandVar(self, k, v, vType)
    local lineA       = {}
-   v                 = v:doubleQuoteString()
+   v                 = v:doubleQuoteString():dollarSymbolEscaped()
    if (vType == "path") then
       v = v:gsub(":",'" "')
    end
