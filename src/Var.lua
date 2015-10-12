@@ -209,9 +209,13 @@ end
 function M.prt(self,title)
    dbg.start{"Var:prt(",title,")"}
    dbg.print{"name:  \"", self.name, "\"\n"}
-   dbg.print{"imin:  \"", self.imin, "\"\n"}
-   dbg.print{"imax:  \"", self.imax, "\"\n"}
-   dbg.print{"value: \"", self.value,"\"\n"}
+   dbg.print{"imin:  ",   self.imin, "\n"}
+   dbg.print{"imax:  ",   self.imax, "\n"}
+   local v = self.value
+   if (type(self.value) == "string") then
+      v = "\"" .. self.value .. "\""
+   end
+   dbg.print{"value: ", v, "\n"}
    if (not self.tbl or type(self.tbl) ~= "table" or next(self.tbl) == nil) then
       dbg.print{"tbl is empty\n"}
       dbg.fini ("Var:prt")
@@ -335,24 +339,31 @@ function M.pop(self)
       local v = idxA[1][1]
       dbg.print{"v: ",v,", imin: ",imin,", min2: ",min2,"\n"}
       if (v == imin) then
-         self.tbl[k] = remFunc(idxA, "first", 0)
-         v = huge
+         idxA        = remFunc(idxA, "first", 0)
+         self.tbl[k] = idxA
+         if (idxA ~= nil) then
+            v = idxA[1][1]
+         else
+            v = huge
+         end
       end
+      dbg.print{"v: ",v,"\n"}
       if (v < min2) then
          min2   = v
          result = k
       end
+      dbg.print{"min2: ",min2,"\n"}
    end
    dbg.print{"imin: ",imin,", min2: ",min2,"\n"}
    if (min2 < huge) then
       self.imin = min2
    end
 
+   local v    = self:expand()
+   self.value = v
    if (dbg.active()) then
       self:prt("(2) Var:pop()")
    end
-   local v    = self:expand()
-   self.value = v
    if (not v) then v = nil end
    setenv_posix(self.name, v, true)
    return result

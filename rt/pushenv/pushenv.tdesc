@@ -24,20 +24,22 @@ testdescript = {
      rm -fr _stderr.* _stdout.* err.* out.* .lmod.d
 
      runLmod --version        # 1
-     runLmod load intel       # 2
-     runLmod load mpich       # 3
-     runLmod load clang       # 4
-     runLmod unload clang     # 5
-     runLmod unload mpich     # 6
-     runLmod unload intel     # 7
-     runLmod load intel mpich # 8
+     runLmod load   a b       # 2 
+     runLmod unload a b       # 3 
+     runLmod load intel       # 4
+     runLmod load mpich       # 5
+     runLmod load clang       # 6
+     runLmod unload clang     # 7
+     runLmod unload mpich     # 8
      runLmod unload intel     # 9
-     runLmod load intel       # 0
-     runLmod load settarg     #11
-     runLmod unload settarg   #12
+     runLmod load intel mpich #10
+     runLmod unload intel     #11
+     runLmod load intel       #12
+     runLmod load settarg     #13
+     runLmod unload settarg   #14
 
-     runLmod save             #13
-     runLmod restore          #14
+     runLmod save             #15
+     runLmod restore          #16
 
      HOME_ORIG=$HOME
 
