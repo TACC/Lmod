@@ -115,12 +115,13 @@ the module command be redefined to use Lmod and restore the default
 set of modules by::
 
     
-    $ export LMOD_CMD=$HOME/pkg/lmod/lmod/libexec/lmod
-    $ module() { eval $($LMOD_CMD bash "$@"); }
+    $ export BASH_ENV=$HOME/pkg/lmod/lmod/init/bash
+    $ source $BASH_ENV
 
-The restore the default modules::
+This will define the module command.  Finally the default set of
+modules can be loaded.
 
-    $ module restore
+    $ module --initial_load restore
 
 This command first looks to see if there is a default collection in
 **~/.lmod.d/default**. If that file isn't found then it uses the value
@@ -135,6 +136,43 @@ on.
 
 If you have trouble loading certain TCL modulefiles then read the
 **How Lmod reads TCL modulefiles** to see why you might have problems.
+
+An example of how this can be done in your bash startup scripts
+---------------------------------------------------------------
+
+All the comments above can be combined into a complete example::
+
+    if [ -z "$_INIT_LMOD" ]; then
+       export _INIT_LMOD=1
+       type module > /dev/null 2>&1
+       if [ "$?" -eq 0 ]; then
+         module purge >2 /dev/null   # purge old modules using old module command.
+         clearMT                     # clear the stored module table (wipe _ModuleTable001_ etc.)
+       fi
+
+       export MODULEPATH=...                         # define  MODULEPATH
+       export BASH_ENV=$HOME/pkg/lmod/lmod/init/bash # Point to the new definition of Lmod
+
+       source $BASH_ENV                              # Redefine the module command to point 
+                                                     # to the new Lmod
+       export LMOD_SYSTEM_DEFAULT_MODULES=...        # Colon separated list of modules
+                                                     # to load at startup
+       module --initial_load restore                 # load either modules listed above or the
+                                                     # user's ~/.lmod.d/default module collection
+    else
+       source $BASH_ENV                              # redefine the module command for sub-shell
+       module refresh                                # reload all modules but only activate the "set_alias" 
+                                                     # functions.
+    fi  
+
+Obviously, you will have to define **MODULEPATH** and
+**LMOD_SYSTEM_DEFAULT_MODULES** to match your site setup.
+The reason for the guard variable **_INIT_LMOD** is so that the module
+command and the initialization of the modules is only done in the
+initial login shell. On any sub-shells, the module command gets define
+(again).  Finally the **module refresh** command is called to define
+any alias or shell functions in any of the currently loaded modules.
+
 
 
 How to Transition to Lmod: Staff & Power User Testing

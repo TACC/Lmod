@@ -291,6 +291,11 @@ if test x$luaprog = "x"; then
   exit
 fi
 
+if test x$PATH_TO_LUAC = "x"; then
+  echo The program "luac" must be in your path
+  exit
+fi
+
 
 oldprog=$luaprog
 while test -L $luaprog; do
