@@ -97,10 +97,11 @@ The entries below is describes several useful commands that come with Lmod that 
     Return true when module "NAME" is loaded.
 **LmodVersion** ():
     The version of lmod.
-**myShellName** ():
-    the name of the shell the user specified on the
-    command line.
-
+**execute** {cmd="*<any command>*",modeA={"load"}}
+    Run any command with a certain mode.  For example
+    **execute** {cmd="ulimit -s unlimited",modeA={"load"}} will run
+    the command **ulimit -s unlimited** as the last thing that the
+    loading the module will do.
 
 Intropection Functions
 ~~~~~~~~~~~~~~~~~~~~~~
@@ -123,6 +124,10 @@ the name and version of a modulefile.
 
 **myFileName** ():
    Returns the absolute file name of the current modulefile.
+
+**myShellName** ():
+    the name of the shell the user specified on the
+    command line.
 
 **hierarchyA** ("fullName", level):
    returns the hierarchy of the current module.  See the section on

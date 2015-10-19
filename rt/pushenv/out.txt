@@ -4,6 +4,52 @@ lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
 ===========================
 step 2
+lua ProjectDIR/src/lmod.in.lua bash load a b
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/pushenv/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/pushenv/mf/Core";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/pushenv/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+LOADEDMODULES="a/1.0:b/1.0";
+export LOADEDMODULES;
+MODULEPATH="ProjectDIR/rt/pushenv/mf/Core";
+export MODULEPATH;
+R="B";
+export R;
+RTM="A";
+export RTM;
+_LMFILES_="ProjectDIR/rt/pushenv/mf/Core/a/1.0.lua:ProjectDIR/rt/pushenv/mf/Core/b/1.0.lua";
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/pushenv/mf/Core",},family={},inactive={},mT={a={["FN"]="ProjectDIR/rt/pushenv/mf/Core/a/1.0.lua",["default"]=1,["fullName"]="a/1.0",["loadOrder"]=1,propT={},["short"]="a",["status"]="active",},b={["FN"]="ProjectDIR/rt/pushenv/mf/Core/b/1.0.lua",["default"]=1,["fullName"]="b/1.0",["loadOrder"]=2,propT={},["short"]="b",["status"]="active",},},mpathA={"ProjectDIR/rt/pushenv/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/pushenv/mf/Core",["version"]=2,}';
+export _ModuleTable_;
+__LMOD_STACK_R="B:A";
+export __LMOD_STACK_R;
+__LMOD_STACK_RTM="A:A";
+export __LMOD_STACK_RTM;
+===========================
+step 3
+lua ProjectDIR/src/lmod.in.lua bash unload a b
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/pushenv/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/pushenv/mf/Core";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/pushenv/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+unset LOADEDMODULES;
+MODULEPATH="ProjectDIR/rt/pushenv/mf/Core";
+export MODULEPATH;
+unset R;
+unset RTM;
+unset _LMFILES_;
+_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/pushenv/mf/Core",},family={},inactive={},mT={},mpathA={"ProjectDIR/rt/pushenv/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/pushenv/mf/Core",["version"]=2,}';
+export _ModuleTable_;
+unset __LMOD_STACK_R;
+unset __LMOD_STACK_RTM;
+===========================
+step 4
 lua ProjectDIR/src/lmod.in.lua bash load intel
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/pushenv/mf/Core";
@@ -25,7 +71,7 @@ export _ModuleTable_;
 __LMOD_STACK_CC="icc";
 export __LMOD_STACK_CC;
 ===========================
-step 3
+step 5
 lua ProjectDIR/src/lmod.in.lua bash load mpich
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/pushenv/mf/Core";
@@ -47,7 +93,7 @@ export _ModuleTable_;
 __LMOD_STACK_CC="mpicc:icc";
 export __LMOD_STACK_CC;
 ===========================
-step 4
+step 6
 lua ProjectDIR/src/lmod.in.lua bash load clang
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/pushenv/mf/Core";
@@ -69,7 +115,7 @@ export _ModuleTable_;
 __LMOD_STACK_CC="icc:mpicc:icc";
 export __LMOD_STACK_CC;
 ===========================
-step 5
+step 7
 lua ProjectDIR/src/lmod.in.lua bash unload clang
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/pushenv/mf/Core";
@@ -91,7 +137,7 @@ export _ModuleTable_;
 __LMOD_STACK_CC="mpicc:icc";
 export __LMOD_STACK_CC;
 ===========================
-step 6
+step 8
 lua ProjectDIR/src/lmod.in.lua bash unload mpich
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/pushenv/mf/Core";
@@ -113,7 +159,7 @@ export _ModuleTable_;
 __LMOD_STACK_CC="icc";
 export __LMOD_STACK_CC;
 ===========================
-step 7
+step 9
 lua ProjectDIR/src/lmod.in.lua bash unload intel
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/pushenv/mf/Core";
@@ -131,7 +177,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/pushen
 export _ModuleTable_;
 unset __LMOD_STACK_CC;
 ===========================
-step 8
+step 10
 lua ProjectDIR/src/lmod.in.lua bash load intel mpich
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/pushenv/mf/Core";
@@ -153,7 +199,7 @@ export _ModuleTable_;
 __LMOD_STACK_CC="mpicc:icc";
 export __LMOD_STACK_CC;
 ===========================
-step 9
+step 11
 lua ProjectDIR/src/lmod.in.lua bash unload intel
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/pushenv/mf/Core";
@@ -171,7 +217,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/pushen
 export _ModuleTable_;
 unset __LMOD_STACK_CC;
 ===========================
-step 10
+step 12
 lua ProjectDIR/src/lmod.in.lua bash load intel
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/pushenv/mf/Core";
@@ -193,7 +239,7 @@ export _ModuleTable_;
 __LMOD_STACK_CC="mpicc:icc";
 export __LMOD_STACK_CC;
 ===========================
-step 11
+step 13
 lua ProjectDIR/src/lmod.in.lua bash load settarg
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/pushenv/mf/Core";
@@ -215,7 +261,7 @@ export _ModuleTable_;
 __LMOD_STACK_RTM_SETTARG_CMD="SETTARG_CMD::";
 export __LMOD_STACK_RTM_SETTARG_CMD;
 ===========================
-step 12
+step 14
 lua ProjectDIR/src/lmod.in.lua bash unload settarg
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/pushenv/mf/Core";
@@ -237,7 +283,7 @@ export _ModuleTable_;
 __LMOD_STACK_RTM_SETTARG_CMD=":";
 export __LMOD_STACK_RTM_SETTARG_CMD;
 ===========================
-step 13
+step 15
 lua ProjectDIR/src/lmod.in.lua bash save
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/pushenv/mf/Core";
@@ -251,7 +297,7 @@ export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/pushenv/mf/Core",},family={},inactive={},mT={intel={["FN"]="ProjectDIR/rt/pushenv/mf/Core/intel/13.0.lua",["default"]=1,["fullName"]="intel/13.0",["loadOrder"]=1,propT={},["short"]="intel",["status"]="active",},mpich={["FN"]="ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0/mpich/3.0.lua",["default"]=1,["fullName"]="mpich/3.0",["loadOrder"]=2,propT={},["short"]="mpich",["status"]="active",},},mpathA={"ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0","ProjectDIR/rt/pushenv/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/pushenv/mf/Core",["version"]=2,}';
 export _ModuleTable_;
 ===========================
-step 14
+step 16
 lua ProjectDIR/src/lmod.in.lua bash restore
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/pushenv/mf/Core";
