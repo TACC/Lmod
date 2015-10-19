@@ -137,7 +137,7 @@ on.
 If you have trouble loading certain TCL modulefiles then read the
 **How Lmod reads TCL modulefiles** to see why you might have problems.
 
-An Example of how this can be done in your bash startup scripts
+An example of how this can be done in your bash startup scripts
 ---------------------------------------------------------------
 
 All the comments above can be combined into a complete example::
