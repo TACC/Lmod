@@ -4,6 +4,11 @@ setenv LMOD_DIR    "@PKGV@/libexec"
 setenv LMOD_PKG    "@PKGV@"
 setenv MODULESHOME "@PKGV@"
 
+# See comments in bash (or bash.in) to explain why this is done.
+if ( $?LESS ) then
+  setenv LESS "-XqeMRF"
+endif
+
 set prefix  = ""
 set midfix  = ""
 set postfix = ";"

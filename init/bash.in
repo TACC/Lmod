@@ -2,6 +2,7 @@
 # -*- shell-script -*-
 
 
+
 LMOD_PKG=@PKGV@
 LMOD_DIR=@PKGV@/libexec
 LMOD_CMD=@PKGV@/libexec/lmod
@@ -10,6 +11,18 @@ export LMOD_PKG
 export LMOD_CMD
 export LMOD_DIR
 export MODULESHOME
+
+################################################################################
+# Certain machines (like Cray at the time of this writing) define PAGER as less.
+# But they do not set the LESS env. var.  Without setting LESS var, the behavior
+# is not ideal.  This should fix this.  Obviously we only set this if it is not
+# defined.  That way we don't change the behavior of the user's setting.
+
+if [ -z "$LESS" ]; then
+  LESS=-XqeMRF
+fi
+
+
 
 ########################################################################
 #  Define the module command:  The first line runs the "lmod" command

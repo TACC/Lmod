@@ -67,7 +67,7 @@ local function askSystem(width)
    local result = capture("tput cols 2> /dev/null")
    i, j, columns = result:find('^(%d+)')
    if (i) then
-      return columns
+      return tonumber(columns)
    end
 
    return width
