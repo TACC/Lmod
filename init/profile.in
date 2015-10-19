@@ -38,6 +38,10 @@ if [ -z "${USER_IS_ROOT:-}" ]; then
     export MANPATH=$(@PKG@/libexec/addto MANPATH @PKG@/share/man)
   fi
 
-  . @PKG@/init/bash >/dev/null # Module Support
-
+   my_shell=$(@basename@ $(@ps@ -p $$ -ocomm=))
+   if [ -f @PKG@/init/$my_shell ]; then
+      .    @PKG@/init/$my_shell >/dev/null # Module Support
+   else
+      .    @PKG@/init/sh        >/dev/null # Module Support
+   fi
 fi

@@ -174,7 +174,6 @@ initial login shell. On any sub-shells, the module command gets define
 any alias or shell functions in any of the currently loaded modules.
 
 
-
 How to Transition to Lmod: Staff & Power User Testing
 -----------------------------------------------------
 
