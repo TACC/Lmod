@@ -31,6 +31,8 @@ PIN_VERSIONS              := @PIN_VERSIONS@
 AUTO_SWAP        	  := @AUTO_SWAP@
 SPIDER_CACHE_DIRS 	  := @SPIDER_CACHE_DIRS@
 EXPORT_MODULE             := @EXPORT_MODULE@
+BASENAME                  := @BASENAME@
+PS                        := @PS@
 PATH_TO_HASHSUM   	  := @PATH_TO_HASHSUM@
 PATH_TO_LUAC              := @PATH_TO_LUAC@
 PATH_TO_PAGER	  	  := @PATH_TO_PAGER@
@@ -161,6 +163,8 @@ __installMe:
                 -e 's|@have_lua_json@|$(HAVE_LUA_JSON)|g'                  	  \
                 -e 's|@disable_name_autoswap@|$(DISABLE_NAME_AUTOSWAP)|g'     	  \
 	        -e 's|@redirect@|$(REDIRECT)|g'                       	   	  \
+	        -e 's|@basename@|$(BASENAME)|g'                       	   	  \
+	        -e 's|@ps@|$(PS)|g'                              	   	  \
 	        -e 's|@libexec@|$(LIBEXEC)|g'                       	   	  \
 	        -e 's|@pin_versions@|$(PIN_VERSIONS)|g'                	   	  \
 	        -e 's|@auto_swap@|$(AUTO_SWAP)|g'                      	   	  \

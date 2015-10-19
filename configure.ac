@@ -6,6 +6,11 @@ AC_INIT(Makefile.in)
 AC_PREFIX_DEFAULT(/usr/local)
 AC_PROG_CC
 
+AC_SUBST(BASENAME)
+AC_SUBST(PS)
+
+AC_PATH_PROG(PS,ps, [])
+AC_PATH_PROG(BASENAME, basename, [])
 
 AC_SUBST(DUPLICATE_PATHS)
 AC_ARG_WITH(duplicatePaths,
