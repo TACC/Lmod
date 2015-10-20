@@ -100,4 +100,5 @@ version.
 
 If a user wishes to make their own version of git the default module
 they will have to mark it as a default.  Marking a module as a default
-is discuss in section XXX.
+is discuss in section :ref:`setting-default-label`
+

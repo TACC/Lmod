@@ -62,3 +62,17 @@ How to I use the initializing shell script that comes with this application with
  Lmod provides the ``sh_to_modulefile`` script to convert shell
  scripts to modulefiles.
 
+Why is the output of ``module avail`` not filling the width of the terminal?
+
+  If the output of ``module avail`` is 80 characters wide, then Lmod
+  can't find the width of the terminal and instead uses the default
+  size (80). If you do ``module --config``, you'll see a line:
+
+      Active lua-term                true
+
+  If it says **false** instead then lua-term is not installed.  One
+  way this happens is to build Lmod on one computer system that has a
+  system lua-term installed and the package on another where lua-term
+  isn't installed on the system.
+
+
