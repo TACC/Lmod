@@ -56,7 +56,8 @@ testdescript = {
      runLmod purge                   #16
      unsetMT
      MODULEPATH=$(outputDir)/Core
-     cp -r $(testDir)/Core $(outputDir)
+     mkdir      $(outputDir)/Core
+     (cd $(testDir)/Core; tar cf - . | (cd $(outputDir)/Core && tar xBf -))
      sed -e 's|@outputDir@|$(outputDir)|g'  < $(testDir)/.lmod.d/stdenv > $(outputDir)/.lmod.d/stdenv
      runLmod restore stdenv          #17
      sed -e 's/--#%#//g'  < $(outputDir)/Core/StdEnv.lua > $(outputDir)/Core/StdEnv.new

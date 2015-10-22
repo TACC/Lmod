@@ -1,0 +1,16 @@
+Ideas for topics:
+
+* Using Lmod
+* customizing lmod 
+  adv. users
+  personal modules
+  leveraging an install
+* installing Lmod in a personal account
+   Transitioning to Lmod
+
+* Medium level topics
+
+** cache-ology
+** module kitchen sink
+
+:

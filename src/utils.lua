@@ -979,12 +979,11 @@ end
 -- Use readlink to find the link
 -- @param path the path to the module file.
 function walk_link(path)
-   local result = path
    local attr   = lfs.symlinkattributes(path)
    if (attr == nil) then
       return nil
    end
-   
+
    if (attr.mode == "link") then
       local rl = readlink(path)
       if (not rl) then

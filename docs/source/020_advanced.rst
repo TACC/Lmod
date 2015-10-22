@@ -28,29 +28,34 @@ Suppose that the user creates a directory called ``$HOME/modulefiles``
 and he wants a personal copy of the "git" package and he does the
 usual "tar, configure, make, make install" steps:  ::
 
-    $ tar xf git-2.3.4.tar.bz2
-    $ cd git-2.3.4
-    $ ./configure --prefix=$HOME/pkg/git/2.3.4
+    $ tar xf git-2.6.2.tar.bz2
+    $ cd git-2.6.2
+    $ ./configure --prefix=$HOME/pkg/git/2.6.2
     $ make
     $ make install
 
-This document has assumed that 2.3.4 is the current version of git, it
+This document has assumed that 2.6.2 is the current version of git, it
 will need to be replaced with the current version. To create a
 modulefile for git one does: ::
 
     $ cd ~/modulefiles
     $ mkdir git
     $ cd git
-    $ cat > 2.3.4.lua
-    local home = os.getenv("HOME")
-    local pkg = pathJoin(home,"pkg/git/2.3.4/bin")
+    $ cat > 2.6.2.lua
+    local home    = os.getenv("HOME")
+    local version = myModuleVersion() 
+    local pkgName = myModuleName() 
+    local pkg     = pathJoin(home,"pkg",pkgName,version,"bin")
     prepend_path("PATH", pkg)
     ^D  
 
-This modulefile for git adds ``~/pkg/git/2.3.4/bin`` to the user's
-path so that the personal version of git can be found. 
+This modulefile for git adds ``~/pkg/git/2.6.2/bin`` to the user's
+path so that the personal version of git can be found.  Note that the
+use of the functions **myModuleName()** and  **myModuleVersion()**
+allows the module to be generic and not hard-wired to a particular
+module file.
 
-Starting first from the name: git/2.3.4.lua, Modulefiles with the .lua
+Starting first from the name: git/2.6.2.lua, Modulefiles with the .lua
 extension are assumed to be written in lua and files without are
 assumed to be written in TCL. 
 
@@ -64,7 +69,7 @@ Finally the user can do: ::
 
    $ module load git
    $ type git
-   ~/pkg/git/2.3.4/bin/git
+   ~/pkg/git/2.6.2/bin/git
 
 For git to be available on future logins, users need to add the
 following to their startup scripts or a saved collection.  ::
@@ -87,17 +92,18 @@ version of "git" ::
 
    $ module avail git
    --------------- /home/user/modulefiles ----------------
-   git/2.3.4
+   git/2.6.2
 
    --------------- /opt/apps/modulefiles ----------------
-   git/1.7.4   git/2.0.1   git/2.5.4 (D)
+   git/1.7.4   git/2.0.1   git/3.5.4 (D)
 
    $ module load git
  
 
-The load command will load ``git/2.5.4`` because it is the highest
+The load command will load ``git/3.5.4`` because it is the highest
 version.
 
 If a user wishes to make their own version of git the default module
 they will have to mark it as a default.  Marking a module as a default
-is discuss in section XXX.
+is discuss in section :ref:`setting-default-label`
+

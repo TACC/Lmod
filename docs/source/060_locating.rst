@@ -13,6 +13,8 @@ Lmod uses the following rules to locate a modulefile:
    directories.
 
 
+.. _setting-default-label:
+
 Marked a Version as Default
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
