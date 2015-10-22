@@ -24,6 +24,18 @@ AC_ARG_WITH(duplicatePaths,
     DUPLICATE_PATHS="$withval"
     AC_DEFINE_UNQUOTED(DUPLICATE_PATHS, "$withval"))dnl
 
+AC_SUBST(TMOD_PATH_RULE)
+AC_ARG_WITH(tmodPathRule
+    AC_HELP_STRING([--with-tmodPathRule=ans],[If path entry is already there then do not append/prepend [[NO]]]),
+    TMOD_PATH_RULE="$withval"
+    AC_MSG_RESULT([TMOD_PATH_RULE=$with_tmodPathRule])
+    AC_DEFINE_UNQUOTED(TMOD_PATH_RULE,"$with_tmodPathRule")dnl
+    ,
+    withval="NO"
+    AC_MSG_RESULT([TMOD_PATH_RULE=$withval])
+    TMOD_PATH_RULE="$withval"
+    AC_DEFINE_UNQUOTED(TMOD_PATH_RULE, "$withval"))dnl
+
 AC_SUBST(CASE_INDEPENDENT_SORTING)
 AC_ARG_WITH(caseIndependentSorting,
     AC_HELP_STRING([--with-caseIndependentSorting=ans],[Make avail and spider use case independent sorting [[NO]]]),

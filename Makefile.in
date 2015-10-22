@@ -24,6 +24,7 @@ SPIDER_CACHE_DESCRIPT_FN  := @SPIDER_CACHE_DESCRIPT_FN@
 ANCIENT           	  := @ANCIENT@
 ALLOW_TCL_MFILES          := @ALLOW_TCL_MFILES@
 MPATH_AVAIL               := @MPATH_AVAIL@
+TMOD_PATH_RULE            := @TMOD_PATH_RULE@
 DUPLICATE_PATHS           := @DUPLICATE_PATHS@
 DISABLE_NAME_AUTOSWAP     := @DISABLE_NAME_AUTOSWAP@
 SHORT_TIME        	  := @SHORT_TIME@
@@ -162,6 +163,7 @@ __installMe:
                 -e 's|@have_lua_term@|$(HAVE_LUA_TERM)|g'                  	  \
                 -e 's|@have_lua_json@|$(HAVE_LUA_JSON)|g'                  	  \
                 -e 's|@disable_name_autoswap@|$(DISABLE_NAME_AUTOSWAP)|g'     	  \
+	        -e 's|@tmod_path_rule@|$(TMOD_PATH_RULE)|g'            	   	  \
 	        -e 's|@redirect@|$(REDIRECT)|g'                       	   	  \
 	        -e 's|@basename@|$(BASENAME)|g'                       	   	  \
 	        -e 's|@ps@|$(PS)|g'                              	   	  \

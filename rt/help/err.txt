@@ -302,6 +302,7 @@ Site Pkg location              standard
 User cache valid time(sec)     @ancient@
 Write cache after (sec)        @short_time@
 Threshold (sec)                1
+Tmod prepend PATH Rule         no
 uname -a
 Does Admin file exist          no
 Active RC file(s):
