@@ -1,3 +1,6 @@
+.. _lua_modulefile_functions-label:
+
+
 Lua Modulefile Functions
 ========================
 
@@ -45,7 +48,9 @@ unset during unloading.
 
 **pathJoin** ("/a","b/c/","d/"):
      builds a path: "/a/b/c/d", It combines any number of strings with
-     one slash and removes excess slashes. Note that trailing slash is removed.
+     one slash and removes excess slashes. Note that trailing slash is
+     removed. If you need a trailing slash then do
+     **pathJoin("/a","b/c") .. "/"** to get "/a/b/c/".
 
 **load** ("pkgA", "pkgB", "pkgC"):
      load all modules. Report error if unable to load.
@@ -102,6 +107,23 @@ The entries below is describes several useful commands that come with Lmod that 
     **execute** {cmd="ulimit -s unlimited",modeA={"load"}} will run
     the command **ulimit -s unlimited** as the last thing that the
     loading the module will do.
+
+
+Modifier functions to prereq and loads
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+**atleast** ("name","version"):
+    This modifier function will only succeed if the module is
+    "version" or newer.
+
+**between** ("name","v1","v2"):
+    This modifier function will only succeed if the module's version is
+    equal to or between "v1" and "v2".  
+
+**latest** ("name"):
+    This modifier function will only succeed if the module has the
+    highest version on the system.
+
 
 Intropection Functions
 ~~~~~~~~~~~~~~~~~~~~~~
