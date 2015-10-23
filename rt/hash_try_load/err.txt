@@ -39,7 +39,7 @@ To rebuild the collection, load the modules you wish then do:
   $ module save default
 If you no longer want this module collection do:
   rm ~/.lmod.d/default
-For more information execute 'module help' or see www.tacc.utexas.edu/tacc-projects/lmod/user-guide/loading-modules
+For more information execute 'module help' or see http://lmod.readthedocs.org/
 Resetting modules to system default
 The system default contains no modules
   (env var: LMOD_SYSTEM_DEFAULT_MODULES is empty)
