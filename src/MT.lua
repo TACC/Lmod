@@ -968,7 +968,7 @@ function M.getMTfromFile(self,t)
       LmodMessage("If you no longer want this module collection do:")
       LmodMessage("  rm ~/.lmod.d/",collectionName,"\n")
       LmodMessage("For more information execute 'module help' or " ..
-                  "see www.tacc.utexas.edu/tacc-projects/lmod/user-guide/loading-modules\n")
+                  "see http://lmod.readthedocs.org/\n")
       return false
    end
 
