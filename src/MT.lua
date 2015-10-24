@@ -972,6 +972,7 @@ function M.getMTfromFile(self,t)
       LmodMessage("  rm ~/.lmod.d/",collectionName,"\n")
       LmodMessage("For more information execute 'module help' or " ..
                   "see http://lmod.readthedocs.org/\n")
+      LmodMessage("No change in modules loaded\n\n")
       if (collectionName ~= "default") then
          LmodErrorExit()
       end
