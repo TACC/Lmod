@@ -503,6 +503,7 @@ function Reset(msg)
       io.stderr:write("\nThe system default contains no modules\n")
       io.stderr:write("  (env var: LMOD_SYSTEM_DEFAULT_MODULES is empty)\n")
       io.stderr:write("  No changes in loaded modules\n\n")
+      LmodErrorExit()
       dbg.fini("Reset")
       return
    end
