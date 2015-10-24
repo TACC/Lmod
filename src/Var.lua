@@ -430,13 +430,16 @@ function M.prepend(self, value, nodups, priority)
    local adding        = true
 
    local tbl  = self.tbl
+
    local imin = min(self.imin, 0)
    for i = is, ie, iskip do
       local path = pathA[i]
       imin       = imin - 1
-      local a    = tbl[path] or {}
-      tbl[path]  = insertFunc(a, imin, isPrepend, nodups, priority)
-      chkMP(self.name, adding,path)
+      local   a  = tbl[path]
+      if (LMOD_TMOD_PATH_RULE == "no" or not a) then
+         tbl[path] = insertFunc(a or {}, imin, isPrepend, nodups, priority)
+         chkMP(self.name, adding,path)
+      end
    end
    self.imin = imin
 
@@ -470,9 +473,11 @@ function M.append(self, value, nodups, priority)
    for i = 1, #pathA do
       local path = pathA[i]
       imax       = imax + 1
-      local a    = tbl[path] or {}
-      tbl[path]  = insertFunc(a, imax, isPrepend, nodups, priority)
-      chkMP(self.name, adding, path)
+      local   a  = tbl[path]
+      if (LMOD_TMOD_PATH_RULE == "no" or not a) then
+         tbl[path]  = insertFunc(a or {}, imax, isPrepend, nodups, priority)
+         chkMP(self.name, adding,path)
+      end
    end
    self.imax  = imax
    local v    = self:expand()
