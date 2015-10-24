@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 6.0.9  2015-08-07 13:43
+Modules based on Lua: Version 6.0.12  2015-10-19 20:04
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -40,6 +40,6 @@ To rebuild the collection, load the modules you wish then do:
 If you no longer want this module collection do:
   rm ~/.lmod.d/default
 For more information execute 'module help' or see http://lmod.readthedocs.org/
-Resetting modules to system default
 The system default contains no modules
   (env var: LMOD_SYSTEM_DEFAULT_MODULES is empty)
+  No changes in loaded modules

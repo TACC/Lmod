@@ -160,7 +160,7 @@ function GetDefault(collection)
    local sname = (LMOD_SYSTEM_NAME == nil) and "" or "." .. LMOD_SYSTEM_NAME
    local path  = pathJoin(os.getenv("HOME"), ".lmod.d", collection .. sname)
    local mt    = MT:mt()
-   mt:getMTfromFile{fn=path, name=collection}
+   mt:getMTfromFile{fn=path, name=collection, }
    dbg.fini("GetDefault")
 end
 

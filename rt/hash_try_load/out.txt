@@ -96,9 +96,12 @@ MODULEPATH="OutputDIR/mf/Core";
 export MODULEPATH;
 LMOD_DEFAULT_MODULEPATH="OutputDIR/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
-unset LOADEDMODULES;
+LOADEDMODULES="cluster:TACC";
+export LOADEDMODULES;
 MODULEPATH="OutputDIR/mf/Core";
 export MODULEPATH;
-unset _LMFILES_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"OutputDIR/mf/Core",},family={},inactive={},mT={},mpathA={"OutputDIR/mf/Core",},["systemBaseMPATH"]="OutputDIR/mf/Core",["version"]=2,}';
+_LMFILES_="OutputDIR/mf/Core/cluster:OutputDIR/mf/Core/TACC";
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"OutputDIR/mf/Core",},family={},inactive={},mT={TACC={["FN"]="OutputDIR/mf/Core/TACC",["default"]=0,["fullName"]="TACC",["hash"]="45cee17d2bb15052d0bbbb1e567cc7e00659d2fe",["loadOrder"]=2,propT={},["short"]="TACC",["status"]="active",},cluster={["FN"]="OutputDIR/mf/Core/cluster",["default"]=0,["fullName"]="cluster",["hash"]="7b1464eff219033f3ee730300e17e18944e96776",["loadOrder"]=1,propT={},["short"]="cluster",["status"]="active",},},mpathA={"OutputDIR/mf/Core",},["systemBaseMPATH"]="OutputDIR/mf/Core",["version"]=2,}';
 export _ModuleTable_;
+false
