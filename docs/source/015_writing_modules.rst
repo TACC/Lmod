@@ -296,3 +296,21 @@ If the user executes the following::
 We see that the value of **CC** is maintained as a stack variable when
 we use *pushenv* but not when we use *setenv*.
 
+Setting aliases and shell functions
+-----------------------------------
+
+Sometimes you want an set an alias as part of a module.  For example
+the visit program requires the version to be specified when running
+it.  So for version 2.9 of visit, the alias is set::
+
+    set_alias("visit","visit -v 2.9")
+
+This will expand correctly depending on the shell.  While C-shell
+allows argument expansion in aliases, Bash and Zsh do not.  Bash and
+Zsh use shell functions instead.  For example the ml shell function
+can be set like this::
+
+    local bashStr = 'eval $($LMOD_DIR/ml_cmd "$@")'
+    local cshStr  = "eval `$LMOD_DIR/ml_cmd $*`"
+    set_shell_function("ml",bashStr,cshStr)
+
