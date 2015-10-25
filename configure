@@ -600,6 +600,7 @@ PATH_TO_LUA
 PATH_TO_PAGER
 PATH_TO_TCLSH
 LUA_INCLUDE
+TMOD_PATH_RULE
 PIN_VERSIONS
 IGNORE_DIRS
 SETTARG
@@ -619,7 +620,6 @@ EXPORT_MODULE
 AUTO_SWAP
 COLORIZE
 CASE_INDEPENDENT_SORTING
-TMOD_PATH_RULE
 DUPLICATE_PATHS
 PS
 BASENAME
@@ -672,7 +672,6 @@ ac_subst_files=''
 ac_user_opts='
 enable_option_checking
 with_duplicatePaths
-with_tmodPathRule
 with_caseIndependentSorting
 with_colorize
 with_autoSwap
@@ -692,6 +691,7 @@ with_mpathSearch
 with_settarg
 with_ignoreDirs
 with_pinVersions
+with_tmodPathRule
 with_lua_include
 '
       ac_precious_vars='build_alias
@@ -1311,15 +1311,6 @@ Optional Packages:
   --with-duplicatePaths=ans
                           Allow multiple directories in path like variables
                           [[NO]]
-  --with-tmodPathRule=ans If path entry is already there then do not
-                          append/prepend [[NO]]
-    TMOD_PATH_RULE="$withval"
-    { $as_echo "$as_me:${as_lineno-$LINENO}: result: TMOD_PATH_RULE=$with_tmodPathRule" >&5
-$as_echo "TMOD_PATH_RULE=$with_tmodPathRule" >&6; }
-    cat >>confdefs.h <<_ACEOF
-#define TMOD_PATH_RULE "$with_tmodPathRule"
-_ACEOF
-
   --with-caseIndependentSorting=ans
                           Make avail and spider use case independent sorting
                           [[NO]]
@@ -1358,6 +1349,8 @@ _ACEOF
   --with-ignoreDirs=ans   list of directories to ignore [[.svn,.git,.hg,.bzr]]
   --with-pinVersions=ans  Save/Restore will use the current version instead of
                           changing with the default.[[NO]]
+  --with-tmodPathRule=ans If path entry is already there then do not
+                          append/prepend.[[NO]]
   --with-lua_include=ans  Save/Restore will use the current version instead of
                           changing with the default.[[NO]]
 
@@ -2738,21 +2731,6 @@ fi
 
 
 
-
-# Check whether --with-tmodPathRule was given.
-if test "${with_tmodPathRule+set}" = set; then :
-  withval=$with_tmodPathRule; withval="NO"
-    { $as_echo "$as_me:${as_lineno-$LINENO}: result: TMOD_PATH_RULE=$withval" >&5
-$as_echo "TMOD_PATH_RULE=$withval" >&6; }
-    TMOD_PATH_RULE="$withval"
-    cat >>confdefs.h <<_ACEOF
-#define TMOD_PATH_RULE "$withval"
-_ACEOF
-
-fi
-
-
-
 # Check whether --with-caseIndependentSorting was given.
 if test "${with_caseIndependentSorting+set}" = set; then :
   withval=$with_caseIndependentSorting; CASE_INDEPENDENT_SORTING="$withval"
@@ -3173,6 +3151,28 @@ fi
 
 
 
+# Check whether --with-tmodPathRule was given.
+if test "${with_tmodPathRule+set}" = set; then :
+  withval=$with_tmodPathRule; TMOD_PATH_RULE="$withval"
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: TMOD_PATH_RULE=$with_tmodPathRule" >&5
+$as_echo "TMOD_PATH_RULE=$with_tmodPathRule" >&6; }
+    cat >>confdefs.h <<_ACEOF
+#define TMOD_PATH_RULE "$with_tmodPathRule"
+_ACEOF
+
+else
+  withval="NO"
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: TMOD_PATH_RULE=$withval" >&5
+$as_echo "TMOD_PATH_RULE=$withval" >&6; }
+    TMOD_PATH_RULE="$withval"
+    cat >>confdefs.h <<_ACEOF
+#define TMOD_PATH_RULE "$withval"
+_ACEOF
+
+fi
+
+
+
 # Check whether --with-lua_include was given.
 if test "${with_lua_include+set}" = set; then :
   withval=$with_lua_include; LUA_INCLUDE="$withval"
@@ -3192,6 +3192,7 @@ $as_echo "LUA_INCLUDE=$withval" >&6; }
 _ACEOF
 
 fi
+
 
 
 
