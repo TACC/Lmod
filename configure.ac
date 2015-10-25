@@ -25,11 +25,11 @@ AC_ARG_WITH(duplicatePaths,
     AC_DEFINE_UNQUOTED(DUPLICATE_PATHS, "$withval"))dnl
 
 AC_SUBST(TMOD_PATH_RULE)
-AC_ARG_WITH(tmodPathRule
-    AC_HELP_STRING([--with-tmodPathRule=ans],[If path entry is already there then do not append/prepend [[NO]]]),
+AC_ARG_WITH(tmodPathRule,
+    AC_HELP_STRING([--with-tmodPathRule=ans],[If path entry is already there then do not append/prepend [[NO]]])
     TMOD_PATH_RULE="$withval"
     AC_MSG_RESULT([TMOD_PATH_RULE=$with_tmodPathRule])
-    AC_DEFINE_UNQUOTED(TMOD_PATH_RULE,"$with_tmodPathRule")dnl
+    AC_DEFINE_UNQUOTED(TMOD_PATH_RULE, "$with_tmodPathRule")dnl
     ,
     withval="NO"
     AC_MSG_RESULT([TMOD_PATH_RULE=$withval])

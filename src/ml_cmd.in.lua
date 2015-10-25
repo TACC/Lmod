@@ -168,7 +168,7 @@ function main()
       search="search",
       show="show",
       spider="spider",
-      swap="swap", sw="swap", switch="swap",
+      swap="swap", sw="swap",
       tablelist="tablelist",
       ['try-load'] = "try-load",
       unload="unload", rm = "unload", del = "unload", delete="unload",      unuse="unuse",
