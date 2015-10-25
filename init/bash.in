@@ -20,6 +20,7 @@ export MODULESHOME
 
 if [ -z "$LESS" ]; then
   LESS=-XqeMRF
+  export LESS
 fi
 
 #############################################################################
@@ -28,6 +29,7 @@ fi
 
 if [ -z "$LMOD_PAGER" ]; then
   LMOD_PAGER=more
+  export LMOD_PAGER
 fi  
 
 
