@@ -520,7 +520,7 @@ proc loadcmd { args } {
 }
 
 proc swapcmd { old {new {}}} {
-    if ($new == ""} {
+    if {$new == ""} {
 	set new $old
     }
     eval cmdargs "unload" $old
