@@ -851,6 +851,9 @@ function M.getMTfromFile(self,t)
    if (self.systemBaseMPATH ~= l_mt.systemBaseMPATH) then
       LmodWarning("The system MODULEPATH has changed: ",
                   "Please rebuild your saved collection.\n")
+      if (collectionName ~= "default") then
+         LmodErrorExit()
+      end
       dbg.fini("MT:getMTfromFile")
       return false
    end
@@ -969,6 +972,10 @@ function M.getMTfromFile(self,t)
       LmodMessage("  rm ~/.lmod.d/",collectionName,"\n")
       LmodMessage("For more information execute 'module help' or " ..
                   "see http://lmod.readthedocs.org/\n")
+      LmodMessage("No change in modules loaded\n\n")
+      if (collectionName ~= "default") then
+         LmodErrorExit()
+      end
       return false
    end
 

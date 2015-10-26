@@ -160,7 +160,7 @@ function GetDefault(collection)
    local sname = (LMOD_SYSTEM_NAME == nil) and "" or "." .. LMOD_SYSTEM_NAME
    local path  = pathJoin(os.getenv("HOME"), ".lmod.d", collection .. sname)
    local mt    = MT:mt()
-   mt:getMTfromFile{fn=path, name=collection}
+   mt:getMTfromFile{fn=path, name=collection, }
    dbg.fini("GetDefault")
 end
 
@@ -498,9 +498,18 @@ end
 -- @param msg If true then print resetting message.
 function Reset(msg)
    dbg.start{"Reset()"}
+   local default = os.getenv("LMOD_SYSTEM_DEFAULT_MODULES") or ""
+   if (default == "") then
+      io.stderr:write("\nThe system default contains no modules\n")
+      io.stderr:write("  (env var: LMOD_SYSTEM_DEFAULT_MODULES is empty)\n")
+      io.stderr:write("  No changes in loaded modules\n\n")
+      LmodErrorExit()
+      dbg.fini("Reset")
+      return
+   end
+
    local force = true
    Purge(force)
-   local default = os.getenv("LMOD_SYSTEM_DEFAULT_MODULES") or ""
    dbg.print{"default: \"",default,"\"\n"}
 
    default = default:trim()
@@ -509,13 +518,6 @@ function Reset(msg)
 
    if (msg ~= false) then
       io.stderr:write("Resetting modules to system default\n")
-   end
-
-   if (default == "") then
-      io.stderr:write("\nThe system default contains no modules\n")
-      io.stderr:write("  (env var: LMOD_SYSTEM_DEFAULT_MODULES is empty)\n\n")
-      dbg.fini("Reset")
-      return
    end
 
 

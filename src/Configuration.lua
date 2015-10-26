@@ -110,6 +110,7 @@ local function new(self)
    local activeTerm        = haveTermSupport() and "true" or colorize("red","false")
    local case_ind_sorting  = LMOD_CASE_INDEPENDENT_SORTING
    local disable1N         = LMOD_DISABLE_SAME_NAME_AUTOSWAP
+   local tmod_rule         = LMOD_TMOD_PATH_RULE
 
    local tbl = {}
    tbl.allowTCL    = { k = "Allow TCL modulefiles"         , v = LMOD_ALLOW_TCL_MFILES,}
@@ -137,10 +138,11 @@ local function new(self)
    tbl.prefix      = { k = "Lmod prefix"                   , v = "@PREFIX@",           }
    tbl.prpnd_blk   = { k = "Prepend order"                 , v = "@prepend_block@",    }
    tbl.settarg     = { k = "Supporting Full Settarg Use"   , v = settarg_support,      }
+   tbl.sitePkg     = { k = "Site Pkg location"             , v = locSitePkg,           }
    tbl.tm_ancient  = { k = "User cache valid time(sec)"    , v = "@ancient@",          }
    tbl.tm_short    = { k = "Write cache after (sec)"       , v = "@short_time@",       }
    tbl.tm_threshold= { k = "Threshold (sec)"               , v = Threshold,            }
-   tbl.sitePkg     = { k = "Site Pkg location"             , v = locSitePkg,           }
+   tbl.tmod_rule   = { k = "Tmod prepend PATH Rule"        , v = tmod_rule,            }
    tbl.uname       = { k = "uname -a"                      , v = uname,                }
    tbl.z01_admin   = { k = "Admin file"                    , v = adminFn,              }
    tbl.z02_admin   = { k = "Does Admin file exist"         , v = tostring(readable),   }

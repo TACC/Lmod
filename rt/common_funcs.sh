@@ -25,8 +25,10 @@ cleanUp ()
        -e "s|^Admin file.*||g"                            \
        -e "s|^MODULERCFILE.*||g"                          \
        -e "s|$HOME|~|g"                                   \
-       -e "s| *\-\-\-\-* *||g"                            \
        -e "s|\-%%\-.*||g"                                 \
+       -e "s| *----* *||g"                                \
+       -e "s|^--* *||g"                                   \
+       -e "s|--* *$||g"                                   \
        -e "/^Active lua-term.*/d"                         \
        -e "/Rebuilding cache.*done/d"                     \
        -e "/Using your spider cache file/d"               \

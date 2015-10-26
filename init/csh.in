@@ -9,6 +9,10 @@ if ( $?LESS ) then
   setenv LESS "-XqeMRF"
 endif
 
+if ( $?LMOD_PAGER ) then
+  setenv LMOD_PAGER more
+endif
+
 set prefix  = ""
 set midfix  = ""
 set postfix = ";"

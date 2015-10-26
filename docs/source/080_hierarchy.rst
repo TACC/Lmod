@@ -1,6 +1,7 @@
+.. _Software-Hierarchy-label:
+
 How to use a Software Module hierarchy
 ======================================
-
 
 Libraries built with one compiler need to be linked with applications
 with the same compiler version. For High Performance Computing there

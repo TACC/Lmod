@@ -255,6 +255,18 @@ AC_ARG_WITH(pinVersions,
     PIN_VERSIONS="$withval"
     AC_DEFINE_UNQUOTED(PIN_VERSIONS, "$withval"))dnl
 
+AC_SUBST(TMOD_PATH_RULE)
+AC_ARG_WITH(tmodPathRule,
+    AC_HELP_STRING([--with-tmodPathRule=ans],[If path entry is already there then do not append/prepend.[[NO]]]),
+    TMOD_PATH_RULE="$withval"
+    AC_MSG_RESULT([TMOD_PATH_RULE=$with_tmodPathRule])
+    AC_DEFINE_UNQUOTED(TMOD_PATH_RULE, "$with_tmodPathRule")dnl
+    ,
+    withval="NO"
+    AC_MSG_RESULT([TMOD_PATH_RULE=$withval])
+    TMOD_PATH_RULE="$withval"
+    AC_DEFINE_UNQUOTED(TMOD_PATH_RULE, "$withval"))dnl
+
 AC_SUBST(LUA_INCLUDE)
 AC_ARG_WITH(lua_include,
     AC_HELP_STRING([--with-lua_include=ans],[Save/Restore will use the current version instead of changing with the default.[[NO]]]),
@@ -266,6 +278,7 @@ AC_ARG_WITH(lua_include,
     AC_MSG_RESULT([LUA_INCLUDE=$withval])
     LUA_INCLUDE="$withval"
     AC_DEFINE_UNQUOTED(LUA_INCLUDE, "$withval"))dnl
+
 
 AC_SUBST(PATH_TO_TCLSH)
 AC_SUBST(PATH_TO_PAGER)
