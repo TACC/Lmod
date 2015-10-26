@@ -519,6 +519,14 @@ proc loadcmd { args } {
     eval cmdargs "load" $args
 }
 
+proc swapcmd { old {new {}}} {
+    if ($new == ""} {
+	set new $old
+    }
+    eval cmdargs "unload" $old
+    eval cmdargs "load"   $new
+}
+
 proc system { args } {
     foreach arg $args {
         lappend cmdArgsL "$arg"
@@ -669,6 +677,9 @@ proc module { command args } {
         load {
             eval loadcmd $args
         }
+	swap {
+	    eval swapcmd $args
+	}
         add {
             eval loadcmd $args
         }
