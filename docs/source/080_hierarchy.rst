@@ -1,3 +1,5 @@
+.. _Software-Hierarchy-label:
+
 How to use a Software Module hierarchy
 ======================================
 
