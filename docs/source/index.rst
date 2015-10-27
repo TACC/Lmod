@@ -87,7 +87,6 @@ Advanced Topics
    120_shared_home_directories
    130_spider_cache
    140_deprecating_modules
-   150_kitchen_sink_module
 
 Topics yet to be written
 ^^^^^^^^^^^^^^^^^^^^^^^^
