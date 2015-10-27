@@ -94,11 +94,4 @@ LMOD_DEFAULT_MODULEPATH="OutputDIR/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="OutputDIR/mf/Core";
 export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="OutputDIR/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
-unset LOADEDMODULES;
-MODULEPATH="OutputDIR/mf/Core";
-export MODULEPATH;
-unset _LMFILES_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"OutputDIR/mf/Core",},family={},inactive={},mT={},mpathA={"OutputDIR/mf/Core",},["systemBaseMPATH"]="OutputDIR/mf/Core",["version"]=2,}';
-export _ModuleTable_;
+false

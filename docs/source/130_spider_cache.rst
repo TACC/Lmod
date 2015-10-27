@@ -60,3 +60,71 @@ master) builds a cache for the shared location.
 What directories to specify?
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+If your site doesn't use the software hierarchy, (see
+:ref:`Software-Hierarchy-label` for more details) then just use the
+all the directory specified in **MODULEPATH**.  If you do use the
+hierarchy, then just specify the "Core" directories.  In other words
+the directories that are used to initialize Lmod and not the compiler
+dependent or mpi-compiler dependent directories.
+
+How to test the Spider Cache Generation and Usage
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+In a couple of steps you can generate a personal spider cache and get
+the installed copy of Lmod to use it.  The first step would be to load
+the lmod module and then run the **update_lmod_system_cache_files**
+program and place the cache in the directory *~/moduleData/cacheDir* and
+the time stamp file in *~/moduleData/system.txt*
+
+   $ module load lmod
+   $ update_lmod_system_cache_files -d ~/moduleData/cacheDir -t ~/moduleData/system.txt $LMOD_DEFAULT_MODULEPATH
+
+Here we have use the trick that Lmod keeps track of the Core module
+directories in **LMOD_DEFAULT_MODULEPATH** so it should be safe to use
+whether or not your site is using the hierarchy or not.
+
+Next you need to find your site's copy of lmodrc.lua.  This can be
+found by running::
+
+    $ module --config
+    ...
+
+    Active RC file(s):
+    ------------------
+    /opt/apps/lmod/6.0.14/init/lmodrc.lua
+
+It is likely your site will have it in a different location.  Please
+copy that file to ~/lmodrc.lua.  Then change the bottom of the file to
+be::
+
+    scDescriptT = {
+      {
+        ["dir"]       = "/path/to/moduleData/cacheDir",
+        ["timestamp"] = "/path/to/moduleData/system.txt",
+      },
+    }
+
+Where you have changed */path/to* to match your home directory.  Now
+set::
+
+    $ export LMOD_RC=$HOME/lmodrc.lua
+
+Then you can check to see that it works by running::
+
+    $ module --config
+    ...
+
+    Cache Directory              Time Stamp File
+    ---------------              ---------------
+    $HOME/moduleData/cacheDir    $HOME/moduleData/system.txt
+  
+Where **$HOME** is replaced by your real home directory.  Now you can
+test that it works by doing::
+
+
+    $ module avail
+
+The above command should be much faster than running without the
+cache::
+
+    $ module --ignore_cache avail

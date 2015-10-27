@@ -1,6 +1,50 @@
 Ideas for topics:
 
 * Using Lmod
+** Remind users of what Lmod does:
+   It changes the environment
+
+   type hello; module load hello; type hello
+   env | grep hello
+
+** module list
+
+** module avail
+
+
+** module avail he
+
+** module help ...
+
+** module spider hello
+
+
+** module spider hello/1.0
+
+** module load hello
+
+** module swap gcc clang
+
+   notice that mpich and hello get reloaded
+
+** module load clang
+
+   notice that gcc is unloaded, clang is loaded and 
+   mpich and hello get reloaded.
+
+** module load openmpi
+
+   The same magic happens for mpi stacks
+
+   kewl huh?
+
+** module avail
+
+** module spider
+
+
+
+
 * customizing lmod 
   adv. users
   personal modules
@@ -13,4 +57,4 @@ Ideas for topics:
 ** cache-ology
 ** module kitchen sink
 
-:
+

@@ -143,7 +143,7 @@ LMOD_SYSTEM_NAME = getenv("LMOD_SYSTEM_NAME")
 ------------------------------------------------------------------------
 
 LMOD_TMOD_PATH_RULE = initialize("LMOD_TMOD_PATH_RULE",
-                                "@lmod_tmod_path_rule@","NO")
+                                "@tmod_path_rule@","NO")
 
 ------------------------------------------------------------------------
 -- LMOD_DISABLE_SAME_NAME_AUTOSWAP: This env. var requires users to swap

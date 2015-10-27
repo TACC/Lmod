@@ -52,6 +52,7 @@ how to have their own personal modules should read the Advanced User Guide.
    :maxdepth: 1
 
    010_user
+   015_writing_modules
    040_FAQ
    020_advanced
 

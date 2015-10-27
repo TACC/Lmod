@@ -124,7 +124,7 @@ Miscellaneous sub-commands:
 Important Environment Variables:
   LMOD_COLORIZE                     If defined to be "YES" then Lmod prints
                                     properties and warning in color.
-The following guides are at https://www.tacc.utexas.edu/research-development/tacc-projects/lmod
+The following guides are at http://lmod.readthedocs.org/
   User Guide                 - How to use.
   Advance User Guide         - How to create you own modules.
   System Administrator Guide - How to install Lmod on your own system.
@@ -250,7 +250,7 @@ Miscellaneous sub-commands:
 Important Environment Variables:
   LMOD_COLORIZE                     If defined to be "YES" then Lmod prints
                                     properties and warning in color.
-The following guides are at https://www.tacc.utexas.edu/research-development/tacc-projects/lmod
+The following guides are at http://lmod.readthedocs.org/
   User Guide                 - How to use.
   Advance User Guide         - How to create you own modules.
   System Administrator Guide - How to install Lmod on your own system.
