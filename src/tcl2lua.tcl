@@ -411,6 +411,7 @@ proc setenv { var val args } {
         cmdargs "setenv" $var $val $respect
     } else {
         global g_varsT
+        set env($var) $val
         set g_varsT($var) $val
         cmdargs "setenv" $var $val
     }
@@ -677,6 +678,7 @@ proc module { command args } {
         load {
             eval loadcmd $args
         }
+	switch -
 	swap {
 	    eval swapcmd $args
 	}
