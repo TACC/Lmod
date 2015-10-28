@@ -402,24 +402,35 @@ proc module-whatis { args } {
 }
 
 proc setenv { var val args } {
-    global env
-    set env($var) $val
+    global env g_varsT
+    set mode [currentMode]
+    set respect ""
+
     if {[string match $var "-respect"] || [string match $var "-r"] || [string match $var "--respect"]} {
-        set respect "true"
-        set var [lindex $args 0]
-        set val [lindex $args 1]
-        cmdargs "setenv" $var $val $respect
-    } else {
-        global g_varsT
-        set env($var) $val
-        set g_varsT($var) $val
-        cmdargs "setenv" $var $val
+	set respect "true"
+	set var [lindex $args 0]
+	set val [lindex $args 1]
     }
+    if {$mode == "load"} {
+	set env($var)     $val
+	set g_varsT($var) $val
+    }
+    cmdargs "setenv" $var $val $respect
 }
 
 proc unsetenv { var {val {}}} {
     global env  g_varsT
-    unset-env $var
+
+    if {$mode == "load"} {
+	if {[info exists env($var)]} {
+	    unset-env $var
+	}
+    }\
+    elseif {$mode == "remove"} {
+	if {$val != ""} {
+	    set env($var) $val
+	}
+    }
     cmdargs "unsetenv" $var $val
 }
 
@@ -505,8 +516,10 @@ proc doubleQuoteEscaped {text} {
 
 proc cmdargs { cmd args } {
     foreach arg $args {
-	set val [doubleQuoteEscaped $arg]
-        lappend cmdArgsL "\"$val\""
+	if {$arg != ""} {
+	    set val [doubleQuoteEscaped $arg]
+	    lappend cmdArgsL "\"$val\""
+	}
     }
     set cmdArgs [join $cmdArgsL ","]
     puts stdout "$cmd\($cmdArgs\)"
