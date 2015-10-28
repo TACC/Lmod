@@ -94,6 +94,8 @@ following rpms::
    lua-filesystem-1.4.2-1.el6.x86_64
    lua-devel-5.1.4-4.1.el6.x86_64
 
+You will also need the libtcl and tcl packages as well.
+
 
 Using Luarocks
 ~~~~~~~~~~~~~~
