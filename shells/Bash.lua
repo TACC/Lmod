@@ -86,6 +86,9 @@ end
 
 function Bash.expandVar(self, k, v, vType)
    local lineA       = {}
+   if (k:find("%.")) then
+      return
+   end
    v                 = tostring(v):doubleQuoteString()
    lineA[#lineA + 1] = k
    lineA[#lineA + 1] = "="
@@ -105,6 +108,9 @@ end
 -- Bash:unset() unset an environment variable.
 
 function Bash.unset(self, k, vType)
+   if (k:find("%.")) then
+      return
+   end
    stdout:write("unset ",k,";\n")
    dbg.print{   "unset ",k,";\n"}
 end

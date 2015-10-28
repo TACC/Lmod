@@ -78,6 +78,9 @@ end
 -- Csh:expandVar(): expand a single key-value pair into Csh syntax.
 
 function Csh.expandVar(self, k, v, vType)
+   if (k:find("%.")) then
+      return
+   end
    local lineA       = {}
    local middle      = ' '
    v                 = tostring(v)
@@ -102,6 +105,9 @@ end
 -- Csh:unset(): unset a local or env. variable.
 
 function Csh.unset(self, k, vType)
+   if (k:find("%.")) then
+      return
+   end
    local lineA       = {}
    if (vType == "local_var") then
       lineA[#lineA + 1] = "unset "
