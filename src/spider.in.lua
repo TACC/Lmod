@@ -215,24 +215,54 @@ local function buildReverseMapT(moduleDirA, moduleT, dbT)
    return reverseMapT
 end
 
+local function buildLibMapA(reverseMapT)
+   local libT = {}
+   for path,v in pairs(reverseMapT) do
+      local kind = v.kind
+      if (kind == "lib") then
+         for file in lfs.dir(path) do
+            local ext = extname(file)
+            if (ext == ".a" or ext == ".so" or ext == ".dylib") then
+               libT[file] = true
+            end
+         end
+      end
+   end
+
+   local libA = {}
+   local i    = 0
+   for k in pairs(libT) do
+      i       = i + 1
+      libA[i] = k
+   end
+
+   return libA
+end
+
+
 
 local function rptReverseMapT(moduleDirA, moduleT, timestampFn, dbT)
    dbg.start{"rptReverseMapT(moduleDirA, moduleT, timestampFn, dbT)"}
    local ts          = { timestampFn }
    local reverseMapT = buildReverseMapT(moduleDirA, moduleT, dbT)
+   local libA        = buildLibMapA(reverseMapT)
    local s1          = serializeTbl{name="timestampFn",   value=ts,
                                     indent=true}
    local s2          = serializeTbl{name="reverseMapT",
                                     value=reverseMapT,   indent=true}
-   io.stdout:write(s1,s2,"\n")
+   local s3          = serializeTbl{name="xlibmap", value = libA,
+                                    indent = true}
+   io.stdout:write(s1,s2,s3,"\n")
    dbg.fini("rptReverseMapT")
 end
 
 local function rptReverseMapTJson(moduleDirA, moduleT, timestampFn, dbT)
    dbg.start{"rptReverseMapTJson(moduleDirA, moduleT, timestampFn, dbT)"}
    local reverseMapT = buildReverseMapT(moduleDirA, moduleT, dbT)
+   local libA        = buildLibMapA(reverseMapT)
    local t           = { timestampFn = timestampFn,
-                         reverseMapT = reverseMapT}
+                         reverseMapT = reverseMapT,
+                         xlibmap     = libA}
    print(json.encode(t))
    dbg.fini("rptReverseMapTJson")
 end
