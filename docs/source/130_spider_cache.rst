@@ -4,9 +4,8 @@ System Spider Cache
 Now with version 5.+ of Lmod, it is now very important that sites with
 large modulefile installations build system spider cache files. There
 is a file called "update_lmod_system_cache_files" that builds a system
-cache file.  It also touches a file called "system.txt".  Whatever the
-name of this file, Lmod uses this file to know that the spider cache
-is up-to-date.
+cache file.  It also touches a file called "system.txt".  This file is
+used by Lmod to know that the spider cache is up-to-date.
 
 Lmod uses the spider cache file as a replacement for walking the directory tree
 to find all modulefiles in your MODULEPATH.  This means that Lmod only knows
@@ -30,31 +29,40 @@ Sites running Lmod have three choices:
 
 #. Or you can run the update_lmod_system_cache_files script say every
    30 mins.  This way the cache file is up-to-date.  No new module
-   will be unknown for more 30 mins.
+   will be unknown for more than 30 mins.
 
 
 There are two ways to specify how cache directories and timestep files are
 specified.  You can use "--with-spiderCacheDir=dirs" and
 "--with-updateSystemFn=file" to specify one or more directories with a
-single timestamp file.  If you have multiple directories with multiple
+single timestamp file::
+
+  ./configure --with-spiderCacheDir=/opt/mData/cacheDir --with-updateSystemFn=/opt/mdata/system.txt
+
+
+If you have multiple directories with multiple
 timestamp files you can use "--with-spiderCacheDescript=file" where the
 contents of the "file" is::
 
     cacheDir1:timestamp1
     cacheDir2:timestamp2
 
-lines starting with '#' and blank lines are ignored.  Also note that a
+Lines starting with '#' and blank lines are ignored.  Also note that a
 single timestamp file can be used with multiple cache directories.
 
 How to decide how many system cache directories to have
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-It is about which machines "owns" which modulefiles. At TACC, we have
-two different locations of files.  Most of our modulefiles are stored
-on a local disk.  Some others are stored in a shared location.  So in
-our case Lmod sees two cache directories.  Each node builds a spider
-cache of the modulefiles it "owns" and a single mode (we call it
-master) builds a cache for the shared location.
+The answer to this question depends on which machines "owns" which
+modulefiles. Many sites have a single location where their modulefiles
+are stored. In this case a single system cache file is all that is
+required.
+
+At TACC, we need two system cache files because we have two different
+locations of files: one in the shared location and one on a local disk.  
+So in our case Lmod sees two cache directories. Each node builds a
+spider cache of the modulefiles it "owns" and a single node (we call
+it master) builds a cache for the shared location.
 
 
 What directories to specify?
@@ -63,9 +71,9 @@ What directories to specify?
 If your site doesn't use the software hierarchy, (see
 :ref:`Software-Hierarchy-label` for more details) then just use the
 all the directory specified in **MODULEPATH**.  If you do use the
-hierarchy, then just specify the "Core" directories.  In other words
-the directories that are used to initialize Lmod and not the compiler
-dependent or mpi-compiler dependent directories.
+hierarchy, then just specify the "Core" directories.  In other words,
+the directories that are used to initialize Lmod and shouldn't include
+any directories that are compiler dependent or mpi-compiler dependent.
 
 How to test the Spider Cache Generation and Usage
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -74,12 +82,12 @@ In a couple of steps you can generate a personal spider cache and get
 the installed copy of Lmod to use it.  The first step would be to load
 the lmod module and then run the **update_lmod_system_cache_files**
 program and place the cache in the directory *~/moduleData/cacheDir* and
-the time stamp file in *~/moduleData/system.txt*
+the time stamp file in *~/moduleData/system.txt*::
 
    $ module load lmod
    $ update_lmod_system_cache_files -d ~/moduleData/cacheDir -t ~/moduleData/system.txt $LMOD_DEFAULT_MODULEPATH
 
-Here we have use the trick that Lmod keeps track of the Core module
+Here we have used the trick that Lmod keeps track of the Core module
 directories in **LMOD_DEFAULT_MODULEPATH** so it should be safe to use
 whether or not your site is using the hierarchy or not.
 
@@ -118,7 +126,7 @@ Then you can check to see that it works by running::
     ---------------              ---------------
     $HOME/moduleData/cacheDir    $HOME/moduleData/system.txt
   
-Where **$HOME** is replaced by your real home directory.  Now you can
+Where *$HOME* is replaced by your real home directory.  Now you can
 test that it works by doing::
 
 
