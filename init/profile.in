@@ -46,4 +46,5 @@ if [ -z "${USER_IS_ROOT:-}" ]; then
   else
      .    @PKG@/init/sh        >/dev/null # Module Support
   fi
+  unset my_shell
 fi
