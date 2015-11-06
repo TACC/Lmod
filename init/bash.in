@@ -100,7 +100,7 @@ ml()
   eval $($LMOD_DIR/ml_cmd "$@")
 }
 
-export_module=$(echo "@export_module@" | tr '[:upper:]' '[:lower:]')
+export_module=$(echo "@export_module@" | @tr@ '[:upper:]' '[:lower:]')
 if [ -n "${BASH_VERSION:-}" -a "$export_module" != no ]; then
   export -f module
   export -f ml
