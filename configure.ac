@@ -280,26 +280,27 @@ AC_ARG_WITH(lua_include,
     AC_DEFINE_UNQUOTED(LUA_INCLUDE, "$withval"))dnl
 
 
-AC_SUBST(PATH_TO_TCLSH)
-AC_SUBST(PATH_TO_PAGER)
-AC_SUBST(PATH_TO_LUA)
-AC_SUBST(PATH_TO_LUAC)
 AC_SUBST(PATH_TO_GIT)
 AC_SUBST(PATH_TO_HASHSUM)
+AC_SUBST(PATH_TO_LUA)
+AC_SUBST(PATH_TO_LUAC)
+AC_SUBST(PATH_TO_PAGER)
 AC_SUBST(PATH_TO_SRC)
+AC_SUBST(PATH_TO_TCLSH)
+AC_SUBST(PATH_TO_TR)
 AC_PATH_PROG(PATH_TO_GIT, git, "")
-AC_PATH_PROG(PATH_TO_TCLSH, tclsh, UNKNOWN)
+AC_PATH_PROGS(PATH_TO_HASHSUM, [sha1sum] [md5sum], "")
+AC_PATH_PROG(pager,[more], "")
+PATH_TO_PAGER=$pager
 
+AC_PATH_PROG(PATH_TO_TCLSH, tclsh, UNKNOWN)
 if test "$PATH_TO_TCLSH" = "UNKNOWN" -a "$ALLOW_TCL_MFILES" = yes; then
   echo 
   echo "The tclsh program must be in your path. Quitting!"
   echo 
   exit
 fi    
-
-AC_PATH_PROGS(PATH_TO_HASHSUM, [sha1sum] [md5sum], "")
-AC_PATH_PROG(pager,[more], "")
-PATH_TO_PAGER=$pager
+AC_PATH_PROG(PATH_TO_TR, [tr],"")
 
 AC_PATH_PROG(PATH_TO_LUAC, [luac])
 AC_PATH_PROG(luaprog, [lua], "")

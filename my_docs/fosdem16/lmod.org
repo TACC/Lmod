@@ -1,0 +1,142 @@
+Notes on what a Lmod talk would look like if given to the Lua Dev
+Room.
+
+* What are Env. Modules?
+
+At its most basic, All any of the Env. Modules Tools to set (and
+unset!) environment variables.  Especially adding (and removing)
+directories from path like variables (PATH, LD_LIBRARY_PATH, etc)
+
+In a broader sense, it is a very convenient way for centers to provide
+access to software.  A Chemist doing Molecular Dymanics needs one set
+of software, while a Biologist working on Genomics needs a completely
+different set of software.  As a software developer, I find it very
+useful to easily switch between different compilers or compiler
+versions.
+
+
+How does it work?
+Show a simple module load
+
+
+* What is Lmod?
+
+A lua based environment module tool.  It is a modern replacement for
+the original, activity developed since 2009.  
+
+* Why go to the trouble of coming up with a new version of Env. Modules?
+
+The original tool didn't handle the software hierarchy well.
+
+When you want to use boost, you need it for your compiler (and
+version).  When you switch compilers (or versions), you want the boost
+library to match  -> Lmod does this switching for you automatically.
+
+* Why talk about Lmod to this audience?  
+
+Why is Lua a good choice as the implementation language?
+
+(maybe talk about why I think Lua is cool?)
+
+** Modulefile are loaded and unloaded and "help"ed?
+
+   help("This package does ....")
+   setenv("FOO","BAR")
+   prepend("PATH","/apps/foo/1.2/bin")
+
+
+   During a module load, the help function does nothing,  The setenv
+   set a variable, the prepend_path does...
+
+   A module unload unsets the variable, and removes the directory from
+   PATH.
+
+   "module help foo" prints the help message and the other commands
+   are no-ops.
+
+   How does Lmod implement this:
+
+   function setenv()
+      mcp:setenv()
+   end
+
+   MasterControl:setenv()
+     ...
+   end
+
+   MasterControl:unsetenv()
+     ...
+   end
+
+** Hooks
+
+   Sites can modified the behavior of Lmod by "hooks"
+
+   A site can register a load hook.  For example every time a module
+   is loaded, a message can be sent via syslog to allow for module
+   usage tracking.
+
+** What modules you have loaded need to be remembered between calls -> env .var.
+
+   A lua table is a great way to remember a state.  
+   serialize table (DAG) into a string.  Convert to base64, break it
+   up into 256 byte blocks and store in the environment, do the
+   reverse when start Lmod.
+
+** Debugging: How to debug something on a computer on a site which I don't have access to.
+
+   I haven't had much luck in finding a Lua debugger.  So I had to
+   come to debug things:
+
+   local dbg = require("Dbg"):dbg()
+
+
+   function setenv(...)
+     dbg.start{"setenv(...)"}
+
+     local abc = "This is a string"
+     dbg.print{"abc: ",abc,"\n"}
+
+     dbg.fini("setenv")
+   end
+
+   module -D load foo 2> load.log
+
+
+   setenv(...) {
+     abc: This is a string
+   } setenv
+
+** module --config
+
+   Report how Lmod has been configured
+
+   When doing the above debug logging always report the configuration.
+
+** Shell Factory
+
+   Using the Design patterns lingo: 
+   
+   master.shell = BaseShell.build(shell)
+
+   master.shell:expand(varTbl)
+
+* Comment on what it like to put software for the world to use
+
+   Remote Debugging
+   Test suite
+   Being the Benevolent Dictator, Having to say no sometimes?
+   The advantages of releasing software.  More eyes to find bugs
+
+   Features, A deeper understanding of what the code is doing because
+   I have to explain things.
+
+   Documentation, Documentation, Documentation. and keeping it up to
+   date.
+
+   Comment on what is like stepping into other peoples shoes.
+   -> every site on the planet uses Env. Modules differently
+   -> Tmod has no policies, Lmod has some.
+   -> No way to keep them all happy.
+     
+   
