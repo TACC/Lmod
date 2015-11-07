@@ -195,7 +195,8 @@ LMOD_IGNORE_CACHE = (LMOD_IGNORE_CACHE:trim() ~= "0")
 -- LMOD_PAGER: Lmod will use this value of pager if set.
 ------------------------------------------------------------------------
 
-LMOD_PAGER = getenv("LMOD_PAGER")
+LMOD_PAGER      = getenv("LMOD_PAGER") or "@path_to_pager@"
+LMOD_PAGER_OPTS = getenv("LMOD_PAGER_OPTS") or "-XqMREF"
 
 
 MODULERCFILE = getenv("MODULERCFILE") or pathJoin(cmdDir(),"../../etc/rc")

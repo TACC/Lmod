@@ -40,7 +40,6 @@
 --------------------------------------------------------------------------
 
 BaseShell       = {}
-Pager           = "@path_to_pager@"
 prepend_order   = false
 banner          = false
 

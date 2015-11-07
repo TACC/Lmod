@@ -43,7 +43,7 @@ require("strict")
 require("utils")
 
 
-Foreground = "\027".."[1;"
+Foreground = "\027".."[01;"
 colorT =
    {
    black      = "30",

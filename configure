@@ -591,7 +591,6 @@ pkgConfig
 HAVE_LUA_JSON
 HAVE_LUA_TERM
 luaprog
-pager
 PATH_TO_TR
 PATH_TO_TCLSH
 PATH_TO_SRC
@@ -3332,16 +3331,16 @@ fi
 done
 test -n "$PATH_TO_HASHSUM" || PATH_TO_HASHSUM=""""
 
-# Extract the first word of "more", so it can be a program name with args.
-set dummy more; ac_word=$2
+# Extract the first word of "less more", so it can be a program name with args.
+set dummy less more; ac_word=$2
 { $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
 $as_echo_n "checking for $ac_word... " >&6; }
-if ${ac_cv_path_pager+:} false; then :
+if ${ac_cv_path_PATH_TO_PAGER+:} false; then :
   $as_echo_n "(cached) " >&6
 else
-  case $pager in
+  case $PATH_TO_PAGER in
   [\\/]* | ?:[\\/]*)
-  ac_cv_path_pager="$pager" # Let the user override the test with a path.
+  ac_cv_path_PATH_TO_PAGER="$PATH_TO_PAGER" # Let the user override the test with a path.
   ;;
   *)
   as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
@@ -3351,7 +3350,7 @@ do
   test -z "$as_dir" && as_dir=.
     for ac_exec_ext in '' $ac_executable_extensions; do
   if as_fn_executable_p "$as_dir/$ac_word$ac_exec_ext"; then
-    ac_cv_path_pager="$as_dir/$ac_word$ac_exec_ext"
+    ac_cv_path_PATH_TO_PAGER="$as_dir/$ac_word$ac_exec_ext"
     $as_echo "$as_me:${as_lineno-$LINENO}: found $as_dir/$ac_word$ac_exec_ext" >&5
     break 2
   fi
@@ -3359,21 +3358,20 @@ done
   done
 IFS=$as_save_IFS
 
-  test -z "$ac_cv_path_pager" && ac_cv_path_pager=""""
+  test -z "$ac_cv_path_PATH_TO_PAGER" && ac_cv_path_PATH_TO_PAGER="more"
   ;;
 esac
 fi
-pager=$ac_cv_path_pager
-if test -n "$pager"; then
-  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $pager" >&5
-$as_echo "$pager" >&6; }
+PATH_TO_PAGER=$ac_cv_path_PATH_TO_PAGER
+if test -n "$PATH_TO_PAGER"; then
+  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $PATH_TO_PAGER" >&5
+$as_echo "$PATH_TO_PAGER" >&6; }
 else
   { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
 $as_echo "no" >&6; }
 fi
 
 
-PATH_TO_PAGER=$pager
 
 # Extract the first word of "tclsh", so it can be a program name with args.
 set dummy tclsh; ac_word=$2
@@ -5025,6 +5023,7 @@ echo "Have lua-json..............................." : $HAVE_LUA_JSON
 echo "Support Auto Swap when using families......." : $AUTO_SWAP
 echo "Export the module shell function in Bash...." : $EXPORT_MODULE
 echo "Disable same name autoswapping.............." : $DISABLE_NAME_AUTOSWAP
+echo "Pager used inside Lmod......................" : $PATH_TO_PAGER
 
 echo
 echo '------------------------------------------------------------------------------'

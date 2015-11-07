@@ -69,6 +69,8 @@ end
 -- @param f A stream object.
 function usePager(f, ...)
    dbg.start{"usePager()"}
+   s_pager = "LESS="..LMOD_PAGER_OPTS.." "..s_pager
+   io.stderr:write("pager: ",s_pager,"\n")
    local p = io.popen(s_pager .. " 1>&2" ,"w")
    local s = concatTbl({...},"")
    p:write(s)
@@ -80,7 +82,7 @@ end
 -- Return usePager if PAGER exists otherwise,  return bypassPager
 function buildPager()
    local func  = bypassPager
-   local pager = LMOD_PAGER or os.getenv("PAGER") or Pager
+   local pager = LMOD_PAGER
    s_pager     = findInPath(pager)
    if (s_pager and s_pager ~= "") then
       func     = usePager

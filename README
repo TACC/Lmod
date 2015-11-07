@@ -6,7 +6,11 @@ Bug Fixes:
    b) Two or more .version files could confused Lmod.  This
       is now fixed.
    c) Lmod can now find UPPER CASE string when doing
-      "module key ..." 
+      "module key ..."
+   d) Lmod now ignore the value of PAGER, instead it uses
+      LMOD_PAGER (default "less") and LMOD_PAGER_OPTS
+      (default "-XqRMEF").  This allows for consistent behavior
+      under systems like the Cray and Mac OS X.
 
 Lmod 6.0.1:
 Bug Fixes:

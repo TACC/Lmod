@@ -53,6 +53,8 @@ reverseMapT = {
     ["pkg"] = "intel/14.0.1",
   },
 }
+xlibmap = {
+  }
 ===========================
 step 3
 lua ProjectDIR/src/lmod.in.lua bash spider

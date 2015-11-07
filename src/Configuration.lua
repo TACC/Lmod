@@ -130,9 +130,10 @@ local function new(self)
    tbl.mpath_root  = { k = "MODULEPATH_ROOT"               , v = "@modulepath_root@",  }
    tbl.modRC       = { k = "MODULERCFILE"                  , v = MODULERCFILE,         }
    tbl.numSC       = { k = "number of cache dirs"          , v = numSC,                }
+   tbl.pager       = { k = "Pager"                         , v = LMOD_PAGER,           }
+   tbl.pager_opts  = { k = "Pager Options"                 , v = LMOD_PAGER_OPTS,      }
    tbl.path_hash   = { k = "Path to HashSum"               , v = "@path_to_hashsum@",  }
    tbl.path_lua    = { k = "Path to Lua"                   , v = "@path_to_lua@",      }
-   tbl.path_pager  = { k = "Path to Pager"                 , v = "@path_to_pager@",    }
    tbl.pin_v       = { k = "Pin Versions in restore"       , v = LMOD_PIN_VERSIONS,    }
    tbl.pkg         = { k = "Pkg Class name"                , v = pkgName,              }
    tbl.prefix      = { k = "Lmod prefix"                   , v = "@PREFIX@",           }
