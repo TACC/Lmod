@@ -70,7 +70,6 @@ end
 function usePager(f, ...)
    dbg.start{"usePager()"}
    s_pager = "LESS="..LMOD_PAGER_OPTS.." "..s_pager
-   io.stderr:write("pager: ",s_pager,"\n")
    local p = io.popen(s_pager .. " 1>&2" ,"w")
    local s = concatTbl({...},"")
    p:write(s)
