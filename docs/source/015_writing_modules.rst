@@ -7,9 +7,9 @@ Then we will start with the four functions that are typically needed
 for any modulefile. From there we will talk about intermediate level
 module functions when things get more complicated.  Finally we will
 discuss the advanced module functions to flexibly control your site
-via modules.  All the Lua module functions available are describe
-:ref:`lua_modulefile_functions-label`.  This discussion to show how
-they can be used.
+via modules.  All the Lua module functions available are described in
+:ref:`lua_modulefile_functions-label` which can be useful as a
+reference.  This discussion to show how these functions can be used.
 
 
 A Reminder of what Lmod is doing
@@ -44,12 +44,11 @@ before loading the ddt modulefile::
 
 
 The first time we check the environment we find that there is no
-**ddt** stored there.  But the second time there we see that the PATH
-and LD_LIBRARY_PATH have been modified.  Note that we have shorten the
-path-like variables to show the important changes.  There are also
-several environment variables which have been set.  After unloading
-the module all the references for ddt have been removed. We can see
-what the modulefile looks like by doing::
+**ddt** stored there.  But the second time there we see that the PATH,
+DDTPATH and LD_LIBRARY_PATH have been modified.  Note that we have
+shortened the path-like variables to show the important changes.  After
+unloading the module all the references for ddt have been removed. We
+can see what the modulefile looks like by doing::
 
    $ module show ddt
 
@@ -79,15 +78,18 @@ reversed. So the **setenv** unset the environment variable and the
 Basic Modulefiles
 ^^^^^^^^^^^^^^^^^
 
-There are two main module functions required, namely **setenv** and
-**prepend_path**.  And two functions to provide documentation **help**
-and **whatis**.  The modulefile for ddt shown above contains all the
-basics required to create one.  Suppose you are writing this module
-file for ddt version 5.0.1 and you are placing it in the standard
-location for your site, namely */apps/modulefiles* and this directory
-is already in **MODULEPATH**.  Then in the directory
-*/apps/modulefiles/ddt* you create a file called *5.0.1.lua* which
-contains the modulefile shown above.
+There are two main module functions, namely **setenv** and
+**prepend_path**, to set the environment variables necessary to make a
+package available. There are also two functions to provide
+documentation, **help** and **whatis**.  The modulefile for ddt shown
+above contains all the basics required to create a modulefile.
+
+Suppose you are writing this module file for ddt version 5.0.1 and you
+are placing it in the standard location for your site, namely
+*/apps/modulefiles* and this directory is already in **MODULEPATH** 
+(See :ref:`modulepath-label` for a discussion of how **MODULEPATH** works)
+Then in the directory */apps/modulefiles/ddt* you create a file called
+*5.0.1.lua* which contains the modulefile shown above.
 
 
 This is the typical way of setting a modulefile up.  Namely the
@@ -115,7 +117,7 @@ Intermediate Level Modulefiles
 The four basic functions describe above is all that is necessary for
 the majority of modulefiles for application and libraries.  The
 intermediate level is designed to describe some situations that come
-up as you need to provide more than just packages modulefile but need
+up as you need to provide more than just package modulefiles but need
 to set up a system.
 
 
@@ -126,7 +128,7 @@ Some sites create a single module to a default set of modules for all
 users to start from.   This is typically called a meta module because
 it loads other modules.  As an example of that, we here at TACC
 have created the TACC module to provide a default compiler, mpi stack
-and other modules::
+and other modules.  Note that ``--`` are the start of a comment in Lua::
 
   
    help([[
@@ -160,7 +162,7 @@ function built-in to Lua to get the value of environment variable
 "USER". 
 
 The second function is **load**, this function loads the modulefiles
-specified.  This function takes one or more names.  Here we are
+specified.  This function takes one or more module names.  Here we are
 specifying a default compiler and mpi stack. The third function
 is **try_load** it is similar to **load** except that there is no
 error reported if the module can't be found.
