@@ -1,9 +1,36 @@
+Lmod Hands-ons Tutorial:  Chose your own topic
 
-Using Lmod:
+We have 5 different Topics for you to chose from.  We have provided a
+USB thumb drive for you to take with you.  On the thumb drive is a
+copy of the Virtual Box software for Windows, Mac OS X, Ubuntu and
+Fedora and a VM for you to run.
 
-   Antonio: "User Guide for Lmod"  Plus his ideas
+Please install the virtual box software appropriate for your laptop.
+Then invoke the Virtual Box Software on your laptop and "import" (from
+the file menu) the XALT-Lmod.ova Virtual Machine (aka. VM).
 
-Using Lmod to create personal modules:
+Once it has been imported, start the VM.  The user account is xalt and
+the password is also xalt.
+
+Once you have logged in you are free to try out one or more of the
+topics.  We will be around for you to ask questions.
+
+
+
+Topic 1:  Using Lmod
+
+    This is topic that introduces Lmod to those who are new to Lmod.
+    It shows many of the features that Lmod provides from a user's
+    point of view.  Please see the Using Lmod worksheet to try this
+    topic. 
+
+Topic 2:  Using Lmod to create personal modules:
+
+    This topic 
+
+
+
+
 
    Advanced User Guide for Personal Modulefiles
 

@@ -80,13 +80,29 @@ Advanced Topics
    :maxdepth: 1
 
    080_hierarchy
-   090_configuring_lmod
    095_tcl2lua
    100_generic_modules
-   110_lmod_mpi_parallel_filesystem
    120_shared_home_directories
    130_spider_cache
    140_deprecating_modules
+
+Topics under contructions
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Below are pages that contain pages that are being written.
+For the brave, there may be useful information (or not), you have been warned.
+
+
+.. toctree::
+   :maxdepth: 1
+
+   090_configuring_lmod
+   110_lmod_mpi_parallel_filesystem
+   150_lmodrc
+              
+
+
+
 
 Topics yet to be written
 ^^^^^^^^^^^^^^^^^^^^^^^^
