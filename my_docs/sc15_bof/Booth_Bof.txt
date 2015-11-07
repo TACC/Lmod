@@ -17,33 +17,108 @@ topics.  We will be around for you to ask questions.
 
 
 
-Topic 1:  Using Lmod
+Topic 1:  Using Lmod:
 
     This is topic that introduces Lmod to those who are new to Lmod.
     It shows many of the features that Lmod provides from a user's
-    point of view.  Please see the Using Lmod worksheet to try this
+    point of view.  Please see the Using_Lmod_XXXX worksheet to try this
     topic. 
 
 Topic 2:  Using Lmod to create personal modules:
 
-    This topic 
+    This topic shows you how to leverage a Lmod installation to have
+    personal modules.
+
+    To start this topic start the firefox browser (found on the left
+    side of the screen) and go to
+    
+       http://lmod.readthedocs.org/en/latest/020_advanced.html
+    
+    Then follow the instructions.  Note that the VM already contains
+    the git-2.6.2.tar.gz source tar-ball.
+
+Topic 3: Installing Lmod in a personal account:
+
+    This topic shows how to install Lmod in your account.  This is a
+    way to test Lmod when your site is running a different module
+    system or you wish to test a new version of Lmod.
+
+    To start this topic start the firefox browser (found on the left
+    side of the screen) and go to
+    
+       http://lmod.readthedocs.org/en/latest/045_transition.html
+    
+    Then follow the instructions.  Note that Lua is already installed
+    on the VM so feel to skip the installation of Lua if you like.  
+
+    Note that both lua-5.1.4.5.tar.gz and Lmod-6.0.1.tar.bz2 have
+    already been downloaded into the account.
 
 
+Topic 4: How to install a System Spider cache:
+
+    Lmod can speed up command like "module avail" and "module spider"
+    with a system spider cache file.  This topic covers how to create
+    one for your system and the issues involved.
+
+    To start this topic start the firefox browser (found on the left
+    side of the screen) and go to
+    
+       http://lmod.readthedocs.org/en/latest/130_spider_cache.html
+
+    Your task is to create is to create a "system" spider cache in the
+    xalt account on the VM.  Once you have this done please shows us
+    what you did!  Once you have done this, try setting this up
+    /opt/moduleData on the VM.  Note that the xalt account (password:
+    xalt) can become root:
+
+      $ sudo su -
 
 
+Topic 5: How to write modulefiles for a system.
 
-   Advanced User Guide for Personal Modulefiles
+    Once you understand how to write application modulefiles like the
+    ones discussed in Topic 2.  You might want to start wrestling with
+    issues that come up with running Lmod on a big system.
 
-Installing Lmod in a personal account:
+    To start this topic start the firefox browser (found on the left
+    side of the screen) and go to
+    
+       http://lmod.readthedocs.org/en/latest/015_writing_modules.html
 
-   How to Transition to Lmod (or how to test Lmod without installing
-   it for all)
+    and
 
-Kitchen Sink Modulefile:  How to write modulefiles:
+       http://lmod.readthedocs.org/en/latest/100_generic_modules.html
 
-   An Introduction to Writing Modulefiles
+    This topic is open ended.  Here are a few tasks to test your
+    understanding of the material.
 
-Spider Cache-ology
 
-   System Spider cache
+    1) Create generic modulefiles for the ACME program  Here is the ACME
+       executable:
 
+          $ cat > acme
+          #!bin/bash
+          echo "Here acme program 1!"
+
+
+      Create two version of this executable in ~/apps/acme/1.0 and
+      ~/apps/acme/2.0 and modulesfiles ~/apps/mfiles/acme/1.0.lua and
+      ~/apps/mfiles/acme/2.0.lua.  Test this with:
+
+         $ module use ~/apps/mfiles
+         $ module load acme/1.0
+         $ acme
+         $ module load acme/2.0
+         $ acme
+         
+
+    2) Create a module called ~/mfiles/StdEnv.lua which works like the
+    TACC module described in the documentation.  For this modulefile
+    have it load gcc and mpich and try load xalt. Test this with:
+
+
+        $ module use ~/apps/mfiles
+        $ module purge
+        $ module load StdEnv
+        $ module list

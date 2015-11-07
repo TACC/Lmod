@@ -99,7 +99,7 @@ For the brave, there may be useful information (or not), you have been warned.
    090_configuring_lmod
    110_lmod_mpi_parallel_filesystem
    150_lmodrc
-              
+   160_debugging_modulefiles
 
 
 
