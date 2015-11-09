@@ -5,7 +5,7 @@ USB thumb drive for you to take with you.  On the thumb drive is a
 copy of the Virtual Box software for Windows, Mac OS X, Ubuntu and
 Fedora and a VM for you to run.
 
-Please install the virtual box software appropriate for your laptop.
+Pleasem e install the virtual box software appropriate for your laptop.
 Then invoke the Virtual Box Software on your laptop and "import" (from
 the file menu) the XALT-Lmod.ova Virtual Machine (aka. VM).
 

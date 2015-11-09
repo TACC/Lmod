@@ -1,0 +1,276 @@
+%* installation (deps, build/install procedure, making module/ml work)
+%* configuration (either via ./configure at build time, or via 
+%   $LMOD_FOO), most important configure options
+%* setting up the system spider cache: configuring Lmod, updating spider 
+%  cache, difference between system/user spider cache
+%* + all (other) aspects mentioned on slide #26 in this slide deck: 
+%   explained + example :)
+%* what settarg is all about
+
+\documentclass{beamer}
+
+\usetheme[headernav]{TACC} %%Drop the 'headernav' if you don't like
+                           %%the stuff at the top of your slide
+
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{alltt}
+\usepackage{graphicx}
+
+\title{Lmod}
+
+
+\author{Robert McLay}
+\institute{The Texas Advanced Computing Center}
+
+\date{Nov. 11, 2015}  %% Use this if you want to fix the date in
+                      %% stone rather than use \today
+
+\newcommand{\bfnabla}{\mbox{\boldmath$\nabla$}}
+\newcommand{\laplacian}[1]{\bfnabla^2 #1}
+\newcommand{\grad}[1]{\bfnabla #1}
+\newcommand{\tgrad}[1]{\bfnabla^T #1}
+\newcommand{\dvg}[1]{\bfnabla \cdot #1}
+\newcommand{\curl}[1]{\bfnabla \times #1}
+\newcommand{\lap}[1]{\bfnabla^2 #1}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\section{Lmod}
+
+\begin{frame}{Lmod}
+  \begin{itemize}
+    \item Introduction: Remind everyone about Lmod
+    \item Lmod: Our Env. Module System
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Why invent Y.A. Module System?}
+  \begin{itemize}
+    \item Many thing right with the Original.
+    \item But it was designed before multi-compilers/MPI
+    \item Sites make it work but with herculean efforts
+    \item Lmod can make this work easily.
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Why You Might Want To Switch}
+  \begin{itemize}
+    \item Active Development;  Frequent Releases; Bug fixes.
+    \item Vibrant Community
+    \item It is used from Norway to Isreal to New Zealand from Stanford to MIT to NASA
+    \item Enjoy many capabilities w/o changing a single module file
+    \item Debian and Fedora packages available
+    \item Many more advantages when you're ready
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Features requiring no changes to modulefiles}
+  \begin{itemize}
+    \item Reads TCL modulefiles directly (Cray modules supported)
+    \item User default and named collections of modules
+    \item Module cache system: Faster avail, spider, etc
+    \item Tracking module usage 
+    \item A few edge cases where Env. Modules and Lmod differ
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Features of Lmod with small changes to modulefiles}
+  \begin{itemize}
+    \item Family function: Prevent users from loading two compilers at
+      the same time (experts can override)
+    \item Properties: (MIC-aware, Beta, etc)
+    \item Sticky modules
+    \item ...
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Lmod supports a software hierarchy}
+  \begin{itemize}
+    \item Lmod supports flat layout of modules
+    \item Some really cool features if you have a software hierarchy
+      \begin{itemize}
+        \item Protecting users from mismatched modules
+        \item Auto Swapping of Compiler and MPI dependent modules
+      \end{itemize}
+    \item When you are ready, it will be there
+  \end{itemize}
+\end{frame}
+
+\section{A Transition Strategy}
+
+\begin{frame}{A Transition Strategy}
+  \begin{itemize}
+    \item Install Lua and Lmod in your account
+    \item Staff \& Friendly Opt-in Testing
+    \item Deploy to your users with an Opt-out choice
+    \item Some users can run TCL/C modules (a.k.a. Tmod)
+    \item Others can run Lmod
+    \item No single user can run both at the same time!
+    \item Transistion doc: lmod.readthedocs.org
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Lmod Features}
+  \begin{itemize}
+    \item Support for a Hierarchical Module layout
+    \item Module spider: find all modules
+    \item Caching system for rapid avail and spider
+    \item Support for Properties
+    \item Module collections, output to stdout, proper version sorting
+    \item Reads TCL modulefiles directly (Cray modules supported)
+    \item And so much more...
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Lmod Documentation}
+  \begin{itemize}
+    \item lmod.readthedocs.org
+    \item Beginning Topics: User, FAQ
+    \item Intermediate Topics: Transitioning to Lmod, Installing Lmod,
+      Software Hierarchy
+    \item Advanced Topics: Generic Modules, Deprecating Modules, 
+    \item How to install Lmod on a Shared File system.
+    \item And much more.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Lmod handling of Cray modules}
+  \begin{itemize}
+    \item NO DUPS: Lmod now correctly handles no duplicated in a
+      PATH-like variable.
+    \item TMOD\_RULE: if an entry is in a path do not replace it.
+    \item GNU4.8\_LIB: Prevent Lmod from generating variables with a
+      `.' in it.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Injecting the Software Hierarchy into Cray Modules}
+  \begin{itemize}
+    \item Goal: Create the Software Hierarchy where there is none.
+    \item Create the following module /opt/apps/modulefiles/PrgEnv-intel/5.2.40.lua
+  {\small
+    \begin{alltt}
+
+local name = myModuleName():gsub("PrgEnv%-","")
+local mpath = pathJoin("/opt/apps",name,
+              myModuleVersion(),"modulefiles")
+inherit()
+prepend_path("MODULEPATH",mpath)
+family("MPI_COMPILER")
+    \end{alltt}
+}
+    \item The \texttt{inherit()} function will load /opt/cray/PrgEnv-intel/5.2.40
+    \item The directory /opt/apps/intel/5.2.40/modulefiles is prepend
+      to MODULEPATH       
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Lmod and the Pager}
+  \begin{itemize}
+    \item Cray and Mac OS default the pager to less (not more)
+    \item By default you have to type ``q'' to exit less
+    \item Lmod now uses \texttt{LMOD\_PAGER} as \texttt{less}
+    \item \texttt{LMOD\_PAGER\_OPTS} as \texttt{-XqMREF}
+    \item This will give consistant behavior across systems.
+  \end{itemize}
+\end{frame}
+
+
+\section{Topics for Hackathon}
+
+\begin{frame}{Possible change to Lmod: Do not reload}
+  \begin{itemize}
+    \item Tmod doesn't reload a module if it is already loaded.
+    \item Lmod always reloads
+    \item Reloads the right thing to do in hierarchies.
+    \item Not reloading might help sites transitioning from Tmod.
+    \item This might help with Kenneth's problem. (;-$>$)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Invisible Modules}
+  \begin{itemize}
+    \item Tmod and Lmod have always supported hidden modules.
+    \item Hidden modules are module names that start with a leading
+      ``.'' in the version.
+    \item Module names with dot are ignored completely.
+    \item They do not show up with avail or spider but can be loaded
+      and will be listed.  
+    \item This is a way to provide a module for testing without making
+      it publicly available
+    \item Invisible would be new and this hackathon would be a place
+      to discuss what this means.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Invisible Modules: Motivation}
+  \begin{itemize}
+    \item Cray have architecture modules that aren't needed:
+      craype-barcelona, ...
+    \item Sites may wish install real module names and hide them for
+      testing
+    \item But what does this mean?
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{What are the rules?}
+  \begin{itemize}
+    \item Can users load an invisible module? Yes
+    \item Can you make all versions of a module invisible?  Yes
+    \item Can you make a single version invisible? Yes
+    \item Can an invisible module be the default?  No
+    \item How will sites mark modules as invisible?
+    \item Yet another Lua table? Combine with lmodrc.lua?
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Default Handling (I)}
+  \begin{itemize}
+    \item The current default handling works well but ...
+    \item It doesn't work with \textasciitilde/.modulerc when users set their own
+      default.
+    \item It won't work with invisible modules.
+  \end{itemize}
+\end{frame}
+
+
+
+\begin{frame}{Default handling (II)}
+  \begin{itemize}
+    \item Selection of what the default module is already complicated.
+    \item Especially when there are multiple directories in MODULEPATH.
+    \item Lmod Rules for picking a default:
+      \begin{itemize}
+        \item The first marked default is chosen in MODULEPATH order
+        \item The Highest version is chosen in MODULEPATH order.
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Default handling (III)}
+  \begin{itemize}
+    \item Lmod current thinks it knows what the defaults are by
+      walking the directory trees.
+    \item The spider cache will have to be built based on walking the
+      tree.
+    \item But there will have to enough information to compute the
+      default in light of \textasciitilde/.modulerc and invisible modules.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Conclusions}
+  \begin{itemize}
+    \item Do not reload option.
+    \item Invisible modules and what does this mean
+    \item Default Handling  
+  \end{itemize}
+\end{frame}
+
+
+\end{document}

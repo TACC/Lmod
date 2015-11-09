@@ -1,0 +1,69 @@
+Ideas for EB Hackaton for Lmod:
+
+45 min talk about Lmod:
+
+* Intro for Lmod
+** what is Lmod 
+** Features
+** New Features
+* Running Lmod on our Cray XC-40
+** Show two trick for dealing with Cray modules and injecting the hierarchy
+** Lmod Pager issues ?
+* Questions for Hackathon
+** Invisible Modules
+
+Explain hidden versus invisible.
+
+
+
+Crays have have many modules listed as available that don't make sense
+craype-barcelona etc.   It may or may not make sense to make invisible
+when there are 20 modules loaded by default that should never change.
+
+Questions: How does making a module invisible affect the default
+determination?
+
+Can one load an invisible module?
+
+Know all the modules that you currently have loaded? 
+
+
+** Default handling
+*** Remind everyone what the system cache 
+
+TACC got Stampede with Xeon Phi's a.k.a MIC's
+
+Wanted to mark modules that were MIC aware
+
+=> Properties
+
+=> Properties are in module files.  "module avail" now needs to know
+the contents of every modulefile. This is slow to read every file. 
+=> Spider Cache
+
+*** Chosing a Default module is was complex before.
+
+How Lmod Picks the Default when there are multiple directories listed
+in MODULEPATH
+
+1) The first marked default is chosen in MODULEPATH Order
+2) Highest version across all directories
+
+Please note that all directories are considered before picking the default.
+
+Also node that Lmod only puts (D) next to the module name in avail for
+the one that is the default.  In other words for a given module name there is
+only one default independent of how many marked defaults or highest
+versions there are.
+
+*** ~/.modulrc and system MODULERC file problem w.r.t. System cache
+
+I learn more about many things one can do with Tmod.
+With ~/.modulerc (or the system one) can change the default.  That
+currently doesn't work in Lmod.
+
+In order for this to work there has to be enough information recorded
+in the spider cache to make it so that the default can be choosen
+WITHOUT walking the directory tree again.
+
+
