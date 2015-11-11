@@ -50,6 +50,18 @@ AC_ARG_WITH(colorize,
     COLORIZE="$withval"
     AC_DEFINE_UNQUOTED(COLORIZE, "$withval"))dnl
 
+AC_SUBST(EXACT_MATCH)
+AC_ARG_WITH(exactMatch,
+    AC_HELP_STRING([--with-exactMatch=ans],[require exact match [[NO]]]),
+    EXACT_MATCH="$withval"
+    AC_MSG_RESULT([EXACT_MATCH=$with_exactMatch])
+    AC_DEFINE_UNQUOTED(EXACT_MATCH, "$with_exactMatch")dnl
+    ,
+    withval="NO"
+    AC_MSG_RESULT([EXACT_MATCH=$withval])
+    EXACT_MATCH="$withval"
+    AC_DEFINE_UNQUOTED(EXACT_MATCH, "$withval"))dnl
+
 AC_SUBST(AUTO_SWAP)
 AC_ARG_WITH(autoSwap,
     AC_HELP_STRING([--with-autoSwap=ans],[Allow auto swapping of compiler etc. [[YES]]]),

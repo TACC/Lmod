@@ -166,6 +166,12 @@ LMOD_PIN_VERSIONS = initialize("LMOD_PIN_VERSIONS", "@pin_versions@")
 LMOD_AUTO_SWAP   = initialize("LMOD_AUTO_SWAP","@auto_swap@","yes")
 
 ------------------------------------------------------------------------
+-- LMOD_EXACT_MATCH:  Swap instead of Error
+------------------------------------------------------------------------
+
+LMOD_EXACT_MATCH   = initialize("LMOD_EXACT_MATCH","@exact_match@","no")
+
+------------------------------------------------------------------------
 -- LMOD_AVAIL_MPATH:  Include MODULEPATH in avail search
 ------------------------------------------------------------------------
 

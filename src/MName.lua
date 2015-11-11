@@ -177,17 +177,24 @@ function M.new(self, sType, name, action, is, ie)
       local Match    = require("MN_Match")
       local Latest   = require("MN_Latest")
       local Between  = require("MN_Between")
+      local Exact    = require("MN_Exact") 
 
-      local findT   = {}
+      local findT      = {}
+      findT["exact"]   = Exact
       findT["match"]   = Match
       findT["latest"]  = Latest
       findT["between"] = Between
       findT["atleast"] = Between
+      findT["atleast"] = Between
       s_findT          = findT
    end
 
+   local default_action = (LMOD_EXACT_MATCH == "yes") and "exact" or "match"
+
+
+
    if (not action) then
-      action = masterTbl().latest and "latest" or "match"
+      action = masterTbl().latest and "latest" or default_action
    end
    local o = s_findT[action]:create()
 

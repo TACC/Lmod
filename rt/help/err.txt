@@ -276,36 +276,37 @@ lua ProjectDIR/src/lmod.in.lua bash --config
 ===========================
 Modules based on Lua: Version 6.0.16  2015-11-07 12:55
     by Robert McLay mclay@tacc.utexas.edu
-Description                    Value
-Allow TCL modulefiles          yes
-Auto swapping                  yes
-Case Independent Sorting       no
-Colorize Lmod                  @colorize@
-Disable Same Name AutoSwap     no
-Using dotfiles                 @use_dot_files@
-Allow duplicate paths          no
-Export the module command      @export_module@
-System lua_json                @have_lua_json@
-System lua-term                @have_lua_term@
-avail: Include modulepath dir  no
-MODULEPATH_ROOT                @modulepath_root@
-number of cache dirs           0
-Pager                          @path_to_pager@
-Pager Options                  -XqMREF
-Path to HashSum                @path_to_hashsum@
-Path to Lua                    @path_to_lua@
-Pin Versions in restore        no
-Pkg Class name                 Pkg
-Lmod prefix                    @PREFIX@
-Prepend order                  @prepend_block@
-Supporting Full Settarg Use    @lmod_full_settarg_support@
-Site Pkg location              standard
-User cache valid time(sec)     @ancient@
-Write cache after (sec)        @short_time@
-Threshold (sec)                1
-Tmod prepend PATH Rule         no
+Description                      Value
+Allow TCL modulefiles            yes
+Auto swapping                    yes
+Case Independent Sorting         no
+Colorize Lmod                    @colorize@
+Disable Same Name AutoSwap       no
+Using dotfiles                   @use_dot_files@
+Allow duplicate paths            no
+Require Exact Match/no defaults  no
+Export the module command        @export_module@
+System lua_json                  @have_lua_json@
+System lua-term                  @have_lua_term@
+avail: Include modulepath dir    no
+MODULEPATH_ROOT                  @modulepath_root@
+number of cache dirs             0
+Pager                            @path_to_pager@
+Pager Options                    -XqMREF
+Path to HashSum                  @path_to_hashsum@
+Path to Lua                      @path_to_lua@
+Pin Versions in restore          no
+Pkg Class name                   Pkg
+Lmod prefix                      @PREFIX@
+Prepend order                    @prepend_block@
+Supporting Full Settarg Use      @lmod_full_settarg_support@
+Site Pkg location                standard
+User cache valid time(sec)       @ancient@
+Write cache after (sec)          @short_time@
+Threshold (sec)                  1
+Tmod prepend PATH Rule           no
 uname -a
-Does Admin file exist          no
+Does Admin file exist            no
 Active RC file(s):
 ProjectDIR/init/lmodrc.lua
 OutputDIR/.lmodrc.lua

@@ -618,6 +618,7 @@ MODULEPATH_ROOT
 REDIRECT
 EXPORT_MODULE
 AUTO_SWAP
+EXACT_MATCH
 COLORIZE
 CASE_INDEPENDENT_SORTING
 DUPLICATE_PATHS
@@ -675,6 +676,7 @@ enable_option_checking
 with_duplicatePaths
 with_caseIndependentSorting
 with_colorize
+with_exactMatch
 with_autoSwap
 with_exportedModuleCmd
 with_redirect
@@ -1316,6 +1318,7 @@ Optional Packages:
                           Make avail and spider use case independent sorting
                           [[NO]]
   --with-colorize=ans     allow for colorized output [[YES]]
+  --with-exactMatch=ans   require exact match [[NO]]
   --with-autoSwap=ans     Allow auto swapping of compiler etc. [[YES]]
   --with-exportedModuleCmd=ans
                           Export the module command. [[YES]]
@@ -2811,6 +2814,28 @@ $as_echo "COLORIZE=$withval" >&6; }
     COLORIZE="$withval"
     cat >>confdefs.h <<_ACEOF
 #define COLORIZE "$withval"
+_ACEOF
+
+fi
+
+
+
+# Check whether --with-exactMatch was given.
+if test "${with_exactMatch+set}" = set; then :
+  withval=$with_exactMatch; EXACT_MATCH="$withval"
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: EXACT_MATCH=$with_exactMatch" >&5
+$as_echo "EXACT_MATCH=$with_exactMatch" >&6; }
+    cat >>confdefs.h <<_ACEOF
+#define EXACT_MATCH "$with_exactMatch"
+_ACEOF
+
+else
+  withval="NO"
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: EXACT_MATCH=$withval" >&5
+$as_echo "EXACT_MATCH=$withval" >&6; }
+    EXACT_MATCH="$withval"
+    cat >>confdefs.h <<_ACEOF
+#define EXACT_MATCH "$withval"
 _ACEOF
 
 fi

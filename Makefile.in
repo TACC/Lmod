@@ -25,6 +25,7 @@ ANCIENT           	  := @ANCIENT@
 ALLOW_TCL_MFILES          := @ALLOW_TCL_MFILES@
 MPATH_AVAIL               := @MPATH_AVAIL@
 TMOD_PATH_RULE            := @TMOD_PATH_RULE@
+EXACT_MATCH               := @EXACT_MATCH@
 DUPLICATE_PATHS           := @DUPLICATE_PATHS@
 DISABLE_NAME_AUTOSWAP     := @DISABLE_NAME_AUTOSWAP@
 SHORT_TIME        	  := @SHORT_TIME@
@@ -176,6 +177,7 @@ __installMe:
 	        -e 's|@auto_swap@|$(AUTO_SWAP)|g'                      	   	  \
 	        -e 's|@export_module@|$(EXPORT_MODULE)|g'             	   	  \
                 -e 's|@lmod_version@|$(version)|g'               	   	  \
+                -e 's|@exact_match@|$(EXACT_MATCH)|g'               	   	  \
 	        -e 's|@ancient@|$(ANCIENT)|g'                         	   	  \
 	        -e 's|@prepend_block@|$(PREPEND_BLOCK)|g'             	   	  \
 	        -e 's|@colorize@|$(COLORIZE)|g'                       	   	  \
