@@ -165,8 +165,14 @@ function M.resolve(self, name)
          if (isFile(fn)) then
             local cmd = pathJoin(cmdDir(),"RC2lua.tcl") .. " " .. fn
             local s   = capture(cmd):trim()
-            modA      = {}
-            assert(load(s))()
+
+            modA = {}
+            local status, f = pcall(load,s)
+            if (not status or not f) then
+               LmodError("Unable to parse: ",fn," Aborting!\n")
+            end
+            f()
+
             self:parseModA("", modA)
          end
       end
