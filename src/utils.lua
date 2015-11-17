@@ -838,7 +838,12 @@ function versionFile(v, sn, path, ignoreErrors)
    dbg.print{"handle file: ",v, "\n"}
    local cmd = pathJoin(cmdDir(),"RC2lua.tcl") .. " " .. path
    local s   = capture(cmd):trim()
-   assert(load(s))()
+
+   local status, f = pcall(load,s)
+   if (not status or not f) then
+      LmodError("Unable to parse: ",fn," Aborting!\n")
+   end
+   f()
    malias:parseModA(sn, modA)
    
    version = malias:getDefaultT(sn) or version
