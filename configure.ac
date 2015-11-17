@@ -52,7 +52,7 @@ AC_ARG_WITH(colorize,
 
 AC_SUBST(EXACT_MATCH)
 AC_ARG_WITH(exactMatch,
-    AC_HELP_STRING([--with-exactMatch=ans],[require exact match [[NO]]]),
+    AC_HELP_STRING([--with-exactMatch=ans],[require exact match, disable defaults [[NO]]]),
     EXACT_MATCH="$withval"
     AC_MSG_RESULT([EXACT_MATCH=$with_exactMatch])
     AC_DEFINE_UNQUOTED(EXACT_MATCH, "$with_exactMatch")dnl

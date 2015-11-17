@@ -841,7 +841,7 @@ function versionFile(v, sn, path, ignoreErrors)
 
    local status, f = pcall(load,s)
    if (not status or not f) then
-      LmodError("Unable to parse: ",fn," Aborting!\n")
+      LmodError("Unable to parse: ",path," Aborting!\n")
    end
    f()
    malias:parseModA(sn, modA)

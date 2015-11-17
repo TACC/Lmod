@@ -1,0 +1,147 @@
+%* installation (deps, build/install procedure, making module/ml work)
+%* configuration (either via ./configure at build time, or via 
+%   $LMOD_FOO), most important configure options
+%* setting up the system spider cache: configuring Lmod, updating spider 
+%  cache, difference between system/user spider cache
+%* + all (other) aspects mentioned on slide #26 in this slide deck: 
+%   explained + example :)
+%* what settarg is all about
+
+\documentclass{beamer}
+
+\usetheme[headernav]{TACC} %%Drop the 'headernav' if you don't like
+                           %%the stuff at the top of your slide
+
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{alltt}
+\usepackage{graphicx}
+
+\title{Transitioning to Lmod}
+
+
+\author{Robert McLay}
+\institute{The Texas Advanced Computing Center}
+
+\date{November 17, 2015}  %% Use this if you want to fix the date in
+                        %% stone rather than use \today
+
+\newcommand{\bfnabla}{\mbox{\boldmath$\nabla$}}
+\newcommand{\laplacian}[1]{\bfnabla^2 #1}
+\newcommand{\grad}[1]{\bfnabla #1}
+\newcommand{\tgrad}[1]{\bfnabla^T #1}
+\newcommand{\dvg}[1]{\bfnabla \cdot #1}
+\newcommand{\curl}[1]{\bfnabla \times #1}
+\newcommand{\lap}[1]{\bfnabla^2 #1}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\section{Introduction}
+
+\begin{frame}{Transitioning to Lmod}
+  \begin{itemize}
+    \item What does Lmod offer?
+    \item A transition strategy
+    \item New features
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Why You Might Want To Switch}
+  \begin{itemize}
+    \item Active Development;  Frequent Releases; Bug fixes.
+    \item Vibrant Community
+    \item It is used from Norway to Isreal to New Zealand from Stanford to MIT to NASA
+    \item Enjoy many capabilities w/o changing a single module file
+    \item Debian and Fedora packages available
+    \item Many more advantages when you're ready
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Features requiring no changes to modulefiles}
+  \begin{itemize}
+    \item Reads TCL modulefiles directly (Cray modules supported)
+    \item User default and named collections of modules
+    \item Module cache system: Faster avail, spider, etc
+    \item Tracking module usage 
+    \item A few edge cases where Env. Modules and Lmod differ
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Lmod supports a software hierarchy}
+  \begin{itemize}
+    \item Lmod supports flat layout of modules
+    \item Some really cool features if you have a software hierarchy
+      \begin{itemize}
+        \item Protecting users from mismatched modules
+        \item Auto Swapping of Compiler and MPI dependent modules
+      \end{itemize}
+    \item When you are ready, it will be there
+  \end{itemize}
+\end{frame}
+
+\section{A Transition Strategy}
+
+\begin{frame}{A Transition Strategy}
+  \begin{itemize}
+    \item Install Lua and Lmod in your account
+    \item Staff \& Friendly Opt-in Testing
+    \item Deploy to your users with an Opt-out choice
+    \item Some users can run TCL/C modules (a.k.a. Tmod)
+    \item Others can run Lmod
+    \item No single user can run both at the same time!
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Staff \& Friendly User Testing}
+  \begin{itemize}
+    \item Install Lmod in system location.
+    \item Install \emph{/etc/profile.d/z00\_lmod.sh} to redefine the
+      \texttt{\bf module} cmd.
+    \item Load system  default modules (if any) after previous step
+    \item Users who have a file named \texttt{$\sim$/.lmod} use Lmod
+    \item At TACC we did this for 6 months
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Deploy}
+  \begin{itemize}
+    \item When you are ready, change \emph{/etc/profile.d/z00\_lmod.sh}
+    \item Users can opt-out
+    \item We supported this for another 6 months
+    \item We broke Env. Module support when we added the family function
+    \item Both transitions generated very few tickets (2 + 2)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Lmod Features}
+  \begin{itemize}
+    \item Support for a Hierarchical Module layout
+    \item Module spider: find all modules
+    \item Caching system for rapid avail and spider
+    \item Support for Properties
+    \item Module collections, output to stdout, proper version sorting
+    \item Reads TCL modulefiles directly (Cray modules supported)
+    \item And so much more...
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Planned Lmod Projects}
+  \begin{itemize}
+    \item Better Default Handling ($\sim$/.modulerc)
+    \item Invisible Modules
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Other Talks}
+  \begin{itemize}
+    \item Lmod Hands on tutorial @ TACC Booth 548: Wed. 2:00-3:30
+    \item XALT BoF 13B 1:30-3:00 Tuesday
+  \end{itemize}
+\end{frame}
+
+
+\end{document}
