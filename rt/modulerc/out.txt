@@ -297,3 +297,12 @@ MODULEPATH="ProjectDIR/rt/modulerc/mf/Core";
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["activeSize"]=4,baseMpathA={"ProjectDIR/rt/modulerc/mf/Core",},family={},inactive={},mT={a={["FN"]="ProjectDIR/rt/modulerc/mf/Core/a/13.2.345.lua",["default"]=0,["fullName"]="a/13.2.345",["loadOrder"]=2,propT={},["short"]="a",["status"]="active",},abinit={["FN"]="ProjectDIR/rt/modulerc/mf/Core/abinit/7.4.3",["default"]=0,["fullName"]="abinit/7.4.3",["loadOrder"]=3,propT={},["short"]="abinit",["status"]="active",},hidden={["FN"]="ProjectDIR/rt/modulerc/mf/Core/hidden/2.0.lua",["default"]=0,["fullName"]="hidden/2.0",["loadOrder"]=4,propT={},["short"]="hidden",["status"]="active",},intel={["FN"]="ProjectDIR/rt/modulerc/mf/Core/intel/15.0.2.lua",["default"]=0,["fullName"]="intel/15.0.2",["loadOrder"]=1,propT={},["short"]="intel",["status"]="active",},},mpathA={"ProjectDIR/rt/modulerc/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/modulerc/mf/Core",["version"]=2,}';
 export _ModuleTable_;
+===========================
+step 20
+lua ProjectDIR/src/lmod.in.lua bash load cluster
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/modulerc/mf/Core:ProjectDIR/rt/modulerc/mf2/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/modulerc/mf/Core:ProjectDIR/rt/modulerc/mf2/Core";
+export MODULEPATH;
+false

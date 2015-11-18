@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 6.0.6  2015-07-16 14:33
+Modules based on Lua: Version 6.0.19  2015-11-18 08:32
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -148,3 +148,10 @@ ProjectDIR/rt/modulerc/mf/Core
 Use "module spider" to find all possible modules.
 Use "module keyword key1 key2 ..." to search for all possible modules matching
 any of the "keys".
+===========================
+step 20
+lua ProjectDIR/src/lmod.in.lua bash load cluster
+===========================
+The default cluster module cannot be determined. Please set $VSC_DEFAULT_CLUSTER_MODULE.
+Lmod has detected the following error: Unable to parse:
+ProjectDIR/rt/modulerc/mf2/Core/cluster/.modulerc  Aborting!
