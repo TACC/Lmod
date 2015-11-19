@@ -27,10 +27,8 @@ cleanUp ()
        -e "s|$HOME|~|g"                                   \
        -e "s|\-%%\-.*||g"                                 \
        -e "s| *----* *||g"                                \
-       -e "s|^--* *||g"                                   \
+       -e "s|^--* *| |g"                                  \
        -e "s|--* *$||g"                                   \
-       -e "s|  *ProjectDir|ProjectDir|"                   \
-       -e "s|  *OutputDir|OutputDir|"                     \
        -e "/^Active lua-term.*/d"                         \
        -e "/Rebuilding cache.*done/d"                     \
        -e "/Using your spider cache file/d"               \
