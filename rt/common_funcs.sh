@@ -1,6 +1,10 @@
 cleanUp ()
 {
    gitV=$(git describe --always)
+   local old
+   local new
+   old="Lmod Warning: Syntax error in file: ProjectDIR"
+   new="Lmod Warning: Syntax error in file:\nProjectDIR"
 
    sed                                                    \
        -e "s|:$PATH_to_LUA:|:|g"                          \
@@ -30,6 +34,8 @@ cleanUp ()
        -e "s|^--* *| |g"                                  \
        -e "s|--* *$||g"                                   \
        -e "s|^ *OutputDIR| OutputDIR|"                    \
+       -e "s|$old|$new|g"                                 \
+       -e "s|  *$||g"                                     \
        -e "/^Active lua-term.*/d"                         \
        -e "/Rebuilding cache.*done/d"                     \
        -e "/Using your spider cache file/d"               \

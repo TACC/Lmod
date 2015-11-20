@@ -12,11 +12,11 @@ lua ProjectDIR/src/lmod.in.lua bash load intel mv2
 step 3
 lua ProjectDIR/src/lmod.in.lua bash --ignore_cache avail
 ===========================
- OutputDIR/mf/MPI/intel/15.0/mv2/2.0 
+ OutputDIR/mf/MPI/intel/15.0/mv2/2.0
    pmetis/5.1
- OutputDIR/mf/Compiler/intel/15.0 
+ OutputDIR/mf/Compiler/intel/15.0
    mv2/2.0 (L)
- OutputDIR/mf/Core 
+ OutputDIR/mf/Core
    intel/15.0.2 (L)    itac/1.0
   Where:
    L:  Module is loaded
@@ -27,11 +27,11 @@ any of the "keys".
 step 4
 lua ProjectDIR/src/lmod.in.lua bash avail
 ===========================
- OutputDIR/mf/MPI/intel/15.0/mv2/2.0 
+ OutputDIR/mf/MPI/intel/15.0/mv2/2.0
    pmetis/5.1
- OutputDIR/mf/Compiler/intel/15.0 
+ OutputDIR/mf/Compiler/intel/15.0
    mv2/2.0 (L)
- OutputDIR/mf/Core 
+ OutputDIR/mf/Core
    intel/15.0.2 (L)
   Where:
    L:  Module is loaded
