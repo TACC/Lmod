@@ -44,7 +44,7 @@ local dbg       = require("Dbg"):dbg()
 local concatTbl = table.concat
 
 local function argsPack(...)
-   local  arg = { n = select ("#", ...), ...}
+   local  arg = { n = select("#", ...), ...}
    return arg
 end
 
