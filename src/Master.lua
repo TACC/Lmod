@@ -917,7 +917,7 @@ local function availEntry(defaultOnly, terse, label, szA, searchA, sn, name,
       for i = 1,#resultA do
          aa[#aa+1] = resultA[i]
       end
-      
+
       local propStr = aa[3] or ""
       local verMapStr = malias:getMod2VersionT(name)
       if (verMapStr) then
@@ -1161,7 +1161,7 @@ function M.avail(argA)
    local locationT  = mt:locationTbl()
    local availStyle = masterTbl.availStyle
 
-   malias:buildMod2VersionT() 
+   malias:buildMod2VersionT()
 
    --------------------------------------------------------------------------
    -- call hook to see if site wants to relabel and re-organize avail layout

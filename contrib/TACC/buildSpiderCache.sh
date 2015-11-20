@@ -5,10 +5,10 @@
 #------------------------------------------------------------------------------
 # Note: this file is managed via LosF
 #
-# You should, in general, not edit this file directly as you will 
-# *lose* the contents during the next sync process. Instead, 
+# You should, in general, not edit this file directly as you will
+# *lose* the contents during the next sync process. Instead,
 # edit the template file in your local config directory:
-# 
+#
 # /admin/build/admin/config/const_files/Stampede/login/buildSpiderCache.sh
 #
 # Questions? karl@tacc.utexas.edu
@@ -19,7 +19,7 @@
 force=
 if [ "$1" = "--force" ]; then
   force="force"
-fi  
+fi
 
 ########################################################################
 # Generate time stamp file:
@@ -36,8 +36,8 @@ writeTS()
   echo "hostName   = $hostName" >> $fn
   echo "lastUpdate = $dateStr"  >> $fn
   echo "timeEpoch  = $epoch"    >> $fn
-}  
-  
+}
+
 
 ########################################################################
 # Read time stamp file for nodeType
@@ -63,7 +63,7 @@ getModifyTime()
 }
 
 ########################################################################
-#  Build the new database 
+#  Build the new database
 
 buildNewDB()
 {
@@ -106,12 +106,12 @@ buildNewDB()
    fi
 }
 
-######################################################################## 
+########################################################################
 #  Make directores and file be world readable
 umask 022
 
 
-######################################################################## 
+########################################################################
 #  Find an lmod that has a version 5 or better
 for i in /opt/apps/lmod/lmod/libexec             \
          /opt/apps/lmod/5.0rc1/libexec           ; do
@@ -140,8 +140,8 @@ nodeType=$(readTS $timeStamp)
 if [ -n "$force" -o $a -ge $b ]; then
   if [ "$nodeType" != "build" ]; then
     MPATH=/opt/apps/xsede/modulefiles:/opt/apps/modulefiles:/opt/modulefiles
-    buildNewDB $CacheDir  $timeStamp $MPATH  moduleT 
-    buildNewDB $CacheDir  $timeStamp $MPATH  dbT 
+    buildNewDB $CacheDir  $timeStamp $MPATH  moduleT
+    buildNewDB $CacheDir  $timeStamp $MPATH  dbT
     buildNewDB $RmapDir   $timeStamp $MPATH  reverseMapT
   fi
 fi
@@ -160,8 +160,8 @@ if [ "$nodeType" == "master" ]; then
   SHARED_DIRS="/home1/apps/intel13/modulefiles"
 
   if [ -d "$SHARED_DIRS" ]; then
-    buildNewDB $XSEDE_dir/cacheDir     $timeStamp $SHARED_DIRS  moduleT 
-    buildNewDB $XSEDE_dir/cacheDir     $timeStamp $SHARED_DIRS  dbT 
+    buildNewDB $XSEDE_dir/cacheDir     $timeStamp $SHARED_DIRS  moduleT
+    buildNewDB $XSEDE_dir/cacheDir     $timeStamp $SHARED_DIRS  dbT
     buildNewDB $XSEDE_dir/reverseMapD  $timeStamp $SHARED_DIRS  reverseMapT
   fi
 

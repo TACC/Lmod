@@ -1,7 +1,7 @@
 Notes for Star 15 Talk on Lmod and XALT.
 
 * Intro
-** I care about tools.  
+** I care about tools.
 
 Tools that make a difference in how the our computer systems get used.
 Making the lives of the people who run the system easier by making the
@@ -32,11 +32,11 @@ Let me remind you about modules:
 
 Env. Modules are a very clever way of providing software to our
 users that I DIDN'T invent.  Different users can load the software
-that they want independent of what software others are using. 
+that they want independent of what software others are using.
 
 As a developer of software, I get to build and test my software
 against different compilers and mpi stacks easily.  I simply unload
-what I don't want and load what I do. 
+what I don't want and load what I do.
 
 In one sense, all the module command does is change the path and set
 env. variables easily and reversably.  But it is key to how we manage
@@ -47,11 +47,11 @@ our system and provide software to our users.
 Well, there are many thing right with the original tool.  But it's
 design is stuck in the 90's when we had one compiler and didn't have
 MPI.  Now we have multiple compilers with multiple versions and
-multiple mpi stacks again with multiple versions. 
+multiple mpi stacks again with multiple versions.
 
 Sites around the work make the original work, but without herculean
 efforts, it is usually easy for users to mismatch libraries built with
-the wrong compiler or mpi stack.  This can sometimes lead to very 
+the wrong compiler or mpi stack.  This can sometimes lead to very
 difficult and strange errors.
 
 Lmod is designed from the ground up to prevent users from loading
@@ -64,7 +64,7 @@ certain way (and Lmod makes it easy to change modules
 ** It is a drop-in replacement for Tmod
 ** It reads TCL modules on the fly
 ** A growing community.
-   Not as big as Tmod but it is growning with 
+   Not as big as Tmod but it is growning with
    every version.  Used at ... nationally, Used at .. around the world.
 ** Lmod is written Lua.  A much easier language than TCL to work with.
 
@@ -72,8 +72,8 @@ certain way (and Lmod makes it easy to change modules
 
 * Lmod Demo
 ** Log on to stampede/maverick or my laptop.
-** Show a module load intel, mvapich2, phdf5, pmetis, fftw2 
-   swap compiler or mpi 
+** Show a module load intel, mvapich2, phdf5, pmetis, fftw2
+   swap compiler or mpi
    Users CAN'T load mis-match modules
 ** Module spider
 ** Module collections.
@@ -95,8 +95,8 @@ There are plenty of tools that do that and nothing that does this
 * XALT & Lmod data collection: What can you do with it?
 
 ** We track very module load.  We know what modules are used (and NOT!)
-** We know what programs with what libraries are use as well 
-** We know who built the program 
+** We know what programs with what libraries are use as well
+** We know who built the program
 system,
 same user built and ran
 one user built, another ran
@@ -106,4 +106,4 @@ one user built, another ran
 
 ** Show standard demo
 ** add i18n program name
-** 
+**

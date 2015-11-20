@@ -56,8 +56,8 @@ testdescript = {
 
      runLmod use $(testDir)/mf/Core4  #23
      runLmod avail                    #24
-     
-     
+
+
 
      HOME=$ORIG_HOME
 

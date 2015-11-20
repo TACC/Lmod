@@ -271,12 +271,12 @@ local function readCacheFile(self, moduleTFnA)
    dbg.print{"#moduleTFnA: ",#moduleTFnA,"\n"}
 
    for i = 1,#moduleTFnA do
-      repeat 
+      repeat
          local fileA = moduleTFnA[i].fileA
          local fn    = false
          local found = false
          local attr  = false
-         
+
          for i = 1,#fileA do
             fn   = fileA[i]
             attr = lfs.attributes(fn) or {}
@@ -290,11 +290,11 @@ local function readCacheFile(self, moduleTFnA)
 
          if (not found) then
             dbg.print{"No cache files found in", moduleDirT, "\n"}
-            break 
+            break
          end
 
          dbg.print{"cacheFile found: ",fn,"\n"}
-         
+
          -- Check Time
 
          local diff  = attr.modification - moduleTFnA[i].timestamp
@@ -354,12 +354,12 @@ function readDbT(self, dbTFnA)
       dbg.fini("Cache:readDbT")
       return
    end
-   
+
    local dbT = self.dbT
-   
+
    dbg.print{"#dbTFnA: ",#dbTFnA,"\n"}
    for i = 1,#dbTFnA do
-      repeat 
+      repeat
          local fileA = dbTFnA[i].fileA
          local fn    = false
          local found = false
@@ -394,7 +394,7 @@ function readDbT(self, dbTFnA)
 
             -- Check for matching default MODULEPATH.
             assert(loadfile(fn))()
-            
+
             local G_dbT = _G.dbT
             for mname, vv in pairs(G_dbT) do
                local entry = dbT[mname] or {}

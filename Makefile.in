@@ -101,7 +101,7 @@ CONTRIB_DIRS           	  :=  \
                               parseVersions                     \
                               settarg                           \
                               tracking_module_usage             \
-                              tricky_modulefiles                
+                              tricky_modulefiles
 
 
 

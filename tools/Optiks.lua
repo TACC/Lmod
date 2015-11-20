@@ -31,7 +31,7 @@ require("strict")
 --------------------------------------------------------------------------
 
 local function argsPack(...)
-   local arg = { n = select("#", ...), ...}
+   local arg = { n = select ("#", ...), ...}
    return arg
 end
 local pack        = (_VERSION == "Lua 5.1") and argsPack or table.pack
@@ -394,7 +394,7 @@ function M.parseEnvArg(self)
    local i, j, k, q, c
 
    while (not done) do
-      repeat
+      while (true) do
          -- remove leading spaces
          j, k = optStr:find("%s+",idx)
          if (k) then
@@ -423,7 +423,7 @@ function M.parseEnvArg(self)
             break
          end
          idx = i
-      until true
+      end
    end
    return optA
 end

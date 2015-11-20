@@ -250,7 +250,7 @@ local function chkMP(name, adding, pathEntry)
 end
 
 --------------------------------------------------------------------------
---  This handles removing entries from a path like variable. 
+--  This handles removing entries from a path like variable.
 --  @param a An array of values.
 --  @param where Where to remove and how: {"first", "last", "all"}
 --  @param priority The priority of the path if any (default is zero)

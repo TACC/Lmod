@@ -64,10 +64,9 @@ local function askSystem(width)
    end
 
    -- Try tput cols
-   local result = capture("tput cols 2> /dev/null")
-   i, j, columns = result:find('^(%d+)')
-   if (i) then
-      return tonumber(columns)
+   local result = os.execute("tput cols 2> /dev/null")
+   if (result) then
+      return tonumber(capture("tput cols"))
    end
 
    return width
@@ -97,7 +96,7 @@ function TermWidth()
 
    s_width = min(maxW, s_width)
 
-   s_width = (s_width > 40) and s_width or 40
+   s_width = (s_width > 30) and s_width or 30
 
    return s_width
 end

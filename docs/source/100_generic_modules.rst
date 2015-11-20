@@ -5,7 +5,7 @@ Lmod provides inspection functions that describe the name
 and version of a modulefile as well as the path to the modulefile.
 These functions provide a way to write "generic" modulefiles.  That is
 modulefiles that can fill in its values based on the location of the
-file itself.  
+file itself.
 
 These ideas work best in the software hierarchy style (see
 :ref:`Software-Hierarchy-label` for details) of modulefiles.
@@ -21,7 +21,7 @@ modulefile would work for every version of git::
    whatis("Name:        ", myModuleName())
    whatis("Version:     ", myModuleVersion())
    whatis("Description: ", "Git is a fast distributive version control system")
-  
+
 The contents of this modulefile can be used for multiple versions of
 the git software because the local variable bin changes the location
 of the bin directory to match the version of the used as the name of
@@ -37,7 +37,7 @@ Suppose you are interested in modules where the module and application
 location are relative. Suppose that you have an $APPS directory, and
 below that you have modulefiles and packages, and you would like the
 modulefiles to find the absolute path of the package location. This
-can be done with the ``myFileName()`` function and some lua code:: 
+can be done with the ``myFileName()`` function and some lua code::
 
      local fn      = myFileName()                      -- 1
      local full    = myModuleFullName()                -- 2
@@ -48,7 +48,7 @@ can be done with the ``myFileName()`` function and some lua code::
 
 
 To make this example concrete, let's assume that applications are in
-``/home/user/apps`` and the modulefiles are in ``/home/user/apps/mfiles``.  
+``/home/user/apps`` and the modulefiles are in ``/home/user/apps/mfiles``.
 So if the modulefile is located at
 ``/home/user/apps/mfiles/git/1.2.lua``,
 then that is the value of ``fn`` at line 1.  The ``full`` variable at
@@ -122,7 +122,7 @@ convention also assumes that the boost 1.55.0 package will be placed
 in `/apps/gcc-4_8/boost/1.55.0`.  It couldn't go in
 */apps/gcc/4.8/...* because that is where the gcc 4.8 package would
 be placed and it is not a good idea to co-mingle two different
-packages in the same tree.  
+packages in the same tree.
 
 With all of the above assumptions we can now create a generic module
 file for compiler dependent modules such as Boost.  In order to make

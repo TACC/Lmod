@@ -31,10 +31,10 @@ class BeautifulTbl(object):
     justifyT = []
     for icol in xrange(nc):
       justifyT.append((justify[icol].lower() == "r") and "r" or "l")
-        
+
     for i in xrange(nc, maxnc):
       justifyT.append("l")
-        
+
     for irow, row in enumerate(tblIn):
       b    = []
       numC = len(row)
@@ -67,7 +67,7 @@ class BeautifulTbl(object):
       for icol in xrange(len(columnCnt)-1):
         width += columnCnt[icol] + gap
       last = columnCnt[-1]
-      simple = (width > column - 10) or (width + last < column) 
+      simple = (width > column - 10) or (width + last < column)
 
     tbl = self.__tbl
 
@@ -85,7 +85,7 @@ class BeautifulTbl(object):
     # trailing spaces.  Note that the last column is the only column
     # that is word wrapped.  Any short rows are copied straight
     # across.
-    
+
     gap    = column - width
     fill   = " "*width
 
@@ -148,7 +148,7 @@ def main():
       ["abc as", "d a alsdkjf lkjasdf alsdjf", "laskdjfasjkd alsdkj alksdj asdlkfj asdlk aalsdkjf pasd f"],
       ["def", "ghialksdflaksdf", "la laksjd alskd laksjd asdlkfj asdpsdf"],
       ]
-  
+
 
   bt = BeautifulTbl(tbl=a,column=79, wrapped=True, justify = "rrr")
   s  = bt.build_tbl()
@@ -159,6 +159,6 @@ def main():
 
 if ( __name__ == '__main__'): main()
 
-                
 
-        
+
+

@@ -29,7 +29,7 @@ Ideas for topics:
 
 ** module load clang
 
-   notice that gcc is unloaded, clang is loaded and 
+   notice that gcc is unloaded, clang is loaded and
    mpich and hello get reloaded.
 
 ** module load openmpi
@@ -45,7 +45,7 @@ Ideas for topics:
 
 
 
-* customizing lmod 
+* customizing lmod
   adv. users
   personal modules
   leveraging an install

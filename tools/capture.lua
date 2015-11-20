@@ -46,7 +46,7 @@ function capture(cmd, envT)
    if (dbg.active()) then
       dbg.print{"cwd: ",posix.getcwd(),"\n",level=2}
    end
-   
+
    local newT = {}
    envT = envT or {}
    for k, v in pairs(envT) do
@@ -64,7 +64,7 @@ function capture(cmd, envT)
    for k, v in pairs(newT) do
       setenv_posix(k,v, true)
    end
-   
+
    if (dbg.active()) then
       dbg.start{"capture output()",level=2}
       dbg.print{ret}

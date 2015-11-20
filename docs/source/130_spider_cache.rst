@@ -59,7 +59,7 @@ are stored. In this case a single system cache file is all that is
 required.
 
 At TACC, we need two system cache files because we have two different
-locations of files: one in the shared location and one on a local disk.  
+locations of files: one in the shared location and one on a local disk.
 So in our case Lmod sees two cache directories. Each node builds a
 spider cache of the modulefiles it "owns" and a single node (we call
 it master) builds a cache for the shared location.
@@ -125,7 +125,7 @@ Then you can check to see that it works by running::
     Cache Directory              Time Stamp File
     ---------------              ---------------
     $HOME/moduleData/cacheDir    $HOME/moduleData/system.txt
-  
+
 Where *$HOME* is replaced by your real home directory.  Now you can
 test that it works by doing::
 

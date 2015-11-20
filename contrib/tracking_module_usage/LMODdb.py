@@ -71,7 +71,7 @@ class LMODdb(object):
     """
     Public interface to connect to DB.
     @param db:  If this exists it will be used.
-    
+
     """
     if(os.path.exists(self.__confFn)):
       self.__readConfig()
@@ -84,7 +84,7 @@ class LMODdb(object):
         self.__conn = MySQLdb.connect (self.__host,self.__user,self.__passwd)
         if (databaseName):
           cursor = self.__conn.cursor()
-          
+
           # If MySQL version < 4.1, comment out the line below
           cursor.execute("SET SQL_MODE=\"NO_AUTO_VALUE_ON_ZERO\"")
           cursor.execute("USE "+self.db())
@@ -148,7 +148,7 @@ class LMODdb(object):
         row    = cursor.fetchone()
         mod_id = int(row[0])
       else:
-        query = "INSERT into moduleT VALUES (NULL, %s, %s, %s)" 
+        query = "INSERT into moduleT VALUES (NULL, %s, %s, %s)"
         cursor.execute(query,(dataT['path'], dataT['module'], dataT['syshost']))
         mod_id = cursor.lastrowid
 
@@ -207,7 +207,7 @@ class LMODdb(object):
 
       return resultA
 
-        
+
     except Exception as e:
       print("counts(): ",e)
       sys.exit(1)
@@ -251,11 +251,11 @@ class LMODdb(object):
 
       return resultA
 
-        
+
     except Exception as e:
       print("usernames(): ",e)
       sys.exit(1)
-       
+
 
   def modules_used_by(self, username, syshost, startDate, endDate):
     query = ""
@@ -293,7 +293,7 @@ class LMODdb(object):
 
       return resultA
 
-        
+
     except Exception as e:
       print("modules_used_by(): ",e)
       sys.exit(1)

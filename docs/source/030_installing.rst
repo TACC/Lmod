@@ -8,7 +8,7 @@ and it can be done dynamically. Users load modules as they see fit. It
 is completely under their control. Environment Modules or simply
 modules provide a simple contract or interface between the system
 administrators and users. System adminstrators provide modules and
-users get to chose which to load. 
+users get to chose which to load.
 
 There have been environment module systems for quite a while. See
 http://modules.sourceforge.net/ for a TCL based module system and see
@@ -17,7 +17,7 @@ Lmod, which is a completely new module system written in Lua. For
 those who have used modules before, Lmod automatically reads TCL
 modulefiles. Lmod has some important features over module system,
 namely a built-in solution to Hierarchical modulefiles and provides
-additional safety features to users as described in the User Guide. 
+additional safety features to users as described in the User Guide.
 
 The hierarchical modulefiles are used to solve the issue of system
 pre-built libraries. User applications using these libraries must be
@@ -28,7 +28,7 @@ making sure that compilers and pre-built libraries stay matched. The
 rest of the pages here describe how to install lmod, how to provide
 the module command to users during the login process and some
 discussion on how to install optional software and the associated
-modules. 
+modules.
 
 The goal of installing Lmod is when completed, any user will have the
 module command defined and a preset list of modules will be
@@ -37,16 +37,16 @@ loaded. All without modifying the users startup files (``~/.bashrc``,
 available for login shells, interactive shells, and non-interactive
 shells. The command ``ssh YOUR_HOST module list`` should work. This will
 require some understanding of the system startup procedure for various
-shells which is covered here. 
+shells which is covered here.
 
-Installing Lua 
+Installing Lua
 --------------
 
 In this document, it is assumed that all optional software is going to
 be installed in /opt/apps. The installation of Lmod requires
 installing lua as well.  On some system is possible to install Lmod
 directly with your package manager. It is available with recent
-fedora, debian and ubuntu distributions. 
+fedora, debian and ubuntu distributions.
 
 
 Install lua-X.Y.Z.tar.gz
@@ -54,7 +54,7 @@ Install lua-X.Y.Z.tar.gz
 
 One choice is to install the lua-X.Y.Z.tar.gz file.  This tar ball
 contains lua and the required libraries. This can be
-downloaded from https://sourceforge.net/projects/lmod/files/ 
+downloaded from https://sourceforge.net/projects/lmod/files/
 This can be installed using the following commands::
 
     $ tar xf lua-X.Y.Z.tar.gz
@@ -153,7 +153,7 @@ want Lmod version X.Y installed in ``/opt/apps/lmod/X.Y``, just do::
     $ make install
 
 The ``make install`` will install Lmod in ``/opt/apps/lmod/x.y.z``
-and create a link to ``/opt/apps/lmod/lmod``. 
+and create a link to ``/opt/apps/lmod/lmod``.
 
 Sites can use::
 
@@ -218,7 +218,7 @@ Integrating **module** Into Users' Shells
 Bash:
 ~~~~~
 
-On login shells, the bash shell first reads ``/etc/profile`` and it 
+On login shells, the bash shell first reads ``/etc/profile`` and it
 should source all the \*.sh files in ``/etc/profile.d``  ::
 
     if [ -d /etc/profile.d ]; then
@@ -227,7 +227,7 @@ should source all the \*.sh files in ``/etc/profile.d``  ::
           . $i
         fi
       done
-    fi  
+    fi
 
 Similarly, the system BASHRC file should source all the \*.sh files in
 ``/etc/profile.d`` as well.  Here is where things can get complicated.
@@ -239,7 +239,7 @@ Bash Shell Scripts:
 Bash shell scripts do not source any system or user files before
 starting execution. Instead it looks for the environment variable
 BASH_ENV. It treats the contents as a filename and sources it before
-starting a bash script. 
+starting a bash script.
 
 Bash Script Note:
 
@@ -253,7 +253,7 @@ Starting with::
 
 and sh is linked to bash won't define the module command. Bash will
 run those scripts in shell emulation mode and it doesn't source the
-file that BASH_ENV points to. 
+file that BASH_ENV points to.
 
 Csh:
 ~~~~
@@ -288,7 +288,7 @@ file can be in a number of places but is typically in ``/etc/zshenv`` or
         fi
       setopt nomatch
       done
-    fi  
+    fi
 
 Issues with Bash
 ----------------
@@ -322,7 +322,7 @@ you have two choices:
 
        if [ -f /etc/bashrc ]; then
           . /etc/bashrc
-       fi  
+       fi
 
 As a side note, we at TACC patched bash for a different reason which
 may apply to your site.  When an MPI job starts, it logs into each
@@ -344,7 +344,7 @@ to point to the bash script which defines the module command.
 
 It may seem counterintuitive but Csh and Zsh users running bash shell
 scripts will want BASH_ENV set so that the module command will work in
-their bash scripts. 
+their bash scripts.
 
 A bash script is one that starts as the very first line::
 

@@ -10,9 +10,9 @@ Why doesn't  % ``module avail |& grep ucc``  work under tcsh and works under bas
     However, in all shells it is better use::
 
        % module avail ucc
-    
+
     instead as this will only output modules that have "ucc" in
-    their name. 
+    their name.
 
 Why are messages printed to standard error and not standard out
 
@@ -20,7 +20,7 @@ Why are messages printed to standard error and not standard out
     all other shells. There is an lmod command which writes out commands
     such as export FOO="bar and baz" and message are written to standard
     error. The text written to standard out is evaluated so that the text
-    strings make changes to the current environment. 
+    strings make changes to the current environment.
 
 Can I disable the pager output?
 

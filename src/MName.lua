@@ -177,7 +177,7 @@ function M.new(self, sType, name, action, is, ie)
       local Match    = require("MN_Match")
       local Latest   = require("MN_Latest")
       local Between  = require("MN_Between")
-      local Exact    = require("MN_Exact") 
+      local Exact    = require("MN_Exact")
 
       local findT      = {}
       findT["exact"]   = Exact
@@ -439,7 +439,7 @@ function M.find_exact_match(self, pathA)
          break
       end
    end
-         
+
    if (found) then
       t.fn          = result
       t.modFullName = fullName

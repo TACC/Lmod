@@ -1,9 +1,9 @@
 %* installation (deps, build/install procedure, making module/ml work)
-%* configuration (either via ./configure at build time, or via 
+%* configuration (either via ./configure at build time, or via
 %   $LMOD_FOO), most important configure options
-%* setting up the system spider cache: configuring Lmod, updating spider 
+%* setting up the system spider cache: configuring Lmod, updating spider
 %  cache, difference between system/user spider cache
-%* + all (other) aspects mentioned on slide #26 in this slide deck: 
+%* + all (other) aspects mentioned on slide #26 in this slide deck:
 %   explained + example :)
 %* what settarg is all about
 
@@ -86,7 +86,7 @@
     \item Reads TCL modulefiles directly (Cray modules supported)
     \item User default and named collections of modules
     \item Module cache system: Faster avail, spider, etc
-    \item Tracking module usage 
+    \item Tracking module usage
     \item A few edge cases where Env. Modules and Lmod differ
   \end{itemize}
 \end{frame}
@@ -136,7 +136,7 @@
         \item LMOD\_SYSTEM\_DEFAULT\_MODULES=mod1:mod2:mod3
         \item \texttt{\bf \$ module purge;}
         \item Redefine module command to use Lmod
-        \item \texttt{\bf \$ module restore;} 
+        \item \texttt{\bf \$ module restore;}
       \end{itemize}
     \item I normally run a personal copy of Lmod in all my accounts
       (including \texttt{\bf darter}, a Cray XC-30)

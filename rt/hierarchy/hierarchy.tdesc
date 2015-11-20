@@ -56,7 +56,7 @@ testdescript = {
      runLmod swap mpich openmpi            #29
 
 
-     
+
 
      HOME=$ORIG_HOME
      cat _stdout.[0-9][0-9][0-9] > _stdout.orig

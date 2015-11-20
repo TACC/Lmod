@@ -70,7 +70,7 @@ EOF
 
 if [ -n "$LUA_PATH" ]; then
    MAKE_EXTRA="LUA_PATH=$LUA_PATH LUA_CPATH=$LUA_CPATH"
-fi    
+fi
 
 
 case $SYSHOST in

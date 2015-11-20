@@ -7,7 +7,7 @@ Lua Modulefile Functions
 Lua is an efficient language built on simple syntax. Readers wanting
 to know more about lua can see http://www.lua.org/. This simple description
 given here should be sufficient to write all but the most complex
-modulefiles. 
+modulefiles.
 
 It is important understand that modulefiles are written in the
 positive. That is one writes the actions necessary to activate the
@@ -118,7 +118,7 @@ Modifier functions to prereq and loads
 
 **between** ("name","v1","v2"):
     This modifier function will only succeed if the module's version is
-    equal to or between "v1" and "v2".  
+    equal to or between "v1" and "v2".
 
 **latest** ("name"):
     This modifier function will only succeed if the module has the

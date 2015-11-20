@@ -1,9 +1,9 @@
 %* installation (deps, build/install procedure, making module/ml work)
-%* configuration (either via ./configure at build time, or via 
+%* configuration (either via ./configure at build time, or via
 %   $LMOD_FOO), most important configure options
-%* setting up the system spider cache: configuring Lmod, updating spider 
+%* setting up the system spider cache: configuring Lmod, updating spider
 %  cache, difference between system/user spider cache
-%* + all (other) aspects mentioned on slide #26 in this slide deck: 
+%* + all (other) aspects mentioned on slide #26 in this slide deck:
 %   explained + example :)
 %* what settarg is all about
 
@@ -66,7 +66,7 @@
     \item Reads TCL modulefiles directly (Cray modules supported)
     \item User default and named collections of modules
     \item Module cache system: Faster avail, spider, etc
-    \item Tracking module usage 
+    \item Tracking module usage
     \item A few edge cases where Env. Modules and Lmod differ
   \end{itemize}
 \end{frame}
@@ -115,7 +115,7 @@
         \item LMOD\_SYSTEM\_DEFAULT\_MODULES=mod1:mod2:mod3
         \item \texttt{\bf \$ module purge;}
         \item Redefine module command to use Lmod
-        \item \texttt{\bf \$ module restore;} 
+        \item \texttt{\bf \$ module restore;}
       \end{itemize}
     \item I normally run a personal copy of Lmod in all my accounts
       (including \texttt{\bf darter}, a Cray XC-30)
@@ -271,7 +271,7 @@
      \item Good News: having a spider cache speeds avail, spider
      \item Bad News: Sites must maintain up-to-date cache file.
      \item Lmod trusts valid system caches for avail and spider.
-     \item Two kinds of caches: User \& System 
+     \item Two kinds of caches: User \& System
   \end{itemize}
 \end{frame}
 
@@ -289,10 +289,10 @@
      \item Sites can have one or more cache files.
      \item A shared file system $\Rightarrow$ One
        per system
-     \item At TACC: 
+     \item At TACC:
        \begin{itemize}
           \item Each nodes creates a local system cache
-          \item Master 
+          \item Master
        \end{itemize}
   \end{itemize}
 \end{frame}
@@ -307,7 +307,7 @@
      \item Action happen with minimal typing:
        \begin{itemize}
           \item ml
-          \item well chosen defaults.      
+          \item well chosen defaults.
           \item Hierarchical module layout
           \item tab-completion
           \item never use ``\texttt{\bf swap}''

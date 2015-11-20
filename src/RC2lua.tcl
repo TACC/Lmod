@@ -26,11 +26,11 @@ proc module-version {args} {
 
 proc main {mRcFile} {
     puts stdout "modA=\{"
-    set version  -1      
+    set version  -1
     set found 0
-    
+
     source $mRcFile
-    
+
     if {[info exists ModulesVersion]} {
       set version $ModulesVersion
       set found 1
@@ -44,7 +44,7 @@ proc main {mRcFile} {
     #if {[info exists NewModulesVersion]} {
     #  set newVersion $NewModulesVersion
     #}
-    
+
     if { $found > 0 } {
         puts stdout "\{kind=\"set-default-version\", version=\"$version\"\}"
     }

@@ -78,7 +78,7 @@ testdescript = {
      runLmod load old           #48
      runLmod list               #49
      runLmod avail              #50
-    
+
 
      HOME=$ORIG_HOME
 

@@ -79,7 +79,7 @@ testdescript = {
      runLmod restore                 #29
      runLmod list                    #30
      export LMOD_PIN_VERSIONS=yes
-     runLmod purge                   #31     
+     runLmod purge                   #31
      runLmod restore                 #32
      runLmod list                    #33
 

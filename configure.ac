@@ -307,19 +307,19 @@ AC_PATH_PROG(PATH_TO_PAGER,[less] [more], [more])
 
 AC_PATH_PROGS(PATH_TO_HASHSUM, [sha1sum] [md5sum], "")
 if test "$PATH_TO_HASHSUM" = "UNKNOWN" ; then
-  echo 
+  echo
   echo "You must have either sha1sum or md5sum in your path. Quitting!"
-  echo 
+  echo
   exit
-fi    
+fi
 
 AC_PATH_PROG(PATH_TO_TCLSH, tclsh, UNKNOWN)
 if test "$PATH_TO_TCLSH" = "UNKNOWN" -a "$ALLOW_TCL_MFILES" = yes; then
-  echo 
+  echo
   echo "The tclsh program must be in your path. Quitting!"
-  echo 
+  echo
   exit
-fi    
+fi
 AC_PATH_PROG(PATH_TO_TR, [tr],"")
 
 AC_PATH_PROG(PATH_TO_LUAC, [luac])
@@ -487,9 +487,9 @@ if ! test -f $LUA_INCLUDE/lua.h; then
   done
 fi
 
-if ! test "$HAVE_LUA_TERM" = yes; then 
+if ! test "$HAVE_LUA_TERM" = yes; then
   if ! test -f $LUA_INCLUDE/lua.h; then
-    echo 
+    echo
     echo Error can not find lua.h which is needed to build lua-term.
     echo You can either install lua-term or the lua development package.
     echo Quitting!
@@ -498,7 +498,7 @@ if ! test "$HAVE_LUA_TERM" = yes; then
   fi
 fi
 
-    
+
 
 
 AC_SUBST(ZSH_SITE_FUNCTIONS_DIRS)

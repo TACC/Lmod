@@ -26,12 +26,12 @@ testdescript = {
      touch c1/system.txt c2/system.txt
 
      BASE_MODULE_PATH=$(testDir)/mf1/Core
-     buildNewDB c1 c1/system.txt moduleT 
-     buildNewDB c1 c1/system.txt dbT 
+     buildNewDB c1 c1/system.txt moduleT
+     buildNewDB c1 c1/system.txt dbT
 
      BASE_MODULE_PATH=$(testDir)/mf2/Core
-     buildNewDB c2 c2/system.txt moduleT 
-     buildNewDB c2 c2/system.txt dbT 
+     buildNewDB c2 c2/system.txt moduleT
+     buildNewDB c2 c2/system.txt dbT
 
      cat > .lmodrc.lua <<EOF
 scDescriptT = {
@@ -43,14 +43,14 @@ scDescriptT = {
     ["dir"]       = "$(outputDir)/c2",
     ["timestamp"] = "$(outputDir)/c2/system.txt",
   },
-} 
+}
 EOF
 
      export MODULEPATH=$(testDir)/mf2/Core:$(testDir)/mf1/Core
 
      runLmod --version               # 1
      runLmod av                      # 2
-     
+
 
 
      HOME=$ORIG_HOME

@@ -6,12 +6,12 @@ stuff.
 ** The new thing is that they are combined in a way that makes it complete and easy to use.
 *** Step 1: Use the Lmod load hook and exit hooks to write each successful load to syslog
 *** Step 2: Use Rsyslog system to collect all messages into one computer.
-*** Step 3: Re-direct the ModuleUsageTracking tag to a separate computer (VM) 
+*** Step 3: Re-direct the ModuleUsageTracking tag to a separate computer (VM)
 *** Step 4: Have the separate computer Re-direct ModuleUsageTracking tagged mesages to a separate file
 *** Step 5: Log Rotate the ModuleUsage Tracking file
 *** Step 6: Use script to store Module usage data in to a database.
 *** Step 7: Analyze usage via provided analyze script.
 *** Step 8: Impress your friends and colleague exact knowledge of what modules are used or not!
 
- 
-    
+
+

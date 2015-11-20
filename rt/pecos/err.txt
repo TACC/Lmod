@@ -33,11 +33,11 @@ lua ProjectDIR/src/lmod.in.lua bash spider grvy
       gcc/4.6, mpich2/1.5
     Help:
       The grvy module file defines the following environment variables:
-      GRVY_DIR, GRVY_LIB, and GRVY_INC for the location of the 
+      GRVY_DIR, GRVY_LIB, and GRVY_INC for the location of the
       grvy distribution.
       To use the grvy library, compile the source code with the option:
-      -I$GRVY_INC 
-      and add the following options to the link step: 
+      -I$GRVY_INC
+      and add the following options to the link step:
       -L$GRVY_LIB -lgrvy
       Version 0.32.0, compiled with gcc 4.6 compilers.
 ===========================

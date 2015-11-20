@@ -11,7 +11,7 @@ It is important to remember the following facts:
 
 * Lmod reads modulefiles written in TCL.  There is typically no need
   to translate modulefiles written in TCL into Lua. Lmod does this for
-  you automatically.  
+  you automatically.
 
 * Some users can run Lmod while other use the old environment module
   system.
@@ -78,7 +78,7 @@ Many sites provide a default set of modules.  When testing, you'll
 want to be able to load those list of modules using Lmod.   Using your
 old module system, login and do::
 
-    
+
     $ module list
 
     Currently Loaded Modules:
@@ -114,7 +114,7 @@ LMOD_SYSTEM_DEFAULT_MODULES has been set. All that is required is that
 the module command be redefined to use Lmod and restore the default
 set of modules by::
 
-    
+
     $ export BASH_ENV=$HOME/pkg/lmod/lmod/init/bash
     $ source $BASH_ENV
 
@@ -153,7 +153,7 @@ All the comments above can be combined into a complete example::
        export MODULEPATH=...                         # define  MODULEPATH
        export BASH_ENV=$HOME/pkg/lmod/lmod/init/bash # Point to the new definition of Lmod
 
-       source $BASH_ENV                              # Redefine the module command to point 
+       source $BASH_ENV                              # Redefine the module command to point
                                                      # to the new Lmod
        export LMOD_SYSTEM_DEFAULT_MODULES=...        # Colon separated list of modules
                                                      # to load at startup
@@ -161,9 +161,9 @@ All the comments above can be combined into a complete example::
                                                      # user's ~/.lmod.d/default module collection
     else
        source $BASH_ENV                              # redefine the module command for sub-shell
-       module refresh                                # reload all modules but only activate the "set_alias" 
+       module refresh                                # reload all modules but only activate the "set_alias"
                                                      # functions.
-    fi  
+    fi
 
 Obviously, you will have to define **MODULEPATH** and
 **LMOD_SYSTEM_DEFAULT_MODULES** to match your site setup.

@@ -11,7 +11,7 @@ _module_loaded_modules() {
 }
 
 _module_savelist() {
-	@PKG@/libexec/lmod bash -t savelist  2>&1 > /dev/null 
+	@PKG@/libexec/lmod bash -t savelist  2>&1 > /dev/null
 }
 
 _module_loaded_modules_negated() {
@@ -43,7 +43,7 @@ _module_long_arg_list() {
 
 _module_mcc() {
 	@PKG@/libexec/lmod bash -t collection 2>&1 > /dev/null
-        
+
 }
 
 _module() {
@@ -69,7 +69,7 @@ _module() {
 			COMPREPLY=( $(compgen -W "$(_module_avail)" -- "$cur") );;
 	collection|cc|mcc)
 			COMPREPLY=( $(compgen -W "$(_module_mcc)" -- "$cur") );;
-	  
+	
 	*) if test $COMP_CWORD -gt 2
 	   then
 		_module_long_arg_list "$cur"

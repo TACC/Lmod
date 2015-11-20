@@ -2,7 +2,7 @@
 -- -*- lua -*-
 --------------------------------------------------------------------------
 -- Convert base64 encoded Strings into the module table.  This is used
--- to generate test results. 
+-- to generate test results.
 -- @script joinBase64Results
 
 require("strict")
