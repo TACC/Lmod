@@ -3396,7 +3396,7 @@ fi
 
   test -n "$PATH_TO_HASHSUM" && break
 done
-test -n "$PATH_TO_HASHSUM" || PATH_TO_HASHSUM=""""
+test -n "$PATH_TO_HASHSUM" || PATH_TO_HASHSUM="UNKNOWN"
 
 if test "$PATH_TO_HASHSUM" = "UNKNOWN" ; then
   echo
