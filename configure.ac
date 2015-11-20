@@ -305,7 +305,7 @@ AC_SUBST(PATH_TO_TR)
 AC_PATH_PROG(PATH_TO_GIT, git, "")
 AC_PATH_PROG(PATH_TO_PAGER,[less] [more], [more])
 
-AC_PATH_PROGS(PATH_TO_HASHSUM, [sha1sum] [md5sum], UNKNOWN)
+AC_PATH_PROGS(PATH_TO_HASHSUM, [sha1sum] [gsha1sum] [md5sum] [gmd5sum], UNKNOWN)
 if test "$PATH_TO_HASHSUM" = "UNKNOWN" ; then
   echo
   echo "You must have either sha1sum or md5sum in your path. Quitting!"
