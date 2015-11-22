@@ -420,7 +420,13 @@ function M.load(mA)
       if (mt:have(sn,"active")) then
          dbg.print{"Master:load reload module: \"",moduleName,
                    "\" as sn: \"",sn,"\" is already loaded\n"}
-         if (LMOD_DISABLE_SAME_NAME_AUTOSWAP == "yes") then
+
+         local mt_version = mt:Version(sn)
+         local mn_version = mname:version()
+
+         dbg.print{"mnV: ",mn_version,", mtV: ",mt_version,"\n"}
+
+         if (LMOD_DISABLE_SAME_NAME_AUTOSWAP == "yes" and mt_version ~= mn_version) then
             LmodError("Your site prevents the automatic swapping of modules with same name.",
                       "You must explicitly unload the loaded version of \"",sn,"\" before",
                       "you can load the new one. Use swap (or an unload followed by a load)",
