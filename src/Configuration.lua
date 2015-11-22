@@ -78,8 +78,6 @@ local function new(self)
    local locSitePkg = locatePkg("SitePackage") or "unknown"
 
    if (locSitePkg ~= "unknown") then
-
-
       local std_sha1 = "038082232d235d9f9278975749eafe791a206a87"
 
       local HashSum = "@path_to_hashsum@"
@@ -121,7 +119,7 @@ local function new(self)
    tbl.disable1N   = { k = "Disable Same Name AutoSwap"      , v = disable1N,            }
    tbl.dot_files   = { k = "Using dotfiles"                  , v = "@use_dot_files@",    }
    tbl.dupPaths    = { k = "Allow duplicate paths"           , v = LMOD_DUPLICATE_PATHS, }
-   tbl.exactMatch  = { k = "Require Exact Match/no defaults" , v = exactMatch,    }
+   tbl.exactMatch  = { k = "Require Exact Match/no defaults" , v = exactMatch,           }
    tbl.expMCmd     = { k = "Export the module command"       , v = "@export_module@",    }
    tbl.lmodV       = { k = "Lmod version"                    , v = lmod_version,         }
    tbl.luaV        = { k = "Lua Version"                     , v = _VERSION,             }
