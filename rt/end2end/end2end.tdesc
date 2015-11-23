@@ -33,7 +33,9 @@ testdescript = {
      runLmod --version              # 1
      LmodV=`$LUA_EXEC $projectDir/src/lmod.in.lua bash --dumpversion 2>&1`
      echo LmodV=$LmodV
-     (cd $projectDir; make dist)
+     mkdir b0
+     (cd b0; ./configure --prefix=$(outputDir)/b0)
+     (cd $projectDir; make -f $(outputDir)/b0/makefile dist)
      tar xf $projectDir/Lmod-$LmodV.tar.bz2
      rm -rf $projectDir/Lmod-$LmodV.tar.bz2
      mkdir build; cd build; ../Lmod-$LmodV/configure --prefix=`pwd`/..;
