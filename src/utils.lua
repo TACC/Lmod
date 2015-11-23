@@ -158,9 +158,9 @@ function buildMsg(width, ... )
          if (i) then
             a[#a+1] = lBlnks
             len     = len + lBlnks:len()
-            rest    = line:sub(j+1,-1) 
+            rest    = line:sub(j+1,-1)
          end
-         
+
          for word in rest:split(" +") do
             local wlen = word:len()
             if (wlen + len >= width) then
@@ -838,9 +838,14 @@ function versionFile(v, sn, path, ignoreErrors)
    dbg.print{"handle file: ",v, "\n"}
    local cmd = pathJoin(cmdDir(),"RC2lua.tcl") .. " " .. path
    local s   = capture(cmd):trim()
-   assert(load(s))()
+
+   local status, f = pcall(load,s)
+   if (not status or not f) then
+      LmodError("Unable to parse: ",path," Aborting!\n")
+   end
+   f()
    malias:parseModA(sn, modA)
-   
+
    version = malias:getDefaultT(sn) or version
 
    dbg.print{"version: ",version,"\n"}
@@ -890,7 +895,7 @@ function keepFile(fn)
    local firstChar = fn:sub(1,1)
    local lastChar  = fn:sub(-1,-1)
    local firstTwo  = fn:sub(1,2)
-   
+
    local result    = not (ignoreT[fn]      or lastChar == '~' or ignoreT[fileDflt] or
                           firstChar == '#' or lastChar == '#' or firstTwo == '.#')
    if (not result) then

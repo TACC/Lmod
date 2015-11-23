@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 6.0.13  2015-10-22 17:18
+Modules based on Lua: Version 6.0.19  2015-11-18 08:32
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -86,9 +86,9 @@ The following is a list of the modules currently available:
   cluster: cluster
   cluster_symbols: cluster_symbols
   globus: globus/4.0.1, globus/4.0.7
-    Globus Software Package 
+    Globus Software Package
   mvapich1: mvapich1/mvapich1
-    MPI-1 implementation for InfiniBand 
+    MPI-1 implementation for InfiniBand
   pgi: pgi/7.1, pgi/7.2-5
 To learn more about a package enter:
    $ module spider Foo
@@ -105,11 +105,11 @@ step 17
 lua ProjectDIR/src/lmod.in.lua bash restore stdenv
 ===========================
 Restoring modules to user's stdenv
-Lmod Warning: One or more modules in your  collection have changed: "gcc". 
+Lmod Warning: One or more modules in your  collection have changed: "gcc".
 To see the contents of this collection do:
-  $ module describe 
+  $ module describe
 To rebuild the collection, load the modules you wish then do:
-  $ module save 
+  $ module save
 If you no longer want this module collection do:
   rm ~/.lmod.d/
 For more information execute 'module help' or see http://lmod.readthedocs.org/
@@ -119,12 +119,12 @@ step 18
 lua ProjectDIR/src/lmod.in.lua bash restore stdenv
 ===========================
 Restoring modules to user's stdenv
-Lmod Warning: One or more modules in your  collection have changed: 
-StdEnv", "gcc". 
+Lmod Warning: One or more modules in your  collection have changed:
+StdEnv", "gcc".
 To see the contents of this collection do:
-  $ module describe 
+  $ module describe
 To rebuild the collection, load the modules you wish then do:
-  $ module save 
+  $ module save
 If you no longer want this module collection do:
   rm ~/.lmod.d/
 For more information execute 'module help' or see http://lmod.readthedocs.org/

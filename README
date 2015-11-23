@@ -18,7 +18,7 @@ Bug Fixes:
       directory.
    b) This version fixes a bug when trying to run module avail
       or module spider with an old cache file.
-      
+
 
 Lmod Version 6.0
 Features:
@@ -34,7 +34,7 @@ Features:
       contrib/tracking_module_usage/README.
    c) Adding an exit hook.  This makes for more accurate tracking of
       module usage. See README above as to why this is a good idea.
-   d) Some minor speed-ups and minimizing of directory tree walking. 
+   d) Some minor speed-ups and minimizing of directory tree walking.
 
 
 Lmod Version 5.9.3
@@ -76,7 +76,7 @@ Feature:
       is built.  See contrib/BuildSystemCacheFile/README.txt.  On an
       ssd laptop "ml av" is twice as fast.  On two different HPC system
       I have seen 4 times speed improvement.
-      
+
 Bug Fixes:
    a) Fixed a bug where LUA_INCLUDE was not set.
 
@@ -87,7 +87,7 @@ Bug Fixes:
       reading the the cache file.
    c) Configure will now abort if either tclsh or lua.h is
       required but not available.
-      
+
 Lmod Version 5.8.5
 Features/Bug fixes:
    a) Fixed bug where the system spider cache was ignored.  This bug

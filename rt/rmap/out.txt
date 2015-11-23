@@ -12,16 +12,18 @@ timestampFn = {
 reverseMapT = {
   ["ProjectDIR/rt/rmap/apps/intel-13_1/impi/4.1/bin"] = {
     flavor = {
-      "default:intel/13.1", "default:intel/14.0.1",
+      "default:intel/13.1",
     },
     ["kind"] = "bin",
+    ["moduleFn"] = "ProjectDIR/rt/rmap/mf/Compiler/intel/13.1/impi/4.1.lua",
     ["pkg"] = "impi/4.1",
   },
   ["ProjectDIR/rt/rmap/apps/intel-13_1/impi/4.1/lib"] = {
     flavor = {
-      "default:intel/13.1", "default:intel/14.0.1",
+      "default:intel/13.1",
     },
     ["kind"] = "lib",
+    ["moduleFn"] = "ProjectDIR/rt/rmap/mf/Compiler/intel/13.1/impi/4.1.lua",
     ["pkg"] = "impi/4.1",
   },
   ["ProjectDIR/rt/rmap/apps/intel/13.1/bin"] = {
@@ -29,6 +31,7 @@ reverseMapT = {
       "default",
     },
     ["kind"] = "bin",
+    ["moduleFn"] = "ProjectDIR/rt/rmap/mf/Core/intel/13.1.lua",
     ["pkg"] = "intel/13.1",
   },
   ["ProjectDIR/rt/rmap/apps/intel/13.1/lib"] = {
@@ -36,6 +39,7 @@ reverseMapT = {
       "default",
     },
     ["kind"] = "lib",
+    ["moduleFn"] = "ProjectDIR/rt/rmap/mf/Core/intel/13.1.lua",
     ["pkg"] = "intel/13.1",
   },
   ["ProjectDIR/rt/rmap/apps/intel/14.0.1/bin"] = {
@@ -43,6 +47,7 @@ reverseMapT = {
       "default",
     },
     ["kind"] = "bin",
+    ["moduleFn"] = "ProjectDIR/rt/rmap/mf/Core/intel/14.0.1.lua",
     ["pkg"] = "intel/14.0.1",
   },
   ["ProjectDIR/rt/rmap/apps/intel/14.0.1/lib"] = {
@@ -50,6 +55,7 @@ reverseMapT = {
       "default",
     },
     ["kind"] = "lib",
+    ["moduleFn"] = "ProjectDIR/rt/rmap/mf/Core/intel/14.0.1.lua",
     ["pkg"] = "intel/14.0.1",
   },
 }

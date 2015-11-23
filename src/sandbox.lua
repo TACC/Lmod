@@ -210,7 +210,7 @@ sandbox_env = {
 -- functions inside their SitePackage.lua file for
 -- any functions that they want that are callable
 -- via their modulefiles.
--- @param t A table 
+-- @param t A table
 function sandbox_registration(t)
    if (type(t) ~= "table") then
       LmodError("sandbox_registration: The argument passed is: \"", type(t),

@@ -4,16 +4,16 @@
 # XALT: A tool that tracks users jobs and environments on a cluster.
 # Copyright (C) 2013-2014 University of Texas at Austin
 # Copyright (C) 2013-2014 University of Tennessee
-# 
+#
 # This library is free software; you can redistribute it and/or modify
 # it under the terms of the GNU Lesser General Public License as
-# published by the Free Software Foundation; either version 2.1 of 
-# the License, or (at your option) any later version. 
+# published by the Free Software Foundation; either version 2.1 of
+# the License, or (at your option) any later version.
 #
 # This library is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-# Lesser  General Public License for more details. 
+# Lesser  General Public License for more details.
 #
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free
@@ -93,7 +93,7 @@ class ProgressBar(object):
     self.__active   = True
     if (ttyOnly and not sys.stdout.isatty()):
       self.__active = False
-      
+
 
 
     self.__fd       = fd
@@ -125,7 +125,7 @@ class ProgressBar(object):
       if (( j <= self.__mark and k >= self.__mark) or
           ( j == k and j == self.__mark)         or
           (self.__fence > self.__mark)):
-        
+
         self.__count +=  1
         self.__mark  += 10
         symbol = self.__symbolT[self.__count]
@@ -136,7 +136,7 @@ class ProgressBar(object):
     if (not self.__active):
       return
     self.__fd.write("\n")
-        
+
 def main():
   """
   Test program for progress bar.
@@ -146,7 +146,7 @@ def main():
   pbar = ProgressBar(maxVal=num, ttyOnly=False)
   for i in xrange(num):
     pbar.update(i+1)
-  pbar.fini()  
+  pbar.fini()
 
 if ( __name__ == '__main__'): main()
-      
+

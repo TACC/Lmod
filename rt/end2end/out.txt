@@ -4,11 +4,11 @@ lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
 ===========================
 step 2
-OutputDIR/lmod/lmod/libexec/lmod --version
+ OutputDIR/lmod/lmod/libexec/lmod --version
 ===========================
 ===========================
 step 3
-OutputDIR/lmod/lmod/libexec/lmod load admin
+ OutputDIR/lmod/lmod/libexec/lmod load admin
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -30,7 +30,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/mf/Core",
 export _ModuleTable_;
 ===========================
 step 4
-OutputDIR/lmod/lmod/libexec/lmod list
+ OutputDIR/lmod/lmod/libexec/lmod list
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;

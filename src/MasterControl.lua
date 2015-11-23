@@ -742,7 +742,7 @@ function LmodSystemError(...)
    local label  = colorize("red", "Lmod has detected the following error: ")
    local twidth = TermWidth()
    local s      = buildMsg(twidth, label, ...)
-   
+
    io.stderr:write(s,"\n")
    moduleStackTraceBack()
    LmodErrorExit()

@@ -13,7 +13,7 @@
 -- Note that a leading slash means that it matches the directory name
 -- (i.e. intel).  There can only be one default.  In this case the last
 -- one controls.
---    
+--
 --
 -- @classmod MAlias
 
@@ -55,7 +55,7 @@ require("strict")
 
 require("serializeTbl")
 
-s_malias     = {} 
+s_malias     = {}
 local M      = {}
 local dbg    = require("Dbg"):dbg()
 local concat = table.concat
@@ -148,11 +148,11 @@ s_must_read_global_rc_files = true
 
 modA = false
 function M.resolve(self, name)
-   
+
    ------------------------------------------------------------------------
    -- we must guarantees that the directory has been walked.
    local mt = _G.MT:mt()
-   mt:locationTbl() 
+   mt:locationTbl()
 
    ------------------------------------------------------------------------
    -- Read in system and user RC files.
@@ -205,7 +205,7 @@ function M.getHiddenT(self,k)
    local t = {}
    if (s_must_convert) then
       s_must_convert = false
-      
+
       local hT = self.hiddenT
       for k in pairs(hT) do
          t[self:resolve(k)] = true

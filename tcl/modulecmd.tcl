@@ -373,10 +373,10 @@ proc module-whatis {message} {
     return {}
 }
 
-# Specifies a default or alias version for a module that points to an 
-# existing module version Note that the C version stores aliases and 
-# defaults by the short module name (not the full path) so aliases and 
-# defaults from one directory will apply to modules of the same name found 
+# Specifies a default or alias version for a module that points to an
+# existing module version Note that the C version stores aliases and
+# defaults by the short module name (not the full path) so aliases and
+# defaults from one directory will apply to modules of the same name found
 # in other directories.
 proc module-version {args} {
     global g_moduleVersion g_versionHash
@@ -389,7 +389,7 @@ proc module-version {args} {
     }
     set module_name [lindex $args 0]
 
-    # Check for shorthand notation of just a version "/version".  Base is 
+    # Check for shorthand notation of just a version "/version".  Base is
     # implied by current dir prepend the current directory to module_name
     if {[regexp {^\/} $module_name]} {
 	set base [file dirname $ModulesCurrentModulefile]
@@ -731,7 +731,7 @@ proc getReferenceCountArray {var separator} {
 		set modshareok 0
 	    }
 	} else {
-	    if {$g_debug} {	    
+	    if {$g_debug} {	
 		reportWarning "WARNING: module: $sharevar exists (\
 	          $env($sharevar) ), but $var doesn't. Environment is corrupted."
             }
@@ -1179,7 +1179,7 @@ proc popModuleName {} {
 }
 
 
-# Return the full pathname and modulename to the module.  
+# Return the full pathname and modulename to the module.
 # Resolve aliases and default versions if the module name is something like
 # "name/version" or just "name" (find default version).
 proc getPathToModule {mod {separator {}}} {
@@ -1233,7 +1233,7 @@ proc getPathToModule {mod {separator {}}} {
 	foreach dir [split $env(MODULEPATH) $separator] {
 	    set path "$dir/$mod"
 
-	    # modparent is the the modulename minus the module version.  
+	    # modparent is the the modulename minus the module version.
 	    set modparent [file dirname $mod]
 	    set modversion [file tail $mod]
 	    # If $mod was specified without a version (no "/") then mod is\
@@ -1921,7 +1921,7 @@ proc checkValidModule {modfile} {
     return 0
 }
 
-# If given module maps to default or other version aliases, a list of 
+# If given module maps to default or other version aliases, a list of
 # those aliases is returned.  This takes the full path to a module as
 # an argument.
 proc getVersAliasList {modulename} {
@@ -2143,7 +2143,7 @@ proc cmdModuleList {{separator {}}} {
         set loaded ""
     }
 
-    if { [string length $loaded] == 0} { 
+    if { [string length $loaded] == 0} {
         report "No Modulefiles Currently Loaded."
     } else {
         set list {}
@@ -2575,16 +2575,16 @@ proc cmdModuleAvail {{mod {*}}} {
             set list [lsort $list]
 	    if {$show_modtimes} {
 		foreach i $list {
-                    # don't change $i with the regsub - we need it 
+                    # don't change $i with the regsub - we need it
                     # to figure out the file time.
-                    regsub {\(default\)} $i "   (default)" i2 
+                    regsub {\(default\)} $i "   (default)" i2
 		    set filetime [clock format [file mtime [lindex [getPathToModule $i] 0]] -format "%Y/%m/%b %H:%M:%S" ]
 		    report [format "%-53s%10s" $i2 $filetime]
 		}
 	    }\
 	    elseif {$show_oneperline} {
 		foreach i $list {
-                    regsub {\(default\)} $i "   (default)" i2 
+                    regsub {\(default\)} $i "   (default)" i2
 		    report "$i2"
 		}
 	    } else {
@@ -2602,7 +2602,7 @@ proc cmdModuleAvail {{mod {*}}} {
 		}
 
 		# There is no '{}' at the begining of this 'list' as there is\
-		  in cmd 
+		  in cmd
 		#               ModuleList - ?
 		set item_cnt [expr {[llength $list] - 0}]
 		set rows [expr {int($item_cnt / $cols)}]
@@ -2807,7 +2807,7 @@ proc cmdModuleInit {args} {
 		}
 
 		while {[gets $fid curline] >= 0} {
-		    # Find module load/add command in startup file 
+		    # Find module load/add command in startup file
 		    set comments {}
 		    if {$notdone && [regexp {^([ \t]*module[ \t]+(load|add)[\
 		      \t]+)(.*)} $curline match cmd subcmd modules]} {

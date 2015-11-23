@@ -58,7 +58,7 @@ function logUsage(pkg)
       dbg.fini("logUsage")
       return true
    end
-   local user  = os.getenv("USER")
+   local user  = os.getenv("USER") or "__unknown__"
    local jobid = os.getenv("PBS_JOBID")
    local msg = ""
    dbg.print{"user: ",user," jobid: ",jobid,"\n"}

@@ -50,7 +50,7 @@ export MODULESHOME
 
 module()
 {
-  eval $($LMOD_CMD bash "$@") 
+  eval $($LMOD_CMD bash "$@")
   [ $? = 0 ] && eval $(${LMOD_SETTARG_CMD:-:} -s sh)
 }
 

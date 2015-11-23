@@ -11,7 +11,7 @@ class CmdLineOptions(object):
   def __init__(self):
     """ Empty Ctor """
     pass
-  
+
   def execute(self):
     """ Specify command line arguments and parse the command line"""
     parser = argparse.ArgumentParser()
@@ -36,33 +36,33 @@ def main():
   args     = CmdLineOptions().execute()
   configFn = dbConfigFn(args.dbname)
   lmod     = LMODdb(configFn)
-  
+
   if (args.cmdA[0] == "counts"):
     resultA = lmod.counts(args.sqlPattern, args.syshost, args.startDate, args.endDate)
-    num = len(resultA) - 2 
+    num = len(resultA) - 2
 
     bt = BeautifulTbl(tbl=resultA, gap = 4, justify = "lr")
 
 
   if (args.cmdA[0] == "usernames"):
     resultA = lmod.usernames(args.sqlPattern, args.syshost, args.startDate, args.endDate)
-    num = len(resultA) - 2 
+    num = len(resultA) - 2
 
     bt = BeautifulTbl(tbl=resultA, gap = 4, justify = "ll")
 
   if (args.cmdA[0] == "modules_used_by"):
     resultA = lmod.modules_used_by(args.sqlPattern, args.syshost, args.startDate, args.endDate)
-    num = len(resultA) - 2 
+    num = len(resultA) - 2
 
     bt = BeautifulTbl(tbl=resultA, gap = 4, justify = "ll")
 
   print("\n")
   print(bt.build_tbl())
   print("\n\nNumber of entries: ",num)
-    
 
 
-  
+
+
 
 
 

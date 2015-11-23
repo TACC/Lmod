@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.8.2  2015-01-14 20:55
+Modules based on Lua: Version 6.0.19  2015-11-18 08:32
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -11,7 +11,7 @@ lua ProjectDIR/src/lmod.in.lua bash restore default
 Restoring modules to user's default
 Lmod has detected the following error: The module collection file is corrupt.
 Please remove:
-OutputDIR/.lmod.d/default
+ OutputDIR/.lmod.d/default
 ===========================
 step 3
 lua ProjectDIR/src/lmod.in.lua bash restore broken
@@ -19,7 +19,7 @@ lua ProjectDIR/src/lmod.in.lua bash restore broken
 Restoring modules to user's broken
 Lmod has detected the following error: The module collection file is corrupt.
 Please remove:
-OutputDIR/.lmod.d/broken
+ OutputDIR/.lmod.d/broken
 ===========================
 step 4
 lua ProjectDIR/src/lmod.in.lua bash load PrgEnv
@@ -31,7 +31,7 @@ lua ProjectDIR/src/lmod.in.lua bash restore default
 Restoring modules to user's default
 Lmod has detected the following error: The module collection file is corrupt.
 Please remove:
-OutputDIR/.lmod.d/default
+ OutputDIR/.lmod.d/default
 ===========================
 step 6
 lua ProjectDIR/src/lmod.in.lua bash restore broken
@@ -39,4 +39,4 @@ lua ProjectDIR/src/lmod.in.lua bash restore broken
 Restoring modules to user's broken
 Lmod has detected the following error: The module collection file is corrupt.
 Please remove:
-OutputDIR/.lmod.d/broken
+ OutputDIR/.lmod.d/broken

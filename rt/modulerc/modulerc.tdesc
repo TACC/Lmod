@@ -54,6 +54,8 @@ testdescript = {
      runLmod avail                   #17
      rm -rf .lmod.d
 
+
+
      cat > fn << EOF
 $(outputDir)/cacheDir: $(outputDir)/last_update
 EOF
@@ -62,10 +64,13 @@ EOF
      mkdir cacheDir
      touch last_update
      buildModuleT $LMOD_DEFAULT_MODULEPATH > cacheDir/moduleT.lua
-     runLmod avail                   #16
+     runLmod avail                   #18
      buildDbT $LMOD_DEFAULT_MODULEPATH > cacheDir/dbT.lua
-     runLmod avail                   #17
+     runLmod avail                   #19
 
+     unsetMT
+     export MODULEPATH=$(testDir)/mf/Core:$(testDir)/mf2/Core
+     runLmod load cluster            #20
 
 
      HOME=$ORIG_HOME

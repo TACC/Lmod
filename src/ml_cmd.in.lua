@@ -296,7 +296,7 @@ function main()
       io.stderr:write(s, "\n")
    end
 
-   -- Output module command 
+   -- Output module command
    if (not show) then
       io.stdout:write(s, "\n")
    end

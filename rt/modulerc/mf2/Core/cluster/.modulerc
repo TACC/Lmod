@@ -1,0 +1,7 @@
+#%Module1.0
+if {[info exists ::env(VSC_DEFAULT_CLUSTER_MODULE)]} {
+    module-version cluster/$::env(VSC_DEFAULT_CLUSTER_MODULE) default
+} else {
+    puts stderr "The default cluster module cannot be determined. Please set \$VSC_DEFAULT_CLUSTER_MODULE."
+    exit 1
+}

@@ -3,7 +3,7 @@ Lmod on Shared Home File Systems
 
 Sites that use a shared home file system across multiple clusters
 should take some extra steps to ensure the smooth running of Lmod.
-Typically each cluster will different modules.  
+Typically each cluster will different modules.
 
 There are three steps that will make Lmod run smoothly on a shared
 home filesystem:

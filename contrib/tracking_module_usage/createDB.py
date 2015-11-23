@@ -23,7 +23,7 @@ class CmdLineOptions(object):
   def __init__(self):
     """ Empty Ctor """
     pass
-  
+
   def execute(self):
     """ Specify command line arguments and parse the command line"""
     parser = argparse.ArgumentParser()
@@ -47,7 +47,7 @@ def main():
       configFn = fn
     else:
       configFn = os.path.abspath(os.path.join(dirNm, "../site", configFn))
-      
+
   lmod = LMODdb(configFn)
 
   try:
@@ -80,11 +80,11 @@ def main():
         CREATE TABLE `moduleT` (
           `mod_id`        int(11)         NOT NULL auto_increment,
           `path`          varchar(1024)   NOT NULL,
-          `module`        varchar(64)     NOT NULL,  
+          `module`        varchar(64)     NOT NULL,
           `syshost`       varchar(32)     NOT NULL,
           PRIMARY KEY  (`mod_id`),
           INDEX  `thekey` (`path`(128), `syshost`)
-          
+
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8  COLLATE=utf8_general_ci AUTO_INCREMENT=1
         """)
     print("(%d) create moduleT table" % idx ); idx += 1;

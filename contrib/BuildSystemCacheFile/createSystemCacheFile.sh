@@ -88,12 +88,12 @@ cat > $LastUpdateFn <<EOF
 hostType
 EOF
 
-buildNewDB $CacheDir $ADMIN_DIR/system.txt moduleT 
+buildNewDB $CacheDir $ADMIN_DIR/system.txt moduleT
 buildNewDB $CacheDir $ADMIN_DIR/system.txt dbT
 
 ########################################################################
 #  Build reverse map (This is optional)
-#  This allows one to map between paths and modules.  
+#  This allows one to map between paths and modules.
 #
 #  For example: ldd on an executable produces paths to libraries. The
 #  reverse map allows one to map back to modules the executable might be

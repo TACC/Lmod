@@ -142,12 +142,12 @@ end
 -- @param tbl
 -- @param rmapT
 -- @param kind
-local function add2map(entry, tbl, dirA, rmapT, kind)
+local function add2map(entry, tbl, dirA, moduleFn, rmapT, kind)
    for path in pairs(tbl) do
       local attr = lfs.attributes(path)
       if (keepThisPath2(path,dirA) and attr and attr.mode == "directory") then
          path = abspath(path)
-         local t       = rmapT[path] or {pkg=entry.full, kind = kind, flavorT = {}}
+         local t       = rmapT[path] or {pkg=entry.full, kind = kind, moduleFn = moduleFn, flavorT = {}}
          local flavorT = t.flavorT
          for i = 1, #entry.parent do
             flavorT[entry.parent[i]] = true
@@ -191,13 +191,13 @@ local function buildReverseMapT(moduleDirA, moduleT, dbT)
    for kkk,vvv in pairs(dbT) do
       for kk, entry in pairs(vvv) do
          if (entry.pathA) then
-            add2map(entry, entry.pathA,  entry.dirA, reverseMapT, "bin")
+            add2map(entry, entry.pathA,  entry.dirA, kk, reverseMapT, "bin")
          end
          if (entry.lpathA) then
-            add2map(entry, entry.lpathA, entry.dirA, reverseMapT, "lib")
+            add2map(entry, entry.lpathA, entry.dirA, kk, reverseMapT, "lib")
          end
          if (entry.dirA) then
-            add2map(entry, entry.dirA,   entry.dirA, reverseMapT, "dir")
+            add2map(entry, entry.dirA,   entry.dirA, kk, reverseMapT, "dir")
          end
       end
    end

@@ -22,7 +22,7 @@ module path: ::
 
 This will prepend ``/path/to/personal/modulefiles`` to the MODULEPATH
 environment variable. This means that any modulefiles defined here
-will be used instead of the system modules. 
+will be used instead of the system modules.
 
 Suppose that the user creates a directory called ``$HOME/modulefiles``
 and he wants a personal copy of the "git" package and he does the
@@ -44,15 +44,15 @@ modulefile for git one does: ::
     $ cd git
     $ cat > 2.6.2.lua
     local home    = os.getenv("HOME")
-    local version = myModuleVersion() 
-    local pkgName = myModuleName() 
+    local version = myModuleVersion()
+    local pkgName = myModuleName()
     local pkg     = pathJoin(home,"pkg",pkgName,version,"bin")
     prepend_path("PATH", pkg)
-    ^D  
+    ^D
 
 Starting first from the name: git/2.6.2.lua, modulefiles with the .lua
 extension are assumed to be written in lua and files without are
-assumed to be written in TCL. 
+assumed to be written in TCL.
 This modulefile for git adds ``~/pkg/git/2.6.2/bin`` to the user's
 path so that the personal version of git can be found.  Note that the
 use of the functions **myModuleName()** and  **myModuleVersion()**
@@ -66,7 +66,7 @@ The first line reads the user's HOME directory from the
 environment. The second line uses the "pathJoin" function provided
 from Lmod. It joins strings together with the appropriate number of
 "/". The last line calls the "prepend_path" function to add the path
-to git to the user's path. 
+to git to the user's path.
 
 Finally the user can do: ::
 
@@ -102,7 +102,7 @@ version of "git" ::
    git/1.7.4   git/2.0.1   git/3.5.4 (D)
 
    $ module load git
- 
+
 
 The load command will load ``git/3.5.4`` because it is the highest
 version.

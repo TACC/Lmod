@@ -37,7 +37,7 @@ if [ -z "${USER_IS_ROOT:-}" ]; then
     fi
     export MANPATH=$(@PKG@/libexec/addto MANPATH @PKG@/share/man)
   fi
-  
+
   my_shell=$(@ps@ -p $$ -ocomm=)
   my_shell=$(@expr@ "$my_shell" : '-*\(.*\)')
   my_shell=$(@basename@ $my_shell)

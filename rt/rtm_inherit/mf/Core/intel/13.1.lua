@@ -12,7 +12,7 @@ prepend_path("MODULEPATH", pathJoin(os.getenv("MODULEPATH_ROOT"),"Compiler/intel
 family("compiler")
 help([[
 The Intel module enables the Intel family of compilers (C/C++
-and Fortran) and updates the $PATH, $LD_LIBRARY_PATH, and 
+and Fortran) and updates the $PATH, $LD_LIBRARY_PATH, and
 $MANPATH environment variables to access the compiler binaries,
 libraries, and available man pages, respectively.
 
@@ -23,7 +23,7 @@ $ICC_LIB                (path to C/C++  libraries  )
 $IFC_BIN                (path to ifort compiler    )
 $IFC_LIB                (path to Fortran libraries )
 $IIDB_BIN               (path to iidb debugger     )
- 
+
 See the man pages for icc, icpc, and ifort for detailed information
 on available compiler options and command-line syntax
 

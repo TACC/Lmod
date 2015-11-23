@@ -64,7 +64,7 @@ function string:split(pat)
 end
 
 --------------------------------------------------------------------------
--- Wrap *s* 
+-- Wrap *s*
 -- @param s Input string
 
 function wrapper(s)

@@ -278,7 +278,7 @@ function M._columnSum2(self, istart, iend)
    for i = istart, iend do
       local a = szA[i]
       for idim = 1, dim2 do
-         
+
          maxA[idim].prt = max(maxA[idim].prt, a[idim].prt)
          maxA[idim].wrt = max(maxA[idim].wrt, a[idim].wrt)
       end

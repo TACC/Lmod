@@ -147,7 +147,7 @@ LMOD_TMOD_PATH_RULE = initialize("LMOD_TMOD_PATH_RULE",
 
 ------------------------------------------------------------------------
 -- LMOD_DISABLE_SAME_NAME_AUTOSWAP: This env. var requires users to swap
---                  out rather than using the one name rule. 
+--                  out rather than using the one name rule.
 ------------------------------------------------------------------------
 
 LMOD_DISABLE_SAME_NAME_AUTOSWAP = initialize("LMOD_DISABLE_SAME_NAME_AUTOSWAP",

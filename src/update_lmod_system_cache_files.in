@@ -175,11 +175,11 @@ parse_cmdline(){
 
 # set default values for undefined parameters
 set_defaults() {
-    
+
   if [ -z "${LMOD_CACHE_TIMESTAMP_FILE}" -o -z "${LMOD_CACHE_DIR}" ]; then
      # Get number of cache Dirs:
      local matchStr="number of cache dirs"
-     numSC=$(module --config 2>&1 | grep "$matchStr" | sed -e "s/$matchStr *//")  
+     numSC=$(module --config 2>&1 | grep "$matchStr" | sed -e "s/$matchStr *//")
 
      if [ "$numSC" = 1 ]; then
         cacheLine=$(module --config 2>&1 | grep -A 2 "Cache Directory" | tail -1 )
@@ -261,14 +261,14 @@ install_new_cache() {
 run_spider() {
     cache_type=$1
     cache_file_path=$2
-    
+
     if [ -z "$LMOD_DEBUG" ]; then
       debug "Generating new $cache_type Lmod cache file at $cache_file_path"
       debug "Running \"spider -o $cache_type $BASE_MODULEPATH > $cache_file_path\""
       @libexec@/spider -o $cache_type $BASE_MODULEPATH > $cache_file_path
     else
       @libexec@/spider -D -o $cache_type $BASE_MODULEPATH > $cache_file_path 2> ${cache_file_path}.log
-    fi      
+    fi
 
     SPIDER_EXIT_CODE=$?
     debug "Exit code of spider command: $SPIDER_EXIT_CODE"
@@ -287,7 +287,7 @@ update_cache() {
     if [ "$cache_type" = "jsonReverseMapT" ]; then
       ext=json
     fi
-    
+
     if [ ! -d  $cache_dir ]; then
        mkdir -p $cache_dir
     fi

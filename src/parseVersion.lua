@@ -132,7 +132,7 @@ function parseVersionParts(versionStr)
    return
       function()
 
-         -- skip over "." unless 
+         -- skip over "." unless
          if (ipos <= s_end and s:sub(ipos,ipos) == ".") then
             if (ipos == 1) then
                ipos = ipos + 1

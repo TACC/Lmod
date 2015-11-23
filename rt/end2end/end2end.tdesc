@@ -27,7 +27,7 @@ testdescript = {
      HOME=`/bin/pwd`
 
 
-     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d build 
+     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d build
      rm -f  results.csv
 
      runLmod --version              # 1

@@ -14,7 +14,7 @@ using a MySQL database and Rsyslog (version 5.8)
 
 For a cluster, it is common to have each node in that cluster to send
 its syslog messages to a single central machine (called master in this
-discussion).  I will be sending the module usage message through syslog 
+discussion).  I will be sending the module usage message through syslog
 to a separate machine.  That separate machine will collect the module
 tracking data into a log file that just contains tracking data.  Finally
 this data is written into the database.
@@ -40,7 +40,7 @@ Detailed Steps:
 Step 1:
 -------
 
-Use SitePackage.lua to send a message to syslog.  
+Use SitePackage.lua to send a message to syslog.
 
    --------------------------------------------------------------------------
    -- load_hook(): Here we record the any modules loaded.
@@ -149,7 +149,7 @@ I found the following site helpful in getting the MySQL database setup:
 a) Install MySQL db. Create a mysql root password.  Then create an account in the database like this:
 
        $ mysql -u root -p
-       Enter password: 
+       Enter password:
 
        mysql> CREATE DATABASE lmod;
 
@@ -174,7 +174,7 @@ b) Use the "conf_create" program to create a file containing the access informat
 
    Where you'll have to fill in the correct name for the database host and password.   This creates a file named
    lmod_db.conf which is used by createDB.py, analyzeLmodDB and other programs to access the database.
-   
+
 
 c) Make sure your python knows about the MySQLdb module. Please use pip or something similar if it is unavailable.
 
@@ -182,7 +182,7 @@ c) Make sure your python knows about the MySQLdb module. Please use pip or somet
 d) Create the database by running the createDB.py program.
 
       $ ./createDB.py
- 
+
 
 
 Step 6:
@@ -198,7 +198,7 @@ b) I use a cron job to load the moduleUsage.log-* files.   This is the script I 
 
    #!/bin/bash
 
-   # 
+   #
    PATH=<path_to_python>:$PATH
    cd ~mclay/load_module_usage
 

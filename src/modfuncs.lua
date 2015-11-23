@@ -248,7 +248,7 @@ end
 
 --------------------------------------------------------------------------
 -- This function always unloads and never loads. The reverse of this
--- function is a no-op.  
+-- function is a no-op.
 function always_unload(...)
    dbg.start{"always_unload(",concatTbl({...},", "),")"}
    if (not validateStringArgs("always_unload",...)) then return {} end

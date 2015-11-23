@@ -12,7 +12,7 @@ class CmdLineOptions(object):
   def __init__(self):
     """ Empty Ctor """
     pass
-  
+
   def execute(self):
     """ Specify command line arguments and parse the command line"""
     parser = argparse.ArgumentParser()
@@ -39,7 +39,7 @@ def main():
   configFn = dbConfigFn(args.dbname)
 
   lmod     = LMODdb(configFn)
-  
+
   if (args.syshost == "unknown"):
     print("Aborting: You must specify the system host name(--syshost name)!")
     sys.exit(1)
@@ -63,7 +63,7 @@ def main():
         for i in xrange(2,num):
           idx = row[i].find(":")
           moduleA.append([row[i][0:idx], row[i][idx+1:]])
-  
+
         for entry in moduleA:
           dataT['time'   ] = epoch
           dataT['user'   ] = user
