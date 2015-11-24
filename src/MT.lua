@@ -834,7 +834,7 @@ function M.getMTfromFile(self,t)
 
    local savedBaseMPATH = concatTbl(l_mt.baseMpathA,":")
    dbg.print{"Saved baseMPATH: ",savedBaseMPATH,"\n"}
-   varTbl[ModulePath] = Var:new(ModulePath,mpath)
+   varTbl[ModulePath] = Var:new(ModulePath,savedBaseMPATH)
    dbg.print{"(1) varTbl[ModulePath]:expand(): ",varTbl[ModulePath]:expand(),"\n"}
    local force = true
    Purge(force)
