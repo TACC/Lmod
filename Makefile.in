@@ -11,6 +11,7 @@ ifeq ($(HAVE_LUA_JSON),yes)
   TOOL_SRC                := $(filter-out $(PATH_TO_SRC)/tools/json.lua, $(TOOL_SRC))
 endif
 
+CURRENT_MK                := $(lastword $(MAKEFILE_LIST))
 PATH_TO_LUA	  	  := @PATH_TO_LUA@
 export IGNORE_DIRS        := $(shell $(PATH_TO_LUA)/lua $(PATH_TO_SRC)/src/ignore_dirs_converter @IGNORE_DIRS@)
 REDIRECT                  := @REDIRECT@
@@ -246,7 +247,7 @@ config.status:
 	./config.status --recheck
 
 dist:
-	$(MAKE) DistD=DIST _dist
+	$(MAKE) -f $(CURRENT_MK) $(MAKEFLAGS) DistD=DIST _dist
 
 _dist: _distMkDir _distMainDir _distSrc _distSetup _distSetupZsh \
        _distVersion _distPkgs _distMF    _distContrib _distTar
