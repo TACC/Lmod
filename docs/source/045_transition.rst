@@ -143,7 +143,7 @@ An example of how this can be done in your bash startup scripts
 All the comments above can be combined into a complete example::
 
     if [ -z "$_INIT_LMOD" ]; then
-       export _INIT_LMOD=1
+       export _INIT_LMOD=1           # guard variable is crucial, to avoid breaking existing modules settings
        type module > /dev/null 2>&1
        if [ "$?" -eq 0 ]; then
          module purge >2 /dev/null   # purge old modules using old module command.
@@ -199,7 +199,7 @@ your users it is quite easy to switch to an opt-out strategy:
 #. Change */etc/profile.d/z00_lmod.sh* so that everyone is using Lmod
 #. If a user has a ~/.no.lmod then they continue to use your original
    module system.
-#. At TACC we did this for another 6 mouth.
+#. At TACC we did this for another 6 months.
 #. We broke Environment Module support with the family directive.
 #. We now only support Lmod.
 #. Both transitions generated very few tickets (2+2).
