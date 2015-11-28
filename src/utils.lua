@@ -936,7 +936,12 @@ function walk_directory_for_mf(mpath, path, prefix, dirA, mnameT)
    -- Copy files into mnameT.
    local ignoreT   = ignoreFileT()
 
+   local filenames = {}
    for file in lfs.dir(path) do
+     table.insert(filenames, file)
+   end
+   table.sort(filenames)
+   for i, file in pairs(filenames) do
       local idx       = defaultFnT[file] or defaultIdx
       if (idx < defaultIdx) then
          defaultIdx = idx
