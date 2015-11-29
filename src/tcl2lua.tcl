@@ -516,10 +516,10 @@ proc doubleQuoteEscaped {text} {
 
 proc cmdargs { cmd args } {
     foreach arg $args {
-	if {$arg != ""} {
+	#if {$arg != ""} {
 	    set val [doubleQuoteEscaped $arg]
 	    lappend cmdArgsL "\"$val\""
-	}
+	#}
     }
     set cmdArgs [join $cmdArgsL ","]
     puts stdout "$cmd\($cmdArgs\)"
