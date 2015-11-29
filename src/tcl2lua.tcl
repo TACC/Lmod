@@ -404,18 +404,19 @@ proc module-whatis { args } {
 proc setenv { var val args } {
     global env g_varsT
     set mode [currentMode]
-    set respect ""
 
     if {[string match $var "-respect"] || [string match $var "-r"] || [string match $var "--respect"]} {
 	set respect "true"
 	set var [lindex $args 0]
 	set val [lindex $args 1]
+	cmdargs "setenv" $var $val $respect
+	return
     }
     if {$mode == "load"} {
 	set env($var)     $val
 	set g_varsT($var) $val
     }
-    cmdargs "setenv" $var $val $respect
+    cmdargs "setenv" $var $val
 }
 
 proc unsetenv { var {val {}}} {
