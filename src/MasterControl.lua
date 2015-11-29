@@ -505,7 +505,11 @@ function M.setenv(self, name, value, respect)
    if (varTbl[name] == nil) then
       varTbl[name] = Var:new(name)
    end
-   varTbl[name]:set(tostring(value))
+   if (value ~= nil) then
+     varTbl[name]:set(tostring(value))
+   else
+     varTbl[name]:set('')
+   end
    dbg.fini("MasterControl:setenv")
 end
 
