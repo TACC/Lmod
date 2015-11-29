@@ -968,7 +968,11 @@ function walk_directory_for_mf(mpath, path, prefix, dirA, mnameT)
                -- do nothing for non-readable or non-existant files
             elseif (attr.mode == 'file' and file ~= "default" and accept_fn(file) and
                     full:sub(1,1) ~= '.') then
-               mnameT[full] = {fn = f, canonical=f:gsub("%.lua$",""), mpath = mpath}
+               -- Lua modulefiles should always be picked over TCL modulefiles
+               if (not mnameT[full] or not mnameT[full].luaExt) then
+                  local luaExt = f:find("%.lua$")
+                  mnameT[full] = {fn = f, canonical=f:gsub("%.lua$",""), mpath = mpath, luaExt = luaExt}
+               end
             elseif (attr.mode == "directory" and file:sub(1,1) ~= ".") then
                dirA[#dirA + 1] = { fullName = f, mname = full}
             end
