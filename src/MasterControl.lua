@@ -495,6 +495,10 @@ function M.setenv(self, name, value, respect)
    dbg.start{"MasterControl:setenv(\"",name,"\", \"",value,"\", \"",
               respect,"\")"}
 
+   if (value == nil) then
+      LmodError("setenv(\"",name,"\") is not valid, a value is required")
+   end
+
    if (respect and getenv(name)) then
       dbg.print{"Respecting old value"}
       dbg.fini("MasterControl:setenv")
@@ -547,6 +551,10 @@ function M.pushenv(self, name, value)
    -- If name exists in the env and the stack version of the name
    -- doesn't exist then use the name's value as the initial value
    -- for "stackName".
+
+   if (value == nil) then
+      LmodError("pushenv(\"",name,"\") is not valid, a value is required")
+   end
 
    local stackName = "__LMOD_STACK_" .. name
    local v64       = nil

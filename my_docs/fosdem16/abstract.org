@@ -1,0 +1,35 @@
+Here are notes as what goes into the abstract:
+
+* Questions the abstract should (sorta) answer:
+** What is Env. Modules:
+
+   On High Performance Computers, Chemists, Biologists, Physicists and
+   Engineers are sharing the same system and they all need
+   different software. Environment Module Systems have been the way
+   since the '90 that users select the software they need.  User load
+   and unload the packages they want.  They get to control which
+   version of the software not the center. Lmod is a modern
+   replacement for the venerable TCL/C based tool.  Lmod is a Lua
+   based tool.  Lmod offers many features to handle the vastly more
+   dynamic software environment then the original tool was designed to
+   handle. 
+
+   This talk will not describe the features of Lmod in detail, instead
+   it will focus on these points: (1) What it is like to open source a
+   tool for seven years that is used by a large community of busy
+   users and sysadmins which are only interested in tools that works
+   much much better than the tools they currently have.  They have
+   never heard of Lua and they don't care how beautiful it is.  (2)
+   How do you debug problems on a system you'll never get to log into?
+   (3) Lmod uses site generated files, called modulefiles. These
+   modulefiles are Lua programs which are evaluated one way to load,
+   another way to unload, yet another to get help on packages.  We use
+   nice features of Lua to cleanly implement the 8 different ways that
+   modulefiles are evalutated. (4) For 20+ years the HPC community has
+   been using TCL based modulefiles, Lmod translates these on the fly
+   into Lua.  This has worked well, except for some interesting edge
+   cases. 
+
+   This has been an interesting ride, starting with one center in
+   Texas, to a tool that is used in centers around the world.  World
+   domination one center at a time.

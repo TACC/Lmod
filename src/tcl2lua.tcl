@@ -413,6 +413,8 @@ proc setenv { var val args } {
 	return
     }
     if {$mode == "load"} {
+	# set env vars in the current environment during load only
+	# Don't unset then during remove mode.
 	set env($var)     $val
 	set g_varsT($var) $val
     }
