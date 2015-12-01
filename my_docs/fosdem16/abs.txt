@@ -1,3 +1,53 @@
+
+
+
+
+
+
+
+
+
+Title: Lmod: Building a Community around an Environment Module Tool
+
+
+
+Lmod is a modern, flexible, robust environment module system: the
+system tool that "sets the table" by helping supercomputer users load
+the software packages they need to do their work.  It is a Lua-based
+drop-in replacement for the venerable TCL/C environment module
+system. Because needs vary across the diverse computational research
+community, module systems like Lmod are mission-critical, ubiquitous,
+and expected on such systems: users need help selecting the correct
+combination of tools from among the thousands available on modern,
+large-scale systems. 
+ 
+ 
+This is not a talk about Lmod's features or design; instead, the focus
+is on process, community, and culture.  What is it like to develop,
+maintain, and support a tool for a community that is often unaware
+that it (or Lua) even exists?  How does one go about diagnosing and
+correcting problems on systems to which you cannot get access? 
+ 
+But the talk also addresses an important Lua-related issue. A module
+system loads a given software package by interpreting a 'modulefile'
+that describes the details of the environment that software package
+needs. Lmod's native modulefiles are Lua programs; Lmod parses legacy
+TCL modules by translating their instructions into Lua. This approach
+has been very successful, but has not been without its challenges:
+this talk includes an introduction to some of the associated technical
+issues and edge cases. 
+ 
+This has been an interesting ride, from a local tool deployed at a
+single site in Texas, to an open source mainstay that is mission
+critical at hundreds of supercomputer centers around the world. World
+domination through Lua and Lmod, one center at a time! 
+ 
+
+title ideas: 
+
+
+
+
 On today's supercomputers, chemists, biologists, physicists and
 engineers are sharing the same system and they all need different
 software. Environment Modules have been the way since the '90 that
@@ -28,3 +78,8 @@ cases.
 This has been an interesting ride, starting with one supercomputer
 center in Texas, to a tool that is used in centers around the world.
 World domination through Lua and Lmod one center at a time.
+
+--------------
+
+
+
