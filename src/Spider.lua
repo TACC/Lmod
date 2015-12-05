@@ -806,7 +806,7 @@ function M._Level1(self, searchPat, key, T, searchName, possibleA, help)
       ia = ia + 1; a[ia] = border
       ia = ia + 1; a[ia] = "  For detailed information about a specific \""
       ia = ia + 1; a[ia] = key
-      ia = ia + 1; a[ia] = "\" module (including how to load the modules) the module's full name.\n"
+      ia = ia + 1; a[ia] = "\" module (including how to load the modules) use the module's full name.\n"
       ia = ia + 1; a[ia] = "  For example:\n\n"
       ia = ia + 1; a[ia] = "     $ module spider "
       ia = ia + 1; a[ia] = exampleV

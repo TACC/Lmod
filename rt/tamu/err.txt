@@ -88,7 +88,7 @@ lua ProjectDIR/src/lmod.in.lua bash spider uapp
         uapp/3.0
         uapp/7.0.8.1
         uapp/7.1.8.1
-  For detailed information about a specific "uapp" module (including how to load the modules) the module's full name.
+  For detailed information about a specific "uapp" module (including how to load the modules) use the module's full name.
   For example:
      $ module spider uapp/7.1.8.1
 ===========================
