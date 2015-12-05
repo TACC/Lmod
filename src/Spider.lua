@@ -804,9 +804,10 @@ function M._Level1(self, searchPat, key, T, searchName, possibleA, help)
       end
 
       ia = ia + 1; a[ia] = border
-      ia = ia + 1; a[ia] = "  To find detailed information about "
+      ia = ia + 1; a[ia] = "  For detailed information about a specific \""
       ia = ia + 1; a[ia] = key
-      ia = ia + 1; a[ia] = " please enter the full name.\n  For example:\n\n"
+      ia = ia + 1; a[ia] = "\" module (including how to load the modules) the module's full name.\n"
+      ia = ia + 1; a[ia] = "  For example:\n\n"
       ia = ia + 1; a[ia] = "     $ module spider "
       ia = ia + 1; a[ia] = exampleV
       ia = ia + 1; a[ia] = "\n"
@@ -833,7 +834,7 @@ function M._Level2(self, T, searchName, full, possibleA)
    local border = banner:border(0)
    local availT = {
       "\n    This module can be loaded directly: module load " .. full .. "\n",
-      "\n    This module can only be loaded through the following modules:\n",
+      "\n    You will need to load all module(s) on any one of the lines below before the \"" .. full .. "\" module is available to load.\n",
       "\n    This module can be loaded directly: module load " .. full .. "\n" ..
       "\n    Additional variants of this module can also be loaded after the loading the following modules:\n",
    }

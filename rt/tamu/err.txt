@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 6.0.6  2015-07-16 14:33
+Modules based on Lua: Version 6.0.24  2015-11-30 08:17
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -88,7 +88,7 @@ lua ProjectDIR/src/lmod.in.lua bash spider uapp
         uapp/3.0
         uapp/7.0.8.1
         uapp/7.1.8.1
-  To find detailed information about uapp please enter the full name.
+  For detailed information about a specific "uapp" module (including how to load the modules) the module's full name.
   For example:
      $ module spider uapp/7.1.8.1
 ===========================
@@ -96,5 +96,5 @@ step 10
 lua ProjectDIR/src/lmod.in.lua bash spider uapp/7.0.8.1
 ===========================
   uapp: uapp/7.0.8.1
-    This module can only be loaded through the following modules:
+    You will need to load all module(s) on any one of the lines below before the "uapp/7.0.8.1" module is available to load.
       ucc/9.0  umpi/8.1

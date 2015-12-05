@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 6.0.6  2015-07-16 14:33
+Modules based on Lua: Version 6.0.24  2015-11-30 08:17
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -77,7 +77,7 @@ lua ProjectDIR/src/lmod.in.lua bash spider pet
   petsc/petsc/3.3: petsc/petsc/3.3
     Description:
       Numerical library for sparse linear algebra
-    This module can only be loaded through the following modules:
+    You will need to load all module(s) on any one of the lines below before the "petsc/petsc/3.3" module is available to load.
       intel/13.1  mvapich2/1.9
     Help:
       The petsc module defines the following environment variables:
@@ -90,7 +90,7 @@ lua ProjectDIR/src/lmod.in.lua bash spider pet
   petsc/petsc/3.3-complex: petsc/petsc/3.3-complex
     Description:
       Numerical library for sparse linear algebra
-    This module can only be loaded through the following modules:
+    You will need to load all module(s) on any one of the lines below before the "petsc/petsc/3.3-complex" module is available to load.
       intel/13.1  mvapich2/1.9
     Help:
       The petsc module defines the following environment variables:
@@ -103,7 +103,7 @@ lua ProjectDIR/src/lmod.in.lua bash spider pet
   petsc/petsc/3.3-complexdebug: petsc/petsc/3.3-complexdebug
     Description:
       Numerical library for sparse linear algebra
-    This module can only be loaded through the following modules:
+    You will need to load all module(s) on any one of the lines below before the "petsc/petsc/3.3-complexdebug" module is available to load.
       intel/13.1  mvapich2/1.9
     Help:
       The petsc module defines the following environment variables:
@@ -116,7 +116,7 @@ lua ProjectDIR/src/lmod.in.lua bash spider pet
   petsc/petsc/3.3-cxx: petsc/petsc/3.3-cxx
     Description:
       Numerical library for sparse linear algebra
-    This module can only be loaded through the following modules:
+    You will need to load all module(s) on any one of the lines below before the "petsc/petsc/3.3-cxx" module is available to load.
       intel/13.1  mvapich2/1.9
     Help:
       The petsc module defines the following environment variables:
@@ -129,7 +129,7 @@ lua ProjectDIR/src/lmod.in.lua bash spider pet
   petsc/petsc/3.3-cxxcomplex: petsc/petsc/3.3-cxxcomplex
     Description:
       Numerical library for sparse linear algebra
-    This module can only be loaded through the following modules:
+    You will need to load all module(s) on any one of the lines below before the "petsc/petsc/3.3-cxxcomplex" module is available to load.
       intel/13.1  mvapich2/1.9
     Help:
       The petsc module defines the following environment variables:
@@ -142,7 +142,7 @@ lua ProjectDIR/src/lmod.in.lua bash spider pet
   petsc/petsc/3.3-cxxcomplexdebug: petsc/petsc/3.3-cxxcomplexdebug
     Description:
       Numerical library for sparse linear algebra
-    This module can only be loaded through the following modules:
+    You will need to load all module(s) on any one of the lines below before the "petsc/petsc/3.3-cxxcomplexdebug" module is available to load.
       intel/13.1  mvapich2/1.9
     Help:
       The petsc module defines the following environment variables:
@@ -155,7 +155,7 @@ lua ProjectDIR/src/lmod.in.lua bash spider pet
   petsc/petsc/3.3-cxxdebug: petsc/petsc/3.3-cxxdebug
     Description:
       Numerical library for sparse linear algebra
-    This module can only be loaded through the following modules:
+    You will need to load all module(s) on any one of the lines below before the "petsc/petsc/3.3-cxxdebug" module is available to load.
       intel/13.1  mvapich2/1.9
     Help:
       The petsc module defines the following environment variables:
@@ -168,7 +168,7 @@ lua ProjectDIR/src/lmod.in.lua bash spider pet
   petsc/petsc/3.3-debug: petsc/petsc/3.3-debug
     Description:
       Numerical library for sparse linear algebra
-    This module can only be loaded through the following modules:
+    You will need to load all module(s) on any one of the lines below before the "petsc/petsc/3.3-debug" module is available to load.
       intel/13.1  mvapich2/1.9
     Help:
       The petsc module defines the following environment variables:
@@ -181,7 +181,7 @@ lua ProjectDIR/src/lmod.in.lua bash spider pet
   petsc/petsc/3.3-uni: petsc/petsc/3.3-uni
     Description:
       Numerical library for sparse linear algebra
-    This module can only be loaded through the following modules:
+    You will need to load all module(s) on any one of the lines below before the "petsc/petsc/3.3-uni" module is available to load.
       intel/13.1  mvapich2/1.9
     Help:
       The petsc module defines the following environment variables:
@@ -194,7 +194,7 @@ lua ProjectDIR/src/lmod.in.lua bash spider pet
   petsc/petsc/3.3-unidebug: petsc/petsc/3.3-unidebug
     Description:
       Numerical library for sparse linear algebra
-    This module can only be loaded through the following modules:
+    You will need to load all module(s) on any one of the lines below before the "petsc/petsc/3.3-unidebug" module is available to load.
       intel/13.1  mvapich2/1.9
     Help:
       The petsc module defines the following environment variables:
@@ -207,7 +207,7 @@ lua ProjectDIR/src/lmod.in.lua bash spider pet
   petsc/petsc/petsc/3.3: petsc/petsc/petsc/3.3
     Description:
       Numerical library for sparse linear algebra
-    This module can only be loaded through the following modules:
+    You will need to load all module(s) on any one of the lines below before the "petsc/petsc/petsc/3.3" module is available to load.
       intel/13.1  mvapich2/1.9
     Help:
       The petsc module defines the following environment variables:
@@ -220,7 +220,7 @@ lua ProjectDIR/src/lmod.in.lua bash spider pet
   petsc/petsc/petsc/petsc/3.3: petsc/petsc/petsc/petsc/3.3
     Description:
       Numerical library for sparse linear algebra
-    This module can only be loaded through the following modules:
+    You will need to load all module(s) on any one of the lines below before the "petsc/petsc/petsc/petsc/3.3" module is available to load.
       intel/13.1  mvapich2/1.9
     Help:
       The petsc module defines the following environment variables:
@@ -233,7 +233,7 @@ lua ProjectDIR/src/lmod.in.lua bash spider pet
   petsc/petsc/petsc/petsc/petsc: petsc/petsc/petsc/petsc/petsc/3.3
     Description:
       Numerical library for sparse linear algebra
-    This module can only be loaded through the following modules:
+    You will need to load all module(s) on any one of the lines below before the "petsc/petsc/petsc/petsc/petsc/3.3" module is available to load.
       intel/13.1  mvapich2/1.9
     Help:
       The petsc module defines the following environment variables:

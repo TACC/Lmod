@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 6.0.19  2015-11-18 08:32
+Modules based on Lua: Version 6.0.24  2015-11-30 08:17
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -145,14 +145,14 @@ step 5
 lua ProjectDIR/src/lmod.in.lua bash spider mpich2
 ===========================
   mpich2: mpich2/1.0.7
-    This module can only be loaded through the following modules:
+    You will need to load all module(s) on any one of the lines below before the "mpich2/1.0.7" module is available to load.
       intel/intel
 ===========================
 step 6
 lua ProjectDIR/src/lmod.in.lua bash spider mpich2/1.0.7
 ===========================
   mpich2: mpich2/1.0.7
-    This module can only be loaded through the following modules:
+    You will need to load all module(s) on any one of the lines below before the "mpich2/1.0.7" module is available to load.
       intel/intel
 ===========================
 step 7
@@ -210,7 +210,7 @@ lua ProjectDIR/src/lmod.in.lua bash spider is-dyna
      Versions:
         is-dyna/1.0
         is-dyna/2.0
-  To find detailed information about is-dyna please enter the full name.
+  For detailed information about a specific "is-dyna" module (including how to load the modules) the module's full name.
   For example:
      $ module spider is-dyna/2.0
 ===========================
@@ -230,7 +230,7 @@ lua ProjectDIR/src/lmod.in.lua bash spider bwa
         bwa/0.7.9a
         bwa/0.7.9
         bwa/0.7.10
-  To find detailed information about bwa please enter the full name.
+  For detailed information about a specific "bwa" module (including how to load the modules) the module's full name.
   For example:
      $ module spider bwa/0.7.9a
 ===========================
@@ -242,7 +242,7 @@ lua ProjectDIR/src/lmod.in.lua bash spider gromacs
         apps/gromacs/4.0.7
         apps/gromacs/4.6.3-debug
         apps/gromacs/4.6.3
-  To find detailed information about apps/gromacs please enter the full name.
+  For detailed information about a specific "apps/gromacs" module (including how to load the modules) the module's full name.
   For example:
      $ module spider apps/gromacs/4.6.3
 ===========================
@@ -258,7 +258,7 @@ lua ProjectDIR/src/lmod.in.lua bash spider apps/gromacs
         apps
   To find other possible module matches do:
       module -r spider '.*apps/gromacs.*'
-  To find detailed information about apps/gromacs please enter the full name.
+  For detailed information about a specific "apps/gromacs" module (including how to load the modules) the module's full name.
   For example:
      $ module spider apps/gromacs/4.6.3
 ===========================
@@ -266,14 +266,14 @@ step 18
 lua ProjectDIR/src/lmod.in.lua bash spider apps/gromacs/4.6.3
 ===========================
   apps/gromacs: apps/gromacs/4.6.3
-    This module can only be loaded through the following modules:
+    You will need to load all module(s) on any one of the lines below before the "apps/gromacs/4.6.3" module is available to load.
       cmplrs/intel/14.0  mpi/openmpi/1.6.5
 ===========================
 step 19
 lua ProjectDIR/src/lmod.in.lua bash spider apps/gromacs/4.6.3-debug
 ===========================
   apps/gromacs: apps/gromacs/4.6.3-debug
-    This module can only be loaded through the following modules:
+    You will need to load all module(s) on any one of the lines below before the "apps/gromacs/4.6.3-debug" module is available to load.
       cmplrs/intel/14.0  mpi/openmpi/1.6.5
 ===========================
 step 20
@@ -334,7 +334,7 @@ lua ProjectDIR/src/lmod.in.lua bash spider gromacs
         apps/gromacs/4.0.7
         apps/gromacs/4.6.3-debug
         apps/gromacs/4.6.3
-  To find detailed information about apps/gromacs please enter the full name.
+  For detailed information about a specific "apps/gromacs" module (including how to load the modules) the module's full name.
   For example:
      $ module spider apps/gromacs/4.6.3
 ===========================
@@ -350,7 +350,7 @@ lua ProjectDIR/src/lmod.in.lua bash spider apps/gromacs
         apps
   To find other possible module matches do:
       module -r spider '.*apps/gromacs.*'
-  To find detailed information about apps/gromacs please enter the full name.
+  For detailed information about a specific "apps/gromacs" module (including how to load the modules) the module's full name.
   For example:
      $ module spider apps/gromacs/4.6.3
 ===========================
@@ -358,14 +358,14 @@ step 23
 lua ProjectDIR/src/lmod.in.lua bash spider apps/gromacs/4.6.3
 ===========================
   apps/gromacs: apps/gromacs/4.6.3
-    This module can only be loaded through the following modules:
+    You will need to load all module(s) on any one of the lines below before the "apps/gromacs/4.6.3" module is available to load.
       cmplrs/intel/14.0  mpi/openmpi/1.6.5
 ===========================
 step 24
 lua ProjectDIR/src/lmod.in.lua bash spider apps/gromacs/4.6.3-debug
 ===========================
   apps/gromacs: apps/gromacs/4.6.3-debug
-    This module can only be loaded through the following modules:
+    You will need to load all module(s) on any one of the lines below before the "apps/gromacs/4.6.3-debug" module is available to load.
       cmplrs/intel/14.0  mpi/openmpi/1.6.5
 ===========================
 step 25
