@@ -942,14 +942,9 @@ function walk_directory_for_mf(mpath, path, prefix, dirA, mnameT)
          defaultIdx = idx
          defaultFn  = pathJoin(path,file)
       else
-         local fileDflt  = file:sub(1,8)
-         local firstChar = file:sub(1,1)
-         local lastChar  = file:sub(-1,-1)
-         local firstTwo  = file:sub(1,2)
-
          if (keepFile(file))then
             local f        = pathJoin(path,file)
-            attr           = lfs.attributes(f) or {}
+            attr           = lfs.attributes(f)
             local readable = posix.access(f,"r")
             local full     = pathJoin(prefix, file):gsub("%.lua","")
 

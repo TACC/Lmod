@@ -97,7 +97,7 @@ s_mtA = {}
 --       then that file is a meta-module.
 --
 -- Meta-modules are modulefiles that are not versioned.
--- They typically load other modules but not always.
+-- They typically load other modules do not have to.
 
 local function buildAvailT(mpath, path, prefix, availT)
 
