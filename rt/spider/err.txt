@@ -210,7 +210,7 @@ lua ProjectDIR/src/lmod.in.lua bash spider is-dyna
      Versions:
         is-dyna/1.0
         is-dyna/2.0
-  For detailed information about a specific "is-dyna" module (including how to load the modules) the module's full name.
+  For detailed information about a specific "is-dyna" module (including how to load the modules) use the module's full name.
   For example:
      $ module spider is-dyna/2.0
 ===========================
@@ -230,7 +230,7 @@ lua ProjectDIR/src/lmod.in.lua bash spider bwa
         bwa/0.7.9a
         bwa/0.7.9
         bwa/0.7.10
-  For detailed information about a specific "bwa" module (including how to load the modules) the module's full name.
+  For detailed information about a specific "bwa" module (including how to load the modules) use the module's full name.
   For example:
      $ module spider bwa/0.7.9a
 ===========================
@@ -242,7 +242,7 @@ lua ProjectDIR/src/lmod.in.lua bash spider gromacs
         apps/gromacs/4.0.7
         apps/gromacs/4.6.3-debug
         apps/gromacs/4.6.3
-  For detailed information about a specific "apps/gromacs" module (including how to load the modules) the module's full name.
+  For detailed information about a specific "apps/gromacs" module (including how to load the modules) use the module's full name.
   For example:
      $ module spider apps/gromacs/4.6.3
 ===========================
@@ -258,7 +258,7 @@ lua ProjectDIR/src/lmod.in.lua bash spider apps/gromacs
         apps
   To find other possible module matches do:
       module -r spider '.*apps/gromacs.*'
-  For detailed information about a specific "apps/gromacs" module (including how to load the modules) the module's full name.
+  For detailed information about a specific "apps/gromacs" module (including how to load the modules) use the module's full name.
   For example:
      $ module spider apps/gromacs/4.6.3
 ===========================
@@ -334,7 +334,7 @@ lua ProjectDIR/src/lmod.in.lua bash spider gromacs
         apps/gromacs/4.0.7
         apps/gromacs/4.6.3-debug
         apps/gromacs/4.6.3
-  For detailed information about a specific "apps/gromacs" module (including how to load the modules) the module's full name.
+  For detailed information about a specific "apps/gromacs" module (including how to load the modules) use the module's full name.
   For example:
      $ module spider apps/gromacs/4.6.3
 ===========================
@@ -350,7 +350,7 @@ lua ProjectDIR/src/lmod.in.lua bash spider apps/gromacs
         apps
   To find other possible module matches do:
       module -r spider '.*apps/gromacs.*'
-  For detailed information about a specific "apps/gromacs" module (including how to load the modules) the module's full name.
+  For detailed information about a specific "apps/gromacs" module (including how to load the modules) use the module's full name.
   For example:
      $ module spider apps/gromacs/4.6.3
 ===========================
