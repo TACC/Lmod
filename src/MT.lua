@@ -101,7 +101,7 @@ s_mtA = {}
 
 local function buildAvailT(mpath, path, prefix, availT)
 
-   dbg.start{"buildAvailT(",mpath,",", path,",", prefix,", availT)"}
+   dbg.start{"buildAvailT(",mpath,",", path,",\"", prefix,"\", availT)"}
    local mnameT     = {}
    local dirA       = {}
    local defaultFn  = walk_directory_for_mf(mpath, path, prefix, dirA, mnameT)
