@@ -919,7 +919,7 @@ end
 -- @param mnameT A table of module names found
 -- @return defaultFn the default modulefile.
 function walk_directory_for_mf(mpath, path, prefix, dirA, mnameT)
-   dbg.start{"walk_directory_for_mf(",mpath,", ",path,", \"",prefix,"\", dirA, mnameT)"}
+   dbg.start{"walk_directory_for_mf(mpath: ",mpath,", path: ",path,", prefix: \"",prefix,"\", dirA, mnameT)"}
    local attr = lfs.attributes(path)
    if (not attr or type(attr) ~= "table" or attr.mode ~= "directory"
        or not posix.access(path,"x")) then
@@ -972,6 +972,15 @@ function walk_directory_for_mf(mpath, path, prefix, dirA, mnameT)
                dirA[#dirA + 1] = { fullName = f, mname = full}
             end
          end
+      end
+   end
+   if (dbg.active()) then
+      for i = 1,#dirA do
+         dbg.print{"dirA[",i,"].fullName: ",dirA[i].fullName,"\n"}
+      end
+      dbg.print{"\n"}
+      for k,v in pairsByKeys(mnameT) do
+         dbg.print{"mnameT[",k,"].fn: ",v.fn,"\n"}
       end
    end
 
