@@ -931,10 +931,15 @@ function walk_directory_for_mf(mpath, path, prefix, dirA, mnameT)
    local accept_fn  = accept_fn
    local defaultFn  = false
    local defaultIdx = 1000000  -- default idx must be bigger than index for .version
+   dirA.n           = 0        -- The number of non-arch directories
    -----------------------------------------------------------------------------
    -- Read every relevant file in a directory.  Copy directory names into dirA.
    -- Copy files into mnameT.
    local ignoreT   = ignoreFileT()
+
+   local archNameT = { ['64'] = true, ['32'] = true, ['x86_64'] = true, ['ia32'] = true,
+                       ['haswell'] = true, ['ivybridge'] = true, ['sandybridge'] = true, ['ia32'] = true,
+   }
 
    for file in lfs.dir(path) do
       local idx       = defaultFnT[file] or defaultIdx
@@ -969,14 +974,19 @@ function walk_directory_for_mf(mpath, path, prefix, dirA, mnameT)
                   mnameT[full] = {fn = f, canonical=f:gsub("%.lua$",""), mpath = mpath, luaExt = luaExt}
                end
             elseif (attr.mode == "directory" and file:sub(1,1) ~= ".") then
-               dirA[#dirA + 1] = { fullName = f, mname = full}
+               local arch = archNameT[file]
+               dirA[#dirA + 1] = { fullName = f, mname = full, arch = arch}
+               if (not arch) then
+                  dirA.n = dirA.n + 1
+               end
             end
          end
       end
    end
    if (dbg.active()) then
       for i = 1,#dirA do
-         dbg.print{"dirA[",i,"].fullName: ",dirA[i].fullName,"\n"}
+         dbg.print{"n:",dirA.n,", arch: ",dirA[i].arch or "Fals" ,", dirA[",i,"].mname: ",
+                   dirA[i].mname,", \tdirA[",i,"].fullName: ",dirA[i].fullName,"\n"}
       end
       dbg.print{"\n"}
       for k,v in pairsByKeys(mnameT) do
