@@ -105,15 +105,17 @@ print_help() {
     echo
     echo "Available command line options:"
     echo
-    echo "  -d"
+    echo "  -d <cacheDir>"
     echo "      location of Lmod cache directory (default: determine via 'ml --config')"
     echo "  -D"
     echo "      enable debug printing"
     echo "  -h/-H"
     echo "      print (this) help and exit"
-    echo "  -t"
+    echo "  -t <timestamp.txt>"
     echo "      location of Lmod cache timestamp file (default: determine via 'ml --config')"
     echo "  -r"
+    echo "      enable updating reverseMapT cache file (default: only moduleT and dbT cache files)"
+    echo "  -R <reverseMapD>"
     echo "      enable updating reverseMapT cache file (default: only moduleT and dbT cache files)"
     echo "  -m"
     echo "      moduleT cache update only, disable updating dbT cache file"
@@ -128,7 +130,7 @@ print_help() {
 parse_cmdline(){
     debug "Parsing command line options..."
     local OPTIND
-    while getopts :d:DhmHt:rXJ opt; do
+    while getopts :d:DhmHt:rR:XJ opt; do
         case $opt in
             d)
                 LMOD_CACHE_DIR=$OPTARG
@@ -145,6 +147,10 @@ parse_cmdline(){
                 ;;
             r)
                 UPDATE_REVERSEMAPT_CACHE=1
+                ;;
+            R)
+                UPDATE_REVERSEMAPT_CACHE=1
+		LMOD_REVERSEMAPT_DIR=$OPTARG
                 ;;
             m)
                 UPDATE_DBT_CACHE=0
@@ -314,6 +320,9 @@ update_cache() {
 #########################################################################
 
 parse_cmdline $@
+if [ -z "$LMOD_REVERSEMAPT_DIR" ]; then
+  LMOD_REVERSEMAPT_DIR="$LMOD_CACHE_DIR/../reverseMapD"
+fi
 
 # put defaults in place for parameters that were not set
 set_defaults
@@ -333,11 +342,11 @@ if [ $UPDATE_DBT_CACHE -ne 0 ]; then
     update_cache $LMOD_CACHE_DIR dbT
 fi
 if [ $UPDATE_REVERSEMAPT_CACHE -ne 0 ]; then
-    update_cache $LMOD_CACHE_DIR/../reverseMapD reverseMapT
+    update_cache  $LMOD_REVERSEMAPT_DIR reverseMapT
 fi
 
 if [ "$UPDATE_JSON_RMAPT" -ne 0 ]; then
-    update_cache $LMOD_CACHE_DIR/../reverseMapD jsonReverseMapT
+    update_cache $LMOD_REVERSEMAPT_DIR jsonReverseMapT
 fi
 
 # put new timestamp file in place
