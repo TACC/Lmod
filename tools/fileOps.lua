@@ -343,3 +343,33 @@ function path_regularize(value)
 
    return value
 end
+
+
+local function walk_dir(path)
+   local dirA  = {}
+   local fileA = {}
+   for file in lfs.dir(path) do
+      if ( file ~= '.' and file ~= '..') then
+         local fn   = pathJoin(path,file)
+         local mode = lfs.attributes(fn,'mode')
+         if (mode == 'directory') then
+            dirA[#dirA+1]   = file
+         else
+            fileA[#fileA+1] = file
+         end
+      end
+   end
+   return dirA, fileA
+end
+
+local function walker(root)
+   local dirA, fileA = walk_dir(root)
+   coroutine.yield(root,dirA,fileA)
+   for i = 1, #dirA do
+      walker(pathJoin(root,dirA[i]))
+   end
+end
+
+function dir_walk(path)
+   return coroutine.wrap(function () walker(path) end)
+end
