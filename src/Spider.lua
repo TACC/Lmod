@@ -300,7 +300,7 @@ function M.findModulesInDir(mpath, path, prefix, moduleT)
       end
       dbg.print{"defaultFn: ",defaultFn,"\n"}
       for full,v in Pairs(mnameT) do
-         local sn   = shortName(full)
+         local sn   = v.sn
          moduleT[v.fn] = registerModuleT(full, sn, v.fn, defaultFn)
          moduleStack[iStack] = {path=v.fn, sn = sn, full = full, moduleT = moduleT,
                                 fn = v.fn}

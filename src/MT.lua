@@ -140,7 +140,7 @@ local function buildAvailT(mpath, path, prefix, availT)
       ------------------------------------------------------------------------
       -- Sort the files by parseVersion order and store them in "availT[prefix]".
       for full, v in pairs(mnameT) do
-         local version = full:gsub(".*/","")
+         local version = v.version
          local parseV  = parseVersion(version)
          vA[#vA+1]     = {parseV, version, v.fn}
       end

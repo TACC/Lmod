@@ -941,6 +941,7 @@ function walk_directory_for_mf(mpath, path, prefix, dirA, mnameT)
                        ['haswell'] = true, ['ivybridge'] = true, ['sandybridge'] = true, ['ia32'] = true,
    }
 
+   local mpathEsc = "^" .. mpath:escape() .. "/"
    for file in lfs.dir(path) do
       local idx       = defaultFnT[file] or defaultIdx
       if (idx < defaultIdx) then
@@ -972,7 +973,7 @@ function walk_directory_for_mf(mpath, path, prefix, dirA, mnameT)
                if (not mnameT[full] or not mnameT[full].luaExt) then
                   local luaExt = f:find("%.lua$")
                   mnameT[full] = {fn = f, canonical=f:gsub("%.lua$",""), mpath = mpath,
-                                  luaExt = luaExt, version=file}
+                                  luaExt = luaExt, version=file:gsub("%.lua$",""), sn=path:gsub(mpathEsc,"")}
                end
             elseif (attr.mode == "directory" and file:sub(1,1) ~= ".") then
                local arch = archNameT[file]
