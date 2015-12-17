@@ -1,3 +1,6 @@
+.. _system-spider-cache-label:
+
+
 System Spider Cache
 ===================
 

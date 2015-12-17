@@ -1,6 +1,67 @@
 Frequently Asked Questions
 ==========================
 
+How does the module command work?
+
+   It is very surprising that a command can change the current shell's
+   environment. After, all we know that the child program inherits the
+   parents' environment but not the other way around.  The module
+   command is a two part process.  The module shell function in bash
+   is::
+
+        $ type module
+        module() { eval $($LMOD_CMD bash "$@") }
+
+   Where $LMOD_CMD points to your lmod command (say
+   /apps/lmod/lmod/libexec/lmod).  So if you have a module file (foo/1.0) that
+   contains::
+
+       setenv("FOO", "BAR")
+
+   then "$LMOD_CMD bash load foo/1.0" produces::
+
+       export FOO=BAR
+       ...
+
+   The eval command read that output from stdout and changes the
+   current shell's environment. Any text written to stderr bypasses
+   the eval and written to the terminal
+
+
+What are the environment variables _ModuleTable001_, _ModuleTable002_,
+etc doing it in the environment?
+
+    The module command remembers its state in the environment through
+    these variables.  The way Lmod does it is through a Lua table called
+    ModuleTable::
+
+       ModuleTable = {
+          mT = {
+            git = { ... }
+          }
+       }
+
+    This table contains quotes and commas and must be store in
+    environment.  To prevent problem the various shells, the table is
+    encoded into base64 and split into blocks of 256 characters.
+    These variable are decoded at the start of Lmod.  You can see what
+    the module table contains with::
+
+        $ module --mt
+
+How does one debug a modulefile?
+
+    There are two methods.  Method 1: If you are writing a Lua modulefile then
+    you can write messages to stderr with and run the module command normally::
+
+        local a = "text"
+        io.stderr:write("Message ",a,"\n")
+   
+    Method 2: Take the output directly from Lmod.  You can put print()
+    statements in your modulefile and do::
+
+        $ $LMOD_CMD bash load *modulefile*
+
 Why doesn't  % ``module avail |& grep ucc``  work under tcsh and works under bash?
 
     It is a bug in the way tcsh handles evals. This works::
@@ -38,10 +99,27 @@ instead of stderr?
 
 Can I ignore the spider cache files when doing ``module avail``?
 
-   Yes you can:
+   Yes you can::
 
-      module --ignore_cache avail
+      $ module --ignore_cache avail
 
+I have created a module and "module avail" can't find it. What do I
+do?
+
+   Assuming that the modulefile is in MODULEPATH then you have an
+   out-of-date cache.  Try running::
+
+      $ module --ignore_cache avail
+       
+   If this does find it then you might have a personal spider cache.
+   To clear it do::
+
+      $ rm -rf ~/.lmod.d/.cache
+
+   If "module avail" doesn't find it now, then the system spider cache
+   is out-of-date.  Please ask your system administrator to update the
+   cache.  If you are the system administrator then read
+   :ref:`system-spider-cache-label`.
 
 Why doesn't the module command work in shell scripts?
 

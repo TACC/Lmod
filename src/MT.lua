@@ -116,11 +116,13 @@ local function buildAvailT(mpath, path, prefix, availT)
 
       -- Copy any meta-modules into the array availT[k][0].
       for k,v in pairs(mnameT) do
-         dbg.print{"Meta Module: ",k,"\n"}
-         availT[k]    = {}
-         availT[k][0] = v
-         availT[k].total  = 0
-         availT[k].hidden = 0
+         if (not v.version) then
+            dbg.print{"Meta Module: ",k,"\n"}
+            availT[k]        = {}
+            availT[k][0]     = v
+            availT[k].total  = 0
+            availT[k].hidden = 0
+         end
       end
 
 

@@ -1,7 +1,7 @@
 .. _lmodrc-label:
 
 The Properties File: lmodrc.lua
-==============================
+===============================
 
 This discussion is under construction.
 

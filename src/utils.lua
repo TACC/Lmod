@@ -937,11 +937,12 @@ function walk_directory_for_mf(mpath, path, prefix, dirA, mnameT)
    -- Copy files into mnameT.
    local ignoreT   = ignoreFileT()
 
-   local archNameT = { ['64'] = true, ['32'] = true, ['x86_64'] = true, ['ia32'] = true,
-                       ['haswell'] = true, ['ivybridge'] = true, ['sandybridge'] = true, ['ia32'] = true,
-   }
+   --local archNameT = { ['64'] = true, ['32'] = true, ['x86_64'] = true, ['ia32'] = true, gcc = true,
+   --                    ['haswell'] = true, ['ivybridge'] = true, ['sandybridge'] = true, ['ia32'] = true,
+   --}
 
-   local mpathEsc = "^" .. mpath:escape() .. "/"
+   local archNameT = {}
+
    for file in lfs.dir(path) do
       local idx       = defaultFnT[file] or defaultIdx
       if (idx < defaultIdx) then
@@ -971,15 +972,37 @@ function walk_directory_for_mf(mpath, path, prefix, dirA, mnameT)
                     full:sub(1,1) ~= '.') then
                -- Lua modulefiles should always be picked over TCL modulefiles
                if (not mnameT[full] or not mnameT[full].luaExt) then
-                  local luaExt = f:find("%.lua$")
+                  local luaExt  = f:find("%.lua$")
+                  local sn      = prefix:gsub("/$","")
+                  local version = file:gsub("%.lua$","")
+                  if (sn == "") then
+                     sn = full
+                     version = false
+                  end
                   mnameT[full] = {fn = f, canonical=f:gsub("%.lua$",""), mpath = mpath,
-                                  luaExt = luaExt, version=file:gsub("%.lua$",""), sn=path:gsub(mpathEsc,"")}
+                                  luaExt = luaExt, version=version, sn=sn}
                end
             elseif (attr.mode == "directory" and file:sub(1,1) ~= ".") then
-               local arch = archNameT[file]
-               dirA[#dirA + 1] = { fullName = f, mname = full, arch = arch}
-               if (not arch) then
+               local arch = archNameT[file] and prefix ~= ""
+               if (arch) then
+                  dbg.print{"\nprefix: ",prefix,", file: ",file,", path: ",path,"\n"}
+                  local pathEsc = "^" .. path:escape() .. "/"
+                  
+                  for root, dirA, fileA in dir_walk(pathJoin(path,file)) do
+                     for ja = 1, #fileA do
+                        local f       = pathJoin(root,fileA[ja])
+                        local version = f:gsub(pathEsc,""):gsub("%.lua$","")
+                        local full    = pathJoin(prefix,version)
+                        if (not mnameT[full] or not mnameT[full].luaExt) then
+                           local luaExt = f:find("%.lua$")
+                           mnameT[full] = {fn = f, canonical = f:gsub("%.lua$",""), mpath = mpath,
+                                           luaExt = luaExt, version=version, sn=prefix}
+                        end
+                     end
+                  end
+               else
                   dirA.n = dirA.n + 1
+                  dirA[#dirA + 1] = { fullName = f, mname = full, arch = arch, file=file}
                end
             end
          end
@@ -987,12 +1010,13 @@ function walk_directory_for_mf(mpath, path, prefix, dirA, mnameT)
    end
    if (dbg.active()) then
       for i = 1,#dirA do
-         dbg.print{"n:",dirA.n,", arch: ",dirA[i].arch or "Fals" ,", dirA[",i,"].mname: ",
-                   dirA[i].mname,", \tdirA[",i,"].fullName: ",dirA[i].fullName,"\n"}
+         dbg.print{"n: ",dirA.n,", arch: ",dirA[i].arch or "Fals" ,", dirA[",i,"].mname: ",
+                   dirA[i].mname,", \tdirA[",i,"].fullName: ",dirA[i].fullName,
+                   ", file: ",dirA[i].file,"\n"}
       end
       dbg.print{"\n"}
       for k,v in pairsByKeys(mnameT) do
-         dbg.print{"mnameT[",k,"].fn: ",v.fn,"\n"}
+         dbg.print{"mnameT[",k,"].fn: ",v.fn," sn: ",v.sn,", version: ", v.version,"\n"}
       end
    end
 
