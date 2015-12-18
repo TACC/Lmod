@@ -111,14 +111,14 @@ do?
 
       $ module --ignore_cache avail
        
-   If this does find it then you might have a personal spider cache.
+   If this does find it then you might have an old personal spider cache.
    To clear it do::
 
       $ rm -rf ~/.lmod.d/.cache
 
    If "module avail" doesn't find it now, then the system spider cache
    is out-of-date.  Please ask your system administrator to update the
-   cache.  If you are the system administrator then read
+   cache.  If you are the system administrator then please read
    :ref:`system-spider-cache-label`.
 
 Why doesn't the module command work in shell scripts?
