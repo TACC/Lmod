@@ -931,17 +931,18 @@ function walk_directory_for_mf(mpath, path, prefix, dirA, mnameT)
    local accept_fn  = accept_fn
    local defaultFn  = false
    local defaultIdx = 1000000  -- default idx must be bigger than index for .version
-   dirA.n           = 0        -- The number of non-arch directories
    -----------------------------------------------------------------------------
    -- Read every relevant file in a directory.  Copy directory names into dirA.
    -- Copy files into mnameT.
    local ignoreT   = ignoreFileT()
 
+   local archNameT = {}
    --local archNameT = { ['64'] = true, ['32'] = true, ['x86_64'] = true, ['ia32'] = true, gcc = true,
    --                    ['haswell'] = true, ['ivybridge'] = true, ['sandybridge'] = true, ['ia32'] = true,
    --}
 
-   local archNameT = {}
+   local a = {}
+
 
    for file in lfs.dir(path) do
       local idx       = defaultFnT[file] or defaultIdx
@@ -983,35 +984,57 @@ function walk_directory_for_mf(mpath, path, prefix, dirA, mnameT)
                                   luaExt = luaExt, version=version, sn=sn}
                end
             elseif (attr.mode == "directory" and file:sub(1,1) ~= ".") then
-               local arch = archNameT[file] and prefix ~= ""
-               if (arch) then
-                  dbg.print{"\nprefix: ",prefix,", file: ",file,", path: ",path,"\n"}
-                  local pathEsc = "^" .. path:escape() .. "/"
-                  
-                  for root, dirA, fileA in dir_walk(pathJoin(path,file)) do
-                     for ja = 1, #fileA do
-                        local f       = pathJoin(root,fileA[ja])
-                        local version = f:gsub(pathEsc,""):gsub("%.lua$","")
-                        local full    = pathJoin(prefix,version)
-                        if (not mnameT[full] or not mnameT[full].luaExt) then
-                           local luaExt = f:find("%.lua$")
-                           mnameT[full] = {fn = f, canonical = f:gsub("%.lua$",""), mpath = mpath,
-                                           luaExt = luaExt, version=version, sn=prefix}
-                        end
-                     end
-                  end
-               else
-                  dirA.n = dirA.n + 1
-                  dirA[#dirA + 1] = { fullName = f, mname = full, arch = arch, file=file}
+               -- Remember all directories in local array.  We have to know if
+               -- any are "arch" directories.
+               a[#a + 1] = { fullName = f, mname = full, file=file, path=path}
+            end
+         end
+      end
+   end
+
+   ------------------------------------------------------------
+   -- Check all the directories to see if they are all regular.
+   -- If any are an "arch" directory then the all are.
+
+   local regularDirs = true
+   if (prefix ~= "") then
+      for i = 1,#a do
+         if ( archNameT[a[i].file]) then
+            regularDirs = false
+            break
+         end
+      end
+   end
+
+   if (regularDirs) then
+      for i = 1,#a do
+         dirA[#dirA + 1] = a[i]
+      end
+   else
+      for i = 1,#a do
+         local v    = a[i]
+         local file = v.file
+         local path = v.path
+         local pathEsc = "^" .. path:escape() .. "/"
+      
+         for root, dirA, fileA in dir_walk(pathJoin(path,file)) do
+            for ja = 1, #fileA do
+               local f       = pathJoin(root,fileA[ja])
+               local version = f:gsub(pathEsc,""):gsub("%.lua$","")
+               local full    = pathJoin(prefix,version)
+               if (not mnameT[full] or not mnameT[full].luaExt) then
+                  local luaExt = f:find("%.lua$")
+                  mnameT[full] = {fn = f, canonical = f:gsub("%.lua$",""), mpath = mpath,
+                                  luaExt = luaExt, version=version, sn=prefix}
                end
             end
          end
       end
    end
+
    if (dbg.active()) then
       for i = 1,#dirA do
-         dbg.print{"n: ",dirA.n,", arch: ",dirA[i].arch or "Fals" ,", dirA[",i,"].mname: ",
-                   dirA[i].mname,", \tdirA[",i,"].fullName: ",dirA[i].fullName,
+         dbg.print{"dirA[",i,"].mname: ", dirA[i].mname,", \tdirA[",i,"].fullName: ",dirA[i].fullName,
                    ", file: ",dirA[i].file,"\n"}
       end
       dbg.print{"\n"}

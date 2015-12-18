@@ -113,16 +113,17 @@ local function buildAvailT(mpath, path, prefix, availT)
       -- If prefix is '' then this directory in directly under MODULEPATH so
       -- any files are meta-modules.  Also if there are files when there are
       -- directories then these files are also meta-modules.
+      dbg.print{"#dirA: ",#dirA,", n: ",dirA.n,"\n"}
 
       -- Copy any meta-modules into the array availT[k][0].
       for k,v in pairs(mnameT) do
-         if (not v.version) then
+         --if (not v.version) then
             dbg.print{"Meta Module: ",k,"\n"}
             availT[k]        = {}
             availT[k][0]     = v
             availT[k].total  = 0
             availT[k].hidden = 0
-         end
+         --end
       end
 
 
