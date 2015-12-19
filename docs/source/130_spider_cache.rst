@@ -139,3 +139,5 @@ The above command should be much faster than running without the
 cache::
 
     $ module --ignore_cache avail
+
+  

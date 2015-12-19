@@ -83,6 +83,7 @@ Advanced Topics
    095_tcl2lua
    100_generic_modules
    120_shared_home_directories
+   125_personal_spider_cache
    130_spider_cache
    140_deprecating_modules
 
