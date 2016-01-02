@@ -5,16 +5,16 @@ How does the module command work?
 
    It is very surprising that a command can change the current shell's
    environment. After, all we know that the child program inherits the
-   parents' environment but not the other way around.  The module
-   command is a two part process.  The module shell function in bash
-   is::
+   parents' environment but not the other way around. The trick here
+   is that the module command is a two part process.  The module shell
+   function in bash is::
 
         $ type module
         module() { eval $($LMOD_CMD bash "$@") }
 
    Where $LMOD_CMD points to your lmod command (say
-   /apps/lmod/lmod/libexec/lmod).  So if you have a module file (foo/1.0) that
-   contains::
+   /apps/lmod/lmod/libexec/lmod).  So if you have a module file
+   (foo/1.0) that contains::
 
        setenv("FOO", "BAR")
 
@@ -25,7 +25,7 @@ How does the module command work?
 
    The eval command read that output from stdout and changes the
    current shell's environment. Any text written to stderr bypasses
-   the eval and written to the terminal
+   the eval and written to the terminal.
 
 
 What are the environment variables _ModuleTable001_, _ModuleTable002_,
@@ -42,7 +42,7 @@ etc doing it in the environment?
        }
 
     This table contains quotes and commas and must be store in
-    environment.  To prevent problem the various shells, the table is
+    environment.  To prevent problems the various shells, the table is
     encoded into base64 and split into blocks of 256 characters.
     These variable are decoded at the start of Lmod.  You can see what
     the module table contains with::
