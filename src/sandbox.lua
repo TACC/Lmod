@@ -60,6 +60,7 @@ sandbox_run = false
 --------------------------------------------------------------------------
 -- Table containing valid functions for modulefiles.
 sandbox_env = {
+  loadfile = loadfile,
   require  = require,
   ipairs   = ipairs,
   next     = next,
@@ -81,6 +82,10 @@ sandbox_env = {
                getenv = os.getenv, execute = os.execute},
 
   io       = { stderr = io.stderr, open = io.open, close = io.close, write = io.write },
+
+  package  = { cpath = package.cpath, loaded = package.loaded, loaders = package.loaders,
+               loadlib = package.loadlib, path = package.path, preload = package.preload,
+               seeall = package.seeall },
 
   ------------------------------------------------------------
   -- lmod functions
