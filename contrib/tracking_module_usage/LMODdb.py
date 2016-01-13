@@ -106,6 +106,45 @@ class LMODdb(object):
     return self.__db
 
 
+  def dump_db(self):
+
+    userA = []
+
+    query = ""
+    try:
+      conn   = self.connect()
+      cursor = conn.cursor()
+      query  = "USE "+self.db()
+      conn.query(query)
+      
+      # extract user names from userT table.
+
+      query = "SELECT user_id, user from userT"
+      conn.query(query)
+      numRows = cursor.rowcount
+      for i in xrange(numRows):
+        row  = cursor.fetchone()
+        user_id = row[0]
+        user    = row[1]
+        assert i == user_id
+        userA.append(user)
+
+      moduleA = []
+
+      # extract moduleT table
+      query = "SELECT mod_id, path, module, syshost from moduleT"
+      conn.query(query)
+      numRows = cursor.rowcount
+      for i in xrange(numRows):
+        row = cursor.fetchone()
+        mod_id  = row[0]
+        path    = row[1]
+        module  = row[2]
+        syshost = row[3]
+        assert i == mod_id
+        moduleA.append([path, module,syshost])
+
+
   def data_to_db(self, dataT):
     """
     Store data into database.
