@@ -36,6 +36,11 @@ class LMODdb(object):
   This LMODdb class opens the Lmod database and is responsible for
   all the database interactions.
   """
+  s_build_userT   = True
+  userT           = {}
+  s_build_moduleT = True
+  moduleT         = {}
+
   def __init__(self, confFn):
     """ Initialize the class and save the db config file. """
     self.__host   = None
@@ -187,40 +192,93 @@ class LMODdb(object):
       query  = "START TRANSACTION"
       conn.query(query)
 
-      ##################################################################
-      # Step 1: Find or insert user into userT table
+      ############################################################
+      # build userT if necessary.
 
-      query  = "SELECT user_id from userT where user=%s"
-      cursor.execute(query, (dataT['user']))
+      if (s_build_userT):
+        s_build_userT = False
 
-      if (cursor.rowcount == 0):
-        #
-        #  No user found, install user in userT table.
-        query   = "INSERT into userT VALUES (NULL,%s)"
-        cursor.execute(query,(dataT['user']))
-        user_id = cursor.lastrowid
-      else:
-        #
-        # User already in userT, get user_id
-        row     = cursor.fetchone()
-        user_id = int(row[0])
+        query = "SELECT user_id, user from userT"
+        cursor.execute(query)
 
-      ##################################################################
-      # Step 2: Find or insert module name and fn into moduleT
+        numRows = cursor.rowcount
+        for i in xrange(numRows):
+          row = cursor.fetchone()
+          user_id = int(row[0])
+          user    = row[1]
+          userT[user] = user_id
+          
+      ############################################################
+      # Get user_id
 
-      query = "SELECT mod_id from moduleT WHERE path=%s and syshost=%s"
-      cursor.execute(query,(dataT['path'], dataT['syshost']))
-      if (cursor.rowcount > 0):
-        row    = cursor.fetchone()
-        mod_id = int(row[0])
-      else:
-        query = "INSERT into moduleT VALUES (NULL, %s, %s, %s)"
-        cursor.execute(query,(dataT['path'], dataT['module'], dataT['syshost']))
-        mod_id = cursor.lastrowid
 
-      ##################################################################
-      # Step 3: Insert new connection between user and module with a
-      #         timestamp into the join_user_module table
+      user    = dataT['user']
+      user_id = userT.get(user)
+
+      if (user_id == None):
+        
+        try:
+          query = "INSERT INTO userT VALUES(NULL, %s)"
+          cursor.execute(query,[user])
+          user_id = cursor.lastrowid
+        except Exception as e:
+          query = "SELECT user_id FROM userT WHERE user = %s"
+          cursor.execute(query,[user])
+          if (cursor.rowcount > 0):
+            user_id = int(cursor.fetchone()[0])
+          else:
+            print("Failed to insert \"%s\" into userT, Aborting!" % user)
+            sys.exit(1)
+
+        userT[user] = user_id
+       
+      #############################################################
+      # build moduleT
+
+      if (s_build_moduleT):
+        s_build_moduleT = False
+
+        query = "SELECT mod_id, path, module, syshost FROM moduleT"
+        cursor.execute(query)
+        numRows = cursor.rowcount
+
+        for i in xrange(numRows):
+          row     = cursor.fetchone()
+          mod_id  = row[0]
+          path    = row[1]
+          module  = row[2]
+          syshost = row[3]
+          moduleT[(syshost,path)] =  mod_id
+          
+      ############################################################
+      # get mod_id
+      
+      syshost = dataT['syshost']
+      path    = dataT['path']
+      key     = (syshost, path)
+      mod_id  = moduleT.get(key)
+      if (mod_id == None):
+
+        module = dataT['module']
+        try:
+          query = "INSERT INTO moduleT VALUES(NULL, %s %s %s)"
+          cursor.execute(query,(path, module, syshost))
+          mod_id = cursor.lastrowid
+        except Exception as e:
+          query = "SELECT mod_id FROM moduleT WHERE syshost = %s and path = %s "
+          cursor.execute(query,(syshost, path))
+          if (cursor.rowcount > 0):
+            mod_id = int(cursor.fetchone()[0])
+          else:
+            print("Failed to insert (\"%s\",\"%s\") moduleT, Aborting!" % (syshost, path))
+            sys.exit(1)
+
+        moduleT[key] = mod_id
+        
+        
+      ############################################################
+      # Insert into join_user_module table
+      
       dateTm = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(float(dataT['time'])))
       query  = "INSERT into join_user_module VALUES(NULL, %s, %s, %s) "
       cursor.execute(query,(user_id, mod_id, dateTm))
