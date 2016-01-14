@@ -68,8 +68,8 @@ def main():
     # 1
     cursor.execute("""
         CREATE TABLE `userT` (
-          `user_id`       int(11)        NOT NULL auto_increment,
-          `user`          varchar(64)    NOT NULL,
+          `user_id`       int(11) unsigned NOT NULL auto_increment,
+          `user`          varchar(64)      NOT NULL,
           PRIMARY KEY  (`user_id`)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8  COLLATE=utf8_general_ci AUTO_INCREMENT=1
         """)
@@ -78,10 +78,10 @@ def main():
     # 2
     cursor.execute("""
         CREATE TABLE `moduleT` (
-          `mod_id`        int(11)         NOT NULL auto_increment,
-          `path`          varchar(1024)   NOT NULL,
-          `module`        varchar(64)     NOT NULL,
-          `syshost`       varchar(32)     NOT NULL,
+          `mod_id`        int(11) unsigned NOT NULL auto_increment,
+          `path`          varchar(1024)    NOT NULL,
+          `module`        varchar(64)      NOT NULL,
+          `syshost`       varchar(32)      NOT NULL,
           PRIMARY KEY  (`mod_id`),
           INDEX  `thekey` (`path`(128), `syshost`)
 
@@ -93,10 +93,10 @@ def main():
     # 3
     cursor.execute("""
         CREATE TABLE `join_user_module` (
-          `join_id`       int(11)        NOT NULL auto_increment,
-          `user_id`       int(11)        NOT NULL,
-          `mod_id`        int(11)        NOT NULL,
-          `date`          DATETIME       NOT NULL,
+          `join_id`       int(11) unsigned NOT NULL auto_increment,
+          `user_id`       int(11) unsigned NOT NULL,
+          `mod_id`        int(11) unsigned NOT NULL,
+          `date`          DATETIME         NOT NULL,
           PRIMARY KEY (`join_id`),
           FOREIGN KEY (`user_id`) REFERENCES `userT`(`user_id`),
           FOREIGN KEY (`mod_id`)  REFERENCES `moduleT`(`mod_id`),

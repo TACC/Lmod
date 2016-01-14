@@ -1,6 +1,6 @@
 from __future__ import print_function
 from time       import sleep
-import os, sys, re, base64, time
+import os, sys, re, base64, time, json
 dirNm, execName = os.path.split(os.path.realpath(sys.argv[0]))
 sys.path.append(os.path.realpath(dirNm))
 
@@ -17,6 +17,7 @@ def __LINE__():
 def __FILE__():
     return inspect.currentframe().f_code.co_filename
 
+#print ("file: '%s', line: %d" % (__FILE__(), __LINE__()), file=sys.stderr)
 
 def convertToInt(s):
   """
@@ -108,7 +109,8 @@ class LMODdb(object):
 
   def dump_db(self):
 
-    userA = []
+    userA   = None
+    moduleA = None
 
     query = ""
     try:
@@ -119,30 +121,55 @@ class LMODdb(object):
       
       # extract user names from userT table.
 
+      query = "SELECT max(user_id) from userT"
+      cursor.execute(query)
+      sz    = cursor.fetchone()[0]
+      userA = [ None ] * (sz+1)
+
       query = "SELECT user_id, user from userT"
-      conn.query(query)
+      cursor.execute(query)
       numRows = cursor.rowcount
       for i in xrange(numRows):
-        row  = cursor.fetchone()
-        user_id = row[0]
-        user    = row[1]
-        assert i == user_id
-        userA.append(user)
+        row            = cursor.fetchone()
+        user_id        = row[0]
+        user           = row[1]
+        userA[user_id] = user
 
       moduleA = []
 
       # extract moduleT table
+      query = "SELECT max(mod_id) from moduleT"
+      cursor.execute(query)
+      sz      = cursor.fetchone()[0]
+      moduleA = [ None ] * (sz+1)
+
       query = "SELECT mod_id, path, module, syshost from moduleT"
-      conn.query(query)
+      cursor.execute(query)
       numRows = cursor.rowcount
       for i in xrange(numRows):
-        row = cursor.fetchone()
-        mod_id  = row[0]
-        path    = row[1]
-        module  = row[2]
-        syshost = row[3]
-        assert i == mod_id
-        moduleA.append([path, module,syshost])
+        row             = cursor.fetchone()
+        mod_id          = row[0]
+        path            = row[1]
+        module          = row[2]
+        syshost         = row[3]
+        moduleA[mod_id] = {'path' : path, 'module' : module, 'syshost' : syshost}
+
+
+      # extract join_user_module table:
+      query = "SELECT user_id, mod_id, UNIX_TIMESTAMP(date) from join_user_module"
+      cursor.execute(query)
+      numRows = cursor.rowcount
+      for i in xrange(numRows):
+        row     = cursor.fetchone()
+        user    = userA[int(row[0])]
+        modT    = moduleA[int(row[1])]
+        date    = str(row[2])
+        t       = {'user': user, 'path': modT['path'], 'module' : modT['module'], 'syshost': modT['syshost'], 'date' : date }
+        print(json.dumps(t))
+
+    except Exception as e:
+      print("dump_db(): ",e)
+      sys.exit(1)
 
 
   def data_to_db(self, dataT):

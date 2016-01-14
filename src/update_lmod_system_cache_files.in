@@ -330,6 +330,11 @@ set_defaults
 # check parameters (make sure they are defined)
 check_parameters
 
+if [ -f ${LMOD_CACHE_TIMESTAMP_FILE}.new ]; then
+   exit 0
+fi
+
+
 # create new timestamp file
 # timestamp file marks time of last change to the system, and *must* be older than the Lmod cache
 # files themselves a timestamp file that is more recent than the Lmod cache file(s) indicates
