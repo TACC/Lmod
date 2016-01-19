@@ -97,12 +97,32 @@ def main():
           `user_id`       int(11) unsigned NOT NULL,
           `mod_id`        int(11) unsigned NOT NULL,
           `date`          DATETIME         NOT NULL,
-          PRIMARY KEY (`join_id`),
-          FOREIGN KEY (`user_id`) REFERENCES `userT`(`user_id`),
-          FOREIGN KEY (`mod_id`)  REFERENCES `moduleT`(`mod_id`),
-          INDEX `date` (`date`)
+          PRIMARY KEY (`join_id`, `date`),
+          INDEX `index_date` (`date`)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8  COLLATE=utf8_general_ci AUTO_INCREMENT=1
         """)
+
+    cursor.execute("""
+       delimiter $$
+       create procedure CreateDataPartition (newPartValue DATETIME)
+       begin
+       DECLARE keepStmt VARCHAR(2000) DEFAULT @stmt;
+       SET @stmt = CONCAT('ALTER TABLE join_user_module ADD PARTITION (PARTITION p',
+                            DATE_FORMAT(newPartValue, '%Y_%m'),
+                            ' VALUES LESS THAN (TO_DAYS(\'',
+                            DATE_FORMAT(newPartValue, '%Y-%m-01'),
+                            '\')))');
+       PREPARE pStmt FROM @stmt;
+       execute pStmt;
+       DEALLOCATE PREPARE pStmt;
+       set @stmt = keepStmt;
+       END $$
+       delimiter ;
+    """)
+
+
+
+
     print("(%d) create join_link_object table" % idx); idx += 1
 
     cursor.close()

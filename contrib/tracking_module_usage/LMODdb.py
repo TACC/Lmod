@@ -195,8 +195,8 @@ class LMODdb(object):
       ############################################################
       # build userT if necessary.
 
-      if (s_build_userT):
-        s_build_userT = False
+      if (LMODdb.s_build_userT):
+        LMODdb.s_build_userT = False
 
         query = "SELECT user_id, user from userT"
         cursor.execute(query)
@@ -206,14 +206,14 @@ class LMODdb(object):
           row = cursor.fetchone()
           user_id = int(row[0])
           user    = row[1]
-          userT[user] = user_id
+          LMODdb.userT[user] = user_id
           
       ############################################################
       # Get user_id
 
 
       user    = dataT['user']
-      user_id = userT.get(user)
+      user_id = LMODdb.userT.get(user)
 
       if (user_id == None):
         
@@ -230,13 +230,13 @@ class LMODdb(object):
             print("Failed to insert \"%s\" into userT, Aborting!" % user)
             sys.exit(1)
 
-        userT[user] = user_id
+        LMODdb.userT[user] = user_id
        
       #############################################################
       # build moduleT
 
-      if (s_build_moduleT):
-        s_build_moduleT = False
+      if (LMODdb.s_build_moduleT):
+        LMODdb.s_build_moduleT = False
 
         query = "SELECT mod_id, path, module, syshost FROM moduleT"
         cursor.execute(query)
@@ -248,7 +248,7 @@ class LMODdb(object):
           path    = row[1]
           module  = row[2]
           syshost = row[3]
-          moduleT[(syshost,path)] =  mod_id
+          LMODdb.moduleT[(syshost,path)] =  mod_id
           
       ############################################################
       # get mod_id
@@ -256,12 +256,12 @@ class LMODdb(object):
       syshost = dataT['syshost']
       path    = dataT['path']
       key     = (syshost, path)
-      mod_id  = moduleT.get(key)
+      mod_id  = LMODdb.moduleT.get(key)
       if (mod_id == None):
 
         module = dataT['module']
         try:
-          query = "INSERT INTO moduleT VALUES(NULL, %s %s %s)"
+          query = "INSERT INTO moduleT VALUES(NULL, %s, %s, %s)"
           cursor.execute(query,(path, module, syshost))
           mod_id = cursor.lastrowid
         except Exception as e:
@@ -273,13 +273,13 @@ class LMODdb(object):
             print("Failed to insert (\"%s\",\"%s\") moduleT, Aborting!" % (syshost, path))
             sys.exit(1)
 
-        moduleT[key] = mod_id
+        LMODdb.moduleT[key] = mod_id
         
         
       ############################################################
       # Insert into join_user_module table
       
-      dateTm = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(float(dataT['time'])))
+      dateTm = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(float(dataT['date'])))
       query  = "INSERT into join_user_module VALUES(NULL, %s, %s, %s) "
       cursor.execute(query,(user_id, mod_id, dateTm))
 

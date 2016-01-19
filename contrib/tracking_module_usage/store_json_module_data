@@ -21,12 +21,13 @@ def main():
   f = open(sys.argv[1],"r")
   j = 0
   for line in f:
+    j += 1
     line  = line.rstrip("\n")
     dataT = json.loads(line)
     lmod.data_to_db(dataT)
-    j += 1
-    if (j > 1000000 ):
-      break
+    if (j % 1000000 == 0):
+      print (".",end = "")
+      sys.stdout.flush()
 
   f.close()
 
