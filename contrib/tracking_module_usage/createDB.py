@@ -127,6 +127,7 @@ def main():
     sqlCommands = """
        CREATE EVENT eventCreatePartition
        ON SCHEDULE EVERY 1 MONTH
+       STARTS '2016-02-01 00:00:00'
        BEGIN
         call CreateDataPartition(NOW() + interval 1 MONTH);
        END 
