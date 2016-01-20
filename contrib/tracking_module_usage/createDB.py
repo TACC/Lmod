@@ -2,7 +2,7 @@
 # -*- python -*-
 
 from __future__ import print_function
-import os, sys, re, MySQLdb
+import os, sys, re, MySQLdb, time
 
 dirNm, execName = os.path.split(os.path.realpath(sys.argv[0]))
 sys.path.append(os.path.realpath(dirNm))
@@ -17,6 +17,20 @@ def dbConfigFn(dbname):
   """
   return dbname + "_db.conf"
 
+def strDate2dA(s):
+  dA = re.split(r'[-_/.]', s)
+  dA = [ int(dA[0]), int(dA[1]) ]
+  return dA
+
+def add_month(dA):
+  dA[1] += 1
+  if (dA[1] > 12):
+    dA[0] += 1
+    dA[1]  = 1
+
+  return dA
+
+  
 class CmdLineOptions(object):
   """ Command line Options class """
 
@@ -26,8 +40,12 @@ class CmdLineOptions(object):
 
   def execute(self):
     """ Specify command line arguments and parse the command line"""
+    dA     = strDate2dA(time.strftime('%Y-%m-%d', time.localtime(time.time())))
+    partNm = "%04d-%02d" % (dA[0], dA[1])
+
     parser = argparse.ArgumentParser()
-    parser.add_argument("--dbname",      dest='dbname', action="store",      default = "lmod", help="lmod")
+    parser.add_argument("--dbname",    dest='dbname',    action="store",      default = "lmod", help="lmod")
+    parser.add_argument("--startPart", dest='firstPart', action="store",      default = partNm, help="first partition date")
     args = parser.parse_args()
     return args
 
@@ -134,6 +152,29 @@ def main():
     """
     cursor.execute(sqlCommands)
     print("(%d) Create event eventCreatePartition" % idx); idx += 1
+
+
+    sA    = strDate2dA(args.firstPart)
+    now   = time.strftime('%Y-%m-%d', time.localtime(time.time()))
+    eA    = strDate2dA(now)
+    eA    = add_month(eA)
+
+    dA    = sA[:]
+    while (True):
+      partNm  = "p%04d_%02d" % (dA[0], dA[1])
+      dateStr = "%04d-%02d"  % (dA[0], dA[1])
+      query   = "ALTER TABLE join_user_module ADD PARTITION (PARTITION " +\
+               partNm + " VALUES LESS THAN (TO_DAYS(\\'"+dateStr+"\\'))"
+
+      cursor.execute(query)
+
+      dA = add_month(dA)
+      if (dA[0] > eA[0] or (dA[0] == eA[0] and dA[1] > eA[1])):
+        break
+
+
+
+
 
     cursor.close()
 
