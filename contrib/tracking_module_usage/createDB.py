@@ -102,32 +102,42 @@ def main():
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8  COLLATE=utf8_general_ci AUTO_INCREMENT=1
         """)
 
-    cursor.execute("""
-       delimiter $$
+    print("(%d) create join_link_object table" % idx); idx += 1
+
+    sqlCommands = """
        create procedure CreateDataPartition (newPartValue DATETIME)
        begin
        DECLARE keepStmt VARCHAR(2000) DEFAULT @stmt;
        SET @stmt = CONCAT('ALTER TABLE join_user_module ADD PARTITION (PARTITION p',
                             DATE_FORMAT(newPartValue, '%Y_%m'),
-                            ' VALUES LESS THAN (TO_DAYS(\'',
+                            ' VALUES LESS THAN (TO_DAYS(\\'',
                             DATE_FORMAT(newPartValue, '%Y-%m-01'),
-                            '\')))');
+                            '\\')))');
        PREPARE pStmt FROM @stmt;
        execute pStmt;
        DEALLOCATE PREPARE pStmt;
        set @stmt = keepStmt;
-       END $$
-       delimiter ;
-    """)
+       END 
+    """
 
 
+    cursor.execute(sqlCommands)
+    print("(%d) Create stored procedure CreateDataPartition" % idx); idx += 1
 
-
-    print("(%d) create join_link_object table" % idx); idx += 1
+    sqlCommands = """
+       CREATE EVENT eventCreatePartition
+       ON SCHEDULE EVERY 1 MONTH
+       BEGIN
+        call CreateDataPartition(NOW() + interval 1 MONTH);
+       END 
+    """
+    cursor.execute(sqlCommands)
+    print("(%d) Create event eventCreatePartition" % idx); idx += 1
 
     cursor.close()
+
   except  MySQLdb.Error, e:
-    print ("Error %d: %s" % (e.args[0], e.args[1]))
-    sys.exit (1)
+        print ("Error %d: %s" % (e.args[0], e.args[1]))
+        sys.exit (1)
 
 if ( __name__ == '__main__'): main()
