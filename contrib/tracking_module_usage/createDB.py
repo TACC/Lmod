@@ -30,6 +30,14 @@ def add_month(dA):
 
   return dA
 
+def substract_month(dA):
+  dA[1] -= 1
+  if (dA[1] < 1):
+    dA[0] -= 1
+    dA[1]  = 12
+
+  return dA
+
   
 class CmdLineOptions(object):
   """ Command line Options class """
@@ -40,7 +48,7 @@ class CmdLineOptions(object):
 
   def execute(self):
     """ Specify command line arguments and parse the command line"""
-    dA     = strDate2dA(time.strftime('%Y-%m-%d', time.localtime(time.time())))
+    dA     = add_month(strDate2dA(time.strftime('%Y-%m-%d', time.localtime(time.time()))))
     partNm = "%04d-%02d" % (dA[0], dA[1])
 
     parser = argparse.ArgumentParser()
@@ -109,16 +117,22 @@ def main():
 
 
     # 3
-    cursor.execute("""
-        CREATE TABLE `join_user_module` (
-          `join_id`       int(11) unsigned NOT NULL auto_increment,
-          `user_id`       int(11) unsigned NOT NULL,
-          `mod_id`        int(11) unsigned NOT NULL,
-          `date`          DATETIME         NOT NULL,
-          PRIMARY KEY (`join_id`, `date`),
-          INDEX `index_date` (`date`)
-        ) ENGINE=InnoDB DEFAULT CHARSET=utf8  COLLATE=utf8_general_ci AUTO_INCREMENT=1
-        """)
+    dA      = strDate2dA(args.firstPart)
+    partNm  = "p%04d_%02d"   % (dA[0], dA[1])
+    dateStr = "%04d-%02d-01" % (dA[0], dA[1])
+    query = "CREATE TABLE `join_user_module` ("                              +\
+            "  `join_id`       int(11) unsigned NOT NULL auto_increment,"    +\
+            "  `user_id`       int(11) unsigned NOT NULL,"                   +\
+            "  `mod_id`        int(11) unsigned NOT NULL,"                   +\
+            "  `date`          DATETIME         NOT NULL,"                   +\
+            "  PRIMARY KEY (`join_id`, `date`),"                             +\
+            "  INDEX `index_date` (`date`)"                                  +\
+            ") ENGINE=InnoDB DEFAULT CHARSET=utf8 "                          +\
+            "  COLLATE=utf8_general_ci AUTO_INCREMENT=1 "                    +\
+            "  PARTITION BY RANGE( TO_DAYS(`date`) ) ("                      +\
+            "   PARTITION "+ partNm + " VALUES LESS THAN (TO_DAYS('"+dateStr+"')))"
+
+    cursor.execute(query)
 
     print("(%d) create join_link_object table" % idx); idx += 1
 
@@ -146,6 +160,7 @@ def main():
        CREATE EVENT eventCreatePartition
        ON SCHEDULE EVERY 1 MONTH
        STARTS '2016-02-01 00:00:00'
+       DO
        BEGIN
         call CreateDataPartition(NOW() + interval 1 MONTH);
        END 
@@ -153,28 +168,20 @@ def main():
     cursor.execute(sqlCommands)
     print("(%d) Create event eventCreatePartition" % idx); idx += 1
 
+    dA  = add_month(dA)
+    now = time.strftime('%Y-%m-%d', time.localtime(time.time()))
+    eA  = add_month(strDate2dA(now))
 
-    sA    = strDate2dA(args.firstPart)
-    now   = time.strftime('%Y-%m-%d', time.localtime(time.time()))
-    eA    = strDate2dA(now)
-    eA    = add_month(eA)
-
-    dA    = sA[:]
-    while (True):
-      partNm  = "p%04d_%02d" % (dA[0], dA[1])
-      dateStr = "%04d-%02d"  % (dA[0], dA[1])
+    while ((dA[0] < eA[0]) or (dA[0] == eA[0] and dA[1] <= eA[1])):
+      partNm  = "p%04d_%02d"   % (dA[0], dA[1])
+      dateStr = "%04d-%02d-01" % (dA[0], dA[1])
       query   = "ALTER TABLE join_user_module ADD PARTITION (PARTITION " +\
-               partNm + " VALUES LESS THAN (TO_DAYS(\\'"+dateStr+"\\'))"
+               partNm + " VALUES LESS THAN (TO_DAYS('"+dateStr+"')))"
 
+      print("query:",query)
       cursor.execute(query)
 
       dA = add_month(dA)
-      if (dA[0] > eA[0] or (dA[0] == eA[0] and dA[1] > eA[1])):
-        break
-
-
-
-
 
     cursor.close()
 
