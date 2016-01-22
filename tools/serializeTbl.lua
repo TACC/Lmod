@@ -51,12 +51,14 @@ require("TermWidth")
 
 local function nsformat(value)
    if (type(value) == 'string') then
+      value = value:gsub("\\","\\\\")
       if (value:find("\n")) then
 	 value = "[[\n" .. value .. "\n]]"
       else
          value = value:gsub('"','\\"')
 	 value = "\"" .. value .. "\""
       end
+
    elseif (type(value) == 'boolean') then
       if (value) then
 	 value = 'true'
@@ -66,6 +68,29 @@ local function nsformat(value)
    end
    return value
 end
+
+local keywordT = {
+   ['and']    = true,  ['break']  = true,    ['do']       = true,
+   ['else']   = true,  ['elseif'] = true,    ['end']      = true,
+   ['false']  = true,  ['for']    = true,    ['function'] = true,
+   ['if']     = true,  ['in']     = true,    ['local']    = true,
+   ['nil']    = true,  ['not']    = true,    ['or']       = true,
+   ['repeat'] = true,  ['return'] = true,    ['then']     = true,
+   ['true']   = true,  ['until']  = true,    ['while']    = true,
+}
+
+
+local function wrap_name(indent, name)
+   local str
+   if (name:find("[-+:./]") or keywordT[name] or
+       name:sub(1,1):find("[0-9]")) then
+      str = indent .. "[\"" .. name .. "\"] = {\n"
+   else
+      str = indent .. name .. " = {\n"
+   end
+   return str
+end
+
 
 --------------------------------------------------------------------------
 -- This is the work-horse for this collections.  It is recursively for
@@ -96,12 +121,7 @@ local function outputTblHelper(indentIdx, name, T, a, level)
    -- characters or it start with a number.
    local str
    if (type(name) == 'string') then
-      if (name:find("[-+:./]") or name == "local" or name == "nil" or
-          name:sub(1,1):find("[0-9]")) then
-	 str = indent .. "[\"" .. name .. "\"] = {\n"
-      else
-	 str = indent .. name .. " = {\n"
-      end
+      str = wrap_name(indent, name)
    else
       str = indent .. "{\n"
    end
@@ -186,7 +206,7 @@ function serializeTbl(options)
    if (type(value) == "table") then
       outputTblHelper(indentIdx, options.name, options.value, a, level)
    else
-      a[#a+1] = n
+      a[#a+1] = wrap_name("",n)
       a[#a+1] = " = "
       a[#a+1] = nsformat(value)
       a[#a+1] = "\n"

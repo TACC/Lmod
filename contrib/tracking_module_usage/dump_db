@@ -1,0 +1,46 @@
+#!/usr/bin/env python
+# -*- python -*-
+from __future__ import print_function
+import os, sys, re, time, datetime, argparse
+from LMODdb       import LMODdb
+from BeautifulTbl import BeautifulTbl
+
+class CmdLineOptions(object):
+  """ Command line Options class """
+
+  def __init__(self):
+    """ Empty Ctor """
+    pass
+
+  def execute(self):
+    """ Specify command line arguments and parse the command line"""
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--dbname",     dest='dbname',     action="store", default = "lmod",    help="lmod db name")
+
+    args = parser.parse_args()
+    return args
+
+def dbConfigFn(dbname):
+  """
+  Build config file name from dbname.
+  @param dbname: db name
+  """
+  return dbname + "_db.conf"
+
+def main():
+  args     = CmdLineOptions().execute()
+  configFn = dbConfigFn(args.dbname)
+  lmod     = LMODdb(configFn)
+
+  lmod.dump_db()
+
+
+
+
+
+
+if ( __name__ == '__main__'): main()
+
+
+
+

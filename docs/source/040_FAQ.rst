@@ -3,9 +3,9 @@ Frequently Asked Questions
 
 How does the module command work?
 
-   It is very surprising that a command can change the current shell's
-   environment. After all, we know that the child program inherits the
-   parents' environment but not the other way around. The trick here
+   We know that the child program inherits the  parents' environment
+   but not the other way around. So it is very surprising that a
+   command can change the current shell's environment. The trick here
    is that the module command is a two part process.  The module shell
    function in bash is::
 
@@ -103,6 +103,12 @@ Can I ignore the spider cache files when doing ``module avail``?
 
       $ module --ignore_cache avail
 
+   or you can set::
+
+      $ export LMOD_IGNORE_CACHE=1
+
+   to make Lmod ignore caches as long as the variable is set.
+
 I have created a module and "module avail" can't find it. What do I
 do?
 
@@ -119,7 +125,7 @@ do?
    If "module avail" doesn't find it now, then the system spider cache
    is out-of-date.  Please ask your system administrator to update the
    cache.  If you are the system administrator then please read
-   :ref:`system-spider-cache-label`.
+   :ref:`system-spider-cache-label` and :ref:`user-spider-cache-label`
 
 Why doesn't the module command work in shell scripts?
 

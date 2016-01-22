@@ -1,0 +1,35 @@
+#!/usr/bin/env python
+# -*- python -*-
+from __future__ import print_function
+import os, sys, re, time, json
+from LMODdb import LMODdb
+
+def syshost(name):
+  hostA = name.split('.')
+  idx   = 1
+  if (len(hostA) < 2):
+    idx = 0
+  return hostA[idx]
+
+def main():
+
+  ConfigBaseNm = "lmod_db"
+  ConfigFn     = ConfigBaseNm + ".conf"
+
+  lmod = LMODdb(ConfigFn)
+
+  f = open(sys.argv[1],"r")
+  j = 0
+  for line in f:
+    j += 1
+    line  = line.rstrip("\n")
+    dataT = json.loads(line)
+    lmod.data_to_db(dataT)
+    if (j % 1000000 == 0):
+      print (".",end = "")
+      sys.stdout.flush()
+
+  f.close()
+
+
+if ( __name__ == '__main__'): main()

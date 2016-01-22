@@ -345,7 +345,7 @@ function path_regularize(value)
 end
 
 
-local function walk_dir(path)
+local function _walk_dir(path)
    local dirA  = {}
    local fileA = {}
    for file in lfs.dir(path) do
@@ -362,14 +362,14 @@ local function walk_dir(path)
    return dirA, fileA
 end
 
-local function walker(root)
-   local dirA, fileA = walk_dir(root)
+local function _walker(root)
+   local dirA, fileA = _walk_dir(root)
    coroutine.yield(root,dirA,fileA)
    for i = 1, #dirA do
-      walker(pathJoin(root,dirA[i]))
+      _walker(pathJoin(root,dirA[i]))
    end
 end
 
 function dir_walk(path)
-   return coroutine.wrap(function () walker(path) end)
+   return coroutine.wrap(function () _walker(path) end)
 end
