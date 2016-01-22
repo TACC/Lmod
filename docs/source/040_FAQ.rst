@@ -4,7 +4,7 @@ Frequently Asked Questions
 How does the module command work?
 
    It is very surprising that a command can change the current shell's
-   environment. After, all we know that the child program inherits the
+   environment. After all, we know that the child program inherits the
    parents' environment but not the other way around. The trick here
    is that the module command is a two part process.  The module shell
    function in bash is::
