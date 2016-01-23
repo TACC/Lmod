@@ -78,6 +78,15 @@ function M.setActive(self, active)
 end
 
 --------------------------------------------------------------------------
+-- BaseShell:real_shell(): Return true if the output shell is "real" or not.
+--                         This base function returns false.  Bash, Csh
+--                         and Fish should return true.
+
+function M.real_shell(self)
+   return false
+end
+
+--------------------------------------------------------------------------
 -- BaseShell:isActive(): Are we active.
 
 function M.isActive(self)

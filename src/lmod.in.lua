@@ -678,8 +678,10 @@ function main()
    -- Output all newly created path and variables.
    master.shell:expand(varTbl)
 
-   -- Expand any shell command registered.
-   Exec:exec():expand()
+   -- Expand any shell commands registered for "real" shells: Csh/Bash/Fish/...
+   if (master.shell:real_shell()) then
+      Exec:exec():expand()
+   end
 
    local t2 = epoch()
    timer:deltaT("main", t2 - t1)

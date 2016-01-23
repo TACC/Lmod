@@ -77,6 +77,9 @@ Why is Lua a good choice as the implementation language?
      ...
    end
 
+** Using pcall to avoid Lmod Error call trees when the error is in a modulefile
+
+
 ** Sandbox
    All modulefile are evaluated in a sandbox. Something that is not
    available in python. 
@@ -95,31 +98,35 @@ Why is Lua a good choice as the implementation language?
    A lua table is a great way to remember a state.  
    serialize table (DAG) into a string.  Convert to base64, break it
    up into 256 byte blocks and store in the environment, do the
-   reverse when start Lmod.
+   reverse when starting Lmod.
 
 ** Debugging: How to debug something on a computer on a site which I don't have access to.
 
    I haven't had much luck in finding a Lua debugger.  So I had to
    come to debug things:
 
-   local dbg = require("Dbg"):dbg()
+       local dbg = require("Dbg"):dbg()
 
 
-   function setenv(...)
-     dbg.start{"setenv(...)"}
+       function setenv(...)
+         dbg.start{"setenv(...)"}
 
-     local abc = "This is a string"
-     dbg.print{"abc: ",abc,"\n"}
+         local abc = "This is a string"
+         dbg.print{"abc: ",abc,"\n"}
 
-     dbg.fini("setenv")
-   end
+         dbg.fini("setenv")
+       end
 
-   module -D load foo 2> load.log
+       module -D load foo 2> load.log
 
 
-   setenv(...) {
-     abc: This is a string
-   } setenv
+       setenv(...) {
+         abc: This is a string
+       } setenv
+
+   This has been a great thing because this provides a very very
+   useful way to debug Lmod on a site I'll never have access to.
+
 
 ** module --config
 

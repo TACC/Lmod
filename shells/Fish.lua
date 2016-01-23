@@ -113,4 +113,13 @@ function Fish.unset(self, k, vType)
 end
 
 
+--------------------------------------------------------------------------
+-- Fish:real_shell(): Return true if the output shell is "real" or not.
+--                    This base function returns false.  Bash, Csh
+--                    and Fish should return true.
+
+function Fish.real_shell(self)
+   return true
+end
+
 return Fish

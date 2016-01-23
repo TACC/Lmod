@@ -115,5 +115,13 @@ function Bash.unset(self, k, vType)
    dbg.print{   "unset ",k,";\n"}
 end
 
+--------------------------------------------------------------------------
+-- Bash:real_shell(): Return true if the output shell is "real" or not.
+--                    This base function returns false.  Bash, Csh
+--                    and Fish should return true.
+
+function Bash.real_shell(self)
+   return true
+end
 
 return Bash
