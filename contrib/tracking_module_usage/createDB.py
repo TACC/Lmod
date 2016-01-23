@@ -137,10 +137,10 @@ def main():
     print("(%d) create join_link_object table" % idx); idx += 1
 
     sqlCommands = """
-       create procedure CreateDataPartition (newPartValue DATETIME)
+       create procedure CreateDataPartition (newPartValue DATETIME, tbName VARCHAR(50))
        begin
        DECLARE keepStmt VARCHAR(2000) DEFAULT @stmt;
-       SET @stmt = CONCAT('ALTER TABLE join_user_module ADD PARTITION (PARTITION p',
+       SET @stmt = CONCAT('ALTER TABLE ', tbName ,' ADD PARTITION (PARTITION p',
                             DATE_FORMAT(newPartValue, '%Y_%m'),
                             ' VALUES LESS THAN (TO_DAYS(\\'',
                             DATE_FORMAT(newPartValue, '%Y-%m-01'),
@@ -162,7 +162,7 @@ def main():
        STARTS '2016-02-01 00:00:00'
        DO
        BEGIN
-        call CreateDataPartition(NOW() + interval 1 MONTH);
+        call CreateDataPartition(NOW() + interval 1 MONTH,'join_user_module');
        END 
     """
     cursor.execute(sqlCommands)
