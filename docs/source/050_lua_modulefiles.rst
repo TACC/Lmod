@@ -125,7 +125,7 @@ Modifier functions to prereq and loads
     highest version on the system.
 
 
-Intropection Functions
+Introspection Functions
 ~~~~~~~~~~~~~~~~~~~~~~
 
 The following functions allow for more generic modulefiles by finding
