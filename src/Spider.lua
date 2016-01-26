@@ -836,7 +836,7 @@ function M._Level2(self, T, searchName, full, possibleA)
       "\n    This module can be loaded directly: module load " .. full .. "\n",
       "\n    You will need to load all module(s) on any one of the lines below before the \"" .. full .. "\" module is available to load.\n",
       "\n    This module can be loaded directly: module load " .. full .. "\n" ..
-      "\n    Additional variants of this module can also be loaded after the loading the following modules:\n",
+      "\n    Additional variants of this module can also be loaded after loading the following modules:\n",
    }
    local haveCore = 0
    local haveHier = 0
