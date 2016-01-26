@@ -30,7 +30,7 @@ My history in scripting languages beside the shell is
 Perl->Python->Lua
 
 I thought I'd prototype it in Lua then Tmod would pick it up and add
-to it. => Wrong,  Lots of benifits for me and the tool.
+to it. => Wrong,  Lots of benefits for me and the tool.
 
 
 * Why go to the trouble of coming up with a new version of Env. Modules?

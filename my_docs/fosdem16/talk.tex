@@ -1,0 +1,111 @@
+%* installation (deps, build/install procedure, making module/ml work)
+%* configuration (either via ./configure at build time, or via 
+%   $LMOD_FOO), most important configure options
+%* setting up the system spider cache: configuring Lmod, updating spider 
+%  cache, difference between system/user spider cache
+%* + all (other) aspects mentioned on slide #26 in this slide deck: 
+%   explained + example :)
+%* what settarg is all about
+
+\documentclass{beamer}
+
+\usetheme[headernav]{TACC} %%Drop the 'headernav' if you don't like
+                           %%the stuff at the top of your slide
+
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{alltt}
+\usepackage{graphicx}
+
+\title{Lmod}
+
+
+\author{Robert McLay}
+\institute{The Texas Advanced Computing Center}
+
+\date{Jan. 30, 2015}  %% Use this if you want to fix the date in
+                      %% stone rather than use \today
+
+\newcommand{\bfnabla}{\mbox{\boldmath$\nabla$}}
+\newcommand{\laplacian}[1]{\bfnabla^2 #1}
+\newcommand{\grad}[1]{\bfnabla #1}
+\newcommand{\tgrad}[1]{\bfnabla^T #1}
+\newcommand{\dvg}[1]{\bfnabla \cdot #1}
+\newcommand{\curl}[1]{\bfnabla \times #1}
+\newcommand{\lap}[1]{\bfnabla^2 #1}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}{Outline}
+  \begin{itemize}
+    \item What are Environment Modules?
+    \item What is Lmod?
+    \item 
+  \end{itemize}
+\end{frame}
+
+
+
+\section{Environment Modules}
+
+\begin{frame}{What are Environment Modules?}
+  \begin{itemize}
+    \item A tool to set (and unset!) environment variables.
+    \item Useful for adding elements to \$PATH, \$LD\_LIBRARY\_PATH
+    \item Also remove elements from \$PATH, etc as well.
+    \item 1st paper on Env. Modules in 1991 by Furlani.
+    \item It is currently a TCL/C based tool (a.k.a Tmod)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Why is this useful?}
+  \begin{itemize}
+    \item High Performance Computers have hundreds of users.
+    \item Physicists, Chemists, Biologist, Engineers need different
+      software
+    \item Modules provide a convenient way to support them all.
+    \item A software developers delight: 
+      \begin{itemize}
+        \item Switch compilers easily.
+        \item For both versions and programs.
+      \end{itemize}
+    \item 
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{An Example}
+    {\small
+      \begin{alltt}
+          \$ {\color{blue} ddt}
+          command not found: ddt
+          \$ {\color{blue} module load ddt}
+          \$ {\color{blue} ddt }
+          \$ {\color{blue} module rm ddt}
+          \$ {\color{blue} ddt}
+          command not found: ddt
+      \end{alltt}
+    }
+\end{frame}    
+
+\begin{frame}{What is Lmod?}
+  \begin{itemize}
+    \item A Lua based Enviroment Module Tool that supports TCL modulefiles
+    \item Tmod doesn't support a software hierarchy
+    \item The C++ Boost library needs to match Compiler and Version
+    \item Switch compilers should swap boost to match
+    \item Lmod does this automatically
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{ }
+  \begin{itemize}
+    \item 
+  \end{itemize}
+\end{frame}
+
+
+\end{document}

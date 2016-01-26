@@ -46,7 +46,7 @@ local pack        = (_VERSION == "Lua 5.1") and argsPack or table.pack
 -- @param exec Name of executable
 -- @param path The path to use. If nil then use env PATH.
 function findInPath(exec, path)
-   local result  = ""
+   local result  = "unknown_path_for_" .. (exec or "unknown")
    if ( exec == nil) then return result end
    exec = exec:trim()
    local i = exec:find(" ")
