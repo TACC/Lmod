@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 6.0.24  2015-11-30 08:17
+Modules based on Lua: Version 6.0.25  2016-01-12 09:51
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -165,7 +165,7 @@ lua ProjectDIR/src/lmod.in.lua bash spider parmetis/3.1
     Properties:
       built for host and native MIC
     This module can be loaded directly: module load parmetis/3.1
-    Additional variants of this module can also be loaded after the loading the following modules:
+    Additional variants of this module can also be loaded after loading the following modules:
       gcc/4.2.3  openmpi/1.2.6
       intel/intel  openmpi/1.2.6
 ===========================
