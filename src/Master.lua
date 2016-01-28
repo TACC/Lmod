@@ -437,6 +437,19 @@ function M.load(mA)
                       "same name autoswapping."
             )
          end
+	 if (LMOD_DISABLE_SAME_NAME_AND_DIFFERENT_VERSION_AUTOSWAP == "yes") then
+		if (mt:fullName(sn) ~= t.modFullName) then
+		LmodError("Your site prevents the automatic swapping of modules with same name and different versions",
+		      "You must explicitly unload the loaded version of \"",sn,"\" before",
+		      "you can load the new one. Use swap (or an unload followed by a load)",
+		      "to do this:\n\n",
+		      "   $ module swap ",sn," ",moduleName,"\n\n",
+		      "Alternatively, you can set the environment variable",
+		      "LMOD_DISABLE_SAME_NAME_AND_DIFFERENT_VERSION_AUTOSWAP to \"no\" to re-enable",
+			      "same name autoswapping."
+		  )
+		end
+	 end
 
          local mcp_old = mcp
          mcp           = MCP
