@@ -599,6 +599,9 @@ PATH_TO_LUAC
 PATH_TO_LUA
 PATH_TO_HASHSUM
 PATH_TO_GIT
+PS
+EXPR
+BASENAME
 LUA_INCLUDE
 TMOD_PATH_RULE
 PIN_VERSIONS
@@ -622,9 +625,6 @@ EXACT_MATCH
 COLORIZE
 CASE_INDEPENDENT_SORTING
 DUPLICATE_PATHS
-PS
-EXPR
-BASENAME
 OBJEXT
 EXEEXT
 ac_ct_CC
@@ -2630,130 +2630,6 @@ ac_compiler_gnu=$ac_cv_c_compiler_gnu
 
 
 
-
-# Extract the first word of "ps", so it can be a program name with args.
-set dummy ps; ac_word=$2
-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
-$as_echo_n "checking for $ac_word... " >&6; }
-if ${ac_cv_path_PS+:} false; then :
-  $as_echo_n "(cached) " >&6
-else
-  case $PS in
-  [\\/]* | ?:[\\/]*)
-  ac_cv_path_PS="$PS" # Let the user override the test with a path.
-  ;;
-  *)
-  as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
-for as_dir in $PATH
-do
-  IFS=$as_save_IFS
-  test -z "$as_dir" && as_dir=.
-    for ac_exec_ext in '' $ac_executable_extensions; do
-  if as_fn_executable_p "$as_dir/$ac_word$ac_exec_ext"; then
-    ac_cv_path_PS="$as_dir/$ac_word$ac_exec_ext"
-    $as_echo "$as_me:${as_lineno-$LINENO}: found $as_dir/$ac_word$ac_exec_ext" >&5
-    break 2
-  fi
-done
-  done
-IFS=$as_save_IFS
-
-  ;;
-esac
-fi
-PS=$ac_cv_path_PS
-if test -n "$PS"; then
-  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $PS" >&5
-$as_echo "$PS" >&6; }
-else
-  { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
-$as_echo "no" >&6; }
-fi
-
-
-# Extract the first word of "expr", so it can be a program name with args.
-set dummy expr; ac_word=$2
-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
-$as_echo_n "checking for $ac_word... " >&6; }
-if ${ac_cv_path_EXPR+:} false; then :
-  $as_echo_n "(cached) " >&6
-else
-  case $EXPR in
-  [\\/]* | ?:[\\/]*)
-  ac_cv_path_EXPR="$EXPR" # Let the user override the test with a path.
-  ;;
-  *)
-  as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
-for as_dir in $PATH
-do
-  IFS=$as_save_IFS
-  test -z "$as_dir" && as_dir=.
-    for ac_exec_ext in '' $ac_executable_extensions; do
-  if as_fn_executable_p "$as_dir/$ac_word$ac_exec_ext"; then
-    ac_cv_path_EXPR="$as_dir/$ac_word$ac_exec_ext"
-    $as_echo "$as_me:${as_lineno-$LINENO}: found $as_dir/$ac_word$ac_exec_ext" >&5
-    break 2
-  fi
-done
-  done
-IFS=$as_save_IFS
-
-  ;;
-esac
-fi
-EXPR=$ac_cv_path_EXPR
-if test -n "$EXPR"; then
-  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $EXPR" >&5
-$as_echo "$EXPR" >&6; }
-else
-  { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
-$as_echo "no" >&6; }
-fi
-
-
-# Extract the first word of "basename", so it can be a program name with args.
-set dummy basename; ac_word=$2
-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
-$as_echo_n "checking for $ac_word... " >&6; }
-if ${ac_cv_path_BASENAME+:} false; then :
-  $as_echo_n "(cached) " >&6
-else
-  case $BASENAME in
-  [\\/]* | ?:[\\/]*)
-  ac_cv_path_BASENAME="$BASENAME" # Let the user override the test with a path.
-  ;;
-  *)
-  as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
-for as_dir in $PATH
-do
-  IFS=$as_save_IFS
-  test -z "$as_dir" && as_dir=.
-    for ac_exec_ext in '' $ac_executable_extensions; do
-  if as_fn_executable_p "$as_dir/$ac_word$ac_exec_ext"; then
-    ac_cv_path_BASENAME="$as_dir/$ac_word$ac_exec_ext"
-    $as_echo "$as_me:${as_lineno-$LINENO}: found $as_dir/$ac_word$ac_exec_ext" >&5
-    break 2
-  fi
-done
-  done
-IFS=$as_save_IFS
-
-  ;;
-esac
-fi
-BASENAME=$ac_cv_path_BASENAME
-if test -n "$BASENAME"; then
-  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $BASENAME" >&5
-$as_echo "$BASENAME" >&6; }
-else
-  { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
-$as_echo "no" >&6; }
-fi
-
-
-
-
-
 # Check whether --with-duplicatePaths was given.
 if test "${with_duplicatePaths+set}" = set; then :
   withval=$with_duplicatePaths; DUPLICATE_PATHS="$withval"
@@ -3266,6 +3142,157 @@ fi
 
 
 
+
+
+
+
+
+
+
+
+# Extract the first word of "ps", so it can be a program name with args.
+set dummy ps; ac_word=$2
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
+$as_echo_n "checking for $ac_word... " >&6; }
+if ${ac_cv_path_PS+:} false; then :
+  $as_echo_n "(cached) " >&6
+else
+  case $PS in
+  [\\/]* | ?:[\\/]*)
+  ac_cv_path_PS="$PS" # Let the user override the test with a path.
+  ;;
+  *)
+  as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
+for as_dir in $PATH
+do
+  IFS=$as_save_IFS
+  test -z "$as_dir" && as_dir=.
+    for ac_exec_ext in '' $ac_executable_extensions; do
+  if as_fn_executable_p "$as_dir/$ac_word$ac_exec_ext"; then
+    ac_cv_path_PS="$as_dir/$ac_word$ac_exec_ext"
+    $as_echo "$as_me:${as_lineno-$LINENO}: found $as_dir/$ac_word$ac_exec_ext" >&5
+    break 2
+  fi
+done
+  done
+IFS=$as_save_IFS
+
+  test -z "$ac_cv_path_PS" && ac_cv_path_PS="UNKNOWN"
+  ;;
+esac
+fi
+PS=$ac_cv_path_PS
+if test -n "$PS"; then
+  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $PS" >&5
+$as_echo "$PS" >&6; }
+else
+  { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+$as_echo "no" >&6; }
+fi
+
+
+if test "$PS" = "UNKNOWN" ; then
+  echo
+  echo "You must have either ps in your path. Quitting!"
+  echo
+  exit
+fi
+
+# Extract the first word of "expr", so it can be a program name with args.
+set dummy expr; ac_word=$2
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
+$as_echo_n "checking for $ac_word... " >&6; }
+if ${ac_cv_path_EXPR+:} false; then :
+  $as_echo_n "(cached) " >&6
+else
+  case $EXPR in
+  [\\/]* | ?:[\\/]*)
+  ac_cv_path_EXPR="$EXPR" # Let the user override the test with a path.
+  ;;
+  *)
+  as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
+for as_dir in $PATH
+do
+  IFS=$as_save_IFS
+  test -z "$as_dir" && as_dir=.
+    for ac_exec_ext in '' $ac_executable_extensions; do
+  if as_fn_executable_p "$as_dir/$ac_word$ac_exec_ext"; then
+    ac_cv_path_EXPR="$as_dir/$ac_word$ac_exec_ext"
+    $as_echo "$as_me:${as_lineno-$LINENO}: found $as_dir/$ac_word$ac_exec_ext" >&5
+    break 2
+  fi
+done
+  done
+IFS=$as_save_IFS
+
+  test -z "$ac_cv_path_EXPR" && ac_cv_path_EXPR="UNKNOWN"
+  ;;
+esac
+fi
+EXPR=$ac_cv_path_EXPR
+if test -n "$EXPR"; then
+  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $EXPR" >&5
+$as_echo "$EXPR" >&6; }
+else
+  { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+$as_echo "no" >&6; }
+fi
+
+
+if test "$EXPR" = "UNKNOWN" ; then
+  echo
+  echo "You must have either ps in your path. Quitting!"
+  echo
+  exit
+fi
+
+# Extract the first word of "basename", so it can be a program name with args.
+set dummy basename; ac_word=$2
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
+$as_echo_n "checking for $ac_word... " >&6; }
+if ${ac_cv_path_BASENAME+:} false; then :
+  $as_echo_n "(cached) " >&6
+else
+  case $BASENAME in
+  [\\/]* | ?:[\\/]*)
+  ac_cv_path_BASENAME="$BASENAME" # Let the user override the test with a path.
+  ;;
+  *)
+  as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
+for as_dir in $PATH
+do
+  IFS=$as_save_IFS
+  test -z "$as_dir" && as_dir=.
+    for ac_exec_ext in '' $ac_executable_extensions; do
+  if as_fn_executable_p "$as_dir/$ac_word$ac_exec_ext"; then
+    ac_cv_path_BASENAME="$as_dir/$ac_word$ac_exec_ext"
+    $as_echo "$as_me:${as_lineno-$LINENO}: found $as_dir/$ac_word$ac_exec_ext" >&5
+    break 2
+  fi
+done
+  done
+IFS=$as_save_IFS
+
+  test -z "$ac_cv_path_BASENAME" && ac_cv_path_BASENAME="UNKNOWN"
+  ;;
+esac
+fi
+BASENAME=$ac_cv_path_BASENAME
+if test -n "$BASENAME"; then
+  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $BASENAME" >&5
+$as_echo "$BASENAME" >&6; }
+else
+  { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+$as_echo "no" >&6; }
+fi
+
+
+if test "$BASENAME" = "UNKNOWN" ; then
+  echo
+  echo "You must have either basename in your path. Quitting!"
+  echo
+  exit
+fi
 
 
 

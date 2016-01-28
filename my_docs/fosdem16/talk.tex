@@ -280,7 +280,7 @@ return M
     \item Lmod uses a ``sandbox'' to evaluate modulefiles
     \item This is \texttt{pcall(untrusted\_function)} with a limited
       environment 
-    \item No stack traceback with bad code for broken modulefiles.
+    \item No stack traceback for broken modulefiles.
     \item Protect Users from calling Lmod internal functions.
     \item Sites can add their own functions.
   \end{itemize}
@@ -303,6 +303,16 @@ return M
     \item Use the message hook to add to the output of avail and spider.
   \end{itemize}
 \end{frame}
+
+\begin{frame}{Passing Lmod state between calls}
+  \begin{itemize}
+    \item Lmod uses a table to keep its state
+    \item This is base64 encoded and stored in the environment
+    \item This encoding avoids having to deal with quotes.
+  \end{itemize}
+\end{frame}
+
+
 
 \section{Building a Community}
 
@@ -367,14 +377,117 @@ return M
   \end{itemize}
 \end{frame}
 
-\section{Tech Solutions for reliable programs}
-
-\begin{frame}{Two Tech Solutions}
+\begin{frame}{Feature Requests from users}
   \begin{itemize}
-    \item A Test Suite for Lmod
-    \item New Bug Reports become tests
-    \item F
+    \item User requests feature that I don't think I'll use
+    \item But sometimes my site does!
+    \item Sometime users ask the right questions 
+    \item They can sometimes solve tech problems.
   \end{itemize}
 \end{frame}
+
+
+
+\section{Tech Solutions for reliable programs}
+
+\begin{frame}{Tech Solutions}
+  \begin{itemize}
+    \item A Test Suite for Lmod
+    \item Logging Capability
+    \item Report configuration.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Test Suite }
+  \begin{itemize}
+    \item Hermes framework test suite: tm program
+    \item A Test tool manager.  It runs shell scripts
+    \item The script much report pass/fail/diff
+    \item ``Wrong'' tests can easily be rerun.
+    \item Available: https://github.com/rtmclay/Hermes
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Test Suite (II) }
+  \begin{itemize}
+    \item Lmod produces both stderr and stdout
+    \item Each output is filter to make it generic. 
+    \item \texttt{/home/mclay} $\Rightarrow$ \texttt{HOME} etc.
+    \item Both stderr and stdout must match exactly with gold copies.
+    \item Suite take under 2mins to run all tests.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Logging Capability}
+  \begin{itemize}
+    \item I have yet to find a GUI debugger I like for lua.
+    \item I developed this simple logger with indentation and \{ \}
+    \item This logging is \emph{\color{blue} always} available
+    \item This way I can debug remote problems!
+ \end{itemize}
+\end{frame}    
+
+\begin{frame}[fragile]
+    \frametitle{Logging example}
+    {\small
+      \begin{alltt}
+\$ module -D load ddt 2> load.log
+
+lmod(-D load ddt)\{
+  Load_Usr(ddt)\{
+    MT:_build_locationTbl(mpathA)\{
+      Cache:cache()\{
+      \} Cache:cache
+      moduleT: false
+    \}
+      ...
+\}
+      \end{alltt}
+    }
+\end{frame}    
+
+\begin{frame}{Lmod configuration report}
+  \begin{itemize}
+    \item There are many version of Lmod in the wild
+    \item Some a year or more old.
+    \item A bug may have been fixed in a new version
+    \item Lmod has many options to control its behavior
+    \item The configuration report is always include with logging.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Lmod configuration report}
+    {\small
+      \begin{alltt}
+Modules based on Lua: Version 6.0.25 2016-01-12 09:51
+    by Robert McLay mclay@tacc.utexas.edu
+
+Description                      Value
+-----------                      -----
+Allow TCL modulefiles            yes
+Auto swapping                    yes
+Case Independent Sorting         no
+Colorize Lmod                    yes
+...
+      \end{alltt}
+    }
+\end{frame}    
+
+\section{Conclusions}
+\begin{frame}{Conclusions}
+  \begin{itemize}
+    \item It has been an interesting ride!
+    \item Lmod is available from github, sourceforge
+    \item Available: brew, fedora, Debian, Ubuntu, ...
+    \item Lmod is more reliable and much more capable than just
+      in-house
+    \item It has been a great deal of fun
+    \item But also a lot of work!
+    \item And there is no way I'm going to keep them all happy.
+  \end{itemize}
+\end{frame}
+
 
 \end{document}

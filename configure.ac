@@ -6,13 +6,6 @@ AC_INIT(Makefile.in)
 AC_PREFIX_DEFAULT(/usr/local)
 AC_PROG_CC
 
-AC_SUBST(BASENAME)
-AC_SUBST(EXPR)
-AC_SUBST(PS)
-
-AC_PATH_PROG(PS,ps, [])
-AC_PATH_PROG(EXPR,expr, [])
-AC_PATH_PROG(BASENAME, basename, [])
 
 AC_SUBST(DUPLICATE_PATHS)
 AC_ARG_WITH(duplicatePaths,
@@ -294,6 +287,10 @@ AC_ARG_WITH(lua_include,
     AC_DEFINE_UNQUOTED(LUA_INCLUDE, "$withval"))dnl
 
 
+
+AC_SUBST(BASENAME)
+AC_SUBST(EXPR)
+AC_SUBST(PS)
 AC_SUBST(PATH_TO_GIT)
 AC_SUBST(PATH_TO_HASHSUM)
 AC_SUBST(PATH_TO_LUA)
@@ -302,6 +299,33 @@ AC_SUBST(PATH_TO_PAGER)
 AC_SUBST(PATH_TO_SRC)
 AC_SUBST(PATH_TO_TCLSH)
 AC_SUBST(PATH_TO_TR)
+
+AC_PATH_PROG(PS,ps, UNKNOWN)
+if test "$PS" = "UNKNOWN" ; then
+  echo
+  echo "You must have either ps in your path. Quitting!"
+  echo
+  exit
+fi
+
+AC_PATH_PROG(EXPR,expr, UNKNOWN)
+if test "$EXPR" = "UNKNOWN" ; then
+  echo
+  echo "You must have either ps in your path. Quitting!"
+  echo
+  exit
+fi
+
+AC_PATH_PROG(BASENAME, basename, UNKNOWN)
+if test "$BASENAME" = "UNKNOWN" ; then
+  echo
+  echo "You must have either basename in your path. Quitting!"
+  echo
+  exit
+fi
+
+
+
 AC_PATH_PROG(PATH_TO_GIT, git, "")
 AC_PATH_PROG(PATH_TO_PAGER,[less] [more], [more])
 
