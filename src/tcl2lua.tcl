@@ -423,6 +423,7 @@ proc setenv { var val args } {
 
 proc unsetenv { var {val {}}} {
     global env  g_varsT
+    set mode [currentMode]
 
     if {$mode == "load"} {
 	if {[info exists env($var)]} {
