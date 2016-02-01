@@ -287,6 +287,14 @@ colorize      = false
 pager         = false
 
 
+LMOD_LEGACY_VERSION_ORDERING = initialize("LMOD_LEGACY_VERSION_ORDERING",
+                                          "@legacy_ordering@","no")
+
+------------------------------------------------------------------------
+-- parseVersion:   generate a parsable version string from version
+------------------------------------------------------------------------
+parseVersion  = false
+
 
 ------------------------------------------------------------------------
 -- s_warning:   if a warning was generated during the current run

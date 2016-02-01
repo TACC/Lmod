@@ -724,12 +724,14 @@ local function moduleStackTraceBack()
    if (mStack:empty()) then return end
 
    local aa = {}
-   aa[1] = { "Module fullname", "Module Filename"}
-   aa[2] = { "---------------", "---------------"}
+   aa[1]    = { "Module fullname", "Module Filename"}
+   aa[2]    = { "---------------", "---------------"}
 
-   while (not mStack:empty()) do
-      aa[#aa+1] = {mStack:fullName(), mStack:fileName()}
-      mStack:pop()
+   local a  = mStack:traceBack()
+
+   for i = 1,#a do
+      local entry = a[i]
+      aa[#aa+1] = {entry.fullName, entry.fn}
    end
 
    local bt = BeautifulTbl:new{tbl=aa}

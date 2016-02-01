@@ -71,6 +71,7 @@ MCP           = {}
 mcp           = {}
 require("modfuncs")
 require("cmdfuncs")
+require("parseVersion")
 
 BaseShell         = require("BaseShell")
 Master            = require("Master")
@@ -99,7 +100,9 @@ function main()
    fh              = io.open(fn,"w")
    local i         = 1
    local masterTbl = masterTbl()
+   
    options()
+   parseVersion    = buildParseVersion()
 
    if (masterTbl.debug) then
       dbg:activateDebug(1, tonumber(masterTbl.indentLevel))

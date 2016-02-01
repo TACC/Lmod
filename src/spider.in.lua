@@ -316,6 +316,7 @@ function main()
 
    local master     = Master:master(false)
    master.shell     = BaseShell.build("bash")
+   parseVersion     = buildParseVersion()
 
    for _, v in ipairs(pargs) do
       for path in v:split(":") do

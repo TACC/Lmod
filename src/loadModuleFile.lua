@@ -61,6 +61,7 @@ function loadModuleFile(t)
    local func
    local msg
    local whole
+   local status
 
 
 
@@ -106,7 +107,12 @@ function loadModuleFile(t)
       a[#a + 1]	   = concatTbl(A," ")
       a[#a + 1]	   = t.file
       local cmd    = concatTbl(a," ")
-      whole        = capture(cmd)
+      whole,status = capture(cmd)
+      if (not status) then
+         local n = usrName or ""
+         msg     = "Non-zero status returned"
+         LmodError("Unable to load module: ",n,"\n    ",t.file,": ", msg,"\n")
+      end
    end
 
    -- Use the sandbox to evaluate modulefile text.

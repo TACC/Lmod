@@ -1,0 +1,2 @@
+puts stderr "Big bad error message"
+exit 1

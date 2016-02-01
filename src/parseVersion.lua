@@ -81,7 +81,7 @@ replaceT = {
 -- @param versionStr A version string
 -- @return canonical version string suitable for comparison
 
-function parseVersion(versionStr)
+function useParseVersion(versionStr)
 
    --dbg.start{"parseVersion(",versionStr,")"}
    versionStr = versionStr or ""
@@ -182,4 +182,19 @@ function parseVersionParts(versionStr)
          ipos    = ipos + 1
          return "*" .. (replaceT[results] or results)
       end
+end
+
+function bypassParseVersion(versionStr)
+   return versionStr
+end
+
+
+--------------------------------------------------------------------------
+-- Return usePager if PAGER exists otherwise,  return bypassPager
+function buildParseVersion()
+   local func  = useParseVersion
+   if (LMOD_LEGACY_VERSION_ORDERING ~= "no") then
+      func  = bypassParseVersion
+   end
+   return func
 end

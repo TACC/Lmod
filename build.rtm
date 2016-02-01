@@ -99,6 +99,15 @@ case $SYSHOST in
     SITE_PKG="contrib/TACC/*.lua"
     ;;
 
+  gligar.os)
+    ADMIN_DIR=/apps/gent/SL6/sandybridge/.lmod/cache/
+    UPDATE_FN=$ADMIN_DIR/timestamp
+    CACHEDIRS=$ADMIN_DIR
+    EXTRA="--with-spiderCacheDir=$CACHEDIRS  --with-updateSystemFn=$UPDATE_FN "
+    base="$HOME/l/pkg"
+    
+
+
   *)
     ADMIN_DIR=$HOME/w/moduleData
     UPDATE_FN=$ADMIN_DIR/system.txt

@@ -286,6 +286,17 @@ AC_ARG_WITH(lua_include,
     LUA_INCLUDE="$withval"
     AC_DEFINE_UNQUOTED(LUA_INCLUDE, "$withval"))dnl
 
+AC_SUBST(LEGACY_ORDERING)
+AC_ARG_WITH(legacyOrdering,
+    AC_HELP_STRING([--with-legacyOrdering=ans],[Using legacy version ordering. [[no]]]),
+    LEGACY_ORDERING="$withval"
+    AC_MSG_RESULT([LEGACY_ORDERING=$with_legacyOrdering])
+    AC_DEFINE_UNQUOTED(LEGACY_ORDERING, "$with_legacyOrdering")dnl
+    ,
+    withval="NO"
+    AC_MSG_RESULT([LEGACY_ORDERING=$withval])
+    LEGACY_ORDERING="$withval"
+    AC_DEFINE_UNQUOTED(LEGACY_ORDERING, "$withval"))dnl
 
 
 AC_SUBST(BASENAME)

@@ -477,6 +477,10 @@ function main()
       end
    end
 
+   ------------------------------------------------------------
+   -- Chose parseVersion:
+   parseVersion = buildParseVersion()
+
    local lmod_colorize = getenv("LMOD_COLORIZE") or "@colorize@"
    if (lmod_colorize:lower() ~= "yes") then
       colorize = plain

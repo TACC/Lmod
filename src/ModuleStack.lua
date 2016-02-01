@@ -158,4 +158,14 @@ function M.fileName(self)
    return top.fn
 end
 
+function M.traceBack(self)
+   local a     = {}
+   local stack = self.stack
+
+   for i = #stack, 2,-1 do
+      a[#a+1] = {fullName = stack[i].full, fn = stack[i].fn }
+   end
+   return a
+end
+
 return M

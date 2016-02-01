@@ -429,13 +429,30 @@ return M
 \end{frame}    
 
 \begin{frame}[fragile]
+    \frametitle{Logging Code}
+    {\small
+      \begin{alltt}
+local dbg = require("Dbg"):dbg()
+function M.Load(n)
+    dbg.start\{"Load(",n,")"\}
+    ...
+    dbg.print\{"var: ",var,"\textbackslash{}n"\}
+    ...
+    dbg.fini("Load")
+end
+
+      \end{alltt}
+    }
+\end{frame}    
+
+\begin{frame}[fragile]
     \frametitle{Logging example}
     {\small
       \begin{alltt}
 \$ module -D load ddt 2> load.log
 
 lmod(-D load ddt)\{
-  Load_Usr(ddt)\{
+  Load(ddt)\{
     MT:_build_locationTbl(mpathA)\{
       Cache:cache()\{
       \} Cache:cache
@@ -482,7 +499,7 @@ Colorize Lmod                    yes
     \item Lmod is available from github, sourceforge
     \item Available: brew, fedora, Debian, Ubuntu, ...
     \item Lmod is more reliable and much more capable than just
-      in-house
+      in-house project
     \item It has been a great deal of fun
     \item But also a lot of work!
     \item And there is no way I'm going to keep them all happy.
@@ -491,3 +508,8 @@ Colorize Lmod                    yes
 
 
 \end{document}
+
+% hererocks: from python to install lua in different directories.
+% middle class: a lua based class tool
+% busted: a lua based test tool (library?)
+% http://kikito.github.io/ci-with-lua/

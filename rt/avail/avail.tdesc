@@ -57,6 +57,12 @@ testdescript = {
      runLmod use $(testDir)/mf/Core4  #23
      runLmod avail                    #24
 
+     runLmod use $(testDir)/mf/Order  #25
+     export LMOD_LEGACY_VERSION_ORDERING=1
+     runLmod avail                    #26
+     unset LMOD_LEGACY_VERSION_ORDERING
+     runLmod avail                    #27
+
 
 
      HOME=$ORIG_HOME

@@ -33,6 +33,7 @@ SHORT_TIME        	  := @SHORT_TIME@
 PIN_VERSIONS              := @PIN_VERSIONS@
 AUTO_SWAP        	  := @AUTO_SWAP@
 SPIDER_CACHE_DIRS 	  := @SPIDER_CACHE_DIRS@
+LEGACY_ORDERING           := @LEGACY_ORDERING@
 EXPORT_MODULE             := @EXPORT_MODULE@
 BASENAME                  := @BASENAME@
 PS                        := @PS@
@@ -174,6 +175,7 @@ __installMe:
 	        -e 's|@ps@|$(PS)|g'                              	   	  \
 	        -e 's|@expr@|$(EXPR)|g'                              	   	  \
 	        -e 's|@libexec@|$(LIBEXEC)|g'                       	   	  \
+	        -e 's|@legacy_ordering@|$(LEGACY_ORDERING)|g'           	  \
 	        -e 's|@pin_versions@|$(PIN_VERSIONS)|g'                	   	  \
 	        -e 's|@auto_swap@|$(AUTO_SWAP)|g'                      	   	  \
 	        -e 's|@export_module@|$(EXPORT_MODULE)|g'             	   	  \

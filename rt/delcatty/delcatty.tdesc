@@ -33,6 +33,9 @@ testdescript = {
      runLmod load cluster/delcatty   # 2
      runLmod load VSC-tools          # 3
      runLmod list                    # 4
+     runLmod load Error              # 5
+     runLmod list                    # 6
+    
 
      HOME=$ORIG_HOME
      cat _stdout.[0-9][0-9][0-9] > _stdout.orig

@@ -55,10 +55,11 @@ function capture(cmd, envT)
    end
 
    local ret
+   local status
    local p   = io.popen(cmd)
    if (p ~= nil) then
-      ret = p:read("*all")
-      p:close()
+      ret    = p:read("*all")
+      status = p:close()
    end
 
    for k, v in pairs(newT) do
@@ -70,7 +71,8 @@ function capture(cmd, envT)
       dbg.print{ret}
       dbg.fini("capture output")
    end
+   dbg.print{"status: ",status,", type(status): ",type(status),"\n"}
    dbg.fini("capture")
-   return ret
+   return ret, status
 end
 

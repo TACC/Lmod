@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 6.0.19  2015-11-18 08:32
+Modules based on Lua: Version 6.0.26  2016-01-29 11:03
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -128,7 +128,7 @@ The following guides are at http://lmod.readthedocs.org/
   User Guide                 - How to use.
   Advance User Guide         - How to create you own modules.
   System Administrator Guide - How to install Lmod on your own system.
-Modules based on Lua: Version 6.0.19  2015-11-18 08:32
+Modules based on Lua: Version 6.0.26  2016-01-29 11:03
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 3
@@ -254,7 +254,7 @@ The following guides are at http://lmod.readthedocs.org/
   User Guide                 - How to use.
   Advance User Guide         - How to create you own modules.
   System Administrator Guide - How to install Lmod on your own system.
-Modules based on Lua: Version 6.0.19  2015-11-18 08:32
+Modules based on Lua: Version 6.0.26  2016-01-29 11:03
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 4
@@ -274,7 +274,7 @@ Version 9
 step 5
 lua ProjectDIR/src/lmod.in.lua bash --config
 ===========================
-Modules based on Lua: Version 6.0.19  2015-11-18 08:32
+Modules based on Lua: Version 6.0.26  2016-01-29 11:03
     by Robert McLay mclay@tacc.utexas.edu
 Description                      Value
 Allow TCL modulefiles            yes
@@ -291,6 +291,7 @@ System lua-term                  @have_lua_term@
 avail: Include modulepath dir    no
 MODULEPATH_ROOT                  @modulepath_root@
 number of cache dirs             0
+Version ordering                 modern
 Pager                            @path_to_pager@
 Pager Options                    -XqMREF
 Path to HashSum                  @path_to_hashsum@

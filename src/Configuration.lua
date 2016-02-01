@@ -110,6 +110,7 @@ local function new(self)
    local disable1N         = LMOD_DISABLE_SAME_NAME_AUTOSWAP
    local tmod_rule         = LMOD_TMOD_PATH_RULE
    local exactMatch        = LMOD_EXACT_MATCH
+   local ordering          = (LMOD_LEGACY_VERSION_ORDERING == "yes") and "legacy" or "modern"
 
    local tbl = {}
    tbl.allowTCL    = { k = "Allow TCL modulefiles"           , v = LMOD_ALLOW_TCL_MFILES,}
@@ -130,6 +131,7 @@ local function new(self)
    tbl.mpath_root  = { k = "MODULEPATH_ROOT"                 , v = "@modulepath_root@",  }
    tbl.modRC       = { k = "MODULERCFILE"                    , v = MODULERCFILE,         }
    tbl.numSC       = { k = "number of cache dirs"            , v = numSC,                }
+   tbl.ordering    = { k = "Version ordering"                , v = ordering,             }
    tbl.pager       = { k = "Pager"                           , v = LMOD_PAGER,           }
    tbl.pager_opts  = { k = "Pager Options"                   , v = LMOD_PAGER_OPTS,      }
    tbl.path_hash   = { k = "Path to HashSum"                 , v = "@path_to_hashsum@",  }

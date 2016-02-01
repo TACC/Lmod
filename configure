@@ -602,6 +602,7 @@ PATH_TO_GIT
 PS
 EXPR
 BASENAME
+LEGACY_ORDERING
 LUA_INCLUDE
 TMOD_PATH_RULE
 PIN_VERSIONS
@@ -696,6 +697,7 @@ with_ignoreDirs
 with_pinVersions
 with_tmodPathRule
 with_lua_include
+with_legacyOrdering
 '
       ac_precious_vars='build_alias
 host_alias
@@ -1357,6 +1359,8 @@ Optional Packages:
                           append/prepend.[[NO]]
   --with-lua_include=ans  Save/Restore will use the current version instead of
                           changing with the default.[[NO]]
+  --with-legacyOrdering=ans
+                          Using legacy version ordering. [[no]]
 
 Some influential environment variables:
   CC          C compiler command
@@ -3136,6 +3140,27 @@ _ACEOF
 
 fi
 
+
+
+# Check whether --with-legacyOrdering was given.
+if test "${with_legacyOrdering+set}" = set; then :
+  withval=$with_legacyOrdering; LEGACY_ORDERING="$withval"
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: LEGACY_ORDERING=$with_legacyOrdering" >&5
+$as_echo "LEGACY_ORDERING=$with_legacyOrdering" >&6; }
+    cat >>confdefs.h <<_ACEOF
+#define LEGACY_ORDERING "$with_legacyOrdering"
+_ACEOF
+
+else
+  withval="NO"
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: LEGACY_ORDERING=$withval" >&5
+$as_echo "LEGACY_ORDERING=$withval" >&6; }
+    LEGACY_ORDERING="$withval"
+    cat >>confdefs.h <<_ACEOF
+#define LEGACY_ORDERING "$withval"
+_ACEOF
+
+fi
 
 
 
@@ -5082,6 +5107,7 @@ echo "Have lua-json..............................." : $HAVE_LUA_JSON
 echo "Support Auto Swap when using families......." : $AUTO_SWAP
 echo "Export the module shell function in Bash...." : $EXPORT_MODULE
 echo "Disable same name autoswapping.............." : $DISABLE_NAME_AUTOSWAP
+echo "Legacy version ordering....................." : $LEGACY_ORDERING
 echo "Pager used inside Lmod......................" : $PATH_TO_PAGER
 
 echo
