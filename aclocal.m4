@@ -43,6 +43,7 @@ echo "Support Auto Swap when using families......." : $AUTO_SWAP
 echo "Export the module shell function in Bash...." : $EXPORT_MODULE
 echo "Disable same name autoswapping.............." : $DISABLE_NAME_AUTOSWAP
 echo "Legacy version ordering....................." : $LEGACY_ORDERING
+echo "Use Spider Cache on Loads..................." : $CACHED_LOADS
 echo "Pager used inside Lmod......................" : $PATH_TO_PAGER
 
 echo

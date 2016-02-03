@@ -298,6 +298,17 @@ AC_ARG_WITH(legacyOrdering,
     LEGACY_ORDERING="$withval"
     AC_DEFINE_UNQUOTED(LEGACY_ORDERING, "$withval"))dnl
 
+AC_SUBST(CACHED_LOADS)
+AC_ARG_WITH(cachedLoads,
+    AC_HELP_STRING([--with-cachedLoads=ans],[Use cache when loading [[no]]]),
+    CACHED_LOADS="$withval"
+    AC_MSG_RESULT([CACHED_LOADS=$with_cachedLoads])
+    AC_DEFINE_UNQUOTED(CACHED_LOADS, "$with_cachedLoads")dnl
+    ,
+    withval="NO"
+    AC_MSG_RESULT([CACHED_LOADS=$withval])
+    CACHED_LOADS="$withval"
+    AC_DEFINE_UNQUOTED(CACHED_LOADS, "$withval"))dnl
 
 AC_SUBST(BASENAME)
 AC_SUBST(EXPR)

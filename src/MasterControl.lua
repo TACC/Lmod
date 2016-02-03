@@ -718,7 +718,7 @@ end
 
 --------------------------------------------------------------------------
 -- Report the modulefiles stack for error report.
-local function moduleStackTraceBack()
+function moduleStackTraceBack()
    local mStack = ModuleStack:moduleStack()
    if (mStack:empty()) then return end
 
@@ -734,8 +734,11 @@ local function moduleStackTraceBack()
    end
 
    local bt = BeautifulTbl:new{tbl=aa}
-   io.stderr:write("\n","While processing the following module(s):\n\n",
-                   bt:build_tbl(),"\n")
+
+   local bb = {}
+   bb[#bb+1] = "\nWhile processing the following module(s):\n\n",
+   bb[#bb+1] = bt:build_tbl()
+   return concatTbl(bb,"")
 end
 
 --------------------------------------------------------------------------
@@ -753,7 +756,7 @@ function LmodSystemError(...)
    local s      = buildMsg(twidth, label, ...)
 
    io.stderr:write(s,"\n")
-   moduleStackTraceBack()
+   io.stderr:write(moduleStackTraceBack(),"\n")
    LmodErrorExit()
 end
 
@@ -774,7 +777,7 @@ function M.warning(self, ...)
       local twidth = TermWidth()
       local s      = buildMsg(twidth, label, ...)
       io.stderr:write(s,"\n")
-      moduleStackTraceBack()
+      io.stderr:write(moduleStackTraceBack(),"\n")
       setWarningFlag()
    end
 end

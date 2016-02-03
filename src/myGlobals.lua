@@ -196,6 +196,10 @@ LMOD_DUPLICATE_PATHS = initialize("LMOD_DUPLICATE_PATHS",
 LMOD_IGNORE_CACHE = getenv("LMOD_IGNORE_CACHE") or "0"
 LMOD_IGNORE_CACHE = (LMOD_IGNORE_CACHE:trim() ~= "0")
 
+------------------------------------------------------------------------
+-- LMOD_CACHED_LOADS: Use spider cache on loads
+------------------------------------------------------------------------
+LMOD_CACHED_LOADS = initialize("LMOD_CACHED_LOADS","@cached_loads@", "no")
 
 ------------------------------------------------------------------------
 -- LMOD_PAGER: Lmod will use this value of pager if set.

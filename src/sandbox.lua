@@ -158,6 +158,7 @@ sandbox_env = {
   myModuleVersion      = myModuleVersion,
   hierarchyA           = hierarchyA,
   userInGroup          = userInGroup,
+  moduleStackTraceBack = moduleStackTraceBack
 
   -- Normal modulefiles should not use these function(s):
   LmodSystemError      = LmodSystemError,   -- Normal Modulefiles should use
