@@ -1,0 +1,2 @@
+setenv("ME",myModuleFullName())
+
