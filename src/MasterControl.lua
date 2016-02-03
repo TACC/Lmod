@@ -251,7 +251,6 @@ end
 s_adminT = {}
 
 function M.load(self, mA)
-   LMOD_IGNORE_CACHE = true
    local master = Master:master()
 
    if (dbg.active()) then
