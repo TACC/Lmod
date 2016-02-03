@@ -104,9 +104,7 @@ case $SYSHOST in
     UPDATE_FN=$ADMIN_DIR/timestamp
     CACHEDIRS=$ADMIN_DIR
     EXTRA="--with-spiderCacheDir=$CACHEDIRS  --with-updateSystemFn=$UPDATE_FN "
-    base="$HOME/l/pkg"
-    
-
+    base="$HOME/l/pkg";;
 
   *)
     ADMIN_DIR=$HOME/w/moduleData

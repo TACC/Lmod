@@ -33,8 +33,8 @@ cleanUp ()
        -e "s| *----* *||g"                                \
        -e "s|^--* *| |g"                                  \
        -e "s|--* *$||g"                                   \
-       -e "s|^ *OutputDIR| OutputDIR|"                    \
        -e "s|$old|$new|g"                                 \
+       -e "s|^ *OutputDIR| OutputDIR|"                    \
        -e "s|  *$||g"                                     \
        -e "/^Active lua-term.*/d"                         \
        -e "/Rebuilding cache.*done/d"                     \
