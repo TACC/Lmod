@@ -260,36 +260,40 @@ function M.load(self, mA)
 
    local a = master.load(mA)
    if (not quiet()) then
-      local mt      = MT:mt()
-      local t       = s_adminT
-      readAdmin()
-      for i = 1, #mA do
-         local mname      = mA[i]
-         local sn         = mname:sn()
-         if (mt:have(sn,"active")) then
-            local moduleFn  = mt:fileName(sn)
-            local modFullNm = mt:fullName(sn)
-            local message
-            local key
-            if (adminT[moduleFn]) then
-               message = adminT[moduleFn]
-               key     = moduleFn
-            elseif (adminT[modFullNm]) then
-               message = adminT[modFullNm]
-               key     = modFullNm
-            end
-
-            if (message) then
-               t[key] = message
-            end
-         end
-      end
-
+      self:registerAdminMsg(mA)
    end
 
    dbg.fini("MasterControl:load")
    return a
 end
+
+function M.registerAdminMsg(self, mA)
+   local mt      = MT:mt()
+   local t       = s_adminT
+   readAdmin()
+   for i = 1, #mA do
+      local mname      = mA[i]
+      local sn         = mname:sn()
+      if (mt:have(sn,"active")) then
+         local moduleFn  = mt:fileName(sn)
+         local modFullNm = mt:fullName(sn)
+         local message
+         local key
+         if (adminT[moduleFn]) then
+            message = adminT[moduleFn]
+            key     = moduleFn
+         elseif (adminT[modFullNm]) then
+            message = adminT[modFullNm]
+            key     = modFullNm
+         end
+
+         if (message) then
+            t[key] = message
+         end
+      end
+   end
+end
+
 
 -------------------------------------------------------------------
 -- Output any admin message collected from loading.

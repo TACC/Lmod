@@ -331,6 +331,7 @@ function M.access(self, ...)
       else
          a[#a+1] = moduleName
       end
+      mcp:registerAdminMsg({mname})
    end
 
    shell:echo(concatTbl(A,""))

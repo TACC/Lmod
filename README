@@ -10,7 +10,11 @@ Features:
       ordering ( --with-legacyOrdering=yes or export
       LMOD_LEGACY_VERSION_ORDERING=1). With legacy ordering 9.0
       is "newer" than 10.0. This is the ordering that Tmod uses.
-   c) Many improvement in the generation of the lmod database for
+   c) Lmod will print admin message (a.k.a nag messages) when
+      doing module whatis <foo> or module help <foo>.  In other
+      words if a nag message would appear with module load <foo>
+      then it will also appear when using whatis or help.
+   d) Many improvement in the generation of the lmod database for
       module tracking.
 Bug Fixes:
    a) The command module spider would fail to find a module if a
