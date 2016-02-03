@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 6.0.2  2015-06-15 13:40
+Modules based on Lua: Version 6.0.26  2016-01-29 11:03
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -30,6 +30,10 @@ Currently Loaded Modules:
 step 6
 lua ProjectDIR/src/lmod.in.lua bash load M4
 ===========================
+Unable to load module "b" while processing the following module(s):
+    Module fullname  Module Filename
+    M3               ProjectDIR/rt/between/mf/Core/M3.lua
+    M4               ProjectDIR/rt/between/mf/Core/M4.lua
 Lmod has detected the following error: These module(s) exist but cannot be
 loaded as requested: atleast("b","1.5")
    Try: "module spider b" to see how to load the module(s).
@@ -59,8 +63,8 @@ Lmod has detected the following error: Cannot load module "M6" without these
 module(s) loaded:
    atleast("a","1.3")
 While processing the following module(s):
-Module fullname  Module Filename
-M6               ProjectDIR/rt/between/mf/Core/M6.lua
+    Module fullname  Module Filename
+    M6               ProjectDIR/rt/between/mf/Core/M6.lua
 ===========================
 step 11
 lua ProjectDIR/src/lmod.in.lua bash load a/1.3 M6
@@ -81,8 +85,8 @@ Lmod has detected the following error: Cannot load module "M6" without these
 module(s) loaded:
    atleast("a","1.3")
 While processing the following module(s):
-Module fullname  Module Filename
-M6               ProjectDIR/rt/between/mf/Core/M6.lua
+    Module fullname  Module Filename
+    M6               ProjectDIR/rt/between/mf/Core/M6.lua
 ===========================
 step 14
 lua ProjectDIR/src/lmod.in.lua bash list
@@ -105,6 +109,9 @@ Currently Loaded Modules:
 step 17
 lua ProjectDIR/src/lmod.in.lua bash load M8
 ===========================
+Unable to load module "c" while processing the following module(s):
+    Module fullname  Module Filename
+    M8               ProjectDIR/rt/between/mf/Core/M8.lua
 Lmod has detected the following error: These module(s) exist but cannot be
 loaded as requested: between("c","1.5","1.7")
    Try: "module spider c" to see how to load the module(s).

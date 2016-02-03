@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 6.0.6  2015-07-16 14:33
+Modules based on Lua: Version 6.0.26  2016-01-29 11:03
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -106,8 +106,8 @@ To correct the situation, please enter the following command:
   module swap gcc  clang/4.2.1
 Please submit a consulting ticket if you require additional assistance.
 While processing the following module(s):
-Module fullname  Module Filename
-clang/4.2.1      ProjectDIR/rt/hierarchy/mf/Core/clang/4.2.1.lua
+    Module fullname  Module Filename
+    clang/4.2.1      ProjectDIR/rt/hierarchy/mf/Core/clang/4.2.1.lua
 ===========================
 step 17
 lua ProjectDIR/src/lmod.in.lua bash --expert load clang

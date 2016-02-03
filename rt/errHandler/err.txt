@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.9.1.1  2015-03-17 21:53
+Modules based on Lua: Version 6.0.26  2016-01-29 11:03
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -12,8 +12,8 @@ Lmod has detected the following error: Unable to load module: bad_syntax
      ProjectDIR/rt/errHandler/mf/bad_syntax/1.0.lua : [string
 "setenv("BAD_SYNTAX","1.0")..."]:2: unexpected symbol near '#'
 While processing the following module(s):
-Module fullname  Module Filename
-bad_syntax/1.0   ProjectDIR/rt/errHandler/mf/bad_syntax/1.0.lua
+    Module fullname  Module Filename
+    bad_syntax/1.0   ProjectDIR/rt/errHandler/mf/bad_syntax/1.0.lua
 ===========================
 step 3
 lua ProjectDIR/src/lmod.in.lua bash load bad_argument
@@ -22,5 +22,5 @@ Lmod has detected the following error: Syntax error in file:
 ProjectDIR/rt/errHandler/mf/bad_argument/1.0.lua
  with command: help  One or more arguments are not strings
 While processing the following module(s):
-Module fullname   Module Filename
-bad_argument/1.0  ProjectDIR/rt/errHandler/mf/bad_argument/1.0.lua
+    Module fullname   Module Filename
+    bad_argument/1.0  ProjectDIR/rt/errHandler/mf/bad_argument/1.0.lua

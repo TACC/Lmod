@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 6.0.2  2015-06-15 13:40
+Modules based on Lua: Version 6.0.26  2016-01-29 11:03
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -16,8 +16,8 @@ Lmod has detected the following error: Cannot load module "slepc/3.0.0". At
 least one of these module(s) must be loaded:
    petsc/3.0.0
 While processing the following module(s):
-Module fullname  Module Filename
-slepc/3.0.0      ProjectDIR/rt/prereq/mf/slepc/3.0.0
+    Module fullname  Module Filename
+    slepc/3.0.0      ProjectDIR/rt/prereq/mf/slepc/3.0.0
 ===========================
 step 4
 lua ProjectDIR/src/lmod.in.lua bash unload slepc
@@ -34,8 +34,8 @@ Lmod has detected the following error: Cannot load module "slepc/3.1.0". At
 least one of these module(s) must be loaded:
    petsc/3.1.0
 While processing the following module(s):
-Module fullname  Module Filename
-slepc/3.1.0      ProjectDIR/rt/prereq/mf/slepc/3.1.0
+    Module fullname  Module Filename
+    slepc/3.1.0      ProjectDIR/rt/prereq/mf/slepc/3.1.0
 ===========================
 step 7
 lua ProjectDIR/src/lmod.in.lua bash load petsc/2.9.0
@@ -48,8 +48,8 @@ Lmod has detected the following error: Cannot load module "slepc/3.1.0". At
 least one of these module(s) must be loaded:
    petsc/3.1.0
 While processing the following module(s):
-Module fullname  Module Filename
-slepc/3.1.0      ProjectDIR/rt/prereq/mf/slepc/3.1.0
+    Module fullname  Module Filename
+    slepc/3.1.0      ProjectDIR/rt/prereq/mf/slepc/3.1.0
 ===========================
 step 9
 lua ProjectDIR/src/lmod.in.lua bash load slepc/2.9.0
@@ -86,8 +86,8 @@ Lmod has detected the following error: Cannot load module "junk/1.0". At
 least one of these module(s) must be loaded:
    java, jdk64, jdk32
 While processing the following module(s):
-Module fullname  Module Filename
-junk/1.0         ProjectDIR/rt/prereq/mf/junk/1.0.lua
+    Module fullname  Module Filename
+    junk/1.0         ProjectDIR/rt/prereq/mf/junk/1.0.lua
 ===========================
 step 16
 lua ProjectDIR/src/lmod.in.lua bash load jdk32

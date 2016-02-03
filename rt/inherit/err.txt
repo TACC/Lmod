@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.2.5 5.2.5-21-geecdc9c 2014-01-26 07:24
+Modules based on Lua: Version 6.0.26  2016-01-29 11:03
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -28,8 +28,8 @@ lua ProjectDIR/src/lmod.in.lua bash load junk2
 ===========================
 Lmod has detected the following error: Failed to inherit: junk2/1.0
 While processing the following module(s):
-Module fullname  Module Filename
-junk2/1.0        ProjectDIR/rt/inherit/mf/Linux/junk2/1.0.lua
+    Module fullname  Module Filename
+    junk2/1.0        ProjectDIR/rt/inherit/mf/Linux/junk2/1.0.lua
 ===========================
 step 7
 lua ProjectDIR/src/lmod.in.lua bash use ProjectDIR/rt/inherit/pmf/core
