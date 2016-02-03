@@ -718,25 +718,27 @@ end
 
 --------------------------------------------------------------------------
 -- Report the modulefiles stack for error report.
-function moduleStackTraceBack()
+function moduleStackTraceBack(msg)
    local mStack = ModuleStack:moduleStack()
-   if (mStack:empty()) then return end
+   msg = msg or "While processing the following module(s):\n"
+   if (mStack:empty()) then return "" end
 
    local aa = {}
-   aa[1]    = { "Module fullname", "Module Filename"}
-   aa[2]    = { "---------------", "---------------"}
+   aa[1]    = { "  ", "Module fullname", "Module Filename"}
+   aa[2]    = { "  ", "---------------", "---------------"}
 
    local a  = mStack:traceBack()
 
    for i = 1,#a do
       local entry = a[i]
-      aa[#aa+1] = {entry.fullName, entry.fn}
+      aa[#aa+1] = {"  ",entry.fullName, entry.fn}
    end
 
    local bt = BeautifulTbl:new{tbl=aa}
 
    local bb = {}
-   bb[#bb+1] = "\nWhile processing the following module(s):\n\n",
+   bb[#bb+1] = "\n"
+   bb[#bb+1] = msg
    bb[#bb+1] = bt:build_tbl()
    return concatTbl(bb,"")
 end
@@ -754,9 +756,10 @@ function LmodSystemError(...)
    local label  = colorize("red", "Lmod has detected the following error: ")
    local twidth = TermWidth()
    local s      = buildMsg(twidth, label, ...)
-
    io.stderr:write(s,"\n")
-   io.stderr:write(moduleStackTraceBack(),"\n")
+   
+   s = moduleStackTraceBack()
+   io.stderr:write(s,"\n")
    LmodErrorExit()
 end
 
