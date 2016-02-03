@@ -300,7 +300,7 @@ AC_ARG_WITH(legacyOrdering,
 
 AC_SUBST(CACHED_LOADS)
 AC_ARG_WITH(cachedLoads,
-    AC_HELP_STRING([--with-cachedLoads=ans],[Use cache when loading [[no]]]),
+    AC_HELP_STRING([--with-cachedLoads=ans],[Use cache when loading modules. [[no]]]),
     CACHED_LOADS="$withval"
     AC_MSG_RESULT([CACHED_LOADS=$with_cachedLoads])
     AC_DEFINE_UNQUOTED(CACHED_LOADS, "$with_cachedLoads")dnl

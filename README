@@ -1,4 +1,17 @@
 Lmod 6.1:
+Features:
+   a) It is no possible to configure Lmod to use the spider cache
+      when loading (--with-cachedLoads=yes or
+      export LMOD_CACHED_LOADS=1 to activate). This is off by
+      default. Sites that use this will have to keep their spider
+      caches up-to-date or user will not be able to load modules
+      not in the cache.
+   b) It is now possible to configure Lmod to use Legacy Version
+      ordering ( --with-legacyOrdering=yes or export
+      LMOD_LEGACY_VERSION_ORDERING=1). With legacy ordering 9.0
+      is "newer" than 10.0. This is the ordering that Tmod uses.
+   c) Many improvement in the generation of the lmod database for
+      module tracking.
 Bug Fixes:
    a) The command module spider would fail to find a module if a
       site had the spider cache file dbT.lua files and a user
@@ -11,6 +24,11 @@ Bug Fixes:
       LMOD_PAGER (default "less") and LMOD_PAGER_OPTS
       (default "-XqRMEF").  This allows for consistent behavior
       under systems like the Cray and Mac OS X.
+   e) Lmod now reports the module stack when loads fail.
+   f) Set $LMOD_REVERSEMAPT_DIR after $LMOD_CACHE_DIR in
+      update_lmod_system_cache_files.
+   g) Support for exit 1 in tcl modulefiles.
+   h) Fixed bug in tcl and unsetenv.
 
 Lmod 6.0.1:
 Bug Fixes:
