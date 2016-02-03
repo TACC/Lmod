@@ -449,10 +449,11 @@ function M.load(mA)
          dbg.print{"Setting mcp to ", mcp:name(),"\n"}
          loaded = aa[1]
       elseif (fn == nil and not mStack:empty()) then
-         LmodMessage("Unable to load \"",moduleName,"\" while loading:\n\n")
-         -- print module stack 
-         io.stderr:write(moduleStackTraceBack(),"\n")
-      else
+         local msg = "Unable to load module \"" .. moduleName .. "\" while processing the following module(s):\n\n"
+         if (haveWarnings()) then
+            LmodMessage(moduleStackTraceBack(msg),"\n\n")
+         end
+      elseif (fn) then
          dbg.print{"Master:loading: \"",moduleName,"\" from f: \"",fn,"\"\n"}
          local mList = concatTbl(mt:list("both","active"),":")
          mt:add(t, "pending")
