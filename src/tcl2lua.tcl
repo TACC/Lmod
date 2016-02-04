@@ -405,7 +405,7 @@ proc setenv { var val args } {
     global env g_varsT
     set mode [currentMode]
 
-    if {[string match $var "-respect"] || [string match $var "-r"] || [string match $var "--respect"]} {
+    if {[string match "-respect" $var] || [string match "-r" $var ] || [string match "--respect" $var]} {
 	set respect "true"
 	set var [lindex $args 0]
 	set val [lindex $args 1]
@@ -446,11 +446,17 @@ proc pushenv { var val } {
 }
 
 proc prepend-path { var val args} {
-    if {[string match $var "-delim"] || [string match $var "-d"] || [string match $var "--delim"]} {
+    if {[string match "--delim=*" $var ]} {
+        set separator [string range $var 8 end]
+        set var       $val
+        set val       [lindex $args 0]
+        set priority  [lindex $args 1]
+    } elseif {[string match "-delim" $var] || [string match "-d" $var ] || [string match "--delim" $var]} {
+        puts stderr "Here 3"
         set separator $val
-        set var      [lindex $args 0]
-        set val      [lindex $args 1]
-        set priority [lindex $args 2]
+        set var       [lindex $args 0]
+        set val       [lindex $args 1]
+        set priority  [lindex $args 2]
     } else {
         set priority [lindex $args 0]
         set separator ":"
@@ -462,7 +468,12 @@ proc prepend-path { var val args} {
 }
 
 proc append-path { var val args} {
-    if {[string match $var "-delim"] || [string match $var "-d"] || [string match $var "--delim"]} {
+    if {[string match "--delim=*" $var ]} {
+        set separator [string range $var 8 end]
+        set var       $val
+        set val       [lindex $args 0]
+        set priority  [lindex $args 1]
+    } elseif {[string match "-delim" $var] || [string match "-d" $var] || [string match "--delim" $var]} {
         set separator $val
         set var      [lindex $args 0]
         set val      [lindex $args 1]
@@ -471,14 +482,19 @@ proc append-path { var val args} {
         set priority [lindex $args 0]
         set separator ":"
     }
-    if {[ string match $priority ""]} {
+    if {[ string match "" $priority]} {
         set priority 0
     }
     output-path-foo "append_path" $var $val $separator $priority
 }
 
 proc remove-path { var val args} {
-    if {[string match $var "-delim"] || [string match $var "-d"] || [string match $var "--delim"]} {
+    if {[string match "--delim=*" $var ]} {
+        set separator [string range $var 8 end]
+        set var       $val
+        set val       [lindex $args 0]
+        set priority  [lindex $args 1]
+    } elseif {[string match "-delim" $var] || [string match "-d" $var] || [string match "--delim" $var]} {
         set separator $val
         set var      [lindex $args 0]
         set val      [lindex $args 1]
@@ -487,7 +503,7 @@ proc remove-path { var val args} {
         set priority [lindex $args 0]
         set separator ":"
     }
-    if {[ string match $priority ""]} {
+    if {[ string match "" $priority]} {
         set priority 0
     }
     output-path-foo "remove_path" $var $val $separator $priority
