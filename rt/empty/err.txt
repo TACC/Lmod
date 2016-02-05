@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.8.2  2015-01-14 20:55
+Modules based on Lua: Version 6.0.30  2016-02-05 12:55
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -11,4 +11,4 @@ lua ProjectDIR/src/lmod.in.lua bash load a
 Lmod Warning: MODULEPATH is undefined
 Lmod has detected the following error: The following module(s) are unknown:
 "a"
-   Please check the spelling or version number. Also try "module spider ..."
+Please check the spelling or version number. Also try "module spider ..."

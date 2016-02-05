@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 6.0.26  2016-01-29 11:03
+Modules based on Lua: Version 6.0.30  2016-02-05 12:55
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -24,7 +24,7 @@ lua ProjectDIR/src/lmod.in.lua bash load parmetis/11.0
 ===========================
 Lmod has detected the following error: The following module(s) are unknown:
 "parmetis/11.0"
-   Please check the spelling or version number. Also try "module spider ..."
+Please check the spelling or version number. Also try "module spider ..."
 ===========================
 step 5
 lua ProjectDIR/src/lmod.in.lua bash load clang openmpi parmetis
