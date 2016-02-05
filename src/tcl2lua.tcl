@@ -452,7 +452,6 @@ proc prepend-path { var val args} {
         set val       [lindex $args 0]
         set priority  [lindex $args 1]
     } elseif {[string match "-delim" $var] || [string match "-d" $var ] || [string match "--delim" $var]} {
-        puts stderr "Here 3"
         set separator $val
         set var       [lindex $args 0]
         set val       [lindex $args 1]
