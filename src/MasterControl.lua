@@ -135,7 +135,7 @@ function M.mustLoad()
       if (#uA > 0) then
          a[#a+1] = "The following module(s) are unknown: "
          a[#a+1] = concatTbl(uA, " ")
-         a[#a+1] = "\n\n   Please check the spelling or version number. "
+         a[#a+1] = "\n\nPlease check the spelling or version number. "
          a[#a+1] = "Also try \"module spider ...\"\n"
       end
 
@@ -742,7 +742,6 @@ function moduleStackTraceBack(msg)
    local bt = BeautifulTbl:new{tbl=aa}
 
    local bb = {}
-   bb[#bb+1] = "\n"
    bb[#bb+1] = msg
    bb[#bb+1] = bt:build_tbl()
    return concatTbl(bb,"")

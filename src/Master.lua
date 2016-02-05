@@ -451,7 +451,9 @@ function M.load(mA)
          dbg.print{"Setting mcp to ", mcp:name(),"\n"}
          loaded = aa[1]
       elseif (fn == nil and not mStack:empty()) then
-         local msg = "Unable to load module \"" .. moduleName .. "\" while processing the following module(s):\n\n"
+         local msg = "Executing this command requires loading \"" .. moduleName .. "\" which failed"..
+            " while processing the following module(s):\n\n"
+         msg = buildMsg(TermWidth(), msg)
          if (haveWarnings()) then
             stackTraceBackA[#stackTraceBackA+1] = moduleStackTraceBack(msg)
          end
