@@ -962,7 +962,7 @@ function walk_directory_for_mf(mpath, path, prefix, dirA, mnameT)
 
             if (readable) then
                local st    = posix.stat(f)
-               if ((not st) or (st.uid == 0 and not st.mode:find("......r..") ) then
+               if ((not st) or (st.uid == 0 and not st.mode:find("......r.."))) then
                   readable = false
                end
             end
