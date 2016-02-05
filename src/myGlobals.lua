@@ -217,6 +217,10 @@ MODULERCFILE = getenv("MODULERCFILE") or pathJoin(cmdDir(),"../../etc/rc")
 
 LMOD_RTM_TESTING = getenv("LMOD_RTM_TESTING")
 
+------------------------------------------------------------------------
+-- LMOD_ADMIN_FILE: The Nag file.
+------------------------------------------------------------------------
+LMOD_ADMIN_FILE = getenv("LMOD_ADMIN_FILE") or pathJoin(cmdDir(),"../../etc/admin.list")
 
 ------------------------------------------------------------------------
 -- LMOD_AVAIL_STYLE: Used by the avail hook to control how avail output
@@ -273,6 +277,11 @@ require("capture")
 ------------------------------------------------------------------------
 
 adminT         = {}
+
+------------------------------------------------------------------------
+-- stackTraceBackA 
+------------------------------------------------------------------------
+stackTraceBackA = {}
 
 ------------------------------------------------------------------------
 -- ShowResultsA: A place where the generated module file is written to

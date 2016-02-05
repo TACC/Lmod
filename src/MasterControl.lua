@@ -66,6 +66,7 @@ require("TermWidth")
 require("string_utils")
 require("inherits")
 require("utils")
+require("myGlobals")
 
 local M            = {}
 local BeautifulTbl = require("BeautifulTbl")
@@ -762,6 +763,11 @@ function LmodSystemError(...)
    local s      = buildMsg(twidth, label, ...)
    io.stderr:write(s,"\n")
    
+   s = concatTbl(stackTraceBackA,"")
+   if (s:len() > 0) then
+      io.stderr:write(s,"\n")
+   end
+
    s = moduleStackTraceBack()
    io.stderr:write(s,"\n")
    LmodErrorExit()

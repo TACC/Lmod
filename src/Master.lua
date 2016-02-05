@@ -55,6 +55,7 @@ require("fileOps")
 require("string_utils")
 require("loadModuleFile")
 require("utils")
+require("myGlobals")
 
 _G._DEBUG          = false               -- Required by the new lua posix
 local BeautifulTbl = require('BeautifulTbl')
@@ -452,7 +453,7 @@ function M.load(mA)
       elseif (fn == nil and not mStack:empty()) then
          local msg = "Unable to load module \"" .. moduleName .. "\" while processing the following module(s):\n\n"
          if (haveWarnings()) then
-            LmodMessage(moduleStackTraceBack(msg),"\n\n")
+            stackTraceBackA[#stackTraceBackA+1] = moduleStackTraceBack(msg)
          end
       elseif (fn) then
          dbg.print{"Master:loading: \"",moduleName,"\" from f: \"",fn,"\"\n"}

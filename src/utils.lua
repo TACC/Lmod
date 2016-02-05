@@ -554,7 +554,7 @@ end
 -- Find the admin file (or nag message file).
 function findAdminFn()
    local readable    = "no"
-   local adminFn     = getenv("LMOD_ADMIN_FILE") or pathJoin(cmdDir(),"../../etc/admin.list")
+   local adminFn     = LMOD_ADMIN_FILE
    local dirName, fn = splitFileName(adminFn)
    if (isDir(dirName)) then
       local cwd      = posix.getcwd()
