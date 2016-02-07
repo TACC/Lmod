@@ -186,8 +186,8 @@ The profile file is Lmod initialization script for the bash, and zsh
 shells and cshrc file is for tcsh and csh shells. Please copy or link
 the profile and cshrc files to ``/etc/profile.d`` ::
 
-    $ ln -s /opt/apps/lmod/lmod/init/profile /etc/profile.d/z00_lmod.sh
-    $ ln -s /opt/apps/lmod/lmod/init/cshrc   /etc/profile.d/z00_lmod.csh
+    $ ln -s /opt/apps/lmod/lmod/init/profile /etc/profile.d/z99_lmod.sh
+    $ ln -s /opt/apps/lmod/lmod/init/cshrc   /etc/profile.d/z99_lmod.csh
 
 To test the setup, you just need to login as a user. The module
 command should be set and MODULEPATH should be defined. Bash or Zsh

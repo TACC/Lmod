@@ -182,7 +182,7 @@ to use Lmod, I recommend the following strategy for staff and
 friendly/power users for testing:
 
 #. Install Lua and Lmod in system locations.
-#. Install */etc/profile.d/z00_lmod.sh* to redefine the module command
+#. Install */etc/profile.d/z99_lmod.sh* to redefine the module command
 #. Load system default modules (if any) after previous step
 #. Only user who have a file named *~/.lmod* use Lmod.
 #. At TACC, we did this for 6 months.
@@ -196,7 +196,7 @@ How to Deploy Lmod
 Once Staff testing is complete and you are ready to deploy Lmod to
 your users it is quite easy to switch to an opt-out strategy:
 
-#. Change */etc/profile.d/z00_lmod.sh* so that everyone is using Lmod
+#. Change */etc/profile.d/z99_lmod.sh* so that everyone is using Lmod
 #. If a user has a ~/.no.lmod then they continue to use your original
    module system.
 #. At TACC we did this for another 6 months.
