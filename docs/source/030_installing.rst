@@ -150,14 +150,18 @@ to get Lmod installed quickly by using the defaults:
   the spider caching system.  This will greatly speed up ``module
   avail`` and ``module spider``
 
-To install Lmod, you'll want to carefully read the following.  If you
-want Lmod version X.Y installed in ``/opt/apps/lmod/X.Y``, just do::
+If you want Lmod version X.Y installed in ``/opt/apps/lmod/X.Y``, use
+the following form of ``configure``::
 
     $ ./configure --prefix=/opt/apps
     $ make install
 
-The ``make install`` will install Lmod in ``/opt/apps/lmod/x.y.z``
-and create a link to ``/opt/apps/lmod/lmod``.
+Take special note!  The ``make install`` will create the ``lmod``
+directory *and* the ``lmod/X.Y`` under your prefix, and it will then
+create a link to ``/opt/apps/lmod/lmod``.  The symbolic link is
+created to ease upgrades to Lmod itself, as numbered versions can
+be installed side-by-side, testing can be done on the new version,
+and when all is ready, only the symbolic link needs changing.
 
 Sites can use::
 
@@ -166,31 +170,41 @@ Sites can use::
 which does everything but create the symbolic link.
 
 
-In the setup directory, there are ``profile.in`` and ``cshrc.in``
+In the ``init`` directory of the source code, there are ``profile.in`` and ``cshrc.in``
 templates. During the installation phase, the path to lua is added and
-profile and cshrc are written to the ``/opt/apps/lmod/lmod/init``
-directory. These files assume that your modulefiles are going to be
+``profile`` and ``cshrc`` are written to the ``/opt/apps/lmod/lmod/init``
+directory. These files were created assuming that your modulefiles are going to be
 located in ``/opt/apps/modulefiles/$LMOD_sys`` and
 ``/opt/apps/modulefiles/Core``, where ``$LMOD_sys`` is what the
-command "``uname``" reports, (i.e. Linux, Darwin). The layout of
-modulefiles is discussed later. Obviously you will need to match
-``MODULEPATH`` variable to where you have your modulefiles located.
+command "``uname``" reports, (e.g., Linux, Darwin). The layout of
+modulefiles is discussed later.
 
 .. note ::
-   Obviously you will want to modify the profile.in and cshrc.in files to suit
-   your system.
+   You should modify the ``profile.in`` and ``cshrc.in`` files to suit
+   your system if you choose to have a different location for your modulefiles.
+   The ``MODULEPATH`` variable must also match your system's modulefiles location.
 
 
 
-The profile file is Lmod initialization script for the bash, and zsh
-shells and cshrc file is for tcsh and csh shells. Please copy or link
-the profile and cshrc files to ``/etc/profile.d`` ::
+The ``profile`` file is Lmod initialization script for the bash, and zsh
+shells and ``cshrc`` file is for tcsh and csh shells.  Many sites find using
+the ``/etc/profiles.d`` directory, in which setup files to be sourced by users'
+shells at login are placed, to be a convenient way of insuring that Lmod is
+properly set up for all users.  When ``profiles.d`` is activated, the system
+login scripts will source, in glob order, the files that pertain to the current
+shell. See the next section for more details.
 
-    $ ln -s /opt/apps/lmod/lmod/init/profile /etc/profile.d/z99_lmod.sh
-    $ ln -s /opt/apps/lmod/lmod/init/cshrc   /etc/profile.d/z99_lmod.csh
+It is important the the Lmod setup scripts are sourced late in the initialization
+process to insure that any existing modules setup has occurred and the Lmod will be
+last.  However, you probably want to leave some room at the end of the list of 
+files in ``/etc/profile.d``, so we pick a name that is likely to be at the end but
+still leave room for any really latecomers. ::
+
+    $ ln -s /opt/apps/lmod/lmod/init/profile /etc/profile.d/z88_lmod.sh
+    $ ln -s /opt/apps/lmod/lmod/init/cshrc   /etc/profile.d/z88_lmod.csh
 
 To test the setup, you just need to login as a user. The module
-command should be set and MODULEPATH should be defined. Bash or Zsh
+command should be set and ``MODULEPATH`` should be defined. Bash or Zsh
 users should see something like::
 
      $ type module
@@ -205,7 +219,7 @@ users should see something like::
      $ echo $MODULEPATH
      /opt/apps/modulefiles/Linux:/opt/apps/modulefiles/Core
 
-Similar for csh users::
+Similarly, for csh users::
 
     % which module
     module: alias to eval `/opt/apps/lmod/lmod/libexec/lmod tcsh !*`
