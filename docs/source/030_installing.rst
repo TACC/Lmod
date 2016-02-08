@@ -171,11 +171,12 @@ to get Lmod installed quickly by using the defaults.
   the spider caching system.  This will greatly speed up ``module
   avail`` and ``module spider``
 
-If you want Lmod version X.Y.Z installed in ``/opt/apps/lmod/X.Y.z``, use
+If you want Lmod version X.Y.Z installed in ``/apps/lmod/X.Y.Z``, use
 the following form of ``configure``::
 
     $ ./configure --prefix=/apps
     $ make install
+
 
 The installation will also create a link to ``/apps/lmod/lmod``.  The
 symbolic link is created to ease upgrades to Lmod itself, as numbered
