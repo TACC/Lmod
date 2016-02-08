@@ -251,7 +251,20 @@ config.status:
 	./config.status --recheck
 
 dist:
-	$(MAKE) -f $(CURRENT_MK) $(MAKEFLAGS) DistD=DIST _dist
+	git archive --prefix=Lmod-$(version)/ master > Lmod-$(version).tar
+	$(RM) -rf DIST;                               			     	 \
+        mkdir DIST;                                   			     	 \
+        cd DIST;                                      			     	 \
+        tar xf ../Lmod-$(version).tar;                			     	 \
+        $(RM) ../Lmod-$(version).tar;                 			     	 \
+        echo "Lmod"-$(version) > .fname;                		     	 \
+        perl -p -i -e 's/\@git\@/$(GIT_VERSION)/g' `cat .fname`/src/Version.lua; \
+        tar chf `cat .fname`.tar `cat .fname`;           		     	 \
+        bzip2 `cat .fname`.tar;                           		     	 \
+        mv `cat .fname`.tar.bz2  ..;                         		     	 \
+        cd ..; $(RM) -rf DIST
+
+
 
 _dist: _distMkDir _distMainDir _distSrc _distSetup _distSetupZsh \
        _distVersion _distPkgs _distMF    _distContrib _distTar
