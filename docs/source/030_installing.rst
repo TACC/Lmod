@@ -141,7 +141,7 @@ Installing Lmod
 
 Lmod has a large number of configuration options.  They are discussed
 in the Configuring Lmod Guide.  This section is here will describe how
-to get Lmod installed quickly by using the defaults:
+to get Lmod installed quickly by using the defaults.
 
 
 .. note ::
@@ -153,17 +153,20 @@ to get Lmod installed quickly by using the defaults:
 If you want Lmod version X.Y installed in ``/opt/apps/lmod/X.Y``, use
 the following form of ``configure``::
 
+Lmod uses two-tiered installation tree, and automatically creates a version
+directory for itself.  So, for example, if the installation prefix is set
+to ``/opt/apps``, and the current version is ``X.Y.Z``, installation will
+create ``/opt/apps/lmod`` and ``/opt/apps/lmod/X.Y.Z``.
+
     $ ./configure --prefix=/opt/apps
     $ make install
 
-Take special note!  The ``make install`` will create the ``lmod``
-directory *and* the ``lmod/X.Y`` under your prefix, and it will then
-create a link to ``/opt/apps/lmod/lmod``.  The symbolic link is
-created to ease upgrades to Lmod itself, as numbered versions can
-be installed side-by-side, testing can be done on the new version,
-and when all is ready, only the symbolic link needs changing.
+The installation will also create a link to ``/opt/apps/lmod/lmod``.  The
+symbolic link is created to ease upgrades to Lmod itself, as numbered
+versions can be installed side-by-side, testing can be done on the new
+version, and when all is ready, only the symbolic link needs changing.
 
-Sites can use::
+To create such a testing installation, you can use::
 
     $ make pre-install
 
@@ -194,14 +197,15 @@ properly set up for all users.  When ``profiles.d`` is activated, the system
 login scripts will source, in glob order, the files that pertain to the current
 shell. See the next section for more details.
 
-It is important the the Lmod setup scripts are sourced late in the initialization
-process to insure that any existing modules setup has occurred and the Lmod will be
-last.  However, you probably want to leave some room at the end of the list of 
-files in ``/etc/profile.d``, so we pick a name that is likely to be at the end but
-still leave room for any really latecomers. ::
+It is important that the Lmod setup scripts are sourced late in the
+initialization process to insure that any existing modules setup has
+occurred.  However, you probably want to leave some room at the end of the
+list of files in ``/etc/profile.d``, so we pick a name that is likely to be
+at the end but still leave room for any initialization scripts that should come
+later. ::
 
-    $ ln -s /opt/apps/lmod/lmod/init/profile /etc/profile.d/z88_lmod.sh
-    $ ln -s /opt/apps/lmod/lmod/init/cshrc   /etc/profile.d/z88_lmod.csh
+    $ ln -s /opt/apps/lmod/lmod/init/profile /etc/profile.d/z00_lmod.sh
+    $ ln -s /opt/apps/lmod/lmod/init/cshrc   /etc/profile.d/z00_lmod.csh
 
 To test the setup, you just need to login as a user. The module
 command should be set and ``MODULEPATH`` should be defined. Bash or Zsh
