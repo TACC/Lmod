@@ -1,6 +1,5 @@
 .. _system-spider-cache-label:
 
-
 System Spider Cache
 ===================
 
@@ -11,11 +10,18 @@ cache file.  It also touches a file called "system.txt".  This file is
 used by Lmod to know that the spider cache is up-to-date.
 
 Lmod uses the spider cache file as a replacement for walking the directory tree
-to find all modulefiles in your MODULEPATH.  This means that Lmod only knows
+to find all modulefiles in your ``MODULEPATH``.  This means that Lmod only knows
 about system modules that are found in the spider cache.  Lmod won't know about
 any system modules that are not in this cache.  (Personal module files are
 always found).  It turns out that reading a single file is much faster than
 walking the directory tree.
+
+While building the spider cache, each modulefile is evaluated for
+changes to ``MODULEPATH``.  Any directories added to ``MODULEPATH``
+are also walked.  This means if your site uses the software hierarchy
+then the new directories added by compiler or mpi stack modulefiles
+will also be searched.
+
 
 Sites running Lmod have three choices:
 
@@ -77,6 +83,8 @@ all the directory specified in **MODULEPATH**.  If you do use the
 hierarchy, then just specify the "Core" directories.  In other words,
 the directories that are used to initialize Lmod and shouldn't include
 any directories that are compiler dependent or mpi-compiler dependent.
+Those directories need not be specified because the modulefiles are
+evaluated during the build process to find any changes to **MODULEPATH**.
 
 How to test the Spider Cache Generation and Usage
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

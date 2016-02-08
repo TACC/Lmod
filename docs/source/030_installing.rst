@@ -136,6 +136,27 @@ very important that the trailing semicolon are there.  They are
 replaced by the built-in system path.
 
 
+Why does Lmod install differently?
+----------------------------------
+
+Lmod automatically creates a version directory for itself.  So, for
+example, if the installation prefix is set to ``/apps``, and the
+current version is ``X.Y.Z``, installation will create ``/apps/lmod``
+and ``/apps/lmod/X.Y.Z``.  This way of configuring is different from
+most packages.  There are two reasons for this:
+
+
+#. Lmod is designed to have just one version of it running at one
+   time. Users will not be switching version during the course of
+   their interaction in a shell.
+
+#. By making the symbolic link the startup scripts in /etc/profile.d
+   do not have to change.  They just refer to ``/apps/lmod/lmod/...``
+   and not ``/apps/lmod/X.Y.Z/...``
+
+
+
+
 Installing Lmod
 ---------------
 
@@ -150,18 +171,13 @@ to get Lmod installed quickly by using the defaults.
   the spider caching system.  This will greatly speed up ``module
   avail`` and ``module spider``
 
-If you want Lmod version X.Y installed in ``/opt/apps/lmod/X.Y``, use
+If you want Lmod version X.Y.Z installed in ``/opt/apps/lmod/X.Y.z``, use
 the following form of ``configure``::
 
-Lmod uses two-tiered installation tree, and automatically creates a version
-directory for itself.  So, for example, if the installation prefix is set
-to ``/opt/apps``, and the current version is ``X.Y.Z``, installation will
-create ``/opt/apps/lmod`` and ``/opt/apps/lmod/X.Y.Z``.
-
-    $ ./configure --prefix=/opt/apps
+    $ ./configure --prefix=/apps
     $ make install
 
-The installation will also create a link to ``/opt/apps/lmod/lmod``.  The
+The installation will also create a link to ``/apps/lmod/lmod``.  The
 symbolic link is created to ease upgrades to Lmod itself, as numbered
 versions can be installed side-by-side, testing can be done on the new
 version, and when all is ready, only the symbolic link needs changing.
@@ -175,10 +191,10 @@ which does everything but create the symbolic link.
 
 In the ``init`` directory of the source code, there are ``profile.in`` and ``cshrc.in``
 templates. During the installation phase, the path to lua is added and
-``profile`` and ``cshrc`` are written to the ``/opt/apps/lmod/lmod/init``
+``profile`` and ``cshrc`` are written to the ``/apps/lmod/lmod/init``
 directory. These files were created assuming that your modulefiles are going to be
-located in ``/opt/apps/modulefiles/$LMOD_sys`` and
-``/opt/apps/modulefiles/Core``, where ``$LMOD_sys`` is what the
+located in ``/apps/modulefiles/$LMOD_sys`` and
+``/apps/modulefiles/Core``, where ``$LMOD_sys`` is what the
 command "``uname``" reports, (e.g., Linux, Darwin). The layout of
 modulefiles is discussed later.
 
@@ -186,8 +202,6 @@ modulefiles is discussed later.
    You should modify the ``profile.in`` and ``cshrc.in`` files to suit
    your system if you choose to have a different location for your modulefiles.
    The ``MODULEPATH`` variable must also match your system's modulefiles location.
-
-
 
 The ``profile`` file is Lmod initialization script for the bash, and zsh
 shells and ``cshrc`` file is for tcsh and csh shells.  Many sites find using
@@ -204,8 +218,8 @@ list of files in ``/etc/profile.d``, so we pick a name that is likely to be
 at the end but still leave room for any initialization scripts that should come
 later. ::
 
-    $ ln -s /opt/apps/lmod/lmod/init/profile /etc/profile.d/z00_lmod.sh
-    $ ln -s /opt/apps/lmod/lmod/init/cshrc   /etc/profile.d/z00_lmod.csh
+    $ ln -s /apps/lmod/lmod/init/profile /etc/profile.d/z00_lmod.sh
+    $ ln -s /apps/lmod/lmod/init/cshrc   /etc/profile.d/z00_lmod.csh
 
 To test the setup, you just need to login as a user. The module
 command should be set and ``MODULEPATH`` should be defined. Bash or Zsh
@@ -218,18 +232,18 @@ users should see something like::
      }
 
      $ echo $LMOD_CMD
-     /opt/apps/lmod/lmod/libexec/lmod
+     /apps/lmod/lmod/libexec/lmod
 
      $ echo $MODULEPATH
-     /opt/apps/modulefiles/Linux:/opt/apps/modulefiles/Core
+     /apps/modulefiles/Linux:/apps/modulefiles/Core
 
 Similarly, for csh users::
 
     % which module
-    module: alias to eval `/opt/apps/lmod/lmod/libexec/lmod tcsh !*`
+    module: alias to eval `/apps/lmod/lmod/libexec/lmod tcsh !*`
 
     % echo $MODULEPATH
-    /opt/apps/modulefiles/Linux:/opt/apps/modulefiles/Core
+    /apps/modulefiles/Linux:/apps/modulefiles/Core
 
 If you do not see the module alias then please read the next section.
 
@@ -347,10 +361,10 @@ you have two choices:
        fi
 
 As a side note, we at TACC patched bash for a different reason which
-may apply to your site.  When an MPI job starts, it logs into each
-node with an interactive non-login shell.  When we had no system
-bashrc file, many of our fortron 90 programs failed because they
-required ``ulimit -s unlimited`` which makes the stack size
+may apply to your site.  When an MPI job starts, the mpi process logs
+into each node with an interactive non-login shell.  When we had no
+system bashrc file, many of our fortron 90 programs failed because
+they required ``ulimit -s unlimited`` which makes the stack size
 unlimited.  By patching bash, we could guarantee that it was set by
 the system on each node.
 
