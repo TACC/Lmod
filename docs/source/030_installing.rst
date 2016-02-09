@@ -5,39 +5,40 @@ Installing Lua and Lmod
 
 Environment modules simplify customizing the users's shell environment
 and it can be done dynamically. Users load modules as they see fit. It
-is completely under their control. Environment Modules or simply
-modules provide a simple contract or interface between the system
+is completely under their control. Environment Modules, or simply
+modules, provide a simple contract or interface between the system
 administrators and users. System adminstrators provide modules and
-users get to chose which to load.
+users get to choose which to load.
 
 There have been environment module systems for quite a while. See
 http://modules.sourceforge.net/ for a TCL based module system and see
 http://www.lysator.liu.se/cmod for another module system. Here we describe
 Lmod, which is a completely new module system written in Lua. For
 those who have used modules before, Lmod automatically reads TCL
-modulefiles. Lmod has some important features over module system,
-namely a built-in solution to Hierarchical modulefiles and provides
-additional safety features to users as described in the User Guide.
+modulefiles. Lmod has some important features over the TCL module system,
+namely a built-in solution to *hierarchical* modulefiles and provides
+additional safety features for users as described in the User Guide.
 
-The hierarchical modulefiles are used to solve the issue of system
-pre-built libraries. User applications using these libraries must be
+Hierarchical modulefiles are used to solve the issue of system
+pre-built library compatibility. User applications using these libraries must be
 built with the same compiler as the libraries. If a site provides more
 than one compiler, then for each compiler version there will be
 separate versions of the libraries. Lmod provides built-in control
 making sure that compilers and pre-built libraries stay matched. The
-rest of the pages here describe how to install lmod, how to provide
-the module command to users during the login process and some
+rest of the pages here describe how to install Lmod, how to provide
+the module command to users during the login process, and some
 discussion on how to install optional software and the associated
 modules.
 
-The goal of installing Lmod is when completed, any user will have the
-module command defined and a preset list of modules will be
-loaded. All without modifying the users startup files (``~/.bashrc``,
+The result of installing Lmod is that users will have the
+module command defined, and there will be a preset list of modules
+loaded. This will be done without modifying the users' startup files (``~/.bashrc``,
 ``~/.profile``, ``~/.cshrc``, or ``~/.zshenv``). The module command should be
 available for login shells, interactive shells, and non-interactive
 shells. The command ``ssh YOUR_HOST module list`` should work. This will
 require some understanding of the system startup procedure for various
-shells which is covered here.
+shells which will be covered in a later section.  First, we discuss
+installing Lua, which is a prerequisite for Lmod.
 
 Installing Lua
 --------------
@@ -193,7 +194,7 @@ which does everything but create the symbolic link.
 In the ``init`` directory of the source code, there are ``profile.in`` and ``cshrc.in``
 templates. During the installation phase, the path to lua is added and
 ``profile`` and ``cshrc`` are written to the ``/apps/lmod/lmod/init``
-directory. These files were created assuming that your modulefiles are going to be
+directory. These files are created assuming that your modulefiles are going to be
 located in ``/apps/modulefiles/$LMOD_sys`` and
 ``/apps/modulefiles/Core``, where ``$LMOD_sys`` is what the
 command "``uname``" reports, (e.g., Linux, Darwin). The layout of
@@ -204,7 +205,7 @@ modulefiles is discussed later.
    your system if you choose to have a different location for your modulefiles.
    The ``MODULEPATH`` variable must also match your system's modulefiles location.
 
-The ``profile`` file is Lmod initialization script for the bash, and zsh
+The ``profile`` file is the Lmod initialization script for the bash, and zsh
 shells and ``cshrc`` file is for tcsh and csh shells.  Many sites find using
 the ``/etc/profiles.d`` directory, in which setup files to be sourced by users'
 shells at login are placed, to be a convenient way of insuring that Lmod is
@@ -223,8 +224,8 @@ later. ::
     $ ln -s /apps/lmod/lmod/init/cshrc   /etc/profile.d/z00_lmod.csh
 
 To test the setup, you just need to login as a user. The module
-command should be set and ``MODULEPATH`` should be defined. Bash or Zsh
-users should see something like::
+command should be set and ``$MODULEPATH`` should be defined. Bash or Zsh
+users should see the ``module`` command defined as something like::
 
      $ type module
      module ()
@@ -238,7 +239,7 @@ users should see something like::
      $ echo $MODULEPATH
      /apps/modulefiles/Linux:/apps/modulefiles/Core
 
-Similarly, for csh users::
+Whereas csh and tcsh users should find something like::
 
     % which module
     module: alias to eval `/apps/lmod/lmod/libexec/lmod tcsh !*`
@@ -255,8 +256,10 @@ Integrating **module** Into Users' Shells
 Bash:
 ~~~~~
 
-On login shells, the bash shell first reads ``/etc/profile`` and it
-should source all the \*.sh files in ``/etc/profile.d``  ::
+On login, the bash shell first reads ``/etc/profile``, and if ``profiles.d``
+is activated, that in turn
+should source all the \*.sh files in ``/etc/profile.d`` with something
+like::
 
     if [ -d /etc/profile.d ]; then
       for i in /etc/profile.d/*.sh; do
@@ -266,9 +269,10 @@ should source all the \*.sh files in ``/etc/profile.d``  ::
       done
     fi
 
-Similarly, the system BASHRC file should source all the \*.sh files in
-``/etc/profile.d`` as well.  Here is where things can get complicated.
-See the next section for details.
+Similarly, the system ``bashrc`` file should source all the \*.sh files in
+``/etc/profile.d``.  However, when bash is invoked as a non-login shell,
+those files are not sourced, and things get complicated.  See the next
+section for details.
 
 Bash Shell Scripts:
 ~~~~~~~~~~~~~~~~~~~
