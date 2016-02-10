@@ -22,7 +22,23 @@ require("strict")
 --
 -- A "SitePackage.lua" in that directory will override the one in the Lmod
 -- install directory.
-
+--
+-----------------------------------------------------------------------------
+-- You should check to see that Lmod finds your SitePackage.lua.  If you do:
+-- 
+--    $ module --config
+-- 
+-- and it reports:
+-- 
+--    Modules based on Lua: Version X.Y.Z  3016-02-05 16:31
+--        by Robert McLay mclay@tacc.utexas.edu
+-- 
+--    Description                      Value
+--    -----------                      -----
+--    ...
+--    Site Pkg location                standard
+-- 
+-- Then you haven't set things up correctly.
 -----------------------------------------------------------------------------
 --  Any function here that is called by a module file must be registered with
 --  the sandbox.  For example you have following functions in your

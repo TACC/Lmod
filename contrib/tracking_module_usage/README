@@ -80,6 +80,27 @@ This code uses two "hook" functions.  The first is load_hook. This means that ev
 saved.  The second hook is called at exit.  If there were no errors then any module loads are
 reported by sending a syslog message with the tag "ModuleUsageTracking"
 
+Please read the file src/SitePackage.lua to see how to use the environment variable
+LMOD_PACKAGE_PATH to point to your own SitePackage.lua.
+
+You should check to see that Lmod finds your SitePackage.lua.  If you do:
+
+   $ module --config
+
+and it reports:
+
+   Modules based on Lua: Version 6.1  2016-02-05 16:31
+       by Robert McLay mclay@tacc.utexas.edu
+
+   Description                      Value
+   -----------                      -----
+   ...
+   Site Pkg location                standard
+
+Then you haven't set things up correctly.
+
+
+
 Step 2:
 -------
 
