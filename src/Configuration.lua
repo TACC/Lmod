@@ -78,8 +78,7 @@ local function new(self)
    local locSitePkg = locatePkg("SitePackage") or "unknown"
 
    if (locSitePkg ~= "unknown") then
-      local std_sha1 = "038082232d235d9f9278975749eafe791a206a87"
-
+      local std_sha1 = "4a8735e21281534d6fd869db8af3c8cc976d222f"
       local HashSum = "@path_to_hashsum@"
       if (HashSum:sub(1,1) == "@") then
          HashSum = findInPath("sha1sum")
