@@ -38,9 +38,12 @@ testdescript = {
      runLmod unload B               # 5
 
      export LMOD_CACHED_LOADS=1
-
      runLmod load   B               # 6
      runLmod list                   # 7
+
+     export LMOD_IGNORE_CACHE=1
+     runLmod load   B               # 8
+     runLmod list                   # 9
     
 
 

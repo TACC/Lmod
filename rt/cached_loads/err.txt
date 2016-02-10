@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 6.0.30  2016-02-05 12:55
+Modules based on Lua: Version 6.1  2016-02-05 16:31
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -35,3 +35,13 @@ lua ProjectDIR/src/lmod.in.lua bash list
 ===========================
 Currently Loaded Modules:
   1) A/1.0
+===========================
+step 8
+lua ProjectDIR/src/lmod.in.lua bash load B
+===========================
+===========================
+step 9
+lua ProjectDIR/src/lmod.in.lua bash list
+===========================
+Currently Loaded Modules:
+  1) A/1.0   2) B/1.0

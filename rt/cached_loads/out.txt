@@ -98,3 +98,37 @@ MODULEPATH="OutputDIR/mf/Core";
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"OutputDIR/mf/Core",},family={},inactive={},mT={A={["FN"]="OutputDIR/mf/Core/A/1.0.lua",["default"]=1,["fullName"]="A/1.0",["loadOrder"]=1,propT={},["short"]="A",["status"]="active",},},mpathA={"OutputDIR/mf/Core",},["systemBaseMPATH"]="OutputDIR/mf/Core",["version"]=2,}';
 export _ModuleTable_;
+===========================
+step 8
+lua ProjectDIR/src/lmod.in.lua bash load B
+===========================
+LMOD_DEFAULT_MODULEPATH="OutputDIR/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="OutputDIR/mf/Core";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="OutputDIR/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+LOADEDMODULES="A/1.0:B/1.0";
+export LOADEDMODULES;
+ME="B/1.0";
+export ME;
+MODULEPATH="OutputDIR/mf/Core";
+export MODULEPATH;
+_LMFILES_="OutputDIR/mf/Core/A/1.0.lua:OutputDIR/mf/Core/B/1.0.lua";
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"OutputDIR/mf/Core",},family={},inactive={},mT={A={["FN"]="OutputDIR/mf/Core/A/1.0.lua",["default"]=1,["fullName"]="A/1.0",["loadOrder"]=1,propT={},["short"]="A",["status"]="active",},B={["FN"]="OutputDIR/mf/Core/B/1.0.lua",["default"]=1,["fullName"]="B/1.0",["loadOrder"]=2,propT={},["short"]="B",["status"]="active",},},mpathA={"OutputDIR/mf/Core",},["systemBaseMPATH"]="OutputDIR/mf/Core",["version"]=2,}';
+export _ModuleTable_;
+===========================
+step 9
+lua ProjectDIR/src/lmod.in.lua bash list
+===========================
+LMOD_DEFAULT_MODULEPATH="OutputDIR/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="OutputDIR/mf/Core";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="OutputDIR/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="OutputDIR/mf/Core";
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"OutputDIR/mf/Core",},family={},inactive={},mT={A={["FN"]="OutputDIR/mf/Core/A/1.0.lua",["default"]=1,["fullName"]="A/1.0",["loadOrder"]=1,propT={},["short"]="A",["status"]="active",},B={["FN"]="OutputDIR/mf/Core/B/1.0.lua",["default"]=1,["fullName"]="B/1.0",["loadOrder"]=2,propT={},["short"]="B",["status"]="active",},},mpathA={"OutputDIR/mf/Core",},["systemBaseMPATH"]="OutputDIR/mf/Core",["version"]=2,}';
+export _ModuleTable_;
