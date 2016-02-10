@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 6.0.6  2015-07-16 14:33
+Modules based on Lua: Version 6.1.1  2016-02-10 10:57
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -103,6 +103,7 @@ step 16
 lua ProjectDIR/src/lmod.in.lua bash load gatk
 ===========================
 To execute GATK run: java -jar /opt/apps/gatk/1.0/java/GenomeAnalysisTK.jar
+Test of brackets [foo]
 ===========================
 step 17
 lua ProjectDIR/src/lmod.in.lua bash unload gatk

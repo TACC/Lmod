@@ -398,7 +398,7 @@ proc module-whatis { args } {
     }
 
     regsub -all {[\n]} $msg  " " msg2
-    puts stdout "whatis(\[\[$msg2\]\])"
+    puts stdout "whatis(\[===\[$msg2\]===\])"
 }
 
 proc setenv { var val args } {
@@ -653,7 +653,7 @@ proc myPuts args {
     if {$putMode != "inHelp"} {
         if { ($channel == "stdout") || ($channel == "stderr") } {
             set channel "stdout"
-            set text "LmodMessage(\[\[$text\]\])"
+            set text "LmodMessage(\[===\[$text\]===\])"
         }
     } else {
         set channel  "stdout"
@@ -741,7 +741,7 @@ proc module { command args } {
 
 proc reportError {message} {
     global ModulesCurrentModulefile g_fullName
-    puts stdout "LmodError(\[\[$ModulesCurrentModulefile: ($g_fullName): $message\]\])"
+    puts stdout "LmodError(\[===\[$ModulesCurrentModulefile: ($g_fullName): $message\]===\])"
 }
 
 proc execute-modulefile {modfile } {
@@ -787,8 +787,8 @@ proc execute-modulefile {modfile } {
     set errorVal [interp eval $slave {
 	set sourceFailed [catch {source $ModulesCurrentModulefile } errorMsg]
         if { $g_help && [info procs "ModulesHelp"] == "ModulesHelp" } {
-            set start "help(\[\["
-            set end   "\]\])"
+            set start "help(\[===\["
+            set end   "\]===\])"
             setPutMode "inHelp"
             puts stdout $start
 	    catch { ModulesHelp } errMsg

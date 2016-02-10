@@ -2,6 +2,7 @@
 
 if [ module-info mode load ] {
     puts stderr     "To execute GATK run: java -jar /opt/apps/gatk/1.0/java/GenomeAnalysisTK.jar"
+    puts stderr     "Test of brackets \[foo\]"
 }
 
 prepend-path PATH /opt/apps/gatk/1.0/bin
