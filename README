@@ -1,6 +1,6 @@
 Lmod 6.1:
 Features:
-   a) It is no possible to configure Lmod to use the spider cache
+   a) It is now possible to configure Lmod to use the spider cache
       when loading (--with-cachedLoads=yes or
       export LMOD_CACHED_LOADS=1 to activate). This is off by
       default. Sites that use this will have to keep their spider
