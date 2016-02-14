@@ -200,6 +200,7 @@ LMOD_IGNORE_CACHE = (LMOD_IGNORE_CACHE:trim() ~= "0")
 -- LMOD_CACHED_LOADS: Use spider cache on loads
 ------------------------------------------------------------------------
 LMOD_CACHED_LOADS = initialize("LMOD_CACHED_LOADS","@cached_loads@", "no")
+LMOD_CACHED_LOADS = LMOD_IGNORE_CACHE and "no" or LMOD_CACHED_LOADS
 
 ------------------------------------------------------------------------
 -- LMOD_PAGER: Lmod will use this value of pager if set.

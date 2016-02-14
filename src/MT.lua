@@ -480,6 +480,7 @@ function M._build_locationTbl(self, mpathA, adding, pathEntry)
 
    if (mustWalkDirs) then
       local fast       = true
+      dbg.print{"LMOD_CACHED_LOADS: ",LMOD_CACHED_LOADS,"\n"}
       local cache      = _G.Cache:cache{buildCache = LMOD_CACHED_LOADS ~= "no"}
       local moduleT    = cache:build(fast)
 
