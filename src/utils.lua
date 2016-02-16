@@ -645,6 +645,7 @@ local s_readRC     = false
 RCFileA = {
    pathJoin(cmdDir(),"../init/lmodrc.lua"),
    pathJoin(cmdDir(),"../../etc/lmodrc.lua"),
+   pathJoin("/etc/lmodrc.lua"),
    pathJoin(getenv("HOME"),".lmodrc.lua"),
    os.getenv("LMOD_RC"),
 }
