@@ -60,6 +60,7 @@ local validT =
                                -- to moduleT.lua to make it safe on
                                -- shared filesystems.
       avail          = false,  -- Map directory names to labels
+      restore        = false,  -- This hook is run after restore operation
 }
 
 --------------------------------------------------------------------------
