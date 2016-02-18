@@ -592,6 +592,8 @@ function Restore(collection)
       end
    end
 
+   hook.apply("restore", {collection=collection, name=myName, fn=path})
+
    dbg.fini("Restore")
 end
 
