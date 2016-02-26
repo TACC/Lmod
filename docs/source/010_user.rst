@@ -4,7 +4,7 @@ User Guide for Lmod
 The guide here explains how to use modules. The User's tour of the
 module command covers the basic uses of modules. The other sections
 can be read at a later date as issues come up. The Advance user's
-guilde is for users needing to create their own modulefiles.
+guild is for users needing to create their own modulefiles. 
 
 User's Tour of the Module Command
 _________________________________
@@ -74,7 +74,7 @@ Finally, there is a keyword search tool: ::
 
    $ module keyword word1 word2 ...
 
-This will search any help or whatis description for word or wordsgiven on the command line.
+This will search any help or whatis description for word or words given on the command line.
 
 Another way to search for modules is with the "module spider" command.
 This command searches the entire list of possible modules.  The
@@ -82,14 +82,14 @@ difference between "module avail" and "module spider" is explained in
 the "Module Hierarchy" and "Searching for Modules" section. ::
 
     $ module spider
-
+ 
 
 ml: A convenient tool
 ^^^^^^^^^^^^^^^^^^^^^
 
 For those of you who can't type the *mdoule*, *moduel*, err *module*
 command correctly, Lmod has a tool for you.  With **ml** you won't
-have to type the module command again.  The two most common command
+have to type the module command again.  The two most common commands
 are *module list*and *module load <something>* and **ml** does both::
 
   $ ml
@@ -140,7 +140,7 @@ If a user does: ::
 The first load command will load the 11.1 version of xyz. In the
 second load, the module command knows that the user already has
 xyz/11.1 loaded so it unloads that and then loads xyz/12.0. This
-protection is only available with Lmod.
+protection is only available with Lmod. 
 
 (2) : Users can only load one compiler or MPI stack at a time.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -151,7 +151,7 @@ compiler modulefiles add a line: ::
     family("compiler")
 
 Then Lmod will not load another compiler modulefile.   Another benefit
-of the modulefile family directive is that an environment varible
+of the modulefile family directive is that an environment variable
 "LMOD_COMPILER_FAMILY" is assigned the name (and not the
 version). This can be useful specifying different options for
 different compilers. In the High Performance Computing (HPC) world,
@@ -159,7 +159,7 @@ the message passing interface (MPI) libraries are important.  The mpi
 modulefiles can contain a family("MPI") directive which will prevent
 users from loading more than one MPI implementation at a time.  Also
 the environment variable "LMOD_FAMILY_MPI" is defined to the name of
-the mpi library.
+the mpi library.  
 
 Module Hierarchy
 ^^^^^^^^^^^^^^^^
@@ -167,33 +167,33 @@ Module Hierarchy
 Libraries built with one compiler need to be linked with applications
 with the same compiler version. If sites are going to provide
 libraries, then there will be more than one version of the library,
-one for each compiler version. So, whether it is the Boost library or
-an mpi library, there are multiple versions.
+one for each compiler version. Therefore, whether it is the Boost library or
+an mpi library, there are multiple versions. 
 
 There are two main choices for system administrators. For the XYZ
 library compiled with either the UCC compiler or the GCC compiler,
 there could be the xyz-ucc modulefile and the xyz-gcc module
-file. This get much more complicated when there are multiple versions
+file. This gets much more complicated when there are multiple versions
 of the XYZ library and different compilers. How does one label the
 various versions of the library and the compiler? Even if one makes
 sense of the version labeling, when a user changes compilers, the user
-will have to remember to unload the xyz-ucc and the ucc modulefiles
+will have to remember to unload the ucc and the xyz-ucc modulefiles
 when changing to gcc and xyz-gcc. If users have mismatched modules,
-their programs are going to fail in very mysterious ways.
+their programs are going to fail in very mysterious ways. 
 
-A much saner strategy is use a module hierarchy. Each compiler module
+A much saner strategy is to use a module hierarchy. Each compiler module
 adds to the MODULEPATH a compiler version modulefile directory. Only
 modulefiles that exist in that directory are libraries that have been
 built with that compiler. When a user loads a particular compiler,
-that user only sees modulefile that are valid for that compiler.
+that user only sees modulefile(s) that are valid for that compiler. 
 
-Similarly, applications that use libraries that depend on MPI
+Similarly, applications that use libraries depending on MPI
 implementations must be built with the same compiler - MPI
-pairing. This leads to modulefile hierarchy. So, as users start with
-the mimimum set of loaded modules, all they will see are compilers,
-not any of the packaages that depend on a compiler. Once they load a
+pairing. This leads to modulefile hierarchy. Therefore, as users start with
+the minimum set of loaded modules, all they will see are compilers,
+not any of the packages that depend on a compiler. Once they load a
 compiler they will see the modules that depend on that compiler. After
-choosing an MPI implementation, then the modules that depend on that
+choosing an MPI implementation, the modules that depend on that
 compiler-MPI pairing will be available. One of the nice features of
 Lmod is that it handles the hierarchy easily. If a user swaps
 compilers, then Lmod automatically unloads any modules that depends on
@@ -208,7 +208,7 @@ new compiler. ::
 
     Due to MODULEPATH changes the follow modules have been reloaded: 1) boost
 
-If a modulefile is not available with the new compiler, then the module is marked as inactive. Everytime MODULEPATH changes, Lmod attempts to reload any inactive modules.
+If a modulefile is not available with the new compiler, then the module is marked as inactive. Every time MODULEPATH changes, Lmod attempts to reload any inactive modules.
 
 Searching For Modules
 ^^^^^^^^^^^^^^^^^^^^^
@@ -225,7 +225,7 @@ command:  ::
 
    $ module spider
 
-Which lists all possible modules and not just the modules that can be
+which lists all possible modules and not just the modules that can be
 seen in the current MODULEPATH. This command has three modes. The
 first mode is:  ::
 
@@ -272,20 +272,20 @@ be found: ::
 
    Help:
    The parmetis module defines the following environment variables: ...
-   The module parmetis/3.1.1 has been compiled by three different version of the ucc compiler and one MPI implementation.
+   The module parmetis/3.1.1 has been compiled by three different versions of the ucc compiler and one MPI implementation.
 
 Controlling Modules During Login
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Normally when a user logs in, there are a standard set of modules that
 are automatically loaded. Users can override and add to this standard
-set in two ways. The first is add module commands to their personal
+set in two ways. The first is adding module commands to their personal
 startup files. The second way is through the "module save"
-command.
+command. 
 
 To add module commands to users' startup scripts requires a few
 steps. Bash users can put the module commands in either their
-``~/.profile`` file or their ``~/.bashrc`` file. It is simpliest to place the
+``~/.profile`` file or their ``~/.bashrc`` file. It is simplest to place the
 following in their ``~/.profile`` file: ::
 
     if [ -f ~/.bashrc ]; then
@@ -298,7 +298,7 @@ and place the following in their ``~/.bashrc`` file: ::
        export BASHRC_READ=1
        # Place any module commands here
        # module load git
-    fi
+    fi  
 
 By wrapping the module command in an if test, the module commands need
 only be read in once. Any sub-shell will inherit the PATH and other
@@ -306,7 +306,7 @@ environment variables automatically. On login shells the ``~/.profile``
 file is read which, in the above setup, causes the ``~/.bashrc`` file to
 be read. On interactive non-login shells, the ``~/.bashrc`` file is read
 instead. Obviously, having this setup means that module commands need
-only be added in one file and not two.
+only be added in one file and not two. 
 
 Csh users need only specify the module commands in their ``~/.cshrc`` file
 as that file is always sourced:  ::
@@ -319,8 +319,8 @@ as that file is always sourced:  ::
 
 User defined initial list of login modules:
 
-Assuming that the system adminstrators have installed Lmod correctly
-their is an second way which is much easier to setup. A user logs in
+Assuming that the system administrators have installed Lmod correctly,
+there is a second way which is much easier to setup. A user logs in
 with the standard modules loaded. Then the user modifies the default
 setup through the standard module commands:  ::
 
@@ -345,7 +345,7 @@ named collection with::
       $ module save <collection_name>
 
 and restore that named collection with::
-
+  
       $ module restore <collection_name>
 
 Finally a user can print the contents of a collection with::

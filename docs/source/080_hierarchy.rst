@@ -20,9 +20,9 @@ layout of modules is a reasonable way to do this::
     $ module avail
 
     --------------- /opt/apps/modulefiles ----------------------
-    gcc/4.9.2                        phdf5/gcc-4.9-mpich-3.1-1.8.13
-    intel/15.0.2                     phdf5/gcc-4.9-openmpi-15.0-1.8.13
-    mpich/gcc-4.9-3.1.2              phdf5/intel-15.0-mpich-3.1-1.8.13
+    gcc/4.9.2                        phdf5/gcc-4.9-mpich-3.1-1.8.13      
+    intel/15.0.2                     phdf5/gcc-4.9-openmpi-15.0-1.8.13   
+    mpich/gcc-4.9-3.1.2              phdf5/intel-15.0-mpich-3.1-1.8.13   
     mpich/intel-15.0-3.1.2           phdf5/intel-15.0-openmpi-15.0-1.8.13
     openmpi/gcc-4.9-1.8.2
     openmpi/intel-15.0-1.8.2
@@ -34,8 +34,8 @@ correct::
     $ module load gcc/4.9.2 openmnpi/gcc-4.9-1.8.2  phdf5/gcc-4.9-openmpi-15.0-1.8.13
 
 It is quite easy to load an incompatible set of modules.  Now it is
-possible that the system administrators at your site might have setup
-``conflict`` s to avoid loading mismatched modules.  However using
+possible that the system administrators at your site might have setup 
+conflicts to avoid loading mismatched modules.  However using
 conflicts can be fragile.  What happens if a site adds a new compiler
 such as clang or pgi or a new mpi stack.  All those module file
 conflict statements will have to be updated.
@@ -44,7 +44,7 @@ conflict statements will have to be updated.
 A different strategy is to use a software hierarchy. In this approach
 a user loads a compiler which extends the **MODULEPATH** to make
 available the modules that are built with the currently loaded
-compiler and similarly for the mpi stack.
+compiler (similarly for the mpi stack).
 
 
 Our modulefile hierarchy is stored under
@@ -63,7 +63,7 @@ and contains::
 
 This code asks the environment for **MODULEPATH_ROOT** which is
 ``/opt/apps/modulefiles`` and the last two lines prepend
-``/opt/apps/modulefiles/Compiler/gcc/4.9`` to the **MODULEPATH** .
+``/opt/apps/modulefiles/Compiler/gcc/4.9`` to the **MODULEPATH** . 
 
 The modulefiles for the MPI implementations are placed under the
 Compiler directory because they only depend on a compiler. The
@@ -75,7 +75,7 @@ contains::
     local mroot = os.getenv("MODULEPATH_ROOT")
     local mdir = pathJoin(mroot,"MPI/gcc", "4.9","openmpi","1.8")
     prepend_path("MODULEPATH", mdir)
-
+    
 The above code will prepend
 ``/opt/apps/modulefiles/MPI/gcc/4.9/openmpi/1.8`` to the
 **MODULEPATH**.
@@ -90,7 +90,7 @@ When **MODULEPATH** changes, Lmod unloads any modules which are not
 currently in the **MODULEPATH** and then tries to reload all the
 previously loaded modules. Any modules which are not available are
 marked as inactive. Those inactive modules become active if found with
-new **MODULEPATH** changes.
+new **MODULEPATH** changes. 
 
 
 .. Note::
