@@ -82,7 +82,7 @@ end
 -- @param path The path to use. If nil then use env PATH.
 function find_exec_path(exec, path)
    local result  = nil
-   if ( exec == nil) then return result end
+   if ( exec == nil or exec == "" or exec:lower() == "none" ) then return result end
    exec = exec:trim()
    local i = exec:find(" ")
    local cmd  = exec
