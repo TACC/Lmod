@@ -78,7 +78,7 @@ local function new(self)
    local locSitePkg = locatePkg("SitePackage") or "unknown"
 
    if (locSitePkg ~= "unknown") then
-      local std_sha1 = "4a8735e21281534d6fd869db8af3c8cc976d222f"
+      local std_sha1 = "28b49546421d7e01995af8053dba18623cf12f51"
       local HashSum = "@path_to_hashsum@"
       if (HashSum:sub(1,1) == "@") then
          HashSum = findInPath("sha1sum")
@@ -115,6 +115,9 @@ local function new(self)
    local tmod_rule         = LMOD_TMOD_PATH_RULE
    local exactMatch        = LMOD_EXACT_MATCH
    local ordering          = (LMOD_LEGACY_VERSION_ORDERING == "yes") and "legacy" or "modern"
+   local cached_loads      = LMOD_CACHED_LOADS
+   local ignore_cache      = LMOD_IGNORE_CACHE and "yes" or "no"
+   
 
    local tbl = {}
    tbl.allowTCL    = { k = "Allow TCL modulefiles"           , v = LMOD_ALLOW_TCL_MFILES,}
@@ -146,6 +149,8 @@ local function new(self)
    tbl.prpnd_blk   = { k = "Prepend order"                   , v = "@prepend_block@",    }
    tbl.settarg     = { k = "Supporting Full Settarg Use"     , v = settarg_support,      }
    tbl.sitePkg     = { k = "Site Pkg location"               , v = locSitePkg,           }
+   tbl.spdr_ignore = { k = "Ignore Cache"                    , v = ignore_cache,         }
+   tbl.spdr_loads  = { k = "Cached loads"                    , v = cached_loads,         }
    tbl.tm_ancient  = { k = "User cache valid time(sec)"      , v = "@ancient@",          }
    tbl.tm_short    = { k = "Write cache after (sec)"         , v = "@short_time@",       }
    tbl.tm_threshold= { k = "Threshold (sec)"                 , v = Threshold,            }

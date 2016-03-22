@@ -592,6 +592,8 @@ function Restore(collection)
       end
    end
 
+   hook.apply("restore", {collection=collection, name=myName, fn=path})
+
    dbg.fini("Restore")
 end
 
@@ -817,7 +819,7 @@ function Swap(...)
    mA[1]         = MName:new("load",b)
    local aa = mcp:load_usr(mA)
    if (not aa[1]) then
-      LmodError("Swap failed.\n")
+      mcp.mustLoad()
    end
 
    ------------------------------------------------------
