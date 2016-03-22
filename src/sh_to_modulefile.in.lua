@@ -206,7 +206,7 @@ local function cleanPath(v)
 
    for execName in pairs(execT) do
       local cmd = findInPath(execName, myPath)
-      if (cmd ~= '') then
+      if (cmd) then
          local dir = dirname(cmd):gsub("/+$","")
          local p = path_regularize(dir)
          pathT[p].keep = true
@@ -336,6 +336,10 @@ function main()
 
    if (LuaCmd:sub(1,1) == "@") then
       LuaCmd = findInPath("lua")
+      if (LuaCmd == nil) then
+         io.stderr:write("Unable to find lua program")
+         return
+      end
    end
 
    if (masterTbl.cleanEnv) then

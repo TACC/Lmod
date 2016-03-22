@@ -84,6 +84,11 @@ local function new(self)
          HashSum = findInPath("sha1sum")
       end
 
+      if (HashSum == nil) then
+         LmodError("Unable to find HashSum program (sha1sum or md5sum)")
+      end
+      
+
       local result = capture(HashSum .. " " .. locSitePkg)
       result       = result:gsub(" .*","")
       if (result == std_sha1) then

@@ -99,7 +99,10 @@ function M.mustLoad()
    if (#aa > 0) then
       local luaprog = "@path_to_lua@/lua"
       if (luaprog:sub(1,1) == "@") then
-         luaprog = findInPath("lua")
+         luaprog = find_exec_path("lua")
+         if (luaprog == nil) then
+            LmodError("Unable to find the lua program")
+         end
       end
       local cmdA = {}
       cmdA[#cmdA+1] = luaprog

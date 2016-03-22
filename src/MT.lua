@@ -1662,7 +1662,7 @@ function M.setHashSum(self)
    local path   = "@path_to_lua@:" .. os.getenv("PATH")
    local luaCmd = findInPath("lua",path)
 
-   if (luaCmd == "") then
+   if (luaCmd == nil) then
       LmodError("Unable to find lua.\n")
    end
 

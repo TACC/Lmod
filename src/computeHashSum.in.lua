@@ -144,9 +144,14 @@ function main()
    end
    fh:write(s)
    if (HashSum:sub(1,1) == "@" ) then
-      HashSum = findInPath("sha1sum")
+      HashSum = find_exec_path("sha1sum")
    end
    fh:close()
+
+   if (HashSum == nil) then
+      LmodSystemError("Unable to compute hashsum")
+   end
+   
 
    local result = capture(HashSum .. " " .. fn)
    os.remove(fn)

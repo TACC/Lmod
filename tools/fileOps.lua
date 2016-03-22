@@ -76,6 +76,41 @@ function findInPath(exec, path)
    return result
 end
 
+--------------------------------------------------------------------------
+-- find the absolute path to an executable or nil if not found
+-- @param exec Name of executable
+-- @param path The path to use. If nil then use env PATH.
+function find_exec_path(exec, path)
+   local result  = nil
+   if ( exec == nil) then return result end
+   exec = exec:trim()
+   local i = exec:find(" ")
+   local cmd  = exec
+   local tail = ""
+   if (i) then
+      cmd  = exec:sub(1,i-1)
+      tail = exec:sub(i)
+   end
+
+   if (cmd:find("/")) then
+      if (posix.access(cmd,"x")) then
+         return exec
+      else
+         return result
+      end
+   end
+
+   path    = path or os.getenv("PATH")
+   for dir in path:split(":") do
+      local fullcmd = pathJoin(dir, cmd)
+      if (posix.access(fullcmd,"x")) then
+         result = fullcmd .. tail
+         break
+      end
+   end
+   return result
+end
+
 ------------------------------------------------------------------------
 -- Return true if path is a directory.  Note that a symlink to a
 -- directory is not a directory.

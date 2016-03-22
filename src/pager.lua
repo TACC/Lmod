@@ -82,8 +82,8 @@ end
 function buildPager()
    local func  = bypassPager
    local pager = LMOD_PAGER
-   s_pager     = findInPath(pager)
-   if (s_pager and s_pager ~= "") then
+   s_pager     = find_exec_path(pager)
+   if (s_pager) then
       func     = usePager
    end
    return func
