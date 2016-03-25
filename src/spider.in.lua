@@ -215,6 +215,19 @@ local function buildReverseMapT(moduleDirA, moduleT, dbT)
    return reverseMapT
 end
 
+local function buildXALTrmapT(reverseMapT)
+   local rmapT = {}
+   for path,entry in reverseMapT do
+      local flavor = entry.flavor:gsub("default:?")
+      local value  = entry.pkg
+      if (flavor ~= "") then
+         value = value .. "(" .. flavor .. ")"
+      end
+      rmapT[path] = value
+   end
+   return rmapT
+end
+  
 local function buildLibMapA(reverseMapT)
    local libT = {}
    for path,v in pairs(reverseMapT) do
@@ -265,6 +278,18 @@ local function rptReverseMapTJson(moduleDirA, moduleT, timestampFn, dbT)
                          xlibmap     = libA}
    print(json.encode(t))
    dbg.fini("rptReverseMapTJson")
+end
+
+local function rptXALTRmapTJson(moduleDirA, moduleT, timestampFn, dbT)
+   dbg.start{"rptXALTRmapTJson(moduleDirA, moduleT, timestampFn, dbT)"}
+   local reverseMapT = buildReverseMapT(moduleDirA, moduleT, dbT)
+   local libA        = buildLibMapA(reverseMapT)
+   local rmapT       = buildXALTrmapT(reverseMapT)
+   local t           = { timestampFn = timestampFn,
+                         reverseMapT = rmapT,
+                         xlibmap     = libA}
+   print(json.encode(t))
+   dbg.fini("rptXALTRmapTJson")
 end
 
 local function rptSoftwarePageJson(moduleDirA, moduleT, timestampFn, dbT)
@@ -394,6 +419,8 @@ function main()
       reverseMap       = rptReverseMapT,
       jsonReverseMapT  = rptReverseMapTJson,
       jsonReverseMap   = rptReverseMapTJson,
+      xalt_rmapT       = rptXALTRmapTJson,
+      xalt_rmap        = rptXALTRmapTJson,
       ["spider-json"]  = rptDbTJson,
       dbT              = rptDbT,
    }
@@ -503,7 +530,7 @@ function options()
       default = "list",
       help    = "Output Style: list, moduleT, dbT, reverseMapT, "..
                 "jsonReverseMapT, spider, spider-json, softwarePage, "..
-                "jsonSoftwarePage, xmlSoftwarePage"
+                "jsonSoftwarePage, xmlSoftwarePage, xalt_rmapT"
    }
 
    cmdlineParser:add_option{

@@ -161,6 +161,9 @@ parse_cmdline(){
             J)
                 UPDATE_JSON_RMAPT=1
                 ;;
+	    K)
+                UPDATE_XALT_JSON_RMAPT=1
+                ;;
             \?)
                 print_help
                 error "Unknown option specified: -$OPTARG"
@@ -290,7 +293,7 @@ update_cache() {
     cache_type=$2
     cache_file_name=$cache_dir/${cache_type}
     ext=lua
-    if [ "$cache_type" = "jsonReverseMapT" ]; then
+    if [ "$cache_type" = "jsonReverseMapT" -o "$cache_type" = "xalt_rmapT"]; then
       ext=json
     fi
 
@@ -352,6 +355,10 @@ fi
 
 if [ "$UPDATE_JSON_RMAPT" -ne 0 ]; then
     update_cache $LMOD_REVERSEMAPT_DIR jsonReverseMapT
+fi
+
+if [ "$UPDATE_XALT_JSON_RMAPT" -ne 0 ]; then
+    update_cache $LMOD_REVERSEMAPT_DIR xalt_rmapT
 fi
 
 # put new timestamp file in place
