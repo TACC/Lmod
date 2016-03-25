@@ -69,6 +69,7 @@ LMOD_CACHE_TIMESTAMP_FILE_TXT=
 UPDATE_REVERSEMAPT_CACHE=0
 
 UPDATE_JSON_RMAPT=0
+UPDATE_XALT_JSON_RMAPT=0
 
 # update dbT cache file (on by default)
 UPDATE_DBT_CACHE=1
@@ -130,7 +131,7 @@ print_help() {
 parse_cmdline(){
     debug "Parsing command line options..."
     local OPTIND
-    while getopts :d:DhmHt:rR:XJ opt; do
+    while getopts :d:DhmHt:rR:XJK opt; do
         case $opt in
             d)
                 LMOD_CACHE_DIR=$OPTARG
@@ -293,7 +294,7 @@ update_cache() {
     cache_type=$2
     cache_file_name=$cache_dir/${cache_type}
     ext=lua
-    if [ "$cache_type" = "jsonReverseMapT" -o "$cache_type" = "xalt_rmapT"]; then
+    if [ "$cache_type" = "jsonReverseMapT" -o "$cache_type" = "xalt_rmapT" ]; then
       ext=json
     fi
 
@@ -307,7 +308,7 @@ update_cache() {
     run_spider $cache_type ${cache_file_name}.new.$ext
     install_new_cache $ext ${cache_file_name}
 
-    if [ $cache_type != "jsonReverseMapT" ]; then
+    if [ $cache_type != "jsonReverseMapT" -a $cache_type != "xalt_rmapT" ]; then
        # also install compiled Lmod cache version
        # include Lua version in filename of compiled cache, to avoid compatibility issues when Lua is upgraded
        lua_ver=$(@path_to_lua@/lua -e 'print((_VERSION:gsub("Lua ","")))')
@@ -332,10 +333,6 @@ check_parameters
 
 if [ -z "$LMOD_REVERSEMAPT_DIR" ]; then
   LMOD_REVERSEMAPT_DIR="$LMOD_CACHE_DIR/../reverseMapD"
-fi
-
-if [ -f ${LMOD_CACHE_TIMESTAMP_FILE}.new ]; then
-   exit 0
 fi
 
 # create new timestamp file

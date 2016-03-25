@@ -217,9 +217,10 @@ end
 
 local function buildXALTrmapT(reverseMapT)
    local rmapT = {}
-   for path,entry in reverseMapT do
-      local flavor = entry.flavor:gsub("default:?")
+   for path,entry in pairs(reverseMapT) do
       local value  = entry.pkg
+      local flavor = entry.flavor[1]
+      flavor       = flavor:gsub("default:?","")
       if (flavor ~= "") then
          value = value .. "(" .. flavor .. ")"
       end
@@ -285,8 +286,7 @@ local function rptXALTRmapTJson(moduleDirA, moduleT, timestampFn, dbT)
    local reverseMapT = buildReverseMapT(moduleDirA, moduleT, dbT)
    local libA        = buildLibMapA(reverseMapT)
    local rmapT       = buildXALTrmapT(reverseMapT)
-   local t           = { timestampFn = timestampFn,
-                         reverseMapT = rmapT,
+   local t           = { reverseMapT = rmapT,
                          xlibmap     = libA}
    print(json.encode(t))
    dbg.fini("rptXALTRmapTJson")
