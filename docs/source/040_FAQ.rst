@@ -1,87 +1,26 @@
 Frequently Asked Questions
 ==========================
 
-How does the module command work?
-
-   We know that the child program inherits the  parents' environment
-   but not the other way around. So it is very surprising that a
-   command can change the current shell's environment. The trick here
-   is that the module command is a two part process.  The module shell
-   function in bash is::
-
-        $ type module
-        module() { eval $($LMOD_CMD bash "$@") }
-
-   Where $LMOD_CMD points to your lmod command (say
-   /apps/lmod/lmod/libexec/lmod).  So if you have a module file
-   (foo/1.0) that contains::
-
-       setenv("FOO", "BAR")
-
-   then "$LMOD_CMD bash load foo/1.0" produces::
-
-       export FOO=BAR
-       ...
-
-   The eval command read that output from stdout and changes the
-   current shell's environment. Any text written to stderr bypasses
-   the eval and written to the terminal.
-
-
-What are the environment variables _ModuleTable001_, _ModuleTable002_,
-etc doing it in the environment?
-
-    The module command remembers its state in the environment through
-    these variables.  The way Lmod does it is through a Lua table called
-    ModuleTable::
-
-       ModuleTable = {
-          mT = {
-            git = { ... }
-          }
-       }
-
-    This table contains quotes and commas and must be store in
-    environment.  To prevent problems the various shells, the table is
-    encoded into base64 and split into blocks of 256 characters.
-    These variable are decoded at the start of Lmod.  You can see what
-    the module table contains with::
-
-        $ module --mt
-
-How does one debug a modulefile?
-
-    There are two methods.  Method 1: If you are writing a Lua modulefile then
-    you can write messages to stderr with and run the module command normally::
-
-        local a = "text"
-        io.stderr:write("Message ",a,"\n")
-   
-    Method 2: Take the output directly from Lmod.  You can put print()
-    statements in your modulefile and do::
-
-        $ $LMOD_CMD bash load *modulefile*
-
 Why doesn't  % ``module avail |& grep ucc``  work under tcsh and works under bash?
 
     It is a bug in the way tcsh handles evals. This works::
 
-       % (module avail) |& grep ucc.
+       % (module avail) |& grep ucc
 
-    However, in all shells it is better use::
+    However, in all shells it is better to use::
 
        % module avail ucc
-
+    
     instead as this will only output modules that have "ucc" in
-    their name.
+    their name. 
 
-Why are messages printed to standard error and not standard out
+Why are messages printed to standard error and not standard out?
 
     The module command is an alias under tcsh and a shell routine under
     all other shells. There is an lmod command which writes out commands
-    such as export FOO="bar and baz" and message are written to standard
+    such as export FOO="bar and baz" and messages are written to standard
     error. The text written to standard out is evaluated so that the text
-    strings make changes to the current environment.
+    strings make changes to the current environment. 
 
 Can I disable the pager output?
 
@@ -93,39 +32,16 @@ instead of stderr?
 
    Bash and Zsh user can set the environment variable
    ``LMOD_REDIRECT`` to **yes**.  Sites can configure Lmod to work
-   this way by default.  However, no matter how Lmod is set-up
-   however, this will not work with tcsh/csh due to limitations of
+   this way by default.  However, no matter how Lmod is set-up,
+   this will not work with tcsh/csh due to limitations of
    this shell.
 
 Can I ignore the spider cache files when doing ``module avail``?
 
-   Yes you can::
+   Yes you can:
 
-      $ module --ignore_cache avail
+   module --ignore_cache avail
 
-   or you can set::
-
-      $ export LMOD_IGNORE_CACHE=1
-
-   to make Lmod ignore caches as long as the variable is set.
-
-I have created a module and "module avail" can't find it. What do I
-do?
-
-   Assuming that the modulefile is in MODULEPATH then you have an
-   out-of-date cache.  Try running::
-
-      $ module --ignore_cache avail
-       
-   If this does find it then you might have an old personal spider cache.
-   To clear it do::
-
-      $ rm -rf ~/.lmod.d/.cache
-
-   If "module avail" doesn't find it now, then the system spider cache
-   is out-of-date.  Please ask your system administrator to update the
-   cache.  If you are the system administrator then please read
-   :ref:`system-spider-cache-label` and :ref:`user-spider-cache-label`
 
 Why doesn't the module command work in shell scripts?
 
@@ -133,12 +49,12 @@ Why doesn't the module command work in shell scripts?
  bash script and not a shell script, so start the script with
  #!/bin/bash. The second is that the environment variable BASH_ENV
  must point to a file which defines the module command. The simpliest
- way to is to have BASH_ENV point to /opt/apps/lmod/lmod/init/bash or
- where ever this file is located on your system. This is done by the
+ way is having BASH_ENV point to /opt/apps/lmod/lmod/init/bash or
+ whereever this file is located on your system. This is done by the
  standard install.  Finally Lmod exports the module command for Bash
  shell users.
 
-How to I use the initializing shell script that comes with this application with Lmod?
+How do I use the initializing shell script that comes with this application with Lmod?
 
  The short answer is you don't. Among the many problems is that there
  is no way to unload that shell script. If the script is simple you
