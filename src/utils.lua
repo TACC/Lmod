@@ -302,7 +302,7 @@ function extractVersion(full, sn)
    end
 
 
-   full = full:sub(1,j):lower() .. full:sub(j+1,-1)
+   full = full:sub(1,j):lower() .. full:sub(j+1,-1):lower()
    sn   = sn:lower()
 
    local pat     = '^' .. sn:escape() .. '/?'
@@ -310,6 +310,7 @@ function extractVersion(full, sn)
    if (version == "") then
       version = nil
    end
+
    return version
 end
 
