@@ -1,0 +1,3 @@
+#%Module
+setenv VASP "5.3.5"
+
