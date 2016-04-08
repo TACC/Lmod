@@ -67,14 +67,13 @@ what the modulefile looks like by doing::
    prepend_path( "PATH",           "/opt/apps/ddt/5.0.1/bin")
    prepend_path( "LD_LIBRARY_PATH","/opt/apps/ddt/5.0.1/lib")
 
-Modulefiles are written in the positive.  Namely, the functions used
-say **setenv**, set this environment variable to have this
-value) or **prepend_path**, prepend to this path like variable with
-this value.  When the modulefile is loaded the functions add to the
-environment.  When a modulefile is unloaded the functions are
-reversed. So the **setenv** unset the environment variable and the
-**prepend_path** removes the value from the path like variable.
-
+Modulefiles are state the actions that need to happen when loading.
+For example the above modulefile uses **setenv** and **prepend_path**
+to set environment variables and prepend to the **PATH**.  If the
+above modulefile is unloaded then the **setenv** actually unsets the
+environment variable.  The **prepend_path** removes the element from
+the **PATH** variable.  That is unload causes the functions to be
+reversed.
 
 Basic Modulefiles
 ^^^^^^^^^^^^^^^^^
@@ -153,7 +152,7 @@ and other modules::
 This modulefile shows the use of four new functions. The first one is
 **append_path**.  This function is similar to **prepend_path** except
 that the value is placed at the end of the path-like variable instead
-of the beginning.  We add "." to our user's path at the end, except for
+of the beginning.  We add ``.'' to our user's path at the end, except for
 root.  This way our new users don't get surprised with some programs in
 their current directory that do not run.  We used the **os.getenv**
 function built-in to Lua to get the value of environment variable

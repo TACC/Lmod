@@ -183,7 +183,7 @@ their programs are going to fail in very mysterious ways.
 
 A much saner strategy is to use a module hierarchy. Each compiler module
 adds to the MODULEPATH a compiler version modulefile directory. Only
-modulefiles that exist in that directory are libraries that have been
+modulefiles that exist in that directory are packages that have been
 built with that compiler. When a user loads a particular compiler,
 that user only sees modulefile(s) that are valid for that compiler. 
 

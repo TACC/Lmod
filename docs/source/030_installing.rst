@@ -1,4 +1,4 @@
-.. _installing-lmod-label:
+Al.. _installing-lmod-label:
 
 Installing Lua and Lmod
 =======================
@@ -32,12 +32,13 @@ modules.
 
 The goal of installing Lmod is when completed, any user will have the
 module command defined and a preset list of modules will be
-loaded. All without modifying the users startup files (``~/.bashrc``,
-``~/.profile``, ``~/.cshrc``, or ``~/.zshenv``). The module command should be
-available for login shells, interactive shells, and non-interactive
-shells. The command ``ssh YOUR_HOST module list`` should work. This will
-require some understanding of the system startup procedure for various
-shells which is covered here. 
+loaded. The module command should work without modifying the users
+startup files (``~/.bashrc``, ``~/.profile``, ``~/.cshrc``, or
+``~/.zshenv``). The module command should be available for login
+shells, interactive shells, and non-interactive shells. The command
+``ssh YOUR_HOST module list`` should work. This will require some
+understanding of the system startup procedure for various shells which
+is covered here.
 
 Installing Lua 
 --------------

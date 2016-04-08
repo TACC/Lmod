@@ -16,7 +16,7 @@ User Created Modules
 ^^^^^^^^^^^^^^^^^^^^
 
 Users can create their own modules. The first step is to add to the
-module path: ::
+module path::
 
    $ module use /path/to/personal/modulefiles
 
