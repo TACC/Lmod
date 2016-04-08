@@ -16,7 +16,8 @@ file called ``z00_StdEnv.sh`` ::
 
     if [ -z "$__Init_Default_Modules" -o -z "$LD_LIBRARY_PATH" ]; then
        export __Init_Default_Modules=1;
-       export LMOD_SYSTEM_DEFAULT_MODULES="StdEnv"
+       LMOD_SYSTEM_DEFAULT_MODULES=${LMOD_SYSTEM_DEFAULT_MODULES:-"StdEnv"} ## ability to predefine elsewhere the default list
+       export LMOD_SYSTEM_DEFAULT_MODULES
        module --initial_load restore
     else
        module refresh
@@ -25,9 +26,11 @@ file called ``z00_StdEnv.sh`` ::
 Similar for z00_StdEnv.csh::
 
     if ( ! $?__Init_Default_Modules || ! $?LD_LIBRARY_PATH )  then
-      setenv LMOD_SYSTEM_DEFAULT_MODULES "StdEnv"
-      module --initial_load restore
       setenv __Init_Default_Modules 1
+      if ( ! $?LMOD_SYSTEM_DEFAULT_MODULES ) then
+        setenv LMOD_SYSTEM_DEFAULT_MODULES "StdEnv"
+      endif
+      module --initial_load restore
     else
       module refresh
     endif
