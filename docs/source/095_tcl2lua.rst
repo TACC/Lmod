@@ -63,7 +63,3 @@ work, just the B modulefile.
 As a side note, you are free to put Lua modules in the same tree that the
 TCL/C Module system uses.  It will ignore files that the first line is
 not #%Module and Lmod will pick B.lua over B.
-
-
-
-     

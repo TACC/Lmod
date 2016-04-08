@@ -16,3 +16,65 @@ MODULEPATH="ProjectDIR/rt/cas_avail/mf/Core";
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/cas_avail/mf/Core",},family={},inactive={},mT={},mpathA={"ProjectDIR/rt/cas_avail/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/cas_avail/mf/Core",["version"]=2,}';
 export _ModuleTable_;
+===========================
+step 3
+lua ProjectDIR/src/lmod.in.lua bash use ProjectDIR/rt/cas_avail/mf/kc
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/cas_avail/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/cas_avail/mf/Core";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/cas_avail/mf/kc:ProjectDIR/rt/cas_avail/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/cas_avail/mf/kc:ProjectDIR/rt/cas_avail/mf/Core";
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/cas_avail/mf/kc","ProjectDIR/rt/cas_avail/mf/Core",},family={},inactive={},mT={},mpathA={"ProjectDIR/rt/cas_avail/mf/kc","ProjectDIR/rt/cas_avail/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/cas_avail/mf/Core",["version"]=2,}';
+export _ModuleTable_;
+===========================
+step 4
+lua ProjectDIR/src/lmod.in.lua bash avail
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/cas_avail/mf/kc:ProjectDIR/rt/cas_avail/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/cas_avail/mf/kc:ProjectDIR/rt/cas_avail/mf/Core";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/cas_avail/mf/kc:ProjectDIR/rt/cas_avail/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/cas_avail/mf/kc:ProjectDIR/rt/cas_avail/mf/Core";
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/cas_avail/mf/kc","ProjectDIR/rt/cas_avail/mf/Core",},family={},inactive={},mT={},mpathA={"ProjectDIR/rt/cas_avail/mf/kc","ProjectDIR/rt/cas_avail/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/cas_avail/mf/Core",["version"]=2,}';
+export _ModuleTable_;
+===========================
+step 5
+lua ProjectDIR/src/lmod.in.lua bash load matlab/R2015a
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/cas_avail/mf/kc:ProjectDIR/rt/cas_avail/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/cas_avail/mf/kc:ProjectDIR/rt/cas_avail/mf/Core";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/cas_avail/mf/kc:ProjectDIR/rt/cas_avail/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+LOADEDMODULES="matlab/R2015a";
+export LOADEDMODULES;
+MODULEPATH="ProjectDIR/rt/cas_avail/mf/kc:ProjectDIR/rt/cas_avail/mf/Core";
+export MODULEPATH;
+VERSION="R2015a";
+export VERSION;
+_LMFILES_="ProjectDIR/rt/cas_avail/mf/kc/matlab/R2015a";
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/cas_avail/mf/kc","ProjectDIR/rt/cas_avail/mf/Core",},family={},inactive={},mT={matlab={["FN"]="ProjectDIR/rt/cas_avail/mf/kc/matlab/R2015a",["default"]=0,["fullName"]="matlab/R2015a",["loadOrder"]=1,propT={},["short"]="matlab",["status"]="active",},},mpathA={"ProjectDIR/rt/cas_avail/mf/kc","ProjectDIR/rt/cas_avail/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/cas_avail/mf/Core",["version"]=2,}';
+export _ModuleTable_;
+===========================
+step 6
+lua ProjectDIR/src/lmod.in.lua bash list
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/cas_avail/mf/kc:ProjectDIR/rt/cas_avail/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/cas_avail/mf/kc:ProjectDIR/rt/cas_avail/mf/Core";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/cas_avail/mf/kc:ProjectDIR/rt/cas_avail/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/cas_avail/mf/kc:ProjectDIR/rt/cas_avail/mf/Core";
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/cas_avail/mf/kc","ProjectDIR/rt/cas_avail/mf/Core",},family={},inactive={},mT={matlab={["FN"]="ProjectDIR/rt/cas_avail/mf/kc/matlab/R2015a",["default"]=0,["fullName"]="matlab/R2015a",["loadOrder"]=1,propT={},["short"]="matlab",["status"]="active",},},mpathA={"ProjectDIR/rt/cas_avail/mf/kc","ProjectDIR/rt/cas_avail/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/cas_avail/mf/Core",["version"]=2,}';
+export _ModuleTable_;

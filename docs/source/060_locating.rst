@@ -1,7 +1,53 @@
-How does Lmod Pick which Modulefiles to Load
+.. _modulepath-label:
+
+How Lmod Picks which Modulefiles to Load
 ========================================
 
-Lmod uses the following rules to locate a modulefile:
+Lmod use the directories listed in ``MODULEPATH`` to find the
+modulefiles to load.  Suppose that you have a single directory
+``/opt/apps/modulefiles`` that has the following files and directories::
+
+    /opt/apps/modulefiles
+
+    StdEnv.lua  ucc/  xyz/
+
+    ./ucc:
+    8.1.lua  8.2.lua
+
+    ./xyz:
+    10.1.lua
+
+Lmod will report the following directory tree like this::
+
+
+   ---------- /opt/apps/modulefiles -----------
+   StdEnv    ucc/8.1    ucc/8.2 (D)    xyz/10.1
+
+We note that the ``.lua`` extension has not been reported above.  The
+``.lua`` extension tells Lmod that the contents of the file are
+written in the Lua language.  All other files are assumed to be
+written in TCL.
+
+
+Here the name of the file or directory under ``/opt/apps/modulefiles``
+is the name of the module.  The normal way to specify a module is to
+create a directory to be the name of the module and the file(s) under
+that directory are the version(s).  So we have created ``ucc`` and
+``xyz`` directories to be the names of the module.  There are two
+version files under ``ucc`` and one version file under ``xyz``.
+
+The ``StdEnv.lua`` file is the another way to specify a module. This
+file is a module with no version associated with it.  These are
+typically used as a meta-module.  That is a module that loads other
+modules.
+
+
+Picking modules when there are multiple directories in MODULEPATH
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+When there are multiple directories specified in MODULEPATH, the rules
+get more complicated on what modulefile to load. Lmod uses the
+following rules to locate a modulefile:
 
 #. It looks for an exact match in all ``MODULEPATH``
    directories. Picking the first match it finds.
@@ -10,8 +56,32 @@ Lmod uses the following rules to locate a modulefile:
 #. If the name doesn't contain a version then Lmod looks for a
    marked default in the first directory that has one.
 #. Finally it looks for the "Highest" Version in all ``MODULEPATH``
-   directories.
+   directories. If there are two or more modulefiles with the
+   "Highest" version then the first one in ``MODULEPATH`` order will
+   be picked.
+#. As a side node, if there are two version files, one with a ``.lua``
+   extension and one without, the lua file will be used over the other
+   one. It will like the other file is not there.
 
+As an example, suppose you have the following module tree::
+
+   ---------- /home/user/modulefiles -----------
+   xyz/11.1
+
+   ---------- /opt/apps/modulefiles -----------
+   StdEnv    ucc/8.1    ucc/8.2        xyz/10.1
+
+   ---------- /opt/apps/mfiles ----------------
+   ucc/8.3 (D)    xyz/12.1 (D)
+
+
+If a user does the following command::
+
+   $ module load ucc/8.2 xyz
+
+then ucc/8.2 will be loaded because the user specified a particular
+version and xyz/12.1 will be loaded be cause it is the highest version
+across all directories in ``MODULEPATH``.
 
 .. _setting-default-label:
 

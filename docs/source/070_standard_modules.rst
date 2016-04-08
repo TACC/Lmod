@@ -12,7 +12,7 @@ login. In ``StdEnv.lua`` is something like: ::
     load("name1","name2","name3")
 
 Using the /etc/profile.d directory system described earlier to create a
-file called ``z99_StdEnv.sh``: ::
+file called ``z00_StdEnv.sh`` ::
 
     if [ -z "$__Init_Default_Modules" -o -z "$LD_LIBRARY_PATH" ]; then
        export __Init_Default_Modules=1;
@@ -22,7 +22,7 @@ file called ``z99_StdEnv.sh``: ::
        module refresh
     fi
 
-Similar for z99_StdEnv.csh::
+Similar for z00_StdEnv.csh::
 
     if ( ! $?__Init_Default_Modules || ! $?LD_LIBRARY_PATH )  then
       setenv LMOD_SYSTEM_DEFAULT_MODULES "StdEnv"
@@ -32,7 +32,7 @@ Similar for z99_StdEnv.csh::
       module refresh
     endif
 
-The z99_Stdenv.* names are chosen because the files in /etc/profile.d
+The z00_Stdenv.* names are chosen because the files in /etc/profile.d
 are sourced in alphabetical order. These names guarantee they will run
 after the module command is defined.
 

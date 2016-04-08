@@ -4,7 +4,7 @@ How to Transition to Lmod (or how to test Lmod without installing it for all)
 In the :ref:`installing-lmod-label` document, we described how to
 install Lua and Lmod for all.  Sites which are currentingly running
 another environment module system will likely wish to test and then
-transit from their old module system to Lmod. This can be smooth
+transition from their old module system to Lmod. This can be smoothly
 with changing all users on some Tuesday.
 
 It is important to remember the following facts:
@@ -142,7 +142,7 @@ An example of how this can be done in your bash startup scripts
 All the comments above can be combined into a complete example::
 
     if [ -z "$_INIT_LMOD" ]; then
-       export _INIT_LMOD=1
+       export _INIT_LMOD=1           # guard variable is crucial, to avoid breaking existing modules settings
        type module > /dev/null 2>&1
        if [ "$?" -eq 0 ]; then
          module purge >2 /dev/null   # purge old modules using old module command.
@@ -166,7 +166,7 @@ All the comments above can be combined into a complete example::
 
 Obviously, you will have to define **MODULEPATH** and
 **LMOD_SYSTEM_DEFAULT_MODULES** to match your site setup.
-The reason for the guard variable **_INIT_LMOD** is hat the module
+The reason for the guard variable **_INIT_LMOD** is that the module
 command and the initialization of the modules is only done in the
 initial login shell. On any sub-shells, the module command gets defined
 (again).  Finally the **module refresh** command is called to define
@@ -187,7 +187,7 @@ friendly/power users for testing:
 #. At TACC, we did this for 6 months.
 
 Using this strategy, you can have extended testing  without
-exposing Lmod to any user which hasn't opted-in
+exposing Lmod to any user which hasn't opted-in.
 
 How to Deploy Lmod
 ~~~~~~~~~~~~~~~~~~
@@ -198,7 +198,7 @@ your users it is quite easy to switch to an opt-out strategy:
 #. Change */etc/profile.d/z00_lmod.sh* so that everyone is using Lmod
 #. If a user has a ~/.no.lmod then they continue to use your original
    module system
-#. At TACC we did this for another 6 mouth
+#. At TACC we did this for another 6 months
 #. We broke Environment Module support with the family directive
 #. We now only support Lmod
 #. Both transitions generated very few tickets (2+2)

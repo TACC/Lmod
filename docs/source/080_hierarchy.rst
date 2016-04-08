@@ -34,8 +34,8 @@ correct::
     $ module load gcc/4.9.2 openmnpi/gcc-4.9-1.8.2  phdf5/gcc-4.9-openmpi-15.0-1.8.13
 
 It is quite easy to load an incompatible set of modules.  Now it is
-possible that the system administrators at your site might have setup 
-conflicts to avoid loading mismatched modules.  However using
+possible that the system administrators at your site might have setup
+``conflict`` s to avoid loading mismatched modules.  However using
 conflicts can be fragile.  What happens if a site adds a new compiler
 such as clang or pgi or a new mpi stack.  All those module file
 conflict statements will have to be updated.

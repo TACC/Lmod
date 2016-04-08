@@ -15,7 +15,7 @@ http://modules.sourceforge.net/ for a TCL based module system and see
 http://www.lysator.liu.se/cmod for another module system. Here we describe
 Lmod, which is a completely new module system written in Lua. For
 those who have used modules before, Lmod automatically reads TCL
-modulefiles. Lmod has some important features over module system,
+modulefiles. Lmod has some important features over other module system,
 namely a built-in solution to hierarchical modulefiles and provides
 additional safety features to users as described in the User Guide. 
 
@@ -25,7 +25,7 @@ built with the same compiler as the libraries. If a site provides more
 than one compiler, then for each compiler version there will be
 separate versions of the libraries. Lmod provides built-in control
 making sure that compilers and pre-built libraries stay matched. The
-rest of the pages here describe how to install lmod, how to provide
+rest of the pages here describe how to install Lmod, how to provide
 the module command to users during the login process and some
 discussion on how to install optional software and the associated
 modules. 
@@ -44,7 +44,7 @@ Installing Lua
 
 In this document, it is assumed that all optional software is going to
 be installed in /opt/apps. The installation of Lmod requires
-installing lua as well.  On some system it is possible to install Lmod
+installing lua as well.  On some system, it is possible to install Lmod
 directly with your package manager. It is available with recent
 fedora, debian and ubuntu distributions. 
 
@@ -54,8 +54,12 @@ Install lua-X.Y.Z.tar.gz
 
 One choice is to install the lua-X.Y.Z.tar.gz file.  This tar ball
 contains lua and the required libraries. This can be
-downloaded from https://sourceforge.net/projects/lmod/files/ 
-This can be installed using the following commands::
+downloaded from https://sourceforge.net/projects/lmod/files/::
+
+    $ wget https://sourceforge.net/projects/lmod/files/lua-5.1.4.5.tar.gz
+
+The current version is 5.1.4.5 but it may change in the future. This
+can be installed using the following commands:: 
 
     $ tar xf lua-X.Y.Z.tar.gz
     $ cd lua-X.Y.Z
@@ -94,6 +98,8 @@ following rpms::
    lua-filesystem-1.4.2-1.el6.x86_64
    lua-devel-5.1.4-4.1.el6.x86_64
 
+You will also need the libtcl and tcl packages as well.
+
 
 Using Luarocks
 ~~~~~~~~~~~~~~
@@ -130,6 +136,27 @@ very important that the trailing semicolon are there.  They are
 replaced by the built-in system path.
 
 
+Why does Lmod install differently?
+----------------------------------
+
+Lmod automatically creates a version directory for itself.  So, for
+example, if the installation prefix is set to ``/apps``, and the
+current version is ``X.Y.Z``, installation will create ``/apps/lmod``
+and ``/apps/lmod/X.Y.Z``.  This way of configuring is different from
+most packages.  There are two reasons for this:
+
+
+#. Lmod is designed to have just one version of it running at one
+   time. Users will not be switching version during the course of
+   their interaction in a shell.
+
+#. By making the symbolic link the startup scripts in /etc/profile.d
+   do not have to change.  They just refer to ``/apps/lmod/lmod/...``
+   and not ``/apps/lmod/X.Y.Z/...``
+
+
+
+
 Installing Lmod
 ---------------
 
@@ -150,25 +177,27 @@ want Lmod version X.Y installed in ``/opt/apps/lmod/X.Y``, just do::
     $ ./configure --prefix=/opt/apps
     $ make install
 
-The ``make install`` will install Lmod in ``/opt/apps/lmod/x.y.z``
-and create a link to ``/opt/apps/lmod/lmod``. 
 
-Sites can use::
+The installation will also create a link to ``/apps/lmod/lmod``.  The
+symbolic link is created to ease upgrades to Lmod itself, as numbered
+versions can be installed side-by-side, testing can be done on the new
+version, and when all is ready, only the symbolic link needs changing.
+
+To create such a testing installation, you can use::
 
     $ make pre-install
 
 which does everything but create the symbolic link.
 
 
-In the setup directory, there are ``profile.in`` and ``cshrc.in``
+In the ``init`` directory of the source code, there are ``profile.in`` and ``cshrc.in``
 templates. During the installation phase, the path to lua is added and
-profile and cshrc are written to the ``/opt/apps/lmod/lmod/init``
-directory. These files assume that your modulefiles are going to be
-located in ``/opt/apps/modulefiles/$LMOD_sys`` and
-``/opt/apps/modulefiles/Core``, where ``$LMOD_sys`` is what the
-command "``uname``" reports, (i.e. Linux, Darwin). The layout of
-modulefiles is discussed later. Obviously you will need to match
-``MODULEPATH`` variable to where you have your modulefiles located.
+``profile`` and ``cshrc`` are written to the ``/apps/lmod/lmod/init``
+directory. These files are created assuming that your modulefiles are going to be
+located in ``/apps/modulefiles/$LMOD_sys`` and
+``/apps/modulefiles/Core``, where ``$LMOD_sys`` is what the
+command "``uname``" reports, (e.g., Linux, Darwin). The layout of
+modulefiles is discussed later.
 
 .. note ::
    Obviously you will want to modify the profile.in and cshrc.in files to suit
@@ -216,8 +245,10 @@ Integrating **module** Into Users' Shells
 Bash:
 ~~~~~
 
-On login shells, the bash shell first reads ``/etc/profile`` and it 
-should source all the \*.sh files in ``/etc/profile.d``  ::
+On login, the bash shell first reads ``/etc/profile``, and if ``profiles.d``
+is activated, that in turn
+should source all the \*.sh files in ``/etc/profile.d`` with something
+like::
 
     if [ -d /etc/profile.d ]; then
       for i in /etc/profile.d/*.sh; do

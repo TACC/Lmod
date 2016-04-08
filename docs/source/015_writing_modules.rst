@@ -268,7 +268,9 @@ example, to specify a module to be experimental all you need to do is::
 
    add_property("state","experimental")
 
-Any properties you set must be defined in the lmodrc.lua file
+Any properties you set must be defined in the **lmodrc.lua** file. In
+the source tree the properties are in init/lmodrc.lua.  A more
+detailed discussion of the lmodrc.lua file can be found at :ref:`lmodrc-label`
 
 Pushenv
 -------

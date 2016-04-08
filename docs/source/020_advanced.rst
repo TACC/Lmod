@@ -28,7 +28,8 @@ Suppose that the user creates a directory called ``$HOME/modulefiles``
 and he wants a personal copy of the "git" package and he does the
 usual "tar, configure, make, make install" steps:  ::
 
-    $ tar xf git-2.6.2.tar.bz2
+    $ wget https://www.kernel.org/pub/software/scm/git/git-2.6.2.tar.gz
+    $ tar xf git-2.6.2.tar.gz
     $ cd git-2.6.2
     $ ./configure --prefix=$HOME/pkg/git/2.6.2
     $ make
@@ -49,11 +50,16 @@ modulefile for git one does: ::
     prepend_path("PATH", pkg)
     ^D  
 
+Starting first from the name: git/2.6.2.lua, modulefiles with the .lua
+extension are assumed to be written in lua and files without are
+assumed to be written in TCL.
 This modulefile for git adds ``~/pkg/git/2.6.2/bin`` to the user's
 path so that the personal version of git can be found.  Note that the
 use of the functions **myModuleName()** and  **myModuleVersion()**
 allows the module to be generic and not hard-wired to a particular
-module file.
+module file. We have used the *cat* command to quickly create this lua
+modulefile. Obviously, this file can easily created by your favorite
+editor (emacs, vi, nano, ...).
 
 Starting first from the name: git/2.6.2.lua, Modulefiles with the .lua
 extension are assumed to be written in lua and files without are
@@ -67,6 +73,7 @@ to git to the user's path.
 
 Finally the user can do: ::
 
+   $ module use $HOME/modulefiles
    $ module load git
    $ type git
    ~/pkg/git/2.6.2/bin/git

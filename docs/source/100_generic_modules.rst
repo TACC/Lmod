@@ -13,7 +13,6 @@ modulefile is located in the "/apps/mfiles/Core/git" directory and
 software is installed in "/apps/git/<version>".  The following
 modulefile would work for every version of git::
 
-
    local pkg = pathJoin("/apps",myModuleName(),myModuleVersion())
    local bin = pathJoin(pkg,"bin"))
    prepend_path("PATH",bin)
@@ -37,20 +36,51 @@ Suppose you are interested in modules where the module and application
 location are relative. Suppose that you have an $APPS directory, and
 below that you have modulefiles and packages, and you would like the
 modulefiles to find the absolute path of the package location. This
-can easily be done with the ``myFileName()`` function and some lua code::
+can be done with the ``myFileName()`` function and some lua code::
 
-     local fn      = myFileName()
-     local full    = myModuleFullName()
-     local mdir    = fn:sub(1,fn:find(full,1,true)-2)
-     local appsDir = mdir:gsub("(.*)/","%1")
-     local pkg     = pathJoin(appsDir, full)
+     local fn      = myFileName()                      -- 1
+     local full    = myModuleFullName()                -- 2
+     local loc     = fn:find(full,1,true)-2            -- 3
+     local mdir    = fn:sub(1,loc)                     -- 4
+     local appsDir = mdir:gsub("(.*)/","%1")           -- 5
+     local pkg     = pathJoin(appsDir, full)           -- 6
 
+
+To make this example concrete, let's assume that applications are in
+``/home/user/apps`` and the modulefiles are in ``/home/user/apps/mfiles``.
 So if the modulefile is located at
-``/home/user/apps/mfiles/git/1.2.lua``, then ``mdir`` is
-``/home/user/apps/mfiles/`` and ``appsDir`` is ``/home/user/apps``
-and ``pkg`` is ``/home/user/apps/git/1.2``.
+``/home/user/apps/mfiles/git/1.2.lua``,
+then that is the value of ``fn`` at line 1.  The ``full`` variable at
+line 2 will have ``git/1.2``.  What we want is to remove the name of
+the modulefile and find its parent directory.  So we use Lua string
+member function on ``fn`` to find where ``full`` starts.  In most cases
+``fn:find(full)`` would work to find where the "git" starts in ``fn``
+The trouble is that the Lua find function is expecting a regular
+expression and in particular ``.`` and ``-`` are regular expression
+characters.  So here we are using ``fn:find(full,1,true)`` to tell Lua
+to treat each character as is with no special meaning.
 
+Line 3 also subtracts 2.  The find command reports the location of the
+start of the string where the "g" in "git" is, We want the value of
+``mdir`` to be ``/home/user/apps/mfiles`` so we need to subtract 2.
+This makes ``mdir`` have the right value.  One note is that Lua is a
+one based language, so locations in strings start at one.
 
+It was important for the value of ``mdir`` to remove the trailing
+``/`` so that line 5 will do its magic.  We want the parent directory
+of ``mdir``, so the regular expressions says greedly grab every
+character until the trailing ``/`` and the ``%1`` says to capture the
+string found in and use that to set ``appsdir`` to
+``/home/user/apps``.  Finally we wish to set ``pkg`` to the location
+of the actual application so we combine the value of ``appsdir`` and
+``full`` to set ``pkg`` to ``/home/user/apps/git/1.2``.
+
+The nice thing about this Lua code is that it figures out the location
+of the package no matter where it is as long as the relation between
+apps directories and modulefiles is consistant.
+
+Creating modules like this can be complicated. See
+:ref:`debugging_modulefiles_label` for helpful tips.
 
 
 Generic Modules with the Hierarchy
@@ -72,7 +102,7 @@ this is the following:
    compilers, programs like git and so on.
 #. Core software goes in `/apps/<app-name>/<app-version>`.
    So git version 2.3.4 goes in  `/apps/git/2.3.4`
-#. Compiler-dependent module files go in
+#. Compiler-dependent modulefiles go in
    `/apps/mfiles/Compiler/<compiler>/<compiler-version>/<app-name>/<app-version>`
    using the **two-digit** rule (discussed below).  So the Boost
    1.55.0 modulefile built with gcc/4.8.3 would be found in
@@ -136,6 +166,9 @@ the paths::
 The important trick is the building of the `compilerD` variable.  It
 converts the `gcc/4.8` into `gcc-4_8`.  This makes the `base` variable
 be: `/apps/gcc-4_8/boost/1.55.0`.
+
+Creating modules like this can be complicated. See
+:ref:`debugging_modulefiles_label` for helpful tips.
 
 A proposed directory structure of /apps/mfiles/Compiler would be::
 

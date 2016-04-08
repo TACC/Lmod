@@ -1,3 +1,5 @@
+.. _system-spider-cache-label:
+
 System Spider Cache
 ===================
 
@@ -9,11 +11,18 @@ name of this file is, Lmod uses this file to know that the spider cache
 is up-to-date.
 
 Lmod uses the spider cache file as a replacement for walking the directory tree
-to find all modulefiles in your MODULEPATH.  This means that Lmod only knows
+to find all modulefiles in your ``MODULEPATH``.  This means that Lmod only knows
 about system modules that are found in the spider cache.  Lmod won't know about
 any system modules that are not in this cache.  (Personal module files are
 always found).  It turns out that reading a single file is much faster than
 walking the directory tree.
+
+While building the spider cache, each modulefile is evaluated for
+changes to ``MODULEPATH``.  Any directories added to ``MODULEPATH``
+are also walked.  This means if your site uses the software hierarchy
+then the new directories added by compiler or mpi stack modulefiles
+will also be searched.
+
 
 Sites running Lmod have three choices:
 
@@ -36,7 +45,12 @@ Sites running Lmod have three choices:
 There are two ways to specify how cache directories and timestep files are
 specified.  You can use "--with-spiderCacheDir=dirs" and
 "--with-updateSystemFn=file" to specify one or more directories with a
-single timestamp file.  If you have multiple directories with multiple
+single timestamp file::
+
+  ./configure --with-spiderCacheDir=/opt/mData/cacheDir --with-updateSystemFn=/opt/mdata/system.txt
+
+
+If you have multiple directories with multiple
 timestamp files you can use "--with-spiderCacheDescript=file" where the
 contents of the "file" is::
 
@@ -49,12 +63,16 @@ single timestamp file can be used with multiple cache directories.
 How to decide how many system cache directories to have
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-It is about which machines "owns" which modulefiles. At TACC, we have
-two different locations of files.  Most of our modulefiles are stored
-on a local disk.  Some others are stored in a shared location.  So in
-our case, Lmod sees two cache directories.  Each node builds a spider
-cache of the modulefiles it "owns" and a single mode (we call it
-master) builds a cache for the shared location.
+The answer to this question depends on which machines "owns" which
+modulefiles. Many sites have a single location where their modulefiles
+are stored. In this case a single system cache file is all that is
+required.
+
+At TACC, we need two system cache files because we have two different
+locations of files: one in the shared location and one on a local disk.
+So in our case Lmod sees two cache directories. Each node builds a
+spider cache of the modulefiles it "owns" and a single node (we call
+it master) builds a cache for the shared location.
 
 
 What directories to specify?
