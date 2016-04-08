@@ -3,13 +3,12 @@ Generic Modules
 
 Lmod provides inspection functions that describe the name
 and version of a modulefile as well as the path to the modulefile.
-These functions provide a way to write "generic" modulefiles.  That is
-modulefiles that can fill in its values based on the location of the
-file itself.
+These functions provide a way to write "generic" modulefiles, 
+i.e. modulefiles that can fill in its values based on the location of the
+file itself.  
 
-These ideas work best in the software hierarchy style (see
-:ref:`Software-Hierarchy-label` for details) of modulefiles.
-For example: Suppose the following is a modulefile for Git.  Its
+These ideas work best in the software hierarchy style of modulefiles.
+For example: suppose the following is a modulefile for Git.  Its
 modulefile is located in the "/apps/mfiles/Core/git" directory and
 software is installed in "/apps/git/<version>".  The following
 modulefile would work for every version of git::
@@ -21,9 +20,9 @@ modulefile would work for every version of git::
    whatis("Name:        ", myModuleName())
    whatis("Version:     ", myModuleVersion())
    whatis("Description: ", "Git is a fast distributive version control system")
-
+  
 The contents of this modulefile can be used for multiple versions of
-the git software because the local variable bin changes the location
+the git software, because the local variable bin changes the location
 of the bin directory to match the version of the used as the name of
 the file.  So if the module file is in
 `/apps/mfiles/Core/git/2.3.4.lua` then the local variable `bin` will
@@ -87,17 +86,16 @@ Creating modules like this can be complicated. See
 Generic Modules with the Hierarchy
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-This works great for Core modules, It is a little more complicated for
-Compiler or MPI/Compiler dependent modules. For a concrete example,
-let's cover how to handle the boost C++ library where your want to
-build both a separate version of boost for each compiler version and
-modulefiles for each.  This is a compiler dependent module. Suppose
-you have the gnu compiler collection (gcc) and the intel compiler
-collection (intel), which means that you'll have a gcc version and an
-intel version for each version of boost.
+This works great for Core modules. It is a little more complicated for
+Compiler or MPI/Compiler dependent modules but quite useful. For a
+concrete example, lets cover how to handle the boost C++ library.
+This is obviously a compiler dependent module. Suppose you have the
+gnu compiler collection (gcc) and the  intel compiler collection
+(intel), which means that you'll have a gcc version and an intel
+version for each version of booth.
 
-In order to have generic modules for compiler dependent modules there
-needs to be some conventions to make this work.  A suggested way to do
+In order to have generic modules for compiler dependent modules, there
+must be some conventions to make this work.  A suggested way to do
 this is the following:
 
 #. Core modules are placed in `/apps/mfiles/Core`.  These are the
@@ -122,22 +120,24 @@ convention also assumes that the boost 1.55.0 package will be placed
 in `/apps/gcc-4_8/boost/1.55.0`.  It couldn't go in
 */apps/gcc/4.8/...* because that is where the gcc 4.8 package would
 be placed and it is not a good idea to co-mingle two different
-packages in the same tree.
+packages in the same tree.  Another possible choice would be
+*/apps/gcc-4.8/boost/1.55.0*.  It is my view that it looks too much
+like the gcc version 4.8 package location where as *gcc-4_8* doesn't.
 
-With all of the above assumptions we can now create a generic module
+With all of the above assumptions, we can now create a generic module
 file for compiler dependent modules such as Boost.  In order to make
-this work we will need to use the `hierarchyA` function.  This
+this work, we will need to use the `hierarchyA` function.  This
 function parses the path of the modulefile to return the pieces we
 need to create a generic boost modulefile::
 
    hierA = hierarchyA(myModuleFullName(),1)
 
 The `myModuleFullName()` function returns the full name of the
-module.  So if the module is named **boost/1.55.0** then that is what
-it will return.  If your site use module names like `lib/boost/1.55.0`
+module.  So if the module is named **boost/1.55.0**, then that is what
+it will return.  If your site uses module names like `lib/boost/1.55.0`
 then it will return that correctly as well. The *1* tells Lmod to
 return just one component from the path.  So if the modulefile is
-located at `/apps/mfiles/Compiler/gcc/4.8/boost/1.55.0.lua` then
+located at `/apps/mfiles/Compiler/gcc/4.8/boost/1.55.0.lua`, then
 `myModuleFullName()` returns **boost/1.55.0** and the `hierarchyA`
 function returns an array with 1 entry.  In this case it returns::
 
@@ -192,7 +192,7 @@ for all the boost version build with gcc and intel compilers.
 
 The same technique can be applied for modulefiles for Compiler/MPI
 dependent packages.  In this case, we will create the phdf5
-modulefile.  This a parallel I/O package that allows for Hierarchical
+modulefile.  This is a parallel I/O package that allows for Hierarchical
 output.  The modulefile is::
 
     local pkgName    = myModuleName()
@@ -220,7 +220,7 @@ output.  The modulefile is::
 
 We use the same tricks as before,  It is just that since the module
 for phdf5 built by gcc/4.8.3 and mpich/3.1.2 will be found at
-`/apps/mfiles/MPI/gcc/4.8./mpich/3.1/phdf5/1.8.14.lua` then the
+`/apps/mfiles/MPI/gcc/4.8./mpich/3.1/phdf5/1.8.14.lua`. The
 results of `hierarchyA(pkgNameVer,2)` would be::
 
     { "mpich/3.1", "gcc/4.8" }
@@ -231,9 +231,9 @@ at a time because the full name of this package is also two elements
 
     /apps/gcc-4_8/mpich-3_1/phdf5/1.8.14
 
-The last type of modulefile that needs to be discussed is a mpi stack
+The last type of modulefile that needs to be discussed is an mpi stack
 modulefile such as mpich/3.1.2.  This modulefile is more complicated
-because it has to implement the two digit rule, build the path to the
+because it has to implement the two-digit rule, build the path to the
 package and build the new entry to the **MODULEPATH**.  The modulefile
 is::
 

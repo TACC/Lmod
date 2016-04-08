@@ -11,9 +11,9 @@ It is important to remember the following facts:
 
 * Lmod reads modulefiles written in TCL.  There is typically no need
   to translate modulefiles written in TCL into Lua. Lmod does this for
-  you automatically.
+  you automatically.  
 
-* Some users can run Lmod while other use the old environment module
+* Some users can run Lmod while others use the old environment module
   system.
 
 * However no user can run both at the same time in the same shell.
@@ -37,8 +37,8 @@ Install Lua
 ~~~~~~~~~~~
 
 The previous document described how to install Lua.  If your system
-doesn't provide package for Lua, then it is probably easiest to
-install the lua tar ball found at sourceforge.net using the following
+doesn't provide package for Lua, then it is probably easy to
+install the lua tarball found at sourceforge.net using the following
 command::
 
     $ wget https://sourceforge.net/projects/lmod/files/lua-W.X.Y.Z.tar.gz
@@ -60,15 +60,14 @@ libraries via your package manager or luarocks.
 Install Lmod
 ~~~~~~~~~~~~
 
-Please following previous document on how to install Lmod.  Let's
-assume that you have installed Lmod in your own account in
-like so::
+Please follow the previous document on how to install Lmod.  Let's
+assume that you have installed Lmod in your own account like this::
 
    $ ./configure --prefix=$HOME/pkg
    $ make install
 
 This will install Lmod in **$HOME/pkg/lmod/x.y.z** and make a
-symbolic link to **$HOME/pkg/lmod/lmod**
+symbolic link to **$HOME/pkg/lmod/lmod**.
 
 
 Build the list of modules required
@@ -78,7 +77,7 @@ Many sites provide a default set of modules.  When testing, you'll
 want to be able to load those list of modules using Lmod.   Using your
 old module system, login and do::
 
-
+    
     $ module list
 
     Currently Loaded Modules:
@@ -103,18 +102,18 @@ Execute::
 
     $ module purge
 
-to unload the currently loaded modules **using the old module command**
+to unload the currently loaded modules **using the old module command**.
 
 
 Reload modules using Lmod
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Once all modules have been purge and the environment variable
-LMOD_SYSTEM_DEFAULT_MODULES has been set. All that is required is that
-the module command be redefined to use Lmod and restore the default
+LMOD_SYSTEM_DEFAULT_MODULES has been set. All that are required are to redefine the 
+module command to use Lmod and to restore the default
 set of modules by::
 
-
+    
     $ export BASH_ENV=$HOME/pkg/lmod/lmod/init/bash
     $ source $BASH_ENV
 
@@ -128,7 +127,7 @@ This command first looks to see if there is a default collection in
 of variable LMOD_SYSTEM_DEFAULT_MODULES as a list of module to load.
 
 If you have gotten this far then you have installed Lmod in your
-account. Congratulation!
+account. Congratulations!
 
 Please test your system.  Try to load your most complicated
 modulefiles.  See if **module avail**, **module spider** works and so
@@ -153,7 +152,7 @@ All the comments above can be combined into a complete example::
        export MODULEPATH=...                         # define  MODULEPATH
        export BASH_ENV=$HOME/pkg/lmod/lmod/init/bash # Point to the new definition of Lmod
 
-       source $BASH_ENV                              # Redefine the module command to point
+       source $BASH_ENV                              # Redefine the module command to point 
                                                      # to the new Lmod
        export LMOD_SYSTEM_DEFAULT_MODULES=...        # Colon separated list of modules
                                                      # to load at startup
@@ -161,15 +160,15 @@ All the comments above can be combined into a complete example::
                                                      # user's ~/.lmod.d/default module collection
     else
        source $BASH_ENV                              # redefine the module command for sub-shell
-       module refresh                                # reload all modules but only activate the "set_alias"
+       module refresh                                # reload all modules but only activate the "set_alias" 
                                                      # functions.
-    fi
+    fi  
 
 Obviously, you will have to define **MODULEPATH** and
 **LMOD_SYSTEM_DEFAULT_MODULES** to match your site setup.
-The reason for the guard variable **_INIT_LMOD** is so that the module
+The reason for the guard variable **_INIT_LMOD** is that the module
 command and the initialization of the modules is only done in the
-initial login shell. On any sub-shells, the module command gets define
+initial login shell. On any sub-shells, the module command gets defined
 (again).  Finally the **module refresh** command is called to define
 any alias or shell functions in any of the currently loaded modules.
 
@@ -181,10 +180,10 @@ Once you have tested Lmod personally and wish to transition your site
 to use Lmod, I recommend the following strategy for staff and
 friendly/power users for testing:
 
-#. Install Lua and Lmod in system locations.
+#. Install Lua and Lmod in system locations
 #. Install */etc/profile.d/z00_lmod.sh* to redefine the module command
-#. Load system default modules (if any) after previous step
-#. Only user who have a file named *~/.lmod* use Lmod.
+#. Load system default modules (if any) after previous steps
+#. Only user who have a file named *~/.lmod* use Lmod
 #. At TACC, we did this for 6 months.
 
 Using this strategy, you can have extended testing  without
@@ -198,9 +197,9 @@ your users it is quite easy to switch to an opt-out strategy:
 
 #. Change */etc/profile.d/z00_lmod.sh* so that everyone is using Lmod
 #. If a user has a ~/.no.lmod then they continue to use your original
-   module system.
-#. At TACC we did this for another 6 months.
-#. We broke Environment Module support with the family directive.
-#. We now only support Lmod.
-#. Both transitions generated very few tickets (2+2).
+   module system
+#. At TACC we did this for another 6 months
+#. We broke Environment Module support with the family directive
+#. We now only support Lmod
+#. Both transitions generated very few tickets (2+2)
 

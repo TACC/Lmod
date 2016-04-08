@@ -28,6 +28,10 @@ testdescript = {
 
      runLmod --version                # 1
      runLmod avail                    # 2
+     runLmod use $(testDir)/mf/kc     # 3
+     runLmod avail                    # 4
+     runLmod load matlab/R2015a       # 5
+     runLmod list                     # 6
 
 
 

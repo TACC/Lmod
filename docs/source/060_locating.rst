@@ -94,7 +94,7 @@ Suppose you have several versions of the mythical UCC compiler suite::
       ---------- /opt/apps/modulefiles/Core -----------
       ucc/8.1   ucc/9.2   ucc/11.1   ucc/12.2 (D)
 
-and you like to make the 11.1 version the default.  Lmod searches
+and you like to make the 11.1 version the default.  Lmod searches 
 three different ways to mark a version as a default in the following
 order.  The first way is to make a symbolic link between a file named
 "``default``" and the desired default version.::
@@ -104,12 +104,12 @@ order.  The first way is to make a symbolic link between a file named
 
 A second way to mark a default is with a .modulerc file in the same
 directory as the modulefiles.::
-
+    
     #%Module
     module-version ucc/11.1 default
 
 
-There is third method to pick the default module.  If you create a
+There is a third method to pick the default module.  If you create a
 .version file in the ucc directory that contains::
 
     #%Module
@@ -134,7 +134,7 @@ across all directories::
       $ module avail ucc
 
       ---------- /opt/apps/modulefiles/Core -----------
-      ucc/8.1   ucc/9.2   ucc/11.1   ucc/12.2
+      ucc/8.1   ucc/9.2   ucc/11.1   ucc/12.2 
 
       ---------- /opt/apps/modulefiles/New -----------
       ucc/13.2 (D)
@@ -160,7 +160,7 @@ When Lmod autoswaps hierarchical dependencies, it uses the following
 rules:
 
 1. If a user loads a default module, then Lmod will reload the default
-   even if the module version as changed.
+   even if the module version has changed.
 2. If a user loads a module with the version specified then Lmod will
    only load the exact same version when swapping dependencies.
 
@@ -180,7 +180,7 @@ Now swapping the Intel compiler suite for the Gnu compiler suite::
 Here boost has been reloaded with a different version because the
 default is different in the gcc hierarchy.  However if the user does::
 
-
+    
     $ module purge; module load intel boost/1.57.0; module list
 
      Currently Loaded Modules:
