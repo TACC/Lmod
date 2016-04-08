@@ -62,7 +62,7 @@ Your users will like this:
         puts $null "module-whatis       \"does absolutely nothing\""
         puts $null ""
         puts $null "# for Tcl script use only"
-        puts $null "set     version      6.1.6"
+        puts $null "set     version      6.1"
         }
     }
 
