@@ -85,7 +85,10 @@ Extra functions
 The entries below describe several useful commands that come with Lmod that can be used in modulefiles.
 
 **os.getenv** ("NAME"):
-    Ask for environment for the value of "NAME". Note that if the "NAME" might not be in the environment, then it is probably best to do: local foo=os.getenv("FOO") or ""
+    Ask for environment for the value of "NAME". Note that if the
+    "NAME" might not be in the environment, then it is probably best
+    to do: ``local foo=os.getenv("FOO") or "" otherwise ``foo'' will have
+    the value of ``nil''
 **capture** ("string"):
     Run the "string" as a command and capture the output.
 **isFile** ("name"):
