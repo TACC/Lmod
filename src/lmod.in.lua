@@ -69,7 +69,6 @@ package.path  = LuaCommandName_dir .. "?.lua;"       ..
                 LuaCommandName_dir .. "../shells/?.lua;" ..
                 LuaCommandName_dir .. "?/init.lua;"  ..
                 sys_lua_path
-
 package.cpath = LuaCommandName_dir .. "../lib/?.so;"..
                 sys_lua_cpath
 
