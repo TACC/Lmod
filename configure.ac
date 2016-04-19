@@ -382,6 +382,8 @@ if test x$PATH_TO_LUAC = "x"; then
 fi
 
 
+
+
 oldprog=$luaprog
 while test -L $luaprog; do
   luaprog=$(readlink $luaprog)
@@ -423,6 +425,11 @@ fi
 echo "... $LuaV"
 
 PATH_TO_LUA=$(dirname $luaprog)
+
+AC_SUBST(SYS_LUA_PATH)
+AC_SUBST(SYS_LUA_CPATH)
+SYS_LUA_PATH=($luaprog -e "print(package.path)")
+SYS_LUA_CPATH=($luaprog -e "print(package.cpath)")
 
 WD=`pwd`
 

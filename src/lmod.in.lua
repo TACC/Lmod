@@ -54,14 +54,24 @@ if (i) then
    LuaCommandName     = LuaCommandName:sub(j+1)
 end
 
-package.path = LuaCommandName_dir .. "?.lua;"       ..
-               LuaCommandName_dir .. "../tools/?.lua;"  ..
-               LuaCommandName_dir .. "../shells/?.lua;" ..
-               LuaCommandName_dir .. "?/init.lua;"  ..
-               package.path
+local sys_lua_path = "@sys_lua_path@"
+if (sys_lua_path:sub(1,1) == "@") then
+   sys_lua_path = package.path
+end
+
+local sys_lua_cpath = "@sys_lua_cpath@"
+if (sys_lua_cpath:sub(1,1) == "@") then
+   sys_lua_cpath = package.cpath
+end
+
+package.path  = LuaCommandName_dir .. "?.lua;"       ..
+                LuaCommandName_dir .. "../tools/?.lua;"  ..
+                LuaCommandName_dir .. "../shells/?.lua;" ..
+                LuaCommandName_dir .. "?/init.lua;"  ..
+                sys_lua_path
 
 package.cpath = LuaCommandName_dir .. "../lib/?.so;"..
-                package.cpath
+                sys_lua_cpath
 
 
 require("strict")

@@ -20,6 +20,8 @@ LMOD_FULL_SETTARG_SUPPORT := $(shell echo "@SETTARG@"       | tr '[:upper:]' '[:
 USE_DOT_FILES             := $(shell echo "@USE_DOT_FILES@" | tr '[:upper:]' '[:lower:]')
 PREPEND_BLOCK     	  := $(shell echo "@PREPEND_BLOCK@" | tr '[:upper:]' '[:lower:]')
 COLORIZE          	  := $(shell echo "@COLORIZE@"      | tr '[:upper:]' '[:lower:]')
+SYS_LUA_PATH              := @SYS_LUA_PATH@
+SYS_LUA_CPATH             := @SYS_LUA_CPATH@
 CASE_INDEPENDENT_SORTING  := @CASE_INDEPENDENT_SORTING@
 ZSH_SITE_FUNCTIONS_DIRS   := @ZSH_SITE_FUNCTIONS_DIRS@
 SPIDER_CACHE_DESCRIPT_FN  := @SPIDER_CACHE_DESCRIPT_FN@
@@ -166,6 +168,8 @@ __installMe:
                 -e 's|@use_dot_files@|$(USE_DOT_FILES)|g'             	   	  \
                 -e 's|@git@|$(GIT_VERSION)|g'                              	  \
                 -e 's|--@ignore_dirs@--|$(IGNORE_DIRS)|g'                         \
+	        -e 's|@sys_lua_path@|$(SYS_LUA_PATH)|g'                  	  \
+	        -e 's|@sys_lua_cpath@|$(SYS_LUA_CPATH)|g'                  	  \
                 -e 's|@path_to_luac@|$(PATH_TO_LUAC)|g'                  	  \
                 -e 's|@have_lua_term@|$(HAVE_LUA_TERM)|g'                  	  \
                 -e 's|@have_lua_json@|$(HAVE_LUA_JSON)|g'                  	  \
