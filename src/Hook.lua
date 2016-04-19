@@ -61,6 +61,7 @@ local validT =
                                -- shared filesystems.
       avail          = false,  -- Map directory names to labels
       restore        = false,  -- This hook is run after restore operation
+      startup        = false,  -- This hook is run when Lmod is called
 }
 
 --------------------------------------------------------------------------
