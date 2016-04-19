@@ -428,7 +428,7 @@ echo "... $LuaV"
 
 PATH_TO_LUA=$(dirname $luaprog)
 
-if [ -z "$ORIG_LUA_PATH" ]; then
+if test -z "$ORIG_LUA_PATH" ; then
    unset LUA_PATH
 else
    LUA_PATH="$ORIG_LUA_PATH"
