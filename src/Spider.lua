@@ -490,6 +490,7 @@ function M.Level0(self, dbT)
    local masterTbl = masterTbl()
    local hidden    = not masterTbl.show_hidden
    local terse     = masterTbl.terse
+   
 
    if (terse) then
       dbg.start{"Spider:Level0()"}
@@ -540,6 +541,7 @@ function M.Level0Helper(self, dbT,a)
    for kk,vv in pairs(dbT) do
       for k,v in pairsByKeys(vv) do
          local version = extractVersion(v.full, v.name)
+         dbg.print{"Level0Helper: v.full: ",v.full,", v.name: ", v.name,", version: ",version,"\n"}
          if (hidden and (version or ""):sub(1,1) ~= ".") then
             if (t[kk] == nil) then
                t[kk] = { Description = v.Description, Versions = { }, name = v.name}
