@@ -406,6 +406,7 @@ printf "checking for valid Lua version"
 
 SRCDIR=$( cd $srcdir; pwd)
 PATH_TO_SRC=$SRCDIR
+ORIG_LUA_PATH=$LUA_PATH
 export LUA_PATH="${SRCDIR}/src/?.lua;$LUA_PATH;;"
 LuaV=$( $luaprog -e 'print(_VERSION)' | sed -e 's/Lua //' )
 LmodV=$( $luaprog  -e "v=require('Version'); s=v.name():gsub(' .*','');print(s)")
@@ -426,10 +427,11 @@ echo "... $LuaV"
 
 PATH_TO_LUA=$(dirname $luaprog)
 
+export LUA_PATH=$ORIG_LUA_PATH		      
 AC_SUBST(SYS_LUA_PATH)
 AC_SUBST(SYS_LUA_CPATH)
-SYS_LUA_PATH=($luaprog -e "print(package.path)")
-SYS_LUA_CPATH=($luaprog -e "print(package.cpath)")
+SYS_LUA_PATH=$($luaprog -e "print(package.path)")
+SYS_LUA_CPATH=$($luaprog -e "print(package.cpath)")
 
 WD=`pwd`
 

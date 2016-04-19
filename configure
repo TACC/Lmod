@@ -590,6 +590,8 @@ ZSH_SITE_FUNCTIONS_DIRS
 pkgConfig
 HAVE_LUA_JSON
 HAVE_LUA_TERM
+SYS_LUA_CPATH
+SYS_LUA_PATH
 luaprog
 PATH_TO_TR
 PATH_TO_TCLSH
@@ -3663,6 +3665,8 @@ if test x$PATH_TO_LUAC = "x"; then
 fi
 
 
+
+
 oldprog=$luaprog
 while test -L $luaprog; do
   luaprog=$(readlink $luaprog)
@@ -3685,6 +3689,7 @@ printf "checking for valid Lua version"
 
 SRCDIR=$( cd $srcdir; pwd)
 PATH_TO_SRC=$SRCDIR
+ORIG_LUA_PATH=$LUA_PATH
 export LUA_PATH="${SRCDIR}/src/?.lua;$LUA_PATH;;"
 LuaV=$( $luaprog -e 'print(_VERSION)' | sed -e 's/Lua //' )
 LmodV=$( $luaprog  -e "v=require('Version'); s=v.name():gsub(' .*','');print(s)")
@@ -3704,6 +3709,12 @@ fi
 echo "... $LuaV"
 
 PATH_TO_LUA=$(dirname $luaprog)
+
+export LUA_PATH=$ORIG_LUA_PATH
+
+
+SYS_LUA_PATH=$($luaprog -e "print(package.path)")
+SYS_LUA_CPATH=$($luaprog -e "print(package.cpath)")
 
 WD=`pwd`
 
