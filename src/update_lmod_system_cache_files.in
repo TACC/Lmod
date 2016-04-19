@@ -122,6 +122,8 @@ print_help() {
     echo "      moduleT cache update only, disable updating dbT cache file"
     echo "  -J"
     echo "      enable update jsonReverseMapT cache file"
+    echo "  -K"
+    echo "      enable update xalt_rmapT cache file"
     echo "  -X"
     echo "      enable Lmod debugging of spider command"
 }

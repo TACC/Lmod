@@ -1,3 +1,9 @@
+Lmod 6.2:
+Bug Fixes:
+   a) Updated documentation at lmod.readthedocs.org
+   b) Support for generating xalt_rmapT.json used by XALT.
+   c) Fixed bug with upcase characters in version file.
+
 Lmod 6.1:
 Features:
    a) It is now possible to configure Lmod to use the spider cache
