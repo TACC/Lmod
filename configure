@@ -3690,6 +3690,7 @@ printf "checking for valid Lua version"
 SRCDIR=$( cd $srcdir; pwd)
 PATH_TO_SRC=$SRCDIR
 ORIG_LUA_PATH="$LUA_PATH"
+echo
 echo "ORIG_LUA_PATH: $ORIG_LUA_PATH"
 export LUA_PATH="${SRCDIR}/src/?.lua;$LUA_PATH;;"
 LuaV=$( $luaprog -e 'print(_VERSION)' | sed -e 's/Lua //' )
@@ -3719,6 +3720,7 @@ SYS_LUA_CPATH=$($luaprog -e "print(package.cpath)")
 
 LUA_PATH=$SYS_LUA_PATH
 LUA_CPATH=$SYS_LUA_CPATH
+echo "New LUA_PATH: $LUA_PATH"
 
 WD=`pwd`
 
