@@ -588,8 +588,6 @@ function main()
       os.exit(0)
    end
 
-   hook.apply("startup", usrCmd)
-
    -- dumpversion and quit if requested.
 
    if (masterTbl.dumpversion) then
@@ -627,6 +625,7 @@ function main()
       os.exit(0)
    end
 
+   hook.apply("startup", usrCmd)
 
    -- Create the [[master]] object
    local master = Master:master(checkMPATH)

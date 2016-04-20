@@ -126,7 +126,6 @@ users to start from.   This is typically called a meta module because
 it loads other modules.  As an example of that, we here at TACC
 have created the TACC module to provide a default compiler, mpi stack
 and other modules::
-
   
    help([[
    The TACC modulefile defines ...
@@ -152,7 +151,7 @@ and other modules::
 This modulefile shows the use of four new functions. The first one is
 **append_path**.  This function is similar to **prepend_path** except
 that the value is placed at the end of the path-like variable instead
-of the beginning.  We add ``.'' to our user's path at the end, except for
+of the beginning.  We add ``.`` to our user's path at the end, except for
 root.  This way our new users don't get surprised with some programs in
 their current directory that do not run.  We used the **os.getenv**
 function built-in to Lua to get the value of environment variable

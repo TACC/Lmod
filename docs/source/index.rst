@@ -88,6 +88,7 @@ Advanced Topics
    130_spider_cache
    140_deprecating_modules
    150_kitchen_sink_module
+   170_hooks
 
 Topics yet to be written
 ^^^^^^^^^^^^^^^^^^^^^^^^
