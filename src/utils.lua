@@ -284,6 +284,20 @@ function quiet()
    return __quiet
 end
 
+function isActiveMFile(full, sn)
+   local version = extractVersion(full, sn) or ""
+   if (version:sub(1,1) == ".") then
+      return false, version
+   end
+   if (full:sub(1,1) == ".") then
+      return false, version
+   end
+   if (full:find("/%.")) then
+      return false, version
+   end
+   return true, version
+end
+
 --------------------------------------------------------------------------
 -- Compare the full name of a modulefile with the
 -- shortname. Return nil if the shortname and full name

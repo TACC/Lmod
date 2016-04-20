@@ -25,8 +25,12 @@ testdescript = {
      rm -fr .lmod.d .lmodrc.lua
      cp $(projectDir)/init/lmodrc.lua .lmodrc.lua
 
-     runLmod --version     # 1
-     runLmod spider        # 2
+     runLmod --version               # 1
+     runLmod spider                  # 2
+     runLmod --show_hidden spider    # 3
+     runLmod --show_hidden -t spider # 4
+     runLmod spider  fftw            # 5
+     runLmod spider  fft             # 6
 
 
      HOME=$ORIG_HOME
