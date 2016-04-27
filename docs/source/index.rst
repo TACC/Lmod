@@ -97,7 +97,6 @@ Topics yet to be written
 #. Module naming conventions
 #. Advanced Topics: priority path, .modulerc tricks
 #. settarg
-#. SitePackage.lua and hooks
 #. tracking module usage
 #. converting shell scripts into modulefiles
 #. module command and a parallel a file system.
