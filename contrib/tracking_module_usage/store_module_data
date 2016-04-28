@@ -21,7 +21,7 @@ def main():
   f = open(sys.argv[1],"r")
   for line in f:
     line  = line.rstrip("\n")
-    idx   = line.find("Lmod: ")
+    idx   = line.find("ModuleUsageTracking: ")
     dataT = dict(re.findall(r'(\S+)=(".*?"|\S+)', line[idx+6:]))
 
     dataT['syshost'] = syshost(dataT['host'])

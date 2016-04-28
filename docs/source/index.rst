@@ -88,6 +88,7 @@ Advanced Topics
    130_spider_cache
    140_deprecating_modules
    150_kitchen_sink_module
+   170_hooks
 
 Topics yet to be written
 ^^^^^^^^^^^^^^^^^^^^^^^^
@@ -96,7 +97,6 @@ Topics yet to be written
 #. Module naming conventions
 #. Advanced Topics: priority path, .modulerc tricks
 #. settarg
-#. SitePackage.lua and hooks
 #. tracking module usage
 #. converting shell scripts into modulefiles
 #. module command and a parallel a file system.

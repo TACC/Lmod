@@ -84,7 +84,7 @@ class LMODdb(object):
     else:
       self.__readFromUser()
 
-    n = 100
+    n = 200
     for i in xrange(0,n+1):
       try:
         self.__conn = MySQLdb.connect (self.__host,self.__user,self.__passwd)
@@ -100,6 +100,7 @@ class LMODdb(object):
       except MySQLdb.Error, e:
         if (i < n):
           sleep(i*0.1)
+          print ("failed to connect trying again: ",i)
           pass
         else:
           print ("LMODdb(%d): Error %d: %s" % (i, e.args[0], e.args[1]), file=sys.stderr)
@@ -210,8 +211,6 @@ class LMODdb(object):
           
       ############################################################
       # Get user_id
-
-
       user    = dataT['user']
       user_id = LMODdb.userT.get(user)
 
@@ -279,7 +278,7 @@ class LMODdb(object):
       ############################################################
       # Insert into join_user_module table
       
-      dateTm = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(float(dataT['date'])))
+      dateTm = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(float(dataT['time'])))
       query  = "INSERT into join_user_module VALUES(NULL, %s, %s, %s) "
       cursor.execute(query,(user_id, mod_id, dateTm))
 

@@ -147,6 +147,7 @@ local concatTbl    = table.concat
 local max          = math.max
 local unpack       = (_VERSION == "Lua 5.1") and unpack or table.unpack
 local timer        = require("Timer"):timer()
+local hook         = require("Hook")
 
 --------------------------------------------------------------------------
 -- Return the *allow_dups* function.  This function return true if
@@ -587,7 +588,6 @@ function main()
       os.exit(0)
    end
 
-
    -- dumpversion and quit if requested.
 
    if (masterTbl.dumpversion) then
@@ -625,6 +625,7 @@ function main()
       os.exit(0)
    end
 
+   hook.apply("startup", usrCmd)
 
    -- Create the [[master]] object
    local master = Master:master(checkMPATH)
