@@ -81,6 +81,8 @@ def main():
     cursor = conn.cursor()
     idx    = 1
 
+    cursor.execute("USE "+lmod.db())
+
     print("(%d) create join_link_object table" % idx); idx += 1
 
     sqlCommands = """
