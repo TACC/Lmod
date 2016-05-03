@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 6.0.19  2015-11-18 08:32
+Modules based on Lua: Version 6.3.1  2016-04-20 15:01
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -105,13 +105,14 @@ step 17
 lua ProjectDIR/src/lmod.in.lua bash restore stdenv
 ===========================
 Restoring modules to user's stdenv
-Lmod Warning: One or more modules in your  collection have changed: "gcc".
+Lmod Warning: One or more modules in your stdenv  collection have changed:
+gcc".
 To see the contents of this collection do:
-  $ module describe
+  $ module describe stdenv
 To rebuild the collection, load the modules you wish then do:
-  $ module save
+  $ module save stdenv
 If you no longer want this module collection do:
-  rm ~/.lmod.d/
+  rm ~/.lmod.d/stdenv
 For more information execute 'module help' or see http://lmod.readthedocs.org/
 No change in modules loaded
 ===========================
@@ -119,14 +120,14 @@ step 18
 lua ProjectDIR/src/lmod.in.lua bash restore stdenv
 ===========================
 Restoring modules to user's stdenv
-Lmod Warning: One or more modules in your  collection have changed:
+Lmod Warning: One or more modules in your stdenv  collection have changed:
 StdEnv", "gcc".
 To see the contents of this collection do:
-  $ module describe
+  $ module describe stdenv
 To rebuild the collection, load the modules you wish then do:
-  $ module save
+  $ module save stdenv
 If you no longer want this module collection do:
-  rm ~/.lmod.d/
+  rm ~/.lmod.d/stdenv
 For more information execute 'module help' or see http://lmod.readthedocs.org/
 No change in modules loaded
 ===========================
