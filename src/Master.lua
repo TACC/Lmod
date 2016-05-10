@@ -1153,10 +1153,19 @@ function M.avail(argA)
          local a     = {}
          availDir(defaultOnly, terse, searchA, mpath, locationT, availT[mpath], dbT, a, legendT)
          if (next(a)) then
-            io.stderr:write(mpath,":\n")
-            for i=1,#a do
-               io.stderr:write(a[i],"\n")
-            end
+             if (LMOD_REDIRECT == "no") then
+                 io.stderr:write(mpath,":\n")
+             else
+                 shell:echo(mpath)
+             end
+
+             for i=1,#a do
+                 if (LMOD_REDIRECT == "no") then
+                     io.stderr:write(a[i],"\n")
+                 else
+                     shell:echo(a[i])
+                 end
+             end
          end
       end
       dbg.fini("Master:avail")
