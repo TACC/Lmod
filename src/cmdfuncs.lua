@@ -889,8 +889,7 @@ function Use(...)
       iarg = iarg + 1
    end
    for _,v in ipairs(a) do
-      v = abspath(v)
-      if (v) then
+      if (isDir(v)) then
          op(MCP, { ModulePath,  v, delim = ":", nodups=true, priority=priority })
          op(MCP, { DfltModPath, v, delim = ":", nodups=true, priority=priority })
       end
