@@ -127,7 +127,11 @@ function CollectionLst(collection)
    local shell     = Master:master().shell
    if (masterTbl.terse) then
       for i = 1,#a do
-         io.stderr:write(a[i],"\n")
+         if (LMOD_REDIRECT == "no") then
+             io.stderr:write(a[i],"\n")
+         else
+             shell:echo(a[i])
+         end
       end
    else
       if (#a < 1) then
@@ -259,7 +263,11 @@ function List(...)
          for j = 1, wanted.n do
             local p = wanted[j]
             if (full:find(p)) then
-               io.stderr:write(full,"\n")
+                if (LMOD_REDIRECT == "no") then
+                    io.stderr:write(full,"\n")
+                else
+                    shell:echo(full)
+                end
             end
          end
       end
@@ -684,7 +692,11 @@ function SaveList(...)
          if (i) then
             name = name:sub(j+2)
          end
-         io.stderr:write(name,"\n")
+         if (LMOD_REDIRECT == "no") then
+             io.stderr:write(name,"\n")
+         else
+             shell:echo(name)
+         end
       end
       return
    end
@@ -775,7 +787,11 @@ function SpiderCmd(...)
    end
 
    if (masterTbl.terse) then
-      io.stderr:write(s,"\n")
+     if (LMOD_REDIRECT == "no") then
+         io.stderr:write(s,"\n")
+     else
+         shell:echo(s)
+     end
    else
       local a = {}
       a[#a+1] = s
