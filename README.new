@@ -1,0 +1,10 @@
+Changes to Lmod that haven't been released to sourceforge.
+
+a) Lmod now obeys LMOD_REDIRECT (or module --redirect)
+   when using the --terse option.  This means that if
+   LMOD_REDIRECT is set then module -t av will go to
+   stdout instead of stderr.
+
+b) Lmod now does not resolve any symlinks when doing
+   "module use <path>"
+   
