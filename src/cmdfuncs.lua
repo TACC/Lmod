@@ -561,7 +561,7 @@ function Restore(collection)
          myName = "default"
       end
    elseif (collection ~= "system") then
-      myName = sname
+      myName = collection
       path   = pathJoin(os.getenv("HOME"), ".lmod.d", collection .. sname)
       if (not isFile(path)) then
          LmodError(" User module collection: \"",collection,"\" does not exist.\n",
