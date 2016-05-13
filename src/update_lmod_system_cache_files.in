@@ -334,7 +334,7 @@ set_defaults
 check_parameters
 
 if [ -z "$LMOD_REVERSEMAPT_DIR" ]; then
-  LMOD_REVERSEMAPT_DIR="$LMOD_CACHE_DIR/../reverseMapD"
+  LMOD_REVERSEMAPT_DIR="$LMOD_CACHE_DIR/reverseMapD"
 fi
 
 # create new timestamp file
