@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 6.1.3  2016-02-11 06:02
+Modules based on Lua: Version 6.3.3  2016-05-10 13:29
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -128,7 +128,7 @@ The following guides are at http://lmod.readthedocs.org/
   User Guide                 - How to use.
   Advance User Guide         - How to create you own modules.
   System Administrator Guide - How to install Lmod on your own system.
-Modules based on Lua: Version 6.1.3  2016-02-11 06:02
+Modules based on Lua: Version 6.3.3  2016-05-10 13:29
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 3
@@ -254,7 +254,7 @@ The following guides are at http://lmod.readthedocs.org/
   User Guide                 - How to use.
   Advance User Guide         - How to create you own modules.
   System Administrator Guide - How to install Lmod on your own system.
-Modules based on Lua: Version 6.1.3  2016-02-11 06:02
+Modules based on Lua: Version 6.3.3  2016-05-10 13:29
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 4
@@ -274,7 +274,7 @@ Version 9
 step 5
 lua ProjectDIR/src/lmod.in.lua bash --config
 ===========================
-Modules based on Lua: Version 6.1.3  2016-02-11 06:02
+Modules based on Lua: Version 6.3.3  2016-05-10 13:29
     by Robert McLay mclay@tacc.utexas.edu
 Description                      Value
 Allow TCL modulefiles            yes
@@ -323,13 +323,13 @@ propT = {
         ["long"] = "(g)",
         ["short"] = "(g)",
       },
-      ["gpu:mic"] = {
+      ["gpu:mic"]  = {
         ["color"] = "red",
         ["doc"] = "built natively for MIC and GPU",
         ["long"] = "(g,m)",
         ["short"] = "(gm)",
       },
-      ["gpu:mic:offload"] = {
+      ["gpu:mic:offload"]  = {
         ["color"] = "red",
         ["doc"] = "built natively for MIC and GPU and offload to the MIC",
         ["long"] = "(g,m,o)",
@@ -341,7 +341,7 @@ propT = {
         ["long"] = "(m)",
         ["short"] = "(m)",
       },
-      ["mic:offload"] = {
+      ["mic:offload"]  = {
         ["color"] = "blue",
         ["doc"] = "built for host, native MIC and offload to the MIC",
         ["long"] = "(m,o)",
