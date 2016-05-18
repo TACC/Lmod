@@ -117,6 +117,7 @@ local function new(self)
    local ordering          = (LMOD_LEGACY_VERSION_ORDERING == "yes") and "legacy" or "modern"
    local cached_loads      = LMOD_CACHED_LOADS
    local ignore_cache      = LMOD_IGNORE_CACHE and "yes" or "no"
+   local redirect          = LMOD_REDIRECT
    
 
    local tbl = {}
@@ -158,6 +159,7 @@ local function new(self)
    tbl.uname       = { k = "uname -a"                        , v = uname,                }
    tbl.z01_admin   = { k = "Admin file"                      , v = adminFn,              }
    tbl.z02_admin   = { k = "Does Admin file exist"           , v = tostring(readable),   }
+   tbl.redirect    = { k = "Redirect to stdout"              , v = redirect,             }
 
    o.tbl = tbl
    return o
