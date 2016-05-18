@@ -120,7 +120,7 @@ function isDir(d)
    local t = posix.stat(d,"type")
 
    -- If the file is a link then adding a '/' on the end
-   -- seems to tell stat to resolve it as a directory if it is.
+   -- seems to tell stat to resolve the link to its final link.
    if (t == "link") then
       d = d .. '/'
       t = posix.stat(d,"type")
