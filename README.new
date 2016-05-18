@@ -7,4 +7,6 @@ a) Lmod now obeys LMOD_REDIRECT (or module --redirect)
 
 b) Lmod now does not resolve any symlinks when doing
    "module use <path>"
-   
+
+c) LMOD_REDIRECT is now reported with --config option.
+
