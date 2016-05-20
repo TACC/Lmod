@@ -959,8 +959,12 @@ function walk_directory_for_mf(mpath, path, prefix, dirA, mnameT)
    for file in lfs.dir(path) do
       local idx       = defaultFnT[file] or defaultIdx
       if (idx < defaultIdx) then
+         -- If .version file is found:
          defaultIdx = idx
-         defaultFn  = pathJoin(path,file)
+         local versionFilePath = pathJoin(path,versionFile(file, prefix, pathJoin(path,file),false))
+         if (isFile(versionFilePath)) then
+           defaultFn  = pathJoin(path,file)
+         end
       else
          if (keepFile(file))then
             local f        = pathJoin(path,file)
