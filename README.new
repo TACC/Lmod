@@ -10,3 +10,5 @@ b) Lmod now does not resolve any symlinks when doing
 
 c) LMOD_REDIRECT is now reported with --config option.
 
+d) Lmod would sometimes miss a symlink to a directory
+   with module use.  This is now fixed.

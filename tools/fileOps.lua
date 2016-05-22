@@ -119,6 +119,13 @@ function isDir(d)
    if (d == nil) then return false end
    local t = posix.stat(d,"type")
 
+   -- If the file is a link then adding a '/' on the end
+   -- seems to tell stat to resolve the link to its final link.
+   if (t == "link") then
+      d = d .. '/'
+      t = posix.stat(d,"type")
+   end
+
    local result = (t == "directory")
 
    return result
