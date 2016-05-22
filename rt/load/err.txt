@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 6.0.30  2016-02-05 12:55
+Modules based on Lua: Version 6.3.4  2016-05-11 17:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -67,8 +67,9 @@ ProjectDIR/mf/Core
 ProjectDIR/mf/Beta
    gotoblas/1.30-beta
 ProjectDIR/rt/load/mf/Core
-   A/1.0    A/1.2 (D)    B/1.1   (D)    D/1.0           rtm_intel/11.1 (D)
-   A/1.1    B/1.0        C/1.8.5        alex/2.0 (D)    rtm_intel/12.1
+   A/1.0        B/1.0          D/1.0           rtm_intel/11.1 (D)
+   A/1.1        B/1.1   (D)    alex/2.0 (D)    rtm_intel/12.1
+   A/1.2 (D)    C/1.8.5        go/1.5.1
   Where:
    D:  Default Module
    L:  Module is loaded
@@ -90,7 +91,8 @@ ProjectDIR/mf/Core
    gcc/4.2.3                junk/d/3.0          unix/unix    (L)
    git/1.7.4.3              local/local  (L)
 ProjectDIR/rt/load/mf/Core
-   A/1.2    B/1.1    C/1.8.5    D/1.0    alex/2.0    rtm_intel/11.1
+   A/1.2    C/1.8.5    alex/2.0    rtm_intel/11.1
+   B/1.1    D/1.0      go/1.5.1
   Where:
    L:  Module is loaded
    m:  built for host and native MIC
@@ -239,8 +241,9 @@ ProjectDIR/mf/Core
 ProjectDIR/mf/Beta
    gotoblas/1.30-beta
 ProjectDIR/rt/load/mf/Core
-   A/1.0    A/1.2    B/1.1      D/1.0    (L)      rtm_intel/11.1 (D)
-   A/1.1    B/1.0    C/1.8.5    alex/2.0 (L,D)    rtm_intel/12.1 (L)
+   A/1.0    B/1.0      D/1.0    (L)      rtm_intel/11.1 (D)
+   A/1.1    B/1.1      alex/2.0 (L,D)    rtm_intel/12.1 (L)
+   A/1.2    C/1.8.5    go/1.5.1
 ProjectDIR/rt/load/mf/Scratch
    A/1.1.1 (L,D)    B/1.0    B/1.4 (L,D)
   Where:
@@ -288,3 +291,7 @@ lua ProjectDIR/src/lmod.in.lua bash load rtm_intel
 ===========================
 The following have been reloaded with a version change:
   1) rtm_intel/12.1 => rtm_intel/11.1
+===========================
+step 36
+lua ProjectDIR/src/lmod.in.lua bash load go
+===========================
