@@ -128,7 +128,7 @@ The following guides are at http://lmod.readthedocs.org/
   User Guide                 - How to use.
   Advance User Guide         - How to create you own modules.
   System Administrator Guide - How to install Lmod on your own system.
-  To report a bug please read http://http://lmod.readthedocs.io/en/latest/075_bug_reporting.html
+  To report a bug please read http://lmod.readthedocs.io/en/latest/075_bug_reporting.html
 Modules based on Lua: Version 6.3.6  2016-05-22 19:02
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
@@ -255,7 +255,7 @@ The following guides are at http://lmod.readthedocs.org/
   User Guide                 - How to use.
   Advance User Guide         - How to create you own modules.
   System Administrator Guide - How to install Lmod on your own system.
-  To report a bug please read http://http://lmod.readthedocs.io/en/latest/075_bug_reporting.html
+  To report a bug please read http://lmod.readthedocs.io/en/latest/075_bug_reporting.html
 Modules based on Lua: Version 6.3.6  2016-05-22 19:02
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
