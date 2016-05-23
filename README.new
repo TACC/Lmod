@@ -12,3 +12,6 @@ c) LMOD_REDIRECT is now reported with --config option.
 
 d) Lmod would sometimes miss a symlink to a directory
    with module use.  This is now fixed.
+
+e) Lmod now correctly ignores a valid .version/.modulerc
+   file that points to a non-existant modulefile.
