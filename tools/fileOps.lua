@@ -373,9 +373,9 @@ function path_regularize(value)
    local icnt = 0
    for dir in value:split("/") do
       icnt = icnt + 1
-      if (dir == ".." and icnt > 1 ) then
+      if (    dir == ".." and icnt > 1 ) then
          t[#t] = nil
-      elseif (dir == "." and icnt > 1) then
+      elseif (dir == "."  and icnt > 1) then
          -- no op
       else
          t[#t+1] = dir
