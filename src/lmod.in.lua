@@ -300,11 +300,12 @@ function Usage()
                                       "properties and warning in color."}
    a[#a+1] = { "" }
    a[#a+1] = { line}
-   a[#a+1] = { "The following guides are at "..website}
+   a[#a+1] = { "Lmod Web Sites"}
    a[#a+1] = { "" }
-   a[#a+1] = { "  User Guide                 - How to use."}
-   a[#a+1] = { "  Advance User Guide         - How to create you own modules."}
-   a[#a+1] = { "  System Administrator Guide - How to install Lmod on your own system."}
+   a[#a+1] = { "  Documentation:    http://lmod.readthedocs.org"}
+   a[#a+1] = { "  Github:           https://github.com/TACC/Lmod"}
+   a[#a+1] = { "  Sourceforge:      https://lmod.sf.net"}
+   a[#a+1] = { "  TACC Homepage:    https://www.tacc.utexas.edu/research-development/tacc-projects/lmod"}
    a[#a+1] = { "" }
    a[#a+1] = { "  To report a bug please read "..webBR }
    a[#a+1] = { line }
