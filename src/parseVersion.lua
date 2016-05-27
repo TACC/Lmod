@@ -117,7 +117,8 @@ function useParseVersion(versionStr)
 
    --dbg.print{"versionStr: ",versionStr," results: ",concatTbl(vA,"."),"\n"}
    --dbg.fini()
-   return concatTbl(vA,"."):gsub("%./%.","/")
+   local result = concatTbl(vA,"."):gsub("%./%.","/")
+   return result
 end
 
 --------------------------------------------------------------------------
