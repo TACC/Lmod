@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 6.3.4  2016-05-11 17:00
+Modules based on Lua: Version 6.3.6  2016-05-22 19:02
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -128,7 +128,8 @@ The following guides are at http://lmod.readthedocs.org/
   User Guide                 - How to use.
   Advance User Guide         - How to create you own modules.
   System Administrator Guide - How to install Lmod on your own system.
-Modules based on Lua: Version 6.3.4  2016-05-11 17:00
+  To report a bug please read http://lmod.readthedocs.io/en/latest/075_bug_reporting.html
+Modules based on Lua: Version 6.3.6  2016-05-22 19:02
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 3
@@ -254,7 +255,8 @@ The following guides are at http://lmod.readthedocs.org/
   User Guide                 - How to use.
   Advance User Guide         - How to create you own modules.
   System Administrator Guide - How to install Lmod on your own system.
-Modules based on Lua: Version 6.3.4  2016-05-11 17:00
+  To report a bug please read http://lmod.readthedocs.io/en/latest/075_bug_reporting.html
+Modules based on Lua: Version 6.3.6  2016-05-22 19:02
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 4
@@ -274,7 +276,7 @@ Version 9
 step 5
 lua ProjectDIR/src/lmod.in.lua bash --config
 ===========================
-Modules based on Lua: Version 6.3.4  2016-05-11 17:00
+Modules based on Lua: Version 6.3.6  2016-05-22 19:02
     by Robert McLay mclay@tacc.utexas.edu
 Description                      Value
 Allow TCL modulefiles            yes

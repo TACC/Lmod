@@ -226,6 +226,7 @@ function Usage()
       return s_Usage
    end
    local website = colorize("red","http://lmod.readthedocs.org/")
+   local webBR   = colorize("red","http://lmod.readthedocs.io/en/latest/075_bug_reporting.html")
    local line    = banner:border(2)
    local a = {}
    a[#a+1] = { "module [options] sub-command [args ...]" }
@@ -304,6 +305,8 @@ function Usage()
    a[#a+1] = { "  User Guide                 - How to use."}
    a[#a+1] = { "  Advance User Guide         - How to create you own modules."}
    a[#a+1] = { "  System Administrator Guide - How to install Lmod on your own system."}
+   a[#a+1] = { "" }
+   a[#a+1] = { "  To report a bug please read "..webBR }
    a[#a+1] = { line }
 
 
