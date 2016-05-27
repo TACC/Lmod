@@ -16,10 +16,7 @@ TACC Homepage: https://www.tacc.utexas.edu/research-development/tacc-projects/lm
                  -----------------
 
 lmod-users@lists.sourceforge.net.
-
 Please go to https://lists.sourceforge.net/lists/listinfo/lmod-users to join.
-
-
 
                Lmod Source Management
                ----------------------
@@ -29,10 +26,8 @@ been fixed if it is released on github.  When there has been
 sufficient improvement or important bugfixes there is a new
 release at sourceforge.
 
-
                    ChangeLog
                    ---------
-
 
 Lmod 6.3:
 Bug Fixes:
