@@ -1,3 +1,30 @@
+                      Lmod
+                      ----
+
+Lmod is program to manage the user environment.  It is a new
+implementation of environment modules.
+
+                  Lmod WebSites
+                  -------------
+
+Documentation: http://lmod.readthedocs.org
+Github:        https://github.com/TACC/Lmod
+Sourceforge:   https://lmod.sf.net
+TACC Homepage: https://www.tacc.utexas.edu/research-development/tacc-projects/lmod
+
+               Lmod Source Management
+               ----------------------
+
+The most update source will be at github. All known bugs have
+been fixed if it is released on github.  When there has been
+sufficient improvement or important bugfixes there is a new
+release at sourceforge.
+
+
+                   ChangeLog
+                   ---------
+
+
 Lmod 6.3:
 Bug Fixes:
    a) Lmod now uses the values of LUA_PATH and LUA_CPATH at
