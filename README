@@ -1,8 +1,8 @@
                       Lmod
                       ----
 
-Lmod is program to manage the user environment.  It is a new
-implementation of environment modules.
+Lmod is program to manage the user environment under Unix: (Linux, Mac OS X, ...).
+It is a new implementation of environment modules.
 
                   Lmod WebSites
                   -------------
