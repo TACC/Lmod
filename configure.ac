@@ -356,7 +356,7 @@ if test "`basename $PATH_TO_HASHSUM`" = "md5" ; then
   PATH_TO_HASHSUM="$PATH_TO_HASHSUM -r"
 elif test "$PATH_TO_HASHSUM" = "UNKNOWN" ; then
   echo
-  echo "You must have either sha1sum or md5sum in your path. Quitting!"
+  echo "You must have either sha1sum, md5sum or md5 in your path. Quitting!"
   echo
   exit
 fi
