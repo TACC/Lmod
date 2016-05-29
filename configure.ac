@@ -352,7 +352,6 @@ AC_PATH_PROG(PATH_TO_GIT, git, "")
 AC_PATH_PROG(PATH_TO_PAGER,[less] [more], [more])
 
 AC_PATH_PROGS(PATH_TO_HASHSUM, [sha1sum] [gsha1sum] [md5sum] [gmd5sum] [md5], UNKNOWN)
-echo "PATH_TO_HASHSUM: $PATH_TO_HASHSUM"
 if test "`basename $PATH_TO_HASHSUM`" = "md5" ; then
   PATH_TO_HASHSUM="$PATH_TO_HASHSUM -r"
 elif test "$PATH_TO_HASHSUM" = "UNKNOWN" ; then
