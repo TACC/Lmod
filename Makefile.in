@@ -132,6 +132,10 @@ endif
 all:
 	@echo done
 
+uninstall:
+	$(RM) -rf $(DESTDIR)$(prefix)/$(package)
+	@echo "If you added lmod files to /etc/profile.d please remove them."
+
 pre-install: $(DIRLIST) lmodrc_init shell_init startup libexec spiderCacheSupport \
              Inst_Tools Inst_Shells Inst_Settarg Inst_Lmod_MF $(PKGS) other_tools \
              man_pages
