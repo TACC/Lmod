@@ -351,10 +351,12 @@ fi
 AC_PATH_PROG(PATH_TO_GIT, git, "")
 AC_PATH_PROG(PATH_TO_PAGER,[less] [more], [more])
 
-AC_PATH_PROGS(PATH_TO_HASHSUM, [sha1sum] [gsha1sum] [md5sum] [gmd5sum], UNKNOWN)
-if test "$PATH_TO_HASHSUM" = "UNKNOWN" ; then
+AC_PATH_PROGS(PATH_TO_HASHSUM, [sha1sum] [gsha1sum] [md5sum] [gmd5sum] [md5], UNKNOWN)
+if test "`basename $PATH_TO_HASHSUM`" = "md5" ; then
+  PATH_TO_HASHSUM="$PATH_TO_HASHSUM -r"
+elif test "$PATH_TO_HASHSUM" = "UNKNOWN" ; then
   echo
-  echo "You must have either sha1sum or md5sum in your path. Quitting!"
+  echo "You must have either sha1sum, md5sum or md5 in your path. Quitting!"
   echo
   exit
 fi

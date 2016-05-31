@@ -3430,7 +3430,7 @@ fi
 
 
 
-for ac_prog in sha1sum gsha1sum md5sum gmd5sum
+for ac_prog in sha1sum gsha1sum md5sum gmd5sum md5
 do
   # Extract the first word of "$ac_prog", so it can be a program name with args.
 set dummy $ac_prog; ac_word=$2
@@ -3476,9 +3476,11 @@ fi
 done
 test -n "$PATH_TO_HASHSUM" || PATH_TO_HASHSUM="UNKNOWN"
 
-if test "$PATH_TO_HASHSUM" = "UNKNOWN" ; then
+if test "`basename $PATH_TO_HASHSUM`" = "md5" ; then
+  PATH_TO_HASHSUM="$PATH_TO_HASHSUM -r"
+elif test "$PATH_TO_HASHSUM" = "UNKNOWN" ; then
   echo
-  echo "You must have either sha1sum or md5sum in your path. Quitting!"
+  echo "You must have either sha1sum, md5sum or md5 in your path. Quitting!"
   echo
   exit
 fi
@@ -5151,6 +5153,7 @@ echo "Disable same name autoswapping.............." : $DISABLE_NAME_AUTOSWAP
 echo "Legacy version ordering....................." : $LEGACY_ORDERING
 echo "Use Spider Cache on Loads..................." : $CACHED_LOADS
 echo "Pager used inside Lmod......................" : $PATH_TO_PAGER
+echo "Hashsum program used........................" : $PATH_TO_HASHSUM
 
 echo
 echo '------------------------------------------------------------------------------'
