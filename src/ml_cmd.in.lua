@@ -105,52 +105,6 @@ function usage()
                    "     mclay@tacc.utexas.edu\n")
 end
 
-local lmodCmdA = {
-   {'^ad'      , "load"        },
-   {'^av'      , "avail"       },
-   {'^del'     , "unload"      },
-   {'^des'     , "describe"    },
-   {'^gd'      , "getdefault"  },
-   {'^getd'    , "getdefault"  },
-   {'^h'       , "help"        },
-   {'^k'       , "keyword"     },
-   {'^ld'      , "listdefault" },
-   {'^listd'   , "listdefault" },
-   {'^li'      , "list"        },
-   {'^lo'      , "load"        },
-   {'^mc'      , "describe"    },
-   {'^pu'      , "purge"       },
-   {'^ref'     , "refresh"     },
-   {'^res'     , "reset"       },
-   {'^rm'      , "unload"      },
-   {'^r'       , "restore"     },
-   {'^savel'   , "savelist"    },
-   {'^sd'      , "save"        },
-   {'^sea'     , "search"      },
-   {'^setd'    , "save"        },
-   {'^sl'      , "savelist"    },
-   {'^sp'      , "spider"      },
-   {'^sw'      , "swap"        },
-   {'^s'       , "save"        },
-   {'^table'   , "tablelist"   },
-   {'^try'     , "try-load"    },
-   {'^unuse$'  , "unuse"       },
-   {'^un'      , "unload"      },
-   {'^up'      , "update"      },
-   {'^use$'    , "use"         },
-   {'^w'       , "whatis"      },
-}
-   
-   
-function convertInput2Cmd(input)
-   for _, v in ipairs(lmodCmdA) do
-      if (input:find(v[1])) then
-         return v[2]
-      end
-   end
-   return false
-end
-
 
 
 --------------------------------------------------------------------------
@@ -202,6 +156,38 @@ function main()
       ["-v"]="--version",
    }
 
+   ------------------------------------------------------------
+   -- lmodCmdT: Hash table of module commands.  The value just
+   --           has to be non-nil
+
+   local lmodCmdT = {
+      avail="avail",  av="avail",
+      describe="describe", mcc="describe",
+      getdefault="getdefault", gd="getdefault",
+      help="help",
+      key="keyword", keyword="keyword",
+      list="list",
+      listdefault="listdefault", ld="listdefault",
+      load="load", add="load",
+      purge="purge",
+      r="restore", restore="restore",
+      refresh="refresh",
+      reset="reset",
+      s="save",
+      save="save",
+      savelist="savelist", sl="savelist",
+      setdefault="save", sd="save",
+      search="search",
+      show="show",
+      spider="spider",
+      swap="swap", sw="swap",
+      tablelist="tablelist",
+      ['try-load'] = "try-load",
+      unload="unload", rm = "unload", del = "unload", delete="unload",      unuse="unuse",
+      update="update",
+      use="use",
+      whatis="whatis",
+   }
    local grab     = 0
    local verbose  = false
    local oldStyle = false
@@ -248,7 +234,7 @@ function main()
             break
          end
 
-         local cmd = convertInput2Cmd(v)
+         local cmd = lmodCmdT[v]
          if (cmd and not cmdFound) then
             cmdA[#cmdA + 1] = cmd
             cmdFound        = true
