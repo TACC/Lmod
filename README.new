@@ -15,3 +15,7 @@ d) Lmod would sometimes miss a symlink to a directory
 
 e) Lmod now correctly ignores a valid .version/.modulerc
    file that points to a non-existant modulefile.
+
+f) Allow the use of md5 -r as an alternative to sha1sum and md5sum
+
+g) Added uninstall target to Lmod.
