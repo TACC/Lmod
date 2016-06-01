@@ -386,93 +386,74 @@ function main()
    local epoch        = epoch
    local t1           = epoch()
 
+   local availTbl     = { name = "avail",       checkMPATH = false, cmd = Avail         }
+   local gdTbl        = { name = "getDefault",  checkMPATH = false, cmd = GetDefault    }
+   local helpTbl      = { name = "help",        checkMPATH = false, cmd = Help          }
+   local keywordTbl   = { name = "keyword",     checkMPATH = false, cmd = Keyword       }
+   local listTbl      = { name = "list",        checkMPATH = false, cmd = List          }
    local loadTbl      = { name = "load",        checkMPATH = true,  cmd = Load_Usr      }
+   local mcTbl        = { name = "describe",    checkMPATH = false, cmd = CollectionLst }
+   local purgeTbl     = { name = "purge",       checkMPATH = true,  cmd = Purge         }
+   local recordTbl    = { name = "record",      checkMPATH = false, cmd = RecordCmd     }
+   local refreshTbl   = { name = "refresh",     checkMPATH = false, cmd = Refresh       }
+   local resetTbl     = { name = "reset",       checkMPATH = true,  cmd = Reset         }
+   local restoreTbl   = { name = "restore",     checkMPATH = false, cmd = Restore       }
+   local saveTbl      = { name = "save",        checkMPATH = false, cmd = Save          }
+   local savelistTbl  = { name = "savelist",    checkMPATH = false, cmd = SaveList      }
+   local searchTbl    = { name = "search",      checkMPATH = false, cmd = SearchCmd     }
+   local showTbl      = { name = "show",        checkMPATH = false, cmd = Show          }
+   local spiderTbl    = { name = "spider",      checkMPATH = true,  cmd = SpiderCmd     }
+   local swapTbl      = { name = "swap",        checkMPATH = true,  cmd = Swap          }
+   local tblLstTbl    = { name = "tablelist",   checkMPATH = false, cmd = TableList     }
    local tryAddTbl    = { name = "try-add",     checkMPATH = true,  cmd = Load_Try      }
    local unloadTbl    = { name = "unload",      checkMPATH = true,  cmd = UnLoad        }
-   local refreshTbl   = { name = "refresh",     checkMPATH = false, cmd = Refresh       }
-   local swapTbl      = { name = "swap",        checkMPATH = true,  cmd = Swap          }
-   local purgeTbl     = { name = "purge",       checkMPATH = true,  cmd = Purge         }
-   local resetTbl     = { name = "reset",       checkMPATH = true,  cmd = Reset         }
-   local availTbl     = { name = "avail",       checkMPATH = false, cmd = Avail         }
-   local listTbl      = { name = "list",        checkMPATH = false, cmd = List          }
-   local tblLstTbl    = { name = "tablelist",   checkMPATH = false, cmd = TableList     }
-   local helpTbl      = { name = "help",        checkMPATH = false, cmd = Help          }
-   local whatisTbl    = { name = "whatis",      checkMPATH = false, cmd = Whatis        }
-   local showTbl      = { name = "show",        checkMPATH = false, cmd = Show          }
-   local useTbl       = { name = "use",         checkMPATH = true,  cmd = Use           }
    local unuseTbl     = { name = "unuse",       checkMPATH = true,  cmd = UnUse         }
    local updateTbl    = { name = "update",      checkMPATH = true,  cmd = Update        }
-   local keywordTbl   = { name = "keyword",     checkMPATH = false, cmd = Keyword       }
-   local saveTbl      = { name = "save",        checkMPATH = false, cmd = Save          }
-   local gdTbl        = { name = "getDefault",  checkMPATH = false, cmd = GetDefault    }
-   local restoreTbl   = { name = "restore",     checkMPATH = false, cmd = Restore       }
-   local savelistTbl  = { name = "savelist",    checkMPATH = false, cmd = SaveList      }
-   local spiderTbl    = { name = "spider",      checkMPATH = true,  cmd = SpiderCmd     }
-   local searchTbl    = { name = "search",      checkMPATH = false, cmd = SearchCmd     }
-   local recordTbl    = { name = "record",      checkMPATH = false, cmd = RecordCmd     }
-   local mcTbl        = { name = "describe",    checkMPATH = false, cmd = CollectionLst }
+   local useTbl       = { name = "use",         checkMPATH = true,  cmd = Use           }
+   local whatisTbl    = { name = "whatis",      checkMPATH = false, cmd = Whatis        }
 
-   local cmdTbl = {
-      ["try-add"]  = tryAddTbl,
-      ["try-load"] = tryAddTbl,
-      add          = loadTbl,
-      apropos      = keywordTbl,
-      av           = availTbl,
-      avail        = availTbl,
-      available    = availTbl,
-      describe     = mcTbl,
-      cc           = mcTbl,
-      mcc          = mcTbl,
-      del          = unloadTbl,
-      delete       = unloadTbl,
-      dis          = showTbl,
-      display      = showTbl,
-      era          = unloadTbl,
-      erase        = unloadTbl,
-      gd           = gdTbl,
-      getd         = gdTbl,
-      getdefault   = gdTbl,
-      help         = helpTbl,
-      key          = keywordTbl,
-      keyword      = keywordTbl,
-      ld           = savelistTbl,
-      li           = listTbl,
-      list         = listTbl,
-      listdefault  = savelistTbl,
-      savelist     = savelistTbl,
-      lo           = loadTbl,
-      load         = loadTbl,
-      purge        = purgeTbl,
-      record       = recordTbl,
-      refr         = updateTbl,
-      refresh      = refreshTbl,
-      reload       = updateTbl,
-      remov        = unloadTbl,
-      remove       = unloadTbl,
-      reset        = resetTbl,
-      restore      = restoreTbl,
-      r            = restoreTbl,
-      rm           = unloadTbl,
-      s            = saveTbl,
-      save         = saveTbl,
-      sd           = saveTbl,
-      search       = searchTbl,
-      setd         = saveTbl,
-      setdefault   = saveTbl,
-      show         = showTbl,
-      spider       = spiderTbl,
-      sw           = swapTbl,
-      swap         = swapTbl,
-      switch       = swapTbl,
-      tablelist    = tblLstTbl,
-      unlo         = unloadTbl,
-      unload       = unloadTbl,
-      unuse        = unuseTbl,
-      update       = updateTbl,
-      use          = useTbl,
-      wh           = whatisTbl,
-      whatis       = whatisTbl,
-   }
+   local lmodCmdA = {
+      {'^ad'      , loadTbl       },
+      {'^ap'      , keywordTbl    },
+      {'^av'      , availTbl      },
+      {'^del'     , unloadTbl     },
+      {'^des'     , mcTbl         },
+      {'^dis'     , showTbl       },
+      {'^era'     , unloadTbl     },
+      {'^gd'      , gdTbl         },
+      {'^getd'    , gdTbl         },
+      {'^h'       , helpTbl       },
+      {'^k'       , keywordTbl    },
+      {'^ld'      , savelistTbl   },
+      {'^listd'   , savelistTbl   },
+      {'^lo'      , loadTbl       },
+      {'^l'       , listTbl       },
+      {'^mc'      , mcTbl         },
+      {'^pu'      , purgeTbl      },
+      {'^rec'     , recordTbl     },
+      {'^refr'    , refreshTbl    },
+      {'^rel'     , updateTbl     },
+      {'^rem'     , unloadTbl     },
+      {'^rese'    , resetTbl      },
+      {'^rm'      , unloadTbl     },
+      {'^r'       , restoreTbl    },
+      {'^savel'   , savelistTbl   },
+      {'^sd'      , saveTbl       },
+      {'^sea'     , searchTbl     },
+      {'^setd'    , saveTbl       },
+      {'^sh'      , showTbl       },
+      {'^sl'      , savelistTbl   },
+      {'^sp'      , spiderTbl     },
+      {'^sw'      , swapTbl       },
+      {'^s'       , saveTbl       },
+      {'^table'   , tblLstTbl     },
+      {'^try'     , tryAddTbl     },
+      {'^unuse$'  , unuseTbl      },
+      {'^un'      , unloadTbl     },
+      {'^up'      , updateTbl     },
+      {'^use$'    , useTbl        },
+      {'^w'       , whatisTbl     },
+   }  
 
    MCP = MasterControl.build("load")
    mcp = MasterControl.build("load")
@@ -577,22 +558,6 @@ function main()
       dbg.print{"package.path: ",package.path,"\n"}
    end
 
-   ------------------------------------------------------------
-   -- Must output local variables even when there is the command
-   -- is not a valid command
-   --
-   -- So set [[checkMPATH]] to false by default and re-define when there
-   -- is a valid command:
-
-   local checkMPATH = false
-   if (cmdTbl[usrCmd] ) then
-      checkMPATH = cmdTbl[usrCmd].checkMPATH
-   end
-
-   if (LMOD_RTM_TESTING) then
-      os.exit(0)
-   end
-
    -- dumpversion and quit if requested.
 
    if (masterTbl.dumpversion) then
@@ -630,6 +595,32 @@ function main()
       os.exit(0)
    end
 
+   ------------------------------------------------------------
+   -- Search for command, quit if command is unknown.
+   local cmdT = false
+   if (usrCmd) then
+      for _, v in ipairs(lmodCmdA) do
+         if (usrCmd:find(v[1])) then
+            cmdT = v[2]
+            break
+         end
+      end
+   end
+   
+   ------------------------------------------------------------
+   -- Must output local variables even when there is the command
+   -- is not a valid command
+   --
+   -- So set [[checkMPATH]] to false by default and re-define when there
+   -- is a valid command:
+
+   local checkMPATH = (cmdT) and cmdT.checkMPATH or false
+
+   if (LMOD_RTM_TESTING) then
+      os.exit(0)
+   end
+
+
    hook.apply("startup", usrCmd)
 
    -- Create the [[master]] object
@@ -655,17 +646,13 @@ function main()
       os.exit(0)
    end
 
-   -- Now quit if command is unknown.
-
-   local cmdT = cmdTbl[usrCmd]
-
-   if (cmdT == nil) then
+   if (not cmdT) then
       io.stderr:write(version())
       io.stderr:write(Usage(),"\n")
       LmodErrorExit()
    else
       local cmd  = cmdT.cmd
-      dbg.print{"cmd name: ", cmdTbl[usrCmd].name,"\n"}
+      dbg.print{"cmd name: ", cmdT.name,"\n"}
       cmd(unpack(masterTbl.pargs))
    end
 
