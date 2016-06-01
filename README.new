@@ -19,3 +19,5 @@ e) Lmod now correctly ignores a valid .version/.modulerc
 f) Allow the use of md5 -r as an alternative to sha1sum and md5sum
 
 g) Added uninstall target to Lmod.
+
+h) Support for available for avail.
