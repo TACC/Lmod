@@ -419,6 +419,7 @@ function main()
       apropos      = keywordTbl,
       av           = availTbl,
       avail        = availTbl,
+      available    = availTbl,
       describe     = mcTbl,
       cc           = mcTbl,
       mcc          = mcTbl,

@@ -161,7 +161,7 @@ function main()
    --           has to be non-nil
 
    local lmodCmdT = {
-      avail="avail",  av="avail",
+      avail="avail",  av="avail", available="avail",
       describe="describe", mcc="describe",
       getdefault="getdefault", gd="getdefault",
       help="help",
