@@ -76,6 +76,10 @@ package.path  = cmd_dir .. "../tools/?.lua;" ..
 package.cpath = sys_lua_cpath
 
 
+function cmdDir()
+   return cmd_dir
+end
+
 local Optiks = require("Optiks")
 local lfs    = require("lfs")
 require("strict")
@@ -83,10 +87,6 @@ require("utils")
 require("fileOps")
 require("string_utils")
 require("serializeTbl")
-
-function cmdDir()
-   return cmd_dir
-end
 
 function main()
 
