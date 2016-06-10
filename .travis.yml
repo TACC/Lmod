@@ -30,13 +30,10 @@ install:
   - luarocks install lua-term
 
 script:
-  - which sha1sum
-  - /bin/tcsh --version
-  - lua -e 'print(_VERSION)'
-  - luarocks list
   - tm
 
 after_failure:
+  # diff stdout/stderr for all tests in case of failure
   - for dir in $(ls -pd rt/* | grep '/$'); do
     echo ">>>> ${dir}/err.txt"; diff -u ${dir}/err.txt ${dir}/t1/*/err.txt;
     echo ">>>> ${dir}/out.txt"; diff -u ${dir}/out.txt ${dir}/t1/*/out.txt;
