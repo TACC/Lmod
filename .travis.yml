@@ -32,8 +32,7 @@ script:
   - /bin/tcsh --version
   - lua -e 'print(_VERSION)'
   - luarocks list
-#  - tm
-  - tm -k delcatty
+  - LMOD_TERM_WIDTH=80 tm
 
 after_failure:
   - for dir in $(ls -pd rt/* | grep '/$'); do
