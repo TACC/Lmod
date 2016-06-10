@@ -12,7 +12,7 @@ addons:
     packages:
       - tcsh
       - tcl8.5
-      - util-linux  # for uuidgen
+      - uuid  # for uuidgen
 
 before_install:
   - cd $HOME
