@@ -34,7 +34,7 @@ script:
   - tm
 
 after_failure:
-  - for dir in $(find rt -depth 1 -type d); do
+  - for dir in $(ls -pd rt/* | grep '/$'); do
     echo ">>>> ${dir}/err.txt"; diff -u ${dir}/err.txt ${dir}/t1/*/err.txt;
     echo ">>>> ${dir}/out.txt"; diff -u ${dir}/out.txt ${dir}/t1/*/out.txt;
     done
