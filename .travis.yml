@@ -7,9 +7,12 @@ env:
   - LUA="lua=5.3"
 
 before_install:
+  - cd $HOME
   - pip install hererocks
   - hererocks lua_install -r^ --$LUA
-  - export PATH="$PATH:$PWD/lua_install/bin"
+  - git clone https://github.com/rtmclay/Hermes.git
+  - export PATH="$PATH:$PWD/lua_install/bin:$HOME/Hermes/bin"
+  - cd -
 
 install:
   - luarocks install luaposix
@@ -18,5 +21,7 @@ install:
   - luarocks install lua-term
 
 script:
+  - which sha1sum
   - lua -e 'print(_VERSION)'
   - luarocks list
+  - tm
