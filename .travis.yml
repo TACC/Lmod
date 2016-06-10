@@ -2,15 +2,16 @@ language: python
 sudo: false
 
 env:
-  - LUA="lua=5.1"
-  - LUA="lua=5.2"
-  - LUA="lua=5.3"
+  - LUA='lua=5.1'
+  - LUA='lua=5.2'
+  - LUA='lua=5.3'
 
 addons:
   apt:
     packages:
       - tcsh
       - tcl8.5
+      - util-linux  # for uuidgen
 
 before_install:
   - cd $HOME
@@ -31,7 +32,8 @@ script:
   - /bin/tcsh --version
   - lua -e 'print(_VERSION)'
   - luarocks list
-  - tm
+#  - tm
+  - tm -k delcatty
 
 after_failure:
   - for dir in $(ls -pd rt/* | grep '/$'); do
