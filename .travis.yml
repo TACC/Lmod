@@ -1,0 +1,22 @@
+language: python
+sudo: false
+
+env:
+  - LUA="lua=5.1"
+  - LUA="lua=5.2"
+  - LUA="lua=5.3"
+
+before_install:
+  - pip install hererocks
+  - hererocks lua_install -r^ --$LUA
+  - export PATH="$PATH:$PWD/lua_install/bin"
+
+install:
+  - luarocks install luaposix
+  - luarocks install luafileSystem
+  - luarocks install luajson
+  - luarocks install lua-term
+
+script:
+  - lua -e 'print(_VERSION)'
+  - luarocks list
