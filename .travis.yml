@@ -6,6 +6,11 @@ env:
   - LUA="lua=5.2"
   - LUA="lua=5.3"
 
+addons:
+  apt:
+    packages:
+      - tcl8.5
+
 before_install:
   - cd $HOME
   - pip install hererocks
@@ -26,9 +31,9 @@ script:
   - lua -e 'print(_VERSION)'
   - luarocks list
   - tm
-  - diff -u rt/csh_swap/err.txt rt/csh_swap/*/*/err.txt
-  - diff -u rt/delcatty/err.txt rt/delcatty/*/*/err.txt
-  - diff -u rt/end2end/err.txt rt/end2end/*/*/err.txt
-  - diff -u rt/errHandler/err.txt rt/errHandler/*/*/err.txt
-  - diff -u rt/hook/err.txt rt/hook/*/*/err.txt
-  - diff -u rt/modulerc/err.txt rt/modulerc/*/*/err.txt
+
+after_failure:
+  - for dir in $(find rt -type d -d 1); do
+    echo ">>>> ${dir}/err.txt"; diff -u ${dir}/err.txt ${dir}/t1/*/err.txt;
+    echo ">>>> ${dir}/out.txt"; diff -u ${dir}/out.txt ${dir}/t1/*/out.txt;
+    done
