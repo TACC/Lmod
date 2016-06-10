@@ -1,3 +1,4 @@
+# although Lmod is written in Lua, use Python environment
 language: python
 sudo: false
 
@@ -15,8 +16,10 @@ addons:
 
 before_install:
   - cd $HOME
+  # install Lua via hererocks
   - pip install hererocks
   - hererocks lua_install -r^ --$LUA
+  # install Hermes test tool
   - git clone https://github.com/rtmclay/Hermes.git
   - export PATH="$PATH:$PWD/lua_install/bin:$HOME/Hermes/bin"
   - cd -
@@ -29,7 +32,7 @@ install:
 
 script:
   # run Lmod test suite with Hermes
-  - export LMOD_TERM_WIDTH=80
+  - export COLUMNS=80
   - tm
 
 after_failure:
