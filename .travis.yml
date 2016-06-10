@@ -2,11 +2,9 @@ language: python
 sudo: false
 
 env:
-  - LMOD_TERM_WIDTH=80
-  matrix:
-    - LUA='lua=5.1'
-    - LUA='lua=5.2'
-    - LUA='lua=5.3'
+  - LUA='lua=5.1'
+  - LUA='lua=5.2'
+  - LUA='lua=5.3'
 
 addons:
   apt:
@@ -30,6 +28,8 @@ install:
   - luarocks install lua-term
 
 script:
+  # run Lmod test suite with Hermes
+  - export LMOD_TERM_WIDTH=80
   - tm
 
 after_failure:
