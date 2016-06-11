@@ -1,6 +1,8 @@
 #!/bin/bash
 # -*- shell-script -*-
-
+if [[ ${-/x} != $- ]]; then
+   echo "Start of Lmod init/bash script to define the module command"
+fi
 
 
 LMOD_PKG=@PKGV@
@@ -130,4 +132,8 @@ fi
 
 if [ ${BASH_VERSINFO:-0} -ge 3 ] && [ -r  @PKGV@/init/lmod_bash_completions ] && [ -n "${PS1:-}" ]; then
  . @PKGV@/init/lmod_bash_completions
+fi
+
+if [[ ${-/x} != $- ]]; then
+   echo "End of Lmod init/bash script to define the module command"
 fi
