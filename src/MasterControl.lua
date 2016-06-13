@@ -798,9 +798,16 @@ function M.warning(self, ...)
    if (not quiet() and  haveWarnings()) then
       local label  = colorize("red", "Lmod Warning: ")
       local twidth = TermWidth()
-      local s      = buildMsg(twidth, label, ...)
+      local s      = {}
+      s[#s+1] = buildMsg(twidth, label, ...)
+      s[#s+1] = "\n"
+      s[#s+1] = moduleStackTraceBack()
+      s[#s+1] = "\n"
+
+      s = hook.apply("msgHook","lmodwarning",s)
+      s = concatTbl(s,"")
+
       io.stderr:write(s,"\n")
-      io.stderr:write(moduleStackTraceBack(),"\n")
       setWarningFlag()
    end
 end
