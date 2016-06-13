@@ -83,6 +83,7 @@ local concatTbl    = table.concat
 local decode64     = base64.decode64
 local encode64     = base64.encode64
 local getenv       = os.getenv
+local hook         = require("Hook")
 local remove       = table.remove
 local pack         = (_VERSION == "Lua 5.1") and argsPack or table.pack
 local Exit         = os.exit
@@ -762,15 +763,22 @@ end
 function LmodSystemError(...)
    local label  = colorize("red", "Lmod has detected the following error: ")
    local twidth = TermWidth()
-   local s      = buildMsg(twidth, label, ...)
-   io.stderr:write(s,"\n")
+   local s      = {}
+   s[#s+1] = buildMsg(twidth, label, ...)
+   s[#s+1] = "\n"
    
-   s = concatTbl(stackTraceBackA,"")
-   if (s:len() > 0) then
-      io.stderr:write(s,"\n")
+   local a = concatTbl(stackTraceBackA,"")
+   if (a:len() > 0) then
+       s[#s+1] = a
+       s[#s+1] = "\n"
    end
 
-   s = moduleStackTraceBack()
+   s[#s+1] = moduleStackTraceBack()
+   s[#s+1] = "\n"
+
+   s = hook.apply("msgHook","lmoderror",s)
+   s = concatTbl(s,"")
+
    io.stderr:write(s,"\n")
    LmodErrorExit()
 end
