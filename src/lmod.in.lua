@@ -455,6 +455,7 @@ function main()
       setd         = saveTbl,
       setdefault   = saveTbl,
       show         = showTbl,
+      sl           = savelistTbl,
       spider       = spiderTbl,
       sw           = swapTbl,
       swap         = swapTbl,

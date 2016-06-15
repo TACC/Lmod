@@ -98,7 +98,14 @@ local function findNamedCollections(a,path)
          if (attr and attr.mode == "directory") then
             findNamedCollections(a,f)
          else
-            a[#a+1] = f
+            local idx    = file:find("%.")
+            local accept = (not idx) and (not LMOD_SYSTEM_NAME)
+            if (idx and LMOD_SYSTEM_NAME) then
+               accept    = file:sub(idx+1,-1) == LMOD_SYSTEM_NAME
+            end
+            if (accept) then
+               a[#a+1] = f
+            end
          end
       end
    end
@@ -569,6 +576,12 @@ function Restore(collection)
       end
    end
 
+   if (myName:find("%.")) then
+      LmodError(" Collection names cannot have a `.' in the name.\n",
+                " Please rename \"", collection,"\"\n")
+   end
+
+
    local masterTbl = masterTbl()
 
    if (collection == "system" ) then
@@ -620,6 +633,12 @@ function Save(...)
    else
       msgTail = ", for system: \"".. sname .. "\""
       sname   = "." .. sname
+   end
+
+   if (a:find("%.")) then
+      LmodWarning("It is illegal to have a `.' in a collection name.  Please choose another name")
+      dbg.fini("Save")
+      return
    end
 
    if (a == "system") then
