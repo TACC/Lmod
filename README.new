@@ -1,7 +1,12 @@
 Changes that have not yet been made available on sourceforge
 
 Features:
-  a) All the Lmod programs now resolve any symlinks to the actual program
-     before adding to the Lua's package.path and package.cpath.
+  a) All the Lmod programs now resolve any symlinks to the
+     actual program before adding to the Lua's package.path
+     and package.cpath.
 
 Bug Fixes:
+  a) The command "savelist" now only reports collections that
+     match $LMOD_SYSTEM_NAME (install of all collections)
+  b) A collection name now CANNOT have `.' in its name.
+  

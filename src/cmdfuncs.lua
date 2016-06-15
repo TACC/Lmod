@@ -720,9 +720,14 @@ function SaveList(...)
       a[#a+1] = cstr .. name
    end
 
-   local b = {}
+   local b      = {}
+   local msgHdr = ""
+   if (LMOD_SYSTEM_NAME) then
+      msgHdr = "(For LMOD_SYSTEM_NAME = \""..LMOD_SYSTEM_NAME.."\")"
+   end
+
    if (#a > 0) then
-      b[#b+1]  = "Named collection list:\n"
+      b[#b+1]  = "Named collection list ".. msgHdr..":\n"
       local ct = ColumnTable:new{tbl=a,gap=0}
       b[#b+1]  = ct:build_tbl()
       b[#b+1]  = "\n"
