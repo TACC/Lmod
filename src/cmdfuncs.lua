@@ -233,7 +233,7 @@ function List(...)
    local mt = MT:mt()
    local totalA = mt:list("userName","any")
    if (#totalA < 1) then
-      LmodMessage("No modules loaded\n")
+      shell:echo("No modules loaded\n")
       dbg.fini("List")
       return
    end
@@ -908,8 +908,7 @@ function Use(...)
       iarg = iarg + 1
    end
    for _,v in ipairs(a) do
-      v = abspath(v)
-      if (v) then
+      if (isDir(v)) then
          op(MCP, { ModulePath,  v, delim = ":", nodups=true, priority=priority })
          op(MCP, { DfltModPath, v, delim = ":", nodups=true, priority=priority })
       end

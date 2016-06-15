@@ -24,6 +24,9 @@ def main():
     idx   = line.find("ModuleUsageTracking: ")
     dataT = dict(re.findall(r'(\S+)=(".*?"|\S+)', line[idx+6:]))
 
+    if (dataT.get('host') == None):
+      print(line)
+
     dataT['syshost'] = syshost(dataT['host'])
 
     lmod.data_to_db(dataT)

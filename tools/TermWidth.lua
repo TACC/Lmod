@@ -64,9 +64,10 @@ local function askSystem(width)
    end
 
    -- Try tput cols
-   local result = os.execute("tput cols 2> /dev/null")
-   if (result) then
-      return tonumber(capture("tput cols"))
+   local result        = capture("tput cols")
+   local i, j, columns = result:find("^(%d+)")
+   if (i) then
+      return tonumber(columns)
    end
 
    return width
@@ -95,7 +96,6 @@ function TermWidth()
    local maxW = tonumber(getenv("LMOD_TERM_WIDTH")) or math.huge
 
    s_width = min(maxW, s_width)
-
    s_width = (s_width > 30) and s_width or 30
 
    return s_width

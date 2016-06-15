@@ -1,3 +1,62 @@
+                      Lmod
+                      ----
+
+Lmod is program to manage the user environment under Unix: (Linux, Mac OS X, ...).
+It is a new implementation of environment modules.
+
+                  Lmod Web Sites
+                  -------------
+
+Documentation: http://lmod.readthedocs.org
+Github:        https://github.com/TACC/Lmod
+Sourceforge:   https://lmod.sf.net
+TACC Homepage: https://www.tacc.utexas.edu/research-development/tacc-projects/lmod
+
+                 Lmod Mailing list
+                 -----------------
+
+lmod-users@lists.sourceforge.net.
+Please go to https://lists.sourceforge.net/lists/listinfo/lmod-users to join.
+
+               Lmod Source Management
+               ----------------------
+
+The most up-to-date source will be at github. All known bugs have
+been fixed if it is released on github.  When there has been
+sufficient improvement or important bugfixes there is a new
+release at sourceforge.
+
+                   ChangeLog
+                   ---------
+
+Lmod 6.4:
+Features:
+   a) Lmod now uses a regular expression to match user commands
+      to internal commands. For example "av", "ava" or "available"
+      will match "avail"
+
+Bug Fixes
+   a) Lmod now obeys LMOD_REDIRECT (or module --redirect)
+      when using the --terse option.  This means that if
+      LMOD_REDIRECT is set then module -t av will go to
+      stdout instead of stderr.
+
+   b) Lmod now does not resolve any symlinks when doing
+      "module use <path>"
+
+   c) LMOD_REDIRECT is now reported with --config option.
+
+   d) Lmod would sometimes miss a symlink to a directory
+      with module use.  This is now fixed.
+
+   e) Lmod now correctly ignores a valid .version/.modulerc
+      file that points to a non-existant modulefile.
+
+   f) Allow the use of md5 -r as an alternative to sha1sum and md5sum
+
+   g) Added uninstall target to Lmod.
+
+
 Lmod 6.3:
 Bug Fixes:
    a) Lmod now uses the values of LUA_PATH and LUA_CPATH at

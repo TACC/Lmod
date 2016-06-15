@@ -79,19 +79,21 @@ local function new(self)
 
    if (locSitePkg ~= "unknown") then
       local std_sha1 = "28b49546421d7e01995af8053dba18623cf12f51"
-      local HashSum = "@path_to_hashsum@"
+      local std_md5  = "4eddeb60631cfa8d08e8f08e496fdb88"
+      local HashSum  = "@path_to_hashsum@"
       if (HashSum:sub(1,1) == "@") then
          HashSum = findInPath("sha1sum")
       end
 
+      local std_hashsum = (HashSum:find("md5") ~= nil) and std_md5 or std_sha1
+
       if (HashSum == nil) then
-         LmodError("Unable to find HashSum program (sha1sum or md5sum)")
+         LmodError("Unable to find HashSum program (sha1sum, md5sum or md5)")
       end
       
-
       local result = capture(HashSum .. " " .. locSitePkg)
       result       = result:gsub(" .*","")
-      if (result == std_sha1) then
+      if (result == std_hashsum) then
          locSitePkg = "standard"
       end
    end
@@ -117,6 +119,7 @@ local function new(self)
    local ordering          = (LMOD_LEGACY_VERSION_ORDERING == "yes") and "legacy" or "modern"
    local cached_loads      = LMOD_CACHED_LOADS
    local ignore_cache      = LMOD_IGNORE_CACHE and "yes" or "no"
+   local redirect          = LMOD_REDIRECT
    
 
    local tbl = {}
@@ -158,6 +161,7 @@ local function new(self)
    tbl.uname       = { k = "uname -a"                        , v = uname,                }
    tbl.z01_admin   = { k = "Admin file"                      , v = adminFn,              }
    tbl.z02_admin   = { k = "Does Admin file exist"           , v = tostring(readable),   }
+   tbl.redirect    = { k = "Redirect to stdout"              , v = redirect,             }
 
    o.tbl = tbl
    return o

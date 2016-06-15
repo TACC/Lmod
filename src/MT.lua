@@ -180,6 +180,9 @@ local function buildAvailT(mpath, path, prefix, availT)
                   defaultFn = f
                elseif (isFile(f .. ".lua")) then
                   defaultFn = f .. ".lua"
+               else
+                  dbg.fini("buildAvailT")
+                  return
                end
             end
          end

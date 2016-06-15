@@ -58,7 +58,6 @@ local function nsformat(value)
          value = value:gsub('"','\\"')
 	 value = "\"" .. value .. "\""
       end
-
    elseif (type(value) == 'boolean') then
       if (value) then
 	 value = 'true'
@@ -84,9 +83,9 @@ local function wrap_name(indent, name)
    local str
    if (name:find("[-+:./]") or keywordT[name] or
        name:sub(1,1):find("[0-9]")) then
-      str = indent .. "[\"" .. name .. "\"] = {\n"
+      str = indent .. "[\"" .. name .. "\"] "
    else
-      str = indent .. name .. " = {\n"
+      str = indent .. name 
    end
    return str
 end
@@ -121,11 +120,20 @@ local function outputTblHelper(indentIdx, name, T, a, level)
    -- characters or it start with a number.
    local str
    if (type(name) == 'string') then
-      str = wrap_name(indent, name)
+      str = wrap_name(indent, name) .. " = {"
    else
-      str = indent .. "{\n"
+      str = indent .. "{"
    end
    a[#a+1] = str
+   if (next(T) == nil) then
+      if (level == 0) then
+         a[#a+1] = '}\n'
+      else
+         a[#a+1] = "},\n"
+      end
+      return
+   end
+   a[#a] = a[#a] .. "\n"
 
    --------------------------------------------------
    -- Update indent

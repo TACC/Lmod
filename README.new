@@ -1,0 +1,7 @@
+Changes that have not yet been made available on sourceforge
+
+Features:
+  a) All the Lmod programs now resolve any symlinks to the actual program
+     before adding to the Lua's package.path and package.cpath.
+
+Bug Fixes:
