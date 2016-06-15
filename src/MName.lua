@@ -502,7 +502,7 @@ function M.find_default(self, pathA, defaultEntry)
    t.modFullName  = defaultEntry.fullName
    t.modName      = self:sn()
    t.default      = 1
-   dbg.print{"modName: ",t.modName," fn: ", t.fn," modFullName: ", t.modfullName,
+   dbg.print{"modName: ",t.modName," fn: ", t.fn," modFullName: ", t.modFullName,
              " default: ",t.default,"\n"}
    dbg.fini("MName:find_default")
    return found, t
