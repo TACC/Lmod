@@ -102,6 +102,7 @@ local function findNamedCollections(a,path)
             local accept = (not idx) and (not LMOD_SYSTEM_NAME)
             if (idx and LMOD_SYSTEM_NAME) then
                accept    = file:sub(idx+1,-1) == LMOD_SYSTEM_NAME
+               f         = pathJoin(path, file:sub(1,idx-1))
             end
             if (accept) then
                a[#a+1] = f
@@ -576,7 +577,7 @@ function Restore(collection)
       end
    end
 
-   if (myName:find("%.")) then
+   if (barefilename(myName):find("%.")) then
       LmodError(" Collection names cannot have a `.' in the name.\n",
                 " Please rename \"", collection,"\"\n")
    end
@@ -635,8 +636,8 @@ function Save(...)
       sname   = "." .. sname
    end
 
-   if (a:find("%.")) then
-      LmodWarning("It is illegal to have a `.' in a collection name.  Please choose another name")
+   if (barefilename(a):find("%.")) then
+      LmodWarning("It is illegal to have a `.' in a collection name.  Please choose another name: ",a)
       dbg.fini("Save")
       return
    end
