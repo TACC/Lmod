@@ -35,7 +35,7 @@ testdescript = {
      echo LmodV=$LmodV
      mkdir b0
      (cd b0; $(projectDir)/configure --prefix=$(outputDir)/b0)
-     (cd $(projectDir); make -f $(outputDir)/b0/makefile dist)
+     (cd $(projectDir); make -f $(outputDir)/b0/makefile dist GIT_BRANCH=HEAD)
      tar xf $projectDir/Lmod-$LmodV.tar.bz2
      rm -rf $projectDir/Lmod-$LmodV.tar.bz2
      mkdir build; cd build; ../Lmod-$LmodV/configure --prefix=`pwd`/..;
