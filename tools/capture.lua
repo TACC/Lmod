@@ -71,15 +71,12 @@ function capture(cmd, envT)
 
    -- trim 'exit code: <value>' from the end of the output and determine exit status
    if _VERSION == "Lua 5.1" then
-      local idx, _, ec_idx, ec_str
-      idx, _ = string.find(out, ec_msg, -20)
-      if idx == nil then
+      local exit_code = out:match(ec_msg .. ": (%d+)\n$")
+      if not exit_code then
          LmodError("Failed to find '" .. ec_msg .. "' in output: " .. out)
       end
-      ec_str = out:sub(idx)
-      ec_idx = string.find(ec_str, ":") + 2
-      status = (ec_str:sub(ec_idx) == "0\n")
-      out = out:sub(0, idx-1)
+      status = exit_code == '0'
+      out = out:gsub("exit code: %d+\n$", '')
    end
 
    for k, v in pairs(newT) do
