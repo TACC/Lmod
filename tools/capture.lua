@@ -76,7 +76,7 @@ function capture(cmd, envT)
          LmodError("Failed to find '" .. ec_msg .. "' in output: " .. out)
       end
       status = exit_code == '0'
-      out = out:gsub("exit code: %d+\n$", '')
+      out = out:gsub(ec_msg .. ": %d+\n$", '')
    end
 
    for k, v in pairs(newT) do
