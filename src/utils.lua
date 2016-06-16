@@ -815,7 +815,21 @@ function UUIDString(epoch)
                                    ymd.year, ymd.month, ymd.day,
                                    ymd.hour, ymd.min,   ymd.sec)
 
-   local uuid_str  = capture("uuidgen"):sub(1,-2)
+   local uuidgen = find_exec_path('uuidgen')
+   local uuid_str
+   if uuidgen then
+       uuid_str = capture('uuidgen'):sub(1,-2)
+   else
+      -- if uuidgen is not available, fall back to reading /proc/sys/kernel/random/uuid
+      -- note: only works on Linux
+      local f = io.open('/proc/sys/kernel/random/uuid', 'r')
+      if f then
+         uuid_str = f:read('*all'):sub(1,-2)
+      else
+         LmodError("uuidgen is not available, fallback failed too")
+      end
+   end
+
    local uuid      = uuid_date .. "-" .. uuid_str
 
    return uuid
