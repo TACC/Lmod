@@ -4,7 +4,7 @@ User Guide for Lmod
 The guide here explains how to use modules. The User's tour of the
 module command covers the basic uses of modules. The other sections
 can be read at a later date as issues come up. The Advance user's
-guilde is for users needing to create their own modulefiles.
+guide is for users needing to create their own modulefiles.
 
 User's Tour of the Module Command
 _________________________________
@@ -74,7 +74,7 @@ Finally, there is a keyword search tool: ::
 
    $ module keyword word1 word2 ...
 
-This will search any help or whatis description for word or wordsgiven on the command line.
+This will search any help or whatis description for the word(s) on the command line.
 
 Another way to search for modules is with the "module spider" command.
 This command searches the entire list of possible modules.  The
