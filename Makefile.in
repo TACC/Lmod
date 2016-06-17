@@ -51,6 +51,7 @@ MODULEPATH_ROOT   	  := @MODULEPATH_ROOT@
 VERSION_SRC	  	  := $(srcdir)/src/Version.lua
 LUA_INCLUDE       	  := @LUA_INCLUDE@
 UPDATE_SYSTEM_FN  	  := @UPDATE_SYSTEM_FN@
+GIT_BRANCH                := master
 GIT_PROG                  := @PATH_TO_GIT@
 GIT_VERSION               := $(shell if [ -n "$(GIT_PROG)" -a -d .git ]; then lmodV=`git describe --always`; echo "($$lmodV)"; else echo "@git@"; fi)
 prefix		  	  := @prefix@
@@ -260,7 +261,7 @@ config.status:
 	./config.status --recheck
 
 dist:
-	git archive --prefix=Lmod-$(version)/ master > Lmod-$(version).tar
+	git archive --prefix=Lmod-$(version)/ $(GIT_BRANCH) > Lmod-$(version).tar
 	$(RM) -rf DIST;                               			     	 \
         mkdir DIST;                                   			     	 \
         cd DIST;                                      			     	 \

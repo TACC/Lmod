@@ -93,6 +93,30 @@ local function prtTbl(a)
    end
 end
 
+--[[ rPrint(struct, [limit], [indent])   Recursively print arbitrary data.
+Set limit (default 100) to stanch infinite loops.
+Indents tables as [KEY] VALUE, nested tables as [KEY] [KEY]...[KEY] VALUE
+Set indent ("") to prefix each line:    Mytable [KEY] [KEY]...[KEY] VALUE
+
+Taken from https://gist.github.com/stuby/5445834
+--]]
+local function rPrint(s, l, i)
+    -- recursive Print (structure, limit, indent)
+    l = (l) or 100; i = i or "";	-- default item limit, indent string
+    if (l<1) then io.stderr:write("ERROR: Item limit reached.", "\n"); return l-1 end;
+    local ts = type(s);
+    if (ts ~= "table") then
+        io.stderr:write(i," ", tostring(ts), " ", tostring(s),"\n")
+        return l-1
+    end
+    io.stderr:write(i," ", ts,"\n");  -- print "table"
+    for k,v in pairs(s) do  -- print "[KEY] VALUE"
+        l = rPrint(v, l, i.."\t["..tostring(k).."]");
+        if (l < 0) then break end
+    end
+    return l
+end
+
 local function argsPack(...)
    local arg = { n = select("#", ...), ...}
    return arg
@@ -328,7 +352,7 @@ function M._print(t)
    for i = 1, #t do
       local v = t[i]
       if (type(v) == "table") then
-	 prtTbl(v)
+         rPrint(v, nil, s_indentString)
       else
          if (type(v) ~= "string") then
             v = tostring(v)

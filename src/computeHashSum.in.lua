@@ -169,7 +169,7 @@ function main()
    end
    fh:write(s)
    if (HashSum:sub(1,1) == "@" ) then
-      HashSum = find_exec_path("sha1sum")
+      HashSum = find_exec_path("sha1sum") or find_exec_path("shasum")
    end
    fh:close()
 

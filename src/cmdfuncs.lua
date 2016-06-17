@@ -98,7 +98,15 @@ local function findNamedCollections(a,path)
          if (attr and attr.mode == "directory") then
             findNamedCollections(a,f)
          else
-            a[#a+1] = f
+            local idx    = file:find("%.")
+            local accept = (not idx) and (not LMOD_SYSTEM_NAME)
+            if (idx and LMOD_SYSTEM_NAME) then
+               accept    = file:sub(idx+1,-1) == LMOD_SYSTEM_NAME
+               f         = pathJoin(path, file:sub(1,idx-1))
+            end
+            if (accept) then
+               a[#a+1] = f
+            end
          end
       end
    end
@@ -569,6 +577,12 @@ function Restore(collection)
       end
    end
 
+   if (barefilename(myName):find("%.")) then
+      LmodError(" Collection names cannot have a `.' in the name.\n",
+                " Please rename \"", collection,"\"\n")
+   end
+
+
    local masterTbl = masterTbl()
 
    if (collection == "system" ) then
@@ -620,6 +634,12 @@ function Save(...)
    else
       msgTail = ", for system: \"".. sname .. "\""
       sname   = "." .. sname
+   end
+
+   if (barefilename(a):find("%.")) then
+      LmodWarning("It is illegal to have a `.' in a collection name.  Please choose another name: ",a)
+      dbg.fini("Save")
+      return
    end
 
    if (a == "system") then
@@ -700,9 +720,14 @@ function SaveList(...)
       a[#a+1] = cstr .. name
    end
 
-   local b = {}
+   local b      = {}
+   local msgHdr = ""
+   if (LMOD_SYSTEM_NAME) then
+      msgHdr = "(For LMOD_SYSTEM_NAME = \""..LMOD_SYSTEM_NAME.."\")"
+   end
+
    if (#a > 0) then
-      b[#b+1]  = "Named collection list:\n"
+      b[#b+1]  = "Named collection list ".. msgHdr..":\n"
       local ct = ColumnTable:new{tbl=a,gap=0}
       b[#b+1]  = ct:build_tbl()
       b[#b+1]  = "\n"
