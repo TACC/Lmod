@@ -11,7 +11,7 @@ login. In ``StdEnv.lua`` is something like: ::
 
     load("name1","name2","name3")
 
-Using the /etc/profile.d directory system described earlier create a
+Using the /etc/profile.d directory system described earlier to create a
 file called ``z00_StdEnv.sh`` ::
 
     if [ -z "$__Init_Default_Modules" -o -z "$LD_LIBRARY_PATH" ]; then
@@ -39,11 +39,11 @@ after the module command is defined.
 The first time these files are source by a shell they will set
 ``LMOD_SYSTEM_DEFAULT_MODULES`` to ``StdEnv`` and then execute
 ``module restore``.  Any subshells will instead call ``module
-refresh``.  Both of these statements are important to getting the
+refresh``.  Both of these statements are important to get the
 correct behavior out of Lmod.
 
-The ``module restore`` tries to either restore the user's default
-collection.  If that doesn't exist then uses contents of the variable
+The ``module restore`` tries to restore the user's default
+collection.  If that doesn't exist, it then uses contents of the variable
 ``LMOD_SYSTEM_DEFAULT_MODULES`` to find a colon separated list of
 Modules to load.
 

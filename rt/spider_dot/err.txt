@@ -1,0 +1,50 @@
+===========================
+step 1
+lua ProjectDIR/src/lmod.in.lua bash --version
+===========================
+Modules based on Lua: Version 6.3  2016-04-19 16:02
+    by Robert McLay mclay@tacc.utexas.edu
+===========================
+step 2
+lua ProjectDIR/src/lmod.in.lua bash spider
+===========================
+The following is a list of the modules currently available:
+  fftw/3.3.4/gcc: fftw/3.3.4/gcc/4.8.5
+To learn more about a package enter:
+   $ module spider Foo
+where "Foo" is the name of a module
+To find detailed information about a particular package you
+must enter the version if there is more than one version:
+   $ module spider Foo/11.1
+===========================
+step 3
+lua ProjectDIR/src/lmod.in.lua bash --show_hidden spider
+===========================
+The following is a list of the modules currently available:
+  fftw/.pkginfo: fftw/.pkginfo
+  fftw/3.3.4/gcc: fftw/3.3.4/gcc/4.8.5
+To learn more about a package enter:
+   $ module spider Foo
+where "Foo" is the name of a module
+To find detailed information about a particular package you
+must enter the version if there is more than one version:
+   $ module spider Foo/11.1
+===========================
+step 4
+lua ProjectDIR/src/lmod.in.lua bash --show_hidden -t spider
+===========================
+fftw/.pkginfo
+fftw/3.3.4/gcc/
+fftw/3.3.4/gcc/4.8.5
+===========================
+step 5
+lua ProjectDIR/src/lmod.in.lua bash spider fftw
+===========================
+  fftw/3.3.4/gcc: fftw/3.3.4/gcc/4.8.5
+    This module can be loaded directly: module load fftw/3.3.4/gcc/4.8.5
+===========================
+step 6
+lua ProjectDIR/src/lmod.in.lua bash spider fft
+===========================
+  fftw/3.3.4/gcc: fftw/3.3.4/gcc/4.8.5
+    This module can be loaded directly: module load fftw/3.3.4/gcc/4.8.5

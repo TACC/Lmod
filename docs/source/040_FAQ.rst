@@ -66,22 +66,22 @@ Why doesn't  % ``module avail |& grep ucc``  work under tcsh and works under bas
 
     It is a bug in the way tcsh handles evals. This works::
 
-       % (module avail) |& grep ucc.
+       % (module avail) |& grep ucc
 
-    However, in all shells it is better use::
+    However, in all shells it is better to use::
 
        % module avail ucc
-
+    
     instead as this will only output modules that have "ucc" in
-    their name.
+    their name. 
 
-Why are messages printed to standard error and not standard out
+Why are messages printed to standard error and not standard out?
 
     The module command is an alias under tcsh and a shell routine under
     all other shells. There is an lmod command which writes out commands
-    such as export FOO="bar and baz" and message are written to standard
+    such as export FOO="bar and baz" and messages are written to standard
     error. The text written to standard out is evaluated so that the text
-    strings make changes to the current environment.
+    strings make changes to the current environment. 
 
 Can I disable the pager output?
 
@@ -93,8 +93,8 @@ instead of stderr?
 
    Bash and Zsh user can set the environment variable
    ``LMOD_REDIRECT`` to **yes**.  Sites can configure Lmod to work
-   this way by default.  However, no matter how Lmod is set-up
-   however, this will not work with tcsh/csh due to limitations of
+   this way by default.  However, no matter how Lmod is set-up,
+   this will not work with tcsh/csh due to limitations of
    this shell.
 
 Can I ignore the spider cache files when doing ``module avail``?
@@ -133,12 +133,12 @@ Why doesn't the module command work in shell scripts?
  bash script and not a shell script, so start the script with
  #!/bin/bash. The second is that the environment variable BASH_ENV
  must point to a file which defines the module command. The simpliest
- way to is to have BASH_ENV point to /opt/apps/lmod/lmod/init/bash or
- where ever this file is located on your system. This is done by the
+ way is having BASH_ENV point to /opt/apps/lmod/lmod/init/bash or
+ whereever this file is located on your system. This is done by the
  standard install.  Finally Lmod exports the module command for Bash
  shell users.
 
-How to I use the initializing shell script that comes with this application with Lmod?
+How do I use the initializing shell script that comes with this application with Lmod?
 
  The short answer is you don't. Among the many problems is that there
  is no way to unload that shell script. If the script is simple you

@@ -8,21 +8,21 @@ This advanced guide is for users wishing to create modulefiles for their own sof
 #. Better documentation for what software is available.
 
 You can create new version of some software and place it in your
-personal PATH and forget about it. At least when it is in a module, it
-be listed in the loaded modules it will also appear in the list of
+personal PATH and forget about it. At least when it is in a module, it 
+will be listed in the loaded modules it will also appear in the list of
 available software via ``module avail``
 
 User Created Modules
 ^^^^^^^^^^^^^^^^^^^^
 
 Users can create their own modules. The first step is to add to the
-module path: ::
+module path::
 
    $ module use /path/to/personal/modulefiles
 
 This will prepend ``/path/to/personal/modulefiles`` to the MODULEPATH
 environment variable. This means that any modulefiles defined here
-will be used instead of the system modules.
+will be used instead of the system modules. 
 
 Suppose that the user creates a directory called ``$HOME/modulefiles``
 and he wants a personal copy of the "git" package and he does the
@@ -44,11 +44,11 @@ modulefile for git one does: ::
     $ cd git
     $ cat > 2.6.2.lua
     local home    = os.getenv("HOME")
-    local version = myModuleVersion()
-    local pkgName = myModuleName()
+    local version = myModuleVersion() 
+    local pkgName = myModuleName() 
     local pkg     = pathJoin(home,"pkg",pkgName,version,"bin")
     prepend_path("PATH", pkg)
-    ^D
+    ^D  
 
 Starting first from the name: git/2.6.2.lua, modulefiles with the .lua
 extension are assumed to be written in lua and files without are
@@ -61,12 +61,15 @@ module file. We have used the *cat* command to quickly create this lua
 modulefile. Obviously, this file can easily created by your favorite
 editor (emacs, vi, nano, ...).
 
+Starting first from the name: git/2.6.2.lua, Modulefiles with the .lua
+extension are assumed to be written in lua and files without are
+assumed to be written in TCL. 
 
 The first line reads the user's HOME directory from the
 environment. The second line uses the "pathJoin" function provided
 from Lmod. It joins strings together with the appropriate number of
 "/". The last line calls the "prepend_path" function to add the path
-to git to the user's path.
+to git to the user's path. 
 
 Finally the user can do: ::
 
@@ -102,12 +105,12 @@ version of "git" ::
    git/1.7.4   git/2.0.1   git/3.5.4 (D)
 
    $ module load git
-
+ 
 
 The load command will load ``git/3.5.4`` because it is the highest
 version.
 
-If a user wishes to make their own version of git the default module
+If a user wishes to make their own version of git the default module,
 they will have to mark it as a default.  Marking a module as a default
-is discuss in section :ref:`setting-default-label`
+is discussed in section :ref:`setting-default-label`
 

@@ -1,5 +1,5 @@
 -- -*- lua -*-
-local testName = "cas_avail"
+local testName = "spider_dot"
 testdescript = {
    owner   = "rtm",
    product = "modules",
@@ -15,30 +15,28 @@ testdescript = {
    runScript = [[
 
      . $(projectDir)/rt/common_funcs.sh
+
      unsetMT
      initStdEnvVars
-     MODULEPATH_ROOT=$(testDir)/mf;  export MODULEPATH_ROOT
-     MODULEPATH=$(testDir)/mf/Core/
-     export MODULEPATH
-     unset TERM
+     export MODULEPATH_ROOT=$(testDir)/mf
+     export MODULEPATH=$MODULEPATH_ROOT/Core
 
-     rm -fr _stderr.*  _stdout.* out.* err.* .lmod.d .lmodrc.lua
+     rm -f  _stderr.* _stdout.* err.* out.*
+     rm -fr .lmod.d .lmodrc.lua
      cp $(projectDir)/init/lmodrc.lua .lmodrc.lua
 
-
-     runLmod --version                # 1
-     runLmod avail                    # 2
-     runLmod use $(testDir)/mf/kc     # 3
-     runLmod avail                    # 4
-     runLmod load matlab/R2015a       # 5
-     runLmod list                     # 6
-
+     runLmod --version               # 1
+     runLmod spider                  # 2
+     runLmod --show_hidden spider    # 3
+     runLmod --show_hidden -t spider # 4
+     runLmod spider  fftw            # 5
+     runLmod spider  fft             # 6
 
 
      HOME=$ORIG_HOME
 
      cat _stdout.[0-9][0-9][0-9] > _stdout.orig
-     joinBase64Results -bash  _stdout.orig _stdout.new
+     joinBase64Results  -bash  _stdout.orig _stdout.new
      cleanUp _stdout.new out.txt
 
      cat _stderr.[0-9][0-9][0-9] > _stderr.orig

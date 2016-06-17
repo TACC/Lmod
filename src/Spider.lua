@@ -486,18 +486,19 @@ function M.singleSearchSpiderDB(self, strA, a, moduleT, dbT)
 end
 
 function M.Level0(self, dbT)
-   local a         = {}
-   local masterTbl = masterTbl()
-   local hidden    = not masterTbl.show_hidden
-   local terse     = masterTbl.terse
+   local a           = {}
+   local masterTbl   = masterTbl()
+   local show_hidden = masterTbl.show_hidden
+   local terse       = masterTbl.terse
+   
 
    if (terse) then
       dbg.start{"Spider:Level0()"}
       local t  = {}
       for kk, vv in pairs(dbT) do
          for k, v in pairs(vv) do
-            local version = extractVersion(v.full, v.name)
-            if (hidden and (version or ""):sub(1,1) ~= ".") then
+            local isActive, version = isActiveMFile(v.full, v.name)
+            if (show_hidden or isActive) then
                if (v.name == v.full) then
                   t[v.name] = v.name
                else
@@ -516,7 +517,6 @@ function M.Level0(self, dbT)
       return concatTbl(a,"\n")
    end
 
-
    local ia     = 0
    local border = banner:border(0)
 
@@ -532,15 +532,15 @@ function M.Level0(self, dbT)
 end
 
 function M.Level0Helper(self, dbT,a)
-   local t          = {}
-   local masterTbl  = masterTbl()
-   local hidden     = not masterTbl.show_hidden
-   local term_width = TermWidth() - 4
+   local t           = {}
+   local show_hidden = masterTbl().show_hidden
+   local term_width  = TermWidth() - 4
 
    for kk,vv in pairs(dbT) do
       for k,v in pairsByKeys(vv) do
-         local version = extractVersion(v.full, v.name)
-         if (hidden and (version or ""):sub(1,1) ~= ".") then
+         local isActive, version = isActiveMFile(v.full, v.name)
+         --dbg.print{"show_hidden: ", show_hidden,", isActive: ", isActive,", version: ",version,", full: ",v.full,", sn: ",v.name,"\n"}
+         if (show_hidden or isActive) then
             if (t[kk] == nil) then
                t[kk] = { Description = v.Description, Versions = { }, name = v.name}
             end
@@ -585,8 +585,8 @@ function M.Level0Helper(self, dbT,a)
 end
 
 
-local function countEntries(t, sn, searchPat, searchName, hidden)
-   dbg.start{"countEntries(t,\"",sn,"\", \"", searchPat,"\", \"",searchName,"\", ",hidden,")"}
+local function countEntries(t, sn, searchPat, searchName, show_hidden)
+   dbg.start{"countEntries(t,\"",sn,"\", \"", searchPat,"\", \"",searchName,"\", ",show_hidden,")"}
 
    local count   = 0
    local nameCnt = 0
@@ -595,9 +595,12 @@ local function countEntries(t, sn, searchPat, searchName, hidden)
    local search  = (searchPat or "")
    local searchV = extractVersion(searchName:lower(), sn:lower())
    for k,v in pairs(t) do
-      local version = extractVersion(v.full, v.name) or ""
+      local isActive, version = isActiveMFile(v.full, v.name)
       dbg.print{"\nversion: ",version, ", searchV: ",searchV,"\n"}
-      if (hidden and version:sub(1,1) ~= ".") then
+
+
+
+      if (show_hidden or isActive) then
          count = count + 1
          if (not full and not searchV) then
             full = v.full
@@ -704,16 +707,16 @@ end
 
 function M._Level1(self, searchPat, key, T, searchName, possibleA, help)
    dbg.start{"Spider:_Level1(",searchPat,", ", key,", T,\"",searchName,"\",help=",help,")"}
-   local term_width = TermWidth() - 4
-   local masterTbl  = masterTbl()
-   local hidden     = not masterTbl.show_hidden
+   local term_width  = TermWidth() - 4
+   local masterTbl   = masterTbl()
+   local show_hidden = masterTbl.show_hidden
    if (T == nil) then
       dbg.print{"No entry called: \"",searchName, "\" in dbT\n"}
       dbg.fini("Spider:_Level1")
       return false
    end
 
-   local cnt, nameCnt, fullCnt, full = countEntries(T, key, searchPat, searchName, hidden)
+   local cnt, nameCnt, fullCnt, full = countEntries(T, key, searchPat, searchName, show_hidden)
    dbg.print{"Number of entries: ",cnt ," name count: ",nameCnt,
              " full count: ",fullCnt, " full: ", full, "\n"}
    dbg.print{"key: \"",key,"\" searchName: \"",searchName,"\"\n"}
@@ -738,8 +741,8 @@ function M._Level1(self, searchPat, key, T, searchName, possibleA, help)
    local key         = nil
    local Description = nil
    for k, v in pairsByKeys(T) do
-      local version = extractVersion(v.full, v.name) or ""
-      if (hidden and version:sub(1,1) ~= ".") then
+      local isActive, version = isActiveMFile(v.full, v.name)
+      if (show_hidden or isActive) then
          local kk            = v.name .. "/" .. parseVersion(version)
          if (VersionT[kk] == nil) then
             key              = v.name
@@ -844,7 +847,7 @@ function M._Level2(self, T, searchName, full, possibleA)
    full = full or ""
    local fullL = full:lower()
    for k,v in pairs(T) do
-      dbg.print{"vv.full: ",v.full," searchName: ",searchName," k: ",k," full:", full,"\n"}
+      dbg.print{"v.full: ",v.full," searchName: ",searchName," k: ",k," full:", full,",v.name:",v.name,"\n"}
       local vfullL = v.full_lower or v.full:lower()
       if (vfullL == mnameL or vfullL == fullL) then
          if (tt == nil) then

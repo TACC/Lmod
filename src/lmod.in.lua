@@ -54,14 +54,23 @@ if (i) then
    LuaCommandName     = LuaCommandName:sub(j+1)
 end
 
-package.path = LuaCommandName_dir .. "?.lua;"       ..
-               LuaCommandName_dir .. "../tools/?.lua;"  ..
-               LuaCommandName_dir .. "../shells/?.lua;" ..
-               LuaCommandName_dir .. "?/init.lua;"  ..
-               package.path
+local sys_lua_path = "@sys_lua_path@"
+if (sys_lua_path:sub(1,1) == "@") then
+   sys_lua_path = package.path
+end
 
+local sys_lua_cpath = "@sys_lua_cpath@"
+if (sys_lua_cpath:sub(1,1) == "@") then
+   sys_lua_cpath = package.cpath
+end
+
+package.path  = LuaCommandName_dir .. "?.lua;"       ..
+                LuaCommandName_dir .. "../tools/?.lua;"  ..
+                LuaCommandName_dir .. "../shells/?.lua;" ..
+                LuaCommandName_dir .. "?/init.lua;"  ..
+                sys_lua_path
 package.cpath = LuaCommandName_dir .. "../lib/?.so;"..
-                package.cpath
+                sys_lua_cpath
 
 
 require("strict")
@@ -138,6 +147,7 @@ local concatTbl    = table.concat
 local max          = math.max
 local unpack       = (_VERSION == "Lua 5.1") and unpack or table.unpack
 local timer        = require("Timer"):timer()
+local hook         = require("Hook")
 
 --------------------------------------------------------------------------
 -- Return the *allow_dups* function.  This function return true if
@@ -578,7 +588,6 @@ function main()
       os.exit(0)
    end
 
-
    -- dumpversion and quit if requested.
 
    if (masterTbl.dumpversion) then
@@ -616,6 +625,7 @@ function main()
       os.exit(0)
    end
 
+   hook.apply("startup", usrCmd)
 
    -- Create the [[master]] object
    local master = Master:master(checkMPATH)
