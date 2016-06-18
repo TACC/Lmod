@@ -81,8 +81,9 @@ function getUname()
             elseif (line:find("^ *flags")) then
                local i = line:find("avx2")
                avx2 = (i != nil)
+               count = count + 1
             end
-            if (count > 2) then break end
+            if (count > 3) then break end
          end
          f:close()
       end
