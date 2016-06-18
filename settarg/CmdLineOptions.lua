@@ -141,13 +141,13 @@ function  M.options(self)
    }
 
    cmdlineParser:add_option{
-      name   = {'--no_cpu_model','--no-cpu-model'},
+      name   = {'--no_cpu_model'},
       dest   = 'noCpuModel',
       action = 'store_true',
    }
 
    cmdlineParser:add_option{
-      name   = {'--no_grouping', '--no-grouping'},
+      name   = {'--no_grouping'},
       dest   = 'noGrouping',
       action = 'store_true',
    }
