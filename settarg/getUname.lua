@@ -60,27 +60,34 @@ function getUname()
       local cpu_family
       local model
       local count = 0
+      local avx2  = false
       local f = io.open("/proc/cpuinfo","r")
       if (f) then
          while (true) do
             local line = f:read("*line")
             if (line == nil) then break end
-            if (line:find("cpu family")) then
+            if (line:find("^ *cpu family")) then
                local _, _, v = line:find(".*:%s*(.*)")
                cpu_family = string.format("%02x",tonumber(v))
                count = count + 1
-            elseif (line:find("model name")) then
+            elseif (line:find("^ *model name")) then
                local _, _, v = line:find(".*:%s*(.*)")
                machDescript = v
                count = count + 1
-            elseif (line:find("model")) then
+            elseif (line:find("^ *model")) then
                local _, _, v = line:find(".*:%s*(.*)")
                model = string.format("%02x",tonumber(v))
                count = count + 1
+            elseif (line:find("^ *flags")) then
+               local i = line:find("avx2")
+               avx2 = (i != nil)
             end
             if (count > 2) then break end
          end
          f:close()
+      end
+      if (avx2 and not masterTbl.noGrouping) then
+         model = "avx2"
       end
       machFullName = machName .. "_" .. cpu_family .. "_" .. model
       machName     = machFullName
