@@ -32,7 +32,6 @@ install:
 
 script:
   # run Lmod test suite with Hermes
-  - export COLUMNS=80
   - tm
 
 after_failure:
