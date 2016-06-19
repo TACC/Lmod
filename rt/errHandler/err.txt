@@ -17,8 +17,7 @@ While processing the following module(s):
 step 3
 lua ProjectDIR/src/lmod.in.lua bash load bad_argument
 ===========================
-Lmod has detected the following error: Syntax error in file:
-ProjectDIR/rt/errHandler/mf/bad_argument/1.0.lua
+Lmod has detected the following error: Syntax error in file: ProjectDIR/rt/errHandler/mf/bad_argument/1.0.lua
  with command: help  One or more arguments are not strings
 While processing the following module(s):
     Module fullname   Module Filename

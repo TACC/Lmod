@@ -95,8 +95,7 @@ ProjectDIR/rt/modulerc/mf/Core
    D:  Default Module
    L:  Module is loaded
 Use "module spider" to find all possible modules.
-Use "module keyword key1 key2 ..." to search for all possible modules matching
-any of the "keys".
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 17
 lua ProjectDIR/src/lmod.in.lua bash avail
@@ -112,8 +111,7 @@ ProjectDIR/rt/modulerc/mf/Core
    D:  Default Module
    L:  Module is loaded
 Use "module spider" to find all possible modules.
-Use "module keyword key1 key2 ..." to search for all possible modules matching
-any of the "keys".
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 18
 lua ProjectDIR/src/lmod.in.lua bash avail
@@ -129,8 +127,7 @@ ProjectDIR/rt/modulerc/mf/Core
    D:  Default Module
    L:  Module is loaded
 Use "module spider" to find all possible modules.
-Use "module keyword key1 key2 ..." to search for all possible modules matching
-any of the "keys".
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 19
 lua ProjectDIR/src/lmod.in.lua bash avail
@@ -146,12 +143,10 @@ ProjectDIR/rt/modulerc/mf/Core
    D:  Default Module
    L:  Module is loaded
 Use "module spider" to find all possible modules.
-Use "module keyword key1 key2 ..." to search for all possible modules matching
-any of the "keys".
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 20
 lua ProjectDIR/src/lmod.in.lua bash load cluster
 ===========================
 The default cluster module cannot be determined. Please set $VSC_DEFAULT_CLUSTER_MODULE.
-Lmod has detected the following error: Unable to parse:
-ProjectDIR/rt/modulerc/mf2/Core/cluster/.modulerc  Aborting!
+Lmod has detected the following error: Unable to parse: ProjectDIR/rt/modulerc/mf2/Core/cluster/.modulerc  Aborting!
