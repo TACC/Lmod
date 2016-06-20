@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 6.0.26  2016-01-29 11:03
+Modules based on Lua: Version 6.4.3  2016-06-17 09:58
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -35,8 +35,7 @@ ProjectDIR/rt/avail/mf/Core
    m:  built for host and native MIC
    o:  built for offload to the MIC only
 Use "module spider" to find all possible modules.
-Use "module keyword key1 key2 ..." to search for all possible modules matching
-any of the "keys".
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 4
 lua ProjectDIR/src/lmod.in.lua bash avail gcc intel p a j m
@@ -57,8 +56,7 @@ ProjectDIR/rt/avail/mf/Core
    L:  Module is loaded
    m:  built for host and native MIC
 Use "module spider" to find all possible modules.
-Use "module keyword key1 key2 ..." to search for all possible modules matching
-any of the "keys".
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 5
 lua ProjectDIR/src/lmod.in.lua bash unload intel
@@ -86,8 +84,7 @@ ProjectDIR/rt/avail/mf/Core
    m:  built for host and native MIC
    o:  built for offload to the MIC only
 Use "module spider" to find all possible modules.
-Use "module keyword key1 key2 ..." to search for all possible modules matching
-any of the "keys".
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 7
 lua ProjectDIR/src/lmod.in.lua bash --show_hidden avail
@@ -111,8 +108,7 @@ ProjectDIR/rt/avail/mf/Core
    m:  built for host and native MIC
    o:  built for offload to the MIC only
 Use "module spider" to find all possible modules.
-Use "module keyword key1 key2 ..." to search for all possible modules matching
-any of the "keys".
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 8
 lua ProjectDIR/src/lmod.in.lua bash -t avail
@@ -310,8 +306,7 @@ ProjectDIR/rt/avail/mf/Core
   Where:
    D:  Default Module
 Use "module spider" to find all possible modules.
-Use "module keyword key1 key2 ..." to search for all possible modules matching
-any of the "keys".
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 16
 lua ProjectDIR/src/lmod.in.lua bash --ignore_cache avail
@@ -337,8 +332,7 @@ ProjectDIR/rt/avail/mf/Core
    m:  built for host and native MIC
    o:  built for offload to the MIC only
 Use "module spider" to find all possible modules.
-Use "module keyword key1 key2 ..." to search for all possible modules matching
-any of the "keys".
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 17
 lua ProjectDIR/src/lmod.in.lua bash purge
@@ -347,8 +341,7 @@ lua ProjectDIR/src/lmod.in.lua bash purge
 step 18
 lua ProjectDIR/src/lmod.in.lua bash avail
 ===========================
-Lmod has detected the following error: avail is not possible, MODULEPATH is
-not set or not set with valid paths.
+Lmod has detected the following error: avail is not possible, MODULEPATH is not set or not set with valid paths.
 ===========================
 step 19
 lua ProjectDIR/src/lmod.in.lua bash avail
@@ -358,8 +351,7 @@ ProjectDIR/rt/avail/mf/Core3
   Where:
    D:  Default Module
 Use "module spider" to find all possible modules.
-Use "module keyword key1 key2 ..." to search for all possible modules matching
-any of the "keys".
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 20
 lua ProjectDIR/src/lmod.in.lua bash load TACC
@@ -391,8 +383,7 @@ ProjectDIR/rt/avail/mf/Core3
    D:  Default Module
    L:  Module is loaded
 Use "module spider" to find all possible modules.
-Use "module keyword key1 key2 ..." to search for all possible modules matching
-any of the "keys".
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 25
 lua ProjectDIR/src/lmod.in.lua bash use ProjectDIR/rt/avail/mf/Order
@@ -412,8 +403,7 @@ ProjectDIR/rt/avail/mf/Core3
    D:  Default Module
    L:  Module is loaded
 Use "module spider" to find all possible modules.
-Use "module keyword key1 key2 ..." to search for all possible modules matching
-any of the "keys".
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 27
 lua ProjectDIR/src/lmod.in.lua bash avail
@@ -429,5 +419,4 @@ ProjectDIR/rt/avail/mf/Core3
    D:  Default Module
    L:  Module is loaded
 Use "module spider" to find all possible modules.
-Use "module keyword key1 key2 ..." to search for all possible modules matching
-any of the "keys".
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".

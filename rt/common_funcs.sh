@@ -179,6 +179,7 @@ initStdEnvVars()
   COUNT=0
   ORIG_HOME=`(cd $HOME; /bin/pwd)`
   HOME=`/bin/pwd`
+  export LMOD_TERM_WIDTH=300
 
   export PATH=$projectDir/src:$PATH_to_LUA:$PATH_to_TM:$PATH_to_SHA1:/usr/bin:/bin
 
