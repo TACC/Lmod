@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 6.0.19  2015-11-18 08:32
+Modules based on Lua: Version 6.4.3  2016-06-17 09:58
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -31,8 +31,7 @@ step 7
 lua ProjectDIR/src/lmod.in.lua bash restore
 ===========================
 Restoring modules to user's default
-Lmod Warning: One or more modules in your default  collection have changed:
-cluster".
+Lmod Warning: One or more modules in your default  collection have changed: "cluster".
 To see the contents of this collection do:
   $ module describe default
 To rebuild the collection, load the modules you wish then do:

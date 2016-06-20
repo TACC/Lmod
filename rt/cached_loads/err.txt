@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 6.1  2016-02-05 16:31
+Modules based on Lua: Version 6.4.3  2016-06-17 09:58
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -26,8 +26,7 @@ lua ProjectDIR/src/lmod.in.lua bash unload B
 step 6
 lua ProjectDIR/src/lmod.in.lua bash load B
 ===========================
-Lmod has detected the following error: The following module(s) are unknown:
-"B"
+Lmod has detected the following error: The following module(s) are unknown: "B"
 Please check the spelling or version number. Also try "module spider ..."
 ===========================
 step 7

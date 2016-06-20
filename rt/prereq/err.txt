@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 6.0.26  2016-01-29 11:03
+Modules based on Lua: Version 6.4.3  2016-06-17 09:58
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -12,8 +12,7 @@ lua ProjectDIR/src/lmod.in.lua bash load petsc
 step 3
 lua ProjectDIR/src/lmod.in.lua bash load slepc/3.0.0
 ===========================
-Lmod has detected the following error: Cannot load module "slepc/3.0.0". At
-least one of these module(s) must be loaded:
+Lmod has detected the following error: Cannot load module "slepc/3.0.0". At least one of these module(s) must be loaded:
    petsc/3.0.0
 While processing the following module(s):
     Module fullname  Module Filename
@@ -30,8 +29,7 @@ lua ProjectDIR/src/lmod.in.lua bash unload petsc
 step 6
 lua ProjectDIR/src/lmod.in.lua bash load slepc
 ===========================
-Lmod has detected the following error: Cannot load module "slepc/3.1.0". At
-least one of these module(s) must be loaded:
+Lmod has detected the following error: Cannot load module "slepc/3.1.0". At least one of these module(s) must be loaded:
    petsc/3.1.0
 While processing the following module(s):
     Module fullname  Module Filename
@@ -44,8 +42,7 @@ lua ProjectDIR/src/lmod.in.lua bash load petsc/2.9.0
 step 8
 lua ProjectDIR/src/lmod.in.lua bash load slepc
 ===========================
-Lmod has detected the following error: Cannot load module "slepc/3.1.0". At
-least one of these module(s) must be loaded:
+Lmod has detected the following error: Cannot load module "slepc/3.1.0". At least one of these module(s) must be loaded:
    petsc/3.1.0
 While processing the following module(s):
     Module fullname  Module Filename
@@ -82,8 +79,7 @@ lua ProjectDIR/src/lmod.in.lua bash load slepc/2.9.0
 step 15
 lua ProjectDIR/src/lmod.in.lua bash load junk/1.0
 ===========================
-Lmod has detected the following error: Cannot load module "junk/1.0". At
-least one of these module(s) must be loaded:
+Lmod has detected the following error: Cannot load module "junk/1.0". At least one of these module(s) must be loaded:
    java, jdk64, jdk32
 While processing the following module(s):
     Module fullname  Module Filename

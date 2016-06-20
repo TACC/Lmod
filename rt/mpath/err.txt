@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 6.0.19  2015-11-18 08:32
+Modules based on Lua: Version 6.4.3  2016-06-17 09:58
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -13,8 +13,7 @@ ProjectDIR/rt/mpath/mf/Core
   Where:
    D:  Default Module
 Use "module spider" to find all possible modules.
-Use "module keyword key1 key2 ..." to search for all possible modules matching
-any of the "keys".
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 3
 lua ProjectDIR/src/lmod.in.lua bash avail
@@ -26,8 +25,7 @@ ProjectDIR/rt/mpath/mf/Core
   Where:
    D:  Default Module
 Use "module spider" to find all possible modules.
-Use "module keyword key1 key2 ..." to search for all possible modules matching
-any of the "keys".
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 4
 lua ProjectDIR/src/lmod.in.lua bash avail
@@ -37,8 +35,7 @@ ProjectDIR/rt/mpath/mf/Core
   Where:
    D:  Default Module
 Use "module spider" to find all possible modules.
-Use "module keyword key1 key2 ..." to search for all possible modules matching
-any of the "keys".
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 5
 lua ProjectDIR/src/lmod.in.lua bash avail
@@ -52,5 +49,4 @@ ProjectDIR/rt/mpath/mf/Core
   Where:
    D:  Default Module
 Use "module spider" to find all possible modules.
-Use "module keyword key1 key2 ..." to search for all possible modules matching
-any of the "keys".
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".

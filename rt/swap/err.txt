@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 6.0.30  2016-02-05 12:55
+Modules based on Lua: Version 6.4.3  2016-06-17 09:58
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -32,8 +32,7 @@ ProjectDIR/mf/Core
    m:  built for host and native MIC
    o:  built for offload to the MIC only
 Use "module spider" to find all possible modules.
-Use "module keyword key1 key2 ..." to search for all possible modules matching
-any of the "keys".
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 4
 lua ProjectDIR/src/lmod.in.lua bash unload intel
@@ -256,6 +255,5 @@ step 31
 lua ProjectDIR/src/lmod.in.lua bash load intel unknown
 ===========================
 Lmod is automatically replacing "gcc/4.2.3" with "intel/intel"
-Lmod has detected the following error: The following module(s) are unknown:
-"unknown"
+Lmod has detected the following error: The following module(s) are unknown: "unknown"
 Please check the spelling or version number. Also try "module spider ..."

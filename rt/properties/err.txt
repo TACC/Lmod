@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 6.0.6  2015-07-16 14:33
+Modules based on Lua: Version 6.4.3  2016-06-17 09:58
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -51,5 +51,4 @@ ProjectDIR/rt/properties/mf/cae
    m:  built for host and native MIC
    o:  built for offload to the MIC only
 Use "module spider" to find all possible modules.
-Use "module keyword key1 key2 ..." to search for all possible modules matching
-any of the "keys".
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".

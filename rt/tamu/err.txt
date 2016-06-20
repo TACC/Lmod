@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 6.0.24  2015-11-30 08:17
+Modules based on Lua: Version 6.4.3  2016-06-17 09:58
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -35,8 +35,7 @@ ProjectDIR/rt/tamu/mf/Core
    D:  Default Module
    L:  Module is loaded
 Use "module spider" to find all possible modules.
-Use "module keyword key1 key2 ..." to search for all possible modules matching
-any of the "keys".
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 5
 lua ProjectDIR/src/lmod.in.lua bash load umpi
@@ -56,8 +55,7 @@ ProjectDIR/rt/tamu/mf/Core
    D:  Default Module
    L:  Module is loaded
 Use "module spider" to find all possible modules.
-Use "module keyword key1 key2 ..." to search for all possible modules matching
-any of the "keys".
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 7
 lua ProjectDIR/src/lmod.in.lua bash load uapp
@@ -77,8 +75,7 @@ ProjectDIR/rt/tamu/mf/Core
    D:  Default Module
    L:  Module is loaded
 Use "module spider" to find all possible modules.
-Use "module keyword key1 key2 ..." to search for all possible modules matching
-any of the "keys".
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 9
 lua ProjectDIR/src/lmod.in.lua bash spider uapp

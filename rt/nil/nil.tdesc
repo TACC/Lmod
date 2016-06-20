@@ -20,6 +20,7 @@ testdescript = {
 
      unsetMT
      initStdEnvVars
+     LMOD_TERM_WIDTH=80;                export LMOD_TERM_WIDTH
      MODULEPATH_ROOT=$(projectDir)/mf;  export MODULEPATH_ROOT
      MODULEPATH=$(testDir)/mf/Core;     export MODULEPATH
 

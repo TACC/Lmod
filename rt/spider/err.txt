@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 6.0.25  2016-01-12 09:51
+Modules based on Lua: Version 6.4.3  2016-06-17 09:58
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -18,23 +18,17 @@ The following is a list of the modules currently available:
   admin: admin/admin-1.0
   alex: alex/1.0
   apps: apps/moabdev
-  apps/gromacs: apps/gromacs/4.0.7, apps/gromacs/4.6.3-debug, ...
+  apps/gromacs: apps/gromacs/4.0.7, apps/gromacs/4.6.3-debug, apps/gromacs/4.6.3
   boost: boost/1.46.0, boost/1.47.1, boost/1.49.0
   bwa: bwa/0.7.1, bwa/0.7.2, bwa/0.7.9a, bwa/0.7.9, bwa/0.7.10
   cmplrs/intel: cmplrs/intel/14.0
   gcc: gcc/4.2.3
   git: git/1.6.3.1, git/1.7.4, git/1.7.4.3
-  gotoblas: gotoblas/1.20, gotoblas/1.26, gotoblas/1.30-beta, gotoblas/1.30, ...
+  gotoblas: gotoblas/1.20, gotoblas/1.26, gotoblas/1.30-beta, gotoblas/1.30, gotoblas/1.31, gotoblas/1.32, gotoblas/1.33
     Blas Level 1, 2, 3 routines
   greenlet: greenlet/0.4.0
-    The greenlet package is a spin-off of Stackless, a version of CPython
-    that supports micro-threads called "tasklets". Tasklets run
-    pseudo-concurrently (typically in a single or a few OS-level threads)
-    and are synchronized with data exchanges on "channels". A "greenlet",
-    on the other hand, is a still more primitive notion of micro-thread
-    with no implicit scheduling; coroutines, in other words. This is useful
-    when you want to control exactly when your code runs. - Homepage:
-    https://github.com/python-greenlet/greenlet
+    The greenlet package is a spin-off of Stackless, a version of CPython that supports micro-threads called "tasklets". Tasklets run pseudo-concurrently (typically in a single or a few OS-level threads) and are synchronized with data exchanges on "channels". A "greenlet", on the other hand, is
+    a still more primitive notion of micro-thread with no implicit scheduling; coroutines, in other words. This is useful when you want to control exactly when your code runs. - Homepage: https://github.com/python-greenlet/greenlet
   intel: intel/intel
   is-dyna: is-dyna/1.0, is-dyna/2.0
   junk/a/c: junk/a/c/1.0
@@ -160,8 +154,7 @@ lua ProjectDIR/src/lmod.in.lua bash spider parmetis/3.1
 ===========================
   parmetis: parmetis/3.1
     Description:
-      Parallel graph partitioning and fill-reduction matrix ordering
-      routines
+      Parallel graph partitioning and fill-reduction matrix ordering routines
     Properties:
       built for host and native MIC
     This module can be loaded directly: module load parmetis/3.1
@@ -285,23 +278,17 @@ The following is a list of the modules currently available:
   admin: admin/admin-1.0
   alex: alex/1.0
   apps: apps/moabdev
-  apps/gromacs: apps/gromacs/4.0.7, apps/gromacs/4.6.3-debug, ...
+  apps/gromacs: apps/gromacs/4.0.7, apps/gromacs/4.6.3-debug, apps/gromacs/4.6.3
   boost: boost/1.46.0, boost/1.47.1, boost/1.49.0
   bwa: bwa/0.7.1, bwa/0.7.2, bwa/0.7.9a, bwa/0.7.9, bwa/0.7.10
   cmplrs/intel: cmplrs/intel/14.0
   gcc: gcc/4.2.3
   git: git/1.6.3.1, git/1.7.4, git/1.7.4.3
-  gotoblas: gotoblas/1.20, gotoblas/1.26, gotoblas/1.30-beta, gotoblas/1.30, ...
+  gotoblas: gotoblas/1.20, gotoblas/1.26, gotoblas/1.30-beta, gotoblas/1.30, gotoblas/1.31, gotoblas/1.32, gotoblas/1.33
     Blas Level 1, 2, 3 routines
   greenlet: greenlet/0.4.0
-    The greenlet package is a spin-off of Stackless, a version of CPython
-    that supports micro-threads called "tasklets". Tasklets run
-    pseudo-concurrently (typically in a single or a few OS-level threads)
-    and are synchronized with data exchanges on "channels". A "greenlet",
-    on the other hand, is a still more primitive notion of micro-thread
-    with no implicit scheduling; coroutines, in other words. This is useful
-    when you want to control exactly when your code runs. - Homepage:
-    https://github.com/python-greenlet/greenlet
+    The greenlet package is a spin-off of Stackless, a version of CPython that supports micro-threads called "tasklets". Tasklets run pseudo-concurrently (typically in a single or a few OS-level threads) and are synchronized with data exchanges on "channels". A "greenlet", on the other hand, is
+    a still more primitive notion of micro-thread with no implicit scheduling; coroutines, in other words. This is useful when you want to control exactly when your code runs. - Homepage: https://github.com/python-greenlet/greenlet
   intel: intel/intel
   is-dyna: is-dyna/1.0, is-dyna/2.0
   junk/a/c: junk/a/c/1.0

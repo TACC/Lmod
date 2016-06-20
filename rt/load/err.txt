@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 6.3.4  2016-05-11 17:00
+Modules based on Lua: Version 6.4.3  2016-06-17 09:58
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -76,8 +76,7 @@ ProjectDIR/rt/load/mf/Core
    m:  built for host and native MIC
    o:  built for offload to the MIC only
 Use "module spider" to find all possible modules.
-Use "module keyword key1 key2 ..." to search for all possible modules matching
-any of the "keys".
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 14
 lua ProjectDIR/src/lmod.in.lua bash -d avail
@@ -98,8 +97,7 @@ ProjectDIR/rt/load/mf/Core
    m:  built for host and native MIC
    o:  built for offload to the MIC only
 Use "module spider" to find all possible modules.
-Use "module keyword key1 key2 ..." to search for all possible modules matching
-any of the "keys".
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 15
 lua ProjectDIR/src/lmod.in.lua bash unload boost
@@ -108,15 +106,13 @@ lua ProjectDIR/src/lmod.in.lua bash unload boost
 step 16
 lua ProjectDIR/src/lmod.in.lua bash load boost/1.33.0
 ===========================
-Lmod has detected the following error: The following module(s) are unknown:
-"boost/1.33.0"
+Lmod has detected the following error: The following module(s) are unknown: "boost/1.33.0"
 Please check the spelling or version number. Also try "module spider ..."
 ===========================
 step 17
 lua ProjectDIR/src/lmod.in.lua bash load boost/1.57.0
 ===========================
-Lmod has detected the following error: The following module(s) are unknown:
-"boost/1.57.0"
+Lmod has detected the following error: The following module(s) are unknown: "boost/1.57.0"
 Please check the spelling or version number. Also try "module spider ..."
 ===========================
 step 18
@@ -166,8 +162,7 @@ ProjectDIR/rt/load/mf/Scratch
   Where:
    D:  Default Module
 Use "module spider" to find all possible modules.
-Use "module keyword key1 key2 ..." to search for all possible modules matching
-any of the "keys".
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 26
 lua ProjectDIR/src/lmod.in.lua bash load A B
@@ -187,8 +182,7 @@ Currently Loaded Modules:
 step 28
 lua ProjectDIR/src/lmod.in.lua bash load DoesNotExist
 ===========================
-Lmod has detected the following error: The following module(s) are unknown:
-"DoesNotExist"
+Lmod has detected the following error: The following module(s) are unknown: "DoesNotExist"
 Please check the spelling or version number. Also try "module spider ..."
 ===========================
 step 29
@@ -252,8 +246,7 @@ ProjectDIR/rt/load/mf/Scratch
    m:  built for host and native MIC
    o:  built for offload to the MIC only
 Use "module spider" to find all possible modules.
-Use "module keyword key1 key2 ..." to search for all possible modules matching
-any of the "keys".
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 32
 lua ProjectDIR/src/lmod.in.lua bash avail C
@@ -268,8 +261,7 @@ ProjectDIR/rt/load/mf/Core
   Where:
    L:  Module is loaded
 Use "module spider" to find all possible modules.
-Use "module keyword key1 key2 ..." to search for all possible modules matching
-any of the "keys".
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 33
 lua ProjectDIR/src/lmod.in.lua bash load C

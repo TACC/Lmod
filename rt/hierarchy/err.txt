@@ -2,28 +2,25 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 6.0.30  2016-02-05 12:55
+Modules based on Lua: Version 6.4.3  2016-06-17 09:58
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
 lua ProjectDIR/src/lmod.in.lua bash load parmetis
 ===========================
-Lmod has detected the following error: These module(s) exist but cannot be
-loaded as requested: "parmetis"
+Lmod has detected the following error: These module(s) exist but cannot be loaded as requested: "parmetis"
    Try: "module spider parmetis" to see how to load the module(s).
 ===========================
 step 3
 lua ProjectDIR/src/lmod.in.lua bash load parmetis/4.0.3
 ===========================
-Lmod has detected the following error: These module(s) exist but cannot be
-loaded as requested: "parmetis/4.0.3"
+Lmod has detected the following error: These module(s) exist but cannot be loaded as requested: "parmetis/4.0.3"
    Try: "module spider parmetis/4.0.3" to see how to load the module(s).
 ===========================
 step 4
 lua ProjectDIR/src/lmod.in.lua bash load parmetis/11.0
 ===========================
-Lmod has detected the following error: The following module(s) are unknown:
-"parmetis/11.0"
+Lmod has detected the following error: The following module(s) are unknown: "parmetis/11.0"
 Please check the spelling or version number. Also try "module spider ..."
 ===========================
 step 5
@@ -44,8 +41,7 @@ ProjectDIR/rt/hierarchy/mf/Core
    D:  Default Module
    L:  Module is loaded
 Use "module spider" to find all possible modules.
-Use "module keyword key1 key2 ..." to search for all possible modules matching
-any of the "keys".
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 7
 lua ProjectDIR/src/lmod.in.lua bash load -clang -openmpi
@@ -99,8 +95,7 @@ lua ProjectDIR/src/lmod.in.lua bash unload fbr
 step 16
 lua ProjectDIR/src/lmod.in.lua bash load clang
 ===========================
-Lmod has detected the following error: You can only have one compiler  module
-loaded at a time.
+Lmod has detected the following error: You can only have one compiler  module loaded at a time.
 You already have gcc  loaded.
 To correct the situation, please enter the following command:
   module swap gcc  clang/4.2.1

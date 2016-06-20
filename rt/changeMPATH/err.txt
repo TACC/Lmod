@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 6.0.13  2015-10-22 17:18
+Modules based on Lua: Version 6.4.3  2016-06-17 09:58
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -22,8 +22,7 @@ step 5
 lua ProjectDIR/src/lmod.in.lua bash restore
 ===========================
 Restoring modules to user's default
-Lmod Warning: The system MODULEPATH has changed: Please rebuild your saved
-collection.
+Lmod Warning: The system MODULEPATH has changed: Please rebuild your saved collection.
 The system default contains no modules
   (env var: LMOD_SYSTEM_DEFAULT_MODULES is empty)
   No changes in loaded modules

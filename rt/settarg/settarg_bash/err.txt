@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --version
 ===========================
-Modules based on Lua: Version 5.9.4  2015-04-30 10:59
+Modules based on Lua: Version 6.4.3  2016-06-17 09:58
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -59,10 +59,7 @@ _SettargTable_ = {
     ["f_f"] = true,
   },
   targA = {
-    "TARG", "TARG_BUILD_SCENARIO", "TARG_COMPILER", "TARG_COMPILER_FAMILY"
-    , "TARG_EXTRA", "TARG_HOST", "TARG_MACH", "TARG_MACH_DESCRIPT", "TARG_MPI"
-    , "TARG_MPI_FAMILY", "TARG_OS", "TARG_OS_FAMILY", "TARG_SUMMARY"
-    , "TARG_TITLE_BAR", "TARG_TITLE_BAR_PAREN",
+    "TARG", "TARG_BUILD_SCENARIO", "TARG_COMPILER", "TARG_COMPILER_FAMILY", "TARG_EXTRA", "TARG_HOST", "TARG_MACH", "TARG_MACH_DESCRIPT", "TARG_MPI", "TARG_MPI_FAMILY", "TARG_OS", "TARG_OS_FAMILY", "TARG_SUMMARY", "TARG_TITLE_BAR", "TARG_TITLE_BAR_PAREN",
   },
   ["version"] = 1,
 }
