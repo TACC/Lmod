@@ -31,6 +31,7 @@ testdescript = {
 
      export MODULEPATH_ROOT=$(testDir)/mf
      export MODULEPATH=$MODULEPATH_ROOT/Core
+     export LMOD_TERM_WIDTH=500
 
 
      runLmod --version               # 1

@@ -23,8 +23,7 @@ step 5
 lua ProjectDIR/src/lmod.in.lua bash load Error
 ===========================
 Lmod has detected the following error: Unable to load module: Error
-     ProjectDIR/rt/delcatty/mf/Core/Error/1.0 : Non-zero status
-returned
+     ProjectDIR/rt/delcatty/mf/Core/Error/1.0 : Non-zero status returned
 While processing the following module(s):
     Module fullname  Module Filename
     Error/1.0        ProjectDIR/rt/delcatty/mf/Core/Error/1.0

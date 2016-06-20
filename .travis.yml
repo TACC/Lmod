@@ -1,0 +1,42 @@
+# although Lmod is written in Lua, use Python environment
+language: python
+sudo: false
+
+env:
+  - LUA='lua=5.1'
+  - LUA='lua=5.2'
+  - LUA='lua=5.3'
+
+addons:
+  apt:
+    packages:
+      - tcsh
+      - tcl8.5
+      - uuid  # for uuidgen
+
+before_install:
+  - cd $HOME
+  # install Lua via hererocks
+  - pip install hererocks
+  - hererocks lua_install -r^ --$LUA
+  # install Hermes test tool
+  - git clone https://github.com/rtmclay/Hermes.git
+  - export PATH="$PATH:$PWD/lua_install/bin:$HOME/Hermes/bin"
+  - cd -
+
+install:
+  - luarocks install luaposix
+  - luarocks install luafileSystem
+  - luarocks install luajson
+  - luarocks install lua-term
+
+script:
+  # run Lmod test suite with Hermes
+  - tm
+
+after_failure:
+  # diff stdout/stderr for all tests in case of failure
+  - for dir in $(ls -pd rt/* | grep '/$'); do
+    echo ">>>> ${dir}/err.txt"; diff -u ${dir}/err.txt ${dir}/t1/*/err.txt;
+    echo ">>>> ${dir}/out.txt"; diff -u ${dir}/out.txt ${dir}/t1/*/out.txt;
+    done
