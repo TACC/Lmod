@@ -5,6 +5,7 @@ Features:
      actual program before adding to the Lua's package.path
      and package.cpath.
   b) Contrib patch: Extend msgHook to LmodError and LmodWarning
+  c) Now using travis for CI
 
 Bug Fixes:
   a) The command "savelist" now only reports collections that
