@@ -537,7 +537,7 @@ function M.find_latest(self, pathA)
       local _, j    = file:find(result.mpath, 1, true)
       t.modFullName = file:sub(j+2):gsub("%.lua$","")
       found         = true
-      t.default     = 1
+      t.default     = 0
       t.fn          = file
       t.modName     = sn
       dbg.print{"modName: ",sn," fn: ", file," modFullName: ", t.modFullName,
