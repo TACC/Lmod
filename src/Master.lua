@@ -424,7 +424,7 @@ function M.load(mA)
                    "\" as sn: \"",sn,"\" is already loaded\n"}
 
          local mt_version = mt:Version(sn)
-         local mn_version = mname:version()
+         local mn_version = t.version
 
          dbg.print{"mnV: ",mn_version,", mtV: ",mt_version,"\n"}
 
