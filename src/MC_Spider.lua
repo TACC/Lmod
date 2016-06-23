@@ -192,6 +192,9 @@ function M.setenv(self, name, value)
       s_patDir = concatTbl(a,"")
    end
 
+   s_patDir, s_patLib = hook.apply("packagebasename", s_patDir, s_patLib)
+   dbg.print{"Using s_patDir: ", s_patDir, " s_patLib: ", s_patLib, "\n"}
+
    if (name:find(s_patLib)) then
       processLPATH(value)
    end

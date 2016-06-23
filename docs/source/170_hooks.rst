@@ -93,6 +93,10 @@ Hook functions
 **startup(UsrCmd):
   This hook is run when Lmod is called
 
+**packagebasename(s_patDir, s_patLib):
+  This hook gives you the current patterns that spider uses to construct the
+  reverse map. You must return the new patterns.
+
 
 
 
