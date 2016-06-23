@@ -111,6 +111,20 @@ function M.empty(self)
 end
 
 --------------------------------------------------------------------------
+-- Report true when the stack has only a single module.
+-- @param self A ModuleStack object.
+function M.atTop(self)
+   return (#self.stack == 2)
+end
+
+--------------------------------------------------------------------------
+-- Report the number of modules in the stack
+-- @param self A ModuleStack object.
+function M.count(self)
+   return (#self.stack - 1)
+end
+
+--------------------------------------------------------------------------
 -- Return the full module name for modulefile at the top of the stack.
 -- @param self A ModuleStack object.
 function M.fullName(self)
