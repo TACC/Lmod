@@ -919,7 +919,8 @@ function Use(...)
          op(MCP, { DfltModPath, v, delim = ":", nodups=true, priority=priority })
       end
    end
-
+   local master    = Master:master()
+   master.reloadAll()
 
    mt:buildBaseMpathA(varTbl[DfltModPath]:expand())
    mt:buildMpathA(varTbl[ModulePath]:expand())
