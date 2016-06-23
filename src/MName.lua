@@ -403,7 +403,7 @@ end
 -- Build the initial table for reporting a module file location.
 -- @return the initial table.
 local function module_locationT()
-   return { fn = nil, modFullName = nil, modName = nil, default = 0}
+   return { fn = nil, modFullName = nil, modName = nil, version = nil, default = 0}
 end
 
 --------------------------------------------------------------------------
@@ -444,6 +444,7 @@ function M.find_exact_match(self, pathA)
       t.fn          = result
       t.modFullName = fullName
       t.modName     = sn
+      t.version     = extractVersion(t.modFullName, t.modName)
       dbg.print{"modName: ",sn," fn: ", result," modFullName: ", fullName,
                 " default: ",t.default,"\n"}
    else
@@ -502,8 +503,9 @@ function M.find_default(self, pathA, defaultEntry)
    t.modFullName  = defaultEntry.fullName
    t.modName      = self:sn()
    t.default      = 1
+   t.version      = extractVersion(t.modFullName, t.modName)
    dbg.print{"modName: ",t.modName," fn: ", t.fn," modFullName: ", t.modFullName,
-             " default: ",t.default,"\n"}
+             " default: ",t.default," version: ",t.version,"\n"}
    dbg.fini("MName:find_default")
    return found, t
 end
@@ -540,8 +542,9 @@ function M.find_latest(self, pathA)
       t.default     = 1
       t.fn          = file
       t.modName     = sn
+      t.version     = extractVersion(t.modFullName, t.modName)
       dbg.print{"modName: ",sn," fn: ", file," modFullName: ", t.modFullName,
-                " default: ",t.default,"\n"}
+                " default: ",t.default," version: ",t.version,"\n"}
    end
 
    dbg.fini("MName:find_latest")
@@ -565,7 +568,7 @@ function M.find_default_between(self, pathA, defaultEntry)
 
    local left       = parseVersion(self._is)
    local right      = parseVersion(self._ie)
-   local version    = extractVersion(t.modFullName, t.modName)
+   local version    = t.version
    local pv         = parseVersion(version)
 
    if (pv < left or  pv > right) then
@@ -625,6 +628,7 @@ function M.find_between(self, pathA)
       t.modFullName = v.file:sub(j+2):gsub("%.lua$","")
       t.default     = 0
       t.modName     = self:sn()
+      t.version     = extractVersion(t.modFullName, t.modName)
       found         = true
    end
 
