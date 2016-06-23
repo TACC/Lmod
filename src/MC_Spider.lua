@@ -190,10 +190,14 @@ function M.setenv(self, name, value)
       a[#a+1]  = hook.apply("SiteName")
       a[#a+1]  = "_.*_DIR"
       s_patDir = concatTbl(a,"")
-   end
 
-   s_patDir, s_patLib = hook.apply("packagebasename", s_patDir, s_patLib)
-   dbg.print{"Using s_patDir: ", s_patDir, " s_patLib: ", s_patLib, "\n"}
+      local t = {patDir = s_patDir, patLib = s_patLib}
+      hook.apply("packagebasename", t)
+      s_patDir = t.patDir
+      s_patLib = t.patLib
+
+      dbg.print{"Using s_patDir: ", s_patDir, " s_patLib: ", s_patLib, "\n"}
+   end
 
    if (name:find(s_patLib)) then
       processLPATH(value)
