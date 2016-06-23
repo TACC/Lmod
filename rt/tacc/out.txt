@@ -164,7 +164,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=8,baseMpathA={"ProjectDIR/mf/TACC",
 export _ModuleTable_;
 ===========================
 step 8
-lua ProjectDIR/src/lmod.in.lua bash -D load pgi
+lua ProjectDIR/src/lmod.in.lua bash load pgi
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/TACC";
 export LMOD_DEFAULT_MODULEPATH;
