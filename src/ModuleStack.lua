@@ -67,7 +67,7 @@ local function new(self)
 
    setmetatable(o,self)
    self.__index = self
-   o.stack      = { {full = "lmod_base/0.0", sn = "lmod_base", loadCnt = 0, fn = "unknown"} }
+   o.stack      = { {full = "lmod_base/0.0", sn = "lmod_base", fn = "unknown"} }
    return o
 end
 
@@ -89,7 +89,7 @@ end
 -- @param sn The short name of the module.
 -- @param fn The filename of the module.
 function M.push(self, full, usrName, sn, fn)
-   local entry = {full = full, usrName = usrName, sn = sn, loadCnt = 0, fn= fn}
+   local entry = {full = full, usrName = usrName, sn = sn, fn= fn}
    local stack = self.stack
 
    stack[#stack+1] = entry
@@ -108,6 +108,10 @@ end
 -- @param self A ModuleStack object.
 function M.empty(self)
    return (#self.stack == 1)
+end
+
+function M.atTop(self)
+   return (#self.stack == 2)
 end
 
 --------------------------------------------------------------------------
