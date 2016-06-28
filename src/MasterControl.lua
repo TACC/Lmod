@@ -27,14 +27,16 @@
 --  As a convention: MCP is always for loads while the purpose of mcp is
 --  dynamic.
 --
---  The rational behind this design orginates in the way modules are written.
+--  The rational behind this design is to support all the ways a modulefile can
+--  be evaluated. 
+--
 --  In a module file, the change to the environment upon loading are specified:
 --  set a variable, prepend something to a variable, etc. When you 'unload' the
 --  module, these changes need to get reversed. So depending on the 'mode' (load,
 --  unloading, ...), 'setenv' will have a different meaning. Instead of using 'if'
 --  statements, the current design allows in an elegant way to the define the
---  different 'setenv' commands. There are 8 modes and they can be found in the
---  function 'M.build' below.
+--  different 'setenv' commands. There are at least 8 modes and they can be 
+--  found in the function 'M.build' below.
 --
 -- @classmod MasterControl
 
