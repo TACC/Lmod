@@ -110,10 +110,6 @@ function M.empty(self)
    return (#self.stack == 1)
 end
 
-function M.atTop(self)
-   return (#self.stack == 2)
-end
-
 --------------------------------------------------------------------------
 -- Report true when the stack has only a single module.
 -- @param self A ModuleStack object.
