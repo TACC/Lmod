@@ -24,6 +24,18 @@
 --    3. The unload MCP objects maps this to MasterControl:unsetenv
 --    4. The users' environment variable is unset.
 --
+--  As a convention: MCP is always for loads while the purpose of mcp is
+--  dynamic.
+--
+--  The rational behind this design orginates in the way modules are written.
+--  In a module file, the change to the environment upon loading are specified:
+--  set a variable, prepend something to a variable, etc. When you 'unload' the
+--  module, these changes need to get reversed. So depending on the 'mode' (load,
+--  unloading, ...), 'setenv' will have a different meaning. Instead of using 'if'
+--  statements, the current design allows in an elegant way to the define the
+--  different 'setenv' commands. There are 8 modes and they can be found in the
+--  function 'M.build' below.
+--
 -- @classmod MasterControl
 
 require("strict")
@@ -216,12 +228,16 @@ function M.build(name,mode)
    local MCSpider         = require('MC_Spider')
    local MCComputeHash    = require('MC_ComputeHash')
    nameTbl["load"]        = MCLoad
+   -- for collections (loads in modules are ignored)
    nameTbl["mgrload"]     = MCMgrLoad
    nameTbl["unload"]      = MCUnload
+   -- for subshells, sets the aliases again
    nameTbl["refresh"]     = MCRefresh
    nameTbl["show"]        = MCShow
+   -- for whatis, help
    nameTbl["access"]      = MCAccess
    nameTbl["spider"]      = MCSpider
+   -- like show but only uses a couple of variables
    nameTbl["computeHash"] = MCComputeHash
    nameTbl.default        = MCLoad
 
@@ -766,7 +782,7 @@ function LmodSystemError(...)
    local s      = {}
    s[#s+1] = buildMsg(twidth, label, ...)
    s[#s+1] = "\n"
-   
+
    local a = concatTbl(stackTraceBackA,"")
    if (a:len() > 0) then
        s[#s+1] = a
