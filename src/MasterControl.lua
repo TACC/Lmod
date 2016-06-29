@@ -27,7 +27,7 @@
 --  As a convention: MCP is always for loads while the purpose of mcp is
 --  dynamic.
 --
---  The rational behind this design orginates in the way modules are written.
+--  The rational behind this design originates in the way modules are written.
 --  In a module file, the change to the environment upon loading are specified:
 --  set a variable, prepend something to a variable, etc. When you 'unload' the
 --  module, these changes need to get reversed. So depending on the 'mode' (load,
