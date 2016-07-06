@@ -320,6 +320,8 @@ file can be in a number of places but is typically in ``/etc/zshenv`` or
       done
     fi  
 
+.. _issues-with-bash:
+
 Issues with Bash
 ----------------
 
@@ -362,6 +364,8 @@ required ``ulimit -s unlimited`` which makes the stack size
 unlimited.  By patching bash, we could guarantee that it was set by
 the system on each node.
 
+You may have to also change the /etc/bashrc (or /etc/bash.bashrc) file
+so that it sources /etc/profile.d/\*.sh for non-login shells.
 
 Bash Shell Scripts
 ~~~~~~~~~~~~~~~~~~
