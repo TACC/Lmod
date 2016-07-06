@@ -164,10 +164,10 @@ Why does isn't the module defined when using the **screen** program?
 
   The screen program starts a non-login interactive shell.  The Bash
   shell startup doesn't start sourcing /etc/profile and therefore the
-  ``/etc/profile.d/\*.sh`` scripts for non-login interactive shells.  You
+  ``/etc/profile.d/*.sh`` scripts for non-login interactive shells.  You
   can patch bash and fix ``/etc/bashrc`` (see :ref:`issues-with-bash`
-  for a solution) or  you can fix your ~/.bashrc to source
-  /etc/profile.d/\*.sh.
+  for a solution) or  you can fix your ``~/.bashrc`` to source
+  ``/etc/profile.d/*.sh``
 
   You may be better off using **tmux** instead. It starts a login shell.
 
