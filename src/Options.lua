@@ -52,7 +52,7 @@ local posix        = require("posix")
 local setenv_posix = posix.setenv
 local stderr       = io.stderr
 local systemG      = _G
-
+local concatTbl    = table.concat
 local M = {}
 
 s_options = false
