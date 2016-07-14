@@ -171,7 +171,7 @@ function main()
    -- Convert empty string input values into false and clean path if requested
    local valueA    = {}
    for j = 1,#pargs do
-      valueA[i] = cleanPath(pargs[j])
+      valueA[j] = cleanPath(pargs[j])
    end
 
 
