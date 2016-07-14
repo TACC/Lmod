@@ -486,9 +486,9 @@ function M.load(mA)
          end
 
          local force = true
-         for i = 1,#b do
-            mcp:unload_usr(b[i].umA, force)
-            mcp:load(b[i].lmA)
+         for j = 1,#b do
+            mcp:unload_usr(b[j].umA, force)
+            mcp:load(b[j].lmA)
          end
       end
    end
@@ -909,9 +909,9 @@ local function availEntry(defaultOnly, terse, label, szA, searchA, sn, name,
          legendT[Default] = "Default Module"
       end
       dbg.print{"dflt: ",dflt,"\n"}
+      sn          = mname:sn()
       local aa    = {}
       local propT = {}
-      local sn    = mname:sn()
       local entry = dbT[sn]
       if (entry) then
          dbg.print{"Found dbT[sn]\n"}
@@ -1114,7 +1114,7 @@ local function regroup_avail_blocks(availStyle, mpathA, availT)
                for iv = 1,#v do
                   vA[#vA+1] = v[iv]
                end
-               sort(vA, function(a,b) return a.parseV < b.parseV end)
+               sort(vA, function(x,y) return x.parseV < y.parseV end)
             end
          end
       end
@@ -1163,8 +1163,9 @@ function M.avail(argA)
       return
    end
 
-   local cache        = Cache:cache{quiet = masterTbl.terse, buildCache=true}
-   local moduleT, dbT = cache:build()
+   local moduleT  = nil
+   local cache    = Cache:cache{quiet = masterTbl.terse, buildCache=true}
+   moduleT, dbT   = cache:build()
 
    local baseMpath = mt:getBaseMPATH()
    if (not terse and (baseMpath == nil or baseMpath == '' or next(moduleT) == nil)) then

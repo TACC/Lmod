@@ -465,7 +465,6 @@ function M._build_locationTbl(self, mpathA, adding, pathEntry)
       return {}, {}
    end
 
-   local hidden       = not masterTbl().show_hidden
    local Pairs        = dbg.active() and pairsByKeys or pairs
    local locationT    = {}
    local availT       = {}
@@ -523,9 +522,9 @@ function M._build_locationTbl(self, mpathA, adding, pathEntry)
          if (total == 0) then
             versionT[0] = v[0].fn
          else
-            for i = 1,total do
-               local version = v[i].version
-               versionT[version] = v[i].fn
+            for j = 1,total do
+               local version = v[j].version
+               versionT[version] = v[j].fn
                if (version:sub(1,1) == ".") then
                   hidden = hidden + 1
                end
@@ -800,11 +799,11 @@ end
 -- @param self An MT object
 -- @param t A table containing the collection filename and the collection name.
 -- @return True or false.
-function M.getMTfromFile(self,t)
-   dbg.start{"mt:getMTfromFile(",t.fn,")"}
-   local f              = io.open(t.fn,"r")
-   local msg            = t.msg
-   local collectionName = t.name
+function M.getMTfromFile(self,tt)
+   dbg.start{"mt:getMTfromFile(",tt.fn,")"}
+   local f              = io.open(tt.fn,"r")
+   local msg            = tt.msg
+   local collectionName = tt.name
    if (not f) then
       LmodErrorExit()
    end
@@ -816,10 +815,10 @@ function M.getMTfromFile(self,t)
    end
    -----------------------------------------------
    -- Initialize MT with file: fn
-   -- Save module name in hash table "t"
+   -- Save module name in hash table "tt"
    -- with Hash Sum as value
 
-   local restoreFn = t.fn
+   local restoreFn = tt.fn
    dbg.print{"s: \"",s,"\"\n"}
    local l_mt      = new(self, s, restoreFn)
    local mpath     = l_mt._MPATH
