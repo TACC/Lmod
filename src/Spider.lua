@@ -74,15 +74,15 @@ local function process(kind, value)
    local masterTbl   = masterTbl()
    local moduleStack = masterTbl.moduleStack
    local iStack      = #moduleStack
-   local path        = moduleStack[iStack].path
+   local mpath       = moduleStack[iStack].path
    local moduleT     = moduleStack[iStack].moduleT
 
-   local a           = moduleT[path][kind] or {}
+   local a           = moduleT[mpath][kind] or {}
    for path in value:split(":") do
       path         = path_regularize(path)
       a[path]      = 1
    end
-   moduleT[path][kind] = a
+   moduleT[mpath][kind] = a
 end
 
 function processLPATH(value)
