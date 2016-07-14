@@ -36,10 +36,10 @@
 
 
 local LuaCommandName = arg[0]
-local i,j = LuaCommandName:find(".*/")
+local ia,ja = LuaCommandName:find(".*/")
 local LuaCommandName_dir = "./"
-if (i) then
-   LuaCommandName_dir = LuaCommandName:sub(1,j)
+if (ia) then
+   LuaCommandName_dir = LuaCommandName:sub(1,ja)
 end
 
 local sys_lua_path = "@sys_lua_path@"

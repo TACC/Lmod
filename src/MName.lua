@@ -75,6 +75,7 @@ local pack        = (_VERSION == "Lua 5.1") and argsPack or table.pack
 local posix       = require("posix")
 local sort        = table.sort
 local malias      = require("MAlias"):build()
+local concatTbl   = table.concat
 MName             = M
 --------------------------------------------------------------------------
 -- This function allows for taking the name and remove one
@@ -600,11 +601,11 @@ function M.find_between(self, pathA)
    local found = false
    local a     = allVersions(pathA)
 
-   sort(a, function(a,b)
-             if (a.pv == b.pv) then
-                return a.idx < b.idx
+   sort(a, function(x,y)
+             if (x.pv == y.pv) then
+                return x.idx < y.idx
              else
-                return a.pv < b.pv
+                return x.pv  < y.pv
              end
            end
    )

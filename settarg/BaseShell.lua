@@ -57,7 +57,7 @@ function M.name(self)
    return self.my_name
 end
 
-function M.getMT(self,name)
+function M.getMT(self)
    local a    = {}
    local mtSz = getenv("_ModuleTable_Sz_") or huge
    local s    = nil

@@ -620,9 +620,6 @@ function M.popenv(self, name, value)
    dbg.start{"MasterControl:popenv(\"",name,"\", \"",value,"\")"}
 
    local stackName = "__LMOD_STACK_" .. name
-
-   local v = nil
-
    if (varTbl[stackName] == nil) then
       varTbl[stackName] = Var:new(stackName)
    end
@@ -853,7 +850,6 @@ end
 -- @param mA An array of MNname objects.
 function M.prereq(self, mA)
    local mt        = MT:mt()
-   local a         = {}
    local mStack    = ModuleStack:moduleStack()
    local mFull     = mStack:fullName()
    local masterTbl = masterTbl()
@@ -892,7 +888,6 @@ function M.conflict(self, mA)
 
 
    local mt        = MT:mt()
-   local a         = {}
    local mStack    = ModuleStack:moduleStack()
    local mFull     = mStack:fullName()
    local masterTbl = masterTbl()
@@ -943,7 +938,6 @@ end
 -- @param mA An array of MNname objects.
 function M.prereq_any(self, mA)
    local mt        = MT:mt()
-   local a         = {}
    local mStack    = ModuleStack:moduleStack()
    local mFull     = mStack:fullName()
    local masterTbl = masterTbl()

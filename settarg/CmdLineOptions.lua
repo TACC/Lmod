@@ -37,7 +37,6 @@ require("fileOps")
 local dbg          = require("Dbg"):dbg()
 local arg          = arg
 local format       = string.format
-local masterTbl    = masterTbl
 local next         = next
 local pairs        = pairs
 local require      = require

@@ -49,7 +49,6 @@ local decode64    = base64.decode64
 local encode64    = base64.encode64
 local getenv      = posix.getenv
 local load        = (_VERSION == "Lua 5.1") and loadstring or load
-local masterTbl   = masterTbl
 local systemG     = _G
 local ModuleTable = "_ModuleTable_"
 
@@ -330,8 +329,8 @@ local function readDotFiles()
 end
 
 function M.exec(shell)
-   local name        = shell:name() or "unknown"
-   dbg.start{"BuildTarget.exec(\"",name,")"}
+   local shell_name  = shell:name() or "unknown"
+   dbg.start{"BuildTarget.exec(\"",shell_name,")"}
    local masterTbl   = masterTbl()
    local envVarsTbl  = {}
    local target      = masterTbl.target or getenv('TARGET') or ''
@@ -353,7 +352,7 @@ function M.exec(shell)
    local tbl = M.buildTbl(targetTbl)
 
    string2Tbl(concatTbl(masterTbl.pargs," ") or '',tbl)
-   processModuleTable(shell:getMT(ModuleTable), targetTbl, tbl)
+   processModuleTable(shell:getMT(), targetTbl, tbl)
 
 
    tbl.TARG_BUILD_SCENARIO       = stt:getBuildScenario()
