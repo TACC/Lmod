@@ -102,11 +102,11 @@ function M.process(self, ignoreT, oldEnvT, envT)
                a[#a+1] = self:setenv(k,v)
             else
                newA = splice(newA, idx, #oldA + idx - 1)
-               for i = idx-1, 1, -1 do
-                  a[#a+1] = self:prepend_path(k,newA[i])
+               for j = idx-1, 1, -1 do
+                  a[#a+1] = self:prepend_path(k,newA[j])
                end
-               for i = idx, #newA do
-                  a[#a+1] = self:append_path(k,newA[i])
+               for j = idx, #newA do
+                  a[#a+1] = self:append_path(k,newA[j])
                end
             end
          end

@@ -64,8 +64,8 @@ local function askSystem(width)
    end
 
    -- Try tput cols
-   local result        = capture("tput cols")
-   local i, j, columns = result:find("^(%d+)")
+   local result  = capture("tput cols")
+   i, j, columns = result:find("^(%d+)")
    if (i) then
       return tonumber(columns)
    end

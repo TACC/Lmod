@@ -35,6 +35,7 @@ _G._DEBUG       = false                     -- Required by luaposix 33
 local posix     = require("posix")
 local lfs       = require("lfs")
 local concatTbl = table.concat
+local dbg       = require("Dbg"):dbg()
 
 local function argsPack(...)
    local arg = { n = select("#", ...), ...}
@@ -375,9 +376,7 @@ function path_regularize(value)
       icnt = icnt + 1
       if (    dir == ".." and icnt > 1) then
          t[#t] = nil
-      elseif (dir == "."  and icnt > 1) then
-         -- no op
-      else
+      elseif (dir ~= "."  or icnt == 1) then
          t[#t+1] = dir
       end
    end

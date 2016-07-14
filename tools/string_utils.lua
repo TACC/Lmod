@@ -41,9 +41,8 @@ function string.trim(self)
    if (ja == nil) then
       return ""
    end
-   local  jb   = self:find("%s+$") or 0
-   local  self = self:sub(ja,jb-1)
-   return self
+   local  jb = self:find("%s+$") or 0
+   return self:sub(ja,jb-1)
 end
 
 --------------------------------------------------------------------------
