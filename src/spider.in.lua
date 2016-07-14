@@ -63,10 +63,10 @@ while (st.type == "link") do
    st    = stat(arg_0)
 end
 
-local i,j = arg_0:find(".*/")
+local ia,ja = arg_0:find(".*/")
 local LuaCommandName_dir = "./"
-if (i) then
-   LuaCommandName_dir = arg_0:sub(1,j)
+if (ia) then
+   LuaCommandName_dir = arg_0:sub(1,ja)
 end
 
 package.path  = LuaCommandName_dir .. "../tools/?.lua;"  ..
@@ -101,7 +101,6 @@ local dbg           = require("Dbg"):dbg()
 local Optiks        = require("Optiks")
 local Spider        = require("Spider")
 local concatTbl     = table.concat
-local posix         = require("posix")
 local sort          = table.sort
 
 
@@ -592,6 +591,7 @@ function options()
    Use_Preload = masterTbl.preload
 end
 
+xml = false
 function xmlSoftwarePage(dbT)
    require("LuaXml")  -- This defines xml
 
@@ -661,7 +661,7 @@ function findLatestV(a)
       aa[i] = { concatTbl(b,":"), entry}
    end
 
-   table.sort(aa, function(a,b) return a[1] > b[1] end)
+   table.sort(aa, function(x,y) return x[1] > y[1] end)
 
    local result = aa[1][2]
    if (result ~= "default") then
@@ -677,6 +677,7 @@ function localSoftware(xml, name, t)
 
    local root = xml.new("LocalSoftware")
 
+   local Name
    local value  = "unknown"
    local domain = "unknown"
    local category = t.Category or ""
@@ -702,18 +703,18 @@ function localSoftware(xml, name, t)
       value = "application"
    end
 
-   local Name = xml.new("Type")
-   Name[1]    = value
+   Name    = xml.new("Type")
+   Name[1] = value
    root:append(Name)
    dbg.print{"Type: ",value,"\n"}
 
-   local Name = xml.new("Domain")
-   Name[1]    = domain
+   Name    = xml.new("Domain")
+   Name[1] = domain
    root:append(Name)
    dbg.print{"domain: ",domain,"\n"}
 
-   local Name = xml.new("Name")
-   Name[1]    = name
+   Name    = xml.new("Name")
+   Name[1] = name
    root:append(Name)
    dbg.print{"name: ",name,"\n"}
 

@@ -384,7 +384,7 @@ function allVersions(pathA, n)
    local fullName  = nil
    local count     = 0
    local a         = {}
-   local n         = n or #pathA
+   n               = n or #pathA
 
    for i = 1, n do
       local vv = pathA[i]
@@ -863,13 +863,13 @@ function versionFile(v, sn, path, ignoreErrors)
    local version = false
    dbg.print{"handle file: ",v, "\n"}
    local cmd = pathJoin(cmdDir(),"RC2lua.tcl") .. " " .. path
-   local s   = capture(cmd):trim()
+   s         = capture(cmd):trim()
 
-   local status, f = pcall(load,s)
-   if (not status or not f) then
+   local status, func = pcall(load,s)
+   if (not status or not func) then
       LmodError("Unable to parse: ",path," Aborting!\n")
    end
-   f()
+   func()
    malias:parseModA(sn, modA)
 
    version = malias:getDefaultT(sn) or version
@@ -960,7 +960,7 @@ function walk_directory_for_mf(mpath, path, prefix, dirA, mnameT)
    -----------------------------------------------------------------------------
    -- Read every relevant file in a directory.  Copy directory names into dirA.
    -- Copy files into mnameT.
-   local ignoreT   = ignoreFileT()
+   ignoreT   = ignoreFileT()
 
    local archNameT = {}
    --local archNameT = { ['64'] = true, ['32'] = true, ['x86_64'] = true, ['ia32'] = true, gcc = true,
