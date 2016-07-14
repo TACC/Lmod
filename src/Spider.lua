@@ -735,10 +735,10 @@ function M._Level1(self, searchPat, key, T, searchName, possibleA, help)
       return s
    end
 
+   key               = nil
    local border      = banner:border(0)
    local VersionT    = {}
    local exampleV    = nil
-   local key         = nil
    local Description = nil
    for k, v in pairsByKeys(T) do
       local isActive, version = isActiveMFile(v.full, v.name)
@@ -878,19 +878,19 @@ function M._Level2(self, T, searchName, full, possibleA)
             end
 
             if (#possibleA > 0) then
-               local b   = {}
+               local bb   = {}
                local sum = 17
                local num = #possibleA
                for ja = 1, num do
-                  b[#b+1] = possibleA[ja]
+                  bb[#bb+1] = possibleA[ja]
                   sum     = sum + possibleA[ja]:len() + 2
                   if (sum > term_width - 7 and ja < num - 1) then
-                     b[#b+1] = "..."
+                     bb[#bb+1] = "..."
                      break
                   end
                end
                ia = ia + 1; a[ia] = "\n     Other possible modules matches:\n        "
-               ia = ia + 1; a[ia] = concatTbl(b,", ")
+               ia = ia + 1; a[ia] = concatTbl(bb,", ")
                ia = ia + 1; a[ia] = "\n"
             end
 

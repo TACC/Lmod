@@ -1,0 +1,249 @@
+Checking src/addto.in.lua                         5 warnings
+
+    src/addto.in.lua:106:11: accessing undefined variable 'result'
+    src/addto.in.lua:176:8: shadowing upvalue 'i' on line 74
+    src/addto.in.lua:192:8: shadowing upvalue 'i' on line 74
+    src/addto.in.lua:199:8: shadowing upvalue 'i' on line 74
+    src/addto.in.lua:210:8: shadowing upvalue 'i' on line 74
+
+Checking src/clearMT_cmd.in.lua                   5 warnings
+
+    src/clearMT_cmd.in.lua:68:7: variable 'i' was previously defined on line 66
+    src/clearMT_cmd.in.lua:68:9: variable 'j' was previously defined on line 66
+    src/clearMT_cmd.in.lua:74:7: variable 'sys_lua_path' was previously defined on line 42
+    src/clearMT_cmd.in.lua:78:7: variable 'sys_lua_cpath' was previously defined on line 47
+    src/clearMT_cmd.in.lua:161:8: shadowing upvalue 'i' on line 68
+
+Checking src/cmdfuncs.lua                         4 warnings
+
+    src/cmdfuncs.lua:57:50: accessing undefined variable 'unpack'
+    src/cmdfuncs.lua:723:10: variable 'b' was previously defined on line 696
+    src/cmdfuncs.lua:853:10: variable 'mname' was previously defined on line 832
+    src/cmdfuncs.lua:854:10: variable 'sn' was previously defined on line 833
+
+Checking src/colorize.lua                         OK
+Checking src/computeHashSum.in.lua                3 warnings
+
+    src/computeHashSum.in.lua:126:10: shadowing upvalue 'i' on line 69
+    src/computeHashSum.in.lua:183:10: variable 'i' was previously defined on line 126
+    src/computeHashSum.in.lua:183:12: shadowing upvalue 'j' on line 69
+
+Checking src/epoch.in.lua                         1 warning
+
+    src/epoch.in.lua:42:7: variable 'posix' was previously defined on line 17
+
+Checking src/getmt.in.lua                         4 warnings
+
+    src/getmt.in.lua:98:7: variable 'i' was previously defined on line 71
+    src/getmt.in.lua:98:9: variable 'j' was previously defined on line 71
+    src/getmt.in.lua:104:46: accessing undefined variable 'loadstring'
+    src/getmt.in.lua:127:10: variable 's' was previously defined on line 112
+
+Checking src/lmod.in.lua                          10 warnings
+
+    src/lmod.in.lua:163:50: accessing undefined variable 'unpack'
+    src/lmod.in.lua:362:4: setting non-standard global variable 'FooBar'
+    src/lmod.in.lua:371:13: shadowing upvalue 'i' on line 75
+    src/lmod.in.lua:386:1: unused global variable 'add'
+    src/lmod.in.lua:387:1: unused global variable 'rm'
+    src/lmod.in.lua:388:1: unused global variable 'use'
+    src/lmod.in.lua:389:1: unused global variable 'unuse'
+    src/lmod.in.lua:390:1: unused global variable 'prtHdr'
+    src/lmod.in.lua:391:1: unused global variable 'avail'
+    src/lmod.in.lua:392:1: unused global variable 'list'
+
+Checking src/loadModuleFile.lua                   1 warning
+
+    src/loadModuleFile.lua:64:10: variable 'status' was previously defined on line 60
+
+Checking src/ml_cmd.in.lua                        2 warnings
+
+    src/ml_cmd.in.lua:291:11: shadowing upvalue 'i' on line 71
+    src/ml_cmd.in.lua:312:11: shadowing upvalue 'i' on line 71
+
+Checking src/modfuncs.lua                         5 warnings
+
+    src/modfuncs.lua:159:13: shadowing definition of variable 'fn' on line 145
+    src/modfuncs.lua:221:1: unused global variable 'try_add'
+    src/modfuncs.lua:682:10: variable 'j' was previously defined on line 676
+    src/modfuncs.lua:699:8: shadowing definition of variable 'i' on line 676
+    src/modfuncs.lua:701:11: shadowing definition of variable 'j' on line 682
+
+Checking src/myGlobals.lua                        7 warnings
+
+    src/myGlobals.lua:48:10: variable 'defaultV' was previously defined as an argument on line 47
+    src/myGlobals.lua:245:1: unused global variable 'defaultMpathA'
+    src/myGlobals.lua:353:1: unused global variable 'sysCacheDirs'
+    src/myGlobals.lua:376:1: unused global variable 'usrSBatchDir'
+    src/myGlobals.lua:383:1: unused global variable 'updateSystemFn'
+    src/myGlobals.lua:412:1: unused global variable 'GIT_VERSION'
+    src/myGlobals.lua:438:1: unused global variable 'PkgLmod'
+
+Checking src/pager.lua                            OK
+Checking src/parseVersion.lua                     OK
+Checking src/processMT.in.lua                     4 warnings
+
+    src/processMT.in.lua:145:13: variable 'dir' was previously defined on line 129
+    src/processMT.in.lua:146:13: variable 'attr' was previously defined on line 130
+    src/processMT.in.lua:190:14: shadowing upvalue 'i' on line 69
+    src/processMT.in.lua:230:57: accessing undefined variable 'moduleInfo'
+
+Checking src/processModuleUsage.in.lua            8 warnings
+
+    src/processModuleUsage.in.lua:106:10: shadowing upvalue 'i' on line 66
+    src/processModuleUsage.in.lua:119:27: shadowing upvalue 'a' on line 115
+    src/processModuleUsage.in.lua:127:10: shadowing upvalue 'i' on line 66
+    src/processModuleUsage.in.lua:207:20: shadowing upvalue 'i' on line 66
+    src/processModuleUsage.in.lua:208:19: setting non-standard global variable 'module'
+    src/processModuleUsage.in.lua:209:38: accessing undefined variable 'module'
+    src/processModuleUsage.in.lua:211:30: accessing undefined variable 'module'
+    src/processModuleUsage.in.lua:288:16: shadowing upvalue 'i' on line 66
+
+Checking src/reportUsers.in.lua                   8 warnings
+
+    src/reportUsers.in.lua:215:17: shadowing upvalue 'i' on line 66
+    src/reportUsers.in.lua:216:16: setting non-standard global variable 'module'
+    src/reportUsers.in.lua:217:28: accessing undefined variable 'module'
+    src/reportUsers.in.lua:221:27: accessing undefined variable 'module'
+    src/reportUsers.in.lua:222:26: accessing undefined variable 'module'
+    src/reportUsers.in.lua:224:29: accessing undefined variable 'module'
+    src/reportUsers.in.lua:225:23: accessing undefined variable 'module'
+    src/reportUsers.in.lua:319:16: shadowing upvalue 'i' on line 66
+
+Checking src/sandbox.lua                          3 warnings
+
+    src/sandbox.lua:72:42: accessing undefined variable 'unpack'
+    src/sandbox.lua:240:39: accessing undefined variable 'loadstring'
+    src/sandbox.lua:242:3: accessing undefined variable 'setfenv'
+
+Checking src/sh_to_modulefile.in.lua              7 warnings
+
+    src/sh_to_modulefile.in.lua:127:7: variable 'posix' was previously defined on line 84
+    src/sh_to_modulefile.in.lua:132:50: accessing undefined variable 'loadstring'
+    src/sh_to_modulefile.in.lua:180:8: shadowing upvalue 'i' on line 94
+    src/sh_to_modulefile.in.lua:184:8: shadowing upvalue 'i' on line 94
+    src/sh_to_modulefile.in.lua:254:11: shadowing definition of argument 'v' on line 218
+    src/sh_to_modulefile.in.lua:262:11: shadowing definition of argument 'v' on line 218
+    src/sh_to_modulefile.in.lua:350:8: shadowing upvalue 'i' on line 94
+
+Checking src/spider.in.lua                        18 warnings
+
+    src/spider.in.lua:104:7: variable 'posix' was previously defined on line 56
+    src/spider.in.lua:138:16: shadowing upvalue 'i' on line 66
+    src/spider.in.lua:138:19: shadowing upvalue 'j' on line 66
+    src/spider.in.lua:152:8: shadowing upvalue 'i' on line 66
+    src/spider.in.lua:177:14: shadowing upvalue 'i' on line 66
+    src/spider.in.lua:272:10: shadowing upvalue 'i' on line 66
+    src/spider.in.lua:602:10: shadowing upvalue 'i' on line 66
+    src/spider.in.lua:608:16: accessing undefined variable 'xml'
+    src/spider.in.lua:613:17: accessing undefined variable 'xml'
+    src/spider.in.lua:619:23: accessing undefined variable 'xml'
+    src/spider.in.lua:623:23: accessing undefined variable 'xml'
+    src/spider.in.lua:630:37: accessing undefined variable 'xml'
+    src/spider.in.lua:644:10: shadowing upvalue 'i' on line 66
+    src/spider.in.lua:644:12: shadowing upvalue 'j' on line 66
+    src/spider.in.lua:654:8: shadowing upvalue 'i' on line 66
+    src/spider.in.lua:664:28: shadowing upvalue argument 'a' on line 652
+    src/spider.in.lua:710:10: variable 'Name' was previously defined on line 705
+    src/spider.in.lua:715:10: variable 'Name' was previously defined on line 710
+
+Checking src/spiderCacheSupport.in.lua            2 warnings
+
+    src/spiderCacheSupport.in.lua:125:10: shadowing upvalue 'i' on line 66
+    src/spiderCacheSupport.in.lua:146:10: shadowing upvalue 'i' on line 66
+
+Checking src/utils.lua                            9 warnings
+
+    src/utils.lua:65:50: accessing undefined variable 'loadstring'
+    src/utils.lua:387:10: variable 'n' was previously defined as an argument on line 380
+    src/utils.lua:625:33: empty if branch
+    src/utils.lua:866:10: variable 's' was previously defined on line 856
+    src/utils.lua:868:18: variable 'f' was previously defined on line 850
+    src/utils.lua:963:10: shadowing upvalue 'ignoreT' on line 914
+    src/utils.lua:996:43: empty if branch
+    src/utils.lua:1043:16: shadowing definition of argument 'path' on line 947
+    src/utils.lua:1046:20: shadowing definition of argument 'dirA' on line 947
+
+Checking shell                                    I/O error
+
+    shell: couldn't read: No such file or directory
+Checking tools/Banner.lua                         OK
+Checking tools/BeautifulTbl.lua                   OK
+Checking tools/ColumnTable.lua                    4 warnings
+
+    tools/ColumnTable.lua:237:10: variable 'imin' was previously defined on line 199
+    tools/ColumnTable.lua:238:10: variable 'imax' was previously defined on line 200
+    tools/ColumnTable.lua:336:8: shadowing definition of argument 'i' on line 324
+    tools/ColumnTable.lua:445:10: variable 'nrows' was previously defined on line 398
+
+Checking tools/Dbg.lua                            1 warning
+
+    tools/Dbg.lua:324:4: accessing undefined variable 'errorExit'
+
+Checking tools/MF_Base.lua                        2 warnings
+
+    tools/MF_Base.lua:105:20: shadowing definition of variable 'i' on line 92
+    tools/MF_Base.lua:108:20: shadowing definition of variable 'i' on line 92
+
+Checking tools/MF_Lua.lua                         OK
+Checking tools/MF_TCL.lua                         OK
+Checking tools/Optiks.lua                         3 warnings
+
+    tools/Optiks.lua:42:25: accessing undefined variable 'ProgName'
+    tools/Optiks.lua:73:7: variable 'require' was previously defined on line 72
+    tools/Optiks.lua:89:1: unused global variable 'icnt'
+
+Checking tools/Optiks_Option.lua                  OK
+Checking tools/ProgressBar.lua                    OK
+Checking tools/TermWidth.lua                      3 warnings
+
+    tools/TermWidth.lua:68:10: variable 'i' was previously defined on line 55
+    tools/TermWidth.lua:68:13: variable 'j' was previously defined on line 55
+    tools/TermWidth.lua:68:16: variable 'columns' was previously defined on line 55
+
+Checking tools/base64.lua                         OK
+Checking tools/capture.lua                        OK
+Checking tools/declare.lua                        OK
+Checking tools/deepcopy.lua                       7 warnings
+
+    tools/deepcopy.lua:110:49: accessing undefined variable 'loadstring'
+    tools/deepcopy.lua:111:49: accessing undefined variable 'unpack'
+    tools/deepcopy.lua:251:20: accessing undefined variable 'this_state'
+    tools/deepcopy.lua:316:34: accessing undefined variable 'stack'
+    tools/deepcopy.lua:318:17: mutating non-standard global variable 'stack'
+    tools/deepcopy.lua:320:13: mutating non-standard global variable 'stack'
+    tools/deepcopy.lua:320:26: accessing undefined variable 'stack_top'
+
+Checking tools/fileOps.lua                        3 warnings
+
+    tools/fileOps.lua:149:10: unused global variable 'isExec'
+    tools/fileOps.lua:328:7: accessing undefined variable 'dbg'
+    tools/fileOps.lua:378:41: empty if branch
+
+Checking tools/inherits.lua                       OK
+Checking tools/json.lua                           6 warnings
+
+    tools/json.lua:142:12: accessing undefined variable 'decode'
+    tools/json.lua:182:5: setting non-standard global variable 'object'
+    tools/json.lua:182:24: accessing undefined variable 'decode'
+    tools/json.lua:183:24: accessing undefined variable 'object'
+    tools/json.lua:264:21: accessing undefined variable 'decode'
+    tools/json.lua:271:23: accessing undefined variable 'decode'
+
+Checking tools/pairsByKeys.lua                    OK
+Checking tools/serializeTbl.lua                   OK
+Checking tools/strict.lua                         OK
+Checking tools/string_utils.lua                   10 warnings
+
+    tools/string_utils.lua:38:10: mutating read-only global variable 'string'
+    tools/string_utils.lua:44:11: variable 'self' was previously defined as an argument on line 38
+    tools/string_utils.lua:54:10: mutating read-only global variable 'string'
+    tools/string_utils.lua:57:26: shadowing upvalue argument 'self' on line 54
+    tools/string_utils.lua:61:28: shadowing upvalue argument 'self' on line 54
+    tools/string_utils.lua:71:10: mutating read-only global variable 'string'
+    tools/string_utils.lua:91:10: mutating read-only global variable 'string'
+    tools/string_utils.lua:104:10: mutating read-only global variable 'string'
+    tools/string_utils.lua:119:10: mutating read-only global variable 'string'
+    tools/string_utils.lua:134:10: mutating read-only global variable 'string'
+
+Total: 181 warnings / 0 errors in 78 files, couldn't check 1 file
