@@ -63,10 +63,10 @@ while (st.type == "link") do
    st    = stat(arg_0)
 end
 
-local i,j = arg_0:find(".*/")
+local ia,ja = arg_0:find(".*/")
 local cmd_dir = "./"
-if (i) then
-   cmd_dir = arg_0:sub(1,j)
+if (ia) then
+   cmd_dir = arg_0:sub(1,ja)
 end
 
 package.path  = cmd_dir .. "../tools/?.lua;"  ..
@@ -213,7 +213,7 @@ function main()
          local user = a[1]
          if (blacklistT[user] == nil) then
             for i = 3, #a do
-               module = a[i]:gsub("^.*:","")
+               local module = a[i]:gsub("^.*:","")
                if (moduleT[module]) then
                   if (u2m[user] == nil) then
                      u2m[user] = {}

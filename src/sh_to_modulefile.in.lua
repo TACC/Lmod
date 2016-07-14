@@ -91,10 +91,10 @@ while (st.type == "link") do
    st    = stat(arg_0)
 end
 
-local i,j = arg_0:find(".*/")
+local ia,ja = arg_0:find(".*/")
 local cmd_dir = "./"
-if (i) then
-   cmd_dir  = arg_0:sub(1,j)
+if (ia) then
+   cmd_dir  = arg_0:sub(1,ja)
 end
 
 package.path  = cmd_dir .. "../tools/?.lua;" ..
@@ -124,7 +124,6 @@ local Version      = "0.0"
 _G._DEBUG          = false                 -- Required by luaposix 33
 local dbg          = require("Dbg"):dbg()
 local Optiks       = require("Optiks")
-local posix        = require("posix")
 local getenv_posix = posix.getenv
 local setenv_posix = posix.setenv
 local concatTbl    = table.concat
@@ -215,13 +214,13 @@ function path2pathA(path)
    return pathA
 end
 
-local function cleanPath(v)
+local function cleanPath(value)
 
    local pathT  = {}
    local pathA  = {}
 
    local idx = 0
-   for path in v:split(':') do
+   for path in value:split(':') do
       idx = idx + 1
       path = path_regularize(path)
       if (pathT[path] == nil) then
@@ -243,7 +242,7 @@ local function cleanPath(v)
    end
 
    for path in pairs(pathT) do
-      if (v:find('^/usr/')) then
+      if (value:find('^/usr/')) then
          pathT[path].keep = true
       end
    end

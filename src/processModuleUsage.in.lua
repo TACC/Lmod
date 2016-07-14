@@ -63,10 +63,10 @@ while (st.type == "link") do
    st    = stat(arg_0)
 end
 
-local i,j = arg_0:find(".*/")
+local ia,ja = arg_0:find(".*/")
 local cmd_dir = "./"
-if (i) then
-   cmd_dir = arg_0:sub(1,j)
+if (ia) then
+   cmd_dir = arg_0:sub(1,ja)
 end
 
 package.path =  cmd_dir .. "../tools/?.lua;"  ..
@@ -116,11 +116,11 @@ function pairsByValueKey(t)
    for k,v in pairs(t) do
       a[#a + 1] = { name = k, value = v }
    end
-   table.sort(a, function(a,b)
-                    if (a.value == b.value) then
-                       return a.name  < b.name
+   table.sort(a, function(x,y)
+                    if (x.value == y.value) then
+                       return x.name  < y.name
                     else
-                       return a.value > b.value
+                       return x.value > y.value
                     end
                  end
            )
@@ -205,8 +205,8 @@ function main()
             if (blacklistT[user] == nil and
                 dateRange[1] <= date and date <= dateRange[2]) then
                for i = 3, #a do
-                  module = a[i]:gsub("^.*:","")
-                  local  v = moduleD[module]
+                  local module = a[i]:gsub("^.*:","")
+                  local v      = moduleD[module]
                   if (v) then
                      moduleD[module] = v + 1
                   end

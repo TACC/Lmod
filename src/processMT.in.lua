@@ -66,10 +66,10 @@ while (st.type == "link") do
    st    = stat(arg_0)
 end
 
-local i,j = arg_0:find(".*/")
+local ia,ja = arg_0:find(".*/")
 local cmd_dir = "./"
-if (i) then
-   cmd_dir = arg_0:sub(1,j)
+if (ia) then
+   cmd_dir = arg_0:sub(1,ja)
 end
 
 package.path  = cmd_dir .. "../tools/?.lua;"  ..
@@ -142,8 +142,8 @@ function main()
          end
       end
 
-      local dir  = pathJoin(homeDir,".lmod.d",USER_SBATCH_DIR_NAME)
-      local attr = lfs.attributes(dir)
+      dir  = pathJoin(homeDir,".lmod.d",USER_SBATCH_DIR_NAME)
+      attr = lfs.attributes(dir)
       if ( attr and attr.mode == "directory") then
          for file in lfs.dir(dir) do
             if (file:sub(-4,-1) == ".lua") then
@@ -227,7 +227,7 @@ function processBatch(userName, mt_date, f, outputFh)
    resultFn()
 
 
-   if (moduleInfoT and isDefined("moduleInfo") and type(moduleInfo) == "table" and
+   if (moduleInfoT and isDefined("moduleInfo") and type(moduleInfoT) == "table" and
        moduleInfoT.modFullName and
        moduleInfoT.fn) then
       a[#a+1] = userName
