@@ -72,11 +72,11 @@ while (st.type == "link") do
    st    = stat(arg_0)
 end
 
-local i,j = arg_0:find(".*/")
+local ia,ja = arg_0:find(".*/")
 local LuaCommandName_dir = "./"
-if (i) then
-   LuaCommandName_dir = arg_0:sub(1,j)
-   LuaCommandName     = arg_0:sub(j+1)
+if (ia) then
+   LuaCommandName_dir = arg_0:sub(1,ja)
+   LuaCommandName     = arg_0:sub(ja+1)
 end
 
 package.path  = LuaCommandName_dir .. "?.lua;"       ..
@@ -359,7 +359,6 @@ local Var          = require("Var")
 -- A place holder function.  This should never be called.
 function None()
    print ("None")
-   FooBar=1
 end
 
 
@@ -383,14 +382,7 @@ end
 
 
 
-add	     = None
-rm	     = None
-use          = None
-unuse        = None
-prtHdr       = None
-avail        = Avail
-list         = List
-
+prtHdr     = None
 ModuleName = ""
 ModuleFn   = ""
 

@@ -61,9 +61,6 @@ function loadModuleFile(t)
    local func
    local msg
    local whole
-   local status
-
-
 
    -- If the user is requesting an unload, don't complain if the file
    -- has disappeared.

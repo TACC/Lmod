@@ -156,8 +156,7 @@ local function validateModules(cmdName, ...)
       end
    end
    if (not allGood) then
-      local fn = myFileName()
-      mcp:report("vM: Syntax error in file: ",fn, "\n with command: \"",
+      mcp:report("vM: Syntax error in file: ",myFileName(), "\n with command: \"",
                  cmdName, "\" One or more arguments are not strings\n")
    end
    return allGood
@@ -679,7 +678,7 @@ function hierarchyA(pkgName, levels)
    end
 
    fn = path_regularize(fn)
-   local j          = 0
+   j                = 0
    local numEntries = 0
    while (j) do
       j          = pkgName:find("/",j+1)
@@ -695,14 +694,13 @@ function hierarchyA(pkgName, levels)
    local b = {}
    local n = #a
 
-
-   for i = 1, levels do
+   for ia = 1, levels do
       local bb = {}
-      for j = 1, numEntries do
-         local idx = n - numEntries + j
-         bb[j] = a[idx]
+      for ja = 1, numEntries do
+         local idx = n - numEntries + ja
+         bb[ja] = a[idx]
       end
-      b[i] = _concatTbl(bb,'/')
+      b[ia] = _concatTbl(bb,'/')
       n = n - numEntries
    end
 

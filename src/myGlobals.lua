@@ -45,7 +45,7 @@ local getenv       = os.getenv
 local setenv_posix = posix.setenv
 
 local function initialize(lmod_name, sed_name, defaultV)
-   local defaultV = (defaultV or "no"):lower()
+   defaultV    = (defaultV or "no"):lower()
    local value = (getenv(lmod_name) or sed_name):lower()
    if (value:sub(1,1) == "@") then
       value = defaultV
