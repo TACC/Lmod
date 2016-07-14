@@ -1,10 +1,10 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --version
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash show gcc
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing show gcc
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1";
 export LMOD_DEFAULT_MODULEPATH;
@@ -18,7 +18,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/mf/Core",
 export _ModuleTable_;
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash show alex
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing show alex
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1";
 export LMOD_DEFAULT_MODULEPATH;
@@ -32,7 +32,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/mf/Core",
 export _ModuleTable_;
 ===========================
 step 4
-lua ProjectDIR/src/lmod.in.lua bash avail
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1";
 export LMOD_DEFAULT_MODULEPATH;
@@ -46,7 +46,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/mf/Core",
 export _ModuleTable_;
 ===========================
 step 5
-lua ProjectDIR/src/lmod.in.lua bash show boost
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing show boost
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1";
 export LMOD_DEFAULT_MODULEPATH;
@@ -60,7 +60,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/mf/Core",
 export _ModuleTable_;
 ===========================
 step 6
-lua ProjectDIR/src/lmod.in.lua bash load boost/1.47.1
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load boost/1.47.1
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1";
 export LMOD_DEFAULT_MODULEPATH;
@@ -80,7 +80,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/mf/Core",
 export _ModuleTable_;
 ===========================
 step 7
-lua ProjectDIR/src/lmod.in.lua bash list
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1";
 export LMOD_DEFAULT_MODULEPATH;
@@ -94,7 +94,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/mf/Core",
 export _ModuleTable_;
 ===========================
 step 8
-lua ProjectDIR/src/lmod.in.lua bash show boost
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing show boost
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1";
 export LMOD_DEFAULT_MODULEPATH;
@@ -108,7 +108,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/mf/Core",
 export _ModuleTable_;
 ===========================
 step 9
-lua ProjectDIR/src/lmod.in.lua bash show boost/1.49.0
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing show boost/1.49.0
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1";
 export LMOD_DEFAULT_MODULEPATH;
@@ -122,7 +122,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/mf/Core",
 export _ModuleTable_;
 ===========================
 step 10
-lua ProjectDIR/src/lmod.in.lua bash use ProjectDIR/rt/show/mf/Core
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing use ProjectDIR/rt/show/mf/Core
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1";
 export LMOD_DEFAULT_MODULEPATH;
@@ -136,7 +136,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/show/m
 export _ModuleTable_;
 ===========================
 step 11
-lua ProjectDIR/src/lmod.in.lua bash show a
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing show a
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/show/mf/Core:ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1";
 export LMOD_DEFAULT_MODULEPATH;

@@ -1,10 +1,10 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --version
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash use -a ProjectDIR/mf/Core ProjectDIR/mf/Beta ProjectDIR/rt/spider/mf/Core ProjectDIR/rt/spider/mf/Core2
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing use -a ProjectDIR/mf/Core ProjectDIR/mf/Beta ProjectDIR/rt/spider/mf/Core ProjectDIR/rt/spider/mf/Core2
 ===========================
 unset LMOD_DEFAULT_MODULEPATH;
 unset MODULEPATH;
@@ -16,7 +16,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/mf/Core",
 export _ModuleTable_;
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash spider
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/spider/mf/Core:ProjectDIR/rt/spider/mf/Core2";
 export LMOD_DEFAULT_MODULEPATH;
@@ -30,7 +30,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/mf/Core",
 export _ModuleTable_;
 ===========================
 step 4
-lua ProjectDIR/src/lmod.in.lua bash -t spider
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing -t spider
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/spider/mf/Core:ProjectDIR/rt/spider/mf/Core2";
 export LMOD_DEFAULT_MODULEPATH;
@@ -44,7 +44,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/mf/Core",
 export _ModuleTable_;
 ===========================
 step 5
-lua ProjectDIR/src/lmod.in.lua bash spider mpich2
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider mpich2
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/spider/mf/Core:ProjectDIR/rt/spider/mf/Core2";
 export LMOD_DEFAULT_MODULEPATH;
@@ -58,7 +58,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/mf/Core",
 export _ModuleTable_;
 ===========================
 step 6
-lua ProjectDIR/src/lmod.in.lua bash spider mpich2/1.0.7
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider mpich2/1.0.7
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/spider/mf/Core:ProjectDIR/rt/spider/mf/Core2";
 export LMOD_DEFAULT_MODULEPATH;
@@ -72,7 +72,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/mf/Core",
 export _ModuleTable_;
 ===========================
 step 7
-lua ProjectDIR/src/lmod.in.lua bash spider parmetis/3.1
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider parmetis/3.1
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/spider/mf/Core:ProjectDIR/rt/spider/mf/Core2";
 export LMOD_DEFAULT_MODULEPATH;
@@ -86,7 +86,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/mf/Core",
 export _ModuleTable_;
 ===========================
 step 8
-lua ProjectDIR/src/lmod.in.lua bash spider mpich2me
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider mpich2me
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/spider/mf/Core:ProjectDIR/rt/spider/mf/Core2";
 export LMOD_DEFAULT_MODULEPATH;
@@ -95,7 +95,7 @@ export MODULEPATH;
 false
 ===========================
 step 9
-lua ProjectDIR/src/lmod.in.lua bash spider R
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider R
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/spider/mf/Core:ProjectDIR/rt/spider/mf/Core2";
 export LMOD_DEFAULT_MODULEPATH;
@@ -109,7 +109,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/mf/Core",
 export _ModuleTable_;
 ===========================
 step 10
-lua ProjectDIR/src/lmod.in.lua bash -r spider ^R
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing -r spider ^R
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/spider/mf/Core:ProjectDIR/rt/spider/mf/Core2";
 export LMOD_DEFAULT_MODULEPATH;
@@ -123,7 +123,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/mf/Core",
 export _ModuleTable_;
 ===========================
 step 11
-lua ProjectDIR/src/lmod.in.lua bash -r spider ^[Rr]
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing -r spider ^[Rr]
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/spider/mf/Core:ProjectDIR/rt/spider/mf/Core2";
 export LMOD_DEFAULT_MODULEPATH;
@@ -137,7 +137,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/mf/Core",
 export _ModuleTable_;
 ===========================
 step 12
-lua ProjectDIR/src/lmod.in.lua bash spider mpich2/1.0.5
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider mpich2/1.0.5
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/spider/mf/Core:ProjectDIR/rt/spider/mf/Core2";
 export LMOD_DEFAULT_MODULEPATH;
@@ -146,7 +146,7 @@ export MODULEPATH;
 false
 ===========================
 step 13
-lua ProjectDIR/src/lmod.in.lua bash spider is-dyna
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider is-dyna
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/spider/mf/Core:ProjectDIR/rt/spider/mf/Core2";
 export LMOD_DEFAULT_MODULEPATH;
@@ -160,7 +160,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/mf/Core",
 export _ModuleTable_;
 ===========================
 step 14
-lua ProjectDIR/src/lmod.in.lua bash spider is-dyna/1.0
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider is-dyna/1.0
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/spider/mf/Core:ProjectDIR/rt/spider/mf/Core2";
 export LMOD_DEFAULT_MODULEPATH;
@@ -174,7 +174,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/mf/Core",
 export _ModuleTable_;
 ===========================
 step 15
-lua ProjectDIR/src/lmod.in.lua bash spider bwa
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider bwa
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/spider/mf/Core:ProjectDIR/rt/spider/mf/Core2";
 export LMOD_DEFAULT_MODULEPATH;
@@ -188,7 +188,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/mf/Core",
 export _ModuleTable_;
 ===========================
 step 16
-lua ProjectDIR/src/lmod.in.lua bash spider gromacs
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider gromacs
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/spider/mf/Core:ProjectDIR/rt/spider/mf/Core2";
 export LMOD_DEFAULT_MODULEPATH;
@@ -202,7 +202,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/mf/Core",
 export _ModuleTable_;
 ===========================
 step 17
-lua ProjectDIR/src/lmod.in.lua bash spider apps/gromacs
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider apps/gromacs
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/spider/mf/Core:ProjectDIR/rt/spider/mf/Core2";
 export LMOD_DEFAULT_MODULEPATH;
@@ -216,7 +216,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/mf/Core",
 export _ModuleTable_;
 ===========================
 step 18
-lua ProjectDIR/src/lmod.in.lua bash spider apps/gromacs/4.6.3
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider apps/gromacs/4.6.3
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/spider/mf/Core:ProjectDIR/rt/spider/mf/Core2";
 export LMOD_DEFAULT_MODULEPATH;
@@ -230,7 +230,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/mf/Core",
 export _ModuleTable_;
 ===========================
 step 19
-lua ProjectDIR/src/lmod.in.lua bash spider apps/gromacs/4.6.3-debug
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider apps/gromacs/4.6.3-debug
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/spider/mf/Core:ProjectDIR/rt/spider/mf/Core2";
 export LMOD_DEFAULT_MODULEPATH;
@@ -244,7 +244,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/mf/Core",
 export _ModuleTable_;
 ===========================
 step 20
-lua ProjectDIR/src/lmod.in.lua bash spider
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/spider/mf/Core:ProjectDIR/rt/spider/mf/Core2";
 export LMOD_DEFAULT_MODULEPATH;
@@ -258,7 +258,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/mf/Core",
 export _ModuleTable_;
 ===========================
 step 21
-lua ProjectDIR/src/lmod.in.lua bash spider gromacs
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider gromacs
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/spider/mf/Core:ProjectDIR/rt/spider/mf/Core2";
 export LMOD_DEFAULT_MODULEPATH;
@@ -272,7 +272,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/mf/Core",
 export _ModuleTable_;
 ===========================
 step 22
-lua ProjectDIR/src/lmod.in.lua bash spider apps/gromacs
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider apps/gromacs
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/spider/mf/Core:ProjectDIR/rt/spider/mf/Core2";
 export LMOD_DEFAULT_MODULEPATH;
@@ -286,7 +286,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/mf/Core",
 export _ModuleTable_;
 ===========================
 step 23
-lua ProjectDIR/src/lmod.in.lua bash spider apps/gromacs/4.6.3
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider apps/gromacs/4.6.3
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/spider/mf/Core:ProjectDIR/rt/spider/mf/Core2";
 export LMOD_DEFAULT_MODULEPATH;
@@ -300,7 +300,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/mf/Core",
 export _ModuleTable_;
 ===========================
 step 24
-lua ProjectDIR/src/lmod.in.lua bash spider apps/gromacs/4.6.3-debug
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider apps/gromacs/4.6.3-debug
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/spider/mf/Core:ProjectDIR/rt/spider/mf/Core2";
 export LMOD_DEFAULT_MODULEPATH;
@@ -314,7 +314,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/mf/Core",
 export _ModuleTable_;
 ===========================
 step 25
-lua ProjectDIR/src/lmod.in.lua bash use ProjectDIR/rt/spider/mf/Core3
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing use ProjectDIR/rt/spider/mf/Core3
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/spider/mf/Core:ProjectDIR/rt/spider/mf/Core2";
 export LMOD_DEFAULT_MODULEPATH;
@@ -328,7 +328,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/spider
 export _ModuleTable_;
 ===========================
 step 26
-lua ProjectDIR/src/lmod.in.lua bash spider smrt
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider smrt
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/spider/mf/Core3:ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/spider/mf/Core:ProjectDIR/rt/spider/mf/Core2";
 export LMOD_DEFAULT_MODULEPATH;

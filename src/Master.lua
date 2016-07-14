@@ -700,6 +700,7 @@ end
 -- @param self A Master object
 -- @param force If true then don't reload.
 function M.reload_sticky(self, force)
+   local cwidth    = masterTbl().rt and LMOD_COLUMN_TABLE_WIDTH or TermWidth()
 
    dbg.start{"Master:reload_sticky()"}
    -- Try to reload any sticky modules.
@@ -742,12 +743,12 @@ function M.reload_sticky(self, force)
       for i = 1, #b do
          a[#a+1] = {"  " .. tostring(i) .. ")", b[i].name }
       end
-      local ct = ColumnTable:new{tbl=a, gap=0}
+      local ct = ColumnTable:new{tbl=a, gap=0, width=cwidth}
       io.stderr:write(ct:build_tbl(),"\n")
    end
    if (#unstuckA > 0) then
       io.stderr:write("\nThe following sticky modules could not be reloaded:\n")
-      local ct = ColumnTable:new{tbl=unstuckA, gap=0}
+      local ct = ColumnTable:new{tbl=unstuckA, gap=0, width=cwidth}
       io.stderr:write(ct:build_tbl(),"\n")
    end
 
@@ -1132,6 +1133,7 @@ function M.avail(argA)
    local mpathA    = mt:module_pathA()
    local twidth    = TermWidth()
    local masterTbl = masterTbl()
+   local cwidth    = masterTbl.rt and LMOD_COLUMN_TABLE_WIDTH or twidth
 
    local optionTbl, searchA = availOptions(argA)
    if (not masterTbl.regexp) then
@@ -1194,7 +1196,7 @@ function M.avail(argA)
          aa[#aa+1] = "\n"
          aa[#aa+1] = banner:bannerStr(label)
          aa[#aa+1] = "\n"
-         local ct  = ColumnTable:new{tbl=a, gap=1, len=length}
+         local ct  = ColumnTable:new{tbl=a, gap=1, len=length, width = cwidth}
          aa[#aa+1] = ct:build_tbl()
          aa[#aa+1] = "\n"
       end

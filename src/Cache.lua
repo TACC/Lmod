@@ -67,18 +67,19 @@ require("fileOps")
 require("cmdfuncs")
 require("utils")
 
-_G.maliasT    = {}
-local CTimer  = require("CTimer")
-local dbg     = require("Dbg"):dbg()
-local M       = {}
-local MT      = require("MT")
-local Spider  = require("Spider")
-local hook    = require("Hook")
-local lfs     = require("lfs")
-local malias  = require("MAlias"):build()
-local posix   = require("posix")
-local s_cache = false
-local timer   = require("Timer"):timer()
+_G.maliasT      = {}
+local CTimer    = require("CTimer")
+local dbg       = require("Dbg"):dbg()
+local M         = {}
+local MT        = require("MT")
+local Spider    = require("Spider")
+local hook      = require("Hook")
+local lfs       = require("lfs")
+local malias    = require("MAlias"):build()
+local posix     = require("posix")
+local s_cache   = false
+local timer     = require("Timer"):timer()
+local concatTbl = table.concat
 
 --------------------------------------------------------------------------
 -- This singleton construct reads the scDescriptT table that can be
@@ -96,7 +97,7 @@ local function new(self, t)
 
    dbg.start{"Cache:new()"}
 
-   scDescriptT = getSCDescriptT()
+   local scDescriptT = getSCDescriptT()
 
    local scDirA = {}
    local dbDirA = {}
@@ -277,8 +278,8 @@ local function readCacheFile(self, moduleTFnA)
          local found = false
          local attr  = false
 
-         for i = 1,#fileA do
-            fn   = fileA[i]
+         for j = 1,#fileA do
+            fn   = fileA[j]
             attr = lfs.attributes(fn) or {}
             if (next(attr) ~= nil and attr.size > 0) then
                found = true
@@ -365,8 +366,8 @@ function readDbT(self, dbTFnA)
          local found = false
          local attr  = false
 
-         for i = 1,#fileA do
-            fn   = fileA[i]
+         for j = 1,#fileA do
+            fn   = fileA[j]
             attr = lfs.attributes(fn) or {}
             if (next(attr) ~= nil and attr.size > 0) then
                found = true
@@ -398,8 +399,8 @@ function readDbT(self, dbTFnA)
             local G_dbT = _G.dbT
             for mname, vv in pairs(G_dbT) do
                local entry = dbT[mname] or {}
-               for fn, v in pairs(vv) do
-                  entry[fn] = v
+               for key, v in pairs(vv) do
+                  entry[key] = v
                end
                dbT[mname] = entry
             end

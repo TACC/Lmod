@@ -160,3 +160,23 @@ Why is the output of ``module avail`` not filling the width of the terminal?
   isn't installed on the system.
 
 
+Why does isn't the module defined when using the **screen** program?
+
+  The screen program starts a non-login interactive shell.  The Bash
+  shell startup doesn't start sourcing /etc/profile and therefore the
+  ``/etc/profile.d/*.sh`` scripts for non-login interactive shells.  You
+  can patch bash and fix ``/etc/bashrc`` (see :ref:`issues-with-bash`
+  for a solution) or  you can fix your ``~/.bashrc`` to source
+  ``/etc/profile.d/*.sh``
+
+  You may be better off using **tmux** instead. It starts a login shell.
+
+Why does ``LD_LIBRARY_PATH`` get cleared when using the **screen** program?
+
+  The screen program is guid program.  That means it runs as the group
+  of the program and not the group associated with the user.  For
+  security reason all of these program clear ``LD_LIBRARY_PATH``.
+
+  You may be better off using **tmux** instead. It is a regular
+  program.
+

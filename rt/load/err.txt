@@ -1,56 +1,56 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --version
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
 Modules based on Lua: Version 6.4.3  2016-06-17 09:58
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash use -a ProjectDIR/mf/Core ProjectDIR/mf/Beta
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing use -a ProjectDIR/mf/Core ProjectDIR/mf/Beta
 ===========================
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash use ProjectDIR/mf/notDir
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing use ProjectDIR/mf/notDir
 ===========================
 ===========================
 step 4
-lua ProjectDIR/src/lmod.in.lua bash load admin PrgEnv
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load admin PrgEnv
 ===========================
 ===========================
 step 5
-lua ProjectDIR/src/lmod.in.lua bash load gotoblas/1.30-beta
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load gotoblas/1.30-beta
 ===========================
 ===========================
 step 6
-lua ProjectDIR/src/lmod.in.lua bash rm gotoblas/1.30-beta
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing rm gotoblas/1.30-beta
 ===========================
 ===========================
 step 7
-lua ProjectDIR/src/lmod.in.lua bash try-add gotoblas123 intel
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing try-add gotoblas123 intel
 ===========================
 ===========================
 step 8
-lua ProjectDIR/src/lmod.in.lua bash load gotoblas
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load gotoblas
 ===========================
 ===========================
 step 9
-lua ProjectDIR/src/lmod.in.lua bash load multi
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load multi
 ===========================
 ===========================
 step 10
-lua ProjectDIR/src/lmod.in.lua bash unload multi
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload multi
 ===========================
 ===========================
 step 11
-lua ProjectDIR/src/lmod.in.lua bash load boost
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load boost
 ===========================
 ===========================
 step 12
-lua ProjectDIR/src/lmod.in.lua bash use -a ProjectDIR/rt/load/mf/Core
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing use -a ProjectDIR/rt/load/mf/Core
 ===========================
 ===========================
 step 13
-lua ProjectDIR/src/lmod.in.lua bash avail
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
 ProjectDIR/mf/Compiler/intel/10.1
    gotoblas/1.31          gotoblas/1.33    openmpi/1.2.6
@@ -79,7 +79,7 @@ Use "module spider" to find all possible modules.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 14
-lua ProjectDIR/src/lmod.in.lua bash -d avail
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing -d avail
 ===========================
 ProjectDIR/mf/Compiler/intel/10.1
    gotoblas/1.32 (L)    mpich2/1.0.7    openmpi/1.2.6
@@ -100,39 +100,39 @@ Use "module spider" to find all possible modules.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 15
-lua ProjectDIR/src/lmod.in.lua bash unload boost
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload boost
 ===========================
 ===========================
 step 16
-lua ProjectDIR/src/lmod.in.lua bash load boost/1.33.0
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load boost/1.33.0
 ===========================
 Lmod has detected the following error: The following module(s) are unknown: "boost/1.33.0"
 Please check the spelling or version number. Also try "module spider ..."
 ===========================
 step 17
-lua ProjectDIR/src/lmod.in.lua bash load boost/1.57.0
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load boost/1.57.0
 ===========================
 Lmod has detected the following error: The following module(s) are unknown: "boost/1.57.0"
 Please check the spelling or version number. Also try "module spider ..."
 ===========================
 step 18
-lua ProjectDIR/src/lmod.in.lua bash load boost
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load boost
 ===========================
 ===========================
 step 19
-lua ProjectDIR/src/lmod.in.lua bash load alex
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load alex
 ===========================
 ===========================
 step 20
-lua ProjectDIR/src/lmod.in.lua bash load D
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load D
 ===========================
 ===========================
 step 21
-lua ProjectDIR/src/lmod.in.lua bash --latest load rtm_intel
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --latest load rtm_intel
 ===========================
 ===========================
 step 22
-lua ProjectDIR/src/lmod.in.lua bash list
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) admin/admin-1.0   5) PrgEnv              9) alex/2.0
@@ -143,15 +143,15 @@ Currently Loaded Modules:
    o:  built for offload to the MIC only
 ===========================
 step 23
-lua ProjectDIR/src/lmod.in.lua bash use ProjectDIR/rt/load/mf/Share
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing use ProjectDIR/rt/load/mf/Share
 ===========================
 ===========================
 step 24
-lua ProjectDIR/src/lmod.in.lua bash use -a ProjectDIR/rt/load/mf/Scratch
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing use -a ProjectDIR/rt/load/mf/Scratch
 ===========================
 ===========================
 step 25
-lua ProjectDIR/src/lmod.in.lua bash -r avail A B
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing -r avail A B
 ===========================
 ProjectDIR/rt/load/mf/Share
    A/1.3    B/1.0    B/1.1
@@ -165,11 +165,11 @@ Use "module spider" to find all possible modules.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 26
-lua ProjectDIR/src/lmod.in.lua bash load A B
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load A B
 ===========================
 ===========================
 step 27
-lua ProjectDIR/src/lmod.in.lua bash list
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) admin/admin-1.0   5) PrgEnv              9) alex/2.0        13) B/1.4
@@ -180,13 +180,13 @@ Currently Loaded Modules:
    o:  built for offload to the MIC only
 ===========================
 step 28
-lua ProjectDIR/src/lmod.in.lua bash load DoesNotExist
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load DoesNotExist
 ===========================
 Lmod has detected the following error: The following module(s) are unknown: "DoesNotExist"
 Please check the spelling or version number. Also try "module spider ..."
 ===========================
 step 29
-lua ProjectDIR/src/lmod.in.lua bash list
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) admin/admin-1.0   5) PrgEnv              9) alex/2.0        13) B/1.4
@@ -197,7 +197,7 @@ Currently Loaded Modules:
    o:  built for offload to the MIC only
 ===========================
 step 30
-lua ProjectDIR/src/lmod.in.lua bash tablelist
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing tablelist
 ===========================
 activeList = {
   ["A"] = "1.1.1",
@@ -216,7 +216,7 @@ activeList = {
 }
 ===========================
 step 31
-lua ProjectDIR/src/lmod.in.lua bash avail
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
 ProjectDIR/rt/load/mf/Share
    A/1.3    B/1.0    B/1.1
@@ -249,7 +249,7 @@ Use "module spider" to find all possible modules.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 32
-lua ProjectDIR/src/lmod.in.lua bash avail C
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail C
 ===========================
 ProjectDIR/mf/Compiler/intel/10.1
    mpich2/1.0.7
@@ -264,11 +264,11 @@ Use "module spider" to find all possible modules.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 33
-lua ProjectDIR/src/lmod.in.lua bash load C
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load C
 ===========================
 ===========================
 step 34
-lua ProjectDIR/src/lmod.in.lua bash list
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) admin/admin-1.0   5) PrgEnv              9) alex/2.0        13) B/1.4
@@ -279,11 +279,11 @@ Currently Loaded Modules:
    o:  built for offload to the MIC only
 ===========================
 step 35
-lua ProjectDIR/src/lmod.in.lua bash load rtm_intel
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load rtm_intel
 ===========================
 The following have been reloaded with a version change:
   1) rtm_intel/12.1 => rtm_intel/11.1
 ===========================
 step 36
-lua ProjectDIR/src/lmod.in.lua bash load go
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load go
 ===========================

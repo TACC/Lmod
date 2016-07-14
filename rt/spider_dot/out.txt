@@ -1,10 +1,10 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --version
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash spider
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/spider_dot/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -18,7 +18,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/spider
 export _ModuleTable_;
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash --show_hidden spider
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --show_hidden spider
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/spider_dot/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -32,7 +32,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/spider
 export _ModuleTable_;
 ===========================
 step 4
-lua ProjectDIR/src/lmod.in.lua bash --show_hidden -t spider
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --show_hidden -t spider
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/spider_dot/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -46,7 +46,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/spider
 export _ModuleTable_;
 ===========================
 step 5
-lua ProjectDIR/src/lmod.in.lua bash spider fftw
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider fftw
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/spider_dot/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -60,7 +60,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/spider
 export _ModuleTable_;
 ===========================
 step 6
-lua ProjectDIR/src/lmod.in.lua bash spider fft
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider fft
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/spider_dot/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;

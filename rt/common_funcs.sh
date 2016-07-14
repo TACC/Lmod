@@ -71,7 +71,7 @@ runMe ()
 }
 runLmod ()
 {
-   runBase $LUA_EXEC $projectDir/src/lmod.in.lua bash "$@"
+   runBase $LUA_EXEC $projectDir/src/lmod.in.lua bash --regression_testing "$@"
    eval `cat _stdout.$NUM`
 }
 

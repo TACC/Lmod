@@ -1,10 +1,10 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --version
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash load a b c
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load a b c
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/dups/mf";
 export LMOD_DEFAULT_MODULEPATH;
@@ -24,7 +24,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/dups/m
 export _ModuleTable_;
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash load d
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load d
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/dups/mf";
 export LMOD_DEFAULT_MODULEPATH;
@@ -44,7 +44,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=4,baseMpathA={"ProjectDIR/rt/dups/m
 export _ModuleTable_;
 ===========================
 step 4
-lua ProjectDIR/src/lmod.in.lua bash unload a
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload a
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/dups/mf";
 export LMOD_DEFAULT_MODULEPATH;
@@ -64,7 +64,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/dups/m
 export _ModuleTable_;
 ===========================
 step 5
-lua ProjectDIR/src/lmod.in.lua bash unload b
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload b
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/dups/mf";
 export LMOD_DEFAULT_MODULEPATH;
@@ -84,7 +84,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/dups/m
 export _ModuleTable_;
 ===========================
 step 6
-lua ProjectDIR/src/lmod.in.lua bash unload c
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload c
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/dups/mf";
 export LMOD_DEFAULT_MODULEPATH;
@@ -104,7 +104,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/dups/m
 export _ModuleTable_;
 ===========================
 step 7
-lua ProjectDIR/src/lmod.in.lua bash unload d
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload d
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/dups/mf";
 export LMOD_DEFAULT_MODULEPATH;
@@ -121,7 +121,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/dups/m
 export _ModuleTable_;
 ===========================
 step 8
-lua ProjectDIR/src/lmod.in.lua bash load a b c
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load a b c
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/dups/mf";
 export LMOD_DEFAULT_MODULEPATH;
@@ -141,7 +141,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/dups/m
 export _ModuleTable_;
 ===========================
 step 9
-lua ProjectDIR/src/lmod.in.lua bash load d
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load d
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/dups/mf";
 export LMOD_DEFAULT_MODULEPATH;
@@ -161,7 +161,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=4,baseMpathA={"ProjectDIR/rt/dups/m
 export _ModuleTable_;
 ===========================
 step 10
-lua ProjectDIR/src/lmod.in.lua bash unload a
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload a
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/dups/mf";
 export LMOD_DEFAULT_MODULEPATH;
@@ -181,7 +181,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/dups/m
 export _ModuleTable_;
 ===========================
 step 11
-lua ProjectDIR/src/lmod.in.lua bash unload b
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload b
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/dups/mf";
 export LMOD_DEFAULT_MODULEPATH;
@@ -201,7 +201,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/dups/m
 export _ModuleTable_;
 ===========================
 step 12
-lua ProjectDIR/src/lmod.in.lua bash unload c
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload c
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/dups/mf";
 export LMOD_DEFAULT_MODULEPATH;
@@ -220,7 +220,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/dups/m
 export _ModuleTable_;
 ===========================
 step 13
-lua ProjectDIR/src/lmod.in.lua bash unload d
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload d
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/dups/mf";
 export LMOD_DEFAULT_MODULEPATH;

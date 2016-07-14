@@ -1,10 +1,10 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --version
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash load std
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load std
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -24,7 +24,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/sticky
 export _ModuleTable_;
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash list
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -38,7 +38,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/sticky
 export _ModuleTable_;
 ===========================
 step 4
-lua ProjectDIR/src/lmod.in.lua bash unload std
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload std
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -58,7 +58,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/sticky
 export _ModuleTable_;
 ===========================
 step 5
-lua ProjectDIR/src/lmod.in.lua bash list
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -72,7 +72,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/sticky
 export _ModuleTable_;
 ===========================
 step 6
-lua ProjectDIR/src/lmod.in.lua bash load gcc boost
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load gcc boost
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -90,7 +90,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/sticky
 export _ModuleTable_;
 ===========================
 step 7
-lua ProjectDIR/src/lmod.in.lua bash list
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -104,7 +104,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/sticky
 export _ModuleTable_;
 ===========================
 step 8
-lua ProjectDIR/src/lmod.in.lua bash purge
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -124,7 +124,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/sticky
 export _ModuleTable_;
 ===========================
 step 9
-lua ProjectDIR/src/lmod.in.lua bash --force purge
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --force purge
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -141,7 +141,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/sticky
 export _ModuleTable_;
 ===========================
 step 10
-lua ProjectDIR/src/lmod.in.lua bash list
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -155,7 +155,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/sticky
 export _ModuleTable_;
 ===========================
 step 11
-lua ProjectDIR/src/lmod.in.lua bash load std
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load std
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -175,7 +175,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/sticky
 export _ModuleTable_;
 ===========================
 step 12
-lua ProjectDIR/src/lmod.in.lua bash rm std
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing rm std
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -195,7 +195,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/sticky
 export _ModuleTable_;
 ===========================
 step 13
-lua ProjectDIR/src/lmod.in.lua bash list
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -209,7 +209,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/sticky
 export _ModuleTable_;
 ===========================
 step 14
-lua ProjectDIR/src/lmod.in.lua bash --force rm std
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --force rm std
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -226,7 +226,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/sticky
 export _ModuleTable_;
 ===========================
 step 15
-lua ProjectDIR/src/lmod.in.lua bash list
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -240,7 +240,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/sticky
 export _ModuleTable_;
 ===========================
 step 16
-lua ProjectDIR/src/lmod.in.lua bash load StdEnv
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load StdEnv
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -262,7 +262,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/sticky
 export _ModuleTable_;
 ===========================
 step 17
-lua ProjectDIR/src/lmod.in.lua bash list
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -276,7 +276,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/sticky
 export _ModuleTable_;
 ===========================
 step 18
-lua ProjectDIR/src/lmod.in.lua bash load StdEnv
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load StdEnv
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -298,7 +298,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/sticky
 export _ModuleTable_;
 ===========================
 step 19
-lua ProjectDIR/src/lmod.in.lua bash list
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -312,7 +312,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/sticky
 export _ModuleTable_;
 ===========================
 step 20
-lua ProjectDIR/src/lmod.in.lua bash unload a b
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload a b
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -332,7 +332,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/sticky
 export _ModuleTable_;
 ===========================
 step 21
-lua ProjectDIR/src/lmod.in.lua bash list
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -346,7 +346,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/sticky
 export _ModuleTable_;
 ===========================
 step 22
-lua ProjectDIR/src/lmod.in.lua bash purge
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -368,7 +368,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/sticky
 export _ModuleTable_;
 ===========================
 step 23
-lua ProjectDIR/src/lmod.in.lua bash list
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -382,7 +382,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/sticky
 export _ModuleTable_;
 ===========================
 step 24
-lua ProjectDIR/src/lmod.in.lua bash save
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing save
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -396,7 +396,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/sticky
 export _ModuleTable_;
 ===========================
 step 25
-lua ProjectDIR/src/lmod.in.lua bash --force purge
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --force purge
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -414,7 +414,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/sticky
 export _ModuleTable_;
 ===========================
 step 26
-lua ProjectDIR/src/lmod.in.lua bash restore
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing restore
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -438,7 +438,7 @@ __LMOD_DEFAULT_MODULES_LOADED__="1";
 export __LMOD_DEFAULT_MODULES_LOADED__;
 ===========================
 step 27
-lua ProjectDIR/src/lmod.in.lua bash list
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -452,7 +452,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/sticky
 export _ModuleTable_;
 ===========================
 step 28
-lua ProjectDIR/src/lmod.in.lua bash restore
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing restore
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -476,7 +476,7 @@ __LMOD_DEFAULT_MODULES_LOADED__="1";
 export __LMOD_DEFAULT_MODULES_LOADED__;
 ===========================
 step 29
-lua ProjectDIR/src/lmod.in.lua bash list
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -490,7 +490,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/sticky
 export _ModuleTable_;
 ===========================
 step 30
-lua ProjectDIR/src/lmod.in.lua bash --force purge
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --force purge
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -508,7 +508,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/sticky
 export _ModuleTable_;
 ===========================
 step 31
-lua ProjectDIR/src/lmod.in.lua bash load M1
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load M1
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -530,7 +530,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/sticky
 export _ModuleTable_;
 ===========================
 step 32
-lua ProjectDIR/src/lmod.in.lua bash list
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -544,7 +544,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/sticky
 export _ModuleTable_;
 ===========================
 step 33
-lua ProjectDIR/src/lmod.in.lua bash save
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing save
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -558,7 +558,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/sticky
 export _ModuleTable_;
 ===========================
 step 34
-lua ProjectDIR/src/lmod.in.lua bash restore
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing restore
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -580,7 +580,7 @@ __LMOD_DEFAULT_MODULES_LOADED__="1";
 export __LMOD_DEFAULT_MODULES_LOADED__;
 ===========================
 step 35
-lua ProjectDIR/src/lmod.in.lua bash list
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -594,7 +594,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/sticky
 export _ModuleTable_;
 ===========================
 step 36
-lua ProjectDIR/src/lmod.in.lua bash --force purge
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --force purge
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -610,7 +610,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/sticky
 export _ModuleTable_;
 ===========================
 step 37
-lua ProjectDIR/src/lmod.in.lua bash load c d M1
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load c d M1
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -632,7 +632,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/sticky
 export _ModuleTable_;
 ===========================
 step 38
-lua ProjectDIR/src/lmod.in.lua bash list
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -646,7 +646,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/sticky
 export _ModuleTable_;
 ===========================
 step 39
-lua ProjectDIR/src/lmod.in.lua bash save
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing save
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -660,7 +660,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/sticky
 export _ModuleTable_;
 ===========================
 step 40
-lua ProjectDIR/src/lmod.in.lua bash restore
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing restore
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -682,7 +682,7 @@ __LMOD_DEFAULT_MODULES_LOADED__="1";
 export __LMOD_DEFAULT_MODULES_LOADED__;
 ===========================
 step 41
-lua ProjectDIR/src/lmod.in.lua bash list
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -696,7 +696,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/sticky
 export _ModuleTable_;
 ===========================
 step 42
-lua ProjectDIR/src/lmod.in.lua bash --force purge
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --force purge
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -712,7 +712,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/sticky
 export _ModuleTable_;
 ===========================
 step 43
-lua ProjectDIR/src/lmod.in.lua bash reset
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing reset
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -734,7 +734,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/sticky
 export _ModuleTable_;
 ===========================
 step 44
-lua ProjectDIR/src/lmod.in.lua bash reset
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing reset
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -756,7 +756,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/sticky
 export _ModuleTable_;
 ===========================
 step 45
-lua ProjectDIR/src/lmod.in.lua bash load old
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load old
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -780,7 +780,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=4,baseMpathA={"ProjectDIR/rt/sticky
 export _ModuleTable_;
 ===========================
 step 46
-lua ProjectDIR/src/lmod.in.lua bash swap old new
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing swap old new
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -804,7 +804,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=4,baseMpathA={"ProjectDIR/rt/sticky
 export _ModuleTable_;
 ===========================
 step 47
-lua ProjectDIR/src/lmod.in.lua bash list
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -818,7 +818,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=4,baseMpathA={"ProjectDIR/rt/sticky
 export _ModuleTable_;
 ===========================
 step 48
-lua ProjectDIR/src/lmod.in.lua bash load old
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load old
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -842,7 +842,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=4,baseMpathA={"ProjectDIR/rt/sticky
 export _ModuleTable_;
 ===========================
 step 49
-lua ProjectDIR/src/lmod.in.lua bash list
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -856,7 +856,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=4,baseMpathA={"ProjectDIR/rt/sticky
 export _ModuleTable_;
 ===========================
 step 50
-lua ProjectDIR/src/lmod.in.lua bash avail
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;

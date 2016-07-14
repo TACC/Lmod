@@ -314,14 +314,15 @@ end
 --------------------------------------------------------------------------
 -- Generate a columeTable with a title.
 local function columnList(stream, msg, a)
-   local t = {}
+   local cwidth = masterTbl().rt and LMOD_COLUMN_TABLE_WIDTH or TermWidth()
+   local t      = {}
    sort(a)
    for i = 1, #a do
       local cstr = string.format("%3d) ",i)
       t[#t + 1] = cstr .. tostring(a[i])
    end
    stream:write(msg)
-   local ct = ColumnTable:new{tbl=t}
+   local ct = ColumnTable:new{tbl=t, width=cwidth}
    stream:write(ct:build_tbl(),"\n")
 end
 

@@ -1,10 +1,10 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --version
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash load TACC
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load TACC
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/TACC";
 export LMOD_DEFAULT_MODULEPATH;
@@ -60,7 +60,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=7,baseMpathA={"ProjectDIR/rt/savere
 export _ModuleTable_;
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash load pgi/7.2-5
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load pgi/7.2-5
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/TACC";
 export LMOD_DEFAULT_MODULEPATH;
@@ -86,7 +86,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=7,baseMpathA={"ProjectDIR/rt/savere
 export _ModuleTable_;
 ===========================
 step 4
-lua ProjectDIR/src/lmod.in.lua bash list
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/TACC";
 export LMOD_DEFAULT_MODULEPATH;
@@ -100,7 +100,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=7,baseMpathA={"ProjectDIR/rt/savere
 export _ModuleTable_;
 ===========================
 step 5
-lua ProjectDIR/src/lmod.in.lua bash save default
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing save default
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/TACC";
 export LMOD_DEFAULT_MODULEPATH;
@@ -114,7 +114,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=7,baseMpathA={"ProjectDIR/rt/savere
 export _ModuleTable_;
 ===========================
 step 6
-lua ProjectDIR/src/lmod.in.lua bash restore
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing restore
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/TACC";
 export LMOD_DEFAULT_MODULEPATH;
@@ -172,7 +172,7 @@ __LMOD_DEFAULT_MODULES_LOADED__="1";
 export __LMOD_DEFAULT_MODULES_LOADED__;
 ===========================
 step 7
-lua ProjectDIR/src/lmod.in.lua bash list
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/TACC";
 export LMOD_DEFAULT_MODULEPATH;
@@ -186,7 +186,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=7,baseMpathA={"ProjectDIR/rt/savere
 export _ModuleTable_;
 ===========================
 step 8
-lua ProjectDIR/src/lmod.in.lua bash use ProjectDIR/rt/saverestore/TACC2
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing use ProjectDIR/rt/saverestore/TACC2
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/TACC";
 export LMOD_DEFAULT_MODULEPATH;
@@ -200,7 +200,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=7,baseMpathA={"ProjectDIR/rt/savere
 export _ModuleTable_;
 ===========================
 step 9
-lua ProjectDIR/src/lmod.in.lua bash load a
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load a
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/TACC2:ProjectDIR/rt/saverestore/TACC";
 export LMOD_DEFAULT_MODULEPATH;
@@ -222,7 +222,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=8,baseMpathA={"ProjectDIR/rt/savere
 export _ModuleTable_;
 ===========================
 step 10
-lua ProjectDIR/src/lmod.in.lua bash list
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/TACC2:ProjectDIR/rt/saverestore/TACC";
 export LMOD_DEFAULT_MODULEPATH;
@@ -236,7 +236,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=8,baseMpathA={"ProjectDIR/rt/savere
 export _ModuleTable_;
 ===========================
 step 11
-lua ProjectDIR/src/lmod.in.lua bash save
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing save
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/TACC2:ProjectDIR/rt/saverestore/TACC";
 export LMOD_DEFAULT_MODULEPATH;
@@ -250,7 +250,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=8,baseMpathA={"ProjectDIR/rt/savere
 export _ModuleTable_;
 ===========================
 step 12
-lua ProjectDIR/src/lmod.in.lua bash purge
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/TACC2:ProjectDIR/rt/saverestore/TACC";
 export LMOD_DEFAULT_MODULEPATH;
@@ -287,7 +287,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/savere
 export _ModuleTable_;
 ===========================
 step 13
-lua ProjectDIR/src/lmod.in.lua bash restore
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing restore
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/TACC";
 export LMOD_DEFAULT_MODULEPATH;
@@ -347,7 +347,7 @@ __LMOD_DEFAULT_MODULES_LOADED__="1";
 export __LMOD_DEFAULT_MODULES_LOADED__;
 ===========================
 step 14
-lua ProjectDIR/src/lmod.in.lua bash list
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/TACC2:ProjectDIR/rt/saverestore/TACC";
 export LMOD_DEFAULT_MODULEPATH;
@@ -361,7 +361,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=8,baseMpathA={"ProjectDIR/rt/savere
 export _ModuleTable_;
 ===========================
 step 15
-lua ProjectDIR/src/lmod.in.lua bash spider
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/TACC2:ProjectDIR/rt/saverestore/TACC";
 export LMOD_DEFAULT_MODULEPATH;
@@ -375,7 +375,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=8,baseMpathA={"ProjectDIR/rt/savere
 export _ModuleTable_;
 ===========================
 step 16
-lua ProjectDIR/src/lmod.in.lua bash purge
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/TACC2:ProjectDIR/rt/saverestore/TACC";
 export LMOD_DEFAULT_MODULEPATH;
@@ -412,7 +412,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/savere
 export _ModuleTable_;
 ===========================
 step 17
-lua ProjectDIR/src/lmod.in.lua bash restore stdenv
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing restore stdenv
 ===========================
 LMOD_DEFAULT_MODULEPATH="OutputDIR/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -421,7 +421,7 @@ export MODULEPATH;
 false
 ===========================
 step 18
-lua ProjectDIR/src/lmod.in.lua bash restore stdenv
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing restore stdenv
 ===========================
 LMOD_DEFAULT_MODULEPATH="OutputDIR/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -430,7 +430,7 @@ export MODULEPATH;
 false
 ===========================
 step 19
-lua ProjectDIR/src/lmod.in.lua bash purge
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
 ===========================
 LMOD_DEFAULT_MODULEPATH="OutputDIR/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -444,7 +444,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"OutputDIR/Core",},fa
 export _ModuleTable_;
 ===========================
 step 20
-lua ProjectDIR/src/lmod.in.lua bash use ProjectDIR/rt/saverestore/PREREQ
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing use ProjectDIR/rt/saverestore/PREREQ
 ===========================
 LMOD_DEFAULT_MODULEPATH="OutputDIR/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -458,7 +458,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/savere
 export _ModuleTable_;
 ===========================
 step 21
-lua ProjectDIR/src/lmod.in.lua bash load M T A
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load M T A
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -490,7 +490,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/savere
 export _ModuleTable_;
 ===========================
 step 22
-lua ProjectDIR/src/lmod.in.lua bash list
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -504,7 +504,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/savere
 export _ModuleTable_;
 ===========================
 step 23
-lua ProjectDIR/src/lmod.in.lua bash save
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing save
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -518,7 +518,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/savere
 export _ModuleTable_;
 ===========================
 step 24
-lua ProjectDIR/src/lmod.in.lua bash restore
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing restore
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -552,7 +552,7 @@ __LMOD_DEFAULT_MODULES_LOADED__="1";
 export __LMOD_DEFAULT_MODULES_LOADED__;
 ===========================
 step 25
-lua ProjectDIR/src/lmod.in.lua bash list
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -566,7 +566,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/savere
 export _ModuleTable_;
 ===========================
 step 26
-lua ProjectDIR/src/lmod.in.lua bash purge
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -590,7 +590,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/savere
 export _ModuleTable_;
 ===========================
 step 27
-lua ProjectDIR/src/lmod.in.lua bash load a b
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load a b
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -612,7 +612,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/savere
 export _ModuleTable_;
 ===========================
 step 28
-lua ProjectDIR/src/lmod.in.lua bash save
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing save
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -626,7 +626,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/savere
 export _ModuleTable_;
 ===========================
 step 29
-lua ProjectDIR/src/lmod.in.lua bash restore
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing restore
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -650,7 +650,7 @@ __LMOD_DEFAULT_MODULES_LOADED__="1";
 export __LMOD_DEFAULT_MODULES_LOADED__;
 ===========================
 step 30
-lua ProjectDIR/src/lmod.in.lua bash list
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -664,7 +664,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/savere
 export _ModuleTable_;
 ===========================
 step 31
-lua ProjectDIR/src/lmod.in.lua bash purge
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -683,7 +683,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/savere
 export _ModuleTable_;
 ===========================
 step 32
-lua ProjectDIR/src/lmod.in.lua bash restore
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing restore
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -707,7 +707,7 @@ __LMOD_DEFAULT_MODULES_LOADED__="1";
 export __LMOD_DEFAULT_MODULES_LOADED__;
 ===========================
 step 33
-lua ProjectDIR/src/lmod.in.lua bash list
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
 export LMOD_DEFAULT_MODULEPATH;

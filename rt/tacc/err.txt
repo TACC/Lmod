@@ -1,12 +1,12 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --version
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
 Modules based on Lua: Version 6.4.3  2016-06-17 09:58
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash avail
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
 ProjectDIR/mf/TACC
    Linux         TACC.orig        cluster.orig        mvapich1/mvapich1
@@ -18,11 +18,11 @@ Use "module spider" to find all possible modules.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash load TACC
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load TACC
 ===========================
 ===========================
 step 4
-lua ProjectDIR/src/lmod.in.lua bash help mvapich1
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing help mvapich1
 ===========================
 Module Specific Help for "mvapich1/1.0"
 	This module loads the MVAPICH MPI environment built with
@@ -35,79 +35,79 @@ Module Specific Help for "mvapich1/1.0"
 	Version 1.0
 ===========================
 step 5
-lua ProjectDIR/src/lmod.in.lua bash list
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) Linux     3) mvapich1/1.0   5) cluster-paths   7) TACC-paths
   2) pgi/7.1   4) globus/4.0.7   6) cluster         8) TACC
 ===========================
 step 6
-lua ProjectDIR/src/lmod.in.lua bash --latest load pgi
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --latest load pgi
 ===========================
 The following have been reloaded with a version change:
   1) mvapich1/1.0 => mvapich1/mvapich1  2) pgi/7.1 => pgi/7.2-5
 ===========================
 step 7
-lua ProjectDIR/src/lmod.in.lua bash list
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) Linux          3) cluster-paths   5) TACC-paths   7) mvapich1/mvapich1
   2) globus/4.0.7   4) cluster         6) TACC         8) pgi/7.2-5
 ===========================
 step 8
-lua ProjectDIR/src/lmod.in.lua bash load pgi
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load pgi
 ===========================
 The following have been reloaded with a version change:
   1) pgi/7.2-5 => pgi/7.1
 ===========================
 step 9
-lua ProjectDIR/src/lmod.in.lua bash list
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) Linux          3) cluster-paths   5) TACC-paths   7) mvapich1/mvapich1
   2) globus/4.0.7   4) cluster         6) TACC         8) pgi/7.1
 ===========================
 step 10
-lua ProjectDIR/src/lmod.in.lua bash --latest swap pgi pgi
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --latest swap pgi pgi
 ===========================
 ===========================
 step 11
-lua ProjectDIR/src/lmod.in.lua bash list
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) Linux          3) cluster-paths   5) TACC-paths   7) mvapich1/mvapich1
   2) globus/4.0.7   4) cluster         6) TACC         8) pgi/7.2-5
 ===========================
 step 12
-lua ProjectDIR/src/lmod.in.lua bash unload cluster
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload cluster
 ===========================
 ===========================
 step 13
-lua ProjectDIR/src/lmod.in.lua bash purge
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
 ===========================
 ===========================
 step 14
-lua ProjectDIR/src/lmod.in.lua bash use ProjectDIR/rt/tacc/mf/Core
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing use ProjectDIR/rt/tacc/mf/Core
 ===========================
 ===========================
 step 15
-lua ProjectDIR/src/lmod.in.lua bash show gatk
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing show gatk
 ===========================
    ProjectDIR/rt/tacc/mf/Core/gatk/1.0:
 prepend_path("PATH","/opt/apps/gatk/1.0/bin")
 ===========================
 step 16
-lua ProjectDIR/src/lmod.in.lua bash load gatk
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load gatk
 ===========================
 To execute GATK run: java -jar /opt/apps/gatk/1.0/java/GenomeAnalysisTK.jar
 Test of brackets [foo]
 ===========================
 step 17
-lua ProjectDIR/src/lmod.in.lua bash unload gatk
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload gatk
 ===========================
 ===========================
 step 18
-lua ProjectDIR/src/lmod.in.lua bash load stir
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load stir
 ===========================
 mod is stir/default
 mod is stir/2.1

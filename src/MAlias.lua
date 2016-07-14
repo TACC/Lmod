@@ -207,8 +207,8 @@ function M.getHiddenT(self,k)
       s_must_convert = false
 
       local hT = self.hiddenT
-      for k in pairs(hT) do
-         t[self:resolve(k)] = true
+      for key in pairs(hT) do
+         t[self:resolve(key)] = true
       end
       self.hiddenT = t
    end

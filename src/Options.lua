@@ -45,17 +45,14 @@ require("strict")
 --------------------------------------------------------------------------
 
 _G._DEBUG          = false               -- Required by the new lua posix
-Error              = nil
 local dbg          = require("Dbg"):dbg()
 local format       = string.format
 local posix        = require("posix")
 local setenv_posix = posix.setenv
 local stderr       = io.stderr
 local systemG      = _G
-
+local concatTbl    = table.concat
 local M = {}
-
-s_options = false
 
 --------------------------------------------------------------------------
 -- Private Ctor for Option class.
@@ -91,7 +88,6 @@ end
 function M.options(self, usage)
 
    local Optiks = require("Optiks")
-   s_options = new(self)
    local cmdlineParser  = Optiks:new{usage   = usage,
                                      error   = LmodWarning,
                                      exit    = nothing,
@@ -129,6 +125,12 @@ function M.options(self, usage)
       help    = "Site controlled avail style: "..concatTbl(styleA," ").." (default: "..defaultStyle..")"
    }
 
+   cmdlineParser:add_option{
+      name   = {"--regression_testing"},
+      dest   = "rt",
+      action = "store_true",
+      help   = "Lmod regression testing",
+   }
 
    cmdlineParser:add_option{
       name   = {"-D"},

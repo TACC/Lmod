@@ -30,15 +30,15 @@ testdescript = {
 
      cp $(projectDir)/init/lmodrc.lua .lmodrc.lua
 
-     runMe $LUA $(projectDir)/src/lmod.in.lua bash --version                          # 1
-     runMe $LUA $(projectDir)/src/lmod.in.lua bash load admin PrgEnv openmpi parmetis # 2
-     runMe $LUA $(projectDir)/src/lmod.in.lua bash purge                              # 3
-     runMe $LUA $(projectDir)/src/lmod.in.lua bash list                               # 4
+     runMe $LUA $(projectDir)/src/lmod.in.lua bash --regression_testing --version                          # 1
+     runMe $LUA $(projectDir)/src/lmod.in.lua bash --regression_testing load admin PrgEnv openmpi parmetis # 2
+     runMe $LUA $(projectDir)/src/lmod.in.lua bash --regression_testing purge                              # 3
+     runMe $LUA $(projectDir)/src/lmod.in.lua bash --regression_testing list                               # 4
 
-     runMe $LUA $(projectDir)/src/lmod.in.lua bash load admin PrgEnv openmpi parmetis # 5
-     runMe $LUA $(projectDir)/src/lmod.in.lua bash list                               # 6
-     runMe $LUA $(projectDir)/src/lmod.in.lua bash restore system                     # 7
-     runMe $LUA $(projectDir)/src/lmod.in.lua bash list                               # 8
+     runMe $LUA $(projectDir)/src/lmod.in.lua bash --regression_testing load admin PrgEnv openmpi parmetis # 5
+     runMe $LUA $(projectDir)/src/lmod.in.lua bash --regression_testing list                               # 6
+     runMe $LUA $(projectDir)/src/lmod.in.lua bash --regression_testing restore system                     # 7
+     runMe $LUA $(projectDir)/src/lmod.in.lua bash --regression_testing list                               # 8
 
      HOME=$ORIG_HOME
      PATH=$ORIGINAL_PATH

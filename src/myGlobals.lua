@@ -138,6 +138,12 @@ LMOD_REDIRECT = initialize("LMOD_REDIRECT", "@redirect@")
 LMOD_SYSTEM_NAME = getenv("LMOD_SYSTEM_NAME")
 
 ------------------------------------------------------------------------
+-- LMOD_COLUMN_TABLE_WIDTH: The width of the table when using ColumnTable
+------------------------------------------------------------------------
+
+LMOD_COLUMN_TABLE_WIDTH = 80
+
+------------------------------------------------------------------------
 -- LMOD_TMOD_PATH_RULE:  Using Tmod rule where if path is already there
 --                       do not prepend/append
 ------------------------------------------------------------------------

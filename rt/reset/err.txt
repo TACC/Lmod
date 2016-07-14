@@ -1,29 +1,29 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --version
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
 Modules based on Lua: Version 6.0.6  2015-07-16 14:33
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash load admin PrgEnv openmpi parmetis
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load admin PrgEnv openmpi parmetis
 ===========================
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash purge
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
 ===========================
 ===========================
 step 4
-lua ProjectDIR/src/lmod.in.lua bash list
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 No modules loaded
 ===========================
 step 5
-lua ProjectDIR/src/lmod.in.lua bash load admin PrgEnv openmpi parmetis
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load admin PrgEnv openmpi parmetis
 ===========================
 ===========================
 step 6
-lua ProjectDIR/src/lmod.in.lua bash list
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) admin/admin-1.0   3) local/local   5) noweb/2.10c   7) openmpi/1.2.6
@@ -32,12 +32,12 @@ Currently Loaded Modules:
    m:  built for host and native MIC
 ===========================
 step 7
-lua ProjectDIR/src/lmod.in.lua bash restore system
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing restore system
 ===========================
 Resetting modules to system default
 ===========================
 step 8
-lua ProjectDIR/src/lmod.in.lua bash list
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) admin/admin-1.0   2) intel/intel   3) openmpi/1.2.6   4) parmetis/3.1 (m)

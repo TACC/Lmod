@@ -1,46 +1,46 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --version
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
 Modules based on Lua: Version 6.4.3  2016-06-17 09:58
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash load A
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load A
 ===========================
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash load B
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load B
 ===========================
 ===========================
 step 4
-lua ProjectDIR/src/lmod.in.lua bash list
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) A/1.0   2) B/1.0
 ===========================
 step 5
-lua ProjectDIR/src/lmod.in.lua bash unload B
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload B
 ===========================
 ===========================
 step 6
-lua ProjectDIR/src/lmod.in.lua bash load B
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load B
 ===========================
 Lmod has detected the following error: The following module(s) are unknown: "B"
 Please check the spelling or version number. Also try "module spider ..."
 ===========================
 step 7
-lua ProjectDIR/src/lmod.in.lua bash list
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) A/1.0
 ===========================
 step 8
-lua ProjectDIR/src/lmod.in.lua bash load B
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load B
 ===========================
 ===========================
 step 9
-lua ProjectDIR/src/lmod.in.lua bash list
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) A/1.0   2) B/1.0

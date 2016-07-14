@@ -1,10 +1,10 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --version
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash load cluster/delcatty
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load cluster/delcatty
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/delcatty/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -32,7 +32,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/delcat
 export _ModuleTable_;
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash load VSC-tools
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load VSC-tools
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/delcatty/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -52,7 +52,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/delcat
 export _ModuleTable_;
 ===========================
 step 4
-lua ProjectDIR/src/lmod.in.lua bash list
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/delcatty/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -66,7 +66,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/delcat
 export _ModuleTable_;
 ===========================
 step 5
-lua ProjectDIR/src/lmod.in.lua bash load Error
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load Error
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/delcatty/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -75,7 +75,7 @@ export MODULEPATH;
 false
 ===========================
 step 6
-lua ProjectDIR/src/lmod.in.lua bash list
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/delcatty/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;

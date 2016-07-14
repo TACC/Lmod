@@ -82,8 +82,9 @@ end
 -- @param self ColumnTable object
 -- @param t input table.
 function M.new(self,t)
-   local tbl = t
-   local o   = {}
+   local width
+   local tbl   = t
+   local o     = {}
    if (t.tbl) then
       tbl = t.tbl
       o   = t
@@ -92,8 +93,9 @@ function M.new(self,t)
    dbg.start{"ColumnTable:new()"}
    setmetatable(o, self)
    self.__index  = self
-   local width  = 80
-   if (getenv("TERM")) then
+   if (t.width) then
+      width = t.width
+   else
       width  = TermWidth()
    end
 

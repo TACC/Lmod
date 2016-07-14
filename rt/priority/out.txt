@@ -1,10 +1,10 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --version
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash use --priority 100 ProjectDIR/rt/priority/mf/RTM
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing use --priority 100 ProjectDIR/rt/priority/mf/RTM
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/priority/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -22,7 +22,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/priori
 export _ModuleTable_;
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash use --priority 100 ProjectDIR/rt/priority/mf/RTM
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing use --priority 100 ProjectDIR/rt/priority/mf/RTM
 ===========================
 __LMOD_PRIORITY_LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/priority/mf/RTM:-100";
 export __LMOD_PRIORITY_LMOD_DEFAULT_MODULEPATH;
@@ -44,7 +44,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/priori
 export _ModuleTable_;
 ===========================
 step 4
-lua ProjectDIR/src/lmod.in.lua bash load priority
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load priority
 ===========================
 __LMOD_PRIORITY_LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/priority/mf/RTM:-100";
 export __LMOD_PRIORITY_LMOD_DEFAULT_MODULEPATH;
@@ -74,7 +74,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/priori
 export _ModuleTable_;
 ===========================
 step 5
-lua ProjectDIR/src/lmod.in.lua bash load a
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load a
 ===========================
 __LMOD_PRIORITY_LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/priority/mf/RTM:-100";
 export __LMOD_PRIORITY_LMOD_DEFAULT_MODULEPATH;
@@ -104,7 +104,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/priori
 export _ModuleTable_;
 ===========================
 step 6
-lua ProjectDIR/src/lmod.in.lua bash load tdog
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load tdog
 ===========================
 __LMOD_PRIORITY_LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/priority/mf/RTM:-100";
 export __LMOD_PRIORITY_LMOD_DEFAULT_MODULEPATH;
@@ -134,7 +134,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/priori
 export _ModuleTable_;
 ===========================
 step 7
-lua ProjectDIR/src/lmod.in.lua bash list
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 __LMOD_PRIORITY_LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/priority/mf/RTM:-100";
 export __LMOD_PRIORITY_LMOD_DEFAULT_MODULEPATH;
@@ -156,7 +156,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/priori
 export _ModuleTable_;
 ===========================
 step 8
-lua ProjectDIR/src/lmod.in.lua bash unload priority
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload priority
 ===========================
 __LMOD_PRIORITY_LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/priority/mf/RTM:-100";
 export __LMOD_PRIORITY_LMOD_DEFAULT_MODULEPATH;
@@ -186,7 +186,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/priori
 export _ModuleTable_;
 ===========================
 step 9
-lua ProjectDIR/src/lmod.in.lua bash list
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 __LMOD_PRIORITY_LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/priority/mf/RTM:-100";
 export __LMOD_PRIORITY_LMOD_DEFAULT_MODULEPATH;
@@ -208,7 +208,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/priori
 export _ModuleTable_;
 ===========================
 step 10
-lua ProjectDIR/src/lmod.in.lua bash show tdog
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing show tdog
 ===========================
 __LMOD_PRIORITY_LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/priority/mf/RTM:-100";
 export __LMOD_PRIORITY_LMOD_DEFAULT_MODULEPATH;

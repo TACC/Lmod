@@ -1,10 +1,10 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --version
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash avail
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/rtm_inherit/rtm_mf/Core:ProjectDIR/rt/rtm_inherit/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -18,7 +18,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/rtm_in
 export _ModuleTable_;
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash load intel
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load intel
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/rtm_inherit/rtm_mf/Core:ProjectDIR/rt/rtm_inherit/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;

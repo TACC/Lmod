@@ -1,10 +1,10 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --version
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash load parmetis
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load parmetis
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -13,7 +13,7 @@ export MODULEPATH;
 false
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash load parmetis/4.0.3
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load parmetis/4.0.3
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -22,7 +22,7 @@ export MODULEPATH;
 false
 ===========================
 step 4
-lua ProjectDIR/src/lmod.in.lua bash load parmetis/11.0
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load parmetis/11.0
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -31,7 +31,7 @@ export MODULEPATH;
 false
 ===========================
 step 5
-lua ProjectDIR/src/lmod.in.lua bash load clang openmpi parmetis
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load clang openmpi parmetis
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -59,7 +59,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/hierar
 export _ModuleTable_;
 ===========================
 step 6
-lua ProjectDIR/src/lmod.in.lua bash avail
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -73,7 +73,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/hierar
 export _ModuleTable_;
 ===========================
 step 7
-lua ProjectDIR/src/lmod.in.lua bash load -clang -openmpi
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load -clang -openmpi
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -94,7 +94,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/hierar
 export _ModuleTable_;
 ===========================
 step 8
-lua ProjectDIR/src/lmod.in.lua bash list
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -108,7 +108,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/hierar
 export _ModuleTable_;
 ===========================
 step 9
-lua ProjectDIR/src/lmod.in.lua bash load gcc mpich
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load gcc mpich
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -136,7 +136,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/hierar
 export _ModuleTable_;
 ===========================
 step 10
-lua ProjectDIR/src/lmod.in.lua bash list
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -150,7 +150,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/hierar
 export _ModuleTable_;
 ===========================
 step 11
-lua ProjectDIR/src/lmod.in.lua bash load ben
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load ben
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -170,7 +170,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=4,baseMpathA={"ProjectDIR/rt/hierar
 export _ModuleTable_;
 ===========================
 step 12
-lua ProjectDIR/src/lmod.in.lua bash load ben/0.1
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load ben/0.1
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -190,7 +190,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=4,baseMpathA={"ProjectDIR/rt/hierar
 export _ModuleTable_;
 ===========================
 step 13
-lua ProjectDIR/src/lmod.in.lua bash load fbr
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load fbr
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -210,7 +210,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=5,baseMpathA={"ProjectDIR/rt/hierar
 export _ModuleTable_;
 ===========================
 step 14
-lua ProjectDIR/src/lmod.in.lua bash list
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -224,7 +224,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=5,baseMpathA={"ProjectDIR/rt/hierar
 export _ModuleTable_;
 ===========================
 step 15
-lua ProjectDIR/src/lmod.in.lua bash unload fbr
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload fbr
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -243,7 +243,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=4,baseMpathA={"ProjectDIR/rt/hierar
 export _ModuleTable_;
 ===========================
 step 16
-lua ProjectDIR/src/lmod.in.lua bash load clang
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load clang
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -252,7 +252,7 @@ export MODULEPATH;
 false
 ===========================
 step 17
-lua ProjectDIR/src/lmod.in.lua bash --expert load clang
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --expert load clang
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -280,7 +280,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=5,baseMpathA={"ProjectDIR/rt/hierar
 export _ModuleTable_;
 ===========================
 step 18
-lua ProjectDIR/src/lmod.in.lua bash list
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -294,7 +294,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=5,baseMpathA={"ProjectDIR/rt/hierar
 export _ModuleTable_;
 ===========================
 step 19
-lua ProjectDIR/src/lmod.in.lua bash purge
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -316,7 +316,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/hierar
 export _ModuleTable_;
 ===========================
 step 20
-lua ProjectDIR/src/lmod.in.lua bash load gcc mpich
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load gcc mpich
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -342,7 +342,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/hierar
 export _ModuleTable_;
 ===========================
 step 21
-lua ProjectDIR/src/lmod.in.lua bash unload mpich gcc
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload mpich gcc
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -362,7 +362,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/hierar
 export _ModuleTable_;
 ===========================
 step 22
-lua ProjectDIR/src/lmod.in.lua bash load gcc mpich
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load gcc mpich
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -388,7 +388,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/hierar
 export _ModuleTable_;
 ===========================
 step 23
-lua ProjectDIR/src/lmod.in.lua bash unload mpich gcc
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload mpich gcc
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -408,7 +408,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/hierar
 export _ModuleTable_;
 ===========================
 step 24
-lua ProjectDIR/src/lmod.in.lua bash list
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -422,7 +422,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/hierar
 export _ModuleTable_;
 ===========================
 step 25
-lua ProjectDIR/src/lmod.in.lua bash load python
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load python
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -442,7 +442,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/hierar
 export _ModuleTable_;
 ===========================
 step 26
-lua ProjectDIR/src/lmod.in.lua bash load gcc
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load gcc
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -466,7 +466,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/hierar
 export _ModuleTable_;
 ===========================
 step 27
-lua ProjectDIR/src/lmod.in.lua bash load mpich
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load mpich
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -490,7 +490,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/hierar
 export _ModuleTable_;
 ===========================
 step 28
-lua ProjectDIR/src/lmod.in.lua bash swap gcc clang
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing swap gcc clang
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -518,7 +518,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/hierar
 export _ModuleTable_;
 ===========================
 step 29
-lua ProjectDIR/src/lmod.in.lua bash swap mpich openmpi
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing swap mpich openmpi
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;

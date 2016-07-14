@@ -1,10 +1,10 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --version
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash keyword graph
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing keyword graph
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/vasp/mf:ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/MPI/intel/10.1/openmpi/1.2.6";
 export LMOD_DEFAULT_MODULEPATH;
@@ -18,7 +18,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/vasp/m
 export _ModuleTable_;
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash whatis vasp
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing whatis vasp
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/vasp/mf:ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/MPI/intel/10.1/openmpi/1.2.6";
 export LMOD_DEFAULT_MODULEPATH;
@@ -32,7 +32,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/vasp/m
 export _ModuleTable_;
 ===========================
 step 4
-lua ProjectDIR/src/lmod.in.lua bash help vasp
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing help vasp
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/vasp/mf:ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/MPI/intel/10.1/openmpi/1.2.6";
 export LMOD_DEFAULT_MODULEPATH;
@@ -46,7 +46,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/vasp/m
 export _ModuleTable_;
 ===========================
 step 5
-lua ProjectDIR/src/lmod.in.lua bash load vasp
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load vasp
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/vasp/mf:ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/MPI/intel/10.1/openmpi/1.2.6";
 export LMOD_DEFAULT_MODULEPATH;
