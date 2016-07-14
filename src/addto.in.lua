@@ -99,11 +99,8 @@ end
 
 function isDir(d)
    if (d == nil) then return false end
-
    local attr    = lfs.attributes(d)
-   local results = (attr and attr.mode == "directory")
-
-   return result
+   return (attr and attr.mode == "directory")
 end
 
 function myInsert(appendFlg, existFlg)
@@ -173,8 +170,8 @@ function main()
    ------------------------------------------------------------------------
    -- Convert empty string input values into false and clean path if requested
    local valueA    = {}
-   for i = 1,#pargs do
-      valueA[i] = cleanPath(pargs[i])
+   for j = 1,#pargs do
+      valueA[i] = cleanPath(pargs[j])
    end
 
 
@@ -189,15 +186,15 @@ function main()
    ------------------------------------------------------------------------
    -- Make a hash table of input values
    local valueT = {}
-   for i = 1, #valueA do
-      valueT[valueA[i]] = true
+   for j = 1, #valueA do
+      valueT[valueA[j]] = true
    end
 
    ------------------------------------------------------------------------
    -- Remove any entries in input from envVarA
    local newA = {}
-   for i = 1, #envVarA do
-      local v = envVarA[i]
+   for j = 1, #envVarA do
+      local v = envVarA[j]
       if (not valueT[v]) then
          if (v == false) then v = "" end
          newA[#newA+1] = v
@@ -207,8 +204,8 @@ function main()
    ------------------------------------------------------------------------
    -- Insert/append new entries with magic insert function.
 
-   for i = 1, #valueA do
-      local v = valueA[i]
+   for j = 1, #valueA do
+      local v = valueA[j]
       if (v == false) then v = "" end
       insert(newA, v)
    end

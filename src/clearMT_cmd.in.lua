@@ -71,15 +71,6 @@ if (i) then
    cmd_dir = arg_0:sub(1,j)
 end
 
-local sys_lua_path = "@sys_lua_path@"
-if (sys_lua_path:sub(1,1) == "@") then
-   sys_lua_path = package.path
-end
-local sys_lua_cpath = "@sys_lua_cpath@"
-if (sys_lua_cpath:sub(1,1) == "@") then
-   sys_lua_cpath = package.cpath
-end
-
 package.path  = cmd_dir .. "../tools/?.lua;" ..
                 cmd_dir .. "?.lua;"          ..
                 sys_lua_path
@@ -158,8 +149,8 @@ function main()
       setenv = python_setenv
    end
 
-   for i = 1, huge do
-      local name = format("_ModuleTable%03d_",i)
+   for k = 1, huge do
+      local name = format("_ModuleTable%03d_",k)
       local v = getenv(name)
       if (v == nil) then break end
       setenv(name,"")

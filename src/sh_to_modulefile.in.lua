@@ -154,7 +154,7 @@ local ignoreA = {
    "SHLVL", "LC_ALL", "SSH_ASKPASS", "SSH_CLIENT", "SSH_CONNECTION", "SSH_TTY", "TERM",
    "USER", "EDITOR", "HISTFILE", "HISTSIZE", "MAILER", "PAGER", "REPLYTO", "VISUAL",
    "_", "ENV2", "OLDPWD", "PS1","PS2", "PRINTER", "TTY", "TZ", "GROUP", "HOSTTYPE",
-   "MACHTYPE", "OSTYPE","REMOTEHOST", "VENDOR","HOST","module",
+   "MACHTYPE", "OSTYPE","REMOTEHOST", "VENDOR","HOST","module"
 }
 
 function masterTbl()

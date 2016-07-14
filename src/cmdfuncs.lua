@@ -723,7 +723,7 @@ function SaveList(...)
       a[#a+1] = cstr .. name
    end
 
-   local b      = {}
+   b            = {}
    local msgHdr = ""
    if (LMOD_SYSTEM_NAME) then
       msgHdr = "(For LMOD_SYSTEM_NAME = \""..LMOD_SYSTEM_NAME.."\")"
@@ -853,8 +853,9 @@ function Swap(...)
    ------------------------------------------------------
    -- Register user loads so that Karl will be happy.
 
-   local mname = mA[1]
-   local sn    = mname:sn()
+
+   mname       = mA[1]
+   sn          = mname:sn()
    local usrN  = (not masterTbl().latest) and b or mt:fullName(sn)
    mt:userLoad(sn,usrN)
    mcp = mcp_old

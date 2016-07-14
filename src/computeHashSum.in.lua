@@ -66,10 +66,10 @@ while (st.type == "link") do
    st    = stat(arg_0)
 end
 
-local i,j = arg_0:find(".*/")
+local ia,ja = arg_0:find(".*/")
 local LuaCommandName_dir = "./"
-if (i) then
-   LuaCommandName_dir = arg_0:sub(1,j)
+if (ia) then
+   LuaCommandName_dir = arg_0:sub(1,ja)
 end
 
 package.path  = LuaCommandName_dir .. "../tools/?.lua;"   ..
@@ -180,9 +180,9 @@ function main()
 
    local result = capture(HashSum .. " " .. fn)
    os.remove(fn)
-   local i,j = result:find(" ")
-   dbg.print{"hash value: ",result:sub(1,i-1),"\n"}
-   print (result:sub(1,i-1))
+   ia = result:find(" ")
+   dbg.print{"hash value: ",result:sub(1,ia-1),"\n"}
+   print (result:sub(1,ia-1))
    dbg.fini("computeHashSum")
 end
 

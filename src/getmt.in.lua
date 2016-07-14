@@ -68,10 +68,10 @@ while (st.type == "link") do
    st    = stat(arg_0)
 end
 
-local i,j = arg_0:find(".*/")
+local ia,ja = arg_0:find(".*/")
 local cmd_dir = "./"
-if (i) then
-   cmd_dir = arg_0:sub(1,j)
+if (ia) then
+   cmd_dir = arg_0:sub(1,ja)
 end
 
 package.path  = cmd_dir .. "../tools/?.lua;"  ..
@@ -124,7 +124,7 @@ function main()
    end
 
 
-   local s = serializeTbl{indent=true, name="_ModuleTable_", value= mt}
+   s = serializeTbl{indent=true, name="_ModuleTable_", value= mt}
 
    local fn = nil
    if (optionTbl.save_state) then

@@ -1,47 +1,5 @@
-Checking src/addto.in.lua                         5 warnings
-
-    src/addto.in.lua:106:11: accessing undefined variable 'result'
-    src/addto.in.lua:176:8: shadowing upvalue 'i' on line 74
-    src/addto.in.lua:192:8: shadowing upvalue 'i' on line 74
-    src/addto.in.lua:199:8: shadowing upvalue 'i' on line 74
-    src/addto.in.lua:210:8: shadowing upvalue 'i' on line 74
-
-Checking src/clearMT_cmd.in.lua                   5 warnings
-
-    src/clearMT_cmd.in.lua:68:7: variable 'i' was previously defined on line 66
-    src/clearMT_cmd.in.lua:68:9: variable 'j' was previously defined on line 66
-    src/clearMT_cmd.in.lua:74:7: variable 'sys_lua_path' was previously defined on line 42
-    src/clearMT_cmd.in.lua:78:7: variable 'sys_lua_cpath' was previously defined on line 47
-    src/clearMT_cmd.in.lua:161:8: shadowing upvalue 'i' on line 68
-
-Checking src/cmdfuncs.lua                         4 warnings
-
-    src/cmdfuncs.lua:57:50: accessing undefined variable 'unpack'
-    src/cmdfuncs.lua:723:10: variable 'b' was previously defined on line 696
-    src/cmdfuncs.lua:853:10: variable 'mname' was previously defined on line 832
-    src/cmdfuncs.lua:854:10: variable 'sn' was previously defined on line 833
-
-Checking src/colorize.lua                         OK
-Checking src/computeHashSum.in.lua                3 warnings
-
-    src/computeHashSum.in.lua:126:10: shadowing upvalue 'i' on line 69
-    src/computeHashSum.in.lua:183:10: variable 'i' was previously defined on line 126
-    src/computeHashSum.in.lua:183:12: shadowing upvalue 'j' on line 69
-
-Checking src/epoch.in.lua                         1 warning
-
-    src/epoch.in.lua:42:7: variable 'posix' was previously defined on line 17
-
-Checking src/getmt.in.lua                         4 warnings
-
-    src/getmt.in.lua:98:7: variable 'i' was previously defined on line 71
-    src/getmt.in.lua:98:9: variable 'j' was previously defined on line 71
-    src/getmt.in.lua:104:46: accessing undefined variable 'loadstring'
-    src/getmt.in.lua:127:10: variable 's' was previously defined on line 112
-
 Checking src/lmod.in.lua                          10 warnings
 
-    src/lmod.in.lua:163:50: accessing undefined variable 'unpack'
     src/lmod.in.lua:362:4: setting non-standard global variable 'FooBar'
     src/lmod.in.lua:371:13: shadowing upvalue 'i' on line 75
     src/lmod.in.lua:386:1: unused global variable 'add'

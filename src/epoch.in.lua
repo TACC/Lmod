@@ -39,7 +39,6 @@ package.cpath = sys_lua_cpath
 require("strict")
 local epoch = false
 _G._DEBUG   = false               -- Required by the new lua posix
-local posix = require("posix")
 
 ---------------------------------------------------------------------
 -- Build the Epoch function.  This function returns the *epoch*
