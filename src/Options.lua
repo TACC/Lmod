@@ -129,6 +129,12 @@ function M.options(self, usage)
       help    = "Site controlled avail style: "..concatTbl(styleA," ").." (default: "..defaultStyle..")"
    }
 
+   cmdlineParser:add_option{
+      name   = {"--regression_testing"},
+      dest   = "rt",
+      action = "store_true",
+      help   = "Lmod regression testing",
+   }
 
    cmdlineParser:add_option{
       name   = {"-D"},

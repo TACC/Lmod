@@ -1,10 +1,10 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --version
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash use -a ProjectDIR/rt/inherit/mf/Linux ProjectDIR/rt/inherit/mf/Core ProjectDIR/rt/inherit/mf/Core2
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing use -a ProjectDIR/rt/inherit/mf/Linux ProjectDIR/rt/inherit/mf/Core ProjectDIR/rt/inherit/mf/Core2
 ===========================
 unset LMOD_DEFAULT_MODULEPATH;
 unset MODULEPATH;
@@ -16,7 +16,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/inheri
 export _ModuleTable_;
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash load junk
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load junk
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/inherit/mf/Linux:ProjectDIR/rt/inherit/mf/Core:ProjectDIR/rt/inherit/mf/Core2";
 export LMOD_DEFAULT_MODULEPATH;
@@ -40,7 +40,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/inheri
 export _ModuleTable_;
 ===========================
 step 4
-lua ProjectDIR/src/lmod.in.lua bash list
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/inherit/mf/Linux:ProjectDIR/rt/inherit/mf/Core:ProjectDIR/rt/inherit/mf/Core2";
 export LMOD_DEFAULT_MODULEPATH;
@@ -54,7 +54,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/inheri
 export _ModuleTable_;
 ===========================
 step 5
-lua ProjectDIR/src/lmod.in.lua bash unload junk
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload junk
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/inherit/mf/Linux:ProjectDIR/rt/inherit/mf/Core:ProjectDIR/rt/inherit/mf/Core2";
 export LMOD_DEFAULT_MODULEPATH;
@@ -73,7 +73,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/inheri
 export _ModuleTable_;
 ===========================
 step 6
-lua ProjectDIR/src/lmod.in.lua bash load junk2
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load junk2
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/inherit/mf/Linux:ProjectDIR/rt/inherit/mf/Core:ProjectDIR/rt/inherit/mf/Core2";
 export LMOD_DEFAULT_MODULEPATH;
@@ -82,7 +82,7 @@ export MODULEPATH;
 false
 ===========================
 step 7
-lua ProjectDIR/src/lmod.in.lua bash use ProjectDIR/rt/inherit/pmf/core
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing use ProjectDIR/rt/inherit/pmf/core
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/inherit/mf/Linux:ProjectDIR/rt/inherit/mf/Core:ProjectDIR/rt/inherit/mf/Core2";
 export LMOD_DEFAULT_MODULEPATH;
@@ -96,7 +96,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/inheri
 export _ModuleTable_;
 ===========================
 step 8
-lua ProjectDIR/src/lmod.in.lua bash load intel
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load intel
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/inherit/pmf/core:ProjectDIR/rt/inherit/mf/Linux:ProjectDIR/rt/inherit/mf/Core:ProjectDIR/rt/inherit/mf/Core2";
 export LMOD_DEFAULT_MODULEPATH;
@@ -122,7 +122,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/inheri
 export _ModuleTable_;
 ===========================
 step 9
-lua ProjectDIR/src/lmod.in.lua bash load mpich
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load mpich
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/inherit/pmf/core:ProjectDIR/rt/inherit/mf/Linux:ProjectDIR/rt/inherit/mf/Core:ProjectDIR/rt/inherit/mf/Core2";
 export LMOD_DEFAULT_MODULEPATH;
@@ -160,7 +160,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/inheri
 export _ModuleTable_;
 ===========================
 step 10
-lua ProjectDIR/src/lmod.in.lua bash load p4est
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load p4est
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/inherit/pmf/core:ProjectDIR/rt/inherit/mf/Linux:ProjectDIR/rt/inherit/mf/Core:ProjectDIR/rt/inherit/mf/Core2";
 export LMOD_DEFAULT_MODULEPATH;
@@ -180,7 +180,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/inheri
 export _ModuleTable_;
 ===========================
 step 11
-lua ProjectDIR/src/lmod.in.lua bash list
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/inherit/pmf/core:ProjectDIR/rt/inherit/mf/Linux:ProjectDIR/rt/inherit/mf/Core:ProjectDIR/rt/inherit/mf/Core2";
 export LMOD_DEFAULT_MODULEPATH;
@@ -194,7 +194,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/inheri
 export _ModuleTable_;
 ===========================
 step 12
-lua ProjectDIR/src/lmod.in.lua bash swap mpich openmpi
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing swap mpich openmpi
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/inherit/pmf/core:ProjectDIR/rt/inherit/mf/Linux:ProjectDIR/rt/inherit/mf/Core:ProjectDIR/rt/inherit/mf/Core2";
 export LMOD_DEFAULT_MODULEPATH;
@@ -243,7 +243,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/inheri
 export _ModuleTable_;
 ===========================
 step 13
-lua ProjectDIR/src/lmod.in.lua bash swap intel gcc
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing swap intel gcc
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/inherit/pmf/core:ProjectDIR/rt/inherit/mf/Linux:ProjectDIR/rt/inherit/mf/Core:ProjectDIR/rt/inherit/mf/Core2";
 export LMOD_DEFAULT_MODULEPATH;
@@ -297,7 +297,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/inheri
 export _ModuleTable_;
 ===========================
 step 14
-lua ProjectDIR/src/lmod.in.lua bash list
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/inherit/pmf/core:ProjectDIR/rt/inherit/mf/Linux:ProjectDIR/rt/inherit/mf/Core:ProjectDIR/rt/inherit/mf/Core2";
 export LMOD_DEFAULT_MODULEPATH;
@@ -311,7 +311,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/inheri
 export _ModuleTable_;
 ===========================
 step 15
-lua ProjectDIR/src/lmod.in.lua bash purge
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/inherit/pmf/core:ProjectDIR/rt/inherit/mf/Linux:ProjectDIR/rt/inherit/mf/Core:ProjectDIR/rt/inherit/mf/Core2";
 export LMOD_DEFAULT_MODULEPATH;

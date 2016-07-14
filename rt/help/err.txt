@@ -1,17 +1,18 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --version
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
 Modules based on Lua: Version 6.4.3  2016-06-17 09:58
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash --help
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --help
 ===========================
 Usage: module [options] sub-command [args ...]
 Options:
   -h -? -H --help                   This help message
   -s availStyle --style=availStyle  Site controlled avail style: system (default: system)
+  --regression_testing              Lmod regression testing
   -D                                Program tracing written to stderr
   --debug=dbglvl                    Program tracing written to stderr
   --pin_versions=pinVersions        When doing a restore use specified version, do not follow defaults
@@ -99,12 +100,13 @@ Modules based on Lua: Version 6.4.3  2016-06-17 09:58
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash help
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing help
 ===========================
 Usage: module [options] sub-command [args ...]
 Options:
   -h -? -H --help                   This help message
   -s availStyle --style=availStyle  Site controlled avail style: system (default: system)
+  --regression_testing              Lmod regression testing
   -D                                Program tracing written to stderr
   --debug=dbglvl                    Program tracing written to stderr
   --pin_versions=pinVersions        When doing a restore use specified version, do not follow defaults
@@ -192,7 +194,7 @@ Modules based on Lua: Version 6.4.3  2016-06-17 09:58
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 4
-lua ProjectDIR/src/lmod.in.lua bash help amber
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing help amber
 ===========================
 Module Specific Help for "amber/9"
 The TACC Amber installation only includes the parallel Sander/pmemd modules.
@@ -206,7 +208,7 @@ sander.LES -i tes.in -o tes.out -p tes.prmtop.save -c tes.x -r tes.rst
 Version 9
 ===========================
 step 5
-lua ProjectDIR/src/lmod.in.lua bash --config
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --config
 ===========================
 Modules based on Lua: Version 6.4.3  2016-06-17 09:58
     by Robert McLay mclay@tacc.utexas.edu

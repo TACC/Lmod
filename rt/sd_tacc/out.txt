@@ -1,10 +1,10 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --version
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash load TACC.orig
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load TACC.orig
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/TACC";
 export LMOD_DEFAULT_MODULEPATH;
@@ -62,7 +62,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=5,baseMpathA={"ProjectDIR/mf/TACC",
 export _ModuleTable_;
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash save
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing save
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/TACC";
 export LMOD_DEFAULT_MODULEPATH;
@@ -76,7 +76,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=5,baseMpathA={"ProjectDIR/mf/TACC",
 export _ModuleTable_;
 ===========================
 step 4
-lua ProjectDIR/src/lmod.in.lua bash purge
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/TACC";
 export LMOD_DEFAULT_MODULEPATH;
@@ -113,7 +113,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/mf/TACC",
 export _ModuleTable_;
 ===========================
 step 5
-lua ProjectDIR/src/lmod.in.lua bash load TACC
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load TACC
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/TACC";
 export LMOD_DEFAULT_MODULEPATH;
@@ -179,7 +179,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=8,baseMpathA={"ProjectDIR/mf/TACC",
 export _ModuleTable_;
 ===========================
 step 6
-lua ProjectDIR/src/lmod.in.lua bash save
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing save
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/TACC";
 export LMOD_DEFAULT_MODULEPATH;

@@ -1,10 +1,10 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --version
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash load petsc
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load petsc
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/prereq/mf";
 export LMOD_DEFAULT_MODULEPATH;
@@ -24,7 +24,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/prereq
 export _ModuleTable_;
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash load slepc/3.0.0
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load slepc/3.0.0
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/prereq/mf";
 export LMOD_DEFAULT_MODULEPATH;
@@ -33,7 +33,7 @@ export MODULEPATH;
 false
 ===========================
 step 4
-lua ProjectDIR/src/lmod.in.lua bash unload slepc
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload slepc
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/prereq/mf";
 export LMOD_DEFAULT_MODULEPATH;
@@ -47,7 +47,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/prereq
 export _ModuleTable_;
 ===========================
 step 5
-lua ProjectDIR/src/lmod.in.lua bash unload petsc
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload petsc
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/prereq/mf";
 export LMOD_DEFAULT_MODULEPATH;
@@ -64,7 +64,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/prereq
 export _ModuleTable_;
 ===========================
 step 6
-lua ProjectDIR/src/lmod.in.lua bash load slepc
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load slepc
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/prereq/mf";
 export LMOD_DEFAULT_MODULEPATH;
@@ -73,7 +73,7 @@ export MODULEPATH;
 false
 ===========================
 step 7
-lua ProjectDIR/src/lmod.in.lua bash load petsc/2.9.0
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load petsc/2.9.0
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/prereq/mf";
 export LMOD_DEFAULT_MODULEPATH;
@@ -93,7 +93,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/prereq
 export _ModuleTable_;
 ===========================
 step 8
-lua ProjectDIR/src/lmod.in.lua bash load slepc
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load slepc
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/prereq/mf";
 export LMOD_DEFAULT_MODULEPATH;
@@ -102,7 +102,7 @@ export MODULEPATH;
 false
 ===========================
 step 9
-lua ProjectDIR/src/lmod.in.lua bash load slepc/2.9.0
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load slepc/2.9.0
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/prereq/mf";
 export LMOD_DEFAULT_MODULEPATH;
@@ -120,7 +120,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/prereq
 export _ModuleTable_;
 ===========================
 step 10
-lua ProjectDIR/src/lmod.in.lua bash load petsc/3.1.0
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load petsc/3.1.0
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/prereq/mf";
 export LMOD_DEFAULT_MODULEPATH;
@@ -140,7 +140,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/prereq
 export _ModuleTable_;
 ===========================
 step 11
-lua ProjectDIR/src/lmod.in.lua bash load slepc
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load slepc
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/prereq/mf";
 export LMOD_DEFAULT_MODULEPATH;
@@ -158,7 +158,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/prereq
 export _ModuleTable_;
 ===========================
 step 12
-lua ProjectDIR/src/lmod.in.lua bash unload slepc petsc
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload slepc petsc
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/prereq/mf";
 export LMOD_DEFAULT_MODULEPATH;
@@ -175,7 +175,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/prereq
 export _ModuleTable_;
 ===========================
 step 13
-lua ProjectDIR/src/lmod.in.lua bash load petsc/3.1.0
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load petsc/3.1.0
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/prereq/mf";
 export LMOD_DEFAULT_MODULEPATH;
@@ -195,7 +195,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/prereq
 export _ModuleTable_;
 ===========================
 step 14
-lua ProjectDIR/src/lmod.in.lua bash load slepc/2.9.0
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load slepc/2.9.0
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/prereq/mf";
 export LMOD_DEFAULT_MODULEPATH;
@@ -213,7 +213,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/prereq
 export _ModuleTable_;
 ===========================
 step 15
-lua ProjectDIR/src/lmod.in.lua bash load junk/1.0
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load junk/1.0
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/prereq/mf";
 export LMOD_DEFAULT_MODULEPATH;
@@ -222,7 +222,7 @@ export MODULEPATH;
 false
 ===========================
 step 16
-lua ProjectDIR/src/lmod.in.lua bash load jdk32
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load jdk32
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/prereq/mf";
 export LMOD_DEFAULT_MODULEPATH;
@@ -242,7 +242,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/prereq
 export _ModuleTable_;
 ===========================
 step 17
-lua ProjectDIR/src/lmod.in.lua bash load junk/1.0
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load junk/1.0
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/prereq/mf";
 export LMOD_DEFAULT_MODULEPATH;

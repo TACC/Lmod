@@ -1,10 +1,10 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --version
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash load a b
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load a b
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/pushenv/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -30,7 +30,7 @@ __LMOD_STACK_RTM="A:A";
 export __LMOD_STACK_RTM;
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash unload a b
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload a b
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/pushenv/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -50,7 +50,7 @@ unset __LMOD_STACK_R;
 unset __LMOD_STACK_RTM;
 ===========================
 step 4
-lua ProjectDIR/src/lmod.in.lua bash load intel
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load intel
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/pushenv/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -72,7 +72,7 @@ __LMOD_STACK_CC="icc";
 export __LMOD_STACK_CC;
 ===========================
 step 5
-lua ProjectDIR/src/lmod.in.lua bash load mpich
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load mpich
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/pushenv/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -94,7 +94,7 @@ __LMOD_STACK_CC="mpicc:icc";
 export __LMOD_STACK_CC;
 ===========================
 step 6
-lua ProjectDIR/src/lmod.in.lua bash load clang
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load clang
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/pushenv/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -116,7 +116,7 @@ __LMOD_STACK_CC="icc:mpicc:icc";
 export __LMOD_STACK_CC;
 ===========================
 step 7
-lua ProjectDIR/src/lmod.in.lua bash unload clang
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload clang
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/pushenv/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -138,7 +138,7 @@ __LMOD_STACK_CC="mpicc:icc";
 export __LMOD_STACK_CC;
 ===========================
 step 8
-lua ProjectDIR/src/lmod.in.lua bash unload mpich
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload mpich
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/pushenv/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -160,7 +160,7 @@ __LMOD_STACK_CC="icc";
 export __LMOD_STACK_CC;
 ===========================
 step 9
-lua ProjectDIR/src/lmod.in.lua bash unload intel
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload intel
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/pushenv/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -178,7 +178,7 @@ export _ModuleTable_;
 unset __LMOD_STACK_CC;
 ===========================
 step 10
-lua ProjectDIR/src/lmod.in.lua bash load intel mpich
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load intel mpich
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/pushenv/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -200,7 +200,7 @@ __LMOD_STACK_CC="mpicc:icc";
 export __LMOD_STACK_CC;
 ===========================
 step 11
-lua ProjectDIR/src/lmod.in.lua bash unload intel
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload intel
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/pushenv/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -218,7 +218,7 @@ export _ModuleTable_;
 unset __LMOD_STACK_CC;
 ===========================
 step 12
-lua ProjectDIR/src/lmod.in.lua bash load intel
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load intel
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/pushenv/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -240,7 +240,7 @@ __LMOD_STACK_CC="mpicc:icc";
 export __LMOD_STACK_CC;
 ===========================
 step 13
-lua ProjectDIR/src/lmod.in.lua bash load settarg
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load settarg
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/pushenv/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -262,7 +262,7 @@ __LMOD_STACK_RTM_SETTARG_CMD="SETTARG_CMD::";
 export __LMOD_STACK_RTM_SETTARG_CMD;
 ===========================
 step 14
-lua ProjectDIR/src/lmod.in.lua bash unload settarg
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload settarg
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/pushenv/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -284,7 +284,7 @@ __LMOD_STACK_RTM_SETTARG_CMD=":";
 export __LMOD_STACK_RTM_SETTARG_CMD;
 ===========================
 step 15
-lua ProjectDIR/src/lmod.in.lua bash save
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing save
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/pushenv/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -298,7 +298,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/pushen
 export _ModuleTable_;
 ===========================
 step 16
-lua ProjectDIR/src/lmod.in.lua bash restore
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing restore
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/pushenv/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;

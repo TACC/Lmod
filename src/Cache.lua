@@ -67,18 +67,19 @@ require("fileOps")
 require("cmdfuncs")
 require("utils")
 
-_G.maliasT    = {}
-local CTimer  = require("CTimer")
-local dbg     = require("Dbg"):dbg()
-local M       = {}
-local MT      = require("MT")
-local Spider  = require("Spider")
-local hook    = require("Hook")
-local lfs     = require("lfs")
-local malias  = require("MAlias"):build()
-local posix   = require("posix")
-local s_cache = false
-local timer   = require("Timer"):timer()
+_G.maliasT      = {}
+local CTimer    = require("CTimer")
+local dbg       = require("Dbg"):dbg()
+local M         = {}
+local MT        = require("MT")
+local Spider    = require("Spider")
+local hook      = require("Hook")
+local lfs       = require("lfs")
+local malias    = require("MAlias"):build()
+local posix     = require("posix")
+local s_cache   = false
+local timer     = require("Timer"):timer()
+local concatTbl = table.concat
 
 --------------------------------------------------------------------------
 -- This singleton construct reads the scDescriptT table that can be
