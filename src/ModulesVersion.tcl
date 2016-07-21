@@ -1,4 +1,4 @@
-#!/usr/bin/env tclsh
+#!@path_to_tclsh@
 proc main {argv} {
     source $argv
     set version       -1

@@ -198,6 +198,7 @@ __installMe:
 	        -e 's|@colorize@|$(COLORIZE)|g'                       	   	  \
 	        -e 's|@duplicate_paths@|$(DUPLICATE_PATHS)|g'      	   	  \
 	        -e 's|@allow_tcl_mfiles@|$(ALLOW_TCL_MFILES)|g'      	   	  \
+	        -e 's|@path_to_tclsh@|$(PATH_TO_TCLSH)|g'      	   		  \
 	        -e 's|@mpath_avail@|$(MPATH_AVAIL)|g'            	   	  \
 	        -e 's|@short_time@|$(SHORT_TIME)|g'                   	   	  \
 	        -e 's|@cacheDirs@|$(SPIDER_CACHE_DIRS)|g'             	   	  \
