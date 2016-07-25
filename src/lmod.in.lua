@@ -385,7 +385,9 @@ end
 prtHdr     = None
 ModuleName = ""
 ModuleFn   = ""
-
+if (prtHdr ~= None) then
+   prtHdr()
+end
 --------------------------------------------------------------------------
 -- The main function of Lmod.  The lmod program always starts here.
 function main()
