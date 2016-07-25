@@ -47,6 +47,7 @@ require("string_utils")
 require("myGlobals")
 local dbg          = require("Dbg"):dbg()
 local concatTbl    = table.concat
+local getenv       = os.getenv
 ------------------------------------------------------------------------
 -- loadModuleFile(t): read a modulefile in via sandbox_run
 -- @param t The input table naming the file to be loaded plus other
@@ -96,10 +97,20 @@ function loadModuleFile(t)
       A[#A + 1]    = usrName
       A[#A + 1]    = "-s"
       A[#A + 1]    = t.shell
+
+      local ldlib  = getenv("LD_LIBRARY_PATH")
+
+      if (ldlib) then
+         A[#A + 1]    = "-L"
+         A[#A + 1]    = "\"" .. ldlib .. "\""
+      end
+      
       if (t.help) then
          A[#A + 1] = "-h"
       end
       local a      = {}
+      a[#a + 1]    = "LD_LIBRARY_PATH=\"".. (LMOD_LD_LIBRARY_PATH or "") .. "\""
+      a[#a + 1]    = LMOD_TCLSH
       a[#a + 1]	   = pathJoin(cmdDir(),"tcl2lua.tcl")
       a[#a + 1]	   = concatTbl(A," ")
       a[#a + 1]	   = t.file

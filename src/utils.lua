@@ -619,35 +619,36 @@ function readAdmin()
       local a     = {}
 
       for v in whole:split("\n") do
+         repeat
+            v = v:trim()
 
-         v = v:trim()
+            if (v:sub(1,1) == "#") then
+               -- ignore this comment line
+               break
 
-         if (v:sub(1,1) == "#") then
-            -- ignore this comment line
-
-
-         elseif (v:find("^%s*$")) then
-            if (state == "value") then
-               value       = concatTbl(a, " ")
-               a           = {}
-               adminT[key] = value
-               state       = "init"
-            end
-
-            -- Ignore blank lines
-         elseif (state == "value") then
-            a[#a+1]     = v:trim()
-         else
-            local i     = v:find(":")
-            if (i) then
-               key      = v:sub(1,i-1):trim()
-               local  s = v:sub(i+1):trim()
-               if (s:len() > 0) then
-                  a[#a+1]  = s
+            elseif (v:find("^%s*$")) then
+               if (state == "value") then
+                  value       = concatTbl(a, " ")
+                  a           = {}
+                  adminT[key] = value
+                  state       = "init"
                end
-               state    = "value"
+
+               -- Ignore blank lines
+            elseif (state == "value") then
+               a[#a+1]     = v:trim()
+            else
+               local i     = v:find(":")
+               if (i) then
+                  key      = v:sub(1,i-1):trim()
+                  local  s = v:sub(i+1):trim()
+                  if (s:len() > 0) then
+                     a[#a+1]  = s
+                  end
+                  state    = "value"
+               end
             end
-         end
+         until true
       end
    end
 end
@@ -862,7 +863,12 @@ function versionFile(v, sn, path, ignoreErrors)
    end
    local version = false
    dbg.print{"handle file: ",v, "\n"}
-   local cmd = pathJoin(cmdDir(),"RC2lua.tcl") .. " " .. path
+   local a = {}
+   a[#a + 1] = "LD_LIBRARY_PATH=\"".. (LMOD_LD_LIBRARY_PATH or "") .. "\""
+   a[#a + 1] = LMOD_TCLSH
+   a[#a + 1] = pathJoin(cmdDir(),"RC2lua.tcl")
+   a[#a + 1] = path
+   local cmd = concatTbl(a," ")
    s         = capture(cmd):trim()
 
    local status, func = pcall(load,s)
@@ -971,51 +977,54 @@ function walk_directory_for_mf(mpath, path, prefix, dirA, mnameT)
 
 
    for file in lfs.dir(path) do
-      local idx       = defaultFnT[file] or defaultIdx
-      if (idx < defaultIdx) then
-         defaultIdx = idx
-         defaultFn  = pathJoin(path,file)
-      else
-         if (keepFile(file))then
-            local f        = pathJoin(path,file)
-            attr           = lfs.attributes(f)
-            local readable = posix.access(f,"r")
-            local full     = pathJoin(prefix, file):gsub("%.lua","")
+      repeat
+         local idx       = defaultFnT[file] or defaultIdx
+         if (idx < defaultIdx) then
+            defaultIdx = idx
+            defaultFn  = pathJoin(path,file)
+         else
+            if (keepFile(file))then
+               local f        = pathJoin(path,file)
+               attr           = lfs.attributes(f)
+               local readable = posix.access(f,"r")
+               local full     = pathJoin(prefix, file):gsub("%.lua","")
 
-            ------------------------------------------------------------
-            -- Since cache files are build by root but read by users
-            -- make sure that any user can read a file owned by root.
+               ------------------------------------------------------------
+               -- Since cache files are build by root but read by users
+               -- make sure that any user can read a file owned by root.
 
-            if (readable) then
-               local st    = posix.stat(f)
-               if ((not st) or (st.uid == 0 and not st.mode:find("......r.."))) then
-                  readable = false
-               end
-            end
-
-            if (not readable or not attr) then
-               -- do nothing for non-readable or non-existant files
-            elseif (attr.mode == 'file' and file ~= "default" and accept_fn(file) and
-                    full:sub(1,1) ~= '.') then
-               -- Lua modulefiles should always be picked over TCL modulefiles
-               if (not mnameT[full] or not mnameT[full].luaExt) then
-                  local luaExt  = f:find("%.lua$")
-                  local sn      = prefix:gsub("/$","")
-                  local version = file:gsub("%.lua$","")
-                  if (sn == "") then
-                     sn = full
-                     version = false
+               if (readable) then
+                  local st    = posix.stat(f)
+                  if ((not st) or (st.uid == 0 and not st.mode:find("......r.."))) then
+                     readable = false
                   end
-                  mnameT[full] = {fn = f, canonical=f:gsub("%.lua$",""), mpath = mpath,
-                                  luaExt = luaExt, version=version, sn=sn}
                end
-            elseif (attr.mode == "directory" and file:sub(1,1) ~= ".") then
-               -- Remember all directories in local array.  We have to know if
-               -- any are "arch" directories.
-               a[#a + 1] = { fullName = f, mname = full, file=file, path=path}
+
+               if (not readable or not attr) then
+                  -- do nothing for non-readable or non-existant files
+                  break
+               elseif (attr.mode == 'file' and file ~= "default" and accept_fn(file) and
+                       full:sub(1,1) ~= '.') then
+                  -- Lua modulefiles should always be picked over TCL modulefiles
+                  if (not mnameT[full] or not mnameT[full].luaExt) then
+                     local luaExt  = f:find("%.lua$")
+                     local sn      = prefix:gsub("/$","")
+                     local version = file:gsub("%.lua$","")
+                     if (sn == "") then
+                        sn = full
+                        version = false
+                     end
+                     mnameT[full] = {fn = f, canonical=f:gsub("%.lua$",""), mpath = mpath,
+                                     luaExt = luaExt, version=version, sn=sn}
+                  end
+               elseif (attr.mode == "directory" and file:sub(1,1) ~= ".") then
+                  -- Remember all directories in local array.  We have to know if
+                  -- any are "arch" directories.
+                  a[#a + 1] = { fullName = f, mname = full, file=file, path=path}
+               end
             end
          end
-      end
+      until true
    end
 
    ------------------------------------------------------------
@@ -1038,12 +1047,12 @@ function walk_directory_for_mf(mpath, path, prefix, dirA, mnameT)
       end
    else
       for i = 1,#a do
-         local v    = a[i]
-         local file = v.file
-         local path = v.path
-         local pathEsc = "^" .. path:escape() .. "/"
+         local v       = a[i]
+         local file    = v.file
+         local mypath  = v.path
+         local pathEsc = "^" .. mypath:escape() .. "/"
       
-         for root, dirA, fileA in dir_walk(pathJoin(path,file)) do
+         for root, mydirA, fileA in dir_walk(pathJoin(mypath,file)) do
             for ja = 1, #fileA do
                local f       = pathJoin(root,fileA[ja])
                local version = f:gsub(pathEsc,""):gsub("%.lua$","")

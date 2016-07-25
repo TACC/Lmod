@@ -321,7 +321,7 @@ function M._error(...)
       io.stderr:write(arg[i])
    end
    io.stderr:write("\n")
-   errorExit()
+   M.errorExit()
 end
 
 

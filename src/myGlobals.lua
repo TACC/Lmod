@@ -311,6 +311,27 @@ LMOD_LEGACY_VERSION_ORDERING = initialize("LMOD_LEGACY_VERSION_ORDERING",
                                           "@legacy_ordering@","no")
 
 ------------------------------------------------------------------------
+-- LMOD_TCLSH:   path to tclsh
+------------------------------------------------------------------------
+
+LMOD_TCLSH = "@tclsh@"
+if (LMOD_TCLSH:sub(1,1) == "@") then
+   LMOD_TCLSH = "tclsh"
+end
+
+------------------------------------------------------------------------
+-- LMOD_LD_LIBRARY_PATH:   LMOD_LD_LIBRARY_PATH found at configure
+------------------------------------------------------------------------
+
+LMOD_LD_LIBRARY_PATH = "@sys_ld_lib_path@"
+if (LMOD_LD_LIBRARY_PATH:sub(1,1) == "@") then
+   LMOD_LD_LIBRARY_PATH = getenv("LD_LIBRARY_PATH")
+end
+if (LMOD_LD_LIBRARY_PATH == "") then
+   LMOD_LD_LIBRARY_PATH = nil
+end
+
+------------------------------------------------------------------------
 -- parseVersion:   generate a parsable version string from version
 ------------------------------------------------------------------------
 parseVersion  = false
@@ -354,13 +375,6 @@ Threshold = tonumber(getenv("LMOD_THRESHOLD")) or 1
 shortLifeCache = ancient/12
 
 ------------------------------------------------------------------------
--- sysCacheDir:  The system directory location.
-------------------------------------------------------------------------
-sysCacheDirs    = getenv("LMOD_SPIDER_CACHE_DIRS") or "@cacheDirs@"
-
-
-
-------------------------------------------------------------------------
 -- USE_DOT_FILES: Use ~/.lmod.d/.cache or ~/.lmod.d/__cache__
 ------------------------------------------------------------------------
 
@@ -371,7 +385,6 @@ USE_DOT_FILES = "@use_dot_files@"
 ------------------------------------------------------------------------
 USER_CACHE_DIR_NAME  = ".cache"
 USER_SAVE_DIR_NAME   = ".save"
-USER_SBATCH_DIR_NAME = ".saveBatch"
 if ( USE_DOT_FILES:lower() == "no" ) then
   USER_CACHE_DIR_NAME  = "__cache__"
   USER_SAVE_DIR_NAME   = "__save__"
@@ -379,7 +392,6 @@ if ( USE_DOT_FILES:lower() == "no" ) then
 end
 usrCacheDir   = pathJoin(getenv("HOME"),".lmod.d",USER_CACHE_DIR_NAME)
 usrSaveDir    = pathJoin(getenv("HOME"),".lmod.d",USER_SAVE_DIR_NAME)
-usrSBatchDir  = pathJoin(getenv("HOME"),".lmod.d",USER_SBATCH_DIR_NAME)
 
 ------------------------------------------------------------------------
 -- updateSystemFn: The system file that is touched everytime the system

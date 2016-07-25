@@ -827,6 +827,7 @@ set options {
             {f.arg   "???"  "module full name"}
             {m.arg   "load" "mode: load remove display"}
             {s.arg   "bash" "shell name"}
+            {L.arg   "???"  "LD_LIBRARY_PATH"}
             {u.arg   "???"  "module specified name"}
 }
 
@@ -842,4 +843,7 @@ set g_fullName  $params(f)
 set g_usrName   $params(u)
 set g_shellName $params(s)
 set g_mode      $params(m)
+if {[lsearch $argv "-L"] >= 0} {
+    set env("LD_LIBRARY_PATH")  $params(L)
+}
 eval main $argv

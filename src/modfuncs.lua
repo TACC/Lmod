@@ -218,6 +218,9 @@ function try_load(...)
 end
 
 try_add = try_load
+if (try_add ~= try_load) then
+   try_add()
+end
 
 --------------------------------------------------------------------------
 -- The unload function reads a module file and reverses all the commands

@@ -55,12 +55,12 @@ require("strict")
 
 require("serializeTbl")
 
-s_malias     = {}
-local M      = {}
-local dbg    = require("Dbg"):dbg()
-local concat = table.concat
-local getenv = os.getenv
-local load   = (_VERSION == "Lua 5.1") and loadstring or load
+s_malias        = {}
+local M         = {}
+local dbg       = require("Dbg"):dbg()
+local concatTbl = table.concat
+local getenv    = os.getenv
+local load      = (_VERSION == "Lua 5.1") and loadstring or load
 --------------------------------------------------------------------------
 -- a private ctor that is used to construct a singleton.
 -- @param self A MAlias object.
@@ -163,7 +163,12 @@ function M.resolve(self, name)
       for i = 1, #fileA  do
          local fn = fileA[i]
          if (isFile(fn)) then
-            local cmd = pathJoin(cmdDir(),"RC2lua.tcl") .. " " .. fn
+            local a   = {}
+            a[#a + 1] = "LD_LIBRARY_PATH=\"".. (LMOD_LD_LIBRARY_PATH or "") .. "\""
+            a[#a + 1] = LMOD_TCLSH
+            a[#a + 1] = pathJoin(cmdDir(),"RC2lua.tcl")
+            a[#a + 1] = fn
+            local cmd = concatTbl(a," ")
             local s   = capture(cmd):trim()
 
             modA = {}
@@ -231,7 +236,7 @@ function M.buildMod2VersionT(self)
       for k in pairsByKeys(vv) do
          a[#a+1] = k:gsub("^.*/","")
       end
-      m2vT[modname] = concat(a,":")
+      m2vT[modname] = concatTbl(a,":")
    end
    self.mod2versionT = m2vT
 end

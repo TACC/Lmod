@@ -15,5 +15,7 @@ Bug Fixes:
      Lua 5.1.
   d) Contrib patch: Failback to /proc/sys/kernel/random/uuid 
      if uuidgen isn't available.
-  e) Contrib patch: Failback to shasum if sha1sum isn't available
-
+  e) Contrib patch: Failback to shasum if sha1sum isn't
+     available.
+  f) Now uses the tclsh (and the LD_LIBRARY_PATH) found at
+     configure time.
