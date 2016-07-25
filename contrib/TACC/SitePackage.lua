@@ -163,6 +163,16 @@ local function report_loads()
    end
 end
 
+local orig_tonumber = tonumber
+
+function safe_tonumber(a,b)
+   if (type(b) == "number") then
+      return orig_tonumber(a,b)
+   end
+   return orig_tonumber(a,10)
+end
+
+
 
 ExitHookA.register(report_loads)
 
@@ -172,4 +182,6 @@ hook.register("load",           load_hook)
 hook.register("parse_updateFn", parse_updateFn_hook)
 hook.register("writeCache",     writeCache_hook)
 
-sandbox_registration { Pkg = Pkg }
+sandbox_registration { Pkg      = Pkg,
+                       tonumber = safe_tonumber,
+                     }
