@@ -19,3 +19,5 @@ Bug Fixes:
      available.
   f) Now uses the tclsh (and the LD_LIBRARY_PATH) found at
      configure time.
+  g) Now searches for ps, basename, expr in /bin and /usr/bin
+     when not using the locations found by configure
