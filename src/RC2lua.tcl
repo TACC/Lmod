@@ -1,4 +1,4 @@
-#!/usr/bin/env tclsh
+#!@path_to_tclsh@
 global g_currentModuleName
 proc doubleQuoteEscaped {text} {
     regsub -all "\"" $text "\\\"" text
