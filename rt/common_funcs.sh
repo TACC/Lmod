@@ -10,6 +10,7 @@ cleanUp ()
        -e "s|:$PATH_to_LUA:|:|g"                          \
        -e "s|$PATH_to_LUA/lua|lua|g"                      \
        -e "s|\@git\@|$gitV|g"                             \
+       -e "s|:/bin:|:|g"                                  \
        -e "s|:/usr/bin:|:|g"                              \
        -e "s|:/usr/local/bin:|:|g"                        \
        -e "s|:$PATH_to_SHA1:|:|g"                         \

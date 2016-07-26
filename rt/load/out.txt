@@ -176,7 +176,7 @@ LOADEDMODULES="admin/admin-1.0:unix/unix:local/local:noweb/2.10c:PrgEnv:intel/in
 export LOADEDMODULES;
 MODULEPATH="ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/Core:ProjectDIR/mf/Beta";
 export MODULEPATH;
-PATH="/a/b/c:/d/e/f:/g/h/i:/vol/local/intel/idb/idb/bin:/vol/local/intel/fc/fc/bin:/vol/local/intel/cc/cc/bin:/vol/local/noweb/icon/bin:/vol/local/noweb/2.10c/bin:/usr/local/share/bin:/usr/sbin:/sbin:ProjectDIR/src:PATH_to_TM:/bin:/abc/def:/qrs/tuv";
+PATH="/a/b/c:/d/e/f:/g/h/i:/vol/local/intel/idb/idb/bin:/vol/local/intel/fc/fc/bin:/vol/local/intel/cc/cc/bin:/vol/local/noweb/icon/bin:/vol/local/noweb/2.10c/bin:/usr/local/share/bin:/usr/sbin:/sbin:ProjectDIR/src:PATH_to_TM:/abc/def:/qrs/tuv";
 export PATH;
 _LMFILES_="ProjectDIR/mf/Core/admin/admin-1.0.lua:ProjectDIR/mf/Core/unix/unix.lua:ProjectDIR/mf/Core/local/local.lua:ProjectDIR/mf/Core/noweb/2.10c.lua:ProjectDIR/mf/Core/PrgEnv.lua:ProjectDIR/mf/Core/intel/intel.lua:ProjectDIR/mf/Compiler/intel/10.1/gotoblas/1.32.lua:ProjectDIR/mf/Core/multi/multi.lua";
 export _LMFILES_;
