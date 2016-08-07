@@ -101,7 +101,7 @@ function string.multiEscaped(self)
    if (type(self) ~= 'string') then
       self = tostring(self)
    else
-      self = self:gsub("[\"'$]","\\\1")
+      self = self:gsub("[\"'$]","\\%1")
       self = ('%q'):format(self)
    end
    return self
