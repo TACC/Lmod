@@ -97,7 +97,7 @@ function string.doubleQuoteString(self)
    return self
 end
 
-function string.multiEscape(self)
+function string.multiEscaped(self)
    if (type(self) ~= 'string') then
       self = tostring(self)
    else
