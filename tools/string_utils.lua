@@ -97,6 +97,16 @@ function string.doubleQuoteString(self)
    return self
 end
 
+function string.multiEscape(self)
+   if (type(self) ~= 'string') then
+      self = tostring(self)
+   else
+      self = self:gsub("[\"'$]","\\\1")
+      self = ('%q'):format(self)
+   end
+   return self
+end
+
 --------------------------------------------------------------------------
 -- Escape @ character in input string.
 -- @param  self Input string.
