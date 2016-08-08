@@ -44,7 +44,7 @@ Bare.my_name = 'bare'
 function Bare.expand(self,tbl)
    local a = {}
    for k in pairsByKeys(tbl) do
-      local v = tostring(tbl[k]:expand()):doubleQuoteString()
+      local v = tostring(tbl[k]:expand()):multiEscaped()
       a[#a + 1] = k .. ": " .. v
    end
    io.stderr:write(table.concat(a,"\n"),"\n")
