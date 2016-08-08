@@ -4,6 +4,7 @@
 -- does a quick check of all modules in module_dir for corresponding entry in dbT.lua in system_cache
 -- prints modules from module_dir not in dbT.lua cache on STDOUT, otherwise is quiet
 -- cache_check.lua -c system_cache_dir_containing_dbT.lua -m module_dir
+-- Ben McGough bmcgough@fredhutch.org 8.8.16
 require'lfs'
 
 cachedir = ""
