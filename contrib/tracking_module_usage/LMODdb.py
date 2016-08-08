@@ -311,7 +311,7 @@ class LMODdb(object):
       if (sqlPattern == "") :
         sqlPattern == "%"
 
-      query = "SELECT t1.path, count(distinct(t2.user_id)) as c2 from moduleT as t1, "  +\
+      query = "SELECT t1.path, t1.syshost, count(distinct(t2.user_id)) as c2 from moduleT as t1, "  +\
               "join_user_module as t2 where t1.path like %s and t1.mod_id = t2.mod_id " +\
               "and t1.syshost like %s " + dateTest + " group by t2.mod_id order by c2 desc"
 
@@ -320,11 +320,11 @@ class LMODdb(object):
 
       resultA = []
 
-      resultA.append(["Module path", "Distinct Users"])
-      resultA.append(["-----------", "--------------"])
+      resultA.append(["Module path", "Syshost", "Distinct Users" ])
+      resultA.append(["-----------", "-------", "--------------"])
       for i in xrange(numRows):
         row = cursor.fetchone()
-        resultA.append([row[0],row[1]])
+        resultA.append([row[0],row[1],row[2]])
 
       conn.close()
 
@@ -353,7 +353,7 @@ class LMODdb(object):
       if (sqlPattern == "") :
         sqlPattern == "%"
 
-      query =  "SELECT t1.path, t3.user as c2 from moduleT as t1, join_user_module "       +\
+      query =  "SELECT t1.path, t1.syshost, t3.user as c2 from moduleT as t1, join_user_module "       +\
                "as t2, userT as t3 where t1.path like  %s  and t1.mod_id = t2.mod_id "     +\
                "and t1.syshost like  %s " + dateTest +" and t3.user_id = t2.user_id "      +\
                "group by c2 order by c2"
@@ -362,13 +362,13 @@ class LMODdb(object):
       numRows = cursor.rowcount
 
       resultA = []
-      resultA.append(["Module path", "User Name"])
-      resultA.append(["-----------", "---------"])
+      resultA.append(["Module path", "Syshost", "User Name"])
+      resultA.append(["-----------", "-------", "---------"])
 
 
       for i in xrange(numRows):
         row = cursor.fetchone()
-        resultA.append([row[0],row[1]])
+        resultA.append([row[0],row[1],row[2]])
 
       conn.close()
 
@@ -395,7 +395,7 @@ class LMODdb(object):
       if (endDate != "unknown"):
         dateTest = dateTest + " and t2.date < '" + endDate + "'"
 
-      query =  "SELECT t1.path as c1, t3.user as c2 from moduleT as t1, join_user_module "   +\
+      query =  "SELECT t1.path as c1, t1.syshost, t3.user as c2 from moduleT as t1, join_user_module "   +\
                "as t2, userT as t3 where t3.user =  %s  and t1.mod_id = t2.mod_id "          +\
                "and t1.syshost like %s "+ dateTest + " and t3.user_id = t2.user_id "         +\
                "group by c1 order by c1"
@@ -404,13 +404,13 @@ class LMODdb(object):
       numRows = cursor.rowcount
 
       resultA = []
-      resultA.append(["Module path", "User Name"])
-      resultA.append(["-----------", "---------"])
+      resultA.append(["Module path", "Syshost", "User Name"])
+      resultA.append(["-----------", "-------", "---------"])
 
 
       for i in xrange(numRows):
         row = cursor.fetchone()
-        resultA.append([row[0],row[1]])
+        resultA.append([row[0],row[1],row[2]])
 
       conn.close()
 
