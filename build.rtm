@@ -59,7 +59,7 @@ SYSHOST=${myhost#*.}
 SUDO=""
 
 cat > /tmp/stampede.build.$$ <<EOF
-$HOME/a/moduleData/cacheDir: $HOME/a/moduleData/losf_last_update
+/tmp/moduleData/cacheDir:/tmp/losf_last_update
 EOF
 
 cat > /tmp/ls4.build.$$ <<EOF
