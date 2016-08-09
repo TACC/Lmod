@@ -93,7 +93,11 @@ case $SYSHOST in
     UPDATE_FN=$ADMIN_DIR/system.txt
 
     if [ $SYSHOST == "stampede" ]; then
-      base="$base/$(uname -m)"
+       if [ -x $HOME/.up/bin/arch.py ]; then
+	   base="$base/$($HOME/.up/bin/arch.py)"
+       else
+	   base="$base/$(uname -m)"
+       fi
     fi
     EXTRA="--with-spiderCacheDescript=/tmp/$SYSHOST.build.$$"
     SITE_PKG="contrib/TACC/*.lua"
