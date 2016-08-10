@@ -351,9 +351,10 @@ tags: build_tags
 
 build_tags:
 	find . \( -regex '.*~$$\|.*/\.git\|.*/\.git/' -prune \)  \
-               -o -type f > file_list.1
+               -o -type f > file_list.1.txt
 	sed -e 's|.*/.git.*||g'                                  \
             -e 's|.*/rt/.*/t1/.*||g'                             \
+            -e 's|./rt/funny_files/mf/.*||g'                     \
             -e 's|.*/html/.*$$||g'                               \
             -e 's|./TAGS||g'                                     \
             -e 's|./makefile||g'                                 \
@@ -389,8 +390,8 @@ build_tags:
             -e 's|.*\~$$||g'                                     \
             -e 's|./file_list\..*||g'                            \
             -e '/^\s*$$/d'                                       \
-	       < file_list.1 > file_list.2
-	etags  `cat file_list.2`
+	       < file_list.1.txt > file_list.2.txt
+	etags  `cat file_list.2.txt`
 
 
 libexec:  $(lua_code)
