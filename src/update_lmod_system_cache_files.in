@@ -71,9 +71,6 @@ UPDATE_REVERSEMAPT_CACHE=0
 UPDATE_JSON_RMAPT=0
 UPDATE_XALT_JSON_RMAPT=0
 
-# update dbT cache file (on by default)
-UPDATE_DBT_CACHE=1
-
 #
 # Utility functions
 #
@@ -118,8 +115,6 @@ print_help() {
     echo "      enable updating reverseMapT cache file (default: only moduleT and dbT cache files)"
     echo "  -R <reverseMapD>"
     echo "      enable updating reverseMapT cache file (default: only moduleT and dbT cache files)"
-    echo "  -m"
-    echo "      moduleT cache update only, disable updating dbT cache file"
     echo "  -J"
     echo "      enable update jsonReverseMapT cache file"
     echo "  -K"
@@ -154,9 +149,6 @@ parse_cmdline(){
             R)
                 UPDATE_REVERSEMAPT_CACHE=1
 		LMOD_REVERSEMAPT_DIR=$OPTARG
-                ;;
-            m)
-                UPDATE_DBT_CACHE=0
                 ;;
             X)
                 LMOD_DEBUG=1
@@ -345,9 +337,6 @@ new_timestamp
 
 # update cache files
 update_cache $LMOD_CACHE_DIR moduleT
-if [ $UPDATE_DBT_CACHE -ne 0 ]; then
-    update_cache $LMOD_CACHE_DIR dbT
-fi
 if [ $UPDATE_REVERSEMAPT_CACHE -ne 0 ]; then
     update_cache  $LMOD_REVERSEMAPT_DIR reverseMapT
 fi
