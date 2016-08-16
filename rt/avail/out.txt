@@ -406,3 +406,45 @@ MODULEPATH="ProjectDIR/rt/avail/mf/Order:ProjectDIR/rt/avail/mf/Core4:ProjectDIR
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/avail/mf/Order","ProjectDIR/rt/avail/mf/Core4","ProjectDIR/rt/avail/mf/Core3",},family={},inactive={},mT={TACC={["FN"]="ProjectDIR/rt/avail/mf/Core3/TACC.lua",["default"]=0,["fullName"]="TACC",["loadOrder"]=1,propT={},["short"]="TACC",["status"]="active",},intel={["FN"]="ProjectDIR/rt/avail/mf/Core3/intel/15.0.1.lua",["default"]=1,["fullName"]="intel/15.0.1",["loadOrder"]=2,propT={},["short"]="intel",["status"]="active",},},mpathA={"ProjectDIR/rt/avail/mf/Order","ProjectDIR/rt/avail/mf/Core4","ProjectDIR/rt/avail/mf/Core3",},["systemBaseMPATH"]="ProjectDIR/rt/avail/mf/Core3",["version"]=2,}';
 export _ModuleTable_;
+===========================
+step 28
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing use ProjectDIR/rt/avail/mf/Core6
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/avail/mf/Order:ProjectDIR/rt/avail/mf/Core4:ProjectDIR/rt/avail/mf/Core3";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/avail/mf/Order:ProjectDIR/rt/avail/mf/Core4:ProjectDIR/rt/avail/mf/Core3";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/avail/mf/Core6:ProjectDIR/rt/avail/mf/Order:ProjectDIR/rt/avail/mf/Core4:ProjectDIR/rt/avail/mf/Core3";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/avail/mf/Core6:ProjectDIR/rt/avail/mf/Order:ProjectDIR/rt/avail/mf/Core4:ProjectDIR/rt/avail/mf/Core3";
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/avail/mf/Core6","ProjectDIR/rt/avail/mf/Order","ProjectDIR/rt/avail/mf/Core4","ProjectDIR/rt/avail/mf/Core3",},family={},inactive={},mT={TACC={["FN"]="ProjectDIR/rt/avail/mf/Core3/TACC.lua",["default"]=0,["fullName"]="TACC",["loadOrder"]=1,propT={},["short"]="TACC",["status"]="active",},intel={["FN"]="ProjectDIR/rt/avail/mf/Core3/intel/15.0.1.lua",["default"]=1,["fullName"]="intel/15.0.1",["loadOrder"]=2,propT={},["short"]="intel",["status"]="active",},},mpathA={"ProjectDIR/rt/avail/mf/Core6","ProjectDIR/rt/avail/mf/Order","ProjectDIR/rt/avail/mf/Core4","ProjectDIR/rt/avail/mf/Core3",},["systemBaseMPATH"]="ProjectDIR/rt/avail/mf/Core3",["version"]=2,}';
+export _ModuleTable_;
+===========================
+step 29
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/avail/mf/Core6:ProjectDIR/rt/avail/mf/Order:ProjectDIR/rt/avail/mf/Core4:ProjectDIR/rt/avail/mf/Core3";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/avail/mf/Core6:ProjectDIR/rt/avail/mf/Order:ProjectDIR/rt/avail/mf/Core4:ProjectDIR/rt/avail/mf/Core3";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/avail/mf/Core6:ProjectDIR/rt/avail/mf/Order:ProjectDIR/rt/avail/mf/Core4:ProjectDIR/rt/avail/mf/Core3";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/avail/mf/Core6:ProjectDIR/rt/avail/mf/Order:ProjectDIR/rt/avail/mf/Core4:ProjectDIR/rt/avail/mf/Core3";
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/avail/mf/Core6","ProjectDIR/rt/avail/mf/Order","ProjectDIR/rt/avail/mf/Core4","ProjectDIR/rt/avail/mf/Core3",},family={},inactive={},mT={TACC={["FN"]="ProjectDIR/rt/avail/mf/Core3/TACC.lua",["default"]=0,["fullName"]="TACC",["loadOrder"]=1,propT={},["short"]="TACC",["status"]="active",},intel={["FN"]="ProjectDIR/rt/avail/mf/Core3/intel/15.0.1.lua",["default"]=1,["fullName"]="intel/15.0.1",["loadOrder"]=2,propT={},["short"]="intel",["status"]="active",},},mpathA={"ProjectDIR/rt/avail/mf/Core6","ProjectDIR/rt/avail/mf/Order","ProjectDIR/rt/avail/mf/Core4","ProjectDIR/rt/avail/mf/Core3",},["systemBaseMPATH"]="ProjectDIR/rt/avail/mf/Core3",["version"]=2,}';
+export _ModuleTable_;
+===========================
+step 30
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/avail/mf/Core6:ProjectDIR/rt/avail/mf/Order:ProjectDIR/rt/avail/mf/Core4:ProjectDIR/rt/avail/mf/Core3";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/avail/mf/Core6:ProjectDIR/rt/avail/mf/Order:ProjectDIR/rt/avail/mf/Core4:ProjectDIR/rt/avail/mf/Core3";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/avail/mf/Core6:ProjectDIR/rt/avail/mf/Order:ProjectDIR/rt/avail/mf/Core4:ProjectDIR/rt/avail/mf/Core3";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/avail/mf/Core6:ProjectDIR/rt/avail/mf/Order:ProjectDIR/rt/avail/mf/Core4:ProjectDIR/rt/avail/mf/Core3";
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/avail/mf/Core6","ProjectDIR/rt/avail/mf/Order","ProjectDIR/rt/avail/mf/Core4","ProjectDIR/rt/avail/mf/Core3",},family={},inactive={},mT={TACC={["FN"]="ProjectDIR/rt/avail/mf/Core3/TACC.lua",["default"]=0,["fullName"]="TACC",["loadOrder"]=1,propT={},["short"]="TACC",["status"]="active",},intel={["FN"]="ProjectDIR/rt/avail/mf/Core3/intel/15.0.1.lua",["default"]=1,["fullName"]="intel/15.0.1",["loadOrder"]=2,propT={},["short"]="intel",["status"]="active",},},mpathA={"ProjectDIR/rt/avail/mf/Core6","ProjectDIR/rt/avail/mf/Order","ProjectDIR/rt/avail/mf/Core4","ProjectDIR/rt/avail/mf/Core3",},["systemBaseMPATH"]="ProjectDIR/rt/avail/mf/Core3",["version"]=2,}';
+export _ModuleTable_;

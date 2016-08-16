@@ -29,6 +29,33 @@ release at sourceforge.
                    ChangeLog
                    ---------
 
+Lmod 6.5:
+Features:
+  a) All the Lmod programs now resolve any symlinks to the
+     actual program before adding to the Lua's package.path
+     and package.cpath.
+  b) Contrib patch: Extend msgHook to LmodError and LmodWarning
+  c) Now using travis for CI and testing.
+  d) Configure time option to have Lmod check for magic TCL string in
+     modulefiles (#%Module)
+
+Bug Fixes:
+  a) The command "savelist" now only reports collections that
+     match $LMOD_SYSTEM_NAME (install of all collections)
+  b) A collection name now CANNOT have `.' in its name.
+  c) Contrib patch: Get correct status in a capture in
+     Lua 5.1.
+  d) Contrib patch: Failback to /proc/sys/kernel/random/uuid 
+     if uuidgen isn't available.
+  e) Contrib patch: Failback to shasum if sha1sum isn't
+     available.
+  f) Now uses the tclsh (and the LD_LIBRARY_PATH) found at
+     configure time.
+  g) Now searches for ps, basename, expr in /bin and /usr/bin
+     when not using the locations found by configure
+
+
+
 Lmod 6.4:
 Features:
    a) Lmod now uses a regular expression to match user commands

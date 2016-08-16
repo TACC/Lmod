@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 6.4.3  2016-06-17 09:58
+Modules based on Lua: Version 6.4.5  2016-07-26 15:59
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -408,6 +408,46 @@ Use "module keyword key1 key2 ..." to search for all possible modules matching a
 step 27
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
+ProjectDIR/rt/avail/mf/Order
+   a/5.9    a/5.10    a/9.0    a/10.0 (D)
+ProjectDIR/rt/avail/mf/Core4
+   ncurses/5.9-GCC-4.7.2
+ProjectDIR/rt/avail/mf/Core3
+   TACC         (L)    intel/14.0.3          intel/15.0.2
+   intel/14.0.0        intel/15.0.1 (L,D)
+  Where:
+   D:  Default Module
+   L:  Module is loaded
+Use "module spider" to find all possible modules.
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
+===========================
+step 28
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing use ProjectDIR/rt/avail/mf/Core6
+===========================
+===========================
+step 29
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+===========================
+ProjectDIR/rt/avail/mf/Core6
+   aaa/1.0    aaa/2.0 (D)
+ProjectDIR/rt/avail/mf/Order
+   a/5.9    a/5.10    a/9.0    a/10.0 (D)
+ProjectDIR/rt/avail/mf/Core4
+   ncurses/5.9-GCC-4.7.2
+ProjectDIR/rt/avail/mf/Core3
+   TACC         (L)    intel/14.0.3          intel/15.0.2
+   intel/14.0.0        intel/15.0.1 (L,D)
+  Where:
+   D:  Default Module
+   L:  Module is loaded
+Use "module spider" to find all possible modules.
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
+===========================
+step 30
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+===========================
+ProjectDIR/rt/avail/mf/Core6
+   aaa/2.0
 ProjectDIR/rt/avail/mf/Order
    a/5.9    a/5.10    a/9.0    a/10.0 (D)
 ProjectDIR/rt/avail/mf/Core4

@@ -63,6 +63,11 @@ testdescript = {
      runLmod avail                    #26
      unset LMOD_LEGACY_VERSION_ORDERING
      runLmod avail                    #27
+     runLmod use $(testDir)/mf/Core6  #28
+     runLmod avail                    #29
+     export LMOD_CHECK_FOR_VALID_MODULE_FILES=yes
+     runLmod avail                    #30
+
 
 
 
