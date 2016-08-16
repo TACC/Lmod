@@ -46,6 +46,7 @@ echo "Legacy version ordering....................." : $LEGACY_ORDERING
 echo "Use Spider Cache on Loads..................." : $CACHED_LOADS
 echo "Pager used inside Lmod......................" : $PATH_TO_PAGER
 echo "Hashsum program used........................" : $PATH_TO_HASHSUM
+echo "Check TCL files for magic string............" : $CHECK_VALID
 
 echo
 echo '------------------------------------------------------------------------------'

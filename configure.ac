@@ -310,6 +310,18 @@ AC_ARG_WITH(cachedLoads,
     CACHED_LOADS="$withval"
     AC_DEFINE_UNQUOTED(CACHED_LOADS, "$withval"))dnl
 
+AC_SUBST(CHECK_VALID)
+AC_ARG_WITH(checkValidModuleFiles,
+    AC_HELP_STRING([--with-checkValidModuleFiles=ans],[Require Lmod to check every non Lua file for magic TCL string. [[no]]]),
+    CHECK_VALID="$withval"
+    AC_MSG_RESULT([CHECK_VALID=$with_checkValidModuleFiles])
+    AC_DEFINE_UNQUOTED(CHECK_VALID, "$with_checkValidModuleFiles")dnl
+    ,
+    withval="NO"
+    AC_MSG_RESULT([CHECK_VALID=$withval])
+    CHECK_VALID="$withval"
+    AC_DEFINE_UNQUOTED(CHECK_VALID, "$withval"))dnl
+
 AC_SUBST(SYS_LD_LIB_PATH)
 SYS_LD_LIB_PATH=$LD_LIBRARY_PATH
 

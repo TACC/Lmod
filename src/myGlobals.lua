@@ -117,6 +117,15 @@ Cversion      = 3
 LUAC_PATH = "@path_to_luac@"
 
 ------------------------------------------------------------------------
+-- LMOD_CHECK_FOR_VALID_MODULE_FILES :  Should Lmod check TCL files for
+--                                      magic string "#%Module"
+------------------------------------------------------------------------
+
+LMOD_CHECK_FOR_VALID_MODULE_FILES = initialize("LMOD_CHECK_FOR_VALID_MODULE_FILES",
+                                               "@check_for_valid_module_files@",
+                                               "no")
+
+------------------------------------------------------------------------
 -- LMOD_CASE_INDEPENDENT_SORTING :  make avail and spider use case
 --                                  independent sorting.
 ------------------------------------------------------------------------

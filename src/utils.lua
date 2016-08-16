@@ -941,6 +941,27 @@ function keepFile(fn)
    return result
 end
 
+local function checkValidModulefileReal(fn)
+   if (fn:find("%.lua$")) then
+      return true
+   end
+   
+   local f = open(fn,"r")
+   if (not f) then
+      return false
+   end
+   local line = f:read(20)
+   f:close()
+   return line:find("^#%%Module")
+end
+
+function checkValidModulefileFake(fn)
+   return true
+end
+
+local checkValidModulefile = (LMOD_CHECK_FOR_VALID_MODULE_FILES == "yes")
+                             and checkValidModulefileReal or checkValidModulefileFake
+
 
 --------------------------------------------------------------------------
 -- Walk a single directory for modulefiles and defaults:
@@ -1007,15 +1028,17 @@ function walk_directory_for_mf(mpath, path, prefix, dirA, mnameT)
                        full:sub(1,1) ~= '.') then
                   -- Lua modulefiles should always be picked over TCL modulefiles
                   if (not mnameT[full] or not mnameT[full].luaExt) then
-                     local luaExt  = f:find("%.lua$")
-                     local sn      = prefix:gsub("/$","")
-                     local version = file:gsub("%.lua$","")
-                     if (sn == "") then
-                        sn = full
-                        version = false
+                     if (checkValidModulefile(f)) then
+                        local luaExt  = f:find("%.lua$")
+                        local sn      = prefix:gsub("/$","")
+                        local version = file:gsub("%.lua$","")
+                        if (sn == "") then
+                           sn = full
+                           version = false
+                        end
+                        mnameT[full] = {fn = f, canonical=f:gsub("%.lua$",""), mpath = mpath,
+                                        luaExt = luaExt, version=version, sn=sn}
                      end
-                     mnameT[full] = {fn = f, canonical=f:gsub("%.lua$",""), mpath = mpath,
-                                     luaExt = luaExt, version=version, sn=sn}
                   end
                elseif (attr.mode == "directory" and file:sub(1,1) ~= ".") then
                   -- Remember all directories in local array.  We have to know if

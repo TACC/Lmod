@@ -605,6 +605,7 @@ PS
 EXPR
 BASENAME
 SYS_LD_LIB_PATH
+CHECK_VALID
 CACHED_LOADS
 LEGACY_ORDERING
 LUA_INCLUDE
@@ -704,6 +705,7 @@ with_tmodPathRule
 with_lua_include
 with_legacyOrdering
 with_cachedLoads
+with_checkValidModuleFiles
 '
       ac_precious_vars='build_alias
 host_alias
@@ -1379,6 +1381,9 @@ Optional Packages:
   --with-legacyOrdering=ans
                           Using legacy version ordering. [[no]]
   --with-cachedLoads=ans  Use cache when loading modules. [[no]]
+  --with-checkValidModuleFiles=ans
+                          Require Lmod to check every non Lua file for magic
+                          TCL string. [[no]]
 
 Some influential environment variables:
   CC          C compiler command
@@ -3198,6 +3203,28 @@ $as_echo "CACHED_LOADS=$withval" >&6; }
     CACHED_LOADS="$withval"
     cat >>confdefs.h <<_ACEOF
 #define CACHED_LOADS "$withval"
+_ACEOF
+
+fi
+
+
+
+# Check whether --with-checkValidModuleFiles was given.
+if test "${with_checkValidModuleFiles+set}" = set; then :
+  withval=$with_checkValidModuleFiles; CHECK_VALID="$withval"
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: CHECK_VALID=$with_checkValidModuleFiles" >&5
+$as_echo "CHECK_VALID=$with_checkValidModuleFiles" >&6; }
+    cat >>confdefs.h <<_ACEOF
+#define CHECK_VALID "$with_checkValidModuleFiles"
+_ACEOF
+
+else
+  withval="NO"
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: CHECK_VALID=$withval" >&5
+$as_echo "CHECK_VALID=$withval" >&6; }
+    CHECK_VALID="$withval"
+    cat >>confdefs.h <<_ACEOF
+#define CHECK_VALID "$withval"
 _ACEOF
 
 fi
@@ -5170,6 +5197,7 @@ echo "Legacy version ordering....................." : $LEGACY_ORDERING
 echo "Use Spider Cache on Loads..................." : $CACHED_LOADS
 echo "Pager used inside Lmod......................" : $PATH_TO_PAGER
 echo "Hashsum program used........................" : $PATH_TO_HASHSUM
+echo "Check TCL files for magic string............" : $CHECK_VALID
 
 echo
 echo '------------------------------------------------------------------------------'
