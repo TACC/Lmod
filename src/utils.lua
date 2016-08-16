@@ -60,6 +60,7 @@ local floor        = math.floor
 local format       = string.format
 local getenv       = os.getenv
 local huge         = math.huge
+local open         = io.open
 
 local rep          = string.rep
 local load         = (_VERSION == "Lua 5.1") and loadstring or load
@@ -600,7 +601,7 @@ function readAdmin()
    if (next (adminT)) then return end
 
    local adminFn = findAdminFn()
-   local f       = io.open(adminFn,"r")
+   local f       = open(adminFn,"r")
 
    -- Put something in adminT so that this routine will not be
    -- run again even if the file does not exist.
@@ -678,7 +679,7 @@ function readRC()
 
    for i = 1,#RCFileA do
       local f        = RCFileA[i]
-      local fh = io.open(f)
+      local fh = open(f)
       if (fh) then
          assert(loadfile(f))()
          s_rcFileA[#s_rcFileA+1] = abspath(f)
@@ -823,7 +824,7 @@ function UUIDString(epoch)
    else
       -- if uuidgen is not available, fall back to reading /proc/sys/kernel/random/uuid
       -- note: only works on Linux
-      local f = io.open('/proc/sys/kernel/random/uuid', 'r')
+      local f = open('/proc/sys/kernel/random/uuid', 'r')
       if f then
          uuid_str = f:read('*all'):sub(1,-2)
       else
@@ -848,7 +849,7 @@ modA = false
 -- @param ignoreErrors If true then ignore errors.
 function versionFile(v, sn, path, ignoreErrors)
    dbg.start{"versionFile(v: ",v,", sn: ",sn,", path: ",path,")"}
-   local f       = io.open(path,"r")
+   local f       = open(path,"r")
    if (not f)                        then
       dbg.print{"could not find: ",path,"\n"}
       dbg.fini("versionFile")
@@ -952,6 +953,7 @@ local function checkValidModulefileReal(fn)
    end
    local line = f:read(20)
    f:close()
+   if (line == nil) then return nil end
    return line:find("^#%%Module")
 end
 
