@@ -872,7 +872,7 @@ function M.prereq(self, mA)
 
    dbg.print{"number found: ",#a,"\n"}
    if (#a > 0) then
-      local s = concatTbl(a,", ")
+      local s = concatTbl(a," ")
       LmodError("Cannot load module \"",mFull,"\" without these module(s) loaded:\n  ",
             s,"\n")
    end
