@@ -37,7 +37,7 @@ Features:
   b) Contrib patch: Extend msgHook to LmodError and LmodWarning
   c) Now using travis for CI and testing.
   d) Configure time option to have Lmod check for magic TCL string in
-     modulefiles 
+     modulefiles (#%Module)
 
 Bug Fixes:
   a) The command "savelist" now only reports collections that
