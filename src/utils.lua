@@ -943,17 +943,12 @@ function keepFile(fn)
 end
 
 local function checkValidModulefileReal(fn)
-   if (fn:find("%.lua$")) then
-      return true
-   end
-   
    local f = open(fn,"r")
    if (not f) then
       return false
    end
-   local line = f:read(20)
+   local line = f:read(20) or ""
    f:close()
-   if (line == nil) then return nil end
    return line:find("^#%%Module")
 end
 
@@ -1030,8 +1025,8 @@ function walk_directory_for_mf(mpath, path, prefix, dirA, mnameT)
                        full:sub(1,1) ~= '.') then
                   -- Lua modulefiles should always be picked over TCL modulefiles
                   if (not mnameT[full] or not mnameT[full].luaExt) then
-                     if (checkValidModulefile(f)) then
-                        local luaExt  = f:find("%.lua$")
+                     local luaExt  = f:find("%.lua$")
+                     if (luaExt  or checkValidModulefile(f)) then
                         local sn      = prefix:gsub("/$","")
                         local version = file:gsub("%.lua$","")
                         if (sn == "") then

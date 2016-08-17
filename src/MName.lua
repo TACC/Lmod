@@ -186,7 +186,6 @@ function M.new(self, sType, name, action, is, ie)
       findT["latest"]  = Latest
       findT["between"] = Between
       findT["atleast"] = Between
-      findT["atleast"] = Between
       s_findT          = findT
    end
 
