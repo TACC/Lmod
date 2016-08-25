@@ -104,12 +104,13 @@ function loadModuleFile(t)
          A[#A + 1]    = "-L"
          A[#A + 1]    = "\"" .. ldlib .. "\""
       end
-      
+
       if (t.help) then
          A[#A + 1] = "-h"
       end
       local a      = {}
       a[#a + 1]    = "LD_LIBRARY_PATH=\"".. (LMOD_LD_LIBRARY_PATH or "") .. "\""
+      a[#a + 1]    = "LD_PRELOAD=\"\""
       a[#a + 1]    = LMOD_TCLSH
       a[#a + 1]	   = pathJoin(cmdDir(),"tcl2lua.tcl")
       a[#a + 1]	   = concatTbl(A," ")

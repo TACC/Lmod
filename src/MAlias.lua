@@ -165,6 +165,7 @@ function M.resolve(self, name)
          if (isFile(fn)) then
             local a   = {}
             a[#a + 1] = "LD_LIBRARY_PATH=\"".. (LMOD_LD_LIBRARY_PATH or "") .. "\""
+            a[#a + 1] = "LD_PRELOAD=\"\""
             a[#a + 1] = LMOD_TCLSH
             a[#a + 1] = pathJoin(cmdDir(),"RC2lua.tcl")
             a[#a + 1] = fn
