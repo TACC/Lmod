@@ -44,6 +44,7 @@ require("strict")
 require("fileOps")
 require("sandbox")
 require("string_utils")
+require("utils")
 require("myGlobals")
 local dbg          = require("Dbg"):dbg()
 local concatTbl    = table.concat
@@ -104,18 +105,18 @@ function loadModuleFile(t)
          A[#A + 1]    = "-L"
          A[#A + 1]    = "\"" .. ldlib .. "\""
       end
+
+      local ld_preload = getenv("LD_PRELOAD")
+
+      if (ld_preload) then
+         A[#A + 1]    = "-P"
+         A[#A + 1]    = "\"" .. ld_preload .. "\""
+      end
       
       if (t.help) then
          A[#A + 1] = "-h"
       end
-      local a      = {}
-      a[#a + 1]    = "LD_LIBRARY_PATH=\"".. (LMOD_LD_LIBRARY_PATH or "") .. "\""
-      a[#a + 1]    = LMOD_TCLSH
-      a[#a + 1]	   = pathJoin(cmdDir(),"tcl2lua.tcl")
-      a[#a + 1]	   = concatTbl(A," ")
-      a[#a + 1]	   = t.file
-      local cmd    = concatTbl(a," ")
-      whole,status = capture(cmd)
+      whole, status = runTCLprog("tcl2lua.tcl",concatTbl(A," "), t.file)
       if (not status) then
          local n = usrName or ""
          msg     = "Non-zero status returned"

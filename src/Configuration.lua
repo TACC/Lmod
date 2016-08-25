@@ -121,6 +121,8 @@ local function new(self)
    local ignore_cache      = LMOD_IGNORE_CACHE and "yes" or "no"
    local redirect          = LMOD_REDIRECT
    local checkValid        = LMOD_CHECK_FOR_VALID_MODULE_FILES
+   local ld_preload        = LMOD_LD_PRELOAD      or "<empty>"
+   local ld_lib_path       = LMOD_LD_LIBRARY_PATH or "<empty>"
 
    local tbl = {}
    tbl.allowTCL    = { k = "Allow TCL modulefiles"             , v = LMOD_ALLOW_TCL_MFILES,}
@@ -132,6 +134,8 @@ local function new(self)
    tbl.dupPaths    = { k = "Allow duplicate paths"             , v = LMOD_DUPLICATE_PATHS, }
    tbl.exactMatch  = { k = "Require Exact Match/no defaults"   , v = exactMatch,           }
    tbl.expMCmd     = { k = "Export the module command"         , v = "@export_module@",    }
+   tbl.ld_preload  = { k = "LD_PRELOAD at config time"         , v = ld_preload,           }
+   tbl.ld_lib_path = { k = "LD_LIBRARY_PATH at config time"    , v = ld_lib_path,          }
    tbl.lmodV       = { k = "Lmod version"                      , v = lmod_version,         }
    tbl.luaV        = { k = "Lua Version"                       , v = _VERSION,             }
    tbl.lua_json    = { k = "System lua_json"                   , v = "@have_lua_json@",    }

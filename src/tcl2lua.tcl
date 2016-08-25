@@ -828,6 +828,7 @@ set options {
             {m.arg   "load" "mode: load remove display"}
             {s.arg   "bash" "shell name"}
             {L.arg   "???"  "LD_LIBRARY_PATH"}
+            {P.arg   "???"  "LD_PRELOAD"}
             {u.arg   "???"  "module specified name"}
 }
 
@@ -845,5 +846,8 @@ set g_shellName $params(s)
 set g_mode      $params(m)
 if {[lsearch $argv "-L"] >= 0} {
     set env("LD_LIBRARY_PATH")  $params(L)
+}
+if {[lsearch $argv "-P"] >= 0} {
+    set env("LD_PRELOAD")  $params(P)
 }
 eval main $argv

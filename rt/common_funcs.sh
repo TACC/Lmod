@@ -22,6 +22,8 @@ cleanUp ()
        -e "s|^\(TARG_OS=\).*|\1''|g"                      \
        -e "s|^\(TARG_MACH_DESCRIPT=\).*|\1''|g"           \
        -e "s|$PATH_to_TM|PATH_to_TM|g"                    \
+       -e "s|^LD_PRELOAD at config time.*$||g"            \
+       -e "s|^LD_LIBRARY_PATH at config time.*$||g"       \
        -e "s|unsetenv _ModuleTable..._;||g"               \
        -e "s|unset _ModuleTable..._;||g"                  \
        -e "s|unset _ModuleTable..._;||g"                  \

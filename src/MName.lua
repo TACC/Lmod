@@ -211,7 +211,7 @@ function M.new(self, sType, name, action, is, ie)
    end
    o._action   = action
    o._is       = is or ''
-   o._ie       = ie or tostring(1234567890)
+   o._ie       = ie or tostring(99999999)
    o._range    = {}
    o._range[1] = is
    o._range[2] = ie -- This can be nil and that is O.K.

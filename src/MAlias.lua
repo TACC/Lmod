@@ -163,20 +163,20 @@ function M.resolve(self, name)
       for i = 1, #fileA  do
          local fn = fileA[i]
          if (isFile(fn)) then
-            local a   = {}
-            a[#a + 1] = "LD_LIBRARY_PATH=\"".. (LMOD_LD_LIBRARY_PATH or "") .. "\""
-            a[#a + 1] = LMOD_TCLSH
-            a[#a + 1] = pathJoin(cmdDir(),"RC2lua.tcl")
-            a[#a + 1] = fn
-            local cmd = concatTbl(a," ")
-            local s   = capture(cmd):trim()
-
-            modA = {}
-            local status, f = pcall(load,s)
-            if (not status or not f) then
+            local whole
+            local status
+            local func
+            whole, status = runTCLprog("RC2lua.tcl","", fn)
+            if (not status) then
                LmodError("Unable to parse: ",fn," Aborting!\n")
             end
-            f()
+
+            modA = {}
+            status, func = pcall(load, whole)
+            if (not status or not func) then
+               LmodError("Unable to parse: ",fn," Aborting!\n")
+            end
+            func()
 
             self:parseModA("", modA)
          end

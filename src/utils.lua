@@ -836,8 +836,22 @@ function UUIDString(epoch)
 
    return uuid
 end
+
 modA = false
 
+function runTCLprog(TCLprog, optStr, fn)
+   local a   = {}
+   a[#a + 1] = "LD_LIBRARY_PATH=\"".. (LMOD_LD_LIBRARY_PATH or "") .. "\""
+   a[#a + 1] = "LD_PRELOAD=\""..      (LMOD_LD_PRELOAD      or "") .. "\""
+   a[#a + 1] = LMOD_TCLSH
+   a[#a + 1] = pathJoin(cmdDir(),TCLprog)
+   a[#a + 1] = optStr or ""
+   a[#a + 1] = fn
+   local cmd = concatTbl(a," ")
+   local whole, status = capture(cmd)
+   return whole, status
+end
+   
 --------------------------------------------------------------------------
 -- This routine is given the absolute path to a .version
 -- file.  It checks to make sure that it is a valid TCL
@@ -864,15 +878,15 @@ function versionFile(v, sn, path, ignoreErrors)
    end
    local version = false
    dbg.print{"handle file: ",v, "\n"}
-   local a = {}
-   a[#a + 1] = "LD_LIBRARY_PATH=\"".. (LMOD_LD_LIBRARY_PATH or "") .. "\""
-   a[#a + 1] = LMOD_TCLSH
-   a[#a + 1] = pathJoin(cmdDir(),"RC2lua.tcl")
-   a[#a + 1] = path
-   local cmd = concatTbl(a," ")
-   s         = capture(cmd):trim()
+   local whole
+   local status
+   local func
+   whole, status = runTCLprog("RC2lua.tcl", "", path)
+   if (not status) then
+      LmodError("Unable to parse: ",path," Aborting!\n")
+   end
 
-   local status, func = pcall(load,s)
+   status, func = pcall(load, whole)
    if (not status or not func) then
       LmodError("Unable to parse: ",path," Aborting!\n")
    end

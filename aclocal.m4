@@ -45,6 +45,8 @@ echo "Disable same name autoswapping.............." : $DISABLE_NAME_AUTOSWAP
 echo "Legacy version ordering....................." : $LEGACY_ORDERING
 echo "Use Spider Cache on Loads..................." : $CACHED_LOADS
 echo "Pager used inside Lmod......................" : $PATH_TO_PAGER
+echo "System LD_PRELOAD..........................." : $SYS_LD_PRELOAD
+echo "System LD_LIBRARY_PATH......................" : $SYS_LD_LIB_PATH
 echo "Hashsum program used........................" : $PATH_TO_HASHSUM
 echo "Check TCL files for magic string............" : $CHECK_VALID
 
