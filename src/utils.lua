@@ -866,6 +866,7 @@ function versionFile(v, sn, path, ignoreErrors)
    dbg.print{"handle file: ",v, "\n"}
    local a = {}
    a[#a + 1] = "LD_LIBRARY_PATH=\"".. (LMOD_LD_LIBRARY_PATH or "") .. "\""
+   a[#a + 1] = "LD_PRELOAD=\"\""
    a[#a + 1] = LMOD_TCLSH
    a[#a + 1] = pathJoin(cmdDir(),"RC2lua.tcl")
    a[#a + 1] = path
@@ -1071,7 +1072,7 @@ function walk_directory_for_mf(mpath, path, prefix, dirA, mnameT)
          local file    = v.file
          local mypath  = v.path
          local pathEsc = "^" .. mypath:escape() .. "/"
-      
+
          for root, mydirA, fileA in dir_walk(pathJoin(mypath,file)) do
             for ja = 1, #fileA do
                local f       = pathJoin(root,fileA[ja])
