@@ -1,4 +1,6 @@
 Lmod 6.5+
 Bug Fixes:
-    a) (6.5.2) Now use the value of LD_PRELOAD found at configure time to run all TCL programs.
+Features:
+    a) (6.5.1) Now use only spaces when listing modules necessary to satify a prereq.
+    b) (6.5.2) Now use the value of LD_PRELOAD found at configure time to run all TCL programs.
        This is to match LD_LIBRARY_PATH.
