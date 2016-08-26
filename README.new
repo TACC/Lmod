@@ -1,4 +1,4 @@
 Lmod 6.5+
 Bug Fixes:
-    a) (6.5.2) Now use the configure time value of LD_PRELOAD to run all TCL programs.
-    
+    a) (6.5.2) Now use the value of LD_PRELOAD found at configure time to run all TCL programs.
+       This is to match LD_LIBRARY_PATH.
