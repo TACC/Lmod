@@ -58,13 +58,11 @@ require("parseVersion")
 require("deepcopy")
 require("utils")
 
-_G._DEBUG          = false               -- Required by the new lua posix
 local Var          = require('Var')
 local lfs          = require("lfs")
 local dbg          = require('Dbg'):dbg()
 local ColumnTable  = require('ColumnTable')
 local hook         = require("Hook")
-local posix        = require("posix")
 local deepcopy     = table.deepcopy
 local load         = (_VERSION == "Lua 5.1") and loadstring or load
 
