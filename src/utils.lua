@@ -678,21 +678,24 @@ function readRC()
    declare("scDescriptT", false)
 
    for i = 1,#RCFileA do
-      local f        = RCFileA[i]
-      local fh = open(f)
-      if (fh) then
+      repeat
+         local f        = RCFileA[i]
+         local fh = open(f)
+         if (not fh) then break end
+            
          assert(loadfile(f))()
          s_rcFileA[#s_rcFileA+1] = abspath(f)
          fh:close()
-      end
-      local propT       = _G.propT or {}
-      local scDescriptT = _G.scDescriptT   or {}
-      for k,v in pairs(propT) do
-         s_propT[k] = v
-      end
-      for k,v in pairs(scDescriptT) do
-         s_scDescriptT[k] = v
-      end
+
+         local propT       = _G.propT or {}
+         local scDescriptT = _G.scDescriptT   or {}
+         for k,v in pairs(propT) do
+            s_propT[k] = v
+         end
+         for j = 1,#scDescriptT do
+            s_scDescriptT[#s_scDescriptT + 1] = scDescriptT[j]
+         end
+      until true
    end
    dbg.fini("readRC")
 end
