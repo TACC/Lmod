@@ -1316,18 +1316,13 @@ function M.add(self, t, status)
    dbg.start{"MT:add(t,",status,")"}
    dbg.print{"MT:add:  short: ",t.modName,", full: ",t.modFullName,"\n"}
    dbg.print{"MT:add: fn: ",t.fn,", default: ",t.default,"\n"}
-   local loadOrder
-   if (status == "inactive") then
-      loadOrder = -1
-   end
-   dbg.print{"MT:add: loadOrder: ",loadOrder,"\n"}
    local mT = self.mT
    mT[t.modName] = { fullName  = t.modFullName,
                      short     = t.modName,
                      FN        = t.fn,
                      default   = t.default,
                      status    = status,
-                     loadOrder = loadOrder,
+                     loadOrder = -1,
                      propT     = {},
    }
    if (t.hash and t.hash ~= 0) then
