@@ -72,3 +72,59 @@ MODULEPATH="ProjectDIR/rt/spider_dot/mf/Core";
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/spider_dot/mf/Core",},family={},inactive={},mT={},mpathA={"ProjectDIR/rt/spider_dot/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/spider_dot/mf/Core",["version"]=2,}';
 export _ModuleTable_;
+===========================
+step 7
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider test/1.2.3
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/spider_dot/mf2/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/spider_dot/mf2/Core";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/spider_dot/mf2/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/spider_dot/mf2/Core";
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/spider_dot/mf2/Core",},family={},inactive={},mT={},mpathA={"ProjectDIR/rt/spider_dot/mf2/Core",},["systemBaseMPATH"]="ProjectDIR/rt/spider_dot/mf2/Core",["version"]=2,}';
+export _ModuleTable_;
+===========================
+step 8
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --show_hidden spider test/1.2.3
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/spider_dot/mf2/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/spider_dot/mf2/Core";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/spider_dot/mf2/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/spider_dot/mf2/Core";
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/spider_dot/mf2/Core",},family={},inactive={},mT={},mpathA={"ProjectDIR/rt/spider_dot/mf2/Core",},["systemBaseMPATH"]="ProjectDIR/rt/spider_dot/mf2/Core",["version"]=2,}';
+export _ModuleTable_;
+===========================
+step 9
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider cluster
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/spider_dot/mf2/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/spider_dot/mf2/Core";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/spider_dot/mf2/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/spider_dot/mf2/Core";
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/spider_dot/mf2/Core",},family={},inactive={},mT={},mpathA={"ProjectDIR/rt/spider_dot/mf2/Core",},["systemBaseMPATH"]="ProjectDIR/rt/spider_dot/mf2/Core",["version"]=2,}';
+export _ModuleTable_;
+===========================
+step 10
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --show_hidden spider cluster
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/spider_dot/mf2/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/spider_dot/mf2/Core";
+export MODULEPATH;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/spider_dot/mf2/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/spider_dot/mf2/Core";
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/spider_dot/mf2/Core",},family={},inactive={},mT={},mpathA={"ProjectDIR/rt/spider_dot/mf2/Core",},["systemBaseMPATH"]="ProjectDIR/rt/spider_dot/mf2/Core",["version"]=2,}';
+export _ModuleTable_;
