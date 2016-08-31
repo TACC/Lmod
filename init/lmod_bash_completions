@@ -155,7 +155,7 @@ _ml() {
 	opts="-d -D -h -q -t -v -w -s --style --expert --quiet --help  --quiet --terse --version --default --Verbose --width -r --regexp --mt"
 	
 	case "${prev}" in
-	rm|remove|unload|swap)
+	rm|remove|unload|switch|swap)
 		COMPREPLY=( $(compgen -W "$(_module_loaded_modules)" -- "${cur}") )
 		;;
 	restore)
