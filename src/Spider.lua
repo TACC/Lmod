@@ -490,7 +490,7 @@ function M.Level0(self, dbT)
    local masterTbl   = masterTbl()
    local show_hidden = masterTbl.show_hidden
    local terse       = masterTbl.terse
-   
+
 
    if (terse) then
       dbg.start{"Spider:Level0()"}
@@ -823,6 +823,7 @@ end
 
 function M._Level2(self, T, searchName, full, possibleA)
    dbg.start{"Spider:_Level2(T,\"",searchName,"\", \"",full,"\",possibleA)"}
+   local show_hidden = masterTbl().show_hidden
    local a  = {}
    local ia = 0
    local b  = {}
@@ -923,12 +924,19 @@ function M._Level2(self, T, searchName, full, possibleA)
    end
    a[titleIdx] = availT[haveCore+haveHier]
    if (#c > 0) then
-
       -- remove any duplicates
       local s = concatTbl(c,"")
       local d = {}
-      for k in s:split("\n") do
-         d[k] = 1
+      if (show_hidden) then
+         for k in s:split("\n") do
+            d[k] = 1
+         end
+      else
+         for k in s:split("\n") do
+            if (not (k:find("^%.") or k:find("/%."))) then
+               d[k] = 1
+            end
+         end
       end
       c = {}
       for k in pairs(d) do

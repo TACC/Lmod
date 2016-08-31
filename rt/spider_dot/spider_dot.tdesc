@@ -32,6 +32,15 @@ testdescript = {
      runLmod spider  fftw            # 5
      runLmod spider  fft             # 6
 
+     unsetMT
+     export MODULEPATH_ROOT2=$(testDir)/mf2
+     export MODULEPATH=$MODULEPATH_ROOT2/Core
+
+     
+     runLmod spider test/1.2.3                # 7
+     runLmod --show_hidden spider test/1.2.3  # 8
+     runLmod spider cluster                   # 9
+     runLmod --show_hidden spider cluster     #10
 
      HOME=$ORIG_HOME
 

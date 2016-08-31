@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 6.3  2016-04-19 16:02
+Modules based on Lua: Version 6.5.3  2016-08-29 12:57
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -48,3 +48,35 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider fft
 ===========================
   fftw/3.3.4/gcc: fftw/3.3.4/gcc/4.8.5
     This module can be loaded directly: module load fftw/3.3.4/gcc/4.8.5
+===========================
+step 7
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider test/1.2.3
+===========================
+  test: test/1.2.3
+    You will need to load all module(s) on any one of the lines below before the "test/1.2.3" module is available to load.
+      cluster/one
+===========================
+step 8
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --show_hidden spider test/1.2.3
+===========================
+  test: test/1.2.3
+    You will need to load all module(s) on any one of the lines below before the "test/1.2.3" module is available to load.
+      cluster/.zero
+      cluster/one
+===========================
+step 9
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider cluster
+===========================
+  cluster: cluster/one
+    This module can be loaded directly: module load cluster/one
+===========================
+step 10
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --show_hidden spider cluster
+===========================
+  cluster:
+     Versions:
+        cluster/one
+        cluster/.zero
+  For detailed information about a specific "cluster" module (including how to load the modules) use the module's full name.
+  For example:
+     $ module spider cluster/one

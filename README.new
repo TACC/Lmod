@@ -4,4 +4,7 @@ Bug Fixes:
     b) (6.5.2) Now use the value of LD_PRELOAD found at configure time to run all TCL programs.
        This is to match LD_LIBRARY_PATH.
     c) (6.5.3) Correctly merges spider cache location where there are multiple lmodrc.lua files.
+    d) (6.5.4) Do not show leading dot directories or version with spider level 2 unless
+       --show_hidden option is specified on the command line.
+ 
     
