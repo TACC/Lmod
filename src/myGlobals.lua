@@ -423,7 +423,8 @@ updateSystemFn="@updateSystemFn@"
 
 ------------------------------------------------------------------------
 -- Prepend path block order.
-s_prependBlock  = "@prepend_block@"
+LMOD_PREPEND_BLOCK  = initialize("LMOD_PREPEND_BLOCK","@prepend_block@",
+                                 "normal")
 
 
 ------------------------------------------------------------------------
@@ -466,6 +467,11 @@ accept_extT     = false
 -- allow dups function: allow for duplicate entries in PATH like vars.
 ------------------------------------------------------------------------
 allow_dups      = false
+
+------------------------------------------------------------------------
+-- prepend_order function: specify the order when prepending paths.
+------------------------------------------------------------------------
+prepend_order   = false
 
 ------------------------------------------------------------------------
 -- When building the reverseMapT use the preloaded modules

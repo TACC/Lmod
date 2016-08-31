@@ -85,12 +85,15 @@ function cmdDir()
 end
 
 require("strict")
+
+local BuildFactory = require("BuildFactory")
+BuildFactory:master()
+
 require("fileOps")
 require("serializeTbl")
 require("myGlobals")
 require("capture")
 require("utils")
-build_epoch()               -- build the epoch function
 _ModuleTable_  = ""
 local Optiks   = require("Optiks")
 local lfs      = require("lfs")

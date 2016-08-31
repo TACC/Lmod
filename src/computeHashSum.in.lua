@@ -87,6 +87,10 @@ HashSum = "@path_to_hashsum@"
 
 require("strict")
 require("myGlobals")
+local BuildFactory = require("BuildFactory")
+BuildFactory:master()
+
+
 require("utils")
 
 require("fileOps")
@@ -135,8 +139,6 @@ function main()
    dbg.start{"computeHashSum()"}
 
    setenv_lmod_version()    -- push Lmod version info into env for modulefiles.
-   build_epoch()            -- build the epoch function
-   build_accept_functions() -- Accept or ignore TCL modulefiles.
 
    require("StandardPackage")
    local lmodPath = os.getenv("LMOD_PACKAGE_PATH") or ""

@@ -113,33 +113,10 @@ end
 local getenv = os.getenv
 local rep    = string.rep
 
---------------------------------------------------------------------------
--- Return the *prepend_order* function.  This function control which order
--- are prepends handled when there are multiple paths passed to a single
--- call.
-function set_prepend_order()
-   local ansT = {
-      no      = "reverse",
-      reverse = "reverse",
-      normal  = "normal",
-      yes     = "normal",
-   }
-
-   local order = ansT[getenv("LMOD_PREPEND_BLOCK") or s_prependBlock] or "normal"
-   if (order == "normal") then
-      prepend_order = function (n)
-         return n, 1, -1
-      end
-   else
-      prepend_order = function (n)
-         return 1, n, 1
-      end
-   end
-end
-
-
+local BuildFactory = require("BuildFactory")
+BuildFactory:master()
 require("utils")
-build_epoch()          -- build the epoch function
+
 require("pager")
 require("fileOps")
 MasterControl = require("MasterControl")
@@ -163,24 +140,6 @@ local max          = math.max
 local unpack       = (_VERSION == "Lua 5.1") and unpack or table.unpack
 local timer        = require("Timer"):timer()
 local hook         = require("Hook")
-
---------------------------------------------------------------------------
--- Return the *allow_dups* function.  This function return true if
--- duplicates in paths are allowed.
-function set_duplication()
-   local dups = LMOD_DUPLICATE_PATHS:lower()
-   if (dups == "yes") then
-      dbg.print{"Allowing duplication in paths\n"}
-      allow_dups = function (dupsIn)
-         return dupsIn
-      end
-   else
-      dbg.print{"No duplication allowed in paths\n"}
-      allow_dups = function (dupsIn)
-         return false
-      end
-   end
-end
 
 --------------------------------------------------------------------------
 -- Use the *propT* table to colorize the module name when requested by
@@ -508,12 +467,7 @@ function main()
    local arg_str   = concatTbl(arg," ")
    local masterTbl = masterTbl()
 
-   set_prepend_order()    -- Chose prepend_path order normal/reverse
    setenv_lmod_version()  -- Push Lmod version into environment
-
-
-   set_duplication()         -- Chose how to handle duplicate entries in a path.
-   build_accept_functions()  -- build the accept functions to allow or ignore TCL mfiles
    readRC()
 
    ------------------------------------------------------------------------
