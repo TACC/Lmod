@@ -198,7 +198,7 @@ function load_module(...)
    if (not validateModules("load",...)) then return {} end
 
    dbg.print{"mcp:name(): ",mcp:name(),"\n"}
-   local b  = mcp:load_usr(MName:buildA(mcp:MNameType(),...))
+   local b  = mcp:load_usr(MName:buildA(mcp:MNameType(), ...))
    dbg.fini("load_module")
    return b
 end
@@ -212,7 +212,7 @@ function try_load(...)
    dbg.start{"try_load(",concatTbl({...},", "),")"}
    if (not validateModules("try_load",...)) then return {} end
 
-   local b = mcp:try_load(MName:buildA("load",...))
+   local b = mcp:try_load(MName:buildA(mcp:MNameType(), ...))
    dbg.fini("try_load")
    return b
 end
