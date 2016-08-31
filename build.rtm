@@ -107,7 +107,7 @@ case $SYSHOST in
     ADMIN_DIR=/apps/gent/lmodcache/
     UPDATE_FN=$ADMIN_DIR/timestamp
     CACHEDIRS=$ADMIN_DIR
-    EXTRA="--with-spiderCacheDir=$CACHEDIRS  --with-updateSystemFn=$UPDATE_FN "
+    EXTRA="--with-spiderCacheDir=$CACHEDIRS  --with-updateSystemFn=$UPDATE_FN --with-cachedLoads=yes"
     base="$HOME/l/pkg";;
 
   *)
