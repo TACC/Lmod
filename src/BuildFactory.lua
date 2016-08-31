@@ -124,7 +124,6 @@ function M.build_prepend_order_function()
    }
 
    local order = ansT[LMOD_PREPEND_BLOCK] or "normal"
-   --declare("prepend_order")
    if (order == "normal") then
       _G.prepend_order = function (n)
          return n, 1, -1
@@ -135,6 +134,5 @@ function M.build_prepend_order_function()
       end
    end
 end
-
 
 return M
