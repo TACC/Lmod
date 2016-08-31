@@ -74,3 +74,9 @@ if [ -z "${USER_IS_ROOT:-}" ]; then
   fi
   unset my_shell PS_CMD EXPR_CMD BASENAME_CMD
 fi
+
+# Local Variables:
+# mode: shell-script
+# indent-tabs-mode: nil
+# End:
+

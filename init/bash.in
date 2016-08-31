@@ -137,3 +137,8 @@ fi
 if [[ ${-/x} != $- ]]; then
    echo "End of Lmod init/bash script to define the module command"
 fi
+
+# Local Variables:
+# mode: shell-script
+# indent-tabs-mode: nil
+# End:

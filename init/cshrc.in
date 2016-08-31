@@ -47,3 +47,9 @@ endif
 if ( -f  @PKG@/init/csh  ) then
   source @PKG@/init/csh
 endif
+
+# Local Variables:
+# mode: shell-script
+# indent-tabs-mode: nil
+# End:
+
