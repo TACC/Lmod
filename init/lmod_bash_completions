@@ -123,16 +123,6 @@ _module() {
       ;;
     use|*-a*)
       _filedir -d 2>/dev/null || _module_filedir
-      #{
-      #  COMPREPLY=( $(compgen -d -- "${cur}") )
-      #  if [[ ${#COMPREPLY[@]} -eq 1 ]]; then
-      #      local dir=${COMPREPLY[0]}
-      #      if [[ ${dir} != "*/" ]]; then
-      #          COMPREPLY[0]="${dir}/"
-      #          compopt -o nospace
-      #      fi
-      #  fi
-      #}
       ;;
     help|show|whatis)
       COMPREPLY=( $(compgen -W "$(_module_avail)" -- "${cur}") )
@@ -189,16 +179,7 @@ _ml() {
       COMPREPLY=( $(IFS=: compgen -W "${MODULEPATH}" -- "${cur}") )
       ;;
     use|*-a*)
-      _filedir -d 2>/dev/null || {
-        COMPREPLY=( $(compgen -d -- "${cur}") )
-        if [[ ${#COMPREPLY[@]} -eq 1 ]]; then
-            local dir=${COMPREPLY[0]}
-            if [[ ${dir} != "*/" ]]; then
-                COMPREPLY[0]="${dir}/"
-                compopt -o nospace
-            fi
-        fi
-      }
+      _filedir -d 2>/dev/null || _module_filedir
       ;;
     help|show|whatis)
       COMPREPLY=( $(compgen -W "$(_module_avail)" -- "${cur}") )
