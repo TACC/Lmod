@@ -791,14 +791,14 @@ modA = false
 
 function runTCLprog(TCLprog, optStr, fn)
    local a   = {}
-   a[#a + 1] = "LD_LIBRARY_PATH=\"".. (LMOD_LD_LIBRARY_PATH or "") .. "\""
-   a[#a + 1] = "LD_PRELOAD=\""..      (LMOD_LD_PRELOAD      or "") .. "\""
    a[#a + 1] = LMOD_TCLSH
    a[#a + 1] = pathJoin(cmdDir(),TCLprog)
    a[#a + 1] = optStr or ""
    a[#a + 1] = fn
    local cmd = concatTbl(a," ")
-   local whole, status = capture(cmd)
+   -- reset $LD_LIBRARY_PATH and $LD_PRELOAD, to avoid that they break the subshell forked by io.popen in capture
+   local reset_envvars = {LD_LIBRARY_PATH="", LD_PRELOAD=""}
+   local whole, status = capture(cmd, reset_envvars)
    return whole, status
 end
    
