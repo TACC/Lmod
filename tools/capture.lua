@@ -50,7 +50,9 @@ function capture(cmd, envT)
    local newT = {}
    envT = envT or {}
    for k, v in pairs(envT) do
+      dbg.print{"envT[",k,"]=",v,"\n"}
       newT[k] = getenv(k)
+      dbg.print{"newT[",k,"]=",newT[k],"\n"}
       setenv_posix(k, v, true)
    end
 
