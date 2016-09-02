@@ -37,6 +37,28 @@ require("capture")
 _G._DEBUG   = false               -- Required by the new lua posix
 local posix = require("posix")
 
+local getenv = os.getenv
+
+LMOD_LD_LIBRARY_PATH = "@sys_ld_lib_path@"
+if (LMOD_LD_LIBRARY_PATH:sub(1,1) == "@") then
+   LMOD_LD_LIBRARY_PATH = getenv("LD_LIBRARY_PATH")
+end
+if (LMOD_LD_LIBRARY_PATH == "") then
+   LMOD_LD_LIBRARY_PATH = nil
+end
+
+------------------------------------------------------------------------
+-- LMOD_LD_PRELOAD:   LD_PRELOAD found at configure
+------------------------------------------------------------------------
+
+LMOD_LD_PRELOAD = "@sys_ld_lib_path@"
+if (LMOD_LD_PRELOAD:sub(1,1) == "@") then
+   LMOD_LD_PRELOAD = getenv("LD_PRELOAD")
+end
+if (LMOD_LD_PRELOAD == "") then
+   LMOD_LD_PRELOAD = nil
+end
+
 s_t = {}
 
 
