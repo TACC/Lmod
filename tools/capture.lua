@@ -49,6 +49,11 @@ function capture(cmd, envT)
 
    local newT = {}
    envT = envT or {}
+
+   envT["LD_LIBRARY_PATH"] = LMOD_LD_LIBRARY_PATH or ""
+   envT["LD_PRELOAD"]      = LMOD_LD_PRELOAD      or ""
+
+
    for k, v in pairs(envT) do
       dbg.print{"envT[",k,"]=",v,"\n"}
       newT[k] = getenv(k)

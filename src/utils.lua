@@ -796,9 +796,7 @@ function runTCLprog(TCLprog, optStr, fn)
    a[#a + 1] = optStr or ""
    a[#a + 1] = fn
    local cmd = concatTbl(a," ")
-   -- reset $LD_LIBRARY_PATH and $LD_PRELOAD, to avoid that they break the subshell forked by io.popen in capture
-   local reset_envvars = {LD_LIBRARY_PATH="", LD_PRELOAD=""}
-   local whole, status = capture(cmd, reset_envvars)
+   local whole, status = capture(cmd)
    return whole, status
 end
    
