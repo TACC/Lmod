@@ -66,6 +66,7 @@ require("string_utils")
 require("fileOps")
 require("cmdfuncs")
 require("utils")
+require("lmod_system_execute")
 
 _G.maliasT      = {}
 local CTimer    = require("CTimer")
@@ -494,7 +495,7 @@ function M.build(self, fast)
             a[#a+1]  = "-o"
             a[#a+1]  = fn
             a[#a+1]  = userModuleTFN
-            os.execute(concatTbl(a," "))
+            lmod_system_execute(concatTbl(a," "))
          end
 
          local buildT   = t2-t1

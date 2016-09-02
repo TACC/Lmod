@@ -35,6 +35,7 @@ require("strict")
 require("serializeTbl")
 require("myGlobals")
 require("string_utils")
+require("lmod_system_execute")
 local Dbg    = require("Dbg")
 local dbg    = Dbg:dbg()
 PkgBase      = require("PkgBase")
@@ -159,7 +160,7 @@ local function report_loads()
    local a = s_msgA
    for i = 1,#a do
       local msg = a[i]
-      os.execute("logger -t ModuleUsageTracking -p local0.info " .. msg)
+      lmod_system_execute("logger -t ModuleUsageTracking -p local0.info " .. msg)
    end
 end
 

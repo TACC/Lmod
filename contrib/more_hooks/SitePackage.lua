@@ -5,6 +5,7 @@
 require("strict")
 require("cmdfuncs")
 require("utils")
+require("lmod_system_execute")
 local Dbg   = require("Dbg")
 local dbg   = Dbg:dbg()
 local hook  = require("Hook")
@@ -25,7 +26,7 @@ local function logmsg(logTbl)
         msg = msg .. string.format(", %s=%s", val[1], val[2] or "")
     end
 
-    os.execute("logger -t lmod -p user.notice -- " .. msg)
+    lmod_system_execute("logger -t lmod -p user.notice -- " .. msg)
 end
 
 local function load_hook(t)

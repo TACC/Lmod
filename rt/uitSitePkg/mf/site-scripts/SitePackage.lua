@@ -2,6 +2,7 @@
 -- vim:ft=lua:et:ts=4
 -- author: jonas.juselius@uit.no
 
+require("lmod_system_execute")
 local Dbg    = require("Dbg")
 local dbg    = Dbg:dbg()
 local hook   = require("Hook")
@@ -69,7 +70,7 @@ function logUsage(pkg)
                           user, pkg.id, jobid)
    end
    local cmd = "logger -t lmod -p local0.info " .. msg
-   --os.execute(cmd)
+   --lmod_system_execute(cmd)
    dbg.fini("logUsage")
 end
 

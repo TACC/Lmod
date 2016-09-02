@@ -16,6 +16,12 @@ function colormt:__concat(34,1329
 function colormt:__call(38,1412
 local function makecolor(44,1507
 
+contrib/cache_check/cache_check.lua,109
+function check_module(48,2120
+function scan_dir(61,2398
+function argparse(76,2790
+function usage(98,3217
+
 contrib/BuildSystemCacheFile/createSystemCacheFile.sh,34
 LMOD_DIR=15,446
 CacheDir=34,838
@@ -294,21 +300,22 @@ SUDO=59,1178
     base=91,1972
 	   base=97,2152
     ADMIN_DIR=107,2369
-    ADMIN_DIR=114,2594
-BASE_DIR=121,2812
-   EXTRA_CMD=128,2924
-  MAKE=136,3074
+    ADMIN_DIR=114,2598
+BASE_DIR=121,2816
+   EXTRA_CMD=128,2928
+  MAKE=136,3078
 
-.luacheckrc,166
+.luacheckrc,188
 std 1,0
 files[files7,112
 files[files8,168
-files[files9,224
-files[files10,332
-files[files12,546
-files[files15,828
-files[files16,893
-files[files17,950
+files[files9,228
+files[files10,284
+files[files12,453
+files[files14,667
+files[files17,949
+files[files18,1014
+files[files19,1071
 
 .travis.yml,14
   - LUA=6,93
@@ -450,10 +457,10 @@ set ignoreDir(63,1902
 
 Makefile.in,119
 srcdir 1,0
-           fn=165,7455
-           ext=166,7534
-               mname=214,11135
-            fi;218,11441
+           fn=167,7553
+           ext=168,7632
+               mname=218,11387
+            fi;222,11693
 
 my_docs/FindingUsersOfModules.txt,24
    which users,56,1790
@@ -733,7 +740,7 @@ README_lua_modulefiles.txt,19
    whatis(52,1780
 
 configure.ac,25
-function main(458,14650
+function main(473,15191
 
 rt/vasp/out.txt,873
 export LMOD_DEFAULT_MODULEPATH;10,409
@@ -4493,7 +4500,7 @@ export _ModuleTable_;232,12782
 rt/delim/delim.tdesc,19
 testdescript 3,16
 
-rt/avail/out.txt,8064
+rt/avail/out.txt,8898
 export LMOD_DEFAULT_MODULEPATH;10,335
 MODULEPATH=11,367
 export MODULEPATH;12,428
@@ -4768,6 +4775,33 @@ MODULEPATH=405,25642
 export MODULEPATH;406,25743
 _ModuleTable_=407,25762
 export _ModuleTable_;408,26436
+export LMOD_DEFAULT_MODULEPATH;414,26726
+MODULEPATH=415,26758
+export MODULEPATH;416,26859
+LMOD_DEFAULT_MODULEPATH=417,26878
+export LMOD_DEFAULT_MODULEPATH;418,27021
+MODULEPATH=419,27053
+export MODULEPATH;420,27183
+_ModuleTable_=421,27202
+export _ModuleTable_;422,27938
+export LMOD_DEFAULT_MODULEPATH;428,28230
+MODULEPATH=429,28262
+export MODULEPATH;430,28392
+LMOD_DEFAULT_MODULEPATH=431,28411
+export LMOD_DEFAULT_MODULEPATH;432,28554
+MODULEPATH=433,28586
+export MODULEPATH;434,28716
+_ModuleTable_=435,28735
+export _ModuleTable_;436,29471
+export LMOD_DEFAULT_MODULEPATH;442,29763
+MODULEPATH=443,29795
+export MODULEPATH;444,29925
+LMOD_DEFAULT_MODULEPATH=445,29944
+export LMOD_DEFAULT_MODULEPATH;446,30087
+MODULEPATH=447,30119
+export MODULEPATH;448,30249
+_ModuleTable_=449,30268
+export _ModuleTable_;450,31004
 
 rt/avail/avail.tdesc,19
 testdescript 2,15
@@ -6120,7 +6154,7 @@ export _ModuleTable_;125,8140
 rt/noTCL/noTCL.tdesc,15
 testName 3,16
 
-rt/spider_dot/out.txt,1291
+rt/spider_dot/out.txt,2352
 export LMOD_DEFAULT_MODULEPATH;10,317
 MODULEPATH=11,349
 export MODULEPATH;12,396
@@ -6166,6 +6200,42 @@ MODULEPATH=71,3375
 export MODULEPATH;72,3422
 _ModuleTable_=73,3441
 export _ModuleTable_;74,3683
+export LMOD_DEFAULT_MODULEPATH;80,3904
+MODULEPATH=81,3936
+export MODULEPATH;82,3984
+LMOD_DEFAULT_MODULEPATH=83,4003
+export LMOD_DEFAULT_MODULEPATH;84,4064
+MODULEPATH=85,4096
+export MODULEPATH;86,4144
+_ModuleTable_=87,4163
+export _ModuleTable_;88,4408
+export LMOD_DEFAULT_MODULEPATH;94,4643
+MODULEPATH=95,4675
+export MODULEPATH;96,4723
+LMOD_DEFAULT_MODULEPATH=97,4742
+export LMOD_DEFAULT_MODULEPATH;98,4803
+MODULEPATH=99,4835
+export MODULEPATH;100,4883
+_ModuleTable_=101,4902
+export _ModuleTable_;102,5147
+export LMOD_DEFAULT_MODULEPATH;108,5365
+MODULEPATH=109,5397
+export MODULEPATH;110,5445
+LMOD_DEFAULT_MODULEPATH=111,5464
+export LMOD_DEFAULT_MODULEPATH;112,5525
+MODULEPATH=113,5557
+export MODULEPATH;114,5605
+_ModuleTable_=115,5624
+export _ModuleTable_;116,5869
+export LMOD_DEFAULT_MODULEPATH;122,6102
+MODULEPATH=123,6134
+export MODULEPATH;124,6182
+LMOD_DEFAULT_MODULEPATH=125,6201
+export LMOD_DEFAULT_MODULEPATH;126,6262
+MODULEPATH=127,6294
+export MODULEPATH;128,6342
+_ModuleTable_=129,6361
+export _ModuleTable_;130,6606
 
 rt/spider_dot/spider_dot.tdesc,21
 local testName 2,15
@@ -9209,21 +9279,21 @@ function edit_new_derived_modulepaths(72,3156
 rt/pecos/pecos.tdesc,21
 local testName 3,16
 
-rt/common_funcs.sh,258
+rt/common_funcs.sh,259
 cleanUp 1,0
-runBase 48,2425
-runMe 68,3058
-runLmod 73,3114
-runSh2MF 79,3237
-buildModuleT 84,3320
-buildDbT 89,3400
-buildRmapT 94,3476
-buildNewDB(99,3558
-EPOCH(139,4372
-initStdEnvVars(144,4427
-clearTARG(189,5430
-unsetMT 204,5661
-unsetSTT 223,6020
+runBase 50,2545
+runMe 70,3178
+runLmod 75,3234
+runSh2MF 81,3357
+buildModuleT 86,3440
+buildDbT 91,3520
+buildRmapT 96,3596
+buildNewDB(101,3678
+EPOCH(141,4492
+initStdEnvVars(146,4547
+clearTARG(191,5550
+unsetMT 206,5781
+unsetSTT 225,6140
 
 rt/spider/out.txt,6409
 unset MODULEPATH;10,385
@@ -12400,6 +12470,9 @@ function isEncodable(420,17166
 tools/strict.lua,28
 local function what 18,496
 
+tools/lmod_system_execute.lua,38
+function lmod_system_execute(40,1699
+
 tools/MF_Lua.lua,110
 function MF_Lmod.setenv(54,2234
 function MF_Lmod.prepend_path(64,2548
@@ -12469,12 +12542,6 @@ function M._printA(401,11174
 function M._print2D(420,11573
 function M.flush(437,11970
 
-README,126
-         t 245,9883
-         t 250,10040
-   f) New option,259,10371
-   f) New option, --show_hidden,show_hidden259,10371
-
 Hermes.db,18
 ProjectData 3,52
 
@@ -12516,27 +12583,27 @@ function M.error(805,26087
 function M.warning(812,26306
 function M.message(834,26900
 function M.prereq(851,27284
-function M.conflict(886,28219
-function M.prereq_any(939,29673
-function M.familyLoadRegister(984,31023
-function M.familyLoaded(1001,31581
-function M.familyStackPush(1025,32270
-function M.familyStackPop(1042,33027
-function M.familyStackEmpty(1053,33362
-function M.family(1062,33675
-function M.myShellName(1098,35042
-function M.myFileName(1106,35289
-function M.myModuleFullName(1114,35580
-function M.myModuleUsrName(1123,35948
-function M.myModuleName(1132,36255
-function M.myModuleVersion(1141,36577
-function M.unset_family(1150,36855
-function M.inherit(1163,37328
-function M.is_spider(1175,37677
-function M._setMode(1184,37982
-function M.mode(1193,38309
-function M.execute(1204,38715
-function M.quiet(1222,39199
+function M.conflict(886,28218
+function M.prereq_any(939,29672
+function M.familyLoadRegister(984,31022
+function M.familyLoaded(1001,31580
+function M.familyStackPush(1025,32269
+function M.familyStackPop(1042,33026
+function M.familyStackEmpty(1053,33361
+function M.family(1062,33674
+function M.myShellName(1098,35041
+function M.myFileName(1106,35288
+function M.myModuleFullName(1114,35579
+function M.myModuleUsrName(1123,35947
+function M.myModuleName(1132,36254
+function M.myModuleVersion(1141,36576
+function M.unset_family(1150,36854
+function M.inherit(1163,37327
+function M.is_spider(1175,37676
+function M._setMode(1184,37981
+function M.mode(1193,38308
+function M.execute(1204,38714
+function M.quiet(1222,39198
 
 src/Exec.lua,109
 local function new(49,2022
@@ -12544,7 +12611,7 @@ function M.exec(62,2312
 function M.register(74,2608
 function M.expand(89,2982
 
-src/Spider.lua,937
+src/Spider.lua,938
 local function nothing(67,2741
 local function process(72,2844
 function processLPATH(88,3324
@@ -12564,14 +12631,14 @@ function M.singleSpiderDB(383,12692
 function M.searchSpiderDB(424,13800
 function M.singleSearchSpiderDB(443,14355
 function M.Level0(488,15614
-function M.Level0Helper(534,16859
-local function countEntries(588,18856
-function M.spiderSearch(635,20341
-function M._Level1(708,22283
-function M._Level2(824,26068
-function M.listModules(969,30811
-function M.listModulesHelper(981,31097
-function M.dictModules(994,31418
+function M.Level0Helper(534,16856
+local function countEntries(588,18853
+function M.spiderSearch(635,20338
+function M._Level1(708,22280
+function M._Level2(824,26065
+function M.listModules(977,31059
+function M.listModulesHelper(989,31345
+function M.dictModules(1002,31666
 
 src/Var.lua,659
 local function build_priorityT(122,5314
@@ -12603,7 +12670,7 @@ function bypassParseVersion(197,7024
 function buildParseVersion(204,7240
 
 src/tcl2lua.tcl,30
-set g_help $params(837,21669
+set g_help $params(838,21711
 
 src/Master.lua,713
 local function new(83,3290
@@ -12634,76 +12701,76 @@ function usePager(70,2734
 function buildPager(82,3106
 
 src/MT.lua,2408
-function M.name(74,2826
-local function buildAvailT(102,3790
-local function buildLocWmoduleT(202,7475
-local function buildAllLocWmoduleT(255,9239
-local function columnList(316,11186
-local function mt_version(329,11562
-local function new(335,11742
-function M._build_locationTbl(458,15787
-function M.convertMT(641,21910
-function M.getRebuildTime(681,22987
-function M.getShortTime(688,23187
-function M.setRebuildTime(697,23508
-local function setupMPATH(708,23919
-function M.mt(725,24557
-function M.cloneMT(749,25423
-function M.pushMT(761,25765
-function M.popMT(767,25953
-function M.origMT(778,26311
-function M.getMTfromFile(803,27465
-function M.resolveMpathChanges(1013,34949
-function M.changePATH(1076,36952
-function M.beginOP(1089,37441
-function M.endOP(1099,37842
-function M.zombieState(1109,38215
-function M.safeToCheckZombies(1116,38441
-local function buildFamilyPrefix(1128,38832
-function M.setfamily(1146,39271
-function M.unsetfamily(1161,39697
-function M.getfamily(1174,40055
-function M.locationTbl(1188,40514
-function M.availT(1205,41058
-function M.sameMPATH(1218,41505
-function M.module_pathA(1226,41801
-function M.buildMpathA(1234,42059
-function M.buildBaseMpathA(1244,42388
-function M.getBaseMPATH(1251,42623
-function M.reEvalModulePath(1260,42916
-function M.clearLocationAvailT(1271,43428
-function M.reloadAllModules(1281,43710
-function M.add(1317,44721
-function M.list(1356,46192
-function M.usrName(1442,48902
-function M.fileName(1460,49337
-function M.setStatus(1475,49744
-function M.getStatus(1494,50334
-function M.exists(1508,50678
-function M.have(1519,51004
-function M.hideHash(1532,51379
-function M.markDefault(1545,51717
-function M.default(1557,52039
-function M.setLoadOrder(1570,52389
-function M.fullName(1587,52822
-function M.Version(1601,53192
-function M.hideHash(1620,53596
-function M.getHash(1634,53954
-function M.setHashSum(1646,54282
-function M.reportKeys(1707,55858
-function M.pushInheritFn(1720,56225
-function M.popInheritFn(1733,56617
-function M.remove(1750,57051
-function M.add_property(1761,57379
-function M.remove_property(1806,58862
-function M.list_property(1851,60365
-function M.haveProperty(1879,61227
-function M.userLoad(1896,61895
-function M.reportChanges(1909,62339
-function M.reportContents(1983,64503
-function M.serializeTbl(2010,65300
-function M.addStickyA(2028,65863
-function M.getStickyA(2042,66337
+function M.name(72,2714
+local function buildAvailT(100,3678
+local function buildLocWmoduleT(200,7363
+local function buildAllLocWmoduleT(253,9127
+local function columnList(314,11074
+local function mt_version(327,11450
+local function new(333,11630
+function M._build_locationTbl(456,15675
+function M.convertMT(639,21798
+function M.getRebuildTime(679,22875
+function M.getShortTime(686,23075
+function M.setRebuildTime(695,23396
+local function setupMPATH(706,23807
+function M.mt(723,24445
+function M.cloneMT(747,25311
+function M.pushMT(759,25653
+function M.popMT(765,25841
+function M.origMT(776,26199
+function M.getMTfromFile(801,27353
+function M.resolveMpathChanges(1011,34837
+function M.changePATH(1074,36840
+function M.beginOP(1087,37329
+function M.endOP(1097,37730
+function M.zombieState(1107,38103
+function M.safeToCheckZombies(1114,38329
+local function buildFamilyPrefix(1126,38720
+function M.setfamily(1144,39159
+function M.unsetfamily(1159,39585
+function M.getfamily(1172,39943
+function M.locationTbl(1186,40402
+function M.availT(1203,40946
+function M.sameMPATH(1216,41393
+function M.module_pathA(1224,41689
+function M.buildMpathA(1232,41947
+function M.buildBaseMpathA(1242,42276
+function M.getBaseMPATH(1249,42511
+function M.reEvalModulePath(1258,42804
+function M.clearLocationAvailT(1269,43316
+function M.reloadAllModules(1279,43598
+function M.add(1315,44609
+function M.list(1349,45941
+function M.usrName(1435,48651
+function M.fileName(1453,49086
+function M.setStatus(1468,49493
+function M.getStatus(1487,50083
+function M.exists(1501,50427
+function M.have(1512,50753
+function M.hideHash(1525,51128
+function M.markDefault(1538,51466
+function M.default(1550,51788
+function M.setLoadOrder(1563,52138
+function M.fullName(1580,52571
+function M.Version(1594,52941
+function M.hideHash(1613,53345
+function M.getHash(1627,53703
+function M.setHashSum(1639,54031
+function M.reportKeys(1700,55607
+function M.pushInheritFn(1713,55974
+function M.popInheritFn(1726,56366
+function M.remove(1743,56800
+function M.add_property(1754,57128
+function M.remove_property(1799,58611
+function M.list_property(1844,60114
+function M.haveProperty(1872,60976
+function M.userLoad(1889,61644
+function M.reportChanges(1902,62088
+function M.reportContents(1976,64252
+function M.serializeTbl(2003,65049
+function M.addStickyA(2021,65612
+function M.getStickyA(2035,66086
 
 src/cmdfuncs.lua,760
 local function Access(65,2918
@@ -12780,8 +12847,8 @@ function M.unset_shell_function(296,9778
 src/Configuration.lua,125
 local function locatePkg(58,2225
 local function new(73,2498
-function M.configuration(174,8213
-function M.report(185,8555
+function M.configuration(179,8755
+function M.report(190,9097
 
 src/reportUsers.in.lua,107
 function masterTbl(171,4264
@@ -12808,29 +12875,29 @@ function options(161,4557
 
 src/spider.in.lua,866
 function cmdDir(78,2756
-local function keepThisPath2(131,4048
-local function add2map(169,4979
-local function rptList(190,5655
-local function rptModuleT(201,5947
-local function buildReverseMapT(212,6446
-local function buildXALTrmapT(242,7256
-local function buildLibMapA(256,7621
-local function rptReverseMapT(282,8135
-local function rptReverseMapTJson(297,8857
-local function rptXALTRmapTJson(308,9332
-local function rptSoftwarePageJson(319,9794
-local function rptSoftwarePageLua(326,10043
-local function rptSoftwarePageXml(334,10345
-local function rptDbT(341,10587
-local function rptDbTJson(351,10981
-function main(358,11158
-function softwarePage(460,14355
-function convertEntry(468,14493
-function options(531,15733
-function xmlSoftwarePage(595,17368
-function splitNV(641,18412
-function findLatestV(652,18630
-function localSoftware(675,19127
+local function keepThisPath2(135,4117
+local function add2map(173,5048
+local function rptList(194,5724
+local function rptModuleT(205,6016
+local function buildReverseMapT(216,6515
+local function buildXALTrmapT(246,7325
+local function buildLibMapA(260,7690
+local function rptReverseMapT(286,8204
+local function rptReverseMapTJson(301,8926
+local function rptXALTRmapTJson(312,9401
+local function rptSoftwarePageJson(323,9863
+local function rptSoftwarePageLua(330,10112
+local function rptSoftwarePageXml(338,10414
+local function rptDbT(345,10656
+local function rptDbTJson(355,11050
+function main(362,11227
+function softwarePage(462,14296
+function convertEntry(470,14434
+function options(533,15674
+function xmlSoftwarePage(597,17309
+function splitNV(643,18353
+function findLatestV(654,18571
+function localSoftware(677,19068
 
 src/PkgTACC.lua,60
 function M.name(45,1866
@@ -12844,7 +12911,7 @@ src/Version.lua,90
 function M.tag(3,31
 function M.git(4,70
 function M.date(10,218
-function M.name(11,266
+function M.name(11,279
 
 src/MC_Spider.lua,390
 function M.myFileName(87,3644
@@ -12867,38 +12934,39 @@ function M.isloaded(121,4917
 function M.isPending(138,5418
 function M.action(151,5876
 function M.new(175,6849
-function M.buildA(230,8336
-function M.convert2stringA(248,8789
-local function lazyEval(274,9452
-function M.sn(319,10635
-function M.usrName(331,10923
-function M.version(339,11164
-local function module_locationT(364,11913
-function M.find_exact_match(374,12309
-function M.find_default(425,13840
-function M.find_latest(449,14732
-function M.find_default_between(491,16112
-function M.find_between(525,17170
-function M.show(572,18403
-function M.find(581,18684
+function M.buildA(229,8301
+function M.convert2stringA(247,8754
+local function lazyEval(273,9417
+function M.sn(318,10600
+function M.usrName(330,10888
+function M.version(338,11129
+local function module_locationT(363,11878
+function M.find_exact_match(373,12274
+function M.find_default(424,13805
+function M.find_latest(448,14697
+function M.find_default_between(490,16077
+function M.find_between(524,17135
+function M.show(571,18368
+function M.find(580,18649
 
 src/cron_module_usage.sh,39
 HOST=2,12
 TACC_ADMIN_DIR_ranger=4,62
 
-src/sh_to_modulefile.in.lua,347
+src/sh_to_modulefile.in.lua,376
 function cmdDir(107,3964
 function programName(111,4005
-function masterTbl(159,5370
-function wrtEnv(163,5415
-function splice(177,5712
-function path_regularize(189,5871
-function path2pathA(201,6194
-local function cleanPath(217,6461
-function indexPath(270,7594
-function cleanEnv(326,8628
-function main(341,8903
-function options(414,10561
+function capture(170,5864
+function masterTbl(225,7334
+function wrtEnv(229,7379
+function splice(243,7676
+function path_regularize(255,7835
+function path2pathA(267,8158
+local function cleanPath(283,8425
+function indexPath(336,9558
+function cleanEnv(392,10592
+function main(407,10867
+function options(478,12523
 
 src/ignore_dirs_converter,113
 function string:string41,1850
@@ -12920,12 +12988,12 @@ function M.build(85,3338
 function M.getDefaultT(93,3512
 function M.parseModA(99,3684
 function M.resolve(150,5585
-function M.__resolve(188,6784
-function M.getHiddenT(209,7143
-function M.buildMod2VersionT(223,7415
-function M.getMod2VersionT(244,7869
-function M.export(248,7945
-function M.import(256,8187
+function M.__resolve(188,6723
+function M.getHiddenT(209,7082
+function M.buildMod2VersionT(223,7354
+function M.getMod2VersionT(244,7808
+function M.export(248,7884
+function M.import(256,8126
 
 src/MN_Between.lua,139
 function M.show(57,2251
@@ -12948,20 +13016,18 @@ function M.cTimer(69,2642
 function M.test(79,2999
 function M.done(101,3588
 
-src/lmod.in.lua,295
-function cmdDir(95,3283
-function cmdName(109,3551
-function set_prepend_order(120,3884
-function set_duplication(170,5250
-function colorizePropA(193,5997
-function Usage(239,7324
-function version(343,13247
-function None(360,13790
-local function localvar(368,13978
-function main(393,14589
+src/lmod.in.lua,223
+function cmdDir(94,3259
+function cmdName(108,3527
+function colorizePropA(151,4786
+function Usage(197,6113
+function version(301,12036
+function None(318,12579
+local function localvar(326,12767
+function main(351,13378
 
 src/loadModuleFile.lua,33
-function loadModuleFile(55,2492
+function loadModuleFile(56,2509
 
 src/joinBase64Results,211
 function argsPack(58,2314
@@ -12976,10 +13042,17 @@ src/colorize.lua,56
 function full_colorize(64,2425
 function plain(86,2958
 
+src/BuildFactory.lua,207
+function M.master(43,1785
+function M.build_epoch_function(51,1908
+function M.build_allow_dups_function(77,2580
+function M.build_accept_functions(92,2990
+function M.build_prepend_order_function(118,3648
+
 src/getmt.in.lua,76
 function cmdDir(83,2865
-function main(108,3586
-function options(160,4669
+function main(111,3599
+function options(163,4682
 
 src/ml_cmd.in.lua,82
 local function quoteWrap(90,3196
@@ -12988,9 +13061,9 @@ function main(126,4774
 
 src/computeHashSum.in.lua,105
 function cmdDir(81,2922
-function masterTbl(114,3608
-function main(119,3657
-function options(189,5687
+function masterTbl(118,3677
+function main(123,3726
+function options(191,5635
 
 src/modfuncs.lua,1641
 local function concatTbl(70,3016
@@ -12999,51 +13072,51 @@ local function validateStringTable(109,4177
 local function validateModules(141,5169
 local function validateArgsWithValue(168,6050
 function load_module(196,6983
-function try_load(211,7645
-function unload(229,8215
-function always_load(241,8563
-function always_unload(254,8980
-function atleast(268,9455
-function between(283,9873
-function latest(295,10204
-local function convert2table(309,10494
-function prepend_path(327,10938
-function append_path(338,11293
-function remove_path(349,11645
-function setenv(362,12030
-function unsetenv(373,12341
-function pushenv(384,12681
-function add_property(397,13013
-function remove_property(407,13331
-function set_alias(420,13699
-function unset_alias(430,14006
-function set_shell_function(440,14340
-function unset_shell_function(450,14691
-function prereq(463,15173
-function conflict(473,15517
-function prereq_any(484,15929
-function family(497,16349
-function inherit(510,16709
-function whatis(521,16967
-function help(531,17243
-function LmodError(542,17505
-function LmodWarning(549,17693
-function LmodMessage(556,17860
-function is_spider(563,18070
-function execute(573,18348
-function mode(588,18852
-function isloaded(598,19091
-function isPending(609,19438
-function LmodVersion(618,19725
-function convertToCanonical(624,19924
-function myFileName(630,20094
-function myShellName(636,20258
-function myModuleFullName(642,20427
-function myModuleName(648,20616
-function myModuleUsrName(655,20808
-function myModuleVersion(661,20984
-function hierarchyA(669,21259
-function userInGroup(713,22168
+function try_load(211,7646
+function unload(226,8179
+function always_load(238,8527
+function always_unload(251,8944
+function atleast(265,9419
+function between(280,9837
+function latest(292,10168
+local function convert2table(306,10458
+function prepend_path(324,10902
+function append_path(335,11257
+function remove_path(346,11609
+function setenv(359,11994
+function unsetenv(370,12305
+function pushenv(381,12645
+function add_property(394,12977
+function remove_property(404,13295
+function set_alias(417,13663
+function unset_alias(427,13970
+function set_shell_function(437,14304
+function unset_shell_function(447,14655
+function prereq(460,15137
+function conflict(470,15481
+function prereq_any(481,15893
+function family(494,16313
+function inherit(507,16673
+function whatis(518,16931
+function help(528,17207
+function LmodError(539,17469
+function LmodWarning(546,17657
+function LmodMessage(553,17824
+function is_spider(560,18034
+function execute(570,18312
+function mode(585,18816
+function isloaded(595,19055
+function isPending(606,19402
+function LmodVersion(615,19689
+function convertToCanonical(621,19888
+function myFileName(627,20058
+function myShellName(633,20222
+function myModuleFullName(639,20391
+function myModuleName(645,20580
+function myModuleUsrName(652,20772
+function myModuleVersion(658,20948
+function hierarchyA(666,21223
+function userInGroup(710,22132
 
 src/Timer.lua,108
 local function new(55,2290
@@ -13054,12 +13127,11 @@ function M.report(88,3301
 src/MN_Match.lua,26
 function M.steps(58,2266
 
-src/Cache.lua,150
+src/Cache.lua,122
 local function new(93,4250
-function M.cache(216,8216
-local function readCacheFile(259,9558
-function readDbT(351,12584
-function M.build(445,15732
+function M.cache(192,7292
+local function readCacheFile(235,8634
+function M.build(352,12857
 
 src/processMT.in.lua,166
 function cmdDir(96,3129
@@ -13103,60 +13175,61 @@ src/epoch.in.lua,53
 function build_epoch(46,1223
 function main(69,1812
 
-src/utils.lua,1268
-function abspath_localdir 70,2796
-function argsPack(121,4045
-function buildMsg(131,4370
-function build_epoch(202,6178
-function build_accept_functions(228,6920
-function case_independent_cmp(255,7609
-function expert(270,7940
-function quiet(280,8189
-function isActiveMFile(287,8328
-function extractVersion(307,8902
-function ignoreFileT(344,9731
-function getMT(357,10136
-function allVersions(380,10761
-function indexPath(405,11540
-function lastFileInPathA(469,12979
-function length(494,13591
-function masterTbl(503,13877
-function path2pathA(524,14686
-function findAdminFn(566,15449
-function readAdmin(596,16379
-function readRC(669,18497
-function getPropT(701,19260
-function getSCDescriptT(707,19424
-function getRCFileA(714,19594
-local function arg2str(721,19801
-function ShowCmdStr(742,20374
-function ShowCmdA(793,21563
-function UUIDString(811,21948
-function versionFile(849,23306
-function setenv_lmod_version(890,24542
-function keepFile(925,25442
-function walk_directory_for_mf(953,26316
-function walk_link(1088,31543
-function activateWarning(1107,31966
-function deactivateWarning(1113,32138
-function haveWarnings(1119,32316
-function clearWarningFlag(1125,32477
-function setWarningFlag(1131,32636
-function getWarningFlag(1137,32789
+src/utils.lua,1320
+function abspath_localdir 71,2825
+function argsPack(122,4074
+function buildMsg(132,4399
+function case_independent_cmp(203,6185
+function expert(218,6516
+function quiet(228,6765
+function isActiveMFile(235,6904
+function extractVersion(255,7478
+function ignoreFileT(292,8307
+function getMT(305,8712
+function allVersions(328,9337
+function indexPath(353,10116
+function lastFileInPathA(417,11555
+function length(442,12167
+function masterTbl(451,12453
+function path2pathA(472,13262
+function findAdminFn(514,14025
+function readAdmin(544,14955
+function readRC(617,17070
+function getPropT(652,17934
+function getSCDescriptT(658,18098
+function getRCFileA(665,18268
+local function arg2str(672,18475
+function ShowCmdStr(693,19048
+function ShowCmdA(744,20237
+function UUIDString(762,20622
+function runTCLprog(792,21509
+function versionFile(812,22253
+function setenv_lmod_version(853,23421
+function keepFile(888,24321
+local function checkValidModulefileReal(907,24806
+function checkValidModulefileFake(917,25006
+function walk_directory_for_mf(933,25614
+function walk_link(1070,30956
+function activateWarning(1089,31379
+function deactivateWarning(1095,31551
+function haveWarnings(1101,31729
+function clearWarningFlag(1107,31890
+function setWarningFlag(1113,32049
+function getWarningFlag(1119,32202
 
-src/update_lmod_system_cache_files.in,271
+src/update_lmod_system_cache_files.in,270
 DEBUG=51,1792
-error(89,2372
-warning(95,2447
-print_help(101,2548
-parse_cmdline(133,3741
-set_defaults(189,5091
-check_parameters(216,5978
-new_timestamp(233,6404
-install_new_cache(251,7012
-run_spider(273,7636
-update_cache(294,8349
-  LMOD_REVERSEMAPT_DIR=337,9678
+error(86,2312
+warning(92,2387
+print_help(98,2488
+parse_cmdline(128,3589
+set_defaults(181,4870
+check_parameters(208,5757
+new_timestamp(225,6183
+install_new_cache(243,6791
+run_spider(265,7415
+update_cache(286,8128
+  LMOD_REVERSEMAPT_DIR=329,9457
 
 src/PkgBase.lua,277
 function M.build(47,1929
@@ -13231,16 +13304,18 @@ set modulepath_root  $env(17,344
 mf/TACC/TACC.orig,35
 set modulepath_root  $env(50,1399
 
-README.old,454
-Lmod.  For the impatient,6,349
-   * Bad module files which can be:be15,810
-          $ module load   gcc;    echo $CC  # -> CC=54,2696
-          $ module load   mpich;  echo $CC  # -> CC=55,2767
-          $ module unload mpich;  echo $CC  # -> CC is unset    CC=56,2840
-       If you use both setenv(59,2988
-                                        module load baz goo;153,6981
-     It does much more,155,7043
-      the same as a load(265,10283
+README.old,518
+   b) Thanks to Kenneth Hoste,6,70
+   b) Thanks to Kenneth Hoste, a parameterized script,6,70
+      update_lmod_system_cache_files,7,132
+      createSystemCacheFile.sh sh9,265
+         t 116,4871
+         t 121,5028
+   f) New option,130,5359
+   f) New option, --show_hidden,show_hidden130,5359
+    prepend-path --delim ";" LUA_PATH  "/a/lua/share/5.1/?.lua;lua847,33261
+    prepend_path("LUA_PATH",  "/a/lua/share/5.1/?.lua;lua852,33477
+    append_path( "LUA_CPATH", "/a/lua/share/5.1/?.so"so853,33558
 
 init/zsh/_ml,393
 _ml(4,31
@@ -13315,21 +13390,22 @@ init/profile.in,278
           BASENAME_CMD=62,1828
 
 init/sh.in,42
-LMOD_PKG=4,36
-clearMT(19,256
-ml(31,683
+LMOD_PKG=3,13
+clearMT(18,233
+ml(30,660
 
-init/lmod_bash_completions,246
-_module_avail(1,0
-_module_spider(5,99
-_module_loaded_modules(9,174
-_module_savelist(13,290
-_module_loaded_modules_negated(17,369
-_module_not_yet_loaded(21,502
-_module_long_arg_list(25,597
-_module_mcc(44,1070
-_module(49,1146
-_ml(90,2535
+init/lmod_bash_completions,278
+_module_avail(2,1
+_module_filedir(17,469
+_module_spider(28,718
+_module_loaded_modules(37,933
+_module_savelist(46,1222
+_module_loaded_modules_negated(55,1443
+_module_mcc(64,1758
+_module_not_yet_loaded(73,1978
+_module_long_arg_list(77,2074
+_module(98,2618
+_ml(158,4293
 
 init/env_modules_python.py.in,33
 import os,2,17
@@ -13399,7 +13475,7 @@ local function buildTargetName(41,1827
 function processModuleTable(50,2020
 
 settarg/getUname.lua,27
-function getUname(43,1817
+function getUname(65,2448
 
 settarg/ModifyPath.lua,29
 function ModifyPath(38,1745
@@ -13479,6 +13555,8 @@ settarg/settarg_rc.lua,0
 init/lmodrc.lua,0
 
 init/perl.in,0
+
+README.md,0
 
 mf/Compiler/intel/10.1/mpich2/1.0.7.lua,0
 
@@ -13595,6 +13673,8 @@ src/SitePackage.lua,0
 src/MC_Unload.lua,0
 
 src/MC_MgrLoad.lua,0
+
+README,0
 
 aclocal.m4,0
 
@@ -15040,6 +15120,14 @@ rt/spider_dot/mf/Core/fftw/3.3.4/gcc/4.8.5.lua,0
 
 rt/spider_dot/mf/Core/fftw/.pkginfo.lua,0
 
+rt/spider_dot/mf2/Core/cluster/one.lua,0
+
+rt/spider_dot/mf2/Core/cluster/.zero.lua,0
+
+rt/spider_dot/mf2/Zero/test/1.2.3,0
+
+rt/spider_dot/mf2/One/test/1.2.3,0
+
 rt/spider_dot/err.txt,0
 
 rt/noTCL/err.txt,0
@@ -15199,6 +15287,10 @@ rt/avail/mf/Core3/intel/14.0.3.lua,0
 rt/avail/mf/Core3/intel/15.0.2.lua,0
 
 rt/avail/mf/Core3/TACC.lua,0
+
+rt/avail/mf/Core6/aaa/2.0,0
+
+rt/avail/mf/Core6/aaa/1.0,0
 
 rt/avail/err.txt,0
 
@@ -15662,6 +15754,8 @@ my_docs/sc15_bof/sc15_booth_tutorial.tex,0
 
 my_docs/LmodArchecture.tex,0
 
+lmod.check.txt,0
+
 tcl/tacc/cluster,0
 
 tcl/tacc/Linux,0
@@ -15711,6 +15805,8 @@ contrib/tricky_modulefiles/intel-13.0.lua,0
 contrib/hook/README.txt,0
 
 contrib/BuildSystemCacheFile/README.txt,0
+
+contrib/cache_check/readme.md,0
 
 pkgs/term/term/cursor.lua,0
 

@@ -1,6 +1,7 @@
 -- -*- lua -*-
 -- vim:ft=lua:et:ts=4
 require("sandbox")
+require("lmod_system_execute")
 local Dbg = require("Dbg")
 local dbg = Dbg:dbg()
 sitePkgRoot = os.getenv("LMOD_PKG_ROOT") or "/global/apps"
@@ -39,7 +40,7 @@ function logUsage(pkg)
                           user, pkg.id, jobid)
    end
    local cmd = "logger -t lmod -p local0.info " .. msg
-   os.execute(cmd)
+   lmod_system_execute(cmd)
    dbg.fini()
 end
 

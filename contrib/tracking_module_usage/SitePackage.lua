@@ -33,6 +33,7 @@
 --------------------------------------------------------------------------
 
 require("strict")
+require("lmod_system_execute")
 local hook   = require("Hook")
 local uname  = require("posix").uname
 
@@ -76,7 +77,7 @@ function report_loads()
       local a = s_msgA
       for i = 1,#a do
          local msg = a[i]
-         os.execute("logger -t ModuleUsageTracking -p local0.info " .. msg)
+         lmod_system_execute("logger -t ModuleUsageTracking -p local0.info " .. msg)
       end
    end
 
