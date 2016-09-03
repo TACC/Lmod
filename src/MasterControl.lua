@@ -218,32 +218,33 @@ end
 -- @param name the name of the derived object.
 -- @param[opt] mode An optional mode for building the *access* object.
 -- @return A derived MasterControl Object.
+local s_nameTbl     = false
 function M.build(name,mode)
 
-   local nameTbl          = {}
-   local MCLoad           = require('MC_Load')
-   local MCUnload         = require('MC_Unload')
-   local MCMgrLoad        = require('MC_MgrLoad')
-   local MCRefresh        = require('MC_Refresh')
-   local MCShow           = require('MC_Show')
-   local MCAccess         = require('MC_Access')
-   local MCSpider         = require('MC_Spider')
-   local MCComputeHash    = require('MC_ComputeHash')
-   nameTbl["load"]        = MCLoad
-   -- for collections (loads in modules are ignored)
-   nameTbl["mgrload"]     = MCMgrLoad
-   nameTbl["unload"]      = MCUnload
-   -- for subshells, sets the aliases again
-   nameTbl["refresh"]     = MCRefresh
-   nameTbl["show"]        = MCShow
-   -- for whatis, help
-   nameTbl["access"]      = MCAccess
-   nameTbl["spider"]      = MCSpider
-   -- like show but only uses a couple of variables
-   nameTbl["computeHash"] = MCComputeHash
-   nameTbl.default        = MCLoad
+   if (not s_nameTbl) then
+      local MCLoad        = require('MC_Load')
+      local MCUnload      = require('MC_Unload')
+      local MCMgrLoad     = require('MC_MgrLoad')
+      local MCRefresh     = require('MC_Refresh')
+      local MCShow        = require('MC_Show')
+      local MCAccess      = require('MC_Access')
+      local MCSpider      = require('MC_Spider')
+      local MCComputeHash = require('MC_ComputeHash')
+      s_nameTbl = {
+         ["load"]        = MCLoad,        -- Normal loading of modules
+         ["mgrload"]     = MCMgrLoad,     -- for collections (loads in modules are ignored)
+         ["unload"]      = MCUnload,      -- Unload modules
+         ["refresh"]     = MCRefresh,     -- for subshells, sets the aliases again
+         ["computeHash"] = MCComputeHash, -- Generate a hash value for the contents of the module
+         ["refresh"]     = MCRefresh,     -- for subshells, sets the aliases again
+         ["show"]        = MCShow,        -- show the module function instead.
+         ["access"]      = MCAccess,      -- for whatis, help
+         ["spider"]      = MCSpider,      -- Process module files for spider operations
+      }
+      s_nameTbl.default        = MCLoad
+   end
 
-   local o                = valid_name(nameTbl, name):create()
+   local o                = valid_name(s_nameTbl, name):create()
    o:_setMode(mode or name)
 
 
