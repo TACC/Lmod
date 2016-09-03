@@ -6,9 +6,10 @@ Bug Fixes:
     c) (6.5.3) Correctly merges spider cache location where there are multiple lmodrc.lua files.
     d) (6.5.4) Do not show leading dot directories or version with spider level 2 unless
        --show_hidden option is specified on the command line.
-    e) (6.5.5) module use file<tab> now works even when _filedir is not available.
+    e) (6.5.5) module use path<tab> now works even when _filedir is not available.
     f) (6.5.7) Upshot of 6.5.2.  Must change LD_LIBRARY_PATH and LD_PRELOAD before calling
        the capture routine. Created lmod_system_execute() as a wrapper for os.execute() to
        correctly set/reset LD_PRELOAD/LD_LIBRARY_PATH before and after os.execute() call.
+    g) (6.5.8) An improved version for "module use path<tab>" tab completion.  Thanks to
+       Pieter Neerincx!  This version replaces _filedir with a custom _module_dir.
        
-    
