@@ -41,6 +41,7 @@ require("strict")
 
 require("capture")
 require("fileOps")
+require("haveTermSupport")
 require("pairsByKeys")
 require("serializeTbl")
 require("utils")

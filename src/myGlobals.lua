@@ -314,17 +314,9 @@ ShowResultsA = {}
 -- colorize:  It is a colorizer when connected to a term and plain when not
 ------------------------------------------------------------------------
 
-colorize      = false
-
-
 LMOD_COLORIZE = initialize("LMOD_COLORIZE","@colorize@","yes",
                            {yes = true, no = true, force = true})
 
-
-------------------------------------------------------------------------
--- pager:     pipe output through more when connectted to a term
-------------------------------------------------------------------------
-pager         = false
 
 
 LMOD_LEGACY_VERSION_ORDERING = initialize("LMOD_LEGACY_VERSION_ORDERING",

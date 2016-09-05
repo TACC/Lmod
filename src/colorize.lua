@@ -41,7 +41,7 @@ require("strict")
 
 require("strict")
 require("utils")
-require("haveTerm")
+require("haveTermSupport")
 require("myGlobals")
 
 Foreground = "\027".."[1;"
@@ -102,7 +102,7 @@ function colorize_kind()
 end
 
 
-if (haveTerm() or LMOD_COLORIZE == "force") then
+if (haveTermSupport() or LMOD_COLORIZE == "force") then
    s_colorize_kind = "full"
    colorize = full_colorize
 else

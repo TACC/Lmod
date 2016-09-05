@@ -34,6 +34,7 @@ require("strict")
 --------------------------------------------------------------------------
 
 
+require("haveTermSupport")
 require("capture")
 local capture = capture or function (s) return nil end
 local getenv  = os.getenv
@@ -41,9 +42,6 @@ local term    = false
 local s_width = false
 local min     = math.min
 local s_DFLT  = 80
-if (pcall(require,"term")) then
-   term = require("term")
-end
 
 ------------------------------------------------------------------------
 -- Ask system for width.
@@ -73,12 +71,6 @@ local function askSystem(width)
    return width
 end
 
---------------------------------------------------------------------------
--- Return true/false if the *term* interface exists.
-
-function haveTermSupport()
-   return (not (not term))
-end
 
 --------------------------------------------------------------------------
 -- Returns the number of columns to use as the terminal width.
@@ -89,7 +81,7 @@ function TermWidth()
    end
    s_DFLT  = tonumber(getenv("LMOD_TERM_WIDTH")) or s_DFLT
    s_width = s_DFLT
-   if (getenv("TERM") and term and term.isatty(io.stderr)) then
+   if (haveTermSupport()) then
       s_width = askSystem(s_width)
    end
 

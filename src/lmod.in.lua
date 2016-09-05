@@ -424,29 +424,11 @@ function main()
    MCP = MasterControl.build("load")
    mcp = MasterControl.build("load")
 
-   -------------------------------------------------------------------
-   -- Is io.stderr connected to a tty or not?
-   -- Setup output and pager routines
-   --pager    = bypassPager
-   --
-   --if (term and getenv("TERM")) then
-   --   if (term.isatty(io.stderr)) then
-   --      pager         = buildPager()
-   --   end
-   --end
 
    ------------------------------------------------------------
    -- Chose parseVersion:
    parseVersion = buildParseVersion()
 
-   --local lmod_colorize = getenv("LMOD_COLORIZE") or "@colorize@"
-   --if (lmod_colorize:lower() ~= "yes") then
-   --   colorize = plain
-   --end
-   --
-   --if (lmod_colorize:lower() == "force") then
-   --   colorize = full_colorize
-   --end
 
    dbg.set_prefix(colorize("red","Lmod"))
 

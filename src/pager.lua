@@ -41,7 +41,7 @@ require("strict")
 --------------------------------------------------------------------------
 
 require("myGlobals")
-require("haveTerm")
+require("haveTermSupport")
 
 local dbg       = require("Dbg"):dbg()
 local concatTbl = table.concat
@@ -94,6 +94,6 @@ end
 
 pager = bypassPager
 
-if (haveTerm()) then
+if (haveTermSupport()) then
    pager = buildPager()
 end

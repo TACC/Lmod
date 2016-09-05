@@ -37,7 +37,7 @@ require("strict")
 local s_run_test = false
 local s_haveTerm = false
 local getenv     = os.getenv
-function haveTerm()
+function haveTermSupport()
 
    if (s_run_test) then
       s_run_test = true
