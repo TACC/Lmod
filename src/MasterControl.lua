@@ -1189,7 +1189,7 @@ function M._setMode(self, mode)
 end
 
 --------------------------------------------------------------------------
--- Retur the type (or mode) of the current MasterControl object.
+-- Return the type (or mode) of the current MasterControl object.
 -- @param self A MasterControl object
 function M.mode(self)
    dbg.start{"MasterControl:mode()"}
