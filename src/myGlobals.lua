@@ -43,14 +43,19 @@ _G._DEBUG          = false               -- Required by the new lua posix
 local posix        = require("posix")
 local getenv       = os.getenv
 local setenv_posix = posix.setenv
+local s_validT     = {
+   no = true,
+   yes = true,
+}
 
-local function initialize(lmod_name, sed_name, defaultV)
+local function initialize(lmod_name, sed_name, defaultV, validT)
+   validT      = validT or s_validT
    defaultV    = (defaultV or "no"):lower()
    local value = (getenv(lmod_name) or sed_name):lower()
    if (value:sub(1,1) == "@") then
       value = defaultV
    end
-   if (value ~= "no") then
+   if (not validT[value]) then
       value = "yes"
    end
    return value
@@ -310,6 +315,12 @@ ShowResultsA = {}
 ------------------------------------------------------------------------
 
 colorize      = false
+
+
+LMOD_COLORIZE = initialize("LMOD_COLORIZE","@colorize@","yes",
+                           {yes = true, no = true, force = true})
+
+
 ------------------------------------------------------------------------
 -- pager:     pipe output through more when connectted to a term
 ------------------------------------------------------------------------

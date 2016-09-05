@@ -41,7 +41,8 @@ require("strict")
 
 require("strict")
 require("utils")
-
+require("haveTerm")
+require("myGlobals")
 
 Foreground = "\027".."[1;"
 colorT =
@@ -56,6 +57,7 @@ colorT =
    white      = "37",
 }
 local concatTbl = table.concat
+local s_colorize_kind = "unknown"
 
 ------------------------------------------------------------------------
 -- Takes an array of strings and wraps the ANSI color start and
@@ -93,4 +95,17 @@ function plain(color, ...)
       a[#a+1] = arg[i]
    end
    return concatTbl(a,"")
+end
+
+function colorize_kind()
+   return s_colorize_kind
+end
+
+
+if (haveTerm() or LMOD_COLORIZE == "force") then
+   s_colorize_kind = "full"
+   colorize = full_colorize
+else
+   s_colorize_kind = "plain"
+   colorize = plain
 end
