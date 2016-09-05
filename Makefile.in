@@ -392,6 +392,7 @@ build_tags:
             -e 's|./docs/build/.*||g'                            \
             -e 's|./config\.status$$||g'                         \
             -e 's|.*\~$$||g'                                     \
+            -e 's|./lmod.check.txt*||g'                          \
             -e 's|./file_list\..*||g'                            \
             -e '/^\s*$$/d'                                       \
 	       < file_list.1.txt > file_list.2.txt
