@@ -948,7 +948,7 @@ function walk_directory_for_mf(mpath, path, prefix, dirA, mnameT)
    -- Copy files into mnameT.
    ignoreT   = ignoreFileT()
 
-   local archNameT = {}
+   --local archNameT = {}
    --local archNameT = { ['64'] = true, ['32'] = true, ['x86_64'] = true, ['ia32'] = true, gcc = true,
    --                    ['haswell'] = true, ['ivybridge'] = true, ['sandybridge'] = true, ['ia32'] = true,
    --}
@@ -1009,44 +1009,9 @@ function walk_directory_for_mf(mpath, path, prefix, dirA, mnameT)
       until true
    end
 
-   ------------------------------------------------------------
-   -- Check all the directories to see if they are all regular.
-   -- If any are an "arch" directory then the all are.
 
-   local regularDirs = true
-   if (prefix ~= "") then
-      for i = 1,#a do
-         if ( archNameT[a[i].file]) then
-            regularDirs = false
-            break
-         end
-      end
-   end
-
-   if (regularDirs) then
-      for i = 1,#a do
-         dirA[#dirA + 1] = a[i]
-      end
-   else
-      for i = 1,#a do
-         local v       = a[i]
-         local file    = v.file
-         local mypath  = v.path
-         local pathEsc = "^" .. mypath:escape() .. "/"
-      
-         for root, mydirA, fileA in dir_walk(pathJoin(mypath,file)) do
-            for ja = 1, #fileA do
-               local f       = pathJoin(root,fileA[ja])
-               local version = f:gsub(pathEsc,""):gsub("%.lua$","")
-               local full    = pathJoin(prefix,version)
-               if (not mnameT[full] or not mnameT[full].luaExt) then
-                  local luaExt = f:find("%.lua$")
-                  mnameT[full] = {fn = f, canonical = f:gsub("%.lua$",""), mpath = mpath,
-                                  luaExt = luaExt, version=version, sn=prefix}
-               end
-            end
-         end
-      end
+   for i = 1,#a do
+      dirA[#dirA + 1] = a[i]
    end
 
    if (dbg.active()) then
