@@ -94,44 +94,6 @@ local numSearch     = 4
 local numSrchLatest = 2
 
 --------------------------------------------------------------------------
--- This local function is used to find a default file
--- that maybe in symbolic link chain. This returns
--- the absolute path.
--- @param path A directory path
-local function followDefault(path)
-   if (path == nil) then return nil end
-   dbg.start{"followDefault(path=\"",path,"\")"}
-   local attr = lfs.symlinkattributes(path)
-   local result = path
-   if (attr == nil) then
-      result = nil
-   elseif (attr.mode == "link") then
-      local rl = posix.readlink(path)
-      local a  = {}
-      local n  = 0
-      for s in path:split("/") do
-         n = n + 1
-         a[n] = s or ""
-      end
-
-      a[n] = ""
-      local i  = n
-      for s in rl:split("/") do
-         if (s == "..") then
-            i = i - 1
-         else
-            a[i] = s
-            i    = i + 1
-         end
-      end
-      result = concatTbl(a,"/")
-   end
-   dbg.print{"result: ",result,"\n"}
-   dbg.fini("followDefault")
-   return result
-end
-
---------------------------------------------------------------------------
 -- This local function is very similar to
 -- [[find_module_file]].  The idea is that
 -- an advanced user wants to inherit a compiler
@@ -410,7 +372,6 @@ function M.load(mA)
 
    dbg.start{"Master:load(mA)"}
 
-   a   = {}
    for i  = 1,#mA do
       local mname      = mA[i]
       local moduleName = mname:usrName()

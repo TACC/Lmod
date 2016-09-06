@@ -288,6 +288,7 @@ function M.load(self, mA)
    end
 
    dbg.fini("MasterControl:load")
+      
    return a
 end
 
