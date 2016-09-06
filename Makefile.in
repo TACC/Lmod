@@ -118,7 +118,7 @@ CONTRIB_DIRS           	  :=  \
 CONTRIB                   := $(patsubst %, $(srcdir)/contrib/%, $(CONTRIB_DIRS))
 lua_code	  	  := $(filter-out %.in.lua, $(wildcard $(srcdir)/src/*.lua))   \
                              $(wildcard $(srcdir)/src/*.tcl)
-VDATE		  	  := $(shell date +'%F %H:%M %:z (%Z)')
+VDATE		  	  := $(shell date +'%F %H:%M %:z')
 
 ComputeHashSum    	  := $(srcdir)/src/computeHashSum.in.lua
 spiderCacheSupportCMD     := $(PATH_TO_LUA)/lua $(srcdir)/src/spiderCacheSupport.in.lua

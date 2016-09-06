@@ -14,5 +14,3 @@ Bug Fixes:
        Pieter Neerincx!  This version replaces _filedir with a custom _module_dir.
     h) (6.5.9) A bash tab completion change to avoid a dependency on extending globbing.
        Thanks again to Pieter Neerincx!
-       
-       
