@@ -12,4 +12,7 @@ Bug Fixes:
        correctly set/reset LD_PRELOAD/LD_LIBRARY_PATH before and after os.execute() call.
     g) (6.5.8) An improved version for "module use path<tab>" tab completion.  Thanks to
        Pieter Neerincx!  This version replaces _filedir with a custom _module_dir.
+    h) (6.5.9) A bash tab completion change to avoid a dependency on extending globbing.
+       Thanks again to Pieter Neerincx!
+       
        
