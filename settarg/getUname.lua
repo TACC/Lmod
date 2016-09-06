@@ -51,7 +51,7 @@ end
 -- LMOD_LD_PRELOAD:   LD_PRELOAD found at configure
 ------------------------------------------------------------------------
 
-LMOD_LD_PRELOAD = "@sys_ld_lib_path@"
+LMOD_LD_PRELOAD = "@sys_ld_preload@"
 if (LMOD_LD_PRELOAD:sub(1,1) == "@") then
    LMOD_LD_PRELOAD = getenv("LD_PRELOAD")
 end

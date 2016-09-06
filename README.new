@@ -14,3 +14,6 @@ Bug Fixes:
        Pieter Neerincx!  This version replaces _filedir with a custom _module_dir.
     h) (6.5.9) A bash tab completion change to avoid a dependency on extending globbing.
        Thanks again to Pieter Neerincx!
+    i) (6.5.10) There was a introduced in 6.5.7 where LMOD_LD_PRELOAD would get initialized
+       to the wrong value.  This is fixed here.
+       
