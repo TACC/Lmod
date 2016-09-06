@@ -1,13 +1,13 @@
 --module('Version')
 local M={}
-function M.tag()  return "6.5.8"   end
+function M.tag()  return "6.5.9"   end
 function M.git()
    local s = "@git@"
    if (s == "@" .. "git@")     then s = "" end
    if (s == "("..M.tag()..")") then s = "" end
    return s
 end
-function M.date() return "2016-09-03 13:41 -05:00 (CDT)" end
+function M.date() return "2016-09-06 08:06 -05:00 (CDT)" end
 function M.name()
   local a = {}
   a[#a+1] = M.tag()
