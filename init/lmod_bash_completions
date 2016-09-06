@@ -28,7 +28,7 @@ _module_dir() {
       # Complete exported environment variables
       # and remove any matches that don't contain a directory.
       #
-      COMPREPLY=( $( compgen -v -P '$' -- "${cur#?(\\)$}" ) )
+      COMPREPLY=( $( compgen -v -P '$' -- "${cur:1}" ) )
       local -a FILTEREDCOMPREPLY
       for ((i=0; i < ${#COMPREPLY[@]}; i++)); do
         pattern='^\$[[:alnum:]_]+$'
