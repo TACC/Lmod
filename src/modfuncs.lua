@@ -217,8 +217,6 @@ function try_load(...)
    return b
 end
 
-try_add = try_load
-
 --------------------------------------------------------------------------
 -- The unload function reads a module file and reverses all the commands
 -- in the modulefile.  It is not an error to unload a module which is
