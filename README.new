@@ -16,4 +16,5 @@ Bug Fixes:
        Thanks again to Pieter Neerincx!
     i) (6.5.10) There was a introduced in 6.5.7 where LMOD_LD_PRELOAD would get initialized
        to the wrong value.  This is fixed here.
-       
+    j) (6.5.11) Fixed a bug where Lmod did not find term.  This meant that all term widths
+        were 80 characters and there was no color output.
