@@ -88,17 +88,21 @@ function M.prereq(self)
    local mt    = MT:mt()
    local sn    = self:sn()
    if (not mt:have(sn, "active")) then
+      dbg.fini("MN_Latest:prereq")
       return self:show()
    end
 
    local version = latestVersion(self)
    if (not version) then
+      dbg.fini("MN_Latest:prereq")
       return self:show()
    end
    local sv    = mt:Version(sn)
    if (sv ~= version) then
+      dbg.fini("MN_Latest:prereq")
       return self:show()
    end
+   dbg.fini("MN_Latest:prereq")
    return false
 end
 

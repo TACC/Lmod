@@ -84,7 +84,7 @@ function M.prereq(self)
    local full  = mt:fullName(sn)
    local pv    = parseVersion(mt:Version(sn))
 
-   if (pv < left or pv > right) then
+   if (pv <= left or pv >= right) then
       result = self:show()
    end
    return result
