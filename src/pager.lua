@@ -94,6 +94,6 @@ end
 
 pager = bypassPager
 
-if (haveTermSupport()) then
+if (connected2Term()) then
    pager = buildPager()
 end

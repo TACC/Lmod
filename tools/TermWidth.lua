@@ -81,7 +81,7 @@ function TermWidth()
    end
    s_DFLT  = tonumber(getenv("LMOD_TERM_WIDTH")) or s_DFLT
    s_width = s_DFLT
-   if (haveTermSupport()) then
+   if (connected2Term()) then
       s_width = askSystem(s_width)
    end
 

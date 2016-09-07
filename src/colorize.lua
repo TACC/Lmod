@@ -102,7 +102,7 @@ function colorize_kind()
 end
 
 
-if (haveTermSupport() or LMOD_COLORIZE == "force") then
+if (connected2Term() or LMOD_COLORIZE == "force") then
    s_colorize_kind = "full"
    colorize = full_colorize
 else

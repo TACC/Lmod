@@ -31,8 +31,8 @@ require("strict")
 --------------------------------------------------------------------------
 
 
-local dbg          = require("Dbg"):dbg()
 _G._DEBUG          = false                       -- Required by luaposix 33
+local dbg          = require("Dbg"):dbg()
 local posix        = require("posix")
 local getenv       = os.getenv
 local setenv_posix = posix.setenv
@@ -52,6 +52,7 @@ function capture(cmd, envT)
 
    envT["LD_LIBRARY_PATH"] = LMOD_LD_LIBRARY_PATH or ""
    envT["LD_PRELOAD"]      = LMOD_LD_PRELOAD      or ""
+
 
 
    for k, v in pairs(envT) do
