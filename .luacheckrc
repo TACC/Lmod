@@ -5,7 +5,6 @@ codes  = true
 allow_defined = true
 --ignore = { "111", "112", "113"}
 files["src/Spider.lua"]          = {ignore = { "122" }}
-files["src/modfuncs.lua"]        = {ignore = { "try_add" }}
 files["tools/string_utils.lua"]  = {ignore = { "122" }}
 files["src/myGlobals.lua"]       = {ignore = {"defaultMpathA", "updateSystemFn", "GIT_VERSION", "PkgLmod",
                                               "accept_extT"}}

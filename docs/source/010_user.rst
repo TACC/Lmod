@@ -4,7 +4,7 @@ User Guide for Lmod
 The guide here explains how to use modules. The User's tour of the
 module command covers the basic uses of modules. The other sections
 can be read at a later date as issues come up. The Advance user's
-guide is for users needing to create their own modulefiles. 
+guide is for users needing to create their own modulefiles.
 
 User's Tour of the Module Command
 _________________________________
