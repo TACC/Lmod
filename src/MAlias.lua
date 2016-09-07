@@ -104,11 +104,11 @@ function M.parseModA(self, sn, modA)
 
       if (entry.kind == "module-version") then
          local modname = entry.module_name
-         modname       = self:__resolve(modname)
-         dbg.print{"resolve(modname): ",modname, "\n"}
          if (modname:sub(1,1) == '/') then
             modname = sn .. modname
          end
+         modname       = self:__resolve(modname)
+         dbg.print{"resolve(modname): ",modname, "\n"}
          dbg.print{"(2) modname: ",modname, "\n"}
          local _, _, short, mversion = modname:find("(.*)/(.*)")
          if (short == nil) then
@@ -202,8 +202,6 @@ function M.__resolve(self, name)
    return value
 
 end
-
-
 
 s_must_convert = true
 function M.getHiddenT(self,k)
