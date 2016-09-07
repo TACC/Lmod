@@ -41,6 +41,9 @@ require("strict")
 --
 --------------------------------------------------------------------------
 
+LMOD_LD_LIBRARY_PATH = ""
+LMOD_LD_PRELOAD      = ""
+
 local cmd = arg[0]
 
 local i,j = cmd:find(".*/")
