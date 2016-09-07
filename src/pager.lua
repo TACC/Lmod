@@ -40,6 +40,9 @@ require("strict")
 --
 --------------------------------------------------------------------------
 
+require("myGlobals")
+require("haveTermSupport")
+
 local dbg       = require("Dbg"):dbg()
 local concatTbl = table.concat
 
@@ -87,4 +90,10 @@ function buildPager()
       func     = usePager
    end
    return func
+end
+
+pager = bypassPager
+
+if (haveTermSupport()) then
+   pager = buildPager()
 end

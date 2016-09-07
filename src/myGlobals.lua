@@ -43,14 +43,19 @@ _G._DEBUG          = false               -- Required by the new lua posix
 local posix        = require("posix")
 local getenv       = os.getenv
 local setenv_posix = posix.setenv
+local s_validT     = {
+   no = true,
+   yes = true,
+}
 
-local function initialize(lmod_name, sed_name, defaultV)
-   local defaultV = (defaultV or "no"):lower()
+local function initialize(lmod_name, sed_name, defaultV, validT)
+   validT      = validT or s_validT
+   defaultV    = (defaultV or "no"):lower()
    local value = (getenv(lmod_name) or sed_name):lower()
    if (value:sub(1,1) == "@") then
       value = defaultV
    end
-   if (value ~= "no") then
+   if (not validT[value]) then
       value = "yes"
    end
    return value
@@ -117,6 +122,15 @@ Cversion      = 3
 LUAC_PATH = "@path_to_luac@"
 
 ------------------------------------------------------------------------
+-- LMOD_CHECK_FOR_VALID_MODULE_FILES :  Should Lmod check TCL files for
+--                                      magic string "#%Module"
+------------------------------------------------------------------------
+
+LMOD_CHECK_FOR_VALID_MODULE_FILES = initialize("LMOD_CHECK_FOR_VALID_MODULE_FILES",
+                                               "@check_for_valid_module_files@",
+                                               "no")
+
+------------------------------------------------------------------------
 -- LMOD_CASE_INDEPENDENT_SORTING :  make avail and spider use case
 --                                  independent sorting.
 ------------------------------------------------------------------------
@@ -136,6 +150,12 @@ LMOD_REDIRECT = initialize("LMOD_REDIRECT", "@redirect@")
 ------------------------------------------------------------------------
 
 LMOD_SYSTEM_NAME = getenv("LMOD_SYSTEM_NAME")
+
+------------------------------------------------------------------------
+-- LMOD_COLUMN_TABLE_WIDTH: The width of the table when using ColumnTable
+------------------------------------------------------------------------
+
+LMOD_COLUMN_TABLE_WIDTH = 80
 
 ------------------------------------------------------------------------
 -- LMOD_TMOD_PATH_RULE:  Using Tmod rule where if path is already there
@@ -294,15 +314,46 @@ ShowResultsA = {}
 -- colorize:  It is a colorizer when connected to a term and plain when not
 ------------------------------------------------------------------------
 
-colorize      = false
-------------------------------------------------------------------------
--- pager:     pipe output through more when connectted to a term
-------------------------------------------------------------------------
-pager         = false
+LMOD_COLORIZE = initialize("LMOD_COLORIZE","@colorize@","yes",
+                           {yes = true, no = true, force = true})
+
 
 
 LMOD_LEGACY_VERSION_ORDERING = initialize("LMOD_LEGACY_VERSION_ORDERING",
                                           "@legacy_ordering@","no")
+
+------------------------------------------------------------------------
+-- LMOD_TCLSH:   path to tclsh
+------------------------------------------------------------------------
+
+LMOD_TCLSH = "@tclsh@"
+if (LMOD_TCLSH:sub(1,1) == "@") then
+   LMOD_TCLSH = "tclsh"
+end
+
+------------------------------------------------------------------------
+-- LMOD_LD_LIBRARY_PATH:   LD_LIBRARY_PATH found at configure
+------------------------------------------------------------------------
+
+LMOD_LD_LIBRARY_PATH = "@sys_ld_lib_path@"
+if (LMOD_LD_LIBRARY_PATH:sub(1,1) == "@") then
+   LMOD_LD_LIBRARY_PATH = getenv("LD_LIBRARY_PATH")
+end
+if (LMOD_LD_LIBRARY_PATH == "") then
+   LMOD_LD_LIBRARY_PATH = nil
+end
+
+------------------------------------------------------------------------
+-- LMOD_LD_PRELOAD:   LD_PRELOAD found at configure
+------------------------------------------------------------------------
+
+LMOD_LD_PRELOAD = "@sys_ld_preload@"
+if (LMOD_LD_PRELOAD:sub(1,1) == "@") then
+   LMOD_LD_PRELOAD = getenv("LD_PRELOAD")
+end
+if (LMOD_LD_PRELOAD == "") then
+   LMOD_LD_PRELOAD = nil
+end
 
 ------------------------------------------------------------------------
 -- parseVersion:   generate a parsable version string from version
@@ -348,13 +399,6 @@ Threshold = tonumber(getenv("LMOD_THRESHOLD")) or 1
 shortLifeCache = ancient/12
 
 ------------------------------------------------------------------------
--- sysCacheDir:  The system directory location.
-------------------------------------------------------------------------
-sysCacheDirs    = getenv("LMOD_SPIDER_CACHE_DIRS") or "@cacheDirs@"
-
-
-
-------------------------------------------------------------------------
 -- USE_DOT_FILES: Use ~/.lmod.d/.cache or ~/.lmod.d/__cache__
 ------------------------------------------------------------------------
 
@@ -365,7 +409,6 @@ USE_DOT_FILES = "@use_dot_files@"
 ------------------------------------------------------------------------
 USER_CACHE_DIR_NAME  = ".cache"
 USER_SAVE_DIR_NAME   = ".save"
-USER_SBATCH_DIR_NAME = ".saveBatch"
 if ( USE_DOT_FILES:lower() == "no" ) then
   USER_CACHE_DIR_NAME  = "__cache__"
   USER_SAVE_DIR_NAME   = "__save__"
@@ -373,7 +416,6 @@ if ( USE_DOT_FILES:lower() == "no" ) then
 end
 usrCacheDir   = pathJoin(getenv("HOME"),".lmod.d",USER_CACHE_DIR_NAME)
 usrSaveDir    = pathJoin(getenv("HOME"),".lmod.d",USER_SAVE_DIR_NAME)
-usrSBatchDir  = pathJoin(getenv("HOME"),".lmod.d",USER_SBATCH_DIR_NAME)
 
 ------------------------------------------------------------------------
 -- updateSystemFn: The system file that is touched everytime the system
@@ -384,7 +426,8 @@ updateSystemFn="@updateSystemFn@"
 
 ------------------------------------------------------------------------
 -- Prepend path block order.
-s_prependBlock  = "@prepend_block@"
+LMOD_PREPEND_BLOCK  = initialize("LMOD_PREPEND_BLOCK","@prepend_block@",
+                                 "normal")
 
 
 ------------------------------------------------------------------------
@@ -427,6 +470,11 @@ accept_extT     = false
 -- allow dups function: allow for duplicate entries in PATH like vars.
 ------------------------------------------------------------------------
 allow_dups      = false
+
+------------------------------------------------------------------------
+-- prepend_order function: specify the order when prepending paths.
+------------------------------------------------------------------------
+prepend_order   = false
 
 ------------------------------------------------------------------------
 -- When building the reverseMapT use the preloaded modules

@@ -115,7 +115,6 @@ function M.isloaded(self)
    if (not version) then
       return false
    end
-   local mt = MT:mt()
    local sv = mt:Version(self:sn())
    return sv == version
 end
@@ -133,7 +132,6 @@ function M.isPending(self)
    if (not version) then
       return false
    end
-   local mt = MT:mt()
    local sv = mt:Version(self:sn())
    return sv == version
 end

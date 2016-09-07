@@ -41,20 +41,20 @@ def main():
     resultA = lmod.counts(args.sqlPattern, args.syshost, args.startDate, args.endDate)
     num = len(resultA) - 2
 
-    bt = BeautifulTbl(tbl=resultA, gap = 4, justify = "lr")
+    bt = BeautifulTbl(tbl=resultA, gap = 4, justify = "llr")
 
 
   if (args.cmdA[0] == "usernames"):
     resultA = lmod.usernames(args.sqlPattern, args.syshost, args.startDate, args.endDate)
     num = len(resultA) - 2
 
-    bt = BeautifulTbl(tbl=resultA, gap = 4, justify = "ll")
+    bt = BeautifulTbl(tbl=resultA, gap = 4, justify = "lll")
 
   if (args.cmdA[0] == "modules_used_by"):
     resultA = lmod.modules_used_by(args.sqlPattern, args.syshost, args.startDate, args.endDate)
     num = len(resultA) - 2
 
-    bt = BeautifulTbl(tbl=resultA, gap = 4, justify = "ll")
+    bt = BeautifulTbl(tbl=resultA, gap = 4, justify = "lll")
 
   print("\n")
   print(bt.build_tbl())

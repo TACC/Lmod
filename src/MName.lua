@@ -75,6 +75,7 @@ local pack        = (_VERSION == "Lua 5.1") and argsPack or table.pack
 local posix       = require("posix")
 local sort        = table.sort
 local malias      = require("MAlias"):build()
+local concatTbl   = table.concat
 MName             = M
 --------------------------------------------------------------------------
 -- This function allows for taking the name and remove one
@@ -185,7 +186,6 @@ function M.new(self, sType, name, action, is, ie)
       findT["latest"]  = Latest
       findT["between"] = Between
       findT["atleast"] = Between
-      findT["atleast"] = Between
       s_findT          = findT
    end
 
@@ -211,7 +211,7 @@ function M.new(self, sType, name, action, is, ie)
    end
    o._action   = action
    o._is       = is or ''
-   o._ie       = ie or tostring(1234567890)
+   o._ie       = ie or tostring(99999999)
    o._range    = {}
    o._range[1] = is
    o._range[2] = ie -- This can be nil and that is O.K.
@@ -358,52 +358,10 @@ function M.version(self)
 end
 
 --------------------------------------------------------------------------
--- This is used to find a default file that maybe in symbolic link chain.
--- @param path a file path.
--- @return This returns the absolute path.
-local function followDefault(path)
-   if (path == nil) then return nil end
-   dbg.start{"followDefault(path=\"",path,"\")"}
-   local attr      = lfs.symlinkattributes(path)
-   local result    = path
-   local accept_fn = accept_fn
-
-   if (attr == nil) then
-      result = nil
-   elseif (attr.mode == "link") then
-      local rl = posix.readlink(path)
-      local a  = {}
-      local n  = 0
-      for s in path:split("/") do
-         n = n + 1
-         a[n] = s or ""
-      end
-
-      a[n] = ""
-      local i  = n
-      for s in rl:split("/") do
-         if (s == "..") then
-            i = i - 1
-         else
-            a[i] = s
-            i    = i + 1
-         end
-      end
-      result = concatTbl(a,"/")
-   end
-   dbg.print{"result: ",result,"\n"}
-   dbg.fini("followDefault")
-   if (not accept_fn(result)) then
-      result = false
-   end
-   return result
-end
-
---------------------------------------------------------------------------
 -- Build the initial table for reporting a module file location.
 -- @return the initial table.
 local function module_locationT()
-   return { fn = nil, modFullName = nil, modName = nil, default = 0}
+   return { fn = nil, modFullName = nil, modName = nil, version = nil, default = 0}
 end
 
 --------------------------------------------------------------------------
@@ -444,6 +402,7 @@ function M.find_exact_match(self, pathA)
       t.fn          = result
       t.modFullName = fullName
       t.modName     = sn
+      t.version     = extractVersion(t.modFullName, t.modName)
       dbg.print{"modName: ",sn," fn: ", result," modFullName: ", fullName,
                 " default: ",t.default,"\n"}
    else
@@ -454,35 +413,6 @@ function M.find_exact_match(self, pathA)
    return found, t
 end
 
-
-
---------------------------------------------------------------------------
--- This local function takes the file pointed to by the
--- .version file and looks to see if that file exists
--- in the current mpath directory.  Note that this file
--- might have a .lua extension.
-
-local function followDotVersion(mpath, sn, version)
-   local accept_fn  = accept_fn
-   local fn         = pathJoin(mpath, sn, version)
-   local searchExtT = accept_extT()
-   local numExts    = #searchExtT
-   local result     = nil
-
-   for i = 1, numExts do
-      local v        = searchExtT[i]
-      local f        = fn .. v
-      local attr     = lfs.attributes(f)
-      local readable = posix.access(f,"r")
-
-      if (readable and attr and attr.mode == "file") then
-         result = f
-         break
-      end
-   end
-
-   return result
-end
 
 
 --------------------------------------------------------------------------
@@ -502,8 +432,9 @@ function M.find_default(self, pathA, defaultEntry)
    t.modFullName  = defaultEntry.fullName
    t.modName      = self:sn()
    t.default      = 1
-   dbg.print{"modName: ",t.modName," fn: ", t.fn," modFullName: ", t.modfullName,
-             " default: ",t.default,"\n"}
+   t.version      = extractVersion(t.modFullName, t.modName)
+   dbg.print{"modName: ",t.modName," fn: ", t.fn," modFullName: ", t.modFullName,
+             " default: ",t.default," version: ",t.version,"\n"}
    dbg.fini("MName:find_default")
    return found, t
 end
@@ -537,11 +468,12 @@ function M.find_latest(self, pathA)
       local _, j    = file:find(result.mpath, 1, true)
       t.modFullName = file:sub(j+2):gsub("%.lua$","")
       found         = true
-      t.default     = 1
+      t.default     = 0
       t.fn          = file
       t.modName     = sn
+      t.version     = extractVersion(t.modFullName, t.modName)
       dbg.print{"modName: ",sn," fn: ", file," modFullName: ", t.modFullName,
-                " default: ",t.default,"\n"}
+                " default: ",t.default," version: ",t.version,"\n"}
    end
 
    dbg.fini("MName:find_latest")
@@ -565,7 +497,7 @@ function M.find_default_between(self, pathA, defaultEntry)
 
    local left       = parseVersion(self._is)
    local right      = parseVersion(self._ie)
-   local version    = extractVersion(t.modFullName, t.modName)
+   local version    = t.version
    local pv         = parseVersion(version)
 
    if (pv < left or  pv > right) then
@@ -597,11 +529,11 @@ function M.find_between(self, pathA)
    local found = false
    local a     = allVersions(pathA)
 
-   sort(a, function(a,b)
-             if (a.pv == b.pv) then
-                return a.idx < b.idx
+   sort(a, function(x,y)
+             if (x.pv == y.pv) then
+                return x.idx < y.idx
              else
-                return a.pv < b.pv
+                return x.pv  < y.pv
              end
            end
    )
@@ -625,6 +557,7 @@ function M.find_between(self, pathA)
       t.modFullName = v.file:sub(j+2):gsub("%.lua$","")
       t.default     = 0
       t.modName     = self:sn()
+      t.version     = extractVersion(t.modFullName, t.modName)
       found         = true
    end
 

@@ -587,7 +587,6 @@ function M.expand(self)
    local pathA   = {}
    local pathStr = false
    local sep     = self.sep
-   local factor  = 1
    local prT     = {}
    local maxV    = max(abs(self.imin), self.imax) + 1
    local factor  = 10^ceil(log(maxV)*ln10_inv+1)

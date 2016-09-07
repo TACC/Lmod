@@ -310,6 +310,24 @@ AC_ARG_WITH(cachedLoads,
     CACHED_LOADS="$withval"
     AC_DEFINE_UNQUOTED(CACHED_LOADS, "$withval"))dnl
 
+AC_SUBST(CHECK_VALID)
+AC_ARG_WITH(checkValidModuleFiles,
+    AC_HELP_STRING([--with-checkValidModuleFiles=ans],[Require Lmod to check every non Lua file for magic TCL string. [[no]]]),
+    CHECK_VALID="$withval"
+    AC_MSG_RESULT([CHECK_VALID=$with_checkValidModuleFiles])
+    AC_DEFINE_UNQUOTED(CHECK_VALID, "$with_checkValidModuleFiles")dnl
+    ,
+    withval="NO"
+    AC_MSG_RESULT([CHECK_VALID=$withval])
+    CHECK_VALID="$withval"
+    AC_DEFINE_UNQUOTED(CHECK_VALID, "$withval"))dnl
+
+AC_SUBST(SYS_LD_LIB_PATH)
+SYS_LD_LIB_PATH=$LD_LIBRARY_PATH
+
+AC_SUBST(SYS_LD_PRELOAD)
+SYS_LD_PRELOAD=$LD_PRELOAD
+
 AC_SUBST(BASENAME)
 AC_SUBST(EXPR)
 AC_SUBST(PS)
@@ -351,10 +369,12 @@ fi
 AC_PATH_PROG(PATH_TO_GIT, git, "")
 AC_PATH_PROG(PATH_TO_PAGER,[less] [more], [more])
 
-AC_PATH_PROGS(PATH_TO_HASHSUM, [sha1sum] [gsha1sum] [md5sum] [gmd5sum], UNKNOWN)
-if test "$PATH_TO_HASHSUM" = "UNKNOWN" ; then
+AC_PATH_PROGS(PATH_TO_HASHSUM, [sha1sum] [gsha1sum] [shasum] [md5sum] [gmd5sum] [md5], UNKNOWN)
+if test "`basename $PATH_TO_HASHSUM`" = "md5" ; then
+  PATH_TO_HASHSUM="$PATH_TO_HASHSUM -r"
+elif test "$PATH_TO_HASHSUM" = "UNKNOWN" ; then
   echo
-  echo "You must have either sha1sum or md5sum in your path. Quitting!"
+  echo "You must have either sha1sum, shasum, md5sum or md5 in your path. Quitting!"
   echo
   exit
 fi

@@ -55,12 +55,12 @@ require("strict")
 
 require("serializeTbl")
 
-s_malias     = {}
-local M      = {}
-local dbg    = require("Dbg"):dbg()
-local concat = table.concat
-local getenv = os.getenv
-local load   = (_VERSION == "Lua 5.1") and loadstring or load
+s_malias        = {}
+local M         = {}
+local dbg       = require("Dbg"):dbg()
+local concatTbl = table.concat
+local getenv    = os.getenv
+local load      = (_VERSION == "Lua 5.1") and loadstring or load
 --------------------------------------------------------------------------
 -- a private ctor that is used to construct a singleton.
 -- @param self A MAlias object.
@@ -163,15 +163,20 @@ function M.resolve(self, name)
       for i = 1, #fileA  do
          local fn = fileA[i]
          if (isFile(fn)) then
-            local cmd = pathJoin(cmdDir(),"RC2lua.tcl") .. " " .. fn
-            local s   = capture(cmd):trim()
-
-            modA = {}
-            local status, f = pcall(load,s)
-            if (not status or not f) then
+            local whole
+            local status
+            local func
+            whole, status = runTCLprog("RC2lua.tcl","", fn)
+            if (not status) then
                LmodError("Unable to parse: ",fn," Aborting!\n")
             end
-            f()
+
+            modA = {}
+            status, func = pcall(load, whole)
+            if (not status or not func) then
+               LmodError("Unable to parse: ",fn," Aborting!\n")
+            end
+            func()
 
             self:parseModA("", modA)
          end
@@ -207,8 +212,8 @@ function M.getHiddenT(self,k)
       s_must_convert = false
 
       local hT = self.hiddenT
-      for k in pairs(hT) do
-         t[self:resolve(k)] = true
+      for key in pairs(hT) do
+         t[self:resolve(key)] = true
       end
       self.hiddenT = t
    end
@@ -231,7 +236,7 @@ function M.buildMod2VersionT(self)
       for k in pairsByKeys(vv) do
          a[#a+1] = k:gsub("^.*/","")
       end
-      m2vT[modname] = concat(a,":")
+      m2vT[modname] = concatTbl(a,":")
    end
    self.mod2versionT = m2vT
 end

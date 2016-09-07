@@ -53,5 +53,6 @@ if ( $?TERM && $?prompt && $?tcsh && "$LMOD_FULL_SETTARG_SUPPORT" != no ) then
 endif
 # Local Variables:
 # mode: shell-script
+# indent-tabs-mode: nil
 # end:
 

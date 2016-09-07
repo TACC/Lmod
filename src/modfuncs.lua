@@ -156,8 +156,7 @@ local function validateModules(cmdName, ...)
       end
    end
    if (not allGood) then
-      local fn = myFileName()
-      mcp:report("vM: Syntax error in file: ",fn, "\n with command: \"",
+      mcp:report("vM: Syntax error in file: ",myFileName(), "\n with command: \"",
                  cmdName, "\" One or more arguments are not strings\n")
    end
    return allGood
@@ -199,7 +198,7 @@ function load_module(...)
    if (not validateModules("load",...)) then return {} end
 
    dbg.print{"mcp:name(): ",mcp:name(),"\n"}
-   local b  = mcp:load_usr(MName:buildA(mcp:MNameType(),...))
+   local b  = mcp:load_usr(MName:buildA(mcp:MNameType(), ...))
    dbg.fini("load_module")
    return b
 end
@@ -213,12 +212,10 @@ function try_load(...)
    dbg.start{"try_load(",concatTbl({...},", "),")"}
    if (not validateModules("try_load",...)) then return {} end
 
-   local b = mcp:try_load(MName:buildA("load",...))
+   local b = mcp:try_load(MName:buildA(mcp:MNameType(), ...))
    dbg.fini("try_load")
    return b
 end
-
-try_add = try_load
 
 --------------------------------------------------------------------------
 -- The unload function reads a module file and reverses all the commands
@@ -679,7 +676,7 @@ function hierarchyA(pkgName, levels)
    end
 
    fn = path_regularize(fn)
-   local j          = 0
+   j                = 0
    local numEntries = 0
    while (j) do
       j          = pkgName:find("/",j+1)
@@ -695,14 +692,13 @@ function hierarchyA(pkgName, levels)
    local b = {}
    local n = #a
 
-
-   for i = 1, levels do
+   for ia = 1, levels do
       local bb = {}
-      for j = 1, numEntries do
-         local idx = n - numEntries + j
-         bb[j] = a[idx]
+      for ja = 1, numEntries do
+         local idx = n - numEntries + ja
+         bb[ja] = a[idx]
       end
-      b[i] = _concatTbl(bb,'/')
+      b[ia] = _concatTbl(bb,'/')
       n = n - numEntries
    end
 
@@ -712,7 +708,8 @@ end
 function userInGroup(group)
    local grps   = capture("groups")
    local found  = false
-   local isRoot = tonumber(capture("id -u")) == 0
+   local userId = capture("id -u")
+   local isRoot = tonumber(userId) == 0
    for g in grps:split("[ \n]") do
       if (g == group or isRoot)  then
          found = true

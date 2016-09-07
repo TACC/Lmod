@@ -39,7 +39,7 @@ require("strict")
 --------------------------------------------------------------------------
 
 require("string_utils")
-local dbg          = require("Dbg"):dbg()
+--local dbg        = require("Dbg"):dbg()
 local concatTbl    = table.concat
 
 --- replacement table for version parts
@@ -117,7 +117,8 @@ function useParseVersion(versionStr)
 
    --dbg.print{"versionStr: ",versionStr," results: ",concatTbl(vA,"."),"\n"}
    --dbg.fini()
-   return concatTbl(vA,".")
+   local result = concatTbl(vA,"."):gsub("%./%.","/")
+   return result
 end
 
 --------------------------------------------------------------------------
@@ -161,6 +162,15 @@ function parseVersionParts(versionStr)
             return string.format("%09d",s:sub(i,j))
          end
 
+         -- grab '/'
+         i,j = s:find("^/",ipos)
+         if (i) then
+            ipos = j + 1
+            results = s:sub(i,j)
+            return "/" 
+         end
+         
+
          -- grab all letters, then use replaceT table to normalize
          i,j = s:find("^%a+",ipos)
          if (i) then
@@ -190,7 +200,7 @@ end
 
 
 --------------------------------------------------------------------------
--- Return usePager if PAGER exists otherwise,  return bypassPager
+-- Return useParseVersion unless LMOD_LEGACY_VERSION_ORDERING is not "no"
 function buildParseVersion()
    local func  = useParseVersion
    if (LMOD_LEGACY_VERSION_ORDERING ~= "no") then

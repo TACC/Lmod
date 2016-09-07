@@ -94,44 +94,6 @@ local numSearch     = 4
 local numSrchLatest = 2
 
 --------------------------------------------------------------------------
--- This local function is used to find a default file
--- that maybe in symbolic link chain. This returns
--- the absolute path.
--- @param path A directory path
-local function followDefault(path)
-   if (path == nil) then return nil end
-   dbg.start{"followDefault(path=\"",path,"\")"}
-   local attr = lfs.symlinkattributes(path)
-   local result = path
-   if (attr == nil) then
-      result = nil
-   elseif (attr.mode == "link") then
-      local rl = posix.readlink(path)
-      local a  = {}
-      local n  = 0
-      for s in path:split("/") do
-         n = n + 1
-         a[n] = s or ""
-      end
-
-      a[n] = ""
-      local i  = n
-      for s in rl:split("/") do
-         if (s == "..") then
-            i = i - 1
-         else
-            a[i] = s
-            i    = i + 1
-         end
-      end
-      result = concatTbl(a,"/")
-   end
-   dbg.print{"result: ",result,"\n"}
-   dbg.fini("followDefault")
-   return result
-end
-
---------------------------------------------------------------------------
 -- This local function is very similar to
 -- [[find_module_file]].  The idea is that
 -- an advanced user wants to inherit a compiler
@@ -410,7 +372,6 @@ function M.load(mA)
 
    dbg.start{"Master:load(mA)"}
 
-   a   = {}
    for i  = 1,#mA do
       local mname      = mA[i]
       local moduleName = mname:usrName()
@@ -424,7 +385,7 @@ function M.load(mA)
                    "\" as sn: \"",sn,"\" is already loaded\n"}
 
          local mt_version = mt:Version(sn)
-         local mn_version = mname:version()
+         local mn_version = t.version
 
          dbg.print{"mnV: ",mn_version,", mtV: ",mt_version,"\n"}
 
@@ -486,9 +447,9 @@ function M.load(mA)
          end
 
          local force = true
-         for i = 1,#b do
-            mcp:unload_usr(b[i].umA, force)
-            mcp:load(b[i].lmA)
+         for j = 1,#b do
+            mcp:unload_usr(b[j].umA, force)
+            mcp:load(b[j].lmA)
          end
       end
    end
@@ -700,6 +661,7 @@ end
 -- @param self A Master object
 -- @param force If true then don't reload.
 function M.reload_sticky(self, force)
+   local cwidth    = masterTbl().rt and LMOD_COLUMN_TABLE_WIDTH or TermWidth()
 
    dbg.start{"Master:reload_sticky()"}
    -- Try to reload any sticky modules.
@@ -742,12 +704,12 @@ function M.reload_sticky(self, force)
       for i = 1, #b do
          a[#a+1] = {"  " .. tostring(i) .. ")", b[i].name }
       end
-      local ct = ColumnTable:new{tbl=a, gap=0}
+      local ct = ColumnTable:new{tbl=a, gap=0, width=cwidth}
       io.stderr:write(ct:build_tbl(),"\n")
    end
    if (#unstuckA > 0) then
       io.stderr:write("\nThe following sticky modules could not be reloaded:\n")
-      local ct = ColumnTable:new{tbl=unstuckA, gap=0}
+      local ct = ColumnTable:new{tbl=unstuckA, gap=0, width=cwidth}
       io.stderr:write(ct:build_tbl(),"\n")
    end
 
@@ -909,9 +871,9 @@ local function availEntry(defaultOnly, terse, label, szA, searchA, sn, name,
          legendT[Default] = "Default Module"
       end
       dbg.print{"dflt: ",dflt,"\n"}
+      sn          = mname:sn()
       local aa    = {}
       local propT = {}
-      local sn    = mname:sn()
       local entry = dbT[sn]
       if (entry) then
          dbg.print{"Found dbT[sn]\n"}
@@ -1114,7 +1076,7 @@ local function regroup_avail_blocks(availStyle, mpathA, availT)
                for iv = 1,#v do
                   vA[#vA+1] = v[iv]
                end
-               sort(vA, function(a,b) return a.parseV < b.parseV end)
+               sort(vA, function(x,y) return x.parseV < y.parseV end)
             end
          end
       end
@@ -1132,6 +1094,7 @@ function M.avail(argA)
    local mpathA    = mt:module_pathA()
    local twidth    = TermWidth()
    local masterTbl = masterTbl()
+   local cwidth    = masterTbl.rt and LMOD_COLUMN_TABLE_WIDTH or twidth
 
    local optionTbl, searchA = availOptions(argA)
    if (not masterTbl.regexp) then
@@ -1163,8 +1126,9 @@ function M.avail(argA)
       return
    end
 
-   local cache        = Cache:cache{quiet = masterTbl.terse, buildCache=true}
-   local moduleT, dbT = cache:build()
+   local moduleT  = nil
+   local cache    = Cache:cache{quiet = masterTbl.terse, buildCache=true}
+   moduleT, dbT   = cache:build()
 
    local baseMpath = mt:getBaseMPATH()
    if (not terse and (baseMpath == nil or baseMpath == '' or next(moduleT) == nil)) then
@@ -1193,7 +1157,7 @@ function M.avail(argA)
          aa[#aa+1] = "\n"
          aa[#aa+1] = banner:bannerStr(label)
          aa[#aa+1] = "\n"
-         local ct  = ColumnTable:new{tbl=a, gap=1, len=length}
+         local ct  = ColumnTable:new{tbl=a, gap=1, len=length, width = cwidth}
          aa[#aa+1] = ct:build_tbl()
          aa[#aa+1] = "\n"
       end

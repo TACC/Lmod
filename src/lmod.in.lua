@@ -40,19 +40,12 @@
 --------------------------------------------------------------------------
 
 BaseShell       = {}
-prepend_order   = false
 banner          = false
+
 
 ------------------------------------------------------------------------
 -- Use command name to add the command directory to the package.path
 ------------------------------------------------------------------------
-local LuaCommandName = arg[0]
-local i,j = LuaCommandName:find(".*/")
-local LuaCommandName_dir = "./"
-if (i) then
-   LuaCommandName_dir = LuaCommandName:sub(1,j)
-   LuaCommandName     = LuaCommandName:sub(j+1)
-end
 
 local sys_lua_path = "@sys_lua_path@"
 if (sys_lua_path:sub(1,1) == "@") then
@@ -62,6 +55,27 @@ end
 local sys_lua_cpath = "@sys_lua_cpath@"
 if (sys_lua_cpath:sub(1,1) == "@") then
    sys_lua_cpath = package.cpath
+end
+
+package.path   = sys_lua_path
+package.cpath  = sys_lua_cpath
+
+local arg_0    = arg[0]
+local posix    = require("posix")
+local readlink = posix.readlink
+local stat     = posix.stat
+
+local st       = stat(arg_0)
+while (st.type == "link") do
+   arg_0 = readlink(arg_0)
+   st    = stat(arg_0)
+end
+
+local ia,ja = arg_0:find(".*/")
+local LuaCommandName_dir = "./"
+if (ia) then
+   LuaCommandName_dir = arg_0:sub(1,ja)
+   LuaCommandName     = arg_0:sub(ja+1)
 end
 
 package.path  = LuaCommandName_dir .. "?.lua;"       ..
@@ -98,33 +112,10 @@ end
 local getenv = os.getenv
 local rep    = string.rep
 
---------------------------------------------------------------------------
--- Return the *prepend_order* function.  This function control which order
--- are prepends handled when there are multiple paths passed to a single
--- call.
-function set_prepend_order()
-   local ansT = {
-      no      = "reverse",
-      reverse = "reverse",
-      normal  = "normal",
-      yes     = "normal",
-   }
-
-   local order = ansT[getenv("LMOD_PREPEND_BLOCK") or s_prependBlock] or "normal"
-   if (order == "normal") then
-      prepend_order = function (n)
-         return n, 1, -1
-      end
-   else
-      prepend_order = function (n)
-         return 1, n, 1
-      end
-   end
-end
-
-
+local BuildFactory = require("BuildFactory")
+BuildFactory:master()
 require("utils")
-build_epoch()          -- build the epoch function
+
 require("pager")
 require("fileOps")
 MasterControl = require("MasterControl")
@@ -148,24 +139,6 @@ local max          = math.max
 local unpack       = (_VERSION == "Lua 5.1") and unpack or table.unpack
 local timer        = require("Timer"):timer()
 local hook         = require("Hook")
-
---------------------------------------------------------------------------
--- Return the *allow_dups* function.  This function return true if
--- duplicates in paths are allowed.
-function set_duplication()
-   local dups = LMOD_DUPLICATE_PATHS:lower()
-   if (dups == "yes") then
-      dbg.print{"Allowing duplication in paths\n"}
-      allow_dups = function (dupsIn)
-         return dupsIn
-      end
-   else
-      dbg.print{"No duplication allowed in paths\n"}
-      allow_dups = function (dupsIn)
-         return false
-      end
-   end
-end
 
 --------------------------------------------------------------------------
 -- Use the *propT* table to colorize the module name when requested by
@@ -226,6 +199,7 @@ function Usage()
       return s_Usage
    end
    local website = colorize("red","http://lmod.readthedocs.org/")
+   local webBR   = colorize("red","http://lmod.readthedocs.io/en/latest/075_bug_reporting.html")
    local line    = banner:border(2)
    local a = {}
    a[#a+1] = { "module [options] sub-command [args ...]" }
@@ -299,11 +273,14 @@ function Usage()
                                       "properties and warning in color."}
    a[#a+1] = { "" }
    a[#a+1] = { line}
-   a[#a+1] = { "The following guides are at "..website}
+   a[#a+1] = { "Lmod Web Sites"}
    a[#a+1] = { "" }
-   a[#a+1] = { "  User Guide                 - How to use."}
-   a[#a+1] = { "  Advance User Guide         - How to create you own modules."}
-   a[#a+1] = { "  System Administrator Guide - How to install Lmod on your own system."}
+   a[#a+1] = { "  Documentation:    http://lmod.readthedocs.org"}
+   a[#a+1] = { "  Github:           https://github.com/TACC/Lmod"}
+   a[#a+1] = { "  Sourceforge:      https://lmod.sf.net"}
+   a[#a+1] = { "  TACC Homepage:    https://www.tacc.utexas.edu/research-development/tacc-projects/lmod"}
+   a[#a+1] = { "" }
+   a[#a+1] = { "  To report a bug please read "..webBR }
    a[#a+1] = { line }
 
 
@@ -335,13 +312,11 @@ BaseShell          = require("BaseShell")
 local Options      = require("Options")
 local Spider       = require("Spider")
 local Var          = require("Var")
-local posix        = require("posix")
 
 --------------------------------------------------------------------------
 -- A place holder function.  This should never be called.
 function None()
    print ("None")
-   FooBar=1
 end
 
 
@@ -365,140 +340,94 @@ end
 
 
 
-add	     = None
-rm	     = None
-use          = None
-unuse        = None
-prtHdr       = None
-avail        = Avail
-list         = List
-
+prtHdr     = None
 ModuleName = ""
 ModuleFn   = ""
-
+if (prtHdr ~= None) then
+   prtHdr()
+end
 --------------------------------------------------------------------------
 -- The main function of Lmod.  The lmod program always starts here.
 function main()
    local epoch        = epoch
    local t1           = epoch()
 
+   local availTbl     = { name = "avail",       checkMPATH = false, cmd = Avail         }
+   local gdTbl        = { name = "getDefault",  checkMPATH = false, cmd = GetDefault    }
+   local helpTbl      = { name = "help",        checkMPATH = false, cmd = Help          }
+   local keywordTbl   = { name = "keyword",     checkMPATH = false, cmd = Keyword       }
+   local listTbl      = { name = "list",        checkMPATH = false, cmd = List          }
    local loadTbl      = { name = "load",        checkMPATH = true,  cmd = Load_Usr      }
+   local mcTbl        = { name = "describe",    checkMPATH = false, cmd = CollectionLst }
+   local purgeTbl     = { name = "purge",       checkMPATH = true,  cmd = Purge         }
+   local recordTbl    = { name = "record",      checkMPATH = false, cmd = RecordCmd     }
+   local refreshTbl   = { name = "refresh",     checkMPATH = false, cmd = Refresh       }
+   local resetTbl     = { name = "reset",       checkMPATH = true,  cmd = Reset         }
+   local restoreTbl   = { name = "restore",     checkMPATH = false, cmd = Restore       }
+   local saveTbl      = { name = "save",        checkMPATH = false, cmd = Save          }
+   local savelistTbl  = { name = "savelist",    checkMPATH = false, cmd = SaveList      }
+   local searchTbl    = { name = "search",      checkMPATH = false, cmd = SearchCmd     }
+   local showTbl      = { name = "show",        checkMPATH = false, cmd = Show          }
+   local spiderTbl    = { name = "spider",      checkMPATH = true,  cmd = SpiderCmd     }
+   local swapTbl      = { name = "swap",        checkMPATH = true,  cmd = Swap          }
+   local tblLstTbl    = { name = "tablelist",   checkMPATH = false, cmd = TableList     }
    local tryAddTbl    = { name = "try-add",     checkMPATH = true,  cmd = Load_Try      }
    local unloadTbl    = { name = "unload",      checkMPATH = true,  cmd = UnLoad        }
-   local refreshTbl   = { name = "refresh",     checkMPATH = false, cmd = Refresh       }
-   local swapTbl      = { name = "swap",        checkMPATH = true,  cmd = Swap          }
-   local purgeTbl     = { name = "purge",       checkMPATH = true,  cmd = Purge         }
-   local resetTbl     = { name = "reset",       checkMPATH = true,  cmd = Reset         }
-   local availTbl     = { name = "avail",       checkMPATH = false, cmd = Avail         }
-   local listTbl      = { name = "list",        checkMPATH = false, cmd = List          }
-   local tblLstTbl    = { name = "tablelist",   checkMPATH = false, cmd = TableList     }
-   local helpTbl      = { name = "help",        checkMPATH = false, cmd = Help          }
-   local whatisTbl    = { name = "whatis",      checkMPATH = false, cmd = Whatis        }
-   local showTbl      = { name = "show",        checkMPATH = false, cmd = Show          }
-   local useTbl       = { name = "use",         checkMPATH = true,  cmd = Use           }
    local unuseTbl     = { name = "unuse",       checkMPATH = true,  cmd = UnUse         }
    local updateTbl    = { name = "update",      checkMPATH = true,  cmd = Update        }
-   local keywordTbl   = { name = "keyword",     checkMPATH = false, cmd = Keyword       }
-   local saveTbl      = { name = "save",        checkMPATH = false, cmd = Save          }
-   local gdTbl        = { name = "getDefault",  checkMPATH = false, cmd = GetDefault    }
-   local restoreTbl   = { name = "restore",     checkMPATH = false, cmd = Restore       }
-   local savelistTbl  = { name = "savelist",    checkMPATH = false, cmd = SaveList      }
-   local spiderTbl    = { name = "spider",      checkMPATH = true,  cmd = SpiderCmd     }
-   local searchTbl    = { name = "search",      checkMPATH = false, cmd = SearchCmd     }
-   local recordTbl    = { name = "record",      checkMPATH = false, cmd = RecordCmd     }
-   local mcTbl        = { name = "describe",    checkMPATH = false, cmd = CollectionLst }
+   local useTbl       = { name = "use",         checkMPATH = true,  cmd = Use           }
+   local whatisTbl    = { name = "whatis",      checkMPATH = false, cmd = Whatis        }
 
-   local cmdTbl = {
-      ["try-add"]  = tryAddTbl,
-      ["try-load"] = tryAddTbl,
-      add          = loadTbl,
-      apropos      = keywordTbl,
-      av           = availTbl,
-      avail        = availTbl,
-      describe     = mcTbl,
-      cc           = mcTbl,
-      mcc          = mcTbl,
-      del          = unloadTbl,
-      delete       = unloadTbl,
-      dis          = showTbl,
-      display      = showTbl,
-      era          = unloadTbl,
-      erase        = unloadTbl,
-      gd           = gdTbl,
-      getd         = gdTbl,
-      getdefault   = gdTbl,
-      help         = helpTbl,
-      key          = keywordTbl,
-      keyword      = keywordTbl,
-      ld           = savelistTbl,
-      li           = listTbl,
-      list         = listTbl,
-      listdefault  = savelistTbl,
-      savelist     = savelistTbl,
-      lo           = loadTbl,
-      load         = loadTbl,
-      purge        = purgeTbl,
-      record       = recordTbl,
-      refr         = updateTbl,
-      refresh      = refreshTbl,
-      reload       = updateTbl,
-      remov        = unloadTbl,
-      remove       = unloadTbl,
-      reset        = resetTbl,
-      restore      = restoreTbl,
-      r            = restoreTbl,
-      rm           = unloadTbl,
-      s            = saveTbl,
-      save         = saveTbl,
-      sd           = saveTbl,
-      search       = searchTbl,
-      setd         = saveTbl,
-      setdefault   = saveTbl,
-      show         = showTbl,
-      spider       = spiderTbl,
-      sw           = swapTbl,
-      swap         = swapTbl,
-      switch       = swapTbl,
-      tablelist    = tblLstTbl,
-      unlo         = unloadTbl,
-      unload       = unloadTbl,
-      unuse        = unuseTbl,
-      update       = updateTbl,
-      use          = useTbl,
-      wh           = whatisTbl,
-      whatis       = whatisTbl,
-   }
+   local lmodCmdA = {
+      {'^ad'      , loadTbl       },
+      {'^ap'      , keywordTbl    },
+      {'^av'      , availTbl      },
+      {'^del'     , unloadTbl     },
+      {'^des'     , mcTbl         },
+      {'^dis'     , showTbl       },
+      {'^era'     , unloadTbl     },
+      {'^gd'      , gdTbl         },
+      {'^getd'    , gdTbl         },
+      {'^h'       , helpTbl       },
+      {'^k'       , keywordTbl    },
+      {'^ld'      , savelistTbl   },
+      {'^listd'   , savelistTbl   },
+      {'^lo'      , loadTbl       },
+      {'^l'       , listTbl       },
+      {'^mc'      , mcTbl         },
+      {'^pu'      , purgeTbl      },
+      {'^rec'     , recordTbl     },
+      {'^refr'    , refreshTbl    },
+      {'^rel'     , updateTbl     },
+      {'^rem'     , unloadTbl     },
+      {'^rese'    , resetTbl      },
+      {'^rm'      , unloadTbl     },
+      {'^r'       , restoreTbl    },
+      {'^savel'   , savelistTbl   },
+      {'^sd'      , saveTbl       },
+      {'^sea'     , searchTbl     },
+      {'^setd'    , saveTbl       },
+      {'^sh'      , showTbl       },
+      {'^sl'      , savelistTbl   },
+      {'^sp'      , spiderTbl     },
+      {'^sw'      , swapTbl       },
+      {'^s'       , saveTbl       },
+      {'^table'   , tblLstTbl     },
+      {'^try'     , tryAddTbl     },
+      {'^unuse$'  , unuseTbl      },
+      {'^un'      , unloadTbl     },
+      {'^up'      , updateTbl     },
+      {'^use$'    , useTbl        },
+      {'^w'       , whatisTbl     },
+   }  
 
    MCP = MasterControl.build("load")
    mcp = MasterControl.build("load")
 
-   -------------------------------------------------------------------
-   -- Is io.stderr connected to a tty or not?
-   -- Setup output and pager routines
-   colorize = plain
-   pager    = bypassPager
-   local connectedTerm = false
-
-   if (term and getenv("TERM")) then
-      if (term.isatty(io.stderr)) then
-         colorize      = full_colorize
-         pager         = buildPager()
-         connectedTerm = true
-      end
-   end
 
    ------------------------------------------------------------
    -- Chose parseVersion:
    parseVersion = buildParseVersion()
-
-   local lmod_colorize = getenv("LMOD_COLORIZE") or "@colorize@"
-   if (lmod_colorize:lower() ~= "yes") then
-      colorize = plain
-   end
-
-   if (lmod_colorize:lower() == "force") then
-      colorize = full_colorize
-   end
 
 
    dbg.set_prefix(colorize("red","Lmod"))
@@ -514,12 +443,7 @@ function main()
    local arg_str   = concatTbl(arg," ")
    local masterTbl = masterTbl()
 
-   set_prepend_order()    -- Chose prepend_path order normal/reverse
    setenv_lmod_version()  -- Push Lmod version into environment
-
-
-   set_duplication()         -- Chose how to handle duplicate entries in a path.
-   build_accept_functions()  -- build the accept functions to allow or ignore TCL mfiles
    readRC()
 
    ------------------------------------------------------------------------
@@ -572,22 +496,6 @@ function main()
       dbg.print{"package.path: ",package.path,"\n"}
    end
 
-   ------------------------------------------------------------
-   -- Must output local variables even when there is the command
-   -- is not a valid command
-   --
-   -- So set [[checkMPATH]] to false by default and re-define when there
-   -- is a valid command:
-
-   local checkMPATH = false
-   if (cmdTbl[usrCmd] ) then
-      checkMPATH = cmdTbl[usrCmd].checkMPATH
-   end
-
-   if (LMOD_RTM_TESTING) then
-      os.exit(0)
-   end
-
    -- dumpversion and quit if requested.
 
    if (masterTbl.dumpversion) then
@@ -625,6 +533,32 @@ function main()
       os.exit(0)
    end
 
+   ------------------------------------------------------------
+   -- Search for command, quit if command is unknown.
+   local cmdT = false
+   if (usrCmd) then
+      for _, v in ipairs(lmodCmdA) do
+         if (usrCmd:find(v[1])) then
+            cmdT = v[2]
+            break
+         end
+      end
+   end
+   
+   ------------------------------------------------------------
+   -- Must output local variables even when there is the command
+   -- is not a valid command
+   --
+   -- So set [[checkMPATH]] to false by default and re-define when there
+   -- is a valid command:
+
+   local checkMPATH = (cmdT) and cmdT.checkMPATH or false
+
+   if (LMOD_RTM_TESTING) then
+      os.exit(0)
+   end
+
+
    hook.apply("startup", usrCmd)
 
    -- Create the [[master]] object
@@ -650,17 +584,13 @@ function main()
       os.exit(0)
    end
 
-   -- Now quit if command is unknown.
-
-   local cmdT = cmdTbl[usrCmd]
-
-   if (cmdT == nil) then
+   if (not cmdT) then
       io.stderr:write(version())
       io.stderr:write(Usage(),"\n")
       LmodErrorExit()
    else
       local cmd  = cmdT.cmd
-      dbg.print{"cmd name: ", cmdTbl[usrCmd].name,"\n"}
+      dbg.print{"cmd name: ", cmdT.name,"\n"}
       cmd(unpack(masterTbl.pargs))
    end
 

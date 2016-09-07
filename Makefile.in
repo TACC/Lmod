@@ -20,11 +20,14 @@ LMOD_FULL_SETTARG_SUPPORT := $(shell echo "@SETTARG@"       | tr '[:upper:]' '[:
 USE_DOT_FILES             := $(shell echo "@USE_DOT_FILES@" | tr '[:upper:]' '[:lower:]')
 PREPEND_BLOCK     	  := $(shell echo "@PREPEND_BLOCK@" | tr '[:upper:]' '[:lower:]')
 COLORIZE          	  := $(shell echo "@COLORIZE@"      | tr '[:upper:]' '[:lower:]')
+SYS_LD_LIB_PATH           := @SYS_LD_LIB_PATH@
+SYS_LD_PRELOAD            := @SYS_LD_PRELOAD@
 SYS_LUA_PATH              := @SYS_LUA_PATH@
 SYS_LUA_CPATH             := @SYS_LUA_CPATH@
 CASE_INDEPENDENT_SORTING  := @CASE_INDEPENDENT_SORTING@
 ZSH_SITE_FUNCTIONS_DIRS   := @ZSH_SITE_FUNCTIONS_DIRS@
 SPIDER_CACHE_DESCRIPT_FN  := @SPIDER_CACHE_DESCRIPT_FN@
+CHECK_VALID               := @CHECK_VALID@
 ANCIENT           	  := @ANCIENT@
 ALLOW_TCL_MFILES          := @ALLOW_TCL_MFILES@
 MPATH_AVAIL               := @MPATH_AVAIL@
@@ -51,6 +54,7 @@ MODULEPATH_ROOT   	  := @MODULEPATH_ROOT@
 VERSION_SRC	  	  := $(srcdir)/src/Version.lua
 LUA_INCLUDE       	  := @LUA_INCLUDE@
 UPDATE_SYSTEM_FN  	  := @UPDATE_SYSTEM_FN@
+GIT_BRANCH                := master
 GIT_PROG                  := @PATH_TO_GIT@
 GIT_VERSION               := $(shell if [ -n "$(GIT_PROG)" -a -d .git ]; then lmodV=`git describe --always`; echo "($$lmodV)"; else echo "@git@"; fi)
 prefix		  	  := @prefix@
@@ -114,7 +118,7 @@ CONTRIB_DIRS           	  :=  \
 CONTRIB                   := $(patsubst %, $(srcdir)/contrib/%, $(CONTRIB_DIRS))
 lua_code	  	  := $(filter-out %.in.lua, $(wildcard $(srcdir)/src/*.lua))   \
                              $(wildcard $(srcdir)/src/*.tcl)
-VDATE		  	  := $(shell date +'%F %H:%M')
+VDATE		  	  := $(shell date +'%F %H:%M %:z')
 
 ComputeHashSum    	  := $(srcdir)/src/computeHashSum.in.lua
 spiderCacheSupportCMD     := $(PATH_TO_LUA)/lua $(srcdir)/src/spiderCacheSupport.in.lua
@@ -131,6 +135,10 @@ endif
 
 all:
 	@echo done
+
+uninstall:
+	$(RM) -rf $(DESTDIR)$(prefix)/$(package)
+	@echo "If you added lmod files to /etc/profile.d please remove them."
 
 pre-install: $(DIRLIST) lmodrc_init shell_init startup libexec spiderCacheSupport \
              Inst_Tools Inst_Shells Inst_Settarg Inst_Lmod_MF $(PKGS) other_tools \
@@ -174,17 +182,21 @@ __installMe:
                 -e 's|@have_lua_term@|$(HAVE_LUA_TERM)|g'                  	  \
                 -e 's|@have_lua_json@|$(HAVE_LUA_JSON)|g'                  	  \
                 -e 's|@tr@|$(PATH_TO_TR)|g'                             	  \
+                -e 's|@tclsh@|$(PATH_TO_TCLSH)|g'                             	  \
                 -e 's|@disable_name_autoswap@|$(DISABLE_NAME_AUTOSWAP)|g'     	  \
 	        -e 's|@tmod_path_rule@|$(TMOD_PATH_RULE)|g'            	   	  \
 	        -e 's|@redirect@|$(REDIRECT)|g'                       	   	  \
 	        -e 's|@basename@|$(BASENAME)|g'                       	   	  \
 	        -e 's|@cached_loads@|$(CACHED_LOADS)|g'                	   	  \
+	        -e 's|@check_for_valid_module_files@|$(CHECK_VALID)|g'            \
 	        -e 's|@ps@|$(PS)|g'                              	   	  \
 	        -e 's|@expr@|$(EXPR)|g'                              	   	  \
 	        -e 's|@libexec@|$(LIBEXEC)|g'                       	   	  \
 	        -e 's|@legacy_ordering@|$(LEGACY_ORDERING)|g'           	  \
 	        -e 's|@pin_versions@|$(PIN_VERSIONS)|g'                	   	  \
 	        -e 's|@auto_swap@|$(AUTO_SWAP)|g'                      	   	  \
+	        -e 's|@sys_ld_lib_path@|$(SYS_LD_LIB_PATH)|g'                     \
+	        -e 's|@sys_ld_preload@|$(SYS_LD_PRELOAD)|g'                       \
 	        -e 's|@export_module@|$(EXPORT_MODULE)|g'             	   	  \
                 -e 's|@lmod_version@|$(version)|g'               	   	  \
                 -e 's|@exact_match@|$(EXACT_MATCH)|g'               	   	  \
@@ -256,7 +268,7 @@ config.status:
 	./config.status --recheck
 
 dist:
-	git archive --prefix=Lmod-$(version)/ master > Lmod-$(version).tar
+	git archive --prefix=Lmod-$(version)/ $(GIT_BRANCH) > Lmod-$(version).tar
 	$(RM) -rf DIST;                               			     	 \
         mkdir DIST;                                   			     	 \
         cd DIST;                                      			     	 \
@@ -343,9 +355,10 @@ tags: build_tags
 
 build_tags:
 	find . \( -regex '.*~$$\|.*/\.git\|.*/\.git/' -prune \)  \
-               -o -type f > file_list.1
+               -o -type f > file_list.1.txt
 	sed -e 's|.*/.git.*||g'                                  \
             -e 's|.*/rt/.*/t1/.*||g'                             \
+            -e 's|./rt/funny_files/mf/.*||g'                     \
             -e 's|.*/html/.*$$||g'                               \
             -e 's|./TAGS||g'                                     \
             -e 's|./makefile||g'                                 \
@@ -379,10 +392,11 @@ build_tags:
             -e 's|./docs/build/.*||g'                            \
             -e 's|./config\.status$$||g'                         \
             -e 's|.*\~$$||g'                                     \
+            -e 's|./lmod.check.txt*||g'                          \
             -e 's|./file_list\..*||g'                            \
             -e '/^\s*$$/d'                                       \
-	       < file_list.1 > file_list.2
-	etags  `cat file_list.2`
+	       < file_list.1.txt > file_list.2.txt
+	etags  `cat file_list.2.txt`
 
 
 libexec:  $(lua_code)

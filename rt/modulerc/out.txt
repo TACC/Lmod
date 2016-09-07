@@ -1,10 +1,10 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --version
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash load intel
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load intel
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/modulerc/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -24,7 +24,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/module
 export _ModuleTable_;
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash list
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/modulerc/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -38,7 +38,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/module
 export _ModuleTable_;
 ===========================
 step 4
-lua ProjectDIR/src/lmod.in.lua bash load intel/15
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load intel/15
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/modulerc/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -58,7 +58,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/module
 export _ModuleTable_;
 ===========================
 step 5
-lua ProjectDIR/src/lmod.in.lua bash list
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/modulerc/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -72,7 +72,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/module
 export _ModuleTable_;
 ===========================
 step 6
-lua ProjectDIR/src/lmod.in.lua bash load a14
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load a14
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/modulerc/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -92,7 +92,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/module
 export _ModuleTable_;
 ===========================
 step 7
-lua ProjectDIR/src/lmod.in.lua bash list
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/modulerc/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -106,7 +106,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/module
 export _ModuleTable_;
 ===========================
 step 8
-lua ProjectDIR/src/lmod.in.lua bash load a13
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load a13
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/modulerc/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -127,7 +127,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/module
 export _ModuleTable_;
 ===========================
 step 9
-lua ProjectDIR/src/lmod.in.lua bash list
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/modulerc/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -141,7 +141,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/module
 export _ModuleTable_;
 ===========================
 step 10
-lua ProjectDIR/src/lmod.in.lua bash load abinit/6
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load abinit/6
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/modulerc/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -161,7 +161,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/module
 export _ModuleTable_;
 ===========================
 step 11
-lua ProjectDIR/src/lmod.in.lua bash list
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/modulerc/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -175,7 +175,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/module
 export _ModuleTable_;
 ===========================
 step 12
-lua ProjectDIR/src/lmod.in.lua bash load abinit/7
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load abinit/7
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/modulerc/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -195,7 +195,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/module
 export _ModuleTable_;
 ===========================
 step 13
-lua ProjectDIR/src/lmod.in.lua bash list
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/modulerc/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -209,7 +209,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/module
 export _ModuleTable_;
 ===========================
 step 14
-lua ProjectDIR/src/lmod.in.lua bash load hidden/2.0
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load hidden/2.0
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/modulerc/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -229,7 +229,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=4,baseMpathA={"ProjectDIR/rt/module
 export _ModuleTable_;
 ===========================
 step 15
-lua ProjectDIR/src/lmod.in.lua bash list
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/modulerc/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -243,7 +243,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=4,baseMpathA={"ProjectDIR/rt/module
 export _ModuleTable_;
 ===========================
 step 16
-lua ProjectDIR/src/lmod.in.lua bash avail
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/modulerc/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -257,7 +257,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=4,baseMpathA={"ProjectDIR/rt/module
 export _ModuleTable_;
 ===========================
 step 17
-lua ProjectDIR/src/lmod.in.lua bash avail
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/modulerc/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -271,7 +271,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=4,baseMpathA={"ProjectDIR/rt/module
 export _ModuleTable_;
 ===========================
 step 18
-lua ProjectDIR/src/lmod.in.lua bash avail
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/modulerc/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -285,7 +285,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=4,baseMpathA={"ProjectDIR/rt/module
 export _ModuleTable_;
 ===========================
 step 19
-lua ProjectDIR/src/lmod.in.lua bash avail
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/modulerc/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -299,7 +299,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=4,baseMpathA={"ProjectDIR/rt/module
 export _ModuleTable_;
 ===========================
 step 20
-lua ProjectDIR/src/lmod.in.lua bash load cluster
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load cluster
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/modulerc/mf/Core:ProjectDIR/rt/modulerc/mf2/Core";
 export LMOD_DEFAULT_MODULEPATH;

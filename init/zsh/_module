@@ -194,6 +194,8 @@ _module_whatis()
 }
 
 _module "$@"
+
 # Local Variables:
 # mode: shell-script
+# indent-tabs-mode: nil
 # End:

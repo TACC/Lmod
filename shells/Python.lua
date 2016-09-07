@@ -60,7 +60,7 @@ end
 
 function Python.expandVar(self, k, v, vType)
    local lineA = {}
-   v                 = tostring(v):doubleQuoteString()
+   v                 = tostring(v):multiEscaped()
    lineA[#lineA + 1] = 'os.environ['
    lineA[#lineA + 1] = k:doubleQuoteString()
    lineA[#lineA + 1] = '] = '

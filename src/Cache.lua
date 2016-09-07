@@ -66,19 +66,21 @@ require("string_utils")
 require("fileOps")
 require("cmdfuncs")
 require("utils")
+require("lmod_system_execute")
 
-_G.maliasT    = {}
-local CTimer  = require("CTimer")
-local dbg     = require("Dbg"):dbg()
-local M       = {}
-local MT      = require("MT")
-local Spider  = require("Spider")
-local hook    = require("Hook")
-local lfs     = require("lfs")
-local malias  = require("MAlias"):build()
-local posix   = require("posix")
-local s_cache = false
-local timer   = require("Timer"):timer()
+_G.maliasT      = {}
+local CTimer    = require("CTimer")
+local dbg       = require("Dbg"):dbg()
+local M         = {}
+local MT        = require("MT")
+local Spider    = require("Spider")
+local hook      = require("Hook")
+local lfs       = require("lfs")
+local malias    = require("MAlias"):build()
+local posix     = require("posix")
+local s_cache   = false
+local timer     = require("Timer"):timer()
+local concatTbl = table.concat
 
 --------------------------------------------------------------------------
 -- This singleton construct reads the scDescriptT table that can be
@@ -96,10 +98,9 @@ local function new(self, t)
 
    dbg.start{"Cache:new()"}
 
-   scDescriptT = getSCDescriptT()
+   local scDescriptT = getSCDescriptT()
 
    local scDirA = {}
-   local dbDirA = {}
 
    local systemEpoch = epoch() - ancient
 
@@ -141,15 +142,6 @@ local function new(self, t)
                  timestamp = lastUpdate,
                  fileT = "system",
                }
-            dbDirA[#dbDirA+1] =
-               { fileA = { pathJoin(dir, "dbT."     .. compiled_ext_sys),
-                           pathJoin(dir, "dbT.old." .. compiled_ext_sys),
-                           pathJoin(dir, "dbT.lua"),
-                           pathJoin(dir, "dbT.old.lua"),
-                         },
-                 timestamp = lastUpdate,
-                 fileT = "system",
-               }
             break
          end
       end
@@ -157,8 +149,6 @@ local function new(self, t)
 
    local usrModuleT   = hook.apply("groupName","moduleT.lua")
    local usrModuleT_C = hook.apply("groupName","moduleT."..compiled_ext_usr)
-   local usrDbT       = hook.apply("groupName","dbT.lua")
-   local usrDbT_C     = hook.apply("groupName","dbT."..compiled_ext_usr)
 
    local usrModuleTFnA = {
       { fileA = { pathJoin(usrCacheDir, usrModuleT_C),
@@ -171,26 +161,14 @@ local function new(self, t)
       },
    }
 
-   local usrDbTFnA = {
-      { fileA = { pathJoin(usrCacheDir, usrDbT_C),
-                  pathJoin(usrCacheDir, usrDbT),
-                  pathJoin(usrCacheDir, "dbT."..compiled_ext_usr),
-                  pathJoin(usrCacheDir, "dbT.lua"),
-                },
-        fileT = "your",
-        timestamp = systemEpoch
-      },
-   }
-
    t               = t or {}
    o.moduleDirT    = {}
    o.mDT           = {}
    o.usrCacheDir   = usrCacheDir
    o.usrModuleTFnA = usrModuleTFnA
-   o.usrDbTFnA     = usrDbTFnA
    o.usrModuleTFN  = pathJoin(usrCacheDir,usrModuleT)
    o.systemDirA    = scDirA
-   o.dbTDirA       = dbDirA
+   --o.dbTDirA       = dbDirA
    o.dontWrite     = t.dontWrite or false
    o.buildCache    = false
    o.quiet         = t.quiet     or false
@@ -277,8 +255,8 @@ local function readCacheFile(self, moduleTFnA)
          local found = false
          local attr  = false
 
-         for i = 1,#fileA do
-            fn   = fileA[i]
+         for j = 1,#fileA do
+            fn   = fileA[j]
             attr = lfs.attributes(fn) or {}
             if (next(attr) ~= nil and attr.size > 0) then
                found = true
@@ -340,75 +318,6 @@ local function readCacheFile(self, moduleTFnA)
    return dirsRead
 end
 
---------------------------------------------------------------------------
--- This routine finds and reads in a dbT file.  If it
--- finds a cache file is simply does a "loadfile" on it
--- and updates self.dbT
--- @param self a Cache object
--- @param dbTFnA An array of cache files to read and process.
--- @return the number of directories read.
-function readDbT(self, dbTFnA)
-   dbg.start{"Cache:readDbT(dbTFnA)"}
-   if (masterTbl().ignoreCache or LMOD_IGNORE_CACHE) then
-      dbg.print{"LMOD_IGNORE_CACHE is true\n"}
-      dbg.fini("Cache:readDbT")
-      return
-   end
-
-   local dbT = self.dbT
-
-   dbg.print{"#dbTFnA: ",#dbTFnA,"\n"}
-   for i = 1,#dbTFnA do
-      repeat
-         local fileA = dbTFnA[i].fileA
-         local fn    = false
-         local found = false
-         local attr  = false
-
-         for i = 1,#fileA do
-            fn   = fileA[i]
-            attr = lfs.attributes(fn) or {}
-            if (next(attr) ~= nil and attr.size > 0) then
-               found = true
-               break
-            else
-               dbg.print{"Did not find: ",fn,"\n"}
-            end
-         end
-
-         if (not found) then
-            dbg.print{"No cache files found\n"}
-            break
-         end
-
-         dbg.print{"cacheFile found: ",fn,"\n"}
-
-         -- Check Time
-
-         local diff  = attr.modification - dbTFnA[i].timestamp
-         local valid = diff >= 0
-         dbg.print{"valid: ",valid,", timeDiff: ",diff,"\n"}
-
-         -- Read in cache file if not out of date.
-         if (valid) then
-
-            -- Check for matching default MODULEPATH.
-            assert(loadfile(fn))()
-
-            local G_dbT = _G.dbT
-            for mname, vv in pairs(G_dbT) do
-               local entry = dbT[mname] or {}
-               for fn, v in pairs(vv) do
-                  entry[fn] = v
-               end
-               dbT[mname] = entry
-            end
-         end
-      until true
-   end
-
-   dbg.fini("Cache:readDbT")
-end
 
 --------------------------------------------------------------------------
 -- This is the client code interface to getting the cache
@@ -466,7 +375,6 @@ function M.build(self, fast)
    local sysDirsRead = 0
    if (not masterTbl.checkSyntax) then
       sysDirsRead = readCacheFile(self, self.systemDirA)
-      readDbT(self,self.dbTDirA)
    end
 
    ------------------------------------------------------------------------
@@ -474,7 +382,6 @@ function M.build(self, fast)
 
    local moduleDirT  = self.moduleDirT
    local usrDirsRead = readCacheFile(self, self.usrModuleTFnA)
-   readDbT(self,self.usrDbTFnA)
 
    local dirA   = {}
    local numMDT = 0
@@ -588,7 +495,7 @@ function M.build(self, fast)
             a[#a+1]  = "-o"
             a[#a+1]  = fn
             a[#a+1]  = userModuleTFN
-            os.execute(concatTbl(a," "))
+            lmod_system_execute(concatTbl(a," "))
          end
 
          local buildT   = t2-t1

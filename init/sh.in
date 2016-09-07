@@ -1,5 +1,4 @@
 #!/bin/bash
-# -*- shell-script -*-
 
 LMOD_PKG="@PKG@"
 LMOD_DIR="@PKG@/libexec/"
@@ -32,3 +31,8 @@ ml()
 {
   eval $($LMOD_DIR/ml_cmd "$@")
 }
+
+# Local Variables:
+# mode: shell-script
+# indent-tabs-mode: nil
+# End:

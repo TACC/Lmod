@@ -89,7 +89,7 @@ function Bash.expandVar(self, k, v, vType)
    if (k:find("%.")) then
       return
    end
-   v                 = tostring(v):doubleQuoteString()
+   v                 = tostring(v):multiEscaped()
    lineA[#lineA + 1] = k
    lineA[#lineA + 1] = "="
    lineA[#lineA + 1] = v

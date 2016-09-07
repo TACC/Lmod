@@ -1,10 +1,10 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --version
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash load TACC
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load TACC
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/lars/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -52,7 +52,7 @@ MPICH_HOME="/opt/apps/intel13/mvapich2/1.9";
 export MPICH_HOME;
 OMP_NUM_THREADS="1";
 export OMP_NUM_THREADS;
-PATH="/opt/apps/intel13/mvapich2/1.9/bin:/opt/apps/intel/13/vtune_amplifier_xe_2013/bin64:/opt/apps/intel/13/composer_xe_2013.2.146/mpirt/bin/intel64:/opt/intel/sep/bin:ProjectDIR/src:PATH_to_TM:/bin:.:/opt/apps/intel/13/composer_xe_2013.2.146/bin/intel64:/opt/apps/intel/13/composer_xe_2013.2.146/bin/intel64_mic:/opt/apps/intel/13/composer_xe_2013.2.146/debugger/gui/intel64";
+PATH="/opt/apps/intel13/mvapich2/1.9/bin:/opt/apps/intel/13/vtune_amplifier_xe_2013/bin64:/opt/apps/intel/13/composer_xe_2013.2.146/mpirt/bin/intel64:/opt/intel/sep/bin:ProjectDIR/src:PATH_to_TM:.:/opt/apps/intel/13/composer_xe_2013.2.146/bin/intel64:/opt/apps/intel/13/composer_xe_2013.2.146/bin/intel64_mic:/opt/apps/intel/13/composer_xe_2013.2.146/debugger/gui/intel64";
 export PATH;
 PKG_CONFIG_PATH="/opt/apps/intel13/mvapich2/1.9/lib/pkgconfig";
 export PKG_CONFIG_PATH;
@@ -86,7 +86,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=7,baseMpathA={"ProjectDIR/rt/lars/m
 export _ModuleTable_;
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash list
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/lars/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -100,7 +100,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=7,baseMpathA={"ProjectDIR/rt/lars/m
 export _ModuleTable_;
 ===========================
 step 4
-lua ProjectDIR/src/lmod.in.lua bash swap mvapich2 impi
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing swap mvapich2 impi
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/lars/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -122,7 +122,7 @@ MODULEPATH="ProjectDIR/rt/lars/mf/MPI/intel/13.0/impi/4.1:ProjectDIR/rt/lars/mf/
 export MODULEPATH;
 MPICH_HOME="/opt/apps/intel13/impi/4.1";
 export MPICH_HOME;
-PATH="/opt/apps/intel13/impi/4.1/bin:/opt/apps/intel/13/vtune_amplifier_xe_2013/bin64:/opt/apps/intel/13/composer_xe_2013.2.146/mpirt/bin/intel64:/opt/intel/sep/bin:ProjectDIR/src:PATH_to_TM:/bin:.:/opt/apps/intel/13/composer_xe_2013.2.146/bin/intel64:/opt/apps/intel/13/composer_xe_2013.2.146/bin/intel64_mic:/opt/apps/intel/13/composer_xe_2013.2.146/debugger/gui/intel64";
+PATH="/opt/apps/intel13/impi/4.1/bin:/opt/apps/intel/13/vtune_amplifier_xe_2013/bin64:/opt/apps/intel/13/composer_xe_2013.2.146/mpirt/bin/intel64:/opt/intel/sep/bin:ProjectDIR/src:PATH_to_TM:.:/opt/apps/intel/13/composer_xe_2013.2.146/bin/intel64:/opt/apps/intel/13/composer_xe_2013.2.146/bin/intel64_mic:/opt/apps/intel/13/composer_xe_2013.2.146/debugger/gui/intel64";
 export PATH;
 PKG_CONFIG_PATH="/opt/apps/intel13/impi/4.1/lib/pkgconfig";
 export PKG_CONFIG_PATH;
@@ -136,7 +136,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=7,baseMpathA={"ProjectDIR/rt/lars/m
 export _ModuleTable_;
 ===========================
 step 5
-lua ProjectDIR/src/lmod.in.lua bash list
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/lars/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -150,7 +150,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=7,baseMpathA={"ProjectDIR/rt/lars/m
 export _ModuleTable_;
 ===========================
 step 6
-lua ProjectDIR/src/lmod.in.lua bash save
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing save
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/lars/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -164,7 +164,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=7,baseMpathA={"ProjectDIR/rt/lars/m
 export _ModuleTable_;
 ===========================
 step 7
-lua ProjectDIR/src/lmod.in.lua bash purge
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/lars/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -213,7 +213,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/lars/m
 export _ModuleTable_;
 ===========================
 step 8
-lua ProjectDIR/src/lmod.in.lua bash restore
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing restore
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/lars/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -261,7 +261,7 @@ MPICH_HOME="/opt/apps/intel13/impi/4.1";
 export MPICH_HOME;
 OMP_NUM_THREADS="1";
 export OMP_NUM_THREADS;
-PATH="/opt/apps/intel13/impi/4.1/bin:/opt/apps/intel/13/vtune_amplifier_xe_2013/bin64:/opt/apps/intel/13/composer_xe_2013.2.146/mpirt/bin/intel64:/opt/intel/sep/bin:ProjectDIR/src:PATH_to_TM:/bin:.:/opt/apps/intel/13/composer_xe_2013.2.146/bin/intel64:/opt/apps/intel/13/composer_xe_2013.2.146/bin/intel64_mic:/opt/apps/intel/13/composer_xe_2013.2.146/debugger/gui/intel64";
+PATH="/opt/apps/intel13/impi/4.1/bin:/opt/apps/intel/13/vtune_amplifier_xe_2013/bin64:/opt/apps/intel/13/composer_xe_2013.2.146/mpirt/bin/intel64:/opt/intel/sep/bin:ProjectDIR/src:PATH_to_TM:.:/opt/apps/intel/13/composer_xe_2013.2.146/bin/intel64:/opt/apps/intel/13/composer_xe_2013.2.146/bin/intel64_mic:/opt/apps/intel/13/composer_xe_2013.2.146/debugger/gui/intel64";
 export PATH;
 PKG_CONFIG_PATH="/opt/apps/intel13/impi/4.1/lib/pkgconfig";
 export PKG_CONFIG_PATH;
@@ -297,7 +297,7 @@ __LMOD_DEFAULT_MODULES_LOADED__="1";
 export __LMOD_DEFAULT_MODULES_LOADED__;
 ===========================
 step 9
-lua ProjectDIR/src/lmod.in.lua bash list
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/lars/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;

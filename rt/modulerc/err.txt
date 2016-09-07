@@ -1,88 +1,88 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --version
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 6.0.19  2015-11-18 08:32
+Modules based on Lua: Version 6.4.3  2016-06-17 09:58
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash load intel
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load intel
 ===========================
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash list
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) intel/14.0.3
 ===========================
 step 4
-lua ProjectDIR/src/lmod.in.lua bash load intel/15
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load intel/15
 ===========================
 The following have been reloaded with a version change:
   1) intel/14.0.3 => intel/15.0.2
 ===========================
 step 5
-lua ProjectDIR/src/lmod.in.lua bash list
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) intel/15.0.2
 ===========================
 step 6
-lua ProjectDIR/src/lmod.in.lua bash load a14
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load a14
 ===========================
 ===========================
 step 7
-lua ProjectDIR/src/lmod.in.lua bash list
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) intel/15.0.2   2) a/14.0.1.134
 ===========================
 step 8
-lua ProjectDIR/src/lmod.in.lua bash load a13
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load a13
 ===========================
 The following have been reloaded with a version change:
   1) a/14.0.1.134 => a/13.2.345
 ===========================
 step 9
-lua ProjectDIR/src/lmod.in.lua bash list
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) intel/15.0.2   2) a/13.2.345
 ===========================
 step 10
-lua ProjectDIR/src/lmod.in.lua bash load abinit/6
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load abinit/6
 ===========================
 ===========================
 step 11
-lua ProjectDIR/src/lmod.in.lua bash list
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) intel/15.0.2   2) a/13.2.345   3) abinit/6.12.3
 ===========================
 step 12
-lua ProjectDIR/src/lmod.in.lua bash load abinit/7
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load abinit/7
 ===========================
 The following have been reloaded with a version change:
   1) abinit/6.12.3 => abinit/7.4.3
 ===========================
 step 13
-lua ProjectDIR/src/lmod.in.lua bash list
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) intel/15.0.2   2) a/13.2.345   3) abinit/7.4.3
 ===========================
 step 14
-lua ProjectDIR/src/lmod.in.lua bash load hidden/2.0
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load hidden/2.0
 ===========================
 ===========================
 step 15
-lua ProjectDIR/src/lmod.in.lua bash list
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) intel/15.0.2   2) a/13.2.345   3) abinit/7.4.3   4) hidden/2.0
 ===========================
 step 16
-lua ProjectDIR/src/lmod.in.lua bash avail
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
 ProjectDIR/rt/modulerc/mf/Core
    Rstats/2.1.5                 arpack/openmpi/3.1.4
@@ -95,11 +95,10 @@ ProjectDIR/rt/modulerc/mf/Core
    D:  Default Module
    L:  Module is loaded
 Use "module spider" to find all possible modules.
-Use "module keyword key1 key2 ..." to search for all possible modules matching
-any of the "keys".
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 17
-lua ProjectDIR/src/lmod.in.lua bash avail
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
 ProjectDIR/rt/modulerc/mf/Core
    Rstats/2.1.5                 arpack/openmpi/3.1.4
@@ -112,11 +111,10 @@ ProjectDIR/rt/modulerc/mf/Core
    D:  Default Module
    L:  Module is loaded
 Use "module spider" to find all possible modules.
-Use "module keyword key1 key2 ..." to search for all possible modules matching
-any of the "keys".
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 18
-lua ProjectDIR/src/lmod.in.lua bash avail
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
 ProjectDIR/rt/modulerc/mf/Core
    Rstats/2.1.5                 arpack/openmpi/3.1.4
@@ -129,11 +127,10 @@ ProjectDIR/rt/modulerc/mf/Core
    D:  Default Module
    L:  Module is loaded
 Use "module spider" to find all possible modules.
-Use "module keyword key1 key2 ..." to search for all possible modules matching
-any of the "keys".
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 19
-lua ProjectDIR/src/lmod.in.lua bash avail
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
 ProjectDIR/rt/modulerc/mf/Core
    Rstats/2.1.5                 arpack/openmpi/3.1.4
@@ -146,12 +143,10 @@ ProjectDIR/rt/modulerc/mf/Core
    D:  Default Module
    L:  Module is loaded
 Use "module spider" to find all possible modules.
-Use "module keyword key1 key2 ..." to search for all possible modules matching
-any of the "keys".
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 20
-lua ProjectDIR/src/lmod.in.lua bash load cluster
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load cluster
 ===========================
 The default cluster module cannot be determined. Please set $VSC_DEFAULT_CLUSTER_MODULE.
-Lmod has detected the following error: Unable to parse:
-ProjectDIR/rt/modulerc/mf2/Core/cluster/.modulerc  Aborting!
+Lmod has detected the following error: Unable to parse: ProjectDIR/rt/modulerc/mf2/Core/cluster/.modulerc  Aborting!

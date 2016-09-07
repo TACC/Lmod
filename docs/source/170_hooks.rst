@@ -27,7 +27,7 @@ Here are two suggestions on how to use your SitePackage.lua file:
 #. Create a file named "SitePackage.lua" in a different directory separate
    from the Lmod installed directory and it will override the one in the Lmod
    install directory.  Then you should modify your z00_lmod.sh and
-   z00_lmod.csh (or however you initialize the "module" command) 
+   z00_lmod.csh (or however you initialize the "module" command)
    with::
 
        (for bash, zsh, etc)
@@ -78,7 +78,7 @@ Hook functions
   family prefix:  ``site_FAMILY_``
 
 **msgHook**(...):
-  Hook to print messages after avail, list, spider.
+  Hook to print messages after avail, list, spider, LmodError and LmodWarning.
 
 **groupName**(...):
   This hook adds the arch and os name to moduleT.lua to make it safe
@@ -92,6 +92,10 @@ Hook functions
 
 **startup(UsrCmd):
   This hook is run when Lmod is called
+
+**packagebasename(s_patDir, s_patLib):
+  This hook gives you a table with the current patterns that spider uses to
+  construct the reverse map.
 
 
 

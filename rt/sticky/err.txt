@@ -1,16 +1,16 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --version
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 6.0.6  2015-07-16 14:33
+Modules based on Lua: Version 6.4.3  2016-06-17 09:58
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash load std
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load std
 ===========================
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash list
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) std/1.0 (m,S)
@@ -19,14 +19,14 @@ Currently Loaded Modules:
    m:  built for host and native MIC
 ===========================
 step 4
-lua ProjectDIR/src/lmod.in.lua bash unload std
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload std
 ===========================
 The following modules were not unloaded:
    (Use "module --force purge" to unload all):
   1) std/1.0
 ===========================
 step 5
-lua ProjectDIR/src/lmod.in.lua bash list
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) std/1.0 (m,S)
@@ -35,11 +35,11 @@ Currently Loaded Modules:
    m:  built for host and native MIC
 ===========================
 step 6
-lua ProjectDIR/src/lmod.in.lua bash load gcc boost
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load gcc boost
 ===========================
 ===========================
 step 7
-lua ProjectDIR/src/lmod.in.lua bash list
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) std/1.0 (m,S)   2) gcc/4.6   3) boost/1.53.0 (S,T)
@@ -49,7 +49,7 @@ Currently Loaded Modules:
    m:  built for host and native MIC
 ===========================
 step 8
-lua ProjectDIR/src/lmod.in.lua bash purge
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
 ===========================
 The following modules were not unloaded:
    (Use "module --force purge" to unload all):
@@ -58,27 +58,27 @@ The following sticky modules could not be reloaded:
   1) boost
 ===========================
 step 9
-lua ProjectDIR/src/lmod.in.lua bash --force purge
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --force purge
 ===========================
 ===========================
 step 10
-lua ProjectDIR/src/lmod.in.lua bash list
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 No modules loaded
 ===========================
 step 11
-lua ProjectDIR/src/lmod.in.lua bash load std
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load std
 ===========================
 ===========================
 step 12
-lua ProjectDIR/src/lmod.in.lua bash rm std
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing rm std
 ===========================
 The following modules were not unloaded:
    (Use "module --force purge" to unload all):
   1) std/1.0
 ===========================
 step 13
-lua ProjectDIR/src/lmod.in.lua bash list
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) std/1.0 (m,S)
@@ -87,20 +87,20 @@ Currently Loaded Modules:
    m:  built for host and native MIC
 ===========================
 step 14
-lua ProjectDIR/src/lmod.in.lua bash --force rm std
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --force rm std
 ===========================
 ===========================
 step 15
-lua ProjectDIR/src/lmod.in.lua bash list
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 No modules loaded
 ===========================
 step 16
-lua ProjectDIR/src/lmod.in.lua bash load StdEnv
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load StdEnv
 ===========================
 ===========================
 step 17
-lua ProjectDIR/src/lmod.in.lua bash list
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) a/1.0   2) b/1.1   3) StdEnv (S)
@@ -108,11 +108,11 @@ Currently Loaded Modules:
    S:  Module is Sticky, requires --force to unload or purge
 ===========================
 step 18
-lua ProjectDIR/src/lmod.in.lua bash load StdEnv
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load StdEnv
 ===========================
 ===========================
 step 19
-lua ProjectDIR/src/lmod.in.lua bash list
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) a/1.0   2) b/1.1   3) StdEnv (S)
@@ -120,11 +120,11 @@ Currently Loaded Modules:
    S:  Module is Sticky, requires --force to unload or purge
 ===========================
 step 20
-lua ProjectDIR/src/lmod.in.lua bash unload a b
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload a b
 ===========================
 ===========================
 step 21
-lua ProjectDIR/src/lmod.in.lua bash list
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) StdEnv (S)
@@ -132,14 +132,14 @@ Currently Loaded Modules:
    S:  Module is Sticky, requires --force to unload or purge
 ===========================
 step 22
-lua ProjectDIR/src/lmod.in.lua bash purge
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
 ===========================
 The following modules were not unloaded:
    (Use "module --force purge" to unload all):
   1) a/1.0   2) b/1.1   3) StdEnv
 ===========================
 step 23
-lua ProjectDIR/src/lmod.in.lua bash list
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) a/1.0   2) b/1.1   3) StdEnv (S)
@@ -147,21 +147,21 @@ Currently Loaded Modules:
    S:  Module is Sticky, requires --force to unload or purge
 ===========================
 step 24
-lua ProjectDIR/src/lmod.in.lua bash save
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing save
 ===========================
 Saved current collection of modules to: default
 ===========================
 step 25
-lua ProjectDIR/src/lmod.in.lua bash --force purge
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --force purge
 ===========================
 ===========================
 step 26
-lua ProjectDIR/src/lmod.in.lua bash restore
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing restore
 ===========================
 Restoring modules to user's default
 ===========================
 step 27
-lua ProjectDIR/src/lmod.in.lua bash list
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) a/1.0   2) b/1.1   3) StdEnv (S)
@@ -169,12 +169,12 @@ Currently Loaded Modules:
    S:  Module is Sticky, requires --force to unload or purge
 ===========================
 step 28
-lua ProjectDIR/src/lmod.in.lua bash restore
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing restore
 ===========================
 Restoring modules to user's default
 ===========================
 step 29
-lua ProjectDIR/src/lmod.in.lua bash list
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) a/1.0   2) b/1.1   3) StdEnv (S)
@@ -182,15 +182,15 @@ Currently Loaded Modules:
    S:  Module is Sticky, requires --force to unload or purge
 ===========================
 step 30
-lua ProjectDIR/src/lmod.in.lua bash --force purge
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --force purge
 ===========================
 ===========================
 step 31
-lua ProjectDIR/src/lmod.in.lua bash load M1
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load M1
 ===========================
 ===========================
 step 32
-lua ProjectDIR/src/lmod.in.lua bash list
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) c/1.7   2) d/1.8   3) M1 (O)
@@ -198,17 +198,17 @@ Currently Loaded Modules:
    O:  Obsolete
 ===========================
 step 33
-lua ProjectDIR/src/lmod.in.lua bash save
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing save
 ===========================
 Saved current collection of modules to: default
 ===========================
 step 34
-lua ProjectDIR/src/lmod.in.lua bash restore
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing restore
 ===========================
 Restoring modules to user's default
 ===========================
 step 35
-lua ProjectDIR/src/lmod.in.lua bash list
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) M1 (O)
@@ -216,15 +216,15 @@ Currently Loaded Modules:
    O:  Obsolete
 ===========================
 step 36
-lua ProjectDIR/src/lmod.in.lua bash --force purge
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --force purge
 ===========================
 ===========================
 step 37
-lua ProjectDIR/src/lmod.in.lua bash load c d M1
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load c d M1
 ===========================
 ===========================
 step 38
-lua ProjectDIR/src/lmod.in.lua bash list
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) c/1.7   2) d/1.8   3) M1 (O)
@@ -232,17 +232,17 @@ Currently Loaded Modules:
    O:  Obsolete
 ===========================
 step 39
-lua ProjectDIR/src/lmod.in.lua bash save
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing save
 ===========================
 Saved current collection of modules to: default
 ===========================
 step 40
-lua ProjectDIR/src/lmod.in.lua bash restore
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing restore
 ===========================
 Restoring modules to user's default
 ===========================
 step 41
-lua ProjectDIR/src/lmod.in.lua bash list
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) M1 (O)
@@ -250,29 +250,29 @@ Currently Loaded Modules:
    O:  Obsolete
 ===========================
 step 42
-lua ProjectDIR/src/lmod.in.lua bash --force purge
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --force purge
 ===========================
 ===========================
 step 43
-lua ProjectDIR/src/lmod.in.lua bash reset
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing reset
 ===========================
 Resetting modules to system default
 ===========================
 step 44
-lua ProjectDIR/src/lmod.in.lua bash reset
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing reset
 ===========================
 Resetting modules to system default
 ===========================
 step 45
-lua ProjectDIR/src/lmod.in.lua bash load old
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load old
 ===========================
 ===========================
 step 46
-lua ProjectDIR/src/lmod.in.lua bash swap old new
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing swap old new
 ===========================
 ===========================
 step 47
-lua ProjectDIR/src/lmod.in.lua bash list
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) a/1.0   2) b/1.1   3) StdEnv (S)   4) new (S)
@@ -280,12 +280,12 @@ Currently Loaded Modules:
    S:  Module is Sticky, requires --force to unload or purge
 ===========================
 step 48
-lua ProjectDIR/src/lmod.in.lua bash load old
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load old
 ===========================
 Lmod is automatically replacing "new" with "old"
 ===========================
 step 49
-lua ProjectDIR/src/lmod.in.lua bash list
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) a/1.0   2) b/1.1   3) StdEnv (S)   4) old (S)
@@ -293,7 +293,7 @@ Currently Loaded Modules:
    S:  Module is Sticky, requires --force to unload or purge
 ===========================
 step 50
-lua ProjectDIR/src/lmod.in.lua bash avail
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
 ProjectDIR/rt/sticky/mf/Core
    M1     (O)      a/1.0 (L)    gcc/4.6        old     (S,L)
@@ -304,5 +304,4 @@ ProjectDIR/rt/sticky/mf/Core
    S:  Module is Sticky, requires --force to unload or purge
    m:  built for host and native MIC
 Use "module spider" to find all possible modules.
-Use "module keyword key1 key2 ..." to search for all possible modules matching
-any of the "keys".
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".

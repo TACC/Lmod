@@ -70,7 +70,7 @@ Use SitePackage.lua to send a message to syslog.
       local a = s_msgA
       for i = 1,#a do
          local msg = a[i]
-         os.execute("logger -t ModuleUsageTracking -p local0.info " .. msg)
+         lmod_system_execute("logger -t ModuleUsageTracking -p local0.info " .. msg)
       end
    end
 
@@ -209,10 +209,11 @@ d) Create the database by running the createDB.py program.
 Step 6:
 -------
 
-a) If you have more than one cluster and you want to store them in the same database you might want to modify the
-   store_module_data program.  It assumes that host names are of the form: node_name.cluster_name.something.something
-   and the current store_module_data program picks off the second field in the hostname.  If your site names things
-   differently you should modify that routine to match your needs.
+a) If you have more than one cluster and you want to store them in the same database
+   you might want to modify the store_module_data program.  It assumes that host names
+   are of the form: node_name.cluster_name.something.something and the current
+   store_module_data program picks off the second field in the hostname.  If your site
+   names things differently you should modify that routine to match your needs.
 
 
 b) I use a cron job to load the moduleUsage.log-* files.   This is the script I use:
@@ -230,11 +231,12 @@ b) I use a cron job to load the moduleUsage.log-* files.   This is the script I 
      fi
    done
 
-Where <path_to_python> has a python that can also import MySQLdb python module.  Also you'll probably want to change
-~mclay/load_module_usage to where ever you have the store_module_data program and lmod_db.conf files.
+Where <path_to_python> has a python that can also import MySQLdb python module.
+Also you'll probably want to change ~mclay/load_module_usage to where ever you have
+the store_module_data program and lmod_db.conf files.  
 
-I am running this cron job on the "module_usage_tracking" machine at 5am every morning.  This is after the log
-rotation has been done.
+I am running this cron job on the "module_usage_tracking" machine at 5am every morning.
+This is after the log rotation has been done.
 
 
 Step 7:
@@ -260,11 +262,11 @@ into the MySQL data base or you can use the supplied script:  analyseLmodDB
 	  --end ENDDATE           end date
 	  --sqlPattern SQLPATTERN sql pattern for matching
 
-There are three kinds of reports this program will report:
+There are three kinds of reports this program will report.  Only one command at a time.
 
 a) counts:  Report the number of distinct users of a particular module:
 
-    $ analyzeLmodDB --sqlPattern '%fftw%' counts --start '2015-01-01 --end '2015-02-01'
+    $ analyzeLmodDB --sqlPattern '%fftw%' --start '2015-01-01 --end '2015-02-01'  counts
 
         Module path                                         Distinct Users
         -----------                                         --------------
@@ -272,6 +274,10 @@ a) counts:  Report the number of distinct users of a particular module:
         /apps/intel13/mvapich2_1_9/modulefiles/fftw2/2.1.5              62
         /apps/intel13/impi_4_1/modulefiles/fftw3/3.3.2                  45
         /apps/intel13/impi_4_1/modulefiles/fftw2/2.1.5                  19
+
+   To get all modules loaded in a date range do:
+
+     $ analyzeLmodDB --sqlPattern '%' --start '2015-01-01 --end '2015-02-01'  counts
 
 b) usernames:  Report users of a particular pattern:
 
@@ -289,6 +295,19 @@ b) usernames:  Report users of a particular pattern:
 
 c) modules_used_by:  Report the modules used by a particular user:
 
-     $ ./analyzeLmodDB --sqlPattern 'mclay' modules_used_by
+     $ ./analyzeLmodDB --start '2015-01-01 --end '2015-02-01' --sqlPattern 'mclay' modules_used_by
+
+
+
+     Module path                                                            User Name
+     -----------                                                            ---------
+     /opt/apps/gcc4_9/modulefiles/boost/1.55.0.lua                          mclay
+     /opt/apps/gcc4_9/modulefiles/mvapich2/2.1                              mclay
+     /opt/apps/gcc4_9/mvapich2_2_1/modulefiles/phdf5/1.8.16.lua             mclay
+     /opt/apps/gcc4_9/mvapich2_2_1/modulefiles/pmetis/4.0.2.lua             mclay
+     /opt/apps/intel13/modulefiles/boost/1.55.0.lua                         mclay
+     /opt/apps/intel13/modulefiles/mvapich2/1.9a2                           mclay
+
+
 
 Comments? Questions?

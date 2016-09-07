@@ -10,6 +10,7 @@ cleanUp ()
        -e "s|:$PATH_to_LUA:|:|g"                          \
        -e "s|$PATH_to_LUA/lua|lua|g"                      \
        -e "s|\@git\@|$gitV|g"                             \
+       -e "s|:/bin:|:|g"                                  \
        -e "s|:/usr/bin:|:|g"                              \
        -e "s|:/usr/local/bin:|:|g"                        \
        -e "s|:$PATH_to_SHA1:|:|g"                         \
@@ -21,6 +22,8 @@ cleanUp ()
        -e "s|^\(TARG_OS=\).*|\1''|g"                      \
        -e "s|^\(TARG_MACH_DESCRIPT=\).*|\1''|g"           \
        -e "s|$PATH_to_TM|PATH_to_TM|g"                    \
+       -e "s|^LD_PRELOAD at config time.*$||g"            \
+       -e "s|^LD_LIBRARY_PATH at config time.*$||g"       \
        -e "s|unsetenv _ModuleTable..._;||g"               \
        -e "s|unset _ModuleTable..._;||g"                  \
        -e "s|unset _ModuleTable..._;||g"                  \
@@ -71,7 +74,7 @@ runMe ()
 }
 runLmod ()
 {
-   runBase $LUA_EXEC $projectDir/src/lmod.in.lua bash "$@"
+   runBase $LUA_EXEC $projectDir/src/lmod.in.lua bash --regression_testing "$@"
    eval `cat _stdout.$NUM`
 }
 
@@ -179,6 +182,7 @@ initStdEnvVars()
   COUNT=0
   ORIG_HOME=`(cd $HOME; /bin/pwd)`
   HOME=`/bin/pwd`
+  export LMOD_TERM_WIDTH=300
 
   export PATH=$projectDir/src:$PATH_to_LUA:$PATH_to_TM:$PATH_to_SHA1:/usr/bin:/bin
 

@@ -60,6 +60,7 @@ local floor        = math.floor
 local format       = string.format
 local getenv       = os.getenv
 local huge         = math.huge
+local open         = io.open
 
 local rep          = string.rep
 local load         = (_VERSION == "Lua 5.1") and loadstring or load
@@ -194,59 +195,6 @@ function buildMsg(width, ... )
    return concatTbl(a,"")
 end
 
-
---------------------------------------------------------------------------
--- This function builds the "epoch" function.
--- The epoch function returns the number of seconds since
--- Jan 1, 1970, UTC
-function build_epoch()
-   if (posix.gettimeofday) then
-      local x1, x2 = posix.gettimeofday()
-      if (x2 == nil) then
-         epoch_type = "posix.gettimeofday() (1)"
-         epoch = function()
-            local t = posix.gettimeofday()
-            return t.sec + t.usec*1.0e-6
-         end
-      else
-         epoch_type = "posix.gettimeofday() (2)"
-         epoch = function()
-            local t1, t2 = posix.gettimeofday()
-            return t1 + t2*1.0e-6
-         end
-      end
-   else
-      epoch_type = "os.time"
-      epoch = function()
-         return os.time()
-      end
-   end
-end
-
---------------------------------------------------------------------------
--- Create the accept functions to allow or ignore TCL modulefiles.
-function build_accept_functions()
-   local allow_tcl = LMOD_ALLOW_TCL_MFILES:lower()
-
-   if (allow_tcl == "no") then
-      dbg.print{"Ignoring TCL Files\n"}
-      _G.accept_fn = function (fn)
-         return fn:find("%.lua$")
-      end
-      _G.accept_extT = function ()
-         return { '.lua' }
-      end
-
-   else
-      dbg.print{"Accepting TCL Files\n"}
-      _G.accept_fn = function (fn)
-         return true
-      end
-      _G.accept_extT = function ()
-         return { '.lua', '' }
-      end
-   end
-end
 
 --------------------------------------------------------------------------
 -- Convert both argument to lower case and compare.
@@ -384,7 +332,7 @@ function allVersions(pathA, n)
    local fullName  = nil
    local count     = 0
    local a         = {}
-   local n         = n or #pathA
+   n               = n or #pathA
 
    for i = 1, n do
       local vv = pathA[i]
@@ -600,7 +548,7 @@ function readAdmin()
    if (next (adminT)) then return end
 
    local adminFn = findAdminFn()
-   local f       = io.open(adminFn,"r")
+   local f       = open(adminFn,"r")
 
    -- Put something in adminT so that this routine will not be
    -- run again even if the file does not exist.
@@ -619,35 +567,36 @@ function readAdmin()
       local a     = {}
 
       for v in whole:split("\n") do
+         repeat
+            v = v:trim()
 
-         v = v:trim()
+            if (v:sub(1,1) == "#") then
+               -- ignore this comment line
+               break
 
-         if (v:sub(1,1) == "#") then
-            -- ignore this comment line
-
-
-         elseif (v:find("^%s*$")) then
-            if (state == "value") then
-               value       = concatTbl(a, " ")
-               a           = {}
-               adminT[key] = value
-               state       = "init"
-            end
-
-            -- Ignore blank lines
-         elseif (state == "value") then
-            a[#a+1]     = v:trim()
-         else
-            local i     = v:find(":")
-            if (i) then
-               key      = v:sub(1,i-1):trim()
-               local  s = v:sub(i+1):trim()
-               if (s:len() > 0) then
-                  a[#a+1]  = s
+            elseif (v:find("^%s*$")) then
+               if (state == "value") then
+                  value       = concatTbl(a, " ")
+                  a           = {}
+                  adminT[key] = value
+                  state       = "init"
                end
-               state    = "value"
+
+               -- Ignore blank lines
+            elseif (state == "value") then
+               a[#a+1]     = v:trim()
+            else
+               local i     = v:find(":")
+               if (i) then
+                  key      = v:sub(1,i-1):trim()
+                  local  s = v:sub(i+1):trim()
+                  if (s:len() > 0) then
+                     a[#a+1]  = s
+                  end
+                  state    = "value"
+               end
             end
-         end
+         until true
       end
    end
 end
@@ -676,21 +625,24 @@ function readRC()
    declare("scDescriptT", false)
 
    for i = 1,#RCFileA do
-      local f        = RCFileA[i]
-      local fh = io.open(f)
-      if (fh) then
+      repeat
+         local f        = RCFileA[i]
+         local fh = open(f)
+         if (not fh) then break end
+            
          assert(loadfile(f))()
          s_rcFileA[#s_rcFileA+1] = abspath(f)
          fh:close()
-      end
-      local propT       = _G.propT or {}
-      local scDescriptT = _G.scDescriptT   or {}
-      for k,v in pairs(propT) do
-         s_propT[k] = v
-      end
-      for k,v in pairs(scDescriptT) do
-         s_scDescriptT[k] = v
-      end
+
+         local propT       = _G.propT or {}
+         local scDescriptT = _G.scDescriptT   or {}
+         for k,v in pairs(propT) do
+            s_propT[k] = v
+         end
+         for j = 1,#scDescriptT do
+            s_scDescriptT[#s_scDescriptT + 1] = scDescriptT[j]
+         end
+      until true
    end
    dbg.fini("readRC")
 end
@@ -815,13 +767,39 @@ function UUIDString(epoch)
                                    ymd.year, ymd.month, ymd.day,
                                    ymd.hour, ymd.min,   ymd.sec)
 
-   local uuid_str  = capture("uuidgen"):sub(1,-2)
+   local uuidgen = find_exec_path('uuidgen')
+   local uuid_str
+   if uuidgen then
+       uuid_str = capture('uuidgen'):sub(1,-2)
+   else
+      -- if uuidgen is not available, fall back to reading /proc/sys/kernel/random/uuid
+      -- note: only works on Linux
+      local f = open('/proc/sys/kernel/random/uuid', 'r')
+      if f then
+         uuid_str = f:read('*all'):sub(1,-2)
+      else
+         LmodError("uuidgen is not available, fallback failed too")
+      end
+   end
+
    local uuid      = uuid_date .. "-" .. uuid_str
 
    return uuid
 end
+
 modA = false
 
+function runTCLprog(TCLprog, optStr, fn)
+   local a   = {}
+   a[#a + 1] = LMOD_TCLSH
+   a[#a + 1] = pathJoin(cmdDir(),TCLprog)
+   a[#a + 1] = optStr or ""
+   a[#a + 1] = fn
+   local cmd = concatTbl(a," ")
+   local whole, status = capture(cmd)
+   return whole, status
+end
+   
 --------------------------------------------------------------------------
 -- This routine is given the absolute path to a .version
 -- file.  It checks to make sure that it is a valid TCL
@@ -833,7 +811,7 @@ modA = false
 -- @param ignoreErrors If true then ignore errors.
 function versionFile(v, sn, path, ignoreErrors)
    dbg.start{"versionFile(v: ",v,", sn: ",sn,", path: ",path,")"}
-   local f       = io.open(path,"r")
+   local f       = open(path,"r")
    if (not f)                        then
       dbg.print{"could not find: ",path,"\n"}
       dbg.fini("versionFile")
@@ -848,14 +826,19 @@ function versionFile(v, sn, path, ignoreErrors)
    end
    local version = false
    dbg.print{"handle file: ",v, "\n"}
-   local cmd = pathJoin(cmdDir(),"RC2lua.tcl") .. " " .. path
-   local s   = capture(cmd):trim()
-
-   local status, f = pcall(load,s)
-   if (not status or not f) then
+   local whole
+   local status
+   local func
+   whole, status = runTCLprog("RC2lua.tcl", "", path)
+   if (not status) then
       LmodError("Unable to parse: ",path," Aborting!\n")
    end
-   f()
+
+   status, func = pcall(load, whole)
+   if (not status or not func) then
+      LmodError("Unable to parse: ",path," Aborting!\n")
+   end
+   func()
    malias:parseModA(sn, modA)
 
    version = malias:getDefaultT(sn) or version
@@ -921,6 +904,23 @@ function keepFile(fn)
    return result
 end
 
+local function checkValidModulefileReal(fn)
+   local f = open(fn,"r")
+   if (not f) then
+      return false
+   end
+   local line = f:read(20) or ""
+   f:close()
+   return line:find("^#%%Module")
+end
+
+function checkValidModulefileFake(fn)
+   return true
+end
+
+local checkValidModulefile = (LMOD_CHECK_FOR_VALID_MODULE_FILES == "yes")
+                             and checkValidModulefileReal or checkValidModulefileFake
+
 
 --------------------------------------------------------------------------
 -- Walk a single directory for modulefiles and defaults:
@@ -946,9 +946,9 @@ function walk_directory_for_mf(mpath, path, prefix, dirA, mnameT)
    -----------------------------------------------------------------------------
    -- Read every relevant file in a directory.  Copy directory names into dirA.
    -- Copy files into mnameT.
-   local ignoreT   = ignoreFileT()
+   ignoreT   = ignoreFileT()
 
-   local archNameT = {}
+   --local archNameT = {}
    --local archNameT = { ['64'] = true, ['32'] = true, ['x86_64'] = true, ['ia32'] = true, gcc = true,
    --                    ['haswell'] = true, ['ivybridge'] = true, ['sandybridge'] = true, ['ia32'] = true,
    --}
@@ -957,91 +957,61 @@ function walk_directory_for_mf(mpath, path, prefix, dirA, mnameT)
 
 
    for file in lfs.dir(path) do
-      local idx       = defaultFnT[file] or defaultIdx
-      if (idx < defaultIdx) then
-         defaultIdx = idx
-         defaultFn  = pathJoin(path,file)
-      else
-         if (keepFile(file))then
-            local f        = pathJoin(path,file)
-            attr           = lfs.attributes(f)
-            local readable = posix.access(f,"r")
-            local full     = pathJoin(prefix, file):gsub("%.lua","")
+      repeat
+         local idx       = defaultFnT[file] or defaultIdx
+         if (idx < defaultIdx) then
+            defaultIdx = idx
+            defaultFn  = pathJoin(path,file)
+         else
+            if (keepFile(file))then
+               local f        = pathJoin(path,file)
+               attr           = lfs.attributes(f)
+               local readable = posix.access(f,"r")
+               local full     = pathJoin(prefix, file):gsub("%.lua","")
 
-            ------------------------------------------------------------
-            -- Since cache files are build by root but read by users
-            -- make sure that any user can read a file owned by root.
+               ------------------------------------------------------------
+               -- Since cache files are build by root but read by users
+               -- make sure that any user can read a file owned by root.
 
-            if (readable) then
-               local st    = posix.stat(f)
-               if ((not st) or (st.uid == 0 and not st.mode:find("......r.."))) then
-                  readable = false
-               end
-            end
-
-            if (not readable or not attr) then
-               -- do nothing for non-readable or non-existant files
-            elseif (attr.mode == 'file' and file ~= "default" and accept_fn(file) and
-                    full:sub(1,1) ~= '.') then
-               -- Lua modulefiles should always be picked over TCL modulefiles
-               if (not mnameT[full] or not mnameT[full].luaExt) then
-                  local luaExt  = f:find("%.lua$")
-                  local sn      = prefix:gsub("/$","")
-                  local version = file:gsub("%.lua$","")
-                  if (sn == "") then
-                     sn = full
-                     version = false
+               if (readable) then
+                  local st    = posix.stat(f)
+                  if ((not st) or (st.uid == 0 and not st.mode:find("......r.."))) then
+                     readable = false
                   end
-                  mnameT[full] = {fn = f, canonical=f:gsub("%.lua$",""), mpath = mpath,
-                                  luaExt = luaExt, version=version, sn=sn}
                end
-            elseif (attr.mode == "directory" and file:sub(1,1) ~= ".") then
-               -- Remember all directories in local array.  We have to know if
-               -- any are "arch" directories.
-               a[#a + 1] = { fullName = f, mname = full, file=file, path=path}
-            end
-         end
-      end
-   end
 
-   ------------------------------------------------------------
-   -- Check all the directories to see if they are all regular.
-   -- If any are an "arch" directory then the all are.
-
-   local regularDirs = true
-   if (prefix ~= "") then
-      for i = 1,#a do
-         if ( archNameT[a[i].file]) then
-            regularDirs = false
-            break
-         end
-      end
-   end
-
-   if (regularDirs) then
-      for i = 1,#a do
-         dirA[#dirA + 1] = a[i]
-      end
-   else
-      for i = 1,#a do
-         local v    = a[i]
-         local file = v.file
-         local path = v.path
-         local pathEsc = "^" .. path:escape() .. "/"
-      
-         for root, dirA, fileA in dir_walk(pathJoin(path,file)) do
-            for ja = 1, #fileA do
-               local f       = pathJoin(root,fileA[ja])
-               local version = f:gsub(pathEsc,""):gsub("%.lua$","")
-               local full    = pathJoin(prefix,version)
-               if (not mnameT[full] or not mnameT[full].luaExt) then
-                  local luaExt = f:find("%.lua$")
-                  mnameT[full] = {fn = f, canonical = f:gsub("%.lua$",""), mpath = mpath,
-                                  luaExt = luaExt, version=version, sn=prefix}
+               if (not readable or not attr) then
+                  -- do nothing for non-readable or non-existant files
+                  break
+               elseif (attr.mode == 'file' and file ~= "default" and accept_fn(file) and
+                       full:sub(1,1) ~= '.') then
+                  -- Lua modulefiles should always be picked over TCL modulefiles
+                  if (not mnameT[full] or not mnameT[full].luaExt) then
+                     local luaExt  = f:find("%.lua$")
+                     if (luaExt  or checkValidModulefile(f)) then
+                        local sn      = prefix:gsub("/$","")
+                        local version = file:gsub("%.lua$","")
+                        if (sn == "") then
+                           sn = full
+                           version = false
+                        end
+                        mnameT[full] = {fn = f, canonical=f:gsub("%.lua$",""), mpath = mpath,
+                                        luaExt = luaExt, version=version, sn=sn}
+                     end
+                  end
+               elseif (attr.mode == "directory" and file:sub(1,1) ~= ".") then
+                  -- Remember all directories in local array.  We have to know if
+                  -- any are "arch" directories.
+                  a[#a + 1] = { fullName = f, mname = full, file=file, path=path}
                end
             end
          end
-      end
+      until true
+   end
+
+
+   for i = 1,#a do
+      dirA[#dirA + 1] = a[i]
    end
 
    if (dbg.active()) then

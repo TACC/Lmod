@@ -58,13 +58,11 @@ require("parseVersion")
 require("deepcopy")
 require("utils")
 
-_G._DEBUG          = false               -- Required by the new lua posix
 local Var          = require('Var')
 local lfs          = require("lfs")
 local dbg          = require('Dbg'):dbg()
 local ColumnTable  = require('ColumnTable')
 local hook         = require("Hook")
-local posix        = require("posix")
 local deepcopy     = table.deepcopy
 local load         = (_VERSION == "Lua 5.1") and loadstring or load
 
@@ -180,6 +178,9 @@ local function buildAvailT(mpath, path, prefix, availT)
                   defaultFn = f
                elseif (isFile(f .. ".lua")) then
                   defaultFn = f .. ".lua"
+               else
+                  dbg.fini("buildAvailT")
+                  return
                end
             end
          end
@@ -311,14 +312,15 @@ end
 --------------------------------------------------------------------------
 -- Generate a columeTable with a title.
 local function columnList(stream, msg, a)
-   local t = {}
+   local cwidth = masterTbl().rt and LMOD_COLUMN_TABLE_WIDTH or TermWidth()
+   local t      = {}
    sort(a)
    for i = 1, #a do
       local cstr = string.format("%3d) ",i)
       t[#t + 1] = cstr .. tostring(a[i])
    end
    stream:write(msg)
-   local ct = ColumnTable:new{tbl=t}
+   local ct = ColumnTable:new{tbl=t, width=cwidth}
    stream:write(ct:build_tbl(),"\n")
 end
 
@@ -462,7 +464,6 @@ function M._build_locationTbl(self, mpathA, adding, pathEntry)
       return {}, {}
    end
 
-   local hidden       = not masterTbl().show_hidden
    local Pairs        = dbg.active() and pairsByKeys or pairs
    local locationT    = {}
    local availT       = {}
@@ -520,9 +521,9 @@ function M._build_locationTbl(self, mpathA, adding, pathEntry)
          if (total == 0) then
             versionT[0] = v[0].fn
          else
-            for i = 1,total do
-               local version = v[i].version
-               versionT[version] = v[i].fn
+            for j = 1,total do
+               local version = v[j].version
+               versionT[version] = v[j].fn
                if (version:sub(1,1) == ".") then
                   hidden = hidden + 1
                end
@@ -797,11 +798,11 @@ end
 -- @param self An MT object
 -- @param t A table containing the collection filename and the collection name.
 -- @return True or false.
-function M.getMTfromFile(self,t)
-   dbg.start{"mt:getMTfromFile(",t.fn,")"}
-   local f              = io.open(t.fn,"r")
-   local msg            = t.msg
-   local collectionName = t.name
+function M.getMTfromFile(self,tt)
+   dbg.start{"mt:getMTfromFile(",tt.fn,")"}
+   local f              = io.open(tt.fn,"r")
+   local msg            = tt.msg
+   local collectionName = tt.name
    if (not f) then
       LmodErrorExit()
    end
@@ -813,10 +814,10 @@ function M.getMTfromFile(self,t)
    end
    -----------------------------------------------
    -- Initialize MT with file: fn
-   -- Save module name in hash table "t"
+   -- Save module name in hash table "tt"
    -- with Hash Sum as value
 
-   local restoreFn = t.fn
+   local restoreFn = tt.fn
    dbg.print{"s: \"",s,"\"\n"}
    local l_mt      = new(self, s, restoreFn)
    local mpath     = l_mt._MPATH
@@ -1315,18 +1316,13 @@ function M.add(self, t, status)
    dbg.start{"MT:add(t,",status,")"}
    dbg.print{"MT:add:  short: ",t.modName,", full: ",t.modFullName,"\n"}
    dbg.print{"MT:add: fn: ",t.fn,", default: ",t.default,"\n"}
-   local loadOrder
-   if (status == "inactive") then
-      loadOrder = -1
-   end
-   dbg.print{"MT:add: loadOrder: ",loadOrder,"\n"}
    local mT = self.mT
    mT[t.modName] = { fullName  = t.modFullName,
                      short     = t.modName,
                      FN        = t.fn,
                      default   = t.default,
                      status    = status,
-                     loadOrder = loadOrder,
+                     loadOrder = -1,
                      propT     = {},
    }
    if (t.hash and t.hash ~= 0) then

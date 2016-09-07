@@ -45,13 +45,12 @@ require("strict")
 
 require("utils")
 
-Dbg                   = require("Dbg")
 MC_Access             = inheritsFrom(MasterControl)
 MC_Access.my_name     = "MC_Access"
 MC_Access.my_sType    = "load"
 MC_Access.my_tcl_mode = "display"
-concatTbl             = table.concat
 
+local concatTbl       = table.concat
 local A               = ShowResultsA
 local M               = MC_Access
 

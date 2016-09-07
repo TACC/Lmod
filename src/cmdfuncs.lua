@@ -98,7 +98,15 @@ local function findNamedCollections(a,path)
          if (attr and attr.mode == "directory") then
             findNamedCollections(a,f)
          else
-            a[#a+1] = f
+            local idx    = file:find("%.")
+            local accept = (not idx) and (not LMOD_SYSTEM_NAME)
+            if (idx and LMOD_SYSTEM_NAME) then
+               accept    = file:sub(idx+1,-1) == LMOD_SYSTEM_NAME
+               f         = pathJoin(path, file:sub(1,idx-1))
+            end
+            if (accept) then
+               a[#a+1] = f
+            end
          end
       end
    end
@@ -125,6 +133,7 @@ function CollectionLst(collection)
    local mt        = MT:mt()
    local a         = mt:reportContents{fn=path, name=collection}
    local shell     = Master:master().shell
+   local cwidth    = masterTbl.rt and LMOD_COLUMN_TABLE_WIDTH or TermWidth()
    if (masterTbl.terse) then
       for i = 1,#a do
          shell:echo(a[i].."\n")
@@ -140,7 +149,7 @@ function CollectionLst(collection)
       for i = 1,#a do
          b[#b+1] = { "   " .. i .. ")", a[i] }
       end
-      local ct = ColumnTable:new{tbl=b, gap = 0}
+      local ct = ColumnTable:new{tbl=b, gap = 0, width = cwidth}
       shell:echo(ct:build_tbl(),"\n")
    end
    dbg.fini("CollectionLst")
@@ -223,10 +232,11 @@ function List(...)
    dbg.start{"List(...)"}
    local masterTbl = masterTbl()
    local shell     = Master:master().shell
-   local mt = MT:mt()
-   local totalA = mt:list("userName","any")
+   local mt        = MT:mt()
+   local totalA    = mt:list("userName","any")
+   local cwidth    = masterTbl.rt and LMOD_COLUMN_TABLE_WIDTH or TermWidth()
    if (#totalA < 1) then
-      LmodMessage("No modules loaded\n")
+      shell:echo("No modules loaded\n")
       dbg.fini("List")
       return
    end
@@ -292,7 +302,7 @@ function List(...)
       b[#b+1] = "  None found.\n"
    else
       if (#a > 0) then
-         local ct = ColumnTable:new{tbl=a, gap=0, len=length}
+         local ct = ColumnTable:new{tbl=a, gap=0, len=length, width=cwidth}
          b[#b+1] = ct:build_tbl()
          b[#b+1] = "\n"
       end
@@ -330,7 +340,7 @@ function List(...)
       b[#b+1] = "\nInactive Modules"
       b[#b+1] = msg2
       b[#b+1] = "\n"
-      local ct = ColumnTable:new{tbl=a,gap=0}
+      local ct = ColumnTable:new{tbl=a,gap=0, width = cwidth}
       b[#b+1] = ct:build_tbl()
       b[#b+1] = "\n"
    end
@@ -569,6 +579,12 @@ function Restore(collection)
       end
    end
 
+   if (barefilename(myName):find("%.")) then
+      LmodError(" Collection names cannot have a `.' in the name.\n",
+                " Please rename \"", collection,"\"\n")
+   end
+
+
    local masterTbl = masterTbl()
 
    if (collection == "system" ) then
@@ -620,6 +636,12 @@ function Save(...)
    else
       msgTail = ", for system: \"".. sname .. "\""
       sname   = "." .. sname
+   end
+
+   if (barefilename(a):find("%.")) then
+      LmodWarning("It is illegal to have a `.' in a collection name.  Please choose another name: ",a)
+      dbg.fini("Save")
+      return
    end
 
    if (a == "system") then
@@ -675,6 +697,7 @@ function SaveList(...)
    local a         = {}
    local b         = {}
    local shell     = Master:master().shell
+   local cwidth    = masterTbl.rt and LMOD_COLUMN_TABLE_WIDTH or TermWidth()
 
    findNamedCollections(b,path)
    if (masterTbl.terse) then
@@ -700,10 +723,15 @@ function SaveList(...)
       a[#a+1] = cstr .. name
    end
 
-   local b = {}
+   b            = {}
+   local msgHdr = ""
+   if (LMOD_SYSTEM_NAME) then
+      msgHdr = "(For LMOD_SYSTEM_NAME = \""..LMOD_SYSTEM_NAME.."\")"
+   end
+
    if (#a > 0) then
-      b[#b+1]  = "Named collection list:\n"
-      local ct = ColumnTable:new{tbl=a,gap=0}
+      b[#b+1]  = "Named collection list ".. msgHdr..":\n"
+      local ct = ColumnTable:new{tbl=a,gap=0,width=cwidth}
       b[#b+1]  = ct:build_tbl()
       b[#b+1]  = "\n"
       shell:echo(concatTbl(b,""))
@@ -825,8 +853,9 @@ function Swap(...)
    ------------------------------------------------------
    -- Register user loads so that Karl will be happy.
 
-   local mname = mA[1]
-   local sn    = mname:sn()
+
+   mname       = mA[1]
+   sn          = mname:sn()
    local usrN  = (not masterTbl().latest) and b or mt:fullName(sn)
    mt:userLoad(sn,usrN)
    mcp = mcp_old
@@ -889,13 +918,13 @@ function Use(...)
       iarg = iarg + 1
    end
    for _,v in ipairs(a) do
-      v = abspath(v)
-      if (v) then
+      if (isDir(v)) then
          op(MCP, { ModulePath,  v, delim = ":", nodups=true, priority=priority })
          op(MCP, { DfltModPath, v, delim = ":", nodups=true, priority=priority })
       end
    end
-
+   local master    = Master:master()
+   master.reloadAll()
 
    mt:buildBaseMpathA(varTbl[DfltModPath]:expand())
    mt:buildMpathA(varTbl[ModulePath]:expand())

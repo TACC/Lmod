@@ -16,6 +16,7 @@ testdescript = {
      . $(projectDir)/rt/common_funcs.sh
      unsetMT
      initStdEnvVars
+     export LMOD_TERM_WIDTH=150
      MODULEPATH_ROOT=$(projectDir)/mf;  export MODULEPATH_ROOT
      MODULEPATH=$(projectDir)/mf//Core:$(testDir)/mf/Core//
      export MODULEPATH
@@ -62,6 +63,11 @@ testdescript = {
      runLmod avail                    #26
      unset LMOD_LEGACY_VERSION_ORDERING
      runLmod avail                    #27
+     runLmod use $(testDir)/mf/Core6  #28
+     runLmod avail                    #29
+     export LMOD_CHECK_FOR_VALID_MODULE_FILES=yes
+     runLmod avail                    #30
+
 
 
 

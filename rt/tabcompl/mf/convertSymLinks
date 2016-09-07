@@ -4,6 +4,7 @@
 require("strict")
 require("string_utils")
 require("fileOps")
+require("lmod_system_execute")
 _G._DEBUG    = false               -- Required by the new lua posix
 local Dbg    = require("Dbg")
 local lfs    = require("lfs")
@@ -30,7 +31,7 @@ function convertSymlink(path)
             posix.unlink(f)
             local cmd  = "ln -s " .. link .. " " .. f
             print(cmd)
-            os.execute(cmd)
+            lmod_system_execute(cmd)
          end
       end
    end

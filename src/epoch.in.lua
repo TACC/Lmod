@@ -1,19 +1,33 @@
 #!@path_to_lua@/lua
 -- -*- lua -*-
-local LuaCommandName = arg[0]
-local i,j = LuaCommandName:find(".*/")
-local LuaCommandName_dir = "./"
-if (i) then
-   LuaCommandName_dir = LuaCommandName:sub(1,j)
-end
-
 local sys_lua_path = "@sys_lua_path@"
 if (sys_lua_path:sub(1,1) == "@") then
    sys_lua_path = package.path
 end
+
 local sys_lua_cpath = "@sys_lua_cpath@"
 if (sys_lua_cpath:sub(1,1) == "@") then
    sys_lua_cpath = package.cpath
+end
+
+package.path   = sys_lua_path
+package.cpath  = sys_lua_cpath
+
+local arg_0    = arg[0]
+local posix    = require("posix")
+local readlink = posix.readlink
+local stat     = posix.stat
+
+local st       = stat(arg_0)
+while (st.type == "link") do
+   arg_0 = readlink(arg_0)
+   st    = stat(arg_0)
+end
+
+local i,j = arg_0:find(".*/")
+local LuaCommandName_dir = "./"
+if (i) then
+   LuaCommandName_dir = arg_0:sub(1,j)
 end
 
 package.path  = LuaCommandName_dir .. "../tools/?.lua;"  ..
@@ -25,7 +39,6 @@ package.cpath = sys_lua_cpath
 require("strict")
 local epoch = false
 _G._DEBUG   = false               -- Required by the new lua posix
-local posix = require("posix")
 
 ---------------------------------------------------------------------
 -- Build the Epoch function.  This function returns the *epoch*

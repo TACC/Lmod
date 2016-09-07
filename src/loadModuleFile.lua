@@ -44,9 +44,11 @@ require("strict")
 require("fileOps")
 require("sandbox")
 require("string_utils")
+require("utils")
 require("myGlobals")
 local dbg          = require("Dbg"):dbg()
 local concatTbl    = table.concat
+local getenv       = os.getenv
 ------------------------------------------------------------------------
 -- loadModuleFile(t): read a modulefile in via sandbox_run
 -- @param t The input table naming the file to be loaded plus other
@@ -61,9 +63,6 @@ function loadModuleFile(t)
    local func
    local msg
    local whole
-   local status
-
-
 
    -- If the user is requesting an unload, don't complain if the file
    -- has disappeared.
@@ -99,15 +98,25 @@ function loadModuleFile(t)
       A[#A + 1]    = usrName
       A[#A + 1]    = "-s"
       A[#A + 1]    = t.shell
+
+      local ldlib  = getenv("LD_LIBRARY_PATH")
+
+      if (ldlib) then
+         A[#A + 1]    = "-L"
+         A[#A + 1]    = "\"" .. ldlib .. "\""
+      end
+
+      local ld_preload = getenv("LD_PRELOAD")
+
+      if (ld_preload) then
+         A[#A + 1]    = "-P"
+         A[#A + 1]    = "\"" .. ld_preload .. "\""
+      end
+      
       if (t.help) then
          A[#A + 1] = "-h"
       end
-      local a      = {}
-      a[#a + 1]	   = pathJoin(cmdDir(),"tcl2lua.tcl")
-      a[#a + 1]	   = concatTbl(A," ")
-      a[#a + 1]	   = t.file
-      local cmd    = concatTbl(a," ")
-      whole,status = capture(cmd)
+      whole, status = runTCLprog("tcl2lua.tcl",concatTbl(A," "), t.file)
       if (not status) then
          local n = usrName or ""
          msg     = "Non-zero status returned"

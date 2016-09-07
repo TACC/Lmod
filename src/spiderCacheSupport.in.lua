@@ -39,33 +39,46 @@
 --
 --------------------------------------------------------------------------
 
-
-
-local cmd = arg[0]
-
-local i,j = cmd:find(".*/")
-local cmd_dir = "./"
-if (i) then
-   cmd_dir = cmd:sub(1,j)
-end
-function cmdDir()
-   return cmd_dir
-end
-
 local sys_lua_path = "@sys_lua_path@"
 if (sys_lua_path:sub(1,1) == "@") then
    sys_lua_path = package.path
 end
+
 local sys_lua_cpath = "@sys_lua_cpath@"
 if (sys_lua_cpath:sub(1,1) == "@") then
    sys_lua_cpath = package.cpath
 end
+
+package.path   = sys_lua_path
+package.cpath  = sys_lua_cpath
+
+local arg_0    = arg[0]
+local posix    = require("posix")
+local readlink = posix.readlink
+local stat     = posix.stat
+
+local st       = stat(arg_0)
+while (st.type == "link") do
+   arg_0 = readlink(arg_0)
+   st    = stat(arg_0)
+end
+
+local ia,ja = arg_0:find(".*/")
+local cmd_dir = "./"
+if (ia) then
+   cmd_dir = arg_0:sub(1,ja)
+end
+
 
 package.path  = cmd_dir .. "../tools/?.lua;" ..
                 cmd_dir .. "?.lua;"          ..
                 sys_lua_path
 package.cpath = sys_lua_cpath
 
+
+function cmdDir()
+   return cmd_dir
+end
 
 local Optiks = require("Optiks")
 local lfs    = require("lfs")
@@ -74,7 +87,6 @@ require("utils")
 require("fileOps")
 require("string_utils")
 require("serializeTbl")
-
 
 function main()
 

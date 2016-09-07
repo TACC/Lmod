@@ -39,21 +39,34 @@
 --
 --------------------------------------------------------------------------
 
-local cmd = arg[0]
-
-local i,j = cmd:find(".*/")
-local cmd_dir = "./"
-if (i) then
-   cmd_dir = cmd:sub(1,j)
-end
-
 local sys_lua_path = "@sys_lua_path@"
 if (sys_lua_path:sub(1,1) == "@") then
    sys_lua_path = package.path
 end
+
 local sys_lua_cpath = "@sys_lua_cpath@"
 if (sys_lua_cpath:sub(1,1) == "@") then
    sys_lua_cpath = package.cpath
+end
+
+package.path   = sys_lua_path
+package.cpath  = sys_lua_cpath
+
+local arg_0    = arg[0]
+local posix    = require("posix")
+local readlink = posix.readlink
+local stat     = posix.stat
+
+local st       = stat(arg_0)
+while (st.type == "link") do
+   arg_0 = readlink(arg_0)
+   st    = stat(arg_0)
+end
+
+local ia,ja = arg_0:find(".*/")
+local cmd_dir = "./"
+if (ia) then
+   cmd_dir = arg_0:sub(1,ja)
 end
 
 package.path =  cmd_dir .. "../tools/?.lua;"  ..
@@ -103,11 +116,11 @@ function pairsByValueKey(t)
    for k,v in pairs(t) do
       a[#a + 1] = { name = k, value = v }
    end
-   table.sort(a, function(a,b)
-                    if (a.value == b.value) then
-                       return a.name  < b.name
+   table.sort(a, function(x,y)
+                    if (x.value == y.value) then
+                       return x.name  < y.name
                     else
-                       return a.value > b.value
+                       return x.value > y.value
                     end
                  end
            )
@@ -192,8 +205,8 @@ function main()
             if (blacklistT[user] == nil and
                 dateRange[1] <= date and date <= dateRange[2]) then
                for i = 3, #a do
-                  module = a[i]:gsub("^.*:","")
-                  local  v = moduleD[module]
+                  local module = a[i]:gsub("^.*:","")
+                  local v      = moduleD[module]
                   if (v) then
                      moduleD[module] = v + 1
                   end

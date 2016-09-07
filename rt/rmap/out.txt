@@ -1,6 +1,6 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --version
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
 ===========================
 step 2
@@ -10,7 +10,7 @@ timestampFn = {
   false,
 }
 reverseMapT = {
-  ["ProjectDIR/rt/rmap/apps/intel-13_1/impi/4.1/bin"] = {
+  ["ProjectDIR/rt/rmap/apps/intel-13_1/impi/4.1/bin"]  = {
     flavor = {
       "default:intel/13.1",
     },
@@ -18,7 +18,7 @@ reverseMapT = {
     ["moduleFn"] = "ProjectDIR/rt/rmap/mf/Compiler/intel/13.1/impi/4.1.lua",
     ["pkg"] = "impi/4.1",
   },
-  ["ProjectDIR/rt/rmap/apps/intel-13_1/impi/4.1/lib"] = {
+  ["ProjectDIR/rt/rmap/apps/intel-13_1/impi/4.1/lib"]  = {
     flavor = {
       "default:intel/13.1",
     },
@@ -26,7 +26,7 @@ reverseMapT = {
     ["moduleFn"] = "ProjectDIR/rt/rmap/mf/Compiler/intel/13.1/impi/4.1.lua",
     ["pkg"] = "impi/4.1",
   },
-  ["ProjectDIR/rt/rmap/apps/intel/13.1/bin"] = {
+  ["ProjectDIR/rt/rmap/apps/intel/13.1/bin"]  = {
     flavor = {
       "default",
     },
@@ -34,7 +34,7 @@ reverseMapT = {
     ["moduleFn"] = "ProjectDIR/rt/rmap/mf/Core/intel/13.1.lua",
     ["pkg"] = "intel/13.1",
   },
-  ["ProjectDIR/rt/rmap/apps/intel/13.1/lib"] = {
+  ["ProjectDIR/rt/rmap/apps/intel/13.1/lib"]  = {
     flavor = {
       "default",
     },
@@ -42,7 +42,7 @@ reverseMapT = {
     ["moduleFn"] = "ProjectDIR/rt/rmap/mf/Core/intel/13.1.lua",
     ["pkg"] = "intel/13.1",
   },
-  ["ProjectDIR/rt/rmap/apps/intel/14.0.1/bin"] = {
+  ["ProjectDIR/rt/rmap/apps/intel/14.0.1/bin"]  = {
     flavor = {
       "default",
     },
@@ -50,7 +50,7 @@ reverseMapT = {
     ["moduleFn"] = "ProjectDIR/rt/rmap/mf/Core/intel/14.0.1.lua",
     ["pkg"] = "intel/14.0.1",
   },
-  ["ProjectDIR/rt/rmap/apps/intel/14.0.1/lib"] = {
+  ["ProjectDIR/rt/rmap/apps/intel/14.0.1/lib"]  = {
     flavor = {
       "default",
     },
@@ -59,11 +59,10 @@ reverseMapT = {
     ["pkg"] = "intel/14.0.1",
   },
 }
-xlibmap = {
-  }
+xlibmap = {}
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash spider
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/rmap/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;

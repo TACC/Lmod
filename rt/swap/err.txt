@@ -1,16 +1,16 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --version
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 6.0.30  2016-02-05 12:55
+Modules based on Lua: Version 6.4.3  2016-06-17 09:58
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash load admin PrgEnv openmpi parmetis
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load admin PrgEnv openmpi parmetis
 ===========================
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash avail
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
 ProjectDIR/mf/MPI/intel/10.1/openmpi/1.2.6
    parmetis/3.1 (m,L,D)    petsc/3.2    phdf5/1.8.2    phdf5/1.8.10 (D)
@@ -32,11 +32,10 @@ ProjectDIR/mf/Core
    m:  built for host and native MIC
    o:  built for offload to the MIC only
 Use "module spider" to find all possible modules.
-Use "module keyword key1 key2 ..." to search for all possible modules matching
-any of the "keys".
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 4
-lua ProjectDIR/src/lmod.in.lua bash unload intel
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload intel
 ===========================
 Inactive Modules:
   1) openmpi
@@ -44,7 +43,7 @@ Due to MODULEPATH changes the following have been reloaded:
   1) parmetis/3.1
 ===========================
 step 5
-lua ProjectDIR/src/lmod.in.lua bash list
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) admin/admin-1.0   3) local/local   5) PrgEnv
@@ -55,7 +54,7 @@ Inactive Modules:
   1) openmpi
 ===========================
 step 6
-lua ProjectDIR/src/lmod.in.lua bash load gcc
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load gcc
 ===========================
 Activating Modules:
   1) openmpi/1.2.6
@@ -63,7 +62,7 @@ Due to MODULEPATH changes the following have been reloaded:
   1) parmetis/3.1
 ===========================
 step 7
-lua ProjectDIR/src/lmod.in.lua bash list
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) admin/admin-1.0   3) local/local   5) PrgEnv      7) openmpi/1.2.6
@@ -72,17 +71,17 @@ Currently Loaded Modules:
    m:  built for host and native MIC
 ===========================
 step 8
-lua ProjectDIR/src/lmod.in.lua bash swap gcc intel
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing swap gcc intel
 ===========================
 Due to MODULEPATH changes the following have been reloaded:
   1) openmpi/1.2.6  2) parmetis/3.1
 ===========================
 step 9
-lua ProjectDIR/src/lmod.in.lua bash load phdf5/1.8.2 petsc
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load phdf5/1.8.2 petsc
 ===========================
 ===========================
 step 10
-lua ProjectDIR/src/lmod.in.lua bash list
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) admin/admin-1.0   4) noweb/2.10c   7) openmpi/1.2.6      10) petsc/3.2
@@ -92,7 +91,7 @@ Currently Loaded Modules:
    m:  built for host and native MIC
 ===========================
 step 11
-lua ProjectDIR/src/lmod.in.lua bash swap openmpi mpich2
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing swap openmpi mpich2
 ===========================
 Due to MODULEPATH changes the following have been reloaded:
   1) phdf5/1.8.2
@@ -100,7 +99,7 @@ The following have been reloaded with a version change:
   1) parmetis/3.1 => parmetis/4.0.1  2) petsc/3.2 => petsc/3.1
 ===========================
 step 12
-lua ProjectDIR/src/lmod.in.lua bash list
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) admin/admin-1.0   5) PrgEnv         9) phdf5/1.8.2
@@ -111,7 +110,7 @@ Currently Loaded Modules:
    m:  built for host and native MIC
 ===========================
 step 13
-lua ProjectDIR/src/lmod.in.lua bash swap mpich2 openmpi
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing swap mpich2 openmpi
 ===========================
 Due to MODULEPATH changes the following have been reloaded:
   1) phdf5/1.8.2
@@ -119,7 +118,7 @@ The following have been reloaded with a version change:
   1) parmetis/4.0.1 => parmetis/3.1  2) petsc/3.1 => petsc/3.2
 ===========================
 step 14
-lua ProjectDIR/src/lmod.in.lua bash list
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) admin/admin-1.0   4) noweb/2.10c   7) openmpi/1.2.6  10) parmetis/3.1 (m)
@@ -129,13 +128,13 @@ Currently Loaded Modules:
    m:  built for host and native MIC
 ===========================
 step 15
-lua ProjectDIR/src/lmod.in.lua bash load phdf5
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load phdf5
 ===========================
 The following have been reloaded with a version change:
   1) phdf5/1.8.2 => phdf5/1.8.10
 ===========================
 step 16
-lua ProjectDIR/src/lmod.in.lua bash list
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) admin/admin-1.0   4) noweb/2.10c   7) openmpi/1.2.6      10) phdf5/1.8.10
@@ -145,14 +144,14 @@ Currently Loaded Modules:
    m:  built for host and native MIC
 ===========================
 step 17
-lua ProjectDIR/src/lmod.in.lua bash swap openmpi mpich2
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing swap openmpi mpich2
 ===========================
 The following have been reloaded with a version change:
   1) parmetis/3.1 => parmetis/4.0.1  3) phdf5/1.8.10 => phdf5/1.8.9
   2) petsc/3.2 => petsc/3.1
 ===========================
 step 18
-lua ProjectDIR/src/lmod.in.lua bash list
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) admin/admin-1.0   5) PrgEnv         9) phdf5/1.8.9
@@ -163,7 +162,7 @@ Currently Loaded Modules:
    m:  built for host and native MIC
 ===========================
 step 19
-lua ProjectDIR/src/lmod.in.lua bash unload mpich2
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload mpich2
 ===========================
 Inactive Modules:
   1) petsc  2) phdf5
@@ -171,7 +170,7 @@ The following have been reloaded with a version change:
   1) parmetis/4.0.1 => parmetis/3.1
 ===========================
 step 20
-lua ProjectDIR/src/lmod.in.lua bash list
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) admin/admin-1.0   3) local/local   5) PrgEnv        7) parmetis/3.1 (m)
@@ -182,7 +181,7 @@ Inactive Modules:
   1) petsc   2) phdf5
 ===========================
 step 21
-lua ProjectDIR/src/lmod.in.lua bash load mpich2
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load mpich2
 ===========================
 Activating Modules:
   1) petsc/3.1  2) phdf5/1.8.9
@@ -190,7 +189,7 @@ The following have been reloaded with a version change:
   1) parmetis/3.1 => parmetis/4.0.1
 ===========================
 step 22
-lua ProjectDIR/src/lmod.in.lua bash load openmpi
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load openmpi
 ===========================
 Lmod is automatically replacing "mpich2/1.0.7" with "openmpi/1.2.6"
 The following have been reloaded with a version change:
@@ -198,7 +197,7 @@ The following have been reloaded with a version change:
   2) petsc/3.1 => petsc/3.2
 ===========================
 step 23
-lua ProjectDIR/src/lmod.in.lua bash load gcc
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load gcc
 ===========================
 Lmod is automatically replacing "intel/intel" with "gcc/4.2.3"
 Inactive Modules:
@@ -207,7 +206,7 @@ Due to MODULEPATH changes the following have been reloaded:
   1) openmpi/1.2.6  2) parmetis/3.1
 ===========================
 step 24
-lua ProjectDIR/src/lmod.in.lua bash load intel mpich2
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load intel mpich2
 ===========================
 Lmod is automatically replacing "gcc/4.2.3" with "intel/intel"
 Lmod is automatically replacing "openmpi/1.2.6" with "mpich2/1.0.7"
@@ -217,7 +216,7 @@ The following have been reloaded with a version change:
   1) parmetis/3.1 => parmetis/4.0.1
 ===========================
 step 25
-lua ProjectDIR/src/lmod.in.lua bash load gcc openmpi
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load gcc openmpi
 ===========================
 Lmod is automatically replacing "intel/intel" with "gcc/4.2.3"
 Inactive Modules:
@@ -226,7 +225,7 @@ The following have been reloaded with a version change:
   1) parmetis/4.0.1 => parmetis/3.1
 ===========================
 step 26
-lua ProjectDIR/src/lmod.in.lua bash load intel gcc
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load intel gcc
 ===========================
 Lmod is automatically replacing "gcc/4.2.3" with "intel/intel"
 Lmod is automatically replacing "mpich2/1.0.7" with "openmpi/1.2.6"
@@ -235,27 +234,26 @@ Lmod is automatically replacing "mpich2/1.0.7" with "openmpi/1.2.6"
 Lmod is automatically replacing "intel/intel" with "gcc/4.2.3"
 ===========================
 step 27
-lua ProjectDIR/src/lmod.in.lua bash purge
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
 ===========================
 ===========================
 step 28
-lua ProjectDIR/src/lmod.in.lua bash load gcc
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load gcc
 ===========================
 ===========================
 step 29
-lua ProjectDIR/src/lmod.in.lua bash load intel gcc
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load intel gcc
 ===========================
 Lmod is automatically replacing "gcc/4.2.3" with "intel/intel"
 Lmod is automatically replacing "intel/intel" with "gcc/4.2.3"
 ===========================
 step 30
-lua ProjectDIR/src/lmod.in.lua bash swap gcc
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing swap gcc
 ===========================
 ===========================
 step 31
-lua ProjectDIR/src/lmod.in.lua bash load intel unknown
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load intel unknown
 ===========================
 Lmod is automatically replacing "gcc/4.2.3" with "intel/intel"
-Lmod has detected the following error: The following module(s) are unknown:
-"unknown"
+Lmod has detected the following error: The following module(s) are unknown: "unknown"
 Please check the spelling or version number. Also try "module spider ..."

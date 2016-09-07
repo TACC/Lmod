@@ -35,6 +35,7 @@ local function argsPack(...)
    return arg
 end
 local pack        = (_VERSION == "Lua 5.1") and argsPack or table.pack
+local ProgName    = ""
 
 --------------------------------------------------------------------------
 -- Error routine for when option parsing fails
@@ -61,7 +62,6 @@ local BeautifulTbl = require("BeautifulTbl")
 local Error        = Optiks_Error
 local Exit         = Optiks_Exit
 local Option       = require("Optiks_Option")
-local ProgName     = ""
 local arg          = arg
 local concatTbl    = table.concat
 local io           = io
@@ -69,7 +69,6 @@ local ipairs       = ipairs
 local os           = os
 local pairs        = pairs
 local print        = print
-local require      = require
 local require      = require
 local setmetatable = setmetatable
 local systemG      = _G
@@ -85,8 +84,6 @@ end
 
 local function PrtEnd()
 end
-
-icnt = 0
 
 --------------------------------------------------------------------------
 -- Ctor for option parsing class.

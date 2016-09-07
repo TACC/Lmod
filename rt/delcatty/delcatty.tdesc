@@ -25,6 +25,7 @@ testdescript = {
      COUNT=0
      ORIG_HOME=`(cd $HOME; /bin/pwd)`
      HOME=`/bin/pwd`
+     export LMOD_TERM_WIDTH=500
 
 
      rm -fr _stderr.* _stdout.* err.* out.* .lmod.d

@@ -35,6 +35,7 @@ require("strict")
 require("serializeTbl")
 require("myGlobals")
 require("string_utils")
+require("lmod_system_execute")
 local Dbg    = require("Dbg")
 local dbg    = Dbg:dbg()
 PkgBase      = require("PkgBase")
@@ -159,9 +160,19 @@ local function report_loads()
    local a = s_msgA
    for i = 1,#a do
       local msg = a[i]
-      os.execute("logger -t ModuleUsageTracking -p local0.info " .. msg)
+      lmod_system_execute("logger -t ModuleUsageTracking -p local0.info " .. msg)
    end
 end
+
+local orig_tonumber = tonumber
+
+function safe_tonumber(a,b)
+   if (type(b) == "number") then
+      return orig_tonumber(a,b)
+   end
+   return orig_tonumber(a,10)
+end
+
 
 
 ExitHookA.register(report_loads)
@@ -172,4 +183,6 @@ hook.register("load",           load_hook)
 hook.register("parse_updateFn", parse_updateFn_hook)
 hook.register("writeCache",     writeCache_hook)
 
-sandbox_registration { Pkg = Pkg }
+sandbox_registration { Pkg      = Pkg,
+                       tonumber = safe_tonumber,
+                     }

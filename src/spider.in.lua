@@ -39,19 +39,34 @@
 --
 --------------------------------------------------------------------------
 
-local LuaCommandName = arg[0]
-local i,j = LuaCommandName:find(".*/")
-local LuaCommandName_dir = "./"
-if (i) then
-   LuaCommandName_dir = LuaCommandName:sub(1,j)
-end
 local sys_lua_path = "@sys_lua_path@"
 if (sys_lua_path:sub(1,1) == "@") then
    sys_lua_path = package.path
 end
+
 local sys_lua_cpath = "@sys_lua_cpath@"
 if (sys_lua_cpath:sub(1,1) == "@") then
    sys_lua_cpath = package.cpath
+end
+
+package.path   = sys_lua_path
+package.cpath  = sys_lua_cpath
+
+local arg_0    = arg[0]
+local posix    = require("posix")
+local readlink = posix.readlink
+local stat     = posix.stat
+
+local st       = stat(arg_0)
+while (st.type == "link") do
+   arg_0 = readlink(arg_0)
+   st    = stat(arg_0)
+end
+
+local ia,ja = arg_0:find(".*/")
+local LuaCommandName_dir = "./"
+if (ia) then
+   LuaCommandName_dir = arg_0:sub(1,ja)
 end
 
 package.path  = LuaCommandName_dir .. "../tools/?.lua;"  ..
@@ -65,6 +80,10 @@ function cmdDir()
 end
 
 require("strict")
+
+local BuildFactory = require("BuildFactory")
+BuildFactory:master()
+
 require("myGlobals")
 require("utils")
 require("colorize")
@@ -86,7 +105,6 @@ local dbg           = require("Dbg"):dbg()
 local Optiks        = require("Optiks")
 local Spider        = require("Spider")
 local concatTbl     = table.concat
-local posix         = require("posix")
 local sort          = table.sort
 
 
@@ -370,8 +388,6 @@ function main()
    mcp = MasterControl.build("spider")
 
    readRC()
-   build_epoch()            -- build the epoch function
-   build_accept_functions() -- functions to accept or ignore TCL mfiles
    local cache = Cache:cache{dontWrite = true, quiet = true, buildCache = true}
 
    ------------------------------------------------------------------------
@@ -577,6 +593,7 @@ function options()
    Use_Preload = masterTbl.preload
 end
 
+xml = false
 function xmlSoftwarePage(dbT)
    require("LuaXml")  -- This defines xml
 
@@ -646,7 +663,7 @@ function findLatestV(a)
       aa[i] = { concatTbl(b,":"), entry}
    end
 
-   table.sort(aa, function(a,b) return a[1] > b[1] end)
+   table.sort(aa, function(x,y) return x[1] > y[1] end)
 
    local result = aa[1][2]
    if (result ~= "default") then
@@ -662,6 +679,7 @@ function localSoftware(xml, name, t)
 
    local root = xml.new("LocalSoftware")
 
+   local Name
    local value  = "unknown"
    local domain = "unknown"
    local category = t.Category or ""
@@ -687,18 +705,18 @@ function localSoftware(xml, name, t)
       value = "application"
    end
 
-   local Name = xml.new("Type")
-   Name[1]    = value
+   Name    = xml.new("Type")
+   Name[1] = value
    root:append(Name)
    dbg.print{"Type: ",value,"\n"}
 
-   local Name = xml.new("Domain")
-   Name[1]    = domain
+   Name    = xml.new("Domain")
+   Name[1] = domain
    root:append(Name)
    dbg.print{"domain: ",domain,"\n"}
 
-   local Name = xml.new("Name")
-   Name[1]    = name
+   Name    = xml.new("Name")
+   Name[1] = name
    root:append(Name)
    dbg.print{"name: ",name,"\n"}
 

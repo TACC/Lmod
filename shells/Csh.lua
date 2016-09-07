@@ -85,7 +85,7 @@ function Csh.expandVar(self, k, v, vType)
    local middle      = ' '
    v                 = tostring(v)
    v                 = v:gsub("!","\\!")
-   v                 = v:doubleQuoteString()
+   v                 = v:multiEscaped()
    if (vType == "local_var") then
       lineA[#lineA + 1] = "set "
       middle            = "="

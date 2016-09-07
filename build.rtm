@@ -59,7 +59,7 @@ SYSHOST=${myhost#*.}
 SUDO=""
 
 cat > /tmp/stampede.build.$$ <<EOF
-$HOME/a/moduleData/cacheDir: $HOME/a/moduleData/losf_last_update
+/tmp/moduleData/cacheDir:/tmp/losf_last_update
 EOF
 
 cat > /tmp/ls4.build.$$ <<EOF
@@ -93,17 +93,21 @@ case $SYSHOST in
     UPDATE_FN=$ADMIN_DIR/system.txt
 
     if [ $SYSHOST == "stampede" ]; then
-      base="$base/$(uname -m)"
+       if [ -x $HOME/.up/bin/arch.py ]; then
+	   base="$base/$($HOME/.up/bin/arch.py)"
+       else
+	   base="$base/$(uname -m)"
+       fi
     fi
     EXTRA="--with-spiderCacheDescript=/tmp/$SYSHOST.build.$$"
     SITE_PKG="contrib/TACC/*.lua"
     ;;
 
   gligar.os)
-    ADMIN_DIR=/apps/gent/SL6/sandybridge/.lmod/cache/
+    ADMIN_DIR=/apps/gent/lmodcache/
     UPDATE_FN=$ADMIN_DIR/timestamp
     CACHEDIRS=$ADMIN_DIR
-    EXTRA="--with-spiderCacheDir=$CACHEDIRS  --with-updateSystemFn=$UPDATE_FN "
+    EXTRA="--with-spiderCacheDir=$CACHEDIRS  --with-updateSystemFn=$UPDATE_FN --with-cachedLoads=yes"
     base="$HOME/l/pkg";;
 
   *)

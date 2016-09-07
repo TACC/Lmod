@@ -1,23 +1,23 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --version
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
 Modules based on Lua: Version 5.9.1.1  2015-03-17 21:53
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash use -a ProjectDIR/mf/Core
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing use -a ProjectDIR/mf/Core
 ===========================
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash load gcc
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load gcc
 ===========================
 There are messages associated with the following module(s):
 gcc/4.2.3:
    This is old and you should not be using it.
 ===========================
 step 4
-lua ProjectDIR/src/lmod.in.lua bash load git/1.7.4.3
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load git/1.7.4.3
 ===========================
 There are messages associated with the following module(s):
 git/1.7.4.3:

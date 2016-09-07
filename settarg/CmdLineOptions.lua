@@ -37,7 +37,6 @@ require("fileOps")
 local dbg          = require("Dbg"):dbg()
 local arg          = arg
 local format       = string.format
-local masterTbl    = masterTbl
 local next         = next
 local pairs        = pairs
 local require      = require
@@ -143,6 +142,12 @@ function  M.options(self)
    cmdlineParser:add_option{
       name   = {'--no_cpu_model'},
       dest   = 'noCpuModel',
+      action = 'store_true',
+   }
+
+   cmdlineParser:add_option{
+      name   = {'--no_grouping'},
+      dest   = 'noGrouping',
       action = 'store_true',
    }
 

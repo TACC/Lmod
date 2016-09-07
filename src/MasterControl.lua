@@ -24,6 +24,20 @@
 --    3. The unload MCP objects maps this to MasterControl:unsetenv
 --    4. The users' environment variable is unset.
 --
+--  As a convention: MCP is always for loads while the purpose of mcp is
+--  dynamic.
+--
+--  The rational behind this design is to support all the ways a modulefile can
+--  be evaluated. 
+--
+--  In a module file, the change to the environment upon loading are specified:
+--  set a variable, prepend something to a variable, etc. When you 'unload' the
+--  module, these changes need to get reversed. So depending on the 'mode' (load,
+--  unloading, ...), 'setenv' will have a different meaning. Instead of using 'if'
+--  statements, the current design allows in an elegant way to the define the
+--  different 'setenv' commands. There are at least 8 modes and they can be 
+--  found in the function 'M.build' below.
+--
 -- @classmod MasterControl
 
 require("strict")
@@ -83,6 +97,7 @@ local concatTbl    = table.concat
 local decode64     = base64.decode64
 local encode64     = base64.encode64
 local getenv       = os.getenv
+local hook         = require("Hook")
 local remove       = table.remove
 local pack         = (_VERSION == "Lua 5.1") and argsPack or table.pack
 local Exit         = os.exit
@@ -203,28 +218,33 @@ end
 -- @param name the name of the derived object.
 -- @param[opt] mode An optional mode for building the *access* object.
 -- @return A derived MasterControl Object.
+local s_nameTbl     = false
 function M.build(name,mode)
 
-   local nameTbl          = {}
-   local MCLoad           = require('MC_Load')
-   local MCUnload         = require('MC_Unload')
-   local MCMgrLoad        = require('MC_MgrLoad')
-   local MCRefresh        = require('MC_Refresh')
-   local MCShow           = require('MC_Show')
-   local MCAccess         = require('MC_Access')
-   local MCSpider         = require('MC_Spider')
-   local MCComputeHash    = require('MC_ComputeHash')
-   nameTbl["load"]        = MCLoad
-   nameTbl["mgrload"]     = MCMgrLoad
-   nameTbl["unload"]      = MCUnload
-   nameTbl["refresh"]     = MCRefresh
-   nameTbl["show"]        = MCShow
-   nameTbl["access"]      = MCAccess
-   nameTbl["spider"]      = MCSpider
-   nameTbl["computeHash"] = MCComputeHash
-   nameTbl.default        = MCLoad
+   if (not s_nameTbl) then
+      local MCLoad        = require('MC_Load')
+      local MCUnload      = require('MC_Unload')
+      local MCMgrLoad     = require('MC_MgrLoad')
+      local MCRefresh     = require('MC_Refresh')
+      local MCShow        = require('MC_Show')
+      local MCAccess      = require('MC_Access')
+      local MCSpider      = require('MC_Spider')
+      local MCComputeHash = require('MC_ComputeHash')
+      s_nameTbl = {
+         ["load"]        = MCLoad,        -- Normal loading of modules
+         ["mgrload"]     = MCMgrLoad,     -- for collections (loads in modules are ignored)
+         ["unload"]      = MCUnload,      -- Unload modules
+         ["refresh"]     = MCRefresh,     -- for subshells, sets the aliases again
+         ["computeHash"] = MCComputeHash, -- Generate a hash value for the contents of the module
+         ["refresh"]     = MCRefresh,     -- for subshells, sets the aliases again
+         ["show"]        = MCShow,        -- show the module function instead.
+         ["access"]      = MCAccess,      -- for whatis, help
+         ["spider"]      = MCSpider,      -- Process module files for spider operations
+      }
+      s_nameTbl.default        = MCLoad
+   end
 
-   local o                = valid_name(nameTbl, name):create()
+   local o                = valid_name(s_nameTbl, name):create()
    o:_setMode(mode or name)
 
 
@@ -268,6 +288,7 @@ function M.load(self, mA)
    end
 
    dbg.fini("MasterControl:load")
+      
    return a
 end
 
@@ -601,9 +622,6 @@ function M.popenv(self, name, value)
    dbg.start{"MasterControl:popenv(\"",name,"\", \"",value,"\")"}
 
    local stackName = "__LMOD_STACK_" .. name
-
-   local v = nil
-
    if (varTbl[stackName] == nil) then
       varTbl[stackName] = Var:new(stackName)
    end
@@ -762,15 +780,22 @@ end
 function LmodSystemError(...)
    local label  = colorize("red", "Lmod has detected the following error: ")
    local twidth = TermWidth()
-   local s      = buildMsg(twidth, label, ...)
-   io.stderr:write(s,"\n")
-   
-   s = concatTbl(stackTraceBackA,"")
-   if (s:len() > 0) then
-      io.stderr:write(s,"\n")
+   local s      = {}
+   s[#s+1] = buildMsg(twidth, label, ...)
+   s[#s+1] = "\n"
+
+   local a = concatTbl(stackTraceBackA,"")
+   if (a:len() > 0) then
+       s[#s+1] = a
+       s[#s+1] = "\n"
    end
 
-   s = moduleStackTraceBack()
+   s[#s+1] = moduleStackTraceBack()
+   s[#s+1] = "\n"
+
+   s = hook.apply("msgHook","lmoderror",s)
+   s = concatTbl(s,"")
+
    io.stderr:write(s,"\n")
    LmodErrorExit()
 end
@@ -790,9 +815,16 @@ function M.warning(self, ...)
    if (not quiet() and  haveWarnings()) then
       local label  = colorize("red", "Lmod Warning: ")
       local twidth = TermWidth()
-      local s      = buildMsg(twidth, label, ...)
+      local s      = {}
+      s[#s+1] = buildMsg(twidth, label, ...)
+      s[#s+1] = "\n"
+      s[#s+1] = moduleStackTraceBack()
+      s[#s+1] = "\n"
+
+      s = hook.apply("msgHook","lmodwarning",s)
+      s = concatTbl(s,"")
+
       io.stderr:write(s,"\n")
-      io.stderr:write(moduleStackTraceBack(),"\n")
       setWarningFlag()
    end
 end
@@ -820,7 +852,6 @@ end
 -- @param mA An array of MNname objects.
 function M.prereq(self, mA)
    local mt        = MT:mt()
-   local a         = {}
    local mStack    = ModuleStack:moduleStack()
    local mFull     = mStack:fullName()
    local masterTbl = masterTbl()
@@ -843,7 +874,7 @@ function M.prereq(self, mA)
 
    dbg.print{"number found: ",#a,"\n"}
    if (#a > 0) then
-      local s = concatTbl(a,", ")
+      local s = concatTbl(a," ")
       LmodError("Cannot load module \"",mFull,"\" without these module(s) loaded:\n  ",
             s,"\n")
    end
@@ -859,7 +890,6 @@ function M.conflict(self, mA)
 
 
    local mt        = MT:mt()
-   local a         = {}
    local mStack    = ModuleStack:moduleStack()
    local mFull     = mStack:fullName()
    local masterTbl = masterTbl()
@@ -910,7 +940,6 @@ end
 -- @param mA An array of MNname objects.
 function M.prereq_any(self, mA)
    local mt        = MT:mt()
-   local a         = {}
    local mStack    = ModuleStack:moduleStack()
    local mFull     = mStack:fullName()
    local masterTbl = masterTbl()
@@ -1161,7 +1190,7 @@ function M._setMode(self, mode)
 end
 
 --------------------------------------------------------------------------
--- Retur the type (or mode) of the current MasterControl object.
+-- Return the type (or mode) of the current MasterControl object.
 -- @param self A MasterControl object
 function M.mode(self)
    dbg.start{"MasterControl:mode()"}

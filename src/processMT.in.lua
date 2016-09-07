@@ -42,20 +42,34 @@
 -----------------------------------------------------------------
 -- This program reads the saved module tables from a user and records the results
 
-local cmd = arg[0]
-
-local i,j = cmd:find(".*/")
-local cmd_dir = "./"
-if (i) then
-   cmd_dir = cmd:sub(1,j)
-end
 local sys_lua_path = "@sys_lua_path@"
 if (sys_lua_path:sub(1,1) == "@") then
    sys_lua_path = package.path
 end
+
 local sys_lua_cpath = "@sys_lua_cpath@"
 if (sys_lua_cpath:sub(1,1) == "@") then
    sys_lua_cpath = package.cpath
+end
+
+package.path   = sys_lua_path
+package.cpath  = sys_lua_cpath
+
+local arg_0    = arg[0]
+local posix    = require("posix")
+local readlink = posix.readlink
+local stat     = posix.stat
+
+local st       = stat(arg_0)
+while (st.type == "link") do
+   arg_0 = readlink(arg_0)
+   st    = stat(arg_0)
+end
+
+local ia,ja = arg_0:find(".*/")
+local cmd_dir = "./"
+if (ia) then
+   cmd_dir = arg_0:sub(1,ja)
 end
 
 package.path  = cmd_dir .. "../tools/?.lua;"  ..
@@ -128,8 +142,8 @@ function main()
          end
       end
 
-      local dir  = pathJoin(homeDir,".lmod.d",USER_SBATCH_DIR_NAME)
-      local attr = lfs.attributes(dir)
+      dir  = pathJoin(homeDir,".lmod.d",USER_SBATCH_DIR_NAME)
+      attr = lfs.attributes(dir)
       if ( attr and attr.mode == "directory") then
          for file in lfs.dir(dir) do
             if (file:sub(-4,-1) == ".lua") then
@@ -213,7 +227,7 @@ function processBatch(userName, mt_date, f, outputFh)
    resultFn()
 
 
-   if (moduleInfoT and isDefined("moduleInfo") and type(moduleInfo) == "table" and
+   if (moduleInfoT and isDefined("moduleInfo") and type(moduleInfoT) == "table" and
        moduleInfoT.modFullName and
        moduleInfoT.fn) then
       a[#a+1] = userName

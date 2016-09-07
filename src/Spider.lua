@@ -74,15 +74,15 @@ local function process(kind, value)
    local masterTbl   = masterTbl()
    local moduleStack = masterTbl.moduleStack
    local iStack      = #moduleStack
-   local path        = moduleStack[iStack].path
+   local mpath       = moduleStack[iStack].path
    local moduleT     = moduleStack[iStack].moduleT
 
-   local a           = moduleT[path][kind] or {}
+   local a           = moduleT[mpath][kind] or {}
    for path in value:split(":") do
       path         = path_regularize(path)
       a[path]      = 1
    end
-   moduleT[path][kind] = a
+   moduleT[mpath][kind] = a
 end
 
 function processLPATH(value)
@@ -490,7 +490,7 @@ function M.Level0(self, dbT)
    local masterTbl   = masterTbl()
    local show_hidden = masterTbl.show_hidden
    local terse       = masterTbl.terse
-   
+
 
    if (terse) then
       dbg.start{"Spider:Level0()"}
@@ -735,10 +735,10 @@ function M._Level1(self, searchPat, key, T, searchName, possibleA, help)
       return s
    end
 
+   key               = nil
    local border      = banner:border(0)
    local VersionT    = {}
    local exampleV    = nil
-   local key         = nil
    local Description = nil
    for k, v in pairsByKeys(T) do
       local isActive, version = isActiveMFile(v.full, v.name)
@@ -823,6 +823,7 @@ end
 
 function M._Level2(self, T, searchName, full, possibleA)
    dbg.start{"Spider:_Level2(T,\"",searchName,"\", \"",full,"\",possibleA)"}
+   local show_hidden = masterTbl().show_hidden
    local a  = {}
    local ia = 0
    local b  = {}
@@ -878,19 +879,19 @@ function M._Level2(self, T, searchName, full, possibleA)
             end
 
             if (#possibleA > 0) then
-               local b   = {}
+               local bb   = {}
                local sum = 17
                local num = #possibleA
                for ja = 1, num do
-                  b[#b+1] = possibleA[ja]
+                  bb[#bb+1] = possibleA[ja]
                   sum     = sum + possibleA[ja]:len() + 2
                   if (sum > term_width - 7 and ja < num - 1) then
-                     b[#b+1] = "..."
+                     bb[#bb+1] = "..."
                      break
                   end
                end
                ia = ia + 1; a[ia] = "\n     Other possible modules matches:\n        "
-               ia = ia + 1; a[ia] = concatTbl(b,", ")
+               ia = ia + 1; a[ia] = concatTbl(bb,", ")
                ia = ia + 1; a[ia] = "\n"
             end
 
@@ -923,12 +924,19 @@ function M._Level2(self, T, searchName, full, possibleA)
    end
    a[titleIdx] = availT[haveCore+haveHier]
    if (#c > 0) then
-
       -- remove any duplicates
       local s = concatTbl(c,"")
       local d = {}
-      for k in s:split("\n") do
-         d[k] = 1
+      if (show_hidden) then
+         for k in s:split("\n") do
+            d[k] = 1
+         end
+      else
+         for k in s:split("\n") do
+            if (not (k:find("^%.") or k:find("/%."))) then
+               d[k] = 1
+            end
+         end
       end
       c = {}
       for k in pairs(d) do

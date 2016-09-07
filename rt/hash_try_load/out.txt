@@ -1,10 +1,10 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --version
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash load TACC
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load TACC
 ===========================
 LMOD_DEFAULT_MODULEPATH="OutputDIR/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -22,7 +22,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"OutputDIR/mf/Core",}
 export _ModuleTable_;
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash save
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing save
 ===========================
 LMOD_DEFAULT_MODULEPATH="OutputDIR/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -36,7 +36,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"OutputDIR/mf/Core",}
 export _ModuleTable_;
 ===========================
 step 4
-lua ProjectDIR/src/lmod.in.lua bash purge
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
 ===========================
 LMOD_DEFAULT_MODULEPATH="OutputDIR/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -52,7 +52,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"OutputDIR/mf/Core",}
 export _ModuleTable_;
 ===========================
 step 5
-lua ProjectDIR/src/lmod.in.lua bash restore
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing restore
 ===========================
 LMOD_DEFAULT_MODULEPATH="OutputDIR/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -72,7 +72,7 @@ __LMOD_DEFAULT_MODULES_LOADED__="1";
 export __LMOD_DEFAULT_MODULES_LOADED__;
 ===========================
 step 6
-lua ProjectDIR/src/lmod.in.lua bash purge
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
 ===========================
 LMOD_DEFAULT_MODULEPATH="OutputDIR/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
@@ -88,7 +88,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"OutputDIR/mf/Core",}
 export _ModuleTable_;
 ===========================
 step 7
-lua ProjectDIR/src/lmod.in.lua bash restore
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing restore
 ===========================
 LMOD_DEFAULT_MODULEPATH="OutputDIR/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;

@@ -82,8 +82,9 @@ end
 -- @param self ColumnTable object
 -- @param t input table.
 function M.new(self,t)
-   local tbl = t
-   local o   = {}
+   local width
+   local tbl   = t
+   local o     = {}
    if (t.tbl) then
       tbl = t.tbl
       o   = t
@@ -92,8 +93,9 @@ function M.new(self,t)
    dbg.start{"ColumnTable:new()"}
    setmetatable(o, self)
    self.__index  = self
-   local width  = 80
-   if (getenv("TERM")) then
+   if (t.width) then
+      width = t.width
+   else
       width  = TermWidth()
    end
 
@@ -234,8 +236,8 @@ function M._entry_width2(self, t, szA)
    --dbg.printA{name = "minA", a = minA}
    --dbg.printA{name = "maxA", a = maxA}
 
-   local imin = {prt = iminPrt, wrt = iminWrt}
-   local imax = {prt = imaxPrt, wrt = imaxWrt}
+   imin = {prt = iminPrt, wrt = iminWrt}
+   imax = {prt = imaxPrt, wrt = imaxWrt}
    dbg.fini()
    return imin, imax
 end
@@ -333,9 +335,9 @@ function M._display2(self,i, icol)
    local sum      = 0
 
    local lastCol  = dim2
-   for i = dim2, 1, -1 do
-      if (widthA[i].prt > 0) then break end
-      lastCol = i - 1
+   for j = dim2, 1, -1 do
+      if (widthA[j].prt > 0) then break end
+      lastCol = j - 1
    end
 
    for idim = 1, dim2 do
@@ -442,7 +444,7 @@ function M._number_of_columns_rows(self,t)
    local istart = 1
    local iskip  = nrows - 1
    local ncols  = results or 1
-   local nrows  = math.ceil(sz/ncols)
+   nrows        = math.ceil(sz/ncols)
    dbg.print{"ncols: ",ncols,", nrows: ",nrows,"\n"}
 
    self.ncols   = math.ceil(sz/nrows)

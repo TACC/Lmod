@@ -1,26 +1,26 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --version
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 6.0.6  2015-07-16 14:33
+Modules based on Lua: Version 6.4.3  2016-06-17 09:58
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash show gcc
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing show gcc
 ===========================
    ProjectDIR/mf/Core/gcc/4.2.3.lua:
 family("compiler")
 prepend_path("MODULEPATH","ProjectDIR/mf/Compiler/gcc/4.2.3")
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash show alex
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing show alex
 ===========================
    ProjectDIR/mf/Core/alex/1.0.lua:
 load("noweb")
 load("git")
 ===========================
 step 4
-lua ProjectDIR/src/lmod.in.lua bash avail
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
 ProjectDIR/mf/Core
    PrgEnv                   git/1.7.4            junk/d/3.0
@@ -39,45 +39,44 @@ ProjectDIR/mf/Compiler/intel/10.1
    m:  built for host and native MIC
    o:  built for offload to the MIC only
 Use "module spider" to find all possible modules.
-Use "module keyword key1 key2 ..." to search for all possible modules matching
-any of the "keys".
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 5
-lua ProjectDIR/src/lmod.in.lua bash show boost
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing show boost
 ===========================
    ProjectDIR/mf/Core/boost/1.49.0.lua:
 setenv("TACC_BOOST_DIR","/opt/apps/boost/1.49.0")
 add_property("arch","offload")
 ===========================
 step 6
-lua ProjectDIR/src/lmod.in.lua bash load boost/1.47.1
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load boost/1.47.1
 ===========================
 ===========================
 step 7
-lua ProjectDIR/src/lmod.in.lua bash list
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) boost/1.47.1
 ===========================
 step 8
-lua ProjectDIR/src/lmod.in.lua bash show boost
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing show boost
 ===========================
    ProjectDIR/mf/Core/boost/1.47.1.lua:
 setenv("TACC_BOOST_DIR","/opt/apps/boost/1.47.1")
 ===========================
 step 9
-lua ProjectDIR/src/lmod.in.lua bash show boost/1.49.0
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing show boost/1.49.0
 ===========================
    ProjectDIR/mf/Core/boost/1.49.0.lua:
 setenv("TACC_BOOST_DIR","/opt/apps/boost/1.49.0")
 add_property("arch","offload")
 ===========================
 step 10
-lua ProjectDIR/src/lmod.in.lua bash use ProjectDIR/rt/show/mf/Core
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing use ProjectDIR/rt/show/mf/Core
 ===========================
 ===========================
 step 11
-lua ProjectDIR/src/lmod.in.lua bash show a
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing show a
 ===========================
    ProjectDIR/rt/show/mf/Core/a/1.0.lua:
 conflict("A","B")

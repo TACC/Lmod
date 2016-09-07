@@ -88,9 +88,9 @@ function M.process(self, ignoreT, oldEnvT, envT)
 
    local mt_pat = "^_ModuleTable"
    for k, v in pairsByKeys(envT) do
-      dbg.print{"k: ", k, ", v: ", v, ", oldV: ",oldEnvT[k],"\n"}
       local i = k:find(mt_pat)
-      if (not ignoreT[k] and not i) then
+      if (not ignoreT[k] and not i and not k:find("^BASH_FUNC_") and not v:find("^%(%)")) then
+         dbg.print{"k: ", k, ", v: ", v, ", oldV: ",oldEnvT[k],"\n"}
          local oldV = oldEnvT[k]
          if (not oldV) then
             a[#a+1] = self:setenv(k,v)
@@ -102,11 +102,11 @@ function M.process(self, ignoreT, oldEnvT, envT)
                a[#a+1] = self:setenv(k,v)
             else
                newA = splice(newA, idx, #oldA + idx - 1)
-               for i = idx-1, 1, -1 do
-                  a[#a+1] = self:prepend_path(k,newA[i])
+               for j = idx-1, 1, -1 do
+                  a[#a+1] = self:prepend_path(k,newA[j])
                end
-               for i = idx, #newA do
-                  a[#a+1] = self:append_path(k,newA[i])
+               for j = idx, #newA do
+                  a[#a+1] = self:append_path(k,newA[j])
                end
             end
          end

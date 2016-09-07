@@ -43,25 +43,26 @@ local M={}
 
 local validT =
 {
-      ['load']       = false,  -- This load hook is called after a
-                               -- modulefile is loaded.
-      unload         = false,  -- This unload hook is called after a
-                               -- modulefile is unloaded.
-      parse_updateFn = false,  -- This hook returns the time on the
-                               -- timestamp file.
-      writeCache     = false,  -- This hook return whether a cache
-                               -- should be written.
-      SiteName       = false,  -- Hook to specify Site Name
-                               -- It is used to generate family
-                               -- prefix:  site_FAMILY_
-      msgHook        = false,  -- Hook to print messages after:
-                               -- avail, list, spider
-      groupName      = false,  -- This hook adds the arch and os name
-                               -- to moduleT.lua to make it safe on
-                               -- shared filesystems.
-      avail          = false,  -- Map directory names to labels
-      restore        = false,  -- This hook is run after restore operation
-      startup        = false,  -- This hook is run when Lmod is called
+      ['load']        = false,  -- This load hook is called after a
+                                -- modulefile is loaded.
+      unload          = false,  -- This unload hook is called after a
+                                -- modulefile is unloaded.
+      parse_updateFn  = false,  -- This hook returns the time on the
+                                -- timestamp file.
+      writeCache      = false,  -- This hook return whether a cache
+                                -- should be written.
+      SiteName        = false,  -- Hook to specify Site Name
+                                -- It is used to generate family
+                                -- prefix:  site_FAMILY_
+      msgHook         = false,  -- Hook to print messages after:
+                                -- avail, list, spider, LmodError and LmodWarning
+      groupName       = false,  -- This hook adds the arch and os name
+                                -- to moduleT.lua to make it safe on
+                                -- shared filesystems.
+      avail           = false,  -- Map directory names to labels
+      restore         = false,  -- This hook is run after restore operation
+      startup         = false,  -- This hook is run when Lmod is called
+      packagebasename = false,  -- Hook to find the patterns that spider uses for reverse map
 }
 
 --------------------------------------------------------------------------

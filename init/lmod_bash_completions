@@ -1,169 +1,297 @@
+
 _module_avail() {
-	@PKG@/libexec/lmod bash -t avail  2>&1 > /dev/null | sed ' /:$/d; s#/*$##g;'
+  local redirect="${LMOD_REDIRECT:-false}"
+  if ${redirect,,}; then
+    #
+    # Lmod output already redirected to STDOUT: do not redirect again; just parse.
+    #
+    @PKG@/libexec/lmod bash -t avail 2>/dev/null | bash | sed ' /:$/d; s#/*$##g;'
+  else
+    #
+    # Lmod output goes to STDERR by default, but for bash redirection we need it on STOUT.
+    #
+    @PKG@/libexec/lmod bash -t avail 2>&1 >/dev/null | sed ' /:$/d; s#/*$##g;'
+  fi
+}
+
+_module_dir() {
+  local cur="${1}" pattern i
+  if [[ "${cur:0:1}" == '$' ]]; then
+    pattern='^\$[[:alnum:]_]+\/$'
+    if [[ ${cur} =~ ${pattern} ]]; then
+      #
+      # Resolve variable into value.
+      #
+      eval COMPREPLY[0]="${cur}"
+    else
+      #
+      # Complete exported environment variables
+      # and remove any matches that don't contain a directory.
+      #
+      COMPREPLY=( $( compgen -v -P '$' -- "${cur:1}" ) )
+      local -a FILTEREDCOMPREPLY
+      for ((i=0; i < ${#COMPREPLY[@]}; i++)); do
+        pattern='^\$[[:alnum:]_]+$'
+        if [[ ${COMPREPLY[$i]} =~ ${pattern} ]]; then
+          eval local env_val="${COMPREPLY[$i]}"
+          if [ -d "${env_val}" ]; then
+            FILTEREDCOMPREPLY+=(${COMPREPLY[$i]})
+          fi
+        fi
+      done
+      COMPREPLY=( ${FILTEREDCOMPREPLY[@]} )
+    fi
+  elif [[ "${cur:0:1}" == '~' ]]; then
+    if [[ "${cur}" != "${cur//\/}" ]]; then
+      #
+      # ${cur} contains a slash:
+      # 1: Remove * including and after first slash (/), i.e. "~a/b"
+      #    becomes "~a".  Double quotes allow eval.
+      # 2: Remove * before the first slash (/), i.e. "~a/b"
+      #    becomes 'b'.  Single quotes prevent eval.
+      #                 +-----1-----+ +-----2----+
+      eval COMPREPLY[0]="${cur%%\/*}"/'${cur#*\/}'
+    else
+      #
+      # ${cur} doesn't contain slash.
+      #
+      eval COMPREPLY[0]="~"
+    fi
+  else
+    #
+    # Complete directories.
+    #
+    COMPREPLY=( $(compgen -d -- "${cur}") )
+  fi
+  if [[ ${#COMPREPLY[@]} -eq 1 ]]; then
+    pattern='\/$'
+    if [[ -d "${COMPREPLY[0]}" && ! "${COMPREPLY[0]}" =~ ${pattern} ]]; then
+      COMPREPLY[0]="${COMPREPLY[0]}/"
+    fi
+    compopt -o nospace
+  fi
 }
 
 _module_spider() {
-	@PKG@/libexec/lmod bash -t spider  2>&1 > /dev/null
+  local redirect="${LMOD_REDIRECT:-false}"
+  if ${redirect,,}; then
+    @PKG@/libexec/lmod bash -t spider 2>/dev/null | bash
+  else
+    @PKG@/libexec/lmod bash -t spider 2>&1 >/dev/null
+  fi
 }
 
 _module_loaded_modules() {
-	@PKG@/libexec/lmod bash -t list  2>&1 > /dev/null | sed ' /^ *$/d; /:$/d; s#/*$##g;'
+  local redirect="${LMOD_REDIRECT:-false}"
+  if ${redirect,,}; then
+    @PKG@/libexec/lmod bash -t list 2>/dev/null | bash | sed ' /^ *$/d; /:$/d; s#/*$##g;'
+  else
+    @PKG@/libexec/lmod bash -t list 2>&1 >/dev/null | sed ' /^ *$/d; /:$/d; s#/*$##g;'
+  fi
 }
 
 _module_savelist() {
-	@PKG@/libexec/lmod bash -t savelist  2>&1 > /dev/null
+  local redirect="${LMOD_REDIRECT:-false}"
+  if ${redirect,,}; then
+    @PKG@/libexec/lmod bash -t savelist 2>/dev/null | bash
+  else
+    @PKG@/libexec/lmod bash -t savelist 2>&1 >/dev/null
+  fi
 }
 
 _module_loaded_modules_negated() {
-	@PKG@/libexec/lmod bash -t list  2>&1 > /dev/null | sed ' /^ *$/d; /:$/d; s#/*$##g; s|^|-|g;'
-}
-
-_module_not_yet_loaded() {
-	comm -23  <(_module_avail|sort)  <(_module_loaded_modules|sort)
-}
-
-_module_long_arg_list() {
-	local cur="$1" i
-
-	if [[ ${COMP_WORDS[COMP_CWORD-2]} == sw* ]]; then
-		COMPREPLY=( $(compgen -W "$(_module_not_yet_loaded)" -- "$cur") )
-		return
-	fi
-	for ((i = COMP_CWORD - 1; i > 0; i--)); do
-	  case ${COMP_WORDS[$i]} in
-	    add|load)
-		COMPREPLY=( $(compgen -W "$(_module_not_yet_loaded)" -- "$cur") )
-		break;;
-	    rm|remove|unload|switch|swap)
-		COMPREPLY=( $(compgen -W "$(_module_loaded_modules)" -- "$cur") )
-		break;;
-	  esac
-	done
+  local redirect="${LMOD_REDIRECT:-false}"
+  if ${redirect,,}; then
+    @PKG@/libexec/lmod bash -t list 2>/dev/null | bash | sed ' /^ *$/d; /:$/d; s#/*$##g; s|^|-|g;'
+  else
+    @PKG@/libexec/lmod bash -t list 2>&1 >/dev/null | sed ' /^ *$/d; /:$/d; s#/*$##g; s|^|-|g;'
+  fi
 }
 
 _module_mcc() {
-	@PKG@/libexec/lmod bash -t collection 2>&1 > /dev/null
+  local redirect="${LMOD_REDIRECT:-false}"
+  if ${redirect,,}; then
+    @PKG@/libexec/lmod bash -t collection 2>/dev/null | bash
+  else
+    @PKG@/libexec/lmod bash -t collection 2>&1 >/dev/null
+  fi
+}
 
+_module_not_yet_loaded() {
+  comm -23  <(_module_avail|sort)  <(_module_loaded_modules|sort)
+}
+
+_module_long_arg_list() {
+  local cur="${1}" i
+  if [[ ${COMP_WORDS[COMP_CWORD-2]} == sw* ]]; then
+    COMPREPLY=( $(compgen -W "$(_module_not_yet_loaded)" -- "${cur}") )
+    return
+  fi
+  for ((i = COMP_CWORD - 1; i > 0; i--)); do
+    case ${COMP_WORDS[${i}]} in
+      add|load)
+        COMPREPLY=( $(compgen -W "$(_module_not_yet_loaded)" -- "${cur}") )
+        break
+        ;;
+      rm|remove|unload|switch|swap)
+        COMPREPLY=( $(compgen -W "$(_module_loaded_modules)" -- "${cur}") )
+        break
+        ;;
+    esac
+  done
 }
 
 _module() {
-	local cur="$2" prev="$3" cmds opts
-
-	COMPREPLY=()
-
-	cmds="add avail delete help keyword list load purge rm restore save show spider swap \
-	      unload unuse update use whatis"
-
-	opts="-d -D -h -q -t -v -w  -s --style --expert --quiet --help  --quiet --terse --version --default --width -r --regexp --mt"
-
-	case "$prev" in
-	add|load|try-load)
-                        COMPREPLY=( $(compgen -W "$(_module_not_yet_loaded)" -- "$cur") );;
-        restore)        COMPREPLY=( $(compgen -W "$(_module_savelist)" -- "$cur") );;
-        spider)         COMPREPLY=( $(compgen -W "$(_module_spider)" -- "$cur") );;
-	rm|remove|unload|switch|swap)
-			COMPREPLY=( $(      compgen -W "$(_module_loaded_modules)" -- "$cur") );;
-	unuse)		COMPREPLY=( $(IFS=: compgen -W "${MODULEPATH}" -- "$cur") );;
-	use|*-a*)	_filedir -d || return 0;;
-	help|show|whatis)
-			COMPREPLY=( $(compgen -W "$(_module_avail)" -- "$cur") );;
-	collection|cc|mcc)
-			COMPREPLY=( $(compgen -W "$(_module_mcc)" -- "$cur") );;
-	
-	*) if test $COMP_CWORD -gt 2
-	   then
-		_module_long_arg_list "$cur"
-	   else
-		case "$cur" in
-		# The mappings below are optional abbreviations for convenience
-		ls)	COMPREPLY="list";;	# map ls -> list
-		sw*)	COMPREPLY="swap";;
-
-		-*)	COMPREPLY=( $(compgen -W "$opts" -- "$cur") );;
-		*)	COMPREPLY=( $(compgen -W "$cmds" -- "$cur") );;
-		esac
-	   fi;;
-	esac
+  local cur="${2}" prev="${3}" cmds opts
+  
+  COMPREPLY=()
+  
+  cmds="add avail delete help keyword list load purge rm restore \
+        save show spider swap unload unuse update use whatis"
+  
+  opts="-d -D -h -q -t -v -w -s --style --expert --quiet --help \
+        --quiet --terse --version --default --width -r --regexp --mt"
+  
+  case "${prev}" in
+    add|load|try-load)
+      COMPREPLY=( $(compgen -W "$(_module_not_yet_loaded)" -- "${cur}") )
+      ;;
+    rm|remove|unload|switch|swap)
+      COMPREPLY=( $(compgen -W "$(_module_loaded_modules)" -- "${cur}") )
+      ;;
+    restore)
+      COMPREPLY=( $(compgen -W "$(_module_savelist)" -- "${cur}") )
+      ;;
+    spider)
+      COMPREPLY=( $(compgen -W "$(_module_spider)" -- "${cur}") )
+      ;;
+    unuse)
+      COMPREPLY=( $(IFS=: compgen -W "${MODULEPATH}" -- "${cur}") )
+      ;;
+    use|*-a*)
+      _module_dir "${cur}"
+      ;;
+    help|show|whatis)
+      COMPREPLY=( $(compgen -W "$(_module_avail)" -- "${cur}") )
+      ;;
+    collection|cc|mcc)
+      COMPREPLY=( $(compgen -W "$(_module_mcc)" -- "${cur}") )
+      ;;
+    *)
+      if [ ${COMP_CWORD} -gt 2 ]; then
+        _module_long_arg_list "${cur}"
+      else
+        case "${cur}" in
+          # The mappings below are optional abbreviations for convenience.
+          ls)
+            COMPREPLY='list'
+            ;;
+          sw*)
+            COMPREPLY='swap'
+            ;;
+          -*)
+            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
+            ;;
+          *)
+            COMPREPLY=( $(compgen -W "${cmds}" -- "${cur}") )
+            ;;
+        esac
+      fi
+      ;;
+  esac
 }
-complete  -F _module module
+complete -F _module module
 
 _ml() {
-  local cur="$2" prev="$3" cmds opts found
-  #echo cur=%$cur% prev=%$prev% >> $HOME/t/ml.log
-
+  local cur="${2}" prev="${3}" cmds opts found
+  
   COMPREPLY=()
-
-  cmds="add avail delete help keyword list load purge rm restore save sl show spider swap unload \
-        unuse update use whatis"
-
-  opts="-d -D -h -q -t -v -w -s --style --expert --quiet --help  --quiet --terse --version --default --Verbose --width -r --regexp --mt"
-
-  #echo 2  >> $HOME/t/ml.log
-
-
-  case "$prev" in
-    spider)         COMPREPLY=( $(compgen -W "$(_module_spider)" -- "$cur") );;
-    rm|remove|unload|swap)
-                    COMPREPLY=( $(compgen -W "$(_module_not_yet_loaded)" -- "$cur") );;
-    restore)        COMPREPLY=( $(compgen -W "$(_module_savelist)" -- "$cur") );;
-    unuse)	    COMPREPLY=( $(IFS=: compgen -W "${MODULEPATH}" -- "$cur") );;
-    use|*-a*)       _filedir -d || return 0;;
+  
+  cmds="add avail delete help keyword list load purge rm restore \
+        save sl show spider swap unload unuse update use whatis"
+  
+  opts="-d -D -h -q -t -v -w -s --style --expert --quiet --help \
+        --quiet --terse --version --default --Verbose --width -r --regexp --mt"
+  
+  case "${prev}" in
+    rm|remove|unload|switch|swap)
+      COMPREPLY=( $(compgen -W "$(_module_loaded_modules)" -- "${cur}") )
+      ;;
+    restore)
+      COMPREPLY=( $(compgen -W "$(_module_savelist)" -- "${cur}") )
+      ;;
+    spider)
+      COMPREPLY=( $(compgen -W "$(_module_spider)" -- "${cur}") )
+      ;;
+    unuse)
+      COMPREPLY=( $(IFS=: compgen -W "${MODULEPATH}" -- "${cur}") )
+      ;;
+    use|*-a*)
+      _module_dir "${cur}"
+      ;;
     help|show|whatis)
-                    COMPREPLY=( $(compgen -W "$(_module_avail)" -- "$cur") );;
-
+      COMPREPLY=( $(compgen -W "$(_module_avail)" -- "${cur}") )
+      ;;
     *)
-       case "$cur" in
-         -*)
-            #echo a >> $HOME/t/ml.log
-            if [ $COMP_CWORD -eq 1 ]; then
-              COMPREPLY=( $(compgen -W "$opts $(_module_loaded_modules_negated)" -- "$cur") )
+      case "${cur}" in
+        -*)
+          if [ ${COMP_CWORD} -eq 1 ]; then
+            COMPREPLY=( $(compgen -W "${opts} $(_module_loaded_modules_negated)" -- "${cur}") )
+          else
+            COMPREPLY=( $(compgen -W "        $(_module_loaded_modules_negated)" -- "${cur}") )
+          fi
+          ;;
+        *)
+          if [ ${COMP_CWORD} -eq 1 ]; then
+            case "${cur}" in
+              ls)
+                COMPREPLY='list'
+                ;;
+              sw*)
+                COMPREPLY='swap'
+                ;;
+              *)
+                COMPREPLY=( $(compgen -W "${cmds} $(_module_avail)" -- "${cur}") )
+                ;;
+            esac
+          else
+            if [[ ${COMP_WORDS[COMP_CWORD-2]} == sw* ]]; then
+              COMPREPLY=( $(compgen -W "$(_module_not_yet_loaded)" -- "${cur}") )
             else
-              COMPREPLY=( $(compgen -W "      $(_module_loaded_modules_negated)" -- "$cur") )
-            fi;;
-         *)
-            #echo 3 >> $HOME/t/ml.log
-            if [ $COMP_CWORD -eq 1 ]; then
-              case "$cur" in
-                ls)  COMPREPLY="list";;      # map ls -> list
-                sw*) COMPREPLY="swap";;
-                *)
-                  #echo 4 >> $HOME/t/ml.log
-                  COMPREPLY=( $(compgen -W "$cmds $(_module_avail)" -- "$cur") );;
-              esac
-            else
-	      if [[ ${COMP_WORDS[COMP_CWORD-2]} == sw* ]]; then
-	        COMPREPLY=( $(compgen -W "$(_module_not_yet_loaded)" -- "$cur") )
-              else
-	        for ((i = COMP_CWORD - 1; i > 0; i--)); do
-	          case ${COMP_WORDS[$i]} in
-	            show|whatis)
-	    	  COMPREPLY=( $(compgen -W "$(_module_avail)" -- "$cur") )
-                      found=1
-	    	  break;;
-	            rm|remove|unload)
-	    	  COMPREPLY=( $(compgen -W "$(_module_loaded_modules)" -- "$cur") )
-                      found=1
-	    	  break;;
-                    spider)
-                      COMPREPLY=( $(compgen -W "$(_module_spider)" -- "$cur") )
-                      found=1
-	    	  break;;
-	          esac
-	        done
-                if [ -z "$found" ]; then
-                  COMPREPLY=( $(compgen -W "$(_module_avail)" -- "$cur") )
-                fi
+              for ((i = COMP_CWORD - 1; i > 0; i--)); do
+                case ${COMP_WORDS[$i]} in
+                  show|whatis)
+                    COMPREPLY=( $(compgen -W "$(_module_avail)" -- "${cur}") )
+                    found=1
+                    break
+                    ;;
+                  rm|remove|unload)
+                    COMPREPLY=( $(compgen -W "$(_module_loaded_modules)" -- "${cur}") )
+                    found=1
+                    break
+                    ;;
+                  spider)
+                    COMPREPLY=( $(compgen -W "$(_module_spider)" -- "${cur}") )
+                    found=1
+                    break
+                    ;;
+                esac
+              done
+              if [ -z "${found}" ]; then
+                COMPREPLY=( $(compgen -W "$(_module_avail)" -- "${cur}") )
               fi
-            fi;;
-       esac
+            fi
+          fi
+          ;;
+      esac
   esac
-
-  #echo 5 >> $HOME/t/ml.log
 }
-
-complete  -F _ml ml
-
+complete -F _ml ml
 
 # Local Variables:
 # mode: shell-script
+# indent-tabs-mode: nil
+# sh-basic-offset: 2
+# sh-indent-comment: t
 # End:
+# ex: ts=2 sw=2 et filetype=sh

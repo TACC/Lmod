@@ -30,6 +30,7 @@ require("strict")
 --
 --------------------------------------------------------------------------
 
+local concatTbl = table.concat
 
 --------------------------------------------------------------------------
 -- remove leading and trailing spaces.
@@ -40,9 +41,8 @@ function string.trim(self)
    if (ja == nil) then
       return ""
    end
-   local  jb   = self:find("%s+$") or 0
-   local  self = self:sub(ja,jb-1)
-   return self
+   local  jb = self:find("%s+$") or 0
+   return self:sub(ja,jb-1)
 end
 
 --------------------------------------------------------------------------
@@ -54,12 +54,12 @@ end
 function string.split(self, pat)
    pat  = pat or "%s+"
    local st, g = 1, self:gmatch("()("..pat..")")
-   local function getter(self, segs, seps, sep, cap1, ...)
+   local function getter(myself, segs, seps, sep, cap1, ...)
       st = sep and seps + #sep
-      return self:sub(segs, (seps or 0) - 1), cap1 or sep, ...
+      return myself:sub(segs, (seps or 0) - 1), cap1 or sep, ...
    end
-   local function splitter(self)
-      if st then return getter(self, st, g()) end
+   local function splitter(myself)
+      if st then return getter(myself, st, g()) end
    end
    return splitter, self
 end
@@ -93,6 +93,15 @@ function string.doubleQuoteString(self)
       self = tostring(self)
    else
       self = ('%q'):format(self)
+   end
+   return self
+end
+
+function string.multiEscaped(self)
+   if (type(self) ~= 'string') then
+      self = tostring(self)
+   else
+      self = '"' .. self:gsub("[\"$]","\\%1") .. '"'
    end
    return self
 end
