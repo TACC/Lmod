@@ -38,13 +38,13 @@ local term = nil
 if (pcall(require,"term")) then
    term = require("term")
 end
-local s_run_init = true
+local s_init     = true
 local s_haveTerm = false
 local getenv     = os.getenv
 function haveTermSupport()
 
-   if (s_run_init) then
-      s_run_init = false
+   if (s_init) then
+      s_init     = false
       s_haveTerm = (term ~= nil)
    end
    return s_haveTerm
@@ -53,7 +53,3 @@ end
 function connected2Term()
    return haveTermSupport() and getenv("TERM") and term.isatty(io.stderr)
 end
-
-         
-
-
