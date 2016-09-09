@@ -62,7 +62,6 @@ local max          = math.max
 local posix        = require("posix")
 local systemG      = _G
 local getenv       = os.getenv
-local gettimeofday = posix.gettimeofday
 local sort         = table.sort
 local timer        = require("Timer"):timer()
 local function nothing()
