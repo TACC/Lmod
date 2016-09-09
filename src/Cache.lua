@@ -68,19 +68,20 @@ require("cmdfuncs")
 require("utils")
 require("lmod_system_execute")
 
-_G.maliasT      = {}
-local CTimer    = require("CTimer")
-local dbg       = require("Dbg"):dbg()
-local M         = {}
-local MT        = require("MT")
-local Spider    = require("Spider")
-local hook      = require("Hook")
-local lfs       = require("lfs")
-local malias    = require("MAlias"):build()
-local posix     = require("posix")
-local s_cache   = false
-local timer     = require("Timer"):timer()
-local concatTbl = table.concat
+_G.maliasT       = {}
+local CTimer     = require("CTimer")
+local ReadLmodRC = require('ReadLmodRC')
+local dbg        = require("Dbg"):dbg()
+local M          = {}
+local MT         = require("MT")
+local Spider     = require("Spider")
+local hook       = require("Hook")
+local lfs        = require("lfs")
+local malias     = require("MAlias"):build()
+local posix      = require("posix")
+local s_cache    = false
+local timer      = require("Timer"):timer()
+local concatTbl  = table.concat
 
 --------------------------------------------------------------------------
 -- This singleton construct reads the scDescriptT table that can be
@@ -98,7 +99,8 @@ local function new(self, t)
 
    dbg.start{"Cache:new()"}
 
-   local scDescriptT = getSCDescriptT()
+   local readLmodRC  = ReadLmodRC:singleton()
+   local scDescriptT = readLmodRC:scDescriptT()
 
    local scDirA = {}
 

@@ -58,6 +58,7 @@ require("parseVersion")
 require("deepcopy")
 require("utils")
 
+local ReadLmodRC   = require("ReadLmodRC")
 local Var          = require('Var')
 local lfs          = require("lfs")
 local dbg          = require('Dbg'):dbg()
@@ -1761,7 +1762,8 @@ function M.add_property(self, sn, name, value)
       LmodError("MT:add_property(): Did not find module entry: ",sn,
                 ". This should not happen!\n")
    end
-   local propDisplayT = getPropT()
+   local readLmodRC   = ReadLmodRC:singleton()
+   local propDisplayT = readLmodRC:propT()
    local propKindT    = propDisplayT[name]
 
    if (propKindT == nil) then
@@ -1806,7 +1808,8 @@ function M.remove_property(self, sn, name, value)
       LmodError("MT:remove_property(): Did not find module entry: ",sn,
                 ". This should not happen!\n")
    end
-   local propDisplayT = getPropT()
+   local readLmodRC   = ReadLmodRC:singleton()
+   local propDisplayT = readLmodRC:propT()
    local propKindT    = propDisplayT[name]
 
    if (propKindT == nil) then
