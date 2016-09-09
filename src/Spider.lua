@@ -54,6 +54,7 @@ require("utils")
 local M = {}
 _G._DEBUG          = false               -- Required by the new lua posix
 local CTimer       = require("CTimer")
+local ReadLmodRC   = require("ReadLmodRC")
 local concatTbl    = table.concat
 local dbg          = require("Dbg"):dbg()
 local lfs          = require("lfs")
@@ -61,7 +62,6 @@ local max          = math.max
 local posix        = require("posix")
 local systemG      = _G
 local getenv       = os.getenv
-local gettimeofday = posix.gettimeofday
 local sort         = table.sort
 local timer        = require("Timer"):timer()
 local function nothing()
@@ -830,7 +830,8 @@ function M._Level2(self, T, searchName, full, possibleA)
    local c  = {}
    local titleIdx = 0
 
-   local propDisplayT = getPropT()
+   local readLmodRC   = ReadLmodRC:singleton()
+   local propDisplayT = readLmodRC:propT()
 
    local term_width = TermWidth() - 4
    local tt = nil

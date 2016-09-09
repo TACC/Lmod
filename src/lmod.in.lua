@@ -131,6 +131,7 @@ MT            = require("MT")
 Exec          = require("Exec")
 
 local BeautifulTbl = require('BeautifulTbl')
+local ReadLmodRC   = require('ReadLmodRC')
 local dbg          = require("Dbg"):dbg()
 local Banner       = require("Banner")
 local Version      = require("Version")
@@ -150,7 +151,8 @@ local hook         = require("Hook")
 -- @return An array of colorized strings
 function colorizePropA(style, moduleName, propT, legendT)
    local resultA      = { moduleName }
-   local propDisplayT = getPropT()
+   local readLmodRC   = ReadLmodRC:singleton()
+   local propDisplayT = readLmodRC:propT()
    local iprop        = 0
    local pA           = {}
    propT              = propT or {}
@@ -444,7 +446,6 @@ function main()
    local masterTbl = masterTbl()
 
    setenv_lmod_version()  -- Push Lmod version into environment
-   readRC()
 
    ------------------------------------------------------------------------
    --  The StandardPackage is where Lmod registers hooks.  Sites may

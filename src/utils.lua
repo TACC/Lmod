@@ -601,70 +601,70 @@ function readAdmin()
    end
 end
 
-local s_readRC     = false
-RCFileA = {
-   pathJoin(cmdDir(),"../init/lmodrc.lua"),
-   pathJoin(cmdDir(),"../../etc/lmodrc.lua"),
-   pathJoin("/etc/lmodrc.lua"),
-   pathJoin(getenv("HOME"),".lmodrc.lua"),
-   os.getenv("LMOD_RC"),
-}
-
---------------------------------------------------------------------------
--- Read in the system and possible a user lmod configuration file.
--- The system one is read first.  These provide default value
--- The user one can override the default values.
-function readRC()
-   dbg.start{"readRC()"}
-   if (s_readRC) then
-      s_readRC = true
-      return
-   end
-
-   declare("propT",       false)
-   declare("scDescriptT", false)
-
-   for i = 1,#RCFileA do
-      repeat
-         local f        = RCFileA[i]
-         local fh = open(f)
-         if (not fh) then break end
-            
-         assert(loadfile(f))()
-         s_rcFileA[#s_rcFileA+1] = abspath(f)
-         fh:close()
-
-         local propT       = _G.propT or {}
-         local scDescriptT = _G.scDescriptT   or {}
-         for k,v in pairs(propT) do
-            s_propT[k] = v
-         end
-         for j = 1,#scDescriptT do
-            s_scDescriptT[#s_scDescriptT + 1] = scDescriptT[j]
-         end
-      until true
-   end
-   dbg.fini("readRC")
-end
-
---------------------------------------------------------------------------
--- Return the property table.
-function getPropT()
-   return s_propT
-end
-
---------------------------------------------------------------------------
--- Return the spider cache description table.
-function getSCDescriptT()
-   return s_scDescriptT
-end
-
-
---------------------------------------------------------------------------
--- Return the array of active RC files
-function getRCFileA()
-   return s_rcFileA
-end
+--local s_readRC     = false
+--RCFileA = {
+--   pathJoin(cmdDir(),"../init/lmodrc.lua"),
+--   pathJoin(cmdDir(),"../../etc/lmodrc.lua"),
+--   pathJoin("/etc/lmodrc.lua"),
+--   pathJoin(getenv("HOME"),".lmodrc.lua"),
+--   os.getenv("LMOD_RC"),
+--}
+--
+----------------------------------------------------------------------------
+---- Read in the system and possible a user lmod configuration file.
+---- The system one is read first.  These provide default value
+---- The user one can override the default values.
+--function readRC()
+--   dbg.start{"readRC()"}
+--   if (s_readRC) then
+--      s_readRC = true
+--      return
+--   end
+--
+--   declare("propT",       false)
+--   declare("scDescriptT", false)
+--
+--   for i = 1,#RCFileA do
+--      repeat
+--         local f        = RCFileA[i]
+--         local fh = open(f)
+--         if (not fh) then break end
+--            
+--         assert(loadfile(f))()
+--         s_rcFileA[#s_rcFileA+1] = abspath(f)
+--         fh:close()
+--
+--         local propT       = _G.propT or {}
+--         local scDescriptT = _G.scDescriptT   or {}
+--         for k,v in pairs(propT) do
+--            s_propT[k] = v
+--         end
+--         for j = 1,#scDescriptT do
+--            s_scDescriptT[#s_scDescriptT + 1] = scDescriptT[j]
+--         end
+--      until true
+--   end
+--   dbg.fini("readRC")
+--end
+--
+----------------------------------------------------------------------------
+---- Return the property table.
+--function getPropT()
+--   return s_propT
+--end
+--
+----------------------------------------------------------------------------
+---- Return the spider cache description table.
+--function getSCDescriptT()
+--   return s_scDescriptT
+--end
+--
+--
+----------------------------------------------------------------------------
+---- Return the array of active RC files
+--function getRCFileA()
+--   return s_rcFileA
+--end
 
 --------------------------------------------------------------------------
 -- Convert number and string to a quoted string.

@@ -387,7 +387,6 @@ function main()
    MCP = MasterControl.build("spider")
    mcp = MasterControl.build("spider")
 
-   readRC()
    local cache = Cache:cache{dontWrite = true, quiet = true, buildCache = true}
 
    ------------------------------------------------------------------------

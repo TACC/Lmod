@@ -48,6 +48,7 @@ require("utils")
 require("string_utils")
 require("colorize")
 local BeautifulTbl = require('BeautifulTbl')
+local ReadLmodRC   = require('ReadLmodRC')
 local Version      = require("Version")
 local concatTbl    = table.concat
 local dbg          = require('Dbg'):dbg()
@@ -105,10 +106,11 @@ local function new(self)
    else
       lmod_version = lmod_version:gsub("[)(]","")
    end
+   local readLmodRC        = ReadLmodRC:singleton()
    local settarg_support   = "@lmod_full_settarg_support@"
    local pkgName           = Pkg.name() or "unknown"
    local lmod_colorize     = getenv("LMOD_COLORIZE") or "@colorize@"
-   local scDescriptT       = getSCDescriptT()
+   local scDescriptT       = readLmodRC:scDescriptT()
    local numSC             = #scDescriptT
    local uname             = capture("uname -a")
    local adminFn, readable = findAdminFn()
@@ -189,10 +191,11 @@ end
 -- @param self A Configuration object
 -- @return the configuration report as a single string.
 function M.report(self)
-   local a   = {}
-   local tbl = self.tbl
-   a[#a+1]   = {"Description", "Value", }
-   a[#a+1]   = {"-----------", "-----", }
+   local readLmodRC = ReadLmodRC:singleton()
+   local a          = {}
+   local tbl        = self.tbl
+   a[#a+1]          = {"Description", "Value", }
+   a[#a+1]          = {"-----------", "-----", }
 
    for _, v in pairsByKeys(tbl) do
       a[#a+1] = {v.k, v.v }
@@ -203,7 +206,7 @@ function M.report(self)
    b[#b+1]  = bt:build_tbl()
    b[#b+1]  = "\n"
 
-   local rcFileA = getRCFileA()
+   local rcFileA = readLmodRC:rcFileA()
    if (#rcFileA) then
       b[#b+1] = "Active RC file(s):"
       b[#b+1] = "------------------"
@@ -214,7 +217,7 @@ function M.report(self)
    end
 
 
-   local scDescriptT = getSCDescriptT()
+   local scDescriptT = readLmodRC:scDescriptT()
    if (#scDescriptT > 0) then
       a = {}
       a[#a+1]   = {"Cache Directory",  "Time Stamp File",}
@@ -233,7 +236,7 @@ function M.report(self)
    b[#b+1]  = str
    b[#b+1]  = border
    b[#b+1]  = "\n"
-   b[#b+1]  = serializeTbl{ indent = true, name="propT", value = getPropT() }
+   b[#b+1]  = serializeTbl{ indent = true, name="propT", value = readLmodRC:propT() }
    b[#b+1]  = "\n"
 
    return concatTbl(b,"\n")
