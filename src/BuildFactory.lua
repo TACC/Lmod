@@ -96,16 +96,9 @@ function M.build_accept_functions()
       _G.accept_fn = function (fn)
          return fn:find("%.lua$")
       end
-      _G.accept_extT = function ()
-         return { '.lua' }
-      end
-
    else
       _G.accept_fn = function (fn)
          return true
-      end
-      _G.accept_extT = function ()
-         return { '.lua', '' }
       end
    end
 end

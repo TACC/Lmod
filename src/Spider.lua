@@ -172,7 +172,7 @@ function M.new(self)
    local o = {}
    setmetatable(o,self)
    self.__index = self
-   self.__name  = false
+   o.__name  = false
    return o
 end
 
