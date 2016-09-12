@@ -446,7 +446,6 @@ epoch_type = false
 -- Accept functions: Allow or ignore TCL mfiles
 --------------------------------------------------------------------------
 accept_fn       = false
-accept_extT     = false
 
 ------------------------------------------------------------------------
 -- allow dups function: allow for duplicate entries in PATH like vars.

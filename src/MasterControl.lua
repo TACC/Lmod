@@ -341,6 +341,7 @@ function M.reportAdminMsgs()
       io.stderr:write(border,"\n\n")
    end
 end
+
 -------------------------------------------------------------------
 -- Load a list of module but ignore any warnings.
 -- @param self A MasterControl object

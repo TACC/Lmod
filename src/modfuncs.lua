@@ -254,7 +254,6 @@ function always_unload(...)
    dbg.fini("always_unload")
    return b
 end
-
 --------------------------------------------------------------------------
 -- A load and prereq modifier.  It is used like this:
 -- load(atleast("gcc","4.8"))
