@@ -28,8 +28,6 @@ MODULEPATH="ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/Core:ProjectDIR/rt/a
 export MODULEPATH;
 PATH="/vol/local/intel/idb/idb/bin:/vol/local/intel/fc/fc/bin:/vol/local/intel/cc/cc/bin:ProjectDIR/src:PATH_to_TM:/bin";
 export PATH;
-TACC_FAMILY_COMPILER="intel";
-export TACC_FAMILY_COMPILER;
 _LMFILES_="ProjectDIR/mf/Core/intel/intel.lua";
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/mf/Core","ProjectDIR/rt/avail/mf/Core",},family={["compiler"]="intel",},inactive={},mT={intel={["FN"]="ProjectDIR/mf/Core/intel/intel.lua",["default"]=1,["fullName"]="intel/intel",["loadOrder"]=1,propT={},["short"]="intel",["status"]="active",},},mpathA={"ProjectDIR/mf/Compiler/intel/10.1","ProjectDIR/mf/Core","ProjectDIR/rt/avail/mf/Core",},["systemBaseMPATH"]="ProjectDIR/mf/Core:ProjectDIR/rt/avail/mf/Core",["version"]=2,}';
@@ -82,7 +80,6 @@ MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/rt/avail/mf/Core";
 export MODULEPATH;
 PATH="ProjectDIR/src:PATH_to_TM:/bin";
 export PATH;
-unset TACC_FAMILY_COMPILER;
 unset _LMFILES_;
 _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/mf/Core","ProjectDIR/rt/avail/mf/Core",},family={},inactive={},mT={},mpathA={"ProjectDIR/mf/Core","ProjectDIR/rt/avail/mf/Core",},["systemBaseMPATH"]="ProjectDIR/mf/Core:ProjectDIR/rt/avail/mf/Core",["version"]=2,}';
 export _ModuleTable_;

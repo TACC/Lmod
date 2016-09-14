@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 6.0.6  2015-07-16 14:33
+Modules based on Lua: Version 6.5.11  2016-09-07 11:16 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -28,8 +28,8 @@ the location of the boost distribution.
 ]], [[
 Version 1.53.0
 ]])
-setenv("TACC_BOOST_LIB","/opt/apps/gcc-4_7/boost/1.53.0/lib")
-setenv("TACC_BOOST_INC","/opt/apps/gcc-4_7/boost/1.53.0/include")
+setenv("LMOD_BOOST_LIB","/opt/apps/gcc-4_7/boost/1.53.0/lib")
+setenv("LMOD_BOOST_INC","/opt/apps/gcc-4_7/boost/1.53.0/include")
 add_property("arch","mic")
 ===========================
 step 5
@@ -54,9 +54,9 @@ mpicc -I$TACC_PMETIS_INC pmetis_test.c -L$TACC_PMETIS_LIB -lparmetis
 ]], [[
 Version 4.0.3
 ]])
-setenv("TACC_PMETIS_DIR","/opt/apps/gcc-4_7/mpich-3_0/pmetis/4.0.3")
-setenv("TACC_PMETIS_INC","/opt/apps/gcc-4_7/mpich-3_0/pmetis/4.0.3/include")
-setenv("TACC_PMETIS_LIB","/opt/apps/gcc-4_7/mpich-3_0/pmetis/4.0.3/lib")
+setenv("LMOD_PMETIS_DIR","/opt/apps/gcc-4_7/mpich-3_0/pmetis/4.0.3")
+setenv("LMOD_PMETIS_INC","/opt/apps/gcc-4_7/mpich-3_0/pmetis/4.0.3/include")
+setenv("LMOD_PMETIS_LIB","/opt/apps/gcc-4_7/mpich-3_0/pmetis/4.0.3/lib")
 ===========================
 step 6
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing show mpich

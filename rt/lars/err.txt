@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 6.0.10  2015-09-04 20:23
+Modules based on Lua: Version 6.5.11  2016-09-07 11:16 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2

@@ -36,8 +36,6 @@ MODULEPATH="ProjectDIR/rt/rtm_inherit/rtm_mf/Compiler/intel/13.1:ProjectDIR/rt/r
 export MODULEPATH;
 PATH="/opt/apps/intel/13.1/bin/intel64:ProjectDIR/src:PATH_to_TM:/bin";
 export PATH;
-TACC_FAMILY_COMPILER="intel";
-export TACC_FAMILY_COMPILER;
 _LMFILES_="ProjectDIR/rt/rtm_inherit/rtm_mf/Core/intel/13.1.lua";
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/rtm_inherit/rtm_mf/Core","ProjectDIR/rt/rtm_inherit/mf/Core",},family={["compiler"]="intel",},inactive={},mT={intel={["FN"]="ProjectDIR/rt/rtm_inherit/rtm_mf/Core/intel/13.1.lua",["default"]=1,fnI={"ProjectDIR/rt/rtm_inherit/mf/Core/intel/13.1.lua",},["fullName"]="intel/13.1",["loadOrder"]=1,propT={},["short"]="intel",["status"]="active",},},mpathA={"ProjectDIR/rt/rtm_inherit/rtm_mf/Compiler/intel/13.1","ProjectDIR/rt/rtm_inherit/mf/Compiler/intel/13.1","ProjectDIR/rt/rtm_inherit/rtm_mf/Core","ProjectDIR/rt/rtm_inherit/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/rtm_inherit/rtm_mf/Core:ProjectDIR/rt/rtm_inherit/mf/Core",["version"]=2,}';

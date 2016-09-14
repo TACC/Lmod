@@ -48,8 +48,6 @@ PATH="~/bin:ProjectDIR/src:PATH_to_TM:/bin";
 export PATH;
 PYTHONPATH="/home/easybuild/eb_repo.d/custom:/home/easybuild/eb_repo.d/easyblocks/1.14.0:/home/easybuild/eb_repo.d/easyconfigs/1.14.0.0";
 export PYTHONPATH;
-TACC_FAMILY_EASYBUILD="easybuild";
-export TACC_FAMILY_EASYBUILD;
 _LMFILES_="ProjectDIR/rt/ifur/mf/core/easybuild/defaults.lua:ProjectDIR/rt/ifur/mf/core/stdenv.lua";
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/ifur/mf/core",},family={["easybuild"]="easybuild",},inactive={},mT={easybuild={["FN"]="ProjectDIR/rt/ifur/mf/core/easybuild/defaults.lua",["default"]=0,["fullName"]="easybuild/defaults",["loadOrder"]=1,propT={},["short"]="easybuild",["status"]="active",},stdenv={["FN"]="ProjectDIR/rt/ifur/mf/core/stdenv.lua",["default"]=0,["fullName"]="stdenv",["loadOrder"]=2,propT={lmod={["sticky"]=1,},},["short"]="stdenv",["status"]="active",},},mpathA={"ProjectDIR/rt/ifur/mf/minerva/all/Core","ProjectDIR/rt/ifur/mf/core",},["systemBaseMPATH"]="ProjectDIR/rt/ifur/mf/core",["version"]=2,}';
