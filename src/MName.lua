@@ -233,7 +233,7 @@ function M.buildA(self,sType, ...)
    for i = 1, arg.n do
       local v = arg[i]
       if (type(v) == "string" ) then
-         a[#a + 1] = self:new(sType, v)
+         a[#a + 1] = self:new(sType, v:trim())
       elseif (type(v) == "table") then
          a[#a + 1] = v
       end
