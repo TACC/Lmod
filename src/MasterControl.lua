@@ -730,12 +730,11 @@ end
 -- @param name A property name
 -- @param value A property value.
 function M.add_property(self, name, value)
-   name = name:trim()
    local mStack  = ModuleStack:moduleStack()
    local mFull   = mStack:fullName()
    local mt      = MT:mt()
    local mname   = MName:new("load",mFull)
-   mt:add_property(mname:sn(), name, value)
+   mt:add_property(mname:sn(), name:trim(), value)
 end
 
 --------------------------------------------------------------------------
@@ -749,7 +748,7 @@ function M.remove_property(self, name, value)
    local mFull   = mStack:fullName()
    local mt      = MT:mt()
    local mname   = MName:new("mt",mFull)
-   mt:remove_property(mname:sn(), name, value)
+   mt:remove_property(mname:sn(), name:trim(), value)
 end
 
 
