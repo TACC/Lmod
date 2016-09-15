@@ -325,6 +325,8 @@ LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/loa
 export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/load/mf/Core";
 export MODULEPATH;
+ABC="3.0";
+export ABC;
 ALEX="2.0";
 export ALEX;
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Beta:ProjectDIR/rt/load/mf/Core";
