@@ -521,6 +521,7 @@ end
 -- @param value the environment variable value.
 -- @param respect If true, then respect the old value.
 function M.setenv(self, name, value, respect)
+   name = name:trim()
    dbg.start{"MasterControl:setenv(\"",name,"\", \"",value,"\", \"",
               respect,"\")"}
 
@@ -549,6 +550,7 @@ end
 -- @param value the environment variable value.
 -- @param respect If true, then respect the old value.
 function M.unsetenv(self, name, value, respect)
+   name = name:trim()
    dbg.start{"MasterControl:unsetenv(\"",name,"\", \"",value,"\")"}
 
    if (respect and getenv(name) ~= value) then
@@ -574,6 +576,7 @@ end
 -- @param name the environment variable name.
 -- @param value the environment variable value.
 function M.pushenv(self, name, value)
+   name = name:trim()
    dbg.start{"MasterControl:pushenv(\"",name,"\", \"",value,"\")"}
 
    ----------------------------------------------------------------
@@ -620,6 +623,7 @@ end
 -- @param name the environment variable name.
 -- @param value the environment variable value.
 function M.popenv(self, name, value)
+   name = name:trim()
    dbg.start{"MasterControl:popenv(\"",name,"\", \"",value,"\")"}
 
    local stackName = "__LMOD_STACK_" .. name
@@ -653,6 +657,7 @@ end
 -- @param name the environment variable name.
 -- @param value the environment variable value.
 function M.set_alias(self, name, value)
+   name = name:trim()
    dbg.start{"MasterControl:set_alias(\"",name,"\", \"",value,"\")"}
 
 
@@ -669,6 +674,7 @@ end
 -- @param name the environment variable name.
 -- @param value the environment variable value.
 function M.unset_alias(self, name, value)
+   name = name:trim()
    dbg.start{"MasterControl:unset_alias(\"",name,"\", \"",value,"\")"}
 
    if (varTbl[name] == nil) then
@@ -685,6 +691,7 @@ end
 -- @param name the environment variable name.
 -- @param value the environment variable value.
 function M.set_shell_function(self, name, bash_function, csh_function)
+   name = name:trim()
    dbg.start{"MasterControl:set_shell_function(\"",name,"\", \"",bash_function,"\"",
              "\", \"",csh_function,"\""}
 
@@ -702,6 +709,7 @@ end
 -- @param name the environment variable name.
 -- @param value the environment variable value.
 function M.unset_shell_function(self, name, bash_function, csh_function)
+   name = name:trim()
    dbg.start{"MasterControl:unset_shell_function(\"",name,"\", \"",bash_function,"\"",
              "\", \"",csh_function,"\""}
 
@@ -726,7 +734,7 @@ function M.add_property(self, name, value)
    local mFull   = mStack:fullName()
    local mt      = MT:mt()
    local mname   = MName:new("load",mFull)
-   mt:add_property(mname:sn(), name, value)
+   mt:add_property(mname:sn(), name:trim(), value)
 end
 
 --------------------------------------------------------------------------
@@ -735,11 +743,12 @@ end
 -- @param name A property name
 -- @param value A property value.
 function M.remove_property(self, name, value)
+   name = name:trim()
    local mStack  = ModuleStack:moduleStack()
    local mFull   = mStack:fullName()
    local mt      = MT:mt()
    local mname   = MName:new("mt",mFull)
-   mt:remove_property(mname:sn(), name, value)
+   mt:remove_property(mname:sn(), name:trim(), value)
 end
 
 
