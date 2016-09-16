@@ -14,7 +14,7 @@ login. In ``StdEnv.lua`` is something like: ::
 Using the /etc/profile.d directory system described earlier to create a
 file called ``z00_StdEnv.sh`` ::
 
-    if [ -z "$__Init_Default_Modules" -o -z "$LD_LIBRARY_PATH" ]; then
+    if [ -z "$__Init_Default_Modules" ]; then
        export __Init_Default_Modules=1;
 
        ## ability to predefine elsewhere the default list
@@ -27,7 +27,7 @@ file called ``z00_StdEnv.sh`` ::
 
 Similar for z00_StdEnv.csh::
 
-    if ( ! $?__Init_Default_Modules || ! $?LD_LIBRARY_PATH )  then
+    if ( ! $?__Init_Default_Modules )  then
       setenv __Init_Default_Modules 1
       if ( ! $?LMOD_SYSTEM_DEFAULT_MODULES ) then
         setenv LMOD_SYSTEM_DEFAULT_MODULES "StdEnv"
@@ -41,7 +41,7 @@ The z00_Stdenv.* names are chosen because the files in /etc/profile.d
 are sourced in alphabetical order. These names guarantee they will run
 after the module command is defined.
 
-The first time these files are source by a shell they will set
+The first time these files are sourced by a shell they will set
 ``LMOD_SYSTEM_DEFAULT_MODULES`` to ``StdEnv`` and then execute
 ``module restore``.  Any subshells will instead call ``module
 refresh``.  Both of these statements are important to get the
@@ -65,7 +65,7 @@ modules that a user can override with a default collection. Site are,
 of course, free to setup Lmod any way they like. The
 minimum required setup (for bash with z00_StdEnv.sh ) would be::
 
-    if [ -z "$__Init_Default_Modules" -o -z "$LD_LIBRARY_PATH" ]; then
+    if [ -z "$__Init_Default_Modules" ]; then
        export __Init_Default_Modules=1;
 
        module --initial_load restore   
@@ -75,3 +75,44 @@ minimum required setup (for bash with z00_StdEnv.sh ) would be::
 
 The module restore command still depends on the environment variable
 LMOD_SYSTEM_DEFAULT_MODULES but that can be set somewhere else.
+
+
+Lmod, LD_LIBRARY_PATH and screen
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+In general, it is probably better to NOT use ``screen`` and use
+``tmux`` instead.  The problem with ``screen`` is that it guid
+program (``tmux`` is not).  That means it uses the group associated
+with the executable and not the user's group.  The main consequence of
+this is that the operating system removes LD_LIBRARY_PATH from the
+environment.  This is a security feature.
+
+A site could change z00_StdEnv.sh to have::
+
+    if [ -z "$__Init_Default_Modules" -o -z "$LD_LIBRARY_PATH" ]; then
+       export __Init_Default_Modules=1;
+
+       module --initial_load restore   
+    else
+       module refresh
+    fi
+
+to help with the situation.  This will force Lmod restore the initial
+set of modules (or the user's default collection).  This works fine as
+long as the initial set of modules actually sets LD_LIBRARY_PATH.  If
+it doesn't every interactive sub-shell will do a module restore, which
+is probably not what you want.  For example, if you see the following
+then you probably what to remove the test for an empty LD_LIBRARY_PATH::
+
+    $ module list
+    Currently Loaded Modules:
+       1) gcc/5.2     2) StdEnv
+
+    $ module load bowtie
+    $ bash
+    $ module list
+    Currently Loaded Modules:
+       1) gcc/5.2     2) StdEnv
+
+Running the bash shell caused the module restore to run which unloaded
+all module and restored the initial set.
