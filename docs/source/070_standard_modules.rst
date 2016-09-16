@@ -2,7 +2,7 @@ Providing A Standard Set Of Modules for all Users
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Users can be provided with an initial set of modulefiles as part of
-the login proceedure. Once a list of modulefiles have been installed,
+the login proceedure.  Once a list of modulefiles have been installed,
 please create a file called StdEnv.lua and place it in the MODULEPATH
 list of directories, typically
 ``/opt/apps/modulefiles/Core/StdEnv.lua``. The name is your choice,
@@ -16,7 +16,9 @@ file called ``z00_StdEnv.sh`` ::
 
     if [ -z "$__Init_Default_Modules" -o -z "$LD_LIBRARY_PATH" ]; then
        export __Init_Default_Modules=1;
-       LMOD_SYSTEM_DEFAULT_MODULES=${LMOD_SYSTEM_DEFAULT_MODULES:-"StdEnv"} ## ability to predefine elsewhere the default list
+
+       ## ability to predefine elsewhere the default list
+       LMOD_SYSTEM_DEFAULT_MODULES=${LMOD_SYSTEM_DEFAULT_MODULES:-"StdEnv"} 
        export LMOD_SYSTEM_DEFAULT_MODULES
        module --initial_load restore
     else
@@ -58,4 +60,17 @@ Under a "``refresh``", all the currently loaded modules are reloaded
 but in a special way. Only the functions which define alias and shell
 functions are active, all others functions are ignored.
 
+The above is an example of how a site might provide a default set of
+modules that a user can override with a default collection.  The
+minimum required setup (for bash with z00_StdEnv.sh ) would be::
 
+    if [ -z "$__Init_Default_Modules" -o -z "$LD_LIBRARY_PATH" ]; then
+       export __Init_Default_Modules=1;
+
+       module --initial_load restore   
+    else
+       module refresh
+    fi
+
+The module restore command still depends on the environment variable
+LMOD_SYSTEM_DEFAULT_MODULES but that can be set somewhere else.
