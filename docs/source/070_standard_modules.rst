@@ -61,7 +61,8 @@ but in a special way. Only the functions which define alias and shell
 functions are active, all others functions are ignored.
 
 The above is an example of how a site might provide a default set of
-modules that a user can override with a default collection.  The
+modules that a user can override with a default collection. Site are,
+of course, free to setup Lmod any way they like. The
 minimum required setup (for bash with z00_StdEnv.sh ) would be::
 
     if [ -z "$__Init_Default_Modules" -o -z "$LD_LIBRARY_PATH" ]; then
