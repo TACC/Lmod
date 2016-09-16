@@ -102,7 +102,7 @@ set of modules (or the user's default collection).  This works fine as
 long as the initial set of modules actually sets LD_LIBRARY_PATH.  If
 it doesn't every interactive sub-shell will do a module restore, which
 is probably not what you want.  For example, if you see the following
-then you probably what to remove the test for an empty LD_LIBRARY_PATH::
+then you probably want to remove the test for an empty LD_LIBRARY_PATH::
 
     $ module list
     Currently Loaded Modules:
