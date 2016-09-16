@@ -18,3 +18,6 @@ Bug Fixes:
        to the wrong value.  This is fixed here.
     j) (6.5.11) Fixed a bug where Lmod did not find term.  This meant that all term widths
         were 80 characters and there was no color output.
+    k) (6.5.12) In setenv(" name ",...), etc the name argument is trimmed of leading and
+       trailing blanks.  Module unuse now uses directory that was passed in.  It doesn't
+       try to abspath() the directory.
