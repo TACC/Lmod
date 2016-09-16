@@ -68,4 +68,4 @@ Your users will like this:
 
     module use --prepend $ownmoddir
 
-Similarly, you can have a second file with the `prepend` suffix; alphabetical sorting makes them work as you would like ;-)
+Similarly, you can have a second file with the `append` suffix; alphabetical sorting makes them work as you would like ;-)
