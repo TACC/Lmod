@@ -115,4 +115,4 @@ then you probably want to remove the test for an empty LD_LIBRARY_PATH::
        1) gcc/5.2     2) StdEnv
 
 Running the bash shell caused the module restore to run which unloaded
-all module and restored the initial set.
+all modules and restored the initial set.
