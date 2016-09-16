@@ -85,7 +85,8 @@ In general, it is probably better to NOT use ``screen`` and use
 program (``tmux`` is not).  That means it uses the group associated
 with the executable and not the user's group.  The main consequence of
 this is that the operating system removes LD_LIBRARY_PATH from the
-environment.  This is a security feature.
+environment.  This is a security feature built into the operating
+system.
 
 A site could change z00_StdEnv.sh to have::
 
@@ -115,4 +116,4 @@ then you probably want to remove the test for an empty LD_LIBRARY_PATH::
        1) gcc/5.2     2) StdEnv
 
 Running the bash shell caused the module restore to run which unloaded
-all modules and restored the initial set.
+all modules and restored the modules back to the initial set.
