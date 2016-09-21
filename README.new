@@ -21,3 +21,5 @@ Bug Fixes:
     k) (6.5.12) In setenv(" name ",...), etc the name argument is trimmed of leading and
        trailing blanks.  Module unuse now uses directory that was passed in.  It doesn't
        try to abspath() the directory.
+    l) (6.5.13) ml --vers will generate an error.
+    
