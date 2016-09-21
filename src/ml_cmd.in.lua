@@ -248,6 +248,13 @@ function main()
             break
          end
 
+         if (v:find("^%-%-")) then
+            io.stderr:write("Option: \"",v,"\" is unknown\n",
+                            "Try ml --help for usage\n")
+            os.exit(1)
+         end
+
+
          local cmd = lmodCmdT[v]
          if (cmd and not cmdFound) then
             cmdA[#cmdA + 1] = cmd
