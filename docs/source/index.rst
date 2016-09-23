@@ -90,6 +90,7 @@ Advanced Topics
    140_deprecating_modules
    150_kitchen_sink_module
    170_hooks
+   180_prereqs_load_rpath
 
 Topics yet to be written
 ^^^^^^^^^^^^^^^^^^^^^^^^
