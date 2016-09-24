@@ -80,5 +80,5 @@ We have switched to using RPATH for library dependencies at TACC. That
 is when we build package XYZ, we use the RPATH linking option to link
 ``boost/1.51.0`` as part of the XYZ rpm.  This has the disadvantage
 that if the boost package is removed then the XYZ package is broken.
-This has happen us occasionly.  In general, however we have found that
-worked well for us.
+This has happen us occasionly.  In general, however, we have found that
+this has worked well for us.
