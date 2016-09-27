@@ -918,6 +918,7 @@ function Use(...)
       iarg = iarg + 1
    end
    for _,v in ipairs(a) do
+      dbg.print{"v: ",v,", isDir(v): ",isDir(v),"\n"}
       if (isDir(v)) then
          op(MCP, { ModulePath,  v, delim = ":", nodups=true, priority=priority })
          op(MCP, { DfltModPath, v, delim = ":", nodups=true, priority=priority })

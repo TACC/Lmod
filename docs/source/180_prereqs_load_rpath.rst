@@ -71,7 +71,7 @@ These approaches mean that package XYZ and be loaded and the boost
 dependency is also loaded.  But when XYZ is unloaded the boost module
 remains.  For library dependencies, the next technique has advantages
 but for non-library packages dependencies, the ``always_load()`` is a
-good way to go.
+good way to go. 
 
 Use RPATH
 ---------

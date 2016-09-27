@@ -1050,7 +1050,7 @@ function M.resolveMpathChanges(self, currentMPATH, baseMPATH)
       for i = 1,kU do
          a[i] = usrMpathA[i]
       end
-      local dmp    = concatTbl(a,":") .. ":" .. baseMPATH
+      local dmp = (kU == 0) and baseMPATH or concatTbl(a,":") .. ":" .. baseMPATH
       varTbl[DfltModPath] = Var:new(DfltModPath, dmp)
       varTbl[ModulePath]  = Var:new(ModulePath, currentMPATH)
       self:buildBaseMpathA(dmp)

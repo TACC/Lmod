@@ -37,9 +37,15 @@ testdescript = {
      runLmod load intel       #12
      runLmod load settarg     #13
      runLmod unload settarg   #14
-
-     runLmod save             #15
-     runLmod restore          #16
+     export LEWIS="test"
+     export   RTM="test"
+     runLmod load   ll/1.0    #15
+     runLmod unload ll/1.0    #16
+     runLmod load   ll/2.0    #17
+     runLmod unload ll/2.0    #18
+    
+     runLmod save             #19
+     runLmod restore          #20
 
      HOME_ORIG=$HOME
 

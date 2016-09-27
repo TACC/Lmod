@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 6.0.11  2015-10-06 17:09
+Modules based on Lua: Version 6.5.13  2016-09-21 08:59 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -62,11 +62,27 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload settarg
 ===========================
 ===========================
 step 15
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load ll/1.0
+===========================
+===========================
+step 16
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload ll/1.0
+===========================
+===========================
+step 17
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load ll/2.0
+===========================
+===========================
+step 18
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload ll/2.0
+===========================
+===========================
+step 19
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing save
 ===========================
 Saved current collection of modules to: default
 ===========================
-step 16
+step 20
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing restore
 ===========================
 Restoring modules to user's default

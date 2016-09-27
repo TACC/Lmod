@@ -284,6 +284,110 @@ __LMOD_STACK_RTM_SETTARG_CMD=":";
 export __LMOD_STACK_RTM_SETTARG_CMD;
 ===========================
 step 15
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load ll/1.0
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/pushenv/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0:ProjectDIR/rt/pushenv/mf/Core";
+export MODULEPATH;
+LEWIS="correct";
+export LEWIS;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/pushenv/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+LOADEDMODULES="intel/13.0:mpich/3.0:ll/1.0";
+export LOADEDMODULES;
+MODULEPATH="ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0:ProjectDIR/rt/pushenv/mf/Core";
+export MODULEPATH;
+RTM="correct";
+export RTM;
+_LMFILES_="ProjectDIR/rt/pushenv/mf/Core/intel/13.0.lua:ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0/mpich/3.0.lua:ProjectDIR/rt/pushenv/mf/Core/ll/1.0.lua";
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/pushenv/mf/Core",},family={},inactive={},mT={intel={["FN"]="ProjectDIR/rt/pushenv/mf/Core/intel/13.0.lua",["default"]=1,["fullName"]="intel/13.0",["loadOrder"]=1,propT={},["short"]="intel",["status"]="active",},ll={["FN"]="ProjectDIR/rt/pushenv/mf/Core/ll/1.0.lua",["default"]=0,["fullName"]="ll/1.0",["loadOrder"]=3,propT={},["short"]="ll",["status"]="active",},mpich={["FN"]="ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0/mpich/3.0.lua",["default"]=1,["fullName"]="mpich/3.0",["loadOrder"]=2,propT={},["short"]="mpich",["status"]="active",},},mpathA={"ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0","ProjectDIR/rt/pushenv/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/pushenv/mf/Core",["version"]=2,}';
+export _ModuleTable_;
+__LMOD_STACK_LEWIS="correct:test";
+export __LMOD_STACK_LEWIS;
+__LMOD_STACK_RTM="correct:test";
+export __LMOD_STACK_RTM;
+===========================
+step 16
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload ll/1.0
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/pushenv/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0:ProjectDIR/rt/pushenv/mf/Core";
+export MODULEPATH;
+LEWIS="test";
+export LEWIS;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/pushenv/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+LOADEDMODULES="intel/13.0:mpich/3.0";
+export LOADEDMODULES;
+MODULEPATH="ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0:ProjectDIR/rt/pushenv/mf/Core";
+export MODULEPATH;
+RTM="test";
+export RTM;
+_LMFILES_="ProjectDIR/rt/pushenv/mf/Core/intel/13.0.lua:ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0/mpich/3.0.lua";
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/pushenv/mf/Core",},family={},inactive={},mT={intel={["FN"]="ProjectDIR/rt/pushenv/mf/Core/intel/13.0.lua",["default"]=1,["fullName"]="intel/13.0",["loadOrder"]=1,propT={},["short"]="intel",["status"]="active",},mpich={["FN"]="ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0/mpich/3.0.lua",["default"]=1,["fullName"]="mpich/3.0",["loadOrder"]=2,propT={},["short"]="mpich",["status"]="active",},},mpathA={"ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0","ProjectDIR/rt/pushenv/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/pushenv/mf/Core",["version"]=2,}';
+export _ModuleTable_;
+__LMOD_STACK_LEWIS="test";
+export __LMOD_STACK_LEWIS;
+__LMOD_STACK_RTM="test";
+export __LMOD_STACK_RTM;
+===========================
+step 17
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load ll/2.0
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/pushenv/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0:ProjectDIR/rt/pushenv/mf/Core";
+export MODULEPATH;
+LEWIS="";
+export LEWIS;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/pushenv/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+LOADEDMODULES="intel/13.0:mpich/3.0:ll/2.0";
+export LOADEDMODULES;
+MODULEPATH="ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0:ProjectDIR/rt/pushenv/mf/Core";
+export MODULEPATH;
+RTM=" ";
+export RTM;
+_LMFILES_="ProjectDIR/rt/pushenv/mf/Core/intel/13.0.lua:ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0/mpich/3.0.lua:ProjectDIR/rt/pushenv/mf/Core/ll/2.0.lua";
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/pushenv/mf/Core",},family={},inactive={},mT={intel={["FN"]="ProjectDIR/rt/pushenv/mf/Core/intel/13.0.lua",["default"]=1,["fullName"]="intel/13.0",["loadOrder"]=1,propT={},["short"]="intel",["status"]="active",},ll={["FN"]="ProjectDIR/rt/pushenv/mf/Core/ll/2.0.lua",["default"]=0,["fullName"]="ll/2.0",["loadOrder"]=3,propT={},["short"]="ll",["status"]="active",},mpich={["FN"]="ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0/mpich/3.0.lua",["default"]=1,["fullName"]="mpich/3.0",["loadOrder"]=2,propT={},["short"]="mpich",["status"]="active",},},mpathA={"ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0","ProjectDIR/rt/pushenv/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/pushenv/mf/Core",["version"]=2,}';
+export _ModuleTable_;
+__LMOD_STACK_LEWIS=":test";
+export __LMOD_STACK_LEWIS;
+__LMOD_STACK_RTM=" :test";
+export __LMOD_STACK_RTM;
+===========================
+step 18
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload ll/2.0
+===========================
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/pushenv/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0:ProjectDIR/rt/pushenv/mf/Core";
+export MODULEPATH;
+LEWIS="test";
+export LEWIS;
+LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/pushenv/mf/Core";
+export LMOD_DEFAULT_MODULEPATH;
+LOADEDMODULES="intel/13.0:mpich/3.0";
+export LOADEDMODULES;
+MODULEPATH="ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0:ProjectDIR/rt/pushenv/mf/Core";
+export MODULEPATH;
+RTM="test";
+export RTM;
+_LMFILES_="ProjectDIR/rt/pushenv/mf/Core/intel/13.0.lua:ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0/mpich/3.0.lua";
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/pushenv/mf/Core",},family={},inactive={},mT={intel={["FN"]="ProjectDIR/rt/pushenv/mf/Core/intel/13.0.lua",["default"]=1,["fullName"]="intel/13.0",["loadOrder"]=1,propT={},["short"]="intel",["status"]="active",},mpich={["FN"]="ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0/mpich/3.0.lua",["default"]=1,["fullName"]="mpich/3.0",["loadOrder"]=2,propT={},["short"]="mpich",["status"]="active",},},mpathA={"ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0","ProjectDIR/rt/pushenv/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/pushenv/mf/Core",["version"]=2,}';
+export _ModuleTable_;
+__LMOD_STACK_LEWIS="test";
+export __LMOD_STACK_LEWIS;
+__LMOD_STACK_RTM="test";
+export __LMOD_STACK_RTM;
+===========================
+step 19
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing save
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/pushenv/mf/Core";
@@ -297,7 +401,7 @@ export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/pushenv/mf/Core",},family={},inactive={},mT={intel={["FN"]="ProjectDIR/rt/pushenv/mf/Core/intel/13.0.lua",["default"]=1,["fullName"]="intel/13.0",["loadOrder"]=1,propT={},["short"]="intel",["status"]="active",},mpich={["FN"]="ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0/mpich/3.0.lua",["default"]=1,["fullName"]="mpich/3.0",["loadOrder"]=2,propT={},["short"]="mpich",["status"]="active",},},mpathA={"ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0","ProjectDIR/rt/pushenv/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/pushenv/mf/Core",["version"]=2,}';
 export _ModuleTable_;
 ===========================
-step 16
+step 20
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing restore
 ===========================
 LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/pushenv/mf/Core";
