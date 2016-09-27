@@ -28,14 +28,14 @@
 --  dynamic.
 --
 --  The rational behind this design is to support all the ways a modulefile can
---  be evaluated. 
+--  be evaluated.
 --
 --  In a module file, the change to the environment upon loading are specified:
 --  set a variable, prepend something to a variable, etc. When you 'unload' the
 --  module, these changes need to get reversed. So depending on the 'mode' (load,
 --  unloading, ...), 'setenv' will have a different meaning. Instead of using 'if'
 --  statements, the current design allows in an elegant way to the define the
---  different 'setenv' commands. There are at least 8 modes and they can be 
+--  different 'setenv' commands. There are at least 8 modes and they can be
 --  found in the function 'M.build' below.
 --
 -- @classmod MasterControl
@@ -288,7 +288,7 @@ function M.load(self, mA)
    end
 
    dbg.fini("MasterControl:load")
-      
+
    return a
 end
 
@@ -800,8 +800,11 @@ function LmodSystemError(...)
        s[#s+1] = "\n"
    end
 
-   s[#s+1] = moduleStackTraceBack()
-   s[#s+1] = "\n"
+   a = moduleStackTraceBack()
+   if a ~= "" then
+       s[#s+1] = a
+       s[#s+1] = "\n"
+   end
 
    s = hook.apply("msgHook","lmoderror",s)
    s = concatTbl(s,"")
@@ -828,8 +831,12 @@ function M.warning(self, ...)
       local s      = {}
       s[#s+1] = buildMsg(twidth, label, ...)
       s[#s+1] = "\n"
-      s[#s+1] = moduleStackTraceBack()
-      s[#s+1] = "\n"
+
+      local a = moduleStackTraceBack()
+      if a ~= "" then
+          s[#s+1] = a
+          s[#s+1] = "\n"
+      end
 
       s = hook.apply("msgHook","lmodwarning",s)
       s = concatTbl(s,"")
