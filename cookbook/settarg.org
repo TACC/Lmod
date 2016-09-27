@@ -9,7 +9,7 @@ Ways to explain settarg
 with no prompt command, no changing the title bar, no changing via
 Hermes.db or similar
 
-** Note: Could, Should settarg functionality be intergrated directly into Lmod?
+** Note: Could, Should settarg functionality be integrated directly into Lmod?
 How would one control the output?  Would there be a settarg module? or
 would it always be on?
 
