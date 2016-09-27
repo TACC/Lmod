@@ -20,7 +20,7 @@ but there is no good way to do this.
 
 * How would one use it?
 ** The main benefit is to build systems:
-One gets a single environment variable "TARG" which escapilates the
+One gets a single environment variable "TARG" which encapsulates the
 state of the loaded modules, plus the machine architecture
 (x86_64_06_1a) and optionally a BUILD_SCENARIO (opt, dbg, mdbg, etc)
 Plus settarg provides host of environment variables to check various
@@ -37,8 +37,8 @@ You get
 This supports a host of tests that can be part of a Makefile or other
 build systems.
 
-Also included is separate executables available at the same time.
-This makes comparing and constrasting easy.
+Also included are separate executables available at the same time.
+This makes comparing and contrasting easy.
 
 * O.K.  I have drunk the Kool-aid and I love this stuff but how am I going to use this at home? At Work?
 
