@@ -22,4 +22,5 @@ Bug Fixes:
        trailing blanks.  Module unuse now uses directory that was passed in.  It doesn't
        try to abspath() the directory.
     l) (6.5.13) ml --vers will generate an error.
+    m) (6.5.14) pushenv("name","") fixed when unloading module.
     
