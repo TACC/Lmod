@@ -801,7 +801,7 @@ function LmodSystemError(...)
    end
 
    a = moduleStackTraceBack()
-   if a ~= "" then
+   if (a ~= "") then
        s[#s+1] = a
        s[#s+1] = "\n"
    end
@@ -833,7 +833,7 @@ function M.warning(self, ...)
       s[#s+1] = "\n"
 
       local a = moduleStackTraceBack()
-      if a ~= "" then
+      if (a ~= "") then
           s[#s+1] = a
           s[#s+1] = "\n"
       end
