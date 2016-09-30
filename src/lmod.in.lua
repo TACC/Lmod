@@ -507,7 +507,7 @@ function main()
    -- gitversion and quit if requested.
    if (masterTbl.gitversion) then
       local gitV = Version.git()
-      if (not gitV) then
+      if (gitV == "") then
          gitV = Version.tag()
       else
          gitV = gitV:match('%((.*)%)')
@@ -610,7 +610,6 @@ function main()
 
    -- Store the Module table in "_ModuleTable_" env. var.
    local n        = mt:name()
-   local oldValue = getMT() or ""
    local value    = mt:serializeTbl()
    varTbl[n]      = Var:new(n)
    varTbl[n]:set(value)
