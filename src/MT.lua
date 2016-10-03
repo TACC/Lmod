@@ -358,6 +358,10 @@ local function new(self, s, restoreFn)
    local active, total
 
    local currentMPATH  = getenv(ModulePath)
+   if (currentMPATH) then
+      currentMPATH     = concatTbl(path2pathA(currentMPATH),':')
+   end
+
    o.systemBaseMPATH   = path_regularize(currentMPATH)
 
    dbg.print{"systemBaseMPATH:       \"", currentMPATH, "\"\n"}

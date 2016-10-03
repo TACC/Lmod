@@ -480,17 +480,6 @@ function path2pathA(path, sep)
 
    local is, ie
 
-   -- remove leading and trailing sep
-   --if (path:sub(1,1) == sep) then
-   --   is = 2
-   --end
-   --if (path:sub(-1,-1) == sep) then
-   --   ie = -2
-   --end
-   --if (is) then
-   --   path = path:sub(is,ie)
-   --end
-
    local pathA = {}
    for v  in path:split(sep) do
       pathA[#pathA + 1] = path_regularize(v)
