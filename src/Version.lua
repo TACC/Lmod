@@ -1,6 +1,6 @@
 --module('Version')
 local M={}
-function M.tag()  return "6.5.14"   end
+function M.tag()  return "6.5.15"   end
 function M.git()
    local s = "@git@"
    if (s == "@" .. "git@")     then s = "" end
