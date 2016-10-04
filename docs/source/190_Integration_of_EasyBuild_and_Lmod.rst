@@ -5,9 +5,7 @@ EB & Lmod work great together.
 
 There are variables you should look into for tuning your system optimally, such as ``EASYBUILD_MODULES_TOOL=Lmod``, ``LMOD_PACKAGE_PATH`` (keep track of loads), ``LMOD_SYSTEM_DEFAULT_MODULES`` (choose buildsets/stages etc)
 
-Here is an example of how to ensure that your users can choose to have (or not)
-the default directory of EasyBuild under home (``$HOME/.local/easybuild/modules/all``) in their ``$MODULEPATH``.
-Conveniently, by going this way users can save/restore environments via Lmod, at will.
+Here is an example of how to ensure that your users can choose to have (or not) the default directory of EasyBuild under home (``$HOME/.local/easybuild/modules/all``) in their ``$MODULEPATH``. Conveniently, by going this way users can save/restore environments via Lmod, at will.
 
 Features obtained:
 
@@ -18,15 +16,12 @@ Features obtained:
 
 Caveats:
 
-* This feature is super-picky on broken module environments, fi:
-  https://bugzilla.redhat.com/show_bug.cgi?id=1326075 (tested in https://github.com/hpcugent/easybuild-framework/issues/1756)
-  Fix that asap, or your modulefiles experience may not be as good as it can!
+* This feature is super-picky on broken module environments, fi: https://bugzilla.redhat.com/show_bug.cgi?id=1326075 (testable via https://github.com/hpcugent/easybuild-framework/issues/1756) . Fix that asap, or your modulefiles experience may not be as good as it can!
   
 How to put into use
 -------------------
 
-The two examples are visible below and are ready to be copied in respective filenames ``use.own.eb/append`` & ``use.own.eb/prepend``
-Simply place both files in a directory of the existing ``$MODULEPATH`` and decide if you with to *append* or *prepend*: ::
+The two examples are visible below and are ready to be copied in respective filenames ``use.own.eb/append`` & ``use.own.eb/prepend``. Simply place both files in a directory of the existing ``$MODULEPATH`` and decide if you with to *append* or *prepend*: ::
 
   $ ml av use.own
   
@@ -45,7 +40,7 @@ Simply place both files in a directory of the existing ``$MODULEPATH`` and decid
 
   $ ml use.own.eb/append
   $ echo $MODULEPATH
-  /etc/modulefiles:/etc/site/modules:/cm/local/modulefiles:/cm/shared/modulefiles:/home/fgeorgatos/.local/easybuild/modules/all
+  /etc/site/modules:/cm/local/modulefiles:/home/fgeorgatos/.local/easybuild/modules/all
 
 
 Example use.own.eb/append
