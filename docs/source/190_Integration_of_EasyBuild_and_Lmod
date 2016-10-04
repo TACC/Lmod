@@ -12,14 +12,14 @@ Conveniently, by going this way users can save/restore environments via Lmod, at
 
 Features obtained:
 #. user modulefiles generated via EasyBuild are easy to enable - less typing, too
-#. $MODULEPATH is managed via modulefiles in itself
-#. technique is compatible with $LMOD_SYSTEM_DEFAULT_MODULES feature
-#. ml save/restore work as desired
+#. `$MODULEPATH` is managed via modulefiles in itself
+#. technique is compatible with `$LMOD_SYSTEM_DEFAULT_MODULES` feature
+#. `ml save/restore` work as desired
 
 Caveats:
 * This feature is super-picky on broken module environments, fi:
   https://bugzilla.redhat.com/show_bug.cgi?id=1326075
-  Fix that, or the experience may not be as good.
+  Fix that asap, or the experience may not be as good!
   
 How to put to use
 -----------------
@@ -28,7 +28,7 @@ The 2 examples are visible below and are ready to be copied in respective filena
 Simply place both files in a directory of the existing $MODULEPATH and decide if you with to append or prepend:
 
 ```
-[fgeorgatos@ukch-prd-brln01 ~]$ ml av use.own
+[fgeorgatos@kateleios ~]$ ml av use.own
 
 --------------------- /etc/site/modules ---------------------
    use.own.eb/append    use.own.eb/prepend (D)
@@ -43,8 +43,8 @@ Use "module spider" to find all possible modules.
 Use "module keyword key1 key2 ..." to search for all
 possible modules matching any of the "keys".
 
-[fgeorgatos@ukch-prd-brln01 ~]$ ml use.own.eb/append
-[fgeorgatos@ukch-prd-brln01 ~]$ echo $MODULEPATH
+[fgeorgatos@kateleios ~]$ ml use.own.eb/append
+[fgeorgatos@kateleios ~]$ echo $MODULEPATH
 /etc/modulefiles:/etc/site/modules:/cm/local/modulefiles:/cm/shared/modulefiles:/home/fgeorgatos/.local/easybuild/modules/all
 ```
 
