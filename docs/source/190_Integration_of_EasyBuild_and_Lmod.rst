@@ -10,12 +10,14 @@ the default directory of EasyBuild under home (``$HOME/.local/easybuild/modules/
 Conveniently, by going this way users can save/restore environments via Lmod, at will.
 
 Features obtained:
+
 #. user modulefiles generated via EasyBuild are easy to enable - less typing, too
 #. ``$MODULEPATH`` is managed via modulefiles in itself
 #. technique is compatible with ``$LMOD_SYSTEM_DEFAULT_MODULES`` feature
 #. ``ml save/restore`` work as desired
 
 Caveats:
+
 * This feature is super-picky on broken module environments, fi:
   https://bugzilla.redhat.com/show_bug.cgi?id=1326075 (tested in https://github.com/hpcugent/easybuild-framework/issues/1756)
   Fix that asap, or your modulefiles experience may not be as good as it can!
@@ -24,7 +26,7 @@ How to put into use
 -------------------
 
 The two examples are visible below and are ready to be copied in respective filenames ``use.own.eb/append`` & ``use.own.eb/prepend``
-Simply place both files in a directory of the existing ``$MODULEPATH`` and decide if you with to *append* or *prepend*:
+Simply place both files in a directory of the existing ``$MODULEPATH`` and decide if you with to *append* or *prepend*: ::
 
   $ ml av use.own
   
@@ -49,6 +51,7 @@ Simply place both files in a directory of the existing ``$MODULEPATH`` and decid
 Example use.own.eb/append
 -------------------------
 
+::
 
   $ cat /etc/site/modules/use.own.eb/append
   #%Module1.0#####################################################################
@@ -87,6 +90,8 @@ Example use.own.eb/append
 
 Example use.own.eb/prepend
 --------------------------
+
+::
 
   $ cat /etc/site/modules/use.own.eb/prepend
   #%Module1.0#####################################################################
