@@ -163,21 +163,22 @@ local function new(self, t)
       },
    }
 
-   t               = t or {}
-   o.moduleDirT    = {}
-   o.mDT           = {}
-   o.usrCacheDir   = usrCacheDir
-   o.usrModuleTFnA = usrModuleTFnA
-   o.usrModuleTFN  = pathJoin(usrCacheDir,usrModuleT)
-   o.systemDirA    = scDirA
-   --o.dbTDirA       = dbDirA
-   o.dontWrite     = t.dontWrite or false
-   o.buildCache    = false
-   o.quiet         = t.quiet     or false
+   t                   = t or {}
+   o.moduleDirT        = {}
+   o.mDT               = {}
+   o.usrCacheDir       = usrCacheDir
+   o.usrCacheInvalidFn = pathJoin(usrCacheDir,"invalidated")
+   o.usrModuleTFnA     = usrModuleTFnA
+   o.usrModuleTFN      = pathJoin(usrCacheDir,usrModuleT)
+   o.systemDirA        = scDirA
+   --o.dbTDirA         = dbDirA
+   o.dontWrite         = t.dontWrite or false
+   o.buildCache        = false
+   o.quiet             = t.quiet     or false
 
-   o.dbT           = {}
-   o.moduleT       = {}
-   o.moduleDirA    = {}
+   o.dbT               = {}
+   o.moduleT           = {}
+   o.moduleDirA        = {}
    dbg.fini("Cache.new")
    return o
 end
@@ -383,7 +384,10 @@ function M.build(self, fast)
    -- Read user cache file if it exists and is not out-of-date.
 
    local moduleDirT  = self.moduleDirT
-   local usrDirsRead = readCacheFile(self, self.usrModuleTFnA)
+   local usrDirsRead = 0
+   if (not isFile(self.usrCacheInvalidFn))then
+      usrDirsRead = readCacheFile(self, self.usrModuleTFnA)
+   end
 
    local dirA   = {}
    local numMDT = 0
@@ -498,6 +502,10 @@ function M.build(self, fast)
             a[#a+1]  = fn
             a[#a+1]  = userModuleTFN
             lmod_system_execute(concatTbl(a," "))
+         end
+         if (isFile(self.usrCacheInvalidFn)) then
+            dbg.print{"unlinking: ",self.usrCacheInvalidFn,"\n"}
+            posix.unlink(self.usrCacheInvalidFn)
          end
 
          local buildT   = t2-t1
