@@ -6,7 +6,7 @@ How to use a Software Module hierarchy
 Libraries built with one compiler need to be linked with applications
 with the same compiler version. For High Performance Computing there
 are libraries called Message Passing Interface (MPI) that allow for
-efficient comunicating between tasks on a distributed memory computer
+efficient communicating between tasks on a distributed memory computer
 with many processors. Parallel libraries and applications must be
 built with a matching MPI library and compiler.  To make this
 discussion clearer, suppose we have the intel compiler version 15.0.1
@@ -31,7 +31,7 @@ In order for users to load the matching set of modules, they will have
 to load the matching set of modules.  For example this would be
 correct::
 
-    $ module load gcc/4.9.2 openmnpi/gcc-4.9-1.8.2  phdf5/gcc-4.9-openmpi-15.0-1.8.13
+    $ module load gcc/4.9.2 openmpi/gcc-4.9-1.8.2  phdf5/gcc-4.9-openmpi-15.0-1.8.13
 
 It is quite easy to load an incompatible set of modules.  Now it is
 possible that the system administrators at your site might have setup
