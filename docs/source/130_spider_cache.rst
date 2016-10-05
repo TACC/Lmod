@@ -31,9 +31,9 @@ Sites running Lmod have three choices:
    is time to start building a cache file when you start getting complains
    how long it takes to do any module commands.
 
-#. If you have a formal proceedure for installing packages on your system,
+#. If you have a formal procedure for installing packages on your system,
    then I recommend you to do the following.  Have the install proceedure run
-   the update_lmod_system_cache_files scrpt.  This will create a file
+   the update_lmod_system_cache_files script.  This will create a file
    called "system.txt", which marks the time that the system was last
    updated, so that Lmod knows that the cache is still good.
 
@@ -42,7 +42,7 @@ Sites running Lmod have three choices:
    will be unknown for more than 30 minutes.
 
 
-There are two ways to specify how cache directories and timestep files are
+There are two ways to specify how cache directories and timestamp files are
 specified.  You can use "--with-spiderCacheDir=dirs" and
 "--with-updateSystemFn=file" to specify one or more directories with a
 single timestamp file::
