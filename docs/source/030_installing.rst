@@ -359,10 +359,11 @@ you have two choices:
 As a side note, we at TACC patched bash for a different reason which
 may apply to your site.  When an MPI job starts, it logs into each
 node with an interactive non-login shell.  When we had no system
-bashrc file, many of our fortron 90 programs failed because they
+bashrc file, many of our fortran 90 programs failed because they
 required ``ulimit -s unlimited`` which makes the stack size
-unlimited.  By patching bash, we could guarantee that it was set by
-the system on each node.
+unlimited. *By patching bash, we could guarantee that it was set by
+the system on each node.* Patching bash is certainly undesired,
+but not patching it might actually be more painful on an HPC platform.
 
 You may have to also change the /etc/bashrc (or /etc/bash.bashrc) file
 so that it sources /etc/profile.d/\*.sh for non-login shells.
