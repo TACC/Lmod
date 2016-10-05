@@ -76,11 +76,7 @@ of the actual application so we combine the value of ``appsdir`` and
 ``full`` to set ``pkg`` to ``/home/user/apps/git/1.2``.
 
 The nice thing about this Lua code is that it figures out the location
-<<<<<<< HEAD
-of the package no matter where it is as long as the relation between
-=======
 of the package no matter where it is, as long as the relation between
->>>>>>> 71d191241736ac2ccf2cdb8144d8ebce752bac42
 apps directories and modulefiles is consistent.
 
 Creating modules like this can be complicated. See
