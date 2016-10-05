@@ -2,7 +2,7 @@ How to Transition to Lmod (or how to test Lmod without installing it for all)
 =============================================================================
 
 In the :ref:`installing-lmod-label` document, we described how to
-install Lua and Lmod for all.  Sites which are currentingly running
+install Lua and Lmod for all.  Sites which are currently running
 another environment module system will likely wish to test and then
 transition from their old module system to Lmod. This can be smoothly
 with changing all users on some Tuesday.
@@ -20,7 +20,7 @@ It is important to remember the following facts:
 
 
 Obviously, since you are installing Lmod in your own account, this is
-a good way to test Lmod without commiting your site to switch.  Part
+a good way to test Lmod without committing your site to switch.  Part
 of this document will describe TACC's transition experience.
 
 Steps for Testing Lmod in your account
