@@ -2,8 +2,8 @@ Providing A Standard Set Of Modules for all Users
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Users can be provided with an initial set of modulefiles as part of
-the login proceedure.  Once a list of modulefiles have been installed,
-please create a file called StdEnv.lua and place it in the MODULEPATH
+the login procedure.  Once a list of modulefiles have been installed,
+please create a file called ``StdEnv.lua`` and place it in the ``$MODULEPATH``
 list of directories, typically
 ``/opt/apps/modulefiles/Core/StdEnv.lua``. The name is your choice,
 the purpose is provide a standard list of modules that get loaded during
