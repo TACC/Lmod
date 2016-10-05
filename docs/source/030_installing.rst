@@ -362,8 +362,8 @@ node with an interactive non-login shell.  When we had no system
 bashrc file, many of our fortran 90 programs failed because they
 required ``ulimit -s unlimited`` which makes the stack size
 unlimited. *By patching bash, we could guarantee that it was set by
-the system on each node.* Patching bash is certainly undesired,
-but not patching it might actually be more painful on an HPC platform.
+the system on each node.* Sites will have to chose which of the two
+above methods they wish to deal with this deficiency in bash.
 
 You may have to also change the /etc/bashrc (or /etc/bash.bashrc) file
 so that it sources /etc/profile.d/\*.sh for non-login shells.
