@@ -115,7 +115,7 @@ There is a third method to pick the default module.  If you create a
     #%Module
     set   ModulesVersion   "11.1"
 
-Please note that eiher a .modulerc or .version file must be in the
+Please note that either a .modulerc or .version file must be in the
 same directory as the 11.1.lua file in order for Lmod to read it.
 
 Using any of the above three ways will change the default to version
