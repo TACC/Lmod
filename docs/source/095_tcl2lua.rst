@@ -13,7 +13,7 @@ modulefile for git::
 
     prepend-path        PATH "$appDir/git/$version/bin"
 
-Assuing that the environment variable APP_DIR is */apps* then the output of the
+Assuming that the environment variable APP_DIR is */apps* then the output of the
 **tcl2lua.tcl** program would be::
 
    prepend_path("PATH", "/apps/git/2.0.3/bin")
@@ -37,7 +37,7 @@ And B::
     module load Centos
 
     if { $env(SYSTEM_NAME) == "Centos" } {
-       # do somehing
+       # do something
     }
 
 When Lmod tries to translate the B modulefile into lua it fails::
@@ -53,7 +53,7 @@ The only solution is convert the B modulefile into a Lua modulefile (B.lua)::
 
    load("Centos")
    if (os.getenv("SYSTEM_NAME") == "Centos") then
-     -- Do somehthing
+     -- Do something
    end
 
 The Centos modulefile does not have to be translated in order for this to

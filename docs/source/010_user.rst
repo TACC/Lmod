@@ -236,7 +236,7 @@ first mode is:  ::
    lmod: lmod/lmod
    Lmod: An Environment Module System
 
-   ucc: ucc/11.1, uuc/12.0, ...
+   ucc: ucc/11.1, ucc/12.0, ...
    Ucc: the ultimate compiler collection
 
    xyz: xyz/0.19, xyz/0.20, xyz/0.31

@@ -32,7 +32,7 @@ Sites running Lmod have three choices:
    how long it takes to do any module commands.
 
 #. If you have a formal procedure for installing packages on your system,
-   then I recommend you to do the following.  Have the install proceedure run
+   then I recommend you to do the following.  Have the install procedure run
    the update_lmod_system_cache_files script.  This will create a file
    called "system.txt", which marks the time that the system was last
    updated, so that Lmod knows that the cache is still good.

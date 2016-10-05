@@ -5,7 +5,7 @@ SitePackage.lua and hooks
 
 Sites may wish to alter the behavior of Lmod to suit their needs.  A
 good place to do this is the ``SitePackage.lua``. Anything in this
-file will automatically be loaded everytime the Lmod command  is run.
+file will automatically be loaded every time the Lmod command  is run.
 This file can be used to provide common functions that can be used in
 a sites modulefiles.  It is also a place where a site can implement
 their hook functions.
@@ -13,7 +13,7 @@ their hook functions.
 Hook functions are normal functions that if implemented and registered
 with Lmod will be called when certain operations happen inside Lmod.
 For example, there is a load hook.  A site can register a function
-that is called everytime a module is loaded.  There are several hook
+that is called every time a module is loaded.  There are several hook
 functions that are discussed in :ref:`hook_functions`.
 
 

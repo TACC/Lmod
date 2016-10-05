@@ -40,7 +40,7 @@ The two examples are visible below and are ready to be copied in respective file
 
   $ ml use.own.eb/append
   $ echo $MODULEPATH
-  /etc/site/modules:/cm/local/modulefiles:/home/fgeorgatos/.local/easybuild/modules/all
+  /etc/site/modules:/cm/local/modulefiles:/home/user/.local/easybuild/modules/all
 
 
 Example use.own.eb/append

@@ -132,9 +132,9 @@ Why doesn't the module command work in shell scripts?
  It will if the following steps are taken. First the script must be a
  bash script and not a shell script, so start the script with
  #!/bin/bash. The second is that the environment variable BASH_ENV
- must point to a file which defines the module command. The simpliest
+ must point to a file which defines the module command. The simplest
  way is having BASH_ENV point to /opt/apps/lmod/lmod/init/bash or
- whereever this file is located on your system. This is done by the
+ where ever this file is located on your system. This is done by the
  standard install.  Finally Lmod exports the module command for Bash
  shell users.
 

@@ -68,7 +68,7 @@ one based language, so locations in strings start at one.
 
 It was important for the value of ``mdir`` to remove the trailing
 ``/`` so that line 5 will do its magic.  We want the parent directory
-of ``mdir``, so the regular expressions says greedly grab every
+of ``mdir``, so the regular expressions says greedily grab every
 character until the trailing ``/`` and the ``%1`` says to capture the
 string found in and use that to set ``appsdir`` to
 ``/home/user/apps``.  Finally we wish to set ``pkg`` to the location
@@ -77,7 +77,7 @@ of the actual application so we combine the value of ``appsdir`` and
 
 The nice thing about this Lua code is that it figures out the location
 of the package no matter where it is as long as the relation between
-apps directories and modulefiles is consistant.
+apps directories and modulefiles is consistent.
 
 Creating modules like this can be complicated. See
 :ref:`debugging_modulefiles_label` for helpful tips.

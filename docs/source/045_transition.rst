@@ -46,7 +46,7 @@ command::
 where you replace the *W.X.Y.Z* with the current version
 (i.e. 5.1.4.8).
 
-Many linux distributions already have a lua package
+Many Linux distributions already have a lua package
 and it may even be install automatically.  For example recent Centos
 and other Redhat based distributions automatically install Lua as part
 of the rpm tools.

@@ -3,7 +3,7 @@
 Installing Lua and Lmod
 =======================
 
-Environment modules simplify customizing the users's shell environment
+Environment modules simplify customizing the users' shell environment
 and it can be done dynamically. Users load modules as they see fit. It
 is completely under their control. Environment Modules or simply
 modules provide a simple contract or interface between the system
@@ -377,7 +377,7 @@ system or user files.  Instead, if the environment variable,
 before the start of bash script.  So by default Lmod sets ``BASH_ENV``
 to point to the bash script which defines the module command.
 
-It may seem counterintuitive but Csh and Zsh users running bash shell
+It may seem counter-intuitive but Csh and Zsh users running bash shell
 scripts will want BASH_ENV set so that the module command will work in
 their bash scripts. 
 
