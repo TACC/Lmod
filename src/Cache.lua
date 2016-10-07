@@ -442,7 +442,7 @@ function M.build(self, fast)
       local t2      = epoch()
 
       mcp           = mcp_old
-      dbg.print{"Setting mpc to ", mcp:name(),"\n"}
+      dbg.print{"Setting mcp to ", mcp:name(),"\n"}
 
       dbg.print{"t2-t1: ",t2-t1, " shortTime: ", shortTime, "\n", level=2}
 
