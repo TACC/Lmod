@@ -26,7 +26,4 @@ Bug Fixes:
     n) (6.5.15) Make sure to regularize MODULEPATH when ingesting it for the first time.
     o) (6.5.16) If ~/.lmod.d/.cache/invalidated exists then the user cache file(s) are ignored.
        When generating a user cache file ~/.lmod.d/.cache/invalidated is deleted.
-    p) (6.5.17) Support for LMOD_FAMILY_<name>_VERSION added.
-    
-                
-    
+    p) (6.5.17) Support for LMOD_FAMILY_<name>_VERSION added.    
