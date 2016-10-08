@@ -30,6 +30,8 @@ LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
 LMOD_FAMILY_COMPILER="intel";
 export LMOD_FAMILY_COMPILER;
+LMOD_FAMILY_COMPILER_VERSION="intel";
+export LMOD_FAMILY_COMPILER_VERSION;
 LOADEDMODULES="admin/admin-1.0:intel/intel";
 export LOADEDMODULES;
 MANPATH="/vol/local/intel/mkl/mkl/man:/vol/local/intel/idb/idb/man:/vol/local/intel/fc/fc/man:/vol/local/intel/cc/cc/man";

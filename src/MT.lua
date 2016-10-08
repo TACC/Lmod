@@ -1153,6 +1153,7 @@ function M.setfamily(self,familyNm,mName)
    for i = 1,#familyA do
       local n = familyA[i] .. familyNm:upper()
       MCP:setenv(n, mName)
+      MCP:setenv(n .. "_VERSION", myModuleVersion())
    end
    return results
 end
@@ -1166,6 +1167,7 @@ function M.unsetfamily(self,familyNm)
    for i = 1,#familyA do
       local n = familyA[i] .. familyNm:upper()
       MCP:unsetenv(n, "")
+      MCP:unsetenv(n .. "_VERSION", "")
    end
    self.family[familyNm] = nil
 end

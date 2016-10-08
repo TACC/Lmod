@@ -36,6 +36,8 @@ LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core";
 export LMOD_DEFAULT_MODULEPATH;
 LMOD_FAMILY_COMPILER="intel";
 export LMOD_FAMILY_COMPILER;
+LMOD_FAMILY_COMPILER_VERSION="intel";
+export LMOD_FAMILY_COMPILER_VERSION;
 LOADEDMODULES="unix/unix:local/local:intel/intel:noweb/2.10c:PrgEnv";
 export LOADEDMODULES;
 MANPATH="/vol/local/noweb/noweb/man:/vol/local/intel/mkl/mkl/man:/vol/local/intel/idb/idb/man:/vol/local/intel/fc/fc/man:/vol/local/intel/cc/cc/man:/usr/share/man";

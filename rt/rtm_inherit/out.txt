@@ -30,6 +30,8 @@ LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/rtm_inherit/rtm_mf/Core:ProjectDIR/rt/rtm
 export LMOD_DEFAULT_MODULEPATH;
 LMOD_FAMILY_COMPILER="intel";
 export LMOD_FAMILY_COMPILER;
+LMOD_FAMILY_COMPILER_VERSION="13.1";
+export LMOD_FAMILY_COMPILER_VERSION;
 LOADEDMODULES="intel/13.1";
 export LOADEDMODULES;
 MODULEPATH="ProjectDIR/rt/rtm_inherit/rtm_mf/Compiler/intel/13.1:ProjectDIR/rt/rtm_inherit/mf/Compiler/intel/13.1:ProjectDIR/rt/rtm_inherit/rtm_mf/Core:ProjectDIR/rt/rtm_inherit/mf/Core";
