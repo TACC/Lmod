@@ -1,0 +1,17 @@
+# -*- r -*-
+module <- function(...){
+  arglist <- as.list(match.call())
+  ## change this from 'module' to 'r'
+  arglist[1] <- 'r'
+  args <- paste0(arglist, collapse = ' ')
+
+  binary <- "@PKG@/libexec/lmod"
+
+  cmd <- paste(binary, args, sep = ' ')
+
+  hndl <- pipe(cmd)
+  eval(expr = parse(file = hndl))
+  close(hndl)
+
+  invisible(0)
+}
