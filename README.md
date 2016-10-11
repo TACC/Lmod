@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/TACC/Lmod.svg?branch=master)](https://travis-ci.org/TACC/Lmod)
+[![Documentation Status](https://readthedocs.org/projects/lmod/badge/?version=latest)](https://lmod.readthedocs.io/en/latest/?badge=latest)
+
 # Lmod
 
 Lmod is program to manage the user environment under Unix: (Linux, Mac OS X, ...).
