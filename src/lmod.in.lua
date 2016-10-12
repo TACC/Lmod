@@ -421,7 +421,7 @@ function main()
       {'^up'      , updateTbl     },
       {'^use$'    , useTbl        },
       {'^w'       , whatisTbl     },
-   }  
+   }
 
    MCP = MasterControl.build("load")
    mcp = MasterControl.build("load")
@@ -534,6 +534,15 @@ function main()
       os.exit(0)
    end
 
+   -- dump Configuration in json and quit.
+   if (masterTbl.configjson) then
+      local Configuration = require("Configuration")
+      local configuration = Configuration:configuration()
+      local a = configuration:report_json()
+      io.stderr:write(a)
+      os.exit(0)
+   end
+
    ------------------------------------------------------------
    -- Search for command, quit if command is unknown.
    local cmdT = false
@@ -545,7 +554,7 @@ function main()
          end
       end
    end
-   
+
    ------------------------------------------------------------
    -- Must output local variables even when there is the command
    -- is not a valid command

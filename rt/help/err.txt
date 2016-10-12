@@ -34,6 +34,7 @@ Options:
   --localvar=localvarA              local variables needed to be set after this commands execution
   --check_syntax --checkSyntax      Checking module command syntax: do not load
   --config                          Report Lmod Configuration
+  --config-json                     Report Lmod Configuration in json format
   --mt                              Report Module Table State
   --timer                           report run times
   --force                           force removal of a sticky module or save an empty collection
@@ -128,6 +129,7 @@ Options:
   --localvar=localvarA              local variables needed to be set after this commands execution
   --check_syntax --checkSyntax      Checking module command syntax: do not load
   --config                          Report Lmod Configuration
+  --config-json                     Report Lmod Configuration in json format
   --mt                              Report Module Table State
   --timer                           report run times
   --force                           force removal of a sticky module or save an empty collection

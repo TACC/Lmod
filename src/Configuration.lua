@@ -50,6 +50,7 @@ require("colorize")
 local BeautifulTbl = require('BeautifulTbl')
 local ReadLmodRC   = require('ReadLmodRC')
 local Version      = require("Version")
+local json         = require("json")
 local concatTbl    = table.concat
 local dbg          = require('Dbg'):dbg()
 local getenv       = os.getenv
@@ -92,7 +93,7 @@ local function new(self)
       if (HashSum == nil) then
          LmodError("Unable to find HashSum program (sha1sum, md5sum or md5)")
       end
-      
+
       local result = capture(HashSum .. " " .. locSitePkg)
       result       = result:gsub(" .*","")
       if (result == std_hashsum) then
@@ -241,4 +242,48 @@ function M.report(self)
 
    return concatTbl(b,"\n")
 end
+
+-- Report the current configuration in json format.
+-- It can have 3 keys:
+-- - 'config': the Lmod configuration
+-- - 'cache': list of caches
+-- - 'rcfiles': list of all active rcfiles
+-- - 'propt': the current propT table
+-- @param self A Configuration object
+-- @return the configuration report in json as a single string.
+function M.report_json(self)
+   local tbl = self.tbl
+   local cfg = {}
+
+   for k, v in pairs(tbl) do
+       cfg[k] = v.v
+   end
+
+   local res = {}
+   res.config = cfg
+
+   local readLmodRC = ReadLmodRC:singleton()
+   local rcFileA = readLmodRC:rcFileA()
+   if (#rcFileA) then
+       local a = {}
+       for i = 1, #rcFileA do
+           a[#a+1] = rcFileA[i]
+       end
+       res.rcfiles = a
+   end
+
+   local scDescriptT = readLmodRC:scDescriptT()
+   if (#scDescriptT > 0) then
+       local a = {}
+       for i = 1, #scDescriptT do
+           a[#a+1] = {scDescriptT[i].dir, scDescriptT[i].timestamp}
+       end
+       res.cache = a
+   end
+
+   res.propt = readLmodRC:propT()
+
+   return json.encode(res)
+end
+
 return M
