@@ -281,6 +281,13 @@ function M.options(self, usage)
    }
 
    cmdlineParser:add_option{
+      name   = {"--config-json" },
+      dest   = "configjson",
+      action = "store_true",
+      help   = "Report Lmod Configuration in json format",
+   }
+
+   cmdlineParser:add_option{
       name   = {"--mt" },
       dest   = "reportMT",
       action = "store_true",
