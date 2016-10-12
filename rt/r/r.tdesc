@@ -1,0 +1,66 @@
+-- -*- lua -*-
+
+testdescript = {
+   owner   = "rtm",
+   product = "modules",
+   description = [[
+	 Test initial module load
+   ]],
+   keywords = {"rscript" },
+
+   active = 1;
+   testName = "rscript",
+   job_submit_method = "INTERACTIVE",
+
+   runScript = [[
+
+     . $(projectDir)/rt/common_funcs.sh
+
+     unsetMT
+     initStdEnvVars
+     PATH=$(PATH):/usr/local/bin
+     MODULEPATH_ROOT=$(testDir)/mf;     export MODULEPATH_ROOT
+     MODULEPATH="$(testDir)/mf/Core";   export MODULEPATH
+
+     mkdir init
+     sed -e 's|@PKG@/libexec/lmod|lua $(projectDir)/src/lmod.in.lua|g' \
+              < $(projectDir)/init/r.in > init/r
+
+cat > $(testName).R << EOF
+#!/usr/bin/env Rscript
+
+source("$(outputDir)/init/r")
+
+module("load foobar")
+
+cat('FOOBAR:', Sys.getenv('FOOBAR'))
+
+module("avail")
+EOF
+
+
+
+     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d
+
+     chmod +x $(testName).R
+     ./$(testName).R  > _stdout.000 2> _stderr.000
+
+     HOME=$ORIG_HOME
+     cleanUp _stdout.000 out.txt
+     cleanUp _stderr.000 err.txt
+     rm -f results.csv
+     wrapperDiff --csv results.csv $(testDir)/out.txt out.txt
+     wrapperDiff --csv results.csv $(testDir)/err.txt err.txt
+     testFinish -r $(resultFn) -t $(runtimeFn) results.csv
+   ]],
+
+
+   blessScript = [[
+         # perform what is needed
+   ]],
+
+   tests = {
+      { id='t1'},
+   },
+
+}
