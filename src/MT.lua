@@ -1118,7 +1118,6 @@ end
 -- @param self An MT object
 function M.safeToCheckZombies(self)
    local result = self._changePATHCount == 0 and self._changePATH
-   local s      = (result) and "true" or "nil"
    if (self._changePATHCount == 0) then
       self._changePATH = false
    end

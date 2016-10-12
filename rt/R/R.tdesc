@@ -8,7 +8,7 @@ testdescript = {
    ]],
    keywords = {"rscript" },
 
-   active = 1;
+   active = false;
    testName = "rscript",
    job_submit_method = "INTERACTIVE",
 
