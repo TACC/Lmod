@@ -28,6 +28,23 @@ release at sourceforge.
 
 ## ChangeLog
 
+### Lmod 6.6:
+
+Features:
+  1. Now uses the value of LD_PRELOAD and LD_LIBRARY_PATH for run all TCL progams.
+  2. Now uses a custom _module_dir function for tab completion in bash for module use path<TAB>.
+     Thanks to Pieter Neerincx!
+  3. Support for LMOD_FAMILY_<name>_VERSION added.
+  4. If ~/.lmod.d/.cache/invalidated exists then the user cache file(s) are ignored.
+       When generating a user cache file ~/.lmod.d/.cache/invalidated is deleted.
+
+Bug Fixes:
+  1. Correctly merges spider cache location where there are multiple lmodrc.lua files.
+  2. Remove leading and trailing blanks for names in setenv, pushenv, prepend_path, etc.
+  3. ml now generates error for unknown argument that start with a double minus. (e.g. ml --vers)
+  4. pushenv("name","") fixed when unloading module.
+  5. Make sure to regularize MODULEPATH when ingesting it for the first time.
+
 ### Lmod 6.5:
 
 Features:
