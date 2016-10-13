@@ -9,6 +9,8 @@ env:
 
 addons:
   apt:
+    sources:
+      - r-packages-precise
     packages:
       - tcsh
       - tcl8.5
