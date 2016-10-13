@@ -9,10 +9,13 @@ env:
 
 addons:
   apt:
+    sources:
+      - r-packages-precise
     packages:
       - tcsh
       - tcl8.5
       - uuid  # for uuidgen
+      - r-base
 
 before_install:
   - cd $HOME
