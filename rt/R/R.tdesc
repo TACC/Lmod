@@ -32,7 +32,7 @@ source("$(outputDir)/init/r")
 
 module("load foobar")
 
-cat('FOOBAR:', Sys.getenv('FOOBAR'))
+cat('FOOBAR:', Sys.getenv('FOOBAR'), "\n")
 
 module("avail")
 EOF
