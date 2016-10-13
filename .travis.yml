@@ -1,6 +1,6 @@
 # although Lmod is written in Lua, use Python environment
 language: python
-sudo: required
+sudo: false
 
 env:
   - LUA='lua=5.1'
@@ -13,6 +13,7 @@ addons:
       - tcsh
       - tcl8.5
       - uuid  # for uuidgen
+      - r-base
 
 before_install:
   - cd $HOME
@@ -23,10 +24,6 @@ before_install:
   - git clone https://github.com/rtmclay/Hermes.git
   - export PATH="$PATH:$PWD/lua_install/bin:$HOME/Hermes/bin"
   - cd -
-  - curl -OLs http://eddelbuettel.github.io/r-travis/run.sh && chmod 0755 run.sh
-  # add our launchpad repo which has (inter alia) r-cran-rcmdcheck
-  - sudo add-apt-repository -y ppa:edd/misc
-  - ./run.sh bootstrap
   - which Rscript
 
 install:
