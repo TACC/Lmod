@@ -3,7 +3,7 @@ module <- function(...){
   arglist <- as.list(match.call())
   ## change this from 'module' to 'r'
   arglist[1] <- 'r'
-  args <- paste0(arglist, collapse = ' ')
+  args <- paste(arglist, collapse = ' ', sep = '')
 
   binary <- "@PKG@/libexec/lmod"
 

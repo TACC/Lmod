@@ -8,7 +8,7 @@ testdescript = {
    ]],
    keywords = {"rscript" },
 
-   active = false;
+   active = 1;
    testName = "rscript",
    job_submit_method = "INTERACTIVE",
 
@@ -18,7 +18,6 @@ testdescript = {
 
      unsetMT
      initStdEnvVars
-     PATH=$(PATH):/usr/local/bin
      MODULEPATH_ROOT=$(testDir)/mf;     export MODULEPATH_ROOT
      MODULEPATH="$(testDir)/mf/Core";   export MODULEPATH
 
@@ -33,7 +32,7 @@ source("$(outputDir)/init/r")
 
 module("load foobar")
 
-cat('FOOBAR:', Sys.getenv('FOOBAR'))
+cat('FOOBAR:', Sys.getenv('FOOBAR'), "\n")
 
 module("avail")
 EOF
