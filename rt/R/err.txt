@@ -1,4 +1,4 @@
-ProjectDIR/rt/r/mf/Core
+ProjectDIR/rt/R/mf/Core
    foobar/1.0 (L)
   Where:
    L:  Module is loaded

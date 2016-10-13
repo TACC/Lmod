@@ -1,4 +1,9 @@
 -- -*- lua -*-
+local activeTest = false
+if (pcall(require,"findInPath")) then
+   local path = findInPath("Rscript")
+   activeTest = (path:sub(1,7) ~= 'unknown')
+end
 
 testdescript = {
    owner   = "rtm",
@@ -8,7 +13,7 @@ testdescript = {
    ]],
    keywords = {"rscript" },
 
-   active = false;
+   active = activeTest;
    testName = "rscript",
    job_submit_method = "INTERACTIVE",
 
