@@ -1163,13 +1163,13 @@ function M.avail(argA)
       end
    end
 
-   if (next(legendT)) then
+   if (next(legendT) ~= nil) then
       aa[#aa+1] = "\n  Where:\n"
       local a = {}
       for k, v in pairsByKeys(legendT) do
          a[#a+1] = { "   " .. k ..":", v}
       end
-      local bt = BeautifulTbl:new{tbl=a, column = twidth-1, len=length}
+      local bt  = BeautifulTbl:new{tbl=a, column = twidth-1, len=length}
       aa[#aa+1] = bt:build_tbl()
       aa[#aa+1] = "\n"
    end
