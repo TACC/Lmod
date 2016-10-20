@@ -1526,18 +1526,6 @@ end
 
 
 --------------------------------------------------------------------------
--- Remove the computed hash values from each entry in the module table.
--- @param self An MT object.
-function M.hideHash(self)
-   local mT   = self.mT
-   for k,v in pairs(mT) do
-      if (v.status == "active") then
-         v.hash    = nil
-      end
-   end
-end
-
---------------------------------------------------------------------------
 -- Mark *sn* entry as being default.
 -- @param self An MT object.
 -- @param sn the short module name.
