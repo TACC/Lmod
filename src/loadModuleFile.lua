@@ -79,7 +79,7 @@ function loadModuleFile(t)
          whole = f:read("*all")
          dbg.start{"ModuleFile"}
          dbg.print{whole}
-         dbg.fini()
+         dbg.fini("ModuleFile")
          f:close()
       end
    else
