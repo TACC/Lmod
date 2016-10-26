@@ -125,8 +125,8 @@ function main()
    local mStack    = ModuleStack:moduleStack()
    local shellN    = "bash"
    master.shell    = BaseShell.build(shellN)
-   local fn        = os.tmpname()
-   fh              = io.open(fn,"w")
+   local tmpfn     = os.tmpname()
+   fh              = io.open(tmpfn,"w")
    local i         = 1
    local masterTbl = masterTbl()
    
@@ -180,8 +180,8 @@ function main()
    end
    
 
-   local result = capture(HashSum .. " " .. fn)
-   os.remove(fn)
+   local result = capture(HashSum .. " " .. tmpfn)
+   os.remove(tmpfn)
    ia = result:find(" ")
    dbg.print{"hash value: ",result:sub(1,ia-1),"\n"}
    print (result:sub(1,ia-1))
