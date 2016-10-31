@@ -107,7 +107,7 @@ The entries below describe several useful commands that come with Lmod that can 
     Print Error string and exit without loading the modulefile.
 **mode** ():
     Returns the string "load" when a modulefile is being loaded and "unload" when unloading.
-**isLoaded** ("NAME"):
+**isloaded** ("NAME"):
     Return true when module "NAME" is loaded.
 **LmodVersion** ():
     The version of lmod.
