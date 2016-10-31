@@ -74,7 +74,7 @@ function M.name(self)
    return '_ModuleTable_'
 end
 
-s_loadOrder = 0
+local s_loadOrder = 0
 s_mt = false
 
 s_mtA = {}
