@@ -396,7 +396,12 @@ build_tags:
             -e 's|./file_list\..*||g'                            \
             -e '/^\s*$$/d'                                       \
 	       < file_list.1.txt > file_list.2.txt
-	etags  `cat file_list.2.txt`
+	etags  -o TAGS.world `cat file_list.2.txt`
+	sed -e 's|.*/rt/.*||g'                                   \
+            -e '/^\s*$$/d'                                       \
+	       < file_list.2.txt > file_list.3.txt
+	etags `cat file_list.3.txt`
+
 
 
 libexec:  $(lua_code)
