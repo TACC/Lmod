@@ -102,7 +102,9 @@ function Bash.expandVar(self, k, v, vType)
    end
    local line = concatTbl(lineA,"")
    stdout:write(line)
-   dbg.print{   line}
+   if (k:find('^_ModuleTable') == nil) then
+      dbg.print{   line}
+   end
 end
 
 --------------------------------------------------------------------------

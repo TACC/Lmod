@@ -278,7 +278,7 @@ local function readCacheFile(self, spiderTFnA)
          end
 
          if (not found) then
-            dbg.print{"No cache files found in", spiderDirT, "\n"}
+            dbg.print{"No cache files found\n"}
             break
          end
 
@@ -293,18 +293,15 @@ local function readCacheFile(self, spiderTFnA)
 
             -- Check for matching default MODULEPATH.
             assert(loadfile(fn))()
-            dbg.print{"importing mrcT\n"}
             mrc:import(_G.mrcT)
-            dbg.print{"importing mrcT\n"}
 
             local G_spiderT = _G.spiderT
             for k, v in pairs(G_spiderT) do
-               dbg.print{"spiderT dir: ", k,", mDT[k]: ",mDT[k],"\n"}
+               --dbg.print{"spiderT dir: ", k,", mDT[k]: ",mDT[k],"\n"}
                if ( k:sub(1,1) == '/' ) then
                   local dirTime = mDT[k] or 0
                   if (attr.modification > dirTime) then
                      k             = path_regularize(k)
-                     dbg.print{"saving directory: ",k," from cache file: ",fn,"\n"}
                      mDT[k]        = attr.modification
                      spiderDirT[k] = true
                      spiderT[k]    = v

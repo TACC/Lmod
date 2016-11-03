@@ -305,7 +305,6 @@ function M.getHiddenT(self,k)
 end
 
 function M.import(self, mrcT)
-   dbg.printT("mrcT",mrcT)
    for kk,vv in pairs(mrcT) do
       local key = "__" .. kk
       local t   = self[key]

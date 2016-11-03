@@ -424,7 +424,6 @@ function M.buildDbT(self, mpathMapT, spiderT, dbT)
             t.parentAA   = parentT[mpath]
             t.fullName   = fullName
             T[vv.fn]     = t
-            dbg.print{"fullName: ",fullName, ", fn: ",vv.fn,"\n"}
          end
       elseif (next(v.dirT) ~= nil) then
          for name, vv in pairs(v.dirT) do
@@ -602,7 +601,7 @@ function M.spiderSearch(self, dbT, userSearchPat, helpFlg)
    local T         = dbT[origUserSearchPat]
    local look4poss = false
    if (T) then
-      dbg.print{"found single entry in dbT with sn: ", origUserSearchPat,"\n"}
+      --dbg.print{"found single entry in dbT with sn: ", origUserSearchPat,"\n"}
 
       -- Must check for any valid modulefiles
       local found = true
@@ -634,8 +633,8 @@ function M.spiderSearch(self, dbT, userSearchPat, helpFlg)
          end
       end
       matchT = (next(aT) ~= nil) and aT or bT
-      dbg.printT("aT",aT)
-      dbg.printT("bT",bT)
+      --dbg.printT("aT",aT)
+      --dbg.printT("bT",bT)
    end
 
    if (next(matchT) == nil) then
@@ -793,7 +792,7 @@ end
 
 function M._Level2(self, sn, entryA, possibleA)
    dbg.start{"Spider:_Level2(",sn,", entryA, possibleA)"}
-   dbg.printT("entryA",entryA)
+   --dbg.printT("entryA",entryA)
 
    local show_hidden = masterTbl().show_hidden
    local a           = {}
