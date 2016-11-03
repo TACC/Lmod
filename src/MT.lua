@@ -1007,7 +1007,6 @@ function M.getMTfromFile(self,tt)
    dbg.print{"mt after purge",s,"\n"}
    local envMT = build_MT_envT(s)
    for k,v in pairs(envMT) do
-      dbg.print{"k: ",k,", v: ",v,"\n"}
       posix_setenv(k,v,true)
    end
 
