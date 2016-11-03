@@ -25,7 +25,7 @@ module-whatis "URL: http://mvapich.cse.ohio-state.edu/overview/mvapich/"
 
 # for Tcl script use only
 set     version         1.0.1
-set     MPICHhome       /opt/apps/intel10_1/mvapich/1.0.1
+set     MPICHhome       /unknown/apps/intel10_1/mvapich/1.0.1
 
 # Export to User.
 
@@ -40,4 +40,4 @@ prepend-path    LD_LIBRARY_PATH $MPICHhome/lib/shared
 
 prepend-path    LD_LIBRARY_PATH $MPICHhome/lib
 
-prepend-path    MODULEPATH      /opt/apps/intel10_1/mvapich1_1_0_1/modulefiles
+prepend-path    MODULEPATH      /unknown/apps/intel10_1/mvapich1_1_0_1/modulefiles

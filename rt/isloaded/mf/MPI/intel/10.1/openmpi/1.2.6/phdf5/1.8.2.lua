@@ -1,1 +1,1 @@
-setenv("TACC_PHDF5_DIR","/opt/apps/phdf5")
+setenv("TACC_PHDF5_DIR","/unknown/apps/phdf5")

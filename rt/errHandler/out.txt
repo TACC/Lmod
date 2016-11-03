@@ -6,7 +6,6 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 step 2
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load bad_syntax
 ===========================
-msg:	[string "setenv("BAD_SYNTAX","1.0")..."]:2: unexpected symbol near '#'
 false
 ===========================
 step 3

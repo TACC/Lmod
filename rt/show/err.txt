@@ -42,7 +42,7 @@ step 5
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing show boost
 ===========================
    ProjectDIR/rt/show/mf/Core/boost/1.49.0.lua:
-setenv("TACC_BOOST_DIR","/opt/apps/boost/1.49.0")
+setenv("TACC_BOOST_DIR","/unknown/apps/boost/1.49.0")
 add_property("arch","offload")
 ===========================
 step 6
@@ -59,13 +59,13 @@ step 8
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing show boost
 ===========================
    ProjectDIR/rt/show/mf/Core/boost/1.47.1.lua:
-setenv("TACC_BOOST_DIR","/opt/apps/boost/1.47.1")
+setenv("TACC_BOOST_DIR","/unknown/apps/boost/1.47.1")
 ===========================
 step 9
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing show boost/1.49.0
 ===========================
    ProjectDIR/rt/show/mf/Core/boost/1.49.0.lua:
-setenv("TACC_BOOST_DIR","/opt/apps/boost/1.49.0")
+setenv("TACC_BOOST_DIR","/unknown/apps/boost/1.49.0")
 add_property("arch","offload")
 ===========================
 step 10

@@ -17,11 +17,11 @@ set mproot           "MODULEPATH_ROOT"
 set modulepath_root  $env($mproot)
 set moduleshome     "$modulepath_root/TACC_COMPILER/pgi/7.2-5"
 
-setenv          PGI             /opt/apps/pgi/7.2-5
+setenv          PGI             /unknown/apps/pgi/7.2-5
 
-prepend-path    PATH            /opt/apps/pgi/7.2/linux86-64/7.2-5/bin
-prepend-path    MANPATH         /opt/apps/pgi/7.2/linux86-64/7.2-5/man
-prepend-path    LD_LIBRARY_PATH /opt/apps/pgi/7.2/linux86-64/7.2-5/libso
+prepend-path    PATH            /unknown/apps/pgi/7.2/linux86-64/7.2-5/bin
+prepend-path    MANPATH         /unknown/apps/pgi/7.2/linux86-64/7.2-5/man
+prepend-path    LD_LIBRARY_PATH /unknown/apps/pgi/7.2/linux86-64/7.2-5/libso
 
 prepend-path    MODULEPATH      "$moduleshome"
 

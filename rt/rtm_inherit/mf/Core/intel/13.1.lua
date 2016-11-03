@@ -5,7 +5,7 @@ whatis("Version: ".. version)
 whatis("Category: compiler, runtime support")
 whatis("Description: Intel Compiler Family (C/C++/Fortran for x86_64)")
 whatis("URL: http://software.intel.com/en-us/articles/intel-compilers/")
-prepend_path("PATH", "/opt/apps/intel/13.1/bin/intel64")
+prepend_path("PATH", "/unknown/apps/intel/13.1/bin/intel64")
 
 prepend_path("MODULEPATH", pathJoin(os.getenv("MODULEPATH_ROOT"),"Compiler/intel",version))
 

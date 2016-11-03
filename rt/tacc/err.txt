@@ -96,12 +96,12 @@ step 15
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing show gatk
 ===========================
    ProjectDIR/rt/tacc/mf/Base/gatk/1.0:
-prepend_path("PATH","/opt/apps/gatk/1.0/bin")
+prepend_path("PATH","/unknown/apps/gatk/1.0/bin")
 ===========================
 step 16
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load gatk
 ===========================
-To execute GATK run: java -jar /opt/apps/gatk/1.0/java/GenomeAnalysisTK.jar
+To execute GATK run: java -jar /unknown/apps/gatk/1.0/java/GenomeAnalysisTK.jar
 Test of brackets [foo]
 ===========================
 step 17

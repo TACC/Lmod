@@ -1,7 +1,7 @@
 local modname = "boost"
 local version = "1.51.0"
 local system_type = os.getenv("SYSTEM_DIR")
-local modules_top_dir = "/opt/apps/ossw"
+local modules_top_dir = "/unknown/apps/ossw"
 local compiler = "gcc"
 local compiler_version = "4.6"
 

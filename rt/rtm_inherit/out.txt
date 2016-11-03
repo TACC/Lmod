@@ -24,7 +24,7 @@ LOADEDMODULES="intel/13.1";
 export LOADEDMODULES;
 MODULEPATH="ProjectDIR/rt/rtm_inherit/mf/rtm_mf/Compiler/intel/13.1:ProjectDIR/rt/rtm_inherit/mf/Compiler/intel/13.1:ProjectDIR/rt/rtm_inherit/rtm_mf/Core:ProjectDIR/rt/rtm_inherit/mf/Core";
 export MODULEPATH;
-PATH="/opt/apps/intel/13.1/bin/intel64:ProjectDIR/src:PATH_to_TM:/bin";
+PATH="/unknown/apps/intel/13.1/bin/intel64:ProjectDIR/src:PATH_to_TM:/bin";
 export PATH;
 _LMFILES_="ProjectDIR/rt/rtm_inherit/rtm_mf/Core/intel/13.1.lua";
 export _LMFILES_;

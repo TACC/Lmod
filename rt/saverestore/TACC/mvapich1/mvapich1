@@ -25,7 +25,7 @@ module-whatis "URL: http://mvapich.cse.ohio-state.edu/overview/mvapich/"
 
 # for Tcl script use only
 set     version         1.0.1
-set     MPICHhome       /opt/apps/intel10_1/mvapich/1.0.1
+set     MPICHhome       /unknown/apps/intel10_1/mvapich/1.0.1
 
 # Export to User.
 

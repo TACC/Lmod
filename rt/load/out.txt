@@ -158,7 +158,7 @@ LOADEDMODULES="admin/admin-1.0:unix/unix:local/local:noweb/2.10c:PrgEnv:intel/in
 export LOADEDMODULES;
 MODULEPATH="ProjectDIR/rt/load/mf/Compiler/intel/10.1:ProjectDIR/rt/load/mf/notDir:ProjectDIR/rt/load/mf/Core:ProjectDIR/rt/load/mf/Beta";
 export MODULEPATH;
-TACC_BOOST_DIR="/opt/apps/boost/1.49.0";
+TACC_BOOST_DIR="/unknown/apps/boost/1.49.0";
 export TACC_BOOST_DIR;
 _LMFILES_="ProjectDIR/rt/load/mf/Core/admin/admin-1.0.lua:ProjectDIR/rt/load/mf/Core/unix/unix.lua:ProjectDIR/rt/load/mf/Core/local/local.lua:ProjectDIR/rt/load/mf/Core/noweb/2.10c.lua:ProjectDIR/rt/load/mf/Core/PrgEnv.lua:ProjectDIR/rt/load/mf/Core/intel/intel.lua:ProjectDIR/rt/load/mf/Compiler/intel/10.1/gotoblas/1.32.lua:ProjectDIR/rt/load/mf/Core/boost/1.49.0.lua";
 export _LMFILES_;
@@ -219,7 +219,7 @@ LOADEDMODULES="admin/admin-1.0:unix/unix:local/local:noweb/2.10c:PrgEnv:intel/in
 export LOADEDMODULES;
 MODULEPATH="ProjectDIR/rt/load/mf/Compiler/intel/10.1:ProjectDIR/rt/load/mf/notDir:ProjectDIR/rt/load/mf/Core:ProjectDIR/rt/load/mf/Beta:ProjectDIR/rt/load/mf/Core2";
 export MODULEPATH;
-TACC_BOOST_DIR="/opt/apps/boost/1.49.0";
+TACC_BOOST_DIR="/unknown/apps/boost/1.49.0";
 export TACC_BOOST_DIR;
 _LMFILES_="ProjectDIR/rt/load/mf/Core/admin/admin-1.0.lua:ProjectDIR/rt/load/mf/Core/unix/unix.lua:ProjectDIR/rt/load/mf/Core/local/local.lua:ProjectDIR/rt/load/mf/Core/noweb/2.10c.lua:ProjectDIR/rt/load/mf/Core/PrgEnv.lua:ProjectDIR/rt/load/mf/Core/intel/intel.lua:ProjectDIR/rt/load/mf/Compiler/intel/10.1/gotoblas/1.32.lua:ProjectDIR/rt/load/mf/Core/boost/1.49.0.lua";
 export _LMFILES_;

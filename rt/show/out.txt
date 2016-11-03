@@ -42,7 +42,7 @@ LOADEDMODULES="boost/1.47.1";
 export LOADEDMODULES;
 MODULEPATH="ProjectDIR/rt/show/mf/Core";
 export MODULEPATH;
-TACC_BOOST_DIR="/opt/apps/boost/1.47.1";
+TACC_BOOST_DIR="/unknown/apps/boost/1.47.1";
 export TACC_BOOST_DIR;
 _LMFILES_="ProjectDIR/rt/show/mf/Core/boost/1.47.1.lua";
 export _LMFILES_;

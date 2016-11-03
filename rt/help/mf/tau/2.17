@@ -36,9 +36,9 @@ module-whatis "Description: Framework for Application profiling and optimization
 #
 # Create environment variables.
 #
-set             tau_dir     /opt/apps/intel10/mvapich1/tau/2.17
-set             tau_bin     /opt/apps/intel10/mvapich1/tau/2.17/x86_64/bin
-set             tau_lib     /opt/apps/intel10/mvapich1/tau/2.17/x86_64/lib
+set             tau_dir     /unknown/apps/intel10/mvapich1/tau/2.17
+set             tau_bin     /unknown/apps/intel10/mvapich1/tau/2.17/x86_64/bin
+set             tau_lib     /unknown/apps/intel10/mvapich1/tau/2.17/x86_64/lib
 
 prepend-path    PATH            $tau_bin
 prepend-path    LD_LIBRARY_PATH $tau_lib

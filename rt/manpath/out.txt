@@ -33,7 +33,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing load unix noweb
 ===========================
 LOADEDMODULES="unix/1.0:noweb/2.11b";
 export LOADEDMODULES;
-MANPATH="/opt/apps/noweb/2.11b/man::";
+MANPATH="/unknown/apps/noweb/2.11b/man::";
 export MANPATH;
 MODULEPATH="ProjectDIR/rt/manpath/mf/Core";
 export MODULEPATH;
@@ -58,7 +58,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing load unix
 ===========================
 LOADEDMODULES="unix/1.0";
 export LOADEDMODULES;
-MANPATH="/opt/apps/junk/share/man::";
+MANPATH="/unknown/apps/junk/share/man::";
 export MANPATH;
 MODULEPATH="ProjectDIR/rt/manpath/mf/Core";
 export MODULEPATH;
@@ -71,7 +71,7 @@ step 7
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload unix
 ===========================
 unset LOADEDMODULES;
-MANPATH="/opt/apps/junk/share/man";
+MANPATH="/unknown/apps/junk/share/man";
 export MANPATH;
 MODULEPATH="ProjectDIR/rt/manpath/mf/Core";
 export MODULEPATH;

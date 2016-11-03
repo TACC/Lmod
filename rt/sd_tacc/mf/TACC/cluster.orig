@@ -27,13 +27,13 @@ set node       [uname node]
 #
 # CA common and manpage.
 #
-append-path     PATH        /opt/apps/pki_apps
-append-path     MANPATH     /opt/apps/pki_apps/man
+append-path     PATH        /unknown/apps/pki_apps
+append-path     MANPATH     /unknown/apps/pki_apps/man
 
 #
 # NPCI symbols
 #
-setenv          APPS        /opt/apps
+setenv          APPS        /unknown/apps
 setenv 	        PURGE 	    168
 
 prepend-path    MANPATH     /usr/local/man:/usr/share/man:/usr/X11R6/man:/opt/ganglia/man:/opt/rocks/man:/usr/kerberos/man:/usr/man

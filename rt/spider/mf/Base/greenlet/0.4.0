@@ -14,7 +14,7 @@ module-whatis {Description: The greenlet package is a spin-off of Stackless, a v
  A "greenlet", on the other hand, is a still more primitive notion of micro-thread with no implicit
  scheduling; coroutines, in other words. This is useful when you want to control exactly when your code runs. - Homepage: https://github.com/python-greenlet/greenlet}
 
-set root    /opt/apps/HPCBIOS.20131224/software/Greenlet/0.4.0-ictce-5.3.0-Python-2.7.3
+set root    /unknown/apps/HPCBIOS.20131224/software/Greenlet/0.4.0-ictce-5.3.0-Python-2.7.3
 
 prepend-path	CPATH		$root/include
 prepend-path	LD_LIBRARY_PATH		$root/lib

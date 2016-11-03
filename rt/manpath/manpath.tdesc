@@ -29,7 +29,7 @@ testdescript = {
      runLmod unload unix                   # 3
      runLmod load   unix noweb             # 4
      runLmod unload noweb unix             # 5
-     export MANPATH=/opt/apps/junk/share/man
+     export MANPATH=/unknown/apps/junk/share/man
      runLmod load   unix                   # 6
      runLmod unload unix                   # 7
 

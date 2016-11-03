@@ -17,7 +17,7 @@ whatis( "URL: http://www-unix.mcs.anl.gov/petsc/petsc-as/" )
 whatis( "Description: Numerical library for sparse linear algebra" )
 
 local             petsc_arch =    "sandybridge"
-local             petsc_dir =     "/opt/apps/intel13/mvapich2_1_9/petsc/3.3/"
+local             petsc_dir =     "/unknown/apps/intel13/mvapich2_1_9/petsc/3.3/"
 
 prepend_path("PATH",            pathJoin(petsc_dir,petsc_arch,"bin") )
 prepend_path("LD_LIBRARY_PATH", pathJoin(petsc_dir,petsc_arch,"lib") )

@@ -196,7 +196,7 @@ MODULEPATH="ProjectDIR/rt/swap/mf/MPI/intel/10.1/openmpi/1.2.6:ProjectDIR/rt/swa
 export MODULEPATH;
 TACC_PETSC_VERSION="3.2";
 export TACC_PETSC_VERSION;
-TACC_PHDF5_DIR="/opt/apps/phdf5";
+TACC_PHDF5_DIR="/unknown/apps/phdf5";
 export TACC_PHDF5_DIR;
 _LMFILES_="ProjectDIR/rt/swap/mf/Core/admin/admin-1.0.lua:ProjectDIR/rt/swap/mf/Core/unix/unix.lua:ProjectDIR/rt/swap/mf/Core/local/local.lua:ProjectDIR/rt/swap/mf/Core/noweb/2.10c.lua:ProjectDIR/rt/swap/mf/Core/PrgEnv.lua:ProjectDIR/rt/swap/mf/Core/intel/intel.lua:ProjectDIR/rt/swap/mf/Compiler/intel/10.1/openmpi/1.2.6.lua:ProjectDIR/rt/swap/mf/MPI/intel/10.1/openmpi/1.2.6/parmetis/3.1.lua:ProjectDIR/rt/swap/mf/MPI/intel/10.1/openmpi/1.2.6/phdf5/1.8.2.lua:ProjectDIR/rt/swap/mf/MPI/intel/10.1/openmpi/1.2.6/petsc/3.2.lua";
 export _LMFILES_;
@@ -279,7 +279,7 @@ PATH="/vol/local/mpi/intel/10.1/openmpi/1.2.6.opt/bin:/vol/local/intel/idb/idb/b
 export PATH;
 TACC_PETSC_VERSION="3.2";
 export TACC_PETSC_VERSION;
-TACC_PHDF5_DIR="/opt/apps/phdf5";
+TACC_PHDF5_DIR="/unknown/apps/phdf5";
 export TACC_PHDF5_DIR;
 unset TACC_PHDF5_VERSION;
 TACC_PMETIS_BIN="/vol/pkg/Parmetis/intel/10.1/parmetis/3.1";
@@ -312,7 +312,7 @@ LOADEDMODULES="admin/admin-1.0:unix/unix:local/local:noweb/2.10c:PrgEnv:intel/in
 export LOADEDMODULES;
 MODULEPATH="ProjectDIR/rt/swap/mf/MPI/intel/10.1/openmpi/1.2.6:ProjectDIR/rt/swap/mf/Compiler/intel/10.1:ProjectDIR/rt/swap/mf/Core";
 export MODULEPATH;
-TACC_PHDF5_DIR="/opt/apps/phdf5";
+TACC_PHDF5_DIR="/unknown/apps/phdf5";
 export TACC_PHDF5_DIR;
 _LMFILES_="ProjectDIR/rt/swap/mf/Core/admin/admin-1.0.lua:ProjectDIR/rt/swap/mf/Core/unix/unix.lua:ProjectDIR/rt/swap/mf/Core/local/local.lua:ProjectDIR/rt/swap/mf/Core/noweb/2.10c.lua:ProjectDIR/rt/swap/mf/Core/PrgEnv.lua:ProjectDIR/rt/swap/mf/Core/intel/intel.lua:ProjectDIR/rt/swap/mf/Compiler/intel/10.1/openmpi/1.2.6.lua:ProjectDIR/rt/swap/mf/MPI/intel/10.1/openmpi/1.2.6/petsc/3.2.lua:ProjectDIR/rt/swap/mf/MPI/intel/10.1/openmpi/1.2.6/parmetis/3.1.lua:ProjectDIR/rt/swap/mf/MPI/intel/10.1/openmpi/1.2.6/phdf5/1.8.10.lua";
 export _LMFILES_;
@@ -474,7 +474,7 @@ PATH="/vol/local/mpi/intel/10.1/openmpi/1.2.6.opt/bin:/vol/local/intel/idb/idb/b
 export PATH;
 TACC_PETSC_VERSION="3.2";
 export TACC_PETSC_VERSION;
-TACC_PHDF5_DIR="/opt/apps/phdf5";
+TACC_PHDF5_DIR="/unknown/apps/phdf5";
 export TACC_PHDF5_DIR;
 unset TACC_PHDF5_VERSION;
 TACC_PMETIS_BIN="/vol/pkg/Parmetis/intel/10.1/parmetis/3.1";
