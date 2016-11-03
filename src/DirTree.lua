@@ -172,7 +172,20 @@ local function walk(mrc, mpath, path, dirA, fileT)
          if (not keepFile(f)) then break end
 
          local attr = (f == "default") and lfs.symlinkattributes(file) or lfs.attributes(file) 
-         if (attr == nil or (attr.uid == 0 and not attr.permissions:find("......r.."))) then break end
+         if (attr == nil) then break end
+
+         ------------------------------------------------------------
+         -- Newer versions of lfs set attr.permissions.  If
+         -- attr.permissions doesn't exist then use posix.stat to find
+         -- permissions on file.
+
+         local permissions = attr.permissions
+         if (permissions == nil and attr.uid == 0) then
+            local st = stat(file)
+            permissions = st.mode
+         end
+            
+         if (attr.uid == 0 and not permissions:find("......r..")) then break end
          local mode = attr.mode
          
          if (mode == "directory" and f ~= "." and f ~= "..") then
