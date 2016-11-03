@@ -1,5 +1,3 @@
-
-
 -- local functions to deal with family(), MODULEPATH and (for MPI) prereqs
 
 local MName = require("MName")

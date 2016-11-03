@@ -64,14 +64,12 @@ EOF
      lua $(projectDir)/src/spiderCacheSupport.in.lua --descriptFn fn >> .lmodrc.lua
      mkdir cacheDir
      touch last_update
-     buildModuleT $LMOD_DEFAULT_MODULEPATH > cacheDir/moduleT.lua
+     buildSpiderT $MODULEPATH > cacheDir/spiderT.lua
      runLmod avail                   #18
-     buildDbT $LMOD_DEFAULT_MODULEPATH > cacheDir/dbT.lua
-     runLmod avail                   #19
 
      unsetMT
      export MODULEPATH=$(testDir)/mf/Core:$(testDir)/mf2/Core
-     runLmod load cluster            #20
+     runLmod load cluster            #19
 
 
      HOME=$ORIG_HOME

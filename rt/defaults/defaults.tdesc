@@ -5,7 +5,7 @@ testdescript = {
    owner   = "rtm",
    product = "modules",
    description = [[
-	 Test between
+	 Test defaults
    ]],
    keywords = {testName },
 

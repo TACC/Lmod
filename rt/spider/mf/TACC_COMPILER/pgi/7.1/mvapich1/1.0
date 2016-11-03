@@ -1,0 +1,44 @@
+#%Module1.0#####################################################################
+##
+## MVAPICH
+##
+proc ModulesHelp { } {
+        global version MPICHhome
+
+        puts stderr "\tThis module loads the MVAPICH MPI environment built with"
+        puts stderr "\tIntel compilers. By loading this module, the following commands"
+        puts stderr "\twill be automatically available for compiling MPI applications:"
+        puts stderr "\n"
+        puts stderr "\tmpif77       (F77 source)"
+        puts stderr "\tmpif90       (F90 source)"
+        puts stderr "\tmpicc        ( C  source)"
+        puts stderr "\tmpiCC/mpicxx (C++ source)"
+        puts stderr "\n"
+        puts stderr "\tVersion $version\n"
+}
+
+module-whatis "MVAPICH"
+module-whatis "Version: 1.0"
+module-whatis "Category: library, runtime support"
+module-whatis "Description: MPI-1 implementation for Infiniband"
+module-whatis "URL: http://mvapich.cse.ohio-state.edu/overview/mvapich/"
+
+# for Tcl script use only
+set     version         1.0
+set     MPICHhome       /opt/apps/pgi7_1/mvapich/1.0
+
+# Export to User.
+
+setenv MPICH_HOME       $MPICHhome
+
+prepend-path    PATH            $MPICHhome/bin
+prepend-path    MANPATH         $MPICHhome/man
+prepend-path    INFOPATH        $MPICHhome/doc
+prepend-path    LD_LIBRARY_PATH $MPICHhome/lib/shared
+
+prepend-path    LD_LIBRARY_PATH $MPICHhome/lib
+
+
+# ;;; Local Variables: ***
+# ;;; mode:tcl ***
+# ;;; End: ***

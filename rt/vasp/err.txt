@@ -2,15 +2,13 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 6.0.26  2016-01-29 11:03
+Modules based on Lua: Version 0.9.2  2016-10-25 13:59 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing keyword graph
 ===========================
 The following modules match your search criteria: "graph"
-  parmetis: parmetis/3.1, parmetis/4.0.1
-    Parallel graph partitioning and fill-reduction matrix ordering routines
 To learn more about a package enter:
    $ module spider Foo
 where "Foo" is the name of a module
@@ -59,5 +57,5 @@ While processing the following module(s):
     vasp/5.2         ProjectDIR/rt/vasp/mf/vasp/5.2.lua
 ===========================
 step 6
-lua ProjectDIR/src/spider.in.lua -o list ProjectDIR/rt/vasp/mf:ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/MPI/intel/10.1/openmpi/1.2.6
+lua ProjectDIR/src/spider.in.lua -o list
 ===========================

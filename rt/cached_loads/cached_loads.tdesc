@@ -26,7 +26,7 @@ testdescript = {
      cp -r $(testDir)/mf .
 
      mkdir -p $HOME/.lmod.d/.cache
-     buildModuleT $MODULEPATH > $HOME/.lmod.d/.cache/moduleT.lua
+     buildSpiderT $MODULEPATH > $HOME/.lmod.d/.cache/spiderT.lua
      runLmod --version              # 1
 
      mkdir mf/Core/B

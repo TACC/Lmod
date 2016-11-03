@@ -23,7 +23,6 @@ testdescript = {
      rm -f  _stderr.* _stdout.* err.* out.*
      rm -fr .lmod.d .lmodrc.lua
      cp $(projectDir)/init/lmodrc.lua .lmodrc.lua
-     export LMOD_DEFAULT_MODULEPATH=$(testDir)/not/there/yet/either
      export MODULEPATH=$(testDir)/not/there/yet
 
 

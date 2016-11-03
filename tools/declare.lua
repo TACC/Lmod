@@ -46,3 +46,7 @@ end
 function isDefined(name)
    return (rawget(_G, name) ~= nil)
 end
+
+function isNotDefined(name)
+   return (rawget(_G, name) == nil)
+end

@@ -17,22 +17,25 @@ testdescript = {
 
      unsetMT
      initStdEnvVars
-     LMOD_TERM_WIDTH=80;                export LMOD_TERM_WIDTH
-     MODULEPATH_ROOT=$(projectDir)/mf;  export MODULEPATH_ROOT
-     MODULEPATH=$(projectDir)/mf/Core:$(projectDir)/mf/Compiler/intel/10.1:$(projectDir)/mf/MPI/intel/10.1/openmpi/1.2.6;
+     LMOD_TERM_WIDTH=150;            export LMOD_TERM_WIDTH
+     MODULEPATH_ROOT=$(testDir)/mf;  export MODULEPATH_ROOT
+     MODULEPATH=$(testDir)/mf/Core
      export MODULEPATH
-     ORIG_HOME=`(cd $HOME; pwd)`
-     HOME=$(outputDir)
+     unset TERM
 
-     rm -f _stderr.* _stdout.* err.* out.*
-     rm -rf .lmod.d
+     rm -f _stderr.* _stdout.* err.* out.* .lmod.d .lmodrc.lua
+     cp $(projectDir)/init/lmodrc.lua .lmodrc.lua
 
-     lua $(projectDir)/src/lmod.in.lua bash keyword graph > _stdout.orig 2> err.txt
+     runLmod keyword graph          # 1
 
      HOME=$ORIG_HOME
 
-     joinBase64Results  -bash  _stdout.orig _stdout.new
+     cat _stdout.[0-9][0-9][0-9] > _stdout.orig
+     joinBase64Results -bash  _stdout.orig _stdout.new
      cleanUp _stdout.new out.txt
+
+     cat _stderr.[0-9][0-9][0-9] > _stderr.orig
+     cleanUp _stderr.orig err.txt
 
      rm -f results.csv
      wrapperDiff --csv results.csv $(testDir)/out.txt out.txt

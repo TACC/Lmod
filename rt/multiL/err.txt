@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 6.5.16  2016-10-04 17:13 -05:00
+Modules based on Lua: Version 0.9.2  2016-10-25 13:59 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -78,19 +78,19 @@ step 10
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload cmplr/gcc
 ===========================
 Inactive Modules:
-  1) mpi/mpich2  2) parLib/petsc
+  1) mpi/mpich2     2) parLib/petsc
 ===========================
 step 11
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load cmplr/gcc
 ===========================
 Activating Modules:
-  1) mpi/mpich2/1.5.2  2) parLib/petsc/3.3
+  1) mpi/mpich2/1.5.2     2) parLib/petsc/3.3
 ===========================
 step 12
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing swap cmplr/gcc cmplr/intel
 ===========================
 Due to MODULEPATH changes the following have been reloaded:
-  1) mpi/mpich2/1.5.2  2) parLib/petsc/3.3
+  1) mpi/mpich2/1.5.2     2) parLib/petsc/3.3
 ===========================
 step 13
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
@@ -102,7 +102,7 @@ step 14
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload cmplr/intel/13.1
 ===========================
 Inactive Modules:
-  1) mpi/mpich2  2) parLib/petsc
+  1) mpi/mpich2     2) parLib/petsc
 ===========================
 step 15
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
@@ -116,7 +116,7 @@ step 16
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load cmplr/intel/13.1
 ===========================
 Activating Modules:
-  1) mpi/mpich2/1.5.2  2) parLib/petsc/3.3
+  1) mpi/mpich2/1.5.2     2) parLib/petsc/3.3
 ===========================
 step 17
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list

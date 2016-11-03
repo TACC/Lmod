@@ -6,37 +6,21 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 step 2
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --help
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/help/mf";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/help/mf";
-export MODULEPATH;
 ===========================
 step 3
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing help
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/help/mf";
-export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/help/mf";
 export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/help/mf";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/help/mf";
-export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/help/mf",},family={},inactive={},mT={},mpathA={"ProjectDIR/rt/help/mf",},["systemBaseMPATH"]="ProjectDIR/rt/help/mf",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/help/mf",},["systemBaseMPATH"]="ProjectDIR/rt/help/mf",}';
 export _ModuleTable_;
 ===========================
 step 4
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing help amber
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/help/mf";
-export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/help/mf";
 export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/help/mf";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/help/mf";
-export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/help/mf",},family={},inactive={},mT={},mpathA={"ProjectDIR/rt/help/mf",},["systemBaseMPATH"]="ProjectDIR/rt/help/mf",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/help/mf",},["systemBaseMPATH"]="ProjectDIR/rt/help/mf",}';
 export _ModuleTable_;
 ===========================
 step 5

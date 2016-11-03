@@ -85,7 +85,7 @@ end
 -- place the positional arguments in *masterTbl.pargs*
 -- @param self An Option object.
 -- @param usage The program usage string.
-function M.options(self, usage)
+function M.singleton(self, usage)
 
    local Optiks = require("Optiks")
    local cmdlineParser  = Optiks:new{usage   = usage,
@@ -278,13 +278,6 @@ function M.options(self, usage)
       dest   = "config",
       action = "store_true",
       help   = "Report Lmod Configuration",
-   }
-
-   cmdlineParser:add_option{
-      name   = {"--config-json" },
-      dest   = "configjson",
-      action = "store_true",
-      help   = "Report Lmod Configuration in json format",
    }
 
    cmdlineParser:add_option{

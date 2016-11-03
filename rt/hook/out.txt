@@ -4,30 +4,20 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing use -a ProjectDIR/mf/Core
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing use -a ProjectDIR/rt/hook/mf/Core
 ===========================
-unset LMOD_DEFAULT_MODULEPATH;
-unset MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/mf/Core";
+MODULEPATH="ProjectDIR/rt/hook/mf/Core";
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/mf/Core",},family={},inactive={},mT={},mpathA={"ProjectDIR/mf/Core",},["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/hook/mf/Core",},}';
 export _ModuleTable_;
 ===========================
 step 3
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load admin intel
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/mf/Core";
-export MODULEPATH;
 ADMIN_MODULE_LOADED="1";
 export ADMIN_MODULE_LOADED;
 LD_LIBRARY_PATH="/vol/local/intel/mkl/mkl/lib/lib:/vol/local/intel/idb/idb/lib:/vol/local/intel/fc/fc/lib:/vol/local/intel/cc/cc/lib";
 export LD_LIBRARY_PATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
 LMOD_FAMILY_COMPILER="intel";
 export LMOD_FAMILY_COMPILER;
 LMOD_FAMILY_COMPILER_VERSION="intel";
@@ -40,11 +30,11 @@ MKL_DIR="/vol/local/intel/mkl/mkl/lib/lib";
 export MKL_DIR;
 MKL_INCLUDE="/vol/local/intel/mkl/mkl/include";
 export MKL_INCLUDE;
-MODULEPATH="ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/Core";
+MODULEPATH="ProjectDIR/rt/hook/mf/Compiler/intel/10.1:ProjectDIR/rt/hook/mf/Core";
 export MODULEPATH;
 PATH="/vol/local/intel/idb/idb/bin:/vol/local/intel/fc/fc/bin:/vol/local/intel/cc/cc/bin:/usr/sbin:/sbin:ProjectDIR/src:PATH_to_TM:/bin";
 export PATH;
-_LMFILES_="ProjectDIR/mf/Core/admin/admin-1.0.lua:ProjectDIR/mf/Core/intel/intel.lua";
+_LMFILES_="ProjectDIR/rt/hook/mf/Core/admin/admin-1.0.lua:ProjectDIR/rt/hook/mf/Core/intel/intel.lua";
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/mf/Core",},family={["compiler"]="intel",},inactive={},mT={admin={["FN"]="ProjectDIR/mf/Core/admin/admin-1.0.lua",["default"]=1,["fullName"]="admin/admin-1.0",["loadOrder"]=1,propT={},["short"]="admin",["status"]="active",},intel={["FN"]="ProjectDIR/mf/Core/intel/intel.lua",["default"]=1,["fullName"]="intel/intel",["loadOrder"]=2,propT={},["short"]="intel",["status"]="active",},},mpathA={"ProjectDIR/mf/Compiler/intel/10.1","ProjectDIR/mf/Core",},["systemBaseMPATH"]="ProjectDIR/mf/Core",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["compiler"]="intel",},mT={admin={["fn"]="ProjectDIR/rt/hook/mf/Core/admin/admin-1.0.lua",["fullName"]="admin/admin-1.0",["loadOrder"]=1,propT={},["status"]="active",["userName"]="admin",},intel={["fn"]="ProjectDIR/rt/hook/mf/Core/intel/intel.lua",["fullName"]="intel/intel",["loadOrder"]=2,propT={},["status"]="active",["userName"]="intel",},},mpathA={"ProjectDIR/rt/hook/mf/Compiler/intel/10.1","ProjectDIR/rt/hook/mf/Core",},}';
 export _ModuleTable_;

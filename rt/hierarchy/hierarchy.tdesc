@@ -19,59 +19,31 @@ testdescript = {
 
      unsetMT
      initStdEnvVars
-     export LMOD_AUTO_SWAP=no
      MODULEPATH_ROOT=$(testDir)/mf;    export MODULEPATH_ROOT
      MODULEPATH=$MODULEPATH_ROOT/Core; export MODULEPATH
 
      rm -fr _stderr.* _stdout.* err.* out.* .lmod.d
-
      runLmod --version                     # 1
-     runLmod load parmetis                 # 2
-     runLmod load parmetis/4.0.3           # 3
-     runLmod load parmetis/11.0            # 4
-     runLmod load clang openmpi  parmetis  # 5
-     runLmod avail                         # 6
-     runLmod load -clang -openmpi          # 7
-     runLmod list                          # 8
-     runLmod load gcc mpich                # 9
-     runLmod list                          #10
-     runLmod load ben                      #11
-     runLmod load ben/0.1                  #12
-     runLmod load fbr                      #13
-     runLmod list                          #14
-     runLmod unload fbr                    #15
-     runLmod load clang                    #16
-     runLmod --expert load clang           #17
-     runLmod list                          #18
-     runLmod purge                         #19
-     runLmod load gcc mpich                #20
-     runLmod unload mpich gcc              #21
-     runLmod load gcc mpich                #22
-     runLmod unload mpich gcc              #23
-     runLmod list                          #24
-     runLmod load python                   #25
-     runLmod load gcc                      #26
-     runLmod load mpich                    #27
-     runLmod swap gcc clang                #28
-     runLmod swap mpich openmpi            #29
-
-
-
+     runLmod load python                   # 2
+     runLmod list                          # 3
+     runLmod load gcc boost                # 4
+     runLmod list                          # 5
+     runLmod unload gcc                    # 6
+     runLmod list                          # 7
+     
+     
 
      HOME=$ORIG_HOME
      cat _stdout.[0-9][0-9][0-9] > _stdout.orig
      joinBase64Results  -bash  _stdout.orig _stdout.new
      cleanUp _stdout.new out.txt
-
      cat _stderr.[0-9][0-9][0-9] > _stderr.orig
      cleanUp _stderr.orig err.txt
-
      rm -f results.csv
      wrapperDiff --csv results.csv $(testDir)/out.txt out.txt
      wrapperDiff --csv results.csv $(testDir)/err.txt err.txt
      testFinish -r $(resultFn) -t $(runtimeFn) results.csv
    ]],
-
 
    blessScript = [[
          # perform what is needed

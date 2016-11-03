@@ -6,45 +6,27 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 step 2
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load append
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/use_append/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/use_append/mf/Core";
-export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/use_append/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
 LOADEDMODULES="append";
 export LOADEDMODULES;
 MODULEPATH="ProjectDIR/rt/use_append/mf/Core:ProjectDIR/rt/use_append/mf/Append:ProjectDIR/rt/use_append/mf/Append2";
 export MODULEPATH;
 _LMFILES_="ProjectDIR/rt/use_append/mf/Core/append";
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/use_append/mf/Core",},family={},inactive={},mT={append={["FN"]="ProjectDIR/rt/use_append/mf/Core/append",["default"]=0,["fullName"]="append",["loadOrder"]=1,propT={},["short"]="append",["status"]="active",},},mpathA={"ProjectDIR/rt/use_append/mf/Core","ProjectDIR/rt/use_append/mf/Append","ProjectDIR/rt/use_append/mf/Append2",},["systemBaseMPATH"]="ProjectDIR/rt/use_append/mf/Core",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={append={["fn"]="ProjectDIR/rt/use_append/mf/Core/append",["fullName"]="append",["loadOrder"]=1,propT={},["status"]="active",["userName"]="append",},},mpathA={"ProjectDIR/rt/use_append/mf/Core","ProjectDIR/rt/use_append/mf/Append","ProjectDIR/rt/use_append/mf/Append2",},["systemBaseMPATH"]="ProjectDIR/rt/use_append/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 3
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing show append
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/use_append/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/use_append/mf/Core:ProjectDIR/rt/use_append/mf/Append:ProjectDIR/rt/use_append/mf/Append2";
 export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/use_append/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/use_append/mf/Core:ProjectDIR/rt/use_append/mf/Append:ProjectDIR/rt/use_append/mf/Append2";
-export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/use_append/mf/Core",},family={},inactive={},mT={append={["FN"]="ProjectDIR/rt/use_append/mf/Core/append",["default"]=0,["fullName"]="append",["loadOrder"]=1,propT={},["short"]="append",["status"]="active",},},mpathA={"ProjectDIR/rt/use_append/mf/Core","ProjectDIR/rt/use_append/mf/Append","ProjectDIR/rt/use_append/mf/Append2",},["systemBaseMPATH"]="ProjectDIR/rt/use_append/mf/Core",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={append={["fn"]="ProjectDIR/rt/use_append/mf/Core/append",["fullName"]="append",["loadOrder"]=1,propT={},["status"]="active",["userName"]="append",},},mpathA={"ProjectDIR/rt/use_append/mf/Core","ProjectDIR/rt/use_append/mf/Append","ProjectDIR/rt/use_append/mf/Append2",},["systemBaseMPATH"]="ProjectDIR/rt/use_append/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 4
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/use_append/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/use_append/mf/Core:ProjectDIR/rt/use_append/mf/Append:ProjectDIR/rt/use_append/mf/Append2";
 export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/use_append/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/use_append/mf/Core:ProjectDIR/rt/use_append/mf/Append:ProjectDIR/rt/use_append/mf/Append2";
-export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/use_append/mf/Core",},family={},inactive={},mT={append={["FN"]="ProjectDIR/rt/use_append/mf/Core/append",["default"]=0,["fullName"]="append",["loadOrder"]=1,propT={},["short"]="append",["status"]="active",},},mpathA={"ProjectDIR/rt/use_append/mf/Core","ProjectDIR/rt/use_append/mf/Append","ProjectDIR/rt/use_append/mf/Append2",},["systemBaseMPATH"]="ProjectDIR/rt/use_append/mf/Core",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={append={["fn"]="ProjectDIR/rt/use_append/mf/Core/append",["fullName"]="append",["loadOrder"]=1,propT={},["status"]="active",["userName"]="append",},},mpathA={"ProjectDIR/rt/use_append/mf/Core","ProjectDIR/rt/use_append/mf/Append","ProjectDIR/rt/use_append/mf/Append2",},["systemBaseMPATH"]="ProjectDIR/rt/use_append/mf/Core",}';
 export _ModuleTable_;

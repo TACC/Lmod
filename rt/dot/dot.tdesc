@@ -31,8 +31,7 @@ testdescript = {
      runLmod load a/.1.0           # 4
      runLmod list                  # 5
      runLmod purge                 # 6
-     buildModuleT $LMOD_DEFAULT_MODULEPATH > $HOME/.lmod.d/.cache/moduleT.lua
-     buildDbT     $LMOD_DEFAULT_MODULEPATH > $HOME/.lmod.d/.cache/dbT.lua
+     buildSpiderT $LMOD_DEFAULT_MODULEPATH > $HOME/.lmod.d/.cache/spiderT.lua
      runLmod spider                # 7
      runLmod spider b              # 8
      runLmod spider b/.2.0         # 9
@@ -45,6 +44,7 @@ testdescript = {
      runLmod avail                 #16
      runLmod load a/.1.0 b/.2.0    #17
      runLmod list                  #18
+     runLmod --show_hidden spider  #19
 
 
      HOME=$ORIG_HOME

@@ -6,80 +6,52 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 step 2
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing use -a ProjectDIR/rt/always/mf
 ===========================
-unset LMOD_DEFAULT_MODULEPATH;
-unset MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/always/mf";
-export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/always/mf";
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/always/mf",},family={},inactive={},mT={},mpathA={"ProjectDIR/rt/always/mf",},["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/always/mf",},}';
 export _ModuleTable_;
 ===========================
 step 3
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load master
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/always/mf";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/always/mf";
-export MODULEPATH;
 LMOD_A_DIR="/a/b/c";
 export LMOD_A_DIR;
 LMOD_B_DIR="/d/e/f";
 export LMOD_B_DIR;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/always/mf";
-export LMOD_DEFAULT_MODULEPATH;
 LOADEDMODULES="a:b:master/1.0";
 export LOADEDMODULES;
 MODULEPATH="ProjectDIR/rt/always/mf";
 export MODULEPATH;
 _LMFILES_="ProjectDIR/rt/always/mf/a.lua:ProjectDIR/rt/always/mf/b.lua:ProjectDIR/rt/always/mf/master/1.0.lua";
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/always/mf",},family={},inactive={},mT={a={["FN"]="ProjectDIR/rt/always/mf/a.lua",["default"]=0,["fullName"]="a",["loadOrder"]=1,propT={},["short"]="a",["status"]="active",},b={["FN"]="ProjectDIR/rt/always/mf/b.lua",["default"]=0,["fullName"]="b",["loadOrder"]=2,propT={},["short"]="b",["status"]="active",},master={["FN"]="ProjectDIR/rt/always/mf/master/1.0.lua",["default"]=1,["fullName"]="master/1.0",["loadOrder"]=3,propT={},["short"]="master",["status"]="active",},},mpathA={"ProjectDIR/rt/always/mf",},["systemBaseMPATH"]="ProjectDIR/rt/always/mf",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={a={["fn"]="ProjectDIR/rt/always/mf/a.lua",["fullName"]="a",["loadOrder"]=1,propT={},["status"]="active",["userName"]="a",},b={["fn"]="ProjectDIR/rt/always/mf/b.lua",["fullName"]="b",["loadOrder"]=2,propT={},["status"]="active",["userName"]="b",},master={["fn"]="ProjectDIR/rt/always/mf/master/1.0.lua",["fullName"]="master/1.0",["loadOrder"]=3,propT={},["status"]="active",["userName"]="master",},},mpathA={"ProjectDIR/rt/always/mf",},}';
 export _ModuleTable_;
 ===========================
 step 4
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/always/mf";
-export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/always/mf";
 export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/always/mf";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/always/mf";
-export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/always/mf",},family={},inactive={},mT={a={["FN"]="ProjectDIR/rt/always/mf/a.lua",["default"]=0,["fullName"]="a",["loadOrder"]=1,propT={},["short"]="a",["status"]="active",},b={["FN"]="ProjectDIR/rt/always/mf/b.lua",["default"]=0,["fullName"]="b",["loadOrder"]=2,propT={},["short"]="b",["status"]="active",},master={["FN"]="ProjectDIR/rt/always/mf/master/1.0.lua",["default"]=1,["fullName"]="master/1.0",["loadOrder"]=3,propT={},["short"]="master",["status"]="active",},},mpathA={"ProjectDIR/rt/always/mf",},["systemBaseMPATH"]="ProjectDIR/rt/always/mf",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={a={["fn"]="ProjectDIR/rt/always/mf/a.lua",["fullName"]="a",["loadOrder"]=1,propT={},["status"]="active",["userName"]="a",},b={["fn"]="ProjectDIR/rt/always/mf/b.lua",["fullName"]="b",["loadOrder"]=2,propT={},["status"]="active",["userName"]="b",},master={["fn"]="ProjectDIR/rt/always/mf/master/1.0.lua",["fullName"]="master/1.0",["loadOrder"]=3,propT={},["status"]="active",["userName"]="master",},},mpathA={"ProjectDIR/rt/always/mf",},}';
 export _ModuleTable_;
 ===========================
 step 5
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload master
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/always/mf";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/always/mf";
-export MODULEPATH;
 unset LMOD_B_DIR;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/always/mf";
-export LMOD_DEFAULT_MODULEPATH;
 LOADEDMODULES="a";
 export LOADEDMODULES;
 MODULEPATH="ProjectDIR/rt/always/mf";
 export MODULEPATH;
 _LMFILES_="ProjectDIR/rt/always/mf/a.lua";
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/always/mf",},family={},inactive={},mT={a={["FN"]="ProjectDIR/rt/always/mf/a.lua",["default"]=0,["fullName"]="a",["loadOrder"]=1,propT={},["short"]="a",["status"]="active",},},mpathA={"ProjectDIR/rt/always/mf",},["systemBaseMPATH"]="ProjectDIR/rt/always/mf",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={a={["fn"]="ProjectDIR/rt/always/mf/a.lua",["fullName"]="a",["loadOrder"]=1,propT={},["status"]="active",["userName"]="a",},},mpathA={"ProjectDIR/rt/always/mf",},}';
 export _ModuleTable_;
 ===========================
 step 6
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/always/mf";
-export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/always/mf";
 export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/always/mf";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/always/mf";
-export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/always/mf",},family={},inactive={},mT={a={["FN"]="ProjectDIR/rt/always/mf/a.lua",["default"]=0,["fullName"]="a",["loadOrder"]=1,propT={},["short"]="a",["status"]="active",},},mpathA={"ProjectDIR/rt/always/mf",},["systemBaseMPATH"]="ProjectDIR/rt/always/mf",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={a={["fn"]="ProjectDIR/rt/always/mf/a.lua",["fullName"]="a",["loadOrder"]=1,propT={},["status"]="active",["userName"]="a",},},mpathA={"ProjectDIR/rt/always/mf",},}';
 export _ModuleTable_;

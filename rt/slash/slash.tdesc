@@ -17,14 +17,14 @@ testdescript = {
 
      unsetMT
      initStdEnvVars
-     MODULEPATH=$(projectDir)/mf///Core/;  export MODULEPATH
-     MODULEPATH_ROOT=$(projectDir)/mf;  export MODULEPATH_ROOT
+     MODULEPATH=$(testDir)/mf///Core/; export MODULEPATH
+     MODULEPATH_ROOT=$(testDir)/mf;    export MODULEPATH_ROOT
 
      rm -fr _stderr.* _stdout.* err.* out.* .lmod.d
 
      runLmod --version                 # 1
      runLmod load admin                # 2
-     runLmod use $(projectDir)/mf/Core # 3
+     runLmod use $(testDir)/mf/Core    # 3
 
      HOME=$ORIG_HOME
 

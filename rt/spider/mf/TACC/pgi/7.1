@@ -1,0 +1,42 @@
+#%Module3.1.6#####################################################################
+##
+## PGI Compilers
+##
+global env
+proc ModulesHelp { } {
+        puts stderr "\n\tVersion 7.1\n"
+
+}
+
+module-whatis   "loads the PGI compiler environment"
+
+# for Tcl script use only
+set     version                     7.1
+
+set mproot           "MODULEPATH_ROOT"
+set modulepath_root  $env($mproot)
+set moduleshome     "$modulepath_root/TACC_COMPILER/pgi/7.1"
+
+setenv          PGI             /opt/apps/pgi/7.1
+
+prepend-path    PATH            /opt/apps/pgi/7.1/linux86-64/7.1-2/bin
+prepend-path    MANPATH         /opt/apps/pgi/7.1/linux86-64/7.1-2/man
+prepend-path    LD_LIBRARY_PATH /opt/apps/pgi/7.1/linux86-64/7.1-2/libso
+
+prepend-path    MODULEPATH      "$moduleshome"
+
+family "compiler"
+
+if [ module-info mode load ] {
+    if {  [ is-loaded intel   ] } {
+        puts stderr "\tModule intel already loaded\n"
+    }
+
+    if {  [ is-loaded pgi   ] } {
+        puts stderr "\tModule pgi already loaded\n"
+    }
+}
+
+# ;;; Local Variables: ***
+# ;;; mode:tcl ***
+# ;;; End: ***

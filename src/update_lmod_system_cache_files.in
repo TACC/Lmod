@@ -112,9 +112,9 @@ print_help() {
     echo "  -t <timestamp.txt>"
     echo "      location of Lmod cache timestamp file (default: determine via 'ml --config')"
     echo "  -r"
-    echo "      enable updating reverseMapT cache file (default: only moduleT and dbT cache files)"
+    echo "      enable updating reverseMapT cache file (default: only spiderT and dbT cache files)"
     echo "  -R <reverseMapD>"
-    echo "      enable updating reverseMapT cache file (default: only moduleT and dbT cache files)"
+    echo "      enable updating reverseMapT cache file (default: only spiderT and dbT cache files)"
     echo "  -J"
     echo "      enable update jsonReverseMapT cache file"
     echo "  -K"
@@ -336,7 +336,7 @@ fi
 new_timestamp
 
 # update cache files
-update_cache $LMOD_CACHE_DIR moduleT
+update_cache $LMOD_CACHE_DIR spiderT
 if [ $UPDATE_REVERSEMAPT_CACHE -ne 0 ]; then
     update_cache  $LMOD_REVERSEMAPT_DIR reverseMapT
 fi

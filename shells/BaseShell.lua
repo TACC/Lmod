@@ -48,11 +48,9 @@ local base64       = require("base64")
 local concatTbl    = table.concat
 local decode64     = base64.decode64
 local encode64     = base64.encode64
-local floor        = math.floor
-local format       = string.format
+local strfmt       = string.format
 local getenv       = os.getenv
 local huge         = math.huge
-local min          = math.min
 local pack         = (_VERSION == "Lua 5.1") and argsPack   or table.pack
 local pairsByKeys  = pairsByKeys
 
@@ -145,36 +143,25 @@ end
 
 function M.expandMT(self, vstr)
    dbg.start{"BaseShell:expandMT(vstr)"}
-   local vv      = encode64(vstr)
-   local a       = {}
-   local vlen    = vv:len()
-   local blksize = 512
-   local nblks   = floor((vlen - 1)/blksize) + 1
-   local name
-   local alen
-
-   for i = 1, vlen, blksize do
-      alen    = min(i+blksize-1,vlen)
-      a[#a+1] = vv:sub(i,alen)
+   local t     = build_MT_envT(vstr)
+   local nblks = 0
+   for k, v in pairsByKeys(t) do
+      self:expandVar(k, v)
+      nblks = nblks + 1
    end
-   for i = 1, #a do
-      name = format("_ModuleTable%03d_",i)
-      self:expandVar(name, a[i])
-   end
-   self:expandVar("_ModuleTable_Sz_",tostring(#a))
 
    for i = nblks+1, huge do
-      name    = format("_ModuleTable%03d_",i)
-      local v = getenv(name)
+      local name  = strfmt("_ModuleTable%03d_",i)
+      local v     = getenv(name)
       if (v == nil) then break end
       self:unset(name)
    end
 
    if (dbg.active()) then
-      local mt     = MT:mt()
-      local indent = dbg.indent()
-      local s      = serializeTbl{indent=true, name="_ModuleTable_",
-                             value=mt}
+      local frameStk = require("FrameStk"):singleton()
+      local mt       = frameStk:mt()
+      local indent   = dbg.indent()
+      local s        = serializeTbl{indent=true, name=s_name, value=mt}
       for line in s:split("\n") do
          io.stderr:write(indent,line,"\n")
       end
@@ -220,11 +207,10 @@ local function valid_shell(shellTbl, shell_name)
    return shellTbl[shell_name]
 end
 
-s_shellTbl = false
+local s_shellTbl = false
 
 local function createShellTbl()
    if (not s_shellTbl) then
-      local shellTbl     = {}
       local Csh          = require('Csh')
       local Bash         = require('Bash')
       local Bare         = require('Bare')
@@ -232,17 +218,18 @@ local function createShellTbl()
       local Perl         = require('Perl')
       local Python       = require('Python')
       local R            = require('R')
-      shellTbl["sh"]     = Bash
-      shellTbl["bash"]   = Bash
-      shellTbl["zsh"]    = Bash
-      shellTbl["fish"]   = Fish
-      shellTbl["csh"]    = Csh
-      shellTbl["tcsh"]   = Csh
-      shellTbl["perl"]   = Perl
-      shellTbl["python"] = Python
-      shellTbl["r"]      = R
-      shellTbl.bare      = Bare
-      s_shellTbl         = shellTbl
+      s_shellTbl = {
+         ["sh"]     = Bash,
+         ["bash"]   = Bash,
+         ["zsh"]    = Bash,
+         ["fish"]   = Fish,
+         ["csh"]    = Csh,
+         ["tcsh"]   = Csh,
+         ["perl"]   = Perl,
+         ["python"] = Python,
+         ["bare"]   = Bare,
+         ["r"]      = R,
+      }
    end
 end
 
@@ -255,9 +242,9 @@ end
 --------------------------------------------------------------------------
 -- BaseShell:build():  This is the factory that builds the derived shell.
 
-function M.build(shell_name)
+function M.build(self, shell_name)
    createShellTbl()
-   local o     = valid_shell(s_shellTbl, shell_name):create()
+   local o     = valid_shell(s_shellTbl, shell_name:lower()):create()
    o._active   = true
    return o
 end

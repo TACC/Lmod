@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 6.4.3  2016-06-17 09:58
+Modules based on Lua: Version 0.8  2016-09-26 17:13 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -12,16 +12,18 @@ The following is a list of the modules currently available:
   PrgEnv: PrgEnv
   admin: admin/admin-1.0
   alex: alex/1.0
-  boost: boost/1.46.0, boost/1.47.1, boost/1.49.0
+  bar: bar/1.4-dbg, bar/1.4
+  baz: baz/1.4-dbg, baz/1.4
+  foo: foo/1.4-dbg, foo/1.4
   gcc: gcc/4.2.3
-  git: git/1.6.3.1, git/1.7.4, git/1.7.4.3
+  git: git/1.6.3.1, git/1.7.4, git/1.7.4.1, git/1.7.4.2, git/1.7.4.3
   gotoblas: gotoblas/1.20, gotoblas/1.26, gotoblas/1.30, gotoblas/1.31, gotoblas/1.32, gotoblas/1.33
     Blas Level 1, 2, 3 routines
   intel: intel/intel
   junk/a/c: junk/a/c/1.0
   junk/b/c: junk/b/c/2.0
   junk/d: junk/d/3.0
-  local: local/local
+  local: local/local, local/1.1, local/1.2, local/1.3, local/1.4
   mpich2: mpich2/1.0.7
   multi: multi/multi
   noweb: noweb/2.10c
@@ -30,6 +32,43 @@ The following is a list of the modules currently available:
     Parallel graph partitioning and fill-reduction matrix ordering routines
   petsc: petsc/3.1, petsc/3.2
   phdf5: phdf5/1.8.2, phdf5/1.8.9, phdf5/1.8.10
+  ucc: ucc/12.1.5, ucc/13.1.2, ucc/14.0.2
+  unix: unix/unix
+To learn more about a package enter:
+   $ module spider Foo
+where "Foo" is the name of a module
+To find detailed information about a particular package you
+must enter the version if there is more than one version:
+   $ module spider Foo/11.1
+===========================
+step 3
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider
+===========================
+The following is a list of the modules currently available:
+  PrgEnv: PrgEnv
+  admin: admin/admin-1.0
+  alex: alex/1.0
+  bar: bar/1.4-dbg, bar/1.4
+  baz: baz/1.4-dbg, baz/1.4
+  foo: foo/1.4-dbg, foo/1.4
+  gcc: gcc/4.2.3
+  git: git/1.6.3.1, git/1.7.4, git/1.7.4.1, git/1.7.4.2, git/1.7.4.3
+  gotoblas: gotoblas/1.20, gotoblas/1.26, gotoblas/1.30, gotoblas/1.31, gotoblas/1.32, gotoblas/1.33
+    Blas Level 1, 2, 3 routines
+  intel: intel/intel
+  junk/a/c: junk/a/c/1.0
+  junk/b/c: junk/b/c/2.0
+  junk/d: junk/d/3.0
+  local: local/local, local/1.1, local/1.2, local/1.3, local/1.4
+  mpich2: mpich2/1.0.7
+  multi: multi/multi
+  noweb: noweb/2.10c
+  openmpi: openmpi/1.2.6
+  parmetis: parmetis/3.1, parmetis/4.0.1
+    Parallel graph partitioning and fill-reduction matrix ordering routines
+  petsc: petsc/3.1, petsc/3.2
+  phdf5: phdf5/1.8.2, phdf5/1.8.9, phdf5/1.8.10
+  ucc: ucc/12.1.5, ucc/13.1.2, ucc/14.0.2
   unix: unix/unix
 To learn more about a package enter:
    $ module spider Foo

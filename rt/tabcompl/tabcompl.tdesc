@@ -31,7 +31,7 @@ testdescript = {
      rm -fr _stderr.* _stdout.* err.* out.* .lmod.d cacheDir .lmodrc.lua
 
      mkdir cacheDir
-     buildModuleT $MODULEPATH > cacheDir/moduleT.lua
+     buildSpiderT $MODULEPATH > cacheDir/spiderT.lua
      cp $(projectDir)/init/lmodrc.lua .lmodrc.lua
      cat > fn << EOF
 $(outputDir)/cacheDir: $(outputDir)/last_update

@@ -6,92 +6,32 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 step 2
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing keyword graph
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/vasp/mf:ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/MPI/intel/10.1/openmpi/1.2.6";
-export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/vasp/mf:ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/MPI/intel/10.1/openmpi/1.2.6";
 export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/vasp/mf:ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/MPI/intel/10.1/openmpi/1.2.6";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/vasp/mf:ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/MPI/intel/10.1/openmpi/1.2.6";
-export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/vasp/mf","ProjectDIR/mf/Core","ProjectDIR/mf/Compiler/intel/10.1","ProjectDIR/mf/MPI/intel/10.1/openmpi/1.2.6",},family={},inactive={},mT={},mpathA={"ProjectDIR/rt/vasp/mf","ProjectDIR/mf/Core","ProjectDIR/mf/Compiler/intel/10.1","ProjectDIR/mf/MPI/intel/10.1/openmpi/1.2.6",},["systemBaseMPATH"]="ProjectDIR/rt/vasp/mf:ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/MPI/intel/10.1/openmpi/1.2.6",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/vasp/mf","ProjectDIR/mf/Core","ProjectDIR/mf/Compiler/intel/10.1","ProjectDIR/mf/MPI/intel/10.1/openmpi/1.2.6",},["systemBaseMPATH"]="ProjectDIR/rt/vasp/mf:ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/MPI/intel/10.1/openmpi/1.2.6",}';
 export _ModuleTable_;
 ===========================
 step 3
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing whatis vasp
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/vasp/mf:ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/MPI/intel/10.1/openmpi/1.2.6";
-export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/vasp/mf:ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/MPI/intel/10.1/openmpi/1.2.6";
 export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/vasp/mf:ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/MPI/intel/10.1/openmpi/1.2.6";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/vasp/mf:ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/MPI/intel/10.1/openmpi/1.2.6";
-export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/vasp/mf","ProjectDIR/mf/Core","ProjectDIR/mf/Compiler/intel/10.1","ProjectDIR/mf/MPI/intel/10.1/openmpi/1.2.6",},family={},inactive={},mT={},mpathA={"ProjectDIR/rt/vasp/mf","ProjectDIR/mf/Core","ProjectDIR/mf/Compiler/intel/10.1","ProjectDIR/mf/MPI/intel/10.1/openmpi/1.2.6",},["systemBaseMPATH"]="ProjectDIR/rt/vasp/mf:ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/MPI/intel/10.1/openmpi/1.2.6",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/vasp/mf","ProjectDIR/mf/Core","ProjectDIR/mf/Compiler/intel/10.1","ProjectDIR/mf/MPI/intel/10.1/openmpi/1.2.6",},["systemBaseMPATH"]="ProjectDIR/rt/vasp/mf:ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/MPI/intel/10.1/openmpi/1.2.6",}';
 export _ModuleTable_;
 ===========================
 step 4
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing help vasp
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/vasp/mf:ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/MPI/intel/10.1/openmpi/1.2.6";
-export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/vasp/mf:ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/MPI/intel/10.1/openmpi/1.2.6";
 export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/vasp/mf:ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/MPI/intel/10.1/openmpi/1.2.6";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/vasp/mf:ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/MPI/intel/10.1/openmpi/1.2.6";
-export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/vasp/mf","ProjectDIR/mf/Core","ProjectDIR/mf/Compiler/intel/10.1","ProjectDIR/mf/MPI/intel/10.1/openmpi/1.2.6",},family={},inactive={},mT={},mpathA={"ProjectDIR/rt/vasp/mf","ProjectDIR/mf/Core","ProjectDIR/mf/Compiler/intel/10.1","ProjectDIR/mf/MPI/intel/10.1/openmpi/1.2.6",},["systemBaseMPATH"]="ProjectDIR/rt/vasp/mf:ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/MPI/intel/10.1/openmpi/1.2.6",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/vasp/mf","ProjectDIR/mf/Core","ProjectDIR/mf/Compiler/intel/10.1","ProjectDIR/mf/MPI/intel/10.1/openmpi/1.2.6",},["systemBaseMPATH"]="ProjectDIR/rt/vasp/mf:ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/MPI/intel/10.1/openmpi/1.2.6",}';
 export _ModuleTable_;
 ===========================
 step 5
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load vasp
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/vasp/mf:ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/MPI/intel/10.1/openmpi/1.2.6";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/vasp/mf:ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/MPI/intel/10.1/openmpi/1.2.6";
-export MODULEPATH;
 false
 ===========================
 step 6
-lua ProjectDIR/src/spider.in.lua -o list ProjectDIR/rt/vasp/mf:ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1:ProjectDIR/mf/MPI/intel/10.1/openmpi/1.2.6
+lua ProjectDIR/src/spider.in.lua -o list
 ===========================
-ProjectDIR/mf/Compiler/gcc/4.2.3/openmpi/1.2.6.lua
-ProjectDIR/mf/Compiler/intel/10.1/gotoblas/1.31.lua
-ProjectDIR/mf/Compiler/intel/10.1/gotoblas/1.32.lua
-ProjectDIR/mf/Compiler/intel/10.1/gotoblas/1.33.lua
-ProjectDIR/mf/Compiler/intel/10.1/mpich2/1.0.7.lua
-ProjectDIR/mf/Compiler/intel/10.1/openmpi/1.2.6.lua
-ProjectDIR/mf/Core/PrgEnv.lua
-ProjectDIR/mf/Core/admin/admin-1.0.lua
-ProjectDIR/mf/Core/alex/1.0.lua
-ProjectDIR/mf/Core/boost/1.46.0.lua
-ProjectDIR/mf/Core/boost/1.47.1.lua
-ProjectDIR/mf/Core/boost/1.49.0.lua
-ProjectDIR/mf/Core/gcc/4.2.3.lua
-ProjectDIR/mf/Core/git/1.6.3.1
-ProjectDIR/mf/Core/git/1.7.4.3.lua
-ProjectDIR/mf/Core/git/1.7.4.lua
-ProjectDIR/mf/Core/gotoblas/1.20.lua
-ProjectDIR/mf/Core/gotoblas/1.26.lua
-ProjectDIR/mf/Core/gotoblas/1.30.lua
-ProjectDIR/mf/Core/intel/intel.lua
-ProjectDIR/mf/Core/junk/a/c/1.0.lua
-ProjectDIR/mf/Core/junk/b/c/2.0.lua
-ProjectDIR/mf/Core/junk/d/3.0.lua
-ProjectDIR/mf/Core/local/local.lua
-ProjectDIR/mf/Core/multi/multi.lua
-ProjectDIR/mf/Core/noweb/2.10c.lua
-ProjectDIR/mf/Core/parmetis/3.1.lua
-ProjectDIR/mf/Core/unix/unix.lua
-ProjectDIR/mf/MPI/gcc/4.2.3/openmpi/1.2.6/parmetis/3.1.lua
-ProjectDIR/mf/MPI/intel/10.1/mpich2/1.0.7/parmetis/4.0.1.lua
-ProjectDIR/mf/MPI/intel/10.1/mpich2/1.0.7/petsc/3.1.lua
-ProjectDIR/mf/MPI/intel/10.1/mpich2/1.0.7/phdf5/1.8.2.lua
-ProjectDIR/mf/MPI/intel/10.1/mpich2/1.0.7/phdf5/1.8.9.lua
-ProjectDIR/mf/MPI/intel/10.1/openmpi/1.2.6/parmetis/3.1.lua
-ProjectDIR/mf/MPI/intel/10.1/openmpi/1.2.6/petsc/3.2.lua
-ProjectDIR/mf/MPI/intel/10.1/openmpi/1.2.6/phdf5/1.8.10.lua
-ProjectDIR/mf/MPI/intel/10.1/openmpi/1.2.6/phdf5/1.8.2.lua
-ProjectDIR/rt/vasp/mf/vasp/5.2.lua

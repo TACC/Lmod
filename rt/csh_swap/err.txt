@@ -1,7 +1,7 @@
 ===========================
 step 0
 ===========================
-Modules based on Lua: Version 6.5.16  2016-10-04 17:13 -05:00
+Modules based on Lua: Version 0.9.2  2016-10-25 13:59 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 1
@@ -33,4 +33,4 @@ step 6
 step 7
 ===========================
 Due to MODULEPATH changes the following have been reloaded:
-  1) openmpi/1.2.6  2) parmetis/3.1
+  1) openmpi/1.2.6     2) parmetis/3.1

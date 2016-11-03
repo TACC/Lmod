@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 6.5.16  2016-10-04 17:13 -05:00
+Modules based on Lua: Version 0.9.2  2016-10-25 13:59 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -83,7 +83,7 @@ step 7
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing swap gcc intel
 ===========================
 Due to MODULEPATH changes the following have been reloaded:
-  1) boost/1.53.0  2) mpich/3.0.4  3) pmetis/4.0.3
+  1) boost/1.53.0     2) mpich/3.0.4     3) pmetis/4.0.3
 ===========================
 step 8
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing show intel

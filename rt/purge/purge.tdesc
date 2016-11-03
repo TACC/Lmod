@@ -19,8 +19,8 @@ testdescript = {
      initStdEnvVars
      LUA=`findcmd lua`
      ORIGINAL_PATH=$PATH
-     MODULEPATH=$(projectDir)/mf/Core;  export MODULEPATH
-     MODULEPATH_ROOT=$(projectDir)/mf;  export MODULEPATH_ROOT
+     MODULEPATH_ROOT=$(testDir)/mf;     export MODULEPATH_ROOT
+     MODULEPATH=$MODULEPATH_ROOT/Core;  export MODULEPATH
 
      rm -fr _stderr.* _stdout.* err.* out.* .lmod.d .lmodrc.lua
      cp $(projectDir)/init/lmodrc.lua .lmodrc.lua

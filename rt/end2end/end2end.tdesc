@@ -19,39 +19,42 @@ testdescript = {
 
      unsetMT
      initStdEnvVars
-     export MODULEPATH_ROOT=$(projectDir)/mf
+     export MODULEPATH_ROOT=$(testDir)/mf
      export MODULEPATH=$MODULEPATH_ROOT/Core
      numStep=0
      COUNT=0
      ORIG_HOME=`(cd $HOME; /bin/pwd)`
      HOME=`/bin/pwd`
+     CMD="lmod.in.lua"
+     DIR=nvv
+     dir=lmod
 
 
-     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d build
-     rm -f  results.csv
+     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d build b0
+     rm -f  results.csv 
 
      runLmod --version              # 1
-     LmodV=`$LUA_EXEC $projectDir/src/lmod.in.lua bash --dumpversion 2>&1`
+     LmodV=`$LUA_EXEC $projectDir/src/$CMD bash --dumpversion 2>&1`
      echo LmodV=$LmodV
      mkdir b0
      (cd b0; $(projectDir)/configure --prefix=$(outputDir)/b0)
      (cd $(projectDir); make -f $(outputDir)/b0/makefile dist GIT_BRANCH=HEAD)
-     tar xf $projectDir/Lmod-$LmodV.tar.bz2
-     rm -rf $projectDir/Lmod-$LmodV.tar.bz2
-     mkdir build; cd build; ../Lmod-$LmodV/configure --prefix=`pwd`/..;
+     tar xf $projectDir/${DIR}-$LmodV.tar.bz2
+     rm -rf $projectDir/${DIR}-$LmodV.tar.bz2
+     mkdir build; cd build; ../${DIR}-$LmodV/configure --prefix=`pwd`/..;
      make install
-     myStatus=$?
+     status=$?
 
      cd $outputDir
-     echo myStatus: $myStatus
-     if [ $myStatus -eq 0 ]; then
+     echo status: $status
+     if [ $status -eq 0 ]; then
         echo "passed, make" >> results.csv
      else
         echo "diff, make"   >> results.csv
      fi
 
 
-     LMOD_EXEC=$outputDir/lmod/lmod/libexec/lmod
+     LMOD_EXEC=$outputDir/$dir/$dir/libexec/lmod
 
      runMe $LMOD_EXEC --version
      runMe $LMOD_EXEC load admin

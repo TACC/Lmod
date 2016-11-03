@@ -18,8 +18,8 @@ testdescript = {
 
      unsetMT
      initStdEnvVars
-     MODULEPATH_ROOT=$(testDir)/mf;     export MODULEPATH_ROOT
-     MODULEPATH="$(testDir)/mf/Core";   export MODULEPATH
+     MODULEPATH_ROOT=$(testDir)/mf;       export MODULEPATH_ROOT
+     MODULEPATH="$MODULEPATH_ROOT/Core";  export MODULEPATH
 
      rm -rf init
      mkdir init

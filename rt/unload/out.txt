@@ -6,26 +6,14 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 step 2
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/unload/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/unload/mf/Core";
 export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/unload/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/unload/mf/Core";
-export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/unload/mf/Core",},family={},inactive={},mT={},mpathA={"ProjectDIR/rt/unload/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/unload/mf/Core",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/unload/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/unload/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 3
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load intel
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/unload/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/unload/mf/Core";
-export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/unload/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
 LMOD_FAMILY_COMPILER="intel";
 export LMOD_FAMILY_COMPILER;
 LMOD_FAMILY_COMPILER_VERSION="13.0";
@@ -36,18 +24,12 @@ MODULEPATH="ProjectDIR/rt/unload/mf/Compiler/intel/13.0:ProjectDIR/rt/unload/mf/
 export MODULEPATH;
 _LMFILES_="ProjectDIR/rt/unload/mf/Core/intel/13.0.lua";
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/unload/mf/Core",},family={["compiler"]="intel",},inactive={},mT={intel={["FN"]="ProjectDIR/rt/unload/mf/Core/intel/13.0.lua",["default"]=1,["fullName"]="intel/13.0",["loadOrder"]=1,propT={},["short"]="intel",["status"]="active",},},mpathA={"ProjectDIR/rt/unload/mf/Compiler/intel/13.0","ProjectDIR/rt/unload/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/unload/mf/Core",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["compiler"]="intel",},mT={intel={["fn"]="ProjectDIR/rt/unload/mf/Core/intel/13.0.lua",["fullName"]="intel/13.0",["loadOrder"]=1,propT={},["status"]="active",["userName"]="intel",},},mpathA={"ProjectDIR/rt/unload/mf/Compiler/intel/13.0","ProjectDIR/rt/unload/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/unload/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 4
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load mpich2 petsc
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/unload/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/unload/mf/Compiler/intel/13.0:ProjectDIR/rt/unload/mf/Core";
-export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/unload/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
 LMOD_FAMILY_MPI="mpich2";
 export LMOD_FAMILY_MPI;
 LMOD_FAMILY_MPI_VERSION="1.5.2";
@@ -60,46 +42,28 @@ PETSC_VERSION="3.2";
 export PETSC_VERSION;
 _LMFILES_="ProjectDIR/rt/unload/mf/Core/intel/13.0.lua:ProjectDIR/rt/unload/mf/Compiler/intel/13.0/mpich2/1.5.2.lua:ProjectDIR/rt/unload/mf/MPI/intel/13.0/mpich2/1.5/petsc/3.2.lua";
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/unload/mf/Core",},family={["MPI"]="mpich2",["compiler"]="intel",},inactive={},mT={intel={["FN"]="ProjectDIR/rt/unload/mf/Core/intel/13.0.lua",["default"]=1,["fullName"]="intel/13.0",["loadOrder"]=1,propT={},["short"]="intel",["status"]="active",},mpich2={["FN"]="ProjectDIR/rt/unload/mf/Compiler/intel/13.0/mpich2/1.5.2.lua",["default"]=1,["fullName"]="mpich2/1.5.2",["loadOrder"]=2,propT={},["short"]="mpich2",["status"]="active",},petsc={["FN"]="ProjectDIR/rt/unload/mf/MPI/intel/13.0/mpich2/1.5/petsc/3.2.lua",["default"]=1,["fullName"]="petsc/3.2",["loadOrder"]=3,propT={},["short"]="petsc",["status"]="active",},},mpathA={"ProjectDIR/rt/unload/mf/MPI/intel/13.0/mpich2/1.5","ProjectDIR/rt/unload/mf/Compiler/intel/13.0","ProjectDIR/rt/unload/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/unload/mf/Core",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["MPI"]="mpich2",["compiler"]="intel",},mT={intel={["fn"]="ProjectDIR/rt/unload/mf/Core/intel/13.0.lua",["fullName"]="intel/13.0",["loadOrder"]=1,propT={},["status"]="active",["userName"]="intel",},mpich2={["fn"]="ProjectDIR/rt/unload/mf/Compiler/intel/13.0/mpich2/1.5.2.lua",["fullName"]="mpich2/1.5.2",["loadOrder"]=2,propT={},["status"]="active",["userName"]="mpich2",},petsc={["fn"]="ProjectDIR/rt/unload/mf/MPI/intel/13.0/mpich2/1.5/petsc/3.2.lua",["fullName"]="petsc/3.2",["loadOrder"]=3,propT={},["status"]="active",["userName"]="petsc",},},mpathA={"ProjectDIR/rt/unload/mf/MPI/intel/13.0/mpich2/1.5","ProjectDIR/rt/unload/mf/Compiler/intel/13.0","ProjectDIR/rt/unload/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/unload/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 5
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/unload/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/unload/mf/MPI/intel/13.0/mpich2/1.5:ProjectDIR/rt/unload/mf/Compiler/intel/13.0:ProjectDIR/rt/unload/mf/Core";
 export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/unload/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/unload/mf/MPI/intel/13.0/mpich2/1.5:ProjectDIR/rt/unload/mf/Compiler/intel/13.0:ProjectDIR/rt/unload/mf/Core";
-export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/unload/mf/Core",},family={["MPI"]="mpich2",["compiler"]="intel",},inactive={},mT={intel={["FN"]="ProjectDIR/rt/unload/mf/Core/intel/13.0.lua",["default"]=1,["fullName"]="intel/13.0",["loadOrder"]=1,propT={},["short"]="intel",["status"]="active",},mpich2={["FN"]="ProjectDIR/rt/unload/mf/Compiler/intel/13.0/mpich2/1.5.2.lua",["default"]=1,["fullName"]="mpich2/1.5.2",["loadOrder"]=2,propT={},["short"]="mpich2",["status"]="active",},petsc={["FN"]="ProjectDIR/rt/unload/mf/MPI/intel/13.0/mpich2/1.5/petsc/3.2.lua",["default"]=1,["fullName"]="petsc/3.2",["loadOrder"]=3,propT={},["short"]="petsc",["status"]="active",},},mpathA={"ProjectDIR/rt/unload/mf/MPI/intel/13.0/mpich2/1.5","ProjectDIR/rt/unload/mf/Compiler/intel/13.0","ProjectDIR/rt/unload/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/unload/mf/Core",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["MPI"]="mpich2",["compiler"]="intel",},mT={intel={["fn"]="ProjectDIR/rt/unload/mf/Core/intel/13.0.lua",["fullName"]="intel/13.0",["loadOrder"]=1,propT={},["status"]="active",["userName"]="intel",},mpich2={["fn"]="ProjectDIR/rt/unload/mf/Compiler/intel/13.0/mpich2/1.5.2.lua",["fullName"]="mpich2/1.5.2",["loadOrder"]=2,propT={},["status"]="active",["userName"]="mpich2",},petsc={["fn"]="ProjectDIR/rt/unload/mf/MPI/intel/13.0/mpich2/1.5/petsc/3.2.lua",["fullName"]="petsc/3.2",["loadOrder"]=3,propT={},["status"]="active",["userName"]="petsc",},},mpathA={"ProjectDIR/rt/unload/mf/MPI/intel/13.0/mpich2/1.5","ProjectDIR/rt/unload/mf/Compiler/intel/13.0","ProjectDIR/rt/unload/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/unload/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 6
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/unload/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/unload/mf/MPI/intel/13.0/mpich2/1.5:ProjectDIR/rt/unload/mf/Compiler/intel/13.0:ProjectDIR/rt/unload/mf/Core";
 export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/unload/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/unload/mf/MPI/intel/13.0/mpich2/1.5:ProjectDIR/rt/unload/mf/Compiler/intel/13.0:ProjectDIR/rt/unload/mf/Core";
-export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/unload/mf/Core",},family={["MPI"]="mpich2",["compiler"]="intel",},inactive={},mT={intel={["FN"]="ProjectDIR/rt/unload/mf/Core/intel/13.0.lua",["default"]=1,["fullName"]="intel/13.0",["loadOrder"]=1,propT={},["short"]="intel",["status"]="active",},mpich2={["FN"]="ProjectDIR/rt/unload/mf/Compiler/intel/13.0/mpich2/1.5.2.lua",["default"]=1,["fullName"]="mpich2/1.5.2",["loadOrder"]=2,propT={},["short"]="mpich2",["status"]="active",},petsc={["FN"]="ProjectDIR/rt/unload/mf/MPI/intel/13.0/mpich2/1.5/petsc/3.2.lua",["default"]=1,["fullName"]="petsc/3.2",["loadOrder"]=3,propT={},["short"]="petsc",["status"]="active",},},mpathA={"ProjectDIR/rt/unload/mf/MPI/intel/13.0/mpich2/1.5","ProjectDIR/rt/unload/mf/Compiler/intel/13.0","ProjectDIR/rt/unload/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/unload/mf/Core",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["MPI"]="mpich2",["compiler"]="intel",},mT={intel={["fn"]="ProjectDIR/rt/unload/mf/Core/intel/13.0.lua",["fullName"]="intel/13.0",["loadOrder"]=1,propT={},["status"]="active",["userName"]="intel",},mpich2={["fn"]="ProjectDIR/rt/unload/mf/Compiler/intel/13.0/mpich2/1.5.2.lua",["fullName"]="mpich2/1.5.2",["loadOrder"]=2,propT={},["status"]="active",["userName"]="mpich2",},petsc={["fn"]="ProjectDIR/rt/unload/mf/MPI/intel/13.0/mpich2/1.5/petsc/3.2.lua",["fullName"]="petsc/3.2",["loadOrder"]=3,propT={},["status"]="active",["userName"]="petsc",},},mpathA={"ProjectDIR/rt/unload/mf/MPI/intel/13.0/mpich2/1.5","ProjectDIR/rt/unload/mf/Compiler/intel/13.0","ProjectDIR/rt/unload/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/unload/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 7
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload intel
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/unload/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/unload/mf/MPI/intel/13.0/mpich2/1.5:ProjectDIR/rt/unload/mf/Compiler/intel/13.0:ProjectDIR/rt/unload/mf/Core";
-export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/unload/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
 unset LMOD_FAMILY_COMPILER;
 unset LMOD_FAMILY_COMPILER_VERSION;
 unset LMOD_FAMILY_MPI;
@@ -109,5 +73,5 @@ MODULEPATH="ProjectDIR/rt/unload/mf/Core";
 export MODULEPATH;
 unset PETSC_VERSION;
 unset _LMFILES_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/unload/mf/Core",},family={},inactive={},mT={mpich2={["default"]=1,["fullName"]="mpich2/1.5.2",["loadOrder"]=-1,propT={},["short"]="mpich2",["status"]="inactive",},petsc={["default"]=1,["fullName"]="petsc/3.2",["loadOrder"]=-1,propT={},["short"]="petsc",["status"]="inactive",},},mpathA={"ProjectDIR/rt/unload/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/unload/mf/Core",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={mpich2={["fn"]="ProjectDIR/rt/unload/mf/Compiler/intel/13.0/mpich2/1.5.2.lua",["fullName"]="mpich2/1.5.2",["loadOrder"]=-1,propT={},["status"]="inactive",["userName"]="mpich2",},petsc={["fn"]="ProjectDIR/rt/unload/mf/MPI/intel/13.0/mpich2/1.5/petsc/3.2.lua",["fullName"]="petsc/3.2",["loadOrder"]=-1,propT={},["status"]="inactive",["userName"]="petsc",},},mpathA={"ProjectDIR/rt/unload/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/unload/mf/Core",}';
 export _ModuleTable_;

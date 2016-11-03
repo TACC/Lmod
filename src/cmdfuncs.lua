@@ -42,8 +42,12 @@ require("string_utils")
 require("TermWidth")
 require("fileOps")
 require("utils")
+local Banner       = require("Banner")
 local BeautifulTbl = require('BeautifulTbl')
+local Cache        = require("Cache")
 local ColumnTable  = require('ColumnTable')
+local FrameStk     = require('FrameStk')
+local Master       = require('Master')
 local MName        = require("MName")
 local Spider       = require("Spider")
 local Version      = require("Version")
@@ -63,12 +67,12 @@ local unpack       = (_VERSION == "Lua 5.1") and unpack or table.unpack
 -- depending on what mode Access is called with.
 -- @param mode Whether this function has be called via *Help* or *Whatis*.
 local function Access(mode, ...)
-   local master    = Master:master()
-   local shell     = master.shell
+   local master    = Master:singleton()
+   local shell     = _G.Shell
    local masterTbl = masterTbl()
    dbg.start{"Access(", concatTbl({...},", "),")"}
    mcp = MasterControl.build("access", mode)
-   mcp.accessMode(mode,true)
+   mcp:setAccessMode(mode,true)
 
    local n = select('#',...)
    if (n < 1) then
@@ -78,7 +82,7 @@ local function Access(mode, ...)
    end
 
    master:access(...)
-   mcp.accessMode(mode,false)
+   mcp:setAccessMode(mode,false)
    dbg.fini("Access")
 end
 
@@ -117,9 +121,11 @@ end
 -- Just convert the vararg into an actual array and call
 -- master.avail to do the real work.
 function Avail(...)
-   local master = Master:master()
-   local arg    = pack(...)
-   master.avail(arg)
+   local shell = _G.Shell
+   local a     = master:avail(pack(...))
+   if (next(a) ~= nil) then
+      shell:echo(concatTbl(a,""))
+   end
 end
 
 --------------------------------------------------------------------------
@@ -132,7 +138,7 @@ function CollectionLst(collection)
    local path      = pathJoin(os.getenv("HOME"), ".lmod.d", collection .. sname)
    local mt        = MT:mt()
    local a         = mt:reportContents{fn=path, name=collection}
-   local shell     = Master:master().shell
+   local shell     = _G.Shell
    local cwidth    = masterTbl.rt and LMOD_COLUMN_TABLE_WIDTH or TermWidth()
    if (masterTbl.terse) then
       for i = 1,#a do
@@ -178,9 +184,10 @@ end
 -- to report the Help message to the user.
 function Help(...)
 
-   prtHdr = function()
-      local twidth    = TermWidth()
-      local middleStr = "Module Specific Help for \"" .. ModuleName .. "\""
+   local banner = Banner:singleton()
+   
+   _G.prtHdr = function()
+      local middleStr = "Module Specific Help for \"" .. _G.FullName .. "\""
       local title     = banner:bannerStr(middleStr)
       local a         = {}
       a[#a+1]         = "\n"
@@ -198,18 +205,16 @@ end
 function Keyword(...)
    dbg.start{"Keyword(",concatTbl({...},","),")"}
 
-   local master  = Master:master()
-   local shell   = master.shell
-   local cache   = Cache:cache{buildCache=true}
-   local moduleT = cache:build()
-   local s
-   local dbT = {}
-   local spider = Spider:new()
-   spider:searchSpiderDB({...},{"default"},moduleT, dbT)
-   local a = {}
-   local ia = 0
+   local banner      = Banner:singleton()
+   local border      = banner:border(0)
+   local shell       = _G.Shell
+   local cache       = Cache:singleton{buildCache=true}
+   local moduleT,dbT = cache:build()
+   local spider      = Spider:new()
+   local a           = {}
+   local ia          = 0
+   local kywdT       = spider:searchSpiderDB(pack(...), dbT)
 
-   local border = banner:border(0)
 
    ia = ia+1; a[ia] = "\n"
    ia = ia+1; a[ia] = border
@@ -219,7 +224,7 @@ function Keyword(...)
    ia = ia+1; a[ia] = border
    ia = ia+1; a[ia] = "\n"
 
-   spider:Level0Helper(dbT,a)
+   spider:Level0Helper(kywdT,a)
 
    shell:echo(concatTbl(a,""))
 
@@ -231,11 +236,18 @@ end
 function List(...)
    dbg.start{"List(...)"}
    local masterTbl = masterTbl()
-   local shell     = Master:master().shell
-   local mt        = MT:mt()
-   local totalA    = mt:list("userName","any")
+   local shell     = _G.Shell
+   local frameStk  = FrameStk:singleton()
+   local mt        = frameStk:mt()
+   local activeA   = mt:list("fullName","active")
+   local inactiveA = mt:list("fullName","inactive")
+   local total     = #activeA + #inactiveA
    local cwidth    = masterTbl.rt and LMOD_COLUMN_TABLE_WIDTH or TermWidth()
-   if (#totalA < 1) then
+
+   dbg.print{"#activeA:   ",#activeA,"\n"}
+   dbg.print{"#inactiveA: ",#inactiveA,"\n"}
+
+   if (total < 1) then
       shell:echo("No modules loaded\n")
       dbg.fini("List")
       return
@@ -244,7 +256,6 @@ function List(...)
    local wanted = pack(...)
 
    local msg     = "Currently Loaded Modules"
-   local activeA = mt:list("short","active")
    local a       = {}
    local b       = {}
    local msg2    = ":"
@@ -263,13 +274,11 @@ function List(...)
 
    if (masterTbl.terse) then
       for i = 1,#activeA do
-         local mname = MName:new("mt",activeA[i])
-         local sn    = mname:sn()
-         local full  = mt:fullName(sn)
+         local fullName = activeA[i].fullName
          for j = 1, wanted.n do
             local p = wanted[j]
-            if (full:find(p)) then
-               shell:echo(full.."\n")
+            if (fullName:find(p)) then
+               shell:echo(fullName.."\n")
             end
          end
       end
@@ -285,15 +294,13 @@ function List(...)
    local kk = 0
    local legendT = {}
    for i = 1, #activeA do
-      local mname = MName:new("mt",activeA[i])
-      local sn    = mname:sn()
-      local full  = mt:fullName(sn)
-      dbg.print{"activeA[i]: ",activeA[i],", sn: ",sn,", full: ",full,"\n"}
+      local entry    = activeA[i]
+      local fullName = entry.fullName
       for j = 1, wanted.n do
          local p = wanted[j]
-         if (full:find(p)) then
+         if (fullName:find(p)) then
             kk = kk + 1
-            a[#a + 1] = mt:list_property(kk, sn, "short", legendT)
+            a[#a + 1] = mt:list_property(kk, entry.sn, "short", legendT)
          end
       end
    end
@@ -322,16 +329,15 @@ function List(...)
    a = {}
    kk = 0
 
-   for i = 1, #totalA do
-      local v = totalA[i]
-      if (not mt:have(v.sn,"active")) then
-         local name = v.name
-         for j = 1, wanted.n do
-            local p = wanted[j]
-            if (name:find(p)) then
-               kk      = kk + 1
-               a[#a+1] = {"  " .. tostring(kk).. ")" , name}
-            end
+   for i = 1, #inactiveA do
+      local entry    = inactiveA[i]
+      local fullName = entry.fullName
+      local userName = entry.userName
+      for j = 1, wanted.n do
+         local p = wanted[j]
+         if (fullName:find(p)) then
+            kk      = kk + 1
+            a[#a+1] = {"  " .. tostring(kk).. ")" , userName}
          end
       end
    end
@@ -360,9 +366,6 @@ end
 -- Load modules from users but do not issue warnings if the module is
 -- not there.
 function Load_Try(...)
-   local master = Master:master()
-   local mt     = MT:mt()
-
    dbg.start{"Load_Try(",concatTbl({...},", "),")"}
    deactivateWarning()
    Load_Usr(...)
@@ -384,9 +387,7 @@ end
 -- with "MT" so that when a user does the above commands
 -- it won't get the swap message.
 function Load_Usr(...)
-   local master = Master:master()
-   local mt     = MT:mt()
-
+   local frameStk = FrameStk:singleton()
    dbg.start{"Load_Usr(",concatTbl({...},", "),")"}
    local uA = {}
    local lA = {}
@@ -394,14 +395,12 @@ function Load_Usr(...)
    for i = 1, arg.n do
       local v = arg[i]
       if (v:sub(1,1) == "-") then
-         uA[#uA+1] = MName:new("mt", v:sub(2))
+         uA[#uA+1] = MName:new("mt", v:sub(2,-1))
       else
          if (v:sub(1,1) == "+") then
-            v = v:sub(2)
+            v = v:sub(2,-1)
          end
-         local mname = MName:new("load",v)
-         local sn    = mname:sn()
-         lA[#lA+1]   = mname
+         lA[#lA+1]   = MName:new("load",v)
       end
    end
 
@@ -409,11 +408,13 @@ function Load_Usr(...)
       MCP:unload_usr(uA)
    end
 
+   local varT     = frameStk:varT()
+   dbg.print{"varT[ModulePath]: ",varT[ModulePath], "\n"}
    local b
    if (#lA > 0) then
-      if (varTbl[ModulePath] == nil or
-             varTbl[ModulePath]:expand() == false or
-             varTbl[ModulePath]:expand() == "" ) then
+      if (varT[ModulePath] == nil or
+          varT[ModulePath]:expand() == false or
+          varT[ModulePath]:expand() == "" ) then
          LmodWarning("MODULEPATH is undefined\n")
       end
 
@@ -436,12 +437,11 @@ end
 -- Unload all loaded modules.
 -- @param force If true then sticky modules are unloaded as well.
 function Purge(force)
-   local master = Master:master()
-   local mt     = MT:mt()
-   local totalA  = mt:list("short","any")
+   local frameStk = FrameStk:singleton()
+   local mt       = frameStk:mt()
+   local totalA   = mt:list("short","any")
 
    if (#totalA < 1) then
-      clearWarningFlag()
       return
    end
 
@@ -494,7 +494,7 @@ end
 -- defined.
 function Refresh()
    dbg.start{"Refresh()"}
-   local master  = Master:master()
+   local master  = Master:singleton()
    master:refresh()
    dbg.fini("Refresh")
 end
@@ -601,12 +601,16 @@ function Restore(collection)
    if (collection == "system" ) then
       Reset(msg)
    else
-      local mt      = MT:mt()
+      local mt      = FrameStk:singleton():mt()
       local results = mt:getMTfromFile{fn=path, name=myName, msg=msg}
       if (not results and collection == "default") then
          Reset(msg)
       end
    end
+
+   local mt      = FrameStk:singleton():mt()
+   dbg.print{"mt: ",tostring(mt),"\n"}
+
 
    hook.apply("restore", {collection=collection, name=myName, fn=path})
 
@@ -624,7 +628,7 @@ end
 -- that any setenv or prepend_path commands will not be executed.
 function Save(...)
    local masterTbl = masterTbl()
-   local mt        = MT:mt()
+   local mt        = FrameStk:singleton():mt()
    local a         = select(1, ...) or "default"
    local path      = pathJoin(os.getenv("HOME"), LMODdir)
    dbg.start{"Save(",concatTbl({...},", "),")"}
@@ -755,7 +759,8 @@ end
 -- commands in a module file.  Note that it is always in Lua
 -- even if the modulefile is written in TCL.
 function Show(...)
-   local master = Master:master()
+   local master = Master:singleton()
+   local banner = Banner:singleton()
    dbg.start{"Show(", concatTbl({...},", "),")"}
 
    mcp = MasterControl.build("show")
@@ -765,7 +770,7 @@ function Show(...)
                      local a = {}
                      a[#a+1] = borderStr
                      a[#a+1] = "   "
-                     a[#a+1] = ModuleFn
+                     a[#a+1] = _G.ModuleFn
                      a[#a+1] = ":\n"
                      a[#a+1] = borderStr
                      return concatTbl(a,"")
@@ -780,10 +785,10 @@ end
 -- level 1 or level 2 report on particular modules.
 function SpiderCmd(...)
    dbg.start{"SpiderCmd(", concatTbl({...},", "),")"}
-   local cache       = Cache:cache{buildCache=true}
-   local shell       = Master:master().shell
+   local cache       = Cache:singleton{buildCache=true}
+   local shell       = _G.Shell
    local masterTbl   = masterTbl()
-   local moduleT,dbT = cache:build()
+   local spiderT,dbT = cache:build()
    local spider      = Spider:new()
    local s
    local srch
@@ -793,10 +798,10 @@ function SpiderCmd(...)
    if (arg.n < 1) then
       s = spider:Level0(dbT)
    else
-      local a    = {}
-      local help = false
+      local a       = {}
+      local helpFlg = false
       for i = 1, arg.n-1 do
-         a[#a+1] = spider:spiderSearch(dbT, arg[i], help)
+         a[#a+1] = spider:spiderSearch(dbT, arg[i], helpFlg)
       end
       a[#a+1] = spider:spiderSearch(dbT, arg[arg.n], true)
       s = concatTbl(a,"")
@@ -831,7 +836,7 @@ function Swap(...)
       b = a
    end
 
-   local mt    = MT:mt()
+   local mt    = FrameStk:singleton():mt()
    local mname = MName:new("mt", a)
    local sn    = mname:sn()
    if (not mt:have(sn,"any")) then
@@ -853,7 +858,6 @@ function Swap(...)
    ------------------------------------------------------
    -- Register user loads so that Karl will be happy.
 
-
    mname       = mA[1]
    sn          = mname:sn()
    local usrN  = (not masterTbl().latest) and b or mt:fullName(sn)
@@ -867,14 +871,14 @@ end
 --  list the loaded modules in a lua table
 function TableList()
    dbg.start{"TableList()"}
-   local mt = MT:mt()
+   local mt  = FrameStk:singleton():mt()
 
    local t = {}
    local activeA = mt:list("short","active")
    for i,v  in ipairs(activeA) do
       local mname   = MName:new("mt",v)
       local sn      = mname:sn()
-      local version = mname:version()
+      local version = mname:version() or ""
       dbg.print{"sn: ",sn,", version: ",version,"\n"}
       t[sn] = version
    end
@@ -886,7 +890,7 @@ end
 --------------------------------------------------------------------------
 --  Reload all modules.
 function Update()
-   local master = Master:master()
+   local master = Master:singleton()
    master:reloadAll()
 end
 
@@ -895,20 +899,24 @@ end
 --  Note that this causes all the modules to be reviewed and
 --  possibly reloaded if a module.
 function Use(...)
-   local mt  = MT:mt()
-   local a = {}
-   local op = MCP.prepend_path
    dbg.start{"Use(", concatTbl({...},", "),")"}
+   local mt  = FrameStk:singleton():mt()
+   local a = {}
+   local mcp_old = mcp
+   local mcp     = MCP
+   local op = mcp.prepend_path
 
    local arg      = pack(...)
    local iarg     = 1
    local priority = 0
 
+   dbg.print{"using mcp: ",mcp:name(), "\n"}
+
    while (iarg <= arg.n) do
       local v = arg[iarg]
       local w = v:lower()
       if (w == "-a" or w == "--append" ) then
-         op = MCP.append_path
+         op = mcp.append_path
       elseif (w == "--priority") then
          iarg     = iarg + 1
          priority = tonumber(arg[iarg])
@@ -918,17 +926,15 @@ function Use(...)
       iarg = iarg + 1
    end
    for _,v in ipairs(a) do
-      dbg.print{"v: ",v,", isDir(v): ",isDir(v),"\n"}
-      if (isDir(v)) then
-         op(MCP, { ModulePath,  v, delim = ":", nodups=true, priority=priority })
-         op(MCP, { DfltModPath, v, delim = ":", nodups=true, priority=priority })
-      end
+      op(mcp, { ModulePath,  v, delim = ":", nodups=true, priority=priority })
    end
-   local master    = Master:master()
-   master.reloadAll()
 
-   mt:buildBaseMpathA(varTbl[DfltModPath]:expand())
-   mt:buildMpathA(varTbl[ModulePath]:expand())
+   local master    = Master:singleton()
+   if (mt:changeMPATH()) then
+      mt:reset_MPATH_change_flag()
+      master.reloadAll()
+   end
+   mcp = mcp_old
    dbg.fini("Use")
 end
 
@@ -937,17 +943,18 @@ end
 --  LMOD_DEFAULT_MODULEPATH.  Note that all currently loaded
 --  modules reviewed and possibly reloaded or made inactive.
 function UnUse(...)
-   local mt  = MT:mt()
    dbg.start{"UnUse(", concatTbl({...},", "),")"}
+   local mt  = FrameStk:singleton():mt()
    local arg = pack(...)
    local nodups = true
    for i = 1, arg.n do
       local v = arg[i]
       MCP:remove_path{ ModulePath,  v, delim=":", nodups = true}
-      MCP:remove_path{ DfltModPath, v, delim=":", nodups = true}
    end
-   mt:buildBaseMpathA(varTbl[DfltModPath]:expand())
-   mt:reloadAllModules()
+   if (mt:changeMPATH()) then
+      mt:reset_MPATH_change_flag()
+      master.reloadAll()
+   end
    dbg.fini("UnUse")
 end
 

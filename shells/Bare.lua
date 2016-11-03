@@ -37,9 +37,9 @@
 
 
 require("strict")
-
-Bare	     = inheritsFrom(BaseShell)
-Bare.my_name = 'bare'
+local BaseShell = require("BaseShell")
+Bare	        = inheritsFrom(BaseShell)
+Bare.my_name    = 'bare'
 
 function Bare.expand(self,tbl)
    local a = {}

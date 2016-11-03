@@ -5,7 +5,7 @@ local dbg  = require("Dbg"):dbg()
 local mapT =
 {
    grouped = {
-      ['/Compilers/'] = "Your compiler dependent modules",
+      ['/Compilers/'] = "Complr Dep. ",
       ['/Core.*']     = "Core Modules",
    },
 }

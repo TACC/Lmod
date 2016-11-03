@@ -6,16 +6,10 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 step 2
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load gcc python
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/uitSitePkg/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/uitSitePkg/mf/Core";
-export MODULEPATH;
 LD_LIBRARY_PATH="/global/apps/python/2.7.3/lib:/global/apps/gcc/4.7.2/lib64";
 export LD_LIBRARY_PATH;
 LIBRARY_PATH="/global/apps/gcc/4.7.2/lib64";
 export LIBRARY_PATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/uitSitePkg/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
 LMOD_FAMILY_COMPILER="gcc";
 export LMOD_FAMILY_COMPILER;
 LMOD_FAMILY_COMPILER_VERSION="4.7.2";
@@ -30,50 +24,32 @@ PATH="/global/apps/python/2.7.3/bin:/global/apps/gcc/4.7.2/bin:ProjectDIR/src:PA
 export PATH;
 _LMFILES_="ProjectDIR/rt/uitSitePkg/mf/Core/gcc/4.7.2.lua:ProjectDIR/rt/uitSitePkg/mf/Core/python/2.7.3.lua";
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/uitSitePkg/mf/Core",},family={["compiler"]="gcc",},inactive={},mT={gcc={["FN"]="ProjectDIR/rt/uitSitePkg/mf/Core/gcc/4.7.2.lua",["default"]=1,["fullName"]="gcc/4.7.2",["loadOrder"]=1,propT={},["short"]="gcc",["status"]="active",},python={["FN"]="ProjectDIR/rt/uitSitePkg/mf/Core/python/2.7.3.lua",["default"]=1,["fullName"]="python/2.7.3",["loadOrder"]=2,propT={},["short"]="python",["status"]="active",},},mpathA={"ProjectDIR/rt/uitSitePkg/mf/Compiler/gcc/4.7.2","ProjectDIR/rt/uitSitePkg/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/uitSitePkg/mf/Core",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["compiler"]="gcc",},mT={gcc={["fn"]="ProjectDIR/rt/uitSitePkg/mf/Core/gcc/4.7.2.lua",["fullName"]="gcc/4.7.2",["loadOrder"]=1,propT={},["status"]="active",["userName"]="gcc",},python={["fn"]="ProjectDIR/rt/uitSitePkg/mf/Core/python/2.7.3.lua",["fullName"]="python/2.7.3",["loadOrder"]=2,propT={},["status"]="active",["userName"]="python",},},mpathA={"ProjectDIR/rt/uitSitePkg/mf/Compiler/gcc/4.7.2","ProjectDIR/rt/uitSitePkg/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/uitSitePkg/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 3
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/uitSitePkg/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/uitSitePkg/mf/Compiler/gcc/4.7.2:ProjectDIR/rt/uitSitePkg/mf/Core";
 export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/uitSitePkg/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/uitSitePkg/mf/Compiler/gcc/4.7.2:ProjectDIR/rt/uitSitePkg/mf/Core";
-export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/uitSitePkg/mf/Core",},family={["compiler"]="gcc",},inactive={},mT={gcc={["FN"]="ProjectDIR/rt/uitSitePkg/mf/Core/gcc/4.7.2.lua",["default"]=1,["fullName"]="gcc/4.7.2",["loadOrder"]=1,propT={},["short"]="gcc",["status"]="active",},python={["FN"]="ProjectDIR/rt/uitSitePkg/mf/Core/python/2.7.3.lua",["default"]=1,["fullName"]="python/2.7.3",["loadOrder"]=2,propT={},["short"]="python",["status"]="active",},},mpathA={"ProjectDIR/rt/uitSitePkg/mf/Compiler/gcc/4.7.2","ProjectDIR/rt/uitSitePkg/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/uitSitePkg/mf/Core",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["compiler"]="gcc",},mT={gcc={["fn"]="ProjectDIR/rt/uitSitePkg/mf/Core/gcc/4.7.2.lua",["fullName"]="gcc/4.7.2",["loadOrder"]=1,propT={},["status"]="active",["userName"]="gcc",},python={["fn"]="ProjectDIR/rt/uitSitePkg/mf/Core/python/2.7.3.lua",["fullName"]="python/2.7.3",["loadOrder"]=2,propT={},["status"]="active",["userName"]="python",},},mpathA={"ProjectDIR/rt/uitSitePkg/mf/Compiler/gcc/4.7.2","ProjectDIR/rt/uitSitePkg/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/uitSitePkg/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 4
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing save default
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/uitSitePkg/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/uitSitePkg/mf/Compiler/gcc/4.7.2:ProjectDIR/rt/uitSitePkg/mf/Core";
 export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/uitSitePkg/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/uitSitePkg/mf/Compiler/gcc/4.7.2:ProjectDIR/rt/uitSitePkg/mf/Core";
-export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/uitSitePkg/mf/Core",},family={["compiler"]="gcc",},inactive={},mT={gcc={["FN"]="ProjectDIR/rt/uitSitePkg/mf/Core/gcc/4.7.2.lua",["default"]=1,["fullName"]="gcc/4.7.2",["loadOrder"]=1,propT={},["short"]="gcc",["status"]="active",},python={["FN"]="ProjectDIR/rt/uitSitePkg/mf/Core/python/2.7.3.lua",["default"]=1,["fullName"]="python/2.7.3",["loadOrder"]=2,propT={},["short"]="python",["status"]="active",},},mpathA={"ProjectDIR/rt/uitSitePkg/mf/Compiler/gcc/4.7.2","ProjectDIR/rt/uitSitePkg/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/uitSitePkg/mf/Core",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["compiler"]="gcc",},mT={gcc={["fn"]="ProjectDIR/rt/uitSitePkg/mf/Core/gcc/4.7.2.lua",["fullName"]="gcc/4.7.2",["loadOrder"]=1,propT={},["status"]="active",["userName"]="gcc",},python={["fn"]="ProjectDIR/rt/uitSitePkg/mf/Core/python/2.7.3.lua",["fullName"]="python/2.7.3",["loadOrder"]=2,propT={},["status"]="active",["userName"]="python",},},mpathA={"ProjectDIR/rt/uitSitePkg/mf/Compiler/gcc/4.7.2","ProjectDIR/rt/uitSitePkg/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/uitSitePkg/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 5
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing restore
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/uitSitePkg/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/uitSitePkg/mf/Compiler/gcc/4.7.2:ProjectDIR/rt/uitSitePkg/mf/Core";
-export MODULEPATH;
 LD_LIBRARY_PATH="/global/apps/python/2.7.3/lib:/global/apps/gcc/4.7.2/lib64";
 export LD_LIBRARY_PATH;
 LIBRARY_PATH="/global/apps/gcc/4.7.2/lib64";
 export LIBRARY_PATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/uitSitePkg/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
 LMOD_FAMILY_COMPILER="gcc";
 export LMOD_FAMILY_COMPILER;
 LMOD_FAMILY_COMPILER_VERSION="4.7.2";
@@ -88,7 +64,7 @@ PATH="/global/apps/python/2.7.3/bin:/global/apps/gcc/4.7.2/bin:ProjectDIR/src:PA
 export PATH;
 _LMFILES_="ProjectDIR/rt/uitSitePkg/mf/Core/gcc/4.7.2.lua:ProjectDIR/rt/uitSitePkg/mf/Core/python/2.7.3.lua";
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/uitSitePkg/mf/Core",},family={["compiler"]="gcc",},inactive={},mT={gcc={["FN"]="ProjectDIR/rt/uitSitePkg/mf/Core/gcc/4.7.2.lua",["default"]=1,["fullName"]="gcc/4.7.2",["loadOrder"]=1,propT={},["short"]="gcc",["status"]="active",},python={["FN"]="ProjectDIR/rt/uitSitePkg/mf/Core/python/2.7.3.lua",["default"]=1,["fullName"]="python/2.7.3",["loadOrder"]=2,propT={},["short"]="python",["status"]="active",},},mpathA={"ProjectDIR/rt/uitSitePkg/mf/Compiler/gcc/4.7.2","ProjectDIR/rt/uitSitePkg/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/uitSitePkg/mf/Core",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["compiler"]="gcc",},mT={gcc={["fn"]="ProjectDIR/rt/uitSitePkg/mf/Core/gcc/4.7.2.lua",["fullName"]="gcc/4.7.2",["loadOrder"]=1,propT={},["status"]="active",["userName"]="gcc",},python={["fn"]="ProjectDIR/rt/uitSitePkg/mf/Core/python/2.7.3.lua",["fullName"]="python/2.7.3",["loadOrder"]=2,propT={},["status"]="active",["userName"]="python",},},mpathA={"ProjectDIR/rt/uitSitePkg/mf/Compiler/gcc/4.7.2","ProjectDIR/rt/uitSitePkg/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/uitSitePkg/mf/Core",}';
 export _ModuleTable_;
 __LMOD_DEFAULT_MODULES_LOADED__="1";
 export __LMOD_DEFAULT_MODULES_LOADED__;
@@ -96,13 +72,7 @@ export __LMOD_DEFAULT_MODULES_LOADED__;
 step 6
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/uitSitePkg/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/uitSitePkg/mf/Compiler/gcc/4.7.2:ProjectDIR/rt/uitSitePkg/mf/Core";
 export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/uitSitePkg/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/uitSitePkg/mf/Compiler/gcc/4.7.2:ProjectDIR/rt/uitSitePkg/mf/Core";
-export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/uitSitePkg/mf/Core",},family={["compiler"]="gcc",},inactive={},mT={gcc={["FN"]="ProjectDIR/rt/uitSitePkg/mf/Core/gcc/4.7.2.lua",["default"]=1,["fullName"]="gcc/4.7.2",["loadOrder"]=1,propT={},["short"]="gcc",["status"]="active",},python={["FN"]="ProjectDIR/rt/uitSitePkg/mf/Core/python/2.7.3.lua",["default"]=1,["fullName"]="python/2.7.3",["loadOrder"]=2,propT={},["short"]="python",["status"]="active",},},mpathA={"ProjectDIR/rt/uitSitePkg/mf/Compiler/gcc/4.7.2","ProjectDIR/rt/uitSitePkg/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/uitSitePkg/mf/Core",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["compiler"]="gcc",},mT={gcc={["fn"]="ProjectDIR/rt/uitSitePkg/mf/Core/gcc/4.7.2.lua",["fullName"]="gcc/4.7.2",["loadOrder"]=1,propT={},["status"]="active",["userName"]="gcc",},python={["fn"]="ProjectDIR/rt/uitSitePkg/mf/Core/python/2.7.3.lua",["fullName"]="python/2.7.3",["loadOrder"]=2,propT={},["status"]="active",["userName"]="python",},},mpathA={"ProjectDIR/rt/uitSitePkg/mf/Compiler/gcc/4.7.2","ProjectDIR/rt/uitSitePkg/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/uitSitePkg/mf/Core",}';
 export _ModuleTable_;

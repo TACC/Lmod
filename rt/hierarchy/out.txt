@@ -4,539 +4,73 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load parmetis
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load python
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
+LOADEDMODULES="python/2.7.9";
+export LOADEDMODULES;
 MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
 export MODULEPATH;
-false
+MY_VERSION="2.7.9";
+export MY_VERSION;
+_LMFILES_="ProjectDIR/rt/hierarchy/mf/Core/python/2.7.9.lua";
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={python={["fn"]="ProjectDIR/rt/hierarchy/mf/Core/python/2.7.9.lua",["fullName"]="python/2.7.9",["loadOrder"]=1,propT={},["status"]="active",["userName"]="python",},},mpathA={"ProjectDIR/rt/hierarchy/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/hierarchy/mf/Core",}';
+export _ModuleTable_;
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load parmetis/4.0.3
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
 export MODULEPATH;
-false
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={python={["fn"]="ProjectDIR/rt/hierarchy/mf/Core/python/2.7.9.lua",["fullName"]="python/2.7.9",["loadOrder"]=1,propT={},["status"]="active",["userName"]="python",},},mpathA={"ProjectDIR/rt/hierarchy/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/hierarchy/mf/Core",}';
+export _ModuleTable_;
 ===========================
 step 4
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load parmetis/11.0
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load gcc boost
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
+BOOST_VERSION="1.59.0";
+export BOOST_VERSION;
+COMPILER_DEPENDENT="yes";
+export COMPILER_DEPENDENT;
+LOADEDMODULES="gcc/6.1:boost/1.59.0:python/2.7.9";
+export LOADEDMODULES;
+MODULEPATH="ProjectDIR/rt/hierarchy/mf/Compiler/gcc/6.1:ProjectDIR/rt/hierarchy/mf/Core";
 export MODULEPATH;
-false
+MY_VERSION="2.7.9";
+export MY_VERSION;
+_LMFILES_="ProjectDIR/rt/hierarchy/mf/Core/gcc/6.1.lua:ProjectDIR/rt/hierarchy/mf/Compiler/gcc/6.1/boost/1.59.0.lua:ProjectDIR/rt/hierarchy/mf/Compiler/gcc/6.1/python/2.7.9.lua";
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={boost={["fn"]="ProjectDIR/rt/hierarchy/mf/Compiler/gcc/6.1/boost/1.59.0.lua",["fullName"]="boost/1.59.0",["loadOrder"]=2,propT={},["status"]="active",["userName"]="boost",},gcc={["fn"]="ProjectDIR/rt/hierarchy/mf/Core/gcc/6.1.lua",["fullName"]="gcc/6.1",["loadOrder"]=1,propT={},["status"]="active",["userName"]="gcc",},python={["fn"]="ProjectDIR/rt/hierarchy/mf/Compiler/gcc/6.1/python/2.7.9.lua",["fullName"]="python/2.7.9",["loadOrder"]=3,propT={},["status"]="active",["userName"]="python",},},mpathA={"ProjectDIR/rt/hierarchy/mf/Compiler/gcc/6.1","ProjectDIR/rt/hierarchy/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/hierarchy/mf/Core",}';
+export _ModuleTable_;
 ===========================
 step 5
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load clang openmpi parmetis
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
+MODULEPATH="ProjectDIR/rt/hierarchy/mf/Compiler/gcc/6.1:ProjectDIR/rt/hierarchy/mf/Core";
 export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
-LMOD_FAMILY_COMPILER="clang";
-export LMOD_FAMILY_COMPILER;
-LMOD_FAMILY_COMPILER_VERSION="4.2.1";
-export LMOD_FAMILY_COMPILER_VERSION;
-LMOD_FAMILY_MPI="openmpi";
-export LMOD_FAMILY_MPI;
-LMOD_FAMILY_MPI_VERSION="1.8.3";
-export LMOD_FAMILY_MPI_VERSION;
-LOADEDMODULES="clang/4.2.1:openmpi/1.8.3:parmetis/4.0.3";
-export LOADEDMODULES;
-MODULEPATH="ProjectDIR/rt/hierarchy/mf/MPI/clang/4.2/openmpi/1.8:ProjectDIR/rt/hierarchy/mf/Compiler/clang/4.2:ProjectDIR/rt/hierarchy/mf/Core";
-export MODULEPATH;
-MYNAME="parmetis";
-export MYNAME;
-_LMFILES_="ProjectDIR/rt/hierarchy/mf/Core/clang/4.2.1.lua:ProjectDIR/rt/hierarchy/mf/Compiler/clang/4.2/openmpi/1.8.3.lua:ProjectDIR/rt/hierarchy/mf/MPI/clang/4.2/openmpi/1.8/parmetis/4.0.3.lua";
-export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/hierarchy/mf/Core",},family={["MPI"]="openmpi",["compiler"]="clang",},inactive={},mT={clang={["FN"]="ProjectDIR/rt/hierarchy/mf/Core/clang/4.2.1.lua",["default"]=1,["fullName"]="clang/4.2.1",["loadOrder"]=1,propT={},["short"]="clang",["status"]="active",},openmpi={["FN"]="ProjectDIR/rt/hierarchy/mf/Compiler/clang/4.2/openmpi/1.8.3.lua",["default"]=1,["fullName"]="openmpi/1.8.3",["loadOrder"]=2,propT={},["short"]="openmpi",["status"]="active",},parmetis={["FN"]="ProjectDIR/rt/hierarchy/mf/MPI/clang/4.2/openmpi/1.8/parmetis/4.0.3.lua",["default"]=1,["fullName"]="parmetis/4.0.3",["loadOrder"]=3,propT={},["short"]="parmetis",["status"]="active",},},mpathA={"ProjectDIR/rt/hierarchy/mf/MPI/clang/4.2/openmpi/1.8","ProjectDIR/rt/hierarchy/mf/Compiler/clang/4.2","ProjectDIR/rt/hierarchy/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/hierarchy/mf/Core",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={boost={["fn"]="ProjectDIR/rt/hierarchy/mf/Compiler/gcc/6.1/boost/1.59.0.lua",["fullName"]="boost/1.59.0",["loadOrder"]=2,propT={},["status"]="active",["userName"]="boost",},gcc={["fn"]="ProjectDIR/rt/hierarchy/mf/Core/gcc/6.1.lua",["fullName"]="gcc/6.1",["loadOrder"]=1,propT={},["status"]="active",["userName"]="gcc",},python={["fn"]="ProjectDIR/rt/hierarchy/mf/Compiler/gcc/6.1/python/2.7.9.lua",["fullName"]="python/2.7.9",["loadOrder"]=3,propT={},["status"]="active",["userName"]="python",},},mpathA={"ProjectDIR/rt/hierarchy/mf/Compiler/gcc/6.1","ProjectDIR/rt/hierarchy/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/hierarchy/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 6
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload gcc
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/hierarchy/mf/MPI/clang/4.2/openmpi/1.8:ProjectDIR/rt/hierarchy/mf/Compiler/clang/4.2:ProjectDIR/rt/hierarchy/mf/Core";
+unset BOOST_VERSION;
+unset COMPILER_DEPENDENT;
+LOADEDMODULES="python/2.7.9";
+export LOADEDMODULES;
+MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
 export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/hierarchy/mf/MPI/clang/4.2/openmpi/1.8:ProjectDIR/rt/hierarchy/mf/Compiler/clang/4.2:ProjectDIR/rt/hierarchy/mf/Core";
-export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/hierarchy/mf/Core",},family={["MPI"]="openmpi",["compiler"]="clang",},inactive={},mT={clang={["FN"]="ProjectDIR/rt/hierarchy/mf/Core/clang/4.2.1.lua",["default"]=1,["fullName"]="clang/4.2.1",["loadOrder"]=1,propT={},["short"]="clang",["status"]="active",},openmpi={["FN"]="ProjectDIR/rt/hierarchy/mf/Compiler/clang/4.2/openmpi/1.8.3.lua",["default"]=1,["fullName"]="openmpi/1.8.3",["loadOrder"]=2,propT={},["short"]="openmpi",["status"]="active",},parmetis={["FN"]="ProjectDIR/rt/hierarchy/mf/MPI/clang/4.2/openmpi/1.8/parmetis/4.0.3.lua",["default"]=1,["fullName"]="parmetis/4.0.3",["loadOrder"]=3,propT={},["short"]="parmetis",["status"]="active",},},mpathA={"ProjectDIR/rt/hierarchy/mf/MPI/clang/4.2/openmpi/1.8","ProjectDIR/rt/hierarchy/mf/Compiler/clang/4.2","ProjectDIR/rt/hierarchy/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/hierarchy/mf/Core",["version"]=2,}';
+MY_VERSION="2.7.9";
+export MY_VERSION;
+_LMFILES_="ProjectDIR/rt/hierarchy/mf/Core/python/2.7.9.lua";
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={boost={["fn"]="ProjectDIR/rt/hierarchy/mf/Compiler/gcc/6.1/boost/1.59.0.lua",["fullName"]="boost/1.59.0",["loadOrder"]=-1,propT={},["status"]="inactive",["userName"]="boost",},python={["fn"]="ProjectDIR/rt/hierarchy/mf/Core/python/2.7.9.lua",["fullName"]="python/2.7.9",["loadOrder"]=1,propT={},["status"]="active",["userName"]="python",},},mpathA={"ProjectDIR/rt/hierarchy/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/hierarchy/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 7
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load -clang -openmpi
-===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/hierarchy/mf/MPI/clang/4.2/openmpi/1.8:ProjectDIR/rt/hierarchy/mf/Compiler/clang/4.2:ProjectDIR/rt/hierarchy/mf/Core";
-export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
-unset LMOD_FAMILY_COMPILER;
-unset LMOD_FAMILY_COMPILER_VERSION;
-unset LMOD_FAMILY_MPI;
-unset LMOD_FAMILY_MPI_VERSION;
-unset LOADEDMODULES;
-MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
-export MODULEPATH;
-unset MYNAME;
-unset _LMFILES_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/hierarchy/mf/Core",},family={},inactive={},mT={parmetis={["default"]=1,["fullName"]="parmetis/4.0.3",["loadOrder"]=-1,propT={},["short"]="parmetis",["status"]="inactive",},},mpathA={"ProjectDIR/rt/hierarchy/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/hierarchy/mf/Core",["version"]=2,}';
-export _ModuleTable_;
-===========================
-step 8
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
 export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
-export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/hierarchy/mf/Core",},family={},inactive={},mT={parmetis={["default"]=1,["fullName"]="parmetis/4.0.3",["loadOrder"]=-1,propT={},["short"]="parmetis",["status"]="inactive",},},mpathA={"ProjectDIR/rt/hierarchy/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/hierarchy/mf/Core",["version"]=2,}';
-export _ModuleTable_;
-===========================
-step 9
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load gcc mpich
-===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
-export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
-LMOD_FAMILY_COMPILER="gcc";
-export LMOD_FAMILY_COMPILER;
-LMOD_FAMILY_COMPILER_VERSION="14.27.3";
-export LMOD_FAMILY_COMPILER_VERSION;
-LMOD_FAMILY_MPI="mpich";
-export LMOD_FAMILY_MPI;
-LMOD_FAMILY_MPI_VERSION="17.200.3";
-export LMOD_FAMILY_MPI_VERSION;
-LOADEDMODULES="gcc/14.27.3:mpich/17.200.3:parmetis/4.0.3";
-export LOADEDMODULES;
-MODULEPATH="ProjectDIR/rt/hierarchy/mf/MPI/gcc/14.27/mpich/17.200:ProjectDIR/rt/hierarchy/mf/Compiler/gcc/14.27:ProjectDIR/rt/hierarchy/mf/Core";
-export MODULEPATH;
-MYNAME="parmetis";
-export MYNAME;
-_LMFILES_="ProjectDIR/rt/hierarchy/mf/Core/gcc/14.27.3.lua:ProjectDIR/rt/hierarchy/mf/Compiler/gcc/14.27/mpich/17.200.3.lua:ProjectDIR/rt/hierarchy/mf/MPI/gcc/14.27/mpich/17.200/parmetis/4.0.3.lua";
-export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/hierarchy/mf/Core",},family={["MPI"]="mpich",["compiler"]="gcc",},inactive={},mT={gcc={["FN"]="ProjectDIR/rt/hierarchy/mf/Core/gcc/14.27.3.lua",["default"]=1,["fullName"]="gcc/14.27.3",["loadOrder"]=1,propT={},["short"]="gcc",["status"]="active",},mpich={["FN"]="ProjectDIR/rt/hierarchy/mf/Compiler/gcc/14.27/mpich/17.200.3.lua",["default"]=1,["fullName"]="mpich/17.200.3",["loadOrder"]=2,propT={},["short"]="mpich",["status"]="active",},parmetis={["FN"]="ProjectDIR/rt/hierarchy/mf/MPI/gcc/14.27/mpich/17.200/parmetis/4.0.3.lua",["default"]=1,["fullName"]="parmetis/4.0.3",["loadOrder"]=3,propT={},["short"]="parmetis",["status"]="active",},},mpathA={"ProjectDIR/rt/hierarchy/mf/MPI/gcc/14.27/mpich/17.200","ProjectDIR/rt/hierarchy/mf/Compiler/gcc/14.27","ProjectDIR/rt/hierarchy/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/hierarchy/mf/Core",["version"]=2,}';
-export _ModuleTable_;
-===========================
-step 10
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
-===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/hierarchy/mf/MPI/gcc/14.27/mpich/17.200:ProjectDIR/rt/hierarchy/mf/Compiler/gcc/14.27:ProjectDIR/rt/hierarchy/mf/Core";
-export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/hierarchy/mf/MPI/gcc/14.27/mpich/17.200:ProjectDIR/rt/hierarchy/mf/Compiler/gcc/14.27:ProjectDIR/rt/hierarchy/mf/Core";
-export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/hierarchy/mf/Core",},family={["MPI"]="mpich",["compiler"]="gcc",},inactive={},mT={gcc={["FN"]="ProjectDIR/rt/hierarchy/mf/Core/gcc/14.27.3.lua",["default"]=1,["fullName"]="gcc/14.27.3",["loadOrder"]=1,propT={},["short"]="gcc",["status"]="active",},mpich={["FN"]="ProjectDIR/rt/hierarchy/mf/Compiler/gcc/14.27/mpich/17.200.3.lua",["default"]=1,["fullName"]="mpich/17.200.3",["loadOrder"]=2,propT={},["short"]="mpich",["status"]="active",},parmetis={["FN"]="ProjectDIR/rt/hierarchy/mf/MPI/gcc/14.27/mpich/17.200/parmetis/4.0.3.lua",["default"]=1,["fullName"]="parmetis/4.0.3",["loadOrder"]=3,propT={},["short"]="parmetis",["status"]="active",},},mpathA={"ProjectDIR/rt/hierarchy/mf/MPI/gcc/14.27/mpich/17.200","ProjectDIR/rt/hierarchy/mf/Compiler/gcc/14.27","ProjectDIR/rt/hierarchy/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/hierarchy/mf/Core",["version"]=2,}';
-export _ModuleTable_;
-===========================
-step 11
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load ben
-===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/hierarchy/mf/MPI/gcc/14.27/mpich/17.200:ProjectDIR/rt/hierarchy/mf/Compiler/gcc/14.27:ProjectDIR/rt/hierarchy/mf/Core";
-export MODULEPATH;
-BEN_VERSION="0.1";
-export BEN_VERSION;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
-LOADEDMODULES="gcc/14.27.3:mpich/17.200.3:parmetis/4.0.3:ben/0.1";
-export LOADEDMODULES;
-MODULEPATH="ProjectDIR/rt/hierarchy/mf/MPI/gcc/14.27/mpich/17.200:ProjectDIR/rt/hierarchy/mf/Compiler/gcc/14.27:ProjectDIR/rt/hierarchy/mf/Core";
-export MODULEPATH;
-_LMFILES_="ProjectDIR/rt/hierarchy/mf/Core/gcc/14.27.3.lua:ProjectDIR/rt/hierarchy/mf/Compiler/gcc/14.27/mpich/17.200.3.lua:ProjectDIR/rt/hierarchy/mf/MPI/gcc/14.27/mpich/17.200/parmetis/4.0.3.lua:ProjectDIR/rt/hierarchy/mf/Core/ben/0.1.lua";
-export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=4,baseMpathA={"ProjectDIR/rt/hierarchy/mf/Core",},family={["MPI"]="mpich",["compiler"]="gcc",},inactive={},mT={ben={["FN"]="ProjectDIR/rt/hierarchy/mf/Core/ben/0.1.lua",["default"]=1,["fullName"]="ben/0.1",["loadOrder"]=4,propT={},["short"]="ben",["status"]="active",},gcc={["FN"]="ProjectDIR/rt/hierarchy/mf/Core/gcc/14.27.3.lua",["default"]=1,["fullName"]="gcc/14.27.3",["loadOrder"]=1,propT={},["short"]="gcc",["status"]="active",},mpich={["FN"]="ProjectDIR/rt/hierarchy/mf/Compiler/gcc/14.27/mpich/17.200.3.lua",["default"]=1,["fullName"]="mpich/17.200.3",["loadOrder"]=2,propT={},["short"]="mpich",["status"]="active",},parmetis={["FN"]="ProjectDIR/rt/hierarchy/mf/MPI/gcc/14.27/mpich/17.200/parmetis/4.0.3.lua",["default"]=1,["fullName"]="parmetis/4.0.3",["loadOrder"]=3,propT={},["short"]="parmetis",["status"]="active",},},mpathA={"ProjectDIR/rt/hierarchy/mf/MPI/gcc/14.27/mpich/17.200","ProjectDIR/rt/hierarchy/mf/Compiler/gcc/14.27","ProjectDIR/rt/hierarchy/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/hierarchy/mf/Core",["version"]=2,}';
-export _ModuleTable_;
-===========================
-step 12
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load ben/0.1
-===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/hierarchy/mf/MPI/gcc/14.27/mpich/17.200:ProjectDIR/rt/hierarchy/mf/Compiler/gcc/14.27:ProjectDIR/rt/hierarchy/mf/Core";
-export MODULEPATH;
-BEN_VERSION="0.1";
-export BEN_VERSION;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
-LOADEDMODULES="gcc/14.27.3:mpich/17.200.3:parmetis/4.0.3:ben/0.1";
-export LOADEDMODULES;
-MODULEPATH="ProjectDIR/rt/hierarchy/mf/MPI/gcc/14.27/mpich/17.200:ProjectDIR/rt/hierarchy/mf/Compiler/gcc/14.27:ProjectDIR/rt/hierarchy/mf/Core";
-export MODULEPATH;
-_LMFILES_="ProjectDIR/rt/hierarchy/mf/Core/gcc/14.27.3.lua:ProjectDIR/rt/hierarchy/mf/Compiler/gcc/14.27/mpich/17.200.3.lua:ProjectDIR/rt/hierarchy/mf/MPI/gcc/14.27/mpich/17.200/parmetis/4.0.3.lua:ProjectDIR/rt/hierarchy/mf/Core/ben/0.1.lua";
-export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=4,baseMpathA={"ProjectDIR/rt/hierarchy/mf/Core",},family={["MPI"]="mpich",["compiler"]="gcc",},inactive={},mT={ben={["FN"]="ProjectDIR/rt/hierarchy/mf/Core/ben/0.1.lua",["default"]=0,["fullName"]="ben/0.1",["loadOrder"]=4,propT={},["short"]="ben",["status"]="active",},gcc={["FN"]="ProjectDIR/rt/hierarchy/mf/Core/gcc/14.27.3.lua",["default"]=1,["fullName"]="gcc/14.27.3",["loadOrder"]=1,propT={},["short"]="gcc",["status"]="active",},mpich={["FN"]="ProjectDIR/rt/hierarchy/mf/Compiler/gcc/14.27/mpich/17.200.3.lua",["default"]=1,["fullName"]="mpich/17.200.3",["loadOrder"]=2,propT={},["short"]="mpich",["status"]="active",},parmetis={["FN"]="ProjectDIR/rt/hierarchy/mf/MPI/gcc/14.27/mpich/17.200/parmetis/4.0.3.lua",["default"]=1,["fullName"]="parmetis/4.0.3",["loadOrder"]=3,propT={},["short"]="parmetis",["status"]="active",},},mpathA={"ProjectDIR/rt/hierarchy/mf/MPI/gcc/14.27/mpich/17.200","ProjectDIR/rt/hierarchy/mf/Compiler/gcc/14.27","ProjectDIR/rt/hierarchy/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/hierarchy/mf/Core",["version"]=2,}';
-export _ModuleTable_;
-===========================
-step 13
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load fbr
-===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/hierarchy/mf/MPI/gcc/14.27/mpich/17.200:ProjectDIR/rt/hierarchy/mf/Compiler/gcc/14.27:ProjectDIR/rt/hierarchy/mf/Core";
-export MODULEPATH;
-FBR_VERSION="0.1";
-export FBR_VERSION;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
-LOADEDMODULES="gcc/14.27.3:mpich/17.200.3:parmetis/4.0.3:ben/0.1:fbr/0.1";
-export LOADEDMODULES;
-MODULEPATH="ProjectDIR/rt/hierarchy/mf/MPI/gcc/14.27/mpich/17.200:ProjectDIR/rt/hierarchy/mf/Compiler/gcc/14.27:ProjectDIR/rt/hierarchy/mf/Core";
-export MODULEPATH;
-_LMFILES_="ProjectDIR/rt/hierarchy/mf/Core/gcc/14.27.3.lua:ProjectDIR/rt/hierarchy/mf/Compiler/gcc/14.27/mpich/17.200.3.lua:ProjectDIR/rt/hierarchy/mf/MPI/gcc/14.27/mpich/17.200/parmetis/4.0.3.lua:ProjectDIR/rt/hierarchy/mf/Core/ben/0.1.lua:ProjectDIR/rt/hierarchy/mf/Core/fbr/0.1.lua";
-export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=5,baseMpathA={"ProjectDIR/rt/hierarchy/mf/Core",},family={["MPI"]="mpich",["compiler"]="gcc",},inactive={},mT={ben={["FN"]="ProjectDIR/rt/hierarchy/mf/Core/ben/0.1.lua",["default"]=0,["fullName"]="ben/0.1",["loadOrder"]=4,propT={},["short"]="ben",["status"]="active",},fbr={["FN"]="ProjectDIR/rt/hierarchy/mf/Core/fbr/0.1.lua",["default"]=1,["fullName"]="fbr/0.1",["loadOrder"]=5,propT={},["short"]="fbr",["status"]="active",},gcc={["FN"]="ProjectDIR/rt/hierarchy/mf/Core/gcc/14.27.3.lua",["default"]=1,["fullName"]="gcc/14.27.3",["loadOrder"]=1,propT={},["short"]="gcc",["status"]="active",},mpich={["FN"]="ProjectDIR/rt/hierarchy/mf/Compiler/gcc/14.27/mpich/17.200.3.lua",["default"]=1,["fullName"]="mpich/17.200.3",["loadOrder"]=2,propT={},["short"]="mpich",["status"]="active",},parmetis={["FN"]="ProjectDIR/rt/hierarchy/mf/MPI/gcc/14.27/mpich/17.200/parmetis/4.0.3.lua",["default"]=1,["fullName"]="parmetis/4.0.3",["loadOrder"]=3,propT={},["short"]="parmetis",["status"]="active",},},mpathA={"ProjectDIR/rt/hierarchy/mf/MPI/gcc/14.27/mpich/17.200","ProjectDIR/rt/hierarchy/mf/Compiler/gcc/14.27","ProjectDIR/rt/hierarchy/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/hierarchy/mf/Core",["version"]=2,}';
-export _ModuleTable_;
-===========================
-step 14
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
-===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/hierarchy/mf/MPI/gcc/14.27/mpich/17.200:ProjectDIR/rt/hierarchy/mf/Compiler/gcc/14.27:ProjectDIR/rt/hierarchy/mf/Core";
-export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/hierarchy/mf/MPI/gcc/14.27/mpich/17.200:ProjectDIR/rt/hierarchy/mf/Compiler/gcc/14.27:ProjectDIR/rt/hierarchy/mf/Core";
-export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["activeSize"]=5,baseMpathA={"ProjectDIR/rt/hierarchy/mf/Core",},family={["MPI"]="mpich",["compiler"]="gcc",},inactive={},mT={ben={["FN"]="ProjectDIR/rt/hierarchy/mf/Core/ben/0.1.lua",["default"]=0,["fullName"]="ben/0.1",["loadOrder"]=4,propT={},["short"]="ben",["status"]="active",},fbr={["FN"]="ProjectDIR/rt/hierarchy/mf/Core/fbr/0.1.lua",["default"]=1,["fullName"]="fbr/0.1",["loadOrder"]=5,propT={},["short"]="fbr",["status"]="active",},gcc={["FN"]="ProjectDIR/rt/hierarchy/mf/Core/gcc/14.27.3.lua",["default"]=1,["fullName"]="gcc/14.27.3",["loadOrder"]=1,propT={},["short"]="gcc",["status"]="active",},mpich={["FN"]="ProjectDIR/rt/hierarchy/mf/Compiler/gcc/14.27/mpich/17.200.3.lua",["default"]=1,["fullName"]="mpich/17.200.3",["loadOrder"]=2,propT={},["short"]="mpich",["status"]="active",},parmetis={["FN"]="ProjectDIR/rt/hierarchy/mf/MPI/gcc/14.27/mpich/17.200/parmetis/4.0.3.lua",["default"]=1,["fullName"]="parmetis/4.0.3",["loadOrder"]=3,propT={},["short"]="parmetis",["status"]="active",},},mpathA={"ProjectDIR/rt/hierarchy/mf/MPI/gcc/14.27/mpich/17.200","ProjectDIR/rt/hierarchy/mf/Compiler/gcc/14.27","ProjectDIR/rt/hierarchy/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/hierarchy/mf/Core",["version"]=2,}';
-export _ModuleTable_;
-===========================
-step 15
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload fbr
-===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/hierarchy/mf/MPI/gcc/14.27/mpich/17.200:ProjectDIR/rt/hierarchy/mf/Compiler/gcc/14.27:ProjectDIR/rt/hierarchy/mf/Core";
-export MODULEPATH;
-unset FBR_VERSION;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
-LOADEDMODULES="gcc/14.27.3:mpich/17.200.3:parmetis/4.0.3:ben/0.1";
-export LOADEDMODULES;
-MODULEPATH="ProjectDIR/rt/hierarchy/mf/MPI/gcc/14.27/mpich/17.200:ProjectDIR/rt/hierarchy/mf/Compiler/gcc/14.27:ProjectDIR/rt/hierarchy/mf/Core";
-export MODULEPATH;
-_LMFILES_="ProjectDIR/rt/hierarchy/mf/Core/gcc/14.27.3.lua:ProjectDIR/rt/hierarchy/mf/Compiler/gcc/14.27/mpich/17.200.3.lua:ProjectDIR/rt/hierarchy/mf/MPI/gcc/14.27/mpich/17.200/parmetis/4.0.3.lua:ProjectDIR/rt/hierarchy/mf/Core/ben/0.1.lua";
-export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=4,baseMpathA={"ProjectDIR/rt/hierarchy/mf/Core",},family={["MPI"]="mpich",["compiler"]="gcc",},inactive={},mT={ben={["FN"]="ProjectDIR/rt/hierarchy/mf/Core/ben/0.1.lua",["default"]=0,["fullName"]="ben/0.1",["loadOrder"]=4,propT={},["short"]="ben",["status"]="active",},gcc={["FN"]="ProjectDIR/rt/hierarchy/mf/Core/gcc/14.27.3.lua",["default"]=1,["fullName"]="gcc/14.27.3",["loadOrder"]=1,propT={},["short"]="gcc",["status"]="active",},mpich={["FN"]="ProjectDIR/rt/hierarchy/mf/Compiler/gcc/14.27/mpich/17.200.3.lua",["default"]=1,["fullName"]="mpich/17.200.3",["loadOrder"]=2,propT={},["short"]="mpich",["status"]="active",},parmetis={["FN"]="ProjectDIR/rt/hierarchy/mf/MPI/gcc/14.27/mpich/17.200/parmetis/4.0.3.lua",["default"]=1,["fullName"]="parmetis/4.0.3",["loadOrder"]=3,propT={},["short"]="parmetis",["status"]="active",},},mpathA={"ProjectDIR/rt/hierarchy/mf/MPI/gcc/14.27/mpich/17.200","ProjectDIR/rt/hierarchy/mf/Compiler/gcc/14.27","ProjectDIR/rt/hierarchy/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/hierarchy/mf/Core",["version"]=2,}';
-export _ModuleTable_;
-===========================
-step 16
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load clang
-===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/hierarchy/mf/MPI/gcc/14.27/mpich/17.200:ProjectDIR/rt/hierarchy/mf/Compiler/gcc/14.27:ProjectDIR/rt/hierarchy/mf/Core";
-export MODULEPATH;
-false
-===========================
-step 17
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --expert load clang
-===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/hierarchy/mf/MPI/gcc/14.27/mpich/17.200:ProjectDIR/rt/hierarchy/mf/Compiler/gcc/14.27:ProjectDIR/rt/hierarchy/mf/Core";
-export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
-LMOD_FAMILY_COMPILER="clang";
-export LMOD_FAMILY_COMPILER;
-LMOD_FAMILY_COMPILER_VERSION="4.2.1";
-export LMOD_FAMILY_COMPILER_VERSION;
-LMOD_FAMILY_MPI="mpich";
-export LMOD_FAMILY_MPI;
-LMOD_FAMILY_MPI_VERSION="17.200.3";
-export LMOD_FAMILY_MPI_VERSION;
-LOADEDMODULES="gcc/14.27.3:ben/0.1:clang/4.2.1:mpich/17.200.3:parmetis/4.0.3";
-export LOADEDMODULES;
-MODULEPATH="ProjectDIR/rt/hierarchy/mf/MPI/clang/4.2/mpich/17.200:ProjectDIR/rt/hierarchy/mf/Compiler/clang/4.2:ProjectDIR/rt/hierarchy/mf/Compiler/gcc/14.27:ProjectDIR/rt/hierarchy/mf/Core";
-export MODULEPATH;
-MYNAME="parmetis";
-export MYNAME;
-_LMFILES_="ProjectDIR/rt/hierarchy/mf/Core/gcc/14.27.3.lua:ProjectDIR/rt/hierarchy/mf/Core/ben/0.1.lua:ProjectDIR/rt/hierarchy/mf/Core/clang/4.2.1.lua:ProjectDIR/rt/hierarchy/mf/Compiler/clang/4.2/mpich/17.200.3.lua:ProjectDIR/rt/hierarchy/mf/MPI/clang/4.2/mpich/17.200/parmetis/4.0.3.lua";
-export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=5,baseMpathA={"ProjectDIR/rt/hierarchy/mf/Core",},family={["MPI"]="mpich",["compiler"]="clang",},inactive={},mT={ben={["FN"]="ProjectDIR/rt/hierarchy/mf/Core/ben/0.1.lua",["default"]=0,["fullName"]="ben/0.1",["loadOrder"]=2,propT={},["short"]="ben",["status"]="active",},clang={["FN"]="ProjectDIR/rt/hierarchy/mf/Core/clang/4.2.1.lua",["default"]=1,["fullName"]="clang/4.2.1",["loadOrder"]=3,propT={},["short"]="clang",["status"]="active",},gcc={["FN"]="ProjectDIR/rt/hierarchy/mf/Core/gcc/14.27.3.lua",["default"]=1,["fullName"]="gcc/14.27.3",["loadOrder"]=1,propT={},["short"]="gcc",["status"]="active",},mpich={["FN"]="ProjectDIR/rt/hierarchy/mf/Compiler/clang/4.2/mpich/17.200.3.lua",["default"]=1,["fullName"]="mpich/17.200.3",["loadOrder"]=4,propT={},["short"]="mpich",["status"]="active",},parmetis={["FN"]="ProjectDIR/rt/hierarchy/mf/MPI/clang/4.2/mpich/17.200/parmetis/4.0.3.lua",["default"]=1,["fullName"]="parmetis/4.0.3",["loadOrder"]=5,propT={},["short"]="parmetis",["status"]="active",},},mpathA={"ProjectDIR/rt/hierarchy/mf/MPI/clang/4.2/mpich/17.200","ProjectDIR/rt/hierarchy/mf/Compiler/clang/4.2","ProjectDIR/rt/hierarchy/mf/Compiler/gcc/14.27","ProjectDIR/rt/hierarchy/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/hierarchy/mf/Core",["version"]=2,}';
-export _ModuleTable_;
-===========================
-step 18
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
-===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/hierarchy/mf/MPI/clang/4.2/mpich/17.200:ProjectDIR/rt/hierarchy/mf/Compiler/clang/4.2:ProjectDIR/rt/hierarchy/mf/Compiler/gcc/14.27:ProjectDIR/rt/hierarchy/mf/Core";
-export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/hierarchy/mf/MPI/clang/4.2/mpich/17.200:ProjectDIR/rt/hierarchy/mf/Compiler/clang/4.2:ProjectDIR/rt/hierarchy/mf/Compiler/gcc/14.27:ProjectDIR/rt/hierarchy/mf/Core";
-export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["activeSize"]=5,baseMpathA={"ProjectDIR/rt/hierarchy/mf/Core",},family={["MPI"]="mpich",["compiler"]="clang",},inactive={},mT={ben={["FN"]="ProjectDIR/rt/hierarchy/mf/Core/ben/0.1.lua",["default"]=0,["fullName"]="ben/0.1",["loadOrder"]=2,propT={},["short"]="ben",["status"]="active",},clang={["FN"]="ProjectDIR/rt/hierarchy/mf/Core/clang/4.2.1.lua",["default"]=1,["fullName"]="clang/4.2.1",["loadOrder"]=3,propT={},["short"]="clang",["status"]="active",},gcc={["FN"]="ProjectDIR/rt/hierarchy/mf/Core/gcc/14.27.3.lua",["default"]=1,["fullName"]="gcc/14.27.3",["loadOrder"]=1,propT={},["short"]="gcc",["status"]="active",},mpich={["FN"]="ProjectDIR/rt/hierarchy/mf/Compiler/clang/4.2/mpich/17.200.3.lua",["default"]=1,["fullName"]="mpich/17.200.3",["loadOrder"]=4,propT={},["short"]="mpich",["status"]="active",},parmetis={["FN"]="ProjectDIR/rt/hierarchy/mf/MPI/clang/4.2/mpich/17.200/parmetis/4.0.3.lua",["default"]=1,["fullName"]="parmetis/4.0.3",["loadOrder"]=5,propT={},["short"]="parmetis",["status"]="active",},},mpathA={"ProjectDIR/rt/hierarchy/mf/MPI/clang/4.2/mpich/17.200","ProjectDIR/rt/hierarchy/mf/Compiler/clang/4.2","ProjectDIR/rt/hierarchy/mf/Compiler/gcc/14.27","ProjectDIR/rt/hierarchy/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/hierarchy/mf/Core",["version"]=2,}';
-export _ModuleTable_;
-===========================
-step 19
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
-===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/hierarchy/mf/MPI/clang/4.2/mpich/17.200:ProjectDIR/rt/hierarchy/mf/Compiler/clang/4.2:ProjectDIR/rt/hierarchy/mf/Compiler/gcc/14.27:ProjectDIR/rt/hierarchy/mf/Core";
-export MODULEPATH;
-unset BEN_VERSION;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
-unset LMOD_FAMILY_COMPILER;
-unset LMOD_FAMILY_COMPILER_VERSION;
-unset LMOD_FAMILY_MPI;
-unset LMOD_FAMILY_MPI_VERSION;
-unset LOADEDMODULES;
-MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
-export MODULEPATH;
-unset MYNAME;
-unset _LMFILES_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/hierarchy/mf/Core",},family={},inactive={},mT={},mpathA={"ProjectDIR/rt/hierarchy/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/hierarchy/mf/Core",["version"]=2,}';
-export _ModuleTable_;
-===========================
-step 20
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load gcc mpich
-===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
-export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
-LMOD_FAMILY_COMPILER="gcc";
-export LMOD_FAMILY_COMPILER;
-LMOD_FAMILY_COMPILER_VERSION="14.27.3";
-export LMOD_FAMILY_COMPILER_VERSION;
-LMOD_FAMILY_MPI="mpich";
-export LMOD_FAMILY_MPI;
-LMOD_FAMILY_MPI_VERSION="17.200.3";
-export LMOD_FAMILY_MPI_VERSION;
-LOADEDMODULES="gcc/14.27.3:mpich/17.200.3";
-export LOADEDMODULES;
-MODULEPATH="ProjectDIR/rt/hierarchy/mf/MPI/gcc/14.27/mpich/17.200:ProjectDIR/rt/hierarchy/mf/Compiler/gcc/14.27:ProjectDIR/rt/hierarchy/mf/Core";
-export MODULEPATH;
-_LMFILES_="ProjectDIR/rt/hierarchy/mf/Core/gcc/14.27.3.lua:ProjectDIR/rt/hierarchy/mf/Compiler/gcc/14.27/mpich/17.200.3.lua";
-export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/hierarchy/mf/Core",},family={["MPI"]="mpich",["compiler"]="gcc",},inactive={},mT={gcc={["FN"]="ProjectDIR/rt/hierarchy/mf/Core/gcc/14.27.3.lua",["default"]=1,["fullName"]="gcc/14.27.3",["loadOrder"]=1,propT={},["short"]="gcc",["status"]="active",},mpich={["FN"]="ProjectDIR/rt/hierarchy/mf/Compiler/gcc/14.27/mpich/17.200.3.lua",["default"]=1,["fullName"]="mpich/17.200.3",["loadOrder"]=2,propT={},["short"]="mpich",["status"]="active",},},mpathA={"ProjectDIR/rt/hierarchy/mf/MPI/gcc/14.27/mpich/17.200","ProjectDIR/rt/hierarchy/mf/Compiler/gcc/14.27","ProjectDIR/rt/hierarchy/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/hierarchy/mf/Core",["version"]=2,}';
-export _ModuleTable_;
-===========================
-step 21
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload mpich gcc
-===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/hierarchy/mf/MPI/gcc/14.27/mpich/17.200:ProjectDIR/rt/hierarchy/mf/Compiler/gcc/14.27:ProjectDIR/rt/hierarchy/mf/Core";
-export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
-unset LMOD_FAMILY_COMPILER;
-unset LMOD_FAMILY_COMPILER_VERSION;
-unset LMOD_FAMILY_MPI;
-unset LMOD_FAMILY_MPI_VERSION;
-unset LOADEDMODULES;
-MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
-export MODULEPATH;
-unset _LMFILES_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/hierarchy/mf/Core",},family={},inactive={},mT={},mpathA={"ProjectDIR/rt/hierarchy/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/hierarchy/mf/Core",["version"]=2,}';
-export _ModuleTable_;
-===========================
-step 22
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load gcc mpich
-===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
-export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
-LMOD_FAMILY_COMPILER="gcc";
-export LMOD_FAMILY_COMPILER;
-LMOD_FAMILY_COMPILER_VERSION="14.27.3";
-export LMOD_FAMILY_COMPILER_VERSION;
-LMOD_FAMILY_MPI="mpich";
-export LMOD_FAMILY_MPI;
-LMOD_FAMILY_MPI_VERSION="17.200.3";
-export LMOD_FAMILY_MPI_VERSION;
-LOADEDMODULES="gcc/14.27.3:mpich/17.200.3";
-export LOADEDMODULES;
-MODULEPATH="ProjectDIR/rt/hierarchy/mf/MPI/gcc/14.27/mpich/17.200:ProjectDIR/rt/hierarchy/mf/Compiler/gcc/14.27:ProjectDIR/rt/hierarchy/mf/Core";
-export MODULEPATH;
-_LMFILES_="ProjectDIR/rt/hierarchy/mf/Core/gcc/14.27.3.lua:ProjectDIR/rt/hierarchy/mf/Compiler/gcc/14.27/mpich/17.200.3.lua";
-export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/hierarchy/mf/Core",},family={["MPI"]="mpich",["compiler"]="gcc",},inactive={},mT={gcc={["FN"]="ProjectDIR/rt/hierarchy/mf/Core/gcc/14.27.3.lua",["default"]=1,["fullName"]="gcc/14.27.3",["loadOrder"]=1,propT={},["short"]="gcc",["status"]="active",},mpich={["FN"]="ProjectDIR/rt/hierarchy/mf/Compiler/gcc/14.27/mpich/17.200.3.lua",["default"]=1,["fullName"]="mpich/17.200.3",["loadOrder"]=2,propT={},["short"]="mpich",["status"]="active",},},mpathA={"ProjectDIR/rt/hierarchy/mf/MPI/gcc/14.27/mpich/17.200","ProjectDIR/rt/hierarchy/mf/Compiler/gcc/14.27","ProjectDIR/rt/hierarchy/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/hierarchy/mf/Core",["version"]=2,}';
-export _ModuleTable_;
-===========================
-step 23
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload mpich gcc
-===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/hierarchy/mf/MPI/gcc/14.27/mpich/17.200:ProjectDIR/rt/hierarchy/mf/Compiler/gcc/14.27:ProjectDIR/rt/hierarchy/mf/Core";
-export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
-unset LMOD_FAMILY_COMPILER;
-unset LMOD_FAMILY_COMPILER_VERSION;
-unset LMOD_FAMILY_MPI;
-unset LMOD_FAMILY_MPI_VERSION;
-unset LOADEDMODULES;
-MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
-export MODULEPATH;
-unset _LMFILES_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/hierarchy/mf/Core",},family={},inactive={},mT={},mpathA={"ProjectDIR/rt/hierarchy/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/hierarchy/mf/Core",["version"]=2,}';
-export _ModuleTable_;
-===========================
-step 24
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
-===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
-export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
-export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/hierarchy/mf/Core",},family={},inactive={},mT={},mpathA={"ProjectDIR/rt/hierarchy/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/hierarchy/mf/Core",["version"]=2,}';
-export _ModuleTable_;
-===========================
-step 25
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load python
-===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
-export MODULEPATH;
-FN="ProjectDIR/rt/hierarchy/mf/Core/python/2.7.3.lua";
-export FN;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
-LOADEDMODULES="python/2.7.3";
-export LOADEDMODULES;
-MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
-export MODULEPATH;
-_LMFILES_="ProjectDIR/rt/hierarchy/mf/Core/python/2.7.3.lua";
-export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/hierarchy/mf/Core",},family={},inactive={},mT={python={["FN"]="ProjectDIR/rt/hierarchy/mf/Core/python/2.7.3.lua",["default"]=1,["fullName"]="python/2.7.3",["loadOrder"]=1,propT={},["short"]="python",["status"]="active",},},mpathA={"ProjectDIR/rt/hierarchy/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/hierarchy/mf/Core",["version"]=2,}';
-export _ModuleTable_;
-===========================
-step 26
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load gcc
-===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
-export MODULEPATH;
-FN="ProjectDIR/rt/hierarchy/mf/Compiler/gcc/14.27/python/2.7.3.lua";
-export FN;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
-LMOD_FAMILY_COMPILER="gcc";
-export LMOD_FAMILY_COMPILER;
-LMOD_FAMILY_COMPILER_VERSION="14.27.3";
-export LMOD_FAMILY_COMPILER_VERSION;
-LOADEDMODULES="gcc/14.27.3:python/2.7.3";
-export LOADEDMODULES;
-MODULEPATH="ProjectDIR/rt/hierarchy/mf/Compiler/gcc/14.27:ProjectDIR/rt/hierarchy/mf/Core";
-export MODULEPATH;
-_LMFILES_="ProjectDIR/rt/hierarchy/mf/Core/gcc/14.27.3.lua:ProjectDIR/rt/hierarchy/mf/Compiler/gcc/14.27/python/2.7.3.lua";
-export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/hierarchy/mf/Core",},family={["compiler"]="gcc",},inactive={},mT={gcc={["FN"]="ProjectDIR/rt/hierarchy/mf/Core/gcc/14.27.3.lua",["default"]=1,["fullName"]="gcc/14.27.3",["loadOrder"]=1,propT={},["short"]="gcc",["status"]="active",},python={["FN"]="ProjectDIR/rt/hierarchy/mf/Compiler/gcc/14.27/python/2.7.3.lua",["default"]=1,["fullName"]="python/2.7.3",["loadOrder"]=2,propT={},["short"]="python",["status"]="active",},},mpathA={"ProjectDIR/rt/hierarchy/mf/Compiler/gcc/14.27","ProjectDIR/rt/hierarchy/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/hierarchy/mf/Core",["version"]=2,}';
-export _ModuleTable_;
-===========================
-step 27
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load mpich
-===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/hierarchy/mf/Compiler/gcc/14.27:ProjectDIR/rt/hierarchy/mf/Core";
-export MODULEPATH;
-FN="ProjectDIR/rt/hierarchy/mf/MPI/gcc/14.27/mpich/17.200/python/2.7.3.lua";
-export FN;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
-LMOD_FAMILY_MPI="mpich";
-export LMOD_FAMILY_MPI;
-LMOD_FAMILY_MPI_VERSION="17.200.3";
-export LMOD_FAMILY_MPI_VERSION;
-LOADEDMODULES="gcc/14.27.3:mpich/17.200.3:python/2.7.3";
-export LOADEDMODULES;
-MODULEPATH="ProjectDIR/rt/hierarchy/mf/MPI/gcc/14.27/mpich/17.200:ProjectDIR/rt/hierarchy/mf/Compiler/gcc/14.27:ProjectDIR/rt/hierarchy/mf/Core";
-export MODULEPATH;
-_LMFILES_="ProjectDIR/rt/hierarchy/mf/Core/gcc/14.27.3.lua:ProjectDIR/rt/hierarchy/mf/Compiler/gcc/14.27/mpich/17.200.3.lua:ProjectDIR/rt/hierarchy/mf/MPI/gcc/14.27/mpich/17.200/python/2.7.3.lua";
-export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/hierarchy/mf/Core",},family={["MPI"]="mpich",["compiler"]="gcc",},inactive={},mT={gcc={["FN"]="ProjectDIR/rt/hierarchy/mf/Core/gcc/14.27.3.lua",["default"]=1,["fullName"]="gcc/14.27.3",["loadOrder"]=1,propT={},["short"]="gcc",["status"]="active",},mpich={["FN"]="ProjectDIR/rt/hierarchy/mf/Compiler/gcc/14.27/mpich/17.200.3.lua",["default"]=1,["fullName"]="mpich/17.200.3",["loadOrder"]=2,propT={},["short"]="mpich",["status"]="active",},python={["FN"]="ProjectDIR/rt/hierarchy/mf/MPI/gcc/14.27/mpich/17.200/python/2.7.3.lua",["default"]=1,["fullName"]="python/2.7.3",["loadOrder"]=3,propT={},["short"]="python",["status"]="active",},},mpathA={"ProjectDIR/rt/hierarchy/mf/MPI/gcc/14.27/mpich/17.200","ProjectDIR/rt/hierarchy/mf/Compiler/gcc/14.27","ProjectDIR/rt/hierarchy/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/hierarchy/mf/Core",["version"]=2,}';
-export _ModuleTable_;
-===========================
-step 28
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing swap gcc clang
-===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/hierarchy/mf/MPI/gcc/14.27/mpich/17.200:ProjectDIR/rt/hierarchy/mf/Compiler/gcc/14.27:ProjectDIR/rt/hierarchy/mf/Core";
-export MODULEPATH;
-FN="ProjectDIR/rt/hierarchy/mf/MPI/clang/4.2/mpich/17.200/python/2.7.3.lua";
-export FN;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
-LMOD_FAMILY_COMPILER="clang";
-export LMOD_FAMILY_COMPILER;
-LMOD_FAMILY_COMPILER_VERSION="4.2.1";
-export LMOD_FAMILY_COMPILER_VERSION;
-LMOD_FAMILY_MPI="mpich";
-export LMOD_FAMILY_MPI;
-LMOD_FAMILY_MPI_VERSION="17.200.3";
-export LMOD_FAMILY_MPI_VERSION;
-LOADEDMODULES="clang/4.2.1:mpich/17.200.3:python/2.7.3";
-export LOADEDMODULES;
-MODULEPATH="ProjectDIR/rt/hierarchy/mf/MPI/clang/4.2/mpich/17.200:ProjectDIR/rt/hierarchy/mf/Compiler/clang/4.2:ProjectDIR/rt/hierarchy/mf/Core";
-export MODULEPATH;
-_LMFILES_="ProjectDIR/rt/hierarchy/mf/Core/clang/4.2.1.lua:ProjectDIR/rt/hierarchy/mf/Compiler/clang/4.2/mpich/17.200.3.lua:ProjectDIR/rt/hierarchy/mf/MPI/clang/4.2/mpich/17.200/python/2.7.3.lua";
-export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/hierarchy/mf/Core",},family={["MPI"]="mpich",["compiler"]="clang",},inactive={},mT={clang={["FN"]="ProjectDIR/rt/hierarchy/mf/Core/clang/4.2.1.lua",["default"]=1,["fullName"]="clang/4.2.1",["loadOrder"]=1,propT={},["short"]="clang",["status"]="active",},mpich={["FN"]="ProjectDIR/rt/hierarchy/mf/Compiler/clang/4.2/mpich/17.200.3.lua",["default"]=1,["fullName"]="mpich/17.200.3",["loadOrder"]=2,propT={},["short"]="mpich",["status"]="active",},python={["FN"]="ProjectDIR/rt/hierarchy/mf/MPI/clang/4.2/mpich/17.200/python/2.7.3.lua",["default"]=1,["fullName"]="python/2.7.3",["loadOrder"]=3,propT={},["short"]="python",["status"]="active",},},mpathA={"ProjectDIR/rt/hierarchy/mf/MPI/clang/4.2/mpich/17.200","ProjectDIR/rt/hierarchy/mf/Compiler/clang/4.2","ProjectDIR/rt/hierarchy/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/hierarchy/mf/Core",["version"]=2,}';
-export _ModuleTable_;
-===========================
-step 29
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing swap mpich openmpi
-===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/hierarchy/mf/MPI/clang/4.2/mpich/17.200:ProjectDIR/rt/hierarchy/mf/Compiler/clang/4.2:ProjectDIR/rt/hierarchy/mf/Core";
-export MODULEPATH;
-FN="ProjectDIR/rt/hierarchy/mf/MPI/clang/4.2/openmpi/1.8/python/2.7.3.lua";
-export FN;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
-LMOD_FAMILY_MPI="openmpi";
-export LMOD_FAMILY_MPI;
-LMOD_FAMILY_MPI_VERSION="1.8.3";
-export LMOD_FAMILY_MPI_VERSION;
-LOADEDMODULES="clang/4.2.1:openmpi/1.8.3:python/2.7.3";
-export LOADEDMODULES;
-MODULEPATH="ProjectDIR/rt/hierarchy/mf/MPI/clang/4.2/openmpi/1.8:ProjectDIR/rt/hierarchy/mf/Compiler/clang/4.2:ProjectDIR/rt/hierarchy/mf/Core";
-export MODULEPATH;
-_LMFILES_="ProjectDIR/rt/hierarchy/mf/Core/clang/4.2.1.lua:ProjectDIR/rt/hierarchy/mf/Compiler/clang/4.2/openmpi/1.8.3.lua:ProjectDIR/rt/hierarchy/mf/MPI/clang/4.2/openmpi/1.8/python/2.7.3.lua";
-export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/hierarchy/mf/Core",},family={["MPI"]="openmpi",["compiler"]="clang",},inactive={},mT={clang={["FN"]="ProjectDIR/rt/hierarchy/mf/Core/clang/4.2.1.lua",["default"]=1,["fullName"]="clang/4.2.1",["loadOrder"]=1,propT={},["short"]="clang",["status"]="active",},openmpi={["FN"]="ProjectDIR/rt/hierarchy/mf/Compiler/clang/4.2/openmpi/1.8.3.lua",["default"]=1,["fullName"]="openmpi/1.8.3",["loadOrder"]=2,propT={},["short"]="openmpi",["status"]="active",},python={["FN"]="ProjectDIR/rt/hierarchy/mf/MPI/clang/4.2/openmpi/1.8/python/2.7.3.lua",["default"]=1,["fullName"]="python/2.7.3",["loadOrder"]=3,propT={},["short"]="python",["status"]="active",},},mpathA={"ProjectDIR/rt/hierarchy/mf/MPI/clang/4.2/openmpi/1.8","ProjectDIR/rt/hierarchy/mf/Compiler/clang/4.2","ProjectDIR/rt/hierarchy/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/hierarchy/mf/Core",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={boost={["fn"]="ProjectDIR/rt/hierarchy/mf/Compiler/gcc/6.1/boost/1.59.0.lua",["fullName"]="boost/1.59.0",["loadOrder"]=-1,propT={},["status"]="inactive",["userName"]="boost",},python={["fn"]="ProjectDIR/rt/hierarchy/mf/Core/python/2.7.9.lua",["fullName"]="python/2.7.9",["loadOrder"]=1,propT={},["status"]="active",["userName"]="python",},},mpathA={"ProjectDIR/rt/hierarchy/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/hierarchy/mf/Core",}';
 export _ModuleTable_;

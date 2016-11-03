@@ -6,10 +6,6 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 step 2
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load TACC
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/TACC";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/saverestore/TACC";
-export MODULEPATH;
 APPS="/opt/apps";
 export APPS;
 GLOBUS_HOSTNAME="ranger.tacc.utexas.edu";
@@ -28,8 +24,6 @@ LD_LIBRARY_PATH="/share/apps/teragrid/globus-4.0.7-r1/lib:/share/apps/teragrid/g
 export LD_LIBRARY_PATH;
 LIBPATH="/share/apps/teragrid/globus-4.0.7-r1/lib:/share/apps/teragrid/globus-4.0.7-r1/myproxy-3.4/lib";
 export LIBPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/TACC";
-export LMOD_DEFAULT_MODULEPATH;
 LOADEDMODULES="TACC_symbols:cluster_symbols:pgi/7.1:mvapich1/mvapich1:globus/4.0.7:cluster:TACC";
 export LOADEDMODULES;
 MANPATH="/share/apps/teragrid/globus-4.0.7-r1/man:/share/apps/teragrid/globus-4.0.7-r1/myproxy-3.4/man:/opt/apps/intel10_1/mvapich/1.0.1/man:/opt/apps/pgi/7.1/linux86-64/7.1-2/man:/usr/local/man:/usr/share/man:/usr/X11R6/man:/opt/ganglia/man:/opt/rocks/man:/usr/kerberos/man:/usr/man:/opt/apps/pki_apps/man";
@@ -56,20 +50,14 @@ SHLIB_PATH="/share/apps/teragrid/globus-4.0.7-r1/lib:/share/apps/teragrid/globus
 export SHLIB_PATH;
 _LMFILES_="ProjectDIR/rt/saverestore/TACC/TACC_symbols:ProjectDIR/rt/saverestore/TACC/cluster_symbols.lua:ProjectDIR/rt/saverestore/TACC/pgi/7.1:ProjectDIR/rt/saverestore/TACC/mvapich1/mvapich1:ProjectDIR/rt/saverestore/TACC/globus/4.0.7:ProjectDIR/rt/saverestore/TACC/cluster:ProjectDIR/rt/saverestore/TACC/TACC";
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=7,baseMpathA={"ProjectDIR/rt/saverestore/TACC",},family={},inactive={},mT={TACC={["FN"]="ProjectDIR/rt/saverestore/TACC/TACC",["default"]=0,["fullName"]="TACC",["loadOrder"]=7,propT={},["short"]="TACC",["status"]="active",},TACC_symbols={["FN"]="ProjectDIR/rt/saverestore/TACC/TACC_symbols",["default"]=0,["fullName"]="TACC_symbols",["loadOrder"]=1,propT={},["short"]="TACC_symbols",["status"]="active",},cluster={["FN"]="ProjectDIR/rt/saverestore/TACC/cluster",["default"]=0,["fullName"]="cluster",["loadOrder"]=6,propT={},["short"]="cluster",["status"]="active",},cluster_symbols={["FN"]="ProjectDIR/rt/saverestore/TACC/cluster_symbols.lua",["default"]=0,["fullName"]="cluster_symbols",["loadOrder"]=2,propT={},["short"]="cluster_symbols",["status"]="active",},globus={["FN"]="ProjectDIR/rt/saverestore/TACC/globus/4.0.7",["default"]=1,["fullName"]="globus/4.0.7",["loadOrder"]=5,propT={},["short"]="globus",["status"]="active",},mvapich1={["FN"]="ProjectDIR/rt/saverestore/TACC/mvapich1/mvapich1",["default"]=1,["fullName"]="mvapich1/mvapich1",["loadOrder"]=4,propT={},["short"]="mvapich1",["status"]="active",},pgi={["FN"]="ProjectDIR/rt/saverestore/TACC/pgi/7.1",["default"]=1,["fullName"]="pgi/7.1",["loadOrder"]=3,propT={},["short"]="pgi",["status"]="active",},},mpathA={"ProjectDIR/rt/saverestore/TACC_MPI/pgi/7.1/mvapich/1.0.1","ProjectDIR/rt/saverestore/TACC_COMPILER/pgi/7.1","ProjectDIR/rt/saverestore/TACC",},["systemBaseMPATH"]="ProjectDIR/rt/saverestore/TACC",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={TACC={["fn"]="ProjectDIR/rt/saverestore/TACC/TACC",["fullName"]="TACC",["loadOrder"]=7,propT={},["status"]="active",["userName"]="TACC",},TACC_symbols={["fn"]="ProjectDIR/rt/saverestore/TACC/TACC_symbols",["fullName"]="TACC_symbols",["loadOrder"]=1,propT={},["status"]="active",["userName"]="TACC_symbols",},cluster={["fn"]="ProjectDIR/rt/saverestore/TACC/cluster",["fullName"]="cluster",["loadOrder"]=6,propT={},["status"]="active",["userName"]="cluster",},cluster_symbols={["fn"]="ProjectDIR/rt/saverestore/TACC/cluster_symbols.lua",["fullName"]="cluster_symbols",["loadOrder"]=2,propT={},["status"]="active",["userName"]="cluster_symbols",},globus={["fn"]="ProjectDIR/rt/saverestore/TACC/globus/4.0.7",["fullName"]="globus/4.0.7",["loadOrder"]=5,propT={},["status"]="active",["userName"]="globus",},mvapich1={["fn"]="ProjectDIR/rt/saverestore/TACC/mvapich1/mvapich1",["fullName"]="mvapich1/mvapich1",["loadOrder"]=4,propT={},["status"]="active",["userName"]="mvapich1",},pgi={["fn"]="ProjectDIR/rt/saverestore/TACC/pgi/7.1",["fullName"]="pgi/7.1",["loadOrder"]=3,propT={},["status"]="active",["userName"]="pgi",},},mpathA={"ProjectDIR/rt/saverestore/TACC_MPI/pgi/7.1/mvapich/1.0.1","ProjectDIR/rt/saverestore/TACC_COMPILER/pgi/7.1","ProjectDIR/rt/saverestore/TACC",},["systemBaseMPATH"]="ProjectDIR/rt/saverestore/TACC",}';
 export _ModuleTable_;
 ===========================
 step 3
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load pgi/7.2-5
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/TACC";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/saverestore/TACC_MPI/pgi/7.1/mvapich/1.0.1:ProjectDIR/rt/saverestore/TACC_COMPILER/pgi/7.1:ProjectDIR/rt/saverestore/TACC";
-export MODULEPATH;
 LD_LIBRARY_PATH="/opt/apps/pgi/7.2/linux86-64/7.2-5/libso:/share/apps/teragrid/globus-4.0.7-r1/lib:/share/apps/teragrid/globus-4.0.7-r1/myproxy-3.4/lib:/opt/apps/intel10_1/mvapich/1.0.1/lib:/opt/apps/intel10_1/mvapich/1.0.1/lib/shared";
 export LD_LIBRARY_PATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/TACC";
-export LMOD_DEFAULT_MODULEPATH;
 LOADEDMODULES="TACC_symbols:cluster_symbols:mvapich1/mvapich1:globus/4.0.7:cluster:TACC:pgi/7.2-5";
 export LOADEDMODULES;
 MANPATH="/opt/apps/pgi/7.2/linux86-64/7.2-5/man:/share/apps/teragrid/globus-4.0.7-r1/man:/share/apps/teragrid/globus-4.0.7-r1/myproxy-3.4/man:/opt/apps/intel10_1/mvapich/1.0.1/man:/usr/local/man:/usr/share/man:/usr/X11R6/man:/opt/ganglia/man:/opt/rocks/man:/usr/kerberos/man:/usr/man:/opt/apps/pki_apps/man";
@@ -82,44 +70,28 @@ PGI="/opt/apps/pgi/7.2-5";
 export PGI;
 _LMFILES_="ProjectDIR/rt/saverestore/TACC/TACC_symbols:ProjectDIR/rt/saverestore/TACC/cluster_symbols.lua:ProjectDIR/rt/saverestore/TACC/mvapich1/mvapich1:ProjectDIR/rt/saverestore/TACC/globus/4.0.7:ProjectDIR/rt/saverestore/TACC/cluster:ProjectDIR/rt/saverestore/TACC/TACC:ProjectDIR/rt/saverestore/TACC/pgi/7.2-5";
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=7,baseMpathA={"ProjectDIR/rt/saverestore/TACC",},family={},inactive={},mT={TACC={["FN"]="ProjectDIR/rt/saverestore/TACC/TACC",["default"]=0,["fullName"]="TACC",["loadOrder"]=6,propT={},["short"]="TACC",["status"]="active",},TACC_symbols={["FN"]="ProjectDIR/rt/saverestore/TACC/TACC_symbols",["default"]=0,["fullName"]="TACC_symbols",["loadOrder"]=1,propT={},["short"]="TACC_symbols",["status"]="active",},cluster={["FN"]="ProjectDIR/rt/saverestore/TACC/cluster",["default"]=0,["fullName"]="cluster",["loadOrder"]=5,propT={},["short"]="cluster",["status"]="active",},cluster_symbols={["FN"]="ProjectDIR/rt/saverestore/TACC/cluster_symbols.lua",["default"]=0,["fullName"]="cluster_symbols",["loadOrder"]=2,propT={},["short"]="cluster_symbols",["status"]="active",},globus={["FN"]="ProjectDIR/rt/saverestore/TACC/globus/4.0.7",["default"]=1,["fullName"]="globus/4.0.7",["loadOrder"]=4,propT={},["short"]="globus",["status"]="active",},mvapich1={["FN"]="ProjectDIR/rt/saverestore/TACC/mvapich1/mvapich1",["default"]=1,["fullName"]="mvapich1/mvapich1",["loadOrder"]=3,propT={},["short"]="mvapich1",["status"]="active",},pgi={["FN"]="ProjectDIR/rt/saverestore/TACC/pgi/7.2-5",["default"]=0,["fullName"]="pgi/7.2-5",["loadOrder"]=7,propT={},["short"]="pgi",["status"]="active",},},mpathA={"ProjectDIR/rt/saverestore/TACC_COMPILER/pgi/7.2-5","ProjectDIR/rt/saverestore/TACC_MPI/pgi/7.1/mvapich/1.0.1","ProjectDIR/rt/saverestore/TACC",},["systemBaseMPATH"]="ProjectDIR/rt/saverestore/TACC",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={TACC={["fn"]="ProjectDIR/rt/saverestore/TACC/TACC",["fullName"]="TACC",["loadOrder"]=6,propT={},["status"]="active",["userName"]="TACC",},TACC_symbols={["fn"]="ProjectDIR/rt/saverestore/TACC/TACC_symbols",["fullName"]="TACC_symbols",["loadOrder"]=1,propT={},["status"]="active",["userName"]="TACC_symbols",},cluster={["fn"]="ProjectDIR/rt/saverestore/TACC/cluster",["fullName"]="cluster",["loadOrder"]=5,propT={},["status"]="active",["userName"]="cluster",},cluster_symbols={["fn"]="ProjectDIR/rt/saverestore/TACC/cluster_symbols.lua",["fullName"]="cluster_symbols",["loadOrder"]=2,propT={},["status"]="active",["userName"]="cluster_symbols",},globus={["fn"]="ProjectDIR/rt/saverestore/TACC/globus/4.0.7",["fullName"]="globus/4.0.7",["loadOrder"]=4,propT={},["status"]="active",["userName"]="globus",},mvapich1={["fn"]="ProjectDIR/rt/saverestore/TACC/mvapich1/mvapich1",["fullName"]="mvapich1/mvapich1",["loadOrder"]=3,propT={},["status"]="active",["userName"]="mvapich1",},pgi={["fn"]="ProjectDIR/rt/saverestore/TACC/pgi/7.2-5",["fullName"]="pgi/7.2-5",["loadOrder"]=7,propT={},["status"]="active",["userName"]="pgi/7.2-5",},},mpathA={"ProjectDIR/rt/saverestore/TACC_COMPILER/pgi/7.2-5","ProjectDIR/rt/saverestore/TACC_MPI/pgi/7.1/mvapich/1.0.1","ProjectDIR/rt/saverestore/TACC",},["systemBaseMPATH"]="ProjectDIR/rt/saverestore/TACC",}';
 export _ModuleTable_;
 ===========================
 step 4
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/TACC";
-export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/saverestore/TACC_COMPILER/pgi/7.2-5:ProjectDIR/rt/saverestore/TACC_MPI/pgi/7.1/mvapich/1.0.1:ProjectDIR/rt/saverestore/TACC";
 export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/TACC";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/saverestore/TACC_COMPILER/pgi/7.2-5:ProjectDIR/rt/saverestore/TACC_MPI/pgi/7.1/mvapich/1.0.1:ProjectDIR/rt/saverestore/TACC";
-export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["activeSize"]=7,baseMpathA={"ProjectDIR/rt/saverestore/TACC",},family={},inactive={},mT={TACC={["FN"]="ProjectDIR/rt/saverestore/TACC/TACC",["default"]=0,["fullName"]="TACC",["loadOrder"]=6,propT={},["short"]="TACC",["status"]="active",},TACC_symbols={["FN"]="ProjectDIR/rt/saverestore/TACC/TACC_symbols",["default"]=0,["fullName"]="TACC_symbols",["loadOrder"]=1,propT={},["short"]="TACC_symbols",["status"]="active",},cluster={["FN"]="ProjectDIR/rt/saverestore/TACC/cluster",["default"]=0,["fullName"]="cluster",["loadOrder"]=5,propT={},["short"]="cluster",["status"]="active",},cluster_symbols={["FN"]="ProjectDIR/rt/saverestore/TACC/cluster_symbols.lua",["default"]=0,["fullName"]="cluster_symbols",["loadOrder"]=2,propT={},["short"]="cluster_symbols",["status"]="active",},globus={["FN"]="ProjectDIR/rt/saverestore/TACC/globus/4.0.7",["default"]=1,["fullName"]="globus/4.0.7",["loadOrder"]=4,propT={},["short"]="globus",["status"]="active",},mvapich1={["FN"]="ProjectDIR/rt/saverestore/TACC/mvapich1/mvapich1",["default"]=1,["fullName"]="mvapich1/mvapich1",["loadOrder"]=3,propT={},["short"]="mvapich1",["status"]="active",},pgi={["FN"]="ProjectDIR/rt/saverestore/TACC/pgi/7.2-5",["default"]=0,["fullName"]="pgi/7.2-5",["loadOrder"]=7,propT={},["short"]="pgi",["status"]="active",},},mpathA={"ProjectDIR/rt/saverestore/TACC_COMPILER/pgi/7.2-5","ProjectDIR/rt/saverestore/TACC_MPI/pgi/7.1/mvapich/1.0.1","ProjectDIR/rt/saverestore/TACC",},["systemBaseMPATH"]="ProjectDIR/rt/saverestore/TACC",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={TACC={["fn"]="ProjectDIR/rt/saverestore/TACC/TACC",["fullName"]="TACC",["loadOrder"]=6,propT={},["status"]="active",["userName"]="TACC",},TACC_symbols={["fn"]="ProjectDIR/rt/saverestore/TACC/TACC_symbols",["fullName"]="TACC_symbols",["loadOrder"]=1,propT={},["status"]="active",["userName"]="TACC_symbols",},cluster={["fn"]="ProjectDIR/rt/saverestore/TACC/cluster",["fullName"]="cluster",["loadOrder"]=5,propT={},["status"]="active",["userName"]="cluster",},cluster_symbols={["fn"]="ProjectDIR/rt/saverestore/TACC/cluster_symbols.lua",["fullName"]="cluster_symbols",["loadOrder"]=2,propT={},["status"]="active",["userName"]="cluster_symbols",},globus={["fn"]="ProjectDIR/rt/saverestore/TACC/globus/4.0.7",["fullName"]="globus/4.0.7",["loadOrder"]=4,propT={},["status"]="active",["userName"]="globus",},mvapich1={["fn"]="ProjectDIR/rt/saverestore/TACC/mvapich1/mvapich1",["fullName"]="mvapich1/mvapich1",["loadOrder"]=3,propT={},["status"]="active",["userName"]="mvapich1",},pgi={["fn"]="ProjectDIR/rt/saverestore/TACC/pgi/7.2-5",["fullName"]="pgi/7.2-5",["loadOrder"]=7,propT={},["status"]="active",["userName"]="pgi/7.2-5",},},mpathA={"ProjectDIR/rt/saverestore/TACC_COMPILER/pgi/7.2-5","ProjectDIR/rt/saverestore/TACC_MPI/pgi/7.1/mvapich/1.0.1","ProjectDIR/rt/saverestore/TACC",},["systemBaseMPATH"]="ProjectDIR/rt/saverestore/TACC",}';
 export _ModuleTable_;
 ===========================
 step 5
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing save default
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/TACC";
-export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/saverestore/TACC_COMPILER/pgi/7.2-5:ProjectDIR/rt/saverestore/TACC_MPI/pgi/7.1/mvapich/1.0.1:ProjectDIR/rt/saverestore/TACC";
 export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/TACC";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/saverestore/TACC_COMPILER/pgi/7.2-5:ProjectDIR/rt/saverestore/TACC_MPI/pgi/7.1/mvapich/1.0.1:ProjectDIR/rt/saverestore/TACC";
-export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["activeSize"]=7,baseMpathA={"ProjectDIR/rt/saverestore/TACC",},family={},inactive={},mT={TACC={["FN"]="ProjectDIR/rt/saverestore/TACC/TACC",["default"]=0,["fullName"]="TACC",["loadOrder"]=6,propT={},["short"]="TACC",["status"]="active",},TACC_symbols={["FN"]="ProjectDIR/rt/saverestore/TACC/TACC_symbols",["default"]=0,["fullName"]="TACC_symbols",["loadOrder"]=1,propT={},["short"]="TACC_symbols",["status"]="active",},cluster={["FN"]="ProjectDIR/rt/saverestore/TACC/cluster",["default"]=0,["fullName"]="cluster",["loadOrder"]=5,propT={},["short"]="cluster",["status"]="active",},cluster_symbols={["FN"]="ProjectDIR/rt/saverestore/TACC/cluster_symbols.lua",["default"]=0,["fullName"]="cluster_symbols",["loadOrder"]=2,propT={},["short"]="cluster_symbols",["status"]="active",},globus={["FN"]="ProjectDIR/rt/saverestore/TACC/globus/4.0.7",["default"]=1,["fullName"]="globus/4.0.7",["loadOrder"]=4,propT={},["short"]="globus",["status"]="active",},mvapich1={["FN"]="ProjectDIR/rt/saverestore/TACC/mvapich1/mvapich1",["default"]=1,["fullName"]="mvapich1/mvapich1",["loadOrder"]=3,propT={},["short"]="mvapich1",["status"]="active",},pgi={["FN"]="ProjectDIR/rt/saverestore/TACC/pgi/7.2-5",["default"]=0,["fullName"]="pgi/7.2-5",["loadOrder"]=7,propT={},["short"]="pgi",["status"]="active",},},mpathA={"ProjectDIR/rt/saverestore/TACC_COMPILER/pgi/7.2-5","ProjectDIR/rt/saverestore/TACC_MPI/pgi/7.1/mvapich/1.0.1","ProjectDIR/rt/saverestore/TACC",},["systemBaseMPATH"]="ProjectDIR/rt/saverestore/TACC",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={TACC={["fn"]="ProjectDIR/rt/saverestore/TACC/TACC",["fullName"]="TACC",["loadOrder"]=6,propT={},["status"]="active",["userName"]="TACC",},TACC_symbols={["fn"]="ProjectDIR/rt/saverestore/TACC/TACC_symbols",["fullName"]="TACC_symbols",["loadOrder"]=1,propT={},["status"]="active",["userName"]="TACC_symbols",},cluster={["fn"]="ProjectDIR/rt/saverestore/TACC/cluster",["fullName"]="cluster",["loadOrder"]=5,propT={},["status"]="active",["userName"]="cluster",},cluster_symbols={["fn"]="ProjectDIR/rt/saverestore/TACC/cluster_symbols.lua",["fullName"]="cluster_symbols",["loadOrder"]=2,propT={},["status"]="active",["userName"]="cluster_symbols",},globus={["fn"]="ProjectDIR/rt/saverestore/TACC/globus/4.0.7",["fullName"]="globus/4.0.7",["loadOrder"]=4,propT={},["status"]="active",["userName"]="globus",},mvapich1={["fn"]="ProjectDIR/rt/saverestore/TACC/mvapich1/mvapich1",["fullName"]="mvapich1/mvapich1",["loadOrder"]=3,propT={},["status"]="active",["userName"]="mvapich1",},pgi={["fn"]="ProjectDIR/rt/saverestore/TACC/pgi/7.2-5",["fullName"]="pgi/7.2-5",["loadOrder"]=7,propT={},["status"]="active",["userName"]="pgi/7.2-5",},},mpathA={"ProjectDIR/rt/saverestore/TACC_COMPILER/pgi/7.2-5","ProjectDIR/rt/saverestore/TACC_MPI/pgi/7.1/mvapich/1.0.1","ProjectDIR/rt/saverestore/TACC",},["systemBaseMPATH"]="ProjectDIR/rt/saverestore/TACC",}';
 export _ModuleTable_;
 ===========================
 step 6
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing restore
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/TACC";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/saverestore/TACC_COMPILER/pgi/7.2-5:ProjectDIR/rt/saverestore/TACC_MPI/pgi/7.1/mvapich/1.0.1:ProjectDIR/rt/saverestore/TACC";
-export MODULEPATH;
 APPS="/opt/apps";
 export APPS;
 GLOBUS_HOSTNAME="ranger.tacc.utexas.edu";
@@ -138,8 +110,6 @@ LD_LIBRARY_PATH="/opt/apps/pgi/7.2/linux86-64/7.2-5/libso:/share/apps/teragrid/g
 export LD_LIBRARY_PATH;
 LIBPATH="/share/apps/teragrid/globus-4.0.7-r1/lib:/share/apps/teragrid/globus-4.0.7-r1/myproxy-3.4/lib";
 export LIBPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/TACC";
-export LMOD_DEFAULT_MODULEPATH;
 LOADEDMODULES="TACC_symbols:cluster_symbols:mvapich1/mvapich1:globus/4.0.7:cluster:TACC:pgi/7.2-5";
 export LOADEDMODULES;
 MANPATH="/opt/apps/pgi/7.2/linux86-64/7.2-5/man:/share/apps/teragrid/globus-4.0.7-r1/man:/share/apps/teragrid/globus-4.0.7-r1/myproxy-3.4/man:/opt/apps/intel10_1/mvapich/1.0.1/man:/usr/local/man:/usr/share/man:/usr/X11R6/man:/opt/ganglia/man:/opt/rocks/man:/usr/kerberos/man:/usr/man:/opt/apps/pki_apps/man";
@@ -166,7 +136,7 @@ SHLIB_PATH="/share/apps/teragrid/globus-4.0.7-r1/lib:/share/apps/teragrid/globus
 export SHLIB_PATH;
 _LMFILES_="ProjectDIR/rt/saverestore/TACC/TACC_symbols:ProjectDIR/rt/saverestore/TACC/cluster_symbols.lua:ProjectDIR/rt/saverestore/TACC/mvapich1/mvapich1:ProjectDIR/rt/saverestore/TACC/globus/4.0.7:ProjectDIR/rt/saverestore/TACC/cluster:ProjectDIR/rt/saverestore/TACC/TACC:ProjectDIR/rt/saverestore/TACC/pgi/7.2-5";
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=7,baseMpathA={"ProjectDIR/rt/saverestore/TACC",},family={},inactive={},mT={TACC={["FN"]="ProjectDIR/rt/saverestore/TACC/TACC",["default"]=0,["fullName"]="TACC",["loadOrder"]=6,propT={},["short"]="TACC",["status"]="active",},TACC_symbols={["FN"]="ProjectDIR/rt/saverestore/TACC/TACC_symbols",["default"]=0,["fullName"]="TACC_symbols",["loadOrder"]=1,propT={},["short"]="TACC_symbols",["status"]="active",},cluster={["FN"]="ProjectDIR/rt/saverestore/TACC/cluster",["default"]=0,["fullName"]="cluster",["loadOrder"]=5,propT={},["short"]="cluster",["status"]="active",},cluster_symbols={["FN"]="ProjectDIR/rt/saverestore/TACC/cluster_symbols.lua",["default"]=0,["fullName"]="cluster_symbols",["loadOrder"]=2,propT={},["short"]="cluster_symbols",["status"]="active",},globus={["FN"]="ProjectDIR/rt/saverestore/TACC/globus/4.0.7",["default"]=1,["fullName"]="globus/4.0.7",["loadOrder"]=4,propT={},["short"]="globus",["status"]="active",},mvapich1={["FN"]="ProjectDIR/rt/saverestore/TACC/mvapich1/mvapich1",["default"]=1,["fullName"]="mvapich1/mvapich1",["loadOrder"]=3,propT={},["short"]="mvapich1",["status"]="active",},pgi={["FN"]="ProjectDIR/rt/saverestore/TACC/pgi/7.2-5",["default"]=0,["fullName"]="pgi/7.2-5",["loadOrder"]=7,propT={},["short"]="pgi",["status"]="active",},},mpathA={"ProjectDIR/rt/saverestore/TACC_COMPILER/pgi/7.2-5","ProjectDIR/rt/saverestore/TACC_MPI/pgi/7.1/mvapich/1.0.1","ProjectDIR/rt/saverestore/TACC",},["systemBaseMPATH"]="ProjectDIR/rt/saverestore/TACC",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={TACC={["fn"]="ProjectDIR/rt/saverestore/TACC/TACC",["fullName"]="TACC",["loadOrder"]=6,propT={},["status"]="active",["userName"]="TACC",},TACC_symbols={["fn"]="ProjectDIR/rt/saverestore/TACC/TACC_symbols",["fullName"]="TACC_symbols",["loadOrder"]=1,propT={},["status"]="active",["userName"]="TACC_symbols",},cluster={["fn"]="ProjectDIR/rt/saverestore/TACC/cluster",["fullName"]="cluster",["loadOrder"]=5,propT={},["status"]="active",["userName"]="cluster",},cluster_symbols={["fn"]="ProjectDIR/rt/saverestore/TACC/cluster_symbols.lua",["fullName"]="cluster_symbols",["loadOrder"]=2,propT={},["status"]="active",["userName"]="cluster_symbols",},globus={["fn"]="ProjectDIR/rt/saverestore/TACC/globus/4.0.7",["fullName"]="globus/4.0.7",["loadOrder"]=4,propT={},["status"]="active",["userName"]="globus",},mvapich1={["fn"]="ProjectDIR/rt/saverestore/TACC/mvapich1/mvapich1",["fullName"]="mvapich1/mvapich1",["loadOrder"]=3,propT={},["status"]="active",["userName"]="mvapich1",},pgi={["fn"]="ProjectDIR/rt/saverestore/TACC/pgi/7.2-5",["fullName"]="pgi/7.2-5",["loadOrder"]=7,propT={},["status"]="active",["userName"]="pgi/7.2-5",},},mpathA={"ProjectDIR/rt/saverestore/TACC_COMPILER/pgi/7.2-5","ProjectDIR/rt/saverestore/TACC_MPI/pgi/7.1/mvapich/1.0.1","ProjectDIR/rt/saverestore/TACC",},["systemBaseMPATH"]="ProjectDIR/rt/saverestore/TACC",}';
 export _ModuleTable_;
 __LMOD_DEFAULT_MODULES_LOADED__="1";
 export __LMOD_DEFAULT_MODULES_LOADED__;
@@ -174,42 +144,24 @@ export __LMOD_DEFAULT_MODULES_LOADED__;
 step 7
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/TACC";
-export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/saverestore/TACC_COMPILER/pgi/7.2-5:ProjectDIR/rt/saverestore/TACC_MPI/pgi/7.1/mvapich/1.0.1:ProjectDIR/rt/saverestore/TACC";
 export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/TACC";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/saverestore/TACC_COMPILER/pgi/7.2-5:ProjectDIR/rt/saverestore/TACC_MPI/pgi/7.1/mvapich/1.0.1:ProjectDIR/rt/saverestore/TACC";
-export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["activeSize"]=7,baseMpathA={"ProjectDIR/rt/saverestore/TACC",},family={},inactive={},mT={TACC={["FN"]="ProjectDIR/rt/saverestore/TACC/TACC",["default"]=0,["fullName"]="TACC",["loadOrder"]=6,propT={},["short"]="TACC",["status"]="active",},TACC_symbols={["FN"]="ProjectDIR/rt/saverestore/TACC/TACC_symbols",["default"]=0,["fullName"]="TACC_symbols",["loadOrder"]=1,propT={},["short"]="TACC_symbols",["status"]="active",},cluster={["FN"]="ProjectDIR/rt/saverestore/TACC/cluster",["default"]=0,["fullName"]="cluster",["loadOrder"]=5,propT={},["short"]="cluster",["status"]="active",},cluster_symbols={["FN"]="ProjectDIR/rt/saverestore/TACC/cluster_symbols.lua",["default"]=0,["fullName"]="cluster_symbols",["loadOrder"]=2,propT={},["short"]="cluster_symbols",["status"]="active",},globus={["FN"]="ProjectDIR/rt/saverestore/TACC/globus/4.0.7",["default"]=1,["fullName"]="globus/4.0.7",["loadOrder"]=4,propT={},["short"]="globus",["status"]="active",},mvapich1={["FN"]="ProjectDIR/rt/saverestore/TACC/mvapich1/mvapich1",["default"]=1,["fullName"]="mvapich1/mvapich1",["loadOrder"]=3,propT={},["short"]="mvapich1",["status"]="active",},pgi={["FN"]="ProjectDIR/rt/saverestore/TACC/pgi/7.2-5",["default"]=0,["fullName"]="pgi/7.2-5",["loadOrder"]=7,propT={},["short"]="pgi",["status"]="active",},},mpathA={"ProjectDIR/rt/saverestore/TACC_COMPILER/pgi/7.2-5","ProjectDIR/rt/saverestore/TACC_MPI/pgi/7.1/mvapich/1.0.1","ProjectDIR/rt/saverestore/TACC",},["systemBaseMPATH"]="ProjectDIR/rt/saverestore/TACC",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={TACC={["fn"]="ProjectDIR/rt/saverestore/TACC/TACC",["fullName"]="TACC",["loadOrder"]=6,propT={},["status"]="active",["userName"]="TACC",},TACC_symbols={["fn"]="ProjectDIR/rt/saverestore/TACC/TACC_symbols",["fullName"]="TACC_symbols",["loadOrder"]=1,propT={},["status"]="active",["userName"]="TACC_symbols",},cluster={["fn"]="ProjectDIR/rt/saverestore/TACC/cluster",["fullName"]="cluster",["loadOrder"]=5,propT={},["status"]="active",["userName"]="cluster",},cluster_symbols={["fn"]="ProjectDIR/rt/saverestore/TACC/cluster_symbols.lua",["fullName"]="cluster_symbols",["loadOrder"]=2,propT={},["status"]="active",["userName"]="cluster_symbols",},globus={["fn"]="ProjectDIR/rt/saverestore/TACC/globus/4.0.7",["fullName"]="globus/4.0.7",["loadOrder"]=4,propT={},["status"]="active",["userName"]="globus",},mvapich1={["fn"]="ProjectDIR/rt/saverestore/TACC/mvapich1/mvapich1",["fullName"]="mvapich1/mvapich1",["loadOrder"]=3,propT={},["status"]="active",["userName"]="mvapich1",},pgi={["fn"]="ProjectDIR/rt/saverestore/TACC/pgi/7.2-5",["fullName"]="pgi/7.2-5",["loadOrder"]=7,propT={},["status"]="active",["userName"]="pgi/7.2-5",},},mpathA={"ProjectDIR/rt/saverestore/TACC_COMPILER/pgi/7.2-5","ProjectDIR/rt/saverestore/TACC_MPI/pgi/7.1/mvapich/1.0.1","ProjectDIR/rt/saverestore/TACC",},["systemBaseMPATH"]="ProjectDIR/rt/saverestore/TACC",}';
 export _ModuleTable_;
 ===========================
 step 8
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing use ProjectDIR/rt/saverestore/TACC2
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/TACC";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/saverestore/TACC_COMPILER/pgi/7.2-5:ProjectDIR/rt/saverestore/TACC_MPI/pgi/7.1/mvapich/1.0.1:ProjectDIR/rt/saverestore/TACC";
-export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/TACC2:ProjectDIR/rt/saverestore/TACC";
-export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/saverestore/TACC2:ProjectDIR/rt/saverestore/TACC_COMPILER/pgi/7.2-5:ProjectDIR/rt/saverestore/TACC_MPI/pgi/7.1/mvapich/1.0.1:ProjectDIR/rt/saverestore/TACC";
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["activeSize"]=7,baseMpathA={"ProjectDIR/rt/saverestore/TACC2","ProjectDIR/rt/saverestore/TACC",},family={},inactive={},mT={TACC={["FN"]="ProjectDIR/rt/saverestore/TACC/TACC",["default"]=0,["fullName"]="TACC",["loadOrder"]=6,propT={},["short"]="TACC",["status"]="active",},TACC_symbols={["FN"]="ProjectDIR/rt/saverestore/TACC/TACC_symbols",["default"]=0,["fullName"]="TACC_symbols",["loadOrder"]=1,propT={},["short"]="TACC_symbols",["status"]="active",},cluster={["FN"]="ProjectDIR/rt/saverestore/TACC/cluster",["default"]=0,["fullName"]="cluster",["loadOrder"]=5,propT={},["short"]="cluster",["status"]="active",},cluster_symbols={["FN"]="ProjectDIR/rt/saverestore/TACC/cluster_symbols.lua",["default"]=0,["fullName"]="cluster_symbols",["loadOrder"]=2,propT={},["short"]="cluster_symbols",["status"]="active",},globus={["FN"]="ProjectDIR/rt/saverestore/TACC/globus/4.0.7",["default"]=1,["fullName"]="globus/4.0.7",["loadOrder"]=4,propT={},["short"]="globus",["status"]="active",},mvapich1={["FN"]="ProjectDIR/rt/saverestore/TACC/mvapich1/mvapich1",["default"]=1,["fullName"]="mvapich1/mvapich1",["loadOrder"]=3,propT={},["short"]="mvapich1",["status"]="active",},pgi={["FN"]="ProjectDIR/rt/saverestore/TACC/pgi/7.2-5",["default"]=0,["fullName"]="pgi/7.2-5",["loadOrder"]=7,propT={},["short"]="pgi",["status"]="active",},},mpathA={"ProjectDIR/rt/saverestore/TACC2","ProjectDIR/rt/saverestore/TACC_COMPILER/pgi/7.2-5","ProjectDIR/rt/saverestore/TACC_MPI/pgi/7.1/mvapich/1.0.1","ProjectDIR/rt/saverestore/TACC",},["systemBaseMPATH"]="ProjectDIR/rt/saverestore/TACC",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={TACC={["fn"]="ProjectDIR/rt/saverestore/TACC/TACC",["fullName"]="TACC",["loadOrder"]=6,propT={},["status"]="active",["userName"]="TACC",},TACC_symbols={["fn"]="ProjectDIR/rt/saverestore/TACC/TACC_symbols",["fullName"]="TACC_symbols",["loadOrder"]=1,propT={},["status"]="active",["userName"]="TACC_symbols",},cluster={["fn"]="ProjectDIR/rt/saverestore/TACC/cluster",["fullName"]="cluster",["loadOrder"]=5,propT={},["status"]="active",["userName"]="cluster",},cluster_symbols={["fn"]="ProjectDIR/rt/saverestore/TACC/cluster_symbols.lua",["fullName"]="cluster_symbols",["loadOrder"]=2,propT={},["status"]="active",["userName"]="cluster_symbols",},globus={["fn"]="ProjectDIR/rt/saverestore/TACC/globus/4.0.7",["fullName"]="globus/4.0.7",["loadOrder"]=4,propT={},["status"]="active",["userName"]="globus",},mvapich1={["fn"]="ProjectDIR/rt/saverestore/TACC/mvapich1/mvapich1",["fullName"]="mvapich1/mvapich1",["loadOrder"]=3,propT={},["status"]="active",["userName"]="mvapich1",},pgi={["fn"]="ProjectDIR/rt/saverestore/TACC/pgi/7.2-5",["fullName"]="pgi/7.2-5",["loadOrder"]=7,propT={},["status"]="active",["userName"]="pgi/7.2-5",},},mpathA={"ProjectDIR/rt/saverestore/TACC2","ProjectDIR/rt/saverestore/TACC_COMPILER/pgi/7.2-5","ProjectDIR/rt/saverestore/TACC_MPI/pgi/7.1/mvapich/1.0.1","ProjectDIR/rt/saverestore/TACC",},["systemBaseMPATH"]="ProjectDIR/rt/saverestore/TACC",}';
 export _ModuleTable_;
 ===========================
 step 9
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load a
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/TACC2:ProjectDIR/rt/saverestore/TACC";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/saverestore/TACC2:ProjectDIR/rt/saverestore/TACC_COMPILER/pgi/7.2-5:ProjectDIR/rt/saverestore/TACC_MPI/pgi/7.1/mvapich/1.0.1:ProjectDIR/rt/saverestore/TACC";
-export MODULEPATH;
 FOO="1.0.0.1";
 export FOO;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/TACC2:ProjectDIR/rt/saverestore/TACC";
-export LMOD_DEFAULT_MODULEPATH;
 LOADEDMODULES="TACC_symbols:cluster_symbols:mvapich1/mvapich1:globus/4.0.7:cluster:TACC:pgi/7.2-5:a/a";
 export LOADEDMODULES;
 MODULEPATH="ProjectDIR/rt/saverestore/TACC2:ProjectDIR/rt/saverestore/TACC_COMPILER/pgi/7.2-5:ProjectDIR/rt/saverestore/TACC_MPI/pgi/7.1/mvapich/1.0.1:ProjectDIR/rt/saverestore/TACC";
@@ -218,44 +170,28 @@ RTM="/a/b/c/d";
 export RTM;
 _LMFILES_="ProjectDIR/rt/saverestore/TACC/TACC_symbols:ProjectDIR/rt/saverestore/TACC/cluster_symbols.lua:ProjectDIR/rt/saverestore/TACC/mvapich1/mvapich1:ProjectDIR/rt/saverestore/TACC/globus/4.0.7:ProjectDIR/rt/saverestore/TACC/cluster:ProjectDIR/rt/saverestore/TACC/TACC:ProjectDIR/rt/saverestore/TACC/pgi/7.2-5:ProjectDIR/rt/saverestore/TACC2/a/a.lua";
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=8,baseMpathA={"ProjectDIR/rt/saverestore/TACC2","ProjectDIR/rt/saverestore/TACC",},family={},inactive={},mT={TACC={["FN"]="ProjectDIR/rt/saverestore/TACC/TACC",["default"]=0,["fullName"]="TACC",["loadOrder"]=6,propT={},["short"]="TACC",["status"]="active",},TACC_symbols={["FN"]="ProjectDIR/rt/saverestore/TACC/TACC_symbols",["default"]=0,["fullName"]="TACC_symbols",["loadOrder"]=1,propT={},["short"]="TACC_symbols",["status"]="active",},a={["FN"]="ProjectDIR/rt/saverestore/TACC2/a/a.lua",["default"]=1,["fullName"]="a/a",["loadOrder"]=8,propT={},["short"]="a",["status"]="active",},cluster={["FN"]="ProjectDIR/rt/saverestore/TACC/cluster",["default"]=0,["fullName"]="cluster",["loadOrder"]=5,propT={},["short"]="cluster",["status"]="active",},cluster_symbols={["FN"]="ProjectDIR/rt/saverestore/TACC/cluster_symbols.lua",["default"]=0,["fullName"]="cluster_symbols",["loadOrder"]=2,propT={},["short"]="cluster_symbols",["status"]="active",},globus={["FN"]="ProjectDIR/rt/saverestore/TACC/globus/4.0.7",["default"]=1,["fullName"]="globus/4.0.7",["loadOrder"]=4,propT={},["short"]="globus",["status"]="active",},mvapich1={["FN"]="ProjectDIR/rt/saverestore/TACC/mvapich1/mvapich1",["default"]=1,["fullName"]="mvapich1/mvapich1",["loadOrder"]=3,propT={},["short"]="mvapich1",["status"]="active",},pgi={["FN"]="ProjectDIR/rt/saverestore/TACC/pgi/7.2-5",["default"]=0,["fullName"]="pgi/7.2-5",["loadOrder"]=7,propT={},["short"]="pgi",["status"]="active",},},mpathA={"ProjectDIR/rt/saverestore/TACC2","ProjectDIR/rt/saverestore/TACC_COMPILER/pgi/7.2-5","ProjectDIR/rt/saverestore/TACC_MPI/pgi/7.1/mvapich/1.0.1","ProjectDIR/rt/saverestore/TACC",},["systemBaseMPATH"]="ProjectDIR/rt/saverestore/TACC",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={TACC={["fn"]="ProjectDIR/rt/saverestore/TACC/TACC",["fullName"]="TACC",["loadOrder"]=6,propT={},["status"]="active",["userName"]="TACC",},TACC_symbols={["fn"]="ProjectDIR/rt/saverestore/TACC/TACC_symbols",["fullName"]="TACC_symbols",["loadOrder"]=1,propT={},["status"]="active",["userName"]="TACC_symbols",},a={["fn"]="ProjectDIR/rt/saverestore/TACC2/a/a.lua",["fullName"]="a/a",["loadOrder"]=8,propT={},["status"]="active",["userName"]="a",},cluster={["fn"]="ProjectDIR/rt/saverestore/TACC/cluster",["fullName"]="cluster",["loadOrder"]=5,propT={},["status"]="active",["userName"]="cluster",},cluster_symbols={["fn"]="ProjectDIR/rt/saverestore/TACC/cluster_symbols.lua",["fullName"]="cluster_symbols",["loadOrder"]=2,propT={},["status"]="active",["userName"]="cluster_symbols",},globus={["fn"]="ProjectDIR/rt/saverestore/TACC/globus/4.0.7",["fullName"]="globus/4.0.7",["loadOrder"]=4,propT={},["status"]="active",["userName"]="globus",},mvapich1={["fn"]="ProjectDIR/rt/saverestore/TACC/mvapich1/mvapich1",["fullName"]="mvapich1/mvapich1",["loadOrder"]=3,propT={},["status"]="active",["userName"]="mvapich1",},pgi={["fn"]="ProjectDIR/rt/saverestore/TACC/pgi/7.2-5",["fullName"]="pgi/7.2-5",["loadOrder"]=7,propT={},["status"]="active",["userName"]="pgi/7.2-5",},},mpathA={"ProjectDIR/rt/saverestore/TACC2","ProjectDIR/rt/saverestore/TACC_COMPILER/pgi/7.2-5","ProjectDIR/rt/saverestore/TACC_MPI/pgi/7.1/mvapich/1.0.1","ProjectDIR/rt/saverestore/TACC",},["systemBaseMPATH"]="ProjectDIR/rt/saverestore/TACC",}';
 export _ModuleTable_;
 ===========================
 step 10
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/TACC2:ProjectDIR/rt/saverestore/TACC";
-export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/saverestore/TACC2:ProjectDIR/rt/saverestore/TACC_COMPILER/pgi/7.2-5:ProjectDIR/rt/saverestore/TACC_MPI/pgi/7.1/mvapich/1.0.1:ProjectDIR/rt/saverestore/TACC";
 export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/TACC2:ProjectDIR/rt/saverestore/TACC";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/saverestore/TACC2:ProjectDIR/rt/saverestore/TACC_COMPILER/pgi/7.2-5:ProjectDIR/rt/saverestore/TACC_MPI/pgi/7.1/mvapich/1.0.1:ProjectDIR/rt/saverestore/TACC";
-export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["activeSize"]=8,baseMpathA={"ProjectDIR/rt/saverestore/TACC2","ProjectDIR/rt/saverestore/TACC",},family={},inactive={},mT={TACC={["FN"]="ProjectDIR/rt/saverestore/TACC/TACC",["default"]=0,["fullName"]="TACC",["loadOrder"]=6,propT={},["short"]="TACC",["status"]="active",},TACC_symbols={["FN"]="ProjectDIR/rt/saverestore/TACC/TACC_symbols",["default"]=0,["fullName"]="TACC_symbols",["loadOrder"]=1,propT={},["short"]="TACC_symbols",["status"]="active",},a={["FN"]="ProjectDIR/rt/saverestore/TACC2/a/a.lua",["default"]=1,["fullName"]="a/a",["loadOrder"]=8,propT={},["short"]="a",["status"]="active",},cluster={["FN"]="ProjectDIR/rt/saverestore/TACC/cluster",["default"]=0,["fullName"]="cluster",["loadOrder"]=5,propT={},["short"]="cluster",["status"]="active",},cluster_symbols={["FN"]="ProjectDIR/rt/saverestore/TACC/cluster_symbols.lua",["default"]=0,["fullName"]="cluster_symbols",["loadOrder"]=2,propT={},["short"]="cluster_symbols",["status"]="active",},globus={["FN"]="ProjectDIR/rt/saverestore/TACC/globus/4.0.7",["default"]=1,["fullName"]="globus/4.0.7",["loadOrder"]=4,propT={},["short"]="globus",["status"]="active",},mvapich1={["FN"]="ProjectDIR/rt/saverestore/TACC/mvapich1/mvapich1",["default"]=1,["fullName"]="mvapich1/mvapich1",["loadOrder"]=3,propT={},["short"]="mvapich1",["status"]="active",},pgi={["FN"]="ProjectDIR/rt/saverestore/TACC/pgi/7.2-5",["default"]=0,["fullName"]="pgi/7.2-5",["loadOrder"]=7,propT={},["short"]="pgi",["status"]="active",},},mpathA={"ProjectDIR/rt/saverestore/TACC2","ProjectDIR/rt/saverestore/TACC_COMPILER/pgi/7.2-5","ProjectDIR/rt/saverestore/TACC_MPI/pgi/7.1/mvapich/1.0.1","ProjectDIR/rt/saverestore/TACC",},["systemBaseMPATH"]="ProjectDIR/rt/saverestore/TACC",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={TACC={["fn"]="ProjectDIR/rt/saverestore/TACC/TACC",["fullName"]="TACC",["loadOrder"]=6,propT={},["status"]="active",["userName"]="TACC",},TACC_symbols={["fn"]="ProjectDIR/rt/saverestore/TACC/TACC_symbols",["fullName"]="TACC_symbols",["loadOrder"]=1,propT={},["status"]="active",["userName"]="TACC_symbols",},a={["fn"]="ProjectDIR/rt/saverestore/TACC2/a/a.lua",["fullName"]="a/a",["loadOrder"]=8,propT={},["status"]="active",["userName"]="a",},cluster={["fn"]="ProjectDIR/rt/saverestore/TACC/cluster",["fullName"]="cluster",["loadOrder"]=5,propT={},["status"]="active",["userName"]="cluster",},cluster_symbols={["fn"]="ProjectDIR/rt/saverestore/TACC/cluster_symbols.lua",["fullName"]="cluster_symbols",["loadOrder"]=2,propT={},["status"]="active",["userName"]="cluster_symbols",},globus={["fn"]="ProjectDIR/rt/saverestore/TACC/globus/4.0.7",["fullName"]="globus/4.0.7",["loadOrder"]=4,propT={},["status"]="active",["userName"]="globus",},mvapich1={["fn"]="ProjectDIR/rt/saverestore/TACC/mvapich1/mvapich1",["fullName"]="mvapich1/mvapich1",["loadOrder"]=3,propT={},["status"]="active",["userName"]="mvapich1",},pgi={["fn"]="ProjectDIR/rt/saverestore/TACC/pgi/7.2-5",["fullName"]="pgi/7.2-5",["loadOrder"]=7,propT={},["status"]="active",["userName"]="pgi/7.2-5",},},mpathA={"ProjectDIR/rt/saverestore/TACC2","ProjectDIR/rt/saverestore/TACC_COMPILER/pgi/7.2-5","ProjectDIR/rt/saverestore/TACC_MPI/pgi/7.1/mvapich/1.0.1","ProjectDIR/rt/saverestore/TACC",},["systemBaseMPATH"]="ProjectDIR/rt/saverestore/TACC",}';
 export _ModuleTable_;
 ===========================
 step 11
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing save
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/TACC2:ProjectDIR/rt/saverestore/TACC";
-export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/saverestore/TACC2:ProjectDIR/rt/saverestore/TACC_COMPILER/pgi/7.2-5:ProjectDIR/rt/saverestore/TACC_MPI/pgi/7.1/mvapich/1.0.1:ProjectDIR/rt/saverestore/TACC";
 export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/TACC2:ProjectDIR/rt/saverestore/TACC";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/saverestore/TACC2:ProjectDIR/rt/saverestore/TACC_COMPILER/pgi/7.2-5:ProjectDIR/rt/saverestore/TACC_MPI/pgi/7.1/mvapich/1.0.1:ProjectDIR/rt/saverestore/TACC";
-export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["activeSize"]=8,baseMpathA={"ProjectDIR/rt/saverestore/TACC2","ProjectDIR/rt/saverestore/TACC",},family={},inactive={},mT={TACC={["FN"]="ProjectDIR/rt/saverestore/TACC/TACC",["default"]=0,["fullName"]="TACC",["loadOrder"]=6,propT={},["short"]="TACC",["status"]="active",},TACC_symbols={["FN"]="ProjectDIR/rt/saverestore/TACC/TACC_symbols",["default"]=0,["fullName"]="TACC_symbols",["loadOrder"]=1,propT={},["short"]="TACC_symbols",["status"]="active",},a={["FN"]="ProjectDIR/rt/saverestore/TACC2/a/a.lua",["default"]=1,["fullName"]="a/a",["loadOrder"]=8,propT={},["short"]="a",["status"]="active",},cluster={["FN"]="ProjectDIR/rt/saverestore/TACC/cluster",["default"]=0,["fullName"]="cluster",["loadOrder"]=5,propT={},["short"]="cluster",["status"]="active",},cluster_symbols={["FN"]="ProjectDIR/rt/saverestore/TACC/cluster_symbols.lua",["default"]=0,["fullName"]="cluster_symbols",["loadOrder"]=2,propT={},["short"]="cluster_symbols",["status"]="active",},globus={["FN"]="ProjectDIR/rt/saverestore/TACC/globus/4.0.7",["default"]=1,["fullName"]="globus/4.0.7",["loadOrder"]=4,propT={},["short"]="globus",["status"]="active",},mvapich1={["FN"]="ProjectDIR/rt/saverestore/TACC/mvapich1/mvapich1",["default"]=1,["fullName"]="mvapich1/mvapich1",["loadOrder"]=3,propT={},["short"]="mvapich1",["status"]="active",},pgi={["FN"]="ProjectDIR/rt/saverestore/TACC/pgi/7.2-5",["default"]=0,["fullName"]="pgi/7.2-5",["loadOrder"]=7,propT={},["short"]="pgi",["status"]="active",},},mpathA={"ProjectDIR/rt/saverestore/TACC2","ProjectDIR/rt/saverestore/TACC_COMPILER/pgi/7.2-5","ProjectDIR/rt/saverestore/TACC_MPI/pgi/7.1/mvapich/1.0.1","ProjectDIR/rt/saverestore/TACC",},["systemBaseMPATH"]="ProjectDIR/rt/saverestore/TACC",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={TACC={["fn"]="ProjectDIR/rt/saverestore/TACC/TACC",["fullName"]="TACC",["loadOrder"]=6,propT={},["status"]="active",["userName"]="TACC",},TACC_symbols={["fn"]="ProjectDIR/rt/saverestore/TACC/TACC_symbols",["fullName"]="TACC_symbols",["loadOrder"]=1,propT={},["status"]="active",["userName"]="TACC_symbols",},a={["fn"]="ProjectDIR/rt/saverestore/TACC2/a/a.lua",["fullName"]="a/a",["loadOrder"]=8,propT={},["status"]="active",["userName"]="a",},cluster={["fn"]="ProjectDIR/rt/saverestore/TACC/cluster",["fullName"]="cluster",["loadOrder"]=5,propT={},["status"]="active",["userName"]="cluster",},cluster_symbols={["fn"]="ProjectDIR/rt/saverestore/TACC/cluster_symbols.lua",["fullName"]="cluster_symbols",["loadOrder"]=2,propT={},["status"]="active",["userName"]="cluster_symbols",},globus={["fn"]="ProjectDIR/rt/saverestore/TACC/globus/4.0.7",["fullName"]="globus/4.0.7",["loadOrder"]=4,propT={},["status"]="active",["userName"]="globus",},mvapich1={["fn"]="ProjectDIR/rt/saverestore/TACC/mvapich1/mvapich1",["fullName"]="mvapich1/mvapich1",["loadOrder"]=3,propT={},["status"]="active",["userName"]="mvapich1",},pgi={["fn"]="ProjectDIR/rt/saverestore/TACC/pgi/7.2-5",["fullName"]="pgi/7.2-5",["loadOrder"]=7,propT={},["status"]="active",["userName"]="pgi/7.2-5",},},mpathA={"ProjectDIR/rt/saverestore/TACC2","ProjectDIR/rt/saverestore/TACC_COMPILER/pgi/7.2-5","ProjectDIR/rt/saverestore/TACC_MPI/pgi/7.1/mvapich/1.0.1","ProjectDIR/rt/saverestore/TACC",},["systemBaseMPATH"]="ProjectDIR/rt/saverestore/TACC",}';
 export _ModuleTable_;
 ===========================
 step 12
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/TACC2:ProjectDIR/rt/saverestore/TACC";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/saverestore/TACC2:ProjectDIR/rt/saverestore/TACC_COMPILER/pgi/7.2-5:ProjectDIR/rt/saverestore/TACC_MPI/pgi/7.1/mvapich/1.0.1:ProjectDIR/rt/saverestore/TACC";
-export MODULEPATH;
 unset APPS;
 unset FOO;
 unset GLOBUS_HOSTNAME;
@@ -266,8 +202,6 @@ unset GPT_LOCATION;
 unset INFOPATH;
 unset LD_LIBRARY_PATH;
 unset LIBPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/TACC2:ProjectDIR/rt/saverestore/TACC";
-export LMOD_DEFAULT_MODULEPATH;
 unset LOADEDMODULES;
 unset MANPATH;
 MODULEPATH="ProjectDIR/rt/saverestore/TACC2:ProjectDIR/rt/saverestore/TACC";
@@ -283,16 +217,12 @@ unset RTM;
 unset SASL_PATH;
 unset SHLIB_PATH;
 unset _LMFILES_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/saverestore/TACC2","ProjectDIR/rt/saverestore/TACC",},family={},inactive={},mT={},mpathA={"ProjectDIR/rt/saverestore/TACC2","ProjectDIR/rt/saverestore/TACC",},["systemBaseMPATH"]="ProjectDIR/rt/saverestore/TACC",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/saverestore/TACC2","ProjectDIR/rt/saverestore/TACC",},["systemBaseMPATH"]="ProjectDIR/rt/saverestore/TACC",}';
 export _ModuleTable_;
 ===========================
 step 13
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing restore
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/TACC";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/saverestore/TACC";
-export MODULEPATH;
 APPS="/opt/apps";
 export APPS;
 FOO="1.0.0.1";
@@ -313,8 +243,6 @@ LD_LIBRARY_PATH="/opt/apps/pgi/7.2/linux86-64/7.2-5/libso:/share/apps/teragrid/g
 export LD_LIBRARY_PATH;
 LIBPATH="/share/apps/teragrid/globus-4.0.7-r1/lib:/share/apps/teragrid/globus-4.0.7-r1/myproxy-3.4/lib";
 export LIBPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/TACC2:ProjectDIR/rt/saverestore/TACC";
-export LMOD_DEFAULT_MODULEPATH;
 LOADEDMODULES="TACC_symbols:cluster_symbols:mvapich1/mvapich1:globus/4.0.7:cluster:TACC:pgi/7.2-5:a/a";
 export LOADEDMODULES;
 MANPATH="/opt/apps/pgi/7.2/linux86-64/7.2-5/man:/share/apps/teragrid/globus-4.0.7-r1/man:/share/apps/teragrid/globus-4.0.7-r1/myproxy-3.4/man:/opt/apps/intel10_1/mvapich/1.0.1/man:/usr/local/man:/usr/share/man:/usr/X11R6/man:/opt/ganglia/man:/opt/rocks/man:/usr/kerberos/man:/usr/man:/opt/apps/pki_apps/man";
@@ -341,7 +269,7 @@ SHLIB_PATH="/share/apps/teragrid/globus-4.0.7-r1/lib:/share/apps/teragrid/globus
 export SHLIB_PATH;
 _LMFILES_="ProjectDIR/rt/saverestore/TACC/TACC_symbols:ProjectDIR/rt/saverestore/TACC/cluster_symbols.lua:ProjectDIR/rt/saverestore/TACC/mvapich1/mvapich1:ProjectDIR/rt/saverestore/TACC/globus/4.0.7:ProjectDIR/rt/saverestore/TACC/cluster:ProjectDIR/rt/saverestore/TACC/TACC:ProjectDIR/rt/saverestore/TACC/pgi/7.2-5:ProjectDIR/rt/saverestore/TACC2/a/a.lua";
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=8,baseMpathA={"ProjectDIR/rt/saverestore/TACC2","ProjectDIR/rt/saverestore/TACC",},family={},inactive={},mT={TACC={["FN"]="ProjectDIR/rt/saverestore/TACC/TACC",["default"]=0,["fullName"]="TACC",["loadOrder"]=6,propT={},["short"]="TACC",["status"]="active",},TACC_symbols={["FN"]="ProjectDIR/rt/saverestore/TACC/TACC_symbols",["default"]=0,["fullName"]="TACC_symbols",["loadOrder"]=1,propT={},["short"]="TACC_symbols",["status"]="active",},a={["FN"]="ProjectDIR/rt/saverestore/TACC2/a/a.lua",["default"]=1,["fullName"]="a/a",["loadOrder"]=8,propT={},["short"]="a",["status"]="active",},cluster={["FN"]="ProjectDIR/rt/saverestore/TACC/cluster",["default"]=0,["fullName"]="cluster",["loadOrder"]=5,propT={},["short"]="cluster",["status"]="active",},cluster_symbols={["FN"]="ProjectDIR/rt/saverestore/TACC/cluster_symbols.lua",["default"]=0,["fullName"]="cluster_symbols",["loadOrder"]=2,propT={},["short"]="cluster_symbols",["status"]="active",},globus={["FN"]="ProjectDIR/rt/saverestore/TACC/globus/4.0.7",["default"]=1,["fullName"]="globus/4.0.7",["loadOrder"]=4,propT={},["short"]="globus",["status"]="active",},mvapich1={["FN"]="ProjectDIR/rt/saverestore/TACC/mvapich1/mvapich1",["default"]=1,["fullName"]="mvapich1/mvapich1",["loadOrder"]=3,propT={},["short"]="mvapich1",["status"]="active",},pgi={["FN"]="ProjectDIR/rt/saverestore/TACC/pgi/7.2-5",["default"]=0,["fullName"]="pgi/7.2-5",["loadOrder"]=7,propT={},["short"]="pgi",["status"]="active",},},mpathA={"ProjectDIR/rt/saverestore/TACC_COMPILER/pgi/7.2-5","ProjectDIR/rt/saverestore/TACC_MPI/pgi/7.1/mvapich/1.0.1","ProjectDIR/rt/saverestore/TACC2","ProjectDIR/rt/saverestore/TACC",},["systemBaseMPATH"]="ProjectDIR/rt/saverestore/TACC",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={TACC={["fn"]="ProjectDIR/rt/saverestore/TACC/TACC",["fullName"]="TACC",["loadOrder"]=6,propT={},["status"]="active",["userName"]="TACC",},TACC_symbols={["fn"]="ProjectDIR/rt/saverestore/TACC/TACC_symbols",["fullName"]="TACC_symbols",["loadOrder"]=1,propT={},["status"]="active",["userName"]="TACC_symbols",},a={["fn"]="ProjectDIR/rt/saverestore/TACC2/a/a.lua",["fullName"]="a/a",["loadOrder"]=8,propT={},["status"]="active",["userName"]="a",},cluster={["fn"]="ProjectDIR/rt/saverestore/TACC/cluster",["fullName"]="cluster",["loadOrder"]=5,propT={},["status"]="active",["userName"]="cluster",},cluster_symbols={["fn"]="ProjectDIR/rt/saverestore/TACC/cluster_symbols.lua",["fullName"]="cluster_symbols",["loadOrder"]=2,propT={},["status"]="active",["userName"]="cluster_symbols",},globus={["fn"]="ProjectDIR/rt/saverestore/TACC/globus/4.0.7",["fullName"]="globus/4.0.7",["loadOrder"]=4,propT={},["status"]="active",["userName"]="globus",},mvapich1={["fn"]="ProjectDIR/rt/saverestore/TACC/mvapich1/mvapich1",["fullName"]="mvapich1/mvapich1",["loadOrder"]=3,propT={},["status"]="active",["userName"]="mvapich1",},pgi={["fn"]="ProjectDIR/rt/saverestore/TACC/pgi/7.2-5",["fullName"]="pgi/7.2-5",["loadOrder"]=7,propT={},["status"]="active",["userName"]="pgi/7.2-5",},},mpathA={"ProjectDIR/rt/saverestore/TACC_COMPILER/pgi/7.2-5","ProjectDIR/rt/saverestore/TACC_MPI/pgi/7.1/mvapich/1.0.1","ProjectDIR/rt/saverestore/TACC2","ProjectDIR/rt/saverestore/TACC",},["systemBaseMPATH"]="ProjectDIR/rt/saverestore/TACC",}';
 export _ModuleTable_;
 __LMOD_DEFAULT_MODULES_LOADED__="1";
 export __LMOD_DEFAULT_MODULES_LOADED__;
@@ -349,38 +277,22 @@ export __LMOD_DEFAULT_MODULES_LOADED__;
 step 14
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/TACC2:ProjectDIR/rt/saverestore/TACC";
-export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/saverestore/TACC_COMPILER/pgi/7.2-5:ProjectDIR/rt/saverestore/TACC_MPI/pgi/7.1/mvapich/1.0.1:ProjectDIR/rt/saverestore/TACC2:ProjectDIR/rt/saverestore/TACC";
 export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/TACC2:ProjectDIR/rt/saverestore/TACC";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/saverestore/TACC_COMPILER/pgi/7.2-5:ProjectDIR/rt/saverestore/TACC_MPI/pgi/7.1/mvapich/1.0.1:ProjectDIR/rt/saverestore/TACC2:ProjectDIR/rt/saverestore/TACC";
-export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["activeSize"]=8,baseMpathA={"ProjectDIR/rt/saverestore/TACC2","ProjectDIR/rt/saverestore/TACC",},family={},inactive={},mT={TACC={["FN"]="ProjectDIR/rt/saverestore/TACC/TACC",["default"]=0,["fullName"]="TACC",["loadOrder"]=6,propT={},["short"]="TACC",["status"]="active",},TACC_symbols={["FN"]="ProjectDIR/rt/saverestore/TACC/TACC_symbols",["default"]=0,["fullName"]="TACC_symbols",["loadOrder"]=1,propT={},["short"]="TACC_symbols",["status"]="active",},a={["FN"]="ProjectDIR/rt/saverestore/TACC2/a/a.lua",["default"]=1,["fullName"]="a/a",["loadOrder"]=8,propT={},["short"]="a",["status"]="active",},cluster={["FN"]="ProjectDIR/rt/saverestore/TACC/cluster",["default"]=0,["fullName"]="cluster",["loadOrder"]=5,propT={},["short"]="cluster",["status"]="active",},cluster_symbols={["FN"]="ProjectDIR/rt/saverestore/TACC/cluster_symbols.lua",["default"]=0,["fullName"]="cluster_symbols",["loadOrder"]=2,propT={},["short"]="cluster_symbols",["status"]="active",},globus={["FN"]="ProjectDIR/rt/saverestore/TACC/globus/4.0.7",["default"]=1,["fullName"]="globus/4.0.7",["loadOrder"]=4,propT={},["short"]="globus",["status"]="active",},mvapich1={["FN"]="ProjectDIR/rt/saverestore/TACC/mvapich1/mvapich1",["default"]=1,["fullName"]="mvapich1/mvapich1",["loadOrder"]=3,propT={},["short"]="mvapich1",["status"]="active",},pgi={["FN"]="ProjectDIR/rt/saverestore/TACC/pgi/7.2-5",["default"]=0,["fullName"]="pgi/7.2-5",["loadOrder"]=7,propT={},["short"]="pgi",["status"]="active",},},mpathA={"ProjectDIR/rt/saverestore/TACC_COMPILER/pgi/7.2-5","ProjectDIR/rt/saverestore/TACC_MPI/pgi/7.1/mvapich/1.0.1","ProjectDIR/rt/saverestore/TACC2","ProjectDIR/rt/saverestore/TACC",},["systemBaseMPATH"]="ProjectDIR/rt/saverestore/TACC",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={TACC={["fn"]="ProjectDIR/rt/saverestore/TACC/TACC",["fullName"]="TACC",["loadOrder"]=6,propT={},["status"]="active",["userName"]="TACC",},TACC_symbols={["fn"]="ProjectDIR/rt/saverestore/TACC/TACC_symbols",["fullName"]="TACC_symbols",["loadOrder"]=1,propT={},["status"]="active",["userName"]="TACC_symbols",},a={["fn"]="ProjectDIR/rt/saverestore/TACC2/a/a.lua",["fullName"]="a/a",["loadOrder"]=8,propT={},["status"]="active",["userName"]="a",},cluster={["fn"]="ProjectDIR/rt/saverestore/TACC/cluster",["fullName"]="cluster",["loadOrder"]=5,propT={},["status"]="active",["userName"]="cluster",},cluster_symbols={["fn"]="ProjectDIR/rt/saverestore/TACC/cluster_symbols.lua",["fullName"]="cluster_symbols",["loadOrder"]=2,propT={},["status"]="active",["userName"]="cluster_symbols",},globus={["fn"]="ProjectDIR/rt/saverestore/TACC/globus/4.0.7",["fullName"]="globus/4.0.7",["loadOrder"]=4,propT={},["status"]="active",["userName"]="globus",},mvapich1={["fn"]="ProjectDIR/rt/saverestore/TACC/mvapich1/mvapich1",["fullName"]="mvapich1/mvapich1",["loadOrder"]=3,propT={},["status"]="active",["userName"]="mvapich1",},pgi={["fn"]="ProjectDIR/rt/saverestore/TACC/pgi/7.2-5",["fullName"]="pgi/7.2-5",["loadOrder"]=7,propT={},["status"]="active",["userName"]="pgi/7.2-5",},},mpathA={"ProjectDIR/rt/saverestore/TACC_COMPILER/pgi/7.2-5","ProjectDIR/rt/saverestore/TACC_MPI/pgi/7.1/mvapich/1.0.1","ProjectDIR/rt/saverestore/TACC2","ProjectDIR/rt/saverestore/TACC",},["systemBaseMPATH"]="ProjectDIR/rt/saverestore/TACC",}';
 export _ModuleTable_;
 ===========================
 step 15
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/TACC2:ProjectDIR/rt/saverestore/TACC";
-export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/saverestore/TACC_COMPILER/pgi/7.2-5:ProjectDIR/rt/saverestore/TACC_MPI/pgi/7.1/mvapich/1.0.1:ProjectDIR/rt/saverestore/TACC2:ProjectDIR/rt/saverestore/TACC";
 export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/TACC2:ProjectDIR/rt/saverestore/TACC";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/saverestore/TACC_COMPILER/pgi/7.2-5:ProjectDIR/rt/saverestore/TACC_MPI/pgi/7.1/mvapich/1.0.1:ProjectDIR/rt/saverestore/TACC2:ProjectDIR/rt/saverestore/TACC";
-export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["activeSize"]=8,baseMpathA={"ProjectDIR/rt/saverestore/TACC2","ProjectDIR/rt/saverestore/TACC",},family={},inactive={},mT={TACC={["FN"]="ProjectDIR/rt/saverestore/TACC/TACC",["default"]=0,["fullName"]="TACC",["loadOrder"]=6,propT={},["short"]="TACC",["status"]="active",},TACC_symbols={["FN"]="ProjectDIR/rt/saverestore/TACC/TACC_symbols",["default"]=0,["fullName"]="TACC_symbols",["loadOrder"]=1,propT={},["short"]="TACC_symbols",["status"]="active",},a={["FN"]="ProjectDIR/rt/saverestore/TACC2/a/a.lua",["default"]=1,["fullName"]="a/a",["loadOrder"]=8,propT={},["short"]="a",["status"]="active",},cluster={["FN"]="ProjectDIR/rt/saverestore/TACC/cluster",["default"]=0,["fullName"]="cluster",["loadOrder"]=5,propT={},["short"]="cluster",["status"]="active",},cluster_symbols={["FN"]="ProjectDIR/rt/saverestore/TACC/cluster_symbols.lua",["default"]=0,["fullName"]="cluster_symbols",["loadOrder"]=2,propT={},["short"]="cluster_symbols",["status"]="active",},globus={["FN"]="ProjectDIR/rt/saverestore/TACC/globus/4.0.7",["default"]=1,["fullName"]="globus/4.0.7",["loadOrder"]=4,propT={},["short"]="globus",["status"]="active",},mvapich1={["FN"]="ProjectDIR/rt/saverestore/TACC/mvapich1/mvapich1",["default"]=1,["fullName"]="mvapich1/mvapich1",["loadOrder"]=3,propT={},["short"]="mvapich1",["status"]="active",},pgi={["FN"]="ProjectDIR/rt/saverestore/TACC/pgi/7.2-5",["default"]=0,["fullName"]="pgi/7.2-5",["loadOrder"]=7,propT={},["short"]="pgi",["status"]="active",},},mpathA={"ProjectDIR/rt/saverestore/TACC_COMPILER/pgi/7.2-5","ProjectDIR/rt/saverestore/TACC_MPI/pgi/7.1/mvapich/1.0.1","ProjectDIR/rt/saverestore/TACC2","ProjectDIR/rt/saverestore/TACC",},["systemBaseMPATH"]="ProjectDIR/rt/saverestore/TACC",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={TACC={["fn"]="ProjectDIR/rt/saverestore/TACC/TACC",["fullName"]="TACC",["loadOrder"]=6,propT={},["status"]="active",["userName"]="TACC",},TACC_symbols={["fn"]="ProjectDIR/rt/saverestore/TACC/TACC_symbols",["fullName"]="TACC_symbols",["loadOrder"]=1,propT={},["status"]="active",["userName"]="TACC_symbols",},a={["fn"]="ProjectDIR/rt/saverestore/TACC2/a/a.lua",["fullName"]="a/a",["loadOrder"]=8,propT={},["status"]="active",["userName"]="a",},cluster={["fn"]="ProjectDIR/rt/saverestore/TACC/cluster",["fullName"]="cluster",["loadOrder"]=5,propT={},["status"]="active",["userName"]="cluster",},cluster_symbols={["fn"]="ProjectDIR/rt/saverestore/TACC/cluster_symbols.lua",["fullName"]="cluster_symbols",["loadOrder"]=2,propT={},["status"]="active",["userName"]="cluster_symbols",},globus={["fn"]="ProjectDIR/rt/saverestore/TACC/globus/4.0.7",["fullName"]="globus/4.0.7",["loadOrder"]=4,propT={},["status"]="active",["userName"]="globus",},mvapich1={["fn"]="ProjectDIR/rt/saverestore/TACC/mvapich1/mvapich1",["fullName"]="mvapich1/mvapich1",["loadOrder"]=3,propT={},["status"]="active",["userName"]="mvapich1",},pgi={["fn"]="ProjectDIR/rt/saverestore/TACC/pgi/7.2-5",["fullName"]="pgi/7.2-5",["loadOrder"]=7,propT={},["status"]="active",["userName"]="pgi/7.2-5",},},mpathA={"ProjectDIR/rt/saverestore/TACC_COMPILER/pgi/7.2-5","ProjectDIR/rt/saverestore/TACC_MPI/pgi/7.1/mvapich/1.0.1","ProjectDIR/rt/saverestore/TACC2","ProjectDIR/rt/saverestore/TACC",},["systemBaseMPATH"]="ProjectDIR/rt/saverestore/TACC",}';
 export _ModuleTable_;
 ===========================
 step 16
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/TACC2:ProjectDIR/rt/saverestore/TACC";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/saverestore/TACC_COMPILER/pgi/7.2-5:ProjectDIR/rt/saverestore/TACC_MPI/pgi/7.1/mvapich/1.0.1:ProjectDIR/rt/saverestore/TACC2:ProjectDIR/rt/saverestore/TACC";
-export MODULEPATH;
 unset APPS;
 unset FOO;
 unset GLOBUS_HOSTNAME;
@@ -391,8 +303,6 @@ unset GPT_LOCATION;
 unset INFOPATH;
 unset LD_LIBRARY_PATH;
 unset LIBPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/TACC2:ProjectDIR/rt/saverestore/TACC";
-export LMOD_DEFAULT_MODULEPATH;
 unset LOADEDMODULES;
 unset MANPATH;
 MODULEPATH="ProjectDIR/rt/saverestore/TACC2:ProjectDIR/rt/saverestore/TACC";
@@ -408,66 +318,40 @@ unset RTM;
 unset SASL_PATH;
 unset SHLIB_PATH;
 unset _LMFILES_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/saverestore/TACC2","ProjectDIR/rt/saverestore/TACC",},family={},inactive={},mT={},mpathA={"ProjectDIR/rt/saverestore/TACC2","ProjectDIR/rt/saverestore/TACC",},["systemBaseMPATH"]="ProjectDIR/rt/saverestore/TACC",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/saverestore/TACC2","ProjectDIR/rt/saverestore/TACC",},["systemBaseMPATH"]="ProjectDIR/rt/saverestore/TACC",}';
 export _ModuleTable_;
 ===========================
 step 17
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing restore stdenv
 ===========================
-LMOD_DEFAULT_MODULEPATH="OutputDIR/Core";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="OutputDIR/Core";
-export MODULEPATH;
 false
 ===========================
 step 18
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing restore stdenv
 ===========================
-LMOD_DEFAULT_MODULEPATH="OutputDIR/Core";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="OutputDIR/Core";
-export MODULEPATH;
 false
 ===========================
 step 19
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
 ===========================
-LMOD_DEFAULT_MODULEPATH="OutputDIR/Core";
-export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="OutputDIR/Core";
 export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="OutputDIR/Core";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="OutputDIR/Core";
-export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"OutputDIR/Core",},family={},inactive={},mT={},mpathA={"OutputDIR/Core",},["systemBaseMPATH"]="OutputDIR/Core",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"OutputDIR/Core",},["systemBaseMPATH"]="OutputDIR/Core",}';
 export _ModuleTable_;
 ===========================
 step 20
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing use ProjectDIR/rt/saverestore/PREREQ
 ===========================
-LMOD_DEFAULT_MODULEPATH="OutputDIR/Core";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="OutputDIR/Core";
-export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
-export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/saverestore/PREREQ","OutputDIR/Core",},family={},inactive={},mT={},mpathA={"ProjectDIR/rt/saverestore/PREREQ","OutputDIR/Core",},["systemBaseMPATH"]="OutputDIR/Core",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/saverestore/PREREQ","OutputDIR/Core",},["systemBaseMPATH"]="OutputDIR/Core",}';
 export _ModuleTable_;
 ===========================
 step 21
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load M T A
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
-export MODULEPATH;
 LD_LIBRARY_PATH="/apps/T/lib";
 export LD_LIBRARY_PATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
-export LMOD_DEFAULT_MODULEPATH;
 LMOD_FAMILY_RESOURCEMGR="T";
 export LMOD_FAMILY_RESOURCEMGR;
 LMOD_FAMILY_RESOURCEMGR_VERSION="4.2.6";
@@ -486,48 +370,30 @@ PATH="/apps/T/sbin:/apps/T/bin:/apps/M/sbin:/apps/M/bin:ProjectDIR/src:PATH_to_T
 export PATH;
 _LMFILES_="ProjectDIR/rt/saverestore/PREREQ/M/7.2.6.lua:ProjectDIR/rt/saverestore/PREREQ/T/4.2.6.lua:ProjectDIR/rt/saverestore/PREREQ/A/1.0.lua";
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/saverestore/PREREQ","OutputDIR/Core",},family={["resourcemgr"]="T",["scheduler"]="M",},inactive={},mT={A={["FN"]="ProjectDIR/rt/saverestore/PREREQ/A/1.0.lua",["default"]=1,["fullName"]="A/1.0",["loadOrder"]=3,propT={},["short"]="A",["status"]="active",},M={["FN"]="ProjectDIR/rt/saverestore/PREREQ/M/7.2.6.lua",["default"]=1,["fullName"]="M/7.2.6",["loadOrder"]=1,propT={},["short"]="M",["status"]="active",},T={["FN"]="ProjectDIR/rt/saverestore/PREREQ/T/4.2.6.lua",["default"]=1,["fullName"]="T/4.2.6",["loadOrder"]=2,propT={},["short"]="T",["status"]="active",},},mpathA={"ProjectDIR/rt/saverestore/PREREQ","OutputDIR/Core",},["systemBaseMPATH"]="OutputDIR/Core",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["resourcemgr"]="T",["scheduler"]="M",},mT={A={["fn"]="ProjectDIR/rt/saverestore/PREREQ/A/1.0.lua",["fullName"]="A/1.0",["loadOrder"]=3,propT={},["status"]="active",["userName"]="A",},M={["fn"]="ProjectDIR/rt/saverestore/PREREQ/M/7.2.6.lua",["fullName"]="M/7.2.6",["loadOrder"]=1,propT={},["status"]="active",["userName"]="M",},T={["fn"]="ProjectDIR/rt/saverestore/PREREQ/T/4.2.6.lua",["fullName"]="T/4.2.6",["loadOrder"]=2,propT={},["status"]="active",["userName"]="T",},},mpathA={"ProjectDIR/rt/saverestore/PREREQ","OutputDIR/Core",},["systemBaseMPATH"]="OutputDIR/Core",}';
 export _ModuleTable_;
 ===========================
 step 22
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
-export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
 export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
-export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/saverestore/PREREQ","OutputDIR/Core",},family={["resourcemgr"]="T",["scheduler"]="M",},inactive={},mT={A={["FN"]="ProjectDIR/rt/saverestore/PREREQ/A/1.0.lua",["default"]=1,["fullName"]="A/1.0",["loadOrder"]=3,propT={},["short"]="A",["status"]="active",},M={["FN"]="ProjectDIR/rt/saverestore/PREREQ/M/7.2.6.lua",["default"]=1,["fullName"]="M/7.2.6",["loadOrder"]=1,propT={},["short"]="M",["status"]="active",},T={["FN"]="ProjectDIR/rt/saverestore/PREREQ/T/4.2.6.lua",["default"]=1,["fullName"]="T/4.2.6",["loadOrder"]=2,propT={},["short"]="T",["status"]="active",},},mpathA={"ProjectDIR/rt/saverestore/PREREQ","OutputDIR/Core",},["systemBaseMPATH"]="OutputDIR/Core",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["resourcemgr"]="T",["scheduler"]="M",},mT={A={["fn"]="ProjectDIR/rt/saverestore/PREREQ/A/1.0.lua",["fullName"]="A/1.0",["loadOrder"]=3,propT={},["status"]="active",["userName"]="A",},M={["fn"]="ProjectDIR/rt/saverestore/PREREQ/M/7.2.6.lua",["fullName"]="M/7.2.6",["loadOrder"]=1,propT={},["status"]="active",["userName"]="M",},T={["fn"]="ProjectDIR/rt/saverestore/PREREQ/T/4.2.6.lua",["fullName"]="T/4.2.6",["loadOrder"]=2,propT={},["status"]="active",["userName"]="T",},},mpathA={"ProjectDIR/rt/saverestore/PREREQ","OutputDIR/Core",},["systemBaseMPATH"]="OutputDIR/Core",}';
 export _ModuleTable_;
 ===========================
 step 23
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing save
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
-export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
 export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
-export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/saverestore/PREREQ","OutputDIR/Core",},family={["resourcemgr"]="T",["scheduler"]="M",},inactive={},mT={A={["FN"]="ProjectDIR/rt/saverestore/PREREQ/A/1.0.lua",["default"]=1,["fullName"]="A/1.0",["loadOrder"]=3,propT={},["short"]="A",["status"]="active",},M={["FN"]="ProjectDIR/rt/saverestore/PREREQ/M/7.2.6.lua",["default"]=1,["fullName"]="M/7.2.6",["loadOrder"]=1,propT={},["short"]="M",["status"]="active",},T={["FN"]="ProjectDIR/rt/saverestore/PREREQ/T/4.2.6.lua",["default"]=1,["fullName"]="T/4.2.6",["loadOrder"]=2,propT={},["short"]="T",["status"]="active",},},mpathA={"ProjectDIR/rt/saverestore/PREREQ","OutputDIR/Core",},["systemBaseMPATH"]="OutputDIR/Core",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["resourcemgr"]="T",["scheduler"]="M",},mT={A={["fn"]="ProjectDIR/rt/saverestore/PREREQ/A/1.0.lua",["fullName"]="A/1.0",["loadOrder"]=3,propT={},["status"]="active",["userName"]="A",},M={["fn"]="ProjectDIR/rt/saverestore/PREREQ/M/7.2.6.lua",["fullName"]="M/7.2.6",["loadOrder"]=1,propT={},["status"]="active",["userName"]="M",},T={["fn"]="ProjectDIR/rt/saverestore/PREREQ/T/4.2.6.lua",["fullName"]="T/4.2.6",["loadOrder"]=2,propT={},["status"]="active",["userName"]="T",},},mpathA={"ProjectDIR/rt/saverestore/PREREQ","OutputDIR/Core",},["systemBaseMPATH"]="OutputDIR/Core",}';
 export _ModuleTable_;
 ===========================
 step 24
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing restore
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
-export MODULEPATH;
 LD_LIBRARY_PATH="/apps/T/lib";
 export LD_LIBRARY_PATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
-export LMOD_DEFAULT_MODULEPATH;
 LMOD_FAMILY_RESOURCEMGR="T";
 export LMOD_FAMILY_RESOURCEMGR;
 LMOD_FAMILY_RESOURCEMGR_VERSION="4.2.6";
@@ -546,7 +412,7 @@ PATH="/apps/T/sbin:/apps/T/bin:/apps/M/sbin:/apps/M/bin:ProjectDIR/src:PATH_to_T
 export PATH;
 _LMFILES_="ProjectDIR/rt/saverestore/PREREQ/M/7.2.6.lua:ProjectDIR/rt/saverestore/PREREQ/T/4.2.6.lua:ProjectDIR/rt/saverestore/PREREQ/A/1.0.lua";
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/saverestore/PREREQ","OutputDIR/Core",},family={["resourcemgr"]="T",["scheduler"]="M",},inactive={},mT={A={["FN"]="ProjectDIR/rt/saverestore/PREREQ/A/1.0.lua",["default"]=1,["fullName"]="A/1.0",["loadOrder"]=3,propT={},["short"]="A",["status"]="active",},M={["FN"]="ProjectDIR/rt/saverestore/PREREQ/M/7.2.6.lua",["default"]=1,["fullName"]="M/7.2.6",["loadOrder"]=1,propT={},["short"]="M",["status"]="active",},T={["FN"]="ProjectDIR/rt/saverestore/PREREQ/T/4.2.6.lua",["default"]=1,["fullName"]="T/4.2.6",["loadOrder"]=2,propT={},["short"]="T",["status"]="active",},},mpathA={"ProjectDIR/rt/saverestore/PREREQ","OutputDIR/Core",},["systemBaseMPATH"]="OutputDIR/Core",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["resourcemgr"]="T",["scheduler"]="M",},mT={A={["fn"]="ProjectDIR/rt/saverestore/PREREQ/A/1.0.lua",["fullName"]="A/1.0",["loadOrder"]=3,propT={},["status"]="active",["userName"]="A",},M={["fn"]="ProjectDIR/rt/saverestore/PREREQ/M/7.2.6.lua",["fullName"]="M/7.2.6",["loadOrder"]=1,propT={},["status"]="active",["userName"]="M",},T={["fn"]="ProjectDIR/rt/saverestore/PREREQ/T/4.2.6.lua",["fullName"]="T/4.2.6",["loadOrder"]=2,propT={},["status"]="active",["userName"]="T",},},mpathA={"ProjectDIR/rt/saverestore/PREREQ","OutputDIR/Core",},["systemBaseMPATH"]="OutputDIR/Core",}';
 export _ModuleTable_;
 __LMOD_DEFAULT_MODULES_LOADED__="1";
 export __LMOD_DEFAULT_MODULES_LOADED__;
@@ -554,27 +420,15 @@ export __LMOD_DEFAULT_MODULES_LOADED__;
 step 25
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
-export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
 export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
-export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/saverestore/PREREQ","OutputDIR/Core",},family={["resourcemgr"]="T",["scheduler"]="M",},inactive={},mT={A={["FN"]="ProjectDIR/rt/saverestore/PREREQ/A/1.0.lua",["default"]=1,["fullName"]="A/1.0",["loadOrder"]=3,propT={},["short"]="A",["status"]="active",},M={["FN"]="ProjectDIR/rt/saverestore/PREREQ/M/7.2.6.lua",["default"]=1,["fullName"]="M/7.2.6",["loadOrder"]=1,propT={},["short"]="M",["status"]="active",},T={["FN"]="ProjectDIR/rt/saverestore/PREREQ/T/4.2.6.lua",["default"]=1,["fullName"]="T/4.2.6",["loadOrder"]=2,propT={},["short"]="T",["status"]="active",},},mpathA={"ProjectDIR/rt/saverestore/PREREQ","OutputDIR/Core",},["systemBaseMPATH"]="OutputDIR/Core",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["resourcemgr"]="T",["scheduler"]="M",},mT={A={["fn"]="ProjectDIR/rt/saverestore/PREREQ/A/1.0.lua",["fullName"]="A/1.0",["loadOrder"]=3,propT={},["status"]="active",["userName"]="A",},M={["fn"]="ProjectDIR/rt/saverestore/PREREQ/M/7.2.6.lua",["fullName"]="M/7.2.6",["loadOrder"]=1,propT={},["status"]="active",["userName"]="M",},T={["fn"]="ProjectDIR/rt/saverestore/PREREQ/T/4.2.6.lua",["fullName"]="T/4.2.6",["loadOrder"]=2,propT={},["status"]="active",["userName"]="T",},},mpathA={"ProjectDIR/rt/saverestore/PREREQ","OutputDIR/Core",},["systemBaseMPATH"]="OutputDIR/Core",}';
 export _ModuleTable_;
 ===========================
 step 26
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
-export MODULEPATH;
 unset LD_LIBRARY_PATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
-export LMOD_DEFAULT_MODULEPATH;
 unset LMOD_FAMILY_RESOURCEMGR;
 unset LMOD_FAMILY_RESOURCEMGR_VERSION;
 unset LMOD_FAMILY_SCHEDULER;
@@ -586,18 +440,12 @@ export MODULEPATH;
 PATH="ProjectDIR/src:PATH_to_TM:/bin";
 export PATH;
 unset _LMFILES_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/saverestore/PREREQ","OutputDIR/Core",},family={},inactive={},mT={},mpathA={"ProjectDIR/rt/saverestore/PREREQ","OutputDIR/Core",},["systemBaseMPATH"]="OutputDIR/Core",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/saverestore/PREREQ","OutputDIR/Core",},["systemBaseMPATH"]="OutputDIR/Core",}';
 export _ModuleTable_;
 ===========================
 step 27
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load a b
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
-export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
-export LMOD_DEFAULT_MODULEPATH;
 LOADEDMODULES="a/2.0:b/3.3";
 export LOADEDMODULES;
 MANPATH="OutputDIR/local/b/3.3/man:OutputDIR/local/a/2.0/man";
@@ -608,32 +456,20 @@ PATH="OutputDIR/local/b/3.3/bin:OutputDIR/local/a/2.0/bin:ProjectDIR/src:PATH_to
 export PATH;
 _LMFILES_="OutputDIR/Core/a/2.0:OutputDIR/Core/b/3.3";
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/saverestore/PREREQ","OutputDIR/Core",},family={},inactive={},mT={a={["FN"]="OutputDIR/Core/a/2.0",["default"]=1,["fullName"]="a/2.0",["loadOrder"]=1,propT={},["short"]="a",["status"]="active",},b={["FN"]="OutputDIR/Core/b/3.3",["default"]=1,["fullName"]="b/3.3",["loadOrder"]=2,propT={},["short"]="b",["status"]="active",},},mpathA={"ProjectDIR/rt/saverestore/PREREQ","OutputDIR/Core",},["systemBaseMPATH"]="OutputDIR/Core",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={a={["fn"]="OutputDIR/Core/a/2.0",["fullName"]="a/2.0",["loadOrder"]=1,propT={},["status"]="active",["userName"]="a",},b={["fn"]="OutputDIR/Core/b/3.3",["fullName"]="b/3.3",["loadOrder"]=2,propT={},["status"]="active",["userName"]="b",},},mpathA={"ProjectDIR/rt/saverestore/PREREQ","OutputDIR/Core",},["systemBaseMPATH"]="OutputDIR/Core",}';
 export _ModuleTable_;
 ===========================
 step 28
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing save
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
-export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
 export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
-export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/saverestore/PREREQ","OutputDIR/Core",},family={},inactive={},mT={a={["FN"]="OutputDIR/Core/a/2.0",["default"]=1,["fullName"]="a/2.0",["loadOrder"]=1,propT={},["short"]="a",["status"]="active",},b={["FN"]="OutputDIR/Core/b/3.3",["default"]=1,["fullName"]="b/3.3",["loadOrder"]=2,propT={},["short"]="b",["status"]="active",},},mpathA={"ProjectDIR/rt/saverestore/PREREQ","OutputDIR/Core",},["systemBaseMPATH"]="OutputDIR/Core",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={a={["fn"]="OutputDIR/Core/a/2.0",["fullName"]="a/2.0",["loadOrder"]=1,propT={},["status"]="active",["userName"]="a",},b={["fn"]="OutputDIR/Core/b/3.3",["fullName"]="b/3.3",["loadOrder"]=2,propT={},["status"]="active",["userName"]="b",},},mpathA={"ProjectDIR/rt/saverestore/PREREQ","OutputDIR/Core",},["systemBaseMPATH"]="OutputDIR/Core",}';
 export _ModuleTable_;
 ===========================
 step 29
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing restore
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
-export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
-export LMOD_DEFAULT_MODULEPATH;
 LOADEDMODULES="a/3.0:b/3.3";
 export LOADEDMODULES;
 MANPATH="OutputDIR/local/b/3.3/man:OutputDIR/local/a/3.0/man";
@@ -644,7 +480,7 @@ PATH="OutputDIR/local/b/3.3/bin:OutputDIR/local/a/3.0/bin:ProjectDIR/src:PATH_to
 export PATH;
 _LMFILES_="OutputDIR/Core/a/3.0:OutputDIR/Core/b/3.3";
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/saverestore/PREREQ","OutputDIR/Core",},family={},inactive={},mT={a={["FN"]="OutputDIR/Core/a/3.0",["default"]=1,["fullName"]="a/3.0",["loadOrder"]=1,propT={},["short"]="a",["status"]="active",},b={["FN"]="OutputDIR/Core/b/3.3",["default"]=1,["fullName"]="b/3.3",["loadOrder"]=2,propT={},["short"]="b",["status"]="active",},},mpathA={"ProjectDIR/rt/saverestore/PREREQ","OutputDIR/Core",},["systemBaseMPATH"]="OutputDIR/Core",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={a={["fn"]="OutputDIR/Core/a/3.0",["fullName"]="a/3.0",["loadOrder"]=1,propT={},["status"]="active",["userName"]="a",},b={["fn"]="OutputDIR/Core/b/3.3",["fullName"]="b/3.3",["loadOrder"]=2,propT={},["status"]="active",["userName"]="b",},},mpathA={"ProjectDIR/rt/saverestore/PREREQ","OutputDIR/Core",},["systemBaseMPATH"]="OutputDIR/Core",}';
 export _ModuleTable_;
 __LMOD_DEFAULT_MODULES_LOADED__="1";
 export __LMOD_DEFAULT_MODULES_LOADED__;
@@ -652,26 +488,14 @@ export __LMOD_DEFAULT_MODULES_LOADED__;
 step 30
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
-export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
 export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
-export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/saverestore/PREREQ","OutputDIR/Core",},family={},inactive={},mT={a={["FN"]="OutputDIR/Core/a/3.0",["default"]=1,["fullName"]="a/3.0",["loadOrder"]=1,propT={},["short"]="a",["status"]="active",},b={["FN"]="OutputDIR/Core/b/3.3",["default"]=1,["fullName"]="b/3.3",["loadOrder"]=2,propT={},["short"]="b",["status"]="active",},},mpathA={"ProjectDIR/rt/saverestore/PREREQ","OutputDIR/Core",},["systemBaseMPATH"]="OutputDIR/Core",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={a={["fn"]="OutputDIR/Core/a/3.0",["fullName"]="a/3.0",["loadOrder"]=1,propT={},["status"]="active",["userName"]="a",},b={["fn"]="OutputDIR/Core/b/3.3",["fullName"]="b/3.3",["loadOrder"]=2,propT={},["status"]="active",["userName"]="b",},},mpathA={"ProjectDIR/rt/saverestore/PREREQ","OutputDIR/Core",},["systemBaseMPATH"]="OutputDIR/Core",}';
 export _ModuleTable_;
 ===========================
 step 31
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
-export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
-export LMOD_DEFAULT_MODULEPATH;
 unset LOADEDMODULES;
 unset MANPATH;
 MODULEPATH="ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
@@ -679,18 +503,12 @@ export MODULEPATH;
 PATH="ProjectDIR/src:PATH_to_TM:/bin";
 export PATH;
 unset _LMFILES_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/saverestore/PREREQ","OutputDIR/Core",},family={},inactive={},mT={},mpathA={"ProjectDIR/rt/saverestore/PREREQ","OutputDIR/Core",},["systemBaseMPATH"]="OutputDIR/Core",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/saverestore/PREREQ","OutputDIR/Core",},["systemBaseMPATH"]="OutputDIR/Core",}';
 export _ModuleTable_;
 ===========================
 step 32
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing restore
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
-export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
-export LMOD_DEFAULT_MODULEPATH;
 LOADEDMODULES="a/2.0:b/3.3";
 export LOADEDMODULES;
 MANPATH="OutputDIR/local/b/3.3/man:OutputDIR/local/a/2.0/man";
@@ -701,7 +519,7 @@ PATH="OutputDIR/local/b/3.3/bin:OutputDIR/local/a/2.0/bin:ProjectDIR/src:PATH_to
 export PATH;
 _LMFILES_="OutputDIR/Core/a/2.0:OutputDIR/Core/b/3.3";
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/saverestore/PREREQ","OutputDIR/Core",},family={},inactive={},mT={a={["FN"]="OutputDIR/Core/a/2.0",["default"]=0,["fullName"]="a/2.0",["loadOrder"]=1,propT={},["short"]="a",["status"]="active",},b={["FN"]="OutputDIR/Core/b/3.3",["default"]=0,["fullName"]="b/3.3",["loadOrder"]=2,propT={},["short"]="b",["status"]="active",},},mpathA={"ProjectDIR/rt/saverestore/PREREQ","OutputDIR/Core",},["systemBaseMPATH"]="OutputDIR/Core",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={a={["fn"]="OutputDIR/Core/a/2.0",["fullName"]="a/2.0",["loadOrder"]=1,propT={},["status"]="active",["userName"]="a/2.0",},b={["fn"]="OutputDIR/Core/b/3.3",["fullName"]="b/3.3",["loadOrder"]=2,propT={},["status"]="active",["userName"]="b/3.3",},},mpathA={"ProjectDIR/rt/saverestore/PREREQ","OutputDIR/Core",},["systemBaseMPATH"]="OutputDIR/Core",}';
 export _ModuleTable_;
 __LMOD_DEFAULT_MODULES_LOADED__="1";
 export __LMOD_DEFAULT_MODULES_LOADED__;
@@ -709,13 +527,7 @@ export __LMOD_DEFAULT_MODULES_LOADED__;
 step 33
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
-export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
 export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
-export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/saverestore/PREREQ","OutputDIR/Core",},family={},inactive={},mT={a={["FN"]="OutputDIR/Core/a/2.0",["default"]=0,["fullName"]="a/2.0",["loadOrder"]=1,propT={},["short"]="a",["status"]="active",},b={["FN"]="OutputDIR/Core/b/3.3",["default"]=0,["fullName"]="b/3.3",["loadOrder"]=2,propT={},["short"]="b",["status"]="active",},},mpathA={"ProjectDIR/rt/saverestore/PREREQ","OutputDIR/Core",},["systemBaseMPATH"]="OutputDIR/Core",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={a={["fn"]="OutputDIR/Core/a/2.0",["fullName"]="a/2.0",["loadOrder"]=1,propT={},["status"]="active",["userName"]="a/2.0",},b={["fn"]="OutputDIR/Core/b/3.3",["fullName"]="b/3.3",["loadOrder"]=2,propT={},["status"]="active",["userName"]="b/3.3",},},mpathA={"ProjectDIR/rt/saverestore/PREREQ","OutputDIR/Core",},["systemBaseMPATH"]="OutputDIR/Core",}';
 export _ModuleTable_;

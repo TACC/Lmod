@@ -27,7 +27,7 @@ require("strict")
 --
 --  ----------------------------------------------------------------------
 --
---  Copyright (C) 2008-2014 Robert McLay
+--  Copyright (C) 2008-2016 Robert McLay
 --
 --  Permission is hereby granted, free of charge, to any person obtaining
 --  a copy of this software and associated documentation files (the
@@ -51,17 +51,21 @@ require("strict")
 --
 --------------------------------------------------------------------------
 
-require("parseVersion")
+require("myGlobals")
+require("colorize")
 require("utils")
 require("string_utils")
+require("parseVersion")
+require("TermWidth")
 
-local dbg         = require("Dbg"):dbg()
-local max         = math.max
-local MName       = require("MName")
-local ModuleStack = require("ModuleStack")
-local Version     = require("Version")
-local _concatTbl  = table.concat
-local pack        = (_VERSION == "Lua 5.1") and argsPack or table.pack
+local BeautifulTbl = require("BeautifulTbl")
+local Version      = require("Version")
+local dbg          = require("Dbg"):dbg()
+local hook         = require("Hook")
+local max          = math.max
+local MName        = require("MName")
+local _concatTbl   = table.concat
+local pack         = (_VERSION == "Lua 5.1") and argsPack or table.pack
 
 --------------------------------------------------------------------------
 -- Special table concat function that knows about strings and numbers.
@@ -138,33 +142,6 @@ end
 --------------------------------------------------------------------------
 -- Validate a function with only string module names table.
 -- @param cmdName The command which is getting its arguments validated.
-local function validateModules(cmdName, ...)
-   local arg = pack(...)
-   dbg.print{"cmd: ",cmdName, " arg.n: ",arg.n,"\n"}
-   local allGood = true
-   local fn      = false
-   for i = 1, arg.n do
-      local v = arg[i]
-      if (type(v) == "string") then
-         allGood = true
-      elseif (type(v) == "table" and v._waterMark == "MName") then
-         allGood = true
-      else
-         allGood = false
-         fn = myFileName()
-         break
-      end
-   end
-   if (not allGood) then
-      mcp:report("vM: Syntax error in file: ",myFileName(), "\n with command: \"",
-                 cmdName, "\" One or more arguments are not strings\n")
-   end
-   return allGood
-end
-
---------------------------------------------------------------------------
--- Validate a function with only string module names table.
--- @param cmdName The command which is getting its arguments validated.
 local function validateArgsWithValue(cmdName, ...)
    local arg = pack(...)
 
@@ -188,7 +165,32 @@ local function validateArgsWithValue(cmdName, ...)
    return true
 end
 
---- Load family functions ----
+--------------------------------------------------------------------------
+-- Validate a function with only string module names table.
+-- @param cmdName The command which is getting its arguments validated.
+local function validateModules(cmdName, ...)
+   local arg = pack(...)
+   dbg.print{"cmd: ",cmdName, " arg.n: ",arg.n,"\n"}
+   local allGood = true
+   local fn      = false
+   for i = 1, arg.n do
+      local v = arg[i]
+      if (type(v) == "string") then
+         allGood = true
+      elseif (type(v) == "table" and v.__waterMark == "MName") then
+         allGood = true
+      else
+         allGood = false
+         fn = myFileName()
+         break
+      end
+   end
+   if (not allGood) then
+      mcp:report("modfuncs: Syntax error in file: ",myFileName(), "\n with command: \"",
+                 cmdName, "\" One or more arguments are not strings\n")
+   end
+   return allGood
+end
 
 --------------------------------------------------------------------------
 --  The load function.  It can be found in the following forms:
@@ -202,100 +204,6 @@ function load_module(...)
    dbg.fini("load_module")
    return b
 end
-
---------------------------------------------------------------------------
---  The try-load function.  It can be found in the following forms:
--- "try_load('name'); try_load('name/1.2'); try_load(atleast('name','3.2'))",
--- The only difference between 'load' and 'try_load' is that a 'try_load'
--- will not produce a warning if the specified modulefile(s) do not exist.
-function try_load(...)
-   dbg.start{"try_load(",concatTbl({...},", "),")"}
-   if (not validateModules("try_load",...)) then return {} end
-
-   local b = mcp:try_load(MName:buildA(mcp:MNameType(), ...))
-   dbg.fini("try_load")
-   return b
-end
-
---------------------------------------------------------------------------
--- The unload function reads a module file and reverses all the commands
--- in the modulefile.  It is not an error to unload a module which is
--- not loaded.  The reverse of an unload is a no-op.
-function unload(...)
-   dbg.start{"unload(",concatTbl({...},", "),")"}
-   if (not validateStringArgs("unload",...)) then return {} end
-
-   local b = mcp:unload(MName:buildA("mt",...))
-   dbg.fini("unload")
-   return b
-end
-
-
---------------------------------------------------------------------------
--- This function always loads and never unloads.
-function always_load(...)
-   dbg.start{"always_load(",concatTbl({...},", "),")"}
-   if (not validateModules("always_load",...)) then return {} end
-
-   local b  = mcp:always_load(MName:buildA("load",...))
-   dbg.fini("always_load")
-   return b
-end
-
-
---------------------------------------------------------------------------
--- This function always unloads and never loads. The reverse of this
--- function is a no-op.
-function always_unload(...)
-   dbg.start{"always_unload(",concatTbl({...},", "),")"}
-   if (not validateStringArgs("always_unload",...)) then return {} end
-
-   local b = mcp:always_unload(MName:buildA("mt",...))
-   dbg.fini("always_unload")
-   return b
-end
---------------------------------------------------------------------------
--- A load and prereq modifier.  It is used like this:
--- load(atleast("gcc","4.8"))
--- @param m module name
--- @param is the starting version
-function atleast(m, is)
-   dbg.start{"atleast(",m,", ",is,")"}
-
-   local mname = MName:new("load", m, "atleast", is)
-
-   dbg.fini("atleast")
-   return mname
-end
-
---------------------------------------------------------------------------
--- A load and prereq modifier.  It is used like this:
--- load(between("gcc","4.8","4.9"))
--- @param m module name
--- @param is the starting version
--- @param ie the ending version.
-function between(m,is,ie)
-   dbg.start{"between(",m,is,ie,")"}
-
-   local mname = MName:new("load", m, "between", is, ie)
-
-   dbg.fini("between")
-   return mname
-end
-
---------------------------------------------------------------------------
--- Load the latest version available.  This will ignore defaults.
--- @param m module name
-function latest(m)
-   dbg.start{"latest(",m,")"}
-
-   local mname = MName:new("load", m, "latest")
-
-   dbg.fini("latest")
-   return mname
-end
-
-
 
 --- PATH functions ---
 --------------------------------------------------------------------------
@@ -352,6 +260,17 @@ end
 --- Set Environment functions ----
 
 --------------------------------------------------------------------------
+-- Set the value of environment variable and maintain a stack.
+function pushenv(...)
+   dbg.start{"pushenv(",concatTbl({...},", "),")"}
+   if (not validateArgsWithValue("pushenv",...)) then return end
+
+   mcp:pushenv(...)
+   dbg.fini("pushenv")
+   return
+end
+
+--------------------------------------------------------------------------
 -- Set the value of environment variable.
 function setenv(...)
    dbg.start{"setenv(",concatTbl({...},", "),")"}
@@ -374,38 +293,256 @@ function unsetenv(...)
 end
 
 --------------------------------------------------------------------------
--- Set the value of environment variable and maintain a stack.
-function pushenv(...)
-   dbg.start{"pushenv(",concatTbl({...},", "),")"}
-   if (not validateArgsWithValue("pushenv",...)) then return end
-
-   mcp:pushenv(...)
-   dbg.fini("pushenv")
-   return
-end
-
---- Property functions ----
-
---------------------------------------------------------------------------
--- Add a property to a module.
-function add_property(...)
-   dbg.start{"add_property(",concatTbl({...},", "),")"}
-   if (not validateStringArgs("add_property",...)) then return end
-
-   mcp:add_property(...)
-   dbg.fini("add_property")
+-- Put a command in stdout so it will get executed.
+-- @param t the command table.
+function execute(t)
+   dbg.start{"execute(...)"}
+   if (type(t) ~= "table" or not t.cmd or type(t.modeA) ~= "table") then
+      mcp:report("Syntax error in file: ", myFileName(), "\n with command: execute",
+                 "\nsyntax is:\n",
+                 "    execute{cmd=\"command string\",modeA={\"load\",...}}\n")
+      return
+   end
+   local b = mcp:execute(t)
+   dbg.fini("execute")
+   return b
 end
 
 --------------------------------------------------------------------------
--- Remove a property to a module.
-function remove_property(...)
-   dbg.start{"remove_property(",concatTbl({...},", "),")"}
-   if (not validateStringArgs("remove_property",...)) then return end
+-- This function allows only module to claim the name.  It is a
+-- generalized prereq/conflict function.
+function family(...)
+   dbg.start{"family(",concatTbl({...},", "),")"}
+   if (not validateStringArgs("family",...)) then return end
 
-   mcp:remove_property(...)
-   dbg.fini("remove_property")
+   mcp:family(...)
+   dbg.fini("family")
 end
 
+--- Inherit function ---
+
+--------------------------------------------------------------------------
+-- This function finds the same named module in the MODULEPATH and
+-- loads it.
+function inherit(...)
+   dbg.start{"inherit(",concatTbl({...},", "),")"}
+
+   mcp:inherit(...)
+   dbg.fini("inherit")
+end
+
+--------------------------------------------------------------------------
+-- Return the mode.
+function mode()
+   local b = mcp:mode()
+   return b
+end
+
+--------------------------------------------------------------------------
+-- Return true if in spider mode.  Use mode function instead.
+function is_spider()
+   dbg.start{"is_spider()"}
+   local b = mcp:is_spider()
+   dbg.fini("is_spider")
+   return b
+end
+
+--------------------------------------------------------------------------
+-- Return true if the module is loaded.
+-- @param m module name
+function isloaded(m)
+   dbg.start{"isloaded(",m,")"}
+   if (not validateStringArgs("isloaded",m)) then return false end
+   local mname = MName:new("mt", m)
+   dbg.fini("isloaded")
+   return mname:isloaded()
+end
+
+function myFileName()
+   return mcp:myFileName()
+end
+
+--------------------------------------------------------------------------
+-- Return the full name of the module
+function myModuleFullName()
+   return mcp:myModuleFullName()
+end
+
+--------------------------------------------------------------------------
+-- Return the name of the module (w/o) version.
+function myModuleName()
+   return mcp:myModuleName()
+end
+
+--------------------------------------------------------------------------
+-- Return the name of the module that the user specified.
+function myModuleUsrName()
+   return mcp:myModuleUsrName()
+end
+
+--------------------------------------------------------------------------
+-- Return the version of the module.
+function myModuleVersion()
+   return mcp:myModuleVersion()
+end
+
+--------------------------------------------------------------------------
+-- Return true if the module is in the pending state for a load.
+-- @param m module name
+function isPending(m)
+   local mt = MT:mt()
+   if (not validateStringArgs("isPending",m)) then return false end
+   local mname = MName:new("mt", m)
+   return mname:isPending()
+end
+
+--------------------------------------------------------------------------
+-- Report an error and quit.
+function LmodError(...)
+   local b = mcp:error(...)
+   return b
+end
+
+--------------------------------------------------------------------------
+-- Report a warning and continue operation.
+function LmodWarning(...)
+   local b = mcp:warning(...)
+   return b
+end
+
+--------------------------------------------------------------------------
+-- Print a message
+function LmodMessage(...)
+   local b = mcp:message(...)
+   return b
+end
+
+---------------------------------------------------------------------------
+-- Return the version of Lmod.
+function LmodVersion()
+   return Version.tag()
+end
+
+-------------------------------------------------------------------------
+-- Return shell that invoked Lmod.
+function myShellName()
+   return mcp:myShellName()
+end
+
+--------------------------------------------------------------------------
+-- The whatis database function.
+function whatis(...)
+   dbg.start{"whatis(",concatTbl({...},", "),")"}
+   if (not validateStringArgs("whatis",...)) then return end
+
+   mcp:whatis(...)
+   dbg.fini("whatis")
+end
+
+--------------------------------------------------------------------------
+-- the help function.
+function help(...)
+   dbg.start{"help(...)"}
+   if (not validateStringArgs("help",...)) then return end
+   mcp:help(...)
+   dbg.fini("help")
+end
+
+function userInGroup(group)
+   local grps   = capture("groups")
+   local found  = false
+   local userId = capture("id -u")
+   local isRoot = tonumber(userId) == 0
+   for g in grps:split("[ \n]") do
+      if (g == group or isRoot)  then
+         found = true
+         break
+      end
+   end
+   return found
+end
+
+--------------------------------------------------------------------------
+-- Convert version to canonical so that it can be used in a comparison.
+function convertToCanonical(s)
+   return parseVersion(s)
+end
+
+
+--- Prereq / Conflict ---
+
+--------------------------------------------------------------------------
+-- Test to see if a prereq module is loaded.  Fail if it is not.
+-- If more than one module is listed then it is an and condition.
+function prereq(...)
+   dbg.start{"prereq(",concatTbl({...},", "),")"}
+   if (not validateModules("prereq", ...)) then return end
+
+   mcp:prereq(MName:buildA("load", ...))
+   dbg.fini("prereq")
+end
+
+--------------------------------------------------------------------------
+-- Test to see if any of prereq modules are loaded.  Fail if it is not.
+-- If more than one module is listed then it is an or condition.
+function prereq_any(...)
+   dbg.start{"prereq_any(",concatTbl({...},", "),")"}
+   if (not validateModules("prereq_any",...)) then return end
+
+   mcp:prereq_any(MName:buildA("load",...))
+   dbg.fini("conflict")
+end
+
+--------------------------------------------------------------------------
+-- Test to see if a conflict module is loaded.  Fail if it is loaded.
+function conflict(...)
+   dbg.start{"conflict(",concatTbl({...},", "),")"}
+   if (not validateStringArgs("conflict",...)) then return end
+
+   mcp:conflict(MName:buildA("load",...))
+   dbg.fini()
+end
+
+--------------------------------------------------------------------------
+-- A load and prereq modifier.  It is used like this:
+-- load(atleast("gcc","4.8"))
+-- @param m module name
+-- @param is the starting version
+function atleast(m, is)
+   dbg.start{"atleast(",m,", ",is,")"}
+
+   local mname = MName:new("load", m, "atleast", is)
+
+   dbg.fini("atleast")
+   return mname
+end
+
+--------------------------------------------------------------------------
+-- A load and prereq modifier.  It is used like this:
+-- load(between("gcc","4.8","4.9"))
+-- @param m module name
+-- @param is the starting version
+-- @param ie the ending version.
+function between(m,is,ie)
+   dbg.start{"between(",m,is,ie,")"}
+
+   local mname = MName:new("load", m, "between", is, ie)
+
+   dbg.fini("between")
+   return mname
+end
+
+--------------------------------------------------------------------------
+-- Load the latest version available.  This will ignore defaults.
+-- @param m module name
+function latest(m)
+   dbg.start{"latest(",m,")"}
+
+   local mname = MName:new("load", m, "latest")
+
+   dbg.fini("latest")
+   return mname
+end
 
 --- Set Alias/Shell functions ---
 
@@ -449,211 +586,26 @@ function unset_shell_function(...)
    dbg.fini("unset_shell_function")
 end
 
---- Prereq / Conflict ---
+--- Property functions ----
 
 --------------------------------------------------------------------------
--- Test to see if a prereq module is loaded.  Fail if it is not.
--- If more than one module is listed then it is an and condition.
-function prereq(...)
-   dbg.start{"prereq(",concatTbl({...},", "),")"}
-   if (not validateModules("prereq", ...)) then return end
+-- Add a property to a module.
+function add_property(...)
+   dbg.start{"add_property(",concatTbl({...},", "),")"}
+   if (not validateStringArgs("add_property",...)) then return end
 
-   mcp:prereq(MName:buildA("load", ...))
-   dbg.fini("prereq")
+   mcp:add_property(...)
+   dbg.fini("add_property")
 end
 
 --------------------------------------------------------------------------
--- Test to see if a conflict module is loaded.  Fail if it is loaded.
-function conflict(...)
-   dbg.start{"conflict(",concatTbl({...},", "),")"}
-   if (not validateStringArgs("conflict",...)) then return end
+-- Remove a property to a module.
+function remove_property(...)
+   dbg.start{"remove_property(",concatTbl({...},", "),")"}
+   if (not validateStringArgs("remove_property",...)) then return end
 
-   mcp:conflict(MName:buildA("load",...))
-   dbg.fini()
-end
-
---------------------------------------------------------------------------
--- Test to see if any of prereq modules are loaded.  Fail if it is not.
--- If more than one module is listed then it is an or condition.
-function prereq_any(...)
-   dbg.start{"prereq_any(",concatTbl({...},", "),")"}
-   if (not validateModules("prereq_any",...)) then return end
-
-   mcp:prereq_any(MName:buildA("load",...))
-   dbg.fini("conflict")
-end
-
---- Family function ---
-
---------------------------------------------------------------------------
--- This function allows only module to claim the name.  It is a
--- generalized prereq/conflict function.
-function family(...)
-   dbg.start{"family(",concatTbl({...},", "),")"}
-   if (not validateStringArgs("family",...)) then return end
-
-   mcp:family(...)
-   dbg.fini("family")
-end
-
---- Inherit function ---
-
---------------------------------------------------------------------------
--- This function finds the same named module in the MODULEPATH and
--- loads it.
-function inherit(...)
-   dbg.start{"inherit(",concatTbl({...},", "),")"}
-
-   mcp:inherit(...)
-   dbg.fini("inherit")
-end
-
-
--- Whatis / Help functions
---------------------------------------------------------------------------
--- The whatis database function.
-function whatis(...)
-   dbg.start{"whatis(",concatTbl({...},", "),")"}
-   if (not validateStringArgs("whatis",...)) then return end
-
-   mcp:whatis(...)
-   dbg.fini("whatis")
-end
-
---------------------------------------------------------------------------
--- the help function.
-function help(...)
-   dbg.start{"help(...)"}
-   if (not validateStringArgs("help",...)) then return end
-   mcp:help(...)
-   dbg.fini("help")
-end
-
--- Misc --
-
---------------------------------------------------------------------------
--- Report an error and quit.
-function LmodError(...)
-   local b = mcp:error(...)
-   return b
-end
-
---------------------------------------------------------------------------
--- Report a warning and continue operation.
-function LmodWarning(...)
-   local b = mcp:warning(...)
-   return b
-end
-
---------------------------------------------------------------------------
--- Print a message
-function LmodMessage(...)
-   local b = mcp:message(...)
-   return b
-end
-
---------------------------------------------------------------------------
--- Return true if in spider mode.  Use mode function instead.
-function is_spider()
-   dbg.start{"is_spider()"}
-   local b = mcp:is_spider()
-   dbg.fini("is_spider")
-   return b
-end
-
---------------------------------------------------------------------------
--- Put a command in stdout so it will get executed.
--- @param t the command table.
-function execute(t)
-   dbg.start{"execute(...)"}
-   if (type(t) ~= "table" or not t.cmd or type(t.modeA) ~= "table") then
-      mcp:report("Syntax error in file: ", myFileName(), "\n with command: execute",
-                 "\nsyntax is:\n",
-                 "    execute{cmd=\"command string\",modeA={\"load\",...}}\n")
-      return
-   end
-   local b = mcp:execute(t)
-   dbg.fini("execute")
-   return b
-end
-
---------------------------------------------------------------------------
--- Return the mode.
-function mode()
-   dbg.start{"mode()"}
-   local b = mcp:mode()
-   dbg.fini("mode")
-   return b
-end
-
---------------------------------------------------------------------------
--- Return true if the module is loaded.
--- @param m module name
-function isloaded(m)
-   local mt   = MT:mt()
-   if (not validateStringArgs("isloaded",m)) then return false end
-   local mname = MName:new("load", m)
-   return mname:isloaded()
-end
-
-
---------------------------------------------------------------------------
--- Return true if the module is in the pending state for a load.
--- @param m module name
-function isPending(m)
-   local mt = MT:mt()
-   if (not validateStringArgs("isPending",m)) then return false end
-   local mname = MName:new("mt", m)
-   return mname:isPending()
-end
-
---------------------------------------------------------------------------
--- Return the version of Lmod.
-function LmodVersion()
-   return Version.tag()
-end
-
---------------------------------------------------------------------------
--- Convert version to canonical so that it can be used in a comparison.
-function convertToCanonical(s)
-   return parseVersion(s)
-end
-
---------------------------------------------------------------------------
--- Return the modules file name.
-function myFileName()
-   return mcp:myFileName()
-end
-
---------------------------------------------------------------------------
--- Return shell that invoked Lmod.
-function myShellName()
-   return mcp:myShellName()
-end
-
---------------------------------------------------------------------------
--- Return the full name of the module
-function myModuleFullName()
-   return mcp:myModuleFullName()
-end
-
---------------------------------------------------------------------------
--- Return the name of the module (w/o) version.
-function myModuleName()
-   return mcp:myModuleName()
-end
-
-
---------------------------------------------------------------------------
--- Return the name of the module that the user specified.
-function myModuleUsrName()
-   return mcp:myModuleUsrName()
-end
-
---------------------------------------------------------------------------
--- Return the version of the module.
-function myModuleVersion()
-   return mcp:myModuleVersion()
+   mcp:remove_property(...)
+   dbg.fini("remove_property")
 end
 
 --------------------------------------------------------------------------
@@ -704,16 +656,118 @@ function hierarchyA(pkgName, levels)
    return b
 end
 
-function userInGroup(group)
-   local grps   = capture("groups")
-   local found  = false
-   local userId = capture("id -u")
-   local isRoot = tonumber(userId) == 0
-   for g in grps:split("[ \n]") do
-      if (g == group or isRoot)  then
-         found = true
-         break
-      end
+--------------------------------------------------------------------------
+-- Report the modulefiles stack for error report.
+function moduleStackTraceBack(msg)
+   local FrameStk = require("FrameStk")
+   local frameStk = FrameStk:singleton()
+   msg = msg or "While processing the following module(s):\n"
+   if (frameStk:empty()) then return "" end
+
+   local aa = {}
+   aa[1]    = { "  ", "Module fullname", "Module Filename"}
+   aa[2]    = { "  ", "---------------", "---------------"}
+
+   local a  = frameStk:traceBack()
+
+   for i = 1,#a do
+      local mname = a[i]
+      aa[#aa+1] = {"  ",mname:fullName() or "" , mname:fn() or ""}
    end
-   return found
+
+   local bt = BeautifulTbl:new{tbl=aa}
+
+   local bb = {}
+   bb[#bb+1] = msg
+   bb[#bb+1] = bt:build_tbl()
+   return _concatTbl(bb,"")
 end
+
+
+
+--------------------------------------------------------------------------
+-- Write "false" to stdout and exit.
+function LmodErrorExit()
+   io.stdout:write("\nfalse\n")
+   os.exit(1)
+end
+
+--------------------------------------------------------------------------
+-- Print msgs, traceback then exit.
+function LmodSystemError(...)
+   local label  = colorize("red", "Lmod has detected the following error: ")
+   local twidth = TermWidth()
+   local s      = {}
+
+
+   s[#s+1] = buildMsg(twidth, label, ...)
+   s[#s+1] = "\n"
+
+   local a = _concatTbl(stackTraceBackA,"")
+   if (a:len() > 0) then
+       s[#s+1] = a
+       s[#s+1] = "\n"
+   end
+   s[#s+1] = moduleStackTraceBack()
+   s[#s+1] = "\n"
+
+   s = hook.apply("msgHook","lmoderror",s) or s
+   s = _concatTbl(s,"")
+
+   io.stderr:write(s,"\n")
+   LmodErrorExit()
+end
+
+--------------------------------------------------------------------------
+--  The try-load function.  It can be found in the following forms:
+-- "try_load('name'); try_load('name/1.2'); try_load(atleast('name','3.2'))",
+-- The only difference between 'load' and 'try_load' is that a 'try_load'
+-- will not produce a warning if the specified modulefile(s) do not exist.
+function try_load(...)
+   dbg.start{"try_load(",concatTbl({...},", "),")"}
+   if (not validateModules("try_load",...)) then return {} end
+
+   local b = mcp:try_load(MName:buildA(mcp:MNameType(), ...))
+   dbg.fini("try_load")
+   return b
+end
+
+--------------------------------------------------------------------------
+-- The unload function reads a module file and reverses all the commands
+-- in the modulefile.  It is not an error to unload a module which is
+-- not loaded.  The reverse of an unload is a no-op.
+function unload(...)
+   dbg.start{"unload(",concatTbl({...},", "),")"}
+   if (not validateStringArgs("unload",...)) then return {} end
+
+   local b = mcp:unload(MName:buildA("mt",...))
+   dbg.fini("unload")
+   return b
+end
+
+--------------------------------------------------------------------------
+-- This function always loads and never unloads.
+function always_load(...)
+   dbg.start{"always_load(",concatTbl({...},", "),")"}
+   if (not validateModules("always_load",...)) then return {} end
+
+   local b  = mcp:always_load(MName:buildA("load",...))
+   dbg.fini("always_load")
+   return b
+end
+
+
+--------------------------------------------------------------------------
+-- This function always unloads and never loads. The reverse of this
+-- function is a no-op.
+function always_unload(...)
+   dbg.start{"always_unload(",concatTbl({...},", "),")"}
+   if (not validateStringArgs("always_unload",...)) then return {} end
+
+   local b = mcp:unload(MName:buildA("mt",...))
+   dbg.fini("always_unload")
+   return b
+end
+
+--- Family function ---
+
