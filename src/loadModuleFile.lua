@@ -136,12 +136,7 @@ function loadModuleFile(t)
 
    -- report any errors
    if (not status and t.reportErr) then
-      local n = userName
-         or ""
-
-      print("msg:",msg)
-
-
+      local n = userName or ""
       LmodError("Unable to load module: ",n,"\n    ",t.file,": ", msg,"\n")
    end
 
