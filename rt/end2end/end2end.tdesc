@@ -26,7 +26,7 @@ testdescript = {
      ORIG_HOME=`(cd $HOME; /bin/pwd)`
      HOME=`/bin/pwd`
      CMD="lmod.in.lua"
-     DIR=nvv
+     DIR=Lmod
      dir=lmod
 
 
