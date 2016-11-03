@@ -4,51 +4,35 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing use -a ProjectDIR/mf/Core
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing use -a ProjectDIR/rt/deprecation/mf/Core
 ===========================
-unset LMOD_DEFAULT_MODULEPATH;
-unset MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/mf/Core";
+MODULEPATH="ProjectDIR/rt/deprecation/mf/Core";
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/mf/Core",},family={},inactive={},mT={},mpathA={"ProjectDIR/mf/Core",},["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/deprecation/mf/Core",},}';
 export _ModuleTable_;
 ===========================
 step 3
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load gcc
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/mf/Core";
-export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
 LMOD_FAMILY_COMPILER="gcc";
 export LMOD_FAMILY_COMPILER;
 LMOD_FAMILY_COMPILER_VERSION="4.2.3";
 export LMOD_FAMILY_COMPILER_VERSION;
 LOADEDMODULES="gcc/4.2.3";
 export LOADEDMODULES;
-MODULEPATH="ProjectDIR/mf/Compiler/gcc/4.2.3:ProjectDIR/mf/Core";
+MODULEPATH="ProjectDIR/rt/deprecation/mf/Compiler/gcc/4.2.3:ProjectDIR/rt/deprecation/mf/Core";
 export MODULEPATH;
-_LMFILES_="ProjectDIR/mf/Core/gcc/4.2.3.lua";
+_LMFILES_="ProjectDIR/rt/deprecation/mf/Core/gcc/4.2.3.lua";
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/mf/Core",},family={["compiler"]="gcc",},inactive={},mT={gcc={["FN"]="ProjectDIR/mf/Core/gcc/4.2.3.lua",["default"]=1,["fullName"]="gcc/4.2.3",["loadOrder"]=1,propT={},["short"]="gcc",["status"]="active",},},mpathA={"ProjectDIR/mf/Compiler/gcc/4.2.3","ProjectDIR/mf/Core",},["systemBaseMPATH"]="ProjectDIR/mf/Core",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["compiler"]="gcc",},mT={gcc={["fn"]="ProjectDIR/rt/deprecation/mf/Core/gcc/4.2.3.lua",["fullName"]="gcc/4.2.3",["loadOrder"]=1,propT={},["status"]="active",["userName"]="gcc",},},mpathA={"ProjectDIR/rt/deprecation/mf/Compiler/gcc/4.2.3","ProjectDIR/rt/deprecation/mf/Core",},}';
 export _ModuleTable_;
 ===========================
 step 4
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load git/1.7.4.3
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/mf/Compiler/gcc/4.2.3:ProjectDIR/mf/Core";
-export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
 LOADEDMODULES="gcc/4.2.3:git/1.7.4.3";
 export LOADEDMODULES;
-MODULEPATH="ProjectDIR/mf/Compiler/gcc/4.2.3:ProjectDIR/mf/Core";
+MODULEPATH="ProjectDIR/rt/deprecation/mf/Compiler/gcc/4.2.3:ProjectDIR/rt/deprecation/mf/Core";
 export MODULEPATH;
 PATH="/opt/apps/git/1.7.4.3/bin:ProjectDIR/src:PATH_to_TM:/bin";
 export PATH;
@@ -58,7 +42,7 @@ TACC_GIT_DIR="/opt/apps/git/1.7.4.3/";
 export TACC_GIT_DIR;
 TACC_GIT_LIB="/opt/apps/git/1.7.4.3/lib";
 export TACC_GIT_LIB;
-_LMFILES_="ProjectDIR/mf/Core/gcc/4.2.3.lua:ProjectDIR/mf/Core/git/1.7.4.3.lua";
+_LMFILES_="ProjectDIR/rt/deprecation/mf/Core/gcc/4.2.3.lua:ProjectDIR/rt/deprecation/mf/Core/git/1.7.4.3.lua";
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/mf/Core",},family={["compiler"]="gcc",},inactive={},mT={gcc={["FN"]="ProjectDIR/mf/Core/gcc/4.2.3.lua",["default"]=1,["fullName"]="gcc/4.2.3",["loadOrder"]=1,propT={},["short"]="gcc",["status"]="active",},git={["FN"]="ProjectDIR/mf/Core/git/1.7.4.3.lua",["default"]=0,["fullName"]="git/1.7.4.3",["loadOrder"]=2,propT={},["short"]="git",["status"]="active",},},mpathA={"ProjectDIR/mf/Compiler/gcc/4.2.3","ProjectDIR/mf/Core",},["systemBaseMPATH"]="ProjectDIR/mf/Core",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["compiler"]="gcc",},mT={gcc={["fn"]="ProjectDIR/rt/deprecation/mf/Core/gcc/4.2.3.lua",["fullName"]="gcc/4.2.3",["loadOrder"]=1,propT={},["status"]="active",["userName"]="gcc",},git={["fn"]="ProjectDIR/rt/deprecation/mf/Core/git/1.7.4.3.lua",["fullName"]="git/1.7.4.3",["loadOrder"]=2,propT={},["status"]="active",["userName"]="git/1.7.4.3",},},mpathA={"ProjectDIR/rt/deprecation/mf/Compiler/gcc/4.2.3","ProjectDIR/rt/deprecation/mf/Core",},}';
 export _ModuleTable_;

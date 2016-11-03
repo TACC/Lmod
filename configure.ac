@@ -286,18 +286,6 @@ AC_ARG_WITH(lua_include,
     LUA_INCLUDE="$withval"
     AC_DEFINE_UNQUOTED(LUA_INCLUDE, "$withval"))dnl
 
-AC_SUBST(LEGACY_ORDERING)
-AC_ARG_WITH(legacyOrdering,
-    AC_HELP_STRING([--with-legacyOrdering=ans],[Using legacy version ordering. [[no]]]),
-    LEGACY_ORDERING="$withval"
-    AC_MSG_RESULT([LEGACY_ORDERING=$with_legacyOrdering])
-    AC_DEFINE_UNQUOTED(LEGACY_ORDERING, "$with_legacyOrdering")dnl
-    ,
-    withval="NO"
-    AC_MSG_RESULT([LEGACY_ORDERING=$withval])
-    LEGACY_ORDERING="$withval"
-    AC_DEFINE_UNQUOTED(LEGACY_ORDERING, "$withval"))dnl
-
 AC_SUBST(CACHED_LOADS)
 AC_ARG_WITH(cachedLoads,
     AC_HELP_STRING([--with-cachedLoads=ans],[Use cache when loading modules. [[no]]]),
@@ -309,18 +297,6 @@ AC_ARG_WITH(cachedLoads,
     AC_MSG_RESULT([CACHED_LOADS=$withval])
     CACHED_LOADS="$withval"
     AC_DEFINE_UNQUOTED(CACHED_LOADS, "$withval"))dnl
-
-AC_SUBST(CHECK_VALID)
-AC_ARG_WITH(checkValidModuleFiles,
-    AC_HELP_STRING([--with-checkValidModuleFiles=ans],[Require Lmod to check every non Lua file for magic TCL string. [[no]]]),
-    CHECK_VALID="$withval"
-    AC_MSG_RESULT([CHECK_VALID=$with_checkValidModuleFiles])
-    AC_DEFINE_UNQUOTED(CHECK_VALID, "$with_checkValidModuleFiles")dnl
-    ,
-    withval="NO"
-    AC_MSG_RESULT([CHECK_VALID=$withval])
-    CHECK_VALID="$withval"
-    AC_DEFINE_UNQUOTED(CHECK_VALID, "$withval"))dnl
 
 AC_SUBST(SYS_LD_LIB_PATH)
 SYS_LD_LIB_PATH=$LD_LIBRARY_PATH

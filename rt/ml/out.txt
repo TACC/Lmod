@@ -6,30 +6,20 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 step 2
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing use -a ProjectDIR/rt/ml/mf/Core
 ===========================
-unset LMOD_DEFAULT_MODULEPATH;
-unset MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/ml/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/ml/mf/Core";
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/ml/mf/Core",},family={},inactive={},mT={},mpathA={"ProjectDIR/rt/ml/mf/Core",},["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/ml/mf/Core",},}';
 export _ModuleTable_;
 ===========================
 step 3
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load ml
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/ml/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/ml/mf/Core";
-export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/ml/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
 LOADEDMODULES="ml/1.0";
 export LOADEDMODULES;
 MODULEPATH="ProjectDIR/rt/ml/mf/Core";
 export MODULEPATH;
 _LMFILES_="ProjectDIR/rt/ml/mf/Core/ml/1.0.lua";
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/ml/mf/Core",},family={},inactive={},mT={ml={["FN"]="ProjectDIR/rt/ml/mf/Core/ml/1.0.lua",["default"]=1,["fullName"]="ml/1.0",["loadOrder"]=1,propT={},["short"]="ml",["status"]="active",},},mpathA={"ProjectDIR/rt/ml/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/ml/mf/Core",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={ml={["fn"]="ProjectDIR/rt/ml/mf/Core/ml/1.0.lua",["fullName"]="ml/1.0",["loadOrder"]=1,propT={},["status"]="active",["userName"]="ml",},},mpathA={"ProjectDIR/rt/ml/mf/Core",},}';
 export _ModuleTable_;
 ml() { eval $($LMOD_DIR/ml_cmd "$@"); };

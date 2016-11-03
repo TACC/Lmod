@@ -37,30 +37,26 @@ require("strict")
 --
 --------------------------------------------------------------------------
 
+require("declare")
 require("fileOps")
 
 _G._DEBUG          = false               -- Required by the new lua posix
 local posix        = require("posix")
 local getenv       = os.getenv
 local setenv_posix = posix.setenv
-local s_validT     = {
-   no = true,
-   yes = true,
-}
 
-local function initialize(lmod_name, sed_name, defaultV, validT)
-   validT      = validT or s_validT
+local function initialize(lmod_name, sed_name, defaultV)
    defaultV    = (defaultV or "no"):lower()
    local value = (getenv(lmod_name) or sed_name):lower()
    if (value:sub(1,1) == "@") then
       value = defaultV
    end
-   if (not validT[value]) then
-      value = "yes"
-   end
    return value
 end
 
+if (isNotDefined("cmdDir")) then
+   _G.cmdDir = function() return pathJoin(getenv("PROJDIR"),"src") end
+end
 
 ------------------------------------------------------------------------
 -- The global variables for Lmod:
@@ -88,14 +84,6 @@ setenv_posix("LC_ALL","C",true)
 ModulePath  = "MODULEPATH"
 
 ------------------------------------------------------------------------
--- DfltModPath: The name of the env. var. which holds the "Core"
---              modulefile directories.  No compiler or MPI dependent
---              modulefiles directory should ever be part of this list.
-------------------------------------------------------------------------
-
-DfltModPath = "LMOD_DEFAULT_MODULEPATH"
-
-------------------------------------------------------------------------
 -- LMODdir:     The directory where the cache file, default files
 --              and module table state files go.
 ------------------------------------------------------------------------
@@ -103,17 +91,10 @@ DfltModPath = "LMOD_DEFAULT_MODULEPATH"
 LMODdir     = ".lmod.d"
 
 ------------------------------------------------------------------------
--- varTbl:      The global table of environment variables that the
---              modules are setting or modifying.
+-- LMOD_CACHE_VERSION:    The current version for the Cache file
 ------------------------------------------------------------------------
 
-varTbl      = {}
-
-------------------------------------------------------------------------
--- Cversion:    The current version for the Cache file
-------------------------------------------------------------------------
-
-Cversion      = 3
+LMOD_CACHE_VERSION   = 5
 
 ------------------------------------------------------------------------
 -- LUAC_PATH : The path to luac
@@ -122,19 +103,9 @@ Cversion      = 3
 LUAC_PATH = "@path_to_luac@"
 
 ------------------------------------------------------------------------
--- LMOD_CHECK_FOR_VALID_MODULE_FILES :  Should Lmod check TCL files for
---                                      magic string "#%Module"
-------------------------------------------------------------------------
-
-LMOD_CHECK_FOR_VALID_MODULE_FILES = initialize("LMOD_CHECK_FOR_VALID_MODULE_FILES",
-                                               "@check_for_valid_module_files@",
-                                               "no")
-
-------------------------------------------------------------------------
 -- LMOD_CASE_INDEPENDENT_SORTING :  make avail and spider use case
 --                                  independent sorting.
 ------------------------------------------------------------------------
-
 
 LMOD_CASE_INDEPENDENT_SORTING = initialize("LMOD_CASE_INDEPENDENT_SORTING",
                                            "@case_independent_sorting@")
@@ -163,7 +134,7 @@ LMOD_COLUMN_TABLE_WIDTH = 80
 ------------------------------------------------------------------------
 
 LMOD_TMOD_PATH_RULE = initialize("LMOD_TMOD_PATH_RULE",
-                                "@tmod_path_rule@","NO")
+                                "@tmod_path_rule@","no")
 
 ------------------------------------------------------------------------
 -- LMOD_DISABLE_SAME_NAME_AUTOSWAP: This env. var requires users to swap
@@ -229,8 +200,7 @@ LMOD_CACHED_LOADS = LMOD_IGNORE_CACHE and "no" or LMOD_CACHED_LOADS
 LMOD_PAGER      = getenv("LMOD_PAGER") or "@path_to_pager@"
 LMOD_PAGER_OPTS = getenv("LMOD_PAGER_OPTS") or "-XqMREF"
 
-
-MODULERCFILE = getenv("MODULERCFILE") or pathJoin(cmdDir(),"../../etc/rc")
+MODULERCFILE    = getenv("MODULERCFILE") or pathJoin(cmdDir(),"../../etc/rc")
 
 ------------------------------------------------------------------------
 -- LMOD_RTM_TESTING: If set then the author is testing Lmod
@@ -257,24 +227,6 @@ if (LMOD_AVAIL_STYLE == "") then
    LMOD_AVAIL_STYLE = "<system>"
 end
 
-------------------------------------------------------------------------
--- defaultMpathA: The array of paths that are hold the default
---                (non-hierarchical) MODULEPATH
-------------------------------------------------------------------------
-
-defaultMpathA = {}
-
-------------------------------------------------------------------------
--- MT:        The table that hold the Module Table Class.
-------------------------------------------------------------------------
-
-MT            = {}
-
-------------------------------------------------------------------------
--- Master:    The table that hold the Master Table Class.
-------------------------------------------------------------------------
-
-Master         = {}
 
 ------------------------------------------------------------------------
 -- MCP, mcp:  Master Control Program objects.  These objects implement
@@ -283,13 +235,8 @@ Master         = {}
 --            setenv.  Where as mcp is dynamic.  It is positive on load
 --            and the reverse on unload.
 ------------------------------------------------------------------------
-MCP            = {}
-mcp            = {}
-
-------------------------------------------------------------------------
--- capture:   The shell script capture function.
-------------------------------------------------------------------------
-require("capture")
+MCP            = false
+mcp            = false
 
 ------------------------------------------------------------------------
 -- adminT:  A table that contains module names and a message to users
@@ -314,13 +261,16 @@ ShowResultsA = {}
 -- colorize:  It is a colorizer when connected to a term and plain when not
 ------------------------------------------------------------------------
 
-LMOD_COLORIZE = initialize("LMOD_COLORIZE","@colorize@","yes",
-                           {yes = true, no = true, force = true})
+colorize      = false
+
+LMOD_COLORIZE = initialize("LMOD_COLORIZE","@colorize@","yes")
 
 
+------------------------------------------------------------------------
+-- pager:     pipe output through more when connectted to a term
+------------------------------------------------------------------------
+pager         = false
 
-LMOD_LEGACY_VERSION_ORDERING = initialize("LMOD_LEGACY_VERSION_ORDERING",
-                                          "@legacy_ordering@","no")
 
 ------------------------------------------------------------------------
 -- LMOD_TCLSH:   path to tclsh
@@ -426,9 +376,16 @@ updateSystemFn="@updateSystemFn@"
 
 ------------------------------------------------------------------------
 -- Prepend path block order.
+------------------------------------------------------------------------
 LMOD_PREPEND_BLOCK  = initialize("LMOD_PREPEND_BLOCK","@prepend_block@",
                                  "normal")
 
+------------------------------------------------------------------------
+-- LMOD_MAXDEPTH: directory and max depth in terms of categories.
+--                This is a per directory specification that can be
+--                overridden by a .version etc file.
+------------------------------------------------------------------------
+LMOD_MAXDEPTH = initialize("LMOD_MAXDEPTH","@maxdepth@","")
 
 ------------------------------------------------------------------------
 -- GIT_VERSION: The exact git version of Lmod
@@ -461,6 +418,24 @@ prepend_order   = false
 -- When building the reverseMapT use the preloaded modules
 ------------------------------------------------------------------------
 Use_Preload     = false
+
+prtHdr          = false
+ModuleName      = false
+ModuleFn        = false
+FullName        = false
+
+------------------------------------------------------------------------
+-- Shell Object: Bash, Csh, etc
+------------------------------------------------------------------------
+
+Shell          = false
+
+------------------------------------------------------------------------
+-- master: 
+------------------------------------------------------------------------
+
+master         = false
+
 
 
 PkgBase = false

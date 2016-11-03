@@ -76,16 +76,15 @@ DIRLIST		  	  := $(DESTDIR)$(LIBEXEC) $(DESTDIR)$(TOOLS) $(DESTDIR)$(SETTARG) \
                              $(DESTDIR)$(SHELLS)  $(DESTDIR)$(INIT)  $(DESTDIR)$(LIB)     \
                              $(DESTDIR)$(LMOD_MF) $(DESTDIR)$(MAN_PAGES)
 
-STANDALONE_PRGM   	  := src/lmod.in.lua src/addto.in.lua src/getmt.in.lua      \
-                             src/processMT.in.lua src/spider.in.lua                 \
-                             src/processModuleUsage.in.lua src/reportUsers.in.lua   \
-                             src/clearMT_cmd.in.lua src/ml_cmd.in.lua               \
+STANDALONE_PRGM   	  := src/lmod.in.lua src/addto.in.lua                       \
+                             src/spider.in.lua src/clearMT_cmd.in.lua               \
+                             src/ml_cmd.in.lua                                      \
                              src/spiderCacheSupport.in.lua                          \
                              src/sh_to_modulefile.in.lua                            \
 	                     src/update_lmod_system_cache_files.in                  \
                              src/ignore_dirs_converter
 STANDALONE_PRGM           := $(patsubst %, $(srcdir)/%, $(STANDALONE_PRGM))
-SHELL_INIT	  	  := bash.in csh.in ksh.in tcsh.in zsh.in sh.in perl.in r.in \
+SHELL_INIT	  	  := bash.in csh.in ksh.in tcsh.in zsh.in sh.in perl.in R.in \
                              env_modules_python.py.in lmod_bash_completions
 SHELL_INIT	  	  := $(patsubst %, $(srcdir)/init/%, $(SHELL_INIT))
 LMODRC_INIT               := $(patsubst %, $(srcdir)/init/%, lmodrc.lua)
@@ -360,7 +359,8 @@ build_tags:
             -e 's|.*/rt/.*/t1/.*||g'                             \
             -e 's|./rt/funny_files/mf/.*||g'                     \
             -e 's|.*/html/.*$$||g'                               \
-            -e 's|./TAGS||g'                                     \
+            -e 's|./TAGS$$||g'                                   \
+            -e 's|./TAGS.world$$||g'                             \
             -e 's|./makefile||g'                                 \
             -e 's|./configure$$||g'                              \
             -e 's|.*\.DS_Store$$||g'                             \
@@ -402,6 +402,8 @@ build_tags:
 	       < file_list.2.txt > file_list.3.txt
 	etags `cat file_list.3.txt`
 
+busted:
+	@PROJDIR=$(CURDIR) busted  --verbose -m "$(CURDIR)/src/?.lua;$(CURDIR)/tools/?.lua"
 
 
 libexec:  $(lua_code)
@@ -448,8 +450,7 @@ gittag:
 	    echo "All files not checked in => try again";                            \
 	  else                                                                       \
 	    $(RM)                                                    $(VERSION_SRC); \
-	    echo "--module('Version')"                            >  $(VERSION_SRC); \
-	    echo 'local M={}'                                     >> $(VERSION_SRC); \
+	    echo 'local M={}'                                     >  $(VERSION_SRC); \
 	    echo 'function M.tag()  return "$(TAG)"   end'        >> $(VERSION_SRC); \
 	    echo 'function M.git()'                               >> $(VERSION_SRC); \
             echo '   local s = "@git@"'                           >> $(VERSION_SRC); \

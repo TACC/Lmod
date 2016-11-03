@@ -31,8 +31,7 @@ testdescript = {
      runLmod use -a $(testDir)/mf/cae   # 4
      runLmod load PrgEnv                # 5
      runLmod list                       # 6
-     buildModuleT   $LMOD_DEFAULT_MODULEPATH > ~/.lmod.d/.cache/moduleT.lua
-     buildDbT $LMOD_DEFAULT_MODULEPATH > ~/.lmod.d/.cache/dbT.lua
+     buildSpiderT   $MODULEPATH > ~/.lmod.d/.cache/spiderT.lua
      runLmod avail                      # 7
 
 

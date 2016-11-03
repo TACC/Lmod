@@ -14,7 +14,7 @@ require("strict")
 --
 --  ----------------------------------------------------------------------
 --
---  Copyright (C) 2008-2014 Robert McLay
+--  Copyright (C) 2008-2016 Robert McLay
 --
 --  Permission is hereby granted, free of charge, to any person obtaining
 --  a copy of this software and associated documentation files (the
@@ -66,7 +66,7 @@ end
 -- @param active Active state
 -- @param timeout A timeout (if positive) when an error will be reported.
 -- @return A CTimer singleton object.
-function M.cTimer(self, msg, threshold, active, timeout)
+function M.singleton(self, msg, threshold, active, timeout)
    if (not s_cTimer) then
       s_cTimer = new(self, msg, threshold, active, timeout)
    end

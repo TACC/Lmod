@@ -47,7 +47,6 @@ require("strict")
 
 require("fileOps")
 require("capture")
-require("cmdfuncs")
 require("modfuncs")
 require("utils")
 _G._DEBUG   = false               -- Required by the new lua posix
@@ -98,7 +97,6 @@ sandbox_env = {
   try_add              = try_load,
   unload               = unload,
   always_load          = always_load,
-  always_unload        = always_unload,
 
   --- Load Modify functions ---
   atleast              = atleast,
@@ -146,19 +144,19 @@ sandbox_env = {
   LmodError            = LmodError,
   LmodWarning          = LmodWarning,
   LmodMessage          = LmodMessage,
-  is_spider            = is_spider,
   mode                 = mode,
   isloaded             = isloaded,
   isPending            = isPending,
-  myShellName          = myShellName,
   myFileName           = myFileName,
   myModuleFullName     = myModuleFullName,
   myModuleUsrName      = myModuleUsrName,
   myModuleName         = myModuleName,
   myModuleVersion      = myModuleVersion,
+  myShellName          = myShellName,
   hierarchyA           = hierarchyA,
   userInGroup          = userInGroup,
   moduleStackTraceBack = moduleStackTraceBack,
+
 
   -- Normal modulefiles should not use these function(s):
   LmodSystemError      = LmodSystemError,   -- Normal Modulefiles should use
@@ -166,6 +164,14 @@ sandbox_env = {
                                             -- is inactive during avail and spider.
                                             -- This function ALWAYS produces an
                                             -- error.
+
+  is_spider            = is_spider,         -- This function should not be used.
+                                            -- It is better to use 
+                                            --      if (mode() == "spider") then ... end
+                                            -- This function will deprecated and will be removed
+
+  always_unload        = always_unload,     -- This function is exactly the same as unload()
+                                            -- This function will deprecated and will be removed
   ------------------------------------------------------------
   -- fileOp functions
   ------------------------------------------------------------

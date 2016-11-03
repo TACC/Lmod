@@ -79,13 +79,18 @@ function TermWidth()
    if (s_width) then
       return s_width
    end
-   s_DFLT  = tonumber(getenv("LMOD_TERM_WIDTH")) or s_DFLT
-   s_width = s_DFLT
-   if (connected2Term()) then
+   local ltw = tonumber(getenv("LMOD_TERM_WIDTH"))
+   if (ltw) then
+      s_width = ltw
+      return s_width
+   end
+   s_DFLT    = ltw or s_DFLT
+   s_width   = s_DFLT
+   if (haveTermSupport()) then
       s_width = askSystem(s_width)
    end
 
-   local maxW = tonumber(getenv("LMOD_TERM_WIDTH")) or math.huge
+   local maxW = ltw or math.huge
 
    s_width = min(maxW, s_width)
    s_width = (s_width > 30) and s_width or 30

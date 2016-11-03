@@ -15,7 +15,7 @@
 --
 --  ----------------------------------------------------------------------
 --
---  Copyright (C) 2008-2014 Robert McLay
+--  Copyright (C) 2008-2016 Robert McLay
 --
 --  Permission is hereby granted, free of charge, to any person obtaining
 --  a copy of this software and associated documentation files (the
@@ -87,33 +87,27 @@ HashSum = "@path_to_hashsum@"
 
 require("strict")
 require("myGlobals")
-local BuildFactory = require("BuildFactory")
-BuildFactory:master()
-
-
 require("utils")
-
 require("fileOps")
 require("capture")
 MasterControl = require("MasterControl")
-MCP           = {}
-mcp           = {}
+MCP           = false
+mcp           = false
 require("modfuncs")
 require("cmdfuncs")
 require("parseVersion")
 
 BaseShell         = require("BaseShell")
 Master            = require("Master")
-local dbg         = require("Dbg"):dbg()
 
-local ModuleStack = require("ModuleStack")
-local MT          = require("MT")
+local FrameStk    = require("FrameStk")
+local MName       = require("MName")
 local Optiks      = require("Optiks")
-local s_masterTbl = {}
-
+local concatTbl   = table.concat
+local dbg         = require("Dbg"):dbg()
 local fh          = nil
 local getenv      = os.getenv
-local concatTbl   = table.concat
+local s_masterTbl = {}
 
 function masterTbl()
    return s_masterTbl
@@ -121,17 +115,16 @@ end
 
 
 function main()
-   local master    = Master:master(false)
-   local mStack    = ModuleStack:moduleStack()
-   local shellN    = "bash"
-   master.shell    = BaseShell.build(shellN)
+   local master    = Master:singleton(false)
+   local frameStk  = FrameStk:singleton()
+   local shellNm   = "bash"
+   _G.Shell        = BaseShell:build(shellNm)
    local tmpfn     = os.tmpname()
    fh              = io.open(tmpfn,"w")
    local i         = 1
    local masterTbl = masterTbl()
    
    options()
-   parseVersion    = buildParseVersion()
 
    if (masterTbl.debug) then
       dbg:activateDebug(1, tonumber(masterTbl.indentLevel))
@@ -159,12 +152,17 @@ function main()
    MCP           = MasterControl.build("computeHash","load")
    mcp           = MasterControl.build("computeHash","load")
 
-   local f = masterTbl.pargs[1]
-   mStack:push(masterTbl.fullName, masterTbl.usrName, masterTbl.sn, f)
-   loadModuleFile{file=f, shell=shellN, reportErr=true}
-   mStack:pop()
+   local fn     = masterTbl.pargs[1]
+   local entryT = {sn = masterTbl.sn, userName = masterTbl.userName, fn = fn,
+                   version = extractVersion(masterTbl.fullName, masterTbl.sn)}
+   local mname = MName:new("entryT", entryT)
+   dbg.print{"fullName: ",mname:fullName(),", userName: ",mname:userName()," masterTbl.fullName: ", masterTbl.fullName,"\n"}
+
+   frameStk:push(mname)
+   loadModuleFile{file=fn, shell=shellNm, reportErr=true}
+   frameStk:pop()
    local s = concatTbl(ShowResultsA,"")
-   dbg.textA{name="Text to Hash",a=ShowResultsA}
+   dbg.textA{name="Text to Hash for: "..masterTbl.fullName, a=ShowResultsA}
 
    if (masterTbl.verbose) then
       io.stderr:write(s)
@@ -205,18 +203,26 @@ function options()
       help   = "Full name of the module file"
    }
 
+
    cmdlineParser:add_option{
-      name   = {'--usrName'},
-      dest   = 'usrName',
+      name   = {'--userName'},
+      dest   = 'userName',
       action = 'store',
       help   = "User name of the module file"
+   }
+
+   cmdlineParser:add_option{
+      name   = {'--MODULEPATH'},
+      dest   = 'mpath',
+      action = 'store',
+      help   = "The current MODULEPATH"
    }
 
    cmdlineParser:add_option{
       name   = {'--sn'},
       dest   = 'sn',
       action = 'store',
-      help   = "Full name of the module file"
+      help   = "shortname of the module file"
    }
 
    cmdlineParser:add_option{

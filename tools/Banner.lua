@@ -60,7 +60,7 @@ end
 --- The singleton ctor for the class.
 -- @param self Banner object.
 
-function M.banner(self)
+function M.singleton(self)
    if (not s_bannerT) then
       s_bannerT = new(self)
    end

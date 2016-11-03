@@ -40,12 +40,13 @@
 require("strict")
 
 
-local Fish        = inheritsFrom(BaseShell)
-local dbg         = require("Dbg"):dbg()
-local Var         = require("Var")
-local concatTbl   = table.concat
-local stdout      = io.stdout
-Fish.my_name      = "fish"
+local BaseShell = require("BaseShell")
+local Fish      = inheritsFrom(BaseShell)
+local dbg       = require("Dbg"):dbg()
+local Var       = require("Var")
+local concatTbl = table.concat
+local stdout    = io.stdout
+Fish.my_name    = "fish"
 
 --------------------------------------------------------------------------
 -- Fish:alias(): Either define or undefine a bash shell alias.

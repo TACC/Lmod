@@ -6,7 +6,7 @@ require("strict")
 
 --------------------------------------------------------------------------
 --
---  Copyright (C) 2008-2014 Robert McLay
+--  Copyright (C) 2008-2016 Robert McLay
 --
 --  Permission is hereby granted, free of charge, to any person obtaining
 --  a copy of this software and associated documentation files (the
@@ -30,19 +30,24 @@ require("strict")
 --
 --------------------------------------------------------------------------
 
+local isLua51   = _VERSION:match('5%.1$')
 local concatTbl = table.concat
 
 --------------------------------------------------------------------------
--- remove leading and trailing spaces.
--- @param self input string
+-- Convert a search string that may have special regular expression and
+-- quote them.  This is very useful when trying to match version numbers
+-- like "2.4-1" where you want "." and "-" to treated as normal characters
+-- and not regular expression ones.
+-- @param  self Input string.
+-- @return escaped string.
 
-function string.trim(self)
-   local ja = self:find("%S")
-   if (ja == nil) then
-      return ""
+function string.escape(self)
+   if (self == nil) then return nil end
+   local res = self:gsub('[%-%.%+%[%]%(%)%$%^%%%?%*]','%%%1')
+   if isLua51 then
+      res = res:gsub('%z','%%z')
    end
-   local  jb = self:find("%s+$") or 0
-   return self:sub(ja,jb-1)
+   return res
 end
 
 --------------------------------------------------------------------------
@@ -62,6 +67,15 @@ function string.split(self, pat)
       if st then return getter(myself, st, g()) end
    end
    return splitter, self
+end
+
+function string.trim(self)
+   local ja = self:find("%S")
+   if (ja == nil) then
+      return ""
+   end
+   local  jb = self:find("%s+$") or 0
+   return self:sub(ja,jb-1)
 end
 
 --------------------------------------------------------------------------
@@ -88,20 +102,24 @@ end
 -- Wrap input string with double quotes
 -- @param  self Input string
 -- @return A string surrounded with double quotes internal double quotes backslashed
-function string.doubleQuoteString(self)
-   if (type(self) ~= 'string') then
-      self = tostring(self)
-   else
-      self = ('%q'):format(self)
-   end
-   return self
-end
-
 function string.multiEscaped(self)
    if (type(self) ~= 'string') then
       self = tostring(self)
    else
       self = '"' .. self:gsub("[\"$]","\\%1") .. '"'
+   end
+   return self
+end
+
+--------------------------------------------------------------------------
+-- Wrap input string with double quotes
+-- @param  self Input string
+-- @return A string surrounded with double quotes internal double quotes backslashed
+function string.doubleQuoteString(self)
+   if (type(self) ~= 'string') then
+      self = tostring(self)
+   else
+      self = ('%q'):format(self)
    end
    return self
 end
@@ -114,24 +132,6 @@ function string.atSymbolEscaped(self)
    if (self == nil) then return self end
    self = self:gsub('@','\\@')
    return self
-end
-
-isLua51 = _VERSION:match('5%.1$')
-
---------------------------------------------------------------------------
--- Convert a search string that may have special regular expression and
--- quote them.  This is very useful when trying to match version numbers
--- like "2.4-1" where you want "." and "-" to treated as normal characters
--- and not regular expression ones.
--- @param  self Input string.
--- @return escaped string.
-function string.escape(self)
-   if (self == nil) then return nil end
-   local res = self:gsub('[%-%.%+%[%]%(%)%$%^%%%?%*]','%%%1')
-   if isLua51 then
-      res = res:gsub('%z','%%z')
-   end
-   return res
 end
 
 --------------------------------------------------------------------------

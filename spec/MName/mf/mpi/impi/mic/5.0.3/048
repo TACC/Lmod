@@ -1,0 +1,19 @@
+#%Module -*- tcl -*-
+##
+## modulefile
+##
+proc ModulesHelp { } {
+
+  puts stderr "\tAdds Intel MPI Library to your environment variables,"
+}
+
+module-whatis "adds Intel MPI Library to your environment variables"
+
+set              root                 /cm/shared/apps/intel/mpi/5.0.3.048
+
+prepend-path      PATH                 $root/mic/bin
+prepend-path      LD_LIBRARY_PATH      $root/mic/lib
+prepend-path      MANPATH              $root/man
+
+setenv           I_MPI_ROOT           $root
+

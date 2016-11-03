@@ -20,7 +20,7 @@ testdescript = {
 
      unsetMT
      initStdEnvVars
-     MODULEPATH_ROOT=$(projectDir)/mf;  export MODULEPATH_ROOT
+     MODULEPATH_ROOT=$(testDir)/mf;     export MODULEPATH_ROOT
      LMOD_PREPEND_BLOCK=yes;            export LMOD_PREPEND_BLOCK
 
      LMOD_PACKAGE_PATH=$(testDir);      export LMOD_PACKAGE_PATH
@@ -28,7 +28,7 @@ testdescript = {
      rm -fr _stderr.* _stdout.* err.* out.* .lmod.d
 
      runLmod --version                      # 1
-     runLmod use -a $projectDir/mf/Core     # 2
+     runLmod use -a $(testDir)/mf/Core      # 2
      runLmod load admin intel               # 3
 
      HOME=$ORIG_HOME

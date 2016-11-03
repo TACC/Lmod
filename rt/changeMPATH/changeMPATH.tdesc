@@ -20,8 +20,8 @@ testdescript = {
 
      unsetMT
      initStdEnvVars
-     MODULEPATH_ROOT=$(projectDir)/mf;   export MODULEPATH_ROOT
-     MODULEPATH="$(projectDir)/mf/Core"; export MODULEPATH
+     MODULEPATH_ROOT=$(testDir)/mf;      export MODULEPATH_ROOT
+     MODULEPATH="$MODULEPATH_ROOT/Core"; export MODULEPATH
 
      rm -rf _stderr.* _stdout.* err.* out.* .lmod.d .lmodrc.lua
      cp $(projectDir)/init/lmodrc.lua .lmodrc.lua
@@ -32,22 +32,22 @@ testdescript = {
 
      runLmod purge                            # 4
      unsetMT
-     MODULEPATH=$(testDir)/mf/Core:$(projectDir)/mf/Core
+     MODULEPATH=$(testDir)/mf/Core2:$(testDir)/mf/Core
 
      runLmod restore                          # 5
 
      runLmod purge                            # 6
      unsetMT
-     MODULEPATH=$(projectDir)/mf/Core
+     MODULEPATH=$(testDir)/mf/Core
 
-     runLmod use  $(testDir)/mf/Core          # 7
+     runLmod use  $(testDir)/mf/Core2         # 7
      runLmod load admin PrgEnv                # 8
      runLmod list                             # 9
      runLmod save default                     #10
 
      runLmod purge                            #11
      unsetMT
-     MODULEPATH=$(projectDir)/mf/Core
+     MODULEPATH=$(testDir)/mf/Core
 
      runLmod restore                          #12
      runLmod list                             #13

@@ -40,11 +40,12 @@
 require("strict")
 require("pairsByKeys")
 
-local dbg         = require("Dbg"):dbg()
-local concatTbl   = table.concat
-local stdout      = io.stdout
-local Csh	  = inheritsFrom(BaseShell)
-Csh.my_name = 'csh'
+local BaseShell = require("BaseShell")
+local Csh       = inheritsFrom(BaseShell)
+local dbg       = require("Dbg"):dbg()
+local concatTbl = table.concat
+local stdout    = io.stdout
+Csh.my_name     = 'csh'
 
 --------------------------------------------------------------------------
 -- Csh:alias(): Either define or undefine a Csh shell alias. Remove any

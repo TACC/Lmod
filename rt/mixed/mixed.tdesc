@@ -18,8 +18,8 @@ testdescript = {
 
      unsetMT
      initStdEnvVars
-     MODULEPATH=$(testDir)/mf/Core;     export MODULEPATH
      MODULEPATH_ROOT=$(testDir)/mf;     export MODULEPATH_ROOT
+     MODULEPATH=$MODULEPATH_ROOT/Core;  export MODULEPATH
      LMOD_DUPLICATE_PATHS=yes;          export LMOD_DUPLICATE_PATHS
 
      rm -fr _stderr.* _stdout.* err.* out.* .lmod.d

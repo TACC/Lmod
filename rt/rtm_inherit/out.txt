@@ -6,39 +6,27 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 step 2
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/rtm_inherit/rtm_mf/Core:ProjectDIR/rt/rtm_inherit/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/rtm_inherit/rtm_mf/Core:ProjectDIR/rt/rtm_inherit/mf/Core";
 export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/rtm_inherit/rtm_mf/Core:ProjectDIR/rt/rtm_inherit/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/rtm_inherit/rtm_mf/Core:ProjectDIR/rt/rtm_inherit/mf/Core";
-export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/rtm_inherit/rtm_mf/Core","ProjectDIR/rt/rtm_inherit/mf/Core",},family={},inactive={},mT={},mpathA={"ProjectDIR/rt/rtm_inherit/rtm_mf/Core","ProjectDIR/rt/rtm_inherit/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/rtm_inherit/rtm_mf/Core:ProjectDIR/rt/rtm_inherit/mf/Core",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/rtm_inherit/rtm_mf/Core","ProjectDIR/rt/rtm_inherit/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/rtm_inherit/rtm_mf/Core:ProjectDIR/rt/rtm_inherit/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 3
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load intel
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/rtm_inherit/rtm_mf/Core:ProjectDIR/rt/rtm_inherit/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/rtm_inherit/rtm_mf/Core:ProjectDIR/rt/rtm_inherit/mf/Core";
-export MODULEPATH;
 INTEL_KIND="RTM";
 export INTEL_KIND;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/rtm_inherit/rtm_mf/Core:ProjectDIR/rt/rtm_inherit/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
 LMOD_FAMILY_COMPILER="intel";
 export LMOD_FAMILY_COMPILER;
 LMOD_FAMILY_COMPILER_VERSION="13.1";
 export LMOD_FAMILY_COMPILER_VERSION;
 LOADEDMODULES="intel/13.1";
 export LOADEDMODULES;
-MODULEPATH="ProjectDIR/rt/rtm_inherit/rtm_mf/Compiler/intel/13.1:ProjectDIR/rt/rtm_inherit/mf/Compiler/intel/13.1:ProjectDIR/rt/rtm_inherit/rtm_mf/Core:ProjectDIR/rt/rtm_inherit/mf/Core";
+MODULEPATH="ProjectDIR/rt/rtm_inherit/mf/rtm_mf/Compiler/intel/13.1:ProjectDIR/rt/rtm_inherit/mf/Compiler/intel/13.1:ProjectDIR/rt/rtm_inherit/rtm_mf/Core:ProjectDIR/rt/rtm_inherit/mf/Core";
 export MODULEPATH;
 PATH="/opt/apps/intel/13.1/bin/intel64:ProjectDIR/src:PATH_to_TM:/bin";
 export PATH;
 _LMFILES_="ProjectDIR/rt/rtm_inherit/rtm_mf/Core/intel/13.1.lua";
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/rtm_inherit/rtm_mf/Core","ProjectDIR/rt/rtm_inherit/mf/Core",},family={["compiler"]="intel",},inactive={},mT={intel={["FN"]="ProjectDIR/rt/rtm_inherit/rtm_mf/Core/intel/13.1.lua",["default"]=1,fnI={"ProjectDIR/rt/rtm_inherit/mf/Core/intel/13.1.lua",},["fullName"]="intel/13.1",["loadOrder"]=1,propT={},["short"]="intel",["status"]="active",},},mpathA={"ProjectDIR/rt/rtm_inherit/rtm_mf/Compiler/intel/13.1","ProjectDIR/rt/rtm_inherit/mf/Compiler/intel/13.1","ProjectDIR/rt/rtm_inherit/rtm_mf/Core","ProjectDIR/rt/rtm_inherit/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/rtm_inherit/rtm_mf/Core:ProjectDIR/rt/rtm_inherit/mf/Core",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["compiler"]="intel",},mT={intel={["fn"]="ProjectDIR/rt/rtm_inherit/rtm_mf/Core/intel/13.1.lua",["fullName"]="intel/13.1",["loadOrder"]=1,mnameA={{["fn"]="ProjectDIR/rt/rtm_inherit/mf/Core/intel/13.1.lua",["sn"]="intel",["userName"]="intel/13.1",["version"]="13.1",},},propT={},["status"]="active",["userName"]="intel",},},mpathA={"ProjectDIR/rt/rtm_inherit/mf/rtm_mf/Compiler/intel/13.1","ProjectDIR/rt/rtm_inherit/mf/Compiler/intel/13.1","ProjectDIR/rt/rtm_inherit/rtm_mf/Core","ProjectDIR/rt/rtm_inherit/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/rtm_inherit/rtm_mf/Core:ProjectDIR/rt/rtm_inherit/mf/Core",}';
 export _ModuleTable_;

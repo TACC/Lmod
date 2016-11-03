@@ -1,3 +1,4 @@
 #%Module
 
 module-alias a14 a/14
+hide-version hidden/2.0

@@ -81,9 +81,6 @@ end
 
 require("strict")
 
-local BuildFactory = require("BuildFactory")
-BuildFactory:master()
-
 require("myGlobals")
 require("utils")
 require("colorize")
@@ -96,15 +93,16 @@ require("parseVersion")
 MasterControl       = require("MasterControl")
 Cache               = require("Cache")
 MT                  = require("MT")
+MRC                 = require("MRC")
 Master              = require("Master")
 BaseShell           = require("BaseShell")
-local malias        = require("MAlias"):build()
-local lfs           = require("lfs")
-local json          = require("json")
-local dbg           = require("Dbg"):dbg()
 local Optiks        = require("Optiks")
 local Spider        = require("Spider")
 local concatTbl     = table.concat
+local dbg           = require("Dbg"):dbg()
+local json          = require("json")
+local lfs           = require("lfs")
+local posix         = require("posix")
 local sort          = table.sort
 
 
@@ -175,10 +173,20 @@ local function add2map(entry, tbl, dirA, moduleFn, rmapT, kind)
       local attr = lfs.attributes(path)
       if (keepThisPath2(path,dirA) and attr and attr.mode == "directory") then
          path = abspath(path)
-         local t       = rmapT[path] or {pkg=entry.full, kind = kind, moduleFn = moduleFn, flavorT = {}}
+         local t       = rmapT[path] or {pkg=entry.fullName, kind = kind, moduleFn = moduleFn, flavorT = {}}
          local flavorT = t.flavorT
-         for i = 1, #entry.parent do
-            flavorT[entry.parent[i]] = true
+         if (entry.parentAA == nil) then
+            flavorT.default = true
+         else
+            for i = 1, #entry.parentAA do
+               local parentA = entry.parentAA[i]
+               local a = {"default"}
+               for j = 1, #parentA do
+                  a[#a+1] = parentA[j]
+               end
+               local key = concatTbl(a,':')
+               flavorT[key] = true
+            end
          end
          rmapT[path] = t
       end
@@ -191,41 +199,42 @@ end
 -- @param moduleT
 -- @param timestampFn
 -- @param dbT
-local function rptList(moduleDirA, moduleT, timestampFn, dbT)
-   dbg.start{"rptList(moduleDirA, moduleT, timestampFn, dbT)"}
+local function rptList(mpathMapT, spiderT, timestampFn, dbT)
+   dbg.start{"rptList(mpathMapT, spiderT, timestampFn, dbT)"}
    local tbl = {}
    local spider = Spider:new()
-   spider:listModules(moduleT, tbl)
+   spider:listModules(dbT, tbl)
    for k in pairsByKeys(tbl) do
       print(k)
    end
    dbg.fini("rptList")
 end
 
-local function rptModuleT(moduleDirA, moduleT, timestampFn, dbT)
-   dbg.start{"rptModuleT(moduleDirA, moduleT, timestampFn, dbT)"}
+local function rptSpiderT(mpathMapT, spiderT, timestampFn, dbT)
+   dbg.start{ "rptSpiderT(mpathMapT, spiderT, timestampFn, dbT)"}
+   local mrc = MRC:singleton()
    local ts = { timestampFn }
-   local s0 = malias:export()
    local s1 = serializeTbl{name="timestampFn",   value=ts,         indent=true}
-   local s2 = serializeTbl{name="defaultMpathA", value=moduleDirA, indent=true}
-   local s3 = serializeTbl{name="moduleT",       value=moduleT,    indent=true}
-   io.stdout:write(s0,s1,s2,s3,"\n")
-   dbg.fini("rptModuleT")
+   local s2 = mrc:export()
+   local s3 = serializeTbl{name="spiderT",       value=spiderT,    indent=true}
+   local s4 = serializeTbl{name="mpathMapT",     value=mpathMapT,  indent=true}
+   io.stdout:write(s1,s2,s3,s4,"\n")
+   dbg.fini("rptSpiderT")
 end
 
-local function buildReverseMapT(moduleDirA, moduleT, dbT)
+local function buildReverseMapT(dbT)
    local reverseMapT = {}
 
-   for kkk,vvv in pairs(dbT) do
-      for kk, entry in pairs(vvv) do
+   for sn,vvv in pairs(dbT) do
+      for fn, entry in pairs(vvv) do
          if (entry.pathA) then
-            add2map(entry, entry.pathA,  entry.dirA, kk, reverseMapT, "bin")
+            add2map(entry, entry.pathA,  entry.dirA, fn, reverseMapT, "bin")
          end
          if (entry.lpathA) then
-            add2map(entry, entry.lpathA, entry.dirA, kk, reverseMapT, "lib")
+            add2map(entry, entry.lpathA, entry.dirA, fn, reverseMapT, "lib")
          end
          if (entry.dirA) then
-            add2map(entry, entry.dirA,   entry.dirA, kk, reverseMapT, "dir")
+            add2map(entry, entry.dirA,   entry.dirA, fn, reverseMapT, "dir")
          end
       end
    end
@@ -286,7 +295,7 @@ end
 local function rptReverseMapT(moduleDirA, moduleT, timestampFn, dbT)
    dbg.start{"rptReverseMapT(moduleDirA, moduleT, timestampFn, dbT)"}
    local ts          = { timestampFn }
-   local reverseMapT = buildReverseMapT(moduleDirA, moduleT, dbT)
+   local reverseMapT = buildReverseMapT(dbT)
    local libA        = buildLibMapA(reverseMapT)
    local s1          = serializeTbl{name="timestampFn",   value=ts,
                                     indent=true}
@@ -342,13 +351,12 @@ local function rptSoftwarePageXml(moduleDirA, moduleT, timestampFn, dbT)
    dbg.fini("rptSoftwarePageXml")
 end
 
-local function rptDbT(moduleDirA, moduleT, timestampFn, dbT)
-   dbg.start{"rptDbT(moduleDirA, moduleT, timestampFn, dbT)"}
+local function rptDbT(mpathMapT, spiderT, timestampFn, dbT)
+   dbg.start{"rptDbT(mpathMapT, spiderT, timestampFn, dbT)"}
    local ts = { timestampFn }
-   local s0 = malias:export()
    local s1 = serializeTbl{name="timestampFn",   value=ts,         indent=true}
    local s2 = serializeTbl{name="dbT",      value=dbT,   indent=true}
-   io.stdout:write(s0,s1,s2,"\n")
+   io.stdout:write(s1,s2,"\n")
    dbg.fini("rptDbT")
 end
 
@@ -364,19 +372,19 @@ function main()
    options()
    local masterTbl  = masterTbl()
    local pargs      = masterTbl.pargs
-   local moduleT    = {}
-   local moduleDirA = {}
+   local mpathA     = {}
 
-   local master     = Master:master(false)
-   master.shell     = BaseShell.build("bash")
-   parseVersion     = buildParseVersion()
+   local master     = Master:singleton(false)
+   --_G.Shell         = BaseShell:build("bash")
 
    for _, v in ipairs(pargs) do
       for path in v:split(":") do
-         moduleDirA[#moduleDirA+1] = path_regularize(path)
+         mpathA[#mpathA+1] = path_regularize(path)
       end
    end
-
+   local mpath = concatTbl(mpathA,":")
+   posix.setenv("MODULEPATH",mpath,true)
+   
 
    if (masterTbl.debug > 0 or masterTbl.dbglvl) then
       local dbgLevel = math.max(masterTbl.debug, masterTbl.dbglvl or 1)
@@ -386,8 +394,6 @@ function main()
    dbg.start{"Spider main()"}
    MCP = MasterControl.build("spider")
    mcp = MasterControl.build("spider")
-
-   local cache = Cache:cache{dontWrite = true, quiet = true, buildCache = true}
 
    ------------------------------------------------------------------------
    -- do not colorize output from spider
@@ -399,6 +405,7 @@ function main()
    --  The StandardPackage is where Lmod registers hooks.  Sites may
    --  override the hook functions in SitePackage.
    ------------------------------------------------------------------------
+   dbg.print{"Loading StandardPackage\n"}
    require("StandardPackage")
 
    ------------------------------------------------------------------------
@@ -419,23 +426,24 @@ function main()
 
    dbg.print{"lmodPath:", lmodPath,"\n"}
    require("SitePackage")
-   local spider = Spider:new()
-   spider:findAllModules(moduleDirA, moduleT)
+   local cache                   = Cache:singleton{dontWrite = true, quiet = true, buildCache = true}
+   local spider                  = Spider:new()
+   local spiderT, dbT, mpathMapT = cache:build()
+
 
    if (dbg.active()) then
-      for k,v in pairs(moduleT) do
+      for k,v in pairs(spiderT) do
          dbg.print{"k: ",k,"\n"}
       end
    end
 
-   local dbT = {}
-   spider:buildSpiderDB({"default"}, moduleT, dbT)
 
    -- This interpT converts user outputstyle into a function call.
 
    local interpT = {
       list             = rptList,
-      moduleT          = rptModuleT,
+      moduleT          = rptSpiderT,
+      spiderT          = rptSpiderT,
       softwarePage     = rptSoftwarePageJson,
       jsonSoftwarePage = rptSoftwarePageJson,
       xmlSoftwarePage  = rptSoftwarePageXml,
@@ -453,7 +461,7 @@ function main()
    -- grap function and run with it.
    local func = interpT[masterTbl.outputStyle]
    if (func) then
-      func(moduleDirA, moduleT, masterTbl.timestampFn, dbT)
+      func(mpathMapT, spiderT, masterTbl.timestampFn, dbT)
    end
    dbg.fini()
 end

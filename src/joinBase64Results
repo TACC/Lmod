@@ -44,6 +44,7 @@ require("strict")
 LMOD_LD_LIBRARY_PATH = ""
 LMOD_LD_PRELOAD      = ""
 
+
 local cmd = arg[0]
 
 local i,j = cmd:find(".*/")
@@ -66,6 +67,7 @@ pack     = (_VERSION == "Lua 5.1") and argsPack or table.pack
 
 require("string_utils")
 require("serializeTbl")
+local s_name    = "_ModuleTable_"
 local base64    = require("base64")
 local concatTbl = table.concat
 local decode64  = base64.decode64
@@ -91,14 +93,14 @@ function removeUnwantedFields(s)
       return ""
    end
 
-   local mt = _G._ModuleTable_
+   local mt = _G._ModuleTable_ 
 
    for k,v in pairs(mt) do
       if (k:sub(1,2) == "c_") then
          mt[k] = nil
       end
    end
-   local s = serializeTbl{ indent=false, name="_ModuleTable_", value=mt}
+   local s = serializeTbl{ indent=false, name=s_name, value=mt}
    return s:gsub("[ \n]","")
 end
 
@@ -106,10 +108,10 @@ function sectionEnd(sType,A, a1, a2, a3)
    local b = {}
    if (#a2 > 0) then
       if (sType == "bash") then
-         b[1] = "_ModuleTable_='" .. removeUnwantedFields(decode64(table.concat(a2,""))) .. "';"
-         b[2] = "export _ModuleTable_;"
+         b[1] = s_name .."='" .. removeUnwantedFields(decode64(table.concat(a2,""))) .. "';"
+         b[2] = "export ".. s_name ..";"
       else
-         b[1] = "setenv _ModuleTable_ '" .. removeUnwantedFields(decode64(table.concat(a2,""))) .. "';"
+         b[1] = "setenv " .. s_name .. " '" .. removeUnwantedFields(decode64(table.concat(a2,""))) .. "';"
       end
    end
    joinArrays(A, a1, b, a3)
@@ -136,18 +138,20 @@ function joinMT_bash(whole)
    local a3 = {}
    local a  = a1
    local haveMT = false
+   local n2 = "_ModuleTable"
+
    for s in whole:split("\n") do
       local state = "init"
-      if (s:find("^_ModuleTable%d%d%d_=")) then
+      if (s:find("^" .. n2 .."%d%d%d_=")) then
          if (state == "init") then
             state = "mt"
          end
          a = a3
          grab(s, a2)
          haveMT = true
-      elseif (s:find("^export _ModuleTable") or
-              s:find("^unset _ModuleTable")  or
-              s:find("^_ModuleTable_Sz")) then
+      elseif (s:find("^export " .. n2 ) or
+              s:find("^unset "  .. n2 ) or
+              s:find("^" .. n2 .. "Sz")) then
          state = "ignore"
       elseif (haveMT and s:find("^===========================")) then
          a1, a2, a3 = sectionEnd("bash", A, a1, a2, a3)
@@ -178,6 +182,7 @@ function joinMT_bash(whole)
 end
 
 function joinMT_csh(whole)
+   local n2 = "_ModuleTable"
    local A  = {}
    local a1 = {}
    local a2 = {}
@@ -185,7 +190,7 @@ function joinMT_csh(whole)
    local a  = a1
    local state = "init"
    for s in whole:split("\n") do
-      if (s:find("^setenv _ModuleTable%d%d%d_")) then
+      if (s:find("^setenv ".. n2 .. "%d%d%d_")) then
          if (state == "init") then
             state = "mt"
          end

@@ -64,13 +64,7 @@ xlibmap = {}
 step 3
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/rmap/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/rmap/mf/Core";
 export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/rmap/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/rmap/mf/Core";
-export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/rmap/mf/Core",},family={},inactive={},mT={},mpathA={"ProjectDIR/rt/rmap/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/rmap/mf/Core",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/rmap/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/rmap/mf/Core",}';
 export _ModuleTable_;

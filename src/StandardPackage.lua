@@ -13,7 +13,7 @@ require("strict")
 --
 --  ------------------------------------------------------------------------
 --
---  Copyright (C) 2008-2014 Robert McLay
+--  Copyright (C) 2008-2016 Robert McLay
 --
 --  Permission is hereby granted, free of charge, to any person obtaining a copy
 --  of this software and associated documentation files (the "Software"), to deal
@@ -38,35 +38,29 @@ require("strict")
 require("TermWidth")
 require("string_utils")
 require("fileOps")
-require("myGlobals")
+require("sandbox")
 _G._DEBUG       = false               -- Required by the new lua posix
 PkgBase         = require("PkgBase")
 Pkg             = PkgBase.build("Pkg")
 local concatTbl = table.concat
 local hook      = require("Hook")
 local getenv    = os.getenv
-local lfs       = require("lfs")
 local min       = math.min
 local posix     = require("posix")
 
-local function parse_updateFn_hook(updateSystemFn, t)
-   local attr = lfs.attributes(updateSystemFn)
-   if (attr and type(attr) == "table") then
-      local f           = io.open(updateSystemFn, "r")
-      local hostType    = f:read("*line") or ""
-      t.hostType        = hostType:trim()
-      t.lastUpdateEpoch = attr.modification
-   end
-end
-
-hook.register("parse_updateFn",parse_updateFn_hook)
+------------------------------------------------------------
+-- Standard version of site_name_hook:
+-- The default return LMOD unless it is overwritten by a site
+-- setting LMOD_SYSTEM_NAME.  
 
 local function site_name_hook()
    return LMOD_SYSTEM_NAME or "LMOD"
 end
 
-
 hook.register("SiteName",site_name_hook)
+
+------------------------------------------------------------
+-- Standard version of msg
 
 local msgT = {
    avail = [[
@@ -94,10 +88,10 @@ local function msg(kind, a)
    return a
 end
 
-
-
 hook.register("msgHook",msg)
 
+------------------------------------------------------------
+-- Standard version of groupName
 
 local function groupName(fn)
    local base  = removeExt(fn)

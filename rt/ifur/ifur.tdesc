@@ -5,7 +5,7 @@ testdescript = {
    owner   = "rtm",
    product = "modules",
    description = [[
-	 Test initial module load
+	 Test ifur example
    ]],
    keywords = { testName },
 

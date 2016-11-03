@@ -43,7 +43,7 @@ require("strict")
 
 ------------------------------------------------------------------------
 --
---  Copyright (C) 2008-2014 Robert McLay
+--  Copyright (C) 2008-2016 Robert McLay
 --
 --  Permission is hereby granted, free of charge, to any person obtaining
 --  a copy of this software and associated documentation files (the
@@ -66,6 +66,7 @@ require("strict")
 --  THE SOFTWARE.
 --
 --------------------------------------------------------------------------
+
 local blank        = " "
 local huge         = math.huge
 local max          = math.max
@@ -134,6 +135,7 @@ local function new(self)
    self.__index = self
    o.print      = M._quiet
    o.printA     = M._quiet
+   o.printT     = M._quiet
    o.textA      = M._quiet
    o.start      = M._quiet
    o.fini       = M._quiet
@@ -178,6 +180,7 @@ function M.activateDebug(self, level, indentLevel)
    elseif (level > 0) then
       self.print            = M._print
       self.printA           = M._printA
+      self.printT           = M._printT
       self.textA            = M._textA
       self.start            = M._start
       self.fini             = M._fini
@@ -192,6 +195,7 @@ function M.activateDebug(self, level, indentLevel)
    else
       self.print      = M._quiet
       self.printA     = M._quiet
+      self.printT     = M._quiet
       self.textA      = M._quiet
       self.start      = M._quiet
       self.fini       = M._quiet
@@ -436,6 +440,11 @@ end
 -- flush the output to stderr.
 function M.flush()
    io.stderr:flush()
+end
+
+function M._printT(name, value)
+   require("serializeTbl")
+   io.stderr:write(serializeTbl{indent=true, name = name, value=value})
 end
 
 ---- finis -----

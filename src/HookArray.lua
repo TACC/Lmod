@@ -38,7 +38,7 @@ require("strict")
 --  THE SOFTWARE.
 --
 --------------------------------------------------------------------------
-local hookA = false
+local s_hookA = false
 
 local M={}
 
@@ -46,16 +46,16 @@ local M={}
 -- Register a function with the hook array.
 -- @param func The function to store with it.
 function M.register(func)
-   hookA             = hookA or {}
-   hookA[#hookA + 1] = func
+   s_hookA               = s_hookA or {}
+   s_hookA[#s_hookA + 1] = func
 end
 
 --------------------------------------------------------------------------
 -- If a valid hook function has been registered then apply it.
 function M.apply()
-   if (hookA) then
-      for i = 1, #hookA do
-         hookA[i]()
+   if (s_hookA) then
+      for i = 1, #s_hookA do
+         s_hookA[i]()
       end
    end
 end

@@ -67,10 +67,12 @@ require("strict")
 --
 --
 --     function module_requires_group(group)
---        local grps  = capture("groups")
---        local found = false
+--        local grps   = capture("groups")
+--        local found  = false
+--        local userId = capture("id -u")
+--        local isRoot = tonumber(userId) == 0
 --        for g in grps:split("[ \n]") do
---           if (g == group)  then
+--           if (g == group or isRoot)  then
 --              found = true
 --              break
 --           end

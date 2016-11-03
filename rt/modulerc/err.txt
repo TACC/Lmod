@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 6.4.3  2016-06-17 09:58
+Modules based on Lua: Version 0.9.2  2016-10-25 13:59 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -92,8 +92,9 @@ ProjectDIR/rt/modulerc/mf/Core
    abinit/6.12.3 (6:6.12)       intel/15.0.2         (L,15:15.0)
    abinit/7.4.3  (L,D:7:7.4)
   Where:
-   D:  Default Module
-   L:  Module is loaded
+   Aliases:  Aliases exist: foo/1.2.3 (1.2) means that "module load foo/1.2" will load foo/1.2.3
+   D:        Default Module
+   L:        Module is loaded
 Use "module spider" to find all possible modules.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
@@ -108,8 +109,9 @@ ProjectDIR/rt/modulerc/mf/Core
    abinit/6.12.3 (6:6.12)       intel/15.0.2         (L,15:15.0)
    abinit/7.4.3  (L,D:7:7.4)
   Where:
-   D:  Default Module
-   L:  Module is loaded
+   Aliases:  Aliases exist: foo/1.2.3 (1.2) means that "module load foo/1.2" will load foo/1.2.3
+   D:        Default Module
+   L:        Module is loaded
 Use "module spider" to find all possible modules.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
@@ -124,28 +126,13 @@ ProjectDIR/rt/modulerc/mf/Core
    abinit/6.12.3 (6:6.12)       intel/15.0.2         (L,15:15.0)
    abinit/7.4.3  (L,D:7:7.4)
   Where:
-   D:  Default Module
-   L:  Module is loaded
+   Aliases:  Aliases exist: foo/1.2.3 (1.2) means that "module load foo/1.2" will load foo/1.2.3
+   D:        Default Module
+   L:        Module is loaded
 Use "module spider" to find all possible modules.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 19
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
-===========================
-ProjectDIR/rt/modulerc/mf/Core
-   Rstats/2.1.5                 arpack/openmpi/3.1.4
-   a/13.1.23                    intel/14.0.2
-   a/13.2.345    (L,13)         intel/14.0.3         (D:14:14.0)
-   a/14.0.1.134  (D:14)         intel/15.0.1
-   abinit/6.12.3 (6:6.12)       intel/15.0.2         (L,15:15.0)
-   abinit/7.4.3  (L,D:7:7.4)
-  Where:
-   D:  Default Module
-   L:  Module is loaded
-Use "module spider" to find all possible modules.
-Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
-===========================
-step 20
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load cluster
 ===========================
 The default cluster module cannot be determined. Please set $VSC_DEFAULT_CLUSTER_MODULE.

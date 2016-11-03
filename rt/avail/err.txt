@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 6.5.16  2016-10-04 17:13 -05:00
+Modules based on Lua: Version 0.9.2  2016-10-25 13:59 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -12,45 +12,44 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing load intel
 step 3
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
-ProjectDIR/mf/Compiler/intel/10.1
+ProjectDIR/rt/avail/mf/Compiler/intel/10.1
    gotoblas/1.31        gotoblas/1.33    openmpi/1.2.6
    gotoblas/1.32 (D)    mpich2/1.0.7
-ProjectDIR/mf/Core
-   PrgEnv                   git/1.7.4            junk/d/3.0
-   admin/admin-1.0          git/1.7.4.3   (D)    local/local
-   alex/1.0                 gotoblas/1.20        multi/multi
-   boost/1.46.0             gotoblas/1.26        noweb/2.10c
-   boost/1.47.1             gotoblas/1.30        parmetis/3.1 (m)
-   boost/1.49.0    (o,D)    intel/intel   (L)    unix/unix
-   gcc/4.2.3                junk/a/c/1.0
-   git/1.6.3.1              junk/b/c/2.0
 ProjectDIR/rt/avail/mf/Core
-   bar/1.4-dbg        foo/1.4-dbg        local/1.1        ucc/12.1.5
-   bar/1.4     (D)    foo/1.4     (D)    local/1.2        ucc/13.1.2 (D)
-   baz/1.4-dbg        git/1.7.4.1        local/1.3 (D)    ucc/14.0.2
-   baz/1.4     (D)    git/1.7.4.2        local/1.4
+   PrgEnv                 git/1.7.4.1          local/1.2
+   admin/admin-1.0        git/1.7.4.2          local/1.3    (D)
+   alex/1.0               git/1.7.4.3   (D)    local/1.4
+   bar/1.4-dbg            gotoblas/1.20        multi/multi
+   bar/1.4         (D)    gotoblas/1.26        noweb/2.10c
+   baz/1.4-dbg            gotoblas/1.30        parmetis/3.1 (m)
+   baz/1.4         (D)    intel/intel   (L)    ucc/12.1.5
+   foo/1.4-dbg            junk/a/c/1.0         ucc/13.1.2   (D)
+   foo/1.4         (D)    junk/b/c/2.0         ucc/14.0.2
+   gcc/4.2.3              junk/d/3.0           unix/unix
+   git/1.6.3.1            local/local
+   git/1.7.4              local/1.1
   Where:
    D:  Default Module
    L:  Module is loaded
    m:  built for host and native MIC
-   o:  built for offload to the MIC only
 Use "module spider" to find all possible modules.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 4
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail gcc intel p a j m
 ===========================
-ProjectDIR/mf/Compiler/intel/10.1
+ProjectDIR/rt/avail/mf/Compiler/intel/10.1
    gotoblas/1.31        gotoblas/1.33    openmpi/1.2.6
    gotoblas/1.32 (D)    mpich2/1.0.7
-ProjectDIR/mf/Core
-   PrgEnv             gotoblas/1.20        junk/a/c/1.0    multi/multi
-   admin/admin-1.0    gotoblas/1.26        junk/b/c/2.0    parmetis/3.1 (m)
-   alex/1.0           gotoblas/1.30        junk/d/3.0
-   gcc/4.2.3          intel/intel   (L)    local/local
 ProjectDIR/rt/avail/mf/Core
-   bar/1.4-dbg        baz/1.4-dbg        local/1.1    local/1.3 (D)
-   bar/1.4     (D)    baz/1.4     (D)    local/1.2    local/1.4
+   PrgEnv                 gotoblas/1.20        local/1.1
+   admin/admin-1.0        gotoblas/1.26        local/1.2
+   alex/1.0               gotoblas/1.30        local/1.3    (D)
+   bar/1.4-dbg            intel/intel   (L)    local/1.4
+   bar/1.4         (D)    junk/a/c/1.0         multi/multi
+   baz/1.4-dbg            junk/b/c/2.0         parmetis/3.1 (m)
+   baz/1.4         (D)    junk/d/3.0
+   gcc/4.2.3              local/local
   Where:
    D:  Default Module
    L:  Module is loaded
@@ -65,69 +64,73 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload intel
 step 6
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
-ProjectDIR/mf/Core
-   PrgEnv                   git/1.7.4            junk/d/3.0
-   admin/admin-1.0          git/1.7.4.3   (D)    local/local
-   alex/1.0                 gotoblas/1.20        multi/multi
-   boost/1.46.0             gotoblas/1.26 (D)    noweb/2.10c
-   boost/1.47.1             gotoblas/1.30        parmetis/3.1 (m)
-   boost/1.49.0    (o,D)    intel/intel          unix/unix
-   gcc/4.2.3                junk/a/c/1.0
-   git/1.6.3.1              junk/b/c/2.0
 ProjectDIR/rt/avail/mf/Core
-   bar/1.4-dbg        foo/1.4-dbg        local/1.1        ucc/12.1.5
-   bar/1.4     (D)    foo/1.4     (D)    local/1.2        ucc/13.1.2 (D)
-   baz/1.4-dbg        git/1.7.4.1        local/1.3 (D)    ucc/14.0.2
-   baz/1.4     (D)    git/1.7.4.2        local/1.4
+   PrgEnv                 git/1.7.4.1          local/1.2
+   admin/admin-1.0        git/1.7.4.2          local/1.3    (D)
+   alex/1.0               git/1.7.4.3   (D)    local/1.4
+   bar/1.4-dbg            gotoblas/1.20        multi/multi
+   bar/1.4         (D)    gotoblas/1.26 (D)    noweb/2.10c
+   baz/1.4-dbg            gotoblas/1.30        parmetis/3.1 (m)
+   baz/1.4         (D)    intel/intel          ucc/12.1.5
+   foo/1.4-dbg            junk/a/c/1.0         ucc/13.1.2   (D)
+   foo/1.4         (D)    junk/b/c/2.0         ucc/14.0.2
+   gcc/4.2.3              junk/d/3.0           unix/unix
+   git/1.6.3.1            local/local
+   git/1.7.4              local/1.1
   Where:
    D:  Default Module
    m:  built for host and native MIC
-   o:  built for offload to the MIC only
 Use "module spider" to find all possible modules.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 7
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --show_hidden avail
 ===========================
-ProjectDIR/mf/Core
-   PrgEnv                   git/1.7.4            junk/d/3.0
-   admin/admin-1.0          git/1.7.4.3   (D)    local/local
-   alex/1.0                 gotoblas/1.20        multi/multi
-   boost/1.46.0             gotoblas/1.26 (D)    noweb/2.10c
-   boost/1.47.1             gotoblas/1.30        parmetis/3.1 (m)
-   boost/1.49.0    (o,D)    intel/intel          unix/unix
-   gcc/4.2.3                junk/a/c/1.0
-   git/1.6.3.1              junk/b/c/2.0
 ProjectDIR/rt/avail/mf/Core
-   bar/1.4-dbg        foo/1.4-dbg        hidden/.1.0        local/1.4
-   bar/1.4     (D)    foo/1.4     (D)    local/1.1          ucc/12.1.5
-   baz/1.4-dbg        git/1.7.4.1        local/1.2          ucc/13.1.2 (D)
-   baz/1.4     (D)    git/1.7.4.2        local/1.3   (D)    ucc/14.0.2
+   .base/bar/1.4-dbg        gcc/4.2.3            junk/d/3.0
+   .base/bar/1.4     (D)    git/1.6.3.1          local/local
+   .base/baz/1.4-dbg        git/1.7.4            local/1.1
+   .base/baz/1.4     (D)    git/1.7.4.1          local/1.2
+   PrgEnv                   git/1.7.4.2          local/1.3    (D)
+   admin/admin-1.0          git/1.7.4.3   (D)    local/1.4
+   alex/1.0                 gotoblas/1.20        multi/multi
+   bar/1.4-dbg              gotoblas/1.26 (D)    noweb/2.10c
+   bar/1.4           (D)    gotoblas/1.30        parmetis/3.1 (m)
+   baz/1.4-dbg              hidden/.1.0          ucc/12.1.5
+   baz/1.4           (D)    intel/intel          ucc/13.1.2   (D)
+   foo/1.4-dbg              junk/a/c/1.0         ucc/14.0.2
+   foo/1.4           (D)    junk/b/c/2.0         unix/unix
   Where:
    D:  Default Module
    m:  built for host and native MIC
-   o:  built for offload to the MIC only
 Use "module spider" to find all possible modules.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 8
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing -t avail
 ===========================
-ProjectDIR/mf/Core:
+ProjectDIR/rt/avail/mf/Core:
 PrgEnv
 admin/
 admin/admin-1.0
 alex/
 alex/1.0
-boost/
-boost/1.46.0
-boost/1.47.1
-boost/1.49.0
+bar/
+bar/1.4-dbg
+bar/1.4
+baz/
+baz/1.4-dbg
+baz/1.4
+foo/
+foo/1.4-dbg
+foo/1.4
 gcc/
 gcc/4.2.3
 git/
 git/1.6.3.1
 git/1.7.4
+git/1.7.4.1
+git/1.7.4.2
 git/1.7.4.3
 gotoblas/
 gotoblas/1.20
@@ -143,60 +146,61 @@ junk/d/
 junk/d/3.0
 local/
 local/local
+local/1.1
+local/1.2
+local/1.3
+local/1.4
 multi/
 multi/multi
 noweb/
 noweb/2.10c
 parmetis/
 parmetis/3.1
-unix/
-unix/unix
-ProjectDIR/rt/avail/mf/Core:
-bar/
-bar/1.4-dbg
-bar/1.4
-baz/
-baz/1.4-dbg
-baz/1.4
-foo/
-foo/1.4-dbg
-foo/1.4
-git/
-git/1.7.4.1
-git/1.7.4.2
-local/
-local/1.1
-local/1.2
-local/1.3
-local/1.4
 ucc/
 ucc/12.1.5
 ucc/13.1.2
 ucc/14.0.2
+unix/
+unix/unix
 ===========================
 step 9
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing -t --show_hidden avail
 ===========================
-ProjectDIR/mf/Core:
+ProjectDIR/rt/avail/mf/Core:
+.base/bar/
+.base/bar/1.4-dbg
+.base/bar/1.4
+.base/baz/
+.base/baz/1.4-dbg
+.base/baz/1.4
 PrgEnv
 admin/
 admin/admin-1.0
 alex/
 alex/1.0
-boost/
-boost/1.46.0
-boost/1.47.1
-boost/1.49.0
+bar/
+bar/1.4-dbg
+bar/1.4
+baz/
+baz/1.4-dbg
+baz/1.4
+foo/
+foo/1.4-dbg
+foo/1.4
 gcc/
 gcc/4.2.3
 git/
 git/1.6.3.1
 git/1.7.4
+git/1.7.4.1
+git/1.7.4.2
 git/1.7.4.3
 gotoblas/
 gotoblas/1.20
 gotoblas/1.26
 gotoblas/1.30
+hidden/
+hidden/.1.0
 intel/
 intel/intel
 junk/a/c/
@@ -207,46 +211,33 @@ junk/d/
 junk/d/3.0
 local/
 local/local
+local/1.1
+local/1.2
+local/1.3
+local/1.4
 multi/
 multi/multi
 noweb/
 noweb/2.10c
 parmetis/
 parmetis/3.1
-unix/
-unix/unix
-ProjectDIR/rt/avail/mf/Core:
-bar/
-bar/1.4-dbg
-bar/1.4
-baz/
-baz/1.4-dbg
-baz/1.4
-foo/
-foo/1.4-dbg
-foo/1.4
-git/
-git/1.7.4.1
-git/1.7.4.2
-hidden/.1.0
-local/
-local/1.1
-local/1.2
-local/1.3
-local/1.4
 ucc/
 ucc/12.1.5
 ucc/13.1.2
 ucc/14.0.2
+unix/
+unix/unix
 ===========================
 step 10
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing -t -d avail
 ===========================
-ProjectDIR/mf/Core:
+ProjectDIR/rt/avail/mf/Core:
 PrgEnv
 admin/admin-1.0
 alex/1.0
-boost/1.49.0
+bar/1.4
+baz/1.4
+foo/1.4
 gcc/4.2.3
 git/1.7.4.3
 gotoblas/1.26
@@ -254,40 +245,33 @@ intel/intel
 junk/a/c/1.0
 junk/b/c/2.0
 junk/d/3.0
+local/1.3
 multi/multi
 noweb/2.10c
 parmetis/3.1
-unix/unix
-ProjectDIR/rt/avail/mf/Core:
-bar/1.4
-baz/1.4
-foo/1.4
-local/1.3
 ucc/13.1.2
+unix/unix
 ===========================
 step 11
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing -t avail git
 ===========================
-ProjectDIR/mf/Core:
-git/
+ProjectDIR/rt/avail/mf/Core:
 git/1.6.3.1
 git/1.7.4
-git/1.7.4.3
-ProjectDIR/rt/avail/mf/Core:
-git/
 git/1.7.4.1
 git/1.7.4.2
+git/1.7.4.3
 ===========================
 step 12
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing -t -d avail git
 ===========================
-ProjectDIR/mf/Core:
+ProjectDIR/rt/avail/mf/Core:
 git/1.7.4.3
 ===========================
 step 13
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing -t avail git/1.7.4.3
 ===========================
-ProjectDIR/mf/Core:
+ProjectDIR/rt/avail/mf/Core:
 git/1.7.4.3
 ===========================
 step 14
@@ -299,10 +283,8 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail local
 ===========================
 ProjectDIR/rt/avail/mf/Core2
    local
-ProjectDIR/mf/Core
-   local/local
 ProjectDIR/rt/avail/mf/Core
-   local/1.1    local/1.2    local/1.3 (D)    local/1.4
+   local/local    local/1.1    local/1.2    local/1.3 (D)    local/1.4
   Where:
    D:  Default Module
 Use "module spider" to find all possible modules.
@@ -313,24 +295,22 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing --ignore_cache avail
 ===========================
 ProjectDIR/rt/avail/mf/Core2
    local
-ProjectDIR/mf/Core
-   PrgEnv                   git/1.7.4            junk/d/3.0
-   admin/admin-1.0          git/1.7.4.3   (D)    local/local
-   alex/1.0                 gotoblas/1.20        multi/multi
-   boost/1.46.0             gotoblas/1.26 (D)    noweb/2.10c
-   boost/1.47.1             gotoblas/1.30        parmetis/3.1 (m)
-   boost/1.49.0    (o,D)    intel/intel          unix/unix
-   gcc/4.2.3                junk/a/c/1.0
-   git/1.6.3.1              junk/b/c/2.0
 ProjectDIR/rt/avail/mf/Core
-   bar/1.4-dbg        foo/1.4-dbg        local/1.1        ucc/12.1.5
-   bar/1.4     (D)    foo/1.4     (D)    local/1.2        ucc/13.1.2 (D)
-   baz/1.4-dbg        git/1.7.4.1        local/1.3 (D)    ucc/14.0.2
-   baz/1.4     (D)    git/1.7.4.2        local/1.4
+   PrgEnv                 git/1.7.4.1          local/1.2
+   admin/admin-1.0        git/1.7.4.2          local/1.3    (D)
+   alex/1.0               git/1.7.4.3   (D)    local/1.4
+   bar/1.4-dbg            gotoblas/1.20        multi/multi
+   bar/1.4         (D)    gotoblas/1.26 (D)    noweb/2.10c
+   baz/1.4-dbg            gotoblas/1.30        parmetis/3.1 (m)
+   baz/1.4         (D)    intel/intel          ucc/12.1.5
+   foo/1.4-dbg            junk/a/c/1.0         ucc/13.1.2   (D)
+   foo/1.4         (D)    junk/b/c/2.0         ucc/14.0.2
+   gcc/4.2.3              junk/d/3.0           unix/unix
+   git/1.6.3.1            local/local
+   git/1.7.4              local/1.1
   Where:
    D:  Default Module
    m:  built for host and native MIC
-   o:  built for offload to the MIC only
 Use "module spider" to find all possible modules.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
@@ -341,7 +321,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
 step 18
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
-Lmod has detected the following error: avail is not possible, MODULEPATH is not set or not set with valid paths.
+Lmod has detected the following error: module avail is not possible. MODULEPATH is not set or not set with valid paths.
 ===========================
 step 19
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
@@ -393,7 +373,7 @@ step 26
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
 ProjectDIR/rt/avail/mf/Order
-   a/10.0    a/5.10    a/5.9    a/9.0 (D)
+   a/5.9    a/5.10    a/9.0    a/10.0 (D)
 ProjectDIR/rt/avail/mf/Core4
    ncurses/5.9-GCC-4.7.2
 ProjectDIR/rt/avail/mf/Core3
@@ -406,44 +386,10 @@ Use "module spider" to find all possible modules.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 27
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
-===========================
-ProjectDIR/rt/avail/mf/Order
-   a/5.9    a/5.10    a/9.0    a/10.0 (D)
-ProjectDIR/rt/avail/mf/Core4
-   ncurses/5.9-GCC-4.7.2
-ProjectDIR/rt/avail/mf/Core3
-   TACC         (L)    intel/14.0.3          intel/15.0.2
-   intel/14.0.0        intel/15.0.1 (L,D)
-  Where:
-   D:  Default Module
-   L:  Module is loaded
-Use "module spider" to find all possible modules.
-Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
-===========================
-step 28
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing use ProjectDIR/rt/avail/mf/Core6
 ===========================
 ===========================
-step 29
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
-===========================
-ProjectDIR/rt/avail/mf/Core6
-   aaa/1.0    aaa/2.0 (D)
-ProjectDIR/rt/avail/mf/Order
-   a/5.9    a/5.10    a/9.0    a/10.0 (D)
-ProjectDIR/rt/avail/mf/Core4
-   ncurses/5.9-GCC-4.7.2
-ProjectDIR/rt/avail/mf/Core3
-   TACC         (L)    intel/14.0.3          intel/15.0.2
-   intel/14.0.0        intel/15.0.1 (L,D)
-  Where:
-   D:  Default Module
-   L:  Module is loaded
-Use "module spider" to find all possible modules.
-Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
-===========================
-step 30
+step 28
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
 ProjectDIR/rt/avail/mf/Core6
@@ -458,5 +404,12 @@ ProjectDIR/rt/avail/mf/Core3
   Where:
    D:  Default Module
    L:  Module is loaded
+Use "module spider" to find all possible modules.
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
+===========================
+step 29
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail FooBar
+===========================
+No modules found!
 Use "module spider" to find all possible modules.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
