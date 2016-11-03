@@ -58,13 +58,8 @@ first=${myhost%%.*}
 SYSHOST=${myhost#*.}
 SUDO=""
 
-cat > /tmp/stampede.build.$$ <<EOF
-/tmp/moduleData/cacheDir:/tmp/losf_last_update
-EOF
-
-cat > /tmp/ls4.build.$$ <<EOF
-$HOME/a/moduleData/cacheDir: $HOME/a/moduleData/losf_last_update
-$HOME/a/moduleData/XSEDE/cacheDir: $HOME/a/moduleData/XSEDE/last_update
+cat > /tmp/TACC.build.$$ <<EOF
+/home/00515/mclay/l/moduleData/cacheDir:/home/00515/mclay/l/moduleData/system.txt
 EOF
 
 
@@ -99,7 +94,7 @@ case $SYSHOST in
 	   base="$base/$(uname -m)"
        fi
     fi
-    EXTRA="--with-spiderCacheDescript=/tmp/$SYSHOST.build.$$"
+    EXTRA="--with-spiderCacheDescript=/tmp/TACC.build.$$"
     SITE_PKG="contrib/TACC/*.lua"
     ;;
 
