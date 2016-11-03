@@ -49,6 +49,8 @@ local concatTbl = table.concat
 local readlink  = posix.readlink
 local stat      = posix.stat
 
+local load      = (_VERSION == "Lua 5.1") and loadstring or load
+
 local ignoreT = {
    ['.']         = true,
    ['..']        = true,
