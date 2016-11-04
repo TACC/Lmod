@@ -241,6 +241,30 @@ function M.add(self, mname, status)
    }
 end
 
+--------------------------------------------------------------------------
+-- Report the contents of the collection. Return an empty array if the
+-- collection is not found.
+function M.reportContents(self, t)
+   dbg.start{"mt:reportContents(",t.fn,")"}
+   local f = io.open(t.fn,"r")
+   local a       = {}
+   if (not f) then
+      dbg.fini("mt:reportContents")
+      return a
+   end
+   local s       = f:read("*all")
+   local l_mt    = new(self, s, t.fn)
+   local kind    = (LMOD_PIN_VERSIONS == "no") and "userName" or "fullName"
+   local activeA = l_mt:list(kind, "active")
+   for i = 1, #activeA do
+      a[#a+1] = activeA[i].name
+   end
+
+   f:close()
+   dbg.fini("mt:reportContents")
+   return a
+end
+
 ------------------------------------------------------------------------
 -- Mark Changing MODULEPATH
 
