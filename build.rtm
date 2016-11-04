@@ -58,8 +58,14 @@ first=${myhost%%.*}
 SYSHOST=${myhost#*.}
 SUDO=""
 
+if [ -x $HOME/.up/bin/arch.py ]; then
+    MY_ARCH=$($HOME/.up/bin/arch.py)
+    MY_ARCH="$MY_ARCH/"
+fi
+
+
 cat > /tmp/TACC.build.$$ <<EOF
-/home/00515/mclay/l/moduleData/cacheDir:/home/00515/mclay/l/moduleData/system.txt
+/home/00515/mclay/l/moduleData/${MY_ARCH}cacheDir:/home/00515/mclay/l/moduleData/${MY_ARCH}system.txt
 EOF
 
 
@@ -82,7 +88,7 @@ case $SYSHOST in
     fi
     ;;
 
-  ls4 | maverick | stampede | wrangler)
+  ls5 | maverick | stampede | wrangler)
     base="$HOME/l/pkg"
     ADMIN_DIR="$HOME/a/moduleData"
     UPDATE_FN=$ADMIN_DIR/system.txt
