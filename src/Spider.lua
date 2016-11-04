@@ -941,6 +941,7 @@ function M.listModules(self, dbT)
          listT[fn] = true
       end
    end
+   return listT
 end
 
 

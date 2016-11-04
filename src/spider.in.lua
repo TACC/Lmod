@@ -201,9 +201,8 @@ end
 -- @param dbT
 local function rptList(mpathMapT, spiderT, timestampFn, dbT)
    dbg.start{"rptList(mpathMapT, spiderT, timestampFn, dbT)"}
-   local tbl = {}
    local spider = Spider:new()
-   spider:listModules(dbT, tbl)
+   local tbl    = spider:listModules(dbT)
    for k in pairsByKeys(tbl) do
       print(k)
    end
@@ -292,8 +291,8 @@ end
 
 
 
-local function rptReverseMapT(moduleDirA, moduleT, timestampFn, dbT)
-   dbg.start{"rptReverseMapT(moduleDirA, moduleT, timestampFn, dbT)"}
+local function rptReverseMapT(mpathMapT, spiderT, timestampFn, dbT)
+   dbg.start{ "rptReverseMapT(mpathMapT, spiderT, timestampFn, dbT)"}
    local ts          = { timestampFn }
    local reverseMapT = buildReverseMapT(dbT)
    local libA        = buildLibMapA(reverseMapT)
@@ -307,9 +306,9 @@ local function rptReverseMapT(moduleDirA, moduleT, timestampFn, dbT)
    dbg.fini("rptReverseMapT")
 end
 
-local function rptReverseMapTJson(moduleDirA, moduleT, timestampFn, dbT)
-   dbg.start{"rptReverseMapTJson(moduleDirA, moduleT, timestampFn, dbT)"}
-   local reverseMapT = buildReverseMapT(moduleDirA, moduleT, dbT)
+local function rptReverseMapTJson(mpathMapT, spiderT, timestampFn, dbT)
+   dbg.start{ "rptReverseMapTJson(mpathMapT, spiderT, timestampFn, dbT)"}
+   local reverseMapT = buildReverseMapT(dbT)
    local libA        = buildLibMapA(reverseMapT)
    local t           = { timestampFn = timestampFn,
                          reverseMapT = reverseMapT,
@@ -318,9 +317,9 @@ local function rptReverseMapTJson(moduleDirA, moduleT, timestampFn, dbT)
    dbg.fini("rptReverseMapTJson")
 end
 
-local function rptXALTRmapTJson(moduleDirA, moduleT, timestampFn, dbT)
-   dbg.start{"rptXALTRmapTJson(moduleDirA, moduleT, timestampFn, dbT)"}
-   local reverseMapT = buildReverseMapT(moduleDirA, moduleT, dbT)
+local function rptXALTRmapTJson(mpathMapT, spiderT, timestampFn, dbT)
+   dbg.start{ "rptXALTRmapTJson(mpathMapT, spiderT, timestampFn, dbT)"}
+   local reverseMapT = buildReverseMapT(dbT)
    local libA        = buildLibMapA(reverseMapT)
    local rmapT       = buildXALTrmapT(reverseMapT)
    local t           = { reverseMapT = rmapT,
@@ -329,39 +328,39 @@ local function rptXALTRmapTJson(moduleDirA, moduleT, timestampFn, dbT)
    dbg.fini("rptXALTRmapTJson")
 end
 
-local function rptSoftwarePageJson(moduleDirA, moduleT, timestampFn, dbT)
-   dbg.start{"rptSoftwarePageJson(moduleDirA, moduleT, timestampFn, dbT)"}
+local function rptSoftwarePageJson(mpathMapT, spiderT, timestampFn, dbT)
+   dbg.start{ "rptSoftwarePageJson(mpathMapT, spiderT, timestampFn, dbT)"}
    local spA = softwarePage(dbT)
    print(json.encode(spA))
    dbg.fini("rptSoftwarePageJson")
 end
 
-local function rptSoftwarePageLua(moduleDirA, moduleT, timestampFn, dbT)
-   dbg.start{"rptSoftwarePageLua(moduleDirA, moduleT, timestampFn, dbT)"}
+local function rptSoftwarePageLua(mpathMapT, spiderT, timestampFn, dbT)
+   dbg.start{ "rptSoftwarePageLua(mpathMapT, spiderT, timestampFn, dbT)"}
    local spA = softwarePage(dbT)
    local s   = serializeTbl{name="spA",      value=spA,   indent=true}
    print(s)
    dbg.fini("rptSoftwarePageLua")
 end
 
-local function rptSoftwarePageXml(moduleDirA, moduleT, timestampFn, dbT)
-   dbg.start{"rptSoftwarePageXml(moduleDirA, moduleT, timestampFn, dbT)"}
+local function rptSoftwarePageXml(mpathMapT, spiderT, timestampFn, dbT)
+   dbg.start{ "rptSoftwarePageXml(mpathMapT, spiderT, timestampFn, dbT)"}
    local xmlStr = xmlSoftwarePage(dbT)
    print(xmlStr)
    dbg.fini("rptSoftwarePageXml")
 end
 
 local function rptDbT(mpathMapT, spiderT, timestampFn, dbT)
-   dbg.start{"rptDbT(mpathMapT, spiderT, timestampFn, dbT)"}
+   dbg.start{ "rptDbT(mpathMapT, spiderT, timestampFn, dbT)"}
    local ts = { timestampFn }
-   local s1 = serializeTbl{name="timestampFn",   value=ts,         indent=true}
-   local s2 = serializeTbl{name="dbT",      value=dbT,   indent=true}
+   local s1 = serializeTbl{name="timestampFn",  value=ts,  indent=true}
+   local s2 = serializeTbl{name="dbT",          value=dbT, indent=true}
    io.stdout:write(s1,s2,"\n")
    dbg.fini("rptDbT")
 end
 
-local function rptDbTJson(moduleDirA, moduleT, timestampFn, dbT)
-   dbg.start{"rptDbTJson(moduleDirA, moduleT, dbT)"}
+local function rptDbTJson(mpathMapT, spiderT, timestampFn, dbT)
+   dbg.start{ "rptDbTJson(mpathMapT, spiderT, timestampFn, dbT)"}
    print(json.encode(dbT))
    dbg.fini("rptDbTJson")
 end
@@ -561,8 +560,8 @@ function options()
       dest    = 'outputStyle',
       action  = 'store',
       default = "list",
-      help    = "Output Style: list, moduleT, dbT, reverseMapT, "..
-                "jsonReverseMapT, spider, spider-json, softwarePage, "..
+      help    = "Output Style: list, spiderT, dbT, reverseMapT, "..
+                "jsonReverseMapT, spider-json, softwarePage, "..
                 "jsonSoftwarePage, xmlSoftwarePage, xalt_rmapT"
    }
 
