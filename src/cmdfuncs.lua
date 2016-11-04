@@ -137,7 +137,7 @@ function CollectionLst(collection)
    local masterTbl = masterTbl()
    local sname     = (LMOD_SYSTEM_NAME == nil) and "" or "." .. LMOD_SYSTEM_NAME
    local path      = pathJoin(os.getenv("HOME"), ".lmod.d", collection .. sname)
-   local mt        = MT:mt()
+   local mt        = FrameStk:singleton():mt()
    local a         = mt:reportContents{fn=path, name=collection}
    local shell     = _G.Shell
    local cwidth    = masterTbl.rt and LMOD_COLUMN_TABLE_WIDTH or TermWidth()
