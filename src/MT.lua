@@ -202,7 +202,7 @@ function M.__convertMT(self, v2)
       v.loadOrder = vv.loadOrder
       v.propT     = vv.propT
       v.status    = vv.status
-      v.userName  = (vv.default == 0) and sn or v.fullName
+      v.userName  = (vv.default == 1) and sn or v.fullName
       mT[sn]      = v
    end
    self.mT = mT
