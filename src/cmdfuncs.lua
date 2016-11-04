@@ -696,12 +696,12 @@ end
 --------------------------------------------------------------------------
 -- Report to the user all the named collections he/she has.
 function SaveList(...)
-   local mt        = MT:mt()
+   local mt        = FrameStk:singleton():mt()
    local path      = pathJoin(os.getenv("HOME"), LMODdir)
    local masterTbl = masterTbl()
    local a         = {}
    local b         = {}
-   local shell     = Master:master().shell
+   local shell     = _G.Shell
    local cwidth    = masterTbl.rt and LMOD_COLUMN_TABLE_WIDTH or TermWidth()
 
    findNamedCollections(b,path)
