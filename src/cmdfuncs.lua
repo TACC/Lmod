@@ -175,7 +175,7 @@ function GetDefault(collection)
 
    local sname = (LMOD_SYSTEM_NAME == nil) and "" or "." .. LMOD_SYSTEM_NAME
    local path  = pathJoin(os.getenv("HOME"), ".lmod.d", collection .. sname)
-   local mt    = MT:mt()
+   local mt    = FrameStk:singleton():mt()
    mt:getMTfromFile{fn=path, name=collection, }
    dbg.fini("GetDefault")
 end
@@ -461,31 +461,6 @@ function Purge(force)
    clearWarningFlag()
    dbg.print{"warningFlag: ", getWarningFlag(),"\n"}
    dbg.fini("Purge")
-end
-
---------------------------------------------------------------------------
--- Write the current state of the module table to the
--- lmod-save directory.  This command should probably go away.
-function RecordCmd()
-   dbg.start{"RecordCmd()"}
-   local mt   = MT:mt()
-   local s    = serializeTbl{indent=true, name="_ModuleTable_",
-                             value=_ModuleTable_}
-   local uuid = UUIDString(epoch())
-   local fn   = pathJoin(usrSaveDir, uuid .. ".lua")
-
-   local d = dirname(fn)
-   local attr = lfs.attributes(d)
-   if (not attr) then
-      mkdir_recursive(d)
-   end
-
-   local f = io.open(fn,"w")
-   if (f) then
-      f:write(s)
-      f:close()
-   end
-   dbg.fini("RecordCmd")
 end
 
 --------------------------------------------------------------------------

@@ -253,7 +253,6 @@ function main()
    local loadTbl      = { name = "load",        checkMPATH = true,  cmd = Load_Usr      }
    local mcTbl        = { name = "describe",    checkMPATH = false, cmd = CollectionLst }
    local purgeTbl     = { name = "purge",       checkMPATH = true,  cmd = Purge         }
-   local recordTbl    = { name = "record",      checkMPATH = false, cmd = RecordCmd     }
    local refreshTbl   = { name = "refresh",     checkMPATH = false, cmd = Refresh       }
    local resetTbl     = { name = "reset",       checkMPATH = true,  cmd = Reset         }
    local restoreTbl   = { name = "restore",     checkMPATH = false, cmd = Restore       }
@@ -289,7 +288,6 @@ function main()
       {'^l'       , listTbl       },
       {'^mc'      , mcTbl         },
       {'^pu'      , purgeTbl      },
-      {'^rec'     , recordTbl     },
       {'^refr'    , refreshTbl    },
       {'^rel'     , updateTbl     },
       {'^rem'     , unloadTbl     },
