@@ -172,6 +172,7 @@ local function new(self, t)
    o.systemDirA        = scDirA
    o.dontWrite         = t.dontWrite or false
    o.buildCache        = false
+   o.buildFresh        = false
    o.quiet             = t.quiet     or false
 
    o.dbT               = {}
@@ -203,6 +204,9 @@ function M.singleton(self, t)
    s_cache.quiet    = t.quiet or s_cache.quiet
    if (t.buildCache) then
       s_cache.buildCache = t.buildCache
+   end
+   if (t.buildFresh) then
+      s_cache.buildFresh = t.buildFresh
    end
 
    dbg.print{"s_cache.buildCache: ",self.buildCache,"\n"}
@@ -379,7 +383,7 @@ function M.build(self, fast)
    local masterTbl   = masterTbl()
    local T1          = epoch()
    local sysDirsRead = 0
-   if (not masterTbl.checkSyntax) then
+   if (not (self.buildFresh or masterTbl.checkSyntax)) then
       sysDirsRead = readCacheFile(self, self.systemDirA)
    end
 
@@ -388,7 +392,7 @@ function M.build(self, fast)
 
    local spiderDirT  = self.spiderDirT
    local usrDirsRead = 0
-   if (not isFile(self.usrCacheInvalidFn))then
+   if (not (self.buildFresh  or isFile(self.usrCacheInvalidFn))) then
       usrDirsRead = readCacheFile(self, self.usrSpiderTFnA)
    end
 

@@ -425,7 +425,7 @@ function main()
 
    dbg.print{"lmodPath:", lmodPath,"\n"}
    require("SitePackage")
-   local cache                   = Cache:singleton{dontWrite = true, quiet = true, buildCache = true}
+   local cache                   = Cache:singleton{dontWrite = true, quiet = true, buildCache = true, buildFresh = true}
    local spider                  = Spider:new()
    local spiderT, dbT, mpathMapT = cache:build()
 
