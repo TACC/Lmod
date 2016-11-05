@@ -383,6 +383,7 @@ function M.build(self, fast)
    local masterTbl   = masterTbl()
    local T1          = epoch()
    local sysDirsRead = 0
+   dbg.print{"buildFresh: ",self.buildFresh,"\n"}
    if (not (self.buildFresh or masterTbl.checkSyntax)) then
       sysDirsRead = readCacheFile(self, self.systemDirA)
    end
