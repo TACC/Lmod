@@ -398,6 +398,10 @@ build_tags:
 	       < file_list.1.txt > file_list.2.txt
 	etags  -o TAGS.world `cat file_list.2.txt`
 	sed -e 's|.*/rt/.*||g'                                   \
+            -e 's|.*/contrib/.*||g'                              \
+            -e 's|.*/cookbook/.*||g'                             \
+            -e 's|.*/docs/.*||g'                                 \
+            -e 's|.*/my_docs/.*||g'                              \
             -e '/^\s*$$/d'                                       \
 	       < file_list.2.txt > file_list.3.txt
 	etags `cat file_list.3.txt`
