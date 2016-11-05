@@ -390,7 +390,6 @@ end
 -- Return true if the module is in the pending state for a load.
 -- @param m module name
 function isPending(m)
-   local mt = MT:mt()
    if (not validateStringArgs("isPending",m)) then return false end
    local mname = MName:new("mt", m)
    return mname:isPending()
