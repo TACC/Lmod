@@ -63,9 +63,10 @@ if [ -x $HOME/.up/bin/arch.py ]; then
     MY_ARCH="$MY_ARCH/"
 fi
 
+MCLAY=~mclay
 
 cat > /tmp/TACC.build.$$ <<EOF
-/home/00515/mclay/l/moduleData/${MY_ARCH}cacheDir:/home/00515/mclay/l/moduleData/${MY_ARCH}system.txt
+$MCLAY/l/moduleData/${MY_ARCH}cacheDir:$MCLAY/l/moduleData/${MY_ARCH}system.txt
 EOF
 
 
