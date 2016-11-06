@@ -4,7 +4,7 @@ internals to Lmod have been refactored yet again. So I'm releasing
 this for testing.
 
 It is available from github on branch nvv.  Currently, this branch has
-a version 6.9.*-beta.  Once testing is complete this w
+a version 6.9.*-beta.  Once testing is complete this will become Lmod 7+.
 
 I am asking for volunteers to test this so that important new
 features can be made available to sites.  Many sites want to hide
@@ -50,7 +50,9 @@ discussed in:
 
 There are three issues to be aware of:
 
-First: $LMOD_DEFAULT_MODULEPATH is not used anymore.
+First: $LMOD_DEFAULT_MODULEPATH is not used anymore.  Lmod no longer
+needs to track "Core" modulefile directories versus Compiler or
+Compiler/MPI dependent modulefile directories.
 
 Second: The name and contents of the spider cache file have changed.
 The previous name was moduleT.lua.  The new name is spiderT.lua.  The
@@ -64,6 +66,8 @@ Third: The format for the collection file has changed.  Lmod 7 will read
 old collection files.  However if a user creates a new collection
 file, Lmod 6 will not be able to read it.  This should only be a
 problem when testing.
+
+
 
 
 
