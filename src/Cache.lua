@@ -440,16 +440,22 @@ function M.build(self, fast)
 
       local mcp_old  = mcp
       dbg.print{"Setting mcp to ", mcp:name(),"\n"}
-      mcp            = MasterControl.build("spider")
+      mcp                 = MasterControl.build("spider")
 
-      local t1       = epoch()
-      local st, msg  = pcall(Spider.findAllModules, spider, dirA, userSpiderT)
+      local t1            = epoch()
+      local st, msg       = pcall(Spider.findAllModules, spider, dirA, userSpiderT)
       if (not st) then
          if (msg) then io.stderr:write("Msg: ",msg,'\n') end
          LmodSystemError("Spider searched timed out\n")
       end
+      local t = masterTbl.mpathMapT
+      if (next(t) ~= nil) then
+         for k,v in pairs(t) do
+            mpathMapT[k] = v
+         end
+      end
+
       local t2       = epoch()
-      mpathMapT      = masterTbl.mpathMapT
       mcp            = mcp_old
       dbg.print{"Setting mcp to ", mcp:name(),"\n"}
 

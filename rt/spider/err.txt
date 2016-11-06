@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 0.9.2  2016-10-25 13:59 -05:00
+Modules based on Lua: Version 6.9.2-beta  2016-11-04 17:28 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -348,11 +348,25 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider apps/gromacs/4.6
       cmplrs/intel/14.0  mpi/openmpi/1.6.5
 ===========================
 step 25
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider petsc/3.1
+===========================
+  petsc: petsc/3.1
+    You will need to load all module(s) on any one of the lines below before the "petsc/3.1" module is available to load.
+      intel/intel  mpich2/1.0.7
+===========================
+step 26
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing use ProjectDIR/rt/spider/mf/Core3
 ===========================
 ===========================
-step 26
+step 27
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider smrt
 ===========================
   smrt: smrt/2.3
     This module can be loaded directly: module load smrt/2.3
+===========================
+step 28
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider petsc/3.1
+===========================
+  petsc: petsc/3.1
+    You will need to load all module(s) on any one of the lines below before the "petsc/3.1" module is available to load.
+      intel/intel  mpich2/1.0.7

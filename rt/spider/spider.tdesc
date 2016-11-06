@@ -47,15 +47,17 @@ testdescript = {
      runLmod spider apps/gromacs/4.6.3-debug                                  #19
 
      mkdir -p $HOME/.lmod.d/.cache
-     buildSpiderT $LMOD_DEFAULT_MODULEPATH > $HOME/.lmod.d/.cache/spiderT.lua
+     buildSpiderT $MODULEPATH > $HOME/.lmod.d/.cache/spiderT.lua
      runLmod spider                                                           #20
      runLmod spider gromacs                                                   #21
      runLmod spider apps/gromacs                                              #22
      runLmod spider apps/gromacs/4.6.3                                        #23
      runLmod spider apps/gromacs/4.6.3-debug                                  #24
+     runLmod spider petsc/3.1                                                 #25
 
-     runLmod use $testDir/mf/Core3                                            #25
-     runLmod spider smrt                                                      #26
+     runLmod use $testDir/mf/Core3                                            #26
+     runLmod spider smrt                                                      #27
+     runLmod spider petsc/3.1                                                 #28
 
 
      HOME=$ORIG_HOME
