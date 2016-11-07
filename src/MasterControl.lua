@@ -657,7 +657,7 @@ function M.mustLoad(self)
       cmdA[#cmdA+1] = luaprog
       cmdA[#cmdA+1] = pathJoin(cmdDir(),cmdName())
       cmdA[#cmdA+1] = "bash"
-      cmdA[#cmdA+1] = "-D -r --no_redirect --spider_timeout 2.0 spider"
+      cmdA[#cmdA+1] = "-r --no_redirect --spider_timeout 2.0 spider"
       local count   = #cmdA
 
       local uA = {}  -- unknown names
@@ -670,7 +670,7 @@ function M.mustLoad(self)
       else
          for i = 1, #bb do
             cmdA[count+1] = "'^" .. bb[i]:escape() .. "$'"
-            cmdA[count+2] = "2> spider.log"
+            cmdA[count+2] = "2> /dev/null"
             local cmd     = concatTbl(cmdA," ")
             local result  = capture(cmd)
             dbg.print{"result: ",result,"\n"}
