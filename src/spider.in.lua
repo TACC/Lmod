@@ -100,7 +100,6 @@ local Optiks        = require("Optiks")
 local Spider        = require("Spider")
 local concatTbl     = table.concat
 local dbg           = require("Dbg"):dbg()
-local json          = require("json")
 local lfs           = require("lfs")
 local posix         = require("posix")
 local sort          = table.sort
@@ -308,6 +307,7 @@ end
 
 local function rptReverseMapTJson(mpathMapT, spiderT, timestampFn, dbT)
    dbg.start{ "rptReverseMapTJson(mpathMapT, spiderT, timestampFn, dbT)"}
+   local json        = require("json")
    local reverseMapT = buildReverseMapT(dbT)
    local libA        = buildLibMapA(reverseMapT)
    local t           = { timestampFn = timestampFn,
@@ -319,6 +319,7 @@ end
 
 local function rptXALTRmapTJson(mpathMapT, spiderT, timestampFn, dbT)
    dbg.start{ "rptXALTRmapTJson(mpathMapT, spiderT, timestampFn, dbT)"}
+   local json        = require("json")
    local reverseMapT = buildReverseMapT(dbT)
    local libA        = buildLibMapA(reverseMapT)
    local rmapT       = buildXALTrmapT(reverseMapT)
@@ -330,7 +331,8 @@ end
 
 local function rptSoftwarePageJson(mpathMapT, spiderT, timestampFn, dbT)
    dbg.start{ "rptSoftwarePageJson(mpathMapT, spiderT, timestampFn, dbT)"}
-   local spA = softwarePage(dbT)
+   local json = require("json")
+   local spA  = softwarePage(dbT)
    print(json.encode(spA))
    dbg.fini("rptSoftwarePageJson")
 end
@@ -361,6 +363,7 @@ end
 
 local function rptDbTJson(mpathMapT, spiderT, timestampFn, dbT)
    dbg.start{ "rptDbTJson(mpathMapT, spiderT, timestampFn, dbT)"}
+   local json = require("json")
    print(json.encode(dbT))
    dbg.fini("rptDbTJson")
 end
