@@ -40,6 +40,9 @@ script:
 after_failure:
   # diff stdout/stderr for all tests in case of failure
   - for dir in $(ls -pd rt/* | grep '/$'); do
-    echo ">>>> ${dir}/err.txt"; diff -u ${dir}/err.txt ${dir}/t1/*/err.txt;
-    echo ">>>> ${dir}/out.txt"; diff -u ${dir}/out.txt ${dir}/t1/*/out.txt;
+      echo ">>>> ${dir}/err.txt";
+      sed -e '/Modules based on Lua: Version/d' < ${dir}/err.txt      > ${dir}/err.left
+      sed -e '/Modules based on Lua: Version/d' < ${dir}/t1/*/err.txt > ${dir}/err.right
+      diff -u ${dir}/err.left ${dir}/err.right
+      echo ">>>> ${dir}/out.txt"; diff -u ${dir}/out.txt ${dir}/t1/*/out.txt;
     done
