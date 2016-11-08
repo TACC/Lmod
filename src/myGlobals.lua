@@ -359,14 +359,10 @@ USE_DOT_FILES = "@use_dot_files@"
 -- usrCacheDir: user cache directory
 ------------------------------------------------------------------------
 USER_CACHE_DIR_NAME  = ".cache"
-USER_SAVE_DIR_NAME   = ".save"
 if ( USE_DOT_FILES:lower() == "no" ) then
   USER_CACHE_DIR_NAME  = "__cache__"
-  USER_SAVE_DIR_NAME   = "__save__"
-  USER_SBATCH_DIR_NAME = "__saveBatch__"
 end
 usrCacheDir   = pathJoin(getenv("HOME"),".lmod.d",USER_CACHE_DIR_NAME)
-usrSaveDir    = pathJoin(getenv("HOME"),".lmod.d",USER_SAVE_DIR_NAME)
 
 ------------------------------------------------------------------------
 -- updateSystemFn: The system file that is touched everytime the system

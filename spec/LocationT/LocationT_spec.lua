@@ -85,7 +85,7 @@ describe("Testing LocationT Class #LocationT.",
                      },
                   }
                   
-                  local mpathA    = path2pathA(getenv("MODULEPATH"))
+                  mpathA          = path2pathA(getenv("MODULEPATH"))
                   local maxdepthT = paired2pathT(getenv("LMOD_MAXDEPTH"))
                   local moduleA   = ModuleA:__new(mpathA, maxdepthT)
                   local locationT = moduleA:locationT()

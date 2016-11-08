@@ -142,7 +142,7 @@ end
 
 local function findModules(mpath, mt, mList, sn, v, moduleT)
 
-   local function loadMe(mpath, mt, entryT, mList, moduleStack, iStack, moduleT)
+   local function loadMe(entryT, moduleStack, iStack, myModuleT)
       local shellNm       = "bash"
       local fn            = entryT.fn
       local sn            = entryT.sn
@@ -150,10 +150,10 @@ local function findModules(mpath, mt, mList, sn, v, moduleT)
       local wV            = entryT.wV
       local fullName      = entryT.fullName
       local version       = entryT.version
-      moduleStack[iStack] = { mpath = mpath, sn = sn, fullName = fullName, moduleT = moduleT, fn = fn}
+      moduleStack[iStack] = { mpath = mpath, sn = sn, fullName = fullName, moduleT = myModuleT, fn = fn}
       local mname         = MName:new("entryT", entryT)
       mt:add(mname, "pending")
-      loadModuleFile{file=fn, shell=shellNm, mList, reportErr=true, mList = mList}
+      loadModuleFile{file=fn, shell=shellNm, reportErr=true, mList = mList}
       mt:setStatus(sn, "active")
    end
 
@@ -163,14 +163,14 @@ local function findModules(mpath, mt, mList, sn, v, moduleT)
    if (v.file) then
       entryT   = { fn = v.file, sn = sn, userName = sn, fullName = sn, version = false,
                    pV = v.pV, wV = v.wV }
-      loadMe(mpath, mt, entryT, mList, moduleStack, iStack, v.metaModuleT)
+      loadMe(entryT, moduleStack, iStack, v.metaModuleT)
    end
    if (next(v.fileT) ~= nil) then
       for fullName, vv in pairs(v.fileT) do
          entryT   = { fn = vv.fn, sn = sn, userName = fullName, fullName = fullName,
                       version = extractVersion(fullName, sn),
                       pV = v.pV, wV = v.wV }
-         loadMe(mpath, mt, entryT, mList, moduleStack, iStack, vv)
+         loadMe(entryT, moduleStack, iStack, vv)
       end
    end
    if (next(v.dirT) ~= nil) then
@@ -704,8 +704,7 @@ function M._Level1(self, dbT, possibleA, sn, key, helpFlg)
       return s
    end
 
-   local T           = dbT[sn]
-   local key         = nil
+   key               = nil
    local banner      = Banner:singleton()
    local border      = banner:border(0)
    local fullVT      = {}
@@ -728,7 +727,7 @@ function M._Level1(self, dbT, possibleA, sn, key, helpFlg)
    local a  = {}
    local ia = 0
    if (masterTbl.terse) then
-      for k, v in pairsByKeys(VersionT) do
+      for k, v in pairsByKeys(fullVT) do
          ia = ia + 1; a[ia] = v .. "\n"
       end
       return concatTbl(a,"")
@@ -846,7 +845,8 @@ function M._Level2(self, sn, entryA, possibleA)
    if (next(possibleA) ~= nil) then
       local bb  = {}
       local sum = 17
-      for ja = 1, #possibleA do
+      local num = #possibleA
+      for ja = 1, num do
          bb[#bb+1] = possibleA[ja]
          sum     = sum + possibleA[ja]:len() + 2
          if (sum > term_width - 7 and ja < num - 1) then
@@ -862,8 +862,8 @@ function M._Level2(self, sn, entryA, possibleA)
    ia = ia + 1; a[ia] = "Avail Title goes here.  This should never be seen\n"
    titleIdx = ia
 
-   for i = 1, #entryA do
-      entryT = entryA[i]
+   for k = 1, #entryA do
+      entryT = entryA[k]
       if (not entryT.parentAA) then
          haveCore = 1
       else
@@ -871,10 +871,10 @@ function M._Level2(self, sn, entryA, possibleA)
          haveHier = 2
       end
       if (entryT.parentAA) then
-         for i = 1, #entryT.parentAA do
-            local entryA = entryT.parentAA[i]
-            for j = 1, #entryA do
-               b[#b+1] = entryA[j]
+         for j = 1, #entryT.parentAA do
+            local parentA = entryT.parentAA[j]
+            for i = 1, #parentA do
+               b[#b+1] = parentA[i]
                b[#b+1] = '  '
             end
             b[#b] = "\n      "

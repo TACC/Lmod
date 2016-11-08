@@ -71,14 +71,14 @@ describe("Testing MasterControl Class #MasterControl.",
 
                   -- Test loading a simple module
                   mcp:load{MName:new("load","bar")}
-                  local frameStk = FrameStk:singleton()
+                  frameStk       = FrameStk:singleton()
                   local varT     = frameStk:varT()
                   assert.are.equal("2.0",varT["BAR_VERSION"]:expand())
                   assert.are.equal("2.0",getenv("BAR_VERSION"))
 
                   -- Test one name rule
                   mcp:load{MName:new("load","bar/1.0")}
-                  varT     = frameStk:varT()
+                  varT           = frameStk:varT()
                   assert.are.equal("1.0",varT["BAR_VERSION"]:expand())
                   assert.are.equal("1.0",getenv("BAR_VERSION"))
 

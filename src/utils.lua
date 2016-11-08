@@ -697,6 +697,17 @@ function UUIDString(epoch)
    return uuid
 end
 
+function case_independent_cmp(x,y)
+   local x_lower = x.pV:lower()
+   local y_lower = y.pV:lower()
+   if (x_lower == y_lower) then
+      return x.pV < y.pV
+   else
+      return x_lower < y_lower
+   end
+end
+
+
 --------------------------------------------------------------------------
 -- Warning functions
 --------------------------------------------------------------------------

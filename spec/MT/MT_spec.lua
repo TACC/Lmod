@@ -102,17 +102,17 @@ describe("Testing MT Class #MT.",
                   assert.are.same(goldA, activeA)
 
                   goldA         = { "icr","icr/64", "icr/64/3.8", "TACC" }
-                  local activeA = mt:list("both","active")
+                  activeA       = mt:list("both","active")
                   assert.are.same(goldA, activeA)
 
                   goldA         = { "icr/64", "TACC" }
-                  local activeA = mt:list("userName","active")
+                  activeA       = mt:list("userName","active")
                   local resultA = {activeA[1].name, activeA[2].name}
                   assert.are.same(goldA, resultA)
 
                   goldA         = { "icr/64/3.8", "TACC" }
-                  local activeA = mt:list("fullName","active")
-                  local resultA = {activeA[1].name, activeA[2].name}
+                  activeA       = mt:list("fullName","active")
+                  resultA       = {activeA[1].name, activeA[2].name}
                   assert.are.same(goldA, resultA)
                   
 
@@ -130,7 +130,7 @@ describe("Testing MT Class #MT.",
                   -- Do not set MT from the environment
                   mt         = MT:singleton()
                   _mt        = deepcopy(mt)
-                  local __mt = {}
+                  __mt       = {}
                   _mt        = sanizatizeTbl(rplmntA, _mt, __mt)
                   dbg.printT("mt",__mt)
                   dbg.printT("goldT",goldT)

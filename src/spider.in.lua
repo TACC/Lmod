@@ -92,7 +92,6 @@ require("cmdfuncs")
 require("parseVersion")
 MasterControl       = require("MasterControl")
 Cache               = require("Cache")
-MT                  = require("MT")
 MRC                 = require("MRC")
 Master              = require("Master")
 BaseShell           = require("BaseShell")
@@ -101,7 +100,6 @@ local Spider        = require("Spider")
 local concatTbl     = table.concat
 local dbg           = require("Dbg"):dbg()
 local lfs           = require("lfs")
-local posix         = require("posix")
 local sort          = table.sort
 
 

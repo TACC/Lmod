@@ -742,7 +742,7 @@ function Show(...)
    mcp = MasterControl.build("show")
    local borderStr = banner:border(0)
 
-   prtHdr       = function()
+   _G.prtHdr     = function()
                      local a = {}
                      a[#a+1] = borderStr
                      a[#a+1] = "   "
