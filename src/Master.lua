@@ -130,7 +130,7 @@ function M.access(self, ...)
             A[#A+1] = "\n"
          end
       else
-         a[#a+1] = _G.FullName
+         a[#a+1] = userName
       end
       mcp:registerAdminMsg({mname})
    end
