@@ -142,9 +142,6 @@ function l_parseModA(self, modA, weight)
 
          if (entry.kind == "module-version") then
             local fullName = entry.module_name
-            if (fullName:sub(1,1) == '/') then
-               fullName = name .. fullName
-            end
             fullName = self:resolve(fullName)
             dbg.print{"self:resolve(fullName): ",fullName, "\n"}
    

@@ -130,7 +130,7 @@ function M.access(self, ...)
             A[#A+1] = "\n"
          end
       else
-         a[#a+1] = userName
+         a[#a+1] = _G.FullName
       end
       mcp:registerAdminMsg({mname})
    end
@@ -217,7 +217,6 @@ function M.inheritModule(self)
    dbg.print{"myFn:  ", myFn,"\n"}
    dbg.print{"mFull: ", myFullName,"\n"}
 
-   local fnI
    if (mode() == "unload") then
       local mt    = frameStk:mt()
       mname = mt:popInheritFn(sn)
@@ -323,7 +322,6 @@ function M.load(self, mA)
       a[#a + 1] = loaded
 
       if (not mcp.familyStackEmpty()) then
-         local force = true
          local b = {}
          while (not mcp.familyStackEmpty()) do
             local   b_old, b_new = mcp.familyStackPop()
@@ -396,7 +394,6 @@ function M.unload(self,mA)
          registerUnloaded(mt:fullName(sn), mt:fn(sn))
          a[#a + 1] = true
       elseif (mt:have(sn,"active")) then
-         local fn = mname:fn()
          dbg.print{"Master:unload: \"",userName,"\" from file: \"",fn,"\"\n"}
          frameStk:push(mname)
          mt = frameStk:mt()
@@ -822,13 +819,13 @@ function M.avail(self, argA)
    local Default  = 'D'
    local numFound = 0
 
-   for j = 1,#availA do
-      local A = availA[j].A
-      local label = availA[j].mpath
+   for k = 1,#availA do
+      local A = availA[k].A
+      local label = availA[k].mpath
       if (next(A) ~= nil) then
          local b = {}
-         for i = 1,#A do
-            local entry = A[i]
+         for j = 1,#A do
+            local entry = A[j]
             local sn, fullName, fn = availEntry(defaultOnly, label, searchA, defaultT, entry)
             if (sn) then
                local dflt = false
