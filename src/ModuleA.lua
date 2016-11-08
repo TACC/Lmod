@@ -270,8 +270,6 @@ end
 function M.__find_all_defaults(self)
    local moduleA     = self.__moduleA
    local defaultT    = self.__defaultT
-   local isNVV       = self.__isNVV
-   local level       = 0
    local show_hidden = masterTbl().show_hidden
    local mrc         = MRC:singleton()
 
@@ -325,6 +323,8 @@ function M.__find_all_defaults(self)
       end
    end 
 
+   local isNVV      = self.__isNVV
+   local level      = 0
    for i = 1, #moduleA do
       local T      = moduleA[i].T
       local mpath  = moduleA[i].mpath
@@ -530,7 +530,7 @@ function M.update(self, t)
    -- Loop over new mpathA and either build or reuse from
    -- before.
 
-   local moduleA = {}
+   moduleA = {}
    for i = 1,#mpathA do
       repeat 
          local mpath = mpathA[i]
@@ -542,6 +542,7 @@ function M.update(self, t)
          else
             dbg.print{"building mpath: ",mpath,"\n"}
             local spiderT = false
+            local dbT     = false
             if (t.spider_cache) then
                local cache = require("Cache"):singleton{quiet= masterTbl.terse, buildCache=true}
                spiderT, dbT = cache:build()
@@ -622,7 +623,6 @@ function M.defaultT(self)
    return self.__defaultT
 end
 
-local s_moduleA = false
 function M.singleton(self, t)
    t = t or {}
    if (t.reset or (s_moduleA and s_moduleA:spiderBuilt())) then

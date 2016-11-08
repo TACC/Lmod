@@ -409,6 +409,8 @@ build_tags:
 busted:
 	@PROJDIR=$(CURDIR) busted  --verbose -m "$(CURDIR)/src/?.lua;$(CURDIR)/tools/?.lua"
 
+luachk:
+	luacheck src shell tools settarg spec 2>&1 | tee lmod.check.text
 
 libexec:  $(lua_code)
 	$(MAKE) FILELIST="$^" DIRLOC=$(DESTDIR)$(LIBEXEC) __installMe
