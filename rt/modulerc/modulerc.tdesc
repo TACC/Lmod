@@ -65,13 +65,13 @@ EOF
      mkdir cacheDir
      touch last_update
      buildSpiderT $MODULEPATH > cacheDir/spiderT.lua
-     runLmod avail                   #18
-     runLmod avail  dummy            #19
-     runLmod spider dummy            #20
+     runLmod avail                    #18
+     runLmod use  $(testDir)/mf2/Core #19
+     runLmod spider dum               #20
 
      unsetMT
-     export MODULEPATH=$(testDir)/mf/Core:$(testDir)/mf2/Core
-     runLmod load cluster            #21
+     export MODULEPATH=$(testDir)/mf/Core:$(testDir)/mf3/Core
+     runLmod load cluster             #21
 
 
 

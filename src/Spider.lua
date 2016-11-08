@@ -653,9 +653,11 @@ function M.spiderSearch(self, dbT, userSearchPat, helpFlg)
    end
 
    for sn, key in pairsByKeys(matchT) do
-      local s = self:_Level1(dbT, possibleA, sn, key, helpFlg)
-      if (s) then
-         a[#a+1] = s
+      if (next(dbT[sn]) ~= nil) then
+         local s = self:_Level1(dbT, possibleA, sn, key, helpFlg)
+         if (s) then
+            a[#a+1] = s
+         end
       end
    end
    dbg.fini("Spider:spiderSearch")
@@ -724,6 +726,12 @@ function M._Level1(self, dbT, possibleA, sn, key, helpFlg)
       end
    end
       
+   if (key == nil) then
+      LmodError("No matching modules found\n")
+      dbg.fini("Spider:_Level1")
+      return 
+   end
+
    local a  = {}
    local ia = 0
    if (masterTbl.terse) then

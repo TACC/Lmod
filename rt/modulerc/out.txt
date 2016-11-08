@@ -183,6 +183,19 @@ _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={a={["fn"]=
 export _ModuleTable_;
 ===========================
 step 19
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing use ProjectDIR/rt/modulerc/mf2/Core
+===========================
+MODULEPATH="ProjectDIR/rt/modulerc/mf2/Core:ProjectDIR/rt/modulerc/mf/Core";
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={a={["fn"]="ProjectDIR/rt/modulerc/mf/Core/a/13.2.345.lua",["fullName"]="a/13.2.345",["loadOrder"]=2,propT={},["status"]="active",["userName"]="a/13.2.345",},abinit={["fn"]="ProjectDIR/rt/modulerc/mf/Core/abinit/7.4.3",["fullName"]="abinit/7.4.3",["loadOrder"]=3,propT={},["status"]="active",["userName"]="abinit/7.4.3",},hidden={["fn"]="ProjectDIR/rt/modulerc/mf/Core/hidden/2.0.lua",["fullName"]="hidden/2.0",["loadOrder"]=4,propT={},["status"]="active",["userName"]="hidden/2.0",},intel={["fn"]="ProjectDIR/rt/modulerc/mf/Core/intel/15.0.2.lua",["fullName"]="intel/15.0.2",["loadOrder"]=1,propT={},["status"]="active",["userName"]="intel/15.0.2",},},mpathA={"ProjectDIR/rt/modulerc/mf2/Core","ProjectDIR/rt/modulerc/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/modulerc/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 20
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider dum
+===========================
+false
+===========================
+step 21
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load cluster
 ===========================
 false
