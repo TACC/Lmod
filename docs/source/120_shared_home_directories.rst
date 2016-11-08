@@ -1,6 +1,26 @@
 Lmod on Shared Home File Systems
 ================================
 
+Many sites have a single Operating System and one set of modules
+across their cluster.  If a site has more than one cluster, they may
+chose to have a separate home directory for each cluster.  Some sites
+may wish to have multiple clusters share a single home directory.
+While this strategy has some advantages, it complicates things for
+your users and adminstrators.  If your site has a single home
+directory sharing between two or more clusters, you have a shared
+home file system.
+
+As a further complication, your site may or may not have a shared home
+file system even if you have two or more clusters.  If you have
+separate login nodes for each cluster then you do have a shared home
+file system.  If you have a single login which can submit jobs to
+different clusters then you do not have a shared home file system.
+
+The way to think about this is each cluster is going to have at least
+some modules which are different.  Module collections need to be
+unique to each cluster.  The trick described below will make them
+unique for each cluster.
+
 Sites that use a shared home file system across multiple clusters
 should take some extra steps to ensure the smooth running of Lmod.
 Typically each cluster will use different modules.  

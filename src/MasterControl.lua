@@ -175,7 +175,7 @@ end
 --------------------------------------------------------------------------
 -- Build a list of user names based on mA.
 -- @param mA List of MName objects
-local function mAList(mA)
+function mAList(mA)
    local a = {}
    for i = 1, #mA do
       a[#a + 1] = mA[i]:usrName()

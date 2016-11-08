@@ -304,7 +304,7 @@ end
 -- env. variable _ModuleTable_Sz_.
 function getMT()
    local a    = {}
-   local mtSz = getenv("_ModuleTable_Sz_") or huge
+   local mtSz = tonumber(getenv("_ModuleTable_Sz_")) or huge
    local s    = nil
 
    --io.stderr:write("mtSz: ",tostring(mtSz),"\n")

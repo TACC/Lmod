@@ -107,9 +107,9 @@ function M.prereq(self)
    local sn      = self:sn()
    local version = self:version()
    local full    = mt:fullName(sn)
-
-   if (  ( not mt:have(sn,"active")) or
-         ( version and full ~= self:usrName())) then
+   local status  = mt:getStatus(sn)
+   if ( ( status ~= "active" and status ~= "pending") or
+        ( version and full ~= self:usrName())) then           
       result = self:usrName()
    end
    return result

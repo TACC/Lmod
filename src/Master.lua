@@ -370,7 +370,10 @@ function M.load(mA)
    local mt     = MT:mt()
    local a      = {}
 
-   dbg.start{"Master:load(mA)"}
+   if (dbg.active()) then
+      local s = mAList(mA)
+      dbg.start{"Master:load(mA={"..s.."})"}
+   end
 
    for i  = 1,#mA do
       local mname      = mA[i]
@@ -593,7 +596,10 @@ function M.unload(mA)
    local mt     = MT:mt()
    local a      = {}
    local shellN = s_master.shell:name()
-   dbg.start{"Master:unload(mA)"}
+   if (dbg.active()) then
+      local s = mAList(mA)
+      dbg.start{"Master:unload(mA={"..s.."})"}
+   end
 
    local mcp_old = mcp
 

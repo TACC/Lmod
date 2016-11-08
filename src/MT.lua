@@ -74,7 +74,7 @@ function M.name(self)
    return '_ModuleTable_'
 end
 
-s_loadOrder = 0
+local s_loadOrder = 0
 s_mt = false
 
 s_mtA = {}
@@ -695,8 +695,8 @@ end
 --------------------------------------------------------------------------
 -- Record the long and short time.
 -- @param self An MT object.
--- @param long The long time before rebuilting user cache.
--- @param short The short time before rebuilting user cache.
+-- @param long The long time before rebuilding user cache.
+-- @param short The short time before rebuilding user cache.
 function M.setRebuildTime(self, long, short)
    dbg.start{"MT:setRebuildTime(long: ",long,", short: ",short,")",level=2}
    self.c_rebuildTime = long
