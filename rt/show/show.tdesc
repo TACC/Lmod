@@ -33,6 +33,7 @@ testdescript = {
      runLmod show boost/1.49.0       # 9
      runLmod use $(testDir)/mf/Core2 #10
      runLmod show a                  #11
+     runLmod show nosuchmodule       #12
 
      HOME=$ORIG_HOME
 
