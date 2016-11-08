@@ -1027,7 +1027,7 @@ function M.getMTfromFile(self,tt)
    local mt       = frameStk:mt()
    dbg.print{"(1) mt.systemBaseMPATH: ",mt.systemBaseMPATH,"\n"}
    dbg.print{"savedBaseMPATH: ",savedBaseMPATH,"\n"}
-   local s     = serializeTbl{indent=true, name=s_name, value=mt}
+   s              = serializeTbl{indent=true, name=s_name, value=mt}
    dbg.print{"mt after purge",s,"\n"}
    local envMT = build_MT_envT(s)
    for k,v in pairs(envMT) do

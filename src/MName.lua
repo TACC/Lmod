@@ -138,7 +138,7 @@ local function lazyEval(self)
       local frameStk = FrameStk:singleton()
       local mt       = frameStk:mt()
       local sn       = self.__userName
-      local found    = false
+      found          = false
       while true do
          if (mt:exists(sn)) then
             found = true
