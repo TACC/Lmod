@@ -66,10 +66,13 @@ EOF
      touch last_update
      buildSpiderT $MODULEPATH > cacheDir/spiderT.lua
      runLmod avail                   #18
+     runLmod avail  dummy            #19
+     runLmod spider dummy            #20
 
      unsetMT
      export MODULEPATH=$(testDir)/mf/Core:$(testDir)/mf2/Core
-     runLmod load cluster            #19
+     runLmod load cluster            #21
+
 
 
      HOME=$ORIG_HOME
