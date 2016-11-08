@@ -751,7 +751,8 @@ function M._Level1(self, dbT, possibleA, sn, key, helpFlg)
    if (next(possibleA) ~= nil) then
       local b   = {}
       local sum = 17
-      for ja = 1, #possibleA do
+      local num = #possibleA
+      for ja = 1, num do
          b[#b+1] = possibleA[ja]
          sum     = sum + possibleA[ja]:len() + 2
          if (sum > term_width and ja < num - 1) then

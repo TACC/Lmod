@@ -82,3 +82,11 @@ prereq("F")
 load("G")
 always_load("G")
 unload("H")
+===========================
+step 12
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing show nosuchmodule
+===========================
+Failed to find the following module(s):  "nosuchmodule" in your MODULEPATH
+Try:
+    "module spider nosuchmodule"
+to see if the module(s) are available across all compilers and MPI implementations.
