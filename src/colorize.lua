@@ -15,7 +15,7 @@ require("strict")
 --
 --  ----------------------------------------------------------------------
 --
---  Copyright (C) 2008-2014 Robert McLay
+--  Copyright (C) 2008-2016 Robert McLay
 --
 --  Permission is hereby granted, free of charge, to any person obtaining
 --  a copy of this software and associated documentation files (the
@@ -44,9 +44,8 @@ require("utils")
 require("haveTermSupport")
 require("myGlobals")
 
-Foreground = "\027".."[1;"
-colorT =
-   {
+local Foreground = "\027".."[1;"
+local colorT = {
    black      = "30",
    red        = "31",
    green      = "32",
@@ -104,8 +103,8 @@ end
 
 if (connected2Term() or LMOD_COLORIZE == "force") then
    s_colorize_kind = "full"
-   colorize = full_colorize
+   _G.colorize = full_colorize
 else
    s_colorize_kind = "plain"
-   colorize = plain
+   _G.colorize = plain
 end

@@ -16,23 +16,24 @@ testdescript = {
      . $(projectDir)/rt/common_funcs.sh
      unsetMT
      initStdEnvVars
-     MODULEPATH_ROOT=$(projectDir)/mf;  export MODULEPATH_ROOT
-     MODULEPATH=$(projectDir)/mf/Core:$(projectDir)/mf/Compiler/intel/10.1;
+     MODULEPATH_ROOT=$(testDir)/mf;  export MODULEPATH_ROOT
+     MODULEPATH=$MODULEPATH_ROOT/Core #:$MODULEPATH_ROOT/Compiler/intel/10.1;
      export MODULEPATH
 
      rm -fr _stderr.*  _stdout.* out.* err.* .lmod.d
 
-     runLmod --version              # 1
-     runLmod show gcc               # 2
-     runLmod show alex              # 3
-     runLmod avail                  # 4
-     runLmod show boost             # 5
-     runLmod load boost/1.47.1      # 6
-     runLmod list                   # 7
-     runLmod show boost             # 8
-     runLmod show boost/1.49.0      # 9
-     runLmod use $(testDir)/mf/Core #10
-     runLmod show a                 #11
+     runLmod --version               # 1
+     runLmod show gcc                # 2
+     runLmod show alex               # 3
+     runLmod avail                   # 4
+     runLmod show boost              # 5
+     runLmod load boost/1.47.1       # 6
+     runLmod list                    # 7
+     runLmod show boost              # 8
+     runLmod show boost/1.49.0       # 9
+     runLmod use $(testDir)/mf/Core2 #10
+     runLmod show a                  #11
+     runLmod show nosuchmodule       #12
 
      HOME=$ORIG_HOME
 

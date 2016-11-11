@@ -58,13 +58,15 @@ first=${myhost%%.*}
 SYSHOST=${myhost#*.}
 SUDO=""
 
-cat > /tmp/stampede.build.$$ <<EOF
-/tmp/moduleData/cacheDir:/tmp/losf_last_update
-EOF
+if [ -x $HOME/.up/bin/arch.py ]; then
+    MY_ARCH=$($HOME/.up/bin/arch.py)
+    MY_ARCH="$MY_ARCH/"
+fi
 
-cat > /tmp/ls4.build.$$ <<EOF
-$HOME/a/moduleData/cacheDir: $HOME/a/moduleData/losf_last_update
-$HOME/a/moduleData/XSEDE/cacheDir: $HOME/a/moduleData/XSEDE/last_update
+MCLAY=~mclay
+
+cat > /tmp/TACC.build.$$ <<EOF
+$MCLAY/l/moduleData/${MY_ARCH}cacheDir:$MCLAY/l/moduleData/${MY_ARCH}system.txt
 EOF
 
 
@@ -87,7 +89,7 @@ case $SYSHOST in
     fi
     ;;
 
-  ls4 | maverick | stampede | wrangler)
+  ls5 | maverick | stampede | wrangler)
     base="$HOME/l/pkg"
     ADMIN_DIR="$HOME/a/moduleData"
     UPDATE_FN=$ADMIN_DIR/system.txt
@@ -99,7 +101,7 @@ case $SYSHOST in
 	   base="$base/$(uname -m)"
        fi
     fi
-    EXTRA="--with-spiderCacheDescript=/tmp/$SYSHOST.build.$$"
+    EXTRA="--with-spiderCacheDescript=/tmp/TACC.build.$$"
     SITE_PKG="contrib/TACC/*.lua"
     ;;
 

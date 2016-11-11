@@ -6,13 +6,15 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 step 2
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/mf/Core";
+MODULEPATH="ProjectDIR/rt/cache/mf/Core";
 export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/mf/Core";
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/cache/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/cache/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 3
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider
+===========================
+MODULEPATH="ProjectDIR/rt/cache/mf/Core";
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/mf/Core",},family={},inactive={},mT={},mpathA={"ProjectDIR/mf/Core",},["systemBaseMPATH"]="ProjectDIR/mf/Core",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/cache/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/cache/mf/Core",}';
 export _ModuleTable_;

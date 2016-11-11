@@ -17,8 +17,8 @@ testdescript = {
      unsetMT
      initStdEnvVars
      export LMOD_TERM_WIDTH=150
-     MODULEPATH_ROOT=$(projectDir)/mf;  export MODULEPATH_ROOT
-     MODULEPATH=$(projectDir)/mf//Core:$(testDir)/mf/Core//
+     MODULEPATH_ROOT=$(testDir)/mf;  export MODULEPATH_ROOT
+     MODULEPATH=$(testDir)/mf/Core//
      export MODULEPATH
      unset TERM
 
@@ -59,15 +59,10 @@ testdescript = {
      runLmod avail                    #24
 
      runLmod use $(testDir)/mf/Order  #25
-     export LMOD_LEGACY_VERSION_ORDERING=1
      runLmod avail                    #26
-     unset LMOD_LEGACY_VERSION_ORDERING
-     runLmod avail                    #27
-     runLmod use $(testDir)/mf/Core6  #28
-     runLmod avail                    #29
-     export LMOD_CHECK_FOR_VALID_MODULE_FILES=yes
-     runLmod avail                    #30
-
+     runLmod use $(testDir)/mf/Core6  #27
+     runLmod avail                    #28
+     runLmod avail FooBar             #29
 
 
 

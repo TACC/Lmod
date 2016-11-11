@@ -4,7 +4,7 @@
 _ModuleTable_ = {
   ["activeSize"] = 14,
   baseMpathA = {
-    "/opt/apps/modulefiles/Linux", "/opt/apps/modulefiles/Core", "/opt/apps/lmod/lmod/modulefiles/Core",
+    "/unknown/apps/modulefiles/Linux", "/unknown/apps/modulefiles/Core", "/unknown/apps/lmod/lmod/modulefiles/Core",
   },
   ["c_rebuildTime"] = false,
   ["c_shortTime"] = false,
@@ -17,7 +17,7 @@ _ModuleTable_ = {
       },
   mT = {
     PrgEnv = {
-      ["FN"] = "/opt/apps/modulefiles/Core/PrgEnv.lua",
+      ["FN"] = "/unknown/apps/modulefiles/Core/PrgEnv.lua",
       ["default"] = 0,
       ["fullName"] = "PrgEnv",
       ["hash"] = "2c3e523a2fdc2d24605d5df3f4b30c101f95342c",
@@ -28,7 +28,7 @@ _ModuleTable_ = {
       ["status"] = "active",
     },
     autotools = {
-      ["FN"] = "/opt/apps/modulefiles/Core/autotools/1.2.lua",
+      ["FN"] = "/unknown/apps/modulefiles/Core/autotools/1.2.lua",
       ["default"] = 1,
       ["fullName"] = "autotools/1.2",
       ["hash"] = "da39a3ee5e6b4b0d3255bfef95601890afd80709",
@@ -39,7 +39,7 @@ _ModuleTable_ = {
       ["status"] = "active",
     },
     boost = {
-      ["FN"] = "/opt/apps/modulefiles/Compiler/intel/15.0/boost/1.56.0.lua",
+      ["FN"] = "/unknown/apps/modulefiles/Compiler/intel/15.0/boost/1.56.0.lua",
       ["default"] = 1,
       ["fullName"] = "boost/1.56.0",
       ["hash"] = "da39a3ee5e6b4b0d3255bfef95601890afd80709",
@@ -53,7 +53,7 @@ _ModuleTable_ = {
       ["status"] = "active",
     },
     ddt = {
-      ["FN"] = "/opt/apps/modulefiles/Core/ddt/ddt.lua",
+      ["FN"] = "/unknown/apps/modulefiles/Core/ddt/ddt.lua",
       ["default"] = 1,
       ["fullName"] = "ddt/ddt",
       ["hash"] = "da39a3ee5e6b4b0d3255bfef95601890afd80709",
@@ -64,7 +64,7 @@ _ModuleTable_ = {
       ["status"] = "active",
     },
     fdepend = {
-      ["FN"] = "/opt/apps/modulefiles/Core/fdepend/fdepend.lua",
+      ["FN"] = "/unknown/apps/modulefiles/Core/fdepend/fdepend.lua",
       ["default"] = 1,
       ["fullName"] = "fdepend/fdepend",
       ["hash"] = "da39a3ee5e6b4b0d3255bfef95601890afd80709",

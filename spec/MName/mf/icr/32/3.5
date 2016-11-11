@@ -1,0 +1,35 @@
+#%Module -*- tcl -*-
+##
+## intel-cluster-runtime modulefile
+##
+proc ModulesHelp { } {
+  puts stderr "\tAdds intel-cluster-runtime to your environment variables,"
+}
+
+module-whatis "Adds the Intel cluster runtime 32 bits to your environment variables"
+
+set               root                 /cm/shared/apps/intel-cluster-runtime/3.5
+set               composerversion      2015.0.090
+set               compilerversion      15.0.090
+
+prepend-path      PATH                 $root/composer_xe_$composerversion/mpirt/bin/ia32
+prepend-path      PATH                 $root/composer_xe_$composerversion/tbb/bin
+prepend-path      PATH                 $root/cc/$compilerversion/bin
+prepend-path      PATH                 $root/fc/$compilerversion/bin
+
+prepend-path      LD_LIBRARY_PATH      $root/composer_xe_$composerversion/compiler/lib/ia32
+prepend-path      LD_LIBRARY_PATH      $root/composer_xe_$composerversion/mkl/lib/ia32
+prepend-path      LD_LIBRARY_PATH      $root/composer_xe_$composerversion/mpirt/lib/ia32
+prepend-path      LD_LIBRARY_PATH      $root/composer_xe_$composerversion/tbb/lib/ia32
+prepend-path      LD_LIBRARY_PATH      $root/cc/$compilerversion/lib
+prepend-path      LD_LIBRARY_PATH      $root/fc/$compilerversion/lib
+
+prepend-path      LIBRARY_PATH         $root/composer_xe_$composerversion/compiler/lib/ia32
+prepend-path      LIBRARY_PATH         $root/composer_xe_$composerversion/mkl/lib/ia32
+prepend-path      LIBRARY_PATH         $root/cc/$compilerversion/lib
+prepend-path      LIBRARY_PATH         $root/fc/$compilerversion/lib
+
+setenv            MKLROOT              $root/composer_xe_$composerversion/mkl
+
+prepend-path      INTEL_LICENSE_FILE   /cm/shared/licenses/intel
+

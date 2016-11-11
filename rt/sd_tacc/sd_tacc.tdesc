@@ -11,7 +11,7 @@ testdescript = {
    owner   = "rtm",
    product = "modules",
    description = [[
-	 Test initial module load
+	 Test save default and restore
    ]],
    keywords = {"default","setdefault", "getdefault","setgetdefault","getsetdefault" },
 
@@ -24,8 +24,8 @@ testdescript = {
      . $(projectDir)/rt/common_funcs.sh
      unsetMT
      initStdEnvVars
-     MODULEPATH=$(projectDir)/mf/TACC;  export MODULEPATH
-     MODULEPATH_ROOT=$(projectDir)/mf;  export MODULEPATH_ROOT
+     MODULEPATH_ROOT=$(testDir)/mf;    export MODULEPATH_ROOT
+     MODULEPATH=$MODULEPATH_ROOT/TACC; export MODULEPATH
 
      rm -fr _stderr.* _stdout.* err.* out.* .lmod.d
      rm -rf $HOME/.lmod.d
@@ -35,7 +35,7 @@ testdescript = {
      runLmod save              # 3
 
      runLmod purge             # 4
-     PATH=$PATH_to_LUA:$PATH
+
      runLmod load TACC         # 5
      runLmod save              # 6
 

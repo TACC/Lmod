@@ -6,35 +6,23 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 step 2
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load a
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/versionTest/mf";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/versionTest/mf";
-export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/versionTest/mf";
-export LMOD_DEFAULT_MODULEPATH;
 LOADEDMODULES="a";
 export LOADEDMODULES;
 MODULEPATH="ProjectDIR/rt/versionTest/mf";
 export MODULEPATH;
 _LMFILES_="ProjectDIR/rt/versionTest/mf/a.lua";
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/versionTest/mf",},family={},inactive={},mT={a={["FN"]="ProjectDIR/rt/versionTest/mf/a.lua",["default"]=0,["fullName"]="a",["loadOrder"]=1,propT={},["short"]="a",["status"]="active",},},mpathA={"ProjectDIR/rt/versionTest/mf",},["systemBaseMPATH"]="ProjectDIR/rt/versionTest/mf",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={a={["fn"]="ProjectDIR/rt/versionTest/mf/a.lua",["fullName"]="a",["loadOrder"]=1,propT={},["status"]="active",["userName"]="a",},},mpathA={"ProjectDIR/rt/versionTest/mf",},["systemBaseMPATH"]="ProjectDIR/rt/versionTest/mf",}';
 export _ModuleTable_;
 ===========================
 step 3
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load b
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/versionTest/mf";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/versionTest/mf";
-export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/versionTest/mf";
-export LMOD_DEFAULT_MODULEPATH;
 LOADEDMODULES="a:b";
 export LOADEDMODULES;
 MODULEPATH="ProjectDIR/rt/versionTest/mf";
 export MODULEPATH;
 _LMFILES_="ProjectDIR/rt/versionTest/mf/a.lua:ProjectDIR/rt/versionTest/mf/b";
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/versionTest/mf",},family={},inactive={},mT={a={["FN"]="ProjectDIR/rt/versionTest/mf/a.lua",["default"]=0,["fullName"]="a",["loadOrder"]=1,propT={},["short"]="a",["status"]="active",},b={["FN"]="ProjectDIR/rt/versionTest/mf/b",["default"]=0,["fullName"]="b",["loadOrder"]=2,propT={},["short"]="b",["status"]="active",},},mpathA={"ProjectDIR/rt/versionTest/mf",},["systemBaseMPATH"]="ProjectDIR/rt/versionTest/mf",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={a={["fn"]="ProjectDIR/rt/versionTest/mf/a.lua",["fullName"]="a",["loadOrder"]=1,propT={},["status"]="active",["userName"]="a",},b={["fn"]="ProjectDIR/rt/versionTest/mf/b",["fullName"]="b",["loadOrder"]=2,propT={},["status"]="active",["userName"]="b",},},mpathA={"ProjectDIR/rt/versionTest/mf",},["systemBaseMPATH"]="ProjectDIR/rt/versionTest/mf",}';
 export _ModuleTable_;

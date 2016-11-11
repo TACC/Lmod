@@ -26,11 +26,11 @@ testdescript = {
      touch c1/system.txt c2/system.txt
 
      BASE_MODULE_PATH=$(testDir)/mf1/Core
-     buildNewDB c1 c1/system.txt moduleT
+     buildNewDB c1 c1/system.txt spiderT
      buildNewDB c1 c1/system.txt dbT
 
      BASE_MODULE_PATH=$(testDir)/mf2/Core
-     buildNewDB c2 c2/system.txt moduleT
+     buildNewDB c2 c2/system.txt spiderT
      buildNewDB c2 c2/system.txt dbT
 
      cat > .lmodrc.lua <<EOF

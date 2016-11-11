@@ -36,7 +36,7 @@ testdescript = {
      runLmod --version               # 1
      runLmod load intel mv2          # 2
      mkdir -p .lmod.d/.cache
-     buildModuleT $LMOD_DEFAULT_MODULEPATH > .lmod.d/.cache/moduleT.lua
+     buildSpiderT $MODULEPATH > .lmod.d/.cache/spiderT.lua
      mkdir mf/Core/itac
      cp $(testDir)/ITAC-1.0.lua mf/Core/itac/1.0.lua
      runLmod --ignore_cache avail    # 3

@@ -15,7 +15,7 @@ require("strict")
 --
 --  ----------------------------------------------------------------------
 --
---  Copyright (C) 2008-2014 Robert McLay
+--  Copyright (C) 2008-2016 Robert McLay
 --
 --  Permission is hereby granted, free of charge, to any person obtaining
 --  a copy of this software and associated documentation files (the
@@ -44,7 +44,9 @@ require("strict")
 -- almost all other module commands are ignored.
 
 require("utils")
+require("myGlobals")
 
+local MasterControl   = require("MasterControl")
 MC_Access             = inheritsFrom(MasterControl)
 MC_Access.my_name     = "MC_Access"
 MC_Access.my_sType    = "load"
@@ -60,8 +62,8 @@ M.accessT = { help = false, whatis = false}
 -- Set access mode to either help or whatis
 -- @param mode The type of access: help, or whatis.
 -- @param value Either true or false
-function M.accessMode(mode, value)
-   M.accessT[mode] = value
+function M.setAccessMode(self, mode, value)
+   self.accessT[mode] = value
 end
 
 --------------------------------------------------------------------------
@@ -69,7 +71,7 @@ end
 -- @param self MC_Access object
 function M.help(self, ...)
    local arg = pack(...)
-   if (M.accessT.help == true) then
+   if (self.accessT.help == true) then
       for i = 1, arg.n do
          A[#A+1] = arg[i]
       end
@@ -82,8 +84,8 @@ end
 -- @param self A MC_Access object.
 -- @param msg The message string.
 function M.whatis(self, msg)
-   if (M.accessT.whatis) then
-      local nm     = ModuleName or ""
+   if (self.accessT.whatis) then
+      local nm     = FullName or ""
       local l      = nm:len()
       local nblnks
       if (l < 20) then

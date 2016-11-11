@@ -6,24 +6,14 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 step 2
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing use -a ProjectDIR/rt/delim/mf/Core
 ===========================
-unset LMOD_DEFAULT_MODULEPATH;
-unset MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/delim/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/delim/mf/Core";
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/delim/mf/Core",},family={},inactive={},mT={},mpathA={"ProjectDIR/rt/delim/mf/Core",},["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/delim/mf/Core",},}';
 export _ModuleTable_;
 ===========================
 step 3
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load init_lua
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/delim/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/delim/mf/Core";
-export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/delim/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
 LOADEDMODULES="init_lua/5.1.4";
 export LOADEDMODULES;
 MODULEPATH="ProjectDIR/rt/delim/mf/Core";
@@ -34,40 +24,28 @@ RTM_LUA_PATH=";;";
 export RTM_LUA_PATH;
 _LMFILES_="ProjectDIR/rt/delim/mf/Core/init_lua/5.1.4.lua";
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/delim/mf/Core",},family={},inactive={},mT={init_lua={["FN"]="ProjectDIR/rt/delim/mf/Core/init_lua/5.1.4.lua",["default"]=1,["fullName"]="init_lua/5.1.4",["loadOrder"]=1,propT={},["short"]="init_lua",["status"]="active",},},mpathA={"ProjectDIR/rt/delim/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/delim/mf/Core",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={init_lua={["fn"]="ProjectDIR/rt/delim/mf/Core/init_lua/5.1.4.lua",["fullName"]="init_lua/5.1.4",["loadOrder"]=1,propT={},["status"]="active",["userName"]="init_lua",},},mpathA={"ProjectDIR/rt/delim/mf/Core",},}';
 export _ModuleTable_;
 ===========================
 step 4
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load luaposix
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/delim/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/delim/mf/Core";
-export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/delim/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
 LOADEDMODULES="init_lua/5.1.4:luaposix/1.0";
 export LOADEDMODULES;
 MODULEPATH="ProjectDIR/rt/delim/mf/Core";
 export MODULEPATH;
-RTM_LUA_CPATH="/opt/apps/luaposix/luaposix/?.so;;";
+RTM_LUA_CPATH="/unknown/apps/luaposix/luaposix/?.so;;";
 export RTM_LUA_CPATH;
-RTM_LUA_PATH="/opt/apps/luaposix/luaposix/?.lua;/opt/apps/luaposix/luaposix/?;;";
+RTM_LUA_PATH="/unknown/apps/luaposix/luaposix/?.lua;/unknown/apps/luaposix/luaposix/?;;";
 export RTM_LUA_PATH;
 _LMFILES_="ProjectDIR/rt/delim/mf/Core/init_lua/5.1.4.lua:ProjectDIR/rt/delim/mf/Core/luaposix/1.0.lua";
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/delim/mf/Core",},family={},inactive={},mT={init_lua={["FN"]="ProjectDIR/rt/delim/mf/Core/init_lua/5.1.4.lua",["default"]=1,["fullName"]="init_lua/5.1.4",["loadOrder"]=1,propT={},["short"]="init_lua",["status"]="active",},luaposix={["FN"]="ProjectDIR/rt/delim/mf/Core/luaposix/1.0.lua",["default"]=1,["fullName"]="luaposix/1.0",["loadOrder"]=2,propT={},["short"]="luaposix",["status"]="active",},},mpathA={"ProjectDIR/rt/delim/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/delim/mf/Core",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={init_lua={["fn"]="ProjectDIR/rt/delim/mf/Core/init_lua/5.1.4.lua",["fullName"]="init_lua/5.1.4",["loadOrder"]=1,propT={},["status"]="active",["userName"]="init_lua",},luaposix={["fn"]="ProjectDIR/rt/delim/mf/Core/luaposix/1.0.lua",["fullName"]="luaposix/1.0",["loadOrder"]=2,propT={},["status"]="active",["userName"]="luaposix",},},mpathA={"ProjectDIR/rt/delim/mf/Core",},}';
 export _ModuleTable_;
 ===========================
 step 5
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload luaposix
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/delim/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/delim/mf/Core";
-export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/delim/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
 LOADEDMODULES="init_lua/5.1.4";
 export LOADEDMODULES;
 MODULEPATH="ProjectDIR/rt/delim/mf/Core";
@@ -78,18 +56,12 @@ RTM_LUA_PATH=";;";
 export RTM_LUA_PATH;
 _LMFILES_="ProjectDIR/rt/delim/mf/Core/init_lua/5.1.4.lua";
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/delim/mf/Core",},family={},inactive={},mT={init_lua={["FN"]="ProjectDIR/rt/delim/mf/Core/init_lua/5.1.4.lua",["default"]=1,["fullName"]="init_lua/5.1.4",["loadOrder"]=1,propT={},["short"]="init_lua",["status"]="active",},},mpathA={"ProjectDIR/rt/delim/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/delim/mf/Core",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={init_lua={["fn"]="ProjectDIR/rt/delim/mf/Core/init_lua/5.1.4.lua",["fullName"]="init_lua/5.1.4",["loadOrder"]=1,propT={},["status"]="active",["userName"]="init_lua",},},mpathA={"ProjectDIR/rt/delim/mf/Core",},}';
 export _ModuleTable_;
 ===========================
 step 6
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load init_lua
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/delim/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/delim/mf/Core";
-export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/delim/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
 LOADEDMODULES="init_lua/5.1.4";
 export LOADEDMODULES;
 MODULEPATH="ProjectDIR/rt/delim/mf/Core";
@@ -100,86 +72,56 @@ RTM_LUA_PATH=";;";
 export RTM_LUA_PATH;
 _LMFILES_="ProjectDIR/rt/delim/mf/Core/init_lua/5.1.4.lua";
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/delim/mf/Core",},family={},inactive={},mT={init_lua={["FN"]="ProjectDIR/rt/delim/mf/Core/init_lua/5.1.4.lua",["default"]=1,["fullName"]="init_lua/5.1.4",["loadOrder"]=1,propT={},["short"]="init_lua",["status"]="active",},},mpathA={"ProjectDIR/rt/delim/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/delim/mf/Core",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={init_lua={["fn"]="ProjectDIR/rt/delim/mf/Core/init_lua/5.1.4.lua",["fullName"]="init_lua/5.1.4",["loadOrder"]=1,propT={},["status"]="active",["userName"]="init_lua",},},mpathA={"ProjectDIR/rt/delim/mf/Core",},}';
 export _ModuleTable_;
 ===========================
 step 7
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load luaposix
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/delim/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/delim/mf/Core";
-export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/delim/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
 LOADEDMODULES="init_lua/5.1.4:luaposix/1.0";
 export LOADEDMODULES;
 MODULEPATH="ProjectDIR/rt/delim/mf/Core";
 export MODULEPATH;
-RTM_LUA_CPATH="/opt/apps/luaposix/luaposix/?.so;;";
+RTM_LUA_CPATH="/unknown/apps/luaposix/luaposix/?.so;;";
 export RTM_LUA_CPATH;
-RTM_LUA_PATH="/opt/apps/luaposix/luaposix/?.lua;/opt/apps/luaposix/luaposix/?;;";
+RTM_LUA_PATH="/unknown/apps/luaposix/luaposix/?.lua;/unknown/apps/luaposix/luaposix/?;;";
 export RTM_LUA_PATH;
 _LMFILES_="ProjectDIR/rt/delim/mf/Core/init_lua/5.1.4.lua:ProjectDIR/rt/delim/mf/Core/luaposix/1.0.lua";
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/delim/mf/Core",},family={},inactive={},mT={init_lua={["FN"]="ProjectDIR/rt/delim/mf/Core/init_lua/5.1.4.lua",["default"]=1,["fullName"]="init_lua/5.1.4",["loadOrder"]=1,propT={},["short"]="init_lua",["status"]="active",},luaposix={["FN"]="ProjectDIR/rt/delim/mf/Core/luaposix/1.0.lua",["default"]=1,["fullName"]="luaposix/1.0",["loadOrder"]=2,propT={},["short"]="luaposix",["status"]="active",},},mpathA={"ProjectDIR/rt/delim/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/delim/mf/Core",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={init_lua={["fn"]="ProjectDIR/rt/delim/mf/Core/init_lua/5.1.4.lua",["fullName"]="init_lua/5.1.4",["loadOrder"]=1,propT={},["status"]="active",["userName"]="init_lua",},luaposix={["fn"]="ProjectDIR/rt/delim/mf/Core/luaposix/1.0.lua",["fullName"]="luaposix/1.0",["loadOrder"]=2,propT={},["status"]="active",["userName"]="luaposix",},},mpathA={"ProjectDIR/rt/delim/mf/Core",},}';
 export _ModuleTable_;
 ===========================
 step 8
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/delim/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/delim/mf/Core";
 export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/delim/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/delim/mf/Core";
-export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/delim/mf/Core",},family={},inactive={},mT={init_lua={["FN"]="ProjectDIR/rt/delim/mf/Core/init_lua/5.1.4.lua",["default"]=1,["fullName"]="init_lua/5.1.4",["loadOrder"]=1,propT={},["short"]="init_lua",["status"]="active",},luaposix={["FN"]="ProjectDIR/rt/delim/mf/Core/luaposix/1.0.lua",["default"]=1,["fullName"]="luaposix/1.0",["loadOrder"]=2,propT={},["short"]="luaposix",["status"]="active",},},mpathA={"ProjectDIR/rt/delim/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/delim/mf/Core",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={init_lua={["fn"]="ProjectDIR/rt/delim/mf/Core/init_lua/5.1.4.lua",["fullName"]="init_lua/5.1.4",["loadOrder"]=1,propT={},["status"]="active",["userName"]="init_lua",},luaposix={["fn"]="ProjectDIR/rt/delim/mf/Core/luaposix/1.0.lua",["fullName"]="luaposix/1.0",["loadOrder"]=2,propT={},["status"]="active",["userName"]="luaposix",},},mpathA={"ProjectDIR/rt/delim/mf/Core",},}';
 export _ModuleTable_;
 ===========================
 step 9
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload init_lua luaposix
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/delim/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/delim/mf/Core";
-export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/delim/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
 unset LOADEDMODULES;
 MODULEPATH="ProjectDIR/rt/delim/mf/Core";
 export MODULEPATH;
 unset RTM_LUA_CPATH;
 unset RTM_LUA_PATH;
 unset _LMFILES_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/delim/mf/Core",},family={},inactive={},mT={},mpathA={"ProjectDIR/rt/delim/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/delim/mf/Core",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/delim/mf/Core",},}';
 export _ModuleTable_;
 ===========================
 step 10
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/delim/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/delim/mf/Core";
 export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/delim/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/delim/mf/Core";
-export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/delim/mf/Core",},family={},inactive={},mT={},mpathA={"ProjectDIR/rt/delim/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/delim/mf/Core",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/delim/mf/Core",},}';
 export _ModuleTable_;
 ===========================
 step 11
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load ncarIntel
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/delim/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/delim/mf/Core";
-export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/delim/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
 LOADEDMODULES="ncarIntel/1.0";
 export LOADEDMODULES;
 MODULEPATH="ProjectDIR/rt/delim/mf/Core";
@@ -188,18 +130,12 @@ NCAR_LIB_INTEL="-Wl,-rpath,/opt/intel/composer_xe_2011_sp1.6.233/compiler/lib/in
 export NCAR_LIB_INTEL;
 _LMFILES_="ProjectDIR/rt/delim/mf/Core/ncarIntel/1.0.lua";
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/delim/mf/Core",},family={},inactive={},mT={ncarIntel={["FN"]="ProjectDIR/rt/delim/mf/Core/ncarIntel/1.0.lua",["default"]=1,["fullName"]="ncarIntel/1.0",["loadOrder"]=1,propT={},["short"]="ncarIntel",["status"]="active",},},mpathA={"ProjectDIR/rt/delim/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/delim/mf/Core",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={ncarIntel={["fn"]="ProjectDIR/rt/delim/mf/Core/ncarIntel/1.0.lua",["fullName"]="ncarIntel/1.0",["loadOrder"]=1,propT={},["status"]="active",["userName"]="ncarIntel",},},mpathA={"ProjectDIR/rt/delim/mf/Core",},}';
 export _ModuleTable_;
 ===========================
 step 12
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load ncarNetcdf
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/delim/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/delim/mf/Core";
-export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/delim/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
 LOADEDMODULES="ncarIntel/1.0:ncarNetcdf/1.0";
 export LOADEDMODULES;
 MODULEPATH="ProjectDIR/rt/delim/mf/Core";
@@ -208,18 +144,12 @@ NCAR_LIB_INTEL="-Wl,-rpath,/opt/intel/composer_xe_2011_sp1.6.233/compiler/lib/in
 export NCAR_LIB_INTEL;
 _LMFILES_="ProjectDIR/rt/delim/mf/Core/ncarIntel/1.0.lua:ProjectDIR/rt/delim/mf/Core/ncarNetcdf/1.0.lua";
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/delim/mf/Core",},family={},inactive={},mT={ncarIntel={["FN"]="ProjectDIR/rt/delim/mf/Core/ncarIntel/1.0.lua",["default"]=1,["fullName"]="ncarIntel/1.0",["loadOrder"]=1,propT={},["short"]="ncarIntel",["status"]="active",},ncarNetcdf={["FN"]="ProjectDIR/rt/delim/mf/Core/ncarNetcdf/1.0.lua",["default"]=1,["fullName"]="ncarNetcdf/1.0",["loadOrder"]=2,propT={},["short"]="ncarNetcdf",["status"]="active",},},mpathA={"ProjectDIR/rt/delim/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/delim/mf/Core",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={ncarIntel={["fn"]="ProjectDIR/rt/delim/mf/Core/ncarIntel/1.0.lua",["fullName"]="ncarIntel/1.0",["loadOrder"]=1,propT={},["status"]="active",["userName"]="ncarIntel",},ncarNetcdf={["fn"]="ProjectDIR/rt/delim/mf/Core/ncarNetcdf/1.0.lua",["fullName"]="ncarNetcdf/1.0",["loadOrder"]=2,propT={},["status"]="active",["userName"]="ncarNetcdf",},},mpathA={"ProjectDIR/rt/delim/mf/Core",},}';
 export _ModuleTable_;
 ===========================
 step 13
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload ncarNetcdf
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/delim/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/delim/mf/Core";
-export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/delim/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
 LOADEDMODULES="ncarIntel/1.0";
 export LOADEDMODULES;
 MODULEPATH="ProjectDIR/rt/delim/mf/Core";
@@ -228,5 +158,5 @@ NCAR_LIB_INTEL="-Wl,-rpath,/opt/intel/composer_xe_2011_sp1.6.233/compiler/lib/in
 export NCAR_LIB_INTEL;
 _LMFILES_="ProjectDIR/rt/delim/mf/Core/ncarIntel/1.0.lua";
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/delim/mf/Core",},family={},inactive={},mT={ncarIntel={["FN"]="ProjectDIR/rt/delim/mf/Core/ncarIntel/1.0.lua",["default"]=1,["fullName"]="ncarIntel/1.0",["loadOrder"]=1,propT={},["short"]="ncarIntel",["status"]="active",},},mpathA={"ProjectDIR/rt/delim/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/delim/mf/Core",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={ncarIntel={["fn"]="ProjectDIR/rt/delim/mf/Core/ncarIntel/1.0.lua",["fullName"]="ncarIntel/1.0",["loadOrder"]=1,propT={},["status"]="active",["userName"]="ncarIntel",},},mpathA={"ProjectDIR/rt/delim/mf/Core",},}';
 export _ModuleTable_;

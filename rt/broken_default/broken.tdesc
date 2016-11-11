@@ -9,7 +9,7 @@ testdescript = {
    ]],
    keywords = {testName, },
 
-   active = 1,
+   active = false,
    testName = testName,
    job_submit_method = "INTERACTIVE",
 

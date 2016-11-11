@@ -4,7 +4,7 @@ testdescript = {
    owner   = "rtm",
    product = "modules",
    description = [[
-	 Test initial module load
+	 Test isloaded functionality
    ]],
    keywords = {"isloaded" },
 
@@ -17,14 +17,14 @@ testdescript = {
      . $(projectDir)/rt/common_funcs.sh
      unsetMT
      initStdEnvVars
-     MODULEPATH_ROOT=$(projectDir)/mf;  export MODULEPATH_ROOT
+     MODULEPATH_ROOT=$(testDir)/mf;     export MODULEPATH_ROOT
      MODULEPATH=$MODULEPATH_ROOT/Core;  export MODULEPATH
 
      rm -fr _stderr.* _stdout.* err.* out.* .lmod.d
 
      runLmod --version                # 1
      runLmod load PrgEnv              # 2
-     runLmod use  $(testDir)/mf/Core  # 3
+     runLmod use  $(testDir)/mf/Core2 # 3
      runLmod load foo/1.0             # 4
      runLmod load isloaded            # 5
      runLmod del  isloaded            # 6

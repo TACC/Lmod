@@ -1,4 +1,5 @@
 -- -*- lua -*-
+local testName = "always"
 
 testdescript = {
    owner   = "rtm",
@@ -6,10 +7,10 @@ testdescript = {
    description = [[
 	 Test always_load, always_unload
    ]],
-   keywords = {"always" },
+   keywords = {testName },
 
    active = 1,
-   testName = "always",
+   testName = testName,
    job_submit_method = "INTERACTIVE",
 
    runScript = [[

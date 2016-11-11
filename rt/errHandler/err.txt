@@ -2,13 +2,13 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 6.4.3  2016-06-17 09:58
+Modules based on Lua: Version 6.9.1-beta  2016-11-03 14:07 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load bad_syntax
 ===========================
-Lmod has detected the following error: Unable to load module: bad_syntax
+Lmod has detected the following error: Unable to load module:
      ProjectDIR/rt/errHandler/mf/bad_syntax/1.0.lua : [string "setenv("BAD_SYNTAX","1.0")..."]:2: unexpected symbol near '#'
 While processing the following module(s):
     Module fullname  Module Filename

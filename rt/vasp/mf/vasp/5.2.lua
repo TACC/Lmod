@@ -50,9 +50,9 @@ whatis("Description: Vienna Ab-Initio Simulation Package")
 help(help_message)
 
 if (found) then
-   setenv("TACC_VASP_DIR","/opt/apps/intel10_1/mvapich1_1_0_1/vasp/5.2")
-   setenv("TACC_VASP_BIN","/opt/apps/intel10_1/mvapich1_1_0_1/vasp/5.2/bin")
-   append_path("PATH","/opt/apps/intel10_1/mvapich1_1_0_1/vasp/5.2/bin")
+   setenv("TACC_VASP_DIR","/unknown/apps/intel10_1/mvapich1_1_0_1/vasp/5.2")
+   setenv("TACC_VASP_BIN","/unknown/apps/intel10_1/mvapich1_1_0_1/vasp/5.2/bin")
+   append_path("PATH","/unknown/apps/intel10_1/mvapich1_1_0_1/vasp/5.2/bin")
 
 else
    LmodError(err_message,"\n")

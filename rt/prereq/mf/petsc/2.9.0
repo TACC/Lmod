@@ -1,1 +1,2 @@
+#%Module
 setenv PETSC_DIR foo

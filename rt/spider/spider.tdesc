@@ -17,7 +17,7 @@ testdescript = {
 
      unsetMT
      initStdEnvVars
-     export MODULEPATH_ROOT=$(projectDir)/mf
+     export MODULEPATH_ROOT=$(testDir)/mf
      export TEST_MROOT=$(testDir)/mf
 
      rm -f  _stderr.* _stdout.* err.* out.*
@@ -25,7 +25,7 @@ testdescript = {
      cp $(projectDir)/init/lmodrc.lua .lmodrc.lua
 
      runLmod --version                                                        # 1
-     runLmod use -a $projectDir/mf/Core $projectDir/mf/Beta $testDir/mf/Core $testDir/mf/Core2 # 2
+     runLmod use -a $testDir/mf/Core $testDir/mf/Beta $testDir/mf/Base $testDir/mf/Core2 # 2
      runLmod spider                                                           # 3
      runLmod -t spider                                                        # 4
      runLmod spider mpich2                                                    # 5
@@ -46,19 +46,18 @@ testdescript = {
      runLmod spider apps/gromacs/4.6.3                                        #18
      runLmod spider apps/gromacs/4.6.3-debug                                  #19
 
-
-
      mkdir -p $HOME/.lmod.d/.cache
-     buildModuleT $LMOD_DEFAULT_MODULEPATH > $HOME/.lmod.d/.cache/moduleT.lua
-     buildDbT     $LMOD_DEFAULT_MODULEPATH > $HOME/.lmod.d/.cache/dbT.lua
+     buildSpiderT $MODULEPATH > $HOME/.lmod.d/.cache/spiderT.lua
      runLmod spider                                                           #20
      runLmod spider gromacs                                                   #21
      runLmod spider apps/gromacs                                              #22
      runLmod spider apps/gromacs/4.6.3                                        #23
      runLmod spider apps/gromacs/4.6.3-debug                                  #24
+     runLmod spider petsc/3.1                                                 #25
 
-     runLmod use $testDir/mf/Core3                                            #25
-     runLmod spider smrt                                                      #26
+     runLmod use $testDir/mf/Core3                                            #26
+     runLmod spider smrt                                                      #27
+     runLmod spider petsc/3.1                                                 #28
 
 
      HOME=$ORIG_HOME

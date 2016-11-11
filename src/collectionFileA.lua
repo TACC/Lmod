@@ -1,0 +1,63 @@
+require("strict")
+
+--------------------------------------------------------------------------
+-- Lmod License
+--------------------------------------------------------------------------
+--
+--  Lmod is licensed under the terms of the MIT license reproduced below.
+--  This means that Lmod is free software and can be used for both academic
+--  and commercial purposes at absolutely no cost.
+--
+--  ----------------------------------------------------------------------
+--
+--  Copyright (C) 2008-2016 Robert McLay
+--
+--  Permission is hereby granted, free of charge, to any person obtaining
+--  a copy of this software and associated documentation files (the
+--  "Software"), to deal in the Software without restriction, including
+--  without limitation the rights to use, copy, modify, merge, publish,
+--  distribute, sublicense, and/or sell copies of the Software, and to
+--  permit persons to whom the Software is furnished to do so, subject
+--  to the following conditions:
+--
+--  The above copyright notice and this permission notice shall be
+--  included in all copies or substantial portions of the Software.
+--
+--  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+--  EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+--  OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+--  NONINFRINGEMENT.  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS
+--  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN
+--  ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+--  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+--  THE SOFTWARE.
+--
+--------------------------------------------------------------------------
+
+require("utils")
+
+function collectFileA(sn, versionStr, v, fileA)
+   if (v.file and versionStr == nil) then
+      fileA[#fileA+1] = { sn = sn, version = nil, fn=v.file, wV="~", pV="~" }
+   end
+   if (v.fileT and next(v.fileT) ~= nil ) then
+      if (versionStr) then
+         local k  = pathJoin(sn, versionStr)
+         local vv = v.fileT[k]
+         if (vv) then
+            fileA[#fileA+1] = { sn = sn, version = versionStr, fn = vv.fn, wV = vv.wV, pV = vv.pV }
+            return
+         end
+      else
+         for fullName, vv in pairs(v.fileT) do
+            local version   = extractVersion(fullName, sn)
+            fileA[#fileA+1] = { sn = sn, version = version, fn = vv.fn, wV = vv.wV, pV = vv.pV }
+         end
+      end
+   end
+   if (v.dirT and next(v.dirT) ~= nil and versionStr == nil) then
+      for k, vv in pairs(v.dirT) do
+         collectFileA(sn, nil, vv, fileA)
+      end
+   end
+end

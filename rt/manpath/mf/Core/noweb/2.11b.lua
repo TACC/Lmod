@@ -1,2 +1,2 @@
 -- -*- lua -*-
-prepend_path('MANPATH', '/opt/apps/noweb/2.11b/man')
+prepend_path('MANPATH', '/unknown/apps/noweb/2.11b/man')

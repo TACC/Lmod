@@ -8,7 +8,7 @@
 --
 --  ----------------------------------------------------------------------
 --
---  Copyright (C) 2008-2014 Robert McLay
+--  Copyright (C) 2008-2016 Robert McLay
 --
 --  Permission is hereby granted, free of charge, to any person obtaining
 --  a copy of this software and associated documentation files (the
@@ -40,12 +40,13 @@
 require("strict")
 
 
-local Bash        = inheritsFrom(BaseShell)
-local dbg         = require("Dbg"):dbg()
-local Var         = require("Var")
-local concatTbl   = table.concat
-local stdout      = io.stdout
-Bash.my_name      = "bash"
+local BaseShell = require("BaseShell")
+local Bash      = inheritsFrom(BaseShell)
+local dbg       = require("Dbg"):dbg()
+local Var       = require("Var")
+local concatTbl = table.concat
+local stdout    = io.stdout
+Bash.my_name    = "bash"
 
 --------------------------------------------------------------------------
 -- Bash:alias(): Either define or undefine a bash shell alias.
@@ -101,7 +102,9 @@ function Bash.expandVar(self, k, v, vType)
    end
    local line = concatTbl(lineA,"")
    stdout:write(line)
-   dbg.print{   line}
+   if (k:find('^_ModuleTable') == nil) then
+      dbg.print{   line}
+   end
 end
 
 --------------------------------------------------------------------------

@@ -8,7 +8,7 @@
 --
 --  ----------------------------------------------------------------------
 --
---  Copyright (C) 2008-2014 Robert McLay
+--  Copyright (C) 2008-2016 Robert McLay
 --
 --  Permission is hereby granted, free of charge, to any person obtaining
 --  a copy of this software and associated documentation files (the
@@ -40,12 +40,13 @@
 require("strict")
 
 
-local Fish        = inheritsFrom(BaseShell)
-local dbg         = require("Dbg"):dbg()
-local Var         = require("Var")
-local concatTbl   = table.concat
-local stdout      = io.stdout
-Fish.my_name      = "fish"
+local BaseShell = require("BaseShell")
+local Fish      = inheritsFrom(BaseShell)
+local dbg       = require("Dbg"):dbg()
+local Var       = require("Var")
+local concatTbl = table.concat
+local stdout    = io.stdout
+Fish.my_name    = "fish"
 
 --------------------------------------------------------------------------
 -- Fish:alias(): Either define or undefine a bash shell alias.

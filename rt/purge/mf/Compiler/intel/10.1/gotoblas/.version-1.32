@@ -1,0 +1,7 @@
+#%Module3.1.6#################################################
+##
+## Version file for 1.32 of the gotoblas
+## File default is copied to .version in modulefiles directory.
+##
+
+set     ModulesVersion     "1.32"

@@ -43,7 +43,9 @@ cleanUp ()
        -e "/Rebuilding cache.*done/d"                     \
        -e "/Using your spider cache file/d"               \
        -e "/^_ModuleTable_Sz_=.*$/d"                      \
+       -e "/^_ModuleTable_Sz_=.*$/d"                           \
        -e "/^setenv _ModuleTable_Sz_ .*$/d"               \
+       -e "/^setenv _ModuleTable_Sz_ .*$/d"                    \
        -e "/^ *$/d"                                       \
        < $1 > $2
 }
@@ -78,14 +80,19 @@ runLmod ()
    eval `cat _stdout.$NUM`
 }
 
+runSettargBash()
+{
+  runMe $LUA_EXEC $projectDir/settarg/settarg_cmd.in.lua -s bash --no_cpu_model "$@"
+}
+
 runSh2MF ()
 {
    runBase $LUA_EXEC $projectDir/src/sh_to_modulefile.in.lua "$@"
 }
 
-buildModuleT ()
+buildSpiderT ()
 {
-   $LUA_EXEC $projectDir/src/spider.in.lua -o moduleT "$@"
+   $LUA_EXEC $projectDir/src/spider.in.lua -o spiderT "$@"
 }
 
 buildDbT ()
@@ -120,7 +127,7 @@ buildNewDB()
    local RESULT_C=$DIR/$file.luac_$LmodV
 
    rm -f $OLD $NEW
-   $LMOD_DIR/spider --timestampFn $tsfn -o $option $BASE_MODULE_PATH > $NEW
+   $LUA_EXEC $projectDir/src/spider.in.lua --timestampFn $tsfn -o $option $BASE_MODULE_PATH > $NEW
    if [ "$?" = 0 ]; then
       chmod 644 $NEW
       if [ -f $RESULT ]; then
@@ -219,6 +226,19 @@ unsetMT ()
          break
       fi
       unset _ModuleTable${num}_
+   done
+
+   if [ -n $_ModuleTable_Sz_ ]; then
+       unset _ModuleTable_Sz_
+   fi
+   last=1000
+   for ((i=1; i<=last; i++)); do
+      num=`printf %03d $i`
+      eval j="\$_ModuleTable_${num}_"
+      if [ -z "$j" ]; then
+         break
+      fi
+      unset _ModuleTable_${num}_
    done
 }
 

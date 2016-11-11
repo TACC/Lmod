@@ -49,7 +49,7 @@ _ModuleTable_ = {
     },
   },
   mpathA = {
-    "/opt/apps/modulefiles/Compiler/gcc/4.8", "@outputDir@/Core",
+    "/unknown/apps/modulefiles/Compiler/gcc/4.8", "@outputDir@/Core",
   },
   ["systemBaseMPATH"] = "@outputDir@/Core",
   ["version"] = 2,

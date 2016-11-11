@@ -1,31 +1,3 @@
---------------------------------------------------------------------------
---  This class manages module names.  It turns out that a module
---  name is more complicated only Lmod started supporting
---  category/name/version style module names.  Lmod automatically
---  figures out what the "name", "full name" and "version" are.
---  The "MT:locationTbl()" knows the 3 components for modules that
---  can be loaded.  On the other hand, "MT:exists()" knows for
---  modules that are already loaded.
---
---  The problem is when a user gives a module name on the command
---  line.  It can be the short name or the full name.  The trouble
---  is that if the user gives "foo/bar" as a module name, it is
---  quite possible that "foo" is the name and "bar" is the version
---  or "foo/bar" is the short name.  The only way to know is to
---  consult either choice above.
---
---  Yet another problem is that a module that is loaded may not be
---  in the module may not be available to load because the
---  MODULEPATH has changed.  Or if you are loading a module then it
---  must be in the locationTbl.  So clients using this class must
---  specify to the ctor that the name of the module is one that will
---  be loaded or one that has been loaded.
---
---  Another consideration is that Lmod only allows for one "name"
---  to be loaded at a time.
---
---  @classmod MName
-
 require("strict")
 
 --------------------------------------------------------------------------
@@ -38,7 +10,7 @@ require("strict")
 --
 --  ----------------------------------------------------------------------
 --
---  Copyright (C) 2008-2014 Robert McLay
+--  Copyright (C) 2008-2016 Robert McLay
 --
 --  Permission is hereby granted, free of charge, to any person obtaining
 --  a copy of this software and associated documentation files (the
@@ -62,164 +34,80 @@ require("strict")
 --
 --------------------------------------------------------------------------
 
-require("utils")
 require("inherits")
+require("utils")
+require("string_utils")
 
-_G._DEBUG         = false   -- Required by the new lua posix
-local M           = {}
-local MT          = require("MT")
-local dbg         = require("Dbg"):dbg()
-local lfs         = require("lfs")
-local huge        = math.huge
-local pack        = (_VERSION == "Lua 5.1") and argsPack or table.pack
-local posix       = require("posix")
-local sort        = table.sort
-local malias      = require("MAlias"):build()
-local concatTbl   = table.concat
-MName             = M
---------------------------------------------------------------------------
--- This function allows for taking the name and remove one
--- level at a time.  Lmod rules require that if a module is
--- loaded or available, that the "short" name is either
--- the name given or one level removed.  So checking for
--- a "a/b/c/d" then the short name is either "a/b/c/d" or
--- "a/b/c".  It can't be "a/b" and the version be "c/d".
--- In other words, the "version" can only be one component,
--- not a directory/file.  This function can only be called
--- with level = 0 or 1.
+local FrameStk = require("FrameStk")
+local M        = {}
+local MRC      = require("MRC") 
+local ModuleA  = require("ModuleA") 
+local MT       = require("MT")
+local dbg      = require("Dbg"):dbg()
+local sort     = table.sort
+local s_findT  = false
 
-local function shorten(name, level)
-   if (level == 0) then
-      return name
-   end
 
-   local i,j = name:find(".*/")
-   j = (j or 0) - 1
-   return name:sub(1,j)
+function M.className(self)
+   return self.my_name
 end
 
---------------------------------------------------------------------------
--- Do a prereq check to see name and/or version is loaded.
--- @param self A MName object
-function M.prereq(self)
-   local result  = false
-   local mt      = MT:mt()
-   local sn      = self:sn()
-   local version = self:version()
-   local full    = mt:fullName(sn)
-   local status  = mt:getStatus(sn)
-   if ( ( status ~= "active" and status ~= "pending") or
-        ( version and full ~= self:usrName())) then           
-      result = self:usrName()
-   end
-   return result
-end
-
---------------------------------------------------------------------------
--- Check to see if this object is loaded.
--- @param self A MName object
-function M.isloaded(self)
-   local mt        = MT:mt()
-   local sn        = self:sn()
-   local sn_active = mt:have(sn, "active")
-   if (not sn_active) then
-      return self:isPending()
-   end
-   local usrName   = self:usrName()
-   if (usrName == sn) then
-      return sn_active
-   end
-   return (usrName == mt:fullName(sn)) and sn_active
-end
-
---------------------------------------------------------------------------
--- Check to see if the isPending module is pending.
--- @param self A MName object
-function M.isPending(self)
-   local mt         = MT:mt()
-   local sn         = self:sn()
-   local sn_pending = mt:have(sn,"pending")
-   local usrName    = self:usrName()
-   if (usrName == sn) then
-      return sn_pending
-   end
-   return (usrName == mt:fullName(sn)) and sn_pending
-end
---------------------------------------------------------------------------
--- Returns the "action", It can be "match", "between" or "latest".
--- @param self A MName object
-function M.action(self)
-   return self._action
-end
-
-s_findT = false
---------------------------------------------------------------------------
--- This ctor takes "sType" to lookup in either the
--- locationTbl() or the exists() depending on whether it is
--- "load" for modules to be loaded (available) or it is
--- already loaded.  Knowing the short name it is possible to
--- figure out the version (if one exists).  If the module name
--- doesn't exist then the short name (sn) and version are set
--- to false.  The last argument is "action".  Normally this
--- argument is nil, which implies the value is "match".  Other
--- choices are "atleast", ...
---
--- @param self A MName object
--- @param sType The type which can be "entryT", "load", "mt"
--- @param name The name of the module.
--- @param[opt] action The matching action if not nil it can be
--- "atleast", "between" or "latest".
--- @param[opt] is start version.
--- @param[opt] ie end version.
--- @return An MName object
 function M.new(self, sType, name, action, is, ie)
+   --dbg.start{"Mname:new(",sType,")"}
 
    if (not s_findT) then
-      local Match    = require("MN_Match")
-      local Latest   = require("MN_Latest")
-      local Between  = require("MN_Between")
-      local Exact    = require("MN_Exact")
-
-      local findT      = {}
-      findT["exact"]   = Exact
-      findT["match"]   = Match
-      findT["latest"]  = Latest
-      findT["between"] = Between
-      findT["atleast"] = Between
-      s_findT          = findT
+      local Match   = require("MN_Match")
+      local Exact   = require("MN_Exact")
+      local Latest  = require("MN_Latest")
+      local Between = require("MN_Between")
+      s_findT       = {
+         exact   = Exact,
+         match   = Match,
+         latest  = Latest,
+         between = Between,
+         atleast = Between,
+      }
    end
 
    local default_action = (LMOD_EXACT_MATCH == "yes") and "exact" or "match"
 
-
-
    if (not action) then
       action = masterTbl().latest and "latest" or default_action
    end
+
    local o = s_findT[action]:create()
 
-   o._sn        = false
-   o._version   = false
-   o._sType     = sType
-   o._input     = name
-   o._waterMark = "MName"
-   if (sType == "entryT" ) then
+   o.__sn         = false
+   o.__version    = false
+   o.__fn         = false
+   o.__versionStr = false
+   o.__sType      = sType
+   o.__waterMark  = "MName"
+   o.__action     = action
+   o.__is         = is or false
+   o.__ie         = ie or false
+   o.__range      = { o.__is, o.__ie }
+   o.__actionNm   = action
+
+   if (sType == "entryT") then
       local t = name
-      o._name = t.userName
+      dbg.print{"entry: sn: ",t.sn,", version: ",t.version,", fn: ",t.fn,"\n"}
+      o.__sn       = t.sn
+      o.__version  = t.version
+      o.__userName = t.userName
+      o.__fn       = t.fn
+   elseif (sType == "inherit") then
+      local t      = name
+      o.__fullName = build_fullName(t.sn, t.version)
+      o.__t        = t
    else
-      o._name = (name or ""):trim():gsub("/+$","")  -- remove any trailing '/'
+      o.__userName   = (name or ""):trim():gsub("/+$","") -- remove any trailing '/'s
    end
-   o._action   = action
-   o._is       = is or ''
-   o._ie       = ie or tostring(99999999)
-   o._range    = {}
-   o._range[1] = is
-   o._range[2] = ie -- This can be nil and that is O.K.
 
-   o._actName = action
-
+   --dbg.fini("MName:new")
    return o
 end
+
 
 --------------------------------------------------------------------------
 -- Return an array of MName objects
@@ -241,373 +129,340 @@ function M.buildA(self,sType, ...)
    return a
 end
 
---------------------------------------------------------------------------
--- Convert an array of MName objects into a string.
--- @param self A MName object
-function M.convert2stringA(self, ...)
-   local arg = pack(...)
-   local a = {}
-   for i = 1, arg.n do
-      local v      = arg[i]
-      local action = v.action()
-      if (action == "match") then
-         a[#a+1] = '"' .. v:usrName() .. '"'
-      else
-         local b = {}
-         b[#b+1] = action
-         b[#b+1] = '("'
-         b[#b+1] = v.sn()
-         b[#b+1] = '","'
-         b[#b+1] = v.version()
-         b[#b+1] = '")'
-         a[#a+1] = concatTbl(b,"")
-      end
-   end
-
-   return a
-end
-
---------------------------------------------------------------------------
--- Based on *sType* finish constructing the MName object.
--- @param self A MName object
 local function lazyEval(self)
-   local sType = self._sType
-   if (sType == "entryT") then
-      local t       = self._input
-      self._sn      = t.sn
-      self._version = extractVersion(t.fullName, t.sn)
+   --dbg.start{"lazyEval()"}
+
+   local found   = false
+   local sType   = self.__sType
+   if (sType == "mt") then
+      local frameStk = FrameStk:singleton()
+      local mt       = frameStk:mt()
+      local sn       = self.__userName
+      found          = false
+      while true do
+         if (mt:exists(sn)) then
+            found = true
+            break
+         end
+         local idx = sn:match("^.*()/")
+         if (idx == nil) then break end
+         sn        = sn:sub(1,idx-1)
+      end
+      if (found) then
+         self.__sn       = sn
+         self.__fn       = mt:fn(sn)
+         self.__version  = mt:version(sn)
+      end
+      --dbg.print{"mt\n"}
+      --dbg.fini("lazyEval")
       return
    end
 
-   local mt   = MT:mt()
-
-   ------------------------------------------------------------------------
-   -- Must resolve user name which might be an alias to a real module name
-
-   local name = self._name
-   if (sType == "load") then
-      self._name = malias:resolve(self._name)
-      name       = self._name
-      for level = 0, 1 do
-         local n = shorten(name, level)
-         if (mt:locationTbl(n)) then
-            self._sn      = n
-            break
-         end
-      end
-   else
-      for level = 0, 1 do
-         local n = shorten(name, level)
-         if (mt:exists(n)) then
-            self._sn      = n
-            self._version = mt:Version(n)
-            break
-         end
-      end
-   end
-
-   if (self._sn and not self._version) then
-      self._version = extractVersion(self._name, self._sn)
-   end
-end
-
-
---------------------------------------------------------------------------
--- Return the short name
--- @param self A MName object
-function M.sn(self)
-   if (not self._sn) then
-      lazyEval(self)
-   end
-
-   return self._sn
-end
-
---------------------------------------------------------------------------
--- Return the user specified name.  It could be the
--- short name or the full name.
--- @param self A MName object
-function M.usrName(self)
-   return self._name
-end
-
---------------------------------------------------------------------------
--- Return the version for the module.  Note that the
--- version is nil if not known.
--- @param self A MName object
-function M.version(self)
-   dbg.start{"MName:version()"}
-   dbg.print{"sType:   ", self._sType,"\n"}
-   if (self._sn == false) then
-      lazyEval(self)
-   end
-   dbg.print{"sn:      ", self._sn,"\n"}
-   dbg.print{"name:    ", self._name,"\n"}
-   dbg.print{"version: ", self._version,"\n"}
-
-   if ((self._sn and self._sn == self._name) and
-       (self._sType == "load" or self._sType == "userName")) then
-      dbg.fini("MName:version")
-      return nil
-   end
-   if (not self._version) then
-      lazyEval(self)
-   end
-   dbg.fini("MName:version")
-   return self._version
-end
-
---------------------------------------------------------------------------
--- Build the initial table for reporting a module file location.
--- @return the initial table.
-local function module_locationT()
-   return { fn = nil, modFullName = nil, modName = nil, version = nil, default = 0}
-end
-
---------------------------------------------------------------------------
--- Look for the module name via an exact match.
--- @param self A MName object
--- @param pathA An array of paths to search
--- @return True or false
--- @return A table describing the module if found.
-function M.find_exact_match(self, pathA)
-   dbg.start{"MName:find_exact_match(pathA, t)"}
-   local usrName    = self:usrName()
-   dbg.print{"UserName: ", usrName , "\n"}
-   local t          = module_locationT()
-   local found      = false
-   local result     = nil
-   local fullName   = ""
-   local sn         = self:sn()
-
-   for ii = 1, #pathA do
-      local vv       = pathA[ii]
-      local mpath    = vv.mpath
-      local versionT = vv.versionT
-      local version  = self:version() or 0
-
-      local fn       = versionT[version]
+   local moduleA = ModuleA:singleton{spider_cache = (LMOD_CACHED_LOADS ~= "no")}
+   if (sType == "inherit") then
+      local t  = self.__t
+      local fn = moduleA:inherited_search(self.__fullName, t.fn)
       if (fn) then
-         result = fn
-         local _, j = result:find(mpath, 1, true)
-         found      = true
-         fullName   = result:sub(j+2):gsub("%.lua$","")
-         dbg.print{"fullName: ",fullName,"\n"}
-         dbg.print{"found:    ",found, " fn: ",fn,"\n"}
+         self.__fn       = fn
+         self.__sn       = t.sn
+         self.__version  = t.version
+         self.__userName = build_fullName(t.sn, t.version)
+      end
+      
+      --dbg.print{"inherit\n"}
+      --dbg.fini("lazyEval")
+      return
+   end
+
+   assert(sType == "load", "unknown sType: "..sType)
+   local mrc                   = MRC:singleton()
+
+   local userName              = mrc:resolve(self:userName())
+   local sn, versionStr, fileA = moduleA:search(userName)
+
+   self.__userName   = userName
+   self.__sn         = sn
+   self.__versionStr = versionStr
+   
+   if (not sn) then
+      --dbg.print{"did not find sn\n"}
+      --dbg.fini("lazyEval")
+      return
+   end
+
+   local stepA   = self:steps()
+   local version
+   local fn
+   for i = 1, #stepA do
+      local func = stepA[i]
+      found, fn, version = func(self, fileA)
+      if (found) then
+         self.__fn = fn
+         self.__version  = version
+         if (self.__actionNm == "latest") then
+            self.__userName = build_fullName(self.__sn, version)
+         end
          break
       end
    end
-
-   if (found) then
-      t.fn          = result
-      t.modFullName = fullName
-      t.modName     = sn
-      t.version     = extractVersion(t.modFullName, t.modName)
-      dbg.print{"modName: ",sn," fn: ", result," modFullName: ", fullName,
-                " default: ",t.default,"\n"}
-   else
-      dbg.print{"Did not find: ",usrName,"\n"}
-   end
-
-   dbg.fini("MName:find_exact_match")
-   return found, t
+   --dbg.fini("lazyEval")
 end
 
 
-
---------------------------------------------------------------------------
--- Look for the module name via a marked default.
--- @param self A MName object
--- @param pathA An array of paths to search
--- @return True or false
--- @return A table describing the module if found.
-function M.find_default(self, pathA, defaultEntry)
-   dbg.start{"MName:find_default(pathA, t)"}
-   local t        = module_locationT()
-   if (self:version()) then
-      return false, t
+function M.valid(self)
+   if (not self.__sn) then
+      lazyEval(self)
    end
-   local found    = true
-   t.fn           = defaultEntry.fn
-   t.modFullName  = defaultEntry.fullName
-   t.modName      = self:sn()
-   t.default      = 1
-   t.version      = extractVersion(t.modFullName, t.modName)
-   dbg.print{"modName: ",t.modName," fn: ", t.fn," modFullName: ", t.modFullName,
-             " default: ",t.default," version: ",t.version,"\n"}
-   dbg.fini("MName:find_default")
-   return found, t
+   return self.__sn ~= false
+end       
+
+
+function M.userName(self)
+   return self.__userName
 end
 
---------------------------------------------------------------------------
--- Look for the module name via the "latest" version.
--- @param self A MName object
--- @param pathA An array of paths to search
--- @return True or false
--- @return A table describing the module if found.
-function M.find_latest(self, pathA)
-   dbg.start{"MName:find_latest(pathA, t)"}
-   local found     = false
-   local t         = module_locationT()
-   local usrName   = self:usrName()
-   local sn        = self:sn()
-   dbg.print{"usrName: ", usrName, "\n"}
-   dbg.print{"sn:      ", sn, "\n"}
-   if (sn ~= usrName) then
-      dbg.print{"Sn and user name do not match\n"}
-      dbg.fini("MName:find_latest")
-      return found, t
+function M.sn(self)
+   --dbg.start{"Mname:sn()"}
+   if (not self.__sn) then
+      lazyEval(self)
    end
-
-   local fullName  = ""
-   local modName   = ""
-   local result    = lastFileInPathA(pathA)
-
-   if (result) then
-      local file    = result.file
-      local _, j    = file:find(result.mpath, 1, true)
-      t.modFullName = file:sub(j+2):gsub("%.lua$","")
-      found         = true
-      t.default     = 0
-      t.fn          = file
-      t.modName     = sn
-      t.version     = extractVersion(t.modFullName, t.modName)
-      dbg.print{"modName: ",sn," fn: ", file," modFullName: ", t.modFullName,
-                " default: ",t.default," version: ",t.version,"\n"}
-   end
-
-   dbg.fini("MName:find_latest")
-   return found, t
+   --dbg.fini("Mname:sn")
+   return self.__sn
 end
 
---------------------------------------------------------------------------
--- Look for the module name where the version is "between" and is a marked
--- default.
--- @param self A MName object
--- @param pathA An array of paths to search
--- @return True or false
--- @return A table describing the module if found.
-function M.find_default_between(self, pathA, defaultEntry)
-   dbg.start{"MName:find_marked_default_between(pathA, t)"}
-
-   local t     = module_locationT()
-   local found = false
-
-   found, t = self:find_default(pathA, defaultEntry)
-
-   local left       = parseVersion(self._is)
-   local right      = parseVersion(self._ie)
-   local version    = t.version
-   local pv         = parseVersion(version)
-
-   if (pv < left or  pv > right) then
-      found     = false
-      t.default = 0
-      t.fn      = nil
+function M.fn(self)
+   if (not self.__fn) then
+      lazyEval(self)
    end
-
-   dbg.print{"left:    ",left,"\n"}
-   dbg.print{"right:   ",right,"\n"}
-   dbg.print{"version: ",version,"\n"}
-   dbg.print{"pv:      ",pv,"\n"}
-   dbg.print{"default: ",t.default,"\n"}
-   dbg.fini("MName:find_marked_default_between")
-   return found, t
+   return self.__fn
 end
 
---------------------------------------------------------------------------
--- Look for the module name where the version is "between".
--- @param self A MName object
--- @param pathA An array of paths to search
--- @return True or false
--- @return A table describing the module if found.
-function M.find_between(self, pathA)
-   dbg.start{"MName:find_between(pathA, t)"}
-   dbg.print{"UserName: ", self:usrName(), "\n"}
+function M.version(self)
+   if (not self.__sn) then
+      lazyEval(self)
+   end
+   return self.__version
+end
 
-   local t     = module_locationT()
-   local found = false
-   local a     = allVersions(pathA)
+function M.fullName(self)
+   if (not self.__sn) then
+      lazyEval(self)
+   end
+   return build_fullName(self.__sn, self.__version)
+end
 
+------------------------------------------------------------
+-- It turns that Tmod searching all directories in MODULEPATH
+-- for an exact version match.  It stops at the first exact
+-- match it finds.
+--
+-- For chosing a default (either marked or highest) it stops
+-- looking in any other directories after it finds the first
+-- match.  So if the user looks for "icr" and there is one in
+-- the mf directory, it won't look in mf2.
+--
+-- Lmod (for NV) uses the following rules:
+--    1) Find first exact match 
+--    2) Find first marked default
+--    3) Find highest.
+--
+--  The new rules are the following:
+--  For a Site that uses NVV then:
+--     1) Find exact match (first found)
+--     2) Find first marked default in the first matching sn
+--     3) Find first highest in the first matching sn
+--
+--  The cool thing is that when the site uses NV for all
+--  modulefiles (and not NVV), then locationT is used and all
+--  sn are combined.  So the same rules can be used for sites
+--  that use NV and NVV.
+
+--  Originally, this code tried to find the "best" exact match.
+--  That is it would find the first exact match then keep looking
+--  for marked default.  There is no trouble with NV.  Since there
+--  is only fileA[1] (because of the locationT).  This code will find
+--  the best match.  That is the one with the highest marked default.
+
+--  The trouble is with NVV.  Suppose you have:
+--           M1                  M2
+--           icr                 icr
+--           *64                 64
+--       3.7 3.8  3.9          3.8 *3.9
+--
+--  where * means that M1/icr/*64/3.9  will be higher than M2/icr/64/*3.9.
+--  I don't see a way around this.  So the rule is that only the 1st
+--  modulepath entry is where defaults are search for.  Only exact match
+--  search pass the first modulepath.  Note when I said first MODULEPATH
+--  directory that doesn't mean the very first directory.  No it means the
+--  first directory that has the sn.
+
+-- The rule is that if there is One directory that is using NVV then
+-- the whole module tree is treated as NVV.  
+
+
+------------------------------------------------------------------------
+-- M.find_exact_match() is more difficult because there are possibly
+-- more than one marked default:
+--    1) The filesystem can mark a default           (weighted by '^')
+--    2) The system admins can have a modulerc file. (weighted by 's')
+--    3) The user can have a ~/.modulerc file.       (weighted by 'u')
+
+
+function M.find_exact_match(self, fileA)
+   local versionStr = self.__versionStr
+   local fn         = false
+   local version    = false
+   local weight     = " "  -- this is less than the lowest possible weight
+   local found      = false
+
+
+   for i = 1, #fileA do
+      local a = fileA[i]
+      for j = 1, #a do
+         local entry = a[j]
+         if (entry.version == versionStr and entry.pV > weight) then
+            weight  = entry.pV
+            fn      = entry.fn
+            version = entry.version or false
+            found   = true
+            break
+         end
+      end
+   end
+   return found, fn, version
+end
+
+local function find_highest_by_key(key, fileA)
+   local a       = fileA[1] or {}
+   local weight  = " "  -- this is less than the lower possible weight.
+   local idx     = nil
+   local fn      = false
+   local found   = false
+   local version = false
+
+   for j = 1,#a do
+      local v = a[j][key]
+      if (v > weight) then
+         idx    = j
+         weight = v
+      end
+   end
+   if (idx) then
+      fn      = a[idx].fn
+      version = a[idx].version or false
+      found   = true
+   end
+   return found, fn, version
+end   
+
+------------------------------------------------------------------------
+-- M.find_highest() finds the highest using the weighted  
+
+
+function M.find_highest(self, fileA)
+   return find_highest_by_key("wV",fileA)
+end
+
+function M.find_latest(self, fileA)
+   return find_highest_by_key("pV",fileA)
+end
+
+function M.find_between(self, fileA)
+   local a     = fileA[1] or {}
    sort(a, function(x,y)
-             if (x.pv == y.pv) then
-                return x.idx < y.idx
-             else
-                return x.pv  < y.pv
-             end
-           end
-   )
+           return x.pV < y.pV
+           end)
 
-   local left       = parseVersion(self._is)
-   local right      = parseVersion(self._ie)
+   local fn         = false
+   local version    = false
+   local lowerBound = self.__is and parseVersion(self.__is) or " "
+   local upperBound = self.__ie and parseVersion(self.__ie) or "~"
+   local pV         = lowerBound
+   local wV         = " "  -- this is less than the lower possible weight.
+   local idx        = nil
+   local found      = false
+   for j = 1,#a do
+      local entry = a[j]
+      local v     = entry.pV
 
-   local idx        = false
-   for i = #a, 1, -1 do
-      local v = a[i]
-      if (left <= v.pv and v.pv <= right) then
-         idx = i
-         break
+      if (v >= pV and v <= upperBound and entry.wV > wV) then
+         idx = j
+         pV  = v
+         wV  = entry.wV
       end
    end
+   if (idx) then
+      fn      = a[idx].fn
+      version = a[idx].version
+      found   = true
+   end
+   return found, fn, version
+end
 
-   if (idx ) then
-      local v       = a[idx]
-      t.fn          = v.file
-      local _, j    = v.file:find(v.mpath, 1, true)
-      t.modFullName = v.file:sub(j+2):gsub("%.lua$","")
-      t.default     = 0
-      t.modName     = self:sn()
-      t.version     = extractVersion(t.modFullName, t.modName)
-      found         = true
+function M.find_inherit_match(self,fileA)
+   local a = fileA[1] or {}
+end
+
+function M.isloaded(self)
+   dbg.start{"MName:isloaded()"}
+   local mt        = MT:singleton()
+   local sn        = self:sn()
+   local status    = mt:status(sn)
+   local sn_status = ((status == "active") or (status == "pending"))
+   local userName  = self:userName()
+   if (userName == sn            or
+       userName == mt:fullName(sn)) then
+      dbg.fini("MName:isloaded")
+      return sn_status
+   end
+   dbg.fini("MName:isloaded")
+   return false
+end
+
+function M.isPending(self)
+   local mt         = MT:singleton()
+   local sn         = self:sn()
+   local sn_pending = mt:have(sn,"pending")
+   local userName   = self:userName()
+   if (userName == sn            or
+       userName == mt:fullName(sn)) then
+      return sn_pending
+   end
+   return false
+end
+
+
+-- Do a prereq check to see name and/or version is loaded.
+-- @param self A MName object
+function M.prereq(self)
+   local frameStk  = FrameStk:singleton()
+   local mt        = frameStk:mt()
+   local sn        = self:sn()
+   local fullName  = mt:fullName(sn)
+   local userName  = self:userName()
+   local status    = mt:status(sn)
+   local sn_status = ((status == "active") or (status == "pending"))
+
+   if (not sn_status) then
+      -- The sn is not active or pending -> did not meet prereq
+      return userName
    end
 
-   dbg.fini("MName:find_between")
-   return found, t
+   if (userName == sn or userName == fullName) then
+      -- The userName matched the either the sn or fullName
+      -- stored in the MT
+      return false
+   end
+
+   -- userName did not match.
+   return userName
 end
 
 --------------------------------------------------------------------------
 -- Return the string of the user name of the module.
 -- @param self A MName object
 function M.show(self)
-   return '"' .. self:usrName() .. '"'
-end
-
-
---------------------------------------------------------------------------
--- Find the module based on the "steps" each class has registered.
--- @param self A MName object
--- @return A table describing the module.
-function M.find(self)
-   dbg.start{"MName:find(",self:usrName(),")"}
-   local t        = module_locationT()
-   local mt       = MT:mt()
-   local fullName = ""
-   local modName  = ""
-   local sn       = self:sn()
-   dbg.print{"MName:find sn: ",sn,"\n"}
-
-   local pathA, defaultEntry = mt:locationTbl(sn)
-   if (pathA == nil or #pathA == 0) then
-      dbg.print{"did not find key: \"",sn,"\" in mt:locationTbl()\n"}
-      dbg.fini("MName:find")
-      return t
-   end
-
-   local found = false
-   local stepA = self:steps()
-   for i = 1, #stepA do
-      local func = stepA[i]
-      found, t   = func(self, pathA, defaultEntry)
-      dbg.print{"(1) t.fn: ", t.fn, "\n"}
-      if (found) then
-         break
-      end
-   end
-
-   dbg.print{"(2) t.fn: ", t.fn, "\n"}
-
-   dbg.fini("MName:find")
-   return t
+   return '"' .. self:userName() .. '"'
 end
 
 return M

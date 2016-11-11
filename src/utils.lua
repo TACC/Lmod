@@ -1,7 +1,3 @@
---------------------------------------------------------------------------
--- This is the file that has miscellaneous utility functions.
--- @module utils
-
 require("strict")
 
 --------------------------------------------------------------------------
@@ -14,7 +10,7 @@ require("strict")
 --
 --  ----------------------------------------------------------------------
 --
---  Copyright (C) 2008-2014 Robert McLay
+--  Copyright (C) 2008-2016 Robert McLay
 --
 --  Permission is hereby granted, free of charge, to any person obtaining
 --  a copy of this software and associated documentation files (the
@@ -38,83 +34,30 @@ require("strict")
 --
 --------------------------------------------------------------------------
 
-require("strict")
-require("fileOps")
-require("string_utils")
-require("parseVersion")
-require("myGlobals")
 require("capture")
+require("fileOps")
+require("myGlobals")
+require("pairsByKeys")
+require("string_utils")
 
-_G._DEBUG          = false               -- Required by the new lua posix
+_G._DEBUG          = false
 local Version      = require("Version")
+local arg_0        = arg[0]
 local base64       = require("base64")
+local concatTbl    = table.concat
 local dbg          = require("Dbg"):dbg()
-local lfs          = require("lfs")
-local malias       = require("MAlias"):build()
+local decode64     = base64.decode64
+local encode64     = base64.encode64
+local floor        = math.floor
+local getenv       = os.getenv
+local huge         = math.huge
+local min          = math.min
+local open         = io.open
 local posix        = require("posix")
 local readlink     = posix.readlink
 local setenv_posix = posix.setenv
-local concatTbl    = table.concat
-local decode64     = base64.decode64
-local floor        = math.floor
-local format       = string.format
-local getenv       = os.getenv
-local huge         = math.huge
-local open         = io.open
-
-local rep          = string.rep
-local load         = (_VERSION == "Lua 5.1") and loadstring or load
-
---------------------------------------------------------------------------
--- find true path through symlinks.
--- @param path A file path
-function abspath_localdir (path)
-   if (path == nil) then return nil end
-   local cwd = lfs.currentdir()
-   path = path:trim()
-
-   if (path:sub(1,1) ~= '/') then
-      path = pathJoin(cwd,path)
-   end
-
-   local dir    = dirname(path)
-   local ival   = lfs.chdir(dir)
-
-   local cdir   = lfs.currentdir()
-   if (cdir == nil) then
-      dbg.print{"lfs.currentdir(): is nil"}
-   end
-
-   dir          = cdir or dir
-
-
-   path = pathJoin(dir, barefilename(path))
-   local result = path
-
-   local attr = lfs.symlinkattributes(path)
-   if (attr == nil) then
-      lfs.chdir(cwd)
-      return nil
-   elseif (attr.mode == "link") then
-      local rl = posix.readlink(path)
-      --dbg.print{"path: ",path,", rl: ",rl,"\n"}
-      if (not rl) then
-         lfs.chdir(cwd)
-         return nil
-      end
-      if (rl:sub(1,1) == "/" or rl:sub(1,3) == "../") then
-         lfs.chdir(cwd)
-         return result
-      end
-      if (rl:sub(1,1) == ".") then
-         lfs.chdir(cwd)
-         return result
-      end
-      result = abspath_localdir(rl)
-   end
-   lfs.chdir(cwd)
-   return result
-end
+local stat         = posix.stat
+local strfmt       = string.format
 
 --------------------------------------------------------------------------
 -- This is 5.1 Lua function to cover the table.pack function
@@ -125,6 +68,13 @@ function argsPack(...)
 end
 pack     = (_VERSION == "Lua 5.1") and argsPack or table.pack
 
+function __FILE__()
+   return debug.getinfo(2,'S').source
+end
+
+function __LINE__()
+   return debug.getinfo(2, 'l').currentline
+end
 
 --------------------------------------------------------------------------
 -- Generate a message that will fix the available terminal width.
@@ -191,26 +141,95 @@ function buildMsg(width, ... )
          end
       end
    end
-
    return concatTbl(a,"")
 end
 
+function build_fullName(sn, version)
+   return (version) and sn .. '/' .. version or sn
+end
 
---------------------------------------------------------------------------
--- Convert both argument to lower case and compare.
--- @param a input string
--- @param b input string
-function case_independent_cmp(a,b)
-   local a_lower = a:lower()
-   local b_lower = b:lower()
+function build_MT_envT(vstr)
+   local vv    = encode64(vstr)
+   local vlen  = vv:len()
+   local a     = {}
+   local blkSz = 512
+   local nblks = floor((vlen-1)/blkSz) + 1
+   local is    = 1
+   local SzStr = "_ModuleTable_Sz_"
+   local piece = "_ModuleTable%03d_"
+   local t     = {}
 
-   if (a_lower  == b_lower ) then
-      return a < b
-   else
-      return a_lower < b_lower
+   for i = 1, nblks do
+      local ie    = min(is + blkSz - 1, vlen)
+      local envNm = strfmt(piece,i)
+      t[envNm]    = vv:sub(is,ie)
+      is          = is + blkSz
+   end
+   t[SzStr]       = tostring(nblks)
+   return t
+end
+
+   
+------------------------------------------------------------
+-- Only define the cmdDir function here if it hasn't already
+-- been defined. It is defined in the main program unless
+-- we are doing unit testing.
+
+if (not _G.cmdDir) then
+   function cmdDir()
+      return pathJoin(getenv("PROJDIR"),"src")
    end
 end
 
+--------------------------------------------------------------------------
+-- Use the *propT* table to colorize the module name when requested by
+-- *propT*.
+-- @param style How to colorize
+-- @param moduleName The module name
+-- @param propT The property table
+-- @param legendT The legend table.  A key-value pairing of keys to descriptions.
+-- @return An array of colorized strings
+function colorizePropA(style, moduleName, propT, legendT)
+   local resultA      = { moduleName }
+   local readLmodRC   = require("ReadLmodRC"):singleton()
+   local propDisplayT = readLmodRC:propT()
+   local iprop        = 0
+   local pA           = {}
+   propT              = propT or {}
+
+   for kk,vv in pairsByKeys(propDisplayT) do
+      iprop        = iprop + 1
+      local propA  = {}
+      local t      = propT[kk]
+      local result = ""
+      local color  = nil
+      if (type(t) == "table") then
+         for k in pairs(t) do
+            propA[#propA+1] = k
+         end
+
+         table.sort(propA);
+         local n = concatTbl(propA,":")
+         if (vv.displayT[n]) then
+            result     = vv.displayT[n][style]
+            if (result:sub( 1, 1) == "(" and result:sub(-1,-1) == ")") then
+               result  = result:sub(2,-2)
+            end
+            color      = vv.displayT[n].color
+            local k    = colorize(color,result)
+            legendT[k] = vv.displayT[n].doc
+         end
+      end
+      local s             = colorize(color,result)
+      if (result:len() > 0) then
+         pA[#pA+1] = s
+      end
+   end
+   if (#pA > 0) then
+      resultA[#resultA+1] = concatTbl(pA,",")
+   end
+   return resultA
+end
 
 local __expert = false
 --------------------------------------------------------------------------
@@ -222,282 +241,21 @@ function expert()
    return __expert
 end
 
-local __quiet = false
---------------------------------------------------------------------------
--- Return ture if in quiet mode.
-function quiet()
-   if (__quiet == false) then
-      __quiet = getenv("LMOD_QUIET") or getenv("LMOD_EXPERT")
-   end
-   return __quiet
+function extractFullName(mpath,file)
+   local pattern = '^' .. mpath:escape() .. '/+'
+   return file:gsub(pattern,""):gsub("%.lua$","")
 end
 
-function isActiveMFile(full, sn)
-   local version = extractVersion(full, sn) or ""
-   if (version:sub(1,1) == ".") then
-      return false, version
-   end
-   if (full:sub(1,1) == ".") then
-      return false, version
-   end
-   if (full:find("/%.")) then
-      return false, version
-   end
-   return true, version
-end
-
---------------------------------------------------------------------------
--- Compare the full name of a modulefile with the
--- shortname. Return nil if the shortname and full name
--- are the same.
--- @param full full module name
--- @param sn   short name
-function extractVersion(full, sn)
-   if (not full or not sn) then
-      return nil
-   end
-
-   local i, j = full:find('.*/')
-
-   if (not i) then
-      return nil
-   end
-
-   local pat     = '^' .. sn:escape() .. '/?'
-   local version = full:gsub(pat,"")
+function extractVersion(fullName, sn)
+   local pattern = '^' .. sn:escape() .. '/?'
+   local version = fullName:gsub(pattern,"")
    if (version == "") then
-      version = nil
+      version = false
    end
-
    return version
 end
 
--- This table must be include file names that are 8 characters or less.
--- The MT:locationTblDir routine uses it.
-s_ignoreT = {
-   ['.']         = true,
-   ['..']        = true,
-   ['.lua']      = true,
-   ['.moduler']  = true,
-   ['.version']  = true,
-   ['.modulerc'] = true,
-   ['.DS_Stor']  = true,
-   ['.DS_Store'] = true,
-
-   --@ignore_dirs@--
-}
-
---------------------------------------------------------------------------
--- Return the table of files to ignore when searching for modulefiles.
-function ignoreFileT()
-   local fileT = s_ignoreT
-   return fileT
-end
-
-
-
---------------------------------------------------------------------------
--- Ask the environment for the _ModuleTable_ value.
--- It is uuencoded and broken into pieces so that the
--- quotes and parens won't confuse the shell's poor little
--- brain.  The number of pieces are stored in the global
--- env. variable _ModuleTable_Sz_.
-function getMT()
-   local a    = {}
-   local mtSz = tonumber(getenv("_ModuleTable_Sz_")) or huge
-   local s    = nil
-
-   --io.stderr:write("mtSz: ",tostring(mtSz),"\n")
-
-   for i = 1, mtSz do
-      local name = format("_ModuleTable%03d_",i)
-      local v    = getenv(name)
-      if (v == nil) then break end
-      a[#a+1]    = v
-   end
-   if (#a > 0) then
-      s = decode64(concatTbl(a,""))
-   end
-   return s
-end
-
---------------------------------------------------------------------------
--- Find all the versions in the pathA or at least *n* of them.
--- @param pathA  an array of paths.
--- @param n      a number of paths to check.
-function allVersions(pathA, n)
-   local lastKey   = ''
-   local lastValue = ''
-   local result    = nil
-   local fullName  = nil
-   local count     = 0
-   local a         = {}
-   n               = n or #pathA
-
-   for i = 1, n do
-      local vv = pathA[i]
-      for version, fn in pairs(vv.versionT) do
-         local pv = parseVersion(version)
-         a[#a + 1] = {version = version, file = fn, idx = i, mpath = vv.mpath, pv = pv}
-      end
-   end
-   return a
-end
-
---------------------------------------------------------------------------
--- Compare two path arrays.  Return the index where they start to differ.
--- @param old   Old path as a string
--- @param oldA  An array of old path entries
--- @param new   New path as a string
--- @param newA  An array of new path entries
-function indexPath(old, oldA, new, newA)
-   dbg.start{"indexPath(",old, ", ", new,")"}
-   local oldN = #oldA
-   local newN = #newA
-   local idxM = newN - oldN + 1
-
-   dbg.print{"oldN: ",oldN,", newN: ",newN,"\n"}
-
-   if (oldN >= newN or newN == 1) then
-      if (old == new) then
-         dbg.fini("(1) indexPath")
-         return 1
-      end
-      dbg.fini("(2) indexPath")
-      return -1
-   end
-
-   local icnt = 1
-
-   local idxO = 1
-   local idxN = 1
-
-   while (true) do
-      local oldEntry = oldA[idxO]
-      local newEntry = newA[idxN]
-
-      icnt = icnt + 1
-      if (icnt > 5) then
-         break
-      end
-
-
-      if (oldEntry == newEntry) then
-         idxO = idxO + 1
-         idxN = idxN + 1
-
-         if (idxO > oldN) then break end
-      else
-         idxN = idxN + 2 - idxO
-         idxO = 1
-         if (idxN > idxM) then
-            dbg.fini("indexPath")
-            return -1
-         end
-      end
-   end
-
-   idxN = idxN - idxO + 1
-
-   dbg.print{"idxN: ", idxN, "\n"}
-
-   dbg.fini("indexPath")
-   return idxN
-
-end
-
----------------------------------------------------------------------------
--- This function finds the latest version of a package
--- in the directory "path".  It uses the parseVersion()
--- function to decide which version is the most recent.
--- It is not a lexigraphical search but uses rules built
--- into parseVersion().
--- @param pathA  an array of paths.
--- @param n      a number of paths to check.
-function lastFileInPathA(pathA, n)
-   local lastKey   = ''
-   local lastValue = ''
-   local result    = nil
-   local fullName  = nil
-   local a         = allVersions(pathA, n)
-   local count     = #a
-
-   for i = 1, count do
-      local vv  = a[i]
-      if (vv.pv > lastKey) then
-         lastKey   = vv.pv
-         lastValue = vv
-      end
-   end
-   if (lastKey ~= "") then
-      result     = lastValue
-   end
-   return result, count
-end
-
---------------------------------------------------------------------------
--- compute the length of a string and ignore any string
--- colorization.
--- @param s input string
-function length(s)
-   s = s:gsub("\027[^m]+m","")
-   return s:len()
-end
-
-s_masterTbl = {}
---------------------------------------------------------------------------
--- Manage the Master Hash Table.  The command line arguments
--- and the ModuleStack (when using Spider) are stored here.
-function masterTbl()
-   return s_masterTbl
-end
-
---------------------------------------------------------------------------
--- This function takes a path like variable and breaks
--- it up into an array.  Each path component is
--- standandized by path_regularize().  This function
--- removes leading and trailing spaces and duplicate '/'
--- etc.
---
--- Typically the separator is a colon but it can be
--- anything.  Some env. vars (such as TEXINPUTS and
--- LUA_PATH) use "::" or ";;" to mean that the
--- specified values are prepended to the system ones.
--- To handle that, the path component is converted to
--- a single space.  This single space is later removed
--- when expanding.
--- @param path A string of *sep* separated paths.
--- @param sep  The separator character.  It is usually
---             a colon.
-function path2pathA(path, sep)
-   sep = sep or ":"
-   if (not path) then
-      return {}
-   end
-   if (path == '') then
-      return { ' ' }
-   end
-
-   local is, ie
-
-   local pathA = {}
-   for v  in path:split(sep) do
-      pathA[#pathA + 1] = path_regularize(v)
-   end
-
-   local n = #pathA
-   local i = n
-   while (pathA[i] == "") do
-      i = i - 1
-   end
-   i = i + 2
-   for j = i, n do
-      pathA[j] = nil
-   end
-
-   return pathA
-end
-
+   
 --------------------------------------------------------------------------
 -- Find the admin file (or nag message file).
 function findAdminFn()
@@ -517,7 +275,6 @@ function findAdminFn()
 
    return adminFn, readable
 end
-
 
 --------------------------------------------------------------------------
 --  Read the admin.list file.  It is a Key value pairing of module names
@@ -590,70 +347,250 @@ function readAdmin()
    end
 end
 
---local s_readRC     = false
---RCFileA = {
---   pathJoin(cmdDir(),"../init/lmodrc.lua"),
---   pathJoin(cmdDir(),"../../etc/lmodrc.lua"),
---   pathJoin("/etc/lmodrc.lua"),
---   pathJoin(getenv("HOME"),".lmodrc.lua"),
---   os.getenv("LMOD_RC"),
---}
+--------------------------------------------------------------------------
+-- Ask the environment for the ModuleTable value.
+-- It is uuencoded and broken into pieces so that the
+-- quotes and parens won't confuse the shell's poor little
+-- brain.  The number of pieces are stored in the global
+-- env. variable.
+
+function getMT()
+   local a     = {}
+   local SzStr = "_ModuleTable_Sz_"
+   local piece = "_ModuleTable%03d_"
+   local mtSz  = tonumber(getenv(SzStr)) or huge
+   local s     = false
+
+   for i = 1, mtSz do
+      local envNm = strfmt(piece,i)
+      local v     = getenv(envNm)
+      if (v == nil) then break end
+      a[#a+1]    = v
+   end
+   if (#a > 0) then
+      s = decode64(concatTbl(a,""))
+   end
+   dbg.print{"getMT s: ",s,"\n"}
+   return s
+end
+
+------------------------------------------------------------
+-- Get the table of modulerc files with proper weights
+
+function getModuleRCT()
+   local A           = {}
+   local MRC1_system = pathJoin(cmdDir(),"../../etc/rc")
+   local MRC2_system = getenv("MODULERCFILE")
+   local MRC3_home   = pathJoin(getenv("HOME"), ".modulerc")
+   if (MRC2_system and isFile(MRC2_system)) then
+      A[#A+1] = { MRC2_system, "s"}
+   elseif (isFile(MRC1_system)) then
+      A[#A+1] = { MRC1_system, "s"}
+   end
+
+   if (isFile(MRC3_home)) then
+      A[#A+1] = { MRC3_home, "u"}
+   end
+   return A
+end
+
+function isActiveMFile(mrc, full, sn)
+   local version = extractVersion(full, sn) or ""
+   return isVisible(mrc, full), version
+end
+
+--------------------------------------------------------------------------
+-- compute the length of a string and ignore any string
+-- colorization.
+-- @param s input string
+function length(s)
+   s = s:gsub("\027[^m]+m","")
+   return s:len()
+end
+
+function isVisible(mrc, name)
+   if (mrc:getHiddenT(name)) then
+      return false
+   end
+   if (name:sub(1,1) == ".") then
+      return false
+   end
+   local idx = name:find("/%.")
+   return idx == nil
+end
+
+
+local s_masterTbl = {}
+--------------------------------------------------------------------------
+-- Manage the Master Hash Table.
+function masterTbl()
+   return s_masterTbl
+end
+
+
+function paired2pathT(path)
+   if (not path) then
+      return {}
+   end
+
+   local ppathT = {}
+
+   local state = 0
+   local left
+   local right
+
+   for v in path:split('[;:]') do
+      if (state == 0) then
+         left = v
+         state = 1
+      else 
+         right = v
+         state = 0
+         ppathT[left] =  tonumber(right)
+      end
+   end
+   return ppathT
+end
+
+--------------------------------------------------------------------------
+-- This function takes a path like variable and breaks
+-- it up into an array.  Each path component is
+-- standandized by path_regularize().  This function
+-- removes leading and trailing spaces and duplicate '/'
+-- etc.
 --
-----------------------------------------------------------------------------
----- Read in the system and possible a user lmod configuration file.
----- The system one is read first.  These provide default value
----- The user one can override the default values.
---function readRC()
---   dbg.start{"readRC()"}
---   if (s_readRC) then
---      s_readRC = true
---      return
---   end
---
---   declare("propT",       false)
---   declare("scDescriptT", false)
---
---   for i = 1,#RCFileA do
---      repeat
---         local f        = RCFileA[i]
---         local fh = open(f)
---         if (not fh) then break end
---            
---         assert(loadfile(f))()
---         s_rcFileA[#s_rcFileA+1] = abspath(f)
---         fh:close()
---
---         local propT       = _G.propT or {}
---         local scDescriptT = _G.scDescriptT   or {}
---         for k,v in pairs(propT) do
---            s_propT[k] = v
---         end
---         for j = 1,#scDescriptT do
---            s_scDescriptT[#s_scDescriptT + 1] = scDescriptT[j]
---         end
---      until true
---   end
---   dbg.fini("readRC")
---end
---
-----------------------------------------------------------------------------
----- Return the property table.
---function getPropT()
---   return s_propT
---end
---
-----------------------------------------------------------------------------
----- Return the spider cache description table.
---function getSCDescriptT()
---   return s_scDescriptT
---end
---
---
-----------------------------------------------------------------------------
----- Return the array of active RC files
---function getRCFileA()
---   return s_rcFileA
---end
+-- Typically the separator is a colon but it can be
+-- anything.  Some env. vars (such as TEXINPUTS and
+-- LUA_PATH) use "::" or ";;" to mean that the
+-- specified values are prepended to the system ones.
+-- To handle that, the path component is converted to
+-- a single space.  This single space is later removed
+-- when expanding.
+-- @param path A string of *sep* separated paths.
+-- @param sep  The separator character.  It is usually
+--             a colon.
+function path2pathA(path, sep)
+   sep = sep or ":"
+   if (not path) then
+      return {}
+   end
+   if (path == '') then
+      return { ' ' }
+   end
+
+   local is, ie
+
+   local pathA = {}
+   for v  in path:split(sep) do
+      pathA[#pathA + 1] = path_regularize(v)
+   end
+
+   local n = #pathA
+   local i = n
+   while (pathA[i] == "") do
+      i = i - 1
+   end
+   i = i + 2
+   for j = i, n do
+      pathA[j] = nil
+   end
+
+   return pathA
+end
+
+local __quiet = false
+--------------------------------------------------------------------------
+-- Return ture if in quiet mode.
+function quiet()
+   if (__quiet == false) then
+      __quiet = getenv("LMOD_QUIET") or getenv("LMOD_EXPERT")
+   end
+   return __quiet
+end
+
+
+function runTCLprog(TCLprog, optStr, fn)
+   local a   = {}
+   a[#a + 1] = LMOD_TCLSH
+   a[#a + 1] = pathJoin(cmdDir(),TCLprog)
+   a[#a + 1] = optStr or ""
+   a[#a + 1] = fn
+   local cmd = concatTbl(a," ")
+   local whole, status = capture(cmd)
+   return whole, status
+end
+
+function sanizatizeTbl(rplmntA, inT, outT)
+   for k, v in pairs(inT) do
+      local key = k
+      if (type(k) == "string") then
+         for i = 1, #rplmntA do
+            local p  = rplmntA[i]
+            local s1 = p[1]
+            local s2 = p[2]
+            key = key:gsub(s1,s2)
+         end
+      end
+
+      if (type(key) == "string" and key:sub(1,1) == '_') then
+         outT[key] = nil
+      elseif (type(v) == "table") then
+         outT[key] = {}
+         sanizatizeTbl(rplmntA, v, outT[key])
+         v = outT[key]
+      elseif (type(v) == "string") then
+         for i = 1,#rplmntA do
+            local p  = rplmntA[i]
+            local s1 = p[1]
+            local s2 = p[2]
+            v = v:gsub(s1,s2)
+         end
+         outT[key] = v
+      else
+         outT[key] = v 
+      end
+      
+   end
+end
+
+--------------------------------------------------------------------------
+-- Push the Lmod Version into the environment
+function setenv_lmod_version()
+   local nameA = { "LMOD_VERSION_MAJOR",
+                   "LMOD_VERSION_MINOR",
+                   "LMOD_VERSION_SUBMINOR"
+   }
+
+   local versionStr = Version.tag()
+
+   setenv_posix("LMOD_VERSION",versionStr, true)
+   local numA = {}
+
+   for s in versionStr:split("%.") do
+      numA[#numA+1] = s
+   end
+
+   for i = 1, #nameA do
+      setenv_posix(nameA[i],numA[i] or "0", true)
+   end
+end
+
+--------------------------------------------------------------------------
+-- This routine converts a command into a string.  This is used by MC_Show
+-- @param name Input command name.
+-- @param mA   An array of Module Name objects.
+function ShowCmdA(name, mA)
+   local a = {}
+   for i = 1, #mA do
+      a[i] = mA[i]:show()
+   end
+   local b = {}
+   b[#b+1] = name
+   b[#b+1] = "("
+   b[#b+1] = concatTbl(a,",")
+   b[#b+1] = ")\n"
+   return concatTbl(b,"")
+end
 
 --------------------------------------------------------------------------
 -- Convert number and string to a quoted string.
@@ -671,7 +608,7 @@ end
 -- Build a string of what the command would be. Used by
 -- MC_Show and MC_ComputeHash.
 
-defaultsT = {
+local s_defaultsT = {
    delim    = ":",
    priority = "0",
 }
@@ -680,6 +617,7 @@ defaultsT = {
 -- This routine converts a command into a string.  This is used by MC_Show
 -- @param name Input command name.
 function ShowCmdStr(name, ...)
+   dbg.start{"ShowCmdStr(",name,", ...)"}
    local a       = {}
    local arg     = pack(...)
    local n       = arg.n
@@ -701,10 +639,11 @@ function ShowCmdStr(name, ...)
 
    if (hasKeys) then
       hasKeys = false
+      
       for k,v in pairs(t) do
          if (type(k) ~= "number") then
             local strV = tostring(v)
-            if (defaultsT[k] ~= strV) then
+            if (s_defaultsT[k] ~= strV) then
                hasKeys = true
                a[#a+1] = k.."="..arg2str(v)
             end
@@ -722,27 +661,9 @@ function ShowCmdStr(name, ...)
    b[#b+1] = left
    b[#b+1] = concatTbl(a,",")
    b[#b+1] = right
+   dbg.fini("ShowCmdStr")
    return concatTbl(b,"")
 end
-
-
---------------------------------------------------------------------------
--- This routine converts a command into a string.  This is used by MC_Show
--- @param name Input command name.
--- @param mA   An array of Module Name objects.
-function ShowCmdA(name, mA)
-   local a = {}
-   for i = 1, #mA do
-      a[i] = mA[i]:show()
-   end
-   local b = {}
-   b[#b+1] = name
-   b[#b+1] = "("
-   b[#b+1] = concatTbl(a,",")
-   b[#b+1] = ")\n"
-   return concatTbl(b,"")
-end
-
 
 
 --------------------------------------------------------------------------
@@ -776,267 +697,20 @@ function UUIDString(epoch)
    return uuid
 end
 
-modA = false
-
-function runTCLprog(TCLprog, optStr, fn)
-   local a   = {}
-   a[#a + 1] = LMOD_TCLSH
-   a[#a + 1] = pathJoin(cmdDir(),TCLprog)
-   a[#a + 1] = optStr or ""
-   a[#a + 1] = fn
-   local cmd = concatTbl(a," ")
-   local whole, status = capture(cmd)
-   return whole, status
-end
-   
---------------------------------------------------------------------------
--- This routine is given the absolute path to a .version
--- file.  It checks to make sure that it is a valid TCL
--- file.  It then uses the ModulesVersion.tcl script to
--- return what the value of "ModulesVersion" is.
--- @param v The version file name: {.modulerc, .version}
--- @param sn The short name
--- @param path The path to version file
--- @param ignoreErrors If true then ignore errors.
-function versionFile(v, sn, path, ignoreErrors)
-   dbg.start{"versionFile(v: ",v,", sn: ",sn,", path: ",path,")"}
-   local f       = open(path,"r")
-   if (not f)                        then
-      dbg.print{"could not find: ",path,"\n"}
-      dbg.fini("versionFile")
-      return nil
-   end
-   local s       = f:read("*line")
-   f:close()
-   if (not s:find("^#%%Module"))      then
-      dbg.print{"could not find: #%Module\n"}
-      dbg.fini("versionFile")
-      return nil
-   end
-   local version = false
-   dbg.print{"handle file: ",v, "\n"}
-   local whole
-   local status
-   local func
-   whole, status = runTCLprog("RC2lua.tcl", "", path)
-   if (not status) then
-      LmodError("Unable to parse: ",path," Aborting!\n")
-   end
-
-   status, func = pcall(load, whole)
-   if (not status or not func) then
-      LmodError("Unable to parse: ",path," Aborting!\n")
-   end
-   func()
-   malias:parseModA(sn, modA)
-
-   version = malias:getDefaultT(sn) or version
-
-   dbg.print{"version: ",version,"\n"}
-   dbg.fini("versionFile")
-   return version
-end
-
---------------------------------------------------------------------------
--- Push the Lmod Version into the environment
-function setenv_lmod_version()
-   local nameA = { "LMOD_VERSION_MAJOR",
-                   "LMOD_VERSION_MINOR",
-                   "LMOD_VERSION_SUBMINOR"
-   }
-
-   local versionStr = Version.tag()
-
-   setenv_posix("LMOD_VERSION",versionStr, true)
-   local numA = {}
-
-   for s in versionStr:split("%.") do
-      numA[#numA+1] = s
-   end
-
-   for i = 1, #nameA do
-      setenv_posix(nameA[i],numA[i] or "0", true)
+function case_independent_cmp(x,y)
+   local x_lower = x.pV:lower()
+   local y_lower = y.pV:lower()
+   if (x_lower == y_lower) then
+      return x.pV < y.pV
+   else
+      return x_lower < y_lower
    end
 end
-
-local defaultFnT = {
-   default       = 1,
-   ['.modulerc'] = 2,
-   ['.version']  = 3,
-}
-
---------------------------------------------------------------------------
--- Find exceptable files. Or mark as false files that should be ignored
--- @param fn input file name
-
-local ignoreT   = ignoreFileT()
-
---------------------------------------------------------------------------
--- Find exceptable files. Or mark as false files that should be ignored
--- @param fn input file name
-function keepFile(fn)
-   local fileDflt  = fn:sub(1,8)
-   local firstChar = fn:sub(1,1)
-   local lastChar  = fn:sub(-1,-1)
-   local firstTwo  = fn:sub(1,2)
-
-   local result    = not (ignoreT[fn]      or lastChar == '~' or ignoreT[fileDflt] or
-                          firstChar == '#' or lastChar == '#' or firstTwo == '.#')
-   if (not result) then
-      return result
-   end
-
-   if (firstChar == "." and fn:sub(-4,-1) == ".swp") then
-      return false
-   end
-
-   return result
-end
-
-local function checkValidModulefileReal(fn)
-   local f = open(fn,"r")
-   if (not f) then
-      return false
-   end
-   local line = f:read(20) or ""
-   f:close()
-   return line:find("^#%%Module")
-end
-
-function checkValidModulefileFake(fn)
-   return true
-end
-
-local checkValidModulefile = (LMOD_CHECK_FOR_VALID_MODULE_FILES == "yes")
-                             and checkValidModulefileReal or checkValidModulefileFake
 
 
 --------------------------------------------------------------------------
--- Walk a single directory for modulefiles and defaults:
--- @param mpath Input modulepath directory
--- @param path Input of the current directory.
--- @param prefix the prefix
--- @param dirA An array of directories found.
--- @param mnameT A table of module names found
--- @return defaultFn the default modulefile.
-function walk_directory_for_mf(mpath, path, prefix, dirA, mnameT)
-   dbg.start{"walk_directory_for_mf(mpath: ",mpath,", path: ",path,", prefix: \"",prefix,"\", dirA, mnameT)"}
-   local attr = lfs.attributes(path)
-   if (not attr or type(attr) ~= "table" or attr.mode ~= "directory"
-       or not posix.access(path,"x")) then
-      dbg.print{"Path: ",path," does not exist\n"}
-      dbg.fini("walk_directory_for_mf")
-      return false
-   end
-
-   local accept_fn  = accept_fn
-   local defaultFn  = false
-   local defaultIdx = 1000000  -- default idx must be bigger than index for .version
-   -----------------------------------------------------------------------------
-   -- Read every relevant file in a directory.  Copy directory names into dirA.
-   -- Copy files into mnameT.
-   ignoreT   = ignoreFileT()
-
-   --local archNameT = {}
-   --local archNameT = { ['64'] = true, ['32'] = true, ['x86_64'] = true, ['ia32'] = true, gcc = true,
-   --                    ['haswell'] = true, ['ivybridge'] = true, ['sandybridge'] = true, ['ia32'] = true,
-   --}
-
-   local a = {}
-
-
-   for file in lfs.dir(path) do
-      repeat
-         local idx       = defaultFnT[file] or defaultIdx
-         if (idx < defaultIdx) then
-            defaultIdx = idx
-            defaultFn  = pathJoin(path,file)
-         else
-            if (keepFile(file))then
-               local f        = pathJoin(path,file)
-               attr           = lfs.attributes(f)
-               local readable = posix.access(f,"r")
-               local full     = pathJoin(prefix, file):gsub("%.lua","")
-
-               ------------------------------------------------------------
-               -- Since cache files are build by root but read by users
-               -- make sure that any user can read a file owned by root.
-
-               if (readable) then
-                  local st    = posix.stat(f)
-                  if ((not st) or (st.uid == 0 and not st.mode:find("......r.."))) then
-                     readable = false
-                  end
-               end
-
-               if (not readable or not attr) then
-                  -- do nothing for non-readable or non-existant files
-                  break
-               elseif (attr.mode == 'file' and file ~= "default" and accept_fn(file) and
-                       full:sub(1,1) ~= '.') then
-                  -- Lua modulefiles should always be picked over TCL modulefiles
-                  if (not mnameT[full] or not mnameT[full].luaExt) then
-                     local luaExt  = f:find("%.lua$")
-                     if (luaExt  or checkValidModulefile(f)) then
-                        local sn      = prefix:gsub("/$","")
-                        local version = file:gsub("%.lua$","")
-                        if (sn == "") then
-                           sn = full
-                           version = false
-                        end
-                        mnameT[full] = {fn = f, canonical=f:gsub("%.lua$",""), mpath = mpath,
-                                        luaExt = luaExt, version=version, sn=sn}
-                     end
-                  end
-               elseif (attr.mode == "directory" and file:sub(1,1) ~= ".") then
-                  -- Remember all directories in local array.  We have to know if
-                  -- any are "arch" directories.
-                  a[#a + 1] = { fullName = f, mname = full, file=file, path=path}
-               end
-            end
-         end
-      until true
-   end
-
-
-   for i = 1,#a do
-      dirA[#dirA + 1] = a[i]
-   end
-
-   if (dbg.active()) then
-      for i = 1,#dirA do
-         dbg.print{"dirA[",i,"].mname: ", dirA[i].mname,", \tdirA[",i,"].fullName: ",dirA[i].fullName,
-                   ", file: ",dirA[i].file,"\n"}
-      end
-      dbg.print{"\n"}
-      for k,v in pairsByKeys(mnameT) do
-         dbg.print{"mnameT[",k,"].fn: ",v.fn," sn: ",v.sn,", version: ", v.version,"\n"}
-      end
-   end
-
-   dbg.fini("walk_directory_for_mf")
-   return defaultFn
-end
-
+-- Warning functions
 --------------------------------------------------------------------------
--- Use readlink to find the link
--- @param path the path to the module file.
-function walk_link(path)
-   local attr   = lfs.symlinkattributes(path)
-   if (attr == nil) then
-      return nil
-   end
-
-   if (attr.mode == "link") then
-      local rl = readlink(path)
-      if (not rl) then
-         return nil
-      end
-      return pathJoin(dirname(path),rl)
-   end
-   return path
-end
-
 
 --------------------------------------------------------------------------
 -- Allow for the generation of warnings.
@@ -1073,3 +747,104 @@ end
 function getWarningFlag()
    return s_warning
 end
+
+--------------------------------------------------------------------------
+-- Build function -> accept, epoch, prepend_order_function()
+--------------------------------------------------------------------------
+
+--------------------------------------------------------------------------
+-- Create the accept functions to allow or ignore TCL modulefiles.
+local function build_accept_function()
+   local allow_tcl = LMOD_ALLOW_TCL_MFILES
+
+   if (allow_tcl == "no") then
+      _G.accept_fn = function (fn)
+         return fn:find("%.lua$")
+      end
+   else
+      _G.accept_fn = function (fn)
+         return true
+      end
+   end
+end
+
+if (not accept_fn) then
+   build_accept_function()
+end
+
+local function build_allow_dups_function()
+   local dups = LMOD_DUPLICATE_PATHS
+   if (dups == "yes") then
+      _G.allow_dups = function (dupsIn)
+         return dupsIn
+      end
+   else
+      _G.allow_dups = function (dupsIn)
+         return false
+      end
+   end
+end
+
+if (not allow_dups) then
+   build_allow_dups_function()
+end
+
+local function build_epoch_function()
+   if (posix.gettimeofday) then
+      local gettimeofday = posix.gettimeofday
+      local x1, x2 = gettimeofday()
+      if (x2 == nil) then
+         epoch_type = "posix.gettimeofday() (1)"
+         _G.epoch = function()
+            local t = gettimeofday()
+            return t.sec + t.usec*1.0e-6
+         end
+      else
+         epoch_type = "posix.gettimeofday() (2)"
+         _G.epoch = function()
+            local t1, t2 = gettimeofday()
+            return t1 + t2*1.0e-6
+         end
+      end
+   else
+      epoch_type = "os.time"
+      local time = os.time
+      _G.epoch = function()
+         return time()
+      end
+   end
+end
+
+if (not epoch) then
+   build_epoch_function()
+end
+
+
+--------------------------------------------------------------------------
+-- Return the *prepend_order* function.  This function control which order
+-- are prepends handled when there are multiple paths passed to a single
+-- call.
+local function build_prepend_order_function()
+   local ansT = {
+      no      = "reverse",
+      reverse = "reverse",
+      normal  = "normal",
+      yes     = "normal",
+   }
+
+   local order = ansT[LMOD_PREPEND_BLOCK] or "normal"
+   if (order == "normal") then
+      _G.prepend_order = function (n)
+         return n, 1, -1
+      end
+   else
+      _G.prepend_order = function (n)
+         return 1, n, 1
+      end
+   end
+end
+
+if (not prepend_order) then
+   build_prepend_order_function()
+end
+

@@ -9,7 +9,7 @@ local result = (convertToCanonical("default") < convertToCanonical("5.1.1"))
 LmodMessage("\"default\" < \"5.1.1\" is ", tostring(result))
 
 
-if (convertToCanonical(LmodVersion()) > convertToCanonical("5.0")) then
+if (convertToCanonical(LmodVersion()) > convertToCanonical("0.5")) then
    LmodMessage("(1) Passed Module Test")
 end
 
@@ -42,6 +42,3 @@ for i = 1,#nameA do
       LmodMessage("-%%- ",nameA[i],": ",vstr)
    end
 end
-
-
-

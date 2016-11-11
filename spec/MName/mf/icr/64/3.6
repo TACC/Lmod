@@ -1,0 +1,39 @@
+#%Module -*- tcl -*-
+##
+## intel-cluster-runtime modulefile
+##
+proc ModulesHelp { } {
+  puts stderr "\tAdds intel-cluster-runtime to your environment variables,"
+}
+
+module-whatis "Adds the Intel cluster runtime 64 bits to your environment variables"
+
+set               root                 /cm/shared/apps/intel-cluster-runtime/3.7
+set               composerversion      2015.0.090
+set               compilerversion      15.0.090
+set               impiversion          5.0.1.035
+
+prepend-path      PATH                 $root/composer_xe_$composerversion/mpirt/bin/intel64
+prepend-path      PATH                 $root/composer_xe_$composerversion/tbb/bin
+prepend-path      PATH                 $root/impi/$impiversion/intel64/bin
+prepend-path      PATH                 $root/cce/$compilerversion/bin
+prepend-path      PATH                 $root/fce/$compilerversion/bin
+
+prepend-path      LD_LIBRARY_PATH      $root/composer_xe_$composerversion/compiler/lib/intel64
+prepend-path      LD_LIBRARY_PATH      $root/composer_xe_$composerversion/mkl/lib/intel64
+prepend-path      LD_LIBRARY_PATH      $root/composer_xe_$composerversion/mpirt/lib/intel64
+prepend-path      LD_LIBRARY_PATH      $root/composer_xe_$composerversion/tbb/lib/intel64
+prepend-path      LD_LIBRARY_PATH      $root/impi/$impiversion/intel64/lib
+prepend-path      LD_LIBRARY_PATH      $root/cce/$compilerversion/lib
+prepend-path      LD_LIBRARY_PATH      $root/fce/$compilerversion/lib
+
+prepend-path      LIBRARY_PATH         $root/composer_xe_$composerversion/compiler/lib/intel64
+prepend-path      LIBRARY_PATH         $root/composer_xe_$composerversion/mkl/lib/intel64
+prepend-path      LIBRARY_PATH         $root/cce/$compilerversion/lib
+prepend-path      LIBRARY_PATH         $root/fce/$compilerversion/lib
+
+setenv            MKLROOT              $root/composer_xe_$composerversion/mkl
+setenv            I_MPI_ROOT           $root/impi/$impiversion
+
+prepend-path      INTEL_LICENSE_FILE   /cm/shared/licenses/intel
+

@@ -6,145 +6,94 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 step 2
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing show gcc
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1";
+MODULEPATH="ProjectDIR/rt/show/mf/Core";
 export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1";
-export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/mf/Core","ProjectDIR/mf/Compiler/intel/10.1",},family={},inactive={},mT={},mpathA={"ProjectDIR/mf/Core","ProjectDIR/mf/Compiler/intel/10.1",},["systemBaseMPATH"]="ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/show/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/show/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 3
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing show alex
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1";
+MODULEPATH="ProjectDIR/rt/show/mf/Core";
 export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1";
-export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/mf/Core","ProjectDIR/mf/Compiler/intel/10.1",},family={},inactive={},mT={},mpathA={"ProjectDIR/mf/Core","ProjectDIR/mf/Compiler/intel/10.1",},["systemBaseMPATH"]="ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/show/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/show/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 4
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1";
+MODULEPATH="ProjectDIR/rt/show/mf/Core";
 export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1";
-export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/mf/Core","ProjectDIR/mf/Compiler/intel/10.1",},family={},inactive={},mT={},mpathA={"ProjectDIR/mf/Core","ProjectDIR/mf/Compiler/intel/10.1",},["systemBaseMPATH"]="ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/show/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/show/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 5
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing show boost
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1";
+MODULEPATH="ProjectDIR/rt/show/mf/Core";
 export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1";
-export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/mf/Core","ProjectDIR/mf/Compiler/intel/10.1",},family={},inactive={},mT={},mpathA={"ProjectDIR/mf/Core","ProjectDIR/mf/Compiler/intel/10.1",},["systemBaseMPATH"]="ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/show/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/show/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 6
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load boost/1.47.1
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1";
-export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1";
-export LMOD_DEFAULT_MODULEPATH;
 LOADEDMODULES="boost/1.47.1";
 export LOADEDMODULES;
-MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1";
+MODULEPATH="ProjectDIR/rt/show/mf/Core";
 export MODULEPATH;
-TACC_BOOST_DIR="/opt/apps/boost/1.47.1";
+TACC_BOOST_DIR="/unknown/apps/boost/1.47.1";
 export TACC_BOOST_DIR;
-_LMFILES_="ProjectDIR/mf/Core/boost/1.47.1.lua";
+_LMFILES_="ProjectDIR/rt/show/mf/Core/boost/1.47.1.lua";
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/mf/Core","ProjectDIR/mf/Compiler/intel/10.1",},family={},inactive={},mT={boost={["FN"]="ProjectDIR/mf/Core/boost/1.47.1.lua",["default"]=0,["fullName"]="boost/1.47.1",["loadOrder"]=1,propT={},["short"]="boost",["status"]="active",},},mpathA={"ProjectDIR/mf/Core","ProjectDIR/mf/Compiler/intel/10.1",},["systemBaseMPATH"]="ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={boost={["fn"]="ProjectDIR/rt/show/mf/Core/boost/1.47.1.lua",["fullName"]="boost/1.47.1",["loadOrder"]=1,propT={},["status"]="active",["userName"]="boost/1.47.1",},},mpathA={"ProjectDIR/rt/show/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/show/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 7
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1";
+MODULEPATH="ProjectDIR/rt/show/mf/Core";
 export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1";
-export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/mf/Core","ProjectDIR/mf/Compiler/intel/10.1",},family={},inactive={},mT={boost={["FN"]="ProjectDIR/mf/Core/boost/1.47.1.lua",["default"]=0,["fullName"]="boost/1.47.1",["loadOrder"]=1,propT={},["short"]="boost",["status"]="active",},},mpathA={"ProjectDIR/mf/Core","ProjectDIR/mf/Compiler/intel/10.1",},["systemBaseMPATH"]="ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={boost={["fn"]="ProjectDIR/rt/show/mf/Core/boost/1.47.1.lua",["fullName"]="boost/1.47.1",["loadOrder"]=1,propT={},["status"]="active",["userName"]="boost/1.47.1",},},mpathA={"ProjectDIR/rt/show/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/show/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 8
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing show boost
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1";
+MODULEPATH="ProjectDIR/rt/show/mf/Core";
 export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1";
-export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/mf/Core","ProjectDIR/mf/Compiler/intel/10.1",},family={},inactive={},mT={boost={["FN"]="ProjectDIR/mf/Core/boost/1.47.1.lua",["default"]=0,["fullName"]="boost/1.47.1",["loadOrder"]=1,propT={},["short"]="boost",["status"]="active",},},mpathA={"ProjectDIR/mf/Core","ProjectDIR/mf/Compiler/intel/10.1",},["systemBaseMPATH"]="ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={boost={["fn"]="ProjectDIR/rt/show/mf/Core/boost/1.47.1.lua",["fullName"]="boost/1.47.1",["loadOrder"]=1,propT={},["status"]="active",["userName"]="boost/1.47.1",},},mpathA={"ProjectDIR/rt/show/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/show/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 9
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing show boost/1.49.0
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1";
+MODULEPATH="ProjectDIR/rt/show/mf/Core";
 export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1";
-export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/mf/Core","ProjectDIR/mf/Compiler/intel/10.1",},family={},inactive={},mT={boost={["FN"]="ProjectDIR/mf/Core/boost/1.47.1.lua",["default"]=0,["fullName"]="boost/1.47.1",["loadOrder"]=1,propT={},["short"]="boost",["status"]="active",},},mpathA={"ProjectDIR/mf/Core","ProjectDIR/mf/Compiler/intel/10.1",},["systemBaseMPATH"]="ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={boost={["fn"]="ProjectDIR/rt/show/mf/Core/boost/1.47.1.lua",["fullName"]="boost/1.47.1",["loadOrder"]=1,propT={},["status"]="active",["userName"]="boost/1.47.1",},},mpathA={"ProjectDIR/rt/show/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/show/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 10
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing use ProjectDIR/rt/show/mf/Core
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing use ProjectDIR/rt/show/mf/Core2
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1";
+MODULEPATH="ProjectDIR/rt/show/mf/Core2:ProjectDIR/rt/show/mf/Core";
 export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/show/mf/Core:ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/show/mf/Core:ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1";
-export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/show/mf/Core","ProjectDIR/mf/Core","ProjectDIR/mf/Compiler/intel/10.1",},family={},inactive={},mT={boost={["FN"]="ProjectDIR/mf/Core/boost/1.47.1.lua",["default"]=0,["fullName"]="boost/1.47.1",["loadOrder"]=1,propT={},["short"]="boost",["status"]="active",},},mpathA={"ProjectDIR/rt/show/mf/Core","ProjectDIR/mf/Core","ProjectDIR/mf/Compiler/intel/10.1",},["systemBaseMPATH"]="ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={boost={["fn"]="ProjectDIR/rt/show/mf/Core/boost/1.47.1.lua",["fullName"]="boost/1.47.1",["loadOrder"]=1,propT={},["status"]="active",["userName"]="boost/1.47.1",},},mpathA={"ProjectDIR/rt/show/mf/Core2","ProjectDIR/rt/show/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/show/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 11
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing show a
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/show/mf/Core:ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/show/mf/Core:ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1";
+MODULEPATH="ProjectDIR/rt/show/mf/Core2:ProjectDIR/rt/show/mf/Core";
 export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/show/mf/Core:ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/show/mf/Core:ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1";
-export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/show/mf/Core","ProjectDIR/mf/Core","ProjectDIR/mf/Compiler/intel/10.1",},family={},inactive={},mT={boost={["FN"]="ProjectDIR/mf/Core/boost/1.47.1.lua",["default"]=0,["fullName"]="boost/1.47.1",["loadOrder"]=1,propT={},["short"]="boost",["status"]="active",},},mpathA={"ProjectDIR/rt/show/mf/Core","ProjectDIR/mf/Core","ProjectDIR/mf/Compiler/intel/10.1",},["systemBaseMPATH"]="ProjectDIR/mf/Core:ProjectDIR/mf/Compiler/intel/10.1",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={boost={["fn"]="ProjectDIR/rt/show/mf/Core/boost/1.47.1.lua",["fullName"]="boost/1.47.1",["loadOrder"]=1,propT={},["status"]="active",["userName"]="boost/1.47.1",},},mpathA={"ProjectDIR/rt/show/mf/Core2","ProjectDIR/rt/show/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/show/mf/Core",}';
 export _ModuleTable_;
+===========================
+step 12
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing show nosuchmodule
+===========================
+MODULEPATH="ProjectDIR/rt/show/mf/Core2:ProjectDIR/rt/show/mf/Core";
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={boost={["fn"]="ProjectDIR/rt/show/mf/Core/boost/1.47.1.lua",["fullName"]="boost/1.47.1",["loadOrder"]=1,propT={},["status"]="active",["userName"]="boost/1.47.1",},},mpathA={"ProjectDIR/rt/show/mf/Core2","ProjectDIR/rt/show/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/show/mf/Core",}';
+export _ModuleTable_;
+false

@@ -20,15 +20,14 @@ testdescript = {
      unsetMT
      initStdEnvVars
      MODULEPATH_ROOT=$(testDir)/mf;       export MODULEPATH_ROOT
-     MODULEPATH=$(testDir)/mf/Core;       export MODULEPATH
+     MODULEPATH=$MODULEPATH_ROOT/Core;    export MODULEPATH
 
      rm -f  _stderr.* _stdout.* err.* out.*
      rm -fr .lmod.d .lmodrc.lua
      cp $(projectDir)/init/lmodrc.lua .lmodrc.lua
 
      mkdir -p $HOME/.lmod.d/.cache
-     buildModuleT $MODULEPATH > $HOME/.lmod.d/.cache/moduleT.lua
-     buildDbT     $MODULEPATH > $HOME/dbT.lua
+     buildSpiderT $MODULEPATH > $HOME/.lmod.d/.cache/spiderT.lua
 
      runLmod --version                  # 1
      runLmod avail                      # 2

@@ -37,7 +37,7 @@ require("strict")
 --
 --  ----------------------------------------------------------------------
 --
---  Copyright (C) 2008-2014 Robert McLay
+--  Copyright (C) 2008-2016 Robert McLay
 --
 --  Permission is hereby granted, free of charge, to any person obtaining
 --  a copy of this software and associated documentation files (the
@@ -62,26 +62,25 @@ require("strict")
 --------------------------------------------------------------------------
 
 require("myGlobals")
-require("string_utils")
 require("fileOps")
-require("cmdfuncs")
-require("utils")
+require("declare")
 require("lmod_system_execute")
+require("string_utils")
+require("utils")
 
-_G.maliasT       = {}
 local CTimer     = require("CTimer")
-local ReadLmodRC = require('ReadLmodRC')
-local dbg        = require("Dbg"):dbg()
+local FrameStk   = require("FrameStk")
 local M          = {}
-local MT         = require("MT")
+local MRC        = require("MRC")
+local ReadLmodRC = require('ReadLmodRC')
 local Spider     = require("Spider")
+local concatTbl  = table.concat
+local dbg        = require("Dbg"):dbg()
 local hook       = require("Hook")
 local lfs        = require("lfs")
-local malias     = require("MAlias"):build()
 local posix      = require("posix")
 local s_cache    = false
-local timer      = require("Timer"):timer()
-local concatTbl  = table.concat
+local timer      = require("Timer"):singleton()
 
 --------------------------------------------------------------------------
 -- This singleton construct reads the scDescriptT table that can be
@@ -136,10 +135,10 @@ local function new(self, t)
          if (attr.mode == "directory") then
             dbg.print{"Adding: dir: ",dir,", timestamp: ",lastUpdate, "\n"}
             scDirA[#scDirA+1] =
-               { fileA = { pathJoin(dir, "moduleT."     .. compiled_ext_sys),
-                           pathJoin(dir, "moduleT.old." .. compiled_ext_sys),
-                           pathJoin(dir, "moduleT.lua"),
-                           pathJoin(dir, "moduleT.old.lua"),
+               { fileA = { pathJoin(dir, "spiderT."     .. compiled_ext_sys),
+                           pathJoin(dir, "spiderT.old." .. compiled_ext_sys),
+                           pathJoin(dir, "spiderT.lua"),
+                           pathJoin(dir, "spiderT.old.lua"),
                          },
                  timestamp = lastUpdate,
                  fileT = "system",
@@ -149,14 +148,14 @@ local function new(self, t)
       end
    end
 
-   local usrModuleT   = hook.apply("groupName","moduleT.lua")
-   local usrModuleT_C = hook.apply("groupName","moduleT."..compiled_ext_usr)
+   local usrSpiderT   = hook.apply("groupName","spiderT.lua")
+   local usrSpiderT_C = hook.apply("groupName","spiderT."..compiled_ext_usr)
 
-   local usrModuleTFnA = {
-      { fileA = { pathJoin(usrCacheDir, usrModuleT_C),
-                  pathJoin(usrCacheDir, usrModuleT),
-                  pathJoin(usrCacheDir, "moduleT."..compiled_ext_usr),
-                  pathJoin(usrCacheDir, "moduleT.lua"),
+   local usrSpiderTFnA = {
+      { fileA = { pathJoin(usrCacheDir, usrSpiderT_C),
+                  pathJoin(usrCacheDir, usrSpiderT),
+                  pathJoin(usrCacheDir, "spiderT."..compiled_ext_usr),
+                  pathJoin(usrCacheDir, "spiderT.lua"),
                 },
         fileT = "your",
         timestamp = systemEpoch
@@ -164,20 +163,21 @@ local function new(self, t)
    }
 
    t                   = t or {}
-   o.moduleDirT        = {}
+   o.spiderDirT        = {}
    o.mDT               = {}
    o.usrCacheDir       = usrCacheDir
    o.usrCacheInvalidFn = pathJoin(usrCacheDir,"invalidated")
-   o.usrModuleTFnA     = usrModuleTFnA
-   o.usrModuleTFN      = pathJoin(usrCacheDir,usrModuleT)
+   o.usrSpiderTFnA     = usrSpiderTFnA
+   o.usrSpiderTFN      = pathJoin(usrCacheDir,usrSpiderT)
    o.systemDirA        = scDirA
-   --o.dbTDirA         = dbDirA
    o.dontWrite         = t.dontWrite or false
    o.buildCache        = false
+   o.buildFresh        = false
    o.quiet             = t.quiet     or false
 
    o.dbT               = {}
-   o.moduleT           = {}
+   o.spiderT           = {}
+   o.mpathMapT         = {}
    o.moduleDirA        = {}
    dbg.fini("Cache.new")
    return o
@@ -188,12 +188,12 @@ end
 -- (obviously) constructs the static s_cache var once
 -- then serves s_cache to subsequent callers.  Since
 -- the MODULEPATH can change during execution, we set
--- moduleDirT[path] to -1 for any we have not already
+-- spiderDirT[path] to -1 for any we have not already
 -- processed.
 -- @param self a Cache object
 -- @param t A table with possible dontWrite and quiet entries.
 -- @return A singleton Cache object.
-function M.cache(self, t)
+function M.singleton(self, t)
    dbg.start{"Cache:cache()"}
 
    if (not s_cache) then
@@ -205,23 +205,30 @@ function M.cache(self, t)
    if (t.buildCache) then
       s_cache.buildCache = t.buildCache
    end
+   if (t.buildFresh) then
+      s_cache.buildFresh = t.buildFresh
+   end
 
    dbg.print{"s_cache.buildCache: ",self.buildCache,"\n"}
 
-   local mt        = MT:mt()
-   local baseMpath = mt:getBaseMPATH()
+   local frameStk  = FrameStk:singleton()
+   local mt        = frameStk:mt()
+   local mpathA    = mt:modulePathA()
 
    -- Since this function can get called many times, we need to only recompute
    -- on the directories we have not yet seen.
 
    local mDT        = s_cache.mDT
-   local moduleDirT = s_cache.moduleDirT
-   for path in baseMpath:split(":") do
-      local attr = lfs.attributes(path) or {}
-      if (attr.mode == "directory") then
-         mDT[path]        = mDT[path]        or -1
-         moduleDirT[path] = moduleDirT[path] or false
-         dbg.print{"moduleDirT[",path,"]: ",moduleDirT[path], "\n",level=2}
+   local spiderDirT = s_cache.spiderDirT
+   for i = 1, #mpathA  do
+      local mpath = mpathA[i]
+      if (isDir(mpath)) then
+         local attr = lfs.attributes(mpath) or {}
+         if (attr.mode == "directory") then
+            mDT[mpath]        = mDT[mpath]        or -1
+            spiderDirT[mpath] = spiderDirT[mpath] or false
+            dbg.print{"spiderDirT[",mpath,"]: ",spiderDirT[mpath], "\n",level=2}
+         end
       end
    end
 
@@ -232,12 +239,12 @@ end
 --------------------------------------------------------------------------
 -- This routine finds and reads in a cache file.  If it
 -- finds a cache file is simply does a "loadfile" on it
--- and updates moduleT and moduleDirT.
+-- and updates moduleT and spiderDirT.
 -- @param self a Cache object
--- @param moduleTFnA An array of cache files to read and process.
+-- @param spiderTFnA An array of cache files to read and process.
 -- @return the number of directories read.
-local function readCacheFile(self, moduleTFnA)
-   dbg.start{"Cache:readCacheFile(moduleTFnA)"}
+local function readCacheFile(self, spiderTFnA)
+   dbg.start{"Cache:readCacheFile(spiderTFnA)"}
    local dirsRead  = 0
    if (masterTbl().ignoreCache or LMOD_IGNORE_CACHE) then
       dbg.print{"LMOD_IGNORE_CACHE is true\n"}
@@ -245,15 +252,20 @@ local function readCacheFile(self, moduleTFnA)
       return dirsRead
    end
 
-   local moduleDirT = self.moduleDirT
+   declare("spiderT")
+   declare("mpathMapT")
+   declare("mrcT")
    local mDT        = self.mDT
-   local moduleT    = self.moduleT
+   local mpathMapT  = self.mpathMapT
+   local spiderDirT = self.spiderDirT
+   local spiderT    = self.spiderT
+   local mrc        = MRC:singleton()
 
-   dbg.print{"#moduleTFnA: ",#moduleTFnA,"\n"}
+   dbg.print{"#spiderTFnA: ",#spiderTFnA,"\n"}
 
-   for i = 1,#moduleTFnA do
+   for i = 1,#spiderTFnA do
       repeat
-         local fileA = moduleTFnA[i].fileA
+         local fileA = spiderTFnA[i].fileA
          local fn    = false
          local found = false
          local attr  = false
@@ -270,7 +282,7 @@ local function readCacheFile(self, moduleTFnA)
          end
 
          if (not found) then
-            dbg.print{"No cache files found in", moduleDirT, "\n"}
+            dbg.print{"No cache files found\n"}
             break
          end
 
@@ -278,40 +290,34 @@ local function readCacheFile(self, moduleTFnA)
 
          -- Check Time
 
-         local diff  = attr.modification - moduleTFnA[i].timestamp
+         local diff  = attr.modification - spiderTFnA[i].timestamp
          local valid = diff >= 0
          dbg.print{"valid: ",valid,", timeDiff: ",diff,"\n"}
          if (valid) then
 
             -- Check for matching default MODULEPATH.
             assert(loadfile(fn))()
+            mrc:import(_G.mrcT)
 
-            local version = (rawget(_G,"moduleT") or {}).version or 0
-
-            dbg.print{"version: ",version,"\n"}
-            if (version < Cversion) then
-               dbg.print{"Ignoring old style cache file!\n"}
-            else
-               dbg.print{"importing maliasT\n"}
-               malias:import(_G.maliasT)
-               dbg.print{"importing moduleT\n"}
-               local G_moduleT = _G.moduleT
-               for k, v in pairs(G_moduleT) do
-                  dbg.print{"moduleT dir: ", k,"\n"}
-                  if ( k:sub(1,1) == '/' ) then
-                     local dirTime = mDT[k] or 0
-                     if (mDT[k] and attr.modification > dirTime) then
-                        k             = path_regularize(k)
-                        dbg.print{"saving directory: ",k," from cache file: ",fn,"\n"}
-                        mDT[k]        = attr.modification
-                        moduleDirT[k] = true
-                        moduleT[k]    = v
-                        dirsRead      = dirsRead + 1
-                     end
-                  else
-                     moduleT[k] = moduleT[k] or v
+            local G_spiderT = _G.spiderT
+            for k, v in pairs(G_spiderT) do
+               --dbg.print{"spiderT dir: ", k,", mDT[k]: ",mDT[k],"\n"}
+               if ( k:sub(1,1) == '/' ) then
+                  local dirTime = mDT[k] or 0
+                  if (attr.modification > dirTime) then
+                     k             = path_regularize(k)
+                     mDT[k]        = attr.modification
+                     spiderDirT[k] = true
+                     spiderT[k]    = v
+                     dirsRead      = dirsRead + 1
                   end
+               else
+                  spiderT[k] = spiderT[k] or v
                end
+            end
+            local G_mpathMapT = _G.mpathMapT
+            for k, v in pairs(G_mpathMapT) do
+               mpathMapT[k] = v
             end
          end
       until true
@@ -320,7 +326,6 @@ local function readCacheFile(self, moduleTFnA)
    dbg.fini("Cache:readCacheFile")
    return dirsRead
 end
-
 
 --------------------------------------------------------------------------
 -- This is the client code interface to getting the cache
@@ -355,9 +360,10 @@ end
 -- @param fast if true then only read cache files, do not build them.
 function M.build(self, fast)
    dbg.start{"Cache:build(fast=", fast,")"}
-   local moduleT = self.moduleT
-   local dbT     = self.dbT
-   local spider  = Spider:new()
+   local spiderT   = self.spiderT
+   local dbT       = self.dbT
+   local mpathMapT = self.mpathMapT
+   local spider    = Spider:new()
 
    dbg.print{"self.buildCache: ",self.buildCache,"\n"}
    if (not self.buildCache) then
@@ -365,33 +371,35 @@ function M.build(self, fast)
       return false, false
    end
 
-   if (next(moduleT) ~= nil) then
-      dbg.print{"Using pre-built moduleT!\n"}
+   if (next(spiderT) ~= nil) then
+      dbg.print{"Using pre-built spiderT!\n"}
       dbg.fini("Cache:build")
-      return moduleT, dbT
+      return spiderT, dbT
    end
 
-   local Pairs = dbg.active() and pairsByKeys or pairs
-   local mt = MT:mt()
-   local masterTbl = masterTbl()
-   local T1 = epoch()
+   local Pairs       = dbg.active() and pairsByKeys or pairs
+   local frameStk    = FrameStk:singleton()
+   local mt          = frameStk:mt()
+   local masterTbl   = masterTbl()
+   local T1          = epoch()
    local sysDirsRead = 0
-   if (not masterTbl.checkSyntax) then
+   dbg.print{"buildFresh: ",self.buildFresh,"\n"}
+   if (not (self.buildFresh or masterTbl.checkSyntax)) then
       sysDirsRead = readCacheFile(self, self.systemDirA)
    end
 
    ------------------------------------------------------------------------
    -- Read user cache file if it exists and is not out-of-date.
 
-   local moduleDirT  = self.moduleDirT
+   local spiderDirT  = self.spiderDirT
    local usrDirsRead = 0
-   if (not isFile(self.usrCacheInvalidFn))then
-      usrDirsRead = readCacheFile(self, self.usrModuleTFnA)
+   if (not (self.buildFresh  or isFile(self.usrCacheInvalidFn))) then
+      usrDirsRead = readCacheFile(self, self.usrSpiderTFnA)
    end
 
    local dirA   = {}
    local numMDT = 0
-   for k, v in Pairs(moduleDirT) do
+   for k, v in Pairs(spiderDirT) do
       numMDT = numMDT + 1
       if (not v) then
          dbg.print{"rebuilding cache for directory: ",k,"\n"}
@@ -403,18 +411,18 @@ function M.build(self, fast)
    if (dirsRead == 0 and fast and numMDT == #dirA) then
       dbg.print{"Fast and dirsRead: ",dirsRead,"\n"}
       dbg.fini("Cache:build")
-      return nil
+      return nil, nil
    end
 
-   local userModuleTFN = self.usrModuleTFN
-   local buildModuleT  = (#dirA > 0)
-   local userModuleT   = {}
-   dbg.print{"buildModuleT: ",buildModuleT,"\n"}
+   local userSpiderTFN = self.usrSpiderTFN
+   local buildSpiderT  = (#dirA > 0)
+   local userSpiderT   = {}
+   dbg.print{"buildSpiderT: ",buildSpiderT,"\n"}
 
    dbg.print{"mt: ", tostring(mt), "\n",level=2}
 
-   local short    = mt:getShortTime()
-   if (not buildModuleT) then
+   local short     = mt:getShortTime()
+   if (not buildSpiderT) then
       ancient = _G.ancient or ancient
       mt:setRebuildTime(ancient, short)
    else
@@ -423,25 +431,32 @@ function M.build(self, fast)
                         ((not short) or (short > shortTime)) and
                         (not self.quiet)
                        )
-      dbg.print{"short: ", short, " shortTime: ", shortTime,"\n", level=2}
-      dbg.print{"quiet: ",quiet(),", initial: ", masterTbl.initial,"\n"}
-      dbg.print{"prtRbMsg: ",prtRbMsg,", quiet: ",self.quiet,"\n"}
+      dbg.print{"short:    ", short,  ", shortTime: ", shortTime,"\n", level=2}
+      dbg.print{"quiet:    ", quiet(),", initial:   ", masterTbl.initial,"\n"}
+      dbg.print{"prtRbMsg: ",prtRbMsg,", quiet:     ",self.quiet,"\n"}
 
-      local cTimer = CTimer:cTimer("Rebuilding cache, please wait ...",
-                                   Threshold, prtRbMsg, masterTbl.timeout)
+      local cTimer = CTimer:singleton("Rebuilding cache, please wait ...",
+                                      Threshold, prtRbMsg, masterTbl.timeout)
 
-      local mcp_old = mcp
-      mcp           = MasterControl.build("spider")
+      local mcp_old  = mcp
+      dbg.print{"Setting mcp to ", mcp:name(),"\n"}
+      mcp                 = MasterControl.build("spider")
 
-      local t1      = epoch()
-      local st, msg = pcall(Spider.findAllModules, spider, dirA, userModuleT)
+      local t1            = epoch()
+      local st, msg       = pcall(Spider.findAllModules, spider, dirA, userSpiderT)
       if (not st) then
          if (msg) then io.stderr:write("Msg: ",msg,'\n') end
          LmodSystemError("Spider searched timed out\n")
       end
-      local t2      = epoch()
+      local t = masterTbl.mpathMapT
+      if (next(t) ~= nil) then
+         for k,v in pairs(t) do
+            mpathMapT[k] = v
+         end
+      end
 
-      mcp           = mcp_old
+      local t2       = epoch()
+      mcp            = mcp_old
       dbg.print{"Setting mcp to ", mcp:name(),"\n"}
 
       dbg.print{"t2-t1: ",t2-t1, " shortTime: ", shortTime, "\n", level=2}
@@ -477,30 +492,32 @@ function M.build(self, fast)
          dbg.print{"mt: ", tostring(mt), "\n", level=2}
          doneMsg = " (not written to file) done"
       else
+         local mrc = MRC:singleton()
          mkdir_recursive(self.usrCacheDir)
          local s0 = "-- Date: " .. os.date("%c",os.time()) .. "\n"
          local s1 = "ancient = " .. tostring(math.floor(ancient)) .."\n"
-         local s2 = malias:export()
-         local s3 = serializeTbl{name="moduleT",      value=userModuleT, indent=true}
-         os.rename(userModuleTFN, userModuleTFN .. "~")
-         local f  = io.open(userModuleTFN,"w")
+         local s2 = mrc:export()
+         local s3 = serializeTbl{name="spiderT",      value=userSpiderT, indent=true}
+         local s4 = serializeTbl{name="mpathMapT",    value=mpathMapT,   indent=true}
+         os.rename(userSpiderTFN, userSpiderTFN .. "~")
+         local f  = io.open(userSpiderTFN,"w")
          if (f) then
-            f:write(s0,s1,s2,s3)
+            f:write(s0,s1,s2,s3,s4)
             f:close()
          end
-         posix.unlink(userModuleTFN .. "~")
-         dbg.print{"Wrote: ",userModuleTFN,"\n"}
+         posix.unlink(userSpiderTFN .. "~")
+         dbg.print{"Wrote: ",userSpiderTFN,"\n"}
          if (LUAC_PATH ~= "") then
             if (LUAC_PATH:sub(1,1) == "@") then
                LUAC_PATH="luac"
             end
             local ext = ".luac_"..LuaV
-            local fn = userModuleTFN:gsub(".lua$",ext)
+            local fn = userSpiderTFN:gsub(".lua$",ext)
             local a  = {}
             a[#a+1]  = LUAC_PATH
             a[#a+1]  = "-o"
             a[#a+1]  = fn
-            a[#a+1]  = userModuleTFN
+            a[#a+1]  = userSpiderTFN
             lmod_system_execute(concatTbl(a," "))
          end
          if (isFile(self.usrCacheInvalidFn)) then
@@ -516,41 +533,40 @@ function M.build(self, fast)
          doneMsg = " (written to file) done."
       end
       cTimer:done(doneMsg)
-      dbg.print{"Transfer from userModuleT to moduleT\n"}
-      for k in Pairs(userModuleT) do
+      dbg.print{"Transfer from userSpiderT to spiderT\n"}
+      for k in Pairs(userSpiderT) do
          dbg.print{"k: ",k,"\n"}
-         moduleT[k] = userModuleT[k]
+         spiderT[k] = userSpiderT[k]
       end
       dbg.print{"Show that these directories have been walked\n"}
       t2 = epoch()
       for i = 1,#dirA do
          local k = dirA[i]
-         moduleDirT[k] = t2
+         spiderDirT[k] = t2
       end
 
    end
 
 
-   -- With a valid moduleT build dbT if necessary:
-   if (next(dbT) == nil or buildModuleT) then
-      spider:buildSpiderDB({"default"}, moduleT, dbT)
+   -- With a valid spiderT build dbT if necessary:
+   if (next(dbT) == nil or buildSpiderT) then
+      spider:buildDbT(mpathMapT, spiderT, dbT)
    end
 
    -- remove user cache file if old
-   if (isFile(userModuleTFN)) then
-      local attr   = lfs.attributes(userModuleTFN)
+   if (isFile(userSpiderTFN)) then
+      local attr   = lfs.attributes(userSpiderTFN)
       local diff   = os.time() - attr.modification
       if (diff > ancient) then
-         posix.unlink(userModuleTFN);
-         dbg.print{"Deleted: ",userModuleTFN,"\n"}
+         posix.unlink(userSpiderTFN);
+         dbg.print{"Deleted: ",userSpiderTFN,"\n"}
       end
    end
    local T2 = epoch()
    timer:deltaT("Cache:build", T2 - T1)
-   mt:clearLocationAvailT()
 
    dbg.fini("Cache:build")
-   return moduleT, dbT
+   return spiderT, dbT, mpathMapT
 end
 
 return M

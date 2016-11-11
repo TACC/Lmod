@@ -8,7 +8,7 @@
 --
 --  ----------------------------------------------------------------------
 --
---  Copyright (C) 2008-2014 Robert McLay
+--  Copyright (C) 2008-2016 Robert McLay
 --
 --  Permission is hereby granted, free of charge, to any person obtaining
 --  a copy of this software and associated documentation files (the
@@ -39,12 +39,13 @@
 
 require("strict")
 
-local Python      = inheritsFrom(BaseShell)
-local dbg         = require("Dbg"):dbg()
-local Var         = require("Var")
-local concatTbl   = table.concat
-local stdout      = io.stdout
-Python.my_name    = "python"
+local BaseShell = require("BaseShell")
+local Python    = inheritsFrom(BaseShell)
+local dbg       = require("Dbg"):dbg()
+local Var       = require("Var")
+local concatTbl = table.concat
+local stdout    = io.stdout
+Python.my_name  = "python"
 
 function Python.alias(self, k, v)
    -- do nothing: alias do not make sense in a python script

@@ -18,13 +18,13 @@ testdescript = {
 
      unsetMT
      initStdEnvVars
-     export MODULEPATH_ROOT=$(projectDir)/mf;
+     export MODULEPATH_ROOT=$(testDir)/mf;
      export LMOD_ADMIN_FILE=$(testDir)/etc/admin.list;
 
      rm -fr _stderr.* _stdout.* err.* out.* .lmod.d
 
      runLmod --version                    # 1
-     runLmod use -a $projectDir/mf/Core   # 2
+     runLmod use -a $testDir/mf/Core      # 2
      runLmod load gcc                     # 3
      runLmod load git/1.7.4.3             # 4
 

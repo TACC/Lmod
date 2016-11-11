@@ -2,13 +2,13 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 6.5.16  2016-10-04 17:13 -05:00
+Modules based on Lua: Version 0.9.2  2016-10-25 13:59 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
-ProjectDIR/mf/Core
+ProjectDIR/rt/noTCL/mf/Core
    PrgEnv                   git/1.7.4            junk/b/c/2.0
    admin/admin-1.0          git/1.7.4.3   (D)    junk/d/3.0
    alex/1.0                 gotoblas/1.20        local/local
@@ -16,7 +16,7 @@ ProjectDIR/mf/Core
    boost/1.47.1             gotoblas/1.30        noweb/2.10c
    boost/1.49.0    (o,D)    intel/intel          parmetis/3.1 (m)
    gcc/4.2.3                junk/a/c/1.0         unix/unix
-ProjectDIR/mf/TACC
+ProjectDIR/rt/noTCL/mf/TACC
    TACC-paths
   Where:
    D:  Default Module

@@ -6,12 +6,6 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 step 2
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load a b c
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/dups/mf";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/dups/mf";
-export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/dups/mf";
-export LMOD_DEFAULT_MODULEPATH;
 LOADEDMODULES="a/1.0:b/1.0:c/1.0";
 export LOADEDMODULES;
 MODULEPATH="ProjectDIR/rt/dups/mf";
@@ -20,18 +14,12 @@ RTM_PATH="A:B:C:A:B:A";
 export RTM_PATH;
 _LMFILES_="ProjectDIR/rt/dups/mf/a/1.0.lua:ProjectDIR/rt/dups/mf/b/1.0.lua:ProjectDIR/rt/dups/mf/c/1.0.lua";
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/dups/mf",},family={},inactive={},mT={a={["FN"]="ProjectDIR/rt/dups/mf/a/1.0.lua",["default"]=1,["fullName"]="a/1.0",["loadOrder"]=1,propT={},["short"]="a",["status"]="active",},b={["FN"]="ProjectDIR/rt/dups/mf/b/1.0.lua",["default"]=1,["fullName"]="b/1.0",["loadOrder"]=2,propT={},["short"]="b",["status"]="active",},c={["FN"]="ProjectDIR/rt/dups/mf/c/1.0.lua",["default"]=1,["fullName"]="c/1.0",["loadOrder"]=3,propT={},["short"]="c",["status"]="active",},},mpathA={"ProjectDIR/rt/dups/mf",},["systemBaseMPATH"]="ProjectDIR/rt/dups/mf",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={a={["fn"]="ProjectDIR/rt/dups/mf/a/1.0.lua",["fullName"]="a/1.0",["loadOrder"]=1,propT={},["status"]="active",["userName"]="a",},b={["fn"]="ProjectDIR/rt/dups/mf/b/1.0.lua",["fullName"]="b/1.0",["loadOrder"]=2,propT={},["status"]="active",["userName"]="b",},c={["fn"]="ProjectDIR/rt/dups/mf/c/1.0.lua",["fullName"]="c/1.0",["loadOrder"]=3,propT={},["status"]="active",["userName"]="c",},},mpathA={"ProjectDIR/rt/dups/mf",},["systemBaseMPATH"]="ProjectDIR/rt/dups/mf",}';
 export _ModuleTable_;
 ===========================
 step 3
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load d
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/dups/mf";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/dups/mf";
-export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/dups/mf";
-export LMOD_DEFAULT_MODULEPATH;
 LOADEDMODULES="a/1.0:b/1.0:c/1.0:d/1.0";
 export LOADEDMODULES;
 MODULEPATH="ProjectDIR/rt/dups/mf";
@@ -40,18 +28,12 @@ RTM_PATH="A:B:C:A:B:A:A";
 export RTM_PATH;
 _LMFILES_="ProjectDIR/rt/dups/mf/a/1.0.lua:ProjectDIR/rt/dups/mf/b/1.0.lua:ProjectDIR/rt/dups/mf/c/1.0.lua:ProjectDIR/rt/dups/mf/d/1.0.lua";
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=4,baseMpathA={"ProjectDIR/rt/dups/mf",},family={},inactive={},mT={a={["FN"]="ProjectDIR/rt/dups/mf/a/1.0.lua",["default"]=1,["fullName"]="a/1.0",["loadOrder"]=1,propT={},["short"]="a",["status"]="active",},b={["FN"]="ProjectDIR/rt/dups/mf/b/1.0.lua",["default"]=1,["fullName"]="b/1.0",["loadOrder"]=2,propT={},["short"]="b",["status"]="active",},c={["FN"]="ProjectDIR/rt/dups/mf/c/1.0.lua",["default"]=1,["fullName"]="c/1.0",["loadOrder"]=3,propT={},["short"]="c",["status"]="active",},d={["FN"]="ProjectDIR/rt/dups/mf/d/1.0.lua",["default"]=1,["fullName"]="d/1.0",["loadOrder"]=4,propT={},["short"]="d",["status"]="active",},},mpathA={"ProjectDIR/rt/dups/mf",},["systemBaseMPATH"]="ProjectDIR/rt/dups/mf",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={a={["fn"]="ProjectDIR/rt/dups/mf/a/1.0.lua",["fullName"]="a/1.0",["loadOrder"]=1,propT={},["status"]="active",["userName"]="a",},b={["fn"]="ProjectDIR/rt/dups/mf/b/1.0.lua",["fullName"]="b/1.0",["loadOrder"]=2,propT={},["status"]="active",["userName"]="b",},c={["fn"]="ProjectDIR/rt/dups/mf/c/1.0.lua",["fullName"]="c/1.0",["loadOrder"]=3,propT={},["status"]="active",["userName"]="c",},d={["fn"]="ProjectDIR/rt/dups/mf/d/1.0.lua",["fullName"]="d/1.0",["loadOrder"]=4,propT={},["status"]="active",["userName"]="d",},},mpathA={"ProjectDIR/rt/dups/mf",},["systemBaseMPATH"]="ProjectDIR/rt/dups/mf",}';
 export _ModuleTable_;
 ===========================
 step 4
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload a
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/dups/mf";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/dups/mf";
-export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/dups/mf";
-export LMOD_DEFAULT_MODULEPATH;
 LOADEDMODULES="b/1.0:c/1.0:d/1.0";
 export LOADEDMODULES;
 MODULEPATH="ProjectDIR/rt/dups/mf";
@@ -60,18 +42,12 @@ RTM_PATH="B:C:A:B:A:A";
 export RTM_PATH;
 _LMFILES_="ProjectDIR/rt/dups/mf/b/1.0.lua:ProjectDIR/rt/dups/mf/c/1.0.lua:ProjectDIR/rt/dups/mf/d/1.0.lua";
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/dups/mf",},family={},inactive={},mT={b={["FN"]="ProjectDIR/rt/dups/mf/b/1.0.lua",["default"]=1,["fullName"]="b/1.0",["loadOrder"]=1,propT={},["short"]="b",["status"]="active",},c={["FN"]="ProjectDIR/rt/dups/mf/c/1.0.lua",["default"]=1,["fullName"]="c/1.0",["loadOrder"]=2,propT={},["short"]="c",["status"]="active",},d={["FN"]="ProjectDIR/rt/dups/mf/d/1.0.lua",["default"]=1,["fullName"]="d/1.0",["loadOrder"]=3,propT={},["short"]="d",["status"]="active",},},mpathA={"ProjectDIR/rt/dups/mf",},["systemBaseMPATH"]="ProjectDIR/rt/dups/mf",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={b={["fn"]="ProjectDIR/rt/dups/mf/b/1.0.lua",["fullName"]="b/1.0",["loadOrder"]=1,propT={},["status"]="active",["userName"]="b",},c={["fn"]="ProjectDIR/rt/dups/mf/c/1.0.lua",["fullName"]="c/1.0",["loadOrder"]=2,propT={},["status"]="active",["userName"]="c",},d={["fn"]="ProjectDIR/rt/dups/mf/d/1.0.lua",["fullName"]="d/1.0",["loadOrder"]=3,propT={},["status"]="active",["userName"]="d",},},mpathA={"ProjectDIR/rt/dups/mf",},["systemBaseMPATH"]="ProjectDIR/rt/dups/mf",}';
 export _ModuleTable_;
 ===========================
 step 5
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload b
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/dups/mf";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/dups/mf";
-export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/dups/mf";
-export LMOD_DEFAULT_MODULEPATH;
 LOADEDMODULES="c/1.0:d/1.0";
 export LOADEDMODULES;
 MODULEPATH="ProjectDIR/rt/dups/mf";
@@ -80,18 +56,12 @@ RTM_PATH="C:B:A:A";
 export RTM_PATH;
 _LMFILES_="ProjectDIR/rt/dups/mf/c/1.0.lua:ProjectDIR/rt/dups/mf/d/1.0.lua";
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/dups/mf",},family={},inactive={},mT={c={["FN"]="ProjectDIR/rt/dups/mf/c/1.0.lua",["default"]=1,["fullName"]="c/1.0",["loadOrder"]=1,propT={},["short"]="c",["status"]="active",},d={["FN"]="ProjectDIR/rt/dups/mf/d/1.0.lua",["default"]=1,["fullName"]="d/1.0",["loadOrder"]=2,propT={},["short"]="d",["status"]="active",},},mpathA={"ProjectDIR/rt/dups/mf",},["systemBaseMPATH"]="ProjectDIR/rt/dups/mf",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={c={["fn"]="ProjectDIR/rt/dups/mf/c/1.0.lua",["fullName"]="c/1.0",["loadOrder"]=1,propT={},["status"]="active",["userName"]="c",},d={["fn"]="ProjectDIR/rt/dups/mf/d/1.0.lua",["fullName"]="d/1.0",["loadOrder"]=2,propT={},["status"]="active",["userName"]="d",},},mpathA={"ProjectDIR/rt/dups/mf",},["systemBaseMPATH"]="ProjectDIR/rt/dups/mf",}';
 export _ModuleTable_;
 ===========================
 step 6
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload c
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/dups/mf";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/dups/mf";
-export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/dups/mf";
-export LMOD_DEFAULT_MODULEPATH;
 LOADEDMODULES="d/1.0";
 export LOADEDMODULES;
 MODULEPATH="ProjectDIR/rt/dups/mf";
@@ -100,35 +70,23 @@ RTM_PATH="A";
 export RTM_PATH;
 _LMFILES_="ProjectDIR/rt/dups/mf/d/1.0.lua";
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/dups/mf",},family={},inactive={},mT={d={["FN"]="ProjectDIR/rt/dups/mf/d/1.0.lua",["default"]=1,["fullName"]="d/1.0",["loadOrder"]=1,propT={},["short"]="d",["status"]="active",},},mpathA={"ProjectDIR/rt/dups/mf",},["systemBaseMPATH"]="ProjectDIR/rt/dups/mf",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={d={["fn"]="ProjectDIR/rt/dups/mf/d/1.0.lua",["fullName"]="d/1.0",["loadOrder"]=1,propT={},["status"]="active",["userName"]="d",},},mpathA={"ProjectDIR/rt/dups/mf",},["systemBaseMPATH"]="ProjectDIR/rt/dups/mf",}';
 export _ModuleTable_;
 ===========================
 step 7
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload d
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/dups/mf";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/dups/mf";
-export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/dups/mf";
-export LMOD_DEFAULT_MODULEPATH;
 unset LOADEDMODULES;
 MODULEPATH="ProjectDIR/rt/dups/mf";
 export MODULEPATH;
 unset RTM_PATH;
 unset _LMFILES_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/dups/mf",},family={},inactive={},mT={},mpathA={"ProjectDIR/rt/dups/mf",},["systemBaseMPATH"]="ProjectDIR/rt/dups/mf",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/dups/mf",},["systemBaseMPATH"]="ProjectDIR/rt/dups/mf",}';
 export _ModuleTable_;
 ===========================
 step 8
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load a b c
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/dups/mf";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/dups/mf";
-export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/dups/mf";
-export LMOD_DEFAULT_MODULEPATH;
 LOADEDMODULES="a/1.0:b/1.0:c/1.0";
 export LOADEDMODULES;
 MODULEPATH="ProjectDIR/rt/dups/mf";
@@ -137,18 +95,12 @@ RTM_PATH="A:B:C";
 export RTM_PATH;
 _LMFILES_="ProjectDIR/rt/dups/mf/a/1.0.lua:ProjectDIR/rt/dups/mf/b/1.0.lua:ProjectDIR/rt/dups/mf/c/1.0.lua";
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/dups/mf",},family={},inactive={},mT={a={["FN"]="ProjectDIR/rt/dups/mf/a/1.0.lua",["default"]=1,["fullName"]="a/1.0",["loadOrder"]=1,propT={},["short"]="a",["status"]="active",},b={["FN"]="ProjectDIR/rt/dups/mf/b/1.0.lua",["default"]=1,["fullName"]="b/1.0",["loadOrder"]=2,propT={},["short"]="b",["status"]="active",},c={["FN"]="ProjectDIR/rt/dups/mf/c/1.0.lua",["default"]=1,["fullName"]="c/1.0",["loadOrder"]=3,propT={},["short"]="c",["status"]="active",},},mpathA={"ProjectDIR/rt/dups/mf",},["systemBaseMPATH"]="ProjectDIR/rt/dups/mf",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={a={["fn"]="ProjectDIR/rt/dups/mf/a/1.0.lua",["fullName"]="a/1.0",["loadOrder"]=1,propT={},["status"]="active",["userName"]="a",},b={["fn"]="ProjectDIR/rt/dups/mf/b/1.0.lua",["fullName"]="b/1.0",["loadOrder"]=2,propT={},["status"]="active",["userName"]="b",},c={["fn"]="ProjectDIR/rt/dups/mf/c/1.0.lua",["fullName"]="c/1.0",["loadOrder"]=3,propT={},["status"]="active",["userName"]="c",},},mpathA={"ProjectDIR/rt/dups/mf",},["systemBaseMPATH"]="ProjectDIR/rt/dups/mf",}';
 export _ModuleTable_;
 ===========================
 step 9
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load d
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/dups/mf";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/dups/mf";
-export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/dups/mf";
-export LMOD_DEFAULT_MODULEPATH;
 LOADEDMODULES="a/1.0:b/1.0:c/1.0:d/1.0";
 export LOADEDMODULES;
 MODULEPATH="ProjectDIR/rt/dups/mf";
@@ -157,18 +109,12 @@ RTM_PATH="B:C:A";
 export RTM_PATH;
 _LMFILES_="ProjectDIR/rt/dups/mf/a/1.0.lua:ProjectDIR/rt/dups/mf/b/1.0.lua:ProjectDIR/rt/dups/mf/c/1.0.lua:ProjectDIR/rt/dups/mf/d/1.0.lua";
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=4,baseMpathA={"ProjectDIR/rt/dups/mf",},family={},inactive={},mT={a={["FN"]="ProjectDIR/rt/dups/mf/a/1.0.lua",["default"]=1,["fullName"]="a/1.0",["loadOrder"]=1,propT={},["short"]="a",["status"]="active",},b={["FN"]="ProjectDIR/rt/dups/mf/b/1.0.lua",["default"]=1,["fullName"]="b/1.0",["loadOrder"]=2,propT={},["short"]="b",["status"]="active",},c={["FN"]="ProjectDIR/rt/dups/mf/c/1.0.lua",["default"]=1,["fullName"]="c/1.0",["loadOrder"]=3,propT={},["short"]="c",["status"]="active",},d={["FN"]="ProjectDIR/rt/dups/mf/d/1.0.lua",["default"]=1,["fullName"]="d/1.0",["loadOrder"]=4,propT={},["short"]="d",["status"]="active",},},mpathA={"ProjectDIR/rt/dups/mf",},["systemBaseMPATH"]="ProjectDIR/rt/dups/mf",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={a={["fn"]="ProjectDIR/rt/dups/mf/a/1.0.lua",["fullName"]="a/1.0",["loadOrder"]=1,propT={},["status"]="active",["userName"]="a",},b={["fn"]="ProjectDIR/rt/dups/mf/b/1.0.lua",["fullName"]="b/1.0",["loadOrder"]=2,propT={},["status"]="active",["userName"]="b",},c={["fn"]="ProjectDIR/rt/dups/mf/c/1.0.lua",["fullName"]="c/1.0",["loadOrder"]=3,propT={},["status"]="active",["userName"]="c",},d={["fn"]="ProjectDIR/rt/dups/mf/d/1.0.lua",["fullName"]="d/1.0",["loadOrder"]=4,propT={},["status"]="active",["userName"]="d",},},mpathA={"ProjectDIR/rt/dups/mf",},["systemBaseMPATH"]="ProjectDIR/rt/dups/mf",}';
 export _ModuleTable_;
 ===========================
 step 10
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload a
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/dups/mf";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/dups/mf";
-export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/dups/mf";
-export LMOD_DEFAULT_MODULEPATH;
 LOADEDMODULES="b/1.0:c/1.0:d/1.0";
 export LOADEDMODULES;
 MODULEPATH="ProjectDIR/rt/dups/mf";
@@ -177,18 +123,12 @@ RTM_PATH="B:C";
 export RTM_PATH;
 _LMFILES_="ProjectDIR/rt/dups/mf/b/1.0.lua:ProjectDIR/rt/dups/mf/c/1.0.lua:ProjectDIR/rt/dups/mf/d/1.0.lua";
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=3,baseMpathA={"ProjectDIR/rt/dups/mf",},family={},inactive={},mT={b={["FN"]="ProjectDIR/rt/dups/mf/b/1.0.lua",["default"]=1,["fullName"]="b/1.0",["loadOrder"]=1,propT={},["short"]="b",["status"]="active",},c={["FN"]="ProjectDIR/rt/dups/mf/c/1.0.lua",["default"]=1,["fullName"]="c/1.0",["loadOrder"]=2,propT={},["short"]="c",["status"]="active",},d={["FN"]="ProjectDIR/rt/dups/mf/d/1.0.lua",["default"]=1,["fullName"]="d/1.0",["loadOrder"]=3,propT={},["short"]="d",["status"]="active",},},mpathA={"ProjectDIR/rt/dups/mf",},["systemBaseMPATH"]="ProjectDIR/rt/dups/mf",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={b={["fn"]="ProjectDIR/rt/dups/mf/b/1.0.lua",["fullName"]="b/1.0",["loadOrder"]=1,propT={},["status"]="active",["userName"]="b",},c={["fn"]="ProjectDIR/rt/dups/mf/c/1.0.lua",["fullName"]="c/1.0",["loadOrder"]=2,propT={},["status"]="active",["userName"]="c",},d={["fn"]="ProjectDIR/rt/dups/mf/d/1.0.lua",["fullName"]="d/1.0",["loadOrder"]=3,propT={},["status"]="active",["userName"]="d",},},mpathA={"ProjectDIR/rt/dups/mf",},["systemBaseMPATH"]="ProjectDIR/rt/dups/mf",}';
 export _ModuleTable_;
 ===========================
 step 11
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload b
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/dups/mf";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/dups/mf";
-export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/dups/mf";
-export LMOD_DEFAULT_MODULEPATH;
 LOADEDMODULES="c/1.0:d/1.0";
 export LOADEDMODULES;
 MODULEPATH="ProjectDIR/rt/dups/mf";
@@ -197,18 +137,12 @@ RTM_PATH="C";
 export RTM_PATH;
 _LMFILES_="ProjectDIR/rt/dups/mf/c/1.0.lua:ProjectDIR/rt/dups/mf/d/1.0.lua";
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"ProjectDIR/rt/dups/mf",},family={},inactive={},mT={c={["FN"]="ProjectDIR/rt/dups/mf/c/1.0.lua",["default"]=1,["fullName"]="c/1.0",["loadOrder"]=1,propT={},["short"]="c",["status"]="active",},d={["FN"]="ProjectDIR/rt/dups/mf/d/1.0.lua",["default"]=1,["fullName"]="d/1.0",["loadOrder"]=2,propT={},["short"]="d",["status"]="active",},},mpathA={"ProjectDIR/rt/dups/mf",},["systemBaseMPATH"]="ProjectDIR/rt/dups/mf",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={c={["fn"]="ProjectDIR/rt/dups/mf/c/1.0.lua",["fullName"]="c/1.0",["loadOrder"]=1,propT={},["status"]="active",["userName"]="c",},d={["fn"]="ProjectDIR/rt/dups/mf/d/1.0.lua",["fullName"]="d/1.0",["loadOrder"]=2,propT={},["status"]="active",["userName"]="d",},},mpathA={"ProjectDIR/rt/dups/mf",},["systemBaseMPATH"]="ProjectDIR/rt/dups/mf",}';
 export _ModuleTable_;
 ===========================
 step 12
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload c
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/dups/mf";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/dups/mf";
-export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/dups/mf";
-export LMOD_DEFAULT_MODULEPATH;
 LOADEDMODULES="d/1.0";
 export LOADEDMODULES;
 MODULEPATH="ProjectDIR/rt/dups/mf";
@@ -216,22 +150,16 @@ export MODULEPATH;
 unset RTM_PATH;
 _LMFILES_="ProjectDIR/rt/dups/mf/d/1.0.lua";
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/dups/mf",},family={},inactive={},mT={d={["FN"]="ProjectDIR/rt/dups/mf/d/1.0.lua",["default"]=1,["fullName"]="d/1.0",["loadOrder"]=1,propT={},["short"]="d",["status"]="active",},},mpathA={"ProjectDIR/rt/dups/mf",},["systemBaseMPATH"]="ProjectDIR/rt/dups/mf",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={d={["fn"]="ProjectDIR/rt/dups/mf/d/1.0.lua",["fullName"]="d/1.0",["loadOrder"]=1,propT={},["status"]="active",["userName"]="d",},},mpathA={"ProjectDIR/rt/dups/mf",},["systemBaseMPATH"]="ProjectDIR/rt/dups/mf",}';
 export _ModuleTable_;
 ===========================
 step 13
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload d
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/dups/mf";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/dups/mf";
-export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/dups/mf";
-export LMOD_DEFAULT_MODULEPATH;
 unset LOADEDMODULES;
 MODULEPATH="ProjectDIR/rt/dups/mf";
 export MODULEPATH;
 unset RTM_PATH;
 unset _LMFILES_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/dups/mf",},family={},inactive={},mT={},mpathA={"ProjectDIR/rt/dups/mf",},["systemBaseMPATH"]="ProjectDIR/rt/dups/mf",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/dups/mf",},["systemBaseMPATH"]="ProjectDIR/rt/dups/mf",}';
 export _ModuleTable_;

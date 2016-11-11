@@ -1,6 +1,6 @@
 local modname = "gcc"
 local version = "4.6"
-local modules_top_dir = "/opt/apps/ossw"
+local modules_top_dir = "/unknown/apps/ossw"
 family("compiler")
 
 

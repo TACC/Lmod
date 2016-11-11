@@ -5,26 +5,26 @@ This module loads the intel compiler path and environment variables
 
 To get started using Intel(R) VTune(TM) Amplifier XE 2013 Update 4:
     - To set your environment variables: source
-/opt/apps/intel/13.1/vtune_amplifier_xe_2013/amplxe-vars.sh
+/unknown/apps/intel/13.1/vtune_amplifier_xe_2013/amplxe-vars.sh
     - To start the graphical user interface: amplxe-gui
     - To use the command-line interface: amplxe-cl
     - For more getting started resources:
-/opt/apps/intel/13.1/vtune_amplifier_xe_2013/
+/unknown/apps/intel/13.1/vtune_amplifier_xe_2013/
       documentation/en/welcomepage/get_started.html.
 To get started using Intel(R) Inspector XE 2013 Update 4:
     - To set your environment variables: source
-/opt/apps/intel/13.1/inspector_xe_2013/inspxe-vars.sh
+/unknown/apps/intel/13.1/inspector_xe_2013/inspxe-vars.sh
     - To start the graphical user interface: inspxe-gui
     - To use the command-line interface: inspxe-cl
     - For more getting started resources:
-/opt/apps/intel/13.1/inspector_xe_2013/
+/unknown/apps/intel/13.1/inspector_xe_2013/
       documentation/en/welcomepage/get_started.html.
 To get started using Intel(R) Advisor XE 2013 Update 2:
     - To set your environment variables: source
-/opt/apps/intel/13.1/advisor_xe_2013/advixe-vars.sh
+/unknown/apps/intel/13.1/advisor_xe_2013/advixe-vars.sh
     - To start the graphical user interface: advixe-gui
     - To use the command-line interface: advixe-cl
-    - For more getting started resources: /opt/apps/intel/13.1/advisor_xe_2013/
+    - For more getting started resources: /unknown/apps/intel/13.1/advisor_xe_2013/
       documentation/en/welcomepage/get_started.html.
 
       To get help, append the -help option or precede with the man command.
@@ -55,7 +55,7 @@ local binT         = { i686 = "bin32", x86_64 = "bin64"  }
 local binSz        = binT[LMODarch]
 
 local mdir         = pathJoin("Compiler", pkgNameVer)
-local base         = pathJoin("/opt/apps",pkgNameFullV)
+local base         = pathJoin("/unknown/apps",pkgNameFullV)
 local archInclude  = linuxT[LMODarch] .. "-linux-gnu"
 local arch         = tbl[LMODarch]
 local installDir   = pathJoin(base,full_xe)

@@ -17,8 +17,9 @@ testdescript = {
 
      unsetMT
      initStdEnvVars
-     MODULEPATH=$(testDir)/mf/Core;     export MODULEPATH
      MODULEPATH_ROOT=$(testDir)/mf;     export MODULEPATH_ROOT
+     MODULEPATH=$MODULEPATH_ROOT/Core;  export MODULEPATH
+
      RTM_SETTARG_CMD=":";               export RTM_SETTARG_CMD
 
      rm -fr _stderr.* _stdout.* err.* out.* .lmod.d

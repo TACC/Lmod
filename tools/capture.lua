@@ -6,7 +6,7 @@ require("strict")
 
 ------------------------------------------------------------------------
 --
---  Copyright (C) 2008-2014 Robert McLay
+--  Copyright (C) 2008-2016 Robert McLay
 --
 --  Permission is hereby granted, free of charge, to any person obtaining
 --  a copy of this software and associated documentation files (the
@@ -31,8 +31,8 @@ require("strict")
 --------------------------------------------------------------------------
 
 
-_G._DEBUG          = false                       -- Required by luaposix 33
 local dbg          = require("Dbg"):dbg()
+_G._DEBUG          = false                       -- Required by luaposix 33
 local posix        = require("posix")
 local getenv       = os.getenv
 local setenv_posix = posix.setenv
@@ -54,11 +54,8 @@ function capture(cmd, envT)
    envT["LD_PRELOAD"]      = LMOD_LD_PRELOAD      or ""
 
 
-
    for k, v in pairs(envT) do
-      dbg.print{"envT[",k,"]=",v,"\n"}
       newT[k] = getenv(k)
-      dbg.print{"newT[",k,"]=",newT[k],"\n"}
       setenv_posix(k, v, true)
    end
 
@@ -96,7 +93,7 @@ function capture(cmd, envT)
       dbg.print{out}
       dbg.fini("capture output")
    end
-   dbg.print{"status: ",status,", type(status): ",type(status),"\n"}
+   --dbg.print{"status: ",status,", type(status): ",type(status),"\n"}
    dbg.fini("capture")
    return out, status
 end

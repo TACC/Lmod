@@ -15,7 +15,7 @@
 --
 --  ----------------------------------------------------------------------
 --
---  Copyright (C) 2008-2014 Robert McLay
+--  Copyright (C) 2008-2016 Robert McLay
 --
 --  Permission is hereby granted, free of charge, to any person obtaining
 --  a copy of this software and associated documentation files (the
@@ -78,7 +78,7 @@ require("strict")
 require("fileOps")
 
 local concatTbl    = table.concat
-local format       = string.format
+local strfmt       = string.format
 local getenv       = os.getenv
 local huge         = math.huge
 
@@ -148,15 +148,12 @@ function main()
    end
 
    for k = 1, huge do
-      local name = format("_ModuleTable%03d_",k)
+      local name = strfmt("_ModuleTable%03d_",k)
       local v = getenv(name)
       if (v == nil) then break end
       setenv(name,"")
    end
-   local mpath = getenv("LMOD_DEFAULT_MODULEPATH") or ""
-   setenv("MODULEPATH",              mpath)
-   setenv("_ModuleTable_Sz_",        "")
-   setenv("LMOD_DEFAULT_MODULEPATH", "")
+   setenv("_ModuleTable_Sz_", "")
 end
 
 main()

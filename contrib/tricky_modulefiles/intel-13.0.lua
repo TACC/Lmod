@@ -22,7 +22,7 @@ local linuxT       = { i686 = "i386",  x86_64 = "x86_64"  }
 local binT         = { i686 = "bin32", x86_64 = "bin64"  }
 local binSz        = binT[LMODarch]
 local mdir         = pathJoin("Compiler/intel",version)
-local base         = pathJoin("/opt/apps/intel",version)
+local base         = pathJoin("/unknown/apps/intel",version)
 local archInclude  = linuxT[LMODarch] .. "-linux-gnu"
 local arch         = tbl[LMODarch]
 local installDir   = pathJoin(base,full_xe)

@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 6.5.16  2016-10-04 17:13 -05:00
+Modules based on Lua: Version 0.9.2  2016-10-25 13:59 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -46,7 +46,7 @@ Use "module keyword key1 key2 ..." to search for all possible modules matching a
 step 6
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing -s grouped avail
 ===========================
-Your compiler dependent modules
+Complr Dep.
    mpi/mvapich2/1.9    mpi/openmpi/1.6.5 (L,D)    mpi/openmpi/1.8.1
 Core Modules
    StdEnv                   (S,L)    apps/moab            (S,L)    foo/1.1 (D)
@@ -62,7 +62,7 @@ Use "module keyword key1 key2 ..." to search for all possible modules matching a
 step 7
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
-Your compiler dependent modules
+Complr Dep.
    mpi/mvapich2/1.9    mpi/openmpi/1.6.5 (L,D)    mpi/openmpi/1.8.1
 Core Modules
    StdEnv                   (S,L)    apps/moab            (S,L)    foo/1.1 (D)

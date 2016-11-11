@@ -15,7 +15,7 @@
 --
 --  ----------------------------------------------------------------------
 --
---  Copyright (C) 2008-2014 Robert McLay
+--  Copyright (C) 2008-2016 Robert McLay
 --
 --  Permission is hereby granted, free of charge, to any person obtaining
 --  a copy of this software and associated documentation files (the
@@ -38,10 +38,6 @@
 --  THE SOFTWARE.
 --
 --------------------------------------------------------------------------
-
-BaseShell       = {}
-banner          = false
-
 
 ------------------------------------------------------------------------
 -- Use command name to add the command directory to the package.path
@@ -72,6 +68,7 @@ while (st.type == "link") do
 end
 
 local ia,ja = arg_0:find(".*/")
+local LuaCommandName     = false
 local LuaCommandName_dir = "./"
 if (ia) then
    LuaCommandName_dir = arg_0:sub(1,ja)
@@ -86,7 +83,6 @@ package.path  = LuaCommandName_dir .. "?.lua;"       ..
 package.cpath = LuaCommandName_dir .. "../lib/?.so;"..
                 sys_lua_cpath
 
-
 require("strict")
 
 --------------------------------------------------------------------------
@@ -95,105 +91,41 @@ function cmdDir()
    return LuaCommandName_dir
 end
 
-require("myGlobals")
-
-local term     = false
-if (pcall(require, "term")) then
-   term = require("term")
-end
-
-
 --------------------------------------------------------------------------
 -- Return this program's name.
 function cmdName()
    return LuaCommandName
 end
 
-local getenv = os.getenv
-local rep    = string.rep
-
-local BuildFactory = require("BuildFactory")
-BuildFactory:master()
+require("myGlobals")
+require("TermWidth")
+require("fileOps")
+require("colorize")
+require("pager")
+require("string_utils")
+require("cmdfuncs")
 require("utils")
 
-require("pager")
-require("fileOps")
-MasterControl = require("MasterControl")
-require("modfuncs")
-require("cmdfuncs")
-require("colorize")
+MasterControl       = require("MasterControl")
 
+local Banner        = require("Banner")
+local BaseShell     = require("BaseShell")
+local BeautifulTbl  = require("BeautifulTbl")
+local Exec          = require("Exec")
+local FrameStk      = require("FrameStk")
 
-Cache         = require("Cache")
-Master        = require("Master")
-MName         = require("MName")
-MT            = require("MT")
-Exec          = require("Exec")
+local Options       = require("Options")
+local Var           = require("Var")
+local Version       = require("Version")
+local concatTbl     = table.concat
+local dbg           = require("Dbg"):dbg()
+local hook          = require("Hook")
+local getenv        = os.getenv
+local max           = math.max
+local timer         = require("Timer"):singleton()
+local unpack        = (_VERSION == "Lua 5.1") and unpack or table.unpack
 
-local BeautifulTbl = require('BeautifulTbl')
-local ReadLmodRC   = require('ReadLmodRC')
-local dbg          = require("Dbg"):dbg()
-local Banner       = require("Banner")
-local Version      = require("Version")
-local concatTbl    = table.concat
-local max          = math.max
-local unpack       = (_VERSION == "Lua 5.1") and unpack or table.unpack
-local timer        = require("Timer"):timer()
-local hook         = require("Hook")
-
---------------------------------------------------------------------------
--- Use the *propT* table to colorize the module name when requested by
--- *propT*.
--- @param style How to colorize
--- @param moduleName The module name
--- @param propT The property table
--- @param legendT The legend table.  A key-value pairing of keys to descriptions.
--- @return An array of colorized strings
-function colorizePropA(style, moduleName, propT, legendT)
-   local resultA      = { moduleName }
-   local readLmodRC   = ReadLmodRC:singleton()
-   local propDisplayT = readLmodRC:propT()
-   local iprop        = 0
-   local pA           = {}
-   propT              = propT or {}
-
-   for kk,vv in pairsByKeys(propDisplayT) do
-      iprop        = iprop + 1
-      local propA  = {}
-      local t      = propT[kk]
-      local result = ""
-      local color  = nil
-      if (type(t) == "table") then
-         for k in pairs(t) do
-            propA[#propA+1] = k
-         end
-
-         table.sort(propA);
-         local n = concatTbl(propA,":")
-         if (vv.displayT[n]) then
-            result     = vv.displayT[n][style]
-            if (result:sub( 1, 1) == "(" and result:sub(-1,-1) == ")") then
-               result  = result:sub(2,-2)
-            end
-            color      = vv.displayT[n].color
-            local k    = colorize(color,result)
-            legendT[k] = vv.displayT[n].doc
-         end
-      end
-      local s             = colorize(color,result)
-      if (result:len() > 0) then
-         pA[#pA+1] = s
-      end
-   end
-   if (#pA > 0) then
-      resultA[#resultA+1] = concatTbl(pA,",")
-   end
-   return resultA
-end
-
-
-
-s_Usage = false
+local s_Usage       = false
 --------------------------------------------------------------------------
 -- Build the lmod usage message and store in *s_Usage*.
 function Usage()
@@ -202,6 +134,7 @@ function Usage()
    end
    local website = colorize("red","http://lmod.readthedocs.org/")
    local webBR   = colorize("red","http://lmod.readthedocs.io/en/latest/075_bug_reporting.html")
+   local banner  = Banner:singleton()
    local line    = banner:border(2)
    local a = {}
    a[#a+1] = { "module [options] sub-command [args ...]" }
@@ -293,11 +226,6 @@ function Usage()
    return s_Usage
 end
 
-
-
-CmdLineUsage = "Usage: module [options] sub-command [args ...]"
-
-
 --------------------------------------------------------------------------
 -- Build the version string.
 function version()
@@ -307,50 +235,13 @@ function version()
    return concatTbl(v,"")
 end
 
-require("serializeTbl")
-require("string_utils")
-
-BaseShell          = require("BaseShell")
-local Options      = require("Options")
-local Spider       = require("Spider")
-local Var          = require("Var")
-
---------------------------------------------------------------------------
--- A place holder function.  This should never be called.
-function None()
-   print ("None")
-end
-
-
---------------------------------------------------------------------------
--- Register local variables into the *varTbl* table.
--- @param localvarA
-local function localvar(localvarA)
-   for _, v in ipairs(localvarA) do
-      local i = v:find("=")
-      if (i) then
-         local k  = v:sub(1,i-1)
-         if (varTbl[k] == nil) then
-            varTbl[k] = Var:new(k)
-         end
-         local vv = v:sub(i+1)
-         dbg.print{"setLocal(\"",k,"\", \"",vv,"\")\n"}
-         varTbl[k]:setLocal(vv)
-      end
-   end
-end
-
-
-
-prtHdr     = None
-ModuleName = ""
-ModuleFn   = ""
-if (prtHdr ~= None) then
-   prtHdr()
-end
 --------------------------------------------------------------------------
 -- The main function of Lmod.  The lmod program always starts here.
 function main()
+   if (LMOD_RTM_TESTING) then
+      os.exit(0)
+   end
+
    local epoch        = epoch
    local t1           = epoch()
 
@@ -362,7 +253,6 @@ function main()
    local loadTbl      = { name = "load",        checkMPATH = true,  cmd = Load_Usr      }
    local mcTbl        = { name = "describe",    checkMPATH = false, cmd = CollectionLst }
    local purgeTbl     = { name = "purge",       checkMPATH = true,  cmd = Purge         }
-   local recordTbl    = { name = "record",      checkMPATH = false, cmd = RecordCmd     }
    local refreshTbl   = { name = "refresh",     checkMPATH = false, cmd = Refresh       }
    local resetTbl     = { name = "reset",       checkMPATH = true,  cmd = Reset         }
    local restoreTbl   = { name = "restore",     checkMPATH = false, cmd = Restore       }
@@ -398,7 +288,6 @@ function main()
       {'^l'       , listTbl       },
       {'^mc'      , mcTbl         },
       {'^pu'      , purgeTbl      },
-      {'^rec'     , recordTbl     },
       {'^refr'    , refreshTbl    },
       {'^rel'     , updateTbl     },
       {'^rem'     , unloadTbl     },
@@ -421,32 +310,24 @@ function main()
       {'^up'      , updateTbl     },
       {'^use$'    , useTbl        },
       {'^w'       , whatisTbl     },
-   }
+   }  
 
    MCP = MasterControl.build("load")
    mcp = MasterControl.build("load")
-
-
-   ------------------------------------------------------------
-   -- Chose parseVersion:
-   parseVersion = buildParseVersion()
-
-
    dbg.set_prefix(colorize("red","Lmod"))
 
-   local shell = barefilename(arg[1])
-   if (BaseShell.isValid(shell)) then
+   local shellNm = barefilename(arg[1])
+   if (BaseShell.isValid(shellNm)) then
       table.remove(arg,1)
    else
-      shell = "bash"
+      shellNm = "bash"
    end
 
-
-   local arg_str   = concatTbl(arg," ")
    local masterTbl = masterTbl()
 
-   setenv_lmod_version()  -- Push Lmod version into environment
-
+   -- Push Lmod version into environment
+   setenv_lmod_version()
+   
    ------------------------------------------------------------------------
    --  The StandardPackage is where Lmod registers hooks.  Sites may
    --  override the hook functions in SitePackage.
@@ -469,34 +350,30 @@ function main()
                       package.cpath
    end
 
-
-   dbg.print{"lmodPath: ", lmodPath,"\n"}
    require("SitePackage")
-   dbg.print{"epoch_type: ",epoch_type,"\n"}
 
-   Options:options(CmdLineUsage)
-   localvar(masterTbl.localvarA)
-
-   banner        = Banner:banner()
-   local usrCmd = masterTbl.pargs[1]
+   local cmdLineUsage = "Usage: module [options] sub-command [args ...]"
+   Options:singleton(cmdLineUsage)
+   local userCmd = masterTbl.pargs[1]
    table.remove(masterTbl.pargs,1)
 
    if (masterTbl.debug > 0 or masterTbl.dbglvl) then
-      local configuration = require("Configuration"):configuration()
+      local configuration = require("Configuration"):singleton()
       io.stderr:write(configuration:report())
       local dbgLevel = max(masterTbl.debug, masterTbl.dbglvl or 1)
       dbg:activateDebug(dbgLevel)
    end
-   dbg.start{"lmod(", arg_str,")"}
+
    if (dbg.active()) then
+      dbg.start{"lmod(", concatTbl(arg," "),")"}
       dbg.print{"Date: ",os.date(),"\n"}
       dbg.print{"Hostname: ",posix.uname("%n"),"\n"}
       dbg.print{"System: ",posix.uname("%s")," ",posix.uname("%r"),"\n"}
       dbg.print{"Version: ",posix.uname("%v"),"\n"}
       dbg.print{"Lmod Version: ",Version.name(),"\n"}
       dbg.print{"package.path: ",package.path,"\n"}
+      dbg.print{"lmodPath: ", lmodPath,"\n"}
    end
-
    -- dumpversion and quit if requested.
 
    if (masterTbl.dumpversion) then
@@ -522,11 +399,9 @@ function main()
       os.exit(0)
    end
 
-
    -- print Configuration and quit.
    if (masterTbl.config) then
-      local Configuration = require("Configuration")
-      local configuration = Configuration:configuration()
+      local configuration = require("Configuration"):singleton()
       local a = {}
       a[1] = version()
       a[2] = configuration:report()
@@ -534,54 +409,34 @@ function main()
       os.exit(0)
    end
 
-   -- dump Configuration in json and quit.
-   if (masterTbl.configjson) then
-      local Configuration = require("Configuration")
-      local configuration = Configuration:configuration()
-      local a = configuration:report_json()
-      io.stderr:write(a)
-      os.exit(0)
-   end
-
    ------------------------------------------------------------
    -- Search for command, quit if command is unknown.
    local cmdT = false
-   if (usrCmd) then
+   if (userCmd) then
       for _, v in ipairs(lmodCmdA) do
-         if (usrCmd:find(v[1])) then
+         if (userCmd:find(v[1])) then
             cmdT = v[2]
             break
          end
       end
    end
 
-   ------------------------------------------------------------
-   -- Must output local variables even when there is the command
-   -- is not a valid command
-   --
-   -- So set [[checkMPATH]] to false by default and re-define when there
-   -- is a valid command:
+   hook.apply("startup", userCmd)
 
    local checkMPATH = (cmdT) and cmdT.checkMPATH or false
+   dbg.print{"Calling Master:singleton(checkMPATH) w checkMPATH: ",checkMPATH,"\n"}
+   master = Master:singleton(checkMPATH)
 
-   if (LMOD_RTM_TESTING) then
-      os.exit(0)
-   end
-
-
-   hook.apply("startup", usrCmd)
-
-   -- Create the [[master]] object
-   local master = Master:master(checkMPATH)
-   master.shell = BaseShell.build(shell)
-   local mt     = MT:mt()
+   -- Build Shell object from shellNm
+   Shell = BaseShell:build(shellNm)
+   dbg.print{"shellNm: ",shellNm,", Shell:name(): ",Shell:name(),"\n"}
 
    if (masterTbl.checkSyntax) then
-      master.shell:setActive(false)
+      Shell:setActive(false)
    end
 
    -- Output local vars
-   master.shell:expand(varTbl)
+   --Shell:expand(varTbl)
 
    -- if Help was requested then quit.
    if (masterTbl.cmdHelp) then
@@ -590,6 +445,7 @@ function main()
    end
 
    if (masterTbl.reportMT) then
+      local mt = FrameStk:singleton():mt()
       io.stderr:write(mt:serializeTbl("pretty"),"\n")
       os.exit(0)
    end
@@ -604,37 +460,38 @@ function main()
       cmd(unpack(masterTbl.pargs))
    end
 
-   -- Get a fresh mt as the command run above may have created
-   -- a new one.
-   mt = MT:mt()
+   ------------------------------------------------------------
+   -- After running command reset frameStk and mt as the
+   -- frameStk can be cleared during commands.  Also 
+   -- the module table (mt) is also on the frame stack
+   -- and must be re-initialized!
+   local frameStk = FrameStk:singleton()
+   local mt       = frameStk:mt()
 
    -- Report any admin messages associated with loads
    -- Note that is safe to run every time.
    mcp:reportAdminMsgs()
 
+
    -- Report any changes (worth reporting from original MT)
    if (not quiet()) then
       mt:reportChanges()
    end
-
-   -- Store the Module table in "_ModuleTable_" env. var.
+   
+   local varT     = frameStk:varT()
    local n        = mt:name()
-   local value    = mt:serializeTbl()
-   varTbl[n]      = Var:new(n)
-   varTbl[n]:set(value)
+   varT[n]        = Var:new(n)
+   varT[n]:set(mt:serializeTbl())
 
-   -- Run any registered function for the Exit Hook
    ExitHookA.apply()
-
-   dbg.fini("Lmod")
+   dbg.fini("lmod")
 
    -- Output all newly created path and variables.
-   master.shell:expand(varTbl)
+   Shell:expand(varT)
 
-   -- Expand any shell commands registered for "real" shells: Csh/Bash/Fish/...
-   if (master.shell:real_shell()) then
+   if (Shell:real_shell())then
       Exec:exec():expand()
-   end
+   end   
 
    local t2 = epoch()
    timer:deltaT("main", t2 - t1)
@@ -648,3 +505,4 @@ function main()
 end
 
 main()
+

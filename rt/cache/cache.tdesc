@@ -18,10 +18,10 @@ testdescript = {
 
      unsetMT
      initStdEnvVars
-     MODULEPATH_ROOT=$(projectDir)/mf;  export MODULEPATH_ROOT
-     MODULEPATH=$(projectDir)/mf/Core;  export MODULEPATH
+     MODULEPATH_ROOT=$(testDir)/mf;     export MODULEPATH_ROOT
+     MODULEPATH=$MODULEPATH_ROOT/Core;  export MODULEPATH
 
-     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d cacheDir .lmodrc.lua
+     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d cacheDir .lmodrc.lua fn
      cp $(projectDir)/init/lmodrc.lua .lmodrc.lua
 
      cat > fn << EOF
@@ -30,12 +30,13 @@ EOF
 
      lua $(projectDir)/src/spiderCacheSupport.in.lua --descriptFn fn >> .lmodrc.lua
      mkdir cacheDir
-     buildModuleT $MODULEPATH > cacheDir/moduleT.lua.old
-     touch last_update
-     cp cacheDir/moduleT.lua.old  cacheDir/moduleT.lua
 
      runLmod --version        # 1
      runLmod spider           # 2
+     buildSpiderT $MODULEPATH > cacheDir/spiderT.lua.old
+     touch last_update
+     cp cacheDir/spiderT.lua.old  cacheDir/spiderT.lua
+     runLmod spider           # 3
 
      HOME=$ORIG_HOME
 

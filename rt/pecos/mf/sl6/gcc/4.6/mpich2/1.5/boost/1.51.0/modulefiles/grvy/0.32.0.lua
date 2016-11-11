@@ -1,6 +1,6 @@
 local version = "0.32.0"
 local system_type = "sl6"
-local modules_top_dir = "/opt/apps/ossw"
+local modules_top_dir = "/unknown/apps/ossw"
 local compiler = "gcc"
 local compiler_version = "4.6"
 local boost_version = "1.51.0"

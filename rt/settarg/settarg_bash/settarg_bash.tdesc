@@ -32,21 +32,21 @@ testdescript = {
 
      runLmod --version                              # 1
      runLmod load settarg                           # 2
-     runMe lua $(projectDir)/settarg/settarg_cmd.in.lua -s bash --no_cpu_model dbg       # 3
+     runSettargBash dbg                             # 3
      SETTARG_TAG1="obj";                   export SETTARG_TAG1
      SETTARG_TAG2="__";                    export SETTARG_TAG2
-     runMe lua $(projectDir)/settarg/settarg_cmd.in.lua -s bash --no_cpu_model opt       # 4
-     runMe lua $(projectDir)/settarg/settarg_cmd.in.lua -s bash --no_cpu_model empty     # 5
+     runSettargBash opt                             # 4
+     runSettargBash empty                           # 5
      runLmod load gcc mpich                         # 6
-     runMe lua $(projectDir)/settarg/settarg_cmd.in.lua -s bash --no_cpu_model           # 7
-     runMe lua $(projectDir)/settarg/settarg_cmd.in.lua -s bash --no_cpu_model f_f       # 8
-     runMe lua $(projectDir)/settarg/settarg_cmd.in.lua -s bash --no_cpu_model b:b       # 9
-     runMe lua $(projectDir)/settarg/settarg_cmd.in.lua -s bash --no_cpu_model -r f_f    #10
-     runMe lua $(projectDir)/settarg/settarg_cmd.in.lua -s bash --no_cpu_model -r b:b    #11
-     runMe lua $(projectDir)/settarg/settarg_cmd.in.lua -s bash --no_cpu_model f_f b:b   #12
-     runMe lua $(projectDir)/settarg/settarg_cmd.in.lua -s bash --no_cpu_model --stt dbg #13
-     runMe lua $(projectDir)/settarg/settarg_cmd.in.lua -s bash --no_cpu_model --purge   #14
-     runBase echo "TARG_RTM: $TARG_RTM"                                                  #15
+     runSettargBash                                 # 7
+     runSettargBash f_f                             # 8
+     runSettargBash b:b                             # 9
+     runSettargBash -r f_f                          #10
+     runSettargBash -r b:b                          #11
+     runSettargBash f_f b:b                         #12
+     runSettargBash --stt dbg                       #13
+     runSettargBash --purge                         #14
+     runBase echo "TARG_RTM: $TARG_RTM"             #15
      runLmod show settarg                           #16
      runLmod unload settarg                         #17
 

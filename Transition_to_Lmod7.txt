@@ -1,0 +1,75 @@
+I am very pleased to announce that Lmod Version 7 is ready for
+testing.  The user interface to Lmod remains the same but the
+internals to Lmod have been refactored yet again. So I'm releasing
+this for testing.
+
+It is available from github on branch nvv.  Currently, this branch has
+a version 6.9.*-beta.  Once testing is complete this will become Lmod 7+.
+
+I am asking for volunteers to test this so that important new
+features can be made available to sites.  Many sites want to hide
+modules without removing them.  If your sites never removes modules
+but wants to discourage new users from using old modules then
+this feature.  In the MODULERC file you can now do:
+
+     #%Module
+     hide-version     mpich/3.2-dbg
+     module-version   gcc/4.8.1       default
+
+You can hide a module by specifying its full name.  You can also set a
+default module.  The ability to hide modules is new.  The ability to
+specify a default here is new to Lmod but has been supported by Tmod
+for a long time.
+
+Your site can use the standard location of the RC file.  If you
+install Lmod in:
+
+    /apps/lmod/<lmod-version>/
+
+then the MODULERC file is
+
+   /apps/lmod/etc/rc
+
+You can check what Lmod thinks the location is by checking
+"module --config". Or you can define the environment variable MODULERC
+to point a file of your choice.
+
+Users can also specify a personal ~/.modulerc file.  The rules are
+that a users ~/.modulerc file has priority over the system MODULERC
+file which has priority over a .modulerc file stored with the
+modulefiles. 
+
+
+Testing Lmod 7:
+---------------
+
+I am recommending that you test this in your personal accounts as
+discussed in:
+
+   http://lmod.readthedocs.io/en/latest/045_transition.html
+
+There are three issues to be aware of:
+
+First: $LMOD_DEFAULT_MODULEPATH is not used anymore.  Lmod no longer
+needs to track "Core" modulefile directories versus Compiler or
+Compiler/MPI dependent modulefile directories.
+
+Second: The name and contents of the spider cache file have changed.
+The previous name was moduleT.lua.  The new name is spiderT.lua.  The
+"update_lmod_system_cache_files" has been updated to generate the new
+name and contents.  If you use your own script to call the "spider"
+command please change it to:
+
+   $ spider -o spiderT $MODULEPATH > /path/to/lmod/cacheDir/spider.
+
+Third: The format for the collection file has changed.  Lmod 7 will read
+old collection files.  However if a user creates a new collection
+file, Lmod 6 will not be able to read it.  This should only be a
+problem when testing.
+
+
+
+
+
+
+   

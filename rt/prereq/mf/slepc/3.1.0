@@ -1,3 +1,4 @@
+#%Module
 prereq petsc/3.1.0
 
 

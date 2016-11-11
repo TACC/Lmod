@@ -1,0 +1,8 @@
+#%Module#####################################################################
+
+if [ module-info mode load ] {
+    puts stderr     "To execute GATK run: java -jar /unknown/apps/gatk/1.0/java/GenomeAnalysisTK.jar"
+    puts stderr     "Test of brackets \[foo\]"
+}
+
+prepend-path PATH /unknown/apps/gatk/1.0/bin

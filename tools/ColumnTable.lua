@@ -21,7 +21,7 @@ require("strict")
 
 ------------------------------------------------------------------------
 --
---  Copyright (C) 2008-2014 Robert McLay
+--  Copyright (C) 2008-2016 Robert McLay
 --
 --  Permission is hereby granted, free of charge, to any person obtaining
 --  a copy of this software and associated documentation files (the
@@ -82,6 +82,7 @@ end
 -- @param self ColumnTable object
 -- @param t input table.
 function M.new(self,t)
+   dbg.start{"ColumnTable:new()"}
    local width
    local tbl   = t
    local o     = {}
@@ -90,7 +91,6 @@ function M.new(self,t)
       o   = t
    end
 
-   dbg.start{"ColumnTable:new()"}
    setmetatable(o, self)
    self.__index  = self
    if (t.width) then
@@ -105,6 +105,8 @@ function M.new(self,t)
    o._entry_width  = M._entry_width1
    o._display      = M._display1
    o._columnSum    = M._columnSum1
+   dbg.print{"dim: ",#o.dim,"\n"}
+
    if (#o.dim == 2) then
       o._entry_width  = M._entry_width2
       o._display      = M._display2
@@ -115,7 +117,7 @@ function M.new(self,t)
    o:_number_of_columns_rows(tbl)
    o.tbl        = tbl
    o.prt        = t.prt or io.write
-   dbg.fini()
+   dbg.fini("ColumnTable:new")
    return o
 end
 
@@ -313,7 +315,9 @@ end
 function M._display1(self, i, icol)
    local width = self.columnCnt[icol]
    local szA   = self.szA
-   local s     = self.tbl[i] .. blank:rep(width.prt-szA[i].prt)
+   local gap   = self.gap 
+   local s     = self.tbl[i] .. blank:rep(width.prt-szA[i].prt+gap)
+
    return s
 end
 
@@ -491,6 +495,7 @@ function M.build_tbl(self)
       if (loc <= self.sz ) then
 	 t[self.ncols] = self:_display(loc, ncols)
       end
+
       local s = concatTbl(t,''):gsub("%s+$","")
       a[#a+1] = s
    end

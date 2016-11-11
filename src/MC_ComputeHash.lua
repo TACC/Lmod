@@ -28,7 +28,7 @@ require("strict")
 --
 --  ----------------------------------------------------------------------
 --
---  Copyright (C) 2008-2014 Robert McLay
+--  Copyright (C) 2008-2016 Robert McLay
 --
 --  Permission is hereby granted, free of charge, to any person obtaining
 --  a copy of this software and associated documentation files (the
@@ -54,6 +54,7 @@ require("strict")
 
 require("utils")
 
+local MasterControl        = require("MasterControl")
 MC_ComputeHash             = inheritsFrom(MasterControl)
 MC_ComputeHash.my_name     = "MC_ComputeHash"
 MC_ComputeHash.my_sType    = "load"

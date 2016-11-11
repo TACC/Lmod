@@ -32,7 +32,7 @@ testdescript = {
      runLmod load python2.7.cython.numpy.scipy.numexpr.scientific.matplotlib #4
      runLmod load fftw/2.1.5 grace/5.1.23 # 5
      runLmod list                         # 6
-     runMe lua $(projectDir)/src/getmt.in.lua --regressionTesting -2           # 7
+     runLmod --mt                         # 7
 
      HOME=$ORIG_HOME
 

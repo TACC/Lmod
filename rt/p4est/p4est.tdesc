@@ -28,7 +28,8 @@ testdescript = {
      runLmod av                      # 2
      runLmod --show_hidden av        # 3
      runLmod load p4est              # 4
-     runLmod list                    # 5
+     runLmod load local              # 5
+     runLmod list                    # 6
 
      HOME=$ORIG_HOME
      cat _stdout.[0-9][0-9][0-9] > _stdout.orig

@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 6.4.3  2016-06-17 09:58
+Modules based on Lua: Version 0.8.4  2016-10-21 21:22 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -11,3 +11,5 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing load a
 Lmod Warning: MODULEPATH is undefined
 Lmod has detected the following error: The following module(s) are unknown: "a"
 Please check the spelling or version number. Also try "module spider ..."
+It is also possible your cache file is out-of-date try:
+   module --ignore-cache load "a"

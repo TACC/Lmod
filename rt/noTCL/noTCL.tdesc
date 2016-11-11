@@ -20,7 +20,7 @@ testdescript = {
 
      unsetMT
      initStdEnvVars
-     MODULEPATH_ROOT=$(projectDir)/mf;  export MODULEPATH_ROOT
+     MODULEPATH_ROOT=$(testDir)/mf;   export MODULEPATH_ROOT
      MODULEPATH=$MODULEPATH_ROOT/Core:$MODULEPATH_ROOT/TACC
      export MODULEPATH
      LMOD_DEFAULT_MODULEPATH=$MODULEPATH
@@ -34,7 +34,7 @@ testdescript = {
      runLmod spider                                         # 3
      runLmod load   PrgEnv                                  # 4
      runLmod unload PrgEnv                                  # 5
-     buildModuleT $LMOD_DEFAULT_MODULEPATH > $HOME/.lmod.d/.cache/moduleT.lua
+     buildSpiderT $LMOD_DEFAULT_MODULEPATH > $HOME/.lmod.d/.cache/spiderT.lua
      runLmod load   PrgEnv                                  # 6
 
 

@@ -40,7 +40,7 @@
 --
 --  ----------------------------------------------------------------------
 --
---  Copyright (C) 2008-2014 Robert McLay
+--  Copyright (C) 2008-2016 Robert McLay
 --
 --  Permission is hereby granted, free of charge, to any person obtaining
 --  a copy of this software and associated documentation files (the
@@ -124,6 +124,7 @@ local Version      = "0.0"
 _G._DEBUG          = false                 -- Required by luaposix 33
 local dbg          = require("Dbg"):dbg()
 local Optiks       = require("Optiks")
+local getenv       = os.getenv
 local getenv_posix = posix.getenv
 local setenv_posix = posix.setenv
 local concatTbl    = table.concat
@@ -157,11 +158,6 @@ local ignoreA = {
 }
 
 
-local dbg          = require("Dbg"):dbg()
-_G._DEBUG          = false                       -- Required by luaposix 33
-local posix        = require("posix")
-local getenv       = os.getenv
-local setenv_posix = posix.setenv
 
 --------------------------------------------------------------------------
 -- Capture output and exit status from *cmd*

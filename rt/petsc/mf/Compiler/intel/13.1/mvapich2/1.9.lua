@@ -8,7 +8,7 @@ local pkgNameVer   = pathJoin(pkgName,pkgVersion)
 
 local hierA        = hierarchyA(pkgNameFullV,1)
 local compiler_dir = hierA[1]
-local pkgRoot      = "/opt/apps"
+local pkgRoot      = "/unknown/apps"
 local mdir         = pathJoin(os.getenv('MODULEPATH_ROOT'), "MPI",compiler_dir,pkgNameVer)
 compiler_dir       = compiler_dir:gsub("/","-"):gsub("%.","_")
 local mpihome      = pathJoin(pkgRoot, compiler_dir, pkgNameFullV)

@@ -6,6 +6,7 @@
 -- @module loadModuleFile
 
 require("strict")
+
 --------------------------------------------------------------------------
 -- Lmod License
 --------------------------------------------------------------------------
@@ -16,7 +17,7 @@ require("strict")
 --
 --  ----------------------------------------------------------------------
 --
---  Copyright (C) 2008-2014 Robert McLay
+--  Copyright (C) 2008-2016 Robert McLay
 --
 --  Permission is hereby granted, free of charge, to any person obtaining
 --  a copy of this software and associated documentation files (the
@@ -41,11 +42,11 @@ require("strict")
 --------------------------------------------------------------------------
 
 require("strict")
+require("myGlobals")
 require("fileOps")
 require("sandbox")
 require("string_utils")
 require("utils")
-require("myGlobals")
 local dbg          = require("Dbg"):dbg()
 local concatTbl    = table.concat
 local getenv       = os.getenv
@@ -56,13 +57,12 @@ local getenv       = os.getenv
 function loadModuleFile(t)
    dbg.start{"loadModuleFile(",t.file,")"}
 
-   local full    = myModuleFullName()
-   local usrName = myModuleUsrName()
-   local myType  = extname(t.file)
-   local status  = true
+   local myType   = extname(t.file)
+   local status   = true
    local func
    local msg
    local whole
+   local userName 
 
    -- If the user is requesting an unload, don't complain if the file
    -- has disappeared.
@@ -83,6 +83,8 @@ function loadModuleFile(t)
          f:close()
       end
    else
+      userName       = myModuleUsrName()
+      local fullName = myModuleFullName()
       -- Build argument list then call tcl2lua translator
       -- Capture results into [[whole]] string.
       local s      = t.mList or ""
@@ -91,11 +93,11 @@ function loadModuleFile(t)
       A[#A + 1]    = "-l"
       A[#A + 1]    = "\"" .. s .. "\""
       A[#A + 1]    = "-f"
-      A[#A + 1]    = full
+      A[#A + 1]    = fullName
       A[#A + 1]    = "-m"
       A[#A + 1]    = mode
       A[#A + 1]    = "-u"
-      A[#A + 1]    = usrName
+      A[#A + 1]    = userName
       A[#A + 1]    = "-s"
       A[#A + 1]    = t.shell
 
@@ -118,7 +120,7 @@ function loadModuleFile(t)
       end
       whole, status = runTCLprog("tcl2lua.tcl",concatTbl(A," "), t.file)
       if (not status) then
-         local n = usrName or ""
+         local n = userName or ""
          msg     = "Non-zero status returned"
          LmodError("Unable to load module: ",n,"\n    ",t.file,": ", msg,"\n")
       end
@@ -134,8 +136,7 @@ function loadModuleFile(t)
 
    -- report any errors
    if (not status and t.reportErr) then
-      local n = usrName or ""
-
+      local n = userName or ""
       LmodError("Unable to load module: ",n,"\n    ",t.file,": ", msg,"\n")
    end
 

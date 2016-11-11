@@ -2,168 +2,43 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 6.5.16  2016-10-04 17:13 -05:00
+Modules based on Lua: Version 0.9.2  2016-10-25 13:59 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load parmetis
-===========================
-Lmod has detected the following error: These module(s) exist but cannot be loaded as requested: "parmetis"
-   Try: "module spider parmetis" to see how to load the module(s).
-===========================
-step 3
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load parmetis/4.0.3
-===========================
-Lmod has detected the following error: These module(s) exist but cannot be loaded as requested: "parmetis/4.0.3"
-   Try: "module spider parmetis/4.0.3" to see how to load the module(s).
-===========================
-step 4
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load parmetis/11.0
-===========================
-Lmod has detected the following error: The following module(s) are unknown: "parmetis/11.0"
-Please check the spelling or version number. Also try "module spider ..."
-===========================
-step 5
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load clang openmpi parmetis
-===========================
-===========================
-step 6
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
-===========================
-ProjectDIR/rt/hierarchy/mf/MPI/clang/4.2/openmpi/1.8
-   parmetis/4.0.3 (L)    python/2.7.3 (D)
-ProjectDIR/rt/hierarchy/mf/Compiler/clang/4.2
-   mpich/17.200.3    openmpi/1.8.3 (L)    python/2.7.3
-ProjectDIR/rt/hierarchy/mf/Core
-   ben/0.1 (D)    clang/4.2.1 (L)    fbr/1.0        python/2.7.3
-   ben/1.0        fbr/0.1     (D)    gcc/14.27.3
-  Where:
-   D:  Default Module
-   L:  Module is loaded
-Use "module spider" to find all possible modules.
-Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
-===========================
-step 7
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load -clang -openmpi
-===========================
-Inactive Modules:
-  1) parmetis
-===========================
-step 8
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
-===========================
-Currently Loaded Modules:
-  None found.
-Inactive Modules:
-  1) parmetis
-===========================
-step 9
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load gcc mpich
-===========================
-Activating Modules:
-  1) parmetis/4.0.3
-===========================
-step 10
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
-===========================
-Currently Loaded Modules:
-  1) gcc/14.27.3   2) mpich/17.200.3   3) parmetis/4.0.3
-===========================
-step 11
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load ben
-===========================
-===========================
-step 12
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load ben/0.1
-===========================
-===========================
-step 13
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load fbr
-===========================
-===========================
-step 14
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
-===========================
-Currently Loaded Modules:
-  1) gcc/14.27.3      3) parmetis/4.0.3   5) fbr/0.1
-  2) mpich/17.200.3   4) ben/0.1
-===========================
-step 15
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload fbr
-===========================
-===========================
-step 16
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load clang
-===========================
-Lmod has detected the following error: You can only have one compiler  module loaded at a time.
-You already have gcc  loaded.
-To correct the situation, please enter the following command:
-  module swap gcc  clang/4.2.1
-Please submit a consulting ticket if you require additional assistance.
-While processing the following module(s):
-    Module fullname  Module Filename
-    clang/4.2.1      ProjectDIR/rt/hierarchy/mf/Core/clang/4.2.1.lua
-===========================
-step 17
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --expert load clang
-===========================
-===========================
-step 18
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
-===========================
-Currently Loaded Modules:
-  1) gcc/14.27.3   3) clang/4.2.1      5) parmetis/4.0.3
-  2) ben/0.1       4) mpich/17.200.3
-===========================
-step 19
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
-===========================
-===========================
-step 20
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load gcc mpich
-===========================
-===========================
-step 21
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload mpich gcc
-===========================
-===========================
-step 22
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load gcc mpich
-===========================
-===========================
-step 23
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload mpich gcc
-===========================
-===========================
-step 24
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
-===========================
-No modules loaded
-===========================
-step 25
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load python
 ===========================
 ===========================
-step 26
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load gcc
+step 3
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+===========================
+Currently Loaded Modules:
+  1) python/2.7.9
+===========================
+step 4
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load gcc boost
 ===========================
 Due to MODULEPATH changes the following have been reloaded:
-  1) python/2.7.3
+  1) python/2.7.9
 ===========================
-step 27
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load mpich
+step 5
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
+Currently Loaded Modules:
+  1) gcc/6.1   2) boost/1.59.0   3) python/2.7.9
+===========================
+step 6
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload gcc
+===========================
+Inactive Modules:
+  1) boost
 Due to MODULEPATH changes the following have been reloaded:
-  1) python/2.7.3
+  1) python/2.7.9
 ===========================
-step 28
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing swap gcc clang
+step 7
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
-Due to MODULEPATH changes the following have been reloaded:
-  1) mpich/17.200.3  2) python/2.7.3
-===========================
-step 29
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing swap mpich openmpi
-===========================
-Due to MODULEPATH changes the following have been reloaded:
-  1) python/2.7.3
+Currently Loaded Modules:
+  1) python/2.7.9
+Inactive Modules:
+  1) boost

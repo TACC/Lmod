@@ -18,8 +18,8 @@ testdescript = {
      unsetMT
      initStdEnvVars
      ORIGPATH=$PATH
-     MODULEPATH=$(projectDir)/mf/TACC;  export MODULEPATH
-     MODULEPATH_ROOT=$(projectDir)/mf;  export MODULEPATH_ROOT
+     MODULEPATH_ROOT=$(testDir)/mf;     export MODULEPATH_ROOT
+     MODULEPATH=$MODULEPATH_ROOT/TACC;  export MODULEPATH
 
      rm -fr _stderr.* _stdout.* err.* out.* .lmod.d
 
@@ -36,7 +36,7 @@ testdescript = {
      runLmod list                   #11
      runLmod unload cluster         #12
      runLmod purge                  #13
-     runLmod use $(testDir)/mf/Core #14
+     runLmod use $(testDir)/mf/Base #14
      runLmod show gatk              #15
      runLmod load gatk              #16
      runLmod unload gatk            #17

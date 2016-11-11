@@ -14,7 +14,7 @@ require("strict")
 --
 --  ----------------------------------------------------------------------
 --
---  Copyright (C) 2008-2014 Robert McLay
+--  Copyright (C) 2008-2016 Robert McLay
 --
 --  Permission is hereby granted, free of charge, to any person obtaining
 --  a copy of this software and associated documentation files (the
@@ -47,16 +47,16 @@ require("serializeTbl")
 require("utils")
 require("string_utils")
 require("colorize")
+local Banner       = require("Banner")
 local BeautifulTbl = require('BeautifulTbl')
 local ReadLmodRC   = require('ReadLmodRC')
 local Version      = require("Version")
-local json         = require("json")
 local concatTbl    = table.concat
 local dbg          = require('Dbg'):dbg()
 local getenv       = os.getenv
 local M            = {}
 
-s_configuration   = false
+local s_configuration = false
 
 local function locatePkg(pkg)
    local result = nil
@@ -81,21 +81,35 @@ local function new(self)
    local locSitePkg = locatePkg("SitePackage") or "unknown"
 
    if (locSitePkg ~= "unknown") then
-      local std_sha1 = "28b49546421d7e01995af8053dba18623cf12f51"
-      local std_md5  = "4eddeb60631cfa8d08e8f08e496fdb88"
+      local std_sha1 = "ed697fcb8f232ce5923c0c180d387b803b42b9f6"
+      local std_md5  = "7631181fc8ebc18d5bf6729c85af44d0"
       local HashSum  = "@path_to_hashsum@"
       if (HashSum:sub(1,1) == "@") then
-         HashSum = findInPath("sha1sum")
+         local a = { "sha1sum", "shasum", "md5sum", "md5" }
+         for i = 1,#a do
+            HashSum = findInPath(a[i])
+            if (HashSum) then break end
+         end
       end
 
       local std_hashsum = (HashSum:find("md5") ~= nil) and std_md5 or std_sha1
 
       if (HashSum == nil) then
-         LmodError("Unable to find HashSum program (sha1sum, md5sum or md5)")
+         LmodError("Unable to find HashSum program (sha1sum, shasum, md5sum or md5)")
       end
+      
+      -- The output from HashSum can look like either
+      --   $ md5 Makefile          
+      --   MD5 (Makefile) = 3fecf96f61c44f67ce13124e97cfd612
+      -- Or:
+      --   $ sha1sum Makefile
+      --   3160f0cc15e577c476bd1acd7c096333ba1ec1ea  Makefile
+
+      -- This means that any result need to possibly strip the
+      -- front of the result or the end.
 
       local result = capture(HashSum .. " " .. locSitePkg)
-      result       = result:gsub(" .*","")
+      result       = result:gsub("^.*= *",""):gsub(" .*","")
       if (result == std_hashsum) then
          locSitePkg = "standard"
       end
@@ -120,11 +134,9 @@ local function new(self)
    local disable1N         = LMOD_DISABLE_SAME_NAME_AUTOSWAP
    local tmod_rule         = LMOD_TMOD_PATH_RULE
    local exactMatch        = LMOD_EXACT_MATCH
-   local ordering          = (LMOD_LEGACY_VERSION_ORDERING == "yes") and "legacy" or "modern"
    local cached_loads      = LMOD_CACHED_LOADS
    local ignore_cache      = LMOD_IGNORE_CACHE and "yes" or "no"
    local redirect          = LMOD_REDIRECT
-   local checkValid        = LMOD_CHECK_FOR_VALID_MODULE_FILES
    local ld_preload        = LMOD_LD_PRELOAD      or "<empty>"
    local ld_lib_path       = LMOD_LD_LIBRARY_PATH or "<empty>"
 
@@ -149,7 +161,6 @@ local function new(self)
    tbl.mpath_root  = { k = "MODULEPATH_ROOT"                   , v = "@modulepath_root@",  }
    tbl.modRC       = { k = "MODULERCFILE"                      , v = MODULERCFILE,         }
    tbl.numSC       = { k = "number of cache dirs"              , v = numSC,                }
-   tbl.ordering    = { k = "Version ordering"                  , v = ordering,             }
    tbl.pager       = { k = "Pager"                             , v = LMOD_PAGER,           }
    tbl.pager_opts  = { k = "Pager Options"                     , v = LMOD_PAGER_OPTS,      }
    tbl.path_hash   = { k = "Path to HashSum"                   , v = "@path_to_hashsum@",  }
@@ -170,7 +181,6 @@ local function new(self)
    tbl.z01_admin   = { k = "Admin file"                        , v = adminFn,              }
    tbl.z02_admin   = { k = "Does Admin file exist"             , v = tostring(readable),   }
    tbl.redirect    = { k = "Redirect to stdout"                , v = redirect,             }
-   tbl.z03_cv      = { k = "Check TCL modules for magic string", v = checkValid,           }
 
    o.tbl = tbl
    return o
@@ -180,7 +190,7 @@ end
 -- A Configuration Singleton Ctor.
 -- @param self A Configuration object.
 -- @return A Configuration Singleton.
-function M.configuration(self)
+function M.singleton(self)
    if (not s_configuration) then
       s_configuration = new(self)
    end
@@ -231,6 +241,7 @@ function M.report(self)
       b[#b+1]  = "\n"
    end
 
+   local banner = Banner:singleton()
    local border = banner:border(2)
    local str    = " Lmod Property Table:"
    b[#b+1]  = border
@@ -242,48 +253,4 @@ function M.report(self)
 
    return concatTbl(b,"\n")
 end
-
--- Report the current configuration in json format.
--- It can have 3 keys:
--- - 'config': the Lmod configuration
--- - 'cache': list of caches
--- - 'rcfiles': list of all active rcfiles
--- - 'propt': the current propT table
--- @param self A Configuration object
--- @return the configuration report in json as a single string.
-function M.report_json(self)
-   local tbl = self.tbl
-   local cfg = {}
-
-   for k, v in pairs(tbl) do
-       cfg[k] = v.v
-   end
-
-   local res = {}
-   res.config = cfg
-
-   local readLmodRC = ReadLmodRC:singleton()
-   local rcFileA = readLmodRC:rcFileA()
-   if (#rcFileA) then
-       local a = {}
-       for i = 1, #rcFileA do
-           a[#a+1] = rcFileA[i]
-       end
-       res.rcfiles = a
-   end
-
-   local scDescriptT = readLmodRC:scDescriptT()
-   if (#scDescriptT > 0) then
-       local a = {}
-       for i = 1, #scDescriptT do
-           a[#a+1] = {scDescriptT[i].dir, scDescriptT[i].timestamp}
-       end
-       res.cache = a
-   end
-
-   res.propt = readLmodRC:propT()
-
-   return json.encode(res)
-end
-
 return M

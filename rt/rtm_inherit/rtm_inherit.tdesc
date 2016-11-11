@@ -18,8 +18,8 @@ testdescript = {
 
      unsetMT
      initStdEnvVars
-     MODULEPATH_ROOT=$(testDir)/mf;         export MODULEPATH_ROOT
-     RTM_MODULEPATH_ROOT=$(testDir)/rtm_mf; export RTM_MODULEPATH_ROOT
+     MODULEPATH_ROOT=$(testDir)/mf;               export MODULEPATH_ROOT
+     RTM_MODULEPATH_ROOT=$MODULEPATH_ROOT/rtm_mf; export RTM_MODULEPATH_ROOT
 
      export MODULEPATH=$(testDir)/rtm_mf/Core:$(testDir)/mf/Core
 

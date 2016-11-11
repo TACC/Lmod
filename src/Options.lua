@@ -20,7 +20,7 @@ require("strict")
 --
 --  ----------------------------------------------------------------------
 --
---  Copyright (C) 2008-2014 Robert McLay
+--  Copyright (C) 2008-2016 Robert McLay
 --
 --  Permission is hereby granted, free of charge, to any person obtaining
 --  a copy of this software and associated documentation files (the
@@ -85,7 +85,7 @@ end
 -- place the positional arguments in *masterTbl.pargs*
 -- @param self An Option object.
 -- @param usage The program usage string.
-function M.options(self, usage)
+function M.singleton(self, usage)
 
    local Optiks = require("Optiks")
    local cmdlineParser  = Optiks:new{usage   = usage,
@@ -278,13 +278,6 @@ function M.options(self, usage)
       dest   = "config",
       action = "store_true",
       help   = "Report Lmod Configuration",
-   }
-
-   cmdlineParser:add_option{
-      name   = {"--config-json" },
-      dest   = "configjson",
-      action = "store_true",
-      help   = "Report Lmod Configuration in json format",
    }
 
    cmdlineParser:add_option{

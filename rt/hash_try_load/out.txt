@@ -6,67 +6,43 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 step 2
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load TACC
 ===========================
-LMOD_DEFAULT_MODULEPATH="OutputDIR/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="OutputDIR/mf/Core";
-export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="OutputDIR/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
 LOADEDMODULES="cluster:TACC";
 export LOADEDMODULES;
 MODULEPATH="OutputDIR/mf/Core";
 export MODULEPATH;
 _LMFILES_="OutputDIR/mf/Core/cluster:OutputDIR/mf/Core/TACC";
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"OutputDIR/mf/Core",},family={},inactive={},mT={TACC={["FN"]="OutputDIR/mf/Core/TACC",["default"]=0,["fullName"]="TACC",["loadOrder"]=2,propT={},["short"]="TACC",["status"]="active",},cluster={["FN"]="OutputDIR/mf/Core/cluster",["default"]=0,["fullName"]="cluster",["loadOrder"]=1,propT={},["short"]="cluster",["status"]="active",},},mpathA={"OutputDIR/mf/Core",},["systemBaseMPATH"]="OutputDIR/mf/Core",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={TACC={["fn"]="OutputDIR/mf/Core/TACC",["fullName"]="TACC",["loadOrder"]=2,propT={},["status"]="active",["userName"]="TACC",},cluster={["fn"]="OutputDIR/mf/Core/cluster",["fullName"]="cluster",["loadOrder"]=1,propT={},["status"]="active",["userName"]="cluster",},},mpathA={"OutputDIR/mf/Core",},["systemBaseMPATH"]="OutputDIR/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 3
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing save
 ===========================
-LMOD_DEFAULT_MODULEPATH="OutputDIR/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
 MODULEPATH="OutputDIR/mf/Core";
 export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="OutputDIR/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="OutputDIR/mf/Core";
-export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"OutputDIR/mf/Core",},family={},inactive={},mT={TACC={["FN"]="OutputDIR/mf/Core/TACC",["default"]=0,["fullName"]="TACC",["loadOrder"]=2,propT={},["short"]="TACC",["status"]="active",},cluster={["FN"]="OutputDIR/mf/Core/cluster",["default"]=0,["fullName"]="cluster",["loadOrder"]=1,propT={},["short"]="cluster",["status"]="active",},},mpathA={"OutputDIR/mf/Core",},["systemBaseMPATH"]="OutputDIR/mf/Core",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={TACC={["fn"]="OutputDIR/mf/Core/TACC",["fullName"]="TACC",["loadOrder"]=2,propT={},["status"]="active",["userName"]="TACC",},cluster={["fn"]="OutputDIR/mf/Core/cluster",["fullName"]="cluster",["loadOrder"]=1,propT={},["status"]="active",["userName"]="cluster",},},mpathA={"OutputDIR/mf/Core",},["systemBaseMPATH"]="OutputDIR/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 4
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
 ===========================
-LMOD_DEFAULT_MODULEPATH="OutputDIR/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="OutputDIR/mf/Core";
-export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="OutputDIR/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
 unset LOADEDMODULES;
 MODULEPATH="OutputDIR/mf/Core";
 export MODULEPATH;
 unset _LMFILES_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"OutputDIR/mf/Core",},family={},inactive={},mT={},mpathA={"OutputDIR/mf/Core",},["systemBaseMPATH"]="OutputDIR/mf/Core",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"OutputDIR/mf/Core",},["systemBaseMPATH"]="OutputDIR/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 5
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing restore
 ===========================
-LMOD_DEFAULT_MODULEPATH="OutputDIR/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="OutputDIR/mf/Core";
-export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="OutputDIR/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
 LOADEDMODULES="cluster:TACC";
 export LOADEDMODULES;
 MODULEPATH="OutputDIR/mf/Core";
 export MODULEPATH;
 _LMFILES_="OutputDIR/mf/Core/cluster:OutputDIR/mf/Core/TACC";
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=2,baseMpathA={"OutputDIR/mf/Core",},family={},inactive={},mT={TACC={["FN"]="OutputDIR/mf/Core/TACC",["default"]=0,["fullName"]="TACC",["loadOrder"]=2,propT={},["short"]="TACC",["status"]="active",},cluster={["FN"]="OutputDIR/mf/Core/cluster",["default"]=0,["fullName"]="cluster",["loadOrder"]=1,propT={},["short"]="cluster",["status"]="active",},},mpathA={"OutputDIR/mf/Core",},["systemBaseMPATH"]="OutputDIR/mf/Core",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={TACC={["fn"]="OutputDIR/mf/Core/TACC",["fullName"]="TACC",["loadOrder"]=2,propT={},["status"]="active",["userName"]="TACC",},cluster={["fn"]="OutputDIR/mf/Core/cluster",["fullName"]="cluster",["loadOrder"]=1,propT={},["status"]="active",["userName"]="cluster",},},mpathA={"OutputDIR/mf/Core",},["systemBaseMPATH"]="OutputDIR/mf/Core",}';
 export _ModuleTable_;
 __LMOD_DEFAULT_MODULES_LOADED__="1";
 export __LMOD_DEFAULT_MODULES_LOADED__;
@@ -74,24 +50,14 @@ export __LMOD_DEFAULT_MODULES_LOADED__;
 step 6
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
 ===========================
-LMOD_DEFAULT_MODULEPATH="OutputDIR/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="OutputDIR/mf/Core";
-export MODULEPATH;
-LMOD_DEFAULT_MODULEPATH="OutputDIR/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
 unset LOADEDMODULES;
 MODULEPATH="OutputDIR/mf/Core";
 export MODULEPATH;
 unset _LMFILES_;
-_ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"OutputDIR/mf/Core",},family={},inactive={},mT={},mpathA={"OutputDIR/mf/Core",},["systemBaseMPATH"]="OutputDIR/mf/Core",["version"]=2,}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"OutputDIR/mf/Core",},["systemBaseMPATH"]="OutputDIR/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 7
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing restore
 ===========================
-LMOD_DEFAULT_MODULEPATH="OutputDIR/mf/Core";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="OutputDIR/mf/Core";
-export MODULEPATH;
 false

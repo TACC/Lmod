@@ -6,17 +6,9 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 step 2
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load bad_syntax
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/errHandler/mf";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/errHandler/mf";
-export MODULEPATH;
 false
 ===========================
 step 3
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load bad_argument
 ===========================
-LMOD_DEFAULT_MODULEPATH="ProjectDIR/rt/errHandler/mf";
-export LMOD_DEFAULT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/errHandler/mf";
-export MODULEPATH;
 false

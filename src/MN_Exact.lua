@@ -1,10 +1,3 @@
---------------------------------------------------------------------------
--- Find the module matches the version requested by the user.
---
---    1. It tries to see if the module is a full version request.
---
--- @classmod MN_Exact
-
 require("strict")
 
 --------------------------------------------------------------------------
@@ -17,7 +10,7 @@ require("strict")
 --
 --  ----------------------------------------------------------------------
 --
---  Copyright (C) 2008-2014 Robert McLay
+--  Copyright (C) 2008-2016 Robert McLay
 --
 --  Permission is hereby granted, free of charge, to any person obtaining
 --  a copy of this software and associated documentation files (the
@@ -41,19 +34,17 @@ require("strict")
 --
 --------------------------------------------------------------------------
 
+local MName = require("MName")
+local M     = inheritsFrom(MName)
+M.my_name   = "exact"
 
-local M        = inheritsFrom(MName)
-M.my_name      = "exact"
 
-
-local s_steps = {
+local s_stepA = {
    MName.find_exact_match,
 }
 
---------------------------------------------------------------------------
--- Return the steps used in the Match class.
 function M.steps()
-   return s_steps
+   return s_stepA
 end
 
 return M

@@ -19,7 +19,7 @@ require("strict")
 --
 --  ----------------------------------------------------------------------
 --
---  Copyright (C) 2008-2014 Robert McLay
+--  Copyright (C) 2008-2016 Robert McLay
 --
 --  Permission is hereby granted, free of charge, to any person obtaining
 --  a copy of this software and associated documentation files (the
@@ -47,7 +47,7 @@ require("pairsByKeys")
 
 local M            = {}
 local BeautifulTbl = require("BeautifulTbl")
-s_timer            = {}
+s_timer            = false
 
 --------------------------------------------------------------------------
 -- A private Ctor for the Timer singleton class.
@@ -63,8 +63,8 @@ end
 --------------------------------------------------------------------------
 -- The public interface to the Timer class.
 -- @param self An Timer object.
-function M.timer(self)
-   if (next(s_timer) == nil) then
+function M.singleton(self)
+   if (not s_timer) then
       s_timer = new(self)
    end
    return s_timer
