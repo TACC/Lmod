@@ -10,6 +10,7 @@ files["src/cmdfuncs.lua"]               = {ignore = { "prtHdr"}}
 files["src/colorize.lua"]               = {ignore = { "colorize_kind"}}
 files["src/myGlobals.lua"]              = {ignore = {"updateSystemFn", "GIT_VERSION", "epoch_type","prtHdr",
                                                      "ModuleName","ModuleFn","PkgLmod"}}
+files["src/spider.in.lua"]              = {ignore = { "xml"}}
 files["src/utils.lua"]                  = {ignore = { "__FILE__","__LINE__","epoch_type"}}
 files["tools/fileOps.lua"]              = {ignore = {"isExec","dir_walk"}}
 files["tools/string_utils.lua"]         = {ignore = { "122" }}

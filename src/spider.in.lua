@@ -600,9 +600,8 @@ function options()
    Use_Preload = masterTbl.preload
 end
 
-xml = false
 function xmlSoftwarePage(dbT)
-   require("LuaXml")  -- This defines xml
+   require("LuaXML")  -- This defines xml
 
    local translateT = { ls4 = "lonestar" }
 
