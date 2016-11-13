@@ -8,6 +8,7 @@ makefile
 config.status
 sc.pdf
 talk.pdf
+booth_talk.pdf
 *.aux
 *.log
 *.nav
