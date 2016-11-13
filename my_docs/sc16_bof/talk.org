@@ -1,0 +1,14 @@
+Notes for SC16 talk:
+
+* What is Lmod?
+**  
+* History of Lmod naming support
+** Originally Lmod only supported N/V
+   The minimum required string is N
+** Lmod 5+ supported C/N/V
+   The minimum required is C/N
+** Lmod 7+ supports N/V/V  or C/N/V/V 
+   I call this nvv.  The number of directories 
+* What is new with Lmod?
+** Support for NVV
+** Support for aliasing
