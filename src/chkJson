@@ -1,0 +1,182 @@
+-- -*- lua -*-
+local sys_lua_path = "@sys_lua_path@"
+if (sys_lua_path:sub(1,1) == "@") then
+   sys_lua_path = package.path
+end
+
+local sys_lua_cpath = "@sys_lua_cpath@"
+if (sys_lua_cpath:sub(1,1) == "@") then
+   sys_lua_cpath = package.cpath
+end
+
+package.path   = sys_lua_path
+package.cpath  = sys_lua_cpath
+
+local arg_0    = arg[0]
+local posix    = require("posix")
+local readlink = posix.readlink
+local stat     = posix.stat
+
+local st       = stat(arg_0)
+while (st.type == "link") do
+   arg_0 = readlink(arg_0)
+   st    = stat(arg_0)
+end
+
+local ia,ja = arg_0:find(".*/")
+local LuaCommandName     = false
+local LuaCommandName_dir = "./"
+if (ia) then
+   LuaCommandName_dir = arg_0:sub(1,ja)
+   LuaCommandName     = arg_0:sub(ja+1)
+end
+
+package.path  = LuaCommandName_dir .. "?.lua;"       ..
+                LuaCommandName_dir .. "../tools/?.lua;"  ..
+                LuaCommandName_dir .. "../shells/?.lua;" ..
+                LuaCommandName_dir .. "?/init.lua;"  ..
+                sys_lua_path
+package.cpath = LuaCommandName_dir .. "../lib/?.so;"..
+                sys_lua_cpath
+
+require("strict")
+require("serializeTbl")
+local Dbg  = require("Dbg")
+local json = require("json")
+
+--[[
+
+{
+   "configT": {
+     "allowTCL":"yes",
+     "autoSwap":"yes",
+     "case":"no",
+     "colorize":"@colorize@",
+     "disable1N":"no",
+     "dot_files":"@use_dot_files@",
+     "dupPaths":"no",
+     "exactMatch":"no",
+     "expMCmd":"@export_module@",
+     "ld_lib_path":"<empty>",
+     "ld_preload":"<empty>"
+     "lmodV":"7.0",
+     "luaV":"Lua 5.3",
+     "lua_json":"@have_lua_json@",
+     "lua_term":"@have_lua_term@",
+     "lua_term_A":"true",
+     "modRC":"\/Users\/mclay\/w\/etc\/rc",
+     "mpath_av":"no",
+     "mpath_root":"@modulepath_root@",
+     "numSC":0,
+     "pager":"@path_to_pager@",
+     "pager_opts":"-XqMREF",
+     "path_hash":"@path_to_hashsum@",
+     "path_lua":"@path_to_lua@",
+     "pin_v":"no",
+     "pkg":"Pkg",
+     "prefix":"@PREFIX@",
+     "prpnd_blk":"@prepend_block@",
+     "redirect":"no",
+     "settarg":"@lmod_full_settarg_support@",
+     "sitePkg":"standard",
+     "spdr_ignore":"no",
+     "spdr_loads":"no",
+     "tm_ancient":"@ancient@",
+     "tm_short":"@short_time@",
+     "tm_threshold":1,
+     "tmod_rule":"no",
+     "uname":"Darwin mijo 15.6.0 Darwin Kernel Version 15.6.0: Thu Sep  1 15:01:16 PDT 2016; root:xnu-3248.60.11~2\/RELEASE_X86_64 x86_64 i386 MacBookPro11,5 Darwin\n",
+     "z01_admin":"\/Users\/mclay\/w\/etc\/admin.list",
+     "z02_admin":"no",
+   },
+   "rcfileA":[
+      "\/Users\/mclay\/w\/lmod\/init\/lmodrc.lua",
+      "\/Users\/mclay\/w\/lmod\/rt\/help\/t1\/x86_64_dbg_gcc-5.2-2016_11_14_10_57_10-Darwin-x86_64-help\/.lmodrc.lua"],
+   "propT":{
+      "status":{
+         "validT":{"active":1},"displayT":{"active":{"doc":"Module is loaded","short":"(L)","color":"yellow","long":"(L)"}}},"arch":{"validT":{"offload":1,"mic":1,"gpu":1},"displayT":{"mic":{"doc":"built for host and native MIC","short":"(m)","color":"blue","long":"(m)"},"gpu:mic:offload":{"doc":"built natively for MIC and GPU and offload to the MIC","short":"(@)","color":"red","long":"(g,m,o)"},"offload":{"doc":"built for offload to the MIC only","short":"(o)","color":"blue","long":"(o)"},"gpu":{"doc":"built for GPU","short":"(g)","color":"red","long":"(g)"},"gpu:mic":{"doc":"built natively for MIC and GPU","short":"(gm)","color":"red","long":"(g,m)"},"mic:offload":{"doc":"built for host, native MIC and offload to the MIC","short":"(*)","color":"blue","long":"(m,o)"}}},"state":{"validT":{"experimental":1,"testing":1,"obsolete":1},"displayT":{"experimental":{"doc":"Experimental","short":"(E)","color":"blue","long":"(E)"},"testing":{"doc":"Testing","short":"(T)","color":"green","long":"(T)"},"obsolete":{"doc":"Obsolete","short":"(O)","color":"red","long":"(O)"}}},"lmod":{"validT":{"sticky":1},"displayT":{"sticky":{"doc":"Module is Sticky, requires --force to unload or purge","short":"(S)","color":"red","long":"(S)"}}}}}
+
+]]
+function main()
+
+   local configT = {
+      lmodV        = { rule = "have"},
+      luaV         = { rule = "have"},
+      modRC        = { rule = "have"},
+      uname        = { rule = "have"},
+      z01_admin    = { rule = "have"},
+      allowTCL     = { rule = "match", value = "yes"},
+      autoSwap     = { rule = "match", value = "yes"},
+      case         = { rule = "match", value = "no"},
+      colorize     = { rule = "match", value = "@colorize@"},
+      disable1N    = { rule = "match", value = "no"},
+      dot_files    = { rule = "match", value = "@use_dot_files@"},
+      dupPaths     = { rule = "match", value = "no"},
+      exactMatch   = { rule = "match", value = "no"},
+      expMCmd      = { rule = "match", value = "@export_module@"},
+      ld_lib_path  = { rule = "match", value = "<empty>"},
+      ld_preload   = { rule = "match", value = "<empty>"},
+      lua_json     = { rule = "match", value = "@have_lua_json@"},
+      lua_term     = { rule = "match", value = "@have_lua_term@"},
+      lua_term_A   = { rule = "match", value = "true"},
+      mpath_av     = { rule = "match", value = "no"},
+      mpath_root   = { rule = "match", value = "@modulepath_root@"},
+      numSC        = { rule = "match", value = 0},
+      pager        = { rule = "match", value = "@path_to_pager@"},
+      pager_opts   = { rule = "match", value = "-XqMREF"},
+      path_hash    = { rule = "match", value = "@path_to_hashsum@"},
+      path_lua     = { rule = "match", value = "@path_to_lua@"},
+      pin_v        = { rule = "match", value = "no"},
+      pkg          = { rule = "match", value = "Pkg"},
+      prefix       = { rule = "match", value = "@PREFIX@"},
+      prpnd_blk    = { rule = "match", value = "@prepend_block@"},
+      redirect     = { rule = "match", value = "no"},
+      settarg      = { rule = "match", value = "@lmod_full_settarg_support@"},
+      sitePkg      = { rule = "match", value = "standard"},
+      spdr_ignore  = { rule = "match", value = "no"},
+      spdr_loads   = { rule = "match", value = "no"},
+      tm_ancient   = { rule = "match", value = "@ancient@"},
+      tm_short     = { rule = "match", value = "@short_time@"},
+      tm_threshold = { rule = "match", value = 1},
+      tmod_rule    = { rule = "match", value = "no"},
+      z02_admin    = { rule = "match", value = "no"},
+   }
+
+   local s       = io.read()
+   local t       = json.decode(s)
+
+   local match = true
+   for k, v in pairs(configT) do
+      local testV = t.configT[k]
+      if (testV == nil) then
+         io.stderr:write("Json is missing key: ",k,"\n")
+         match = false
+      elseif (v.rule == "match" and testV ~= v.value) then
+         io.stderr:write("Json key: ",k," has the wrong value: testV: ",testV,", v.value: ",v.value,"\n")
+         match = false
+      end
+   end
+
+   if (match) then
+      io.stderr:write("configT matches\n")
+   end
+
+   if (type(t.rcfileA) == "table") then
+      io.stderr:write("rcfileA is a table\n")
+      if (#t.rcfileA == 2) then
+         io.stderr:write("rcfileA has two entries\n")
+      end
+   else
+      io.stderr:write("rcfileA is not a table\n")
+   end
+   
+
+   if (type(t.propT) == "table") then
+      io.stderr:write("propT is a table\n")
+   else
+      io.stderr:write("propT is not a table\n")
+   end
+end
+
+
+main()

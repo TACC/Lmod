@@ -22,17 +22,20 @@ testdescript = {
      MODULEPATH=$(testDir)/mf;            export MODULEPATH
 
      rm -f  _stderr.* _stdout.* err.* out.*
-     rm -fr .lmod.d .lmodrc.lua
+     rm -fr .lmod.d .lmodrc.lua config.json
      cp $(projectDir)/init/lmodrc.lua .lmodrc.lua
 
      mkdir -p $HOME/.lmod.d/.cache
 
-     runLmod --version                  # 1
-     runLmod --help                     # 2
-     runLmod help                       # 3
-     runLmod help amber                 # 4
-     runLmod --config                   # 5
-     runLmod --config-json              # 6
+     runLmod --version                                        # 1
+     runLmod --help                                           # 2
+     runLmod help                                             # 3
+     runLmod help amber                                       # 4
+     runLmod --config                                         # 5
+     $LUA_EXEC $projectDir/src/lmod.in.lua bash --config_json 2> config.json
+     runBase $LUA_EXEC $projectDir/src/chkJson < config.json  # 6
+
+
      HOME=$ORIG_HOME
 
      cat _stdout.[0-9][0-9][0-9] > _stdout.orig
