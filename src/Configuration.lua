@@ -265,14 +265,14 @@ end
 -- @return the configuration report in json as a single string.
 function M.report_json(self)
    local tbl = self.tbl
-   local cfg = {}
+   local configT = {}
 
    for k, v in pairs(tbl) do
-       cfg[k] = v.v
+       configT[k] = v.v
    end
 
    local res = {}
-   res.config = cfg
+   res.configT = configT
 
    local readLmodRC = ReadLmodRC:singleton()
    local rcFileA = readLmodRC:rcFileA()
@@ -281,7 +281,7 @@ function M.report_json(self)
        for i = 1, #rcFileA do
            a[#a+1] = rcFileA[i]
        end
-       res.rcfiles = a
+       res.rcfileA = a
    end
 
    local scDescriptT = readLmodRC:scDescriptT()
@@ -293,7 +293,7 @@ function M.report_json(self)
        res.cache = a
    end
 
-   res.propt = readLmodRC:propT()
+   res.propT = readLmodRC:propT()
 
    return json.encode(res)
 end
