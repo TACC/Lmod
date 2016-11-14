@@ -28,6 +28,17 @@ release at sourceforge.
 
 ## ChangeLog
 
+### Lmod 7.0:
+   1. This version support N/V/V. (e.g. fftw/64/3.3.4).  Put a .version file
+      in with the "64" directory to tell Lmod where the version starts.
+   2. Marking a default in the MODULERC is now supported.
+   3. User ~/.modulerc has priority over system MODULERC.
+   4. System MODULERC  has priority over marking a default in the module tree.
+   5. Installed Modules can be hidden by "hide-module foo/3.2.1" in
+      any modulerc file.
+   6. The system spider cache has changed.  Please update your scripts to
+      build spiderT.lua instead of moduleT.lua
+
 ### Lmod 6.6:
 
 Features:
