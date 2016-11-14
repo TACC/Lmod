@@ -182,6 +182,7 @@ function decode_scanArray(s,startPos)
       startPos = decode_scanWhitespace(s,startPos+1)
     end
     assert(startPos<=stringLen, 'JSON String ended unexpectedly scanning array.')
+    local object
     object, startPos = json.decode(s,startPos)
     table.insert(array,object)
   until false
