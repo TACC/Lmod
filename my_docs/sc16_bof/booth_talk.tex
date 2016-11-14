@@ -51,6 +51,7 @@
 
 \begin{frame}{Why You Might Want To Use Lmod}
   \begin{itemize}
+    \item Same \texttt{module} command as in Tmod
     \item Active Development;  Frequent Releases; Bug fixes.
     \item Vibrant Community
     \item It is used from Norway to Isreal to New Zealand from Stanford to MIT to NASA
@@ -66,34 +67,41 @@
     \item Reads for TCL and Lua modulefiles
     \item One name rule.
     \item Support Software Hierarchy
-    \item Spider Cache, Properties (gpu, mic)
+    \item Spider Cache: fast \texttt{\$ module avail}
+    \item Properties (gpu, mic)
     \item family(``compiler'') family(``mpi'') support
-    \item Many other features: ml, collections, ...
+    \item Many other features: ml, collections, hooks, ...
   \end{itemize}
 \end{frame}
 
 \begin{frame}{History of Support for Module Names}
   \begin{itemize}
-    \item Originally only N/V:  gcc/4.8.1
-    \item Lmod 5+ C/N/V:  compiler/gcc/4.8.1
+    \item Originally only \emph{name/version}:  gcc/4.8.1
+    \item Lmod 5+ \emph{cat/name/version}:  compiler/gcc/4.8.1
   \end{itemize}
 \end{frame}
 
 \begin{frame}{New with Lmod 7}
   \begin{itemize}
-    \item Support for N/V/V:  fftw/64/3.3.4
+    \item Support for \emph{name/v1/v2}:  fftw/64/3.3.4
     \item MODULERC Support:
       \begin{itemize}
         \item Set Defaults under Site and/or User
         \item Hide any installed module
       \end{itemize}
-    \item Major refactoring of Lmod.
+    \item Major refactoring of Lmod 
+      \begin{itemize}
+        \item support NVV
+        \item Code Cleanup
+        \item Better Spider Cache handling
+      \end{itemize}
   \end{itemize}
 \end{frame}
 
 \begin{frame}{Setting Defaults}
   \begin{itemize}
     \item System MODULERC file: \texttt{/path/to/lmod/etc/rc}
+    \item \texttt{\$MODULERC} points to a file.
     \item User \texttt{\textasciitilde/.modulerc}
     \item Can set defaults User, System, Files
     \item Examples: account for web services
@@ -106,6 +114,7 @@
     \item User \texttt{\textasciitilde/.modulerc}
     \item \texttt{\color{blue}hide-version foo/1.2.3}
     \item Hidden from avail, spider and keyword
+    \item Hidden modules can be loaded
     \item Sites: deprecation, experimental
     \item show hidden: \texttt{module --show-hidden avail}
   \end{itemize}
@@ -114,7 +123,7 @@
 
 \begin{frame}{Conclusions: Lmod 7+}
   \begin{itemize}
-    \item Latest version: github.com:TACC/Lmod.git
+    \item Latest version: https://github.com:TACC/Lmod.git
     \item Stable version: lmod.sf.net
     \item Documentation:  lmod.readthedocs.org
   \end{itemize}
