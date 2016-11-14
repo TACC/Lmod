@@ -310,7 +310,7 @@ function main()
       {'^up'      , updateTbl     },
       {'^use$'    , useTbl        },
       {'^w'       , whatisTbl     },
-   }  
+   }
 
    MCP = MasterControl.build("load")
    mcp = MasterControl.build("load")
@@ -327,7 +327,7 @@ function main()
 
    -- Push Lmod version into environment
    setenv_lmod_version()
-   
+
    ------------------------------------------------------------------------
    --  The StandardPackage is where Lmod registers hooks.  Sites may
    --  override the hook functions in SitePackage.
@@ -409,6 +409,16 @@ function main()
       os.exit(0)
    end
 
+   -- dump Configuration in json and quit.
+   if (masterTbl.configjson) then
+      local configuration = require("Configuration"):singleton()
+      local a = {}
+      a[#a+1] = configuration:report_json()
+      a[#a+1] = ""
+      io.stderr:write(concatTbl(a,"\n"))
+      os.exit(0)
+   end
+
    ------------------------------------------------------------
    -- Search for command, quit if command is unknown.
    local cmdT = false
@@ -462,7 +472,7 @@ function main()
 
    ------------------------------------------------------------
    -- After running command reset frameStk and mt as the
-   -- frameStk can be cleared during commands.  Also 
+   -- frameStk can be cleared during commands.  Also
    -- the module table (mt) is also on the frame stack
    -- and must be re-initialized!
    local frameStk = FrameStk:singleton()
@@ -477,7 +487,7 @@ function main()
    if (not quiet()) then
       mt:reportChanges()
    end
-   
+
    local varT     = frameStk:varT()
    local n        = mt:name()
    varT[n]        = Var:new(n)
@@ -491,7 +501,7 @@ function main()
 
    if (Shell:real_shell())then
       Exec:exec():expand()
-   end   
+   end
 
    local t2 = epoch()
    timer:deltaT("main", t2 - t1)
