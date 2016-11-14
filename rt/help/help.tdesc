@@ -32,6 +32,7 @@ testdescript = {
      runLmod help                       # 3
      runLmod help amber                 # 4
      runLmod --config                   # 5
+     runLmod --config-json              # 6
      HOME=$ORIG_HOME
 
      cat _stdout.[0-9][0-9][0-9] > _stdout.orig

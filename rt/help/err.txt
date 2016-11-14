@@ -34,6 +34,7 @@ Options:
   --localvar=localvarA              local variables needed to be set after this commands execution
   --check_syntax --checkSyntax      Checking module command syntax: do not load
   --config                          Report Lmod Configuration
+  --config-json                     Report Lmod Configuration in json format
   --mt                              Report Module Table State
   --timer                           report run times
   --force                           force removal of a sticky module or save an empty collection
@@ -128,6 +129,7 @@ Options:
   --localvar=localvarA              local variables needed to be set after this commands execution
   --check_syntax --checkSyntax      Checking module command syntax: do not load
   --config                          Report Lmod Configuration
+  --config-json                     Report Lmod Configuration in json format
   --mt                              Report Module Table State
   --timer                           report run times
   --force                           force removal of a sticky module or save an empty collection
@@ -350,3 +352,8 @@ propT = {
     },
   },
 }
+===========================
+step 6
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --config-json
+===========================
+{"rcfiles":["\/home\/travis\/build\/wpoely86\/Lmod\/init\/lmodrc.lua","\/home\/travis\/build\/wpoely86\/Lmod\/rt\/help\/t1\/2016_11_14_08_28_01-Linux-x86_64-help\/.lmodrc.lua"],"config":{"tm_short":"@short_time@","ld_lib_path":"<empty>","ordering":"modern","allowTCL":"yes","luaV":"Lua 5.1","pin_v":"no","disable1N":"no","case":"no","numSC":0,"autoSwap":"yes","lua_json":"@have_lua_json@","spdr_loads":"no","ld_preload":"<empty>","z03_cv":"no","sitePkg":"standard","colorize":"@colorize@","redirect":"no","path_lua":"@path_to_lua@","pager":"@path_to_pager@","mpath_av":"no","prefix":"@PREFIX@","exactMatch":"no","modRC":"\/home\/travis\/build\/wpoely86\/etc\/rc","lmodV":"6.5.17","dupPaths":"no","uname":"Linux testing-docker-4bc152bd-1e65-4bc5-8c8b-bcea71459adc 4.4.0-47-generic #68~14.04.1-Ubuntu SMP Wed Oct 26 19:42:11 UTC 2016 x86_64 x86_64 x86_64 GNU\/Linux\n","tm_threshold":1,"expMCmd":"@export_module@","spdr_ignore":"no","z02_admin":"no","settarg":"@lmod_full_settarg_support@","lua_term":"@have_lua_term@","path_hash":"@path_to_hashsum@","mpath_root":"@modulepath_root@","z01_admin":"\/home\/travis\/build\/wpoely86\/etc\/admin.list","pager_opts":"-XqMREF","prpnd_blk":"@prepend_block@","tm_ancient":"@ancient@","tmod_rule":"no","dot_files":"@use_dot_files@","pkg":"Pkg","lua_term_A":"true"},"propt":{"status":{"displayT":{"active":{"short":"(L)","doc":"Module is loaded","color":"yellow","long":"(L)"}},"validT":{"active":1}},"state":{"displayT":{"experimental":{"short":"(E)","doc":"Experimental","color":"blue","long":"(E)"},"obsolete":{"short":"(O)","doc":"Obsolete","color":"red","long":"(O)"},"testing":{"short":"(T)","doc":"Testing","color":"green","long":"(T)"}},"validT":{"experimental":1,"obsolete":1,"testing":1}},"lmod":{"displayT":{"sticky":{"short":"(S)","doc":"Module is Sticky, requires --force to unload or purge","color":"red","long":"(S)"}},"validT":{"sticky":1}},"arch":{"displayT":{"gpu":{"short":"(g)","doc":"built for GPU","color":"red","long":"(g)"},"offload":{"short":"(o)","doc":"built for offload to the MIC only","color":"blue","long":"(o)"},"mic":{"short":"(m)","doc":"built for host and native MIC","color":"blue","long":"(m)"},"gpu:mic":{"short":"(gm)","doc":"built natively for MIC and GPU","color":"red","long":"(g,m)"},"mic:offload":{"short":"(*)","doc":"built for host, native MIC and offload to the MIC","color":"blue","long":"(m,o)"},"gpu:mic:offload":{"short":"(@)","doc":"built natively for MIC and GPU and offload to the MIC","color":"red","long":"(g,m,o)"}},"validT":{"gpu":1,"offload":1,"mic":1}}}}
