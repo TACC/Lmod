@@ -410,7 +410,8 @@ busted:
 	@PROJDIR=$(CURDIR) busted  --verbose -m "$(CURDIR)/src/?.lua;$(CURDIR)/tools/?.lua"
 
 luachk:
-	luacheck --exclude-files src/*.new.lua -- src shells tools settarg spec 2>&1 | tee lmod.check.txt
+	luacheck --exclude-files src/*.new.lua -- src shells tools settarg spec 2>&1 | tee lmod.check.txt; \
+        if [ "$$?" -eq 0 ]; then rm lmod.check.txt; fi
 
 libexec:  $(lua_code)
 	$(MAKE) FILELIST="$^" DIRLOC=$(DESTDIR)$(LIBEXEC) __installMe
