@@ -26,3 +26,7 @@ export _ModuleTable_;
 step 5
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --config
 ===========================
+===========================
+step 6
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --config-json
+===========================
