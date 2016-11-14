@@ -103,6 +103,7 @@ function main()
       lmodV        = { rule = "have"},
       luaV         = { rule = "have"},
       modRC        = { rule = "have"},
+      siteName     = { rule = "have"},
       uname        = { rule = "have"},
       z01_admin    = { rule = "have"},
       allowTCL     = { rule = "match", value = "yes"},

@@ -54,7 +54,7 @@ local posix     = require("posix")
 -- setting LMOD_SYSTEM_NAME.  
 
 local function site_name_hook()
-   return LMOD_SYSTEM_NAME or "LMOD"
+   return LMOD_SITE_NAME or "LMOD"
 end
 
 hook.register("SiteName",site_name_hook)

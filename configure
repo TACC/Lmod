@@ -606,9 +606,7 @@ EXPR
 BASENAME
 SYS_LD_PRELOAD
 SYS_LD_LIB_PATH
-CHECK_VALID
 CACHED_LOADS
-LEGACY_ORDERING
 LUA_INCLUDE
 TMOD_PATH_RULE
 PIN_VERSIONS
@@ -617,6 +615,7 @@ SETTARG
 MPATH_AVAIL
 DISABLE_NAME_AUTOSWAP
 ALLOW_TCL_MFILES
+SITE_NAME
 PREPEND_BLOCK
 UPDATE_SYSTEM_FN
 SPIDER_CACHE_DESCRIPT_FN
@@ -695,6 +694,7 @@ with_spiderCacheDir
 with_spiderCacheDescript
 with_updateSystemFn
 with_prependBlock
+with_siteName
 with_tcl
 with_disableNameAutoSwap
 with_mpathSearch
@@ -703,9 +703,7 @@ with_ignoreDirs
 with_pinVersions
 with_tmodPathRule
 with_lua_include
-with_legacyOrdering
 with_cachedLoads
-with_checkValidModuleFiles
 '
       ac_precious_vars='build_alias
 host_alias
@@ -1354,6 +1352,7 @@ Optional Packages:
                           updated [[]]
   --with-prependBlock=ans Treat multiple directories passed to prepend in
                           normal order/ not reversed [[NORMAL]]
+  --with-siteName=ans     Site Name (<empty>)
   --with-tcl=ans          Allow TCL modulefiles [[YES]]
   --with-disableNameAutoSwap=ans
                           disable one name rule autoswapping [[NO]]
@@ -1367,12 +1366,7 @@ Optional Packages:
                           append/prepend.[[NO]]
   --with-lua_include=ans  Save/Restore will use the current version instead of
                           changing with the default.[[NO]]
-  --with-legacyOrdering=ans
-                          Using legacy version ordering. [[no]]
   --with-cachedLoads=ans  Use cache when loading modules. [[no]]
-  --with-checkValidModuleFiles=ans
-                          Require Lmod to check every non Lua file for magic
-                          TCL string. [[no]]
 
 Some influential environment variables:
   CC          C compiler command
@@ -2975,6 +2969,27 @@ fi
 
 
 
+# Check whether --with-siteName was given.
+if test "${with_siteName+set}" = set; then :
+  withval=$with_siteName; SITE_NAME="$withval"
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: SITE_NAME=$with_siteName" >&5
+$as_echo "SITE_NAME=$with_siteName" >&6; }
+    cat >>confdefs.h <<_ACEOF
+#define SITE_NAME "$with_siteName"
+_ACEOF
+
+else
+  withval='<empty>'
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: SITE_NAME=$withval" >&5
+$as_echo "SITE_NAME=$withval" >&6; }
+    SITE_NAME="$withval"
+    cat >>confdefs.h <<_ACEOF
+#define SITE_NAME "$withval"
+_ACEOF
+
+fi
+
+
 
 # Check whether --with-tcl was given.
 if test "${with_tcl+set}" = set; then :
@@ -3154,28 +3169,6 @@ fi
 
 
 
-# Check whether --with-legacyOrdering was given.
-if test "${with_legacyOrdering+set}" = set; then :
-  withval=$with_legacyOrdering; LEGACY_ORDERING="$withval"
-    { $as_echo "$as_me:${as_lineno-$LINENO}: result: LEGACY_ORDERING=$with_legacyOrdering" >&5
-$as_echo "LEGACY_ORDERING=$with_legacyOrdering" >&6; }
-    cat >>confdefs.h <<_ACEOF
-#define LEGACY_ORDERING "$with_legacyOrdering"
-_ACEOF
-
-else
-  withval="NO"
-    { $as_echo "$as_me:${as_lineno-$LINENO}: result: LEGACY_ORDERING=$withval" >&5
-$as_echo "LEGACY_ORDERING=$withval" >&6; }
-    LEGACY_ORDERING="$withval"
-    cat >>confdefs.h <<_ACEOF
-#define LEGACY_ORDERING "$withval"
-_ACEOF
-
-fi
-
-
-
 # Check whether --with-cachedLoads was given.
 if test "${with_cachedLoads+set}" = set; then :
   withval=$with_cachedLoads; CACHED_LOADS="$withval"
@@ -3192,28 +3185,6 @@ $as_echo "CACHED_LOADS=$withval" >&6; }
     CACHED_LOADS="$withval"
     cat >>confdefs.h <<_ACEOF
 #define CACHED_LOADS "$withval"
-_ACEOF
-
-fi
-
-
-
-# Check whether --with-checkValidModuleFiles was given.
-if test "${with_checkValidModuleFiles+set}" = set; then :
-  withval=$with_checkValidModuleFiles; CHECK_VALID="$withval"
-    { $as_echo "$as_me:${as_lineno-$LINENO}: result: CHECK_VALID=$with_checkValidModuleFiles" >&5
-$as_echo "CHECK_VALID=$with_checkValidModuleFiles" >&6; }
-    cat >>confdefs.h <<_ACEOF
-#define CHECK_VALID "$with_checkValidModuleFiles"
-_ACEOF
-
-else
-  withval="NO"
-    { $as_echo "$as_me:${as_lineno-$LINENO}: result: CHECK_VALID=$withval" >&5
-$as_echo "CHECK_VALID=$withval" >&6; }
-    CHECK_VALID="$withval"
-    cat >>confdefs.h <<_ACEOF
-#define CHECK_VALID "$withval"
 _ACEOF
 
 fi
@@ -5185,13 +5156,12 @@ echo "Have lua-json..............................." : $HAVE_LUA_JSON
 echo "Support Auto Swap when using families......." : $AUTO_SWAP
 echo "Export the module shell function in Bash...." : $EXPORT_MODULE
 echo "Disable same name autoswapping.............." : $DISABLE_NAME_AUTOSWAP
-echo "Legacy version ordering....................." : $LEGACY_ORDERING
 echo "Use Spider Cache on Loads..................." : $CACHED_LOADS
 echo "Pager used inside Lmod......................" : $PATH_TO_PAGER
 echo "System LD_PRELOAD..........................." : $SYS_LD_PRELOAD
 echo "System LD_LIBRARY_PATH......................" : $SYS_LD_LIB_PATH
 echo "Hashsum program used........................" : $PATH_TO_HASHSUM
-echo "Check TCL files for magic string............" : $CHECK_VALID
+echo "Site Name..................................." : $SITE_NAME
 
 echo
 echo '------------------------------------------------------------------------------'

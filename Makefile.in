@@ -20,6 +20,7 @@ LMOD_FULL_SETTARG_SUPPORT := $(shell echo "@SETTARG@"       | tr '[:upper:]' '[:
 USE_DOT_FILES             := $(shell echo "@USE_DOT_FILES@" | tr '[:upper:]' '[:lower:]')
 PREPEND_BLOCK     	  := $(shell echo "@PREPEND_BLOCK@" | tr '[:upper:]' '[:lower:]')
 COLORIZE          	  := $(shell echo "@COLORIZE@"      | tr '[:upper:]' '[:lower:]')
+SITE_NAME                 := @SITE_NAME@
 SYS_LD_LIB_PATH           := @SYS_LD_LIB_PATH@
 SYS_LD_PRELOAD            := @SYS_LD_PRELOAD@
 SYS_LUA_PATH              := @SYS_LUA_PATH@
@@ -189,6 +190,7 @@ __installMe:
 	        -e 's|@cached_loads@|$(CACHED_LOADS)|g'                	   	  \
 	        -e 's|@check_for_valid_module_files@|$(CHECK_VALID)|g'            \
 	        -e 's|@ps@|$(PS)|g'                              	   	  \
+	        -e 's|@site_name@|$(SITE_NAME)|g'                     	   	  \
 	        -e 's|@expr@|$(EXPR)|g'                              	   	  \
 	        -e 's|@libexec@|$(LIBEXEC)|g'                       	   	  \
 	        -e 's|@legacy_ordering@|$(LEGACY_ORDERING)|g'           	  \

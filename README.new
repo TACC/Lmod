@@ -1,2 +1,6 @@
-Lmod 6.6+
+Lmod 7.0+
+********************************************************************************
+   a) (7.0.1) added support for --config_json to write out Lmod's configuration
+      in json format.  Also added a test for it.
+   b) (7.0.2) added LMOD_SITE_NAME to set site name. Also configuration options
 

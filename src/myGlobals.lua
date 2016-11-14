@@ -117,6 +117,15 @@ LMOD_CASE_INDEPENDENT_SORTING = initialize("LMOD_CASE_INDEPENDENT_SORTING",
 LMOD_REDIRECT = initialize("LMOD_REDIRECT", "@redirect@")
 
 ------------------------------------------------------------------------
+-- LMOD_SITE_NAME: The site name (e.g. TACC)
+------------------------------------------------------------------------
+
+LMOD_SITE_NAME = initialize("LMOD_SITE_NAME","@site_name@","<empty>")
+if (LMOD_SITE_NAME == "<empty>") then
+   LMOD_SITE_NAME = false
+end
+   
+------------------------------------------------------------------------
 -- LMOD_SYSTEM_NAME:  When on a shared file system, use this to
 --                    form the cache name and collection names.
 ------------------------------------------------------------------------

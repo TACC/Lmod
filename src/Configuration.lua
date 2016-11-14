@@ -131,6 +131,7 @@ local function new(self)
    local uname             = capture("uname -a")
    local adminFn, readable = findAdminFn()
    local activeTerm        = haveTermSupport() and "true" or colorize("red","false")
+   local site_name         = LMOD_SITE_NAME or "<empty>"
    local case_ind_sorting  = LMOD_CASE_INDEPENDENT_SORTING
    local disable1N         = LMOD_DISABLE_SAME_NAME_AUTOSWAP
    local tmod_rule         = LMOD_TMOD_PATH_RULE
@@ -172,6 +173,7 @@ local function new(self)
    tbl.prpnd_blk   = { k = "Prepend order"                     , v = "@prepend_block@",    }
    tbl.settarg     = { k = "Supporting Full Settarg Use"       , v = settarg_support,      }
    tbl.sitePkg     = { k = "Site Pkg location"                 , v = locSitePkg,           }
+   tbl.siteName    = { k = "Site Name"                         , v = site_name,            }
    tbl.spdr_ignore = { k = "Ignore Cache"                      , v = ignore_cache,         }
    tbl.spdr_loads  = { k = "Cached loads"                      , v = cached_loads,         }
    tbl.tm_ancient  = { k = "User cache valid time(sec)"        , v = "@ancient@",          }

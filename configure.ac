@@ -187,6 +187,17 @@ AC_ARG_WITH(prependBlock,
     PREPEND_BLOCK="$withval"
     AC_DEFINE_UNQUOTED(PREPEND_BLOCK, "$withval"))dnl
 
+AC_SUBST(SITE_NAME)
+AC_ARG_WITH(siteName,
+    AC_HELP_STRING([--with-siteName=ans],[Site Name (<empty>)]),
+    SITE_NAME="$withval"
+    AC_MSG_RESULT([SITE_NAME=$with_siteName])
+    AC_DEFINE_UNQUOTED(SITE_NAME, "$with_siteName")dnl
+    ,
+    withval='<empty>'
+    AC_MSG_RESULT([SITE_NAME=$withval])
+    SITE_NAME="$withval"
+    AC_DEFINE_UNQUOTED(SITE_NAME, "$withval"))dnl
 
 AC_SUBST(ALLOW_TCL_MFILES)
 AC_ARG_WITH(tcl,
