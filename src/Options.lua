@@ -281,7 +281,7 @@ function M.singleton(self, usage)
    }
 
    cmdlineParser:add_option{
-       name   = {"--config-json" },
+       name   = {"--config_json" },
        dest   = "configjson",
        action = "store_true",
        help   = "Report Lmod Configuration in json format",
