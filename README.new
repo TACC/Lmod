@@ -4,5 +4,5 @@ Lmod 7.0+
       in json format.  Also added a test for it.
    b) (7.0.3) added LMOD_SITE_NAME to set site name. Also configuration options
    c) (7.0.4) hidden modules can never be marked as default by avail. Lmod loads
-      the highest module that is not hidden.
-
+      the highest module that is not hidden. the modulerc data is not stored in
+      the System  or user caches.
