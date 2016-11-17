@@ -333,6 +333,7 @@ function M.find_exact_match(self, fileA)
 end
 
 local function find_highest_by_key(key, fileA)
+   local mrc     = MRC:singleton()
    local a       = fileA[1] or {}
    local weight  = " "  -- this is less than the lower possible weight.
    local idx     = nil
@@ -341,10 +342,14 @@ local function find_highest_by_key(key, fileA)
    local version = false
 
    for j = 1,#a do
-      local v = a[j][key]
-      if (v > weight) then
-         idx    = j
-         weight = v
+      local entry    = a[j]
+      local fullName = entry.fullName
+      if (isVisible(mrc, fullName)) then
+         local v        = entry[key]
+         if (v > weight) then
+            idx    = j
+            weight = v
+         end
       end
    end
    if (idx) then

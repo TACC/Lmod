@@ -38,20 +38,22 @@ require("utils")
 
 function collectFileA(sn, versionStr, v, fileA)
    if (v.file and versionStr == nil) then
-      fileA[#fileA+1] = { sn = sn, version = nil, fn=v.file, wV="~", pV="~" }
+      fileA[#fileA+1] = { sn = sn, version = nil, fullName = sn, fn=v.file, wV="~", pV="~" }
    end
    if (v.fileT and next(v.fileT) ~= nil ) then
       if (versionStr) then
          local k  = pathJoin(sn, versionStr)
          local vv = v.fileT[k]
          if (vv) then
-            fileA[#fileA+1] = { sn = sn, version = versionStr, fn = vv.fn, wV = vv.wV, pV = vv.pV }
+            fileA[#fileA+1] = { sn = sn, fullName = build_fullName(sn, versionStr),
+                                version = versionStr, fn = vv.fn, wV = vv.wV, pV = vv.pV }
             return
          end
       else
          for fullName, vv in pairs(v.fileT) do
             local version   = extractVersion(fullName, sn)
-            fileA[#fileA+1] = { sn = sn, version = version, fn = vv.fn, wV = vv.wV, pV = vv.pV }
+            fileA[#fileA+1] = { sn = sn, fullName = fullName, version = version, fn = vv.fn,
+                                wV = vv.wV, pV = vv.pV }
          end
       end
    end

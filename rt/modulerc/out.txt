@@ -199,3 +199,47 @@ step 21
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load cluster
 ===========================
 false
+===========================
+step 22
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+===========================
+MODULEPATH="ProjectDIR/rt/modulerc/mf4";
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/modulerc/mf4",},["systemBaseMPATH"]="ProjectDIR/rt/modulerc/mf4",}';
+export _ModuleTable_;
+===========================
+step 23
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+===========================
+MODULEPATH="ProjectDIR/rt/modulerc/mf4";
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/modulerc/mf4",},["systemBaseMPATH"]="ProjectDIR/rt/modulerc/mf4",}';
+export _ModuleTable_;
+===========================
+step 24
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --show_hidden avail
+===========================
+MODULEPATH="ProjectDIR/rt/modulerc/mf4";
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/modulerc/mf4",},["systemBaseMPATH"]="ProjectDIR/rt/modulerc/mf4",}';
+export _ModuleTable_;
+===========================
+step 25
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load mpich
+===========================
+LOADEDMODULES="intel/15.0.2:a/13.2.345:abinit/7.4.3:hidden/2.0:mpich/3.2-dbg";
+export LOADEDMODULES;
+MODULEPATH="ProjectDIR/rt/modulerc/mf4";
+export MODULEPATH;
+_LMFILES_="ProjectDIR/rt/modulerc/mf/Core/intel/15.0.2.lua:ProjectDIR/rt/modulerc/mf/Core/a/13.2.345.lua:ProjectDIR/rt/modulerc/mf/Core/abinit/7.4.3:ProjectDIR/rt/modulerc/mf/Core/hidden/2.0.lua:ProjectDIR/rt/modulerc/mf4/mpich/3.2-dbg.lua";
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={mpich={["fn"]="ProjectDIR/rt/modulerc/mf4/mpich/3.2-dbg.lua",["fullName"]="mpich/3.2-dbg",["loadOrder"]=1,propT={},["status"]="active",["userName"]="mpich",},},mpathA={"ProjectDIR/rt/modulerc/mf4",},["systemBaseMPATH"]="ProjectDIR/rt/modulerc/mf4",}';
+export _ModuleTable_;
+===========================
+step 26
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+===========================
+MODULEPATH="ProjectDIR/rt/modulerc/mf4";
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={mpich={["fn"]="ProjectDIR/rt/modulerc/mf4/mpich/3.2-dbg.lua",["fullName"]="mpich/3.2-dbg",["loadOrder"]=1,propT={},["status"]="active",["userName"]="mpich",},},mpathA={"ProjectDIR/rt/modulerc/mf4",},["systemBaseMPATH"]="ProjectDIR/rt/modulerc/mf4",}';
+export _ModuleTable_;

@@ -292,19 +292,20 @@ function M.__find_all_defaults(self)
       end
       
       if (keepLooking) then
-         if (v.file) then
+         if (v.file and (show_hidden or isVisible(mrc, sn))) then
             defaultT[sn] = {weight = " ", fullName = sn, fn = v.file, count = 1}
          elseif (next(v.fileT) ~= nil) then
             for fullName, vv in pairs(v.fileT) do
-               if (show_hidden or isVisible(mrc, fullName)) then
+               local vis = isVisible(mrc, fullName)
+               if (show_hidden or vis) then
                   count = count + 1
-               end
-               if (vv.wV > weight) then
-                  found      = true
-                  weight     = vv.wV
-                  ext        = vv.luaExt and ".lua" or ""
-                  fn         = pathJoin(mpath, fullName .. ext)
-                  myfullName = fullName
+                  if (vis and (vv.wV > weight)) then
+                     found      = true
+                     weight     = vv.wV
+                     ext        = vv.luaExt and ".lua" or ""
+                     fn         = pathJoin(mpath, fullName .. ext)
+                     myfullName = fullName
+                  end
                end
             end
             if (found) then

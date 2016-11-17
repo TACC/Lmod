@@ -27,7 +27,7 @@ testdescript = {
 
      rm -fr _stderr.* _stdout.* err.* out.* .lmod.d .modulerc cacheDir
 
-     cp $(testDir)/.modulerc .
+     cp $(testDir)/dot.modulerc .modulerc
 
      export MODULEPATH_ROOT=$(testDir)/mf
      export MODULEPATH=$MODULEPATH_ROOT/Core
@@ -73,6 +73,16 @@ EOF
      export MODULEPATH=$(testDir)/mf/Core:$(testDir)/mf3/Core
      runLmod load cluster             #21
 
+     rm .modulerc
+     unsetMT
+     export MODULEPATH=$(testDir)/mf4
+     runLmod avail                    #22
+
+     cp $(testDir)/dot.modulerc .modulerc
+     runLmod avail                    #23
+     runLmod --show_hidden avail      #24
+     runLmod load mpich               #25
+     runLmod list                     #26
 
 
      HOME=$ORIG_HOME
