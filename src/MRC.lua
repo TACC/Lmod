@@ -64,7 +64,7 @@ local load      = (_VERSION == "Lua 5.1") and loadstring or load
 local s_MRC     = false
 
 ------------------------------------------------------------------------
--- Forward function refs
+-- Local functions
 local l_build             
 local l_parseModA
 local l_buildMod2VersionT
@@ -107,6 +107,7 @@ end
 
 
 function l_build(self, fnA)
+   dbg.start{"MRC l_build(self,fnA)"}
    declare("modA",{})
    local whole
    local status
@@ -131,6 +132,7 @@ function l_build(self, fnA)
          l_parseModA(self, modA, weight)
       end
    end
+   dbg.fini("MRC l_build")
 end
 
 function l_parseModA(self, modA, weight)
@@ -309,6 +311,13 @@ function M.import(self, mrcT)
          t[k] = v
       end
    end
+end
+
+function M.update(self, fnA)
+   dbg.start{"MRC:update(fnA)"}
+   fnA = fnA or getModuleRCT()
+   l_build(self,fnA)
+   dbg.fini("MRC:update")
 end
 
 return M

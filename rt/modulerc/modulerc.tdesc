@@ -81,7 +81,7 @@ EOF
      cp $(testDir)/dot.modulerc .modulerc
      runLmod avail                    #23
      runLmod --show_hidden avail      #24
-     runLmod load mpich               #25
+     runLmod load mpich a             #25
      runLmod list                     #26
 
 

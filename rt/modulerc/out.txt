@@ -225,15 +225,15 @@ _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={
 export _ModuleTable_;
 ===========================
 step 25
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load mpich
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load mpich a
 ===========================
-LOADEDMODULES="intel/15.0.2:a/13.2.345:abinit/7.4.3:hidden/2.0:mpich/3.2-dbg";
+LOADEDMODULES="intel/15.0.2:a/13.2.345:abinit/7.4.3:hidden/2.0:mpich/3.2-dbg:a/3.0";
 export LOADEDMODULES;
 MODULEPATH="ProjectDIR/rt/modulerc/mf4";
 export MODULEPATH;
-_LMFILES_="ProjectDIR/rt/modulerc/mf/Core/intel/15.0.2.lua:ProjectDIR/rt/modulerc/mf/Core/a/13.2.345.lua:ProjectDIR/rt/modulerc/mf/Core/abinit/7.4.3:ProjectDIR/rt/modulerc/mf/Core/hidden/2.0.lua:ProjectDIR/rt/modulerc/mf4/mpich/3.2-dbg.lua";
+_LMFILES_="ProjectDIR/rt/modulerc/mf/Core/intel/15.0.2.lua:ProjectDIR/rt/modulerc/mf/Core/a/13.2.345.lua:ProjectDIR/rt/modulerc/mf/Core/abinit/7.4.3:ProjectDIR/rt/modulerc/mf/Core/hidden/2.0.lua:ProjectDIR/rt/modulerc/mf4/mpich/3.2-dbg.lua:ProjectDIR/rt/modulerc/mf4/a/3.0.lua";
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={mpich={["fn"]="ProjectDIR/rt/modulerc/mf4/mpich/3.2-dbg.lua",["fullName"]="mpich/3.2-dbg",["loadOrder"]=1,propT={},["status"]="active",["userName"]="mpich",},},mpathA={"ProjectDIR/rt/modulerc/mf4",},["systemBaseMPATH"]="ProjectDIR/rt/modulerc/mf4",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={a={["fn"]="ProjectDIR/rt/modulerc/mf4/a/3.0.lua",["fullName"]="a/3.0",["loadOrder"]=2,propT={},["status"]="active",["userName"]="a",},mpich={["fn"]="ProjectDIR/rt/modulerc/mf4/mpich/3.2-dbg.lua",["fullName"]="mpich/3.2-dbg",["loadOrder"]=1,propT={},["status"]="active",["userName"]="mpich",},},mpathA={"ProjectDIR/rt/modulerc/mf4",},["systemBaseMPATH"]="ProjectDIR/rt/modulerc/mf4",}';
 export _ModuleTable_;
 ===========================
 step 26
@@ -241,5 +241,5 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 MODULEPATH="ProjectDIR/rt/modulerc/mf4";
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={mpich={["fn"]="ProjectDIR/rt/modulerc/mf4/mpich/3.2-dbg.lua",["fullName"]="mpich/3.2-dbg",["loadOrder"]=1,propT={},["status"]="active",["userName"]="mpich",},},mpathA={"ProjectDIR/rt/modulerc/mf4",},["systemBaseMPATH"]="ProjectDIR/rt/modulerc/mf4",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={a={["fn"]="ProjectDIR/rt/modulerc/mf4/a/3.0.lua",["fullName"]="a/3.0",["loadOrder"]=2,propT={},["status"]="active",["userName"]="a",},mpich={["fn"]="ProjectDIR/rt/modulerc/mf4/mpich/3.2-dbg.lua",["fullName"]="mpich/3.2-dbg",["loadOrder"]=1,propT={},["status"]="active",["userName"]="mpich",},},mpathA={"ProjectDIR/rt/modulerc/mf4",},["systemBaseMPATH"]="ProjectDIR/rt/modulerc/mf4",}';
 export _ModuleTable_;

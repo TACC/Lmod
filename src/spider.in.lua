@@ -429,7 +429,8 @@ function main()
 
    -- Make sure that MRC ignores $MODULERC and ~/.modulerc when building the cache
    local mrc                     = MRC:singleton({})
-   local cache                   = Cache:singleton{dontWrite = true, quiet = true, buildCache = true, buildFresh = true}
+   local cache                   = Cache:singleton{dontWrite = true, quiet = true, buildCache = true,
+                                                   buildFresh = true, noMRC=true}
    local spider                  = Spider:new()
    local spiderT, dbT, mpathMapT = cache:build()
 
