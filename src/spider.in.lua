@@ -208,12 +208,12 @@ end
 
 local function rptSpiderT(mpathMapT, spiderT, timestampFn, dbT)
    dbg.start{ "rptSpiderT(mpathMapT, spiderT, timestampFn, dbT)"}
-   local mrc = MRC:singleton()
-   local ts = { timestampFn }
-   local s1 = serializeTbl{name="timestampFn",   value=ts,         indent=true}
-   local s2 = mrc:export()
-   local s3 = serializeTbl{name="spiderT",       value=spiderT,    indent=true}
-   local s4 = serializeTbl{name="mpathMapT",     value=mpathMapT,  indent=true}
+   local mrc = MRC:singleton() 
+   local ts  = { timestampFn }
+   local s1  = serializeTbl{name="timestampFn",   value=ts,         indent=true}
+   local s2  = mrc:export()
+   local s3  = serializeTbl{name="spiderT",       value=spiderT,    indent=true}
+   local s4  = serializeTbl{name="mpathMapT",     value=mpathMapT,  indent=true}
    io.stdout:write(s1,s2,s3,s4,"\n")
    dbg.fini("rptSpiderT")
 end
@@ -426,6 +426,9 @@ function main()
 
    dbg.print{"lmodPath:", lmodPath,"\n"}
    require("SitePackage")
+
+   -- Make sure that MRC ignores $MODULERC and ~/.modulerc when building the cache
+   local mrc                     = MRC:singleton({})
    local cache                   = Cache:singleton{dontWrite = true, quiet = true, buildCache = true, buildFresh = true}
    local spider                  = Spider:new()
    local spiderT, dbT, mpathMapT = cache:build()
