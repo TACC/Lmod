@@ -292,11 +292,11 @@ function M.__find_all_defaults(self)
       end
       
       if (keepLooking) then
-         if (v.file and (show_hidden or isVisible(mrc, sn))) then
+         if (v.file and (show_hidden or mrc:isVisible(sn))) then
             defaultT[sn] = {weight = " ", fullName = sn, fn = v.file, count = 1}
          elseif (next(v.fileT) ~= nil) then
             for fullName, vv in pairs(v.fileT) do
-               local vis = isVisible(mrc, fullName)
+               local vis = mrc:isVisible(fullName)
                if (show_hidden or vis) then
                   count = count + 1
                   if (vis and (vv.wV > weight)) then
@@ -354,13 +354,13 @@ function M.build_availA(self)
    local function build_availA_helper(mpath, sn, v, A)
       local icnt = #A
       if (v.file ) then
-         if (show_hidden or isVisible(mrc, sn)) then
+         if (show_hidden or mrc:isVisible(sn)) then
             local metaModuleT = v.metaModuleT or {}
             A[icnt+1] = { fullName = sn, pV = sn, fn = v.file, sn = sn, propT = metaModuleT.propT}
          end
       elseif (next(v.fileT) ~= nil) then
          for fullName, vv in pairs(v.fileT) do
-            if (show_hidden or isVisible(mrc, fullName)) then
+            if (show_hidden or mrc:isVisible(fullName)) then
                icnt    = icnt + 1
                dbg.print{"    icnt: ", icnt, ", fullName: ",fullName,"\n"}
                A[icnt] = { fullName = fullName, pV = pathJoin(sn,vv.pV), fn = vv.fn, sn = sn, propT = vv.propT}

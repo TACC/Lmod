@@ -608,7 +608,7 @@ function M.spiderSearch(self, dbT, userSearchPat, helpFlg)
       if (not show_hidden) then
          found = false
          for fn, v in pairs(T) do
-            if (isVisible(mrc, v.fullName)) then
+            if (mrc:isVisible(v.fullName)) then
                found = true
                break
             end
@@ -624,10 +624,10 @@ function M.spiderSearch(self, dbT, userSearchPat, helpFlg)
       local bT = {}
       dbg.print{"userSearchPat: ",userSearchPat,"\n"}
       for key, sn in pairs(fullT) do
-         if (key == origUserSearchPat and (show_hidden or isVisible(mrc,key))) then
+         if (key == origUserSearchPat and (show_hidden or mrc:isVisible(key))) then
             aT[sn] = origUserSearchPat
          end
-         if (key:find(userSearchPat) and (show_hidden or isVisible(mrc,key))) then
+         if (key:find(userSearchPat) and (show_hidden or mrc:isVisible(key))) then
             dbg.print{"  key: ",key,", sn: ",sn,"\n"}
             bT[sn] = userSearchPat
          end
@@ -685,7 +685,7 @@ function M._Level1(self, dbT, possibleA, sn, key, helpFlg)
          if (fullName == key) then
             aa[#aa + 1] = v
          end
-         if(fullName:find(key) and (show_hidden or isVisible(mrc,fullName))) then
+         if(fullName:find(key) and (show_hidden or mrc:isVisible(fullName))) then
             bb[#bb + 1] = v
          end
       end

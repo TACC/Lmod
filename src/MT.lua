@@ -48,6 +48,7 @@ require("serializeTbl")
 
 local ColumnTable  = require("ColumnTable")
 local M            = {}
+local MRC          = require("MRC")
 local ReadLmodRC   = require("ReadLmodRC")
 local base64       = require("base64")
 local concatTbl    = table.concat
@@ -538,13 +539,14 @@ function M.list_property(self, idx, sn, style, legendT)
    dbg.start{"MT:list_property(\"",sn,"\", \"",style,"\")"}
    local mT    = self.mT
    local entry = mT[sn]
+   local mrc   = MRC:singleton()
 
    if (entry == nil) then
       LmodError("MT:list_property(): Did not find module entry: ",sn,
                 ". This should not happen!\n")
    end
 
-   local resultA = colorizePropA(style, entry.fullName, entry.propT, legendT)
+   local resultA = colorizePropA(style, entry.fullName, mrc, entry.propT, legendT)
    if (resultA[2]) then
       resultA[2] = "(" .. resultA[2] .. ")"
    end

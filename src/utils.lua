@@ -189,14 +189,23 @@ end
 -- @param propT The property table
 -- @param legendT The legend table.  A key-value pairing of keys to descriptions.
 -- @return An array of colorized strings
-function colorizePropA(style, moduleName, propT, legendT)
-   local resultA      = { moduleName }
+function colorizePropA(style, moduleName, mrc, propT, legendT)
    local readLmodRC   = require("ReadLmodRC"):singleton()
    local propDisplayT = readLmodRC:propT()
    local iprop        = 0
    local pA           = {}
    propT              = propT or {}
 
+   if (not mrc:isVisible(moduleName)) then
+      local H    = 'H'
+      moduleName = colorize("hidden",moduleName)
+      pA[#pA+1]  = H
+      legendT[H] = "Hidden Module"
+   end
+
+
+   
+   local resultA      = { moduleName }
    for kk,vv in pairsByKeys(propDisplayT) do
       iprop        = iprop + 1
       local propA  = {}
@@ -396,7 +405,7 @@ end
 
 function isActiveMFile(mrc, full, sn)
    local version = extractVersion(full, sn) or ""
-   return isVisible(mrc, full), version
+   return mrc:isVisible(full), version
 end
 
 --------------------------------------------------------------------------
@@ -406,17 +415,6 @@ end
 function length(s)
    s = s:gsub("\027[^m]+m","")
    return s:len()
-end
-
-function isVisible(mrc, name)
-   if (mrc:getHiddenT(name)) then
-      return false
-   end
-   if (name:sub(1,1) == ".") then
-      return false
-   end
-   local idx = name:find("/%.")
-   return idx == nil
 end
 
 
