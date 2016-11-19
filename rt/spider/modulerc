@@ -1,0 +1,9 @@
+#%Module
+
+module-alias intelcompiler intel
+module-version intel/2017.1.132 2017 17
+#hide-version intel
+
+
+
+

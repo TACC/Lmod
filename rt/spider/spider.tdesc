@@ -59,6 +59,13 @@ testdescript = {
      runLmod spider smrt                                                      #27
      runLmod spider petsc/3.1                                                 #28
 
+     rm -fr $HOME/.lmod.d/.cache
+     unsetMT
+     export MODULERCFILE=$testDir/modulerc
+     export LMOD_RC=$testDir/lmodrc.lua
+     export MROOT_CQ=$testDir/mf/CQ
+     export MODULEPATH=$testDir/mf/CQ/Core
+     runLmod spider                                                           #29
 
      HOME=$ORIG_HOME
 
