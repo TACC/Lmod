@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 0.8.3  2016-10-21 20:40 -05:00
+Modules based on Lua: Version 7.0.3  2016-11-14 17:03 -07:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -33,7 +33,9 @@ step 5
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 Currently Loaded Modules:
-  1) a/.1.0
+  1) a/.1.0 (H)
+  Where:
+   H:  Hidden Module
 ===========================
 step 6
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
@@ -111,7 +113,9 @@ step 18
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 Currently Loaded Modules:
-  1) a/.1.0   2) b/.2.0
+  1) a/.1.0 (H)   2) b/.2.0 (H)
+  Where:
+   H:  Hidden Module
 ===========================
 step 19
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --show_hidden spider

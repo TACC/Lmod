@@ -87,21 +87,22 @@ step 7
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --show_hidden avail
 ===========================
 ProjectDIR/rt/avail/mf/Core
-   .base/bar/1.4-dbg        gcc/4.2.3            junk/d/3.0
-   .base/bar/1.4            git/1.6.3.1          local/local
-   .base/baz/1.4-dbg        git/1.7.4            local/1.1
-   .base/baz/1.4            git/1.7.4.1          local/1.2
+   .base/bar/1.4-dbg (H)    gcc/4.2.3            junk/d/3.0
+   .base/bar/1.4     (H)    git/1.6.3.1          local/local
+   .base/baz/1.4-dbg (H)    git/1.7.4            local/1.1
+   .base/baz/1.4     (H)    git/1.7.4.1          local/1.2
    PrgEnv                   git/1.7.4.2          local/1.3    (D)
    admin/admin-1.0          git/1.7.4.3   (D)    local/1.4
    alex/1.0                 gotoblas/1.20        multi/multi
    bar/1.4-dbg              gotoblas/1.26 (D)    noweb/2.10c
    bar/1.4           (D)    gotoblas/1.30        parmetis/3.1 (m)
-   baz/1.4-dbg              hidden/.1.0          ucc/12.1.5
+   baz/1.4-dbg              hidden/.1.0   (H)    ucc/12.1.5
    baz/1.4           (D)    intel/intel          ucc/13.1.2   (D)
    foo/1.4-dbg              junk/a/c/1.0         ucc/14.0.2
    foo/1.4           (D)    junk/b/c/2.0         unix/unix
   Where:
    D:  Default Module
+   H:  Hidden Module
    m:  built for host and native MIC
 Use "module spider" to find all possible modules.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".

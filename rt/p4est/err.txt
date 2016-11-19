@@ -21,11 +21,12 @@ step 3
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --show_hidden av
 ===========================
 ProjectDIR/rt/p4est/mf/Core
-   a/.1.1    a/.1.2    local    p4est/.1.2    p4est/1.1 (D)
+   a/.1.1 (H)    a/.1.2 (H)    local    p4est/.1.2 (H)    p4est/1.1 (D)
 ProjectDIR/rt/p4est/mf/User
    local/1.1    local/1.2 (D)
   Where:
    D:  Default Module
+   H:  Hidden Module
 Use "module spider" to find all possible modules.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
