@@ -168,6 +168,13 @@ local function walk(mrc, mpath, path, dirA, fileT)
    local defaultIdx = 1000000
    local defaultT   = {}
 
+   local attr = lfs.attributes(path)
+   if (not attr or type(attr) ~= "table" or attr.mode ~= "directory" or
+       not posix.access(path,"x")) then
+      return defaultT
+   end
+
+
    for f in lfs.dir(path) do
       repeat
          local file = pathJoin(path, f)
