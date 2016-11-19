@@ -69,6 +69,15 @@ function full_colorize(color, ... )
    end
 
    local a = {}
+   if (color == "hidden") then
+      a[#a+1] = "\027".."[2m"
+      for i = 1, arg.n do
+         a[#a+1] = arg[i]
+      end
+      a[#a+1] = "\027".."[0m"
+      return concatTbl(a,"")
+   end
+
    a[#a+1] = Foreground
    a[#a+1] = colorT[color]
    a[#a+1] = 'm'

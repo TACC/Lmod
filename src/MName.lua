@@ -344,7 +344,7 @@ local function find_highest_by_key(key, fileA)
    for j = 1,#a do
       local entry    = a[j]
       local fullName = entry.fullName
-      if (isVisible(mrc, fullName)) then
+      if (mrc:isVisible(fullName)) then
          local v        = entry[key]
          if (v > weight) then
             idx    = j

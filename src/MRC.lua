@@ -313,6 +313,17 @@ function M.import(self, mrcT)
    end
 end
 
+function M.isVisible(self, name)
+   if (self:getHiddenT(name)) then
+      return false
+   end
+   if (name:sub(1,1) == ".") then
+      return false
+   end
+   local idx = name:find("/%.")
+   return idx == nil
+end
+
 function M.update(self, fnA)
    dbg.start{"MRC:update(fnA)"}
    fnA = fnA or getModuleRCT()
