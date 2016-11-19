@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 6.9.2-beta  2016-11-04 17:28 -05:00
+Modules based on Lua: Version 7.0.4  2016-11-18 22:12 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -370,3 +370,24 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider petsc/3.1
   petsc: petsc/3.1
     You will need to load all module(s) on any one of the lines below before the "petsc/3.1" module is available to load.
       intel/intel  mpich2/1.0.7
+===========================
+step 29
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider
+===========================
+The following is a list of the modules currently available:
+  hpl: hpl/2.2
+    HPL is a software package that solves a (random) dense linear system in double precision (64 bits) arithmetic on distributed-memory computers. It can thus be regarded as a portable as well as freely available implementation of the High Performance Computing Linpack Benchmark. - Homepage:
+    http://www.netlib.org/benchmark/hpl/
+  imkl: imkl/2017.1.132
+    Intel Math Kernel Library is a library of highly optimized, extensively threaded math routines for science, engineering, and financial applications that require maximum performance. Core math functions include BLAS, LAPACK, ScaLAPACK, Sparse Solvers, Fast Fourier Transforms, Vector Math,
+    and more. - Homepage: http://software.intel.com/en-us/intel-mkl/
+  intel: intel/2017.1.132
+    Intel Cluster Toolkit Compiler Edition provides Intel C,C++ and fortran compilers, Intel MPI and Intel MKL - Homepage: http://software.intel.com/en-us/intel-cluster-toolkit-compiler/
+  openmpi: openmpi/2.0.1
+    The Open MPI Project is an open source MPI-2 implementation. - Homepage: http://www.open-mpi.org/
+To learn more about a package enter:
+   $ module spider Foo
+where "Foo" is the name of a module
+To find detailed information about a particular package you
+must enter the version if there is more than one version:
+   $ module spider Foo/11.1
