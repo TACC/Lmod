@@ -7,4 +7,7 @@ Lmod 7.0+
       the highest module that is not hidden. the modulerc data is not stored in
       the System  or user caches. Check permissions on directory before trying to
       walk it.
-      
+   d) (7.0.5) In capture routine handle empty LD_LIBRARY_PATH and LD_PRELOAD
+      correctly.  Do not pollute configure time value of LD_LIBRARY_PATH to the
+      running of Lmod. Fix bug with case independent sorting when producing
+      level 0 spider output.

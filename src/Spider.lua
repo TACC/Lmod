@@ -500,6 +500,21 @@ function M.Level0(self, dbT)
    return concatTbl(a,"")
 end
 
+--------------------------------------------------------------------------
+-- Convert both argument to lower case and compare.
+-- @param a input string
+-- @param b input string
+local function l_case_independent_cmp_by_name(a,b)
+   local a_lower = a:lower()
+   local b_lower = b:lower()
+
+   if (a_lower  == b_lower ) then
+      return a < b
+   else
+      return a_lower < b_lower
+   end
+end
+
 function M.Level0Helper(self, dbT, a)
    local t           = {}
    local show_hidden = masterTbl().show_hidden
@@ -521,7 +536,8 @@ function M.Level0Helper(self, dbT, a)
 
    local ia  = #a
    local cmp = (LMOD_CASE_INDEPENDENT_SORTING:lower():sub(1,1) == "y") and
-               case_independent_cmp or nil
+               l_case_independent_cmp_by_name or nil
+
    for k,v in pairsByKeys(t,cmp) do
       local len = 0
       ia = ia + 1; a[ia] = "  " .. v.name .. ":"
