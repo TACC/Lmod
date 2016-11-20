@@ -55,7 +55,7 @@ function capture(cmd, envT)
 
 
    for k, v in pairs(envT) do
-      newT[k] = getenv(k)
+      newT[k] = getenv(k) or false
       setenv_posix(k, v, true)
    end
 
@@ -85,6 +85,7 @@ function capture(cmd, envT)
    end
 
    for k, v in pairs(newT) do
+      if (v == false) then v = nil end
       setenv_posix(k,v, true)
    end
 
