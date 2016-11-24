@@ -11,3 +11,5 @@ Lmod 7.0+
       correctly.  Do not pollute configure time value of LD_LIBRARY_PATH to the
       running of Lmod. Fix bug with case independent sorting when producing
       level 0 spider output.
+   e) (7.0.6) Only build locationT when searching for modulefiles.
+   
