@@ -468,10 +468,15 @@ function M.inherited_search(self, search_fullName, orig_fn)
 end
 
 function M.search(self, name)
-   if (self.__locationT) then
-      return self.__locationT:search(name)
+   if (self.__isNVV) then
+      return search(name, self.__moduleA)
    end
-   return search(name, self.__moduleA)
+
+   if (not self.__locationT) then
+      self.__locationT = LocationT:new(self.__moduleA)
+   end
+
+   return self.__locationT:search(name)
 end
 
 local function build_from_spiderT(spiderT)
@@ -551,7 +556,7 @@ function M.update(self, t)
       until true
    end
    self.__defaultT  = {}
-   self.__locationT = (not self.__isNVV) and LocationT:new(moduleA) or false
+   self.__locationT = false
    self.__moduleA   = moduleA
    mt:updateMPathA(mpathA)
    dbg.fini("ModuleA:update")
@@ -584,7 +589,7 @@ function M.__new(self, mpathA, maxdepthT, moduleRCT, spiderT)
       local mrc       = MRC:singleton(moduleRCT)
       o:applyWeights(mrc:fullNameDfltT())
    end
-   o.__locationT   = (not o.__isNVV) and LocationT:new(o.__moduleA) or false
+   o.__locationT   = false
    o.__defaultT    = {}
 
    dbg.fini("ModuleA:__new")
@@ -604,6 +609,12 @@ function M.spiderBuilt(self)
 end
 
 function M.locationT(self)
+   if (self.__isNVV) then
+      return {}
+   end
+   if (not self.__locationT) then
+      self.__locationT = LocationT:new(self.__moduleA)
+   end
    return self.__locationT:locationT()
 end
 
