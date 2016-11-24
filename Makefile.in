@@ -375,6 +375,7 @@ build_tags:
 	    -e 's|.*\.fls$$||g'                                  \
 	    -e 's|.*\.nav$$||g'                                  \
 	    -e 's|.*\.out$$||g'                                  \
+	    -e 's|.*\.new.lua$$||g'                              \
 	    -e 's|.*\.pdf$$||g'                                  \
 	    -e 's|.*\.pyc$$||g'                                  \
 	    -e 's|.*db\.conf$$||g'                               \
@@ -404,6 +405,10 @@ build_tags:
             -e 's|.*/cookbook/.*||g'                             \
             -e 's|.*/docs/.*||g'                                 \
             -e 's|.*/my_docs/.*||g'                              \
+	    -e 's|.*/spec/.*/mf/.*||g'                           \
+	    -e 's|.*/spec/.*/mf2/.*||g'                          \
+	    -e 's|.*/spec/.*/nv/.*||g'                           \
+	    -e 's|.*/spec/.*/nv2/.*||g'                          \
             -e '/^\s*$$/d'                                       \
 	       < file_list.2.txt > file_list.3.txt
 	etags `cat file_list.3.txt`
