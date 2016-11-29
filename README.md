@@ -34,8 +34,8 @@ Features:
    1. The commands "module --show_hidden avail" and "module --show_hidden" list now show
       "hidden" modules with the (H) property.  Also they are displayed as dim.  This works
       better on black backgrounds.
-   2. Added the command "module --config_json" to generate a json output of the configuration.
-   3. Add support for env. var. LMOD_SITE_NAME to set site name.  This is also a configuration option.
+   2. Added the command "module --config_json" to generate a json output of Lmod's configuration.
+   3. Add support for env. var. LMOD_SITE_NAME to set site name.  This is also a configure option.
 
 Bug Fixes:
    1. Hidden module now will not be marked as default. 
