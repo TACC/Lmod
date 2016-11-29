@@ -41,6 +41,7 @@ Bug Fixes:
    1. Hidden module now will not be marked as default.  Lmod loads the highest modulefile that is not hidden.
    2. Now Check permission of directory before trying to open it.
    3. Lmod now does not pollute the configure time value of LD_LIBRARY_PATH and LD_PRELOAD into the users env.
+   4. Lmod now handles bad values of $TERM.
 
 ### Lmod 7.0:
    1. This version support N/V/V. (e.g. fftw/64/3.3.4).  Put a .version file
