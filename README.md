@@ -28,6 +28,20 @@ release at sourceforge.
 
 ## ChangeLog
 
+### Lmod 7.1:
+
+Features:
+   1. The commands "module --show_hidden avail" and "module --show_hidden" list now show
+      "hidden" modules with the (H) property.  Also they are displayed as dim.  This works
+      better on black backgrounds.
+   2. Added the command "module --config_json" to generate a json output of the configuration.
+   3. Add support for env. var. LMOD_SITE_NAME to set site name.  This is also a configuration option.
+
+Bug Fixes:
+   1. Hidden module now will not be marked as default.  Lmod loads the highest modulefile that is not hidden.
+   2. Now Check permission of directory before trying to open it.
+   3. Lmod now does not pollute the configure time value of LD_LIBRARY_PATH and LD_PRELOAD into the users env.
+
 ### Lmod 7.0:
    1. This version support N/V/V. (e.g. fftw/64/3.3.4).  Put a .version file
       in with the "64" directory to tell Lmod where the version starts.
