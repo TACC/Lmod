@@ -168,7 +168,7 @@ local function walk(mrc, mpath, path, dirA, fileT)
    local defaultIdx = 1000000
    local defaultT   = {}
 
-   local attr = lfs.attributes(path)
+   local attr       = lfs.attributes(path)
    if (not attr or type(attr) ~= "table" or attr.mode ~= "directory" or
        not access(path,"x")) then
       return defaultT

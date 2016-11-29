@@ -34,6 +34,7 @@ require("string_utils")
 _G._DEBUG       = false                     -- Required by luaposix 33
 local posix     = require("posix")
 local lfs       = require("lfs")
+local access    = posix.access
 local concatTbl = table.concat
 local dbg       = require("Dbg"):dbg()
 
@@ -314,6 +315,7 @@ end
 
 function abspath (path, localDir)
    if (path == nil) then return nil end
+
    local cwd = lfs.currentdir()
    path = path:trim()
 
@@ -322,16 +324,19 @@ function abspath (path, localDir)
    end
 
    local dir    = dirname(path)
-   local ival   = lfs.chdir(dir)
+   local attr   = lfs.attributes(dir)
+   if (not attr or type(attr) ~= "table" or attr.mode ~= "directory" or 
+       not access(dir,"x")) then
+      return nil
+   end
 
+   local ival   = lfs.chdir(dir)
    local cdir   = lfs.currentdir()
    if (cdir == nil) then
       dbg.print{"lfs.currentdir(): is nil"}
    end
 
-   dir          = cdir or dir
-
-
+   dir  = cdir or dir
    path = pathJoin(dir, barefilename(path))
    local result = path
 
