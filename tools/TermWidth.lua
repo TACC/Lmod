@@ -62,7 +62,7 @@ local function askSystem(width)
    end
 
    -- Try tput cols
-   if (getenv("TERM")) then
+   if (getenv("TERM") and not getenv("TERM") == '') then
       local result  = capture("tput cols")
       i, j, columns = result:find("^(%d+)")
       if (i) then
