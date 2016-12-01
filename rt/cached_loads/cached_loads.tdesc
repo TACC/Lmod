@@ -23,27 +23,35 @@ testdescript = {
      MODULEPATH=$MODULEPATH_ROOT/Core; export MODULEPATH
 
      rm -fr _stderr.* _stdout.* err.* out.* .lmod.d mf
+
+
+     
+     runLmod --version              # 1
+
      cp -r $(testDir)/mf .
+     export LMOD_CACHED_LOADS=1
+     runLmod load  C                # 2
+     unset LMOD_CACHED_LOADS
+     runLmod rm    C                # 3
 
      mkdir -p $HOME/.lmod.d/.cache
      buildSpiderT $MODULEPATH > $HOME/.lmod.d/.cache/spiderT.lua
-     runLmod --version              # 1
 
      mkdir mf/Core/B
      cp    mf/Core/A/1.0.lua mf/Core/B
 
-     runLmod load   A               # 2
-     runLmod load   B               # 3
-     runLmod list                   # 4
-     runLmod unload B               # 5
+     runLmod load   A               # 4
+     runLmod load   B               # 5
+     runLmod list                   # 6
+     runLmod unload B               # 7
 
      export LMOD_CACHED_LOADS=1
-     runLmod load   B               # 6
-     runLmod list                   # 7
-
-     export LMOD_IGNORE_CACHE=1
      runLmod load   B               # 8
      runLmod list                   # 9
+
+     export LMOD_IGNORE_CACHE=1
+     runLmod load   B               #10
+     runLmod list                   #11
     
 
 

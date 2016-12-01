@@ -173,7 +173,7 @@ function M.singleton(self, t)
       __removeEnvMT()
    end
    if (not s_mt) then
-      dbg.start{"MT:singletonRTM()"}
+      dbg.start{"MT:singleton()"}
       s_mt        = new(self, getMT())
       dbg.fini("MT:singleton")
    end
