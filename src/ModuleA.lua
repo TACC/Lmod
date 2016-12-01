@@ -626,6 +626,7 @@ function M.defaultT(self)
 end
 
 function M.singleton(self, t)
+   dbg.start{"ModuleA:singleton(t)"}
    t = t or {}
    if (t.reset or (s_moduleA and s_moduleA:spiderBuilt())) then
       self:__clear()
@@ -644,21 +645,18 @@ function M.singleton(self, t)
       s_moduleA = self:__new(mt:modulePathA(), mt:maxDepthT(), getModuleRCT(), spiderT)
    end
 
-
-   if (dbg:active()) then
-      local mA = s_moduleA:moduleA()
-   end
-
+   dbg.fini("ModuleA:singleton")
    return s_moduleA
 end
 
 
 
 function M.__clear(self)
+   dbg.start{"ModuleA:__clear()"}
    local MT = require("MT")
    s_moduleA = false
-   FrameStk:__clear()
    MT:__clearMT{testing=true}
+   dbg.fini("ModuleA:__clear")
 end
 
 return M
