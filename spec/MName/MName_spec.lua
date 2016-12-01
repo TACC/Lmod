@@ -5,6 +5,7 @@ require("fileOps")
 
 local MName     = require("MName")
 local ModuleA   = require("ModuleA")
+local FrameStk  = require("FrameStk")
 
 local concatTbl = table.concat
 local dbg       = require("Dbg"):dbg()
@@ -126,6 +127,7 @@ describe("Testing MName Class #MName.",
                   posix.setenv("MODULEPATH", mpath, true)
                   _G.LMOD_MAXDEPTH = nil
                   ModuleA:__clear()
+                  FrameStk:__clear()
                   local goldA = {
                      { value = "foo",        sn = "foo",   version = "2.0",    action = "match",
                        fn = "%ProjDir%/spec/MName/nv/foo/2.0.lua"},

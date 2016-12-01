@@ -65,6 +65,7 @@ describe("Testing MasterControl Class #MasterControl.",
                   posix.setenv("MODULEPATH", mpath, true)
                   
                   _G.LMOD_MAXDEPTH = nil
+                  FrameStk:__clear()
                   ModuleA:__clear()
                   local frameStk = FrameStk:singleton()
                   local mpathA   = frameStk:mt():modulePathA()
