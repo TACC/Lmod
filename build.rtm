@@ -109,14 +109,14 @@ case $SYSHOST in
     ADMIN_DIR=/apps/gent/lmodcache/
     UPDATE_FN=$ADMIN_DIR/timestamp
     CACHEDIRS=$ADMIN_DIR
-    EXTRA="--with-spiderCacheDir=$CACHEDIRS  --with-updateSystemFn=$UPDATE_FN --with-cachedLoads=yes"
+    EXTRA="--with-cachedLoads=yes --with-autoSwap=no --with-disableNameAutoSwap=yes --with-caseIndependentSorting=yes --with-pinVersions=yes"
     base="$HOME/l/pkg";;
 
   *)
     ADMIN_DIR=$HOME/w/moduleData
     UPDATE_FN=$ADMIN_DIR/system.txt
     CACHEDIRS=$ADMIN_DIR/cacheDir
-    EXTRA="--with-spiderCacheDir=$CACHEDIRS  --with-updateSystemFn=$UPDATE_FN "
+    EXTRA="--with-spiderCacheDir=$CACHEDIRS  --with-updateSystemFn=$UPDATE_FN"
     base="$HOME/l/pkg"
     ;;
 esac
