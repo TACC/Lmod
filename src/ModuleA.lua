@@ -633,14 +633,14 @@ function M.singleton(self, t)
       self:__clear()
    end
    if (not s_moduleA) then
-      local masterTbl    = masterTbl()
+      local terse        = masterTbl().terse
       local frameStk     = FrameStk:singleton()
       local mt           = frameStk:mt()
       local spiderT      = false
       local dbT          = false
       
       if (t.spider_cache) then
-         local cache = require("Cache"):singleton{quiet= masterTbl.terse, buildCache=true}
+         local cache = require("Cache"):singleton{quiet=terse, buildCache=true}
          spiderT, dbT = cache:build()
       end
       s_moduleA = self:__new(mt:modulePathA(), mt:maxDepthT(), getModuleRCT(), spiderT)
