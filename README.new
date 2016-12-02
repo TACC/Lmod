@@ -3,4 +3,6 @@ Lmod 7.1+
       building a spider cache while loading a module.
    b) (7.1.2) Turn zsh tab completion back on by actually writing _ml
       and _module files in the zsh site-function locations.
+   c) (7.1.3) fixed a problem with purge when LMOD_CACHED_LOADS=1
+   
       
