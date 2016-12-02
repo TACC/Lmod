@@ -30,9 +30,9 @@ testdescript = {
 
      cp -r $(testDir)/mf .
      export LMOD_CACHED_LOADS=1
-     runLmod load  C                # 2
+     runLmod load  C openfoam       # 2
      unset LMOD_CACHED_LOADS
-     runLmod rm    C                # 3
+     runLmod purge                  # 3
 
      mkdir -p $HOME/.lmod.d/.cache
      buildSpiderT $MODULEPATH > $HOME/.lmod.d/.cache/spiderT.lua
