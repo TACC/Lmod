@@ -323,14 +323,9 @@ function abspath (path, localDir)
       path = pathJoin(cwd,path)
    end
 
-   local dir    = dirname(path)
-   local attr   = lfs.attributes(dir)
-   if (not attr or type(attr) ~= "table" or attr.mode ~= "directory" or 
-       not access(dir,"x")) then
-      return nil
-   end
-
    local ival   = lfs.chdir(dir)
+   if (not ival) then return nil end
+
    local cdir   = lfs.currentdir()
    if (cdir == nil) then
       dbg.print{"lfs.currentdir(): is nil"}
