@@ -509,6 +509,7 @@ function M.update(self, t)
    local varT         = frameStk:varT()
    local currentMPATH = varT[ModulePath]:expand()
    local mpathA       = path2pathA(currentMPATH)
+   local terse        = masterTbl().terse
 
    ------------------------------------------------------------
    -- Store away the old moduleA entries in T (hash table).
@@ -540,7 +541,7 @@ function M.update(self, t)
             local spiderT = false
             local dbT     = false
             if (t.spider_cache) then
-               local cache = require("Cache"):singleton{quiet= masterTbl.terse, buildCache=true}
+               local cache = require("Cache"):singleton{quiet=terse, buildCache=true}
                spiderT, dbT = cache:build()
             end
             local mA_obj = self:__new( {mpath}, mt:maxDepthT(), getModuleRCT(), spiderT)
