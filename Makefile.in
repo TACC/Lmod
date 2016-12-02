@@ -255,11 +255,11 @@ pkgs:
                 SHARE=$(DESTDIR)$(LIBEXEC) CC=$(CC) install
 
 zsh_tab_funcs: $(ZSH_FUNCS)
-	-if [ -n "$(ZSH_SITE_FUNCTIONS_DIRS)" ]; then               \
-          for i in $${ZSH_SITE_FUNCTIONS_DIRS//:/ }; do             \
-            cp $^ $(DESTDIR)$$i  2> /dev/null;                      \
-	  done;                                                     \
-	  true;                                                     \
+	-if [ -n "$(ZSH_SITE_FUNCTIONS_DIRS)" ]; then                    \
+          for i in `echo "$(ZSH_SITE_FUNCTIONS_DIRS)" | tr ':' ' '`; do  \
+            cp $^ $(DESTDIR)$$i  2> /dev/null;                           \
+	  done;                                                          \
+	  true;                                                          \
         fi
 
 makefile: $(srcdir)/Makefile.in ./config.status
