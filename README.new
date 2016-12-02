@@ -1,4 +1,6 @@
 Lmod 7.1+
    a) (7.1.1) A bug fix where Lmod would lose its mind when it was
       building a spider cache while loading a module.
+   b) (7.1.2) Turn zsh tab completion back on by actually writing _ml
+      and _module files in the zsh site-function locations.
       
