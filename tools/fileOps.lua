@@ -323,7 +323,8 @@ function abspath (path, localDir)
       path = pathJoin(cwd,path)
    end
 
-   local ival   = lfs.chdir(dir)
+   local dir  = dirname(path)
+   local ival = lfs.chdir(dir)
    if (not ival) then return nil end
 
    local cdir   = lfs.currentdir()
