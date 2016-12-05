@@ -450,10 +450,11 @@ world_update:
         if [ -s /tmp/git_st_$$$$ ]; then                                           \
             echo "All files not checked in => try again";                          \
         else                                                                       \
-            git push github;                                                       \
-            git push --tags github;                                                \
-            git push sf;                                                           \
-            git push --tags sf;                                                    \
+	    branchName=`git status | head -n 1 | sed 's/^[# ]*On branch //g'`;	   \
+            git push        github $$branchName;                                   \
+            git push --tags github $$branchName;                                   \
+            git push        sf     $$branchName;                                   \
+            git push --tags sf     $$branchName;                                   \
         fi;                                                                        \
         rm -f /tmp/git_st_$$$$
 
