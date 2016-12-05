@@ -210,7 +210,7 @@ LMOD_CACHED_LOADS = LMOD_IGNORE_CACHE and "no" or LMOD_CACHED_LOADS
 LMOD_PAGER      = getenv("LMOD_PAGER") or "@path_to_pager@"
 LMOD_PAGER_OPTS = getenv("LMOD_PAGER_OPTS") or "-XqMREF"
 
-MODULERCFILE    = getenv("MODULERCFILE") or pathJoin(cmdDir(),"../../etc/rc")
+MODULERCFILE    = getenv("LMOD_MODULERCFILE") or getenv("MODULERCFILE") or pathJoin(cmdDir(),"../../etc/rc")
 
 ------------------------------------------------------------------------
 -- LMOD_RTM_TESTING: If set then the author is testing Lmod
