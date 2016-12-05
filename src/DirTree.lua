@@ -180,7 +180,7 @@ local function walk(mrc, mpath, path, dirA, fileT)
          local file = pathJoin(path, f)
          if (not keepFile(f)) then break end
 
-         local attr = (f == "default") and lfs.symlinkattributes(file) or lfs.attributes(file) 
+         attr = (f == "default") and lfs.symlinkattributes(file) or lfs.attributes(file) 
          if (attr == nil) then break end
 
          ------------------------------------------------------------

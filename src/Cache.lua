@@ -501,7 +501,7 @@ function M.build(self, fast)
          dbg.print{"mt: ", tostring(mt), "\n", level=2}
          doneMsg = " (not written to file) done"
       else
-         local mrc = MRC:singleton()
+         mrc = MRC:singleton()
          mkdir_recursive(self.usrCacheDir)
          local s0 = "-- Date: " .. os.date("%c",os.time()) .. "\n"
          local s1 = "ancient = " .. tostring(math.floor(ancient)) .."\n"
