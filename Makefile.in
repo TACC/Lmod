@@ -484,7 +484,9 @@ gittag:
 	    echo 'return M'                                       >> $(VERSION_SRC); \
             git commit -m "moving to TAG_VERSION $(TAG)"             $(VERSION_SRC); \
             git tag -a $(TAG) -m 'Setting TAG_VERSION to $(TAG)'                   ; \
-	    git push --tags                                                        ; \
+	    branchName=`git status | head -n 1 | sed 's/^[# ]*On branch //g'`      ; \
+            git push        $$branchName                                           ; \
+	    git push --tags $$branchName                                           ; \
           fi;                                                                        \
           rm -f /tmp/git_st_$$$$
         else
