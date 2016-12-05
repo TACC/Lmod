@@ -248,7 +248,6 @@ Write cache after (sec)          @short_time@
 Threshold (sec)                  1
 Tmod prepend PATH Rule           no
 uname -a
-Does Admin file exist            no
 Active RC file(s):
 ProjectDIR/init/lmodrc.lua
  OutputDIR/.lmodrc.lua

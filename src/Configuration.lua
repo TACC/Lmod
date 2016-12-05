@@ -141,6 +141,15 @@ local function new(self)
    local redirect          = LMOD_REDIRECT
    local ld_preload        = LMOD_LD_PRELOAD      or "<empty>"
    local ld_lib_path       = LMOD_LD_LIBRARY_PATH or "<empty>"
+   local rc                = MODULERCFILE
+
+   if (not isFile(rc)) then
+      rc = rc .. " -> <empty>"
+   end
+   if (not readable) then
+      adminFn = adminFn .. " -> <empty>"
+   end
+
 
    local tbl = {}
    tbl.allowTCL    = { k = "Allow TCL modulefiles"             , v = LMOD_ALLOW_TCL_MFILES,}
@@ -161,7 +170,7 @@ local function new(self)
    tbl.lua_term_A  = { k = "Active lua-term"                   , v = activeTerm,           }
    tbl.mpath_av    = { k = "avail: Include modulepath dir"     , v = LMOD_MPATH_AVAIL,     }
    tbl.mpath_root  = { k = "MODULEPATH_ROOT"                   , v = "@modulepath_root@",  }
-   tbl.modRC       = { k = "MODULERCFILE"                      , v = MODULERCFILE,         }
+   tbl.modRC       = { k = "MODULERCFILE"                      , v = rc,                   }
    tbl.numSC       = { k = "number of cache dirs"              , v = numSC,                }
    tbl.pager       = { k = "Pager"                             , v = LMOD_PAGER,           }
    tbl.pager_opts  = { k = "Pager Options"                     , v = LMOD_PAGER_OPTS,      }
@@ -182,7 +191,6 @@ local function new(self)
    tbl.tmod_rule   = { k = "Tmod prepend PATH Rule"            , v = tmod_rule,            }
    tbl.uname       = { k = "uname -a"                          , v = uname,                }
    tbl.z01_admin   = { k = "Admin file"                        , v = adminFn,              }
-   tbl.z02_admin   = { k = "Does Admin file exist"             , v = tostring(readable),   }
    tbl.redirect    = { k = "Redirect to stdout"                , v = redirect,             }
 
    o.tbl = tbl

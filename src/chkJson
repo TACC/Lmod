@@ -87,7 +87,6 @@ local json = require("json")
      "tmod_rule":"no",
      "uname":"Darwin mijo 15.6.0 Darwin Kernel Version 15.6.0: Thu Sep  1 15:01:16 PDT 2016; root:xnu-3248.60.11~2\/RELEASE_X86_64 x86_64 i386 MacBookPro11,5 Darwin\n",
      "z01_admin":"\/Users\/mclay\/w\/etc\/admin.list",
-     "z02_admin":"no",
    },
    "rcfileA":[
       "\/Users\/mclay\/w\/lmod\/init\/lmodrc.lua",
@@ -140,7 +139,6 @@ function main()
       tm_short     = { rule = "match", value = "@short_time@"},
       tm_threshold = { rule = "match", value = 1},
       tmod_rule    = { rule = "match", value = "no"},
-      z02_admin    = { rule = "match", value = "no"},
    }
 
    local s       = io.read()
