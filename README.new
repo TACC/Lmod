@@ -4,5 +4,8 @@ Lmod 7.1+
    b) (7.1.2) Turn zsh tab completion back on by actually writing _ml
       and _module files in the zsh site-function locations.
    c) (7.1.3) fixed a problem with purge when LMOD_CACHED_LOADS=1
+   d) (7.1.4) Added support for LMOD_MODULERCFILE to be picked over
+      MODULERCFILE.
+      
    
       
