@@ -2,13 +2,14 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 0.9.2  2016-10-25 13:59 -05:00
+Modules based on Lua: Version 7.1.4  2016-12-05 11:21 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider
 ===========================
 The following is a list of the modules currently available:
+  B: B/2.0
   gcc: gcc/4.7.2
   intel: intel/13.0
   mpich2: mpich2/1.5.2
@@ -36,7 +37,7 @@ ProjectDIR/rt/unload/mf/MPI/intel/13.0/mpich2/1.5
 ProjectDIR/rt/unload/mf/Compiler/intel/13.0
    mpich2/1.5.2 (L)
 ProjectDIR/rt/unload/mf/Core
-   gcc/4.7.2    intel/13.0 (L)
+   B/2.0    gcc/4.7.2    intel/13.0 (L)
   Where:
    L:  Module is loaded
 Use "module spider" to find all possible modules.
@@ -53,3 +54,15 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload intel
 ===========================
 Inactive Modules:
   1) mpich2     2) petsc
+===========================
+step 8
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load B
+===========================
+===========================
+step 9
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload B
+===========================
+Lmod has detected the following error: Error in unload of B/2.0
+While processing the following module(s):
+    Module fullname  Module Filename
+    B/2.0            ProjectDIR/rt/unload/mf/Core/B/2.0.lua
