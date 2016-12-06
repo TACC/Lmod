@@ -78,11 +78,18 @@ EOF
      export MODULEPATH=$(testDir)/mf4
      runLmod avail                    #22
 
-     cp $(testDir)/dot.modulerc .modulerc
+     cp $testDir/dot.modulerc .modulerc
      runLmod avail                    #23
      runLmod --show_hidden avail      #24
      runLmod load mpich a             #25
      runLmod list                     #26
+
+     rm .modulerc
+     export LMOD_MODULERCFILE=$testDir/dot.modulerc
+     runLmod avail                    #27
+     runLmod --show_hidden avail      #28
+
+
 
 
      HOME=$ORIG_HOME

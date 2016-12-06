@@ -243,3 +243,19 @@ MODULEPATH="ProjectDIR/rt/modulerc/mf4";
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={a={["fn"]="ProjectDIR/rt/modulerc/mf4/a/3.0.lua",["fullName"]="a/3.0",["loadOrder"]=2,propT={},["status"]="active",["userName"]="a",},mpich={["fn"]="ProjectDIR/rt/modulerc/mf4/mpich/3.2-dbg.lua",["fullName"]="mpich/3.2-dbg",["loadOrder"]=1,propT={},["status"]="active",["userName"]="mpich",},},mpathA={"ProjectDIR/rt/modulerc/mf4",},["systemBaseMPATH"]="ProjectDIR/rt/modulerc/mf4",}';
 export _ModuleTable_;
+===========================
+step 27
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+===========================
+MODULEPATH="ProjectDIR/rt/modulerc/mf4";
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={a={["fn"]="ProjectDIR/rt/modulerc/mf4/a/3.0.lua",["fullName"]="a/3.0",["loadOrder"]=2,propT={},["status"]="active",["userName"]="a",},mpich={["fn"]="ProjectDIR/rt/modulerc/mf4/mpich/3.2-dbg.lua",["fullName"]="mpich/3.2-dbg",["loadOrder"]=1,propT={},["status"]="active",["userName"]="mpich",},},mpathA={"ProjectDIR/rt/modulerc/mf4",},["systemBaseMPATH"]="ProjectDIR/rt/modulerc/mf4",}';
+export _ModuleTable_;
+===========================
+step 28
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --show_hidden avail
+===========================
+MODULEPATH="ProjectDIR/rt/modulerc/mf4";
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={a={["fn"]="ProjectDIR/rt/modulerc/mf4/a/3.0.lua",["fullName"]="a/3.0",["loadOrder"]=2,propT={},["status"]="active",["userName"]="a",},mpich={["fn"]="ProjectDIR/rt/modulerc/mf4/mpich/3.2-dbg.lua",["fullName"]="mpich/3.2-dbg",["loadOrder"]=1,propT={},["status"]="active",["userName"]="mpich",},},mpathA={"ProjectDIR/rt/modulerc/mf4",},["systemBaseMPATH"]="ProjectDIR/rt/modulerc/mf4",}';
+export _ModuleTable_;

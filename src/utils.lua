@@ -388,17 +388,13 @@ end
 
 function getModuleRCT()
    local A           = {}
-   local MRC1_system = pathJoin(cmdDir(),"../../etc/rc")
-   local MRC2_system = getenv("MODULERCFILE")
-   local MRC3_home   = pathJoin(getenv("HOME"), ".modulerc")
-   if (MRC2_system and isFile(MRC2_system)) then
-      A[#A+1] = { MRC2_system, "s"}
-   elseif (isFile(MRC1_system)) then
-      A[#A+1] = { MRC1_system, "s"}
+   local MRC_system  = MODULERCFILE
+   local MRC_home    = pathJoin(getenv("HOME"), ".modulerc")
+   if (MRC_system and isFile(MRC_system)) then
+      A[#A+1] = { MRC_system, "s"}
    end
-
-   if (isFile(MRC3_home)) then
-      A[#A+1] = { MRC3_home, "u"}
+   if (isFile(MRC_home)) then
+      A[#A+1] = { MRC_home, "u"}
    end
    return A
 end
