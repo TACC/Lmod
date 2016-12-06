@@ -1,6 +1,9 @@
 #%Module
 module-alias a14 a/14
-hide-version hidden/2.0
-hide-version dummy/2.0
-hide-version mpich/3.2
-hide-version a/2.0
+if {[info exists ::env(LMOD_VERSION_MAJOR)]} {
+   # Lmod only commands
+   hide-version hidden/2.0
+   hide-version dummy/2.0
+   hide-version mpich/3.2
+   hide-version a/2.0
+}
