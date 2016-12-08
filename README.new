@@ -9,5 +9,3 @@ Lmod 7.1+
    e) (7.1.5) Treat LmodError() as an error and not a warning when
       in unload mode.
    f) (7.1.6) Make support for LMOD_MODULERCFILE actually work.
-   
-      
