@@ -311,9 +311,9 @@ class LMODdb(object):
       if (sqlPattern == "") :
         sqlPattern == "%"
 
-      query = "SELECT t1.path, t1.syshost, count(distinct(t2.user_id)) as c2 from moduleT as t1, "  +\
+      query = "SELECT t1.path, t1.syshost, count(distinct(t2.user_id)) as c3 from moduleT as t1, "  +\
               "join_user_module as t2 where t1.path like %s and t1.mod_id = t2.mod_id " +\
-              "and t1.syshost like %s " + dateTest + " group by t2.mod_id order by c2 desc"
+              "and t1.syshost like %s " + dateTest + " group by t2.mod_id order by c3 desc"
 
       cursor.execute(query,( sqlPattern, syshost))
       numRows = cursor.rowcount
@@ -333,6 +333,48 @@ class LMODdb(object):
 
     except Exception as e:
       print("counts(): ",e)
+      sys.exit(1)
+
+  def numtimes(self, sqlPattern, syshost, startDate, endDate):
+    query = ""
+    try:
+      conn   = self.connect()
+      cursor = conn.cursor()
+      query  = "USE "+self.db()
+      conn.query(query)
+
+      dateTest = ""
+      if (startDate != "unknown"):
+        dateTest = " and t2.date >= '" + startDate + "'"
+
+      if (endDate != "unknown"):
+        dateTest = dateTest + " and t2.date < '" + endDate + "'"
+
+      if (sqlPattern == "") :
+        sqlPattern == "%"
+
+      query = "SELECT t1.path, t1.syshost, count(distinct(t2.mod_id)) as c3 from moduleT as t1, "  +\
+              "join_user_module as t2 where t1.path like %s and t1.syshost like %s "      +\
+               dateTest + " group by t1.path order by c3 desc"
+
+      cursor.execute(query,( sqlPattern, syshost))
+      numRows = cursor.rowcount
+
+      resultA = []
+
+      resultA.append(["Module path", "Syshost", "Number of Times" ])
+      resultA.append(["-----------", "-------", "---------------"])
+      for i in xrange(numRows):
+        row = cursor.fetchone()
+        resultA.append([row[0],row[1],row[2]])
+
+      conn.close()
+
+      return resultA
+
+
+    except Exception as e:
+      print("numtimes(): ",e)
       sys.exit(1)
 
   def usernames(self, sqlPattern, syshost, startDate, endDate):
