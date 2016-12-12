@@ -159,10 +159,11 @@ function M.search(self, name)
       return nil
    end
 
-   if (v.dirT == nil) then
+   if (v.dirT == nil and v.file == nil) then
       dbg.print{"sn: ",sn,"\n"}
       dbg.printT("locationT", locationT)
       dbg.fini("LocationT:search")
+      LmodError("Error in LocationT:search()")
       return nil
    end
 
