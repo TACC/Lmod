@@ -159,6 +159,13 @@ function M.search(self, name)
       return nil
    end
 
+   if (v.dirT == nil) then
+      dbg.print{"sn: ",sn,"\n"}
+      dbg.printT("locationT", locationT)
+      dbg.fini("LocationT:search")
+      return nil
+   end
+
    if (idx) then
       versionStr = name:sub(idx+1,-1)
    end
