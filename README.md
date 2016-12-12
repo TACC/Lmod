@@ -49,7 +49,7 @@ Bug Fixes:
    2. Marking a default in the MODULERC is now supported.
    3. User ~/.modulerc has priority over system MODULERC.
    4. System MODULERC  has priority over marking a default in the module tree.
-   5. Installed Modules can be hidden by "hide-module foo/3.2.1" in
+   5. Installed Modules can be hidden by "hide-version foo/3.2.1" in
       any modulerc file.
    6. The system spider cache has changed.  Please update your scripts to
       build spiderT.lua instead of moduleT.lua
