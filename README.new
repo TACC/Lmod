@@ -9,4 +9,4 @@ Lmod 7.1+
    e) (7.1.5) Treat LmodError() as an error and not a warning when
       in unload mode.
    f) (7.1.6) Make support for LMOD_MODULERCFILE actually work.
-   g) (7.1.7) Run help on inherited modulefiles.
+   g) (7.1.7) Run help and whatis on inherited modulefiles.
