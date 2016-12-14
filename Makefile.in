@@ -28,7 +28,6 @@ SYS_LUA_CPATH             := @SYS_LUA_CPATH@
 CASE_INDEPENDENT_SORTING  := @CASE_INDEPENDENT_SORTING@
 ZSH_SITE_FUNCTIONS_DIRS   := @ZSH_SITE_FUNCTIONS_DIRS@
 SPIDER_CACHE_DESCRIPT_FN  := @SPIDER_CACHE_DESCRIPT_FN@
-CHECK_VALID               := @CHECK_VALID@
 ANCIENT           	  := @ANCIENT@
 ALLOW_TCL_MFILES          := @ALLOW_TCL_MFILES@
 MPATH_AVAIL               := @MPATH_AVAIL@
@@ -188,7 +187,6 @@ __installMe:
 	        -e 's|@redirect@|$(REDIRECT)|g'                       	   	  \
 	        -e 's|@basename@|$(BASENAME)|g'                       	   	  \
 	        -e 's|@cached_loads@|$(CACHED_LOADS)|g'                	   	  \
-	        -e 's|@check_for_valid_module_files@|$(CHECK_VALID)|g'            \
 	        -e 's|@ps@|$(PS)|g'                              	   	  \
 	        -e 's|@site_name@|$(SITE_NAME)|g'                     	   	  \
 	        -e 's|@expr@|$(EXPR)|g'                              	   	  \

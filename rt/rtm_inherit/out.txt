@@ -30,3 +30,11 @@ _LMFILES_="ProjectDIR/rt/rtm_inherit/rtm_mf/Core/intel/13.1.lua";
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["compiler"]="intel",},mT={intel={["fn"]="ProjectDIR/rt/rtm_inherit/rtm_mf/Core/intel/13.1.lua",["fullName"]="intel/13.1",["loadOrder"]=1,mnameA={{["fn"]="ProjectDIR/rt/rtm_inherit/mf/Core/intel/13.1.lua",["sn"]="intel",["userName"]="intel/13.1",["version"]="13.1",},},propT={},["status"]="active",["userName"]="intel",},},mpathA={"ProjectDIR/rt/rtm_inherit/mf/rtm_mf/Compiler/intel/13.1","ProjectDIR/rt/rtm_inherit/mf/Compiler/intel/13.1","ProjectDIR/rt/rtm_inherit/rtm_mf/Core","ProjectDIR/rt/rtm_inherit/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/rtm_inherit/rtm_mf/Core:ProjectDIR/rt/rtm_inherit/mf/Core",}';
 export _ModuleTable_;
+===========================
+step 4
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing help intel
+===========================
+MODULEPATH="ProjectDIR/rt/rtm_inherit/mf/rtm_mf/Compiler/intel/13.1:ProjectDIR/rt/rtm_inherit/mf/Compiler/intel/13.1:ProjectDIR/rt/rtm_inherit/rtm_mf/Core:ProjectDIR/rt/rtm_inherit/mf/Core";
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["compiler"]="intel",},mT={intel={["fn"]="ProjectDIR/rt/rtm_inherit/rtm_mf/Core/intel/13.1.lua",["fullName"]="intel/13.1",["loadOrder"]=1,mnameA={{["fn"]="ProjectDIR/rt/rtm_inherit/mf/Core/intel/13.1.lua",["sn"]="intel",["userName"]="intel/13.1",["version"]="13.1",},},propT={},["status"]="active",["userName"]="intel",},},mpathA={"ProjectDIR/rt/rtm_inherit/mf/rtm_mf/Compiler/intel/13.1","ProjectDIR/rt/rtm_inherit/mf/Compiler/intel/13.1","ProjectDIR/rt/rtm_inherit/rtm_mf/Core","ProjectDIR/rt/rtm_inherit/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/rtm_inherit/rtm_mf/Core:ProjectDIR/rt/rtm_inherit/mf/Core",}';
+export _ModuleTable_;
