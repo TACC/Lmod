@@ -1,8 +1,15 @@
 #!/bin/bash
 # -*- shell-script -*-
-if [[ ${-/x} != $- ]]; then
-   echo "Start of Lmod init/bash script to define the module command"
-fi
+#
+########################################################################
+# Start Lmod BASHENV
+########################################################################
+
+xtrace_saved="$(set -o   | grep -E 'xtrace.*on')";
+xtrace_verbose="$(set -o | grep -E 'verbose.*on')";
+set +x
+[ -n "$xtrace_verbose" ] && set +v
+
 
 
 LMOD_PKG=@PKGV@
@@ -134,10 +141,16 @@ if [ ${BASH_VERSINFO:-0} -ge 3 ] && [ -r  @PKGV@/init/lmod_bash_completions ] &&
  . @PKGV@/init/lmod_bash_completions
 fi
 
-if [[ ${-/x} != $- ]]; then
-   echo "End of Lmod init/bash script to define the module command"
-fi
 
+
+[ -n "$xtrace_saved" ]   && set -x
+[ -n "$xtrace_verbose" ] && set -v
+unset xtrace_saved xtrace_verbose
+
+########################################################################
+# End Lmod BASHENV
+########################################################################
+#
 # Local Variables:
 # mode: shell-script
 # indent-tabs-mode: nil
