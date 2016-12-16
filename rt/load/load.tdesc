@@ -59,6 +59,11 @@ testdescript = {
      runLmod list                                           # 34
      runLmod load rtm_intel                                 # 35
      runLmod load go                                        # 36
+
+     export LMOD_DISABLE_SAME_NAME_AUTOSWAP=yes
+     runLmod load moduleA/1.0
+     runLmod load moduleB/1.0
+
      
 
      HOME=$ORIG_HOME

@@ -277,11 +277,12 @@ function M.load(self, mA)
          dbg.print{"mnV: ",version,", mtV: ",mt_version,"\n"}
 
          if (LMOD_DISABLE_SAME_NAME_AUTOSWAP == "yes" and mt_version ~= version) then
+            local oldFullName = pathJoin(sn,mt_version)
             LmodError("Your site prevents the automatic swapping of modules with same name.",
-                      "You must explicitly unload the loaded version of \"",sn,"\" before",
+                      "You must explicitly unload the loaded version of \"",oldFullName,"\" before",
                       "you can load the new one. Use swap (or an unload followed by a load)",
                       "to do this:\n\n",
-                      "   $ module swap ",sn," ",userName,"\n\n",
+                      "   $ module swap ",oldFullName," ",fullName,"\n\n",
                       "Alternatively, you can set the environment variable",
                       "LMOD_DISABLE_SAME_NAME_AUTOSWAP to \"no\" to re-enable",
                       "same name autoswapping."
