@@ -5,9 +5,11 @@
 # Start Lmod BASHENV
 ########################################################################
 
+# Remember the XTRACE and VERBOSE states so that they are restored
+# at the end of this script.
 [[ ${-/x} != $- ]] && XTRACE_STATE="-x"  || XTRACE_STATE="+x"
 [[ ${-/v} != $- ]] && VERBOSE_STATE="-v" || VERBOSE_STATE="+v"
-set +xv
+set +xv     # Turn off tracing for now.
 
 
 LMOD_PKG=@PKGV@
@@ -141,6 +143,7 @@ fi
 
 
 
+# Restoring XTRACE and VERBOSE state.
 set $XTRACE_STATE $VERBOSE_STATE
 unset XTRACE_STATE VERBOSE_STATE
 
