@@ -169,9 +169,13 @@ function main()
 
    ------------------------------------------------------------------------
    -- Convert empty string input values into false and clean path if requested
+   -- Also separate colons into separate arguments
    local valueA    = {}
    for j = 1,#pargs do
-      valueA[j] = cleanPath(pargs[j])
+      local s = pargs[j]
+      for path in s:split(':') do
+         valueA[j] = cleanPath(path)
+      end
    end
 
 
