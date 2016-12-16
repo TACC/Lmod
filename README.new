@@ -13,4 +13,4 @@ Lmod 7.1+
       Better hiding of Lmod's $BASHENV when doing shell tracing.
    h) (7.1.8) A more detailed error message when using
       LMOD_DISABLE_SAME_NAME_AUTOSWAP=yes.
-      
+   i) (7.1.9) Allow colons as well as spaces in the addto command.
