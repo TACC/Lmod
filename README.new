@@ -11,3 +11,6 @@ Lmod 7.1+
    f) (7.1.6) Make support for LMOD_MODULERCFILE actually work.
    g) (7.1.7) Run help and whatis on inherited modulefiles.
       Better hiding of Lmod's $BASHENV when doing shell tracing.
+   h) (7.1.8) A more detailed error message when using
+      LMOD_DISABLE_SAME_NAME_AUTOSWAP=yes.
+      
