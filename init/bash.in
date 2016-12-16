@@ -5,11 +5,9 @@
 # Start Lmod BASHENV
 ########################################################################
 
-xtrace_saved="$(set -o   | grep -E 'xtrace.*on')";
-xtrace_verbose="$(set -o | grep -E 'verbose.*on')";
-set +x
-[ -n "$xtrace_verbose" ] && set +v
-
+[[ ${-/x} != $- ]] && XTRACE_STATE="-x"  || XTRACE_STATE="+x"
+[[ ${-/v} != $- ]] && VERBOSE_STATE="-v" || VERBOSE_STATE="+v"
+set +xv
 
 
 LMOD_PKG=@PKGV@
@@ -143,9 +141,8 @@ fi
 
 
 
-[ -n "$xtrace_saved" ]   && set -x
-[ -n "$xtrace_verbose" ] && set -v
-unset xtrace_saved xtrace_verbose
+set $XTRACE_STATE $VERBOSE_STATE
+unset XTRACE_STATE VERBOSE_STATE
 
 ########################################################################
 # End Lmod BASHENV
