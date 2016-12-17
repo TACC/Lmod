@@ -43,6 +43,7 @@ require("strict")
 --------------------------------------------------------------------------
 
 local M = {}
+local getenv   = os.getenv
 local s_cosmic = false
 
 -- local functions
@@ -70,12 +71,62 @@ end
 -- Usage:  cosmic:diff_between_v_and_d("LMOD_SITE_NAME")  ? better name needed.
 
 function M.init(self, t)
-   local T = self.__T
+   local T    = self.__T
+   local name = (t.name or "unknown")
 
+   if (t.yn) then
+      local defaultV = t.yn:lower()
+      local sedV     = t.sedV or "@"
+      local value    = (getenv(name) or sedV):lower()
+      if (value:sub(1,1) == "@") then
+         value = defaultV
+      end
+      if (value ~= "no") then
+         value = "yes"
+      end
+      T[name] = {value = value, default = defaultV}
+      return
+   end
+
+   if (t.assignV) then
+      local value = t.assignV
+      local extra = nil
+      if (t.kind == "file" and not isFile(value)) then
+         extra = "<empty>"
+      end
+      T[name] = {value = value, default = defaultV, extra = extra}
+      return
+   end
+
+   if (t.default) then
+      local defaultV = t.default
+      local sedV     = t.sedV or "@"
+      local value    = (getenv(name) or sedV):lower()
+      local extra    = nil
+      if (value:sub(1,1) == "@") then
+         value = defaultV
+      end
+      if (not value ) then
+         extra = "<empty>"
+      end
+
+      T[name] = {value = value, default = defaultV, extra = extra}
+      return
+   end
 end
 
+function M.value(self,name)
+   return self.__T[name].value
+end
 
+function M.default(self,name)
+   return self.__T[name].default
+end
 
+function M.changed(self,name)
+   local T = self.__T
+   return (T[name].value == T[name].default) and "no" or "yes"
+end
 
 function l_new(self)
    local o = {}
@@ -85,9 +136,6 @@ function l_new(self)
    o.__T = {}
    return o
 end
-
-
-
 
 
 return M

@@ -51,10 +51,11 @@ local Banner       = require("Banner")
 local BeautifulTbl = require('BeautifulTbl')
 local ReadLmodRC   = require('ReadLmodRC')
 local Version      = require("Version")
-local json         = require("json")
 local concatTbl    = table.concat
+local cosmic       = require("Cosmic"):singleton()
 local dbg          = require('Dbg'):dbg()
 local getenv       = os.getenv
+local json         = require("json")
 local M            = {}
 
 local s_configuration = false
@@ -125,7 +126,7 @@ local function new(self)
    local readLmodRC        = ReadLmodRC:singleton()
    local settarg_support   = "@lmod_full_settarg_support@"
    local pkgName           = Pkg.name() or "unknown"
-   local lmod_colorize     = getenv("LMOD_COLORIZE") or "@colorize@"
+   local lmod_colorize     = cosmic:value("LMOD_COLORIZE")
    local scDescriptT       = readLmodRC:scDescriptT()
    local numSC             = #scDescriptT
    local uname             = capture("uname -a")

@@ -55,6 +55,7 @@ local colorT = {
    cyan       = "36",
    white      = "37",
 }
+local cosmic    = require("Cosmic"):singleton()
 local concatTbl = table.concat
 local s_colorize_kind = "unknown"
 
@@ -109,11 +110,11 @@ function colorize_kind()
    return s_colorize_kind
 end
 
-
-if (connected2Term() or LMOD_COLORIZE == "force") then
+local lmod_colorize = cosmic:value("LMOD_COLORIZE")
+if (lmod_colorize == "force" or (connected2Term() and lmod_colorize == "yes" )) then
    s_colorize_kind = "full"
-   _G.colorize = full_colorize
+   _G.colorize     = full_colorize
 else
    s_colorize_kind = "plain"
-   _G.colorize = plain
+   _G.colorize     = plain
 end

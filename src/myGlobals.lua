@@ -42,6 +42,7 @@ require("declare")
 require("fileOps")
 
 _G._DEBUG          = false               -- Required by the new lua posix
+local cosmic       = require("Cosmic"):singleton()
 local posix        = require("posix")
 local getenv       = os.getenv
 local setenv_posix = posix.setenv
@@ -273,8 +274,7 @@ ShowResultsA = {}
 
 colorize      = false
 
-LMOD_COLORIZE = initialize("LMOD_COLORIZE","@colorize@","yes")
-
+cosmic:init{name = "LMOD_COLORIZE", sedV = "@colorize@", default="yes"}
 
 ------------------------------------------------------------------------
 -- pager:     pipe output through more when connectted to a term
