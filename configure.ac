@@ -33,12 +33,12 @@ AC_ARG_WITH(caseIndependentSorting,
 
 AC_SUBST(COLORIZE)
 AC_ARG_WITH(colorize,
-    AC_HELP_STRING([--with-colorize=ans],[allow for colorized output [[YES]]]),
+    AC_HELP_STRING([--with-colorize=ans],[allow for colorized output [[yes]]]),
     COLORIZE="$withval"
     AC_MSG_RESULT([COLORIZE=$with_colorize])
     AC_DEFINE_UNQUOTED(COLORIZE, "$with_colorize")dnl
     ,
-    withval="YES"
+    withval="yes"
     AC_MSG_RESULT([COLORIZE=$withval])
     COLORIZE="$withval"
     AC_DEFINE_UNQUOTED(COLORIZE, "$withval"))dnl

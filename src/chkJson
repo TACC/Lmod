@@ -108,7 +108,7 @@ function main()
       allowTCL     = { rule = "match", value = "yes"},
       autoSwap     = { rule = "match", value = "yes"},
       case         = { rule = "match", value = "no"},
-      colorize     = { rule = "match", value = "@colorize@"},
+      colorize     = { rule = "match", value = "yes"},
       disable1N    = { rule = "match", value = "no"},
       dot_files    = { rule = "match", value = "@use_dot_files@"},
       dupPaths     = { rule = "match", value = "no"},
