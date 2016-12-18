@@ -50,10 +50,13 @@ local MT           = require("MT")
 local ModuleA      = require("ModuleA")
 local Var          = require("Var")
 local concatTbl    = table.concat
+local cosmic       = require("Cosmic"):singleton()
 local dbg          = require("Dbg"):dbg()
 local hook         = require("Hook")
 local remove       = table.remove
 local sort         = table.sort
+
+local mpath_avail  = cosmic:value("LMOD_MPATH_AVAIL")
 
 ------------------------------------------------------------------------
 -- a private ctor that is used to construct a singleton.
@@ -253,10 +256,13 @@ function M.load(self, mA)
       dbg.start{"Master:load(mA={"..s.."})"}
    end
    
+   local disable_same_name_autoswap = cosmic:value("LMOD_DISABLE_SAME_NAME_AUTOSWAP")
+
    local frameStk = FrameStk:singleton()
    local shellNm  = _G.Shell and _G.Shell:name() or "bash"
    local a        = {}
    local mt
+
 
    for i = 1,#mA do
       mt             = frameStk:mt()
@@ -276,7 +282,7 @@ function M.load(self, mA)
 
          dbg.print{"mnV: ",version,", mtV: ",mt_version,"\n"}
 
-         if (LMOD_DISABLE_SAME_NAME_AUTOSWAP == "yes" and mt_version ~= version) then
+         if (disable_same_name_autoswap == "yes" and mt_version ~= version) then
             local oldFullName = pathJoin(sn,mt_version)
             LmodError("Your site prevents the automatic swapping of modules with same name.",
                       "You must explicitly unload the loaded version of \"",oldFullName,"\" before",
@@ -641,7 +647,7 @@ local function availEntry(defaultOnly, label, searchA, defaultT, entry)
             found = true
             break
          end
-         if (LMOD_MPATH_AVAIL ~= "no" and label:find(s)) then
+         if (mpath_avail ~= "no" and label:find(s)) then
             found = true
             break
          end

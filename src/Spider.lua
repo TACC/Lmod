@@ -51,6 +51,7 @@ local MT           = require("MT")
 local MName        = require("MName")
 local ReadLmodRC   = require("ReadLmodRC")
 local concatTbl    = table.concat
+local cosmic       = require("Cosmic"):singleton()
 local dbg          = require("Dbg"):dbg()
 local getenv       = os.getenv
 local lfs          = require("lfs")
@@ -535,8 +536,8 @@ function M.Level0Helper(self, dbT, a)
    end
 
    local ia  = #a
-   local cmp = (LMOD_CASE_INDEPENDENT_SORTING:lower():sub(1,1) == "y") and
-               l_case_independent_cmp_by_name or nil
+   local cmp = (cosmic:value("LMOD_CASE_INDEPENDENT_SORTING") == "yes") and
+                l_case_independent_cmp_by_name or nil
 
    for k,v in pairsByKeys(t,cmp) do
       local len = 0

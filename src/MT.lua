@@ -52,6 +52,7 @@ local MRC          = require("MRC")
 local ReadLmodRC   = require("ReadLmodRC")
 local base64       = require("base64")
 local concatTbl    = table.concat
+local cosmic       = require("Cosmic"):singleton()
 local dbg          = require("Dbg"):dbg()
 local encode64     = base64.encode64
 local floor        = math.floor
@@ -253,10 +254,11 @@ function M.reportContents(self, t)
       dbg.fini("mt:reportContents")
       return a
    end
-   local s       = f:read("*all")
-   local l_mt    = new(self, s, t.fn)
-   local kind    = (LMOD_PIN_VERSIONS == "no") and "userName" or "fullName"
-   local activeA = l_mt:list(kind, "active")
+   local s           = f:read("*all")
+   local l_mt        = new(self, s, t.fn)
+   local pin_version = cosmic:value("LMOD_PIN_VERSIONS")
+   local kind        = (pin_versions == "no") and "userName" or "fullName"
+   local activeA     = l_mt:list(kind, "active")
    for i = 1, #activeA do
       a[#a+1] = activeA[i].name
    end
@@ -1059,8 +1061,9 @@ function M.getMTfromFile(self,tt)
    dbg.print{"(2) mt.systemBaseMPATH: ",mt.systemBaseMPATH,"\n"}
    mt:updateMPathA(savedMPATH)
    dbg.print{"(3) mt.systemBaseMPATH: ",mt.systemBaseMPATH,"\n"}
-   local moduleA = require("ModuleA"):singleton()
-   moduleA:update{spider_cache = (LMOD_CACHED_LOADS ~= 'no')}
+   local moduleA      = require("ModuleA"):singleton()
+   local cached_loads = cosmic:value("LMOD_CACHED_LOADS")
+   moduleA:update{spider_cache = (cached_loads ~= 'no')}
    dbg.print{"(4) mt.systemBaseMPATH: ",mt.systemBaseMPATH,"\n"}
 
    -----------------------------------------------------------------------
@@ -1079,8 +1082,9 @@ function M.getMTfromFile(self,tt)
    -- that defaults will be followed.  However
    -- some sites/users wish to use the fullname
    -- and not follow defaults.
-   local knd = (LMOD_PIN_VERSIONS == "no") and "userName" or "fullName"
-   local mA  = {}
+   local pin_versions = cosmic:value("LMOD_PIN_VERSIONS")
+   local knd          = (pin_versions == "no") and "userName" or "fullName"
+   local mA           = {}
 
    for i = 1, #activeA do
       mA[#mA+1]  = MName:new("load",activeA[i][knd])

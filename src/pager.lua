@@ -46,6 +46,7 @@ require("haveTermSupport")
 
 local dbg       = require("Dbg"):dbg()
 local concatTbl = table.concat
+local cosmic    = require("Cosmic"):singleton()
 
 local function argsPack(...)
    local  arg = { n = select("#", ...), ...}
@@ -73,7 +74,7 @@ end
 -- @param f A stream object.
 function usePager(f, ...)
    dbg.start{"usePager()"}
-   s_pager = "LESS="..LMOD_PAGER_OPTS.." "..s_pager
+   s_pager = "LESS="..cosmic:value("LMOD_PAGER_OPTS").." "..s_pager
    local p = io.popen(s_pager .. " 1>&2" ,"w")
    local s = concatTbl({...},"")
    p:write(s)
@@ -85,7 +86,7 @@ end
 -- Return usePager if PAGER exists otherwise,  return bypassPager
 function buildPager()
    local func  = bypassPager
-   local pager = LMOD_PAGER
+   local pager = cosmic:value("LMOD_PAGER")
    s_pager     = find_exec_path(pager)
    if (s_pager) then
       func     = usePager

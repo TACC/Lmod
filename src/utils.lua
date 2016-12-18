@@ -45,6 +45,7 @@ local Version      = require("Version")
 local arg_0        = arg[0]
 local base64       = require("base64")
 local concatTbl    = table.concat
+local cosmic       = require("Cosmic"):singleton()
 local dbg          = require("Dbg"):dbg()
 local decode64     = base64.decode64
 local encode64     = base64.encode64
@@ -269,7 +270,7 @@ end
 -- Find the admin file (or nag message file).
 function findAdminFn()
    local readable    = "no"
-   local adminFn     = LMOD_ADMIN_FILE
+   local adminFn     = cosmic:value("LMOD_ADMIN_FILE")
    local dirName, fn = splitFileName(adminFn)
    if (isDir(dirName)) then
       local cwd      = posix.getcwd()
@@ -388,7 +389,7 @@ end
 
 function getModuleRCT()
    local A           = {}
-   local MRC_system  = MODULERCFILE
+   local MRC_system  = cosmic:value("LMOD_MODULERCFILE")
    local MRC_home    = pathJoin(getenv("HOME"), ".modulerc")
    if (MRC_system and isFile(MRC_system)) then
       A[#A+1] = { MRC_system, "s"}
@@ -749,7 +750,7 @@ end
 --------------------------------------------------------------------------
 -- Create the accept functions to allow or ignore TCL modulefiles.
 local function build_accept_function()
-   local allow_tcl = LMOD_ALLOW_TCL_MFILES
+   local allow_tcl = cosmic:value("LMOD_ALLOW_TCL_MFILES")
 
    if (allow_tcl == "no") then
       _G.accept_fn = function (fn)
@@ -767,7 +768,7 @@ if (not accept_fn) then
 end
 
 local function build_allow_dups_function()
-   local dups = LMOD_DUPLICATE_PATHS
+   local dups = cosmic:value("LMOD_DUPLICATE_PATHS")
    if (dups == "yes") then
       _G.allow_dups = function (dupsIn)
          return dupsIn

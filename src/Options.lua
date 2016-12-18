@@ -45,6 +45,7 @@ require("strict")
 --------------------------------------------------------------------------
 
 _G._DEBUG          = false               -- Required by the new lua posix
+local cosmic       = require("Cosmic"):singleton()
 local dbg          = require("Dbg"):dbg()
 local format       = string.format
 local posix        = require("posix")
@@ -370,15 +371,15 @@ function M.singleton(self, usage)
    end
 
    if (optionTbl.redirect) then
-      LMOD_REDIRECT = "yes"
+      cosmic:assign("LMOD_REDIRECT", "yes")
    end
 
    if (optionTbl.redirect_off) then
-      LMOD_REDIRECT = "no"
+      cosmic:assign("LMOD_REDIRECT", "no")
    end
 
    if (optionTbl.pinVersions) then
-      LMOD_PIN_VERSIONS = "yes"
+      cosmic:assign("LMOD_PIN_VERSIONS","yes")
    end
 end
 

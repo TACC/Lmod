@@ -38,15 +38,17 @@ require("inherits")
 require("utils")
 require("string_utils")
 
-local FrameStk = require("FrameStk")
-local M        = {}
-local MRC      = require("MRC") 
-local ModuleA  = require("ModuleA") 
-local MT       = require("MT")
-local dbg      = require("Dbg"):dbg()
-local sort     = table.sort
-local s_findT  = false
+local FrameStk    = require("FrameStk")
+local M           = {}
+local MRC         = require("MRC") 
+local ModuleA     = require("ModuleA") 
+local MT          = require("MT")
+local cosmic      = require("Cosmic"):singleton()
+local dbg         = require("Dbg"):dbg()
+local sort        = table.sort
+local s_findT     = false
 
+local exact_match = cosmic:value("LMOD_EXACT_MATCH")
 
 function M.className(self)
    return self.my_name
@@ -69,7 +71,7 @@ function M.new(self, sType, name, action, is, ie)
       }
    end
 
-   local default_action = (LMOD_EXACT_MATCH == "yes") and "exact" or "match"
+   local default_action = (exact_match == "yes") and "exact" or "match"
 
    if (not action) then
       action = masterTbl().latest and "latest" or default_action
@@ -158,7 +160,8 @@ local function lazyEval(self)
       return
    end
 
-   local moduleA = ModuleA:singleton{spider_cache = (LMOD_CACHED_LOADS ~= "no")}
+   local cached_loads = cosmic:value("LMOD_CACHED_LOADS")
+   local moduleA = ModuleA:singleton{spider_cache = (cached_loads ~= "no")}
    if (sType == "inherit") then
       local t  = self.__t
       local fn = moduleA:inherited_search(self.__fullName, t.fn)

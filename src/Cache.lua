@@ -75,6 +75,7 @@ local MRC        = require("MRC")
 local ReadLmodRC = require('ReadLmodRC')
 local Spider     = require("Spider")
 local concatTbl  = table.concat
+local cosmic     = require("Cosmic"):singleton()
 local dbg        = require("Dbg"):dbg()
 local hook       = require("Hook")
 local lfs        = require("lfs")
@@ -247,7 +248,8 @@ end
 local function l_readCacheFile(self, spiderTFnA)
    dbg.start{"Cache l_readCacheFile(spiderTFnA)"}
    local dirsRead  = 0
-   if (masterTbl().ignoreCache or LMOD_IGNORE_CACHE) then
+   local ignore_cache = cosmic:value("LMOD_IGNORE_CACHE")
+   if (masterTbl().ignoreCache or ignore_cache) then
       dbg.print{"LMOD_IGNORE_CACHE is true\n"}
       dbg.fini("Cache l_readCacheFile")
       return dirsRead
@@ -476,7 +478,7 @@ function M.build(self, fast)
       dbg.print{"self.dontWrite: ", self.dontWrite, ", r.dontWriteCache: ",
                 r.dontWriteCache, "\n"}
 
-      local dontWrite = self.dontWrite or r.dontWriteCache or LMOD_IGNORE_CACHE
+      local dontWrite = self.dontWrite or r.dontWriteCache or cosmic:value("LMOD_IGNORE_CACHE")
 
       local doneMsg
 

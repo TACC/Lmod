@@ -109,29 +109,32 @@ LUAC_PATH = "@path_to_luac@"
 --                                  independent sorting.
 ------------------------------------------------------------------------
 
-LMOD_CASE_INDEPENDENT_SORTING = initialize("LMOD_CASE_INDEPENDENT_SORTING",
-                                           "@case_independent_sorting@")
+cosmic:init{name = "LMOD_CASE_INDEPENDENT_SORTING",
+            sedV = "@case_independent_sorting@",
+            yn   = "no"}
 
 ------------------------------------------------------------------------
 -- LMOD_REDIRECT:  Send messages to stdout instead of stderr
 ------------------------------------------------------------------------
-LMOD_REDIRECT = initialize("LMOD_REDIRECT", "@redirect@")
+cosmic:init{name = "LMOD_REDIRECT",
+            sedV = "@redirect@",
+            yn   = "no"}
 
 ------------------------------------------------------------------------
 -- LMOD_SITE_NAME: The site name (e.g. TACC)
 ------------------------------------------------------------------------
 
-LMOD_SITE_NAME = getenv("LMOD_SITE_NAME") or "@site_name@"
-if (LMOD_SITE_NAME:sub(1,1) == "@" or LMOD_SITE_NAME == "<empty>") then
-   LMOD_SITE_NAME = false
-end
+cosmic:init{name    = "LMOD_SITE_NAME",
+            sedV    = "@site_name@",
+            default = false}
 
 ------------------------------------------------------------------------
 -- LMOD_SYSTEM_NAME:  When on a shared file system, use this to
 --                    form the cache name and collection names.
 ------------------------------------------------------------------------
 
-LMOD_SYSTEM_NAME = getenv("LMOD_SYSTEM_NAME")
+cosmic:init{name    = "LMOD_SYSTEM_NAME",
+            default = false}
 
 ------------------------------------------------------------------------
 -- LMOD_COLUMN_TABLE_WIDTH: The width of the table when using ColumnTable
@@ -143,86 +146,114 @@ LMOD_COLUMN_TABLE_WIDTH = 80
 -- LMOD_TMOD_PATH_RULE:  Using Tmod rule where if path is already there
 --                       do not prepend/append
 ------------------------------------------------------------------------
-
-LMOD_TMOD_PATH_RULE = initialize("LMOD_TMOD_PATH_RULE",
-                                "@tmod_path_rule@","no")
+cosmic:init{name = "LMOD_TMOD_PATH_RULE",
+            sedV = "@tmod_path_rule@",
+            yn   = "no"}
 
 ------------------------------------------------------------------------
 -- LMOD_DISABLE_SAME_NAME_AUTOSWAP: This env. var requires users to swap
 --                  out rather than using the one name rule.
 ------------------------------------------------------------------------
-
-LMOD_DISABLE_SAME_NAME_AUTOSWAP = initialize("LMOD_DISABLE_SAME_NAME_AUTOSWAP",
-                                             "@disable_name_autoswap@")
+cosmic:init{name = "LMOD_DISABLE_SAME_NAME_AUTOSWAP",
+            sedV = "@disable_name_autoswap@",
+            yn   = "no"}
 
 --------------------------------------------------------------------------
 -- When restoring, use specified version instead of following the default
 --------------------------------------------------------------------------
-
-LMOD_PIN_VERSIONS = initialize("LMOD_PIN_VERSIONS", "@pin_versions@")
-
-------------------------------------------------------------------------
--- LMOD_AUTO_SWAP:  Swap instead of Error
-------------------------------------------------------------------------
-
-LMOD_AUTO_SWAP   = initialize("LMOD_AUTO_SWAP","@auto_swap@","yes")
+cosmic:init{name = "LMOD_PIN_VERSIONS",
+            sedV = "@pin_versions@",
+            yn   = "no"}
 
 ------------------------------------------------------------------------
--- LMOD_EXACT_MATCH:  Swap instead of Error
+-- LMOD_AUTO_SWAP:  Swap instead of Error when there is a family conflict
 ------------------------------------------------------------------------
 
-LMOD_EXACT_MATCH   = initialize("LMOD_EXACT_MATCH","@exact_match@","no")
+cosmic:init{name = "LMOD_AUTO_SWAP",
+            sedV = "@auto_swap@",
+            yn   = "yes"}
+
+------------------------------------------------------------------------
+-- LMOD_EXACT_MATCH:  Require an exact match to load a module
+--                    a.k.a no defaults
+------------------------------------------------------------------------
+cosmic:init{name = "LMOD_EXACT_MATCH",
+            sedV = "@exact_match@",
+            yn   = "no"}
 
 ------------------------------------------------------------------------
 -- LMOD_AVAIL_MPATH:  Include MODULEPATH in avail search
 ------------------------------------------------------------------------
-
-LMOD_MPATH_AVAIL = initialize("LMOD_MPATH_AVAIL", "@mpath_avail@")
+cosmic:init{name = "LMOD_MPATH_AVAIL",
+            sedV = "@mpath_avail@",
+            yn   = "no"}
 
 ------------------------------------------------------------------------
 -- LMOD_ALLOW_TCL_MFILES:  Allow Lmod to read TCL based modules.
 ------------------------------------------------------------------------
-
-LMOD_ALLOW_TCL_MFILES = initialize("LMOD_ALLOW_TCL_MFILES",
-                                   "@allow_tcl_mfiles@","yes")
+cosmic:init{name = "LMOD_ALLOW_TCL_MFILES",
+            sedV = "@allow_tcl_mfiles@",
+            yn   = "yes"}
 
 ------------------------------------------------------------------------
 -- LMOD_DUPLICATE_PATHS:  Allow the same path to be stored in PATH like
 --                        vars like PATH, LD_LIBRARY_PATH, etc
 ------------------------------------------------------------------------
 
-LMOD_DUPLICATE_PATHS = initialize("LMOD_DUPLICATE_PATHS",
-                                  "@duplicate_paths@", "no")
+cosmic:init{name = "LMOD_DUPLICATE_PATHS",
+            sedV = "@duplicate_paths@",
+            yn   = "no"}
 
 
-LMOD_IGNORE_CACHE = getenv("LMOD_IGNORE_CACHE") or "0"
-LMOD_IGNORE_CACHE = (LMOD_IGNORE_CACHE:trim() ~= "0")
+------------------------------------------------------------------------
+-- LMOD_IGNORE_CACHE:  Ignore user and system caches and rebuild if needed
+------------------------------------------------------------------------
+cosmic:init{name    = "LMOD_IGNORE_CACHE",
+            default = false}
 
 ------------------------------------------------------------------------
 -- LMOD_CACHED_LOADS: Use spider cache on loads
 ------------------------------------------------------------------------
-LMOD_CACHED_LOADS = initialize("LMOD_CACHED_LOADS","@cached_loads@", "no")
-LMOD_CACHED_LOADS = LMOD_IGNORE_CACHE and "no" or LMOD_CACHED_LOADS
+cosmic:init{name = "LMOD_CACHED_LOADS",
+            sedV = "@cached_loads@",
+            yn   = "no"}
+
+local ignore_cache = cosmic:value("LMOD_IGNORE_CACHE")
+local cached_loads = cosmic:value("LMOD_CACHED_LOADS")
+
+cosmic:assign("LMOD_CACHED_LOADS",ignore_cache and "no" or cached_loads)
 
 ------------------------------------------------------------------------
 -- LMOD_PAGER: Lmod will use this value of pager if set.
 ------------------------------------------------------------------------
 
-LMOD_PAGER      = getenv("LMOD_PAGER") or "@path_to_pager@"
-LMOD_PAGER_OPTS = getenv("LMOD_PAGER_OPTS") or "-XqMREF"
+cosmic:init{name    = "LMOD_PAGER",
+            sedV    = "@pager@",
+            default = "less"}
+cosmic:init{name    = "LMOD_PAGER_OPTS",
+            default = "-XqMREF"}
 
-MODULERCFILE    = getenv("LMOD_MODULERCFILE") or getenv("MODULERCFILE") or pathJoin(cmdDir(),"../../etc/rc")
+local rc_dflt   = pathJoin(cmdDir(),"../../etc/rc")
+local rc        = getenv("LMOD_MODULERCFILE") or getenv("MODULERCFILE") or rc_dflt
+cosmic:init{name    = "LMOD_MODULERCFILE",
+            default = rc_dflt,
+            assignV = rc,
+            kind    = "file"}
 
 ------------------------------------------------------------------------
 -- LMOD_RTM_TESTING: If set then the author is testing Lmod
 ------------------------------------------------------------------------
-
 LMOD_RTM_TESTING = getenv("LMOD_RTM_TESTING")
 
 ------------------------------------------------------------------------
 -- LMOD_ADMIN_FILE: The Nag file.
 ------------------------------------------------------------------------
-LMOD_ADMIN_FILE = getenv("LMOD_ADMIN_FILE") or pathJoin(cmdDir(),"../../etc/admin.list")
+local lmod_nag_default = pathJoin(cmdDir(),"../../etc/admin.list")
+local lmod_nag         = getenv("LMOD_ADMIN_FILE") or lmod_nag_default
+cosmic:init{name    = "LMOD_ADMIN_FILE",
+            default = lmod_nag_default,
+            assignV = lmod_nag,
+            kind    = "file"}
 
 ------------------------------------------------------------------------
 -- LMOD_AVAIL_STYLE: Used by the avail hook to control how avail output

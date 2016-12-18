@@ -73,6 +73,7 @@ end
 function M.init(self, t)
    local T    = self.__T
    local name = (t.name or "unknown")
+   --io.stderr:write("name: ",tostring(name),"\n")
 
    if (t.yn) then
       local defaultV = t.yn:lower()
@@ -88,9 +89,10 @@ function M.init(self, t)
       return
    end
 
-   if (t.assignV) then
-      local value = t.assignV
-      local extra = nil
+   if (t.assignV ~= nil) then
+      local defaultV = t.default
+      local value    = t.assignV
+      local extra    = nil
       if (t.kind == "file" and not isFile(value)) then
          extra = "<empty>"
       end
@@ -98,12 +100,15 @@ function M.init(self, t)
       return
    end
 
-   if (t.default) then
+   if (t.default ~= nil) then
+      --io.stderr:write("dflt: ",tostring(t.default),"\n")
+
+      
       local defaultV = t.default
       local sedV     = t.sedV or "@"
       local value    = (getenv(name) or sedV):lower()
       local extra    = nil
-      if (value:sub(1,1) == "@") then
+      if (value:sub(1,1) == "@" or value == "<empty>") then
          value = defaultV
       end
       if (not value ) then
@@ -115,7 +120,13 @@ function M.init(self, t)
    end
 end
 
+function M.assign(self, name, value)
+   local T       = self.__T
+   T[name].value = value
+end
+
 function M.value(self,name)
+   --io.stderr:write("value: name:", tostring(name),"\n")
    return self.__T[name].value
 end
 

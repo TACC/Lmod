@@ -36,6 +36,7 @@
 -- BaseShell:  This is the base class for all the shell output classes.
 
 require("strict")
+require("myGlobals")
 require("inherits")
 require("serializeTbl")
 require("string_utils")
@@ -46,6 +47,7 @@ local dbg          = require("Dbg"):dbg()
 local MT           = require("MT")
 local base64       = require("base64")
 local concatTbl    = table.concat
+local cosmic       = require("Cosmic"):singleton()
 local decode64     = base64.decode64
 local encode64     = base64.encode64
 local strfmt       = string.format
@@ -54,7 +56,7 @@ local huge         = math.huge
 local pack         = (_VERSION == "Lua 5.1") and argsPack   or table.pack
 local pairsByKeys  = pairsByKeys
 
-
+local LMOD_REDIRECT = cosmic:value("LMOD_REDIRECT")
 --------------------------------------------------------------------------
 -- BaseShell Member functions:
 --------------------------------------------------------------------------

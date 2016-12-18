@@ -43,6 +43,7 @@ _G._DEBUG       = false               -- Required by the new lua posix
 PkgBase         = require("PkgBase")
 Pkg             = PkgBase.build("Pkg")
 local concatTbl = table.concat
+local cosmic    = require("Cosmic"):singleton()
 local hook      = require("Hook")
 local getenv    = os.getenv
 local min       = math.min
@@ -51,10 +52,10 @@ local posix     = require("posix")
 ------------------------------------------------------------
 -- Standard version of site_name_hook:
 -- The default return LMOD unless it is overwritten by a site
--- setting LMOD_SYSTEM_NAME.  
+-- setting LMOD_SITE_NAME.  
 
 local function site_name_hook()
-   return LMOD_SITE_NAME or "LMOD"
+   return cosmic:value("LMOD_SITE_NAME") or "LMOD"
 end
 
 hook.register("SiteName",site_name_hook)
@@ -96,7 +97,7 @@ hook.register("msgHook",msg)
 local function groupName(fn)
    local base  = removeExt(fn)
    local ext   = extname(fn)
-   local sname = LMOD_SYSTEM_NAME
+   local sname = cosmic:value("LMOD_SYSTEM_NAME")
 
    if (sname) then
       sname = sname .."_"

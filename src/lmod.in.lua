@@ -118,6 +118,7 @@ local Options       = require("Options")
 local Var           = require("Var")
 local Version       = require("Version")
 local concatTbl     = table.concat
+local cosmic        = require("Cosmic"):singleton()
 local dbg           = require("Dbg"):dbg()
 local hook          = require("Hook")
 local getenv        = os.getenv

@@ -53,6 +53,7 @@ local MName        = require("MName")
 local Spider       = require("Spider")
 local Version      = require("Version")
 local concatTbl    = table.concat
+local cosmic       = require("Cosmic"):singleton()
 local dbg          = require("Dbg"):dbg()
 local getenv       = os.getenv
 local hook         = require("Hook")
@@ -60,6 +61,8 @@ local lfs          = require("lfs")
 local posix        = require("posix")
 local pack         = (_VERSION == "Lua 5.1") and argsPack or table.pack
 local unpack       = (_VERSION == "Lua 5.1") and unpack or table.unpack
+
+local system_name  = cosmic:value("LMOD_SYSTEM_NAME")
 
 --------------------------------------------------------------------------
 -- Both Help and Whatis functions funnel their actions through
@@ -104,9 +107,9 @@ local function findNamedCollections(a,path)
             findNamedCollections(a,f)
          else
             local idx    = file:find("%.")
-            local accept = (not idx) and (not LMOD_SYSTEM_NAME)
-            if (idx and LMOD_SYSTEM_NAME) then
-               accept    = file:sub(idx+1,-1) == LMOD_SYSTEM_NAME
+            local accept = (not idx) and (not system_name)
+            if (idx and system_name) then
+               accept    = file:sub(idx+1,-1) == system_name
                f         = pathJoin(path, file:sub(1,idx-1))
             end
             if (accept) then
@@ -135,7 +138,7 @@ function CollectionLst(collection)
    collection  = collection or "default"
    dbg.start{"CollectionLst(",collection,")"}
    local masterTbl = masterTbl()
-   local sname     = (LMOD_SYSTEM_NAME == nil) and "" or "." .. LMOD_SYSTEM_NAME
+   local sname     = (system_name == nil) and "" or "." .. system_name
    local path      = pathJoin(os.getenv("HOME"), ".lmod.d", collection .. sname)
    local mt        = FrameStk:singleton():mt()
    local a         = mt:reportContents{fn=path, name=collection}
@@ -173,7 +176,7 @@ function GetDefault(collection)
    collection  = collection or "default"
    dbg.start{"GetDefault(",collection,")"}
 
-   local sname = (LMOD_SYSTEM_NAME == nil) and "" or "." .. LMOD_SYSTEM_NAME
+   local sname = (system_name == nil) and "" or "." .. system_name
    local path  = pathJoin(os.getenv("HOME"), ".lmod.d", collection .. sname)
    local mt    = FrameStk:singleton():mt()
    mt:getMTfromFile{fn=path, name=collection, }
@@ -528,9 +531,9 @@ function Restore(collection)
    local msg
    local path
    local myName  = "default"
-   local sname   = LMOD_SYSTEM_NAME
+   local sname   = system_name
    local msgTail = ""
-   if (sname == nil) then
+   if (not sname) then
       sname   = ""
       myName  = "(empty)"
    else
@@ -610,8 +613,8 @@ function Save(...)
    dbg.start{"Save(",concatTbl({...},", "),")"}
 
    local msgTail = ""
-   local sname   = LMOD_SYSTEM_NAME
-   if (sname == nil) then
+   local sname   = system_name
+   if (not sname) then
       sname   = ""
    else
       msgTail = ", for system: \"".. sname .. "\""
@@ -705,8 +708,8 @@ function SaveList(...)
 
    b            = {}
    local msgHdr = ""
-   if (LMOD_SYSTEM_NAME) then
-      msgHdr = "(For LMOD_SYSTEM_NAME = \""..LMOD_SYSTEM_NAME.."\")"
+   if (system_name) then
+      msgHdr = "(For LMOD_SYSTEM_NAME = \""..system_name.."\")"
    end
 
    if (#a > 0) then

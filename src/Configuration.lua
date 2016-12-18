@@ -47,6 +47,7 @@ require("serializeTbl")
 require("utils")
 require("string_utils")
 require("colorize")
+require("myGlobals")
 local Banner       = require("Banner")
 local BeautifulTbl = require('BeautifulTbl')
 local ReadLmodRC   = require('ReadLmodRC')
@@ -132,17 +133,24 @@ local function new(self)
    local uname             = capture("uname -a")
    local adminFn, readable = findAdminFn()
    local activeTerm        = haveTermSupport() and "true" or colorize("red","false")
-   local site_name         = LMOD_SITE_NAME or "<empty>"
-   local case_ind_sorting  = LMOD_CASE_INDEPENDENT_SORTING
-   local disable1N         = LMOD_DISABLE_SAME_NAME_AUTOSWAP
-   local tmod_rule         = LMOD_TMOD_PATH_RULE
-   local exactMatch        = LMOD_EXACT_MATCH
-   local cached_loads      = LMOD_CACHED_LOADS
-   local ignore_cache      = LMOD_IGNORE_CACHE and "yes" or "no"
-   local redirect          = LMOD_REDIRECT
+   local site_name         = cosmic:value("LMOD_SITE_NAME") or "<empty>"
+   local case_ind_sorting  = cosmic:value("LMOD_CASE_INDEPENDENT_SORTING")
+   local disable1N         = cosmic:value("LMOD_DISABLE_SAME_NAME_AUTOSWAP")
+   local tmod_rule         = cosmic:value("LMOD_TMOD_PATH_RULE")
+   local exactMatch        = cosmic:value("LMOD_EXACT_MATCH")
+   local cached_loads      = cosmic:value("LMOD_CACHED_LOADS")
+   local ignore_cache      = cosmic:value("LMOD_IGNORE_CACHE") and "yes" or "no"
+   local redirect          = cosmic:value("LMOD_REDIRECT")
    local ld_preload        = LMOD_LD_PRELOAD      or "<empty>"
    local ld_lib_path       = LMOD_LD_LIBRARY_PATH or "<empty>"
-   local rc                = MODULERCFILE
+   local allow_tcl_mfiles  = cosmic:value("LMOD_ALLOW_TCL_MFILES")
+   local duplicate_paths   = cosmic:value("LMOD_DUPLICATE_PATHS")
+   local pager             = cosmic:value("LMOD_PAGER") 
+   local pager_opts        = cosmic:value("LMOD_PAGER_OPTS") 
+   local pin_versions      = cosmic:value("LMOD_PIN_VERSIONS")
+   local auto_swap         = cosmic:value("LMOD_AUTO_SWAP")
+   local mpath_avail       = cosmic:value("LMOD_MPATH_AVAIL")
+   local rc                = cosmic:value("LMOD_MODULERCFILE")
 
    if (not isFile(rc)) then
       rc = rc .. " -> <empty>"
@@ -153,13 +161,13 @@ local function new(self)
 
 
    local tbl = {}
-   tbl.allowTCL    = { k = "Allow TCL modulefiles"             , v = LMOD_ALLOW_TCL_MFILES,}
-   tbl.autoSwap    = { k = "Auto swapping"                     , v = LMOD_AUTO_SWAP,       }
+   tbl.allowTCL    = { k = "Allow TCL modulefiles"             , v = allow_tcl_mfiles,     }
+   tbl.autoSwap    = { k = "Auto swapping"                     , v = auto_swap,            }
    tbl.case        = { k = "Case Independent Sorting"          , v = case_ind_sorting,     }
    tbl.colorize    = { k = "Colorize Lmod"                     , v = lmod_colorize,        }
    tbl.disable1N   = { k = "Disable Same Name AutoSwap"        , v = disable1N,            }
    tbl.dot_files   = { k = "Using dotfiles"                    , v = "@use_dot_files@",    }
-   tbl.dupPaths    = { k = "Allow duplicate paths"             , v = LMOD_DUPLICATE_PATHS, }
+   tbl.dupPaths    = { k = "Allow duplicate paths"             , v = duplicate_paths,      }
    tbl.exactMatch  = { k = "Require Exact Match/no defaults"   , v = exactMatch,           }
    tbl.expMCmd     = { k = "Export the module command"         , v = "@export_module@",    }
    tbl.ld_preload  = { k = "LD_PRELOAD at config time"         , v = ld_preload,           }
@@ -169,15 +177,15 @@ local function new(self)
    tbl.lua_json    = { k = "System lua_json"                   , v = "@have_lua_json@",    }
    tbl.lua_term    = { k = "System lua-term"                   , v = "@have_lua_term@",    }
    tbl.lua_term_A  = { k = "Active lua-term"                   , v = activeTerm,           }
-   tbl.mpath_av    = { k = "avail: Include modulepath dir"     , v = LMOD_MPATH_AVAIL,     }
+   tbl.mpath_av    = { k = "avail: Include modulepath dir"     , v = mpath_avail,          }
    tbl.mpath_root  = { k = "MODULEPATH_ROOT"                   , v = "@modulepath_root@",  }
    tbl.modRC       = { k = "MODULERCFILE"                      , v = rc,                   }
    tbl.numSC       = { k = "number of cache dirs"              , v = numSC,                }
-   tbl.pager       = { k = "Pager"                             , v = LMOD_PAGER,           }
-   tbl.pager_opts  = { k = "Pager Options"                     , v = LMOD_PAGER_OPTS,      }
+   tbl.pager       = { k = "Pager"                             , v = pager,                }
+   tbl.pager_opts  = { k = "Pager Options"                     , v = pager_opts,           }
    tbl.path_hash   = { k = "Path to HashSum"                   , v = "@path_to_hashsum@",  }
    tbl.path_lua    = { k = "Path to Lua"                       , v = "@path_to_lua@",      }
-   tbl.pin_v       = { k = "Pin Versions in restore"           , v = LMOD_PIN_VERSIONS,    }
+   tbl.pin_v       = { k = "Pin Versions in restore"           , v = pin_versions,         }
    tbl.pkg         = { k = "Pkg Class name"                    , v = pkgName,              }
    tbl.prefix      = { k = "Lmod prefix"                       , v = "@PREFIX@",           }
    tbl.prpnd_blk   = { k = "Prepend order"                     , v = "@prepend_block@",    }

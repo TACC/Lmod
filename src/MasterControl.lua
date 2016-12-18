@@ -50,6 +50,7 @@ local Var          = require("Var")
 local dbg          = require("Dbg"):dbg()
 local base64       = require("base64")
 local concatTbl    = table.concat
+local cosmic       = require("Cosmic"):singleton()
 local decode64     = base64.decode64
 local encode64     = base64.encode64
 local getenv       = os.getenv
@@ -668,9 +669,10 @@ function M.mustLoad(self)
       if (expert()) then
          uA = aa
       else
+         local outputDirection = (dbg:active()) and "2> spider.log" or "2> /dev/null"
          for i = 1, #bb do
             cmdA[count+1] = "'^" .. bb[i]:escape() .. "$'"
-            cmdA[count+2] = "2> /dev/null"
+            cmdA[count+2] = outputDirection
             local cmd     = concatTbl(cmdA," ")
             local result  = capture(cmd)
             dbg.print{"result: ",result,"\n"}
@@ -999,6 +1001,7 @@ function M.family(self, name)
    local mname     = MName:new("mt",fullName)
    local sn        = mname:sn()
    local masterTbl = masterTbl()
+   local auto_swap = cosmic:value("LMOD_AUTO_SWAP")
 
    dbg.start{"MasterControl:family(",name,")"}
    if (masterTbl.checkSyntax) then
@@ -1009,7 +1012,7 @@ function M.family(self, name)
 
    local oldName = mt:getfamily(name)
    if (oldName ~= nil and oldName ~= sn and not expert() ) then
-      if (LMOD_AUTO_SWAP ~= "no") then
+      if (auto_swap ~= "no") then
          self.familyStackPush(oldName, sn)
       else
          LmodError("You can only have one ",name," module loaded at a time.\n",

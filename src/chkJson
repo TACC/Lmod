@@ -122,7 +122,7 @@ function main()
       mpath_av     = { rule = "match", value = "no"},
       mpath_root   = { rule = "match", value = "@modulepath_root@"},
       numSC        = { rule = "match", value = 0},
-      pager        = { rule = "match", value = "@path_to_pager@"},
+      pager        = { rule = "match", value = "less"},
       pager_opts   = { rule = "match", value = "-XqMREF"},
       path_hash    = { rule = "match", value = "@path_to_hashsum@"},
       path_lua     = { rule = "match", value = "@path_to_lua@"},

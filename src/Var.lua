@@ -39,22 +39,23 @@ require("pairsByKeys")
 require("utils")
 require("myGlobals")
 
-_G._DEBUG           = false               -- Required by the new lua posix
-local M             = {}
-local abs           = math.abs
-local ceil          = math.ceil
-local concatTbl     = table.concat
-local dbg           = require("Dbg"):dbg()
-local envPrtyName   = "NVV_Priority_"
-local getenv        = os.getenv
-local log           = math.log
-local min           = math.min
-local max           = math.max
-local huge          = math.huge
-local posix         = require("posix")
-local setenv_posix  = posix.setenv
-
-local ln10_inv      = 1.0/log(10.0)
+_G._DEBUG            = false               -- Required by the new lua posix
+local M              = {}
+local abs            = math.abs
+local ceil           = math.ceil
+local concatTbl      = table.concat
+local cosmic         = require("Cosmic"):singleton()
+local dbg            = require("Dbg"):dbg()
+local envPrtyName    = "NVV_Priority_"
+local getenv         = os.getenv
+local log            = math.log
+local min            = math.min
+local max            = math.max
+local huge           = math.huge
+local posix          = require("posix")
+local setenv_posix   = posix.setenv
+local tmod_path_rule = cosmic:value("LMOD_TMOD_PATH_RULE")
+local ln10_inv       = 1.0/log(10.0)
 --------------------------------------------------------------------------
 -- Rebuild the path-like priority table.  So for a PATH with priorities
 -- would have:
@@ -102,8 +103,9 @@ local function chkMP(name, value, adding)
       local mt = require("FrameStk"):singleton():mt()
       mt:set_MPATH_change_flag()
       mt:updateMPathA(value)
-      local moduleA = require("ModuleA"):singleton()
-      moduleA:update{spider_cache = (LMOD_CACHED_LOADS ~= 'no')}
+      local moduleA      = require("ModuleA"):singleton()
+      local cached_loads = cosmic:value("LMOD_CACHED_LOADS")
+      moduleA:update{spider_cache = (cached_loads ~= 'no')}
       dbg.fini("chkMP")
    end
 end
@@ -302,7 +304,7 @@ function M.prepend(self, value, nodups, priority)
       local path = pathA[i]
       imin       = imin - 1
       local   a  = tbl[path]
-      if (LMOD_TMOD_PATH_RULE == "no" or not a) then
+      if (tmod_path_rule == "no" or not a) then
          tbl[path]   = insertFunc(a or {}, imin, isPrepend, nodups, priority)
       end
    end
@@ -341,7 +343,7 @@ function M.append(self, value, nodups, priority)
       local path = pathA[i]
       imax       = imax + 1
       local a    = tbl[path]
-      if (LMOD_TMOD_PATH_RULE == "no" or not a) then
+      if (tmod_path_rule == "no" or not a) then
          tbl[path]   = insertFunc(a or {}, imax, isPrepend, nodups, priority)
       end
    end

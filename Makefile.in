@@ -169,7 +169,7 @@ __installMe:
            sed  -e 's|@PREFIX@|$(prefix)|g'                            	   	  \
 	        -e 's|@path_to_lua@|$(PATH_TO_LUA)|g'                 	   	  \
 	        -e 's|@path_to_hashsum@|$(PATH_TO_HASHSUM)|g'         	   	  \
-	        -e 's|@path_to_pager@|$(PATH_TO_PAGER)|g'             	   	  \
+	        -e 's|@pager@|$(PATH_TO_PAGER)|g'                 	   	  \
 	        -e 's|@case_independent_sorting@|$(CASE_INDEPENDENT_SORTING)|g'   \
                 -e 's|@lmod_full_settarg_support@|$(LMOD_FULL_SETTARG_SUPPORT)|g' \
                 -e 's|@use_dot_files@|$(USE_DOT_FILES)|g'             	   	  \

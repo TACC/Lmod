@@ -45,6 +45,7 @@ local FrameStk  = require("FrameStk")
 local LocationT = require("LocationT")
 local M         = {}
 local MRC       = require("MRC")
+local cosmic    = require("Cosmic"):singleton()
 local dbg       = require("Dbg"):dbg()
 local getenv    = os.getenv
 local s_moduleA = false
@@ -376,7 +377,7 @@ function M.build_availA(self)
    
    local moduleA = self.__moduleA
    local availA  = {}
-   local cmp     = (LMOD_CASE_INDEPENDENT_SORTING == "yes") and
+   local cmp     = (cosmic:value("LMOD_CASE_INDEPENDENT_SORTING") == "yes") and
                     case_independent_cmp or regular_cmp
 
    for i = 1, #moduleA do
