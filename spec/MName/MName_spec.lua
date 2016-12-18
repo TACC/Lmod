@@ -8,6 +8,7 @@ local ModuleA   = require("ModuleA")
 local FrameStk  = require("FrameStk")
 
 local concatTbl = table.concat
+local cosmic    = require("Cosmic"):singleton()
 local dbg       = require("Dbg"):dbg()
 local posix     = require("posix")
 local testDir   = "spec/MName"
@@ -24,7 +25,7 @@ describe("Testing MName Class #MName.",
                   local maxdepth = mpathA[1] .. ":2;" .. mpathA[2] .. ":2;"
                   posix.setenv("MODULEPATH",mpath,true)
                   posix.setenv("LMOD_MAXDEPTH",maxdepth,true)
-                  _G.LMOD_MAXDEPTH = maxdepth
+                  cosmic:assign("LMOD_MAXDEPTH",maxdepth)
                   __removeEnvMT()
             
                   local moduleA = ModuleA:singleton{reset=true}
@@ -125,7 +126,7 @@ describe("Testing MName Class #MName.",
                   local mpath = concatTbl(mpathA,":")
                   
                   posix.setenv("MODULEPATH", mpath, true)
-                  _G.LMOD_MAXDEPTH = nil
+                  cosmic:assign("LMOD_MAXDEPTH",false)
                   ModuleA:__clear()
                   FrameStk:__clear()
                   local goldA = {

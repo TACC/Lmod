@@ -83,6 +83,8 @@ local posix      = require("posix")
 local s_cache    = false
 local timer      = require("Timer"):singleton()
 
+local ancient    = cosmic:value("LMOD_ANCIENT_TIME")
+local shortTime  = cosmic:value("LMOD_SHORT_TIME")
 --------------------------------------------------------------------------
 -- This singleton construct reads the scDescriptT table that can be
 -- defined in the lmodrc.lua.  Typically this table, if it exists
@@ -434,7 +436,6 @@ function M.build(self, fast)
 
    local short     = mt:getShortTime()
    if (not buildSpiderT) then
-      ancient = _G.ancient or ancient
       mt:setRebuildTime(ancient, short)
    else
       local prtRbMsg = ((not quiet())                        and

@@ -7,6 +7,7 @@ _G.MasterControl = require("MasterControl")
 local dbg        = require("Dbg"):dbg()
 local ModuleA    = require("ModuleA")
 local Master     = require("Master")
+local cosmic     = require("Cosmic"):singleton()
 
 local concatTbl  = table.concat
 local getenv     = os.getenv
@@ -22,7 +23,8 @@ describe("Testing The Avail command #Avail.",
                   posix.setenv("LMOD_TERM_WIDTH","160")
                   posix.setenv("MODULERCFILE",pathJoin(projDir,testDir,".modulerc"))
                   posix.setenv("MODULEPATH",mpath,true)
-                  _G.LMOD_MAXDEPTH = mpath .. ":2;"
+                  cosmic:assign{"LMOD_MAXDEPTH",mpath .. ":2;")
+
                   local master     = Master:singleton()
                   local rplmntA    = { {projDir,"%%ProjDir%%"} }
                   local masterTbl  = masterTbl()

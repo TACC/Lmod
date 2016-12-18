@@ -77,10 +77,43 @@ local dbg            = require("Dbg"):dbg()
 local CmdLineOptions = require("CmdLineOptions")
 local BuildTarget    = require("BuildTarget")
 local STT            = require("STT")
+local cosmic         = require("Cosmic"):singleton()
+local getenv         = os.getenv
 require("ModifyPath")
 require("Output")
 require("serializeTbl")
 
+------------------------------------------------------------------------
+-- LMOD_LD_LIBRARY_PATH:   LD_LIBRARY_PATH found at configure
+------------------------------------------------------------------------
+
+local ld_lib_path = "@sys_ld_lib_path@"
+if (ld_lib_path:sub(1,1) == "@") then
+   ld_lib_path = getenv("LD_LIBRARY_PATH")
+end
+if (ld_lib_path == "") then
+   ld_lib_path = false
+end
+
+cosmic:init{name    = "LMOD_LD_LIBRARY_PATH",
+            default = false,
+            assignV = ld_lib_path}
+
+------------------------------------------------------------------------
+-- LMOD_LD_PRELOAD:   LD_PRELOAD found at configure
+------------------------------------------------------------------------
+
+local ld_preload = "@sys_ld_preload@"
+if (ld_preload:sub(1,1) == "@") then
+   ld_preload = getenv("LD_PRELOAD")
+end
+if (ld_preload == "") then
+   ld_preload = nil
+end
+
+cosmic:init{name    = "LMOD_LD_PRELOAD",
+            default = false,
+            assignV = ld_preload}
 
 function main()
    local masterTbl   = masterTbl()

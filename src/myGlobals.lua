@@ -230,9 +230,14 @@ cosmic:assign("LMOD_CACHED_LOADS",ignore_cache and "no" or cached_loads)
 cosmic:init{name    = "LMOD_PAGER",
             sedV    = "@pager@",
             default = "less"}
+
 cosmic:init{name    = "LMOD_PAGER_OPTS",
             default = "-XqMREF"}
 
+------------------------------------------------------------------------
+-- LMOD_MODULERCFILE: The system RC file to specify aliases, defaults
+--                    and hidden modules.
+------------------------------------------------------------------------
 local rc_dflt   = pathJoin(cmdDir(),"../../etc/rc")
 local rc        = getenv("LMOD_MODULERCFILE") or getenv("MODULERCFILE") or rc_dflt
 cosmic:init{name    = "LMOD_MODULERCFILE",
@@ -305,46 +310,54 @@ ShowResultsA = {}
 
 colorize      = false
 
-cosmic:init{name = "LMOD_COLORIZE", sedV = "@colorize@", default="yes"}
+cosmic:init{name    = "LMOD_COLORIZE",
+            sedV    = "@colorize@",
+            default = "yes"}
 
 ------------------------------------------------------------------------
 -- pager:     pipe output through more when connectted to a term
 ------------------------------------------------------------------------
 pager         = false
 
-
 ------------------------------------------------------------------------
 -- LMOD_TCLSH:   path to tclsh
 ------------------------------------------------------------------------
 
-LMOD_TCLSH = "@tclsh@"
-if (LMOD_TCLSH:sub(1,1) == "@") then
-   LMOD_TCLSH = "tclsh"
-end
+cosmic:init{name    = "LMOD_TCLSH",
+            sedV    = "@tclsh@",
+            default = "tclsh"}
 
 ------------------------------------------------------------------------
 -- LMOD_LD_LIBRARY_PATH:   LD_LIBRARY_PATH found at configure
 ------------------------------------------------------------------------
 
-LMOD_LD_LIBRARY_PATH = "@sys_ld_lib_path@"
-if (LMOD_LD_LIBRARY_PATH:sub(1,1) == "@") then
-   LMOD_LD_LIBRARY_PATH = getenv("LD_LIBRARY_PATH")
+local ld_lib_path = "@sys_ld_lib_path@"
+if (ld_lib_path:sub(1,1) == "@") then
+   ld_lib_path = getenv("LD_LIBRARY_PATH")
 end
-if (LMOD_LD_LIBRARY_PATH == "") then
-   LMOD_LD_LIBRARY_PATH = nil
+if (ld_lib_path == "") then
+   ld_lib_path = false
 end
+
+cosmic:init{name    = "LMOD_LD_LIBRARY_PATH",
+            default = false,
+            assignV = ld_lib_path}
 
 ------------------------------------------------------------------------
 -- LMOD_LD_PRELOAD:   LD_PRELOAD found at configure
 ------------------------------------------------------------------------
 
-LMOD_LD_PRELOAD = "@sys_ld_preload@"
-if (LMOD_LD_PRELOAD:sub(1,1) == "@") then
-   LMOD_LD_PRELOAD = getenv("LD_PRELOAD")
+local ld_preload = "@sys_ld_preload@"
+if (ld_preload:sub(1,1) == "@") then
+   ld_preload = getenv("LD_PRELOAD")
 end
-if (LMOD_LD_PRELOAD == "") then
-   LMOD_LD_PRELOAD = nil
+if (ld_preload == "") then
+   ld_preload = nil
 end
+
+cosmic:init{name    = "LMOD_LD_PRELOAD",
+            default = false,
+            assignV = ld_preload}
 
 ------------------------------------------------------------------------
 -- parseVersion:   generate a parsable version string from version
@@ -363,19 +376,33 @@ s_warning     = false
 ------------------------------------------------------------------------
 s_haveWarnings = true
 
-
 ------------------------------------------------------------------------
--- ancient:  the time in seconds when the cache file is considered old
-------------------------------------------------------------------------
-ancient = tonumber(getenv("LMOD_ANCIENT_TIME")) or tonumber("@ancient@") or 86400
-
-------------------------------------------------------------------------
--- shortTime: the time in seconds when building the cache file is quick
---            enough to be computed every time rather than cached.
+-- LMOD_FULL_SETTARG_SUPPORT:  the time in seconds when the cache file is considered old
 ------------------------------------------------------------------------
 
-shortTime = tonumber(getenv("LMOD_SHORT_TIME")) or tonumber("@short_time@") or 10.0
+cosmic:init{name = "LMOD_FULL_SETTARG_SUPPORT",
+            sedV = "@lmod_full_settarg_support@",
+            yn   = "no"}
 
+------------------------------------------------------------------------
+-- LMOD_ANCIENT_TIME:  the time in seconds when the cache file is considered old
+------------------------------------------------------------------------
+local ancient_dflt  = 86400
+local ancient       = tonumber(getenv("LMOD_ANCIENT_TIME")) or tonumber("@ancient@") or ancient_dflt
+cosmic:init{name    = "LMOD_ANCIENT_TIME",
+            default = ancient_dflt,
+            assignV = ancient}
+
+------------------------------------------------------------------------
+-- LMOD_SHORT_TIME: the time in seconds when building the cache file is quick
+--                  enough to be computed every time rather than cached.
+------------------------------------------------------------------------
+
+local shortTime_dflt = 10
+local shortTime      = tonumber(getenv("LMOD_SHORT_TIME")) or tonumber("@short_time@") or shortTime_dflt
+cosmic:init{name     = "LMOD_SHORT_TIME",
+            default  = shortTime_dflt,
+            assignV  = shortTime}
 
 ------------------------------------------------------------------------
 -- Threshold:  The amount of time to wait before printing the cache
@@ -393,16 +420,17 @@ shortLifeCache = ancient/12
 -- USE_DOT_FILES: Use ~/.lmod.d/.cache or ~/.lmod.d/__cache__
 ------------------------------------------------------------------------
 
-USE_DOT_FILES = "@use_dot_files@"
+cosmic:init{name = "LMOD_USE_DOT_FILES",
+            sedV = "@use_dot_files@",
+            yn   = "yes"}
+
+local use_dot_files = cosmit:value("LMOD_USE_DOT_FILES")
 
 ------------------------------------------------------------------------
 -- usrCacheDir: user cache directory
 ------------------------------------------------------------------------
-USER_CACHE_DIR_NAME  = ".cache"
-if ( USE_DOT_FILES:lower() == "no" ) then
-  USER_CACHE_DIR_NAME  = "__cache__"
-end
-usrCacheDir   = pathJoin(getenv("HOME"),".lmod.d",USER_CACHE_DIR_NAME)
+USER_CACHE_DIR_NAME  = ( use_dot_files == "yes" ) and ".cache" or "__cache__"
+usrCacheDir          = pathJoin(getenv("HOME"),".lmod.d",USER_CACHE_DIR_NAME)
 
 ------------------------------------------------------------------------
 -- updateSystemFn: The system file that is touched everytime the system

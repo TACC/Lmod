@@ -9,6 +9,7 @@ local DirTree   = require("DirTree")
 local ModuleA   = require("ModuleA")
 
 local concatTbl = table.concat
+local cosmic    = require("Cosmic"):singleton()
 local getenv    = os.getenv
 local posix     = require("posix")
 local testDir   = "spec/ModuleA"
@@ -136,6 +137,7 @@ describe("Testing ModuleA Class #ModuleA.",
                   local maxdepth = mpath .. ":2;"
                   posix.setenv("LMOD_MAXDEPTH", maxdepth, true)
                   posix.setenv("MODULERCFILE",pathJoin(projDir,testDir,".modulerc"))
+                  cosmic("LMOD_MAXDEPTH",maxdepth)
                   _G.mcp             = _G.MasterControl.build("load")
                   _G.MCP             = _G.MasterControl.build("load")
                   local moduleA      = ModuleA:singleton{reset=true, spider_cache=true}

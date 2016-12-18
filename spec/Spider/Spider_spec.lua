@@ -9,6 +9,7 @@ _G.MasterControl = require("MasterControl")
 local ModuleA    = require("ModuleA")
 local Spider     = require("Spider")
 local concatTbl  = table.concat
+local cosmic     = require("Cosmic"):singleton()
 local getenv     = os.getenv
 local posix      = require("posix")
 local testDir    = "spec/Spider"
@@ -20,7 +21,7 @@ describe("Testing Spider Class #Spider.",
                   local mpath = pathJoin(projDir, testDir, "mf/Core")
                   posix.setenv("MODULEPATH",mpath,true)
                   posix.setenv("LMOD_MAXDEPTH", nil, true)
-                  _G.LMOD_MAXDEPTH = nil
+                  cosmic:assign("LMOD_MAXDEPTH",false)
 
                   local spider = Spider:new()
                   local spiderT = {}
@@ -130,7 +131,7 @@ describe("Testing Spider Class #Spider.",
                   posix.setenv("MODULEPATH_ROOT", root_mpath, true)
                   posix.setenv("MODULEPATH",      mpath,      true)
                   posix.setenv("LMOD_MAXDEPTH",   nil,        true)
-                  _G.LMOD_MAXDEPTH = nil
+                  cosmic:assign("LMOD_MAXDEPTH",  false)
 
                   local spider = Spider:new()
                   local spiderT = {}

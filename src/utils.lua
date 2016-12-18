@@ -506,7 +506,7 @@ end
 
 function runTCLprog(TCLprog, optStr, fn)
    local a   = {}
-   a[#a + 1] = LMOD_TCLSH
+   a[#a + 1] = cosmic:value("LMOD_TCLSH")
    a[#a + 1] = pathJoin(cmdDir(),TCLprog)
    a[#a + 1] = optStr or ""
    a[#a + 1] = fn

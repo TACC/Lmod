@@ -11,6 +11,7 @@ local FrameStk      = require("FrameStk")
 local Master        = require("Master")
 local MName         = require("MName")
 local ModuleA       = require("ModuleA") 
+local cosmic        = require("Cosmic"):singleton()
 local dbg           = require("Dbg")
 local getenv        = os.getenv
 local posix         = require("posix")
@@ -64,7 +65,7 @@ describe("Testing MasterControl Class #MasterControl.",
                   local mpath   = pathJoin(projDir,testDir,"mf")
                   posix.setenv("MODULEPATH", mpath, true)
                   
-                  _G.LMOD_MAXDEPTH = nil
+                  cosmic:assign(LMOD_MAXDEPTH, false)
                   FrameStk:__clear()
                   ModuleA:__clear()
                   local frameStk = FrameStk:singleton()

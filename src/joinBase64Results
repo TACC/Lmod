@@ -41,9 +41,6 @@ require("strict")
 --
 --------------------------------------------------------------------------
 
-LMOD_LD_LIBRARY_PATH = ""
-LMOD_LD_PRELOAD      = ""
-
 
 local cmd = arg[0]
 
@@ -69,9 +66,14 @@ require("string_utils")
 require("serializeTbl")
 local s_name    = "_ModuleTable_"
 local base64    = require("base64")
+local cosmic    = require("Cosmic"):singleton()
 local concatTbl = table.concat
 local decode64  = base64.decode64
 local load      = (_VERSION == "Lua 5.1") and loadstring or load
+
+cosmic:init{name = "LMOD_LD_LIBRARY_PATH", default = false, assignV = false}
+cosmic:init{name = "LMOD_LD_PRELOAD",      default = false, assignV = false}
+
 
 local function grab(line, b)
    local a = {}

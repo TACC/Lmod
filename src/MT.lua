@@ -103,8 +103,9 @@ local function new(self, s, restoreFn)
          o.mpathA          = path2pathA(currentMPATH)
          o.systemBaseMPATH = concatTbl(o.mpathA,":")
       end
-      o.depthT          = paired2pathT(LMOD_MAXDEPTH)
-      dbg.print{"LMOD_MAXDEPTH: ",LMOD_MAXDEPTH,"\n"}
+      local maxdepth    = cosmic:value("LMOD_MAXDEPTH")
+      o.depthT          = paired2pathT(maxdepth)
+      dbg.print{"LMOD_MAXDEPTH: ",maxdepth,"\n"}
       dbg.print{"s is nil\n"}
       dbg.fini("MT new")
       return o

@@ -125,14 +125,14 @@ local function new(self)
       lmod_version = lmod_version:gsub("[)(]","")
    end
    local readLmodRC        = ReadLmodRC:singleton()
-   local settarg_support   = "@lmod_full_settarg_support@"
    local pkgName           = Pkg.name() or "unknown"
-   local lmod_colorize     = cosmic:value("LMOD_COLORIZE")
    local scDescriptT       = readLmodRC:scDescriptT()
    local numSC             = #scDescriptT
    local uname             = capture("uname -a")
    local adminFn, readable = findAdminFn()
    local activeTerm        = haveTermSupport() and "true" or colorize("red","false")
+   local settarg_support   = cosmic:value("LMOD_FULL_SETTARG_SUPPORT")
+   local lmod_colorize     = cosmic:value("LMOD_COLORIZE")
    local site_name         = cosmic:value("LMOD_SITE_NAME") or "<empty>"
    local case_ind_sorting  = cosmic:value("LMOD_CASE_INDEPENDENT_SORTING")
    local disable1N         = cosmic:value("LMOD_DISABLE_SAME_NAME_AUTOSWAP")
@@ -141,8 +141,8 @@ local function new(self)
    local cached_loads      = cosmic:value("LMOD_CACHED_LOADS")
    local ignore_cache      = cosmic:value("LMOD_IGNORE_CACHE") and "yes" or "no"
    local redirect          = cosmic:value("LMOD_REDIRECT")
-   local ld_preload        = LMOD_LD_PRELOAD      or "<empty>"
-   local ld_lib_path       = LMOD_LD_LIBRARY_PATH or "<empty>"
+   local ld_preload        = cosmic:value("LMOD_LD_PRELOAD")      or "<empty>"
+   local ld_lib_path       = cosmic:value("LMOD_LD_LIBRARY_PATH") or "<empty>"
    local allow_tcl_mfiles  = cosmic:value("LMOD_ALLOW_TCL_MFILES")
    local duplicate_paths   = cosmic:value("LMOD_DUPLICATE_PATHS")
    local pager             = cosmic:value("LMOD_PAGER") 
@@ -151,6 +151,10 @@ local function new(self)
    local auto_swap         = cosmic:value("LMOD_AUTO_SWAP")
    local mpath_avail       = cosmic:value("LMOD_MPATH_AVAIL")
    local rc                = cosmic:value("LMOD_MODULERCFILE")
+   local ancient           = cosmic:value("LMOD_ANCIENT_TIME")
+   local shortTime         = cosmic:value("LMOD_SHORT_TIME")
+   local using_dotfiles    = cosmic:value("LMOD_USE_DOT_FILES")
+   local export_module     = cosmic:value("LMOD_EXPORT_MODULE")
 
    if (not isFile(rc)) then
       rc = rc .. " -> <empty>"
@@ -166,10 +170,10 @@ local function new(self)
    tbl.case        = { k = "Case Independent Sorting"          , v = case_ind_sorting,     }
    tbl.colorize    = { k = "Colorize Lmod"                     , v = lmod_colorize,        }
    tbl.disable1N   = { k = "Disable Same Name AutoSwap"        , v = disable1N,            }
-   tbl.dot_files   = { k = "Using dotfiles"                    , v = "@use_dot_files@",    }
+   tbl.dot_files   = { k = "Using dotfiles"                    , v = using_dotfiles,       }
    tbl.dupPaths    = { k = "Allow duplicate paths"             , v = duplicate_paths,      }
    tbl.exactMatch  = { k = "Require Exact Match/no defaults"   , v = exactMatch,           }
-   tbl.expMCmd     = { k = "Export the module command"         , v = "@export_module@",    }
+   tbl.expMCmd     = { k = "Export the module command"         , v = export_module,        }
    tbl.ld_preload  = { k = "LD_PRELOAD at config time"         , v = ld_preload,           }
    tbl.ld_lib_path = { k = "LD_LIBRARY_PATH at config time"    , v = ld_lib_path,          }
    tbl.lmodV       = { k = "Lmod version"                      , v = lmod_version,         }
@@ -194,8 +198,8 @@ local function new(self)
    tbl.siteName    = { k = "Site Name"                         , v = site_name,            }
    tbl.spdr_ignore = { k = "Ignore Cache"                      , v = ignore_cache,         }
    tbl.spdr_loads  = { k = "Cached loads"                      , v = cached_loads,         }
-   tbl.tm_ancient  = { k = "User cache valid time(sec)"        , v = "@ancient@",          }
-   tbl.tm_short    = { k = "Write cache after (sec)"           , v = "@short_time@",       }
+   tbl.tm_ancient  = { k = "User cache valid time(sec)"        , v = ancient,              }
+   tbl.tm_short    = { k = "Write cache after (sec)"           , v = shortTime,            }
    tbl.tm_threshold= { k = "Threshold (sec)"                   , v = Threshold,            }
    tbl.tmod_rule   = { k = "Tmod prepend PATH Rule"            , v = tmod_rule,            }
    tbl.uname       = { k = "uname -a"                          , v = uname,                }

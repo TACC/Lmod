@@ -36,6 +36,7 @@ _G._DEBUG          = false                       -- Required by luaposix 33
 local posix        = require("posix")
 local getenv       = os.getenv
 local setenv_posix = posix.setenv
+local cosmic       = require("Cosmic"):singleton()
 
 function lmod_system_execute(cmd)
    dbg.start{"lmod_system_execute(",cmd,")"}
@@ -46,9 +47,8 @@ function lmod_system_execute(cmd)
    local newT = {}
    local envT = {}
 
-   envT["LD_LIBRARY_PATH"] = LMOD_LD_LIBRARY_PATH or ""
-   envT["LD_PRELOAD"]      = LMOD_LD_PRELOAD      or ""
-
+   envT["LD_LIBRARY_PATH"] = cosmic:value("LMOD_LD_LIBRARY_PATH") or ""
+   envT["LD_PRELOAD"]      = cosmic:value("LMOD_LD_PRELOAD")      or ""
 
    for k, v in pairs(envT) do
       newT[k] = getenv(k)
