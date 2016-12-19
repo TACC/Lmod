@@ -81,10 +81,7 @@ function M.init(self, t)
       local defaultV = t.default
       local value    = t.assignV
       local extra    = nil
-      if (t.kind == "file" and not isFile(value)) then
-         extra = "<empty>"
-      end
-      T[name] = {value = value, default = defaultV, extra = extra}
+      T[name] = {value = value, default = defaultV}
       return
    end
 
@@ -98,10 +95,7 @@ function M.init(self, t)
       if (value:sub(1,1) == "@" or value == "<empty>") then
          value = defaultV
       end
-      if (not value ) then
-         extra = "<empty>"
-      end
-      T[name] = {value = value, default = defaultV, extra = extra}
+      T[name] = {value = value, default = defaultV}
       return
    end
 end

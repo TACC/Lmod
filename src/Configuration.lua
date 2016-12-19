@@ -250,8 +250,8 @@ function M.report(self)
 
    local aa = cosmic:reportChangesFromDefault()
    if (next(aa) ~= nil) then
-      b[#b+1] = "Changes from Default"
-      b[#b+1] = "--------------------\n"
+      b[#b+1] = "Changes from Default Configuration"
+      b[#b+1] = "----------------------------------\n"
 
       bt      = BeautifulTbl:new{tbl=aa}
       b[#b+1] = bt:build_tbl()
