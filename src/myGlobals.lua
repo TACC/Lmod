@@ -182,6 +182,13 @@ cosmic:init{name = "LMOD_EXACT_MATCH",
             yn   = "no"}
 
 ------------------------------------------------------------------------
+-- LMOD_EXPORT_MODULE:  Should the module command be exported to Bash
+------------------------------------------------------------------------
+cosmic:init{name = "LMOD_EXPORT_MODULE",
+            sedV = "@export_module@",
+            yn   = "yes"}
+
+------------------------------------------------------------------------
 -- LMOD_AVAIL_MPATH:  Include MODULEPATH in avail search
 ------------------------------------------------------------------------
 cosmic:init{name = "LMOD_MPATH_AVAIL",

@@ -220,10 +220,10 @@ Auto swapping                    yes
 Case Independent Sorting         no
 Colorize Lmod                    yes
 Disable Same Name AutoSwap       no
-Using dotfiles                   @use_dot_files@
+Using dotfiles                   yes
 Allow duplicate paths            no
 Require Exact Match/no defaults  no
-Export the module command        @export_module@
+Export the module command        yes
 System lua_json                  @have_lua_json@
 System lua-term                  @have_lua_term@
 avail: Include modulepath dir    no
