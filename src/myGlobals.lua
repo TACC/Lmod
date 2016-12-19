@@ -80,7 +80,7 @@ setenv_posix("LC_ALL","C",true)
 
 ------------------------------------------------------------------------
 -- ModulePath: The name of the environment variable which contains the
---             directories that contain modulefiles.  This
+--             directories that contain modulefiles. 
 ------------------------------------------------------------------------
 
 ModulePath  = "MODULEPATH"
@@ -399,6 +399,7 @@ local ancient       = tonumber(getenv("LMOD_ANCIENT_TIME")) or tonumber("@ancien
 cosmic:init{name    = "LMOD_ANCIENT_TIME",
             default = ancient_dflt,
             assignV = ancient}
+ancient             = cosmic:value("LMOD_ANCIENT_TIME")
 
 ------------------------------------------------------------------------
 -- LMOD_SHORT_TIME: the time in seconds when building the cache file is quick
@@ -415,7 +416,11 @@ cosmic:init{name     = "LMOD_SHORT_TIME",
 -- Threshold:  The amount of time to wait before printing the cache
 --             rebuild message.  (It has to be 1 second or greater).
 ------------------------------------------------------------------------
-Threshold = tonumber(getenv("LMOD_THRESHOLD")) or 1
+local threshold      = tonumber(getenv("LMOD_THRESHOLD")) or 1
+cosmic:init{name     = "LMOD_THRESHOLD",
+            default  = 1,
+            assignV  = threshold}
+
 
 ------------------------------------------------------------------------
 -- shortLifeCache: If building the cache file is fast then shorten the
@@ -423,8 +428,9 @@ Threshold = tonumber(getenv("LMOD_THRESHOLD")) or 1
 ------------------------------------------------------------------------
 shortLifeCache = ancient/12
 
+
 ------------------------------------------------------------------------
--- USE_DOT_FILES: Use ~/.lmod.d/.cache or ~/.lmod.d/__cache__
+-- LMOD_USE_DOT_FILES: Use ~/.lmod.d/.cache or ~/.lmod.d/__cache__
 ------------------------------------------------------------------------
 
 cosmic:init{name = "LMOD_USE_DOT_FILES",
@@ -432,6 +438,35 @@ cosmic:init{name = "LMOD_USE_DOT_FILES",
             yn   = "yes"}
 
 local use_dot_files = cosmic:value("LMOD_USE_DOT_FILES")
+
+
+------------------------------------------------------------------------
+-- LMOD_HAVE_LUA_JSON
+------------------------------------------------------------------------
+cosmic:init{name = "LMOD_HAVE_LUA_JSON",
+            sedv = "@have_lua_json@",
+            yn   = "no"}
+
+------------------------------------------------------------------------
+-- LMOD_HAVE_LUA_TERM
+------------------------------------------------------------------------
+cosmic:init{name = "LMOD_HAVE_LUA_TERM",
+            sedv = "@have_lua_term@",
+            yn   = "no"}
+
+------------------------------------------------------------------------
+-- MODULEPATH_ROOT
+------------------------------------------------------------------------
+cosmic:init{name    = "MODULEPATH_ROOT",
+            sedv    = "@modulepath_root@",
+            default = ""}
+
+------------------------------------------------------------------------
+-- LMOD_HASHSUM_PATH
+------------------------------------------------------------------------
+cosmic:init{name    = "LMOD_HASHSUM_PATH",
+            sedv    = "@hashsum@",
+            default = "/usr/bin/sha1sum"}
 
 ------------------------------------------------------------------------
 -- usrCacheDir: user cache directory

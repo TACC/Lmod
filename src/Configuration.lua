@@ -156,6 +156,11 @@ local function new(self)
    local using_dotfiles    = cosmic:value("LMOD_USE_DOT_FILES")
    local export_module     = cosmic:value("LMOD_EXPORT_MODULE")
    local prepend_block     = cosmic:value("LMOD_PREPEND_BLOCK")
+   local threshold         = cosmic:value("LMOD_THRESHOLD")
+   local have_json         = cosmic:value("LMOD_HAVE_LUA_JSON")
+   local have_term         = cosmic:value("LMOD_HAVE_LUA_TERM")
+   local mpath_root        = cosmic:value("MODULEPATH_ROOT")
+   local hashsum_path      = cosmic:value("LMOD_HASHSUM_PATH")
 
    if (not isFile(rc)) then
       rc = rc .. " -> <empty>"
@@ -179,16 +184,16 @@ local function new(self)
    tbl.ld_lib_path = { k = "LD_LIBRARY_PATH at config time"    , v = ld_lib_path,          }
    tbl.lmodV       = { k = "Lmod version"                      , v = lmod_version,         }
    tbl.luaV        = { k = "Lua Version"                       , v = _VERSION,             }
-   tbl.lua_json    = { k = "System lua_json"                   , v = "@have_lua_json@",    }
-   tbl.lua_term    = { k = "System lua-term"                   , v = "@have_lua_term@",    }
+   tbl.lua_json    = { k = "System lua_json"                   , v = have_json,            }
+   tbl.lua_term    = { k = "System lua-term"                   , v = have_term,            }
    tbl.lua_term_A  = { k = "Active lua-term"                   , v = activeTerm,           }
    tbl.mpath_av    = { k = "avail: Include modulepath dir"     , v = mpath_avail,          }
-   tbl.mpath_root  = { k = "MODULEPATH_ROOT"                   , v = "@modulepath_root@",  }
+   tbl.mpath_root  = { k = "MODULEPATH_ROOT"                   , v = mpath_root,           }
    tbl.modRC       = { k = "MODULERCFILE"                      , v = rc,                   }
    tbl.numSC       = { k = "number of cache dirs"              , v = numSC,                }
    tbl.pager       = { k = "Pager"                             , v = pager,                }
    tbl.pager_opts  = { k = "Pager Options"                     , v = pager_opts,           }
-   tbl.path_hash   = { k = "Path to HashSum"                   , v = "@path_to_hashsum@",  }
+   tbl.path_hash   = { k = "Path to HashSum"                   , v = hashsum_path,         }
    tbl.path_lua    = { k = "Path to Lua"                       , v = "@path_to_lua@",      }
    tbl.pin_v       = { k = "Pin Versions in restore"           , v = pin_versions,         }
    tbl.pkg         = { k = "Pkg Class name"                    , v = pkgName,              }
@@ -201,7 +206,7 @@ local function new(self)
    tbl.spdr_loads  = { k = "Cached loads"                      , v = cached_loads,         }
    tbl.tm_ancient  = { k = "User cache valid time(sec)"        , v = ancient,              }
    tbl.tm_short    = { k = "Write cache after (sec)"           , v = shortTime,            }
-   tbl.tm_threshold= { k = "Threshold (sec)"                   , v = Threshold,            }
+   tbl.tm_threshold= { k = "Threshold (sec)"                   , v = threshold,            }
    tbl.tmod_rule   = { k = "Tmod prepend PATH Rule"            , v = tmod_rule,            }
    tbl.uname       = { k = "uname -a"                          , v = uname,                }
    tbl.z01_admin   = { k = "Admin file"                        , v = adminFn,              }

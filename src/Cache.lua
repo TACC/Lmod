@@ -447,8 +447,9 @@ function M.build(self, fast)
       dbg.print{"quiet:    ", quiet(),", initial:   ", masterTbl.initial,"\n"}
       dbg.print{"prtRbMsg: ",prtRbMsg,", quiet:     ",self.quiet,"\n"}
 
+      local threshold = cosmic:value("LMOD_THRESHOLD")
       local cTimer = CTimer:singleton("Rebuilding cache, please wait ...",
-                                      Threshold, prtRbMsg, masterTbl.timeout)
+                                      threshold, prtRbMsg, masterTbl.timeout)
 
       local mcp_old  = mcp
       dbg.print{"Setting mcp to ", mcp:name(),"\n"}

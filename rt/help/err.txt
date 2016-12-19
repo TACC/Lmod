@@ -224,14 +224,14 @@ Using dotfiles                   yes
 Allow duplicate paths            no
 Require Exact Match/no defaults  no
 Export the module command        yes
-System lua_json                  @have_lua_json@
-System lua-term                  @have_lua_term@
+System lua_json                  no
+System lua-term                  no
 avail: Include modulepath dir    no
-MODULEPATH_ROOT                  @modulepath_root@
+MODULEPATH_ROOT
 number of cache dirs             0
 Pager                            less
 Pager Options                    -XqMREF
-Path to HashSum                  @path_to_hashsum@
+Path to HashSum                  /usr/bin/sha1sum
 Path to Lua                      @path_to_lua@
 Pin Versions in restore          no
 Pkg Class name                   Pkg
