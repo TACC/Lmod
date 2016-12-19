@@ -155,6 +155,7 @@ local function new(self)
    local shortTime         = cosmic:value("LMOD_SHORT_TIME")
    local using_dotfiles    = cosmic:value("LMOD_USE_DOT_FILES")
    local export_module     = cosmic:value("LMOD_EXPORT_MODULE")
+   local prepend_block     = cosmic:value("LMOD_PREPEND_BLOCK")
 
    if (not isFile(rc)) then
       rc = rc .. " -> <empty>"
@@ -192,7 +193,7 @@ local function new(self)
    tbl.pin_v       = { k = "Pin Versions in restore"           , v = pin_versions,         }
    tbl.pkg         = { k = "Pkg Class name"                    , v = pkgName,              }
    tbl.prefix      = { k = "Lmod prefix"                       , v = "@PREFIX@",           }
-   tbl.prpnd_blk   = { k = "Prepend order"                     , v = "@prepend_block@",    }
+   tbl.prpnd_blk   = { k = "Prepend order"                     , v = prepend_block,        }
    tbl.settarg     = { k = "Supporting Full Settarg Use"       , v = settarg_support,      }
    tbl.sitePkg     = { k = "Site Pkg location"                 , v = locSitePkg,           }
    tbl.siteName    = { k = "Site Name"                         , v = site_name,            }

@@ -236,7 +236,7 @@ Path to Lua                      @path_to_lua@
 Pin Versions in restore          no
 Pkg Class name                   Pkg
 Lmod prefix                      @PREFIX@
-Prepend order                    @prepend_block@
+Prepend order                    normal
 Redirect to stdout               no
 Supporting Full Settarg Use      no
 Site Name                        <empty>

@@ -449,8 +449,9 @@ updateSystemFn="@updateSystemFn@"
 ------------------------------------------------------------------------
 -- Prepend path block order.
 ------------------------------------------------------------------------
-LMOD_PREPEND_BLOCK  = initialize("LMOD_PREPEND_BLOCK","@prepend_block@",
-                                 "normal")
+cosmic:init{name    = "LMOD_PREPEND_BLOCK",
+            sedV    = "@prepend_block@",
+            default = "normal"}
 
 ------------------------------------------------------------------------
 -- LMOD_MAXDEPTH: directory and max depth in terms of categories.

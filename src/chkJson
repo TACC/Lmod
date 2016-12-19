@@ -129,7 +129,7 @@ function main()
       pin_v        = { rule = "match", value = "no"},
       pkg          = { rule = "match", value = "Pkg"},
       prefix       = { rule = "match", value = "@PREFIX@"},
-      prpnd_blk    = { rule = "match", value = "@prepend_block@"},
+      prpnd_blk    = { rule = "match", value = "normal"},
       redirect     = { rule = "match", value = "no"},
       settarg      = { rule = "match", value = "no"},
       sitePkg      = { rule = "match", value = "standard"},

@@ -182,7 +182,6 @@ initStdEnvVars()
   unset SHLIB_PATH
   unset _LMFILES_
   unset __LMOD_PRIORITY_PATH
-  export LMOD_PREPEND_BLOCK=yes
   PATH_to_LUA=`findcmd --pathOnly lua`
   PATH_to_TM=`findcmd --pathOnly tm`
   PATH_to_SHA1=`findcmd --pathOnly sha1sum`

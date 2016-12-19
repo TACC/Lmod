@@ -73,7 +73,6 @@ end
 function M.init(self, t)
    local T    = self.__T
    local name = (t.name or "unknown")
-   --io.stderr:write("name: ",tostring(name),"\n")
 
    if (t.yn) then
       local defaultV = t.yn:lower()
@@ -102,7 +101,6 @@ function M.init(self, t)
 
    if (t.default ~= nil) then
       --io.stderr:write("dflt: ",tostring(t.default),"\n")
-
       
       local defaultV = t.default
       local sedV     = t.sedV or "@"
@@ -114,7 +112,6 @@ function M.init(self, t)
       if (not value ) then
          extra = "<empty>"
       end
-
       T[name] = {value = value, default = defaultV, extra = extra}
       return
    end

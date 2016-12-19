@@ -827,7 +827,8 @@ local function build_prepend_order_function()
       yes     = "normal",
    }
 
-   local order = ansT[LMOD_PREPEND_BLOCK] or "normal"
+   local prepend_block = cosmic:value("LMOD_PREPEND_BLOCK")
+   local order         = ansT[prepend_block] or "normal"
    if (order == "normal") then
       _G.prepend_order = function (n)
          return n, 1, -1
