@@ -47,15 +47,6 @@ local posix        = require("posix")
 local getenv       = os.getenv
 local setenv_posix = posix.setenv
 
-local function initialize(lmod_name, sed_name, defaultV)
-   defaultV    = (defaultV or "no"):lower()
-   local value = (getenv(lmod_name) or sed_name):lower()
-   if (value:sub(1,1) == "@") then
-      value = defaultV
-   end
-   return value
-end
-
 if (isNotDefined("cmdDir")) then
    _G.cmdDir = function() return pathJoin(getenv("PROJDIR"),"src") end
 end
