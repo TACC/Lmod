@@ -136,8 +136,8 @@ describe("Testing ModuleA Class #ModuleA.",
                   posix.setenv("MODULEPATH",mpath,true)
                   local maxdepth = mpath .. ":2;"
                   posix.setenv("LMOD_MAXDEPTH", maxdepth, true)
-                  posix.setenv("MODULERCFILE",pathJoin(projDir,testDir,".modulerc"))
                   cosmic:assign("LMOD_MAXDEPTH",maxdepth)
+                  cosmic:assign("LMOD_MODULERCFILE",pathJoin(projDir,testDir,".modulerc"))
                   _G.mcp             = _G.MasterControl.build("load")
                   _G.MCP             = _G.MasterControl.build("load")
                   local moduleA      = ModuleA:singleton{reset=true, spider_cache=true}
@@ -145,8 +145,8 @@ describe("Testing ModuleA Class #ModuleA.",
                   local rplmntA      = { {projDir,"%%ProjDir%%"} }
                   local _mA          = {}
                   sanizatizeTbl(rplmntA, mA, _mA)
-                  print(serializeTbl{indent=true, name="mA",   value = _mA})
-                  print(serializeTbl{indent=true, name="goldA",value = goldA})
+                  --print(serializeTbl{indent=true, name="mA",   value = _mA})
+                  --print(serializeTbl{indent=true, name="goldA",value = goldA})
                   assert.are.same(goldA, _mA)
 
                   local defaultT = moduleA:defaultT()
