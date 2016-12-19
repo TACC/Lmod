@@ -161,6 +161,7 @@ local function new(self)
    local have_term         = cosmic:value("LMOD_HAVE_LUA_TERM")
    local mpath_root        = cosmic:value("MODULEPATH_ROOT")
    local hashsum_path      = cosmic:value("LMOD_HASHSUM_PATH")
+   local lua_path          = cosmic:value("PATH_TO_LUA")
 
    if (not isFile(rc)) then
       rc = rc .. " -> <empty>"
@@ -194,7 +195,7 @@ local function new(self)
    tbl.pager       = { k = "Pager"                             , v = pager,                }
    tbl.pager_opts  = { k = "Pager Options"                     , v = pager_opts,           }
    tbl.path_hash   = { k = "Path to HashSum"                   , v = hashsum_path,         }
-   tbl.path_lua    = { k = "Path to Lua"                       , v = "@path_to_lua@",      }
+   tbl.path_lua    = { k = "Path to Lua"                       , v = lua_path,             }
    tbl.pin_v       = { k = "Pin Versions in restore"           , v = pin_versions,         }
    tbl.pkg         = { k = "Pkg Class name"                    , v = pkgName,              }
    tbl.prefix      = { k = "Lmod prefix"                       , v = "@PREFIX@",           }

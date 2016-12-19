@@ -469,6 +469,13 @@ cosmic:init{name    = "LMOD_HASHSUM_PATH",
             default = "/usr/bin/sha1sum"}
 
 ------------------------------------------------------------------------
+-- PATH_TO_LUA
+------------------------------------------------------------------------
+cosmic:init{name    = "PATH_TO_LUA",
+            sedv    = "@path_to_lua@",
+            default = "lua"}
+
+------------------------------------------------------------------------
 -- usrCacheDir: user cache directory
 ------------------------------------------------------------------------
 USER_CACHE_DIR_NAME  = ( use_dot_files == "yes" ) and ".cache" or "__cache__"
