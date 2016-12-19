@@ -204,9 +204,9 @@ local function new(self)
    tbl.settarg     = { k = "Supporting Full Settarg Use"       , v = settarg_support,      }
    tbl.sitePkg     = { k = "Site Pkg location"                 , v = locSitePkg,           }
    tbl.siteName    = { k = "Site Name"                         , v = site_name,            }
-   tbl.sysName     = { k = "System Name"                       , v = system_name,          }
    tbl.spdr_ignore = { k = "Ignore Cache"                      , v = ignore_cache,         }
    tbl.spdr_loads  = { k = "Cached loads"                      , v = cached_loads,         }
+   tbl.sysName     = { k = "System Name"                       , v = system_name,          }
    tbl.tm_ancient  = { k = "User cache valid time(sec)"        , v = ancient,              }
    tbl.tm_short    = { k = "Write cache after (sec)"           , v = shortTime,            }
    tbl.tm_threshold= { k = "Threshold (sec)"                   , v = threshold,            }
