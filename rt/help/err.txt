@@ -243,8 +243,9 @@ Site Name                        <empty>
 Site Pkg location                standard
 Ignore Cache                     no
 Cached loads                     no
+System Name                      <empty>
 User cache valid time(sec)       86400
-Write cache after (sec)          10
+Write cache after (sec)          2
 Threshold (sec)                  1
 Tmod prepend PATH Rule           no
 uname -a

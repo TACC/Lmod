@@ -103,6 +103,7 @@ function main()
       luaV         = { rule = "have"},
       modRC        = { rule = "have"},
       siteName     = { rule = "have"},
+      sysName      = { rule = "have"},
       uname        = { rule = "have"},
       z01_admin    = { rule = "have"},
       allowTCL     = { rule = "match", value = "yes"},
@@ -136,7 +137,7 @@ function main()
       spdr_ignore  = { rule = "match", value = "no"},
       spdr_loads   = { rule = "match", value = "no"},
       tm_ancient   = { rule = "match", value = 86400},
-      tm_short     = { rule = "match", value = 10},
+      tm_short     = { rule = "match", value = 2},
       tm_threshold = { rule = "match", value = 1},
       tmod_rule    = { rule = "match", value = "no"},
    }
