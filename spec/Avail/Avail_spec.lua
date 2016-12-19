@@ -23,7 +23,7 @@ describe("Testing The Avail command #Avail.",
                   posix.setenv("LMOD_TERM_WIDTH","160")
                   posix.setenv("MODULERCFILE",pathJoin(projDir,testDir,".modulerc"))
                   posix.setenv("MODULEPATH",mpath,true)
-                  cosmic:assign{"LMOD_MAXDEPTH",mpath .. ":2;")
+                  cosmic:init{name = "LMOD_MAXDEPTH", default=false, assign = mpath .. ":2;"}
 
                   local master     = Master:singleton()
                   local rplmntA    = { {projDir,"%%ProjDir%%"} }

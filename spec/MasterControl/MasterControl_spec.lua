@@ -65,7 +65,7 @@ describe("Testing MasterControl Class #MasterControl.",
                   local mpath   = pathJoin(projDir,testDir,"mf")
                   posix.setenv("MODULEPATH", mpath, true)
                   
-                  cosmic:assign(LMOD_MAXDEPTH, false)
+                  cosmic:assign("LMOD_MAXDEPTH", false)
                   FrameStk:__clear()
                   ModuleA:__clear()
                   local frameStk = FrameStk:singleton()

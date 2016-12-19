@@ -424,7 +424,7 @@ cosmic:init{name = "LMOD_USE_DOT_FILES",
             sedV = "@use_dot_files@",
             yn   = "yes"}
 
-local use_dot_files = cosmit:value("LMOD_USE_DOT_FILES")
+local use_dot_files = cosmic:value("LMOD_USE_DOT_FILES")
 
 ------------------------------------------------------------------------
 -- usrCacheDir: user cache directory
@@ -450,7 +450,9 @@ LMOD_PREPEND_BLOCK  = initialize("LMOD_PREPEND_BLOCK","@prepend_block@",
 --                This is a per directory specification that can be
 --                overridden by a .version etc file.
 ------------------------------------------------------------------------
-LMOD_MAXDEPTH = initialize("LMOD_MAXDEPTH","@maxdepth@","")
+cosmic:init{name    = "LMOD_MAXDEPTH",
+            sedv    = "@maxdepth@",
+            default = ""}
 
 ------------------------------------------------------------------------
 -- GIT_VERSION: The exact git version of Lmod
