@@ -406,7 +406,7 @@ ancient             = cosmic:value("LMOD_ANCIENT_TIME")
 --                  enough to be computed every time rather than cached.
 ------------------------------------------------------------------------
 
-local shortTime_dflt = 10
+local shortTime_dflt = 2
 local shortTime      = tonumber(getenv("LMOD_SHORT_TIME")) or tonumber("@short_time@") or shortTime_dflt
 cosmic:init{name     = "LMOD_SHORT_TIME",
             default  = shortTime_dflt,
