@@ -116,7 +116,7 @@ function M.reportChangesFromDefault(self)
 
    for k,v in pairsByKeys(T) do
       if (v.value ~= v.default) then
-         a[#a+1] = {k, v.default, v.value}
+         a[#a+1] = {k, tostring(v.default), tostring(v.value)}
       end
    end
 
