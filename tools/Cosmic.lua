@@ -42,6 +42,8 @@ require("strict")
 --
 --------------------------------------------------------------------------
 
+require("pairsByKeys")
+
 local M = {}
 local getenv   = os.getenv
 local s_cosmic = false
@@ -56,19 +58,6 @@ function M.singleton(self)
    return s_cosmic
 end
 
-
---------------------------------------------------------------------------
--- cosmic:init{name="LMOD_AUTO_SWAP", sedV="@auto_swap@", yn="yes"}
--- cosmic:init{name="LMOD_PAGER",     sedV="@pager@",     default="less"}
--- cosmic:init{name="LMOD_MAXDEPTH",  sedV="@maxdepth@",  default=false}
-
--- MRC_DEFAULT  = pathJoin(cmdDir(),"../../etc/rc")
--- MODULERCFILE = getenv("LMOD_MODULERCFILE") or getenv("MODULERCFILE") or MRC_DEFAULT
--- cosmic:init{name="LMOD_MODULERCFILE",        default=MRC_DEFAULT, kind="file", assignV=MODULERCFILE}
-
--- Usage:  cosmic:value("LMOD_SITE_NAME")
--- Usage:  cosmic:default("LMOD_SITE_NAME")
--- Usage:  cosmic:diff_between_v_and_d("LMOD_SITE_NAME")  ? better name needed.
 
 function M.init(self, t)
    local T    = self.__T
@@ -116,6 +105,25 @@ function M.init(self, t)
       return
    end
 end
+
+function M.reportChangesFromDefault(self)
+   local T    = self.__T
+   local a    = {}
+
+   a[1] = {"Name","Default","Value"}
+   a[2] = {"----","-------","-----"}
+
+
+   for k,v in pairsByKeys(T) do
+      if (v.value ~= v.default) then
+         a[#a+1] = {k, v.default, v.value}
+      end
+   end
+
+   return (#a < 3) and {} or a
+end
+      
+
 
 function M.assign(self, name, value)
    local T       = self.__T

@@ -248,6 +248,14 @@ function M.report(self)
    b[#b+1]  = bt:build_tbl()
    b[#b+1]  = "\n"
 
+   local aa = cosmic:reportChangesFromDefault()
+   if (next(aa) ~= nil) then
+      bt      = BeautifulTbl:new{tbl=aa}
+      b[#b+1] = bt:build_tbl()
+      b[#b+1] = "\n"
+   end
+
+
    local rcFileA = readLmodRC:rcFileA()
    if (#rcFileA) then
       b[#b+1] = "Active RC file(s):"
