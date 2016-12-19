@@ -9,24 +9,24 @@ AC_PROG_CC
 
 AC_SUBST(DUPLICATE_PATHS)
 AC_ARG_WITH(duplicatePaths,
-    AC_HELP_STRING([--with-duplicatePaths=ans],[Allow multiple directories in path like variables [[NO]]]),
+    AC_HELP_STRING([--with-duplicatePaths=ans],[Allow multiple directories in path like variables [[no]]]),
     DUPLICATE_PATHS="$withval"
     AC_MSG_RESULT([DUPLICATE_PATHS=$with_duplicatePaths])
     AC_DEFINE_UNQUOTED(DUPLICATE_PATHS,"$with_duplicatePaths")dnl
     ,
-    withval="NO"
+    withval="no"
     AC_MSG_RESULT([DUPLICATE_PATHS=$withval])
     DUPLICATE_PATHS="$withval"
     AC_DEFINE_UNQUOTED(DUPLICATE_PATHS, "$withval"))dnl
 
 AC_SUBST(CASE_INDEPENDENT_SORTING)
 AC_ARG_WITH(caseIndependentSorting,
-    AC_HELP_STRING([--with-caseIndependentSorting=ans],[Make avail and spider use case independent sorting [[NO]]]),
+    AC_HELP_STRING([--with-caseIndependentSorting=ans],[Make avail and spider use case independent sorting [[no]]]),
     CASE_INDEPENDENT_SORTING="$withval"
     AC_MSG_RESULT([CASE_INDEPENDENT_SORTING=$with_caseIndependentSorting])
     AC_DEFINE_UNQUOTED(CASE_INDEPENDENT_SORTING,"$with_caseIndependentSorting")dnl
     ,
-    withval="NO"
+    withval="no"
     AC_MSG_RESULT([CASE_INDEPENDENT_SORTING=$withval])
     CASE_INDEPENDENT_SORTING="$withval"
     AC_DEFINE_UNQUOTED(CASE_INDEPENDENT_SORTING, "$withval"))dnl
@@ -45,48 +45,48 @@ AC_ARG_WITH(colorize,
 
 AC_SUBST(EXACT_MATCH)
 AC_ARG_WITH(exactMatch,
-    AC_HELP_STRING([--with-exactMatch=ans],[require exact match, disable defaults [[NO]]]),
+    AC_HELP_STRING([--with-exactMatch=ans],[require exact match, disable defaults [[no]]]),
     EXACT_MATCH="$withval"
     AC_MSG_RESULT([EXACT_MATCH=$with_exactMatch])
     AC_DEFINE_UNQUOTED(EXACT_MATCH, "$with_exactMatch")dnl
     ,
-    withval="NO"
+    withval="no"
     AC_MSG_RESULT([EXACT_MATCH=$withval])
     EXACT_MATCH="$withval"
     AC_DEFINE_UNQUOTED(EXACT_MATCH, "$withval"))dnl
 
 AC_SUBST(AUTO_SWAP)
 AC_ARG_WITH(autoSwap,
-    AC_HELP_STRING([--with-autoSwap=ans],[Allow auto swapping of compiler etc. [[YES]]]),
+    AC_HELP_STRING([--with-autoSwap=ans],[Allow auto swapping of compiler etc. [[yes]]]),
     AUTO_SWAP="$withval"
     AC_MSG_RESULT([AUTO_SWAP=$with_autoSwap])
     AC_DEFINE_UNQUOTED(AUTO_SWAP, "$with_autoSwap")dnl
     ,
-    withval="YES"
+    withval="yes"
     AC_MSG_RESULT([AUTO_SWAP=$withval])
     AUTO_SWAP="$withval"
     AC_DEFINE_UNQUOTED(AUTO_SWAP, "$withval"))dnl
 
 AC_SUBST(EXPORT_MODULE)
 AC_ARG_WITH(exportedModuleCmd,
-    AC_HELP_STRING([--with-exportedModuleCmd=ans],[Export the module command. [[YES]]]),
+    AC_HELP_STRING([--with-exportedModuleCmd=ans],[Export the module command. [[yes]]]),
     EXPORT_MODULE="$withval"
     AC_MSG_RESULT([EXPORT_MODULE=$with_exportedModuleCmd])
     AC_DEFINE_UNQUOTED(EXPORT_MODULE, "$with_exportedModuleCmd")dnl
     ,
-    withval="YES"
+    withval="yes"
     AC_MSG_RESULT([EXPORT_MODULE=$withval])
     EXPORT_MODULE="$withval"
     AC_DEFINE_UNQUOTED(EXPORT_MODULE, "$withval"))dnl
 
 AC_SUBST(REDIRECT)
 AC_ARG_WITH(redirect,
-    AC_HELP_STRING([--with-redirect=ans],[redirect messages to stdout [[NO]]]),
+    AC_HELP_STRING([--with-redirect=ans],[redirect messages to stdout [[no]]]),
     REDIRECT="$withval"
     AC_MSG_RESULT([REDIRECT=$with_redirect])
     AC_DEFINE_UNQUOTED(REDIRECT, "$with_redirect")dnl
     ,
-    withval="NO"
+    withval="no"
     AC_MSG_RESULT([REDIRECT=$withval])
     REDIRECT="$withval"
     AC_DEFINE_UNQUOTED(REDIRECT, "$withval"))dnl
@@ -182,14 +182,14 @@ AC_ARG_WITH(prependBlock,
     AC_MSG_RESULT([PREPEND_BLOCK=$with_prependBlock])
     AC_DEFINE_UNQUOTED(PREPEND_BLOCK, "$with_prependBlock")dnl
     ,
-    withval="NORMAL"
+    withval="normal"
     AC_MSG_RESULT([PREPEND_BLOCK=$withval])
     PREPEND_BLOCK="$withval"
     AC_DEFINE_UNQUOTED(PREPEND_BLOCK, "$withval"))dnl
 
 AC_SUBST(SITE_NAME)
 AC_ARG_WITH(siteName,
-    AC_HELP_STRING([--with-siteName=ans],[Site Name (<empty>)]),
+    AC_HELP_STRING([--with-siteName=ans],[Site Name [[<empty>]]]),
     SITE_NAME="$withval"
     AC_MSG_RESULT([SITE_NAME=$with_siteName])
     AC_DEFINE_UNQUOTED(SITE_NAME, "$with_siteName")dnl
@@ -201,7 +201,7 @@ AC_ARG_WITH(siteName,
 
 AC_SUBST(ALLOW_TCL_MFILES)
 AC_ARG_WITH(tcl,
-    AC_HELP_STRING([--with-tcl=ans],[Allow TCL modulefiles [[YES]]]),
+    AC_HELP_STRING([--with-tcl=ans],[Allow TCL modulefiles [[yes]]]),
     ALLOW_TCL_MFILES="$withval"
     AC_MSG_RESULT([ALLOW_TCL_MFILES==$withval])
     AC_DEFINE_UNQUOTED(ALLOW_TCL_MFILES, "$withval")dnl
@@ -213,7 +213,7 @@ AC_ARG_WITH(tcl,
 
 AC_SUBST(DISABLE_NAME_AUTOSWAP)
 AC_ARG_WITH(disableNameAutoSwap,
-    AC_HELP_STRING([--with-disableNameAutoSwap=ans],[disable one name rule autoswapping [[NO]]]),
+    AC_HELP_STRING([--with-disableNameAutoSwap=ans],[disable one name rule autoswapping [[no]]]),
     DISABLE_NAME_AUTOSWAP="$withval"
     AC_MSG_RESULT([DISABLE_NAME_AUTOSWAP==$withval])
     AC_DEFINE_UNQUOTED(DISABLE_NAME_AUTOSWAP, "$withval")dnl
@@ -225,7 +225,7 @@ AC_ARG_WITH(disableNameAutoSwap,
 
 AC_SUBST(MPATH_AVAIL)
 AC_ARG_WITH(mpathSearch,
-    AC_HELP_STRING([--with-mpathSearch=ans],[include modulepath directory name in avail searching [[NO]]]),
+    AC_HELP_STRING([--with-mpathSearch=ans],[include modulepath directory name in avail searching [[no]]]),
     MPATH_AVAIL="$withval"
     AC_MSG_RESULT([MPATH_AVAIL==$withval])
     AC_DEFINE_UNQUOTED(MPATH_AVAIL, "$withval")dnl
@@ -237,12 +237,12 @@ AC_ARG_WITH(mpathSearch,
 
 AC_SUBST(SETTARG)
 AC_ARG_WITH(settarg,
-    AC_HELP_STRING([--with-settarg=ans],[startup files fully support settarg [[NO]]]),
+    AC_HELP_STRING([--with-settarg=ans],[startup files fully support settarg [[no]]]),
     SETTARG="$withval"
     AC_MSG_RESULT([SETTARG=$with_settarg])
     AC_DEFINE_UNQUOTED(SETTARG, "$with_settarg")dnl
     ,
-    withval="NO"
+    withval="no"
     AC_MSG_RESULT([SETTARG=$withval])
     SETTARG="$withval"
     AC_DEFINE_UNQUOTED(SETTARG, "$withval"))dnl
@@ -263,7 +263,7 @@ AC_ARG_WITH(ignoreDirs,
 
 AC_SUBST(PIN_VERSIONS)
 AC_ARG_WITH(pinVersions,
-    AC_HELP_STRING([--with-pinVersions=ans],[Save/Restore will use the current version instead of changing with the default.[[NO]]]),
+    AC_HELP_STRING([--with-pinVersions=ans],[Save/Restore will use the current version instead of changing with the default.[[no]]]),
     PIN_VERSIONS="$withval"
     AC_MSG_RESULT([PIN_VERSIONS=$with_pinVersions])
     AC_DEFINE_UNQUOTED(PIN_VERSIONS, "$with_pinVersions")dnl
@@ -275,7 +275,7 @@ AC_ARG_WITH(pinVersions,
 
 AC_SUBST(TMOD_PATH_RULE)
 AC_ARG_WITH(tmodPathRule,
-    AC_HELP_STRING([--with-tmodPathRule=ans],[If path entry is already there then do not append/prepend.[[NO]]]),
+    AC_HELP_STRING([--with-tmodPathRule=ans],[If path entry is already there then do not append/prepend.[[no]]]),
     TMOD_PATH_RULE="$withval"
     AC_MSG_RESULT([TMOD_PATH_RULE=$with_tmodPathRule])
     AC_DEFINE_UNQUOTED(TMOD_PATH_RULE, "$with_tmodPathRule")dnl
@@ -287,7 +287,7 @@ AC_ARG_WITH(tmodPathRule,
 
 AC_SUBST(LUA_INCLUDE)
 AC_ARG_WITH(lua_include,
-    AC_HELP_STRING([--with-lua_include=ans],[Save/Restore will use the current version instead of changing with the default.[[NO]]]),
+    AC_HELP_STRING([--with-lua_include=ans],[Save/Restore will use the current version instead of changing with the default.[[no]]]),
     LUA_INCLUDE="$withval"
     AC_MSG_RESULT([LUA_INCLUDE=$with_lua_include])
     AC_DEFINE_UNQUOTED(LUA_INCLUDE, "$with_lua_include")dnl

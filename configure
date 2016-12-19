@@ -657,6 +657,7 @@ infodir
 docdir
 oldincludedir
 includedir
+runstatedir
 localstatedir
 sharedstatedir
 sysconfdir
@@ -751,6 +752,7 @@ datadir='${datarootdir}'
 sysconfdir='${prefix}/etc'
 sharedstatedir='${prefix}/com'
 localstatedir='${prefix}/var'
+runstatedir='${localstatedir}/run'
 includedir='${prefix}/include'
 oldincludedir='/usr/include'
 docdir='${datarootdir}/doc/${PACKAGE}'
@@ -1003,6 +1005,15 @@ do
   | -silent | --silent | --silen | --sile | --sil)
     silent=yes ;;
 
+  -runstatedir | --runstatedir | --runstatedi | --runstated \
+  | --runstate | --runstat | --runsta | --runst | --runs \
+  | --run | --ru | --r)
+    ac_prev=runstatedir ;;
+  -runstatedir=* | --runstatedir=* | --runstatedi=* | --runstated=* \
+  | --runstate=* | --runstat=* | --runsta=* | --runst=* | --runs=* \
+  | --run=* | --ru=* | --r=*)
+    runstatedir=$ac_optarg ;;
+
   -sbindir | --sbindir | --sbindi | --sbind | --sbin | --sbi | --sb)
     ac_prev=sbindir ;;
   -sbindir=* | --sbindir=* | --sbindi=* | --sbind=* | --sbin=* \
@@ -1140,7 +1151,7 @@ fi
 for ac_var in	exec_prefix prefix bindir sbindir libexecdir datarootdir \
 		datadir sysconfdir sharedstatedir localstatedir includedir \
 		oldincludedir docdir infodir htmldir dvidir pdfdir psdir \
-		libdir localedir mandir
+		libdir localedir mandir runstatedir
 do
   eval ac_val=\$$ac_var
   # Remove trailing slashes.
@@ -1293,6 +1304,7 @@ Fine tuning of the installation directories:
   --sysconfdir=DIR        read-only single-machine data [PREFIX/etc]
   --sharedstatedir=DIR    modifiable architecture-independent data [PREFIX/com]
   --localstatedir=DIR     modifiable single-machine data [PREFIX/var]
+  --runstatedir=DIR       modifiable per-process data [LOCALSTATEDIR/run]
   --libdir=DIR            object code libraries [EPREFIX/lib]
   --includedir=DIR        C header files [PREFIX/include]
   --oldincludedir=DIR     C header files for non-gcc [/usr/include]
@@ -1321,16 +1333,16 @@ Optional Packages:
   --without-PACKAGE       do not use PACKAGE (same as --with-PACKAGE=no)
   --with-duplicatePaths=ans
                           Allow multiple directories in path like variables
-                          [[NO]]
+                          [[no]]
   --with-caseIndependentSorting=ans
                           Make avail and spider use case independent sorting
-                          [[NO]]
-  --with-colorize=ans     allow for colorized output [[YES]]
-  --with-exactMatch=ans   require exact match, disable defaults [[NO]]
-  --with-autoSwap=ans     Allow auto swapping of compiler etc. [[YES]]
+                          [[no]]
+  --with-colorize=ans     allow for colorized output [[yes]]
+  --with-exactMatch=ans   require exact match, disable defaults [[no]]
+  --with-autoSwap=ans     Allow auto swapping of compiler etc. [[yes]]
   --with-exportedModuleCmd=ans
-                          Export the module command. [[YES]]
-  --with-redirect=ans     redirect messages to stdout [[NO]]
+                          Export the module command. [[yes]]
+  --with-redirect=ans     redirect messages to stdout [[no]]
   --with-module-root-path=<path>
                           use module root path=<path> [[PREFIX/modulefiles]]
   --with-ancient=num_secs How long to wait before rebuilding spider cache
@@ -1353,19 +1365,19 @@ Optional Packages:
   --with-prependBlock=ans Treat multiple directories passed to prepend in
                           normal order/ not reversed [[NORMAL]]
   --with-siteName=ans     Site Name (<empty>)
-  --with-tcl=ans          Allow TCL modulefiles [[YES]]
+  --with-tcl=ans          Allow TCL modulefiles [[yes]]
   --with-disableNameAutoSwap=ans
-                          disable one name rule autoswapping [[NO]]
+                          disable one name rule autoswapping [[no]]
   --with-mpathSearch=ans  include modulepath directory name in avail searching
-                          [[NO]]
-  --with-settarg=ans      startup files fully support settarg [[NO]]
+                          [[no]]
+  --with-settarg=ans      startup files fully support settarg [[no]]
   --with-ignoreDirs=ans   list of directories to ignore [[.svn,.git,.hg,.bzr]]
   --with-pinVersions=ans  Save/Restore will use the current version instead of
-                          changing with the default.[[NO]]
+                          changing with the default.[[no]]
   --with-tmodPathRule=ans If path entry is already there then do not
-                          append/prepend.[[NO]]
+                          append/prepend.[[no]]
   --with-lua_include=ans  Save/Restore will use the current version instead of
-                          changing with the default.[[NO]]
+                          changing with the default.[[no]]
   --with-cachedLoads=ans  Use cache when loading modules. [[no]]
 
 Some influential environment variables:
@@ -2650,7 +2662,7 @@ $as_echo "DUPLICATE_PATHS=$with_duplicatePaths" >&6; }
 _ACEOF
 
 else
-  withval="NO"
+  withval="no"
     { $as_echo "$as_me:${as_lineno-$LINENO}: result: DUPLICATE_PATHS=$withval" >&5
 $as_echo "DUPLICATE_PATHS=$withval" >&6; }
     DUPLICATE_PATHS="$withval"
@@ -2672,7 +2684,7 @@ $as_echo "CASE_INDEPENDENT_SORTING=$with_caseIndependentSorting" >&6; }
 _ACEOF
 
 else
-  withval="NO"
+  withval="no"
     { $as_echo "$as_me:${as_lineno-$LINENO}: result: CASE_INDEPENDENT_SORTING=$withval" >&5
 $as_echo "CASE_INDEPENDENT_SORTING=$withval" >&6; }
     CASE_INDEPENDENT_SORTING="$withval"
@@ -2694,7 +2706,7 @@ $as_echo "COLORIZE=$with_colorize" >&6; }
 _ACEOF
 
 else
-  withval="YES"
+  withval="yes"
     { $as_echo "$as_me:${as_lineno-$LINENO}: result: COLORIZE=$withval" >&5
 $as_echo "COLORIZE=$withval" >&6; }
     COLORIZE="$withval"
@@ -2716,7 +2728,7 @@ $as_echo "EXACT_MATCH=$with_exactMatch" >&6; }
 _ACEOF
 
 else
-  withval="NO"
+  withval="no"
     { $as_echo "$as_me:${as_lineno-$LINENO}: result: EXACT_MATCH=$withval" >&5
 $as_echo "EXACT_MATCH=$withval" >&6; }
     EXACT_MATCH="$withval"
@@ -2738,7 +2750,7 @@ $as_echo "AUTO_SWAP=$with_autoSwap" >&6; }
 _ACEOF
 
 else
-  withval="YES"
+  withval="yes"
     { $as_echo "$as_me:${as_lineno-$LINENO}: result: AUTO_SWAP=$withval" >&5
 $as_echo "AUTO_SWAP=$withval" >&6; }
     AUTO_SWAP="$withval"
@@ -2760,7 +2772,7 @@ $as_echo "EXPORT_MODULE=$with_exportedModuleCmd" >&6; }
 _ACEOF
 
 else
-  withval="YES"
+  withval="yes"
     { $as_echo "$as_me:${as_lineno-$LINENO}: result: EXPORT_MODULE=$withval" >&5
 $as_echo "EXPORT_MODULE=$withval" >&6; }
     EXPORT_MODULE="$withval"
@@ -2782,7 +2794,7 @@ $as_echo "REDIRECT=$with_redirect" >&6; }
 _ACEOF
 
 else
-  withval="NO"
+  withval="no"
     { $as_echo "$as_me:${as_lineno-$LINENO}: result: REDIRECT=$withval" >&5
 $as_echo "REDIRECT=$withval" >&6; }
     REDIRECT="$withval"
@@ -2957,7 +2969,7 @@ $as_echo "PREPEND_BLOCK=$with_prependBlock" >&6; }
 _ACEOF
 
 else
-  withval="NORMAL"
+  withval="normal"
     { $as_echo "$as_me:${as_lineno-$LINENO}: result: PREPEND_BLOCK=$withval" >&5
 $as_echo "PREPEND_BLOCK=$withval" >&6; }
     PREPEND_BLOCK="$withval"
@@ -3067,7 +3079,7 @@ $as_echo "SETTARG=$with_settarg" >&6; }
 _ACEOF
 
 else
-  withval="NO"
+  withval="no"
     { $as_echo "$as_me:${as_lineno-$LINENO}: result: SETTARG=$withval" >&5
 $as_echo "SETTARG=$withval" >&6; }
     SETTARG="$withval"
