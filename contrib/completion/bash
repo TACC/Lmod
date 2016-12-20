@@ -1,0 +1,228 @@
+#!/bin/bash
+# (c) 2008-2016 Nathan Hjelm <hjelmn@cs.unm.edu>
+#
+# Bash completion script for modules. This script supports
+# both legacy modules andlmod from TACC.
+#
+
+type module &>/dev/null && {
+
+declare _LAST_MODULE_PATH;
+
+# find available commands
+_parse_module_commands () {
+    module 2>&1 | command grep -- "^[[:space:]]*+ " | awk '{print $2}'| tr "|" "\n" | sort
+}
+
+# get the list of modules ignoring anything with a space (including "No Modulefiles
+# Currently Loaded.) or ending in a :
+_parse_module_modules () {
+    module -t $1 2>&1 | grep -Ev ' |:$' | sed -e $'s/(default)$//g; s/\/$//g;' | sort
+}
+
+_get_module_savelist () {
+    module -t savelist 2>&1 | sort
+}
+
+# remove items from $1 that are also in $2. lists must be sorted
+_set_remove () {    
+    comm -23 <(echo $1 | tr " " "\n") <(echo $2 | tr " " "\n")
+}
+
+_find_module_subcommand() {
+    for ((i = 1; i < COMP_CWORD; i++)) ; do
+	# the subcommand is the first item on the command line that isn't module or a switch
+	if [ ${COMP_WORDS[$i]:0:1} != "-" ] ; then
+	    echo $i
+	    break
+	fi
+    done
+}
+
+_module_legacy() {
+    local cur prv cmd_index cmd command_line installed_modules switches available_modules can_be_installed
+
+    # for performance we need to keep a cache of modules. rebuild the cache
+    # on the first call or if the module path has changed. this will not
+    # catch all possible cases but should be fine
+    if test "$_LAST_MODULE_PATH" != "$MODULEPATH" ; then
+	# update the cache of available modules
+	_OLD_MODULE_PATH=MODULEPATH
+	MODULEAVAIL=$(_parse_module_modules avail | tr '\n' ':')
+    fi
+
+    COMPREPLY=()
+    prv=${COMP_WORDS[COMP_CWORD-1]}
+    cur=${COMP_WORDS[COMP_CWORD]}
+
+    cmd_index=$(_find_module_subcommand)
+    switches="-f --force -t --terse -l --long -h --human -v --verbose -s --silent -c --create \
+              -i --icase -u --userlvl"
+
+    if [ -z "$cmd_index" ] ; then
+	if test "$prv" = "-u" -o "$prv" = "--userlvl" ; then
+	    COMPREPLY=($(compgen -W "novice expert advanced" -- "$cur"))
+	elif test "${cur:0:1}" = "-" ; then
+	    COMPREPLY=($(compgen -W "$switches" -- "$cur"))
+	else
+	    COMPREPLY=($(compgen -W "$(_parse_module_commands)" -- "$cur"))
+	fi
+	return 0
+    fi
+
+    cmd=${COMP_WORDS[$cmd_index]}
+
+    # module names already on the command line
+    command_line=($(echo "${COMP_WORDS[@]:$cmd_index + 1}" | tr " " "\n" | sort))
+    # all available modules
+    available_modules=($(echo $MODULEAVAIL | tr ':' '\n' | sort))
+    # loaded modules
+    installed_modules=($(echo $LOADEDMODULES | tr ":" "\n" | sort))
+    # available modules that are not already loaded
+    can_be_installed=($(_set_remove "${available_modules[*]}" "${installed_modules[*]}"))
+
+    if test "$cmd" = "switch" -o "$cmd" = "swap" ; then
+	if test "$prv" = "$cmd" ; then
+	    # the first command argument is an already loaded module
+	    COMPREPLY=($(compgen -W "$(_set_remove "${installed_modules[*]}" "${command_line[*]}")" -- "$cur"))
+	elif test "${COMP_WORDS[COMP_CWORD-2]}" = "$cmd" ; then
+            # the second command argument is a new module (or the same module)
+	    COMPREPLY=($(compgen -W "${can_be_installed[*]} ${COMP_WORDS[2]}" -- "$cur"))
+	fi
+	return 0
+    fi
+
+    case "$cmd" in
+	add|load)
+	    COMPREPLY=($(compgen -W "$(_set_remove "${can_be_installed[*]}" "${command_line[*]}")" -- "$cur"))
+	    ;;
+	display|show|avail|help|whatis|initadd|initprepend|initrm)
+	    COMPREPLY=($(compgen -W "$(_set_remove "${available_modules[*]}" "${command_line[*]}")" -- "$cur"))
+	    ;;
+	rm|unload)
+	    COMPREPLY=($(compgen -W "$(_set_remove "${installed_modules[*]}" "${command_line[*]}")" -- "$cur"))
+	    ;;
+	use)
+	    if test "$prv" = "$cmd" -a "${cur:0:1}" = "-" ; then
+		# append option must be specified immediately after use
+		COMPREPLY=($(compgen -W "-a --append" -- "$cur"))
+	    else
+		COMPREPLY=($(compgen -d -S/ -- "$cur"))
+	    fi
+	    ;;
+	unuse)
+	    COMPREPLY=($(compgen -W "`echo $MODULEPATH | sed 's/\:/ /g'`" -- "$cur"))
+	    ;;
+	*)
+	    ;;
+    esac
+
+    return 0
+}
+
+_module_lmod() {
+    local cur prv cmd_index cmd command_line installed_modules command_switches switches commands available_modules
+    local can_be_installed
+
+    COMPREPLY=()
+    prv=${COMP_WORDS[COMP_CWORD-1]}
+    cur=${COMP_WORDS[COMP_CWORD]}
+
+    cmd_index=$(_find_module_subcommand)
+    # do not clutter completion with the short versions of commands (like sw, av, and key)
+    commands=(load add try-load try-add del unload swap switch purge refresh update list avail spider whatis
+	keyword help save reset restore savelist describe mcc show use unuse)
+    switches=(-h -? -H --help -d --default -q --quiet -t --terse --latest --ignore_cache --novice --raw -v --version \
+        -r --regexp --force --redirect --no-redirect --show_hidden --timer)
+
+    if test -z "$cmd_index" ; then
+	if test "${cur:0:1}" = "-" ; then
+	    COMPREPLY=($(compgen -W "${switches[*]}" -- "$cur"))
+	else
+	    COMPREPLY=($(compgen -W "${commands[*]}" -- "$cur"))
+	fi
+	return 0
+    fi
+
+    cmd=${COMP_WORDS[$cmd_index]}
+
+    # some switches are valid after the command (but not all)
+    if test "${cur:0:1}" = "-" ; then
+	case "$cmd" in
+	    av|avail)
+		command_switches=(-d --default -t --terse)
+		;;
+	    spider)
+		command_switches=(-t --terse)
+		;;
+	    add|load|try-load|try-add)
+		command_switches=(--latest)
+		;;
+	    save|del|unload)
+		command_switches=(--force)
+		;;
+	esac
+	COMPREPLY=($(compgen -W "${command_switches[*]}" -- "$cur"))
+
+	return 0
+    fi
+
+    # module names already on the command line
+    command_line=($(echo "${COMP_WORDS[@]:$cmd_index + 1}" | tr " " "\n" | sort))
+    # all available modules. no need to cache with lmod since unlike the legacy
+    # modules system it does some internal caching
+    available_modules=($(_parse_module_modules avail | sort))
+    # loaded modules
+    installed_modules=($(_parse_module_modules list | sort))
+    # available modules that are not already loaded
+    can_be_installed=($(_set_remove "${available_modules[*]}" "${installed_modules[*]}"))
+
+    case "$cmd" in
+	switch|swap|sw)
+	    if test "$prv" = "$cmd" ; then
+		# the first command argument is an already loaded module
+		COMPREPLY=($(compgen -W "$(_set_remove "${installed_modules[*]}" "${command_line[*]}")" -- "$cur"))
+	    elif test "${COMP_WORDS[COMP_CWORD-2]}" = "$cmd" ; then
+		# the second command argument is a new module (or the same module)
+		COMPREPLY=($(compgen -W "${can_be_installed[*]} ${COMP_WORDS[2]}" -- "$cur"))
+	    fi
+	    ;;
+	restore|r)
+	    COMPREPLY=($(compgen -W "$(_get_module_savelist) system" -- "$cur"))
+	    ;;
+	describe|mcc)
+	    COMPREPLY=($(compgen -W "$(_get_module_savelist)" -- "$cur"))
+	    ;;
+	add|load|try-load|try-add)
+	    COMPREPLY=($(compgen -W "$(_set_remove "${can_be_installed[*]}" "${command_line[*]}")" -- "$cur"))
+	    ;;
+	show|avail|help|spider|whatis)
+	    COMPREPLY=($(compgen -W "$(_set_remove "${available_modules[*]}" "${command_line[*]}")" -- "$cur"))
+	    ;;
+	del|unload)
+	    COMPREPLY=($(compgen -W "$(_set_remove "${installed_modules[*]}" "${command_line[*]}")" -- "$cur"))
+	    ;;
+	use)
+	    if test "$prv" = "$cmd" -a "${cur:0:1}" = "-" ; then
+		# append option must be specified immediately after use
+		COMPREPLY=($(compgen -W "-a --append" -- "$cur"))
+	    else
+		COMPREPLY=($(compgen -d -S/ -- "$cur"))
+	    fi
+	    ;;
+	unuse)
+	    COMPREPLY=($(compgen -W "`echo $MODULEPATH | sed 's/\:/ /g'`" -- "$cur"))
+	    ;;
+	*)
+	    ;;
+    esac
+
+    return 0
+}
+
+if test -z $LMOD_CMD ; then
+    complete -o nospace -F _module_legacy module
+else
+    complete -o nospace -F _module_lmod module
+fi
+}

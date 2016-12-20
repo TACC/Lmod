@@ -1,0 +1,4 @@
+The bash completion script can be installed system-wide on any system
+by installing the bash script as /etc/bash_completion.d/modules. Users
+can install the script anywhere (~/.bash_completion.d for example) and
+source it from their .bash_profile.
