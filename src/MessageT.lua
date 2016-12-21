@@ -8,7 +8,7 @@ local messageT = {
    e104 = "%{routine}: Did not find module entry: \"%{name}\". This should not happen!\n",
    e105 = "%{routine}: system property table has no %{location} for: \"%{name}\". \nCheck spelling and case of name.\n",
    e106 = "%{routine}: The validT table for %{name} has no entry for: \"%{value}\". \nCheck spelling and case of name.\n",
-   e107 = "Unable to find %{name}.\n",
+   e107 = "Unable to find: \"%{name}\"\n",
    e108 = "Failed to inherit: %{name}\n",
    e109 = [==[Your site prevents the automatic swapping of modules with same name. You must explicitly unload the loaded version of "%{oldFullName}" before you can load the new one. Use swap to do this:
 
@@ -37,9 +37,9 @@ Please submit a consulting ticket if you require additional assistance.
    e121 = "Unable to load module: %{name}\n     %{fn}: %{message}\n",
    e122 = "sandbox_registration: The argument passed is: \"%{kind}\". It should be a table.",
    e123 = "uuidgen is not available, fallback failed too",
-   e124 = "Spider searched timed out\n"
-   e125 = "dbT[sn] failed for sn: %{sn}\n")
-   e126 = "Unable to compute hashsum\n")
+   e124 = "Spider searched timed out\n",
+   e125 = "dbT[sn] failed for sn: %{sn}\n",
+   e126 = "Unable to compute hashsum\n",
 
    --------------------------------------------------------------------------
    -- LmodMessages

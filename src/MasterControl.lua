@@ -631,7 +631,7 @@ function M.error(self, ...)
    end
    s[#s+1] = "\n"
 
-   local a = _concatTbl(stackTraceBackA,"")
+   local a = concatTbl(stackTraceBackA,"")
    if (a:len() > 0) then
        s[#s+1] = a
        s[#s+1] = "\n"
@@ -640,7 +640,7 @@ function M.error(self, ...)
    s[#s+1] = "\n"
 
    s = hook.apply("msgHook","lmoderror",s) or s
-   s = _concatTbl(s,"")
+   s = concatTbl(s,"")
 
    io.stderr:write(s,"\n")
    LmodErrorExit()
