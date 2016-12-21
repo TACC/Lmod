@@ -683,7 +683,7 @@ function UUIDString(epoch)
       if f then
          uuid_str = f:read('*all'):sub(1,-2)
       else
-         LmodError("uuidgen is not available, fallback failed too")
+         LmodError{msg="e123"}
       end
    end
 

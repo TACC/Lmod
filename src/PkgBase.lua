@@ -131,7 +131,7 @@ function M.setStandardPaths(self, ...)
       local v  = arg[i]:upper()
       local pp = stdT[v]             -- Path piece
       if (pp == nil) then
-         LmodError("Unknown Key: \"",arg[i], "\" in setStandardPaths\n")
+         LmodError{msg="e116", key = arg[i]}
       end
 
       local name = siteName .. "_" .. pkgNameU .. "_" .. v

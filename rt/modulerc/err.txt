@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 7.1.5  2016-12-06 11:22 -06:00
+Modules based on Lua: Version 7.1.9  2016-12-17 13:29 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -147,7 +147,7 @@ step 21
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load cluster
 ===========================
 The default cluster module cannot be determined. Please set $VSC_DEFAULT_CLUSTER_MODULE.
-Lmod has detected the following error: Unable to parse: ProjectDIR/rt/modulerc/mf3/Core/cluster/.modulerc  Aborting!
+Lmod has detected the following error: Unable to parse: "ProjectDIR/rt/modulerc/mf3/Core/cluster/.modulerc". Aborting!
 ===========================
 step 22
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail

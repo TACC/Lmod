@@ -553,14 +553,12 @@ function Restore(collection)
       myName = collection
       path   = pathJoin(os.getenv("HOME"), ".lmod.d", collection .. sname)
       if (not isFile(path)) then
-         LmodError(" User module collection: \"",collection,"\" does not exist.\n",
-                   " Try \"module savelist\" for possible choices.\n")
+         LmodError{msg="e118", collection = collection}
       end
    end
 
    if (barefilename(myName):find("%.")) then
-      LmodError(" Collection names cannot have a `.' in the name.\n",
-                " Please rename \"", collection,"\"\n")
+      LmodError{msg="e119", collection = collection}
    end
 
 
@@ -817,7 +815,7 @@ function Swap(...)
    local mname = MName:new("mt", a)
    local sn    = mname:sn()
    if (not mt:have(sn,"any")) then
-      LmodError("Swap failed: \"",a,"\" is not loaded.\n")
+      LmodError{msg="e120", name = a}
    end
 
    local mA      = {}

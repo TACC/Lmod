@@ -231,7 +231,7 @@ function M.inheritModule(self)
    local fnI = mname:fn()
    dbg.print{mode(), " fnI: ",fnI,"\n"}
    if (not fnI) then
-      LmodError("Failed to inherit: ",myFullName,"\n")
+      LmodError{msg="e108", name = myFullName}
    else
       local mt    = frameStk:mt()
       local mList = concatTbl(mt:list("both","active"),":")
@@ -284,15 +284,7 @@ function M.load(self, mA)
 
          if (disable_same_name_autoswap == "yes" and mt_version ~= version) then
             local oldFullName = pathJoin(sn,mt_version)
-            LmodError("Your site prevents the automatic swapping of modules with same name.",
-                      "You must explicitly unload the loaded version of \"",oldFullName,"\" before",
-                      "you can load the new one. Use swap (or an unload followed by a load)",
-                      "to do this:\n\n",
-                      "   $ module swap ",oldFullName," ",fullName,"\n\n",
-                      "Alternatively, you can set the environment variable",
-                      "LMOD_DISABLE_SAME_NAME_AUTOSWAP to \"no\" to re-enable",
-                      "same name autoswapping."
-            )
+            LmodError{msg="e109", oldFullName = oldFullName, newFullName = fullName}
          end
 
          local mcp_old = mcp
@@ -332,7 +324,7 @@ function M.load(self, mA)
          local b = {}
          while (not mcp.familyStackEmpty()) do
             local   b_old, b_new = mcp.familyStackPop()
-            LmodMessage{msg="m101", oldFullName=b_old.fullName, newFullName=b_new.fullName}
+            LmodMessage{msg="m401", oldFullName=b_old.fullName, newFullName=b_new.fullName}
             local umA   = {MName:new("mt",   b_old.sn) , MName:new("mt",   b_new.sn) }
             local lmA   = {MName:new("load", b_new.userName)}
             b[#b+1]     = {umA = umA, lmA = lmA}
@@ -761,7 +753,7 @@ function M.avail(self, argA)
       if (masterTbl.terse) then
          return a
       end
-      LmodError("module avail is not possible. MODULEPATH is not set or not set with valid paths.\n")
+      LmodError{msg="e110"}
       return a
    end
 

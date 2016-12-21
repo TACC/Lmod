@@ -146,13 +146,13 @@ local function versionFile(mrc, defaultT)
    local optStr  = ""
    whole, status = runTCLprog("RC2lua.tcl", optStr, path)
    if (not status) then
-      LmodError("Unable to parse: ",path," Aborting!\n")
+      LmodError{msg = "e102", path = path}
    end
 
    declare("modA",{})
    status, func = pcall(load, whole)
    if (not status or not func) then
-      LmodError("Unable to parse: ",path," Aborting!\n")
+      LmodError{msg = "e102", path = path}
    end
    func()
 

@@ -120,12 +120,12 @@ function l_build(self, fnA)
          local weight = fnA[i][2]
          whole, status = runTCLprog("RC2lua.tcl", optStr, fn)
          if (not status) then
-            LmodError("Unable to parse: ",fn," Aborting!\n")
+            LmodError{msg = "e102", path = fn}
          end
          
          status, func = pcall(load, whole)
          if (not status or not func) then
-            LmodError("Unable to parse: ",fn," Aborting!\n")
+            LmodError{msg = "e102", path = fn}
          end
          func()
          

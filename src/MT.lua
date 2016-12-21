@@ -453,21 +453,18 @@ function M.add_property(self, sn, name, value)
    local entry = mT[sn]
 
    if (entry == nil) then
-      LmodError("MT:add_property(): Did not find module entry: ",sn,
-                ". This should not happen!\n")
+      LmodError{msg="e104", routine = "MT:add_property()",name = sn}
    end
    local readLmodRC   = ReadLmodRC:singleton()
    local propDisplayT = readLmodRC:propT()
    local propKindT    = propDisplayT[name]
 
    if (propKindT == nil) then
-      LmodError("MT:add_property(): system property table has no entry for: ", name,
-                "\nCheck spelling and case of name.\n")
+      LmodError{msg="e105", routine = "MT:add_property()", location = "entry", name = name}
    end
    local validT = propKindT.validT
    if (validT == nil) then
-      LmodError("MT:add_property(): system property table has no validT table for: ", name,
-                "\nCheck spelling and case of name.\n")
+      LmodError{msg="e105", routine = "MT:add_property()", location = "validT table", name = name}
    end
 
    local propT        = entry.propT
@@ -476,8 +473,7 @@ function M.add_property(self, sn, name, value)
 
    for v in value:split(":") do
       if (validT[v] == nil) then
-         LmodError("MT:add_property(): The validT table for ", name," has no entry for: ", value,
-                   "\nCheck spelling and case of name.\n")
+         LmodError{msg="e106", routine = "MT:add_property()", name = name, value = value}
       end
       t[v] = 1
    end
@@ -499,21 +495,18 @@ function M.remove_property(self, sn, name, value)
    local entry = mT[sn]
 
    if (entry == nil) then
-      LmodError("MT:remove_property(): Did not find module entry: ",sn,
-                ". This should not happen!\n")
+      LmodError{msg="e104", routine = "MT:remove_property()",name = sn}
    end
    local readLmodRC   = ReadLmodRC:singleton()
    local propDisplayT = readLmodRC:propT()
    local propKindT    = propDisplayT[name]
 
    if (propKindT == nil) then
-      LmodError("MT:remove_property(): system property table has no entry for: ", name,
-                "\nCheck spelling and case of name.\n")
+      LmodError{msg="e105", routine = "MT:remove_property()", location = "entry", name = name}
    end
    local validT = propKindT.validT
    if (validT == nil) then
-      LmodError("MT:remove_property(): system property table has no validT table for: ", name,
-                "\nCheck spelling and case of name.\n")
+      LmodError{msg="e105", routine = "MT:remove_property()", location = "validT table", name = name}
    end
 
    local propT        = entry.propT or {}
@@ -521,8 +514,7 @@ function M.remove_property(self, sn, name, value)
 
    for v in value:split(":") do
       if (validT[v] == nil) then
-         LmodError("MT:add_property(): The validT table for ", name," has no entry for: ", value,
-                   "\nCheck spelling and case of name.\n")
+         LmodError{msg="e106", routine = "MT:remove_property()", name = name, value = value}
       end
       t[v] = nil
    end
@@ -545,8 +537,7 @@ function M.list_property(self, idx, sn, style, legendT)
    local mrc   = MRC:singleton()
 
    if (entry == nil) then
-      LmodError("MT:list_property(): Did not find module entry: ",sn,
-                ". This should not happen!\n")
+      LmodError{msg="e104", routine = "MT:list_property()", name = sn}
    end
 
    local resultA = colorizePropA(style, entry.fullName, mrc, entry.propT, legendT)
@@ -919,14 +910,14 @@ function M.setHashSum(self)
    end
 
    if (not found) then
-      LmodError("Unable to find computeHashSum.\n")
+      LmodError{msg="e107", program = "computeHashSum"}
    end
 
    local path   = "@path_to_lua@:" .. os.getenv("PATH")
    local luaCmd = findInPath("lua",path)
 
    if (luaCmd == nil) then
-      LmodError("Unable to find lua.\n")
+      LmodError{msg="e107", program = "lua"}
    end
 
    local cmdA = {}

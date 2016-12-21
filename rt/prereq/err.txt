@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 0.9.2  2016-10-25 13:59 -05:00
+Modules based on Lua: Version 7.1.9  2016-12-17 13:29 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -80,7 +80,7 @@ step 15
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load junk/1.0
 ===========================
 Lmod has detected the following error: Cannot load module "junk/1.0". At least one of these module(s) must be loaded:
-   java, jdk64, jdk32
+   java jdk64 jdk32
 While processing the following module(s):
     Module fullname  Module Filename
     junk/1.0         ProjectDIR/rt/prereq/mf/junk/1.0.lua

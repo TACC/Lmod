@@ -744,7 +744,7 @@ function M._Level1(self, dbT, possibleA, sn, key, helpFlg)
    end
       
    if (key == nil) then
-      LmodError("No matching modules found\n")
+      LmodError{msg="e117"}
       dbg.fini("Spider:_Level1")
       return 
    end

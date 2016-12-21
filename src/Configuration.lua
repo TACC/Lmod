@@ -98,7 +98,7 @@ local function new(self)
       local std_hashsum = (HashSum:find("md5") ~= nil) and std_md5 or std_sha1
 
       if (HashSum == nil) then
-         LmodError("Unable to find HashSum program (sha1sum, shasum, md5sum or md5)")
+         LmodError{msg="e101"}
       end
 
       -- The output from HashSum can look like either

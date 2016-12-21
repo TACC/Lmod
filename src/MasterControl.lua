@@ -153,7 +153,7 @@ function M.setenv(self, name, value, respect)
               respect,"\")"}
 
    if (value == nil) then
-      LmodError("setenv(\"",name,"\") is not valid, a value is required")
+      LmodError{msg="e111", func = "setenv", name = name}
    end
 
    if (respect and getenv(name)) then
@@ -216,7 +216,7 @@ function M.pushenv(self, name, value)
    -- for "stackName".
 
    if (value == nil) then
-      LmodError("pushenv(\"",name,"\") is not valid, a value is required")
+      LmodError{msg="e111",func = "pushenv", name = name}
    end
 
    local stackName = "__LMOD_STACK_" .. name
@@ -665,7 +665,7 @@ function M.mustLoad(self)
       if (luaprog:sub(1,1) == "@") then
          luaprog = find_exec_path("lua")
          if (luaprog == nil) then
-            LmodError("Unable to find the lua program")
+            LmodError{msg="e107", program = "lua"}
          end
       end
       local cmdA = {}
@@ -877,9 +877,7 @@ function M.conflict(self, mA)
    end
 
    if (#a > 0) then
-      local s = concatTbl(a," ")
-      LmodError("Cannot load module \"",fullName,"\" because these module(s) are loaded:\n  ",
-            s,"\n")
+      LmodError{msg="e112", name = fullName, module_list = concatTbl(a," ")}
    end
    dbg.fini("MasterControl:conflict")
 end
@@ -911,9 +909,7 @@ function M.prereq(self, mA)
 
    dbg.print{"number found: ",#a,"\n"}
    if (#a > 0) then
-      local s = concatTbl(a," ")
-      LmodError("Cannot load module \"",fullName,"\" without these module(s) loaded:\n  ",
-            s,"\n")
+      LmodError{msg="e113", name = fullName, module_list = concatTbl(a," ")}
    end
    dbg.fini("MasterControl:prereq")
 end
@@ -951,9 +947,7 @@ function M.prereq_any(self, mA)
    end
 
    if (not found) then
-      local s = concatTbl(a," ")
-      LmodError("Cannot load module \"",fullName,"\".  At least one of these module(s) must be loaded:\n  ",
-            concatTbl(a,", "),"\n")
+      LmodError{msg="e114", name = fullName, module_list = concatTbl(a," ")}
    end
    dbg.fini("MasterControl:prereq_any")
 end
@@ -1029,11 +1023,7 @@ function M.family(self, name)
       if (auto_swap ~= "no") then
          self.familyStackPush(oldName, sn)
       else
-         LmodError("You can only have one ",name," module loaded at a time.\n",
-                   "You already have ", oldName," loaded.\n",
-                   "To correct the situation, please enter the following command:\n\n",
-                   "  module swap ",oldName, " ", fullName,"\n\n",
-                   "Please submit a consulting ticket if you require additional assistance.\n")
+         LmodError{msg="e115", name = name, oldName = oldName, fullName = fullName}
       end
    end
    mt:setfamily(name,sn)

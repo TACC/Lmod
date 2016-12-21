@@ -225,8 +225,7 @@ sandbox_env = {
 -- @param t A table
 function sandbox_registration(t)
    if (type(t) ~= "table") then
-      LmodError("sandbox_registration: The argument passed is: \"", type(t),
-                "\". It should be a table.")
+      LmodError{msg="e122", kind = type(t)}
    end
    for k,v in pairs(t) do
       sandbox_env[k] = v
