@@ -597,8 +597,7 @@ function M.warning(self, ...)
       sA[#sA+1]   = moduleStackTraceBack()
       sA[#sA+1]   = "\n"
       sA          = hook.apply("msgHook","lmodwarning",sA) or sA
-      s           = concatTbl(s,"")
-      io.stderr:write(s,"\n")
+      io.stderr:write(concatTbl(sA,""),"\n")
       setWarningFlag()
    end
 end
@@ -620,9 +619,7 @@ function M.error(self, ...)
    sA[#sA+1]     = "\n"
 
    sA            = hook.apply("msgHook","lmoderror",sA) or sA
-   s             = concatTbl(sA,"")
-
-   io.stderr:write(s,"\n")
+   io.stderr:write(concatTbl(sA,""),"\n")
    LmodErrorExit()
 end
 
