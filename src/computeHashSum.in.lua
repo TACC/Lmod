@@ -174,7 +174,7 @@ function main()
    fh:close()
 
    if (HashSum == nil) then
-      LmodSystemError("Unable to compute hashsum")
+      LmodSystemError{msg="e126"}
    end
    
 

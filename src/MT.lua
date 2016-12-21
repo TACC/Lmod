@@ -910,14 +910,14 @@ function M.setHashSum(self)
    end
 
    if (not found) then
-      LmodError{msg="e107", program = "computeHashSum"}
+      LmodError{msg="e107", name = "computeHashSum"}
    end
 
    local path   = "@path_to_lua@:" .. os.getenv("PATH")
    local luaCmd = findInPath("lua",path)
 
    if (luaCmd == nil) then
-      LmodError{msg="e107", program = "lua"}
+      LmodError{msg="e107", name = "lua"}
    end
 
    local cmdA = {}

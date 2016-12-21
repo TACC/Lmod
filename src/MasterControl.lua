@@ -618,7 +618,32 @@ end
 -- Print msgs, traceback then exit.
 -- @param self A MasterControl object.
 function M.error(self, ...)
-   LmodSystemError(...)
+   local label  = colorize("red", "Lmod has detected the following error: ")
+   local twidth = TermWidth()
+   local s      = {}
+   local arg    = pack(...)
+   if (arg.n == 1 and type(arg[1]) == "table") then
+      local t   = arg[1]
+      local msg = replaceStr(messageT[t.msg],t)
+      s[#s+1] = buildMsg(twidth, label, msg)
+   else
+      s[#s+1] = buildMsg(twidth, label, ...)
+   end
+   s[#s+1] = "\n"
+
+   local a = _concatTbl(stackTraceBackA,"")
+   if (a:len() > 0) then
+       s[#s+1] = a
+       s[#s+1] = "\n"
+   end
+   s[#s+1] = moduleStackTraceBack()
+   s[#s+1] = "\n"
+
+   s = hook.apply("msgHook","lmoderror",s) or s
+   s = _concatTbl(s,"")
+
+   io.stderr:write(s,"\n")
+   LmodErrorExit()
 end
 
 --------------------------------------------------------------------------
@@ -665,7 +690,7 @@ function M.mustLoad(self)
       if (luaprog:sub(1,1) == "@") then
          luaprog = find_exec_path("lua")
          if (luaprog == nil) then
-            LmodError{msg="e107", program = "lua"}
+            LmodError{msg="e107", name = "lua"}
          end
       end
       local cmdA = {}

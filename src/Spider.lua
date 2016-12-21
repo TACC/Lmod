@@ -656,7 +656,7 @@ function M.spiderSearch(self, dbT, userSearchPat, helpFlg)
 
    if (next(matchT) == nil) then
       setWarningFlag()
-      LmodSystemError("Unable to find: \"",origUserSearchPat,"\"\n")
+      LmodSystemError{msg="e107", name =origUserSearchPat}
    end
 
    local possibleA = {}
@@ -689,7 +689,7 @@ function M._Level1(self, dbT, possibleA, sn, key, helpFlg)
    local mrc         = MRC:singleton()
    local T           = dbT[sn]
    if (T == nil) then
-      LmodSystemError("dbT[sn] failed for sn: ", sn,"\n")
+      LmodSystemError{msg="e125", sn = sn}
    end
 
    local function countEntries()

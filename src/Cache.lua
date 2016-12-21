@@ -459,7 +459,7 @@ function M.build(self, fast)
       local st, msg       = pcall(Spider.findAllModules, spider, dirA, userSpiderT)
       if (not st) then
          if (msg) then io.stderr:write("Msg: ",msg,'\n') end
-         LmodSystemError("Spider searched timed out\n")
+         LmodSystemError{msg="e124"}
       end
       local t = masterTbl.mpathMapT
       if (next(t) ~= nil) then
