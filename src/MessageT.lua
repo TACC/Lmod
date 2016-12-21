@@ -1,5 +1,7 @@
 local messageT = {
-
+   --------------------------------------------------------------------------
+   -- LmodError messages
+   --------------------------------------------------------------------------
    e101 = "Unable to find HashSum program (sha1sum, shasum, md5sum or md5)",
    e102 = "Unable to parse: \"%{path}\". Aborting!\n",
    e103 = "Error in LocationT:search()",
@@ -36,9 +38,14 @@ Please submit a consulting ticket if you require additional assistance.
    e122 = "sandbox_registration: The argument passed is: \"%{kind}\". It should be a table.",
    e123 = "uuidgen is not available, fallback failed too",
 
+   --------------------------------------------------------------------------
+   -- LmodMessages
+   --------------------------------------------------------------------------
    m401 = "\nLmod is automatically replacing \"%{oldFullName}\" with \"%{newFullName}\"\n",
    
-
+   --------------------------------------------------------------------------
+   -- LmodWarnings
+   --------------------------------------------------------------------------
    w501 = [==[One or more modules in your %{collectionName} collection have changed: "%{module_list}".
 To see the contents of this collection do:
   $ module describe %{collectionName}
