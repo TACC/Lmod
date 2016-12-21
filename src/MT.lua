@@ -1022,8 +1022,7 @@ function M.getMTfromFile(self,tt)
    dbg.print{"Saved baseMPATH: ",savedBaseMPATH,"\n"}
    dbg.print{"Current BaseMPATH: ",self.systemBaseMPATH,"\n"}
    if (self.systemBaseMPATH ~= savedBaseMPATH) then
-      LmodWarning("The system MODULEPATH has changed: ",
-                  "Please rebuild your saved collection.\n")
+      LmodWarning{msg="w503"}
       if (collectionName ~= "default") then
          LmodErrorExit()
       end
@@ -1099,8 +1098,7 @@ function M.getMTfromFile(self,tt)
    -- Now check to see that all requested modules got loaded.
    activeA = mt:list("userName","active")
    if (#activeA == 0 ) then
-      LmodWarning("You have no modules loaded because the collection \"",
-                  collectionName, "\" is empty!\n")
+      LmodWarning{msg="w504",collectionName=collectionName}
    end
    dbg.print{"#activeA: ",#activeA,"\n"}
    local activeT = {}
@@ -1125,8 +1123,7 @@ function M.getMTfromFile(self,tt)
    activeT = nil  -- done with activeT
    if (#aa > 0) then
       sort(aa)
-      LmodWarning("The following modules were not loaded: ",
-                  concatTbl(aa," "),"\n\n")
+      LmodWarning{msg="w505",module_list=concatTbl(aa," ")}
    end
 
    --------------------------------------------------------------------------
@@ -1143,17 +1140,7 @@ function M.getMTfromFile(self,tt)
 
    if (#aa > 0) then
       sort(aa)
-      LmodWarning("One or more modules in your ",collectionName,
-                  " collection have changed: \"", concatTbl(aa,"\", \""),"\".")
-      LmodMessage("To see the contents of this collection do:")
-      LmodMessage("  $ module describe ",collectionName)
-      LmodMessage("To rebuild the collection, load the modules you wish then do:")
-      LmodMessage("  $ module save ",collectionName)
-      LmodMessage("If you no longer want this module collection do:")
-      LmodMessage("  rm ~/.lmod.d/",collectionName,"\n")
-      LmodMessage("For more information execute 'module help' or " ..
-                  "see http://lmod.readthedocs.org/\n")
-      LmodMessage("No change in modules loaded\n\n")
+      LmodWarning{msg="w501", collectionName = collectionName, module_list = concatTbl(aa,"\", \"")}
       if (collectionName ~= "default") then
          LmodErrorExit()
       end

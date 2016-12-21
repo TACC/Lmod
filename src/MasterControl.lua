@@ -55,8 +55,10 @@ local decode64     = base64.decode64
 local encode64     = base64.encode64
 local getenv       = os.getenv
 local hook         = require("Hook")
+local messageT     = require("MessageT")
 local pack         = (_VERSION == "Lua 5.1") and argsPack or table.pack
 local remove       = table.remove
+local replaceStr   = require("replaceStr")
 local s_adminT     = {}
 local s_loadT      = {}
 local s_moduleStk  = {}
@@ -566,8 +568,13 @@ function M.message(self, ...)
       return
    end
    local arg = pack(...)
-   for i = 1, arg.n do
-      io.stderr:write(tostring(arg[i]))
+   if (arg.n == 1 and type(arg[1]) == "table") then
+      local t   = arg[1]
+      io.stderr:write(replaceStr(messageT[t.msg],t))
+   else
+      for i = 1, arg.n do
+         io.stderr:write(tostring(arg[i]))
+      end
    end
    io.stderr:write("\n")
 end
@@ -577,10 +584,17 @@ end
 -- @param self A MasterControl object.
 function M.warning(self, ...)
    if (not quiet() and  haveWarnings()) then
-      local label  = colorize("red", "Lmod Warning: ")
-      local twidth = TermWidth()
       local s      = {}
-      s[#s+1] = buildMsg(twidth, label, ...)
+      local twidth = TermWidth()
+      local label  = colorize("red", "Lmod Warning: ")
+      local arg    = pack(...)
+      if (arg.n == 1 and type(arg[1]) == "table") then
+         local t   = arg[1]
+         local msg = replaceStr(messageT[t.msg],t)
+         s[#s+1] = buildMsg(twidth, label, msg)
+      else
+         s[#s+1] = buildMsg(twidth, label, ...)
+      end
       s[#s+1] = "\n"
       s[#s+1] = moduleStackTraceBack()
       s[#s+1] = "\n"

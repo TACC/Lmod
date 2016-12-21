@@ -150,8 +150,7 @@ function l_parseModA(self, modA, weight)
             local _, _, shorter, mversion = fullName:find("(.*)/(.*)")
             dbg.print{"(2) fullName: ",fullName,", shorter: ",shorter,", mversion: ",mversion,"\n"}
             if (shorter == nil) then
-               LmodWarning("Badly formed module-version line: module-name must be fully qualified: ",
-                           fullName," is not\n")
+               LmodWarning{msg="w502", fullName= fullName}
                break
             end
             

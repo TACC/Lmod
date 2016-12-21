@@ -150,7 +150,7 @@ function CollectionLst(collection)
       end
    else
       if (#a < 1) then
-         LmodWarning("No collection named \"",collection,"\" found.")
+         LmodWarning{msg="w506",collection=collection}
          dbg.fini("CollectionLst")
          return
       end
@@ -419,7 +419,7 @@ function Load_Usr(...)
       if (varT[ModulePath] == nil or
           varT[ModulePath]:expand() == false or
           varT[ModulePath]:expand() == "" ) then
-         LmodWarning("MODULEPATH is undefined\n")
+         LmodWarning{msg="w507"}
       end
 
       local mcp_old = mcp
@@ -622,13 +622,13 @@ function Save(...)
    end
 
    if (barefilename(a):find("%.")) then
-      LmodWarning("It is illegal to have a `.' in a collection name.  Please choose another name: ",a)
+      LmodWarning{msg="w508",name=a}
       dbg.fini("Save")
       return
    end
 
    if (a == "system") then
-      LmodWarning("The named collection 'system' is reserved. Please choose another name.\n")
+      LmodWarning{msg="w509"}
       dbg.fini("Save")
       return
    end
@@ -636,9 +636,7 @@ function Save(...)
    local activeA = mt:list("short","active")
    local force   = masterTbl.force
    if (#activeA == 0 and not force) then
-      LmodWarning("You are trying to save an empty collection of modules in \"",a,
-                  "\".  If this is what you want then enter: \n",
-                  "   module --force save ",a,"\n")
+      LmodWarning{msg="w510",name=a}
       dbg.fini("Save")
       return
    end

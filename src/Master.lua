@@ -332,12 +332,12 @@ function M.load(self, mA)
          local b = {}
          while (not mcp.familyStackEmpty()) do
             local   b_old, b_new = mcp.familyStackPop()
-            LmodMessage("\nLmod is automatically replacing \"", b_old.fullName,
-                        "\" with \"", b_new.fullName, "\"\n" )
+            LmodMessage{msg="m101", oldFullName=b_old.fullName, newFullName=b_new.fullName}
             local umA   = {MName:new("mt",   b_old.sn) , MName:new("mt",   b_new.sn) }
             local lmA   = {MName:new("load", b_new.userName)}
             b[#b+1]     = {umA = umA, lmA = lmA}
          end
+
 
          local force = true
          for j = 1,#b do
