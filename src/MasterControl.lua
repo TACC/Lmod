@@ -574,7 +574,6 @@ local function l_generateMsg(label, ...)
    return sA
 end
 
-
 --------------------------------------------------------------------------
 -- Print msgs to stderr.
 -- @param self A MasterControl object.
@@ -582,7 +581,16 @@ function M.message(self, ...)
    if (quiet()) then
       return
    end
-   local sA = l_generateMsg("",...)
+   local sA     = {}
+   local twidth = TermWidth()
+   local arg    = pack(...)
+   if (arg.n == 1 and type(arg[1]) == "table") then
+      local t   = arg[1]
+      local msg = replaceStr(messageT[t.msg],t)
+      sA[#sA+1] = buildMsg(twidth, msg)
+   else
+      sA[#sA+1] = buildMsg(twidth, ...)
+   end
    io.stderr:write(concatTbl(sA,""),"\n")
 end
 
