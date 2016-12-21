@@ -560,6 +560,21 @@ function M.myModuleVersion(self)
    return frameStk:version()
 end
 
+local function l_generateMsg(label, ...)
+   local sA     = {}
+   local twidth = TermWidth()
+   local arg    = pack(...)
+   if (arg.n == 1 and type(arg[1]) == "table") then
+      local t   = arg[1]
+      local msg = replaceStr(messageT[t.msg],t)
+      sA[#sA+1] = buildMsg(twidth, label, msg)
+   else
+      sA[#sA+1] = buildMsg(twidth, label, ...)
+   end
+   return sA
+end
+
+
 --------------------------------------------------------------------------
 -- Print msgs to stderr.
 -- @param self A MasterControl object.
@@ -567,16 +582,8 @@ function M.message(self, ...)
    if (quiet()) then
       return
    end
-   local arg = pack(...)
-   if (arg.n == 1 and type(arg[1]) == "table") then
-      local t   = arg[1]
-      io.stderr:write(replaceStr(messageT[t.msg],t))
-   else
-      for i = 1, arg.n do
-         io.stderr:write(tostring(arg[i]))
-      end
-   end
-   io.stderr:write("\n")
+   local sA = l_generateMsg("",...)
+   io.stderr:write(concatTbl(sA,""),"\n")
 end
 
 --------------------------------------------------------------------------
@@ -584,27 +591,39 @@ end
 -- @param self A MasterControl object.
 function M.warning(self, ...)
    if (not quiet() and  haveWarnings()) then
-      local s      = {}
-      local twidth = TermWidth()
-      local label  = colorize("red", "Lmod Warning: ")
-      local arg    = pack(...)
-      if (arg.n == 1 and type(arg[1]) == "table") then
-         local t   = arg[1]
-         local msg = replaceStr(messageT[t.msg],t)
-         s[#s+1] = buildMsg(twidth, label, msg)
-      else
-         s[#s+1] = buildMsg(twidth, label, ...)
-      end
-      s[#s+1] = "\n"
-      s[#s+1] = moduleStackTraceBack()
-      s[#s+1] = "\n"
-
-      s = hook.apply("msgHook","lmodwarning",s)
-      s = concatTbl(s,"")
-
+      local label = colorize("red", "Lmod Warning: ")
+      local sA    = l_generateMsg(label, ...)
+      sA[#sA+1]   = "\n"
+      sA[#sA+1]   = moduleStackTraceBack()
+      sA[#sA+1]   = "\n"
+      sA          = hook.apply("msgHook","lmodwarning",sA) or sA
+      s           = concatTbl(s,"")
       io.stderr:write(s,"\n")
       setWarningFlag()
    end
+end
+
+--------------------------------------------------------------------------
+-- Print msgs, traceback then exit.
+-- @param self A MasterControl object.
+function M.error(self, ...)
+   local label = colorize("red", "Lmod has detected the following error: ")
+   local sA    = l_generateMsg(label, ...)
+   sA[#sA+1]   = "\n"
+
+   local a = concatTbl(stackTraceBackA,"")
+   if (a:len() > 0) then
+       sA[#sA+1] = a
+       sA[#sA+1] = "\n"
+   end
+   sA[#sA+1]     = moduleStackTraceBack()
+   sA[#sA+1]     = "\n"
+
+   sA            = hook.apply("msgHook","lmoderror",sA) or sA
+   s             = concatTbl(sA,"")
+
+   io.stderr:write(s,"\n")
+   LmodErrorExit()
 end
 
 --------------------------------------------------------------------------
@@ -612,38 +631,6 @@ end
 -- @param self A MasterControl object
 function M.quiet(self, ...)
    -- very Quiet !!!
-end
-
---------------------------------------------------------------------------
--- Print msgs, traceback then exit.
--- @param self A MasterControl object.
-function M.error(self, ...)
-   local label  = colorize("red", "Lmod has detected the following error: ")
-   local twidth = TermWidth()
-   local s      = {}
-   local arg    = pack(...)
-   if (arg.n == 1 and type(arg[1]) == "table") then
-      local t   = arg[1]
-      local msg = replaceStr(messageT[t.msg],t)
-      s[#s+1] = buildMsg(twidth, label, msg)
-   else
-      s[#s+1] = buildMsg(twidth, label, ...)
-   end
-   s[#s+1] = "\n"
-
-   local a = concatTbl(stackTraceBackA,"")
-   if (a:len() > 0) then
-       s[#s+1] = a
-       s[#s+1] = "\n"
-   end
-   s[#s+1] = moduleStackTraceBack()
-   s[#s+1] = "\n"
-
-   s = hook.apply("msgHook","lmoderror",s) or s
-   s = concatTbl(s,"")
-
-   io.stderr:write(s,"\n")
-   LmodErrorExit()
 end
 
 --------------------------------------------------------------------------
