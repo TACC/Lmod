@@ -43,11 +43,11 @@ testdescript = {
      rm -rf $projectDir/${DIR}-$LmodV.tar.bz2
      mkdir build; cd build; ../${DIR}-$LmodV/configure --prefix=`pwd`/..;
      make install
-     status=$?
+     myStatus=$?
 
      cd $outputDir
-     echo status: $status
-     if [ $status -eq 0 ]; then
+     echo status: $myStatus
+     if [ $myStatus -eq 0 ]; then
         echo "passed, make" >> results.csv
      else
         echo "diff, make"   >> results.csv

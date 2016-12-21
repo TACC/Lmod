@@ -19,11 +19,11 @@ No change in modules loaded
    w505 = "The following modules were not loaded: %{module_list}\n\n",
    w506 = "No collection named \"%{collection}\" found.",
    w507 = "MODULEPATH is undefined\n",
-   w508 = "It is illegal to have a `.' in a collection name.  Please choose another name for: %{name}"
-   w509 = "The named collection 'system' is reserved. Please choose another name.\n"
-   w510 = [==["You are trying to save an empty collection of modules in "%{name}". If this is what you want then enter:
+   w508 = "It is illegal to have a `.' in a collection name.  Please choose another name for: %{name}",
+   w509 = "The named collection 'system' is reserved. Please choose another name.\n",
+   w510 = [==[You are trying to save an empty collection of modules in "%{name}". If this is what you want then enter:
   $  module --force save %{name}
-]==]
+]==],
 }
 
 
