@@ -27,9 +27,7 @@ require("strict")
 --------------------------------------------------------------------------
 
 
-local unpack = (_VERSION == "Lua 5.1") and unpack or table.unpack
-
-local function interpolateValue(s, varT)
+local function replaceStrValue(s, varT)
    return s:gsub("(.?)%%{%s*(.-)%s*}",
                  function(prev, key)
                     if (prev == '%') then
@@ -41,9 +39,9 @@ local function interpolateValue(s, varT)
 end
 
 
-local function interpolate(s, varT)
-   local msg = interpolateValue(s, varT or {})
+local function replaceStr(s, varT)
+   local msg = replaceStrValue(s, varT or {})
    return  msg
 end
 
-return interpolate
+return replaceStr
