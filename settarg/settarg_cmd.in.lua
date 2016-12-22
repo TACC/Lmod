@@ -51,9 +51,10 @@ if (sys_lua_cpath:sub(1,1) == "@") then
    sys_lua_cpath = package.cpath
 end
 
-package.path  = LuaCommandName_dir .. "../tools/?.lua;" ..
-                LuaCommandName_dir .. "?.lua;"          ..
-                LuaCommandName_dir .. "?/init.lua;"     ..
+package.path  = LuaCommandName_dir .. "../tools/?.lua;"       ..
+                LuaCommandName_dir .. "../tools/?/init.lua;"  ..
+                LuaCommandName_dir .. "?.lua;"                ..
+                LuaCommandName_dir .. "?/init.lua;"           ..
                 sys_lua_path
 package.cpath = sys_lua_cpath
 

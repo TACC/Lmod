@@ -77,6 +77,7 @@ end
 
 package.path  = LuaCommandName_dir .. "?.lua;"       ..
                 LuaCommandName_dir .. "../tools/?.lua;"  ..
+                LuaCommandName_dir .. "../tools/?/init.lua;"  ..
                 LuaCommandName_dir .. "../shells/?.lua;" ..
                 LuaCommandName_dir .. "?/init.lua;"  ..
                 sys_lua_path
