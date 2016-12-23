@@ -11,6 +11,7 @@ HAVE_LUA_JSON             := @HAVE_LUA_JSON@
 ifeq ($(HAVE_LUA_JSON),yes)
   TOOL_SRC                := $(filter-out $(srcdir)/tools/json.lua, $(TOOL_SRC))
 endif
+I18N_SRC                  := $(wildcard $(srcdir)/tools/i18n/*.lua)
 
 CURRENT_MK                := $(lastword $(MAKEFILE_LIST))
 PATH_TO_LUA	  	  := @PATH_TO_LUA@
@@ -67,16 +68,19 @@ PKG		  	  := $(prefix)/$(package)/$(package)
 LIBEXEC		  	  := $(prefix)/$(package)/$(version)/libexec
 SHELLS                    := $(prefix)/$(package)/$(version)/shells
 TOOLS                     := $(prefix)/$(package)/$(version)/tools
+I18N                      := $(prefix)/$(package)/$(version)/tools/i18n
 SETTARG                   := $(prefix)/$(package)/$(version)/settarg
 INIT		  	  := $(prefix)/$(package)/$(version)/init
+MESSAGEDIR      	  := $(prefix)/$(package)/$(version)/messageDir
 LMOD_MF 	  	  := $(prefix)/$(package)/$(version)/modulefiles/Core
 MAN_PAGES                 := $(prefix)/$(package)/$(version)/share/man/cat1
 LMOD_MF_SOURCE            := $(patsubst %, $(srcdir)/%, MF/*.version.lua)
 SETTARG_SOURCE            := $(patsubst %, $(srcdir)/%, settarg/*.lua  settarg/targ.in)
 
-DIRLIST		  	  := $(DESTDIR)$(LIBEXEC) $(DESTDIR)$(TOOLS) $(DESTDIR)$(SETTARG) \
-                             $(DESTDIR)$(SHELLS)  $(DESTDIR)$(INIT)  $(DESTDIR)$(LIB)     \
-                             $(DESTDIR)$(LMOD_MF) $(DESTDIR)$(MAN_PAGES)
+DIRLIST		  	  := $(DESTDIR)$(LIBEXEC) $(DESTDIR)$(TOOLS)      $(DESTDIR)$(SETTARG)    \
+                             $(DESTDIR)$(SHELLS)  $(DESTDIR)$(INIT)       $(DESTDIR)$(LIB)        \
+                             $(DESTDIR)$(LMOD_MF) $(DESTDIR)$(MAN_PAGES)  $(DESTDIR)$(MESSAGEDIR) \
+                             $(DESTDIR)$(I18N)
 
 STANDALONE_PRGM   	  := src/lmod.in.lua src/addto.in.lua                       \
                              src/spider.in.lua src/clearMT_cmd.in.lua               \
@@ -98,6 +102,8 @@ ZSH_FUNCS                 := $(patsubst %, $(srcdir)/init/zsh/%, $(ZSH_FUNCS))
 STARTUP		  	  := profile.in cshrc.in
 STARTUP		  	  := $(patsubst %, $(srcdir)/init/%, $(STARTUP))
 
+MSGFNs                    := $(wildcard $(srcdir)/messageDir/*.lua)
+
 MAIN_DIR	  	  := Makefile.in INSTALL configure README_lua_modulefiles.txt \
                              README README.old License
 
@@ -113,8 +119,6 @@ CONTRIB_DIRS           	  :=  \
                               settarg                           \
                               tracking_module_usage             \
                               tricky_modulefiles
-
-
 
 CONTRIB                   := $(patsubst %, $(srcdir)/contrib/%, $(CONTRIB_DIRS))
 lua_code	  	  := $(filter-out %.in.lua, $(wildcard $(srcdir)/src/*.lua))   \
@@ -143,7 +147,7 @@ uninstall:
 
 pre-install: $(DIRLIST) lmodrc_init shell_init startup libexec spiderCacheSupport \
              Inst_Tools Inst_Shells Inst_Settarg Inst_Lmod_MF $(PKGS) other_tools \
-             man_pages
+             man_pages messageFns i18n
 
 install: pre-install  zsh_tab_funcs
 	$(MAKE) PKGV=$(PKG) shell_init
@@ -234,6 +238,12 @@ shell_init: $(SHELL_INIT)
 
 lmodrc_init: $(LMODRC_INIT)
 	$(MAKE) FILELIST="$^" DIRLOC=$(DESTDIR)$(INIT)    __installMe
+
+messageFns: $(MSGFNs)
+	$(MAKE) FILELIST="$^" DIRLOC=$(DESTDIR)$(MESSAGEDIR) __installMe
+
+i18n: $(I18N_SRC)
+	$(MAKE) FILELIST="$^" DIRLOC=$(DESTDIR)$(I18N) __installMe
 
 startup: $(STARTUP)
 	$(MAKE) FILELIST="$^" DIRLOC=$(DESTDIR)$(INIT)    __installMe
