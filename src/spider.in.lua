@@ -100,6 +100,7 @@ local Optiks        = require("Optiks")
 local Spider        = require("Spider")
 local concatTbl     = table.concat
 local dbg           = require("Dbg"):dbg()
+local i18n          = require("i18n")
 local lfs           = require("lfs")
 local sort          = table.sort
 
@@ -374,6 +375,8 @@ function main()
    local masterTbl  = masterTbl()
    local pargs      = masterTbl.pargs
    local mpathA     = {}
+
+   build_i18n_messages()
 
    local master     = Master:singleton(false)
    --_G.Shell         = BaseShell:build("bash")

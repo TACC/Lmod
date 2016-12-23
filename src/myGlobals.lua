@@ -375,6 +375,27 @@ s_warning     = false
 s_haveWarnings = true
 
 ------------------------------------------------------------------------
+-- LMOD_SITE_MSG_FILE: points to a file with site messages
+------------------------------------------------------------------------
+
+cosmic:init{name    = "LMOD_SITE_MSG_FILE",
+            sedV    = "@site_msg_file@",
+            default = false}
+
+------------------------------------------------------------------------
+-- LMOD_LANG: points to a file with site messages
+------------------------------------------------------------------------
+
+cosmic:init{name    = "LMOD_OVERRIDE_LANG",
+            sedV    = "@lang@",
+            default = false}
+
+local lang = (cosmic:value("LMOD_OVERRIDE_LANG") or getenv("LANG") or "en"):gsub("_.*","")
+cosmic:init{name    = "LMOD_LANG",
+            default = "en",
+            assignV = lang}
+
+------------------------------------------------------------------------
 -- LMOD_FULL_SETTARG_SUPPORT:  the time in seconds when the cache file is considered old
 ------------------------------------------------------------------------
 

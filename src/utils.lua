@@ -52,6 +52,7 @@ local encode64     = base64.encode64
 local floor        = math.floor
 local getenv       = os.getenv
 local huge         = math.huge
+local i18n         = require("i18n")
 local min          = math.min
 local open         = io.open
 local posix        = require("posix")
@@ -169,6 +170,34 @@ function build_MT_envT(vstr)
    t[SzStr]       = tostring(nblks)
    return t
 end
+
+function build_i18n_messages()
+   local en_msg_fn = pathJoin(cmdDir(),"../messageDir/en.lua")
+   if (isFile(en_msg_fn)) then
+      i18n.loadFile(en_msg_fn)
+   else
+      io.stderr:write("Unable to open English message file: ",en_msg_fn,"\n")
+      os.exit(1)
+   end
+   
+   local lmod_lang = cosmic:value("LMOD_LANG")
+   if (lmod_lang ~= "en") then
+      local msg_fn = pathJoin(cmdDir(),"../messageDir",lmod_lang .. ".lua")
+      if (isFile(msg_fn)) then
+         i18n.loadFile(msg_fn)
+      else
+         lmod_lang = "en"
+      end
+   end
+
+   local site_msg_fn = cosmic:value("LMOD_SITE_MSG_FILE")
+   if (site_msg_fn and isFile(site_msg_fn)) then
+      lmod_lang = "site"
+      i18n.loadFile(site_msg_fn)
+   end
+   i18n.setLocale(lmod_lang)
+end
+
 
    
 ------------------------------------------------------------

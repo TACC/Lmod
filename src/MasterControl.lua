@@ -55,10 +55,9 @@ local decode64     = base64.decode64
 local encode64     = base64.encode64
 local getenv       = os.getenv
 local hook         = require("Hook")
-local messageT     = require("MessageT")
+local i18n         = require("i18n")
 local pack         = (_VERSION == "Lua 5.1") and argsPack or table.pack
 local remove       = table.remove
-local replaceStr   = require("replaceStr")
 local s_adminT     = {}
 local s_loadT      = {}
 local s_moduleStk  = {}
@@ -566,7 +565,7 @@ local function l_generateMsg(label, ...)
    local arg    = pack(...)
    if (arg.n == 1 and type(arg[1]) == "table") then
       local t   = arg[1]
-      local msg = replaceStr(messageT[t.msg],t)
+      local msg = i18n(t.msg, t)
       sA[#sA+1] = buildMsg(twidth, label, msg)
    else
       sA[#sA+1] = buildMsg(twidth, label, ...)
@@ -586,7 +585,7 @@ function M.message(self, ...)
    local arg    = pack(...)
    if (arg.n == 1 and type(arg[1]) == "table") then
       local t   = arg[1]
-      local msg = replaceStr(messageT[t.msg],t)
+      local msg = i18n(t.msg, t)
       sA[#sA+1] = buildMsg(twidth, msg)
    else
       sA[#sA+1] = buildMsg(twidth, ...)
@@ -689,6 +688,7 @@ function M.mustLoad(self)
       cmdA[#cmdA+1] = luaprog
       cmdA[#cmdA+1] = pathJoin(cmdDir(),cmdName())
       cmdA[#cmdA+1] = "bash"
+      cmdA[#cmdA+1] = dbg.active() and "-D" or " "
       cmdA[#cmdA+1] = "-r --no_redirect --spider_timeout 2.0 spider"
       local count   = #cmdA
 
@@ -700,7 +700,7 @@ function M.mustLoad(self)
       if (expert()) then
          uA = aa
       else
-         local outputDirection = (dbg:active()) and "2> spider.log" or "2> /dev/null"
+         local outputDirection = dbg.active() and "2> spider.log" or "2> /dev/null"
          for i = 1, #bb do
             cmdA[count+1] = "'^" .. bb[i]:escape() .. "$'"
             cmdA[count+2] = outputDirection

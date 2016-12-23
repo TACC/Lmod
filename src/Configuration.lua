@@ -131,6 +131,8 @@ local function new(self)
    local uname             = capture("uname -a")
    local adminFn, readable = findAdminFn()
    local activeTerm        = haveTermSupport() and "true" or colorize("red","false")
+   local lmod_lang         = cosmic:value("LMOD_LANG")
+   local site_msg_file     = cosmic:value("LMOD_SITE_MSG_FILE") or "<empty>"
    local settarg_support   = cosmic:value("LMOD_FULL_SETTARG_SUPPORT")
    local lmod_colorize     = cosmic:value("LMOD_COLORIZE")
    local site_name         = cosmic:value("LMOD_SITE_NAME")   or "<empty>"
@@ -182,6 +184,8 @@ local function new(self)
    tbl.dupPaths    = { k = "Allow duplicate paths"             , v = duplicate_paths,  }
    tbl.exactMatch  = { k = "Require Exact Match/no defaults"   , v = exactMatch,       }
    tbl.expMCmd     = { k = "Export the module command"         , v = export_module,    }
+   tbl.lang        = { k = "Language used for err/msg/warn"    , v = lmod_lang,        }
+   tbl.lang_site   = { k = "Site message file"                 , v = site_msg_file,    }
    tbl.ld_preload  = { k = "LD_PRELOAD at config time"         , v = ld_preload,       }
    tbl.ld_lib_path = { k = "LD_LIBRARY_PATH at config time"    , v = ld_lib_path,      }
    tbl.lmodV       = { k = "Lmod version"                      , v = lmod_version,     }

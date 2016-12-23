@@ -116,6 +116,8 @@ function main()
       dupPaths     = { rule = "match", value = "no"},
       exactMatch   = { rule = "match", value = "no"},
       expMCmd      = { rule = "match", value = "yes"},
+      lang         = { rule = "match", value = "en"},
+      lang_site    = { rule = "match", value = "<empty>"},
       ld_lib_path  = { rule = "match", value = "<empty>"},
       ld_preload   = { rule = "match", value = "<empty>"},
       lua_json     = { rule = "match", value = "no"},

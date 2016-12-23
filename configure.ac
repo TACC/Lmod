@@ -19,6 +19,30 @@ AC_ARG_WITH(duplicatePaths,
     DUPLICATE_PATHS="$withval"
     AC_DEFINE_UNQUOTED(DUPLICATE_PATHS, "$withval"))dnl
 
+AC_SUBST(SITE_MSG_FILE)
+AC_ARG_WITH(siteMsgFile,
+    AC_HELP_STRING([--with-siteMsgFile=ans],[Site Message File [[<empty>]]]),
+    SITE_MSG_FILE="$withval"
+    AC_MSG_RESULT([SITE_MSG_FILE=$with_siteMsgFile])
+    AC_DEFINE_UNQUOTED(SITE_MSG_FILE,"$with_siteMsgFile")dnl
+    ,
+    withval="<empty>"
+    AC_MSG_RESULT([SITE_MSG_FILE=$withval])
+    SITE_MSG_FILE="$withval"
+    AC_DEFINE_UNQUOTED(SITE_MSG_FILE, "$withval"))dnl
+
+AC_SUBST(LMOD_OVERRIDE_LANG)
+AC_ARG_WITH(lang,
+    AC_HELP_STRING([--with-lang=ans],[Override $LANG for Lmod errors/messsages/warnings [[<empty>]]]),
+    LMOD_OVERRIDE_LANG="$withval"
+    AC_MSG_RESULT([LMOD_OVERRIDE_LANG=$with_lang])
+    AC_DEFINE_UNQUOTED(LMOD_OVERRIDE_LANG,"$with_lang")dnl
+    ,
+    withval="<empty>"
+    AC_MSG_RESULT([LMOD_OVERRIDE_LANG=$withval])
+    LMOD_OVERRIDE_LANG="$withval"
+    AC_DEFINE_UNQUOTED(LMOD_OVERRIDE_LANG, "$withval"))dnl
+
 AC_SUBST(CASE_INDEPENDENT_SORTING)
 AC_ARG_WITH(caseIndependentSorting,
     AC_HELP_STRING([--with-caseIndependentSorting=ans],[Make avail and spider use case independent sorting [[no]]]),

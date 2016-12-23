@@ -20,6 +20,8 @@ LMOD_FULL_SETTARG_SUPPORT := $(shell echo "@SETTARG@"       | tr '[:upper:]' '[:
 USE_DOT_FILES             := $(shell echo "@USE_DOT_FILES@" | tr '[:upper:]' '[:lower:]')
 PREPEND_BLOCK     	  := $(shell echo "@PREPEND_BLOCK@" | tr '[:upper:]' '[:lower:]')
 COLORIZE          	  := $(shell echo "@COLORIZE@"      | tr '[:upper:]' '[:lower:]')
+LMOD_OVERRIDE_LANG        := @LMOD_OVERRIDE_LANG@
+SITE_MSG_FILE             := @SITE_MSG_FILE@
 SITE_NAME                 := @SITE_NAME@
 SYS_LD_LIB_PATH           := @SYS_LD_LIB_PATH@
 SYS_LD_PRELOAD            := @SYS_LD_PRELOAD@
@@ -173,6 +175,8 @@ __installMe:
 	        -e 's|@case_independent_sorting@|$(CASE_INDEPENDENT_SORTING)|g'   \
                 -e 's|@lmod_full_settarg_support@|$(LMOD_FULL_SETTARG_SUPPORT)|g' \
                 -e 's|@use_dot_files@|$(USE_DOT_FILES)|g'             	   	  \
+                -e 's|@lang@|$(LMOD_OVERRIDE_LANG)|g'                             \
+                -e 's|@site_msg_file@|$(SITE_MSG_FILE)|g'               	  \
                 -e 's|@git@|$(GIT_VERSION)|g'                              	  \
                 -e 's|--@ignore_dirs@--|$(IGNORE_DIRS)|g'                         \
 	        -e 's|@sys_lua_path@|$(SYS_LUA_PATH)|g'                  	  \

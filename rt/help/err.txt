@@ -224,6 +224,8 @@ Using dotfiles                   yes
 Allow duplicate paths            no
 Require Exact Match/no defaults  no
 Export the module command        yes
+Language used for err/msg/warn   en
+Site message file                <empty>
 System lua_json                  no
 System lua-term                  no
 avail: Include modulepath dir    no

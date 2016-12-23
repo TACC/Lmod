@@ -656,7 +656,7 @@ function M.spiderSearch(self, dbT, userSearchPat, helpFlg)
 
    if (next(matchT) == nil) then
       setWarningFlag()
-      LmodSystemError{msg="e107", name =origUserSearchPat}
+      LmodSystemError{msg="e107", name=origUserSearchPat}
    end
 
    local possibleA = {}

@@ -48,6 +48,8 @@ echo "System LD_PRELOAD..........................." : $SYS_LD_PRELOAD
 echo "System LD_LIBRARY_PATH......................" : $SYS_LD_LIB_PATH
 echo "Hashsum program used........................" : $PATH_TO_HASHSUM
 echo "Site Name..................................." : $SITE_NAME
+echo "Site Message file..........................." : $SITE_MSG_FILE
+echo "Override $LANG Language for error etc......." : $LMOD_OVERRIDE_LANG
 
 echo
 echo '------------------------------------------------------------------------------'

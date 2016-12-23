@@ -114,7 +114,6 @@ local BaseShell     = require("BaseShell")
 local BeautifulTbl  = require("BeautifulTbl")
 local Exec          = require("Exec")
 local FrameStk      = require("FrameStk")
-
 local Options       = require("Options")
 local Var           = require("Var")
 local Version       = require("Version")
@@ -313,6 +312,8 @@ function main()
       {'^use$'    , useTbl        },
       {'^w'       , whatisTbl     },
    }
+
+   build_i18n_messages()
 
    MCP = MasterControl.build("load")
    mcp = MasterControl.build("load")
