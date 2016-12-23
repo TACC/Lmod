@@ -630,6 +630,8 @@ AUTO_SWAP
 EXACT_MATCH
 COLORIZE
 CASE_INDEPENDENT_SORTING
+LMOD_OVERRIDE_LANG
+SITE_MSG_FILE
 DUPLICATE_PATHS
 OBJEXT
 EXEEXT
@@ -657,7 +659,6 @@ infodir
 docdir
 oldincludedir
 includedir
-runstatedir
 localstatedir
 sharedstatedir
 sysconfdir
@@ -681,6 +682,8 @@ ac_subst_files=''
 ac_user_opts='
 enable_option_checking
 with_duplicatePaths
+with_siteMsgFile
+with_lang
 with_caseIndependentSorting
 with_colorize
 with_exactMatch
@@ -752,7 +755,6 @@ datadir='${datarootdir}'
 sysconfdir='${prefix}/etc'
 sharedstatedir='${prefix}/com'
 localstatedir='${prefix}/var'
-runstatedir='${localstatedir}/run'
 includedir='${prefix}/include'
 oldincludedir='/usr/include'
 docdir='${datarootdir}/doc/${PACKAGE}'
@@ -1005,15 +1007,6 @@ do
   | -silent | --silent | --silen | --sile | --sil)
     silent=yes ;;
 
-  -runstatedir | --runstatedir | --runstatedi | --runstated \
-  | --runstate | --runstat | --runsta | --runst | --runs \
-  | --run | --ru | --r)
-    ac_prev=runstatedir ;;
-  -runstatedir=* | --runstatedir=* | --runstatedi=* | --runstated=* \
-  | --runstate=* | --runstat=* | --runsta=* | --runst=* | --runs=* \
-  | --run=* | --ru=* | --r=*)
-    runstatedir=$ac_optarg ;;
-
   -sbindir | --sbindir | --sbindi | --sbind | --sbin | --sbi | --sb)
     ac_prev=sbindir ;;
   -sbindir=* | --sbindir=* | --sbindi=* | --sbind=* | --sbin=* \
@@ -1151,7 +1144,7 @@ fi
 for ac_var in	exec_prefix prefix bindir sbindir libexecdir datarootdir \
 		datadir sysconfdir sharedstatedir localstatedir includedir \
 		oldincludedir docdir infodir htmldir dvidir pdfdir psdir \
-		libdir localedir mandir runstatedir
+		libdir localedir mandir
 do
   eval ac_val=\$$ac_var
   # Remove trailing slashes.
@@ -1304,7 +1297,6 @@ Fine tuning of the installation directories:
   --sysconfdir=DIR        read-only single-machine data [PREFIX/etc]
   --sharedstatedir=DIR    modifiable architecture-independent data [PREFIX/com]
   --localstatedir=DIR     modifiable single-machine data [PREFIX/var]
-  --runstatedir=DIR       modifiable per-process data [LOCALSTATEDIR/run]
   --libdir=DIR            object code libraries [EPREFIX/lib]
   --includedir=DIR        C header files [PREFIX/include]
   --oldincludedir=DIR     C header files for non-gcc [/usr/include]
@@ -1334,6 +1326,9 @@ Optional Packages:
   --with-duplicatePaths=ans
                           Allow multiple directories in path like variables
                           [[no]]
+  --with-siteMsgFile=ans  Site Message File [[<empty>]]
+  --with-lang=ans         Override $LANG for Lmod errors/messsages/warnings
+                          [[<empty>]]
   --with-caseIndependentSorting=ans
                           Make avail and spider use case independent sorting
                           [[no]]
@@ -1364,7 +1359,7 @@ Optional Packages:
                           updated [[]]
   --with-prependBlock=ans Treat multiple directories passed to prepend in
                           normal order/ not reversed [[NORMAL]]
-  --with-siteName=ans     Site Name (<empty>)
+  --with-siteName=ans     Site Name [[<empty>]]
   --with-tcl=ans          Allow TCL modulefiles [[yes]]
   --with-disableNameAutoSwap=ans
                           disable one name rule autoswapping [[no]]
@@ -2668,6 +2663,50 @@ $as_echo "DUPLICATE_PATHS=$withval" >&6; }
     DUPLICATE_PATHS="$withval"
     cat >>confdefs.h <<_ACEOF
 #define DUPLICATE_PATHS "$withval"
+_ACEOF
+
+fi
+
+
+
+# Check whether --with-siteMsgFile was given.
+if test "${with_siteMsgFile+set}" = set; then :
+  withval=$with_siteMsgFile; SITE_MSG_FILE="$withval"
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: SITE_MSG_FILE=$with_siteMsgFile" >&5
+$as_echo "SITE_MSG_FILE=$with_siteMsgFile" >&6; }
+    cat >>confdefs.h <<_ACEOF
+#define SITE_MSG_FILE "$with_siteMsgFile"
+_ACEOF
+
+else
+  withval="<empty>"
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: SITE_MSG_FILE=$withval" >&5
+$as_echo "SITE_MSG_FILE=$withval" >&6; }
+    SITE_MSG_FILE="$withval"
+    cat >>confdefs.h <<_ACEOF
+#define SITE_MSG_FILE "$withval"
+_ACEOF
+
+fi
+
+
+
+# Check whether --with-lang was given.
+if test "${with_lang+set}" = set; then :
+  withval=$with_lang; LMOD_OVERRIDE_LANG="$withval"
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: LMOD_OVERRIDE_LANG=$with_lang" >&5
+$as_echo "LMOD_OVERRIDE_LANG=$with_lang" >&6; }
+    cat >>confdefs.h <<_ACEOF
+#define LMOD_OVERRIDE_LANG "$with_lang"
+_ACEOF
+
+else
+  withval="<empty>"
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: LMOD_OVERRIDE_LANG=$withval" >&5
+$as_echo "LMOD_OVERRIDE_LANG=$withval" >&6; }
+    LMOD_OVERRIDE_LANG="$withval"
+    cat >>confdefs.h <<_ACEOF
+#define LMOD_OVERRIDE_LANG "$withval"
 _ACEOF
 
 fi
@@ -5174,6 +5213,8 @@ echo "System LD_PRELOAD..........................." : $SYS_LD_PRELOAD
 echo "System LD_LIBRARY_PATH......................" : $SYS_LD_LIB_PATH
 echo "Hashsum program used........................" : $PATH_TO_HASHSUM
 echo "Site Name..................................." : $SITE_NAME
+echo "Site Message file..........................." : $SITE_MSG_FILE
+echo "Override $LANG Language for error etc......." : $LMOD_OVERRIDE_LANG
 
 echo
 echo '------------------------------------------------------------------------------'
