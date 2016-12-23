@@ -14,3 +14,6 @@ Lmod 7.1+
    h) (7.1.8) A more detailed error message when using
       LMOD_DISABLE_SAME_NAME_AUTOSWAP=yes.
    i) (7.1.9) Allow colons as well as spaces in the addto command.
+   j) (7.1.10) Now using the i18n project to manage almost all Lmod
+      Errors, Warning, Messages.
+      
