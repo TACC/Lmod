@@ -16,4 +16,5 @@ Lmod 7.1+
    i) (7.1.9) Allow colons as well as spaces in the addto command.
    j) (7.1.10) Now using the i18n project to manage almost all Lmod
       Errors, Warning, Messages.
-      
+   k) (7.1.11) updated configure.  Introduced "errWarnMsgHook".
+   
