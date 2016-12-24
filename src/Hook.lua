@@ -56,7 +56,7 @@ local validT =
                                 -- prefix:  site_FAMILY_
       msgHook         = false,  -- Hook to print messages after:
                                 -- avail, list, spider, 
-      errWarnMsgHook  = false   -- Hook to print messages after LmodError
+      errWarnMsgHook  = false,  -- Hook to print messages after LmodError
                                 -- LmodWarning, LmodMessage
       groupName       = false,  -- This hook adds the arch and os name
                                 -- to moduleT.lua to make it safe on
