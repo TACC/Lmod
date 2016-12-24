@@ -461,6 +461,8 @@ world_update:
 	@git status -s > /tmp/git_st_$$$$;                                         \
         if [ -s /tmp/git_st_$$$$ ]; then                                           \
             echo "All files not checked in => try again";                          \
+	elif [ $(srcdir)configure -ot $(srcdir)configure.ac ]; then                \
+            echo "configure is out of date => try again";                          \
         else                                                                       \
 	    branchName=`git status | head -n 1 | sed 's/^[# ]*On branch //g'`;	   \
             git push        github $$branchName;                                   \
