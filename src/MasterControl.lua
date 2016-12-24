@@ -559,13 +559,15 @@ function M.myModuleVersion(self)
    return frameStk:version()
 end
 
-local function l_generateMsg(label, ...)
+local function l_generateMsg(kind, label, ...)
    local sA     = {}
    local twidth = TermWidth()
    local arg    = pack(...)
    if (arg.n == 1 and type(arg[1]) == "table") then
       local t   = arg[1]
-      local msg = i18n(t.msg, t)
+      local key = t.msg
+      local msg = i18n(key, t)
+      msg       = hook.apply("errWarnMsgHook", kind, key, msg) or msg
       sA[#sA+1] = buildMsg(twidth, label, msg)
    else
       sA[#sA+1] = buildMsg(twidth, label, ...)
@@ -585,7 +587,9 @@ function M.message(self, ...)
    local arg    = pack(...)
    if (arg.n == 1 and type(arg[1]) == "table") then
       local t   = arg[1]
-      local msg = i18n(t.msg, t)
+      local key = t.msg
+      local msg = i18n(key, t)
+      msg       = hook.apply("errWarnMsgHook", "lmodmessage", key, msg) or msg
       sA[#sA+1] = buildMsg(twidth, msg)
    else
       sA[#sA+1] = buildMsg(twidth, ...)
@@ -599,11 +603,10 @@ end
 function M.warning(self, ...)
    if (not quiet() and  haveWarnings()) then
       local label = colorize("red", "Lmod Warning: ")
-      local sA    = l_generateMsg(label, ...)
+      local sA    = l_generateMsg("lmodwarning", label, ...)
       sA[#sA+1]   = "\n"
       sA[#sA+1]   = moduleStackTraceBack()
       sA[#sA+1]   = "\n"
-      sA          = hook.apply("msgHook","lmodwarning",sA) or sA
       io.stderr:write(concatTbl(sA,""),"\n")
       setWarningFlag()
    end
@@ -614,7 +617,7 @@ end
 -- @param self A MasterControl object.
 function M.error(self, ...)
    local label = colorize("red", "Lmod has detected the following error: ")
-   local sA    = l_generateMsg(label, ...)
+   local sA    = l_generateMsg("lmoderror", label, ...)
    sA[#sA+1]   = "\n"
 
    local a = concatTbl(stackTraceBackA,"")
@@ -625,7 +628,6 @@ function M.error(self, ...)
    sA[#sA+1]     = moduleStackTraceBack()
    sA[#sA+1]     = "\n"
 
-   sA            = hook.apply("msgHook","lmoderror",sA) or sA
    io.stderr:write(concatTbl(sA,""),"\n")
    LmodErrorExit()
 end
