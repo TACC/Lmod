@@ -378,11 +378,19 @@ function path_regularize(value)
    end
    
    local first  = aa[1]
-   local second = aa[2]
    local icnt   = 2
-   if (first == "." and second == "..") then
-      a[1] = second
-      icnt = 3
+   local num    = #aa
+   if (first == ".") then
+      for i = 2, num do
+         if (aa[i] ~= ".") then
+            icnt = i
+            break
+         else
+            icnt = icnt + 1
+         end
+      end
+      a[1] = (icnt > num) and "." or aa[icnt]
+      icnt = icnt + 1
    else
       a[1] = first
    end
@@ -401,7 +409,6 @@ function path_regularize(value)
 
    return value
 end
-
 
 local function _walk_dir(path)
    local dirA  = {}
