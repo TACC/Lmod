@@ -42,9 +42,9 @@ function ModifyPath()
    local targPathLoc = masterTbl.TargPathLoc
    local path        = os.getenv('PATH') or ''
 
-   local w_path      = ":"   .. path    .. ":"
-   local w_oldTarg   = ":./" .. oldTarg .. ":"
-   local w_targ      = ":./" .. targ    .. ":"
+   local w_path      = ":" .. path    .. ":"
+   local w_oldTarg   = ":" .. oldTarg .. ":"
+   local w_targ      = ":" .. targ    .. ":"
 
    if (targ == "" or targPathLoc == "empty") then
       w_targ    = ":"
