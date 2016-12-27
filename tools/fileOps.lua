@@ -372,35 +372,31 @@ function path_regularize(value)
       return value
    end
    local a    = {}
-   local icnt = 0
-
    local aa   = {}
    for dir in value:split("/") do
       aa[#aa + 1] = dir
    end
    
-   if (aa[1] == ".") then
-      icnt = icnt + 1
-      a[icnt] = "."
+   local first  = aa[1]
+   local second = aa[2]
+   local icnt   = 2
+   if (first == "." and second == "..") then
+      a[1] = second
+      icnt = 3
    else
-      for i = 1, #aa do
-         if (aa[i] == "..") then
-            icnt = icnt + 1
-            a[icnt] = ".."
-         else
-            break
-         end
-      end
+      a[1] = first
    end
 
-   for i = icnt+1, #aa do
-      local dir = aa[i]
-      if (    dir == "..") then
+   for i = icnt, #aa do
+      local dir  = aa[i]
+      local prev = a[#a]
+      if (    dir == ".." and prev ~= "..") then
          a[#a] = nil
       elseif (dir ~= ".") then
          a[#a+1] = dir
       end
    end
+
    value = concatTbl(a,"/")
 
    return value
