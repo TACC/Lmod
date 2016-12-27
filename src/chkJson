@@ -101,6 +101,7 @@ function main()
 
    local configT = {
       lmodV        = { rule = "have"},
+      lua_term_A   = { rule = "have"},
       luaV         = { rule = "have"},
       modRC        = { rule = "have"},
       siteName     = { rule = "have"},
@@ -122,7 +123,6 @@ function main()
       ld_preload   = { rule = "match", value = "<empty>"},
       lua_json     = { rule = "match", value = "no"},
       lua_term     = { rule = "match", value = "no"},
-      lua_term_A   = { rule = "match", value = "true"},
       mpath_av     = { rule = "match", value = "no"},
       mpath_root   = { rule = "match", value = ""},
       numSC        = { rule = "match", value = 0},
