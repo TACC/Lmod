@@ -52,12 +52,13 @@ local stat      = posix.stat
 local load      = (_VERSION == "Lua 5.1") and loadstring or load
 
 local ignoreT = {
-   ['.']         = true,
-   ['..']        = true,
-   ['.git']      = true,
-   ['.svn']      = true,
-   ['.lua']      = true,
-   ['.DS_Store'] = true,
+   ['.']          = true,
+   ['..']         = true,
+   ['.git']       = true,
+   ['.gitignore'] = true,
+   ['.svn']       = true,
+   ['.lua']       = true,
+   ['.DS_Store']  = true,
 }
 
 local function keepFile(fn)
@@ -242,8 +243,16 @@ local function walk_tree(mrc, mpath, pathIn, dirT)
       
       dirT.dirT[fullName] = {}
       walk_tree(mrc, mpath, path, dirT.dirT[fullName])
-   end
 
+      ----------------------------------------------------------------
+      -- if the directory is empty or bad symlinks then do not save it
+      local T = dirT.dirT[fullName]
+      if (next(T.defaultT) == nil and
+          next(T.dirT)     == nil and
+          next(T.fileT)    == nil) then
+         dirT.dirT[fullName] = nil
+      end
+   end
 end
 
 local function build(mpathA)
