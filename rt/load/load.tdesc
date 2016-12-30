@@ -62,10 +62,12 @@ testdescript = {
      runLmod load bad_symlink                               # 37
      runLmod load empty                                     # 38
      runLmod load version_only                              # 39
+     runLmod load dflt                                      # 40
+     runLmod list                                           # 41
 
      export LMOD_DISABLE_SAME_NAME_AUTOSWAP=yes
-     runLmod load moduleA/1.0                               # 40
-     runLmod load moduleB/1.0                               # 41
+     runLmod load moduleA/1.0                               # 42
+     runLmod load moduleB/1.0                               # 43
      
 
      HOME=$ORIG_HOME

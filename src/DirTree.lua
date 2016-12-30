@@ -209,6 +209,9 @@ local function walk(mrc, mpath, path, dirA, fileT)
                   defaultIdx = idx
                   local luaExt = f:find("%.lua$")
                   defaultT     = { fullName = fullName, fn = file, mpath = mpath, luaExt = luaExt, barefn = f}
+                  if (f == "default" and attr.mode == "file") then
+                     fileT[fullName] = {fn = file, canonical = f, mpath = mpath}
+                  end
                end
             elseif (not fileT[fullName] or not fileT[fullName].luaExt) then
                local luaExt = f:find("%.lua$")
