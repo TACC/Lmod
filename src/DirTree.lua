@@ -247,9 +247,7 @@ local function walk_tree(mrc, mpath, pathIn, dirT)
       ----------------------------------------------------------------
       -- if the directory is empty or bad symlinks then do not save it
       local T = dirT.dirT[fullName]
-      if (next(T.defaultT) == nil and
-          next(T.dirT)     == nil and
-          next(T.fileT)    == nil) then
+      if (next(T.dirT)     == nil and next(T.fileT)    == nil) then
          dirT.dirT[fullName] = nil
       end
    end

@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 7.1.9  2016-12-17 13:29 -06:00
+Modules based on Lua: Version 7.1.11  2016-12-24 10:36 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -297,10 +297,34 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing load go
 ===========================
 ===========================
 step 37
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load bad_symlink
+===========================
+Lmod has detected the following error: The following module(s) are unknown: "bad_symlink"
+Please check the spelling or version number. Also try "module spider ..."
+It is also possible your cache file is out-of-date try:
+   module --ignore-cache load "bad_symlink"
+===========================
+step 38
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load empty
+===========================
+Lmod has detected the following error: The following module(s) are unknown: "empty"
+Please check the spelling or version number. Also try "module spider ..."
+It is also possible your cache file is out-of-date try:
+   module --ignore-cache load "empty"
+===========================
+step 39
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load version_only
+===========================
+Lmod has detected the following error: The following module(s) are unknown: "version_only"
+Please check the spelling or version number. Also try "module spider ..."
+It is also possible your cache file is out-of-date try:
+   module --ignore-cache load "version_only"
+===========================
+step 40
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load moduleA/1.0
 ===========================
 ===========================
-step 38
+step 41
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load moduleB/1.0
 ===========================
 Lmod has detected the following error: Your site prevents the automatic swapping of modules with same name. You must explicitly unload the loaded version of "moduleA/1.0" before you can load the new one. Use swap to do this:
