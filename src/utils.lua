@@ -52,7 +52,6 @@ local encode64     = base64.encode64
 local floor        = math.floor
 local getenv       = os.getenv
 local huge         = math.huge
-local i18n         = require("i18n")
 local min          = math.min
 local open         = io.open
 local posix        = require("posix")
@@ -172,6 +171,7 @@ function build_MT_envT(vstr)
 end
 
 function build_i18n_messages()
+   local i18n      = require("i18n")
    local en_msg_fn = pathJoin(cmdDir(),"../messageDir/en.lua")
    if (isFile(en_msg_fn)) then
       i18n.loadFile(en_msg_fn)
