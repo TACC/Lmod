@@ -1,0 +1,21 @@
+===========================
+step 1
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
+===========================
+Modules based on Lua: Version 7.1.12  2016-12-29 20:55 -06:00
+    by Robert McLay mclay@tacc.utexas.edu
+===========================
+step 2
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+===========================
+Lmod has detected the following error: module avail is not possible. MODULEPATH is not set or not set with valid paths.
+===========================
+step 3
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+===========================
+Lmod has detected the following error: No es posible ejecutar module avail. MODULEPATH no está inicializado o su valor no contiene rutas correctas.
+===========================
+step 4
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+===========================
+Lmod has detected the following error: Das Kommando 'module avail' kann nicht ausgefuehrt werden. Die Variable MODULEPATH ist entweder nicht gesetzt oder enthaelt einen ungueltigen Wert

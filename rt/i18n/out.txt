@@ -1,0 +1,19 @@
+===========================
+step 1
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
+===========================
+===========================
+step 2
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+===========================
+false
+===========================
+step 3
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+===========================
+false
+===========================
+step 4
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+===========================
+false

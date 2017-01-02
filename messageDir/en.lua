@@ -38,7 +38,7 @@ Please submit a consulting ticket if you require additional assistance.
      e121 = "Unable to load module: %{name}\n     %{fn}: %{message}\n",
      e122 = "sandbox_registration: The argument passed is: \"%{kind}\". It should be a table.",
      e123 = "uuidgen is not available, fallback failed too",
-     e124 = "Spider searched timed out\n",
+     e124 = "Spider search timed out\n",
      e125 = "dbT[sn] failed for sn: %{sn}\n",
      e126 = "Unable to compute hashsum\n",
 
