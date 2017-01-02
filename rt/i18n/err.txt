@@ -19,3 +19,8 @@ step 4
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
 Lmod has detected the following error: Das Kommando 'module avail' kann nicht ausgefuehrt werden. Die Variable MODULEPATH ist entweder nicht gesetzt oder enthaelt einen ungueltigen Wert
+===========================
+step 5
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+===========================
+Lmod has detected the following error: module avail is not possible. MODULEPATH is not set or not set with valid paths.
