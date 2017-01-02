@@ -23,15 +23,15 @@ testdescript = {
      rm -fr _stderr.* _stdout.* err.* out.* .lmod.d .lmodrc.lua
      cp $(projectDir)/init/lmodrc.lua .lmodrc.lua
 
-     runLmod --version                                      # 1
-     runLmod use -a $testDir/mf/Core $testDir/mf/Beta       # 2
-     runLmod use $testDir/mf/notDir                         # 3
-     runLmod load admin PrgEnv                              # 4
-     runLmod load gotoblas/1.30-beta                        # 5
-     runLmod rm   gotoblas/1.30-beta                        # 6
-     runLmod try-add gotoblas123 intel                      # 7
-     runLmod load gotoblas                                  # 8
-     runLmod load multi                                     # 9
+     runLmod --version                                      #  1
+     runLmod use -a $testDir/mf/Core $testDir/mf/Beta       #  2
+     runLmod use $testDir/mf/notDir                         #  3
+     runLmod load admin PrgEnv                              #  4
+     runLmod load gotoblas/1.30-beta                        #  5
+     runLmod rm   gotoblas/1.30-beta                        #  6
+     runLmod try-add gotoblas123 intel                      #  7
+     runLmod load gotoblas                                  #  8
+     runLmod load multi                                     #  9
      runLmod unload multi                                   # 10
      runLmod load boost                                     # 11
      runLmod use -a $testDir/mf/Core2                       # 12
@@ -59,11 +59,15 @@ testdescript = {
      runLmod list                                           # 34
      runLmod load rtm_intel                                 # 35
      runLmod load go                                        # 36
+     runLmod load bad_symlink                               # 37
+     runLmod load empty                                     # 38
+     runLmod load version_only                              # 39
+     runLmod load dflt                                      # 40
+     runLmod list                                           # 41
 
      export LMOD_DISABLE_SAME_NAME_AUTOSWAP=yes
-     runLmod load moduleA/1.0
-     runLmod load moduleB/1.0
-
+     runLmod load moduleA/1.0                               # 42
+     runLmod load moduleB/1.0                               # 43
      
 
      HOME=$ORIG_HOME

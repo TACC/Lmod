@@ -209,6 +209,9 @@ local function walk(mrc, mpath, path, dirA, fileT)
                   defaultIdx = idx
                   local luaExt = f:find("%.lua$")
                   defaultT     = { fullName = fullName, fn = file, mpath = mpath, luaExt = luaExt, barefn = f}
+                  if (f == "default" and attr.mode == "file") then
+                     fileT[fullName] = {fn = file, canonical = f, mpath = mpath}
+                  end
                end
             elseif (not fileT[fullName] or not fileT[fullName].luaExt) then
                local luaExt = f:find("%.lua$")
@@ -247,9 +250,7 @@ local function walk_tree(mrc, mpath, pathIn, dirT)
       ----------------------------------------------------------------
       -- if the directory is empty or bad symlinks then do not save it
       local T = dirT.dirT[fullName]
-      if (next(T.defaultT) == nil and
-          next(T.dirT)     == nil and
-          next(T.fileT)    == nil) then
+      if (next(T.dirT)     == nil and next(T.fileT)    == nil) then
          dirT.dirT[fullName] = nil
       end
    end

@@ -17,4 +17,7 @@ Lmod 7.1+
    j) (7.1.10) Now using the i18n project to manage almost all Lmod
       Errors, Warning, Messages.
    k) (7.1.11) updated configure.  Introduced "errWarnMsgHook".
+   l) (7.1.12) Handles module directories that are empty or bad
+      symlink or a .version file only.
+      
    

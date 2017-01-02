@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 7.1.9  2016-12-17 13:29 -06:00
+Modules based on Lua: Version 7.1.12  2016-12-29 20:55 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -67,10 +67,10 @@ ProjectDIR/rt/load/mf/Core
 ProjectDIR/rt/load/mf/Beta
    gotoblas/1.30-beta
 ProjectDIR/rt/load/mf/Core2
-   A/1.0        B/1.1    (D)    go/1.5.1           rtm_intel/11.1 (D)
-   A/1.1        C/1.8.5         moduleA/1.0        rtm_intel/12.1
-   A/1.2 (D)    D/1.0           moduleA/2.0 (D)
-   B/1.0        alex/2.0 (D)    moduleB/1.0
+   A/1.0        B/1.1    (D)    dflt/default        moduleB/1.0
+   A/1.1        C/1.8.5         go/1.5.1            rtm_intel/11.1 (D)
+   A/1.2 (D)    D/1.0           moduleA/1.0         rtm_intel/12.1
+   B/1.0        alex/2.0 (D)    moduleA/2.0  (D)
   Where:
    D:  Default Module
    L:  Module is loaded
@@ -91,8 +91,8 @@ ProjectDIR/rt/load/mf/Core
    gcc/4.2.3                junk/d/3.0          unix/unix    (L)
    git/1.7.4.3              local/local  (L)
 ProjectDIR/rt/load/mf/Core2
-   A/1.2    C/1.8.5    alex/2.0    moduleA/2.0    rtm_intel/11.1
-   B/1.1    D/1.0      go/1.5.1    moduleB/1.0
+   A/1.2    C/1.8.5    alex/2.0        go/1.5.1       moduleB/1.0
+   B/1.1    D/1.0      dflt/default    moduleA/2.0    rtm_intel/11.1
   Where:
    L:  Module is loaded
    m:  built for host and native MIC
@@ -243,9 +243,10 @@ ProjectDIR/rt/load/mf/Core
 ProjectDIR/rt/load/mf/Beta
    gotoblas/1.30-beta
 ProjectDIR/rt/load/mf/Core2
-   A/1.0    B/1.0      D/1.0    (L)      moduleA/1.0        rtm_intel/11.1 (D)
-   A/1.1    B/1.1      alex/2.0 (L,D)    moduleA/2.0 (D)    rtm_intel/12.1 (L)
-   A/1.2    C/1.8.5    go/1.5.1          moduleB/1.0
+   A/1.0    B/1.1             dflt/default        moduleB/1.0
+   A/1.1    C/1.8.5           go/1.5.1            rtm_intel/11.1 (D)
+   A/1.2    D/1.0    (L)      moduleA/1.0         rtm_intel/12.1 (L)
+   B/1.0    alex/2.0 (L,D)    moduleA/2.0  (D)
 ProjectDIR/rt/load/mf/Scratch
    A/1.1.1 (L,D)    B/1.0    B/1.4 (L,D)
   Where:
@@ -297,10 +298,49 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing load go
 ===========================
 ===========================
 step 37
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load bad_symlink
+===========================
+Lmod has detected the following error: The following module(s) are unknown: "bad_symlink"
+Please check the spelling or version number. Also try "module spider ..."
+It is also possible your cache file is out-of-date try:
+   module --ignore-cache load "bad_symlink"
+===========================
+step 38
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load empty
+===========================
+Lmod has detected the following error: The following module(s) are unknown: "empty"
+Please check the spelling or version number. Also try "module spider ..."
+It is also possible your cache file is out-of-date try:
+   module --ignore-cache load "empty"
+===========================
+step 39
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load version_only
+===========================
+Lmod has detected the following error: The following module(s) are unknown: "version_only"
+Please check the spelling or version number. Also try "module spider ..."
+It is also possible your cache file is out-of-date try:
+   module --ignore-cache load "version_only"
+===========================
+step 40
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load dflt
+===========================
+===========================
+step 41
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+===========================
+Currently Loaded Modules:
+  1) admin/admin-1.0   5) PrgEnv              9) alex/2.0  13) C/1.8.5
+  2) unix/unix         6) intel/intel        10) D/1.0     14) rtm_intel/11.1
+  3) local/local       7) gotoblas/1.32      11) A/1.1.1   15) go/1.5.1
+  4) noweb/2.10c       8) boost/1.49.0  (o)  12) B/1.4     16) dflt/default
+  Where:
+   o:  built for offload to the MIC only
+===========================
+step 42
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load moduleA/1.0
 ===========================
 ===========================
-step 38
+step 43
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load moduleB/1.0
 ===========================
 Lmod has detected the following error: Your site prevents the automatic swapping of modules with same name. You must explicitly unload the loaded version of "moduleA/1.0" before you can load the new one. Use swap to do this:

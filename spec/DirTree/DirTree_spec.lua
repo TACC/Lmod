@@ -89,6 +89,23 @@ describe("Testing DirTree Class: #DirTree.",
                                     },
                                  },
                               },
+                              default_file_only = {
+                                 defaultT = {
+                                    ["barefn"] = "default",
+                                    ["fn"] = "%ProjDir%/spec/DirTree/mf/default_file_only/default",
+                                    ["fullName"] = "default_file_only/default",
+                                    ["mpath"] = "%ProjDir%/spec/DirTree/mf",
+                                    ["value"] = "default",
+                                 },
+                                 dirT = {},
+                                 fileT = {
+                                    ["default_file_only/default"]  = {
+                                       ["canonical"] = "default",
+                                       ["fn"] = "%ProjDir%/spec/DirTree/mf/default_file_only/default",
+                                       ["mpath"] = "%ProjDir%/spec/DirTree/mf",
+                                    },
+                                 },
+                              },
                            },
                            fileT = {},
                         },
@@ -103,8 +120,8 @@ describe("Testing DirTree Class: #DirTree.",
                   local rplmntA = { {projDir,"%%ProjDir%%"} }
                   local _dirA   = {}
                   sanizatizeTbl(rplmntA, dirA, _dirA)
-                  --print(serializeTbl{indent=true, name="goldA",value = goldA})
-                  --print(serializeTbl{indent=true, name="dirA",value = _dirA})
+                  dbg.printT("goldA", goldA)
+                  dbg.printT("dirA",  _dirA)
                   assert.are.same(goldA, _dirA)
                end)
          end

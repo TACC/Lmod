@@ -135,11 +135,11 @@ function M.search(self, name)
 
    local v = locationT[name]
 
-   if (not v or next(v) == nil) then
-      dbg.print{"next(locationT[name]) == nil\n"}
-      dbg.fini("LocationT:search")
-      return nil, nil, nil
-   end
+   --if (not v or next(v) == nil) then
+   --   dbg.print{"next(locationT[name]) == nil\n"}
+   --   dbg.fini("LocationT:search")
+   --   return nil, nil, nil
+   --end
 
    -- Find sn from name by looking in locationT and if it is not there
    -- Then remove "/version" from name
