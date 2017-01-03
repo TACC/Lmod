@@ -24,3 +24,12 @@ step 5
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
 Lmod has detected the following error: module avail is not possible. MODULEPATH is not set or not set with valid paths.
+===========================
+step 6
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load intel
+===========================
+===========================
+step 7
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load gcc
+===========================
+Lmod 已经自动将 "intel/17.0" 替换为 "gcc/5.4"
