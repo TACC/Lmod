@@ -91,6 +91,7 @@ Advanced Topics
    150_kitchen_sink_module
    170_hooks
    180_prereqs_load_rpath
+   185_localization
    190_Integration_of_EasyBuild_and_Lmod
 
 Topics yet to be written
