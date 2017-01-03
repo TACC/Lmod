@@ -28,19 +28,17 @@ Site Tailoring
 It is also possible to modify the standard messages to be tailored for
 a site. You can leave the Language to be English but change the value
 of a particular message to better match your site.  For example you
-might change message (as seen in messageDir/en.lua)
+might change message (as seen in messageDir/en.lua).  Please note that
+the message string should be on one line.
 
-     e118 = "User module collection: \"%{collection}\" does not exist.\n
- Try \"module savelist\" for possible choices.\n",
+     e118 = "User module collection: \"%{collection}\" does not exist.\n  Try \"module savelist\" for possible choices.\n",
 
 
 by creating a file called: /path/to/site_msgs.lua:
 
      return {
           site = {
-              e118 = "User module collection: \"%{collection}\" does not
-exist.\n  Try \"module savelist\" for possible choices.  For questions see
-https://...\n";,
+              e118 = "User module collection: \"%{collection}\" does not exist.\n  Try \"module savelist\" for possible choices.  For questions see https://...\n";,
           }
       }
 
