@@ -22,3 +22,8 @@ step 5
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
 false
+===========================
+step 6
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+===========================
+false

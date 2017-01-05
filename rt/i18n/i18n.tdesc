@@ -28,8 +28,10 @@ testdescript = {
      runLmod avail                    # 3
      export LANG=de_DE
      runLmod avail                    # 4
-     export LANG=pl
+     export LANG=fr
      runLmod avail                    # 5
+     export LANG=pl
+     runLmod avail                    # 6
 
 
 

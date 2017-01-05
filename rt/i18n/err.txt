@@ -13,7 +13,7 @@ Lmod has detected the following error: module avail is not possible. MODULEPATH 
 step 3
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
-Lmod has detected the following error: No es posible ejecutar module avail. MODULEPATH no está inicializado o su valor no contiene rutas correctas.
+Lmod has detected the following error: No es posible ejecutar 'module avail'. MODULEPATH no está inicializado o su valor no contiene rutas correctas.
 ===========================
 step 4
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
@@ -21,6 +21,11 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 Lmod has detected the following error: Das Kommando 'module avail' kann nicht ausgefuehrt werden. Die Variable MODULEPATH ist entweder nicht gesetzt oder enthaelt einen ungueltigen Wert
 ===========================
 step 5
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+===========================
+Lmod has detected the following error: La commande 'module avail' n'est pas possible. MODULEPATH n'est pas défini ou n'est pas défini avec des chemins valides.
+===========================
+step 6
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
 Lmod has detected the following error: module avail is not possible. MODULEPATH is not set or not set with valid paths.

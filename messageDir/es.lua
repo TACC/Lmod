@@ -17,7 +17,7 @@ return {
 
 Además, puede configurar la variable de entorno LMOD_DISABLE_SAME_NAME_AUTOSWAP con el valor "no"  para habilitar al intercambio automático de módulos con el mismo nombre.
 ]==],
-     e110 = "No es posible ejecutar module avail. MODULEPATH no está inicializado o su valor no contiene rutas correctas.\n",
+     e110 = "No es posible ejecutar 'module avail'. MODULEPATH no está inicializado o su valor no contiene rutas correctas.\n",
      e111 = "%{func}(\"%{name}\") no es válido, es necesario un valor",
      e112 = "Imposible cargar el módulo \"%{name}\" porque este (estos) módulo(s) está(n) cargado(s):\n   %{module_list}\n",
      e113 = "Imposible cargar el módulo \"%{name}\" sin cargar antes:\n   %{module_list}\n",
