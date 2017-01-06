@@ -28,6 +28,20 @@ release at sourceforge.
 
 ## ChangeLog
 
+### Lmod 7.2:
+Features:
+   1. A test suite for testing the Lmod installation has been added.
+      See https://github.com:rtmclay/Lmod_test_suite for details.
+   2. Added support for localization of errors and warnings and messages.
+   3. Language Translations complete: ES, Partial: FR, ZH, DE
+   4. Introduced "errWarnMsgHook" to take advantage of the new message handling.
+Bug Fixes:
+   1. Several bug fixes related to Spider Cache and LMOD_CACHED_LOADS=1
+   2. Repaired zsh tab completion.
+   3. Minimize the output of Lmod's BASHENV when debugging Bash shell scripts.
+   4. Allow colons as well as spaces for the path used in the addto command.
+   5. Handles module directories that are empty or bad symlink or a .version file only.
+
 ### Lmod 7.1:
 
 Features:
