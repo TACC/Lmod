@@ -28,7 +28,7 @@ release at sourceforge.
 
 ## ChangeLog
 
-### Lmod 7.2:
+### Lmod 7.2.1:
 Features:
    1. A test suite for testing the Lmod installation has been added.
       See https://github.com:rtmclay/Lmod_test_suite for details.
@@ -41,6 +41,7 @@ Bug Fixes:
    3. Minimize the output of Lmod's BASHENV when debugging Bash shell scripts.
    4. Allow colons as well as spaces for the path used in the addto command.
    5. Handles module directories that are empty or bad symlink or a .version file only.
+   6. Fix bug in module describe.
 
 ### Lmod 7.1:
 
