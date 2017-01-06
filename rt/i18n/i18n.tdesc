@@ -33,6 +33,13 @@ testdescript = {
      export LANG=pl
      runLmod avail                    # 6
 
+     export MODULEPATH_ROOT=$(testDir)/mf
+     export MODULEPATH=$MODULEPATH_ROOT/Core
+
+     export LANG=zh
+     runLmod load intel               # 6
+     runLmod load gcc                 # 7
+
 
 
 
