@@ -616,7 +616,7 @@ end
 -- Print msgs, traceback then exit.
 -- @param self A MasterControl object.
 function M.error(self, ...)
-   local label = colorize("red", "Lmod has detected the following error: ")
+   local label = colorize("red", i18n("errTitle", {}))
    local sA    = l_generateMsg("lmoderror", label, ...)
    sA[#sA+1]   = "\n"
 
