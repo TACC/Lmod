@@ -23,7 +23,7 @@ Lmod hat den folgenden Fehler erkannt: Das Kommando 'module avail' kann nicht au
 step 5
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
-Lmod a détecté l'erreur suivante: La commande 'module avail' n'est pas possible. MODULEPATH n'est pas défini ou n'est pas défini avec des chemins valides.
+Lmod a détecté l'erreur suivante : La commande 'module avail' n'est pas possible. MODULEPATH n'est pas défini ou n'est pas défini avec des chemins valides.
 ===========================
 step 6
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
