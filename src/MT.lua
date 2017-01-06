@@ -255,11 +255,11 @@ function M.reportContents(self, t)
       dbg.fini("mt:reportContents")
       return a
    end
-   local s           = f:read("*all")
-   local l_mt        = new(self, s, t.fn)
-   local pin_version = cosmic:value("LMOD_PIN_VERSIONS")
-   local kind        = (pin_versions == "no") and "userName" or "fullName"
-   local activeA     = l_mt:list(kind, "active")
+   local s            = f:read("*all")
+   local l_mt         = new(self, s, t.fn)
+   local pin_versions = cosmic:value("LMOD_PIN_VERSIONS")
+   local kind         = (pin_versions == "no") and "userName" or "fullName"
+   local activeA      = l_mt:list(kind, "active")
    for i = 1, #activeA do
       a[#a+1] = activeA[i].name
    end

@@ -44,44 +44,45 @@ testdescript = {
      runLmod load a                  # 9
      runLmod list                    #10
      runLmod save                    #11
+     runLmod describe                #12
 
-     runLmod purge                   #12
+     runLmod purge                   #13
      unsetMT
      MODULEPATH=$(testDir)/TACC
 
-     runLmod restore                 #13
-     runLmod list                    #14
-     runLmod spider                  #15
+     runLmod restore                 #14
+     runLmod list                    #15
+     runLmod spider                  #16
 
-     runLmod purge                   #16
+     runLmod purge                   #17
      unsetMT
      MODULEPATH=$(outputDir)/Core
      mkdir      $(outputDir)/Core
      (cd $(testDir)/Core; tar cf - . | (cd $(outputDir)/Core && tar xBf -))
      sed -e 's|@outputDir@|$(outputDir)|g'  < $(testDir)/.lmod.d/stdenv > $(outputDir)/.lmod.d/stdenv
-     runLmod restore stdenv          #17
+     runLmod restore stdenv          #18
      sed -e 's/--#%#//g'  < $(outputDir)/Core/StdEnv.lua > $(outputDir)/Core/StdEnv.new
      mv $(outputDir)/Core/StdEnv.new $(outputDir)/Core/StdEnv.lua
-     runLmod restore stdenv          #18
+     runLmod restore stdenv          #19
 
-     runLmod purge                   #19
-     runLmod use $(testDir)/PREREQ   #20
-     runLmod load M T A              #21
-     runLmod list                    #22
-     runLmod save                    #23
-     runLmod restore                 #24
-     runLmod list                    #25
-     runLmod purge                   #26
-     runLmod load a b                #27
-     runLmod save                    #28
+     runLmod purge                   #20
+     runLmod use $(testDir)/PREREQ   #21
+     runLmod load M T A              #22
+     runLmod list                    #23
+     runLmod save                    #24
+     runLmod restore                 #25
+     runLmod list                    #26
+     runLmod purge                   #27
+     runLmod load a b                #28
+     runLmod save                    #29
      rm Core/a/default
      ln -s 3.0 Core/a/default
-     runLmod restore                 #29
-     runLmod list                    #30
+     runLmod restore                 #30
+     runLmod list                    #31
      export LMOD_PIN_VERSIONS=yes
-     runLmod purge                   #31
-     runLmod restore                 #32
-     runLmod list                    #33
+     runLmod purge                   #32
+     runLmod restore                 #33
+     runLmod list                    #34
 
      HOME=$ORIG_HOME
      export HOME

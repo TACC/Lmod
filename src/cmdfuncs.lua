@@ -138,7 +138,7 @@ function CollectionLst(collection)
    collection  = collection or "default"
    dbg.start{"CollectionLst(",collection,")"}
    local masterTbl = masterTbl()
-   local sname     = (system_name == nil) and "" or "." .. system_name
+   local sname     = (not system_name) and "" or "." .. system_name
    local path      = pathJoin(os.getenv("HOME"), ".lmod.d", collection .. sname)
    local mt        = FrameStk:singleton():mt()
    local a         = mt:reportContents{fn=path, name=collection}
@@ -176,7 +176,7 @@ function GetDefault(collection)
    collection  = collection or "default"
    dbg.start{"GetDefault(",collection,")"}
 
-   local sname = (system_name == nil) and "" or "." .. system_name
+   local sname = (not system_name) "" or "." .. system_name
    local path  = pathJoin(os.getenv("HOME"), ".lmod.d", collection .. sname)
    local mt    = FrameStk:singleton():mt()
    mt:getMTfromFile{fn=path, name=collection, }

@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 7.1.9  2016-12-17 13:29 -06:00
+Modules based on Lua: Version 7.2  2017-01-05 19:10 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -60,22 +60,29 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing save
 Saved current collection of modules to: default
 ===========================
 step 12
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing describe
+===========================
+Collection "default" contains:
+   1) TACC_symbols       3) mvapich1    5) cluster    7) pgi/7.2-5
+   2) cluster_symbols    4) globus      6) TACC       8) a
+===========================
+step 13
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
 ===========================
 ===========================
-step 13
+step 14
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing restore
 ===========================
 Restoring modules to user's default
 ===========================
-step 14
+step 15
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) TACC_symbols      3) mvapich1/mvapich1   5) cluster   7) pgi/7.2-5
   2) cluster_symbols   4) globus/4.0.7        6) TACC      8) a/a
 ===========================
-step 15
+step 16
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider
 ===========================
 The following is a list of the modules currently available:
@@ -97,11 +104,11 @@ To find detailed information about a particular package you
 must enter the version if there is more than one version:
    $ module spider Foo/11.1
 ===========================
-step 16
+step 17
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
 ===========================
 ===========================
-step 17
+step 18
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing restore stdenv
 ===========================
 Restoring modules to user's stdenv
@@ -115,7 +122,7 @@ If you no longer want this module collection do:
 For more information execute 'module help' or see http://lmod.readthedocs.org/
 No change in modules loaded
 ===========================
-step 18
+step 19
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing restore stdenv
 ===========================
 Restoring modules to user's stdenv
@@ -129,74 +136,74 @@ If you no longer want this module collection do:
 For more information execute 'module help' or see http://lmod.readthedocs.org/
 No change in modules loaded
 ===========================
-step 19
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
-===========================
-===========================
 step 20
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing use ProjectDIR/rt/saverestore/PREREQ
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
 ===========================
 ===========================
 step 21
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load M T A
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing use ProjectDIR/rt/saverestore/PREREQ
 ===========================
 ===========================
 step 22
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load M T A
+===========================
+===========================
+step 23
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) M/7.2.6   2) T/4.2.6   3) A/1.0
 ===========================
-step 23
+step 24
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing save
 ===========================
 Saved current collection of modules to: default
 ===========================
-step 24
+step 25
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing restore
 ===========================
 Restoring modules to user's default
 ===========================
-step 25
+step 26
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) M/7.2.6   2) T/4.2.6   3) A/1.0
 ===========================
-step 26
+step 27
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
 ===========================
 ===========================
-step 27
+step 28
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load a b
 ===========================
 ===========================
-step 28
+step 29
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing save
 ===========================
 Saved current collection of modules to: default
 ===========================
-step 29
+step 30
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing restore
 ===========================
 Restoring modules to user's default
 ===========================
-step 30
+step 31
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) a/3.0   2) b/3.3
 ===========================
-step 31
+step 32
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
 ===========================
 ===========================
-step 32
+step 33
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing restore
 ===========================
 Restoring modules to user's default
 ===========================
-step 33
+step 34
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 Currently Loaded Modules:
