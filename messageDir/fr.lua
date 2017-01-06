@@ -1,6 +1,6 @@
 return {
    fr = {
-     errTitle = "Lmod a détecté l'erreur suivante : ",
+     errTitle = "Lmod a détecté l'erreur suivante: ",
      --------------------------------------------------------------------------
      -- LmodError messages
      --------------------------------------------------------------------------
