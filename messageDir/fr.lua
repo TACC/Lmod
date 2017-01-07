@@ -32,7 +32,7 @@ Pour corriger le problème, vous pouvez utiliser la commande suivante :
 Merci de bien vouloir soumettre un ticket si vous désirez plus d'assistance.
 
 ]==],
-     e116 = "Clé inconnue: \"%{key}\" dans 'setStandardPaths'\n",
+     e116 = "Clé inconnue : \"%{key}\" dans 'setStandardPaths'\n",
      e117 = "Aucun module correspondant trouvé\n",
      e118 = "Collection de modules utilisateur : \"%{collection}\" n'existe pas.\n  Essayez \"module savelist\" pour une liste de choix possibles.\n",
      e119 = "Les noms de collection ne peuvent pas contenir de `.'.\n  Merci de bien vouloir renommer \"%collection}\"\n",
@@ -65,8 +65,8 @@ Pour plus d'informations, lancez 'module help' ou consultez http://lmod.readthed
 Aucun changement dans les modules chargés
 
 ]==],
-     w502 = "Ligne module-version malformée: module-name doit être un nom complet : %{fullName} ne l'est pas\n",
-     w503 = "La variable MODULEPATH du système a changé: merci de bien vouloir reconstruire les collections que vous avez sauvegardées.\n",
+     w502 = "Ligne module-version malformée : module-name doit être un nom complet : %{fullName} ne l'est pas\n",
+     w503 = "La variable MODULEPATH du système a changé : merci de bien vouloir reconstruire les collections que vous avez sauvegardées.\n",
      w504 = "Vous n'avez aucun module de chargé car la collection \"%{collectionName}\" est vide !\n",
      w505 = "Les modules suivants n'ont pas été chargés : %{module_list}\n\n",
      w506 = "Aucune collection \"%{collection}\" n'a été trouvée.",
