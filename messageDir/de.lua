@@ -18,26 +18,26 @@ return {
      e108 = "Fehler bei der Vererbung: %{name}\n",
      e109 = [==[Die Einstellungen verhindern den automatischen Austausch von Modulen mit gleichen Namen. Die geladene Version von "%{oldFullName}" muss entladen werden, bevor eine andere Version geladen werden kann. Verwenden Sie dafür swap wie folgt:
 
-   $ module swap %{oldFullName} %{newFullName}
+  $ module swap %{oldFullName} %{newFullName}
 
 Alternativ können Sie die Umgebungsvariable LMOD_DISABLE_SAME_NAME_AUTOSWAP auf "no" setzen, um den automatischen Austausch von Modulen zu aktivieren.
 ]==],
      e110 = "Das Kommando 'module avail' kann nicht ausgeführt werden. Die Variable MODULEPATH ist entweder nicht gesetzt oder enthält einen ungültigen Wert",
      e111 = "%{func}(\"%{name}\") ist ungültig, es wird ein Wert benötigt",
      e112 = [==[Das Modul "%{name}" kann nicht geladen werden, weil diese Module geladen sind:
-   %{module_list}
+  %{module_list}
 ]==],
      e113 = [==[Das Modul "%{name}" kann ohne diese Module nicht geladen werden:
-   %{module_list}
+  %{module_list}
 ]==],
      e114 = [==[Das Modul "%{name}" kann nicht geladen werden. Mindestens eines dieser Module muss geladen sein:
-   %{module_list}
+  %{module_list}
 ]==],
      e115 = [==[Nur ein Modul von %{name} kann gleichzeitig geladen sein.
 Es ist bereits %{oldName} geladen.
 Verwende folgendes Kommando, um das Modul zu laden:
 
-  $  module swap %{oldName} %{fullName}
+  $ module swap %{oldName} %{fullName}
 
 Falls Sie weitere Unterstützung brauchen, erstellen Sie ein Support-Ticket.
 ]==],
@@ -47,7 +47,7 @@ Falls Sie weitere Unterstützung brauchen, erstellen Sie ein Support-Ticket.
   "module savelist" zeigt mögliche Werte.
 ]==],
      e119 = [==[Der Name einer Modulsammlung darf kein `.' enthalten.
-  Bitte geben Sie der Sammlung  "%{collection}" einen neuen Namen.
+  Bitte geben Sie der Sammlung "%{collection}" einen neuen Namen.
 ]==],
      e120 = "Swap fehlgeschlagen: \"%{name}\" ist nicht geladen.\n",
      e121 = [==[Modul konnte nicht geladen werden: %{name}
@@ -88,7 +88,7 @@ Die geladenen Module wurden nicht verändert
      w508 = "Der Name einer Sammlung darf kein `.' enthalten. Bitte vergeben Sie einen anderen Namen für: %{name}",
      w509 = "Die Bezeichnung 'system' für Sammlungen ist reserviert. Bitte vergeben Sie einen anderen Namen.\n",
      w510 = [==[Sie versuchen in "%{name}" eine leere Modulsammlung zu speichern. Falls Sie dies wollen, verwenden sie:
-  $  module --force save %{name}
+  $ module --force save %{name}
 ]==],
    }
 }
