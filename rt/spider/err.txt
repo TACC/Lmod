@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 7.0.4  2016-11-18 22:12 -06:00
+Modules based on Lua: Version 7.2.1  2017-01-05 20:28 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -165,7 +165,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider parmetis/3.1
 step 8
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider mpich2me
 ===========================
-Lmod has detected the following error: Unable to find: "mpich2me"
+Lmod has detected the following error: Unable to find: "mpich2me".
 ===========================
 step 9
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider R
@@ -194,7 +194,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing -r spider ^[Rr]
 step 12
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider mpich2/1.0.5
 ===========================
-Lmod has detected the following error: Unable to find: "mpich2/1.0.5"
+Lmod has detected the following error: Unable to find: "mpich2/1.0.5".
 ===========================
 step 13
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider is-dyna

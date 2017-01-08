@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 7.1.9  2016-12-17 13:29 -06:00
+Modules based on Lua: Version 7.2.1  2017-01-05 20:28 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -141,7 +141,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing use ProjectDIR/rt/modul
 step 20
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider dum
 ===========================
-Lmod has detected the following error: No matching modules found
+Lmod has detected the following error: No matching modules found.
 ===========================
 step 21
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load cluster

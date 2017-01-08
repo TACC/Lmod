@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 7.0.3  2016-11-14 17:03 -07:00
+Modules based on Lua: Version 7.2.1  2017-01-05 20:28 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -62,7 +62,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider b
 step 9
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider b/.2.0
 ===========================
-Lmod has detected the following error: Unable to find: "b/.2.0"
+Lmod has detected the following error: Unable to find: "b/.2.0".
 ===========================
 step 10
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider b/1.0
@@ -85,17 +85,17 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider B/1.0
 step 13
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider B/.2.0
 ===========================
-Lmod has detected the following error: Unable to find: "B/.2.0"
+Lmod has detected the following error: Unable to find: "B/.2.0".
 ===========================
 step 14
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider a
 ===========================
-Lmod has detected the following error: Unable to find: "a"
+Lmod has detected the following error: Unable to find: "a".
 ===========================
 step 15
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider a/.1.0
 ===========================
-Lmod has detected the following error: Unable to find: "a/.1.0"
+Lmod has detected the following error: Unable to find: "a/.1.0".
 ===========================
 step 16
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
