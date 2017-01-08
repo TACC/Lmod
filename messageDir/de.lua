@@ -8,8 +8,12 @@ return {
      e102 = "Nicht einlesbar: \"%{path}\". Abbruch!\n",
      e103 = "Fehler in LocationT:search()",
      e104 = "%{routine}: Kein Modul für \"%{name}\" gefunden. Das sollte nicht passieren!\n",
-     e105 = "%{routine}: Systemeinstellungs-Tabelle enthält keine %{location} für: \"%{name}\". \nÜberprüfen Sie die Schreibweise des Namens.\n",
-     e106 = "%{routine}: Die validT-Tabelle für %{name} hat keinen Eintrag für: \"%{value}\". \nÜberprüfen Sie die Schreibweise des Namens.\n",
+     e105 = [==[%{routine}: Systemeinstellungs-Tabelle enthält keine %{location} für: "%{name}".
+Überprüfen Sie die Schreibweise des Namens.
+]==],
+     e106 = [==[%{routine}: Die validT-Tabelle für %{name} hat keinen Eintrag für: "%{value}".
+Überprüfen Sie die Schreibweise des Namens.
+]==],
      e107 = "Nicht auffindbar: \"%{name}\"\n",
      e108 = "Fehler bei der Vererbung: %{name}\n",
      e109 = [==[Die Einstellungen verhindern den automatischen Austausch von Modulen mit gleichen Namen. Die geladene Version von "%{oldFullName}" muss entladen werden, bevor eine andere Version geladen werden kann. Verwenden Sie dafür swap wie folgt:
@@ -20,9 +24,15 @@ Alternativ können Sie die Umgebungsvariable LMOD_DISABLE_SAME_NAME_AUTOSWAP auf
 ]==],
      e110 = "Das Kommando 'module avail' kann nicht ausgeführt werden. Die Variable MODULEPATH ist entweder nicht gesetzt oder enthält einen ungültigen Wert",
      e111 = "%{func}(\"%{name}\") ist ungültig, es wird ein Wert benötigt",
-     e112 = "Das Modul \"%{name}\" kann nicht geladen werden, weil diese Module geladen sind:\n   %{module_list}\n",
-     e113 = "Das Modul \"%{name}\" kann ohne diese Module nicht geladen werden:\n   %{module_list}\n",
-     e114 = "Das Modul \"%{name}\" kann nicht geladen werden. Mindestens eines dieser Module muss geladen sein:\n   %{module_list}\n",
+     e112 = [==[Das Modul "%{name}" kann nicht geladen werden, weil diese Module geladen sind:
+   %{module_list}
+]==],
+     e113 = [==[Das Modul "%{name}" kann ohne diese Module nicht geladen werden:
+   %{module_list}
+]==],
+     e114 = [==[Das Modul "%{name}" kann nicht geladen werden. Mindestens eines dieser Module muss geladen sein:
+   %{module_list}
+]==],
      e115 = [==[Nur ein Modul von %{name} kann gleichzeitig geladen sein.
 Es ist bereits %{oldName} geladen.
 Verwende folgendes Kommando, um das Modul zu laden:
@@ -33,10 +43,16 @@ Falls Sie weitere Unterstützung brauchen, erstellen Sie ein Support-Ticket.
 ]==],
      e116 = "Unbekannter Schlüssel: \"%{key}\" in setStandardPaths\n",
      e117 = "Keine passenden Module gefunden\n",
-     e118 = "Benutzer-Modulsammlung: \"%{collection}\" existiert nicht.\n  \"module savelist\" zeigt mögliche Werte.\n",
-     e119 = "Der Name einer Modulsammlung darf kein `.' enthalten.\n  Bitte geben Sie der Sammlung  \"%{collection}\" einen neuen Namen.\n",
+     e118 = [==[Benutzer-Modulsammlung: "%{collection}" existiert nicht.
+  "module savelist" zeigt mögliche Werte.
+]==],
+     e119 = [==[Der Name einer Modulsammlung darf kein `.' enthalten.
+  Bitte geben Sie der Sammlung  "%{collection}" einen neuen Namen.
+]==],
      e120 = "Swap fehlgeschlagen: \"%{name}\" ist nicht geladen.\n",
-     e121 = "Modul konnte nicht geladen werden: %{name}\n     %{fn}: %{message}\n",
+     e121 = [==[Modul konnte nicht geladen werden: %{name}
+     %{fn}: %{message}
+]==],
      e122 = "sandbox_registration: Das übergebene Argument ist vom Typ: \"%{kind}\". Es sollte eine Liste sein.",
      e123 = "uuidgen ist nicht verfügbar, Alternative ist ebenfalls fehlgeschlagen",
      e124 = "Zeitbegrenzung für Spider-Suche ist abgelaufen\n",
