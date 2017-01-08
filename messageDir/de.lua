@@ -72,7 +72,7 @@ Um die Inhalte der Sammlung anzuzeigen, verwenden Sie:
   $ module describe %{collectionName}
 Um die Sammlung neu anzulegen, laden Sie zuerst die gewünschten Module und führen Sie danach folgendes aus:
   $ module save %{collectionName}
-Falls sie die Modulsammlung löschen möchten, verwenden sie:
+Falls Sie die Modulsammlung löschen möchten, verwenden Sie:
   $ rm ~/.lmod.d/%{collectionName}
 
 Weitere Informationen finden Sie mit 'module help' oder unter http://lmod.readthedocs.org/.
