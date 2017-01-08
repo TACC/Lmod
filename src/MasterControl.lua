@@ -602,7 +602,7 @@ end
 -- @param self A MasterControl object.
 function M.warning(self, ...)
    if (not quiet() and  haveWarnings()) then
-      local label = colorize("red", "Lmod Warning: ")
+      local label = colorize("red", i18n("warnTitle",{}))
       local sA    = l_generateMsg("lmodwarning", label, ...)
       sA[#sA+1]   = "\n"
       sA[#sA+1]   = moduleStackTraceBack()

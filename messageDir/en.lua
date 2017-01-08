@@ -1,6 +1,7 @@
 return {
    en = {
-     errTitle = "Lmod has detected the following error: ",
+     errTitle  = "Lmod has detected the following error: ",
+     warnTitle = "Lmod Warning: ",
      --------------------------------------------------------------------------
      -- LmodError messages
      --------------------------------------------------------------------------

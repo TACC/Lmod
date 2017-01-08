@@ -1,5 +1,7 @@
 return {
    zh = {
+     errTitle  = "Lmod has detected the following error: ",
+     warnTitle = "Lmod Warning: ",
      --------------------------------------------------------------------------
      -- LmodError messages
      --------------------------------------------------------------------------

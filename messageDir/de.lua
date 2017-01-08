@@ -1,6 +1,8 @@
 return {
    de = {
      errTitle = "Lmod hat den folgenden Fehler erkannt: ",
+     warnTitle = "Lmod Warning: ",
+
      --------------------------------------------------------------------------
      -- LmodError messages
      --------------------------------------------------------------------------
