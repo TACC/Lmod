@@ -79,6 +79,24 @@ Merci de bien vouloir soumettre un ticket si vous désirez plus d'assistance.
      e124 = "La recherche Spider a expiré\n",
      e125 = "dbT[sn] a échoué pour sn: %{sn}\n",
      e126 = "Impossible de calculer la somme de contrôle\n",
+     e127 = [==[Le ou les module(s) suivants sont inconnus: %{module_list}
+
+Veuillez vérifier l'orthographe ou le numéro de version. Vous pouvez aussi essayer "module spider ..."
+Il est aussi possible que votre cache soit désuète. Essayez :
+  $   module --ignore-cache load %{module_list} 
+]==],
+     e128 = [==[Ce ou ces module(s) existent, mais ne peuvent pas être chargés tel que demandé: %{kA}
+   Utilisez: "module spider %{kB}" pour voir la façon de les charger.
+]==],
+
+     e129 = [==[Erreur de syntaxe dans le fichier : %{fn}
+ avec la commande : %{cmdName}. Un ou plusieurs arguments ne sont pas des chaînes de caractères.
+]==],
+     e130 = [==[Erreur de syntaxe dans le fichier : %{fn}
+avec la commande : "execute".
+La syntaxe est :
+    execute{cmd="command string",modeA={"load",...}}
+]==],
      
      --------------------------------------------------------------------------
      -- LmodMessages
