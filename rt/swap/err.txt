@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 7.2.1  2017-01-05 20:28 -06:00
+Modules based on Lua: Version 7.2.2  2017-01-08 08:15 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -256,4 +256,4 @@ Lmod is automatically replacing "gcc/4.2.3" with "intel/intel".
 Lmod has detected the following error: The following module(s) are unknown: "unknown"
 Please check the spelling or version number. Also try "module spider ..."
 It is also possible your cache file is out-of-date try:
-   module --ignore-cache load "unknown"
+  $ module --ignore-cache load "unknown"

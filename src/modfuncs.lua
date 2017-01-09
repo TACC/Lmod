@@ -27,7 +27,7 @@ require("strict")
 --
 --  ----------------------------------------------------------------------
 --
---  Copyright (C) 2008-2016 Robert McLay
+--  Copyright (C) 2008-2017 Robert McLay
 --
 --  Permission is hereby granted, free of charge, to any person obtaining
 --  a copy of this software and associated documentation files (the
@@ -98,9 +98,7 @@ local function validateStringArgs(cmdName, ...)
    for i = 1, arg.n do
       local v = arg[i]
       if (type(v) ~= "string") then
-         local fn = myFileName()
-         mcp:report("Syntax error in file: ",fn, "\n with command: ",
-                   cmdName, " One or more arguments are not strings\n")
+         mcp:report{msg="e129", fn = myFileName(), cmdName = cmdName}
          return false
       end
    end
@@ -115,9 +113,7 @@ local function validateStringTable(n, cmdName, t)
    for i = 1, n do
       local v = t[i]
       if (type(v) ~= "string") then
-         local fn = myFileName()
-         mcp:report("Syntax error in file: ",fn, "\n with command: ",
-                   cmdName, " One or more arguments are not strings\n")
+         mcp:report{msg="e129", fn = myFileName(), cmdName = cmdName}
          return false
       end
    end
@@ -130,9 +126,8 @@ local function validateStringTable(n, cmdName, t)
       end
 
       if (not valid) then
-         local fn = myFileName()
-         mcp:report("Syntax error in file: ",fn, "\n with command: ",
-                    cmdName, " priority must be equal to or greater than 10\n")
+         mcp:report{msg="e129", fn = myFileName(), cmdName = cmdName}
+         return false
       end
    end
 
@@ -148,18 +143,14 @@ local function validateArgsWithValue(cmdName, ...)
    for i = 1, arg.n -1 do
       local v = arg[i]
       if (type(v) ~= "string") then
-         local fn = myFileName()
-         mcp:report("Syntax error in file: ",fn, " with command: ",
-                   cmdName, " One or more arguments are not strings\n")
+         mcp:report{msg="e129", fn = myFileName(), cmdName = cmdName}
          return false
       end
    end
 
    local v = arg[arg.n]
    if (type(v) ~= "string" and type(v) ~= "number" and type(v) ~= "boolean") then
-      local fn = myFileName()
-      mcp:report("Syntax error in file: ",fn, " with command: ",
-                cmdName, " The last argument is  not string or number\n")
+      mcp:report{msg="e129", fn = myFileName(), cmdName = cmdName}
       return false
    end
    return true
@@ -186,8 +177,7 @@ local function validateModules(cmdName, ...)
       end
    end
    if (not allGood) then
-      mcp:report("modfuncs: Syntax error in file: ",myFileName(), "\n with command: \"",
-                 cmdName, "\" One or more arguments are not strings\n")
+      mcp:report{msg="e129", fn = myFileName(), cmdName = cmdName}
    end
    return allGood
 end
@@ -298,9 +288,7 @@ end
 function execute(t)
    dbg.start{"execute(...)"}
    if (type(t) ~= "table" or not t.cmd or type(t.modeA) ~= "table") then
-      mcp:report("Syntax error in file: ", myFileName(), "\n with command: execute",
-                 "\nsyntax is:\n",
-                 "    execute{cmd=\"command string\",modeA={\"load\",...}}\n")
+      mcp:report{msg="e130", fn = myFileName()}
       return
    end
    local b = mcp:execute(t)

@@ -28,7 +28,7 @@ testdescript = {
      runLmod avail                    # 3
      export LANG=de_DE
      runLmod avail                    # 4
-     export LANG=fr
+     export LANG=fr_CA.UTF8
      runLmod avail                    # 5
      export LANG=pl
      runLmod avail                    # 6
@@ -39,6 +39,8 @@ testdescript = {
      export LANG=zh
      runLmod load intel               # 6
      runLmod load gcc                 # 7
+     export LANG=fr_CA.UTF8
+     runLmod load unknown             # 8
 
 
 

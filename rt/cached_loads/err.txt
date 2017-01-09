@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 7.1.2  2016-12-02 11:38 -06:00
+Modules based on Lua: Version 7.2.2  2017-01-08 08:15 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -37,7 +37,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing load B
 Lmod has detected the following error: The following module(s) are unknown: "B"
 Please check the spelling or version number. Also try "module spider ..."
 It is also possible your cache file is out-of-date try:
-   module --ignore-cache load "B"
+  $ module --ignore-cache load "B"
 ===========================
 step 9
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list

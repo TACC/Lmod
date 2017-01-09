@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 7.1.9  2016-12-17 13:29 -06:00
+Modules based on Lua: Version 7.2.2  2017-01-08 08:15 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -18,7 +18,7 @@ step 3
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load bad_argument
 ===========================
 Lmod has detected the following error: Syntax error in file: ProjectDIR/rt/errHandler/mf/bad_argument/1.0.lua
- with command: help  One or more arguments are not strings
+ with command: help, one or more arguments are not strings.
 While processing the following module(s):
     Module fullname   Module Filename
     bad_argument/1.0  ProjectDIR/rt/errHandler/mf/bad_argument/1.0.lua

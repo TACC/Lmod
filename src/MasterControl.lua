@@ -10,7 +10,7 @@ require("strict")
 --
 --  ----------------------------------------------------------------------
 --
---  Copyright (C) 2008-2016 Robert McLay
+--  Copyright (C) 2008-2017 Robert McLay
 --
 --  Permission is hereby granted, free of charge, to any person obtaining
 --  a copy of this software and associated documentation files (the
@@ -721,28 +721,11 @@ function M.mustLoad(self)
       local a = {}
 
       if (#uA > 0) then
-         local s = concatTbl(uA, " ")
-         a[#a+1] = "The following module(s) are unknown: "
-         a[#a+1] = s
-         a[#a+1] = "\n\nPlease check the spelling or version number. "
-         a[#a+1] = "Also try \"module spider ...\"\n"
-         a[#a+1] = "It is also possible your cache file is out-of-date try:\n"
-         a[#a+1] = "   module --ignore-cache load "
-         a[#a+1] = s
-         a[#a+1] = "\n"
+         mcp:report{msg="e127", module_list = concatTbl(uA, " ") }
       end
 
       if (#kA > 0) then
-         a[#a+1] = "These module(s) exist but cannot be loaded as requested: "
-         a[#a+1] = concatTbl(kA,", ")
-         a[#a+1] = "\n\n   Try: \"module spider "
-         a[#a+1] = concatTbl(kB, " ")
-         a[#a+1] = "\" to see how to load the module(s)."
-         a[#a+1] = "\n\n"
-      end
-
-      if (#a > 0) then
-         mcp:report(concatTbl(a,""))
+         mcp:report{msg="e128", kA = concatTbl(kA, ", "), kB = concatTbl(kB, " ")}
       end
    end
    dbg.fini("MasterControl:mustLoad")
