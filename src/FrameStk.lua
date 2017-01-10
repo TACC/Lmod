@@ -115,12 +115,6 @@ function M.fullName(self)
    return mname:fullName()
 end
 
-function M.sn(self)
-   local top   = self.__stack[self.__count]
-   local mname = top.mname
-   return mname:sn()
-end
-
 function M.userName(self)
    local top   = self.__stack[self.__count]
    local mname = top.mname
