@@ -77,7 +77,24 @@ Por favor, envíe un ticket si necesita más ayuda.
      e124 = "La búsqueda de Spider expiró\n",
      e125 = "dbT[sn] falló por sn: %{sn}\n",
      e126 = "Imposible calcular hashsum\n",
+     e127 = [==[Los siguientes módulos son desconocidos: %{module_list}
 
+Por favor compruebe la ortografía, así como mayúsculas y minúsculas o número de versión. También intente "module spider ..."
+También es posible que su archivo de cache estea desactualizado. Intente:
+  $   module --ignore-cache load %{module_list} 
+]==],
+     e128 = [==[Estos módulos existen pero no pueden ser cargados como ha solicitado: %{kA}
+   Intente: "module spider %{kB}" para ver como cargar los módulos.
+]==],
+
+     e129 = [==[Error de sintaxis en el archivo: %{fn}
+ con el comando: %{cmdName}, uno o más argumentos no son cadenas de caracteres.
+]==],
+     e130 = [==[Error de sintaxis en el archivo: %{fn}
+con el comando: "execute".
+La sintaxis es:
+    execute{cmd="command string",modeA={"load",...}}
+]==],
      --------------------------------------------------------------------------
      -- LmodMessages
      --------------------------------------------------------------------------
