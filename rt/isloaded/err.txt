@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 0.9.1  2016-10-24 17:15 -05:00
+Modules based on Lua: Version 7.2.2  2017-01-08 08:15 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -23,6 +23,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing load isloaded
 Found intel
 Found foo
 Found foo/1.0
+Found baz
 ===========================
 step 6
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing del isloaded

@@ -413,7 +413,8 @@ end
 
 function M.isloaded(self)
    dbg.start{"MName:isloaded()"}
-   local mt        = MT:singleton()
+   local frameStk  = FrameStk:singleton()
+   local mt        = frameStk:mt()
    local sn        = self:sn()
    local status    = mt:status(sn)
    local sn_status = ((status == "active") or (status == "pending"))
@@ -428,7 +429,8 @@ function M.isloaded(self)
 end
 
 function M.isPending(self)
-   local mt         = MT:singleton()
+   local frameStk   = FrameStk:singleton()
+   local mt         = frameStk:mt()
    local sn         = self:sn()
    local sn_pending = mt:have(sn,"pending")
    local userName   = self:userName()

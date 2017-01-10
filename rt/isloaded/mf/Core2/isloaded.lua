@@ -1,3 +1,5 @@
+load("baz")
+
 if (mode() == "load") then
    if ( isloaded("intel") ) then
       io.stderr:write("Found intel\n")
@@ -17,5 +19,8 @@ if (mode() == "load") then
    end
    if ( isloaded("bar/3.1.4") ) then
       io.stderr:write("Found bar/3.1.4\n")
+   end
+   if ( isloaded("baz") ) then
+      io.stderr:write("Found baz\n")
    end
 end
