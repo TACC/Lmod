@@ -66,7 +66,7 @@ local function keepFile(fn)
    local lastChar  = fn:sub(-1,-1)
    local firstTwo  = fn:sub(1,2)
 
-   local result    = not (ignoreT[fn]     or lastChar == '~' or firstChar == '#' or 
+   local result    = not (ignoreT[fn]     or lastChar == '~' or firstChar == '#' or
                           lastChar == '#' or firstTwo == '.#')
    if (not result) then
       return false
@@ -130,7 +130,7 @@ end
 -- return what the value of "ModulesVersion" is.
 local function versionFile(mrc, defaultT)
    local path = defaultT.fn
-   
+
    if (defaultT.barefn == "default") then
       defaultT.value = barefilename(walk_link(defaultT.fn)):gsub("%.lua$","")
       return defaultT
@@ -168,6 +168,9 @@ end
 local function walk(mrc, mpath, path, dirA, fileT)
    local defaultIdx = 1000000
    local defaultT   = {}
+   local permissions
+   local uid
+   local kind
 
    local attr       = lfs.attributes(path)
    if (not attr or type(attr) ~= "table" or attr.mode ~= "directory" or
@@ -181,26 +184,48 @@ local function walk(mrc, mpath, path, dirA, fileT)
          local file = pathJoin(path, f)
          if (not keepFile(f)) then break end
 
-         attr = (f == "default") and lfs.symlinkattributes(file) or lfs.attributes(file) 
-         if (attr == nil) then break end
+         --------------------------------------------------------
+         -- Must find file properties: kind, uid and permissions
+         -- with the minimum number of stat's.  This code should
+         -- be 1 stat for regular files.  It is a max two stat's
+         -- for "default".  It could be 3 stat's for a link.
 
-         ------------------------------------------------------------
-         -- Newer versions of lfs set attr.permissions.  If
-         -- attr.permissions doesn't exist then use posix.stat to find
-         -- permissions on file.
 
-         local permissions = attr.permissions
-         if (permissions == nil and attr.uid == 0) then
+         if (f == "default") then
+            attr        = lfs.symlinkattributes(file)
+            if (attr == nil) then break end
+            kind        = (attr.mode == "file") and "regular" or attr.mode
+            uid         = attr.uid
+            permissions = attr.permisions
+            if (permissions == nil and uid == 0) then
+               local st    = stat(file)
+               permissions = st.mode
+            end
+         else
             local st = stat(file)
-            permissions = st.mode
+            if (st      == nil   ) then break end
+            if (st.type == "link") then
+               attr = lfs.attributes(file)
+               if (attr == nil) then break end
+               kind        = (attr.mode == "file") and "regular" or attr.mode
+               uid         = attr.uid
+               permissions = attr.permisions
+               if (permissions == nil and uid == 0) then
+                  local st    = stat(file)
+                  permissions = st.mode
+               end
+            else
+               kind        = st.type
+               uid         = st.uid
+               permissions = st.mode
+            end
          end
-            
-         if (attr.uid == 0 and not permissions:find("......r..")) then break end
-         local mode = attr.mode
-         
-         if (mode == "directory" and f ~= "." and f ~= "..") then
+
+         if (uid == 0 and not permissions:find("......r..")) then break end
+
+         if (kind == "directory" and f ~= "." and f ~= "..") then
             dirA[#dirA + 1 ] = file
-         elseif (mode == "file" or mode == "link") then
+         elseif (kind == "regular" or kind == "link") then
             local dfltFound = defaultFnT[f]
             local idx       = dfltFound or defaultIdx
             local fullName  = extractFullName(mpath, file)
@@ -209,7 +234,7 @@ local function walk(mrc, mpath, path, dirA, fileT)
                   defaultIdx = idx
                   local luaExt = f:find("%.lua$")
                   defaultT     = { fullName = fullName, fn = file, mpath = mpath, luaExt = luaExt, barefn = f}
-                  if (f == "default" and attr.mode == "file") then
+                  if (f == "default" and kind == "regular") then
                      fileT[fullName] = {fn = file, canonical = f, mpath = mpath}
                   end
                end
@@ -243,7 +268,7 @@ local function walk_tree(mrc, mpath, pathIn, dirT)
    for i = 1,#dirA do
       local path     = dirA[i]
       local fullName = extractFullName(mpath, path)
-      
+
       dirT.dirT[fullName] = {}
       walk_tree(mrc, mpath, path, dirT.dirT[fullName])
 
@@ -268,7 +293,7 @@ local function build(mpathA)
          dirA[#dirA+1] = {mpath=mpath, dirT=dirT}
       end
    end
-      
+
    return dirA
 
 end
