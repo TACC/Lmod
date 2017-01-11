@@ -38,10 +38,10 @@ return {
      warnTitle = "Lmod Warning: ",
 
      avail     = [==[Use "module spider" to find all possible modules.
-Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".]],
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ]==],
-     list      = "",
-     spider    = "",
+     list      = " ",
+     spider    = " ",
      aliasMsg  = "Aliases exist: foo/1.2.3 (1.2) means that \"module load foo/1.2\" will load foo/1.2.3",
      noModules = "No modules found!",
 
@@ -115,7 +115,7 @@ must specify the version if there is more than one version:
      m422      = "\n    Additional variants of this module can also be loaded after loading the following modules:\n",
      m423      = "    Properties:\n",
      m424      = "\n     Other possible modules matches:\n        %{bb}\n",
-     m425      = "\n  Where:\n"
+     m425      = "\n  Where:\n",
 
      w511      = [==[Failed to find the following module(s):  "%{quote_comma_list}" in your MODULEPATH
 Try:
@@ -201,7 +201,7 @@ Please submit a consulting ticket if you require additional assistance.
      e116 = "Unknown Key: \"%{key}\" in setStandardPaths.\n",
      e117 = "No matching modules found.\n",
      e118 = "User module collection: \"%{collection}\" does not exist.\n  Try \"module savelist\" for possible choices.\n",
-     e119 = "Collection names cannot contain a period (`.').\n  Please rename \"%collection}\"\n",
+     e119 = "Collection names cannot contain a period ('.').\n  Please rename \"%collection}\"\n",
      e120 = "Swap failed: \"%{name}\" is not loaded.\n",
      e121 = "Unable to load module: %{name}\n     %{fn}: %{message}\n",
      e122 = "sandbox_registration: The argument passed is: \"%{kind}\". It should be a table.",

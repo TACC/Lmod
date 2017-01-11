@@ -58,6 +58,7 @@ local encode64     = base64.encode64
 local floor        = math.floor
 local getenv       = os.getenv
 local hook         = require("Hook")
+local i18n         = require("i18n")
 local load         = (_VERSION == "Lua 5.1") and loadstring or load
 local min          = math.min
 local posix        = require("posix")
@@ -131,11 +132,10 @@ local function new(self, s, restoreFn)
    
    if (not status or type(_ModuleTable_) ~= "table" ) then
       if (restoreFn) then
-
-         io.stderr:write(i18n("e131",{fn=restoreFn})
+         io.stderr:write(i18n("e131",{fn=restoreFn}))
          LmodErrorExit()
       else
-         io.stderr:write(i18n("e132",{})
+         io.stderr:write(i18n("e132",{}))
          LmodErrorExit()
       end
    end
@@ -695,7 +695,7 @@ local function columnList(stream, msg, a)
       local cstr = string.format("%3d) ",i)
       t[#t + 1] = cstr .. tostring(a[i])
    end
-   stream:write(msg)
+   stream:write(msg or "")
    local ct = ColumnTable:new{tbl=t, width=cwidth}
    stream:write(ct:build_tbl(),"\n")
 end
@@ -747,19 +747,19 @@ function M.reportChanges(self)
 
    if (#inactiveA > 0) then
       entries = true
-      columnList(io.stderr,i18n("w402",{}), inactiveA)
+      columnList(io.stderr,i18n("m402",{}), inactiveA)
    end
    if (#activeA > 0) then
       entries = true
-      columnList(io.stderr,i18n("w403",{}), activeA)
+      columnList(io.stderr,i18n("m403",{}), activeA)
    end
    if (#reloadA > 0) then
       entries = true
-      columnList(io.stderr,i18n("w404",{}), reloadA)
+      columnList(io.stderr,i18n("m404",{}), reloadA)
    end
    if (#changedA > 0) then
       entries = true
-      columnList(io.stderr,i18n("w405",{}), changedA)
+      columnList(io.stderr,i18n("m405",{}), changedA)
    end
 
    if (entries) then
@@ -974,7 +974,7 @@ function M.getMTfromFile(self,tt)
    f:close()
 
    if (msg) then
-      io.stderr:write(i18n("m406",{msg=msg})
+      io.stderr:write(i18n("m406",{msg=msg}))
    end
    -----------------------------------------------
    -- Initialize MT with file: fn

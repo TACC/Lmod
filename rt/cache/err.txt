@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 0.8  2016-09-26 17:13 -05:00
+Modules based on Lua: Version 7.3  2017-01-11 11:14 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -34,11 +34,11 @@ The following is a list of the modules currently available:
   phdf5: phdf5/1.8.2, phdf5/1.8.9, phdf5/1.8.10
   ucc: ucc/12.1.5, ucc/13.1.2, ucc/14.0.2
   unix: unix/unix
-To learn more about a package enter:
+To learn more about a package execute:
    $ module spider Foo
-where "Foo" is the name of a module
+where "Foo" is the name of a module.
 To find detailed information about a particular package you
-must enter the version if there is more than one version:
+must specify the version if there is more than one version:
    $ module spider Foo/11.1
 ===========================
 step 3
@@ -70,9 +70,9 @@ The following is a list of the modules currently available:
   phdf5: phdf5/1.8.2, phdf5/1.8.9, phdf5/1.8.10
   ucc: ucc/12.1.5, ucc/13.1.2, ucc/14.0.2
   unix: unix/unix
-To learn more about a package enter:
+To learn more about a package execute:
    $ module spider Foo
-where "Foo" is the name of a module
+where "Foo" is the name of a module.
 To find detailed information about a particular package you
-must enter the version if there is more than one version:
+must specify the version if there is more than one version:
    $ module spider Foo/11.1

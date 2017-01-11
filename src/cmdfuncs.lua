@@ -489,7 +489,7 @@ function Reset(msg)
    dbg.start{"Reset()"}
    local default = os.getenv("LMOD_SYSTEM_DEFAULT_MODULES") or ""
    if (default == "") then
-      io.stderr:write(i18n("e133",{})
+      io.stderr:write(i18n("e133",{}))
       LmodErrorExit()
       dbg.fini("Reset")
       return
