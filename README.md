@@ -28,6 +28,16 @@ release at sourceforge.
 
 ## ChangeLog
 
+### Lmod 7.3:
+
+Bug Fixes:
+
+   1. The isloaded() function has been repaired.
+
+   2. Updated French, German and Spanish translations.
+
+   3. Two error message related to missing modules are now available for translations.
+
 ### Lmod 7.2.1:
 
 Features:
@@ -84,8 +94,7 @@ Bug Fixes:
 
    4. System MODULERC  has priority over marking a default in the module tree.
 
-   5. Installed Modules can be hidden by "hide-version foo/3.2.1" in
-      any modulerc file.
+   5. Installed Modules can be hidden by "hide-version foo/3.2.1" in any modulerc file.
 
    6. The system spider cache has changed.  Please update your scripts to build spiderT.lua instead of moduleT.lua
 
@@ -95,8 +104,7 @@ Features:
 
   1. Now uses the value of LD_PRELOAD and LD_LIBRARY_PATH for run all TCL progams.
 
-  2. Now uses a custom _module_dir function for tab completion in bash for module use path<TAB>.
-     Thanks to Pieter Neerincx!
+  2. Now uses a custom _module_dir function for tab completion in bash for module use path<TAB>. Thanks to Pieter Neerincx!
 
   3. Support for LMOD_FAMILY_<name>_VERSION added.
 
