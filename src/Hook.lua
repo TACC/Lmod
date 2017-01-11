@@ -75,7 +75,7 @@ function M.register(name, func)
    if (validT[name] ~= nil) then
       validT[name] = func
    else
-      io.stderr:write("Unknown hook: ", tostring(name),"\n")
+      LmodWarning{msg="w514",name = tostring(name)}
    end
 
 end

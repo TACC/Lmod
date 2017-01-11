@@ -57,6 +57,7 @@ local cosmic       = require("Cosmic"):singleton()
 local dbg          = require("Dbg"):dbg()
 local getenv       = os.getenv
 local hook         = require("Hook")
+local i18n         = require("i18n")
 local lfs          = require("lfs")
 local posix        = require("posix")
 local pack         = (_VERSION == "Lua 5.1") and argsPack or table.pack
@@ -488,9 +489,7 @@ function Reset(msg)
    dbg.start{"Reset()"}
    local default = os.getenv("LMOD_SYSTEM_DEFAULT_MODULES") or ""
    if (default == "") then
-      io.stderr:write("\nThe system default contains no modules\n")
-      io.stderr:write("  (env var: LMOD_SYSTEM_DEFAULT_MODULES is empty)\n")
-      io.stderr:write("  No changes in loaded modules\n\n")
+      io.stderr:write(i18n("e133",{})
       LmodErrorExit()
       dbg.fini("Reset")
       return
@@ -505,7 +504,7 @@ function Reset(msg)
    default = default:gsub(" +",":")
 
    if (msg ~= false) then
-      io.stderr:write("Resetting modules to system default\n")
+      io.stderr:write(i18n("m408",{}))
    end
 
 
@@ -615,7 +614,7 @@ function Save(...)
    if (not sname) then
       sname   = ""
    else
-      msgTail = ", for system: \"".. sname .. "\""
+      msgTail = i18n("m409",{sname = sname})
       sname   = "." .. sname
    end
 
@@ -660,8 +659,7 @@ function Save(...)
    end
    mt:hideHash()
    if (not quiet()) then
-      io.stderr:write("Saved current collection of modules to: ",a,
-                      msgTail, "\n")
+      LmodMessage{msg="m410",a=a, msgTail=msgTail}
    end
    dbg.fini("Save")
 end
@@ -715,18 +713,14 @@ function SaveList(...)
       b[#b+1]  = "\n"
       shell:echo(concatTbl(b,""))
    else
-      io.stderr:write("No Named collections.\n")
+      io.stderr:write(i18n("m411",{}))
    end
 end
 
 --------------------------------------------------------------------------
 -- Point users to either spider or keyword
 function SearchCmd(...)
-   local s = concatTbl({...}, " ")
-   io.stderr:write("\"module search\" does not exist. To list all possible modules do: \n",
-                   "   module spider ",s,"\n\n",
-                   "To search the contents of modules for matching words do:\n",
-                   "   module keyword ",s,"\n")
+   LmodMessage{msg="m412", s = concatTbl({...}, " ")}
 end
 
 --------------------------------------------------------------------------

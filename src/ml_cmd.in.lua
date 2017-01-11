@@ -83,6 +83,8 @@ package.cpath = sys_lua_cpath
 
 pcall(require("strict"))
 
+local i18n = require("i18n")
+
 local concatTbl = table.concat
 
 --------------------------------------------------------------------------
@@ -95,26 +97,7 @@ end
 --------------------------------------------------------------------------
 -- Simple usage message.
 function usage()
-   io.stderr:write("\n",
-                   "ml: A handy front end for the module command:\n\n",
-                   "Simple usage:\n",
-                   " -------------\n",
-                   "  $ ml\n",
-                   "                           means: module list\n",
-                   "  $ ml foo bar\n",
-                   "                           means: module load foo bar\n",
-                   "  $ ml -foo -bar baz goo\n",
-                   "                           means: module unload foo bar;\n",
-                   "                                  module load baz goo;\n\n",
-                   "Command usage:\n",
-                   "--------------\n\n",
-                   "Any module command can be given after ml:\n\n",
-                   "if name is avail, save, restore, show, swap,...\n",
-                   "    $ ml name  arg1 arg2 ...\n\n",
-                   "Then this is the same :\n",
-                   "    $ module name arg1 arg2 ...\n\n",
-                   "In other words you can not load a module named: show swap etc\n")
-
+   io.stderr:write(i18n("ml_help", {})
    io.stderr:write("\n\n-----------------------------------------------\n",
                    "  Robert McLay, TACC\n",
                    "     mclay@tacc.utexas.edu\n")
@@ -251,11 +234,9 @@ function main()
          end
 
          if (v:find("^%-%-")) then
-            io.stderr:write("Option: \"",v,"\" is unknown\n",
-                            "Try ml --help for usage\n")
+            io.stderr:write(i18n("ml_opt",{v=v}))
             os.exit(1)
          end
-
 
          local cmd = lmodCmdT[v]
          if (cmd and not cmdFound) then
@@ -269,7 +250,7 @@ function main()
    end
 
    if (#cmdA > 1) then
-      io.stderr:write("ml error: too many commands\n")
+      io.stderr:write(i18n("ml_2many",{}))
       os.exit(1)
    end
 

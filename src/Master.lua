@@ -53,6 +53,7 @@ local concatTbl    = table.concat
 local cosmic       = require("Cosmic"):singleton()
 local dbg          = require("Dbg"):dbg()
 local hook         = require("Hook")
+local i18n         = require("i18n")
 local remove       = table.remove
 local sort         = table.sort
 
@@ -143,12 +144,8 @@ function M.access(self, ...)
 
    if (#a > 0) then
       setWarningFlag()
-      io.stderr:write("Failed to find the following module(s):  \"",
-                      concatTbl(a,"\", \""),"\" in your MODULEPATH\n")
-      io.stderr:write("Try: \n",
-                      "    \"module spider ", concatTbl(a," "), "\"\n",
-                      "\nto see if the module(s) are available across all ",
-                      "compilers and MPI implementations.\n")
+      LmodWarning{msg="w511",quote_comma_list=concatTbl(a,"\", \""),
+                             module_list=concatTbl(a," ")}
    end
    dbg.fini("Master:access")
 end
@@ -593,8 +590,7 @@ function M.reload_sticky(self, force)
    mcp = mcp_old
 
    if (reload) then
-      io.stderr:write("\nThe following modules were not unloaded:\n")
-      io.stderr:write("   (Use \"module --force purge\" to unload all):\n\n")
+      LmodWarning{msg="w512"}
       local b  = mt:list("fullName","active")
       local a  = {}
       for i = 1, #b do
@@ -604,7 +600,7 @@ function M.reload_sticky(self, force)
       io.stderr:write(ct:build_tbl(),"\n")
    end
    if (#unstuckA > 0) then
-      io.stderr:write("\nThe following sticky modules could not be reloaded:\n")
+      LmodWarning{msg="w513"}
       local ct = ColumnTable:new{tbl=unstuckA, gap=0, width=cwidth}
       io.stderr:write(ct:build_tbl(),"\n")
    end
@@ -847,7 +843,7 @@ function M.avail(self, argA)
                local propStr = c[3] or ""
                local verMapStr = mrc:getMod2VersionT(fullName)
                if (verMapStr) then
-                  legendT["Aliases"] = "Aliases exist: foo/1.2.3 (1.2) means that \"module load foo/1.2\" will load foo/1.2.3"
+                  legendT["Aliases"] = i18n("aliasMsg",{})
                   if (dflt == Default) then
                      dflt = Default .. ":" .. verMapStr
                   else
@@ -883,11 +879,11 @@ function M.avail(self, argA)
    end
 
    if (numFound == 0) then
-      a[#a+1] = colorize("red","No modules found!\n")
+      a[#a+1] = colorize("red",i18n("noModules",{}))
    end
 
    if (next(legendT) ~= nil) then
-      a[#a+1] = "\n  Where:\n"
+      a[#a+1] = i18n("m425",{})
       local b = {}
       for k, v in pairsByKeys(legendT) do
          b[#b+1] = { "   " .. k ..":", v}

@@ -1079,9 +1079,7 @@ function M.reportAdminMsgs()
       local bt
       local a       = {}
       local border  = colorize("red",string.rep("-", term_width-1))
-      io.stderr:write("\n",border,"\n",
-                      "There are messages associated with the following module(s):\n",
-                      border,"\n")
+      io.stderr:write(i18n("m407",{border=border}))
       for k, v in pairsByKeys(t) do
          io.stderr:write("\n",k,":\n")
          a[1] = { " ", v}

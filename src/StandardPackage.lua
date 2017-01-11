@@ -46,6 +46,7 @@ local concatTbl = table.concat
 local cosmic    = require("Cosmic"):singleton()
 local hook      = require("Hook")
 local getenv    = os.getenv
+local i18n      = require("i18n")
 local min       = math.min
 local posix     = require("posix")
 
@@ -63,21 +64,10 @@ hook.register("SiteName",site_name_hook)
 ------------------------------------------------------------
 -- Standard version of msg
 
-local msgT = {
-   avail = [[
-Use "module spider" to find all possible modules.
-Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".]],
-   list  = [[
-]],
-   spider = [[
-]],
-}
-
-
 local function msg(kind, a)
    local twidth = TermWidth()
 
-   local s      = msgT[kind] or ""
+   local s      = i18n(kind,{}) or ""
    if (s:len() > 0) then
       for line in s:split("\n") do
          a[#a+1] = "\n"

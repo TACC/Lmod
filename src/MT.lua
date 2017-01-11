@@ -132,12 +132,10 @@ local function new(self, s, restoreFn)
    if (not status or type(_ModuleTable_) ~= "table" ) then
       if (restoreFn) then
 
-         io.stderr:write("The module collection file is corrupt. Please remove: ",
-                         restoreFn,"\n")
+         io.stderr:write(i18n("e131",{fn=restoreFn})
          LmodErrorExit()
       else
-         io.stderr:write("The module table stored in the environment is corrupt.\n",
-                         "please execute the command \" clearMT\" and reload your modules.\n")
+         io.stderr:write(i18n("e132",{})
          LmodErrorExit()
       end
    end
@@ -749,21 +747,19 @@ function M.reportChanges(self)
 
    if (#inactiveA > 0) then
       entries = true
-      columnList(io.stderr,"\nInactive Modules:\n", inactiveA)
+      columnList(io.stderr,i18n("w402",{}), inactiveA)
    end
    if (#activeA > 0) then
       entries = true
-      columnList(io.stderr,"\nActivating Modules:\n", activeA)
+      columnList(io.stderr,i18n("w403",{}), activeA)
    end
    if (#reloadA > 0) then
       entries = true
-      columnList(io.stderr,"\nDue to MODULEPATH changes the following "
-                    .."have been reloaded:\n",
-                 reloadA)
+      columnList(io.stderr,i18n("w404",{}), reloadA)
    end
    if (#changedA > 0) then
       entries = true
-      columnList(io.stderr,"\nThe following have been reloaded with a version change:\n", changedA)
+      columnList(io.stderr,i18n("w405",{}), changedA)
    end
 
    if (entries) then
@@ -978,7 +974,7 @@ function M.getMTfromFile(self,tt)
    f:close()
 
    if (msg) then
-      io.stderr:write("Restoring modules to ",msg,"\n")
+      io.stderr:write(i18n("m406",{msg=msg})
    end
    -----------------------------------------------
    -- Initialize MT with file: fn

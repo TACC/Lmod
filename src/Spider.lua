@@ -54,6 +54,7 @@ local concatTbl    = table.concat
 local cosmic       = require("Cosmic"):singleton()
 local dbg          = require("Dbg"):dbg()
 local getenv       = os.getenv
+local i18n         = require("i18n")
 local lfs          = require("lfs")
 local posix        = require("posix")
 local access       = posix.access
@@ -493,7 +494,7 @@ function M.Level0(self, dbT)
 
    ia = ia+1; a[ia] = "\n"
    ia = ia+1; a[ia] = border
-   ia = ia+1; a[ia] = "The following is a list of the modules currently available:\n"
+   ia = ia+1; a[ia] = i18n("m413", {})
    ia = ia+1; a[ia] = border
 
    self:Level0Helper(dbT,a)
@@ -560,14 +561,7 @@ function M.Level0Helper(self, dbT, a)
       ia = ia + 1; a[ia] = "\n"
    end
    local border = banner:border(0)
-   ia = ia+1; a[ia] = border
-   ia = ia+1; a[ia] = "To learn more about a package enter:\n\n"
-   ia = ia+1; a[ia] = "   $ module spider Foo\n\n"
-   ia = ia+1; a[ia] = "where \"Foo\" is the name of a module\n\n"
-   ia = ia+1; a[ia] = "To find detailed information about a particular package you\n"
-   ia = ia+1; a[ia] = "must enter the version if there is more than one version:\n\n"
-   ia = ia+1; a[ia] = "   $ module spider Foo/11.1\n"
-   ia = ia+1; a[ia] = border
+   ia = ia+1; a[ia] = i18n("m414", {border=border})
 end
 
 function M.setExactMatch(self, name)
@@ -763,11 +757,9 @@ function M._Level1(self, dbT, possibleA, sn, key, helpFlg)
    ia = ia + 1; a[ia] = "  " .. key .. ":\n"
    ia = ia + 1; a[ia] = border
    if (Description) then
-      ia = ia + 1; a[ia] = "    Description:\n"
-      ia = ia + 1; a[ia] = Description:fillWords("      ",term_width)
-      ia = ia + 1; a[ia] = "\n\n"
+      ia = ia + 1; a[ia] = i18n("m415", {descript = Description:fillWords("      ",term_width)})
    end
-   ia = ia + 1; a[ia] = "     Versions:\n"
+   ia = ia + 1; a[ia] = i18n("m416",{})
    for k, v in pairsByKeys(fullVT) do
       ia = ia + 1; a[ia] = "        " .. v .. "\n"
    end
@@ -784,31 +776,18 @@ function M._Level1(self, dbT, possibleA, sn, key, helpFlg)
             break
          end
       end
-      ia = ia + 1; a[ia] = "\n     Other possible modules matches:\n        "
-      ia = ia + 1; a[ia] = concatTbl(b,"  ")
-      ia = ia + 1; a[ia] = "\n"
+      ia = ia + 1; a[ia] = i18n("m417",{b=concatTbl(b,"  ")})
    end
 
    if (helpFlg) then
       ia = ia + 1; a[ia] = "\n"
       local name = self:getExactMatch()
       if (name) then
-         ia = ia + 1; a[ia] = border
-         ia = ia + 1; a[ia] = "  To find other possible module matches do:\n"
-         ia = ia + 1; a[ia] = "      module -r spider '.*"
-         ia = ia + 1; a[ia] = name
-         ia = ia + 1; a[ia] = ".*'\n\n"
+         ia = ia + 1; a[ia] = i18n("m418",{border=border, name=name})
       end
 
-      ia = ia + 1; a[ia] = border
-      ia = ia + 1; a[ia] = "  For detailed information about a specific \""
-      ia = ia + 1; a[ia] = key
-      ia = ia + 1; a[ia] = "\" module (including how to load the modules) use the module's full name.\n"
-      ia = ia + 1; a[ia] = "  For example:\n\n"
-      ia = ia + 1; a[ia] = "     $ module spider "
-      ia = ia + 1; a[ia] = exampleV
-      ia = ia + 1; a[ia] = "\n"
-      ia = ia + 1; a[ia] = border
+      
+      ia = ia + 1; a[ia] = i18n("m419",{border=border,key=key,exampleV=exampleV})
    end
 
    dbg.fini("Spider:_Level1")
@@ -834,10 +813,10 @@ function M._Level2(self, sn, entryA, possibleA)
    local propDisplayT = readLmodRC:propT()
    local term_width   = TermWidth() - 4
    local availT       = {
-      "\n    This module can be loaded directly: module load " .. fullName .. "\n",
-      "\n    You will need to load all module(s) on any one of the lines below before the \"" .. fullName .. "\" module is available to load.\n",
-      "\n    This module can be loaded directly: module load " .. fullName .. "\n" ..
-      "\n    Additional variants of this module can also be loaded after loading the following modules:\n",
+      i18n("m420",{fullName=fullName}),
+      i18n("m421",{fullName=fullName}),
+      i18n("m420",{fullName=fullName}),
+      i18n("m422",{}),
    }
    local haveCore = 0
    local haveHier = 0
@@ -849,12 +828,10 @@ function M._Level2(self, sn, entryA, possibleA)
    ia = ia + 1; a[ia] = "\n"
    ia = ia + 1; a[ia] = border
    if (entryT.Description) then
-      ia = ia + 1; a[ia] = "    Description:\n"
-      ia = ia + 1; a[ia] = entryT.Description:fillWords("      ", term_width)
-      ia = ia + 1; a[ia] = "\n"
+      ia = ia + 1; a[ia] = i18n("m415", {descript = entryT.Description:fillWords("      ", term_width)})
    end
    if (entryT.propT ) then
-      ia = ia + 1; a[ia] = "    Properties:\n"
+      ia = ia + 1; a[ia] = i18n("m423",{})
       for kk, vv in pairs(propDisplayT) do
          if (entryT.propT[kk]) then
             for kkk in pairs(entryT.propT[kk]) do
@@ -879,9 +856,7 @@ function M._Level2(self, sn, entryA, possibleA)
             break
          end
       end
-      ia = ia + 1; a[ia] = "\n     Other possible modules matches:\n        "
-      ia = ia + 1; a[ia] = concatTbl(bb,", ")
-      ia = ia + 1; a[ia] = "\n"
+      ia = ia + 1; a[ia] = i18n("m424",{bb=concatTbl(bb,", ")})
    end
    
    ia = ia + 1; a[ia] = "Avail Title goes here.  This should never be seen\n"
@@ -949,11 +924,7 @@ function M._Level2(self, sn, entryA, possibleA)
    ia = ia + 1; a[ia] = "\n"
    local name = self:getExactMatch()
    if (name) then
-      ia = ia + 1; a[ia] = border
-      ia = ia + 1; a[ia] = "  To find other possible module matches do:\n"
-      ia = ia + 1; a[ia] = "      module -r spider '.*"
-      ia = ia + 1; a[ia] = name
-      ia = ia + 1; a[ia] = ".*'\n\n"
+      ia = ia + 1; a[ia] = i18n("m418",{border=border,name=name})
    end
 
    dbg.fini("Spider:_Level2")
