@@ -36,6 +36,202 @@ return {
    fr = {
      errTitle  = "Lmod a détecté l'erreur suivante : ",
      warnTitle = "Lmod Warning: ",
+
+     avail     = [==[Utilisez "module spider" pour trouver tous les modules possibles.
+Utilisez "module keyword key1 key2 ..." pour chercher tous les modules possibles qui correspondent à l'une des clés (key1, key2).
+]==],
+     list      = " ",
+     spider    = " ",
+     aliasMsg  = "Des alias existent: foo/1.2.3 (1.2) signifie que \"module load foo/1.2\" chargera le module foo/1.2.3",
+     noModules = "Aucun module trouvé!",
+
+
+
+     e131      = "La collection de modules est corrompue. Veuillez supprimer : %{fn}\n",
+     e132      = [==[La table de modules stockée dans l'environnement est corrompue.
+Veuillez exécuter la commande \" clearMT\" et charger vos modules de nouveau.
+]==],
+     e133      = [==[
+L'environnement par défaut ne contient aucun module
+  (la variable d'environnement : LMOD_SYSTEM_DEFAULT_MODULES est vide)
+  Aucun changement dans les modules chargés.
+
+]==],
+
+     m402      = "\nModules inactifs:\n",
+     m403      = "\nChargement des modules :\n",
+     m404      = "\nDû à un changement dans la variable MODULEPATH, les modules suivants ont été rechargés :\n",
+     m405      = "\nLes modules suivants ont été rechargés avec un changement de version :\n",
+     m406      = "Restauration des modules de la collection %{msg}\n",
+     m407      = [==[
+%{border}
+Il y a des messages associés avec le(s) module(s) suivant(s) : 
+%{border}
+]==],
+     m408      = "Restauration de l'environnement par défaut\n",
+     m409      = ", pour le système: \"%{sname}\"",
+     m410      = "Collection de modules sauvegardée vers : \"%{a}\"%{msgTail}\n",
+     m411      = "Aucune collection nommée.\n",
+     m412      = [==[La commande "module search" n'existe pas. Pour lister tous les modules possibles, utilisez :
+
+  $   module spider %{s}
+
+Pour chercher le contenu des modules pour des mots clés, exécute z
+
+  $   module keyword %{s}
+]==],
+     m413      = "Liste des modules disponibles présentement :\n",
+     m414      = [==[%{border}
+Pour en savoir davantage sur un module exécutez : 
+
+   $ module spider Foo
+
+où "Foo" est le nom d'un module.
+
+S'il existe plusieurs version d'un module, vous devez spécifier la version
+afin d'avoir l'information détaillée :
+
+   $ module spider Foo/11.1
+
+%{border}]==],
+     m415     = "    Description:\n%{descript}\n\n",
+     m416     = "     Versions:\n",
+     m417     = [==[
+     Autres candidats possibles : 
+        %{b}
+]==],
+     m418     = [==[%{border}  Pour trouver d'autres correspondances à votre recherche, exécutez : 
+
+      $ module -r spider '.*%{name}.*'
+
+]==],
+     m419      = [==[%{border}  Pour de l'information détaillée à propos d'un module "%{key}" spécifique (incluant comment charger ce module), utilisez le nom complet.
+  Par exemple : 
+
+     $ module spider %{exampleV}
+%{border}]==],
+     m420      = "\n    Ce module peut être chargé directement : module load %{fullName}\n",
+     m421      = "\n    Vous devrez charger tous les modules de l'un des lignes suivantes avant de pouvoir charger le module \"%{fullName}\".\n",
+     m422      = "\n    Des variantes additionnelles de ce module peuvent être chargées après le chargement des modules suivants :\n",
+     m423      = "    Propriétés:\n",
+     m424      = "\n     Autres correspondances possibles :\n        %{bb}\n",
+     m425      = "\n  Où:\n",
+     m426      = [==[Les modules suivants n'ont pas été elevés de votre environnement :
+  (Utilisez "module --force purge" pour tous les enlever):
+]==],
+     m427      = "\nLes modules suivants sont permanents (sticky) et n'ont pas pu être chargés de nouveau :\n",
+
+     w511      = [==[Lmod n'a pas pu trouver les modules suivants :  "%{quote_comma_list}" dans votre MODULEPATH
+Essayez:
+
+    $ module spider %{module_list}
+
+pour vérifier si les modules sont disponibles avec l'un des compilateurs ou implémentation MPI installés.
+]==],
+     w512      = "Crochet (hook) inconnu : %{name}\n",
+
+     ml_help   = [==[
+   ml: Une interface pratique pour la commande module : 
+
+   Utilisation simplifiée :
+   ------------------------
+     $ ml
+                              signifie: module list
+     $ ml foo bar
+                              signifie: module load foo bar
+     $ ml -foo -bar baz goo
+                              signifie: module unload foo bar;
+                                     module load baz goo;
+
+   Utilisation détaillée :
+   -----------------------
+
+   N'importe quelle commande de module peut être ajoutée après ml : 
+
+   si le nom est is avail, save, restore, show, swap,...
+       $ ml nom  arg1 arg2 ...
+
+   Alors le résultat est le même que : 
+       $ module nom arg1 arg2 ...
+
+   Autrement dit, vous ne pouvez pas charger un module nommé : show, swap, etc.
+]==],
+     ml_opt    = [==[L'option "%{v}" est inconnue.
+  Essayez ml --help pour les instructions d'utilisation.
+]==],
+     ml_2many  = "erreur ml : trop de commandes\n",
+     
+     --------------------------------------------------------------------------
+     -- Usage Message
+     --------------------------------------------------------------------------
+     usage_cmdline = "module [options] sub-command [args ...]",
+     help_title    = "Sous-commandes d'aide :\n" ..
+                     "-----------------------",
+     help1         = "affiche ce message",
+     help2         = "affiche le message d'aide du module correspondant",
+
+     load_title    =  "Sous-commandes de chargement/déchargement :\n" ..
+                      "-------------------------------------------",
+     load1         = "charge un ou des modules",
+     load2         = "Ajoute un ou des modules, n'affiche pas d'erreur si le module n'est pas trouvé",
+     load3         = "Enlève un ou des modules, n'affiche pas d'erreur si le module n'est pas trouvé",
+     load4         = "enlève m1 et charge m2",
+     load5         = "enlève tous les modules",
+     load6         = "rafraîchi les alias de la liste courante de modules.",
+     load7         = "rafraîchi tous les modules présentement chargés.",
+
+     list_title    = "Sous-commandes pour lister / chercher :\n" ..
+                     "---------------------------------------",
+     list1         = "Liste les modules chargés",
+     list2         = "Liste les modules chargés qui correspondent à la recherche",
+     list3         = "Liste les modules disponibles",
+     list4         = "Liste les modules disponibles qui contiennent \"string\".",
+     list5         = "Liste tous les modules existants",
+     list6         = "Liste toutes les versions d'un module",
+     list7         = "Liste tous les modules qui contiennent \"string\".",          
+     list8         = "Information détaillée à propos de cette version du module.",
+     list9         = "Affiche l'information \"whatis\" à propos de ce module",
+     list10        = "Cherche tous les noms et descriptions (\"whatis\") qui contiennent \"string\".",
+
+     srch_title    = "Chercher avec Lmod:\n" ..
+                     "-------------------",
+     srch0         = "  Toutes les sous-commandes de recherche (spider, list, avail, keyword) supportent les expressions régulières :",
+     srch1         = "Trouve tous les modules qui débutent par `p' or `P'",
+     srch2         = "Trouve tous les modules qui ont \"mpi\" dans leur nom.",
+     srch3         = "Trouve tous les modules dont le nom se termine par \"mpi\".",
+
+     collctn_title = "Gérer une collection de modules :\n"..
+                     "---------------------------------",
+     collctn1      = "Sauvegarde la liste actuelle de modules vers une collection \"default\" définie par l'usage.",
+     collctn2      = "Sauvegarde la liste actuelle de modules vers une collection nommée \"name\".",
+     collctn3      = "Identique à \"restore system\"",
+     collctn4      = "Restaure les modules de la collection par défaut de l'usager si elle existe, ou du système sinon.",
+     collctn5      = "Restaure les modules de la collection nommée \"name\".",
+     collctn6      = "Restaure les modules à l'état par défaut du système.",                                 
+     collctn7      = "Affiche la liste des collections sauvegardées.",
+     collctn8      = "Décrit le contenu d'une collection.",
+
+     depr_title    = "Sous-commandes désuètes :\n" ..
+                     "-------------------------",
+     depr1         = "charge la collection nommée \"name\" de l'usager, ou la collection par défaut si aucun nom n'est fourni.",
+     depr2         = "===> Utilisez plutôt \"restore\"  <====",
+     depr3         = "sauvegarde liste actuelle de modules dans la collection \"name\" si un nom est donné. Si aucun nom n'est donné, sauvegarde la liste en tant que liste par défaut pour l'usager.",
+     depr4         = "===> Utilisez plutôt \"save\". <====",
+
+     misc_title    = "Sous-commandes diverses:\n" ..
+                     "---------------------------",
+     misc1         = "affiche les commandes contenues dans le fichier de module.",
+     misc2         = "Ajoute un chemin au début (prepend) ou à la fin (append) de la variable d'environnement MODULEPATH.",
+     misc3         = "Enlève le chemin de la variable d'environnement MODULEPATH.",
+     misc4         = "Affiche la liste des modules actifs sous la forme d'une table lua.",
+
+
+     env_title     = "Variables d'environnement importantes :\n" ..
+                     "---------------------------------------",
+     env1          = "Si la valeur est \"YES\" alors Lmod affichera les propriétés et avertissements en couleur.",
+     web_sites     = "Sites web de Lmod",
+     rpt_bug       = "  Pour rapporter un bogue, veuillez lire ",
+     
      --------------------------------------------------------------------------
      -- LmodError messages
      --------------------------------------------------------------------------
