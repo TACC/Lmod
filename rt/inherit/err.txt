@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 7.2.1  2017-01-05 20:28 -06:00
+Modules based on Lua: Version 7.3.1  2017-01-11 21:09 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -56,13 +56,13 @@ Currently Loaded Modules:
 step 12
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing swap mpich openmpi
 ===========================
-Due to MODULEPATH changes the following have been reloaded:
+Due to MODULEPATH changes, the following have been reloaded:
   1) p4est/1.0
 ===========================
 step 13
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing swap intel gcc
 ===========================
-Due to MODULEPATH changes the following have been reloaded:
+Due to MODULEPATH changes, the following have been reloaded:
   1) openmpi/1.6.5     2) p4est/1.0
 ===========================
 step 14

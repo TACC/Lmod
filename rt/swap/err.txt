@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 7.3  2017-01-11 11:14 -06:00
+Modules based on Lua: Version 7.3.1  2017-01-11 21:09 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -39,7 +39,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload intel
 ===========================
 Inactive Modules:
   1) openmpi
-Due to MODULEPATH changes the following have been reloaded:
+Due to MODULEPATH changes, the following have been reloaded:
   1) parmetis/3.1
 ===========================
 step 5
@@ -58,7 +58,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing load gcc
 ===========================
 Activating Modules:
   1) openmpi/1.2.6
-Due to MODULEPATH changes the following have been reloaded:
+Due to MODULEPATH changes, the following have been reloaded:
   1) parmetis/3.1
 ===========================
 step 7
@@ -73,7 +73,7 @@ Currently Loaded Modules:
 step 8
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing swap gcc intel
 ===========================
-Due to MODULEPATH changes the following have been reloaded:
+Due to MODULEPATH changes, the following have been reloaded:
   1) openmpi/1.2.6     2) parmetis/3.1
 ===========================
 step 9
@@ -93,7 +93,7 @@ Currently Loaded Modules:
 step 11
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing swap openmpi mpich2
 ===========================
-Due to MODULEPATH changes the following have been reloaded:
+Due to MODULEPATH changes, the following have been reloaded:
   1) phdf5/1.8.2
 The following have been reloaded with a version change:
   1) parmetis/3.1 => parmetis/4.0.1     2) petsc/3.2 => petsc/3.1
@@ -112,7 +112,7 @@ Currently Loaded Modules:
 step 13
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing swap mpich2 openmpi
 ===========================
-Due to MODULEPATH changes the following have been reloaded:
+Due to MODULEPATH changes, the following have been reloaded:
   1) phdf5/1.8.2
 The following have been reloaded with a version change:
   1) parmetis/4.0.1 => parmetis/3.1     2) petsc/3.1 => petsc/3.2
@@ -202,7 +202,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing load gcc
 Lmod is automatically replacing "intel/intel" with "gcc/4.2.3".
 Inactive Modules:
   1) petsc     2) phdf5
-Due to MODULEPATH changes the following have been reloaded:
+Due to MODULEPATH changes, the following have been reloaded:
   1) openmpi/1.2.6     2) parmetis/3.1
 ===========================
 step 24

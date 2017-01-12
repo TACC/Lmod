@@ -60,7 +60,7 @@ The system default contains no modules
 
      m402      = "\nInactive Modules:\n",
      m403      = "\nActivating Modules:\n",
-     m404      = "\nDue to MODULEPATH changes the following have been reloaded:\n",
+     m404      = "\nDue to MODULEPATH changes, the following have been reloaded:\n",
      m405      = "\nThe following have been reloaded with a version change:\n",
      m406      = "Restoring modules from %{msg}\n",
      m407      = [==[
