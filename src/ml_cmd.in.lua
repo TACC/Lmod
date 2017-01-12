@@ -83,6 +83,7 @@ package.cpath = sys_lua_cpath
 
 pcall(require("strict"))
 
+require("utils")
 local i18n = require("i18n")
 
 local concatTbl = table.concat
@@ -109,6 +110,7 @@ end
 -- The main program.  Process options and generate module command.
 function main()
 
+   build_i18n_messages()
    local argA     = {}
    local optA     = {}
    local cmdA     = {}

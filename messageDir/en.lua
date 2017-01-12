@@ -140,8 +140,8 @@ to see if the module(s) are available across all compilers and MPI implementatio
      $ ml foo bar
                               means: module load foo bar
      $ ml -foo -bar baz goo
-                              means: module unload foo bar
-                                     module load baz goo
+                              means: module unload foo bar;
+                                     module load baz goo;
 
    Command usage:
    --------------
@@ -149,21 +149,89 @@ to see if the module(s) are available across all compilers and MPI implementatio
    Any module command can be given after ml:
 
    if name is avail, save, restore, show, swap,...
-
        $ ml name  arg1 arg2 ...
 
    Then this is the same :
-
        $ module name arg1 arg2 ...
 
-   In other words you can not load a module named: show swap etc
-
+   In other words you can not load a module named: show swap etc.
 ]==],
      ml_opt    = [==[Option: "%{v}" is unknown.
- Try ml --help for usage.
+  Try ml --help for usage.
 ]==],
      ml_2many  = "ml error: too many commands\n",
      
+     --------------------------------------------------------------------------
+     -- Usage Message
+     --------------------------------------------------------------------------
+     usage_cmdline = "module [options] sub-command [args ...]",
+     help_title    = "Help sub-commands:\n" ..
+                     "------------------",
+     help1         = "prints this message",
+     help2         = "print help message from module(s)",
+
+     load_title    =  "Loading/Unloading sub-commands:\n" ..
+                      "-------------------------------",
+     load1         = "load module(s)",
+     load2         = "Add module(s), do not complain if not found",
+     load3         = "Remove module(s), do not complain if not found",
+     load4         = "unload m1 and load m2",
+     load5         = "unload all modules",
+     load6         = "reload aliases from current list of modules.",
+     load7         = "reload all currently loaded modules.",
+
+     list_title    = "Listing / Searching sub-commands:\n" ..
+                     "---------------------------------",
+     list1         = "List loaded modules",
+     list2         = "List loaded modules that match the pattern",
+     list3         = "List available modules",
+     list4         = "List available modules that contain \"string\".",
+     list5         = "List all possible modules",
+     list6         = "List all possible version of that module file",
+     list7         = "List all module that contain the \"string\".",          
+     list8         = "Detailed information about that version of the module.",
+     list9         = "Print whatis information about module",
+     list10        = "Search all name and whatis that contain \"string\".",
+
+     srch_title    = "Searching with Lmod:\n" ..
+                     "--------------------",
+     srch0         = "  All searching (spider, list, avail, keyword) support regular expressions:",
+     srch1         = "Finds all the modules that start with `p' or `P'",
+     srch2         = "Finds all modules that have \"mpi\" in their name.",
+     srch3         = "Finds all modules that end with \"mpi\" in their name.",
+
+     collctn_title = "Handling a collection of modules:\n"..
+                     "--------------------------------",
+     collctn1      = "Save the current list of modules to a user defined \"default\" collection.",
+     collctn2      = "Save the current list of modules to \"name\" collection.",
+     collctn3      = "The same as \"restore system\"",
+     collctn4      = "Restore modules from the user's \"default\" or system default.",
+     collctn5      = "Restore modules from \"name\" collection.",
+     collctn6      = "Restore module state to system defaults.",                                 
+     collctn7      = "List of saved collections.",
+     collctn8      = "Describe the contents of a module collection.",
+
+     depr_title    = "Deprecated commands:\n" ..
+                     "--------------------",
+     depr1         = "load name collection of modules or user's \"default\" if no name given.",
+     depr2         = "===> Use \"restore\" instead  <====",
+     depr3         = "Save current list of modules to name if given, otherwise save as the default list for you the user.",
+     depr4         = "===> Use \"save\" instead. <====",
+
+     misc_title    = "Miscellaneous sub-commands:\n" ..
+                     "---------------------------",
+     misc1         = "show the commands in the module file.",
+     misc2         = "Prepend or Append path to MODULEPATH.",
+     misc3         = "remove path from MODULEPATH.",
+     misc4         = "output list of active modules as a lua table.",
+
+
+     env_title     = "Important Environment Variables:\n" ..
+                     "--------------------------------",
+     env1          = "If defined to be \"YES\" then Lmod prints properties and warning in color.",
+     web_sites     = "Lmod Web Sites",
+     rpt_bug       = "  To report a bug please read ",
+
      --------------------------------------------------------------------------
      -- LmodError messages
      --------------------------------------------------------------------------
