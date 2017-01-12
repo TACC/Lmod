@@ -97,7 +97,7 @@ end
 --------------------------------------------------------------------------
 -- Simple usage message.
 function usage()
-   io.stderr:write(i18n("ml_help", {})
+   io.stderr:write(i18n("ml_help", {}))
    io.stderr:write("\n\n-----------------------------------------------\n",
                    "  Robert McLay, TACC\n",
                    "     mclay@tacc.utexas.edu\n")
