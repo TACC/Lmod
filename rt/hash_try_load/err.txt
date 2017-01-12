@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 7.1.9  2016-12-17 13:29 -06:00
+Modules based on Lua: Version 7.3  2017-01-11 11:14 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -12,7 +12,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing load TACC
 step 3
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing save
 ===========================
-Saved current collection of modules to: default
+Saved current collection of modules to: "default"
 ===========================
 step 4
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
@@ -21,7 +21,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
 step 5
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing restore
 ===========================
-Restoring modules to user's default
+Restoring modules from user's default
 ===========================
 step 6
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
@@ -30,16 +30,16 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
 step 7
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing restore
 ===========================
-Restoring modules to user's default
+Restoring modules from user's default
 Lmod Warning: One or more modules in your default collection have changed: "cluster".
-To see the contents of this collection do:
+To see the contents of this collection execute:
   $ module describe default
-To rebuild the collection, load the modules you wish then do:
+To rebuild the collection, load the modules you wish, then execute:
   $ module save default
-If you no longer want this module collection do:
+If you no longer want this module collection execute:
   $ rm ~/.lmod.d/default
 For more information execute 'module help' or see http://lmod.readthedocs.org/
-No change in modules loaded
+No change in modules loaded.
 The system default contains no modules
   (env var: LMOD_SYSTEM_DEFAULT_MODULES is empty)
   No changes in loaded modules

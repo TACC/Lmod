@@ -590,7 +590,7 @@ function M.reload_sticky(self, force)
    mcp = mcp_old
 
    if (reload) then
-      LmodWarning{msg="w512"}
+      LmodMessage{msg="m426"}
       local b  = mt:list("fullName","active")
       local a  = {}
       for i = 1, #b do
@@ -600,7 +600,7 @@ function M.reload_sticky(self, force)
       io.stderr:write(ct:build_tbl(),"\n")
    end
    if (#unstuckA > 0) then
-      LmodWarning{msg="w513"}
+      LmodMessage{msg="m427"}
       local ct = ColumnTable:new{tbl=unstuckA, gap=0, width=cwidth}
       io.stderr:write(ct:build_tbl(),"\n")
    end

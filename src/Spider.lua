@@ -815,8 +815,7 @@ function M._Level2(self, sn, entryA, possibleA)
    local availT       = {
       i18n("m420",{fullName=fullName}),
       i18n("m421",{fullName=fullName}),
-      i18n("m420",{fullName=fullName}),
-      i18n("m422",{}),
+      i18n("m420",{fullName=fullName}) .. i18n("m422",{}),
    }
    local haveCore = 0
    local haveHier = 0

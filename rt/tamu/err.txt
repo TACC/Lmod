@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 0.9.2  2016-10-25 13:59 -05:00
+Modules based on Lua: Version 7.3  2017-01-11 11:14 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -12,11 +12,11 @@ The following is a list of the modules currently available:
   uapp: uapp/3.0, uapp/7.0.8.0, uapp/7.0.8.1, uapp/7.1.8.0, uapp/7.1.8.1
   ucc: ucc/1.0, ucc/9.0
   umpi: umpi/2.0, umpi/8.0, umpi/8.1
-To learn more about a package enter:
+To learn more about a package execute:
    $ module spider Foo
-where "Foo" is the name of a module
+where "Foo" is the name of a module.
 To find detailed information about a particular package you
-must enter the version if there is more than one version:
+must specify the version if there is more than one version:
    $ module spider Foo/11.1
 ===========================
 step 3

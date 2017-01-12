@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 7.2.1  2017-01-05 20:28 -06:00
+Modules based on Lua: Version 7.3  2017-01-11 11:14 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -46,11 +46,11 @@ The following is a list of the modules currently available:
   phdf5: phdf5/1.8.2, phdf5/1.8.9, phdf5/1.8.10
   r: r/2.1.5
   unix: unix/unix
-To learn more about a package enter:
+To learn more about a package execute:
    $ module spider Foo
-where "Foo" is the name of a module
+where "Foo" is the name of a module.
 To find detailed information about a particular package you
-must enter the version if there is more than one version:
+must specify the version if there is more than one version:
    $ module spider Foo/11.1
 ===========================
 step 4
@@ -174,8 +174,8 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider R
      Other possible modules matches:
         PrgEnv, apps/gromacs, cmplrs/intel, greenlet, parmetis, r
     This module can be loaded directly: module load R/2.1.5
-  To find other possible module matches do:
-      module -r spider '.*R.*'
+  To find other possible module matches execute:
+      $ module -r spider '.*R.*'
 ===========================
 step 10
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing -r spider ^R
@@ -302,11 +302,11 @@ The following is a list of the modules currently available:
   phdf5: phdf5/1.8.2, phdf5/1.8.9, phdf5/1.8.10
   r: r/2.1.5
   unix: unix/unix
-To learn more about a package enter:
+To learn more about a package execute:
    $ module spider Foo
-where "Foo" is the name of a module
+where "Foo" is the name of a module.
 To find detailed information about a particular package you
-must enter the version if there is more than one version:
+must specify the version if there is more than one version:
    $ module spider Foo/11.1
 ===========================
 step 21
@@ -385,9 +385,9 @@ The following is a list of the modules currently available:
     Intel Cluster Toolkit Compiler Edition provides Intel C,C++ and fortran compilers, Intel MPI and Intel MKL - Homepage: http://software.intel.com/en-us/intel-cluster-toolkit-compiler/
   openmpi: openmpi/2.0.1
     The Open MPI Project is an open source MPI-2 implementation. - Homepage: http://www.open-mpi.org/
-To learn more about a package enter:
+To learn more about a package execute:
    $ module spider Foo
-where "Foo" is the name of a module
+where "Foo" is the name of a module.
 To find detailed information about a particular package you
-must enter the version if there is more than one version:
+must specify the version if there is more than one version:
    $ module spider Foo/11.1

@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 0.9.2  2016-10-25 13:59 -05:00
+Modules based on Lua: Version 7.3  2017-01-11 11:14 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -22,7 +22,7 @@ step 4
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
 ===========================
 The following modules were not unloaded:
-   (Use "module --force purge" to unload all):
+  (Use "module --force purge" to unload all):
   1) apps/buildtools/20140527   3) mpi/openmpi/1.6.5   5) apps/moab
   2) compilers/intel/14.0       4) StdEnv
 ===========================

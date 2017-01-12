@@ -94,7 +94,7 @@ must specify the version if there is more than one version:
    $ module spider Foo/11.1
 
 %{border}]==],
-     m415     = "     Descriptions: %{descript}\n\n",
+     m415     = "    Description:\n%{descript}\n\n",
      m416     = "     Versions:\n",
      m417     = [==[
      Other possible modules matches:
@@ -116,6 +116,10 @@ must specify the version if there is more than one version:
      m423      = "    Properties:\n",
      m424      = "\n     Other possible modules matches:\n        %{bb}\n",
      m425      = "\n  Where:\n",
+     m426      = [==[The following modules were not unloaded:
+  (Use "module --force purge" to unload all):
+]==],
+     m427      = "\nThe following sticky modules could not be reloaded:\n",
 
      w511      = [==[Failed to find the following module(s):  "%{quote_comma_list}" in your MODULEPATH
 Try:
@@ -124,15 +128,7 @@ Try:
 
 to see if the module(s) are available across all compilers and MPI implementations.
 ]==],
-     w512      = [==["
-The following modules were not unloaded: Use
-
-   $ module --force purge
-
-to unload all):
-]==],
-     w513      = "\nThe following sticky modules could not be reloaded:\n",
-     w514      = "Unknown hook: %{name}\n",
+     w512      = "Unknown hook: %{name}\n",
 
      ml_help   = [==[
    ml: A handy front end for the module command:

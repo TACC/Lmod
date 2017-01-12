@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 7.2.2  2017-01-08 08:15 -06:00
+Modules based on Lua: Version 7.3  2017-01-11 11:14 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -109,7 +109,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing load boost/1.33.0
 ===========================
 Lmod has detected the following error: The following module(s) are unknown: "boost/1.33.0"
 Please check the spelling or version number. Also try "module spider ..."
-It is also possible your cache file is out-of-date try:
+It is also possible your cache file is out-of-date; it may help to try:
   $ module --ignore-cache load "boost/1.33.0"
 ===========================
 step 17
@@ -117,7 +117,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing load boost/1.57.0
 ===========================
 Lmod has detected the following error: The following module(s) are unknown: "boost/1.57.0"
 Please check the spelling or version number. Also try "module spider ..."
-It is also possible your cache file is out-of-date try:
+It is also possible your cache file is out-of-date; it may help to try:
   $ module --ignore-cache load "boost/1.57.0"
 ===========================
 step 18
@@ -190,7 +190,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing load DoesNotExist
 ===========================
 Lmod has detected the following error: The following module(s) are unknown: "DoesNotExist"
 Please check the spelling or version number. Also try "module spider ..."
-It is also possible your cache file is out-of-date try:
+It is also possible your cache file is out-of-date; it may help to try:
   $ module --ignore-cache load "DoesNotExist"
 ===========================
 step 29
@@ -302,7 +302,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing load bad_symlink
 ===========================
 Lmod has detected the following error: The following module(s) are unknown: "bad_symlink"
 Please check the spelling or version number. Also try "module spider ..."
-It is also possible your cache file is out-of-date try:
+It is also possible your cache file is out-of-date; it may help to try:
   $ module --ignore-cache load "bad_symlink"
 ===========================
 step 38
@@ -310,7 +310,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing load empty
 ===========================
 Lmod has detected the following error: The following module(s) are unknown: "empty"
 Please check the spelling or version number. Also try "module spider ..."
-It is also possible your cache file is out-of-date try:
+It is also possible your cache file is out-of-date; it may help to try:
   $ module --ignore-cache load "empty"
 ===========================
 step 39
@@ -318,7 +318,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing load version_only
 ===========================
 Lmod has detected the following error: The following module(s) are unknown: "version_only"
 Please check the spelling or version number. Also try "module spider ..."
-It is also possible your cache file is out-of-date try:
+It is also possible your cache file is out-of-date; it may help to try:
   $ module --ignore-cache load "version_only"
 ===========================
 step 40
