@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 7.2.2  2017-01-08 08:15 -06:00
+Modules based on Lua: Version 7.3.1  2017-01-11 21:09 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -46,3 +46,98 @@ Lmod a détecté l'erreur suivante : Le ou les module(s) suivants sont inconnus:
 Veuillez vérifier l'orthographe ou le numéro de version. Vous pouvez aussi essayer "module spider ..."
 Il est aussi possible que votre cache soit désuète. Essayez :
   $ module --ignore-cache load "unknown"
+===========================
+step 10
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --help
+===========================
+Usage: module [options] sub-command [args ...]
+Options:
+  -h -? -H --help                   This help message
+  -s availStyle --style=availStyle  Site controlled avail style: system (default: system)
+  --regression_testing              Lmod regression testing
+  -D                                Program tracing written to stderr
+  --debug=dbglvl                    Program tracing written to stderr
+  --pin_versions=pinVersions        When doing a restore use specified version, do not follow defaults
+  -d --default                      List default modules only when used with avail
+  -q --quiet                        Do not print out warnings
+  --topic=topic                     help topics: modfuncs envvars
+  --expert                          Expert mode
+  -t --terse                        Write out in machine readable format for commands: list, avail, spider, savelist
+  --initial_load                    loading Lmod for first time in a user shell
+  --latest                          Load latest (ignore default)
+  --ignore_cache                    Treat the cache file(s) as out-of-date
+  --novice                          Turn off expert and quiet flag
+  --raw                             Print modulefile in raw output when used with show
+  -w twidth --width=twidth          Use this as max term width
+  -v --version                      Print version info and quit
+  -r --regexp                       use regular expression match
+  --gitversion                      Dump git version in a machine readable way and quit
+  --dumpversion                     Dump version in a machine readable way and quit
+  --localvar=localvarA              local variables needed to be set after this commands execution
+  --check_syntax --checkSyntax      Checking module command syntax: do not load
+  --config                          Report Lmod Configuration
+  --config_json                     Report Lmod Configuration in json format
+  --mt                              Report Module Table State
+  --timer                           report run times
+  --force                           force removal of a sticky module or save an empty collection
+  --redirect                        Send the output of list, avail, spider to stdout (not stderr)
+  --no_redirect                     Force output of list, avail and spider to stderr
+  --show_hidden                     Avail and spider will report hidden modules
+  --spider_timeout=timeout          a timeout for spider
+module [options] sub-command [args ...]
+Sous-commandes d'aide :
+  help                              affiche ce message
+  help                module [...]  affiche le message d'aide du module correspondant
+Sous-commandes de chargement/déchargement :
+  load | add          module [...]  charge un ou des modules
+  try-load | try-add  module [...]  Ajoute un ou des modules, n'affiche pas d'erreur si le module n'est pas trouvé
+  del | unload        module [...]  Enlève un ou des modules, n'affiche pas d'erreur si le module n'est pas trouvé
+  swap | sw | switch  m1 m2         enlève m1 et charge m2
+  purge                             enlève tous les modules
+  refresh                           rafraîchi les alias de la liste courante de modules.
+  update                            rafraîchi tous les modules présentement chargés.
+Sous-commandes pour lister / chercher :
+  list                              Liste les modules chargés
+  list                s1 s2 ...     Liste les modules chargés qui correspondent à la recherche
+  avail | av                        Liste les modules disponibles
+  avail | av          string        Liste les modules disponibles qui contiennent "string".
+  spider                            Liste tous les modules existants
+  spider              module        Liste toutes les versions d'un module
+  spider              string        Liste tous les modules qui contiennent "string".
+  spider              name/version  Information détaillée à propos de cette version du module.
+  whatis              module        Affiche l'information "whatis" à propos de ce module
+  keyword | key       string        Cherche tous les noms et descriptions ("whatis") qui contiennent "string".
+Chercher avec Lmod:
+  Toutes les sous-commandes de recherche (spider, list, avail, keyword) supportent les expressions régulières :
+  spider -r           '^p'          Trouve tous les modules qui débutent par `p' or `P'
+  spider -r           mpi           Trouve tous les modules qui ont "mpi" dans leur nom.
+  spider -r           'mpi$         Trouve tous les modules dont le nom se termine par "mpi".
+Gérer une collection de modules :
+  save | s                          Sauvegarde la liste actuelle de modules vers une collection "default" définie par l'usage.
+  save | s            name          Sauvegarde la liste actuelle de modules vers une collection nommée "name".
+  reset                             Identique à "restore system"
+  restore | r                       Restaure les modules de la collection par défaut de l'usager si elle existe, ou du système sinon.
+  restore | r         name          Restaure les modules de la collection nommée "name".
+  restore             system        Restaure les modules à l'état par défaut du système.
+  savelist                          Affiche la liste des collections sauvegardées.
+  describe | mcc      name          Décrit le contenu d'une collection.
+Sous-commandes désuètes :
+  getdefault          [name]        charge la collection nommée "name" de l'usager, ou la collection par défaut si aucun nom n'est fourni.
+                                    ===> Utilisez plutôt "restore"  <====
+  setdefault          [name]        sauvegarde liste actuelle de modules dans la collection "name" si un nom est donné. Si aucun nom n'est donné, sauvegarde la liste en tant que liste par défaut pour l'usager.
+                                    ===> Utilisez plutôt "save". <====
+Sous-commandes diverses:
+  show                modulefile    affiche les commandes contenues dans le fichier de module.
+  use [-a]            path          Ajoute un chemin au début (prepend) ou à la fin (append) de la variable d'environnement MODULEPATH.
+  unuse               path          Enlève le chemin de la variable d'environnement MODULEPATH.
+  tablelist                         Affiche la liste des modules actifs sous la forme d'une table lua.
+Variables d'environnement importantes :
+  LMOD_COLORIZE                     Si la valeur est "YES" alors Lmod affichera les propriétés et avertissements en couleur.
+Sites web de Lmod
+  Documentation:    http://lmod.readthedocs.org
+  Github:           https://github.com/TACC/Lmod
+  Sourceforge:      https://lmod.sf.net
+  TACC Homepage:    https://www.tacc.utexas.edu/research-development/tacc-projects/lmod
+  Pour rapporter un bogue, veuillez lire http://lmod.readthedocs.io/en/latest/075_bug_reporting.html
+Modules based on Lua: Version 7.3.1  2017-01-11 21:09 -06:00
+    by Robert McLay mclay@tacc.utexas.edu

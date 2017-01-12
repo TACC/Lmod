@@ -47,7 +47,7 @@ require("strict")
 _G._DEBUG          = false               -- Required by the new lua posix
 local cosmic       = require("Cosmic"):singleton()
 local dbg          = require("Dbg"):dbg()
-local format       = string.format
+local i18n         = require("i18n")
 local posix        = require("posix")
 local setenv_posix = posix.setenv
 local stderr       = io.stderr
@@ -115,7 +115,7 @@ function M.singleton(self, usage)
       name   = {"-h","-?","-H","--help"},
       dest   = "cmdHelp",
       action = "store_true",
-      help   = "This help message",
+      help   = i18n("help_hlp"),
    }
 
    cmdlineParser:add_option{
@@ -123,49 +123,49 @@ function M.singleton(self, usage)
       dest    = "availStyle",
       action  = "store",
       default = defaultStyle,
-      help    = "Site controlled avail style: "..concatTbl(styleA," ").." (default: "..defaultStyle..")"
+      help    = i18n("style_hlp",{styleA=concatTbl(styleA," "), default = defaultStyle}),
    }
 
    cmdlineParser:add_option{
       name   = {"--regression_testing"},
       dest   = "rt",
       action = "store_true",
-      help   = "Lmod regression testing",
+      help   = i18n("rt_hlp"),
    }
 
    cmdlineParser:add_option{
       name   = {"-D"},
       dest   = "debug",
       action = "count",
-      help   = "Program tracing written to stderr",
+      help   = i18n("dbg_hlp"),
    }
 
    cmdlineParser:add_option{
       name   = {"--debug"},
       dest   = "dbglvl",
       action = "store",
-      help   = "Program tracing written to stderr",
+      help   = i18n("dbg_hlp"),
    }
 
    cmdlineParser:add_option{
       name   = {"--pin_versions"},
       dest   = "pinVersions",
       action = "store",
-      help   = "When doing a restore use specified version, do not follow defaults",
+      help   = i18n("pin_hlp"),
    }
 
    cmdlineParser:add_option{
       name   = {"-d","--default"},
       dest   = "defaultOnly",
       action = "store_true",
-      help   = "List default modules only when used with avail"
+      help   = i18n("avail_hlp"),
    }
 
    cmdlineParser:add_option{
       name   = {"-q","--quiet"},
       dest   = "quiet",
       action = "store_true",
-      help   = "Do not print out warnings",
+      help   = i18n("quiet_hlp")
    }
 
    cmdlineParser:add_option{
@@ -179,85 +179,84 @@ function M.singleton(self, usage)
       name   = {"--expert"},
       dest   = "expert",
       action = "store_true",
-      help   = "Expert mode",
+      help   = i18n("exprt_hlp")
    }
 
    cmdlineParser:add_option{
       name   = {"-t","--terse"},
       dest   = "terse",
       action = "store_true",
-      help   = "Write out in machine readable format for " ..
-               "commands: list, avail, spider, savelist",
+      help   = i18n("terse_hlp")
    }
 
    cmdlineParser:add_option{
       name   = {"--initial_load"},
       dest   = "initial",
       action = "store_true",
-      help   = "loading Lmod for first time in a user shell",
+      help   = i18n("initL_hlp")
    }
 
    cmdlineParser:add_option{
       name   = {"--latest"},
       dest   = "latest",
       action = "store_true",
-      help   = "Load latest (ignore default)",
+      help   = i18n("latest_H"),
    }
 
    cmdlineParser:add_option{
       name   = {"--ignore_cache"},
       dest   = "ignoreCache",
       action = "store_true",
-      help   = "Treat the cache file(s) as out-of-date",
+      help   = i18n("cache_hlp"),
    }
 
    cmdlineParser:add_option{
       name   = {"--novice"},
       dest   = "novice",
       action = "store_true",
-      help   = "Turn off expert and quiet flag",
+      help   = i18n("novice_H")
    }
 
    cmdlineParser:add_option{
       name   = {"--raw"},
       dest   = "rawDisplay",
       action = "store_true",
-      help   = "Print modulefile in raw output when used with show",
+      help   = i18n("raw_hlp"),
    }
 
    cmdlineParser:add_option{
       name   = {"-w","--width"},
       dest   = "twidth",
       action = "store",
-      help   = "Use this as max term width",
+      help   = i18n("width_hlp")
    }
 
    cmdlineParser:add_option{
       name   = {"-v","--version"},
       dest   = "version",
       action = "store_true",
-      help   = "Print version info and quit",
+      help   = i18n("v_hlp"),
    }
 
    cmdlineParser:add_option{
       name   = {"-r","--regexp"},
       dest   = "regexp",
       action = "store_true",
-      help   = "use regular expression match",
+      help   = i18n("rexp_hlp"),
    }
 
    cmdlineParser:add_option{
       name   = {"--gitversion"},
       dest   = "gitversion",
       action = "store_true",
-      help   = "Dump git version in a machine readable way and quit",
+      help   = i18n("gitV_hlp"),
    }
 
    cmdlineParser:add_option{
       name   = {"--dumpversion"},
       dest   = "dumpversion",
       action = "store_true",
-      help   = "Dump version in a machine readable way and quit",
+      help   = i18n("dumpV_hlp")
    }
 
    cmdlineParser:add_option{
@@ -271,70 +270,70 @@ function M.singleton(self, usage)
       name   = {"--check_syntax", "--checkSyntax"},
       dest   = "checkSyntax",
       action = "store_true",
-      help   = "Checking module command syntax: do not load",
+      help   = i18n("chkSyn_H"),
    }
 
    cmdlineParser:add_option{
       name   = {"--config" },
       dest   = "config",
       action = "store_true",
-      help   = "Report Lmod Configuration",
+      help   = i18n("config_H"),
    }
 
    cmdlineParser:add_option{
        name   = {"--config_json" },
        dest   = "configjson",
        action = "store_true",
-       help   = "Report Lmod Configuration in json format",
+       help   = i18n("jcnfig_H"),
    }
 
    cmdlineParser:add_option{
       name   = {"--mt" },
       dest   = "reportMT",
       action = "store_true",
-      help   = "Report Module Table State",
+      help   = i18n("MT_hlp"),
    }
 
    cmdlineParser:add_option{
       name   = {"--timer" },
       dest   = "reportTimer",
       action = "store_true",
-      help   = "report run times",
+      help   = i18n("timer_hlp")
    }
 
    cmdlineParser:add_option{
       name   = {"--force" },
       dest   = "force",
       action = "store_true",
-      help   = "force removal of a sticky module or save an empty collection",
+      help   = i18n("force_hlp"),
    }
 
    cmdlineParser:add_option{
       name   = {"--redirect" },
       dest   = "redirect",
       action = "store_true",
-      help   = "Send the output of list, avail, spider to stdout (not stderr)",
+      help   = i18n("redirect_H")
    }
 
    cmdlineParser:add_option{
       name   = {"--no_redirect" },
       dest   = "redirect_off",
       action = "store_true",
-      help   = "Force output of list, avail and spider to stderr",
+      help   = i18n("nrdirect_H")
    }
 
    cmdlineParser:add_option{
       name   = {"--show_hidden" },
       dest   = "show_hidden",
       action = "store_true",
-      help   = "Avail and spider will report hidden modules",
+      help   = i18n("hidden_H")
    }
 
    cmdlineParser:add_option{
       name   = {"--spider_timeout" },
       dest   = "timeout",
       action = "store",
-      help   = "a timeout for spider",
+      help   = i18n("spdrT_H"),
       default = 0.0
    }
 

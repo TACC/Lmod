@@ -41,7 +41,7 @@ testdescript = {
      runLmod load gcc                 # 7
      export LANG=fr_CA.UTF8
      runLmod load unknown             # 8
-
+     runLmod --help                   # 9
 
 
 
