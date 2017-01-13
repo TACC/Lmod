@@ -52,38 +52,36 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing --help
 ===========================
 Usage: module [options] sub-command [args ...]
 Options:
-  -h -? -H --help                   This help message
-  -s availStyle --style=availStyle  Site controlled avail style: system (default: system)
-  --regression_testing              Lmod regression testing
-  -D                                Program tracing written to stderr
-  --debug=dbglvl                    Program tracing written to stderr
-  --pin_versions=pinVersions        When doing a restore use specified version, do not follow defaults
-  -d --default                      List default modules only when used with avail
-  -q --quiet                        Do not print out warnings
-  --topic=topic                     help topics: modfuncs envvars
-  --expert                          Expert mode
-  -t --terse                        Write out in machine readable format for commands: list, avail, spider, savelist
-  --initial_load                    loading Lmod for first time in a user shell
-  --latest                          Load latest (ignore default)
-  --ignore_cache                    Treat the cache file(s) as out-of-date
-  --novice                          Turn off expert and quiet flag
-  --raw                             Print modulefile in raw output when used with show
-  -w twidth --width=twidth          Use this as max term width
-  -v --version                      Print version info and quit
-  -r --regexp                       use regular expression match
-  --gitversion                      Dump git version in a machine readable way and quit
-  --dumpversion                     Dump version in a machine readable way and quit
-  --localvar=localvarA              local variables needed to be set after this commands execution
-  --check_syntax --checkSyntax      Checking module command syntax: do not load
-  --config                          Report Lmod Configuration
-  --config_json                     Report Lmod Configuration in json format
-  --mt                              Report Module Table State
-  --timer                           report run times
-  --force                           force removal of a sticky module or save an empty collection
-  --redirect                        Send the output of list, avail, spider to stdout (not stderr)
-  --no_redirect                     Force output of list, avail and spider to stderr
-  --show_hidden                     Avail and spider will report hidden modules
-  --spider_timeout=timeout          a timeout for spider
+  -h -? -H --help                   Ce message d'aide
+  -s availStyle --style=availStyle  Style contrôlé par le site pour "avail" : system (défaut: system)
+  --regression_testing              Test de régression de Lmod
+  -D                                Trace du programme écrite vers stderr
+  --debug=dbglvl                    Trace du programme écrite vers stderr
+  --pin_versions=pinVersions        Lors d'une restauration, utiliser la version spécifiée, et ignorer la version par défaut
+  -d --default                      Affiche seulement les modules par défaut lorsque la commande avail est utilisée
+  -q --quiet                        N'affiche pas les avertissements
+  --expert                          Mode expert
+  -t --terse                        Affichage dans un format lisible par l'ordinateur pour les commandes: list, avail, spider, savelist
+  --initial_load                    Chargement de Lmod pour la première fois dans une session d'usager
+  --latest                          Charge la version la plus récente (ignore la version par défaut)
+  --ignore_cache                    Considère la cache comme étant désuète
+  --novice                          Désactive le mode expert
+  --raw                             Lorsqu'utilisé avec la sous-commande show, affiche le contenu du fichier de module de façon non formattée
+  -w twidth --width=twidth          Change la largeur de l'affichage
+  -v --version                      Affiche la version
+  -r --regexp                       Fait une recherche par expression régulière
+  --gitversion                      Affiche la version git dans un format lisible par l'ordinateur
+  --dumpversion                     Affiche la version dans un format lisible par l'ordinateur
+  --check_syntax --checkSyntax      Vérifie la syntaxe, ne charge pas le module
+  --config                          Affiche la configuration Lmod
+  --config_json                     Affiche la configuration Lmod dans un format json
+  --mt                              Affiche la table de l'état des modules
+  --timer                           Affiche le temps d'exécution
+  --force                           Force la désactivation d'un module permanent, ou force la sauvegarde d'une collection vide
+  --redirect                        Affiche la sortie de list, avail, spider vers stdout (plutôt que stderr)
+  --no_redirect                     Affiche la sortie de list, avail, spider vers stderr
+  --show_hidden                     Avail et spider afficheront les modules cachés
+  --spider_timeout=timeout          un délai maximal pour spider
 module [options] sub-command [args ...]
 Sous-commandes d'aide :
   help                              affiche ce message

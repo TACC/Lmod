@@ -311,7 +311,7 @@ function List(...)
    end
 
    if (kk == 0) then
-      b[#b+1] = i18n("noModules")
+      b[#b+1] = i18n("noneFound")
    else
       if (#a > 0) then
          local ct = ColumnTable:new{tbl=a, gap=0, len=length, width=cwidth}

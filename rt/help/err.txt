@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 7.1.9  2016-12-17 13:29 -06:00
+Modules based on Lua: Version 7.3.1  2017-01-11 21:09 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -18,7 +18,6 @@ Options:
   --pin_versions=pinVersions        When doing a restore use specified version, do not follow defaults
   -d --default                      List default modules only when used with avail
   -q --quiet                        Do not print out warnings
-  --topic=topic                     help topics: modfuncs envvars
   --expert                          Expert mode
   -t --terse                        Write out in machine readable format for commands: list, avail, spider, savelist
   --initial_load                    loading Lmod for first time in a user shell
@@ -31,7 +30,6 @@ Options:
   -r --regexp                       use regular expression match
   --gitversion                      Dump git version in a machine readable way and quit
   --dumpversion                     Dump version in a machine readable way and quit
-  --localvar=localvarA              local variables needed to be set after this commands execution
   --check_syntax --checkSyntax      Checking module command syntax: do not load
   --config                          Report Lmod Configuration
   --config_json                     Report Lmod Configuration in json format
@@ -97,7 +95,7 @@ Lmod Web Sites
   Sourceforge:      https://lmod.sf.net
   TACC Homepage:    https://www.tacc.utexas.edu/research-development/tacc-projects/lmod
   To report a bug please read http://lmod.readthedocs.io/en/latest/075_bug_reporting.html
-Modules based on Lua: Version 7.1.9  2016-12-17 13:29 -06:00
+Modules based on Lua: Version 7.3.1  2017-01-11 21:09 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 3
@@ -113,7 +111,6 @@ Options:
   --pin_versions=pinVersions        When doing a restore use specified version, do not follow defaults
   -d --default                      List default modules only when used with avail
   -q --quiet                        Do not print out warnings
-  --topic=topic                     help topics: modfuncs envvars
   --expert                          Expert mode
   -t --terse                        Write out in machine readable format for commands: list, avail, spider, savelist
   --initial_load                    loading Lmod for first time in a user shell
@@ -126,7 +123,6 @@ Options:
   -r --regexp                       use regular expression match
   --gitversion                      Dump git version in a machine readable way and quit
   --dumpversion                     Dump version in a machine readable way and quit
-  --localvar=localvarA              local variables needed to be set after this commands execution
   --check_syntax --checkSyntax      Checking module command syntax: do not load
   --config                          Report Lmod Configuration
   --config_json                     Report Lmod Configuration in json format
@@ -192,7 +188,7 @@ Lmod Web Sites
   Sourceforge:      https://lmod.sf.net
   TACC Homepage:    https://www.tacc.utexas.edu/research-development/tacc-projects/lmod
   To report a bug please read http://lmod.readthedocs.io/en/latest/075_bug_reporting.html
-Modules based on Lua: Version 7.1.9  2016-12-17 13:29 -06:00
+Modules based on Lua: Version 7.3.1  2017-01-11 21:09 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 4
@@ -212,7 +208,7 @@ Version 9
 step 5
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --config
 ===========================
-Modules based on Lua: Version 7.1.9  2016-12-17 13:29 -06:00
+Modules based on Lua: Version 7.3.1  2017-01-11 21:09 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 Description                      Value
 Allow TCL modulefiles            yes

@@ -169,13 +169,6 @@ function M.singleton(self, usage)
    }
 
    cmdlineParser:add_option{
-      name   = {"--topic"},
-      dest   = "topic",
-      action = "store",
-      help   = "help topics: modfuncs envvars",
-   }
-
-   cmdlineParser:add_option{
       name   = {"--expert"},
       dest   = "expert",
       action = "store_true",
@@ -257,13 +250,6 @@ function M.singleton(self, usage)
       dest   = "dumpversion",
       action = "store_true",
       help   = i18n("dumpV_hlp")
-   }
-
-   cmdlineParser:add_option{
-      name   = {"--localvar"},
-      dest   = "localvarA",
-      action = "append",
-      help   = "local variables needed to be set after this commands execution",
    }
 
    cmdlineParser:add_option{

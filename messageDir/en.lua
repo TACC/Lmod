@@ -76,6 +76,7 @@ Use "module keyword key1 key2 ..." to search for all possible modules matching a
      spider    = " ",
      aliasMsg  = "Aliases exist: foo/1.2.3 (1.2) means that \"module load foo/1.2\" will load foo/1.2.3",
      noModules = "No modules found!",
+     noneFound = "  None found.",
 
 
 

@@ -63,9 +63,11 @@ return {
      timer_hlp = "Affiche le temps d'exécution",
      force_hlp = "Force la désactivation d'un module permanent, ou force la sauvegarde d'une collection vide",
      redirect_H= "Affiche la sortie de list, avail, spider vers stdout (plutôt que stderr)",
-     nrdirect_H= "Affiche la sortie de list, avail, spider vers stderr"
+     nrdirect_H= "Affiche la sortie de list, avail, spider vers stderr",
      hidden_H  = "Avail et spider afficheront les modules cachés",
      spdrT_H   = "un délai maximal pour spider",
+     Where     = "\n  Où :\n",
+     Inactive  = "\nModules Inactifs",
 
      avail     = [==[Utilisez "module spider" pour trouver tous les modules possibles.
 Utilisez "module keyword key1 key2 ..." pour chercher tous les modules possibles qui correspondent à l'une des clés (key1, key2).
@@ -74,6 +76,7 @@ Utilisez "module keyword key1 key2 ..." pour chercher tous les modules possibles
      spider    = " ",
      aliasMsg  = "Des alias existent: foo/1.2.3 (1.2) signifie que \"module load foo/1.2\" chargera le module foo/1.2.3",
      noModules = "Aucun module trouvé!",
+     noneFound = "  Aucun trouvé",
 
 
 

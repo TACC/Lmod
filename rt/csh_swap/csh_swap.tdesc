@@ -131,8 +131,7 @@ cat > $(testName).csh << EOF
      echo "step 7"
      echo "==========================="
 
-     unset histchars
-     lua $(projectDir)/src/$CMD csh --localvar histchars="$_histchars" swap gcc  intel > _stdout.15
+     lua $(projectDir)/src/$CMD csh swap gcc  intel > _stdout.15
      eval \`cat _stdout.15\`
 
      cat _stdout.[01][0-9] > _stdout.orig
