@@ -36,6 +36,36 @@ return {
    fr = {
      errTitle  = "Lmod a détecté l'erreur suivante : ",
      warnTitle = "Lmod Warning: ",
+     
+     help_hlp  = "Ce message d'aide",
+     style_hlp = "Style contrôlé par le site pour \"avail\" : %{styleA} (défaut: %{default})",
+     rt_hlp    = "Test de régression de Lmod",
+     dbg_hlp   = "Trace du programme écrite vers stderr",
+     pin_hlp   = "Lors d'une restauration, utiliser la version spécifiée, et ignorer la version par défaut",
+     avail_hlp = "Affiche seulement les modules par défaut lorsque la commande avail est utilisée",
+     quiet_hlp = "N'affiche pas les avertissements",
+     exprt_hlp = "Mode expert",
+     terse_hlp = "Affichage dans un format lisible par l'ordinateur pour les commandes: list, avail, spider, savelist",
+     initL_hlp = "Chargement de Lmod pour la première fois dans une session d'usager",
+     latest_H  = "Charge la version la plus récente (ignore la version par défaut)",
+     cache_hlp = "Considère la cache comme étant désuète",
+     novice_H  = "Désactive le mode expert",
+     raw_hlp   = "Lorsqu'utilisé avec la sous-commande show, affiche le contenu du fichier de module de façon non formattée",
+     width_hlp = "Change la largeur de l'affichage",
+     v_hlp     = "Affiche la version",
+     rexp_hlp  = "Fait une recherche par expression régulière",
+     gitV_hlp  = "Affiche la version git dans un format lisible par l'ordinateur",
+     dumpV_hlp = "Affiche la version dans un format lisible par l'ordinateur",
+     chkSyn_H  = "Vérifie la syntaxe, ne charge pas le module",
+     config_H  = "Affiche la configuration Lmod",
+     jcnfig_H  = "Affiche la configuration Lmod dans un format json",
+     MT_hlp    = "Affiche la table de l'état des modules",
+     timer_hlp = "Affiche le temps d'exécution",
+     force_hlp = "Force la désactivation d'un module permanent, ou force la sauvegarde d'une collection vide",
+     redirect_H= "Affiche la sortie de list, avail, spider vers stdout (plutôt que stderr)",
+     nrdirect_H= "Affiche la sortie de list, avail, spider vers stderr"
+     hidden_H  = "Avail et spider afficheront les modules cachés",
+     spdrT_H   = "un délai maximal pour spider",
 
      avail     = [==[Utilisez "module spider" pour trouver tous les modules possibles.
 Utilisez "module keyword key1 key2 ..." pour chercher tous les modules possibles qui correspondent à l'une des clés (key1, key2).
