@@ -1,17 +1,18 @@
 # -*- lua -*-
+local i18n = require("i18n")
 propT = {
    state = {
       validT = { experimental = 1, testing = 1, obsolete = 1 },
       displayT = {
-         experimental  = { short = "(E)",  long = "(E)",     color = "blue",  doc = "Experimental", },
-         testing       = { short = "(T)",  long = "(T)",     color = "green", doc = "Testing", },
-         obsolete      = { short = "(O)",  long = "(O)",     color = "red",   doc = "Obsolete", },
+         experimental  = { short = "(E)",  long = "(E)",     color = "blue",  doc = i18n("ExplM"), },
+         testing       = { short = "(T)",  long = "(T)",     color = "green", doc = i18n("TstM"), },
+         obsolete      = { short = "(O)",  long = "(O)",     color = "red",   doc = i18n("ObsM"), },
       },
    },
    lmod = {
       validT = { sticky = 1 },
       displayT = {
-         sticky = { short = "(S)",  long = "(S)",   color = "red",    doc = "Module is Sticky, requires --force to unload or purge",  },
+         sticky = { short = "(S)",  long = "(S)",   color = "red",    doc = i18n("StickyM"), }
       },
    },
    arch = {
@@ -28,7 +29,7 @@ propT = {
    status = {
       validT = { active = 1, },
       displayT = {
-        active        = { short = "(L)",  long = "(L)",     color = "yellow", doc = "Module is loaded", },
+         active = { short = "(L)",  long = "(L)",     color = "yellow", doc = i18n("LoadedM")},
      },
    },
 }

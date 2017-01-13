@@ -826,7 +826,7 @@ function M.avail(self, argA)
                local dflt = false
                if (not defaultOnly and mark_as_default(entry, defaultT)) then
                   dflt             = Default
-                  legendT[Default] = "Default Module"
+                  legendT[Default] = i18n("DefaultM")
                end
 
                if (mt:have(sn, "active") and fn == mt:fn(sn)) then

@@ -37,6 +37,12 @@ return {
      errTitle  = "Lmod has detected the following error: ",
      warnTitle = "Lmod Warning: ",
 
+     StickM    = "Module is Sticky, requires --force to unload or purge",
+     LoadedM   = "Module is loaded",
+     ExplM     = "Experimental",
+     TstM      = "Testing",
+     ObsM      = "Obsolete",
+
      help_hlp  = "This help message",
      style_hlp = "Site controlled avail style: %{styleA} (default: %{default})",
      rt_hlp    = "Lmod regression testing",
@@ -68,6 +74,8 @@ return {
      spdrT_H   = "a timeout for spider",
      Where     = "\n  Where:\n",
      Inactive  = "\nInactive Modules",
+     DefaultM  = "Default Module",
+     HiddenM   = "Hidden Module",
 
      avail     = [==[Use "module spider" to find all possible modules.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".

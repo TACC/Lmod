@@ -93,6 +93,7 @@ Advanced Topics
    180_prereqs_load_rpath
    185_localization
    190_Integration_of_EasyBuild_and_Lmod
+   200_avail_custom
 
 Topics yet to be written
 ^^^^^^^^^^^^^^^^^^^^^^^^

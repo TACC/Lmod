@@ -227,10 +227,11 @@ function colorizePropA(style, moduleName, mrc, propT, legendT)
    propT              = propT or {}
 
    if (not mrc:isVisible(moduleName)) then
+      local i18n = require("i18n")
       local H    = 'H'
       moduleName = colorize("hidden",moduleName)
       pA[#pA+1]  = H
-      legendT[H] = "Hidden Module"
+      legendT[H] = i18n("HiddenM")
    end
 
 

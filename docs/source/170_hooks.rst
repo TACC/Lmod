@@ -22,7 +22,9 @@ How to set up SitePackage.lua
 Here are two suggestions on how to use your SitePackage.lua file:
 
 #. Install Lmod normally and then overwrite your SitePackage.lua file over
-   this one in the install directory.
+   this one in the install directory.  This is good for testing but
+   it is recommended that sites use the second method for permanent
+   changes.  Otherwise changes may be lost when upgrading Lmod. 
 
 #. Create a file named "SitePackage.lua" in a different directory separate
    from the Lmod installed directory and it will override the one in the Lmod
