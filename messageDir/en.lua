@@ -37,7 +37,7 @@ return {
      errTitle  = "Lmod has detected the following error: ",
      warnTitle = "Lmod Warning: ",
 
-     StickM    = "Module is Sticky, requires --force to unload or purge",
+     StickyM   = "Module is Sticky, requires --force to unload or purge",
      LoadedM   = "Module is loaded",
      ExplM     = "Experimental",
      TstM      = "Testing",
