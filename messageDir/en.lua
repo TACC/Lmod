@@ -66,6 +66,8 @@ return {
      nrdirect_H= "Force output of list, avail and spider to stderr",
      hidden_H  = "Avail and spider will report hidden modules",
      spdrT_H   = "a timeout for spider",
+     Where     = "\n  Where:\n",
+     Inactive  = "\nInactive Modules",
 
      avail     = [==[Use "module spider" to find all possible modules.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".

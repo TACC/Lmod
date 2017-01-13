@@ -311,7 +311,7 @@ function List(...)
    end
 
    if (kk == 0) then
-      b[#b+1] = "  None found.\n"
+      b[#b+1] = i18n("noModules")
    else
       if (#a > 0) then
          local ct = ColumnTable:new{tbl=a, gap=0, len=length, width=cwidth}
@@ -322,7 +322,7 @@ function List(...)
 
    if (next(legendT)) then
       local term_width = TermWidth()
-      b[#b+1] = "\n  Where:\n"
+      b[#b+1] = i18n("Where")
       a = {}
       for k, v in pairsByKeys(legendT) do
          a[#a+1] = { "   " .. k ..":", v}
@@ -348,7 +348,7 @@ function List(...)
    end
 
    if (#a > 0) then
-      b[#b+1] = "\nInactive Modules"
+      b[#b+1] = i18n("Inactive")
       b[#b+1] = msg2
       b[#b+1] = "\n"
       local ct = ColumnTable:new{tbl=a,gap=0, width = cwidth}
