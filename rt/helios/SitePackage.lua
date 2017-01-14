@@ -4,10 +4,15 @@ local dbg  = require("Dbg"):dbg()
 
 local mapT =
 {
-   grouped = {
+   en_grouped = {
       ['/Compilers/'] = "Complr Dep. ",
       ['/Core.*']     = "Core Modules",
    },
+   fr_grouped = {
+      ['/Compilers/'] = "Compilateurs",
+      ['/Core.*']      = "Modules de base",
+   },
+   
 }
 
 

@@ -31,9 +31,11 @@ testdescript = {
      runLmod list                          # 3
      runLmod purge                         # 4
      runLmod            avail              # 5
-     runLmod -s grouped avail              # 6
-     export LMOD_AVAIL_STYLE="system:<grouped>"
+     runLmod -s en_grouped avail           # 6
+     export LMOD_AVAIL_STYLE="system:<en_grouped>"
      runLmod            avail              # 7
+     export LMOD_AVAIL_STYLE="fr_grouped"
+     runLmod            avail              # 8
 
      HOME=$ORIG_HOME
      cat _stdout.[0-9][0-9][0-9] > _stdout.orig
