@@ -37,6 +37,12 @@ return {
      errTitle  = "Lmod a détecté l'erreur suivante : ",
      warnTitle = "Lmod Warning: ",
      
+     StickyM   = "Le module est permanent - nécessite --force pour l'enlever ou purger les modules",
+     LoadedM   = "Le module est chargé",
+     ExplM     = "Expérimental",
+     TstM      = "Test",
+     ObsM      = "Obsolète",
+
      help_hlp  = "Ce message d'aide",
      style_hlp = "Style contrôlé par le site pour \"avail\" : %{styleA} (défaut: %{default})",
      rt_hlp    = "Test de régression de Lmod",
