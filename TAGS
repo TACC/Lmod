@@ -896,40 +896,40 @@ function M.className(53,2127
 function M.className(className53,2127
 function M.new(57,2182
 function M.new(new57,2182
-function M.buildA(119,3939
-function M.buildA(buildA119,3939
-local function lazyEval(134,4242
-function M.valid(215,6377
-function M.valid(valid215,6377
-function M.userName(223,6497
-function M.userName(userName223,6497
-function M.sn(227,6554
-function M.sn(sn227,6554
-function M.fn(236,6709
-function M.fn(fn236,6709
-function M.version(243,6809
-function M.version(version243,6809
-function M.fullName(250,6919
-function M.fullName(fullName250,6919
-function M.find_exact_match(314,9515
-function M.find_exact_match(find_exact_match314,9515
-local function find_highest_by_key(338,10142
-function M.find_highest(370,10979
-function M.find_highest(find_highest370,10979
-function M.find_latest(374,11063
-function M.find_latest(find_latest374,11063
-function M.find_between(378,11146
-function M.find_between(find_between378,11146
-function M.find_inherit_match(410,11986
-function M.find_inherit_match(find_inherit_match410,11986
-function M.isloaded(414,12061
-function M.isloaded(isloaded414,12061
-function M.isPending(431,12560
-function M.isPending(isPending431,12560
-function M.prereq(447,12999
-function M.prereq(prereq447,12999
-function M.show(474,13808
-function M.show(show474,13808
+function M.buildA(119,3980
+function M.buildA(buildA119,3980
+local function lazyEval(134,4283
+function M.valid(215,6418
+function M.valid(valid215,6418
+function M.userName(223,6538
+function M.userName(userName223,6538
+function M.sn(227,6595
+function M.sn(sn227,6595
+function M.fn(236,6750
+function M.fn(fn236,6750
+function M.version(243,6850
+function M.version(version243,6850
+function M.fullName(250,6960
+function M.fullName(fullName250,6960
+function M.find_exact_match(314,9556
+function M.find_exact_match(find_exact_match314,9556
+local function find_highest_by_key(338,10183
+function M.find_highest(370,11020
+function M.find_highest(find_highest370,11020
+function M.find_latest(374,11104
+function M.find_latest(find_latest374,11104
+function M.find_between(378,11187
+function M.find_between(find_between378,11187
+function M.find_inherit_match(410,12027
+function M.find_inherit_match(find_inherit_match410,12027
+function M.isloaded(414,12102
+function M.isloaded(isloaded414,12102
+function M.isPending(431,12601
+function M.isPending(isPending431,12601
+function M.prereq(447,13040
+function M.prereq(prereq447,13040
+function M.show(474,13849
+function M.show(show474,13849
 
 src/MRC.lua,879
 local function new(75,2901
@@ -1637,37 +1637,37 @@ function build_MT_envT(152,4785
 function build_i18n_messages(173,5299
    function cmdDir(209,6323
 function colorizePropA(222,6788
-function expert(276,8353
-function extractFullName(283,8472
-function extractVersion(288,8613
-function findAdminFn(300,8946
-function readAdmin(329,9891
-function getMT(396,11835
-function getModuleRCT(419,12403
-function isActiveMFile(432,12747
-function length(441,13052
-function masterTbl(450,13257
-function paired2pathT(455,13306
-function path2pathA(496,14440
-function quiet(528,15010
-function runTCLprog(536,15150
-function sanizatizeTbl(547,15438
-function setenv_lmod_version(582,16377
-function ShowCmdA(606,17034
-local function arg2str(622,17423
-function ShowCmdStr(643,18004
-function UUIDString(696,19191
-function case_independent_cmp(724,20027
-function activateWarning(741,20523
-function deactivateWarning(747,20695
-function haveWarnings(753,20873
-function clearWarningFlag(759,21034
-function setWarningFlag(765,21193
-function getWarningFlag(771,21346
-local function build_accept_function(781,21751
-local function build_allow_dups_function(799,22102
-local function build_epoch_function(816,22451
-local function build_prepend_order_function(851,23411
+function expert(277,8388
+function extractFullName(284,8507
+function extractVersion(289,8648
+function findAdminFn(301,8981
+function readAdmin(330,9926
+function getMT(397,11870
+function getModuleRCT(420,12438
+function isActiveMFile(433,12782
+function length(442,13087
+function masterTbl(451,13292
+function paired2pathT(456,13341
+function path2pathA(497,14475
+function quiet(529,15045
+function runTCLprog(537,15185
+function sanizatizeTbl(548,15473
+function setenv_lmod_version(583,16412
+function ShowCmdA(607,17069
+local function arg2str(623,17458
+function ShowCmdStr(644,18039
+function UUIDString(697,19226
+function case_independent_cmp(725,20062
+function activateWarning(742,20558
+function deactivateWarning(748,20730
+function haveWarnings(754,20908
+function clearWarningFlag(760,21069
+function setWarningFlag(766,21228
+function getWarningFlag(772,21381
+local function build_accept_function(782,21786
+local function build_allow_dups_function(800,22137
+local function build_epoch_function(817,22486
+local function build_prepend_order_function(852,23446
 
 tcl/modulecmd.tcl,142
 set g_debug 25,913
