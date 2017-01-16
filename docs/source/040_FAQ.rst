@@ -75,18 +75,20 @@ Why doesn't  % ``module avail |& grep ucc``  work under tcsh and works under bas
     instead as this will only output modules that have "ucc" in
     their name. 
 
+Can I disable the pager output?
+
+   Yes, you can.  Just set the environment variable ``LMOD_PAGER`` to
+   **none**.
+
 Why are messages printed to standard error and not standard out?
 
     The module command is an alias under tcsh and a shell routine under
     all other shells. There is an lmod command which writes out commands
     such as export FOO="bar and baz" and messages are written to standard
     error. The text written to standard out is evaluated so that the text
-    strings make changes to the current environment. 
+    strings make changes to the current environment. See next question
+    for a different way to handle Lmod messages.
 
-Can I disable the pager output?
-
-   Yes, you can.  Just set the environment variable ``LMOD_PAGER`` to
-   **none**.
 
 Can I force the output of list, avail and spider to go to stdout
 instead of stderr?
@@ -175,7 +177,9 @@ Why does ``LD_LIBRARY_PATH`` get cleared when using the **screen** program?
 
   The screen program is guid program.  That means it runs as the group
   of the program and not the group associated with the user.  For
-  security reason all of these program clear ``LD_LIBRARY_PATH``.
+  security reason all of these kinds of program clear
+  ``LD_LIBRARY_PATH``.  This unsetting of ``LD_LIBRARY_PATH`` is done
+  by the Unix operating system and not Lmod.
 
   You may be better off using **tmux** instead. It is a regular
   program.

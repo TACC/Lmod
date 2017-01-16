@@ -56,7 +56,6 @@ SitePackage.lua file containing::
 
      function avail_hook(t)
         local availStyle = masterTbl().availStyle
-        dbg.print{"avail hook called: availStyle: ",availStyle,"\n"}
         local styleT     = mapT[availStyle]
         if (not availStyle or availStyle == "system" or styleT == nil) then
            return
