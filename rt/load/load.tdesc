@@ -65,9 +65,11 @@ testdescript = {
      runLmod load dflt                                      # 40
      runLmod list                                           # 41
 
+     runLmod load noweb/2.10c.lua                           # 42
+
      export LMOD_DISABLE_SAME_NAME_AUTOSWAP=yes
-     runLmod load moduleA/1.0                               # 42
-     runLmod load moduleB/1.0                               # 43
+     runLmod load moduleA/1.0                               # 43
+     runLmod load moduleB/1.0                               # 44
      
 
      HOME=$ORIG_HOME

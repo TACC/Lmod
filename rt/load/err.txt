@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 7.3  2017-01-11 11:14 -06:00
+Modules based on Lua: Version 7.3.2  2017-01-12 20:25 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -337,10 +337,14 @@ Currently Loaded Modules:
    o:  built for offload to the MIC only
 ===========================
 step 42
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load moduleA/1.0
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load noweb/2.10c.lua
 ===========================
 ===========================
 step 43
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load moduleA/1.0
+===========================
+===========================
+step 44
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load moduleB/1.0
 ===========================
 Lmod has detected the following error: Your site prevents the automatic swapping of modules with same name. You must explicitly unload the loaded version of "moduleA/1.0" before you can load the new one. Use swap to do this:
