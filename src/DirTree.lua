@@ -184,48 +184,15 @@ local function walk(mrc, mpath, path, dirA, fileT)
          local file = pathJoin(path, f)
          if (not keepFile(f)) then break end
 
-         --------------------------------------------------------
-         -- Must find file properties: kind, uid and permissions
-         -- with the minimum number of stat's.  This code should
-         -- be 1 stat for regular files.  It is a max two stat's
-         -- for "default".  It could be 3 stat's for a link.
+         local attr = (f == "default") and lfs.symlinkattributes(file) or lfs.attributes(file) 
+         if (attr == nil) then break end
+         local kind = attr.mode
 
-
-         if (f == "default") then
-            attr        = lfs.symlinkattributes(file)
-            if (attr == nil) then break end
-            kind        = (attr.mode == "file") and "regular" or attr.mode
-            uid         = attr.uid
-            permissions = attr.permisions
-            if (permissions == nil and uid == 0) then
-               local st    = stat(file)
-               permissions = st.mode
-            end
-         else
-            local st = stat(file)
-            if (st      == nil   ) then break end
-            if (st.type == "link") then
-               attr = lfs.attributes(file)
-               if (attr == nil) then break end
-               kind        = (attr.mode == "file") and "regular" or attr.mode
-               uid         = attr.uid
-               permissions = attr.permisions
-               if (permissions == nil and uid == 0) then
-                  local st    = stat(file)
-                  permissions = st.mode
-               end
-            else
-               kind        = st.type
-               uid         = st.uid
-               permissions = st.mode
-            end
-         end
-
-         if (uid == 0 and not permissions:find("......r..")) then break end
+         if (attr.uid == 0 and not attr.permissions:find("......r..")) then break end
 
          if (kind == "directory" and f ~= "." and f ~= "..") then
             dirA[#dirA + 1 ] = file
-         elseif (kind == "regular" or kind == "link") then
+         elseif (kind == "file" or kind == "link") then
             local dfltFound = defaultFnT[f]
             local idx       = dfltFound or defaultIdx
             local fullName  = extractFullName(mpath, file)
@@ -234,7 +201,7 @@ local function walk(mrc, mpath, path, dirA, fileT)
                   defaultIdx = idx
                   local luaExt = f:find("%.lua$")
                   defaultT     = { fullName = fullName, fn = file, mpath = mpath, luaExt = luaExt, barefn = f}
-                  if (f == "default" and kind == "regular") then
+                  if (f == "default" and kind == "file") then
                      fileT[fullName] = {fn = file, canonical = f, mpath = mpath}
                   end
                end
