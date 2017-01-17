@@ -274,26 +274,26 @@ pour vérifier si les modules sont disponibles avec l'un des compilateurs ou imp
      --------------------------------------------------------------------------
      -- LmodError messages
      --------------------------------------------------------------------------
-     e_No_Hashsum = "Impossible de trouver le programme de somme de contrôle (sha1sum, shasum, md5sum or md5)",
-     e_Unable_2_parse = "Impossible d'analyser : \"%{path}\". Abandon.\n",
-     e_LocationT_Srch = "Erreur dans la fonction 'LocationT:search()'",
-     e_No_Mod_Entry = "%{routine}: aucune entrée de module trouvée : \"%{name}\". Cela ne devrait pas arriver !\n",
-     e_No_PropT_Entry = "%{routine}: la table des propriétés système n'a pas de %{location} pour : \"%{name}\". \nVérifier la syntaxe et la casse du nom.\n",
-     e_No_ValidT_Entry = "%{routine}: La table 'validT' pour %{name} ne contient pas d'entrée pour : \"%{value}\". \nVérifier la syntaxe et la casse du nom.\n",
-     e_Failed_2_Find = "Impossible de trouver : \"%{name}\"\n",
-     e_Failed_2_Inherit = "Héritage impossible : %{name}\n",
-     e_No_AutoSwap = [==[Votre site empêche l'échange automatique de modules de même nom. Vous devez explicitement décharger la version courante de "%{oldFullName}" avant de pouvoir charger la nouvelle. Vous pouvez utiliser la commande 'swap' pour cela :
+     e_No_Hashsum        = "Impossible de trouver le programme de somme de contrôle (sha1sum, shasum, md5sum or md5)",
+     e_Unable_2_parse    = "Impossible d'analyser : \"%{path}\". Abandon.\n",
+     e_LocationT_Srch    = "Erreur dans la fonction 'LocationT:search()'",
+     e_No_Mod_Entry      = "%{routine}: aucune entrée de module trouvée : \"%{name}\". Cela ne devrait pas arriver !\n",
+     e_No_PropT_Entry    = "%{routine}: la table des propriétés système n'a pas de %{location} pour : \"%{name}\". \nVérifier la syntaxe et la casse du nom.\n",
+     e_No_ValidT_Entry   = "%{routine}: La table 'validT' pour %{name} ne contient pas d'entrée pour : \"%{value}\". \nVérifier la syntaxe et la casse du nom.\n",
+     e_Failed_2_Find     = "Impossible de trouver : \"%{name}\"\n",
+     e_Failed_2_Inherit  = "Héritage impossible : %{name}\n",
+     e_No_AutoSwap       = [==[Votre site empêche l'échange automatique de modules de même nom. Vous devez explicitement décharger la version courante de "%{oldFullName}" avant de pouvoir charger la nouvelle. Vous pouvez utiliser la commande 'swap' pour cela :
 
    $ module swap %{oldFullName} %{newFullName}
 
 Sinon, vous pouvez définir la variable d'environnement LMOD_DISABLE_SAME_NAME_AUTOSWAP  à "no" pour réactiver la fonction d'échange automatique des modules de même nom.
 ]==],
-     e_Avail_No_MPATH = "La commande 'module avail' n'est pas possible. MODULEPATH n'est pas défini ou n'est pas défini avec des chemins valides.\n",
-     e_Missing_Value = "%{func}(\"%{name}\") n'est pas valide, une valeur est requise",
-     e_Conflict = "Impossible de charger le module \"%{name}\" car le(s) module(s) suivant(s) est/sont chargé(s) :\n   %{module_list}\n",
-     e_Prereq = "Impossible de charger le module  \"%{name}\" sans le chargement du/des module(s) suivant(s) :\n   %{module_list}\n",
-     e_Prereq_Any = "Impossible de charger le module  \"%{name}\". Au moins l'un de ces modules doit être chargé :\n   %{module_list}\n",
-     e_Family_Conflict = [==[Vous ne pouvez avoir qu'un module %{name} chargé à la fois.
+     e_Avail_No_MPATH    = "La commande 'module avail' n'est pas possible. MODULEPATH n'est pas défini ou n'est pas défini avec des chemins valides.\n",
+     e_Missing_Value     = "%{func}(\"%{name}\") n'est pas valide, une valeur est requise",
+     e_Conflict          = "Impossible de charger le module \"%{name}\" car le(s) module(s) suivant(s) est/sont chargé(s) :\n   %{module_list}\n",
+     e_Prereq            = "Impossible de charger le module  \"%{name}\" sans le chargement du/des module(s) suivant(s) :\n   %{module_list}\n",
+     e_Prereq_Any        = "Impossible de charger le module  \"%{name}\". Au moins l'un de ces modules doit être chargé :\n   %{module_list}\n",
+     e_Family_Conflict   = [==[Vous ne pouvez avoir qu'un module %{name} chargé à la fois.
 %{oldName} est déjà chargé.
 Pour corriger le problème, vous pouvez utiliser la commande suivante :
 
@@ -302,32 +302,32 @@ Pour corriger le problème, vous pouvez utiliser la commande suivante :
 Merci de bien vouloir soumettre un ticket si vous désirez plus d'assistance.
 
 ]==],
-     e_setStandardPaths = "Clé inconnue : \"%{key}\" dans 'setStandardPaths'\n",
-     e_No_Matching_Mods = "Aucun module correspondant trouvé\n",
-     e_Unknown_Coll = "Collection de modules utilisateur : \"%{collection}\" n'existe pas.\n  Essayez \"module savelist\" pour une liste de choix possibles.\n",
+     e_setStandardPaths  = "Clé inconnue : \"%{key}\" dans 'setStandardPaths'\n",
+     e_No_Matching_Mods  = "Aucun module correspondant trouvé\n",
+     e_Unknown_Coll      = "Collection de modules utilisateur : \"%{collection}\" n'existe pas.\n  Essayez \"module savelist\" pour une liste de choix possibles.\n",
      e_No_Period_Allowed = "Les noms de collection ne peuvent pas contenir de `.'.\n  Merci de bien vouloir renommer \"%collection}\"\n",
-     e_Swap_Failed = "L'échange a échoué : \"%{name}\" n'est pas chargé.\n",
-     e_Unable_2_Load = "Impossible de charger le module : %{name}\n     %{fn}: %{message}\n",
+     e_Swap_Failed       = "L'échange a échoué : \"%{name}\" n'est pas chargé.\n",
+     e_Unable_2_Load     = "Impossible de charger le module : %{name}\n     %{fn}: %{message}\n",
 
-     e_missing_table = "sandbox_registration: L'argument passé est : \"%{kind}\". Cela devrait être une table.",
-     e_No_UUID = "uuidgen n'est pas disponible, l'alternative a également échoué",
-     e_Spdr_Timeout = "La recherche Spider a expiré\n",
-     e_dbT_sn_fail = "dbT[sn] a échoué pour sn: %{sn}\n",
-     e_Failed_Hashsum = "Impossible de calculer la somme de contrôle\n",
-     e_Failed_Load = [==[Le ou les module(s) suivants sont inconnus: %{module_list}
+     e_missing_table     = "sandbox_registration: L'argument passé est : \"%{kind}\". Cela devrait être une table.",
+     e_No_UUID           = "uuidgen n'est pas disponible, l'alternative a également échoué",
+     e_Spdr_Timeout      = "La recherche Spider a expiré\n",
+     e_dbT_sn_fail       = "dbT[sn] a échoué pour sn: %{sn}\n",
+     e_Failed_Hashsum    = "Impossible de calculer la somme de contrôle\n",
+     e_Failed_Load       = [==[Le ou les module(s) suivants sont inconnus: %{module_list}
 
 Veuillez vérifier l'orthographe ou le numéro de version. Vous pouvez aussi essayer "module spider ..."
 Il est aussi possible que votre cache soit désuète. Essayez :
   $   module --ignore-cache load %{module_list} 
 ]==],
-     e_Failed_Load_2 = [==[Ce ou ces module(s) existent, mais ne peuvent pas être chargés tel que demandé: %{kA}
+     e_Failed_Load_2     = [==[Ce ou ces module(s) existent, mais ne peuvent pas être chargés tel que demandé: %{kA}
    Utilisez: "module spider %{kB}" pour voir la façon de les charger.
 ]==],
 
-     e_Args_Not_Strings = [==[Erreur de syntaxe dans le fichier : %{fn}
+     e_Args_Not_Strings  = [==[Erreur de syntaxe dans le fichier : %{fn}
  avec la commande : %{cmdName}. Un ou plusieurs arguments ne sont pas des chaînes de caractères.
 ]==],
-     e_Execute_Msg = [==[Erreur de syntaxe dans le fichier : %{fn}
+     e_Execute_Msg      = [==[Erreur de syntaxe dans le fichier : %{fn}
 avec la commande : "execute".
 La syntaxe est :
     execute{cmd="command string",modeA={"load",...}}
@@ -336,12 +336,12 @@ La syntaxe est :
      --------------------------------------------------------------------------
      -- LmodMessages
      --------------------------------------------------------------------------
-     m_Family_Swap = "\nLmod a automatiquement remplacé \"%{oldFullName}\" par \"%{newFullName}\"\n",
+     m_Family_Swap     = "\nLmod a automatiquement remplacé \"%{oldFullName}\" par \"%{newFullName}\"\n",
      
      --------------------------------------------------------------------------
      -- LmodWarnings
           --------------------------------------------------------------------------
-     w_Broken_Coll = [==[Un ou plusieurs modules de la collection %{collectionName} ont changé : "%{module_list}".
+     w_Broken_Coll     = [==[Un ou plusieurs modules de la collection %{collectionName} ont changé : "%{module_list}".
 Pour voir le contenu de cette collection :
   $ module describe %{collectionName}
 Pour reconstruire la collection, chargez les modules souhaités, puis :
@@ -354,12 +354,12 @@ Aucun changement dans les modules chargés
 
 ]==],
      w_Broken_FullName = "Ligne module-version malformée : module-name doit être un nom complet : %{fullName} ne l'est pas\n",
-     w_MPATH_Coll = "La variable MODULEPATH du système a changé : merci de bien vouloir reconstruire les collections que vous avez sauvegardées.\n",
-     w_Empty_Coll = "Vous n'avez aucun module de chargé car la collection \"%{collectionName}\" est vide !\n",
+     w_MPATH_Coll      = "La variable MODULEPATH du système a changé : merci de bien vouloir reconstruire les collections que vous avez sauvegardées.\n",
+     w_Empty_Coll      = "Vous n'avez aucun module de chargé car la collection \"%{collectionName}\" est vide !\n",
      w_Mods_Not_Loaded = "Les modules suivants n'ont pas été chargés : %{module_list}\n\n",
-     w_No_Coll = "Aucune collection \"%{collection}\" n'a été trouvée.",
-     w_Undef_MPATH = "MODULEPATH n'est pas défini\n",
-     w_No_dot_Coll = "Les noms de collection ne peuvent pas contenir de '.'. Merci de bien vouloir choisir un autre nom pour : %{name}",
+     w_No_Coll         = "Aucune collection \"%{collection}\" n'a été trouvée.",
+     w_Undef_MPATH     = "MODULEPATH n'est pas défini\n",
+     w_No_dot_Coll     = "Les noms de collection ne peuvent pas contenir de '.'. Merci de bien vouloir choisir un autre nom pour : %{name}",
      w_System_Reserved = "Le nom 'system' pour une collection est réservé. Merci de bien vouloir choisir un autre nom.\n",
      w_Save_Empty_Coll = [==[Vous tentez de sauvegarder une collection de modules vide dans "%{name}". Si c'est ce que vous souhaitez, utilisez :
   $  module --force save %{name}
