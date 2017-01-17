@@ -494,7 +494,7 @@ function M.Level0(self, dbT)
 
    ia = ia+1; a[ia] = "\n"
    ia = ia+1; a[ia] = border
-   ia = ia+1; a[ia] = i18n("m413", {})
+   ia = ia+1; a[ia] = i18n("m_Spider_Title", {})
    ia = ia+1; a[ia] = border
 
    self:Level0Helper(dbT,a)
@@ -561,7 +561,7 @@ function M.Level0Helper(self, dbT, a)
       ia = ia + 1; a[ia] = "\n"
    end
    local border = banner:border(0)
-   ia = ia+1; a[ia] = i18n("m414", {border=border})
+   ia = ia+1; a[ia] = i18n("m_Spider_Tail", {border=border})
 end
 
 function M.setExactMatch(self, name)
@@ -650,7 +650,7 @@ function M.spiderSearch(self, dbT, userSearchPat, helpFlg)
 
    if (next(matchT) == nil) then
       setWarningFlag()
-      LmodSystemError{msg="e107", name=origUserSearchPat}
+      LmodSystemError{msg="e_Failed_2_Find", name=origUserSearchPat}
    end
 
    local possibleA = {}
@@ -757,9 +757,9 @@ function M._Level1(self, dbT, possibleA, sn, key, helpFlg)
    ia = ia + 1; a[ia] = "  " .. key .. ":\n"
    ia = ia + 1; a[ia] = border
    if (Description) then
-      ia = ia + 1; a[ia] = i18n("m415", {descript = Description:fillWords("      ",term_width)})
+      ia = ia + 1; a[ia] = i18n("m_Description", {descript = Description:fillWords("      ",term_width)})
    end
-   ia = ia + 1; a[ia] = i18n("m416",{})
+   ia = ia + 1; a[ia] = i18n("m_Versions",{})
    for k, v in pairsByKeys(fullVT) do
       ia = ia + 1; a[ia] = "        " .. v .. "\n"
    end
@@ -776,18 +776,18 @@ function M._Level1(self, dbT, possibleA, sn, key, helpFlg)
             break
          end
       end
-      ia = ia + 1; a[ia] = i18n("m417",{b=concatTbl(b,"  ")})
+      ia = ia + 1; a[ia] = i18n("m_Other_possible",{b=concatTbl(b,"  ")})
    end
 
    if (helpFlg) then
       ia = ia + 1; a[ia] = "\n"
       local name = self:getExactMatch()
       if (name) then
-         ia = ia + 1; a[ia] = i18n("m418",{border=border, name=name})
+         ia = ia + 1; a[ia] = i18n("m_Regex_Spider",{border=border, name=name})
       end
 
       
-      ia = ia + 1; a[ia] = i18n("m419",{border=border,key=key,exampleV=exampleV})
+      ia = ia + 1; a[ia] = i18n("m_Spdr_L1",{border=border,key=key,exampleV=exampleV})
    end
 
    dbg.fini("Spider:_Level1")
@@ -813,9 +813,9 @@ function M._Level2(self, sn, entryA, possibleA)
    local propDisplayT = readLmodRC:propT()
    local term_width   = TermWidth() - 4
    local availT       = {
-      i18n("m420",{fullName=fullName}),
-      i18n("m421",{fullName=fullName}),
-      i18n("m420",{fullName=fullName}) .. i18n("m422",{}),
+      i18n("m_Direct_Load",{fullName=fullName}),
+      i18n("m_Depend_Mods",{fullName=fullName}),
+      i18n("m_Direct_Load",{fullName=fullName}) .. i18n("m_Additional_Variants",{}),
    }
    local haveCore = 0
    local haveHier = 0
@@ -827,10 +827,10 @@ function M._Level2(self, sn, entryA, possibleA)
    ia = ia + 1; a[ia] = "\n"
    ia = ia + 1; a[ia] = border
    if (entryT.Description) then
-      ia = ia + 1; a[ia] = i18n("m415", {descript = entryT.Description:fillWords("      ", term_width)})
+      ia = ia + 1; a[ia] = i18n("m_Description", {descript = entryT.Description:fillWords("      ", term_width)})
    end
    if (entryT.propT ) then
-      ia = ia + 1; a[ia] = i18n("m423",{})
+      ia = ia + 1; a[ia] = i18n("m_Properties",{})
       for kk, vv in pairs(propDisplayT) do
          if (entryT.propT[kk]) then
             for kkk in pairs(entryT.propT[kk]) do
@@ -855,7 +855,7 @@ function M._Level2(self, sn, entryA, possibleA)
             break
          end
       end
-      ia = ia + 1; a[ia] = i18n("m424",{bb=concatTbl(bb,", ")})
+      ia = ia + 1; a[ia] = i18n("m_Other_matches",{bb=concatTbl(bb,", ")})
    end
    
    ia = ia + 1; a[ia] = "Avail Title goes here.  This should never be seen\n"
@@ -923,7 +923,7 @@ function M._Level2(self, sn, entryA, possibleA)
    ia = ia + 1; a[ia] = "\n"
    local name = self:getExactMatch()
    if (name) then
-      ia = ia + 1; a[ia] = i18n("m418",{border=border,name=name})
+      ia = ia + 1; a[ia] = i18n("m_Regex_Spider",{border=border,name=name})
    end
 
    dbg.fini("Spider:_Level2")

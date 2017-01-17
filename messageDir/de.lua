@@ -40,30 +40,30 @@ return {
      --------------------------------------------------------------------------
      -- LmodError messages
      --------------------------------------------------------------------------
-     e101 = "Kein Programm zum Bestimmen von Hashwerten verfügbar (sha1sum, shasum, md5sum oder md5).",
-     e102 = "Nicht einlesbar: \"%{path}\". Abbruch!\n",
-     e103 = "Fehler in LocationT:search().",
-     e104 = "%{routine}: Kein Modul für \"%{name}\" gefunden. Das sollte nicht passieren!\n",
-     e105 = [==[%{routine}: Systemeinstellungs-Tabelle enthält keine %{location} für: "%{name}".
+     e_No_Hashsum = "Kein Programm zum Bestimmen von Hashwerten verfügbar (sha1sum, shasum, md5sum oder md5).",
+     e_Unable_2_parse = "Nicht einlesbar: \"%{path}\". Abbruch!\n",
+     e_LocationT_Srch = "Fehler in LocationT:search().",
+     e_No_Mod_Entry = "%{routine}: Kein Modul für \"%{name}\" gefunden. Das sollte nicht passieren!\n",
+     e_No_PropT_Entry = [==[%{routine}: Systemeinstellungs-Tabelle enthält keine %{location} für: "%{name}".
 Überprüfen Sie die Schreibweise des Namens.
 ]==],
-     e106 = [==[%{routine}: Die validT-Tabelle für %{name} hat keinen Eintrag für: "%{value}".
+     e_No_ValidT_Entry = [==[%{routine}: Die validT-Tabelle für %{name} hat keinen Eintrag für: "%{value}".
 Überprüfen Sie die Schreibweise des Namens.
 ]==],
-     e107 = "Nicht auffindbar: \"%{name}\".\n",
-     e108 = "Fehler bei der Vererbung: %{name}.\n",
-     e109 = [==[Die Einstellungen verhindern den automatischen Austausch von Modulen mit gleichen Namen. Die geladene Version von "%{oldFullName}" muss entladen werden, bevor eine andere Version geladen werden kann. Verwenden Sie dafür swap wie folgt:
+     e_Failed_2_Find = "Nicht auffindbar: \"%{name}\".\n",
+     e_Failed_2_Inherit = "Fehler bei der Vererbung: %{name}.\n",
+     e_No_AutoSwap = [==[Die Einstellungen verhindern den automatischen Austausch von Modulen mit gleichen Namen. Die geladene Version von "%{oldFullName}" muss entladen werden, bevor eine andere Version geladen werden kann. Verwenden Sie dafür swap wie folgt:
 
   $ module swap %{oldFullName} %{newFullName}
 
 Alternativ können Sie die Umgebungsvariable LMOD_DISABLE_SAME_NAME_AUTOSWAP auf "no" setzen, um den automatischen Austausch von Modulen zu aktivieren.
 ]==],
-     e110 = "Das Kommando 'module avail' kann nicht ausgeführt werden. Die Variable MODULEPATH ist entweder nicht gesetzt oder enthält einen ungültigen Wert.",
-     e111 = "%{func}(\"%{name}\") ist ungültig, es wird ein Wert benötigt.",
-     e112 = [==[Das Modul "%{name}" kann nicht geladen werden, weil diese Module geladen sind:
+     e_Avail_No_MPATH = "Das Kommando 'module avail' kann nicht ausgeführt werden. Die Variable MODULEPATH ist entweder nicht gesetzt oder enthält einen ungültigen Wert.",
+     e_Missing_Value = "%{func}(\"%{name}\") ist ungültig, es wird ein Wert benötigt.",
+     e_Conflict = [==[Das Modul "%{name}" kann nicht geladen werden, weil diese Module geladen sind:
   %{module_list}
 ]==],
-     e113 = [==[Das Modul "%{name}" kann ohne diese Module nicht geladen werden:
+     e_Prereq = [==[Das Modul "%{name}" kann ohne diese Module nicht geladen werden:
   %{module_list}
 ]==],
      e114 = [==[Das Modul "%{name}" kann nicht geladen werden. Mindestens eines dieser Module muss geladen sein:

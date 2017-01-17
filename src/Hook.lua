@@ -75,7 +75,7 @@ function M.register(name, func)
    if (validT[name] ~= nil) then
       validT[name] = func
    else
-      LmodWarning{msg="w512",name = tostring(name)}
+      LmodWarning{msg="w_Unknown_Hook",name = tostring(name)}
    end
 
 end

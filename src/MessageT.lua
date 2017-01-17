@@ -2,24 +2,24 @@ local messageT = {
    --------------------------------------------------------------------------
    -- LmodError messages
    --------------------------------------------------------------------------
-   e101 = "Unable to find HashSum program (sha1sum, shasum, md5sum or md5)",
-   e102 = "Unable to parse: \"%{path}\". Aborting!\n",
-   e103 = "Error in LocationT:search()",
-   e104 = "%{routine}: Did not find module entry: \"%{name}\". This should not happen!\n",
-   e105 = "%{routine}: system property table has no %{location} for: \"%{name}\". \nCheck spelling and case of name.\n",
-   e106 = "%{routine}: The validT table for %{name} has no entry for: \"%{value}\". \nCheck spelling and case of name.\n",
-   e107 = "Unable to find: \"%{name}\"\n",
-   e108 = "Failed to inherit: %{name}\n",
-   e109 = [==[Your site prevents the automatic swapping of modules with same name. You must explicitly unload the loaded version of "%{oldFullName}" before you can load the new one. Use swap to do this:
+   e_No_Hashsum = "Unable to find HashSum program (sha1sum, shasum, md5sum or md5)",
+   e_Unable_2_parse = "Unable to parse: \"%{path}\". Aborting!\n",
+   e_LocationT_Srch = "Error in LocationT:search()",
+   e_No_Mod_Entry = "%{routine}: Did not find module entry: \"%{name}\". This should not happen!\n",
+   e_No_PropT_Entry = "%{routine}: system property table has no %{location} for: \"%{name}\". \nCheck spelling and case of name.\n",
+   e_No_ValidT_Entry = "%{routine}: The validT table for %{name} has no entry for: \"%{value}\". \nCheck spelling and case of name.\n",
+   e_Failed_2_Find = "Unable to find: \"%{name}\"\n",
+   e_Failed_2_Inherit = "Failed to inherit: %{name}\n",
+   e_No_AutoSwap = [==[Your site prevents the automatic swapping of modules with same name. You must explicitly unload the loaded version of "%{oldFullName}" before you can load the new one. Use swap to do this:
 
    $ module swap %{oldFullName} %{newFullName}
 
 Alternatively, you can set the environment variable LMOD_DISABLE_SAME_NAME_AUTOSWAP to "no" to re-enable same name autoswapping.
 ]==],
-   e110 = "module avail is not possible. MODULEPATH is not set or not set with valid paths.\n",
-   e111 = "%{func}(\"%{name}\") is not valid, a value is required",
-   e112 = "Cannot load module \"%{name}\" because these module(s) are loaded:\n   %{module_list}\n",
-   e113 = "Cannot load module \"%{name}\" without these module(s) loaded:\n   %{module_list}\n",
+   e_Avail_No_MPATH = "module avail is not possible. MODULEPATH is not set or not set with valid paths.\n",
+   e_Missing_Value = "%{func}(\"%{name}\") is not valid, a value is required",
+   e_Conflict = "Cannot load module \"%{name}\" because these module(s) are loaded:\n   %{module_list}\n",
+   e_Prereq = "Cannot load module \"%{name}\" without these module(s) loaded:\n   %{module_list}\n",
    e114 = "Cannot load module \"%{name}\". At least one of these module(s) must be loaded:\n   %{module_list}\n",
    e115 = [==[You can only have one %{name} module loaded at a time.
 You already have %{oldName} loaded.

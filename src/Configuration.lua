@@ -99,7 +99,7 @@ local function new(self)
       local std_hashsum = (HashSum:find("md5") ~= nil) and std_md5 or std_sha1
 
       if (HashSum == nil) then
-         LmodError{msg="e101"}
+         LmodError{msg="e_No_Hashsum"}
       end
 
       -- The output from HashSum can look like either

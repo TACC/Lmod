@@ -132,10 +132,10 @@ local function new(self, s, restoreFn)
    
    if (not status or type(_ModuleTable_) ~= "table" ) then
       if (restoreFn) then
-         io.stderr:write(i18n("e131",{fn=restoreFn}))
+         io.stderr:write(i18n("e_coll_corrupt",{fn=restoreFn}))
          LmodErrorExit()
       else
-         io.stderr:write(i18n("e132",{}))
+         io.stderr:write(i18n("e_MT_corrupt",{}))
          LmodErrorExit()
       end
    end
@@ -451,18 +451,18 @@ function M.add_property(self, sn, name, value)
    local entry = mT[sn]
 
    if (entry == nil) then
-      LmodError{msg="e104", routine = "MT:add_property()",name = sn}
+      LmodError{msg="e_No_Mod_Entry", routine = "MT:add_property()",name = sn}
    end
    local readLmodRC   = ReadLmodRC:singleton()
    local propDisplayT = readLmodRC:propT()
    local propKindT    = propDisplayT[name]
 
    if (propKindT == nil) then
-      LmodError{msg="e105", routine = "MT:add_property()", location = "entry", name = name}
+      LmodError{msg="e_No_PropT_Entry", routine = "MT:add_property()", location = "entry", name = name}
    end
    local validT = propKindT.validT
    if (validT == nil) then
-      LmodError{msg="e105", routine = "MT:add_property()", location = "validT table", name = name}
+      LmodError{msg="e_No_PropT_Entry", routine = "MT:add_property()", location = "validT table", name = name}
    end
 
    local propT        = entry.propT
@@ -471,7 +471,7 @@ function M.add_property(self, sn, name, value)
 
    for v in value:split(":") do
       if (validT[v] == nil) then
-         LmodError{msg="e106", routine = "MT:add_property()", name = name, value = value}
+         LmodError{msg="e_No_ValidT_Entry", routine = "MT:add_property()", name = name, value = value}
       end
       t[v] = 1
    end
@@ -493,18 +493,18 @@ function M.remove_property(self, sn, name, value)
    local entry = mT[sn]
 
    if (entry == nil) then
-      LmodError{msg="e104", routine = "MT:remove_property()",name = sn}
+      LmodError{msg="e_No_Mod_Entry", routine = "MT:remove_property()",name = sn}
    end
    local readLmodRC   = ReadLmodRC:singleton()
    local propDisplayT = readLmodRC:propT()
    local propKindT    = propDisplayT[name]
 
    if (propKindT == nil) then
-      LmodError{msg="e105", routine = "MT:remove_property()", location = "entry", name = name}
+      LmodError{msg="e_No_PropT_Entry", routine = "MT:remove_property()", location = "entry", name = name}
    end
    local validT = propKindT.validT
    if (validT == nil) then
-      LmodError{msg="e105", routine = "MT:remove_property()", location = "validT table", name = name}
+      LmodError{msg="e_No_PropT_Entry", routine = "MT:remove_property()", location = "validT table", name = name}
    end
 
    local propT        = entry.propT or {}
@@ -512,7 +512,7 @@ function M.remove_property(self, sn, name, value)
 
    for v in value:split(":") do
       if (validT[v] == nil) then
-         LmodError{msg="e106", routine = "MT:remove_property()", name = name, value = value}
+         LmodError{msg="e_No_ValidT_Entry", routine = "MT:remove_property()", name = name, value = value}
       end
       t[v] = nil
    end
@@ -535,7 +535,7 @@ function M.list_property(self, idx, sn, style, legendT)
    local mrc   = MRC:singleton()
 
    if (entry == nil) then
-      LmodError{msg="e104", routine = "MT:list_property()", name = sn}
+      LmodError{msg="e_No_Mod_Entry", routine = "MT:list_property()", name = sn}
    end
 
    local resultA = colorizePropA(style, entry.fullName, mrc, entry.propT, legendT)
@@ -747,19 +747,19 @@ function M.reportChanges(self)
 
    if (#inactiveA > 0) then
       entries = true
-      columnList(io.stderr,i18n("m402",{}), inactiveA)
+      columnList(io.stderr,i18n("m_Inactive_Modules",{}), inactiveA)
    end
    if (#activeA > 0) then
       entries = true
-      columnList(io.stderr,i18n("m403",{}), activeA)
+      columnList(io.stderr,i18n("m_Activate_Modules",{}), activeA)
    end
    if (#reloadA > 0) then
       entries = true
-      columnList(io.stderr,i18n("m404",{}), reloadA)
+      columnList(io.stderr,i18n("m_Reload_Modules",{}), reloadA)
    end
    if (#changedA > 0) then
       entries = true
-      columnList(io.stderr,i18n("m405",{}), changedA)
+      columnList(io.stderr,i18n("m_Reload_Version_Chng",{}), changedA)
    end
 
    if (entries) then
@@ -906,14 +906,14 @@ function M.setHashSum(self)
    end
 
    if (not found) then
-      LmodError{msg="e107", name = "computeHashSum"}
+      LmodError{msg="e_Failed_2_Find", name = "computeHashSum"}
    end
 
    local path   = "@path_to_lua@:" .. os.getenv("PATH")
    local luaCmd = findInPath("lua",path)
 
    if (luaCmd == nil) then
-      LmodError{msg="e107", name = "lua"}
+      LmodError{msg="e_Failed_2_Find", name = "lua"}
    end
 
    local cmdA = {}
@@ -974,7 +974,7 @@ function M.getMTfromFile(self,tt)
    f:close()
 
    if (msg) then
-      io.stderr:write(i18n("m406",{msg=msg}))
+      io.stderr:write(i18n("m_Restore_Coll",{msg=msg}))
    end
    -----------------------------------------------
    -- Initialize MT with file: fn

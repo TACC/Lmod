@@ -489,7 +489,7 @@ function Reset(msg)
    dbg.start{"Reset()"}
    local default = os.getenv("LMOD_SYSTEM_DEFAULT_MODULES") or ""
    if (default == "") then
-      io.stderr:write(i18n("e133",{}))
+      io.stderr:write(i18n("e_SYS_DFLT_EMPTY",{}))
       LmodErrorExit()
       dbg.fini("Reset")
       return
@@ -504,7 +504,7 @@ function Reset(msg)
    default = default:gsub(" +",":")
 
    if (msg ~= false) then
-      io.stderr:write(i18n("m408",{}))
+      io.stderr:write(i18n("m_Reset_SysDflt",{}))
    end
 
 
@@ -614,7 +614,7 @@ function Save(...)
    if (not sname) then
       sname   = ""
    else
-      msgTail = i18n("m409",{sname = sname})
+      msgTail = i18n("m_For_System",{sname = sname})
       sname   = "." .. sname
    end
 
@@ -659,7 +659,7 @@ function Save(...)
    end
    mt:hideHash()
    if (not quiet()) then
-      LmodMessage{msg="m410",a=a, msgTail=msgTail}
+      LmodMessage{msg="m_Save_Coll",a=a, msgTail=msgTail}
    end
    dbg.fini("Save")
 end
@@ -713,14 +713,14 @@ function SaveList(...)
       b[#b+1]  = "\n"
       shell:echo(concatTbl(b,""))
    else
-      io.stderr:write(i18n("m411",{}))
+      io.stderr:write(i18n("m_No_Named_Coll",{}))
    end
 end
 
 --------------------------------------------------------------------------
 -- Point users to either spider or keyword
 function SearchCmd(...)
-   LmodMessage{msg="m412", s = concatTbl({...}, " ")}
+   LmodMessage{msg="m_No_Search_Cmd", s = concatTbl({...}, " ")}
 end
 
 --------------------------------------------------------------------------

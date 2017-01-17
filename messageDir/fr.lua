@@ -86,32 +86,32 @@ Utilisez "module keyword key1 key2 ..." pour chercher tous les modules possibles
 
 
 
-     e131      = "La collection de modules est corrompue. Veuillez supprimer : %{fn}\n",
-     e132      = [==[La table de modules stockée dans l'environnement est corrompue.
+     e_coll_corrupt        = "La collection de modules est corrompue. Veuillez supprimer : %{fn}\n",
+     e_MT_corrupt          = [==[La table de modules stockée dans l'environnement est corrompue.
 Veuillez exécuter la commande \" clearMT\" et charger vos modules de nouveau.
 ]==],
-     e133      = [==[
+     e_SYS_DFLT_EMPTY      = [==[
 L'environnement par défaut ne contient aucun module
   (la variable d'environnement : LMOD_SYSTEM_DEFAULT_MODULES est vide)
   Aucun changement dans les modules chargés.
 
 ]==],
 
-     m402      = "\nModules inactifs:\n",
-     m403      = "\nChargement des modules :\n",
-     m404      = "\nDû à un changement dans la variable MODULEPATH, les modules suivants ont été rechargés :\n",
-     m405      = "\nLes modules suivants ont été rechargés avec un changement de version :\n",
-     m406      = "Restauration des modules de la collection %{msg}\n",
-     m407      = [==[
+     m_Inactive_Modules    = "\nModules inactifs:\n",
+     m_Activate_Modules    = "\nChargement des modules :\n",
+     m_Reload_Modules      = "\nDû à un changement dans la variable MODULEPATH, les modules suivants ont été rechargés :\n",
+     m_Reload_Version_Chng = "\nLes modules suivants ont été rechargés avec un changement de version :\n",
+     m_Restore_Coll        = "Restauration des modules de la collection %{msg}\n",
+     m_Module_Msgs         = [==[
 %{border}
 Il y a des messages associés avec le(s) module(s) suivant(s) : 
 %{border}
 ]==],
-     m408      = "Restauration de l'environnement par défaut\n",
-     m409      = ", pour le système: \"%{sname}\"",
-     m410      = "Collection de modules sauvegardée vers : \"%{a}\"%{msgTail}\n",
-     m411      = "Aucune collection nommée.\n",
-     m412      = [==[La commande "module search" n'existe pas. Pour lister tous les modules possibles, utilisez :
+     m_Reset_SysDflt       = "Restauration de l'environnement par défaut\n",
+     m_For_System          = ", pour le système: \"%{sname}\"",
+     m_Save_Coll           = "Collection de modules sauvegardée vers : \"%{a}\"%{msgTail}\n",
+     m_No_Named_Coll       = "Aucune collection nommée.\n",
+     m_No_Search_Cmd       = [==[La commande "module search" n'existe pas. Pour lister tous les modules possibles, utilisez :
 
   $   module spider %{s}
 
@@ -119,8 +119,8 @@ Pour chercher le contenu des modules pour des mots clés, exécute z
 
   $   module keyword %{s}
 ]==],
-     m413      = "Liste des modules disponibles présentement :\n",
-     m414      = [==[%{border}
+     m_Spider_Title        = "Liste des modules disponibles présentement :\n",
+     m_Spider_Tail         = [==[%{border}
 Pour en savoir davantage sur un module exécutez : 
 
    $ module spider Foo
@@ -133,41 +133,41 @@ afin d'avoir l'information détaillée :
    $ module spider Foo/11.1
 
 %{border}]==],
-     m415     = "    Description:\n%{descript}\n\n",
-     m416     = "     Versions:\n",
-     m417     = [==[
+     m_Description         = "    Description:\n%{descript}\n\n",
+     m_Versions            = "     Versions:\n",
+     m_Other_possible      = [==[
      Autres candidats possibles : 
         %{b}
 ]==],
-     m418     = [==[%{border}  Pour trouver d'autres correspondances à votre recherche, exécutez : 
+     m_Regex_Spider        = [==[%{border}  Pour trouver d'autres correspondances à votre recherche, exécutez : 
 
       $ module -r spider '.*%{name}.*'
 
 ]==],
-     m419      = [==[%{border}  Pour de l'information détaillée à propos d'un module "%{key}" spécifique (incluant comment charger ce module), utilisez le nom complet.
+     m_Spdr_L1             = [==[%{border}  Pour de l'information détaillée à propos d'un module "%{key}" spécifique (incluant comment charger ce module), utilisez le nom complet.
   Par exemple : 
 
      $ module spider %{exampleV}
 %{border}]==],
-     m420      = "\n    Ce module peut être chargé directement : module load %{fullName}\n",
-     m421      = "\n    Vous devrez charger tous les modules de l'un des lignes suivantes avant de pouvoir charger le module \"%{fullName}\".\n",
-     m422      = "\n    Des variantes additionnelles de ce module peuvent être chargées après le chargement des modules suivants :\n",
-     m423      = "    Propriétés:\n",
-     m424      = "\n     Autres correspondances possibles :\n        %{bb}\n",
-     m425      = "\n  Où:\n",
-     m426      = [==[Les modules suivants n'ont pas été elevés de votre environnement :
+     m_Direct_Load         = "\n    Ce module peut être chargé directement : module load %{fullName}\n",
+     m_Depend_Mods         = "\n    Vous devrez charger tous les modules de l'un des lignes suivantes avant de pouvoir charger le module \"%{fullName}\".\n",
+     m_Additional_Variants = "\n    Des variantes additionnelles de ce module peuvent être chargées après le chargement des modules suivants :\n",
+     m_Properties      = "    Propriétés:\n",
+     m_Other_matches      = "\n     Autres correspondances possibles :\n        %{bb}\n",
+     m_Where      = "\n  Où:\n",
+     m_Sticky_Mods      = [==[Les modules suivants n'ont pas été elevés de votre environnement :
   (Utilisez "module --force purge" pour tous les enlever):
 ]==],
-     m427      = "\nLes modules suivants sont permanents (sticky) et n'ont pas pu être chargés de nouveau :\n",
+     m_Sticky_Unstuck      = "\nLes modules suivants sont permanents (sticky) et n'ont pas pu être chargés de nouveau :\n",
 
-     w511      = [==[Lmod n'a pas pu trouver les modules suivants :  "%{quote_comma_list}" dans votre MODULEPATH
+     w_Failed_2_Find      = [==[Lmod n'a pas pu trouver les modules suivants :  "%{quote_comma_list}" dans votre MODULEPATH
 Essayez:
 
     $ module spider %{module_list}
 
 pour vérifier si les modules sont disponibles avec l'un des compilateurs ou implémentation MPI installés.
 ]==],
-     w512      = "Crochet (hook) inconnu : %{name}\n",
+     w_Unknown_Hook      = "Crochet (hook) inconnu : %{name}\n",
 
      ml_help   = [==[
    ml: Une interface pratique pour la commande module : 
@@ -274,24 +274,24 @@ pour vérifier si les modules sont disponibles avec l'un des compilateurs ou imp
      --------------------------------------------------------------------------
      -- LmodError messages
      --------------------------------------------------------------------------
-     e101 = "Impossible de trouver le programme de somme de contrôle (sha1sum, shasum, md5sum or md5)",
-     e102 = "Impossible d'analyser : \"%{path}\". Abandon.\n",
-     e103 = "Erreur dans la fonction 'LocationT:search()'",
-     e104 = "%{routine}: aucune entrée de module trouvée : \"%{name}\". Cela ne devrait pas arriver !\n",
-     e105 = "%{routine}: la table des propriétés système n'a pas de %{location} pour : \"%{name}\". \nVérifier la syntaxe et la casse du nom.\n",
-     e106 = "%{routine}: La table 'validT' pour %{name} ne contient pas d'entrée pour : \"%{value}\". \nVérifier la syntaxe et la casse du nom.\n",
-     e107 = "Impossible de trouver : \"%{name}\"\n",
-     e108 = "Héritage impossible : %{name}\n",
-     e109 = [==[Votre site empêche l'échange automatique de modules de même nom. Vous devez explicitement décharger la version courante de "%{oldFullName}" avant de pouvoir charger la nouvelle. Vous pouvez utiliser la commande 'swap' pour cela :
+     e_No_Hashsum = "Impossible de trouver le programme de somme de contrôle (sha1sum, shasum, md5sum or md5)",
+     e_Unable_2_parse = "Impossible d'analyser : \"%{path}\". Abandon.\n",
+     e_LocationT_Srch = "Erreur dans la fonction 'LocationT:search()'",
+     e_No_Mod_Entry = "%{routine}: aucune entrée de module trouvée : \"%{name}\". Cela ne devrait pas arriver !\n",
+     e_No_PropT_Entry = "%{routine}: la table des propriétés système n'a pas de %{location} pour : \"%{name}\". \nVérifier la syntaxe et la casse du nom.\n",
+     e_No_ValidT_Entry = "%{routine}: La table 'validT' pour %{name} ne contient pas d'entrée pour : \"%{value}\". \nVérifier la syntaxe et la casse du nom.\n",
+     e_Failed_2_Find = "Impossible de trouver : \"%{name}\"\n",
+     e_Failed_2_Inherit = "Héritage impossible : %{name}\n",
+     e_No_AutoSwap = [==[Votre site empêche l'échange automatique de modules de même nom. Vous devez explicitement décharger la version courante de "%{oldFullName}" avant de pouvoir charger la nouvelle. Vous pouvez utiliser la commande 'swap' pour cela :
 
    $ module swap %{oldFullName} %{newFullName}
 
 Sinon, vous pouvez définir la variable d'environnement LMOD_DISABLE_SAME_NAME_AUTOSWAP  à "no" pour réactiver la fonction d'échange automatique des modules de même nom.
 ]==],
-     e110 = "La commande 'module avail' n'est pas possible. MODULEPATH n'est pas défini ou n'est pas défini avec des chemins valides.\n",
-     e111 = "%{func}(\"%{name}\") n'est pas valide, une valeur est requise",
-     e112 = "Impossible de charger le module \"%{name}\" car le(s) module(s) suivant(s) est/sont chargé(s) :\n   %{module_list}\n",
-     e113 = "Impossible de charger le module  \"%{name}\" sans le chargement du/des module(s) suivant(s) :\n   %{module_list}\n",
+     e_Avail_No_MPATH = "La commande 'module avail' n'est pas possible. MODULEPATH n'est pas défini ou n'est pas défini avec des chemins valides.\n",
+     e_Missing_Value = "%{func}(\"%{name}\") n'est pas valide, une valeur est requise",
+     e_Conflict = "Impossible de charger le module \"%{name}\" car le(s) module(s) suivant(s) est/sont chargé(s) :\n   %{module_list}\n",
+     e_Prereq = "Impossible de charger le module  \"%{name}\" sans le chargement du/des module(s) suivant(s) :\n   %{module_list}\n",
      e114 = "Impossible de charger le module  \"%{name}\". Au moins l'un de ces modules doit être chargé :\n   %{module_list}\n",
      e115 = [==[Vous ne pouvez avoir qu'un module %{name} chargé à la fois.
 %{oldName} est déjà chargé.

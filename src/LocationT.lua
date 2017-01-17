@@ -160,7 +160,7 @@ function M.search(self, name)
       dbg.print{"sn: ",sn,"\n"}
       dbg.printT("locationT", locationT)
       dbg.fini("LocationT:search")
-      LmodError{msg="e103"}
+      LmodError{msg="e_LocationT_Srch"}
       return nil
    end
 

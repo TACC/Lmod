@@ -152,7 +152,7 @@ function M.setenv(self, name, value, respect)
               respect,"\")"}
 
    if (value == nil) then
-      LmodError{msg="e111", func = "setenv", name = name}
+      LmodError{msg="e_Missing_Value", func = "setenv", name = name}
    end
 
    if (respect and getenv(name)) then
@@ -215,7 +215,7 @@ function M.pushenv(self, name, value)
    -- for "stackName".
 
    if (value == nil) then
-      LmodError{msg="e111",func = "pushenv", name = name}
+      LmodError{msg="e_Missing_Value",func = "pushenv", name = name}
    end
 
    local stackName = "__LMOD_STACK_" .. name
@@ -683,7 +683,7 @@ function M.mustLoad(self)
       if (luaprog:sub(1,1) == "@") then
          luaprog = find_exec_path("lua")
          if (luaprog == nil) then
-            LmodError{msg="e107", name = "lua"}
+            LmodError{msg="e_Failed_2_Find", name = "lua"}
          end
       end
       local cmdA = {}
@@ -879,7 +879,7 @@ function M.conflict(self, mA)
    end
 
    if (#a > 0) then
-      LmodError{msg="e112", name = fullName, module_list = concatTbl(a," ")}
+      LmodError{msg="e_Conflict", name = fullName, module_list = concatTbl(a," ")}
    end
    dbg.fini("MasterControl:conflict")
 end
@@ -911,7 +911,7 @@ function M.prereq(self, mA)
 
    dbg.print{"number found: ",#a,"\n"}
    if (#a > 0) then
-      LmodError{msg="e113", name = fullName, module_list = concatTbl(a," ")}
+      LmodError{msg="e_Prereq", name = fullName, module_list = concatTbl(a," ")}
    end
    dbg.fini("MasterControl:prereq")
 end
@@ -1079,7 +1079,7 @@ function M.reportAdminMsgs()
       local bt
       local a       = {}
       local border  = colorize("red",string.rep("-", term_width-1))
-      io.stderr:write(i18n("m407",{border=border}))
+      io.stderr:write(i18n("m_Module_Msgs",{border=border}))
       for k, v in pairsByKeys(t) do
          io.stderr:write("\n",k,":\n")
          a[1] = { " ", v}

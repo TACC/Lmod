@@ -39,24 +39,24 @@ return {
      --------------------------------------------------------------------------
      -- LmodError messages
      --------------------------------------------------------------------------
-     e101 = "Imposible encontrar un programa HashSum (sha1sum, shasum, md5sum o md5)",
-     e102 = "Imposible analizar: \"%{path}\". ¡Abortar!\n",
-     e103 = "Error in LocationT:search()",
-     e104 = "%{routine}: No se encontró la entrada al módulo: \"%{name}\". ¡Esto no debería suceder!\n",
-     e105 = "%{routine}: la tabla de propiedades del system no tiene %{location} para: \"%{name}\". \nCompruebe la ortografía, así como mayúsculas y minúsculas.\n",
-     e106 = "%{routine}: La tabla validT para %{name} no contiene registros para: \"%{value}\". \nCompruebe la ortografía, así como mayúsculas y minúsculas\n",
-     e107 = "Imposible encontrar: \"%{name}\"\n",
-     e108 = "Error al heredar: %{name}\n",
-     e109 = [==[Su sistema impide el intercambio automático de módulos con el mismo nombre. Debe descargar primero "%{oldFullName}" antes de poder cargar la nueva versión. Use swap para hacer esto:
+     e_No_Hashsum = "Imposible encontrar un programa HashSum (sha1sum, shasum, md5sum o md5)",
+     e_Unable_2_parse = "Imposible analizar: \"%{path}\". ¡Abortar!\n",
+     e_LocationT_Srch = "Error in LocationT:search()",
+     e_No_Mod_Entry = "%{routine}: No se encontró la entrada al módulo: \"%{name}\". ¡Esto no debería suceder!\n",
+     e_No_PropT_Entry = "%{routine}: la tabla de propiedades del system no tiene %{location} para: \"%{name}\". \nCompruebe la ortografía, así como mayúsculas y minúsculas.\n",
+     e_No_ValidT_Entry = "%{routine}: La tabla validT para %{name} no contiene registros para: \"%{value}\". \nCompruebe la ortografía, así como mayúsculas y minúsculas\n",
+     e_Failed_2_Find = "Imposible encontrar: \"%{name}\"\n",
+     e_Failed_2_Inherit = "Error al heredar: %{name}\n",
+     e_No_AutoSwap = [==[Su sistema impide el intercambio automático de módulos con el mismo nombre. Debe descargar primero "%{oldFullName}" antes de poder cargar la nueva versión. Use swap para hacer esto:
 
    $ module swap %{oldFullName} %{newFullName}
 
 Además, puede configurar la variable de entorno LMOD_DISABLE_SAME_NAME_AUTOSWAP con el valor "no"  para habilitar al intercambio automático de módulos con el mismo nombre.
 ]==],
-     e110 = "No es posible ejecutar 'module avail'. MODULEPATH no está inicializado o su valor no contiene rutas correctas.\n",
-     e111 = "%{func}(\"%{name}\") no es válido, es necesario un valor",
-     e112 = "Imposible cargar el módulo \"%{name}\" porque este (estos) módulo(s) está(n) cargado(s):\n   %{module_list}\n",
-     e113 = "Imposible cargar el módulo \"%{name}\" sin cargar antes:\n   %{module_list}\n",
+     e_Avail_No_MPATH = "No es posible ejecutar 'module avail'. MODULEPATH no está inicializado o su valor no contiene rutas correctas.\n",
+     e_Missing_Value = "%{func}(\"%{name}\") no es válido, es necesario un valor",
+     e_Conflict = "Imposible cargar el módulo \"%{name}\" porque este (estos) módulo(s) está(n) cargado(s):\n   %{module_list}\n",
+     e_Prereq = "Imposible cargar el módulo \"%{name}\" sin cargar antes:\n   %{module_list}\n",
      e114 = "Imposible cargar el módulo \"%{name}\". Al menos uno de estos módulos debe ser cargado anteriormente:\n   %{module_list}\n",
      e115 = [==[Sólo puede tener un módulo %{name} cargado a la vez.
 Ya tiene %{oldName} cargado.

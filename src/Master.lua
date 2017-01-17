@@ -144,7 +144,7 @@ function M.access(self, ...)
 
    if (#a > 0) then
       setWarningFlag()
-      LmodWarning{msg="w511",quote_comma_list=concatTbl(a,"\", \""),
+      LmodWarning{msg="w_Failed_2_Find",quote_comma_list=concatTbl(a,"\", \""),
                              module_list=concatTbl(a," ")}
    end
    dbg.fini("Master:access")
@@ -228,7 +228,7 @@ function M.inheritModule(self)
    local fnI = mname:fn()
    dbg.print{mode(), " fnI: ",fnI,"\n"}
    if (not fnI) then
-      LmodError{msg="e108", name = myFullName}
+      LmodError{msg="e_Failed_2_Inherit", name = myFullName}
    else
       local mt    = frameStk:mt()
       local mList = concatTbl(mt:list("both","active"),":")
@@ -281,7 +281,7 @@ function M.load(self, mA)
 
          if (disable_same_name_autoswap == "yes" and mt_version ~= version) then
             local oldFullName = pathJoin(sn,mt_version)
-            LmodError{msg="e109", oldFullName = oldFullName, newFullName = fullName}
+            LmodError{msg="e_No_AutoSwap", oldFullName = oldFullName, newFullName = fullName}
          end
 
          local mcp_old = mcp
@@ -590,7 +590,7 @@ function M.reload_sticky(self, force)
    mcp = mcp_old
 
    if (reload) then
-      LmodMessage{msg="m426"}
+      LmodMessage{msg="m_Sticky_Mods"}
       local b  = mt:list("fullName","active")
       local a  = {}
       for i = 1, #b do
@@ -600,7 +600,7 @@ function M.reload_sticky(self, force)
       io.stderr:write(ct:build_tbl(),"\n")
    end
    if (#unstuckA > 0) then
-      LmodMessage{msg="m427"}
+      LmodMessage{msg="m_Sticky_Unstuck"}
       local ct = ColumnTable:new{tbl=unstuckA, gap=0, width=cwidth}
       io.stderr:write(ct:build_tbl(),"\n")
    end
@@ -749,7 +749,7 @@ function M.avail(self, argA)
       if (masterTbl.terse) then
          return a
       end
-      LmodError{msg="e110"}
+      LmodError{msg="e_Avail_No_MPATH"}
       return a
    end
 
@@ -883,7 +883,7 @@ function M.avail(self, argA)
    end
 
    if (next(legendT) ~= nil) then
-      a[#a+1] = i18n("m425",{})
+      a[#a+1] = i18n("m_Where",{})
       local b = {}
       for k, v in pairsByKeys(legendT) do
          b[#b+1] = { "   " .. k ..":", v}

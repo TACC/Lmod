@@ -88,32 +88,32 @@ Use "module keyword key1 key2 ..." to search for all possible modules matching a
 
 
 
-     e131      = "The module collection file is corrupt. Please remove: %{fn}\n",
-     e132      = [==[The module table stored in the environment is corrupt.
+     e_coll_corrupt   = "The module collection file is corrupt. Please remove: %{fn}\n",
+     e_MT_corrupt     = [==[The module table stored in the environment is corrupt.
 please execute the command \" clearMT\" and reload your modules.
 ]==],
-     e133      = [==[
+     e_SYS_DFLT_EMPTY = [==[
 The system default contains no modules
   (env var: LMOD_SYSTEM_DEFAULT_MODULES is empty)
   No changes in loaded modules
 
 ]==],
 
-     m402      = "\nInactive Modules:\n",
-     m403      = "\nActivating Modules:\n",
-     m404      = "\nDue to MODULEPATH changes, the following have been reloaded:\n",
-     m405      = "\nThe following have been reloaded with a version change:\n",
-     m406      = "Restoring modules from %{msg}\n",
-     m407      = [==[
+     m_Inactive_Modules    = "\nInactive Modules:\n",
+     m_Activate_Modules    = "\nActivating Modules:\n",
+     m_Reload_Modules      = "\nDue to MODULEPATH changes, the following have been reloaded:\n",
+     m_Reload_Version_Chng = "\nThe following have been reloaded with a version change:\n",
+     m_Restore_Coll        = "Restoring modules from %{msg}\n",
+     m_Module_Msgs         = [==[
 %{border}
 There are messages associated with the following module(s):
 %{border}
 ]==],
-     m408      = "Resetting modules to system default\n",
-     m409      = ", for system: \"%{sname}\"",
-     m410      = "Saved current collection of modules to: \"%{a}\"%{msgTail}\n",
-     m411      = "No named collections.\n",
-     m412      = [==[The command "module search" does not exist. To list all possible modules execute: 
+     m_Reset_SysDflt       = "Resetting modules to system default\n",
+     m_For_System          = ", for system: \"%{sname}\"",
+     m_Save_Coll           = "Saved current collection of modules to: \"%{a}\"%{msgTail}\n",
+     m_No_Named_Coll       = "No named collections.\n",
+     m_No_Search_Cmd       = [==[The command "module search" does not exist. To list all possible modules execute: 
 
   $   module spider %{s}
 
@@ -121,8 +121,8 @@ To search the contents of modules for matching words execute:
 
   $   module keyword %{s}
 ]==],
-     m413      = "The following is a list of the modules currently available:\n",
-     m414      = [==[%{border}
+     m_Spider_Title        = "The following is a list of the modules currently available:\n",
+     m_Spider_Tail         = [==[%{border}
 To learn more about a package execute:
 
    $ module spider Foo
@@ -135,41 +135,41 @@ must specify the version if there is more than one version:
    $ module spider Foo/11.1
 
 %{border}]==],
-     m415     = "    Description:\n%{descript}\n\n",
-     m416     = "     Versions:\n",
-     m417     = [==[
+     m_Description        = "    Description:\n%{descript}\n\n",
+     m_Versions           = "     Versions:\n",
+     m_Other_possible     = [==[
      Other possible modules matches:
         %{b}
 ]==],
-     m418     = [==[%{border}  To find other possible module matches execute:
+     m_Regex_Spider       = [==[%{border}  To find other possible module matches execute:
 
       $ module -r spider '.*%{name}.*'
 
 ]==],
-     m419      = [==[%{border}  For detailed information about a specific "%{key}" module (including how to load the modules) use the module's full name.
+     m_Spdr_L1            = [==[%{border}  For detailed information about a specific "%{key}" module (including how to load the modules) use the module's full name.
   For example:
 
      $ module spider %{exampleV}
 %{border}]==],
-     m420      = "\n    This module can be loaded directly: module load %{fullName}\n",
-     m421      = "\n    You will need to load all module(s) on any one of the lines below before the \"%{fullName}\" module is available to load.\n",
-     m422      = "\n    Additional variants of this module can also be loaded after loading the following modules:\n",
-     m423      = "    Properties:\n",
-     m424      = "\n     Other possible modules matches:\n        %{bb}\n",
-     m425      = "\n  Where:\n",
-     m426      = [==[The following modules were not unloaded:
+     m_Direct_Load        = "\n    This module can be loaded directly: module load %{fullName}\n",
+     m_Depend_Mods        = "\n    You will need to load all module(s) on any one of the lines below before the \"%{fullName}\" module is available to load.\n",
+     m_Additional_Variants= "\n    Additional variants of this module can also be loaded after loading the following modules:\n",
+     m_Properties      = "    Properties:\n",
+     m_Other_matches      = "\n     Other possible modules matches:\n        %{bb}\n",
+     m_Where      = "\n  Where:\n",
+     m_Sticky_Mods      = [==[The following modules were not unloaded:
   (Use "module --force purge" to unload all):
 ]==],
-     m427      = "\nThe following sticky modules could not be reloaded:\n",
+     m_Sticky_Unstuck      = "\nThe following sticky modules could not be reloaded:\n",
 
-     w511      = [==[Failed to find the following module(s):  "%{quote_comma_list}" in your MODULEPATH
+     w_Failed_2_Find      = [==[Failed to find the following module(s):  "%{quote_comma_list}" in your MODULEPATH
 Try:
 
     $ module spider %{module_list}
 
 to see if the module(s) are available across all compilers and MPI implementations.
 ]==],
-     w512      = "Unknown hook: %{name}\n",
+     w_Unknown_Hook      = "Unknown hook: %{name}\n",
 
      ml_help   = [==[
    ml: A handy front end for the module command:
@@ -276,24 +276,24 @@ to see if the module(s) are available across all compilers and MPI implementatio
      --------------------------------------------------------------------------
      -- LmodError messages
      --------------------------------------------------------------------------
-     e101 = "Unable to find HashSum program (sha1sum, shasum, md5sum or md5).",
-     e102 = "Unable to parse: \"%{path}\". Aborting!\n",
-     e103 = "Error in LocationT:search().",
-     e104 = "%{routine}: Did not find module entry: \"%{name}\". This should not happen!\n",
-     e105 = "%{routine}: system property table has no %{location} for: \"%{name}\". \nCheck spelling and case of name.\n",
-     e106 = "%{routine}: The validT table for %{name} has no entry for: \"%{value}\". \nCheck spelling and case of name.\n",
-     e107 = "Unable to find: \"%{name}\".\n",
-     e108 = "Failed to inherit: %{name}.\n",
-     e109 = [==[Your site prevents the automatic swapping of modules with same name. You must explicitly unload the loaded version of "%{oldFullName}" before you can load the new one. Use swap to do this:
+     e_No_Hashsum = "Unable to find HashSum program (sha1sum, shasum, md5sum or md5).",
+     e_Unable_2_parse = "Unable to parse: \"%{path}\". Aborting!\n",
+     e_LocationT_Srch = "Error in LocationT:search().",
+     e_No_Mod_Entry = "%{routine}: Did not find module entry: \"%{name}\". This should not happen!\n",
+     e_No_PropT_Entry = "%{routine}: system property table has no %{location} for: \"%{name}\". \nCheck spelling and case of name.\n",
+     e_No_ValidT_Entry = "%{routine}: The validT table for %{name} has no entry for: \"%{value}\". \nCheck spelling and case of name.\n",
+     e_Failed_2_Find = "Unable to find: \"%{name}\".\n",
+     e_Failed_2_Inherit = "Failed to inherit: %{name}.\n",
+     e_No_AutoSwap = [==[Your site prevents the automatic swapping of modules with same name. You must explicitly unload the loaded version of "%{oldFullName}" before you can load the new one. Use swap to do this:
 
    $ module swap %{oldFullName} %{newFullName}
 
 Alternatively, you can set the environment variable LMOD_DISABLE_SAME_NAME_AUTOSWAP to "no" to re-enable same name autoswapping.
 ]==],
-     e110 = "module avail is not possible. MODULEPATH is not set or not set with valid paths.\n",
-     e111 = "%{func}(\"%{name}\") is not valid; a value is required.",
-     e112 = "Cannot load module \"%{name}\" because these module(s) are loaded:\n   %{module_list}\n",
-     e113 = "Cannot load module \"%{name}\" without these module(s) loaded:\n   %{module_list}\n",
+     e_Avail_No_MPATH = "module avail is not possible. MODULEPATH is not set or not set with valid paths.\n",
+     e_Missing_Value = "%{func}(\"%{name}\") is not valid; a value is required.",
+     e_Conflict = "Cannot load module \"%{name}\" because these module(s) are loaded:\n   %{module_list}\n",
+     e_Prereq = "Cannot load module \"%{name}\" without these module(s) loaded:\n   %{module_list}\n",
      e114 = "Cannot load module \"%{name}\". At least one of these module(s) must be loaded:\n   %{module_list}\n",
      e115 = [==[You can only have one %{name} module loaded at a time.
 You already have %{oldName} loaded.
