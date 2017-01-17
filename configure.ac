@@ -607,7 +607,7 @@ else
   echo "... yes"
 fi
 
-rm luaModuleAvailable
+rm luaModuleAvailable getLFSVersion
 
 if ! test -f $LUA_INCLUDE/lua.h; then
    LUA_INCLUDE=$PATH_TO_LUA_DIR/include
