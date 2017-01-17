@@ -90,7 +90,10 @@ function M.init(self, t)
       
       local defaultV = t.default
       local sedV     = t.sedV or "@"
-      local value    = (getenv(name) or sedV):lower()
+      local value    = (getenv(name) or sedV)
+      if (t.lower) then
+         value = value:lower()
+      end
       local extra    = nil
       if (value:sub(1,1) == "@" or value == "<empty>") then
          value = defaultV

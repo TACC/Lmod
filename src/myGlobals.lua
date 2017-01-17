@@ -208,6 +208,7 @@ cosmic:init{name = "LMOD_DUPLICATE_PATHS",
 -- LMOD_IGNORE_CACHE:  Ignore user and system caches and rebuild if needed
 ------------------------------------------------------------------------
 cosmic:init{name    = "LMOD_IGNORE_CACHE",
+            lower   = true,
             default = false}
 
 ------------------------------------------------------------------------
@@ -320,6 +321,7 @@ colorize      = false
 
 cosmic:init{name    = "LMOD_COLORIZE",
             sedV    = "@colorize@",
+            lower   = true,
             default = "yes"}
 
 ------------------------------------------------------------------------
@@ -515,6 +517,7 @@ updateSystemFn="@updateSystemFn@"
 ------------------------------------------------------------------------
 cosmic:init{name    = "LMOD_PREPEND_BLOCK",
             sedV    = "@prepend_block@",
+            lower   = true,
             default = "normal"}
 
 ------------------------------------------------------------------------
