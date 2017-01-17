@@ -4,3 +4,5 @@ Lmod 7.3+
     (7.3.3) Remove trailing .lua as the username of a module and
             updated French translations for module types.
     (7.3.4) Using built-in luafilesystem if system version < 1.6.2
+    (7.3.5) Fix bug that caused LMOD env vars to be lower cased.
+    
