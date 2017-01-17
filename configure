@@ -3876,7 +3876,7 @@ if test -n "$missingModules" ; then
   echo "... no"
 else
   lfsV=`$luaprog getLFSVersion`
-  if test "$lfs" -lt 1006003; then
+  if test "$lfs" -lt 1006002; then
      echo "... Too old, using providing version"
   else
      echo "... yes"
