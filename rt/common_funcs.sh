@@ -6,6 +6,7 @@ cleanUp ()
    old="Lmod Warning: Syntax error in file: ProjectDIR"
    new="Lmod Warning: Syntax error in file:\nProjectDIR"
 
+
    sed                                                    \
        -e "s|:$PATH_to_LUA:|:|g"                          \
        -e "s|$PATH_to_LUA/lua|lua|g"                      \
@@ -39,14 +40,16 @@ cleanUp ()
        -e "s|--* *$||g"                                   \
        -e "s|$old|$new|g"                                 \
        -e "s|^ *OutputDIR| OutputDIR|"                    \
+       -e "s|^ *OutputDIR| OutputDIR|"                    \
        -e "s|  *$||g"                                     \
+       -e "/^Changes from Default Configuration.*/d"      \
+       -e "/^Name * Default *Value.*/d"                   \
+       -e "/^LFS_VERSION.*/d"                             \
        -e "/^Active lua-term.*/d"                         \
        -e "/Rebuilding cache.*done/d"                     \
        -e "/Using your spider cache file/d"               \
        -e "/^_ModuleTable_Sz_=.*$/d"                      \
-       -e "/^_ModuleTable_Sz_=.*$/d"                           \
        -e "/^setenv _ModuleTable_Sz_ .*$/d"               \
-       -e "/^setenv _ModuleTable_Sz_ .*$/d"                    \
        -e "/^ *$/d"                                       \
        < $1 > $2
 }
