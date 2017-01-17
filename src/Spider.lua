@@ -683,7 +683,7 @@ function M._Level1(self, dbT, possibleA, sn, key, helpFlg)
    local mrc         = MRC:singleton()
    local T           = dbT[sn]
    if (T == nil) then
-      LmodSystemError{msg="e125", sn = sn}
+      LmodSystemError{msg="e_dbT_sn_fail", sn = sn}
    end
 
    local function countEntries()
@@ -738,7 +738,7 @@ function M._Level1(self, dbT, possibleA, sn, key, helpFlg)
    end
       
    if (key == nil) then
-      LmodError{msg="e117"}
+      LmodError{msg="e_No_Matching_Mods"}
       dbg.fini("Spider:_Level1")
       return 
    end

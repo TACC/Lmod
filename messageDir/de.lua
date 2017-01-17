@@ -66,10 +66,10 @@ Alternativ können Sie die Umgebungsvariable LMOD_DISABLE_SAME_NAME_AUTOSWAP auf
      e_Prereq = [==[Das Modul "%{name}" kann ohne diese Module nicht geladen werden:
   %{module_list}
 ]==],
-     e114 = [==[Das Modul "%{name}" kann nicht geladen werden. Mindestens eines dieser Module muss geladen sein:
+     e_Prereq_Any = [==[Das Modul "%{name}" kann nicht geladen werden. Mindestens eines dieser Module muss geladen sein:
   %{module_list}
 ]==],
-     e115 = [==[Nur ein Modul von %{name} kann gleichzeitig geladen sein.
+     e_Family_Conflict = [==[Nur ein Modul von %{name} kann gleichzeitig geladen sein.
 Es ist bereits %{oldName} geladen.
 Verwende folgendes Kommando, um das Modul zu laden:
 
@@ -77,33 +77,33 @@ Verwende folgendes Kommando, um das Modul zu laden:
 
 Falls Sie weitere Unterstützung brauchen, erstellen Sie ein Support-Ticket.
 ]==],
-     e116 = "Unbekannter Schlüssel: \"%{key}\" in setStandardPaths.\n",
-     e117 = "Keine passenden Module gefunden.\n",
-     e118 = [==[Benutzer-Modulsammlung: "%{collection}" existiert nicht.
+     e_setStandardPaths = "Unbekannter Schlüssel: \"%{key}\" in setStandardPaths.\n",
+     e_No_Matching_Mods = "Keine passenden Module gefunden.\n",
+     e_Unknown_Coll = [==[Benutzer-Modulsammlung: "%{collection}" existiert nicht.
   "module savelist" zeigt mögliche Werte.
 ]==],
-     e119 = [==[Der Name einer Modulsammlung darf kein `.' enthalten.
+     e_No_Period_Allowed = [==[Der Name einer Modulsammlung darf kein `.' enthalten.
   Bitte geben Sie der Sammlung "%{collection}" einen neuen Namen.
 ]==],
-     e120 = "Swap fehlgeschlagen: \"%{name}\" ist nicht geladen.\n",
-     e121 = [==[Modul konnte nicht geladen werden: %{name}
+     e_Swap_Failed = "Swap fehlgeschlagen: \"%{name}\" ist nicht geladen.\n",
+     e_Unable_2_Load = [==[Modul konnte nicht geladen werden: %{name}
      %{fn}: %{message}
 ]==],
-     e122 = "sandbox_registration: Das übergebene Argument ist vom Typ: \"%{kind}\". Es sollte eine Liste sein.",
-     e123 = "uuidgen ist nicht verfügbar, Alternative ist ebenfalls fehlgeschlagen.",
-     e124 = "Zeitbegrenzung für Spider-Suche ist abgelaufen.\n",
-     e125 = "dbT[sn] schlug fehl für sn: %{sn}.\n",
-     e126 = "Hashwert konnte nicht berechnet werden.\n",
+     e_missing_table = "sandbox_registration: Das übergebene Argument ist vom Typ: \"%{kind}\". Es sollte eine Liste sein.",
+     e_No_UUID = "uuidgen ist nicht verfügbar, Alternative ist ebenfalls fehlgeschlagen.",
+     e_Spdr_Timeout = "Zeitbegrenzung für Spider-Suche ist abgelaufen.\n",
+     e_dbT_sn_fail = "dbT[sn] schlug fehl für sn: %{sn}.\n",
+     e_Failed_Hashsum = "Hashwert konnte nicht berechnet werden.\n",
 
      --------------------------------------------------------------------------
      -- LmodMessages
      --------------------------------------------------------------------------
-     m401 = "\nLmod hat \"%{oldFullName}\" automatisch durch \"%{newFullName}\" ersetzt.\n",
+     m_Family_Swap = "\nLmod hat \"%{oldFullName}\" automatisch durch \"%{newFullName}\" ersetzt.\n",
 
      --------------------------------------------------------------------------
      -- LmodWarnings
      --------------------------------------------------------------------------
-     w501 = [==[Ein oder mehrere Module in ihrer Sammlung %{collectionName} wurden geändert: "%{module_list}".
+     w_Broken_Coll = [==[Ein oder mehrere Module in ihrer Sammlung %{collectionName} wurden geändert: "%{module_list}".
 Um die Inhalte der Sammlung anzuzeigen, verwenden Sie:
   $ module describe %{collectionName}
 Um die Sammlung neu anzulegen, laden Sie zuerst die gewünschten Module und führen Sie danach folgendes aus:
@@ -115,15 +115,15 @@ Weitere Informationen finden Sie mit 'module help' oder unter http://lmod.readth
 Die geladenen Module wurden nicht verändert.
 
 ]==],
-     w502 = "Fehler in der Zeile module-version: module-name muss vollqualifiziert sein: %{fullName} ist dies nicht.\n",
-     w503 = "MODULEPATH des Systems hat sich geändert: Bitte legen Sie ihre gespeicherten Sammlungen neu an.\n",
-     w504 = "Sie haben keine Module geladen, weil die Sammlung \"%{collectionName}\" leer ist!\n",
-     w505 = "Die folgenden Module wurden nicht geladen: %{module_list}.\n\n",
-     w506 = "Keine Sammlung mit dem Namen \"%{collection}\" gefunden.",
-     w507 = "MODULEPATH ist nicht definiert.\n",
-     w508 = "Der Name einer Sammlung darf kein `.' enthalten. Bitte vergeben Sie einen anderen Namen für: %{name}.",
-     w509 = "Die Bezeichnung 'system' für Sammlungen ist reserviert. Bitte vergeben Sie einen anderen Namen.\n",
-     w510 = [==[Sie versuchen in "%{name}" eine leere Modulsammlung zu speichern. Falls Sie dies wollen, verwenden Sie:
+     w_Broken_FullName = "Fehler in der Zeile module-version: module-name muss vollqualifiziert sein: %{fullName} ist dies nicht.\n",
+     w_MPATH_Coll = "MODULEPATH des Systems hat sich geändert: Bitte legen Sie ihre gespeicherten Sammlungen neu an.\n",
+     w_Empty_Coll = "Sie haben keine Module geladen, weil die Sammlung \"%{collectionName}\" leer ist!\n",
+     w_Mods_Not_Loaded = "Die folgenden Module wurden nicht geladen: %{module_list}.\n\n",
+     w_No_Coll = "Keine Sammlung mit dem Namen \"%{collection}\" gefunden.",
+     w_Undef_MPATH = "MODULEPATH ist nicht definiert.\n",
+     w_No_dot_Coll = "Der Name einer Sammlung darf kein `.' enthalten. Bitte vergeben Sie einen anderen Namen für: %{name}.",
+     w_System_Reserved = "Die Bezeichnung 'system' für Sammlungen ist reserviert. Bitte vergeben Sie einen anderen Namen.\n",
+     w_Save_Empty_Coll = [==[Sie versuchen in "%{name}" eine leere Modulsammlung zu speichern. Falls Sie dies wollen, verwenden Sie:
   $ module --force save %{name}
 ]==],
    }

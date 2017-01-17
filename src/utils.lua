@@ -713,7 +713,7 @@ function UUIDString(epoch)
       if f then
          uuid_str = f:read('*all'):sub(1,-2)
       else
-         LmodError{msg="e123"}
+         LmodError{msg="e_No_UUID"}
       end
    end
 

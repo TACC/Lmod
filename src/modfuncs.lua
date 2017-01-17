@@ -98,7 +98,7 @@ local function validateStringArgs(cmdName, ...)
    for i = 1, arg.n do
       local v = arg[i]
       if (type(v) ~= "string") then
-         mcp:report{msg="e129", fn = myFileName(), cmdName = cmdName}
+         mcp:report{msg="e_Args_Not_Strings", fn = myFileName(), cmdName = cmdName}
          return false
       end
    end
@@ -113,7 +113,7 @@ local function validateStringTable(n, cmdName, t)
    for i = 1, n do
       local v = t[i]
       if (type(v) ~= "string") then
-         mcp:report{msg="e129", fn = myFileName(), cmdName = cmdName}
+         mcp:report{msg="e_Args_Not_Strings", fn = myFileName(), cmdName = cmdName}
          return false
       end
    end
@@ -126,7 +126,7 @@ local function validateStringTable(n, cmdName, t)
       end
 
       if (not valid) then
-         mcp:report{msg="e129", fn = myFileName(), cmdName = cmdName}
+         mcp:report{msg="e_Args_Not_Strings", fn = myFileName(), cmdName = cmdName}
          return false
       end
    end
@@ -143,14 +143,14 @@ local function validateArgsWithValue(cmdName, ...)
    for i = 1, arg.n -1 do
       local v = arg[i]
       if (type(v) ~= "string") then
-         mcp:report{msg="e129", fn = myFileName(), cmdName = cmdName}
+         mcp:report{msg="e_Args_Not_Strings", fn = myFileName(), cmdName = cmdName}
          return false
       end
    end
 
    local v = arg[arg.n]
    if (type(v) ~= "string" and type(v) ~= "number" and type(v) ~= "boolean") then
-      mcp:report{msg="e129", fn = myFileName(), cmdName = cmdName}
+      mcp:report{msg="e_Args_Not_Strings", fn = myFileName(), cmdName = cmdName}
       return false
    end
    return true
@@ -177,7 +177,7 @@ local function validateModules(cmdName, ...)
       end
    end
    if (not allGood) then
-      mcp:report{msg="e129", fn = myFileName(), cmdName = cmdName}
+      mcp:report{msg="e_Args_Not_Strings", fn = myFileName(), cmdName = cmdName}
    end
    return allGood
 end
@@ -288,7 +288,7 @@ end
 function execute(t)
    dbg.start{"execute(...)"}
    if (type(t) ~= "table" or not t.cmd or type(t.modeA) ~= "table") then
-      mcp:report{msg="e130", fn = myFileName()}
+      mcp:report{msg="e_Execute_Msg", fn = myFileName()}
       return
    end
    local b = mcp:execute(t)

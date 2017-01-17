@@ -225,7 +225,7 @@ sandbox_env = {
 -- @param t A table
 function sandbox_registration(t)
    if (type(t) ~= "table") then
-      LmodError{msg="e122", kind = type(t)}
+      LmodError{msg="e_missing_table", kind = type(t)}
    end
    for k,v in pairs(t) do
       sandbox_env[k] = v

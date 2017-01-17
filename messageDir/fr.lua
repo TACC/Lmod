@@ -292,8 +292,8 @@ Sinon, vous pouvez définir la variable d'environnement LMOD_DISABLE_SAME_NAME_A
      e_Missing_Value = "%{func}(\"%{name}\") n'est pas valide, une valeur est requise",
      e_Conflict = "Impossible de charger le module \"%{name}\" car le(s) module(s) suivant(s) est/sont chargé(s) :\n   %{module_list}\n",
      e_Prereq = "Impossible de charger le module  \"%{name}\" sans le chargement du/des module(s) suivant(s) :\n   %{module_list}\n",
-     e114 = "Impossible de charger le module  \"%{name}\". Au moins l'un de ces modules doit être chargé :\n   %{module_list}\n",
-     e115 = [==[Vous ne pouvez avoir qu'un module %{name} chargé à la fois.
+     e_Prereq_Any = "Impossible de charger le module  \"%{name}\". Au moins l'un de ces modules doit être chargé :\n   %{module_list}\n",
+     e_Family_Conflict = [==[Vous ne pouvez avoir qu'un module %{name} chargé à la fois.
 %{oldName} est déjà chargé.
 Pour corriger le problème, vous pouvez utiliser la commande suivante :
 
@@ -302,32 +302,32 @@ Pour corriger le problème, vous pouvez utiliser la commande suivante :
 Merci de bien vouloir soumettre un ticket si vous désirez plus d'assistance.
 
 ]==],
-     e116 = "Clé inconnue : \"%{key}\" dans 'setStandardPaths'\n",
-     e117 = "Aucun module correspondant trouvé\n",
-     e118 = "Collection de modules utilisateur : \"%{collection}\" n'existe pas.\n  Essayez \"module savelist\" pour une liste de choix possibles.\n",
-     e119 = "Les noms de collection ne peuvent pas contenir de `.'.\n  Merci de bien vouloir renommer \"%collection}\"\n",
-     e120 = "L'échange a échoué : \"%{name}\" n'est pas chargé.\n",
-     e121 = "Impossible de charger le module : %{name}\n     %{fn}: %{message}\n",
+     e_setStandardPaths = "Clé inconnue : \"%{key}\" dans 'setStandardPaths'\n",
+     e_No_Matching_Mods = "Aucun module correspondant trouvé\n",
+     e_Unknown_Coll = "Collection de modules utilisateur : \"%{collection}\" n'existe pas.\n  Essayez \"module savelist\" pour une liste de choix possibles.\n",
+     e_No_Period_Allowed = "Les noms de collection ne peuvent pas contenir de `.'.\n  Merci de bien vouloir renommer \"%collection}\"\n",
+     e_Swap_Failed = "L'échange a échoué : \"%{name}\" n'est pas chargé.\n",
+     e_Unable_2_Load = "Impossible de charger le module : %{name}\n     %{fn}: %{message}\n",
 
-     e122 = "sandbox_registration: L'argument passé est : \"%{kind}\". Cela devrait être une table.",
-     e123 = "uuidgen n'est pas disponible, l'alternative a également échoué",
-     e124 = "La recherche Spider a expiré\n",
-     e125 = "dbT[sn] a échoué pour sn: %{sn}\n",
-     e126 = "Impossible de calculer la somme de contrôle\n",
-     e127 = [==[Le ou les module(s) suivants sont inconnus: %{module_list}
+     e_missing_table = "sandbox_registration: L'argument passé est : \"%{kind}\". Cela devrait être une table.",
+     e_No_UUID = "uuidgen n'est pas disponible, l'alternative a également échoué",
+     e_Spdr_Timeout = "La recherche Spider a expiré\n",
+     e_dbT_sn_fail = "dbT[sn] a échoué pour sn: %{sn}\n",
+     e_Failed_Hashsum = "Impossible de calculer la somme de contrôle\n",
+     e_Failed_Load = [==[Le ou les module(s) suivants sont inconnus: %{module_list}
 
 Veuillez vérifier l'orthographe ou le numéro de version. Vous pouvez aussi essayer "module spider ..."
 Il est aussi possible que votre cache soit désuète. Essayez :
   $   module --ignore-cache load %{module_list} 
 ]==],
-     e128 = [==[Ce ou ces module(s) existent, mais ne peuvent pas être chargés tel que demandé: %{kA}
+     e_Failed_Load_2 = [==[Ce ou ces module(s) existent, mais ne peuvent pas être chargés tel que demandé: %{kA}
    Utilisez: "module spider %{kB}" pour voir la façon de les charger.
 ]==],
 
-     e129 = [==[Erreur de syntaxe dans le fichier : %{fn}
+     e_Args_Not_Strings = [==[Erreur de syntaxe dans le fichier : %{fn}
  avec la commande : %{cmdName}. Un ou plusieurs arguments ne sont pas des chaînes de caractères.
 ]==],
-     e130 = [==[Erreur de syntaxe dans le fichier : %{fn}
+     e_Execute_Msg = [==[Erreur de syntaxe dans le fichier : %{fn}
 avec la commande : "execute".
 La syntaxe est :
     execute{cmd="command string",modeA={"load",...}}
@@ -336,12 +336,12 @@ La syntaxe est :
      --------------------------------------------------------------------------
      -- LmodMessages
      --------------------------------------------------------------------------
-     m401 = "\nLmod a automatiquement remplacé \"%{oldFullName}\" par \"%{newFullName}\"\n",
+     m_Family_Swap = "\nLmod a automatiquement remplacé \"%{oldFullName}\" par \"%{newFullName}\"\n",
      
      --------------------------------------------------------------------------
      -- LmodWarnings
           --------------------------------------------------------------------------
-     w501 = [==[Un ou plusieurs modules de la collection %{collectionName} ont changé : "%{module_list}".
+     w_Broken_Coll = [==[Un ou plusieurs modules de la collection %{collectionName} ont changé : "%{module_list}".
 Pour voir le contenu de cette collection :
   $ module describe %{collectionName}
 Pour reconstruire la collection, chargez les modules souhaités, puis :
@@ -353,15 +353,15 @@ Pour plus d'informations, lancez 'module help' ou consultez http://lmod.readthed
 Aucun changement dans les modules chargés
 
 ]==],
-     w502 = "Ligne module-version malformée : module-name doit être un nom complet : %{fullName} ne l'est pas\n",
-     w503 = "La variable MODULEPATH du système a changé : merci de bien vouloir reconstruire les collections que vous avez sauvegardées.\n",
-     w504 = "Vous n'avez aucun module de chargé car la collection \"%{collectionName}\" est vide !\n",
-     w505 = "Les modules suivants n'ont pas été chargés : %{module_list}\n\n",
-     w506 = "Aucune collection \"%{collection}\" n'a été trouvée.",
-     w507 = "MODULEPATH n'est pas défini\n",
-     w508 = "Les noms de collection ne peuvent pas contenir de '.'. Merci de bien vouloir choisir un autre nom pour : %{name}",
-     w509 = "Le nom 'system' pour une collection est réservé. Merci de bien vouloir choisir un autre nom.\n",
-     w510 = [==[Vous tentez de sauvegarder une collection de modules vide dans "%{name}". Si c'est ce que vous souhaitez, utilisez :
+     w_Broken_FullName = "Ligne module-version malformée : module-name doit être un nom complet : %{fullName} ne l'est pas\n",
+     w_MPATH_Coll = "La variable MODULEPATH du système a changé : merci de bien vouloir reconstruire les collections que vous avez sauvegardées.\n",
+     w_Empty_Coll = "Vous n'avez aucun module de chargé car la collection \"%{collectionName}\" est vide !\n",
+     w_Mods_Not_Loaded = "Les modules suivants n'ont pas été chargés : %{module_list}\n\n",
+     w_No_Coll = "Aucune collection \"%{collection}\" n'a été trouvée.",
+     w_Undef_MPATH = "MODULEPATH n'est pas défini\n",
+     w_No_dot_Coll = "Les noms de collection ne peuvent pas contenir de '.'. Merci de bien vouloir choisir un autre nom pour : %{name}",
+     w_System_Reserved = "Le nom 'system' pour une collection est réservé. Merci de bien vouloir choisir un autre nom.\n",
+     w_Save_Empty_Coll = [==[Vous tentez de sauvegarder une collection de modules vide dans "%{name}". Si c'est ce que vous souhaitez, utilisez :
   $  module --force save %{name}
 ]==],
    }

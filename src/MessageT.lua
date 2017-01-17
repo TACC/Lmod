@@ -20,8 +20,8 @@ Alternatively, you can set the environment variable LMOD_DISABLE_SAME_NAME_AUTOS
    e_Missing_Value = "%{func}(\"%{name}\") is not valid, a value is required",
    e_Conflict = "Cannot load module \"%{name}\" because these module(s) are loaded:\n   %{module_list}\n",
    e_Prereq = "Cannot load module \"%{name}\" without these module(s) loaded:\n   %{module_list}\n",
-   e114 = "Cannot load module \"%{name}\". At least one of these module(s) must be loaded:\n   %{module_list}\n",
-   e115 = [==[You can only have one %{name} module loaded at a time.
+   e_Prereq_Any = "Cannot load module \"%{name}\". At least one of these module(s) must be loaded:\n   %{module_list}\n",
+   e_Family_Conflict = [==[You can only have one %{name} module loaded at a time.
 You already have %{oldName} loaded.
 To correct the situation, please enter the following command:
 
@@ -29,27 +29,27 @@ To correct the situation, please enter the following command:
 
 Please submit a consulting ticket if you require additional assistance.
 ]==],
-   e116 = "Unknown Key: \"%{key}\" in setStandardPaths\n",
-   e117 = "No matching modules found\n",
-   e118 = "User module collection: \"%{collection}\" does not exist.\n  Try \"module savelist\" for possible choices.\n",
-   e119 = "Collection names cannot have a `.' in the name.\n  Please rename \"%collection}\"\n",
-   e120 = "Swap failed: \"%{name}\" is not loaded.\n",
-   e121 = "Unable to load module: %{name}\n     %{fn}: %{message}\n",
-   e122 = "sandbox_registration: The argument passed is: \"%{kind}\". It should be a table.",
-   e123 = "uuidgen is not available, fallback failed too",
-   e124 = "Spider searched timed out\n",
-   e125 = "dbT[sn] failed for sn: %{sn}\n",
-   e126 = "Unable to compute hashsum\n",
+   e_setStandardPaths = "Unknown Key: \"%{key}\" in setStandardPaths\n",
+   e_No_Matching_Mods = "No matching modules found\n",
+   e_Unknown_Coll = "User module collection: \"%{collection}\" does not exist.\n  Try \"module savelist\" for possible choices.\n",
+   e_No_Period_Allowed = "Collection names cannot have a `.' in the name.\n  Please rename \"%collection}\"\n",
+   e_Swap_Failed = "Swap failed: \"%{name}\" is not loaded.\n",
+   e_Unable_2_Load = "Unable to load module: %{name}\n     %{fn}: %{message}\n",
+   e_missing_table = "sandbox_registration: The argument passed is: \"%{kind}\". It should be a table.",
+   e_No_UUID = "uuidgen is not available, fallback failed too",
+   e_Spdr_Timeout = "Spider searched timed out\n",
+   e_dbT_sn_fail = "dbT[sn] failed for sn: %{sn}\n",
+   e_Failed_Hashsum = "Unable to compute hashsum\n",
 
    --------------------------------------------------------------------------
    -- LmodMessages
    --------------------------------------------------------------------------
-   m401 = "\nLmod is automatically replacing \"%{oldFullName}\" with \"%{newFullName}\"\n",
+   m_Family_Swap = "\nLmod is automatically replacing \"%{oldFullName}\" with \"%{newFullName}\"\n",
    
    --------------------------------------------------------------------------
    -- LmodWarnings
    --------------------------------------------------------------------------
-   w501 = [==[One or more modules in your %{collectionName} collection have changed: "%{module_list}".
+   w_Broken_Coll = [==[One or more modules in your %{collectionName} collection have changed: "%{module_list}".
 To see the contents of this collection do:
   $ module describe %{collectionName}
 To rebuild the collection, load the modules you wish then do:
@@ -61,15 +61,15 @@ For more information execute 'module help' or see http://lmod.readthedocs.org/
 No change in modules loaded
 
 ]==],
-   w502 = "Badly formed module-version line: module-name must be fully qualified: %{fullName} is not\n",
-   w503 = "The system MODULEPATH has changed: Please rebuild your saved collection.\n",
-   w504 = "You have no modules loaded because the collection \"%{collectionName}\" is empty!\n",
-   w505 = "The following modules were not loaded: %{module_list}\n\n",
-   w506 = "No collection named \"%{collection}\" found.",
-   w507 = "MODULEPATH is undefined\n",
-   w508 = "It is illegal to have a `.' in a collection name.  Please choose another name for: %{name}",
-   w509 = "The named collection 'system' is reserved. Please choose another name.\n",
-   w510 = [==[You are trying to save an empty collection of modules in "%{name}". If this is what you want then enter:
+   w_Broken_FullName = "Badly formed module-version line: module-name must be fully qualified: %{fullName} is not\n",
+   w_MPATH_Coll = "The system MODULEPATH has changed: Please rebuild your saved collection.\n",
+   w_Empty_Coll = "You have no modules loaded because the collection \"%{collectionName}\" is empty!\n",
+   w_Mods_Not_Loaded = "The following modules were not loaded: %{module_list}\n\n",
+   w_No_Coll = "No collection named \"%{collection}\" found.",
+   w_Undef_MPATH = "MODULEPATH is undefined\n",
+   w_No_dot_Coll = "It is illegal to have a `.' in a collection name.  Please choose another name for: %{name}",
+   w_System_Reserved = "The named collection 'system' is reserved. Please choose another name.\n",
+   w_Save_Empty_Coll = [==[You are trying to save an empty collection of modules in "%{name}". If this is what you want then enter:
   $  module --force save %{name}
 ]==],
 }

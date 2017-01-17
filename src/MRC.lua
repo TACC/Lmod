@@ -150,7 +150,7 @@ function l_parseModA(self, modA, weight)
             local _, _, shorter, mversion = fullName:find("(.*)/(.*)")
             dbg.print{"(2) fullName: ",fullName,", shorter: ",shorter,", mversion: ",mversion,"\n"}
             if (shorter == nil) then
-               LmodWarning{msg="w502", fullName= fullName}
+               LmodWarning{msg="w_Broken_FullName", fullName= fullName}
                break
             end
             

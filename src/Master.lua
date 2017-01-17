@@ -321,7 +321,7 @@ function M.load(self, mA)
          local b = {}
          while (not mcp.familyStackEmpty()) do
             local   b_old, b_new = mcp.familyStackPop()
-            LmodMessage{msg="m401", oldFullName=b_old.fullName, newFullName=b_new.fullName}
+            LmodMessage{msg="m_Family_Swap", oldFullName=b_old.fullName, newFullName=b_new.fullName}
             local umA   = {MName:new("mt",   b_old.sn) , MName:new("mt",   b_new.sn) }
             local lmA   = {MName:new("load", b_new.userName)}
             b[#b+1]     = {umA = umA, lmA = lmA}

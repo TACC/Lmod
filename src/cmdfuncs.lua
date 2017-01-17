@@ -151,7 +151,7 @@ function CollectionLst(collection)
       end
    else
       if (#a < 1) then
-         LmodWarning{msg="w506",collection=collection}
+         LmodWarning{msg="w_No_Coll",collection=collection}
          dbg.fini("CollectionLst")
          return
       end
@@ -420,7 +420,7 @@ function Load_Usr(...)
       if (varT[ModulePath] == nil or
           varT[ModulePath]:expand() == false or
           varT[ModulePath]:expand() == "" ) then
-         LmodWarning{msg="w507"}
+         LmodWarning{msg="w_Undef_MPATH"}
       end
 
       local mcp_old = mcp
@@ -552,12 +552,12 @@ function Restore(collection)
       myName = collection
       path   = pathJoin(os.getenv("HOME"), ".lmod.d", collection .. sname)
       if (not isFile(path)) then
-         LmodError{msg="e118", collection = collection}
+         LmodError{msg="e_Unknown_Coll", collection = collection}
       end
    end
 
    if (barefilename(myName):find("%.")) then
-      LmodError{msg="e119", collection = collection}
+      LmodError{msg="e_No_Period_Allowed", collection = collection}
    end
 
 
@@ -619,13 +619,13 @@ function Save(...)
    end
 
    if (barefilename(a):find("%.")) then
-      LmodWarning{msg="w508",name=a}
+      LmodWarning{msg="w_No_dot_Coll",name=a}
       dbg.fini("Save")
       return
    end
 
    if (a == "system") then
-      LmodWarning{msg="w509"}
+      LmodWarning{msg="w_System_Reserved"}
       dbg.fini("Save")
       return
    end
@@ -633,7 +633,7 @@ function Save(...)
    local activeA = mt:list("short","active")
    local force   = masterTbl.force
    if (#activeA == 0 and not force) then
-      LmodWarning{msg="w510",name=a}
+      LmodWarning{msg="w_Save_Empty_Coll",name=a}
       dbg.fini("Save")
       return
    end
@@ -809,7 +809,7 @@ function Swap(...)
    local mname = MName:new("mt", a)
    local sn    = mname:sn()
    if (not mt:have(sn,"any")) then
-      LmodError{msg="e120", name = a}
+      LmodError{msg="e_Swap_Failed", name = a}
    end
 
    local mA      = {}

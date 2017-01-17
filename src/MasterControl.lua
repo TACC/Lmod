@@ -721,11 +721,11 @@ function M.mustLoad(self)
       local a = {}
 
       if (#uA > 0) then
-         mcp:report{msg="e127", module_list = concatTbl(uA, " ") }
+         mcp:report{msg="e_Failed_Load", module_list = concatTbl(uA, " ") }
       end
 
       if (#kA > 0) then
-         mcp:report{msg="e128", kA = concatTbl(kA, ", "), kB = concatTbl(kB, " ")}
+         mcp:report{msg="e_Failed_Load_2", kA = concatTbl(kA, ", "), kB = concatTbl(kB, " ")}
       end
    end
    dbg.fini("MasterControl:mustLoad")
@@ -949,7 +949,7 @@ function M.prereq_any(self, mA)
    end
 
    if (not found) then
-      LmodError{msg="e114", name = fullName, module_list = concatTbl(a," ")}
+      LmodError{msg="e_Prereq_Any", name = fullName, module_list = concatTbl(a," ")}
    end
    dbg.fini("MasterControl:prereq_any")
 end
@@ -1025,7 +1025,7 @@ function M.family(self, name)
       if (auto_swap ~= "no") then
          self.familyStackPush(oldName, sn)
       else
-         LmodError{msg="e115", name = name, oldName = oldName, fullName = fullName}
+         LmodError{msg="e_Family_Conflict", name = name, oldName = oldName, fullName = fullName}
       end
    end
    mt:setfamily(name,sn)

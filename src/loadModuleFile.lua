@@ -122,7 +122,7 @@ function loadModuleFile(t)
       if (not status) then
          local n = userName or ""
          msg     = "Non-zero status returned"
-         LmodError{msg="e121", name = n, fn = t.file, message = msg}
+         LmodError{msg="e_Unable_2_Load", name = n, fn = t.file, message = msg}
       end
    end
 
@@ -137,7 +137,7 @@ function loadModuleFile(t)
    -- report any errors
    if (not status and t.reportErr) then
       local n = userName or ""
-      LmodError{msg="e121", name = n, fn = t.file, message = msg}
+      LmodError{msg="e_Unable_2_Load", name = n, fn = t.file, message = msg}
    end
 
    dbg.fini("loadModuleFile")

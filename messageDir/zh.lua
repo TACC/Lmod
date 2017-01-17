@@ -44,12 +44,12 @@ return {
      e_LocationT_Srch = "LocationT:search() 出现错误", 
      e_No_Mod_Entry = "%{routine}: 找不到模块条目 \"%{name}\". 这不应该发生! \n", 
      e_No_PropT_Entry = "%{routine}: 系统属性列表中不存在\"%{name}\"的%{location}. 请检查名字拼写以及大小写.\n",
-     m401 = "\nLmod 已经自动将 \"%{oldFullName}\" 替换为 \"%{newFullName}\"\n",   
-     w502 = "模块版本行格式不正确：模块名称必须完全限定：％{fullName} 不符合.\n",
-     w503 = "系统MODULEPATH 已被修改：请重建您保存的模块集",
-     w504 = "由于\"%{collectionName}\" 为空, 未载入任何模块!\n",
-     w505 = "下列模块没有被载入: %{module_list}\n\n",
-     w506 = "找不到\"%{collection}\" .",
+     m_Family_Swap = "\nLmod 已经自动将 \"%{oldFullName}\" 替换为 \"%{newFullName}\"\n",   
+     w_Broken_FullName = "模块版本行格式不正确：模块名称必须完全限定：％{fullName} 不符合.\n",
+     w_MPATH_Coll = "系统MODULEPATH 已被修改：请重建您保存的模块集",
+     w_Empty_Coll = "由于\"%{collectionName}\" 为空, 未载入任何模块!\n",
+     w_Mods_Not_Loaded = "下列模块没有被载入: %{module_list}\n\n",
+     w_No_Coll = "找不到\"%{collection}\" .",
    }
 }
 

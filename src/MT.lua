@@ -1009,7 +1009,7 @@ function M.getMTfromFile(self,tt)
    dbg.print{"Saved baseMPATH: ",savedBaseMPATH,"\n"}
    dbg.print{"Current BaseMPATH: ",self.systemBaseMPATH,"\n"}
    if (self.systemBaseMPATH ~= savedBaseMPATH) then
-      LmodWarning{msg="w503"}
+      LmodWarning{msg="w_MPATH_Coll"}
       if (collectionName ~= "default") then
          LmodErrorExit()
       end
@@ -1085,7 +1085,7 @@ function M.getMTfromFile(self,tt)
    -- Now check to see that all requested modules got loaded.
    activeA = mt:list("userName","active")
    if (#activeA == 0 ) then
-      LmodWarning{msg="w504",collectionName=collectionName}
+      LmodWarning{msg="w_Empty_Coll",collectionName=collectionName}
    end
    dbg.print{"#activeA: ",#activeA,"\n"}
    local activeT = {}
@@ -1110,7 +1110,7 @@ function M.getMTfromFile(self,tt)
    activeT = nil  -- done with activeT
    if (#aa > 0) then
       sort(aa)
-      LmodWarning{msg="w505",module_list=concatTbl(aa," ")}
+      LmodWarning{msg="w_Mods_Not_Loaded",module_list=concatTbl(aa," ")}
    end
 
    --------------------------------------------------------------------------
@@ -1127,7 +1127,7 @@ function M.getMTfromFile(self,tt)
 
    if (#aa > 0) then
       sort(aa)
-      LmodWarning{msg="w501", collectionName = collectionName, module_list = concatTbl(aa,"\", \"")}
+      LmodWarning{msg="w_Broken_Coll", collectionName = collectionName, module_list = concatTbl(aa,"\", \"")}
       if (collectionName ~= "default") then
          LmodErrorExit()
       end
