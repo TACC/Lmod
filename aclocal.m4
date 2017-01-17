@@ -12,6 +12,12 @@
 AC_DEFUN([AX_SUMMARIZE_CONFIG],
 [
 
+LFS_STATUS="Built-in"
+if test "$HAVE_LUAFILESYSTEM" = yes; then
+  LFS_STATUS="system"
+fi
+
+
 echo
 echo '----------------------------------- SUMMARY ----------------------------------'
 echo
@@ -50,6 +56,7 @@ echo "Hashsum program used........................" : $PATH_TO_HASHSUM
 echo "Site Name..................................." : $SITE_NAME
 echo "Site Message file..........................." : $SITE_MSG_FILE
 echo "Override $LANG Language for error etc......." : $LMOD_OVERRIDE_LANG
+echo "Which LuaFileSystem is being used..........." : $LFS_STATUS
 
 echo
 echo '------------------------------------------------------------------------------'

@@ -57,6 +57,7 @@ local cosmic       = require("Cosmic"):singleton()
 local dbg          = require('Dbg'):dbg()
 local getenv       = os.getenv
 local json         = require("json")
+local lfs          = require("lfs")
 local M            = {}
 
 local s_configuration = false
@@ -131,6 +132,7 @@ local function new(self)
    local uname             = capture("uname -a")
    local adminFn, readable = findAdminFn()
    local activeTerm        = haveTermSupport() and "true" or colorize("red","false")
+   local lfsV              = cosmic:value("LFS_VERSION")
    local lmod_lang         = cosmic:value("LMOD_LANG")
    local site_msg_file     = cosmic:value("LMOD_SITE_MSG_FILE") or "<empty>"
    local settarg_support   = cosmic:value("LMOD_FULL_SETTARG_SUPPORT")
@@ -188,6 +190,7 @@ local function new(self)
    tbl.lang_site   = { k = "Site message file"                 , v = site_msg_file,    }
    tbl.ld_preload  = { k = "LD_PRELOAD at config time"         , v = ld_preload,       }
    tbl.ld_lib_path = { k = "LD_LIBRARY_PATH at config time"    , v = ld_lib_path,      }
+   tbl.lfsV        = { k = "LuaFileSystem version"             , v = lfsV,             }
    tbl.lmodV       = { k = "Lmod version"                      , v = lmod_version,     }
    tbl.luaV        = { k = "Lua Version"                       , v = _VERSION,         }
    tbl.lua_json    = { k = "System lua_json"                   , v = have_json,        }

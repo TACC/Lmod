@@ -493,18 +493,15 @@ end
 main()
 EOF
 
-printf "checking for lua modules: posix lfs"
+printf "checking for lua modules: posix"
 
 missingModules=""
-for i in posix lfs; do
+for i in posix; do
   $luaprog luaModuleAvailable $i 2> /dev/null
   if test "$?" != 0 ; then
     missingModules="$missingModules $i"
   fi
 done
-
-
-
 
 if test -n "$missingModules" ; then
   echo ""
@@ -515,7 +512,66 @@ if test -n "$missingModules" ; then
   exit 1
 fi
 
-echo "... yes"
+
+cat > getLFSVersion << 'EOF'
+local lfs       = require("lfs")
+
+function string.split(self, pat)
+   pat  = pat or "%s+"
+   local st, g = 1, self:gmatch("()("..pat..")")
+   local function getter(self, segs, seps, sep, cap1, ...)
+      st = sep and seps + #sep
+      return self:sub(segs, (seps or 0) - 1), cap1 or sep, ...
+   end
+   local function splitter(self)
+      if st then return getter(self, st, g()) end
+   end
+   return splitter, self
+end
+
+function main()
+
+   local version = lfs._VERSION:lower():gsub("luafilesystem  *","")
+   local factorA = { 1000000, 1000, 1}
+   
+
+   local idx = 0
+   local num = 0
+   for s in version:split("%.") do
+      local i,j = s:find("%d+")
+      s         = s:sub(i,j)
+      idx = idx + 1
+      num = (tonumber(s) or 0)*factorA[idx] + num
+      if (idx >= #factorA) then break end
+   end
+   print(num)
+end
+
+main()
+EOF
+
+printf "checking for lua modules: lfs"
+
+missingModules=""
+for i in lfs; do
+  $luaprog luaModuleAvailable $i 2> /dev/null
+  if test "$?" != 0 ; then
+    missingModules="$i"
+  fi
+done
+
+if test -n "$missingModules" ; then
+  echo "... no"
+else
+  lfsV=`$luaprog getLFSVersion`
+  if test "$lfs" -lt 1006003; then
+     echo "... Too old, using providing version"
+  else
+     echo "... yes"    
+     AC_SUBST(HAVE_LUAFILESYSTEM,yes)
+  fi
+fi
+
 
 printf "checking for lua modules: term"
 

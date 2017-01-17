@@ -101,6 +101,7 @@ function main()
 
    local configT = {
       lmodV        = { rule = "have"},
+      lfsV         = { rule = "have"},
       lua_term_A   = { rule = "have"},
       luaV         = { rule = "have"},
       modRC        = { rule = "have"},

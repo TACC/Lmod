@@ -43,6 +43,7 @@ require("fileOps")
 
 _G._DEBUG          = false               -- Required by the new lua posix
 local cosmic       = require("Cosmic"):singleton()
+local lfs          = require("lfs")
 local posix        = require("posix")
 local getenv       = os.getenv
 local setenv_posix = posix.setenv
@@ -272,6 +273,15 @@ if (LMOD_AVAIL_STYLE == "") then
    LMOD_AVAIL_STYLE = "<system>"
 end
 
+------------------------------------------------------------------------
+-- LFS_VERSION: The version of luafilesystem being used
+------------------------------------------------------------------------
+
+
+
+cosmic:init{name    = "LFS_VERSION",
+            default = "1.6.3",            
+            assignV = lfs._VERSION:gsub("LuaFileSystem  *","")}
 
 ------------------------------------------------------------------------
 -- MCP, mcp:  Master Control Program objects.  These objects implement

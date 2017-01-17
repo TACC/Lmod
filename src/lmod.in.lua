@@ -366,6 +366,7 @@ function main()
       dbg.print{"Version: ",posix.uname("%v"),"\n"}
       dbg.print{"Lmod Version: ",Version.name(),"\n"}
       dbg.print{"package.path: ",package.path,"\n"}
+      dbg.print{"package.cpath: ",package.cpath,"\n"}
       dbg.print{"lmodPath: ", lmodPath,"\n"}
    end
    -- dumpversion and quit if requested.

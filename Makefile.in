@@ -6,6 +6,8 @@ ifeq ($(PATH_TO_SRC),@$(path_to_src)@)
   PATH_TO_SRC             := .
 endif
 
+
+
 TOOL_SRC                  := $(wildcard $(srcdir)/tools/*.lua)
 HAVE_LUA_JSON             := @HAVE_LUA_JSON@
 ifeq ($(HAVE_LUA_JSON),yes)
@@ -131,10 +133,15 @@ export L_PATH              =  $(LUA_PATH)
 export L_CPATH             =  $(LUA_CPATH)
 
 HAVE_LUA_TERM             := @HAVE_LUA_TERM@
+LIB                       := $(prefix)/$(package)/$(version)/lib
 ifneq ($(HAVE_LUA_TERM),yes)
   PKGS := pkgs
-  LIB  := $(prefix)/$(package)/$(version)/lib
 endif
+HAVE_LUAFILESYSTEM        := @HAVE_LUAFILESYSTEM@
+ifneq ($(HAVE_LUAFILESYSTEM),yes)
+  $PKGS := $(PKGS) lfs
+endif
+
 
 .PHONY: test pkgs man_pages
 
@@ -147,7 +154,7 @@ uninstall:
 
 pre-install: $(DIRLIST) lmodrc_init shell_init startup libexec spiderCacheSupport \
              Inst_Tools Inst_Shells Inst_Settarg Inst_Lmod_MF $(PKGS) other_tools \
-             man_pages messageFns i18n
+             man_pages messageFns i18n 
 
 install: pre-install  zsh_tab_funcs
 	$(MAKE) PKGV=$(PKG) shell_init
@@ -261,7 +268,11 @@ src/computeHashSum: $(ComputeHashSum)
 	$(MAKE) FILELIST="$^" DIRLOC="$(prefix)/src"                __installMe
 	chmod +x $@
 
-pkgs:
+lfs:
+	cd $(srcdir)/pkgs/luafilesystem;                                 \
+        $(MAKE) LUA_INC=$(LUA_INCLUDE)  LIB=$(DESTDIR)$(LIB)             \
+                SHARE=$(DESTDIR)$(LIBEXEC) CC=$(CC) install
+pkgs:   
 	cd $(srcdir)/pkgs; \
         $(MAKE) LUA_INC=$(LUA_INCLUDE)  LIB=$(DESTDIR)$(LIB) \
                 SHARE=$(DESTDIR)$(LIBEXEC) CC=$(CC) install
@@ -451,6 +462,7 @@ Inst_Lmod_MF: $(LMOD_MF_SOURCE)
 clean:
 	$(RM) config.log *.o
 	cd $(srcdir)/pkgs; $(MAKE) LIB=$(DESTDIR)$(LIB) SHARE=$(DESTDIR)$(LIBEXEC) clean
+	cd $(srcdir)/pkgs/luafilesystem; $(MAKE) LIB=$(DESTDIR)$(LIB) clean
 
 clobber: clean
 
