@@ -5,5 +5,7 @@ Lmod 7.3+
             updated French translations for module types.
     (7.3.4) Using built-in luafilesystem if system version < 1.6.2
     (7.3.5) Fix bug that caused LMOD env vars to be lower cased.
-    (7.3.6) unset LOADEDMODULES and _LMFILES_ when doing clearMT
+    (7.3.6) unset LOADEDMODULES and _LMFILES_ when doing clearMT and
+            Fix bug in configure.ac so that lfs version is found correctly.
+
     
