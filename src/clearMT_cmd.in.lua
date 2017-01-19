@@ -155,6 +155,8 @@ function main()
       setenv(name,"")
    end
    setenv("_ModuleTable_Sz_", "")
+   setenv("LOADEDMODULES",    "")
+   setenv("_LMFILES_",        "")
 end
 
 main()
