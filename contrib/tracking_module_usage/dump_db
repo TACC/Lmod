@@ -15,7 +15,10 @@ class CmdLineOptions(object):
   def execute(self):
     """ Specify command line arguments and parse the command line"""
     parser = argparse.ArgumentParser()
-    parser.add_argument("--dbname",     dest='dbname',     action="store", default = "lmod",    help="lmod db name")
+    now    = time.strftime("%Y-%m-%d")
+    parser.add_argument("--dbname",     dest='dbname',     action="store", default = "lmod",       help="lmod db name")
+    parser.add_argument("--start",      dest='startDate',  action="store", default = "1970-01-01", help="start date")
+    parser.add_argument("--end",        dest='endDate',    action="store", default = now,          help="end date")
 
     args = parser.parse_args()
     return args
@@ -32,15 +35,6 @@ def main():
   configFn = dbConfigFn(args.dbname)
   lmod     = LMODdb(configFn)
 
-  lmod.dump_db()
-
-
-
-
-
+  lmod.dump_db(args.startDate, args.endDate)
 
 if ( __name__ == '__main__'): main()
-
-
-
-
