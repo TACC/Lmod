@@ -33,12 +33,13 @@
 --------------------------------------------------------------------------
 
 return {
-   zh = {
+   %{LANG} = {
+
      --------------------------------------------------------------------------
      -- Error/Warning Titles
      --------------------------------------------------------------------------
-     errTitle  = "Lmod has detected the following error: ",
-     warnTitle = "Lmod Warning: ",
+     errTitle  = nil,
+     warnTitle = nil,
 
      --------------------------------------------------------------------------
      -- ml messages
@@ -61,15 +62,15 @@ return {
      e_Failed_Load         = nil,
      e_Failed_Load_2       = nil,
      e_Family_Conflict     = nil,
-     e_LocationT_Srch      = "LocationT:search() 出现错误", 
+     e_LocationT_Srch      = nil,
      e_Missing_Value       = nil,
      e_MT_corrupt          = nil,
      e_No_AutoSwap         = nil,
-     e_No_Hashsum          = "找不到程序HashSum (sha1sum, shasun, md5sum or md5)",
+     e_No_Hashsum          = nil,
      e_No_Matching_Mods    = nil,
-     e_No_Mod_Entry        = "%{routine}: 找不到模块条目 \"%{name}\". 这不应该发生! \n", 
+     e_No_Mod_Entry        = nil,
      e_No_Period_Allowed   = nil,
-     e_No_PropT_Entry      = "%{routine}: 系统属性列表中不存在\"%{name}\"的%{location}. 请检查名字拼写以及大小写.\n",
+     e_No_PropT_Entry      = nil,
      e_No_UUID             = nil,
      e_No_ValidT_Entry     = nil,
      e_Prereq              = nil,
@@ -78,7 +79,7 @@ return {
      e_Swap_Failed         = nil,
      e_SYS_DFLT_EMPTY      = nil,
      e_Unable_2_Load       = nil,
-     e_Unable_2_parse      = "不能解析 \"%{path}\". 已退出！\n",      
+     e_Unable_2_parse      = nil,
      e_Unknown_Coll        = nil,
      e_coll_corrupt        = nil,
      e_dbT_sn_fail         = nil,
@@ -93,7 +94,7 @@ return {
      m_Depend_Mods         = nil,
      m_Description         = nil,
      m_Direct_Load         = nil,
-     m_Family_Swap         = "\nLmod 已经自动将 \"%{oldFullName}\" 替换为 \"%{newFullName}\"\n",   
+     m_Family_Swap         = nil,
      m_For_System          = nil,
      m_Inactive_Modules    = nil,
      m_Module_Msgs         = nil,
@@ -121,12 +122,12 @@ return {
      -- LmodWarnings
      --------------------------------------------------------------------------
      w_Broken_Coll         = nil,
-     w_Broken_FullName     = "模块版本行格式不正确：模块名称必须完全限定：％{fullName} 不符合.\n",
-     w_Empty_Coll          = "由于\"%{collectionName}\" 为空, 未载入任何模块!\n",
+     w_Broken_FullName     = nil,
+     w_Empty_Coll          = nil,
      w_Failed_2_Find       = nil,
-     w_MPATH_Coll          = "系统MODULEPATH 已被修改：请重建您保存的模块集",
-     w_Mods_Not_Loaded     = "下列模块没有被载入: %{module_list}\n\n",
-     w_No_Coll             = "找不到\"%{collection}\" .",
+     w_MPATH_Coll          = nil,
+     w_Mods_Not_Loaded     = nil,
+     w_No_Coll             = nil,
      w_No_dot_Coll         = nil,
      w_Save_Empty_Coll     = nil,
      w_System_Reserved     = nil,
@@ -201,6 +202,7 @@ return {
      -- module help strings
      --------------------------------------------------------------------------
 
+
      StickyM   = nil,
      LoadedM   = nil,
      ExplM     = nil,
@@ -247,6 +249,6 @@ return {
      aliasMsg  = nil,
      noModules = nil,
      noneFound = nil,
+
    }
 }
-
