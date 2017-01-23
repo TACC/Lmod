@@ -80,6 +80,11 @@ package.path  = LuaCommandName_dir .. "../tools/?.lua;"      ..
                 sys_lua_path
 package.cpath = sys_lua_cpath
 
+--------------------------------------------------------------------------
+-- Return the path to the Lmod program
+function cmdDir()
+   return LuaCommandName_dir
+end
 
 pcall(require("strict"))
 
