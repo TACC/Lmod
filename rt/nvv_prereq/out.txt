@@ -1,0 +1,44 @@
+===========================
+step 1
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
+===========================
+===========================
+step 2
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+===========================
+MODULEPATH="ProjectDIR/rt/nvv_prereq/mf";
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/nvv_prereq/mf",},["systemBaseMPATH"]="ProjectDIR/rt/nvv_prereq/mf",}';
+export _ModuleTable_;
+===========================
+step 3
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load a
+===========================
+LOADEDMODULES="a/sub/1.0";
+export LOADEDMODULES;
+MODULEPATH="ProjectDIR/rt/nvv_prereq/mf";
+export MODULEPATH;
+_LMFILES_="ProjectDIR/rt/nvv_prereq/mf/a/sub/1.0";
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={a={["fn"]="ProjectDIR/rt/nvv_prereq/mf/a/sub/1.0",["fullName"]="a/sub/1.0",["loadOrder"]=1,propT={},["status"]="active",["userName"]="a",},},mpathA={"ProjectDIR/rt/nvv_prereq/mf",},["systemBaseMPATH"]="ProjectDIR/rt/nvv_prereq/mf",}';
+export _ModuleTable_;
+===========================
+step 4
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load d
+===========================
+LOADEDMODULES="a/sub/1.0:d/1.0";
+export LOADEDMODULES;
+MODULEPATH="ProjectDIR/rt/nvv_prereq/mf";
+export MODULEPATH;
+_LMFILES_="ProjectDIR/rt/nvv_prereq/mf/a/sub/1.0:ProjectDIR/rt/nvv_prereq/mf/d/1.0";
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={a={["fn"]="ProjectDIR/rt/nvv_prereq/mf/a/sub/1.0",["fullName"]="a/sub/1.0",["loadOrder"]=1,propT={},["status"]="active",["userName"]="a",},d={["fn"]="ProjectDIR/rt/nvv_prereq/mf/d/1.0",["fullName"]="d/1.0",["loadOrder"]=2,propT={},["status"]="active",["userName"]="d",},},mpathA={"ProjectDIR/rt/nvv_prereq/mf",},["systemBaseMPATH"]="ProjectDIR/rt/nvv_prereq/mf",}';
+export _ModuleTable_;
+===========================
+step 5
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+===========================
+MODULEPATH="ProjectDIR/rt/nvv_prereq/mf";
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={a={["fn"]="ProjectDIR/rt/nvv_prereq/mf/a/sub/1.0",["fullName"]="a/sub/1.0",["loadOrder"]=1,propT={},["status"]="active",["userName"]="a",},d={["fn"]="ProjectDIR/rt/nvv_prereq/mf/d/1.0",["fullName"]="d/1.0",["loadOrder"]=2,propT={},["status"]="active",["userName"]="d",},},mpathA={"ProjectDIR/rt/nvv_prereq/mf",},["systemBaseMPATH"]="ProjectDIR/rt/nvv_prereq/mf",}';
+export _ModuleTable_;

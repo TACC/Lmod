@@ -8,4 +8,5 @@ Lmod 7.3+
     (7.3.6) unset LOADEDMODULES and _LMFILES_ when doing clearMT and
             Fix bug in configure.ac so that lfs version is found correctly.
     (7.3.7) Fix bug where ml could not find messageDir/en.lua
-    (7.3.8) Fix bug where lfs wasn't build when needed.
+    (7.3.8) Fix bug in prereq where userName: a/sub, fullName: a/sub/1.0 sn: a
+    (7.3.9) Fix bug where lfs wasn't build when needed.
