@@ -662,6 +662,7 @@ if test -n "$PATH_TO_ZSH" ; then
       */site-functions)
         if test -d $dir ; then
           resultA+=($dir)
+          break
         fi
         ;;
     esac
