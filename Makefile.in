@@ -139,7 +139,7 @@ ifneq ($(HAVE_LUA_TERM),yes)
 endif
 HAVE_LUAFILESYSTEM        := @HAVE_LUAFILESYSTEM@
 ifneq ($(HAVE_LUAFILESYSTEM),yes)
-  $PKGS := $(PKGS) lfs
+  PKGS := $(PKGS) lfs
 endif
 
 
