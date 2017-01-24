@@ -8,10 +8,11 @@ It is a new implementation of environment modules.
 
 ## Lmod Web Sites
 
-* Documentation: http://lmod.readthedocs.org
-* Github:        https://github.com/TACC/Lmod
-* Sourceforge:   https://lmod.sf.net
-* TACC Homepage: https://www.tacc.utexas.edu/research-development/tacc-projects/lmod
+* Documentation:   http://lmod.readthedocs.org
+* Github:          https://github.com/TACC/Lmod
+* Sourceforge:     https://lmod.sf.net
+* TACC Homepage:   https://www.tacc.utexas.edu/research-development/tacc-projects/lmod
+* Lmod Test Suite: https://github.com/rtmclay/Lmod_test_suite
 
 ## Lmod Mailing list
 
@@ -42,7 +43,7 @@ Bug Fixes:
 
 Features:
 
-   1. A test suite for testing the Lmod installation has been added. See https://github.com:rtmclay/Lmod_test_suite for details.
+   1. A test suite for testing the Lmod installation has been added. See https://github.com/rtmclay/Lmod_test_suite for details.
 
    2. Added support for localization of errors and warnings and messages.
 
