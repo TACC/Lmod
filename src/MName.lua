@@ -464,6 +464,11 @@ function M.prereq(self)
       return false
    end
 
+   local i,j = fullName:find(userName)
+   if (i == 1 and fullName:sub(j+1,j+1) == '/') then
+      return false
+   end
+
    -- userName did not match.
    return userName
 end
