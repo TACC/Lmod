@@ -77,7 +77,7 @@ Features:
 
 Bug Fixes:
 
-   1. Hidden module now will not be marked as default. 
+   1. Hidden module now will not be marked as default.
 
    2. Now check permission of a directory before trying to open it.
 
@@ -196,15 +196,15 @@ Features:
 
    1. It is now possible to configure Lmod to use the spider cache when loading (`--with-cachedLoads=yes` or `export LMOD_CACHED_LOADS=1` to activate). This is off by default. Sites that use this will have to keep their spider caches up-to-date or user will not be able to load modules not in the cache.
 
-   2. It is now possible to configure Lmod to use Legacy Version ordering (`--with-legacyOrdering=yes` or `export LMOD_LEGACY_VERSION_ORDERING=1`). With legacy ordering 9.0 is "newer" than 10.0. This is the ordering that Tmod uses. 
+   2. It is now possible to configure Lmod to use Legacy Version ordering (`--with-legacyOrdering=yes` or `export LMOD_LEGACY_VERSION_ORDERING=1`). With legacy ordering 9.0 is "newer" than 10.0. This is the ordering that Tmod uses.
 
-   3. Lmod will print admin message (a.k.a nag messages) when doing module whatis <foo> or module help <foo>.  In other words if a nag message would appear with module load <foo> then it will also appear when using whatis or help. 
+   3. Lmod will print admin message (a.k.a nag messages) when doing module whatis <foo> or module help <foo>.  In other words if a nag message would appear with module load <foo> then it will also appear when using whatis or help.
 
    4. Many improvement in the generation of the lmod database for module tracking.
 
 Bug Fixes:
 
-   1. The command module spider would fail to find a module if a site had the spider cache file dbT.lua files and a user had personal modulefiles. This is now fixed. 
+   1. The command module spider would fail to find a module if a site had the spider cache file dbT.lua files and a user had personal modulefiles. This is now fixed.
 
    2. Two or more .version files could confused Lmod.  This is now fixed.
 
@@ -235,7 +235,7 @@ Features:
 
    1. Full support for global RC files as well as .modulerc files. This means that $MODULERCFILE will be read along with ~/.modulerc. Also .modulerc files are read when they appear in the same directory and the version files (i.e. the same directory as 1.2 or 2.1.lua). One caveat, Setting the default module version in $MODULERCFILE or ~/.modulerc is not supported due Spider cache issues.
 
-   2. Instructions on how to save module usage data to a MySQL database along with scripts to analyze the usage are in contrib/tracking_module_usage/README. 
+   2. Instructions on how to save module usage data to a MySQL database along with scripts to analyze the usage are in contrib/tracking_module_usage/README.
 
    3. Adding an exit hook.  This makes for more accurate tracking of module usage. See README above as to why this is a good idea.
 
