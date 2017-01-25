@@ -74,7 +74,9 @@ package.path  = LuaCommandName_dir .. "../tools/?.lua;"      ..
                 LuaCommandName_dir .. "../shells/?.lua;"     ..
                 LuaCommandName_dir .. "?.lua;"               ..
                 sys_lua_path
-package.cpath = sys_lua_cpath
+
+package.cpath = LuaCommandName_dir .. "../lib/?.so;"..
+                sys_lua_cpath
 
 function cmdDir()
    return LuaCommandName_dir
