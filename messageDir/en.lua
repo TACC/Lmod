@@ -381,7 +381,7 @@ Use "module keyword key1 key2 ..." to search for all possible modules matching a
      currLoadedMods = "Currently Loaded Modules",
      keyword_msg    = [==[
 %{border}
-The following modules match your search criteria: "%{module_list}"\n
+The following modules match your search criteria: "%{module_list}"
 %{border}
 ]==],
      lmodSystemName = "(For LMOD_SYSTEM_NAME = \"%{name}\")",
