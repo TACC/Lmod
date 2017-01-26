@@ -11,3 +11,6 @@ Lmod 7.3+
     (7.3.8)  Fix bug in prereq where userName: a/sub, fullName: a/sub/1.0 sn: a
     (7.3.9)  Fix bug where lfs wasn't build when needed.
     (7.3.10) Fix bug where lmod version of lfs.so wasn't found by spider.
+    (7.3.11) Fix old bug where --checkSyntax did not work a modulefile containing load("foo").
+             Fixed bug where in NVV mode, avail didn't work where there was a mix of levels:
+	        vasp/1.0 and vasp/5.3/featureB/v-b

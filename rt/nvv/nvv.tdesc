@@ -24,7 +24,7 @@ testdescript = {
      rm -fr _stderr.* _stdout.* err.* out.* .lmod.d
 
      runLmod --version                     # 1
-     runLmod -D avail                         # 2
+     runLmod avail                         # 2
 
 
      HOME=$ORIG_HOME
