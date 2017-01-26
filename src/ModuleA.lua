@@ -359,7 +359,8 @@ function M.build_availA(self)
             local metaModuleT = v.metaModuleT or {}
             A[icnt+1] = { fullName = sn, pV = sn, fn = v.file, sn = sn, propT = metaModuleT.propT}
          end
-      elseif (next(v.fileT) ~= nil) then
+      end
+      if (next(v.fileT) ~= nil) then
          for fullName, vv in pairs(v.fileT) do
             if (show_hidden or mrc:isVisible(fullName)) then
                icnt    = icnt + 1
@@ -367,7 +368,8 @@ function M.build_availA(self)
                A[icnt] = { fullName = fullName, pV = pathJoin(sn,vv.pV), fn = vv.fn, sn = sn, propT = vv.propT}
             end
          end
-      elseif (next(v.dirT) ~= nil) then
+      end
+      if (next(v.dirT) ~= nil) then
          for name, vv in pairs(v.dirT) do
             build_availA_helper(mpath, sn, vv, A)
          end
