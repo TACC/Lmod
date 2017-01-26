@@ -877,14 +877,8 @@ function M.conflict(self, mA)
    local mt        = frameStk:mt()
    local fullName  = frameStk:fullName()
    local masterTbl = masterTbl()
+   local a         = {}
 
-   if (masterTbl.checkSyntax) then
-      dbg.print{"Ignoring conflicts when syntax checking\n"}
-      dbg.fini("MasterControl:conflict")
-      return
-   end
-
-   local a = {}
    for i = 1, #mA do
       local mname = mA[i]
       local sn    = mname:sn()
@@ -904,17 +898,11 @@ end
 -- @param self A MasterControl object.
 -- @param mA An array of MNname objects.
 function M.prereq(self, mA)
+   dbg.start{"MasterControl:prereq(mA)"}
+
    local frameStk  = FrameStk:singleton()
    local fullName  = frameStk:fullName()
    local masterTbl = masterTbl()
-
-   dbg.start{"MasterControl:prereq(mA)"}
-
-   if (masterTbl.checkSyntax) then
-      dbg.print{"Ignoring prereq when syntax checking\n"}
-      dbg.fini("MasterControl:prereq")
-      return
-   end
 
    local a = {}
    for i = 1, #mA do
@@ -941,15 +929,9 @@ function M.prereq_any(self, mA)
    local frameStk  = FrameStk:singleton()
    local fullName  = frameStk:fullName()
    local masterTbl = masterTbl()
+   local found     = false
+   local a         = {}
 
-   if (masterTbl.checkSyntax) then
-      dbg.print{"Ignoring prereq_any when syntax checking\n"}
-      dbg.fini("MasterControl:prereq_any")
-      return
-   end
-
-   local found  = false
-   local a      = {}
    for i = 1, #mA do
       local v, msg = mA[i]:prereq()
       if (not v) then
@@ -1027,13 +1009,6 @@ function M.family(self, name)
    local sn        = mname:sn()
    local masterTbl = masterTbl()
    local auto_swap = cosmic:value("LMOD_AUTO_SWAP")
-
-   dbg.start{"MasterControl:family(",name,")"}
-   if (masterTbl.checkSyntax) then
-      dbg.print{"Ignoring family when syntax checking\n"}
-      dbg.fini()
-      return
-   end
 
    local oldName = mt:getfamily(name)
    if (oldName ~= nil and oldName ~= sn and not expert() ) then
