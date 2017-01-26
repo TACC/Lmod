@@ -581,9 +581,12 @@ function M.__new(self, mpathA, maxdepthT, moduleRCT, spiderT)
    else
       dbg.print{"calling DirTree:new()\n"}
       dirTree         = DirTree:new(mpathA)
+      dbg.printT("dirTree:dirA()",dirTree:dirA())
+
       dbg.print{"finish DirTree:new()\n"}
       o.__spiderBuilt = false
       o.__moduleA     = build(o, maxdepthT, dirTree:dirA())
+      dbg.printT("moduleA:",o.__moduleA)
    end
 
    if (moduleRCT and next(moduleRCT) ~= nil) then
