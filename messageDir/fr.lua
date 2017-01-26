@@ -367,5 +367,16 @@ Utilisez "module keyword key1 key2 ..." pour chercher tous les modules possibles
      noneFound = "  Aucun trouvé",
 
 
+     --------------------------------------------------------------------------
+     -- Other strings:
+     --------------------------------------------------------------------------
+     coll_contains  = nil,
+     currLoadedMods = nil,
+     keyword_msg    = nil,
+     lmodSystemName = nil,
+     matching       = nil,
+     namedCollList  = nil,
+     noModsLoaded   = nil,
+     specific_hlp   = nil,
    }
 }
