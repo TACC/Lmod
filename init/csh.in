@@ -6,7 +6,8 @@ setenv MODULESHOME "@PKGV@"
 
 set prefix  = ""
 set midfix  = ""
-set postfix = ";"
+set postfix = ""
+set merge   = "&&"
 
 set histchar = \!
 if ( $?histchars) then
@@ -15,12 +16,12 @@ if ( $?histchars) then
     set _histchars = $histchars
     set prefix  = 'set _histchars = $histchars; unset histchars;'
     set midfix  = '--localvar histchars=$_histchars'
-    set postfix = ';set histchars = $_histchars'
+    set postfix = '&& set histchars = $_histchars'
   endif
 endif
 
 if ($?tcsh) then
-  alias module  $prefix'eval `$LMOD_CMD csh '$midfix $histchar'*` '$postfix' eval `$LMOD_SETTARG_CMD -s csh`'
+  alias module  $prefix'eval `$LMOD_CMD csh '$midfix $histchar'*` '$postfix $merge' eval `$LMOD_SETTARG_CMD -s csh`'
 else
   alias module  $prefix'eval `$LMOD_CMD csh '$midfix $histchar'*` '$postfix
 endif
@@ -34,7 +35,7 @@ unset prefix
 unset midfix
 unset postfix
 unset histchar
-
+unset merge
 
 if ( ! $?TARG_TITLE_BAR_PAREN ) then
   setenv TARG_TITLE_BAR_PAREN ""
