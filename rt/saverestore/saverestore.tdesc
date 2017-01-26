@@ -84,6 +84,15 @@ testdescript = {
      runLmod restore                 #33
      runLmod list                    #34
 
+     runLmod purge                   #35
+     runLmod use $(testDir)/EB       #36
+     runLmod load gcc/5.4            #37
+     runLmod list                    #38
+     runLmod save    foss            #39
+     runLmod restore foss            #40
+     runLmod list                    #41
+
+
      HOME=$ORIG_HOME
      export HOME
      cat _stdout.[0-9][0-9][0-9] > _stdout.orig

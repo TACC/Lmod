@@ -539,3 +539,80 @@ MODULEPATH="ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={a={["fn"]="OutputDIR/Core/a/2.0",["fullName"]="a/2.0",["loadOrder"]=1,propT={},["status"]="active",["userName"]="a/2.0",},b={["fn"]="OutputDIR/Core/b/3.3",["fullName"]="b/3.3",["loadOrder"]=2,propT={},["status"]="active",["userName"]="b/3.3",},},mpathA={"ProjectDIR/rt/saverestore/PREREQ","OutputDIR/Core",},["systemBaseMPATH"]="OutputDIR/Core",}';
 export _ModuleTable_;
+===========================
+step 35
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
+===========================
+unset LOADEDMODULES;
+unset MANPATH;
+MODULEPATH="ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
+export MODULEPATH;
+PATH="ProjectDIR/src:PATH_to_TM:/bin";
+export PATH;
+unset _LMFILES_;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/saverestore/PREREQ","OutputDIR/Core",},["systemBaseMPATH"]="OutputDIR/Core",}';
+export _ModuleTable_;
+===========================
+step 36
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing use ProjectDIR/rt/saverestore/EB
+===========================
+MODULEPATH="ProjectDIR/rt/saverestore/EB:ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/saverestore/EB","ProjectDIR/rt/saverestore/PREREQ","OutputDIR/Core",},["systemBaseMPATH"]="OutputDIR/Core",}';
+export _ModuleTable_;
+===========================
+step 37
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load gcc/5.4
+===========================
+LOADEDMODULES="binutils/.2.26:numactl/.2.0.11:gcc/5.4";
+export LOADEDMODULES;
+MODULEPATH="ProjectDIR/rt/saverestore/EB:ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
+export MODULEPATH;
+_LMFILES_="ProjectDIR/rt/saverestore/EB/binutils/.2.26.lua:ProjectDIR/rt/saverestore/EB/numactl/.2.0.11.lua:ProjectDIR/rt/saverestore/EB/gcc/5.4.lua";
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={binutils={["fn"]="ProjectDIR/rt/saverestore/EB/binutils/.2.26.lua",["fullName"]="binutils/.2.26",["loadOrder"]=1,propT={},["status"]="active",["userName"]="binutils/.2.26",},gcc={["fn"]="ProjectDIR/rt/saverestore/EB/gcc/5.4.lua",["fullName"]="gcc/5.4",["loadOrder"]=3,propT={},["status"]="active",["userName"]="gcc/5.4",},numactl={["fn"]="ProjectDIR/rt/saverestore/EB/numactl/.2.0.11.lua",["fullName"]="numactl/.2.0.11",["loadOrder"]=2,propT={},["status"]="active",["userName"]="numactl/.2.0.11",},},mpathA={"ProjectDIR/rt/saverestore/EB","ProjectDIR/rt/saverestore/PREREQ","OutputDIR/Core",},["systemBaseMPATH"]="OutputDIR/Core",}';
+export _ModuleTable_;
+binutils=".2.26";
+export binutils;
+numactl=".2.0.11";
+export numactl;
+===========================
+step 38
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+===========================
+MODULEPATH="ProjectDIR/rt/saverestore/EB:ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={binutils={["fn"]="ProjectDIR/rt/saverestore/EB/binutils/.2.26.lua",["fullName"]="binutils/.2.26",["loadOrder"]=1,propT={},["status"]="active",["userName"]="binutils/.2.26",},gcc={["fn"]="ProjectDIR/rt/saverestore/EB/gcc/5.4.lua",["fullName"]="gcc/5.4",["loadOrder"]=3,propT={},["status"]="active",["userName"]="gcc/5.4",},numactl={["fn"]="ProjectDIR/rt/saverestore/EB/numactl/.2.0.11.lua",["fullName"]="numactl/.2.0.11",["loadOrder"]=2,propT={},["status"]="active",["userName"]="numactl/.2.0.11",},},mpathA={"ProjectDIR/rt/saverestore/EB","ProjectDIR/rt/saverestore/PREREQ","OutputDIR/Core",},["systemBaseMPATH"]="OutputDIR/Core",}';
+export _ModuleTable_;
+===========================
+step 39
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing save foss
+===========================
+MODULEPATH="ProjectDIR/rt/saverestore/EB:ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={binutils={["fn"]="ProjectDIR/rt/saverestore/EB/binutils/.2.26.lua",["fullName"]="binutils/.2.26",["loadOrder"]=1,propT={},["status"]="active",["userName"]="binutils/.2.26",},gcc={["fn"]="ProjectDIR/rt/saverestore/EB/gcc/5.4.lua",["fullName"]="gcc/5.4",["loadOrder"]=3,propT={},["status"]="active",["userName"]="gcc/5.4",},numactl={["fn"]="ProjectDIR/rt/saverestore/EB/numactl/.2.0.11.lua",["fullName"]="numactl/.2.0.11",["loadOrder"]=2,propT={},["status"]="active",["userName"]="numactl/.2.0.11",},},mpathA={"ProjectDIR/rt/saverestore/EB","ProjectDIR/rt/saverestore/PREREQ","OutputDIR/Core",},["systemBaseMPATH"]="OutputDIR/Core",}';
+export _ModuleTable_;
+===========================
+step 40
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing restore foss
+===========================
+LOADEDMODULES="binutils/.2.26:numactl/.2.0.11:gcc/5.4";
+export LOADEDMODULES;
+MODULEPATH="ProjectDIR/rt/saverestore/EB:ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
+export MODULEPATH;
+_LMFILES_="ProjectDIR/rt/saverestore/EB/binutils/.2.26.lua:ProjectDIR/rt/saverestore/EB/numactl/.2.0.11.lua:ProjectDIR/rt/saverestore/EB/gcc/5.4.lua";
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={binutils={["fn"]="ProjectDIR/rt/saverestore/EB/binutils/.2.26.lua",["fullName"]="binutils/.2.26",["loadOrder"]=1,propT={},["status"]="active",["userName"]="binutils/.2.26",},gcc={["fn"]="ProjectDIR/rt/saverestore/EB/gcc/5.4.lua",["fullName"]="gcc/5.4",["loadOrder"]=3,propT={},["status"]="active",["userName"]="gcc/5.4",},numactl={["fn"]="ProjectDIR/rt/saverestore/EB/numactl/.2.0.11.lua",["fullName"]="numactl/.2.0.11",["loadOrder"]=2,propT={},["status"]="active",["userName"]="numactl/.2.0.11",},},mpathA={"ProjectDIR/rt/saverestore/EB","ProjectDIR/rt/saverestore/PREREQ","OutputDIR/Core",},["systemBaseMPATH"]="OutputDIR/Core",}';
+export _ModuleTable_;
+binutils=".2.26";
+export binutils;
+numactl=".2.0.11";
+export numactl;
+===========================
+step 41
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+===========================
+MODULEPATH="ProjectDIR/rt/saverestore/EB:ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core";
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={binutils={["fn"]="ProjectDIR/rt/saverestore/EB/binutils/.2.26.lua",["fullName"]="binutils/.2.26",["loadOrder"]=1,propT={},["status"]="active",["userName"]="binutils/.2.26",},gcc={["fn"]="ProjectDIR/rt/saverestore/EB/gcc/5.4.lua",["fullName"]="gcc/5.4",["loadOrder"]=3,propT={},["status"]="active",["userName"]="gcc/5.4",},numactl={["fn"]="ProjectDIR/rt/saverestore/EB/numactl/.2.0.11.lua",["fullName"]="numactl/.2.0.11",["loadOrder"]=2,propT={},["status"]="active",["userName"]="numactl/.2.0.11",},},mpathA={"ProjectDIR/rt/saverestore/EB","ProjectDIR/rt/saverestore/PREREQ","OutputDIR/Core",},["systemBaseMPATH"]="OutputDIR/Core",}';
+export _ModuleTable_;

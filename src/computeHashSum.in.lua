@@ -103,6 +103,7 @@ BaseShell         = require("BaseShell")
 Master            = require("Master")
 
 local FrameStk    = require("FrameStk")
+local MT          = require("MT")
 local MName       = require("MName")
 local Optiks      = require("Optiks")
 local concatTbl   = table.concat
@@ -117,6 +118,7 @@ end
 
 
 function main()
+   __removeEnvMT()  -- Wipe the ModuleTable in the environment so that it doesn't pollute isloaded()!
    local master    = Master:singleton(false)
    local frameStk  = FrameStk:singleton()
    local shellNm   = "bash"
