@@ -14,3 +14,5 @@ Lmod 7.3+
     (7.3.11) Fix old bug where --checkSyntax did not work a modulefile containing load("foo").
              Fixed bug where in NVV mode, avail didn't work where there was a mix of levels:
 	        vasp/1.0 and vasp/5.3/featureB/v-b
+    (7.3.12) Fix bug where status was not returned in tcsh
+    
