@@ -78,7 +78,8 @@ package.path  = LuaCommandName_dir .. "../tools/?.lua;"      ..
                 LuaCommandName_dir .. "../tools/?/init.lua;" ..
                 LuaCommandName_dir .. "?.lua;"               ..
                 sys_lua_path
-package.cpath = sys_lua_cpath
+package.cpath = LuaCommandName_dir .. "../lib/?.so;"..
+                sys_lua_cpath
 
 --------------------------------------------------------------------------
 -- Return the path to the Lmod program

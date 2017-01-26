@@ -306,8 +306,6 @@ function main()
 
    build_i18n_messages()
 
-   MCP = MasterControl.build("load")
-   mcp = MasterControl.build("load")
    dbg.set_prefix(colorize("red","Lmod"))
 
    local shellNm = barefilename(arg[1])
@@ -348,6 +346,8 @@ function main()
 
    local cmdLineUsage = "Usage: module [options] sub-command [args ...]"
    Options:singleton(cmdLineUsage)
+   MCP = MasterControl.build("load")
+   mcp = MasterControl.build("load")
    local userCmd = masterTbl.pargs[1]
    table.remove(masterTbl.pargs,1)
 
@@ -437,6 +437,8 @@ function main()
    dbg.print{"shellNm: ",shellNm,", Shell:name(): ",Shell:name(),"\n"}
 
    if (masterTbl.checkSyntax) then
+      MCP = MasterControl.build("checkSyntax")
+      mcp = MasterControl.build("checkSyntax")
       Shell:setActive(false)
    end
 

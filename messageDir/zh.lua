@@ -247,6 +247,19 @@ return {
      aliasMsg  = nil,
      noModules = nil,
      noneFound = nil,
+
+     --------------------------------------------------------------------------
+     -- Other strings:
+     --------------------------------------------------------------------------
+     coll_contains  = nil,
+     currLoadedMods = nil,
+     keyword_msg    = nil,
+     lmodSystemName = nil,
+     matching       = nil,
+     namedCollList  = nil,
+     noModsLoaded   = nil,
+     specific_hlp   = nil,
+
    }
 }
 

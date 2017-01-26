@@ -101,7 +101,8 @@ package.path  = cmd_dir .. "../tools/?.lua;"      ..
                 cmd_dir .. "../tools/?/init.lua;" ..
                 cmd_dir .. "?.lua;"               ..
                 sys_lua_path
-package.cpath = sys_lua_cpath
+package.cpath = cmd_dir .. "../lib/?.so;"..
+                sys_lua_cpath
 
 require("strict")
 

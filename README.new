@@ -1,12 +1,13 @@
 Lmod 7.3+
-    (7.3.1) Usage and spider output now translatable.
-    (7.3.2) updated French translation of all known strings.
-    (7.3.3) Remove trailing .lua as the username of a module and
-            updated French translations for module types.
-    (7.3.4) Using built-in luafilesystem if system version < 1.6.2
-    (7.3.5) Fix bug that caused LMOD env vars to be lower cased.
-    (7.3.6) unset LOADEDMODULES and _LMFILES_ when doing clearMT and
-            Fix bug in configure.ac so that lfs version is found correctly.
-    (7.3.7) Fix bug where ml could not find messageDir/en.lua
-    (7.3.8) Fix bug in prereq where userName: a/sub, fullName: a/sub/1.0 sn: a
-    (7.3.9) Fix bug where lfs wasn't build when needed.
+    (7.3.1)  Usage and spider output now translatable.
+    (7.3.2)  updated French translation of all known strings.
+    (7.3.3)  Remove trailing .lua as the username of a module and
+             updated French translations for module types.
+    (7.3.4)  Using built-in luafilesystem if system version < 1.6.2
+    (7.3.5)  Fix bug that caused LMOD env vars to be lower cased.
+    (7.3.6)  unset LOADEDMODULES and _LMFILES_ when doing clearMT and
+             Fix bug in configure.ac so that lfs version is found correctly.
+    (7.3.7)  Fix bug where ml could not find messageDir/en.lua
+    (7.3.8)  Fix bug in prereq where userName: a/sub, fullName: a/sub/1.0 sn: a
+    (7.3.9)  Fix bug where lfs wasn't build when needed.
+    (7.3.10) Fix bug where lmod version of lfs.so wasn't found by spider.

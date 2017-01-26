@@ -115,6 +115,7 @@ function M.build(name,mode)
       local MCAccess      = require('MC_Access')
       local MCSpider      = require('MC_Spider')
       local MCComputeHash = require('MC_ComputeHash')
+      local MCCheckSyntax = require('MC_CheckSyntax')
 
       s_nameTbl = {
          ["load"]         = MCLoad,        -- Normal loading of modules
@@ -126,6 +127,8 @@ function M.build(name,mode)
          ["show"]         = MCShow,        -- show the module function instead.
          ["access"]       = MCAccess,      -- for whatis, help
          ["spider"]       = MCSpider,      -- Process module files for spider operations
+         ["checkSyntax"]  = MCCheckSyntax  -- Check the syntax of a module, load, prereq, etc
+                                           -- are ignored.
       }
    end
 
@@ -739,8 +742,20 @@ end
 -- @param mA A array of MName objects.
 -- @return An array of statuses
 function M.load_usr(self, mA)
+   if (dbg.active()) then
+      local s = mAList(mA)
+      dbg.start{"MasterControl:load_usr(mA={"..s.."})"}
+   end
+   local frameStk = FrameStk:singleton()
+   if (masterTbl().checkSyntax and frameStk:count() > 1) then
+      dbg.print{"frameStk:count(): ",frameStk:count(),"\n"}
+      dbg.fini("MasterControl:load_usr")
+      return {}
+   end
+
    registerUserLoads(mA)
    local a = self:load(mA)
+   dbg.fini("MasterControl:load_usr")
    return a
 end
 
@@ -757,13 +772,13 @@ function mAList(mA)
 end
 
 function M.load(self, mA)
-   local master = Master:singleton()
    if (dbg.active()) then
       local s = mAList(mA)
       dbg.start{"MasterControl:load(mA={"..s.."})"}
    end
 
-   local a = master:load(mA)
+   local master = Master:singleton()
+   local a      = master:load(mA)
 
    if (not quiet()) then
       self:registerAdminMsg(mA)

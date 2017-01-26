@@ -153,6 +153,10 @@ function M.varT(self)
    return top.varT
 end
 
+function M.count(self)
+   return self.__count
+end
+
 function M.traceBack(self)
    local a      = {}
    local stack  = self.__stack
