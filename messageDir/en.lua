@@ -374,5 +374,20 @@ Use "module keyword key1 key2 ..." to search for all possible modules matching a
      noModules = "No modules found!",
      noneFound = "  None found.",
 
+     --------------------------------------------------------------------------
+     -- Other strings:
+     --------------------------------------------------------------------------
+     coll_contains  = "Collection \"%{collection}\" contains: \n",
+     currLoadedMods = "Currently Loaded Modules",
+     keyword_msg    = [==[
+%{border}
+The following modules match your search criteria: "%{module_list}"\n
+%{border}
+]==],
+     lmodSystemName = "(For LMOD_SYSTEM_NAME = \"%{name}\")",
+     matching       = " Matching: %{wanted}",
+     namedCollList  = "Named collection list %{msgHdr}:\n",
+     noModsLoaded   = "No modules loaded\n",
+     specific_hlp   = "Module Specific Help for \"%{fullName}\"",
    }
 }

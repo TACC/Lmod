@@ -155,7 +155,7 @@ function CollectionLst(collection)
          dbg.fini("CollectionLst")
          return
       end
-      shell:echo("Collection \"",collection,"\" contains: \n")
+      shell:echo(i18n("coll_contains",{collection=collection}))
       local b = {}
       for i = 1,#a do
          b[#b+1] = { "   " .. i .. ")", a[i] }
@@ -192,7 +192,7 @@ function Help(...)
    local banner = Banner:singleton()
    
    _G.prtHdr = function()
-      local middleStr = "Module Specific Help for \"" .. _G.FullName .. "\""
+      local middleStr = i18n("specific_hlp",{fullName = _G.FullName})
       local title     = banner:bannerStr(middleStr)
       local a         = {}
       a[#a+1]         = "\n"
@@ -221,13 +221,7 @@ function Keyword(...)
    local kywdT       = spider:searchSpiderDB(pack(...), dbT)
 
 
-   ia = ia+1; a[ia] = "\n"
-   ia = ia+1; a[ia] = border
-   ia = ia+1; a[ia] = "The following modules match your search criteria: \""
-   ia = ia+1; a[ia] = concatTbl({...},"\", \"")
-   ia = ia+1; a[ia] = "\"\n"
-   ia = ia+1; a[ia] = border
-   ia = ia+1; a[ia] = "\n"
+   ia = ia+1; a[ia] = i18n("keyword_msg",{border=border, module_list = concatTbl({...},"\", \"")})
 
    spider:Level0Helper(kywdT,a)
 
@@ -253,14 +247,14 @@ function List(...)
    dbg.print{"#inactiveA: ",#inactiveA,"\n"}
 
    if (total < 1) then
-      shell:echo("No modules loaded\n")
+      shell:echo(i18n("noModsLoaded"))
       dbg.fini("List")
       return
    end
 
    local wanted = pack(...)
 
-   local msg     = "Currently Loaded Modules"
+   local msg     = i18n("currLoadedMods")
    local a       = {}
    local b       = {}
    local msg2    = ":"
@@ -269,7 +263,7 @@ function List(...)
       wanted[1] = ".*"
       wanted.n  = 1
    else
-      msg2 = " Matching: " .. table.concat(wanted," or ")
+      msg2 = i18n("matching",{wanted = table.concat(wanted," or ")})
       if (not masterTbl.regexp) then
          for i = 1, wanted.n do
             wanted[i] = wanted[i]:caseIndependent()
@@ -703,11 +697,11 @@ function SaveList(...)
    b            = {}
    local msgHdr = ""
    if (system_name) then
-      msgHdr = "(For LMOD_SYSTEM_NAME = \""..system_name.."\")"
+      msgHdr = i18n("lmodSystemName",{name = system_name})
    end
 
    if (#a > 0) then
-      b[#b+1]  = "Named collection list ".. msgHdr..":\n"
+      b[#b+1]  = i18n("namedCollList",{msgHdr = msgHdr})
       local ct = ColumnTable:new{tbl=a,gap=0,width=cwidth}
       b[#b+1]  = ct:build_tbl()
       b[#b+1]  = "\n"
