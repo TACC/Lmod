@@ -55,6 +55,8 @@ local getenv       = os.getenv
 local huge         = math.huge
 local pack         = (_VERSION == "Lua 5.1") and argsPack   or table.pack
 local pairsByKeys  = pairsByKeys
+local posix        = require("posix")
+local setenv_posix = posix.setenv
 
 local LMOD_REDIRECT = cosmic:value("LMOD_REDIRECT")
 --------------------------------------------------------------------------
@@ -175,7 +177,9 @@ end
 
 function M.echo(self, ...)
    if (LMOD_REDIRECT == "no") then
+      setenv_posix("LC_ALL",nil,true)
       pcall(pager,io.stderr,...)
+      setenv_posix("LC_ALL","C",true)
    else
       local arg = pack(...)
       for i = 1, arg.n do
