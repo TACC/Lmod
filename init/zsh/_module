@@ -86,37 +86,37 @@ _module_loaded_modules()
 _module_available_modules()
 {
   if [[ -n $MODULEPATH ]];  then
-    _available_modules=(${$(module -q -t avail 2>&1 > /dev/null | sed ' /:$/d; s#/*$##g;')})
+    _available_modules=(${$(module -q -t --no_redirect avail 2>&1 > /dev/null | sed ' /:$/d; s#/*$##g;')})
   fi
 }
 
 # Fills the available modules cache
 _module_spider_list()
 {
-  _spider_list=(${$(module -q -t spider 2>&1 > /dev/null)})
+  _spider_list=(${$(module -q -t --no_redirect spider 2>&1 > /dev/null)})
 }
 
 _module_restore()
 {
-  _savelist_list=(${$(module -q -t savelist 2>&1 > /dev/null)})
+  _savelist_list=(${$(module -q -t --no_redirect savelist 2>&1 > /dev/null)})
   compadd "$@" -a -- _savelist_list
 }
 
 _ml_mcc()
 {
-  _savelist_list=(${$(module -q -t savelist 2>&1 > /dev/null)})
+  _savelist_list=(${$(module -q -t --no_redirect savelist 2>&1 > /dev/null)})
   compadd "$@" -a -- _savelist_list
 }
 
 _ml_collection()
 {
-  _savelist_list=(${$(module -q -t savelist 2>&1 > /dev/null)})
+  _savelist_list=(${$(module -q -t --no_redirect savelist 2>&1 > /dev/null)})
   compadd "$@" -a -- _savelist_list
 }
 
 _ml_cc()
 {
-  _savelist_list=(${$(module -q -t savelist 2>&1 > /dev/null)})
+  _savelist_list=(${$(module -q -t --no_redirect savelist 2>&1 > /dev/null)})
   compadd "$@" -a -- _savelist_list
 }
 
