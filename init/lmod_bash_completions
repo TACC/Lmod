@@ -1,7 +1,7 @@
 
 _module_avail() {
   #
-  # Lmod output goes to STDERR by default, but for bash redirection we need it on STDOUT.
+  # Lmod output goes to STDERR by default. The option --no_redirect forces output to stderr.
   #
   @PKG@/libexec/lmod bash -no_redirect -t -q avail 2>&1 >/dev/null | sed ' /:$/d; s#/*$##g;'
 }

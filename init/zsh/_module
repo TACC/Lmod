@@ -79,7 +79,7 @@ _module_command()
 # Fills the available modules cache
 _module_loaded_modules()
 {
-  _loaded_modules=(${$(module -q -t list 2>&1 > /dev/null | sed ' /^ *$/d; /:$/d; s#/*$##g;')})
+  _loaded_modules=(${$(module -q -t --no_redirect list 2>&1 > /dev/null | sed ' /^ *$/d; /:$/d; s#/*$##g;')})
 }
 
 # Fills the available modules cache
