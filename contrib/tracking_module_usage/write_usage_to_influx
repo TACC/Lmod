@@ -11,8 +11,10 @@ function main()
 
    local fn    = pathJoin(os.getenv("HOME"),"t/lmod_usage_json/lmod_usage.json")
    local f     = io.open(fn, "r")
-   local outFn = /tmp/influx_line.proto
+   local outFn = "/tmp/influx_line.proto"
    local out   = io.open(outFn, "w")
+
+   --dbg:activateDebug(1)
 
    for icnt = 1, math.huge do
       if (icnt > 10) then
@@ -24,11 +26,8 @@ function main()
       if (t.syshost:find("^login")) then
          t.syshost = "ls5"
       end
-      
-      
-      
-
-
+      dbg.printT("t",t)
+      io.stdout:write("usage,module=\"",t.module,"\",path=\"",t.path,"\",syshost=\"",t.syshost,"\" user=\"",t.user,"\" ",t.date,"s\n")
    end
 
    f:close()
