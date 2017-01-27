@@ -1,0 +1,40 @@
+#!/usr/bin/env lua
+-- -*- lua -*-
+
+require("strict")
+require("string_utils")
+require("fileOps")
+local dbg    = require("Dbg"):dbg()
+local json   = require("json")
+
+function main()
+
+   local fn    = pathJoin(os.getenv("HOME"),"t/lmod_usage_json/lmod_usage.json")
+   local f     = io.open(fn, "r")
+   local outFn = /tmp/influx_line.proto
+   local out   = io.open(outFn, "w")
+
+   for icnt = 1, math.huge do
+      if (icnt > 10) then
+         out:close()
+         break
+      end
+      local line = f:read("*l")
+      local t = json.decode(line)
+      if (t.syshost:find("^login")) then
+         t.syshost = "ls5"
+      end
+      
+      
+      
+
+
+   end
+
+   f:close()
+
+
+end
+
+
+main()
