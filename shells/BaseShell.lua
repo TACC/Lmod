@@ -58,7 +58,6 @@ local pairsByKeys  = pairsByKeys
 local posix        = require("posix")
 local setenv_posix = posix.setenv
 
-local LMOD_REDIRECT = cosmic:value("LMOD_REDIRECT")
 --------------------------------------------------------------------------
 -- BaseShell Member functions:
 --------------------------------------------------------------------------
@@ -176,6 +175,7 @@ end
 
 
 function M.echo(self, ...)
+   local LMOD_REDIRECT = cosmic:value("LMOD_REDIRECT")
    if (LMOD_REDIRECT == "no") then
       setenv_posix("LC_ALL",nil,true)
       pcall(pager,io.stderr,...)

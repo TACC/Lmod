@@ -1,17 +1,9 @@
 
 _module_avail() {
-  local redirect="${LMOD_REDIRECT:-false}"
-  if ${redirect,,}; then
-    #
-    # Lmod output already redirected to STDOUT: do not redirect again; just parse.
-    #
-    @PKG@/libexec/lmod bash -t avail 2>/dev/null | bash | sed ' /:$/d; s#/*$##g;'
-  else
-    #
-    # Lmod output goes to STDERR by default, but for bash redirection we need it on STOUT.
-    #
-    @PKG@/libexec/lmod bash -t avail 2>&1 >/dev/null | sed ' /:$/d; s#/*$##g;'
-  fi
+  #
+  # Lmod output goes to STDERR by default, but for bash redirection we need it on STDOUT.
+  #
+  @PKG@/libexec/lmod bash -no_redirect -t avail 2>&1 >/dev/null | sed ' /:$/d; s#/*$##g;'
 }
 
 _module_dir() {
