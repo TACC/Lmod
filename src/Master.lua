@@ -500,7 +500,7 @@ function M.reloadAll(self)
       dbg.print{"checking sn: ",sn,"\n"}
       if (not mt:have(sn, "active")) then
          dbg.print{"Master:reloadAll module: ", sn, " marked as inactive\n"}
-         mt:add(mname, "inactive")
+         mt:add(mname, "inactive", -i)
       end
    end
 

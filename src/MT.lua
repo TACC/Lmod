@@ -69,6 +69,7 @@ local s_name       = "_ModuleTable_"
 local s_familyA    = false
 local sort         = table.sort
 local strfmt       = string.format
+local abs          = math.abs
 
 function M.name(self)
    return s_name
@@ -228,9 +229,9 @@ end
 --------------------------------------------------------------------------
 -- Return the original MT from bottom of stack.
 
-function M.add(self, mname, status)
-   local mT = self.mT
-   local sn = mname:sn()
+function M.add(self, mname, status, loadOrder)
+   local mT            = self.mT
+   local sn            = mname:sn()
    assert(sn)
    mT[sn] = {
       fullName  = mname:fullName(),
@@ -240,7 +241,13 @@ function M.add(self, mname, status)
       loadOrder = -1,
       propT     = {},
    }
+   if (loadOrder) then
+      mT[sn].loadOrder = loadOrder
+   end
 end
+
+
+
 
 --------------------------------------------------------------------------
 -- Report the contents of the collection. Return an empty array if the
@@ -364,6 +371,15 @@ function M.remove(self, sn)
    mT[sn]    = nil
 end
 
+local function build_AB(a,b, loadOrder, name, value)
+   if (loadOrder > 0) then
+      a[#a+1] = { loadOrder, name, value }
+   else
+      b[#b+1] = { abs(loadOrder), name, value }
+   end
+   return a, b
+end
+
 --------------------------------------------------------------------------
 -- Return a array of modules currently in MT.  The list is
 -- always sorted in loadOrder.
@@ -382,7 +398,6 @@ end
 
 function M.list(self, kind, status)
    local mT   = self.mT
-   local icnt = 0
    local a    = {}
    local b    = {}
 
@@ -390,52 +405,57 @@ function M.list(self, kind, status)
       for k, v in pairs(mT) do
          if ((status == "any" or status == v.status) and
              (v.status ~= "pending")) then
-            icnt = icnt + 1
-            a[icnt]   = { v.loadOrder, k, k}
+            a, b = build_AB(a, b, v.loadOrder, k, k)
          end
       end
    elseif (kind == "userName" or kind == "fullName") then
       for k, v in pairs(mT) do
          if ((status == "any" or status == v.status) and
              (v.status ~= "pending")) then
-            icnt = icnt + 1
             local obj = { sn = k, fullName = v.fullName, userName = v.userName,
                           name = v[kind], fn = v.fn }
-            a[icnt]   = { v.loadOrder, v[kind], obj }
+            a, b = build_AB(a, b, v.loadOrder, v[kind], obj )
          end
       end
    elseif (kind == "both") then
       for k, v in pairs(mT) do
          if ((status == "any" or status == v.status) and
              (v.status ~= "pending")) then
-            icnt = icnt + 1
-            a[icnt]   = { v.loadOrder, v.userName, v.userName }
+            a, b = build_AB(a, b, v.loadOrder, v.userName, v.userName )
             if (v.userName ~= k) then
-               icnt = icnt + 1
-               a[icnt]   = { v.loadOrder, k, k }
+               a, b = build_AB(a, b, v.loadOrder, k, k)
             end
             if (v.userName ~= v.fullName) then
-               icnt = icnt + 1
-               a[icnt]   = { v.loadOrder, v.fullName, v.fullName }
+               a, b = build_AB(a, b, v.loadOrder, v.fullName, v.fullName )
             end
          end
       end
    end
 
-   sort (a, function(x,y)
-               if (x[1] == y[1]) then
-                  return x[2] < y[2]
-               else
-                  return x[1] < y[1]
-               end
-            end)
+   local function loadOrder_cmp(x,y)
+      if (x[1] == y[1]) then
+         return x[2] < y[2]
+      else
+         return x[1] < y[1]
+      end
+   end
 
-   for i = 1, icnt do
-      b[i] = a[i][3]
+   sort (a, loadOrder_cmp)
+   sort (b, loadOrder_cmp)
+   
+   local B = {}
+
+   for i = 1, #a do
+      B[i] = a[i][3]
+   end
+
+   for i = 1, #b do
+      B[i] = b[i][3]
    end
 
    a = nil -- finished w/ a.
-   return b
+   b = nil -- finished w/ b.
+   return B
 end   
 
 --------------------------------------------------------------------------
