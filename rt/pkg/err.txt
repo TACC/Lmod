@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 7.3.1  2017-01-11 21:09 -06:00
+Modules based on Lua: Version 7.3.13  2017-01-26 17:21 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -156,6 +156,6 @@ step 9
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 Currently Loaded Modules:
-  1) intel/13.1.0   2) boost/1.53.0 (m)   3) mpich/3.0.4   4) pmetis/4.0.3
+  1) intel/13.1.0   2) mpich/3.0.4   3) boost/1.53.0 (m)   4) pmetis/4.0.3
   Where:
    m:  built for host and native MIC

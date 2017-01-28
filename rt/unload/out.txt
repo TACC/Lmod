@@ -73,7 +73,7 @@ MODULEPATH="ProjectDIR/rt/unload/mf/Core";
 export MODULEPATH;
 unset PETSC_VERSION;
 unset _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={mpich2={["fn"]="ProjectDIR/rt/unload/mf/Compiler/intel/13.0/mpich2/1.5.2.lua",["fullName"]="mpich2/1.5.2",["loadOrder"]=-1,propT={},["status"]="inactive",["userName"]="mpich2",},petsc={["fn"]="ProjectDIR/rt/unload/mf/MPI/intel/13.0/mpich2/1.5/petsc/3.2.lua",["fullName"]="petsc/3.2",["loadOrder"]=-1,propT={},["status"]="inactive",["userName"]="petsc",},},mpathA={"ProjectDIR/rt/unload/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/unload/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={mpich2={["fn"]="ProjectDIR/rt/unload/mf/Compiler/intel/13.0/mpich2/1.5.2.lua",["fullName"]="mpich2/1.5.2",["loadOrder"]=-1,propT={},["status"]="inactive",["userName"]="mpich2",},petsc={["fn"]="ProjectDIR/rt/unload/mf/MPI/intel/13.0/mpich2/1.5/petsc/3.2.lua",["fullName"]="petsc/3.2",["loadOrder"]=-2,propT={},["status"]="inactive",["userName"]="petsc",},},mpathA={"ProjectDIR/rt/unload/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/unload/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 8
@@ -87,7 +87,7 @@ TOTO="set_in_B/2.0";
 export TOTO;
 _LMFILES_="ProjectDIR/rt/unload/mf/Core/B/2.0.lua";
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={B={["fn"]="ProjectDIR/rt/unload/mf/Core/B/2.0.lua",["fullName"]="B/2.0",["loadOrder"]=1,propT={},["status"]="active",["userName"]="B",},mpich2={["fn"]="ProjectDIR/rt/unload/mf/Compiler/intel/13.0/mpich2/1.5.2.lua",["fullName"]="mpich2/1.5.2",["loadOrder"]=-1,propT={},["status"]="inactive",["userName"]="mpich2",},petsc={["fn"]="ProjectDIR/rt/unload/mf/MPI/intel/13.0/mpich2/1.5/petsc/3.2.lua",["fullName"]="petsc/3.2",["loadOrder"]=-1,propT={},["status"]="inactive",["userName"]="petsc",},},mpathA={"ProjectDIR/rt/unload/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/unload/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={B={["fn"]="ProjectDIR/rt/unload/mf/Core/B/2.0.lua",["fullName"]="B/2.0",["loadOrder"]=1,propT={},["status"]="active",["userName"]="B",},mpich2={["fn"]="ProjectDIR/rt/unload/mf/Compiler/intel/13.0/mpich2/1.5.2.lua",["fullName"]="mpich2/1.5.2",["loadOrder"]=-1,propT={},["status"]="inactive",["userName"]="mpich2",},petsc={["fn"]="ProjectDIR/rt/unload/mf/MPI/intel/13.0/mpich2/1.5/petsc/3.2.lua",["fullName"]="petsc/3.2",["loadOrder"]=-2,propT={},["status"]="inactive",["userName"]="petsc",},},mpathA={"ProjectDIR/rt/unload/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/unload/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 9

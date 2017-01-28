@@ -405,7 +405,7 @@ function M.list(self, kind, status)
       for k, v in pairs(mT) do
          if ((status == "any" or status == v.status) and
              (v.status ~= "pending")) then
-            a, b = build_AB(a, b, v.loadOrder, k, k)
+            a, b = build_AB(a, b,  v.loadOrder , k, k)
          end
       end
    elseif (kind == "userName" or kind == "fullName") then
@@ -450,7 +450,7 @@ function M.list(self, kind, status)
    end
 
    for i = 1, #b do
-      B[i] = b[i][3]
+      B[#B+1] = b[i][3]
    end
 
    a = nil -- finished w/ a.
