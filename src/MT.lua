@@ -413,7 +413,7 @@ function M.list(self, kind, status)
          if ((status == "any" or status == v.status) and
              (v.status ~= "pending")) then
             local obj = { sn = k, fullName = v.fullName, userName = v.userName,
-                          name = v[kind], fn = v.fn }
+                          name = v[kind], fn = v.fn, loadOrder = v.loadOrder}
             a, b = build_AB(a, b, v.loadOrder, v[kind], obj )
          end
       end
