@@ -34,7 +34,7 @@
 #
 #------------------------------------------------------------------------
 
-global g_loadT g_varsT g_fullName g_usrName g_shellName g_mode
+global g_loadT g_varsT g_fullName g_usrName g_shellName g_mode g_shellType
 namespace eval ::cmdline {
     namespace export getArgv0 getopt getKnownOpt getfiles getoptions \
 	    getKnownOptions usage
@@ -346,7 +346,7 @@ proc popMode {} {
 
 
 proc module-info {what {more {}}} {
-    global g_fullName g_usrName g_shellName
+    global g_fullName g_usrName g_shellName g_shellType
     set mode [currentMode]
     switch -- $what {
     "mode" {
@@ -364,7 +364,7 @@ proc module-info {what {more {}}} {
         return $g_shellName
     }
     "shelltype" {
-        return $g_shellName
+        return $g_shellType
     }
     "flags" {
         return 0
@@ -850,4 +850,30 @@ if {[lsearch $argv "-L"] >= 0} {
 if {[lsearch $argv "-P"] >= 0} {
     set env("LD_PRELOAD")  $params(P)
 }
+
+switch -regexp -- $g_shellName {
+    ^(sh|bash|ksh|zsh)$ {
+	set g_shellType sh
+    }
+    ^(cmd)$ {
+        set g_shellType cmd
+    }
+    ^(csh|tcsh)$ {
+	set g_shellType csh
+    }
+    ^(perl)$ {
+	set g_shellType perl
+    }
+    ^(python)$ {
+	set g_shellType python
+    }
+    ^(lisp)$ {
+	set g_shellType lisp
+    }
+    . {
+	error " +(0):ERROR:0: Unknown shell type \'($g_shell)\'"
+    }
+}
+
+
 eval main $argv

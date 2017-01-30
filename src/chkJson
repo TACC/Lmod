@@ -107,6 +107,7 @@ function main()
       modRC        = { rule = "have"},
       siteName     = { rule = "have"},
       sysName      = { rule = "have"},
+      syshost      = { rule = "have"},
       uname        = { rule = "have"},
       z01_admin    = { rule = "have"},
       allowTCL     = { rule = "match", value = "yes"},

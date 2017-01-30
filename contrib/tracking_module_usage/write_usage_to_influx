@@ -6,6 +6,19 @@ require("string_utils")
 require("fileOps")
 local dbg    = require("Dbg"):dbg()
 local json   = require("json")
+local concatTbl = table.concat
+
+function saveRecords(out,mydb, fn)
+   out:close()
+   local a = {}
+   a[#a+1] = "curl -i -XPOST 'http://localhost:8086/write?db="
+   a[#a+1] = mydb
+   a[#a+1] = "' --data-binary @"
+   a[#a+1] = fn
+   local cmd = concatTbl(a,'')
+   os.execute(cmd)
+end
+
 
 function main()
 
@@ -13,26 +26,41 @@ function main()
    local f     = io.open(fn, "r")
    local outFn = "/tmp/influx_line.proto"
    local out   = io.open(outFn, "w")
+   local icnt  = 0
+   local ncnt  = 4000
+
 
    --dbg:activateDebug(1)
 
-   for icnt = 1, math.huge do
-      if (icnt > 10) then
-         out:close()
-         break
-      end
-      local line = f:read("*l")
-      local t = json.decode(line)
-      if (t.syshost:find("^login")) then
-         t.syshost = "ls5"
-      end
-      dbg.printT("t",t)
-      io.stdout:write("usage,module=\"",t.module,"\",path=\"",t.path,"\",syshost=\"",t.syshost,"\" user=\"",t.user,"\" ",t.date,"s\n")
+   for i = 1, math.huge do
+      repeat 
+         icnt = icnt + 1
+         if (icnt > ncnt) then
+            saveRecords(out, "lmod", outFn)
+            icnt = 0
+            out  = io.open(outFn, "w")
+         end
+         local line = f:read("*l")
+         if (not line) then break end
+
+         local ok, t = pcall(json.decode,line)
+         if (not ok) then 
+            io.stderr:write(i,": line: ",line,"\n")
+            break
+         end
+         
+         if (t.syshost:find("^login")) then
+            t.syshost = "ls5"
+         end
+         out:write("usage,module=\"",t.module,"\",path=\"",t.path,"\",syshost=\"",t.syshost,"\" user=\"",t.user,"\" ",t.date.."000000000","\n")
+      until true
    end
 
+   if (icnt > 0) then
+      saveRecords(out, "lmod", outFn)
+   end
+   os.remove(fn)
    f:close()
-
-
 end
 
 

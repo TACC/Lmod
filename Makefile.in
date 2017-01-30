@@ -26,6 +26,7 @@ COLORIZE          	  := $(shell echo "@COLORIZE@"      | tr '[:upper:]' '[:lower
 LMOD_OVERRIDE_LANG        := @LMOD_OVERRIDE_LANG@
 SITE_MSG_FILE             := @SITE_MSG_FILE@
 SITE_NAME                 := @SITE_NAME@
+SYSHOST                   := @SYSHOST@
 SYS_LD_LIB_PATH           := @SYS_LD_LIB_PATH@
 SYS_LD_PRELOAD            := @SYS_LD_PRELOAD@
 SYS_LUA_PATH              := @SYS_LUA_PATH@
@@ -204,6 +205,7 @@ __installMe:
 	        -e 's|@cached_loads@|$(CACHED_LOADS)|g'                	   	  \
 	        -e 's|@ps@|$(PS)|g'                              	   	  \
 	        -e 's|@site_name@|$(SITE_NAME)|g'                     	   	  \
+	        -e 's|@syshost@|$(SYSHOST)|g'                     	   	  \
 	        -e 's|@expr@|$(EXPR)|g'                              	   	  \
 	        -e 's|@libexec@|$(LIBEXEC)|g'                       	   	  \
 	        -e 's|@legacy_ordering@|$(LEGACY_ORDERING)|g'           	  \

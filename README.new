@@ -20,5 +20,9 @@ Lmod 7.3+
     (7.3.14) Protect bash and zsh tab completion from redirecting stderr to stdout for avail, list, spider, etc
              Fix where the options --redirect, -no_redirect did not work.
 	     Keep inactive modules in "loadOrder" so that when they are re-activated, they do so in the old load order.
+    (7.3.15) Support for setting LMOD_SYSHOST through configure
+             Support for supporting Tmod's module-info shelltype function
+             Support for MyShellType()
+             
 	     
-   
+    

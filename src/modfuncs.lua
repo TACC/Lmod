@@ -416,6 +416,10 @@ function myShellName()
    return mcp:myShellName()
 end
 
+function myShellType()
+   return mcp:myShellType()
+end
+
 --------------------------------------------------------------------------
 -- The whatis database function.
 function whatis(...)

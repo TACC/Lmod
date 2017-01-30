@@ -121,6 +121,14 @@ cosmic:init{name    = "LMOD_SITE_NAME",
             default = false}
 
 ------------------------------------------------------------------------
+-- LMOD_SYSHOST: The cluster name: (e.g. stampede)
+------------------------------------------------------------------------
+
+cosmic:init{name    = "LMOD_SYSHOST",
+            sedV    = "@syshost@",
+            default = false}
+
+------------------------------------------------------------------------
 -- LMOD_SYSTEM_NAME:  When on a shared file system, use this to
 --                    form the cache name and collection names.
 ------------------------------------------------------------------------

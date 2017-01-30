@@ -101,7 +101,7 @@ case $SYSHOST in
 	   base="$base/$(uname -m)"
        fi
     fi
-    EXTRA="--with-spiderCacheDescript=/tmp/TACC.build.$$ --with-siteName=TACC"
+    EXTRA="--with-spiderCacheDescript=/tmp/TACC.build.$$ --with-siteName=TACC --with-syshost=$SYSHOST"
     SITE_PKG="contrib/TACC/*.lua"
     ;;
 

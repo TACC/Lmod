@@ -223,6 +223,18 @@ AC_ARG_WITH(siteName,
     SITE_NAME="$withval"
     AC_DEFINE_UNQUOTED(SITE_NAME, "$withval"))dnl
 
+AC_SUBST(SYSHOST)
+AC_ARG_WITH(syshost,
+    AC_HELP_STRING([--with-syshost=ans],[Site Name [[<empty>]]]),
+    SYSHOST="$withval"
+    AC_MSG_RESULT([SYSHOST=$with_syshost])
+    AC_DEFINE_UNQUOTED(SYSHOST, "$with_syshost")dnl
+    ,
+    withval='<empty>'
+    AC_MSG_RESULT([SYSHOST=$withval])
+    SYSHOST="$withval"
+    AC_DEFINE_UNQUOTED(SYSHOST, "$withval"))dnl
+
 AC_SUBST(ALLOW_TCL_MFILES)
 AC_ARG_WITH(tcl,
     AC_HELP_STRING([--with-tcl=ans],[Allow TCL modulefiles [[yes]]]),

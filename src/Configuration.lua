@@ -138,6 +138,7 @@ local function new(self)
    local settarg_support   = cosmic:value("LMOD_FULL_SETTARG_SUPPORT")
    local lmod_colorize     = cosmic:value("LMOD_COLORIZE")
    local site_name         = cosmic:value("LMOD_SITE_NAME")   or "<empty>"
+   local syshost           = cosmic:value("LMOD_SYSHOST")     or "<empty>"
    local system_name       = cosmic:value("LMOD_SYSTEM_NAME") or "<empty>"
    local case_ind_sorting  = cosmic:value("LMOD_CASE_INDEPENDENT_SORTING")
    local disable1N         = cosmic:value("LMOD_DISABLE_SAME_NAME_AUTOSWAP")
@@ -214,6 +215,7 @@ local function new(self)
    tbl.spdr_ignore = { k = "Ignore Cache"                      , v = ignore_cache,     }
    tbl.spdr_loads  = { k = "Cached loads"                      , v = cached_loads,     }
    tbl.sysName     = { k = "System Name"                       , v = system_name,      }
+   tbl.syshost     = { k = "SYSHOST (cluster name)"            , v = syshost,          }
    tbl.tm_ancient  = { k = "User cache valid time(sec)"        , v = ancient,          }
    tbl.tm_short    = { k = "Write cache after (sec)"           , v = shortTime,        }
    tbl.tm_threshold= { k = "Threshold (sec)"                   , v = threshold,        }
