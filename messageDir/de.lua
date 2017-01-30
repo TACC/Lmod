@@ -229,7 +229,7 @@ Die geladenen Module wurden nicht verändert.
 ]==],
      w_Broken_FullName     = "Fehler in der Zeile \"module-version\": \"module-name\" muss vollqualifiziert sein: \"%{fullName}\" ist dies nicht.\n",
      w_Empty_Coll          = "Sie haben keine Module geladen, weil die Sammlung \"%{collectionName}\" leer ist!\n",
--     w_Failed_2_Find       = [==[Die folgenden Module konnten nicht in Ihrem MODULEPATH gefunden werden:  "%{quote_comma_list}".
+     w_Failed_2_Find       = [==[Die folgenden Module konnten nicht in Ihrem MODULEPATH gefunden werden:  "%{quote_comma_list}".
 Versuchen Sie:
   $ module spider %{module_list}
 um in allen Compilern und MPI-Implementierungen zu suchen.
