@@ -34,6 +34,13 @@
 
 return {
    fr = {
+
+     --------------------------------------------------------------------------
+     -- Error/Warning Titles
+     --------------------------------------------------------------------------
+     errTitle  = "Lmod a détecté l'erreur suivante : ",
+     warnTitle = "Lmod Warning: ",
+
      --------------------------------------------------------------------------
      -- ml messages
      --------------------------------------------------------------------------
@@ -316,8 +323,6 @@ pour vérifier si les modules sont disponibles avec l'un des compilateurs ou imp
      --------------------------------------------------------------------------
      -- module help strings
      --------------------------------------------------------------------------
-     errTitle  = "Lmod a détecté l'erreur suivante : ",
-     warnTitle = "Lmod Warning: ",
      
      StickyM   = "Le module est permanent - nécessite --force pour l'enlever ou purger les modules",
      LoadedM   = "Le module est chargé",
