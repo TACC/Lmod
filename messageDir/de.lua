@@ -338,7 +338,7 @@ um in allen Compilern und MPI-Implementierungen zu suchen.
      latest_H  = "Lädt die aktuellste Version eines Moduls ohne Beachtung von Standard-Modulen.",
      cache_hlp = "Behandelt die Cache-Dateien als veraltet.",
      novice_H  = "Schaltet die Experten- und Stille-Schalter ab.",
-     raw_hlp   = "Gibt Modul-Dateien im Rohformat aus, wenn wenn show verwendet wird.",
+     raw_hlp   = "Gibt Modul-Dateien im Rohformat aus, wenn \"show\" verwendet wird.",
      width_hlp = "Nutzt diesen Wert als maximale Breite des Terminals.",
      v_hlp     = "Zeigt Versionsinformationen und beendet die Ausführung.",
      rexp_hlp  = "Verwendet reguläre Ausdrücke bei Vergleichen.",
