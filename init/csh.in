@@ -21,9 +21,9 @@ if ( $?histchars) then
 endif
 
 if ($?tcsh) then
-  alias module  $prefix'eval `$LMOD_CMD csh '$midfix $histchar'*` '$postfix $merge' eval `$LMOD_SETTARG_CMD -s csh`'
+  alias module  $prefix'eval `$LMOD_CMD tcsh '$midfix $histchar'*` '$postfix $merge' eval `$LMOD_SETTARG_CMD -s csh`'
 else
-  alias module  $prefix'eval `$LMOD_CMD csh '$midfix $histchar'*` '$postfix
+  alias module  $prefix'eval `$LMOD_CMD csh  '$midfix $histchar'*` '$postfix
 endif
 alias clearMT 'eval `'$LMOD_DIR/clearMT_cmd csh'`'
 

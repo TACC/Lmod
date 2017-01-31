@@ -195,6 +195,7 @@ __installMe:
 	        -e 's|@sys_lua_cpath@|$(SYS_LUA_CPATH)|g'                  	  \
                 -e 's|@path_to_luac@|$(PATH_TO_LUAC)|g'                  	  \
                 -e 's|@have_lua_term@|$(HAVE_LUA_TERM)|g'                  	  \
+	        -e "s|@my_shell@|$$fn|g"                   	                  \
                 -e 's|@have_lua_json@|$(HAVE_LUA_JSON)|g'                  	  \
                 -e 's|@tr@|$(PATH_TO_TR)|g'                             	  \
                 -e 's|@tclsh@|$(PATH_TO_TCLSH)|g'                             	  \

@@ -11,7 +11,7 @@ export MODULESHOME
 
 module()
 {
-  eval `$LMOD_CMD bash "$@"`
+  eval `$LMOD_CMD sh "$@"`
 }
 export LMOD_DIR
 

@@ -23,6 +23,8 @@ Lmod 7.3+
     (7.3.15) Support for setting LMOD_SYSHOST through configure
              Support for supporting Tmod's module-info shelltype function
              Support for MyShellType()
+    (7.3.16) Define the module command to use the matching shell rather than using bash for sh,ksh and zsh.
+             Now using module command with tcsh when the shell is tcsh.
              
 	     
     

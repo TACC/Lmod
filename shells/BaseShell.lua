@@ -227,6 +227,7 @@ local function createShellTbl()
       s_shellTbl = {
          ["sh"]     = Bash,
          ["bash"]   = Bash,
+         ["ksh"]    = Bash,
          ["zsh"]    = Bash,
          ["fish"]   = Fish,
          ["csh"]    = Csh,
