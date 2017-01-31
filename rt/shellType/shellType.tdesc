@@ -24,8 +24,10 @@ testdescript = {
      rm -fr _stderr.* _stdout.* err.* out.* .lmod.d
 
      runLmod --version                     # 1
-     runLmod show myShellType              # 2
-     runLmod load myShellType              # 3
+     runLmod show myShellType/1.0          # 2
+     runLmod load myShellType/1.0          # 3
+     runLmod load myShellType/2.0          # 4
+
 
 
      HOME=$ORIG_HOME

@@ -519,6 +519,18 @@ function M.myShellName(self)
    return Shell and Shell:name() or "bash"
 end
 
+function M.myShellType(self)
+   local shell = Shell and Shell:name() or "bash"
+   local kindT = {
+      bash = "sh",
+      zsh  = "sh",
+      ksh  = "sh",
+      tcsh = "csh",
+   }
+   return kindT[shell] or shell
+end      
+   
+
 --------------------------------------------------------------------------
 -- Return the current file name.
 -- @param self A MasterControl object

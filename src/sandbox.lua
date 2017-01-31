@@ -153,6 +153,7 @@ sandbox_env = {
   myModuleName         = myModuleName,
   myModuleVersion      = myModuleVersion,
   myShellName          = myShellName,
+  myShellType          = myShellType,
   hierarchyA           = hierarchyA,
   userInGroup          = userInGroup,
   moduleStackTraceBack = moduleStackTraceBack,

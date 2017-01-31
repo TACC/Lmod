@@ -1,0 +1,36 @@
+===========================
+step 1
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
+===========================
+===========================
+step 2
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing show myShellType/1.0
+===========================
+MODULEPATH="ProjectDIR/rt/shellType/mf";
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/shellType/mf",},["systemBaseMPATH"]="ProjectDIR/rt/shellType/mf",}';
+export _ModuleTable_;
+===========================
+step 3
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load myShellType/1.0
+===========================
+LOADEDMODULES="myShellType/1.0";
+export LOADEDMODULES;
+MODULEPATH="ProjectDIR/rt/shellType/mf";
+export MODULEPATH;
+_LMFILES_="ProjectDIR/rt/shellType/mf/myShellType/1.0";
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={myShellType={["fn"]="ProjectDIR/rt/shellType/mf/myShellType/1.0",["fullName"]="myShellType/1.0",["loadOrder"]=1,propT={},["status"]="active",["userName"]="myShellType/1.0",},},mpathA={"ProjectDIR/rt/shellType/mf",},["systemBaseMPATH"]="ProjectDIR/rt/shellType/mf",}';
+export _ModuleTable_;
+===========================
+step 4
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load myShellType/2.0
+===========================
+LOADEDMODULES="myShellType/2.0";
+export LOADEDMODULES;
+MODULEPATH="ProjectDIR/rt/shellType/mf";
+export MODULEPATH;
+_LMFILES_="ProjectDIR/rt/shellType/mf/myShellType/2.0.lua";
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={myShellType={["fn"]="ProjectDIR/rt/shellType/mf/myShellType/2.0.lua",["fullName"]="myShellType/2.0",["loadOrder"]=1,propT={},["status"]="active",["userName"]="myShellType/2.0",},},mpathA={"ProjectDIR/rt/shellType/mf",},["systemBaseMPATH"]="ProjectDIR/rt/shellType/mf",}';
+export _ModuleTable_;

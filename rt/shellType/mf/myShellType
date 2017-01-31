@@ -1,3 +1,0 @@
-#%Module
-puts stderr "shell: [module-info shell]"
-puts stderr "shelltype: [module-info shelltype]"
