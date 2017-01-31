@@ -34,8 +34,10 @@
 
 require("strict")
 require("lmod_system_execute")
-local hook   = require("Hook")
-local uname  = require("posix").uname
+local hook    = require("Hook")
+local uname   = require("posix").uname
+local cosmic  = require("Cosmic"):singleton()
+local syshost = cosmic:value("LMOD_SYSHOST")
 
 -- By using the hook.register function, this function "load_hook" is called
 -- ever time a module is loaded with the file name and the module name.
@@ -58,7 +60,7 @@ function load_hook(t)
 
    if (mode() ~= "load") then return end
    local user        = os.getenv("USER")
-   local host        = uname("%n")
+   local host        = syshost or uname("%n")
    local currentTime = epoch()
    local msg         = string.format("user=%s module=%s path=%s host=%s time=%f",
                                      user, t.modFullName, t.fn, host, currentTime)
