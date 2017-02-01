@@ -1,0 +1,69 @@
+-- -*- lua -*-
+local testName = "build_cache"
+
+testdescript = {
+   owner   = "rtm",
+   product = "modules",
+   description = [[
+	 nvv_prereq
+   ]],
+   keywords = {testName },
+
+   active   = true,
+   testName = testName,
+   job_submit_method = "INTERACTIVE",
+
+   runScript = [[
+
+     . $(projectDir)/rt/common_funcs.sh
+
+     unsetMT
+     initStdEnvVars
+     export MODULEPATH_ROOT=$(testDir)/mf
+     export MODULEPATH=$MODULEPATH_ROOT/Common
+
+     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d cacheDir .lmodrc.lua fn broken_mf
+     cp $(projectDir)/init/lmodrc.lua .lmodrc.lua
+
+     cat > fn << EOF
+$(outputDir)/cacheDir: $(outputDir)/last_update
+EOF
+
+     lua $(projectDir)/src/spiderCacheSupport.in.lua --descriptFn fn >> .lmodrc.lua
+     mkdir cacheDir
+     
+     mkdir -p broken_mf/test
+     cp $(testDir)/bad_module.lua broken_mf/test/1.0.lua
+
+     runLmod --version                     # 1
+     touch last_update
+     buildSpiderT $MODULEPATH > cacheDir/spiderT.lua
+     runLmod spider                        # 2
+     runLmod use broken_mf                 # 3
+     runLmod spider                        # 4
+     runLmod avail                         # 5
+     
+     HOME=$ORIG_HOME
+     cat _stdout.[0-9][0-9][0-9] > _stdout.orig
+     joinBase64Results  -bash  _stdout.orig _stdout.new
+     cleanUp _stdout.new out.txt
+
+     cat _stderr.[0-9][0-9][0-9] > _stderr.orig
+     cleanUp _stderr.orig err.txt
+
+     rm -f results.csv
+     wrapperDiff --csv results.csv $(testDir)/out.txt out.txt
+     wrapperDiff --csv results.csv $(testDir)/err.txt err.txt
+     testFinish -r $(resultFn) -t $(runtimeFn) results.csv
+   ]],
+
+
+   blessScript = [[
+         # perform what is needed
+   ]],
+
+   tests = {
+      { id='t1'},
+   },
+
+}

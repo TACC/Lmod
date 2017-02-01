@@ -287,7 +287,7 @@ function M.report(self)
       a[#a+1]   = {"Cache Directory",  "Time Stamp File",}
       a[#a+1]   = {"---------------",  "---------------",}
       for i = 1, #scDescriptT do
-         a[#a+1] = { scDescriptT[i].dir, scDescriptT[i].timestamp}
+         a[#a+1] = { tostring(scDescriptT[i].dir), tostring(scDescriptT[i].timestamp)}
       end
       bt = BeautifulTbl:new{tbl=a}
       b[#b+1]  = bt:build_tbl()

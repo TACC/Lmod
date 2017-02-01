@@ -1,0 +1,36 @@
+===========================
+step 1
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
+===========================
+===========================
+step 2
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider
+===========================
+MODULEPATH="ProjectDIR/rt/build_cache/mf/Common";
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/build_cache/mf/Common",},["systemBaseMPATH"]="ProjectDIR/rt/build_cache/mf/Common",}';
+export _ModuleTable_;
+===========================
+step 3
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing use broken_mf
+===========================
+MODULEPATH="broken_mf:ProjectDIR/rt/build_cache/mf/Common";
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"broken_mf","ProjectDIR/rt/build_cache/mf/Common",},["systemBaseMPATH"]="ProjectDIR/rt/build_cache/mf/Common",}';
+export _ModuleTable_;
+===========================
+step 4
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider
+===========================
+MODULEPATH="broken_mf:ProjectDIR/rt/build_cache/mf/Common";
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"broken_mf","ProjectDIR/rt/build_cache/mf/Common",},["systemBaseMPATH"]="ProjectDIR/rt/build_cache/mf/Common",}';
+export _ModuleTable_;
+===========================
+step 5
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+===========================
+MODULEPATH="broken_mf:ProjectDIR/rt/build_cache/mf/Common";
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"broken_mf","ProjectDIR/rt/build_cache/mf/Common",},["systemBaseMPATH"]="ProjectDIR/rt/build_cache/mf/Common",}';
+export _ModuleTable_;
