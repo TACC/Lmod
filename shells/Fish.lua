@@ -88,7 +88,7 @@ end
 function Fish.expandVar(self, k, v, vType)
    local lineA       = {}
    v                 = tostring(v):multiEscaped()
-   if (vType == "path") then
+   if (k == "PATH") then
       v = v:gsub(":",'" "')
    end
    lineA[#lineA + 1] = "set "
