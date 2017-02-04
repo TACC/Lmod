@@ -273,15 +273,15 @@ function M.load(self, mA)
       dbg.print{"Master:load i: ",i," sn: ",sn," fn: ",fn,"\n"}
 
       if (mt:have(sn,"active")) then
-         
-         local version = mname:version()
+         local version    = mname:version()
          local mt_version = mt:version(sn)
 
          dbg.print{"mnV: ",version,", mtV: ",mt_version,"\n"}
 
          if (disable_same_name_autoswap == "yes" and mt_version ~= version) then
             local oldFullName = pathJoin(sn,mt_version)
-            LmodError{msg="e_No_AutoSwap", oldFullName = oldFullName, newFullName = fullName}
+            LmodError{msg="e_No_AutoSwap", oldFullName = oldFullName, sn = sn, oldVersion = mt_version,
+                                           newFullName = fullName,    newVersion = mname:version()}
          end
 
          local mcp_old = mcp
