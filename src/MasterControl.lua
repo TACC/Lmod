@@ -582,7 +582,7 @@ local function l_generateMsg(kind, label, ...)
       local t   = arg[1]
       local key = t.msg
       local msg = i18n(key, t)
-      msg       = hook.apply("errWarnMsgHook", kind, key, msg) or msg
+      msg       = hook.apply("errWarnMsgHook", kind, key, msg, t) or msg
       sA[#sA+1] = buildMsg(twidth, label, msg)
    else
       sA[#sA+1] = buildMsg(twidth, label, ...)
@@ -604,7 +604,7 @@ function M.message(self, ...)
       local t   = arg[1]
       local key = t.msg
       local msg = i18n(key, t)
-      msg       = hook.apply("errWarnMsgHook", "lmodmessage", key, msg) or msg
+      msg       = hook.apply("errWarnMsgHook", "lmodmessage", key, msg, t) or msg
       sA[#sA+1] = buildMsg(twidth, msg)
    else
       sA[#sA+1] = buildMsg(twidth, ...)
