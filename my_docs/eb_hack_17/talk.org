@@ -1,0 +1,107 @@
+Notes for Lmod talk at eb users meeting in Julich.
+
+* Hi,  welcome to yet another talk about Lmod.
+I have been talking about Lmod at these meeting, usually, I have been
+there.  This time over Google hangouts.
+* outline:
+What is Lmod?
+Why you might want to use it?
+What is the difference between Tmod and Lmod?
+What is new with Lmod?
+How could Lmod possibly work? 
+* What is Lmod?
+** A modern replacement for a tried and true concept.
+** Guiding Principal: Make life easier w/o getting in the way.
+** Modules are the way to communicate with your users.
+It provides a handle to users.  As admins we set the location of
+executables and libraries.  Modules change the path and set other
+env. vars.
+
+* Why you might want to use Lmod:
+** Same module command at in Tmod
+** Active Development, Frequent Releases and Bug Fixes.
+** Vibrant Community
+** Used all over the US and the World.
+** Debian, Fedora, Brew Packages
+** Enjoy many capabilities w/o changing a single module file
+** Many more advantages when you're ready.
+** It is what we, and many sites around the world use everyday!
+
+* Features
+** Reads TCL and Lua modulefiles
+** One name rule 
+** Supports a Software Hierarchy
+** Fast module avail via spider cache.
+** Properties (gpu, mic, beta, etc)
+** Semantic Versioning:  5.6 is older than 5.10
+** family(``compiler'') family(``mpi'') support
+** Optional module usage tracking available
+** Collections
+** Many other features: ml, hooks, pushenv, sticky modules, ...
+
+* What is the difference between Lmod and Tmod?
+** Tmod is maintenance mode, Lmod development is active
+** In Tmod, a user can load gcc/5.3 and gcc/6.0 at the same time.
+** Lmod has the one name rule.
+** Lmod can only have one sn at a time only 1 gcc at a time.
+** The one name rule is the biggest difference between the two.
+
+* What is new with Lmod?
+** Support for Name-Version-Version
+** Support for hidden modules
+** Support for Translations
+
+* History of Module Names in Lmod
+** Originally only supported "name/version"
+** Lmod 5+: support for "category/name/version", "cat1/subcat/name/version", etc
+** Lmod 6 and earlier: A version could only be a file
+** Lmod 7+: support for multiple levels of version:  "fftw/64/3.3.4"
+
+* Lmod 7+ NVV support
+** full -> sn/version
+** One name rule => only one sn can be loaded at one time.
+** Lmod has to be told where the name - version boundary is.
+** No automatic way to know where this boundary is.  => No AI in Lmod.
+** The first .version or .modulerc marks the boundary.  Can be empty.
+** Lmod 7: sn can be any number of directories bio/genomic/bowtie
+** Lmod 7: version can be any depth 64/5.0.3/048
+
+* Lmod 7+ Marking Defaults via MODULERC
+** Old ways of marking default module: default, .version, .modulerc in module tree.
+** Site MODULERC file: /path/tolmod/etc/rc
+** User ~/.modulerc file
+** Precedent Order: User, Site, Module tree
+** Examples: account for web services
+
+
+* Lmod 7+ Hidden modules
+** A version with leading "." is and has always been "hidden"
+** Lmod 7 allows any module to be marked as hidden.
+** Re-use MODULERC files
+** "hide-version foo/1.2.3"
+** Can be used to hide experimental or depreciated modules
+** User might want to hide old toolchains
+** Need a contrib tool to build this.
+
+* Why does Lmod work at all?
+** We all learned that Unix processes inherit env vars but not the other way around.
+** So how could a sub-process like Lmod affect its parent.
+
+* Why does Lmod work at all (II)?
+** That's because Lmod itself generates text.  
+** module () { eval $($LMOD_CMD bash "$@") }
+** The Lmod command generate text, the module command evaluates that 
+
+* Why is this important?
+** It is a very useful trick to know.
+** Debugging modulefiles:
+** $ $LMOD_CMD bash load <module> 2> /dev/null > stdout.txt
+
+
+* Conclusions: Lmod 7+
+** Latest version: https://github.com:TACC/Lmod.git
+** Stable version: http://lmod.sf.net
+** Documentation:  http://lmod.readthedocs.org
+
+
+ 
