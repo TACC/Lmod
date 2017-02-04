@@ -103,7 +103,7 @@ Bug Fixes:
 
 Features:
 
-  1. Now uses the value of LD_PRELOAD and LD_LIBRARY_PATH for run all TCL progams.
+  1. Now uses the value of LD_PRELOAD and LD_LIBRARY_PATH found at configure time to run all TCL progams.
 
   2. Now uses a custom _module_dir function for tab completion in bash for module use path<TAB>. Thanks to Pieter Neerincx!
 
