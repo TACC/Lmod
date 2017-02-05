@@ -73,7 +73,6 @@ env. vars.
 ** Precedent Order: User, Site, Module tree
 ** Examples: account for web services
 
-
 * Lmod 7+ Hidden modules
 ** A version with leading "." is and has always been "hidden"
 ** Lmod 7 allows any module to be marked as hidden.
@@ -97,6 +96,9 @@ env. vars.
 ** Debugging modulefiles:
 ** $ $LMOD_CMD bash load <module> 2> /dev/null > stdout.txt
 
+* Debugging the internal behavior of Lmod
+** module --config  => report Lmod configuation
+** module -D load foo 2> load.log
 
 * Conclusions: Lmod 7+
 ** Latest version: https://github.com:TACC/Lmod.git
