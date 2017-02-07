@@ -310,7 +310,6 @@ function M.load(self, mA)
          mt:setStatus(sn, "active")
          hook.apply("load",{fn = mname:fn(), modFullName = mname:fullName()})
          frameStk:pop()
-         mt = frameStk:mt()
          dbg.print{"Marking ",fullName," as active and loaded\n"}
          registerLoaded(fullName, fn)
          loaded = true
