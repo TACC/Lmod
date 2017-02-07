@@ -476,35 +476,35 @@ local use_dot_files = cosmic:value("LMOD_USE_DOT_FILES")
 -- LMOD_HAVE_LUA_JSON
 ------------------------------------------------------------------------
 cosmic:init{name = "LMOD_HAVE_LUA_JSON",
-            sedv = "@have_lua_json@",
+            sedV = "@have_lua_json@",
             yn   = "no"}
 
 ------------------------------------------------------------------------
 -- LMOD_HAVE_LUA_TERM
 ------------------------------------------------------------------------
 cosmic:init{name = "LMOD_HAVE_LUA_TERM",
-            sedv = "@have_lua_term@",
+            sedV = "@have_lua_term@",
             yn   = "no"}
 
 ------------------------------------------------------------------------
 -- MODULEPATH_ROOT
 ------------------------------------------------------------------------
 cosmic:init{name    = "MODULEPATH_ROOT",
-            sedv    = "@modulepath_root@",
+            sedV    = "@modulepath_root@",
             default = ""}
 
 ------------------------------------------------------------------------
 -- LMOD_HASHSUM_PATH
 ------------------------------------------------------------------------
 cosmic:init{name    = "LMOD_HASHSUM_PATH",
-            sedv    = "@hashsum@",
+            sedV    = "@hashsum@",
             default = "/usr/bin/sha1sum"}
 
 ------------------------------------------------------------------------
 -- PATH_TO_LUA
 ------------------------------------------------------------------------
 cosmic:init{name    = "PATH_TO_LUA",
-            sedv    = "@path_to_lua@",
+            sedV    = "@path_to_lua@",
             default = "lua"}
 
 ------------------------------------------------------------------------
@@ -534,7 +534,7 @@ cosmic:init{name    = "LMOD_PREPEND_BLOCK",
 --                overridden by a .version etc file.
 ------------------------------------------------------------------------
 cosmic:init{name    = "LMOD_MAXDEPTH",
-            sedv    = "@maxdepth@",
+            sedV    = "@maxdepth@",
             default = ""}
 
 ------------------------------------------------------------------------
