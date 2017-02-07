@@ -26,12 +26,14 @@
 
 \begin{document}
 
+% page 1
 \begin{frame}
   \titlepage
 \end{frame}
 
 \section{Introduction}
 
+% page 2
 \begin{frame}{Introduction}
   \begin{itemize}
     \item What is Lmod?
@@ -43,6 +45,7 @@
   \end{itemize}
 \end{frame}
 
+% page 3
 \begin{frame}{What is Lmod?}
   \begin{itemize}
     \item A modern replacement for a tried and true concept.
@@ -52,6 +55,7 @@
   \end{itemize}
 \end{frame}
 
+% page 4
 \begin{frame}{Why You Might Want To Use Lmod?}
   \begin{itemize}
     \item Same \texttt{module} command as in Tmod
@@ -65,6 +69,7 @@
   \end{itemize}
 \end{frame}
 
+% page 5
 \begin{frame}{Features}
   \begin{itemize}
     \item Reads for TCL and Lua modulefiles
@@ -79,6 +84,7 @@
   \end{itemize}
 \end{frame}
 
+% page 6
 \begin{frame}{Tmod vs. Lmod}
   \begin{itemize}
     \item Tmod is in maintenance mode, Lmod active
@@ -89,6 +95,7 @@
   \end{itemize}
 \end{frame}
 
+% page 7
 \begin{frame}{What is new with Lmod 7?}
   \begin{itemize}
     \item Support for Name-Version-Version
@@ -144,11 +151,21 @@
   \end{itemize}
 \end{frame}
 
+
+\begin{frame}{Translations}
+  \begin{itemize}
+    \item Lmod has moved all messages into messageDir/en.lua
+    \item Language files are available: fr, de, es, zh
+    \item Sites can override particular messages, with en as default.
+  \end{itemize}
+\end{frame}
+
+
 \begin{frame}{Why does Lmod work at all?}
   \begin{itemize}
     \item The Environment is inherited from the parent process
     \item Changes in the child's enviroment DOES NOT affect the
-      parent.
+      parent's
     \item So how could Lmod work at all? 
   \end{itemize}
 \end{frame}
@@ -173,6 +190,14 @@
   \begin{itemize}
     \item \texttt{module --config} : reports Lmod configuration
     \item \texttt{module -D load foo $>$ load.log}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Future Work}
+  \begin{itemize}
+    \item Support for the Break statement
+    \item A spider like command to syntax check modulefiles
+    \item Looking at influxdb to better handle the usage tracking.
   \end{itemize}
 \end{frame}
 
