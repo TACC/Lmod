@@ -86,10 +86,10 @@ Hook functions
 --------------
 
 **load**(...):
-  This function is called after a modulefile is loaded.
+  This function is called after a modulefile is loaded in "load" mode.
 
 **unload**(...):
-  This function is called after a modulefile is unloaded.
+  This function is called after a modulefile is unloaded in "unload" mode.
 
 **parse_updateFn**(...):
   This hook returns the time on the timestamp file.
@@ -114,12 +114,15 @@ Hook functions
 **avail**(...):
   Map directory names to labels
 
-**restore(...):
+**restore**(...):
   This hook is run after restore operation
 
-**startup(UsrCmd):
+**startup**(UsrCmd):
   This hook is run when Lmod is called
 
-**packagebasename(s_patDir, s_patLib):
+**packagebasename**(s_patDir, s_patLib):
   This hook gives you a table with the current patterns that spider uses to
   construct the reverse map.
+
+**load_spider(...):
+  This hook is called when spider is evaluating a modulefile.
