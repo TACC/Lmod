@@ -124,5 +124,5 @@ Hook functions
   This hook gives you a table with the current patterns that spider uses to
   construct the reverse map.
 
-**load_spider(...):
+**load_spider**(...):
   This hook is called when spider is evaluating a modulefile.
