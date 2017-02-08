@@ -18,14 +18,13 @@ testdescript = {
 
      unsetMT
      initStdEnvVars
-     MODULEPATH_ROOT=$(testDir)/mf;     export MODULEPATH_ROOT
-     MODULEPATH=$(testDir)/mf/Core;     export MODULEPATH
-     LMOD_PACKAGE_PATH=$(testDir);      export LMOD_PACKAGE_PATH
+     export MODULEPATH_ROOT=$(testDir)/mf;     
+     export MODULEPATH=$(testDir)/mf/Core;     
+     export LMOD_PACKAGE_PATH=$(testDir)/mf/site-scripts; 
 
 
      rm -fr _stderr.* _stdout.* err.* out.* .lmod.d
 
-     LMOD_PACKAGE_PATH=$(testDir)/mf/site-scripts; export LMOD_PACKAGE_PATH
      runLmod --version               # 1
      runLmod load gcc python         # 2
      runLmod list                    # 3
