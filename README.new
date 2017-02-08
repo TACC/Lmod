@@ -25,6 +25,4 @@ Lmod 7.3+
              Support for MyShellType()
     (7.3.16) Define the module command to use the matching shell rather than using bash for sh,ksh and zsh.
              Now using module command with tcsh when the shell is tcsh.
-             
-	     
-    
+             Added support for load_spider hook so that there is hook called right after a module is evaluated while spidering.
