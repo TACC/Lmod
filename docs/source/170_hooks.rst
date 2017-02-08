@@ -57,6 +57,28 @@ modulefiles can call it::
    sandbox_registration{ prependModulePath    = prependModulePath }
 
 
+Hook tips
+---------
+
+# If you want to know which modules are being loaded, use the FrameStack::
+
+    local frameStk = FrameStk:singleton()
+    -- check if anything else gets loaded
+    if not frameStk:empty() then
+        print("This modules has no dependencies loaded.")
+    end
+
+    -- the module at the top of the FrameStack is the one the user requested
+    local userload = (frameStk:atTop()) and "yes" or "no"
+
+# If you want to know the short name or path of a loaded module, you can use the ModuleTable::
+
+    local mname = MName:new("mt", FullModuleName)
+    local sn         = mname:sn()
+    local version = mname:version()
+    
+
+
 
 .. _hook_functions:
 
@@ -101,10 +123,3 @@ Hook functions
 **packagebasename(s_patDir, s_patLib):
   This hook gives you a table with the current patterns that spider uses to
   construct the reverse map.
-
-
-
-
-
-
-
