@@ -1,0 +1,32 @@
+===========================
+step 1
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
+===========================
+===========================
+step 2
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+===========================
+MODULEPATH="ProjectDIR/rt/prophook/mf";
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/prophook/mf",},["systemBaseMPATH"]="ProjectDIR/rt/prophook/mf",}';
+export _ModuleTable_;
+===========================
+step 3
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load gcc
+===========================
+LOADEDMODULES="gcc/5.3";
+export LOADEDMODULES;
+MODULEPATH="ProjectDIR/rt/prophook/mf";
+export MODULEPATH;
+_LMFILES_="ProjectDIR/rt/prophook/mf/gcc/5.3.lua";
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={gcc={["fn"]="ProjectDIR/rt/prophook/mf/gcc/5.3.lua",["fullName"]="gcc/5.3",["loadOrder"]=1,propT={type_={["tools"]=1,},},["status"]="active",["userName"]="gcc",},},mpathA={"ProjectDIR/rt/prophook/mf",},["systemBaseMPATH"]="ProjectDIR/rt/prophook/mf",}';
+export _ModuleTable_;
+===========================
+step 4
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+===========================
+MODULEPATH="ProjectDIR/rt/prophook/mf";
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={gcc={["fn"]="ProjectDIR/rt/prophook/mf/gcc/5.3.lua",["fullName"]="gcc/5.3",["loadOrder"]=1,propT={type_={["tools"]=1,},},["status"]="active",["userName"]="gcc",},},mpathA={"ProjectDIR/rt/prophook/mf",},["systemBaseMPATH"]="ProjectDIR/rt/prophook/mf",}';
+export _ModuleTable_;

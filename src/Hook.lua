@@ -65,6 +65,7 @@ local validT =
       restore         = false,  -- This hook is run after restore operation
       startup         = false,  -- This hook is run when Lmod is called
       packagebasename = false,  -- Hook to find the patterns that spider uses for reverse map
+      load_spider     = false,  -- This hook is run evaluating modules for spider/avail
 }
 
 --------------------------------------------------------------------------

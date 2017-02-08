@@ -54,6 +54,7 @@ local concatTbl    = table.concat
 local cosmic       = require("Cosmic"):singleton()
 local dbg          = require("Dbg"):dbg()
 local getenv       = os.getenv
+local hook         = require("Hook")
 local i18n         = require("i18n")
 local lfs          = require("lfs")
 local posix        = require("posix")
@@ -156,6 +157,7 @@ local function findModules(mpath, mt, mList, sn, v, moduleT)
       local mname         = MName:new("entryT", entryT)
       mt:add(mname, "pending")
       loadModuleFile{file=fn, shell=shellNm, reportErr=true, mList = mList}
+      hook.apply("load_spider",{fn = fn, modFullName = fullName, sn = sn})
       mt:setStatus(sn, "active")
    end
 
