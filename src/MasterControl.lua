@@ -896,7 +896,6 @@ function M.conflict(self, mA)
       local sn       = mname:sn()
       local userName = mname:userName()
       local version  = extractVersion(userName, sn)
-      dbg.print{"sn: ",sn,", userName: ",userName, ", version: ",version,", mt:version(): ",mt:version(sn),"\n"}
       if (mt:have(sn,"active") and (userName == sn or version == mt:version(sn))) then
          a[#a+1]  = mname:userName()
       end
