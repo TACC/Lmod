@@ -345,9 +345,9 @@ function main()
    require("SitePackage")
 
    local cmdLineUsage = "Usage: module [options] sub-command [args ...]"
-   Options:singleton(cmdLineUsage)
    MCP = MasterControl.build("load")
    mcp = MasterControl.build("load")
+   Options:singleton(cmdLineUsage)
    local userCmd = masterTbl.pargs[1]
    table.remove(masterTbl.pargs,1)
 
