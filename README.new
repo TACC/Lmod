@@ -27,5 +27,5 @@ Lmod 7.3+
              Now using module command with tcsh when the shell is tcsh.
              Added support for load_spider hook so that there is hook called right after a module is evaluated while spidering.
     (7.3.17) Fix bug in lmod_bash_completion: module load <tab> now works
+    (7.3.18) Added feature that one can conflict on a version as well.
              Fix bug where an unknown option caused a stack trace.
-	     
