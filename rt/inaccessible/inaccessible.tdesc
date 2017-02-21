@@ -27,9 +27,13 @@ testdescript = {
      runLmod --version                          # 1
      runLmod use $MODULEPATH_ROOT/path1         # 2
      runLmod --ignore_cache spider              # 3
+     export LMOD_SHORT_TIME=0
      runLmod --ignore_cache spider inaccessible # 4
      runLmod unuse $MODULEPATH_ROOT/path1       # 5
-     runLmod --ignore_cache spider inaccessible # 6
+     export LMOD_SHORT_TIME=10
+     runLmod spider inaccessible                # 6
+     runLmod load extend                        # 7
+     
 
 
      HOME=$ORIG_HOME
