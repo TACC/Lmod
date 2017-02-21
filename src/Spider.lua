@@ -333,20 +333,20 @@ end
 --     }
 -- Then parentT looks like:
 --     parentT = {
---        ['%ProjDir%/spec/Spider/h/mf1/Compiler/gcc/5.9'] =
+--        ['%ProjDir%/Compiler/gcc/5.9'] =
 --           {
 --              {"gcc/5.9.3"},
 --              {"gcc/5.9.2"},
 --           },
 --     
---        ['%ProjDir%/spec/Spider/h/mf1/Compiler/gcc/5.9/mpich/17.200'] =
+--        ['%ProjDir%/Compiler/gcc/5.9/mpich/17.200'] =
 --           {
 --              {"gcc/5.9.3", "mpich/17.200.1"},
 --              {"gcc/5.9.3", "mpich/17.200.2"},
 --              {"gcc/5.9.2", "mpich/17.200.1"},
 --              {"gcc/5.9.2", "mpich/17.200.2"},
 --           },     
---        ["%ProjDir%/spec/Spider/h/mf1/MPI/gcc/5.9/mpich/17.200/petsc/3.4"]  =
+--        ["%ProjDir%/MPI/gcc/5.9/mpich/17.200/petsc/3.4"]  =
 --           {
 --              {"gcc/5.9.3", "mpich/17.200.1", "petsc/3.4-cxx"  },
 --              {"gcc/5.9.3", "mpich/17.200.2", "petsc/3.4-cxx"  },
@@ -363,9 +363,9 @@ end
 -- The logic for this routine was originally written by Kenneth Hoste in
 -- python after yours truly couldn't work it out.
 
-local function build_parentT(mpathMapT)
+local function l_build_parentT(mpathMapT)
 
-   local function build_parentT_helper( mpath, fullNameA)
+   local function l_build_parentT_helper( mpath, fullNameA)
       local resultA
       if (not mpathMapT[mpath]) then
          resultA = { fullNameA }
@@ -374,7 +374,7 @@ local function build_parentT(mpathMapT)
          for fullName, mpath2 in pairs(mpathMapT[mpath]) do
             local tmpA    = copy(fullNameA)
             tmpA[#tmpA+1] = fullName
-            resultA = extend(resultA, build_parentT_helper(mpath2, tmpA))
+            resultA = extend(resultA, l_build_parentT_helper(mpath2, tmpA))
          end
       end
       return resultA
@@ -386,7 +386,7 @@ local function build_parentT(mpathMapT)
       local A        = parentT[mpath]
 
       for fullName, mpath2 in pairs(v) do
-         A = extend(A, build_parentT_helper(mpath2, {fullName}))
+         A = extend(A, l_build_parentT_helper(mpath2, {fullName}))
       end
    end
 
@@ -399,14 +399,41 @@ local function build_parentT(mpathMapT)
    return parentT
 end
 
+local function l_build_mpathParentT(mpathMapT)
+   local mpathParentT = {}
+   for mpath, vv in pairs(mpathMapT) do
+      a = mpathParentT[mpath] or {}
+      for k, v in pairs(vv) do
+         local found = false
+         for i = 1,#a do
+            if (a[i] == v) then
+               found = true
+               break
+            end
+         end
+         if (not found) then
+            a[#a+1] = v
+         end
+      end
+      mpathParentT[mpath]  = a
+   end
+end
+
+local function l_build_keepT(mpathA, mpathParentT, spiderT)
+   local keepT = {}
+
+
+
+   return keepT
+end
+
 local dbT_keyA = { 'Description', 'Category', 'URL', 'Version', 'whatis', 'dirA',
                    'pathA', 'lpathA', 'propT','help','pV'}
 
 
-function M.buildDbT(self, mpathMapT, spiderT, dbT)
-
-   local parentT   = build_parentT(mpathMapT)
-
+function M.buildDbT(self, mpathA, mpathMapT, spiderT, dbT)
+   dbg.start{"Spider:buildDbT(mpathMapT,spiderT, dbT)"}
+   local parentT      = l_build_parentT(mpathMapT)
 
    local function buildDbT_helper(mpath, sn, v, T)
       if (v.file) then
@@ -436,7 +463,8 @@ function M.buildDbT(self, mpathMapT, spiderT, dbT)
       end
    end
 
-   dbg.start{"Spider:buildDbT(mpathMapT,spiderT, dbT)"}
+   local mpathParentT = l_build_mpathParentT(mpathMapT)
+   local keepT        = l_build_keepT(mpathA, mpathParentT, spiderT)
 
    if (next(spiderT) == nil) then
       dbg.print{"empty spiderT\n"}

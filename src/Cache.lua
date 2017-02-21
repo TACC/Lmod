@@ -563,7 +563,8 @@ function M.build(self, fast)
 
    -- With a valid spiderT build dbT if necessary:
    if (next(dbT) == nil or buildSpiderT) then
-      spider:buildDbT(mpathMapT, spiderT, dbT)
+      local mpathA = mt:modulePathA()
+      spider:buildDbT(mpathA, mpathMapT, spiderT, dbT)
    end
 
    -- remove user cache file if old
