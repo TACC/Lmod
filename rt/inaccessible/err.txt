@@ -1,0 +1,40 @@
+===========================
+step 1
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
+===========================
+Modules based on Lua: Version 7.3.18  2017-02-20 13:48 -06:00
+    by Robert McLay mclay@tacc.utexas.edu
+===========================
+step 2
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing use ProjectDIR/rt/inaccessible/mf/path1
+===========================
+===========================
+step 3
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --ignore_cache spider
+===========================
+The following is a list of the modules currently available:
+  StdEnv: StdEnv
+  extend: extend/1.0
+  inaccessible: inaccessible/1.0
+To learn more about a package execute:
+   $ module spider Foo
+where "Foo" is the name of a module.
+To find detailed information about a particular package you
+must specify the version if there is more than one version:
+   $ module spider Foo/11.1
+===========================
+step 4
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --ignore_cache spider inaccessible
+===========================
+  inaccessible: inaccessible/1.0
+    You will need to load all module(s) on any one of the lines below before the "inaccessible/1.0" module is available to load.
+      extend/1.0
+===========================
+step 5
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing unuse ProjectDIR/rt/inaccessible/mf/path1
+===========================
+===========================
+step 6
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --ignore_cache spider inaccessible
+===========================
+Lmod has detected the following error: Unable to find: "inaccessible".
