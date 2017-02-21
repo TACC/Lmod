@@ -30,3 +30,6 @@ Lmod 7.3+
     (7.3.18) Added feature that one can conflict on a version as well.
              Fix bug where an unknown option caused a stack trace.
     (7.3.19) Fix bug where addto a:b:c failed to work correctly.
+    	     Added string:split and string:escape to sandbox.
+	     Added loaded_modules() function to report a list of loaded modules.
+	     
