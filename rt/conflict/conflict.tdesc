@@ -35,6 +35,7 @@ testdescript = {
      runLmod load d                                         # 8
      runLmod load e/1.0                                     # 9
      runLmod load d                                         #10
+     runLmod load f                                         #11
 
 
 

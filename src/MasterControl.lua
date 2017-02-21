@@ -893,11 +893,10 @@ function M.conflict(self, mA)
 
    for i = 1, #mA do
       local mname    = mA[i]
-      local sn       = mname:sn()
+      local sn       = mname:sn()  -- this will return false if there is no module loaded.
       local userName = mname:userName()
-      local version  = extractVersion(userName, sn)
-      if (mt:have(sn,"active") and (userName == sn or version == mt:version(sn))) then
-         a[#a+1]  = mname:userName()
+      if (sn and mt:have(sn,"active") and (userName == sn or extractVersion(userName, sn) == mt:version(sn))) then
+         a[#a+1]  = userName
       end
    end
 
