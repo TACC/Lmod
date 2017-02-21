@@ -1094,6 +1094,14 @@ function M.reportAdminMsgs()
    end
 end
 
+--------------------------------------------------------------------------
+-- Provide a list of modules for sites to use
+function M.loaded_modules(self)
+   local frameStk  = FrameStk:singleton()
+   local mt        = frameStk:mt()
+   return mt:list("fullName","active")
+end
+
 
 --------------------------------------------------------------------------
 -- Set a property value

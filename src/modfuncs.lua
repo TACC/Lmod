@@ -307,6 +307,15 @@ function family(...)
    dbg.fini("family")
 end
 
+--------------------------------------------------------------------------
+-- Provide a list of loaded modules for sites to use
+function loaded_modules()
+   dbg.start{"loaded_modules()"}
+   local a = mcp:loaded_modules()
+   dbg.fini{"loaded_modules"}
+   return a
+end
+
 --- Inherit function ---
 
 --------------------------------------------------------------------------

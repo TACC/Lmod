@@ -1,0 +1,93 @@
+===========================
+step 1
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
+===========================
+===========================
+step 2
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load B C
+===========================
+B="1.0";
+export B;
+C="2.0";
+export C;
+LOADEDMODULES="B/1.0:C/2.0";
+export LOADEDMODULES;
+MODULEPATH="ProjectDIR/rt/cnflt_except/mf/Core";
+export MODULEPATH;
+_LMFILES_="ProjectDIR/rt/cnflt_except/mf/Core/B/1.0.lua:ProjectDIR/rt/cnflt_except/mf/Core/C/2.0.lua";
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={B={["fn"]="ProjectDIR/rt/cnflt_except/mf/Core/B/1.0.lua",["fullName"]="B/1.0",["loadOrder"]=1,propT={},["status"]="active",["userName"]="B",},C={["fn"]="ProjectDIR/rt/cnflt_except/mf/Core/C/2.0.lua",["fullName"]="C/2.0",["loadOrder"]=2,propT={},["status"]="active",["userName"]="C",},},mpathA={"ProjectDIR/rt/cnflt_except/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/cnflt_except/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 3
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load A
+===========================
+false
+===========================
+step 4
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
+===========================
+unset B;
+unset C;
+unset LOADEDMODULES;
+MODULEPATH="ProjectDIR/rt/cnflt_except/mf/Core";
+export MODULEPATH;
+unset _LMFILES_;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/cnflt_except/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/cnflt_except/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 5
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load B
+===========================
+B="1.0";
+export B;
+LOADEDMODULES="B/1.0";
+export LOADEDMODULES;
+MODULEPATH="ProjectDIR/rt/cnflt_except/mf/Core";
+export MODULEPATH;
+_LMFILES_="ProjectDIR/rt/cnflt_except/mf/Core/B/1.0.lua";
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={B={["fn"]="ProjectDIR/rt/cnflt_except/mf/Core/B/1.0.lua",["fullName"]="B/1.0",["loadOrder"]=1,propT={},["status"]="active",["userName"]="B",},},mpathA={"ProjectDIR/rt/cnflt_except/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/cnflt_except/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 6
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load A
+===========================
+false
+===========================
+step 7
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
+===========================
+unset B;
+unset LOADEDMODULES;
+MODULEPATH="ProjectDIR/rt/cnflt_except/mf/Core";
+export MODULEPATH;
+unset _LMFILES_;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/cnflt_except/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/cnflt_except/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 8
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load miniconda
+===========================
+LOADEDMODULES="miniconda/1.0";
+export LOADEDMODULES;
+MODULEPATH="ProjectDIR/rt/cnflt_except/mf/Core";
+export MODULEPATH;
+_LMFILES_="ProjectDIR/rt/cnflt_except/mf/Core/miniconda/1.0.lua";
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={miniconda={["fn"]="ProjectDIR/rt/cnflt_except/mf/Core/miniconda/1.0.lua",["fullName"]="miniconda/1.0",["loadOrder"]=1,propT={},["status"]="active",["userName"]="miniconda",},},mpathA={"ProjectDIR/rt/cnflt_except/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/cnflt_except/mf/Core",}';
+export _ModuleTable_;
+miniconda="1.0";
+export miniconda;
+===========================
+step 9
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load A
+===========================
+LOADEDMODULES="miniconda/1.0:A/1.0";
+export LOADEDMODULES;
+MODULEPATH="ProjectDIR/rt/cnflt_except/mf/Core";
+export MODULEPATH;
+_LMFILES_="ProjectDIR/rt/cnflt_except/mf/Core/miniconda/1.0.lua:ProjectDIR/rt/cnflt_except/mf/Core/A/1.0.lua";
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={A={["fn"]="ProjectDIR/rt/cnflt_except/mf/Core/A/1.0.lua",["fullName"]="A/1.0",["loadOrder"]=2,propT={},["status"]="active",["userName"]="A",},miniconda={["fn"]="ProjectDIR/rt/cnflt_except/mf/Core/miniconda/1.0.lua",["fullName"]="miniconda/1.0",["loadOrder"]=1,propT={},["status"]="active",["userName"]="miniconda",},},mpathA={"ProjectDIR/rt/cnflt_except/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/cnflt_except/mf/Core",}';
+export _ModuleTable_;
