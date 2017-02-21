@@ -176,7 +176,7 @@ function main()
    for j = 1,#pargs do
       local s = pargs[j]
       for path in s:split(':') do
-         valueA[j] = cleanPath(path)
+         valueA[#valueA+1] = cleanPath(path)
       end
    end
 
