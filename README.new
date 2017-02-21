@@ -32,4 +32,4 @@ Lmod 7.3+
     (7.3.19) Fix bug where addto a:b:c failed to work correctly.
     	     Added string:split and string:escape to sandbox.
 	     Added loaded_modules() function to report a list of loaded modules.
-    (7.3.20) Fix bug introduced by 7.3.18 where conflict("unknown") failed.
+             Fix bug introduced by 7.3.18 where conflict("unknown") failed.
