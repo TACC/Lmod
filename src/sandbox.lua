@@ -48,6 +48,7 @@ require("strict")
 require("fileOps")
 require("capture")
 require("modfuncs")
+require("string_utils")
 require("utils")
 _G._DEBUG   = false               -- Required by the new lua posix
 local posix = require("posix")
@@ -73,7 +74,7 @@ sandbox_env = {
                format = string.format, gmatch = string.gmatch, gsub = string.gsub,
                len = string.len, lower = string.lower, match = string.match,
                rep = string.rep, reverse = string.reverse, sub = string.sub,
-               upper = string.upper },
+               upper = string.upper, split = string.split, escape = string.escape},
   table    = { insert = table.insert, remove = table.remove, sort = table.sort,
                concat = table.concat, unpack = table.unpack, sqrt = math.sqrt,
                tan = math.tan, tanh = math.tanh },
