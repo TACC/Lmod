@@ -67,6 +67,18 @@ AC_ARG_WITH(colorize,
     COLORIZE="$withval"
     AC_DEFINE_UNQUOTED(COLORIZE, "$withval"))dnl
 
+AC_SUBST(HIDDEN_ITALIC)
+AC_ARG_WITH(hiddenItalic,
+    AC_HELP_STRING([--with-hiddenItalic=ans],[Use italic for hidden module instead of faint[[no]]]),
+    HIDDEN_ITALIC="$withval"
+    AC_MSG_RESULT([HIDDEN_ITALIC=$with_hiddenItalic])
+    AC_DEFINE_UNQUOTED(HIDDEN_ITALIC, "$with_hiddenItalic")dnl
+    ,
+    withval="no"
+    AC_MSG_RESULT([HIDDEN_ITALIC=$withval])
+    HIDDEN_ITALIC="$withval"
+    AC_DEFINE_UNQUOTED(HIDDEN_ITALIC, "$withval"))dnl
+
 AC_SUBST(EXACT_MATCH)
 AC_ARG_WITH(exactMatch,
     AC_HELP_STRING([--with-exactMatch=ans],[require exact match, disable defaults [[no]]]),

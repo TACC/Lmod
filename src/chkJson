@@ -119,6 +119,7 @@ function main()
       dupPaths     = { rule = "match", value = "no"},
       exactMatch   = { rule = "match", value = "no"},
       expMCmd      = { rule = "match", value = "yes"},
+      hiddenItalic = { rule = "match", value = "no"},
       lang         = { rule = "match", value = "en"},
       lang_site    = { rule = "match", value = "<empty>"},
       ld_lib_path  = { rule = "match", value = "<empty>"},

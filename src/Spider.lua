@@ -402,7 +402,7 @@ end
 local function l_build_mpathParentT(mpathMapT)
    local mpathParentT = {}
    for mpath, vv in pairs(mpathMapT) do
-      a = mpathParentT[mpath] or {}
+      local a = mpathParentT[mpath] or {}
       for k, v in pairs(vv) do
          local found = false
          for i = 1,#a do

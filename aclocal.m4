@@ -21,43 +21,45 @@ fi
 echo
 echo '----------------------------------- SUMMARY ----------------------------------'
 echo
-echo "Package version............................." : Lmod-$LmodV
-echo "Package version (git) ......................" : $lmodV
-echo
-echo "LUA_INCLUDE................................." : $LUA_INCLUDE
-echo "Lua executable.............................." : $luaprog
-echo "Luac executable............................." : $PATH_TO_LUAC
-echo "Prefix......................................" : $prefix
-echo "Actual Install dir.........................." : $prefix/lmod/$LmodV
-echo
-echo "MODULEPATH_ROOT............................." : $MODULEPATH_ROOT
-echo "Wait (s) before rebuilding cache............" : $ANCIENT
-echo "Allow Duplicate Paths......................." : $DUPLICATE_PATHS
-echo "Do not save Cache if build time < .........." : $SHORT_TIME
-echo "SPIDER_CACHE_DIRS..........................." : $SPIDER_CACHE_DIRS
-echo "Prepending multiple dirs (NORMAL / REVERSED)" : $PREPEND_BLOCK
-echo "Colorized output supported.................." : $COLORIZE
-echo "File that is touched when system is updated." : $UPDATE_SYSTEM_FN
-echo "Allow duplicate entry in PATHs.............." : $DUPLICATE_PATHS
-echo "Allow tcl modulefiles......................." : $ALLOW_TCL_MFILES
-echo "ZSH Tab Completion Functions Site Directory." : $ZSH_SITE_FUNCTIONS_DIRS
-echo "Use Dot files in ~/.lmod.d.................." : $USE_DOT_FILES
-echo "Full Settarg support........................" : $SETTARG
-echo "Have lua-term..............................." : $HAVE_LUA_TERM
-echo "Have lua-json..............................." : $HAVE_LUA_JSON
-echo "Support Auto Swap when using families......." : $AUTO_SWAP
-echo "Export the module shell function in Bash...." : $EXPORT_MODULE
-echo "Disable same name autoswapping.............." : $DISABLE_NAME_AUTOSWAP
-echo "Use Spider Cache on Loads..................." : $CACHED_LOADS
-echo "Pager used inside Lmod......................" : $PATH_TO_PAGER
-echo "System LD_PRELOAD..........................." : $SYS_LD_PRELOAD
-echo "System LD_LIBRARY_PATH......................" : $SYS_LD_LIB_PATH
-echo "Hashsum program used........................" : $PATH_TO_HASHSUM
-echo "Site Name..................................." : $SITE_NAME
-echo "SYSHOST....................................." : $SYSHOST
-echo "Site Message file..........................." : $SITE_MSG_FILE
-echo 'Override $LANG Language for error etc.......' : $LMOD_OVERRIDE_LANG
-echo "Which LuaFileSystem is being used..........." : $LFS_STATUS
+echo "Package version.................................." : Lmod-$LmodV
+echo "Package version (git) ..........................." : $lmodV
+echo						  
+echo "LUA_INCLUDE......................................" : $LUA_INCLUDE
+echo "Lua executable..................................." : $luaprog
+echo "Luac executable.................................." : $PATH_TO_LUAC
+echo "Prefix..........................................." : $prefix
+echo "Actual Install dir..............................." : $prefix/lmod/$LmodV
+echo						  
+echo "MODULEPATH_ROOT.................................." : $MODULEPATH_ROOT
+echo "Wait (s) before rebuilding cache................." : $ANCIENT
+echo "Allow Duplicate Paths............................" : $DUPLICATE_PATHS
+echo "Do not save Cache if build time < ..............." : $SHORT_TIME
+echo "SPIDER_CACHE_DIRS................................" : $SPIDER_CACHE_DIRS
+echo "Prepending multiple dirs (NORMAL / REVERSED)....." : $PREPEND_BLOCK
+echo "Colorized output supported......................." : $COLORIZE
+echo "File that is touched when system is updated......" : $UPDATE_SYSTEM_FN
+echo "Allow duplicate entry in PATHs..................." : $DUPLICATE_PATHS
+echo "Allow tcl modulefiles............................" : $ALLOW_TCL_MFILES
+echo "ZSH Tab Completion Functions Site Directory......" : $ZSH_SITE_FUNCTIONS_DIRS
+echo "Use Dot files in ~/.lmod.d......................." : $USE_DOT_FILES
+echo "Full Settarg support............................." : $SETTARG
+echo "Have lua-term...................................." : $HAVE_LUA_TERM
+echo "Have lua-json...................................." : $HAVE_LUA_JSON
+echo "Support Auto Swap when using families............" : $AUTO_SWAP
+echo "Export the module shell function in Bash........." : $EXPORT_MODULE
+echo "Disable same name autoswapping..................." : $DISABLE_NAME_AUTOSWAP
+echo "Use Spider Cache on Loads........................" : $CACHED_LOADS
+echo "Pager used inside Lmod..........................." : $PATH_TO_PAGER
+echo "System LD_PRELOAD................................" : $SYS_LD_PRELOAD
+echo "System LD_LIBRARY_PATH..........................." : $SYS_LD_LIB_PATH
+echo "Hashsum program used............................." : $PATH_TO_HASHSUM
+echo "Site Name........................................" : $SITE_NAME
+echo "SYSHOST.........................................." : $SYSHOST
+echo "Site Message file................................" : $SITE_MSG_FILE
+echo 'Override $LANG Language for error etc............' : $LMOD_OVERRIDE_LANG
+echo "Which LuaFileSystem is being used................" : $LFS_STATUS
+echo 'Use italic instead of faint for hidden modules...' : $HIDDEN_ITALIC
+
 
 echo
 echo '------------------------------------------------------------------------------'

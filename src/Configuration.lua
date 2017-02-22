@@ -132,6 +132,7 @@ local function new(self)
    local uname             = capture("uname -a")
    local adminFn, readable = findAdminFn()
    local activeTerm        = haveTermSupport() and "true" or colorize("red","false")
+   local hiddenItalic      = cosmic:value("LMOD_HIDDEN_ITALIC")
    local lfsV              = cosmic:value("LFS_VERSION")
    local lmod_lang         = cosmic:value("LMOD_LANG")
    local site_msg_file     = cosmic:value("LMOD_SITE_MSG_FILE") or "<empty>"
@@ -178,51 +179,52 @@ local function new(self)
 
 
    local tbl = {}
-   tbl.allowTCL    = { k = "Allow TCL modulefiles"             , v = allow_tcl_mfiles, }
-   tbl.autoSwap    = { k = "Auto swapping"                     , v = auto_swap,        }
-   tbl.case        = { k = "Case Independent Sorting"          , v = case_ind_sorting, }
-   tbl.colorize    = { k = "Colorize Lmod"                     , v = lmod_colorize,    }
-   tbl.disable1N   = { k = "Disable Same Name AutoSwap"        , v = disable1N,        }
-   tbl.dot_files   = { k = "Using dotfiles"                    , v = using_dotfiles,   }
-   tbl.dupPaths    = { k = "Allow duplicate paths"             , v = duplicate_paths,  }
-   tbl.exactMatch  = { k = "Require Exact Match/no defaults"   , v = exactMatch,       }
-   tbl.expMCmd     = { k = "Export the module command"         , v = export_module,    }
-   tbl.lang        = { k = "Language used for err/msg/warn"    , v = lmod_lang,        }
-   tbl.lang_site   = { k = "Site message file"                 , v = site_msg_file,    }
-   tbl.ld_preload  = { k = "LD_PRELOAD at config time"         , v = ld_preload,       }
-   tbl.ld_lib_path = { k = "LD_LIBRARY_PATH at config time"    , v = ld_lib_path,      }
-   tbl.lfsV        = { k = "LuaFileSystem version"             , v = lfsV,             }
-   tbl.lmodV       = { k = "Lmod version"                      , v = lmod_version,     }
-   tbl.luaV        = { k = "Lua Version"                       , v = _VERSION,         }
-   tbl.lua_json    = { k = "System lua_json"                   , v = have_json,        }
-   tbl.lua_term    = { k = "System lua-term"                   , v = have_term,        }
-   tbl.lua_term_A  = { k = "Active lua-term"                   , v = activeTerm,       }
-   tbl.mpath_av    = { k = "avail: Include modulepath dir"     , v = mpath_avail,      }
-   tbl.mpath_root  = { k = "MODULEPATH_ROOT"                   , v = mpath_root,       }
-   tbl.modRC       = { k = "MODULERCFILE"                      , v = rc,               }
-   tbl.numSC       = { k = "number of cache dirs"              , v = numSC,            }
-   tbl.pager       = { k = "Pager"                             , v = pager,            }
-   tbl.pager_opts  = { k = "Pager Options"                     , v = pager_opts,       }
-   tbl.path_hash   = { k = "Path to HashSum"                   , v = hashsum_path,     }
-   tbl.path_lua    = { k = "Path to Lua"                       , v = lua_path,         }
-   tbl.pin_v       = { k = "Pin Versions in restore"           , v = pin_versions,     }
-   tbl.pkg         = { k = "Pkg Class name"                    , v = pkgName,          }
-   tbl.prefix      = { k = "Lmod prefix"                       , v = "@PREFIX@",       }
-   tbl.prpnd_blk   = { k = "Prepend order"                     , v = prepend_block,    }
-   tbl.settarg     = { k = "Supporting Full Settarg Use"       , v = settarg_support,  }
-   tbl.sitePkg     = { k = "Site Pkg location"                 , v = locSitePkg,       }
-   tbl.siteName    = { k = "Site Name"                         , v = site_name,        }
-   tbl.spdr_ignore = { k = "Ignore Cache"                      , v = ignore_cache,     }
-   tbl.spdr_loads  = { k = "Cached loads"                      , v = cached_loads,     }
-   tbl.sysName     = { k = "System Name"                       , v = system_name,      }
-   tbl.syshost     = { k = "SYSHOST (cluster name)"            , v = syshost,          }
-   tbl.tm_ancient  = { k = "User cache valid time(sec)"        , v = ancient,          }
-   tbl.tm_short    = { k = "Write cache after (sec)"           , v = shortTime,        }
-   tbl.tm_threshold= { k = "Threshold (sec)"                   , v = threshold,        }
-   tbl.tmod_rule   = { k = "Tmod prepend PATH Rule"            , v = tmod_rule,        }
-   tbl.uname       = { k = "uname -a"                          , v = uname,            }
-   tbl.z01_admin   = { k = "Admin file"                        , v = adminFn,          }
-   tbl.redirect    = { k = "Redirect to stdout"                , v = redirect,         }
+   tbl.allowTCL     = { k = "Allow TCL modulefiles"             , v = allow_tcl_mfiles, }
+   tbl.autoSwap     = { k = "Auto swapping"                     , v = auto_swap,        }
+   tbl.case         = { k = "Case Independent Sorting"          , v = case_ind_sorting, }
+   tbl.colorize     = { k = "Colorize Lmod"                     , v = lmod_colorize,    }
+   tbl.disable1N    = { k = "Disable Same Name AutoSwap"        , v = disable1N,        }
+   tbl.dot_files    = { k = "Using dotfiles"                    , v = using_dotfiles,   }
+   tbl.dupPaths     = { k = "Allow duplicate paths"             , v = duplicate_paths,  }
+   tbl.exactMatch   = { k = "Require Exact Match/no defaults"   , v = exactMatch,       }
+   tbl.expMCmd      = { k = "Export the module command"         , v = export_module,    }
+   tbl.hiddenItalic = { k = "Use italic instead of dim"         , v = hiddenItalic,     }
+   tbl.lang         = { k = "Language used for err/msg/warn"    , v = lmod_lang,        }
+   tbl.lang_site    = { k = "Site message file"                 , v = site_msg_file,    }
+   tbl.ld_preload   = { k = "LD_PRELOAD at config time"         , v = ld_preload,       }
+   tbl.ld_lib_path  = { k = "LD_LIBRARY_PATH at config time"    , v = ld_lib_path,      }
+   tbl.lfsV         = { k = "LuaFileSystem version"             , v = lfsV,             }
+   tbl.lmodV        = { k = "Lmod version"                      , v = lmod_version,     }
+   tbl.luaV         = { k = "Lua Version"                       , v = _VERSION,         }
+   tbl.lua_json     = { k = "System lua_json"                   , v = have_json,        }
+   tbl.lua_term     = { k = "System lua-term"                   , v = have_term,        }
+   tbl.lua_term_A   = { k = "Active lua-term"                   , v = activeTerm,       }
+   tbl.mpath_av     = { k = "avail: Include modulepath dir"     , v = mpath_avail,      }
+   tbl.mpath_root   = { k = "MODULEPATH_ROOT"                   , v = mpath_root,       }
+   tbl.modRC        = { k = "MODULERCFILE"                      , v = rc,               }
+   tbl.numSC        = { k = "number of cache dirs"              , v = numSC,            }
+   tbl.pager        = { k = "Pager"                             , v = pager,            }
+   tbl.pager_opts   = { k = "Pager Options"                     , v = pager_opts,       }
+   tbl.path_hash    = { k = "Path to HashSum"                   , v = hashsum_path,     }
+   tbl.path_lua     = { k = "Path to Lua"                       , v = lua_path,         }
+   tbl.pin_v        = { k = "Pin Versions in restore"           , v = pin_versions,     }
+   tbl.pkg          = { k = "Pkg Class name"                    , v = pkgName,          }
+   tbl.prefix       = { k = "Lmod prefix"                       , v = "@PREFIX@",       }
+   tbl.prpnd_blk    = { k = "Prepend order"                     , v = prepend_block,    }
+   tbl.settarg      = { k = "Supporting Full Settarg Use"       , v = settarg_support,  }
+   tbl.sitePkg      = { k = "Site Pkg location"                 , v = locSitePkg,       }
+   tbl.siteName     = { k = "Site Name"                         , v = site_name,        }
+   tbl.spdr_ignore  = { k = "Ignore Cache"                      , v = ignore_cache,     }
+   tbl.spdr_loads   = { k = "Cached loads"                      , v = cached_loads,     }
+   tbl.sysName      = { k = "System Name"                       , v = system_name,      }
+   tbl.syshost      = { k = "SYSHOST (cluster name)"            , v = syshost,          }
+   tbl.tm_ancient   = { k = "User cache valid time(sec)"        , v = ancient,          }
+   tbl.tm_short     = { k = "Write cache after (sec)"           , v = shortTime,        }
+   tbl.tm_threshold = { k = "Threshold (sec)"                   , v = threshold,        }
+   tbl.tmod_rule    = { k = "Tmod prepend PATH Rule"            , v = tmod_rule,        }
+   tbl.uname        = { k = "uname -a"                          , v = uname,            }
+   tbl.z01_admin    = { k = "Admin file"                        , v = adminFn,          }
+   tbl.redirect     = { k = "Redirect to stdout"                , v = redirect,         }
 
    o.tbl = tbl
    return o

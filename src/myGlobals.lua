@@ -538,6 +538,13 @@ cosmic:init{name    = "LMOD_MAXDEPTH",
             default = ""}
 
 ------------------------------------------------------------------------
+-- LMOD_HIDDEN_ITALIC - Use italic instead of DIM for hidden modules
+------------------------------------------------------------------------
+cosmic:init{name = "LMOD_HIDDEN_ITALIC",
+            sedV = "@LMOD_HIDDEN_ITALIC@",
+            yn   = "no"}
+
+------------------------------------------------------------------------
 -- GIT_VERSION: The exact git version of Lmod
 ------------------------------------------------------------------------
 

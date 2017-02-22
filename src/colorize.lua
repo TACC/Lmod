@@ -58,7 +58,7 @@ local colorT = {
 local cosmic    = require("Cosmic"):singleton()
 local concatTbl = table.concat
 local s_colorize_kind = "unknown"
-
+local hiddenItalic    = cosmic:value("LMOD_HIDDEN_ITALIC")
 ------------------------------------------------------------------------
 -- Takes an array of strings and wraps the ANSI color start and
 -- stop and produces a single string.
@@ -71,7 +71,7 @@ function full_colorize(color, ... )
 
    local a = {}
    if (color == "hidden") then
-      a[#a+1] = "\027".."[3m"
+      a[#a+1] = (hiddenItalic == "yes") and "\027".."[3m" or "\027".."[2m"
       for i = 1, arg.n do
          a[#a+1] = arg[i]
       end
