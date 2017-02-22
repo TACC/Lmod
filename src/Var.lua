@@ -360,11 +360,13 @@ end
 -- @param self A Var object
 -- @param value the value to set.
 function M.set(self,value)
+   local adding = true
    if (not value) then value = false end
    self.value = value
    self.type  = 'var'
    if (not value) then value = nil end
    setenv_posix(self.name, value, true)
+   chkMP(self.name, value, adding)
 end
 
 --------------------------------------------------------------------------
@@ -421,9 +423,11 @@ end
 -- Unset the environment variable.
 -- @param self A Var object
 function M.unset(self)
+   local adding = false
    self.value = false
    self.type  = 'var'
    setenv_posix(self.name, nil, true)
+   chkMP(self.name, nil, adding)
 end
 
 --------------------------------------------------------------------------

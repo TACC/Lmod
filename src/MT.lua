@@ -635,6 +635,8 @@ function M.updateMPathA(self, value)
       self.mpathA = path2pathA(value)
    elseif (type(value) == "table") then
       self.mpathA = value
+   elseif (type(value) == "nil") then
+      self.mpathA = path2pathA("")
    end
 end
 
