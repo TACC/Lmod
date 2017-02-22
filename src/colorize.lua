@@ -71,7 +71,7 @@ function full_colorize(color, ... )
 
    local a = {}
    if (color == "hidden") then
-      a[#a+1] = "\027".."[2m"
+      a[#a+1] = "\027".."[3m"
       for i = 1, arg.n do
          a[#a+1] = arg[i]
       end
