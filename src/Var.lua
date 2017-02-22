@@ -156,6 +156,7 @@ end
 -- @param value The value assigned to the variable.
 -- @param sep The separator character.  (By default it is ":")
 function M.new(self, name, value, sep)
+   local adding = true
    local o = {}
    setmetatable(o,self)
    self.__index = self
@@ -165,6 +166,7 @@ function M.new(self, name, value, sep)
    extract(o)
    if (not value) then value = nil end
    setenv_posix(name, value, true)
+   chkMP(name, value, adding)
    return o
 end
 
@@ -360,11 +362,13 @@ end
 -- @param self A Var object
 -- @param value the value to set.
 function M.set(self,value)
+   local adding = true
    if (not value) then value = false end
    self.value = value
    self.type  = 'var'
    if (not value) then value = nil end
    setenv_posix(self.name, value, true)
+   chkMP(self.name, value, adding)
 end
 
 --------------------------------------------------------------------------
@@ -421,9 +425,13 @@ end
 -- Unset the environment variable.
 -- @param self A Var object
 function M.unset(self)
+   local adding = false
    self.value = false
    self.type  = 'var'
    setenv_posix(self.name, nil, true)
+   -- An empty string is passed so updateMPathA (inside chkMP) updates the
+   -- internal structures correctly (nil would be ignored)
+   chkMP(self.name, "", adding)
 end
 
 --------------------------------------------------------------------------
