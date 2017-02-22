@@ -33,3 +33,5 @@ Lmod 7.3+
     	     Added string:split and string:escape to sandbox.
 	     Added loaded_modules() function to report a list of loaded modules.
              Fix bug introduced by 7.3.18 where conflict("unknown") failed.
+    (7.3.20) Support for using italic instead of dim for hidden modules.
+    
