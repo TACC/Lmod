@@ -156,7 +156,6 @@ end
 -- @param value The value assigned to the variable.
 -- @param sep The separator character.  (By default it is ":")
 function M.new(self, name, value, sep)
-   local adding = true
    local o = {}
    setmetatable(o,self)
    self.__index = self
