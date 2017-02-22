@@ -166,7 +166,6 @@ function M.new(self, name, value, sep)
    extract(o)
    if (not value) then value = nil end
    setenv_posix(name, value, true)
-   chkMP(name, value, adding)
    return o
 end
 
@@ -429,9 +428,7 @@ function M.unset(self)
    self.value = false
    self.type  = 'var'
    setenv_posix(self.name, nil, true)
-   -- An empty string is passed so updateMPathA (inside chkMP) updates the
-   -- internal structures correctly (nil would be ignored)
-   chkMP(self.name, "", adding)
+   chkMP(self.name, nil, adding)
 end
 
 --------------------------------------------------------------------------
