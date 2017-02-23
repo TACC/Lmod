@@ -34,4 +34,5 @@ Lmod 7.3+
 	     Added loaded_modules() function to report a list of loaded modules.
              Fix bug introduced by 7.3.18 where conflict("unknown") failed.
     (7.3.20) Support for using italic instead of dim for hidden modules.
-    
+             Spider now only reports modules that can be walked from the current MODULEPATH (issue #234)
+             
