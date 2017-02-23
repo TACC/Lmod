@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 7.3  2017-01-11 11:14 -06:00
+Modules based on Lua: Version 7.3.19  2017-02-21 14:45 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -391,3 +391,19 @@ where "Foo" is the name of a module.
 To find detailed information about a particular package you
 must specify the version if there is more than one version:
    $ module spider Foo/11.1
+===========================
+step 30
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider GCC
+===========================
+  GCC: GCC/6.3.0
+     Other possible modules matches:
+        GCCcore
+    This module can be loaded directly: module load GCC/6.3.0
+  To find other possible module matches execute:
+      $ module -r spider '.*GCC.*'
+===========================
+step 31
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider gcc
+===========================
+  GCC: GCC/6.3.0
+    This module can be loaded directly: module load GCC/6.3.0

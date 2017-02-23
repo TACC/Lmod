@@ -739,6 +739,11 @@ function M.spiderSearch(self, dbT, userSearchPat, helpFlg)
          end
       end
    end
+   if (#a < 1) then
+      LmodError{msg="e_No_Matching_Mods"}
+      dbg.fini("Spider:spiderSearch")
+   end
+
    dbg.fini("Spider:spiderSearch")
    return concatTbl(a,"")
 end   
@@ -806,8 +811,6 @@ function M._Level1(self, dbT, possibleA, sn, key, helpFlg)
    end
       
    if (key == nil) then
-      LmodError{msg="e_No_Matching_Mods"}
-      dbg.fini("Spider:_Level1")
       return 
    end
 
