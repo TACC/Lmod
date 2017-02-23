@@ -365,6 +365,8 @@ function M.set(self,value)
    self.type  = 'var'
    if (not value) then value = nil end
    setenv_posix(self.name, value, true)
+   local adding = true
+   chkMP(self.name, value, adding)
 end
 
 --------------------------------------------------------------------------
@@ -414,6 +416,8 @@ function M.pop(self)
    --end
    if (not v) then v = nil end
    setenv_posix(self.name, v, true)
+   local adding = false
+   chkMP(self.name, v, adding)
    return result
 end
 
@@ -424,6 +428,8 @@ function M.unset(self)
    self.value = false
    self.type  = 'var'
    setenv_posix(self.name, nil, true)
+   local adding = false
+   chkMP(self.name, nil, adding)
 end
 
 --------------------------------------------------------------------------
