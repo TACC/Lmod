@@ -417,12 +417,44 @@ local function l_build_mpathParentT(mpathMapT)
       end
       mpathParentT[mpath]  = a
    end
+   return mpathParentT
+end
+
+-- mpathParentT = {
+--    ["%ProjDir%/Compiler/gcc/5.9"]         = { "%ProjDir%/Core", "%ProjDir%/Core2"},
+--    ["%ProjDir%/MPI/gcc/5.9/mpich/17.200"] = { "%ProjDir%/Compiler/gcc/5.9"},
+-- }
+
+
+local function l_search_mpathParentT(mpath, keepT, mpathParentT)
+   local a = mpathParentT[mpath]
+   if (not a) then
+      return false
+   end
+   
+   local found = false
+   for i = 1,#a do
+      mpath = a[i]
+      if (keepT[mpath] or l_search_mpathParentT(mpath, keepT, mpathParentT)) then
+         return true
+      end
+   end
+   return false
 end
 
 local function l_build_keepT(mpathA, mpathParentT, spiderT)
    local keepT = {}
+   for i = 1,#mpathA do
+      keepT[mpathA[i]] = true
+   end
 
-
+   for mpath, vv in pairs(spiderT) do
+      if (mpath ~= 'version') then
+         if (not keepT[mpath] and l_search_mpathParentT(mpath, keepT, mpathParentT)) then
+            keepT[mpath] = true
+         end
+      end
+   end
 
    return keepT
 end
@@ -466,6 +498,12 @@ function M.buildDbT(self, mpathA, mpathMapT, spiderT, dbT)
    local mpathParentT = l_build_mpathParentT(mpathMapT)
    local keepT        = l_build_keepT(mpathA, mpathParentT, spiderT)
 
+   dbg.printT("mpathA",      mpathA)
+   dbg.printT("mpathMapT",   mpathMapT)
+   dbg.printT("mpathParentT",mpathParentT)
+   dbg.printT("keepT",       keepT)
+
+
    if (next(spiderT) == nil) then
       dbg.print{"empty spiderT\n"}
       dbg.fini("Spider:buildDbT")
@@ -473,7 +511,7 @@ function M.buildDbT(self, mpathA, mpathMapT, spiderT, dbT)
    end
 
    for mpath, vv in pairs(spiderT) do
-      if (mpath ~= 'version') then
+      if (mpath ~= 'version' and keepT[mpath]) then
          for sn, v in pairs(vv) do
             local T = dbT[sn] or {}
             buildDbT_helper(mpath, sn, v, T)

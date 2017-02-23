@@ -38,10 +38,7 @@ export _ModuleTable_;
 step 6
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider inaccessible
 ===========================
-MODULEPATH="ProjectDIR/rt/inaccessible/mf/Core";
-export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/inaccessible/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/inaccessible/mf/Core",}';
-export _ModuleTable_;
+false
 ===========================
 step 7
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load extend

@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 7.3.18  2017-02-20 13:48 -06:00
+Modules based on Lua: Version 7.3.19  2017-02-21 14:45 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -37,12 +37,12 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing unuse ProjectDIR/rt/ina
 step 6
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider inaccessible
 ===========================
-  inaccessible: inaccessible/1.0
-    You will need to load all module(s) on any one of the lines below before the "inaccessible/1.0" module is available to load.
-      extend/1.0
+Lmod has detected the following error: Unable to find: "inaccessible".
 ===========================
 step 7
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load extend
 ===========================
-Lmod has detected the following error: These module(s) exist but cannot be loaded as requested: "extend"
-   Try: "module spider extend" to see how to load the module(s).
+Lmod has detected the following error: The following module(s) are unknown: "extend"
+Please check the spelling or version number. Also try "module spider ..."
+It is also possible your cache file is out-of-date; it may help to try:
+  $ module --ignore-cache load "extend"

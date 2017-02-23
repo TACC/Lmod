@@ -1,0 +1,55 @@
+Notes for talk at LCI 2017 at UWYO
+
+* What is Lmod?
+
+* Features
+** Reads TCL and Lua modulefiles
+** One name rule 
+** Supports a Software Hierarchy
+** Fast module avail via spider cache.
+** Properties (gpu, mic, beta, etc)
+** Semantic Versioning:  5.6 is older than 5.10
+** family(``compiler'') family(``mpi'') support
+** Optional module usage tracking available
+** Collections
+** tab completion for Bash and Zsh
+** Many other features: ml, hooks, pushenv, sticky modules, ...
+
+
+* What are the  difference between Lmod and Tmod?
+
+* What is new with Lmod 7?
+** Support for Name-Version-Version
+** Support for hidden modules
+** Support for Translations
+
+* NVV
+
+* Marking Defaults for sites and users with MODULERC
+
+* Hidden Modules
+
+* Why does Lmod work at all?
+
+* Why is this important?
+** It is a very useful trick to know.
+** Debugging modulefiles:
+** $ $LMOD_CMD bash load <module> 2> /dev/null > stdout.txt
+
+* Debugging the internal behavior of Lmod
+** module --config  => report Lmod configuation
+** module -D load foo 2> load.log
+
+* Site customization
+** SitePackage.lua and Hooks
+** Can place common site functions for local modulefiles
+** Hooks allow sites to change Lmod behavior
+** E.G. tracking module usage via the load hook.
+
+* Conclusions: Lmod 7+
+** Latest version: https://github.com:TACC/Lmod.git
+** Stable version: http://lmod.sf.net
+** Documentation:  http://lmod.readthedocs.org
+** Mailing list:   Go to https://lists.sourceforge.net/lists/listinfo/lmod-users to join.
+
+
