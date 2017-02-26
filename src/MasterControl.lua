@@ -772,6 +772,35 @@ function M.load_usr(self, mA)
 end
 
 
+function M.include(mA)
+   if (dbg.active()) then
+      local s = mAList(mA)
+      dbg.start{"MasterControl:include(mA={"..s.."})"}
+   end
+
+   local master = Master:singleton()
+   local inc    = true
+   local a      = master:load(mA, inc)
+
+   dbg.fini("MasterControl:include")
+   return a
+end
+
+function M.exclude(mA)
+   if (dbg.active()) then
+      local s = mAList(mA)
+      dbg.start{"MasterControl:exclude(mA={"..s.."})"}
+   end
+
+   local master = Master:singleton()
+   local inc    = true
+   local a      = master:unload(mA, inc)
+
+   dbg.fini("MasterControl:exclude")
+   return a
+end
+
+
 --------------------------------------------------------------------------
 -- Build a list of user names based on mA.
 -- @param mA List of MName objects
