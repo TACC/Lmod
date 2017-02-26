@@ -177,7 +177,7 @@ function GetDefault(collection)
    collection  = collection or "default"
    dbg.start{"GetDefault(",collection,")"}
 
-   local sname = (not system_name) "" or "." .. system_name
+   local sname = (not system_name) and "" or "." .. system_name
    local path  = pathJoin(os.getenv("HOME"), ".lmod.d", collection .. sname)
    local mt    = FrameStk:singleton():mt()
    mt:getMTfromFile{fn=path, name=collection, }
