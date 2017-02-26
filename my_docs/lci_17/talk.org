@@ -16,6 +16,8 @@ Notes for talk at LCI 2017 at UWYO
 ** Many other features: ml, hooks, pushenv, sticky modules, ...
 
 
+* Talk about the Hierarchy and show an example
+* Talk about bash and interactive shells
 * What are the  difference between Lmod and Tmod?
 
 * What is new with Lmod 7?
@@ -46,10 +48,9 @@ Notes for talk at LCI 2017 at UWYO
 ** Hooks allow sites to change Lmod behavior
 ** E.G. tracking module usage via the load hook.
 
+** Contrib directory
 * Conclusions: Lmod 7+
 ** Latest version: https://github.com:TACC/Lmod.git
 ** Stable version: http://lmod.sf.net
 ** Documentation:  http://lmod.readthedocs.org
 ** Mailing list:   Go to https://lists.sourceforge.net/lists/listinfo/lmod-users to join.
-
-
