@@ -749,19 +749,5 @@ function always_unload(...)
    return b
 end
 
---------------------------------------------------------------------------
--- This function is like a load BUT it isn't stored in the MODULETABLE!
--- This is used for things like GCCcore that gets included in GCC and Intel.
-
-function include(...)
-   dbg.start{"include(",concatTbl({...},", "),")"}
-   if (not validateModules("include",...)) then return {} end
-
-   local b  = mcp:include(MName:buildA("load",...))
-   dbg.fini("include")
-   return b
-end
-
-
 --- Family function ---
 
