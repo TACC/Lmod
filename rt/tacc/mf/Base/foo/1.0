@@ -1,0 +1,9 @@
+#%Module
+if { [ module-info mode load ] } {
+  puts stderr "The next line has a two blank. please don't error out"
+  puts stderr "  "
+  puts stderr "The next line has a single blank. please don't error out"
+  puts stderr " "
+  puts stderr "The next line has a zero blanks. please don't error out"
+  puts stderr ""
+}

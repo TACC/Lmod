@@ -41,6 +41,8 @@ testdescript = {
      runLmod load gatk              #16
      runLmod unload gatk            #17
      runLmod load stir              #18
+     runLmod load foo               #19
+
 
 
      PATH=$ORIGPATH

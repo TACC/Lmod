@@ -295,3 +295,15 @@ _LMFILES_="ProjectDIR/rt/tacc/mf/Base/stir/2.1";
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={stir={["fn"]="ProjectDIR/rt/tacc/mf/Base/stir/2.1",["fullName"]="stir/2.1",["loadOrder"]=1,propT={},["status"]="active",["userName"]="stir",},},mpathA={"ProjectDIR/rt/tacc/mf/Base","ProjectDIR/rt/tacc/mf/TACC",},["systemBaseMPATH"]="ProjectDIR/rt/tacc/mf/TACC",}';
 export _ModuleTable_;
+===========================
+step 19
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load foo
+===========================
+LOADEDMODULES="stir/2.1:foo/1.0";
+export LOADEDMODULES;
+MODULEPATH="ProjectDIR/rt/tacc/mf/Base:ProjectDIR/rt/tacc/mf/TACC";
+export MODULEPATH;
+_LMFILES_="ProjectDIR/rt/tacc/mf/Base/stir/2.1:ProjectDIR/rt/tacc/mf/Base/foo/1.0";
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={foo={["fn"]="ProjectDIR/rt/tacc/mf/Base/foo/1.0",["fullName"]="foo/1.0",["loadOrder"]=2,propT={},["status"]="active",["userName"]="foo",},stir={["fn"]="ProjectDIR/rt/tacc/mf/Base/stir/2.1",["fullName"]="stir/2.1",["loadOrder"]=1,propT={},["status"]="active",["userName"]="stir",},},mpathA={"ProjectDIR/rt/tacc/mf/Base","ProjectDIR/rt/tacc/mf/TACC",},["systemBaseMPATH"]="ProjectDIR/rt/tacc/mf/TACC",}';
+export _ModuleTable_;

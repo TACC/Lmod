@@ -37,4 +37,6 @@ Lmod 7.3+
              Spider now only reports modules that can be walked from the current MODULEPATH (issue #234)
              Fix issue #238.  Lmod now check MODULEPATH changes with setenv, unsetenv, pushenv.
     (7.3.21) Fix bug where the getdefault command did not work because a syntax error.
+             Fix bug where a message with a single blank would fail.
+             
     

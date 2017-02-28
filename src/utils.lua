@@ -136,7 +136,7 @@ function buildMsg(width, ... )
          if (a[#a] == " ") then
             a[#a] = nil
          end
-         local last = a[#a]:sub(-1)
+         local last = (a[#a] or " "):sub(-1)
          if (last ~= '"' and last ~= "\n") then
             a[#a + 1] = " "
          end
