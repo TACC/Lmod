@@ -117,6 +117,6 @@ mod is stir/2.1
 step 19
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load foo
 ===========================
-The next line has a two blanks. please don't error out
-The next line has a single blank. please don't error out
-The next line has a zero blanks. please don't error out
+The next line has a two blanks. Please don't error out.
+The next line has a single blank. Please don't error out.
+The next line has a zero blanks. Please don't error out.
