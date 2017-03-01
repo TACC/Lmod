@@ -8,7 +8,6 @@ Modules based on Lua: Version 7.3.20  2017-02-23 17:30 -06:00
 step 2
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
-MPATH: ProjectDIR/rt/arch_swap/mf/a2/Core:ProjectDIR/rt/arch_swap/mf/Common
 ProjectDIR/rt/arch_swap/mf/a1/Core
    gcc/6.1
 ProjectDIR/rt/arch_swap/mf/Common
