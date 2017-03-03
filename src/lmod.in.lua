@@ -125,7 +125,7 @@ local getenv        = os.getenv
 local i18n          = require("i18n")
 local max           = math.max
 local timer         = require("Timer"):singleton()
-local unpack        = (_VERSION == "Lua 5.1") and unpack or table.unpack
+local unpack        = (_VERSION == "Lua 5.1") and unpack or table.unpack -- luacheck: compat
 
 local s_Usage       = false
 --------------------------------------------------------------------------

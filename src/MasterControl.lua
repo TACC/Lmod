@@ -56,7 +56,7 @@ local encode64     = base64.encode64
 local getenv       = os.getenv
 local hook         = require("Hook")
 local i18n         = require("i18n")
-local pack         = (_VERSION == "Lua 5.1") and argsPack or table.pack
+local pack         = (_VERSION == "Lua 5.1") and argsPack or table.pack -- luacheck: compat
 local remove       = table.remove
 local s_adminT     = {}
 local s_loadT      = {}

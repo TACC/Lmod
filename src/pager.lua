@@ -53,7 +53,7 @@ local function argsPack(...)
    return arg
 end
 
-local pack        = (_VERSION == "Lua 5.1") and argsPack or table.pack
+local pack        = (_VERSION == "Lua 5.1") and argsPack or table.pack -- luacheck: compat
 
 s_pager = false
 

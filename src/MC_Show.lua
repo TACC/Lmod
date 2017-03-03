@@ -43,7 +43,7 @@ require("strict")
 
 
 require("utils")
-local pack          = (_VERSION == "Lua 5.1") and argsPack or table.pack
+local pack          = (_VERSION == "Lua 5.1") and argsPack or table.pack -- luacheck: compat
 local MasterControl = require("MasterControl")
 MC_Show             = inheritsFrom(MasterControl)
 MC_Show.my_name     = "MC_Show"
