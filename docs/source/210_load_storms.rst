@@ -23,12 +23,12 @@ And module C/2.0.lua is::
 
 
 The load() function always loads the requested module file even if
-that modulefile is already loaded.  This means that in the above
-example where no modules are currently loaded.
+that modulefile is already loaded.  
 
 Lmod can report what is happening.  Using the -D debug flag it is
 possible to track what gets loaded::
 
+   $ module purge
    $ module -D load A          2> ~/load_storm.log
    $ grep 'MasterControl:.*load(' ~/load_storm.log
 
@@ -70,5 +70,13 @@ and greping the results as before::
             MasterControl:load(mA={C/2.0}){
                MasterControl:load(mA={D/2.0}){
 
+The above guard statements won't unload the dependent module,
+unloading the A won't unload B, C, or D.  Changing the guard
+statements to the following will allow for loading and unloading::
 
-
+    if (not isloaded("B/2.0") or mode() == "unload") then
+       load("B/2.0")
+    end
+    if (not isloaded("C/2.0") or mode() == "unload") then
+       load("C/2.0")
+    end
