@@ -94,6 +94,7 @@ Advanced Topics
    185_localization
    190_Integration_of_EasyBuild_and_Lmod
    200_avail_custom
+   210_load_storms
 
 Topics yet to be written
 ^^^^^^^^^^^^^^^^^^^^^^^^
