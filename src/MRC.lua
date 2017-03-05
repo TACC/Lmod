@@ -263,8 +263,17 @@ function M.parseModA_for_moduleA(self, name, modA)
          dbg.print{"version: ",entry.version,"\n"}
          defaultV = entry.version
       elseif (entry.kind == "module-alias") then
-         dbg.print{"name: ",entry.name,", mfile: ", entry.mfile,"\n"}
-         self.__alias2modT[entry.name] = entry.mfile
+         local fullName = entry.name
+         if (fullName:sub(1,1) == '/') then
+            fullName = name .. fullName
+         end
+         fullName = self:resolve(fullName)
+         local mfile = entry.mfile
+         if (mfile:sub(1,1) == '/') then
+            mfile = name .. mfile
+         end
+         dbg.print{"fullName: ",fullName,", mfile: ", mfile,"\n"}
+         self.__alias2modT[fullName] = mfile
       elseif (entry.kind == "hide-version") then
          dbg.print{"mfile: ", entry.mfile,"\n"}
          self.__hiddenT[entry.mfile] = true

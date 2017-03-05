@@ -1,4 +1,4 @@
-local unpack = (_VERSION == "Lua 5.1") and unpack or table.unpack
+local unpack = (_VERSION == "Lua 5.1") and unpack or table.unpack -- luacheck: compat
 
 -- matches a string of type %{age}
 local function interpolateValue(string, variables)

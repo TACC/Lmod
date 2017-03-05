@@ -65,7 +65,7 @@ local dbg          = require("Dbg"):dbg()
 local hook         = require("Hook")
 local max          = math.max
 local _concatTbl   = table.concat
-local pack         = (_VERSION == "Lua 5.1") and argsPack or table.pack
+local pack         = (_VERSION == "Lua 5.1") and argsPack or table.pack -- luacheck: compat
 
 --------------------------------------------------------------------------
 -- Special table concat function that knows about strings and numbers.

@@ -40,7 +40,7 @@ require("strict")
 
 Pkg = inheritsFrom(PkgBase)
 
-local unpack = (_VERSION == "Lua 5.1") and unpack or table.unpack
+local unpack = (_VERSION == "Lua 5.1") and unpack or table.unpack -- luacheck: compat
 local dbg    = require("Dbg"):dbg()
 local M      = Pkg
 

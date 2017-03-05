@@ -53,7 +53,7 @@ local encode64     = base64.encode64
 local strfmt       = string.format
 local getenv       = os.getenv
 local huge         = math.huge
-local pack         = (_VERSION == "Lua 5.1") and argsPack   or table.pack
+local pack         = (_VERSION == "Lua 5.1") and argsPack   or table.pack -- luacheck: compat
 local pairsByKeys  = pairsByKeys
 local posix        = require("posix")
 local setenv_posix = posix.setenv
