@@ -6,429 +6,49 @@ Modules based on Lua: Version 7.3.21  2017-02-28 17:05 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider
+===========================
+The following is a list of the modules currently available:
+  boost: boost/1.60.0
+To learn more about a package execute:
+   $ module spider Foo
+where "Foo" is the name of a module.
+To find detailed information about a particular package you
+must specify the version if there is more than one version:
+   $ module spider Foo/11.1
+===========================
+step 3
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider boost/1.60.0
 ===========================
   boost: boost/1.60.0
     You will need to load all module(s) on any one of the lines below before the "boost/1.60.0" module is available to load.
-      GCCcore/6.3
+      GCCcore/.6.3
 ===========================
-step 3
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing -D spider boost/1.60.0
+step 4
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --show_hidden spider
 ===========================
-Description                      Value
-Allow TCL modulefiles            yes
-Auto swapping                    yes
-Case Independent Sorting         no
-Colorize Lmod                    yes
-Disable Same Name AutoSwap       no
-Using dotfiles                   yes
-Allow duplicate paths            no
-Require Exact Match/no defaults  no
-Export the module command        yes
-Use italic instead of dim        no
-Language used for err/msg/warn   en
-Site message file                <empty>
-System lua_json                  no
-System lua-term                  no
-avail: Include modulepath dir    no
-MODULEPATH_ROOT                  ProjectDIR/rt/gccCore/mf
-number of cache dirs             0
-Pager                            less
-Pager Options                    -XqMREF
-Path to HashSum                  /usr/bin/sha1sum
-Path to Lua                      lua
-Pin Versions in restore          no
-Pkg Class name                   Pkg
-Lmod prefix                      @PREFIX@
-Prepend order                    normal
-Redirect to stdout               no
-Supporting Full Settarg Use      no
-Site Name                        <empty>
-Site Pkg location                standard
-Ignore Cache                     no
-Cached loads                     no
-System Name                      <empty>
-SYSHOST (cluster name)           <empty>
-User cache valid time(sec)       86400
-Write cache after (sec)          2
-Threshold (sec)                  1
-Tmod prepend PATH Rule           no
-uname -a
-MODULEPATH_ROOT           ProjectDIR/rt/gccCore/mf
-Active RC file(s):
-ProjectDIR/init/lmodrc.lua
- Lmod Property Table:
-propT = {
-  arch = {
-    displayT = {
-      gpu = {
-        ["color"] = "red",
-        ["doc"] = "built for GPU",
-        ["long"] = "(g)",
-        ["short"] = "(g)",
-      },
-      ["gpu:mic"]  = {
-        ["color"] = "red",
-        ["doc"] = "built natively for MIC and GPU",
-        ["long"] = "(g,m)",
-        ["short"] = "(gm)",
-      },
-      ["gpu:mic:offload"]  = {
-        ["color"] = "red",
-        ["doc"] = "built natively for MIC and GPU and offload to the MIC",
-        ["long"] = "(g,m,o)",
-        ["short"] = "(@)",
-      },
-      mic = {
-        ["color"] = "blue",
-        ["doc"] = "built for host and native MIC",
-        ["long"] = "(m)",
-        ["short"] = "(m)",
-      },
-      ["mic:offload"]  = {
-        ["color"] = "blue",
-        ["doc"] = "built for host, native MIC and offload to the MIC",
-        ["long"] = "(m,o)",
-        ["short"] = "(*)",
-      },
-      offload = {
-        ["color"] = "blue",
-        ["doc"] = "built for offload to the MIC only",
-        ["long"] = "(o)",
-        ["short"] = "(o)",
-      },
-    },
-    validT = {
-      ["gpu"] = 1,
-      ["mic"] = 1,
-      ["offload"] = 1,
-    },
-  },
-  lmod = {
-    displayT = {
-      sticky = {
-        ["color"] = "red",
-        ["doc"] = "Module is Sticky, requires --force to unload or purge",
-        ["long"] = "(S)",
-        ["short"] = "(S)",
-      },
-    },
-    validT = {
-      ["sticky"] = 1,
-    },
-  },
-  state = {
-    displayT = {
-      experimental = {
-        ["color"] = "blue",
-        ["doc"] = "Experimental",
-        ["long"] = "(E)",
-        ["short"] = "(E)",
-      },
-      obsolete = {
-        ["color"] = "red",
-        ["doc"] = "Obsolete",
-        ["long"] = "(O)",
-        ["short"] = "(O)",
-      },
-      testing = {
-        ["color"] = "green",
-        ["doc"] = "Testing",
-        ["long"] = "(T)",
-        ["short"] = "(T)",
-      },
-    },
-    validT = {
-      ["experimental"] = 1,
-      ["obsolete"] = 1,
-      ["testing"] = 1,
-    },
-  },
-  status = {
-    displayT = {
-      active = {
-        ["color"] = "yellow",
-        ["doc"] = "Module is loaded",
-        ["long"] = "(L)",
-        ["short"] = "(L)",
-      },
-    },
-    validT = {
-      ["active"] = 1,
-    },
-  },
-}
-lmod(--regression_testing -D spider boost/1.60.0){
-  Date: Fri Mar  3 20:23:12 2017
-  Hostname: mijo
-  System: Darwin 16.4.0
-  Version: Darwin Kernel Version 16.4.0: Thu Dec 22 22:53:21 PST 2016; root:xnu-3789.41.3~3/RELEASE_X86_64
-  Lmod Version: 7.3.21  2017-02-28 17:05 -06:00
-  package.path: /?.lua;/?/init.lua;ProjectDIR/src/?.lua;ProjectDIR/src/../tools/?.lua;ProjectDIR/src/../tools/?/init.lua;ProjectDIR/src/../shells/?.lua;ProjectDIR/src/?/init.lua;/opt/apps/luarocks/luarocks/share/lua/5.3/?.lua;/opt/apps/luarocks/luarocks/share/lua/5.3/?/init.lua;/opt/apps/luatools/5.3.2/share/lua/5.3/?.lua;/opt/apps/lua/5.3.3.0-rtm/share/lua/5.3/?.lua;/opt/apps/lua/5.3.3.0-rtm/share/lua/5.3/?/init.lua;/opt/apps/lua/5.3.3.0-rtm/lib/lua/5.3/?.lua;/opt/apps/lua/5.3.3.0-rtm/lib/lua/5.3/?/init.lua;./?.lua;./?/init.lua;
-  package.cpath: /../lib/?.so;ProjectDIR/src/../lib/?.so;/opt/apps/luarocks/luarocks/lib/lua/5.3/?.so;/opt/apps/luatools/5.3.2/lib/lua/5.3/?.so;/opt/apps/lua/5.3.3.0-rtm/lib/lua/5.3/?.so;/opt/apps/lua/5.3.3.0-rtm/lib/lua/5.3/loadall.so;./?.so;
-  lmodPath: ''
-  Calling Master:singleton(checkMPATH) w checkMPATH: true
-  Master:singleton(safe: true){
-    s_master: table: 0x7fd49e00bf60, safe: true
-  } Master:singleton
-  shellNm: bash, Shell:name(): bash
-  cmd name: spider
-  SpiderCmd(boost/1.60.0){
-    Cache:cache(){
-      Cache:new(){
-        #scDescriptT: 0
-      } Cache.new
-      s_cache.buildCache: nil
-      FrameStk:new(){
-        MT:singleton(){
-          getMT s: _ModuleTable_={["MTversion"]=3,["c_rebuildTime"]=false,["c_shortTime"]=false,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/gccCore/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/gccCore/mf/Core",}
-          MT new(s,restoreFn:nil){
-            currentMPATH: ProjectDIR/rt/gccCore/mf/Core
-          } MT new
-        } MT:singleton
-      } FrameStk:new
-    } Cache:cache
-    Cache:build(fast=nil){
-      MRC:singleton(){
-        MRC l_build(self,fnA){
-        } MRC l_build
-      } MRC:singleton
-      self.buildCache: true
-      buildFresh: false
-      Cache l_readCacheFile(spiderTFnA){
-        MRC:singleton(){
-        } MRC:singleton
-        #spiderTFnA: 0
-      } Cache l_readCacheFile
-      Cache l_readCacheFile(spiderTFnA){
-        MRC:singleton(){
-        } MRC:singleton
-        #spiderTFnA: 1
-        Did not find: OutputDIR/.lmod.d/.cache/spiderT.x86_64_Darwin.luac_5003
-        Did not find: OutputDIR/.lmod.d/.cache/spiderT.x86_64_Darwin.lua
-        Did not find: OutputDIR/.lmod.d/.cache/spiderT.luac_5003
-        Did not find: OutputDIR/.lmod.d/.cache/spiderT.lua
-        No cache files found
-      } Cache l_readCacheFile
-      rebuilding cache for directory: ProjectDIR/rt/gccCore/mf/Core
-      buildSpiderT: true
-      quiet:    nil, initial:   false
-      prtRbMsg: true, quiet:     false
-      Setting mcp to MC_Load
-      MasterControl:_setMode("spider"){
-      } MasterControl:_setMode
-      Setting mcp to MC_Spider
-      Spider:findAllModules(ProjectDIR/rt/gccCore/mf/Core){
-        ModuleA:__new(){
-          calling DirTree:new()
-          MRC:singleton(){
-          } MRC:singleton
-["dirTree:dirA()"]  = {
-  {
-    dirT = {
-      defaultT = {},
-      dirT = {
-        GCCcore = {
-          defaultT = {},
-          dirT = {},
-          fileT = {
-            ["GCCcore/6.3"]  = {
-              ["canonical"] = "6.3",
-              ["fn"] = "ProjectDIR/rt/gccCore/mf/Core/GCCcore/6.3.lua",
-              ["luaExt"] = 4,
-              ["mpath"] = "ProjectDIR/rt/gccCore/mf/Core",
-            },
-          },
-        },
-      },
-      fileT = {},
-    },
-    ["mpath"] = "ProjectDIR/rt/gccCore/mf/Core",
-  },
-}
-          finish DirTree:new()
-          ModuleA build(){
-            #dirA: 1
-            mpath: ProjectDIR/rt/gccCore/mf/Core
-          } ModuleA build
-["moduleA:"]  = {
-  {
-    T = {
-      GCCcore = {
-        defaultT = {},
-        dirT = {},
-        fileT = {
-          ["GCCcore/6.3"]  = {
-            ["canonical"] = "6.3",
-            ["fn"] = "ProjectDIR/rt/gccCore/mf/Core/GCCcore/6.3.lua",
-            ["luaExt"] = 4,
-            ["mpath"] = "ProjectDIR/rt/gccCore/mf/Core",
-            ["pV"] = "000000006.000000003.*zfinal",
-            ["wV"] = "000000006.000000003.*zfinal",
-          },
-        },
-      },
-    },
-    ["mpath"] = "ProjectDIR/rt/gccCore/mf/Core",
-  },
-}
-        } ModuleA:__new
-        entry: sn: GCCcore, version: 6.3, fn: ProjectDIR/rt/gccCore/mf/Core/GCCcore/6.3.lua
-        loadModuleFile(ProjectDIR/rt/gccCore/mf/Core/GCCcore/6.3.lua){
-          ModuleFile{
-            local name        = myModuleName()
-            local fullVersion = myModuleVersion()
-            local pkgVersion  = fullVersion:match('(%d+%.%d+)%.?')
-            local pkgNameVer  = pathJoin(name,pkgVersion)
-            local mroot       = os.getenv("MODULEPATH_ROOT")
-            prepend_path("MODULEPATH", pathJoin(mroot, "Compiler", pkgNameVer))
-          } ModuleFile
-          prepend_path(MODULEPATH, ProjectDIR/rt/gccCore/mf/Compiler/GCCcore/6.3){
-            MC_Spider:prepend_path(t){
-              prepend("MODULEPATH" = "ProjectDIR/rt/gccCore/mf/Compiler/GCCcore/6.3"){
-              } prepend
-            }
-          } prepend_path
-        } loadModuleFile
-        ModuleA:__new(){
-          calling DirTree:new()
-          MRC:singleton(){
-          } MRC:singleton
-["dirTree:dirA()"]  = {
-  {
-    dirT = {
-      defaultT = {},
-      dirT = {
-        boost = {
-          defaultT = {},
-          dirT = {},
-          fileT = {
-            ["boost/1.60.0"]  = {
-              ["canonical"] = "1.60.0",
-              ["fn"] = "ProjectDIR/rt/gccCore/mf/Compiler/GCCcore/6.3/boost/1.60.0.lua",
-              ["luaExt"] = 7,
-              ["mpath"] = "ProjectDIR/rt/gccCore/mf/Compiler/GCCcore/6.3",
-            },
-          },
-        },
-      },
-      fileT = {},
-    },
-    ["mpath"] = "ProjectDIR/rt/gccCore/mf/Compiler/GCCcore/6.3",
-  },
-}
-          finish DirTree:new()
-          ModuleA build(){
-            #dirA: 1
-            mpath: ProjectDIR/rt/gccCore/mf/Compiler/GCCcore/6.3
-          } ModuleA build
-["moduleA:"]  = {
-  {
-    T = {
-      boost = {
-        defaultT = {},
-        dirT = {},
-        fileT = {
-          ["boost/1.60.0"]  = {
-            ["canonical"] = "1.60.0",
-            ["fn"] = "ProjectDIR/rt/gccCore/mf/Compiler/GCCcore/6.3/boost/1.60.0.lua",
-            ["luaExt"] = 7,
-            ["mpath"] = "ProjectDIR/rt/gccCore/mf/Compiler/GCCcore/6.3",
-            ["pV"] = "000000001.000000060.*zfinal",
-            ["wV"] = "000000001.000000060.*zfinal",
-          },
-        },
-      },
-    },
-    ["mpath"] = "ProjectDIR/rt/gccCore/mf/Compiler/GCCcore/6.3",
-  },
-}
-        } ModuleA:__new
-        entry: sn: boost, version: 1.60.0, fn: ProjectDIR/rt/gccCore/mf/Compiler/GCCcore/6.3/boost/1.60.0.lua
-        loadModuleFile(ProjectDIR/rt/gccCore/mf/Compiler/GCCcore/6.3/boost/1.60.0.lua){
-          ModuleFile{
-            setenv(myModuleName(), myModuleVersion())
-          } ModuleFile
-          setenv(boost, 1.60.0){
-            MC_Spider:setenv(name, value){
-              Using s_patDir: ^LMOD_.*_DIR s_patLib: ^LMOD_.*_LIB
-            }
-          } setenv
-        } loadModuleFile
-      } Spider:findAllModules
-      Setting mcp to MC_Load
-      self.dontWrite: false, r.dontWriteCache: nil
-      Transfer from userSpiderT to spiderT
-      k: ProjectDIR/rt/gccCore/mf/Compiler/GCCcore/6.3
-      k: ProjectDIR/rt/gccCore/mf/Core
-      k: version
-      Show that these directories have been walked
-      Spider:buildDbT(mpathMapT,spiderT, dbT){
-mpathA = {
-  "ProjectDIR/rt/gccCore/mf/Core",
-}
-mpathMapT = {
-  ["ProjectDIR/rt/gccCore/mf/Compiler/GCCcore/6.3"]  = {
-    ["GCCcore/6.3"] = "ProjectDIR/rt/gccCore/mf/Core",
-  },
-}
-mpathParentT = {
-  ["ProjectDIR/rt/gccCore/mf/Compiler/GCCcore/6.3"]  = {
-    "ProjectDIR/rt/gccCore/mf/Core",
-  },
-}
-keepT = {
-  ["ProjectDIR/rt/gccCore/mf/Compiler/GCCcore/6.3"] = true,
-  ["ProjectDIR/rt/gccCore/mf/Core"] = true,
-}
-      } Spider:buildDbT
-      MRC:update(fnA){
-        MRC l_build(self,fnA){
-          capture(tclsh ProjectDIR/src/RC2lua.tcl  OutputDIR/.modulerc){
-          } capture
-          MRC l_parseModA(modA, weight){
-            entry.kind: hide-version
-            mfile: GCCcore/6.3
-          } MRC:parseModA
-        } MRC l_build
-      } MRC:update
-    } Cache:build
-    Spider:spiderSearch(dbT,"boost/1.60.0",true){
-      MRC:singleton(){
-      } MRC:singleton
-      userSearchPat: [Bb][Oo][Oo][Ss][Tt]/1%.60%.0
-        key: boost/1.60.0, sn: boost
-      Spider:_Level1(dbT, sn: "boost", key: "boost/1.60.0"){
-        MRC:singleton(){
-        } MRC:singleton
-        Spider:_Level2(boost, entryA, possibleA){
-        } Spider:_Level2
-      } Spider:_Level1
-    } Spider:spiderSearch
+The following is a list of the modules currently available:
+  GCCcore: GCCcore/.6.3
   boost: boost/1.60.0
-    You will need to load all module(s) on any one of the lines below before the "boost/1.60.0" module is available to load.
-      GCCcore/6.3
-  } SpiderCmd
-  MT:reportChanges(){
-  } MT:reportChanges
-} lmod
-BaseShell:expand(tbl){
-  MODULEPATH="ProjectDIR/rt/gccCore/mf/Core";
-  export MODULEPATH;
-  BaseShell:expandMT(vstr){
-    _ModuleTable_ = {
-      ["MTversion"] = 3,
-      ["c_rebuildTime"] = 7200.0,
-      ["c_shortTime"] = 0.0016200542449951,
-      depthT = {},
-      family = {},
-      mT = {},
-      mpathA = {
-        "ProjectDIR/rt/gccCore/mf/Core",
-      },
-      ["systemBaseMPATH"] = "ProjectDIR/rt/gccCore/mf/Core",
-    }
-  } BaseShell:expandMT
-} BaseShell:expand
-Exec:exec(){
-} Exec:exec
+To learn more about a package execute:
+   $ module spider Foo
+where "Foo" is the name of a module.
+To find detailed information about a particular package you
+must specify the version if there is more than one version:
+   $ module spider Foo/11.1
+===========================
+step 5
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --show_hidden spider GCCcore
+===========================
+  GCCcore: GCCcore/.6.3
+    This module can be loaded directly: module load GCCcore/.6.3
+===========================
+step 6
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider GCCcore
+===========================
+Lmod has detected the following error: Unable to find: "GCCcore".
+===========================
+step 7
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider GCCcore/.6.3
+===========================
+Lmod has detected the following error: Unable to find: "GCCcore/.6.3".

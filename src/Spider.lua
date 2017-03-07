@@ -519,6 +519,7 @@ function M.buildDbT(self, mpathA, mpathMapT, spiderT, dbT)
          end
       end
    end
+   dbg.printT("dbT",       dbT)
    dbg.fini("Spider:buildDbT")
 end         
 
@@ -891,6 +892,9 @@ function M._Level2(self, sn, entryA, possibleA)
    local haveCore = 0
    local haveHier = 0
 
+   dbg.printT("entryA[1]", entryT)
+
+
    ia = ia + 1; a[ia] = "\n"
    ia = ia + 1; a[ia] = border
    ia = ia + 1; a[ia] = "  " .. sn .. ": "
@@ -968,9 +972,7 @@ function M._Level2(self, sn, entryA, possibleA)
          end
       else
          for k in s:split("\n") do
-            if (not (k:find("^%.") or k:find("/%."))) then
-               d[k] = 1
-            end
+            d[k] = 1
          end
       end
       c = {}
