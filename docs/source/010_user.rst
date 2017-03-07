@@ -152,7 +152,7 @@ compiler modulefiles add a line: ::
 
 Then Lmod will not load another compiler modulefile.   Another benefit
 of the modulefile family directive is that an environment variable
-"LMOD_COMPILER_FAMILY" is assigned the name (and not the
+"LMOD_FAMILY_COMPILER" is assigned the name (and not the
 version). This can be useful specifying different options for
 different compilers. In the High Performance Computing (HPC) world,
 the message passing interface (MPI) libraries are important.  The mpi
