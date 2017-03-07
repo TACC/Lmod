@@ -20,7 +20,8 @@ echo "FATAL: module: Could not find tclsh in \$PATH or in standard directories" 
 #
 # Some Global Variables.....
 #
-set MODULES_CURRENT_VERSION 1.729
+set MODULES_CURRENT_VERSION 1.775
+set MODULES_CURRENT_RELEASE_DATE "2017-03-07"
 set g_debug 0 ;# Set to 1 to enable debugging
 set error_count 0 ;# Start with 0 errors
 set g_autoInit 0
@@ -1966,8 +1967,7 @@ proc runModulerc {} {
    set rclist {}
 
    reportDebug "runModulerc: running..."
-   reportDebug "runModulerc: env MODULESHOME = $env(MODULESHOME)"
-   reportDebug "runModulerc: env HOME = $env(HOME)"
+
    if {[info exists env(MODULERCFILE)]} {
       # if MODULERCFILE is a dir, look at a modulerc file in it
       if {[file isdirectory $env(MODULERCFILE)]\
@@ -2057,16 +2057,17 @@ proc renderSettings {} {
       # future module commands
       set tclshbin [info nameofexecutable]
 
-      # add cwd if not absolute script path
-      if {! [regexp {^/} $argv0]} {
-         # register pwd at first call
-         if {![info exists cwd]} {
-            set cwd [pwd]
-         }
-         set argv0 "$cwd/$argv0"
-      }
+      # ensure script path is absolute
+      set argv0 [getAbsolutePath $argv0]
 
-      set env(MODULESHOME) [file dirname $argv0]
+      # guess MODULESHOME from modulecmd directory
+      set modshome [file dirname $argv0]
+      if { [file tail $modshome] eq "bin" \
+         || [file tail $modshome] eq "libexec" } {
+         # use upper dir if modulecmd is located in a bin or libexec dir
+         set modshome [file dirname $modshome]
+      }
+      set env(MODULESHOME) $modshome
       set g_stateEnvVars(MODULESHOME) "new"
 
       switch -- $g_shellType {
@@ -2100,8 +2101,7 @@ proc renderSettings {} {
          }
          perl {
             puts stdout "sub module {"
-            puts stdout "  eval `$tclshbin\
-               \$ENV{\'MODULESHOME\'}/modulecmd.tcl perl @_`;"
+            puts stdout "  eval `$tclshbin $argv0 perl @_`;"
             puts stdout "  if(\$@) {"
             puts stdout "    use Carp;"
             puts stdout "    confess \"module-error: \$@\n\";"
@@ -2714,10 +2714,8 @@ proc getVersAliasList {mod args} {
 
    reportDebug "getVersAliasList: $mod (previously: $args)"
 
-   # get module name and version after alias resolution attempt
-   lassign [getModuleNameVersion $mod 1] mod
-   lassign [getModuleNameVersion [resolveModuleVersionOrAlias $mod "alias"]]\
-      mod modname modversion
+   # get module name and version
+   lassign [getModuleNameVersion $mod 1] mod modname modversion
 
    set tag_list {}
    if {[info exists g_versionHash($mod)]} {
@@ -2730,7 +2728,7 @@ proc getVersAliasList {mod args} {
                # concat with any other tag found for modname/version
                set tag_list [concat $tag_list $version\
                   [eval getVersAliasList $modname/$version $args]]
-            } else {
+            } elseif {$modversion ne ""} {
                reportError "Version symbol '$modversion' loops"
             }
          }
@@ -2748,6 +2746,17 @@ proc getVersAliasList {mod args} {
       } else {
          reportError "Version symbol '$modversion' loops"
       }
+   }
+
+   # if mod is an alias collect symbols if not already done
+   lassign [getModuleNameVersion [resolveModuleVersionOrAlias $mod \
+      "alias"]] modnew modnamenew modversionnew
+   if {$modname ne $modnamenew && [lsearch -exact $args $modnew] == -1} {
+      # add default to the list of already resolved element in order to
+      # detect infinite resolution loop
+      lappend args $modnew
+      # concat with any other tag found for alias
+      set tag_list [concat $tag_list [eval getVersAliasList $modnew $args]]
    }
 
    # always dictionary-sort results and remove duplicates
@@ -4321,7 +4330,7 @@ proc cmdModuleInit {args} {
 }
 
 proc cmdModuleHelp {args} {
-   global MODULES_CURRENT_VERSION
+   global MODULES_CURRENT_VERSION MODULES_CURRENT_RELEASE_DATE
 
    set done 0
    pushMode "help"
@@ -4345,7 +4354,8 @@ proc cmdModuleHelp {args} {
    popMode
    if {$done == 0} {
       report "Modules Release Tcl $MODULES_CURRENT_VERSION " 1
-      report {        Copyright GNU GPL v2 1991}
+      report "($MODULES_CURRENT_RELEASE_DATE)" 1
+      report {   Copyright GNU GPL v2 1991}
       report {Usage: module [options] [command] [args ...]}
 
       report {}
@@ -4483,7 +4493,8 @@ if {[catch {
           exit 0
       }
       {^(-V|--ver)} {
-          report "Modules Release Tcl $MODULES_CURRENT_VERSION"
+          report "Modules Release Tcl $MODULES_CURRENT_VERSION\
+            ($MODULES_CURRENT_RELEASE_DATE)"
           exit 0
       }
       {^-} {
