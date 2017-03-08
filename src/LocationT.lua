@@ -84,7 +84,7 @@ local function build(moduleA)
       dbg.fini("LocationT build")
       return locationT
    end
-   local T = moduleA[1].T
+   local T = moduleA[1].T or {}
 
    for sn,v in pairs(T) do
       if (v.file) then
@@ -97,7 +97,7 @@ local function build(moduleA)
    end
 
    for i = 2,#moduleA do
-      T = moduleA[i].T
+      T = moduleA[i].T or {}
       for sn, v in pairs(T) do
          local origT   = locationT[sn]
          local lctnT   = locationT[sn] or {}
