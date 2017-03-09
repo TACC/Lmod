@@ -39,3 +39,6 @@ Lmod 7.3+
     (7.3.21) Fix bug where the getdefault command did not work because a syntax error.
              Fix bug where a message with a single blank would fail.
     (7.3.22) On Level 2 spider output, report dependencies hidden or not.
+    (7.3.23) Sanitize LocationT tables.
+    (7.3.24) Put full in SoftwarePage.
+    
