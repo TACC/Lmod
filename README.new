@@ -43,3 +43,5 @@ Lmod 7.3+
     (7.3.24) Put full in SoftwarePage.
     (7.3.25) Added parent array and Version to software page.
              Added support for fish shell
+    (7.3.26) Fix --no_redirect bug in non-interactive shell module command.
+    
