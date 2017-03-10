@@ -278,13 +278,10 @@ function M.findAllModules(self, mpathA, spiderT)
 
          local moduleA     = ModuleA:__new({mpath}, maxdepthT):moduleA()
          local T           = moduleA[1].T
-         dbg.print{"mpath: ",mpath,"\n"}
-         dbg.printT("T",T)
          for sn, v in pairs(T) do
             findModules(mpath, mt, mList, sn, v)
          end
          spiderT[mpath] = moduleA[1].T
-         dbg.printT("spiderT["..mpath.."]", moduleA[1].T)
       until true
    end
 
