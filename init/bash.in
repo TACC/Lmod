@@ -70,7 +70,7 @@ if [[ $- =~ i ]]; then
 else
    module()
    {
-     eval $($LMOD_CMD --no_redirect @my_shell@ "$@") && eval $(${LMOD_SETTARG_CMD:-:} -s sh)
+     eval $($LMOD_CMD @my_shell@ --no_redirect "$@") && eval $(${LMOD_SETTARG_CMD:-:} -s sh)
    }
 fi
 
