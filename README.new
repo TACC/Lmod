@@ -42,3 +42,4 @@ Lmod 7.3+
     (7.3.23) Sanitize LocationT tables.
     (7.3.24) Put full in SoftwarePage.
     (7.3.25) Added parent array and Version to software page.
+             Added support for fish shell
