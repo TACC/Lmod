@@ -142,7 +142,7 @@ local function versionFile(mrc, defaultT)
 
    local version = false
    local whole
-   local status
+   local ok
    local func
    local optStr  = ""
    whole, status = runTCLprog("RC2lua.tcl", optStr, path)
@@ -151,8 +151,8 @@ local function versionFile(mrc, defaultT)
    end
 
    declare("modA",{})
-   status, func = pcall(load, whole)
-   if (not status or not func) then
+   ok, func = pcall(load, whole)
+   if (not ok or not func) then
       LmodError{msg = "e_Unable_2_parse", path = path}
    end
    func()

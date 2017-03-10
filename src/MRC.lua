@@ -110,7 +110,7 @@ function l_build(self, fnA)
    dbg.start{"MRC l_build(self,fnA)"}
    declare("modA",{})
    local whole
-   local status
+   local ok
    local func
    local optStr = ""
       
@@ -123,8 +123,8 @@ function l_build(self, fnA)
             LmodError{msg = "e_Unable_2_parse", path = fn}
          end
          
-         status, func = pcall(load, whole)
-         if (not status or not func) then
+         ok, func = pcall(load, whole)
+         if (not ok or not func) then
             LmodError{msg = "e_Unable_2_parse", path = fn}
          end
          func()

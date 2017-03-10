@@ -171,9 +171,9 @@ local function findModules(mpath, mt, mList, sn, v, moduleT)
    end
    if (next(v.fileT) ~= nil) then
       for fullName, vv in pairs(v.fileT) do
+         vv.Version = extractVersion(fullName, sn)
          entryT   = { fn = vv.fn, sn = sn, userName = fullName, fullName = fullName,
-                      version = extractVersion(fullName, sn),
-                      pV = v.pV, wV = v.wV }
+                      version = vv.Version, pV = v.pV, wV = v.wV }
          loadMe(entryT, moduleStack, iStack, vv)
       end
    end
@@ -278,10 +278,13 @@ function M.findAllModules(self, mpathA, spiderT)
 
          local moduleA     = ModuleA:__new({mpath}, maxdepthT):moduleA()
          local T           = moduleA[1].T
+         dbg.print{"mpath: ",mpath,"\n"}
+         dbg.printT("T",T)
          for sn, v in pairs(T) do
             findModules(mpath, mt, mList, sn, v)
          end
          spiderT[mpath] = moduleA[1].T
+         dbg.printT("spiderT["..mpath.."]", moduleA[1].T)
       until true
    end
 

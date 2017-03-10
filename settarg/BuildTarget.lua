@@ -264,15 +264,15 @@ local function readDotFiles()
          local whole  = f:read("*all")
          f:close()
 
-         local status = true
+         local ok
          local func, msg = load(whole)
          if (func) then
-            status, msg = pcall(func)
+            ok, msg = pcall(func)
          else
-            status = false
+            ok = false
          end
 
-         if (not status) then
+         if (not ok) then
             io.stderr:write("Error: Unable to load: ",fn,"\n",
                             "  ", msg,"\n");
             os.exit(1)

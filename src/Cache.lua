@@ -456,8 +456,8 @@ function M.build(self, fast)
       mcp                 = MasterControl.build("spider")
 
       local t1            = epoch()
-      local st, msg       = pcall(Spider.findAllModules, spider, dirA, userSpiderT)
-      if (not st) then
+      local ok, msg       = pcall(Spider.findAllModules, spider, dirA, userSpiderT)
+      if (not ok) then
          if (msg) then io.stderr:write("Msg: ",msg,'\n') end
          LmodSystemError{msg="e_Spdr_Timeout"}
       end

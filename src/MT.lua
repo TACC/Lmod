@@ -116,12 +116,12 @@ local function new(self, s, restoreFn)
    declare(s_name)
 
    local func, msg = load(s)
-   local status
+   local ok
 
    if (func) then
-      status, msg = pcall(func)
+      ok, msg = pcall(func)
    else
-      status = false
+      ok = false
    end
 
    local _ModuleTable_ = _G[s_name] or _G._ModuleTable_
@@ -131,7 +131,7 @@ local function new(self, s, restoreFn)
    -- Do not call LmodError or LmodSystemError here.  It leads to an
    -- endless loop !!
    
-   if (not status or type(_ModuleTable_) ~= "table" ) then
+   if (not ok or type(_ModuleTable_) ~= "table" ) then
       if (restoreFn) then
          io.stderr:write(i18n("e_coll_corrupt",{fn=restoreFn}))
          LmodErrorExit()
