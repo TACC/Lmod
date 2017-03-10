@@ -12,6 +12,8 @@
 set +xv     # Turn off tracing for now.
 
 
+
+
 LMOD_PKG=@PKGV@
 LMOD_DIR=@PKGV@/libexec
 LMOD_CMD=@PKGV@/libexec/lmod
@@ -57,10 +59,20 @@ export MODULESHOME
 #
 # See Lmod web site for more details.
 
-module()
-{
-  eval $($LMOD_CMD @my_shell@ "$@") && eval $(${LMOD_SETTARG_CMD:-:} -s sh)
-}
+#
+# Turn off redirection of stderr when shell is non-interactive!
+# This avoids breaking non-interactive sessions (scp, sftp, etc)
+if [[ $- =~ i ]]; then
+   module()
+   {
+     eval $($LMOD_CMD @my_shell@ "$@") && eval $(${LMOD_SETTARG_CMD:-:} -s sh)
+   } 
+else
+   module()
+   {
+     eval $($LMOD_CMD --no_redirect @my_shell@ "$@") && eval $(${LMOD_SETTARG_CMD:-:} -s sh)
+   }
+fi
 
 LMOD_VERSION="@lmod_version@"
 export LMOD_VERSION
