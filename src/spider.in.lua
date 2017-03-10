@@ -500,7 +500,7 @@ function convertEntry(name, vv, spA)
       Version     = "versionName",
       fullName    = "full",
       help        = "help",
-      parent      = "parent"
+      parentAA    = "parent"
    }
 
 
