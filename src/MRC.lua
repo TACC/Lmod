@@ -118,8 +118,8 @@ function l_build(self, fnA)
       local fn     = fnA[i][1]
       if (isFile(fn)) then
          local weight = fnA[i][2]
-         whole, status = runTCLprog("RC2lua.tcl", optStr, fn)
-         if (not status) then
+         whole, ok = runTCLprog("RC2lua.tcl", optStr, fn)
+         if (not ok) then
             LmodError{msg = "e_Unable_2_parse", path = fn}
          end
          
