@@ -18,6 +18,7 @@ Notes for talk at LCI 2017 at UWYO
 
 * Talk about the Hierarchy and show an example
 * Talk about bash and interactive shells
+* Talk about Shell Startup Debug
 * What are the  difference between Lmod and Tmod?
 
 * What is new with Lmod 7?
