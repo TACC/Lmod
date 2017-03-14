@@ -95,7 +95,8 @@ STANDALONE_PRGM   	  := src/lmod.in.lua src/addto.in.lua                       \
                              src/ignore_dirs_converter
 STANDALONE_PRGM           := $(patsubst %, $(srcdir)/%, $(STANDALONE_PRGM))
 SHELL_INIT	  	  := bash.in csh.in ksh.in tcsh.in zsh.in sh.in perl.in R.in \
-                             env_modules_python.py.in lmod_bash_completions fish.in
+                             env_modules_python.py.in lmod_bash_completions fish.in  \
+                             lisp.in
 SHELL_INIT	  	  := $(patsubst %, $(srcdir)/init/%, $(SHELL_INIT))
 LMODRC_INIT               := $(patsubst %, $(srcdir)/init/%, lmodrc.lua)
 
