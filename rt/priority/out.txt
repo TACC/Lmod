@@ -6,8 +6,8 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 step 2
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing use --priority 100 ProjectDIR/rt/priority/mf/RTM
 ===========================
-NVV_Priority_MODULEPATH="ProjectDIR/rt/priority/mf/RTM:-100";
-export NVV_Priority_MODULEPATH;
+LMOD_Priority_MODULEPATH="ProjectDIR/rt/priority/mf/RTM:-100";
+export LMOD_Priority_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/priority/mf/RTM:ProjectDIR/rt/priority/mf/Core";
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/priority/mf/RTM","ProjectDIR/rt/priority/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/priority/mf/Core",}';
@@ -16,8 +16,8 @@ export _ModuleTable_;
 step 3
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing use --priority 100 ProjectDIR/rt/priority/mf/RTM
 ===========================
-NVV_Priority_MODULEPATH="ProjectDIR/rt/priority/mf/RTM:-100";
-export NVV_Priority_MODULEPATH;
+LMOD_Priority_MODULEPATH="ProjectDIR/rt/priority/mf/RTM:-100";
+export LMOD_Priority_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/priority/mf/RTM:ProjectDIR/rt/priority/mf/Core";
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/priority/mf/RTM","ProjectDIR/rt/priority/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/priority/mf/Core",}';
@@ -28,12 +28,12 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing load priority
 ===========================
 LOADEDMODULES="priority/1.0";
 export LOADEDMODULES;
-NVV_Priority_MODULEPATH="ProjectDIR/rt/priority/mf/RTM:-100";
-export NVV_Priority_MODULEPATH;
+LMOD_Priority_MODULEPATH="ProjectDIR/rt/priority/mf/RTM:-100";
+export LMOD_Priority_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/priority/mf/RTM:ProjectDIR/rt/priority/mf/Core";
 export MODULEPATH;
-NVV_Priority_RTM_PATH="/top/dog10:-10";
-export NVV_Priority_RTM_PATH;
+LMOD_Priority_RTM_PATH="/top/dog10:-10";
+export LMOD_Priority_RTM_PATH;
 RTM_PATH="/top/dog10";
 export RTM_PATH;
 _LMFILES_="ProjectDIR/rt/priority/mf/Core/priority/1.0.lua";
@@ -46,12 +46,12 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing load a
 ===========================
 LOADEDMODULES="priority/1.0:a/1.0";
 export LOADEDMODULES;
-NVV_Priority_MODULEPATH="ProjectDIR/rt/priority/mf/RTM:-100";
-export NVV_Priority_MODULEPATH;
+LMOD_Priority_MODULEPATH="ProjectDIR/rt/priority/mf/RTM:-100";
+export LMOD_Priority_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/priority/mf/RTM:ProjectDIR/rt/priority/mf/Core";
 export MODULEPATH;
-NVV_Priority_RTM_PATH="/top/dog10:-10";
-export NVV_Priority_RTM_PATH;
+LMOD_Priority_RTM_PATH="/top/dog10:-10";
+export LMOD_Priority_RTM_PATH;
 RTM_PATH="/top/dog10:/d/e/f:/a/b/c";
 export RTM_PATH;
 _LMFILES_="ProjectDIR/rt/priority/mf/Core/priority/1.0.lua:ProjectDIR/rt/priority/mf/Core/a/1.0.lua";
@@ -64,12 +64,12 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing load tdog
 ===========================
 LOADEDMODULES="priority/1.0:a/1.0:tdog/1.0";
 export LOADEDMODULES;
-NVV_Priority_MODULEPATH="ProjectDIR/rt/priority/mf/RTM:-100";
-export NVV_Priority_MODULEPATH;
+LMOD_Priority_MODULEPATH="ProjectDIR/rt/priority/mf/RTM:-100";
+export LMOD_Priority_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/priority/mf/RTM:ProjectDIR/rt/priority/mf/Core";
 export MODULEPATH;
-NVV_Priority_RTM_PATH="/top/dog10:-10;/top/dog100:-100";
-export NVV_Priority_RTM_PATH;
+LMOD_Priority_RTM_PATH="/top/dog10:-10;/top/dog100:-100";
+export LMOD_Priority_RTM_PATH;
 RTM_PATH="/top/dog100:/top/dog10:/top/dog0:/d/e/f:/a/b/c";
 export RTM_PATH;
 _LMFILES_="ProjectDIR/rt/priority/mf/Core/priority/1.0.lua:ProjectDIR/rt/priority/mf/Core/a/1.0.lua:ProjectDIR/rt/priority/mf/Core/tdog/1.0";
@@ -80,8 +80,8 @@ export _ModuleTable_;
 step 7
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
-NVV_Priority_MODULEPATH="ProjectDIR/rt/priority/mf/RTM:-100";
-export NVV_Priority_MODULEPATH;
+LMOD_Priority_MODULEPATH="ProjectDIR/rt/priority/mf/RTM:-100";
+export LMOD_Priority_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/priority/mf/RTM:ProjectDIR/rt/priority/mf/Core";
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={a={["fn"]="ProjectDIR/rt/priority/mf/Core/a/1.0.lua",["fullName"]="a/1.0",["loadOrder"]=2,propT={},["status"]="active",["userName"]="a",},priority={["fn"]="ProjectDIR/rt/priority/mf/Core/priority/1.0.lua",["fullName"]="priority/1.0",["loadOrder"]=1,propT={},["status"]="active",["userName"]="priority",},tdog={["fn"]="ProjectDIR/rt/priority/mf/Core/tdog/1.0",["fullName"]="tdog/1.0",["loadOrder"]=3,propT={},["status"]="active",["userName"]="tdog",},},mpathA={"ProjectDIR/rt/priority/mf/RTM","ProjectDIR/rt/priority/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/priority/mf/Core",}';
@@ -92,12 +92,12 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload priority
 ===========================
 LOADEDMODULES="a/1.0:tdog/1.0";
 export LOADEDMODULES;
-NVV_Priority_MODULEPATH="ProjectDIR/rt/priority/mf/RTM:-100";
-export NVV_Priority_MODULEPATH;
+LMOD_Priority_MODULEPATH="ProjectDIR/rt/priority/mf/RTM:-100";
+export LMOD_Priority_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/priority/mf/RTM:ProjectDIR/rt/priority/mf/Core";
 export MODULEPATH;
-NVV_Priority_RTM_PATH="/top/dog100:-100";
-export NVV_Priority_RTM_PATH;
+LMOD_Priority_RTM_PATH="/top/dog100:-100";
+export LMOD_Priority_RTM_PATH;
 RTM_PATH="/top/dog100:/top/dog0:/d/e/f:/a/b/c";
 export RTM_PATH;
 _LMFILES_="ProjectDIR/rt/priority/mf/Core/a/1.0.lua:ProjectDIR/rt/priority/mf/Core/tdog/1.0";
@@ -108,8 +108,8 @@ export _ModuleTable_;
 step 9
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
-NVV_Priority_MODULEPATH="ProjectDIR/rt/priority/mf/RTM:-100";
-export NVV_Priority_MODULEPATH;
+LMOD_Priority_MODULEPATH="ProjectDIR/rt/priority/mf/RTM:-100";
+export LMOD_Priority_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/priority/mf/RTM:ProjectDIR/rt/priority/mf/Core";
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={a={["fn"]="ProjectDIR/rt/priority/mf/Core/a/1.0.lua",["fullName"]="a/1.0",["loadOrder"]=1,propT={},["status"]="active",["userName"]="a",},tdog={["fn"]="ProjectDIR/rt/priority/mf/Core/tdog/1.0",["fullName"]="tdog/1.0",["loadOrder"]=2,propT={},["status"]="active",["userName"]="tdog",},},mpathA={"ProjectDIR/rt/priority/mf/RTM","ProjectDIR/rt/priority/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/priority/mf/Core",}';
@@ -118,8 +118,8 @@ export _ModuleTable_;
 step 10
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing show tdog
 ===========================
-NVV_Priority_MODULEPATH="ProjectDIR/rt/priority/mf/RTM:-100";
-export NVV_Priority_MODULEPATH;
+LMOD_Priority_MODULEPATH="ProjectDIR/rt/priority/mf/RTM:-100";
+export LMOD_Priority_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/priority/mf/RTM:ProjectDIR/rt/priority/mf/Core";
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={a={["fn"]="ProjectDIR/rt/priority/mf/Core/a/1.0.lua",["fullName"]="a/1.0",["loadOrder"]=1,propT={},["status"]="active",["userName"]="a",},tdog={["fn"]="ProjectDIR/rt/priority/mf/Core/tdog/1.0",["fullName"]="tdog/1.0",["loadOrder"]=2,propT={},["status"]="active",["userName"]="tdog",},},mpathA={"ProjectDIR/rt/priority/mf/RTM","ProjectDIR/rt/priority/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/priority/mf/Core",}';

@@ -46,7 +46,7 @@ local ceil           = math.ceil
 local concatTbl      = table.concat
 local cosmic         = require("Cosmic"):singleton()
 local dbg            = require("Dbg"):dbg()
-local envPrtyName    = "NVV_Priority_"
+local envPrtyName    = "LMOD_Priority_"
 local getenv         = os.getenv
 local log            = math.log
 local min            = math.min
@@ -116,7 +116,7 @@ end
 -- all variables are path like variables here.  Not to worry
 -- however, the set function mark the type as "var" and not
 -- "path".  Other functions work similarly.
-local function extract(self)
+local function l_extract(self)
    local myValue   = self.value or getenv(self.name)
    local pathTbl   = {}
    local imax      = 0
@@ -149,7 +149,7 @@ local function extract(self)
 end
 
 --------------------------------------------------------------------------
--- The ctor for this class.  It uses extract to build its
+-- The ctor for this class.  It uses l_extract to build its
 -- initial value from the environment.
 -- @param self A Var object.
 -- @param name The name of the variable.
@@ -162,7 +162,7 @@ function M.new(self, name, value, sep)
    o.value      = value
    o.name       = name
    o.sep        = sep or ":"
-   extract(o)
+   l_extract(o)
    if (not value) then value = nil end
    setenv_posix(name, value, true)
    return o
@@ -286,7 +286,7 @@ function M.prepend(self, value, nodups, priority)
    if (value == nil) then return end
 
    if (self.type ~= 'path') then
-      extract(self)
+      l_extract(self)
    end
 
    self.type           = 'path'
@@ -328,7 +328,7 @@ end
 function M.append(self, value, nodups, priority)
    if (value == nil) then return end
    if (self.type ~= 'path') then
-      extract(self)
+      l_extract(self)
    end
    self.type        = 'path'
    nodups           = not allow_dups(not nodups)
