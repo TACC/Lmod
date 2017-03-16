@@ -11,9 +11,6 @@
 [[ ${-/v} != $- ]] && VERBOSE_STATE="-v" || VERBOSE_STATE="+v"
 set +xv     # Turn off tracing for now.
 
-
-
-
 export LMOD_PKG=@PKGV@
 export LMOD_DIR=@PKGV@/libexec
 export LMOD_CMD=@PKGV@/libexec/lmod
@@ -59,20 +56,10 @@ export LMOD_PREPEND_BLOCK=@prepend_block@
 #
 # See Lmod web site for more details.
 
-#
-# Turn off redirection of stderr when shell is non-interactive!
-# This avoids breaking non-interactive sessions (scp, sftp, etc)
-if [[ $- =~ i ]]; then
-   module()
-   {
-     eval $($LMOD_CMD @my_shell@ "$@") && eval $(${LMOD_SETTARG_CMD:-:} -s sh)
-   } 
-else
-   module()
-   {
-     eval $($LMOD_CMD @my_shell@ --no_redirect "$@") && eval $(${LMOD_SETTARG_CMD:-:} -s sh)
-   }
-fi
+module()
+{
+  eval $($LMOD_CMD @my_shell@ "$@") && eval $(${LMOD_SETTARG_CMD:-:} -s sh)
+} 
 
 LMOD_VERSION="@lmod_version@"
 export LMOD_VERSION
