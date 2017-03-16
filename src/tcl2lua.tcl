@@ -870,6 +870,9 @@ switch -regexp -- $g_shellName {
     ^(lisp)$ {
 	set g_shellType lisp
     }
+    ^(fish)$ {
+	set g_shellType fish
+    }
     . {
 	error " +(0):ERROR:0: Unknown shell type \'($g_shell)\'"
     }

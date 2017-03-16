@@ -221,6 +221,7 @@ local function createShellTbl()
       local Bash         = require('Bash')
       local Bare         = require('Bare')
       local Fish         = require('Fish')
+      local Lisp         = require('Lisp')
       local Perl         = require('Perl')
       local Python       = require('Python')
       local R            = require('R')
@@ -230,6 +231,8 @@ local function createShellTbl()
          ["ksh"]    = Bash,
          ["zsh"]    = Bash,
          ["fish"]   = Fish,
+         ["emacs"]  = Lisp,
+         ["lisp"]   = Lisp,
          ["csh"]    = Csh,
          ["tcsh"]   = Csh,
          ["perl"]   = Perl,

@@ -1,0 +1,18 @@
+Lmod and XALT: Modules and Tracking Software use.
+
+Lmod is a modern environmental module system for providing software to
+HPC users.  XALT is a tool to track software usage in a lightweight
+manor.  Both tools help in managing software on your HPC system.  Lmod
+can track the modules users load.  XALT knows what programs and
+libraries your user execute.
+
+Lmod can help users handle complex software stacks by supporting the
+software hierarchy.  Lmod support a cache to speed up module access
+and a long list of other features such as user module collections,
+module properties, semantic versioning etc. 
+
+XALT tracks both MPI and non-MPI programs as well as the libraries
+that users run.  Sites can know exactly what kinds of programs user
+are running.  What percentage of programs are MPI based or non-MPI
+based?  Are the kinds of program on your cluster solving Chemistry,
+Physics, Biology or something else?
