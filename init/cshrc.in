@@ -16,23 +16,11 @@ if ( ! $?MODULEPATH_ROOT ) then
     endif
 
     set UNAME = `uname`
-    setenv LMOD_sys    $UNAME
-
-    setenv LMOD_arch   `uname -m`
-    if ( "x$UNAME" == xAIX ) then
-        setenv LMOD_arch   rs6k
-    endif
-
-    setenv TARG_TITLE_BAR_PAREN " "
-    setenv LMOD_FULL_SETTARG_SUPPORT @lmod_full_settarg_support@
-    setenv LMOD_SETTARG_CMD     :
-    setenv LMOD_COLORIZE        @colorize@
-    setenv LMOD_PREPEND_BLOCK   @prepend_block@
+    setenv LMOD_sys             $UNAME
     setenv MODULEPATH_ROOT      "@modulepath_root@"
     setenv MODULEPATH           `@PKG@/libexec/addto --append MODULEPATH $MODULEPATH_ROOT/$LMOD_sys $MODULEPATH_ROOT/Core`
     setenv MODULEPATH           `@PKG@/libexec/addto --append MODULEPATH @PKG@/modulefiles/Core`
-    setenv MODULESHOME          "@PKG@"
-    setenv BASH_ENV             "$MODULESHOME/init/bash"
+    setenv BASH_ENV             "@PKG@/init/bash"
 
     #
     # If MANPATH is empty, Lmod is adding a trailing ":" so that

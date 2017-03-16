@@ -41,7 +41,10 @@ local concatTbl = table.concat
 local getenv    = os.getenv
 
 
-
+local function new(self, s)
+   local o = {}
+   local 
+end
 
 
 

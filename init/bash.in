@@ -14,14 +14,14 @@ set +xv     # Turn off tracing for now.
 
 
 
-LMOD_PKG=@PKGV@
-LMOD_DIR=@PKGV@/libexec
-LMOD_CMD=@PKGV@/libexec/lmod
-MODULESHOME=@PKGV@
-export LMOD_PKG
-export LMOD_CMD
-export LMOD_DIR
-export MODULESHOME
+export LMOD_PKG=@PKGV@
+export LMOD_DIR=@PKGV@/libexec
+export LMOD_CMD=@PKGV@/libexec/lmod
+export MODULESHOME=@PKGV@
+export LMOD_SETTARG_CMD=":"
+export LMOD_FULL_SETTARG_SUPPORT=@lmod_full_settarg_support@
+export LMOD_COLORIZE=@colorize@
+export LMOD_PREPEND_BLOCK=@prepend_block@
 
 ########################################################################
 #  Define the module command:  The first line runs the "lmod" command
