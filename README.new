@@ -45,3 +45,5 @@ Lmod 7.3+
              Added support for fish shell
     (7.3.26) Fix --no_redirect bug in non-interactive shell module command.
     (7.3.27) Fix bug in tcl2lua.tcl so that fish shell will work with tcl modulefiles.
+    (7.3.28) Move almost all configure variable from profile.in to bash.in and similar for tcsh
+    
