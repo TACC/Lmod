@@ -16,7 +16,7 @@ Lmod 7.3+
 	        vasp/1.0 and vasp/5.3/featureB/v-b
     (7.3.12) Fix bug where status was not returned in tcsh
     (7.3.13) Fix bug where computeHashSum did the wrong thing w.r.t.
-             if ( not isloaded("foo") then load("foo") end
+             if ( not isloaded("foo")) then load("foo") end
     (7.3.14) Protect bash and zsh tab completion from redirecting stderr to stdout for avail, list, spider, etc
              Fix where the options --redirect, -no_redirect did not work.
 	     Keep inactive modules in "loadOrder" so that when they are re-activated, they do so in the old load order.

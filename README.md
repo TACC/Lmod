@@ -29,6 +29,36 @@ release at sourceforge.
 
 ## ChangeLog
 
+### Lmod 7.4:
+
+Features:
+
+   1. Using built-in luafilesystem if system version doesn't exist or < 1.6.2
+
+   2. Support for setting LMOD_SYSHOST with configure.
+
+   3. Sites or users can use italic instead of dim for hidden modules
+
+   4. Detailed spider output reports all dependencies hidden or not.
+
+   5. Support for fish shell
+
+   6. Move almost all configuration variables from profile.in to bash.in and similarly for tcsh.
+
+Bug Fixes:
+
+   1. Fixed bug that caused LMOD env vars to be lower cased.
+
+   2. Fixed bug where tcsh/csh exit status was not returned.
+    
+   3. bash and zsh tab completions works when LMOD_REDIRECT is yes.
+
+   4. Can now conflict with a version.
+
+   5. Fixed bug with addto a:b:c 
+
+   6. Fixed bugs in computeHashSum, generating softwarePage.
+
 ### Lmod 7.3:
 
 Bug Fixes:
