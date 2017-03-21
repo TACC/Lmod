@@ -6,8 +6,6 @@ setenv MODULESHOME               "@PKGV@"
 setenv TARG_TITLE_BAR_PAREN      " "
 setenv LMOD_FULL_SETTARG_SUPPORT @lmod_full_settarg_support@
 setenv LMOD_SETTARG_CMD          :
-setenv LMOD_COLORIZE             @colorize@
-setenv LMOD_PREPEND_BLOCK        @prepend_block@
 
 set prefix  = ""
 set midfix  = ""
