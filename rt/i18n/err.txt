@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 7.3.14  2017-01-28 17:54 -06:00
+Modules based on Lua: Version 7.4  2017-03-20 16:49 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -82,6 +82,7 @@ Options:
   --no_redirect                     Affiche la sortie de list, avail, spider vers stderr
   --show_hidden                     Avail et spider afficheront les modules cachés
   --spider_timeout=timeout          un délai maximal pour spider
+  -T --trace
 module [options] sub-command [args ...]
 Sous-commandes d'aide :
   help                              affiche ce message
@@ -137,5 +138,5 @@ Sites web de Lmod
   Sourceforge:      https://lmod.sf.net
   TACC Homepage:    https://www.tacc.utexas.edu/research-development/tacc-projects/lmod
   Pour rapporter un bogue, veuillez lire http://lmod.readthedocs.io/en/latest/075_bug_reporting.html
-Modules based on Lua: Version 7.3.14  2017-01-28 17:54 -06:00
+Modules based on Lua: Version 7.4  2017-03-20 16:49 -05:00
     by Robert McLay mclay@tacc.utexas.edu

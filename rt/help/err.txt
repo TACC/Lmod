@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 7.3.19  2017-02-21 14:45 -06:00
+Modules based on Lua: Version 7.4  2017-03-20 16:49 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -40,6 +40,7 @@ Options:
   --no_redirect                     Force output of list, avail and spider to stderr
   --show_hidden                     Avail and spider will report hidden modules
   --spider_timeout=timeout          a timeout for spider
+  -T --trace
 module [options] sub-command [args ...]
 Help sub-commands:
   help                              prints this message
@@ -95,7 +96,7 @@ Lmod Web Sites
   Sourceforge:      https://lmod.sf.net
   TACC Homepage:    https://www.tacc.utexas.edu/research-development/tacc-projects/lmod
   To report a bug please read http://lmod.readthedocs.io/en/latest/075_bug_reporting.html
-Modules based on Lua: Version 7.3.19  2017-02-21 14:45 -06:00
+Modules based on Lua: Version 7.4  2017-03-20 16:49 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 3
@@ -133,6 +134,7 @@ Options:
   --no_redirect                     Force output of list, avail and spider to stderr
   --show_hidden                     Avail and spider will report hidden modules
   --spider_timeout=timeout          a timeout for spider
+  -T --trace
 module [options] sub-command [args ...]
 Help sub-commands:
   help                              prints this message
@@ -188,7 +190,7 @@ Lmod Web Sites
   Sourceforge:      https://lmod.sf.net
   TACC Homepage:    https://www.tacc.utexas.edu/research-development/tacc-projects/lmod
   To report a bug please read http://lmod.readthedocs.io/en/latest/075_bug_reporting.html
-Modules based on Lua: Version 7.3.19  2017-02-21 14:45 -06:00
+Modules based on Lua: Version 7.4  2017-03-20 16:49 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 4
@@ -208,7 +210,7 @@ Version 9
 step 5
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --config
 ===========================
-Modules based on Lua: Version 7.3.19  2017-02-21 14:45 -06:00
+Modules based on Lua: Version 7.4  2017-03-20 16:49 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 Description                      Value
 Allow TCL modulefiles            yes
@@ -248,6 +250,7 @@ User cache valid time(sec)       86400
 Write cache after (sec)          2
 Threshold (sec)                  1
 Tmod prepend PATH Rule           no
+Tracing                          no
 uname -a
 Active RC file(s):
 ProjectDIR/init/lmodrc.lua
