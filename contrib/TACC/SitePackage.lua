@@ -69,7 +69,16 @@ local function load_hook(t)
 
    if (mode() ~= "load") then return end
    local user        = os.getenv("USER")
-   local host        = syshost or uname("%n")
+   local host        = syshost
+   if (not host) then
+      local fullName = uname("%n")
+      local i,j, first
+      i,j, first, host      = fullName:find("([^.]*)%.([^.]*)%.")
+      if (first == "login-knl1" or first:find("^c56.*")) then
+         host = "stampedeknl"
+      end
+   end
+
    local currentTime = epoch()
    local msg         = string.format("user=%s module=%s path=%s host=%s time=%f",
                                      user, t.modFullName, t.fn, host, currentTime)

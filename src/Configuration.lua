@@ -56,7 +56,6 @@ local concatTbl    = table.concat
 local cosmic       = require("Cosmic"):singleton()
 local dbg          = require('Dbg'):dbg()
 local getenv       = os.getenv
-local json         = require("json")
 local lfs          = require("lfs")
 local M            = {}
 
@@ -318,7 +317,8 @@ end
 -- @param self A Configuration object
 -- @return the configuration report in json as a single string.
 function M.report_json(self)
-   local tbl = self.tbl
+   local json    = require("json")
+   local tbl     = self.tbl
    local configT = {}
 
    for k, v in pairs(tbl) do

@@ -20,7 +20,7 @@ file called ``z00_StdEnv.sh`` ::
        ## ability to predefine elsewhere the default list
        LMOD_SYSTEM_DEFAULT_MODULES=${LMOD_SYSTEM_DEFAULT_MODULES:-"StdEnv"} 
        export LMOD_SYSTEM_DEFAULT_MODULES
-       module --initial_load restore
+       module --initial_load --no_redirect restore
     else
        module refresh
     fi
@@ -40,6 +40,14 @@ Similar for z00_StdEnv.csh::
 The z00_Stdenv.* names are chosen because the files in /etc/profile.d
 are sourced in alphabetical order. These names guarantee they will run
 after the module command is defined.
+
+The z00_Stdenv.sh now includes ``--no_redirect``. This option prevents
+sites that configure Lmod to write messages to stdout to write them to
+stderr instead.  This is important as any messages written to stdout
+during shell startup causes scp copies to fail.  Csh/tcsh cannot write
+messages to stdout due to limitations in that shell.
+
+
 
 The first time these files are sourced by a shell they will set
 ``LMOD_SYSTEM_DEFAULT_MODULES`` to ``StdEnv`` and then execute
