@@ -359,6 +359,9 @@ pour vérifier si les modules sont disponibles avec l'un des compilateurs ou imp
      nrdirect_H= "Affiche la sortie de list, avail, spider vers stderr",
      hidden_H  = "Avail et spider afficheront les modules cachés",
      spdrT_H   = "un délai maximal pour spider",
+     trace_T   = nil,
+
+
      Where     = "\n  Où :\n",
      Inactive  = "\nModules Inactifs",
 

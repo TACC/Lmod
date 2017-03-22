@@ -97,6 +97,14 @@ LMOD_CACHE_VERSION   = 5
 LUAC_PATH = "@path_to_luac@"
 
 ------------------------------------------------------------------------
+-- LUA_TRACING : Tracing Lmod loads and other changes.
+------------------------------------------------------------------------
+
+cosmic:init{name    = "LMOD_TRACING",
+            yn      = "no"}
+
+
+------------------------------------------------------------------------
 -- LMOD_CASE_INDEPENDENT_SORTING :  make avail and spider use case
 --                                  independent sorting.
 ------------------------------------------------------------------------
@@ -470,6 +478,9 @@ cosmic:init{name = "LMOD_USE_DOT_FILES",
             yn   = "yes"}
 
 local use_dot_files = cosmic:value("LMOD_USE_DOT_FILES")
+
+
+
 
 
 ------------------------------------------------------------------------

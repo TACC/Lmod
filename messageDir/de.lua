@@ -354,6 +354,9 @@ um in allen Compilern und MPI-Implementierungen zu suchen.
      nrdirect_H= "Erzwingt die Ausgabe von \"list\", \"avail\", \"spider\" nach \"stderr\".",
      hidden_H  = "Avail und spider geben versteckte Module aus.",
      spdrT_H   = "Eine Auszeit für spider.",
+     trace_T   = nil,
+     
+
      Where     = "\n  Wo:\n",
      Inactive  = "\nInaktives Modul.",
      DefaultM  = "Standard Modul.",

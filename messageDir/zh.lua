@@ -236,6 +236,8 @@ return {
      nrdirect_H= nil,
      hidden_H  = nil,
      spdrT_H   = nil,
+     trace_T   = nil,
+
      Where     = nil,
      Inactive  = nil,
      DefaultM  = nil,

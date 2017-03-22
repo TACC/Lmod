@@ -323,6 +323,14 @@ function M.singleton(self, usage)
       default = 0.0
    }
 
+   cmdlineParser:add_option{
+      name   = {"-T", "--trace" },
+      dest   = "trace",
+      action = "store_true",
+      help   = i18n("trace_H"),
+      default = 0.0
+   }
+
    local optionTbl, pargs = cmdlineParser:parse(arg)
    local masterTbl        = masterTbl()
    masterTbl.pargs        = pargs
@@ -335,6 +343,10 @@ function M.singleton(self, usage)
    masterTbl.cmdHelpMsg      = ""
    if (masterTbl.cmdHelp or pargs[1] == "help" ) then
       masterTbl.cmdHelpMsg   = cmdlineParser:buildHelpMsg()
+   end
+
+   if (optionTbl.trace) then
+      cosmic:assign("LMOD_TRACE", "yes")
    end
 
    if (optionTbl.twidth) then

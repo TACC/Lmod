@@ -360,6 +360,8 @@ to see if the module(s) are available across all compilers and MPI implementatio
      nrdirect_H= "Force output of list, avail and spider to stderr",
      hidden_H  = "Avail and spider will report hidden modules",
      spdrT_H   = "a timeout for spider",
+     trace_T   = "trace major changes such as loads",
+
      Where     = "\n  Where:\n",
      Inactive  = "\nInactive Modules",
      DefaultM  = "Default Module",
