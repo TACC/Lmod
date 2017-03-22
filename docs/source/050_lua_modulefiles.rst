@@ -157,7 +157,7 @@ the name and version of a modulefile.
 
 **myShellName** ():
    Returns the name of the shell the user specified on the
-    command line.
+   command line.
 
 **myShellType** ():
    Returns the shellType based on the name of the shell the user

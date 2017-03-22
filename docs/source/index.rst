@@ -86,9 +86,12 @@ Advanced Topics
    100_generic_modules
    110_lmod_mpi_parallel_filesystem
    120_shared_home_directories
+   125_personal_spider_cache
    130_spider_cache
    140_deprecating_modules
    150_kitchen_sink_module
+   155_lmodrc
+   160_debugging_modulefiles
    170_hooks
    180_prereqs_load_rpath
    185_localization

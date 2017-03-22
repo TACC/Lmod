@@ -1,4 +1,4 @@
-.. _tracing
+.. _tracing:
 
 Tracing Lmod
 ============
