@@ -1010,6 +1010,8 @@ function M.getMTfromFile(self,tt)
 
    local savedMPATH = concatTbl(l_mt.mpathA,":")
    
+   local tracing = cosmic:value("LMOD_TRACING")
+
 
    ---------------------------------------------
    -- If any module specified in the "default" file
@@ -1069,6 +1071,13 @@ function M.getMTfromFile(self,tt)
    dbg.print{"savedBaseMPATH: ",savedBaseMPATH,"\n"}
    dbg.print{"(2) mt.systemBaseMPATH: ",mt.systemBaseMPATH,"\n"}
    mt:updateMPathA(savedMPATH)
+
+   if (tracing == "yes") then
+      io.stderr:write("  Using collection:      ", tt.fn,"\n")
+      io.stderr:write("  Setting MODULEPATH to: ", savedBaseMPATH,"\n")
+   end
+
+
    dbg.print{"(3) mt.systemBaseMPATH: ",mt.systemBaseMPATH,"\n"}
    local moduleA      = require("ModuleA"):singleton()
    local cached_loads = cosmic:value("LMOD_CACHED_LOADS")

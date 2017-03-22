@@ -105,8 +105,8 @@ function M.atTop(self)
    return (self.__count == 2)
 end
 
-function M.count(self)
-   return self.__count
+function M.stackDepth(self)
+   return self.__count - 1
 end
 
 function M.fullName(self)

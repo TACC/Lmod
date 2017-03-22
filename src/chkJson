@@ -146,6 +146,7 @@ function main()
       tm_short     = { rule = "match", value = 2},
       tm_threshold = { rule = "match", value = 1},
       tmod_rule    = { rule = "match", value = "no"},
+      tracing      = { rule = "match", value = "no"},
    }
 
    local s       = io.read()

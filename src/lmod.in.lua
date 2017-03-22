@@ -371,6 +371,11 @@ function main()
    end
    -- dumpversion and quit if requested.
 
+   local tracing = cosmic:value("LMOD_TRACING")
+   if (tracing == "yes" ) then
+      io.stderr:write("running: module ",concatTbl(arg," "),"\n")
+   end
+
    if (masterTbl.dumpversion) then
       io.stderr:write(Version.tag(),"\n")
       os.exit(0)

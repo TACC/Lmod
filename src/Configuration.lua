@@ -168,6 +168,7 @@ local function new(self)
    local mpath_root        = cosmic:value("MODULEPATH_ROOT")
    local hashsum_path      = cosmic:value("LMOD_HASHSUM_PATH")
    local lua_path          = cosmic:value("PATH_TO_LUA")
+   local tracing           = cosmic:value("LMOD_TRACING")
 
    if (not isFile(rc)) then
       rc = rc .. " -> <empty>"
@@ -221,6 +222,7 @@ local function new(self)
    tbl.tm_short     = { k = "Write cache after (sec)"           , v = shortTime,        }
    tbl.tm_threshold = { k = "Threshold (sec)"                   , v = threshold,        }
    tbl.tmod_rule    = { k = "Tmod prepend PATH Rule"            , v = tmod_rule,        }
+   tbl.tracing      = { k = "Tracing"                           , v = tracing,          }
    tbl.uname        = { k = "uname -a"                          , v = uname,            }
    tbl.z01_admin    = { k = "Admin file"                        , v = adminFn,          }
    tbl.redirect     = { k = "Redirect to stdout"                , v = redirect,         }
