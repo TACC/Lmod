@@ -156,7 +156,7 @@ All the comments above can be combined into a complete example::
                                                      # to the new Lmod
        export LMOD_SYSTEM_DEFAULT_MODULES=...        # Colon separated list of modules
                                                      # to load at startup
-       module --initial_load restore                 # load either modules listed above or the
+       module --initial_load --no_redirect restore   # load either modules listed above or the
                                                      # user's ~/.lmod.d/default module collection
     else
        source $BASH_ENV                              # redefine the module command for sub-shell
