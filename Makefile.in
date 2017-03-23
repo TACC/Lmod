@@ -493,6 +493,8 @@ gittag:
 	  @git status -s > /tmp/git_st_$$$$;                                         \
           if [ -s /tmp/git_st_$$$$ ]; then                                           \
 	    echo "All files not checked in => try again";                            \
+	  elif [ $(srcdir)/configure -ot $(srcdir)/configure.ac ]; then              \
+            echo "configure is out of date => try again";                            \
 	  else                                                                       \
 	    $(RM)                                                    $(VERSION_SRC); \
 	    echo 'local M={}'                                     >  $(VERSION_SRC); \
