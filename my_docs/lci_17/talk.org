@@ -21,6 +21,63 @@ Notes for talk at LCI 2017 at UWYO
 * Talk about Shell Startup Debug
 * Creating Modulefiles
    Modulefiles are written for the steps that will load a module.
+   Conventions Matter.  Be consistent.
+
+       Something like:  <SITE_NAME>_<PKG_NAME>_{LIB,INC,BIN}
+
+       TACC_HDF5_INC
+       TACC_HDF5_LIB
+       TACC_HDF5_BIN
+
+   Modulefiles should almost always prepend_path not append_path for
+   PATH like variables.
+
+* What to call your modules:
+
+   I like easy typing so I like short names like boost/1.61 and lower
+   case. Other site try to match the "name" like OpenMPI/11.0 (ugh!)
+
+   Other sites like category/name/version. I think it depends how
+   developer friendly versus documentation your site is.  Pick one.
+   My only comment is that your choice of categories might be
+   different than mine.
+
+* What goes in /etc/profile.d/*.{sh,csh} files versus modulefiles?
+
+  In my view it should always safe to do "module purge" and have a
+  sane environment. 
+** /etc/profile.d/*.{sh,csh}
+   default prompt (PS1)
+   $WORK, $SCRATCH
+** TACC module:
+   a default compiler, a default MPI stack
+   append_path("PATH",".") for all non-root accounts
+
+* Sticky modules?
+  Should you use them? Maybe 
+
+* Initial set of modules:
+ 
+  We have a module named "TACC" which all users get loaded by
+  default.  It has a default compiler and MPI stack module loaded.
+
+  We set LMOD_SYSTEM_DEFAULT_MODULES="TACC"
+
+  Other sites might do:
+
+     LMOD_SYSTEM_DEFAULT_MODULES="intel:impi"
+
+  either way the default module load does:
+
+    module --initial_load --no_redirect restore
+
+  which will load the user's default collection (if it exists) or the
+  default modules:
+
+  For us:  "module reset" is the same as "module purge; module load TACC"  
+  
+
+
    
 * What are the  difference between Lmod and Tmod?
 
