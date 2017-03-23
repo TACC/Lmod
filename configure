@@ -2844,7 +2844,9 @@ fi
 
 # Check whether --with-exportedModuleCmd was given.
 if test "${with_exportedModuleCmd+set}" = set; then :
-  withval=$with_exportedModuleCmd; EXPORT_MODULE="$withval"
+  withval=$with_exportedModuleCmd; with_exportedModuleCmd=`echo $with_exportedModuleCmd | tr '[:upper:]' '[:lower:]'`
+    withval=$with_exportedModuleCmd
+    EXPORT_MODULE="$withval"
     { $as_echo "$as_me:${as_lineno-$LINENO}: result: EXPORT_MODULE=$with_exportedModuleCmd" >&5
 $as_echo "EXPORT_MODULE=$with_exportedModuleCmd" >&6; }
     cat >>confdefs.h <<_ACEOF
@@ -3304,11 +3306,11 @@ _ACEOF
 fi
 
 
+
 SYS_LD_LIB_PATH=$LD_LIBRARY_PATH
 
 
 SYS_LD_PRELOAD=$LD_PRELOAD
-
 
 
 
@@ -3464,6 +3466,8 @@ if test "$BASENAME" = "UNKNOWN" ; then
   echo
   exit
 fi
+
+
 
 
 

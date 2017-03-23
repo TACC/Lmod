@@ -106,6 +106,8 @@ AC_ARG_WITH(autoSwap,
 AC_SUBST(EXPORT_MODULE)
 AC_ARG_WITH(exportedModuleCmd,
     AC_HELP_STRING([--with-exportedModuleCmd=ans],[Export the module command. [[yes]]]),
+    with_exportedModuleCmd=`echo $with_exportedModuleCmd | tr '@<:@:upper:@:>@' '@<:@:lower:@:>@'`
+    withval=$with_exportedModuleCmd
     EXPORT_MODULE="$withval"
     AC_MSG_RESULT([EXPORT_MODULE=$with_exportedModuleCmd])
     AC_DEFINE_UNQUOTED(EXPORT_MODULE, "$with_exportedModuleCmd")dnl
@@ -357,6 +359,7 @@ AC_ARG_WITH(cachedLoads,
     CACHED_LOADS="$withval"
     AC_DEFINE_UNQUOTED(CACHED_LOADS, "$withval"))dnl
 
+
 AC_SUBST(SYS_LD_LIB_PATH)
 SYS_LD_LIB_PATH=$LD_LIBRARY_PATH
 
@@ -373,7 +376,6 @@ AC_SUBST(PATH_TO_LUAC)
 AC_SUBST(PATH_TO_PAGER)
 AC_SUBST(PATH_TO_SRC)
 AC_SUBST(PATH_TO_TCLSH)
-AC_SUBST(PATH_TO_TR)
 
 AC_PATH_PROG(PS,ps, UNKNOWN)
 if test "$PS" = "UNKNOWN" ; then
@@ -398,6 +400,8 @@ if test "$BASENAME" = "UNKNOWN" ; then
   echo
   exit
 fi
+
+
 
 
 
