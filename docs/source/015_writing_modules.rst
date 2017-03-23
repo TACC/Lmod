@@ -314,3 +314,9 @@ can be set like this::
     local cshStr  = "eval `$LMOD_DIR/ml_cmd $*`"
     set_shell_function("ml",bashStr,cshStr)
 
+Please note that aliases in bash are not expanded for non-interactive
+shells.  This means that it won't work in bash shell scripts.  Please
+change the shell alias to use the ``set_shell_function`` instead.
+Shell functions do work in both interactive and non-interactive
+shells.
+
