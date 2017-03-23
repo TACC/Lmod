@@ -56,7 +56,6 @@ PATH_TO_HASHSUM   	  := @PATH_TO_HASHSUM@
 PATH_TO_LUAC              := @PATH_TO_LUAC@
 PATH_TO_PAGER	  	  := @PATH_TO_PAGER@
 PATH_TO_TCLSH             := @PATH_TO_TCLSH@
-PATH_TO_TR                := @PATH_TO_TR@
 MODULEPATH_ROOT   	  := @MODULEPATH_ROOT@
 VERSION_SRC	  	  := $(srcdir)/src/Version.lua
 LUA_INCLUDE       	  := @LUA_INCLUDE@
@@ -200,7 +199,6 @@ __installMe:
                 -e 's|@have_lua_term@|$(HAVE_LUA_TERM)|g'                  	  \
 	        -e "s|@my_shell@|$$fn|g"                   	                  \
                 -e 's|@have_lua_json@|$(HAVE_LUA_JSON)|g'                  	  \
-                -e 's|@tr@|$(PATH_TO_TR)|g'                             	  \
                 -e 's|@tclsh@|$(PATH_TO_TCLSH)|g'                             	  \
                 -e 's|@disable_name_autoswap@|$(DISABLE_NAME_AUTOSWAP)|g'     	  \
 	        -e 's|@tmod_path_rule@|$(TMOD_PATH_RULE)|g'            	   	  \
