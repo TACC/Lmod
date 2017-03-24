@@ -166,6 +166,13 @@ cosmic:init{name = "LMOD_DISABLE_SAME_NAME_AUTOSWAP",
             sedV = "@disable_name_autoswap@",
             yn   = "no"}
 
+------------------------------------------------------------------------
+-- LMOD_DISABLE_SAME_NAME_AND_DIFFERENT_VERSION_AUTOSWAP: This env. var requires users to swap
+--                  out rather than using the one name rule. 
+------------------------------------------------------------------------
+
+LMOD_DISABLE_SAME_NAME_AND_DIFFERENT_VERSION_AUTOSWAP = initialize("LMOD_DISABLE_SAME_NAME_AND_DIFFERENT_VERSION_AUTOSWAP",
+                                             "no")
 --------------------------------------------------------------------------
 -- When restoring, use specified version instead of following the default
 --------------------------------------------------------------------------
