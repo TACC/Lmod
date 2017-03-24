@@ -115,3 +115,8 @@ Notes for talk at LCI 2017 at UWYO
 ** Stable version: http://lmod.sf.net
 ** Documentation:  http://lmod.readthedocs.org
 ** Mailing list:   Go to https://lists.sourceforge.net/lists/listinfo/lmod-users to join.
+
+* Talk with Doug and Bill:
+   Lmod works well with the modules and has lots of feature.
+   It works well with the hierarchy but Lmod doesn't require it.
+   
