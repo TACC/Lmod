@@ -190,7 +190,7 @@ end
 function Help(...)
 
    local banner = Banner:singleton()
-   
+
    _G.prtHdr = function()
       local middleStr = i18n("specific_hlp",{fullName = _G.FullName})
       local title     = banner:bannerStr(middleStr)
@@ -350,11 +350,7 @@ function List(...)
       b[#b+1] = "\n"
    end
 
-   local aa = {}
-   aa = hook.apply("msgHook","list",aa)
-   if (#aa > 0) then
-      b[#b+1] = concatTbl(aa,"")
-   end
+   b = hook.apply("msgHook","list",b) or b
 
    shell:echo(concatTbl(b,""))
    dbg.fini("List")
