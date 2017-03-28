@@ -246,6 +246,8 @@ function List(...)
    dbg.print{"#activeA:   ",#activeA,"\n"}
    dbg.print{"#inactiveA: ",#inactiveA,"\n"}
 
+   activeA = hook.apply("listHook",activeA) or activeA
+
    if (total < 1) then
       shell:echo(i18n("noModsLoaded"))
       dbg.fini("List")
@@ -349,8 +351,6 @@ function List(...)
       b[#b+1] = ct:build_tbl()
       b[#b+1] = "\n"
    end
-
-   dbg.print{"b: ",b,"\n"}
 
    b = hook.apply("msgHook","list",b) or b
 

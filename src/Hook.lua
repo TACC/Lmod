@@ -66,6 +66,7 @@ local validT =
       startup         = false,  -- This hook is run when Lmod is called
       packagebasename = false,  -- Hook to find the patterns that spider uses for reverse map
       load_spider     = false,  -- This hook is run evaluating modules for spider/avail
+      listHook        = false,  -- This hook gets the list of active modules
 }
 
 --------------------------------------------------------------------------
