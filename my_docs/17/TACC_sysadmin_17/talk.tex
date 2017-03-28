@@ -21,14 +21,144 @@
 \date{April 20, 2017} 
 
 
+% page 0
 \frame{\titlepage} 
 
+% page 1
 \begin{frame}{Outline}
   \begin{itemize}
+    \item What are Environment Modules?
     \item What is Lmod?
-    \item Why you might want to use it.
     \item Modulefiles Architecture
     \item Where to go for help.
+  \end{itemize}
+\end{frame}
+
+% page 2
+\begin{frame}{Conclusions: Lmod}
+  \begin{itemize}
+    \item Latest version: https://github.com:TACC/Lmod.git
+    \item Stable version: http://lmod.sf.net
+    \item Documentation:  http://lmod.readthedocs.org
+    \item Mailing List:   lmod-users@lists.sourceforge.net.
+    \item Join here: https://lists.sourceforge.net/lists/listinfo/lmod-users
+  \end{itemize}
+\end{frame}
+
+% page 3
+\begin{frame}{What are Modules?}
+  \begin{itemize}
+    \item Modules are the way sites provide optional software: MPI,
+      Boost, ...
+    \item Modules add to PATH and set other env. vars for each package
+    \item Modules can be unloaded.
+    \item Modulefiles are in one file not one for each
+      shell. (e.g. Compiler init scripts)
+    \item Demo
+  \end{itemize}
+\end{frame}
+
+% page 4
+\begin{frame}{What is Lmod?}
+  \begin{itemize}
+    \item A modern replacement for a tried and true concept.
+    \item The guiding principal: ``Make life easier w/o getting in
+      the way.''
+    \item Reads both TCL and Lua modulefiles
+  \end{itemize}
+\end{frame}
+
+% page 5
+\begin{frame}{Why You Might Want To Use Lmod?}
+  \begin{itemize}
+    \item Same \texttt{module} command as in Tmod
+    \item Active Development;  Frequent Releases; Bug fixes.
+    \item Vibrant Community
+    \item It is used from Norway to Isreal to New Zealand from Stanford to MIT to NASA
+    \item Enjoy many capabilities w/o changing a single module file
+    \item Debian, Fedora and Brew packages available
+    \item Many more advantages when you're ready
+    \item It is what we and many sites around the world use every day!
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Features}
+  \begin{itemize}
+    \item Reads for TCL and Lua modulefiles
+    \item One name rule.
+    \item Support a Software Hierarchy
+    \item Fast \texttt{module avail} via optional spider cache 
+    \item Properties (gpu, mic)
+    \item Semantic Versioning:  5.6 is older than 5.10
+    \item family(``compiler'') family(``mpi'') support
+    \item Optional Tracking: What modules are used?
+    \item Many other features: ml, collections, hooks, nag, ...
+  \end{itemize}
+\end{frame}
+
+% page 6
+\begin{frame}{Tmod vs. Lmod}
+  \begin{itemize}
+    \item Tmod is in maintenance mode, Lmod active
+    \item Lmod has many more features
+    \item Tmod: \texttt{module load gcc/5.3 gcc/6.0} works
+    \item Lmod has the ``One Name Rule''
+    \item Lmod close to Tmod, but not the same.
+  \end{itemize}
+\end{frame}
+
+%page 8
+\begin{frame}{Shared Disk versus Local Install}
+  \begin{itemize}
+    \item Local install: Fast and small
+    \item Shared Disk: Big and slow
+    \item We to local install (mostly)
+    \item Limited to 3 version max!
+  \end{itemize}
+\end{frame}
+
+
+
+
+
+%page 8
+\begin{frame}{Module Architecture Design at TACC}
+  \begin{itemize}
+    \item Be consistent! Find a convention and stick with it!
+    \item We define consistent variables in each module:
+      $<$SITE\_NAME$>$\_$<$PKG\_Name$>$\_\{LIB,INC,BIN\}
+      \begin{itemize}
+        \item TACC\_HDF5\_INC
+        \item TACC\_HDF5\_BIN
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+
+%page 
+\begin{frame}[fragile]
+    \frametitle{}
+  \begin{itemize}
+    \item 
+  {\small
+    \begin{alltt}
+
+    \end{alltt}
+}
+    \item 
+  \end{itemize}
+\end{frame}
+
+
+
+
+
+\begin{frame}{Conclusions: Lmod 7+}
+  \begin{itemize}
+    \item Latest version: https://github.com:TACC/Lmod.git
+    \item Stable version: http://lmod.sf.net
+    \item Documentation:  http://lmod.readthedocs.org
+    \item Mailing List:   lmod-users@lists.sourceforge.net.
+    \item Join here: https://lists.sourceforge.net/lists/listinfo/lmod-users
   \end{itemize}
 \end{frame}
 
