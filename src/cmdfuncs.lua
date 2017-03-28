@@ -350,6 +350,8 @@ function List(...)
       b[#b+1] = "\n"
    end
 
+   dbg.print{"b: ",b,"\n"}
+
    b = hook.apply("msgHook","list",b) or b
 
    shell:echo(concatTbl(b,""))
