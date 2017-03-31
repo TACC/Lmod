@@ -108,26 +108,183 @@
   \end{itemize}
 \end{frame}
 
-
-
-
 %page 8
+\begin{frame}{Module Architecture Design}
+  \begin{itemize}
+    \item Optional software: shared or local?
+    \item Flat or Hierarchical Module Layout?
+    \item Naming conventions? (NV, CNV, NVV?)
+    \item Keep software for life of cluster?
+    \item Type of User: Expert, Novice, M\&S, Other?
+    \item Conventions for contents of Modules?
+  \end{itemize}
+\end{frame}
+
+%page 9
 \begin{frame}{Shared Disk versus Local Install}
   \begin{itemize}
-    \item Local install: Fast and small
-    \item Shared Disk: Big and slow
-    \item We to local install (mostly)
+    \item Local install: Fast, small 
+    \item Shared Disk: Big, slow
+    \item TACC: local install (mostly)
     \item Limited to 3 version max!
+    \item Shared Disk: Keep Software for life of system.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Modulefile Choices}
+  \begin{itemize}
+    \item Flat Naming Scheme
+    \item Hierarchical Naming Scheme
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Flat Naming Scheme: PETSc}
+  PETSc is a parallel iterative solver package:
+  \begin{itemize}
+    \item Compilers: GCC 6.3, Intel 17.0
+    \item MPI Implementations: MVAPICH2 2.1, IMPI 17.0
+    \item MPI Solver package: PETSc 4.1
+    \item 4 versions of PETSc: 2 Compilers $\times$ 2 MPI
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Flat: PETSc }
+  \begin{enumerate}
+  \item \texttt{PETSc/4.1-mvapich2-2.1-gcc-6.3}
+  \item \texttt{PETSc/4.1-mvapich2-2.1-intel-17.0}
+  \item \texttt{PETSc/4.1-openmpi-1.8-gcc-6.3}
+  \item \texttt{PETSc/4.1-openmpi-1.8-intel-17.0}
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}{Problems w/ Flat naming scheme}
+  \begin{itemize}
+    \item Users have to load modules:
+      \begin{itemize}
+        \item ``intel/17.0''
+        \item ``mvapich2/2.1-intel-17.0''
+        \item ``PETSc/4.1-mvapich2-2.1-intel-17.0''
+        \item Changing compilers means unloading all three modules
+        \item Reloading new compiler, MPI, PETSc modules.
+        \item Not loading correct modules $\Rightarrow$ Mysterious Failures!
+        \item Onus of package compatibility on users!
+        \item Or extremely complicated modulefiles!
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Hierarchical Naming Schemes}
+  \begin{itemize}
+    \item Store modules under one tree: \texttt{/opt/apps/modulefiles}
+    \item One strategy is to use sub-directories:
+      \begin{itemize}
+        \item Core: Regular packages: apps, compilers, git
+        \item Compiler: Packages that depend on compiler: boost, MPI
+        \item MPI: Packages that depend on MPI/Compiler: PETSc, TAU
+      \end{itemize}
+
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{\texttt{MODULEPATH}}
+  \begin{itemize}
+    \item \texttt{MODULEPATH} is a colon separated list of directories
+      containing directories and module files.
+    \item No modulefiles loaded $\Rightarrow$ users can only load core modules.
+    \item Loading a compiler module adds to the \texttt{MODULEPATH}:
+      \begin{itemize}
+        \item Users can load compiler dependent modules.
+        \item This includes MPI implementations modules.
+      \end{itemize}
+    \item Loading an MPI module adds to the \texttt{MODULEPATH}:
+      \begin{itemize}
+        \item Users can load MPI libraries that match the MPI/compiler pairing.
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Hierarchical Examples: Core}
+  \begin{itemize}
+    \item Generic:
+      \begin{itemize}
+        \item Package: \texttt{/opt/apps/}\emph{package/version}
+        \item M: {\color{blue}/opt/apps/modulefiles}
+        \item Modulefile: \texttt{{\color{blue}\$M}/Core/}\emph{package/version}
+      \end{itemize}
+    \item Git 1.8
+      \begin{itemize}
+        \item Package: \texttt{/opt/apps/git/1.8}
+        \item Modulefile: \texttt{{\color{blue}\$M}/Core/git/1.8}
+      \end{itemize}
+    \item Intel compilers 11.1
+      \begin{itemize}
+        \item Package: \texttt{/opt/apps/intel/17.0}
+        \item Modulefile: \texttt{{\color{blue}\$M}/Core/intel/17.0}
+        \item Modulefile adds \texttt{{\color{blue}\$M}/Compiler/intel/17.0} to \texttt{MODULEPATH}
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+
+
+
+\begin{frame}{Hierarchical Examples: Compiler Dependent}
+  \begin{itemize}
+    \item Generic:
+      \begin{itemize}
+        \item Package: /opt/apps/\emph{compiler-version/package/version}
+        \item M: {\color{blue}/opt/apps/modulefiles}
+        \item Modulefile: \texttt{{\color{blue}\$M}/Compiler/}\emph{compiler/version/package/version}
+      \end{itemize}
+    \item Openmpi 1.8 with gcc 6.3
+      \begin{itemize}
+        \item Package: \texttt{/opt/apps/gcc-6\_3/openmpi/1.8}
+        \item Modulefile: \texttt{{\color{blue}\$M}/Compiler/gcc/6.3/openmpi/1.8}
+        \item Modulefile adds \texttt{{\color{blue}\$M}/MPI/gcc/6.3/openmpi/1.8}
+          to \texttt{MODULEPATH} \\
+      \end{itemize}
+    \item Openmpi 1.8 with intel 11.1
+      \begin{itemize}
+        \item Package: \texttt{/opt/apps/intel-17\_0/openmpi/1.8}
+        \item Modulefile: \texttt{{\color{blue}\$M}/Compiler/intel/17.0/openmpi/1.8}
+        \item Modulefile adds \texttt{\$M/MPI/intel/17.0/openmpi/1.8}
+          to \texttt{MODULEPATH}
+
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Hierarchical Examples: MPI/Compiler Dependent}
+  \begin{itemize}
+    \item PETSc 4.1 (1)
+      \begin{itemize}
+        \item Package: \texttt{/opt/apps/intel-17\_0/openmpi-1\_8/petsc/4.1}
+        \item Modulefile: \texttt{{\color{blue}\$M}/MPI/intel/17.0/openmpi/1.8/petsc/4.1}
+      \end{itemize}
+    \item PETSc 4.1 (2)
+      \begin{itemize}
+        \item Package: \texttt{/opt/apps/gcc-4\_5/mvapich2-2\_1/petsc/4.1}
+        \item Modulefile: \texttt{{\color{blue}\$M}/MPI/gcc/6.3/mvapich2/2.1/petsc/4.1}
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Loading the correct module}
+  \begin{itemize}
+    \item User loads ``\texttt{intel/17.0}'' module
+    \item Can only see/load compiler dependent packages that are built with
+      intel 17.0 compiler.
+    \item Can not see/load package built with other versions or other compilers.
+    \item Similar loading ``\texttt{openmpi/1.8'' module.
+    \item User can only load package that are built w/ intel 17.0 and
+      openmpi 1.8 and no others.
   \end{itemize}
 \end{frame}
 
 
 
 
-%Possible topics for Modules Arch Design:
-%Software Hierarchy?, Flat versus Hierarchy?
-%Naming Convention for package and modulefile?
-%
 
 
 
