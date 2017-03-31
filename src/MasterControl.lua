@@ -789,15 +789,6 @@ function M.load(self, mA)
       dbg.start{"MasterControl:load(mA={"..s.."})"}
    end
 
-   local tracing = cosmic:value("LMOD_TRACING")
-   if (tracing == "yes") then
-      local stackDepth = FrameStk:singleton():stackDepth()
-      local indent     = ("  "):rep(stackDepth+1)
-      for i = 1, #mA do
-         io.stderr:write(indent, "Loading: ",mA[i]:userName(),"\n")
-      end
-   end
-
    local master = Master:singleton()
    local a      = master:load(mA)
 
@@ -831,16 +822,6 @@ function M.unload(self, mA)
    if (dbg.active()) then
       local s = mAList(mA)
       dbg.start{"MasterControl:unload(mA={"..s.."})"}
-   end
-
-   local tracing = cosmic:value("LMOD_TRACING")
-   dbg.print{"tracing: ",tracing,"\n"}
-   if (tracing == "yes") then
-      local stackDepth = FrameStk:singleton():stackDepth()
-      local indent     = ("  "):rep(stackDepth+1)
-      for i = 1, #mA do
-         io.stderr:write(indent, "Unloading: ",mA[i]:userName(),"\n")
-      end
    end
 
    local aa     = master:unload(mA)

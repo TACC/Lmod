@@ -252,9 +252,10 @@ function M.load(self, mA)
       local s = mAList(mA)
       dbg.start{"Master:load(mA={"..s.."})"}
    end
-   
+
    local disable_same_name_autoswap = cosmic:value("LMOD_DISABLE_SAME_NAME_AUTOSWAP")
 
+   local tracing  = cosmic:value("LMOD_TRACING")
    local frameStk = FrameStk:singleton()
    local shellNm  = _G.Shell and _G.Shell:name() or "bash"
    local a        = {}
@@ -269,6 +270,13 @@ function M.load(self, mA)
       local fullName = mname:fullName()
       local fn       = mname:fn()
       local loaded   = false
+
+      
+      if (tracing == "yes") then
+         local stackDepth = frameStk:stackDepth()
+         local indent     = ("  "):rep(stackDepth+1)
+         io.stderr:write(indent, "Loading: ",userName," (fn: ",fn,")\n")
+      end
 
       dbg.print{"Master:load i: ",i," sn: ",sn," fn: ",fn,"\n"}
 
@@ -362,6 +370,7 @@ function M.unload(self,mA)
       dbg.start{"Master:unload(mA={"..s.."})"}
    end
 
+   local tracing  = cosmic:value("LMOD_TRACING")
    local frameStk = FrameStk:singleton()
    local shellNm  = Shell and Shell:name() or "bash"
    local a        = {}
@@ -389,6 +398,12 @@ function M.unload(self,mA)
          registerUnloaded(mt:fullName(sn), mt:fn(sn))
          a[#a + 1] = true
       elseif (mt:have(sn,"active")) then
+         if (tracing == "yes") then
+            local stackDepth = frameStk:stackDepth()
+            local indent     = ("  "):rep(stackDepth+1)
+            io.stderr:write(indent, "Unloading: ",userName," (fn: ",fn or "nil",")\n")
+         end
+
          dbg.print{"Master:unload: \"",userName,"\" from file: \"",fn,"\"\n"}
          frameStk:push(mname)
          mt = frameStk:mt()
