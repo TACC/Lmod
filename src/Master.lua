@@ -257,7 +257,8 @@ function M.load(self, mA)
 
    local tracing  = cosmic:value("LMOD_TRACING")
    local frameStk = FrameStk:singleton()
-   local shellNm  = _G.Shell and _G.Shell:name() or "bash"
+   local shell    = _G.Shell
+   local shellNm  = shell and shell:name() or "bash"
    local a        = {}
    local mt
 
@@ -275,7 +276,14 @@ function M.load(self, mA)
       if (tracing == "yes") then
          local stackDepth = frameStk:stackDepth()
          local indent     = ("  "):rep(stackDepth+1)
-         io.stderr:write(indent, "Loading: ",userName," (fn: ",fn or "nil",")\n")
+         local b          = {}
+         b[#b + 1]        = indent
+         b[#b + 1]        = "Loading: "
+         b[#b + 1]        = userName
+         b[#b + 1]        = " (fn: "
+         b[#b + 1]        = fn or "nil"
+         b[#b + 1]        = ")\n"
+         shell:echo(concatTbl(b,""))
       end
 
       dbg.print{"Master:load i: ",i," sn: ",sn," fn: ",fn,"\n"}
@@ -372,7 +380,8 @@ function M.unload(self,mA)
 
    local tracing  = cosmic:value("LMOD_TRACING")
    local frameStk = FrameStk:singleton()
-   local shellNm  = Shell and Shell:name() or "bash"
+   local shell    = _G.Shell
+   local shellNm  = shell and shell:name() or "bash"
    local a        = {}
    local mt
    
@@ -389,6 +398,18 @@ function M.unload(self,mA)
       local fullName = mname:fullName()
       local sn       = mname:sn()
       local fn       = mname:fn()
+      if (tracing == "yes") then
+         local stackDepth = frameStk:stackDepth()
+         local indent     = ("  "):rep(stackDepth+1)
+         local b          = {}
+         b[#b + 1]        = indent
+         b[#b + 1]        = "Unloading: "
+         b[#b + 1]        = userName
+         b[#b + 1]        = " (fn: "
+         b[#b + 1]        = fn or "nil"
+         b[#b + 1]        = ")\n"
+         shell:echo(concatTbl(b,""))
+      end
 
       dbg.print{"Trying to unload: ", userName, " sn: ", sn,"\n"}
 
@@ -398,11 +419,6 @@ function M.unload(self,mA)
          registerUnloaded(mt:fullName(sn), mt:fn(sn))
          a[#a + 1] = true
       elseif (mt:have(sn,"active")) then
-         if (tracing == "yes") then
-            local stackDepth = frameStk:stackDepth()
-            local indent     = ("  "):rep(stackDepth+1)
-            io.stderr:write(indent, "Unloading: ",userName," (fn: ",fn or "nil",")\n")
-         end
 
          dbg.print{"Master:unload: \"",userName,"\" from file: \"",fn,"\"\n"}
          frameStk:push(mname)

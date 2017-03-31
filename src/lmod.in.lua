@@ -371,9 +371,17 @@ function main()
    end
    -- dumpversion and quit if requested.
 
+   -- Build Shell object from shellNm
+   Shell = BaseShell:build(shellNm)
+   dbg.print{"shellNm: ",shellNm,", Shell:name(): ",Shell:name(),"\n"}
+
    local tracing = cosmic:value("LMOD_TRACING")
    if (tracing == "yes" ) then
-      io.stderr:write("running: module ",concatTbl(arg," "),"\n")
+      local a   = {}
+      a[#a + 1] = "running: module "
+      a[#a + 1] = concatTbl(arg," ")
+      a[#a + 1] = "\n"
+      Shell:echo(concatTbl(a,""))
    end
 
    if (masterTbl.dumpversion) then
@@ -436,10 +444,6 @@ function main()
    local checkMPATH = (cmdT) and cmdT.checkMPATH or false
    dbg.print{"Calling Master:singleton(checkMPATH) w checkMPATH: ",checkMPATH,"\n"}
    master = Master:singleton(checkMPATH)
-
-   -- Build Shell object from shellNm
-   Shell = BaseShell:build(shellNm)
-   dbg.print{"shellNm: ",shellNm,", Shell:name(): ",Shell:name(),"\n"}
 
    if (masterTbl.checkSyntax) then
       MCP = MasterControl.build("checkSyntax")
