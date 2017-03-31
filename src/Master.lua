@@ -275,7 +275,7 @@ function M.load(self, mA)
       if (tracing == "yes") then
          local stackDepth = frameStk:stackDepth()
          local indent     = ("  "):rep(stackDepth+1)
-         io.stderr:write(indent, "Loading: ",userName," (fn: ",fn,")\n")
+         io.stderr:write(indent, "Loading: ",userName," (fn: ",fn or nil,")\n")
       end
 
       dbg.print{"Master:load i: ",i," sn: ",sn," fn: ",fn,"\n"}
