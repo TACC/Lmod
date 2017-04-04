@@ -18,9 +18,8 @@ like the following for a user which as a default collection::
       Loading: noweb
       Loading: StdEnv
 
-
 Using Shell Startup Debug with Tracing
-======================================
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Sites may wish to install the shell startup debug package from
 sourceforce::
