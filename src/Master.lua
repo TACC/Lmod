@@ -641,7 +641,8 @@ local function availEntry(defaultOnly, label, searchA, defaultT, entry)
       end
    end
    if (found) then
-      return sn, fullName, fn
+      entry = hook.apply("avail_module", entry) or entry
+      return entry.sn, entry.fullName, entry.fn
    end
    return nil, nil
 end
