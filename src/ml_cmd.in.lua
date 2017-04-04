@@ -146,6 +146,7 @@ function main()
       ["--spider_timeout"] = 1,       ["--spider-timeout"] = 1,
       ["--terse"] = 0,  ["-t"] = 0,
       ["--timer"] = 0,
+      ["--trace"] = 0,  ["-T"] = 0,
       ["--version"]=0,  ["--versoin"]=0, ["--ver"]=0, ["--v"]=0, ["-v"]=0,
       ['--config'] = 0,
       ['--config-json'] = 0,

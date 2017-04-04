@@ -346,7 +346,7 @@ function M.singleton(self, usage)
    end
 
    if (optionTbl.trace) then
-      cosmic:assign("LMOD_TRACE", "yes")
+      cosmic:assign("LMOD_TRACING", "yes")
    end
 
    if (optionTbl.twidth) then
