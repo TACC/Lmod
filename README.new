@@ -3,3 +3,4 @@ Lmod 7.4 +
     (7.4.2)  Merged in PR #244 extending msgHook for list to get the original list.
     (7.4.3)  Added listHook so that sites can control what gets listed by module list.
     (7.4.4)  Now print userName and fn when loading/unloading when tracing
+             Fix bug with -T, --trace option. Add -T, --trace to ml
