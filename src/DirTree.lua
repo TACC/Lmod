@@ -48,7 +48,11 @@ local access    = posix.access
 local concatTbl = table.concat
 local readlink  = posix.readlink
 local stat      = posix.stat
-local user_uid  = posix.getuid()
+local user_uid  = 0
+local getuid    = posix.getuid
+if (getuid) then
+   user_uid = getuid()
+end
 
 local load      = (_VERSION == "Lua 5.1") and loadstring or load
 
@@ -189,7 +193,7 @@ local function walk(mrc, mpath, path, dirA, fileT)
          if (attr == nil) then break end
          local kind = attr.mode
 
-         if (user_uid == 0 and attr.uid == 0 and not attr.permissions:find("......r..")) then break end
+         if (attr.uid == 0 and user_uid == 0 and not attr.permissions:find("......r..")) then break end
 
          if (kind == "directory" and f ~= "." and f ~= "..") then
             dirA[#dirA + 1 ] = file
