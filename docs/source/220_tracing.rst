@@ -17,7 +17,6 @@ like the following for a user which as a default collection::
       Loading: gcc
       Loading: noweb
       Loading: StdEnv
-      Loading: mpich
 
 
 Using Shell Startup Debug with Tracing
@@ -59,14 +58,11 @@ actions::
      Last login: Sun Apr  2 08:03:13 2017
      running: module --initial_load restore
        Using collection:      /home/user/.lmod.d/default
-       Setting MODULEPATH to: /opt/apps/modulefiles/Darwin:/opt/apps/modulefiles/Core:/opt/apps/lmod/lmod/modulefiles/Core
+       Setting MODULEPATH to: /opt/apps/modulefiles/Darwin:/opt/apps/modulefiles/Core
        Loading: unix (fn: /opt/apps/modulefiles/Core/unix/unix.lua)
-       Loading: local (fn: /opt/apps/modulefiles/Core/local/local.lua)
-       Loading: mkl (fn: /opt/apps/modulefiles/Core/mkl/mkl.lua)
        Loading: gcc (fn: /opt/apps/modulefiles/Darwin/gcc/5.2.lua)
        Loading: noweb (fn: /opt/apps/modulefiles/Core/noweb/2.11b.lua)
        Loading: StdEnv (fn: /opt/apps/modulefiles/Core/StdEnv.lua)
-       Loading: settarg (fn: /opt/apps/lmod/lmod/modulefiles/Core/settarg/7.4.3.lua)
 
 This way you can trace Lmod startup without having to edit any files
 in /etc/profile.d/* or the shell startup files.
