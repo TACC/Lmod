@@ -21,6 +21,12 @@
 \author{Robert McLay} 
 \date{April 20, 2017} 
 
+% Things to talk about
+% * ml
+% * user collections
+% * StdEnv
+
+
 
 % page 0
 \frame{\titlepage} 
@@ -182,7 +188,7 @@ Due to MODULEPATH changes the follow modules have been reloaded:
     \item Optional software: shared or local?
     \item Flat or Hierarchical Module Layout?
     \item Naming conventions? (N/V, C/N/V, C/N/V/V?)
-    \item Type of User: Expert, Novice, M\&S, Other?
+    \item A standard set of modules?
     \item Keep software for life of cluster or not?
     \item Problems with Bash
   \end{itemize}
@@ -381,6 +387,16 @@ Due to MODULEPATH changes the follow modules have been reloaded:
       \end{itemize}
   \end{itemize}
 \end{frame}
+
+%page 24.1
+\begin{frame}{A standard set of modules?}
+  \begin{itemize}
+    \item 
+  \end{itemize}
+\end{frame}
+
+
+
 
 %%page 
 %\begin{frame}[fragile]
@@ -601,12 +617,12 @@ Due to MODULEPATH changes the follow modules have been reloaded:
     \begin{alltt}
 running: module --initial_load restore
   Using collection:      /home/user/.lmod.d/default
-  Setting MODULEPATH to: /opt/apps/modulefiles/Darwin:/opt/apps/modulefiles/Core
-  Loading: unix (fn: /opt/apps/modulefiles/Core/unix/unix.lua)
-  Loading: local (fn: /opt/apps/modulefiles/Core/local/local.lua)
-  Loading: mkl (fn: /opt/apps/modulefiles/Core/mkl/mkl.lua)
-  Loading: gcc (fn: /opt/apps/modulefiles/Darwin/gcc/5.2.lua)
-  Loading: StdEnv (fn: /opt/apps/modulefiles/Core/StdEnv.lua)
+  Setting MODULEPATH to: /opt/apps/mfiles/Darwin:/opt/apps/mfiles/Core
+  Loading: unix (fn: /opt/apps/mfiles/Core/unix/unix.lua)
+  Loading: local (fn: /opt/apps/mfiles/Core/local/local.lua)
+  Loading: mkl (fn: /opt/apps/mfiles/Core/mkl/mkl.lua)
+  Loading: gcc (fn: /opt/apps/mfiles/Darwin/gcc/5.2.lua)
+  Loading: StdEnv (fn: /opt/apps/mfiles/Core/StdEnv.lua)
     \end{alltt}
 }
     \item 
@@ -614,7 +630,7 @@ running: module --initial_load restore
 \end{frame}
 
 
-
+% Talk about shell startup debug
 
 
 
