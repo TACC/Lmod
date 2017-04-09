@@ -6,6 +6,7 @@
 \usetikzlibrary{decorations.pathreplacing}
 \usetikzlibrary{calc,arrows.meta,positioning}
 \usepackage{pstricks}
+\usepackage{alltt}
 \usepackage{colortbl}
 \usepackage{textcomp}
 \usepackage{picture}
@@ -69,6 +70,72 @@
 \end{frame}
 
 % page 5
+\begin{frame}{Fundamental Issues}
+  \begin{itemize}
+    \item Software Packages are created and updated all the time.
+    \item Some Users need new versions for new features and bug fixes.
+    \item Other Users need older versions for stability and continuity.
+    \item No system can support all versions of all packages.
+    \item User programs using pre-built C++ \& Fortran libraries must
+      link with the same compiler.
+    \item Similarly, MPI Applications must build and link with same
+      MPI/Compiler pairing when using prebuilt MPI libraries.
+  \end{itemize}
+\end{frame}
+
+% page 6
+\begin{frame}[fragile]
+    \frametitle{Example of Lmod: Environment Modules (I)}
+    {\tiny
+\begin{alltt}
+\$ {\color{blue} module avail}
+------------------ /opt/apps/modulefiles/MPI/intel/12.0/mpich2/1.4 ------------------
+  petsc/3.1 (default)    petsc/3.1-debug    pmetis/4.0    tau/2.20.3
+
+------------------- /opt/apps/modulefiles/Compiler/intel/12.0 -----------------------
+  boost/1.45.0              gotoblas2/1.13          openmpi/1.4.3
+  boost/1.46.0              mpich2/1.3.2            openmpi/1.5.1
+  boost/1.46.1 (default)    mpich2/1.4 (default)    openmpi/1.5.3 (default)
+
+-------------------------- /opt/apps/modulefiles/Core -------------------------------
+  StdEnv               intel/11.1               papi/4.1.4
+  admin/admin-1.0      intel/12.0 (default)     scite/2.28
+  ddt/ddt              lmod/lmod                tex/2010
+  dmalloc/dmalloc      local/local (default)    unix/unix (default)
+  fdepend/1.2          mkl/mkl                  visit/visit
+  gcc/4.4              noweb/2.11b
+  gcc/4.5 (default)
+\end{alltt}
+    }
+\end{frame}
+
+% page 7
+\begin{frame}[fragile]
+    \frametitle{Example of Lmod: Environment Modules (II)}
+    {\tiny
+\begin{alltt}
+{\color{blue}\$ module list}
+Currently Loaded Modules:
+  1) StdEnv  2) gcc/4.5  3) mpich2/1.4  4) petsc/3.1
+{\color{blue}\$ module unload gcc}
+Inactive Modules:
+  1) mpich2  2) petsc
+{\color{blue}\$ module list}
+Currently Loaded Modules:
+  1) StdEnv
+Inactive Modules:
+  1) mpich2  2) petsc
+{\color{blue}\$ module load intel}
+Activating Modules:
+  1) mpich2  2) petsc
+{\color{blue}\$ module swap intel gcc}
+Due to MODULEPATH changes the follow modules have been reloaded:
+  1) mpich2  2) petsc
+\end{alltt}
+    }
+\end{frame}
+
+% page 8
 \begin{frame}{Why You Might Want To Use Lmod?}
   \begin{itemize}
     \item Same \texttt{module} command as in Tmod
@@ -82,7 +149,7 @@
   \end{itemize}
 \end{frame}
 
-% page 6
+% page 9
 \begin{frame}{Features}
   \begin{itemize}
     \item Reads for TCL and Lua modulefiles
@@ -97,7 +164,7 @@
   \end{itemize}
 \end{frame}
 
-% page 7
+% page 10
 \begin{frame}{Tmod vs. Lmod}
   \begin{itemize}
     \item Tmod is in maintenance mode, Lmod active
@@ -108,19 +175,20 @@
   \end{itemize}
 \end{frame}
 
-%page 8
+%page 11
 \begin{frame}{Module Architecture Design}
   \begin{itemize}
+    \item Lua or TCL modulefiles?
     \item Optional software: shared or local?
     \item Flat or Hierarchical Module Layout?
-    \item Naming conventions? (NV, CNV, NVV?)
-    \item Keep software for life of cluster?
+    \item Naming conventions? (N/V, C/N/V, C/N/V/V?)
     \item Type of User: Expert, Novice, M\&S, Other?
-    \item Conventions for contents of Modules?
+    \item Keep software for life of cluster or not?
+    \item Problems with Bash
   \end{itemize}
 \end{frame}
 
-%page 9
+%page 12
 \begin{frame}{Shared Disk versus Local Install}
   \begin{itemize}
     \item Local install: Fast, small 
@@ -131,6 +199,7 @@
   \end{itemize}
 \end{frame}
 
+%page 13
 \begin{frame}{Modulefile Choices}
   \begin{itemize}
     \item Flat Naming Scheme
@@ -138,6 +207,7 @@
   \end{itemize}
 \end{frame}
 
+%page 14
 \begin{frame}{Flat Naming Scheme: PETSc}
   PETSc is a parallel iterative solver package:
   \begin{itemize}
@@ -148,31 +218,43 @@
   \end{itemize}
 \end{frame}
 
+%page 15
 \begin{frame}{Flat: PETSc }
   \begin{enumerate}
-  \item \texttt{PETSc/4.1-mvapich2-2.1-gcc-6.3}
-  \item \texttt{PETSc/4.1-mvapich2-2.1-intel-17.0}
-  \item \texttt{PETSc/4.1-openmpi-1.8-gcc-6.3}
-  \item \texttt{PETSc/4.1-openmpi-1.8-intel-17.0}
+  \item \texttt{PETSc/mvapich2\_2.1\_gcc\_6.3-4.1}
+  \item \texttt{PETSc/mvapich2\_2.1\_intel\_17.0-4.1}
+  \item \texttt{PETSc/openmpi\_1.8\_gcc\_6.3-4.1}
+  \item \texttt{PETSc/openmpi\_1.8\_intel\_17.0-4.1}
   \end{enumerate}
 \end{frame}
 
+%page 16
 \begin{frame}{Problems w/ Flat naming scheme}
   \begin{itemize}
     \item Users have to load modules:
       \begin{itemize}
         \item ``intel/17.0''
-        \item ``mvapich2/2.1-intel-17.0''
-        \item ``PETSc/4.1-mvapich2-2.1-intel-17.0''
+        \item ``mvapich2/intel\_17.0-2.1''
+        \item ``PETSc/mvapich2\_2.1\_intel\_17.0-4.1''
         \item Changing compilers means unloading all three modules
         \item Reloading new compiler, MPI, PETSc modules.
         \item Not loading correct modules $\Rightarrow$ Mysterious Failures!
         \item Onus of package compatibility on users!
-        \item Or extremely complicated modulefiles!
+        \item Or extremely compilicated modulefiles!
       \end{itemize}
   \end{itemize}
 \end{frame}
 
+%page 17
+\begin{frame}{Extremely compilicated modulefiles}
+  \begin{itemize}
+    \item Protect users via conflicts and/or prereqs
+    \item The problem is that they are fragile
+    \item What happens with a new compiler or MPI stack?
+  \end{itemize}
+\end{frame}
+
+%page 18
 \begin{frame}{Hierarchical Naming Schemes}
   \begin{itemize}
     \item Store modules under one tree: \texttt{/opt/apps/modulefiles}
@@ -182,10 +264,10 @@
         \item Compiler: Packages that depend on compiler: boost, MPI
         \item MPI: Packages that depend on MPI/Compiler: PETSc, TAU
       \end{itemize}
-
   \end{itemize}
 \end{frame}
 
+%page 19
 \begin{frame}{\texttt{MODULEPATH}}
   \begin{itemize}
     \item \texttt{MODULEPATH} is a colon separated list of directories
@@ -204,6 +286,7 @@
 \end{frame}
 
 
+%page 20
 \begin{frame}{Hierarchical Examples: Core}
   \begin{itemize}
     \item Generic:
@@ -228,6 +311,7 @@
 
 
 
+%page 21
 \begin{frame}{Hierarchical Examples: Compiler Dependent}
   \begin{itemize}
     \item Generic:
@@ -254,6 +338,7 @@
   \end{itemize}
 \end{frame}
 
+%page 22
 \begin{frame}{Hierarchical Examples: MPI/Compiler Dependent}
   \begin{itemize}
     \item PETSc 4.1 (1)
@@ -270,27 +355,22 @@
 \end{frame}
 
 
+%page 23
 \begin{frame}{Loading the correct module}
   \begin{itemize}
     \item User loads ``\texttt{intel/17.0}'' module
     \item Can only see/load compiler dependent packages that are built with
       intel 17.0 compiler.
     \item Can not see/load package built with other versions or other compilers.
-    \item Similar loading ``\texttt{openmpi/1.8'' module.
+    \item Similar loading ``\texttt{openmpi/1.8}'' module.
     \item User can only load package that are built w/ intel 17.0 and
       openmpi 1.8 and no others.
   \end{itemize}
 \end{frame}
 
 
-
-
-
-
-
-
-%page 8
-\begin{frame}{Module Architecture Design at TACC}
+%page 24
+\begin{frame}{Modulefile contents}
   \begin{itemize}
     \item Be consistent! Find a convention and stick with it!
     \item We define consistent variables in each module:
@@ -316,11 +396,230 @@
 %  \end{itemize}
 %\end{frame}
 
+%page 25
+\begin{frame}{Module Naming Conventions}
+  \begin{itemize}
+    \item N/V:   Name/Version (e.g. \texttt{bowtie/2.3})
+    \item C/N/V: Category/Name/version (e.g. \texttt{bio/bowtie/2.3})
+    \item N/V/V: Category/Sub/Name/version (e.g. \texttt{/bowtie/64/2.3})
+  \end{itemize}
+\end{frame}
+
+%page 26
+\begin{frame}{Module Naming Conventions (II)}
+  \begin{itemize}
+    \item Try to stick with N/V if possible
+    \item It's less typing
+    \item C/N/V might be helpful to novice users
+    \item But your obvious categories may not be obvious to your users.
+    \item Avoid N/V/V unless your users are experts 
+    \item Or if you really need 64/32 bit libraries
+  \end{itemize}
+\end{frame}
+
+%page 27
+\begin{frame}{Bash Issues}
+  \begin{itemize}
+    \item Bash Startup is typically ``broken'' for non-login
+      interactive shells
+    \item Redhat, Centos, MacOS typically don't source /etc/bashrc on
+      interactive shells
+    \item MPI jobs start an interactive shell.
+  \end{itemize}
+\end{frame}
+
+%page 28
+\begin{frame}{Bash Issues (II)}
+  \begin{itemize}
+    \item Want module command to work in all shells.
+    \item Want stacksize unlimited for MPI jobs
+    \item We patched bash to force it to source /etc/tacc/bashrc
+  \end{itemize}
+\end{frame}
+
+%page 29
+\begin{frame}{Bash Repair Choices}
+  \begin{itemize}
+    \item Switch users to Z shell?
+    \item patch bash (see Lmod docs)
+    \item Expect all users to source /etc/bashrc in \textasciitilde/.bashrc
+    \item Expect all users to start jobs with \#!/bin/bash -l
+  \end{itemize}
+\end{frame}
+
+%page 30
+\begin{frame}{Keeping Software for life of Machine or Not}
+  \begin{itemize}
+    \item It is possible with a shared disk approach
+    \item You might want to hide older modules
+  \end{itemize}
+\end{frame}
+
+%page 31
+\begin{frame}{Hidden Modules}
+  \begin{itemize}
+    \item Sites have always hide modules by adding a leading dot
+    \item For example gcc/.6.3
+    \item Lmod 7 also allows for hidden module via MODULERC
+    \item system MODULERC or ~/.modulerc
+  \end{itemize}
+\end{frame}
+
+%page 32
+\begin{frame}[fragile]
+    \frametitle{Using System MODULERC to hide modules}
+  \begin{itemize}
+    \item In \$MODULERCFILE
+  {\small
+    \begin{alltt}
+        #%Module
+        hide-version foo/3.2
+    \end{alltt}
+}
+  \end{itemize}
+\end{frame}
+
+%page 33
+\begin{frame}{Deprecating Modules}
+  \begin{itemize}
+    \item Sometime you may have to remove a package (and its
+      modulefile)
+    \item Certainly with Local installs.
+    \item How do you let users know?
+  \end{itemize}
+\end{frame}
+
+%page 34
+\begin{frame}{Deprecating Modules (II)}
+  \begin{itemize}
+    \item Assume Lmod is installed as /opt/apps/lmod/7.4.1/...
+    \item Then /opt/apps/lmod/etc/admin.list is the ``nag'' file
+    \item Or set \$LMOD\_ADMIN\_FILE to any file.
+    \item Every time a particular modulefile is loaded the user gets a
+      message.
+    \item We have found that setting a nag message to very effective!
+  \end{itemize}
+\end{frame}
+
+%page 35
+\begin{frame}{Tracking Module Usage}
+  \begin{itemize}
+    \item Lmod makes it easy to track module usage.
+    \item Lmod can be setup to send a tagged message to syslog
+    \item Rsyslog can send tags to a separate file.
+    \item See lmod/contrib/tracking\_module\_usage for details
+  \end{itemize}
+\end{frame}
+
+%page 36
+\begin{frame}[fragile]
+    \frametitle{Usage counts}
+  {\small
+    \begin{alltt}
+    \$ analyzeLmodDB --sqlPattern '%fftw%' --start '2015-01-01 --end '2015-02-01'  counts
+
+        Module path                                   Distinct Users
+        -----------                                   --------------  
+        /apps/intel13/mvapich2\_1\_9/mfiles/fftw3/3.3.2             151
+        /apps/intel13/mvapich2\_1\_9/mfiles/fftw2/2.1.5              62
+        /apps/intel13/impi\_4\_1/mfiles/fftw3/3.3.2                  45
+        /apps/intel13/impi\_4\_1/mfiles/fftw2/2.1.5                  19
+
+    \end{alltt}
+}
+\end{frame}
+
+%page 37
+\begin{frame}[fragile]
+    \frametitle{Distinct Users}
+  {\small
+    \begin{alltt}
+     \$ ./analyzeLmodDB --sqlPattern '%/apps/modulefiles/settarg%' usernames
+
+     Module path                       User Name
+     -----------                       ---------
+     /opt/apps/mfiles/settarg/5.8      user1
+     /opt/apps/mfiles/settarg/5.8      user2
+     /opt/apps/mfiles/settarg/5.8      user3
+     /opt/apps/mfiles/settarg/5.8.1    mclay
+     /opt/apps/mfiles/settarg/5.9.1    user5
+    \end{alltt}
+}
+\end{frame}
+
+%page 38
+\begin{frame}{Why does Lmod work at all?}
+  \begin{itemize}
+    \item The Environment is inherited from the parent process
+    \item Changes in the child's enviroment DOES NOT affect the
+      parent's
+    \item So how could Lmod work at all? 
+  \end{itemize}
+\end{frame}
+
+%page 39
+\begin{frame}{The trick is}
+  \begin{itemize}
+    \item The \texttt{lmod} program generates text.
+    \item The module command eval's that text.
+  \end{itemize}
+\end{frame}
+
+%page 40
+\begin{frame}{Why is this important?}
+  \begin{itemize}
+    \item It's a useful trick to know
+    \item Debugging Modulefiles:
+    \item \texttt{\$LMOD\_CMD bash load} \emph{module} \texttt{2$>$
+        /dev/null $>$ stdout.txt}
+  \end{itemize}
+\end{frame}
+
+%page 41
+\begin{frame}{Debugging Lmod}
+  \begin{itemize}
+    \item \texttt{module --config} : reports Lmod configuration
+    \item \texttt{module -D load foo $>$ load.log}
+  \end{itemize}
+\end{frame}
+
+%page 42
+\begin{frame}{Tracing Lmod}
+  \begin{itemize}
+    \item A new feature of Lmod 7.4.4+
+    \item module -T ...
+    \item Can trace loads and how restores work.
+  \end{itemize}
+\end{frame}
+
+%page 43
+\begin{frame}[fragile]
+    \frametitle{Tracing Example}
+  \begin{itemize}
+    \item 
+  {\small
+    \begin{alltt}
+running: module --initial_load restore
+  Using collection:      /home/user/.lmod.d/default
+  Setting MODULEPATH to: /opt/apps/modulefiles/Darwin:/opt/apps/modulefiles/Core
+  Loading: unix (fn: /opt/apps/modulefiles/Core/unix/unix.lua)
+  Loading: local (fn: /opt/apps/modulefiles/Core/local/local.lua)
+  Loading: mkl (fn: /opt/apps/modulefiles/Core/mkl/mkl.lua)
+  Loading: gcc (fn: /opt/apps/modulefiles/Darwin/gcc/5.2.lua)
+  Loading: StdEnv (fn: /opt/apps/modulefiles/Core/StdEnv.lua)
+    \end{alltt}
+}
+    \item 
+  \end{itemize}
+\end{frame}
 
 
 
 
-\begin{frame}{Conclusions: Lmod 7+}
+
+
+
+\begin{frame}{Conclusions: Lmod}
   \begin{itemize}
     \item Latest version: https://github.com:TACC/Lmod.git
     \item Stable version: http://lmod.sf.net
@@ -331,18 +630,6 @@
 \end{frame}
 
 
-\input{./themes/license}
+%\input{./themes/license}
 
 \end{document}
-
-
-
-
-
-
-
-
-
-
-
-
