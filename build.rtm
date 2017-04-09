@@ -153,4 +153,4 @@ cmdA=("-$MAKE distclean"
 
 runMe "${cmdA[@]}"
 
-rm -rf /tmp/{stampede,ls4}.build.$$
+rm -rf /tmp/TACC.build.$$
