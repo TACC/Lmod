@@ -229,10 +229,10 @@ Due to MODULEPATH changes the follow modules have been reloaded:
 %page 15
 \begin{frame}{Flat: PETSc }
   \begin{enumerate}
-  \item \texttt{PETSc/mvapich2\_2.1\_gcc\_6.3-4.1}
-  \item \texttt{PETSc/mvapich2\_2.1\_intel\_17.0-4.1}
-  \item \texttt{PETSc/openmpi\_1.8\_gcc\_6.3-4.1}
-  \item \texttt{PETSc/openmpi\_1.8\_intel\_17.0-4.1}
+  \item \texttt{PETSc/4.1-mvapich2-2.1-gcc-6.3}
+  \item \texttt{PETSc/4.1-mvapich2-2.1-intel-17.0}
+  \item \texttt{PETSc/4.1-openmpi-1.8-gcc-6.3}
+  \item \texttt{PETSc/4.1-openmpi-1.8-intel-17.0}
   \end{enumerate}
 \end{frame}
 
@@ -242,8 +242,8 @@ Due to MODULEPATH changes the follow modules have been reloaded:
     \item Users have to load modules:
       \begin{itemize}
         \item ``intel/17.0''
-        \item ``mvapich2/intel\_17.0-2.1''
-        \item ``PETSc/mvapich2\_2.1\_intel\_17.0-4.1''
+        \item ``mvapich2/2.1-intel-17.0''
+        \item ``PETSc/4.1-mvapich2-2.1-intel-17.0''
         \item Changing compilers means unloading all three modules
         \item Reloading new compiler, MPI, PETSc modules.
         \item Not loading correct modules $\Rightarrow$ Mysterious Failures!
@@ -390,10 +390,40 @@ Due to MODULEPATH changes the follow modules have been reloaded:
   \end{itemize}
 \end{frame}
 
+
 %page 24.1
-\begin{frame}{A standard set of modules?}
+\begin{frame}[fragile]
+    \frametitle{A Standard Set of Modules}
   \begin{itemize}
-    \item 
+    \item /opt/apps/modulefiles/StdEnv.lua
+  {\small
+    \begin{alltt}
+load("gcc","mvapich2")
+    \end{alltt}
+}
+  \end{itemize}
+\end{frame}
+
+
+%page 24.2
+\begin{frame}[fragile]
+    \frametitle{A Standard Set of Modules (II)}
+  \begin{itemize}
+    \item /etc/profile.d/z00_StdEnv.sh
+  {\small
+    \begin{alltt}
+   if [ -z "\$\_\_Init\_Default\_Modules" ]; then
+      export \_\_Init\_Default\_Modules=1;
+
+      ## 
+      export LMOD\_SYSTEM\_DEFAULT\_MODULES="StdEnv"
+      module --initial\_load --no\_redirect restore
+   else
+      module refresh
+   fi
+
+    \end{alltt}
+}
   \end{itemize}
 \end{frame}
 
@@ -418,8 +448,8 @@ Due to MODULEPATH changes the follow modules have been reloaded:
 \begin{frame}{Module Naming Conventions}
   \begin{itemize}
     \item N/V:   Name/Version (e.g. \texttt{bowtie/2.3})
-    \item C/N/V: Category/Name/version (e.g. \texttt{bio/bowtie/2.3})
-    \item N/V/V: Category/Sub/Name/version (e.g. \texttt{/bowtie/64/2.3})
+    \item C/N/V: Category/Name/Version (e.g. \texttt{bio/bowtie/2.3})
+    \item N/V/V: Name/Version/Version (e.g. \texttt{/bowtie/64/2.3})
   \end{itemize}
 \end{frame}
 
@@ -534,14 +564,14 @@ Due to MODULEPATH changes the follow modules have been reloaded:
     \frametitle{Usage counts}
   {\small
     \begin{alltt}
-    \$ analyzeLmodDB --sqlPattern '%fftw%' --start '2015-01-01 --end '2015-02-01'  counts
+\$ analyzeLmodDB --sqlPattern '%fftw%' --start '2015-01-01 --end '2015-02-01'  counts
 
-        Module path                                   Distinct Users
-        -----------                                   --------------  
-        /apps/intel13/mvapich2\_1\_9/mfiles/fftw3/3.3.2             151
-        /apps/intel13/mvapich2\_1\_9/mfiles/fftw2/2.1.5              62
-        /apps/intel13/impi\_4\_1/mfiles/fftw3/3.3.2                  45
-        /apps/intel13/impi\_4\_1/mfiles/fftw2/2.1.5                  19
+  Module path                                Distinct Users
+  -----------                                --------------  
+  /apps/intel13/mpich\_3\_2/mfiles/fftw3/3.3.2             151
+  /apps/intel13/mpich\_3\_2/mfiles/fftw2/2.1.5              62
+  /apps/intel13/impi\_4\_1/mfiles/fftw3/3.3.2               45
+  /apps/intel13/impi\_4\_1/mfiles/fftw2/2.1.5               19
 
     \end{alltt}
 }
@@ -552,15 +582,15 @@ Due to MODULEPATH changes the follow modules have been reloaded:
     \frametitle{Distinct Users}
   {\small
     \begin{alltt}
-     \$ ./analyzeLmodDB --sqlPattern '%/apps/modulefiles/settarg%' usernames
+\$ ./analyzeLmodDB --sqlPattern '%/settarg/%' usernames
 
-     Module path                       User Name
-     -----------                       ---------
-     /opt/apps/mfiles/settarg/5.8      user1
-     /opt/apps/mfiles/settarg/5.8      user2
-     /opt/apps/mfiles/settarg/5.8      user3
-     /opt/apps/mfiles/settarg/5.8.1    mclay
-     /opt/apps/mfiles/settarg/5.9.1    user5
+Module path                       User Name
+-----------                       ---------
+/opt/apps/mfiles/settarg/5.8      user1
+/opt/apps/mfiles/settarg/5.8      user2
+/opt/apps/mfiles/settarg/5.8      user3
+/opt/apps/mfiles/settarg/5.8.1    mclay
+/opt/apps/mfiles/settarg/5.9.1    user5
     \end{alltt}
 }
 \end{frame}
@@ -619,12 +649,10 @@ Due to MODULEPATH changes the follow modules have been reloaded:
     \begin{alltt}
 running: module --initial_load restore
   Using collection:      /home/user/.lmod.d/default
-  Setting MODULEPATH to: /opt/apps/mfiles/Darwin:/opt/apps/mfiles/Core
-  Loading: unix (fn: /opt/apps/mfiles/Core/unix/unix.lua)
-  Loading: local (fn: /opt/apps/mfiles/Core/local/local.lua)
-  Loading: mkl (fn: /opt/apps/mfiles/Core/mkl/mkl.lua)
-  Loading: gcc (fn: /opt/apps/mfiles/Darwin/gcc/5.2.lua)
-  Loading: StdEnv (fn: /opt/apps/mfiles/Core/StdEnv.lua)
+  Setting MODULEPATH to: /apps/mfiles/Darwin:/apps/mfiles/Core
+  Loading: unix (fn: /apps/mfiles/Core/unix/unix.lua)
+  Loading: gcc (fn: /apps/mfiles/Darwin/gcc/5.2.lua)
+  Loading: StdEnv (fn: /apps/mfiles/Core/StdEnv.lua)
     \end{alltt}
 }
     \item 
