@@ -395,6 +395,7 @@ Due to MODULEPATH changes the follow modules have been reloaded:
 \begin{frame}[fragile]
     \frametitle{A Standard Set of Modules}
   \begin{itemize}
+    \item Define a compiler and mpi stack
     \item /opt/apps/modulefiles/StdEnv.lua
   {\small
     \begin{alltt}
@@ -415,15 +416,14 @@ load("gcc","mvapich2")
    if [ -z "\$\_\_Init\_Default\_Modules" ]; then
       export \_\_Init\_Default\_Modules=1;
 
-      ## 
       export LMOD\_SYSTEM\_DEFAULT\_MODULES="StdEnv"
       module --initial\_load --no\_redirect restore
    else
       module refresh
    fi
-
     \end{alltt}
 }
+    \item Why is  ``module refresh'' there?
   \end{itemize}
 \end{frame}
 
