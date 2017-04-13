@@ -82,7 +82,7 @@
     \item User programs using pre-built C++ \& Fortran libraries must
       link with the same compiler.
     \item Similarly, MPI Applications must build and link with same
-      MPI/Compiler pairing when using prebuilt MPI libraries.
+      MPI/Compiler pairing when using pre-built MPI libraries.
   \end{itemize}
 \end{frame}
 
@@ -144,7 +144,7 @@ Due to MODULEPATH changes the follow modules have been reloaded:
     \item Same \texttt{module} command as in Tmod
     \item Active Development;  Frequent Releases; Bug fixes.
     \item Vibrant Community
-    \item It is used from Norway to Isreal to New Zealand from Stanford to MIT to NASA
+    \item It is used from Norway to Israel to New Zealand from Stanford to MIT to NASA
     \item Enjoy many capabilities w/o changing a single module file
     \item Debian, Fedora and Brew packages available
     \item Many more advantages when you're ready
@@ -161,7 +161,7 @@ Due to MODULEPATH changes the follow modules have been reloaded:
     \item Fast \texttt{module avail} via optional spider cache 
     \item Properties (gpu, mic)
     \item Semantic Versioning:  5.6 is older than 5.10
-    \item family(``compiler''), family(``mpi'') support
+    \item family(``compiler''), family(``MPI'') support
     \item Optional Tracking: What modules are used?
     \item Many other features: ml, collections, hooks, nag, ...
   \end{itemize}
@@ -174,7 +174,7 @@ Due to MODULEPATH changes the follow modules have been reloaded:
     \item Lmod has many more features
     \item Tmod: \texttt{module load gcc/5.3 gcc/6.0} works
     \item Lmod has the ``One Name Rule''
-    \item Lmod close to Tmod, but not the same.
+    \item Lmod is close to Tmod, but not the same.
   \end{itemize}
 \end{frame}
 
@@ -218,7 +218,7 @@ Due to MODULEPATH changes the follow modules have been reloaded:
     \item Shared Disk: Big, slow
     \item TACC: local install (mostly)
     \item Limited to 3 version max!
-    \item Shared Disk: Keep Software for life of system.
+    \item Shared Disk: Keep software for life of system.
   \end{itemize}
 \end{frame}
 
@@ -503,7 +503,7 @@ load("gcc","mvapich2")
   \begin{itemize}
     \item N/V:   Name/Version (e.g. \texttt{bowtie/2.3})
     \item C/N/V: Category/Name/Version (e.g. \texttt{bio/bowtie/2.3})
-    \item N/V/V: Name/Version/Version (e.g. \texttt{/bowtie/64/2.3})
+    \item N/V/V: Name/Version/Version (e.g. \texttt{bowtie/64/2.3})
   \end{itemize}
 \end{frame}
 
@@ -550,7 +550,7 @@ load("gcc","mvapich2")
 \end{frame}
 
 %page 30
-\begin{frame}{Keeping Software for life of Machine or Not}
+\begin{frame}{Keeping Software for Life of Cluster or Not}
   \begin{itemize}
     \item It is possible with a shared disk approach
     \item You might want to hide older modules
@@ -653,7 +653,7 @@ Module path                       User Name
 \begin{frame}{Why does Lmod work at all?}
   \begin{itemize}
     \item The Environment is inherited from the parent process
-    \item Changes in the child's enviroment DOES NOT affect the
+    \item Changes in the child's environment DOES NOT affect the
       parent's
     \item So how could Lmod work at all? 
   \end{itemize}
@@ -698,8 +698,6 @@ Module path                       User Name
 %page 43
 \begin{frame}[fragile]
     \frametitle{Tracing Example}
-  \begin{itemize}
-    \item 
   {\small
     \begin{alltt}
 running: module --initial_load restore
@@ -710,8 +708,6 @@ running: module --initial_load restore
   Loading: StdEnv (fn: /apps/mfiles/Core/StdEnv.lua)
     \end{alltt}
 }
-    \item 
-  \end{itemize}
 \end{frame}
 
 
@@ -753,14 +749,14 @@ running: module --initial_load restore
     \item export SHELL\_STARTUP\_DEBUG=1 (in \textasciitilde/.init.sh)
   {\small
     \begin{alltt}
-   /etc/profile{
-      /etc/profile.d/lmod.sh{
-      } Time = 0.0770
-      /etc/profile.d/z99\_StdEnv.sh{
-      } Time = 0.2067
-      /etc/bash.bashrc{
-      } Time = 0.2338
-    } Time = 0.3156
+    /etc/profile\{
+      /etc/profile.d/z00\_lmod.sh\{
+      \} Time = 0.0770
+      /etc/profile.d/z99\_StdEnv.sh\{
+      \} Time = 0.2067
+      /etc/bash.bashrc\{
+      \} Time = 0.2338
+    \} Time = 0.3156
     \end{alltt}
 }
   \end{itemize}
@@ -769,10 +765,10 @@ running: module --initial_load restore
 %page 48
 \begin{frame}{Examples}
   \begin{itemize}
-    \item Root \textbf{must} login when lustre is not working
-    \item No lustre directory can be Root's PATH
+    \item Root \textbf{must} login when Lustre is not working
+    \item No Lustre directory can be Root's PATH
     \item Found it with SHELL STARTUP DEBUG
-    \item Tracking MPI startup with SHELL STARTUP DEBUG
+    \item Tracking MPI shell startup behavior with SHELL STARTUP DEBUG
   \end{itemize}
 \end{frame}
 
@@ -784,6 +780,21 @@ running: module --initial_load restore
   \end{itemize}
 \end{frame}
 
+
+%page 49.1
+\begin{frame}[fragile]
+    \frametitle{Tracing Example}
+  {\small
+    \begin{alltt}
+running: module --initial_load restore
+  Using collection:      /home/user/.lmod.d/default
+  Setting MODULEPATH to: /apps/mfiles/Darwin:/apps/mfiles/Core
+  Loading: unix (fn: /apps/mfiles/Core/unix/unix.lua)
+  Loading: gcc (fn: /apps/mfiles/Darwin/gcc/5.2.lua)
+  Loading: StdEnv (fn: /apps/mfiles/Core/StdEnv.lua)
+    \end{alltt}
+}
+\end{frame}
 
 %page 50
 \begin{frame}{Topics}
@@ -809,6 +820,7 @@ running: module --initial_load restore
     \item ml -a b -c d $\rightarrow$ module unload a c; module load b d; 
     \item ml av $\rightarrow$ module avail
     \item ml spider $\rightarrow$ module spider
+    \item ml load spider $\rightarrow$ module load spider
   \end{itemize}
 \end{frame}
 
@@ -816,7 +828,7 @@ running: module --initial_load restore
 \begin{frame}{Spider Cache}
   \begin{itemize}
     \item Lmod has to know what modulefiles are in MODULEPATH
-    \item It walks the directories in MODULEPATH everytime!
+    \item It walks the directories in MODULEPATH every time!
     \item Or you can have system spider cache to speed things up
     \item See
       http://lmod.readthedocs.io/en/latest/130\_spider\_cache.html for
@@ -840,7 +852,7 @@ running: module --initial_load restore
   \begin{itemize}
     \item Normally only module avail and spider use the cache
     \item module -t avail never uses the cache
-    \item module load \emph{name} does not
+    \item module load \emph{name} does not use the cache
     \item Sites can configure Lmod to use the cache for loads
     \item Sites must use extreme care to keep the cache up-to-date!
   \end{itemize}
@@ -903,15 +915,15 @@ running: module --initial_load restore
   {\tiny
     \begin{alltt}
   1) unix/unix     3) ddt/ddt       5) mpich2/1.5    7) phdf5/1.8.9 {\color{blue}(m)}
-  2) intel/13.0    4) mkl/mkl {\color{red}(*)}   6) petsc/3.2     8) PrgEnv
+  2) intel/13.0    4) mkl/mkl {\color{red}(*)}   6) petsc/3.2     8) StdEnv
 
   Where:
    {\color{blue}(m)}:  module is build natively for MIC
    {\color{red}(*)}:  module is build natively for MIC and offload to the MIC
 
    ------
-   add_property("arch","mic")              -- > phdf5
-   add_property("arch","mic:offload")      -- > mkl
+   add_property("arch","mic")              -- \textgreater phdf5
+   add_property("arch","mic:offload")      -- \textgreater mkl
     \end{alltt}
 }
   \item What properties would you like to support?
@@ -935,18 +947,18 @@ running: module --initial_load restore
 
 %page 61
 \begin{frame}[fragile]
-    \frametitle{pushenv}
+    \frametitle{pushenv()}
   \begin{itemize}
     \item Suppose you'd like to set \texttt{CC} in the environment.
     \item \texttt{setenv} won't work.
     \item \texttt{pushenv} will!
     {\small
-\begin{verbatim}
-  $ module load   gcc;   # -> CC=gcc       CC=gcc
-  $ module load   mpich; # -> CC=mpicc     CC=mpicc
-  $ module unload mpich; # -> CC is unset  CC=gcc
-  $ module unload gcc;   # -> CC is unset  CC is unset
-\end{verbatim}
+\begin{alltt}
+  $ module load   gcc;   # -\textgreater CC=gcc       CC=gcc
+  $ module load   mpich; # -\textgreater CC=mpicc     CC=mpicc
+  $ module unload mpich; # -\textgreater CC is unset  CC=gcc
+  $ module unload gcc;   # -\textgreater CC is unset  CC is unset
+\end{alltt}
 }
     \item \texttt{pushenv} keeps an private env vars: \texttt{\_\_LMOD\_STACK\_}\emph{NAME}
   \end{itemize}
@@ -954,15 +966,15 @@ running: module --initial_load restore
 
 %page 62
 \begin{frame}[fragile]
-    \frametitle{always\_load and always\_unload}
+    \frametitle{always\_load()}
   \begin{itemize}
-    \item The \texttt{load()} function is reversed on unload.
-    \item The \texttt{always\_load()} function is a no-op on unload.
+    \item The load() function is reversed on unload.
+    \item The always\_load() function is a no-op on unload.
     \item Still you may want:
     {\small
-\begin{verbatim}
-  if (not isloaded("FOO")) then always_load("FOO") end
-\end{verbatim}
+\begin{alltt}
+  if (not isloaded("FOO")) then always\_load("FOO") end
+\end{alltt}
 }
     \item Which is only slightly better than:
     {\small
@@ -1025,8 +1037,8 @@ running: module --initial_load restore
     \item Lmod is no exception.
     \item Bug reports are as easy as:
       \begin{itemize}
-        \item \texttt{module --config  2> config.log}
-        \item \texttt{module -D avail  2> avail.log}
+        \item \texttt{module --config  2\textgreater  config.log}
+        \item \texttt{module -D avail  2\textgreater  avail.log}
       \end{itemize}
     \item Sometimes I'll create test versions with more debugging for
       you to test.
