@@ -23,11 +23,6 @@
 
 % Things to talk about
 % * ml
-% * user collections
-% * StdEnv
-% ** How to get the Standard Env setup via /etc/profile.d/z00_lmod.sh
-% ** What goes into StdEnv
-% *** compiler, mpi, xalt
 
 
 % page 0
@@ -166,7 +161,7 @@ Due to MODULEPATH changes the follow modules have been reloaded:
     \item Fast \texttt{module avail} via optional spider cache 
     \item Properties (gpu, mic)
     \item Semantic Versioning:  5.6 is older than 5.10
-    \item family(``compiler'') family(``mpi'') support
+    \item family(``compiler''), family(``mpi'') support
     \item Optional Tracking: What modules are used?
     \item Many other features: ml, collections, hooks, nag, ...
   \end{itemize}
@@ -183,13 +178,33 @@ Due to MODULEPATH changes the follow modules have been reloaded:
   \end{itemize}
 \end{frame}
 
+% page 10.1
+\begin{frame}{Safety Features of Lmod (I)}
+  \begin{itemize}
+    \item Users can only load one version of a package.
+    \item ``\texttt{module load xyz/2.1}'' loads xyz version 2.1
+    \item ``\texttt{module load xyz/2.2}'' unloads 2.1, loads 2.2
+  \end{itemize}
+\end{frame}
+
+% page 10.2
+\begin{frame}{Safety Features of Lmod (II)}
+  \begin{itemize}
+    \item Lmod adds a new command in modulefiles: \texttt{family("}\emph{name}\texttt{")}
+    \item All of our compiler modules have \texttt{family("compiler")}
+    \item All of our MPI modules have \texttt{family("MPI")}
+    \item Users can only load one compiler or MPI at a time
+    \item Powers users can get around this restriction.
+  \end{itemize}
+\end{frame}
+
 %page 11
 \begin{frame}{Module Architecture Design}
   \begin{itemize}
     \item Lua or TCL modulefiles?
     \item Optional software: shared or local?
     \item Flat or Hierarchical Module Layout?
-    \item Naming conventions? (N/V, C/N/V, C/N/V/V?)
+    \item Naming conventions? (N/V, C/N/V, N/V/V?)
     \item A standard set of modules?
     \item Keep software for life of cluster or not?
     \item Problems with Bash
@@ -341,7 +356,6 @@ Due to MODULEPATH changes the follow modules have been reloaded:
         \item Modulefile: \texttt{{\color{blue}\$M}/Compiler/intel/17.0/openmpi/1.8}
         \item Modulefile adds \texttt{\$M/MPI/intel/17.0/openmpi/1.8}
           to \texttt{MODULEPATH}
-
       \end{itemize}
   \end{itemize}
 \end{frame}
@@ -410,7 +424,7 @@ load("gcc","mvapich2")
 \begin{frame}[fragile]
     \frametitle{A Standard Set of Modules (II)}
   \begin{itemize}
-    \item /etc/profile.d/z00_StdEnv.sh
+    \item /etc/profile.d/z99\_StdEnv.sh
   {\small
     \begin{alltt}
    if [ -z "\$\_\_Init\_Default\_Modules" ]; then
@@ -428,7 +442,47 @@ load("gcc","mvapich2")
 \end{frame}
 
 
+%page 24.3
+\begin{frame}{User collections}
+  \begin{itemize}
+    \item A user may save a ``default'' collection of modules 
+    \item module save 
+    \item A user may save as many named collections as they like
+    \item module save \emph{name}
+    \item module restore \emph{name} will remove all modules then load
+      the collection.
+  \end{itemize}
+\end{frame}
 
+%page 24.4
+\begin{frame}{Save/Restore}
+  \begin{itemize}
+    \item User can setup their own initially loaded modules.
+      \begin{itemize}
+        \item Users simply load, unload and/or swap until happy.
+        \item {\color{blue}\texttt{module save}} saves state in ``default''
+        \item Our login scripts do: {\color{blue}\texttt{module restore}}
+          which loads the user's default.
+      \end{itemize}
+    \item Users can create other collections by:
+      \begin{itemize}
+        \item {\color{blue}\texttt{module save}
+            {\color{violet}name}} to save it.
+        \item {\color{blue}\texttt{module restore}
+            {\color{violet}name}} to retrieve it.
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+
+%page 24.5
+\begin{frame}{Module reset, restore}
+  \begin{itemize}
+    \item module reset $\rightarrow$ module purge; module load
+      \$LMOD\_SYSTEM\_DEFAULT\_MODULES
+    \item module restore looks for a default collection or loads the
+      system default.
+  \end{itemize}
+\end{frame}
 
 %%page 
 %\begin{frame}[fragile]
@@ -636,6 +690,7 @@ Module path                       User Name
   \begin{itemize}
     \item A new feature of Lmod 7.4.4+
     \item module -T ...
+    \item export LMOD\_TRACING=yes
     \item Can trace loads and how restores work.
   \end{itemize}
 \end{frame}
@@ -660,10 +715,335 @@ running: module --initial_load restore
 \end{frame}
 
 
-% Talk about shell startup debug
+%page 44
+\begin{frame}{Why tracing is important}
+  \begin{itemize}
+    \item A single group with similar module commands in \textasciitilde/.bashrc
+    \item Yet had different different modules loaded. Why?
+    \item Answer: One user had a default collection which changed MODULEPATH.
+  \end{itemize}
+\end{frame}
+
+%page 45
+\begin{frame}{How to trace Lmod startup behavior}
+  \begin{itemize}
+    \item How do you trace module commands in /etc/profile.d/*.sh?
+    \item Could modify /etc/profile.d/z99\_StdEnv.sh to turn on
+      LMOD\_TRACING for a particular user. UGH!
+    \item Install SHELL STARTUP DEBUG package instead
+  \end{itemize}
+\end{frame}
+
+%page 46
+\begin{frame}{SHELL STARTUP DEBUG}
+  \begin{itemize}
+    \item Install from shellstartupdebug.sf.net
+    \item Tracks startup behavior of /etc/profile.d/*.sh
+    \item Allows for the setting of env. vars before
+      /etc/profile.d/*.sh is sourced.
+    \item Requires modifying /etc/bashrc ...
+  \end{itemize}
+\end{frame}
+
+%page 47
+\begin{frame}[fragile]
+    \frametitle{SHELL STARTUP DEBUG (II)}
+  \begin{itemize}
+    \item Example output
+    \item export SHELL\_STARTUP\_DEBUG=1 (in \textasciitilde/.init.sh)
+  {\small
+    \begin{alltt}
+   /etc/profile{
+      /etc/profile.d/lmod.sh{
+      } Time = 0.0770
+      /etc/profile.d/z99\_StdEnv.sh{
+      } Time = 0.2067
+      /etc/bash.bashrc{
+      } Time = 0.2338
+    } Time = 0.3156
+    \end{alltt}
+}
+  \end{itemize}
+\end{frame}
+
+%page 48
+\begin{frame}{Examples}
+  \begin{itemize}
+    \item Root \textbf{must} login when lustre is not working
+    \item No lustre directory can be Root's PATH
+    \item Found it with SHELL STARTUP DEBUG
+    \item Tracking MPI startup with SHELL STARTUP DEBUG
+  \end{itemize}
+\end{frame}
+
+%page 49
+\begin{frame}{SHELL STARTUP DEBUG and LMOD\_TRACING}
+  \begin{itemize}
+    \item Put export LMOD\_TRACING=yes in \textasciitilde/.init.sh
+    \item Track Lmod startup problems.
+  \end{itemize}
+\end{frame}
 
 
+%page 50
+\begin{frame}{Topics}
+  \begin{itemize}
+    \item ml 
+    \item Spider Cache
+    \item Semantic Versioning
+    \item Modulefiles can have properties
+    \item Modify functions for load() and prereq()
+    \item New functions pushenv()
+    \item SitePackage.lua and hooks
+  \end{itemize}
+\end{frame}
 
+%page 51
+\begin{frame}{ml}
+  \begin{itemize}
+    \item I have trouble typing ``module''
+    \item Needed a shortcut
+    \item ml was born
+    \item ml $\rightarrow$ module list
+    \item ml \emph{name} $\rightarrow$ module load \emph{name}
+    \item ml -a b -c d $\rightarrow$ module unload a c; module load b d; 
+    \item ml av $\rightarrow$ module avail
+    \item ml spider $\rightarrow$ module spider
+  \end{itemize}
+\end{frame}
+
+%page 52 
+\begin{frame}{Spider Cache}
+  \begin{itemize}
+    \item Lmod has to know what modulefiles are in MODULEPATH
+    \item It walks the directories in MODULEPATH everytime!
+    \item Or you can have system spider cache to speed things up
+    \item See
+      http://lmod.readthedocs.io/en/latest/130\_spider\_cache.html for
+      details.
+  \end{itemize}
+\end{frame}
+
+%page 53
+\begin{frame}{Spider Cache (II)}
+  \begin{itemize}
+    \item It is much much faster to read a single big file then
+      walking directories
+    \item The spider cache \textbf{must} be up-to-date!
+    \item Lmod trusts the cache if it exists!
+    \item module --ignore\_cache avail to override!
+  \end{itemize}
+\end{frame}
+
+%page 54
+\begin{frame}{Spider Cache (III)}
+  \begin{itemize}
+    \item Normally only module avail and spider use the cache
+    \item module -t avail never uses the cache
+    \item module load \emph{name} does not
+    \item Sites can configure Lmod to use the cache for loads
+    \item Sites must use extreme care to keep the cache up-to-date!
+  \end{itemize}
+\end{frame}
+
+%page 55
+\begin{frame}{Spider Cache Advantages}
+  \begin{itemize}
+    \item The spider cache speeds up avail and spider greatly.
+    \item All system modulefiles have been read, properties determined.
+    \item Lua is quite fast and reading and interpreting a single file.
+    \item This is preferable to walking the directory tree and reading
+      every module.
+    \item Why is every module file read: properties.
+  \end{itemize}
+\end{frame}
+
+%page 56
+\begin{frame}{Spider Cache Disadvantages}
+  \begin{itemize}
+    \item There is only one: Keeping it up-to-date.
+    \item If Lmod sees a valid cache file it assumes it is correct.
+    \item Otherwise what's the point.
+    \item Currently loads bypass cache but avail and spider depend on it.
+    \item Personal modules are not effected by system cache foo.
+  \end{itemize}
+\end{frame}
+
+%page 57
+\begin{frame}{Module version sorting}
+  \begin{itemize}
+    \item Old way lexicographically sort: 5.6 is newer that 5.10
+    \item New way 5.10 is newer than 5.6
+    \item Old to new: 2.4dev1, 2.4a1, 2.4rc2, 2.4, 2.4-1, 2.4.1
+    \item Same: 2.4-1, 2.4p1, 2.4-p1
+    \item Old to new: 3.2-shared, 3.2
+  \end{itemize}
+\end{frame}
+
+%page 58
+\begin{frame}{Load and prereq modify functions}
+  \begin{itemize}
+    \item \texttt{load(atleast("A","1.4"))}
+    \item \texttt{load(between("B","1.4","2.7"))}
+    \item \texttt{load(latest("C"))}
+    \item \texttt{prereq(atleast("D","1.4"))}
+    \item \texttt{prereq(between("E","1.4","2.7"))}
+    \item \texttt{prereq(latest("F"))}
+    \item Typically marked default then latest.
+  \end{itemize}
+\end{frame}
+
+%page 59
+\begin{frame}[fragile]
+    \frametitle{Module Properties}
+  \begin{itemize}
+    \item TACC is deploying Stampede with MIC accelerators
+    \item Some modules will be ``MIC'' aware: mkl, fftw3, phdf5, ...
+    \item Lmod will decorate these modules:
+  {\tiny
+    \begin{alltt}
+  1) unix/unix     3) ddt/ddt       5) mpich2/1.5    7) phdf5/1.8.9 {\color{blue}(m)}
+  2) intel/13.0    4) mkl/mkl {\color{red}(*)}   6) petsc/3.2     8) PrgEnv
+
+  Where:
+   {\color{blue}(m)}:  module is build natively for MIC
+   {\color{red}(*)}:  module is build natively for MIC and offload to the MIC
+
+   ------
+   add_property("arch","mic")              -- > phdf5
+   add_property("arch","mic:offload")      -- > mkl
+    \end{alltt}
+}
+  \item What properties would you like to support?
+  \end{itemize}
+\end{frame}
+
+
+%page 60
+\begin{frame}[fragile]
+    \frametitle{Module Properties (III): Sticky}
+  \begin{itemize}
+    \item A module can be sticky.
+    \item It requires ``\texttt{--force}'' to unload or purge.
+    {\small
+\begin{verbatim}
+    add_property("lmod","sticky")
+\end{verbatim}
+}
+  \end{itemize}
+\end{frame}
+
+%page 61
+\begin{frame}[fragile]
+    \frametitle{pushenv}
+  \begin{itemize}
+    \item Suppose you'd like to set \texttt{CC} in the environment.
+    \item \texttt{setenv} won't work.
+    \item \texttt{pushenv} will!
+    {\small
+\begin{verbatim}
+  $ module load   gcc;   # -> CC=gcc       CC=gcc
+  $ module load   mpich; # -> CC=mpicc     CC=mpicc
+  $ module unload mpich; # -> CC is unset  CC=gcc
+  $ module unload gcc;   # -> CC is unset  CC is unset
+\end{verbatim}
+}
+    \item \texttt{pushenv} keeps an private env vars: \texttt{\_\_LMOD\_STACK\_}\emph{NAME}
+  \end{itemize}
+\end{frame}
+
+%page 62
+\begin{frame}[fragile]
+    \frametitle{always\_load and always\_unload}
+  \begin{itemize}
+    \item The \texttt{load()} function is reversed on unload.
+    \item The \texttt{always\_load()} function is a no-op on unload.
+    \item Still you may want:
+    {\small
+\begin{verbatim}
+  if (not isloaded("FOO")) then always_load("FOO") end
+\end{verbatim}
+}
+    \item Which is only slightly better than:
+    {\small
+\begin{verbatim}
+  if (not isloaded("FOO") and mode()== "load") then
+     load("FOO")
+  end
+\end{verbatim}
+}
+  \end{itemize}
+\end{frame}
+
+%page 63
+\begin{frame}{SitePackage.lua}
+  \begin{itemize}
+    \item Functions for all Module that a site needs
+    \item Support for hooks like load\_hook()
+    \item See contrib/SitePackage for examples
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Lessons Learned}
+  \begin{itemize}
+    \item A very small percentage of Lmod users join the mailing list.
+    \item Able support many requests for features but not all.
+    \item Hardening:
+      \begin{itemize}
+        \item sandbox for evaluating modulefiles
+        \item Checking argument types
+        \item checkModuleSyntax script
+      \end{itemize}
+    \item Users sometimes ask the right question.
+    \item Lmod is much better product because of its wider use.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Lessons Learned (II)}
+  \begin{itemize}
+    \item It is hard work developing a users' communities trust.
+    \item Some site will be managed in a way that I have never dreamed of.
+    \item Deprecating features is difficult with Lmod.
+    \item Users would get deprecated feature reports that sys-admins
+      must fix.
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Regression Testing of Lmod}
+  \begin{itemize}
+    \item A suite of 100+ tests each with many steps.
+    \item No release without passing all those tests.
+    \item These tests make Lmod re-factoring much easier.
+    \item The github repo is generally safe.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Remote Debugging}
+  \begin{itemize}
+    \item No software over ten lines is bug free.
+    \item Lmod is no exception.
+    \item Bug reports are as easy as:
+      \begin{itemize}
+        \item \texttt{module --config  2> config.log}
+        \item \texttt{module -D avail  2> avail.log}
+      \end{itemize}
+    \item Sometimes I'll create test versions with more debugging for
+      you to test.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Recommendations for Good Site Management}
+  \begin{itemize}
+    \item A module purge should not break things.
+    \item Set \texttt{LMOD\_SYSTEM\_DEFAULT\_MODULES} so that module
+      restore and reset works.
+    \item Encourage the use of "module save" so that users can have a
+      default set of modules.
+    \item Use the family directive to protect users.
+    \item Consider the use of "checkModuleSyntax" before installing new modules.
+  \end{itemize}
+\end{frame}
 
 \begin{frame}{Conclusions: Lmod}
   \begin{itemize}
