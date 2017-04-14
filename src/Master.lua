@@ -784,6 +784,7 @@ function M.avail(self, argA)
    end
 
    local moduleA     = ModuleA:singleton{spider_cache=(not masterTbl.terse)}
+   local mrc         = MRC:singleton()
    local availA      = moduleA:build_availA()
    local twidth      = TermWidth()
    local cwidth      = masterTbl.rt and LMOD_COLUMN_TABLE_WIDTH or twidth
@@ -821,6 +822,12 @@ function M.avail(self, argA)
                   prtSnT[sn] = true
                   aa[#aa+1]  = sn .. "/\n"
                end
+               local aliasA = mrc:getFull2AliasesT(fullName)
+               if (aliasA) then
+                  for i = 1,#aliasA do
+                     aa[#aa+1]  = aliasA[i] .. "\n"
+                  end
+               end
                aa[#aa+1]     = fullName .. "\n"
             end
          end
@@ -838,7 +845,6 @@ function M.avail(self, argA)
 
    availA = regroup_avail_blocks(availStyle, availA)
 
-   local mrc      = MRC:singleton()
    local banner   = Banner:singleton()
    local legendT  = {}
    local Default  = 'D'

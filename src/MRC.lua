@@ -78,9 +78,9 @@ local function new(self, fnA)
    o.__alias2modT    = {}  -- Map an alias string to a module name or alias
    o.__fullNameDfltT = {}
    o.__defaultT      = {}  -- Map module sn to fullname that is the default.
-   o.__mod2versionsT = {}  -- Map from full module name to versions.
    o.__hiddenT       = {}  -- Table of hidden module names.
-   o.__mod2versionT  = {}
+   o.__mod2versionT  = {}  -- Map from full module name to versions.
+   o.__full2aliasesT = {}
 
    setmetatable(o,self)
    self.__index = self
@@ -183,23 +183,27 @@ function l_buildMod2VersionT(self)
    dbg.start{"l_buildMod2VersionT(self)"}
    local v2mT = self.__version2modT
    local m2vT = {}
+   local f2aT = {}
 
    for k, v in pairs(v2mT) do
-      local ov= v
       v       = self:resolve(v)
       local t = m2vT[v] or {}
       t[k]    = true
       m2vT[v] = t
    end
-   for modname, vv in pairs(m2vT) do
+   for modname, vv in pairsByKeys(m2vT) do
       local a = {}
+      local b = {}
       for k in pairsByKeys(vv) do
          a[#a+1] = k:gsub("^.*/","")
+         b[#b+1] = k
       end
       local s = concatTbl(a,":")
       m2vT[modname] = s
+      f2aT[modname] = b
    end
-   self.__mod2versionT = m2vT
+   self.__mod2versionT  = m2vT
+   self.__full2aliasesT = f2aT
    dbg.fini("l_buildMod2VersionT")
 end
 
@@ -226,6 +230,13 @@ function M.getMod2VersionT(self, key)
       l_buildMod2VersionT(self)
    end
    return self.__mod2versionT[key]
+end
+
+function M.getFull2AliasesT(self, key)
+   if (next(self.__full2aliasesT) == nil) then
+      l_buildMod2VersionT(self)
+   end
+   return self.__full2aliasesT[key]
 end
 
 
