@@ -57,9 +57,7 @@
       Boost, ...
     \item Modules add to PATH and set other env. vars for each package
     \item Modules can be unloaded.
-    \item Modulefiles are in one file not one for each
-      shell. (e.g. Compiler init scripts)
-    \item Demo
+    \item Modulefiles are in one file not one for each shell. (e.g. Compiler init scripts)
   \end{itemize}
 \end{frame}
 
@@ -80,8 +78,7 @@
     \item Some Users need new versions for new features and bug fixes.
     \item Other Users need older versions for stability and continuity.
     \item No system can support all versions of all packages.
-    \item User programs using pre-built C++ \& Fortran libraries must
-      link with the same compiler.
+    \item User programs using pre-built C++ \& Fortran libraries must link with the same compiler.
     \item Similarly, MPI Applications must build and link with same
       MPI/Compiler pairing when using pre-built MPI libraries.
   \end{itemize}
@@ -154,7 +151,7 @@ Due to MODULEPATH changes the follow modules have been reloaded:
 \end{frame}
 
 % page 9
-\begin{frame}{Features}
+\begin{frame}{Lmod Features}
   \begin{itemize}
     \item Reads for TCL and Lua modulefiles
     \item One name rule.
@@ -171,7 +168,8 @@ Due to MODULEPATH changes the follow modules have been reloaded:
 % page 10
 \begin{frame}{Tmod vs. Lmod}
   \begin{itemize}
-    \item Tmod is in maintenance mode, Lmod active
+    \item Tmod (TCL/C) is in maintenance mode, Lmod active
+    \item Some work on Tmod (TCL) recently
     \item Lmod has many more features
     \item Tmod: \texttt{module load gcc/5.3 gcc/6.0} works
     \item Lmod has the ``One Name Rule''
@@ -185,6 +183,7 @@ Due to MODULEPATH changes the follow modules have been reloaded:
     \item Users can only load one version of a package.
     \item ``\texttt{module load xyz/2.1}'' loads xyz version 2.1
     \item ``\texttt{module load xyz/2.2}'' unloads 2.1, loads 2.2
+    \item There is no way to override this!
   \end{itemize}
 \end{frame}
 
@@ -219,15 +218,15 @@ Due to MODULEPATH changes the follow modules have been reloaded:
     \item Shared Disk: Big, slow
     \item TACC: local install (mostly)
     \item Limited to 3 version max!
-    \item Shared Disk: Keep software for life of system.
+    \item Shared Disk: Keep software for life of system?
   \end{itemize}
 \end{frame}
 
 %page 13
 \begin{frame}{Modulefile Choices}
   \begin{itemize}
-    \item Flat Naming Scheme
-    \item Hierarchical Naming Scheme
+    \item Flat Naming Scheme?
+    \item Hierarchical Naming Scheme?
   \end{itemize}
 \end{frame}
 
@@ -264,13 +263,13 @@ Due to MODULEPATH changes the follow modules have been reloaded:
         \item Reloading new compiler, MPI, PETSc modules.
         \item Not loading correct modules $\Rightarrow$ Mysterious Failures!
         \item Onus of package compatibility on users!
-        \item Or extremely compilicated modulefiles!
+        \item Or extremely complicated modulefiles!
       \end{itemize}
   \end{itemize}
 \end{frame}
 
 %page 17
-\begin{frame}{Extremely compilicated modulefiles}
+\begin{frame}{Extremely complicated modulefiles}
   \begin{itemize}
     \item Protect users via conflicts and/or prereqs
     \item The problem is that they are fragile
@@ -286,7 +285,7 @@ Due to MODULEPATH changes the follow modules have been reloaded:
       \begin{itemize}
         \item Core: Regular packages: apps, compilers, git
         \item Compiler: Packages that depend on compiler: boost, MPI
-        \item MPI: Packages that depend on MPI/Compiler: PETSc, TAU
+        \item MPI: Packages that depend on MPI/Compiler: PETSc, FFTW3
       \end{itemize}
   \end{itemize}
 \end{frame}
@@ -304,7 +303,7 @@ Due to MODULEPATH changes the follow modules have been reloaded:
       \end{itemize}
     \item Loading an MPI module adds to the \texttt{MODULEPATH}:
       \begin{itemize}
-        \item Users can load MPI libraries that match the MPI/compiler pairing.
+        \item Users can load MPI libraries that match the MPI/compiler pairing
       \end{itemize}
   \end{itemize}
 \end{frame}
@@ -324,7 +323,7 @@ Due to MODULEPATH changes the follow modules have been reloaded:
         \item Package: \texttt{/opt/apps/git/1.8}
         \item Modulefile: \texttt{{\color{blue}\$M}/Core/git/1.8}
       \end{itemize}
-    \item Intel compilers 11.1
+    \item Intel compilers 17.0
       \begin{itemize}
         \item Package: \texttt{/opt/apps/intel/17.0}
         \item Modulefile: \texttt{{\color{blue}\$M}/Core/intel/17.0}
@@ -395,7 +394,7 @@ Due to MODULEPATH changes the follow modules have been reloaded:
 %page 24
 \begin{frame}{Modulefile contents}
   \begin{itemize}
-    \item Be consistent! Find a convention and stick with it!
+    \item Be consistent! Find a convention and stick with it
     \item We define consistent variables in each module:
       $<$SITE\_NAME$>$\_$<$PKG\_Name$>$\_\{LIB,INC,BIN\}
       \begin{itemize}
@@ -411,7 +410,7 @@ Due to MODULEPATH changes the follow modules have been reloaded:
     \frametitle{A Standard Set of Modules}
   \begin{itemize}
     \item Define a compiler and mpi stack
-    \item /opt/apps/modulefiles/StdEnv.lua
+    \item /opt/apps/modulefiles/Core/StdEnv.lua
   {\small
     \begin{alltt}
 load("gcc","mvapich2")
@@ -458,7 +457,7 @@ load("gcc","mvapich2")
 %page 24.4
 \begin{frame}{Save/Restore}
   \begin{itemize}
-    \item User can setup their own initially loaded modules.
+    \item Users can setup their own initially loaded modules.
       \begin{itemize}
         \item Users simply load, unload and/or swap until happy.
         \item {\color{blue}\texttt{module save}} saves state in ``default''
@@ -500,7 +499,7 @@ load("gcc","mvapich2")
 %\end{frame}
 
 %page 25
-\begin{frame}{Module Naming Conventions}
+\begin{frame}{Module Naming Convenions}
   \begin{itemize}
     \item N/V:   Name/Version (e.g. \texttt{bowtie/2.3})
     \item C/N/V: Category/Name/Version (e.g. \texttt{bio/bowtie/2.3})
@@ -514,7 +513,7 @@ load("gcc","mvapich2")
     \item Try to stick with N/V if possible
     \item It's less typing
     \item C/N/V might be helpful to novice users
-    \item But your obvious categories may not be obvious to your users.
+    \item But your obvious categories may not be obvious to your users
     \item Avoid N/V/V unless your users are experts 
     \item Or if you really need 64/32 bit libraries
   \end{itemize}
@@ -523,10 +522,8 @@ load("gcc","mvapich2")
 %page 27
 \begin{frame}{Bash Issues}
   \begin{itemize}
-    \item Bash Startup is typically ``broken'' for non-login
-      interactive shells
-    \item Redhat, Centos, MacOS typically don't source /etc/bashrc on
-      interactive shells
+    \item Bash Startup is typically ``broken'' for non-login interactive shells
+    \item Redhat, Centos, MacOS typically don't source /etc/bashrc on interactive shells
     \item MPI jobs start an interactive shell.
   \end{itemize}
 \end{frame}
@@ -619,7 +616,7 @@ load("gcc","mvapich2")
     \frametitle{Usage counts}
   {\small
     \begin{alltt}
-\$ analyzeLmodDB --sqlPattern '%fftw%' --start '2015-01-01 --end '2015-02-01'  counts
+\$ analyzeLmodDB --sqlPattern '%fftw%' --start '2015-01-01' --end '2015-02-01'  counts
 
   Module path                                Distinct Users
   -----------                                --------------  
@@ -639,13 +636,13 @@ load("gcc","mvapich2")
     \begin{alltt}
 \$ ./analyzeLmodDB --sqlPattern '%/settarg/%' usernames
 
-Module path                       User Name
------------                       ---------
-/opt/apps/mfiles/settarg/5.8      user1
-/opt/apps/mfiles/settarg/5.8      user2
-/opt/apps/mfiles/settarg/5.8      user3
-/opt/apps/mfiles/settarg/5.8.1    mclay
-/opt/apps/mfiles/settarg/5.9.1    user5
+Module path                   User Name
+-----------                   ---------
+/apps/mfiles/settarg/5.8      user1
+/apps/mfiles/settarg/5.8      user2
+/apps/mfiles/settarg/5.8      user3
+/apps/mfiles/settarg/5.8.1    mclay
+/apps/mfiles/settarg/5.9.1    user5
     \end{alltt}
 }
 \end{frame}
@@ -654,8 +651,7 @@ Module path                       User Name
 \begin{frame}{Why does Lmod work at all?}
   \begin{itemize}
     \item The Environment is inherited from the parent process
-    \item Changes in the child's environment DOES NOT affect the
-      parent's
+    \item Changes in the child's environment DOES NOT affect the parent's
     \item So how could Lmod work at all? 
   \end{itemize}
 \end{frame}
@@ -665,6 +661,7 @@ Module path                       User Name
   \begin{itemize}
     \item The \texttt{lmod} program generates text.
     \item The module command eval's that text.
+    \item \texttt{module() \{ eval \$( \$LMOD_CMD bash "\$@"; )\}}
   \end{itemize}
 \end{frame}
 
@@ -746,8 +743,8 @@ running: module --initial\_load restore
 \begin{frame}[fragile]
     \frametitle{SHELL STARTUP DEBUG (II)}
   \begin{itemize}
-    \item Example output
     \item export SHELL\_STARTUP\_DEBUG=1 (in \textasciitilde/.init.sh)
+    \item Example output:
   {\small
     \begin{alltt}
     /etc/profile\{
@@ -777,7 +774,7 @@ running: module --initial\_load restore
 \begin{frame}{SHELL STARTUP DEBUG and LMOD\_TRACING}
   \begin{itemize}
     \item Put export LMOD\_TRACING=yes in \textasciitilde/.init.sh
-    \item Track Lmod startup problems.
+    \item Track Lmod startup issues
   \end{itemize}
 \end{frame}
 
@@ -832,7 +829,7 @@ running: module --initial\_load restore
     \item It walks the directories in MODULEPATH every time!
     \item Or you can have system spider cache to speed things up
     \item See
-      http://lmod.readthedocs.io/en/latest/130\_spider\_cache.html for
+      https://lmod.readthedocs.io/en/latest/130\_spider\_cache.html for
       details.
   \end{itemize}
 \end{frame}
@@ -934,14 +931,14 @@ running: module --initial\_load restore
 
 %page 60
 \begin{frame}[fragile]
-    \frametitle{Module Properties (III): Sticky}
+    \frametitle{Module Properties (II): Sticky}
   \begin{itemize}
     \item A module can be sticky.
     \item It requires ``\texttt{--force}'' to unload or purge.
     {\small
-\begin{verbatim}
-    add_property("lmod","sticky")
-\end{verbatim}
+\begin{alltt}
+    add\_property("lmod","sticky")
+\end{alltt}
 }
   \end{itemize}
 \end{frame}
@@ -955,6 +952,7 @@ running: module --initial\_load restore
     \item \texttt{pushenv} will!
     {\small
 \begin{alltt}
+                         #      setenv()         pushenv()
   $ module load   gcc;   # -\textgreater CC=gcc       CC=gcc
   $ module load   mpich; # -\textgreater CC=mpicc     CC=mpicc
   $ module unload mpich; # -\textgreater CC is unset  CC=gcc
