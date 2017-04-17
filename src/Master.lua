@@ -863,7 +863,8 @@ function M.avail(self, argA)
    if (next(alias2modT) ~= nil) then
       local b = {}
       for k, v in pairsByKeys(alias2modT) do
-         b[#b+1] = { "   " .. k, "->", v}
+         local fullName = mrc:resolve(v)
+         b[#b+1] = { "   " .. k, "->", fullName}
       end
       local ct = ColumnTable:new{tbl=b, gap=1, len=length, width = cwidth}
       a[#a+1]  = "\n"
