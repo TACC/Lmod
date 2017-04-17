@@ -5,3 +5,4 @@ Lmod 7.4+
     (7.4.4)  Now print userName and fn when loading/unloading when tracing
              Fix bug with -T, --trace option. Add -T, --trace to ml
     (7.4.5)  Workaround for old lua posix that does not have getuid()
+    (7.4.6)  Report both global and version aliases with module --terse avail

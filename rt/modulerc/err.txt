@@ -86,6 +86,8 @@ Currently Loaded Modules:
 step 16
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing -t avail
 ===========================
+a14
+a13
 ProjectDIR/rt/modulerc/mf/Core:
 Rstats/
 Rstats/2.1.5

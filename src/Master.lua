@@ -807,6 +807,10 @@ function M.avail(self, argA)
    
    if (masterTbl.terse) then
       dbg.printT("availA",availA)
+      local globalAliases = mrc:getGlobalAliases()
+      for i = 1,#globalAliases do
+         a[#a+1] = globalAliases[i] .. "\n"
+      end
 
       -- Terse output
       for j = 1,#availA do

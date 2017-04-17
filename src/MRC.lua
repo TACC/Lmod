@@ -239,6 +239,15 @@ function M.getFull2AliasesT(self, key)
    return self.__full2aliasesT[key]
 end
 
+function M.getGlobalAliases(self)
+   local a = {}
+   local alias2moduleT = self.__alias2modT
+   for k in pairs(alias2moduleT) do
+      a[#a+1] = k
+   end
+   return a
+end
+
 
 function M.parseModA_for_moduleA(self, name, modA)
    dbg.start{"MRC:parseModA_for_moduleA(",name,", modA)"}
