@@ -6,3 +6,5 @@ Lmod 7.4+
              Fix bug with -T, --trace option. Add -T, --trace to ml
     (7.4.5)  Workaround for old lua posix that does not have getuid()
     (7.4.6)  Report both global and version aliases with module --terse avail
+    (7.4.7)  Change --terse avail output to include fullName a14(@a/14.0.4)
+             Add Global Aliases output to module avail if they exist.

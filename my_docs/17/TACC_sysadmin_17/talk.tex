@@ -25,10 +25,10 @@
 % * ml
 
 
-% page 0
+% page 1
 \frame{\titlepage} 
 
-% page 1
+% page 2
 \begin{frame}{Outline}
   \begin{itemize}
     \item What are Environment Modules?
@@ -39,8 +39,8 @@
   \end{itemize}
 \end{frame}
 
-% page 2
-\begin{frame}{Conclusions: Lmod}
+% page 3
+\begin{frame}{Main Takeaways}
   \begin{itemize}
     \item Latest version: https://github.com:TACC/Lmod.git
     \item Stable version: http://lmod.sf.net
@@ -50,7 +50,7 @@
   \end{itemize}
 \end{frame}
 
-% page 3
+% page 4
 \begin{frame}{What are Modules?}
   \begin{itemize}
     \item Modules are the way sites provide optional software: MPI,
@@ -61,17 +61,17 @@
   \end{itemize}
 \end{frame}
 
-% page 4
+% page 5
 \begin{frame}{What is Lmod?}
   \begin{itemize}
     \item A modern replacement for a tried and true concept.
-    \item The guiding principal: ``Make life easier w/o getting in
+    \item The guiding principal: ``Make life easier without getting in
       the way.''
     \item Reads both TCL and Lua modulefiles
   \end{itemize}
 \end{frame}
 
-% page 5
+% page 6
 \begin{frame}{Fundamental Issues}
   \begin{itemize}
     \item Software Packages are created and updated all the time.
@@ -84,7 +84,7 @@
   \end{itemize}
 \end{frame}
 
-% page 6
+% page 7
 \begin{frame}[fragile]
     \frametitle{Example of Lmod: Environment Modules (I)}
     {\tiny
@@ -110,7 +110,7 @@
     }
 \end{frame}
 
-% page 7
+% page 8
 \begin{frame}[fragile]
     \frametitle{Example of Lmod: Environment Modules (II)}
     {\tiny
@@ -136,10 +136,10 @@ Due to MODULEPATH changes the follow modules have been reloaded:
     }
 \end{frame}
 
-% page 8
+% page 9
 \begin{frame}{Why You Might Want To Use Lmod?}
   \begin{itemize}
-    \item Same \texttt{module} commands as in Tmod
+    \item Same \texttt{module} commands as in Tmod (modules.sf.net)
     \item Active Development;  Frequent Releases; Bug fixes.
     \item Vibrant Community
     \item It is used from Norway to Israel to New Zealand from Stanford to MIT to NASA
@@ -150,10 +150,10 @@ Due to MODULEPATH changes the follow modules have been reloaded:
   \end{itemize}
 \end{frame}
 
-% page 9
+% page 10
 \begin{frame}{Lmod Features}
   \begin{itemize}
-    \item Reads for TCL and Lua modulefiles
+    \item Reads both TCL and Lua modulefiles (mixing works fine)
     \item One name rule.
     \item Support a Software Hierarchy
     \item Fast \texttt{module avail} via optional spider cache 
@@ -165,7 +165,7 @@ Due to MODULEPATH changes the follow modules have been reloaded:
   \end{itemize}
 \end{frame}
 
-% page 10
+% page 11
 \begin{frame}{Tmod vs. Lmod}
   \begin{itemize}
     \item Tmod (TCL/C) is in maintenance mode, Lmod active
@@ -177,28 +177,29 @@ Due to MODULEPATH changes the follow modules have been reloaded:
   \end{itemize}
 \end{frame}
 
-% page 10.1
+% page 12
 \begin{frame}{Safety Features of Lmod (I)}
   \begin{itemize}
     \item Users can only load one version of a package.
     \item ``\texttt{module load xyz/2.1}'' loads xyz version 2.1
     \item ``\texttt{module load xyz/2.2}'' unloads 2.1, loads 2.2
-    \item There is no way to override this!
+    \item No way to force Lmod to load two or more version with the
+      same ``name''!
   \end{itemize}
 \end{frame}
 
-% page 10.2
+% page 13
 \begin{frame}{Safety Features of Lmod (II)}
   \begin{itemize}
     \item Lmod adds a new command in modulefiles: \texttt{family("}\emph{name}\texttt{")}
     \item All of our compiler modules have \texttt{family("compiler")}
     \item All of our MPI modules have \texttt{family("MPI")}
     \item Users can only load one compiler or MPI at a time
-    \item Powers users can get around this restriction.
+    \item Power users can get around this restriction.
   \end{itemize}
 \end{frame}
 
-%page 11
+%page 14
 \begin{frame}{Module Architecture Design}
   \begin{itemize}
     \item Lua or TCL modulefiles?
@@ -211,7 +212,7 @@ Due to MODULEPATH changes the follow modules have been reloaded:
   \end{itemize}
 \end{frame}
 
-%page 12
+%page 15
 \begin{frame}{Shared Disk versus Local Install}
   \begin{itemize}
     \item Local install: Fast, small 
@@ -222,7 +223,7 @@ Due to MODULEPATH changes the follow modules have been reloaded:
   \end{itemize}
 \end{frame}
 
-%page 13
+%page 16
 \begin{frame}{Modulefile Choices}
   \begin{itemize}
     \item Flat Naming Scheme?
@@ -230,7 +231,7 @@ Due to MODULEPATH changes the follow modules have been reloaded:
   \end{itemize}
 \end{frame}
 
-%page 14
+%page 17
 \begin{frame}{Flat Naming Scheme: PETSc}
   PETSc is a parallel iterative solver package:
   \begin{itemize}
@@ -241,7 +242,7 @@ Due to MODULEPATH changes the follow modules have been reloaded:
   \end{itemize}
 \end{frame}
 
-%page 15
+%page 18
 \begin{frame}{Flat: PETSc }
   \begin{enumerate}
   \item \texttt{PETSc/4.1-mvapich2-2.1-gcc-6.3}
@@ -251,7 +252,7 @@ Due to MODULEPATH changes the follow modules have been reloaded:
   \end{enumerate}
 \end{frame}
 
-%page 16
+%page 19
 \begin{frame}{Problems w/ Flat naming scheme}
   \begin{itemize}
     \item Users have to load modules:
@@ -268,7 +269,7 @@ Due to MODULEPATH changes the follow modules have been reloaded:
   \end{itemize}
 \end{frame}
 
-%page 17
+%page 20
 \begin{frame}{Extremely complicated modulefiles}
   \begin{itemize}
     \item Protect users via conflicts and/or prereqs
@@ -277,7 +278,7 @@ Due to MODULEPATH changes the follow modules have been reloaded:
   \end{itemize}
 \end{frame}
 
-%page 18
+%page 21
 \begin{frame}{Hierarchical Naming Schemes}
   \begin{itemize}
     \item Store modules under one tree: \texttt{/opt/apps/modulefiles}
@@ -290,7 +291,7 @@ Due to MODULEPATH changes the follow modules have been reloaded:
   \end{itemize}
 \end{frame}
 
-%page 19
+%page 22
 \begin{frame}{\texttt{MODULEPATH}}
   \begin{itemize}
     \item \texttt{MODULEPATH} is a colon separated list of directories
@@ -309,7 +310,7 @@ Due to MODULEPATH changes the follow modules have been reloaded:
 \end{frame}
 
 
-%page 20
+%page 23
 \begin{frame}{Hierarchical Examples: Core}
   \begin{itemize}
     \item Generic:
@@ -332,9 +333,7 @@ Due to MODULEPATH changes the follow modules have been reloaded:
   \end{itemize}
 \end{frame}
 
-
-
-%page 21
+%page 24
 \begin{frame}{Hierarchical Examples: Compiler Dependent}
   \begin{itemize}
     \item Generic:
@@ -350,7 +349,7 @@ Due to MODULEPATH changes the follow modules have been reloaded:
         \item Modulefile adds \texttt{{\color{blue}\$M}/MPI/gcc/6.3/openmpi/1.8}
           to \texttt{MODULEPATH} \\
       \end{itemize}
-    \item Openmpi 1.8 with intel 11.1
+    \item Openmpi 1.8 with intel 17.0
       \begin{itemize}
         \item Package: \texttt{/opt/apps/intel-17\_0/openmpi/1.8}
         \item Modulefile: \texttt{{\color{blue}\$M}/Compiler/intel/17.0/openmpi/1.8}
@@ -360,15 +359,15 @@ Due to MODULEPATH changes the follow modules have been reloaded:
   \end{itemize}
 \end{frame}
 
-%page 22
+%page 25
 \begin{frame}{Hierarchical Examples: MPI/Compiler Dependent}
   \begin{itemize}
-    \item PETSc 4.1 (1)
+    \item PETSc 4.1 (1/4)
       \begin{itemize}
         \item Package: \texttt{/opt/apps/intel-17\_0/openmpi-1\_8/petsc/4.1}
         \item Modulefile: \texttt{{\color{blue}\$M}/MPI/intel/17.0/openmpi/1.8/petsc/4.1}
       \end{itemize}
-    \item PETSc 4.1 (2)
+    \item PETSc 4.1 (2/4)
       \begin{itemize}
         \item Package: \texttt{/opt/apps/gcc-4\_5/mvapich2-2\_1/petsc/4.1}
         \item Modulefile: \texttt{{\color{blue}\$M}/MPI/gcc/6.3/mvapich2/2.1/petsc/4.1}
@@ -377,7 +376,7 @@ Due to MODULEPATH changes the follow modules have been reloaded:
 \end{frame}
 
 
-%page 23
+%page 26
 \begin{frame}{Loading the correct module}
   \begin{itemize}
     \item User loads ``\texttt{intel/17.0}'' module
@@ -391,7 +390,7 @@ Due to MODULEPATH changes the follow modules have been reloaded:
 \end{frame}
 
 
-%page 24
+%page 27
 \begin{frame}{Modulefile contents}
   \begin{itemize}
     \item Be consistent! Find a convention and stick with it
@@ -405,7 +404,7 @@ Due to MODULEPATH changes the follow modules have been reloaded:
 \end{frame}
 
 
-%page 24.1
+%page 28
 \begin{frame}[fragile]
     \frametitle{A Standard Set of Modules}
   \begin{itemize}
@@ -420,7 +419,7 @@ load("gcc","mvapich2")
 \end{frame}
 
 
-%page 24.2
+%page 29
 \begin{frame}[fragile]
     \frametitle{A Standard Set of Modules (II)}
   \begin{itemize}
@@ -442,7 +441,7 @@ load("gcc","mvapich2")
 \end{frame}
 
 
-%page 24.3
+%page 30
 \begin{frame}{User collections}
   \begin{itemize}
     \item A user may save a ``default'' collection of modules 
@@ -454,7 +453,7 @@ load("gcc","mvapich2")
   \end{itemize}
 \end{frame}
 
-%page 24.4
+%page 31
 \begin{frame}{Save/Restore}
   \begin{itemize}
     \item Users can setup their own initially loaded modules.
@@ -474,7 +473,7 @@ load("gcc","mvapich2")
   \end{itemize}
 \end{frame}
 
-%page 24.5
+%page 32
 \begin{frame}{Module reset, restore}
   \begin{itemize}
     \item module reset $\rightarrow$ module purge; module load
@@ -498,7 +497,7 @@ load("gcc","mvapich2")
 %  \end{itemize}
 %\end{frame}
 
-%page 25
+%page 33
 \begin{frame}{Module Naming Convenions}
   \begin{itemize}
     \item N/V:   Name/Version (e.g. \texttt{bowtie/2.3})
@@ -507,7 +506,7 @@ load("gcc","mvapich2")
   \end{itemize}
 \end{frame}
 
-%page 26
+%page 34
 \begin{frame}{Module Naming Conventions (II)}
   \begin{itemize}
     \item Try to stick with N/V if possible
@@ -519,7 +518,7 @@ load("gcc","mvapich2")
   \end{itemize}
 \end{frame}
 
-%page 27
+%page 35
 \begin{frame}{Bash Issues}
   \begin{itemize}
     \item Bash Startup is typically ``broken'' for non-login interactive shells
@@ -528,7 +527,7 @@ load("gcc","mvapich2")
   \end{itemize}
 \end{frame}
 
-%page 28
+%page 36
 \begin{frame}{Bash Issues (II)}
   \begin{itemize}
     \item Want module command to work in all shells.
@@ -537,7 +536,7 @@ load("gcc","mvapich2")
   \end{itemize}
 \end{frame}
 
-%page 29
+%page 37
 \begin{frame}{Bash Repair Choices}
   \begin{itemize}
     \item Switch users to Z shell?
@@ -547,7 +546,7 @@ load("gcc","mvapich2")
   \end{itemize}
 \end{frame}
 
-%page 30
+%page 38
 \begin{frame}{Keeping Software for Life of Cluster or Not}
   \begin{itemize}
     \item It is possible with a shared disk approach
@@ -555,17 +554,17 @@ load("gcc","mvapich2")
   \end{itemize}
 \end{frame}
 
-%page 31
+%page 39
 \begin{frame}{Hidden Modules}
   \begin{itemize}
-    \item Sites have always hide modules by adding a leading dot
+    \item Modules can be hidden by adding a leading dot
     \item For example gcc/.6.3
     \item Lmod 7 also allows for hidden module via MODULERC
-    \item system MODULERC or ~/.modulerc
+    \item system MODULERC or ~/.modulerc or file .modulerc
   \end{itemize}
 \end{frame}
 
-%page 32
+%page 40
 \begin{frame}[fragile]
     \frametitle{Using System MODULERC to hide modules}
   \begin{itemize}
@@ -579,7 +578,7 @@ load("gcc","mvapich2")
   \end{itemize}
 \end{frame}
 
-%page 33
+%page 41
 \begin{frame}{Deprecating Modules}
   \begin{itemize}
     \item Sometime you may have to remove a package (and its
@@ -589,7 +588,7 @@ load("gcc","mvapich2")
   \end{itemize}
 \end{frame}
 
-%page 34
+%page 42
 \begin{frame}{Deprecating Modules (II)}
   \begin{itemize}
     \item Assume Lmod is installed as /opt/apps/lmod/7.4.1/...
@@ -601,7 +600,7 @@ load("gcc","mvapich2")
   \end{itemize}
 \end{frame}
 
-%page 35
+%page 43
 \begin{frame}{Tracking Module Usage}
   \begin{itemize}
     \item Lmod makes it easy to track module usage.
@@ -611,7 +610,7 @@ load("gcc","mvapich2")
   \end{itemize}
 \end{frame}
 
-%page 36
+%page 44
 \begin{frame}[fragile]
     \frametitle{Usage counts}
   {\small
@@ -629,7 +628,7 @@ load("gcc","mvapich2")
 }
 \end{frame}
 
-%page 37
+%page 45
 \begin{frame}[fragile]
     \frametitle{Distinct Users}
   {\small
@@ -647,7 +646,7 @@ Module path                   User Name
 }
 \end{frame}
 
-%page 38
+%page 46
 \begin{frame}{Why does Lmod work at all?}
   \begin{itemize}
     \item The Environment is inherited from the parent process
@@ -656,7 +655,7 @@ Module path                   User Name
   \end{itemize}
 \end{frame}
 
-%page 39
+%page 47
 \begin{frame}{The trick is}
   \begin{itemize}
     \item The \texttt{lmod} program generates text.
@@ -665,7 +664,7 @@ Module path                   User Name
   \end{itemize}
 \end{frame}
 
-%page 40
+%page 48
 \begin{frame}{Why is this important?}
   \begin{itemize}
     \item It's a useful trick to know
@@ -675,7 +674,7 @@ Module path                   User Name
   \end{itemize}
 \end{frame}
 
-%page 41
+%page 49
 \begin{frame}{Debugging Lmod}
   \begin{itemize}
     \item \texttt{module --config} : reports Lmod configuration
@@ -683,7 +682,7 @@ Module path                   User Name
   \end{itemize}
 \end{frame}
 
-%page 42
+%page 50
 \begin{frame}{Tracing Lmod}
   \begin{itemize}
     \item A new feature of Lmod 7.4.4+
@@ -693,7 +692,7 @@ Module path                   User Name
   \end{itemize}
 \end{frame}
 
-%page 43
+%page 51
 \begin{frame}[fragile]
     \frametitle{Tracing Example}
   {\small
@@ -709,7 +708,7 @@ running: module --initial\_load restore
 \end{frame}
 
 
-%page 44
+%page 52
 \begin{frame}{Why tracing is important}
   \begin{itemize}
     \item A single group with similar module commands in \textasciitilde/.bashrc
@@ -718,7 +717,7 @@ running: module --initial\_load restore
   \end{itemize}
 \end{frame}
 
-%page 45
+%page 53
 \begin{frame}{How to trace Lmod startup behavior}
   \begin{itemize}
     \item How do you trace module commands in /etc/profile.d/*.sh?
@@ -728,7 +727,7 @@ running: module --initial\_load restore
   \end{itemize}
 \end{frame}
 
-%page 46
+%page 54
 \begin{frame}{SHELL STARTUP DEBUG}
   \begin{itemize}
     \item Install from shellstartupdebug.sf.net
@@ -739,7 +738,7 @@ running: module --initial\_load restore
   \end{itemize}
 \end{frame}
 
-%page 47
+%page 55
 \begin{frame}[fragile]
     \frametitle{SHELL STARTUP DEBUG (II)}
   \begin{itemize}
@@ -760,7 +759,7 @@ running: module --initial\_load restore
   \end{itemize}
 \end{frame}
 
-%page 48
+%page 56
 \begin{frame}{Examples}
   \begin{itemize}
     \item Root \textbf{must} login when Lustre is not working
@@ -770,7 +769,7 @@ running: module --initial\_load restore
   \end{itemize}
 \end{frame}
 
-%page 49
+%page 57
 \begin{frame}{SHELL STARTUP DEBUG and LMOD\_TRACING}
   \begin{itemize}
     \item Put export LMOD\_TRACING=yes in \textasciitilde/.init.sh
@@ -779,7 +778,7 @@ running: module --initial\_load restore
 \end{frame}
 
 
-%page 49.1
+%page 58
 \begin{frame}[fragile]
     \frametitle{Tracing Example}
   {\small
@@ -794,7 +793,7 @@ running: module --initial\_load restore
 }
 \end{frame}
 
-%page 50
+%page 59
 \begin{frame}{Advance Topics}
   \begin{itemize}
     \item ml 
@@ -807,7 +806,7 @@ running: module --initial\_load restore
   \end{itemize}
 \end{frame}
 
-%page 51
+%page 60
 \begin{frame}{ml}
   \begin{itemize}
     \item I have trouble typing ``module''
@@ -822,7 +821,7 @@ running: module --initial\_load restore
   \end{itemize}
 \end{frame}
 
-%page 52 
+%page 61 
 \begin{frame}{Spider Cache}
   \begin{itemize}
     \item Lmod has to know what modulefiles are in MODULEPATH
@@ -834,7 +833,7 @@ running: module --initial\_load restore
   \end{itemize}
 \end{frame}
 
-%page 53
+%page 62
 \begin{frame}{Spider Cache (II)}
   \begin{itemize}
     \item It is much much faster to read a single big file then
@@ -845,7 +844,7 @@ running: module --initial\_load restore
   \end{itemize}
 \end{frame}
 
-%page 54
+%page 63
 \begin{frame}{Spider Cache (III)}
   \begin{itemize}
     \item Normally only module avail and spider use the cache
@@ -856,7 +855,7 @@ running: module --initial\_load restore
   \end{itemize}
 \end{frame}
 
-%page 55
+%page 64
 \begin{frame}{Spider Cache Advantages}
   \begin{itemize}
     \item The spider cache speeds up avail and spider greatly.
@@ -864,11 +863,12 @@ running: module --initial\_load restore
     \item Lua is quite fast and reading and interpreting a single file.
     \item This is preferable to walking the directory tree and reading
       every module.
-    \item Why is every module file read: properties.
+    \item Properties are the reason why the cache was created.
+    \item Properties must be read the modulefile or from the cache.
   \end{itemize}
 \end{frame}
 
-%page 56
+%page 65
 \begin{frame}{Spider Cache Disadvantages}
   \begin{itemize}
     \item There is only one: Keeping it up-to-date.
@@ -879,7 +879,7 @@ running: module --initial\_load restore
   \end{itemize}
 \end{frame}
 
-%page 57
+%page 66
 \begin{frame}{Module version sorting}
   \begin{itemize}
     \item Old way lexicographically sort: 5.6 is newer that 5.10
@@ -890,7 +890,7 @@ running: module --initial\_load restore
   \end{itemize}
 \end{frame}
 
-%page 58
+%page 67
 \begin{frame}{Load and prereq modify functions}
   \begin{itemize}
     \item \texttt{load(atleast("A","1.4"))}
@@ -903,7 +903,7 @@ running: module --initial\_load restore
   \end{itemize}
 \end{frame}
 
-%page 59
+%page 68
 \begin{frame}[fragile]
     \frametitle{Module Properties}
   \begin{itemize}
@@ -929,7 +929,7 @@ running: module --initial\_load restore
 \end{frame}
 
 
-%page 60
+%page 69
 \begin{frame}[fragile]
     \frametitle{Module Properties (II): Sticky}
   \begin{itemize}
@@ -943,7 +943,7 @@ running: module --initial\_load restore
   \end{itemize}
 \end{frame}
 
-%page 61
+%page 70
 \begin{frame}[fragile]
     \frametitle{pushenv()}
   \begin{itemize}
@@ -963,7 +963,7 @@ running: module --initial\_load restore
   \end{itemize}
 \end{frame}
 
-%page 62
+%page 71
 \begin{frame}[fragile]
     \frametitle{always\_load()}
   \begin{itemize}
@@ -986,7 +986,7 @@ running: module --initial\_load restore
   \end{itemize}
 \end{frame}
 
-%page 63
+%page 72
 \begin{frame}{SitePackage.lua}
   \begin{itemize}
     \item Functions for all modulefiles that a site needs
@@ -995,6 +995,22 @@ running: module --initial\_load restore
   \end{itemize}
 \end{frame}
 
+%page 73
+\begin{frame}{Lmod can be configured in many ways}
+  \begin{itemize}
+    \item Configuration allows for many things: redirected output,
+      Site Name, System name, ...
+    \item Over 40 different configuration variables.
+    \item Support for shared home directories
+    \item 14 different hooks to change the behavior (SitePackage.lua)
+    \item Multiple language support: en, es, de, fr, zh, site
+    \item 
+  \end{itemize}
+\end{frame}
+
+
+
+%page 74
 \begin{frame}{Lessons Learned}
   \begin{itemize}
     \item A very small percentage of Lmod users join the mailing list.
@@ -1010,6 +1026,7 @@ running: module --initial\_load restore
   \end{itemize}
 \end{frame}
 
+%page 75
 \begin{frame}{Lessons Learned (II)}
   \begin{itemize}
     \item It is hard work developing a users' communities trust.
@@ -1021,6 +1038,7 @@ running: module --initial\_load restore
 \end{frame}
 
 
+%page 76
 \begin{frame}{Regression Testing of Lmod}
   \begin{itemize}
     \item A suite of 100+ tests each with many steps.
@@ -1030,6 +1048,7 @@ running: module --initial\_load restore
   \end{itemize}
 \end{frame}
 
+%page 77
 \begin{frame}{Remote Debugging}
   \begin{itemize}
     \item No software over ten lines is bug free.
@@ -1044,6 +1063,7 @@ running: module --initial\_load restore
   \end{itemize}
 \end{frame}
 
+%page 78
 \begin{frame}{Recommendations for Good Site Management}
   \begin{itemize}
     \item A module purge should not break things.
@@ -1056,6 +1076,7 @@ running: module --initial\_load restore
   \end{itemize}
 \end{frame}
 
+%page 79
 \begin{frame}{Conclusions: Lmod}
   \begin{itemize}
     \item Latest version: https://github.com:TACC/Lmod.git
