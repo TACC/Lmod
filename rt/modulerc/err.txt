@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 7.4.5  2017-04-04 08:58 -07:00
+Modules based on Lua: Version 7.4.6  2017-04-16 20:02 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -86,39 +86,41 @@ Currently Loaded Modules:
 step 16
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing -t avail
 ===========================
-a14
-a13
+a13(@a/13.2.345)
+a14(@a/14.0.1.134)
 ProjectDIR/rt/modulerc/mf/Core:
 Rstats/
 Rstats/2.1.5
 a/
 a/13.1.23
-a/13
+a/13(@a/13.2.345)
 a/13.2.345
-a/14
+a/14(@a/14.0.1.134)
 a/14.0.1.134
 abinit/
-abinit/6
-abinit/6.12
+abinit/6(@abinit/6.12.3)
+abinit/6.12(@abinit/6.12.3)
 abinit/6.12.3
-abinit/7
-abinit/7.4
+abinit/7(@abinit/7.4.3)
+abinit/7.4(@abinit/7.4.3)
 abinit/7.4.3
 arpack/openmpi/
 arpack/openmpi/3.1.4
 intel/
 intel/14.0.2
-intel/14
-intel/14.0
+intel/14(@intel/14.0.3)
+intel/14.0(@intel/14.0.3)
 intel/14.0.3
 intel/15.0.1
-intel/15
-intel/15.0
+intel/15(@intel/15.0.2)
+intel/15.0(@intel/15.0.2)
 intel/15.0.2
 ===========================
 step 17
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
+Global Aliases
+   a13 -> a/13    a14 -> a/14
 ProjectDIR/rt/modulerc/mf/Core
    Rstats/2.1.5                 arpack/openmpi/3.1.4
    a/13.1.23                    intel/14.0.2
@@ -136,6 +138,8 @@ Use "module keyword key1 key2 ..." to search for all possible modules matching a
 step 18
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
+Global Aliases
+   a13 -> a/13    a14 -> a/14
 ProjectDIR/rt/modulerc/mf/Core
    Rstats/2.1.5                 arpack/openmpi/3.1.4
    a/13.1.23                    intel/14.0.2
@@ -153,6 +157,8 @@ Use "module keyword key1 key2 ..." to search for all possible modules matching a
 step 19
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
+Global Aliases
+   a13 -> a/13    a14 -> a/14
 ProjectDIR/rt/modulerc/mf/Core
    Rstats/2.1.5                 arpack/openmpi/3.1.4
    a/13.1.23                    intel/14.0.2
@@ -185,6 +191,8 @@ Lmod has detected the following error: Unable to parse: "ProjectDIR/rt/modulerc/
 step 23
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
+Global Aliases
+   a13 -> a/13
 ProjectDIR/rt/modulerc/mf4
    a/1.0        a/3.0              mpich/3.1.2      mpich/3.2 (D)
    a/2.0 (D)    mpich/3.1.2-dbg    mpich/3.2-dbg
@@ -196,6 +204,8 @@ Use "module keyword key1 key2 ..." to search for all possible modules matching a
 step 24
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
+Global Aliases
+   a13 -> a/13    a14 -> a/14
 ProjectDIR/rt/modulerc/mf4
    a/1.0    a/3.0 (D)    mpich/3.1.2-dbg    mpich/3.1.2    mpich/3.2-dbg (D)
   Where:
@@ -206,6 +216,8 @@ Use "module keyword key1 key2 ..." to search for all possible modules matching a
 step 25
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --show_hidden avail
 ===========================
+Global Aliases
+   a13 -> a/13    a14 -> a/14
 ProjectDIR/rt/modulerc/mf4
    a/1.0        a/3.0           (D)    mpich/3.1.2          mpich/3.2 (H)
    a/2.0 (H)    mpich/3.1.2-dbg        mpich/3.2-dbg (D)
@@ -228,6 +240,8 @@ Currently Loaded Modules:
 step 28
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
+Global Aliases
+   a13 -> a/13    a14 -> a/14
 ProjectDIR/rt/modulerc/mf4
    a/1.0          mpich/3.1.2-dbg    mpich/3.2-dbg (L,D)
    a/3.0 (L,D)    mpich/3.1.2
@@ -240,6 +254,8 @@ Use "module keyword key1 key2 ..." to search for all possible modules matching a
 step 29
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --show_hidden avail
 ===========================
+Global Aliases
+   a13 -> a/13    a14 -> a/14
 ProjectDIR/rt/modulerc/mf4
    a/1.0        a/3.0           (L,D)    mpich/3.1.2            mpich/3.2 (H)
    a/2.0 (H)    mpich/3.1.2-dbg          mpich/3.2-dbg (L,D)
