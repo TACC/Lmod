@@ -21,10 +21,6 @@
 \author{Robert McLay} 
 \date{April 20, 2017} 
 
-% Things to talk about
-% * ml
-
-
 % page 1
 \frame{\titlepage} 
 
@@ -384,7 +380,7 @@ Due to MODULEPATH changes the follow modules have been reloaded:
       intel 17.0 compiler.
     \item Can not see/load package built with other versions or other compilers.
     \item Similar loading ``\texttt{openmpi/1.8}'' module.
-    \item User can only load package that are built w/ intel 17.0 and
+    \item Users can only load package that are built w/ intel 17.0 and
       openmpi 1.8 and no others.
   \end{itemize}
 \end{frame}
@@ -444,9 +440,9 @@ load("gcc","mvapich2")
 %page 30
 \begin{frame}{User collections}
   \begin{itemize}
-    \item A user may save a ``default'' collection of modules 
+    \item Users may save a ``default'' collection of modules 
     \item module save 
-    \item A user may save as many named collections as they like
+    \item Users may save as many named collections as they like
     \item module save \emph{name}
     \item module restore \emph{name} will remove all modules then load
       the collection.
@@ -559,7 +555,7 @@ load("gcc","mvapich2")
   \begin{itemize}
     \item Modules can be hidden by adding a leading dot
     \item For example gcc/.6.3
-    \item Lmod 7 also allows for hidden module via MODULERC
+    \item Lmod 7 also allows for hidden modules via MODULERC
     \item system MODULERC or ~/.modulerc or file .modulerc
   \end{itemize}
 \end{frame}
@@ -596,7 +592,7 @@ load("gcc","mvapich2")
     \item Or set \$LMOD\_ADMIN\_FILE to any file.
     \item Every time a particular modulefile is loaded the user gets a
       message.
-    \item We have found that setting a nag message to very effective!
+    \item We have found that setting a nag message to be very effective!
   \end{itemize}
 \end{frame}
 
@@ -712,7 +708,7 @@ running: module --initial\_load restore
 \begin{frame}{Why tracing is important}
   \begin{itemize}
     \item A single group with similar module commands in \textasciitilde/.bashrc
-    \item Yet had different different modules loaded. Why?
+    \item Yet had different modules loaded. Why?
     \item Answer: One user had a default collection which changed MODULEPATH.
   \end{itemize}
 \end{frame}
@@ -764,7 +760,7 @@ running: module --initial\_load restore
   \begin{itemize}
     \item Root \textbf{must} login when Lustre is not working
     \item No Lustre directory can be Root's PATH
-    \item Found it with SHELL STARTUP DEBUG
+    \item Find it with SHELL STARTUP DEBUG
     \item Tracking MPI shell startup behavior with SHELL STARTUP DEBUG
   \end{itemize}
 \end{frame}
@@ -794,7 +790,7 @@ running: module --initial\_load restore
 \end{frame}
 
 %page 59
-\begin{frame}{Advance Topics}
+\begin{frame}{Advanced Topics}
   \begin{itemize}
     \item ml 
     \item Spider Cache
@@ -836,7 +832,7 @@ running: module --initial\_load restore
 %page 62
 \begin{frame}{Spider Cache (II)}
   \begin{itemize}
-    \item It is much much faster to read a single big file then
+    \item It is much much faster to read a single big file than
       walking directories
     \item The spider cache \textbf{must} be up-to-date!
     \item Lmod trusts the cache if it exists!
@@ -860,7 +856,7 @@ running: module --initial\_load restore
   \begin{itemize}
     \item The spider cache speeds up avail and spider greatly.
     \item All system modulefiles have been read, properties determined.
-    \item Lua is quite fast and reading and interpreting a single file.
+    \item Lua is quite fast at reading and interpreting a single file.
     \item This is preferable to walking the directory tree and reading
       every module.
     \item Properties are the reason why the cache was created.
@@ -899,7 +895,7 @@ running: module --initial\_load restore
     \item \texttt{prereq(atleast("D","1.4"))}
     \item \texttt{prereq(between("E","1.4","2.7"))}
     \item \texttt{prereq(latest("F"))}
-    \item Typically marked default then latest.
+    \item Typically marked default or the latest.
   \end{itemize}
 \end{frame}
 
@@ -948,18 +944,18 @@ running: module --initial\_load restore
     \frametitle{pushenv()}
   \begin{itemize}
     \item Suppose you'd like to set \texttt{CC} in the environment.
-    \item \texttt{setenv} won't work.
-    \item \texttt{pushenv} will!
+    \item \texttt{setenv()} won't work.
+    \item \texttt{pushenv()} will!
     {\small
 \begin{alltt}
-                         #      setenv()         pushenv()
+                         #    setenv()     pushenv()
   $ module load   gcc;   # -\textgreater CC=gcc       CC=gcc
   $ module load   mpich; # -\textgreater CC=mpicc     CC=mpicc
   $ module unload mpich; # -\textgreater CC is unset  CC=gcc
   $ module unload gcc;   # -\textgreater CC is unset  CC is unset
 \end{alltt}
 }
-    \item \texttt{pushenv} keeps an private env vars: \texttt{\_\_LMOD\_STACK\_}\emph{NAME}
+    \item \texttt{pushenv} keeps a private env vars: \texttt{\_\_LMOD\_STACK\_}\emph{NAME}
   \end{itemize}
 \end{frame}
 
@@ -996,7 +992,7 @@ running: module --initial\_load restore
 \end{frame}
 
 %page 73
-\begin{frame}{Lmod can be configured in many ways}
+\begin{frame}{Lmod can be configured for a site's need}
   \begin{itemize}
     \item Configuration allows for many things: redirected output,
       Site Name, System name, ...
@@ -1004,17 +1000,14 @@ running: module --initial\_load restore
     \item Support for shared home directories
     \item 14 different hooks to change the behavior (SitePackage.lua)
     \item Multiple language support: en, es, de, fr, zh, site
-    \item 
   \end{itemize}
 \end{frame}
-
-
 
 %page 74
 \begin{frame}{Lessons Learned}
   \begin{itemize}
     \item A very small percentage of Lmod users join the mailing list.
-    \item Able support many requests for features but not all.
+    \item I'm able to support many requests for features but not all.
     \item Hardening:
       \begin{itemize}
         \item sandbox for evaluating modulefiles
@@ -1029,7 +1022,7 @@ running: module --initial\_load restore
 %page 75
 \begin{frame}{Lessons Learned (II)}
   \begin{itemize}
-    \item It is hard work developing a users' communities trust.
+    \item It is hard work to develop a communities trust.
     \item Some site will be managed in a way that I have never dreamed of.
     \item Deprecating features is difficult with Lmod.
     \item Users would get deprecated feature reports that sys-admins
