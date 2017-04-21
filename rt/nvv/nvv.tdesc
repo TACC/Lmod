@@ -23,8 +23,15 @@ testdescript = {
 
      rm -fr _stderr.* _stdout.* err.* out.* .lmod.d
 
-     runLmod --version                     # 1
-     runLmod avail                         # 2
+     runLmod --version                         # 1
+     runLmod avail                             # 2
+
+     runLmod purge                             # 3
+     unsetMT
+
+     runLmod use $(testDir)/el2 $(testDir)/el1 # 4
+     runLmod load intel/16                     # 5
+     runLmod load intel/17                     # 6
 
 
      HOME=$ORIG_HOME
