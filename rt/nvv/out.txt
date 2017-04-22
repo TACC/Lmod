@@ -10,3 +10,31 @@ MODULEPATH="ProjectDIR/rt/nvv/mf";
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/nvv/mf",},["systemBaseMPATH"]="ProjectDIR/rt/nvv/mf",}';
 export _ModuleTable_;
+===========================
+step 3
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
+===========================
+MODULEPATH="ProjectDIR/rt/nvv/mf";
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/nvv/mf",},["systemBaseMPATH"]="ProjectDIR/rt/nvv/mf",}';
+export _ModuleTable_;
+===========================
+step 4
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load intel/17
+===========================
+LOADEDMODULES="intel/17/17.0.2";
+export LOADEDMODULES;
+MODULEPATH="ProjectDIR/rt/nvv/el1:ProjectDIR/rt/nvv/el2";
+export MODULEPATH;
+_LMFILES_="ProjectDIR/rt/nvv/el2/intel/17/17.0.2";
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={intel={["fn"]="ProjectDIR/rt/nvv/el2/intel/17/17.0.2",["fullName"]="intel/17/17.0.2",["loadOrder"]=1,propT={},["status"]="active",["userName"]="intel/17",},},mpathA={"ProjectDIR/rt/nvv/el1","ProjectDIR/rt/nvv/el2",},["systemBaseMPATH"]="ProjectDIR/rt/nvv/el1:ProjectDIR/rt/nvv/el2",}';
+export _ModuleTable_;
+===========================
+step 5
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+===========================
+MODULEPATH="ProjectDIR/rt/nvv/el1:ProjectDIR/rt/nvv/el2";
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={intel={["fn"]="ProjectDIR/rt/nvv/el2/intel/17/17.0.2",["fullName"]="intel/17/17.0.2",["loadOrder"]=1,propT={},["status"]="active",["userName"]="intel/17",},},mpathA={"ProjectDIR/rt/nvv/el1","ProjectDIR/rt/nvv/el2",},["systemBaseMPATH"]="ProjectDIR/rt/nvv/el1:ProjectDIR/rt/nvv/el2",}';
+export _ModuleTable_;

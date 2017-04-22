@@ -19,7 +19,7 @@ testdescript = {
 
      unsetMT
      initStdEnvVars
-     MODULEPATH=$(testDir)/mf; export MODULEPATH
+     export MODULEPATH=$(testDir)/mf
 
      rm -fr _stderr.* _stdout.* err.* out.* .lmod.d
 
@@ -29,9 +29,9 @@ testdescript = {
      runLmod purge                             # 3
      unsetMT
 
-     runLmod use $(testDir)/el2 $(testDir)/el1 # 4
-     runLmod load intel/16                     # 5
-     runLmod load intel/17                     # 6
+     MODULEPATH=$(testDir)/el1:$(testDir)/el2
+     runLmod load intel/17                     # 4
+     runLmod list                              # 5
 
 
      HOME=$ORIG_HOME
