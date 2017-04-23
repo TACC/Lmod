@@ -10,13 +10,13 @@ can be useful to understand what happens a shell startup.  By setting
 ``LMOD_TRACING`` to yes for a particular user you can see something
 like the following for a user which as a default collection::
 
-    running: module --initial_load restore
-      Using collection:      /home/user/.lmod.d/default
-      Setting MODULEPATH to :/opt/apps/modulefiles/Linux:/opt/apps/modulefiles/Core
-      Loading: unix
-      Loading: gcc
-      Loading: noweb
-      Loading: StdEnv
+     running: module --initial_load restore
+       Using collection:      /home/user/.lmod.d/default
+       Setting MODULEPATH to :/opt/apps/modulefiles/Linux:/opt/apps/modulefiles/Core
+       Loading: unix (fn: /opt/apps/modulefiles/Core/unix/unix.lua)
+       Loading: gcc (fn: /opt/apps/modulefiles/Darwin/gcc/5.2.lua)
+       Loading: noweb (fn: /opt/apps/modulefiles/Core/noweb/2.11b.lua)
+       Loading: StdEnv (fn: /opt/apps/modulefiles/Core/StdEnv.lua)
 
 Using Shell Startup Debug with Tracing
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -64,4 +64,4 @@ This means that you can also easily track Lmod startup actions::
        Loading: StdEnv (fn: /opt/apps/modulefiles/Core/StdEnv.lua)
 
 This way you can trace Lmod startup without having to edit any files
-in /etc/profile.d/* or the shell startup files.
+in /etc/profile.d/\* or the shell startup files.
