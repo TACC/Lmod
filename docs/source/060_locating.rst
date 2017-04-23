@@ -211,6 +211,28 @@ Normally the 128 directory would be chosen as the default directory as
 128 is higher than 64 or 32 but this .version file forces Lmod to pick
 64 over the other directories.
 
+Why do NVV module layouts use ``Find First`` over ``Find Best``?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The main problem here is that of the default directories.  There is no
+sane way to pick.  Suppose that you have the following structure::
+
+      ----- /apps/modulefiles/A ----------------
+      foo/32/1    foo/64/1      foo/128/1
+      foo/32/4    foo/64/2 (D)  foo/128/2
+
+      ----- /apps/modulefiles/B ----------------
+      foo/32/5    foo/64/3      foo/128/3
+      foo/32/6    foo/64/4      foo/128/4
+
+
+And where the default directory in ``A`` in ``64`` and in ``B`` it is
+``32``.  When trying to load ``foo/64`` the site has marked ``64`` the
+default in ``A`` where as it is not in ``B``.  Does that mean that
+``foo/64/2`` is "higher" that ``foo/64/4`` or not.  There is no clear
+reason to pick one over the other so Lmod has chosen ``Find First``
+for NVV.
+
 Autoswaping Rules
 ~~~~~~~~~~~~~~~~~
 
