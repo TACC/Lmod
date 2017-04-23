@@ -28,7 +28,7 @@ sourceforce::
 
 
 It tracks the startup actions during shell startup. It
-can tell you what files in /etc/profile.d/* are started.  For
+can tell you what files in /etc/profile.d/\* are started.  For
 example::
 
      % cat > ~/.init.sh
