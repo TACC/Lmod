@@ -162,7 +162,7 @@ The rules are different when the module layout is Name/Version/Version
 (NVV).  The rules for NV can be called ``Find Best`` where as NVV is
 ``Find First``. Note that if any one of the directories in ``MODULEPATH``
 are in NVV format, the whole tree is searched with NVV rules.  Below
-are the rules that Lmod uses to locate a modulefile:
+are the rules that Lmod uses to locate a modulefile when in NVV mode:
 
 #. It looks for an exact match in all ``MODULEPATH`` directories. It
    picks the first match it finds.
